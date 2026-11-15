@@ -1,0 +1,50 @@
+[
+  {
+    "path": "papers/quartic_existence/quartic204_20261114_v27.tex",
+    "package_sha256": "d2ba4a3260d1bfd5f8010a31f1375a5cee5c0abfc52361817f42a67be35647af",
+    "e950bd2_sha256": "d2ba4a3260d1bfd5f8010a31f1375a5cee5c0abfc52361817f42a67be35647af",
+    "byte_equal": true
+  },
+  {
+    "path": "papers/quartic_existence/quartic212_20261113_v25.tex",
+    "package_sha256": "3bc847ccc53974cf39e4083ffbe9e27f74b87bf3a9f9b47e4212f7574010e1c2",
+    "e950bd2_sha256": "3bc847ccc53974cf39e4083ffbe9e27f74b87bf3a9f9b47e4212f7574010e1c2",
+    "byte_equal": true
+  },
+  {
+    "path": "papers/trace_heights/weighted_trace_20261114_v27.tex",
+    "package_sha256": "75ff9bc3bf6ebee4ae200568a1537b3e24fede021aa0262368f7babc494018fe",
+    "e950bd2_sha256": "75ff9bc3bf6ebee4ae200568a1537b3e24fede021aa0262368f7babc494018fe",
+    "byte_equal": true
+  },
+  {
+    "path": "computation/quartic/reciprocal204_v27/unbalanced-quadratic.json",
+    "package_sha256": "21da11b4a5c9f11d8a3253162283cbd339c0f35599ab9d578a2302009f725536",
+    "e950bd2_sha256": "21da11b4a5c9f11d8a3253162283cbd339c0f35599ab9d578a2302009f725536",
+    "byte_equal": true,
+    "json_equal": true,
+    "keys_package": [
+      "format",
+      "variables",
+      "inputCoordinate",
+      "fixedParameter",
+      "coordinates",
+      "residuals"
+    ]
+  },
+  {
+    "path": "computation/quartic/reciprocal204_v27/balanced-quadratic.json",
+    "package_sha256": "490c804f4cb2ed09df43edec6bfaab3e24f906d227ea8fb7adc53b03ae940d8c",
+    "e950bd2_sha256": "490c804f4cb2ed09df43edec6bfaab3e24f906d227ea8fb7adc53b03ae940d8c",
+    "byte_equal": true,
+    "json_equal": true,
+    "keys_package": [
+      "format",
+      "variables",
+      "inputCoordinate",
+      "fixedParameter",
+      "coordinates",
+      "residuals"
+    ]
+  }
+]

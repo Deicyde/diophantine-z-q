@@ -1,0 +1,1125 @@
+{
+  "commit": "5c35db3253a70b0875acec4b451cdaac4da3c8fd",
+  "status": "PASS",
+  "independent_checks": 48690,
+  "variables": 196,
+  "existential_variables": 195,
+  "rows": 182,
+  "monomials": 2943,
+  "degree": 4,
+  "content": 1,
+  "unbalanced_fixed_maximum": "484991541504995159662206970923766531374664106904986910720",
+  "unbalanced_height": "max(K_fixed,149^(4N+2))",
+  "coefficient_crossover_N": 7,
+  "balanced_height": "11903780636513165769654680680436132271178681610029854792 * 149^(2N)",
+  "corruption_controls_rejected": [
+    "coefficient",
+    "division_shift",
+    "primitive_multiplier"
+  ],
+  "row_identities": [
+    {
+      "old": 1,
+      "new": 1,
+      "name": "inputSquare.definition",
+      "verified": true
+    },
+    {
+      "old": 2,
+      "new": 2,
+      "name": "affine.Lucas.C.0",
+      "verified": true
+    },
+    {
+      "old": 3,
+      "new": 3,
+      "name": "affine.Lucas.C.1",
+      "verified": true
+    },
+    {
+      "old": 4,
+      "new": 4,
+      "name": "affine.Lucas.AT.0",
+      "verified": true
+    },
+    {
+      "old": 5,
+      "new": 5,
+      "name": "affine.Lucas.AT.1",
+      "verified": true
+    },
+    {
+      "old": 6,
+      "new": 6,
+      "name": "affine.Lucas.F.0",
+      "verified": true
+    },
+    {
+      "old": 7,
+      "new": 7,
+      "name": "affine.Lucas.F.1",
+      "verified": true
+    },
+    {
+      "old": 8,
+      "new": 8,
+      "name": "testSquare.12.0.0.definition",
+      "verified": true
+    },
+    {
+      "old": 9,
+      "new": 9,
+      "name": "testSquare.12.0.1.definition",
+      "verified": true
+    },
+    {
+      "old": 10,
+      "new": 10,
+      "name": "testSquare.12.1.0.definition",
+      "verified": true
+    },
+    {
+      "old": 11,
+      "new": 11,
+      "name": "testSquare.12.1.1.definition",
+      "verified": true
+    },
+    {
+      "old": 12,
+      "new": 12,
+      "name": "testSquare.40.0.0.definition",
+      "verified": true
+    },
+    {
+      "old": 13,
+      "new": 13,
+      "name": "testSquare.40.0.1.definition",
+      "verified": true
+    },
+    {
+      "old": 14,
+      "new": 14,
+      "name": "testSquare.40.1.0.definition",
+      "verified": true
+    },
+    {
+      "old": 15,
+      "new": 15,
+      "name": "testSquare.40.1.1.definition",
+      "verified": true
+    },
+    {
+      "old": 16,
+      "new": 16,
+      "name": "v27.testSquare.40.2.0.definition",
+      "verified": true
+    },
+    {
+      "old": 17,
+      "new": 17,
+      "name": "v27.testSquare.40.2.1.definition",
+      "verified": true
+    },
+    {
+      "old": 18,
+      "new": 18,
+      "name": "v27.testSquare.40.3.0.definition",
+      "verified": true
+    },
+    {
+      "old": 19,
+      "new": 19,
+      "name": "v27.testSquare.40.3.1.definition",
+      "verified": true
+    },
+    {
+      "old": 20,
+      "new": 20,
+      "name": "testSquare.40.4.0.definition",
+      "verified": true
+    },
+    {
+      "old": 21,
+      "new": 21,
+      "name": "testSquare.40.4.1.definition",
+      "verified": true
+    },
+    {
+      "old": 22,
+      "new": 22,
+      "name": "additive.detector0.contactSquare",
+      "verified": true
+    },
+    {
+      "old": 23,
+      "new": 23,
+      "name": "additive.detector0.contactFourthPower",
+      "verified": true
+    },
+    {
+      "old": 24,
+      "new": 24,
+      "name": "additive.detector0.contactCombination",
+      "verified": true
+    },
+    {
+      "old": 25,
+      "new": 25,
+      "name": "additive.detector0.contactRelation",
+      "verified": true
+    },
+    {
+      "old": 26,
+      "new": 26,
+      "name": "detector0.inverseWeight.definition",
+      "verified": true
+    },
+    {
+      "old": 27,
+      "new": 27,
+      "name": "detector0.inverseWeightSquared.definition",
+      "verified": true
+    },
+    {
+      "old": 28,
+      "new": 28,
+      "name": "detector0.normOver2w0.definition",
+      "verified": true
+    },
+    {
+      "old": 29,
+      "new": 29,
+      "name": "balanced.detector0.poleInput.definition",
+      "verified": true
+    },
+    {
+      "old": 30,
+      "new": 30,
+      "name": "detector0.p2.definition",
+      "verified": true
+    },
+    {
+      "old": 31,
+      "new": 31,
+      "name": "detector0.firstConic",
+      "verified": true
+    },
+    {
+      "old": 32,
+      "new": 32,
+      "name": "detector0.Bh.definition",
+      "verified": true
+    },
+    {
+      "old": 33,
+      "new": 33,
+      "name": "detector0.q2.definition",
+      "verified": true
+    },
+    {
+      "old": 34,
+      "new": 34,
+      "name": "detector0.secondConic",
+      "verified": true
+    },
+    {
+      "old": 35,
+      "new": 35,
+      "name": "additive.detector1.contactSquare",
+      "verified": true
+    },
+    {
+      "old": 36,
+      "new": 36,
+      "name": "additive.detector1.contactFourthPower",
+      "verified": true
+    },
+    {
+      "old": 37,
+      "new": 37,
+      "name": "additive.detector1.contactCombination",
+      "verified": true
+    },
+    {
+      "old": 38,
+      "new": 38,
+      "name": "additive.detector1.contactRelation",
+      "verified": true
+    },
+    {
+      "old": 39,
+      "new": 39,
+      "name": "detector1.inverseWeight.definition",
+      "verified": true
+    },
+    {
+      "old": 40,
+      "new": 40,
+      "name": "detector1.inverseWeightSquared.definition",
+      "verified": true
+    },
+    {
+      "old": 41,
+      "new": 41,
+      "name": "detector1.normOver2w0.definition",
+      "verified": true
+    },
+    {
+      "old": 42,
+      "new": 42,
+      "name": "balanced.detector1.poleInput.definition",
+      "verified": true
+    },
+    {
+      "old": 43,
+      "new": 43,
+      "name": "detector1.p2.definition",
+      "verified": true
+    },
+    {
+      "old": 44,
+      "new": 44,
+      "name": "detector1.firstConic",
+      "verified": true
+    },
+    {
+      "old": 45,
+      "new": 45,
+      "name": "detector1.Bh.definition",
+      "verified": true
+    },
+    {
+      "old": 46,
+      "new": 46,
+      "name": "detector1.q2.definition",
+      "verified": true
+    },
+    {
+      "old": 47,
+      "new": 47,
+      "name": "detector1.secondConic",
+      "verified": true
+    },
+    {
+      "old": 48,
+      "new": 48,
+      "name": "scalar.rPair1.definition",
+      "verified": true
+    },
+    {
+      "old": 49,
+      "new": 49,
+      "name": "scalar.four_contact_product.definition",
+      "verified": true
+    },
+    {
+      "old": 50,
+      "new": 50,
+      "name": "scalar.W2.definition",
+      "verified": true
+    },
+    {
+      "old": 51,
+      "new": 51,
+      "name": "scalar.b.definition",
+      "verified": true
+    },
+    {
+      "old": 52,
+      "new": 52,
+      "name": "scalar.p2.definition",
+      "verified": true
+    },
+    {
+      "old": 53,
+      "new": 53,
+      "name": "scalar.firstConic",
+      "verified": true
+    },
+    {
+      "old": 54,
+      "new": 54,
+      "name": "scalar.Bh.definition",
+      "verified": true
+    },
+    {
+      "old": 55,
+      "new": 55,
+      "name": "scalar.q2.definition",
+      "verified": true
+    },
+    {
+      "old": 56,
+      "new": 56,
+      "name": "scalar.secondConic",
+      "verified": true
+    },
+    {
+      "old": 57,
+      "new": 57,
+      "name": "parity_scalar.reduced_scalar.root.power4",
+      "verified": true
+    },
+    {
+      "old": 60,
+      "new": 58,
+      "name": "scalar.r_power_2.definition",
+      "verified": true
+    },
+    {
+      "old": 61,
+      "new": 59,
+      "name": "scalar.ratio1_unscaled_square.definition",
+      "verified": true
+    },
+    {
+      "old": 62,
+      "new": 60,
+      "name": "parity_scalar.scalar.ratio_node.consolidated_denominator.power4",
+      "verified": true
+    },
+    {
+      "old": 63,
+      "new": 61,
+      "name": "scalar.forced_prime.definition",
+      "verified": true
+    },
+    {
+      "old": 64,
+      "new": 62,
+      "name": "amplified.C1.power4.0.definition",
+      "verified": true
+    },
+    {
+      "old": 65,
+      "new": 63,
+      "name": "amplified.C1.power4.1.definition",
+      "verified": true
+    },
+    {
+      "old": 66,
+      "new": 64,
+      "name": "residue.I.power4.0.definition",
+      "verified": true
+    },
+    {
+      "old": 67,
+      "new": 65,
+      "name": "residue.I.power4.1.definition",
+      "verified": true
+    },
+    {
+      "old": 68,
+      "new": 66,
+      "name": "residue.det0.factor0.0.reciprocal.definition",
+      "verified": true
+    },
+    {
+      "old": 69,
+      "new": 67,
+      "name": "residue.det0.factor0.1.reciprocal.definition",
+      "verified": true
+    },
+    {
+      "old": 70,
+      "new": 68,
+      "name": "residue.det0.factor1.0.reciprocal.definition",
+      "verified": true
+    },
+    {
+      "old": 71,
+      "new": 69,
+      "name": "residue.det0.factor1.1.reciprocal.definition",
+      "verified": true
+    },
+    {
+      "old": 72,
+      "new": 70,
+      "name": "residue.det0.factor2.0.reciprocal.definition",
+      "verified": true
+    },
+    {
+      "old": 73,
+      "new": 71,
+      "name": "residue.det0.factor2.1.reciprocal.definition",
+      "verified": true
+    },
+    {
+      "old": 74,
+      "new": 72,
+      "name": "residue.det0.factor3.0.reciprocal.definition",
+      "verified": true
+    },
+    {
+      "old": 75,
+      "new": 73,
+      "name": "residue.det0.factor3.1.reciprocal.definition",
+      "verified": true
+    },
+    {
+      "old": 76,
+      "new": 74,
+      "name": "residue.det0.factor4.0.reciprocal.definition",
+      "verified": true
+    },
+    {
+      "old": 77,
+      "new": 75,
+      "name": "residue.det0.factor4.1.reciprocal.definition",
+      "verified": true
+    },
+    {
+      "old": 78,
+      "new": 76,
+      "name": "amplified.det0.product1.0.definition",
+      "verified": true
+    },
+    {
+      "old": 79,
+      "new": 77,
+      "name": "amplified.det0.product1.1.definition",
+      "verified": true
+    },
+    {
+      "old": 80,
+      "new": 78,
+      "name": "amplified.det0.product2.0.definition",
+      "verified": true
+    },
+    {
+      "old": 81,
+      "new": 79,
+      "name": "amplified.det0.product2.1.definition",
+      "verified": true
+    },
+    {
+      "old": 82,
+      "new": 80,
+      "name": "amplified.det0.product3.0.definition",
+      "verified": true
+    },
+    {
+      "old": 83,
+      "new": 81,
+      "name": "amplified.det0.product3.1.definition",
+      "verified": true
+    },
+    {
+      "old": 84,
+      "new": 82,
+      "name": "amplified.det0.product4.0.definition",
+      "verified": true
+    },
+    {
+      "old": 85,
+      "new": 83,
+      "name": "amplified.det0.product4.1.definition",
+      "verified": true
+    },
+    {
+      "old": 86,
+      "new": 84,
+      "name": "residue.det1.factor0.0.reciprocal.definition",
+      "verified": true
+    },
+    {
+      "old": 87,
+      "new": 85,
+      "name": "residue.det1.factor0.1.reciprocal.definition",
+      "verified": true
+    },
+    {
+      "old": 88,
+      "new": 86,
+      "name": "residue.det1.factor1.0.reciprocal.definition",
+      "verified": true
+    },
+    {
+      "old": 89,
+      "new": 87,
+      "name": "residue.det1.factor1.1.reciprocal.definition",
+      "verified": true
+    },
+    {
+      "old": 90,
+      "new": 88,
+      "name": "residue.det1.factor2.0.reciprocal.definition",
+      "verified": true
+    },
+    {
+      "old": 91,
+      "new": 89,
+      "name": "residue.det1.factor2.1.reciprocal.definition",
+      "verified": true
+    },
+    {
+      "old": 92,
+      "new": 90,
+      "name": "residue.det1.factor3.0.reciprocal.definition",
+      "verified": true
+    },
+    {
+      "old": 93,
+      "new": 91,
+      "name": "residue.det1.factor3.1.reciprocal.definition",
+      "verified": true
+    },
+    {
+      "old": 94,
+      "new": 92,
+      "name": "residue.det1.factor4.0.reciprocal.definition",
+      "verified": true
+    },
+    {
+      "old": 95,
+      "new": 93,
+      "name": "residue.det1.factor4.1.reciprocal.definition",
+      "verified": true
+    },
+    {
+      "old": 96,
+      "new": 94,
+      "name": "amplified.det1.product1.0.definition",
+      "verified": true
+    },
+    {
+      "old": 97,
+      "new": 95,
+      "name": "amplified.det1.product1.1.definition",
+      "verified": true
+    },
+    {
+      "old": 98,
+      "new": 96,
+      "name": "amplified.det1.product2.0.definition",
+      "verified": true
+    },
+    {
+      "old": 99,
+      "new": 97,
+      "name": "amplified.det1.product2.1.definition",
+      "verified": true
+    },
+    {
+      "old": 100,
+      "new": 98,
+      "name": "amplified.det1.product3.0.definition",
+      "verified": true
+    },
+    {
+      "old": 101,
+      "new": 99,
+      "name": "amplified.det1.product3.1.definition",
+      "verified": true
+    },
+    {
+      "old": 102,
+      "new": 100,
+      "name": "amplified.det1.product4.0.definition",
+      "verified": true
+    },
+    {
+      "old": 103,
+      "new": 101,
+      "name": "amplified.det1.product4.1.definition",
+      "verified": true
+    },
+    {
+      "old": 104,
+      "new": 102,
+      "name": "sharedT.reference.relation1.0",
+      "verified": true
+    },
+    {
+      "old": 105,
+      "new": 103,
+      "name": "sharedT.reference.relation1.1",
+      "verified": true
+    },
+    {
+      "old": 106,
+      "new": 104,
+      "name": "sharedT.reference.relation2.0",
+      "verified": true
+    },
+    {
+      "old": 107,
+      "new": 105,
+      "name": "sharedT.reference.relation2.1",
+      "verified": true
+    },
+    {
+      "old": 108,
+      "new": 106,
+      "name": "sharedT.reference.relation3.0",
+      "verified": true
+    },
+    {
+      "old": 109,
+      "new": 107,
+      "name": "sharedT.reference.relation3.1",
+      "verified": true
+    },
+    {
+      "old": 110,
+      "new": 108,
+      "name": "pair1.square.f.0",
+      "verified": true
+    },
+    {
+      "old": 111,
+      "new": 109,
+      "name": "pair1.square.f.1",
+      "verified": true
+    },
+    {
+      "old": 112,
+      "new": 110,
+      "name": "pair1.square.g.0",
+      "verified": true
+    },
+    {
+      "old": 113,
+      "new": 111,
+      "name": "pair1.square.g.1",
+      "verified": true
+    },
+    {
+      "old": 114,
+      "new": 112,
+      "name": "pair1.curve.0",
+      "verified": true
+    },
+    {
+      "old": 115,
+      "new": 113,
+      "name": "pair1.curve.1",
+      "verified": true
+    },
+    {
+      "old": 116,
+      "new": 114,
+      "name": "pair1.secant.0",
+      "verified": true
+    },
+    {
+      "old": 117,
+      "new": 115,
+      "name": "pair1.secant.1",
+      "verified": true
+    },
+    {
+      "old": 118,
+      "new": 116,
+      "name": "pair1.tangent.0",
+      "verified": true
+    },
+    {
+      "old": 119,
+      "new": 117,
+      "name": "pair1.tangent.1",
+      "verified": true
+    },
+    {
+      "old": 120,
+      "new": 118,
+      "name": "pair1.ratio.primary.raw.0",
+      "verified": true
+    },
+    {
+      "old": 121,
+      "new": 119,
+      "name": "pair1.ratio.primary.raw.1",
+      "verified": true
+    },
+    {
+      "old": 122,
+      "new": 120,
+      "name": "pair1.ratio.primary.regular.0",
+      "verified": true
+    },
+    {
+      "old": 123,
+      "new": 121,
+      "name": "pair1.ratio.primary.regular.1",
+      "verified": true
+    },
+    {
+      "old": 124,
+      "new": 122,
+      "name": "pair1.ratio.alternate.raw.0",
+      "verified": true
+    },
+    {
+      "old": 125,
+      "new": 123,
+      "name": "pair1.ratio.alternate.raw.1",
+      "verified": true
+    },
+    {
+      "old": 126,
+      "new": 124,
+      "name": "pair1.ratio.alternate.regular.0",
+      "verified": true
+    },
+    {
+      "old": 127,
+      "new": 125,
+      "name": "pair1.ratio.alternate.regular.1",
+      "verified": true
+    },
+    {
+      "old": 128,
+      "new": 126,
+      "name": "pair3.square.f.0",
+      "verified": true
+    },
+    {
+      "old": 129,
+      "new": 127,
+      "name": "pair3.square.f.1",
+      "verified": true
+    },
+    {
+      "old": 130,
+      "new": 128,
+      "name": "pair3.square.g.0",
+      "verified": true
+    },
+    {
+      "old": 131,
+      "new": 129,
+      "name": "pair3.square.g.1",
+      "verified": true
+    },
+    {
+      "old": 132,
+      "new": 130,
+      "name": "pair3.curve.0",
+      "verified": true
+    },
+    {
+      "old": 133,
+      "new": 131,
+      "name": "pair3.curve.1",
+      "verified": true
+    },
+    {
+      "old": 134,
+      "new": 132,
+      "name": "pair3.secant.0",
+      "verified": true
+    },
+    {
+      "old": 135,
+      "new": 133,
+      "name": "pair3.secant.1",
+      "verified": true
+    },
+    {
+      "old": 136,
+      "new": 134,
+      "name": "pair3.tangent.0",
+      "verified": true
+    },
+    {
+      "old": 137,
+      "new": 135,
+      "name": "pair3.tangent.1",
+      "verified": true
+    },
+    {
+      "old": 138,
+      "new": 136,
+      "name": "pair3.ratio.primary.raw.0",
+      "verified": true
+    },
+    {
+      "old": 139,
+      "new": 137,
+      "name": "pair3.ratio.primary.raw.1",
+      "verified": true
+    },
+    {
+      "old": 140,
+      "new": 138,
+      "name": "pair3.ratio.primary.regular.0",
+      "verified": true
+    },
+    {
+      "old": 141,
+      "new": 139,
+      "name": "pair3.ratio.primary.regular.1",
+      "verified": true
+    },
+    {
+      "old": 142,
+      "new": 140,
+      "name": "pair3.ratio.alternate.raw.0",
+      "verified": true
+    },
+    {
+      "old": 143,
+      "new": 141,
+      "name": "pair3.ratio.alternate.raw.1",
+      "verified": true
+    },
+    {
+      "old": 144,
+      "new": 142,
+      "name": "pair3.ratio.alternate.regular.0",
+      "verified": true
+    },
+    {
+      "old": 145,
+      "new": 143,
+      "name": "pair3.ratio.alternate.regular.1",
+      "verified": true
+    },
+    {
+      "old": 146,
+      "new": 144,
+      "name": "pair4.square.f.0",
+      "verified": true
+    },
+    {
+      "old": 147,
+      "new": 145,
+      "name": "pair4.square.f.1",
+      "verified": true
+    },
+    {
+      "old": 148,
+      "new": 146,
+      "name": "pair4.square.g.0",
+      "verified": true
+    },
+    {
+      "old": 149,
+      "new": 147,
+      "name": "pair4.square.g.1",
+      "verified": true
+    },
+    {
+      "old": 150,
+      "new": 148,
+      "name": "pair4.curve.0",
+      "verified": true
+    },
+    {
+      "old": 151,
+      "new": 149,
+      "name": "pair4.curve.1",
+      "verified": true
+    },
+    {
+      "old": 152,
+      "new": 150,
+      "name": "pair4.secant.0",
+      "verified": true
+    },
+    {
+      "old": 153,
+      "new": 151,
+      "name": "pair4.secant.1",
+      "verified": true
+    },
+    {
+      "old": 154,
+      "new": 152,
+      "name": "pair4.tangent.0",
+      "verified": true
+    },
+    {
+      "old": 155,
+      "new": 153,
+      "name": "pair4.tangent.1",
+      "verified": true
+    },
+    {
+      "old": 156,
+      "new": 154,
+      "name": "pair4.ratio.primary.raw.0",
+      "verified": true
+    },
+    {
+      "old": 157,
+      "new": 155,
+      "name": "pair4.ratio.primary.raw.1",
+      "verified": true
+    },
+    {
+      "old": 158,
+      "new": 156,
+      "name": "pair4.ratio.primary.regular.0",
+      "verified": true
+    },
+    {
+      "old": 159,
+      "new": 157,
+      "name": "pair4.ratio.primary.regular.1",
+      "verified": true
+    },
+    {
+      "old": 160,
+      "new": 158,
+      "name": "pair4.ratio.alternate.raw.0",
+      "verified": true
+    },
+    {
+      "old": 161,
+      "new": 159,
+      "name": "pair4.ratio.alternate.raw.1",
+      "verified": true
+    },
+    {
+      "old": 162,
+      "new": 160,
+      "name": "pair4.ratio.alternate.regular.0",
+      "verified": true
+    },
+    {
+      "old": 163,
+      "new": 161,
+      "name": "pair4.ratio.alternate.regular.1",
+      "verified": true
+    },
+    {
+      "old": 164,
+      "new": 162,
+      "name": "inverse_vieta.product.0",
+      "verified": true
+    },
+    {
+      "old": 165,
+      "new": 163,
+      "name": "inverse_vieta.product.1",
+      "verified": true
+    },
+    {
+      "old": 166,
+      "new": 164,
+      "name": "inverse_vieta.r.0",
+      "verified": true
+    },
+    {
+      "old": 167,
+      "new": 165,
+      "name": "inverse_vieta.r.1",
+      "verified": true
+    },
+    {
+      "old": 168,
+      "new": 166,
+      "name": "inverse_vieta.sum.0",
+      "verified": true
+    },
+    {
+      "old": 169,
+      "new": 167,
+      "name": "inverse_vieta.sum.1",
+      "verified": true
+    },
+    {
+      "old": 170,
+      "new": 168,
+      "name": "inverse_vieta.pair.0",
+      "verified": true
+    },
+    {
+      "old": 171,
+      "new": 169,
+      "name": "inverse_vieta.pair.1",
+      "verified": true
+    },
+    {
+      "old": 172,
+      "new": 170,
+      "name": "inverse_vieta.r2.0",
+      "verified": true
+    },
+    {
+      "old": 173,
+      "new": 171,
+      "name": "inverse_vieta.r2.1",
+      "verified": true
+    },
+    {
+      "old": 174,
+      "new": 172,
+      "name": "inverse_vieta.fusquare.0",
+      "verified": true
+    },
+    {
+      "old": 175,
+      "new": 173,
+      "name": "inverse_vieta.fusquare.1",
+      "verified": true
+    },
+    {
+      "old": 176,
+      "new": 174,
+      "name": "inverse_vieta.fvsquare.0",
+      "verified": true
+    },
+    {
+      "old": 177,
+      "new": 175,
+      "name": "inverse_vieta.fvsquare.1",
+      "verified": true
+    },
+    {
+      "old": 178,
+      "new": 176,
+      "name": "inverse_vieta.primary.0",
+      "verified": true
+    },
+    {
+      "old": 179,
+      "new": 177,
+      "name": "inverse_vieta.primary.1",
+      "verified": true
+    },
+    {
+      "old": 180,
+      "new": 178,
+      "name": "inverse_vieta.alternate.0",
+      "verified": true
+    },
+    {
+      "old": 181,
+      "new": 179,
+      "name": "inverse_vieta.alternate.1",
+      "verified": true
+    },
+    {
+      "old": 182,
+      "new": 180,
+      "name": "inverse_vieta.scalar.0",
+      "verified": true
+    },
+    {
+      "old": 183,
+      "new": 181,
+      "name": "inverse_vieta.scalar.1",
+      "verified": true
+    },
+    {
+      "old": 184,
+      "new": 182,
+      "name": "inverse_vieta.unweighted.aggregate",
+      "verified": true
+    }
+  ],
+  "inputs": {
+    "sources\\h10_quartic198\\circuits\\inverse198\\quadratic.json": "c55d7eefe41f62fee88b467e3ea8f6be8ba1e66f6a94b30eb74b39f6f6e7efad",
+    "computation\\quartic\\laurent_recovery_v38\\config196.json": "801074e615529c34d376026a7f6c604f019070585facf1b07ff72d6c2491c3cb",
+    "computation\\quartic\\laurent_recovery_v38\\family196\\quadratic.json": "3b6ab20da25bced159559c35e512e2bb2e56959b734b4265c8f80a7bd9cdb1c1",
+    "computation\\quartic\\laurent_recovery_v38\\family196\\polynomial.json": "a8ab93d66fe83f4bdfd4b176d47c250c2e124f42535d7a6a133edff6a97389ad",
+    "computation\\quartic\\laurent_recovery_v38\\family196\\balanced-quadratic.json": "5b86e26d395e60360ecd1210dd87819b3f57b60e3585db7ad7deff0d677a593c",
+    "computation\\quartic\\laurent_recovery_v38\\family196\\balanced-polynomial.json": "30767c50b8b14108bb600136bc11431fab6ebb43b171c7d0a557adbb3b48bc4e",
+    "computation\\quartic\\laurent_recovery_v38\\family196\\certificate.json": "7d8e83561aafc768ee1a62d6275a62b9fdd81b1cf15dd78ed1868880e668ed57",
+    "computation\\quartic\\laurent_recovery_v38\\family196\\balancing.json": "0700615a7c66a5ee3ebe519b010676a398d6051c37e4b30255c69173b3328537"
+  },
+  "scope": "Exact all-solution algebraic equivalence and coefficient audit; inherited 198 arithmetic premises not independently re-proved here."
+}

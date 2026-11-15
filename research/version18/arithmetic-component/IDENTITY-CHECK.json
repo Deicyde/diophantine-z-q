@@ -1,0 +1,19 @@
+{
+  "scope": "Exact symbolic checks of selected identities written in the component, not a proof of its infinite arithmetic premises.",
+  "passed": [
+    "reciprocal second curve",
+    "reciprocal difference curve",
+    "contact elimination",
+    "inverse Vieta curve 1",
+    "inverse Vieta curve 2",
+    "inverse Vieta curve 3",
+    "primary ratio sign and R factor",
+    "opposite ratio sign and R factor",
+    "scalar stored R factor",
+    "halving point curve",
+    "halving tangent slope",
+    "halving doubled x",
+    "halving doubled y"
+  ],
+  "count": 13
+}

@@ -1,0 +1,1295 @@
+% Standalone input component; author draft, not an acceptance record.
+% Base: V18 ca1ea465... or pending 800e23b0... .
+% Sources and exact artifacts are bound in SOURCE-MANIFEST.json.
+% This file does not contain or assert a Busy Beaver threshold theorem.
+\section{The 198-coordinate family and its inherited inputs}\label{q198:main}
+
+We use the unbalanced 198-coordinate table of
+\cite{q198-Conant198}. Its input is $X$, and its remaining coordinates
+are $Y_1,\ldots,Y_{197}$. Put
+\[
+ A_N=149^{2N+1},\qquad K_0=31581660^{28},\qquad
+ H_0=(5898050446009651968K_0)^2\qquad(N\ge1).
+\]
+The parameter $A_N$ is a fixed integer coefficient, not an existential
+coordinate. Let $r_{1,N},\ldots,r_{184,N}$ be the primitive integral
+quadratic residuals of this table and put
+\[
+ P_N=\sum_{j=1}^{184}r_{j,N}^2\in
+ \Z[X,Y_1,\ldots,Y_{197}].
+\]
+The table is the file \nolinkurl{circuits/inverse198/quadratic.json}
+in the pinned Conant package; its expanded sum of squares is
+\nolinkurl{circuits/inverse198/polynomial.json}.
+The exact interpretation and finite coefficient identities are proved
+in Section~\ref{q198:finite-certificate} below. All coordinate counts
+include the input.
+
+The proof uses the results already established in this manuscript
+and listed in Section~\ref{q198:inherited}.
+\begin{theorem}\label{q198:family}
+There is one fixed integer $N_0\ge1$ such that
+\[
+ \forall N\ge N_0\ \forall x\in\Q,\qquad
+ x\in\Z\quad\Longleftrightarrow\quad
+ \exists\mathbf y\in\Q^{197},\ P_N(x,\mathbf y)=0.
+\]
+Each $P_N$ has degree four, content one and 2945 nonzero coordinate
+monomials, and all 198 coordinates occur. Its coefficient height is
+\[
+                         H(P_N)=\max(H_0,A_N^2).
+\]
+The second branch attains the maximum for $N\ge53$; this coefficient
+crossover is not asserted to be a sufficient defining threshold.
+The argument here does not compute $N_0$.
+\end{theorem}
+
+The new arguments are the additive contact circuit and recovered
+point differences of \cite{q198-Brox212,q198-Brox204}, the
+constant-positive-weight trace theorem and half-generator reduction
+of \cite{q198-BroxWeighted}, and Conant's affine fourth label and
+inverse Vieta scalar chart \cite{q198-Conant198}. They are proved
+below on their actual domains. The supplying arithmetic foundation
+remains that of this manuscript.
+
+\subsection{Exact inherited interfaces}\label{q198:inherited}
+Write $K=\Q(\rho)$, $\rho^2=2$, $\sigma(\rho)=-\rho$,
+$d=3-\rho$, $D=d^2$, and
+\[
+ E:y^2=x^3-Dx,\qquad R_0=(1+\rho,2\rho),\qquad P_0=2R_0.
+\]
+The following results are used with their stated hypotheses.
+\begin{enumerate}
+\item Proposition~\ref{prop:generator}, transported to this model,
+gives $2E(K)=\Z P_0$ with $P_0$ non-torsion and $E(K)_{\rm tors}=E[2](K)$.
+Thus every $Q\in E(K)$ is uniquely $[m]R_0+T_0$ with
+$m\in\Z$ and $T_0\in E[2](K)$. Put $\nu(Q)=m/2$.
+Lemma~\ref{v15:aggregate:lem:independent} gives independence modulo
+torsion over $\Z[i]$ for the two pointed conjugate images of $P_0$.
+Doubling a relation gives the same independence for the images of $R_0$.
+\item Sections~\ref{v222:reference} and~\ref{q214:raw224-source}
+recover a finite reference point $H$, with $f(H)=1/x(H)\ne0$, from
+the retained polynomial rows before any scalar quotient is interpreted.
+Section~\ref{v15:base248:sec:scalar} gives the forced-149 exclusion
+of the finite exceptional reference points. Their reciprocal-norm
+values are 149-units. It follows, once the scalar valuation test has
+been applied, that $H,H-P_0$ are non-torsion and
+$S=y(H)/x(H)$ and $T_H=y(H-P_0)/x(H-P_0)$ are defined and nonzero.
+These are the raw224-side maps, before the later paired-root and
+common-quotient reductions.
+\item Section~\ref{v222:contacts} proves for
+$\beta=51X^2+2504$ and
+$r_s=\beta(\beta-1)(\beta-2401)(32\beta+343)$ that the physical
+normalizer is $R=A_Nr_s/(1+149^2r_s)>0$.
+Its valuation at 149 is $2N+1$ or $2N-1$.
+Every prime in the scalar odd-contact radical $M_5(\beta)$ gives a
+positive odd valuation of $R$; these primes exceed 76176.
+For integer $X$, $R(R+9792)$ has square reduced denominator and is
+a square in $\Q_2,\Q_3,\Q_{17}$.
+\item Lemma~\ref{v15x:scalar-local} applies to the physical expression
+\[
+ W_s=Z_0^4/R^{10}+Z_1^2/R^5+F^2/R^4,\qquad
+ b_s=R(R+9792)W_s^2,\qquad F=\Nm(f(H))\ne0.
+\]
+It allows either component of $Z$ to vanish and does not presuppose
+a point interpretation of $Z$. The scalar height supplier
+\ref{v15:height:thm:contactheight} gives
+$h(\beta)\le C_3M_5(\beta)^3(1+\log M_5(\beta))$,
+where $C_3=2^{330770}$.
+\item Theorem~\ref{v15:logs:thm:uniform-logarithm-tail} and
+Corollary~\ref{v15:logs:cor:uniform-logarithm-ratio} give the
+formal-logarithm isometry and relative error of order four at the
+consumed good unramified odd primes. The convention $z(O)=0$ is
+allowed. Section~\ref{q214:factor-source} proves the valuation
+separation and cleared-trace extraction for the five factors used
+below, including negative test valuations, zero tests, and split
+or inert places. Its integrality step precedes the use of relative
+precision as an absolute congruence.
+\item Put
+\[
+ \begin{gathered}
+ \Theta_0=\{0,-1/2,-1,1/2399,-32/407\},\qquad
+ \Theta=\Theta_0\cup(2-\Theta_0),\\
+ \Sigma=\{p:p\le76176\}\cup\{2029147\}.
+ \end{gathered}
+\]
+For $t\in\Q\setminus\Theta$, let $M(t)$ be the squarefree product
+of primes outside $\Sigma$ at which some $t-\theta$ has positive
+odd valuation. Section~\ref{q214:height-supplier}, with the
+operative product argument of Section~\ref{q214:height-averaging},
+gives a fixed $H_2>0$ such that
+\[
+                         h(t)\le H_2M(t)^{7/6}.
+\]
+Its full domain includes $t=1$, where $M(t)=1$.
+\item Theorem~\ref{thm:v5-simultaneous-primes} and
+Lemmas~\ref{v15:dependencies:lem:arbitrary-avoidance}
+and~\ref{v15:dependencies:lem:rational-contacts} permit any fixed
+finite distinct rational coefficient list after square-denominator
+clearing, prescribed finite divisibility, finite avoidance, and
+arbitrarily large fixed prime and slope bounds. The reduction-order
+pair is given by Lemma~\ref{lem:v5-two-reductions}.
+Corollary~\ref{v15:dependencies:cor:compatible-progressions} and
+Lemma~\ref{v15:dependencies:lem:real-progression} supply the compatible
+reference progression and its real recurrence. All these data must
+be fixed before the analytic parameter tends to infinity.
+\item Lemma~\ref{v5:preparation-zero-bridge}, in the form of
+Section~\ref{v15:dependencies:sec:poles}, excludes negative odd
+valuations outside $\{2,3,17\}$ for a nonzero input with a pole
+certificate. Conversely it supplies a certificate for a rational
+$b$ with square reduced denominator and
+\[
+ 0<b<17,\quad b\in\Q_2^{\times2}\cap\Q_3^{\times2}
+ \cap\Q_{17}^{\times2},\quad
+ v_2(b)\ge3,\quad v_3(b)\ge1,\quad v_{17}(b)\ge2.
+\]
+Its restricted-converse and descent hypotheses are the ones proved
+in the retained foundation. Lemma~\ref{v15:dependencies:lem:conic-complete}
+and the retained support charts include zero auxiliary witnesses.
+Certificates for different pole inputs have independent coordinates.
+\end{enumerate}
+Here $h$ on a rational number denotes absolute logarithmic Weil
+height. A letter $h$ used as the reference index will be identified
+explicitly. These inherited interfaces are not weakened by passing
+to the 198 table.
+
+\section{Table transport, contact circuits and point recovery}
+\label{q198:table-transport}
+% Inventory B09, B01, B03, N01, N02, N04, B04, N03, N06.
+
+\subsection{Transport from the specified predecessor}\label{q198:transport}
+The source chain is the raw224-based 214 table, the additive 212 table,
+the reciprocal 204 table, Conant's affine-200 intermediate, and the
+present 198 table. It does not use the later shifted-200 construction
+or an order-four-shift scalar function.
+
+In the 214-to-212 step the two contact cache coordinates and their
+defining rows are deleted. The four contact equations for each
+detector are replaced by the circuit in Lemma~\ref{q198:contact-circuit}.
+The second detector argument becomes unscaled, and the aggregate
+relates the two arguments additively. The counts become 212 coordinates
+and 186 rows. The contact weight is unchanged physically, as proved
+in that lemma. The new additive aggregate has its own arithmetic
+proof; it is not an all-witness equivalence to the old aggregate.
+
+In the 212-to-204 step the first and third seven-field root blocks
+are replaced by the five-field pairs of Lemma~\ref{q198:reciprocal-pairs}.
+Each replacement keeps nine field equations after the ratios are
+included. In the 212 numbering the deleted blocks are 155--168 and
+183--196, with rational rows 104--121 and 140--157. The ratio
+multipliers are respectively 1 and 2. The old coordinates satisfy
+$x_{i,\rm old}=R^{e_i}x_{i,\rm new}$, where
+\[
+ e_i=1\quad(39\le i\le46\text{ or }48\le i\le51),\qquad
+ e_i=-1\quad(205\le i\le208),
+\]
+and the other exponents vanish. Collecting powers of $R$, dividing
+a row by its least such power, and replacing even powers using the
+retained coordinate $R_2=R^2$ gives the 204 table. The two ratio
+square-output pairs use $u_0+2\rho u_1$, whereas ordinary field pairs
+use $u_0+\rho u_1$. These conventions are retained in every
+component multiplication. Nonvanishing of $R$ is established below
+before these substitutions are inverted.
+
+The fourth-block replacement deletes fourteen rational coordinates
+and appends ten, with eighteen rows on either side. The final scalar
+replacement deletes sixteen rational coordinates and appends fourteen.
+It removes 23 rational rows, adds the twenty component equations of
+the inverse Vieta chart and its ratios, and adds the new aggregate
+row. Thus
+\[
+ 204-14+10-16+14=198,\qquad
+ 186-18+18-23+20+1=184.
+\]
+The complete retained-coordinate weights and row division powers
+are in the pinned table, rather than inferred from these counts.
+The scalar equation $R_2=R^2$ is retained literally, not simplified
+away while other rows are divided. The input has weight zero.
+The finite identities in Section~\ref{q198:finite-certificate}
+verify every retained and changed row. The arguments below give
+their arithmetic interpretation.
+
+\begin{lemma}[Compressed contact circuit]\label{q198:contact-circuit}
+Let
+\[
+ P_5(r)=\prod_{\theta\in\Theta_0}(r-(1-\theta)^2)
+ =r^5-e_1r^4+e_2r^3-e_3r^2+e_4r-e_5.
+\]
+With $qs=1$, the four quadratic equations
+\[
+ r=(t-1)^2,\quad u=r^2,\quad
+ v=ru-e_1(1+s)u+e_2(1+s)r,\quad
+ uv=(1+s)(e_3u-e_4r+e_5)
+\]
+are equivalent to $r=(t-1)^2$ and $(1+q)P_5(r)=r^5$.
+The auxiliary outputs are unique, $P_5(r)\ne0$, and $t=1$ is
+included, with $q=s=-1$ and $u=v=0$.
+\end{lemma}
+\begin{proof}
+After substituting $u=r^2$ and the displayed expression for $v$,
+the last residual is $(1+s)P_5(r)-sr^5$. Multiplication by the
+nonzero $q$ proves the equivalence, and all substitutions reverse.
+If $P_5(r)=0$, the weight equation gives $r=0$, contradicting
+$P_5(0)=-e_5\ne0$. At $r=0$ the same equation gives $s=-1$.
+The five squared distances are
+$1,9/4,4,5750404/5755201,192721/165649$, so $e_5\ne0$.
+Hence $t$ avoids all ten elements of $\Theta$.
+
+When $t\ne1$, write
+$\mathcal R=P_5((t-1)^2)/(t-1)^{10}$. The weight is exactly
+$q=\mathcal R^{-1}-1$. Thus the circuit preserves the physical
+contact function, not merely its vanishing set. At $t=1$ no division
+by $t-1$ is made; its radical is one and there is no consumed
+contact prime. For comparison with the old stored circuit, its first
+inverse parameter is $1/t$, with contact output
+$t^{-10}P_5((t-1)^2)$. For a previously scaled second argument,
+put $w=R^2$ and recover its stored outputs as
+$wt,wr,wr^2,wr^3,w^2P_5(r)$. Substitution gives the old contact
+identities. This proves the contact portion of the source transport.
+\end{proof}
+
+\begin{lemma}[Universal reciprocal pair]\label{q198:reciprocal-pairs}
+For $Q\ne(0,0)$ put $f(Q)=1/x(Q)$ and
+$\eta(Q)=-y(Q)/x(Q)^2$, with $f(O)=\eta(O)=0$.
+The five field quadrics
+\[
+ F=f^2,\quad G=g^2,\quad \eta^2=f-DfF,\quad
+ s(f-g)=\eta+\kappa,\quad
+ s(\eta-\kappa)=1-D(F+fg+G)
+\]
+describe exactly the ordered pairs $U,V\in E(K)\setminus\{(0,0)\}$
+with $U\ne V$. Their finite difference is
+\[
+ Q=U-V=(x_Q,y_Q),\quad
+ x_Q=s^2+D(f+g),\quad y_Q=D\eta-s(Df+x_Q).
+\]
+This includes identity numerator points, tangencies and finite
+two-torsion differences.
+\end{lemma}
+\begin{proof}
+The reciprocal equation is $\eta^2=f-Df^3$. Its map
+$(f,\eta)\mapsto(-Df,-D\eta)$ is translation by $(0,0)$ on the
+original curve. Put
+\[
+ e_1=s(f-g)-\eta-\kappa,\quad
+ e_2=s(\eta-\kappa)-1+D(f^2+fg+g^2),\quad
+ e_3=\eta^2-f+Df^3.
+\]
+Polynomial expansion gives
+\[
+ \kappa^2-g+Dg^3=e_3-(f-g)e_2+(\eta-\kappa)e_1,
+\]
+\[
+ y_Q^2-x_Q^3+Dx_Q
+ =D^2e_3-D(Df+x_Q)(e_2-se_1).
+\]
+Both reciprocal points and the asserted difference therefore lie on
+their curves. If $f\ne g$, $s$ is the chord slope for the translated
+first point and the negative translated second point, which gives
+the displayed difference. If $f=g$, then $\kappa=-\eta$.
+The case $\eta=0$ would require both $f=0$ or $Df^2=1$, and
+$1-3Df^2=0$, which is impossible. Thus
+$2s\eta=1-3Df^2$ is exactly the tangent formula. Conversely the
+chord or tangent construction supplies these equations and its
+unique slope. The reciprocal origin represents $O$; no identity
+case was divided out. The impossible case $U=V$ is precisely the
+vertical chord case excluded by these equations.
+\end{proof}
+
+\begin{lemma}[Nonzero scalar scale]\label{q198:nonzero-scale}
+Every rational solution of the 198 rows has $R>100$ and $R_2=R^2$.
+Consequently all stored Laurent rescalings by $R$ are reversible.
+\end{lemma}
+\begin{proof}
+Let $J_s$ be the stored scalar contact product, delivered coordinate
+104. The retained input and product rows, without any division, give
+\[
+ RJ_s=(51X^2+103)(51X^2+2503)(51X^2+2504)
+                   (1632X^2+80471)=r_s>0.
+\]
+Thus $R\ne0$. The retained forced-prime row is
+$1+22201RJ_s-A_NJ_s=0$, whence
+$R=A_Nr_s/(1+22201r_s)$. Since $r_s\ge1$ and $N\ge1$,
+$R\ge149^3/(1+149^2)>100$. Its square row gives $R_2=R^2$.
+\end{proof}
+
+\begin{lemma}[Inverse Vieta chart]\label{q198:inverse-vieta}
+Use field coordinates $U,V,W,M,r,p,r_2$, where $p$ is a coordinate,
+not the fixed point $P_0$. Impose
+\begin{gather}
+ UV=R_2p,\quad pW=r,\quad
+ r(U+V+W+2M)+DR_2=0,\quad R_2p+W(U+V)=M^2,
+ \label{q198:vieta-core}\\
+ r_2=r^2,\qquad F_Ur_2=U^2,\qquad F_Vr_2=V^2.
+ \label{q198:vieta-outputs}
+\end{gather}
+These equations give $r,U,V,W,p\ne0$ and finite points
+\[
+ U_2=\left(\frac{VW}{R^2},\frac{(M+U)VW}{R^3}\right),\qquad
+ V_2=\left(\frac{UW}{R^2},-\frac{(M+V)UW}{R^3}\right),
+\]
+\[
+                 Q_2=\left(p,-\frac{(M+W)p}{R}\right),
+                 \qquad Q_2=U_2-V_2.
+\]
+Their abscissas are nonzero and $F_U=f(U_2)^2$, $F_V=f(V_2)^2$.
+Conversely every such triple with finite nonzero abscissas supplies
+the chart, including its tangent cases.
+\end{lemma}
+\begin{proof}
+Since $DR^2\ne0$, the third equation forces $r\ne0$; the first
+two then force $p,W,U,V\ne0$. The three proposed abscissas have
+sum $(M/R)^2$, pairwise sum $-(D+2Mr/R^2)$ and product $(r/R)^2$.
+For example the pairwise sum is
+$r(U+V+W)/R^2=-D-2Mr/R^2$. They are therefore exactly the roots,
+with multiplicity, of
+\[
+ x^3-(M/R)^2x^2-(D+2Mr/R^2)x-(r/R)^2.
+\]
+This is the intersection polynomial of $E$ with the line
+$y=(M/R)x+r/R$. The three points on that line are
+$U_2,-V_2,-Q_2$; the chord-and-tangent law gives their sum zero.
+Repeated roots cause no division by an abscissa difference.
+Moreover $x(U_2)=r/U$ and $x(V_2)=r/V$, proving the output identities.
+
+Conversely the line through $U_2,-V_2,-Q_2$ is nonvertical because
+$Q_2$ is finite. Its intercept is nonzero: otherwise $(0,0)$ would
+be one of its three intersections, contrary to the three nonzero
+abscissas. Write the line $y=s_0x+b_0$ and set
+\[
+ U=Rb_0/x(U_2),\quad V=Rb_0/x(V_2),\quad W=Rb_0/x(Q_2),
+ \quad M=Rs_0,\quad r=Rb_0,\quad p=x(Q_2),
+\]
+with $r_2=r^2$ and the actual reciprocal-square outputs. Vieta's
+identities give every displayed equation. They hold with intersection
+multiplicity in the tangent case as well.
+\end{proof}
+
+\subsection{Recovery order and ratio domains}\label{q198:recovery-order}
+Lemma~\ref{q198:nonzero-scale} first permits the inverse rescalings.
+The retained reference identities then give finite $H$ and
+$F=\Nm(f(H))\ne0$. At this stage the two rational components of
+$Z=RZ_{\rm st}$ are just physical scalar coordinates.
+The last term of $W_s$ makes $W_s>0$ and $b_s>0$ regardless of
+whether those components vanish. Applying
+Lemma~\ref{v15x:scalar-local} at 149 gives
+$v_{149}(F)>7v_{149}(R)/4>0$. The finite exceptional reference
+norms from Section~\ref{v15:base248:sec:scalar} are
+\[
+ 7,\quad 41^2/2^6,\quad 2^6 7^2/41^2,\quad
+ 3^4 7^3/17^2,\quad 17^2/(3^4 7).
+\]
+They are 149-units. The source reference recovery therefore excludes
+the torsion and shifted-torsion exceptions and gives $S,T_H\ne0$.
+Only now do we interpret the ratio equations below. No conclusion
+about $Q_2$ or the physical meaning of $Z$ was used to prove this
+reference-domain assertion.
+
+\begin{lemma}[Ratios for reciprocal pairs]\label{q198:pair-ratios}
+For a reciprocal pair, a nonzero reference parameter $S$, and a
+nonzero rational multiplier $k$, the equations
+\[
+ \eta L+kfS=0,\qquad (1-DF)L+k\eta S=0
+\]
+give $L=kz(U)/z(H)$, where $z=-x/y$, on the finite non-torsion
+numerator domain. At $U=O$ they give $L=0$. They exclude every
+nonidentity two-torsion numerator. The opposite equations with
+$(g,\kappa,G,T_H)$ give the identical conclusion for $V,H-P_0$.
+Replacing L everywhere by L-1 gives the affine ratio with offset 1.
+\end{lemma}
+\begin{proof}
+If $\eta\ne0$, the first equation gives $L=-kfS/\eta$,
+which equals $kz(U)/z(H)$ by the definitions; the reciprocal curve
+equation gives the second equation. At the reciprocal origin the
+second equation is $L=0$. If $\eta=0$ and $f\ne0$, the first
+equation contradicts $kS\ne0$. This also proves the converse for
+every allowed numerator and proves the affine assertion by substitution.
+\end{proof}
+
+\begin{lemma}[Scalar ratios and non-torsion]\label{q198:scalar-ratios}
+Adjoin to the inverse Vieta equations
+\[
+ L_2(M+U)=2RS,\quad L_2^0(M+V)=-2RT_H,\quad
+ Z_{\rm st}(M+W)=-2S.
+\]
+Then $U_2,V_2,Q_2$ have nonzero ordinates and
+\[
+ L_2=2z(U_2)/z(H),\quad L_2^0=2z(V_2)/z(H-P_0),\quad
+ Z=RZ_{\rm st}=2z(Q_2)/z(H).
+\]
+In particular $Q_2$ is non-torsion and
+$a=2\nu(Q_2)\in\Z\setminus\{0\}$.
+\end{lemma}
+\begin{proof}
+The three right sides are nonzero by Section~\ref{q198:recovery-order}.
+Thus $M+U,M+V,M+W$ are nonzero, and the ordinates in
+Lemma~\ref{q198:inverse-vieta} are nonzero. Substituting those
+ordinates gives the three ratio identities with their displayed
+signs and factors of R. All torsion is two-torsion, so $Q_2$ is
+non-torsion. Its index is a nonzero half-integer. The stored scalar
+quotient remains divided by R; no further normalization coordinate
+or inverse guard has been introduced.
+\end{proof}
+
+\subsection{The odd fourth label}\label{q198:affine-fourth}
+Use reciprocal pairs for $i=1,3,4$. Their physical ratios are
+\[
+ L_i=k_i z(U_i)/z(H)+e_i,\qquad
+ L_i^0=k_i z(V_i)/z(H-P_0)+e_i,
+\]
+where $(k_1,e_1)=(1,0)$, $(k_3,e_3)=(2,0)$ and
+$(k_4,e_4)=(4,1)$. Lemma~\ref{q198:pair-ratios} gives four
+quadratic ratio equations for each pair, including the value 1 at
+a fourth-block identity numerator. For their finite differences set
+\[
+ n=\nu(Q_1)\in\tfrac12\Z,\quad a=2\nu(Q_2)\in\Z\setminus\{0\},
+ \quad t=2\nu(Q_3)\in\Z,\quad b=4\nu(Q_4)+1\in2\Z+1.
+\]
+Thus b is nonzero even if $Q_4$ is finite torsion. Reuse the two
+Lucas multiplication outputs for $(L_2-1)L_4$ and $(L_2+1)L_3$.
+The resulting test is
+\begin{equation}\label{q198:lucas-test}
+ G=L_3^2-(L_2+1)(L_2-1)L_3L_4+(L_2-1)^2L_4^2-1.
+\end{equation}
+Indeed if the two outputs are U and V, this expression is
+$L_3^2-UV+U^2-1$. Their defining equations and this last expression
+are quadratic in the stored coordinates. The affine label costs
+no additional coordinate and imposes no false nonzero-index condition
+on $Q_4$.
+
+\section{Trace height and local soundness}\label{q198:height-local}
+% Inventory B08, N08, B02, B05, N05, N09, N07, B10, N10.
+
+\begin{theorem}[Constant positive weighted trace height]\label{q198:trace-height}
+Fix positive rational weights $w_1,\ldots,w_s$. There are constants
+$A_*>0,J_*\ge0$, depending only on these weights and the fixed curve
+and subgroup, such that every tuple of finite points
+$Q_1,\ldots,Q_s\in E(K)$ satisfies
+\[
+ \max_i|\nu(Q_i)|^2\le A_*h(S_*)+J_*,\qquad
+ S_*=\frac14\Tr\sum_i w_ix(Q_i).
+\]
+The conclusion includes negative or repeated indices, half-indices,
+torsion translates and finite points of index zero. The proof does
+not make the additive constant effective.
+\end{theorem}
+\begin{proof}
+We prove the constant-weight specialization of
+\cite[Theorem 1.1, Lemma 3.1]{q198-BroxWeighted}.
+Over a fixed extension, send the curve and its conjugate by pointed
+isomorphisms to $E_0:y^2=x^3-x$, using
+$(x,y)\mapsto(x/d,y/d^{3/2})$ and its conjugate.
+Call the images of $R_0,R_0^\sigma$ respectively $R_*,R_*'$.
+They are independent modulo torsion over $\Z[i]$ by the inherited
+independence lemma and doubling.
+
+First fix the set of zero indices and their finite two-torsion points.
+There are finitely many possibilities. Omit these coordinates from
+the abelian ambient variety; they contribute a fixed constant $c$.
+If all indices are zero the assertion holds immediately. Otherwise
+the remaining tuple in $E_0^{2k}$ has coordinates
+$[m_i]R_*+T_i$ and $[m_i]R_*'+T_i'$, where $m_i\ne0$ and the
+$T_i,T_i'$ are torsion. Its trace is the value of
+\[
+ F=\frac d4\sum_iw_ix_i+\frac {d^\sigma}4\sum_iw_ix_i'+c.
+\]
+We claim no positive-dimensional abelian translate through this tuple,
+meeting the domain of F, has constant restriction of F.
+
+Every positive-dimensional abelian subvariety of $E_0^{2k}$ contains
+an elliptic subvariety isogenous to $E_0$, by complete reducibility.
+An isogeny from $E_0$ into such a subvariety gives a nonzero direction
+whose coordinate endomorphisms are $\alpha_i,\alpha_i'\in\Z[i]$.
+If two nonconstant coordinates in the first block have a common pole
+on the translate of this direction, eliminating the common parameter
+gives a torsion relation
+$(m_i\alpha_j-m_j\alpha_i)R_*$. Thus
+$m_i\alpha_j=m_j\alpha_i$. Since the principal part of the
+abscissa at O is $z^{-2}$, the sum of the principal coefficients
+at this common pole is
+\[
+             \frac d{4\alpha_i^2}\sum_jw_j(m_i/m_j)^2\ne0.
+\]
+It is a nonzero factor times a positive rational sum. Negative and
+repeated indices cause no change. A pole cannot be shared across
+the two blocks, since that would give a nontrivial relation between
+$R_*$ and $R_*'$ modulo torsion. The second block has the same
+positive-sum argument. Some coordinate of the direction is nonzero,
+so some pole is present and cannot cancel. This proves the claim.
+
+Let $\mathcal V$ be the reduced closure of the graph of F in
+$E_0^{2k}\times\mathbb P^1$. It is integral, since the graph over
+the nonempty rational-function domain is integral. The actual tuple
+belongs to this domain. Fix the finite-rank subgroup generated by
+$R_*$ in each first-block coordinate, $R_*'$ in each second-block
+coordinate, and the finitely many torsion points. It is independent
+of the indices. A positive-dimensional translate contained in the
+projective graph fiber through the actual point meets the domain
+densely and would make F constant there. The claim excludes it,
+including any putative exceptional translate arising at the boundary.
+
+Apply the family height theorem in
+\eqref{v15:aggregate:eq:VB}, namely
+\cite[Theorem 1.1, printed p.~308]{v15-aggregate-VonBuhren}.
+For its embedding hypothesis, embed each $E_0$ by $\mathcal O(3O)$
+and take the Segre product. The plane-cubic sequence
+\[
+ 0\longrightarrow\mathcal O_{\mathbb P^2}(n-3)
+ \longrightarrow\mathcal O_{\mathbb P^2}(n)
+ \longrightarrow\mathcal O_{E_0}(3nO)\longrightarrow0
+\]
+gives surjective restriction on sections for every $n\ge1$, since
+$H^1(\mathbb P^2,\mathcal O(n-3))=0$.
+Tensoring and applying Segre verifies the same condition for the
+product. The resulting line bundle is ample and symmetric. The
+parameter space $\mathbb P^1$ is projective and integral; its height
+is $h(S_*)$. The chosen subgroup belongs to the theorem's allowed
+set by taking the error point zero. All hypotheses are therefore
+satisfied, and its canonical product height is at most a fixed
+multiple of $h(S_*)$ plus a fixed constant.
+
+By pointed-isomorphism and Galois invariance this canonical product
+height is a fixed positive multiple of
+$2\sum_i\widehat h_E(Q_i)$, and
+$\widehat h_E(Q_i)=\nu(Q_i)^2\widehat h_E(P_0)$ with
+$\widehat h_E(P_0)>0$. It bounds the largest squared index.
+Take maxima of the constants over the finitely many frozen-torsion
+cases. This proves the assertion on the whole stated domain.
+\end{proof}
+
+\begin{corollary}[The actual aggregate]\label{q198:shifted-aggregate}
+The new aggregate row gives
+\[
+ T=7+\frac14\Tr\bigl(x(Q_1)+p+x(Q_3)+x(Q_4)\bigr),\qquad
+ t_0=\lambda,\quad t_1=\lambda+T.
+\]
+Here $p=x(Q_2)$, so $T\ge1$. With
+$B=\max(1,|n|,|a|,|t|,|b|)$ there are fixed constants
+$A_0>0,J_0\ge0$ such that $B^2\le A_0h(T)+J_0$.
+\end{corollary}
+\begin{proof}
+Each of $x(Q_1),x(Q_3),x(Q_4)$ is the quadratic expression of
+Lemma~\ref{q198:reciprocal-pairs}, and p occurs linearly.
+Consequently the displayed aggregate is one rational quadratic row.
+At either real embedding, $x(x-d)(x+d)\ge0$ gives $x\ge-d$ for
+every finite point. Since $d+d^\sigma=6$, the sum of four traces
+is at least $-24$, proving $T\ge1$.
+Theorem~\ref{q198:trace-height} with all weights one applies to
+$S_*=T-7$. For a reduced fraction $u/v$, the transformation
+$u/v\mapsto(u-7v)/v$ increases the maximum of the numerator and
+denominator by at most a factor eight. Hence
+$h(T-7)\le h(T)+\log8$. Finally
+\[
+ B^2\le32\max_i|\nu(Q_i)|^2+2
+\]
+by the definitions of the four labels. Absorb these fixed factors
+and the height of the translation into $A_0,J_0$. There is no
+term involving $h(R)$.
+\end{proof}
+
+\begin{lemma}[Additive height transport]\label{q198:additive-height}
+If a nonzero integer J satisfies $M(t_j)^k\mid J$ separately
+for $j=0,1$, where $k\ge1$, then
+\[
+                 B^2\le C|J|^{7/(6k)}+J_1
+\]
+for fixed $C>0,J_1\ge0$ independent of N, the input and witnesses.
+No coprimality of the two radicals is required.
+\end{lemma}
+\begin{proof}
+The inherited full-family height inequality and
+$h(t_1-t_0)\le h(t_1)+h(t_0)+\log2$ give
+\[
+ B^2\le A_0H_2\bigl(M(t_0)^{7/6}+M(t_1)^{7/6}\bigr)
+                   +J_0+A_0\log2.
+\]
+Each divisibility individually gives $M(t_j)^k\le|J|$.
+Take $C=2A_0H_2$ and $J_1=J_0+A_0\log2$.
+\end{proof}
+
+\begin{lemma}[Scalar extraction]\label{q198:scalar-extraction}
+Every solution of the 198 rows satisfies, with $c=|a|$,
+\[
+ 149^{L_N}M_5(\beta)^3\mid c,\qquad
+ c\ge149^{L_N},\qquad
+ h(\beta)\le C_3 149^{-L_N}c(1+\log c/3),
+\]
+where $L_N=\lfloor9(2N-1)/4\rfloor+1$ and $C_3=2^{330770}$.
+\end{lemma}
+\begin{proof}
+Let $p=149$ or a consumed scalar contact prime, and write
+$\mu=v_p(R)>0$ odd. The reciprocal-abscissa valuation of every
+finite point is even: if $v(x)>0$, then $2v(y)=v(x)$; if
+$v(x)<0$, then $2v(y)=3v(x)$; zero valuation is already even.
+The norm valuation $v_p(F)$ is therefore even at both split and
+inert primes. Since 9792 is a p-adic unit, the pole obstruction
+on $b_s$ gives $v_p(W_s)>-\mu/2$. The three finite summand
+valuations in $R^4W_s$ belong respectively to
+$2+4\Z$, $1+2\Z$ and $4\Z$. They cannot cancel; zero summands
+are omitted. Each exceeds $7\mu/2$, giving
+\[
+ v_p(Z_0)>19\mu/8,\quad v_p(Z_1)>9\mu/4,\quad v_p(F)>7\mu/4.
+\]
+These are the hypotheses and conclusion of the inherited scalar
+lemma, now applied to the actual doubled quotient of
+Lemma~\ref{q198:scalar-ratios}.
+
+At some place over p, $f(H)$ has positive valuation, so H is formal.
+Both components of Z have valuation greater than $9\mu/4$, hence
+the same holds for Z at that place. The identity
+$Z=2z(Q_2)/z(H)$ shows $v(z(Q_2))>0$.
+Thus $Q_2$ is formal or reduces to $(0,0)$; in the latter case
+translate by that two-torsion point. The translation is
+$x'=-D/x$, $y'=Dy/x^2$, and $z'=-z$.
+The translated point is formal and has the same index.
+
+Put $h=\nu(H)\in\tfrac12\Z$. The reference exclusions give
+$h\ne0$, and h is p-integral. Doubling a suitable group relation
+kills the two-torsion and gives the exact formal logarithmic ratio
+$2\nu(Q_2)/h=a/h$. In the translated case only the harmless
+sign of z changes. The logarithm is an isometry, so
+$v_p(a/h)=v(Z)>9\mu/4$, and therefore
+$v_p(a)>9\mu/4$. At 149 this gives $v_{149}(a)\ge L_N$;
+each prime in $M_5(\beta)$ contributes at least three. These primes
+are distinct from 149. The integer a is nonzero by
+Lemma~\ref{q198:scalar-ratios}, proving the divisibility and lower bound.
+Now $M_5(\beta)^3\le149^{-L_N}c$ and
+$\log M_5(\beta)\le(\log c)/3$. Substitute into the inherited
+scalar height inequality to obtain the last assertion.
+\end{proof}
+
+\subsection{The five factors and half-index comparison}
+\label{q198:half-index-comparison}
+Put $L_i'=\sigma L_i^0$, $C_i=L_i-L_i'$, $I=L_1-\beta$,
+$D_H=f(H)$, $A_i=f(U_i)$, $B_i=\sigma f(V_i)$ and
+$B_0=\sigma f(H-P_0)$. At each detector the retained five factors are
+\begin{align*}
+ &1+q^5C_2^2+q^2D_H^2+q^4B_1^4,\\
+ &1+q^5G^2+q^2A_3^2+q^4B_0^4,\\
+ &1+q^5I^4+q^3A_2^2+q^2A_4^2+q^4B_3^4,\\
+ &1+q^5C_3^2+q^2C_1^4+q^4B_4^4,\\
+ &1+q^5C_4^2+q^2A_1^2+q^4B_2^4.
+\end{align*}
+Here G is the new expression~\eqref{q198:lucas-test}.
+At a consumed prime p, precisely one contact has positive odd
+valuation $\mu$ and $t_j-1$ is a unit. The contact weight identity
+therefore gives $v_p(q)=-\mu$.
+All finite reciprocal valuations are even, including those from
+the inverse Vieta pair, and identity numerators have reciprocal zero.
+Thus the valuation classes in the inherited extraction proof are
+unchanged. That proof, applied to the actual displayed tests, gives
+at one place over p
+\[
+ v(C_2,C_3,C_4,G)\ge3,\quad v(C_1,I)\ge1,\quad
+ v(D_H,A_i,B_i,B_0)\ge2.
+\]
+No positivity of test valuations was assumed in obtaining them.
+
+We give the changed formal step explicitly. Write
+$h=\nu(H)=m/2$, $u=\nu(U_i)$ and $v=\nu(V_i)$.
+The point differences have index $u-v=\nu(Q_i)$.
+At the successful place the primary and conjugate opposite points
+are formal, with parameter valuation at least one. The identities
+\[
+ [2m]U_i=[4u]H,\qquad
+ [2(m-2)]V_i=[4v](H-P_0)
+\]
+kill all two-torsion. They give exact logarithmic ratios u/h and
+v/(h-1), also for the conjugate curve. At least one of h,h-1 is a
+p-adic unit, because p is odd and they differ by one. One exact
+ratio is therefore integral. Its relative approximation is integral;
+the positive comparison $C_i$ makes the other approximate ratio
+integral, and its relative unit factor makes the other exact ratio
+integral. Subtracting the fixed integral offset does not alter this
+argument, and multipliers 1, 2 and 4 are p-adic units.
+
+After this integrality step, the relative order-four error is an
+absolute error of valuation at least four. Let k and e denote the
+multiplier and offset, so that both approximations have exact forms
+$ku/h+e$ and $kv/(h-1)+e$. Since h and h-1 are integral,
+\[
+ h(ku/h+e)-(h-1)(kv/(h-1)+e)=k(u-v)+e.
+\]
+As $L_i=L_i'+C_i$, the left side of the approximate identity is
+$L_i+(h-1)C_i$. It follows that
+\[
+ L_1\equiv n\pmod p,\qquad L_2\equiv a\pmod{p^3},\qquad
+ L_3\equiv t\pmod{p^3},\qquad L_4\equiv b\pmod{p^3}.
+\]
+Identity numerator points are covered by the second ratio equation
+and $z(O)=0$. A finite torsion difference is allowed. The same
+reasoning applies at inert places; incompatible formal requirements
+exclude a solution rather than create an extra branch.
+
+\begin{lemma}[Integer residuals]\label{q198:residual-divisibility}
+Put
+\[
+ \Delta=t^2-(a+1)(a-1)tb+(a-1)^2b^2-1\in\Z.
+\]
+If $\beta-n\ne0$, let $J_X$ be its positive absolute reduced
+numerator. For both j one has
+\[
+ M(t_j)^3\mid\Delta,\qquad M(t_j)\mid J_X\quad(J_X\ne0).
+\]
+Furthermore $|\Delta|\le14B^4$ and $J_X\le4B e^{h(\beta)}$.
+\end{lemma}
+\begin{proof}
+The formal congruences and the order-three test G give
+$\Delta\equiv0\pmod{p^3}$ at every consumed prime. This is an
+integer congruence because a,t,b are integers. The input test gives
+$\beta-n\equiv0\pmod p$, hence p divides its reduced numerator.
+Multiplying these separate prime divisibilities proves the assertions.
+For $B\ge1$, the triangle inequality bounds $|\Delta|$ by
+$B^2+(B^2+1)B^2+(B+1)^2B^2+1\le14B^4$.
+Write $n=m/2$, $|m|\le2B$, and $\beta=u/v$ in lowest terms.
+The unreduced numerator $2u-mv$ has absolute value at most
+$4B\max(|u|,v)=4Be^{h(\beta)}$; reduction can only decrease it.
+\end{proof}
+
+\begin{lemma}[Affine Lucas growth and converse]\label{q198:affine-lucas}
+If $\Delta=0$, b is nonzero, and $c=|a|$ is sufficiently large,
+then
+\[
+                         \log B\ge(c-6)\log(c-3).
+\]
+Conversely, for every sufficiently large positive $a\in6\Z$, the
+recurrence $U_0=0$, $U_1=1$, $U_{j+1}=(a+1)U_j-U_{j-1}$ gives
+integers
+\[
+ j=a-1,\qquad b=U_j/(a-1),\qquad t=U_{j+1}
+\]
+with b positive and odd, $b>1$, and $\Delta=0$.
+\end{lemma}
+\begin{proof}
+Put $A=a+1$, $c'=|A|$ and $w=\operatorname{sgn}(A)(A-2)b$.
+For large c, $c'>2$, $w\ne0$, and the equation becomes
+$t^2-c'tw+w^2=1$. We recall the elementary norm-one argument used
+in Section~\ref{q214:uniform-existence}, P12. With
+$\epsilon=(c'+\sqrt{c'^2-4})/2$, every positive norm-one unit in
+$\Z[\epsilon]$ greater than one is a power of $\epsilon$.
+Indeed a unit strictly between 1 and $\epsilon$ would have
+$u-u^{-1}=b_0\sqrt{c'^2-4}$ for a nonzero integer $b_0$, which is
+impossible in that interval; division by an appropriate power of
+$\epsilon$ proves the assertion. Apply this to $t-w\epsilon$,
+allowing sign and inversion. The recurrence identities give
+$|w|=U_j(c')$ and $|t|\in\{U_{j-1}(c'),U_{j+1}(c')\}$ for $j>0$.
+
+Modulo $c'-2$, $U_j(c')\equiv j$; modulo $c'+2$,
+$U_j(c')\equiv(-1)^{j-1}j$. If A is positive use the former
+modulus $|A-2|$; if A is negative use the latter. Since this
+modulus divides w, $j\ge c'-2$ in either case.
+Induction in the recurrence gives
+$U_j(c')\ge(c'-1)^{j-1}$ for $j\ge1$.
+Thus
+\[
+ \log B\ge(j-2)\log(c'-1)
+ \ge(c'-5)\log(c'-2)\ge(c-6)\log(c-3)
+\]
+for all sufficiently large c, using $c'\ge c-1$.
+
+For the converse A=a+1 is odd and j=a-1 is odd and congruent
+to 2 modulo 3. The recurrence modulo a-1 gives $U_j\equiv j=0$,
+so b is an integer. Modulo two its terms repeat $0,1,1$; therefore
+$U_j$ and b are odd. Positivity and $b>1$ hold for large a.
+Finally $U_{j+1}^2-AU_jU_{j+1}+U_j^2=1$, by induction, and
+$U_j=(a-1)b$ gives the required equation.
+\end{proof}
+
+\begin{lemma}[Recovery of the ordinary input]\label{q198:integer-input}
+If $\beta=51X^2+2504\in\tfrac12\Z$ for $X\in\Q$, then X is an
+integer.
+\end{lemma}
+\begin{proof}
+For $X=u/v$ in lowest terms, $v>0$, integrality of
+$2\beta=102u^2/v^2+5008$ implies $v^2\mid102u^2$.
+Coprimality gives $v^2\mid102$. Since 102 is squarefree, $v=1$.
+\end{proof}
+
+\begin{proposition}[One soundness threshold]\label{q198:soundness}
+There is a fixed $N_S$ such that every rational zero of the 198
+table for every $N\ge N_S$ has integer input.
+\end{proposition}
+\begin{proof}
+If $\Delta\ne0$, Lemmas~\ref{q198:additive-height}
+and~\ref{q198:residual-divisibility} give
+\[
+ B^2\le C14^{7/18}B^{14/9}+J_1.
+\]
+Since $14/9<2$, this bounds B by a fixed constant. Choose a fixed
+threshold beyond which $149^{L_N}$ exceeds that bound. The scalar
+lower bound then forces $\Delta=0$ for every solution.
+
+If $J_X\ne0$, the same height lemma with k=1, once $B^2\ge2J_1$,
+gives
+\[
+ \log B\le\frac75h(\beta)+C_2,\qquad
+ C_2=\frac65\log(2C)+\frac75\log4.
+\]
+Increase the threshold so $(7/5)C_3 149^{-L_N}\le1$ and c is
+large enough for Lemma~\ref{q198:affine-lucas}. Its upper bound is
+then at most $c+(c/3)\log c+C_2$, whereas the lower bound is
+$(c-6)\log(c-3)$. Their difference tends to positive infinity:
+after division by c it is $(2/3)\log c-1+o(1)$.
+A further fixed lower bound on c, and hence on N, excludes this
+case for every input. Thus $\beta=n\in\tfrac12\Z$, and
+Lemma~\ref{q198:integer-input} applies. The constants were fixed
+before N, X or any witness. Taking their maximum gives one $N_S$.
+\end{proof}
+
+\section{Half-generator reduction and fresh completeness}
+\label{q198:completeness-section}
+% Inventory B06, B07, N11, B02 completeness, N12.
+
+\begin{lemma}[The half-generator at the selected primes]
+\label{q198:half-generator-reduction}
+Let $p=A^2+B^2$ be a good prime with
+$A\equiv9\pmod{16}$ and $B\equiv0\pmod{16}$.
+The reductions of $R_0$ and its conjugate lie in the doubled
+subgroups of their respective elliptic groups over $\F_p$.
+Thus the quarter of the group order annihilates each reduction.
+\end{lemma}
+\begin{proof}
+This is the reciprocity argument of
+\cite[Lemma 5.1]{q198-BroxWeighted}.
+We have $AB\ne0$, $\gcd(A,B)=1$ and $p\equiv1\pmod8$.
+In $\F_p$ set $i=A/B$, so $i^2=-1$.
+Quadratic reciprocity gives $(B/p)=1$: its sign and 2-part are
+squares, and for every odd prime $q\mid B$ one has
+$(p/q)=(A^2/q)=1$, with $p\equiv1\pmod4$.
+Using Jacobi symbols for a composite denominator,
+\[
+ \left(\frac{A+B}{p}\right)
+ =\left(\frac p{|A+B|}\right)
+ =\left(\frac2{|A+B|}\right)=1.
+\]
+Indeed $p\equiv2A^2\pmod{|A+B|}$, while $A+B\equiv1\pmod8$;
+absolute value does not change the symbol of 2. Consequently
+$2+2i=2(A+B)/B$ is a square. Its product with $2-2i$ is 8,
+also a square, so both are squares. Choose roots u and v.
+Then $uv=\pm2\sqrt2$ and
+$(u\pm v)^2/4=1\pm\sqrt2$, with the signs possibly exchanged.
+Thus both $1+\rho$ and $1-\rho$ are squares for either reduction
+of $\rho$.
+
+The differences of the abscissa of $R_0$ from the three roots
+$0,d,-d$ are
+\[
+              1+\rho,\qquad 2(\rho-1)=2/(1+\rho),\qquad4.
+\]
+They are nonzero squares. The full-two-torsion halving criterion
+therefore makes $R_0$ a double. Explicitly, choose square roots
+$r_i$ of these differences with $r_1r_2r_3=-y(R_0)$;
+the abscissa of a half is
+$x(R_0)+r_1r_2+r_1r_3+r_2r_3$, with ordinate
+$-y(R_0)-(r_1+r_2+r_3)(r_1r_2+r_1r_3+r_2r_3)$.
+Substitution and the duplication formula give twice this point equal
+to $R_0$. The same calculation works for the conjugate.
+
+A finite elliptic group with full rational two-torsion is
+$\Z/a\Z\times\Z/b\Z$, where $a\mid b$ and a,b are even.
+The doubled subgroup has exponent $b/2$, which divides $ab/4$.
+Thus the quarter-order annihilates every double, proving the claim.
+\end{proof}
+
+\begin{lemma}[The half-generator reference progression]
+\label{q198:half-generator-progression}
+Fix finitely many integer multiples $Q_i=[m_i]R_0$, a scalar
+progression $h\equiv h_*\pmod L$ with $64\mid h_*,L$, and
+compact real and finite-place neighborhoods for the required point
+functions on that progression. Include the real component-order
+divisibility in L. For the primes supplied by the inherited
+fixed-data theorem, the same order moduli as in the doubled-point
+construction permit
+\[
+ H=[h]P_0,\qquad U_i=[h]Q_i,\qquad V_i=[h-1]Q_i
+\]
+to have the required primary and opposite formal reductions,
+while preserving the prepared and real conditions. Arbitrarily
+large h can be used, in particular $h\ne0,1$.
+\end{lemma}
+\begin{proof}
+The two conjugate reduction orders at a selected prime are the
+unordered pair $d_-(\pi),d_+(\pi)$. The prime theorem imposes
+$\operatorname{Re}\pi\equiv9\pmod{16}$ and
+$\operatorname{Im}\pi\equiv0\pmod{16}$.
+Lemma~\ref{q198:half-generator-reduction} shows that their quarters
+kill $R_0$, hence every $Q_i$. With
+\[
+ U=\operatorname{lcm}(d_-(\pi)/4),\qquad
+ V=\operatorname{lcm}(d_+(\pi)/4),
+\]
+the inherited avoidance and order calculations give
+$\gcd(U,V)=1$, $\gcd(U,L)=16$ and $\gcd(V,L)=1$.
+Therefore
+$h\equiv0\pmod U$, $h\equiv1\pmod V$,
+$h\equiv h_*\pmod L$ are compatible. They put H and every
+$U_i$ in the primary formal group and $H-P_0$ and every $V_i$
+in the opposite one. The roles of the two places follow the
+unordered order pair.
+
+For the real conditions apply
+Lemma~\ref{v15:dependencies:lem:real-progression} to the closure
+of $(R_0,R_0^\sigma)$ in the product of the real elliptic groups.
+Every displayed function is an integer multiplication or a fixed
+translate of it: $H=[2h]R_0$, $U_i=[hm_i]R_0$ and
+$V_i=[hm_i-m_i]R_0$. No multiplication-by-one-half rational map
+is invoked. The compatible progression is dense in the prescribed
+component. Its arbitrarily large positive indices meet the selected
+nonempty real neighborhoods. Finite-place conditions were included
+in L and are preserved. Removing h=0,1 deletes only two indices.
+\end{proof}
+
+\begin{proposition}[Uniform scalar preparation]\label{q198:scalar-preparation}
+There is a fixed integer $N_C$ such that, for every $N\ge N_C$
+and integer input X, one can choose a positive integer $a_0$,
+$3\mid a_0$, set $Q_2=[a_0]P_0$, $a=2a_0\in6\Z$, and
+choose a reference progression $h\equiv h_*\pmod L$ with
+$64\mid h_*,L$ on which the final scalar input satisfies every
+hypothesis of the inherited zero-preparation realization theorem.
+The index $a_0$ can be arbitrarily large.
+\end{proposition}
+\begin{proof}
+This is the application of P13--P14 in
+Section~\ref{q214:uniform-existence} to the actual doubled scalar
+quotient, with the finite set and initial divisibility made explicit.
+For integer X, $r_s$ is an integer at least one, so
+$R\ge A_N/(1+149^2)$ uniformly in X.
+Choose the fixed compact real neighborhoods of the inherited
+scalar construction. For its undoubled quotient
+$Z^{\rm old}=z(Q_2)/z(H)$ and norm F, let
+$|Z^{\rm old}_0|,|Z^{\rm old}_1|\le M_Z$ and $|F|\le M_F$
+there, with constants independent of X,N.
+Since $Z=2Z^{\rm old}$, for $R\ge1$ we have
+\[
+ 0<W_s\le K'_W R^{-4},\qquad
+ K'_W=16M_Z^4+4M_Z^2+M_F^2,\qquad
+ 0<b_s\le9793(K'_W)^2R^{-6}.
+\]
+Choose a fixed $N_C$ making the last upper bound less than 17
+for every larger N. Positivity follows from F nonzero. This
+choice precedes all input-dependent moduli and labels.
+
+For the given pair (N,X), put $D_s=1+149^2r_s$.
+The four-contact calculation gives
+$\gcd(A_Nr_s,D_s)=\gcd(A_Nr_s+9792D_s,D_s)=1$,
+so $R(R+9792)$ has square reduced denominator $D_s^2$.
+It also gives $v_2(R)\in\{2,3\}$ and $v_3(R)=v_{17}(R)=0$.
+Thus $1+9792/R$ is a square at 2,3,17, and so is $R(R+9792)$.
+Let $\mathcal S$ contain its odd-valuation numerator support and
+\emph{also} 2,3,17. These three primes are included even if they
+are absent from that support.
+
+Choose the initial reference $H_*=[h_*]P_0$ sufficiently formal
+at every place over $\mathcal S$, with $64\mid h_*$ from the
+start, and in the fixed real neighborhoods. This makes F as deep
+as required. Next choose $a_0$ sufficiently divisible so that
+$[a_0]P_0$ is still deeper at those places, while its real image
+lies in the fixed neighborhood of O. Impose $3\mid a_0$ and
+any prescribed lower bound on $a_0$. The finite-index compact-group
+recurrence used in P14 permits this additional fixed divisibility.
+The quotient $z(Q_2)/z(H_*)$ can consequently be made arbitrarily
+deep in both rational components. Multiplication by two leaves
+odd-prime depths unchanged and increases their dyadic depths.
+It follows that each of the three terms of $W_s$ is integral at
+the odd-valuation support, and that the scalar input has depths
+at least 3,1,2 at 2,3,17. The local squareclass is unchanged,
+since $b_s=R(R+9792)W_s^2$.
+
+At the odd-valuation numerator support, integrality of $W_s$
+prevents negative odd valuations of $b_s$. Outside that support
+the valuation of $R(R+9792)$ is even; multiplication by $W_s^2$
+preserves even parity. Thus the reduced denominator of $b_s$ is
+square. The real estimate gives $0<b_s<17$, and the local square
+and depth conditions have just been verified.
+
+Now fix $a_0$. By continuity, a sufficiently small finite-place
+and real neighborhood of $H_*$ preserves all these conditions and
+the nonzero reference and scalar-chart denominators. Choose L
+with 64 dividing L, including the finite preparation and component
+orders, so $h\equiv h_*\pmod L$ preserves the finite conditions;
+retain the chosen real neighborhood for the later recurrence.
+The initial h* was already divisible by 64, so the later CRT
+compatibility is available. These are hypotheses on the scalar
+input at the later H; no fixed earlier scalar witnesses are being
+carried along this progression.
+\end{proof}
+
+\begin{lemma}[The additive coefficient list with coincidences]
+\label{q198:additive-contacts}
+For fixed rational $T\ge1$, the two detectors use the coefficient
+list $\Theta\cup(\Theta-T)$. It is admissible for the inherited
+prime-selection theorem after equal coefficients are merged and
+every incidence is retained. The merged list has at least ten
+distinct coefficients. The construction gives the contact parity,
+finite-place preparation and real limits required by both detectors.
+\end{lemma}
+\begin{proof}
+An incidence is a pair $(j,\theta)$, with offsets $a_0=0,a_1=T$
+and $\theta\in\Theta$. Associate the coefficient
+$\gamma=\theta-a_j$ to it. Within each detector these ten
+coefficients are distinct. Across detectors they may coincide;
+the bound $T\ge1$ does not exclude that possibility.
+Merge them into a finite set and keep the list of incidences for
+each member. Coefficient zero occurs, so the selected primes include
+the numerator u of the slope.
+
+Choose a positive integer D with $D^2\gamma\in\Z$ for every
+coefficient, and apply the inherited theorem to the distinct integers
+$c_\gamma=-D^2\gamma$. Prescribed divisibility of w and an enlarged D
+give any fixed denominator depths. Set
+\[
+ v_0=D^2w^2,\qquad\lambda=u/v_0,\qquad
+ p_\gamma=u-\gamma v_0=u+c_\gamma w^2.
+\]
+All coefficients, finite preparation data, forbidden primes and real
+neighborhoods are fixed before applying the theorem. Its slope and
+prime cutoffs can ensure $p_\gamma>w^2$, avoid all fixed denominators
+and coefficient differences, and make all selected primes distinct.
+Then each incident contact $t_j-\theta$ has valuation one at
+$p_\gamma$, while other contacts in that detector are units.
+The same prime and Gaussian generator is used for every incidence
+of a merged coefficient. Its reference congruences are imposed once.
+
+For either detector, away from $t_j=1$, its exact normalized contact
+function is
+\[
+ \mathcal R_j=
+ \frac{\prod_{\theta\in\Theta}(u+(a_j-\theta)v_0)}
+ {v_0^{10}(\lambda+a_j-1)^{10}}.
+\]
+Every numerator factor is its selected prime, and each occurs once
+within that detector. The denominator is a rational square.
+Thus all other valuations of $\mathcal R_j$ are even. At a fixed
+prepared prime, choose the denominator depth so that $\lambda$
+dominates 1 and T p-adically. The identity
+\[
+ \mathcal R_j=
+ \prod_{\theta\in\Theta_0}
+ \left(1-\frac{(1-\theta)^2}{(t_j-1)^2}\right)
+\]
+makes $\mathcal R_j$ arbitrarily close to one and
+$q_j=\mathcal R_j^{-1}-1$ arbitrarily small there. The selected
+primes avoid the preparation set, so this denominator choice remains
+valid. At real places the same expression tends to one from below
+as $\lambda\to+\infty$; hence $q_j>0$ tends to zero. Arbitrarily
+large fixed slope bounds give these simultaneous conditions.
+This argument uses no assertion of twenty distinct coefficients.
+\end{proof}
+
+\begin{proposition}[One completeness threshold]\label{q198:completeness}
+For every integer X and every $N\ge N_C$, with $N_C$ enlarged
+once if necessary by a fixed amount, the 198 rows have rational
+witnesses with input X.
+\end{proposition}
+\begin{proof}
+Apply Proposition~\ref{q198:scalar-preparation} and choose $a_0$
+arbitrarily large, so $a=2a_0\in6\Z$ is in the range of
+Lemma~\ref{q198:affine-lucas}. Choose its positive odd b and t.
+Set
+\[
+ Q_1=[\beta]P_0,\quad Q_2=[a_0]P_0,\quad Q_3=[t]R_0,\quad
+ Q_4=[(b-1)/2]R_0.
+\]
+All four are non-torsion and finite, since $\beta\ge2504$,
+$a_0,t>0$ and $b>1$. Their labels are exactly $\beta,a,t,b$,
+and their Lucas residual is zero. These points and the rational
+$T\ge1$ of Corollary~\ref{q198:shifted-aggregate} are now fixed
+before comparison-prime selection.
+
+Choose compact neighborhoods for the finitely many reference and
+numerator functions in the product real group, within the scalar
+neighborhood and away from their finitely many exceptional points.
+They exist because all numerator functions are fixed integer
+multiplications and translates, and the initial nonzero integer
+reference and its predecessor give non-torsion numerator points.
+Include the component orders in L. At the prepared finite places
+choose neighborhoods on which those rational functions are bounded.
+Enlarge the preparation set to include $\Sigma$, the scalar support,
+all fixed denominator and guard primes, and numerator/denominator
+primes of T. These data depend on the fixed (N,X) and labels,
+which is permitted by the fixed-data prime theorem.
+
+Apply Lemma~\ref{q198:additive-contacts}, choosing sufficiently
+large fixed prime and slope cutoffs, and then
+Lemma~\ref{q198:half-generator-progression}. Let the final index h
+avoid 0 and 1 and meet the retained neighborhoods. Put
+\[
+ H=[h]P_0,\qquad U_i=[h]Q_i,\qquad V_i=[h-1]Q_i.
+\]
+The scalar triple consists of non-torsion points with nonzero
+abscissas and ordinates, so the inverse Vieta converse applies.
+The reciprocal-pair converses apply to the other three pairs.
+The reference and all stored ratios have their stated definitions.
+
+At a selected contact prime, the primary formal group contains H
+and every $U_i$, and the conjugate opposite formal group contains
+$H-P_0$ and every $V_i$. Each reciprocal has valuation at least two.
+The exact logarithmic ratios are the chosen labels, with their
+multipliers and offset. Since those labels are p-integral, their
+relative order-four errors are absolute errors of order at least
+four. Therefore all $C_i$, I and G have valuation at least four.
+Here $v(q_j)=-1$. The smallest valuations of the nonconstant terms
+in the five factors are, according to their type,
+\[
+ \begin{array}{c|cccccc}
+ \text{term}&q^5C_i^2&q^5I^4&q^3A_2^2&q^2A_i^2
+                  &q^2C_1^4&q^4B_i^4\\ \hline
+ \text{lower bound}&3&11&1&2&14&4.
+ \end{array}
+\]
+The same bound two holds for $q^2D_H^2$, and the G term has
+the same bound as $q^5C_i^2$. Thus the factor product $W_j$
+is one modulo the successful place. At the opposite place, the
+inherited distinct-valuation-class argument, which needs no formalness
+assumption there, says $W_j^{-1}$ has residue zero or one.
+Consequently $\tau_j=\Tr(W_j^{-1})$ is a unit with residue one or
+two at this odd rational prime.
+
+The actual detector pole input is
+\[
+             b_j=\gamma^2\mathcal R_j/\tau_j^2,\qquad
+                         \gamma=408/409.
+\]
+It has valuation one at its selected primes, and even valuation at
+all other primes, by the contact factorization in
+Lemma~\ref{q198:additive-contacts}. In particular its reduced
+denominator is square. At the prepared primes q is arbitrarily
+small uniformly on the fixed neighborhoods, so $W_j$ is close to
+one and $\tau_j$ close to two. Choose the closeness so
+$\mathcal R_j$ is a square at 2,3,17. The valuations of $\gamma$
+there are 3,1,1, giving the exact detector depths 4,2,2 and the
+required local squareclasses. At real places q is positive and
+small; every factor is positive and tends to one. Thus
+$\tau_j>0$ and $b_j\to\gamma^2/4\in(0,17)$.
+The fixed slope cutoff was chosen to make $0<b_j<17$ for both
+actual detector inputs. It also ensures $q_j\ne0$ and $t_j\ne1$.
+
+The final H still satisfies all scalar conditions of
+Proposition~\ref{q198:scalar-preparation}. Now, \emph{after this
+final H is fixed}, apply the zero-preparation realization theorem
+to the actual scalar input $b_s(H)$ and to the two actual inputs
+$b_0,b_1$. Choose their certificates separately. The scalar
+conditions were preserved by continuity, but an earlier tuple of
+scalar witnesses was not preserved or reused. The complete conic
+and support charts allow zero auxiliary witnesses and introduce no
+extra restriction.
+
+Fill the contact outputs using Lemma~\ref{q198:contact-circuit},
+the point and ratio outputs by their proven converse formulas, and
+the retained reference, scalar, factor and trace coordinates by
+their physical definitions. Apply the exact inverse stored-coordinate
+rescalings, legitimate because $R>0$. Every retained and changed
+row then vanishes. All later choices depended on the fixed (N,X)
+and labels, but imposed no further lower bound on N. The one fixed
+scalar real threshold therefore proves the proposition.
+\end{proof}
+
+\section{Exact finite identities and completion}\label{q198:finite-certificate}
+% Inventory N13 and the finite part of B09.
+The selected unbalanced quadratic table has SHA-256
+\begin{center}\small\ttfamily
+c55d7eefe41f62fee88b467e3ea8f6be8ba1e66f6a94b30eb74b39f6f6e7efad.
+\end{center}
+Its expanded polynomial has SHA-256
+\begin{center}\small\ttfamily
+652b5141aaa0d9f54ef89196ae9e442787335b2fd498e250c2772dc3af98a36c.
+\end{center}
+These identities fix the table, component conventions, coordinate
+weights and primitive row normalizations used here.
+The exact reconstruction described in \cite{q198-FiniteReconstruction}
+compares every retained row under the complete Laurent weight map,
+derives the twenty new inverse Vieta component rows directly from
+their displayed field equations, retains $R_2=R^2$ literally,
+and reconstructs the aggregate. It independently expands every
+quadratic square by an unordered term-pair sum. The resulting
+coefficient dictionary is exactly the pinned polynomial dictionary.
+
+\begin{proposition}[Finite coefficient identities]\label{q198:finite-algebra}
+The specified 198 table has 184 primitive integral quadratic
+residuals at every allowed parameter. Its sum of squares has degree
+four, content one, all 198 coordinates present, and 2945 coordinate
+monomials. Writing $\mathcal P_0$ for its fixed coefficient table
+at A=0, one has
+\[
+ P_A=\mathcal P_0-2AY_{103}-44402AY_{103}^2Y_{115}
+                                      +A^2Y_{103}^2.
+\]
+The three displayed monomials are absent from $\mathcal P_0$,
+which has 2942 nonzero monomials and height $H_0$.
+Consequently $H(P_N)=\max(H_0,A_N^2)$.
+\end{proposition}
+\begin{proof}
+We describe the finite certificate and the deductions from it.
+An ordinary field pair multiplies by
+$(u_0,u_1)(v_0,v_1)=(u_0v_0+2u_1v_1,u_0v_1+u_1v_0)$;
+the two specified reciprocal-square slots are converted from their
+doubled-second-component convention before this multiplication.
+Substitute the recorded Laurent weights, reduce by $\rho^2=2$,
+and collect each rational row. Multiply by its denominator and
+divide by its integer content with its recorded sign. These
+operations give precisely the 184 stored rows. The comparisons
+are coefficient identities, not numerical specializations.
+The source reference and contact identities in
+Lemma~\ref{q198:nonzero-scale} are among these retained identities,
+so reversing row division on the zero set does not lose a
+zero-scale component.
+
+For a residual $\sum_\alpha c_\alpha X^\alpha$, its square is
+computed as the diagonal terms $c_\alpha^2X^{2\alpha}$ and the
+off-diagonal terms $2c_\alpha c_\beta X^{\alpha+\beta}$ for
+$\alpha<\beta$. Adding all 184 dictionaries gives 2942 constant
+profiles, two linear-A profiles with coefficients -2 and -44402,
+and one A-squared profile with coefficient 1. Their monomials are
+distinct. In delivered one-based numbering the last three are
+$x_{104}$, $x_{104}^2x_{116}$ and $x_{104}^2$; since $x_1=X$
+and $x_i=Y_{i-1}$, these are exactly the displayed formula.
+The largest constant magnitude is $H_0$, attained at $x_{110}^4$.
+The coefficient of $X^4$ is exactly one with no parameter term.
+These finite integer equalities are recorded by the complete
+coefficient comparison; they can also be checked directly from
+the supplied dictionaries by the preceding expansion rule.
+
+The $X^4$ coefficient proves degree at least four and integer
+content one at every specialization; the quadratic residual degrees
+prove degree at most four. Each coordinate appears in the verified
+nonzero coefficient dictionary. No allowed positive A can cancel
+a coordinate monomial, because every profile contains only one
+power of A. This proves the support assertions. The unbalanced
+rows are primitive after specialization: their parameter supports
+are disjoint, and their coefficient gcds at $A=149^3$ are one.
+For larger allowed powers only the same prime 149 can enter a
+parameter coefficient. A constant coefficient excludes that prime
+whenever necessary, as the gcd at $149^3$ already shows. Any
+other prime has unchanged divisibility in the parameter coefficients.
+Thus no new common prime divisor appears.
+
+Finally $A\ge149^3>44402$, so the two linear coefficient magnitudes
+are at most $A^2$. Both the pure $H_0$ and pure $A^2$ profiles
+occur, proving the exact maximum. The integer comparisons
+$149^{210}<H_0\le149^{214}$ give crossover N=53 among positive
+integers N. This is purely a coefficient statement.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{q198:family}]
+For a fixed N, a sum of rational squares vanishes exactly when each
+residual vanishes. The table transport and chart identities identify
+those rows with the physical system used above, with all its stated
+domains. Propositions~\ref{q198:soundness} and~\ref{q198:completeness}
+therefore give the claimed input projection for
+$N\ge N_0=\max(1,N_S,N_C)$. All constants in this maximum were
+fixed independently of the input. Proposition~\ref{q198:finite-algebra}
+supplies the coefficient and degree assertions for the same polynomial.
+\end{proof}
+
+\begin{remark}\label{q198:bb-interface}
+The fixed specialization
+$N_{\rm BB}=\operatorname{BB}(2^{1000})$ and the strict bound
+$H(P_{N_{\rm BB}})<\operatorname{BB}(2^{2000})$ require a separate
+threshold and machine-size proof for this 198 family.
+They are not consequences of the crossover N=53.
+In this unbalanced presentation, if that specialization is supplied,
+the coefficient parameter is exactly
+$A=149^{2\operatorname{BB}(2^{1000})+1}$ and every coefficient is
+an integer polynomial of degree at most two in A. The family proof
+above asserts no numerical sufficient N and no Busy Beaver threshold.
+\end{remark}

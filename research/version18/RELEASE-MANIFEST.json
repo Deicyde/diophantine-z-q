@@ -1,0 +1,110 @@
+{
+  "status": "Complete built candidate with actual source/PDF/build mapping; protected release acceptance pending",
+  "version": 18,
+  "release_date": null,
+  "published_base_commit": "3808e8c4bc6cbabbab43ead171377abe7f4ac48d",
+  "preparation_base_commit": "3808e8c4bc6cbabbab43ead171377abe7f4ac48d",
+  "release_commit": null,
+  "release_tag": null,
+  "source": {
+    "path": "manuscripts/quartic_v18.tex",
+    "sha256": "7004f12f00643ab83d9fad24d348009e31dfe56d48c162c58d702f9171f6a2c7"
+  },
+  "pdf": {
+    "path": "manuscripts/quartic_v18.pdf",
+    "sha256": "311e9fdf1fd21ca222e2024521ab09a3ebb36e4d05a4e11bcebeb3b7474cd423"
+  },
+  "build_record": {
+    "path": "research/version18/BUILD.json",
+    "sha256": "938d6a6d14f4f3220c236dacbf82af5d0d08a15eea96f6c75b18155d34b25d17"
+  },
+  "required_tex_inputs": [],
+  "claims": {
+    "version": 18,
+    "variables_including_input": 196,
+    "existential_variables": 195,
+    "quadratic_rows": 182,
+    "degree": 4,
+    "integer_content": 1,
+    "coordinate_monomials": 2943,
+    "presentation": "unbalanced Jose196 reduction of Conant198",
+    "N": "BB(2^1000)",
+    "A": "149^(2*BB(2^1000)+1)",
+    "coefficient_representation": "integer polynomials of degree at most two in fixed A",
+    "exact_coefficient_height": "A^2 = 149^(4*BB(2^1000)+2)",
+    "strict_coefficient_bound": "BB(2^2000)",
+    "all_larger_family": "A_N=149^(2N+1), every N>=N0 for one fixed input-independent N0",
+    "decimal_companion": {
+      "variables": 314,
+      "monomials": 6672,
+      "coefficient_bound": "2^6496",
+      "path": "quartics/quartic-314-fully-expanded.txt"
+    },
+    "minimum_claim": "degree four is necessary; 196 variables is an upper bound",
+    "upstream_reduction_commit": "5c35db3253a70b0875acec4b451cdaac4da3c8fd",
+    "parent": "complete Conant198 arithmetic and parameter-selection proofs retained",
+    "elimination_scope": "same rational input projection for each fixed integer N>=1",
+    "fixed_coefficient_maximum": "484991541504995159662206970923766531374664106904986910720",
+    "all_N_height": "max(K_fixed,149^(4N+2))",
+    "coefficient_crossover_N": 7,
+    "crossover_is_defining_threshold": false
+  },
+  "incorporation_record": {
+    "path": "research/version18/SOURCE-PROMOTION.json",
+    "sha256": "ba280f3d63ce388a7ce3bb48647b6bcf094f57712a37f6e474e0507c6f75efc4"
+  },
+  "independent_reviews_of_incorporation": [],
+  "independent_reviews_of_source_pdf_correspondence": [],
+  "independent_reviews_of_assembled_argument": [],
+  "protocol_b": {
+    "accepted_head": null,
+    "app_check_url": null,
+    "approved_reviewer_records": [],
+    "recorded_overrides": []
+  },
+  "computation_checks": [
+    {
+      "check": "198 parent finite reconstruction",
+      "assertions": 50684,
+      "result_sha256": "93abd83dd40897cab97f563b5a2cd4800d4b81d1af346944afaebb0c59d21aaa",
+      "scope": "Local portable replay at intended public paths; not arithmetic acceptance"
+    },
+    {
+      "check": "196 elimination and polynomial expansion",
+      "assertions": 48690,
+      "result_sha256": "2837a8f407c08fafda1e1b14670c940a10c4beca93abf326e5a5ebd078a47091",
+      "scope": "Local portable replay at intended public paths; not arithmetic acceptance"
+    }
+  ],
+  "handoff": {
+    "archive": "z-in-q-version18-cumulative.zip",
+    "bytes": null,
+    "sha256": null,
+    "final_tree": null,
+    "manifest_sha256": null,
+    "readback_report": null
+  },
+  "scope": "Pre-release preparation manifest. It binds the candidate files and inherited evidence. Actual final acceptance and publication are recorded only after they occur, in the release readback; null final fields are not acceptance.",
+  "manuscript_date": "2026-11-15",
+  "pending_before_release": [
+    "Complete final196/BB source review and required protected checks",
+    "Record actual merge, postmerge checks and release identity before packing the immutable handoff tree"
+  ],
+  "builder_review": {
+    "path": "research/version18/reviews/builder-review.json",
+    "sha256": "6efd77668e48b244e2dc35e0f1e8471615c8ae22baad5ecb8f8d46bd40669139"
+  },
+  "builder_review_scope": "Build selection and recorded source/PDF/build correspondence for this exact Version 18 candidate, and byte preservation of the four released Version 16 and Version 17 files in this checkout. No mathematical acceptance of Version 18 is given or implied by this record.",
+  "predecessor": {
+    "pr": 119,
+    "head": "75c0ab58d80d93f3d164bf4c9fbe81b36db730b0",
+    "merge": "3808e8c4bc6cbabbab43ead171377abe7f4ac48d",
+    "app_check": 132972854331,
+    "run": 43766521280,
+    "acceptance_basis": "Four owner overrides, not unanimous model acceptance",
+    "decision": {
+      "path": "research/version18/reviews/pr119-decision.json",
+      "sha256": "73e64b2d70b41e461fe6725e1e6f481b3079226c6b9dea37afa3cc3c80311ae3"
+    }
+  }
+}
