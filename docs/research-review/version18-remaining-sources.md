@@ -12,7 +12,7 @@ published inputs to their uses and preserves source-access qualifications.
 It does not certify the complete theorem or erase historical objections.
 
 Base manuscript SHA256: `ca1ea465a0ebae934162a2c278186ab09477a91f14b60eefa71c5398ee71a165`.
-Candidate manuscript SHA256: `2761f01d08dc8d3e5453b4ae4a9a3e462cac53639f55134223849a31261b792c`.
+Candidate manuscript SHA256: `53ca7ea3490f4cb476c03859ccaed4a2ce692b37ae93fbe14e6d43326bcbdc7b`.
 
 The candidate includes the printed-source clarifications recorded below.
 The exact source is rebuilt and checked before publication. The theorem statements, labels,
@@ -29,7 +29,7 @@ and status/prose cleanup are separate changes.
 | 3199-3199 | 3233-3233 |
 | 3568-3573 | 3602-3609 |
 | 3602-3604 | 3638-3650 |
-| 5168-5167 | 5214-5222 |
+| 4638-4637 | 4684-4692 |
 | 5420-5421 | 5475-5477 |
 | 5765-5765 | 5821-5822 |
 | 5790-5794 | 5847-5850 |
@@ -194,3 +194,15 @@ The ramification locators distinguish Fröhlich's Chapter I from Serre's Chapter
 The global theta step now cites precisely Waldspurger's ICM Theorem1(1) p.529 for nonvanishing, part(2) for local identification, and Proposition1 p.527 for the unary-orthogonal spectrum. The nonzero Fourier functional is the general theta-theorem input recalled from [W], Theorem1 at the start of the 1981 proof of Proposition18, p.467, before its scalar coefficient decomposition. This does not apply the complete scalar Propositions17-18 without their standing hypothesis H2. Printed H2 is a disjunction of three alternatives, not their conjunction. The manuscript's existing optional high-conductor character choice and its same-squareclass Corollary2 proof are unchanged; no new arithmetic premise or route was introduced. The 1980 foundational proof was not independently reopened in this check: the published 1981 and ICM statements were compared with the actual consumer.
 
 These source checks found no new mathematical obstruction. The changes above expose derivations and correct attribution; they remain subject to the gate's review of this candidate. No book scan, extended source excerpt, or complete source PDF is included.
+
+## First review and incorporation repair
+
+At head `2b37cc9f5f7b1e64797a43411bad3d18acbca4b2`, [App check 132892388692](https://github.com/elliotglazer/diophantine-z-q/runs/132892388692) requested changes. The original reports are in artifact `protocol-b-43740480884-1` of [run 43740480884](https://github.com/elliotglazer/diophantine-z-q/actions/runs/43740480884). Neither report accepted that head.
+
+Fable finding `43740480884-1-fable-F117-1` identified a placement error: the three fresh Cassels–Fröhlich inspection fields had been inserted in the retained foundation's abstract. They are now beside `Serre1967-retained-ramification` in the source register. Every abstract environment is byte-identical to the base manuscript again. The changed register and restored abstract are rebuilt and rendered before this revision is pushed.
+
+Astra findings `43740480884-1-astra-SA117-1` and `43740480884-1-astra-SA117-2` concerned unavailable source access, rather than an identified mathematical defect. The independently produced Fable report in that same run contains explicit `verified` source checks for every listed Cassels–Fröhlich passage and for the requested 1981 Waldspurger passages. These are reported here as evidence for the next review's disposition, not as author-issued resolutions or overrides.
+
+For SA117-1, the Fable `source_checks` entries are `froehlich-1967-local-fields-ch1-s9-prop3-p34`, `froehlich-1967-local-fields-ch1-s9-prop4-p36`, `froehlich-1967-local-fields-ch1-s9-eqs6-8-p37`, `froehlich-1967-local-fields-ch1-s9-theorem2-pp38-39`, `serre-1967-local-class-field-theory-s2.4-p141`, `serre-1967-local-class-field-theory-s4.1-p155`, and `serre-1967-local-class-field-theory-s4.3-p158`. Each entry describes the printed statement and its consuming calculation.
+
+For SA117-2, those entries are `waldspurger-1981-jmpa-coefficients-IV.3-4-pp395-398`, `waldspurger-1981-jmpa-coefficients-prop-18-proof-p467`, `waldspurger-1981-jmpa-coefficients-IX.2-H2-p458`, and `waldspurger-1981-jmpa-coefficients-lemma-41-p476`. Fable also checked ICM Theorem 1 and Proposition 1. Its report records the limits precisely: the 1980 paper [W] was not opened, the defining text of H2 in Section I was not reread, and Assertion 8(ii), p.397 is a more direct real-packet locator than Lemma 41. It raised no mathematical objection to these consumers. The original review records retain these qualifications.
