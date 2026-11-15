@@ -41,4 +41,4 @@ FixedTest/FixedTest2/FixedAll, CMTest, HeckeIrrAb, FromFields and Discharges.
 - The fold needs a hand edit, because the chain inputs come from other bundles.
 - A full `lake build` of this base was not run.
 
-Report: docs/research/p1-quot.md.
+Report: docs/research/p1-quot.md. Results log: scratch/p1-quot/log.md.
