@@ -164,3 +164,64 @@ theorem flat_surjective_gD [IsDiscreteValuationRing O] (hO : O₁.comap (algebra
 end FF
 
 end SHPrinted2
+
+namespace SHPrinted2
+
+/-! ## Descent of an open immersion and its image along a faithfully flat base change -/
+
+section Descent
+
+/-- The base change of an `S`-morphism `c : Y → N` along `g : S' → S` is a pullback of `c`. -/
+theorem isPullback_bc {S S' : Scheme.{0}} (g : S' ⟶ S) {Y N : Over S} (c : Y ⟶ N) :
+    IsPullback ((Over.pullback g).map c).left (pullback.fst Y.hom g) (pullback.fst N.hom g) c.left := by
+  have t := (IsPullback.of_hasPullback N.hom g).flip
+  have s : IsPullback (((Over.pullback g).map c).left ≫ pullback.snd N.hom g) (pullback.fst Y.hom g) g
+      (c.left ≫ N.hom) := by
+    have e1 : ((Over.pullback g).map c).left ≫ pullback.snd N.hom g = pullback.snd Y.hom g :=
+      Over.w ((Over.pullback g).map c)
+    have e2 : c.left ≫ N.hom = Y.hom := Over.w c
+    rw [e1, e2]
+    exact (IsPullback.of_hasPullback Y.hom g).flip
+  refine IsPullback.of_right s ?_ t
+  simp [Over.pullback_map_left]
+
+/-- The same square with the corner replaced through an isomorphism. -/
+theorem isPullback_bc_iso {S S' : Scheme.{0}} (g : S' ⟶ S) {Y N : Over S} (c : Y ⟶ N) {Y₁ : Scheme.{0}}
+    (e : Y₁ ⟶ ((Over.pullback g).obj Y).left) [IsIso e] :
+    IsPullback (e ≫ ((Over.pullback g).map c).left) (e ≫ pullback.fst Y.hom g) (pullback.fst N.hom g)
+      c.left := by
+  have s : IsPullback e (e ≫ pullback.fst Y.hom g) (pullback.fst Y.hom g) (𝟙 _) :=
+    IsPullback.of_horiz_isIso ⟨by simp⟩
+  have := s.paste_horiz (isPullback_bc g c)
+  simpa using this
+
+/-- **Descent of an open immersion with prescribed image** along a surjective, flat, quasi-compact `p`
+(Mathlib's fpqc descent of open immersions, `IsOpenImmersion.DescendsAlong`). -/
+theorem descend_openImm {Y Y₁ N N₁ : Scheme.{0}} (U : Y.Opens) (c : Y ⟶ N) (c₁ : Y₁ ⟶ N₁)
+    (q : Y₁ ⟶ Y) (p : N₁ ⟶ N) (hsq : IsPullback c₁ q p c) [Surjective p] [Flat p] [QuasiCompact p]
+    (U₁ : Y₁.Opens) (hU₁ : (U₁ : Set Y₁) = q.base ⁻¹' U) (ho : IsOpenImmersion (U₁.ι ≫ c₁))
+    (T : Set N) (T₁ : Set N₁) (hT : p.base ⁻¹' T = T₁) (hr : Set.range (U₁.ι ≫ c₁).base = T₁) :
+    IsOpenImmersion (U.ι ≫ c) ∧ Set.range (U.ι ≫ c).base = T := by
+  have hU : U₁ = q ⁻¹ᵁ U := by
+    ext x
+    rw [hU₁]
+    rfl
+  subst hU
+  have sq := (isPullback_morphismRestrict q U).flip.paste_horiz hsq
+  have hQ : (@Surjective ⊓ @Flat ⊓ @QuasiCompact : MorphismProperty Scheme.{0}) p := ⟨⟨inferInstance, inferInstance⟩, inferInstance⟩
+  refine ⟨MorphismProperty.of_isPullback_of_descendsAlong (P := @IsOpenImmersion) sq hQ ho, ?_⟩
+  have hfst : (q ⁻¹ᵁ U).ι ≫ c₁ = sq.isoPullback.hom ≫ pullback.fst p (U.ι ≫ c) :=
+    (sq.isoPullback_hom_fst).symm
+  have hr' : Set.range ((q ⁻¹ᵁ U).ι ≫ c₁).base = p.base ⁻¹' Set.range (U.ι ≫ c).base := by
+    have hcomp : ⇑(sq.isoPullback.hom ≫ pullback.fst p (U.ι ≫ c)) =
+        ⇑(pullback.fst p (U.ι ≫ c)) ∘ ⇑sq.isoPullback.hom :=
+      funext (Scheme.Hom.comp_apply _ _)
+    change Set.range ⇑((q ⁻¹ᵁ U).ι ≫ c₁) = p ⁻¹' Set.range ⇑(U.ι ≫ c)
+    rw [hfst, hcomp, Function.Surjective.range_comp sq.isoPullback.hom.surjective,
+      Scheme.Pullback.range_fst]
+  rw [hr', ← hT] at hr
+  exact (Set.preimage_injective.mpr p.surjective) hr
+
+end Descent
+
+end SHPrinted2
