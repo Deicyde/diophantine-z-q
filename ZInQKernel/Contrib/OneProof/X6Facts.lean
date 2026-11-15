@@ -36,6 +36,17 @@ for these three orders. A consequence of each of these, never stronger: it asser
 def QMPairsCMExist : Prop :=
   (∃ P : QMPair Qbar, HasCM4 P.q) ∧ (∃ P : QMPair Qbar, HasCM3 P.q) ∧ (∃ P : QMPair Qbar, HasCM24 P.q)
 
+/-- `QMPairsCMExist` is the witness-free form of the chain's clause `CMExists X Ψ` (on any coarse witness, since
+`Ψ` is onto the classes). -/
+theorem cmExists_iff (X : Over (Spec (CommRingCat.of ℚ)))
+    (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)) : CMExists X Ψ ↔ QMPairsCMExist := by
+  constructor
+  · rintro ⟨⟨_, P₄, -, c₄⟩, ⟨_, P₃, -, c₃⟩, ⟨_, P₂, -, c₂⟩⟩
+    exact ⟨⟨P₄, c₄⟩, ⟨P₃, c₃⟩, ⟨P₂, c₂⟩⟩
+  · rintro ⟨⟨P₄, c₄⟩, ⟨P₃, c₃⟩, ⟨P₂, c₂⟩⟩
+    exact ⟨⟨_, P₄, Ψ.apply_symm_apply _, c₄⟩, ⟨_, P₃, Ψ.apply_symm_apply _, c₃⟩,
+      ⟨_, P₂, Ψ.apply_symm_apply _, c₂⟩⟩
+
 /-- **`BabaGranathRationalAb` from Elkies' leaf and the three CM pairs** (gt-x6facts). -/
 theorem babaGranathRationalAb_of_elkies (hE : ElkiesEquationsX6Ab) (hC : QMPairsCMExist) :
     BabaGranathRationalAb := by
@@ -59,6 +70,29 @@ theorem babaGranathRationalAb_of_elkies (hE : ElkiesEquationsX6Ab) (hC : QMPairs
   · have e := (hcl _ _ P₂ P₂ (hs P₂) (hs P₂)).2.1 c₂
     obtain ⟨α, ⟨g⟩⟩ := (hcl _ x P₂ P (hs P₂) hP).1.1 (e.trans (by rw [hx]; simp))
     exact HasCM24.of_iso g ((hasCM24_twist P₂.q α).2 c₂)
+
+/-- **`QMPairsCMExist` is a consequence of `BabaGranathRationalAb`** (proved, no other input): `π` is onto
+`P¹(ℚ̄)` by the fibre clause (the chain's `ShimuraSplit.surj_of_fibre`: finite twist classes and `CurveSurj`), and
+a point over `t₄` (resp. `t₃`, `t₂₄`) carries a pair with CM by `ℤ[i]` (resp. `ℤ[ζ₃]`, `ℤ[√−6]`) by the converse CM
+clauses. So the new leaf is strictly weaker than the field it replaces. -/
+theorem qmPairsCMExist_of_babaGranath (h : BabaGranathRationalAb) : QMPairsCMExist := by
+  obtain ⟨Y, Φ, X, Ψ, fY, π, t₄, t₃, t₂₄, -, h6, -, -, -, hcl⟩ := h
+  have hsurj := ShimuraSplit.surj_of_fibre h6 π fun x x' P Q hP hQ => (hcl x x' P Q hP hQ).1
+  have pt : ∀ t : OnePoint ℚ, ∃ (x : fieldPt Qbar ⟶ X) (P : QMPair Qbar), Ψ x = Quotient.mk _ P ∧
+      π.val (K := Qbar) x.left = t.map (algebraMap ℚ Qbar) := by
+    intro t
+    obtain ⟨x, hx⟩ := hsurj (t.map (algebraMap ℚ Qbar))
+    obtain ⟨P, hP⟩ := Quotient.exists_rep (Ψ x)
+    exact ⟨x, P, hP.symm, hx⟩
+  obtain ⟨x₄, P₄, h₄, v₄⟩ := pt t₄
+  obtain ⟨x₃, P₃, h₃, v₃⟩ := pt t₃
+  obtain ⟨x₂, P₂, h₂, v₂⟩ := pt t₂₄
+  exact ⟨⟨P₄, ((hcl x₄ x₄ P₄ P₄ h₄ h₄).2.1).2 v₄⟩, ⟨P₃, ((hcl x₃ x₃ P₃ P₃ h₃ h₃).2.2.1).2 v₃⟩,
+    ⟨P₂, ((hcl x₂ x₂ P₂ P₂ h₂ h₂).2.2.2).2 v₂⟩⟩
+
+/-- **Under Elkies' leaf, `BabaGranathRationalAb` is equivalent to `QMPairsCMExist`.** -/
+theorem babaGranathRationalAb_iff (hE : ElkiesEquationsX6Ab) : BabaGranathRationalAb ↔ QMPairsCMExist :=
+  ⟨qmPairsCMExist_of_babaGranath, babaGranathRationalAb_of_elkies hE⟩
 
 /-! ## `QMPairsCMExist` from its printed setting over `ℂ` and Shimura–Taniyama -/
 
@@ -128,4 +162,5 @@ end HDec.QMSplit.Moduli.X6Facts
 
 #print axioms HDec.QMSplit.Moduli.X6Facts.babaGranathRationalAb_of_elkies
 #print axioms HDec.QMSplit.Moduli.X6Facts.qmPairsCMExist_of_C
+#print axioms HDec.QMSplit.Moduli.X6Facts.babaGranathRationalAb_iff
 #print axioms HDec.QMSplit.Moduli.X6Facts.babaGranathRationalAb_of_printed

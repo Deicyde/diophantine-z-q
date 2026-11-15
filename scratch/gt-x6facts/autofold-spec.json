@@ -1,0 +1,9 @@
+{"name": "x6facts-fold",
+ "imports": ["ZInQKernel.Contrib.OneProof.X6Facts"],
+ "discharges": [
+   {"field": "babaGranathRationalAb",
+    "proof": "_root_.HDec.QMSplit.Moduli.X6Facts.babaGranathRationalAb_of_elkies {n}.elkiesEquationsX6Ab {n}.qmPairsCMExist",
+    "leaves": [{"name": "qmPairsCMExist", "type": "_root_.HDec.QMSplit.Moduli.X6Facts.QMPairsCMExist",
+                "doc": "gt-x6facts: the three elliptic CM pairs (CM by Z[i], Z[zeta3], Z[sqrt-6]) exist over Qbar (Eichler optimal embeddings; Shimura 1967 sections 1-3 with Shimura-Taniyama descent; Gonzalez-Rotger 2006 Prop. 5.6; locators UNVERIFIED). With elkiesEquationsX6Ab replaces babaGranathRationalAb.",
+                "kind": "published", "flag": "",
+                "source": "Shimura 1967 sections 1-3 (A_tau at the fixed point of an optimally embedded order), descended to Qbar; Gonzalez-Rotger 2006 Prop. 5.6 (#CM(R) = 2^b h(R) > 0); locators UNVERIFIED"}]}]}
