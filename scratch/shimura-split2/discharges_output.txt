@@ -21,6 +21,13 @@ DISCHARGES [OpenResearchLeaves19.shimuraFamilyAb] by RayClassCFT.shimuraFamilyAb
 DISCHARGES [OpenResearchLeaves19.shimuraFamilyAb] by ShimuraCFT.shimuraFamilyAb_of_mainThmI
   still assumes: [ShimuraCFT.ShimuraMainThmIDeligneY3Ab]
   axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.rayClassCMAb] by ShimuraSplit2.rayClassCMAb_of_leaves2
+  still assumes: [ShimuraGlue.DeligneComponentsX6PrintedAb,
+ ShimuraSplit2.QMReciprocityL3,
+ BPAnalytic.Uniformization.UniformizationLeafAll,
+ ZInQ.HomLattice.GAGAMorphism,
+ AvSplit.MumfordTorsionAlgClosed]
+  axioms: [propext, Classical.choice, Quot.sound]
 DISCHARGES [OpenResearchLeaves19.rayClassCMAb] by ShimuraSplit2.rayClassCMAb_of_printed
   still assumes: [ShimuraSplit2.ShimuraHolFamilyAb,
  ShimuraSplit2.QMReciprocityL3,
@@ -36,13 +43,24 @@ DISCHARGES [OpenResearchLeaves19.rayClassCMAb] by ShimuraSplit2.rayClassCMAb_of_
  ShimuraSplit2.ComplexUnifL3,
  ZInQ.HomUnify.HomLinearLift]
   axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.rayClassCMAb] by ShimuraSplit2.rayClassCMAb_of_witness
+  still assumes: [∃ Y Φ, LeafQM.AV.R1UnivRigid.R1fpPropsAb Y Φ,
+ ShimuraSplit2.QMReciprocityL3,
+ ShimuraSplit2.DCRelTransport,
+ ShimuraSplit2.UnifDetermines,
+ ShimuraSplit2.ComplexUnifL3,
+ ZInQ.HomUnify.HomLinearLift]
+  axioms: [propext, Classical.choice, Quot.sound]
 DISCHARGES [OpenResearchLeaves19.shimuraFamilyAb] by ShimuraSplit2.shimuraFamilyAb_of_hol
   still assumes: [ShimuraSplit2.ShimuraHolFamilyAb]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.shimuraFamilyAb] by ShimuraSplit2.shimuraFamilyAb_of_leaves2
+  still assumes: [ShimuraGlue.DeligneComponentsX6PrintedAb, ShimuraSplit2.ShimuraHolModAll]
   axioms: [propext, Classical.choice, Quot.sound]
 DISCHARGES [OpenResearchLeaves19.shimuraFamilyAb] by ShimuraSplit2.shimuraFamilyAb_of_printed
   still assumes: [ShimuraSplit2.ShimuraHolFamilyAb]
   axioms: [propext, Classical.choice, Quot.sound]
-#discharges: 65 open hypotheses, 1558 theorems checked, 11 discharge one
+#discharges: 65 open hypotheses, 1568 theorems checked, 14 discharge one
 'ShimuraSplit2.rayClassCMAb_of_printed' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ShimuraSplit2.shimuraFamilyAb_of_printed' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ShimuraSplit2.rayClassCMAb_of_split' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -52,7 +70,14 @@ DISCHARGES [OpenResearchLeaves19.shimuraFamilyAb] by ShimuraSplit2.shimuraFamily
 'ShimuraSplit2.tab_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ShimuraSplit2.QMReciprocityL3' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ShimuraSplit2.ShimuraHolFamilyAb' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraSplit2.rayClassCMAb_of_leaves2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraSplit2.shimuraFamilyAb_of_leaves2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraSplit2.shimuraHolModAll_of_hol' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraSplit2.shimuraHolFamilyAb_of_all' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraSplit2.exists_map_of_r1fp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraSplit2.isHolFamily_comp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraSplit2.ShimuraHolModAll' depends on axioms: [propext, Classical.choice, Quot.sound]
 
-real	0m10.776s
-user	0m4.742s
-sys	0m3.063s
+real	0m7.700s
+user	0m4.581s
+sys	0m2.909s

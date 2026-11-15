@@ -38,4 +38,13 @@ Task: split `RayClassCFT.ShimuraMainThmIDeligneY3AbU` (gt-rayclass composite) fa
   `ShimuraSplit2.rayClassCMAb_of_printed`, still assumes [ShimuraHolFamilyAb, QMReciprocityL3, UniformizationLeafAll,
   GAGAMorphism, MumfordTorsionAlgClosed]; `shimuraFamilyAb` by `shimuraFamilyAb_of_printed`, still assumes
   [ShimuraHolFamilyAb]; axioms standard. `65 open hypotheses, 1558 theorems checked, 11 discharge one`. VERIFIED.
-* 05:20 §12: `ShimuraHolModAll` (∀ fine witness form, no existence claim); proved `regVal_comp`, `isHolFamily_comp`, `exists_map_of_r1fp` (maps between fine witnesses from R1univAbProps), `shimuraHolModAll_of_hol` (∃ form ⇒ ∀ form) and `shimuraHolFamilyAb_of_all`; fields from (R) of deligneComponentsX6PrintedAb: `rayClassCMAb_of_leaves2`, `shimuraFamilyAb_of_leaves2`. Compiles. VERIFIED.
+* 04:59 §12: `ShimuraHolModAll` (∀ fine witness form, no existence claim); proved `regVal_comp`, `isHolFamily_comp`, `exists_map_of_r1fp` (maps between fine witnesses from R1univAbProps), `shimuraHolModAll_of_hol` (∃ form ⇒ ∀ form) and `shimuraHolFamilyAb_of_all`; fields from (R) of deligneComponentsX6PrintedAb: `rayClassCMAb_of_leaves2`, `shimuraFamilyAb_of_leaves2`. Compiles. VERIFIED.
+* 05:04 Rebuilt (`build.txt`); `#discharges` rerun (`discharges_output.txt`): `rayClassCMAb` by
+  `rayClassCMAb_of_leaves2`, still assumes [DeligneComponentsX6PrintedAb, QMReciprocityL3, UniformizationLeafAll,
+  GAGAMorphism, MumfordTorsionAlgClosed]; `shimuraFamilyAb` by `shimuraFamilyAb_of_leaves2`, still assumes
+  [DeligneComponentsX6PrintedAb, ShimuraHolModAll]; all axioms standard; `65 open hypotheses, 1568 theorems
+  checked, 14 discharge one`. VERIFIED.
+* 05:04 Autofold dry run (`autofold-spec.json`, `autofold-dryrun.txt`): `strict count: 45/13 on 58 -> 45/13 on 58;
+  strictest 44/14 -> 44/14` with qmReciprocityL3 entered as kind `consequence` and shimuraHolModAll as `published`,
+  flag `pending reading` (both GLUE until read). Fold module (`FoldCheck.lean`, line 1 stripped) compiles;
+  `sixContactMin_of_open27` axioms [propext, Classical.choice, Quot.sound] (`foldcheck_output.txt`). VERIFIED.

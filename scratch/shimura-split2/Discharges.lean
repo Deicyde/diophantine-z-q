@@ -13,3 +13,10 @@ import ZInQKernel.Contrib.OneProof.ShimuraSplit2
 #print axioms ShimuraSplit2.tab_spec
 #print axioms ShimuraSplit2.QMReciprocityL3
 #print axioms ShimuraSplit2.ShimuraHolFamilyAb
+#print axioms ShimuraSplit2.rayClassCMAb_of_leaves2
+#print axioms ShimuraSplit2.shimuraFamilyAb_of_leaves2
+#print axioms ShimuraSplit2.shimuraHolModAll_of_hol
+#print axioms ShimuraSplit2.shimuraHolFamilyAb_of_all
+#print axioms ShimuraSplit2.exists_map_of_r1fp
+#print axioms ShimuraSplit2.isHolFamily_comp
+#print axioms ShimuraSplit2.ShimuraHolModAll
