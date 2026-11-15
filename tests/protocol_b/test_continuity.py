@@ -115,7 +115,7 @@ class Continuity(unittest.TestCase):
             self.assertEqual(len(seen), 1)
             self.assertIn('retained_acceptance', seen[0])
             self.assertIn('only the new discussion', seen[0]['review_task'])
-            self.assertTrue(state['reports']['astra']['history_coverage'])
+            self.assertTrue(state['reports']['astra']['history_digest'])
 
     def test_unreviewed_history_cannot_be_combined_into_acceptance(self):
         pair = {'astra': accepting(), 'fable': accepting('fable')}
@@ -173,6 +173,113 @@ class Continuity(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'Uncovered'):
             gate.overridden_decision(pair,{},HEAD)
         self.assertEqual(set(gate.overridden_decision(pair,{ident:{'collaborator':'owner'}},HEAD)),{ident})
+
+    def test_supplement_keeps_full_proof_dependencies(self):
+        gh=FakeGH()
+        gh.text=lambda path,ref: 'proof dependency\nsecond line'
+        full=gate.Review(gh,gh.pr,[],[],{},{},'instructions','astra','local mathematical')
+        full.tool('read_file',{'path':'dependency.tex','revision':'head','start':1,'count':1})
+        original=gate.make_reuse_binding(gh,gh.pr,[],full)
+        supplement=gate.Review(gh,gh.pr,[],[],{},{},'instructions','astra','local mathematical')
+        supplement.tool('read_file',{'path':'supplement.tex','revision':'head','start':2,'count':1})
+        current=gate.make_reuse_binding(gh,gh.pr,[],supplement)
+        inherited=gate.inherit_reuse_binding(current,accepting(reuse_binding=original))
+        self.assertEqual({p['path'] for p in inherited['passages']},{'dependency.tex','supplement.tex'})
+        prior=accepting(reuse_binding=inherited)
+        old_head=gh.pr['head']['sha']
+        gh.pr['head']['sha']='d'*40
+        old_text=gh.text
+        gh.text=lambda p,r: 'changed dependency\nsecond line' if p=='dependency.tex' and r!=old_head else old_text(p,r)
+        self.assertFalse(gate.reusable_on_rebase(gh,gh.pr,[],prior))
+        self.assertIsNone(gate.inherit_reuse_binding(current,accepting()))
+
+    def test_rebase_fetches_each_file_revision_once(self):
+        gh=FakeGH()
+        gh.text=Mock(return_value='first\nsecond\nthird')
+        full=gate.Review(gh,gh.pr,[],[],{},{},'instructions','astra','local mathematical')
+        for start in (1,2):
+            full.tool('read_file',{'path':'p.tex','revision':'head','start':start,'count':1})
+        binding=gate.make_reuse_binding(gh,gh.pr,[],full)
+        gh.text.reset_mock()
+        gh.pr['head']['sha']='d'*40
+        self.assertTrue(gate.reusable_on_rebase(gh,gh.pr,[],accepting(reuse_binding=binding)))
+        self.assertEqual(gh.text.call_count,2)
+
+    def test_original_duplicate_cannot_be_mistaken_for_edited_occurrence(self):
+        gh=FakeGH()
+        old='duplicate\nseparator\nduplicate'
+        gh.text=lambda p,r: old
+        reviewer=gate.Review(gh,gh.pr,[],[],{},{},'instructions','astra','local mathematical')
+        reviewer.tool('read_file',{'path':'dependency.tex','revision':'head','start':1,'count':1})
+        binding=gate.make_reuse_binding(gh,gh.pr,[],reviewer)
+        gh.pr['head']['sha']='d'*40
+        gh.text=lambda p,r: old if r==HEAD else 'edited\nseparator\nduplicate'
+        self.assertFalse(gate.reusable_on_rebase(gh,gh.pr,[],accepting(reuse_binding=binding)))
+
+    def test_nonreusable_later_rejection_never_revives_old_acceptance(self):
+        gh,app=self.rebased()
+        prior=json.loads(app.checks[5]['output']['text'])['reports']
+        carried=copy.deepcopy(prior['astra']);carried['reused_for']='e'*40
+        stored(app,gh,{'astra':carried},ident=6,head='e'*40)
+        binding=copy.deepcopy(carried['reuse_binding'])
+        binding['sources'].append({'path':'new-dependency.pdf','revision':'head','sha':'c'*40})
+        rejected=accepting(head='e'*40,review=report(decision='changes_requested',
+            findings=[{'id':'F1','location':'new-dependency:1','objection':'Withdraw acceptance'}]),
+            reuse_binding=binding)
+        stored(app,gh,{'astra':rejected},ident=8,head='e'*40)
+        original=gh.call
+        gh.call=lambda p,*a,**k: {'type':'file','sha':'f'*40} if p.startswith('/contents/new-dependency.pdf') else original(p,*a,**k)
+        called=[]
+        def run(reviewer):
+            called.append(reviewer.family)
+            return report()
+        _,_,errors,_=run_pipeline(gh,app,event=self.command(gh),provider=run)
+        self.assertEqual(errors,[])
+        self.assertEqual(called,['astra'])
+
+    def test_successive_supplements_keep_both_families_text_and_pdf_dependencies(self):
+        gh=FakeGH()
+        gh.text=lambda p,r: 'one\ntwo\nthree'
+        envelopes={}
+        for family in gate.MODELS:
+            reviewer=gate.Review(gh,gh.pr,[],[],{},{},'instructions',family,'local mathematical')
+            reviewer.tool('read_file',{'path':'original.tex','revision':'head','start':1,'count':1})
+            reviewer.tool('read_file',{'path':'original.pdf','revision':'head','start':1,'count':1})
+            retained=accepting(family,reuse_binding=gate.make_reuse_binding(gh,gh.pr,[],reviewer))
+            for start in (2,3):
+                supplement=gate.Review(gh,gh.pr,[],[],{},{},'instructions',family,'local mathematical')
+                supplement.tool('read_file',{'path':'later.tex','revision':'head','start':start,'count':1})
+                retained=accepting(family,reuse_binding=gate.inherit_reuse_binding(
+                    gate.make_reuse_binding(gh,gh.pr,[],supplement),retained))
+            envelopes[family]=retained
+        gh.pr['head']['sha']='d'*40
+        original=gh.call
+        gh.call=lambda p,*a,**k: {'type':'file','sha':'f'*40} if p.startswith('/contents/original.pdf') else original(p,*a,**k)
+        for e in envelopes.values():
+            self.assertFalse(gate.reusable_on_rebase(gh,gh.pr,[],e))
+        gh.call=original
+        gh.text=lambda p,r: 'changed\ntwo\nthree' if p=='original.tex' and r=='d'*40 else 'one\ntwo\nthree'
+        for e in envelopes.values():
+            self.assertFalse(gate.reusable_on_rebase(gh,gh.pr,[],e))
+
+    def test_large_optional_binding_does_not_discard_verdict(self):
+        for size in (90_000,25_000):
+            gh,app=FakeGH(),FakeApp()
+            review=report(not_outside_reviewed=['unrelated scope note '+ 'x'*20_000])
+            with patch.object(gate,'make_reuse_binding',return_value={'version':2,'padding':'x'*size}):
+                _,app,errors,state=run_pipeline(gh,app,provider=Mock(return_value=review))
+            self.assertEqual(errors,[])
+            payload=json.loads(app.final['output']['text'])
+            self.assertLess(len(app.final['output']['text'].encode()),60_000)
+            for family in gate.MODELS:
+                e=payload['reports'][family]
+                self.assertTrue(e['complete'])
+                self.assertEqual(e['review']['decision'],'accept')
+                self.assertIsNone(e['reuse_binding'])
+                self.assertEqual(e['review']['not_outside_reviewed'],review['not_outside_reviewed'])
+                self.assertFalse(gate.reusable_on_rebase(gh,gh.pr,[],e))
+            for posted in gh.posts:
+                self.assertLess(len(posted['body'].encode()),65_536)
 
     def test_forged_app_wrong_pr_and_incomplete_cannot_supply_reuse(self):
         for mutation in ['app', 'number', 'incomplete', 'model']:

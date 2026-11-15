@@ -439,12 +439,12 @@ completed review by the exact approved model in the designated App's own check,
 bound to this PR. Bot comments only locate those checks. A later transport failure
 does not erase an earlier acceptance. Reuse requires the same trusted workflow and reviewer instructions as the
 original review. Changed gate policy invalidates retained reviews; there is no
-author-maintained compatibility file. Previously undispositioned findings still block. A later completed rejection from the same reviewer supersedes its earlier acceptance; an incomplete or failed attempt does not.
+author-maintained compatibility file. Previously undispositioned findings still block. The latest completed verdict from each reviewer supersedes its earlier verdicts across heads. If it cannot be reused, that reviewer must run again; an older acceptance cannot be revived. An incomplete or failed attempt does not erase a completed verdict.
 
 New reports store a rebase binding for the complete diff, the source passages
 actually returned at head or base, both sides of the initial diff hunks, and
 file-discovery results. After a rebase, each exact passage must occur uniquely
-in its new file; movement of line numbers is allowed, edits inside the passage
+in both its original and its new file; movement of line numbers is allowed, edits inside the passage
 or an ambiguous duplicate require fresh review. Repository PDFs requested
 through read_file and mandatory policy inputs, including the workflow, retain
 whole-file identities. An unavailable or truncated diff cannot authorize reuse.
@@ -464,20 +464,26 @@ runs do not consume or exceed the four-paid-automatic-round limit. The override
 consumer accepts an App-authenticated effective head after rechecking the rebase
 binding, but still requires authorization for every finding on the current head.
 
-Each new report records the discussion and interrupted observations admitted to
-that review. A newly observed comment cannot disappear when separate acceptances
+Each new report records a fixed-size digest of the complete discussion and
+interrupted-observation snapshot admitted to that review. The snapshot itself
+is preserved in the run artifact. A newly observed comment cannot disappear when separate acceptances
 are combined. If a reviewer already needs to run, it receives that history. If
 both proof reviews are retained, one reviewer assesses a supplement about the
 unexamined observations instead of repeating the unchanged proof audit. A last
 history read before acceptance detects observations arriving during the run.
-Missing history coverage blocks acceptance. The four-paid-round limit also
-applies to automatic supplements.
+Missing history coverage blocks model acceptance. An authorized override does
+not require a further paid review merely because a comment was added. The four-paid-round limit also
+applies to automatic supplements. A supplement retains the union of the original
+proof review and supplemental source dependencies; missing original bindings
+disable rebase reuse.
 
 Original policy refs remain recorded. Both exact-head and rebase reuse retain
 the existing same-policy requirement. A changed head must also pass the rebase
 binding, including the workflow's whole-file identity.
 
-Reviewers now give structured source checks and access limitations. An
+Reviewers give structured source checks for every published passage opened for
+a changed application, even before an access finding exists, and also record
+unavailable passages. An
 access-only finding is nonblocking only if every named source passage has a
 matching `verified` check from the other approved reviewer. That check attests
 both reading the exact passage and checking its application without objection.
@@ -496,3 +502,8 @@ acceptance reuse, approvals from separate rounds, wrong App/PR/model rejection,
 changed diffs/dependencies, retained negative decisions, and matching versus
 mismatched source-access evidence. The standard/expanded profile controls are
 unchanged by this implementation.
+
+Optional rebase bindings are omitted if they would overflow a permanent comment
+or the combined App check payload. The completed verdict and every finding are
+retained; the omitted binding remains diagnostic evidence in the run artifact,
+but cannot authorize rebase reuse. No substantive finding is truncated.

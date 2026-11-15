@@ -85,8 +85,9 @@ Use `finish_review` exactly once, alone, to give your complete report. Include:
   hides an objection does not resolve it. Use `unresolved` when work remains.
 - Sources you actually read, including revision/section/theorem where relevant.
 - Any steps that must remain `not_outside_reviewed`.
-- `source_checks`: for each unavailable or verified source passage relevant to a
-  source-access finding, give `source_id`, `location`, `outcome` and `detail`.
+- `source_checks`: record every published passage opened for a changed application,
+  even when no source-access finding exists yet. Also record each required passage
+  that was unavailable. Give `source_id`, `location`, `outcome` and `detail`.
   Use a stable ID containing the author, publication/year and exact theorem or
   passage. Reuse an earlier finding's exact ID when checking that same passage.
   `verified` means you actually read that passage and checked the application
