@@ -231,6 +231,19 @@ theorem E0_rightMul (x y u : B) : E0 (x * u) (y * u) = nrd u * E0 x y := by
   rw [show (⟨nrd u, 0, 0, 0⟩ : B) = (nrd u : B) from rfl, QuaternionAlgebra.mul_coe_eq_smul,
     smul_mul_assoc, trd_smul]
 
+/-- **The twists compose to the identity on PEL objects**: with `α(μ) = μv` and `α⁻¹(μ) = μv'`,
+`v · α(v') = 1`, so twisting by `α` then by `α⁻¹` multiplies `λ` by `ι(εε' · v α(v')) = ι(εε')`, and
+positivity forces `εε' = 1`. -/
+theorem twist_cocycle (α : O ≃+* O) (v v' : B) (hv' : v' ∈ O)
+    (hα : ((α ⟨mu, mu_mem⟩ : O) : B) = mu * v) (hα' : ((α.symm ⟨mu, mu_mem⟩ : O) : B) = mu * v') :
+    v * (α ⟨v', hv'⟩ : B) = 1 := by
+  have h1 : α.symm ⟨mu, mu_mem⟩ = ⟨mu, mu_mem⟩ * ⟨v', hv'⟩ := Subtype.ext (by rw [hα', Subring.coe_mul])
+  have h2 := congrArg (fun z : O => (α z : B)) h1
+  simp only [RingEquiv.apply_symm_apply, map_mul, Subring.coe_mul, hα] at h2
+  have h3 : mu * (v * (α ⟨v', hv'⟩ : B)) = mu * 1 := by rw [mul_one, ← mul_assoc]; exact h2.symm
+  have := congrArg (fun z => muInv * z) h3
+  simpa only [← mul_assoc, muInv_mul_mu, one_mul] using this
+
 end SIRPrinted.TwistAlg
 
 #print axioms SIRPrinted.TwistAlg.trd_map
@@ -238,3 +251,4 @@ end SIRPrinted.TwistAlg
 #print axioms SIRPrinted.TwistAlg.E0_twist
 #print axioms SIRPrinted.TwistAlg.trd_ne_zero_of_dag
 #print axioms SIRPrinted.TwistAlg.E0_rightMul
+#print axioms SIRPrinted.TwistAlg.twist_cocycle

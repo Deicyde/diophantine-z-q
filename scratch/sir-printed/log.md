@@ -37,3 +37,5 @@ Imports ZInQKernel.HDecomp.QM.Polar (rv-qm-polar). All standard axioms. VERIFIED
 - `E0_twist`: E₀(αx, v·αy) = E₀(x, y)  (α₃∘α is a similitude-level structure for λ∘ι(v), factor 1).
 - `trd_ne_zero_of_dag`: v† = v, nrd v = 1 ⇒ trd v ≠ 0 (sign ε defined; uses trd_mul_dag_pos).
 - `E0_rightMul`: E₀(xu, yu) = nrd(u) E₀(x, y)  (α₃∘r_u is a level structure for λ).
+- `twist_cocycle`: α(μ) = μv, α⁻¹(μ) = μv' ⇒ v·α(v') = 1 (T_{α⁻¹}∘T_α = id on PEL objects, no uniqueness of
+  polarizations over a base needed). COMPILED.
