@@ -1,6 +1,4 @@
 field	task	status	since	issue	holder_kind	public_holder	claim_url	hold
-rayClassCMAb	gt-rayclass; rayclass-cft	host task running: with shimuraFamilyAb from one Shimura Main Thm I leaf (after rayclass-cft)	2026-11-15		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/gt-rayclass	held
-shimuraFamilyAb	gt-rayclass; shimura-cft	host task running: with rayClassCMAb from one Shimura Main Thm I leaf (after shimura-cft)	2026-11-15		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/gt-rayclass	held
 thetaRatiosAlgebraic	linyang-printed; igusa-alg	linyang-printed done (two printed leaves; fold queued); in progress: theta-glue reduced it to one leaf and five polynomial identities	2026-11-14		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/igusa-alg	held
 quotientP1Coordinate	p1-quot	host task p1-quot running	2026-11-15		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/mcr-quot	held
 mumfordTorsionAlgClosed	cloud batch 2	claimed on the issue 2026-11-15 02:14Z, in progress	2026-11-15	elliotglazer/diophantine-z-q#81	project	project	https://github.com/elliotglazer/diophantine-z-q/issues/81#issuecomment-6887798791	held
@@ -11,7 +9,6 @@ tateTwistInvariants	cloud batch 2	claimed on the issue 2026-11-15 02:14Z, in pro
 axSenTate	cloud batch 2	claimed on the issue 2026-11-15 02:14Z, in progress	2026-11-15	elliotglazer/diophantine-z-q#84	project	project	https://github.com/elliotglazer/diophantine-z-q/issues/84#issuecomment-6887798335	held
 igusaGL2	flt-cqj2	host task flt-cqj2 running (replaces flt-cqj)	2026-11-15	elliotglazer/diophantine-z-q#83	project	project	https://github.com/elliotglazer/diophantine-z-q/issues/83#issuecomment-6887798638	held
 regularSmoothPerfect	cloud batch 2	claimed on the issue 2026-11-15 02:14Z, in progress	2026-11-15	elliotglazer/diophantine-z-q#83	project	project	https://github.com/elliotglazer/diophantine-z-q/issues/83#issuecomment-6887798638	held
-shimuraGoodReductionNoGuard	sgr-split; cloud batch 2	host task sgr-split running (re-examines statability); claimed on the issue 2026-11-15 02:14Z, in progress	2026-11-15	elliotglazer/diophantine-z-q#79	project	project	https://github.com/elliotglazer/diophantine-z-q/issues/79#issuecomment-6887798479	held
 uniformizationLeafAll	cloud batch 2	claimed on the issue 2026-11-15 02:14Z, in progress	2026-11-15	elliotglazer/diophantine-z-q#82	project	project	https://github.com/elliotglazer/diophantine-z-q/issues/82#issuecomment-6887799149	held
 gagaMorphism	cloud batch 2	claimed on the issue 2026-11-15 02:14Z, in progress	2026-11-15	elliotglazer/diophantine-z-q#82	project	project	https://github.com/elliotglazer/diophantine-z-q/issues/82#issuecomment-6887799149	held
 milneIsogenyQuasiInverse	cloud batch 2	briefed (characteristic-zero form); the batch-2 comment of 2026-11-15 02:14Z mentions it only as a possible follow-on	2026-11-15	elliotglazer/diophantine-z-q#81	project	project	https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-6893816394	held
@@ -30,7 +27,6 @@ neronBaseChangeStrictHenselization	cloud batch 3 (W21)	briefed 2026-11-15, not y
 picRepresentableAbVar	cloud batch 3 (W22)	briefed 2026-11-15, not yet claimed on the issue	2026-11-15	elliotglazer/diophantine-z-q#81	project	project		interest
 picZeroAbVar	cloud batch 3 (W22)	briefed 2026-11-15, not yet claimed on the issue	2026-11-15	elliotglazer/diophantine-z-q#81	project	project		interest
 phiAmpleIsogeny	cloud batch 3 (W22)	briefed 2026-11-15, not yet claimed on the issue	2026-11-15	elliotglazer/diophantine-z-q#81	project	project		interest
-weilPairingMumford	cloud batch 3 (W22)	briefed 2026-11-15, not yet claimed on the issue	2026-11-15	elliotglazer/diophantine-z-q#81	project	project		interest
 hX	cloud batch 3 (W18, on its leaf VeluCyclic)	briefed 2026-11-15, not yet claimed on the issue	2026-11-15	elliotglazer/diophantine-z-q#74	project	project		interest
 r16	r16-split	host task r16-split running (printed sources of Eichler-Shimura in J1(N))	2026-11-15		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/r16-split	held
 elkiesX6StarPrinted	elkies-coord	host task elkies-coord running	2026-11-15		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/elkies-coord	held
