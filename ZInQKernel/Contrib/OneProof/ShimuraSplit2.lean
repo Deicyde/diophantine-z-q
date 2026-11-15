@@ -446,4 +446,101 @@ theorem dcRelTransport_proof : DCRelTransport := by
       rw [hFs, hvec, hx'γ, smul_comm (3 : ℂ)⁻¹ j, smul_smul, inv_mul_cancel₀ hj, one_smul]
       exact hΦ'
 
+/-! ## §8 Proof of `UnifDetermines` (from the textbook leaf `HomLatticeCorr`) -/
+
+theorem qmMat_eq (a : LeafQM.O) : HDec.HSyn.G0Split.FibreQM.qmMat a = iotaC (a : LeafQM.B) := rfl
+
+theorem mulVec_mem_vecLat {τ : ℂ} {g : BAQˣ} (a : LeafQM.O) {v : Fin 2 → ℂ} (hv : v ∈ vecLat τ g) :
+    (iotaC (a : LeafQM.B)).mulVec v ∈ vecLat τ g := by
+  obtain ⟨x, hx, rfl⟩ := mem_vecLat.1 hv
+  refine mem_vecLat.2 ⟨a * x, ?_, ?_⟩
+  · rw [map_mul, mul_assoc]; exact OhatQ_mul (bEmb_mem_of_inO a.2) hx
+  · rw [map_mul, ← Matrix.mulVec_mulVec]
+
+theorem iotaC_smul_mulVec (r : ℚ) (x : LeafQM.B) (w : Fin 2 → ℂ) :
+    (iotaC (r • x)).mulVec w = (r : ℂ) • (iotaC x).mulVec w := by
+  rw [map_smul]
+  ext i
+  fin_cases i <;> simp [Matrix.mulVec, dotProduct, Fin.sum_univ_two, Rat.smul_def] <;> ring
+
+theorem three_mul_eq_smul (z : BAQ) : (3 : BAQ) * z = (3 : ℚ) • z := by
+  rw [Algebra.smul_def, map_ofNat]
+
+open scoped MonObj in
+/-- Two representatives of the level structure give the same point. -/
+theorem level_rep_eq {P : QML3 ℂ} {Φu : (Fin 2 → ℂ) → CPts P.A (RingHom.id ℂ)} {τ : ℂ} {g : BAQˣ}
+    (hU : IsUniformization (RingHom.id ℂ) (vecLat τ g) Φu) {a : LeafQM.B} {x x'' : LeafQM.B} {y y'' : BAQ}
+    (hy : y ∈ OhatQ) (hy'' : y'' ∈ OhatQ) (hx : bEmb x * (g : BAQ) = bEmb a + 3 * y)
+    (hx'' : bEmb x'' * (g : BAQ) = bEmb a + 3 * y'') :
+    Φu ((3 : ℂ)⁻¹ • (iotaC x).mulVec ![τ, 1]) = Φu ((3 : ℂ)⁻¹ • (iotaC x'').mulVec ![τ, 1]) := by
+  set c : LeafQM.B := (1 / 3 : ℚ) • (x - x'') with hc
+  have hcm : (iotaC c).mulVec ![τ, 1] =
+      (3 : ℂ)⁻¹ • (iotaC x).mulVec ![τ, 1] - (3 : ℂ)⁻¹ • (iotaC x'').mulVec ![τ, 1] := by
+    rw [hc, iotaC_smul_mulVec, map_sub, Matrix.sub_mulVec, smul_sub]
+    norm_num
+  have hcL : (iotaC c).mulVec ![τ, 1] ∈ vecLat τ g := by
+    refine mem_vecLat.2 ⟨c, ?_, rfl⟩
+    have e : bEmb c * (g : BAQ) = y - y'' := by
+      rw [hc, map_smul, smul_mul_assoc, map_sub, sub_mul, hx, hx'', three_mul_eq_smul,
+        three_mul_eq_smul, add_sub_add_left_eq_sub, ← smul_sub, smul_smul]
+      norm_num
+    rw [e, sub_eq_add_neg]
+    exact OhatQ_add hy (OhatQ_neg hy'')
+  have h1 := (hU.2.1 _).2 hcL
+  have e2 := hU.1 ((3 : ℂ)⁻¹ • (iotaC x'').mulVec ![τ, 1]) ((iotaC c).mulVec ![τ, 1])
+  rw [h1, _root_.mul_one, hcm, add_sub_cancel] at e2
+  exact e2
+
+theorem unifDetermines_of (hC : ZInQ.HomUnify.HomLatticeCorr) : UnifDetermines := by
+  rintro P Q τ g ⟨ΦP, hUP, hIP, hLP⟩ ⟨ΦQ, hUQ, hIQ, hLQ⟩
+  have h2 := hC.2
+  have hid : ∀ z ∈ vecLat (τ : ℂ) g, (LinearMap.id : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ)) z ∈ vecLat (τ : ℂ) g :=
+    fun z hz => hz
+  obtain ⟨f, hf, -⟩ := h2 P.A Q.A 2 2 _ _ ΦP ΦQ (dim_two P) (dim_two Q) hUP hUQ LinearMap.id hid
+  obtain ⟨f', hf', -⟩ := h2 Q.A P.A 2 2 _ _ ΦQ ΦP (dim_two Q) (dim_two P) hUQ hUP LinearMap.id hid
+  have hPP := h2 P.A P.A 2 2 _ _ ΦP ΦP (dim_two P) (dim_two P) hUP hUP LinearMap.id hid
+  have hQQ := h2 Q.A Q.A 2 2 _ _ ΦQ ΦQ (dim_two Q) (dim_two Q) hUQ hUQ LinearMap.id hid
+  have hf0 : ∀ z, ΦQ z = ΦP z ≫ f.hom := hf
+  have hf0' : ∀ z, ΦP z = ΦQ z ≫ f'.hom := hf'
+  apply Quotient.sound
+  refine ⟨⟨f, f', ?_, ?_, fun a => ?_, fun a => ?_⟩⟩
+  · have := hPP.unique (y₁ := PkgI3.AbVar.Hom.mk' (f.hom ≫ f'.hom)) (y₂ := PkgI3.AbVar.Hom.mk' (𝟙 _))
+      (fun z => by
+        show ΦP z = ΦP z ≫ (f.hom ≫ f'.hom)
+        rw [← Category.assoc, ← hf0, ← hf0'])
+      (fun z => by
+        show ΦP z = ΦP z ≫ 𝟙 _
+        rw [Category.comp_id])
+    exact congrArg PkgI3.AbVar.Hom.hom this
+  · have := hQQ.unique (y₁ := PkgI3.AbVar.Hom.mk' (f'.hom ≫ f.hom)) (y₂ := PkgI3.AbVar.Hom.mk' (𝟙 _))
+      (fun z => by
+        show ΦQ z = ΦQ z ≫ (f'.hom ≫ f.hom)
+        rw [← Category.assoc, ← hf0', ← hf0])
+      (fun z => by
+        show ΦQ z = ΦQ z ≫ 𝟙 _
+        rw [Category.comp_id])
+    exact congrArg PkgI3.AbVar.Hom.hom this
+  · have hMa := h2 P.A Q.A 2 2 _ _ ΦP ΦQ (dim_two P) (dim_two Q) hUP hUQ
+      (Matrix.mulVecLin (HDec.HSyn.G0Split.FibreQM.qmMat a))
+      (fun z hz => by
+        show (HDec.HSyn.G0Split.FibreQM.qmMat a).mulVec z ∈ _
+        rw [qmMat_eq]; exact mulVec_mem_vecLat a hz)
+    have := hMa.unique (y₁ := PkgI3.AbVar.Hom.mk' ((P.q.iota a).hom ≫ f.hom))
+      (y₂ := PkgI3.AbVar.Hom.mk' (f.hom ≫ (Q.q.iota a).hom))
+      (fun z => by
+        show ΦQ ((HDec.HSyn.G0Split.FibreQM.qmMat a).mulVec z) = ΦP z ≫ ((P.q.iota a).hom ≫ f.hom)
+        rw [← Category.assoc, ← hIP a z, ← hf0])
+      (fun z => by
+        show ΦQ ((HDec.HSyn.G0Split.FibreQM.qmMat a).mulVec z) = ΦP z ≫ (f.hom ≫ (Q.q.iota a).hom)
+        rw [← Category.assoc, ← hf0, hIQ a z])
+    exact congrArg PkgI3.AbVar.Hom.hom this
+  · obtain ⟨x, ⟨y, hy, hx⟩, hΦx⟩ := hLP a
+    obtain ⟨x'', ⟨y'', hy'', hx''⟩, hΦx''⟩ := hLQ a
+    have e : Additive.toMul (P.e.eta a) ≫ f.hom = Additive.toMul (Q.e.eta a) := by
+      have h1 := (hf0 _).symm.trans (level_rep_eq hUQ hy hy'' hx hx'')
+      rw [hΦx, hΦx''] at h1
+      exact h1
+    rw [e]
+    rfl
+
 end ShimuraSplit2

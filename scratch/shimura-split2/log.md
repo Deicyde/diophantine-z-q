@@ -23,3 +23,4 @@ Task: split `RayClassCFT.ShimuraMainThmIDeligneY3AbU` (gt-rayclass composite) fa
   `rayClassCMAb_of_split : ShimuraHolFamilyAb → QMReciprocityL3 → DCRelTransport → UnifDetermines → ComplexUnifL3 →
   HomLinearLift → RayClassCMAb`, `shimuraFamilyAb_of_hol : ShimuraHolFamilyAb → ShimuraFamilyAb`. VERIFIED (compiled).
 * 06:10 `dcRelTransport_proof : DCRelTransport` proved (LevelAt restated with ∃ representative x, equivalent since representatives differ by 3L_g). Compiles, 0 errors. VERIFIED.
+* 06:35 `unifDetermines_of : HomLatticeCorr → UnifDetermines` proved (QML3.Iso from the unique lifts of id and of ι(a); level via `level_rep_eq`). Compiles. VERIFIED.
