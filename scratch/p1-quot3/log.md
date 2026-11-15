@@ -14,3 +14,7 @@ Build tree: copy of ~/dzq-wt/p1-quot2/.lake/build and lean/.lake/build (19793c5d
 - VERIFIED (read): `ZariskiConn.ZariskiConnectedness` is already a kernel leaf (Contrib/ZariskiConn/Basic.lean).
 
 ## Compile log
+- Build of the merged tree (DeligneComponentsY3Used, QuotientP1Printed): OK (6 min; TailZ23..TailZ40 rebuilt).
+- scratch/p1-quot3/Invariants.lean (Mathlib only): `exists_algebraMap_mem_notMem` (norm trick), `localRingHom_injective`,
+  `dvd_of_dvd_atPrime`, `isDomain_isIntegrallyClosed_atPrime` (normality of all localizations descends from C to
+  D = C^G, finite G, no condition on |G|): compiles, 0 errors (VERIFIED).
