@@ -1,0 +1,22 @@
+{
+ "name": "r17-bypass",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.CarayolLevel"
+ ],
+ "discharges": [
+  {
+   "field": "r17",
+   "proof": "_root_.CarayolLevel.carayolR17'_of_newformRepConductor {n}.newformRepConductor",
+   "leaves": [
+    {
+     "name": "newformRepConductor",
+     "type": "_root_.CarayolLevel.NewformRepConductor",
+     "doc": "R17, existence form (r17-bypass): for a weight-2 newform f of level N and every l, iota_C, iota_L there is a semisimple continuous rho : G_Q -> GL_2(Qbar_l) attached to f (Tate normalization, trace form) whose Serre-Tate conductor exponent at every prime p != l is v_p(N). Carayol 1986 Theoreme (A) with Casselman's a(pi_p) = v_p(N), for the representation rho_{f,lambda} itself; the transport to every semisimple attached rho (Brauer-Nesbitt, Chebotarev, invariance of condExp) is proved in Lean. Replaces r17.",
+     "kind": "published",
+     "flag": "pending reading: the conductor packaging (rho_{f,lambda} has prime-to-l conductor N) is believed printed in Darmon-Diamond-Taylor, Fermat's Last Theorem (1997) section 3.1 and in Carayol 1986 section 0 for F = Q, but no reading is recorded; Carayol's Theoreme (A) itself is stated through pi_p and the local Langlands correspondence, from which this form is a consequence (with Casselman 1973); locators UNVERIFIED",
+     "source": "Carayol, Ann. Sci. ENS (4) 19 (1986) 409-468, Theoreme (A), pp. 409-411 and section 0.8 p. 411 (coverage read by the locator audit); Casselman, Math. Ann. 201 (1973) (a(pi_p) = v_p(N), locator UNVERIFIED); Darmon-Diamond-Taylor, Fermat's Last Theorem (1997) section 3.1 (theorem number UNVERIFIED)"
+    }
+   ]
+  }
+ ]
+}
