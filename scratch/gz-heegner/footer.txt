@@ -1,0 +1,21 @@
+
+namespace ZInQ.GZHeegner
+
+/-- **`HeegnerPointRational` from the main theorem of complex multiplication and the canonical model
+of `X₀(N)` (printed form)**, everything else proved: `HeegnerClassJ` (`heegnerClassJ`),
+`ParamRegular` (`paramRegular`), `ParamCuspGrowth` (`paramCuspGrowth`), `ParamQExpansion`
+(`paramQExpansion`). -/
+theorem heegnerPointRational_of_printed (hCM : T5Glue.ShimuraMainCM) (hX : X0ModuliGaloisMero) :
+    ZInQ.GZHL3.HeegnerPointRational :=
+  heegnerPointRational_of hCM hX paramRegular paramCuspGrowth paramQExpansion heegnerClassJ
+
+/-- **gz-hl3's `hL3` with `HeegnerPointRational` replaced**: `GrossZagierHeegner` from gz-hl3's five
+other leaves, `ShimuraMainCM` and `X0ModuliGaloisMero`. -/
+theorem grossZagierHeegner_of_printed (hU : ZInQ.GZHL3.WeierstrassUniformization)
+    (hSW : ZInQ.GZHL3.StrongWeilCurve) (hI : ZInQ.GZHL3.IsogenyLattice)
+    (hGZ : ZInQ.GZHL3.GrossZagierFormula) (hGC : ZInQ.GZHL3.GrossConjugation)
+    (hCM : T5Glue.ShimuraMainCM) (hX : X0ModuliGaloisMero) : ZInQ.GZDecomp.GrossZagierHeegner :=
+  ZInQ.GZHL3.grossZagierHeegner_of_leaves hU hSW hI (heegnerPointRational_of_printed hCM hX)
+    hGZ hGC
+
+end ZInQ.GZHeegner

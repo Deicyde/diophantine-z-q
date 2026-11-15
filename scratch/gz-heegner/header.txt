@@ -1,0 +1,42 @@
+import ZInQKernel.Contrib.OneProof.GrossZagierHeegner
+import ZInQKernel.Contrib.OneProof.RingClassLattice
+
+/-!
+# gz-heegner: `GZHL3.HeegnerPointRational` from the main theorem of complex multiplication and the
+canonical model of `X₀(N)`
+
+Task gz-heegner (2026-11-15). Report: `docs/research/gz-heegner.md`; scratch and log: `scratch/gz-heegner/`.
+
+gz-hl3 (`GrossZagierHeegner.lean`) proved `hL3` from six leaves, one of them the composite
+`GZHL3.HeegnerPointRational` (the Heegner point `Σ_{Q ∈ S} φ(τ_Q)` is the image of a point of `E(K)`).
+This file proves it from two printed leaves and nothing else:
+
+* `T5Glue.ShimuraMainCM` (Shimura 1971 Thm 5.4; already the hypothesis `hCM` of `frozenTarget`),
+* `X0ModuliGaloisMero` (§2): the canonical model of `X₀(N)` in its printed form, for every
+  `g ∈ ℚ(X₀(N))` regular at the two points. The kernel's `T5Glue.X0ModuliGalois` (hypothesis `hX`)
+  is its special case for `g` regular on all of `ℍ` (`x0ModuliGalois_of_mero`, §7), so a fold can
+  replace `hX` by it. The weakening of the regularity hypothesis is needed: the coordinates `x∘φ`,
+  `y∘φ` of a modular parametrization have poles in `ℍ` (at the non-cuspidal points of `φ⁻¹(O)`).
+
+Everything else is proved here:
+
+* lattice algebra: the Dirichlet composition `J·⟨1, τ_{Q'}⟩ = ⟨1, τ_Q⟩` (`exists_compose`) and
+  homothety of lattice pairs ⇔ `Γ₀(N)`-equivalence (`pairHom_of_equiv`, `equiv_of_pairHom`);
+* class field theory: every ideal class of `ℚ(√−m)` contains `⟨a, (−b + √D)/2⟩` with `a` prime to
+  `M` (`heegnerClassJ`, from Tau Ceti's Chebotarev theorem);
+* Galois theory of `ℂ`: the restriction `Aut(ℂ) → Gal(ℚ̄/ℚ)`, the fixed fields of `Aut(ℂ/κ(K))` and of
+  `Aut(ℂ)` (`mem_kappa_of_fixed`, `rat_of_fixed`);
+* the Galois transport of the points `φ(τ_Q)` (poles handled through `1/(x∘φ − t)`) and the
+  permutation of the Heegner points (`heegnerC_fixed`);
+* the analysis of `φ = weierPt E L (c φ_f)` (§8, §9): the coordinates lie in `ℚ(X₀(N))`:
+  meromorphy (`paramRegular`), moderate growth at every cusp (`paramCuspGrowth`: `D φ_f = f` and
+  `φ_f(γτ) = K₀ + G(q_N)` from the `q_N`-expansion of `f|₂γ`), and rational `q`-expansions at `∞`
+  (`paramQExpansion`: `w²x(φ)` satisfies the Weierstrass equation in `w = q`, whose formal solution
+  with constant term `1/c²` is unique, hence fixed by `Aut(ℂ)`, hence rational).
+
+Main theorem: `heegnerPointRational_of_printed (hCM : T5Glue.ShimuraMainCM) (hX : X0ModuliGaloisMero) :
+GZHL3.HeegnerPointRational`.
+
+No `sorry`, no `axiom`.
+-/
+
