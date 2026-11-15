@@ -19,6 +19,8 @@ serves to exclude eigenforms of weight `≥ 3`.
   `EigenformHT5Ge3`, proved from it with the kernel's I4-L5 and Diamond–Shurman's two theorems.
 * §2: `G12Weight`, `g12`, `g8_g12` re-proved with `EigenformHT5Ge3` in place of `EigenformHT` (the consumers need
   only the weaker form); `k = 2` needs nothing.
+* §3: `AfterG7` (the input of `GluePieces.modularConstituent`, TailK) re-proved with the weak form
+  (`afterG7_of3Weak`), and `afterG7_of3` recovered from it (`afterG7_of3_via_weak`).
 -/
 
 set_option maxHeartbeats 1000000
@@ -239,5 +241,76 @@ theorem g8_g12Weak (hS : PkgI3.FaltingsSemisimple) (hF : PkgI3.FaltingsTate)
       (isIrreducible_of_g8 hadj) h9 h10 h11⟩
 
 end G0Galois
+
+end HDec
+
+/-! ## §3. One level up: `AfterG7` with the weak form
+
+`afterG7_of3` (TailD) reads `r.r13` only through `g8_g12_of_leaves3`. Here it is re-proved from the fields of
+`ResearchLeaves3` it actually reads, given one by one, with `EigenformHT5Ge3Chain` in place of `r13` and
+`G12WeightWeak` in place of `m.weight` (`m.weight` is not read). -/
+
+namespace HDec
+
+namespace HSyn.G0AssembleMod
+
+open CategoryTheory AlgebraicGeometry
+open _root_.HDec.G0ModField
+
+/-- **`AfterG7` with the weak form** (`afterG7_of3`, verbatim but for the research fields, given separately, and
+`g8_g12Weak` in place of `g8_g12_of_leaves3`). -/
+theorem afterG7_of3Weak (r9a : PkgI3.FaltingsSemisimple) (r9b : PkgI3.FaltingsTate)
+    (r10 : PkgI4.DeRhamComparison) (r11r12 : PkgI4.PanBerger) (r14 : EigenformRepExists)
+    (r13w : G0Galois.EigenformHT5Ge3Chain) (r15 : DeligneSerreConseq)
+    (r16 : _root_.LeafModCurves.R16_EichlerShimuraJ1')
+    (t : TextbookLeaves) (m : G0Galois.GaloisPieces) (hWw : G0Galois.G12WeightWeak)
+    (h9 : G0Galois.G9GlueNoT23)
+    (hDF : G0ModNewform.DirichletOfFinite) (hCar : LadicCond.CarayolR17')
+    (hSw : ∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p))
+    (hL8 : LadicCond.SwanIntegral)
+    (hAd : ∀ (p : ℕ) [Fact p.Prime], LadicCond.AdaptedExists (p := p))
+    (hG36 : ModelG3G6) (hLink : LinkedTateData) : AfterG7 := by
+  intro Y Φ π u P hctx L _ _ A ε N _ χ β L' _ _ hLL' hdata
+  letI : NumberField L' := numberField_of_fd L'
+  obtain ⟨h6, h3₅, h3₃⟩ := hG36 Y Φ π u P hctx L A ε N χ β L' hLL' hdata
+  obtain ⟨Tm₅, c₅, ε₅, a₅, β₅, u₅, Tm₃, c₃, ε₃, a₃, β₃, u₃, h7₅, h7₃, hlink⟩ :=
+    hLink Y Φ π u P hctx L A ε N χ β L' hLL' hdata
+  have h2 : G0Galois.G2Out L' (T u) :=
+    galoisG2Out_of_g7Data resQRange u P L A ε N χ β L' hLL' hdata
+  obtain ⟨r₅, h8₅, -, -, h11₅, h12⟩ :=
+    G0Galois.g8_g12Weak r9a r9b t.t26 t.t6 HSyn.G0Split.semisimpleBaseChange r10 t.t11a t.t11b
+      r11r12 r14 r13w r15 t.frobeniusDense HSyn.t19_proved t.t9
+      (G0Galois.g8Matrix_of_burnside m.burnside) h9 m.odd hWw
+      (G0Galois.g12Det_of m.r14det m.detTate m.finIndex (G0Galois.frobeniusDenseQ_of t.frobeniusDense))
+      _ (T u) h2 h6 h3₅ Tm₅ c₅ ε₅ a₅ β₅ u₅ h7₅
+  obtain ⟨r₃, h8₃, -, -, h11₃⟩ :=
+    G0Galois.g8_g11 r9a r9b t.t26 t.t6 HSyn.G0Split.semisimpleBaseChange r10 t.t11a
+      t.t11b (G0Galois.g8Matrix_of_burnside m.burnside) h9 m.odd _ (T u) h2 h6 3 h3₃
+      Tm₃ c₃ ε₃ a₃ β₃ u₃ h7₃
+  obtain ⟨i, ιC, ι5, hspec⟩ := G0ModNewform.g12Spec_of_galois hDF _ _ _ r₅ r₃ h8₅ h8₃ h12
+  obtain ⟨ι3, h14, h15⟩ := hlink r₅ r₃ h8₅ h8₃ i ιC ι5
+  have hNL : G0ModNewform.NewformLeaves :=
+    ⟨C9Rhof.eigenformTwist_of_hsyn t.t24, t.t25, C9Rhof.eigenformRepExists_of_hsyn r14, r16,
+      hCar, r9a, r9b, t.t26, C9Rhof.frobeniusDense_of_hsyn t.frobeniusDense,
+      TSkolemKW.C10.brauerNesbittChar0'⟩
+  obtain ⟨M, J, hM, hJ, hMle, hCC⟩ :=
+    G0ModNewform.modularConstituent_tail_G hNL t.t33 t.x1ModelExists
+      hSw hL8 hAd _ u ⟨_, hspec ι3, h14, g15RamG_of_wild _ u h15 h11₅ h11₃⟩
+  exact ⟨M, J, hM, hJ, hMle, (commonConstituent_copy' _ _).1 hCC⟩
+
+/-- `afterG7_of3` is recovered: `afterG7_of3Weak` applied to a full `ResearchLeaves3` (check that nothing else of
+`r` is read). -/
+theorem afterG7_of3_via_weak (r : ResearchLeaves3) (t : TextbookLeaves) (m : G0Galois.GaloisPieces)
+    (h9 : G0Galois.G9GlueNoT23)
+    (hDF : G0ModNewform.DirichletOfFinite) (hCar : LadicCond.CarayolR17')
+    (hSw : ∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p))
+    (hL8 : LadicCond.SwanIntegral)
+    (hAd : ∀ (p : ℕ) [Fact p.Prime], LadicCond.AdaptedExists (p := p))
+    (hG36 : ModelG3G6) (hLink : LinkedTateData) (hSen : G0Galois.SenTwist)
+    (hFI : G0Galois.FiniteImageHT) : AfterG7 :=
+  afterG7_of3Weak r.r9a r.r9b r.r10 r.r11r12 r.r14 (G0Galois.eigenformHT5Ge3Chain_of_r13 r.r13) r.r15 r.r16 t m
+    (G0Galois.g12WeightWeak_of_senTwist hSen hFI) h9 hDF hCar hSw hL8 hAd hG36 hLink
+
+end HSyn.G0AssembleMod
 
 end HDec

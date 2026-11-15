@@ -42,3 +42,13 @@ Base 9a100aa7 (leaf-fold22). Field: `eigenformHTNew : ZInQ.Contrib.HodgeSplit.Ei
   VERIFIED.
 - Contribution file `ZInQKernel/Contrib/OneProof/EigenformHTWeak.lean` = HTBypass.lean (header changed).
 - `scratch/ht-bypass/autofold.json`: empty `discharges` with a note (the weak form cannot fill the field).
+- 06:1x `lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges +ZInQKernel.Contrib.OneProof.EigenformHTWeak`:
+  OK (12986 jobs; `frozenTarget` standard axioms).
+- §3 added: `afterG7_of3Weak` (`AfterG7` from the research fields read, given separately, with `EigenformHT5Ge3Chain`
+  and `G12WeightWeak`), `afterG7_of3_via_weak` (recovers `afterG7_of3`). `lake env lean scratch/ht-bypass/HTBypass.lean`
+  OK; contribution file synced and rebuilt (16 s). VERIFIED.
+- `scratch/ht-bypass/Discharges.lean` → `Discharges-output.txt`: `#discharges: 63 open hypotheses, 1639 theorems
+  checked, 5 discharge one`; the five are other contributions' (gonzalezRotgerProp56X6, neronBaseChangeStrictHenselization,
+  elkiesX6StarPrinted, sga7_IX_3_3_SH, sga7_IX_3_5_ForwardGeom); none from EigenformHTWeak (expected: it proves no
+  field). Axioms of `afterG7_of3Weak`, `afterG7_of3_via_weak`, `g8_g12Weak`, `eigenformHT5Ge3_of_ds`: standard. VERIFIED.
+- HTBypassAxioms.lean removed (superseded by the `#print axioms` lines in Discharges.lean).

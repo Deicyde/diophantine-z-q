@@ -26,7 +26,8 @@ or inert (§4).
   `{s, s + 1 − k}`, which cannot equal `r₅`'s `{0, −1}`.
 - **Weakest needed form.** `EigenformHTNew5Ge3` (§2): the field at `ℓ = 5` and `k ≥ 3` (all levels, including
   `5 ∣ N`). The consumers `G12Weight`, `g12`, `g8_g12` are re-proved in Lean with it (`G12WeightWeak`,
-  `g12WeightWeak_of_senTwist`, `g12Weak`, `g8_g12Weak`), and the field implies it (`eigenformHTNew5Ge3_of_field`).
+  `g12WeightWeak_of_senTwist`, `g12Weak`, `g8_g12Weak`), and so is `AfterG7`, the Prop fed to the `GluePieces` field
+  `modularConstituent` (`afterG7_of3Weak`). The field implies the weak form (`eigenformHTNew5Ge3_of_field`).
 - **Bypass via the abelian-variety fields fails (SPECULATIVE judgement with the argument in §3).** The abelian-variety
   fields (Faltings `r9a`/`r9b`, the de Rham comparison `hodgeTateDecompAbVar` + `deRhamH1AbVarT` (ex-`r10`), Néron–Ogg–
   Shafarevich `r7a`, Raynaud `r6`, Eichler–Shimura `r16`) can at most give the Hodge–Tate weights of `ρ_f` for
@@ -35,8 +36,8 @@ or inert (§4).
   (determinants, Weil/Ramanujan absolute values, Newton polygons at `p ≠ 5`) are consistent with every `k`.
 - **Counts.** Unchanged (GLUE stays GLUE). `EigenformHTNew5Ge3` is not a printed-form leaf, for the same reason as the
   field: Kato's `V_{F_λ}(f)` (or Saito's/Scholl's realization) is not definable in Mathlib. A fold to the weak form
-  cannot be done by `autofold.py` (it needs a proof of the field's exact type); it needs a bypass fold through
-  `g8_g12_of_leaves3` (§5). `scratch/ht-bypass/autofold.json` records that no autofold applies.
+  cannot be done by `autofold.py` (it needs a proof of the field's exact type); it needs a bypass fold from
+  `AfterG7` upward (§5). `scratch/ht-bypass/autofold.json` records that no autofold applies.
 
 ## 2. The weakest form and the Lean
 
@@ -59,6 +60,8 @@ def EigenformHTNew5Ge3 : Prop :=
 | `G0Galois.g12Weight_of_weak` | `G12WeightWeak → G12Weight` | VERIFIED |
 | `G0Galois.g12WeightWeak_of_senTwist` | `G12WeightWeak` from `SenTwist`, `FiniteImageHT` (`k = 1`: Deligne–Serre; `k = 2`: `n = 0`; `k ≥ 3`: the weak form) | VERIFIED |
 | `G0Galois.g12Weak`, `G0Galois.g8_g12Weak` | `g12`, `g8_g12` with `EigenformHT5Ge3Chain` and `G12WeightWeak` | VERIFIED |
+| `HSyn.G0AssembleMod.afterG7_of3Weak` | `AfterG7` (the input of `GluePieces.modularConstituent`) from the research fields `afterG7_of3` reads (`r9a`, `r9b`, `r10`, `r11r12`, `r14`, `r15`, `r16`), given separately, with `EigenformHT5Ge3Chain` in place of `r13` and `G12WeightWeak` | VERIFIED |
+| `HSyn.G0AssembleMod.afterG7_of3_via_weak` | `afterG7_of3`'s statement recovered from `afterG7_of3Weak` (plus `SenTwist`, `FiniteImageHT`): nothing else of `r` is read | VERIFIED |
 
 Compile outcomes are in §6.
 
@@ -118,12 +121,26 @@ not `≥ 3`.
 `autofold.py` fills a discharged field with a proof of its exact type, so it cannot replace `eigenformHTNew` by the
 weaker `EigenformHTNew5Ge3`. The field's consumer is a theorem (`g8_g12_of_leaves3`, inside
 `gluePieces_of_open4`'s `afterG7_of3 …` argument, TailK l.322), not a field, so the bypass of
-`oneproof-fold-weaker-leaf-bypass` would have to rebuild `GluePieces` from the newest bundles with `g8_g12Weak` in
-place of `g8_g12`. Since the weak form is still GLUE and not printed, the GLUE count would not change; the only gain is
+the weaker-leaf bypass fold would have to rebuild `GluePieces` from the newest bundles with `afterG7_of3Weak` in place of
+`afterG7_of3` (TailK l.322), threading the weak form through `gluePieces_of_open4` and every later generation map. Since the weak form is still GLUE and not printed, the GLUE count would not change; the only gain is
 a smaller open statement (`ℓ = 5`, `k ≥ 3`). Recommendation: keep the field; record in OPEN.md that the route uses
-only `ℓ = 5`, `k ≥ 3`, so a contributor may prove (or cite) just that instance; this file's `g8_g12Weak` is ready if a
-later fold wants it.
+only `ℓ = 5`, `k ≥ 3`, so a contributor may prove (or cite) just that instance; `afterG7_of3Weak` is ready if a later fold wants it.
 
-## 6. Compile log
+## 6. Compile log (VERIFIED)
 
-See `scratch/ht-bypass/log.md`.
+- `lake build ZInQKernel.OneProof.H.TailX`, then `lake env lean scratch/ht-bypass/HTBypass.lean`: OK, no errors
+  (style warnings only: `letI` copied verbatim from TailD).
+- `lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges +ZInQKernel.Contrib.OneProof.EigenformHTWeak`:
+  OK (12986 jobs).
+- `#discharges` (`scratch/ht-bypass/Discharges.lean`, output `Discharges-output.txt`): `63 open hypotheses, 1639
+  theorems checked, 5 discharge one`. The five come from contributions already in the tree. `EigenformHTWeak` discharges
+  none, as expected: it proves no field.
+- `#print axioms` for `afterG7_of3Weak`, `afterG7_of3_via_weak`, `g8_g12Weak`, `g12WeightWeak_of_senTwist`,
+  `g12Weight_of_weak`, `eigenformHT5Ge3_of_ds`, `eigenformHTNew5Ge3_of_field`: `[propext, Classical.choice, Quot.sound]`.
+- The contribution file has no code that runs at build time (no `#eval`, `run_cmd`, notation or macros).
+
+## 7. Files
+
+- `ZInQKernel/Contrib/OneProof/EigenformHTWeak.lean`: the Lean (imports `ZInQKernel.OneProof.H.TailX`, not `Main`).
+- `scratch/ht-bypass/HTBypass.lean`: the same text with the scratch header; `Discharges.lean` and its output;
+  `autofold.json` (no fold, with the reason); `log.md`.
