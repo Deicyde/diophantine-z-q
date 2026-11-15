@@ -1,0 +1,14 @@
+import ZInQKernel.Contrib.OneProof.ShimuraSplit2
+open ShimuraCFT
+#check @ShimuraSplit2.QMReciprocityL3
+#check @TauCeti.GlobalNumberFields.finiteAdeleBaseChangeAlgEquiv
+#check @ZInQ.HomUnify.HomLatticeCorr
+#print ZInQ.HomUnify.HomLatticeCorr
+#check @AvSplit.Final.h69
+#check @ShimuraCFT.exists_int_approx
+#check @LeafQM.AV.cptObj
+#check @ZInQ.LeafPush2.cptObj
+#print ZInQ.LeafPush2.cptObj
+#check @BPAnalytic.QM.iota
+#check @ShimuraCFT.qmMat_oI
+#check @ZhatS
