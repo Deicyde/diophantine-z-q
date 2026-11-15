@@ -12,7 +12,13 @@ For `u ∈ ℚ ∖ 𝒞`, `j₀ = J(u) = −57600 F(u)²/G(u)⁶`. Prop. TS (h-b
 says: at a prime `p` where the cover `Y₃ → P¹_j` is tame with no vertical ramification
 (Lemma NV, `p ≥ 5`), the inertia of the fibre field at `p` has order `e_b / gcd(e_b, m_b)`, where
 `m_b` is the intersection multiplicity of `j₀` with the branch point `b ∈ {0, ∞, −16/27}`,
-`(e₀, e_∞, e_{−16/27}) = (4, 6, 2)` (A2). Here we prove the elementary half of Lemma PR(i):
+`(e₀, e_∞, e_{−16/27}) = (4, 6, 2)`: the orbifold orders of the normalizer group `Γ*` at its three
+elliptic points (Baba–Granath §3.1, A2), which are the ramification indices of `Y₃ → P¹_j` because
+the level-3 group is torsion-free (`GlueRepo.TorsionFree`) and normal in `Γ*` (glue,
+`RvNocm.ramification_eq_orbifold_order` in scratch/rv-nocm). *2026-11-12 (loc-fix, applying
+rv-nocm §3.2 and rv-loc-leaves (d)):* this used to read "(A2)" as if the indices were Baba–Granath's;
+they are not indices of the degree-4 map `X₆ → X₆/W`, which has index 2 at each of the three
+values. Here we prove the elementary half of Lemma PR(i):
 
 * `inertia_trivial_iff` : for every prime `p ≥ 17` and `u ∈ ℚ ∖ 𝒞`,
   `4 ∣ m₀ ∧ 6 ∣ m_∞ ∧ 2 ∣ m_{−16/27}` (i.e. all three predicted inertia orders are 1)
