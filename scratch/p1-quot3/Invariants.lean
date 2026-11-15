@@ -1,4 +1,6 @@
 import Mathlib
+import ZInQKernel.Contrib.Dim.IntegralHom
+import ZInQKernel.Contrib.CloudW03NeronSurj.Vendor.Theorems.Thm_Algebra_Smooth_isDomain_and_isIntegrallyClosed_of_isLocalization_atPrime
 
 /-!
 # p1-quot3, part A: normality descends to invariant rings
@@ -310,5 +312,57 @@ theorem isDomain_isIntegrallyClosed_atPrime
       rw [← hu', mul_assoc, Units.mul_inv, mul_one]
 
 end Descent
+
+/-! ## Field level -/
+
+/-- Verbatim copy of `CurveSplit.RegularSmoothPerfect` (TailR; Stacks 00TV, `⇐`). -/
+def RegularSmoothPerfect : Prop :=
+  ∀ (k : Type) [Field k] [PerfectField k] (S : Type) [CommRing S] [Algebra k S]
+    [Algebra.FiniteType k S] (q : Ideal S) [q.IsPrime],
+    IsRegularLocalRing (Localization.AtPrime q) →
+      ∃ g : S, g ∉ q ∧ Algebra.Smooth k (Localization.Away g)
+
+/-- **Invariants of a smooth algebra of dimension `≤ 1` over a perfect field are smooth.** -/
+theorem smooth_of_invariants_field (hRS : RegularSmoothPerfect) (k : Type) [Field k] [PerfectField k]
+    (C : Type) [CommRing C] [Algebra k C] [Algebra.Smooth k C]
+    (D : Type) [CommRing D] [Algebra k D] [Algebra.FiniteType k D]
+    (φ : D →ₐ[k] C) (hφ : Function.Injective φ)
+    (G : Type) [Group G] [Fintype G] [MulSemiringAction G C]
+    (hfix : ∀ (g : G) (d : D), g • φ d = φ d)
+    (hinv : ∀ c : C, (∀ g : G, g • c = c) → ∃ d, φ d = c)
+    (hdim : ringKrullDim C ≤ 1) : Algebra.Smooth k D := by
+  letI : Algebra D C := φ.toRingHom.toAlgebra
+  have hφ' : Function.Injective (algebraMap D C) := hφ
+  have : SMulCommClass G D C := ⟨fun g d c => by
+    change g • (φ d * c) = φ d * (g • c)
+    rw [MulSemiringAction.smul_mul, hfix]⟩
+  have : Algebra.IsInvariant D C G := ⟨hinv⟩
+  have : Algebra.IsIntegral D C := Algebra.IsInvariant.isIntegral D C G
+  have hN : ∀ (𝔫 : Ideal C) [𝔫.IsPrime],
+      IsDomain (Localization.AtPrime 𝔫) ∧ IsIntegrallyClosed (Localization.AtPrime 𝔫) := fun 𝔫 _ =>
+    ZInQ.Contrib.CloudW03NeronSurj.FLT.Algebra.Smooth.isDomain_and_isIntegrallyClosed_of_isLocalization_atPrime
+      k C 𝔫 (Localization.AtPrime 𝔫)
+  have : IsNoetherianRing D := Algebra.FiniteType.isNoetherianRing k D
+  have : Algebra.FinitePresentation k D := Algebra.FinitePresentation.of_finiteType.mp ‹_›
+  have hdimD : ringKrullDim D ≤ 1 := by
+    rw [← ZInQ.Contrib.Dim.ringKrullDim_eq_of_isIntegral_of_injective (A := D) (B := C) hφ']
+    exact hdim
+  have hreg : ∀ (𝔮 : Ideal D) [𝔮.IsPrime], IsRegularLocalRing (Localization.AtPrime 𝔮) := by
+    intro 𝔮 _
+    obtain ⟨h1, h2⟩ := isDomain_isIntegrallyClosed_atPrime (G := G) hφ' hN 𝔮
+    have hle : ringKrullDim (Localization.AtPrime 𝔮) ≤ 1 := by
+      rw [IsLocalization.AtPrime.ringKrullDim_eq_height 𝔮 (Localization.AtPrime 𝔮)]
+      exact (Ideal.height_le_ringKrullDim_of_isPrime).trans hdimD
+    have : Ring.KrullDimLE 1 (Localization.AtPrime 𝔮) := by
+      rw [Ring.krullDimLE_iff]; exact_mod_cast hle
+    have : Ring.DimensionLEOne (Localization.AtPrime 𝔮) :=
+      ⟨fun hp hpp => hpp.isMaximal_of_ne_bot hp⟩
+    have : IsDedekindDomain (Localization.AtPrime 𝔮) := { }
+    exact IsRegularLocalRing.of_isRegularRing_of_isLocalRing _
+  have hloc : Algebra.smoothLocus k D = Set.univ := by
+    refine Set.eq_univ_of_forall fun x => ?_
+    obtain ⟨g, hg, hsm⟩ := hRS k D x.asIdeal (hreg x.asIdeal)
+    exact (Algebra.basicOpen_subset_smoothLocus_iff_smooth (f := g)).mpr hsm hg
+  exact ⟨Algebra.smoothLocus_eq_univ_iff.mp hloc, inferInstance⟩
 
 end P1Quot3
