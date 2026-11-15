@@ -717,6 +717,17 @@ theorem map_symm_map (F : (Fin 2 → ℂ) ≃ₗ[ℂ] (Fin 2 → ℂ)) (Λ : Sub
   ext v
   simp
 
+theorem vec_inj {K : Type} [Field K] [NumberField K] [Fact (Irreducible (X ^ 2 - C (2 : K)))]
+    [IsTotallyComplex K] {q : K →ₐ[ℚ] LeafQM.B} {κ : K →+* ℂ} {z : UpperHalfPlane}
+    (hK : Module.finrank ℚ K = 2) (hz : IsCMPoint q κ z) {x x' : LeafQM.B}
+    (h : (iotaC x).mulVec ![(z : ℂ), 1] = (iotaC x').mulVec ![(z : ℂ), 1]) : x = x' := by
+  obtain ⟨e, rfl⟩ := (betaE hK hz).surjective x
+  obtain ⟨e', rfl⟩ := (betaE hK hz).surjective x'
+  rw [betaE_apply, betaE_apply, vec_beta' hz, vec_beta' hz] at h
+  have h1 := congrFun ((Dz z).injective h) 1
+  simp only [cmVec, AddMonoidHom.coe_mk, ZeroHom.coe_mk] at h1
+  rw [(PhiE κ 1).injective h1]
+
 theorem qmReciprocityL3_of_printed (hM : MainTheoremCM) (hC : ZInQ.HomUnify.HomLatticeCorr) :
     QMReciprocityL3 := by
   obtain ⟨ε, hMain⟩ := hM
@@ -812,9 +823,103 @@ theorem qmReciprocityL3_of_printed (hM : MainTheoremCM) (hC : ZInQ.HomUnify.HomL
     rw [e]; exact OhatQ_neg hx0
   refine ⟨Φu', hU', ?_, ?_⟩
   · -- `ι`-compatibility
-    sorry
+    intro a v
+    obtain ⟨T, hT⟩ := hC.1 ℂ P'.A P'.A (RingHom.id ℂ) 2 2 _ _ Φu' Φu' (dim_two P') (dim_two P') hU' hU'
+      (P'.q.iota a)
+    let Dl : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ) := T - Matrix.mulVecLin (iotaC (a : LeafQM.B))
+    have h1 : ∀ y : EK K, Dl ((iotaC (beta q y)).mulVec ![(z : ℂ), 1]) ∈ vecLat (z : ℂ) (u * g) := by
+      intro y
+      obtain ⟨x, hxy⟩ := hexists y
+      have hya : (iotaC (a : LeafQM.B)).mulVec ((iotaC (beta q y)).mulVec ![(z : ℂ), 1]) =
+          (iotaC (beta q ((betaE hK hz).symm ((a : LeafQM.B) * beta q y)))).mulVec ![(z : ℂ), 1] := by
+        rw [hβ, map_mul, ← Matrix.mulVec_mulVec]
+      have hxa : (iotaC (a : LeafQM.B)).mulVec ((iotaC (beta q x)).mulVec ![(z : ℂ), 1]) =
+          (iotaC (beta q ((betaE hK hz).symm ((a : LeafQM.B) * beta q x)))).mulVec ![(z : ℂ), 1] := by
+        rw [hβ, map_mul, ← Matrix.mulVec_mulVec]
+      have hxya : (bEmb (beta q ((betaE hK hz).symm ((a : LeafQM.B) * beta q y))) * u -
+          bEmb (beta q ((betaE hK hz).symm ((a : LeafQM.B) * beta q x)))) * g ∈ OhatQ := by
+        rw [hβ, hβ, map_mul, map_mul, mul_assoc, ← mul_sub, mul_assoc]
+        exact OhatQ_mul (bEmb_mem_of_inO a.2) hxy
+      have heq : Φu' (T ((iotaC (beta q y)).mulVec ![(z : ℂ), 1])) =
+          Φu' ((iotaC (a : LeafQM.B)).mulVec ((iotaC (beta q y)).mulVec ![(z : ℂ), 1])) := by
+        apply pt_ext hpb
+        have hI' := hI a ((iotaC (beta q x)).mulVec ![(z : ℂ), 1])
+        rw [qmMat_eq, hxa] at hI'
+        rw [hT, Over.comp_left, Category.assoc, hιbc a, ← Category.assoc, hconj x y hxy, hya,
+          hconj _ _ hxya, hI', Over.comp_left]
+        exact Category.assoc _ _ _
+      have hone : Φu' (Dl ((iotaC (beta q y)).mulVec ![(z : ℂ), 1])) = 1 := by
+        have e := hU'.1 (Dl ((iotaC (beta q y)).mulVec ![(z : ℂ), 1]))
+          ((iotaC (a : LeafQM.B)).mulVec ((iotaC (beta q y)).mulVec ![(z : ℂ), 1]))
+        have e2 : Dl ((iotaC (beta q y)).mulVec ![(z : ℂ), 1]) +
+            (iotaC (a : LeafQM.B)).mulVec ((iotaC (beta q y)).mulVec ![(z : ℂ), 1]) =
+            T ((iotaC (beta q y)).mulVec ![(z : ℂ), 1]) := by
+          rw [LinearMap.sub_apply, Matrix.mulVecLin_apply, sub_add_cancel]
+        rw [e2, heq] at e
+        exact (mul_eq_right.1 e.symm)
+      exact (hU'.2.1 _).1 hone
+    have h2 : ∀ y : EK K, Dl ((iotaC (beta q y)).mulVec ![(z : ℂ), 1]) = 0 := by
+      intro y
+      obtain ⟨x0, -, hx0e⟩ := mem_vecLat.1 (h1 y)
+      have hx0z : x0 = 0 := by
+        apply eq_zero_of_forall_dvd (u * g) x0
+        intro N hN
+        obtain ⟨xN, hxN, hxNe⟩ := mem_vecLat.1 (h1 ((N : ℚ)⁻¹ • y))
+        refine ⟨xN, hxN, vec_inj hK hz ?_⟩
+        have hN0 : (N : ℂ) ≠ 0 := by exact_mod_cast hN.ne'
+        rw [iotaC_smul_mulVec, hxNe, hx0e, map_smul, iotaC_smul_mulVec, map_smul, smul_smul]
+        push_cast
+        rw [mul_inv_cancel₀ hN0, one_smul]
+      rw [← hx0e, hx0z, map_zero, Matrix.zero_mulVec]
+    have hDl : Dl = 0 := by
+      apply LinearMap.ext
+      intro w
+      have e1 := h2 1
+      have e2 := h2 (AdjoinRoot.root _)
+      rw [vec_beta' hz] at e1 e2
+      have hw := span_two κ ((Dz z).symm w)
+      rw [LinearMap.zero_apply, ← LinearEquiv.apply_symm_apply (Dz z) w, hw, map_add, map_smul, map_smul,
+        map_add, map_smul, map_smul, e1, e2, smul_zero, smul_zero, add_zero]
+    have hTv : T v = (iotaC (a : LeafQM.B)).mulVec v := by
+      have := LinearMap.congr_fun hDl v
+      simp only [Dl, LinearMap.sub_apply, LinearMap.zero_apply, Matrix.mulVecLin_apply] at this
+      exact sub_eq_zero.1 this
+    rw [← hT v, hTv, qmMat_eq]
   · -- the level structure
-    sorry
+    intro a
+    obtain ⟨x0, ⟨y0, hy0, hx0⟩, hΦx0⟩ := hL a
+    have hxE : beta q ((betaE hK hz).symm ((1 / 3 : ℚ) • x0)) = (1 / 3 : ℚ) • x0 := hβ _
+    obtain ⟨y1, hy1⟩ := exists_approx (bEmb (beta q ((betaE hK hz).symm ((1 / 3 : ℚ) • x0))) *
+      ((u⁻¹ : BAQˣ) : BAQ)) ((u * g : BAQˣ) : BAQ)
+    have hyE : beta q ((betaE hK hz).symm y1) = y1 := hβ _
+    set xE := (betaE hK hz).symm ((1 / 3 : ℚ) • x0) with hxEdef
+    have hc : (bEmb (beta q ((betaE hK hz).symm y1)) * u - bEmb (beta q xE)) * g ∈ OhatQ := by
+      have e : (bEmb (beta q ((betaE hK hz).symm y1)) * u - bEmb (beta q xE)) * g =
+          (bEmb y1 - bEmb (beta q xE) * ((u⁻¹ : BAQˣ) : BAQ)) * ((u * g : BAQˣ) : BAQ) := by
+        rw [hyE, Units.val_mul, sub_mul, sub_mul, mul_assoc, mul_assoc (bEmb (beta q xE)),
+          ← mul_assoc ((u⁻¹ : BAQˣ) : BAQ), Units.inv_mul, one_mul, ← mul_assoc]
+      rw [e]; exact hy1
+    have hpt : Φu' ((iotaC y1).mulVec ![(z : ℂ), 1]) = Additive.toMul (P'.e.eta a) := by
+      apply pt_ext hpb
+      have h3 : (((1 / 3 : ℚ)) : ℂ) = (3 : ℂ)⁻¹ := by push_cast; ring
+      rw [← hyE]
+      refine (hconj xE _ hc).trans (Eq.trans ?_ (hηbc a).symm)
+      rw [hxE, iotaC_smul_mulVec, h3, hΦx0]
+    refine ⟨(3 : ℚ) • y1, ⟨(bEmb (beta q ((betaE hK hz).symm y1)) * u - bEmb (beta q xE)) * g + y0,
+      OhatQ_add hc hy0, ?_⟩, ?_⟩
+    · have h3 : (3 : BAQ) * (bEmb (beta q xE) * g) = bEmb (a : LeafQM.B) + 3 * y0 := by
+        rw [hxE, map_smul, smul_mul_assoc, three_mul_eq_smul, smul_smul]
+        norm_num
+        exact hx0
+      have e : bEmb (a : LeafQM.B) + 3 * ((bEmb (beta q ((betaE hK hz).symm y1)) * u - bEmb (beta q xE)) * g + y0) =
+          bEmb (a : LeafQM.B) + 3 * (bEmb y1 * u * g) - (3 : BAQ) * (bEmb (beta q xE) * g) + 3 * y0 := by
+        rw [hyE]; noncomm_ring
+      rw [e, h3, map_smul, ← three_mul_eq_smul, Units.val_mul]
+      noncomm_ring
+    · rw [iotaC_smul_mulVec, smul_smul]
+      push_cast
+      rw [inv_mul_cancel₀ (by norm_num : (3 : ℂ) ≠ 0), one_smul]
+      exact hpt
 
 end Derivation
 
