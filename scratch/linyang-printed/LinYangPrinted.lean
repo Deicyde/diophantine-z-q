@@ -1,4 +1,4 @@
-import ZInQKernel.OneProof.H.TailJ
+import ZInQKernel.OneProof.H.TailU
 
 /-! # linyang-printed: `LinYangThetaCurve` from Lin–Yang's printed Example 29 and Igusa's theta expressions
 
@@ -13,6 +13,10 @@ Task linyang-printed (2026-11-14/15), base b5ff0474 (w63). Report: docs/research
 * §3 glue (proved): continuity of theta constants along `Ω(τ)`, countability of `Γ*`-orbits, density.
 * §4 `linYangThetaCurve_of_printed : IgusaThetaExpressions → LinYangEx29 → LinYangThetaCurve` (proved).
 * §5 `qmHauptmodul_of_printed : IgusaThetaExpressions → LinYangEx29 → PkgI1.QMHauptmodul` (proved).
+* §6 modularity of the Siegel Eisenstein series: `det(CΩ+D) ≠ 0`, `Sp₄(ℤ)·𝔥₂ = 𝔥₂`, the cocycle, `ψ_k(MΩ) =
+  det(CΩ+D)^k ψ_k(Ω)` for even `k` (proved, no convergence needed).
+* §8 the kernel's research fields `igusaPsi4 : QMSplit.Theta.IgusaPsi4`, `igusaChi10 : QMSplit.Theta.IgusaChi10`
+  and `r4 : PkgI1.ThetaModularity` from `IgusaThetaExpressions` (proved).
 
 Check: `lake env lean scratch/linyang-printed/LinYangPrinted.lean`.
 -/
@@ -934,50 +938,8 @@ theorem siegelEis_modular {M : SpMat} (hM : M ∈ Matrix.symplecticGroup (Fin 2)
   exact (rightEquiv Ms).tsum_eq
     (fun c => (PkgI1.spFactor ((Quotient.out c : Matrix.symplecticGroup (Fin 2) ℤ) : SpMat) Ω)⁻¹ ^ k)
 
-end HDec.HSyn.G0Split.ThetaPt.LinYangPrinted
-
-namespace HDec.QMSplit.Theta
-
-open HDec.PkgI1
-
-/-! ## 7. Verbatim copies of qm-split's leaves `IgusaPsi4`, `IgusaChi10` (ZInQKernel/OneProof/H/TailU.lean l.1778-1810) -/
-
-/-- `ψ₄ = 2⁻² Σ_{m even} θ_m⁸` (Igusa's normalization). -/
-def psi4 (Ω : Matrix (Fin 2) (Fin 2) ℂ) : ℂ := (1 / 4 : ℂ) * thetaSum8 Ω
-
-/-- `χ₁₀ = −2⁻¹⁴ ∏_{m even} θ_m²` (Igusa's normalization). -/
-def chi10 (Ω : Matrix (Fin 2) (Fin 2) ℂ) : ℂ := (-1 / 2 ^ 14 : ℂ) * thetaProd2 Ω
-
-/-- **LEAF (Igusa: `ψ₄` is a Siegel modular form of weight 4 for `Sp₄(ℤ)`, with its theta expression).**
-`ψ₄(Ω) = 2⁻² Σ_{m even} θ_m(Ω)⁸` satisfies `ψ₄(M·Ω) = det(CΩ + D)⁴ ψ₄(Ω)` for `M = [[A,B],[C,D]] ∈ Sp₄(ℤ)`
-and `Ω` in the Siegel upper half-space of degree 2.
-
-Source: J.-I. Igusa, *On Siegel modular forms of genus two*, Amer. J. Math. 84 (1962), 175-200, and
-*On Siegel modular forms of genus two (II)*, Amer. J. Math. 86 (1964), 392-412 (the Eisenstein series
-`ψ₄` and its expression `2⁻² Σ θ_m⁸`); *Modular forms and projective invariants*, Amer. J. Math. 89
-(1967), 817-855, pp. 833-834, 848 (the row's locators; page numbers UNVERIFIED, no network). The sign
-conventions of `spAct`/`spFactor` and Mathlib's `symplecticGroup` (`J = [[0, −1], [1, 0]]`, the same
-group as `[[0, 1], [−1, 0]]`) were checked numerically by leaf-review-a (`theta_mod_check.py`).
-Form: the printed modularity of `ψ₄` with its theta expression (published form, with the caveat that
-Igusa defines `ψ₄` as an Eisenstein series and prints the theta expression as a theorem; the
-transformation law of the theta expression is then the conjunction, read off the same text). -/
-def IgusaPsi4 : Prop :=
-  ∀ M ∈ Matrix.symplecticGroup (Fin 2) ℤ, ∀ Ω ∈ SiegelH2,
-    psi4 (spAct M Ω) = spFactor M Ω ^ 4 * psi4 Ω
-
-/-- **LEAF (Igusa: `χ₁₀` is a Siegel cusp form of weight 10 for `Sp₄(ℤ)`, with its theta expression).**
-`χ₁₀(Ω) = −2⁻¹⁴ ∏_{m even} θ_m(Ω)²` satisfies `χ₁₀(M·Ω) = det(CΩ + D)¹⁰ χ₁₀(Ω)` for `M ∈ Sp₄(ℤ)`
-(trivial character).
-
-Source: Igusa, Amer. J. Math. 84 (1962) (the cusp form `χ₁₀` and `χ₁₀ = −2⁻¹⁴ ∏ θ_m²`); Amer. J. Math. 89
-(1967), p. 848 (page UNVERIFIED). Form: as for `IgusaPsi4`. -/
-def IgusaChi10 : Prop :=
-  ∀ M ∈ Matrix.symplecticGroup (Fin 2) ℤ, ∀ Ω ∈ SiegelH2,
-    chi10 (spAct M Ω) = spFactor M Ω ^ 10 * chi10 Ω
-
-end HDec.QMSplit.Theta
-
-namespace HDec.HSyn.G0Split.ThetaPt.LinYangPrinted
+/-! ## 7. The kernel's leaves `QMSplit.Theta.IgusaPsi4`, `IgusaChi10` (ZInQKernel/OneProof/H/TailU.lean l.1778-1810)
+are used directly: this file imports TailU. -/
 
 open Complex Matrix
 open ThetaGlue (psi4Th psi6Th chi10Th chi12Th LinYangThetaCurve)
