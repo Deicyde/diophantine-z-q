@@ -67,4 +67,77 @@ theorem eq_of_notMem_U {y y' : Z.left} (hy : y ∉ σ.U) (hy' : y' ∉ σ.U) : y
 
 end Chart
 
+/-! ## The generic fibre inside the model -/
+
+section Model
+
+variable {p : ℕ} [Fact p.Prime] (𝒵 : Over (Spec (CommRingCat.of (Zloc p))))
+
+/-- The inclusion of the generic fibre. -/
+abbrev jj : (genFib 𝒵).left ⟶ 𝒵.left := pullback.fst 𝒵.hom (specRatToZloc p)
+
+instance isOpenImmersion_jj : IsOpenImmersion (jj 𝒵) :=
+  MorphismProperty.pullback_fst (P := @IsOpenImmersion) _ _ (isOpenImmersion_specRatToZloc p)
+
+theorem bot_ne_s0 : (⟨⊥, Ideal.isPrime_bot⟩ : Spec (CommRingCat.of (Zloc p))) ≠ s0 p := by
+  haveI := zloc_isDVR' (p := p)
+  intro h
+  have h1 : (⊥ : Ideal (Zloc p)) = IsLocalRing.maximalIdeal (Zloc p) :=
+    congrArg PrimeSpectrum.asIdeal h
+  have hp : (p : Zloc p) ∈ IsLocalRing.maximalIdeal (Zloc p) := by
+    rw [maximalIdeal_Zloc]; exact Ideal.subset_span rfl
+  rw [← h1, Ideal.mem_bot] at hp
+  have := congrArg (zlocToRat p) hp
+  rw [map_natCast, map_zero] at this
+  exact (Fact.out : p.Prime).ne_zero (by exact_mod_cast this)
+
+theorem range_specRatToZloc :
+    Set.range (specRatToZloc p) = {(⟨⊥, Ideal.isPrime_bot⟩ : Spec (CommRingCat.of (Zloc p)))} := by
+  ext s
+  constructor
+  · rintro ⟨t, rfl⟩
+    rw [Subsingleton.elim t (IsLocalRing.closedPoint ℚ), MCRQuot.specRatToZloc_closedPoint]
+    rfl
+  · intro hs
+    exact ⟨IsLocalRing.closedPoint ℚ, by rw [MCRQuot.specRatToZloc_closedPoint]; exact hs.symm⟩
+
+theorem range_jj : Set.range (jj 𝒵) = {x | 𝒵.hom x ≠ s0 p} := by
+  haveI := zloc_isDVR' (p := p)
+  have hr : Set.range (pullback.fst 𝒵.hom (specRatToZloc p)) =
+      𝒵.hom ⁻¹' Set.range (specRatToZloc p) := Scheme.Pullback.range_fst _ _
+  refine hr.trans ?_
+  rw [range_specRatToZloc]
+  ext x
+  simp only [Set.mem_preimage, Set.mem_singleton_iff, Set.mem_setOf_eq]
+  constructor
+  · rintro h; rw [h]; exact bot_ne_s0
+  · intro hx
+    exact PrimeSpectrum.ext (QuotientP1Proof.asIdeal_eq_bot_of_ne_closedPoint _ _ hx)
+
+theorem hom_jj_ne (y : (genFib 𝒵).left) : 𝒵.hom (jj 𝒵 y) ≠ s0 p := by
+  have : jj 𝒵 y ∈ Set.range (jj 𝒵) := ⟨y, rfl⟩
+  rw [range_jj] at this
+  exact this
+
+theorem mem_range_jj {x : 𝒵.left} (hx : 𝒵.hom x ≠ s0 p) : ∃ y, jj 𝒵 y = x := by
+  have : x ∈ Set.range (jj 𝒵) := by rw [range_jj]; exact hx
+  exact this
+
+theorem exists_s0_mem_closure [UniversallyClosed 𝒵.hom] (z : 𝒵.left) :
+    ∃ x ∈ closure {z}, 𝒵.hom x = s0 p := by
+  haveI := zloc_isDVR' (p := p)
+  have hcl : IsClosed (𝒵.hom '' closure {z}) := 𝒵.hom.isClosedMap _ isClosed_closure
+  have hmem : s0 p ∈ 𝒵.hom '' closure {z} := by
+    have h1 : 𝒵.hom z ⤳ s0 p := IsLocalRing.specializes_closedPoint _
+    exact h1.mem_closed hcl ⟨z, subset_closure rfl, rfl⟩
+  obtain ⟨x, hx, hx'⟩ := hmem
+  exact ⟨x, hx, hx'⟩
+
+/-- The complement of the closure of a point, as an open. -/
+def Uc (z : 𝒵.left) : 𝒵.left.Opens := ⟨(closure {z})ᶜ, isClosed_closure.isOpen_compl⟩
+
+theorem mem_Uc {z x : 𝒵.left} : x ∈ Uc 𝒵 z ↔ x ∉ closure {z} := Iff.rfl
+
+end Model
+
 end HDec.MCRGlue.P1Model
