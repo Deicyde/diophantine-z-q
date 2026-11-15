@@ -19,6 +19,23 @@ theorems. A model review is not formal verification or a guarantee of correctnes
    the change concerns its mathematics or a record. For a focused Lean/code
    change, start from the changed unit, its source specification and consumers.
    Fetch whole relevant arguments using `read_file`; a diff alone is insufficient.
+   An oversized initial packet may defer inline patches while retaining every
+   changed file, its metadata and available hunk ranges. A deferred patch has not
+   been read or reviewed. Fetch the affected passages at both revisions and their
+   necessary context with `read_file`. A patch absent from GitHub likewise does
+   not mean the file is unchanged. The review scope and acceptance requirements
+   do not shrink when a patch is deferred.
+   Hunk old-side ranges refer to the PR's merge base, while `read_file(base)`
+   serves the pinned current base tip; new-side ranges refer to head. The tool
+   accepts only head/base revisions. A deferred packet identifies the pinned
+   `merge_base` SHA, but does not provide a supported way to read that revision.
+   If the base has diverged, the old side may be unverifiable; do not assume
+   its old-side line numbers or text match. Verify the affected old-side text
+   independently, or report the limitation and request an updated branch before
+   acceptance. A
+   deferred range alone is not evidence of the removed text.
+   A review with deferred patches on a diverged base cannot be reused across
+   heads because its merge-base web reads are not tracked by the binding.
 2. Reconstruct what the argument needs before reading the author's inventory or
    previous favorable verdicts. List the changed unit's dependencies and consumers.
    Then inspect `PROJECT.md`, the current inventory and applicable policies.

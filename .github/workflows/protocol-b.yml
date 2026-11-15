@@ -660,6 +660,9 @@ jobs:
                   self.finish_now = False
                   self.discovery = {}
                   self.binary_dependencies = set()
+                  self.initial_files = files
+                  self.initial_packet = None
+                  self.original_files_digest = hashlib.sha256(json.dumps(files, sort_keys=True).encode()).hexdigest()
                   self.input = {"repository": gh.repo, "pull_request": pr["number"], "head": pr["head"]["sha"],
                                 "base": pr["base"]["sha"], "change_class": change_class,
                                 "untrusted_title": pr["title"], "untrusted_description": pr.get("body"), "files": files}
@@ -702,7 +705,41 @@ jobs:
                       return {"total": len(matches), "paths": matches[offset:offset+200], "next_offset": offset+200 if offset+200 < len(matches) else None}
                   raise ValueError("Unknown tool")
 
+              def prepare_initial_input(self):
+                  """Defer oversized inline patches; never omit a changed file or prior turn."""
+                  conversation = [{"role": "user", "content": json.dumps(self.input)}]
+                  before = context_estimate(self.family, self.instructions, conversation)
+                  limit = CONTEXT_TOKEN_BUDGET - RECOVERY_TOKEN_RESERVE - REVIEWER_OUTPUT_RESERVE
+                  omitted = []
+                  if before['estimated_total'] > limit:
+                      files = []
+                      for original in self.input['files']:
+                          item = {k: v for k, v in original.items() if k != 'patch'}
+                          if 'patch' in original:
+                              omitted.append(original['filename'])
+                              item['patch_omitted'] = ('Deferred from the initial packet. Old hunk ranges refer to the PR merge base, '
+                                  'not necessarily the base tip served by read_file(base); new ranges refer to head. '
+                                  'Read affected sources and verify old-side identity before judging. If base has diverged '
+                                  'and the removed text cannot be verified, report the limitation; do not assume ranges match.')
+                              item['patch_hunks'] = re.findall(r'^@@ -\d+(?:,\d+)? \+\d+(?:,\d+)? @@', original['patch'], re.M)
+                          files.append(item)
+                      self.input['files'] = files
+                      self.initial_files = files
+                      if omitted:
+                          self.input['merge_base'] = reuse_refs(self.gh, self.pr, True)['merge_base']
+                  conversation = [{"role": "user", "content": json.dumps(self.input)}]
+                  after = context_estimate(self.family, self.instructions, conversation)
+                  self.initial_packet = {
+                      'patches_deferred': bool(omitted), 'deferred_patch_count': len(omitted),
+                      'changed_files': len(self.initial_files), 'merge_base': self.input.get('merge_base'),
+                      'read_evidence': 'Only displayed patch text and admitted source reads; deferred hunk ranges are not read evidence.'}
+                  record(self.family + '-initial-packet.json', {
+                      'before': before, 'after': after, 'deferred_patches': omitted,
+                      'changed_files': len(self.initial_files),
+                      'scope': 'Only unsent inline patches were deferred. File metadata and hunk ranges remain. Deferred source is not read evidence; the existing hard guard still applies.'})
+
               def run(self):
+                  self.prepare_initial_input()
                   conversation = [{"role": "user", "content": json.dumps(self.input)}]
                   record(self.family + "-input.json", {"instructions": self.instructions, "input": self.input})
                   turns, previous, web_trace = [], None, []
@@ -1081,6 +1118,9 @@ jobs:
 
 
           def make_reuse_binding(gh, pr, files, reviewer):
+              packet = reviewer.initial_packet or {}
+              if packet.get('patches_deferred') and packet.get('merge_base') != pr['base']['sha']:
+                  raise ValueError('Deferred merge-base context may be read through untracked web tools; cross-head reuse disabled on a diverged base')
               # Text dependencies follow the exact returned passage across line movement.
               # Binary dependencies and trusted policy inputs require whole-file equality.
               whole = set(reviewer.binary_dependencies)
@@ -1090,6 +1130,8 @@ jobs:
               identity = diff_identity(files)
               if identity is None:
                   raise ValueError('Cannot bind an incomplete PR diff')
+              if hashlib.sha256(json.dumps(files, sort_keys=True).encode()).hexdigest() != reviewer.original_files_digest:
+                  raise ValueError('PR diff changed after the reviewer input was prepared')
               refs = reuse_refs(gh, pr, any(f.get('patch') for f in files))
               texts = dict(reviewer.file_lines)
               passages, reads = [], []
@@ -1100,7 +1142,7 @@ jobs:
                   reads.append({**read, 'revision': side, 'ref': refs[side]})
               # The initial diff is also source material, even without a read_file
               # call. GitHub's old side is the merge base, not the current base tip.
-              reads.extend(displayed_hunk_reads(gh, files, refs, texts))
+              reads.extend(displayed_hunk_reads(gh, reviewer.initial_files, refs, texts))
               for r in reads:
                   side = r['revision']
                   if (r['path'], side) in whole:
@@ -1198,6 +1240,9 @@ jobs:
 
 
           def reusable_on_rebase(gh, pr, files, envelope):
+              packet = envelope.get('initial_packet') or {}
+              if packet.get('patches_deferred') and packet.get('merge_base') != envelope.get('base'):
+                  return False  # Required old-side web reads are not tracked by the binding.
               if any(f.get('resolution') == 'overridden' for f in envelope['review'].get('prior_findings', [])):
                   return False  # Overrides are authorized for one exact head only.
               binding = envelope.get('reuse_binding') or {}
@@ -1634,6 +1679,7 @@ jobs:
                                               "attempt": os.environ["GITHUB_RUN_ATTEMPT"], "review": value,
                                               "read_prerequisites_complete": bool(reviewers[family].history_read and reviewers[family].reads),
                                               "finished_early": reviewers[family].finish_now,
+                                              "initial_packet": reviewers[family].initial_packet,
                                               "complete": True, "policy_ref": os.environ['GITHUB_SHA'],
                                               "history_digest": passage_digest(sorted(history_coverage(discussion))) if reviewers[family].history_read else None,
                                               "reuse_binding": None}
@@ -1660,6 +1706,7 @@ jobs:
                                   problem = {"reviewer": family, "model": MODELS[family], "head": pr["head"]["sha"],
                                              "run": os.environ["GITHUB_RUN_ID"], "attempt": os.environ["GITHUB_RUN_ATTEMPT"],
                                              "complete": False, "policy_ref": os.environ['GITHUB_SHA'],
+                                             "initial_packet": reviewers[family].initial_packet,
                                              "review": {"decision": "changes_requested", "report": "Infrastructure failure, not a model verdict: " + str(error),
                                                         "findings": [], "prior_findings": []}}
                                   envelopes[family] = problem
