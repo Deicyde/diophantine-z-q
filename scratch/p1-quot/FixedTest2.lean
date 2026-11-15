@@ -281,6 +281,164 @@ theorem disjoint_closure_of_two (hE : EdixhovenFixedSmooth2) {p : ℕ} [Fact p.P
   exact hne ((eq_of_specializes_generic 𝒴 y ζ hζη e1).symm.trans
     (eq_of_specializes_generic 𝒴 y' ζ hζη e2))
 
+
+/-- **L5 `TameFixedPointsDisjoint` from Edixhoven's theorem (two generators)**: the case `τ = σ` of
+`disjoint_closure_of_two` (`⟨σ⟩` is finite of order dividing `n`). -/
+theorem tameFixedPointsDisjoint_of_edixhoven2 (hE : EdixhovenFixedSmooth2) : TameFixedPointsDisjoint := by
+  intro p _ 𝒴 hP hS σ n hσ hn hpn hσn hfin y y' hy hy' hne
+  have hcl : Subgroup.closure ({σ, σ} : Set (Aut 𝒴.left)) = Subgroup.zpowers σ := by
+    rw [Set.pair_eq_singleton, Subgroup.zpowers_eq_closure]
+  have hfo : IsOfFinOrder σ := isOfFinOrder_iff_pow_eq_one.2 ⟨n, hn, hσn⟩
+  have hG : Finite (Subgroup.closure ({σ, σ} : Set (Aut 𝒴.left))) := by
+    rw [hcl]; exact hfo.finite_zpowers
+  have hpG : ¬ p ∣ Nat.card (Subgroup.closure ({σ, σ} : Set (Aut 𝒴.left))) := by
+    rw [hcl, Nat.card_zpowers]
+    exact fun hd => hpn (hd.trans (orderOf_dvd_of_pow_eq_one hσn))
+  exact disjoint_closure_of_two hE 𝒴 hP hS σ σ hσ hσ hG hpG hfin hfin y y' hy hy' hne
+
+/-- **Glue (C1b-weak): the stabilizer of a CM point in `fibreAut` is nontrivial** (mcr-quot's
+`CMStabInvolution` without `ι² = 1`). -/
+def CMStabNontrivial : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime], 324 < p →
+    ∀ (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))) (𝒜 : QMFamily 𝒴.left), IsShimuraModel p 𝒴 𝒜 →
+    ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+      R1fpProps Y Φ → R1heckeProps Y Φ → R2fpProps Y Φ π →
+    ∀ (y : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left) (P : QML3 Qbar), IsFibreOf 𝒜 y P →
+      (HasCM4 P.q ∨ HasCM3 P.q ∨ HasCM24 P.q) →
+      ∃ ι ∈ fibreAut 𝒴 𝒜, ι ≠ 1 ∧ y ≫ ι.asIso.hom = y
+
+/-- `CMStabInvolution` implies `CMStabNontrivial`. -/
+theorem cMStabNontrivial_of_involution (h : CMStabInvolution) : CMStabNontrivial := by
+  intro p _ hp 𝒴 𝒜 hM Y Φ π h1 hh h2 y P hP hCM
+  obtain ⟨ι, hιG, hι1, -, hιy⟩ := h p hp 𝒴 𝒜 hM Y Φ π h1 hh h2 y P hP hCM
+  exact ⟨ι, hιG, hι1, hιy⟩
+
+/-- **Glue C1 without the leaves L5, L6** (mcr-glue's `CMSectionsDisjoint` with its two premises
+`TameFixedPointsDisjoint → TameInertiaCyclic` removed). -/
+def CMSectionsDisjoint' : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime], 324 < p →
+    ∀ (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))) (𝒜 : QMFamily 𝒴.left), IsShimuraModel p 𝒴 𝒜 →
+    CMObjectsExist →
+    ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+      R1fpProps Y Φ → R1heckeProps Y Φ → R2fpProps Y Φ π →
+    ∀ (𝒵 : Over (Spec (CommRingCat.of (Zloc p)))) (q : 𝒴 ⟶ 𝒵),
+      IsGQuotient (fibreAut 𝒴 𝒜) q.left → IsFinite q.left →
+    ∀ (y y' : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left) (P P' : QML3 Qbar),
+      IsFibreOf 𝒜 y P → IsFibreOf 𝒜 y' P' →
+      ((HasCM4 P.q ∧ HasCM3 P'.q) ∨ (HasCM4 P.q ∧ HasCM24 P'.q) ∨ (HasCM3 P.q ∧ HasCM24 P'.q)) →
+      Disjoint (closure ({q.left (qbarPoint y)} : Set 𝒵.left)) (closure {q.left (qbarPoint y')})
+
+/-- **C1 from Edixhoven's theorem, glue A, (A-fix), (C1a), (C1d) and the nontrivial stabilizers**
+(no L5, no L6, no involutions). A common point `z` of the closures of `q(x)` and `q(x')` lifts to `w` in the
+closures of `x` and `h x'` (C1a); `x` and `h x'` differ (C1d, R2fp values); nontrivial elements of `fibreAut`
+fix them (`CMStabNontrivial`), with finitely many fixed points (A-fix), generating a finite tame group (A);
+`disjoint_closure_of_two` contradicts `w`. -/
+theorem cMSectionsDisjoint'_of (hE : EdixhovenFixedSmooth2) (hA : FibreAutTame)
+    (hfix : FibreAutFixFinite) (hO : GQuotientPointOrbits) (hI : CMStabNontrivial)
+    (hC : QbarPointsConjugate) : CMSectionsDisjoint' := by
+  intro p _ hp 𝒴 𝒜 hM hCM Y Φ π h1 hh h2 𝒵 q hq hqf y y' P P' hP hP' htype
+  obtain ⟨hfin, htame⟩ := hA p hp 𝒴 𝒜 hM hCM Y Φ π h1 hh h2
+  obtain ⟨g, hg, -⟩ := exists_genFib_to_Y hM h1
+  have huniq : ∀ (y : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left) (P P' : QML3 Qbar),
+      IsFibreOf 𝒜 y P → IsFibreOf 𝒜 y P' → M3.mk P = M3.mk P' := by
+    intro y P P' hP hP'
+    obtain ⟨s, hs⟩ := genFib_pt 𝒴 y
+    rw [← hg Qbar s P ((congrArg (fun t => IsFibreOf 𝒜 t _) hs).mpr hP),
+      ← hg Qbar s P' ((congrArg (fun t => IsFibreOf 𝒜 t _) hs).mpr hP')]
+  rw [Set.disjoint_left]
+  intro z hz hz'
+  have hcl : ∀ u : 𝒴.left, closure {q.left u} ⊆ q.left '' closure {u} := by
+    intro u
+    refine closure_minimal ?_ (q.left.isClosedMap _ isClosed_closure)
+    rintro _ rfl
+    exact ⟨u, subset_closure rfl, rfl⟩
+  obtain ⟨w, hw, rfl⟩ := hcl _ hz
+  obtain ⟨w', hw', hww'⟩ := hcl _ hz'
+  obtain ⟨h, hhG, hhw⟩ := hO _ _ _ _ hfin hq w w' hww'.symm
+  set y'' := y' ≫ h.asIso.hom with hy''
+  have hw'' : w ∈ closure {qbarPoint y''} := by
+    rw [hy'', qbarPoint_comp, ← hhw, ← Set.image_singleton]
+    exact image_closure_subset_closure_image h.asIso.hom.continuous ⟨w', hw', rfl⟩
+  obtain ⟨P'', hP''⟩ := hM.2.2.1 Qbar y''
+  have hover := fibreAut_over 𝒴 𝒜
+  have htype1 : HasCM4 P.q ∨ HasCM3 P.q ∨ HasCM24 P.q := by
+    rcases htype with ⟨a, -⟩ | ⟨a, -⟩ | ⟨a, -⟩
+    · exact Or.inl a
+    · exact Or.inl a
+    · exact Or.inr (Or.inl a)
+  have htype2 : HasCM4 P'.q ∨ HasCM3 P'.q ∨ HasCM24 P'.q := by
+    rcases htype with ⟨-, a⟩ | ⟨-, a⟩ | ⟨-, a⟩
+    · exact Or.inr (Or.inl a)
+    · exact Or.inr (Or.inr a)
+    · exact Or.inr (Or.inr a)
+  obtain ⟨ι, hιG, hι1, hιy⟩ := hI p hp 𝒴 𝒜 hM Y Φ π h1 hh h2 y P hP htype1
+  obtain ⟨ι', hι'G, hι'1, hι'y⟩ := hI p hp 𝒴 𝒜 hM Y Φ π h1 hh h2 y' P' hP' htype2
+  set ι'' := h * ι' * h⁻¹ with hι''
+  have hι''G : ι'' ∈ fibreAut 𝒴 𝒜 :=
+    Subgroup.mul_mem _ (Subgroup.mul_mem _ hhG hι'G) (Subgroup.inv_mem _ hhG)
+  have hι''1 : ι'' ≠ 1 := by
+    intro e
+    apply hι'1
+    have : ι' = h⁻¹ * ι'' * h := by rw [hι'']; group
+    rw [this, e]; group
+  have hι''y : y'' ≫ ι''.asIso.hom = y'' := by
+    simp only [hy'', hι'', Aut.mul_asIso, Aut.inv_asIso, Iso.trans_hom, Iso.symm_hom,
+      Category.assoc]
+    rw [Iso.hom_inv_id_assoc, ← Category.assoc, hι'y]
+  -- the two points differ
+  have hne : qbarPoint y ≠ qbarPoint y'' := by
+    intro e
+    obtain ⟨σ, hσ⟩ := hC _ y y'' e
+    obtain ⟨s, hs⟩ := genFib_pt 𝒴 y
+    obtain ⟨s', hs'⟩ := genFib_pt 𝒴 y'
+    obtain ⟨s'', hs''⟩ := genFib_pt 𝒴 y''
+    have hP2 := (congrArg (fun t => IsFibreOf 𝒜 t _) hs).mpr hP
+    have hP2' := (congrArg (fun t => IsFibreOf 𝒜 t _) hs').mpr hP'
+    have hP2'' := (congrArg (fun t => IsFibreOf 𝒜 t _) hs'').mpr hP''
+    set sσ : fieldPt Qbar ⟶ genFib 𝒴 := fieldMap (σ : Qbar →ₐ[ℚ] Qbar) ≫ s with hsσ
+    have hsσl : sσ.left ≫ pullback.fst 𝒴.hom (specRatToZloc p) = y'' := by
+      rw [hσ, ← hs]
+      show ((fieldMap (σ : Qbar →ₐ[ℚ] Qbar)).left ≫ s.left) ≫ _ = _
+      exact Category.assoc _ _ _
+    have hsσ'' : sσ = s'' := genFib_pt_inj 𝒴 _ _ (hsσl.trans hs''.symm)
+    have hl : (sσ ≫ g).left = Spec.map (CommRingCat.ofHom (σ : Qbar →+* Qbar)) ≫ (s ≫ g).left := by
+      show ((fieldMap (σ : Qbar →ₐ[ℚ] Qbar)).left ≫ s.left) ≫ g.left = _
+      exact Category.assoc _ _ _
+    have hπσ : π.val (K := Qbar) (s'' ≫ g).left =
+        (π.val (K := Qbar) (s ≫ g).left).map (σ : Qbar →+* Qbar) := by
+      rw [← hsσ'']
+      exact (congrArg (fun t => π.val (K := Qbar) t) hl).trans (ToP1.val_comp π _ _)
+    have hte : TwistEq P' P'' := twistEq_of_mem_fibreAut hM huniq hhG y' P' P'' hP' hP''
+    have hR' := h2 (s' ≫ g) (s'' ≫ g) P' P'' (hg Qbar s' P' hP2') (hg Qbar s'' P'' hP2'')
+    have hR := h2 (s ≫ g) (s ≫ g) P P (hg Qbar s P hP2) (hg Qbar s P hP2)
+    have hv : π.val (K := Qbar) (s' ≫ g).left = π.val (K := Qbar) (s'' ≫ g).left :=
+      hR'.1.2 hte
+    rw [hπσ] at hv
+    rcases htype with ⟨a, b⟩ | ⟨a, b⟩ | ⟨a, b⟩
+    · rw [hR.2.1 a, hR'.2.2.1 b] at hv
+      norm_num at hv
+    · rw [hR.2.1 a, hR'.2.2.2 b] at hv
+      norm_num at hv
+    · rw [hR.2.2.1 a, hR'.2.2.2 b] at hv
+      norm_num at hv
+  -- Edixhoven for `⟨ι, ι''⟩`
+  have hle : Subgroup.closure ({ι, ι''} : Set (Aut 𝒴.left)) ≤ fibreAut 𝒴 𝒜 := by
+    rw [Subgroup.closure_le]
+    rintro x (rfl | rfl)
+    · exact hιG
+    · exact hι''G
+  have hG : Finite (Subgroup.closure ({ι, ι''} : Set (Aut 𝒴.left))) :=
+    Finite.of_injective (fun x : Subgroup.closure ({ι, ι''} : Set (Aut 𝒴.left)) =>
+      (⟨x.1, hle x.2⟩ : fibreAut 𝒴 𝒜))
+      (fun a b e => Subtype.ext (by simpa using congrArg Subtype.val e))
+  have hpG : ¬ p ∣ Nat.card (Subgroup.closure ({ι, ι''} : Set (Aut 𝒴.left))) :=
+    fun hd => htame (hd.trans (Subgroup.card_dvd_of_le hle))
+  have hdisj := disjoint_closure_of_two hE 𝒴 hM.1 hM.2.1 ι ι'' (hover ι hιG) (hover ι'' hι''G) hG hpG
+    (hfix p hp 𝒴 𝒜 hM Y Φ π h1 hh h2 ι hιG hι1) (hfix p hp 𝒴 𝒜 hM Y Φ π h1 hh h2 ι'' hι''G hι''1)
+    y y'' hιy hι''y hne
+  exact Set.disjoint_left.mp hdisj hw hw''
+
 end MCRQuot
 
-#print axioms HDec.MCRQuot.disjoint_closure_of_two
+#print axioms HDec.MCRQuot.cMSectionsDisjoint'_of
+#print axioms HDec.MCRQuot.tameFixedPointsDisjoint_of_edixhoven2
