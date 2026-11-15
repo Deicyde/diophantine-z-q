@@ -21,6 +21,7 @@ The [222-variable package](research/version15/quartics/quartic-222/README.md) in
 This repository also preserves *Z is Diophantine in Q*, Version 14, dated November 9, 2026. It gives quartics in **299 total variables** with exact symbolic coefficients and **314 total variables** with every coefficient written out in decimal. The original large construction, earlier quartic proofs and Version 11 Kato index-set and limiting-class repair remain in the manuscript. The Version 9 starting reductions were contributed by Gabriel Conant with ChatGPT.
 
 The project uses the collective agentic notes from Stefan Baranczuk, Jose Brox, Gabe Conant, Sohail Farhangi, James Freitag, Elliot Glazer, Jennifer Park, and Caroline Terry.
+Cite this work as "ℤℚ Diophantine Project contributors. ℤ _is Diophantine in_ ℚ. 2026. https://github.com/elliotglazer /diophantine-z-q"  
 
 | To | Open |
 | --- | --- |
