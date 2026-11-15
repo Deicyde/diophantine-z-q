@@ -33,6 +33,10 @@ theorem smooth_prod : Smooth (A.X ⊗ A.X).hom := by
   rw [Over.tensorObj_hom]
   infer_instance
 
+theorem isProper_prod : IsProper (A.X ⊗ A.X).hom := by
+  rw [Over.tensorObj_hom]
+  infer_instance
+
 instance irreducibleSpace_prod : IrreducibleSpace (A.X ⊗ A.X).left := by
   rw [Over.tensorObj_left]
   infer_instance
@@ -77,8 +81,8 @@ theorem abVarAnalyticLieGroup_of_printed (hMan : SmoothComplexManifold) (hPC : P
   intro A
   letI tA : TopologicalSpace (CPt A.X) := classicalTopology A.X
   letI tA2 : TopologicalSpace (CPt (A.X ⊗ A.X)) := classicalTopology (A.X ⊗ A.X)
-  obtain ⟨g, csA, hMA, holoA, coordsA⟩ := hMan A.X inferInstance inferInstance
-  obtain ⟨n, cs2, hM2, holo2, coords2⟩ := hMan (A.X ⊗ A.X) (smooth_prod A) inferInstance
+  obtain ⟨g, csA, hMA, holoA, coordsA⟩ := hMan A.X inferInstance inferInstance inferInstance
+  obtain ⟨n, cs2, hM2, holo2, coords2⟩ := hMan (A.X ⊗ A.X) (smooth_prod A) (isProper_prod A) inferInstance
   -- regular maps are holomorphic
   have hreg : ∀ α : A.X ⟶ A.X, ContMDiff 𝓘(ℂ, Fin g → ℂ) 𝓘(ℂ, Fin g → ℂ) ω
       (fun P : CPt A.X => P ≫ α) :=

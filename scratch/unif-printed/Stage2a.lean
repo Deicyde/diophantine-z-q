@@ -46,14 +46,14 @@ def classicalTopology : TopologicalSpace (CPt X) := TopologicalSpace.generateFro
 /-! ## The printed leaves -/
 
 /-- **LEAF (printed form): the complex manifold `X(ℂ)` of a smooth variety.** For a smooth irreducible
-`ℂ`-scheme `X`, the set `X(ℂ)` with its classical topology is a complex (analytic) manifold, regular
+`ℂ`-scheme `X` (stated here only for `X` proper over `ℂ`, a special case), the set `X(ℂ)` with its classical topology is a complex (analytic) manifold, regular
 functions are holomorphic on `U(ℂ)`, and at every point there are local holomorphic coordinates given
 by regular functions (local parameters). Shafarevich, *Basic algebraic geometry 2*, 2nd ed. (1994),
 Ch. VII §1.1 (a nonsingular variety `X` gives a complex manifold `X(ℂ)`, local parameters are local
 coordinates); Serre, GAGA (1956) §2; SGA 1, Exp. XII, 1.1 and 3.1 (`X` smooth iff `X^an` smooth);
 locators UNVERIFIED. Stated with Mathlib's `IsManifold 𝓘(ℂ, ℂ^n) ω`, `IsLocalDiffeomorphAt`. -/
 def SmoothComplexManifold : Prop :=
-  ∀ (X : Over (Spec (CommRingCat.of ℂ))), Smooth X.hom → IrreducibleSpace X.left →
+  ∀ (X : Over (Spec (CommRingCat.of ℂ))), Smooth X.hom → IsProper X.hom → IrreducibleSpace X.left →
     letI := classicalTopology X
     ∃ (n : ℕ) (_ : ChartedSpace (Fin n → ℂ) (CPt X)),
       IsManifold 𝓘(ℂ, Fin n → ℂ) ω (CPt X) ∧
@@ -70,12 +70,13 @@ def ProperCompact : Prop :=
   ∀ (X : Over (Spec (CommRingCat.of ℂ))), IsProper X.hom →
     @CompactSpace (CPt X) (classicalTopology X)
 
-/-- **LEAF (printed form): connected implies connected.** For `X` locally of finite type over `ℂ`
-and connected (Zariski topology), `X(ℂ)` is connected in the classical topology. SGA 1, Exp. XII,
-Prop. 2.4; Shafarevich, *Basic algebraic geometry 2*, Ch. VII §2.1, Thm. 1 (irreducible varieties);
-locators UNVERIFIED. -/
+/-- **LEAF (printed form): irreducible implies connected.** For `X` irreducible (Zariski topology) and
+proper over `ℂ` (a special case of the printed hypotheses), `X(ℂ)` is connected in the classical
+topology. Shafarevich, *Basic algebraic geometry 2*, 2nd ed., Ch. VII §2.1, Thm. 1 (an irreducible
+variety `X` has `X(ℂ)` connected); SGA 1, Exp. XII, Prop. 2.4 (`X` locally of finite type over `ℂ` is
+connected iff `X^an` is); locators UNVERIFIED. -/
 def ConnectedConnected : Prop :=
-  ∀ (X : Over (Spec (CommRingCat.of ℂ))), LocallyOfFiniteType X.hom → ConnectedSpace X.left →
+  ∀ (X : Over (Spec (CommRingCat.of ℂ))), IsProper X.hom → IrreducibleSpace X.left →
     @ConnectedSpace (CPt X) (classicalTopology X)
 
 /-! ## Glue: the classical topology -/
