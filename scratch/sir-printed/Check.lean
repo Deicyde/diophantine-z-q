@@ -1,0 +1,3 @@
+import ZInQKernel.Contrib.OneProof.ShimuraIntegralModelUsed
+#print axioms SIRPrinted.shimuraIntegralModelUsed_of_rep
+#print axioms SIRPrinted.shimuraGoodReductionNoGuard_of_used

@@ -1,0 +1,30 @@
+{
+ "name": "sir-printed",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.ShimuraIntegralModelUsed"
+ ],
+ "bypass_note": "The new leaf is WEAKER than the field it replaces, so autofold.py (which maps generation k+1 to k and would need ShimuraIntegralModelRep) cannot fold it. Hand fold (compiled dry run: scratch/sir-printed/BypassFold.lean): OpenAddedLeaves18 = OpenAddedLeaves17 with shimuraIntegralModelRep replaced by shimuraIntegralModelUsed; openAddedLeaves16_of_OpenAddedLeaves18 copies every field and sets shimuraGoodReductionNoGuard := _root_.SIRPrinted.shimuraGoodReductionNoGuard_of_used n.shimuraIntegralModelUsed; sixContactMin_of_open29 r t l g := sixContactMin_of_open27 (openResearchLeaves20_of_OpenResearchLeaves21 r t) t (openAddedLeaves16_of_OpenAddedLeaves18 l) g; Main.lean: l : OpenAddedLeaves18 and sixContactMin_of_open29. kinds.tsv: drop row shimuraIntegralModelRep, add the leaf row below (bundle added, area_issue elliotglazer/diophantine-z-q#79).",
+ "bypass": {
+  "removed_field": "shimuraIntegralModelRep",
+  "from_bundle": "OpenAddedLeaves17",
+  "maps_to_bundle": "OpenAddedLeaves16",
+  "consumer_field": "shimuraGoodReductionNoGuard",
+  "proof": "_root_.SIRPrinted.shimuraGoodReductionNoGuard_of_used {n}.shimuraIntegralModelUsed"
+ },
+ "discharges": [
+  {
+   "field": "shimuraIntegralModelRep",
+   "proof": "(bypass: see bypass_note; the field itself is not provable from the weaker leaf)",
+   "leaves": [
+    {
+     "name": "shimuraIntegralModelUsed",
+     "type": "_root_.SIRPrinted.ShimuraIntegralModelUsed",
+     "doc": "Integral model of the level-3 Shimura curve of discriminant 6 over Z_(p), p > 324, at the bases its consumer uses (Spec Qbar points; Hecke relabelings of the universal object over the model): consequence of Lan 2013 Thm 1.4.1.11 with Thm 5.3.3.1 (PEL form, box = {p}, level U^p(3)) and Lemma P over Qbar; locators UNVERIFIED",
+     "kind": "published",
+     "flag": "pending reading: Lan 2013 Thm 1.4.1.11 and Thm 5.3.3.1 at box = {p}, neat level U^p(3) = ker(O^(p)^x -> (O/3O)^x) (level at 3 | disc allowed since H lies in G(Zhat^p)); polarization forgotten by Lemma P over Qbar only (docs/research/sir-printed.md section 3); locators UNVERIFIED",
+     "source": "Lan, Arithmetic compactifications of PEL-type Shimura varieties (2013), Thm 1.4.1.11 and Thm 5.3.3.1, with section 1.4.3 for Kottwitz, J. AMS 5 (1992) section 5; Lemma P over Qbar (docs/research/rv-qm-polar.md section 0) (locators UNVERIFIED)"
+    }
+   ]
+  }
+ ]
+}
