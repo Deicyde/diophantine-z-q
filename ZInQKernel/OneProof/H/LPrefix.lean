@@ -11672,7 +11672,6 @@ structure TextbookLeaves : Prop where
   t24 : EigenformTwist
   t25 : PkgI4.NewformOfEigenform
   t26 : PkgI3.TateModuleFree
-  t27 : PkgI3.QMDichotomyYu
   -- leaf-fold2: field `t28` deleted (no proof on the route uses it; g0-assemble2 §7)
   -- leaf-fold2: field `t29a` deleted (no proof on the route uses it; g0-assemble2 §7)
   -- leaf-fold2: field `t29b` deleted (no proof on the route uses it; g0-assemble2 §7)
@@ -13726,7 +13725,6 @@ theorem textbookLeaves_of_open (t : OpenTextbookLeaves) : TextbookLeaves where
   t24 := t.t24
   t25 := t25_proved
   t26 := t.t26
-  t27 := t.t27
   t31 := t31_proved
   t33 := t.t33
   t35 := t.t35

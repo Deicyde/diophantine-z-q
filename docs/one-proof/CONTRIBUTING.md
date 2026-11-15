@@ -83,19 +83,19 @@ anything else is out of scope for the automatic check. The automatic check is be
 a first contribution, include your own `#discharges` output in the pull request. The repository's default `lake build` does not compile `ZInQKernel/Contrib/OneProof`, so a green
 CI check alone says nothing about a contribution.
 
-The automatic result is advisory, and a person reads every file before it is merged. If your file has code that
-runs at build time (`#eval`, `run_cmd`, `initialize`, new `syntax`, `notation`, macros or elaborators), the
-automatic result does not count until a person has read the file, since such code could print a forged result;
-say in the pull request why it is needed.
+The automatic result is advisory. The project's agents check every pull request before it is merged (the build,
+`#discharges`, the axioms, and the scan for code that runs at build time); no person reads every file. A file with
+code that runs at build time (`#eval`, `run_cmd`, `initialize`, new `syntax`, `notation`, macros or elaborators)
+is not merged, since such code could print a forged result; if you need it, ask on the issue first.
 
 The bar for merging:
 
 * the Lean compiles with only the standard axioms, and the discharge check shows the hypothesis proved (until
-  the automatic check has run on a first contribution: your own `#discharges` output, read by a person);
-* a person has read the file for code that runs at build time;
+  the automatic check has run on a first contribution: your own `#discharges` output, checked by the project's agents);
+* the file has no code that runs at build time;
 * each new printed leaf has a row in [`docs/research/locators.md`](../research/locators.md) and enters
   kinds.tsv flagged unread (or pending reading, if its print may say something weaker);
-* Jack merges.
+* the project's integrator merges it into the next fold (agent review: the checks above, run by the project's agents).
 
 Merges into this fork carry no Protocol B review (the original repository's review protocol); a result is
 reviewed again when it moves to the original repository. The integrator then folds it into the single proof: a
@@ -143,19 +143,19 @@ hypotheses. Its output (generated from `scratch/contrib-kit/DischargesTest-outpu
 <!-- worked-example:begin -->
 ```
 scratch/contrib-kit/DischargesTest.lean:13:8: warning: declaration uses `sorry`
-DISCHARGES [OpenResearchLeaves20.gonzalezRotgerProp56X6] by GRCountX6.prop56X6_of_r5fpCount
+DISCHARGES [OpenResearchLeaves21.gonzalezRotgerProp56X6] by GRCountX6.prop56X6_of_r5fpCount
   still assumes: [LeafQM.AV.R5fpCount]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves20.neronBaseChangeStrictHenselization] by GapSHPair.neronBaseChangeStrictHenselization_of_unramified
+DISCHARGES [OpenResearchLeaves21.neronBaseChangeStrictHenselization] by GapSHPair.neronBaseChangeStrictHenselization_of_unramified
   still assumes: [ReductGlue.NeronBaseChangeUnramifiedDVR]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves20.elkiesX6StarPrinted] by HDec.QMSplit.Moduli.ElkiesX6Star.elkiesX6StarPrinted_of_ab
+DISCHARGES [OpenResearchLeaves21.elkiesX6StarPrinted] by HDec.QMSplit.Moduli.ElkiesX6Star.elkiesX6StarPrinted_of_ab
   still assumes: [HDec.QMSplit.Moduli.ElkiesEquationsX6Ab]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves20.sga7_IX_3_3_SH] by SGA7PersistsNF.sga7_IX_3_3_SH_of_field
+DISCHARGES [OpenResearchLeaves21.sga7_IX_3_3_SH] by SGA7PersistsNF.sga7_IX_3_3_SH_of_field
   still assumes: [CToPrinted.SGA7_IX_3_3]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves20.sga7_IX_3_5_ForwardGeom] by UnipotentForward.forwardGeom_of_forward
+DISCHARGES [OpenResearchLeaves21.sga7_IX_3_5_ForwardGeom] by UnipotentForward.forwardGeom_of_forward
   still assumes: [UnipotentForward.SGA7_IX_3_5_Forward, UnipotentForward.SemiAbelianDescendsSepClosed]
   axioms: [propext, Classical.choice, Quot.sound]
 DISCHARGES [OpenGlue7.quotientP1Coordinate] by t1
@@ -164,7 +164,7 @@ DISCHARGES [OpenGlue7.quotientP1Coordinate] by t1
 DISCHARGES [OpenTextbookLeaves11.cartierSmooth] by t3 (uses sorry: not a proof)
   still assumes: []
   axioms: [propext, sorryAx, Classical.choice, Quot.sound]
-#discharges: 65 open hypotheses, 1252 theorems checked, 7 discharge one
+#discharges: 63 open hypotheses, 1618 theorems checked, 7 discharge one
 ```
 <!-- worked-example:end -->
 

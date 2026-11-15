@@ -21,7 +21,6 @@ structure OpenTextbookLeaves11 : Prop where
   groupSchemeEquidim : _root_.AVGlue.GroupSchemeEquidim
   uniformizationLeafAll : _root_.BPAnalytic.Uniformization.UniformizationLeafAll
   gagaMorphism : _root_.ZInQ.HomLattice.GAGAMorphism
-  yuThm11 : QMSplit.Yu.YuThm11
   regularSmoothPerfect : _root_.CurveSplit.RegularSmoothPerfect
   igusaGL2 : _root_.ZInQ.RLeaf.IgusaGL2
   neronSchemeExtensionExists : _root_.ZInQ.Contrib.NeronC.NeronSchemeExtensionExists
@@ -38,7 +37,6 @@ theorem openTextbookLeaves10_of_OpenTextbookLeaves11 (n : OpenTextbookLeaves11) 
   groupSchemeEquidim := n.groupSchemeEquidim
   uniformizationLeafAll := n.uniformizationLeafAll
   gagaMorphism := n.gagaMorphism
-  yuThm11 := n.yuThm11
   regularSmoothPerfect := n.regularSmoothPerfect
   igusaGL2 := n.igusaGL2
   neronSchemeExtensionExists := n.neronSchemeExtensionExists

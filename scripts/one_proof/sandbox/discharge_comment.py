@@ -16,11 +16,11 @@ import re
 import sys
 
 PREFIX = 'ZInQKernel/Contrib/OneProof/'
-HIT_SENTENCE = ('This file has scan hits: it may contain code that runs at build time, so a person must read '
-                'it before this result counts.')
+HIT_SENTENCE = ('This file has scan hits: it may contain code that runs at build time. A file with scan hits is '
+                'not merged, and this result does not count while it has them.')
 ADVISORY = ('The result is advisory for every file: contributor code runs during the build, and again when the '
             'reporter imports it, so it can forge the result, and a clean scan does not rule that out.')
-REMINDER = 'A person reads every file before Jack merges it; this check does not replace that read.'
+REMINDER = 'The project\'s agents also run the build, axiom and build-time-code checks before a merge; this check is one of them.'
 MAX_HITS = 50
 
 
@@ -131,7 +131,7 @@ def format_comment(scan, result=None, run_url=None, pr=None):
     else:
         verdict = 'pass' if result['passed'] else 'fail'
     if in_scope and flagged:
-        w('### Discharge check: %s, which does not count until a person has read every file with scan hits'
+        w('### Discharge check: %s, which does not count while a file has scan hits'
           % verdict)
     else:
         w('### Discharge check: %s' % verdict)

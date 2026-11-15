@@ -957,17 +957,8 @@ theorem yu_core (hU : BPAnalytic.Uniformization.UniformizationLeafAll)
     exact ⟨sqForm y0, sqForm_neg hτ.ne' hy0re hy0S hy0nz,
       case_quad hτ (ρ.comp j) hg0 hrange hy0re hy0S hy0nz⟩
 
-/-- **Yu's theorem (Thm 1.1) at `B = (2, −3)`, for the embedding `B → End⁰(A)` coming from a QM structure
-by the maximal order `𝒪`, over an algebraically closed field algebraic over `ℚ`** (gap-triage's `YuB6Alg`).
-A consequence of `YuThm11` (`yuB6Alg_of_yuThm11`), and exactly what the chain's four applications of
-`PkgI3.QMDichotomyYu` use (k = `AlgebraicClosure ℚ`, or `AlgebraicClosure L'` with `L'` finite over `ℚ`;
-`(a, b) = (2, −3)`; the embedding `qm_embeds_end0 P.q` / `quatEmbed A'' φ''` of a QM structure). -/
-def YuB6Alg : Prop :=
-  ∀ (k : Type) [Field k] [IsAlgClosed k] [CharZero k] [Algebra.IsAlgebraic ℚ k] (A : PkgI3.AbVar k),
-    A.dim = 2 → ∀ q : LeafQM.AV.QMStr A,
-      Nonempty (PkgI3.AbVar.End0 A ≃ₐ[ℚ] ℍ[ℚ, 2, -3]) ∨
-        ∃ d : ℚ, d < 0 ∧ Nonempty (PkgI3.AbVar.End0 A ≃ₐ[ℚ]
-          Matrix (Fin 2) (Fin 2) (AdjoinRoot (Polynomial.X ^ 2 - Polynomial.C d)))
+-- `YuB6Alg` is declared in `ZInQKernel/OneProof/H/TailA.lean` (moved there by yu-prune, unchanged, so that
+-- the chain's four consumers of Yu's theorem can take it as their hypothesis).
 
 /-- **Yu's dichotomy at `B = (2, −3)` for QM by `𝒪`, over every algebraically closed field of characteristic
 `0` that embeds in `ℂ`** (e.g. `ℂ`, `ℚ̄`, any such field of cardinality at most the continuum). -/

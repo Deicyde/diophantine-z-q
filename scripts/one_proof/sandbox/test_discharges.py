@@ -480,8 +480,7 @@ class CommentTest(unittest.TestCase):
             {'line': 4, 'kind': 'command:#eval', 'level': 'possible', 'text': '-- #eval IO.println "@someone"'}])])
         text = discharge_comment.format_comment(scan, result_for(PASS_REPORT, scan), pr=9)
         self.common(text)
-        self.assertIn('### Discharge check: pass, which does not count until a person has read every file '
-                      'with scan hits\n', text)
+        self.assertIn('### Discharge check: pass, which does not count while a file has scan hits\n', text)
         self.assertIn(discharge_comment.HIT_SENTENCE, text)
         self.assertIn('line `4`, `possible`, `command:#eval`: `-- #eval IO.println "@someone"`', text)
 

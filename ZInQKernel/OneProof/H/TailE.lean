@@ -6503,7 +6503,6 @@ structure OpenTextbookLeaves2 : Prop where
   t11b : ZInQ.LeafPush2.T11b_Rigidity
   t24 : EigenformTwist
   t26 : PkgI3.TateModuleFree
-  t27 : PkgI3.QMDichotomyYu
   t33 : LeafModCurves.JacobianExists ℚ
   t35 : ZInQ.LeafPush2.UniformizationExists
   /-- T38 (x1-belyi): a function field over `ℚ` with constant field `ℚ` is that of a smooth
@@ -6614,68 +6613,11 @@ theorem textbookLeaves_of_open2 (t : OpenTextbookLeaves2) : TextbookLeaves where
   t24 := t.t24
   t25 := t25_proved
   t26 := t.t26
-  t27 := t.t27
   t31 := t31_proved
   t33 := t.t33
   t35 := t.t35
   x1 := x1Leaves_of_open2 t
   t41 := t.t41
-
-/-- **Leaves.lean's `GluePieces` from the open statements.** g0-assemble2's
-`gluePieces_of_gluePieces3`, with every proved field replaced by its proof (`mulIsogeny_proved` for
-`mulIsogeny_of_mulEtale gp.mulEtale`, the curve facts inside `mobiusGlue_of_t5'`, `oMaximal_proved`,
-`endTransport_proved`, `cotangentSpanBC_proved`, `uniformizationLiftAnalytic_proved`, G9 from
-`r.r10`, G10 from conj-twist's `conjTwistNontrivial_of_leaves`). -/
-theorem gluePieces_of_open2 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2)
-    (l : OpenAddedLeaves2) (g : OpenGlue2) : GluePieces :=
-  let r3 := researchLeaves3_of_open2 r
-  let t3 := textbookLeaves_of_open2 t
-  have hMob : LeafQM.AV.Pin.MobiusGlue := mobiusGlue_of_t5' t.t5
-  have hFS5 : G0FibreSimple.FibreComTrivial :=
-    fibreComTrivial_of_full (FS5NoCM.fibreComTrivialFull_of_leaves'' (r1r2fpFull_of r3)
-      hMob t.t27 t.t6 l.cmOptimalEmbedding (X6Kummer.x6KummerFibre_of_conic hMob l.x6ConicModel)
-      r.r5count)
-  have hFS : G0Split.FibreSimple :=
-    G0FibreSimple.fibreSimple_of_leaves t3 mulIsogeny_proved G0FibreSimple.rigidityHom
-      ⟨G0FibreSimple.finiteDescends_proof, hFS5⟩
-  { dimFinite := G0Split.dimFinite
-    dimBaseChange := G0Split.dimBaseChange
-    fibreSimple := hFS
-    productModelHeight := ZInQ.ProductHeight.productModelHeight_of_splits productUnifSplits_proved
-      (productMetrizationOfProductUnif_of_t35 t.t35)
-    stableHeightBaseChange := G0StableBC.stableHeightBaseChange_of_hodgeLine
-      (ZInQ.HeightBC.g0_hodgeLine_iff.mpr (ZInQ.HeightBC.hodgeLineBaseChange_of_glue4
-        g.hodgeBCInjective cotangentSpanBC_proved g.omegaBaseChange
-        uniformizationLiftAnalytic_proved))
-    productExists := G0Product.productExists
-    reverseIsogeny := G0RevIsog.reverseIsogeny_of_leaves3 r3 G0Split.dimFinite
-    thetaPoint := G0Split.ThetaPt.thetaPointOfFibre_of_qm_ratios
-      (G0Split.FibreQM.fibreQMPeriod_main_rep r.r1r2 hMob l.qmHauptmodul
-        t.t35 t.t11a l.qmClassNumberOne (r.r1b r.r1r2) (g.periodMapGlue r.r1r2)
-        g.hauptmodulUnique l.qmDenZeroCM3 g.cPtsTransport)
-      l.thetaRatiosAlgebraic
-    modularConstituent := modularConstituent_of_field t3
-      (G0ModField.fibreCoverExists_of_propTSAll' t.t5 g.propTSAll unramifiedConjugates_proved)
-      (G0ModField.KernelField.kernelFieldExists_of_split'' t.t6 r.r7a r.r6 t.t5 t.t27
-        hFS5 G0ModField.KernelField.oMaximal endTransport_proved g.conjIsogMaps)
-      UnramTate.unramifiedSup_mf
-      (G0AssembleMod.afterG7_of3 r3 t3
-        ⟨l.burnsideAbsIrred, r.r14,
-          g9Glue_of_deRhamComparisonHT r.r10,
-          G0Galois.g10Glue_of_conjTwist
-            (G0Galois.conjTwistNontrivial_of_leaves t.t5 t.t26 t.t35 l.homLinearLift),
-          G0Galois.g12Weight_of_senTwist l.senTwist l.finiteImageHT,
-          G0Galois.detTate_of_leaves l.t09SymmIsogenyExists l.isogenyQuasiInverse
-            l.divisiblePoints t.t26,
-          G0AssembleMod.resQFiniteIndex⟩
-        (g9GlueNoT23_of_deRhamComparisonHT r.r10)
-        (G0ModNewform.dirichletOfFinite_of_t17 t17_proved) r.r17
-        Swan.swanIndependent_proved Swan.swanIntegral_proved
-        Swan.adaptedExists_proved
-        (G0AssembleMod.modelG3G6_of hFS
-          (G0AssembleMod.modelNoncomm_of_mulIsogeny mulIsogeny_proved) g.modelG3)
-        (G0AssembleMod.linkedTateData_of_local t.t7 g.linkedTateLocal))
-    heightCopies := G0HeightCopies.heightCopiesAgree }
 
 end HSyn
 
@@ -6706,7 +6648,6 @@ end
 #print axioms HSyn.unramifiedConjugates_proved
 #print axioms HSyn.researchLeaves3_of_open2
 #print axioms HSyn.textbookLeaves_of_open2
-#print axioms HSyn.gluePieces_of_open2
 
 end G0A2_b20_fold
 

@@ -994,6 +994,24 @@ stronger than NoCM for the true moduli data; see docs/research/g0-fibresimple.md
 
 noncomputable section
 
+namespace QMLattice
+
+open scoped Quaternion
+
+/-- **Yu's theorem (Thm 1.1) at `B = (2, −3)`, for the embedding `B → End⁰(A)` coming from a QM structure
+by the maximal order `𝒪`, over an algebraically closed field algebraic over `ℚ`** (gap-triage's `YuB6Alg`).
+A consequence of `YuThm11` (`yuB6Alg_of_yuThm11`), and exactly what the chain's four applications of
+`PkgI3.QMDichotomyYu` use (k = `AlgebraicClosure ℚ`, or `AlgebraicClosure L'` with `L'` finite over `ℚ`;
+`(a, b) = (2, −3)`; the embedding `qm_embeds_end0 P.q` / `quatEmbed A'' φ''` of a QM structure). -/
+def YuB6Alg : Prop :=
+  ∀ (k : Type) [Field k] [IsAlgClosed k] [CharZero k] [Algebra.IsAlgebraic ℚ k] (A : PkgI3.AbVar k),
+    A.dim = 2 → ∀ q : LeafQM.AV.QMStr A,
+      Nonempty (PkgI3.AbVar.End0 A ≃ₐ[ℚ] ℍ[ℚ, 2, -3]) ∨
+        ∃ d : ℚ, d < 0 ∧ Nonempty (PkgI3.AbVar.End0 A ≃ₐ[ℚ]
+          Matrix (Fin 2) (Fin 2) (AdjoinRoot (Polynomial.X ^ 2 - Polynomial.C d)))
+
+end QMLattice
+
 namespace G0FibreSimple
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
@@ -1148,14 +1166,14 @@ def FibreComTrivial : Prop :=
 /-! ## §4 The piece, from T27 and FS1-FS5 -/
 
 /-- **`FibreSimple` (g0-split's missing piece 4), from the leaf T27 and the glue FS1-FS5.** -/
-theorem fibreSimple_of_pieces (t27 : PkgI3.QMDichotomyYu) (h1 : EndDivisionDescent)
+theorem fibreSimple_of_pieces (hYu : QMLattice.YuB6Alg) (h1 : EndDivisionDescent)
     (h2 : EndDivisionOfSchemeIso) (h3 : EndDivisionOfEnd0Division)
     (h4 : CentralizerOfMatrixEnd0) (h5 : FibreComTrivial) : FibreSimple := by
   intro Y Φ π hR1 hR2 u hu K A hF
   obtain ⟨emb, y, P, hP, hval, hiso⟩ := hF
   let _ : Algebra K.K LeafQM.AV.Qbar := emb.toAlgebra
   -- G5 (T27 at `B = (2,-3)`): `End⁰(P.A) ≅ B` or `≅ M₂(ℚ(√d))`.
-  have hY := PkgI3.qmDichotomy_B6 t27 LeafQM.AV.Qbar P.A P.surface B6_isUnit (qm_embeds_end0 P.q)
+  have hY := hYu LeafQM.AV.Qbar P.A P.surface P.q
   -- G6 (NoCM): the second case is excluded.
   have hB : Nonempty (PkgI3.AbVar.End0 P.A ≃ₐ[ℚ] ℍ[ℚ, 2, -3]) := by
     rcases hY with hB | ⟨d, hd, hM⟩
@@ -1247,10 +1265,10 @@ theorem centralizerOfMatrixEnd0_of_homFree (hHF : PkgI3.HomFreeFinite) :
           rw [h1, ← map_mul, div_eq_inv_mul]
 
 /-- `FibreSimple` from the two leaves T6, T27 and the four remaining glue pieces. -/
-theorem fibreSimple_of_pieces' (t6 : PkgI3.HomFreeFinite) (t27 : PkgI3.QMDichotomyYu)
+theorem fibreSimple_of_pieces' (t6 : PkgI3.HomFreeFinite) (hYu : QMLattice.YuB6Alg)
     (h1 : EndDivisionDescent) (h2 : EndDivisionOfSchemeIso) (h3 : EndDivisionOfEnd0Division)
     (h5 : FibreComTrivial) : FibreSimple :=
-  fibreSimple_of_pieces t27 h1 h2 h3 (centralizerOfMatrixEnd0_of_homFree t6) h5
+  fibreSimple_of_pieces hYu h1 h2 h3 (centralizerOfMatrixEnd0_of_homFree t6) h5
 
 
 /-! ## §4″ FS3 from T6 and the textbook leaf `MulIsogeny` -/
@@ -1313,10 +1331,10 @@ theorem end0Division_of_homFree (hHF : PkgI3.HomFreeFinite) (hMul : MulIsogeny) 
   exact ⟨IsFinite.of_comp f.hom.left g.hom.left, Surjective.of_comp g.hom.left f.hom.left⟩
 
 /-- `FibreSimple` from the leaves T6, T27, `MulIsogeny` and the three glue pieces FS1, FS2, FS5. -/
-theorem fibreSimple_of_pieces'' (t6 : PkgI3.HomFreeFinite) (t27 : PkgI3.QMDichotomyYu)
+theorem fibreSimple_of_pieces'' (t6 : PkgI3.HomFreeFinite) (hYu : QMLattice.YuB6Alg)
     (hMul : MulIsogeny) (h1 : EndDivisionDescent) (h2 : EndDivisionOfSchemeIso)
     (h5 : FibreComTrivial) : FibreSimple :=
-  fibreSimple_of_pieces' t6 t27 h1 h2 (end0Division_of_homFree t6 hMul) h5
+  fibreSimple_of_pieces' t6 hYu h1 h2 (end0Division_of_homFree t6 hMul) h5
 
 
 /-! ## §4‴ FS2 from the textbook leaf `RigidityHom` -/
@@ -1479,9 +1497,9 @@ structure FibreSimplePieces : Prop where
 `TextbookLeaves.t27` = Yu Thm 1.1), **the textbook leaves `MulIsogeny` (Mumford §4) and
 `RigidityHom` (Mumford §4 Cor. 1), and the glue pieces FS1b′ (finiteness descends along field
 extensions) and FS5 (NoCM on the fibre).** -/
-theorem fibreSimple_of_leaves (t : HSyn.TextbookLeaves) (hMul : MulIsogeny) (hRig : RigidityHom)
+theorem fibreSimple_of_leaves (t : HSyn.TextbookLeaves) (hYu : QMLattice.YuB6Alg) (hMul : MulIsogeny) (hRig : RigidityHom)
     (p : FibreSimplePieces) : FibreSimple :=
-  fibreSimple_of_pieces'' t.t6 t.t27 hMul
+  fibreSimple_of_pieces'' t.t6 hYu hMul
     (endDivisionDescent_of baseChangeFaithful_proof (isogenyDescends_of p.finiteDescends))
     (endDivisionOfSchemeIso_of_rigidity hRig) p.comTrivial
 

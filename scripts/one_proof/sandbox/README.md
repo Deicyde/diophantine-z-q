@@ -19,8 +19,9 @@ A pass says what the reporter printed, not that the file is safe or correct.
   so building a pull request there would hand those to its author. A maintainer may read a pull request there
   only as git objects (`scan_contrib.py`, below), never checking it out, building it or running Lean on it.
 
-Merging is trust. Once merged, a file is built on project machines at every fold, so Jack merges only after a
-person has read every added file for build-time code. The check does not replace that read.
+Merging is trust. Once merged, a file is built on project machines at every fold, so a file with build-time code
+is not merged. The project's agents check every added file (this scan, then a read); no person reads every file.
+The check does not replace that agent read.
 
 ## The flow
 
@@ -98,12 +99,12 @@ parent.
   artifact, and code that runs when the reporter imports the contribution can read the nonce. The nonce and the
   JSON format stop a crafted theorem name or a line printed during the build from passing as a record; they do
   not stop code that takes over the runner.
-- The scan flags build-time code, and a person reads every file. A clean scan lowers the chance of build-time
+- The scan flags build-time code, and a file with scan hits is not merged. A clean scan lowers the chance of build-time
   code but does not rule it out; the scan matches tokens, not Lean's grammar, so it may flag harmless text, and
   a file can still do something it does not name. A file with scan hits gets "This file has scan hits: it may
-  contain code that runs at build time, so a person must read it before this result counts.", and the verdict
-  headline says the same. The reader may ask for a lean4checker replay of the built oleans; that replay also
-  runs on a hosted runner, since it loads the untrusted oleans.
+  contain code that runs at build time. A file with scan hits is not merged, and this result does not count
+  while it has them.", and the verdict headline says the same. A reviewer may ask for a lean4checker replay of
+  the built oleans; that replay also runs on a hosted runner, since it loads the untrusted oleans.
 - A pull request that edits the workflow, or anything outside `ZInQKernel/Contrib/OneProof/`, is out of scope,
   and its result does not count, whatever the check reports. On `pull_request`, GitHub runs the workflow file
   from the merge commit, so a pull request that edits `.github/workflows` can make the check print anything;

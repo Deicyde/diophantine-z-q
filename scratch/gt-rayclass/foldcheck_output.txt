@@ -1,0 +1,5 @@
+'HDec.HSyn.sixContactMin_of_open27' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	0m5.762s
+user	0m3.089s
+sys	0m2.615s

@@ -1694,10 +1694,10 @@ def ComOfMatrixEnd0 : Prop :=
         conductor R ≠ 0 ∧ Nonempty (com q ≃+* R)
 
 /-- **N1a from T27 (Yu), T6 and N1a-CM.** -/
-theorem comIntOrQuadOrder_of (t27 : PkgI3.QMDichotomyYu) (t6 : PkgI3.HomFreeFinite)
+theorem comIntOrQuadOrder_of (hYu : QMLattice.YuB6Alg) (t6 : PkgI3.HomFreeFinite)
     (hCM : ComOfMatrixEnd0) : ComIntOrQuadOrder := by
   intro P
-  rcases PkgI3.qmDichotomy_B6 t27 Qbar P.A P.surface B6_isUnit (qm_embeds_end0 P.q) with
+  rcases hYu Qbar P.A P.surface P.q with
     he | ⟨d, hd, hM⟩
   · obtain ⟨e⟩ := he
     exact Or.inl (com_int_of_end0_quat t6 P.q e)
@@ -1706,9 +1706,9 @@ theorem comIntOrQuadOrder_of (t27 : PkgI3.QMDichotomyYu) (t6 : PkgI3.HomFreeFini
 /-- **FS5 with the repaired clauses, from the leaves and named glue**: the bundle, R5fpCount,
 T27, T6 (in `TextbookLeaves`), N1b, and the glue `MobiusGlue`, N1a-CM, N2. -/
 theorem fibreComTrivialFull_of_leaves (hL : R1R2fpFull) (hM : MobiusGlue)
-    (t27 : PkgI3.QMDichotomyYu) (t6 : PkgI3.HomFreeFinite) (hCM : ComOfMatrixEnd0)
+    (hYu : QMLattice.YuB6Alg) (t6 : PkgI3.HomFreeFinite) (hCM : ComOfMatrixEnd0)
     (hB : CMConductorCoprime6) (hK : X6KummerFibre) (hC : R5fpCount) : FibreComTrivialFull :=
-  fibreComTrivialFull_of hL hM (comIntOrQuadOrder_of t27 t6 hCM) hB hK hC
+  fibreComTrivialFull_of hL hM (comIntOrQuadOrder_of hYu t6 hCM) hB hK hC
 
 end FS5NoCM
 
@@ -2061,16 +2061,16 @@ theorem comOfMatrixEnd0_of_homFree (hHF : PkgI3.HomFreeFinite) : ComOfMatrixEnd0
   exact AddSubgroup.index_ne_zero_of_finite (hH := this)
 
 /-- **N1a proved from the leaves T27 (Yu) and T6.** -/
-theorem comIntOrQuadOrder_of_leaves (t27 : PkgI3.QMDichotomyYu) (t6 : PkgI3.HomFreeFinite) :
+theorem comIntOrQuadOrder_of_leaves (hYu : QMLattice.YuB6Alg) (t6 : PkgI3.HomFreeFinite) :
     ComIntOrQuadOrder :=
-  comIntOrQuadOrder_of t27 t6 (comOfMatrixEnd0_of_homFree t6)
+  comIntOrQuadOrder_of hYu t6 (comOfMatrixEnd0_of_homFree t6)
 
 /-- **FS5 with the repaired clauses, from the leaves and named glue**: the bundle, R5fpCount,
 T27, T6 and N1b (leaves), and `MobiusGlue` and N2 (glue). -/
 theorem fibreComTrivialFull_of_leaves' (hL : R1R2fpFull) (hM : MobiusGlue)
-    (t27 : PkgI3.QMDichotomyYu) (t6 : PkgI3.HomFreeFinite) (hB : CMConductorCoprime6)
+    (hYu : QMLattice.YuB6Alg) (t6 : PkgI3.HomFreeFinite) (hB : CMConductorCoprime6)
     (hK : X6KummerFibre) (hC : R5fpCount) : FibreComTrivialFull :=
-  fibreComTrivialFull_of hL hM (comIntOrQuadOrder_of_leaves t27 t6) hB hK hC
+  fibreComTrivialFull_of hL hM (comIntOrQuadOrder_of_leaves hYu t6) hB hK hC
 
 end FS5NoCM
 
@@ -2286,9 +2286,9 @@ theorem cmConductorCoprime6_of (h : CMOptimalEmbedding) : CMConductorCoprime6 :=
 /-- **FS5 with the repaired clauses, from leaves and named glue**: the bundle, R5fpCount, T27, T6,
 N1b′ `CMOptimalEmbedding` (leaves), and `MobiusGlue`, N2 (glue). -/
 theorem fibreComTrivialFull_of_leaves'' (hL : R1R2fpFull) (hM : LeafQM.AV.Pin.MobiusGlue)
-    (t27 : PkgI3.QMDichotomyYu) (t6 : PkgI3.HomFreeFinite) (hE : CMOptimalEmbedding)
+    (hYu : QMLattice.YuB6Alg) (t6 : PkgI3.HomFreeFinite) (hE : CMOptimalEmbedding)
     (hK : X6KummerFibre) (hC : LeafQM.AV.R5fpCount) : FibreComTrivialFull :=
-  fibreComTrivialFull_of_leaves' hL hM t27 t6 (cmConductorCoprime6_of hE) hK hC
+  fibreComTrivialFull_of_leaves' hL hM hYu t6 (cmConductorCoprime6_of hE) hK hC
 
 end FS5NoCM
 
@@ -6821,11 +6821,10 @@ def OMaximal : Prop :=
 theorem oMaximal : OMaximal := oMaximal'
 
 /-- **`EndEqOFibre` from T27 (Yu), T6 (Mumford §19 Thm 3) and `OMaximal` (proved).** -/
-theorem endEqOFibre_of (t27 : PkgI3.QMDichotomyYu) (hHF : PkgI3.HomFreeFinite)
+theorem endEqOFibre_of (hYu : QMLattice.YuB6Alg) (hHF : PkgI3.HomFreeFinite)
     (hmax : OMaximal) : EndEqOFibre := by
   intro P hcom f
-  have hY := PkgI3.qmDichotomy_B6 t27 Qbar P.A P.surface G0FibreSimple.B6_isUnit
-    (G0FibreSimple.qm_embeds_end0 P.q)
+  have hY := hYu Qbar P.A P.surface P.q
   have hB : Nonempty (PkgI3.AbVar.End0 P.A ≃ₐ[ℚ] ℍ[ℚ, 2, -3]) := by
     rcases hY with hB | ⟨d, hd, hM⟩
     · exact hB
@@ -6918,20 +6917,20 @@ theorem endEqOFibre_of (t27 : PkgI3.QMDichotomyYu) (hHF : PkgI3.HomFreeFinite)
 `EndTransport`, `ConjIsogMaps`. -/
 theorem kernelFieldExists_of_split'' (hHFF : PkgI3.HomFreeFinite)
     (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
-    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
     (h5 : G0FibreSimple.FibreComTrivial) (hmax : OMaximal) (hb : EndTransport)
     (hG : ConjIsogMaps) : KernelFieldExists :=
-  kernelFieldExists_of_split' hHFF hNOS hRay hTors h5 hG (endEqOFibre_of t27 hHFF hmax) hb
+  kernelFieldExists_of_split' hHFF hNOS hRay hTors h5 hG (endEqOFibre_of hYu hHFF hmax) hb
 
 /-- **Headline, final split form (proved).** `KernelFieldExists` from the leaves `HomFreeFinite`
 (T6), `NeronOggShafarevich`, `RaynaudCriterion`, `TorsionStructure`, `QMDichotomyYu` (T27) and the
 glue FS5 `FibreComTrivial`, `EndTransport`, `ConjIsogMaps`. -/
 theorem kernelFieldExists_of_final (hHFF : PkgI3.HomFreeFinite)
     (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
-    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
     (h5 : G0FibreSimple.FibreComTrivial) (hb : EndTransport) (hG : ConjIsogMaps) :
     KernelFieldExists :=
-  kernelFieldExists_of_split'' hHFF hNOS hRay hTors t27 h5 oMaximal hb hG
+  kernelFieldExists_of_split'' hHFF hNOS hRay hTors hYu h5 oMaximal hb hG
 
 
 /-- `End = ι(𝒪)` moves along an isomorphism of `QML3` objects (proved). -/
@@ -6978,10 +6977,10 @@ theorem endTransport_of (h : EndTransportBC) : EndTransport := by
 /-- **Headline, final form with `EndTransportBC` (proved).** -/
 theorem kernelFieldExists_of_final' (hHFF : PkgI3.HomFreeFinite)
     (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
-    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
     (h5 : G0FibreSimple.FibreComTrivial) (hbc : EndTransportBC) (hG : ConjIsogMaps) :
     KernelFieldExists :=
-  kernelFieldExists_of_final hHFF hNOS hRay hTors t27 h5 (endTransport_of hbc) hG
+  kernelFieldExists_of_final hHFF hNOS hRay hTors hYu h5 (endTransport_of hbc) hG
 
 end G0ModField.KernelField
 
@@ -7153,10 +7152,10 @@ theorem endTransportBC_of_rigidity (hR : G0FibreSimple.RigidityHom) : EndTranspo
 FS5 `FibreComTrivial` (g0-fibresimple) and `ConjIsogMaps`. -/
 theorem kernelFieldExists_of_rigidity (hHFF : PkgI3.HomFreeFinite)
     (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
-    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
     (hRig : G0FibreSimple.RigidityHom) (h5 : G0FibreSimple.FibreComTrivial)
     (hG : ConjIsogMaps) : KernelFieldExists :=
-  kernelFieldExists_of_final' hHFF hNOS hRay hTors t27 h5 (endTransportBC_of_rigidity hRig) hG
+  kernelFieldExists_of_final' hHFF hNOS hRay hTors hYu h5 (endTransportBC_of_rigidity hRig) hG
 
 end G0ModField.KernelField
 

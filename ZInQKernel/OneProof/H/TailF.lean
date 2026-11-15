@@ -578,10 +578,10 @@ theorem G0ModField.KernelField.endTransport : G0ModField.KernelField.EndTranspor
 /-- `KernelFieldExists` with `RigidityHom` discharged: five leaves and two glue Props. -/
 theorem G0ModField.KernelField.kernelFieldExists_of_five (hHFF : PkgI3.HomFreeFinite)
     (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
-    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
     (h5 : G0FibreSimple.FibreComTrivial) (hG : G0ModField.KernelField.ConjIsogMaps) :
     G0ModField.KernelFieldExists :=
-  G0ModField.KernelField.kernelFieldExists_of_rigidity hHFF hNOS hRay hTors t27
+  G0ModField.KernelField.kernelFieldExists_of_rigidity hHFF hNOS hRay hTors hYu
     G0FibreSimple.rigidityHom h5 hG
 
 end KfGlueEndTransport
@@ -881,9 +881,9 @@ theorem conjIsogMaps_of_semilinearIsogMaps (h : SemilinearIsogMaps) : ConjIsogMa
 /-- `KernelFieldExists` with `ConjIsogMaps` replaced by `SemilinearIsogMaps`. -/
 theorem kernelFieldExists_of_semilinear (hHFF : PkgI3.HomFreeFinite)
     (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
-    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
     (h5 : G0FibreSimple.FibreComTrivial) (hS : SemilinearIsogMaps) : KernelFieldExists :=
-  kernelFieldExists_of_five hHFF hNOS hRay hTors t27 h5 (conjIsogMaps_of_semilinearIsogMaps hS)
+  kernelFieldExists_of_five hHFF hNOS hRay hTors hYu h5 (conjIsogMaps_of_semilinearIsogMaps hS)
 
 end G0ModField.KernelField
 
@@ -1164,10 +1164,10 @@ theorem conjIsogMaps_of_twist (hMul : G0FibreSimple.MulIsogeny) (h : SemilinearT
 /-- `KernelFieldExists` from the five leaves, FS5, `MulIsogeny` and `SemilinearTwistIsos`. -/
 theorem kernelFieldExists_of_twist (hHFF : PkgI3.HomFreeFinite)
     (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
-    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
     (h5 : G0FibreSimple.FibreComTrivial) (hMul : G0FibreSimple.MulIsogeny)
     (hS : SemilinearTwistIsos) : KernelFieldExists :=
-  kernelFieldExists_of_five hHFF hNOS hRay hTors t27 h5 (conjIsogMaps_of_twist hMul hS)
+  kernelFieldExists_of_five hHFF hNOS hRay hTors hYu h5 (conjIsogMaps_of_twist hMul hS)
 
 end G0ModField.KernelField
 
@@ -1362,10 +1362,10 @@ theorem conjIsogMaps_of_descent (hMul : G0FibreSimple.MulIsogeny) (hD : TwistDes
 /-- `KernelFieldExists` from the five leaves, FS5, `MulIsogeny` and `TwistDescent`. -/
 theorem kernelFieldExists_of_descent (hHFF : PkgI3.HomFreeFinite)
     (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
-    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
     (h5 : G0FibreSimple.FibreComTrivial) (hMul : G0FibreSimple.MulIsogeny)
     (hD : TwistDescent) : KernelFieldExists :=
-  kernelFieldExists_of_five hHFF hNOS hRay hTors t27 h5 (conjIsogMaps_of_descent hMul hD)
+  kernelFieldExists_of_five hHFF hNOS hRay hTors hYu h5 (conjIsogMaps_of_descent hMul hD)
 
 /-- **`ConjIsogMaps` from mul-rigidity's leaf `KerUnitOpen` and `TwistDescent` (proved).** -/
 theorem conjIsogMaps_of_kerUnitOpen (hK : MulRigidity.KerUnitOpen) (hD : TwistDescent) :
@@ -1384,10 +1384,10 @@ theorem conjIsogMaps_of_cotangent (h1 : MulRigidity.KerUnitOpenOfCotangentSurj)
 (g0-fibresimple) and `TwistDescent` (Galois descent). -/
 theorem kernelFieldExists_of_kerUnitOpen (hHFF : PkgI3.HomFreeFinite)
     (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
-    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
     (h5 : G0FibreSimple.FibreComTrivial) (hK : MulRigidity.KerUnitOpen) (hD : TwistDescent) :
     KernelFieldExists :=
-  kernelFieldExists_of_five hHFF hNOS hRay hTors t27 h5 (conjIsogMaps_of_kerUnitOpen hK hD)
+  kernelFieldExists_of_five hHFF hNOS hRay hTors hYu h5 (conjIsogMaps_of_kerUnitOpen hK hD)
 
 end G0ModField.KernelField
 
@@ -2002,18 +2002,18 @@ theorem conjIsogMaps_of_cotangent' (h1 : MulRigidity.KerUnitOpenOfCotangentSurj)
 T27, `KerUnitOpen`; glue: FS5 `FibreComTrivial`. -/
 theorem kernelFieldExists_of_kerUnitOpen' (hHFF : PkgI3.HomFreeFinite)
     (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
-    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
     (h5 : G0FibreSimple.FibreComTrivial) (hK : MulRigidity.KerUnitOpen) :
     KernelFieldExists :=
-  kernelFieldExists_of_kerUnitOpen hHFF hNOS hRay hTors t27 h5 hK twistDescent
+  kernelFieldExists_of_kerUnitOpen hHFF hNOS hRay hTors hYu h5 hK twistDescent
 
 /-- **`KernelFieldExists` without `TwistDescent`**, with `MulIsogeny`. -/
 theorem kernelFieldExists_of_mulIsogeny (hHFF : PkgI3.HomFreeFinite)
     (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
-    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
     (h5 : G0FibreSimple.FibreComTrivial) (hMul : G0FibreSimple.MulIsogeny) :
     KernelFieldExists :=
-  kernelFieldExists_of_descent hHFF hNOS hRay hTors t27 h5 hMul twistDescent
+  kernelFieldExists_of_descent hHFF hNOS hRay hTors hYu h5 hMul twistDescent
 
 end G0ModField.KernelField
 
@@ -4011,7 +4011,7 @@ def QMSplitCaseRank : Prop :=
 
 /-- **`QMEndRank`, proved** from the leaves I3.M1 (`PkgI3.HomFreeFinite`, Mumford §19 Thm 3) and
 T27 (`PkgI3.QMDichotomyYu`, Yu 2013 Thm 1.1) and the glue `QMSplitCaseRank`. -/
-theorem qmEndRank_of (hM1 : PkgI3.HomFreeFinite) (hT27 : PkgI3.QMDichotomyYu)
+theorem qmEndRank_of (hM1 : PkgI3.HomFreeFinite) (hYu : QMLattice.YuB6Alg)
     (hS : QMSplitCaseRank) : HSyn.LinkedTate.QMEndRank := by
   intro K L L' _ hKL hLL' PK hdiv
   letI iKL : Algebra K L := incAlg hKL
@@ -4035,8 +4035,10 @@ theorem qmEndRank_of (hM1 : PkgI3.HomFreeFinite) (hT27 : PkgI3.QMDichotomyYu)
     show (A'.baseChange Ω).dim = 2
     rw [G0Dim.pkgI3_dim_baseChange]; exact hdimA'
   let φ'' : O →+* PkgI3.AbVar.End A'' := (HSyn.LinkedTate.endBC A' Ω).comp φ
-  rcases hT27 Ω A'' hdimA'' 2 (-3) PkgI3.quatIndefinite_two_neg_three quatB6_isUnit
-      (quatEmbed A'' φ'') with he | ⟨d, hd, he⟩
+  haveI : Algebra.IsAlgebraic ℚ Ω := by
+    haveI : Algebra.IsAlgebraic ℚ L' := Algebra.IsAlgebraic.of_finite ℚ L'
+    exact Algebra.IsAlgebraic.trans ℚ L' (AlgebraicClosure L')
+  rcases hYu Ω A'' hdimA'' ⟨φ'', (HSyn.LinkedTate.endBC_injective A' Ω).comp hφ⟩ with he | ⟨d, hd, he⟩
   · obtain ⟨e⟩ := he
     calc Module.finrank ℤ (PkgI3.AbVar.End A')
         ≤ Module.finrank ℤ (PkgI3.AbVar.End A'') := finrank_le_baseChange hM1 A' Ω
@@ -4277,9 +4279,9 @@ theorem qmSplitCaseRank (hM1 : PkgI3.HomFreeFinite) : QMSplitCaseRank := by
   exact hm0 (eq_zero_of_mul_self_eq_zero A hdiv hdim m hmm)
 
 /-- **`QMEndRank` from the leaves I3.M1 and T27 alone** (proved). -/
-theorem qmEndRank_of_leaves (hM1 : PkgI3.HomFreeFinite) (hT27 : PkgI3.QMDichotomyYu) :
+theorem qmEndRank_of_leaves (hM1 : PkgI3.HomFreeFinite) (hYu : QMLattice.YuB6Alg) :
     HSyn.LinkedTate.QMEndRank :=
-  qmEndRank_of hM1 hT27 (qmSplitCaseRank hM1)
+  qmEndRank_of hM1 hYu (qmSplitCaseRank hM1)
 
 end LTGoodRed.QM
 

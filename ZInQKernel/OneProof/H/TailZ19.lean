@@ -1911,8 +1911,8 @@ theorem researchLeaves11_of_open12 (r : OpenResearchLeaves12) (t : OpenTextbookL
 `ZInQ.SixContactMin` from `OpenResearchLeaves12` (32), `OpenTextbookLeaves10` (15), `OpenAddedLeaves11` (13) and
 `OpenGlue7` (1). -/
 theorem sixContactMin_of_open15 (r : OpenResearchLeaves12) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves11)
-    (g : OpenGlue7) : ZInQ.SixContactMin :=
-  sixContactMin_of_open14 (researchLeaves11_of_open12 r t) t l g
+    (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
+  sixContactMin_of_open14 (researchLeaves11_of_open12 r t) t l g hYu
 
 end HSyn
 
