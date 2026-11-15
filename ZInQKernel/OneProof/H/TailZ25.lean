@@ -45,11 +45,12 @@ structure OpenResearchLeaves15 : Prop where
   one canonical coarse witness `X₆` of the fine moduli scheme of abelian schemes. Replaces
   `gonzalezRotgerCountX6`. -/
   gonzalezRotgerCountX6Ab : _root_.ShimuraSplit.GonzalezRotgerCountX6Ab
-  /-- r1univ-rigid: **Mumford's rigidity over a base, printed core** (GIT Thm 6.14 on each connected component and
-  Cor. 6.4 over `S`; numbers UNVERIFIED): a proper smooth geometrically connected family over a locally noetherian
-  `S` with a section `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in
-  `Over S` with identity `e`, and every `S`-endomorphism fixing `e` is a homomorphism. -/
-  mumfordRigidityCore : _root_.LeafQM.AV.R1UnivRigid.MumfordRigidityCore
+  /-- gt-rigidity, rigid-prune (leaf-fold23): **Mumford's GIT Thm 6.14 over a base** (on each connected component;
+  numbers UNVERIFIED): a proper smooth geometrically connected family over a locally noetherian `S` with a section
+  `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
+  identity `e`. Replaces `mumfordRigidityCore`, which also asked Cor. 6.4 (not needed: rigid-prune proves that each
+  `ι(a)` is a homomorphism from the field points). -/
+  mumfordGroupLaw : _root_.ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw
   /-- c-to-printed, printed form: Bosch–Lütkebohmert–Raynaud, *Néron models*, §1.2 Prop. 4 (over a Dedekind
   domain, a smooth separated model of finite type is a Néron model iff its localizations at the closed points are;
   locator UNVERIFIED). Replaces `neronLocalizesDVR`. -/
@@ -118,7 +119,7 @@ theorem openResearchLeaves14_of_OpenResearchLeaves15 (n : OpenResearchLeaves15) 
   semistableUnipotent := n.semistableUnipotent
   neronSchemeModelExistsDVR := n.neronSchemeModelExistsDVR
   gonzalezRotgerCountX6Ab := n.gonzalezRotgerCountX6Ab
-  mumfordRigidityCore := n.mumfordRigidityCore
+  mumfordGroupLaw := n.mumfordGroupLaw
   blr_1_2_4 := n.blr_1_2_4
   faltingsLemma5Printed := n.faltingsLemma5Printed
   sga3_VIB_3_10 := n.sga3_VIB_3_10

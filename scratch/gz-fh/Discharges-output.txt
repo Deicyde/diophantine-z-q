@@ -1,0 +1,33 @@
+DISCHARGES [OpenResearchLeaves20.gonzalezRotgerProp56X6] by GRCountX6.prop56X6_of_r5fpCount
+  still assumes: [LeafQM.AV.R5fpCount]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves20.neronBaseChangeStrictHenselization] by GapSHPair.neronBaseChangeStrictHenselization_of_unramified
+  still assumes: [ReductGlue.NeronBaseChangeUnramifiedDVR]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves20.elkiesX6StarPrinted] by HDec.QMSplit.Moduli.ElkiesX6Star.elkiesX6StarPrinted_of_ab
+  still assumes: [HDec.QMSplit.Moduli.ElkiesEquationsX6Ab]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves20.sga7_IX_3_3_SH] by SGA7PersistsNF.sga7_IX_3_3_SH_of_field
+  still assumes: [CToPrinted.SGA7_IX_3_3]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves20.sga7_IX_3_5_ForwardGeom] by UnipotentForward.forwardGeom_of_forward
+  still assumes: [UnipotentForward.SGA7_IX_3_5_Forward, UnipotentForward.SemiAbelianDescendsSepClosed]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [hL2] by ZInQ.GZFH.fhNonvanishing_of_friedbergHoffsteinB_FE
+  still assumes: [ZInQ.GZFH.FriedbergHoffsteinB_FE]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [hL2] by ZInQ.GZFH.fhNonvanishing_of_printed
+  still assumes: [ZInQ.GZFH.FriedbergHoffsteinB, ZInQ.GZFH.TwistNewformRootNumber]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [hL2] by ZInQ.GZFH.fhNonvanishing_of_printed_fe
+  still assumes: [ZInQ.GZFH.FriedbergHoffsteinB_FE, ZInQ.GZFH.TwistFunctionalEquation]
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 65 open hypotheses, 1349 theorems checked, 8 discharge one
+'gzfh_frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+'gzfh_fhNonvanishingCd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZFH.fhNonvanishing_of_friedbergHoffsteinB_FE' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZFH.twistFunctionalEquation' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZFH.fhNonvanishing_of_printed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZFH.fhNonvanishing_of_printed_fe' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZFH.twistFunctionalEquation_of_twistNewformRootNumber' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZFH.friedbergHoffsteinB_of_fe' depends on axioms: [propext, Classical.choice, Quot.sound]

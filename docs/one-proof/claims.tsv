@@ -21,7 +21,7 @@ r7a	cloud round 2	in progress (H-5, Néron–Ogg–Shafarevich)	2026-11-14	ellio
 h11	cloud round 2	in progress (T-1); new base case TYZLcalOne proved	2026-11-14	elliotglazer/diophantine-z-q#74	project	project	https://github.com/elliotglazer/diophantine-z-q/issues/74#issuecomment-6885321859	held
 h29	h29-fix	h29-fix done (five leaves, none pending reading); fold queued after the re-rating	2026-11-15	elliotglazer/diophantine-z-q#74	project	project	https://github.com/elliotglazer/diophantine-z-q/issues/74#issuecomment-6885321859	held
 geomConnOfAlgClosure	cloud batch 2	claimed on the issue 2026-11-15 02:14Z, in progress	2026-11-15	elliotglazer/diophantine-z-q#86	project	project	https://github.com/elliotglazer/diophantine-z-q/issues/86#issuecomment-6887798957	held
-mumfordRigidityCore	rigid-prune; cloud batch 3 (on MumfordGroupLaw, which replaces this field in leaf-fold23)	host task reported: not prunable without a field change (two consumers need it); weakening to MumfordGroupLaw (GIT Thm 6.14 alone) proposed	2026-11-15		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/rigid-prune	held
+mumfordGroupLaw	cloud batch 3	briefed 2026-11-15, not yet claimed on the issue	2026-11-15	elliotglazer/diophantine-z-q#81	project	project		interest
 sga3_VIB_3_10	cloud batch 3	briefed 2026-11-15, not yet claimed on the issue	2026-11-15	elliotglazer/diophantine-z-q#81	project	project		interest
 neronBaseChangeStrictHenselization	cloud batch 3	briefed 2026-11-15, not yet claimed on the issue	2026-11-15	elliotglazer/diophantine-z-q#85	project	project		interest
 picRepresentableAbVar	cloud batch 3	briefed 2026-11-15, not yet claimed on the issue	2026-11-15	elliotglazer/diophantine-z-q#81	project	project		interest
@@ -29,7 +29,9 @@ picZeroAbVar	cloud batch 3	briefed 2026-11-15, not yet claimed on the issue	2026
 phiAmpleIsogeny	cloud batch 3	briefed 2026-11-15, not yet claimed on the issue	2026-11-15	elliotglazer/diophantine-z-q#81	project	project		interest
 weilPairingMumford	cloud batch 3	briefed 2026-11-15, not yet claimed on the issue	2026-11-15	elliotglazer/diophantine-z-q#81	project	project		interest
 hX	cloud batch 3 (on its leaf VeluCyclic)	briefed 2026-11-15, not yet claimed on the issue	2026-11-15	elliotglazer/diophantine-z-q#74	project	project		interest
-r16	r16-split	host task r16-split running (printed sources of Eichler-Shimura in J1(N))	2026-11-15		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/r16-split	held
 elkiesX6StarPrinted	elkies-coord	host task elkies-coord running	2026-11-15		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/elkies-coord	held
-hL2	gz-fh	host task gz-fh running	2026-11-15		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/gz-fh	held
 hL3	gz-hl3	host task gz-hl3 running	2026-11-15		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/gz-hl3	held
+r17	r17-bypass	host task running	2026-11-15		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/r17-bypass	held
+eigenformHTNew	ht-bypass	host task running	2026-11-15		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/ht-bypass	held
+r11r12	pb-bypass	host task running	2026-11-15		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/pb-bypass	held
+shimuraIntegralModelRep	sir-printed	host task running	2026-11-15		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/sir-printed	held

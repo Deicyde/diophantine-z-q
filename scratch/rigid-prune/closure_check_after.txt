@@ -1,0 +1,11 @@
+LeafQM.AV.R1UnivRigid.mumfordRigidity_of_core: not in closure
+LeafQM.AV.R1UnivRigid.MumfordRigidity: not in closure
+LeafQM.AV.R1UnivRigid.exists_qmAbScheme: not in closure
+LeafQM.AV.R1UnivRigid.r1univProps_of_ab: not in closure
+LeafQM.AV.R1UnivRigid.r1fpProps_eq_ab': not in closure
+LeafQM.AV.R1UnivRigid.MumfordRigidityCore: IN closure
+LeafQM.AV.R1UnivRigid.QMFamilyGroupLaw: IN closure
+LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_core: IN closure
+ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw: IN closure
+ZInQ.Contrib.MumfordRigidity.mumfordGroupLaw_of_core: IN closure
+HDec.HSyn.mumfordRigidity_of14: not in closure

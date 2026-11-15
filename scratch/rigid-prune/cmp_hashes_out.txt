@@ -1,0 +1,34 @@
+base 13675  after 13694  removed 1  new 20  changed 3
+
+## removed
+  HDec.HSyn.mumfordRigidity_of14 ZInQKernel.OneProof.H.TailZ23
+
+## new, by module
+  ZInQKernel.OneProof.H.TailZ40: 20
+
+## new
+  LeafQM.AV.R1UnivRigid.QMFamilyGroupLaw ZInQKernel.OneProof.H.TailZ40
+  LeafQM.AV.R1UnivRigid.babaGranathRational_iff_ab_gl ZInQKernel.OneProof.H.TailZ40
+  LeafQM.AV.R1UnivRigid.deligneComponentsX6Printed_iff_ab_gl ZInQKernel.OneProof.H.TailZ40
+  LeafQM.AV.R1UnivRigid.deligneComponentsY3Printed_iff_ab_gl ZInQKernel.OneProof.H.TailZ40
+  LeafQM.AV.R1UnivRigid.elkiesEquationsX6_iff_ab_gl ZInQKernel.OneProof.H.TailZ40
+  LeafQM.AV.R1UnivRigid.exists_qmAbScheme_gl ZInQKernel.OneProof.H.TailZ40
+  LeafQM.AV.R1UnivRigid.gonzalezRotgerCountX6_iff_ab_gl ZInQKernel.OneProof.H.TailZ40
+  LeafQM.AV.R1UnivRigid.gonzalezRotgerX6_iff_ab_gl ZInQKernel.OneProof.H.TailZ40
+  LeafQM.AV.R1UnivRigid.isMonHom_of_fibres ZInQKernel.OneProof.H.TailZ40
+  LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_core ZInQKernel.OneProof.H.TailZ40
+  LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_groupLaw ZInQKernel.OneProof.H.TailZ40
+  LeafQM.AV.R1UnivRigid.r1R2fpRep_iff_ab_gl ZInQKernel.OneProof.H.TailZ40
+  LeafQM.AV.R1UnivRigid.r1famAbProps_of_r1famProps_gl ZInQKernel.OneProof.H.TailZ40
+  LeafQM.AV.R1UnivRigid.r1fpProps_eq_ab_gl ZInQKernel.OneProof.H.TailZ40
+  LeafQM.AV.R1UnivRigid.r1fpProps_iff_ab_gl ZInQKernel.OneProof.H.TailZ40
+  LeafQM.AV.R1UnivRigid.r1fpProps_iff_ab_gl.match_1_1 ZInQKernel.OneProof.H.TailZ40
+  LeafQM.AV.R1UnivRigid.r1fpProps_iff_ab_gl.match_1_3 ZInQKernel.OneProof.H.TailZ40
+  LeafQM.AV.R1UnivRigid.r1univProps_of_ab_gl ZInQKernel.OneProof.H.TailZ40
+  LeafQM.AV.R1UnivRigid.rayClassCM_iff_ab_gl ZInQKernel.OneProof.H.TailZ40
+  LeafQM.AV.R1UnivRigid.shimuraFamily_iff_ab_gl ZInQKernel.OneProof.H.TailZ40
+
+## changed (T = type hash changed, V = value only)
+  V HDec.HSyn.addedLeaves9_of_open14 ZInQKernel.OneProof.H.TailZ23
+  V HDec.HSyn.researchLeaves9_of_open14 ZInQKernel.OneProof.H.TailZ23
+  V HDec.HSyn.x6Rows_of_open14 ZInQKernel.OneProof.H.TailZ23

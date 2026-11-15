@@ -1,0 +1,4 @@
+'RigidPrune.phi_part_ab' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ModelGlue.exists_genFib_to_Y_ab' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ModelGlue.shimuraModelGenericAb_of_gl' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RigidPrune.r1fpProps_of_ab_gl' depends on axioms: [propext, Classical.choice, Quot.sound]

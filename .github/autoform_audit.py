@@ -61,11 +61,17 @@ import json
 import re
 import sys
 import tarfile
+import tempfile
 import unicodedata
+import zlib
 from pathlib import Path, PurePosixPath
-from typing import NamedTuple
+from typing import IO, NamedTuple
 
 _MAX_ILEAN_BYTES = 16 * 1024 * 1024
+#: Captured ILean and Lake trace payloads stay in memory up to this many bytes
+#: in total; beyond it the spool moves to an unnamed temporary file.
+_SPOOL_MEMORY_BYTES = 8 * 1024 * 1024
+_COPY_CHUNK_BYTES = 64 * 1024
 _TOP_LEVEL_NAME = re.compile(r'^name\s*=\s*("(?:[^"\\]|\\.)*")\s*(?:#.*)?$')
 _ASSUMPTIONS_SCHEMA = "autoform-assumptions/v1"
 #: The contract states of an article a Batteries wanted placeholder may back:
@@ -159,46 +165,42 @@ def blueprint_policy(blueprint: Path) -> str:
 
 
 def modules_from_archive(archive: Path, root_package: str) -> tuple[str, ...]:
-    """Return modules proven to be built as part of *root_package*."""
+    """Return modules proven to be built as part of *root_package*.
+
+    The archive is read in at most two forward passes; in a compressed archive
+    every backward seek decompresses it again from the start. The first pass
+    checks the path, uniqueness and type of every ILean, OLean and trace
+    member in archive order, so the first such error is the first offending
+    member in the archive. Only the payloads the metadata checks read are
+    copied, into a temporary spool that moves from memory to an unnamed
+    temporary file once it grows: each ILean within the size limit and each
+    trace with a matching ILean and OLean. OLean payloads and traces without
+    both companions are never read. The metadata checks then run over the
+    spool in sorted path order, so the result and the first metadata error do
+    not depend on the member order.
+    """
 
     if not root_package or any(character.isspace() for character in root_package):
         raise AuditInputError("root package name is empty or malformed")
     modules: dict[str, str] = {}
-    members: dict[str, tarfile.TarInfo] = {}
-    try:
-        packed = tarfile.open(archive, mode="r:*")
-    except (OSError, tarfile.TarError) as exc:
-        raise AuditInputError(f"cannot read root-package build archive: {exc}") from exc
-
-    with packed:
-        for member in packed:
-            if not member.name.endswith((".ilean", ".olean", ".trace")):
-                continue
-            parts = _safe_member_parts(member.name)
-            display_path = "/".join(parts)
-            if display_path in members:
-                raise AuditInputError(f"duplicate build archive member: {display_path}")
-            if not member.isfile():
-                raise AuditInputError(f"build archive member is not a regular file: {display_path}")
-            members[display_path] = member
-
-        for display_path, member in sorted(members.items()):
+    with _new_spool() as spool:
+        sizes, spans = _scan_archive(archive, spool)
+        for display_path in sorted(sizes):
             if not display_path.endswith(".ilean"):
                 continue
-            if member.size > _MAX_ILEAN_BYTES:
+            if sizes[display_path] > _MAX_ILEAN_BYTES:
                 raise AuditInputError(f"ILean archive member is unexpectedly large: {display_path}")
-            metadata = _read_json(packed, member, "ILean", display_path)
+            metadata = _parse_json(_spooled(spool, spans[display_path]), "ILean", display_path)
             parts = PurePosixPath(display_path).parts
             module = _module_from_metadata(metadata, parts, display_path)
             stem = display_path[: -len(".ilean")]
             olean_path = f"{stem}.olean"
             trace_path = f"{stem}.trace"
-            if olean_path not in members:
+            if olean_path not in sizes:
                 raise AuditInputError(f"ILean artifact has no matching OLean: {display_path}")
-            trace_member = members.get(trace_path)
-            if trace_member is None:
+            if trace_path not in sizes:
                 raise AuditInputError(f"ILean artifact has no matching Lake trace: {display_path}")
-            trace = _read_json(packed, trace_member, "Lake trace", trace_path)
+            trace = _parse_json(_spooled(spool, spans[trace_path]), "Lake trace", trace_path)
             _validate_trace(trace, module, root_package, trace_path)
             previous = modules.get(module)
             if previous is not None:
@@ -212,14 +214,125 @@ def modules_from_archive(archive: Path, root_package: str) -> tuple[str, ...]:
     return tuple(sorted(modules))
 
 
-def _read_json(
-    packed: tarfile.TarFile, member: tarfile.TarInfo, kind: str, display_path: str
-) -> object:
+def _new_spool() -> IO[bytes]:
+    return tempfile.SpooledTemporaryFile(max_size=_SPOOL_MEMORY_BYTES, mode="w+b")
+
+
+def _scan_archive(
+    archive: Path, spool: IO[bytes]
+) -> tuple[dict[str, int], dict[str, tuple[int, int]]]:
+    """Check every artifact member of *archive* and copy the payloads the checks read.
+
+    Returns every artifact member's size by normalized path, and where in
+    *spool* each copied payload is. The first pass reads the members in
+    archive order. It copies each ILean within the size limit as it passes,
+    and each trace whose ILean, within the limit, and OLean came before it. A
+    trace that needs copying but came before its ILean or OLean is copied in a
+    second pass over those traces alone, in archive order. That pass rewinds
+    the archive once, and runs only when there is such a trace. An oversized
+    ILean is only recorded, so its error comes at its turn in the sorted
+    checks, as before. The archive is opened as ``tarfile.open(..., "r:*")``
+    always opened it.
+    """
+
+    sizes: dict[str, int] = {}
+    spans: dict[str, tuple[int, int]] = {}
+    later: dict[str, tarfile.TarInfo] = {}
+    try:
+        source = open(archive, "rb")
+    except OSError as exc:
+        raise AuditInputError(f"cannot read root-package build archive: {exc}") from exc
+    with source:
+        try:
+            packed = tarfile.open(fileobj=source, mode="r:*")
+        except (OSError, EOFError, zlib.error, tarfile.TarError) as exc:
+            raise AuditInputError(f"cannot read root-package build archive: {exc}") from exc
+        with packed:
+            try:
+                for member in packed:
+                    if not member.name.endswith((".ilean", ".olean", ".trace")):
+                        continue
+                    parts = _safe_member_parts(member.name)
+                    display_path = "/".join(parts)
+                    if display_path in sizes:
+                        raise AuditInputError(f"duplicate build archive member: {display_path}")
+                    if not member.isfile():
+                        raise AuditInputError(
+                            f"build archive member is not a regular file: {display_path}"
+                        )
+                    sizes[display_path] = member.size
+                    if display_path.endswith(".ilean"):
+                        if member.size <= _MAX_ILEAN_BYTES:
+                            spans[display_path] = _capture(packed, member, spool, "ILean", display_path)
+                    elif display_path.endswith(".trace"):
+                        if _trace_is_read(display_path, sizes):
+                            spans[display_path] = _capture(
+                                packed, member, spool, "Lake trace", display_path
+                            )
+                        else:
+                            later[display_path] = member
+                # The second pass: one rewind, then forward in archive order.
+                pending = [
+                    (member.offset_data, display_path, member)
+                    for display_path, member in later.items()
+                    if _trace_is_read(display_path, sizes)
+                ]
+                for _, display_path, member in sorted(pending, key=lambda entry: entry[0]):
+                    spans[display_path] = _capture(packed, member, spool, "Lake trace", display_path)
+            except (OSError, EOFError, zlib.error, tarfile.TarError) as exc:
+                raise AuditInputError(f"cannot read root-package build archive: {exc}") from exc
+    return sizes, spans
+
+
+def _trace_is_read(trace_path: str, sizes: dict[str, int]) -> bool:
+    """Whether the metadata checks can reach the trace at *trace_path*.
+
+    They read a trace only after its ILean, within the size limit, and after
+    finding its OLean.
+    """
+
+    stem = trace_path[: -len(".trace")]
+    ilean_size = sizes.get(f"{stem}.ilean")
+    return ilean_size is not None and ilean_size <= _MAX_ILEAN_BYTES and f"{stem}.olean" in sizes
+
+
+def _capture(
+    packed: tarfile.TarFile,
+    member: tarfile.TarInfo,
+    spool: IO[bytes],
+    kind: str,
+    display_path: str,
+) -> tuple[int, int]:
+    """Append the payload of *member*, the archive's current member, to *spool*."""
+
     source = packed.extractfile(member)
     if source is None:
         raise AuditInputError(f"cannot read {kind} archive member: {display_path}")
+    start = spool.tell()
+    with source:
+        while True:
+            chunk = source.read(_COPY_CHUNK_BYTES)
+            if not chunk:
+                break
+            spool.write(chunk)
+    length = spool.tell() - start
+    if length != member.size:
+        raise AuditInputError(f"cannot read {kind} archive member: {display_path}")
+    return start, length
+
+
+def _spooled(spool: IO[bytes], span: tuple[int, int]) -> bytes:
+    start, length = span
+    spool.seek(start)
+    return spool.read(length)
+
+
+def _parse_json(data: bytes, kind: str, display_path: str) -> object:
     try:
-        return json.loads(source.read().decode("utf-8"))
+        text = data.decode("utf-8")
+        # Keep at most two copies of a large payload alive: the text and what parses from it.
+        del data
+        return json.loads(text)
     except (UnicodeError, json.JSONDecodeError) as exc:
         raise AuditInputError(f"malformed {kind} metadata in {display_path}: {exc}") from exc
 

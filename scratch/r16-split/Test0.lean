@@ -1,0 +1,13 @@
+import ZInQKernel.HDecomp.ModCurves.Leaves
+open LeafModCurves
+#check @R16_EichlerShimuraJ1'
+#check @PkgI3.TateModuleFree
+#check @Module.finrank_linearMap_self
+#check @Module.End.IsSemisimple.iSup_eigenspace_eq_top
+#check @Module.End.isSemisimple_of_squarefree_aeval_eq_zero
+#check @Module.End.eigenspaces_iSupIndep
+#check @PowerBasis.liftEquiv'
+#check @Field.powerBasisOfFiniteOfSeparable
+#check @DirectSum.isInternal_submodule_of_iSupIndep_of_iSup_eq_top
+#check @Module.finrank_directSum
+#check @PkgI3.AbVar.homT

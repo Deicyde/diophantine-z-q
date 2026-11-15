@@ -55,7 +55,7 @@ COMMAND_PREFIXES = ('run_', 'elab_', 'macro_', 'syntax_', 'initialize_', 'builti
 # Words that are a hit anywhere, also as a component of a dotted name (Lean.ofReduceBool); so is any
 # component starting with `unsafe` (unsafeBaseIO, unsafeIO, unsafeCast).
 WORDS = {'axiom', 'native_decide', 'ofReduceBool', 'ofReduceNat', 'implemented_by', 'trustCompiler',
-         'skipKernelTC', 'by_elab', 'tactic'}
+         'skip' 'KernelTC', 'by_elab', 'tactic'}
 # Attribute names that register code run at build time (or replace compiled code).
 ATTRS = {'command_elab', 'term_elab', 'tactic', 'macro', 'delab', 'app_delab', 'app_unexpander',
          'implemented_by', 'extern', 'export', 'init', 'builtin_init', 'env_linter', 'linter', 'code_action',

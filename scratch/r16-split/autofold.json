@@ -1,0 +1,22 @@
+{
+ "name": "r16-split",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.R16Split"
+ ],
+ "discharges": [
+  {
+   "field": "r16",
+   "proof": "_root_.R16Split.r16_of_printed {n}.r16CoreY {t}.mumfordTorsionAlgClosed {t}.charPolyIndepOfEllAlgClosed",
+   "leaves": [
+    {
+     "name": "r16CoreY",
+     "type": "_root_.R16Split.R16CoreY",
+     "doc": "r16-split: R16_EichlerShimuraJ1' with its rank-two clause deleted (a consequence of r16; R16Split.coreY_of_r16). For a newform f in S_2(Gamma_1(N)) with nebentypus chi and J = J_1(N): [K_f:Q] < infinity, and one Q-quotient pi : J ->> A with theta : K_f -> End^0(A), dim A = [K_f:Q], and arithmetic Frobenius at p not dividing N*l acting on every iota-component of V_l(A) with trace iota(a_p) and determinant iota(chi(p)) p. The rank-two clause is proved from dim A = [K_f:Q], mumfordTorsionAlgClosed and charPolyIndepOfEllAlgClosed (Mumford 19 Thm 4): R16Split.r16_of_printed. Still a composite of two printed theorems about Shimura's A_f, which has no Lean definition (no Hecke correspondences on X_1(N), no S_2 <-> H^0(X_1(N), Omega^1) comparison).",
+     "kind": "composite",
+     "flag": "",
+     "source": "Shimura 1973 Thm 1, unconditional clauses (A_f, K_f-action, dim A_f = [K_f:Q]; audit row R16); Diamond-Shurman Thm 9.5.4 / Shimura 1971 Thm 7.11 (char. poly. of Frobenius on V_l(A_f), from the congruence relation Shimura 1971 Thm 7.9); numbers UNVERIFIED. The rank-two source (Shimura 1971 7.4, Ribet 1977) is no longer needed (r16-split)"
+    }
+   ]
+  }
+ ]
+}

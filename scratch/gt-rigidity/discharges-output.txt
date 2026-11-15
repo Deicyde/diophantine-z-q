@@ -1,0 +1,7 @@
+DISCHARGES [OpenResearchLeaves16.mumfordRigidityCore] by ZInQ.Contrib.MumfordRigidity.mumfordRigidityCore_of_printed
+  still assumes: [ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw, ZInQ.Contrib.MumfordRigidity.RigidityLemma]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves16.mumfordRigidityCore] by ZInQ.Contrib.MumfordRigidity.mumfordRigidityCore_of_pushforward
+  still assumes: [ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw, ZInQ.Contrib.MumfordRigidity.PushforwardStructureSheaf]
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 67 open hypotheses, 521 theorems checked, 2 discharge one

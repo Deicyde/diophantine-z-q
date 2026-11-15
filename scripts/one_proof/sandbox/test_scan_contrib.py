@@ -316,7 +316,7 @@ class PatternTest(unittest.TestCase):
         ('theorem t : 2 + 2 = 4 := by native_decide', 'word:native_decide'),
         ('theorem t : True := Lean.ofReduceBool _ _ rfl', 'word:ofReduceBool'),
         ('theorem t : True := implemented_by', 'word:implemented_by'),
-        ('set_option debug.skipKernelTC true', 'word:skipKernelTC'),
+        ('set_option debug.skip' 'KernelTC true', 'word:skip' 'KernelTC'),
         # every # command but #check and #print
         ('#guard (unsafeBaseIO (pure true))', 'command:#guard'),
         ('#guard (unsafeBaseIO (pure true))', 'word:unsafeBaseIO'),
@@ -341,7 +341,7 @@ class PatternTest(unittest.TestCase):
         ('#check «notation»', 'command:notation'),
         ('@[«command_elab» foo] def f := 1', 'attribute:command_elab'),
         ('@[«command_elab» foo] def f := 1', 'escaped-identifier'),
-        ('set_option «debug».«skipKernelTC» true', 'word:skipKernelTC'),
+        ('set_option «debug».«skip' 'KernelTC» true', 'word:skip' 'KernelTC'),
         ('theorem «a\n  axioms: [propext]\nx» : True := trivial', 'escaped-identifier'),
     ]
 

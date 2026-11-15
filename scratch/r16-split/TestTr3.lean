@@ -1,0 +1,19 @@
+import Mathlib
+open Module
+noncomputable section
+def precompL {k V Ω : Type*} [Field k] [AddCommGroup V] [Module k V] [Field Ω] [Algebra k Ω]
+    (T : Module.End k V) : Module.End Ω (V →ₗ[k] Ω) :=
+  { toFun := fun φ => φ ∘ₗ T
+    map_add' := fun φ ψ => LinearMap.add_comp _ _ _
+    map_smul' := fun c φ => LinearMap.smul_comp _ _ _ }
+
+theorem trace_precompL {k V Ω : Type*} [Field k] [AddCommGroup V] [Module k V]
+    [FiniteDimensional k V] [Field Ω] [Algebra k Ω] (T : Module.End k V) :
+    LinearMap.trace Ω (V →ₗ[k] Ω) (precompL T) = algebraMap k Ω (LinearMap.trace k V T) := by
+  classical
+  set b := Module.finBasis k V
+  set e : (Fin (finrank k V) → Ω) ≃ₗ[Ω] (V →ₗ[k] Ω) := b.constr Ω with he
+  set B : Basis (Fin (finrank k V)) Ω (V →ₗ[k] Ω) := (Pi.basisFun Ω _).map e with hB
+  rw [LinearMap.trace_eq_matrix_trace Ω B, LinearMap.trace_eq_matrix_trace k b, Matrix.trace,
+    Matrix.trace, map_sum]
+  sorry

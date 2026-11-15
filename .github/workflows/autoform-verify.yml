@@ -28,6 +28,14 @@ jobs:
       - name: Check out project
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
+      # Standard-library unit tests for this workflow and its audit helper run
+      # before any download or build, so a broken workflow edit fails in seconds.
+      # Discovery that finds no test exits nonzero, failing the step.
+      - name: Run workflow and audit unit tests
+        run: >-
+          python3 -m unittest discover --verbose
+          --start-directory .github/tests --pattern 'test_autoform_*.py'
+
       - name: Install uv
         uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
         with:
@@ -88,6 +96,25 @@ jobs:
           lake clean "$root_package"
           lake build
 
+      # The default root target does not import the GaussFE, HeckeAll and PSide
+      # provider modules that blueprint lean: names point to, so the audit would
+      # find those declarations missing from the build. Build them by module
+      # name (a leading + selects a module target) before `lake pack` archives
+      # the build. Headline brings in FunctionalEquation5 and the HeckeFE modules
+      # it imports; Provider brings in HeckeAll.Continuation and its imports.
+      # PSide.Convergence brings in PSide.Hasse, which imports PSide.APZero and
+      # PSide.Coeff; PSide.Supersingular (on Hasse) and PSide.BadPrimes are not
+      # imported by Convergence, so they are named too.
+      - name: Build blueprint provider modules
+        run: |
+          set -euo pipefail
+          lake build \
+            +ZInQKernel.Contrib.GaussFE.Headline \
+            +ZInQKernel.Contrib.HeckeAll.Provider \
+            +ZInQKernel.Contrib.PSide.Convergence \
+            +ZInQKernel.Contrib.PSide.Supersingular \
+            +ZInQKernel.Contrib.PSide.BadPrimes
+
       - name: Audit every root-package declaration
         run: |
           set -euo pipefail
@@ -96,15 +123,32 @@ jobs:
           contract="$(mktemp "${RUNNER_TEMP:-/tmp}/autoform-assumptions.XXXXXX.json")"
           errors="$(mktemp "${RUNNER_TEMP:-/tmp}/autoform-assumptions.XXXXXX.err")"
           output="$(mktemp "${RUNNER_TEMP:-/tmp}/autoform-axiom-probe.XXXXXX.out")"
-          trap 'rm -f "$archive" "$probe" "$contract" "$errors" "$output"' EXIT
+          # Elapsed-time markers go to stderr, so they never reach a captured
+          # stdout; a stage left unfinished at exit is named with its exit status.
+          stage_label=""
+          stage_started="$SECONDS"
+          audit_status=0
+          stage_begin() {
+            stage_label="$1"
+            stage_started="$SECONDS"
+            echo "[audit timing] begin: $stage_label" >&2
+          }
+          stage_end() {
+            echo "[audit timing] done: $stage_label ($((SECONDS - stage_started))s)" >&2
+            stage_label=""
+          }
+          trap 'audit_status=$?; if [ -n "$stage_label" ]; then echo "[audit timing] stopped in: $stage_label ($((SECONDS - stage_started))s, exit $audit_status)" >&2; fi; rm -f "$archive" "$probe" "$contract" "$errors" "$output"; exit "$audit_status"' EXIT
           # Lake resolves both manifest languages and package/custom buildDir.
           # `lake pack` archives only the root package's actual build directory,
           # leaving dependency package artifacts outside the audit boundary.
+          stage_begin "lake pack"
           lake pack "$archive"
+          stage_end
           # roadmap/README.md may opt in to open statements (theorems whose proof
           # is still sorry). Only then does the audit accept sorry, and only in
           # the statements the Markdown declares open. Under either policy every
           # article's lean: name must be a declaration the build compiled.
+          stage_begin "policy and assumptions extraction"
           policy="$(python3 .github/autoform_audit.py --policy blueprint)"
           autoform="git+${AUTOFORM_SOURCE}@${AUTOFORM_REF}"
           old_ref=""
@@ -119,6 +163,8 @@ jobs:
             cat "$errors" >&2
             exit 1
           fi
+          stage_end
+          stage_begin "archive parsing and probe generation"
           if [ "$policy" = "allowed" ]; then
             python3 .github/autoform_audit.py --open-statements "$contract" \
               "$AUTOFORM_ROOT_PACKAGE" "$archive" "$probe"
@@ -128,11 +174,16 @@ jobs:
           else
             python3 .github/autoform_audit.py "$AUTOFORM_ROOT_PACKAGE" "$archive" "$probe"
           fi
+          stage_end
           # Plain lean, so the probe's own imports are the toolchain's. The probe
           # loads the build itself, from the search path Lake reports.
+          stage_begin "LEAN_PATH lookup"
           lean_path="$(lake env printenv LEAN_PATH)"
+          stage_end
           # A panic in the probe aborts it instead of continuing with a default value.
+          stage_begin "axiom probe run"
           AUTOFORM_AUDIT_LEAN_PATH="$lean_path" LEAN_ABORT_ON_PANIC=1 lean "$probe" | tee "$output"
+          stage_end
           # Exit status 0 alone does not show that every check ran.
           if ! tail -n 1 "$output" | grep -Eq '^kernel trust clean( except declared open statements)? \('; then
             echo "the audit probe did not end with its success line" >&2

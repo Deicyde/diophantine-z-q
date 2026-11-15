@@ -39,11 +39,12 @@ structure OpenResearchLeaves19 : Prop where
   semistableUnipotent : _root_.ReductSplit.SemistableUnipotent
   /-- reduct-split, r8: BLR §1.4 Thm 3 over a DVR (scheme form). -/
   neronSchemeModelExistsDVR : _root_.ReductSplit.NeronSchemeModelExistsDVR
-  /-- r1univ-rigid: **Mumford's rigidity over a base, printed core** (GIT Thm 6.14 on each connected component and
-  Cor. 6.4 over `S`; numbers UNVERIFIED): a proper smooth geometrically connected family over a locally noetherian
-  `S` with a section `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in
-  `Over S` with identity `e`, and every `S`-endomorphism fixing `e` is a homomorphism. -/
-  mumfordRigidityCore : _root_.LeafQM.AV.R1UnivRigid.MumfordRigidityCore
+  /-- gt-rigidity, rigid-prune (leaf-fold23): **Mumford's GIT Thm 6.14 over a base** (on each connected component;
+  numbers UNVERIFIED): a proper smooth geometrically connected family over a locally noetherian `S` with a section
+  `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
+  identity `e`. Replaces `mumfordRigidityCore`, which also asked Cor. 6.4 (not needed: rigid-prune proves that each
+  `ι(a)` is a homomorphism from the field points). -/
+  mumfordGroupLaw : _root_.ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw
   /-- c-to-printed, printed form: Faltings 1983, Lemma 5 (the change of the Faltings height under an isogeny
   through `log #s*Ω¹` of its kernel; locator UNVERIFIED). With `raynaudKernelBound` replaces `faltingsLemma5BC`. -/
   faltingsLemma5Printed : _root_.CToPrinted.FaltingsLemma5Printed
@@ -103,7 +104,7 @@ theorem openResearchLeaves18_of_OpenResearchLeaves19 (n : OpenResearchLeaves19) 
   gaudronRemondThm14 := n.gaudronRemondThm14
   semistableUnipotent := n.semistableUnipotent
   neronSchemeModelExistsDVR := n.neronSchemeModelExistsDVR
-  mumfordRigidityCore := n.mumfordRigidityCore
+  mumfordGroupLaw := n.mumfordGroupLaw
   faltingsLemma5Printed := n.faltingsLemma5Printed
   sga3_VIB_3_10 := n.sga3_VIB_3_10
   sga7_IX_3_3 := n.sga7_IX_3_3
