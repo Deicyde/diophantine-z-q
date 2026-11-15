@@ -48,3 +48,4 @@ Task: split `RayClassCFT.ShimuraMainThmIDeligneY3AbU` (gt-rayclass composite) fa
   strictest 44/14 -> 44/14` with qmReciprocityL3 entered as kind `consequence` and shimuraHolModAll as `published`,
   flag `pending reading` (both GLUE until read). Fold module (`FoldCheck.lean`, line 1 stripped) compiles;
   `sixContactMin_of_open27` axioms [propext, Classical.choice, Quot.sound] (`foldcheck_output.txt`). VERIFIED.
+* 05:12 Report drafted (docs/research/shimura-split2.md). Independent model review of QMReciprocityL3/ShimuraHolModAll launched (adversarial, conventions).
