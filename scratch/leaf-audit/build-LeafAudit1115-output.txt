@@ -1,0 +1,24 @@
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+ℹ [12964/12964] Built ZInQKernel.Contrib.OneProof.LeafAudit1115 (5.8s)
+info: ZInQKernel/Contrib/OneProof/LeafAudit1115.lean:369:0: rayClassCMAb_of_mainCM : ShimuraGlue.DeligneComponentsX6PrintedAb →
+  MainTheoremCM →
+    BPAnalytic.Uniformization.UniformizationLeafAll →
+      ZInQ.HomLattice.GAGAMorphism → AvSplit.MumfordTorsionAlgClosed → ShimuraGlue.Ray.RayClassCMAb
+info: ZInQKernel/Contrib/OneProof/LeafAudit1115.lean:420:0: 'LeafAudit1115.not_linYangEx29All' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/LeafAudit1115.lean:421:0: 'LeafAudit1115.jtheta_real_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/LeafAudit1115.lean:422:0: 'HDec.QMSplit.Moduli.ElkiesCoord.LeafAudit1115.ff_premises_of_charts' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ZInQKernel/Contrib/OneProof/LeafAudit1115.lean:423:0: 'LeafAudit1115.mumfordGroupLaw_premises_trivial' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/LeafAudit1115.lean:424:0: 'LeafAudit1115.mumfordGroupLaw_trivial_conclusion' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/LeafAudit1115.lean:425:0: 'LeafAudit1115.faltingsTateSurj_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/LeafAudit1115.lean:426:0: 'ZInQ.Contrib.TYZDecomp.H29Split.LeafAudit1115.tyz_premises' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/LeafAudit1115.lean:427:0: 'ZInQ.Contrib.TYZDecomp.H29Split.LeafAudit1115.printed_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/LeafAudit1115.lean:428:0: 'ZInQ.GZHeegner.LeafAudit1115.x0ModuliGaloisMero_premises' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (12964 jobs).
+
+real	0m10.241s
+user	0m11.881s
+sys	0m5.537s
