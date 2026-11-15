@@ -5,7 +5,7 @@ import os
 import unittest
 import urllib.error
 from unittest.mock import Mock, patch
-from test_gate import gate, FakeGH, FakeApp, HEAD, BASE, APP_ID, report, envelope, comment, changed, run_pipeline
+from test_gate import gate, FakeGH, FakeApp, HEAD, BASE, APP_ID, report, envelope, comment, report_comment, changed, run_pipeline
 
 
 def stored(app, gh, reports, ident=5, head=HEAD):
@@ -298,6 +298,64 @@ class Continuity(unittest.TestCase):
             self.assertEqual(errors, [])
             self.assertEqual(provider.call_count, 2)
 
+    def rebased_without_future_binding(self):
+        gh, app = self.rebased()
+        value = json.loads(app.checks[5]['output']['text'])
+        for e in value['reports'].values():
+            e['reuse_binding']['padding'] = 'x' * 70_000
+        value['reports']['fable']['review'] = report(decision='changes_requested',
+            findings=[{'id': 'gap', 'location': 'p.tex:1', 'objection': 'A gap.'}])
+        app.checks[5]['output']['text'] = json.dumps(value)
+        provider = Mock(side_effect=AssertionError('No repeated proof review on unchanged rebase'))
+        _, _, errors, state = run_pipeline(gh, app, provider=provider)
+        self.assertEqual(errors, ['Protocol B review is blocked', 'Protocol B review is blocked'])
+        provider.assert_not_called()
+        pair = json.loads(app.final['output']['text'])['reports']
+        self.assertEqual(app.final['conclusion'], 'failure')
+        for e in pair.values():
+            self.assertEqual(e['reused_for'], HEAD)
+            self.assertNotEqual(e['head'], HEAD)
+            self.assertIsNone(e['reuse_binding'])
+        stored(app, gh, pair, ident=21)
+        gh.comments.extend(report_comment(e) for e in pair.values())
+        return gh, app
+
+    def test_authenticated_effective_head_retained_after_binding_omitted(self):
+        gh, app = self.rebased_without_future_binding()
+        called = []
+        def run(reviewer):
+            called.append(reviewer.family)
+            return report(prior_findings=[{'id': '1-1-fable-gap', 'resolution': 'resolved',
+                                           'reason': 'The clarification settles it.'}])
+        _, _, errors, state = run_pipeline(gh, app, event=self.command(gh), provider=run)
+        self.assertEqual(errors, [])
+        self.assertEqual(called, ['fable'])
+        self.assertEqual(state['reports']['astra']['head'], 'd' * 40)
+        self.assertEqual(state['reports']['astra']['reused_for'], HEAD)
+        self.assertIsNone(state['reports']['astra']['reuse_binding'])
+
+    def test_effective_head_override_after_binding_omitted_calls_no_model(self):
+        gh, app = self.rebased_without_future_binding()
+        gh.permission = 'write'
+        command = comment('/protocol-b override ' + HEAD + ' 1-1-fable-gap accepted limitation', 'collaborator')
+        gh.comments.append(command)
+        provider = Mock(side_effect=AssertionError('No model during authorized override'))
+        event = {'issue': {'number': 1}, 'comment': command, 'sender': {'login': 'collaborator'}}
+        _, _, errors, state = run_pipeline(gh, app, event=event, provider=provider)
+        self.assertEqual(errors, [])
+        provider.assert_not_called()
+        self.assertEqual(app.final['conclusion'], 'success')
+        self.assertIn('NOT outside reviewed', state['summary'])
+
+    def test_omitted_binding_does_not_authorize_next_head(self):
+        gh, app = self.rebased_without_future_binding()
+        gh.pr['head']['sha'] = 'f' * 40
+        provider = Mock(return_value=report(prior_findings=[{'id': '1-1-fable-gap',
+            'resolution': 'resolved', 'reason': 'Checked again on the new head.'}]))
+        _, _, errors, _ = run_pipeline(gh, app, event=self.command(gh), provider=provider)
+        self.assertEqual(errors, [])
+        self.assertEqual(provider.call_count, 2)
+
     def rebased(self):
         gh, app = FakeGH(), FakeApp()
         old_head = 'd' * 40
@@ -406,6 +464,58 @@ class AccessLimitations(unittest.TestCase):
         self.assertTrue(accepted)
         self.assertEqual(limits[0]['finding'], '1-1-astra-F1')
         self.assertEqual(limits[0]['reviewer_who_checked'], 'fable')
+
+    def test_unrelated_supplement_keeps_authenticated_source_evidence(self):
+        gh, app = Continuity().rebased()
+        value = json.loads(app.checks[5]['output']['text'])
+        source = self.pair()
+        # Astra verifies the source; Fable has an access-only objection.
+        value['reports']['astra']['review'] = source['fable']['review']
+        value['reports']['fable']['review'] = source['astra']['review']
+        app.checks[5]['output']['text'] = json.dumps(value)
+        gh.comments.extend(report_comment(e) for e in value['reports'].values())
+        gh.comments.append(comment('A separate clarification needs examination.', 'reader'))
+        called = []
+        def run(reviewer):
+            called.append(reviewer.family)
+            reviewer.history_read = True
+            reviewer.reads = [{'path': 'clarification.tex', 'revision': HEAD, 'start': 1, 'count': 1}]
+            return report(source_checks=[], prior_findings=[{'id': '1-1-fable-F1',
+                'resolution': 'resolved', 'reason': 'The retained source inspection covers this access limitation.'}])
+        _, _, errors, state = run_pipeline(gh, app, provider=run)
+        self.assertEqual(errors, [])
+        self.assertEqual(called, ['astra'])
+        self.assertEqual(app.final['conclusion'], 'success')
+        e = state['reports']['astra']
+        self.assertEqual(e['review']['source_checks'], [])  # No invented fresh inspection.
+        evidence = gate.source_evidence(e)
+        self.assertEqual(evidence[0]['origin']['head'], 'd' * 40)
+        self.assertEqual(evidence[0]['origin']['reviewer'], 'astra')
+        self.assertEqual(state['source_access_limitations'][0]['reviewer_who_checked'], 'astra')
+
+    def test_later_source_withdrawal_supersedes_inherited_verification(self):
+        pair = self.pair()
+        original = pair['fable']
+        retained = gate.source_evidence(original)
+        withdrawn = copy.deepcopy(original['review']['source_checks'][0])
+        withdrawn.update(outcome='unavailable', detail='Earlier verification is withdrawn; source not verified.')
+        pair['fable'] = accepting('fable', run='2', retained_source_evidence=retained,
+                                 review=report(source_checks=[withdrawn]))
+        self.assertFalse(gate.combined_decision(pair)[0])
+        # A later unrelated supplement must retain the withdrawal, not revive run 1.
+        prior = pair['fable']
+        pair['fable'] = accepting('fable', run='3', retained_source_evidence=gate.source_evidence(prior))
+        self.assertFalse(gate.combined_decision(pair)[0])
+        self.assertEqual(gate.source_evidence(pair['fable'])[0]['origin']['run'], '2')
+
+    def test_history_exposes_retained_source_provenance(self):
+        gh = FakeGH()
+        original = self.pair()['fable']
+        supplement = accepting('fable', run='2', retained_source_evidence=gate.source_evidence(original))
+        gh.comments = [report_comment(supplement)]
+        discussion, _, _, _ = gate.history(gh, gh.pr)
+        self.assertEqual(discussion[0]['review_source_checks'][0]['outcome'], 'verified')
+        self.assertEqual(discussion[0]['review_source_evidence'][0]['origin']['run'], '1')
 
     def test_pipeline_publishes_source_access_limits_without_rewriting_verdict(self):
         pair = self.pair()

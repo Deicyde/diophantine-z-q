@@ -155,8 +155,13 @@ eligible existing review does not require a new download or purchase.
 The gate retains an App-authenticated acceptance while the head is unchanged,
 even across later rounds. It does not repeat that accepted proof review. New
 discussion or interrupted observations still need examination; a scoped
-supplement may ask one reviewer to assess those observations. A later completed
-rejection supersedes that reviewer's earlier acceptance. An unchanged rebased
+supplement may ask one reviewer to assess those observations. A supplement
+retains earlier source-verification evidence with its original
+reviewer, head and run. Do not claim to have reopened a source you did not read
+in this supplement. A new source check for the same passage supersedes the
+retained check; use `unavailable` and explain the withdrawal if the earlier
+verification no longer stands. Any mathematical objection remains a finding.
+A later completed rejection supersedes that reviewer's earlier acceptance. An unchanged rebased
 diff can reuse a completed review when its exact read passages and discovery
 results remain unchanged; PDFs and policy files require whole-file equality. A changed workflow or reviewer
 policy requires fresh review. Earlier findings and original decisions

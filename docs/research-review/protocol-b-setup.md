@@ -507,3 +507,14 @@ Optional rebase bindings are omitted if they would overflow a permanent comment
 or the combined App check payload. The completed verdict and every finding are
 retained; the omitted binding remains diagnostic evidence in the run artifact,
 but cannot authorize rebase reuse. No substantive finding is truncated.
+
+A completed App check that validates reuse for a new head establishes that exact
+effective head. Dropping its optional binding does not invalidate unchanged-head
+retention or a current authorized override; any subsequent different head still
+requires a valid binding or a fresh review. Original review provenance is kept.
+
+Supplements retain source attestations with their original reviewer, head, run
+and policy. A new check for the same source ID supersedes the retained one,
+including an explicit withdrawal recorded as unavailable. Later unrelated
+supplements cannot revive withdrawn verification. The combined decision and
+history tool use this evidence without claiming a fresh inspection occurred.

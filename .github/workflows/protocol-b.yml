@@ -891,8 +891,9 @@ jobs:
                       if match is None:
                           raise ValueError("Earlier gate report is malformed; recover it rather than discard its findings")
                       report = json.loads(match[1])
-                      if report.get('complete') and report['review'].get('source_checks'):
-                          discussion.append({'review_source_checks': report['review'].get('source_checks', []),
+                      if report.get('complete') and source_evidence(report):
+                          discussion.append({'review_source_checks': [s['check'] for s in source_evidence(report)],
+                                             'review_source_evidence': source_evidence(report),
                                              'review_access_limitations': report['review'].get('access_limitations', []),
                                              'reviewer': report['reviewer'], 'head': report['head'],
                                              'review_run': report['run'], 'review_attempt': report['attempt']})
@@ -1103,6 +1104,20 @@ jobs:
               return result
 
 
+          def source_evidence(envelope):
+              """Retained attestations keep their provenance; later checks supersede them."""
+              checks = {s['check']['source_id']: s for s in envelope.get('retained_source_evidence', [])}
+              origin = {k: envelope[k] for k in ('reviewer', 'model', 'head', 'run', 'attempt', 'policy_ref')}
+              for check in envelope['review'].get('source_checks', []):
+                  checks[check['source_id']] = {'check': check, 'origin': origin}
+              return list(checks.values())
+
+
+          def effective_head(envelope):
+              # Callers obtain these envelopes from this App's authenticated check.
+              return envelope.get('reused_for', envelope.get('head'))
+
+
           def reusable_on_rebase(gh, pr, files, envelope):
               if any(f.get('resolution') == 'overridden' for f in envelope['review'].get('prior_findings', [])):
                   return False  # Overrides are authorized for one exact head only.
@@ -1166,9 +1181,9 @@ jobs:
                          for f in envelope['review'].get('prior_findings', [])):
                       continue
                   accepted = envelope['review']['decision'] == 'accept'
-                  if envelope.get('head') != pr['head']['sha'] and not reusable_on_rebase(gh, pr, files, envelope):
+                  if effective_head(envelope) != pr['head']['sha'] and not reusable_on_rebase(gh, pr, files, envelope):
                       continue
-                  if not accepted and (explicit_review or envelope.get('head') == pr['head']['sha']):
+                  if not accepted and (explicit_review or effective_head(envelope) == pr['head']['sha']):
                       selected.pop(family, None)
                       continue
                   selected[family] = {**envelope, 'reused_for': pr['head']['sha'], 'reuse_check': check_id}
@@ -1241,7 +1256,7 @@ jobs:
                   if set(qualified) != unresolved:
                       return False, limits
                   other = envelopes[next(f for f in MODELS if f != family)]
-                  verified = {s['source_id'] for s in other['review'].get('source_checks', []) if s['outcome'] == 'verified'}
+                  verified = {s['check']['source_id'] for s in source_evidence(other) if s['check']['outcome'] == 'verified'}
                   for ident in sorted(unresolved):
                       entry = qualified[ident]
                       if not entry['source_ids'] or not set(entry['source_ids']) <= verified:
@@ -1438,7 +1453,7 @@ jobs:
                       for envelope in envelopes.values():
                           if not same_policy(gh, envelope['policy_ref'], trusted_ref):
                               raise ValueError('Override reports used a different review policy')
-                          if envelope.get('head') != pr['head']['sha'] and not reusable_on_rebase(gh, pr, files, envelope):
+                          if effective_head(envelope) != pr['head']['sha'] and not reusable_on_rebase(gh, pr, files, envelope):
                               raise ValueError('Override reports lack a valid current rebase binding')
                       applied = overridden_decision(envelopes, overrides, pr['head']['sha'])
                       conclusion = 'success'
@@ -1506,6 +1521,7 @@ jobs:
                                   envelope["reuse_binding"] = optional_reuse_binding(gh, pr, files, reviewers[family])
                                   if family in supplements:
                                       envelope["reuse_binding"] = inherit_reuse_binding(envelope["reuse_binding"], supplements[family])
+                                      envelope['retained_source_evidence'] = source_evidence(supplements[family])
                                       envelope["supplements_review"] = {k: supplements[family][k] for k in
                                                                         ('head', 'run', 'attempt', 'policy_ref', 'reuse_check')}
                                   bounded_report(envelope)
