@@ -190,4 +190,121 @@ theorem phi_apply (κ : K →+* ℂ) (c : ℂ) (hc : c ^ 2 = 2) (e : EK K) :
 
 end FieldE
 
+/-! ## §B The CM type, its reflex field and the reflex norm -/
+
+section TypeE
+
+open Polynomial
+
+variable {K : Type} [Field K] [NumberField K] [Fact (Irreducible (X ^ 2 - C (2 : K)))]
+
+theorem phiE_of (κ : K →+* ℂ) (i : Fin 2) (x : K) : PhiE κ i (algebraMap K (EK K) x) = κ x := by
+  fin_cases i
+  · exact phi_of κ _ sqrt2_sq x
+  · exact phi_of κ _ negsqrt2_sq x
+
+@[simp] theorem phiE_of' (κ : K →+* ℂ) (i : Fin 2) (x : K) : PhiE κ i (AdjoinRoot.of _ x) = κ x :=
+  phiE_of κ i x
+
+theorem phiE0_root (κ : K →+* ℂ) : PhiE κ 0 (AdjoinRoot.root _) = ((√2 : ℝ) : ℂ) :=
+  phi_root κ _ sqrt2_sq
+theorem phiE1_root (κ : K →+* ℂ) : PhiE κ 1 (AdjoinRoot.root _) = -((√2 : ℝ) : ℂ) :=
+  phi_root κ _ negsqrt2_sq
+
+/-- **The reflex field of `(E, Φ)` is `κ(K)`.** -/
+theorem reflex_eq (κ : K →+* ℂ) :
+    κ.fieldRange = Subfield.closure (Set.range fun e : EK K => ∑ i, PhiE κ i e) := by
+  have h : Set.range (fun e : EK K => ∑ i, PhiE κ i e) = (κ.fieldRange : Set ℂ) := by
+    ext w
+    constructor
+    · rintro ⟨e, rfl⟩
+      show (∑ i, PhiE κ i e) ∈ (κ.fieldRange : Set ℂ)
+      rw [Fin.sum_univ_two]
+      simp only [PhiE, Matrix.cons_val_zero, Matrix.cons_val_one, phi_apply]
+      exact ⟨2 * bK.repr e 0, by rw [map_mul, map_ofNat]; ring⟩
+    · rintro ⟨x, rfl⟩
+      refine ⟨algebraMap K (EK K) (x / 2), ?_⟩
+      simp only [Fin.sum_univ_two, phiE_of, map_div₀, map_ofNat]
+      ring
+  rw [h, Subfield.closure_eq]
+
+theorem sqrt2_ne_zero : ((√2 : ℝ) : ℂ) ≠ 0 := by
+  rw [Complex.ofReal_ne_zero]; positivity
+
+/-- **`Φ` is a CM type**: `φ₁, φ₂, φ̄₁, φ̄₂` are the four distinct embeddings. -/
+theorem type_inj [IsTotallyComplex K] (κ : K →+* ℂ) :
+    Function.Injective (Sum.elim (PhiE κ) fun i => (starRingEnd ℂ).comp (PhiE κ i)) := by
+  obtain ⟨x0, hx0⟩ := exists_not_real κ
+  have hs := sqrt2_ne_zero
+  intro a b hab
+  have hr := RingHom.congr_fun hab (AdjoinRoot.root _)
+  have hx := RingHom.congr_fun hab (algebraMap K (EK K) x0)
+  rcases a with a | a <;> rcases b with b | b <;> fin_cases a <;> fin_cases b <;>
+    simp only [Sum.elim_inl, Sum.elim_inr, RingHom.coe_comp, Function.comp_apply, phiE_of,
+      Fin.zero_eta, Fin.mk_one, phiE0_root, phiE1_root, Complex.conj_ofReal, map_neg] at hr hx ⊢
+  all_goals first
+    | rfl
+    | exact absurd (by linear_combination hr / 2 : ((√2 : ℝ) : ℂ) = 0) hs
+    | exact absurd (by linear_combination -hr / 2 : ((√2 : ℝ) : ℂ) = 0) hs
+    | exact absurd hx.symm hx0
+    | exact absurd hx hx0
+
+/-- The model `V = E` of `ℂ^Φ` over the reflex field `K`: `ρ(a)` is multiplication by `a`. -/
+def rhoK : K →ₐ[ℚ] Matrix (Fin 1) (Fin 1) (EK K) :=
+  (Algebra.ofId K (Matrix (Fin 1) (Fin 1) (EK K))).restrictScalars ℚ
+
+/-- `j(v) = Φ(v₀)`. -/
+def jK (κ : K →+* ℂ) : (Fin 1 → EK K) →+ (Fin 2 → ℂ) :=
+  (cmVec (PhiE κ)).comp (Pi.evalAddMonoidHom (fun _ => EK K) 0)
+
+theorem jK_apply (κ : K →+* ℂ) (v : Fin 1 → EK K) (i : Fin 2) : jK κ v i = PhiE κ i (v 0) := rfl
+
+theorem rhoK_mulVec (a : K) (v : Fin 1 → EK K) :
+    (rhoK a).mulVec v = fun i => algebraMap K (EK K) a * v i := by
+  funext i
+  simp [rhoK, Matrix.algebraMap_eq_diagonal, Matrix.mulVec_diagonal]
+
+theorem model [IsTotallyComplex K] (hK : Module.finrank ℚ K = 2) (κ : K →+* ℂ) :
+    IsReflexModel (PhiE κ) κ rhoK (jK κ) := by
+  refine ⟨fun e v => ?_, fun a v => ?_, ?_, ?_⟩
+  · funext i; simp [jK_apply, map_mul]
+  · funext i; simp [jK_apply, rhoK_mulVec, map_mul]
+  · rw [eq_top_iff]
+    intro w _
+    have h1 : jK κ (fun _ => 1) = ![1, 1] := by
+      funext i; fin_cases i <;> simp [jK_apply]
+    have h2 : jK κ (fun _ => AdjoinRoot.root _) = ![((√2 : ℝ) : ℂ), -((√2 : ℝ) : ℂ)] := by
+      funext i; fin_cases i <;> simp [jK_apply, phiE0_root, phiE1_root]
+    have hw : w = ((w 0 + w 1) / 2) • jK κ (fun _ => 1) +
+        ((w 0 - w 1) / (2 * ((√2 : ℝ) : ℂ))) • jK κ (fun _ => AdjoinRoot.root _) := by
+      rw [h1, h2]
+      funext i
+      fin_cases i <;> simp <;> field_simp [sqrt2_ne_zero] <;> ring
+    rw [hw]
+    exact Submodule.add_mem _ (Submodule.smul_mem _ _ (Submodule.subset_span ⟨_, rfl⟩))
+      (Submodule.smul_mem _ _ (Submodule.subset_span ⟨_, rfl⟩))
+  · rw [finrank_EK hK, hK]
+
+/-- `𝔸_f ⊗ K → 𝔸_f ⊗ E`. -/
+def inclA : AQ ⊗[ℚ] K →ₐ[AQ] AQ ⊗[ℚ] EK K :=
+  Algebra.TensorProduct.map (AlgHom.id AQ AQ) ((Algebra.ofId K (EK K)).restrictScalars ℚ)
+
+theorem rhoA_rhoK (w : AQ ⊗[ℚ] K) : rhoA rhoK w 0 0 = inclA w := by
+  induction w using TensorProduct.induction_on with
+  | zero => simp
+  | tmul a k =>
+    rw [rhoA, AlgHom.liftEquiv_tmul]
+    simp [rhoK, inclA, Matrix.algebraMap_eq_diagonal, Algebra.TensorProduct.includeRight_apply,
+      TensorProduct.smul_tmul']
+  | add x y hx hy => rw [map_add, map_add, Matrix.add_apply, hx, hy]
+
+/-- **The reflex norm of `(E, Φ)` is the inclusion `𝔸_{K,f} → 𝔸_f ⊗ E`.** -/
+theorem reflexNorm_rhoK (u : (FiniteAdeleRing (𝓞 K) K)ˣ) :
+    (reflexNorm rhoK u : AQ ⊗[ℚ] EK K) = inclA ((finiteAdeleBaseChangeAlgEquiv ℚ K).symm u) := by
+  simp only [reflexNorm, Units.coe_map, MonoidHom.coe_comp, Function.comp_apply,
+    Matrix.coe_detMonoidHom, Matrix.det_unique]
+  exact rhoA_rhoK _
+
+end TypeE
+
 end QMRecPrinted
