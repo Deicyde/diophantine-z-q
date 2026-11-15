@@ -31,3 +31,4 @@ Base 16db7d60 (wip/ht-bypass, leaf-fold22; frozenTarget over OpenResearchLeaves2
 - 06:22 rebuild of Main/Discharges/contribution OK; Discharges re-run: same DISCHARGES line, 1703 theorems checked,
   6 discharge one; 8 `#print axioms` standard (incl. afterG7_of3Kato5). FoldDryRun re-compiled OK. VERIFIED.
 - Scan: no #eval/run_cmd/initialize/syntax/notation/macro/elab/axiom/sorry in the contribution. VERIFIED.
+- 06:24 docstring/flag wording (page attributions marked UNVERIFIED): rebuild OK, dry-run 46/10 -> 46/10, FoldDryRun OK, Discharges re-run identical (8 standard axiom lines). VERIFIED.

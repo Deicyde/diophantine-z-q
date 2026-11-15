@@ -481,7 +481,8 @@ with coefficients `Sym^{k−2}` (Deligne's construction).
 Sources: Kato, *p-adic Hodge theory and values of zeta functions of modular forms*, Astérisque 295 (2004):
 §§9.2-9.4, (9.2.2), pp. 187-188 (de Rham at `ℓ`, every level, `ℓ ∣ N` included) and §11.3, pp. 205-207 (the Hodge
 filtration of `D_dR(V_{F_λ}(f))`, jumps `0` and `k − 1`); §6.3 and §8.3, pp. 161-162 and 181-182 (definition and
-Frobenius normalization of `V_{F_λ}(f)`) (pages read by the locator audit, row R13; the wording is UNVERIFIED).
+Frobenius normalization of `V_{F_λ}(f)`) (pages listed by the locator audit, row R13, which read (9.2.2) for
+de Rham at every level; the attribution of the other statements to these pages and all wording are UNVERIFIED).
 Alternatives: Faltings, Math. Ann. 278 (1987) and Scholl, Invent. Math. 100 (1990) (Hodge–Tate / de Rham for
 `ℓ ∤ N`), Saito, Invent. Math. 129 (1997) (all levels; UNVERIFIED). Semisimplicity: Ribet 1977 (`k = 2`) and
 Ribet 1985 (irreducibility; UNVERIFIED locators). Not stronger than the print: it asserts the conclusion for one
