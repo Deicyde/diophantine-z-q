@@ -16,6 +16,8 @@ while inside the `j`-th field argument of a bundle constructor `S'.mk` (innermos
 
 * a projection of `(S, i)` gives `(S, i) → context`;
 * a reference to a constant `d` gives `d → context`;
+* an argument in a position the callee's value never uses (a leading `fun` binder that the rest of the value
+  does not mention) is not a use: no edge;
 * a `casesOn`/`rec` on a bundle treats the field binders of its minor premise like projections (all
   fields, when the minor premise is not a lambda over every field).
 
@@ -71,6 +73,8 @@ def closure (env : Environment) (root : Name) : Array Name := Id.run do
 inductive Node where
   | field (s : Name) (i : Nat)
   | const (c : Name)
+  /-- an argument in a position its callee never uses: no edge at all -/
+  | dead
   deriving BEq, Hashable, Inhabited
 
 structure St where
@@ -79,11 +83,32 @@ structure St where
   seen : Std.HashSet (Expr × Node) := {}
   marks : Std.HashMap FVarId (Name × Nat) := {}  -- field binders of a `casesOn` minor premise
   nextMark : Nat := 0
+  unusedArgs : Std.HashMap Name (Array Bool) := {}  -- per constant: which leading binders its value never uses
 
 abbrev M := StateM St
 
 def addEdge (src dst : Node) : M Unit :=
+  if dst == .dead then pure () else
   modify fun s => { s with edges := s.edges.insert dst ((s.edges.getD dst #[]).push src) }
+
+/-- For each leading `fun` binder of `c`'s value, whether the rest of the value (later binder types and the
+body) never mentions it. An argument passed in such a position is not a use. -/
+def unusedArgsOf (env : Environment) (c : Name) : M (Array Bool) := do
+  if let some r := (← get).unusedArgs[c]? then return r
+  let r := match env.find? c with
+    | some ci => match constValue? ci with
+      | some v => Id.run do
+        let mut out := #[]
+        let mut t := v
+        while t.isLambda do
+          let b := t.bindingBody!
+          out := out.push (!b.hasLooseBVar 0)
+          t := b
+        return out
+      | none => #[]
+    | none => #[]
+  modify fun st => { st with unusedArgs := st.unusedArgs.insert c r }
+  return r
 
 partial def visit (env : Environment) (e : Expr) (ctx : Node) : M Unit := do
   if (← get).seen.contains (e, ctx) then return
@@ -138,7 +163,9 @@ partial def visit (env : Environment) (e : Expr) (ctx : Node) : M Unit := do
                   for j in [:cv.numFields] do addEdge (.field s j) ctx
               | none => for j in [:cv.numFields] do addEdge (.field s j) ctx
       | _ => pure ()
-      for a in args do visit env a ctx
+      let unused ← unusedArgsOf env fn
+      for i in [:args.size] do
+        visit env args[i]! (if unused.getD i false then .dead else ctx)
     | _ =>
       visit env f ctx
       for a in args do visit env a ctx
@@ -296,5 +323,6 @@ run_cmd do
       if isOneProofModule env c then
         let mi := (env.getModuleIdxFor? c).map (fun i => toString env.header.modules[i.toNat]!.module)
         ps := ps.push s!"CONST {mi.getD "?"} {c}{if used.contains n then " (USED!)" else ""}"
+    | .dead => pure ()
   IO.FS.writeFile "scratch/one-proof/prune-set.txt" ("\n".intercalate (ps.qsort (· < ·)).toList ++ "\n")
   logInfo m!"PRUNE prune set: {ps.size} entries"
