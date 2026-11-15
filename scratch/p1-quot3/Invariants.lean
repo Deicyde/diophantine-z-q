@@ -1,5 +1,6 @@
 import Mathlib
 import ZInQKernel.Contrib.Dim.IntegralHom
+import ZInQKernel.Contrib.Dim.SmoothStalk
 import ZInQKernel.Contrib.CloudW03NeronSurj.Vendor.Theorems.Thm_Algebra_Smooth_isDomain_and_isIntegrallyClosed_of_isLocalization_atPrime
 
 /-!
@@ -570,5 +571,54 @@ theorem perfectField_residueField {M : Submonoid ℤ} {R₀ : Type} [CommRing R�
   · subst h0
     have : CharZero K := CharP.charP_zero_iff_charZero K |>.mp hq
     exact PerfectField.ofCharZero
+
+/-! ## Dimensions of fibres -/
+
+section Dims
+
+open AlgebraicGeometry CategoryTheory Limits TensorProduct
+
+/-- A nonzero standard smooth algebra of relative dimension `n` over a field has dimension `n`. -/
+theorem ringKrullDim_of_isStandardSmoothOfRelativeDimension (n : ℕ) (k D : Type) [Field k] [CommRing D]
+    [Algebra k D] [Algebra.IsStandardSmoothOfRelativeDimension n k D] [Nontrivial D] :
+    ringKrullDim D = n := by
+  have h : SmoothOfRelativeDimension n (Spec.map (CommRingCat.ofHom (algebraMap k D))) := by
+    rw [HasRingHomProperty.Spec_iff (P := @SmoothOfRelativeDimension n)]
+    exact RingHom.locally_of RingHom.isStandardSmoothOfRelativeDimension_respectsIso _
+      ((RingHom.isStandardSmoothOfRelativeDimension_algebraMap (n := n)).mpr inferInstance)
+  have : Nonempty (Spec (CommRingCat.of D)) := inferInstanceAs (Nonempty (PrimeSpectrum D))
+  calc ringKrullDim D = ringKrullDim (CommRingCat.of D) := rfl
+    _ = topologicalKrullDim (Spec (CommRingCat.of D)) :=
+      (ZInQ.Contrib.Dim.topologicalKrullDim_spec _).symm
+    _ = n := ZInQ.Contrib.Dim.topologicalKrullDim_eq_of_smoothOfRelativeDimension
+      (Spec.map (CommRingCat.ofHom (algebraMap k D))) n
+
+/-- If `Spec B → Spec R` is smooth of relative dimension `1`, then `k ⊗_R B` has dimension `1` for every field
+`k` over `R` with `k ⊗_R B ≠ 0`. -/
+theorem ringKrullDim_tensor_eq_one (R B k : Type) [CommRing R] [CommRing B] [Field k] [Algebra R B]
+    [Algebra R k] [SmoothOfRelativeDimension 1 (Spec.map (CommRingCat.ofHom (algebraMap R B)))]
+    [Nontrivial (k ⊗[R] B)] : ringKrullDim (k ⊗[R] B) = 1 := by
+  let e := pullbackSpecIso R k B
+  have : Nonempty (Spec (CommRingCat.of (k ⊗[R] B))) := inferInstanceAs (Nonempty (PrimeSpectrum _))
+  let P : Scheme := pullback (Spec.map (CommRingCat.ofHom (algebraMap R k)))
+      (Spec.map (CommRingCat.ofHom (algebraMap R B)))
+  have : Nonempty P := ⟨e.inv (Classical.arbitrary _)⟩
+  calc ringKrullDim (k ⊗[R] B) = ringKrullDim (CommRingCat.of (k ⊗[R] B)) := rfl
+    _ = topologicalKrullDim (Spec (CommRingCat.of (k ⊗[R] B))) :=
+      (ZInQ.Contrib.Dim.topologicalKrullDim_spec _).symm
+    _ = topologicalKrullDim P := (ZInQ.Contrib.Dim.topologicalKrullDim_eq_of_iso e).symm
+    _ = (1 : ℕ) := ZInQ.Contrib.Dim.topologicalKrullDim_eq_of_smoothOfRelativeDimension
+      (pullback.fst (Spec.map (CommRingCat.ofHom (algebraMap R k)))
+        (Spec.map (CommRingCat.ofHom (algebraMap R B)))) 1
+    _ = 1 := rfl
+
+theorem ringKrullDim_tensor_le_one (R B k : Type) [CommRing R] [CommRing B] [Field k] [Algebra R B]
+    [Algebra R k] [SmoothOfRelativeDimension 1 (Spec.map (CommRingCat.ofHom (algebraMap R B)))] :
+    ringKrullDim (k ⊗[R] B) ≤ 1 := by
+  cases subsingleton_or_nontrivial (k ⊗[R] B) with
+  | inl h => rw [ringKrullDim_eq_bot_of_subsingleton]; exact bot_le
+  | inr h => rw [ringKrullDim_tensor_eq_one R B k]
+
+end Dims
 
 end P1Quot3
