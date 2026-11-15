@@ -816,6 +816,11 @@ theorem lat_model (hU : BPAnalytic.Uniformization.UniformizationLeafAll)
   · rintro ⟨m, hm⟩
     exact ⟨e m, hm⟩
 
+theorem act_intCast (n : ℤ) (z : Fin 2 → ℂ) : act (n : B) z = n • z := by
+  rw [show ((n : B)) = ((n : ℚ) • (1 : B)) by rw [Algebra.smul_def, _root_.mul_one]; simp,
+    act_smul, act_one, Rat.cast_intCast]
+  exact Int.cast_smul_eq_zsmul ℂ n z
+
 section Lattice
 
 variable {A : AbVar (AlgebraicClosure ℚ)} {q : QMStr A} {τ : ℂ}
@@ -827,6 +832,95 @@ theorem rho_comm_act (hρι : ∀ a z, ρ (q.iota a) z = act (a : B) z) {s : AbV
     rw [com, Subring.mem_centralizer_iff] at hs
     exact (hs _ ⟨x, rfl⟩).symm
   rw [← hρι, ← hρι, ← Module.End.mul_apply, ← map_mul, hc, map_mul, Module.End.mul_apply]
+
+
+/-- **`End_𝒪(A)` is commutative** (its elements act on `ℂ²` by scalars, gt-qm's `commutant`). -/
+theorem com_comm (hρinj : Function.Injective ρ) (hρι : ∀ a z, ρ (q.iota a) z = act (a : B) z)
+    {c s : AbVar.End A} (hc : c ∈ com q) (hs : s ∈ com q) : c * s = s * c := by
+  obtain ⟨c1, hc1⟩ := HDec.QMLattice.commutant (ρ c) (fun x hx z => rho_comm_act hρι hc ⟨x, hx⟩ z)
+  obtain ⟨c2, hc2⟩ := HDec.QMLattice.commutant (ρ s) (fun x hx z => rho_comm_act hρι hs ⟨x, hx⟩ z)
+  apply hρinj
+  refine LinearMap.ext fun z => ?_
+  simp only [map_mul, Module.End.mul_apply, hc1, hc2, map_smul, smul_smul, mul_comm]
+
+/-- **An Atkin–Lehner-type semilinear unit.** Let `t ∈ 𝒪` with inverse `t' = r t` in `B`, `α(x) = t' x t`
+an automorphism of `𝒪` with `t' α(a) = a t'`, and `s ∈ End_𝒪(A)` with `s² = d`, such that every
+`y ∈ 𝒪` with `y² = d` lies in `t𝒪`. Then `g = ι(t)⁻¹ s ∈ End(A)`: `ι(t) g = s`, `g² = t'² d = ε`, and
+`g ι(α a) = ι(a) g`. (In the lattice model `g` is `ι(t') ∘ ρ(s)`, which preserves `ι(𝒪)(τ, 1)ᵀ`.) -/
+theorem semilinear_unit (hρinj : Function.Injective ρ)
+    (hρι : ∀ a z, ρ (q.iota a) z = act (a : B) z)
+    (hρrange : ∀ N : Module.End ℂ (Fin 2 → ℂ),
+        (∀ z ∈ HDec.FibreQMNorm.qmOrbit ![τ, 1], N z ∈ HDec.FibreQMNorm.qmOrbit ![τ, 1]) ↔
+          ∃ e, ρ e = N) (hτ : 0 < τ.im)
+    (t : O) (r : ℚ) (α : O ≃+* O) (d ε : ℤ)
+    (h1 : ∀ x : O, (r • (t : B)) * x * t = (α x : B))
+    (h2 : ∀ a : O, (r • (t : B)) * (α a : B) = (a : B) * (r • (t : B)))
+    (h3 : (t : B) * (r • (t : B)) = 1)
+    (h4 : (r • (t : B)) * (r • (t : B)) * (d : B) = (ε : B))
+    (hdiv : ∀ y : O, y * y = (d : O) → ∃ e : O, y = t * e)
+    (s : AbVar.End A) (hs : s ∈ com q) (hss : s * s = (d : AbVar.End A)) :
+    ∃ g : AbVar.End A, q.iota t * g = s ∧ g * g = (ε : AbVar.End A) ∧
+      ∀ a, g * q.iota (α a) = q.iota a * g := by
+  set v : Fin 2 → ℂ := ![τ, 1] with hvdef
+  have hv : v ≠ 0 := fun h => by simpa [v] using congrFun h 1
+  have hvorb : v ∈ HDec.FibreQMNorm.qmOrbit v := (mem_qmOrbit_iff _ _).2 ⟨1, O.one_mem, (act_one _).symm⟩
+  let T := HDec.QMLattice.actHom (r • (t : B))
+  have hT : ∀ z, T z = act (r • (t : B)) z := fun z => HDec.QMLattice.actHom_apply _ z
+  let N : Module.End ℂ (Fin 2 → ℂ) := T * ρ s
+  -- `ρ(s) v = ι(y) v` with `y² = d`
+  obtain ⟨y, hyO, hy⟩ := (mem_qmOrbit_iff _ _).1 ((hρrange (ρ s)).2 ⟨s, rfl⟩ v hvorb)
+  have hsx : ∀ x : O, ρ s (act (x : B) v) = act ((x : B) * y) v := by
+    intro x; rw [rho_comm_act hρι hs, hy, act_mul]
+  have hyy : (⟨y, hyO⟩ : O) * ⟨y, hyO⟩ = (d : O) := by
+    apply Subtype.ext
+    have e1 : ρ (s * s) v = act (y * y) v := by
+      rw [map_mul, Module.End.mul_apply, hy]
+      exact hsx ⟨y, hyO⟩
+    have e2 : ρ (s * s) v = act (d : B) v := by
+      rw [hss, map_intCast, Module.End.intCast_apply, act_intCast]
+    have := HDec.QMLattice.act_inj hv (e1.symm.trans e2)
+    simpa using this
+  obtain ⟨e0, he0⟩ := hdiv _ hyy
+  have hyB : y = (t : B) * e0 := congrArg Subtype.val he0
+  have hN : ∀ z ∈ HDec.FibreQMNorm.qmOrbit v, N z ∈ HDec.FibreQMNorm.qmOrbit v := by
+    intro z hz
+    obtain ⟨x, hx, rfl⟩ := (mem_qmOrbit_iff _ _).1 hz
+    rw [mem_qmOrbit_iff]
+    refine ⟨(α ⟨x, hx⟩ : B) * e0, O.mul_mem (α ⟨x, hx⟩).2 e0.2, ?_⟩
+    change T (ρ s (act ((⟨x, hx⟩ : O) : B) v)) = _
+    rw [hsx, hT, ← act_mul, hyB, ← h1 ⟨x, hx⟩]
+    congr 1
+    noncomm_ring
+  obtain ⟨g, hg⟩ := (hρrange N).1 hN
+  -- `ρ s` commutes with `T`
+  have hsT : ρ s * T = T * ρ s := by
+    refine LinearMap.ext fun z => ?_
+    rw [Module.End.mul_apply, Module.End.mul_apply, hT, hT, act_smul, act_smul, map_smul]
+    congr 1
+    exact rho_comm_act hρι hs t z
+  refine ⟨g, ?_, ?_, fun a => ?_⟩
+  · apply hρinj
+    rw [map_mul, hg]
+    refine LinearMap.ext fun z => ?_
+    rw [Module.End.mul_apply, hρι]
+    change act (t : B) (T (ρ s z)) = ρ s z
+    rw [hT, ← act_mul, h3, act_one]
+  · apply hρinj
+    rw [map_mul, hg, map_intCast]
+    calc T * ρ s * (T * ρ s) = T * T * (ρ s * ρ s) := by
+          rw [_root_.mul_assoc, ← _root_.mul_assoc (ρ s), hsT]; noncomm_ring
+      _ = (ε : Module.End ℂ (Fin 2 → ℂ)) := by
+          rw [← map_mul ρ, hss, map_intCast]
+          refine LinearMap.ext fun z => ?_
+          rw [Module.End.mul_apply, Module.End.mul_apply, hT, hT, Module.End.intCast_apply,
+            Module.End.intCast_apply, ← act_intCast, ← act_mul, ← act_mul, h4, act_intCast]
+  · apply hρinj
+    rw [map_mul, map_mul, hg]
+    refine LinearMap.ext fun z => ?_
+    simp only [Module.End.mul_apply]
+    rw [hρι, hρι]
+    change T (ρ s (act (α a : B) z)) = act (a : B) (T (ρ s z))
+    rw [rho_comm_act hρι hs, hT, hT, ← act_mul, ← act_mul, h2]
 
 end Lattice
 
