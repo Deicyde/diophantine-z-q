@@ -1028,6 +1028,98 @@ theorem nonid_t (hT : ObjBridge.TorsionStructure) [CharZero K] (P : QML3 K) (α 
   rw [hU, show red ((w1U : Oˣ) : O) = (1, 1) from red_w1] at hW
   exact finA _ _ _ he hS hC hW
 
+
+theorem gm_zero_left (x : F9) : gm 0 x = 0 := by ext <;> simp [gm]
+theorem gm_zero_right (x : F9) : gm x 0 = 0 := by ext <;> simp [gm]
+
+theorem finB : ∀ U D : F9, gm U U = (-1, 0) → gm (cj U) D = gm D U →
+    D - gm (cj U) U - gm (gm (gm (cj U) U) 0) D - (1, 0) = 0 → False := by
+  decide
+
+/-- A unit `w ≡ 1 + j (mod 3)`. -/
+theorem exists_w4 : ∃ w : Oˣ, π3 (w : O) = π3 (1 + oj) := by
+  obtain ⟨w, c, hc⟩ := exists_unit_congr (1 + oj) (1 - oj) ⟨1, by
+    calc (1 - oj) * (1 + oj) - 1 = -(oj * oj) := by noncomm_ring
+      _ = 3 * 1 := by rw [AV.oj_mul_oj, neg_neg, _root_.mul_one]⟩
+  exact ⟨w, π3_eq_iff.2 ⟨c, hc⟩⟩
+
+/-- **`T ≠ id` in the case `ℤ[i]`** (`α = id`, `g = φ`, `φ² = −1`): `T = rightMul u` moves the class of
+`rightMul w P` for a unit `w ≡ 1 + j`. Modulo `𝔓₃` the commutator equations force `c₀ = 1 + j d` with
+`d̄ = −1` and `d̄ = 0` at once. -/
+theorem nonid_4 (hT : ObjBridge.TorsionStructure) [CharZero K] (P : QML3 K)
+    (g : AbVar.End P.A) (hgg : g * g = ((-1 : ℤ) : AbVar.End P.A))
+    (hg : ∀ a, g * P.q.iota (RingEquiv.refl O a) = P.q.iota a * g)
+    (hcomm : ∀ c ∈ com P.q, c * g = g * c)
+    (u₀ : O) (hu₀ : ∀ x, endPt P.A K g (P.e.eta (RingEquiv.refl O x)) = P.e.eta (x * u₀))
+    (hsq : π3 (RingEquiv.refl O u₀) * π3 u₀ = ((-1 : ℤ) : Q3)) (u : Oˣ)
+    (hu : π3 (u : O) = ((-1 : ℤ) : Q3) * π3 u₀) (w : Oˣ) (hw : π3 (w : O) = π3 (1 + oj)) :
+    M3.twist (RingEquiv.refl O) (M3.rightMul u (M3.mk (P.rightMul w))) ≠ M3.mk (P.rightMul w) := by
+  intro hTm
+  obtain ⟨c, hc, c₀, hc₀, heq⟩ :=
+    nonid_core hT P (RingEquiv.refl O) (fun a => rfl) g (-1) (by norm_num) hgg hg u₀ hu₀ u w hTm
+  change π3 ((u : O) * w * u₀ * c₀) = π3 (w : O) at heq
+  have hgy : ∀ y, endPt P.A K g (P.e.eta y) = P.e.eta (y * u₀) := hu₀
+  have hcm : π3 (u₀ * c₀) = π3 (c₀ * u₀) := by
+    have := congrArg (fun f => endPt P.A K f (P.e.eta 1)) (hcomm c hc)
+    simp only [map_mul] at this
+    change endPt P.A K c (endPt P.A K g (P.e.eta 1)) =
+      endPt P.A K g (endPt P.A K c (P.e.eta 1)) at this
+    rw [hgy, hc₀, hc₀, hgy, _root_.one_mul, _root_.one_mul] at this
+    exact π3_of_eta_eq P.e this
+  set U := π3 u₀ with hUdef
+  set C := π3 c₀ with hCdef
+  set J := π3 oj with hJdef
+  set A' := π3 (αJ u₀) with hAdef
+  have hUJ : U * J = J * A' := by
+    have := congrArg π3 (oj_mul_αJ u₀)
+    rw [map_mul, map_mul] at this
+    exact this.symm
+  have hUU : U * U = -1 := by
+    have := hsq; push_cast at this; exact this
+  have hu' : π3 (u : O) = -U := by rw [hu]; push_cast; rw [neg_one_mul]
+  have heq' : -U * (1 + J) * U * C = 1 + J := by
+    have := heq
+    rw [map_mul, map_mul, map_mul, hu', hw] at this
+    rw [map_add, map_one] at this
+    exact this
+  have step1 : C - J * A' * U * C = 1 + J := by
+    calc C - J * A' * U * C = -(U * U) * C - (U * J) * U * C := by rw [hUU, hUJ]; noncomm_ring
+      _ = -U * (1 + J) * U * C := by noncomm_ring
+      _ = 1 + J := heq'
+  have hr1 : red c₀ = (1, 0) := by
+    have h1 : π3 (c₀ - oj * αJ u₀ * u₀ * c₀) = π3 (1 + oj) := by
+      simp only [map_sub, map_mul, map_add, map_one]; exact step1
+    have h2 := red_congr h1
+    simp only [red_sub, red_mul, red_add, red_one, red_oj, gm_zero_left, gm_zero_right, sub_zero,
+      add_zero] at h2
+    exact h2
+  obtain ⟨d, hd⟩ := div_j_of_red (c₀ - 1) (by rw [red_sub, hr1, red_one, sub_self])
+  set D := π3 d with hDdef
+  have hC : C = 1 + J * D := by
+    have := congrArg π3 hd
+    rw [map_sub, map_one, map_mul] at this
+    rw [← this]; abel
+  have step2 : π3 (oj * (d - αJ u₀ * u₀ - αJ u₀ * u₀ * oj * d - 1)) = 0 := by
+    simp only [map_sub, map_mul, map_one]
+    calc J * (D - A' * U - A' * U * J * D - 1)
+        = (1 + J * D) - J * A' * U * (1 + J * D) - (1 + J) := by noncomm_ring
+      _ = 0 := by rw [← hC, step1, sub_self]
+  have hr2 := red_of_j_mul _ step2
+  simp only [red_sub, red_mul, red_αJ, red_oj, red_one] at hr2
+  have step3 : π3 (oj * (αJ u₀ * d - d * u₀)) = 0 := by
+    simp only [map_sub, map_mul]
+    calc J * (A' * D - D * U) = U * (1 + J * D) - (1 + J * D) * U := by
+          rw [mul_sub, ← _root_.mul_assoc J A' D, ← hUJ]; noncomm_ring
+      _ = 0 := by rw [← hC]; simp only [map_mul] at hcm; rw [hcm, sub_self]
+  have hr3 := red_of_j_mul _ step3
+  simp only [red_sub, red_mul, red_αJ, sub_eq_zero] at hr3
+  have hr4 : gm (red u₀) (red u₀) = (-1, 0) := by
+    have : π3 (u₀ * u₀) = π3 ((-1 : ℤ) : O) := by rw [map_mul, map_intCast]; exact hsq
+    have h2 := red_congr this
+    rw [red_mul, red_intCast] at h2
+    rw [h2]; rfl
+  exact finB _ _ hr4 hr3 hr2
+
 end NonId
 
 end GapGlue.CMStab
