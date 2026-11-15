@@ -1,0 +1,69 @@
+base 15668  after 15726  removed 0  new 58  changed 0
+
+## removed
+
+## new, by module
+  ZInQKernel.Contrib.OneProof.SGA7CP: 15
+  ZInQKernel.Contrib.OneProof.SGA7CPFold: 43
+
+## new
+  HDec.HSyn.OpenResearchLeaves22 ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.OpenResearchLeaves22.babaGranathRationalAb ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.OpenResearchLeaves22.bostLowerBound ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.OpenResearchLeaves22.casesOn ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.OpenResearchLeaves22.deRhamH1AbVarT ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.OpenResearchLeaves22.dsThm965 ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.OpenResearchLeaves22.dsThm966 ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.OpenResearchLeaves22.eigenformHTNew ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.OpenResearchLeaves22.elkiesX6StarPrinted ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.OpenResearchLeaves22.faltingsLemma5Printed ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.OpenResearchLeaves22.gaudronRemondThm14 ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.OpenResearchLeaves22.gonzalezRotgerProp56X6 ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.OpenResearchLeaves22.gonzalezRotgerX6Ab ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.OpenResearchLeaves22.hodgeTateDecompAbVar ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.OpenResearchLeaves22.javanpeykarBound ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.OpenResearchLeaves22.mk ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.OpenResearchLeaves22.mk._flat_ctor ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.OpenResearchLeaves22.mumfordRigidityCore ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.OpenResearchLeaves22.neronBaseChangeStrictHenselization ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.OpenResearchLeaves22.pazukiCor13Upper ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.OpenResearchLeaves22.r11r12 ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.OpenResearchLeaves22.r16 ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.OpenResearchLeaves22.r17 ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.OpenResearchLeaves22.r7a ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.OpenResearchLeaves22.r9a ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.OpenResearchLeaves22.r9b ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.OpenResearchLeaves22.raynaudSemistableSHcp ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.OpenResearchLeaves22.rec ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.OpenResearchLeaves22.recOn ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.OpenResearchLeaves22.semistablePersistsSHcp ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.OpenResearchLeaves22.sga3_VIB_3_10 ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.OpenResearchLeaves22.sga7_IX_3_3_SH ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.OpenResearchLeaves22.sga7_IX_3_5_ForwardGeomCP ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.OpenResearchLeaves22.shimuraMainThmIDeligneY3AbU ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.addedLeaves12_of_open17 ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.addedLeaves9_of_open22 ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.mumfordRigidity_of22 ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.openResearchLeaves22_of_OpenResearchLeaves21 ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.raynaudCriterionNF_of22 ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.researchLeaves9_of_open22 ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.sixContactMin_of_open29 ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.ss1_ss3_of22 ZInQKernel.Contrib.OneProof.SGA7CPFold
+  HDec.HSyn.x6Rows_of_open22 ZInQKernel.Contrib.OneProof.SGA7CPFold
+  SGA7CP.SGA7_IX_3_5_ForwardGeomCP ZInQKernel.Contrib.OneProof.SGA7CP
+  SGA7CP.SGA7_IX_3_5_ForwardGeomCP._proof_1 ZInQKernel.Contrib.OneProof.SGA7CP
+  SGA7CP.SGA7_IX_3_5_ForwardGeomCP._proof_2 ZInQKernel.Contrib.OneProof.SGA7CP
+  SGA7CP.SemistableUnipotentNF ZInQKernel.Contrib.OneProof.SGA7CP
+  SGA7CP.SemistableUnipotentSHcp ZInQKernel.Contrib.OneProof.SGA7CP
+  SGA7CP.SemistableUnipotentSHcp._proof_1 ZInQKernel.Contrib.OneProof.SGA7CP
+  SGA7CP.forwardGeomCP_of_forward ZInQKernel.Contrib.OneProof.SGA7CP
+  SGA7CP.forwardGeomCP_of_forwardGeom ZInQKernel.Contrib.OneProof.SGA7CP
+  SGA7CP.raynaudCriterionNF_of_cp ZInQKernel.Contrib.OneProof.SGA7CP
+  SGA7CP.raynaudCriterionNF_of_cpLeaves ZInQKernel.Contrib.OneProof.SGA7CP
+  SGA7CP.raynaudSemistableSHcp_of_SH ZInQKernel.Contrib.OneProof.SGA7CP
+  SGA7CP.semistableUnipotentNF_of_SHcp ZInQKernel.Contrib.OneProof.SGA7CP
+  SGA7CP.semistableUnipotentNF_of_forwardGeomCP ZInQKernel.Contrib.OneProof.SGA7CP
+  SGA7CP.semistableUnipotentSHcp_of_forwardGeomCP ZInQKernel.Contrib.OneProof.SGA7CP
+  SGA7CP.ss1_ss3_of_cpLeaves ZInQKernel.Contrib.OneProof.SGA7CP
+
+## changed (T = type hash changed, V = value only)

@@ -101,6 +101,38 @@ structure OpenResearchLeaves22 : Prop where
   /-- gt-rayclass (shimura-cft, rayclass-cft), composite of printed theorems: Shimura's Main Theorem I for the level-3 group K3 of B = (2,-3|Q) in Deligne's adelic form on the fine moduli scheme Y3 of QM abelian surfaces (R1fpPropsAb): the uniformization B^x_+ \ (H x (B (x) A_f)^x) / K3 = Y3(C), holomorphy in tau, the moduli clause at every u in O-hat^x (the object at Psi(tau,u) is C^2/iota(O)(tau,1)^T) and Shimura's reciprocity law at CM points. Replaces rayClassCMAb and shimuraFamilyAb. -/
   shimuraMainThmIDeligneY3AbU : _root_.RayClassCFT.ShimuraMainThmIDeligneY3AbU
 
+/-- **The new bundle is weaker than the old** (sanity; off the chain): `OpenResearchLeaves22` from
+`OpenResearchLeaves21`, the two restricted fields by specialization. -/
+theorem openResearchLeaves22_of_OpenResearchLeaves21 (r : OpenResearchLeaves21) : OpenResearchLeaves22 where
+  r7a := r.r7a
+  r9a := r.r9a
+  r9b := r.r9b
+  hodgeTateDecompAbVar := r.hodgeTateDecompAbVar
+  deRhamH1AbVarT := r.deRhamH1AbVarT
+  r11r12 := r.r11r12
+  eigenformHTNew := r.eigenformHTNew
+  dsThm965 := r.dsThm965
+  dsThm966 := r.dsThm966
+  r16 := r.r16
+  r17 := r.r17
+  bostLowerBound := r.bostLowerBound
+  javanpeykarBound := r.javanpeykarBound
+  pazukiCor13Upper := r.pazukiCor13Upper
+  gaudronRemondThm14 := r.gaudronRemondThm14
+  mumfordRigidityCore := r.mumfordRigidityCore
+  faltingsLemma5Printed := r.faltingsLemma5Printed
+  sga3_VIB_3_10 := r.sga3_VIB_3_10
+  babaGranathRationalAb := r.babaGranathRationalAb
+  gonzalezRotgerX6Ab := r.gonzalezRotgerX6Ab
+  raynaudSemistableSHcp := _root_.SGA7CP.raynaudSemistableSHcp_of_SH r.raynaudSemistableSH
+  semistablePersistsSHcp := r.semistablePersistsSHcp
+  gonzalezRotgerProp56X6 := r.gonzalezRotgerProp56X6
+  neronBaseChangeStrictHenselization := r.neronBaseChangeStrictHenselization
+  elkiesX6StarPrinted := r.elkiesX6StarPrinted
+  sga7_IX_3_3_SH := r.sga7_IX_3_3_SH
+  sga7_IX_3_5_ForwardGeomCP := _root_.SGA7CP.forwardGeomCP_of_forwardGeom r.sga7_IX_3_5_ForwardGeom
+  shimuraMainThmIDeligneY3AbU := r.shimuraMainThmIDeligneY3AbU
+
 /-! ## Generations 14-21 bypassed: the research terms over the new bundle -/
 
 /-- Mumford's rigidity from the field `mumfordRigidityCore` (as `mumfordRigidity_of14`). -/

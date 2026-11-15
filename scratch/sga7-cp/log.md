@@ -33,3 +33,18 @@ Base: wip/r6-nf 0bc2446d (frozenTarget through sixContactMin_of_open28, 55 H fie
   `raynaudSemistableSH` -> `raynaudSemistableSHcp`, `sga7_IX_3_5_ForwardGeom` -> `sga7_IX_3_5_ForwardGeomCP`.
 
 ## Compile log
+* base build `lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges`: OK (12986 jobs; build-base.txt). VERIFIED
+* DumpCompact base (Main): 15668 constants (hashes_before.txt). VERIFIED
+* `lake build +ZInQKernel.Contrib.OneProof.SGA7CP`: OK first try (7.7 s). VERIFIED
+* `lake build +ZInQKernel.Contrib.OneProof.SGA7CPFold`: OK first try (4.7 s). VERIFIED
+* scratch/sga7-cp/Check.lean (Check-output.txt): `SGA7CPCheck.frozenTarget'` (Main's frozenTarget with
+  `r : OpenResearchLeaves22` and `sixContactMin_of_open29`) standard axioms; type identical to frozenTarget except
+  `OpenResearchLeaves21` -> `OpenResearchLeaves22`; frozenTarget recovered from frozenTarget' through
+  `openResearchLeaves22_of_OpenResearchLeaves21` (example compiles). VERIFIED
+* `#discharges` (same run): 62 open hypotheses, 1694 theorems checked, 31 discharge one. The 24 new lines are the
+  projections `OpenResearchLeaves22.<f>` (assume the new bundle; artefact of the bundle living in a Contrib module);
+  the SGA7CP theorems discharge nothing (weakening, not a proof of either field). VERIFIED
+* DumpCompactAfter (Main + SGA7CP + SGA7CPFold) + cmp_hashes.py: base 15668, after 15726, removed 0, new 58
+  (SGA7CP 15, SGA7CPFold 43), changed 0 (cmp_hashes_out.txt). VERIFIED
+* PruneScan rooted at frozenTarget' (prunescan-out.txt): OpenResearchLeaves22 28, OpenTextbookLeaves11 12,
+  OpenAddedLeaves17 14, OpenGlue7 1 = 55 fields, 0 unused, prune set empty. VERIFIED
