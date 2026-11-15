@@ -55,3 +55,14 @@
   units by `levelUnit`); the decide tables cover every conjugator.
 - Consequence: the new leaf ShimuraHolFamilyL3 is NOT needed; shimura-split2's leaf (a consequence of the
   composite, `shimuraHolFamilyAb_of_composite`) and qmrec-printed's MainTheoremCM suffice for all three uses.
+
+## 08:00 contributor-kit checks (VERIFIED)
+- Restructured CompositeOut.lean: level-free route only, no new leaf (the L3 variant is kept as
+  scratch/composite-out/CompositeOutWithL3.lean, namespace CompositeOutL3, compiles, 0 errors).
+- `lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges +ZInQKernel.Contrib.OneProof.CompositeOut`:
+  "Build completed successfully (12998 jobs)".
+- `#discharges` (Discharges-output.txt): "63 open hypotheses, 2215 theorems checked, 7 discharge one"; none by
+  CompositeOut (expected: the composite field itself is not proved; its three uses are, as in dcy3-used).
+- BypassFold.lean (on top of dcy3-used's dry run): OpenResearchLeaves23 = 22 − shimuraMainThmIDeligneY3AbU +
+  mainTheoremCM + shimuraHolModAll; openResearchLeaves20_of_23; y3Connected := CompositeOut.y3Connected_of_modAll;
+  sixContactMin_of_open31 and frozenTarget_compositeOut: [propext, Classical.choice, Quot.sound].
