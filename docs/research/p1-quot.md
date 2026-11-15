@@ -160,7 +160,7 @@ then L5. The fixed scheme of the group they generate removes both, and also the 
 
 ### 2.4 The composite (`QuotientP1Coordinate.lean`)
 
-`quotientP1Coordinate_of_printed` repeats the plumbing of `MCRGlue.quotientP1Coordinate_of_leaves` (TailW) with
+`quotientP1Coordinate_of_printed'` repeats the plumbing of `MCRGlue.quotientP1Coordinate_of_leaves` (TailW) with
 glue C replaced by C2 (`coordinateFromSections_of''`) applied to C1' (`cMSectionsDisjoint'_of`):
 
 - L1 and L2 give the quotient `q : 𝒴 → 𝒵` by `fibreAut`, which is finite by glue A
@@ -190,9 +190,11 @@ field's own hypothesis `CMObjectsExist`. The intermediate form with the glue `CM
 | `AtkinLehnerFixesCM24` (new) | published | moduli form, same reading as the chain's `ALFixedPoints` (its other half) | Ogg 1983 (fixed points of `w_m` on `X₀^D(1)` are the CM points by orders containing `√−m`) and Rotger 2004 (`w_m` as `(A, ι) ↦ (A, ι ∘ conj μ)`); the print is on `X₀^D(1)(ℂ)`, this is the statement on QM pairs over `ℚ̄`. Locators UNVERIFIED; flag it unread / pending reading like `ALFixedPoints` |
 | `HeckeRest.QMAutCard`, `HeckeRest.ALFixedPoints` | supplied by the chain | — | `QMSplit.Aut.qmAutCard_of`, `alFixedPoints_of` of `QMCentralizerCM`, from the fields `uniformizationLeafAll`, `gagaMorphism`, `mumfordTorsionAlgClosed` (contribution `QMLattice`) and the proved T11(b) (`FromFields.lean`) |
 
-All locators of L1-L4 are mcr-glue's (UNVERIFIED: no network). The four L statements and the new leaf were re-read
-against their docstring arguments (SPECULATIVE judgement): each is true as stated, and none is vacuous (each has the
-chain's smooth model as an instance).
+All locators of L1-L4 are mcr-glue's (UNVERIFIED: no network). The four L statements and the two new leaves were
+re-read against their docstring arguments (SPECULATIVE judgement): each is true as stated and none is vacuous. The L
+statements and Edixhoven's leaf apply to the chain's smooth model. `AtkinLehnerFixesCM24` applies to the `ℤ[√−6]`
+objects of `CMObjectsExist`, and its premise `HasCM24` pins the commutant to the maximal order `ℤ[√−6]`. `rep 3` is
+the chain's representative of `w₆`, as in `ALFixedPoints`.
 
 **Fold arithmetic (strict count).**
 
