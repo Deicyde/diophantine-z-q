@@ -1232,4 +1232,26 @@ theorem cmStabObj_of (hU : BPAnalytic.Uniformization.UniformizationLeafAll)
     exact nonid_t hT P αK αK_αK ok ok_mul_αK red_of_k_mul red_αK g (-1) (by norm_num) hgg hg
       (fun c hc => by rw [hgs]; exact hcommAll c hc φ hφ) u₀ hu₀ hsq u hu
 
+/- Copied verbatim from `ZInQKernel/Contrib/OneProof/QuotientP1/FixedDisjoint.lean`, lines 540-546
+(branch `wip/p1-quot` at commit f30ece89, namespace `HDec.MCRQuot`). -/
+
+/-- **Glue (C1b-obj-weak): a CM object is fixed by a Hecke operation on classes that is not the identity**
+(mcr-quot's `CMStabObj` without the involution clause `T ∘ T = id`). -/
+def CMStabObjWeak : Prop :=
+  ∀ P : QML3 Qbar, (HasCM4 P.q ∨ HasCM3 P.q ∨ HasCM24 P.q) →
+    ∃ (α : LeafQM.O ≃+* LeafQM.O) (u : (LeafQM.O)ˣ),
+      M3.twist α (M3.rightMul u (M3.mk P)) = M3.mk P ∧
+      ∃ m : M3 Qbar, M3.twist α (M3.rightMul u m) ≠ m
+
+/-- **`CMStabObjWeak` (mcr-quot's `CMStabObj` without the involution clause) from the textbook fields
+`uniformizationLeafAll`, `gagaMorphism`, `mumfordTorsionAlgClosed` and the kernel's textbook leaf
+`TorsionStructure` (T5)**: the projection of `cmStabObj_of` (as `cMStabObjWeak_of` in FixedDisjoint.lean). -/
+theorem cmStabObjWeak_of (hU : BPAnalytic.Uniformization.UniformizationLeafAll)
+    (hG : ZInQ.HomLattice.GAGAMorphism) (hM : AvSplit.MumfordTorsionAlgClosed)
+    (hT : ObjBridge.TorsionStructure) :
+    CMStabObjWeak := by
+  intro P hP
+  obtain ⟨α, u, h1, -, h3⟩ := cmStabObj_of hU hG hM hT P hP
+  exact ⟨α, u, h1, h3⟩
+
 end GapGlue

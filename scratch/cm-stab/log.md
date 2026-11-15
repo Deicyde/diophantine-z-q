@@ -21,3 +21,12 @@ Base: wip/cm-stab = 3782dac8e (leaf-fold18). Target: `CMStabObj` (scratch/mcr-qu
 - lake build ZInQKernel.Contrib.OneProof.QMLattice: OK (already built, 14 s).
 - CMStab.lean §1-§5 (arith mod 3, involutions αJ/αK, residues, isoMk, stab_core, lat_model, com_comm,
   semilinear_unit, nonid_core, nonid_t): `lake env lean` exit 0, ~16 s, no sorry (VERIFIED, 03:28→~05:30 run).
+
+## Run 2 (base 6242b2f91 = 9a100aa7 leaf-fold22b merged)
+- `lake build ZInQKernel.Contrib.OneProof.CMStab` on the merged base: OK (21 s). VERIFIED.
+- `#print axioms GapGlue.cmStabObj_of`: [propext, Classical.choice, Quot.sound]; no sorry/axiom/admit in CMStab.lean. VERIFIED.
+- Added `GapGlue.CMStabObjWeak` (verbatim copy of FixedDisjoint.lean L540-546, wip/p1-quot f30ece89; same text at 3ce73273)
+  and `GapGlue.cmStabObjWeak_of` (hU hG hM hT): build OK, axioms [propext, Classical.choice, Quot.sound]. VERIFIED
+  (scratch/cm-stab/axioms.txt).
+- CMStabObj text: MCRQuot.lean L7639-7653 = MCRQuotB.lean L976-990 (wip/p1-quot 3ce73273, the def FixedDisjoint.lean
+  uses through its import of MCRQuotB) = CMStab.lean L1145-1159 (md5/diff identical). VERIFIED.
