@@ -1,0 +1,21 @@
+{
+ "name": "dcy3-used",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used"
+ ],
+ "bypass_note": "No new leaf. The field's only use is TSHecke.Y3Connected (TailZ13.addedLeaves8_of_open9), which DCY3Used.y3Connected_of_leaves proves from two research fields already in OpenResearchLeaves22 (mumfordGroupLaw, shimuraMainThmIDeligneY3AbU). The used form is WEAKER than the field (DCY3Used.y3ConnectedAb_of_field is the converse direction only), so autofold.py (which maps generation k+1 to k) cannot fold it: every added bundle from OpenAddedLeaves17 down to leaf-fold10's OpenAddedLeaves9 carries the field (Ab form down to OpenAddedLeaves12, non-Ab form in OpenAddedLeaves9). Hand fold (compiled dry run: scratch/dcy3-used/BypassFold.lean, output BypassFold-output.txt): OpenAddedLeaves18 = OpenAddedLeaves17 without deligneComponentsY3PrintedAb (14 fields); x6Rows_of18, ss1_ss3_of18 (semistableAlmostAll_of10 inlined: it reads only egaIV_8_10_5_xii), researchLeaves9_of18 = TailZ23's x6Rows_of_open14, ss1_ss3_of14, researchLeaves9_of_open14 on the new bundle; addedLeaves8_of18 r22 r14 t10 l builds leaf-fold8's OpenAddedLeaves8 with the terms of the added maps of TailZ34, Z31, Z30, Z26, Z24, Z23, Z13 and y3Connected := _root_.DCY3Used.y3Connected_of_leaves r22.mumfordGroupLaw r22.shimuraMainThmIDeligneY3AbU; sixContactMin_of_open30 r t l g composes the research maps 22 -> 14 and openTextbookLeaves10_of_OpenTextbookLeaves11 unchanged and calls sixContactMin_of_open10 with hF5 := CToPrinted.faltingsLemma5BCLower_of_printed r14.faltingsLemma5Printed and hYu := QMLattice.yuB6Alg_of' t10.uniformizationLeafAll t10.gagaMorphism t10.mumfordTorsionAlgClosed; Main.lean: l : OpenAddedLeaves18 and sixContactMin_of_open30 (frozenTarget_dcy3 in the dry run, standard axioms). kinds.tsv: drop the row deligneComponentsY3PrintedAb (strict GLUE, strictest GLUE); no row added. claims.tsv: drop its row if any.",
+ "bypass": {
+  "removed_field": "deligneComponentsY3PrintedAb",
+  "from_bundle": "OpenAddedLeaves17",
+  "maps_to_bundle": "OpenAddedLeaves8",
+  "consumer_field": "y3Connected",
+  "proof": "_root_.DCY3Used.y3Connected_of_leaves {r}.mumfordGroupLaw {r}.shimuraMainThmIDeligneY3AbU"
+ },
+ "discharges": [
+  {
+   "field": "deligneComponentsY3PrintedAb",
+   "proof": "(bypass: see bypass_note; the field itself is not provable from its used form)",
+   "leaves": []
+  }
+ ]
+}
