@@ -69,3 +69,19 @@ Target: `HDec.MCRGlue.QuotientP1Coordinate` (ZInQKernel/OneProof/H/TailW.lean L2
 - Final `quotientP1Coordinate_of_printed (L1 L2 L3 L4) (hE : EdixhovenFixedSmooth2) (hT) (hYI) (hO : CMStabObjWeak)`:
   VERIFIED (module compiled), #discharges: DISCHARGES [OpenGlue7.quotientP1Coordinate], still assumes L1-L4,
   EdixhovenFixedSmooth2, PkgI2.TorsionStructure, HeckeIrreducible, CMStabObjWeak; standard axioms.
+
+## CMStabObjWeak reduced to its ℤ[√−6] clause (CMTest.lean → QuotientP1/CMStab.lean)
+- `rightMul_fix_of_unit` (T5): an invertible φ in the commutant gives a unit u with rightMul u [P] = [P] and
+  φ(η a) = η(a u₀), u u₀ ≡ 1 mod 3. VERIFIED.
+- `rightMul_moves_cm24`: given `AutCM24` (automorphisms of a ℤ[√−6] pair are ±1), rightMul u moves its class
+  unless u ≡ ±1. VERIFIED.
+- `autCM24_of : HeckeRest.QMAutCard → AutCM24` (|QMIso q q| = 2 at a point with CM24, units of com q). VERIFIED.
+- `not_act_neg_one` (T5, a point of order 9 over the algebraic closure of Q̄): φ² − φ + 1 = 0 in the commutant
+  ⇒ φ does not act by −1 on A[3]. VERIFIED.
+- `cmStab4_of`, `cmStab3_of`: the ℤ[i] and ℤ[ζ₃] clauses of CMStabObjWeak (α = id, T = rightMul u, moved
+  witness: a ℤ[√−6] object). VERIFIED, standard axioms.
+- `CMStab24` (glue: the ℤ[√−6] clause), `cMStabObjWeak_of_cm24 (hT) (hQ : QMAutCard) (h24) (hCM)`. VERIFIED.
+- Main theorem now `quotientP1Coordinate_of_printed (L1..L4) (hE) (hT) (hYI) (hQ : HeckeRest.QMAutCard)
+  (h24 : CMStab24)`; `quotientP1Coordinate_of_fields` derives T5, HeckeIrreducible, QMAutCard from chain fields
+  (mumfordTorsionAlgClosed, mumfordRigidityCore, deligneComponentsY3PrintedAb, uniformizationLeafAll,
+  gagaMorphism; T11b proved). #discharges VERIFIED (discharges_out.txt), standard axioms.

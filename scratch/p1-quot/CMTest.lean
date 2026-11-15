@@ -395,6 +395,31 @@ theorem autCM24_of (hQ : HeckeRest.QMAutCard) : AutCM24 := by
   · left; exact congrArg (fun u : (com P.q)ˣ => ((u : com P.q) : AbVar.End P.A)) h
   · right; exact congrArg (fun u : (com P.q)ˣ => ((u : com P.q) : AbVar.End P.A)) h
 
+/-- **Glue (CMStab24): the `ℤ[√−6]` clause of `CMStabObjWeak`** (QM with CM by `ℤ[√−6]`: the class of such an
+object is fixed by a Hecke operation `T = twist α ∘ rightMul u` that is not the identity on classes). Its
+published analogue is the moduli form of "the Atkin–Lehner involution `w₆` of `X₀⁶(1)` fixes the CM points by
+`ℤ[√−6]`" (A. Ogg, *Real points on Shimura curves*, 1983; V. Rotger, 2004; locators UNVERIFIED), which is stated on
+`X₀⁶(1)(ℂ)`, not on the objects `(A, ι, η)`; the commutant `ℤ[√−6]` has units `±1` only (`AutCM24`), so `α` is
+an Atkin–Lehner twist. -/
+def CMStab24 : Prop :=
+  ∀ P : QML3 Qbar, HasCM24 P.q →
+    ∃ (α : LeafQM.O ≃+* LeafQM.O) (u : (LeafQM.O)ˣ),
+      M3.twist α (M3.rightMul u (M3.mk P)) = M3.mk P ∧
+      ∃ m : M3 Qbar, M3.twist α (M3.rightMul u m) ≠ m
+
+/-- **`CMStabObjWeak` from T5, the chain's `QMAutCard`, a `ℤ[√−6]` object and the `ℤ[√−6]` clause.** The `ℤ[i]`
+and `ℤ[ζ₃]` clauses are proved (`cmStab4_of`, `cmStab3_of`). -/
+theorem cMStabObjWeak_of_cm24 (hT : ObjBridge.TorsionStructure) (hQ : HeckeRest.QMAutCard)
+    (h24 : CMStab24) (hCM : CMObjectsExist) : CMStabObjWeak := by
+  obtain ⟨-, -, ⟨P₂₄, hP₂₄⟩⟩ := hCM
+  intro P hP
+  rcases hP with h | h | h
+  · exact cmStab4_of hT (autCM24_of hQ) P₂₄ hP₂₄ P h
+  · exact cmStab3_of hT (autCM24_of hQ) P₂₄ hP₂₄ P h
+  · exact h24 P h
+
 end MCRQuot
 
 end
+
+#print axioms HDec.MCRQuot.cMStabObjWeak_of_cm24

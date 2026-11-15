@@ -3,7 +3,8 @@
 
 `P1SchemeQ` is proved (`QuotientP1Proof.p1SchemeQ_body`, `QuotientP1/P1Scheme.lean`); glue C1 is proved from
 Edixhoven's theorem for two generators without L5, L6 or involutions (`cMSectionsDisjoint'_of`,
-`QuotientP1/FixedDisjoint.lean`); `CurveBijIso` is curve-split's theorem; `ModelYIrreducible` is the chain's
+`QuotientP1/FixedDisjoint.lean`); the `ℤ[i]` and `ℤ[ζ₃]` clauses of `CMStabObjWeak` are proved from T5 and the
+chain's `QMAutCard` (`QuotientP1/CMStab.lean`); `CurveBijIso` is curve-split's theorem; `ModelYIrreducible` is the chain's
 `PropTSGlue.HeckeIrreducible` (same body, `rfl`).
 ════════════════════════════════════════════════════════════════════════════════════════════ -/
 
@@ -35,7 +36,7 @@ theorem quotientP1Coordinate_of_leaves' (hAF : ProperCurveAF) (hQE : FiniteQuoti
 curve-split's `_root_.CurveSplit.curveBijIso`). The plumbing is `MCRGlue.quotientP1Coordinate_of_leaves` with C1
 replaced: L1 + L2 give the quotient by `fibreAut` (finite by A), L3 makes it smooth and proper, B and L4 make it
 `P¹_{ℤ_(p)}`, C2 with C1' normalizes the coordinate. -/
-theorem quotientP1Coordinate_of_printed (hAF : ProperCurveAF) (hQE : FiniteQuotientExists)
+theorem quotientP1Coordinate_of_printed' (hAF : ProperCurveAF) (hQE : FiniteQuotientExists)
     (hTS : TameQuotientSmooth) (hP1 : SmoothModelOfP1) (hE : EdixhovenFixedSmooth2)
     (hT : PkgI2.TorsionStructure.{0}) (hYI : PropTSGlue.HeckeIrreducible) (hO : CMStabObjWeak) :
     MCRGlue.QuotientP1Coordinate := by
@@ -55,5 +56,17 @@ theorem quotientP1Coordinate_of_printed (hAF : ProperCurveAF) (hQE : FiniteQuoti
     hZp hZs (cMSectionsDisjoint'_of hE gA hfix gQuotientPointOrbits (cMStabNontrivial_of hO)
       qbarPointsConjugate p hp 𝒴 𝒜 hM hCM Y Φ π h1 hh h2 𝒵 q hq hqf) ρ'₀ hρ'₀
   exact ⟨𝒵, q, ρ', hqf, hρ', hCF⟩
+
+/-- **Main theorem: `QuotientP1Coordinate` from the leaves L1-L4, Edixhoven's tame fixed-point theorem, T5,
+`HeckeIrreducible`, the chain's `QMAutCard` and the glue `CMStab24`** (the `ℤ[i]` and `ℤ[ζ₃]` clauses of
+`CMStabObjWeak` proved, `QuotientP1/CMStab.lean`; the `ℤ[√−6]` object comes from the hypothesis
+`CMObjectsExist` of the field). -/
+theorem quotientP1Coordinate_of_printed (hAF : ProperCurveAF) (hQE : FiniteQuotientExists)
+    (hTS : TameQuotientSmooth) (hP1 : SmoothModelOfP1) (hE : EdixhovenFixedSmooth2)
+    (hT : PkgI2.TorsionStructure.{0}) (hYI : PropTSGlue.HeckeIrreducible)
+    (hQ : HeckeRest.QMAutCard) (h24 : CMStab24) : MCRGlue.QuotientP1Coordinate := by
+  intro p _ hp 𝒴 𝒜 hM hCM Y Φ π h1 hh h2
+  exact quotientP1Coordinate_of_printed' hAF hQE hTS hP1 hE hT hYI
+    (cMStabObjWeak_of_cm24 hT hQ h24 hCM) p hp 𝒴 𝒜 hM hCM Y Φ π h1 hh h2
 
 end MCRQuot

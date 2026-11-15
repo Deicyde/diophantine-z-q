@@ -65,7 +65,21 @@ docs/research/p1-quot.md. -/
 '''
 FX = fxl[:2] + ['', fdoc] + fxl[2:]
 docF = open(S + 'final_doc.md').read()
-F = ['import ZInQKernel.Contrib.OneProof.QuotientP1.FixedDisjoint',
+cm = open(S + 'CMTest.lean').read()
+cm = cm[:cm.index('#print axioms')].rstrip() + '\n'
+cml = cm.split('\n')
+cdoc = '''/-!
+# p1-quot, helper: the `ℤ[i]` and `ℤ[ζ₃]` clauses of `CMStabObjWeak`
+
+For a level-3 object `P` over `ℚ̄` whose commutant contains `φ` with `φ² = −1` (resp. `φ² − φ + 1 = 0`), the unit
+`u ≡ (action of φ on A[3])⁻¹ mod 3𝒪` gives `rightMul u [P] = [P]` (`rightMul_fix_of_unit`: T5, `Level3.torsor`,
+`exists_unit_congr`), and `u ≢ ±1` (for `ℤ[ζ₃]` the case `−1` is excluded by a point of order 9,
+`not_act_neg_one`); `rightMul u` then moves the class of a `ℤ[√−6]` object, whose automorphisms are `±1`
+(`autCM24_of`, from the chain's `QMAutCard`). The `ℤ[√−6]` clause is the glue `CMStab24`.
+docs/research/p1-quot.md. -/
+'''
+CM = cml[:1] + ['', cdoc] + cml[1:]
+F = ['import ZInQKernel.Contrib.OneProof.QuotientP1.CMStab',
      'import ZInQKernel.Contrib.OneProof.QuotientP1.P1Scheme',
      'import ZInQKernel.OneProof.H.TailR', '', docF] + header_lines + [fin, 'end HDec', '']
 ff = open(S + 'FromFields.lean').read()
@@ -73,7 +87,7 @@ ff = ff[:ff.index('#print axioms')].rstrip() + '\n'
 import os
 os.makedirs(D + 'QuotientP1', exist_ok=True)
 for name, L in [('QuotientP1/MCRQuotA.lean', A), ('QuotientP1/MCRQuotB.lean', B), ('QuotientP1/P1Scheme.lean', P),
-                ('QuotientP1/FixedDisjoint.lean', FX), ('QuotientP1Coordinate.lean', F), ('QuotientP1/FromFields.lean', ff.split('\n'))]:
+                ('QuotientP1/FixedDisjoint.lean', FX), ('QuotientP1/CMStab.lean', CM), ('QuotientP1Coordinate.lean', F), ('QuotientP1/FromFields.lean', ff.split('\n'))]:
     txt = '\n'.join(L).rstrip() + '\n'
     open(D + name, 'w').write(txt)
     print(name, len(txt.encode()))
