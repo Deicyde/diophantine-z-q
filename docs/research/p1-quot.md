@@ -261,6 +261,25 @@ leaf from this proof.
   (apply the universal property of the target to the abelian scheme of the source) may remove some of those uses.
   That is SPECULATIVE and was not checked.
 
+## 5b. For the ledgers
+
+Proposed `docs/research/locators.md` row for the new leaf (not added here; that file is shared):
+
+| leaf | source | locator | verdict |
+|---|---|---|---|
+| `HDec.MCRQuot.EdixhovenFixedSmooth2` | B. Edixhoven, *Néron models and tame ramification*, Compositio Math. 81 (1992), 291-306 | Prop. 3.4 (fixed-point scheme of a tame finite group action on a smooth `S`-scheme is smooth) | UNVERIFIED (read from memory, no network); special case `S = Spec ℤ_(p)`, `G = ⟨σ, τ⟩` |
+
+kinds.tsv proposal:
+
+- `EdixhovenFixedSmooth2`: published, flag unread.
+- `CMStab24`: project glue.
+- L1-L4 keep their existing frontier rows (H-89 to H-92).
+
+Pointer for the rigidity pruning task (SPECULATIVE, not checked): `heckeIrreducible_of_ab` shows that the chain's
+use of `mumfordRigidityCore` to convert `deligneComponentsY3PrintedAb` is avoidable for every consumer that needs only
+`HeckeIrreducible` / connectedness. The trick is to apply the universal property of the target triple to the
+abelian scheme of the source.
+
 ## 6. `#discharges` output (`scratch/p1-quot/discharges_out.txt`)
 
 The run used the copied build tree of fork commit c2ad4181 (leaf-fold19, research bundle generation 19). This base's
