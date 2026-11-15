@@ -328,6 +328,73 @@ theorem cmStab3_of (hT : ObjBridge.TorsionStructure) (hA : AutCM24) (P₂₄ : Q
       (by rw [sub_neg_eq_add, hc'])
     exact not_act_neg_one hT P φ hφ u₀ hlin ⟨_, by rw [← sub_neg_eq_add]; exact hu₀⟩
 
+/-- `Aut(A, ι) = End_𝒪(A)^×` (copy of the chain's `QMSplit.Aut.isoUnitEquiv`, `TailU`). -/
+def isoUnitEquiv' {A : AbVar Qbar} (q : QMStr A) : QMIso q q ≃ (com q)ˣ where
+  toFun G :=
+    { val := ⟨G.φ, by
+        rw [com, Subring.mem_centralizer_iff]
+        rintro _ ⟨a, rfl⟩
+        exact AbVar.Hom.ext' (G.equivariant a).symm⟩
+      inv := ⟨G.ψ, by
+        rw [com, Subring.mem_centralizer_iff]
+        rintro _ ⟨a, rfl⟩
+        exact AbVar.Hom.ext' (G.symm.equivariant a).symm⟩
+      val_inv := Subtype.ext (AbVar.Hom.ext' G.right)
+      inv_val := Subtype.ext (AbVar.Hom.ext' G.left) }
+  invFun u :=
+    { φ := (u.val : AbVar.End A)
+      ψ := (u.inv : AbVar.End A)
+      left := congrArg AbVar.Hom.hom (congrArg Subtype.val u.inv_val)
+      right := congrArg AbVar.Hom.hom (congrArg Subtype.val u.val_inv)
+      equivariant := fun a => by
+        have hf : ((u.val : com q) : AbVar.End A) ∈ Subring.centralizer (Set.range q.iota) := u.val.2
+        rw [Subring.mem_centralizer_iff] at hf
+        exact (congrArg AbVar.Hom.hom (hf (q.iota a) ⟨a, rfl⟩)).symm }
+  left_inv G := rfl
+  right_inv u := Units.ext rfl
+
+/-- **`AutCM24` from the chain's `QMAutCard`** (`|Aut(A, ι)| = 2` at a point without CM by `ℤ[i]`, `ℤ[ζ₃]`;
+`QMAutCard` is proved in the chain from `QMCentralizerCM`, `qmAutCard_of`, TailU). -/
+theorem autCM24_of (hQ : HeckeRest.QMAutCard) : AutCM24 := by
+  intro P hP c d hc hcd hdc
+  obtain ⟨hcard, -, h424, h324⟩ := hQ P.A P.surface P.q
+  rw [if_neg (fun h => h424 ⟨h, hP⟩), if_neg (fun h => h324 ⟨h, hP⟩)] at hcard
+  have hcard' : Nat.card (com P.q)ˣ = 2 := (Nat.card_congr (isoUnitEquiv' P.q)).symm.trans hcard
+  have hd : d ∈ com P.q := by
+    have hc' := hc
+    rw [com, Subring.mem_centralizer_iff] at hc' ⊢
+    intro x hx
+    calc x * d = (d * c) * x * d := by rw [hdc, _root_.one_mul]
+      _ = d * (x * c) * d := by rw [_root_.mul_assoc d c x, ← hc' x hx]
+      _ = d * x * (c * d) := by simp only [_root_.mul_assoc]
+      _ = d * x := by rw [hcd, _root_.mul_one]
+  let cu : (com P.q)ˣ := ⟨⟨c, hc⟩, ⟨d, hd⟩, Subtype.ext hcd, Subtype.ext hdc⟩
+  -- `1 ≠ −1`
+  have hne : (1 : (com P.q)ˣ) ≠ -1 := by
+    intro h
+    have h1 : (1 : AbVar.End P.A) = -1 := congrArg (fun u : (com P.q)ˣ => ((u : com P.q) : AbVar.End P.A)) h
+    have h2 : endPt P.A Qbar (1 + 1) (P.e.eta 1) = 0 := by
+      rw [show (1 : AbVar.End P.A) + 1 = 0 by rw [← neg_add_cancel (1 : AbVar.End P.A), ← h1],
+        map_zero]; rfl
+    rw [map_add, map_one] at h2
+    change P.e.eta 1 + P.e.eta 1 = 0 at h2
+    rw [← map_add] at h2
+    obtain ⟨c'', hc''⟩ := (P.e.ker _).1 h2
+    exact intCast_not_mem_three 2 (by decide) ⟨c'', by rw [← hc'']; norm_num⟩
+  obtain ⟨x, y, hxy, hU⟩ := Nat.card_eq_two_iff.mp hcard'
+  have hmem : ∀ z : (com P.q)ˣ, z = x ∨ z = y := fun z => by
+    have : z ∈ ({x, y} : Set (com P.q)ˣ) := by rw [hU]; trivial
+    simpa using this
+  have hcu : cu = 1 ∨ cu = -1 := by
+    rcases hmem 1 with h1 | h1 <;> rcases hmem (-1) with h2 | h2 <;> rcases hmem cu with h3 | h3
+    all_goals first
+      | exact absurd (h1.trans h2.symm) hne
+      | exact Or.inl (h3.trans h1.symm)
+      | exact Or.inr (h3.trans h2.symm)
+  rcases hcu with h | h
+  · left; exact congrArg (fun u : (com P.q)ˣ => ((u : com P.q) : AbVar.End P.A)) h
+  · right; exact congrArg (fun u : (com P.q)ˣ => ((u : com P.q) : AbVar.End P.A)) h
+
 end MCRQuot
 
 end
