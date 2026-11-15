@@ -295,6 +295,39 @@ theorem not_act_neg_one (hT : ObjBridge.TorsionStructure) (P : QML3 Qbar) (φ : 
   rw [k2, ← h3n, ← map_nsmul, k1, zero_sub, ← h3n] at k3
   exact hX3 (neg_eq_zero.mp k3.symm)
 
+/-- **The `ℤ[ζ₃]` case of `CMStabObjWeak`**, from T5, `AutCM24` and a `ℤ[√−6]` object. -/
+theorem cmStab3_of (hT : ObjBridge.TorsionStructure) (hA : AutCM24) (P₂₄ : QML3 Qbar)
+    (h24 : HasCM24 P₂₄.q) (P : QML3 Qbar) (hP : HasCM3 P.q) :
+    ∃ (α : LeafQM.O ≃+* LeafQM.O) (u : (LeafQM.O)ˣ),
+      M3.twist α (M3.rightMul u (M3.mk P)) = M3.mk P ∧
+      ∃ m : M3 Qbar, M3.twist α (M3.rightMul u m) ≠ m := by
+  obtain ⟨φ, hφc, hφ⟩ := hP
+  have hφ' : φ * φ = φ - 1 := by
+    rw [← sub_eq_zero, ← hφ]; abel
+  have h1 : φ * (1 - φ) = 1 := by rw [mul_sub, _root_.mul_one, hφ']; abel
+  have h2 : (1 - φ) * φ = 1 := by rw [sub_mul, _root_.one_mul, hφ']; abel
+  obtain ⟨u, u₀, hlin, ⟨c, hc⟩, hfix⟩ := rightMul_fix_of_unit hT P φ (1 - φ) hφc h1 h2
+  refine ⟨RingEquiv.refl _, u, by rw [M3.twist_refl']; exact hfix, ⟨M3.mk P₂₄, ?_⟩⟩
+  rw [M3.twist_refl']
+  apply rightMul_moves_cm24 hA P₂₄ h24 u
+  · rintro ⟨c', hc'⟩
+    have hu₀ := congr_inv_of_congr (_root_.one_mul 1) hc hc'
+    have hact : endPt P.A Qbar φ (P.e.eta 1) = P.e.eta 1 := by
+      rw [hlin, P.e.eq_iff]
+      exact ⟨_, by rw [_root_.one_mul]; exact hu₀⟩
+    have e1 : endPt P.A Qbar (φ * φ - φ + 1) (P.e.eta 1) = P.e.eta 1 := by
+      rw [map_add, map_sub, map_mul, map_one]
+      change endPt P.A Qbar φ (endPt P.A Qbar φ (P.e.eta 1)) - endPt P.A Qbar φ (P.e.eta 1) +
+        P.e.eta 1 = _
+      rw [hact, hact, sub_self, zero_add]
+    rw [hφ, map_zero] at e1
+    obtain ⟨c'', hc''⟩ := (P.e.ker _).1 e1.symm
+    exact intCast_not_mem_three 1 (by decide) ⟨c'', by rw [Int.cast_one]; exact hc''⟩
+  · rintro ⟨c', hc'⟩
+    have hu₀ := congr_inv_of_congr (ε := -1) (by noncomm_ring) hc (c' := c')
+      (by rw [sub_neg_eq_add, hc'])
+    exact not_act_neg_one hT P φ hφ u₀ hlin ⟨_, by rw [← sub_neg_eq_add]; exact hu₀⟩
+
 end MCRQuot
 
 end
