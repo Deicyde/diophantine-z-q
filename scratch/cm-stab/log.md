@@ -39,3 +39,6 @@ Base: wip/cm-stab = 3782dac8e (leaf-fold18). Target: `CMStabObj` (scratch/mcr-qu
   MonObj.mul_assoc under `open MonObj`; use `_root_.mul_assoc`).
 - #discharges (scratch/cm-stab/discharges.txt): 63 open hypotheses, 5 discharged, none by CMStab (expected: CMStabObj
   is not a bundle field). VERIFIED.
+- Added `cmStabObj_of_textbook`, `cmStabObjWeak_of_textbook` (hU hG hM; hT := AvSplit.torsionStructure_of_mumford hM):
+  build OK, standard axioms. VERIFIED. #discharges rerun: 63 open, 1784 checked, 5 discharge (none ours). VERIFIED.
+- Report docs/research/cm-stab.md written (results, identity checks, manual fold into p1-quot/mcr-quot composites, method).
