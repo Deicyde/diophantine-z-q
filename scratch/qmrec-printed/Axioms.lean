@@ -60,7 +60,7 @@ end Defs
 
 def MainTheoremCM : Prop :=
   ∃ ε : ℤˣ,
-  ∀ (E : Type) [Field E] [NumberField E] (g : ℕ) (Φ : Fin g → E →+* ℂ),
+  ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (g : ℕ) (Φ : Fin g → E →+* ℂ),
     Module.finrank ℚ E = 2 * g →
     Function.Injective (Sum.elim Φ fun i => (starRingEnd ℂ).comp (Φ i)) →
   ∀ (Er : Type) [Field Er] [NumberField Er] (κr : Er →+* ℂ),
@@ -704,6 +704,79 @@ theorem span_two (κ : K →+* ℂ) (w : Fin 2 → ℂ) :
 
 end Helpers
 
+section CMField
+
+open Polynomial
+
+/-- `F = ℚ(√2)`. -/
+abbrev F2 : Type := AdjoinRoot (X ^ 2 - C (2 : ℚ))
+
+instance factF2 : Fact (Irreducible (X ^ 2 - C (2 : ℚ))) := ⟨by
+  apply X_pow_sub_C_irreducible_of_prime Nat.prime_two
+  intro b hb
+  have : IsSquare (2 : ℚ) := ⟨b, by rw [← hb]; ring⟩
+  rw [Rat.isSquare_iff] at this; norm_num at this⟩
+
+instance : CharZero F2 := charZero_of_injective_algebraMap (algebraMap ℚ F2).injective
+
+instance : NumberField F2 where
+  to_finiteDimensional := (AdjoinRoot.powerBasis (X_pow_sub_C_ne_zero (by norm_num) (2 : ℚ))).finite
+
+theorem finrank_F2 : Module.finrank ℚ F2 = 2 := by
+  rw [(AdjoinRoot.powerBasis (X_pow_sub_C_ne_zero (by norm_num) (2 : ℚ))).finrank, AdjoinRoot.powerBasis_dim,
+    natDegree_X_pow_sub_C]
+
+instance : IsTotallyReal F2 where
+  isReal v := by
+    rw [← InfinitePlace.mk_embedding v, InfinitePlace.isReal_mk_iff, ComplexEmbedding.isReal_iff]
+    set φ := v.embedding
+    have hnr : ∀ r : ℚ, AdjoinRoot.root (X ^ 2 - C (2 : ℚ)) ≠ r := by
+      intro r hr
+      have h2 : (AdjoinRoot.root (X ^ 2 - C (2 : ℚ))) ^ 2 = 2 := by
+        have := AdjoinRoot.eval₂_root (X ^ 2 - C (2 : ℚ))
+        simpa [sub_eq_zero] using this
+      rw [hr] at h2
+      have h2' : r ^ 2 = 2 := by exact_mod_cast h2
+      have : IsSquare (2 : ℚ) := ⟨r, by rw [← h2']; ring⟩
+      rw [Rat.isSquare_iff] at this; norm_num at this
+    have hroot : starRingEnd ℂ (φ (AdjoinRoot.root _)) = φ (AdjoinRoot.root _) := by
+      have h2 : φ (AdjoinRoot.root (X ^ 2 - C (2 : ℚ))) ^ 2 = 2 := by
+        have := AdjoinRoot.eval₂_root (X ^ 2 - C (2 : ℚ))
+        have e : (AdjoinRoot.root (X ^ 2 - C (2 : ℚ))) ^ 2 = 2 := by simpa [sub_eq_zero] using this
+        rw [← map_pow, e, map_ofNat]
+      have : (φ (AdjoinRoot.root _) - (√2 : ℝ)) * (φ (AdjoinRoot.root _) + (√2 : ℝ)) = 0 := by
+        linear_combination h2 - sqrt2_sq
+      rcases mul_eq_zero.1 this with h | h
+      · rw [show φ (AdjoinRoot.root _) = ((√2 : ℝ) : ℂ) by linear_combination h, Complex.conj_ofReal]
+      · rw [show φ (AdjoinRoot.root _) = -((√2 : ℝ) : ℂ) by linear_combination h, map_neg,
+          Complex.conj_ofReal]
+    apply RingHom.ext
+    intro x
+    obtain ⟨r, s, rfl⟩ := exists_rat_repr finrank_F2 hnr x
+    simp only [ComplexEmbedding.conjugate_coe_eq, map_add, map_mul, map_ratCast, hroot]
+
+variable {K : Type} [Field K] [NumberField K] [Fact (Irreducible (X ^ 2 - C (2 : K)))]
+
+/-- `ℚ(√2) → E`, `√2 ↦ √2`. -/
+def algF : F2 →+* EK K :=
+  AdjoinRoot.lift (algebraMap ℚ (EK K)) (AdjoinRoot.root _) (by
+    have h := AdjoinRoot.eval₂_root (X ^ 2 - C (2 : K))
+    rw [eval₂_sub, eval₂_X_pow, eval₂_C, map_ofNat (AdjoinRoot.of (X ^ 2 - C (2 : K))) 2] at h
+    rw [eval₂_sub, eval₂_X_pow, eval₂_C, map_ofNat (algebraMap ℚ (EK K)) 2]
+    exact h)
+
+instance : Algebra F2 (EK K) := (algF (K := K)).toAlgebra
+
+theorem isCMField_EK [IsTotallyComplex K] (hK : Module.finrank ℚ K = 2) : IsCMField (EK K) := by
+  haveI : IsTotallyComplex (EK K) := isTotallyComplex_of_algebra K (EK K)
+  haveI : Algebra.IsQuadraticExtension F2 (EK K) := ⟨by
+    have h := Module.finrank_mul_finrank ℚ F2 (EK K)
+    rw [finrank_F2, finrank_EK hK] at h
+    omega⟩
+  exact IsCMField.ofCMExtension F2 (EK K)
+
+end CMField
+
 /-! ## §F `QMReciprocityL3` from the main theorem of CM -/
 
 section Derivation
@@ -735,6 +808,7 @@ theorem qmReciprocityL3_of_printed (hM : MainTheoremCM) (hC : ZInQ.HomUnify.HomL
   intro K _ _ _ hK κ q z hz σ s hs g P P' hbc hP
   simp only [if_true] at hz
   haveI : Fact (Irreducible (X ^ 2 - C (2 : K))) := ⟨irr_fE hK⟩
+  haveI : IsCMField (EK K) := isCMField_EK hK
   obtain ⟨Φu, hU, hI, hL⟩ := hP
   obtain ⟨g0, hpb, hιbc, hηbc⟩ := hbc
   set Φ := PhiE κ with hΦ
