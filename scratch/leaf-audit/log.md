@@ -42,3 +42,23 @@
   The existential `LinYangEx29` feeds the consumer directly: `IgusaAlgFinal.thetaRatiosAtQM_of_printed hI hL` (checked).
   VERDICT LinYangEx29All: FALSE as stated (missing holomorphy of j6). Correction: use the existential `LinYangEx29`
   (theta-fold's own def) or add a premise pinning j6 (e.g. holomorphy where finite).
+
+## Audit module (VERIFIED: compiled)
+- `ZInQKernel/Contrib/OneProof/LeafAudit1115.lean` builds (`lake build ZInQKernel.Contrib.OneProof.LeafAudit1115`,
+  12964 jobs; output scratch/leaf-audit/build-LeafAudit1115-output.txt); all new theorems use [propext, Classical.choice, Quot.sound].
+  Contents: LinYang refutation; Elkies ff-premises from charts; MumfordGroupLaw premises + conclusion at the trivial
+  family Spec Q -> Spec Q (zero abelian variety fibres); FaltingsTateSurj at A = B = 0; TYZ premises from sibling
+  leaves (n = 3, 11) and `printed_iff : TYZLemma29Printed ↔ TYZLemma29PrintedNe3 ∧ TYZThm21At31`;
+  X0ModuliGaloisMero premises at N = 1, g = 1, tau = tau' = i (j(i) = 1728 algebraic, via gz-weil's squarePP g3 = 0);
+  examples pinning every old/new implication (Elkies, Mumford, Faltings, Carayol, QMRec, PanBerger, SIR, X0, GZ).
+- Corrected theta-fold top compiles: scratch/leaf-audit/FoldFix.lean `sixContactMin_of_open29_fixed` (field
+  `LinYangEx29` instead of `LinYangEx29All`; hθ := fun _ => thetaRatiosAtQM_of_printed hI hL), standard axioms.
+- Integration finding (VERIFIED): with theta-fold merged onto leaf-fold25, `ZInQKernel/OneProof/H/TailZ35.lean` fails
+  (line 117: type mismatch; `sixContactMin_of_open28` now takes `hθ`). Main of leaf-fold25 does not build with theta-fold.
+- `#discharges` (scratch/leaf-audit/Discharges.lean, output discharges-output.txt) run against a temporary Main =
+  theta-fold's Main + leaf-fold25's hFH edit (working tree only, restored afterwards): 64 open hypotheses, 3499
+  theorems, 17 discharge one; the audit module adds no discharge (expected). r17, r11r12, elkiesX6StarPrinted, r9b,
+  mumfordGroupLaw, h29, hL3, hX discharges by the 11-15 tasks' theorems are listed. `linYangEx29All` is an open
+  hypothesis of that frozenTarget (and an open LEAF row in theta-fold's OPEN.md, elliotglazer #86).
+- TYZ sanity: h29-fix's brandt.py re-run (pure Python): n = 3: Q(3) = f_3(1) = ±3 for all 8 tau, values {−3, 1};
+  n = 11, 19: Q = ±1; matches 𝓛(3)^2 = 𝓛(11)^2 = 𝓛(19)^2 = 1 (lcalSq doc) with w_K(3) = 3, pairIdx 11 = pairIdx 19 = {1}.
