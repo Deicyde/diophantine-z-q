@@ -1,6 +1,7 @@
 import ZInQKernel.Contrib.OneProof.QuotientP1Printed
 import ZInQKernel.Contrib.OneProof.QuotientP1.P1ModelE
 import ZInQKernel.Contrib.OneProof.QuotientP1.TameQuotSmooth
+import ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
 
 /-!
 # p1-quot3, L4 part F: `quotientP1Coordinate` without L4 (scratch)
@@ -275,6 +276,63 @@ theorem coordinateFromSectionsGen_of (hA : FibreAutTame) (hT : ObjBridge.Torsion
     rw [hsameCM y y3 P P3 hP hy3 (Or.inr (Or.inl ⟨h3, c3⟩)), v3]
   · intro h24
     rw [hsameCM y y2 P P2 hP hy2 (Or.inr (Or.inr ⟨h24, c2⟩)), v2]
+
+/-- **`QuotientP1Coordinate` from Lichtenbaum's theorem, mcr-glue's L2, L3, Edixhoven's theorem, T5,
+`HeckeIrreducible` and `CMStabObjWeak` — without L4 `SmoothModelOfP1`.** As p1-quot2's
+`quotientP1Coordinate_of_printed2`, with `coordinateFromSections_of''` (which needs L4's coordinate `ρ'₀`) replaced by
+`coordinateFromSectionsGen_of` (the generic coordinate extends across the special fibre because the three CM sections
+are pairwise disjoint). -/
+theorem quotientP1Coordinate_of_printed3 (hL : _root_.QuotientP1Proof.LichtenbaumProjective)
+    (hQE : FiniteQuotientExists) (hTS : TameQuotientSmooth)
+    (hE : EdixhovenFixedSmooth2) (hT : PkgI2.TorsionStructure.{0}) (hYI : PropTSGlue.HeckeIrreducible)
+    (hO : CMStabObjWeak) : MCRGlue.QuotientP1Coordinate := by
+  intro p _ hp 𝒴 𝒜 hM hCM Y Φ π h1 hh h2
+  have hC : CurveBijIso := _root_.CurveSplit.curveBijIso
+  have hfix : FibreAutFixFinite := fibreAutFixFinite_of' hC hYI
+  have gA : FibreAutTame := fibreAutTame_of' hT hfix
+  obtain ⟨hfin, hnd⟩ := gA p hp 𝒴 𝒜 hM hCM Y Φ π h1 hh h2
+  have hover := fibreAut_over 𝒴 𝒜
+  haveI : IsIntegral 𝒴.left := isIntegral_model hC hYI hM h1 hh h2
+  haveI : IsDiscreteValuationRing (Zloc p) := zloc_isDVR p
+  haveI : IsProper 𝒴.hom := hM.1
+  haveI : SmoothOfRelativeDimension 1 𝒴.hom := hM.2.1
+  have hAF : ∀ s : Finset 𝒴.left, ∃ W : 𝒴.left.Opens, IsAffineOpen W ∧ ∀ x ∈ s, x ∈ W :=
+    fun s => _root_.QuotientP1Proof.exists_affine_of_lichtenbaum hL 𝒴.hom s
+  obtain ⟨𝒵, q, hq, hqf⟩ := hQE p 𝒴 hM.1 hAF (fibreAut 𝒴 𝒜) hfin hover
+  obtain ⟨hZp, hZs⟩ := hTS p 𝒴 𝒵 q hM.1 hM.2.1 _ hfin hnd hover hq hqf
+  -- the quotient is integral
+  haveI := hqf
+  haveI : SmoothOfRelativeDimension 1 𝒵.hom := hZs
+  haveI : Smooth 𝒵.hom := SmoothOfRelativeDimension.smooth 1 _
+  haveI : Surjective q.left := QuotProper.surjective_of_isGQuotient _ q.left hq
+  haveI : IrreducibleSpace 𝒵.left := q.left.surjective.irreducibleSpace q.left.continuous
+  haveI : IsReduced 𝒵.left := by
+    haveI : ∀ x : 𝒵.left, _root_.IsReduced (𝒵.left.presheaf.stalk x) := fun x => by
+      obtain ⟨h1, -⟩ :=
+        ZInQ.Contrib.CloudW03NeronSurj.FLT.AlgebraicGeometry.Smooth.isDomain_and_isIntegrallyClosed_stalk_of_isDiscreteValuationRing
+          (Zloc p) 𝒵.hom x
+      infer_instance
+    exact isReduced_of_isReduced_stalk 𝒵.left
+  haveI : IsIntegral 𝒵.left := isIntegral_of_irreducibleSpace_of_isReduced 𝒵.left
+  obtain ⟨ρ', hρ', hCF⟩ := coordinateFromSectionsGen_of gA hT quotientDescendsQ
+    (toP1BijIsCoordinateQ_of hC p1SchemeQ) p hp 𝒴 𝒜 hM hCM Y Φ π h1 hh h2 𝒵 q hq hqf hZp hZs
+    inferInstance (cMSectionsDisjoint'_of hE gA hfix gQuotientPointOrbits (cMStabNontrivial_of hO)
+      qbarPointsConjugate p hp 𝒴 𝒜 hM hCM Y Φ π h1 hh h2 𝒵 q hq hqf)
+  exact ⟨𝒵, q, ρ', hqf, hρ', hCF⟩
+
+/-- **`QuotientP1Coordinate` from Lichtenbaum's theorem, mcr-glue's L2, Edixhoven's theorem and the chain's fields**
+(L3 proved from `regularSmoothPerfect`; L4 bypassed). -/
+theorem quotientP1Coordinate_of_fields5 (hL : _root_.QuotientP1Proof.LichtenbaumProjective)
+    (hQE : FiniteQuotientExists) (hE : EdixhovenFixedSmooth2)
+    (hRS : _root_.CurveSplit.RegularSmoothPerfect) (hMT : _root_.AvSplit.MumfordTorsionAlgClosed)
+    (hM : _root_.ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw)
+    (hU3 : _root_.RayClassCFT.ShimuraMainThmIDeligneY3AbU)
+    (hU : _root_.BPAnalytic.Uniformization.UniformizationLeafAll)
+    (hG : _root_.ZInQ.HomLattice.GAGAMorphism) : MCRGlue.QuotientP1Coordinate :=
+  quotientP1Coordinate_of_printed3 hL hQE (tameQuotientSmooth_of_regularSmoothPerfect hRS) hE
+    (_root_.AvSplit.torsionStructure_of_mumford hMT)
+    (TSHecke.heckeIrreducible_of_connected (_root_.DCY3Used.y3Connected_of_leaves hM hU3))
+    (cMStabObjWeak_of_fields hU hG hMT)
 
 end MCRQuot
 
