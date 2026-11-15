@@ -130,7 +130,6 @@ theorem openResearchLeaves15_of_OpenResearchLeaves16 (n : OpenResearchLeaves16) 
 
 /-- `OpenAddedLeaves13` without `shimizuCovolumeO1` (leaf-fold16). -/
 structure OpenAddedLeaves14 : Prop where
-  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
   qmCentralizerCMC : QMSplit.Aut.QMCentralizerCMC
   tateTwistInvariants : _root_.ZInQ.Contrib.HodgeSplit.TateTwistInvariants
   axSenTate : _root_.ZInQ.Contrib.HodgeSplit.AxSenTate
@@ -171,7 +170,6 @@ structure OpenAddedLeaves14 : Prop where
 
 /-- `OpenAddedLeaves13` from `OpenAddedLeaves14`: `shimizuCovolumeO1` by the contributions. -/
 theorem openAddedLeaves13_of_OpenAddedLeaves14 (n : OpenAddedLeaves14) : OpenAddedLeaves13 where
-  thetaRatiosAlgebraic := n.thetaRatiosAlgebraic
   qmCentralizerCMC := n.qmCentralizerCMC
   tateTwistInvariants := n.tateTwistInvariants
   axSenTate := n.axSenTate
@@ -190,8 +188,9 @@ theorem openAddedLeaves13_of_OpenAddedLeaves14 (n : OpenAddedLeaves14) : OpenAdd
   weilPairingMumford := n.weilPairingMumford
 
 /-- **G0 with only the open leaves and the open glue** (leaf-fold16; generated). -/
-theorem sixContactMin_of_open20 (r : OpenResearchLeaves16) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves14) (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
-  sixContactMin_of_open19 (openResearchLeaves15_of_OpenResearchLeaves16 r) t (openAddedLeaves13_of_OpenAddedLeaves14 l) g hYu
+theorem sixContactMin_of_open20 (r : OpenResearchLeaves16) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves14) (g : OpenGlue7) (hYu : QMLattice.YuB6Alg)
+    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
+  sixContactMin_of_open19 (openResearchLeaves15_of_OpenResearchLeaves16 r) t (openAddedLeaves13_of_OpenAddedLeaves14 l) g hYu hθ
 
 end HSyn
 

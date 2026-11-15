@@ -148,7 +148,6 @@ structure OpenTextbookLeaves7 : Prop where
 `ShimuraTaniyamaQbar`, `isogenyQuasiInverse` by `MilneIsogenyQuasiInverse`, `senTwist`, `finiteImageHT` by
 Tate's two theorems, and `shimuraGoodReduction` by its guard-free form. 16 fields. -/
 structure OpenAddedLeaves7 : Prop where
-  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
   qmHauptmodulBase3 : LeafQCheck.HM.QMHauptmodulBase3
   /-- qm-split, H-42/H-61/H-63: `End_𝒪(A)` of a QM surface over `ℂ` is `ℤ` or an optimally embedded order of an
   imaginary quadratic field (replaces `cmOptimalEmbedding`, `qmAutCard`, `alFixedPoints`). -/
@@ -243,7 +242,6 @@ theorem qmRows_of7 (t : OpenTextbookLeaves7) (l : OpenAddedLeaves7) :
 theorem addedLeaves6_of_open7 (r : OpenResearchLeaves7) (t : OpenTextbookLeaves7) (l : OpenAddedLeaves7) :
     OpenAddedLeaves6 where
   cmOptimalEmbedding := (qmRows_of7 t l).2.2
-  thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
   qmHauptmodulBase3 := l.qmHauptmodulBase3
   qmClassNumberOne := QMSplit.CNO.qmClassNumberOne_proof
   senTwist := HodgeLF7.senTwist (_root_.ZInQ.Contrib.HodgeSplit.senTwist_of_tate l.tateTwistInvariants l.axSenTate)
@@ -273,9 +271,10 @@ theorem glue6_of_open7 (g : OpenGlue7) : OpenGlue6 where
 `ZInQ.SixContactMin` follows from `OpenResearchLeaves7` (29), `OpenTextbookLeaves7` (23), `OpenAddedLeaves7` (16)
 and `OpenGlue7` (1, `QuotientP1Coordinate`). The table of every field is `docs/research/leaf-fold7.md` §2. -/
 theorem sixContactMin_of_open7 (r : OpenResearchLeaves7) (t : OpenTextbookLeaves7) (l : OpenAddedLeaves7)
-    (g : OpenGlue7) (h20 : G0Split.R20Lower) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
+    (g : OpenGlue7) (h20 : G0Split.R20Lower) (hYu : QMLattice.YuB6Alg)
+    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
   sixContactMin_of_open6 (researchLeaves5_of_open7 r l) (textbookLeaves6_of_open7 t l) (addedLeaves6_of_open7 r t l)
-    (glue6_of_open7 g) h20 hYu
+    (glue6_of_open7 g) h20 hYu hθ
 
 end HSyn
 

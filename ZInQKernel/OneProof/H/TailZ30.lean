@@ -12,7 +12,6 @@ namespace HSyn
 
 /-- `OpenAddedLeaves14` without `qmCentralizerCMC` (leaf-fold18). -/
 structure OpenAddedLeaves15 : Prop where
-  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
   tateTwistInvariants : _root_.ZInQ.Contrib.HodgeSplit.TateTwistInvariants
   axSenTate : _root_.ZInQ.Contrib.HodgeSplit.AxSenTate
   milneIsogenyQuasiInverse : _root_.AvSplit.MilneIsogenyQuasiInverse
@@ -52,7 +51,6 @@ structure OpenAddedLeaves15 : Prop where
 
 /-- `OpenAddedLeaves14` from `OpenAddedLeaves15`: `qmCentralizerCMC` by the contributions. -/
 theorem openAddedLeaves14_of_OpenAddedLeaves15 (n : OpenAddedLeaves15) (t : OpenTextbookLeaves10) : OpenAddedLeaves14 where
-  thetaRatiosAlgebraic := n.thetaRatiosAlgebraic
   qmCentralizerCMC := _root_.HDec.QMLattice.qmCentralizerCMC_of t.uniformizationLeafAll t.gagaMorphism t.mumfordTorsionAlgClosed
   tateTwistInvariants := n.tateTwistInvariants
   axSenTate := n.axSenTate
@@ -70,9 +68,10 @@ theorem openAddedLeaves14_of_OpenAddedLeaves15 (n : OpenAddedLeaves15) (t : Open
   weilPairingMumford := n.weilPairingMumford
 
 /-- **G0 with only the open leaves and the open glue** (leaf-fold18; generated). -/
-theorem sixContactMin_of_open24 (r : OpenResearchLeaves19) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves15) (g : OpenGlue7) : ZInQ.SixContactMin :=
+theorem sixContactMin_of_open24 (r : OpenResearchLeaves19) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves15) (g : OpenGlue7)
+    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
   sixContactMin_of_open23 r t (openAddedLeaves14_of_OpenAddedLeaves15 l t) g
-    (QMLattice.yuB6Alg_of' t.uniformizationLeafAll t.gagaMorphism t.mumfordTorsionAlgClosed)
+    (QMLattice.yuB6Alg_of' t.uniformizationLeafAll t.gagaMorphism t.mumfordTorsionAlgClosed) hθ
 
 end HSyn
 

@@ -125,7 +125,6 @@ structure OpenTextbookLeaves8 : Prop where
 `qmHauptmodulBase3` replaced by the valence formula, Shimizu's covolume and the CM value at `−24` (qm-glue). 14
 fields. -/
 structure OpenAddedLeaves8 : Prop where
-  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
   qmCentralizerCMC : QMSplit.Aut.QMCentralizerCMC
   tateTwistInvariants : _root_.ZInQ.Contrib.HodgeSplit.TateTwistInvariants
   axSenTate : _root_.ZInQ.Contrib.HodgeSplit.AxSenTate
@@ -228,7 +227,6 @@ theorem textbookLeaves7_of_open8 (t : OpenTextbookLeaves8) : OpenTextbookLeaves7
 
 /-- leaf-fold7's added bundle from leaf-fold8's. -/
 theorem addedLeaves7_of_open8 (r : OpenResearchLeaves8) (l : OpenAddedLeaves8) : OpenAddedLeaves7 where
-  thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
   qmHauptmodulBase3 := LeafQCheck.HM.QMSplit.qmHauptmodulBase3_of_leaves
     (QMSplit.Theta.thetaModularity_of r.igusaPsi4 r.igusaChi10) l.valenceFormulaCocompactEq l.shimizuCovolumeO1
     l.igusaCMValue24
@@ -253,9 +251,10 @@ theorem addedLeaves7_of_open8 (r : OpenResearchLeaves8) (l : OpenAddedLeaves8) :
 and leaf-fold7's `OpenGlue7` (1, `QuotientP1Coordinate`). The table of every field is
 `docs/research/leaf-fold8.md` §2. -/
 theorem sixContactMin_of_open8 (r : OpenResearchLeaves8) (t : OpenTextbookLeaves8) (l : OpenAddedLeaves8)
-    (g : OpenGlue7) (hF5 : _root_.ZInQ.HeightSplit.FaltingsLemma5BCLower) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
+    (g : OpenGlue7) (hF5 : _root_.ZInQ.HeightSplit.FaltingsLemma5BCLower) (hYu : QMLattice.YuB6Alg)
+    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
   sixContactMin_of_open7 (researchLeaves7_of_open8 r t) (textbookLeaves7_of_open8 t) (addedLeaves7_of_open8 r l) g
-    (r20Lower_of8 r t hF5) hYu
+    (r20Lower_of8 r t hF5) hYu hθ
 
 end HSyn
 

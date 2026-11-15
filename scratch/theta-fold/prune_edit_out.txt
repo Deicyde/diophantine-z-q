@@ -1,0 +1,80 @@
+TailK:191  [field OpenAddedLeaves4.thetaRatiosAlgebraic]    thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+TailN:232  [assignment thetaRatiosAlgebraic in addedLeaves4_of_open5]    thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
+TailO:2595  [element thetaRatiosAlgebraic in openAddedLeaves4_of_Q5 (line rewritten)]    ⟨l.cmOptimalEmbedding, l.thetaRatiosAlgebraic, l.qmHauptmodul, l.qmClassNumberOne, l.senTwist,
+TailO:2815  [field OpenAddedLeaves6.thetaRatiosAlgebraic]    thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+TailO:2886  [assignment thetaRatiosAlgebraic in addedLeaves4_of_open6]    thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
+TailO:2926  [dead reader addedLeaves5_of_open6]  /-- leaf-fold5's added-leaves bundle from leaf-fold6's: the four fields leafq-check replaced are theorems from the
+TailO:2927  [dead reader addedLeaves5_of_open6]  new fields (and `r4`, `r1r2`, T5, T11(b)); the other 17 are the same fields. -/
+TailO:2928  [dead reader addedLeaves5_of_open6]  theorem addedLeaves5_of_open6 (r : OpenResearchLeaves5) (t : OpenTextbookLeaves6) (l : OpenAddedLeaves6) :
+TailO:2929  [dead reader addedLeaves5_of_open6]      OpenAddedLeaves5 where
+TailO:2930  [dead reader addedLeaves5_of_open6]    cmOptimalEmbedding := l.cmOptimalEmbedding
+TailO:2931  [dead reader addedLeaves5_of_open6]    thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
+TailO:2932  [dead reader addedLeaves5_of_open6]    qmHauptmodul := qmHauptmodul_of6 r l
+TailO:2933  [dead reader addedLeaves5_of_open6]    qmClassNumberOne := l.qmClassNumberOne
+TailO:2934  [dead reader addedLeaves5_of_open6]    senTwist := l.senTwist
+TailO:2935  [dead reader addedLeaves5_of_open6]    finiteImageHT := l.finiteImageHT
+TailO:2936  [dead reader addedLeaves5_of_open6]    t09SymmIsogenyExists := l.t09SymmIsogenyExists
+TailO:2937  [dead reader addedLeaves5_of_open6]    isogenyQuasiInverse := l.isogenyQuasiInverse
+TailO:2938  [dead reader addedLeaves5_of_open6]    x6ConicModel := l.x6ConicModel
+TailO:2939  [dead reader addedLeaves5_of_open6]    y3Connected := l.y3Connected
+TailO:2940  [dead reader addedLeaves5_of_open6]    qmAutCard := l.qmAutCard
+TailO:2941  [dead reader addedLeaves5_of_open6]    alFixedPoints := l.alFixedPoints
+TailO:2942  [dead reader addedLeaves5_of_open6]    zariskiConnectedness := l.zariskiConnectedness
+TailO:2943  [dead reader addedLeaves5_of_open6]    cmDescends := cmDescends_of6 r t l
+TailO:2944  [dead reader addedLeaves5_of_open6]    gammaStarGen := LeafQCheck.gammaStarGen_proof
+TailO:2945  [dead reader addedLeaves5_of_open6]    valenceBoundGammaStar := LeafQCheck.VB.valenceBound_of_formula l.valenceFormulaGammaStar
+TailO:2946  [dead reader addedLeaves5_of_open6]    egaIV_8_8_2_ii := l.egaIV_8_8_2_ii
+TailO:2947  [dead reader addedLeaves5_of_open6]    egaIV_8_10_5_xii := l.egaIV_8_10_5_xii
+TailO:2948  [dead reader addedLeaves5_of_open6]    egaIV_17_7_8_ii := l.egaIV_17_7_8_ii
+TailO:2949  [dead reader addedLeaves5_of_open6]    shimuraGoodReduction := l.shimuraGoodReduction
+TailO:2950  [dead reader addedLeaves5_of_open6]    curveBijIso := l.curveBijIso
+TailO:2951  [dead reader addedLeaves5_of_open6]  
+TailO:2968  [#print of dead reader addedLeaves5_of_open6]  #print axioms HDec.HSyn.addedLeaves5_of_open6
+TailX:153  [field OpenAddedLeaves7.thetaRatiosAlgebraic]    thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+TailX:248  [assignment thetaRatiosAlgebraic in addedLeaves6_of_open7]    thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
+TailZ13:20  [field OpenAddedLeaves9.thetaRatiosAlgebraic]    thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+TailZ13:48  [assignment thetaRatiosAlgebraic in addedLeaves8_of_open9]    thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
+TailZ17:256  [assignment thetaRatiosAlgebraic in addedLeaves9_of_open10]    thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
+TailZ22:233  [field OpenAddedLeaves12.thetaRatiosAlgebraic]    thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+TailZ22:315  [dead reader addedLeaves11_of_open12]  /-- leaf-fold12's added-leaf bundle from x6-fold's: `x6ConicModel` from x6-glue's `x6ConicModel_of_published`. -/
+TailZ22:316  [dead reader addedLeaves11_of_open12]  theorem addedLeaves11_of_open12 (r : OpenResearchLeaves13) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves12) :
+TailZ22:317  [dead reader addedLeaves11_of_open12]      OpenAddedLeaves11 where
+TailZ22:318  [dead reader addedLeaves11_of_open12]    thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
+TailZ22:319  [dead reader addedLeaves11_of_open12]    qmCentralizerCMC := l.qmCentralizerCMC
+TailZ22:320  [dead reader addedLeaves11_of_open12]    tateTwistInvariants := l.tateTwistInvariants
+TailZ22:321  [dead reader addedLeaves11_of_open12]    axSenTate := l.axSenTate
+TailZ22:322  [dead reader addedLeaves11_of_open12]    t09SymmIsogenyExists := l.t09SymmIsogenyExists
+TailZ22:323  [dead reader addedLeaves11_of_open12]    milneIsogenyQuasiInverse := l.milneIsogenyQuasiInverse
+TailZ22:324  [dead reader addedLeaves11_of_open12]    shimuraTaniyamaQbar := l.shimuraTaniyamaQbar
+TailZ22:325  [dead reader addedLeaves11_of_open12]    egaIV_8_10_5_xii := l.egaIV_8_10_5_xii
+TailZ22:326  [dead reader addedLeaves11_of_open12]    shimuraGoodReductionNoGuard := l.shimuraGoodReductionNoGuard
+TailZ22:327  [dead reader addedLeaves11_of_open12]    valenceFormulaCocompactEq := l.valenceFormulaCocompactEq
+TailZ22:328  [dead reader addedLeaves11_of_open12]    shimizuCovolumeO1 := l.shimizuCovolumeO1
+TailZ22:329  [dead reader addedLeaves11_of_open12]    deligneComponentsY3PrintedAb := l.deligneComponentsY3PrintedAb
+TailZ22:330  [dead reader addedLeaves11_of_open12]    x6ConicModel := (x6Rows_of_open13 r t l).2
+TailZ22:331  [dead reader addedLeaves11_of_open12]  
+TailZ22:332  [dead reader sixContactMin_of_open16]  /-- **G0 with only the open leaves and the open glue** (x6-fold; no `sorry`, standard axioms).
+TailZ22:333  [dead reader sixContactMin_of_open16]  `ZInQ.SixContactMin` from `OpenResearchLeaves13` (35), `OpenTextbookLeaves10` (15), `OpenAddedLeaves12` (14) and
+TailZ22:334  [dead reader sixContactMin_of_open16]  `OpenGlue7` (1). -/
+TailZ22:335  [dead reader sixContactMin_of_open16]  theorem sixContactMin_of_open16 (r : OpenResearchLeaves13) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves12)
+TailZ22:336  [dead reader sixContactMin_of_open16]      (g : OpenGlue7) (hYu : QMLattice.YuB6Alg)
+TailZ22:337  [dead reader sixContactMin_of_open16]      (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
+TailZ22:338  [dead reader sixContactMin_of_open16]    sixContactMin_of_open15 (researchLeaves12_of_open13 r t l) t (addedLeaves11_of_open12 r t l) g hYu hθ
+TailZ22:339  [dead reader sixContactMin_of_open16]  
+TailZ22:348  [#print of dead reader addedLeaves11_of_open12]  #print axioms HDec.HSyn.addedLeaves11_of_open12
+TailZ22:349  [#print of dead reader sixContactMin_of_open16]  #print axioms HDec.HSyn.sixContactMin_of_open16
+TailZ23:741  [assignment thetaRatiosAlgebraic in addedLeaves9_of_open14]    thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
+TailZ24:770  [field OpenAddedLeaves13.thetaRatiosAlgebraic]    thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+TailZ24:816  [assignment thetaRatiosAlgebraic in addedLeaves12_of_open13]    thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
+TailZ26:133  [field OpenAddedLeaves14.thetaRatiosAlgebraic]    thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+TailZ26:174  [assignment thetaRatiosAlgebraic in openAddedLeaves13_of_OpenAddedLeaves14]    thetaRatiosAlgebraic := n.thetaRatiosAlgebraic
+TailZ30:15  [field OpenAddedLeaves15.thetaRatiosAlgebraic]    thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+TailZ30:55  [assignment thetaRatiosAlgebraic in openAddedLeaves14_of_OpenAddedLeaves15]    thetaRatiosAlgebraic := n.thetaRatiosAlgebraic
+TailZ31:15  [field OpenAddedLeaves16.thetaRatiosAlgebraic]    thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+TailZ31:52  [assignment thetaRatiosAlgebraic in openAddedLeaves15_of_OpenAddedLeaves16]    thetaRatiosAlgebraic := n.thetaRatiosAlgebraic
+TailZ34:118  [field OpenAddedLeaves17.thetaRatiosAlgebraic]    thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+TailZ34:156  [assignment thetaRatiosAlgebraic in openAddedLeaves16_of_OpenAddedLeaves17]    thetaRatiosAlgebraic := n.thetaRatiosAlgebraic
+TailZ4:129  [field OpenAddedLeaves8.thetaRatiosAlgebraic]    thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+TailZ4:233  [assignment thetaRatiosAlgebraic in addedLeaves7_of_open8]    thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
+TailZ41:20  [field OpenAddedLeaves18.thetaRatiosAlgebraic]    thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+TailZ41:70  [assignment thetaRatiosAlgebraic in openAddedLeaves17_of_OpenAddedLeaves18]    thetaRatiosAlgebraic := n.thetaRatiosAlgebraic

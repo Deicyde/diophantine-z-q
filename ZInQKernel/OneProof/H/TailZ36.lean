@@ -113,8 +113,9 @@ theorem openResearchLeaves22_of_OpenResearchLeaves23 (n : OpenResearchLeaves23) 
   r16CoreY := n.r16CoreY
 
 /-- **G0 with only the open leaves and the open glue** (elkies-coord-fold; generated). -/
-theorem sixContactMin_of_open30 (r : OpenResearchLeaves23) (t : OpenTextbookLeaves11) (l : OpenAddedLeaves17) (g : OpenGlue7) : ZInQ.SixContactMin :=
-  sixContactMin_of_open29 (openResearchLeaves22_of_OpenResearchLeaves23 r) t l g
+theorem sixContactMin_of_open30 (r : OpenResearchLeaves23) (t : OpenTextbookLeaves11) (l : OpenAddedLeaves17) (g : OpenGlue7)
+    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
+  sixContactMin_of_open29 (openResearchLeaves22_of_OpenResearchLeaves23 r) t l g hθ
 
 end HSyn
 

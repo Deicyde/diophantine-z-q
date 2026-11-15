@@ -113,8 +113,9 @@ theorem openResearchLeaves21_of_OpenResearchLeaves22 (n : OpenResearchLeaves22) 
   shimuraMainThmIDeligneY3AbU := n.shimuraMainThmIDeligneY3AbU
 
 /-- **G0 with only the open leaves and the open glue** (r16-split; generated). -/
-theorem sixContactMin_of_open29 (r : OpenResearchLeaves22) (t : OpenTextbookLeaves11) (l : OpenAddedLeaves17) (g : OpenGlue7) : ZInQ.SixContactMin :=
-  sixContactMin_of_open28 (openResearchLeaves21_of_OpenResearchLeaves22 r t) t l g
+theorem sixContactMin_of_open29 (r : OpenResearchLeaves22) (t : OpenTextbookLeaves11) (l : OpenAddedLeaves17) (g : OpenGlue7)
+    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
+  sixContactMin_of_open28 (openResearchLeaves21_of_OpenResearchLeaves22 r t) t l g hθ
 
 end HSyn
 

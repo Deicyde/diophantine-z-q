@@ -118,8 +118,9 @@ theorem openResearchLeaves18_of_OpenResearchLeaves19 (n : OpenResearchLeaves19) 
   neronBaseChangeStrictHenselization := n.neronBaseChangeStrictHenselization
 
 /-- **G0 with only the open leaves and the open glue** (leaf-fold18; generated). -/
-theorem sixContactMin_of_open23 (r : OpenResearchLeaves19) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves14) (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
-  sixContactMin_of_open22 (openResearchLeaves18_of_OpenResearchLeaves19 r) t l g hYu
+theorem sixContactMin_of_open23 (r : OpenResearchLeaves19) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves14) (g : OpenGlue7) (hYu : QMLattice.YuB6Alg)
+    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
+  sixContactMin_of_open22 (openResearchLeaves18_of_OpenResearchLeaves19 r) t l g hYu hθ
 
 end HSyn
 
