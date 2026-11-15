@@ -789,4 +789,447 @@ theorem core (hWP : WeierstrassParam) (hWU : WeierstrassUniformization) (σ : �
 
 end CoreSec
 
+/-! ## The printed main theorem of CM with Shimura's normalization -/
+
+section MainCM
+
+open NumberField IsDedekindDomain QMRecPrinted ShimuraCFT RayClassCFT
+open TauCeti.ClassFieldTheory TauCeti.GlobalNumberFields
+open scoped TensorProduct
+
+/-- The body of `QMRecPrinted.MainTheoremCM` at a fixed sign `ε` (verbatim; `mainTheoremCM_iff`). -/
+def MainTheoremCMSign (ε : ℤˣ) : Prop :=
+  ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (g : ℕ) (Φ : Fin g → E →+* ℂ),
+    Module.finrank ℚ E = 2 * g →
+    Function.Injective (Sum.elim Φ fun i => (starRingEnd ℂ).comp (Φ i)) →
+  ∀ (Er : Type) [Field Er] [NumberField Er] (κr : Er →+* ℂ),
+    κr.fieldRange = Subfield.closure (Set.range fun e : E => ∑ i, Φ i e) →
+  ∀ (n : ℕ) (ρ : Er →ₐ[ℚ] Matrix (Fin n) (Fin n) E) (j : (Fin n → E) →+ (Fin g → ℂ)),
+    IsReflexModel Φ κr ρ j →
+  ∀ (σ : ℂ ≃+* ℂ) (s : IdeleGroup (𝓞 Er) Er), ArtinCondC κr σ s →
+  ∀ (A : PkgI3.AbVar ℂ), A.dim = (g : WithBot ℕ∞) →
+  ∀ (𝔞 : AddSubgroup E) (θ : (Fin g → ℂ) → CPts A (RingHom.id ℂ)),
+    IsUniformization (RingHom.id ℂ) (cmLat Φ 𝔞) θ → IsOfType Φ 𝔞 θ →
+  ∀ (A' : PkgI3.AbVar ℂ) (h : A'.X.left ⟶ A.X.left),
+    IsPullback h A'.X.hom A.X.hom (Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ))) →
+    (1 : CPts A' (RingHom.id ℂ)).left ≫ h =
+      Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ)) ≫ (1 : CPts A (RingHom.id ℂ)).left →
+  ∃ θ' : (Fin g → ℂ) → CPts A' (RingHom.id ℂ),
+    IsUniformization (RingHom.id ℂ)
+      (cmLat Φ (latAct ((reflexNorm ρ (IdeleGroup.toFiniteIdele (𝓞 Er) Er s) ^ (ε : ℤ) :
+        (AQ ⊗[ℚ] E)ˣ) : AQ ⊗[ℚ] E) 𝔞)) θ' ∧
+    ∀ x y : E,
+      ((reflexNorm ρ (IdeleGroup.toFiniteIdele (𝓞 Er) Er s) ^ (ε : ℤ) : (AQ ⊗[ℚ] E)ˣ) : AQ ⊗[ℚ] E) *
+          (1 ⊗ₜ y) - 1 ⊗ₜ x ∈ latHat 𝔞 →
+        (θ' (cmVec Φ y)).left ≫ h = Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ)) ≫ (θ (cmVec Φ x)).left
+
+/-- `MainTheoremCM` is exactly `∃ ε, MainTheoremCMSign ε` (checks the verbatim copy). -/
+theorem mainTheoremCM_iff : QMRecPrinted.MainTheoremCM ↔ ∃ ε, MainTheoremCMSign ε := Iff.rfl
+
+/-- **LEAF `MainTheoremCMArith` (the main theorem of complex multiplication, adelic form with torsion, in
+Shimura's normalization; printed form).** `QMRecPrinted.MainTheoremCM` with the sign `ε = 1`: for `σ = [s, E*]`
+(Tau Ceti's Artin map, which sends a uniformizer at `𝔭` to the arithmetic Frobenius), `A^σ` is uniformized by
+`ℂ^g/Φ(N(s)⁻¹𝔞)` with `θ(Φ(x))^σ = θ'(Φ(y))` whenever `N(s)y − x ∈ 𝔞̂`.
+
+*Published statement*: G. Shimura, *Introduction to the arithmetic theory of automorphic functions* (1971),
+Thm 5.15 (abelian varieties) and Thm 5.4 (elliptic curves): `ξ(u)^σ = ξ'(N_{Φ*}(s)⁻¹u)` with `σ = [s, K]`, where
+`[s, K]` is the Artin symbol of the classical (arithmetic) reciprocity law (§5.2); Shimura, *Abelian varieties with
+complex multiplication and modular functions* (1998), Thm 18.6; Lang, *Elliptic functions*, Ch. 10 Thm 3; Silverman,
+*Advanced topics*, Thm II.8.2 (`𝒪_K`; numbers UNVERIFIED). In the arithmetic normalization the lattice of `A^σ` is
+`N(s)⁻¹𝔞` (for `E` imaginary quadratic: `j(𝔞)^{(𝔭, H/K)} = j(𝔭⁻¹𝔞)`, Silverman, *Advanced topics*, Thm II.4.3:
+`F(𝔞)·j(E) = j(𝔞 * E)` with `𝔞 * E_Λ = E_{𝔞⁻¹Λ}`; UNVERIFIED number), i.e. `ε = 1`. qmrec-printed's `MainTheoremCM`
+leaves `ε` existential; that form cannot decide the direction of `T5Glue.ShimuraMainCM`. It is implied by this leaf
+(`mainTheoremCM_of_arith`). -/
+def MainTheoremCMArith : Prop := MainTheoremCMSign 1
+
+theorem mainTheoremCM_of_arith (h : MainTheoremCMArith) : QMRecPrinted.MainTheoremCM := ⟨1, h⟩
+
+end MainCM
+
+/-! ## Specialization to `K = ℚ(√−m)`, `g = 1` -/
+
+section CMSpec
+
+open NumberField IsDedekindDomain QMRecPrinted ShimuraCFT RayClassCFT
+open TauCeti.ClassFieldTheory TauCeti.GlobalNumberFields
+open ZInQ.RouteK.Rank5b ZInQ.Contrib.TYZGenus.Shimura ZInQ.Contrib.TYZGenus.CM
+open scoped TensorProduct FiniteAdeleExtension
+
+variable {m : ℕ} [NeZero m]
+
+/-- `κ : ℚ(√−m) → ℂ` as a ring homomorphism. -/
+abbrev kap (m : ℕ) : QNeg m →+* ℂ := (kappaAlg m).toRingHom
+
+theorem kap_apply (x : QNeg m) : kap m x = kappa m x := kappaAlg_apply m x
+
+/-! ### The Artin condition -/
+
+set_option maxRecDepth 4000 in
+open scoped IsMulCommutative in
+/-- **`ArtinCond` (through `ιC ∘ e` on subfields of `Kˢ`) gives `ArtinCondC` (every abelian `L/K` with a
+`K`-embedding into `ℂ`).** -/
+theorem artinCondC_of_artinCond (e : SeparableClosure (QNeg m) →ₐ[ℚ] ZInQ.Contrib.TYZDecomp.CurveA.Qbar)
+    (he : ZInQ.Contrib.TYZGenus.CM.ιC (e (algebraMap (QNeg m) (SeparableClosure (QNeg m)) QuadraticAlgebra.omega)) =
+      I * (Real.sqrt m : ℂ))
+    (σ : ℂ ≃+* ℂ) (s : IdeleGroup (𝓞 (QNeg m)) (QNeg m)) (hs : T5Glue.ArtinCond m e σ s) :
+    ArtinCondC (kap m) σ s := by
+  intro L _ _ _ _ j hj x
+  let ε : SeparableClosure (QNeg m) →+* ℂ := ZInQ.Contrib.TYZGenus.CM.ιC.comp e.toRingHom
+  have hε : ε.comp (algebraMap (QNeg m) (SeparableClosure (QNeg m))) = kap m := by
+    ext k; exact (T5Glue.kappa_eq_of_normalized e he k).trans (kap_apply k).symm
+  obtain ⟨iota, hι⟩ := exists_iota (kap m) ε hε L j hj
+  obtain ⟨τ, hτ⟩ : ∃ τ : TauCeti.AbsoluteGaloisGroup (QNeg m),
+      Additive.ofMul (τ : TopologicalAbelianization (TauCeti.AbsoluteGaloisGroup (QNeg m))) =
+        (globalClassFormation (QNeg m)).absoluteArtinMap
+          (globalGroundEquiv (QNeg m) (Additive.ofMul (QuotientGroup.mk s))) := by
+    obtain ⟨τ, hτ⟩ := QuotientGroup.mk_surjective (Additive.toMul
+      ((globalClassFormation (QNeg m)).absoluteArtinMap
+        (globalGroundEquiv (QNeg m) (Additive.ofMul (QuotientGroup.mk s)))))
+    exact ⟨τ, by rw [hτ]; rfl⟩
+  have artin : ∀ (F : Type) [Field F] [NumberField F] [Algebra (QNeg m) F]
+      [IsAbelianGalois (QNeg m) F] (ιF : F →ₐ[QNeg m] SeparableClosure (QNeg m)),
+      ideleClassArtinMap (QNeg m) F (QuotientGroup.mk s) = ιF.restrictNormalHom τ := by
+    intro F _ _ _ _ ιF
+    have h1 := of_ideleClassArtinMap (QNeg m) F ιF (QuotientGroup.mk s)
+    have h0 := globalArtinMap_eq_of_mk_eq_absoluteArtinMap (QNeg m) F ιF τ hτ
+    have h3 : Abelianization.of (ideleClassArtinMap (QNeg m) F (QuotientGroup.mk s)) =
+        Abelianization.of (ιF.restrictNormalHom τ) := by
+      rw [h1, h0, toMul_ofMul]
+    exact (Abelianization.equivOfComm (H := Gal(F/QNeg m))).injective h3
+  let φ := AlgEquiv.ofInjectiveField iota
+  haveI : FiniteDimensional (QNeg m) iota.fieldRange := LinearEquiv.finiteDimensional φ.toLinearEquiv
+  haveI : NumberField iota.fieldRange :=
+    { to_charZero := inferInstance, to_finiteDimensional := Module.Finite.trans (QNeg m) _ }
+  haveI : IsAbelianGalois (QNeg m) iota.fieldRange := IsAbelianGalois.of_algHom φ.symm.toAlgHom
+  have hF := hs iota.fieldRange ⟨iota x, x, rfl⟩
+  unfold T5Glue.icl at hF
+  have h4 := iota.fieldRange.val.restrictNormalHom_commutes τ ⟨iota x, x, rfl⟩
+  have key : ((ideleClassArtinMap (QNeg m) iota.fieldRange (QuotientGroup.mk s) ⟨iota x, x, rfl⟩ :
+      iota.fieldRange) : SeparableClosure (QNeg m)) = τ (iota x) := by
+    have hA := artin iota.fieldRange iota.fieldRange.val
+    simp only [hA]
+    exact h4
+  rw [key] at hF
+  rw [← hι x, ← hι, artin L iota, AlgHom.restrictNormalHom_commutes]
+  exact hF
+
+/-! ### The CM type `(K, κ)` -/
+
+instance isTotallyComplex_QNeg : IsTotallyComplex (QNeg m) :=
+  ⟨fun w => InfinitePlace.not_isReal_iff_isComplex.1 (T5Glue.not_isReal_QNeg m w)⟩
+
+theorem finrank_QNeg : Module.finrank ℚ (QNeg m) = 2 := QuadraticAlgebra.finrank_eq_two _ _
+
+instance isCMField_QNeg : IsCMField (QNeg m) := by
+  haveI : Algebra.IsQuadraticExtension ℚ (QNeg m) := ⟨finrank_QNeg⟩
+  exact IsCMField.ofCMExtension ℚ (QNeg m)
+
+theorem kap_omega : kap m QuadraticAlgebra.omega = I * (Real.sqrt m : ℂ) := by
+  rw [kap_apply, T5Glue.kappa_omega]
+
+theorem type_inj :
+    Function.Injective (Sum.elim (fun _ : Fin 1 => kap m) fun i => (starRingEnd ℂ).comp
+      ((fun _ : Fin 1 => kap m) i)) := by
+  have hne : kap m ≠ (starRingEnd ℂ).comp (kap m) := by
+    intro h
+    have h1 := congrArg (fun ψ : QNeg m →+* ℂ => ψ QuadraticAlgebra.omega) h
+    simp only [RingHom.coe_comp, Function.comp_apply, kap_omega] at h1
+    have hm : (0 : ℝ) < Real.sqrt m := Real.sqrt_pos.2 (by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne m))
+    have h2 := congrArg Complex.im h1
+    simp at h2
+    linarith
+  rintro (i | i) (j | j) h
+  · rw [Subsingleton.elim i j]
+  · exact absurd h hne
+  · exact absurd h.symm hne
+  · rw [Subsingleton.elim i j]
+
+theorem reflex_range : (kap m).fieldRange =
+    Subfield.closure (Set.range fun e : QNeg m => ∑ i : Fin 1, (fun _ : Fin 1 => kap m) i e) := by
+  simp only [Finset.univ_unique, Fin.default_eq_zero, Finset.sum_singleton]
+  rw [← RingHom.coe_fieldRange, Subfield.closure_eq]
+
+/-- `ρ(a)` = multiplication by `a` on `V = K`. -/
+def rhoQ : QNeg m →ₐ[ℚ] Matrix (Fin 1) (Fin 1) (QNeg m) :=
+  (Algebra.ofId (QNeg m) (Matrix (Fin 1) (Fin 1) (QNeg m))).restrictScalars ℚ
+
+/-- `j(v) = κ(v₀)`. -/
+def jQ : (Fin 1 → QNeg m) →+ (Fin 1 → ℂ) :=
+  (cmVec (fun _ : Fin 1 => kap m)).comp (Pi.evalAddMonoidHom (fun _ => QNeg m) 0)
+
+theorem jQ_apply (v : Fin 1 → QNeg m) (i : Fin 1) : jQ v i = kap m (v 0) := rfl
+
+theorem rhoQ_mulVec (a : QNeg m) (v : Fin 1 → QNeg m) :
+    (rhoQ a).mulVec v = fun i => a * v i := by
+  funext i
+  simp [rhoQ, Matrix.algebraMap_eq_diagonal, Matrix.mulVec_diagonal]
+
+theorem model : IsReflexModel (fun _ : Fin 1 => kap m) (kap m) rhoQ jQ := by
+  refine ⟨fun e v => ?_, fun a v => ?_, ?_, rfl⟩
+  · funext i; simp [jQ_apply, map_mul]
+  · funext i; simp [jQ_apply, rhoQ_mulVec, map_mul]
+  · rw [eq_top_iff]
+    intro w _
+    have hw : w = (w 0) • jQ (fun _ => (1 : QNeg m)) := by
+      funext i; rw [Subsingleton.elim i 0]; simp [jQ_apply]
+    rw [hw]
+    exact Submodule.smul_mem _ _ (Submodule.subset_span ⟨_, rfl⟩)
+
+/-- `𝔸_f ⊗ K ≅ 𝔸_{K,f}` (Tau Ceti). -/
+abbrev eK (m : ℕ) [NeZero m] := finiteAdeleBaseChangeAlgEquiv ℚ (QNeg m)
+
+theorem rhoA_rhoQ (w : AQ ⊗[ℚ] QNeg m) : rhoA rhoQ w 0 0 = w := by
+  induction w using TensorProduct.induction_on with
+  | zero => simp
+  | tmul a k =>
+    rw [rhoA, AlgHom.liftEquiv_tmul]
+    simp [rhoQ, Matrix.algebraMap_eq_diagonal, Algebra.TensorProduct.includeRight_apply,
+      TensorProduct.smul_tmul']
+  | add x y hx hy => rw [map_add, Matrix.add_apply, hx, hy]
+
+/-- **The reflex norm of `(K, κ)` is `𝔸_{K,f} ≅ 𝔸_f ⊗ K`.** -/
+theorem reflexNorm_rhoQ (u : (FiniteAdeleRing (𝓞 (QNeg m)) (QNeg m))ˣ) :
+    (reflexNorm rhoQ u : AQ ⊗[ℚ] QNeg m) = (eK m).symm u := by
+  simp only [reflexNorm, Units.coe_map, MonoidHom.coe_comp, Function.comp_apply,
+    Matrix.coe_detMonoidHom, Matrix.det_unique]
+  exact rhoA_rhoQ _
+
+end CMSpec
+
+/-! ### The adelic dictionary: `𝔞̂ ⊂ 𝔸_{K,f}` and `𝔞 ⊗ ℤ̂ ⊂ 𝔸_f ⊗ K` -/
+
+section Adelic
+
+open NumberField IsDedekindDomain QMRecPrinted ShimuraCFT RayClassCFT
+open TauCeti.ClassFieldTheory TauCeti.GlobalNumberFields
+open ZInQ.RouteK.Rank5b ZInQ.Contrib.TYZGenus.Shimura ZInQ.Contrib.TYZGenus.CM
+open scoped TensorProduct FiniteAdeleExtension
+
+variable {m : ℕ} [NeZero m]
+
+theorem eK_tmul (c : AQ) (k : QNeg m) :
+    eK m (c ⊗ₜ k) = algebraMap AQ (T5Glue.AfK m) c * algebraMap (QNeg m) (T5Glue.AfK m) k := by
+  have h1 : c ⊗ₜ[ℚ] k = c • ((1 : AQ) ⊗ₜ[ℚ] k) := by rw [TensorProduct.smul_tmul', smul_eq_mul, _root_.mul_one]
+  have h2 : eK m ((1 : AQ) ⊗ₜ[ℚ] k) = algebraMap (QNeg m) (T5Glue.AfK m) k := by
+    rw [← finiteAdeleBaseChangeAlgEquiv_symm_algebraMap, AlgEquiv.apply_symm_apply]
+  rw [h1, map_smul, h2, Algebra.smul_def]
+
+theorem continuous_algQ : Continuous (algebraMap AQ (T5Glue.AfK m)) := by
+  rw [IsDedekindDomain.algebraMap_finiteAdeleExtensionAlgebra]
+  exact IsDedekindDomain.continuous_finiteAdeleExtension _ _ _ _
+
+theorem zhat_eq : ZhatQ = (FiniteAdeleRing.integralAdeles (𝓞 ℚ) ℚ : Set AQ) := rfl
+
+theorem int_of_ringOfIntegers (r : 𝓞 ℚ) : ∃ n : ℤ, r = (n : 𝓞 ℚ) :=
+  ⟨Rat.ringOfIntegersEquiv r, by
+    conv_lhs => rw [← Rat.ringOfIntegersEquiv.symm_apply_apply r]
+    exact map_intCast _ _⟩
+
+/-- **The adelic dictionary.** For `𝔞 = ℤb₁ + ℤb₂ ⊂ K` (and `S` the same set as an additive subgroup),
+`w ∈ 𝔞 ⊗ ℤ̂` (qmrec-printed's `latHat`) iff its image in `𝔸_{K,f}` lies in the closure `𝔞̂` of `𝔞`
+(t5-glue's `latHat`). -/
+theorem adelic (𝔞 : Set (QNeg m)) (S : AddSubgroup (QNeg m)) (hS : (S : Set (QNeg m)) = 𝔞)
+    (b₁ b₂ : QNeg m) (hb : ∀ x, x ∈ 𝔞 ↔ ∃ n₁ n₂ : ℤ, x = n₁ * b₁ + n₂ * b₂) (w : AQ ⊗[ℚ] QNeg m) :
+    w ∈ QMRecPrinted.latHat S ↔ eK m w ∈ T5Glue.latHat m 𝔞 := by
+  set alg := algebraMap AQ (T5Glue.AfK m) with halg
+  set algK := algebraMap (QNeg m) (T5Glue.AfK m) with halgK
+  set Φ : AQ → AQ → T5Glue.AfK m := fun c₁ c₂ => alg c₁ * algK b₁ + alg c₂ * algK b₂ with hΦ
+  have hΦc : Continuous (Function.uncurry Φ) := by
+    refine ((continuous_algQ.comp continuous_fst).mul continuous_const).add
+      ((continuous_algQ.comp continuous_snd).mul continuous_const)
+  have hb₁ : b₁ ∈ S := by rw [← SetLike.mem_coe, hS, hb]; exact ⟨1, 0, by simp⟩
+  have hb₂ : b₂ ∈ S := by rw [← SetLike.mem_coe, hS, hb]; exact ⟨0, 1, by simp⟩
+  have hint : ∀ n : ℤ, (n : AQ) ∈ ZhatQ := fun n => intCast_mem ZhatS n
+  have hΦint : ∀ n₁ n₂ : ℤ, Φ n₁ n₂ = algK (n₁ * b₁ + n₂ * b₂) := by
+    intro n₁ n₂; simp [hΦ, halg, halgK, map_add, map_mul, map_intCast]
+  have heK : ∀ c₁ c₂ : AQ, eK m (c₁ ⊗ₜ b₁ + c₂ ⊗ₜ b₂) = Φ c₁ c₂ := by
+    intro c₁ c₂; rw [map_add, eK_tmul, eK_tmul]
+  -- claim A: `latHat S = {c₁ ⊗ b₁ + c₂ ⊗ b₂}`
+  have hA : ∀ w : AQ ⊗[ℚ] QNeg m, w ∈ QMRecPrinted.latHat S ↔
+      ∃ c₁ ∈ ZhatQ, ∃ c₂ ∈ ZhatQ, w = c₁ ⊗ₜ b₁ + c₂ ⊗ₜ b₂ := by
+    intro w
+    constructor
+    · intro hw
+      induction hw using AddSubgroup.closure_induction with
+      | mem x hx =>
+        obtain ⟨c, hc, y, hy, rfl⟩ := hx
+        rw [← SetLike.mem_coe, hS, hb] at hy
+        obtain ⟨n₁, n₂, rfl⟩ := hy
+        refine ⟨n₁ • c, ZhatS.zsmul_mem hc n₁, n₂ • c, ZhatS.zsmul_mem hc n₂, ?_⟩
+        rw [TensorProduct.tmul_add, ← zsmul_eq_mul, ← zsmul_eq_mul, TensorProduct.tmul_smul,
+          TensorProduct.tmul_smul, TensorProduct.smul_tmul', TensorProduct.smul_tmul']
+      | zero => exact ⟨0, ZhatS.zero_mem, 0, ZhatS.zero_mem, by simp⟩
+      | add x y _ _ hx hy =>
+        obtain ⟨c₁, h₁, c₂, h₂, rfl⟩ := hx
+        obtain ⟨d₁, k₁, d₂, k₂, rfl⟩ := hy
+        refine ⟨c₁ + d₁, ZhatS.add_mem h₁ k₁, c₂ + d₂, ZhatS.add_mem h₂ k₂, ?_⟩
+        rw [TensorProduct.add_tmul, TensorProduct.add_tmul]; abel
+      | neg x _ hx =>
+        obtain ⟨c₁, h₁, c₂, h₂, rfl⟩ := hx
+        refine ⟨-c₁, ZhatS.neg_mem h₁, -c₂, ZhatS.neg_mem h₂, ?_⟩
+        rw [TensorProduct.neg_tmul, TensorProduct.neg_tmul, neg_add]
+    · rintro ⟨c₁, h₁, c₂, h₂, rfl⟩
+      exact add_mem (AddSubgroup.subset_closure ⟨c₁, h₁, b₁, hb₁, rfl⟩)
+        (AddSubgroup.subset_closure ⟨c₂, h₂, b₂, hb₂, rfl⟩)
+  -- claim B: `𝔞̂ = Φ(ℤ̂ × ℤ̂)`
+  have hB : ∀ y : T5Glue.AfK m, y ∈ T5Glue.latHat m 𝔞 ↔ ∃ c₁ ∈ ZhatQ, ∃ c₂ ∈ ZhatQ, y = Φ c₁ c₂ := by
+    intro y
+    have hcomp : IsCompact (Function.uncurry Φ '' (ZhatQ ×ˢ ZhatQ)) := by
+      rw [zhat_eq]
+      exact ((FiniteAdeleRing.isCompact_integralAdeles).prod
+        (FiniteAdeleRing.isCompact_integralAdeles)).image hΦc
+    constructor
+    · intro hy
+      have hsub : algebraMap (QNeg m) (T5Glue.AfK m) '' 𝔞 ⊆ Function.uncurry Φ '' (ZhatQ ×ˢ ZhatQ) := by
+        rintro _ ⟨x, hx, rfl⟩
+        obtain ⟨n₁, n₂, rfl⟩ := (hb x).1 hx
+        exact ⟨((n₁ : AQ), (n₂ : AQ)), ⟨hint n₁, hint n₂⟩, by simp only [Function.uncurry_apply_pair]; rw [hΦint]⟩
+      obtain ⟨⟨c₁, c₂⟩, ⟨h₁, h₂⟩, rfl⟩ := closure_minimal hsub hcomp.isClosed hy
+      exact ⟨c₁, h₁, c₂, h₂, rfl⟩
+    · rintro ⟨c₁, h₁, c₂, h₂, rfl⟩
+      have hcl : ZhatQ = closure (Set.range (algebraMap (𝓞 ℚ) AQ)) := by
+        rw [zhat_eq]; exact (FiniteAdeleRing.closure_range_algebraMap (𝓞 ℚ) ℚ).symm
+      rw [hcl] at h₁ h₂
+      refine map_mem_closure₂ hΦc h₁ h₂ ?_
+      rintro _ ⟨r₁, rfl⟩ _ ⟨r₂, rfl⟩
+      obtain ⟨n₁, rfl⟩ := int_of_ringOfIntegers r₁
+      obtain ⟨n₂, rfl⟩ := int_of_ringOfIntegers r₂
+      refine ⟨n₁ * b₁ + n₂ * b₂, (hb _).2 ⟨n₁, n₂, rfl⟩, ?_⟩
+      rw [map_intCast, map_intCast, hΦint]
+  rw [hA, hB]
+  constructor
+  · rintro ⟨c₁, h₁, c₂, h₂, rfl⟩; exact ⟨c₁, h₁, c₂, h₂, heK c₁ c₂⟩
+  · rintro ⟨c₁, h₁, c₂, h₂, he⟩
+    exact ⟨c₁, h₁, c₂, h₂, (eK m).injective (by rw [he, heK])⟩
+
+end Adelic
+
+/-! ### Lattices, CM endomorphisms, and the final theorem -/
+
+section Final
+
+open NumberField IsDedekindDomain QMRecPrinted ShimuraCFT RayClassCFT
+open TauCeti.ClassFieldTheory TauCeti.GlobalNumberFields
+open ZInQ.RouteK.Rank5b ZInQ.Contrib.TYZGenus.Shimura ZInQ.Contrib.TYZGenus.CM
+open scoped TensorProduct FiniteAdeleExtension
+
+variable {m : ℕ} [NeZero m]
+
+theorem cmLat_eq (S : AddSubgroup (QNeg m)) (Q : PeriodPair)
+    (h : (Q.lattice : Set ℂ) = kappa m '' (S : Set (QNeg m))) :
+    cmLat (fun _ : Fin 1 => kap m) S = lat1 Q := by
+  ext v
+  rw [mem_lat1]
+  change v ∈ S.map (cmVec (fun _ : Fin 1 => kap m)) ↔ _
+  rw [AddSubgroup.mem_map]
+  constructor
+  · rintro ⟨x, hx, rfl⟩
+    change kap m x ∈ Q.lattice
+    rw [← SetLike.mem_coe, h]
+    exact ⟨x, hx, (kap_apply x).symm⟩
+  · intro hv
+    rw [← SetLike.mem_coe, h] at hv
+    obtain ⟨x, hx, hxv⟩ := hv
+    refine ⟨x, hx, funext fun i => ?_⟩
+    rw [Subsingleton.elim i 0]
+    change kap m x = v 0
+    rw [kap_apply, hxv]
+
+/-- **The CM endomorphisms** (from the textbook leaf `HomLatticeCorr`, realization half): multiplication by
+`κ(e)` on `ℂ/κ(𝔞)` (`e𝔞 ⊆ 𝔞`) is induced by an endomorphism of `A`. -/
+theorem isOfType_of_corr (hH : ZInQ.HomUnify.HomLatticeCorr) (A : PkgI3.AbVar ℂ)
+    (hdim : A.dim = ((1 : ℕ) : WithBot ℕ∞)) (θ : (Fin 1 → ℂ) → CPts A (RingHom.id ℂ)) (P : PeriodPair)
+    (hθ : IsUniformization (RingHom.id ℂ) (lat1 P) θ) (S : AddSubgroup (QNeg m))
+    (h : (P.lattice : Set ℂ) = kappa m '' (S : Set (QNeg m))) :
+    IsOfType (fun _ : Fin 1 => kap m) S θ := by
+  intro e he
+  let M : (Fin 1 → ℂ) →ₗ[ℂ] (Fin 1 → ℂ) := (kap m e) • LinearMap.id
+  have hM : ∀ z ∈ lat1 P, M z ∈ lat1 P := by
+    intro z hz
+    rw [mem_lat1] at hz ⊢
+    rw [← SetLike.mem_coe, h] at hz ⊢
+    obtain ⟨x, hx, hxz⟩ := hz
+    refine ⟨e * x, he x hx, ?_⟩
+    change kappa m (e * x) = kap m e * z 0
+    rw [← kap_apply, map_mul, kap_apply x, hxz]
+  obtain ⟨f, hf, -⟩ := hH.2 A A 1 1 (lat1 P) (lat1 P) θ θ hdim hdim hθ hθ M hM
+  exact ⟨f, fun w => hf w⟩
+
+/-- **`T5Glue.ShimuraMainCM` from printed leaves.** The main theorem of CM in Shimura's normalization
+(`MainTheoremCMArith`), the Weierstrass parametrization (`WeierstrassParam`), the uniformization theorem
+(`WeierstrassUniformization`), the curve `E_Λ` as an abelian variety with its coordinates (`WeierstrassAbVar`),
+and the bundle's textbook leaf `HomLatticeCorr` (CM endomorphisms). -/
+theorem shimuraMainCM_of_printed (hM : MainTheoremCMArith) (hWU : WeierstrassUniformization)
+    (hWP : WeierstrassParam) (hWA : WeierstrassAbVar) (hH : ZInQ.HomUnify.HomLatticeCorr) :
+    T5Glue.ShimuraMainCM := by
+  intro m _ hsq e he σ s hs 𝔞 P P' hP hP'
+  obtain ⟨A, θ, U, x, y, hdim, hθ, hθU⟩ := hWA P
+  let S : AddSubgroup (QNeg m) := P.lattice.toAddSubgroup.comap (kap m).toAddMonoidHom
+  have hS : (S : Set (QNeg m)) = 𝔞 := by
+    ext z
+    change kap m z ∈ P.lattice ↔ z ∈ 𝔞
+    rw [← SetLike.mem_coe, hP]
+    constructor
+    · rintro ⟨w, hw, hwz⟩
+      rw [kap_apply] at hwz
+      rwa [T5Glue.kappa_injective hwz] at hw
+    · intro hz; exact ⟨z, hz, (kap_apply z).symm⟩
+  obtain ⟨b₁, hb₁, hb₁'⟩ : ∃ b ∈ 𝔞, kappa m b = P.ω₁ := by
+    have := P.ω₁_mem_lattice; rw [← SetLike.mem_coe, hP] at this; exact this
+  obtain ⟨b₂, hb₂, hb₂'⟩ : ∃ b ∈ 𝔞, kappa m b = P.ω₂ := by
+    have := P.ω₂_mem_lattice; rw [← SetLike.mem_coe, hP] at this; exact this
+  have hb : ∀ z, z ∈ 𝔞 ↔ ∃ n₁ n₂ : ℤ, z = n₁ * b₁ + n₂ * b₂ := by
+    intro z
+    constructor
+    · intro hz
+      have hk : kappa m z ∈ P.lattice := by rw [← SetLike.mem_coe, hP]; exact ⟨z, hz, rfl⟩
+      obtain ⟨n₁, n₂, hn⟩ := PeriodPair.mem_lattice.1 hk
+      refine ⟨n₁, n₂, T5Glue.kappa_injective ?_⟩
+      rw [T5Glue.kappa_add, T5Glue.kappa_intCast_mul, T5Glue.kappa_intCast_mul, hb₁', hb₂', hn]
+    · rintro ⟨n₁, n₂, rfl⟩
+      rw [← hS]
+      have h1 : b₁ ∈ S := by rw [← SetLike.mem_coe, hS]; exact hb₁
+      have h2 : b₂ ∈ S := by rw [← SetLike.mem_coe, hS]; exact hb₂
+      rw [← zsmul_eq_mul, ← zsmul_eq_mul]
+      exact add_mem (zsmul_mem h1 n₁) (zsmul_mem h2 n₂)
+  -- `t = N(s)` and the lattice of `A^σ`
+  set t : AQ ⊗[ℚ] QNeg m := ((reflexNorm rhoQ (IdeleGroup.toFiniteIdele (𝓞 (QNeg m)) (QNeg m) s) ^
+    ((1 : ℤˣ) : ℤ) : (AQ ⊗[ℚ] QNeg m)ˣ) : AQ ⊗[ℚ] QNeg m) with ht_def
+  have ht : t = (eK m).symm (T5Glue.finPart s) := by
+    rw [ht_def, Units.val_one, zpow_one, reflexNorm_rhoQ]; rfl
+  have htmul : ∀ z : QNeg m, t * (1 ⊗ₜ z) =
+      (eK m).symm (T5Glue.finPart s * algebraMap (QNeg m) (T5Glue.AfK m) z) := by
+    intro z; rw [ht, map_mul, finiteAdeleBaseChangeAlgEquiv_symm_algebraMap]
+  have hadel := adelic 𝔞 S hS b₁ b₂ hb
+  have hlat : (latAct t S : Set (QNeg m)) = T5Glue.sInvLat m s 𝔞 := by
+    ext z
+    change t * Algebra.TensorProduct.includeRight z ∈ QMRecPrinted.latHat S ↔ _
+    rw [Algebra.TensorProduct.includeRight_apply, htmul, hadel, AlgEquiv.apply_symm_apply]
+    rfl
+  -- the main theorem of CM
+  obtain ⟨θ', hθ', hrel⟩ := hM (QNeg m) 1 (fun _ => kap m) (by rw [finrank_QNeg]) type_inj (QNeg m) (kap m)
+    reflex_range 1 rhoQ jQ model σ s (artinCondC_of_artinCond e he σ s hs) A hdim S θ
+    (by rw [cmLat_eq S P (by rw [hP, hS])]; exact hθ)
+    (isOfType_of_corr hH A hdim θ P hθ S (by rw [hP, hS]))
+    (bcC A (σ : ℂ →+* ℂ)) (projC A (σ : ℂ →+* ℂ)) (isPullback_bc σ A) (one_left_bc σ A)
+  have hθ'' : IsUniformization (RingHom.id ℂ) (lat1 P') θ' := by
+    rw [cmLat_eq _ P' (by rw [hP', hlat])] at hθ'
+    exact hθ'
+  obtain ⟨ν, hν, hcoord⟩ := core hWP hWU σ P P' A θ U x y hθ hθU θ' hθ''
+  refine ⟨ν, hν, fun u v hu huv => ?_⟩
+  have hmem : t * (1 ⊗ₜ v) - 1 ⊗ₜ u ∈ QMRecPrinted.latHat S := by
+    rw [htmul, ← finiteAdeleBaseChangeAlgEquiv_symm_algebraMap, ← map_sub, hadel,
+      AlgEquiv.apply_symm_apply]
+    exact huv
+  have hr := hrel u v hmem
+  have hcv : ∀ z : QNeg m, cmVec (fun _ : Fin 1 => kap m) z = fun _ => kappa m z :=
+    fun z => funext fun _ => kap_apply z
+  rw [hcv, hcv] at hr
+  exact hcoord (kappa m u) (kappa m v) hu hr
+
+end Final
+
 end HcmPrinted
+
+#print axioms HcmPrinted.shimuraMainCM_of_printed
+#check @HcmPrinted.shimuraMainCM_of_printed

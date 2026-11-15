@@ -14,3 +14,10 @@ Target: `T5Glue.ShimuraMainCM` (hCM of `ZInQ.OneProof.frozenTarget`, RingClassLa
   `WeierstrassParam` (Silverman VI.3.6), `WeierstrassAbVar` (E_Λ as PkgI3.AbVar with coordinates); glue: `mapPt`
   (σ on Mathlib points, group hom), `dd`/`eval_conj` (points and regular functions of A^σ = bcC A σ), and
   `core` (Weierstrass coordinates on A^σ: ∃ ν, IsConjModel σ P P' ν ∧ σ℘_P(z) = ν²℘_{P'}(z') ...). 152 s.
+- VERIFIED (compiled, standard axioms): `HcmPrinted.shimuraMainCM_of_printed : MainTheoremCMArith →
+  WeierstrassUniformization → WeierstrassParam → WeierstrassAbVar → ZInQ.HomUnify.HomLatticeCorr →
+  T5Glue.ShimuraMainCM` (scratch/hcm-printed/Core.lean). Glue proved: artinCondC_of_artinCond (ArtinCond → ArtinCondC
+  via Tau Ceti's Artin map and exists_iota), IsCMField (QNeg m), type_inj, reflex_range, model (V = K), reflexNorm_rhoQ
+  (reflex norm = 𝔸_{K,f} ≅ 𝔸_f ⊗ K), adelic (𝔞 ⊗ ℤ̂ ↔ closure 𝔞̂, by compactness of ℤ̂ and Tau Ceti's strong
+  approximation), cmLat_eq, isOfType_of_corr (CM endomorphisms from HomLatticeCorr), core, lin.
+- `mainTheoremCM_iff : QMRecPrinted.MainTheoremCM ↔ ∃ ε, MainTheoremCMSign ε := Iff.rfl` (verbatim copy checked).
