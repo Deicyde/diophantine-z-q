@@ -85,9 +85,26 @@ the scheme morphisms `secL Q = lift 𝟙 (toUnit ≫ inv (toUnit ptObj) ≫ Q)`,
 then `P * Q = lift P Q ≫ μ` is holomorphic, `P⁻¹ = P ≫ ι` is a regular map; `T₂` from `T₁`
 (`ChartedSpace.t1Space`) and the group structure; compactness and connectedness from the two other leaves.
 
-## 3. `#discharges`
+## 3. `#discharges` (VERIFIED)
 
-(see §6; recorded after the build of `+ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges`)
+`lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges` (12,994 jobs, success), then
+`lake env lean scratch/unif-printed/DischargesCheck.lean` (full output in `DischargesCheck-output.txt`); the rows
+for this contribution:
+
+```
+DISCHARGES [OpenTextbookLeaves11.uniformizationLeafAll] by UnifPrinted.uniformizationLeafAll_of_lieGroup
+  still assumes: [UnifPrinted.MumfordComplexTorus, UnifPrinted.AbVarAnalyticLieGroup]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenTextbookLeaves11.uniformizationLeafAll] by UnifPrinted.uniformizationLeafAll_of_printed
+  still assumes: [UnifPrinted.MumfordComplexTorus,
+ UnifPrinted.SmoothComplexManifold,
+ UnifPrinted.ProperCompact,
+ UnifPrinted.ConnectedConnected]
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 63 open hypotheses, 1846 theorems checked, 9 discharge one
+```
+
+(The first row is the stage-1 intermediate, with the composite `AbVarAnalyticLieGroup`; the fold uses the second.)
 
 ## 4. Autofold spec
 
@@ -95,7 +112,9 @@ then `P * Q = lift P Q ≫ μ` is holomorphic, `P⁻¹ = P ≫ ι` is a regular 
 `_root_.UnifPrinted.uniformizationLeafAll_of_printed {n}.mumfordComplexTorus {n}.smoothComplexManifold
 {n}.properCompact {n}.connectedConnected`, adding the four leaves to the textbook bundle, kind `published`, flag
 `unread: new printed leaf, no reading recorded; locator UNVERIFIED`. The dry run (`--dry-run`, output in
-`scratch/unif-printed/autofold-dryrun.txt`) generates `OpenTextbookLeaves12` and `sixContactMin_of_open30`.
+`scratch/unif-printed/autofold-dryrun.txt`) generates `OpenTextbookLeaves12` and `sixContactMin_of_open30`; that
+module (`scratch/unif-printed/FoldDryRun.lean`, the dry run without its first line) compiles against the built tree,
+`HDec.HSyn.sixContactMin_of_open30` with axioms `propext`, `Classical.choice`, `Quot.sound` (VERIFIED).
 
 ## 5. Files
 

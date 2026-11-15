@@ -37,3 +37,9 @@ bundle field `uniformizationLeafAll` (OpenTextbookLeaves11).
   (Build completed successfully). gagaMorphism not used.
 ## autofold.json written; `autofold.py --dry-run`: exit 0, "strict count: 46/10 on 56 -> 49/10 on 59; strictest
   45/11 -> 48/11" (field still LEAF in this base's kinds.tsv; against the re-rated count 46/11 -> 49/10).
+
+## #discharges — VERIFIED
+- `lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges`: success (12994 jobs).
+- DischargesCheck.lean: `DISCHARGES [OpenTextbookLeaves11.uniformizationLeafAll] by UnifPrinted.uniformizationLeafAll_of_printed`,
+  still assumes the four leaves, axioms standard; "63 open hypotheses, 1846 theorems checked, 9 discharge one".
+- FoldDryRun.lean (autofold dry run minus line 1) compiles; sixContactMin_of_open30 standard axioms.
