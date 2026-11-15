@@ -2,7 +2,7 @@
 
 The selected files under `research/accepted-h5/` preserve the height proof,
 source-application ledgers and independent AI reviews used by Version 2.
-Start with the [final H5 acceptance](research/accepted-h5/review/H5_FINAL_ACCEPTANCE.md)
+Start with the [final H5 acceptance](https://github.com/elliotglazer/diophantine-z-q/blob/005b17abfbefd8bee7b34f3bbe8f5aabf872eb1f/docs/degree8-original/research/accepted-h5/review/H5_FINAL_ACCEPTANCE.md)
 and the [current dependency inventory](../quartic-12504/README.md).
 
 The current quartic retains the height exponent 24 and its original constant.

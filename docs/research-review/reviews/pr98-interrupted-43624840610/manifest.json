@@ -1,0 +1,414 @@
+{
+  "source_run": 43624840610,
+  "attempt": 1,
+  "source_head": "0d49f7229a0d3779c4e55589963e25fc865bd8f9",
+  "original_zip_bytes": 776206,
+  "original_zip_sha256": "69be0efabe56ccda45530d6aa1209e9df5f317323d87867fa00a1a2b3e216f4b",
+  "output_summary": {
+    "astra": {
+      "turns": 12,
+      "visible_output_types": {
+        "message": 3,
+        "function_call": 43,
+        "web_search_call": 41
+      }
+    },
+    "fable": {
+      "turns": 7,
+      "visible_output_types": {
+        "tool_use": 9,
+        "server_tool_use": 30,
+        "web_fetch_tool_result": 5,
+        "code_execution_tool_result": 14,
+        "web_search_tool_result": 3,
+        "bash_code_execution_tool_result": 8
+      }
+    }
+  },
+  "files": [
+    {
+      "name": "astra-context-budget.json",
+      "bytes": 286,
+      "sha256": "7d7be0ac50d67d3eea3176f4f4dd4b52588dadb8cea8b5585ff1a4cc55b6595b",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-failure.json",
+      "bytes": 566,
+      "sha256": "e0b8be45a5110922439eb426ca6b925b2b5cd613570f6c6dca3a31024c48225d",
+      "disposition": "Copied byte-for-byte alongside this manifest"
+    },
+    {
+      "name": "astra-input.json",
+      "bytes": 59333,
+      "sha256": "7f41eb7bdcd110837e49cc2df63d662a3700e378ab44c31624f6cacbd4507ef2",
+      "disposition": "Input conversation and source context not republished"
+    },
+    {
+      "name": "astra-tool-0-0.json",
+      "bytes": 1160,
+      "sha256": "c3ae97b514c4eb11e8723813be1da009c070ad76dc5b692c4b61dde39b3524f3",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-1-0.json",
+      "bytes": 31416,
+      "sha256": "fffb216ead08407547050fbfd104e432a5a3e4a7e7c68abba517201df63519e2",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-1-1.json",
+      "bytes": 28653,
+      "sha256": "678cd78da9b20dc8583e0ebea796f56c0bb81f5cf9893c49e6f88572690752df",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-1-2.json",
+      "bytes": 14572,
+      "sha256": "b5dc95d49ba5b914bf3d765a3d3ee9dee031a4120f4ac37ced3b55612636aa9b",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-10-0.json",
+      "bytes": 6214,
+      "sha256": "8df1aec7851fd1f9be2d334f11e9d486a0ac9a7aa54dc024aa78ad852c4032fb",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-10-1.json",
+      "bytes": 4852,
+      "sha256": "d272824b4584d7a90579fbfa012ab80f941dc155e7bc06d7ae2c72c726e16e6b",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-10-2.json",
+      "bytes": 2842,
+      "sha256": "5f8b879d8b4d1408e50a474b16dbd554a4c247da41d7d1f0a5e72cf4d3e75203",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-11-0.json",
+      "bytes": 597,
+      "sha256": "e399e1f9e732d3fd08066b5641b6497d2c2022968c4bbfa5cee93a1beaa060a4",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-11-1.json",
+      "bytes": 596,
+      "sha256": "a9241ae804b27b45cff8c9754972ddd5db5eb104ede158f012ae97dca17dfa1a",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-11-2.json",
+      "bytes": 596,
+      "sha256": "868011516b3d20d852d68aee7b1dcf6d922a0786234d019b2b17c08d9e57621a",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-11-3.json",
+      "bytes": 597,
+      "sha256": "b458e1b8ef27d61d41c741603bff919d5499f6b414dddc0b60de2b9692ccf272",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-2-0.json",
+      "bytes": 27864,
+      "sha256": "a3ddd730df2d3ba6c9c819a7f8ebf21c3d3ce07d85523ff2670d811ceb9bc550",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-2-1.json",
+      "bytes": 12638,
+      "sha256": "2167da1c2c3e6978e1c49c4eb63573373ed3190e8ed1cb2e8099d6e24e42bb33",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-2-3.json",
+      "bytes": 2617,
+      "sha256": "c439de721770578ab1cd78ac7986db56e641a38d3566187f6bcb400e2ed615ae",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-2-4.json",
+      "bytes": 9881,
+      "sha256": "a181b9fb1478881f54816e170fc8384d46f50b6ad1a4eaa6cbc5b88101d375a7",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-2-2.json",
+      "bytes": 20138,
+      "sha256": "7ecbc7bc31e2a0f0dcd7039c59e3b888c7b6849364fad8e978f4fad6710224c2",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-3-0.json",
+      "bytes": 6818,
+      "sha256": "6e418158e64c4ad4af389d5180acb0fadc876564c9a6b91d00a6739c1643f1ae",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-3-1.json",
+      "bytes": 20796,
+      "sha256": "1390ff4ecbc1872961e4cb6b915c8bd2f755fb4f884e88126bd2590943fe6339",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-3-2.json",
+      "bytes": 6431,
+      "sha256": "c2b5b0b37c8547a2569ee5b1046eccb77fc6634cfebb0daa675425864bf38bd4",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-3-4.json",
+      "bytes": 632,
+      "sha256": "c30392b5337a082e5569778d6738feb77d28ea0c5800805bd4f6cbf0e5a3c332",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-3-3.json",
+      "bytes": 495,
+      "sha256": "853a220ba2efb9ba349d170898e5585c2426764c812bce9e8d3035e669421dd7",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-4-0.json",
+      "bytes": 476,
+      "sha256": "044d7afcab6ebcac7ac47a142023cfad69d35d8ff1fc4f9164bf3672b476421c",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-5-0.json",
+      "bytes": 2863,
+      "sha256": "28a7c37ac6982f6ead00970d8c226ae26d4d4b1bee6b959e931d0f3b4306ebd0",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-5-1.json",
+      "bytes": 489,
+      "sha256": "291b19334ecfe0fb693f5379121303a6a4447ef6ab7b4326226a67cf54b96a2d",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-5-2.json",
+      "bytes": 495,
+      "sha256": "4dd3e27fb16be357daed4e6032d753ca78349dfa336ccfd14e4d510e839ffc48",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-5-3.json",
+      "bytes": 21805,
+      "sha256": "4aaadf627a4e98ee3c714ebdf180d6acfd9a929d814aac88051274ef8e747937",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-5-4.json",
+      "bytes": 7421,
+      "sha256": "df242f41bf6fa1359aad1dbc13bef8af30c6a44197e71f14b0de8edbc20e537f",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-5-5.json",
+      "bytes": 7886,
+      "sha256": "13f6c93524a8ab3a572580c911021847b83c334bdffb093b43a6bb669f56a704",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-6-0.json",
+      "bytes": 51782,
+      "sha256": "2761f8c5ff389d5efbefa959d30470594cc56f0fa067d6db95c2cdaf85133b94",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-6-1.json",
+      "bytes": 49760,
+      "sha256": "858fd64e438927c0e6c4f8d91771214143cfcd567a9fe36fb3866f3832e6524d",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-6-3.json",
+      "bytes": 24025,
+      "sha256": "f7afec797e7d2e1bcfb466161ce29a0c65b5726c0ed9ae3beed4828c7c198cb1",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-6-2.json",
+      "bytes": 8403,
+      "sha256": "201e64043a7e19d3ca7bf2d9cdecba5af769e60ab73d72c90240e124b14a0900",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-6-4.json",
+      "bytes": 7770,
+      "sha256": "5c098dc29e2dcd1a305f779ef5f29d6b681dd276494cf358147d002a7f379126",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-7-0.json",
+      "bytes": 625,
+      "sha256": "6c1f9049e1f0a3e5c86b63c364632d2017c8a9a4921576c57e0d6dd003d816a1",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-7-1.json",
+      "bytes": 675,
+      "sha256": "7b86167c1064b784aa59fe2ccfe4ee93d163a54f4b42ec7c0d9fe3c629100c79",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-7-2.json",
+      "bytes": 582,
+      "sha256": "b80f88f165b276aad260b6899a14dfe348c57f331c5c7391735b1aa65e6747c3",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-7-3.json",
+      "bytes": 4097,
+      "sha256": "437ad84da5c9327f4497ddc273ba479f09dc848662a0e15cad98b01393d00a3c",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-7-4.json",
+      "bytes": 5146,
+      "sha256": "ea2666abb0970f6163d6a7e03d999e3c5bc885dc1ce7ca394155ed1e827d833f",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-9-0.json",
+      "bytes": 730,
+      "sha256": "56d231ef56744583438c9cfa6a2e003e0be44d2b832c24a4d82bb7bbff84bcc7",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-9-1.json",
+      "bytes": 1208,
+      "sha256": "d6da57b8fc948e4190613145c424e377985cfb1dc4e801897ac1b9428d0eaf7c",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-8-0.json",
+      "bytes": 488,
+      "sha256": "8705e1c997ec7709e2d5e3ab3085178d2ce421004c6a1e7e3c6ed337553ab1b2",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-9-2.json",
+      "bytes": 20562,
+      "sha256": "961524974160409d67a20f7e9381741a241e4e6723c558c21dbe14ee24a750bd",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-tool-9-3.json",
+      "bytes": 23252,
+      "sha256": "36e835d9ce2c70371cc7693e866d2e10f77155a54605164021aa31697400be8b",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "astra-turns.json",
+      "bytes": 43988,
+      "sha256": "eeeee8b26f160534e48b963015219fbbc64c6667b969d2da12cd5ccd3e213e65",
+      "disposition": "Visible prose exhaustively extracted to observations.json; tool operations and source payloads not republished"
+    },
+    {
+      "name": "astra-working-notes.json",
+      "bytes": 2291,
+      "sha256": "00c8044dc026794919ef9c29900ff4b2d68ce99ec7d6740c21c4533ea3ee9b55",
+      "disposition": "Copied byte-for-byte alongside this manifest"
+    },
+    {
+      "name": "context.json",
+      "bytes": 274,
+      "sha256": "6666545662b114a4d33a8b0cc27280e29d4a08b83a224039ab987e6161bb3662",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "decision.json",
+      "bytes": 2004,
+      "sha256": "b7c702e0d9f1ac104af187ba6181aeb3d49004ae48245f99246ed78cc3cefcaa",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "fable-context-budget.json",
+      "bytes": 292,
+      "sha256": "a4099303290260d176c269c15bc4e278fbc79a443d9b1a7a750e8117d6a01ea3",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "fable-failure.json",
+      "bytes": 571,
+      "sha256": "e8e9e08b11d94937298b5865e16318571858163dcc1df91b9411c20e75507a74",
+      "disposition": "Copied byte-for-byte alongside this manifest"
+    },
+    {
+      "name": "fable-input.json",
+      "bytes": 59333,
+      "sha256": "7f41eb7bdcd110837e49cc2df63d662a3700e378ab44c31624f6cacbd4507ef2",
+      "disposition": "Input conversation and source context not republished"
+    },
+    {
+      "name": "fable-tool-0-0.json",
+      "bytes": 1499,
+      "sha256": "cbb8a6ab3caed8fb7b263875f4eb35f34b8e6ed81608b007c53ec47bb38d5388",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "fable-tool-0-1.json",
+      "bytes": 1323,
+      "sha256": "5dfae77c6b2952383717174d03cc85415d88576352b7a3d06a7a73e8a6f7b679",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "fable-tool-1-0.json",
+      "bytes": 19247,
+      "sha256": "9b032435b3f5c5bcd5f71bad44bbd193c1b64466d4226018713f50d4201353fb",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "fable-tool-2-0.json",
+      "bytes": 10981,
+      "sha256": "a563f8e3857ed9a92cf5b2a53b9867efd43205e6e749b2e55ced24cae25d6456",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "fable-tool-3-0.json",
+      "bytes": 8224,
+      "sha256": "a50a52c5d15082bdffd3a63fecb44ebe1428f2075212220af520517362abdfb1",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "fable-tool-4-0.json",
+      "bytes": 9014,
+      "sha256": "6e18d212cd9c71b8d251ea7fc6a66387560a52aa75aa2d016852f4764c333670",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "fable-tool-5-0.json",
+      "bytes": 23007,
+      "sha256": "5716df52420b67c40b13dcca41e7c7adca7df25bc64d46d5746b058d0f37455b",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "fable-tool-5-1.json",
+      "bytes": 5789,
+      "sha256": "745a44b3687947e77e445251047192b54207dd14059d991e7632e80fd462cb99",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "fable-tool-6-0.json",
+      "bytes": 835,
+      "sha256": "ca8bdd448ae29cc8c03158bbc30c6fdf2e3655c87b0dda2c7335e556196d5c08",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    },
+    {
+      "name": "fable-turns.json",
+      "bytes": 930260,
+      "sha256": "a272cdd6941c9f3da416eda1478fc08fb9bb24ff54f81f04ebb83781c38f1497",
+      "disposition": "Visible prose exhaustively extracted to observations.json; tool operations and source payloads not republished"
+    },
+    {
+      "name": "failure.json",
+      "bytes": 400,
+      "sha256": "88c2487b232e2d4d2feab13fde3b054f7c7741ace4c031b67b48f8fef07f95d9",
+      "disposition": "Original run metadata or read-tool/source material retained in original artifact; not republished"
+    }
+  ]
+}

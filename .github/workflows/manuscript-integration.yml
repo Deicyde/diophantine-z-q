@@ -1,10 +1,11 @@
-name: Current manuscript and quartic verification
+# Historical replay only. Original evidence and source bindings are read from the archive.
+name: Historical manuscript and quartic verification
 
 on:
   workflow_dispatch:
     inputs:
       mode:
-        description: 'Validate the selected source and manuscript'
+        description: 'Replay the archived source and manuscript'
         type: choice
         options: [all, reproduction, paper, metadata]
         default: all
@@ -19,7 +20,7 @@ concurrency:
 jobs:
   quartic394:
     if: inputs.mode == 'all' || inputs.mode == 'reproduction' || inputs.mode == 'metadata'
-    name: Version 13 source and quartic replay (${{ matrix.os }})
+    name: Historical Version 13 source and quartic replay (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     timeout-minutes: 12
     strategy:
@@ -32,6 +33,8 @@ jobs:
             python: '3.12.10'
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: 005b17abfbefd8bee7b34f3bbe8f5aabf872eb1f # review-archive-v17
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
           python-version: ${{ matrix.python }}
@@ -52,6 +55,8 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: 005b17abfbefd8bee7b34f3bbe8f5aabf872eb1f # review-archive-v17
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
           python-version: '3.12.14'
@@ -72,6 +77,8 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: 005b17abfbefd8bee7b34f3bbe8f5aabf872eb1f # review-archive-v17
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
           python-version: '3.12.14'
@@ -90,6 +97,8 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: 005b17abfbefd8bee7b34f3bbe8f5aabf872eb1f # review-archive-v17
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
           python-version: '3.12.14'
@@ -109,6 +118,8 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: 005b17abfbefd8bee7b34f3bbe8f5aabf872eb1f # review-archive-v17
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
           python-version: '3.12.14'
@@ -137,6 +148,8 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: 005b17abfbefd8bee7b34f3bbe8f5aabf872eb1f # review-archive-v17
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
           python-version: '3.12.14'

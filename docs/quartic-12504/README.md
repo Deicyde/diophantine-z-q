@@ -17,9 +17,9 @@ application excerpt to identical current text. The earlier 82 application
 decisions remain tied to the frozen
 [`audited-baseline.tex`](../theorem-application-audit/source/audited-baseline.tex).
 This bridge does not assign those reviews to new text. Later H5 material
-is covered by the retained [H5 ledgers](../degree8-original/research/accepted-h5/)
+is covered by the retained [H5 ledgers](https://github.com/elliotglazer/diophantine-z-q/tree/005b17abfbefd8bee7b34f3bbe8f5aabf872eb1f/docs/degree8-original/research/accepted-h5)
 and current manuscript proof. The reciprocal additions have their own
-[review records](reviews/).
+[review records](https://github.com/elliotglazer/diophantine-z-q/tree/005b17abfbefd8bee7b34f3bbe8f5aabf872eb1f/docs/quartic-12504/reviews).
 
 The inherited source-version qualifications remain in force. In particular,
 the Yuan application uses the recorded author-attested English translation;
