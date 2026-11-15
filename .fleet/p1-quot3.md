@@ -1,38 +1,39 @@
 # p1-quot3 (fleet summary)
 
-**Result: (1) proved; (2) not done.** p1-quot2's residual glue `HDec.MCRGlue.TameQuotientSmoothRelDim` (the smoothness
-half of mcr-glue's L3) is now a theorem. It uses only the chain's existing textbook field `regularSmoothPerfect`
-(Stacks 00TV) and adds no new leaf. So all of L3 (`TameQuotientSmooth`) is proved. L4 `SmoothModelOfP1` is still
-a consequence (GLUE).
+**Result: `quotientP1Coordinate` now rests on three printed leaves and chain fields only. The fold pays −1**
+(autofold dry run, no `--allow-rise`: strict 46/10 on 56 → 49/9 on 58; strictest 45/11 → 48/10).
 
-`HDec.MCRQuot.quotientP1Coordinate_of_fields4` discharges `OpenGlue7.quotientP1Coordinate`. Its inputs are:
-- new leaves: `LichtenbaumProjective` (printed), L2 `FiniteQuotientExists` (printed), L4 `SmoothModelOfP1`
-  (consequence), `EdixhovenFixedSmooth2` (printed);
-- chain fields: `regularSmoothPerfect`, `mumfordTorsionAlgClosed`, `mumfordGroupLaw`,
-  `shimuraMainThmIDeligneY3AbU`, `uniformizationLeafAll`, `gagaMorphism`.
+The final theorem is `HDec.MCRQuot.quotientP1Coordinate_of_fields5` (`ZInQKernel/Contrib/OneProof/QuotientP1Model.lean`).
+Its inputs:
+- printed leaves: `LichtenbaumProjective`, L2 `FiniteQuotientExists`, `EdixhovenFixedSmooth2`;
+- chain fields: `regularSmoothPerfect`, `mumfordTorsionAlgClosed`, `mumfordGroupLaw`, `shimuraMainThmIDeligneY3AbU`,
+  `uniformizationLeafAll`, `gagaMorphism`.
 
-Following the task's note, `HeckeIrreducible` now comes from dcy3-used's `DCY3Used.y3Connected_of_leaves`. The
-fold's strict GLUE change is **0** (p1-quot2's was +1). Autofold accepts it without `--allow-rise`: 46/10 on 56 →
-49/10 on 59. It would pay −1 only if L4 were replaced by a printed leaf or proved.
+1. **L3 is proved.** `TameQuotientSmoothRelDim`, the smoothness half of the SGA 1 tame quotient, follows from
+   `regularSmoothPerfect` alone (Stacks 00TV):
+   - normality of invariant rings, proved elementwise;
+   - the Reynolds operator, so invariants commute with base change;
+   - flatness, because the invariants are a retract;
+   - EGA IV 17.5.1;
+   - relative dimension 1 from the fibre dimensions.
+2. **L4 `SmoothModelOfP1` is bypassed, not proved in general.** The generic coordinate (the descent of `π`) takes
+   the values `0, ∞, −16/27` at the CM points, whose closures are pairwise disjoint (Edixhoven). `P1Model.exists_p1Coordinate`
+   extends it to `𝒵 ≅ P¹_{ℤ_(p)}` by charts. The inputs are Zariski connectedness (proved in CloudW02), the vendored
+   extension theorem over codimension ≥ 2, the DVR at the generic point of the special fibre, the third section to
+   rule out a zero or pole at `ξ`, a finite map to `P¹`, and polynomial chart rings (the reduced coordinate is
+   transcendental).
+3. Following the task's note, `HeckeIrreducible` now comes from dcy3-used's `y3Connected_of_leaves`.
 
 **What compiles (VERIFIED):**
-- `lake build ZInQKernel.Contrib.OneProof.QuotientP1Smooth`, including the new helpers
-  `QuotientP1/TameInvariants.lean` (algebra) and `QuotientP1/TameQuotSmooth.lean` (schemes). No `sorry`, standard
-  axioms.
-- `#discharges` prints `DISCHARGES [OpenGlue7.quotientP1Coordinate] by quotientP1Coordinate_of_fields4`, with
+- `lake build ZInQKernel.Contrib.OneProof.QuotientP1Model`, including the helpers `QuotientP1/TameInvariants`,
+  `TameQuotSmooth` and `P1ModelA`–`E`. About 2,600 new lines; no `sorry`; standard axioms.
+- `#discharges` prints `DISCHARGES [OpenGlue7.quotientP1Coordinate] by quotientP1Coordinate_of_fields5`, with
   standard axioms.
 - The autofold dry run's generated module compiles (`sixContactMin_of_open30`, standard axioms).
-- The proof of L3-smooth:
-  - normality of invariant rings is proved elementwise (prime avoidance and norms);
-  - over a perfect field, the invariants of a smooth algebra of dimension ≤ 1 are smooth (Stacks 00TV);
-  - with `p ∤ |G|`, invariants commute with base change (Reynolds operator);
-  - flatness holds because the invariants are a retract;
-  - EGA IV 17.5.1 (Mathlib `Algebra.Smooth.of_formallySmooth_fiber`) gives smoothness;
-  - relative dimension 1 because the fibres of `𝒵` and `𝒴` have equal dimension.
 
-**What remains:** L4. I found no printed statement of it. The vendored libraries now have Zariski connectedness
-(proved, CloudW02), coherent cohomology of families, local constancy of χ, Riemann–Roch on fibres and cohomology and
-base change for positive line bundles (CloudW07). What is missing is the base-point-freeness and fibrewise
-isomorphism steps. Report §5 gives a step plan of several thousand lines.
+**What remains:**
+- General L4 (no sections) is not proved, and nothing needs it now.
+- The three leaves keep their earlier ratings. Lichtenbaum and Edixhoven are flagged unread, and every locator is
+  UNVERIFIED.
 
-Report: docs/research/p1-quot3.md. Log: scratch/p1-quot3/log.md.
+Report: docs/research/p1-quot3.md. Log: scratch/p1-quot3/log.md. Spec: scratch/p1-quot3/autofold.json.
