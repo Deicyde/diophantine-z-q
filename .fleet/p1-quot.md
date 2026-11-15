@@ -14,7 +14,9 @@ Theorem `HDec.MCRQuot.quotientP1Coordinate_of_printed` in `ZInQKernel/Contrib/On
 (coordinate covers). mcr-quot's 4.3k lines compile verbatim over the chain's TailW after 4 name fixes. Glue C1 is
 proved from Edixhoven's theorem without mcr-glue's L5 and L6 and without involutions (`disjoint_closure_of_two`);
 L5 also follows as a corollary. The ℤ[i] and ℤ[ζ₃] stabilizers (mcr-quot's CMStabObj, weakened) are proved from T5 and
-QMAutCard (incl. an order-9-point argument). Lemma NV is not used.
+QMAutCard (incl. an order-9-point argument). Lemma NV is not used. Mumford's rigidity is not used:
+`HeckeIrreducible` is proved from the abelian-scheme Deligne leaf directly (`heckeIrreducible_of_ab`), so the proof
+from the chain's fields (`quotientP1Coordinate_of_fields`) assumes no `mumfordRigidityCore`.
 
 **What compiles.** All seven contribution modules (`lake env lean -o`, against the build tree of c2ad4181, whose
 modules below TailW differ from this base only in docstrings); scratch composites Port1-3, P1Test, P1Scheme,
@@ -23,6 +25,6 @@ FixedTest/FixedTest2/FixedAll, CMTest, FromFields, Discharges.
 **What remains.** `CMStab24`: needs an Atkin–Lehner automorphism of the ℤ[√−6] object (ψ = −ι(w)φ/6 integral),
 i.e. kernels/degrees/factorization through [6] in the abelian-variety layer, not available. L1, L3, L4 are composites. Fold
 arithmetic: net +3 strict GLUE, so the fold does not pay yet; it needs a hand edit (T5, HeckeIrreducible come from
-other bundles; `quotientP1Coordinate_of_fields`). Abelian-scheme form: the proof uses R1univProps on the QMFamily
-of IsShimuraModel, so an R1fpPropsAb form also needs IsShimuraModel with a QMAbScheme family (docs §5).
+other bundles; `quotientP1Coordinate_of_fields`). Restating the field in R1fpPropsAb form would also need
+IsShimuraModel with a QMAbScheme family (docs §5), but it is not needed to drop rigidity.
 Report: docs/research/p1-quot.md.

@@ -20,6 +20,9 @@ gap-triage.md (A3, A12), leaf-fold9.md §5.
 - The `ℤ[i]` and `ℤ[ζ₃]` clauses of `CMStabObjWeak` are proved from T5 and the chain's `QMAutCard` (§4). Only the
   `ℤ[√−6]` clause, `CMStab24`, remains as glue.
 - Lemma NV (`CoverModelOfHeckeN`) is not used (gap-triage finding 3).
+- **Mumford's rigidity is not needed.** `HeckeIrreducible` is proved from the abelian-scheme Deligne leaf
+  `deligneComponentsY3PrintedAb` directly (`heckeIrreducible_of_ab`, §5), so the proof from the chain's fields
+  (`quotientP1Coordinate_of_fields`) does not use `mumfordRigidityCore`, without restating the field.
 
 ```lean
 -- ZInQKernel/Contrib/OneProof/QuotientP1Coordinate.lean
@@ -36,7 +39,6 @@ theorem HDec.MCRQuot.quotientP1Coordinate_of_printed
 -- ZInQKernel/Contrib/OneProof/QuotientP1/FromFields.lean: T5, HeckeIrreducible, QMAutCard from the chain's fields
 theorem HDec.MCRQuot.quotientP1Coordinate_of_fields (L1 … L4) (hE : EdixhovenFixedSmooth2)
     (hMT : AvSplit.MumfordTorsionAlgClosed)                 -- textbook field mumfordTorsionAlgClosed
-    (hRC : LeafQM.AV.R1UnivRigid.MumfordRigidityCore)        -- research field mumfordRigidityCore
     (hD : ShimuraGlue.DeligneComponentsY3PrintedAb)          -- added field deligneComponentsY3PrintedAb
     (hU : BPAnalytic.Uniformization.UniformizationLeafAll)   -- textbook field uniformizationLeafAll
     (hG : ZInQ.HomLattice.GAGAMorphism)                      -- textbook field gagaMorphism
@@ -167,7 +169,7 @@ glue C replaced by C2 (`coordinateFromSections_of''`) applied to C1' (`cMSection
 | L4 `SmoothModelOfP1` | consequence (H-92) | no | Liu AGAC §8.3, §10.1; the model statement is a short argument from genus 0 and a rational point |
 | `EdixhovenFixedSmooth2` (new) | published | yes, special case (two-generated group, `S = Spec ℤ_(p)`) | Edixhoven 1992 Prop. 3.4 as remembered; `X^G` written as the fibre product of the generators' equalizers (its functor of points). Locator UNVERIFIED; flag it **unread** |
 | T5 `PkgI2.TorsionStructure` | supplied by the chain | — | `AvSplit.torsionStructure_of_mumford` of the textbook field `mumfordTorsionAlgClosed` |
-| `HeckeIrreducible` | supplied by the chain | — | from `deligneComponentsY3PrintedAb` and `mumfordRigidityCore` (`FromFields.lean`) |
+| `HeckeIrreducible` | supplied by the chain | — | from `deligneComponentsY3PrintedAb` alone, without rigidity (`heckeIrreducible_of_ab`, `FromFields.lean`; the chain's own route uses `mumfordRigidityCore`) |
 | `HeckeRest.QMAutCard` | supplied by the chain | — | `QMSplit.Aut.qmAutCard_of` of `QMCentralizerCM`, from the fields `uniformizationLeafAll`, `gagaMorphism`, `mumfordTorsionAlgClosed` (contribution `QMLattice`) and the proved T11(b) (`FromFields.lean`) |
 | `CMStab24` | project glue | — | §4 |
 
@@ -226,31 +228,38 @@ on `X₀^D(ℂ)`, not on the objects `(A, ι, η)`. So `CMStab24` is the one pro
 `ℤ[ζ₃]` type, conjugates of `u⁻¹` commute with `u⁻¹`, so the CM objects' own `rightMul`-orbits do not witness
 `T ≠ id`. The compiled proof instead uses the `ℤ[√−6]` object, whose automorphisms are `±1`.)
 
-## 5. Abelian-scheme form (R1fpPropsAb)
+## 5. Abelian-scheme form (R1fpPropsAb) and Mumford's rigidity
 
-The brief asks whether the field's consumer can be stated with `R1fpPropsAb`, dropping Mumford's rigidity leaf from
-this proof. Findings (VERIFIED by reading the compiled proof):
+The brief asks whether the field's consumer can be stated with `R1fpPropsAb`, which would drop Mumford's rigidity
+leaf from this proof.
 
-- In this proof `R1fpProps Y Φ` is used in two places:
-  - (a) through `HeckeIrreducible`, whose chain proof converts the abelian-scheme Deligne leaf with
-    `mumfordRigidityCore` (`deligneComponentsY3Printed_iff_ab`);
-  - (b) in model-glue's `exists_genFib_to_Y` (TailL L1645), which applies `R1univProps` to the base change
-    `famBC 𝒜 j` of the family `𝒜 : QMFamily 𝒴.left` of `IsShimuraModel`.
-- Otherwise only clauses 1-3 (proper, smooth, a `ℚ̄`-point) were found. This comes from a grep of the `h1` uses in
-  TailL, TailW and the port; beyond that it is SPECULATIVE.
-- (b) does not go through with `R1univAbProps`, which classifies only families that are abelian schemes
-  (`QMAbScheme`).
-- So an abelian-scheme form of the field must also take `IsShimuraModel` with a `QMAbScheme` family. That needs base
-  change of a `QMAbScheme` along `𝒴_ℚ → 𝒴`.
-- The good-reduction field `shimuraGoodReductionNoGuard` would then have to provide an abelian scheme over `𝒴`. That
-  is closer to the published form, a moduli scheme of abelian schemes.
-- With the field, its consumer and `IsShimuraModel` all in abelian-scheme form, (a) and (b) need no rigidity:
-  - (a) follows from `DeligneComponentsY3PrintedAb` directly;
-  - (b) follows from `R1univAbProps`.
+**Result (VERIFIED, compiled): the rigidity leaf is dropped without restating the field.**
 
-  This is SPECULATIVE (not compiled): the model-glue lemmas of TailL that take `R1fpProps` would have to be restated.
-- Rigidity is used elsewhere in the chain as well (`r1R2fpRep_iff_ab`, `shimuraFamily_iff_ab`). So this field alone
-  would not remove the rigidity field.
+- In this proof the only route to rigidity was `HeckeIrreducible`. The chain proves it from
+  `deligneComponentsY3PrintedAb` by first converting that leaf to its `R1fpProps` form with `mumfordRigidityCore`
+  (`deligneComponentsY3Printed_iff_ab`, TailZ23).
+- `QuotientP1Proof.DeligneAb.heckeIrreducible_of_ab : DeligneComponentsY3PrintedAb → HeckeIrreducible` avoids the
+  conversion:
+  - the Deligne witness `Y₀`, with its abelian-scheme clause list, is connected: the chain's orbit computation
+    `y3Connected_of_deligne` copied with the clause list cut to the one clause it uses, a `ℚ̄`-point;
+  - for any triple `(Y, Φ)` with `R1fpProps`, `R1univProps Y` applied to the abelian scheme of `Y₀` gives
+    `g : Y₀ → Y` with `Φ₀ = Φ ∘ g` (`phi_part'`). An abelian scheme is a `QMFamily` by
+    `r1famProps_of_r1famAbProps`, which needs no rigidity;
+  - `g` is onto (`Φ₀` onto, `Φ` injective), so `Y` is connected, hence irreducible.
+- So `quotientP1Coordinate_of_fields` assumes `deligneComponentsY3PrintedAb` but not `mumfordRigidityCore`. The
+  universal property used is that of the *target* triple (`R1univProps`, on `QMFamily`s), which `R1fpProps` carries.
+
+**Restating the field in abelian-scheme form** (findings by reading, SPECULATIVE where marked):
+
+- Elsewhere the proof uses `R1fpProps Y Φ` in model-glue's `exists_genFib_to_Y` (TailL L1645). That lemma applies
+  `R1univProps` to the base change of the family `𝒜 : QMFamily 𝒴.left` of `IsShimuraModel`.
+- `R1univAbProps` classifies only abelian-scheme families. So a field stated with `R1fpPropsAb` would also need
+  `IsShimuraModel` with a `QMAbScheme` family. That is the more faithful reading of the good-reduction field
+  `shimuraGoodReductionNoGuard`, whose published form is a moduli scheme of abelian schemes.
+- SPECULATIVE (not compiled): the model-glue lemmas of TailL that take `R1fpProps` would have to be restated.
+- Rigidity is used elsewhere in the chain as well (`r1R2fpRep_iff_ab`, `shimuraFamily_iff_ab`). The same trick
+  (apply the universal property of the target to the abelian scheme of the source) may remove some of those uses.
+  That is SPECULATIVE and was not checked.
 
 ## 6. `#discharges` output (`scratch/p1-quot/discharges_out.txt`)
 
@@ -262,8 +271,8 @@ that was done instead.
 DISCHARGES [OpenGlue7.quotientP1Coordinate] by HDec.MCRQuot.quotientP1Coordinate_of_fields
   still assumes: [HDec.MCRGlue.ProperCurveAF, HDec.MCRGlue.FiniteQuotientExists, HDec.MCRGlue.TameQuotientSmooth,
  HDec.MCRGlue.SmoothModelOfP1, HDec.MCRQuot.EdixhovenFixedSmooth2, AvSplit.MumfordTorsionAlgClosed,
- LeafQM.AV.R1UnivRigid.MumfordRigidityCore, ShimuraGlue.DeligneComponentsY3PrintedAb,
- BPAnalytic.Uniformization.UniformizationLeafAll, ZInQ.HomLattice.GAGAMorphism, HDec.MCRQuot.CMStab24]
+ ShimuraGlue.DeligneComponentsY3PrintedAb, BPAnalytic.Uniformization.UniformizationLeafAll,
+ ZInQ.HomLattice.GAGAMorphism, HDec.MCRQuot.CMStab24]
   axioms: [propext, Classical.choice, Quot.sound]
 DISCHARGES [OpenGlue7.quotientP1Coordinate] by HDec.MCRQuot.quotientP1Coordinate_of_printed
   still assumes: [HDec.MCRGlue.ProperCurveAF, HDec.MCRGlue.FiniteQuotientExists, HDec.MCRGlue.TameQuotientSmooth,
@@ -271,14 +280,14 @@ DISCHARGES [OpenGlue7.quotientP1Coordinate] by HDec.MCRQuot.quotientP1Coordinate
  HDec.PropTSGlue.HeckeIrreducible, HDec.HeckeRest.QMAutCard, HDec.MCRQuot.CMStab24]
   axioms: [propext, Classical.choice, Quot.sound]
 (also discharging: quotientP1Coordinate_of_printed' (with CMStabObjWeak), quotientP1Coordinate_of_leaves' (L1-L6))
-#discharges: 65 open hypotheses, 1595 theorems checked, 7 discharge one
+#discharges: 65 open hypotheses, 1599 theorems checked, 7 discharge one
 ```
 
 **Fold note.**
 
 - `quotientP1Coordinate` is a bundle field (`OpenGlue7`), so no Main.lean edit is needed beyond the fold itself.
 - autofold's `{n}` reaches only the new glue bundle, but T5 and `HeckeIrreducible` come from other bundles
-  (`mumfordTorsionAlgClosed`, and `deligneComponentsY3PrintedAb` with `mumfordRigidityCore`). So the fold needs a
+  (`mumfordTorsionAlgClosed` and `deligneComponentsY3PrintedAb`). So the fold needs a
   hand edit using `quotientP1Coordinate_of_fields`, or those inputs as new fields. (`QMAutCard` likewise comes from
   `uniformizationLeafAll`, `gagaMorphism`, `mumfordTorsionAlgClosed`.)
 - The contribution imports `TailW`, `TailR` and, in FromFields, `TailZ30`. It never imports `Main`.
@@ -308,5 +317,6 @@ Scratch files:
 - `FixedTest.lean`, `FixedTest2.lean`, `FixedAll.lean`: the Edixhoven development. These import the compiled helper
   `QuotientP1/MCRQuotB`.
 - `CMTest.lean`: the CM development (imports the compiled helper `QuotientP1/FixedDisjoint`).
+- `HeckeIrrAb.lean`: `heckeIrreducible_of_ab` (now part of `FromFields.lean`).
 - `final_section.lean`, `final_doc.md`: the main file's body and docstring.
 - `log.md`: the results log.
