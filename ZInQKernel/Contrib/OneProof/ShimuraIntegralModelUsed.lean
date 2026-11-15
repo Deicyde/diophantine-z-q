@@ -22,7 +22,8 @@ object. This file states exactly that as `ShimuraIntegralModelUsed`, and proves
 
 Its derivation from the printed PEL theorem needs Lemma P only over `ℚ̄` (characteristic 0; rv-qm-polar), and
 the Hecke clauses come from Yoneda applied to automorphisms of the PEL functor itself, whose polarizations are
-written down explicitly (`λ ↦ λ ∘ ι(ε v_α)`; rv-qm-polar §§6–7). Report: docs/research/sir-printed.md.
+written down explicitly (`λ ↦ λ ∘ ι(ε v_α)`; rv-qm-polar §§6–7; the identities of the PEL datum that this needs
+are compiled in `scratch/sir-printed/TwistAlgebra.lean`). Report: docs/research/sir-printed.md.
 -/
 
 noncomputable section
