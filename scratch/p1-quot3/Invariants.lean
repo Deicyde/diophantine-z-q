@@ -442,19 +442,16 @@ noncomputable def tensorAut : G →* (k ⊗[R] B ≃ₐ[k] k ⊗[R] B) where
     | add x y hx hy => simp_all
 
 include hι hfix hinv hG in
-/-- **Invariants of a smooth algebra with fibres of dimension `≤ 1`, by a group of invertible order, are
-smooth**, if the residue fields of the (noetherian) base are perfect. -/
-theorem smooth_of_invariants (hRS : RegularSmoothPerfect) [IsNoetherianRing R] [Algebra.Smooth R B]
-    [Algebra.FiniteType R A]
-    (hperf : ∀ (I : Ideal R) [I.IsPrime], PerfectField I.ResidueField)
-    (hdim : ∀ (I : Ideal R) [I.IsPrime], ringKrullDim (I.Fiber B) ≤ 1) : Algebra.Smooth R A := by
+/-- **Base change of invariants** (Reynolds operator): `k ⊗ A → k ⊗ B` is injective, lands in the invariants
+of `G` (acting on the second factor) and its image is all the invariants. -/
+theorem fibre_invariants :
+    Function.Injective (Algebra.TensorProduct.map (AlgHom.id k k) ι) ∧
+    (∀ (g : G) (x : k ⊗[R] A), tensorAut R B G k g (Algebra.TensorProduct.map (AlgHom.id k k) ι x) =
+      Algebra.TensorProduct.map (AlgHom.id k k) ι x) ∧
+    (∀ x : k ⊗[R] B, (∀ g : G, tensorAut R B G k g x = x) →
+      ∃ y, Algebra.TensorProduct.map (AlgHom.id k k) ι y = x) := by
   obtain ⟨r, hr, hri⟩ := exists_retraction R A B ι hι G hfix hinv hG
-  have : Module.Flat R A := Module.Flat.of_retract ι.toLinearMap r hri
-  have : Algebra.FinitePresentation R A := Algebra.FinitePresentation.of_finiteType.mp ‹_›
-  refine Algebra.Smooth.of_formallySmooth_fiber (fun I _ => ?_)
-  have := hperf I
-  set k := I.ResidueField
-  let φ : k ⊗[R] A →ₐ[k] k ⊗[R] B := Algebra.TensorProduct.map (AlgHom.id k k) ι
+  set φ : k ⊗[R] A →ₐ[k] k ⊗[R] B := Algebra.TensorProduct.map (AlgHom.id k k) ι
   letI : MulSemiringAction G (k ⊗[R] B) := MulSemiringAction.compHom _ (tensorAut R B G k)
   have hsmul : ∀ (g : G) (c : k) (b : B), g • (c ⊗ₜ[R] b) = c ⊗ₜ[R] (g • b) := fun _ _ _ => rfl
   let rk : k ⊗[R] B →ₗ[k] k ⊗[R] A := LinearMap.baseChange k r
@@ -495,7 +492,36 @@ theorem smooth_of_invariants (hRS : RegularSmoothPerfect) [IsNoetherianRing R] [
         rw [map_add, map_add, ← hy, ← hz]
         simp only [smul_add, Finset.sum_add_distrib]
     exact ⟨rk x, (h2 x).symm.trans h1⟩
-  have := smooth_of_invariants_field hRS k (k ⊗[R] B) (k ⊗[R] A) φ hφinj G hfix' hinv' (hdim I)
+  exact ⟨hφinj, hfix', hinv'⟩
+
+include hι hfix hinv hG in
+/-- The fibres of `A` and of `B` have the same dimension. -/
+theorem ringKrullDim_fibre_eq :
+    ringKrullDim (k ⊗[R] A) = ringKrullDim (k ⊗[R] B) := by
+  obtain ⟨hφinj, hfix', hinv'⟩ := fibre_invariants R A B ι hι G hfix hinv hG k
+  letI : MulSemiringAction G (k ⊗[R] B) := MulSemiringAction.compHom _ (tensorAut R B G k)
+  letI : Algebra (k ⊗[R] A) (k ⊗[R] B) := (Algebra.TensorProduct.map (AlgHom.id k k) ι).toRingHom.toAlgebra
+  have : Algebra.IsInvariant (k ⊗[R] A) (k ⊗[R] B) G := ⟨hinv'⟩
+  have : Algebra.IsIntegral (k ⊗[R] A) (k ⊗[R] B) := Algebra.IsInvariant.isIntegral _ _ G
+  exact (ZInQ.Contrib.Dim.ringKrullDim_eq_of_isIntegral_of_injective (A := k ⊗[R] A) (B := k ⊗[R] B)
+    hφinj).symm
+
+include hι hfix hinv hG in
+/-- **Invariants of a smooth algebra with fibres of dimension `≤ 1`, by a group of invertible order, are
+smooth**, if the residue fields of the (noetherian) base are perfect. -/
+theorem smooth_of_invariants (hRS : RegularSmoothPerfect) [IsNoetherianRing R] [Algebra.Smooth R B]
+    [Algebra.FiniteType R A]
+    (hperf : ∀ (I : Ideal R) [I.IsPrime], PerfectField I.ResidueField)
+    (hdim : ∀ (I : Ideal R) [I.IsPrime], ringKrullDim (I.Fiber B) ≤ 1) : Algebra.Smooth R A := by
+  obtain ⟨r, hr, hri⟩ := exists_retraction R A B ι hι G hfix hinv hG
+  have : Module.Flat R A := Module.Flat.of_retract ι.toLinearMap r hri
+  have : Algebra.FinitePresentation R A := Algebra.FinitePresentation.of_finiteType.mp ‹_›
+  refine Algebra.Smooth.of_formallySmooth_fiber (fun I _ => ?_)
+  have := hperf I
+  set k := I.ResidueField
+  obtain ⟨hφinj, hfix', hinv'⟩ := fibre_invariants R A B ι hι G hfix hinv hG k
+  letI : MulSemiringAction G (k ⊗[R] B) := MulSemiringAction.compHom _ (tensorAut R B G k)
+  have := smooth_of_invariants_field hRS k (k ⊗[R] B) (k ⊗[R] A) _ hφinj G hfix' hinv' (hdim I)
   infer_instance
 
 end BaseChange
