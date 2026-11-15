@@ -67,3 +67,4 @@
   `linYangEx29_of_all : LinYangEx29All → PkgI1.QMHauptmodul → LinYangEx29`,
   `linYangThetaCurve_of_printedAll : IgusaThetaExpressions → LinYangEx29All → QMHauptmodul → LinYangThetaCurve`
   (VERIFIED compile in all three files: 9, 11, 16 axiom lines, all standard).
+- Verbatim checks (VERIFIED, python substring test): theta-glue blocks l.392-470, 534-551, 578-597 occur byte-identically in LinYangPrinted.lean, LinYangPrintedChain.lean and LinYangPrintedFull.lean (the latter through igusa-alg's verbatim ThetaGlue body); LinYangPrintedFull.lean starts with igusa-alg's IgusaAlg.lean body (import line changed only).
