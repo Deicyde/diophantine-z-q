@@ -86,3 +86,15 @@ axioms [propext, Classical.choice, Quot.sound]. So the consumers' needs follow f
   `frozenTarget_of_theta`. `lake build ZInQKernel.Contrib.OneProof.X0ModuliUsed`: OK; all axioms standard.
 * `discharges.txt` rerun: `63 open hypotheses, 1987 theorems checked, 7 discharge one` (none from this file: no
   theorem here concludes an open hypothesis; `hX` is replaced, not proved).
+
+## 7. Attempt: prove `ThetaWeierstrass8` (started 07:00)
+
+Plan (numerics VERIFIED in `num/check_s2.py`, `num/products.py`):
+* th1(z) := e^{πiz} θ(z + (1+τ)/2; τ) (odd, th1(z+1) = −th1, th1(z+τ) = −e^{−πiτ−2πiz} th1); zeros = lattice, simple
+  (triple product: th1 = (1 − e(−z))·e^{πiz}·A·B(z + c₀)·B(−z + c₀), R(0) = A³ ≠ 0).
+* Q(z) = (℘(z) − ℘(c))·th1(z)²/(th1(z−c)th1(z+c)) is meromorphic with order ≥ 0 everywhere and periodic ⇒ its
+  normal form is entire periodic ⇒ constant (Liouville, as Mathlib's `relation_eq_zero`); K ≠ 0 from ord₀ Q = 0.
+* R = G(a)/G(b), G = th1(z−c)th1(z+c)/th1(z)², a = 1/2, b = 3w/8, c = 1/2 + w/8 (num: |R − R_σ| ~ 1e-41).
+* With the kernel's `theta_parity` at w/16: ThetaWeierstrass8 ⇔ R = −θ(1/2; w/4)/(2e^{πiw/4}θ(w/2; w)), a product
+  identity in v = q^{1/4}; exponent bookkeeping (`products.py`) shows it is a formal rearrangement (mismatches only
+  at the n = 0 factors that carry monomials).
