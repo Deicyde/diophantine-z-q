@@ -15,9 +15,9 @@ namespace HDec
 
 namespace HSyn
 
-/-- `OpenAddedLeaves17` with the leaves `igusaThetaExpressions`, `linYangEx29All` (theta-fold). -/
+/-- `OpenAddedLeaves17` (after the prune, without `thetaRatiosAlgebraic`) with the leaves `igusaThetaExpressions`,
+`linYangEx29All` (theta-fold). -/
 structure OpenAddedLeaves18 : Prop where
-  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
   tateTwistInvariants : _root_.ZInQ.Contrib.HodgeSplit.TateTwistInvariants
   axSenTate : _root_.ZInQ.Contrib.HodgeSplit.AxSenTate
   milneIsogenyQuasiInverse : _root_.AvSplit.MilneIsogenyQuasiInverse
@@ -56,7 +56,7 @@ structure OpenAddedLeaves18 : Prop where
   Siegel Eisenstein series `ψ₄`, `ψ₆` (sums over `Γ_∞\Sp₄(ℤ)`) and Igusa's cusp forms `χ₁₀`, `χ₁₂` (his 1962
   combinations of Eisenstein series) equal theta-glue's theta expressions (Igusa, Amer. J. Math. 86 (1964) and 89
   (1967) p. 848; locators UNVERIFIED; 76 Fourier coefficients checked exactly by linyang-printed). With
-  `linYangEx29All` replaces `thetaRatiosAlgebraic`. -/
+  `linYangEx29All` replaces the universal field `thetaRatiosAlgebraic` (pruned). -/
   igusaThetaExpressions : G0Split.ThetaPt.LinYangPrinted.IgusaThetaExpressions
   /-- theta-fold (linyang-printed), printed form: **Lin–Yang 2020, Example 29, the relations only.** For every
   normalized Hauptmodul `j₆` of `Γ*\ℍ` (values `0, ∞, −16/27` at the CM points of discriminants `−4, −3, −24`),
@@ -67,7 +67,6 @@ structure OpenAddedLeaves18 : Prop where
 
 /-- `OpenAddedLeaves17` from `OpenAddedLeaves18` (theta-fold). -/
 theorem openAddedLeaves17_of_OpenAddedLeaves18 (n : OpenAddedLeaves18) : OpenAddedLeaves17 where
-  thetaRatiosAlgebraic := n.thetaRatiosAlgebraic
   tateTwistInvariants := n.tateTwistInvariants
   axSenTate := n.axSenTate
   milneIsogenyQuasiInverse := n.milneIsogenyQuasiInverse

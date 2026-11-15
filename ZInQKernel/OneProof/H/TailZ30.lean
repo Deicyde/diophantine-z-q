@@ -12,7 +12,6 @@ namespace HSyn
 
 /-- `OpenAddedLeaves14` without `qmCentralizerCMC` (leaf-fold18). -/
 structure OpenAddedLeaves15 : Prop where
-  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
   tateTwistInvariants : _root_.ZInQ.Contrib.HodgeSplit.TateTwistInvariants
   axSenTate : _root_.ZInQ.Contrib.HodgeSplit.AxSenTate
   milneIsogenyQuasiInverse : _root_.AvSplit.MilneIsogenyQuasiInverse
@@ -52,7 +51,6 @@ structure OpenAddedLeaves15 : Prop where
 
 /-- `OpenAddedLeaves14` from `OpenAddedLeaves15`: `qmCentralizerCMC` by the contributions. -/
 theorem openAddedLeaves14_of_OpenAddedLeaves15 (n : OpenAddedLeaves15) (t : OpenTextbookLeaves10) : OpenAddedLeaves14 where
-  thetaRatiosAlgebraic := n.thetaRatiosAlgebraic
   qmCentralizerCMC := _root_.HDec.QMLattice.qmCentralizerCMC_of t.uniformizationLeafAll t.gagaMorphism t.mumfordTorsionAlgClosed
   tateTwistInvariants := n.tateTwistInvariants
   axSenTate := n.axSenTate

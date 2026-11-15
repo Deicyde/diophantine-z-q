@@ -150,7 +150,6 @@ structure OpenTextbookLeaves7 : Prop where
 `ShimuraTaniyamaQbar`, `isogenyQuasiInverse` by `MilneIsogenyQuasiInverse`, `senTwist`, `finiteImageHT` by
 Tate's two theorems, and `shimuraGoodReduction` by its guard-free form. 16 fields. -/
 structure OpenAddedLeaves7 : Prop where
-  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
   qmHauptmodulBase3 : LeafQCheck.HM.QMHauptmodulBase3
   /-- qm-split, H-42/H-61/H-63: `End_𝒪(A)` of a QM surface over `ℂ` is `ℤ` or an optimally embedded order of an
   imaginary quadratic field (replaces `cmOptimalEmbedding`, `qmAutCard`, `alFixedPoints`). -/
@@ -245,7 +244,6 @@ theorem qmRows_of7 (t : OpenTextbookLeaves7) (l : OpenAddedLeaves7) :
 theorem addedLeaves6_of_open7 (r : OpenResearchLeaves7) (t : OpenTextbookLeaves7) (l : OpenAddedLeaves7) :
     OpenAddedLeaves6 where
   cmOptimalEmbedding := (qmRows_of7 t l).2.2
-  thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
   qmHauptmodulBase3 := l.qmHauptmodulBase3
   qmClassNumberOne := QMSplit.CNO.qmClassNumberOne_proof
   senTwist := HodgeLF7.senTwist (_root_.ZInQ.Contrib.HodgeSplit.senTwist_of_tate l.tateTwistInvariants l.axSenTate)

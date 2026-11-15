@@ -126,7 +126,6 @@ structure OpenTextbookLeaves8 : Prop where
 `qmHauptmodulBase3` replaced by the valence formula, Shimizu's covolume and the CM value at `−24` (qm-glue). 14
 fields. -/
 structure OpenAddedLeaves8 : Prop where
-  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
   qmCentralizerCMC : QMSplit.Aut.QMCentralizerCMC
   tateTwistInvariants : _root_.ZInQ.Contrib.HodgeSplit.TateTwistInvariants
   axSenTate : _root_.ZInQ.Contrib.HodgeSplit.AxSenTate
@@ -230,7 +229,6 @@ theorem textbookLeaves7_of_open8 (t : OpenTextbookLeaves8) : OpenTextbookLeaves7
 
 /-- leaf-fold7's added bundle from leaf-fold8's. -/
 theorem addedLeaves7_of_open8 (r : OpenResearchLeaves8) (l : OpenAddedLeaves8) : OpenAddedLeaves7 where
-  thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
   qmHauptmodulBase3 := LeafQCheck.HM.QMSplit.qmHauptmodulBase3_of_leaves
     (QMSplit.Theta.thetaModularity_of r.igusaPsi4 r.igusaChi10) l.valenceFormulaCocompactEq l.shimizuCovolumeO1
     l.igusaCMValue24

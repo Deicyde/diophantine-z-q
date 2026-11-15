@@ -20,3 +20,9 @@
   TailZ41: OpenAddedLeaves18 = OpenAddedLeaves17 + igusaThetaExpressions + linYangEx29All, open29; Main switched)
   compiled first try: `lake build +ZInQKernel.OneProof.Main` OK (12991 jobs; LinYangGlue 109 s), frozenTarget axioms
   standard. kinds.tsv: thetaRatiosAlgebraic row deleted, two rows added; claims.tsv: thetaRatiosAlgebraic row deleted.
+- 05:40 PruneScan after step 1: exactly OpenAddedLeaves18.thetaRatiosAlgebraic UNUSED; prune set 12 fields
+  (OpenAddedLeaves4/6/7/8/9/12/13/14/15/16/17/18.thetaRatiosAlgebraic), no constants (prune-set-step1.txt).
+  DeadCascade: addedLeaves5_of_open6 (TailO), addedLeaves11_of_open12, sixContactMin_of_open16 (TailZ22) + casesOn/recOn.
+- 06:05 step 2 (prune_edit.py; every deleted line in prune_edit_out.txt): 12 fields, 13 assignments, the element in
+  openAddedLeaves4_of_Q5's anonymous constructor, 3 dead readers + #print lines. `lake build +ZInQKernel.OneProof.Main
+  +ZInQKernel.OneProof.Discharges` OK (12992 jobs); frozenTarget axioms standard.

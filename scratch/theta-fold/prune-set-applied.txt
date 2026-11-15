@@ -1,0 +1,12 @@
+FIELD ZInQKernel.OneProof.H.TailK HDec.HSyn.OpenAddedLeaves4.thetaRatiosAlgebraic
+FIELD ZInQKernel.OneProof.H.TailO HDec.HSyn.OpenAddedLeaves6.thetaRatiosAlgebraic
+FIELD ZInQKernel.OneProof.H.TailX HDec.HSyn.OpenAddedLeaves7.thetaRatiosAlgebraic
+FIELD ZInQKernel.OneProof.H.TailZ13 HDec.HSyn.OpenAddedLeaves9.thetaRatiosAlgebraic
+FIELD ZInQKernel.OneProof.H.TailZ22 HDec.HSyn.OpenAddedLeaves12.thetaRatiosAlgebraic
+FIELD ZInQKernel.OneProof.H.TailZ24 HDec.HSyn.OpenAddedLeaves13.thetaRatiosAlgebraic
+FIELD ZInQKernel.OneProof.H.TailZ26 HDec.HSyn.OpenAddedLeaves14.thetaRatiosAlgebraic
+FIELD ZInQKernel.OneProof.H.TailZ30 HDec.HSyn.OpenAddedLeaves15.thetaRatiosAlgebraic
+FIELD ZInQKernel.OneProof.H.TailZ31 HDec.HSyn.OpenAddedLeaves16.thetaRatiosAlgebraic
+FIELD ZInQKernel.OneProof.H.TailZ34 HDec.HSyn.OpenAddedLeaves17.thetaRatiosAlgebraic
+FIELD ZInQKernel.OneProof.H.TailZ4 HDec.HSyn.OpenAddedLeaves8.thetaRatiosAlgebraic
+FIELD ZInQKernel.OneProof.H.TailZ41 HDec.HSyn.OpenAddedLeaves18.thetaRatiosAlgebraic

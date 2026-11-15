@@ -253,7 +253,6 @@ theorem researchLeaves10_of_open11 (r : OpenResearchLeaves11) : OpenResearchLeav
 /-- leaf-fold10's added-leaf bundle from route-a-fold's: Deligne's printed theorem on `Y₃` from its
 abelian-scheme form and the research field `mumfordRigidityCore`. -/
 theorem addedLeaves9_of_open10 (r : OpenResearchLeaves11) (l : OpenAddedLeaves10) : OpenAddedLeaves9 where
-  thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
   qmCentralizerCMC := l.qmCentralizerCMC
   tateTwistInvariants := l.tateTwistInvariants
   axSenTate := l.axSenTate

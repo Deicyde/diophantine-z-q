@@ -17,7 +17,6 @@ namespace HSyn
 /-- **The added leaves still open** (leaf-fold10): leaf-fold8's `OpenAddedLeaves8` with `y3Connected` replaced by
 shimura-glue's `DeligneComponentsY3Printed`. 14 fields. -/
 structure OpenAddedLeaves9 : Prop where
-  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
   qmCentralizerCMC : QMSplit.Aut.QMCentralizerCMC
   tateTwistInvariants : _root_.ZInQ.Contrib.HodgeSplit.TateTwistInvariants
   axSenTate : _root_.ZInQ.Contrib.HodgeSplit.AxSenTate
@@ -45,7 +44,6 @@ structure OpenAddedLeaves9 : Prop where
 
 /-- leaf-fold8's added-leaf bundle from leaf-fold10's: `y3Connected` from the printed Deligne leaf. -/
 theorem addedLeaves8_of_open9 (l : OpenAddedLeaves9) : OpenAddedLeaves8 where
-  thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
   qmCentralizerCMC := l.qmCentralizerCMC
   tateTwistInvariants := l.tateTwistInvariants
   axSenTate := l.axSenTate

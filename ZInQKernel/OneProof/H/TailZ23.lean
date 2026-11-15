@@ -738,7 +738,6 @@ theorem semistableReductionDVR_of14 (r : OpenResearchLeaves14) (t : OpenTextbook
 `addedLeaves10_of_open11` and `addedLeaves9_of_open10`). -/
 theorem addedLeaves9_of_open14 (r : OpenResearchLeaves14) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves12) :
     OpenAddedLeaves9 where
-  thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
   qmCentralizerCMC := l.qmCentralizerCMC
   tateTwistInvariants := l.tateTwistInvariants
   axSenTate := l.axSenTate

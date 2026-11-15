@@ -188,7 +188,6 @@ structure OpenTextbookLeaves4 : Prop where
   leaves (for `AbVarSpreadsOut`). -/
 structure OpenAddedLeaves4 : Prop where
   cmOptimalEmbedding : FS5NoCM.CMOptimalEmbedding
-  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
   qmHauptmodul : PkgI1.QMHauptmodul
   qmClassNumberOne : G0Split.FibreQM.QMClassNumberOne
   senTwist : G0Galois.SenTwist

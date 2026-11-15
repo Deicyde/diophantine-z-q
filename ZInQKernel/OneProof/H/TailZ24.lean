@@ -767,7 +767,6 @@ namespace HSyn
 `t09SymmIsogenyExists` (t09-pic's `T09Pic.t09SymmIsogenyExists_of_four`), with its four printed leaves added.
 17 fields. -/
 structure OpenAddedLeaves13 : Prop where
-  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
   qmCentralizerCMC : QMSplit.Aut.QMCentralizerCMC
   tateTwistInvariants : _root_.ZInQ.Contrib.HodgeSplit.TateTwistInvariants
   axSenTate : _root_.ZInQ.Contrib.HodgeSplit.AxSenTate
@@ -813,7 +812,6 @@ structure OpenAddedLeaves13 : Prop where
 
 /-- x6-fold's added-leaf bundle from leaf-fold14's: `t09SymmIsogenyExists` from t09-pic's four printed leaves. -/
 theorem addedLeaves12_of_open13 (l : OpenAddedLeaves13) : OpenAddedLeaves12 where
-  thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
   qmCentralizerCMC := l.qmCentralizerCMC
   tateTwistInvariants := l.tateTwistInvariants
   axSenTate := l.axSenTate
