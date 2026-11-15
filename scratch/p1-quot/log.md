@@ -16,3 +16,19 @@ Target: `HDec.MCRGlue.QuotientP1Coordinate` (ZInQKernel/OneProof/H/TailW.lean L2
   errors (port1_out.txt). So all of mcr-quot holds verbatim over the chain's constants (HDec.MCRGlue.*).
 
 ## P1SchemeQ (P1Test.lean)
+- P1Test.lean: `P1SchemeQ` (verbatim test copy of MCRQuot.lean L8549 with verbatim copies of
+  `IsP1CoordinateQ`, `baseToSectionsOver`) proved: VERIFIED, `#print axioms` = [propext, Classical.choice,
+  Quot.sound]. P = `ProjectiveSpace (ULift (Fin 2)) (Spec ℚ)` (CloudW07 relative line), τ.f = `coordRatio i0 i1`,
+  τ.g = `coordRatio i1 i0`; universal map from CloudW07 `Scheme.CoordinateCover.hom` on the cover {σ.U, σ.V}
+  with ratios 1, σ.f, σ.g, 1; smoothness via charts ≅ 𝔸¹ (`standardOpenIso`, Mathlib
+  `AffineSpace.smoothOfRelativeDimension_of_card_eq`); chart bijectivity via
+  ℚ[X] ≃ MvPolynomial ≃ Γ(Spec) ≃ Γ(𝔸) ≃ Γ(chart).
+- P1Scheme.lean: same over `import ZInQKernel.OneProof.H.TailW` with the chain's `HDec.MCRGlue.IsP1CoordinateQ`
+  and `baseToSectionsOver`: VERIFIED (24 s), standard axioms.
+
+## Port2.lean (single-file composite)
+- = P1Scheme.lean + Port1 body + final section. VERIFIED compiles (16 s warm), port2_out.txt:
+  `HDec.MCRQuot.p1SchemeQ : P1SchemeQ` and
+  `HDec.MCRQuot.quotientP1Coordinate_of_leaves' (L1..L6) (hT : ObjBridge.TorsionStructure) (hC : CurveBijIso)
+   (hYI : PropTSGlue.HeckeIrreducible) (hO : CMStabObj) : MCRGlue.QuotientP1Coordinate`, both
+  [propext, Classical.choice, Quot.sound].
