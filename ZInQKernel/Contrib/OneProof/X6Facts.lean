@@ -14,7 +14,13 @@ clauses are Elkies' value clauses; the converse clauses (a point over `t₄` has
 Elkies' fibre clause, one CM pair of each kind (`Ψ` is onto the classes), and the invariance of the CM
 predicates under twists and isomorphisms (the argument of the chain's `LeafQM.AV.cm_of_val`).
 
-The second field of the task, `gonzalezRotgerX6Ab`, is not reduced here (docs/research/gt-x6facts.md §3). -/
+Conversely `QMPairsCMExist` follows from `BabaGranathRationalAb` alone (`qmPairsCMExist_of_babaGranath`, through
+the chain's `ShimuraSplit.surj_of_fibre`), so under Elkies' leaf the two are equivalent (`babaGranathRationalAb_iff`)
+and the new leaf is strictly weaker than the field it replaces. `QMPairsCMExist` is itself reduced to its printed
+setting over `ℂ`, `QMPairsCMExistC`, with the bundle field `shimuraTaniyamaQbar` and the chain's T11(b)
+(`qmPairsCMExist_of_C`).
+
+The second field of the task, `gonzalezRotgerX6Ab`, stays a published leaf (docs/research/gt-x6facts.md §3). -/
 
 namespace HDec.QMSplit.Moduli.X6Facts
 
