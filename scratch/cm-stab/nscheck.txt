@@ -1,0 +1,13 @@
+count 82
+def HDec.MCRQuot.CMStabObjWeakT : Prop :=
+∀ (P : LeafQM.AV.QML3 LeafQM.AV.Qbar),
+  LeafQM.AV.HasCM4 P.q ∨ LeafQM.AV.HasCM3 P.q ∨ LeafQM.AV.HasCM24 P.q →
+    ∃ α u,
+      LeafQM.AV.M3.twist α (LeafQM.AV.M3.rightMul u (LeafQM.AV.M3.mk P)) = LeafQM.AV.M3.mk P ∧
+        ∃ m, LeafQM.AV.M3.twist α (LeafQM.AV.M3.rightMul u m) ≠ m
+def GapGlue.CMStabObjWeak : Prop :=
+∀ (P : LeafQM.AV.QML3 LeafQM.AV.Qbar),
+  LeafQM.AV.HasCM4 P.q ∨ LeafQM.AV.HasCM3 P.q ∨ LeafQM.AV.HasCM24 P.q →
+    ∃ α u,
+      LeafQM.AV.M3.twist α (LeafQM.AV.M3.rightMul u (LeafQM.AV.M3.mk P)) = LeafQM.AV.M3.mk P ∧
+        ∃ m, LeafQM.AV.M3.twist α (LeafQM.AV.M3.rightMul u m) ≠ m
