@@ -11,13 +11,13 @@ Each hypothesis is a Lean `Prop`; proving one in Lean, or reducing it to stateme
 removes it. See
 [CONTRIBUTING.md](CONTRIBUTING.md) for how to contribute and check a proof.
 
-**57 hypotheses of the H part** (in the bundles `OpenAddedLeaves16`, `OpenGlue7`, `OpenResearchLeaves20`, `OpenTextbookLeaves11`), plus 7 hypotheses of the Tian–Yuan–Zhang and Gross–Zagier parts listed at the end.
+**57 hypotheses of the H part** (in the bundles `OpenAddedLeaves18`, `OpenGlue7`, `OpenResearchLeaves21`, `OpenTextbookLeaves11`), plus 7 hypotheses of the Tian–Yuan–Zhang and Gross–Zagier parts listed at the end.
 
-* **Strict count: 45 published / 12 glue** (the strictest flagged reading; 46/11 without the one strictest-reading flag).
+* **Strict count: 47 published / 10 glue** (the strictest flagged reading; 48/9 without the one strictest-reading flag).
 * LEAF means a published, refereed theorem stated over genuine definitions in its printed form, or a consequence
   of it that is never stronger. GLUE is everything else: a consequence of one theorem, a composite of several,
   project glue, or a leaf whose published form is still pending a reading (`kinds.tsv`, column `flag`).
-* By kind: composite 4, consequence 5, project glue 1, published 47.
+* By kind: composite 3, consequence 4, project glue 1, published 49.
 
 ## How to help
 
@@ -42,11 +42,8 @@ ping, and is released if there is no reply within 7 days of the ping.
 
 | hypothesis | holder | since |
 | --- | --- | --- |
-| [`shimuraFamilyAb`](#shimurafamilyab) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/gt-rayclass)) | 2026-11-15 |
 | [`r7a`](#r7a) | the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/37#issuecomment-6885322130)) | 2026-11-14 |
 | [`r16`](#r16) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/r16-split)) | 2026-11-15 |
-| [`mumfordRigidityCore`](#mumfordrigiditycore) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/rigid-prune)) | 2026-11-15 |
-| [`rayClassCMAb`](#rayclasscmab) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/gt-rayclass)) | 2026-11-15 |
 | [`elkiesX6StarPrinted`](#elkiesx6starprinted) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/elkies-coord)) | 2026-11-15 |
 | [`mumfordTorsionAlgClosed`](#mumfordtorsionalgclosed) | the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/81#issuecomment-6887798791)) | 2026-11-15 |
 | [`homFreeFiniteAlgClosed`](#homfreefinitealgclosed) | the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/81#issuecomment-6885321564)) | 2026-11-14 |
@@ -60,12 +57,10 @@ ping, and is released if there is no reply within 7 days of the ping.
 | [`regularSmoothPerfect`](#regularsmoothperfect) | the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/83#issuecomment-6887798638)) | 2026-11-15 |
 | [`igusaGL2`](#igusagl2) | the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/83#issuecomment-6887798638)) | 2026-11-15 |
 | [`neronSchemeExtensionExists`](#neronschemeextensionexists) | the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/85#issuecomment-6885321289)) | 2026-11-14 |
-| [`thetaRatiosAlgebraic`](#thetaratiosalgebraic) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/igusa-alg)) | 2026-11-14 |
 | [`tateTwistInvariants`](#tatetwistinvariants) | the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/84#issuecomment-6887798335)) | 2026-11-15 |
 | [`axSenTate`](#axsentate) | the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/84#issuecomment-6887798335)) | 2026-11-15 |
 | [`milneIsogenyQuasiInverse`](#milneisogenyquasiinverse) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-6893816394)) | 2026-11-15 |
 | [`egaIV_8_10_5_xii`](#egaiv_8_10_5_xii) | the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/80#issuecomment-6885320942)) | 2026-11-14 |
-| [`shimuraGoodReductionNoGuard`](#shimuragoodreductionnoguard) | the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/79#issuecomment-6887798479)) | 2026-11-15 |
 | [`geomConnOfAlgClosure`](#geomconnofalgclosure) | the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/86#issuecomment-6887798957)) | 2026-11-15 |
 | [`quotientP1Coordinate`](#quotientp1coordinate) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/mcr-quot)) | 2026-11-15 |
 | [`h11`](#h11) | the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/74#issuecomment-6885321859)) | 2026-11-14 |
@@ -91,7 +86,7 @@ Reduction block: SGA 7 I Exp. IX, BLR 1.2 Prop. 4, Serre-Tate 1968. Claim it on 
 Unread locators: SGA 3, EGA IV, Faltings 1983 Lemma 5, GIT, BLR 1.4, 7.2, 7.3. Claim it on [Deicyde #14](https://github.com/Deicyde/diophantine-z-q/issues/14).
 
 * [`neronSchemeModelExistsDVR`](#neronschememodelexistsdvr) (LEAF): BLR, Neron models, 1.4 Thm 3 over a DVR, scheme form (no group law)
-* [`mumfordRigidityCore`](#mumfordrigiditycore) (LEAF; unverified-locator): Mumford, Geometric Invariant Theory, Thm 6.14 and Cor. 6.4 (numbers UNVERIFIED)
+* [`mumfordGroupLaw`](#mumfordgrouplaw) (LEAF; pending-review): Mumford-Fogarty-Kirwan, Geometric Invariant Theory, Thm 6.14 (S connected locally noetherian, F -> S smooth proper with a section e, a fibre an abelian variety: F is an abelian scheme with identity e), on each connected component; numbers UNVERIFIED
 * [`faltingsLemma5Printed`](#faltingslemma5printed) (LEAF; unread, unverified-locator): Faltings 1983, Lemma 5 (locator UNVERIFIED; not read)
 * [`sga3_VIB_3_10`](#sga3_vib_3_10) (LEAF; unverified-locator): SGA 3 VI_B 3.10 (number UNVERIFIED)
 * [`neronSchemeExtensionExists`](#neronschemeextensionexists) (LEAF): BLR 1.4 Thm 3
@@ -156,8 +151,7 @@ Picard scheme and Weil pairing. Claim it on [Deicyde #14](https://github.com/Dei
 | hypothesis | bundle | kind | strict | flag class | label | tier | area | human reads | status |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | [`deligneComponentsY3PrintedAb`](#delignecomponentsy3printedab) | added | published | GLUE | pending-reading, unverified-locator | bigger | T4 | [elliotglazer #79](https://github.com/elliotglazer/diophantine-z-q/issues/79) | 0 | open |
-| [`shimuraGoodReductionNoGuard`](#shimuragoodreductionnoguard) | added | composite | GLUE |  |  | T4 | [elliotglazer #79](https://github.com/elliotglazer/diophantine-z-q/issues/79) | 0 | held by the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/79#issuecomment-6887798479)) |
-| [`thetaRatiosAlgebraic`](#thetaratiosalgebraic) | added | composite | GLUE |  |  | T2 | [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/igusa-alg)) |
+| [`shimuraIntegralModelRep`](#shimuraintegralmodelrep) | added | consequence | GLUE | pending-reading |  |  | [elliotglazer #79](https://github.com/elliotglazer/diophantine-z-q/issues/79) | 0 | open |
 | [`weilPairingMumford`](#weilpairingmumford) | added | published | GLUE | strictest, pending-review, unverified-locator |  |  | [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81) | 0 | project interest, free to claim |
 | [`quotientP1Coordinate`](#quotientp1coordinate) | glue | project glue | GLUE |  | wave | T3 | [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/mcr-quot)) |
 | [`eigenformHTNew`](#eigenformhtnew) | research | consequence | GLUE |  | long-pole | T4 | [elliotglazer #84](https://github.com/elliotglazer/diophantine-z-q/issues/84) | 0 | open |
@@ -165,12 +159,13 @@ Picard scheme and Weil pairing. Claim it on [Deicyde #14](https://github.com/Dei
 | [`r11r12`](#r11r12) | research | composite | GLUE |  | long-pole | T4 | [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37) | 0 | open |
 | [`r16`](#r16) | research | composite | GLUE |  | long-pole | T4 | [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/r16-split)) |
 | [`r17`](#r17) | research | consequence | GLUE |  | long-pole | T4 | [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37) | 0 | open |
-| [`rayClassCMAb`](#rayclasscmab) | research | consequence | GLUE |  |  |  | [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/gt-rayclass)) |
-| [`shimuraFamilyAb`](#shimurafamilyab) | research | consequence | GLUE |  |  | T4 | [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/gt-rayclass)) |
+| [`shimuraMainThmIDeligneY3AbU`](#shimuramainthmideligney3abu) | research | composite | GLUE |  |  |  | [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86) | 0 | open |
 | [`axSenTate`](#axsentate) | added | published | LEAF |  |  | T2 | [elliotglazer #84](https://github.com/elliotglazer/diophantine-z-q/issues/84) | 0 | held by the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/84#issuecomment-6887798335)) |
 | [`deligneComponentsX6PrintedAb`](#delignecomponentsx6printedab) | added | published | LEAF | unverified-locator |  |  | [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86) | 0 | open |
 | [`egaIV_8_10_5_xii`](#egaiv_8_10_5_xii) | added | published | LEAF |  |  | T2 | [elliotglazer #80](https://github.com/elliotglazer/diophantine-z-q/issues/80) | 0 | held by the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/80#issuecomment-6885320942)) |
 | [`geomConnOfAlgClosure`](#geomconnofalgclosure) | added | published | LEAF | restricted |  |  | [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86) | 0 | held by the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/86#issuecomment-6887798957)) |
+| [`igusaThetaExpressions`](#igusathetaexpressions) | added | published | LEAF | pending-review, unverified-locator |  |  | [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86) | 0 | open |
+| [`linYangEx29All`](#linyangex29all) | added | published | LEAF | pending-review, unverified-locator |  |  | [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86) | 0 | open |
 | [`milneIsogenyQuasiInverse`](#milneisogenyquasiinverse) | added | published | LEAF |  | project-interest | T2 | [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-6893816394)) |
 | [`phiAmpleIsogeny`](#phiampleisogeny) | added | published | LEAF | note, pending-review, unverified-locator |  |  | [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81) | 0 | project interest, free to claim |
 | [`picRepresentableAbVar`](#picrepresentableabvar) | added | published | LEAF | pending-review |  |  | [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81) | 0 | project interest, free to claim |
@@ -188,7 +183,7 @@ Picard scheme and Weil pairing. Claim it on [Deicyde #14](https://github.com/Dei
 | [`gonzalezRotgerX6Ab`](#gonzalezrotgerx6ab) | research | published | LEAF | unverified-locator |  |  | [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86) | 0 | open |
 | [`hodgeTateDecompAbVar`](#hodgetatedecompabvar) | research | published | LEAF |  | long-pole | T4 | [elliotglazer #84](https://github.com/elliotglazer/diophantine-z-q/issues/84) | 0 | open |
 | [`javanpeykarBound`](#javanpeykarbound) | research | published | LEAF |  | long-pole | T4 | [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85) | 0 | open |
-| [`mumfordRigidityCore`](#mumfordrigiditycore) | research | published | LEAF | unverified-locator | bigger | T3 | [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/rigid-prune)) |
+| [`mumfordGroupLaw`](#mumfordgrouplaw) | research | published | LEAF | pending-review | bigger | T3 | [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86) | 0 | project interest, free to claim |
 | [`neronBaseChangeStrictHenselization`](#neronbasechangestricthenselization) | research | published | LEAF | unverified-locator |  |  | [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85) | 0 | project interest, free to claim |
 | [`neronSchemeModelExistsDVR`](#neronschememodelexistsdvr) | research | published | LEAF |  | narrowing | T1-T2 | [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85) | 0 | pending narrowing: a narrower restatement is planned, so it is not offered as stated |
 | [`pazukiCor13Upper`](#pazukicor13upper) | research | published | LEAF |  | long-pole | T4 | [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85) | 0 | open |
@@ -224,7 +219,7 @@ Picard scheme and Weil pairing. Claim it on [Deicyde #14](https://github.com/Dei
 
 ### deligneComponentsY3PrintedAb
 
-* Bundle field `HDec.HSyn.OpenAddedLeaves16.deligneComponentsY3PrintedAb`; kind **published**, strict **GLUE**; flag: pending reading: depends (medium), whether one display states that the PEL moduli scheme with its uniformization is the canonical model at B = (2,-3|Q), level K3 (Deligne 389 section 5, Milne 2005 section 14).
+* Bundle field `HDec.HSyn.OpenAddedLeaves18.deligneComponentsY3PrintedAb`; kind **published**, strict **GLUE**; flag: pending reading: depends (medium), whether one display states that the PEL moduli scheme with its uniformization is the canonical model at B = (2,-3|Q), level K3 (Deligne 389 section 5, Milne 2005 section 14).
 * Source: Deligne, Sem. Bourbaki 389 (1971) Thm 2.4 and 3; PSPM 33 (1979) 2.1.3, 2.6.3; Milne 2005 Thms 5.17, 13.6 (UNVERIFIED): pi0(Y x_Q Qbar) = Q_{>0}^x \ A_f^x / nrd(K3) with sigma acting by the cyclotomic idele to a fixed sign, for G = B^x, B = (2,-3|Q), at level K3, on one fine witness Y3 (with the R1fp clause list and Lemma QP, as for r1r2); over Mathlib's FiniteAdeleRing, QuaternionAlgebra, cyclotomicCharacter, ConnectedComponents
 * packet [R4](#packet-r4); label bigger (a bigger investment); tier T4 (model triage, unreviewed); discussion: [elliotglazer #79](https://github.com/elliotglazer/diophantine-z-q/issues/79).
 * Human readings recorded: none.
@@ -238,47 +233,23 @@ ShimuraGlue.DeligneComponentsY3PrintedAb
 > components of a Shimura variety for `G = B^×` at level `K₃` on one fine witness `Y₃` (Deligne, Sém. Bourbaki
 > 389 (1971) Thm 2.4, §3; PSPM 33 (1979) 2.1.3, 2.6.3; locators UNVERIFIED).
 
-### shimuraGoodReductionNoGuard
+### shimuraIntegralModelRep
 
-* Bundle field `HDec.HSyn.OpenAddedLeaves16.shimuraGoodReductionNoGuard`; kind **composite**, strict **GLUE**.
-* Source: vert-witness's ShimuraGoodReduction without the Qbar-point guard (redundant given r1r2): Kottwitz 1992 5; Buzzard 1997; Morita 1981; Carayol 1986 (not statable in published form today, curve-split 3.6)
-* tier T4 (model triage, unreviewed); discussion: [elliotglazer #79](https://github.com/elliotglazer/diophantine-z-q/issues/79).
+* Bundle field `HDec.HSyn.OpenAddedLeaves18.shimuraIntegralModelRep`; kind **consequence**, strict **GLUE**; flag: pending reading: Kottwitz 1992 section 5 is the PEL functor; the polarization-free integral form needs a relative Lemma P over every locally noetherian base and the rational-to-integral level comparison; Buzzard and Morita may require level prime to D (level 3 at 3 | 6); locators UNVERIFIED.
+* Source: Kottwitz, J. AMS 5 (1992) section 5; Buzzard, Duke Math. J. 87 (1997) sections 1-4; Morita, Hokkaido Math. J. 10 (1981); Carayol, Compositio 59 (1986) secondary (locators UNVERIFIED); Lan 2013, Thms 1.4.1.11 and 5.3.3.1 (second locators)
+* discussion: [elliotglazer #79](https://github.com/elliotglazer/diophantine-z-q/issues/79).
 * Human readings recorded: none.
-* Status: held by the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/79#issuecomment-6887798479)).
+* Status: open.
 
 ```lean
-HDec.CurveSplitGR.ShimuraGoodReductionNoGuard
+SGRSplit.ShimuraIntegralModelRep
 ```
 
-> `ShimuraGoodReduction` without the guard clause.
-
-### thetaRatiosAlgebraic
-
-* Bundle field `HDec.HSyn.OpenAddedLeaves16.thetaRatiosAlgebraic`; kind **composite**, strict **GLUE**.
-* Source: Shimura 1976; Mumford Tata II IIIa 8; Igusa (qm-split: ThetaNullNonvanishing + glue, not folded)
-* tier T2 (model triage, unreviewed); discussion: [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86).
-* Human readings recorded: none.
-* Status: held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/igusa-alg)).
-
-```lean
-HDec.HSyn.G0Split.ThetaPt.ThetaRatiosAlgebraic
-```
-
-> **LEAF candidate (theta-constant ratios are algebraic numbers).** For an abelian variety `A`
-> over a number field `K`, a uniformization `Φ : ℂ² → A(ℂ)_σ` with kernel `Λ` and any period matrix
-> `Ω ∈ 𝔥₂` of `Λ`: some theta constant `θ_{m₀}(0, Ω)` is nonzero and every ratio
-> `θ_m(0, Ω)/θ_{m₀}(0, Ω)` is an algebraic number. This is the form in which the literature states
-> it (values of Siegel modular functions with algebraic Fourier coefficients at a point whose
-> principally polarized abelian variety is defined over `ℚ̄` are algebraic: Shimura, Duke 43 (1976);
-> for genus 2 also Thomae's formula, Mumford, *Tata Lectures on Theta II*, IIIa §8; with
-> `NS(A_ℚ̄) = NS(A_ℂ)` for the polarization defined by `Ω`; all locators UNVERIFIED). Nonvanishing:
-> at most one of the ten even `θ_m(0, Ω)` vanishes in genus 2 (it vanishes exactly on products of
-> elliptic curves; UNVERIFIED locator: Igusa 1962/1967). `ThetaNullAlgebraic` follows
-> (`thetaNullAlgebraic_of_ratios`, proved).
+> Representability over Z_(p), p > 324, of the moduli problem of QM abelian surfaces (disc 6) with full level 3, by a proper smooth curve (printed form on QMAbScheme): Kottwitz, J. AMS 5 (1992) 5; Buzzard, Duke 87 (1997) 1-4; Morita, Hokkaido 10 (1981); locators UNVERIFIED
 
 ### weilPairingMumford
 
-* Bundle field `HDec.HSyn.OpenAddedLeaves16.weilPairingMumford`; kind **published**, strict **GLUE**; flag: strictest reading: composite (one leaf bundling several printed properties of e_n: perfect, Galois, compatible, dual-adjoint, alternating on lambda_L, with values pinned to weilScalar via Kleiman 9.2.5 and Mumford 8 (iv)); sign convention immaterial; pending review (one model review, no errors).
+* Bundle field `HDec.HSyn.OpenAddedLeaves18.weilPairingMumford`; kind **published**, strict **GLUE**; flag: strictest reading: composite (one leaf bundling several printed properties of e_n: perfect, Galois, compatible, dual-adjoint, alternating on lambda_L, with values pinned to weilScalar via Kleiman 9.2.5 and Mumford 8 (iv)); sign convention immaterial; pending review (one model review, no errors).
 * Source: Mumford, Abelian varieties, 20 and 23; Milne 1986, Lemma 16.2(c) and 16: Mumford's pairing e_n : A[n] x Pic0[n] -> mu_n (locators UNVERIFIED)
 * packet [R10](#packet-r10); discussion: [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81).
 * Human readings recorded: none.
@@ -310,7 +281,7 @@ HDec.MCRGlue.QuotientP1Coordinate
 
 ### eigenformHTNew
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves20.eigenformHTNew`; kind **consequence**, strict **GLUE**.
+* Bundle field `HDec.HSyn.OpenResearchLeaves21.eigenformHTNew`; kind **consequence**, strict **GLUE**.
 * Source: Kato 2004 9.2-9.4 for newforms, transported to any semisimple attached rho and dualized (Kato's V_f not definable in Mathlib)
 * packet [R7](#packet-r7); label long-pole (statement checks first; Lean only at Mathlib scale); tier T4 (model triage, unreviewed); discussion: [elliotglazer #84](https://github.com/elliotglazer/diophantine-z-q/issues/84).
 * Human readings recorded: none.
@@ -329,7 +300,7 @@ ZInQ.Contrib.HodgeSplit.EigenformHTNew
 
 ### elkiesX6StarPrinted
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves20.elkiesX6StarPrinted`; kind **consequence**, strict **GLUE**; flag: locator UNVERIFIED (section, display).
+* Bundle field `HDec.HSyn.OpenResearchLeaves21.elkiesX6StarPrinted`; kind **consequence**, strict **GLUE**; flag: locator UNVERIFIED (section, display).
 * Source: Elkies 1998 (ANTS-III, LNCS 1423) section 3, X*(6) = X6/W with coordinate t, CM values and equations of X6 over the t-line (section, display and 0/infinity orientation UNVERIFIED)
 * discussion: [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86).
 * Human readings recorded: none.
@@ -343,7 +314,7 @@ HDec.QMSplit.Moduli.ElkiesX6Star.ElkiesX6StarPrinted
 
 ### r11r12
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves20.r11r12`; kind **composite**, strict **GLUE**.
+* Bundle field `HDec.HSyn.OpenResearchLeaves21.r11r12`; kind **composite**, strict **GLUE**.
 * Source: Pan 2022 Thm 1.0.4 with Berger 2002 Thm 0.7 (not splittable: no B_st in Mathlib, hodge-split)
 * packet [R7](#packet-r7); label long-pole (statement checks first; Lean only at Mathlib scale); tier T4 (model triage, unreviewed); discussion: [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37).
 * Human readings recorded: none.
@@ -361,7 +332,7 @@ HDec.PkgI4.PanBerger
 
 ### r16
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves20.r16`; kind **composite**, strict **GLUE**.
+* Bundle field `HDec.HSyn.OpenResearchLeaves21.r16`; kind **composite**, strict **GLUE**.
 * Source: Shimura 1973 Thm 1; Shimura 1971 Thm 7.9; Diamond-Shurman
 * label long-pole (statement checks first; Lean only at Mathlib scale); tier T4 (model triage, unreviewed); discussion: [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37).
 * Human readings recorded: none.
@@ -400,7 +371,7 @@ LeafModCurves.R16_EichlerShimuraJ1'
 
 ### r17
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves20.r17`; kind **consequence**, strict **GLUE**.
+* Bundle field `HDec.HSyn.OpenResearchLeaves21.r17`; kind **consequence**, strict **GLUE**.
 * Source: Carayol 1986 Theoreme (A) (read by the audit)
 * label long-pole (statement checks first; Lean only at Mathlib scale); tier T4 (model triage, unreviewed); discussion: [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37).
 * Human readings recorded: none.
@@ -415,40 +386,23 @@ LadicCond.CarayolR17'
 > the locator audit, adopted 2026-11-12 by loc-fix). `condExp` is the Serre–Tate conductor, which
 > does not change under duals, so the Tate normalization of `AttachedTo` is harmless.
 
-### rayClassCMAb
+### shimuraMainThmIDeligneY3AbU
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves20.rayClassCMAb`; kind **consequence**, strict **GLUE**.
-* Source: Shimura reciprocity at CM points in ray-class form (a consequence of Shimura 1967 Main Thm I)
+* Bundle field `HDec.HSyn.OpenResearchLeaves21.shimuraMainThmIDeligneY3AbU`; kind **composite**, strict **GLUE**.
+* Source: Shimura, Ann. of Math. 85 (1967) Main Theorem I (reciprocity at CM points); Deligne, Sem. Bourbaki 389 (1971) sections 3-4 (adelic form, PEL moduli interpretation, canonical model); Milne, Introduction to Shimura varieties sections 12-14; fine moduli of QM abelian surfaces with level 3 (R1fpPropsAb, as for r1r2Ab); locators UNVERIFIED
 * discussion: [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86).
 * Human readings recorded: none.
-* Status: held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/gt-rayclass)).
+* Status: open.
 
 ```lean
-ShimuraGlue.Ray.RayClassCMAb
+RayClassCFT.ShimuraMainThmIDeligneY3AbU
 ```
 
-> x6-glue, **consequence** (on abelian schemes): Shimura reciprocity at CM points of the canonical model
-> (Shimura, Ann. of Math. 85 (1967) Main Thm I; Deligne 1971 §3; locators UNVERIFIED) in ray-class form: the
-> residue field of a CM point by `ℚ(i)`, `ℚ(ζ₃)`, `ℚ(√−6)` embeds into the ray class field of conductor `3`.
-
-### shimuraFamilyAb
-
-* Bundle field `HDec.HSyn.OpenResearchLeaves20.shimuraFamilyAb`; kind **consequence**, strict **GLUE**.
-* Source: Shimura 1967 Main Thm I on one fine witness; the remaining glue is the link from Shimura's V_S to the moduli scheme Y3 (shimura-cft reduces the field to one leaf, ShimuraMainThmIDeligneY3Ab, which the shimura-cft review rates composite)
-* tier T4 (model triage, unreviewed); discussion: [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86).
-* Human readings recorded: none.
-* Status: held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/gt-rayclass)).
-
-```lean
-HDec.QMSplit.Moduli.ShimuraFamilyAb
-```
-
-> H-139, printed form: Shimura's family over the fine moduli scheme of abelian schemes. Replaces
-> `shimuraFamily`.
+> gt-rayclass (shimura-cft, rayclass-cft), composite of printed theorems: Shimura's Main Theorem I for the level-3 group K3 of B = (2,-3|Q) in Deligne's adelic form on the fine moduli scheme Y3 of QM abelian surfaces (R1fpPropsAb): the uniformization B^x_+ \ (H x (B (x) A_f)^x) / K3 = Y3(C), holomorphy in tau, the moduli clause at every u in O-hat^x (the object at Psi(tau,u) is C^2/iota(O)(tau,1)^T) and Shimura's reciprocity law at CM points. Replaces rayClassCMAb and shimuraFamilyAb.
 
 ### axSenTate
 
-* Bundle field `HDec.HSyn.OpenAddedLeaves16.axSenTate`; kind **published**, strict **LEAF**.
+* Bundle field `HDec.HSyn.OpenAddedLeaves18.axSenTate`; kind **published**, strict **LEAF**.
 * Source: C_p^{G_K} = K: Tate 1967 3.3 Thm 1; Sen 1969; Ax 1970
 * packet [R7](#packet-r7); tier T2 (model triage, unreviewed); discussion: [elliotglazer #84](https://github.com/elliotglazer/diophantine-z-q/issues/84).
 * Human readings recorded: none.
@@ -466,7 +420,7 @@ ZInQ.Contrib.HodgeSplit.AxSenTate
 
 ### deligneComponentsX6PrintedAb
 
-* Bundle field `HDec.HSyn.OpenAddedLeaves16.deligneComponentsX6PrintedAb`; kind **published**, strict **LEAF**; flag: locator UNVERIFIED (see the source).
+* Bundle field `HDec.HSyn.OpenAddedLeaves18.deligneComponentsX6PrintedAb`; kind **published**, strict **LEAF**; flag: locator UNVERIFIED (see the source).
 * Source: Deligne, Sem. Bourbaki 389 (1971) Thm 2.4 and section 3; PSPM 33 (1979) 2.1.3, 2.6.3, at level O-hat^x on X6 (locators UNVERIFIED)
 * packet [R4](#packet-r4); discussion: [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86).
 * Human readings recorded: none.
@@ -482,7 +436,7 @@ ShimuraGlue.DeligneComponentsX6PrintedAb
 
 ### egaIV_8_10_5_xii
 
-* Bundle field `HDec.HSyn.OpenAddedLeaves16.egaIV_8_10_5_xii`; kind **published**, strict **LEAF**.
+* Bundle field `HDec.HSyn.OpenAddedLeaves18.egaIV_8_10_5_xii`; kind **published**, strict **LEAF**.
 * Source: EGA IV_3 8.10.5 (xii)
 * tier T2 (model triage, unreviewed); discussion: [elliotglazer #80](https://github.com/elliotglazer/diophantine-z-q/issues/80).
 * Human readings recorded: none.
@@ -499,7 +453,7 @@ ZInQ.Contrib.SpreadOut.EGAIV_8_10_5_xii
 
 ### geomConnOfAlgClosure
 
-* Bundle field `HDec.HSyn.OpenAddedLeaves16.geomConnOfAlgClosure`; kind **published**, strict **LEAF**; flag: weakened form.
+* Bundle field `HDec.HSyn.OpenAddedLeaves18.geomConnOfAlgClosure`; kind **published**, strict **LEAF**; flag: weakened form.
 * Source: textbook: geometric connectedness from connectedness over the algebraic closure (weakened)
 * packet [R4](#packet-r4); discussion: [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86).
 * Human readings recorded: none.
@@ -512,9 +466,45 @@ HDec.QMSplit.Moduli.GeomConnOfAlgClosure
 > x6-glue (shimura-split), textbook, weakened: for a proper `X → Spec k`, `char k = 0`, connectedness of
 > `X ×_k k̄` gives geometric connectedness (EGA IV 4.5; Stacks 0389; locators UNVERIFIED).
 
+### igusaThetaExpressions
+
+* Bundle field `HDec.HSyn.OpenAddedLeaves18.igusaThetaExpressions`; kind **published**, strict **LEAF**; flag: pending review; locator UNVERIFIED.
+* Source: Igusa, On Siegel modular forms of genus two (II), Amer. J. Math. 86 (1964), and Modular forms and projective invariants, Amer. J. Math. 89 (1967) p. 848: psi4, psi6 (Siegel Eisenstein series over Gamma_inf\Sp4(Z)) and Igusa's 1962 chi10, chi12 equal the theta expressions (locators UNVERIFIED; 76 Fourier coefficients agree exactly, linyang-printed py/fourier.py)
+* discussion: [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86).
+* Human readings recorded: none.
+* Status: open.
+
+```lean
+HDec.HSyn.G0Split.ThetaPt.LinYangPrinted.IgusaThetaExpressions
+```
+
+> theta-fold (linyang-printed), printed form: **Igusa's theta expressions of the generators.** On `𝔥₂` the genuine
+> Siegel Eisenstein series `ψ₄`, `ψ₆` (sums over `Γ_∞\Sp₄(ℤ)`) and Igusa's cusp forms `χ₁₀`, `χ₁₂` (his 1962
+> combinations of Eisenstein series) equal theta-glue's theta expressions (Igusa, Amer. J. Math. 86 (1964) and 89
+> (1967) p. 848; locators UNVERIFIED; 76 Fourier coefficients checked exactly by linyang-printed). With
+> `linYangEx29All` replaces the universal field `thetaRatiosAlgebraic` (pruned).
+
+### linYangEx29All
+
+* Bundle field `HDec.HSyn.OpenAddedLeaves18.linYangEx29All`; kind **published**, strict **LEAF**; flag: pending review; locator UNVERIFIED.
+* Source: Lin-Yang, Quaternionic loci in Siegel's modular threefold, Math. Z. 295 (2020) 775-819; arXiv:1807.00466v1 Example 29 (pp. 20-21): s3^2 = j6 s2^3, s5 = s2 s3, s6 = (j6+1) s2^3 along Omega(tau) where j6 is finite, for every normalized Hauptmodul j6 of X6/W (relations only, no existence claim; j6 CM values read by h-v14 row L719; the display UNVERIFIED)
+* discussion: [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86).
+* Human readings recorded: none.
+* Status: open.
+
+```lean
+HDec.HSyn.G0Split.ThetaPt.LinYangPrinted.LinYangEx29All
+```
+
+> theta-fold (linyang-printed), printed form: **Lin–Yang 2020, Example 29, the relations only.** For every
+> normalized Hauptmodul `j₆` of `Γ*\ℍ` (values `0, ∞, −16/27` at the CM points of discriminants `−4, −3, −24`),
+> wherever `j₆(τ) = z ≠ ∞`: `s₃² = z s₂³`, `s₅ = s₂s₃`, `s₆ = (z+1)s₂³` along `Ω(τ)` (Lin–Yang, Math. Z. 295 (2020);
+> arXiv:1807.00466v1 Ex. 29; the display UNVERIFIED). No existence claim: the Hauptmodul comes from the chain's
+> `QMHauptmodul`.
+
 ### milneIsogenyQuasiInverse
 
-* Bundle field `HDec.HSyn.OpenAddedLeaves16.milneIsogenyQuasiInverse`; kind **published**, strict **LEAF**.
+* Bundle field `HDec.HSyn.OpenAddedLeaves18.milneIsogenyQuasiInverse`; kind **published**, strict **LEAF**.
 * Source: fg = [d], gf = [d] as morphisms: Milne 1986 Rem. 8.4; Milne's notes Prop. 7.1; Mumford 7
 * label project-interest (project interest, free to claim); tier T2 (model triage, unreviewed); discussion: [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81).
 * Human readings recorded: none.
@@ -537,7 +527,7 @@ AvSplit.MilneIsogenyQuasiInverse
 
 ### phiAmpleIsogeny
 
-* Bundle field `HDec.HSyn.OpenAddedLeaves16.phiAmpleIsogeny`; kind **published**, strict **LEAF**; flag: finiteness over a non-closed K descends from Kbar (fpqc descent); Mumford's Application 1 is stated for effective D (general ample L via L^m); pending review (one model review, no errors).
+* Bundle field `HDec.HSyn.OpenAddedLeaves18.phiAmpleIsogeny`; kind **published**, strict **LEAF**; flag: finiteness over a non-closed K descends from Kbar (fpqc descent); Mumford's Application 1 is stated for effective D (general ample L via L^m); pending review (one model review, no errors).
 * Source: Mumford, Abelian varieties, 6 Application 1 and 8 Thm 1: for ample L, phi_L : A -> Pic0 is an isogeny (locators UNVERIFIED)
 * packet [R10](#packet-r10); discussion: [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81).
 * Human readings recorded: none.
@@ -552,7 +542,7 @@ T09Pic.PhiAmpleIsogeny
 
 ### picRepresentableAbVar
 
-* Bundle field `HDec.HSyn.OpenAddedLeaves16.picRepresentableAbVar`; kind **published**, strict **LEAF**; flag: pending review (one model review, no errors).
+* Bundle field `HDec.HSyn.OpenAddedLeaves18.picRepresentableAbVar`; kind **published**, strict **LEAF**; flag: pending review (one model review, no errors).
 * Source: Murre 1964, Oort 1962; FGA Exp. 232 Thm 3.1; Kleiman, The Picard scheme, Thm 9.4.8 with 9.2.5 (section 0): the relative Picard fppf sheaf of an abelian variety over a field is representable (locators UNVERIFIED)
 * packet [R10](#packet-r10); discussion: [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81).
 * Human readings recorded: none.
@@ -568,7 +558,7 @@ T09Pic.PicRepresentableAbVar
 
 ### picZeroAbVar
 
-* Bundle field `HDec.HSyn.OpenAddedLeaves16.picZeroAbVar`; kind **published**, strict **LEAF**; flag: combines Mumford 13 (over Kbar) with descent to K (Kleiman 9.5.1) and geometric connectedness of the identity component (SGA 3 VI_A 2.4); pending review (one model review, no errors).
+* Bundle field `HDec.HSyn.OpenAddedLeaves18.picZeroAbVar`; kind **published**, strict **LEAF**; flag: combines Mumford 13 (over Kbar) with descent to K (Kleiman 9.5.1) and geometric connectedness of the identity component (SGA 3 VI_A 2.4); pending review (one model review, no errors).
 * Source: Mumford, Abelian varieties, 13; Kleiman, The Picard scheme, Prop. 9.5.1 and 9.5.3; Milne 1986, 9-10: the identity component of Pic_{A/K} is an abelian variety (locators UNVERIFIED)
 * packet [R10](#packet-r10); discussion: [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81).
 * Human readings recorded: none.
@@ -584,7 +574,7 @@ T09Pic.PicZeroAbVar
 
 ### shimuraTaniyamaQbar
 
-* Bundle field `HDec.HSyn.OpenAddedLeaves16.shimuraTaniyamaQbar`; kind **published**, strict **LEAF**.
+* Bundle field `HDec.HSyn.OpenAddedLeaves18.shimuraTaniyamaQbar`; kind **published**, strict **LEAF**.
 * Source: Shimura-Taniyama 1961 12.4 Prop. 26; Milne, CM notes 7 (model over Qbar)
 * label bigger (a bigger investment); tier T3 (model triage, unreviewed); discussion: [elliotglazer #78](https://github.com/elliotglazer/diophantine-z-q/issues/78).
 * Human readings recorded: none.
@@ -609,7 +599,7 @@ HDec.HSyn.G0Split.FibreQM.PeriodMapH.QMSplitSTQM.ShimuraTaniyamaQbar
 
 ### tateTwistInvariants
 
-* Bundle field `HDec.HSyn.OpenAddedLeaves16.tateTwistInvariants`; kind **published**, strict **LEAF**.
+* Bundle field `HDec.HSyn.OpenAddedLeaves18.tateTwistInvariants`; kind **published**, strict **LEAF**.
 * Source: C_p(i)^{G_K} = 0 for i != 0, K finite over Q_p in Qbar_p: Tate, p-divisible groups (1967) 3.3 Thm 2
 * packet [R7](#packet-r7); tier T2-T3 (model triage, unreviewed); discussion: [elliotglazer #84](https://github.com/elliotglazer/diophantine-z-q/issues/84).
 * Human readings recorded: none.
@@ -628,7 +618,7 @@ ZInQ.Contrib.HodgeSplit.TateTwistInvariants
 
 ### babaGranathRationalAb
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves20.babaGranathRationalAb`; kind **published**, strict **LEAF**; flag: one table reading (CM assignment, section 3.1) UNVERIFIED.
+* Bundle field `HDec.HSyn.OpenResearchLeaves21.babaGranathRationalAb`; kind **published**, strict **LEAF**; flag: one table reading (CM assignment, section 3.1) UNVERIFIED.
 * Source: Baba-Granath 2008, rationality of the genus-2 curves with QM by the order of discriminant 6 (locator UNVERIFIED)
 * packet [R4](#packet-r4); discussion: [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86).
 * Human readings recorded: none.
@@ -645,7 +635,7 @@ HDec.QMSplit.Moduli.BabaGranathRationalAb
 
 ### bostLowerBound
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves20.bostLowerBound`; kind **published**, strict **LEAF**; flag: locator UNVERIFIED (see the source).
+* Bundle field `HDec.HSyn.OpenResearchLeaves21.bostLowerBound`; kind **published**, strict **LEAF**; flag: locator UNVERIFIED (see the source).
 * Source: Bost, Sem. Bourbaki 795 (Asterisque 237, 1996): h_D(A) >= -(g/2) log 2pi, Deligne normalization (display UNVERIFIED, height-split §2)
 * packet [R5](#packet-r5); label long-pole (statement checks first; Lean only at Mathlib scale); tier T4 (model triage, unreviewed); discussion: [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85).
 * Human readings recorded: none.
@@ -659,7 +649,7 @@ ZInQ.HeightSplit.BostLowerBound
 
 ### deRhamH1AbVarT
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves20.deRhamH1AbVarT`; kind **published**, strict **LEAF**.
+* Bundle field `HDec.HSyn.OpenResearchLeaves21.deRhamH1AbVarT`; kind **published**, strict **LEAF**.
 * Source: H^1_et(A_Fbar, Q_p), written Hom(V_p A, Q_p), is de Rham with the printed D_dR (Faltings 1989; Tsuji 1999; Scholze 2013 Cor. 1.8, wording read by h-leaves)
 * packet [R7](#packet-r7); label long-pole (statement checks first; Lean only at Mathlib scale); tier T4 (model triage, unreviewed); discussion: [elliotglazer #84](https://github.com/elliotglazer/diophantine-z-q/issues/84).
 * Human readings recorded: none.
@@ -677,7 +667,7 @@ ZInQ.Contrib.HodgeSplit.DeRhamH1AbVarT
 
 ### dsThm965
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves20.dsThm965`; kind **published**, strict **LEAF**.
+* Bundle field `HDec.HSyn.OpenResearchLeaves21.dsThm965`; kind **published**, strict **LEAF**.
 * Source: Diamond-Shurman, GTM 228, Thm 9.6.5 (Deligne 1971; Shimura 1971 Thm 7.14 for k = 2), coefficients extended along iota_L o iota_C^-1
 * packet [R7](#packet-r7); label long-pole (statement checks first; Lean only at Mathlib scale); tier T4 (model triage, unreviewed); discussion: [elliotglazer #84](https://github.com/elliotglazer/diophantine-z-q/issues/84).
 * Human readings recorded: none.
@@ -700,7 +690,7 @@ ZInQ.Contrib.HodgeSplit.DSThm965
 
 ### dsThm966
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves20.dsThm966`; kind **published**, strict **LEAF**.
+* Bundle field `HDec.HSyn.OpenResearchLeaves21.dsThm966`; kind **published**, strict **LEAF**.
 * Source: Deligne-Serre 1974 Thm 4.1; Diamond-Shurman Thm 9.6.6 (k = 1, continuous, finite image)
 * packet [R7](#packet-r7); label reading-hold (not offered: waits on a ruling about a reading); tier T4 (model triage, unreviewed); discussion: [elliotglazer #84](https://github.com/elliotglazer/diophantine-z-q/issues/84).
 * Human readings recorded: none.
@@ -720,7 +710,7 @@ ZInQ.Contrib.HodgeSplit.DSThm966
 
 ### faltingsLemma5Printed
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves20.faltingsLemma5Printed`; kind **published**, strict **LEAF**; flag: unread.
+* Bundle field `HDec.HSyn.OpenResearchLeaves21.faltingsLemma5Printed`; kind **published**, strict **LEAF**; flag: unread.
 * Source: Faltings 1983, Lemma 5 (locator UNVERIFIED; not read)
 * packet [R2](#packet-r2); label long-pole (statement checks first; Lean only at Mathlib scale); tier T2-T4 (model triage, unreviewed); discussion: [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85).
 * Human readings recorded: none.
@@ -735,7 +725,7 @@ CToPrinted.FaltingsLemma5Printed
 
 ### gaudronRemondThm14
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves20.gaudronRemondThm14`; kind **published**, strict **LEAF**.
+* Bundle field `HDec.HSyn.OpenResearchLeaves21.gaudronRemondThm14`; kind **published**, strict **LEAF**.
 * Source: Gaudron-Remond, Duke Math. J. 163 (2014) Thm 1.4 (read by the audit), over the published stable height
 * packet [R5](#packet-r5); label long-pole (statement checks first; Lean only at Mathlib scale); tier T4 (model triage, unreviewed); discussion: [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85).
 * Human readings recorded: none.
@@ -749,7 +739,7 @@ ZInQ.HeightSplit.GaudronRemondThm14
 
 ### gonzalezRotgerProp56X6
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves20.gonzalezRotgerProp56X6`; kind **published**, strict **LEAF**; flag: restated: Prop. 5.6 (read by the locator audit) for every witness of the moduli description of X0(6,1), with no existence claim; D(R) as the product of the p | D with (R/p) = -1 to be confirmed against the paper.
+* Bundle field `HDec.HSyn.OpenResearchLeaves21.gonzalezRotgerProp56X6`; kind **published**, strict **LEAF**; flag: restated: Prop. 5.6 (read by the locator audit) for every witness of the moduli description of X0(6,1), with no existence claim; D(R) as the product of the p | D with (R/p) = -1 to be confirmed against the paper.
 * Source: Gonzalez-Rotger, J. Math. Soc. Japan 58 (2006) Prop. 5.6, p. 943 (read by the audit) at (D,N) = (6,1), on every coarse witness of X0(6,1) (with the R1fp/X6 clause lists and Lemma QP, as for r1r2)
 * discussion: [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86).
 * Human readings recorded: none.
@@ -763,7 +753,7 @@ GRCountX6.GonzalezRotgerProp56X6
 
 ### gonzalezRotgerX6Ab
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves20.gonzalezRotgerX6Ab`; kind **published**, strict **LEAF**; flag: locator UNVERIFIED (see the source).
+* Bundle field `HDec.HSyn.OpenResearchLeaves21.gonzalezRotgerX6Ab`; kind **published**, strict **LEAF**; flag: locator UNVERIFIED (see the source).
 * Source: Gonzalez-Rotger 2006 on X6 (printed form; locator UNVERIFIED)
 * packet [R4](#packet-r4); discussion: [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86).
 * Human readings recorded: none.
@@ -778,7 +768,7 @@ HDec.QMSplit.Moduli.GonzalezRotgerX6Ab
 
 ### hodgeTateDecompAbVar
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves20.hodgeTateDecompAbVar`; kind **published**, strict **LEAF**.
+* Bundle field `HDec.HSyn.OpenResearchLeaves21.hodgeTateDecompAbVar`; kind **published**, strict **LEAF**.
 * Source: C_p (x) V_p(A) = C_p(1)^g + C_p^g, G_F-equivariant (Fontaine, Invent. Math. 65 (1982); Tate 1967 4; Faltings 1988), bases of the two g-dimensional spaces chosen
 * packet [R7](#packet-r7); label long-pole (statement checks first; Lean only at Mathlib scale); tier T4 (model triage, unreviewed); discussion: [elliotglazer #84](https://github.com/elliotglazer/diophantine-z-q/issues/84).
 * Human readings recorded: none.
@@ -802,7 +792,7 @@ ZInQ.Contrib.HodgeSplit.HodgeTateDecompAbVar
 
 ### javanpeykarBound
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves20.javanpeykarBound`; kind **published**, strict **LEAF**.
+* Bundle field `HDec.HSyn.OpenResearchLeaves21.javanpeykarBound`; kind **published**, strict **LEAF**.
 * Source: Javanpeykar, Algebra Number Theory 8 (2014) Thm 1.1.1 (read by the audit), for curves over K with a K-rational Belyi function, over the published stable height
 * packet [R5](#packet-r5); label long-pole (statement checks first; Lean only at Mathlib scale); tier T4 (model triage, unreviewed); discussion: [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85).
 * Human readings recorded: none.
@@ -815,26 +805,27 @@ ZInQ.HeightSplit.JavanpeykarBound
 > height-split, H-14: Javanpeykar 2014 Thm 1.1.1 for curves over `K` with a `K`-rational Belyi function,
 > replaces `r18`.
 
-### mumfordRigidityCore
+### mumfordGroupLaw
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves20.mumfordRigidityCore`; kind **published**, strict **LEAF**; flag: locator UNVERIFIED (see the source).
-* Source: Mumford, Geometric Invariant Theory, Thm 6.14 and Cor. 6.4 (numbers UNVERIFIED)
+* Bundle field `HDec.HSyn.OpenResearchLeaves21.mumfordGroupLaw`; kind **published**, strict **LEAF**; flag: pending review (statement review of MumfordGroupLaw as the print); locator UNVERIFIED (GIT Thm 6.14 on each connected component of S).
+* Source: Mumford-Fogarty-Kirwan, Geometric Invariant Theory, Thm 6.14 (S connected locally noetherian, F -> S smooth proper with a section e, a fibre an abelian variety: F is an abelian scheme with identity e), on each connected component; numbers UNVERIFIED
 * packet [R2](#packet-r2); label bigger (a bigger investment); tier T3 (model triage, unreviewed); discussion: [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86).
 * Human readings recorded: none.
-* Status: held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/rigid-prune)).
+* Status: project interest, free to claim.
 
 ```lean
-LeafQM.AV.R1UnivRigid.MumfordRigidityCore
+ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw
 ```
 
-> r1univ-rigid: **Mumford's rigidity over a base, printed core** (GIT Thm 6.14 on each connected component and
-> Cor. 6.4 over `S`; numbers UNVERIFIED): a proper smooth geometrically connected family over a locally noetherian
-> `S` with a section `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in
-> `Over S` with identity `e`, and every `S`-endomorphism fixing `e` is a homomorphism.
+> gt-rigidity, rigid-prune (leaf-fold23): **Mumford's GIT Thm 6.14 over a base** (on each connected component;
+> numbers UNVERIFIED): a proper smooth geometrically connected family over a locally noetherian `S` with a section
+> `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
+> identity `e`. Replaces `mumfordRigidityCore`, which also asked Cor. 6.4 (not needed: rigid-prune proves that each
+> `ι(a)` is a homomorphism from the field points).
 
 ### neronBaseChangeStrictHenselization
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves20.neronBaseChangeStrictHenselization`; kind **published**, strict **LEAF**; flag: locator UNVERIFIED (BLR 1.2 Prop. 2).
+* Bundle field `HDec.HSyn.OpenResearchLeaves21.neronBaseChangeStrictHenselization`; kind **published**, strict **LEAF**; flag: locator UNVERIFIED (BLR 1.2 Prop. 2).
 * Source: Bosch-Lutkebohmert-Raynaud, Neron models, 1.2 Prop. 2: Neron models commute with strict henselization (locator UNVERIFIED)
 * discussion: [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85).
 * Human readings recorded: none.
@@ -848,7 +839,7 @@ GapSHPair.NeronBaseChangeStrictHenselization
 
 ### neronSchemeModelExistsDVR
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves20.neronSchemeModelExistsDVR`; kind **published**, strict **LEAF**.
+* Bundle field `HDec.HSyn.OpenResearchLeaves21.neronSchemeModelExistsDVR`; kind **published**, strict **LEAF**.
 * Source: BLR, Neron models, 1.4 Thm 3 over a DVR, scheme form (no group law)
 * packet [R2](#packet-r2); label narrowing (pending narrowing: a narrower restatement is planned, so it is not offered as stated); tier T1-T2 (model triage, unreviewed); discussion: [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85).
 * Human readings recorded: none.
@@ -862,7 +853,7 @@ ReductSplit.NeronSchemeModelExistsDVR
 
 ### pazukiCor13Upper
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves20.pazukiCor13Upper`; kind **published**, strict **LEAF**.
+* Bundle field `HDec.HSyn.OpenResearchLeaves21.pazukiCor13Upper`; kind **published**, strict **LEAF**.
 * Source: Pazuki, Bull. SMF 140 (2012) Cor. 1.3(2), upper half (read by the audit; RISK: Pazuki's level-2 coordinates, height-split §8)
 * packet [R5](#packet-r5); label long-pole (statement checks first; Lean only at Mathlib scale); tier T4 (model triage, unreviewed); discussion: [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85).
 * Human readings recorded: none.
@@ -876,7 +867,7 @@ ZInQ.HeightSplit.PazukiCor13Upper
 
 ### r7a
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves20.r7a`; kind **published**, strict **LEAF**.
+* Bundle field `HDec.HSyn.OpenResearchLeaves21.r7a`; kind **published**, strict **LEAF**.
 * Source: Serre-Tate 1968 Thm 1
 * packet [R1](#packet-r1); tier T4 (model triage, unreviewed); discussion: [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37).
 * Human readings recorded: none.
@@ -893,7 +884,7 @@ PkgI2.NeronOggShafarevich
 
 ### r9a
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves20.r9a`; kind **published**, strict **LEAF**.
+* Bundle field `HDec.HSyn.OpenResearchLeaves21.r9a`; kind **published**, strict **LEAF**.
 * Source: Faltings 1983 Satz 3
 * packet [R7](#packet-r7); label long-pole (statement checks first; Lean only at Mathlib scale); tier T4 (model triage, unreviewed); discussion: [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37).
 * Human readings recorded: none.
@@ -908,7 +899,7 @@ PkgI3.FaltingsSemisimple
 
 ### r9b
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves20.r9b`; kind **published**, strict **LEAF**.
+* Bundle field `HDec.HSyn.OpenResearchLeaves21.r9b`; kind **published**, strict **LEAF**.
 * Source: Faltings 1983 Satz 4, Kor. 1
 * packet [R7](#packet-r7); label long-pole (statement checks first; Lean only at Mathlib scale); tier T4 (model triage, unreviewed); discussion: [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37).
 * Human readings recorded: none.
@@ -924,7 +915,7 @@ PkgI3.FaltingsTate
 
 ### raynaudSemistableSH
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves20.raynaudSemistableSH`; kind **published**, strict **LEAF**; flag: reading risk (reduct-b section 5): the print may assume an algebraically closed residue field; rated low by the next-fold review.
+* Bundle field `HDec.HSyn.OpenResearchLeaves21.raynaudSemistableSH`; kind **published**, strict **LEAF**; flag: reading risk (reduct-b section 5): the print may assume an algebraically closed residue field; rated low by the next-fold review.
 * Source: SGA 7 I Exp. IX Prop. 4.7 (Raynaud's criterion) over a strictly henselian DVR: m >= 3 invertible in O and A[m] rational over K imply semistable Neron models at O (number UNVERIFIED); with strictHenselizationPair gives the general-DVR 4.7 and, by K1 (Mumford 4 and [m] etale), 3.6
 * packet [R1](#packet-r1); discussion: [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85).
 * Human readings recorded: none.
@@ -943,7 +934,7 @@ ReductGlue.RaynaudSemistableSH
 
 ### semistablePersistsSHcp
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves20.semistablePersistsSHcp`; kind **published**, strict **LEAF**; flag: restricted form (char K = 0, perfect residue field): a specialization of every reading of the print.
+* Bundle field `HDec.HSyn.OpenResearchLeaves21.semistablePersistsSHcp`; kind **published**, strict **LEAF**; flag: restricted form (char K = 0, perfect residue field): a specialization of every reading of the print.
 * Source: SGA 7 I Exp. IX Prop. 3.3, first assertion, over a strictly henselian DVR with K of characteristic 0 and algebraically closed residue field, K'/K finite (number UNVERIFIED); with strictHenselizationPair gives SS1 and SS3 at number fields (ReductB.ss1_ss3_of_cp)
 * packet [R1](#packet-r1); discussion: [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85).
 * Human readings recorded: none.
@@ -960,7 +951,7 @@ ReductB.SemistablePersistsSHcp
 
 ### sga3_VIB_3_10
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves20.sga3_VIB_3_10`; kind **published**, strict **LEAF**; flag: locator UNVERIFIED (see the source).
+* Bundle field `HDec.HSyn.OpenResearchLeaves21.sga3_VIB_3_10`; kind **published**, strict **LEAF**; flag: locator UNVERIFIED (see the source).
 * Source: SGA 3 VI_B 3.10 (number UNVERIFIED)
 * packet [R2](#packet-r2); label narrowing (pending narrowing: a narrower restatement is planned, so it is not offered as stated); tier T2 (model triage, unreviewed); discussion: [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81).
 * Human readings recorded: none.
@@ -975,7 +966,7 @@ CToPrinted.SGA3_VIB_3_10
 
 ### sga7_IX_3_3_SH
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves20.sga7_IX_3_3_SH`; kind **published**, strict **LEAF**; flag: locator UNVERIFIED: SGA 7 IX 3.3 may assume an algebraically closed residue field; then the print is SGA7PersistsNF.SGA7_IX_3_3_SHcp, or BLR 7.4 (numbering to read) covers this form.
+* Bundle field `HDec.HSyn.OpenResearchLeaves21.sga7_IX_3_3_SH`; kind **published**, strict **LEAF**; flag: locator UNVERIFIED: SGA 7 IX 3.3 may assume an algebraically closed residue field; then the print is SGA7PersistsNF.SGA7_IX_3_3_SHcp, or BLR 7.4 (numbering to read) covers this form.
 * Source: SGA 7 I Exp. IX Prop. 3.3, second assertion, over strictly henselian traits: N0 x_S S' -> N'0 is an isomorphism for semistable reduction (number UNVERIFIED); with neronBaseChangeStrictHenselization (BLR 1.2/2) and fpqc descent gives the general-DVR field sga7_IX_3_3
 * discussion: [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85).
 * Human readings recorded: none.
@@ -989,7 +980,7 @@ SGA7PersistsNF.SGA7_IX_3_3_SH
 
 ### sga7_IX_3_5_ForwardGeom
 
-* Bundle field `HDec.HSyn.OpenResearchLeaves20.sga7_IX_3_5_ForwardGeom`; kind **published**, strict **LEAF**; flag: locator UNVERIFIED: if Prop. 3.5 reads semistability on the k(s) fibre, this form is a consequence through SemiAbelianDescendsSepClosed (standard for every separably closed field); if its display lacks the echelon clause, the square-zero bound comes from IX 2.4 (consequence).
+* Bundle field `HDec.HSyn.OpenResearchLeaves21.sga7_IX_3_5_ForwardGeom`; kind **published**, strict **LEAF**; flag: locator UNVERIFIED: if Prop. 3.5 reads semistability on the k(s) fibre, this form is a consequence through SemiAbelianDescendsSepClosed (standard for every separably closed field); if its display lacks the echelon clause, the square-zero bound comes from IX 2.4 (consequence).
 * Source: SGA 7 I Exp. IX Prop. 3.5, forward direction at sigma = tau, over a strictly henselian DVR with K^s (number UNVERIFIED)
 * discussion: [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85).
 * Human readings recorded: none.
