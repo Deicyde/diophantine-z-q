@@ -620,4 +620,88 @@ theorem mem_latHat_iff {q : K →ₐ[ℚ] LeafQM.B} {κ : K →+* ℂ} {z : Uppe
 
 end Transport
 
+/-! ## §E Helpers for the derivation -/
+
+section Helpers
+
+open Polynomial ShimuraSplit2
+
+variable {K : Type} [Field K] [NumberField K] [Fact (Irreducible (X ^ 2 - C (2 : K)))]
+
+/-- Points of a base change are determined by their images. -/
+theorem pt_ext {A A' : PkgI3.AbVar ℂ} {g0 : A'.X.left ⟶ A.X.left} {f : Spec (CommRingCat.of ℂ) ⟶ Spec (CommRingCat.of ℂ)}
+    (hpb : IsPullback g0 A'.X.hom A.X.hom f) {p₁ p₂ : CPts A' (RingHom.id ℂ)}
+    (h : p₁.left ≫ g0 = p₂.left ≫ g0) : p₁ = p₂ := by
+  apply Over.OverMorphism.ext
+  exact hpb.hom_ext h (by rw [Over.w p₁, Over.w p₂])
+
+/-- `β̂(t w) = β̂(w) u` for `t = N_Φ*(s)^ε`, `u = q̂(s)^ε`. -/
+theorem betaHat_t (q : K →ₐ[ℚ] LeafQM.B) (s : IdeleGroup (𝓞 K) K) (ε : ℤˣ) (w : AQ ⊗[ℚ] EK K) :
+    betaHat q (((reflexNorm rhoK (IdeleGroup.toFiniteIdele (𝓞 K) K s) ^ (ε : ℤ) :
+      (AQ ⊗[ℚ] EK K)ˣ) : AQ ⊗[ℚ] EK K) * w) = betaHat q w * ((qHatU q s ^ (ε : ℤ) : BAQˣ) : BAQ) := by
+  set N := reflexNorm rhoK (IdeleGroup.toFiniteIdele (𝓞 K) K s)
+  have hbase : ∀ w, betaHat q ((N : AQ ⊗[ℚ] EK K) * w) = betaHat q w * (qHatU q s : BAQ) := by
+    intro w
+    rw [reflexNorm_rhoK, betaHat_inclA_mul]
+    rfl
+  have hinv : ∀ w, betaHat q (((N⁻¹ : (AQ ⊗[ℚ] EK K)ˣ) : AQ ⊗[ℚ] EK K) * w) =
+      betaHat q w * ((qHatU q s)⁻¹ : BAQˣ) := by
+    intro w
+    have e := hbase (((N⁻¹ : (AQ ⊗[ℚ] EK K)ˣ) : AQ ⊗[ℚ] EK K) * w)
+    rw [← mul_assoc, Units.mul_inv, one_mul] at e
+    rw [e, mul_assoc, Units.mul_inv, mul_one]
+  rcases Int.units_eq_one_or ε with rfl | rfl
+  · simpa using hbase w
+  · simpa using hinv w
+
+/-- `(N : ℚ) • ofInt m = ofInt (N m)`. -/
+theorem smul_ofInt (N : ℤ) (m : Fin 4 → ℤ) : (N : ℚ) • LeafQM.ofInt m = LeafQM.ofInt (fun i => N * m i) := by
+  ext <;> simp [LeafQM.ofInt] <;> ring
+
+/-- `∩_N N L_h = 0`. -/
+theorem eq_zero_of_forall_dvd (h : BAQˣ) (x : LeafQM.B)
+    (hx : ∀ N : ℕ, 0 < N → ∃ x' ∈ latB h, x = (N : ℚ) • x') : x = 0 := by
+  obtain ⟨D, hD, hDh⟩ := exists_den_B ((h⁻¹ : BAQˣ) : BAQ)
+  have hO : ∀ x' ∈ latB h, InO ((D : ℚ) • x') := by
+    intro x' hx'
+    apply inO_of_bEmb_mem
+    have e : bEmb ((D : ℚ) • x') = (bEmb x' * h) * ((D : BAQ) * ((h⁻¹ : BAQˣ) : BAQ)) := by
+      rw [bEmb_natSmul, mul_assoc, ← mul_assoc (h : BAQ), ← natCast_comm D (h : BAQ), mul_assoc (D : BAQ),
+        Units.mul_inv, mul_one, natCast_comm]
+    rw [e]; exact OhatQ_mul hx' hDh
+  have hxL : x ∈ latB h := by
+    obtain ⟨x1, hx1, hx1e⟩ := hx 1 one_pos
+    rw [hx1e, Nat.cast_one, one_smul]; exact hx1
+  obtain ⟨m, hm⟩ := hO x hxL
+  have hdvd : ∀ i, ∀ N : ℕ, 0 < N → (N : ℤ) ∣ m i := by
+    intro i N hN
+    obtain ⟨xN, hxN, hxe⟩ := hx N hN
+    obtain ⟨mN, hmN⟩ := hO xN hxN
+    have e : LeafQM.ofInt m = LeafQM.ofInt (fun i => (N : ℤ) * mN i) := by
+      rw [← hm, ← smul_ofInt, ← hmN, hxe, smul_comm]
+      push_cast; rfl
+    have := congrFun (congrArg cQ e) i
+    rw [cQ_ofInt, cQ_ofInt] at this
+    simp only at this
+    exact ⟨mN i, by exact_mod_cast this⟩
+  have hm0 : m = 0 := by
+    funext i
+    apply Int.eq_zero_of_abs_lt_dvd (hdvd i (Int.natAbs (m i) + 1) (by omega))
+    push_cast
+    rw [Int.abs_eq_natAbs]; omega
+  have hD0 : (D : ℚ) ≠ 0 := by exact_mod_cast hD.ne'
+  rw [hm0, LeafQM.ofInt_zero, smul_eq_zero] at hm
+  rcases hm with h0 | h0
+  · exact absurd h0 hD0
+  · exact h0
+
+/-- `(1, 1)` and `(√2, −√2)` span `ℂ²`. -/
+theorem span_two (κ : K →+* ℂ) (w : Fin 2 → ℂ) :
+    w = ((w 0 + w 1) / 2) • cmVec (PhiE κ) 1 +
+      ((w 0 - w 1) / (2 * ((√2 : ℝ) : ℂ))) • cmVec (PhiE κ) (AdjoinRoot.root _) := by
+  funext i
+  fin_cases i <;> simp [cmVec, phiE0_root, phiE1_root] <;> field_simp [sqrt2_ne_zero] <;> ring
+
+end Helpers
+
 end QMRecPrinted
