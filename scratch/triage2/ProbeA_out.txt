@@ -1,0 +1,56 @@
+CToPrinted.identityComponentBaseChangeDVRRange_of : CToPrinted.SGA3_VIB_3_10 →
+  CToPrinted.SGA7_IX_3_3 → AVGlue.GeomConnOfRationalPoint → CToPrinted.IdentityComponentBaseChangeDVRRange
+CToPrinted.IdentityComponentBaseChangeDVRRange : Prop
+CToPrinted.idCompBaseChangeDVR_of : CToPrinted.SGA3_VIB_3_10 →
+  AVGlue.GeomConnOfRationalPoint → CToPrinted.IdCompBaseChangeDVR
+@CToPrinted.idCompSet : {S : Scheme} → (G : Over S) → [GrpObj G] → Set ↥G.left
+SGA7PersistsNF.sga7_IX_3_3_of_SH : SGA7PersistsNF.SGA7_IX_3_3_SH →
+  GapSHPair.NeronBaseChangeStrictHenselization →
+    CToPrinted.SGA3_VIB_3_10 → AVGlue.GeomConnOfRationalPoint → CToPrinted.SGA7_IX_3_3
+@ReductSplit.GroupModelO.IsSemistable : {K : Type} →
+  [inst : Field K] → {A : PkgI3.AbVar K} → {O : ValuationSubring K} → ReductSplit.GroupModelO A O → Prop
+@ReductSplit.geomSpecialFibre : {K : Type} →
+  [inst : Field K] →
+    {A : PkgI3.AbVar K} → {O : ValuationSubring K} → ReductSplit.GroupModelO A O → Over (Spec ↧(ReductSplit.ResBarO O))
+@ZInQ.HeightSplit.HasSemiAbelianIdentityComponent : {k : Type} →
+  [inst : Field k] → (G : Over (Spec ↧k)) → [GrpObj G] → Prop
+ReductSplit.SemistablePersistsDVR : Prop
+ReductB.persistsNF_of_general : ReductSplit.SemistablePersistsDVR → ReductB.SemistablePersistsDVRnf
+ReductB.semistableReductionThm_of_leaves_nf : ReductB.SemistableReductionDVRnf →
+  ReductB.SemistablePersistsDVRnf →
+    ReductSplit.NeronSchemeModelExistsDVR →
+      ReductSplit.SemistableLocalGlobal →
+        ReductSplit.SemistableAlmostAll → ReductSplit.DVRComapFinite → ZInQ.HeightSplit.SemistableReductionThm
+ReductB.semistablePersists_final_nf : ReductB.SemistablePersistsDVRnf →
+  ReductSplit.NeronSchemeModelExistsDVR → ReductSplit.SemistableLocalGlobal → ZInQ.HeightSplit.SemistablePersists
+ReductB.ss1_ss3_of_cp : ReductB.SemistablePersistsSHcp →
+  ReductGlue.StrictHenselizationPair →
+    ReductSplit.SemistableReductionDVR →
+      ReductSplit.NeronSchemeModelExistsDVR →
+        ReductSplit.SemistableLocalGlobal →
+          ReductSplit.SemistableAlmostAll →
+            ZInQ.HeightSplit.SemistableReductionThm ∧ ZInQ.HeightSplit.SemistablePersists
+HDec.HSyn.ss1_ss3_of14 : HDec.HSyn.OpenResearchLeaves14 →
+  HDec.HSyn.OpenTextbookLeaves10 →
+    HDec.HSyn.OpenAddedLeaves12 → ZInQ.HeightSplit.SemistableReductionThm ∧ ZInQ.HeightSplit.SemistablePersists
+@ReductSplit.hasSemistableReduction_of : ∀ {K : Type} [inst : Field K],
+  ReductSplit.NeronSchemeModelExistsDVR →
+    ∀ (O : ValuationSubring K) [IsDiscreteValuationRing ↥O] (A : PkgI3.AbVar K),
+      ReductSplit.SemistableNeronModels A O → ReductSplit.HasSemistableReduction A O
+AVGlue.GeomConnOfRationalPoint : Prop
+@PkgI3.AbVar.baseChange : {K : Type} →
+  [inst : Field K] → PkgI3.AbVar K → (L : Type) → [inst_1 : Field L] → [Algebra K L] → PkgI3.AbVar L
+@IsOpenImmersion.lift : {X Y Z : Scheme} →
+  (f : X ⟶ Z) → (g : Y ⟶ Z) → [H : IsOpenImmersion f] → Set.range ⇑g ⊆ Set.range ⇑f → (Y ⟶ X)
+@IsAlgClosed.lift : {M : Type u_3} →
+  [inst : Field M] →
+    [IsAlgClosed M] →
+      {R : Type u_1} →
+        [inst_2 : CommRing R] →
+          [IsDomain R] →
+            {S : Type u_2} →
+              [inst_4 : CommRing S] →
+                [IsDomain S] →
+                  [inst_6 : Algebra R S] →
+                    [inst_7 : Algebra R M] →
+                      [Module.IsTorsionFree R S] → [Module.IsTorsionFree R M] → [Algebra.IsAlgebraic R S] → S →ₐ[R] M

@@ -1,0 +1,32 @@
+scratch/triage2/ProbeB.lean:7:5: warning: Ambiguous namespace `LeafQM`: it is interpreted as `_root_.HDec.LeafQM` because this `open` occurs inside `namespace HDec.QMSplit.Moduli`, while `_root_.LeafQM` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM`. The warni
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/triage2/ProbeB.lean:7:12: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec.QMSplit.Moduli`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.A
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/triage2/ProbeB.lean:44:8: error(lean.unknownIdentifier): Unknown identifier `RayClassCFT.ModuliAtUnits`
+scratch/triage2/ProbeB.lean:45:8: error(lean.unknownIdentifier): Unknown identifier `RayClassCFT.ShimuraMainThmIDeligneY3AbU`
+scratch/triage2/ProbeB.lean:46:8: error(lean.unknownIdentifier): Unknown identifier `RayClassCFT.OhatQ_one`
+HDec.QMSplit.Moduli.ElkiesEquationsX6Ab : Prop
+HDec.QMSplit.Moduli.BabaGranathRationalAb : Prop
+LeafQM.AV.CMExists : (X : Over (Spec ↧ℚ)) →
+  (LeafQM.AV.fieldPt LeafQM.AV.Qbar ⟶ X) ≃ _root_.Quotient (LeafQM.AV.pairSetoid LeafQM.AV.Qbar) → Prop
+@LeafQM.AV.cm_of_val : ∀ {X : Over (Spec ↧ℚ)}
+  {Ψ : (LeafQM.AV.fieldPt LeafQM.AV.Qbar ⟶ X) ≃ _root_.Quotient (LeafQM.AV.pairSetoid LeafQM.AV.Qbar)}
+  {π₆ : LeafQM.AV.ToP1 X.left},
+  LeafQM.AV.R2X6Props X Ψ π₆ →
+    LeafQM.AV.CMExists X Ψ →
+      ∀ (x : LeafQM.AV.fieldPt LeafQM.AV.Qbar ⟶ X) (P : LeafQM.AV.QMPair LeafQM.AV.Qbar),
+        Ψ x = ⟦P⟧ →
+          (π₆.val (Over.Hom.left x) = ↑0 → LeafQM.AV.HasCM4 P.q) ∧
+            (π₆.val (Over.Hom.left x) = OnePoint.infty → LeafQM.AV.HasCM3 P.q) ∧
+              (π₆.val (Over.Hom.left x) = ↑(-16 / 27) → LeafQM.AV.HasCM24 P.q)
+HDec.HSyn.G0Split.FibreQM.PeriodMapH.LeafQCheck.descend_main : HDec.HSyn.G0Split.FibreQM.PeriodMapH.LeafQCheck.STQM →
+  ZInQ.LeafPush2.T11b_Rigidity →
+    HDec.HSyn.G0Split.FibreQM.PeriodMapH.LeafQCheck.TorsionDescends →
+      HDec.LeafAdopt.R1R2fpRep →
+        ∀ (Q : LeafQM.AV.QML3 ℂ),
+          LeafQM.AV.HasCM4 Q.q ∨ LeafQM.AV.HasCM3 Q.q ∨ LeafQM.AV.HasCM24 Q.q →
+            ∃ ιe P Q' κ,
+              LeafQM.AV.IsBaseChangeOf ιe P Q' ∧
+                Nonempty (LeafQM.AV.QMIso Q.q Q'.q) ∧ ∀ (a : ↥LeafQM.O), κ (Q.q.iota a) = P.q.iota a

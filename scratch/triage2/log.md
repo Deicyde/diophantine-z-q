@@ -46,3 +46,12 @@
   never consumed on the live path. (Watched-name bug in run 1: LeafAdopt vs HDec.LeafAdopt; run 2 counted conjunction binders.)
 - VERIFIED (read): r1r2fpRep_of_printed (TailZ20:1855) takes the base witness from geomConnX6_of hD hE; a prune must take
   the witness (R1fpProps ∧ X6Props) from another leaf, e.g. hG (GonzalezRotgerX6, :1858).
+## Pass 2
+- ProbeA.lean COMPILED: #check list for task 2; fold check `ss1_ss3_of_persistsT2` + example over (r,t,l) at the leaf-fold14
+  generation: SS1 ∧ SS3 from `target sga3_VIB_3_10 sga7_IX_3_3 geomConnOfRationalPoint` with no semistablePersistsSHcp. VERIFIED.
+- ProbeB.lean COMPILED (main theorem): `babaGranathRationalAb_of_elkiesT2 : ElkiesEquationsX6Ab → CMPairsExistT2 →
+  BabaGranathRationalAb` proved in full (t₄=1, t₃=∞, t₂₄=0). VERIFIED. (#check of RayClassCFT names failed only because
+  TailZ22 does not import RayClassShimura.)
+- ProbeC.lean COMPILED: R1R2fpRepW, R1R2fp_of_repW (proof unchanged), geomConnX6W_of_gr. Rethreading scope: 41 live constants
+  mention R1R2fpRep in their type (6 bundle structures r1r2/r1b fields: OpenResearchLeaves2/5/7/8/9, ResearchLeaves3; ~25
+  theorems); CanonicalCoarseX6 8, GeomConnX6 4, CoarseX6OfFine 3; GeomConnOfAlgClosure 18 (bundle fields + 6 theorems).

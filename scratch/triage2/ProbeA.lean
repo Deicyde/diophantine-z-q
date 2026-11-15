@@ -27,3 +27,23 @@ example : Prop :=
 #check @PkgI3.AbVar.baseChange
 #check @AlgebraicGeometry.IsOpenImmersion.lift
 #check @IsAlgClosed.lift
+
+-- fold check: with the target theorem as a hypothesis, SS1 ∧ SS3 come from fields that stay on the chain
+-- (sga3_VIB_3_10, sga7_IX_3_3 = derived from sga7_IX_3_3_SH + pair, geomConnOfRationalPoint), no semistablePersistsSHcp.
+theorem ss1_ss3_of_persistsT2 (hP : ReductSplit.SemistablePersistsDVR) (h36 : ReductSplit.SemistableReductionDVR)
+    (hN : ReductSplit.NeronSchemeModelExistsDVR) (hLG : ReductSplit.SemistableLocalGlobal)
+    (hAA : ReductSplit.SemistableAlmostAll) :
+    ZInQ.HeightSplit.SemistableReductionThm ∧ ZInQ.HeightSplit.SemistablePersists :=
+  ⟨ReductB.semistableReductionThm_final_nf (ReductB.reductionNF_of_general h36) (ReductB.persistsNF_of_general hP)
+      hN hLG hAA,
+    ReductB.semistablePersists_final_nf (ReductB.persistsNF_of_general hP) hN hLG⟩
+
+open HDec.HSyn in
+example (target : CToPrinted.SGA3_VIB_3_10 → CToPrinted.SGA7_IX_3_3 → AVGlue.GeomConnOfRationalPoint →
+      ReductSplit.SemistablePersistsDVR)
+    (r : OpenResearchLeaves14) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves12) :
+    ZInQ.HeightSplit.SemistableReductionThm ∧ ZInQ.HeightSplit.SemistablePersists :=
+  ss1_ss3_of_persistsT2 (target r.sga3_VIB_3_10 r.sga7_IX_3_3 t.geomConnOfRationalPoint)
+    (semistableReductionDVR_of14 r t) r.neronSchemeModelExistsDVR
+    (_root_.ReductGlue.semistableLocalGlobal_leaf (_root_.CToPrinted.neronLocalizesDVR_of_printed r.blr_1_2_4))
+    (semistableAlmostAll_of10 (addedLeaves9_of_open14 r t l))
