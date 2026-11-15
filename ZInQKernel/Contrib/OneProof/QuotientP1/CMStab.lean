@@ -1,13 +1,15 @@
 import ZInQKernel.Contrib.OneProof.QuotientP1.FixedDisjoint
 
 /-!
-# p1-quot, helper: the `ℤ[i]` and `ℤ[ζ₃]` clauses of `CMStabObjWeak`
+# p1-quot, helper: `CMStabObjWeak` (nontrivial Hecke stabilizers of the CM classes)
 
 For a level-3 object `P` over `ℚ̄` whose commutant contains `φ` with `φ² = −1` (resp. `φ² − φ + 1 = 0`), the unit
 `u ≡ (action of φ on A[3])⁻¹ mod 3𝒪` gives `rightMul u [P] = [P]` (`rightMul_fix_of_unit`: T5, `Level3.torsor`,
 `exists_unit_congr`), and `u ≢ ±1` (for `ℤ[ζ₃]` the case `−1` is excluded by a point of order 9,
 `not_act_neg_one`); `rightMul u` then moves the class of a `ℤ[√−6]` object, whose automorphisms are `±1`
-(`autCM24_of`, from the chain's `QMAutCard`). The `ℤ[√−6]` clause is the glue `CMStab24`.
+(`autCM24_of`, from the chain's `QMAutCard`). The `ℤ[√−6]` clause `CMStab24` is proved from the new leaf
+`AtkinLehnerFixesCM24` (the converse half of the Atkin–Lehner fixed-point theorem at `ℤ[√−6]`; Ogg 1983, Rotger
+2004), the chain's `ALFixedPoints` and `QMAutCard`, and T5 (`cmStab24_of`).
 docs/research/p1-quot.md. -/
 
 
@@ -428,6 +430,61 @@ theorem cMStabObjWeak_of_cm24 (hT : ObjBridge.TorsionStructure) (hQ : HeckeRest.
   · exact cmStab4_of hT (autCM24_of hQ) P₂₄ hP₂₄ P h
   · exact cmStab3_of hT (autCM24_of hQ) P₂₄ hP₂₄ P h
   · exact h24 P h
+
+
+/-- **LEAF (fixed points of the Atkin–Lehner involution `w₆` on `X₆ = X₀⁶(1)`, the converse half).** A QM pair
+over `ℚ̄` with CM by `ℤ[√−6]` is isomorphic to its `w₆`-twist (the twist `rep 3`, conjugation by `ij` of reduced
+norm `−6`). This is the half of the fixed-point theorem not stated in the chain's `HeckeRest.ALFixedPoints` (which
+says that a pair isomorphic to its `w₆`-twist has CM by `ℤ[√−6]`): A. Ogg, *Real points on Shimura curves*,
+Arithmetic and Geometry I, Progr. Math. 35 (1983), the fixed points of `w_m` on `X₀^D(1)` are the CM points by
+orders containing `√−m` (for `m ≡ 1, 2 mod 4`); V. Rotger, *Modular Shimura varieties and forgetful maps*,
+Trans. AMS 356 (2004), §§2-4, `w_m` as `(A, ι) ↦ (A, ι ∘ conj(μ))`; locators UNVERIFIED (no network). The printed
+statement is on `X₀^D(1)(ℂ)`; this is its moduli form over `ℚ̄`, with the same reading as `ALFixedPoints`. -/
+def AtkinLehnerFixesCM24 : Prop :=
+  ∀ (A : AbVar Qbar), A.dim = 2 → ∀ q : QMStr A, HasCM24 q →
+    Nonempty (QMIso (q.twist (LeafQM.AV.Pin.Exact.rep 3)) q)
+
+/-- **`CMStab24` from the Atkin–Lehner fixed-point leaf, the chain's `ALFixedPoints` and `QMAutCard`, T5 and a
+`ℤ[i]` object.** `T = twist(rep 3) ∘ rightMul u` with `u` read off the transported level structure (T5,
+`Level3.torsor`) fixes `[P]`; it moves the class of a `ℤ[i]` object, which is not a `w₆`-fixed point
+(`ALFixedPoints`, and no pair has CM by both `ℤ[i]` and `ℤ[√−6]`, `QMAutCard`). -/
+theorem cmStab24_of (hT : ObjBridge.TorsionStructure) (hW : AtkinLehnerFixesCM24)
+    (hAL : HeckeRest.ALFixedPoints) (hQ : HeckeRest.QMAutCard) (P₄ : QML3 Qbar) (h4 : HasCM4 P₄.q) :
+    CMStab24 := by
+  intro P hP
+  obtain ⟨G⟩ := hW P.A P.surface P.q hP
+  set α := LeafQM.AV.Pin.Exact.rep 3 with hα
+  let e'' : Level3 P.q := _root_.LeafQM.AV.Pin.transportLevel G (P.e.twist α)
+  obtain ⟨u₀, v₀, hvu, hlin⟩ := Level3.torsor hT P e''
+  obtain ⟨u', d, hd⟩ := TSHeckeUnits.exists_unit_congr u₀ v₀ hvu
+  let u : (LeafQM.O)ˣ := Units.map α.toMonoidHom u'⁻¹
+  have hu : (u : LeafQM.O) = α (↑u'⁻¹ : LeafQM.O) := rfl
+  refine ⟨α, u, ?_, ⟨M3.mk P₄, ?_⟩⟩
+  · apply Quotient.sound
+    exact ⟨{
+      φ := G.φ
+      ψ := G.ψ
+      left := G.left
+      right := G.right
+      equivariant := G.equivariant
+      level := fun a => by
+        have h1 : Additive.ofMul (Additive.toMul (((P.e.rightMul u).twist α).eta a) ≫ G.φ.hom) =
+            e''.eta (a * ↑u'⁻¹) := by
+          change Additive.ofMul (Additive.toMul (P.e.eta (α a * u)) ≫ G.φ.hom) =
+            Additive.ofMul (Additive.toMul (P.e.eta (α (a * ↑u'⁻¹))) ≫ G.φ.hom)
+          rw [map_mul α a, hu]
+        refine h1.trans ?_
+        rw [hlin, P.e.eq_iff]
+        refine ⟨a * (↑u'⁻¹ * d), ?_⟩
+        have e1 : a * ↑u'⁻¹ * u₀ - a = a * (↑u'⁻¹ * (u₀ - ↑u')) := by
+          rw [mul_sub (↑u'⁻¹ : LeafQM.O), Units.inv_mul, mul_sub, _root_.mul_one, _root_.mul_assoc]
+        rw [e1, hd]
+        noncomm_ring }⟩
+  · intro h
+    obtain ⟨f⟩ : Nonempty (((P₄.rightMul u).twist α).Iso P₄) := Quotient.exact h
+    have hiso : Nonempty (QMIso (P₄.q.twist α) P₄.q) :=
+      ⟨{ φ := f.φ, ψ := f.ψ, left := f.left, right := f.right, equivariant := f.equivariant }⟩
+    exact (hQ P₄.A P₄.surface P₄.q).2.2.1 ⟨h4, (hAL P₄.A P₄.surface P₄.q).2.2 hiso⟩
 
 end MCRQuot
 

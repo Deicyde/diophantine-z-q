@@ -94,3 +94,14 @@ Target: `HDec.MCRGlue.QuotientP1Coordinate` (ZInQKernel/OneProof/H/TailW.lean L2
 - `quotientP1Coordinate_of_fields` now assumes L1-L4, EdixhovenFixedSmooth2, mumfordTorsionAlgClosed,
   deligneComponentsY3PrintedAb, uniformizationLeafAll, gagaMorphism, CMStab24 — no mumfordRigidityCore.
   #discharges VERIFIED.
+
+## CMStab24 from a published leaf (CMTest.lean → QuotientP1/CMStab.lean)
+- New leaf `HDec.MCRQuot.AtkinLehnerFixesCM24`: HasCM24 q → Nonempty (QMIso (q.twist (rep 3)) q) (the converse half of
+  the chain's `HeckeRest.ALFixedPoints` clause 3; Ogg 1983, Rotger 2004, locators UNVERIFIED).
+- `cmStab24_of (hT) (hW) (hAL : ALFixedPoints) (hQ : QMAutCard) (P₄) (h4) : CMStab24`: VERIFIED, standard axioms
+  (T = twist(rep 3) ∘ rightMul u, u from the transported level structure; moves the class of a ℤ[i] object since
+  ℤ[i] points are not w₆-fixed by ALFixedPoints + QMAutCard exclusions).
+- Main theorem `quotientP1Coordinate_of_printed (L1..L4) (hE) (hW) (hT) (hYI) (hQ) (hAL)`; FromFields:
+  `quotientP1Coordinate_of_fields` assumes L1-L4, EdixhovenFixedSmooth2, AtkinLehnerFixesCM24 and the chain fields
+  mumfordTorsionAlgClosed, deligneComponentsY3PrintedAb, uniformizationLeafAll, gagaMorphism. No project glue.
+  #discharges VERIFIED (discharges_out.txt).

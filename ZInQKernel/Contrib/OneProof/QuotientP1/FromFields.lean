@@ -10,7 +10,8 @@ import ZInQKernel.OneProof.H.TailZ30
   the abelian scheme of `Y₀` gives a surjection `Y₀ → Y`. (The chain itself converts the leaf to the `R1fpProps`
   form with `mumfordRigidityCore`, `TailZ23`.)
 * T5 from the textbook field `mumfordTorsionAlgClosed` (`AvSplit.torsionStructure_of_mumford`, as in `TailZ23`);
-* `QMAutCard` from `QMCentralizerCM` (`QMSplit.Aut.qmAutCard_of`, TailU), itself from `QMCentralizerCMC` (proved by the
+* `QMAutCard` and `ALFixedPoints` from `QMCentralizerCM` (`QMSplit.Aut.qmAutCard_of`, `alFixedPoints_of`, TailU),
+  itself from `QMCentralizerCMC` (proved by the
   contribution `QMLattice` from the textbook fields `uniformizationLeafAll`, `gagaMorphism`,
   `mumfordTorsionAlgClosed`, as in `TailZ30`) and T11(b) (`AVB2.t11b_of_exists` of the proved `t11bExists_lf8`).
 -/
@@ -143,13 +144,13 @@ theorem quotientP1Coordinate_of_fields (hAF : ProperCurveAF) (hQE : FiniteQuotie
     (hE : EdixhovenFixedSmooth2) (hMT : _root_.AvSplit.MumfordTorsionAlgClosed)
     (hD : _root_.ShimuraGlue.DeligneComponentsY3PrintedAb)
     (hU : _root_.BPAnalytic.Uniformization.UniformizationLeafAll)
-    (hG : _root_.ZInQ.HomLattice.GAGAMorphism) (h24 : CMStab24) :
+    (hG : _root_.ZInQ.HomLattice.GAGAMorphism) (hW : AtkinLehnerFixesCM24) :
     MCRGlue.QuotientP1Coordinate :=
-  quotientP1Coordinate_of_printed hAF hQE hTS hP1 hE
+  have hC : QMSplit.Aut.QMCentralizerCM := QMSplit.Aut.qmCentralizerCM_of
+    (QMLattice.qmCentralizerCMC_of hU hG hMT) (AVB2.t11b_of_exists HSyn.t11bExists_lf8)
+  quotientP1Coordinate_of_printed hAF hQE hTS hP1 hE hW
     (_root_.AvSplit.torsionStructure_of_mumford hMT)
     (_root_.QuotientP1Proof.DeligneAb.heckeIrreducible_of_ab hD)
-    (QMSplit.Aut.qmAutCard_of (QMSplit.Aut.qmCentralizerCM_of
-      (QMLattice.qmCentralizerCMC_of hU hG hMT) (AVB2.t11b_of_exists HSyn.t11bExists_lf8)))
-    h24
+    (QMSplit.Aut.qmAutCard_of hC) (QMSplit.Aut.alFixedPoints_of hC)
 
 end HDec.MCRQuot

@@ -69,13 +69,15 @@ cm = open(S + 'CMTest.lean').read()
 cm = cm[:cm.index('#print axioms')].rstrip() + '\n'
 cml = cm.split('\n')
 cdoc = '''/-!
-# p1-quot, helper: the `ℤ[i]` and `ℤ[ζ₃]` clauses of `CMStabObjWeak`
+# p1-quot, helper: `CMStabObjWeak` (nontrivial Hecke stabilizers of the CM classes)
 
 For a level-3 object `P` over `ℚ̄` whose commutant contains `φ` with `φ² = −1` (resp. `φ² − φ + 1 = 0`), the unit
 `u ≡ (action of φ on A[3])⁻¹ mod 3𝒪` gives `rightMul u [P] = [P]` (`rightMul_fix_of_unit`: T5, `Level3.torsor`,
 `exists_unit_congr`), and `u ≢ ±1` (for `ℤ[ζ₃]` the case `−1` is excluded by a point of order 9,
 `not_act_neg_one`); `rightMul u` then moves the class of a `ℤ[√−6]` object, whose automorphisms are `±1`
-(`autCM24_of`, from the chain's `QMAutCard`). The `ℤ[√−6]` clause is the glue `CMStab24`.
+(`autCM24_of`, from the chain's `QMAutCard`). The `ℤ[√−6]` clause `CMStab24` is proved from the new leaf
+`AtkinLehnerFixesCM24` (the converse half of the Atkin–Lehner fixed-point theorem at `ℤ[√−6]`; Ogg 1983, Rotger
+2004), the chain's `ALFixedPoints` and `QMAutCard`, and T5 (`cmStab24_of`).
 docs/research/p1-quot.md. -/
 '''
 CM = cml[:1] + ['', cdoc] + cml[1:]

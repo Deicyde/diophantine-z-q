@@ -101,17 +101,29 @@ theorem quotientP1Coordinate_of_printed' (hAF : ProperCurveAF) (hQE : FiniteQuot
       qbarPointsConjugate p hp 𝒴 𝒜 hM hCM Y Φ π h1 hh h2 𝒵 q hq hqf) ρ'₀ hρ'₀
   exact ⟨𝒵, q, ρ', hqf, hρ', hCF⟩
 
-/-- **Main theorem: `QuotientP1Coordinate` from the leaves L1-L4, Edixhoven's tame fixed-point theorem, T5,
-`HeckeIrreducible`, the chain's `QMAutCard` and the glue `CMStab24`** (the `ℤ[i]` and `ℤ[ζ₃]` clauses of
-`CMStabObjWeak` proved, `QuotientP1/CMStab.lean`; the `ℤ[√−6]` object comes from the hypothesis
-`CMObjectsExist` of the field). -/
-theorem quotientP1Coordinate_of_printed (hAF : ProperCurveAF) (hQE : FiniteQuotientExists)
+/-- **`QuotientP1Coordinate` from the leaves L1-L4, Edixhoven's tame fixed-point theorem, T5, `HeckeIrreducible`,
+the chain's `QMAutCard` and the glue `CMStab24`** (the `ℤ[i]` and `ℤ[ζ₃]` clauses of `CMStabObjWeak` proved,
+`QuotientP1/CMStab.lean`; the `ℤ[√−6]` object comes from the hypothesis `CMObjectsExist` of the field). -/
+theorem quotientP1Coordinate_of_glue24 (hAF : ProperCurveAF) (hQE : FiniteQuotientExists)
     (hTS : TameQuotientSmooth) (hP1 : SmoothModelOfP1) (hE : EdixhovenFixedSmooth2)
     (hT : PkgI2.TorsionStructure.{0}) (hYI : PropTSGlue.HeckeIrreducible)
     (hQ : HeckeRest.QMAutCard) (h24 : CMStab24) : MCRGlue.QuotientP1Coordinate := by
   intro p _ hp 𝒴 𝒜 hM hCM Y Φ π h1 hh h2
   exact quotientP1Coordinate_of_printed' hAF hQE hTS hP1 hE hT hYI
     (cMStabObjWeak_of_cm24 hT hQ h24 hCM) p hp 𝒴 𝒜 hM hCM Y Φ π h1 hh h2
+
+/-- **Main theorem: `QuotientP1Coordinate` from published leaves and inputs the chain supplies.** The leaves are
+mcr-glue's L1-L4, Edixhoven's tame fixed-point theorem (`EdixhovenFixedSmooth2`) and the converse half of the
+Atkin–Lehner fixed-point theorem at `ℤ[√−6]` (`AtkinLehnerFixesCM24`); the chain supplies T5, `HeckeIrreducible`,
+`QMAutCard` and `ALFixedPoints`. No project glue is left. -/
+theorem quotientP1Coordinate_of_printed (hAF : ProperCurveAF) (hQE : FiniteQuotientExists)
+    (hTS : TameQuotientSmooth) (hP1 : SmoothModelOfP1) (hE : EdixhovenFixedSmooth2)
+    (hW : AtkinLehnerFixesCM24) (hT : PkgI2.TorsionStructure.{0}) (hYI : PropTSGlue.HeckeIrreducible)
+    (hQ : HeckeRest.QMAutCard) (hAL : HeckeRest.ALFixedPoints) : MCRGlue.QuotientP1Coordinate := by
+  intro p _ hp 𝒴 𝒜 hM hCM Y Φ π h1 hh h2
+  obtain ⟨P₄, h4⟩ := hCM.1
+  exact quotientP1Coordinate_of_glue24 hAF hQE hTS hP1 hE hT hYI hQ (cmStab24_of hT hW hAL hQ P₄ h4)
+    p hp 𝒴 𝒜 hM hCM Y Φ π h1 hh h2
 
 end MCRQuot
 
