@@ -42,3 +42,4 @@
   (hθ), gluePieces_of_open4, frozenTarget type (l : OpenAddedLeaves18)). No `_proof_N` renumbering.
   frozenTarget's printed type differs only in `OpenAddedLeaves17` -> `OpenAddedLeaves18`.
   DischargesTest: same discharges and controls (t1, t3 flagged sorry), 64 open hypotheses (base 63).
+- 07:20 report docs/research/theta-fold.md and .fleet/theta-fold.md written.
