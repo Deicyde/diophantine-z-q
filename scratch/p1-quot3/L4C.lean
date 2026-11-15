@@ -80,6 +80,20 @@ include hσ in
 theorem isP1CoordinateQ_swap : IsP1CoordinateQ Z (swapP1 σ) :=
   ⟨hσ.2.1, hσ.1, hσ.2.2.2, hσ.2.2.1⟩
 
+/-- Two chart structures with the same `U` and compatible `f` have the same values. -/
+theorem val_eq_of_res {X : Scheme.{0}} (π π' : ToP1 X) (hU : π.U = π'.U)
+    (hf : X.presheaf.map (homOfLE hU.ge).op π.f = π'.f) {K : Type} [Field K]
+    (y : Spec (CommRingCat.of K) ⟶ X) : π.val y = π'.val y := by
+  unfold ToP1.val
+  by_cases h : (Scheme.SpecToEquivOfField K X y).1 ∈ π.U
+  · have h' : (Scheme.SpecToEquivOfField K X y).1 ∈ π'.U := hU ▸ h
+    rw [dif_pos h, dif_pos h', ← hf]
+    congr 2
+    simp only [Scheme.evaluation]
+    rw [← ConcreteCategory.comp_apply, ← Category.assoc, TopCat.Presheaf.germ_res]
+  · have h' : (Scheme.SpecToEquivOfField K X y).1 ∉ π'.U := hU ▸ h
+    rw [dif_neg h, dif_neg h']
+
 end Chart
 
 /-! ## The generic fibre inside the model -/
@@ -469,6 +483,106 @@ theorem exists_extensions (σ : ToP1 (genFib 𝒵).left) (hσ : IsP1CoordinateQ 
       rw [map_units_inv, IsUnit.unit_spec, hb', ht', inv_inv]
     obtain ⟨f, hf, hf1, -⟩ := extend_of_isInteger 𝒵 σ hσ yinf hyinf hclinf hξinf hneU _ ha'
     exact ⟨f, g, hf, hg, hf1, hg1⟩
+
+/-- **The chart structure on the model.** -/
+theorem exists_toP1 (σ : ToP1 (genFib 𝒵).left) (hσ : IsP1CoordinateQ (genFib 𝒵) σ)
+    (y0 yinf yc : (genFib 𝒵).left) (c : Zloc p) (hc : IsUnit c)
+    (hy0U : y0 ∈ σ.U) (hy0 : y0 ∉ (genFib 𝒵).left.basicOpen σ.f) (hyinf : yinf ∉ σ.U)
+    (hycU : yc ∈ σ.U)
+    (hycv : yc ∉ (genFib 𝒵).left.basicOpen
+      (σ.f - baseToSectionsOver (CommRingCat.of ℚ) (genFib 𝒵) σ.U (zlocToRat p c)))
+    (hcl0 : ∀ x ∈ closure {jj 𝒵 y0}, 𝒵.hom x ≠ s0 p → x = jj 𝒵 y0)
+    (hclinf : ∀ x ∈ closure {jj 𝒵 yinf}, 𝒵.hom x ≠ s0 p → x = jj 𝒵 yinf)
+    (d0inf : Disjoint (closure {jj 𝒵 y0}) (closure {jj 𝒵 yinf}))
+    (d0c : Disjoint (closure {jj 𝒵 yc}) (closure {jj 𝒵 y0}))
+    (dinfc : Disjoint (closure {jj 𝒵 yc}) (closure {jj 𝒵 yinf})) :
+    ∃ (ρ : ToP1 𝒵.left) (hU : ρ.U = Uc 𝒵 (jj 𝒵 yinf)) (hV : ρ.V = Uc 𝒵 (jj 𝒵 y0))
+      (hf : σ.U ≤ jj 𝒵 ⁻¹ᵁ ρ.U) (hg : σ.V ≤ jj 𝒵 ⁻¹ᵁ ρ.V),
+      (jj 𝒵).appLE _ σ.U hf ρ.f = σ.f ∧ (jj 𝒵).appLE _ σ.V hg ρ.g = σ.g := by
+  obtain ⟨f, g, hf, hg, hf1, hg1⟩ := exists_extensions 𝒵 σ hσ y0 yinf yc c hc hy0U hy0 hyinf hycU
+    hycv hcl0 hclinf d0c dinfc
+  have hcover : Uc 𝒵 (jj 𝒵 yinf) ⊔ Uc 𝒵 (jj 𝒵 y0) = ⊤ := by
+    refine eq_top_iff.2 fun x _ => ?_
+    by_contra hx
+    simp only [TopologicalSpace.Opens.mem_sup, not_or] at hx
+    exact Set.disjoint_left.mp d0inf (not_not.1 hx.2) (not_not.1 hx.1)
+  -- restrictions to the image of the charts are the transported chart coordinates
+  have hfO : ∀ (h : jj 𝒵 ''ᵁ σ.U ≤ Uc 𝒵 (jj 𝒵 yinf)),
+      𝒵.left.presheaf.map (homOfLE h).op f = tU 𝒵 σ := by
+    intro h
+    apply (ConcreteCategory.bijective_of_isIso ((jj 𝒵).appIso σ.U).hom).1
+    rw [tU, Iso.inv_hom_id_apply, Scheme.Hom.appIso_hom', ← ConcreteCategory.comp_apply]
+    erw [Scheme.Hom.map_appLE]
+    exact hf1
+  have hgO : ∀ (h : jj 𝒵 ''ᵁ (swapP1 σ).U ≤ Uc 𝒵 (jj 𝒵 y0)),
+      𝒵.left.presheaf.map (homOfLE h).op g = tU 𝒵 (swapP1 σ) := by
+    intro h
+    apply (ConcreteCategory.bijective_of_isIso ((jj 𝒵).appIso (swapP1 σ).U).hom).1
+    rw [tU, Iso.inv_hom_id_apply, Scheme.Hom.appIso_hom', ← ConcreteCategory.comp_apply]
+    erw [Scheme.Hom.map_appLE]
+    exact hg1
+  -- points and germs
+  obtain ⟨hycW, -⟩ := third_swap 𝒵 σ c hc yc hycU hycv
+  have hyinfV : yinf ∈ σ.V := by
+    have : yinf ∈ σ.U ⊔ σ.V := by rw [σ.cover]; trivial
+    exact this.resolve_left hyinf
+  have hOU : jj 𝒵 ''ᵁ σ.U ≤ Uc 𝒵 (jj 𝒵 yinf) := by
+    rintro _ ⟨y, hy, rfl⟩
+    exact hf hy
+  have hOV : jj 𝒵 ''ᵁ (swapP1 σ).U ≤ Uc 𝒵 (jj 𝒵 y0) := by
+    rintro _ ⟨y, hy, rfl⟩
+    exact hg hy
+  have h1 := genericPoint_mem_open 𝒵 _ (image_nonempty 𝒵 σ ⟨y0, hy0U⟩)
+  have h2 := genericPoint_mem_open 𝒵 _ (image_nonempty 𝒵 (swapP1 σ) ⟨yinf, hyinfV⟩)
+  have hmul := germ_mul_swap 𝒵 σ ⟨yc, hycW⟩ h1 h2
+  set W := Uc 𝒵 (jj 𝒵 yinf) ⊓ Uc 𝒵 (jj 𝒵 y0) with hWdef
+  have hηW : genericPoint 𝒵.left ∈ W := ⟨hOU h1, hOV h2⟩
+  have hinv : 𝒵.left.presheaf.map (homOfLE (inf_le_left : W ≤ Uc 𝒵 (jj 𝒵 yinf))).op f *
+      𝒵.left.presheaf.map (homOfLE (inf_le_right : W ≤ Uc 𝒵 (jj 𝒵 y0))).op g = 1 := by
+    apply germ_injective_of_isIntegral 𝒵.left (genericPoint 𝒵.left) hηW
+    rw [map_mul, map_one, TopCat.Presheaf.germ_res_apply, TopCat.Presheaf.germ_res_apply,
+      ← TopCat.Presheaf.germ_res_apply _ (homOfLE hOU) _ h1, hfO,
+      ← TopCat.Presheaf.germ_res_apply _ (homOfLE hOV) _ h2, hgO]
+    exact hmul
+  -- the zero of `f` and the pole
+  have hj0 : jj 𝒵 y0 ∉ 𝒵.left.basicOpen f := by
+    intro hx
+    apply hy0
+    have := Scheme.basicOpen_appLE (jj 𝒵) σ.U _ hf f
+    rw [hf1] at this
+    rw [this]
+    exact ⟨hy0U, hx⟩
+  have hjinf : jj 𝒵 yinf ∉ 𝒵.left.basicOpen g := by
+    intro hx
+    have hyinfg : yinf ∉ (genFib 𝒵).left.basicOpen σ.g := by
+      rw [σ.basicOpen_g]; exact fun h => hyinf h.1
+    apply hyinfg
+    have := Scheme.basicOpen_appLE (jj 𝒵) σ.V _ hg g
+    rw [hg1] at this
+    rw [this]
+    exact ⟨hyinfV, hx⟩
+  have hbf : 𝒵.left.basicOpen f = W := by
+    apply le_antisymm
+    · intro x hx
+      refine ⟨𝒵.left.basicOpen_le f hx, fun hcl => hj0 ?_⟩
+      exact (specializes_iff_mem_closure.mpr hcl).mem_open (𝒵.left.basicOpen f).isOpen hx
+    · have hu : IsUnit (𝒵.left.presheaf.map (homOfLE (inf_le_left : W ≤ Uc 𝒵 (jj 𝒵 yinf))).op f) :=
+        IsUnit.of_mul_eq_one _ hinv
+      have := Scheme.basicOpen_res 𝒵.left f (homOfLE (inf_le_left : W ≤ Uc 𝒵 (jj 𝒵 yinf))).op
+      rw [Scheme.basicOpen_of_isUnit _ hu] at this
+      exact this.le.trans inf_le_right
+  have hbg : 𝒵.left.basicOpen g = W := by
+    apply le_antisymm
+    · intro x hx
+      refine ⟨fun hcl => hjinf ?_, 𝒵.left.basicOpen_le g hx⟩
+      exact (specializes_iff_mem_closure.mpr hcl).mem_open (𝒵.left.basicOpen g).isOpen hx
+    · have hu : IsUnit (𝒵.left.presheaf.map (homOfLE (inf_le_right : W ≤ Uc 𝒵 (jj 𝒵 y0))).op g) :=
+        IsUnit.of_mul_eq_one_right _ hinv
+      have := Scheme.basicOpen_res 𝒵.left g (homOfLE (inf_le_right : W ≤ Uc 𝒵 (jj 𝒵 y0))).op
+      rw [Scheme.basicOpen_of_isUnit _ hu] at this
+      exact this.le.trans inf_le_right
+  exact ⟨⟨Uc 𝒵 (jj 𝒵 yinf), Uc 𝒵 (jj 𝒵 y0), hcover, f, g, hinv, hbf, hbg⟩, rfl, rfl, hf, hg,
+    hf1, hg1⟩
 
 end Model
 
