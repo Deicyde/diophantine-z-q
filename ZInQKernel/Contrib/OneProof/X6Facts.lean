@@ -60,6 +60,72 @@ theorem babaGranathRationalAb_of_elkies (hE : ElkiesEquationsX6Ab) (hC : QMPairs
     obtain ⟨α, ⟨g⟩⟩ := (hcl _ x P₂ P (hs P₂) hP).1.1 (e.trans (by rw [hx]; simp))
     exact HasCM24.of_iso g ((hasCM24_twist P₂.q α).2 c₂)
 
+/-! ## `QMPairsCMExist` from its printed setting over `ℂ` and Shimura–Taniyama -/
+
+/-- **The three elliptic CM pairs exist over `ℂ`** (the printed setting of `QMPairsCMExist`): there are QM
+pairs `(A, ι)` over `ℂ` whose commutant `End_𝒪(A)` contains `φ` with `φ² = −1`, resp. `φ² − φ + 1 = 0`, resp.
+`φ² = −6`.
+
+LEAF (published, classical; locators UNVERIFIED, no network): Shimura, Ann. of Math. 85 (1967) §§1-3: for
+`τ ∈ ℍ`, `A_τ = ℂ²/ι(𝒪)(τ, 1)ᵀ` is an abelian surface with QM by `𝒪` and `End_𝒪(A_τ) = Φ_τ(k) ∩ 𝒪`
+(the same source as the bundle's `QMCentralizerCMC`); at the fixed point `τ` of `ι(i + j)`, `ι((1 + j)/2)`,
+`ι(2j + k)` (elements of `𝒪` with reduced characteristic polynomials `x² + 1`, `x² − x + 1`, `x² + 6`; Eichler,
+Vignéras LNM 800 Ch. III §5) the commutant contains the corresponding element. A consequence, never stronger:
+one pair of each kind. -/
+def QMPairsCMExistC : Prop :=
+  (∃ P : QMPair ℂ, HasCM4 P.q) ∧ (∃ P : QMPair ℂ, HasCM3 P.q) ∧ (∃ P : QMPair ℂ, HasCM24 P.q)
+
+open HDec.HSyn.G0Split.FibreQM.PeriodMapH in
+/-- **Descent of a CM QM pair from `ℂ` to `ℚ̄`** (glue, proved): by Shimura–Taniyama (the bundle field
+`shimuraTaniyamaQbar`, through the chain's `stQM_lf7`) `A ≅ A₀ ×_{ℚ̄, ιe} ℂ`; by T11(b) (proved,
+`t11b_of_exists t11bExists_lf8`) every endomorphism of the base change comes from `A₀`, so conjugating by the isomorphism
+gives a ring map `κ : End A → End A₀` with `κ ∘ ι` a QM structure on `A₀`. -/
+theorem descend_pair (hST : QMSplitSTQM.ShimuraTaniyamaQbar) (P : QMPair ℂ)
+    (hcm : HasCM4 P.q ∨ HasCM3 P.q ∨ HasCM24 P.q) :
+    ∃ (P₀ : QMPair Qbar) (κ : PkgI3.AbVar.End P.A →+* PkgI3.AbVar.End P₀.A),
+      ∀ a, κ (P.q.iota a) = P₀.q.iota a := by
+  have hR := HDec.AVB2.t11b_of_exists HDec.HSyn.t11bExists_lf8
+  obtain ⟨ιe, A₀, e, e', h1, h2⟩ := HDec.HSyn.stQM_lf7 hST P.A P.q P.surface hcm
+  let β := RingEquiv.ofBijective (LeafQCheck.endBCe ιe A₀) (LeafQCheck.endBCe_bijective ιe A₀ hR)
+  let κ : PkgI3.AbVar.End P.A →+* PkgI3.AbVar.End A₀ :=
+    β.symm.toRingHom.comp (LeafQCheck.conjE e e' h1 h2)
+  have κinj : Function.Injective κ := β.symm.injective.comp (LeafQCheck.conjE_injective e e' h1 h2)
+  have hdim : A₀.dim = 2 := by
+    have := LeafQCheck.dim_eq_of_iso e e' h1 h2
+    rw [← P.surface, ← this]
+    exact (@PkgI3.AbVar.dim_baseChange Qbar _ A₀ ℂ _ ιe.toAlgebra).symm
+  exact ⟨⟨A₀, hdim, ⟨κ.comp P.q.iota, κinj.comp P.q.injective⟩⟩, κ, fun a => rfl⟩
+
+/-- A ring map compatible with the QM structures maps the commutant into the commutant. -/
+theorem map_mem_com {K L : Type} [Field K] [Field L] {A : PkgI3.AbVar K} {B : PkgI3.AbVar L}
+    {q : QMStr A} {q' : QMStr B} (κ : PkgI3.AbVar.End A →+* PkgI3.AbVar.End B)
+    (hκ : ∀ a, κ (q.iota a) = q'.iota a) {φ : PkgI3.AbVar.End A} (hφ : φ ∈ com q) : κ φ ∈ com q' := by
+  rw [com, Subring.mem_centralizer_iff] at hφ ⊢
+  rintro _ ⟨a, rfl⟩
+  rw [← hκ, ← map_mul, ← map_mul, hφ _ ⟨a, rfl⟩]
+
+/-- **`QMPairsCMExist` from `QMPairsCMExistC` and Shimura–Taniyama** (glue, proved). -/
+theorem qmPairsCMExist_of_C (hC : QMPairsCMExistC) (hST : HDec.HSyn.G0Split.FibreQM.PeriodMapH.QMSplitSTQM.ShimuraTaniyamaQbar) :
+    QMPairsCMExist := by
+  obtain ⟨⟨P₄, φ₄, m₄, e₄⟩, ⟨P₃, φ₃, m₃, e₃⟩, ⟨P₂, φ₂, m₂, e₂⟩⟩ := hC
+  refine ⟨?_, ?_, ?_⟩
+  · obtain ⟨P, κ, hκ⟩ := descend_pair hST P₄ (Or.inl ⟨φ₄, m₄, e₄⟩)
+    exact ⟨P, κ φ₄, map_mem_com κ hκ m₄, by rw [← map_mul, e₄, map_neg, map_one]⟩
+  · obtain ⟨P, κ, hκ⟩ := descend_pair hST P₃ (Or.inr (Or.inl ⟨φ₃, m₃, e₃⟩))
+    exact ⟨P, κ φ₃, map_mem_com κ hκ m₃, by
+      rw [← map_mul, ← map_sub, ← map_one κ, ← map_add, e₃, map_zero]⟩
+  · obtain ⟨P, κ, hκ⟩ := descend_pair hST P₂ (Or.inr (Or.inr ⟨φ₂, m₂, e₂⟩))
+    exact ⟨P, κ φ₂, map_mem_com κ hκ m₂, by rw [← map_mul, e₂, map_neg, map_ofNat]⟩
+
+/-- **`BabaGranathRationalAb` from Elkies' leaf, Shimura–Taniyama (both bundle fields) and the printed-setting
+CM existence `QMPairsCMExistC`** (gt-x6facts; the form for the fold). -/
+theorem babaGranathRationalAb_of_printed (hE : ElkiesEquationsX6Ab)
+    (hST : HDec.HSyn.G0Split.FibreQM.PeriodMapH.QMSplitSTQM.ShimuraTaniyamaQbar) (hC : QMPairsCMExistC) :
+    BabaGranathRationalAb :=
+  babaGranathRationalAb_of_elkies hE (qmPairsCMExist_of_C hC hST)
+
 end HDec.QMSplit.Moduli.X6Facts
 
 #print axioms HDec.QMSplit.Moduli.X6Facts.babaGranathRationalAb_of_elkies
+#print axioms HDec.QMSplit.Moduli.X6Facts.qmPairsCMExist_of_C
+#print axioms HDec.QMSplit.Moduli.X6Facts.babaGranathRationalAb_of_printed
