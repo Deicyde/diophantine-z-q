@@ -35,3 +35,14 @@
   Pi0Use.lean. babaGranathRationalAb ⇐ ElkiesEquationsX6Ab (derived) ∧ CMPairsExist (SPECULATIVE plan via
   shimuraMainThmIDeligneY3AbU ModuliAtUnits + HomLatticeCorr + descend_main copy).
 - NOTE geomConnOfAlgClosure is held (claims.tsv: cloud batch 2): a prune would make that task moot; flag to the lead.
+- Trace.lean killed after 25 min (no output; per-seed scan too slow); replaced by targeted binder-use probe Pi0Use.lean.
+- agent-Y: deligneComponentsY3PrintedAb used only as TSHecke.Y3Connected (TailG:8352: ∃ Y Φ, R1fpProps ∧ ConnectedSpace Y.left),
+  single real use TailK:317. Narrow route (T3, SPECULATIVE) from shimuraMainThmIDeligneY3AbU + (𝒪/3)^× decide at K=ℚ(i).
+  shimuraIntegralModelRep: weakest use VertUnramWitness E p (p>324); LEAF by reading Buzzard 1997 §§1-4 (UNVERIFIED).
+- PROBE Pi0Use.lean (compiled, 1m20, out3): in the closure of frozenTarget, the only constants with a binder of exact type
+  HDec.LeafAdopt.R1pi0Props that USE it are the producers r1r2fpRep_of, canonicalCoarseX6_of, coarseX6OfFine_of; all
+  destructurers (R1R2fp_of_rep, r5fp_of_rep, r1rec_of_rep, pairsLift_of_rep, pairsLift_of_canonical) discard it; the other
+  mentioning constants (descend_main, canonicalModelY3_of_coarse) discard by pattern (read). VERIFIED: R1pi0Props is
+  never consumed on the live path. (Watched-name bug in run 1: LeafAdopt vs HDec.LeafAdopt; run 2 counted conjunction binders.)
+- VERIFIED (read): r1r2fpRep_of_printed (TailZ20:1855) takes the base witness from geomConnX6_of hD hE; a prune must take
+  the witness (R1fpProps ∧ X6Props) from another leaf, e.g. hG (GonzalezRotgerX6, :1858).

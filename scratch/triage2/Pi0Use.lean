@@ -19,19 +19,24 @@ def p0Closure (env : Environment) (root : Name) : NameSet := Id.run do
       if let some v := ci.value? (allowOpaque := true) then todo := todo ++ v.getUsedConstants
   return seen
 
-def p0Watched : List Name := [`LeafAdopt.R1pi0Props, `AlgebraicGeometry.GeometricallyConnected]
+def p0Watched : List Name := [`HDec.LeafAdopt.R1pi0Props]
 
 def p0Mentions (e : Expr) : Bool := (e.find? fun x => match x with
   | .const n _ => p0Watched.contains n
   | _ => false).isSome
 
+/-- binder type is exactly the watched clause (head constant), not a conjunction containing it. -/
+def p0Head (e : Expr) : Bool := match e.consumeMData.getAppFn with
+  | .const n _ => p0Watched.contains n
+  | _ => false
+
 partial def p0Walk (e : Expr) (acc : Array (String × Bool)) : Array (String × Bool) :=
   match e with
   | .lam n t b _ | .forallE n t b _ =>
-      let acc := if p0Mentions t then acc.push (toString n, b.hasLooseBVar 0) else acc
+      let acc := if p0Head t then acc.push (toString n, b.hasLooseBVar 0) else acc
       p0Walk b (p0Walk t acc)
   | .letE n t v b _ =>
-      let acc := if p0Mentions t then acc.push (toString n, b.hasLooseBVar 0) else acc
+      let acc := if p0Head t then acc.push (toString n, b.hasLooseBVar 0) else acc
       p0Walk b (p0Walk v (p0Walk t acc))
   | .app f a => p0Walk a (p0Walk f acc)
   | .mdata _ b => p0Walk b acc
