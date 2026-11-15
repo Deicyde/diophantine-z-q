@@ -1,10 +1,10 @@
 /-! ════════════════════════════════════════════════════════════════════════════════════════════
-# p1-quot: `QuotientP1Coordinate` from printed leaves and `CMStabObj`
+# p1-quot: `QuotientP1Coordinate` from printed leaves
 
 `P1SchemeQ` is proved (`QuotientP1Proof.p1SchemeQ_body`, `QuotientP1/P1Scheme.lean`); glue C1 is proved from
 Edixhoven's theorem for two generators without L5, L6 or involutions (`cMSectionsDisjoint'_of`,
-`QuotientP1/FixedDisjoint.lean`); the `ℤ[i]` and `ℤ[ζ₃]` clauses of `CMStabObjWeak` are proved from T5 and the
-chain's `QMAutCard` (`QuotientP1/CMStab.lean`); `CurveBijIso` is curve-split's theorem; `ModelYIrreducible` is the chain's
+`QuotientP1/FixedDisjoint.lean`); the CM stabilizers `CMStabObjWeak` are proved from T5, the chain's `QMAutCard`
+and `ALFixedPoints`, and the Atkin–Lehner leaf `AtkinLehnerFixesCM24` (`QuotientP1/CMStab.lean`); `CurveBijIso` is curve-split's theorem; `ModelYIrreducible` is the chain's
 `PropTSGlue.HeckeIrreducible` (same body, `rfl`).
 ════════════════════════════════════════════════════════════════════════════════════════════ -/
 
