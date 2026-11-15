@@ -156,9 +156,11 @@ a deferral assertion.
 Old-side hunk ranges use GitHub's PR merge base; `read_file(base)` instead serves
 the pinned current base tip. New-side ranges use head. The packet supplies the
 verified `merge_base` SHA when patches are deferred, also retained in the durable
-marker. The read tool still accepts only head/base revisions; the reviewer can
-retrieve the pinned merge-base source through web tools. On a diverged base, the reviewer must verify the
-old-side text independently or report the limitation, not assume the old range
+marker. The read tool still accepts only head/base revisions. The SHA identifies
+the old revision but does not provide a supported retrieval route for both
+reviewers. On a diverged base, old-side text may be unverifiable: the reviewer
+must verify it independently or report the limitation and request an updated
+branch before acceptance, not assume the old range
 matches the current base. Deferred hunk ranges are navigation hints, not source
 text or evidence that the removed passage was read.
 
@@ -472,6 +474,10 @@ an explicit `read_file(base)` still uses the pinned current base tip. Hunk text
 and counts of displayed hunks must match those source revisions before a binding
 is made or reused. A binding can also be omitted for output capacity; the durable
 `initial_packet` marker remains in the report independently of that binding.
+A deferred review whose merge base differs from its reviewed base tip gets no
+rebase binding: necessary merge-base reads through web tools are not tracked.
+The reuse consumer also rejects such a report across heads, even if it contains
+a binding. Same-head retention remains available under the existing rules.
 If the merge base or displayed passage identity cannot be established, rebase
 reuse is disabled. Older bindings without this distinction cannot authorize a
 new head. After a rebase, each exact passage must occur uniquely

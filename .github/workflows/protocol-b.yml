@@ -1118,6 +1118,9 @@ jobs:
 
 
           def make_reuse_binding(gh, pr, files, reviewer):
+              packet = reviewer.initial_packet or {}
+              if packet.get('patches_deferred') and packet.get('merge_base') != pr['base']['sha']:
+                  raise ValueError('Deferred merge-base context may be read through untracked web tools; cross-head reuse disabled on a diverged base')
               # Text dependencies follow the exact returned passage across line movement.
               # Binary dependencies and trusted policy inputs require whole-file equality.
               whole = set(reviewer.binary_dependencies)
@@ -1237,6 +1240,9 @@ jobs:
 
 
           def reusable_on_rebase(gh, pr, files, envelope):
+              packet = envelope.get('initial_packet') or {}
+              if packet.get('patches_deferred') and packet.get('merge_base') != envelope.get('base'):
+                  return False  # Required old-side web reads are not tracked by the binding.
               if any(f.get('resolution') == 'overridden' for f in envelope['review'].get('prior_findings', [])):
                   return False  # Overrides are authorized for one exact head only.
               binding = envelope.get('reuse_binding') or {}

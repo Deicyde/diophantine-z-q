@@ -27,11 +27,15 @@ theorems. A model review is not formal verification or a guarantee of correctnes
    do not shrink when a patch is deferred.
    Hunk old-side ranges refer to the PR's merge base, while `read_file(base)`
    serves the pinned current base tip; new-side ranges refer to head. The tool
-   accepts only head/base revisions. A deferred packet exposes the pinned
-   `merge_base` SHA for source retrieval through web tools. If the base has diverged, do not assume
+   accepts only head/base revisions. A deferred packet identifies the pinned
+   `merge_base` SHA, but does not provide a supported way to read that revision.
+   If the base has diverged, the old side may be unverifiable; do not assume
    its old-side line numbers or text match. Verify the affected old-side text
-   independently, or report that the change could not be fully checked. A
+   independently, or report the limitation and request an updated branch before
+   acceptance. A
    deferred range alone is not evidence of the removed text.
+   A review with deferred patches on a diverged base cannot be reused across
+   heads because its merge-base web reads are not tracked by the binding.
 2. Reconstruct what the argument needs before reading the author's inventory or
    previous favorable verdicts. List the changed unit's dependencies and consumers.
    Then inspect `PROJECT.md`, the current inventory and applicable policies.

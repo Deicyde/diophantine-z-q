@@ -113,6 +113,35 @@ class InitialPacket(unittest.TestCase):
                     review.run()
                 provider.assert_not_called()
 
+    def test_changed_untracked_merge_base_context_cannot_reuse_deferred_review(self):
+        old_text, new_text = 'o' * 230_000, 'n' * 230_000
+        files = [changed('p.tex', '@@ -1 +1 @@\n-' + old_text + '\n+' + new_text)]
+        gh, review, _ = self.make(files=files)
+        old_head, old_base = gh.pr['head']['sha'], gh.pr['base']['sha']
+        old_merge_base, new_merge_base = 'c' * 40, 'd' * 40
+        gh.comparison['merge_base_commit']['sha'] = old_merge_base
+        gh.text = lambda path, ref: ((old_text if ref in {old_merge_base, new_merge_base, old_base} else new_text)
+                                    + '\n' + ('necessary old hypothesis' if ref == old_merge_base else 'changed hypothesis'))
+        self.prepare(review)
+        self.assertIs(review.initial_packet['patches_deferred'], True)
+        with self.assertRaisesRegex(ValueError, 'cross-head reuse disabled'):
+            gate.make_reuse_binding(gh, gh.pr, files, review)
+        with patch.object(gate, 'record'):
+            self.assertIsNone(gate.optional_reuse_binding(gh, gh.pr, files, review))
+        # Reconstruct the earlier encoding: the web-only second line is absent
+        # from its dependencies. The complete PR diff itself is unchanged.
+        with patch.object(review, 'initial_packet', None):
+            old_binding = gate.make_reuse_binding(gh, gh.pr, files, review)
+        prior = envelope(head=old_head, base=old_base, initial_packet=review.initial_packet,
+                         reuse_binding=old_binding)
+        gh.pr['head']['sha'] = 'e' * 40
+        gh.pr['base']['sha'] = new_merge_base
+        gh.comparison['merge_base_commit']['sha'] = new_merge_base
+        self.assertEqual(gate.diff_identity(files), old_binding['diff'])
+        self.assertNotEqual(gh.text('p.tex', old_merge_base), gh.text('p.tex', new_merge_base))
+        self.assertTrue(gate.reusable_on_rebase(gh, gh.pr, files, {**prior, 'initial_packet': None}))
+        self.assertFalse(gate.reusable_on_rebase(gh, gh.pr, files, prior))
+
 
 if __name__ == '__main__':
     unittest.main()
