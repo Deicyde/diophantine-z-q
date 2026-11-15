@@ -393,3 +393,55 @@ A' to F/ℚ₅, A^c, A_f and J₁(N), at ℓ ∈ {3, 5}. The ℓ = 3 call of G9 
   printed theorem state clauses 1–4 together with the units clause? This is the same reading as Y₃'s flag.
 - **shimuraIntegralModelRep.** Only `VertUnramWitness E p` (p > 324) is used. It becomes a LEAF on a Buzzard 1997
   reading. A possible substitute leaf is a good-reduction theorem for tame covers (Beckmann 1989), via a bypass.
+
+### 2.4 Further probes and the final ranking
+
+**Task 3 is now fully proved in scratch (VERIFIED, compiled, standard axioms).** `scratch/triage2/ProbeD.lean`
+proves:
+- `cmComplexT2`: QM surfaces over ℂ with HasCM4, HasCM3 and HasCM24. They come from:
+  - `shimuraMainThmIDeligneY3AbU`, its clause `IsShimuraHolFamily` at u = 1 (RayClassShimura:1121);
+  - the proved `cmFixedHasCM_of` (TailJ:1270) and `cm4/cm3/cm24_exists` (TailJ:255-275);
+  - the chain `t11aRiemannHom_of_corr4 (AvSplit.Final.h69 uniformizationLeafAll gagaMorphism)` (TailK:63,
+    TailQ:2380).
+- `pairOfT2`: lines 1181-1191 of `descend_main` (TailO), without `TorsionDescends` and without `R1R2fpRep`. A
+  `QMPair` carries no level structure, so neither is needed.
+- `cmPairsExistT2_of`.
+- `theorem babaGranathRationalAb_of_open28T2 (n : OpenResearchLeaves21) (t : OpenTextbookLeaves11)
+  (l : OpenAddedLeaves17) : QMSplit.Moduli.BabaGranathRationalAb`, built from `n.elkiesX6StarPrinted`,
+  `n.shimuraMainThmIDeligneY3AbU`, `t.uniformizationLeafAll`, `t.gagaMorphism` and `l.shimuraTaniyamaQbar`. `#print
+  axioms` gives `[propext, Classical.choice, Quot.sound]`.
+
+So the field `babaGranathRationalAb` is a consequence of the other fields. What remains is a contribution file (about
+120 lines, copied from ProbeB and ProbeD) and a fold. The field is passed on at
+`openResearchLeaves20_of_OpenResearchLeaves21` (TailZ34:104), which takes only `(n, t)`. So the fold either threads
+`l` into that converter or does the replacement in `sixContactMin_of_open28` (TailZ34:171). Tier T1.
+
+Side effects:
+- It also removes BG's UNVERIFIED §3.1 CM-assignment reading. The orientation now rests on Elkies' t = 0, 1, ∞
+  (flagged in `elkiesX6StarPrinted`).
+- `shimuraTaniyamaQbar` is in flight (task st-qbar). The use here is `stqm_of` on CM objects, the same use as the
+  existing `cmDescends_of`, so a narrowing that keeps that use keeps this proof.
+
+**No further clause prune in the X₆ row.** The probe `ClauseUse.lean` (compiled) checks every other conjunct of
+`R1R2fpRep`/`R1R2fp` (R1heckeProps, X6Surj, R5ptProps, R1recProps, CMExists, R2X6Props, R2X6PropsIff). Each has a
+consumer that really uses it, for example `nocm_on_witness` and `heckeNoVertRam_of_witness`.
+
+**Task 4 risk raised.** Both cases of the bypass need `CommRing.Pic` computations for an abstract order R ⊆ k.
+- Case b ≥ 1: a non-principal invertible ideal in ℤ[fi].
+- Case b = 0: R = ℤ[√−6] from #Pic R = 2.
+- Nothing in the tree computes `CommRing.Pic` of quadratic orders. The tier is T3, possibly T4.
+
+**Final ranking (one agent each):**
+
+| # | task | fields removed | tier | evidence |
+|---|---|---|---|---|
+| 1 | `babaGranathRationalAb` from Elkies + CM pairs (task 3) | −1 | T1 | proved end-to-end in scratch (ProbeD) |
+| 2 | semantic prune `deligneComponentsX6PrintedAb` + `geomConnOfAlgClosure` (task 1) | −2 | T2 | Pi0Use, ProbeC; `geomConnOfAlgClosure` is held: lead to decide |
+| 3 | `semistablePersistsSHcp` from SGA 7 IX 3.3 (second assertion) (task 2) | −1 | T2 | ProbeA (fold check compiles); template `hasSemiAbelian_pullback` |
+| 4 | `deligneComponentsY3PrintedAb` → `Y3Connected` from `shimuraMainThmIDeligneY3AbU` (task 5) | −1 | T3 | agent-Y; not probed |
+| 5 | `gonzalezRotgerProp56X6` bypass by identifying R (task 4) | −1 | T3–T4 | agent-W; Pic computations missing |
+| 6 | `gaudronRemondThm14` to one direction (task 6) | 0 | T1–T2 | agent-H |
+
+Tasks 1, 2 and 3 are independent. Tasks 1 (prune) and 3 both edit `x6Rows_of_open14`'s inputs; fold them together
+or one after the other. Tasks 3 and 4 both read `shimuraMainThmIDeligneY3AbU`. If that GLUE field is split by its
+holder, the clauses used are `IsShimuraHolFamily` (task 3) and clauses 1, 2 and 4 (task 4).

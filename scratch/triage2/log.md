@@ -64,3 +64,4 @@
   (l : OpenAddedLeaves17) : BabaGranathRationalAb` — axioms [propext, Classical.choice, Quot.sound]. VERIFIED:
   the field babaGranathRationalAb is derivable from the other top-bundle fields (elkiesX6StarPrinted,
   shimuraMainThmIDeligneY3AbU, uniformizationLeafAll, gagaMorphism, shimuraTaniyamaQbar). Task 3 → T1 (fold only).
+- ClauseUse.lean (compiled; errors only in an unused renamed helper): every other conjunct of R1R2fpRep/R1R2fp (R1heckeProps, X6Surj, R5ptProps, R1recProps, CMExists, R2X6Props(Iff)) has a real consumer (e.g. nocm_on_witness, heckeNoVertRam_of_witness): no further clause prune.
