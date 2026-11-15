@@ -22,3 +22,18 @@
 * 06:20 Added `[IsCMField E]` to the leaf (fidelity: the print is for CM fields); proved `isCMField_EK` via Mathlib's
   `IsCMField.ofCMExtension` with F = ℚ(√2) totally real. Main.lean recompiles, axioms standard. VERIFIED.
 * 06:20 Independent model review of `MainTheoremCM` launched (adversarial, no Lean).
+* 06:25 Review result (one model agent, adversarial, read-only): `MainTheoremCM` true with ε = +1, equal to or weaker
+  than the print, not vacuous; reflex norm = Milne's det_E(a|V) = Shimura's ∏_{ψ∈Φ*}ψ(a); lattice, torsion clause,
+  Galois direction, base change correct; g = 1 with ε = 1 is the kernel's `ShimuraMainCM`. Only issue: E not assumed
+  CM (true but not literally printed) — already fixed by `[IsCMField E]` (06:20).
+* 06:30 `ZInQKernel/Contrib/OneProof/QMRecPrinted.lean` (docstrings, `qmReciprocityL3_of_textbook`,
+  `rayClassCMAb_of_mainCM`) compiles (lake env lean, 15 s). VERIFIED.
+* 06:35 `lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges +ZInQKernel.Contrib.OneProof.QMRecPrinted`:
+  Build completed successfully (12982 jobs). `#discharges`: rayClassCMAb by `QMRecPrinted.rayClassCMAb_of_mainCM`, still
+  assumes [DeligneComponentsX6PrintedAb, MainTheoremCM, UniformizationLeafAll, GAGAMorphism, MumfordTorsionAlgClosed],
+  axioms standard; `65 open hypotheses, 1725 theorems checked, 15 discharge one`. VERIFIED.
+* 06:40 Autofold dry run (`autofold.json`, current tree, replaces shimura-split2's spec): strict 45/13 -> 46/12,
+  strictest 44/14 -> 45/13; FoldCheck.lean compiles, `sixContactMin_of_open27` standard axioms. After shimura-split2's
+  fold (applied in /tmp/qmrec-fold copy): `autofold-after-split2.json` dry run 45/13 -> 46/12; combined
+  FoldCheckAfterSplit2.lean compiles, open27/open28 standard axioms. VERIFIED.
+* 06:50 Report docs/research/qmrec-printed.md written.
