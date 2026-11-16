@@ -888,8 +888,7 @@ theorem exists_basicOpen_localizedModule_equiv (z : (D.I * E.I).subscheme)
       have hreshinj : Function.Injective resh.hom :=
         presheaf_map_injective_of_eq hDh.symm _
       haveI : IsIso resh := by
-        dsimp [resh]
-        infer_instance
+        exact (D.I * E.I).subscheme.presheaf.map_isIso ((eqToHom hDh.symm).op)
       have hreshsurj : Function.Surjective resh.hom :=
         (ConcreteCategory.bijective_of_isIso resh).2
       have hsurjI := subschemeObjIso_inv_mk_surjective (D.I * E.I) Wt

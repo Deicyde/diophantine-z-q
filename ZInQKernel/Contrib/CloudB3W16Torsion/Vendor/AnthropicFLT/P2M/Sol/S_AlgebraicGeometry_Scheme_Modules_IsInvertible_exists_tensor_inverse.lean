@@ -18,28 +18,28 @@ import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_
 import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
 set_option backward.isDefEq.respectTransparency true
-set_option backward.isDefEq.respectTransparency.types false
+set_option backward.isDefEq.respectTransparency.types true
 
 namespace P2MW.S_AlgebraicGeometry_Scheme_Modules_IsInvertible_exists_tensor_inverse
 
 set_option autoImplicit false
 set_option backward.isDefEq.respectTransparency true
-set_option backward.isDefEq.respectTransparency.types false
+set_option backward.isDefEq.respectTransparency.types true
 
 universe u
-open CategoryTheory
-open CategoryTheory.MonoidalCategory
-open CategoryTheory.Limits
-open CategoryTheory.MonoidalCategory.Limits
+open _root_.CategoryTheory
+open _root_.CategoryTheory.MonoidalCategory
+open _root_.CategoryTheory.Limits
+open _root_.CategoryTheory.MonoidalCategory.Limits
 
 namespace PresheafOfModules
 export _root_.PresheafOfModules (sheafification sheafify presheaf sections pullback naturality_apply pushforward evaluation inverseImage_W_toPresheaf_eq_inverseImage_isomorphisms map map_comp_apply IsLocallyInjective Hom toPresheaf unit free restriction pullbackComp obj IsLocallySurjective InternalHom.map_id_apply InternalHom.naturality InternalHom.smul_app ihomObj uncurry' uncurry'_app_tmul isSheaf_ihomObj)
 open PresheafOfModules
 
 namespace InvertibleDual
-open Opposite
+open _root_.Opposite
 open PresheafOfModules.InternalHom
-open TensorProduct
+open _root_.TensorProduct
 
 variable {C : Type u} [Category.{u} C] {R : Cᵒᵖ ⥤ CommRingCat.{u}}
   (F : PresheafOfModulesOfCommRing.{u} R)
@@ -92,15 +92,18 @@ noncomputable def dualGen : (dual F).obj X₀ :=
 @[scoped simp] lemma dualGen_app {Y : Cᵒᵖ} (f : X₀ ⟶ Y) (x : F.obj Y) :
     (D.dualGen).1 f x = D.coord f x := rfl
 
-lemma eq_smul_dualGen (φ : (dual F).obj X₀) : φ = φ.1 (𝟙 X₀) (D.gen (𝟙 X₀)) • D.dualGen := by
+lemma eq_smul_dualGen (φ : (dual F).obj X₀) : φ = @SMul.smul (R.obj X₀) ((dual F).obj X₀) inferInstance
+      (φ.1 (𝟙 X₀) (D.gen (𝟙 X₀))) D.dualGen := by
   apply naturalFamilies_ext
   intro Y f x
-  rw [InternalHom.smul_app, dualGen_app]
+  change φ.1 f x = (R.map f (φ.1 (𝟙 X₀) (D.gen (𝟙 X₀))) : R.obj Y) • D.coord f x
   conv_lhs => rw [← D.coord_smul_gen f x, LinearMap.map_smul]
   have h := InternalHom.naturality φ (𝟙 X₀) f (D.gen (𝟙 X₀))
   rw [D.compat, Category.id_comp] at h
-  rw [← h, smul_eq_mul, smul_eq_mul, mul_comm]
-  rfl
+  rw [← h]
+  change (D.coord f x) * R.map f (φ.1 (𝟙 X₀) (D.gen (𝟙 X₀))) =
+    R.map f (φ.1 (𝟙 X₀) (D.gen (𝟙 X₀))) * (D.coord f x)
+  exact mul_comm _ _
 
 noncomputable def evInv : R.obj X₀ →ₗ[R.obj X₀] (F.obj X₀ ⊗[R.obj X₀] (dual F).obj X₀) :=
   LinearMap.toSpanSingleton _ _ (D.gen (𝟙 X₀) ⊗ₜ D.dualGen)
@@ -114,19 +117,17 @@ lemma ev_app_tmul (x : F.obj X₀) (φ : (dual F).obj X₀) :
 lemma ev_evInv (a : R.obj X₀) :
     DFunLike.coe (α := (F.obj X₀ ⊗ (dual F).obj X₀ :)) (β := fun _ => (𝟙_ (PresheafOfModulesOfCommRing.{u} R)).obj X₀)
       ((ev F).app X₀).hom (D.evInv a) = a := by
-  change DFunLike.coe (α := (F.obj X₀ ⊗ (dual F).obj X₀ :)) (β := fun _ => (𝟙_ (PresheafOfModulesOfCommRing.{u} R)).obj X₀)
-      ((ev F).app X₀).hom (a • (D.gen (𝟙 X₀) ⊗ₜ[R.obj X₀] D.dualGen)) = a
-  rw [LinearMap.map_smul]
-  erw [ev_app_tmul]
-  rw [dualGen_app, coord_gen, smul_eq_mul, mul_one]
+  change ((ev F).app X₀).hom ((a • D.gen (𝟙 X₀)) ⊗ₜ[R.obj X₀] D.dualGen) = a
+  erw [ev_app_tmul, dualGen_app]
+  exact D.coord_gen_smul (𝟙 X₀) a
 
 lemma evInv_ev (z : (F.obj X₀ ⊗[R.obj X₀] (dual F).obj X₀)) :
     D.evInv (DFunLike.coe (α := (F.obj X₀ ⊗ (dual F).obj X₀ :)) (β := fun _ =>
       (𝟙_ (PresheafOfModulesOfCommRing.{u} R)).obj X₀)
         ((ev F).app X₀).hom z) = z := by
   induction z using TensorProduct.induction_on with
-  | zero => rw [map_zero, map_zero]
-  | add z₁ z₂ h₁ h₂ => rw [map_add, map_add, h₁, h₂]
+  | zero => exact (D.evInv).map_zero
+  | add z₁ z₂ h₁ h₂ => erw [map_add, map_add, h₁, h₂]
   | tmul x φ =>
     erw [ev_app_tmul]
     set d : R.obj X₀ := φ.1 (𝟙 X₀) (D.gen (𝟙 X₀)) with hd
@@ -134,7 +135,7 @@ lemma evInv_ev (z : (F.obj X₀ ⊗[R.obj X₀] (dual F).obj X₀)) :
     have hφ : φ = d • D.dualGen := D.eq_smul_dualGen φ
     have h1 : φ.1 (𝟙 X₀) x = D.coord (𝟙 X₀) x * d := by
       conv_lhs => rw [hx]
-      rw [LinearMap.map_smul, smul_eq_mul]
+      erw [LinearMap.map_smul, smul_eq_mul]
     rw [h1]
     conv_rhs => rw [hx, hφ, TensorProduct.smul_tmul_smul]
     rfl
@@ -180,17 +181,20 @@ end InvertibleDual
 
 end PresheafOfModules
 
+set_option backward.isDefEq.respectTransparency.types false
+
 namespace AlgebraicGeometry
 export _root_.AlgebraicGeometry (Scheme.Hom Scheme.Opens.ι_appIso Scheme.Hom.image_preimage_eq_opensRange_inf Scheme Scheme.Modules Scheme.Opens Scheme.Opens.opensRange_ι Scheme.Modules.IsInvertible Scheme.Modules.pullbackUnitIso Scheme.Modules.tensorIsoSheafify)
 namespace Scheme
 export _root_.AlgebraicGeometry.Scheme (ringCatSheaf Modules.pullback Hom Γ Opens.ι_appIso Hom.image_preimage_eq_opensRange_inf Modules.restrictFunctor restrictFunctor Modules.pullbackCongr Modules Opens homOfLE_ι grothendieckTopology Opens.opensRange_ι PresheafOfModules Modules.pullbackComp evaluation Modules.IsInvertible Modules.pullbackUnitIso Modules.sheafify Modules.tensorIsoSheafify)
 namespace Modules
 export _root_.AlgebraicGeometry.Scheme.Modules (toPresheaf pushforward pullback presheaf Hom restrictFunctor restrictFunctorIsoPullback pullbackCongr isSheaf map_smul pullbackComp IsInvertible pullbackUnitIso tensor dual sheafify tensorIsoSheafify pullbackTensorUnitObjIso)
-open AlgebraicGeometry.Scheme.Modules
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
 
-open TopologicalSpace Opposite PresheafOfModules.InvertibleDual
+open _root_.TopologicalSpace _root_.Opposite
+open _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_IsInvertible_exists_tensor_inverse.PresheafOfModules.InvertibleDual
 
 variable {X : Scheme.{u}}
 
@@ -244,7 +248,7 @@ noncomputable def gen₀ (W : (U : Scheme.{u}).Opens) : L.val.obj (op (U.ι ''�
 lemma gen₀_spec (W : (U : Scheme.{u}).Opens) (b : Γ(X, U.ι ''ᵁ W)) :
     (e.inv.val.app (op W)).hom b = b • gen₀ L e W := by
   have := (e.inv.val.app (op W)).hom.map_smul b (1 : Γ(U, W))
-  rw [smul_eq_mul, mul_one] at this
+  erw [smul_eq_mul, mul_one] at this
   exact this
 
 lemma gen₀_bijective (W : (U : Scheme.{u}).Opens) :
@@ -266,8 +270,11 @@ lemma gen₀_map {W W' : (U : Scheme.{u}).Opens} (i : W' ⟶ W) :
 omit e in
 
 lemma bijective_smul_map_eqToHom {A B : X.Opens} (q : A = B) (t : L.val.obj (op A))
-    (h : Function.Bijective (fun b : Γ(X, A) => b • t)) :
-    Function.Bijective (fun a : Γ(X, B) => a • L.val.map (eqToHom q.symm : B ⟶ A).op t) := by
+    (h : Function.Bijective (fun b : Γ(X, A) =>
+      @SMul.smul (Γ(X, A)) (L.val.obj (op A)) (L.val.obj (op A)).isModule.toSMul b t)) :
+    Function.Bijective (fun a : Γ(X, B) =>
+      @SMul.smul (Γ(X, B)) (L.val.obj (op B)) (L.val.obj (op B)).isModule.toSMul a
+        (L.val.map (eqToHom q.symm : B ⟶ A).op t)) := by
   subst q
   have e1 : L.val.map (eqToHom (rfl : A = A) : A ⟶ A).op t = t := by
     rw [eqToHom_refl, op_id]
@@ -321,10 +328,13 @@ scoped instance isIso_sheafify_map_ev (L : X.Modules) [Fact (Scheme.Modules.IsIn
     exact hW
   exact h
 
+open scoped _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_IsInvertible_exists_tensor_inverse.AlgebraicGeometry.Scheme.Modules
+
 noncomputable def tensorDualSheafIso (L : X.Modules) [Fact (Scheme.Modules.IsInvertible L)] :
     L ⊗ dualSheaf L ≅ 𝟙_ X.Modules :=
+  letI := isIso_sheafify_map_ev L
   (Scheme.Modules.tensorIsoSheafify L (dualSheaf L)).symm ≪≫
-    asIso ((Modules.sheafify X).map (ev (R := X.sheaf.obj) L.val)) ≪≫
+    @asIso _ _ _ _ ((Modules.sheafify X).map (ev (R := X.sheaf.obj) L.val)) (isIso_sheafify_map_ev L) ≪≫
     SheafOfModules.sheafifyUnitIso X.sheaf.obj X.ringCatSheaf.property
 
 theorem isInvertible_dualSheaf (L : X.Modules) [Fact (Scheme.Modules.IsInvertible L)] :
