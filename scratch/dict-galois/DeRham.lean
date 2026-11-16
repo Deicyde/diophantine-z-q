@@ -143,6 +143,160 @@ theorem range_combo {ι : Type*} [Fintype ι] (ρ : Representation ℚ_[p] (Fiel
     refine ⟨fun i => ⟨c i, coeff_mem_bdrFix p ρ x hx hli c (hc ▸ hy) i⟩, ?_⟩
     exact hc
 
+/-! ## Step 2: the equivariant maps `V → B_dR` -/
+
+/-- The `B_dR`-linear extension `B_dR ⊗ V → B_dR`, `c ⊗ v ↦ c φ(v)`, of an equivariant `φ` is equivariant. -/
+theorem lift_Phi (ρ : Representation ℚ_[p] (Field.absoluteGaloisGroup F) V) (φ : ddrSpaceOver p ρ)
+    (σ : Field.absoluteGaloisGroup F) (m : BdR p ⊗[ℚ_[p]] V) :
+    (φ : V →ₗ[ℚ_[p]] BdR p).liftBaseChange (BdR p) (Phi p ρ σ m) =
+      bdrAct p (gfToGqp p F σ) ((φ : V →ₗ[ℚ_[p]] BdR p).liftBaseChange (BdR p) m) := by
+  induction m using TensorProduct.induction_on with
+  | zero => simp
+  | tmul c v =>
+    rw [TensorProduct.map_tmul, LinearMap.liftBaseChange_tmul, LinearMap.liftBaseChange_tmul, drAct_apply,
+      φ.2 σ v, smul_eq_mul, smul_eq_mul, map_mul]
+  | add x y hx hy => rw [map_add, map_add, hx, hy, map_add, map_add]
+
+/-- **The dual of a de Rham representation is de Rham** (Fontaine; proved from `B_dR` a field and
+`B_dR^{G_F} = F`). In pkg-I4's Hom form: `dim_{ℚ_p} Hom_{G_F}(V, B_dR) = [F:ℚ_p] dim V`. -/
+theorem isDeRhamOver_of_tensor [FiniteDimensional ℚ_[p] V]
+    (hB : finrank ℚ_[p] (bdrFix p F) = finrank ℚ_[p] F)
+    (ρ : Representation ℚ_[p] (Field.absoluteGaloisGroup F) V) (h : IsDeRhamTensorOver p ρ) :
+    IsDeRhamOver p ρ := by
+  classical
+  set D := ddrTensorOver p ρ
+  set n := finrank ℚ_[p] V
+  set d := finrank ℚ_[p] F
+  have hd : 0 < d := Module.finrank_pos
+  haveI hEfin : FiniteDimensional ℚ_[p] (bdrFix p F) :=
+    Module.finite_of_finrank_pos (by rw [hB]; exact hd)
+  -- a `B_dR`-basis of the span of `D` inside `D`
+  obtain ⟨b, hbD, hspan, hli⟩ := exists_linearIndependent (BdR p) (D : Set (BdR p ⊗[ℚ_[p]] V))
+  haveI : Finite b := hli.finite
+  letI : Fintype b := Fintype.ofFinite b
+  have hx : ∀ i : b, (i : BdR p ⊗[ℚ_[p]] V) ∈ D := fun i => hbD i.2
+  have hsp : ∀ y ∈ D, y ∈ Submodule.span (BdR p) (Set.range ((↑) : b → BdR p ⊗[ℚ_[p]] V)) := by
+    intro y hy
+    rw [Subtype.range_coe, hspan]
+    exact Submodule.subset_span hy
+  have hrange := range_combo p ρ _ hx hli hsp
+  have hfD : finrank ℚ_[p] D = Fintype.card b * d := by
+    rw [← hrange, LinearMap.finrank_range_of_inj (combo_injective p _ hli), Module.finrank_pi_fintype,
+      Finset.sum_const, Finset.card_univ, smul_eq_mul, hB]
+  have hcard : Fintype.card b = n := by
+    have h1 : finrank ℚ_[p] D = d * n := h
+    rw [hfD] at h1
+    have : Fintype.card b * d = n * d := by rw [h1, mul_comm]
+    exact Nat.eq_of_mul_eq_mul_right hd this
+  have hcardM : Fintype.card b = finrank (BdR p) (BdR p ⊗[ℚ_[p]] V) := by
+    rw [Module.finrank_baseChange, hcard]
+  let β : Basis b (BdR p) (BdR p ⊗[ℚ_[p]] V) := basisOfLinearIndependentOfCardEqFinrank hli hcardM
+  have hβ : ∀ i, β i = (i : BdR p ⊗[ℚ_[p]] V) := fun i => by
+    simp [β, basisOfLinearIndependentOfCardEqFinrank]
+  have hβD : ∀ i, β i ∈ D := fun i => by rw [hβ]; exact hx i
+  have hβli : LinearIndependent (BdR p) β := β.linearIndependent
+  -- `Ψ : Hom_{G_F}(V, B_dR) → (B_dR^{G_F})^b`
+  let Ψ : ddrSpaceOver p ρ →ₗ[ℚ_[p]] (b → bdrFix p F) :=
+    { toFun := fun φ i => ⟨(φ : V →ₗ[ℚ_[p]] BdR p).liftBaseChange (BdR p) (β i), fun σ => by
+        rw [← lift_Phi, (mem_ddrTensorOver p ρ _).mp (hβD i) σ]⟩
+      map_add' := fun φ ψ => by
+        funext i; apply Subtype.ext
+        simp [LinearMap.liftBaseChange_add]
+      map_smul' := fun c φ => by
+        funext i; apply Subtype.ext
+        simp [LinearMap.liftBaseChange_smul] }
+  have hΨ : Function.Injective Ψ := by
+    rw [← LinearMap.ker_eq_bot, LinearMap.ker_eq_bot']
+    intro φ hφ
+    have h0 : (φ : V →ₗ[ℚ_[p]] BdR p).liftBaseChange (BdR p) = 0 := by
+      refine β.ext fun i => ?_
+      have := congrArg (fun e => ((e i : bdrFix p F) : BdR p)) hφ
+      simpa [Ψ] using this
+    apply Subtype.ext
+    refine LinearMap.ext fun v => ?_
+    have := LinearMap.congr_fun h0 ((1 : BdR p) ⊗ₜ[ℚ_[p]] v)
+    rw [LinearMap.liftBaseChange_tmul, one_smul] at this
+    simpa using this
+  haveI : FiniteDimensional ℚ_[p] (ddrSpaceOver p ρ) := Module.Finite.of_injective Ψ hΨ
+  have hle : finrank ℚ_[p] (ddrSpaceOver p ρ) ≤ Fintype.card b * d := by
+    have := LinearMap.finrank_le_finrank_of_injective hΨ
+    rwa [Module.finrank_pi_fintype, Finset.sum_const, Finset.card_univ, smul_eq_mul, hB] at this
+  -- `Θ : (B_dR^{G_F})^b → Hom_{G_F}(V, B_dR)`
+  have hΘmem : ∀ e : b → bdrFix p F, ((β.constr (BdR p) (fun i => (e i : BdR p))).restrictScalars ℚ_[p] ∘ₗ
+      TensorProduct.mk ℚ_[p] (BdR p) V 1) ∈ ddrSpaceOver p ρ := by
+    intro e σ v
+    set f := β.constr (BdR p) (fun i => (e i : BdR p))
+    have key : ∀ m, f (Phi p ρ σ m) = bdrAct p (gfToGqp p F σ) (f m) := by
+      intro m
+      conv_lhs => rw [← β.sum_repr m]
+      conv_rhs => rw [← β.sum_repr m]
+      rw [Phi_sum p ρ β hβD, map_sum, map_sum, map_sum]
+      refine Finset.sum_congr rfl fun i _ => ?_
+      rw [map_smul, map_smul, Basis.constr_basis, Basis.constr_basis, smul_eq_mul, smul_eq_mul, map_mul,
+        (e i).2 σ]
+    have h1 : (1 : BdR p) ⊗ₜ[ℚ_[p]] (ρ σ v) = Phi p ρ σ ((1 : BdR p) ⊗ₜ[ℚ_[p]] v) := by
+      rw [TensorProduct.map_tmul, drAct_apply, map_one]
+    simp only [LinearMap.coe_comp, LinearMap.coe_restrictScalars, Function.comp_apply, TensorProduct.mk_apply]
+    rw [h1, key]
+  let Θ : (b → bdrFix p F) →ₗ[ℚ_[p]] ddrSpaceOver p ρ :=
+    { toFun := fun e => ⟨_, hΘmem e⟩
+      map_add' := fun e e' => by
+        apply Subtype.ext
+        refine LinearMap.ext fun v => ?_
+        simp only [Pi.add_apply, Submodule.coe_add, LinearMap.coe_comp, LinearMap.coe_restrictScalars,
+          Function.comp_apply, TensorProduct.mk_apply, LinearMap.add_apply]
+        rw [show (fun i => ((e i : BdR p) + (e' i : BdR p))) = (fun i => (e i : BdR p)) + (fun i => (e' i : BdR p))
+          from rfl, map_add, LinearMap.add_apply]
+      map_smul' := fun c e => by
+        apply Subtype.ext
+        refine LinearMap.ext fun v => ?_
+        simp only [Pi.smul_apply, Submodule.coe_smul, LinearMap.coe_comp, LinearMap.coe_restrictScalars,
+          Function.comp_apply, TensorProduct.mk_apply, RingHom.id_apply, LinearMap.smul_apply]
+        rw [show (fun i => c • (e i : BdR p)) = c • (fun i => (e i : BdR p)) from rfl, map_smul,
+          LinearMap.smul_apply] }
+  have hΘ : Function.Injective Θ := by
+    rw [← LinearMap.ker_eq_bot, LinearMap.ker_eq_bot']
+    intro e he
+    set f := β.constr (BdR p) (fun i => (e i : BdR p))
+    have h1 : ∀ v, f ((1 : BdR p) ⊗ₜ[ℚ_[p]] v) = 0 := fun v => by
+      have := LinearMap.congr_fun (congrArg Subtype.val he) v
+      simpa [Θ, f] using this
+    have h2 : f = 0 := by
+      refine LinearMap.ext fun m => ?_
+      induction m using TensorProduct.induction_on with
+      | zero => simp
+      | tmul c v =>
+        have : c ⊗ₜ[ℚ_[p]] v = c • ((1 : BdR p) ⊗ₜ[ℚ_[p]] v) := by
+          rw [TensorProduct.smul_tmul', smul_eq_mul, mul_one]
+        rw [this, map_smul, h1, smul_zero, LinearMap.zero_apply]
+      | add x y hx hy => rw [map_add, hx, hy, LinearMap.zero_apply, add_zero]
+    funext i
+    apply Subtype.ext
+    have := LinearMap.congr_fun h2 (β i)
+    rw [Basis.constr_basis] at this
+    simpa using this
+  have hge : Fintype.card b * d ≤ finrank ℚ_[p] (ddrSpaceOver p ρ) := by
+    have := LinearMap.finrank_le_finrank_of_injective hΘ
+    rwa [Module.finrank_pi_fintype, Finset.sum_const, Finset.card_univ, smul_eq_mul, hB] at this
+  change finrank ℚ_[p] (ddrSpaceOver p ρ) = d * n
+  rw [le_antisymm hle hge, hcard, mul_comm]
+
+/-- **The dual of a de Rham representation is de Rham, tensor form.** -/
+theorem isDeRhamTensorOver_dual [FiniteDimensional ℚ_[p] V]
+    (hB : finrank ℚ_[p] (bdrFix p F) = finrank ℚ_[p] F)
+    (ρ : Representation ℚ_[p] (Field.absoluteGaloisGroup F) V) (h : IsDeRhamTensorOver p ρ) :
+    IsDeRhamTensorOver p ρ.dual :=
+  (isDeRhamOver_iff_tensor_dual p ρ).mpr (isDeRhamOver_of_tensor p hB ρ h)
+
+/-- **The chain's field from the two new leaves**, given that `V_p(A)` is finite-dimensional. -/
+theorem deRhamH1AbVarT_of_printed (hdR : DeRhamVpAbVarT) (hB : BdRInvariantsOver)
+    (hfd : ∀ (p : ℕ) [Fact p.Prime] (F : Type) [Field F] [Algebra ℚ_[p] F] [FiniteDimensional ℚ_[p] F]
+      (A : ZInQ.Contrib.G9.PkgI4.I3.AbVar F), FiniteDimensional ℚ_[p] (A.V p)) :
+    DeRhamH1AbVarT := by
+  intro p _ F _ _ _ A
+  haveI := hfd p F A
+  exact isDeRhamTensorOver_dual p (hB p F) (A.galRep p) (hdR p F A)
+
 end
 
 end DeRhamDict
