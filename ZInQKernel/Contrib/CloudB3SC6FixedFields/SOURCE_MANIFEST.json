@@ -1,0 +1,21 @@
+{
+  "source_repo": "https://github.com/anthropics/fermats-last-theorem",
+  "source_revision": "6e837e75355538c7f80bab5b956861e86c4eacc2",
+  "extracted_source": {
+    "path": "P2M/Sol/S_AlgebraicGeometry_SchemeHomOver_ext_of_forall_algebraicClosure_point_of_isReduced_of_flat.lean",
+    "sha256": "bfb625cdc43e117f9bd0ec483c3a1dd439b7d7775f390d60728b211866dc591d",
+    "line_ranges": [[20, 115]],
+    "delivered_file": "GeometricPointDensity.lean",
+    "specialization": "field base; generic fibre is the entire scheme",
+    "changes_documented_in": "SOURCE_NOTICE.md"
+  },
+  "preserved_files": [
+    {"path": "LICENSE", "sha256": "746bc52848eabf8765635fe532e0680756a10b18e7b3fb26e7433ab4edf34034"},
+    {"path": "NOTICE", "sha256": "42b1821f19a6aaa25e6811d22ab8f2fdc6433d4a37bc810b1cfafa5b6dd6b0b6"},
+    {"path": "ATTRIBUTION.md", "sha256": "698fb76c8d80b2ed78ebd48b271f2ee5815b3654fb8ec5c699b21b16ce0d9698"}
+  ],
+  "original_glue": ["SectionDetection.lean", "PointFibreInvariance.lean"],
+  "toolchain": "leanprover/lean4:v4.35.0",
+  "mathlib_revision": "56a005855ea17e0b0958f73ec801ae140b0a1679",
+  "target_discharge": false
+}
