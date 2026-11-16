@@ -1,0 +1,12 @@
+{"name": "raynaud-narrow",
+ "note": "Applies after the hand step of docs/research/raynaud-narrow.md section 5: scratch/raynaud-narrow/TailZ46.lean copied to ZInQKernel/OneProof/H/TailZ46.lean (bundle OpenResearchLeaves29 = OpenResearchLeaves28 with raynaudSemistableSHOr replaced by raynaudSemistableSHcp, over the re-versioned chain ZInQKernel/Contrib/OneProof/RaynaudNarrowChain.lean), Main.lean switched to sixContactMin_of_open39, and the kinds.tsv row raynaudSemistableSHOr renamed raynaudSemistableSHcp (gen_fold.py --tree writes all three). autofold.py cannot discharge raynaudSemistableSHOr directly: no proof of RaynaudSemistableSHOr from the narrower leaf exists (the chain needs only its char-0, algebraically-closed-residue-field case).",
+ "imports": ["ZInQKernel.Contrib.OneProof.RaynaudSemistableSHcpOr"],
+ "discharges": [
+   {"field": "raynaudSemistableSHcp",
+    "proof": "_root_.RaynaudNarrow.raynaudSemistableSHcp_of_cpOr' {n}.raynaudSemistableSHcpOr",
+    "leaves": [{"name": "raynaudSemistableSHcpOr",
+                "type": "_root_.RaynaudNarrow.RaynaudSemistableSHcpOr",
+                "doc": "raynaud-narrow, printed form (restricted): Raynaud's criterion, SGA 7 I (LNM 288) Exp. IX Prop. 4.7 (number UNVERIFIED), over a strictly henselian DVR of a field of characteristic 0 with perfect (hence algebraically closed) residue field: m >= 3 invertible and A[m] rational over K imply semistable reduction, read over k(s) (general torus) or on the geometric special fibre (disjunction, either reading by or-introduction). dict-models' raynaudSemistableSHOr restricted to the only generality the chain reads (r6 and SS1/SS3 at number fields, through the strict henselization); the ascent to the geometric form is proved (raynaudSemistableSHcp_of_cpOr', Stacks 04KV).",
+                "kind": "published",
+                "flag": "reading risk: the print may require m > 3 (locators.md R6; the chain uses m = 3); locator UNVERIFIED (SGA 7 I Exp. IX Prop. 4.7, restricted to char 0 and algebraically closed residue field)",
+                "source": "SGA 7 I (LNM 288) Exp. IX Prop. 4.7 (Raynaud's criterion; number UNVERIFIED), restricted to strictly henselian DVRs of characteristic 0 with algebraically closed residue field; conclusion read over k(s) or over kbar (disjunction); raynaud-narrow"}]}]}
