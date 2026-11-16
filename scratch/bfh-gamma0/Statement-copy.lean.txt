@@ -1,0 +1,237 @@
+/- Verbatim copies (bfh-gamma0) of every statement involved. Not compiled. -/
+
+-- ZInQKernel/Hypotheses/CR3Literature.lean
+/-- The completed L-function `Λ(s) = N^{s/2} (2π)^{−s} Γ(s) F(s)` for conductor `N`. -/
+noncomputable def completedL (N : ℕ) (F : ℂ → ℂ) (s : ℂ) : ℂ :=
+  (N : ℂ) ^ (s / 2) * (2 * Real.pi : ℂ) ^ (-s) * Complex.Gamma s * F s
+
+-- ZInQKernel/Contrib/GZDecomp/Decomp.lean
+/-- The `n`-th Fourier coefficient `aₙ(f)` of a newform (expansion at `∞` in `q = e^{2πiτ}`). -/
+noncomputable def coeff {N : ℕ} [NeZero N] {k : ℤ} (f : Newform N k) (n : ℕ) : ℂ :=
+  (qExpansion 1 f.toCuspForm).coeff n
+
+-- ZInQKernel/Contrib/GZDecomp/Decomp.lean
+/-- `G` is an entire continuation of the Dirichlet series `∑ aₙ n^{−s}` from `Re s > σ`. -/
+def IsEntireCont (a : ℕ → ℂ) (σ : ℝ) (G : ℂ → ℂ) : Prop :=
+  Differentiable ℂ G ∧ ∀ s : ℂ, σ < s.re → G s = LSeries a s
+
+-- ZInQKernel/Contrib/OneProof/BFHPrinted/Kronecker.lean
+/-- **The Kronecker symbol at a prime**: `(D / 2) = χ₈(D)` (`0` if `D` is even, `1` if
+`D ≡ ±1 (mod 8)`, `−1` if `D ≡ ±3 (mod 8)`) and, for `p ≠ 2`, `(D / p) = J(D | p)` (Mathlib's
+Jacobi symbol, which is the Legendre symbol at a prime). -/
+noncomputable def kroneckerPrime (D : ℤ) (p : ℕ) : ℤ :=
+  if p = 2 then ZMod.χ₈ (D : ZMod 8) else jacobiSym D p
+
+-- ZInQKernel/Contrib/OneProof/BFHPrinted/Kronecker.lean
+/-- **The Kronecker symbol `(D / n)`** for `n ≥ 0`: `(D / 0) = 1` if `|D| = 1` and `0`
+otherwise; for `n ≥ 1`, `(D / n) = ∏_{p^k ∥ n} (D / p)^k` with `(D / p)` as in
+`kroneckerPrime`. -/
+noncomputable def kroneckerSym (D : ℤ) (n : ℕ) : ℤ :=
+  if n = 0 then (if D.natAbs = 1 then 1 else 0)
+  else n.factorization.prod fun p k => kroneckerPrime D p ^ k
+
+-- ZInQKernel/Contrib/OneProof/BFHNonvanishing.lean
+/-- **`ε` is the sign of the functional equation of `L(s, f)`**: the entire continuation `G` of
+`L(s, f) = ∑ aₙ(f) n^{−s}` satisfies `Λ_N(2 − s) = ε Λ_N(s)` on `0 < Re s < 2`, where
+`Λ_N(s) = N^{s/2} (2π)^{−s} Γ(s) G(s)` (`ZInQ.Literature.completedL`) is the completed L-function
+of `f` at its level `N`. (`G` is unique, `IsEntireCont.eq`, and not identically zero since
+`a₁ = 1`, so `ε` is determined by `f`; it is `GZDecomp.rootNumber f hχ`, see
+`isFESign_iff`.) -/
+def IsFESign {N : ℕ} [NeZero N] (f : Newform N 2) (ε : ℤ) : Prop :=
+  ∃ G : ℂ → ℂ, IsEntireCont (coeff f) 2 G ∧ ∀ s : ℂ, 0 < s.re → s.re < 2 →
+    ZInQ.Literature.completedL N G (2 - s) = (ε : ℂ) * ZInQ.Literature.completedL N G s
+
+-- ZInQKernel/Contrib/OneProof/BFHNonvanishing.lean
+/-- **Every prime of `S` splits in `ℚ(√d)`**: there is a quadratic number field `K` containing a
+square root of `d` (so `K ≅ ℚ(√d)` when `d` is not a square) such that every `p ∈ S` has two
+distinct prime ideals of `𝓞 K` above it. -/
+def SplitsInQuadratic (d : ℤ) (S : Finset ℕ) : Prop :=
+  ∃ (K : Type) (_ : Field K) (_ : NumberField K), Module.finrank ℚ K = 2 ∧
+    (∃ δ : K, δ ^ 2 = (d : K)) ∧ ∀ p ∈ S, SplitsIn K p
+
+-- ZInQKernel/Contrib/OneProof/BFHKronecker.lean
+/-- The coefficients of `L(s, f, χ_D) = ∑ aₙ(f) χ_D(n) n^{−s}` with `χ_D(n) = (D / n)` the
+Kronecker symbol. -/
+noncomputable def kroneckerTwistCoeff {N : ℕ} [NeZero N] (f : Newform N 2) (D : ℤ) (n : ℕ) : ℂ :=
+  coeff f n * (kroneckerSym D n : ℂ)
+
+-- ZInQKernel/Contrib/OneProof/BFHKronecker.lean
+/-- **`L(1, f, χ_D) ≠ 0`**: the entire continuation of `∑ aₙ(f) (D / n) n^{−s}` (from
+`Re s > 2`) does not vanish at the centre `s = 1`. -/
+def KroneckerCentralValueNeZero {N : ℕ} [NeZero N] (f : Newform N 2) (D : ℤ) : Prop :=
+  ∀ G : ℂ → ℂ, IsEntireCont (kroneckerTwistCoeff f D) 2 G → G 1 ≠ 0
+
+-- ZInQKernel/Contrib/OneProof/BFHKronecker.lean
+/-- **Bump–Friedberg–Hoffstein 1990, opening theorem, clause (ii), at weight `k = 2` and
+trivial character, with `χ_D(n) = (D / n)` the Kronecker symbol.**
+
+Printed statement (the statement-check read of D. Bump, S. Friedberg, J. Hoffstein, Invent. Math.
+102 (1990), opening theorem, pp. 543–544; paraphrase): let `f` be a newform of even weight `k` and
+trivial character on `Γ₀(N)`, `ε` the sign of the functional equation of `L(s, f)`, and `S` a
+finite set of primes containing the primes dividing `N`. Then there is a fundamental
+discriminant `D` of a quadratic field with `ε D > 0`, every `p ∈ S` split in `ℚ(√D)`, and
+`L(k/2, f, χ_D) ≠ 0`, where `χ_D(n) = (D / n)` and `L(s, f, χ_D) = ∑ aₙ χ_D(n) n^{−s}` (centre
+`s = k/2`). No CM exclusion, no level condition.
+
+Here, the instance at `k = 2` (centre `s = 1`), stated over Tau Ceti's newform on `Γ₁(N)` with
+trivial nebentypus: `f : Newform N 2` with `f.χ = 1`; `IsFESign f ε` (the functional equation of
+the completed `L(s, f)` at level `N` with sign `ε`); `S : Finset ℕ` of primes containing every
+prime dividing `N`; `Int.IsFundamentalDiscr D` (Mathlib) with `D ≠ 1`; `0 < ε * D`;
+`SplitsInQuadratic D S` (two distinct primes of `𝓞 K` above each `p ∈ S`, `K` a quadratic number
+field containing `√D`); `KroneckerCentralValueNeZero f D` (`kroneckerSym`, the Kronecker symbol).
+The statement over the classical newform on `Γ₀(N)`, as printed, is `BFHClauseIIGamma0`
+(`BFHGamma0.lean`), which implies this one (`bfhClauseIIKronecker_of_bfhClauseIIGamma0`).
+
+Source: D. Bump, S. Friedberg, J. Hoffstein, *Nonvanishing theorems for L-functions of modular
+forms and their derivatives*, Invent. Math. 102 (1990), 543–618, opening theorem (pp. 543–544),
+clause (ii). -/
+def BFHClauseIIKronecker : Prop :=
+  ∀ (N : ℕ) [NeZero N] (f : Newform N 2), f.χ = 1 →
+  ∀ ε : ℤ, IsFESign f ε →
+  ∀ S : Finset ℕ, (∀ p ∈ S, p.Prime) → (∀ p : ℕ, p.Prime → p ∣ N → p ∈ S) →
+    ∃ D : ℤ, Int.IsFundamentalDiscr D ∧ D ≠ 1 ∧ 0 < ε * D ∧ SplitsInQuadratic D S ∧
+      KroneckerCentralValueNeZero f D
+
+-- ZInQKernel/Contrib/OneProof/BFHPrinted/Gamma0Newform.lean
+/-- **`F` lies in the new subspace of `S_k(Γ₀(N))`** (Atkin–Lehner): `F` is Petersson-orthogonal
+to `V_d g`, `(V_d g)(τ) = g(dτ)`, for every cusp form `g` on `Γ₀(M)` and every pair `(M, d)` with
+`d M ∣ N` and `M ≠ N`, i.e. to the old subspace of `S_k(Γ₀(N))`. The Petersson product is Tau
+Ceti's `CuspForm.peterssonInnerCosets` at level `Γ₀(N)`. -/
+def IsGamma0New [NeZero N] (F : CuspForm ((Gamma0 N).map (mapGL ℝ)) k) : Prop :=
+  ∀ (M d : ℕ) (h : d * M ∣ N), M ≠ N →
+    ∀ g : CuspForm ((Gamma0 M).map (mapGL ℝ)) k,
+      haveI : NeZero d := NeZero.of_dvd (dvd_of_mul_right_dvd h)
+      CuspForm.peterssonInnerCosets
+        (TauCeti.CuspForm.levelRaise d (Gamma0_map_le_conjAct_scaleGL_of_dvd h) g) F = 0
+
+-- ZInQKernel/Contrib/OneProof/BFHPrinted/Gamma0Newform.lean
+/-- **The Hecke ring of `Γ₀(N)` acting on `S_k(Γ₀(N))`**: the `ℤ`-linear extension of Tau Ceti's
+double-coset operators `heckeSlashGamma0CuspFormEnd k D` (no character) to formal
+`ℤ`-combinations of double cosets `Γ₀(N) δ Γ₀(N)`, `δ ∈ Δ₀(N)`. -/
+noncomputable def heckeGamma0 [NeZero N] :
+    𝕋 (Delta0 N) ((Gamma0 N).map (mapGL ℚ)) ℤ →ₗ[ℤ]
+      Module.End ℂ (CuspForm ((Gamma0 N).map (mapGL ℝ)) k) :=
+  Finsupp.linearCombination ℤ fun D ↦ heckeSlashGamma0CuspFormEnd k D
+
+-- ZInQKernel/Contrib/OneProof/BFHPrinted/Gamma0Newform.lean
+/-- The `n`-th Fourier coefficient at `∞` of a cusp form on `Γ₀(N)` (Mathlib's `qExpansion`,
+width `1`). -/
+noncomputable def coeffGamma0 (F : CuspForm ((Gamma0 N).map (mapGL ℝ)) k) (n : ℕ) : ℂ :=
+  (qExpansion 1 F).coeff n
+
+-- ZInQKernel/Contrib/OneProof/BFHPrinted/Gamma0Newform.lean
+/-- **`F` is a newform on `Γ₀(N)`** in the classical sense (Atkin–Lehner; Miyake's primitive
+form): an eigenvector of every Hecke operator `T_n`, `n ≥ 1` prime to `N` (Tau Ceti's
+`heckeTCompositeGamma0 N n`, acting on `S_k(Γ₀(N))` by `heckeGamma0`), in the new subspace of
+`S_k(Γ₀(N))` (`IsGamma0New`), normalised by `a₁(F) = 1`. -/
+structure IsGamma0Newform [NeZero N] (F : CuspForm ((Gamma0 N).map (mapGL ℝ)) k) : Prop where
+  /-- `F` is an eigenform of `T_n` for every `n ≥ 1` prime to the level. -/
+  isEigen : ∀ n : ℕ, 0 < n → n.Coprime N →
+    ∃ c : ℂ, heckeGamma0 N k (heckeTCompositeGamma0 N n) F = c • F
+  /-- `F` lies in the new subspace of `S_k(Γ₀(N))`. -/
+  isNew : IsGamma0New F
+  /-- `F` is normalised: `a₁(F) = 1`. -/
+  isNorm : coeffGamma0 F 1 = 1
+
+-- ZInQKernel/Contrib/OneProof/BFHGamma0.lean
+/-- **`ε` is the sign of the functional equation of `L(s, F)`** for a weight-2 cusp form `F` on
+`Γ₀(N)`: the entire continuation `G` of `L(s, F) = ∑ aₙ(F) n^{−s}` (from `Re s > 2`) satisfies
+`Λ_N(2 − s) = ε Λ_N(s)` on `0 < Re s < 2`, where `Λ_N(s) = N^{s/2} (2π)^{−s} Γ(s) G(s)`
+(`ZInQ.Literature.completedL`). bfh-leaf's `IsFESign` with `F`'s coefficients. -/
+def IsFESignGamma0 {N : ℕ} (F : CuspForm ((Gamma0 N).map (mapGL ℝ)) 2) (ε : ℤ) : Prop :=
+  ∃ G : ℂ → ℂ, IsEntireCont (coeffGamma0 F) 2 G ∧ ∀ s : ℂ, 0 < s.re → s.re < 2 →
+    ZInQ.Literature.completedL N G (2 - s) = (ε : ℂ) * ZInQ.Literature.completedL N G s
+
+-- ZInQKernel/Contrib/OneProof/BFHGamma0.lean
+/-- The coefficients `aₙ(F) (D / n)` of `L(s, F, χ_D)`, `χ_D(n) = (D / n)` the Kronecker symbol
+(`kroneckerSym`). -/
+noncomputable def kroneckerTwistCoeffGamma0 {N : ℕ} (F : CuspForm ((Gamma0 N).map (mapGL ℝ)) 2)
+    (D : ℤ) (n : ℕ) : ℂ :=
+  coeffGamma0 F n * (kroneckerSym D n : ℂ)
+
+-- ZInQKernel/Contrib/OneProof/BFHGamma0.lean
+/-- **`L(1, F, χ_D) ≠ 0`**: the entire continuation of `∑ aₙ(F) (D / n) n^{−s}` (from `Re s > 2`)
+does not vanish at the centre `s = 1` (`= k/2` for the weight `k = 2`). -/
+def KroneckerCentralValueNeZeroGamma0 {N : ℕ} (F : CuspForm ((Gamma0 N).map (mapGL ℝ)) 2)
+    (D : ℤ) : Prop :=
+  ∀ G : ℂ → ℂ, IsEntireCont (kroneckerTwistCoeffGamma0 F D) 2 G → G 1 ≠ 0
+
+-- ZInQKernel/Contrib/OneProof/BFHGamma0.lean
+/-- **Bump–Friedberg–Hoffstein 1990, opening theorem, clause (ii), at weight `k = 2`: the
+classical newform on `Γ₀(N)`, `χ_D(n) = (D / n)` the Kronecker symbol.**
+
+Printed statement (the statement-check read of D. Bump, S. Friedberg, J. Hoffstein, Invent. Math.
+102 (1990), opening theorem, pp. 543–544; paraphrase): let `f` be a newform of even weight `k` and
+trivial character on `Γ₀(N)`, `ε` the sign of the functional equation of `L(s, f)`, and `S` a
+finite set of primes containing the primes dividing `N`. Then there is a fundamental
+discriminant `D` of a quadratic field with `ε D > 0`, every `p ∈ S` split in `ℚ(√D)`, and
+`L(k/2, f, χ_D) ≠ 0`, where `χ_D(n) = (D / n)` and `L(s, f, χ_D) = ∑ aₙ χ_D(n) n^{−s}` (centre
+`s = k/2`). No CM exclusion, no level condition.
+
+Here, the direct instance at `k = 2` (centre `s = 1`):
+* `F : CuspForm ((Gamma0 N).map (mapGL ℝ)) 2` with `IsGamma0Newform F` (a cusp form of weight 2
+  on `Γ₀(N)` that is an eigenform of the Hecke operators `T_n`, `(n, N) = 1`, lies in the new
+  subspace of `S_2(Γ₀(N))`, the Petersson complement of the `V_d S_2(Γ₀(M))`, `dM ∣ N`,
+  `M ≠ N`, and has `a₁ = 1`); trivial character is built into `Γ₀(N)`;
+* `IsFESignGamma0 F ε`: `ε` is the sign of the functional equation of the completed `L(s, F)` at
+  level `N`;
+* `S : Finset ℕ` of primes containing every prime dividing `N`;
+* `Int.IsFundamentalDiscr D` (Mathlib) with `D ≠ 1`; `0 < ε * D`; `SplitsInQuadratic D S` (two
+  distinct primes of `𝓞 K` above each `p ∈ S`, `K` a quadratic number field containing `√D`);
+* `KroneckerCentralValueNeZeroGamma0 F D`: `L(1, F, χ_D) ≠ 0` with `χ_D(n) = (D / n)`
+  (`kroneckerSym`, the Kronecker symbol).
+
+Source: D. Bump, S. Friedberg, J. Hoffstein, *Nonvanishing theorems for L-functions of modular
+forms and their derivatives*, Invent. Math. 102 (1990), 543–618, opening theorem (pp. 543–544),
+clause (ii). -/
+def BFHClauseIIGamma0 : Prop :=
+  ∀ (N : ℕ) [NeZero N] (F : CuspForm ((Gamma0 N).map (mapGL ℝ)) 2), IsGamma0Newform F →
+  ∀ ε : ℤ, IsFESignGamma0 F ε →
+  ∀ S : Finset ℕ, (∀ p ∈ S, p.Prime) → (∀ p : ℕ, p.Prime → p ∣ N → p ∈ S) →
+    ∃ D : ℤ, Int.IsFundamentalDiscr D ∧ D ≠ 1 ∧ 0 < ε * D ∧ SplitsInQuadratic D S ∧
+      KroneckerCentralValueNeZeroGamma0 F D
+
+-- ZInQKernel/Contrib/TauCeti/NumberTheory/ModularForms/Newforms/Newform.lean
+/-- **A newform**: a good Hecke eigenform lying in the new subspace and normalised by `a₁ = 1`
+(Miyake's *primitive form*). That a newform is an eigenform for every `T_n` is a theorem, not
+part of the definition. -/
+structure Newform (N : ℕ) [NeZero N] (k : ℤ) extends EigenformAwayFromLevel N k where
+  /-- The form lies in the new subspace `S_k(Γ₁(N))ⁿᵉʷ`. -/
+  isNew : toCuspForm ∈ TauCeti.cuspFormsNew N k
+  /-- The form is normalised: its first Fourier coefficient is `1`. -/
+  isNorm : (qExpansion 1 toCuspForm).coeff 1 = 1
+
+namespace EigenformAwayFromLevel
+
+-- ZInQKernel/Contrib/TauCeti/NumberTheory/ModularForms/Newforms/Basic.lean
+/-- The **new subspace** `S_k(Γ₁(N))ⁿᵉʷ`: the Petersson-orthogonal complement of the old
+subspace inside `S_k(Γ₁(N))`. -/
+def cuspFormsNew (N : ℕ) [NeZero N] (k : ℤ) :
+    Submodule ℂ (CuspForm ((Gamma1 N).map (mapGL ℝ)) k) :=
+  CuspForm.peterssonOrthogonal (cuspFormsOld N k)
+
+-- ZInQKernel/Contrib/TauCeti/NumberTheory/ModularForms/AtkinLehner/Sign.lean
+/-- **A newform of trivial nebentypus, as a cusp form on `Γ₀(N)`**: the same function on `ℍ`,
+re-read as a form for the bare group `Γ₀(N)` under the identification `S_k(N, 1) ≃ S_k(Γ₀(N))`.
+This is the carrier on which the Atkin–Lehner operators act. -/
+noncomputable def toCuspFormGamma0 (f : Newform N k) (hχ : f.χ = 1) :
+    CuspForm ((Gamma0 N).map (mapGL ℝ)) k :=
+  cuspFormCharSpaceOneEquiv N k ⟨f.toCuspForm, hχ ▸ f.mem_charSpace⟩
+
+-- ZInQKernel/OneProof/Main.lean
+/-- **Theorem 1.1, from every statement still open.** -/
+theorem _root_.ZInQ.OneProof.frozenTarget
+    (r : HDec.HSyn.OpenResearchLeaves26) (t : HDec.HSyn.OpenTextbookLeaves12) (l : HDec.HSyn.OpenAddedLeaves17)
+    (g : HDec.HSyn.OpenGlue8)
+    (h11 : TYZThm11Integral)
+    (hL3s : H29Split.LegendreThreeSquares) (hJP : H29Split.JonesPallX2Y2Z16)
+    (hfx : H29Split.TYZTestVectorExists) (hL29 : H29Split.TYZLemma29PrintedNe3)
+    (hT21 : H29Split.TYZThm21At31) (hP23 : H29Split.TYZProp23Printed)
+    (hCM : _root_.T5Glue.ShimuraMainCM)
+    (h33 : ZInQ.Contrib.TYZGenus.TYZSplit.TYZThm33)
+    (hFH : ZInQ.GZFH.FriedbergHoffsteinB_FE) (hL3 : ZInQ.GZDecomp.GrossZagierHeegner) :
+    ZInQ.FrozenTarget :=
+  ZInQ.GZDecomp.frozenTarget_of_sixContactMin_tyzThm35ReadingA_gzLeaves
+    (HDec.HSyn.sixContactMin_of_open35 r t l g)
+    (ThetaWP8.tyzThm35ReadingA_noHX h11 (H29Split.tyzLemma29Mod2_of_sixLeaves hL3s hJP hfx hL29 hT21 hP23) hCM h33)
+    ZInQ.GZTheta.Frontier.heckeThetaNewform (ZInQ.GZFH.fhNonvanishing_of_friedbergHoffsteinB_FE hFH) hL3

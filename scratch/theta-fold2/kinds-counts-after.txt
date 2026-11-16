@@ -1,0 +1,3 @@
+rows 55 H rows 44 Counter({'research': 25, 'frozenTarget': 11, 'textbook': 10, 'added': 8, 'glue': 1})
+strict H {'LEAF': 34, 'GLUE': 10} all {'LEAF': 42, 'GLUE': 13}
+strictest H {'LEAF': 34, 'GLUE': 10} all {'LEAF': 42, 'GLUE': 13}

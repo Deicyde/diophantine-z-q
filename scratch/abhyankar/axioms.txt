@@ -1,0 +1,5 @@
+'Abhyankar.tameBranchNormal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Abhyankar.nvLocalInertia' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Abhyankar.kummerUnramBranch' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Abhyankar.kummerUnram_of_branch' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Abhyankar.tameBranchNormal_of_kummerUnram' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -12,7 +12,6 @@ namespace HSyn
 
 /-- `OpenAddedLeaves15` without `valenceFormulaCocompactEq` (leaf-fold18). -/
 structure OpenAddedLeaves16 : Prop where
-  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
   tateTwistInvariants : _root_.ZInQ.Contrib.HodgeSplit.TateTwistInvariants
   axSenTate : _root_.ZInQ.Contrib.HodgeSplit.AxSenTate
   milneIsogenyQuasiInverse : _root_.AvSplit.MilneIsogenyQuasiInverse
@@ -36,7 +35,6 @@ structure OpenAddedLeaves16 : Prop where
 
 /-- `OpenAddedLeaves15` from `OpenAddedLeaves16`: `valenceFormulaCocompactEq` by the contributions. -/
 theorem openAddedLeaves15_of_OpenAddedLeaves16 (n : OpenAddedLeaves16) : OpenAddedLeaves15 where
-  thetaRatiosAlgebraic := n.thetaRatiosAlgebraic
   tateTwistInvariants := n.tateTwistInvariants
   axSenTate := n.axSenTate
   milneIsogenyQuasiInverse := n.milneIsogenyQuasiInverse

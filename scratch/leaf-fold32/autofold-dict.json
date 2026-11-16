@@ -1,0 +1,147 @@
+{
+ "name": "leaf-fold32-dict",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.SGA7IX33SHPre",
+  "ZInQKernel.Contrib.OneProof.RaynaudSemistableOr",
+  "ZInQKernel.Contrib.OneProof.MumfordGroupLawConn",
+  "ZInQKernel.Contrib.OneProof.NeronBaseChangeBLR72",
+  "ZInQKernel.Contrib.OneProof.NeronOggShafarevichSep",
+  "ZInQKernel.Contrib.OneProof.PhiAmpleIsogeny",
+  "ZInQKernel.Contrib.OneProof.DSThm966EV",
+  "ZInQKernel.Contrib.OneProof.EGAIV_8_10_5_xii"
+ ],
+ "discharges": [
+  {
+   "field": "sga7_IX_3_3_SH",
+   "proof": "_root_.DictModels.SGA7Pre.sga7_IX_3_3_SH_of_pre {n}.sga7_IX_3_3_SHpre (_root_.SGA3IdComp.sga3_VIB_3_10_of_nbhd {n}.sga3_VIB_3_10_Nbhd _root_.geomConnOfRationalPoint_proof) _root_.geomConnOfRationalPoint_proof",
+   "leaves": [
+    {
+     "name": "sga7_IX_3_3_SHpre",
+     "type": "_root_.DictModels.SGA7Pre.SGA7_IX_3_3_SHpre",
+     "doc": "dict-models, printed form: SGA 7 I, Exp. IX, Prop. 3.3, second assertion, over strictly henselian traits, with U the print's N0 x_S S' (the preimage of N0 under the projection N x_O O' -> N), not the identity component of N x_O O' (number UNVERIFIED). With sga3_VIB_3_10 and geomConnOfRationalPoint (idComp_baseChange, SGA 3 VI_B 3.3 proved) replaces sga7_IX_3_3_SH.",
+     "kind": "published",
+     "flag": "pending reading: locator UNVERIFIED: SGA 7 IX 3.3 may assume an algebraically closed residue field (then the print is the restriction to such O, as for sga7_IX_3_3_SH)",
+     "source": "SGA 7 I, Exp. IX, Prop. 3.3, second assertion (N0 x_S S' = N'0 for semistable reduction), over strictly henselian traits, U = pullback.fst^-1(N0) as printed (number UNVERIFIED); dict-models"
+    }
+   ]
+  },
+  {
+   "field": "raynaudSemistableSH",
+   "proof": "_root_.DictModels.RaynaudOr.raynaudSemistableSH_of_or {n}.raynaudSemistableSHOr _root_.geomConnOfRationalPoint_proof",
+   "leaves": [
+    {
+     "name": "raynaudSemistableSHOr",
+     "type": "_root_.DictModels.RaynaudOr.RaynaudSemistableSHOr",
+     "doc": "dict-models, printed form under either reading of 'semistable': Raynaud's criterion, SGA 7 I Exp. IX Prop. 4.7 (number UNVERIFIED) over a strictly henselian DVR, with the conclusion the disjunction of semistability over k(s) (general torus) and on the geometric special fibre. With geomConnOfRationalPoint (the k(s) -> kbar ascent is proved) replaces raynaudSemistableSH.",
+     "kind": "published",
+     "flag": "reading risk: the print may assume an algebraically closed residue field or require m > 3 (locators.md R6); the k(s)/kbar reading of 'semistable' is covered by the disjunction",
+     "source": "SGA 7 I Exp. IX Prop. 4.7 (Raynaud's criterion) over a strictly henselian DVR: m >= 3 invertible and A[m] rational imply semistable reduction, read over k(s) or over kbar (number UNVERIFIED); dict-models"
+    }
+   ]
+  },
+  {
+   "field": "mumfordGroupLaw",
+   "proof": "_root_.DictModels.MumfordConn.mumfordGroupLaw_of_conn {n}.mumfordGroupLawConn",
+   "leaves": [
+    {
+     "name": "mumfordGroupLawConn",
+     "type": "_root_.DictModels.MumfordConn.MumfordGroupLawConn",
+     "doc": "dict-models, printed form: Mumford-Fogarty-Kirwan, GIT, Thm 6.14 over a connected locally noetherian base (numbers UNVERIFIED): the group law on a proper smooth family with a section all of whose fibres are abelian varieties. The gluing over connected components is proved (mumfordGroupLaw_of_conn). Replaces mumfordGroupLaw.",
+     "kind": "published",
+     "flag": "locator UNVERIFIED (GIT Thm 6.14, S connected)",
+     "source": "Mumford-Fogarty-Kirwan, Geometric Invariant Theory, Thm 6.14 (S connected locally noetherian, F -> S smooth proper with a section e, a fibre an abelian variety: F is an abelian scheme with identity e); numbers UNVERIFIED; dict-models"
+    }
+   ]
+  },
+  {
+   "field": "neronBaseChangeStrictHenselization",
+   "proof": "_root_.DictModels.NeronBLR72.neronBaseChangeStrictHenselization_of_BLR72 {n}.blr_7_2_1",
+   "leaves": [
+    {
+     "name": "blr_7_2_1",
+     "type": "_root_.DictModels.NeronBLR72.BLR_7_2_1",
+     "doc": "dict-models, printed form: Bosch-Lutkebohmert-Raynaud, Neron models, 7.2 Thm 1 (numbers and hypotheses UNVERIFIED): Neron models commute with base change along an extension of DVRs of ramification index 1 with separable residue extension (here K'/K separable algebraic, A an abelian variety: specializations). The specialization to strictly henselian O1 is the old field, with no pinning of O^sh (EGA IV 18.8.8 not needed). Replaces neronBaseChangeStrictHenselization.",
+     "kind": "published",
+     "flag": "pending reading: reading risk: if BLR 7.2 Thm 1 is printed only for etale maps, strict henselization and completion, this form exceeds it (reduct-glue section 5); locator UNVERIFIED",
+     "source": "Bosch-Lutkebohmert-Raynaud, Neron models, 7.2 Thm 1: Neron models commute with ramification-index-1 base change with separable residue extension (locator UNVERIFIED); dict-models"
+    }
+   ]
+  },
+  {
+   "field": "r7a",
+   "proof": "_root_.NOSSepDict.neronOggShafarevich_of_sep {n}.neronOggShafarevichSep",
+   "leaves": [
+    {
+     "name": "neronOggShafarevichSep",
+     "type": "_root_.NOSSepDict.NeronOggShafarevichSep",
+     "doc": "Serre-Tate, Ann. of Math. 88 (1968), Thm 1 (Neron-Ogg-Shafarevich criterion) over a separable closure K_s, inertia of a valuation ring of K_s acting on A(K_s)[m] (numbering UNVERIFIED)",
+     "kind": "published",
+     "flag": "",
+     "source": "Serre-Tate 1968 Thm 1 over IsSepClosure K Ks (as printed); the Kbar form proved in Lean from MulEtaleAbelianScheme (dict-galois)"
+    }
+   ]
+  },
+  {
+   "field": "phiAmpleIsogeny",
+   "proof": "_root_.PicFix.phiAmpleIsogeny_of_printed {n}.mumfordKLFiniteSectionAC {n}.mumfordPhiSurjectiveAC",
+   "leaves": [
+    {
+     "name": "mumfordKLFiniteSectionAC",
+     "type": "_root_.PicFix.MumfordKLFiniteSectionAC",
+     "doc": "pic-fix: K(L) finite for L ample with a nonzero global section s (L = O(D), D = Z(s) effective) on an abelian variety over an algebraically closed field (Mumford, Abelian varieties, section 6 Application 1, (iv) => (ii), printed for L = O(D) with D effective; locator UNVERIFIED).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Mumford 6 Application 1 for L = O(D), D effective, stated as L with a nonzero global section s, D = Z(s)); locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, 6 Application 1: for D effective and L = O(D) ample, K(L) is finite"
+    },
+    {
+     "name": "mumfordPhiSurjectiveAC",
+     "type": "_root_.PicDict.MumfordPhiSurjectiveAC",
+     "doc": "pic-dict: for L ample every L' in Pic0(X) is t_x^*L (x) L^-1, X an abelian variety over an algebraically closed field (Mumford section 8 Thm 1; locator UNVERIFIED).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Mumford's statement over an algebraically closed field, Pic0 = translation-invariant classes); locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, 8 Thm 1"
+    }
+   ]
+  },
+  {
+   "field": "dsThm965Weak",
+   "proof": "_root_.DSCoeffExt.dsThm965Weak_of_printed {n}.dsThm965Printed {n}.eigenformCoeffFieldFinite",
+   "leaves": [
+    {
+     "name": "dsThm965Printed",
+     "type": "_root_.DSCoeffExt.DSThm965Printed",
+     "doc": "Diamond-Shurman, GTM 228 (2005), Thm 9.6.5 (k >= 2; Deligne 1971; Shimura 1971 Thm 7.14 for k = 2; numbering UNVERIFIED), printed form: for a normalized eigenform f in S_k(N, chi) (DS Def 5.8.1) with number field K_f and a prime lambda of O_{K_f} over l, a continuous rho_{f,lambda} : G_Q -> GL_2(K_{f,lambda}) (Mathlib's adicCompletion), unramified outside lN, with rho(Frob_p) having characteristic polynomial (or satisfying) x^2 - a_p x + chi(p) p^(k-1) over K_f. Either printed wording gives it by or-introduction; no coefficient dictionary (coeff-ext).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (DS 9.6.5 over K_{f,lambda} as printed, DS Def 5.8.1 eigenforms, either wording by or-introduction); locator UNVERIFIED",
+     "source": "Diamond-Shurman, GTM 228, Thm 9.6.5 (Deligne 1971; Shimura 1971 Thm 7.14 for k = 2), printed form over K_{f,lambda}: rho_{f,lambda}(Frob_p) has characteristic polynomial (or satisfies) x^2 - a_p x + chi(p) p^(k-1)"
+    },
+    {
+     "name": "eigenformCoeffFieldFinite",
+     "type": "_root_.DSCoeffExt.EigenformCoeffFieldFinite",
+     "doc": "K_f = Q(a_n(f)) is a number field for a normalized eigenform f in S_k(N, chi), k >= 2 (DS Def 5.8.1): Diamond-Shurman Thm 6.5.1 for k = 2; Shimura 1971 Thm 3.52 with the Hecke stability of the rational structure for general k (numbers UNVERIFIED). Presupposed by DS 9.6.5 ('with number field K_f') (coeff-ext).",
+     "kind": "composite",
+     "flag": "pending reading: composite (Diamond-Shurman Thm 6.5.1 prints k = 2; Shimura 1971 Thm 3.52 with the Hecke stability of the rational structure for every k); locator UNVERIFIED",
+     "source": "Diamond-Shurman, GTM 228, Thm 6.5.1 (k = 2); Shimura 1971, Thm 3.52 and section 3.5 (every k): K_f is a number field"
+    }
+   ]
+  },
+  {
+   "field": "dsThm966",
+   "proof": "_root_.DSThm966EV.dsThm966_of_printed {n}.dsThm966Printed",
+   "leaves": [
+    {
+     "name": "dsThm966Printed",
+     "type": "_root_.DSThm966EV.DSThm966Printed",
+     "doc": "Deligne-Serre, Formes modulaires de poids 1, Ann. Sci. ENS (4) 7 (1974), Thm 4.1 with (4.1.1), p. 514, as printed: for f != 0 a (cusp) form of type (1, eps) with eps(-1) = -1 that is an eigenvector of the T_p, p not dividing N, with eigenvalues a_p (Tau Ceti EigenformAwayFromLevel N 1, no normalization a_1 = 1), a continuous rho : G_Q -> GL_2(C) with finite image, unramified outside N, with tr rho(Frob_p) = a_p (the T_p-eigenvalue F.eigenvalue p) and det rho(Frob_p) = eps(p). The coefficient form a_p = coeff g p (from a_1 = 1) and eps(-1) = -1 (parity lemma, TauCeti Parity.lean:113) are glue in DSThm966EV.dsThm966_of_printed (coeff-fix).",
+     "kind": "published",
+     "flag": "AI-read only (W24, cloud-checks 6912455099)",
+     "source": "Deligne-Serre 1974 Thm 4.1 (4.1.1), p. 514: f != 0 of type (1, eps), eigenvector of T_p (p not dividing N) with eigenvalues a_p => rho : G_Q -> GL_2(C), unramified outside N, Tr rho(Frob_p) = a_p, det rho(Frob_p) = eps(p)"
+    }
+   ]
+  },
+  {
+   "field": "egaIV_8_10_5_xii",
+   "proof": "_root_.ZInQ.Contrib.EGAProperLimit.egaIV_8_10_5_xii_proof"
+  }
+ ]
+}

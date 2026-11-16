@@ -1,0 +1,26 @@
+{
+ "name": "bfh-gamma0",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.BFHGamma0"
+ ],
+ "discharges": [
+  {
+   "field": "hFH",
+   "proof": "_root_.ZInQ.BFHPrinted.frozenTarget_of_sixContactMin_tyzThm35ReadingA_bfhGamma0 (HDec.HSyn.sixContactMin_of_open35 r t l g) (ThetaWP8.tyzThm35ReadingA_noHX h11 (H29Split.tyzLemma29Mod2_of_sixLeaves hL3s hJP hfx hL29 hT21 hP23) hCM h33) ZInQ.GZTheta.Frontier.heckeThetaNewform {n}.bfhClauseIIGamma0 hL3",
+   "proof_replaces": "ZInQ.GZDecomp.frozenTarget_of_sixContactMin_tyzThm35ReadingA_gzLeaves (HDec.HSyn.sixContactMin_of_open35 r t l g) (ThetaWP8.tyzThm35ReadingA_noHX h11 (H29Split.tyzLemma29Mod2_of_sixLeaves hL3s hJP hfx hL29 hT21 hP23) hCM h33) ZInQ.GZTheta.Frontier.heckeThetaNewform (ZInQ.GZFH.fhNonvanishing_of_friedbergHoffsteinB_FE hFH) hL3",
+   "proof_alternative_allB": "replace only the argument (ZInQ.GZFH.fhNonvanishing_of_friedbergHoffsteinB_FE hFH) by (_root_.ZInQ.BFHPrinted.fhNonvanishing_of_bfhClauseIIGamma0 {n}.bfhClauseIIGamma0)",
+   "leaves": [
+    {
+     "name": "bfhClauseIIGamma0",
+     "type": "_root_.ZInQ.BFHPrinted.BFHClauseIIGamma0",
+     "doc": "Bump-Friedberg-Hoffstein, Invent. Math. 102 (1990) 543-618, opening theorem (pp. 543-544), clause (ii), at weight k = 2 (centre s = k/2 = 1): for F a classical newform of weight 2 on Gamma_0(N) (IsGamma0Newform: F in S_2(Gamma_0(N)) an eigenform of Tau Ceti's Hecke operators T_n for (n, N) = 1, Petersson-orthogonal to V_d S_2(Gamma_0(M)) for dM | N, M != N, a_1(F) = 1), epsilon the sign of the functional equation of the completed L(s, F) at level N (IsFESignGamma0, over ZInQ.Literature.completedL), and S a finite set of primes containing the primes dividing N, there is a fundamental discriminant D != 1 (Int.IsFundamentalDiscr, Mathlib) with epsilon D > 0, every p in S split in Q(sqrt D) (SplitsInQuadratic), and L(1, F, chi_D) != 0 with chi_D(n) = (D/n) the Kronecker symbol (BFHPrinted.kroneckerSym), L(s, F, chi_D) = sum a_n(F) (D/n) n^(-s) read through its entire continuation (KroneckerCentralValueNeZeroGamma0)",
+     "kind": "published",
+     "flag": "note: printed form, instance k = 2; the statement-check read of BFH Invent. Math. 102 pp. 543-544 rated every clause printed except the identification of Tau Ceti's Gamma_1(N)-newform of trivial nebentypus with the classical Gamma_0(N)-newform, and this leaf is stated over the classical Gamma_0(N)-newform (BFHPrinted.IsGamma0Newform), the identification being proved in Lean (isGamma0Newform_toCuspFormGamma0, IsGamma0Newform.toNewform; the leaf is equivalent to BFHClauseIIKronecker and BFHClauseII, bfhClauseIIGamma0_iff, bfhClauseIIGamma0_iff_bfhClauseII). The check's record is not on the bfh-gamma0 host: if it is not in the repository, use flag_class unread",
+     "flag_class": "note",
+     "source": "Bump-Friedberg-Hoffstein, Invent. Math. 102 (1990) 543-618, opening theorem, clause (ii), weight 2, newform on Gamma_0(N), chi_D the Kronecker symbol (bfh-gamma0; statement-check read of pp. 543-544)"
+    }
+   ]
+  }
+ ],
+ "_note": "hFH is a top-level hypothesis of ZInQ.OneProof.frozenTarget, not a bundle field, so autofold.py does not apply as is (it parses only HDec.HSyn bundle binders), and no theorem has hFH's type FriedbergHoffsteinB_FE, so #discharges does not report this file (its one hFH line is fh-printed's friedbergHoffsteinB_FE_of_printed, imported transitively). Hand fold on main (2880fef1e): in Main.lean add `import ZInQKernel.Contrib.OneProof.BFHGamma0`; replace the binder `(hFH : ZInQ.GZFH.FriedbergHoffsteinB_FE)` by `(hBFH : ZInQ.BFHPrinted.BFHClauseIIGamma0)`; replace the call `ZInQ.GZDecomp.frozenTarget_of_sixContactMin_tyzThm35ReadingA_gzLeaves A B H (ZInQ.GZFH.fhNonvanishing_of_friedbergHoffsteinB_FE hFH) hL3` by `ZInQ.BFHPrinted.frozenTarget_of_sixContactMin_tyzThm35ReadingA_bfhGamma0 A B H hBFH hL3` (A, B, H verbatim). Checked without editing Main: frozenTarget_bfhGamma0 in scratch/bfh-gamma0/FoldCheck.lean (standard axioms, FoldCheck-output.txt); the drop-in alternative (every B) is frozenTarget_bfhGamma0_allB there. kinds.tsv: replace the row (frozenTarget, hFH; consequence; GLUE GLUE) by (frozenTarget, hBFH) with the leaf fields above, kind published, strict LEAF, strictest LEAF: -1 GLUE in both columns. The fold needs ZInQKernel/Contrib/OneProof/BFHGamma0.lean, BFHPrinted/Gamma0Newform.lean and bfh-kronecker's BFHKronecker.lean and BFHPrinted/Kronecker.lean (branch wip/bfh-kronecker, merged here)."
+}

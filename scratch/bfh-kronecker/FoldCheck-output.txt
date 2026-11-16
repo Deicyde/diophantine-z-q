@@ -1,0 +1,6 @@
+'ZInQ.Contrib.TYZChain.frozenTarget_bfhKronecker' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZChain.frozenTarget_bfhKronecker_allB' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	0m6.105s
+user	0m3.183s
+sys	0m2.877s

@@ -1,0 +1,4 @@
+{"name": "ega-limit",
+ "imports": ["ZInQKernel.Contrib.OneProof.EGAIV_8_10_5_xii"],
+ "discharges": [
+   {"field": "egaIV_8_10_5_xii", "proof": "_root_.ZInQ.Contrib.EGAProperLimit.egaIV_8_10_5_xii_proof"}]}

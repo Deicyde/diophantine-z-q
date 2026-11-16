@@ -1,0 +1,13 @@
+{"name": "fh-printed",
+ "imports": ["ZInQKernel.Contrib.OneProof.FriedbergHoffsteinBFE"],
+ "discharges": [
+   {"field": "hFH",
+    "proof": "_root_.ZInQ.FHPrinted.friedbergHoffsteinB_FE_of_printed {n}.friedbergHoffsteinBPrinted",
+    "leaves": [{"name": "friedbergHoffsteinBPrinted",
+                "type": "_root_.ZInQ.FHPrinted.FriedbergHoffsteinB_Printed",
+                "doc": "Friedberg-Hoffstein, Ann. of Math. (2) 142 (1995) 385-423, Theorem B, printed form (F = Q, pi = pi_f, f a weight-2 newform of trivial nebentypus; chi_0 = chi_D0 unramified at the finite places of S): local conditions as equality of the norm-residue local characters, chi_d from its local components, root number as the sign of the functional equation (some conductor), infinitely many as Set.Infinite; locator UNVERIFIED",
+                "kind": "published",
+                "flag": "unread: Friedberg-Hoffstein 1995 Thm B label, page and hypotheses recalled from memory (locator UNVERIFIED); one reading left: L(s, pi_f x chi_d) is taken as the classical series sum a_n(f) chi_d(n) n^(-s-1/2) for chi_d unramified at the primes dividing N (local newform theory), since Mathlib has no automorphic L-functions; equivalent in Lean to the previous leaf FriedbergHoffsteinB_FE (friedbergHoffsteinB_printed_iff_FE)",
+                "flag_class": "unread",
+                "source": "Friedberg-Hoffstein, Ann. of Math. 142 (1995), Thm B, printed form over norm-residue local characters, the idelic character of Q(sqrt d) and the sign of the functional equation (fh-printed; locator UNVERIFIED)"}]}],
+ "_note": "hFH is a top-level hypothesis of ZInQ.OneProof.frozenTarget, not a bundle field, so autofold.py does not apply as is (it parses only bundle binders). Hand fold, as in leaf-fold24: in Main.lean add `import ZInQKernel.Contrib.OneProof.FriedbergHoffsteinBFE`, replace the binder `(hFH : ZInQ.GZFH.FriedbergHoffsteinB_FE)` by `(hFHP : ZInQ.FHPrinted.FriedbergHoffsteinB_Printed)`, and pass `(ZInQ.GZFH.fhNonvanishing_of_friedbergHoffsteinB_FE (ZInQ.FHPrinted.friedbergHoffsteinB_FE_of_printed hFHP))` where `ZInQ.GZFH.fhNonvanishing_of_friedbergHoffsteinB_FE hFH` was passed. Checked without editing Main: fhprinted_frozenTarget in scratch/fh-printed/Discharges.lean (standard axioms). kinds.tsv: replace row (frozenTarget, hFH) by (frozenTarget, hFHP) with the leaf fields above, strict LEAF, strictest LEAF."}

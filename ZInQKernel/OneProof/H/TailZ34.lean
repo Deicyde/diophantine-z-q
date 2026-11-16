@@ -109,7 +109,6 @@ theorem openResearchLeaves20_of_OpenResearchLeaves21 (n : OpenResearchLeaves21) 
 
 /-- `OpenAddedLeaves16` without `shimuraGoodReductionNoGuard`, with the leaves `shimuraIntegralModelRep` (leaf-fold22). -/
 structure OpenAddedLeaves17 : Prop where
-  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
   tateTwistInvariants : _root_.ZInQ.Contrib.HodgeSplit.TateTwistInvariants
   axSenTate : _root_.ZInQ.Contrib.HodgeSplit.AxSenTate
   milneIsogenyQuasiInverse : _root_.AvSplit.MilneIsogenyQuasiInverse
@@ -133,7 +132,6 @@ structure OpenAddedLeaves17 : Prop where
 
 /-- `OpenAddedLeaves16` from `OpenAddedLeaves17`: `shimuraGoodReductionNoGuard` by the contributions. -/
 theorem openAddedLeaves16_of_OpenAddedLeaves17 (n : OpenAddedLeaves17) : OpenAddedLeaves16 where
-  thetaRatiosAlgebraic := n.thetaRatiosAlgebraic
   tateTwistInvariants := n.tateTwistInvariants
   axSenTate := n.axSenTate
   milneIsogenyQuasiInverse := n.milneIsogenyQuasiInverse
