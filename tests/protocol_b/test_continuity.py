@@ -23,6 +23,15 @@ def accepting(family='astra', **kw):
     return envelope(family, read_prerequisites_complete=True, **kw)
 
 
+def resolved_fixture(reviewer):
+    # A fake completed repair must perform the same prerequisite/disposition
+    # bookkeeping as Review.run. Omitting a prior objection is not acceptance.
+    reviewer.history_read = True
+    reviewer.reads = [{'path': 'p.tex', 'revision': reviewer.pr['head']['sha'], 'start': 1, 'count': 1}]
+    return report(prior_findings=[{'id': ident, 'resolution': 'resolved',
+        'reason': 'Fixture source p.tex:1 supplies the previously omitted argument.'} for ident in reviewer.prior])
+
+
 class Continuity(unittest.TestCase):
     def command(self, gh):
         gh.permission = 'write'
@@ -89,7 +98,7 @@ class Continuity(unittest.TestCase):
         called = []
         def run(reviewer):
             called.append(reviewer.family)
-            return report()
+            return resolved_fixture(reviewer)
         _, _, errors, _ = run_pipeline(gh, app, event=self.command(gh), provider=run)
         self.assertEqual(errors, [])
         self.assertEqual(called, ['astra'])
@@ -233,7 +242,7 @@ class Continuity(unittest.TestCase):
         called=[]
         def run(reviewer):
             called.append(reviewer.family)
-            return report()
+            return resolved_fixture(reviewer)
         _,_,errors,_=run_pipeline(gh,app,event=self.command(gh),provider=run)
         self.assertEqual(errors,[])
         self.assertEqual(called,['astra'])
@@ -326,8 +335,7 @@ class Continuity(unittest.TestCase):
         called = []
         def run(reviewer):
             called.append(reviewer.family)
-            return report(prior_findings=[{'id': '1-1-fable-gap', 'resolution': 'resolved',
-                                           'reason': 'The clarification settles it.'}])
+            return resolved_fixture(reviewer)
         _, _, errors, state = run_pipeline(gh, app, event=self.command(gh), provider=run)
         self.assertEqual(errors, [])
         self.assertEqual(called, ['fable'])
@@ -337,7 +345,7 @@ class Continuity(unittest.TestCase):
 
     def test_effective_head_override_after_binding_omitted_calls_no_model(self):
         gh, app = self.rebased_without_future_binding()
-        gh.permission = 'write'
+        gh.permission = 'admin'
         command = comment('/protocol-b override ' + HEAD + ' 1-1-fable-gap accepted limitation', 'collaborator')
         gh.comments.append(command)
         provider = Mock(side_effect=AssertionError('No model during authorized override'))
@@ -351,11 +359,13 @@ class Continuity(unittest.TestCase):
     def test_omitted_binding_does_not_authorize_next_head(self):
         gh, app = self.rebased_without_future_binding()
         gh.pr['head']['sha'] = 'f' * 40
-        provider = Mock(return_value=report(prior_findings=[{'id': '1-1-fable-gap',
-            'resolution': 'resolved', 'reason': 'Checked again on the new head.'}]))
+        called = []
+        def provider(reviewer):
+            called.append(reviewer.family)
+            return resolved_fixture(reviewer)
         _, _, errors, _ = run_pipeline(gh, app, event=self.command(gh), provider=provider)
         self.assertEqual(errors, [])
-        self.assertEqual(provider.call_count, 2)
+        self.assertEqual(len(called), 2)
 
     def rebased(self):
         gh, app = FakeGH(), FakeApp()
@@ -430,10 +440,13 @@ class Continuity(unittest.TestCase):
             value['reports']['fable']['review'] = report(decision='changes_requested',
                 findings=[{'id': 'gap', 'location': 'p.tex:1', 'objection': 'An implication is false.'}])
             app.checks[5]['output']['text'] = json.dumps(value)
-            provider = Mock(return_value=report())
+            called = []
+            def provider(reviewer):
+                called.append(reviewer.family)
+                return resolved_fixture(reviewer)
             _, _, errors, state = run_pipeline(gh, app, provider=provider,
                 event=self.command(gh) if explicit else None)
-            self.assertEqual(provider.call_count, int(explicit))
+            self.assertEqual(len(called), int(explicit))
             self.assertEqual(state['conclusion'], 'success' if explicit else 'failure')
 
     def test_patch_positions_ignored_but_not_content_truncation_or_rename(self):

@@ -3,14 +3,22 @@
 Future pull requests are reviewed under [Protocol B, edition 2](https://github.com/elliotglazer/protocols/blob/main/Protocol_B.md).
 
 - The public policy requires the computation checks and `Protocol B / review` from the designated GitHub App on the current PR revision. Astra read back that configuration through Elliot Glazer's authorized GitHub session on November 13, 2026, 18:57 PST; the [dated evidence and limits](reviews/activation-2026-11-13/README.md) distinguish that observation from independent anonymous verification. See also the [public ruleset](https://github.com/elliotglazer/diophantine-z-q/rules/26781429). A same-name Actions check does not satisfy the App requirement. The private repository has no ruleset.
-- Mathematical and policy changes require both approved reviewers, Astra 6 and Fable 5.2, to finish and accept, except for the source-access limitation described below. A narrowly defined editorial path can pass without model calls; the [setup and test checklist](protocol-b-setup.md) gives its exact limits.
-- A current collaborator can explicitly override a completed-review deadlock, one recorded finding at a time. The summary names the collaborator and reason, and marks the affected claims **not outside reviewed**. An override does not repair the mathematics.
+- Mathematical and policy changes require both approved reviewers, Astra 6 and Fable 5.2, to complete the required scope without blocking findings, except for the source-access limitation and explicit admin decisions described below. Editorial notes do not block acceptance. A narrowly defined editorial path can pass without model calls; the [setup and test checklist](protocol-b-setup.md) gives its exact limits.
+- A current repository admin can explicitly override a recorded finding or incomplete-review scope item, one item at a time. The summary names the admin and reason, and marks the affected claims **not outside reviewed**. An override does not repair the mathematics or complete an unfinished review; the record preserves what was not reviewed.
 - Passing CI shows that the recorded computations and builds reproduce. It does not establish that an argument is correct.
 - An official new record needs a complete updated manuscript in TeX and PDF and the next integer version; see the [release policy](../release-policy.md).
 - Objections and repairs follow the [audit-history protocol](../audit-history/PROTOCOL.md).
 - Lean contributions follow the [Lean contribution policy](../lean-contributions.md).
 
 ## How review runs
+
+The light profile gives outside contributors and qualifying small documentation
+changes one paid round with both approved reviewers. Outside contributors
+need a write collaborator's `/protocol-b review` before any model call, including
+that first round. After it, pushes do not start another paid review; a write
+collaborator can request one with
+`/protocol-b review`. A changed head still requires its own valid acceptance.
+Only an admin may override an item. See the setup guide for the exact scope.
 
 Opening or updating a ready PR triggers the default-branch workflow. Contributors
 do not need access to the API keys or a local review runner. Both models read the
@@ -23,7 +31,9 @@ uses keys from the `protocol-b` Environment, whose `main`-only deployment rule
 was present in the dated operator readback. That snapshot does not prove key
 rotation, absence of copies elsewhere, or a live branch/tag access-denial test.
 The App is used by this repository's workflow; there is no separate controller.
-Unfinished reviews do not pass. A finding that only reports inability to open
+An unfinished review blocks unless an admin explicitly accepts its recorded scope item.
+The record still identifies the incomplete scope and does not claim model acceptance.
+A finding that only reports inability to open
 a source is a recorded, nonblocking limitation if the other approved reviewer
 read the same passage and checked its application without objection. Substantive
 objections still block. This does not claim both reviewers read that source.
