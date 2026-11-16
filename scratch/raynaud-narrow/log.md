@@ -20,3 +20,8 @@ raynaudSemistableSH_of_or), HDec.HSyn.raynaudSemistable_of14, and the lemmas Red
 ReductGlue.raynaudSemistable_of_SH' (take the leaf as hypothesis). Hence the only semantic reader is
 raynaudSemistable_of14 -> {raynaudCriterionNF_of14, semistableReductionDVR_of14 -> ss1_ss3_of14NF} -> open20. Same as
 raynaud-proof's finding on TailZ42; confirmed on TailZ45.
+
+## Leaf file (VERIFIED, compiles, standard axioms)
+ZInQKernel/Contrib/OneProof/RaynaudSemistableSHcpOr.lean: def RaynaudNarrow.RaynaudSemistableSHcpOr (SHOr + [CharZero K]
++ [PerfectField κ(O)]); cpOr_of_or (SHOr → cpOr), cpOr_of_cp, raynaudSemistableSHcp_of_cpOr (+ GeomConn),
+raynaudSemistableSHcp_of_cpOr' (GeomConn discharged by geomConnOfRationalPoint_proof). lake build: success.
