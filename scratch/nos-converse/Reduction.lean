@@ -541,6 +541,146 @@ theorem neronSpecialFibreComm_proof : NeronSpecialFibreComm := by
     Functor.isCommMonObj_obj (F := Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap O (ResBarO O)))))
   exact mul_comm x y
 
+
+/-! ### `ComponentIndexBound`, proved: an open subgroup of a quasi-compact group scheme over `k̄` has finite index -/
+
+section ComponentIndex
+
+variable {k : Type} [Field k]
+
+/-- `algPt k k` is terminal over `Spec k`: its endomorphisms are trivial. -/
+theorem algPt_self_ext (f g : algPt k k ⟶ algPt k k) : f = g := by
+  haveI : IsIso (algPt k k).hom := by
+    change IsIso (Spec.map (CommRingCat.ofHom (algebraMap k k)))
+    rw [Algebra.algebraMap_self, CommRingCat.ofHom_id, Spec.map_id]
+    exact IsIso.id _
+  apply Over.OverMorphism.ext
+  exact (cancel_mono (algPt k k).hom).mp ((Over.w f).trans (Over.w g).symm)
+
+/-- The structure morphism `X → algPt k k`. -/
+def toPtSelf (X : Over (Spec (CommRingCat.of k))) : X ⟶ algPt k k :=
+  Over.homMk X.hom (by
+    simp only [algPt, Over.mk_hom, Algebra.algebraMap_self, CommRingCat.ofHom_id, Spec.map_id]
+    exact Category.comp_id _)
+
+/-- **An open subgroup of finite index** (any commutative quasi-compact group scheme locally of finite type over an
+algebraically closed field): `#G(k)[m] ≤ c · #U(k)[m]`. The translates of `U` by `k`-points cover the closed points
+(Mathlib `pointOfClosedPoint`), hence `G` (`IsClosed.exists_closed_singleton`); finitely many suffice. -/
+theorem index_bound [IsAlgClosed k] (G : Over (Spec (CommRingCat.of k))) [GrpObj G]
+    [LocallyOfFiniteType G.hom] [CompactSpace G.left] (hcomm : ∀ x y : algPt k k ⟶ G, x * y = y * x)
+    (U : Over (Spec (CommRingCat.of k))) [GrpObj U] (inc : U ⟶ G) [IsOpenImmersion inc.left]
+    [IsMonHom inc] : ∃ c : ℕ, ∀ m : ℕ, (ptsTors G m).encard ≤ c * (ptsTors U m).encard := by
+  classical
+  let pt : Spec (CommRingCat.of k) := IsLocalRing.closedPoint k
+  have hc : ∀ y : algPt k k ⟶ G, y ≫ toPtSelf G = 𝟙 _ := fun y => algPt_self_ext _ _
+  let τ : (algPt k k ⟶ G) → (G ⟶ G) := fun x => lift (toPtSelf G ≫ x) (𝟙 G) ≫ μ
+  have hτ : ∀ x y : algPt k k ⟶ G, y ≫ τ x = x * y := by
+    intro x y
+    simp only [τ, ← Category.assoc, comp_lift, Category.comp_id, hc, Category.id_comp, Hom.mul_def]
+  have hbase : ∀ (y : algPt k k ⟶ G) (f : G ⟶ G), (y ≫ f).left.base pt = f.left.base (y.left.base pt) := by
+    intro y f
+    rfl
+  let V : Set G.left := Set.range inc.left.base
+  have hV : IsOpen V := inc.left.isOpenEmbedding.isOpen_range
+  let Finc : (algPt k k ⟶ U) →* (algPt k k ⟶ G) :=
+    { toFun := fun x => x ≫ inc
+      map_one' := MonObj.one_comp inc
+      map_mul' := fun x y => MonObj.mul_comp x y inc }
+  haveI : Mono inc := (Over.forget _).mono_of_mono_map (inferInstanceAs (Mono inc.left))
+  have memS : ∀ z : algPt k k ⟶ G, z.left.base pt ∈ V → ∃ u : algPt k k ⟶ U, Finc u = z := by
+    intro z hz
+    have hr : Set.range z.left.base ⊆ Set.range inc.left.base := by
+      rintro _ ⟨s, rfl⟩
+      have : s = pt := Subsingleton.elim (α := PrimeSpectrum k) _ _
+      rw [this]
+      exact hz
+    let u' := IsOpenImmersion.lift inc.left z.left hr
+    have hu' : u' ≫ inc.left = z.left := IsOpenImmersion.lift_fac _ _ _
+    refine ⟨Over.homMk u' ?_, ?_⟩
+    · rw [← Over.w inc, ← Category.assoc, hu', Over.w z]
+    · apply Over.OverMorphism.ext
+      change u' ≫ inc.left = z.left
+      exact hu'
+  have ptOf : ∀ g : G.left, IsClosed {g} → ∃ y : algPt k k ⟶ G, y.left.base pt = g := by
+    intro g hg
+    refine ⟨Over.homMk (pointOfClosedPoint G.hom g hg) ?_, ?_⟩
+    · simp only [algPt, Over.mk_hom, Algebra.algebraMap_self, CommRingCat.ofHom_id, Spec.map_id]
+      exact pointOfClosedPoint_comp G.hom g hg
+    · exact pointOfClosedPoint_apply G.hom g hg pt
+  choose yOf hyOf using ptOf
+  let W : {g : G.left // IsClosed {g}} → Set G.left := fun g =>
+    (τ (yOf g.1 g.2)⁻¹).left.base ⁻¹' V
+  have hWo : ∀ g, IsOpen (W g) := fun g => hV.preimage (τ (yOf g.1 g.2)⁻¹).left.base.hom.continuous
+  have hgW : ∀ g, g.1 ∈ W g := by
+    rintro ⟨g, hg⟩
+    show (τ (yOf g hg)⁻¹).left.base g ∈ V
+    have e := hyOf g hg
+    generalize yOf g hg = y at e ⊢
+    rw [← e, ← hbase, hτ, inv_mul_cancel, ← MonObj.one_comp inc]
+    exact ⟨(1 : algPt k k ⟶ U).left.base pt, rfl⟩
+  have hcover : Set.univ ⊆ ⋃ g, W g := by
+    intro x _
+    by_contra hx
+    obtain ⟨g, hgZ, hgcl⟩ := IsClosed.exists_closed_singleton (isOpen_iUnion hWo).isClosed_compl
+      ⟨x, hx⟩
+    exact hgZ (Set.mem_iUnion.2 ⟨⟨g, hgcl⟩, hgW ⟨g, hgcl⟩⟩)
+  obtain ⟨t, ht⟩ := isCompact_univ.elim_finite_subcover W hWo hcover
+  refine ⟨t.card, fun m => ?_⟩
+  let P : {g : G.left // IsClosed {g}} → Set (algPt k k ⟶ G) := fun g =>
+    {y | y ∈ ptsTors G m ∧ y.left.base pt ∈ W g}
+  have hsub : ptsTors G m ⊆ ⋃ g ∈ t, P g := by
+    intro y hy
+    obtain ⟨g, hg, hyg⟩ := Set.mem_iUnion₂.1 (ht (Set.mem_univ (y.left.base pt)))
+    exact Set.mem_biUnion hg ⟨hy, hyg⟩
+  have hP : ∀ g, (P g).encard ≤ (ptsTors U m).encard := by
+    intro g
+    rcases (P g).eq_empty_or_nonempty with h | ⟨y0, hy0, hy0W⟩
+    · rw [h, Set.encard_empty]
+      exact bot_le
+    · have hS : ∀ y, y.left.base pt ∈ W g → ∃ u : algPt k k ⟶ U, Finc u = (yOf g.1 g.2)⁻¹ * y := by
+        intro y hyW
+        refine memS _ ?_
+        rw [← hτ, hbase]
+        exact hyW
+      have hmem : ∀ y ∈ P g, ∃ u : algPt k k ⟶ U, Finc u = y0⁻¹ * y := by
+        rintro y ⟨-, hyW⟩
+        obtain ⟨u1, hu1⟩ := hS y hyW
+        obtain ⟨u0, hu0⟩ := hS y0 hy0W
+        refine ⟨u0⁻¹ * u1, ?_⟩
+        rw [map_mul, map_inv, hu0, hu1]
+        group
+      choose! uOf huOf using hmem
+      have hinj : Set.InjOn uOf (P g) := by
+        intro y hy y' hy' h
+        have h2 := (huOf y hy).symm.trans ((congrArg Finc h).trans (huOf y' hy'))
+        exact mul_left_cancel h2
+      have hmaps : Set.MapsTo uOf (P g) (ptsTors U m) := by
+        intro y hy
+        have h1 : Finc (uOf y ^ m) = Finc 1 := by
+          rw [map_pow, huOf y hy, map_one, (show Commute y0⁻¹ y from hcomm _ _).mul_pow, inv_pow,
+            show y0 ^ m = 1 from hy0, show y ^ m = 1 from hy.1, inv_one, _root_.one_mul]
+        exact (cancel_mono inc).mp h1
+      exact Set.encard_le_encard_of_injOn hmaps hinj
+  calc (ptsTors G m).encard ≤ (⋃ g ∈ t, P g).encard := Set.encard_le_encard hsub
+    _ ≤ ∑ g ∈ t, (P g).encard := Finset.set_encard_biUnion_le t P
+    _ ≤ ∑ g ∈ t, (ptsTors U m).encard := Finset.sum_le_sum fun g _ => hP g
+    _ = t.card * (ptsTors U m).encard := by rw [Finset.sum_const, nsmul_eq_mul]
+
+end ComponentIndex
+
+/-- **GLUE `ComponentIndexBound`, PROVED** from `index_bound` and the commutativity of Néron models. -/
+theorem componentIndexBound_proof : ComponentIndexBound := by
+  intro K _ O _ A _ 𝒩 h𝒩 U _ inc hinc hmon
+  haveI := hinc
+  haveI := hmon
+  haveI : LocallyOfFiniteType (geomSpecialFibre 𝒩).hom := by
+    change LocallyOfFiniteType (pullback.snd 𝒩.G.hom _)
+    infer_instance
+  haveI : CompactSpace (geomSpecialFibre 𝒩).left := by
+    change CompactSpace (pullback 𝒩.G.hom _).carrier
+    infer_instance
+  exact index_bound _ (neronSpecialFibreComm_proof K O A 𝒩 h𝒩) U inc
+
 /-- **`SemiAbelianTorsionBound`** (to be proved from `mumfordTorsionAlgClosed`): over an algebraically closed `k`,
 `#U(k)[m] ≤ m^r · m^{2a}` for a semi-abelian `U` with torus rank `r` and abelian quotient of dimension `a`. -/
 def SemiAbelianTorsionBound : Prop :=
@@ -807,6 +947,7 @@ end NOSConverse
 #print axioms NOSConverse.rankZeroAbelian_proof
 #print axioms NOSConverse.semiAbelianTorsionBound_of
 #print axioms NOSConverse.neronSpecialFibreComm_proof
+#print axioms NOSConverse.componentIndexBound_proof
 #print axioms NOSConverse.torusRankZero_of_glue
 #print axioms NOSConverse.nosConverseNF_of_glue
 #print axioms NOSConverse.neronOggShafarevich_of_glue
