@@ -24,7 +24,7 @@ universe u
 namespace TwoChartCech
 export _root_.TwoChartCech (Cover Sections Sections.cechDiff_apply Sections.finite_H1_of_chartFinite kerMap_injective_of_H0_eq_zero)
 namespace SerreH0
-open TwoChartCech
+open _root_.TwoChartCech
 
 open Polynomial LaurentPolynomial
 
@@ -75,7 +75,7 @@ end TwoChartCech.SerreH0
 namespace TwoChartCech
 export _root_.TwoChartCech (Cover Sections Sections.cechDiff_apply Sections.finite_H1_of_chartFinite kerMap_injective_of_H0_eq_zero)
 namespace SerreH0
-open TwoChartCech
+open _root_.TwoChartCech
 open Polynomial LaurentPolynomial
 
 variable {R : Type u} [CommRing R]
@@ -96,7 +96,7 @@ theorem twistSections_cechDiff_apply (m a : ℕ) (p : (Fin m → R[X]) × (Fin m
 theorem toLaurent_apply_natCast (p : R[X]) (k : ℕ) :
     (Polynomial.toLaurent p : R[T;T⁻¹]).coeff (k : ℤ) = p.coeff k := by
   rw [LaurentPolynomial.coeff_toLaurent, ← Polynomial.toFinsupp_apply]
-  exact Finsupp.mapDomain_apply Nat.cast_injective _ _
+  exact Finsupp.mapDomain_apply_of_injective Nat.cast_injective _ _
 
 theorem toLaurent_apply_of_neg (p : R[X]) {n : ℤ} (hn : n < 0) :
     (Polynomial.toLaurent p : R[T;T⁻¹]).coeff n = 0 := by
@@ -156,7 +156,7 @@ end TwoChartCech.SerreH0
 namespace TwoChartCech
 export _root_.TwoChartCech (Cover Sections Sections.cechDiff_apply Sections.finite_H1_of_chartFinite kerMap_injective_of_H0_eq_zero)
 namespace SerreH0
-open TwoChartCech
+open _root_.TwoChartCech
 open Polynomial LaurentPolynomial
 
 variable {R : Type u} [CommRing R]
@@ -226,7 +226,7 @@ end TwoChartCech.SerreH0
 namespace TwoChartCech
 export _root_.TwoChartCech (Cover Sections Sections.cechDiff_apply Sections.finite_H1_of_chartFinite kerMap_injective_of_H0_eq_zero)
 namespace SerreH0
-open TwoChartCech
+open _root_.TwoChartCech
 open Polynomial LaurentPolynomial
 
 variable {R : Type u} [CommRing R] {𝒰 : TwoChartCech.Cover.{u, u} R}
@@ -324,7 +324,7 @@ end TwoChartCech.SerreH0
 namespace TwoChartCech
 export _root_.TwoChartCech (Cover Sections Sections.cechDiff_apply Sections.finite_H1_of_chartFinite kerMap_injective_of_H0_eq_zero)
 namespace SerreH0
-open TwoChartCech
+open _root_.TwoChartCech
 open Polynomial LaurentPolynomial
 
 variable {R : Type u} [CommRing R] {𝒰 : TwoChartCech.Cover.{u, u} R}
@@ -535,7 +535,7 @@ end TwoChartCech.SerreH0
 namespace TwoChartCech
 export _root_.TwoChartCech (Cover Sections Sections.cechDiff_apply Sections.finite_H1_of_chartFinite kerMap_injective_of_H0_eq_zero)
 namespace SerreH0
-open TwoChartCech
+open _root_.TwoChartCech
 open Polynomial LaurentPolynomial
 
 variable {R : Type u} [CommRing R] {𝒰 : TwoChartCech.Cover.{u, u} R}
@@ -640,7 +640,7 @@ end TwoChartCech.SerreH0
 namespace TwoChartCech
 export _root_.TwoChartCech (Cover Sections Sections.cechDiff_apply Sections.finite_H1_of_chartFinite kerMap_injective_of_H0_eq_zero)
 namespace SerreH0
-open TwoChartCech
+open _root_.TwoChartCech
 open Polynomial LaurentPolynomial
 
 variable {R : Type u} [CommRing R] {𝒰 : TwoChartCech.Cover.{u, u} R}

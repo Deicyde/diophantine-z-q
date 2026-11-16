@@ -44,8 +44,8 @@ noncomputable def toPresheafHom (X : Cᵒᵖ) (φ : naturalFamilies F N X) :
   naturality {Y Y'} k := by
     ext x
     change φ.1 Y'.unop.hom.op (F.map k.unop.left.op x) = N.map k.unop.left.op (φ.1 Y.unop.hom.op x)
-    rw [φ.2 Y.unop.hom.op k.unop.left.op x]
-    exact congr_app φ (by rw [← op_comp, Over.w]) _
+    -- Lean 4.35 port: `rw [φ.2 …]` no longer matches `N.map` syntactically; use the same two facts by `trans`.
+    exact (congr_app φ (by rw [← op_comp, Over.w]) _).trans (φ.2 Y.unop.hom.op k.unop.left.op x).symm
 
 variable {F N} in
 
