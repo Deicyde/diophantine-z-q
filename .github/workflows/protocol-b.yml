@@ -1,12 +1,14 @@
-# Prepared but inactive. MODE is off unless the owner enables test/live.
+# MODE defaults to off unless the owner enables test/live.
 # No checkout, cache restore, dependency install, or candidate executable.
 name: Protocol B
 
 on:
   pull_request_target:
-    types: [opened, synchronize, reopened, ready_for_review]
+    types: [opened, synchronize, reopened, ready_for_review, closed]
   issue_comment:
     types: [created]
+  schedule:
+    - cron: '17 * * * *'
   workflow_dispatch:
     inputs:
       pull_request:
@@ -26,19 +28,26 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  run_reviewers:
-    name: Run reviewers and publish App check
+  kernel_preflight:
+    name: Prepare kernel evidence without review secrets
     if: >-
+      github.event_name != 'schedule' && github.event.action != 'closed' &&
       (vars.PROTOCOL_B_MODE == 'live' || vars.PROTOCOL_B_MODE == 'test') &&
       (github.event_name != 'issue_comment' ||
       (github.event.issue.pull_request &&
       contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.comment.author_association) &&
       (github.event.comment.body == '/protocol-b review' || startsWith(github.event.comment.body, '/protocol-b override '))))
     runs-on: ubuntu-24.04
-    environment: protocol-b
-    timeout-minutes: 120
+    permissions:
+      contents: write
+      pull-requests: read
+      actions: write
+    timeout-minutes: 185
+    env:
+      PROGRAM_ACTION: wait-lean
     steps:
-      - name: Prepare trusted review program and await Lean evidence
+      - &prepare_program
+        name: Prepare trusted program
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -325,24 +334,28 @@ jobs:
               return {'name': 'full', 'reason': 'ordinary review scope', 'automatic_paid_round_limit': 4}
 
 
-          # Embedded into the trusted workflow by prepare_lean_profile.py.
+          # Temporary execution-effects inspection until isolated audit production.
           LEAN_REVIEW_INSTRUCTION = (
-              'This PR qualifies for the Lean profile. Review all changed/new theorem '
-              'statements, definitions and their meanings, implicit and explicit hypotheses, '
-              'new axioms and published-leaf assumptions, dependency pins, and contract changes. '
-              'Check source fidelity against the manuscript/cited source and unchanged consumers. '
-              'Inspect surrounding namespaces, variables, notation, imports, instances and attributes '
-              'where they can change the meaning of an interface. Definition bodies are part of '
-              'the interface. Do not review or re-prove theorem proof bodies: the supplied exact-input '
-              'kernel audit and required CI cover their validity and axiom closure. Read the actual '
-              'lean_kernel_evidence in this packet, including allowed_axioms_used, target statuses, '
-              'headline_type, and runtime_declarations_not_replayed. Never call a conditional theorem '
-              'unconditional or an un-replayed runtime definition kernel-verified. No source file is '
-              'automatically classified as proof-only: establish any unchanged interface from source '
-              'reads. State which interfaces/definitions and assumptions you checked. Both approved '
-              'reviewers run once; naming, documentation and style notes do not block. Incomplete '
-              'necessary interface review remains an explicit scope item. Ordinary dependency and '
-              'history reuse rules apply; changed proof text is not ignored by rebase matching.'
+              'This PR uses the Lean profile. Review changed/new theorem statements, definitions, '
+              'implicit and explicit hypotheses, axioms, published-leaf assumptions, dependency pins '
+              'and contract changes. Check source fidelity and unchanged consumers. Definition bodies '
+              'and surrounding namespaces, notation, instances and attributes remain in scope. '
+              'Do not re-prove the mathematical reasoning of theorem proof steps. As a temporary '
+              'control until the kernel audit is isolated, inspect EVERY changed Lean hunk, including '
+              'theorem proof text and generated or vendored files, for execution and environment '
+              'effects. Inspect relevant custom tactics, elaborators, macros, IO/process/file access, '
+              'unsafe or external implementations, options, and declarations/instances/attributes '
+              'introduced during elaboration. Follow relevant dependencies where needed. Determine '
+              'whether these affect the auditor, toolchain, dependencies, outputs or later interface '
+              'meanings. No size exemption or keyword-only shortcut applies. An unresolved integrity '
+              'gap blocks; unfinished inspection is an explicit incomplete-scope item, not acceptance. '
+              'Record the hunks and dependencies inspected and any effects left unresolved. Read '
+              'lean_kernel_evidence, including actual axioms, target statuses, conditional headline '
+              'type and runtime declarations not replayed. Do not describe those runtime declarations '
+              'as kernel-verified or conditional targets as unconditional. Source interfaces are never '
+              'automatically classified as proof-only. One paid round consumes the automatic allowance; '
+              'editorial notes do not block. Ordinary history and dependency reuse rules remain; '
+              'changing proof text does not qualify for statement-only rebase reuse.'
           )
 
 
@@ -426,55 +439,78 @@ jobs:
                   return json.loads(archive.read(entries[0]))
 
 
+          # The exact approved workflow has only read permissions, no environments or
+          # secrets, GitHub-hosted runners and SHA-pinned actions. Its sole explicit cache
+          # save is restricted to pushes on main. A change requires a reviewed pin update.
+          LEAN_WORKFLOW_SHA256 = '24343f1b708f28c2d75d58d0fd645a8504ab294e9a4f67356f01767098e81222'
+          LEAN_REF_PREFIX = 'refs/heads/codex/protocol-b-kernel/'
+
+
+          def kernel_source_binding(gh, pr):
+              head, base = pr['head']['sha'], pr['base']['sha']
+              default = gh.call('')['default_branch']
+              if (pr['base'].get('ref') != default or
+                      pr['base'].get('repo', {}).get('full_name', '').lower() != gh.repo.lower() or
+                      gh.call('/commits/'+urllib.parse.quote(default, safe=''))['sha'] != base):
+                  raise ValueError('Kernel preparation requires the current protected default-branch base')
+              comparison = gh.call(f'/compare/{base}...{head}')
+              if comparison.get('behind_by') != 0 or comparison.get('merge_base_commit', {}).get('sha') != base:
+                  raise ValueError('Update the PR branch before kernel preparation')
+              for ref in (base, head):
+                  if hashlib.sha256(gh.text(LEAN_WORKFLOW, ref).encode()).hexdigest() != LEAN_WORKFLOW_SHA256:
+                      raise ValueError('Kernel workflow differs from the reviewed dispatch configuration')
+              roots = {}
+              for ref in (base, head):
+                  commit = gh.call('/git/commits/'+ref)
+                  if commit.get('sha') != ref:
+                      raise ValueError('Unexpected kernel source commit')
+                  tree = gh.call('/git/trees/'+commit['tree']['sha'])
+                  if tree.get('truncated') or not isinstance(tree.get('tree'), list):
+                      raise ValueError('Incomplete kernel source tree')
+                  roots[ref] = {e['path']: [e['mode'], e['type'], e['sha']] for e in tree['tree']}
+              # The workflow pin fixes every action/reusable-workflow reference. All local
+              # executable helpers, tests and checkout attributes must match protected base.
+              for path in ('scripts', 'tests', '.github', '.gitattributes', '.gitmodules'):
+                  if roots[base].get(path) != roots[head].get(path):
+                      raise ValueError('Kernel executable/helper inputs differ from protected base: '+path)
+              if not roots[base].get('scripts') or not roots[base].get('.github'):
+                  raise ValueError('Missing trusted kernel helper tree')
+              return {'head': head, 'base': base, 'workflow_sha256': LEAN_WORKFLOW_SHA256,
+                      'trusted_roots': {p: roots[head].get(p) for p in
+                                        ('scripts', 'tests', '.github', '.gitattributes', '.gitmodules')}}
+
+
+          def direct_kernel_run(gh, head, run):
+              # For these events GitHub's head_sha is the execution commit. PR events run
+              # a different merge tree, so even an apparently matching PR is insufficient.
+              return (run.get('event') in {'push', 'workflow_dispatch'}
+                      and run.get('head_sha') == head
+                      and run.get('path', '').split('@')[0] == LEAN_WORKFLOW
+                      and run.get('repository', {}).get('full_name', '').lower() == gh.repo.lower()
+                      and run.get('head_repository', {}).get('full_name', '').lower() == gh.repo.lower())
+
+
+          def direct_kernel_runs(gh, head):
+              runs = action_pages(gh, '/actions/workflows/kernel-lean.yml/runs?head_sha='+head, 'workflow_runs')
+              return [r for r in runs if direct_kernel_run(gh, head, r)]
+
+
           def validate_lean_audit(gh, pr, files, run, artifact, audit):
               head, base = pr['head']['sha'], pr['base']['sha']
-              if (run.get('status') != 'completed' or run.get('conclusion') != 'success'
-                      or run.get('path', '').split('@')[0] != LEAN_WORKFLOW
-                      or run.get('repository', {}).get('full_name', '').lower() != gh.repo.lower()
-                      or run.get('head_sha') != head
-                      or run.get('event') not in {'pull_request', 'push', 'workflow_dispatch'}):
-                  raise ValueError('Kernel run does not bind this head and trusted workflow')
+              if not direct_kernel_run(gh, head, run) or run.get('status') != 'completed' or run.get('conclusion') != 'success':
+                  raise ValueError('Kernel run does not prove direct execution of the reviewed head')
+              binding = kernel_source_binding(gh, pr)
               if (artifact.get('expired') or artifact.get('name') != 'kernel-audit'
                       or artifact.get('workflow_run', {}).get('id') != run['id']
                       or artifact['workflow_run'].get('head_sha') != head):
                   raise ValueError('Kernel artifact does not bind the successful run')
-              # The profile excludes audit implementation edits. Read the actual source,
-              # not a PR assertion that its workflow/auditor remained unchanged.
-              trusted = [LEAN_WORKFLOW, 'scripts/check_kernel.py', 'scripts/check_kernel_contract.py',
-                         'scripts/audit_kernel.lean', 'scripts/check_target.py']
-              for path in trusted:
-                  if gh.text(path, head) != gh.text(path, base):
-                      raise ValueError('Kernel verification implementation changed; use full review')
-              contract_text = gh.text('KERNEL_CONTRACT.json', head)
-              contract_hash = hashlib.sha256(contract_text.encode()).hexdigest()
+              contract_hash = hashlib.sha256(gh.text('KERNEL_CONTRACT.json', head).encode()).hexdigest()
               if (audit.get('schema') != 'kernel-audit/v1' or audit.get('status') != 'passed'
-                      or audit.get('contract_sha256') != contract_hash
+                      or audit.get('head_sha') != head or audit.get('contract_sha256') != contract_hash
                       or not isinstance(audit.get('allowed_axioms_used'), list)
                       or not isinstance(audit.get('runtime_declarations_not_replayed'), list)
                       or not isinstance(audit.get('targets'), list) or not audit.get('headline_type')):
-                  raise ValueError('Kernel audit status, contract or coverage fields are missing/mismatched')
-              audited_head = audit.get('head_sha', '')
-              if not re.fullmatch(r'[0-9a-f]{40}', audited_head):
-                  raise ValueError('Kernel audited commit is missing')
-              if audited_head != head:
-                  comparison = gh.call(f'/compare/{head}...{audited_head}')
-                  # PR CI may audit GitHub's test-merge commit. Accept only when every
-                  # difference from the reviewed head is outside all kernel inputs.
-                  differences = comparison.get('files')
-                  if (comparison.get('behind_by') != 0 or not isinstance(differences, list)
-                          or len(differences) >= 300):
-                      raise ValueError('Cannot establish complete test-merge input equality')
-                  contract = json.loads(contract_text)
-                  pinned = set(contract['files'])
-                  for item in differences:
-                      for path in filter(None, [item.get('filename'), item.get('previous_filename')]):
-                          if (path in pinned or path in LEAN_CONFIG or path == '.gitattributes'
-                                  or path.startswith(('lean/', 'ZInQKernel/', 'ThirdParty/', 'scripts/', '.github/'))
-                                  or path.endswith('.lean')):
-                              raise ValueError('Test-merge commit differs in a kernel input')
-                  for path in trusted:
-                      if gh.text(path, audited_head) != gh.text(path, head):
-                          raise ValueError('Test-merge verification implementation differs')
+                  raise ValueError('Kernel audit status, direct head, contract or coverage fields mismatch')
               modules = set(audit.get('modules', []))
               for item in files:
                   path = item['filename']
@@ -482,31 +518,155 @@ jobs:
                       module = lean_module(path)
                       if not module or module not in modules:
                           raise ValueError('Changed Lean file is not covered by the kernel audit: '+path)
-              # Full output, including conditional target types, skipped runtime declarations
-              # and actual axiom names. Never replace this with a green-check assertion.
               return {'head': head, 'base': base, 'run': run['id'], 'attempt': run['run_attempt'],
                       'run_url': run['html_url'], 'artifact': artifact['id'], 'artifact_digest': artifact['digest'],
-                      'audited_head': audited_head, 'audit': audit}
+                      'event': run['event'], 'audited_head': head, 'source_binding': binding, 'audit': audit}
 
 
           def lean_evidence(gh, pr, files):
-              runs = action_pages(gh, '/actions/workflows/kernel-lean.yml/runs?head_sha='+pr['head']['sha'], 'workflow_runs')
-              relevant = [r for r in runs if r.get('head_sha') == pr['head']['sha']
-                          and r.get('event') in {'pull_request', 'push', 'workflow_dispatch'}]
-              if not relevant:
+              runs = direct_kernel_runs(gh, pr['head']['sha'])
+              if not runs:
                   return None
-              run = max(relevant, key=lambda r: (r['id'], r.get('run_attempt', 1)))
+              run = max(runs, key=lambda r: (r['id'], r.get('run_attempt', 1)))
               if run['status'] != 'completed':
                   return None
               if run.get('conclusion') != 'success':
-                  raise ValueError('Kernel verification failed; fix failing checks first')
+                  raise ValueError('Direct kernel verification failed; fix failing checks first')
               artifacts = action_pages(gh, f'/actions/runs/{run["id"]}/artifacts', 'artifacts')
               matches = [a for a in artifacts if a.get('name') == 'kernel-audit' and not a.get('expired')]
               if len(matches) != 1:
-                  raise ValueError('Successful kernel run lacks one unexpired kernel-audit artifact')
+                  raise ValueError('Successful direct kernel run lacks one unexpired audit artifact')
               artifact = matches[0]
-              audit = download_audit(gh, artifact)
-              return validate_lean_audit(gh, pr, files, run, artifact, audit)
+              return validate_lean_audit(gh, pr, files, run, artifact, download_audit(gh, artifact))
+
+
+          def kernel_claim_ref(pr):
+              number, head, base = pr['number'], pr['head']['sha'], pr['base']['sha']
+              if (type(number) is not int or number < 1 or
+                      not all(isinstance(s, str) and re.fullmatch('[0-9a-f]{40}', s) for s in (head, base))):
+                  raise ValueError('Invalid kernel claim identity')
+              return LEAN_REF_PREFIX+f'{number}/{head}/{base}'
+
+
+          def same_open_revision(current, pr):
+              return (current.get('state') == 'open' and not current.get('draft')
+                      and current['head']['sha'] == pr['head']['sha']
+                      and current['base']['sha'] == pr['base']['sha'])
+
+
+          def ensure_kernel_dispatch(gh, pr):
+              """One claim per PR/head/base. An uncertain write is never replayed."""
+              binding = kernel_source_binding(gh, pr)
+              existing = direct_kernel_runs(gh, pr['head']['sha'])
+              if existing:
+                  return {'reused_run': max(existing, key=lambda r: (r['id'], r.get('run_attempt', 1)))['id']}
+              ref = kernel_claim_ref(pr)
+              endpoint = '/git/ref/'+ref.removeprefix('refs/')
+              intent = {'schema': 'protocol-b-kernel-dispatch/v1', 'pr': pr['number'], 'ref': ref,
+                        'head': pr['head']['sha'], 'base': pr['base']['sha'], 'source_binding': binding,
+                        'gate_run': os.environ.get('GITHUB_RUN_ID'), 'gate_attempt': os.environ.get('GITHUB_RUN_ATTEMPT')}
+              record('lean-kernel-intent.json', {**intent, 'phase': 'before-claim'})
+              try:
+                  claim = gh.call(endpoint)
+              except RequestError as error:
+                  if error.status != 404:
+                      raise
+                  claim = None
+              if claim is not None:
+                  if claim.get('ref') != ref or claim.get('object', {}).get('sha') != pr['head']['sha']:
+                      raise ValueError('Reserved kernel ref has unexpected contents; never move it')
+                  record('lean-kernel-intent.json', {**intent, 'phase': 'existing-claim-no-replay'})
+                  return {'pending_claim': ref}
+              if not same_open_revision(gh.call('/pulls/'+str(pr['number'])), pr):
+                  raise ValueError('PR changed before kernel claim')
+              # Ref creation is atomic. Failure, including an ambiguous response or a
+              # concurrent creator, ends this invocation before dispatching anything.
+              claim = gh.call('/git/refs', 'POST', {'ref': ref, 'sha': pr['head']['sha']})
+              record('lean-kernel-claim.json', {'intent': intent, 'response': claim})
+              if claim.get('ref') != ref or claim.get('object', {}).get('sha') != pr['head']['sha']:
+                  raise ValueError('Kernel claim response mismatch; reconcile before retrying')
+              if not same_open_revision(gh.call('/pulls/'+str(pr['number'])), pr):
+                  raise ValueError('PR changed after kernel claim; no dispatch was attempted')
+              current_ref = gh.call(endpoint)
+              if current_ref.get('object', {}).get('sha') != pr['head']['sha']:
+                  raise ValueError('Kernel claim moved before dispatch; never move it back')
+              record('lean-kernel-intent.json', {**intent, 'phase': 'dispatch-may-be-in-flight'})
+              result = gh.dispatch_workflow('kernel-lean.yml', ref.removeprefix('refs/heads/'))
+              record('lean-kernel-dispatch-response.json', result)
+              run_id = (result or {}).get('workflow_run_id')
+              if type(run_id) is not int or run_id < 1:
+                  raise ValueError('Kernel dispatch has no exact run receipt; reconcile claim, do not replay')
+              record('lean-kernel-intent.json', {**intent, 'phase': 'dispatch-acknowledged', 'run': run_id})
+              return {'dispatched_run': run_id, 'ref': ref}
+
+
+          def confirm_kernel_dispatch(gh, pr, receipt):
+              """Reconcile only the returned run ID; never repeat a dispatch."""
+              ident = receipt.get('dispatched_run')
+              if ident is None:
+                  return True
+              try:
+                  run = gh.call(f'/actions/runs/{ident}')
+              except RequestError as error:
+                  if error.status == 404:
+                      return False  # Acknowledged run is not visible yet; read again later.
+                  raise
+              if (run.get('id') != ident or not direct_kernel_run(gh, pr['head']['sha'], run)
+                      or run.get('event') != 'workflow_dispatch'
+                      or run.get('head_branch') != receipt['ref'].removeprefix('refs/heads/')):
+                  raise ValueError('Dispatched kernel run identity mismatch; retain claim for reconciliation')
+              record('lean-kernel-confirmed-run.json', {k: run.get(k) for k in
+                     ('id', 'run_attempt', 'head_sha', 'head_branch', 'event', 'path', 'html_url', 'status')})
+              return True
+
+
+          def cleanup_kernel_refs(gh):
+              """Delete only reserved, unmoved refs after PR closure and terminal runs."""
+              rows = gh.call('/git/matching-refs/heads/codex/protocol-b-kernel/')
+              if not isinstance(rows, list):
+                  raise ValueError('Unexpected reserved-ref listing')
+              outcomes = []
+              pattern = re.compile(re.escape(LEAN_REF_PREFIX)+r'([1-9][0-9]*)/([0-9a-f]{40})/([0-9a-f]{40})')
+              for row in rows:
+                  ref = row.get('ref', '')
+                  match = pattern.fullmatch(ref)
+                  if not match or row.get('object', {}).get('sha') != match[2]:
+                      continue
+                  item = {'ref': ref, 'pr': int(match[1]), 'head': match[2], 'base': match[3]}
+                  try:
+                      pr = gh.call('/pulls/'+match[1])
+                      if pr.get('state') != 'closed':
+                          continue
+                      branch = ref.removeprefix('refs/heads/')
+                      runs = action_pages(gh, '/actions/workflows/kernel-lean.yml/runs?branch='+
+                                          urllib.parse.quote(branch, safe=''), 'workflow_runs')
+                      # Do not infer a stopped process from a missing run. All runs on this
+                      # reserved branch must be terminal, and one must bind this exact head.
+                      if (not runs or any(r.get('status') != 'completed' for r in runs)
+                              or not any(direct_kernel_run(gh, match[2], r) and r.get('head_branch') == branch for r in runs)):
+                          outcomes.append({**item, 'retained': 'No confirmed terminal execution, or a run is active'})
+                          continue
+                      current = gh.call('/git/ref/'+ref.removeprefix('refs/'))
+                      if current.get('ref') != ref or current.get('object', {}).get('sha') != match[2]:
+                          outcomes.append({**item, 'retained': 'Ref changed; never delete another revision'})
+                          continue
+                      item['runs'] = [{'id': r['id'], 'attempt': r.get('run_attempt'),
+                                       'head': r.get('head_sha'), 'conclusion': r.get('conclusion')} for r in runs]
+                      record('lean-kernel-cleanup-'+match[1]+'-'+match[2]+'.json', {**item, 'phase': 'before-delete'})
+                      gh.call('/git/refs/'+ref.removeprefix('refs/'), 'DELETE')
+                      outcomes.append({**item, 'deleted': True})
+                  except Exception as error:
+                      outcomes.append({**item, 'retained_or_uncertain': str(error)})
+              record('lean-kernel-cleanup.json', outcomes)
+              return outcomes
+
+
+          def cleanup_lean():
+              gh = GitHub(os.environ['GITHUB_REPOSITORY'], os.environ['GH_TOKEN'])
+              default = gh.call('')['default_branch']
+              if os.environ.get('GITHUB_REF') != 'refs/heads/'+default:
+                  raise ValueError('Kernel cleanup must use the default-branch workflow')
+              cleanup_kernel_refs(gh)
 
 
           def wait_lean():
@@ -547,19 +707,24 @@ jobs:
                   if not lean_profile_eligible(files):
                       return
                   state.update(eligible=True, head=pr['head']['sha'], base=pr['base']['sha'])
-                  deadline = time.monotonic() + 75 * 60
+                  deadline = time.monotonic() + 180 * 60
+                  provisioned = False
+                  dispatch_receipt = {}
                   while True:
                       current = gh.call('/pulls/'+str(pr['number']))
                       if (current['state'] != 'open' or current['head']['sha'] != state['head']
                               or current['base']['sha'] != state['base']):
                           raise ValueError('PR head/base changed while awaiting kernel evidence')
-                      evidence = lean_evidence(gh, pr, files)
+                      evidence = lean_evidence(gh, pr, files) if confirm_kernel_dispatch(gh, pr, dispatch_receipt) else None
                       if evidence:
                           state.update(ready=True, evidence=evidence)
                           return
+                      if not provisioned:
+                          dispatch_receipt = ensure_kernel_dispatch(gh, pr)
+                          provisioned = True
                       if time.monotonic() >= deadline:
-                          raise ValueError('Kernel evidence was not ready within 75 minutes; no paid review started')
-                      log('Lean profile: waiting for the existing kernel audit; no model call or new build dispatch')
+                          raise ValueError('Kernel evidence was not ready within 180 minutes; no paid review started. An unresolved claim is retained, never replayed')
+                      log('Lean profile: waiting for direct kernel evidence; no model call or repeated dispatch')
                       time.sleep(30)
               except Exception as error:
                   state['error'] = str(error)
@@ -2085,6 +2250,17 @@ jobs:
               return envelope
 
 
+          def lean_provenance(state):
+              evidence = state.get('lean_evidence')
+              if not evidence:
+                  return None
+              value = {k: evidence[k] for k in ('head', 'base', 'run', 'attempt', 'run_url',
+                       'artifact', 'artifact_digest', 'event', 'audited_head', 'source_binding')}
+              value['audit_sha256'] = hashlib.sha256(json.dumps(evidence['audit'], sort_keys=True).encode()).hexdigest()
+              value['inspection_requirement'] = 'Temporary Option A requires inspection of all changed Lean hunks for execution/environment effects. See reviewer scope and any explicit override for actual coverage; mathematical proof reasoning is not re-proved.'
+              return value
+
+
           def decision_text(state, reports, limits):
               compact = json.loads(json.dumps(reports))
               for e in compact.values():
@@ -2107,6 +2283,7 @@ jobs:
                                  'automatic_rounds': state.get('automatic_rounds', 0),
                                  'review_round': state.get('review_round'),
                                  'review_profile': state.get('review_profile'),
+                                 'lean_kernel_provenance': lean_provenance(state),
                                  'paid_rounds': state.get('paid_rounds', 0),
                                  'source_access_limitations': limits,
                                  'scope_overrides': state.get('scope_overrides', [])})
@@ -2412,9 +2589,15 @@ jobs:
                   state['paid_rounds'] = spend['paid_rounds']
                   record('review-profile.json', state['review_profile'])
                   record('budget-profile.json', configure_budget(files))
-                  if state['review_profile']['name'] == 'lean' and not override_command:
+                  if state['review_profile']['name'] == 'lean':
                       preparation = OUT / 'lean-preflight.json'
                       evidence = json.loads(preparation.read_text(encoding='utf-8')) if preparation.is_file() else {}
+                      if override_command:
+                          # Scope overrides cannot substitute for authentic kernel provenance.
+                          # This path only reads existing evidence; no dispatch or model call.
+                          actual = lean_evidence(gh, pr, files)
+                          evidence = {'ready': bool(actual), 'head': pr['head']['sha'],
+                                      'base': pr['base']['sha'], 'evidence': actual}
                       if (not evidence.get('ready') or evidence.get('head') != pr['head']['sha']
                               or evidence.get('base') != pr['base']['sha']):
                           state.update(conclusion='action_required', summary=
@@ -2621,6 +2804,11 @@ jobs:
                   conclusion, summary = "failure", str(error)
                   record("failure.json", {"message": str(error)})
                   log("Review failed: " + str(error))
+              if state.get('lean_evidence'):
+                  evidence = state['lean_evidence']
+                  summary += ('\nLean kernel evidence: ' + evidence['run_url'] + ', attempt ' + str(evidence['attempt'])
+                              + ', audited commit ' + evidence['audited_head'] + ', artifact ' + str(evidence['artifact'])
+                              + ' (' + evidence['artifact_digest'] + '). Temporary Option A requires inspection of all changed Lean hunks for execution/environment effects; it does not re-prove their mathematical reasoning.')
               summary += findings_summary(envelopes)
               state.update(conclusion=conclusion, summary=summary, reports=envelopes)
               record('decision.json', state)
@@ -3062,10 +3250,36 @@ jobs:
 
 
           if __name__ == "__main__":
-              (wait_lean() if len(sys.argv) > 1 and sys.argv[1] == 'wait-lean' else
+              (None if len(sys.argv) > 1 and sys.argv[1] == 'prepare-only' else
+               cleanup_lean() if len(sys.argv) > 1 and sys.argv[1] == 'cleanup-lean' else
+               wait_lean() if len(sys.argv) > 1 and sys.argv[1] == 'wait-lean' else
                publish() if len(sys.argv) > 1 and sys.argv[1] == 'publish' else main())
           PROTOCOL_B_PYTHON
-          python3 "$RUNNER_TEMP/protocol-b.py" wait-lean
+          python3 "$RUNNER_TEMP/protocol-b.py" "$PROGRAM_ACTION"
+      - name: Preserve kernel preparation
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: protocol-b-kernel-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/protocol-b-reports/
+          if-no-files-found: error
+          retention-days: 90
+
+  run_reviewers:
+    name: Run reviewers and publish App check
+    needs: kernel_preflight
+    runs-on: ubuntu-24.04
+    environment: protocol-b
+    timeout-minutes: 120
+    env:
+      PROGRAM_ACTION: prepare-only
+    steps:
+      - *prepare_program
+      - name: Read this run's kernel preparation
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: protocol-b-kernel-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/protocol-b-reports/
       - name: Mint check-only App token
         id: app_start
         uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349
@@ -3109,6 +3323,29 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: protocol-b-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/protocol-b-reports/
+          if-no-files-found: ignore
+          retention-days: 90
+
+
+  cleanup_kernel_refs:
+    name: Retire closed-PR kernel refs
+    if: github.event_name == 'schedule' || (github.event_name == 'pull_request_target' && github.event.action == 'closed')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      pull-requests: read
+      actions: read
+    env:
+      PROGRAM_ACTION: cleanup-lean
+    steps:
+      - *prepare_program
+      - name: Preserve ref cleanup receipts
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: protocol-b-kernel-cleanup-${{ github.run_id }}-${{ github.run_attempt }}
           path: ${{ runner.temp }}/protocol-b-reports/
           if-no-files-found: ignore
           retention-days: 90

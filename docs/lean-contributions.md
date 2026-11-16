@@ -83,7 +83,11 @@ both approved models review the exact revision. Qualifying Lean-only changes use
 the [Lean profile](research-review/protocol-b-setup.md#lean-profile): models check
 statements, definitions, hypotheses, axioms, published-leaf assumptions, pins
 and contract changes, using the actual kernel audit output. They do not re-prove
-theorem proof bodies. Mixed manuscript, record or gate changes use full review.
+theorem proof bodies. Until the kernel audit is isolated, temporary Option A
+also requires inspection of every changed Lean hunk, including proofs and
+generated or vendored code, for execution and checking-environment effects.
+Missing inspection is recorded as incomplete scope. Mixed manuscript, record
+or gate changes use full review.
 One paid round is followed by a maintainer decision; another review requires a
 write collaborator's `/protocol-b review`. Only a repository admin can override
 a finding or incomplete-scope item, with affected claims not outside reviewed.

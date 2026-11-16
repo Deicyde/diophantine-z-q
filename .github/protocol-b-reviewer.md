@@ -259,10 +259,21 @@ does not authorize any override.
 ## Lean-only profile
 
 When the trusted runtime supplies `lean_kernel_evidence` and selects the Lean
-profile, follow its narrower scope: changed/new statements, definitions,
-hypotheses, axioms, published-leaf assumptions, pins and contract changes.
-Definition bodies and source fidelity remain in scope. Theorem proof bodies
-are checked by the required kernel build and actual axiom audit rather than
-re-proved by models. Read the supplied audit output and preserve its conditional
-status and runtime exclusions. This exception never applies to mixed manuscript,
-record or gate changes. There is no automatic proof-only declaration shortcut.
+profile, check changed/new statements, definitions, hypotheses, axioms,
+published-leaf assumptions, dependency pins and contract changes. Definition
+bodies and source fidelity remain in scope. Do not re-prove the mathematical
+reasoning in theorem proofs. Read the actual kernel audit and preserve its
+conditional status and runtime exclusions.
+
+Until the kernel audit is isolated, temporary Option A also requires inspecting
+every changed Lean hunk for effects on execution or the checking environment,
+including proof text and generated or vendored code. Check relevant surrounding
+definitions and dependencies for I/O, process or file operations, unsafe or
+external code, options, tactics, elaborators, macros and environment changes.
+There is no size exemption or keyword-only shortcut. An unresolved integrity
+gap blocks acceptance. Uninspected required hunks must be recorded as incomplete
+scope; an admin's scope override does not turn them into inspected code.
+
+This profile never applies to mixed manuscript, record or gate changes. There
+is no automatic proof-only declaration shortcut. Exact-head kernel provenance
+is required even when an admin overrides a model's scope item.

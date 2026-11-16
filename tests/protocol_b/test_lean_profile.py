@@ -9,18 +9,16 @@ import unittest
 from unittest.mock import Mock, patch
 import urllib.request
 import zipfile
-from test_gate import gate, FakeGH, HEAD, BASE, changed, report, run_pipeline, workflow
+from test_gate import gate, FakeGH, FakeApp, HEAD, BASE, changed, report, run_pipeline, workflow, envelope, comment, report_comment
+from test_kernel_dispatch import KernelGH
 
 
 class LeanProfile(unittest.TestCase):
     def fixture(self):
-        gh=FakeGH()
+        gh=KernelGH()
         files=[changed('ZInQKernel/Example.lean')]
         contract=json.dumps({'files':{'ZInQKernel/Example.lean':'hash'}})
-        gh.text=lambda path,ref: contract if path=='KERNEL_CONTRACT.json' else 'same trusted source'
-        run={'id':44,'run_attempt':1,'html_url':'https://github.com/x/y/actions/runs/44',
-             'status':'completed','conclusion':'success','path':gate.LEAN_WORKFLOW,
-             'repository':{'full_name':'x/y'},'head_sha':HEAD,'event':'pull_request'}
+        run=gh.run()
         artifact={'id':55,'name':'kernel-audit','expired':False,'digest':'sha256:fixture',
                   'workflow_run':{'id':44,'head_sha':HEAD}}
         audit={'schema':'kernel-audit/v1','status':'passed','head_sha':HEAD,
@@ -68,24 +66,29 @@ class LeanProfile(unittest.TestCase):
                 gate.validate_lean_audit(gh,gh.pr,files,run,artifact,audit)
 
     def test_modified_auditor_cannot_supply_lean_profile_authority(self):
-        gh,files,run,artifact,audit=self.fixture();original=gh.text
-        gh.text=lambda path,ref: 'changed' if path=='scripts/audit_kernel.lean' and ref==HEAD else original(path,ref)
-        with self.assertRaisesRegex(ValueError,'implementation changed'):
+        gh,files,run,artifact,audit=self.fixture()
+        gh.root_entries[HEAD]['scripts']['sha']='d'*40
+        with self.assertRaisesRegex(ValueError,'helper inputs'):
             gate.validate_lean_audit(gh,gh.pr,files,run,artifact,audit)
 
-    def test_test_merge_allows_only_complete_disjoint_non_kernel_changes(self):
-        for path,allowed in [('docs/example.md',True),('ZInQKernel/Example.lean',False),
-                             ('lakefile.toml',False),('.gitattributes',False),('scripts/helper.py',False)]:
-            gh,files,run,artifact,audit=self.fixture();audit['head_sha']='d'*40
-            gh.comparison={'behind_by':0,'files':[changed(path)]}
-            with self.subTest(path=path):
-                if allowed:
-                    self.assertEqual(gate.validate_lean_audit(gh,gh.pr,files,run,artifact,audit)['audited_head'],'d'*40)
-                else:
-                    with self.assertRaises(ValueError):gate.validate_lean_audit(gh,gh.pr,files,run,artifact,audit)
-        for comparison in [{'behind_by':1,'files':[]},{'behind_by':0},{'behind_by':0,'files':[changed('docs/x.md')]*300}]:
-            gh,files,run,artifact,audit=self.fixture();audit['head_sha']='d'*40;gh.comparison=comparison
-            with self.assertRaises(ValueError):gate.validate_lean_audit(gh,gh.pr,files,run,artifact,audit)
+    def test_pr_run_cannot_claim_exact_head_even_with_matching_audit_bytes(self):
+        for associations in ([],[{'number':2,'base':{'sha':'e'*40}}]):
+            gh,files,run,artifact,audit=self.fixture()
+            run.update(event='pull_request',pull_requests=associations)
+            with self.assertRaisesRegex(ValueError,'direct execution'):
+                gate.validate_lean_audit(gh,gh.pr,files,run,artifact,audit)
+
+    def test_no_test_merge_exception_even_when_a_diff_is_disjoint(self):
+        gh,files,run,artifact,audit=self.fixture();audit['head_sha']='d'*40
+        gh.comparison.update(files=[changed('docs/example.md')])
+        with self.assertRaisesRegex(ValueError,'direct head'):
+            gate.validate_lean_audit(gh,gh.pr,files,run,artifact,audit)
+
+    def test_direct_run_without_pr_association_is_valid_for_a_fork(self):
+        gh,files,run,artifact,audit=self.fixture()
+        self.assertNotEqual(gh.pr['head']['repo']['full_name'],gh.repo)
+        self.assertEqual(run['pull_requests'],[])
+        self.assertEqual(gate.validate_lean_audit(gh,gh.pr,files,run,artifact,audit)['audited_head'],HEAD)
 
     def test_download_checks_digest_reads_only_json_and_strips_redirect_credentials(self):
         stream=io.BytesIO()
@@ -126,7 +129,9 @@ class LeanProfile(unittest.TestCase):
             return configure(files)
         def provider(reviewer):
             seen.append(reviewer.input['lean_kernel_evidence'])
-            self.assertIn('Do not review or re-prove theorem proof bodies',reviewer.instructions)
+            self.assertIn('Do not re-prove the mathematical reasoning',reviewer.instructions)
+            self.assertIn('EVERY changed Lean hunk',reviewer.instructions)
+            self.assertIn('temporary',reviewer.instructions)
             return report()
         with patch.object(gate,'configure_budget',side_effect=budget):
             _,app,errors,state=run_pipeline(gh,provider=provider)
@@ -134,11 +139,45 @@ class LeanProfile(unittest.TestCase):
         self.assertEqual(seen,[evidence,evidence])
         self.assertEqual(state['review_profile']['name'],'lean')
         self.assertEqual(app.final['conclusion'],'success')
+        stored=json.loads(gate.decision_text(state,state['reports'],[]))
+        provenance=stored['lean_kernel_provenance']
+        self.assertEqual(provenance['run'],44)
+        self.assertEqual(provenance['attempt'],1)
+        self.assertEqual(provenance['artifact_digest'],'sha256:fixture')
+        self.assertEqual(provenance['audited_head'],HEAD)
+        self.assertNotIn('audit',provenance)
+        self.assertEqual(provenance['audit_sha256'],hashlib.sha256(json.dumps(audit,sort_keys=True).encode()).hexdigest())
+        self.assertIn('Temporary Option A',app.final['output']['summary'])
+
+    def test_admin_scope_override_still_requires_authentic_kernel_evidence(self):
+        for ready in (False,True):
+            gh,files,run,artifact,audit=self.fixture();original=gh.pages
+            gh.pages=lambda path:files if path.endswith('/files') else original(path)
+            gh.permission='admin'
+            app=FakeApp()
+            pair={'astra':envelope(),'fable':envelope('fable',complete=False,review=report(scope_complete=False,not_reviewed=['Interrupted before inspection']))}
+            app.prior(pair)
+            item=gate.review_scope_item(pair['fable'])['id']
+            command=comment('/protocol-b override '+HEAD+' '+item+' accept incomplete scope','collaborator')
+            gh.comments=[report_comment(v) for v in pair.values()]+[command]
+            event={'issue':{'number':1},'comment':command,'sender':{'login':'collaborator'}}
+            evidence=gate.validate_lean_audit(gh,gh.pr,files,run,artifact,audit) if ready else None
+            provider=Mock(side_effect=AssertionError('No model during override'))
+            with self.subTest(ready=ready),patch.object(gate,'lean_evidence',return_value=evidence) as read,patch.object(gate,'ensure_kernel_dispatch',side_effect=AssertionError('No dispatch during override')):
+                _,app,errors,state=run_pipeline(gh,app,provider=provider,event=event)
+            provider.assert_not_called();read.assert_called_once()
+            self.assertEqual(app.final['conclusion'],'success' if ready else 'action_required')
+            if ready:
+                self.assertEqual(errors,[])
+                self.assertEqual(state['lean_evidence'],evidence)
+            else:
+                self.assertIn('awaits exact-head kernel evidence',state['summary'])
 
     def test_wait_runs_before_secret_exposure_and_preserves_candidate_code_isolation(self):
-        preparation=workflow.split('      - name: Prepare trusted review program',1)[1].split('      - name: Mint check-only App token',1)[0]
+        preparation=workflow.split('  kernel_preflight:',1)[1].split('  run_reviewers:',1)[0]
         self.assertNotIn('secrets.',preparation)
-        self.assertIn('python3 "$RUNNER_TEMP/protocol-b.py" wait-lean',preparation)
+        self.assertIn('PROGRAM_ACTION: wait-lean',preparation)
+        self.assertNotIn('environment: protocol-b',preparation)
         self.assertNotIn('actions/checkout',workflow)
         self.assertNotIn('zipfile.extract',workflow)
 
