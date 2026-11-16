@@ -4,14 +4,13 @@
   "upstream_base": "fe026617ddd1f2275d7dd0190e5a3814a1c5d1b6",
   "original_files": 36,
   "lean_modules": 28,
-  "metadata_files_relocated_unchanged": 8,
   "import_lines_relocated": 2,
   "notice_locator_comments_updated": 0,
   "new_lean_dependencies": 0,
   "new_lake_dependencies": 0,
   "protected_files_changed": [],
   "R1fpAb_proved": false,
-  "original_witness_and_discharge_limits": "Retained as historical fork evidence; no upstream premise-provider or full H10 claim",
+  "original_witness_and_discharge_limits": "Historical witness remains unproved; original discharge check was not run successfully. Public metadata is sanitized, not raw byte-exact evidence.",
   "files": [
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -21,7 +20,10 @@
       "upstream_sha256": "a9647d9e41de723047d2b96e37a993b7a1c1ded36fe12da6c55c17d2db8b0d92",
       "bytes_preserved": true,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "a9647d9e41de723047d2b96e37a993b7a1c1ded36fe12da6c55c17d2db8b0d92",
+      "bytes_preserved_at_initial_transfer": true,
+      "public_documentation_sanitized": false
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -38,7 +40,8 @@
           "old_module": "ZInQKernel.HDecomp.QM.Structures",
           "new_module": "ZInQKernel.Contrib.HDecomp.QM.Structures"
         }
-      ]
+      ],
+      "initial_transfer_upstream_sha256": "90cc5e1ad54968d27422b8b094d0884ae44bf19ad0d7edd0d2835dc871c4139f"
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -48,17 +51,23 @@
       "upstream_sha256": "c96249556c12b99f98b58fa5275b9397a1a88adab2d5dcac8c90764b86f66ddc",
       "bytes_preserved": true,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "c96249556c12b99f98b58fa5275b9397a1a88adab2d5dcac8c90764b86f66ddc",
+      "bytes_preserved_at_initial_transfer": true,
+      "public_documentation_sanitized": false
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
       "source_path": "ZInQKernel/Contrib/CloudB4W28FineModuli/README.md",
       "upstream_path": "docs/lean-contributions/w28-order-bridges/README-fork.md",
       "source_sha256": "4afd423204f23d4dffc1c812c3f7d488b19fa0091ada2f6487a56f84cabb0439",
-      "upstream_sha256": "4afd423204f23d4dffc1c812c3f7d488b19fa0091ada2f6487a56f84cabb0439",
-      "bytes_preserved": true,
+      "upstream_sha256": "2abf10b35c65ab763a06a068963dee8dd3fa297dddc48b8c0cc7afbc3946c777",
+      "bytes_preserved": false,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "4afd423204f23d4dffc1c812c3f7d488b19fa0091ada2f6487a56f84cabb0439",
+      "bytes_preserved_at_initial_transfer": true,
+      "public_documentation_sanitized": true
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -68,17 +77,21 @@
       "upstream_sha256": "2fdae24d3d5cb218b3195f48ecf7e98c5e6153ca694b5a0911520e69691d67af",
       "bytes_preserved": true,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "2fdae24d3d5cb218b3195f48ecf7e98c5e6153ca694b5a0911520e69691d67af"
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
       "source_path": "ZInQKernel/Contrib/CloudB4W28FineModuli/VERIFICATION.json",
       "upstream_path": "docs/lean-contributions/w28-order-bridges/VERIFICATION-fork.json",
       "source_sha256": "503a4faf35822e929d3da7288e4a01371777572079b10eafefb786cb940e7a15",
-      "upstream_sha256": "503a4faf35822e929d3da7288e4a01371777572079b10eafefb786cb940e7a15",
-      "bytes_preserved": true,
+      "upstream_sha256": "62e50d0f8e1bcd92ee383bb27ca45391896e8994c0a5bf91debf98eb39774a75",
+      "bytes_preserved": false,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "503a4faf35822e929d3da7288e4a01371777572079b10eafefb786cb940e7a15",
+      "bytes_preserved_at_initial_transfer": true,
+      "public_documentation_sanitized": true
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -88,7 +101,10 @@
       "upstream_sha256": "698fb76c8d80b2ed78ebd48b271f2ee5815b3654fb8ec5c699b21b16ce0d9698",
       "bytes_preserved": true,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "698fb76c8d80b2ed78ebd48b271f2ee5815b3654fb8ec5c699b21b16ce0d9698",
+      "bytes_preserved_at_initial_transfer": true,
+      "public_documentation_sanitized": false
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -98,7 +114,8 @@
       "upstream_sha256": "ddfeb097796b235c7f37b592034fef9347e0013ef6ece7db02350d78a0f956b6",
       "bytes_preserved": true,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "ddfeb097796b235c7f37b592034fef9347e0013ef6ece7db02350d78a0f956b6"
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -108,7 +125,8 @@
       "upstream_sha256": "90cdf6b9064b41a86cd5a5743c637a361fa19d37debf604ab32d3a4424279463",
       "bytes_preserved": true,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "90cdf6b9064b41a86cd5a5743c637a361fa19d37debf604ab32d3a4424279463"
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -118,7 +136,8 @@
       "upstream_sha256": "7967e9f1caf17d813241cb5cc0b99cb0ba35efd5bf30463337a2de55c6f2c6a3",
       "bytes_preserved": true,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "7967e9f1caf17d813241cb5cc0b99cb0ba35efd5bf30463337a2de55c6f2c6a3"
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -128,7 +147,8 @@
       "upstream_sha256": "29f0448db1dab2d120c2017ecfb1b190ec2a19085d6f0a8475700129970ce10b",
       "bytes_preserved": true,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "29f0448db1dab2d120c2017ecfb1b190ec2a19085d6f0a8475700129970ce10b"
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -138,7 +158,8 @@
       "upstream_sha256": "8f156cf3d10a67f82d40cb9ecaa0608ba53eef0bbdfa98765b4706b7e6d26235",
       "bytes_preserved": true,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "8f156cf3d10a67f82d40cb9ecaa0608ba53eef0bbdfa98765b4706b7e6d26235"
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -148,7 +169,10 @@
       "upstream_sha256": "746bc52848eabf8765635fe532e0680756a10b18e7b3fb26e7433ab4edf34034",
       "bytes_preserved": true,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "746bc52848eabf8765635fe532e0680756a10b18e7b3fb26e7433ab4edf34034",
+      "bytes_preserved_at_initial_transfer": true,
+      "public_documentation_sanitized": false
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -158,7 +182,10 @@
       "upstream_sha256": "42b1821f19a6aaa25e6811d22ab8f2fdc6433d4a37bc810b1cfafa5b6dd6b0b6",
       "bytes_preserved": true,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "42b1821f19a6aaa25e6811d22ab8f2fdc6433d4a37bc810b1cfafa5b6dd6b0b6",
+      "bytes_preserved_at_initial_transfer": true,
+      "public_documentation_sanitized": false
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -168,7 +195,8 @@
       "upstream_sha256": "151d5ee06f31749b7ce41b4080e001a903c97b622c2373c229a3873b52810a93",
       "bytes_preserved": true,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "151d5ee06f31749b7ce41b4080e001a903c97b622c2373c229a3873b52810a93"
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -178,7 +206,8 @@
       "upstream_sha256": "826e835ce0974c37b3f10da14543d3f97f9df5ceb834766482971c5c80c21a00",
       "bytes_preserved": true,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "826e835ce0974c37b3f10da14543d3f97f9df5ceb834766482971c5c80c21a00"
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -188,7 +217,8 @@
       "upstream_sha256": "9eda74128691a0c17b2207925248bceef77d8ad4afa9aed9fd374cd752832bb1",
       "bytes_preserved": true,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "9eda74128691a0c17b2207925248bceef77d8ad4afa9aed9fd374cd752832bb1"
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -198,7 +228,8 @@
       "upstream_sha256": "4632b10a4c6bc816a425d14e41ef994e8af9beb86575fedb8ec6d03f0e44b2a9",
       "bytes_preserved": true,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "4632b10a4c6bc816a425d14e41ef994e8af9beb86575fedb8ec6d03f0e44b2a9"
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -208,7 +239,8 @@
       "upstream_sha256": "7580839c688322de50315829b6c077e41a4d485413c62ccc8399a84c266f45f8",
       "bytes_preserved": true,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "7580839c688322de50315829b6c077e41a4d485413c62ccc8399a84c266f45f8"
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -218,7 +250,8 @@
       "upstream_sha256": "813a660d15d3e5e31dd9d5866d958f756a71767a6fcef9737a8cb29a3870f876",
       "bytes_preserved": true,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "813a660d15d3e5e31dd9d5866d958f756a71767a6fcef9737a8cb29a3870f876"
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -228,7 +261,8 @@
       "upstream_sha256": "8b6d0c6347e559174dcef036e6a7879bb680629515f650692da47a8f39746f8e",
       "bytes_preserved": true,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "8b6d0c6347e559174dcef036e6a7879bb680629515f650692da47a8f39746f8e"
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -238,7 +272,8 @@
       "upstream_sha256": "65fa5aefa9daade08962d5be389d7c728f2756a3546670f43a3787a60ae7882b",
       "bytes_preserved": true,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "65fa5aefa9daade08962d5be389d7c728f2756a3546670f43a3787a60ae7882b"
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -248,7 +283,8 @@
       "upstream_sha256": "f14fc57aa9e39ee102420df36c84c6570fb9a1c2d2c68331ba7249c0a06d0b64",
       "bytes_preserved": true,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "f14fc57aa9e39ee102420df36c84c6570fb9a1c2d2c68331ba7249c0a06d0b64"
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -258,7 +294,8 @@
       "upstream_sha256": "b0acf01682cd5cb9369fdb698dc6cb101038defeafb8d0469a4dbd47198d4e78",
       "bytes_preserved": true,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "b0acf01682cd5cb9369fdb698dc6cb101038defeafb8d0469a4dbd47198d4e78"
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -268,7 +305,10 @@
       "upstream_sha256": "3ca254843a17ca48fd4427595b3b22475e14a8b5047dd91992b740585b402d82",
       "bytes_preserved": true,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "3ca254843a17ca48fd4427595b3b22475e14a8b5047dd91992b740585b402d82",
+      "bytes_preserved_at_initial_transfer": true,
+      "public_documentation_sanitized": false
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -278,7 +318,8 @@
       "upstream_sha256": "d460cdd2bfb8b244b18c9d528c3c434bc53f206ee08648fb572f2a9a802c0645",
       "bytes_preserved": true,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "d460cdd2bfb8b244b18c9d528c3c434bc53f206ee08648fb572f2a9a802c0645"
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -288,7 +329,8 @@
       "upstream_sha256": "2ecfa35a9546691e6bc342d582d406d075beed9a2a01edee73e9297fd5d7ecb8",
       "bytes_preserved": true,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "2ecfa35a9546691e6bc342d582d406d075beed9a2a01edee73e9297fd5d7ecb8"
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -298,7 +340,8 @@
       "upstream_sha256": "bab62aea38dfcb416b7d1feb7e4eb276124ed4f24ec23e5d5374e53a41cb6fa8",
       "bytes_preserved": true,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "bab62aea38dfcb416b7d1feb7e4eb276124ed4f24ec23e5d5374e53a41cb6fa8"
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -308,7 +351,8 @@
       "upstream_sha256": "cfaa1dd1b3932ad2538b9f9d0020b7b92a7af95dd8c1b7cb5fd55de354b6ffd5",
       "bytes_preserved": true,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "cfaa1dd1b3932ad2538b9f9d0020b7b92a7af95dd8c1b7cb5fd55de354b6ffd5"
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -318,7 +362,8 @@
       "upstream_sha256": "0ca79780c2abf9831d0d92cba7dd071c0508baa47d549e48fc684171993ff4e0",
       "bytes_preserved": true,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "0ca79780c2abf9831d0d92cba7dd071c0508baa47d549e48fc684171993ff4e0"
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -328,7 +373,8 @@
       "upstream_sha256": "5f6967e8ebeb2e543d1ea8ef32cb204767c576ff6ae741470c2362588d828a15",
       "bytes_preserved": true,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "5f6967e8ebeb2e543d1ea8ef32cb204767c576ff6ae741470c2362588d828a15"
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -338,7 +384,8 @@
       "upstream_sha256": "6f0220fcf8a04e5d5977c934cacc53e1da4b246e19ea44827ad49dcd09fa4db2",
       "bytes_preserved": true,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "6f0220fcf8a04e5d5977c934cacc53e1da4b246e19ea44827ad49dcd09fa4db2"
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -348,7 +395,8 @@
       "upstream_sha256": "1f66c6e80da7d6f5df6b2842b21a004fdc27fed1cb602c82d449c5b75a67423a",
       "bytes_preserved": true,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "1f66c6e80da7d6f5df6b2842b21a004fdc27fed1cb602c82d449c5b75a67423a"
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -358,7 +406,8 @@
       "upstream_sha256": "b5857f8c9af42509a37ce3810d52e52d8bfdb46873104f5c70dcab7af0456a23",
       "bytes_preserved": true,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "b5857f8c9af42509a37ce3810d52e52d8bfdb46873104f5c70dcab7af0456a23"
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -368,7 +417,8 @@
       "upstream_sha256": "a014a8b01ffe7583f1d0a2752fcd4e4bc47903c9f1397b1984c1e6ac8fdf4d0c",
       "bytes_preserved": true,
       "mathematical_source_preserved": true,
-      "changes": []
+      "changes": [],
+      "initial_transfer_upstream_sha256": "a014a8b01ffe7583f1d0a2752fcd4e4bc47903c9f1397b1984c1e6ac8fdf4d0c"
     },
     {
       "source_commit": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
@@ -385,14 +435,15 @@
           "old_module": "ZInQKernel.HDecomp.QM.Structures",
           "new_module": "ZInQKernel.Contrib.HDecomp.QM.Structures"
         }
-      ]
+      ],
+      "initial_transfer_upstream_sha256": "11b8c91e7b725b34d8798d7b1af873118c01588dd756aee441806f2a557b75f8"
     }
   ],
   "current_upstream_verification": {
     "schema": "w28-upstream-current-verification/v1",
     "upstream_base": "fe026617ddd1f2275d7dd0190e5a3814a1c5d1b6",
     "fork_source": "97378a0a2819b6130b4ea753ef4888d471af2c0a",
-    "node": "faas.5B6EE2914BCF438E8E650575433E29D1",
+    "node": "<REDACTED_WORKER>",
     "memory_limit_bytes": 34359738368,
     "compiler": "Lean 4.35.0 eb6cafb7290e8bd5f2937522d8d804f58f02bafc",
     "mathlib_pin": "56a005855ea17e0b0958f73ec801ae140b0a1679",
@@ -408,37 +459,37 @@
       {
         "run": "1794832550572998647",
         "command": [
-          "/tmp/w28-upstream/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+          "<REDACTED_WORKDIR>/toolchains/leanprover--lean4---v4.35.0/bin/lean",
           "--threads=2",
           "-Ddebug.skipKernelTC=false",
           "-R",
-          "/tmp/w28-upstream/reused/checks",
-          "/tmp/w28-upstream/reused/checks/ProofCheck.lean"
+          "<REDACTED_WORKDIR>/reused/checks",
+          "<REDACTED_WORKDIR>/reused/checks/ProofCheck.lean"
         ],
-        "LEAN_PATH": "/tmp/w28-upstream/build-focused/lib/lean:/tmp/w28-upstream/repo/.lake/packages/Cli/.lake/build/lib/lean:/tmp/w28-upstream/repo/.lake/packages/batteries/.lake/build/lib/lean:/tmp/w28-upstream/repo/.lake/packages/Qq/.lake/build/lib/lean:/tmp/w28-upstream/repo/.lake/packages/aesop/.lake/build/lib/lean:/tmp/w28-upstream/repo/.lake/packages/proofwidgets/.lake/build/lib/lean:/tmp/w28-upstream/repo/.lake/packages/importGraph/.lake/build/lib/lean:/tmp/w28-upstream/repo/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/tmp/w28-upstream/repo/.lake/packages/plausible/.lake/build/lib/lean:/tmp/w28-upstream/repo/.lake/packages/mathlib/.lake/build/lib/lean:/tmp/w28-upstream/toolchains/leanprover--lean4---v4.35.0/lib/lean",
+        "LEAN_PATH": "<REDACTED_WORKDIR>/build-focused/lib/lean:<REDACTED_WORKDIR>/repo/.lake/packages/Cli/.lake/build/lib/lean:<REDACTED_WORKDIR>/repo/.lake/packages/batteries/.lake/build/lib/lean:<REDACTED_WORKDIR>/repo/.lake/packages/Qq/.lake/build/lib/lean:<REDACTED_WORKDIR>/repo/.lake/packages/aesop/.lake/build/lib/lean:<REDACTED_WORKDIR>/repo/.lake/packages/proofwidgets/.lake/build/lib/lean:<REDACTED_WORKDIR>/repo/.lake/packages/importGraph/.lake/build/lib/lean:<REDACTED_WORKDIR>/repo/.lake/packages/LeanSearchClient/.lake/build/lib/lean:<REDACTED_WORKDIR>/repo/.lake/packages/plausible/.lake/build/lib/lean:<REDACTED_WORKDIR>/repo/.lake/packages/mathlib/.lake/build/lib/lean:<REDACTED_WORKDIR>/toolchains/leanprover--lean4---v4.35.0/lib/lean",
         "source_sha256": "ea07503af759e448fc59aa7b94d3ac3b04a8b3256bbb4aadf674c575475fc158",
         "source_unchanged": true,
         "exit_code": 0,
         "elapsed_seconds": 4.398,
-        "log": "/tmp/w28-upstream/check-results/ProofCheck.1794832550572998647.log",
+        "log": "<REDACTED_WORKDIR>/check-results/ProofCheck.1794832550572998647.log",
         "log_sha256": "1f22c81d2498f96e120559fef8b05286b322be97b038b4692357694ade7808b1"
       },
       {
         "run": "1794832555061446582",
         "command": [
-          "/tmp/w28-upstream/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+          "<REDACTED_WORKDIR>/toolchains/leanprover--lean4---v4.35.0/bin/lean",
           "--threads=2",
           "-Ddebug.skipKernelTC=false",
           "-R",
-          "/tmp/w28-upstream/reused/checks",
-          "/tmp/w28-upstream/reused/checks/EntryProofCheck.lean"
+          "<REDACTED_WORKDIR>/reused/checks",
+          "<REDACTED_WORKDIR>/reused/checks/EntryProofCheck.lean"
         ],
-        "LEAN_PATH": "/tmp/w28-upstream/build-focused/lib/lean:/tmp/w28-upstream/repo/.lake/packages/Cli/.lake/build/lib/lean:/tmp/w28-upstream/repo/.lake/packages/batteries/.lake/build/lib/lean:/tmp/w28-upstream/repo/.lake/packages/Qq/.lake/build/lib/lean:/tmp/w28-upstream/repo/.lake/packages/aesop/.lake/build/lib/lean:/tmp/w28-upstream/repo/.lake/packages/proofwidgets/.lake/build/lib/lean:/tmp/w28-upstream/repo/.lake/packages/importGraph/.lake/build/lib/lean:/tmp/w28-upstream/repo/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/tmp/w28-upstream/repo/.lake/packages/plausible/.lake/build/lib/lean:/tmp/w28-upstream/repo/.lake/packages/mathlib/.lake/build/lib/lean:/tmp/w28-upstream/toolchains/leanprover--lean4---v4.35.0/lib/lean",
+        "LEAN_PATH": "<REDACTED_WORKDIR>/build-focused/lib/lean:<REDACTED_WORKDIR>/repo/.lake/packages/Cli/.lake/build/lib/lean:<REDACTED_WORKDIR>/repo/.lake/packages/batteries/.lake/build/lib/lean:<REDACTED_WORKDIR>/repo/.lake/packages/Qq/.lake/build/lib/lean:<REDACTED_WORKDIR>/repo/.lake/packages/aesop/.lake/build/lib/lean:<REDACTED_WORKDIR>/repo/.lake/packages/proofwidgets/.lake/build/lib/lean:<REDACTED_WORKDIR>/repo/.lake/packages/importGraph/.lake/build/lib/lean:<REDACTED_WORKDIR>/repo/.lake/packages/LeanSearchClient/.lake/build/lib/lean:<REDACTED_WORKDIR>/repo/.lake/packages/plausible/.lake/build/lib/lean:<REDACTED_WORKDIR>/repo/.lake/packages/mathlib/.lake/build/lib/lean:<REDACTED_WORKDIR>/toolchains/leanprover--lean4---v4.35.0/lib/lean",
         "source_sha256": "420123262126fcd32e44e76877db5db7b3aa6fa430e711b7ceffe7d0c5cec7b1",
         "source_unchanged": true,
         "exit_code": 0,
         "elapsed_seconds": 4.623,
-        "log": "/tmp/w28-upstream/check-results/EntryProofCheck.1794832555061446582.log",
+        "log": "<REDACTED_WORKDIR>/check-results/EntryProofCheck.1794832555061446582.log",
         "log_sha256": "554de3c958dbdb84de290a310fc7fe10a4a28d1655d02641a0e46c9ffa2c0e57"
       }
     ],
@@ -463,15 +514,15 @@
       ],
       "receipt": {
         "command": [
-          "/tmp/w28-upstream/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+          "<REDACTED_WORKDIR>/toolchains/leanprover--lean4---v4.35.0/bin/lean",
           "--threads=2",
           "-Ddebug.skipKernelTC=false",
           "--run",
-          "/tmp/w28-upstream/repo/scripts/audit_kernel.lean",
-          "/tmp/w28-upstream/audit/SELECTED_SPEC.json",
-          "/tmp/w28-upstream/audit/SELECTED_REPORT.json"
+          "<REDACTED_WORKDIR>/repo/scripts/audit_kernel.lean",
+          "<REDACTED_WORKDIR>/audit/SELECTED_SPEC.json",
+          "<REDACTED_WORKDIR>/audit/SELECTED_REPORT.json"
         ],
-        "LEAN_PATH": "/tmp/w28-upstream/build-focused/lib/lean:/tmp/w28-upstream/repo/.lake/packages/Cli/.lake/build/lib/lean:/tmp/w28-upstream/repo/.lake/packages/batteries/.lake/build/lib/lean:/tmp/w28-upstream/repo/.lake/packages/Qq/.lake/build/lib/lean:/tmp/w28-upstream/repo/.lake/packages/aesop/.lake/build/lib/lean:/tmp/w28-upstream/repo/.lake/packages/proofwidgets/.lake/build/lib/lean:/tmp/w28-upstream/repo/.lake/packages/importGraph/.lake/build/lib/lean:/tmp/w28-upstream/repo/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/tmp/w28-upstream/repo/.lake/packages/plausible/.lake/build/lib/lean:/tmp/w28-upstream/repo/.lake/packages/mathlib/.lake/build/lib/lean:/tmp/w28-upstream/toolchains/leanprover--lean4---v4.35.0/lib/lean",
+        "LEAN_PATH": "<REDACTED_WORKDIR>/build-focused/lib/lean:<REDACTED_WORKDIR>/repo/.lake/packages/Cli/.lake/build/lib/lean:<REDACTED_WORKDIR>/repo/.lake/packages/batteries/.lake/build/lib/lean:<REDACTED_WORKDIR>/repo/.lake/packages/Qq/.lake/build/lib/lean:<REDACTED_WORKDIR>/repo/.lake/packages/aesop/.lake/build/lib/lean:<REDACTED_WORKDIR>/repo/.lake/packages/proofwidgets/.lake/build/lib/lean:<REDACTED_WORKDIR>/repo/.lake/packages/importGraph/.lake/build/lib/lean:<REDACTED_WORKDIR>/repo/.lake/packages/LeanSearchClient/.lake/build/lib/lean:<REDACTED_WORKDIR>/repo/.lake/packages/plausible/.lake/build/lib/lean:<REDACTED_WORKDIR>/repo/.lake/packages/mathlib/.lake/build/lib/lean:<REDACTED_WORKDIR>/toolchains/leanprover--lean4---v4.35.0/lib/lean",
         "exit_code": 0,
         "seconds": 34.944,
         "trusted_auditor_sha256": "79096b836bce4c04735cc4ab2f6af21e207cb9b1b84fc46b959b55369787198a",
@@ -487,7 +538,7 @@
       "tests": 18,
       "exit_code": 0,
       "seconds": 152.64,
-      "receipt_kind": "managed tool task #69990 original output copied",
+      "receipt_kind": "recorded original process output",
       "original_stderr": "..................\n----------------------------------------------------------------------\nRan 18 tests in 152.640s\n\nOK\n"
     },
     "historical_witness_status": {
@@ -520,5 +571,14 @@
     "protocol_acceptance": false,
     "draft_only": true,
     "no_ready_review_or_automerge_authorized": true
-  }
+  },
+  "public_sanitization": {
+    "kind": "public-safe projection",
+    "private_raw_originals_retained": true,
+    "command_paths_are_redacted_placeholders_not_literal_argv": true,
+    "no_new_execution_or_ci_result_claimed": true,
+    "scope": "Documentation only; all Lean source blobs unchanged"
+  },
+  "metadata_files_relocated_unchanged_at_initial_transfer": 8,
+  "metadata_sanitized_after_initial_transfer": true
 }

@@ -46,7 +46,7 @@ The exact task input remains the unchanged fork statement at
 
 ## Preserved historical files and notices
 
-The eight original non-Lean files are preserved **byte-for-byte** outside
+The original non-Lean files were initially relocated byte-for-byte outside
 Contrib, as required by the current upstream source validator:
 
 - `README-fork.md`, `AXIOMS-fork.txt`, and `VERIFICATION-fork.json` in this
@@ -68,7 +68,7 @@ full fine-moduli theorem cone. There is no new license grant or premise.
 
 ## New upstream verification
 
-Fresh isolated 32 GiB FaaS compilation, Lean 4.35.0
+Fresh isolated 32 GiB Linux compilation, Lean 4.35.0
 `eb6cafb7290e8bd5f2937522d8d804f58f02bafc`, unchanged Mathlib
 `56a005855ea17e0b0958f73ec801ae140b0a1679`:
 
@@ -82,7 +82,7 @@ Fresh isolated 32 GiB FaaS compilation, Lean 4.35.0
   adversarial tests passed.
 - Independent source-static audits found no explicit public-name collision
   with all 948 current-upstream or 1,414 PR68 Lean files, and confirmed the
-  two import edits and eight preserved metadata files.
+  two import edits and historical metadata files before this sanitization.
 
 - The unchanged upstream auditor passed a selected replay of all 28 incoming
   modules, their four current prerequisites and one separate literal reference:
@@ -98,9 +98,9 @@ used as an upstream pass. Full hosted computation and App review remain pending.
 Actual focused command:
 
 ```sh
-python3 /tmp/w28-upstream/reused/commands/direct_build.py \
-  --root /tmp/w28-upstream/repo --out /tmp/w28-upstream/build-focused \
-  --toolchain /tmp/w28-upstream/toolchains/leanprover--lean4---v4.35.0 \
+python3 <REDACTED_SCRIPTS>/direct_build.py \
+  --root <REDACTED_WORKDIR>/repo --out <REDACTED_WORKDIR>/build-focused \
+  --toolchain <REDACTED_WORKDIR>/toolchains/leanprover--lean4---v4.35.0 \
   --jobs 2 --max-failures 1 --module-timeout 300 \
   ZInQKernel.Contrib.OneProof.R1fpAbOrderBridges
 ```
@@ -125,3 +125,7 @@ acceptance, human reading, or outside-family review.
 This transfer changes no existing manuscript, registered application record,
 proof-provider spelling, frozen target or other held claim. **Hilbert10 and
 R1fpAb remain open.**
+
+## Public evidence sanitization
+
+Public sanitization: private runtime paths and execution-service identifiers are omitted. Command representations use redacted placeholders and are not literal original argv. Mathematical source hashes, toolchain pins, actual result counts, axiom outputs and limitations are unchanged; unsanitized raw originals remain in private evidence. No new-head compilation or CI pass is inferred from this documentation-only change. License text and source attribution remain complete and unchanged. Historical metadata now records a sanitized projection, not byte-exact public raw receipts.
