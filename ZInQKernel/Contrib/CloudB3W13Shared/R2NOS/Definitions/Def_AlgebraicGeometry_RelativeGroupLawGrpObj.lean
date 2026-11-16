@@ -29,9 +29,18 @@ the lane4 port manifest):
   * the definition `GoodReductionJacobian.relativeGroupLawOfGrpObj` is NOT re-declared: it is imported from the published H76 module `ZInQKernel.Contrib.CloudW03NeronSurj.Basic`, which declares it under the same full name with a textually identical body (H76 derived it from this very source file); all other declarations are retained unchanged.
 -/
 
+/- Normalization notice (W13 source normalization), 2026-11-16, Cloud Batch 3 Worker 13 with
+Metamate/agentcloud assistance
+(modification under Apache-2.0 §4(b)): the import of the omitted `CloudB3W13Shared.R2NOS.PortUtilExt` command
+module was removed (replaced by the existing `CloudW03NeronSurj.PortUtil` import where it was the only one);
+port scope commands rewritten as ordinary Lean (`open _root_.…`, `open scoped _root_.…`, `export _root_.…
+(…)`, `attribute [-instance]/[-simp] …`), reproducing their effect on open declarations, active scoped
+namespaces, aliases and erased attributes: r2nos_namespace_dual ×1, r2nos_open_dual ×1, r2nos_open_scoped_dual
+×1. Mechanical, tool-generated (offline translator, see CloudB3W13/NORMALIZATION.md); no statement,
+hypothesis, definition or proof was changed. -/
 import ZInQKernel.Contrib.CloudW03NeronSurj.Vendor.Definitions.Def_AlgebraicGeometry_RelativeGroupLaw
 import ZInQKernel.Contrib.CloudW03NeronSurj.Basic
-import ZInQKernel.Contrib.CloudB3W13Shared.R2NOS.PortUtilExt
+import ZInQKernel.Contrib.CloudW03NeronSurj.PortUtil
 
 namespace ZInQ.Contrib.CloudW03NeronSurj.FLT
 
@@ -51,13 +60,10 @@ universe u
 
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry CategoryTheory.MonoidalCategory
   CategoryTheory.CartesianMonoidalCategory NeronModelInfra
-r2nos_open_dual "CategoryTheory CategoryTheory.Limits AlgebraicGeometry CategoryTheory.MonoidalCategory CategoryTheory.CartesianMonoidalCategory NeronModelInfra"
 
 open scoped CategoryTheory.MonObj
-r2nos_open_scoped_dual "CategoryTheory.MonObj"
 
 namespace GoodReductionJacobian
-r2nos_namespace_dual
 
 def overHomEquivSchemeHomOver {R : Type u} [CommRing R] {A : Scheme.{u}}
     (T : Over (Spec (CommRingCat.of R))) (f : A ⟶ Spec (CommRingCat.of R)) :

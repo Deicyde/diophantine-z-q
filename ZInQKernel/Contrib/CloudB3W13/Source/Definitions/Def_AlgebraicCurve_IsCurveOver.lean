@@ -27,10 +27,19 @@ omitted unless listed under manual repairs:
   * whole file wrapped in `namespace ZInQ.Contrib.CloudW03NeronSurj.FLT … end ZInQ.Contrib.CloudW03NeronSurj.FLT`.
 -/
 
+/- Normalization notice (W13 source normalization), 2026-11-16, Cloud Batch 3 Worker 13 with
+Metamate/agentcloud assistance
+(modification under Apache-2.0 §4(b)): the import of the omitted `CloudB3W13Shared.R2NOS.PortUtilExt` command
+module was removed (replaced by the existing `CloudW03NeronSurj.PortUtil` import where it was the only one);
+port scope commands rewritten as ordinary Lean (`open _root_.…`, `open scoped _root_.…`, `export _root_.…
+(…)`, `attribute [-instance]/[-simp] …`), reproducing their effect on open declarations, active scoped
+namespaces, aliases and erased attributes: r2nos_namespace_dual ×4, r2nos_open_dual ×1. Mechanical,
+tool-generated (offline translator, see CloudB3W13/NORMALIZATION.md); no statement, hypothesis, definition or
+proof was changed. -/
 import ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.Definitions.Def_AlgebraicCurve_DivisorClassGroup
 import Mathlib.RingTheory.Kaehler.Basic
 import Mathlib.FieldTheory.IsAlgClosed.Basic
-import ZInQKernel.Contrib.CloudB3W13Shared.R2NOS.PortUtilExt
+import ZInQKernel.Contrib.CloudW03NeronSurj.PortUtil
 
 namespace ZInQ.Contrib.CloudW03NeronSurj.FLT
 
@@ -47,10 +56,9 @@ set_option autoImplicit false
 noncomputable section
 
 open KaehlerDifferential
-r2nos_open_dual "KaehlerDifferential"
 
 namespace AlgebraicCurve
-r2nos_namespace_dual
+open _root_.AlgebraicCurve
 
 variable (K F : Type*) [Field K] [Field F] [Algebra K F]
 
@@ -61,7 +69,6 @@ class IsCurveOver : Prop extends HasPrincipalDivisors K F where
   kaehler_free_rank_one : Module.Free F Ω[F⁄K] ∧ Module.finrank F Ω[F⁄K] = 1
 
 namespace IsCurveOver
-r2nos_namespace_dual
 
 variable {K F}
 
@@ -87,7 +94,7 @@ instance instNontrivialKaehler [IsCurveOver K F] : Nontrivial Ω[F⁄K] :=
 end IsCurveOver
 
 namespace Place
-r2nos_namespace_dual
+open _root_.AlgebraicCurve.Place
 
 variable {K F}
 
@@ -103,7 +110,6 @@ theorem deg_eq_one_of_isAlgClosed_of_finite [IsAlgClosed K] (v : Place K F)
 end Place
 
 namespace IsCurveOver
-r2nos_namespace_dual
 
 variable {K F}
 

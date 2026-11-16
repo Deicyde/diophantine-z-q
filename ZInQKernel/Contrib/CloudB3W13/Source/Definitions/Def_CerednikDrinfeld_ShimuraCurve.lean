@@ -29,6 +29,15 @@ the W13 port manifest):
   * Mathlib 56a states `Algebra.isMulCommutative_adjoin` with hypothesis `s.Pairwise Commute` (`∀ a ∈ s, ∀ b ∈ s, a ≠ b → Commute a b`); the source's commutation proof is passed under `fun _ =>`; same proof.
 -/
 
+/- Normalization notice (W13 source normalization), 2026-11-16, Cloud Batch 3 Worker 13 with
+Metamate/agentcloud assistance
+(modification under Apache-2.0 §4(b)): the import of the omitted `CloudB3W13Shared.R2NOS.PortUtilExt` command
+module was removed (replaced by the existing `CloudW03NeronSurj.PortUtil` import where it was the only one);
+port scope commands rewritten as ordinary Lean (`open _root_.…`, `open scoped _root_.…`, `export _root_.…
+(…)`, `attribute [-instance]/[-simp] …`), reproducing their effect on open declarations, active scoped
+namespaces, aliases and erased attributes: r2nos_namespace_dual ×3, r2nos_open_dual ×2, r2nos_open_scoped_dual
+×1. Mechanical, tool-generated (offline translator, see CloudB3W13/NORMALIZATION.md); no statement,
+hypothesis, definition or proof was changed. -/
 import ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_QuaternionAlgebra_EichlerOrder
 import ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_QuaternionAlgebra_ReducedNorm
 import ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_ModularCurve_UniformizedHeckeCurve
@@ -36,7 +45,7 @@ import ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_AlgebraicCurve_BaseC
 import ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_AlgebraicCurve_IsCurveOver
 import ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_CerednikDrinfeld_TwoPlaceTorsionDatum
 import ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_Compat_Mathlib430
-import ZInQKernel.Contrib.CloudB3W13Shared.R2NOS.PortUtilExt
+import ZInQKernel.Contrib.CloudW03NeronSurj.PortUtil
 
 namespace ZInQ.Contrib.CloudW03NeronSurj.FLT
 
@@ -53,12 +62,11 @@ set_option autoImplicit false
 noncomputable section
 
 open scoped Quaternion TensorProduct MatrixGroups
-r2nos_open_scoped_dual "Quaternion TensorProduct MatrixGroups"
 open IsDedekindDomain NumberField AlgebraicCurve
-r2nos_open_dual "IsDedekindDomain NumberField AlgebraicCurve"
+open _root_.IsDedekindDomain _root_.AlgebraicCurve
 
 namespace QuaternionAlgebra
-r2nos_namespace_dual
+open _root_.QuaternionAlgebra
 
 variable (a b : ℚ)
 
@@ -71,10 +79,9 @@ def IsIndefiniteRamifiedExactlyAt (q q' : ℕ) : Prop :=
 end QuaternionAlgebra
 
 namespace CerednikDrinfeld
-r2nos_namespace_dual
 
 open QuaternionAlgebra ModularCurve
-r2nos_open_dual "QuaternionAlgebra ModularCurve"
+open _root_.QuaternionAlgebra _root_.ModularCurve
 
 variable {a b : ℚ}
 
@@ -195,7 +202,6 @@ attribute [instance] ShimuraCurveModel.instFieldF ShimuraCurveModel.instAlgebraF
   ShimuraCurveModel.essFiniteTypeC
 
 namespace ShimuraCurveModel
-r2nos_namespace_dual
 
 variable {R : Submodule ℤ ℍ[ℚ, a, b]} {ι : ℍ[ℚ, a, b] →ₐ[ℚ] Matrix (Fin 2) (Fin 2) ℝ}
   {𝒮 : ℕ → Set (ℍ[ℚ, a, b] ⊗[ℚ] FiniteAdeleRing (𝓞 ℚ) ℚ)ˣ}

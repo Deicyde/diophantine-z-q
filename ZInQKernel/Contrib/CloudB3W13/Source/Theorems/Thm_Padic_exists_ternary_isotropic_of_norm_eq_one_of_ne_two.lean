@@ -26,10 +26,15 @@ omitted unless listed under manual repairs:
   * whole file wrapped in `namespace ZInQ.Contrib.CloudW03NeronSurj.FLT … end ZInQ.Contrib.CloudW03NeronSurj.FLT`.
 -/
 
+/- Normalization notice (W13 source normalization), 2026-11-16, Cloud Batch 3 Worker 13 with
+Metamate/agentcloud assistance
+(modification under Apache-2.0 §4(b)): the import of the omitted `CloudB3W13Shared.R2NOS.PortUtilExt` command
+module was removed (replaced by the existing `CloudW03NeronSurj.PortUtil` import where it was the only one).
+Mechanical, tool-generated (offline translator, see CloudB3W13/NORMALIZATION.md); no statement, hypothesis,
+definition or proof was changed. -/
 import Mathlib
 import ZInQKernel.Contrib.CloudW03NeronSurj.PortUtil
 import ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_Padic_exists_ternary_isotropic_of_norm_eq_one_of_ne_two
-import ZInQKernel.Contrib.CloudB3W13Shared.R2NOS.PortUtilExt
 
 namespace ZInQ.Contrib.CloudW03NeronSurj.FLT
 

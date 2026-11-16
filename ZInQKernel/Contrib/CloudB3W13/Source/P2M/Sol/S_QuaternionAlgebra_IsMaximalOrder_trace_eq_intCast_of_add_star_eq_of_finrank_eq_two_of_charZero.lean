@@ -28,12 +28,20 @@ omitted unless listed under manual repairs:
   * whole file wrapped in `namespace ZInQ.Contrib.CloudW03NeronSurj.FLT … end ZInQ.Contrib.CloudW03NeronSurj.FLT`.
 -/
 
+/- Normalization notice (W13 source normalization), 2026-11-16, Cloud Batch 3 Worker 13 with
+Metamate/agentcloud assistance
+(modification under Apache-2.0 §4(b)): the import of the omitted `CloudB3W13Shared.R2NOS.PortUtilExt` command
+module was removed (replaced by the existing `CloudW03NeronSurj.PortUtil` import where it was the only one);
+port scope commands rewritten as ordinary Lean (`open _root_.…`, `open scoped _root_.…`, `export _root_.…
+(…)`, `attribute [-instance]/[-simp] …`), reproducing their effect on open declarations, active scoped
+namespaces, aliases and erased attributes: r2nos_namespace_dual ×2, r2nos_open_dual ×2, r2nos_open_scoped_dual
+×1. Mechanical, tool-generated (offline translator, see CloudB3W13/NORMALIZATION.md); no statement,
+hypothesis, definition or proof was changed. -/
 import Mathlib
 import ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_QuaternionAlgebra_EichlerOrder
 import ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_CerednikDrinfeld_ShimuraCurve
 import ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_QuaternionAlgebra_IsIndefiniteRamifiedExactlyAt_isUnit_of_ne_zero
 import ZInQKernel.Contrib.CloudW03NeronSurj.PortUtil
-import ZInQKernel.Contrib.CloudB3W13Shared.R2NOS.PortUtilExt
 
 namespace ZInQ.Contrib.CloudW03NeronSurj.FLT
 
@@ -46,17 +54,14 @@ set_option backward.isDefEq.respectTransparency.types false
 set_option backward.isDefEq.respectTransparency.instanceSearchTypes false
 
 namespace P2MW.S_QuaternionAlgebra_IsMaximalOrder_trace_eq_intCast_of_add_star_eq_of_finrank_eq_two_of_charZero
-r2nos_namespace_dual
 
 set_option autoImplicit false
 open scoped Quaternion
-r2nos_open_scoped_dual "Quaternion"
 
 namespace Ch0Body
-r2nos_namespace_dual
 
 open QuaternionAlgebra
-r2nos_open_dual "QuaternionAlgebra"
+open _root_.QuaternionAlgebra
 
 theorem mul_self_eq_trace_smul_sub_det {k : Type*} [Field k] {V : Type*} [AddCommGroup V] [Module k V]
     [FiniteDimensional k V] (hV : Module.finrank k V = 2) (Φ : Module.End k V) :
@@ -100,7 +105,6 @@ theorem b_ne_zero {a b : ℚ} {q q' : ℕ} [Fact q.Prime] [Fact q'.Prime] (hB : 
 end Ch0Body
 
 open Ch0Body QuaternionAlgebra _root_.QuaternionAlgebra in
-r2nos_open_dual "Ch0Body QuaternionAlgebra _root_.QuaternionAlgebra" in
 theorem solution
     {a b : ℚ} {q q' : ℕ} [Fact q.Prime] [Fact q'.Prime]
     (hB : QuaternionAlgebra.IsIndefiniteRamifiedExactlyAt a b q q')

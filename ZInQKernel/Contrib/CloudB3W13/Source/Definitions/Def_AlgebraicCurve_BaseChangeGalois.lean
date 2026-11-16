@@ -28,10 +28,19 @@ omitted unless listed under manual repairs:
   * whole file wrapped in `namespace ZInQ.Contrib.CloudW03NeronSurj.FLT … end ZInQ.Contrib.CloudW03NeronSurj.FLT`.
 -/
 
+/- Normalization notice (W13 source normalization), 2026-11-16, Cloud Batch 3 Worker 13 with
+Metamate/agentcloud assistance
+(modification under Apache-2.0 §4(b)): the import of the omitted `CloudB3W13Shared.R2NOS.PortUtilExt` command
+module was removed (replaced by the existing `CloudW03NeronSurj.PortUtil` import where it was the only one);
+port scope commands rewritten as ordinary Lean (`open _root_.…`, `open scoped _root_.…`, `export _root_.…
+(…)`, `attribute [-instance]/[-simp] …`), reproducing their effect on open declarations, active scoped
+namespaces, aliases and erased attributes: r2nos_namespace_dual ×8, r2nos_open_dual ×1, r2nos_open_scoped_dual
+×2. Mechanical, tool-generated (offline translator, see CloudB3W13/NORMALIZATION.md); no statement,
+hypothesis, definition or proof was changed. -/
 import ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.Definitions.Def_AlgebraicCurve_DivisorClassGroup
 import Mathlib.Algebra.Ring.Action.End
 import Mathlib.LinearAlgebra.Dimension.Finrank
-import ZInQKernel.Contrib.CloudB3W13Shared.R2NOS.PortUtilExt
+import ZInQKernel.Contrib.CloudW03NeronSurj.PortUtil
 
 namespace ZInQ.Contrib.CloudW03NeronSurj.FLT
 
@@ -48,10 +57,9 @@ set_option autoImplicit false
 noncomputable section
 
 open IsLocalRing
-r2nos_open_dual "IsLocalRing"
 
 namespace AlgebraicCurve
-r2nos_namespace_dual
+open _root_.AlgebraicCurve
 
 variable (K F : Type*) [Field K] [Field F] [Algebra K F]
 
@@ -67,7 +75,6 @@ def SemilinearAut : Subgroup (RingAut F × RingAut K) where
     rw [RingEquiv.apply_symm_apply, hp (p.2.symm a), RingEquiv.apply_symm_apply]
 
 namespace SemilinearAut
-r2nos_namespace_dual
 
 variable {K F}
 
@@ -134,10 +141,8 @@ theorem ofAlgAut_smul (σ : F ≃ₐ[K] F) (x : F) : ofAlgAut σ • x = σ x :=
 end SemilinearAut
 
 namespace SemilinearAut
-r2nos_namespace_dual
 
 open scoped Pointwise
-r2nos_open_scoped_dual "Pointwise"
 
 variable {K F}
 variable (g : SemilinearAut K F)
@@ -241,10 +246,8 @@ theorem deg_smul : (g • v).deg = v.deg := by
 end SemilinearAut
 
 namespace SemilinearAut
-r2nos_namespace_dual
 
 open scoped Pointwise
-r2nos_open_scoped_dual "Pointwise"
 
 variable {K F}
 
@@ -337,10 +340,9 @@ end SemilinearAut
 end AlgebraicCurve
 
 namespace AlgebraicCurve
-r2nos_namespace_dual
+open _root_.AlgebraicCurve
 
 namespace SemilinearAut
-r2nos_namespace_dual
 
 variable {K F : Type*} [Field K] [Field F] [Algebra K F]
 
@@ -370,7 +372,7 @@ instance instDistribMulActionTorsion (n : ℕ) : DistribMulAction (SemilinearAut
 end SemilinearAut
 
 namespace Pic0
-r2nos_namespace_dual
+open _root_.AlgebraicCurve.Pic0
 
 variable {K F : Type*} [Field K] [Field F] [Algebra K F]
 
@@ -384,7 +386,6 @@ instance instModuleZModTorsion (n : ℕ) : Module (ZMod n) (torsion K F n) :=
 end Pic0
 
 namespace SemilinearAut
-r2nos_namespace_dual
 
 variable {K F : Type*} [Field K] [Field F] [Algebra K F]
 
