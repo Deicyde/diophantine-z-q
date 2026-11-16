@@ -1,0 +1,32 @@
+{
+ "modules": 9000,
+ "time_s": 172,
+ "counts": {
+  "import-portutilext": 8889,
+  "shim-r2nos_open_dual": 15373,
+  "shim-r2nos_namespace_dual": 12810,
+  "sync-after-namespace": 597,
+  "sync-after-decl": 480,
+  "shim-r2nos_erase_attr": 25474,
+  "shim-r2nos_open_scoped_dual": 2505,
+  "shim-w03_open": 4814,
+  "shim-w03_export": 4408,
+  "sync-after-end": 549,
+  "shim-w03_reactivate": 5569,
+  "erase-skip-unknown": 68322,
+  "skipped-finitequotient": 4,
+  "w03_export-skip": 163,
+  "shim-r2nos_open_scoped": 709,
+  "typeeq-removed": 15,
+  "shim-r2nos_alias": 56,
+  "alias-redundant": 56,
+  "sync-after-set_option": 2,
+  "shim-w03_export_all": 4
+ },
+ "residuals": {
+  "open-failed-S": 33,
+  "open-failed-T": 33
+ },
+ "files_with_residuals": 31,
+ "exceptions": []
+}

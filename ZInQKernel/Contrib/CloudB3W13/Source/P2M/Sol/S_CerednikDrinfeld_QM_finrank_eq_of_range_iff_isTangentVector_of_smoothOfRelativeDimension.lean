@@ -28,12 +28,20 @@ omitted unless listed under manual repairs:
   * whole file wrapped in `namespace ZInQ.Contrib.CloudW03NeronSurj.FLT … end ZInQ.Contrib.CloudW03NeronSurj.FLT`.
 -/
 
+/- Normalization notice (W13 source normalization), 2026-11-16, Cloud Batch 3 Worker 13 with
+Metamate/agentcloud assistance
+(modification under Apache-2.0 §4(b)): the import of the omitted `CloudB3W13Shared.R2NOS.PortUtilExt` command
+module was removed (replaced by the existing `CloudW03NeronSurj.PortUtil` import where it was the only one);
+port scope commands rewritten as ordinary Lean (`open _root_.…`, `open scoped _root_.…`, `export _root_.…
+(…)`, `attribute [-instance]/[-simp] …`), reproducing their effect on open declarations, active scoped
+namespaces, aliases and erased attributes: r2nos_namespace_dual ×3, r2nos_open_dual ×2, w03_reactivate ×6.
+Mechanical, tool-generated (offline translator, see CloudB3W13/NORMALIZATION.md); no statement, hypothesis,
+definition or proof was changed. -/
 import Mathlib
 import ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_CerednikDrinfeld_QMModuli
 import ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_AlgHom_exists_cotangent_linearMap_of_fst_eq
 import ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_AlgHom_existsUnique_lift_trivSqZeroExt_of_cotangent_linearMap
 import ZInQKernel.Contrib.CloudW03NeronSurj.PortUtil
-import ZInQKernel.Contrib.CloudB3W13Shared.R2NOS.PortUtilExt
 
 namespace ZInQ.Contrib.CloudW03NeronSurj.FLT
 
@@ -46,17 +54,14 @@ set_option backward.isDefEq.respectTransparency.types false
 set_option backward.isDefEq.respectTransparency.instanceSearchTypes false
 
 namespace P2MW.S_CerednikDrinfeld_QM_finrank_eq_of_range_iff_isTangentVector_of_smoothOfRelativeDimension
-r2nos_namespace_dual
 
 set_option autoImplicit false
 
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry IsLocalRing TrivSqZeroExt NeronModelInfra GoodReductionJacobian CerednikDrinfeld.QM
-r2nos_open_dual "CategoryTheory CategoryTheory.Limits AlgebraicGeometry IsLocalRing TrivSqZeroExt NeronModelInfra GoodReductionJacobian CerednikDrinfeld.QM"
 
 universe u
 
 namespace TangentDimBody
-r2nos_namespace_dual
 
 noncomputable section
 
@@ -139,7 +144,6 @@ variable {N : Type u} [AddCommGroup N] [Module k N] [Module kᵐᵒᵖ N] [IsCen
 variable {N' : Type u} [AddCommGroup N'] [Module k N'] [Module kᵐᵒᵖ N'] [IsCentralScalar k N']
 
 namespace TJ
-r2nos_namespace_dual
 
 @[scoped ext] theorem ext {t t' : TJ L k sk M} (h : t.1.1 = t'.1.1) : t = t' := Subtype.ext (Subtype.ext h)
 
@@ -186,7 +190,7 @@ theorem map_comp (φ : M →ₗ[k] N) (ψ : N →ₗ[k] N') (t : TJ L k sk M) :
   TJ.ext (by rw [map_val_val, map_val_val, map_val_val, mS_comp, Category.assoc])
 
 end TJ
-w03_reactivate "P2MW.S_CerednikDrinfeld_QM_finrank_eq_of_range_iff_isTangentVector_of_smoothOfRelativeDimension.TangentDimBody.TJ"
+open scoped _root_.ZInQ.Contrib.CloudW03NeronSurj.FLT.P2MW.S_CerednikDrinfeld_QM_finrank_eq_of_range_iff_isTangentVector_of_smoothOfRelativeDimension.TangentDimBody.TJ
 
 variable (f k sk) in
 
@@ -299,7 +303,6 @@ theorem apply_algebraMap_of_Λ₀_comp_eq (φ : (J f k sk).presheaf.stalk (jpt L
   exact (congrArg (fun ψ : CommRingCat.of k ⟶ CommRingCat.of R => ψ.hom a) h1).symm
 
 end Local
-w03_reactivate "P2MW.S_CerednikDrinfeld_QM_finrank_eq_of_range_iff_isTangentVector_of_smoothOfRelativeDimension.TangentDimBody.TJ"
 
 def liftHom (g : ωJ L k sk →ₗ[k] M) : (J f k sk).presheaf.stalk (jpt L k sk) →ₐ[k] TrivSqZeroExt k M :=
   (AlgHom.existsUnique_lift_trivSqZeroExt_of_cotangent_linearMap (πₐ L k sk) g).choose
@@ -489,7 +492,6 @@ theorem γJ_mul (t t' : TJ L k sk M) : γJ L k sk M (TJ.mul t t') = γJ L k sk M
 section Free
 
 open TensorProduct KaehlerDifferential
-r2nos_open_dual "TensorProduct KaehlerDifferential"
 
 theorem fJ_jpt : (fJ f k sk).base (jpt L k sk) = closedPoint k := by
   change (eJ L k sk ≫ fJ f k sk).base (closedPoint k) = closedPoint k
@@ -559,7 +561,6 @@ theorem nonempty_ωJ_equiv (n : ℕ) [SmoothOfRelativeDimension n f] : Nonempty 
   exact ⟨(E1.restrictScalars k).trans E2⟩
 
 end Free
-w03_reactivate "P2MW.S_CerednikDrinfeld_QM_finrank_eq_of_range_iff_isTangentVector_of_smoothOfRelativeDimension.TangentDimBody.TJ"
 
 theorem tangentBase_eq : tangentBase k sk = tA k sk k := by
   rw [tangentBase, tA, tS, γ, ← Spec.map_comp]
@@ -650,13 +651,13 @@ theorem main (n : ℕ) [SmoothOfRelativeDimension n f]
     mul_one]
 
 end Tangent
-w03_reactivate "P2MW.S_CerednikDrinfeld_QM_finrank_eq_of_range_iff_isTangentVector_of_smoothOfRelativeDimension.TangentDimBody.TJ"
+open scoped _root_.ZInQ.Contrib.CloudW03NeronSurj.FLT.P2MW.S_CerednikDrinfeld_QM_finrank_eq_of_range_iff_isTangentVector_of_smoothOfRelativeDimension.TangentDimBody.TJ
 
 end
-w03_reactivate "P2MW.S_CerednikDrinfeld_QM_finrank_eq_of_range_iff_isTangentVector_of_smoothOfRelativeDimension.TangentDimBody.TJ"
+open scoped _root_.ZInQ.Contrib.CloudW03NeronSurj.FLT.P2MW.S_CerednikDrinfeld_QM_finrank_eq_of_range_iff_isTangentVector_of_smoothOfRelativeDimension.TangentDimBody.TJ
 
 end TangentDimBody
-w03_reactivate "P2MW.S_CerednikDrinfeld_QM_finrank_eq_of_range_iff_isTangentVector_of_smoothOfRelativeDimension.TangentDimBody.TJ P2MW.S_CerednikDrinfeld_QM_finrank_eq_of_range_iff_isTangentVector_of_smoothOfRelativeDimension.TangentDimBody"
+open scoped _root_.ZInQ.Contrib.CloudW03NeronSurj.FLT.P2MW.S_CerednikDrinfeld_QM_finrank_eq_of_range_iff_isTangentVector_of_smoothOfRelativeDimension.TangentDimBody _root_.ZInQ.Contrib.CloudW03NeronSurj.FLT.P2MW.S_CerednikDrinfeld_QM_finrank_eq_of_range_iff_isTangentVector_of_smoothOfRelativeDimension.TangentDimBody.TJ
 
 theorem solution
     {S : Type u} [CommRing S] {A : Scheme.{u}} {f : A ⟶ Spec (CommRingCat.of S)} (L : RelativeGroupLaw S f)

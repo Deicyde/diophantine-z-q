@@ -26,13 +26,22 @@ omitted unless listed under manual repairs:
   * whole file wrapped in `namespace ZInQ.Contrib.CloudW03NeronSurj.FLT … end ZInQ.Contrib.CloudW03NeronSurj.FLT`.
 -/
 
+/- Normalization notice (W13 source normalization), 2026-11-16, Cloud Batch 3 Worker 13 with
+Metamate/agentcloud assistance
+(modification under Apache-2.0 §4(b)): the import of the omitted `CloudB3W13Shared.R2NOS.PortUtilExt` command
+module was removed (replaced by the existing `CloudW03NeronSurj.PortUtil` import where it was the only one);
+port scope commands rewritten as ordinary Lean (`open _root_.…`, `open scoped _root_.…`, `export _root_.…
+(…)`, `attribute [-instance]/[-simp] …`), reproducing their effect on open declarations, active scoped
+namespaces, aliases and erased attributes: r2nos_namespace_dual ×1, r2nos_open_dual ×1, r2nos_open_scoped_dual
+×1. Mechanical, tool-generated (offline translator, see CloudB3W13/NORMALIZATION.md); no statement,
+hypothesis, definition or proof was changed. -/
 import Mathlib.NumberTheory.ModularForms.QExpansion
 import Mathlib.NumberTheory.ModularForms.CongruenceSubgroups
 import Mathlib.Analysis.Meromorphic.Order
 import ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.Definitions.Def_ModularCurve_X0
 import ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.Definitions.Def_ModularCurve_LaurentCoeff
 import ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.Definitions.Def_AlgebraicCurve_DivisorClassGroup
-import ZInQKernel.Contrib.CloudB3W13Shared.R2NOS.PortUtilExt
+import ZInQKernel.Contrib.CloudW03NeronSurj.PortUtil
 
 namespace ZInQ.Contrib.CloudW03NeronSurj.FLT
 
@@ -49,12 +58,10 @@ set_option autoImplicit false
 noncomputable section
 
 open UpperHalfPlane
-r2nos_open_dual "UpperHalfPlane"
 open scoped MatrixGroups Topology
-r2nos_open_scoped_dual "MatrixGroups Topology"
 
 namespace ModularCurve
-r2nos_namespace_dual
+open _root_.ModularCurve
 
 def realize (N : ℕ) (x : LaurentSeries ℂ) (τ : ℍ) : ℂ := by
   classical

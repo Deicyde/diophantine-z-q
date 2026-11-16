@@ -27,10 +27,17 @@ omitted unless listed under manual repairs:
   * whole file wrapped in `namespace ZInQ.Contrib.CloudW03NeronSurj.FLT … end ZInQ.Contrib.CloudW03NeronSurj.FLT`.
 -/
 
+/- Normalization notice (W13 source normalization), 2026-11-16, Cloud Batch 3 Worker 13 with
+Metamate/agentcloud assistance
+(modification under Apache-2.0 §4(b)): the import of the omitted `CloudB3W13Shared.R2NOS.PortUtilExt` command
+module was removed (replaced by the existing `CloudW03NeronSurj.PortUtil` import where it was the only one);
+port scope commands rewritten as ordinary Lean (`open _root_.…`, `open scoped _root_.…`, `export _root_.…
+(…)`, `attribute [-instance]/[-simp] …`), reproducing their effect on open declarations, active scoped
+namespaces, aliases and erased attributes: r2nos_open_dual ×1. Mechanical, tool-generated (offline translator,
+see CloudB3W13/NORMALIZATION.md); no statement, hypothesis, definition or proof was changed. -/
 import Mathlib
 import ZInQKernel.Contrib.CloudW03NeronSurj.PortUtil
 import ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_Rat_hilbertReciprocity_even_card_not_ternary_isotropic
-import ZInQKernel.Contrib.CloudB3W13Shared.R2NOS.PortUtilExt
 
 namespace ZInQ.Contrib.CloudW03NeronSurj.FLT
 
@@ -43,7 +50,6 @@ set_option backward.isDefEq.respectTransparency.types false
 set_option backward.isDefEq.respectTransparency.instanceSearchTypes false
 
 open IsDedekindDomain NumberField
-r2nos_open_dual "IsDedekindDomain NumberField"
 theorem Rat.hilbertReciprocity_even_card_not_ternary_isotropic
     (a b : ℚ) (ha : a ≠ 0) (hb : b ≠ 0) :
     ∃ S : Finset (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers ℚ)),

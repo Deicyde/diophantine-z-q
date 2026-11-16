@@ -28,11 +28,20 @@ omitted unless listed under manual repairs:
   * whole file wrapped in `namespace ZInQ.Contrib.CloudW03NeronSurj.FLT … end ZInQ.Contrib.CloudW03NeronSurj.FLT`.
 -/
 
+/- Normalization notice (W13 source normalization), 2026-11-16, Cloud Batch 3 Worker 13 with
+Metamate/agentcloud assistance
+(modification under Apache-2.0 §4(b)): the import of the omitted `CloudB3W13Shared.R2NOS.PortUtilExt` command
+module was removed (replaced by the existing `CloudW03NeronSurj.PortUtil` import where it was the only one);
+port scope commands rewritten as ordinary Lean (`open _root_.…`, `open scoped _root_.…`, `export _root_.…
+(…)`, `attribute [-instance]/[-simp] …`), reproducing their effect on open declarations, active scoped
+namespaces, aliases and erased attributes: r2nos_namespace_dual ×2, r2nos_open_dual ×1, r2nos_open_scoped_dual
+×1; 2 file-local notation(s) inlined at 24 use(s) (right-hand side substituted, parenthesised). Mechanical,
+tool-generated (offline translator, see CloudB3W13/NORMALIZATION.md); no statement, hypothesis, definition or
+proof was changed. -/
 import Mathlib
 import ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_QuaternionAlgebra_EichlerOrder
 import ZInQKernel.Contrib.CloudW03NeronSurj.PortUtil
 import ZInQKernel.Contrib.CloudB3W13Shared.R2NOS.Compat.TensorProductInduction
-import ZInQKernel.Contrib.CloudB3W13Shared.R2NOS.PortUtilExt
 
 namespace ZInQ.Contrib.CloudW03NeronSurj.FLT
 
@@ -45,26 +54,22 @@ set_option backward.isDefEq.respectTransparency.types false
 set_option backward.isDefEq.respectTransparency.instanceSearchTypes false
 
 namespace P2MW.S_QuaternionAlgebra_nonempty_tensorProduct_adicCompletion_ringEquiv
-r2nos_namespace_dual
 
 set_option autoImplicit false
 
 open scoped TensorProduct Quaternion
-r2nos_open_scoped_dual "TensorProduct Quaternion"
+open scoped _root_.TensorProduct
 open IsDedekindDomain NumberField
-r2nos_open_dual "IsDedekindDomain NumberField"
+open _root_.IsDedekindDomain
 
 namespace E1bChi
-r2nos_namespace_dual
 
 section General
 
 variable {R : Type} [CommRing R] {K : Type} [CommRing K] [Algebra R K] (a b : R)
 
-local notation "a'" => algebraMap R K a
-local notation "b'" => algebraMap R K b
 
-def basisRK : QuaternionAlgebra.Basis (R := R) ℍ[K, a', b'] a 0 b where
+def basisRK : QuaternionAlgebra.Basis (R := R) ℍ[K, (algebraMap R K a), (algebraMap R K b)] a 0 b where
   i := ⟨0, 1, 0, 0⟩
   j := ⟨0, 0, 1, 0⟩
   k := ⟨0, 0, 0, 1⟩
@@ -77,9 +82,9 @@ def basisRK : QuaternionAlgebra.Basis (R := R) ℍ[K, a', b'] a 0 b where
   i_mul_j := by ext <;> simp
   j_mul_i := by ext <;> simp
 
-def toK : ℍ[R, a, b] →ₐ[R] ℍ[K, a', b'] := (basisRK a b).liftHom
+def toK : ℍ[R, a, b] →ₐ[R] ℍ[K, (algebraMap R K a), (algebraMap R K b)] := (basisRK a b).liftHom
 
-theorem algebraMap_apply' (s : R) : algebraMap R ℍ[K, a', b'] s = ((algebraMap R K s : K) : ℍ[K, a', b']) := rfl
+theorem algebraMap_apply' (s : R) : algebraMap R ℍ[K, (algebraMap R K a), (algebraMap R K b)] s = ((algebraMap R K s : K) : ℍ[K, (algebraMap R K a), (algebraMap R K b)]) := rfl
 
 theorem toK_apply (x : ℍ[R, a, b]) :
     toK a b x = ⟨algebraMap R K x.re, algebraMap R K x.imI, algebraMap R K x.imJ, algebraMap R K x.imK⟩ := by
@@ -87,11 +92,11 @@ theorem toK_apply (x : ℍ[R, a, b]) :
   rw [QuaternionAlgebra.Basis.lift]
   ext <;> simp [basisRK, algebraMap_apply', Algebra.smul_def]
 
-def ofK : K →ₐ[R] ℍ[K, a', b'] := (Algebra.ofId K ℍ[K, a', b']).restrictScalars R
+def ofK : K →ₐ[R] ℍ[K, (algebraMap R K a), (algebraMap R K b)] := (Algebra.ofId K ℍ[K, (algebraMap R K a), (algebraMap R K b)]).restrictScalars R
 
-theorem ofK_apply (t : K) : ofK a b t = (t : ℍ[K, a', b']) := rfl
+theorem ofK_apply (t : K) : ofK a b t = (t : ℍ[K, (algebraMap R K a), (algebraMap R K b)]) := rfl
 
-def fwd : ℍ[R, a, b] ⊗[R] K →ₐ[R] ℍ[K, a', b'] :=
+def fwd : ℍ[R, a, b] ⊗[R] K →ₐ[R] ℍ[K, (algebraMap R K a), (algebraMap R K b)] :=
   Algebra.TensorProduct.lift (toK a b) (ofK a b) fun x t => by
     rw [ofK_apply]; exact (QuaternionAlgebra.coe_commute t (toK a b x)).symm
 
@@ -100,18 +105,18 @@ theorem fwd_tmul (x : ℍ[R, a, b]) (t : K) :
   rw [fwd, Algebra.TensorProduct.lift_tmul, toK_apply, ofK_apply, ← QuaternionAlgebra.coe_commutes, QuaternionAlgebra.coe_mul_eq_smul]
   ext <;> simp
 
-def bwd (y : ℍ[K, a', b']) : ℍ[R, a, b] ⊗[R] K :=
+def bwd (y : ℍ[K, (algebraMap R K a), (algebraMap R K b)]) : ℍ[R, a, b] ⊗[R] K :=
   (1 : ℍ[R, a, b]) ⊗ₜ y.re + (⟨0, 1, 0, 0⟩ : ℍ[R, a, b]) ⊗ₜ y.imI + (⟨0, 0, 1, 0⟩ : ℍ[R, a, b]) ⊗ₜ y.imJ +
     (⟨0, 0, 0, 1⟩ : ℍ[R, a, b]) ⊗ₜ y.imK
 
-theorem bwd_add (y z : ℍ[K, a', b']) : bwd a b (y + z) = bwd a b y + bwd a b z := by
+theorem bwd_add (y z : ℍ[K, (algebraMap R K a), (algebraMap R K b)]) : bwd a b (y + z) = bwd a b y + bwd a b z := by
   simp only [bwd]
   show (1 : ℍ[R, a, b]) ⊗ₜ[R] (y.re + z.re) + (⟨0, 1, 0, 0⟩ : ℍ[R, a, b]) ⊗ₜ[R] (y.imI + z.imI) +
       (⟨0, 0, 1, 0⟩ : ℍ[R, a, b]) ⊗ₜ[R] (y.imJ + z.imJ) + (⟨0, 0, 0, 1⟩ : ℍ[R, a, b]) ⊗ₜ[R] (y.imK + z.imK) = _
   simp only [TensorProduct.tmul_add]
   abel
 
-theorem fwd_bwd (y : ℍ[K, a', b']) : fwd a b (bwd a b y) = y := by
+theorem fwd_bwd (y : ℍ[K, (algebraMap R K a), (algebraMap R K b)]) : fwd a b (bwd a b y) = y := by
   simp only [bwd, map_add, fwd_tmul]
   ext <;> simp
 
@@ -133,7 +138,7 @@ theorem bwd_fwd (z : ℍ[R, a, b] ⊗[R] K) : bwd a b (fwd a b z) = z := by
   | tmul x t => exact bwd_fwd_tmul a b x t
   | add u w hu hw => rw [map_add, bwd_add, hu, hw]
 
-def equiv : ℍ[R, a, b] ⊗[R] K ≃+* ℍ[K, a', b'] :=
+def equiv : ℍ[R, a, b] ⊗[R] K ≃+* ℍ[K, (algebraMap R K a), (algebraMap R K b)] :=
   { toFun := fwd a b
     invFun := bwd a b
     left_inv := bwd_fwd a b

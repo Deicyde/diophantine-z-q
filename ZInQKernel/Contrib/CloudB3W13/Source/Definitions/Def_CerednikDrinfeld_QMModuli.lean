@@ -26,6 +26,15 @@ omitted unless listed under manual repairs:
   * whole file wrapped in `namespace ZInQ.Contrib.CloudW03NeronSurj.FLT … end ZInQ.Contrib.CloudW03NeronSurj.FLT`.
 -/
 
+/- Normalization notice (W13 source normalization), 2026-11-16, Cloud Batch 3 Worker 13 with
+Metamate/agentcloud assistance
+(modification under Apache-2.0 §4(b)): the import of the omitted `CloudB3W13Shared.R2NOS.PortUtilExt` command
+module was removed (replaced by the existing `CloudW03NeronSurj.PortUtil` import where it was the only one);
+port scope commands rewritten as ordinary Lean (`open _root_.…`, `open scoped _root_.…`, `export _root_.…
+(…)`, `attribute [-instance]/[-simp] …`), reproducing their effect on open declarations, active scoped
+namespaces, aliases and erased attributes: r2nos_namespace_dual ×3, r2nos_open_dual ×2, r2nos_open_scoped_dual
+×1. Mechanical, tool-generated (offline translator, see CloudB3W13/NORMALIZATION.md); no statement,
+hypothesis, definition or proof was changed. -/
 import Mathlib.AlgebraicGeometry.Morphisms.ClosedImmersion
 import Mathlib.AlgebraicGeometry.Morphisms.Finite
 import Mathlib.AlgebraicGeometry.Morphisms.FinitePresentation
@@ -37,7 +46,7 @@ import Mathlib.LinearAlgebra.Trace
 import ZInQKernel.Contrib.CloudW03NeronSurj.Vendor.Definitions.Def_JacJ1Iface
 import ZInQKernel.Contrib.CloudW03NeronSurj.Vendor.Definitions.Def_AlgebraicGeometry_RelativeGroupLaw
 import ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_CerednikDrinfeld_ShimuraCurve
-import ZInQKernel.Contrib.CloudB3W13Shared.R2NOS.PortUtilExt
+import ZInQKernel.Contrib.CloudW03NeronSurj.PortUtil
 
 namespace ZInQ.Contrib.CloudW03NeronSurj.FLT
 
@@ -56,12 +65,10 @@ noncomputable section
 universe u
 
 open CategoryTheory AlgebraicGeometry NeronModelInfra GoodReductionJacobian IsDedekindDomain AlgebraicCurve
-r2nos_open_dual "CategoryTheory AlgebraicGeometry NeronModelInfra GoodReductionJacobian IsDedekindDomain AlgebraicCurve"
+open _root_.IsDedekindDomain _root_.AlgebraicCurve
 open scoped Quaternion TensorProduct NumberField
-r2nos_open_scoped_dual "Quaternion TensorProduct NumberField"
 
 namespace CerednikDrinfeld.QM
-r2nos_namespace_dual
 
 section Points
 
@@ -186,7 +193,6 @@ structure FakeEllipticCurve (Λ : Submodule ℤ ℍ[ℚ, a, b]) (N : ℕ) (S : T
       ∀ x y : ZMod N × ZMod N, (e (x + y) : SchemeHomOver (geomPoint k sk) f) = L.mul (geomPoint k sk) (e x) (e y)
 
 namespace FakeEllipticCurve
-r2nos_namespace_dual
 
 variable {Λ : Submodule ℤ ℍ[ℚ, a, b]} {N : ℕ}
 
@@ -230,10 +236,8 @@ end FakeEllipticCurve
 end CerednikDrinfeld.QM
 
 namespace CerednikDrinfeld
-r2nos_namespace_dual
 
 open CerednikDrinfeld.QM
-r2nos_open_dual "CerednikDrinfeld.QM"
 
 variable {a b : ℚ}
 

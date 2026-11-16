@@ -30,6 +30,16 @@ the W13 port manifest):
   * in the port the enclosing namespace `Representation` is prefixed, so the source's `Equiv.mk` (meant: `Representation.Equiv.mk`, found through the unprefixed enclosing namespace) is written fully qualified; same term.
 -/
 
+/- Normalization notice (W13 source normalization), 2026-11-16, Cloud Batch 3 Worker 13 with
+Metamate/agentcloud assistance
+(modification under Apache-2.0 §4(b)): the import of the omitted `CloudB3W13Shared.R2NOS.PortUtilExt` command
+module was removed (replaced by the existing `CloudW03NeronSurj.PortUtil` import where it was the only one);
+port scope commands rewritten as ordinary Lean (`open _root_.…`, `open scoped _root_.…`, `export _root_.…
+(…)`, `attribute [-instance]/[-simp] …`), reproducing their effect on open declarations, active scoped
+namespaces, aliases and erased attributes: r2nos_namespace_dual ×5, r2nos_open_dual ×1, r2nos_open_scoped_dual
+×1; the unused global `notation α "^+" M` declaration removed (no uses in the tree). Mechanical,
+tool-generated (offline translator, see CloudB3W13/NORMALIZATION.md); no statement, hypothesis, definition or
+proof was changed. -/
 import Mathlib.RepresentationTheory.Rep.Basic
 import Mathlib.Algebra.Group.End
 import Mathlib.Algebra.GroupWithZero.Action.Basic
@@ -40,7 +50,7 @@ import Mathlib.RingTheory.Invariant.Galois
 import Mathlib.FieldTheory.Galois.Basic
 import Mathlib.Tactic.LinearCombination
 import Mathlib.Tactic.Ring
-import ZInQKernel.Contrib.CloudB3W13Shared.R2NOS.PortUtilExt
+import ZInQKernel.Contrib.CloudW03NeronSurj.PortUtil
 
 namespace ZInQ.Contrib.CloudW03NeronSurj.FLT
 
@@ -63,7 +73,7 @@ set_option autoImplicit false
 /-! ## Block A — Mathlib v4.30.0 Mathlib/RepresentationTheory/Basic.lean:391-419 (section MulAction), names suffixed `Finsupp` -/
 
 namespace Representation
-r2nos_namespace_dual
+open _root_.Representation
 
 section MulAction
 
@@ -130,10 +140,9 @@ end Representation
 /-! ## Block C — Mathlib v4.30.0 Mathlib/RepresentationTheory/Rep/Basic.lean:336-346 and 404-412, names suffixed `Finsupp` -/
 
 namespace Rep
-r2nos_namespace_dual
+open _root_.Rep
 
 open CategoryTheory
-r2nos_open_dual "CategoryTheory"
 
 universe w' u v
 
@@ -170,7 +179,7 @@ end Rep
 /-! ## Block D — AddAut: Mathlib v4.30.0 Mathlib/Algebra/Group/End.lean:746-801 (+ GroupWithZero/Action/Basic.lean:89-92 and :104-112, Ring/AddAut.lean:32), lemma names primed -/
 
 namespace AddAut
-r2nos_namespace_dual
+open _root_.AddAut
 
 section Compat430
 
@@ -255,7 +264,7 @@ def AddAut.mulLeft' {R : Type*} [Semiring R] : Rˣ →* AddAut R :=
 vendored with primed names on top of the Group instance above. -/
 
 namespace AddAut
-r2nos_namespace_dual
+open _root_.AddAut
 instance applyDistribMulAction' {A : Type*} [AddMonoid A] : DistribMulAction (AddAut A) A where
   smul := (· <| ·)
   one_smul _ := rfl
@@ -318,16 +327,17 @@ end IsEllDivSequence430
 
 /-! ## Block F — notation `α ^+ M` for `FixedPoints.addSubgroup M α`: Mathlib v4.30.0 Mathlib/Algebra/Ring/Action/Submonoid.lean:43
 (verbatim). Mathlib v4.33.0 removed the notation line; the definition itself is unchanged, so re-declaring the notation keeps
-every tree statement that uses it textually and semantically identical. -/
+every tree statement that uses it textually and semantically identical.
+(W13 normalization, 2026-11-16: the `notation` declaration itself was removed: no file of the W13 tree uses
+`^+`, and new notation declarations are not accepted; `FixedPoints.addSubgroup M α` is the spelled-out form.) -/
 
-notation α "^+" M:51 => FixedPoints.addSubgroup M α
 
 /-! ## Block G — ramification/inertia cardinality lemmas under the separability hypothesis (adapted from Mathlib v4.30.0,
 Mathlib/NumberTheory/RamificationInertia/Galois.lean; v4.33.0 restates them assuming PerfectField of the residue field). Theorems only,
 primed names; no definitions involved. -/
 
 namespace Ideal
-r2nos_namespace_dual
+open _root_.Ideal
 
 section inertia430
 
@@ -335,7 +345,6 @@ variable {R S G : Type*} [CommRing R] [CommRing S] [Algebra R S] [Group G]
   [MulSemiringAction G S] [IsGaloisGroup G R S] [Finite G]
 
 open scoped Pointwise
-r2nos_open_scoped_dual "Pointwise"
 
 
 attribute [local instance] Ideal.Quotient.field in

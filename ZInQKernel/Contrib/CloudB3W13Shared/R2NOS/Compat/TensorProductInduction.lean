@@ -18,8 +18,14 @@ This file restates the db584 statement and attribute under the port prefix
 NOTICE OF MODIFICATION (Apache-2.0 §4(b)), H5 lane4, 2026-11-14: statement/attribute copied,
 proof replaced by a one-line reference to the Mathlib 56a eliminator.
 -/
+/- Normalization notice (W13 source normalization), 2026-11-16, Cloud Batch 3 Worker 13 with
+Metamate/agentcloud assistance
+(modification under Apache-2.0 §4(b)): the import of the omitted `CloudB3W13Shared.R2NOS.PortUtilExt` command
+module was removed (replaced by the existing `CloudW03NeronSurj.PortUtil` import where it was the only one).
+Mechanical, tool-generated (offline translator, see CloudB3W13/NORMALIZATION.md); no statement, hypothesis,
+definition or proof was changed. -/
 import Mathlib
-import ZInQKernel.Contrib.CloudB3W13Shared.R2NOS.PortUtilExt
+import ZInQKernel.Contrib.CloudW03NeronSurj.PortUtil
 
 namespace ZInQ.Contrib.CloudW03NeronSurj.FLT
 
