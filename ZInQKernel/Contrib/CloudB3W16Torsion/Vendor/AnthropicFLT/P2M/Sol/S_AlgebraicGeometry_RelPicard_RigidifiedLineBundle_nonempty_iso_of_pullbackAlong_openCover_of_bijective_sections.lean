@@ -62,7 +62,10 @@ noncomputable def sqIso {W X Y Z : Scheme.{u}} {f : W ⟶ X} {g : X ⟶ Z} {h : 
 theorem sqIso_hom_app {W X Y Z : Scheme.{u}} {f : W ⟶ X} {g : X ⟶ Z} {h : W ⟶ Y} {k : Y ⟶ Z}
     (e : f ≫ g = h ≫ k) (M : Z.Modules) :
     (sqIso e).hom.app M = (τ f g (h ≫ k) e).hom.app M ≫ (τ h k (h ≫ k) rfl).inv.app M := by
-  simp [sqIso, τ, pullbackCongr]
+  -- [port] Use the existing inverse formula, avoiding broad pullback-functor unfolding.
+  rw [τ_inv_app]
+  simp only [eqToHom_refl, Category.id_comp, sqIso, τ, Iso.trans_hom,
+    Iso.symm_hom, NatTrans.comp_app, Category.assoc]
 
 section Route
 
