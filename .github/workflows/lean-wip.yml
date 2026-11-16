@@ -1,0 +1,75 @@
+# Scratch build and timing of P1, the small-packages PR, on #116 + #105 (main 358715ac), on the
+# runner type of upstream's kernel job (4 threads, upstream's extra 8 GiB swap). Step A builds main's
+# own modules (cached upstream), step B #116's 33 modules (cached once #116 merges), step C P1's 200
+# modules with the Tau Ceti modules they need (Tau Ceti is uncached until #105's cache change runs
+# on main).
+
+name: lean wip
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 355
+    env:
+      LEAN_NUM_THREADS: '4'
+    steps:
+      - name: Check out project
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install elan
+        run: |
+          set -euo pipefail
+          curl -sSfL \
+            https://github.com/leanprover/elan/releases/download/v4.2.3/elan-x86_64-unknown-linux-gnu.tar.gz \
+            -o elan.tar.gz
+          echo "df0b2b3a439961ffcbb3985214365ffe40f49bc871df04dff268c7d8e21ca8b2  elan.tar.gz" \
+            | sha256sum --check --strict
+          tar xzf elan.tar.gz
+          ./elan-init -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Add 8 GiB swap, as upstream's kernel job does
+        run: |
+          set -euo pipefail
+          swap_file=$(mktemp "$RUNNER_TEMP/swap.XXXXXX")
+          sudo fallocate -l 8G "$swap_file"
+          sudo chmod 600 "$swap_file"
+          sudo mkswap "$swap_file"
+          sudo swapon "$swap_file"
+          free -m; df -h .
+
+      - name: Fetch the Mathlib build cache
+        run: lake exe cache get
+
+      - name: "Step A: main's ZInQKernel (cached upstream)"
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          /usr/bin/time -v lake build ZInQKernel 2>&1 | tee build-a-main.log | tail -25
+
+      - name: "Step B: #116's 33 modules (cached upstream once #116 merges)"
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          /usr/bin/time -v lake build $(cat scratch-targets/hd.txt) 2>&1 | tee build-b-hd.log | tail -25
+
+      - name: "Step C: P1's 200 modules, with the Tau Ceti modules they need"
+        run: |
+          set -o pipefail
+          /usr/bin/time -v lake build $(cat scratch-targets/p1.txt) 2>&1 | tee build-c-p1.log | tail -40
+
+      - name: Summary
+        if: always()
+        run: |
+          for f in build-*.log; do
+            echo "== $f"
+            grep -E 'Elapsed \(wall clock\)|Maximum resident|User time|Build completed|error:' "$f" | head -8
+          done
+          df -h .
