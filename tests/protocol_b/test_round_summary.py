@@ -42,6 +42,25 @@ class RoundSummary(unittest.TestCase):
         self.assertIn('not outside reviewed', text)
         self.assertIn('"blocking_count": 0', text)
 
+    def test_peer_objection_wins_over_other_reviewers_access_relief_in_both_orders(self):
+        ident = '1-1-astra-F1'
+        reports = {
+            'astra': envelope(review=report(decision='changes_requested', findings=[
+                {'id': 'F1', 'location': 'p:7', 'objection': 'Source unavailable'}])),
+            'fable': envelope('fable', review=report(decision='changes_requested', prior_findings=[
+                {'id': ident, 'resolution': 'unresolved', 'reason': 'The source hypothesis fails.'}]))}
+        limits = [{'finding': ident, 'reviewer_who_checked': 'fable', 'reviewer_unable_to_open': 'astra'}]
+        for ordered in (reports, dict(reversed(list(reports.items())))):
+            with self.subTest(order=list(ordered)):
+                state = self.state(conclusion='failure', reports=ordered, source_access_limitations=limits)
+                original = copy.deepcopy(state)
+                text = gate.round_summary_body(state, 'x/y', 'check')
+                self.assertIn('`'+ident+'`: The source hypothesis fails.', text)
+                self.assertIn('"blocking_count": 1', text)
+                self.assertIn('"nonblocking_count": 0', text)
+                self.assertNotIn('this alone is not a mathematical error', text)
+                self.assertEqual(state, original)
+
     def test_interruption_does_not_invent_mathematical_error(self):
         text = gate.round_summary_body(self.state(conclusion='failure', reports={'astra': envelope(complete=False)}), 'x/y', 'check')
         self.assertIn('Astra: did not complete', text)

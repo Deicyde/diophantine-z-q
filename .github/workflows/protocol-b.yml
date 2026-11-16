@@ -1952,7 +1952,7 @@ jobs:
                   entries += [(item['id'], '', item.get('reason', ''), item['resolution'])
                               for item in review.get('prior_findings', []) if item['resolution'] != 'resolved']
                   for ident, location, detail, resolution in entries:
-                      if ident in relieved:
+                      if ident in relieved and relieved[ident]['reviewer_unable_to_open'] == family:
                           item = relieved[ident]
                           nonblocking[ident] = 'Source access: '+item['reviewer_who_checked']+' verified the named passage; '+item['reviewer_unable_to_open']+' could not open it.'
                       elif ident in overridden or resolution == 'overridden':
