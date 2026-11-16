@@ -39,7 +39,7 @@ The full import cone of `Dictionary.D8.Assembly`, `Dictionary.Interfaces`,
 ## 3. Actual checks on this commit
 
 * Compile: all 75 modules compiled with plain `lake env lean -j2` in dependency order, one job at a time,
-  against the warm (reflinked) `.lake`: 75/75 succeeded (rc 0, 0 errors; 414 s total, peak RSS 8.1 GB) on the translated tree; a second full pass on the final text of this commit (module docs restored, end-chain open lines dropped) is recorded in `evidence/build_core_pass2.json`.
+  against the warm (reflinked) `.lake`: 75/75 succeeded (rc 0, 0 errors; 414 s total, peak RSS 8.1 GB) on the translated tree; a second full pass on the final text of this commit (module docs restored, end-chain open lines dropped) also succeeded 75/75 (`evidence/build_core_pass2.json`).
 * Axioms printed by the cone's own `#print axioms` lines (Dictionary D8 BasePoint/FibreTransport/
   FieldClauses/ModelFields, OrderBridge): only `propext`, `Classical.choice`, `Quot.sound`.
 * Hygiene (comment/string-aware, 75 files): no `sorry`/`admit`/`axiom`/`native_decide`/`#eval`/`run_cmd`/

@@ -1,0 +1,606 @@
+{
+ "status": {
+  "ZInQKernel.Contrib.CloudB3W13.Dictionary.D0": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_AlgebraicCurve_BaseChangeGalois": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_AlgebraicCurve_IsCurveOver": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_Compat_Mathlib430": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_ModularCurve_ComplexPlaceDictionary": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_ModularCurve_ComponentGroup": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_CerednikDrinfeld_Ribbon": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_ModularCurve_UniformizedHeckeCurve": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_QuaternionAlgebra_Order": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_QuaternionAlgebra_ReducedNorm": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_Submodule_FiniteAdeleBox": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_QuaternionAlgebra_Order_FiniteIdele": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_Submodule_LocalBox": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_QuaternionAlgebra_EichlerOrder": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.OrderMaximal": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_AlgHom_existsUnique_lift_trivSqZeroExt_of_cotangent_linearMap": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_AlgHom_exists_cotangent_linearMap_of_fst_eq": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_Padic_exists_ternary_isotropic_iff_of_norm_eq_one_two": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_Padic_exists_ternary_isotropic_of_norm_eq_one_of_ne_two": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_Padic_exists_ternary_isotropic_prime_mul_iff_isSquare_of_ne_two": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_Padic_exists_ternary_isotropic_two_mul_iff_of_norm_eq_one": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_QuadraticForm_forall_quaternary_normForm_eq_zero_iff_forall_ternary_eq_zero": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_QuaternionAlgebra_forall_isUnit_iff_forall_normForm_eq_zero": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_Rat_exists_ternary_isotropic_of_forall_adicCompletion_of_pos": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_AlgHom_existsUnique_lift_trivSqZeroExt_of_cotangent_linearMap": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_AlgHom_exists_cotangent_linearMap_of_fst_eq": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_Padic_exists_ternary_isotropic_iff_of_norm_eq_one_two": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_Padic_exists_ternary_isotropic_of_norm_eq_one_of_ne_two": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_Rat_exists_ternary_isotropic_adicCompletion_of_intCast_notMem": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_Padic_exists_ternary_isotropic_prime_mul_iff_isSquare_of_ne_two": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_Padic_exists_ternary_isotropic_two_mul_iff_of_norm_eq_one": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_Rat_hilbertReciprocity_even_card_not_ternary_isotropic": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_QuadraticForm_forall_quaternary_normForm_eq_zero_iff_forall_ternary_eq_zero": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_QuaternionAlgebra_forall_isUnit_iff_forall_normForm_eq_zero": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_Rat_exists_ternary_isotropic_adicCompletion_of_intCast_notMem": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_Rat_exists_ternary_isotropic_of_forall_adicCompletion_of_pos": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_Rat_hilbertReciprocity_even_card_not_ternary_isotropic": "ok",
+  "ZInQKernel.Contrib.CloudB3W13Shared.R2NOS.Compat.TensorProductInduction": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_QuaternionAlgebra_nonempty_tensorProduct_adicCompletion_ringEquiv": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_QuaternionAlgebra_nonempty_tensorProduct_adicCompletion_ringEquiv": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_QuaternionAlgebra_forall_tensorProduct_adicCompletion_isUnit_iff_forall_normForm_eq_zero": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_QuaternionAlgebra_forall_tensorProduct_adicCompletion_isUnit_iff_forall_normForm_eq_zero": "ok",
+  "ZInQKernel.Contrib.CloudB3W13Shared.R2NOS.Definitions.Def_AlgebraicGeometry_RelativeGroupLawGrpObj": "ok",
+  "ZInQKernel.Contrib.CloudB3W13Shared.TateCp.Vendor.AnthropicFLT.Definitions.Def_FLTPrelim_FreyPackage": "ok",
+  "ZInQKernel.Contrib.CloudB3W13Shared.TateCp.Vendor.AnthropicFLT.Definitions.Def_FLTPrelim_GaloisRep": "ok",
+  "ZInQKernel.Contrib.CloudB3W13Shared.TateCp.Vendor.AnthropicFLT.Definitions.Def_FLTPrelim_Ramification": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_EllipticCurve_FrobeniusTrace": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_HeckeGalois_EichlerShimura": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_CerednikDrinfeld_JPrimeTorsionDatum": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_CerednikDrinfeld_TwoPlaceTorsionDatum": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_CerednikDrinfeld_ShimuraCurve": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.OrderRamification": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.OrderBridge": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_CerednikDrinfeld_QMModuli": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_CerednikDrinfeld_QMModuliProps": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_CerednikDrinfeld_QMCoarseModuli": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_CerednikDrinfeld_QMFineModuli": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Dictionary.Interfaces": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Dictionary.InterfaceD6D7": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Dictionary.InterfaceD9D10": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Dictionary.D8.BasePoint": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Dictionary.D8.FibreTransport": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Dictionary.D8.FieldClauses": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Dictionary.D8.ModelFields": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Dictionary.D8.Assembly": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_CerednikDrinfeld_QM_exists_moduleEnd_apply_eq_pushPt_of_isTangentVector": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_CerednikDrinfeld_QM_finrank_eq_of_range_iff_isTangentVector_of_smoothOfRelativeDimension": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_QuaternionAlgebra_IsIndefiniteRamifiedExactlyAt_isUnit_of_ne_zero": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_CerednikDrinfeld_QM_exists_moduleEnd_apply_eq_pushPt_of_isTangentVector": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_CerednikDrinfeld_QM_finrank_eq_of_range_iff_isTangentVector_of_smoothOfRelativeDimension": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_QuaternionAlgebra_IsIndefiniteRamifiedExactlyAt_isUnit_of_ne_zero": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_QuaternionAlgebra_IsMaximalOrder_trace_eq_intCast_of_add_star_eq_of_finrank_eq_two_of_charZero": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_QuaternionAlgebra_IsMaximalOrder_trace_eq_intCast_of_add_star_eq_of_finrank_eq_two_of_charZero": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_CerednikDrinfeld_QM_trace_eq_intCast_of_charZero_of_smoothOfRelativeDimension_two": "ok",
+  "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_CerednikDrinfeld_QM_trace_eq_intCast_of_charZero_of_smoothOfRelativeDimension_two": "ok"
+ },
+ "results": [
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Dictionary.D0",
+   "rc": 0,
+   "secs": 5.0,
+   "rss_mb": 6729,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_AlgebraicCurve_BaseChangeGalois",
+   "rc": 0,
+   "secs": 5.2,
+   "rss_mb": 3328,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_AlgebraicCurve_IsCurveOver",
+   "rc": 0,
+   "secs": 3.1,
+   "rss_mb": 3299,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_Compat_Mathlib430",
+   "rc": 0,
+   "secs": 4.5,
+   "rss_mb": 3471,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_ModularCurve_ComplexPlaceDictionary",
+   "rc": 0,
+   "secs": 4.9,
+   "rss_mb": 3954,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_ModularCurve_ComponentGroup",
+   "rc": 0,
+   "secs": 2.7,
+   "rss_mb": 2640,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_CerednikDrinfeld_Ribbon",
+   "rc": 0,
+   "secs": 3.3,
+   "rss_mb": 2664,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_ModularCurve_UniformizedHeckeCurve",
+   "rc": 0,
+   "secs": 3.4,
+   "rss_mb": 3943,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_QuaternionAlgebra_Order",
+   "rc": 0,
+   "secs": 5.4,
+   "rss_mb": 6998,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_QuaternionAlgebra_ReducedNorm",
+   "rc": 0,
+   "secs": 5.5,
+   "rss_mb": 6999,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_Submodule_FiniteAdeleBox",
+   "rc": 0,
+   "secs": 5.7,
+   "rss_mb": 6996,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_QuaternionAlgebra_Order_FiniteIdele",
+   "rc": 0,
+   "secs": 6.1,
+   "rss_mb": 6999,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_Submodule_LocalBox",
+   "rc": 0,
+   "secs": 6.0,
+   "rss_mb": 7003,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_QuaternionAlgebra_EichlerOrder",
+   "rc": 0,
+   "secs": 5.5,
+   "rss_mb": 7004,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.OrderMaximal",
+   "rc": 0,
+   "secs": 8.8,
+   "rss_mb": 7052,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_AlgHom_existsUnique_lift_trivSqZeroExt_of_cotangent_linearMap",
+   "rc": 0,
+   "secs": 3.8,
+   "rss_mb": 2779,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_AlgHom_exists_cotangent_linearMap_of_fst_eq",
+   "rc": 0,
+   "secs": 2.9,
+   "rss_mb": 2756,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_Padic_exists_ternary_isotropic_iff_of_norm_eq_one_two",
+   "rc": 0,
+   "secs": 9.9,
+   "rss_mb": 7058,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_Padic_exists_ternary_isotropic_of_norm_eq_one_of_ne_two",
+   "rc": 0,
+   "secs": 6.1,
+   "rss_mb": 7022,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_Padic_exists_ternary_isotropic_prime_mul_iff_isSquare_of_ne_two",
+   "rc": 0,
+   "secs": 6.2,
+   "rss_mb": 7038,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_Padic_exists_ternary_isotropic_two_mul_iff_of_norm_eq_one",
+   "rc": 0,
+   "secs": 6.4,
+   "rss_mb": 7085,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_QuadraticForm_forall_quaternary_normForm_eq_zero_iff_forall_ternary_eq_zero",
+   "rc": 0,
+   "secs": 5.3,
+   "rss_mb": 7031,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_QuaternionAlgebra_forall_isUnit_iff_forall_normForm_eq_zero",
+   "rc": 0,
+   "secs": 5.3,
+   "rss_mb": 7012,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_Rat_exists_ternary_isotropic_of_forall_adicCompletion_of_pos",
+   "rc": 0,
+   "secs": 7.8,
+   "rss_mb": 7081,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_AlgHom_existsUnique_lift_trivSqZeroExt_of_cotangent_linearMap",
+   "rc": 0,
+   "secs": 2.6,
+   "rss_mb": 2780,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_AlgHom_exists_cotangent_linearMap_of_fst_eq",
+   "rc": 0,
+   "secs": 2.6,
+   "rss_mb": 2780,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_Padic_exists_ternary_isotropic_iff_of_norm_eq_one_two",
+   "rc": 0,
+   "secs": 5.1,
+   "rss_mb": 6995,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_Padic_exists_ternary_isotropic_of_norm_eq_one_of_ne_two",
+   "rc": 0,
+   "secs": 5.1,
+   "rss_mb": 6994,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_Rat_exists_ternary_isotropic_adicCompletion_of_intCast_notMem",
+   "rc": 0,
+   "secs": 5.9,
+   "rss_mb": 7008,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_Padic_exists_ternary_isotropic_prime_mul_iff_isSquare_of_ne_two",
+   "rc": 0,
+   "secs": 5.2,
+   "rss_mb": 6996,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_Padic_exists_ternary_isotropic_two_mul_iff_of_norm_eq_one",
+   "rc": 0,
+   "secs": 5.1,
+   "rss_mb": 6995,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_Rat_hilbertReciprocity_even_card_not_ternary_isotropic",
+   "rc": 0,
+   "secs": 9.2,
+   "rss_mb": 7098,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_QuadraticForm_forall_quaternary_normForm_eq_zero_iff_forall_ternary_eq_zero",
+   "rc": 0,
+   "secs": 5.2,
+   "rss_mb": 6992,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_QuaternionAlgebra_forall_isUnit_iff_forall_normForm_eq_zero",
+   "rc": 0,
+   "secs": 5.2,
+   "rss_mb": 6994,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_Rat_exists_ternary_isotropic_adicCompletion_of_intCast_notMem",
+   "rc": 0,
+   "secs": 5.3,
+   "rss_mb": 6991,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_Rat_exists_ternary_isotropic_of_forall_adicCompletion_of_pos",
+   "rc": 0,
+   "secs": 5.4,
+   "rss_mb": 6988,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_Rat_hilbertReciprocity_even_card_not_ternary_isotropic",
+   "rc": 0,
+   "secs": 5.3,
+   "rss_mb": 6992,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13Shared.R2NOS.Compat.TensorProductInduction",
+   "rc": 0,
+   "secs": 5.2,
+   "rss_mb": 6983,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_QuaternionAlgebra_nonempty_tensorProduct_adicCompletion_ringEquiv",
+   "rc": 0,
+   "secs": 6.9,
+   "rss_mb": 7007,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_QuaternionAlgebra_nonempty_tensorProduct_adicCompletion_ringEquiv",
+   "rc": 0,
+   "secs": 5.3,
+   "rss_mb": 6981,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_QuaternionAlgebra_forall_tensorProduct_adicCompletion_isUnit_iff_forall_normForm_eq_zero",
+   "rc": 0,
+   "secs": 5.5,
+   "rss_mb": 6989,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_QuaternionAlgebra_forall_tensorProduct_adicCompletion_isUnit_iff_forall_normForm_eq_zero",
+   "rc": 0,
+   "secs": 5.5,
+   "rss_mb": 6982,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13Shared.R2NOS.Definitions.Def_AlgebraicGeometry_RelativeGroupLawGrpObj",
+   "rc": 0,
+   "secs": 6.3,
+   "rss_mb": 7004,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13Shared.TateCp.Vendor.AnthropicFLT.Definitions.Def_FLTPrelim_FreyPackage",
+   "rc": 0,
+   "secs": 2.4,
+   "rss_mb": 2216,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13Shared.TateCp.Vendor.AnthropicFLT.Definitions.Def_FLTPrelim_GaloisRep",
+   "rc": 0,
+   "secs": 2.7,
+   "rss_mb": 2552,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13Shared.TateCp.Vendor.AnthropicFLT.Definitions.Def_FLTPrelim_Ramification",
+   "rc": 0,
+   "secs": 2.5,
+   "rss_mb": 2617,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_EllipticCurve_FrobeniusTrace",
+   "rc": 0,
+   "secs": 3.0,
+   "rss_mb": 3034,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_HeckeGalois_EichlerShimura",
+   "rc": 0,
+   "secs": 3.9,
+   "rss_mb": 3051,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_CerednikDrinfeld_JPrimeTorsionDatum",
+   "rc": 0,
+   "secs": 3.4,
+   "rss_mb": 3481,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_CerednikDrinfeld_TwoPlaceTorsionDatum",
+   "rc": 0,
+   "secs": 4.0,
+   "rss_mb": 3498,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_CerednikDrinfeld_ShimuraCurve",
+   "rc": 0,
+   "secs": 13.4,
+   "rss_mb": 7063,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.OrderRamification",
+   "rc": 0,
+   "secs": 6.0,
+   "rss_mb": 7063,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.OrderBridge",
+   "rc": 0,
+   "secs": 4.9,
+   "rss_mb": 7025,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_CerednikDrinfeld_QMModuli",
+   "rc": 0,
+   "secs": 7.3,
+   "rss_mb": 7053,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_CerednikDrinfeld_QMModuliProps",
+   "rc": 0,
+   "secs": 5.8,
+   "rss_mb": 7037,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_CerednikDrinfeld_QMCoarseModuli",
+   "rc": 0,
+   "secs": 5.5,
+   "rss_mb": 7017,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_CerednikDrinfeld_QMFineModuli",
+   "rc": 0,
+   "secs": 5.7,
+   "rss_mb": 7009,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Dictionary.Interfaces",
+   "rc": 0,
+   "secs": 5.6,
+   "rss_mb": 7010,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Dictionary.InterfaceD6D7",
+   "rc": 0,
+   "secs": 5.3,
+   "rss_mb": 7005,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Dictionary.InterfaceD9D10",
+   "rc": 0,
+   "secs": 5.5,
+   "rss_mb": 7010,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Dictionary.D8.BasePoint",
+   "rc": 0,
+   "secs": 5.2,
+   "rss_mb": 7009,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Dictionary.D8.FibreTransport",
+   "rc": 0,
+   "secs": 5.3,
+   "rss_mb": 7017,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Dictionary.D8.FieldClauses",
+   "rc": 0,
+   "secs": 5.3,
+   "rss_mb": 7043,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Dictionary.D8.ModelFields",
+   "rc": 0,
+   "secs": 5.3,
+   "rss_mb": 7039,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Dictionary.D8.Assembly",
+   "rc": 0,
+   "secs": 16.2,
+   "rss_mb": 8175,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_CerednikDrinfeld_QM_exists_moduleEnd_apply_eq_pushPt_of_isTangentVector",
+   "rc": 0,
+   "secs": 5.4,
+   "rss_mb": 7029,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_CerednikDrinfeld_QM_finrank_eq_of_range_iff_isTangentVector_of_smoothOfRelativeDimension",
+   "rc": 0,
+   "secs": 15.7,
+   "rss_mb": 7114,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_QuaternionAlgebra_IsIndefiniteRamifiedExactlyAt_isUnit_of_ne_zero",
+   "rc": 0,
+   "secs": 5.3,
+   "rss_mb": 7024,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_CerednikDrinfeld_QM_exists_moduleEnd_apply_eq_pushPt_of_isTangentVector",
+   "rc": 0,
+   "secs": 5.1,
+   "rss_mb": 7020,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_CerednikDrinfeld_QM_finrank_eq_of_range_iff_isTangentVector_of_smoothOfRelativeDimension",
+   "rc": 0,
+   "secs": 4.9,
+   "rss_mb": 7021,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_QuaternionAlgebra_IsIndefiniteRamifiedExactlyAt_isUnit_of_ne_zero",
+   "rc": 0,
+   "secs": 4.9,
+   "rss_mb": 7013,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_QuaternionAlgebra_IsMaximalOrder_trace_eq_intCast_of_add_star_eq_of_finrank_eq_two_of_charZero",
+   "rc": 0,
+   "secs": 8.8,
+   "rss_mb": 7097,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_QuaternionAlgebra_IsMaximalOrder_trace_eq_intCast_of_add_star_eq_of_finrank_eq_two_of_charZero",
+   "rc": 0,
+   "secs": 5.1,
+   "rss_mb": 7016,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.P2M.Sol.S_CerednikDrinfeld_QM_trace_eq_intCast_of_charZero_of_smoothOfRelativeDimension_two",
+   "rc": 0,
+   "secs": 5.2,
+   "rss_mb": 7016,
+   "errors": 0
+  },
+  {
+   "module": "ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_CerednikDrinfeld_QM_trace_eq_intCast_of_charZero_of_smoothOfRelativeDimension_two",
+   "rc": 0,
+   "secs": 5.6,
+   "rss_mb": 7008,
+   "errors": 0
+  }
+ ]
+}
