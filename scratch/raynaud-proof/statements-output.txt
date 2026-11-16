@@ -1,0 +1,3 @@
+'RaynaudCP.consumers_of_cp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RaynaudCP.raynaudSemistableSHcp_of_SH' depends on axioms: [propext, Classical.choice, Quot.sound]
+EXIT 0
