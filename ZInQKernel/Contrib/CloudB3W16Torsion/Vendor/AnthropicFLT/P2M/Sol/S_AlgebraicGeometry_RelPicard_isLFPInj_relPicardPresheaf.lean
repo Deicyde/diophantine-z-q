@@ -34,7 +34,7 @@ open Opposite
 open AlgebraicGeometry
 -- Source-local namespace open deferred until its declaration.
 open AlgebraicGeometry.RelPicard
-open P2MW.S_AlgebraicGeometry_RelPicard_isLFPInj_relPicardPresheaf.AlgebraicGeometry.RelPicard
+-- [port] This module-local namespace is declared below; existing root RelPicard remains open.
 open NeronModelInfra
 open TensorProduct
 
@@ -922,7 +922,7 @@ theorem solution
       (M'.pullbackAlong (RelPicard.LFP.stageHom R A₀.val)).L) :=
     Quotient.exact (s := RigidifiedLineBundle.setoid (c := c) (ε := ε) _) hx
   obtain ⟨A₁, hA₁, hle, hiso⟩ :=
-    RelPicard.LFP.exists_fg_le_nonempty_iso_pullbackAlong R 𝒱 c ε A A₀ hA₀ M M' h
+    P2MW.S_AlgebraicGeometry_RelPicard_isLFPInj_relPicardPresheaf.AlgebraicGeometry.RelPicard.LFP.exists_fg_le_nonempty_iso_pullbackAlong R 𝒱 c ε A A₀ hA₀ M M' h
   refine ⟨A₁, hA₁, hle, ?_⟩
 
   exact Quotient.sound hiso

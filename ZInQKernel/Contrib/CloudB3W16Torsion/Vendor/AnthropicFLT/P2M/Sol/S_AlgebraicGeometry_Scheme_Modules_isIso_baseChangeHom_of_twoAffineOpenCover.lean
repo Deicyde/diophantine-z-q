@@ -296,7 +296,6 @@ theorem exists_linearEquiv_ker_baseChange_cechDiff (𝒱 : X.TwoAffineOpenCover)
   rw [LinearEquiv.ofBijective_apply]
   change e0 ((1 : A') ⊗ₜ[A] (s0, s1)) = _
   rw [he0, hε0, hε1]
-  rfl
 
 set_option maxHeartbeats 3200000 in
 
@@ -416,7 +415,7 @@ theorem isIso_baseChangeHom_of_twoAffineOpenCover_aux
           rfl
         simp only [L₂, LinearMap.coe_comp, LinearEquiv.coe_coe, Function.comp_apply]
         erw [LinearEquiv.baseChange_tmul]
-        rw [LinearEquiv.trans_apply, hkbc, hκ _ hmem]
+        erw [LinearEquiv.trans_apply, hkbc, hκ _ hmem]
         rw [hx]
         rfl
       have hLft : (L₁ ((1 : A') ⊗ₜ[A] m)).1 =
@@ -425,14 +424,14 @@ theorem isIso_baseChangeHom_of_twoAffineOpenCover_aux
            (((pullbackPushforwardAdjunction fA).unit.app F).app 𝒱.U1).hom
               (F.presheaf.map (homOfLE (le_top (a := 𝒱.U1))).op m)) := by
         simp only [L₁, LinearMap.coe_comp, LinearEquiv.coe_coe, Function.comp_apply]
-        rw [hσ m]
+        erw [hσ m]
 
         have h4 := unit_app_app_comp_baseChangeHom_app π ψ sA fA
           (Limits.pullback.condition (f := π) (g := ψ)) F ⊤
         have h4m := ConcreteCategory.congr_hom h4 m
         simp only [CategoryTheory.comp_apply] at h4m
 
-        rw [heP]
+        erw [heP]
         change (resM FA (le_top (a := fA ⁻¹ᵁ 𝒱.U0)) (Γβ _), resM FA (le_top (a := fA ⁻¹ᵁ 𝒱.U1)) (Γβ _)) = _
         have hΓβ : ∀ z, Γβ z = ((β.app ⊤).hom z :) := fun _ => rfl
         rw [hΓβ]
@@ -448,9 +447,9 @@ theorem isIso_baseChangeHom_of_twoAffineOpenCover_aux
     have hΓβ' : (Γβ : _ → _) = gP.symm ∘ eP.symm ∘ L₂ ∘ σ.symm := by
       funext x
       rw [← hL]
-      simp only [L₁, Function.comp_apply, LinearMap.coe_comp, LinearEquiv.coe_coe,
-        LinearEquiv.symm_apply_apply, LinearEquiv.apply_symm_apply]
-      rfl
+      -- [port] Expose only the composite applications so semireducible section carriers align.
+      change Γβ x = gP.symm (eP.symm (eP (gP (Γβ (σ (σ.symm x))))))
+      rw [σ.apply_symm_apply, eP.symm_apply_apply, gP.symm_apply_apply]
     have hbij : Function.Bijective Γβ := by
       rw [hΓβ']
       exact gP.symm.bijective.comp (eP.symm.bijective.comp (h2.comp σ.symm.bijective))
