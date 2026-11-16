@@ -1,0 +1,74 @@
+closure size 244312; watched [HDec.WeilPairing.WeilDual.rec,
+ HDec.WeilPairing.WeilDual.casesOn,
+ HDec.WeilPairing.WeilDual.recOn,
+ HDec.WeilPairing.WeilDual.mk,
+ HDec.WeilPairing.WeilDual.dual,
+ HDec.WeilPairing.WeilDual.e,
+ HDec.WeilPairing.WeilDual.perfect,
+ HDec.WeilPairing.WeilDual.galois,
+ HDec.WeilPairing.WeilDual.compat,
+ HDec.WeilPairing.WeilDual.dualEnd,
+ HDec.WeilPairing.SymmIsogeny.rec,
+ HDec.WeilPairing.SymmIsogeny.casesOn,
+ HDec.WeilPairing.SymmIsogeny.recOn,
+ HDec.WeilPairing.SymmIsogeny.mk,
+ HDec.WeilPairing.SymmIsogeny.D,
+ HDec.WeilPairing.SymmIsogeny.lam,
+ HDec.WeilPairing.SymmIsogeny.isogeny,
+ HDec.WeilPairing.SymmIsogeny.symm,
+ HDec.WeilPairing.Polarization.rec,
+ HDec.WeilPairing.Polarization.casesOn,
+ HDec.WeilPairing.Polarization.recOn,
+ HDec.WeilPairing.Polarization.mk,
+ HDec.WeilPairing.Polarization.toSymmIsogeny,
+ HDec.WeilPairing.Polarization.pos]
+in closure: t09SymmIsogenyExists_of_leaves true, WeilPairingMumford true
+HDec.WeilPairing.tatePairing._proof_2: [HDec.WeilPairing.WeilDual.dual] []
+HDec.WeilPairing.wv_compat: [HDec.WeilPairing.WeilDual.dual, HDec.WeilPairing.WeilDual.e, HDec.WeilPairing.WeilDual.compat] []
+HDec.WeilPairing.oldE: [HDec.WeilPairing.SymmIsogeny.D, HDec.WeilPairing.SymmIsogeny.lam] []
+HDec.WeilPairing.weil_galois: [HDec.WeilPairing.WeilDual.dual, HDec.WeilPairing.WeilDual.e, HDec.WeilPairing.WeilDual.galois] []
+HDec.WeilPairing.WeilDual.compat: [] [HDec.WeilPairing.WeilDual.proj4]
+HDec.WeilPairing.wv_add_right: [HDec.WeilPairing.WeilDual.dual] []
+HDec.WeilPairing.tatePairing._proof_7: [HDec.WeilPairing.WeilDual.dual] []
+HDec.WeilPairing.tatePairing_left_ker: [HDec.WeilPairing.WeilDual.dual] []
+HDec.WeilPairing.wv_pow: [HDec.WeilPairing.WeilDual.dual] []
+HDec.WeilPairing.wv_nsmul_left: [HDec.WeilPairing.WeilDual.dual] []
+HDec.WeilPairing.tatePairing._proof_4: [HDec.WeilPairing.WeilDual.dual] []
+HDec.WeilPairing.WeilDual.galois: [] [HDec.WeilPairing.WeilDual.proj3]
+HDec.WeilPairing.WeilDual.dual: [] [HDec.WeilPairing.WeilDual.proj0]
+HDec.WeilPairing.tatePairing._proof_3: [HDec.WeilPairing.WeilDual.dual] []
+HDec.WeilPairing.weil: [HDec.WeilPairing.WeilDual.dual, HDec.WeilPairing.WeilDual.e] []
+HDec.WeilPairing.wv_add_left: [HDec.WeilPairing.WeilDual.dual] []
+HDec.HSyn.tatePairingZl_of_leaves4: [HDec.WeilPairing.WeilDual.dual, HDec.WeilPairing.SymmIsogeny.D, HDec.WeilPairing.SymmIsogeny.lam, HDec.WeilPairing.SymmIsogeny.isogeny, HDec.WeilPairing.SymmIsogeny.symm] []
+HDec.WeilPairing.SymmIsogeny.symm: [] [HDec.WeilPairing.SymmIsogeny.proj3]
+HDec.WeilPairing.WeilDual.perfect: [] [HDec.WeilPairing.WeilDual.proj2]
+HDec.WeilPairing.SymmIsogeny.isogeny: [] [HDec.WeilPairing.SymmIsogeny.proj2]
+HDec.WeilPairing.tatePairing_self: [HDec.WeilPairing.WeilDual.dual] []
+HDec.WeilPairing.wv: [HDec.WeilPairing.WeilDual.dual] []
+HDec.WeilPairing.SymmIsogeny.lam: [] [HDec.WeilPairing.SymmIsogeny.proj1]
+HDec.WeilPairing.oldE_eq: [HDec.WeilPairing.SymmIsogeny.D, HDec.WeilPairing.SymmIsogeny.lam] []
+HDec.WeilPairing.tatePairing: [HDec.WeilPairing.WeilDual.dual] []
+HDec.WeilPairing.wv_one: [HDec.WeilPairing.WeilDual.dual] []
+HDec.WeilPairing.weil_nondeg: [HDec.WeilPairing.WeilDual.dual, HDec.WeilPairing.WeilDual.e, HDec.WeilPairing.WeilDual.perfect] []
+HDec.WeilPairing.wv_nsmul_right: [HDec.WeilPairing.WeilDual.dual] []
+HDec.WeilPairing.tatePairing._proof_9: [HDec.WeilPairing.WeilDual.dual] []
+HDec.WeilPairing.tateSeq: [HDec.WeilPairing.WeilDual.dual] []
+HDec.WeilPairing.weil_apply: [HDec.WeilPairing.WeilDual.dual, HDec.WeilPairing.WeilDual.e] []
+HDec.WeilPairing.tatePairing_cyclotomic: [HDec.WeilPairing.WeilDual.dual] []
+HDec.WeilPairing.tateSeq_mem: [HDec.WeilPairing.WeilDual.dual] []
+HDec.WeilPairing.tatePairing_galois: [HDec.WeilPairing.WeilDual.dual] []
+HDec.WeilPairing.tatePairing._proof_5: [HDec.WeilPairing.WeilDual.dual] []
+HDec.WeilPairing.IsSymmetric: [HDec.WeilPairing.WeilDual.dual] []
+HDec.WeilPairing.wv_eq: [HDec.WeilPairing.WeilDual.dual] []
+HDec.WeilPairing.tatePairing._proof_8: [HDec.WeilPairing.WeilDual.dual] []
+T09Pic.t09SymmIsogenyExists_of_leaves: [HDec.WeilPairing.SymmIsogeny.mk, HDec.WeilPairing.WeilDual.mk, HDec.WeilPairing.WeilDual.dual, HDec.WeilPairing.WeilDual.e] []
+HDec.WeilPairing.WeilDual.e: [] [HDec.WeilPairing.WeilDual.proj1]
+HDec.WeilPairing.wv_galois: [HDec.WeilPairing.WeilDual.dual] []
+HDec.WeilPairing.tatePairing_apply: [HDec.WeilPairing.WeilDual.dual] []
+HDec.WeilPairing.tatePairing._proof_6: [HDec.WeilPairing.WeilDual.dual] []
+HDec.WeilPairing.oldT9_of_symmIsogeny: [HDec.WeilPairing.WeilDual.dual, HDec.WeilPairing.SymmIsogeny.D, HDec.WeilPairing.SymmIsogeny.lam, HDec.WeilPairing.SymmIsogeny.isogeny, HDec.WeilPairing.SymmIsogeny.symm, HDec.WeilPairing.WeilDual.e, HDec.WeilPairing.WeilDual.compat] []
+HDec.WeilPairing.SymmIsogeny.D: [] [HDec.WeilPairing.SymmIsogeny.proj0]
+
+real	3m34.427s
+user	1m51.532s
+sys	0m8.620s
