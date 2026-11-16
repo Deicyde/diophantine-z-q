@@ -1,0 +1,9 @@
+{"name": "pic-repr",
+ "imports": ["ZInQKernel.Contrib.OneProof.PicRepresentableAbVar"],
+ "discharges": [
+   {"field": "picRepresentableAbVar",
+    "proof": "_root_.PicRepr.picRepresentableAbVar_of_lft {n}.picRepresentableLFTAbVar",
+    "leaves": [{"name": "picRepresentableLFTAbVar", "type": "_root_.PicRepr.PicRepresentableLFTAbVar",
+                "doc": "pic-repr: the relative Picard fppf sheaf of an abelian variety over a field is representable by a scheme locally of finite type (Murre 1964, Oort 1962; FGA Exp. 232 Thm 3.1; Kleiman, The Picard scheme, Thm 9.4.8 with 9.2.5; BLR 8.2 Thm 3; locators UNVERIFIED). Replaces picRepresentableAbVar; also discharges pic-dict's PicDict.PicLocFinType (PicRepr.picLocFinType_of_lft).",
+                "kind": "published", "flag": "",
+                "source": "Murre 1964, Oort 1962; FGA Exp. 232 Thm 3.1; Kleiman, The Picard scheme, Thm 9.4.8 with 9.2.5; BLR, Neron models, 8.2 Thm 3: Pic_{X/k} of X proper over a field is represented by a group scheme locally of finite type (locators UNVERIFIED)"}]}]}
