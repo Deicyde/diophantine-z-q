@@ -702,6 +702,14 @@ erase a prior objection. These carried obligations are runtime metadata, separat
 from the original model verdict, and each still requires resolution or an
 exact-head admin override in addition to any scope item.
 
+Each finding or disposition is applied at its first App-recorded occurrence,
+bound to its original run, attempt, reviewer and head. Reusing or copying that
+report into a later check does not make an old resolution new. A later reopening
+therefore stays outstanding, including across a return to an earlier head and
+when its report comment was not delivered. Retained acceptances need a supplement
+for these outstanding objections even if they previously resolved the same ID.
+Only a new completed disposition or an explicit admin decision covers them.
+
 If posting a completed report fails, the completed verdict remains in the App
 record and original artifact. A final report with a form error returns feedback
 to the reviewer for correction. Every unsuccessful final submission remains in

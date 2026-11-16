@@ -1151,20 +1151,31 @@ jobs:
 
           def historical_obligations(candidates, current=None):
               """Preserve App-authenticated findings across heads and empty later records."""
-              states = {}
+              states, applied = {}, set()
               pairs = [pair for _, pair in sorted(candidates, key=lambda item: item[0])] + [current or {}]
               for pair in pairs:
                   for family, envelope in pair.items():
                       value = envelope.get('review', {})
+                      origin = tuple(str(envelope.get(k, '')) for k in ('run', 'attempt', 'reviewer', 'head'))
                       for ident, item in envelope.get('carried_findings', {}).items():
                           states.setdefault((item['origin_reviewer'], ident), item)
                       for f in blocking_findings(value):
+                          event = (origin, 'finding', json.dumps(f, sort_keys=True))
+                          if event in applied:
+                              continue
+                          applied.add(event)
                           ident = finding_id(envelope, f['id'])
                           states[family, ident] = {'origin_reviewer': family,
                               'resolution': 'unresolved', 'reason': f.get('objection', '')}
                       for f in value.get('prior_findings', []):
                           # An incomplete execution cannot silently resolve old objections.
                           resolution = f['resolution'] if envelope.get('complete') and envelope.get('read_prerequisites_complete') is not False else 'unresolved'
+                          event = (origin, 'prior', resolution, json.dumps(f, sort_keys=True))
+                          if event in applied:
+                              continue
+                          # Reusing or copying an old report is not a new resolution.
+                          # Its original disposition cannot erase a later reopening.
+                          applied.add(event)
                           states[family, f['id']] = {'origin_reviewer': family,
                               'resolution': resolution, 'reason': f.get('reason', '')}
                           if resolution == 'resolved' and ('history', f['id']) in states:
@@ -1716,12 +1727,15 @@ jobs:
               selected = {}
               # The latest completed verdict per family supersedes earlier verdicts,
               # even across heads. A non-reusable rejection cannot revive an old accept.
-              latest = {}
+              latest, first_seen = {}, {}
               for check_id, reports in sorted(candidates):
                   for family, e in reports.items():
                       if family in MODELS and e.get("complete") and e.get("model") == MODELS[family] and e.get('reviewer') == family:
-                          latest[family] = (check_id, e)
-              for family, (check_id, envelope) in latest.items():
+                          origin = tuple(str(e.get(k, '')) for k in ('run', 'attempt', 'reviewer', 'head'))
+                          order = first_seen.setdefault(origin, check_id)
+                          if family not in latest or order >= latest[family][0]:
+                              latest[family] = (order, check_id, e)
+              for family, (_, check_id, envelope) in latest.items():
                   if (family not in MODELS or envelope.get('reviewer') != family or
                           envelope.get('model') != MODELS[family] or not envelope.get('complete') or
                           envelope.get('read_prerequisites_complete') is False):
@@ -2123,10 +2137,12 @@ jobs:
                       record('review-reuse.json', {f: {'original_head': e['head'], 'effective_head': pr['head']['sha'],
                               'check': e['reuse_check'], 'run': e['run'], 'attempt': e['attempt']} for f, e in envelopes.items()})
                       supplements = {}
-                      if set(envelopes) == set(MODELS) and (uncovered_history(envelopes, discussion) or unaddressed_findings(envelopes, prior)):
+                      reconcile_obligations(gh, pr, envelopes, spend['candidates'])
+                      outstanding = unaddressed_findings(envelopes, prior) or any(e.get('carried_findings') for e in envelopes.values())
+                      if set(envelopes) == set(MODELS) and (uncovered_history(envelopes, discussion) or outstanding):
                           # Keep the proof acceptance. Both families disposition a newly
                           # itemized objection; one can cover other new discussion.
-                          selected = sorted(envelopes) if unaddressed_findings(envelopes, prior) else [sorted(envelopes)[0]]
+                          selected = sorted(envelopes) if outstanding else [sorted(envelopes)[0]]
                           for family in selected:
                               supplements[family] = envelopes.pop(family)
                       missing = set(MODELS) - set(envelopes)
