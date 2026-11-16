@@ -1,0 +1,30 @@
+{
+ "files": {
+  "Definitions/Def_FLTPrelim_Modularity.lean": {
+   "edits": [],
+   "git_blob_sha": "9f2ad60d351dbc01aba577f418e2642524c7b997",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/Definitions/Def_FLTPrelim_Modularity.lean",
+   "local_sha256": "602e704cc6c319fc01bc31c10e49932ef66ceb96beb61b6d85e45a03bdd7a300",
+   "reused_imports": [],
+   "sha256": "5a68b3d1fd8bcb1fcd56c254cb84983ace76ba53a9c437a208350ce3e8cabe02",
+   "upstream_module": "Definitions.Def_FLTPrelim_Modularity"
+  },
+  "Definitions/Def_GaloisRep_Residual.lean": {
+   "edits": [],
+   "git_blob_sha": "9cdbdf68671901e15cedaf03663683d056992b91",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/Definitions/Def_GaloisRep_Residual.lean",
+   "local_sha256": "b7f6a488e95b67fca7af09270befd937e059a46e4f28a6d9bcdb00927dbacb7a",
+   "reused_imports": [
+    "Definitions.Def_EllipticCurve_FrobeniusTrace"
+   ],
+   "sha256": "cd335782f0b607066bf114f70f892db500c06d52dffd2b19827490c513e02537",
+   "upstream_module": "Definitions.Def_GaloisRep_Residual"
+  }
+ },
+ "repository": "anthropics/fermats-last-theorem",
+ "revision": "6e837e75355538c7f80bab5b956861e86c4eacc2",
+ "root": "P2M/Sol/S_DeligneSerre_exists_galoisRep_of_weightOne_qCoeff_hecke_eigen.lean",
+ "source_lean_toolchain": "leanprover/lean4:v4.33.1",
+ "source_mathlib_revision": "db584cd6d46c92f209a44c0f1c829460d327499d",
+ "target": "Lean 4.35.0 / Mathlib 56a005855ea17e0b0958f73ec801ae140b0a1679"
+}

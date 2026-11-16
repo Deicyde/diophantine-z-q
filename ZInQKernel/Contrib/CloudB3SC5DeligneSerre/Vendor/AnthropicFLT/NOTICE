@@ -1,0 +1,13 @@
+This directory vendors files from anthropics/fermats-last-theorem (https://github.com/anthropics/fermats-last-theorem),
+commit 6e837e75355538c7f80bab5b956861e86c4eacc2, Copyright 2026 Anthropic, PBC, licensed under the Apache License,
+Version 2.0 (LICENSE). That repository's own notices are reproduced byte for byte in NOTICE.upstream and
+ATTRIBUTION.upstream.md; the per-file attributions listed in ATTRIBUTION.upstream.md apply to the corresponding files
+here.
+
+Modifications (2026-11-16, Z-in-Q kernel, cluster C5), stated in each file's header: import paths are relocated
+(upstream modules already vendored elsewhere in this kernel are imported from that copy rather than duplicated); the
+upstream lakefile options are set as `set_option` lines after the imports; the upstream proof-wrapper utility
+(`P2M.Util`) is not imported, its commands being replaced by ordinary Lean (`open`, `open scoped`, `export`, and
+`revert`/`exact` of the paired proof); the generated blanket `attribute [-instance]` / `attribute [-simp]` lists are
+removed; single-token local notations are expanded to their terms; any other change is marked `-- [port]`.
+SOURCE_MANIFEST.json records, per file, the upstream path, git blob SHA-1, SHA-256 and the edits applied.
