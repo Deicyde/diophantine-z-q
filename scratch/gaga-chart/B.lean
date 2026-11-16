@@ -120,4 +120,132 @@ theorem isAnStr_rChart (ch : CPt X → RChart X n) (hch : ∀ P, P ∈ (ch P).e.
 
 end RChart
 
+/-! ## Regular charts from a uniformization -/
+
+section Unif
+
+variable {A : AbVar ℂ} {g : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)} [DiscreteTopology Λ]
+  {φ : Torus Λ ≃+ Additive (A.Pt ℂ)}
+
+/-- `v ↦ φ (proj v)`, as a map `ℂ^g → A(ℂ)`. -/
+def uPt (φ : Torus Λ ≃+ Additive (A.Pt ℂ)) (v : Fin g → ℂ) : CPt A.X :=
+  Additive.toMul (φ (proj Λ v))
+
+theorem continuous_uPt (hφ : IsUniformization A Λ φ) :
+    @Continuous _ _ _ (classicalTopology A.X) (uPt φ) := by
+  let _ := classicalTopology A.X
+  refine continuous_generateFrom_iff.mpr ?_
+  rintro _ ⟨W, f, z, ε, rfl⟩
+  have h := hφ.holo W f
+  have hO : IsOpen ({v | PtIn A (uPt φ v) W} ∩
+      (fun v => evalAt A W f (uPt φ v)) ⁻¹' Metric.ball z ε) :=
+    h.2.continuousOn.isOpen_inter_preimage h.1 Metric.isOpen_ball
+  convert hO using 1
+  ext v
+  simp only [mem_preimage, mem_inter_iff, Metric.mem_ball, dist_eq_norm]
+  rfl
+
+theorem continuous_symm (hφ : IsUniformization A Λ φ) :
+    @Continuous _ _ (classicalTopology A.X) _ (fun P : CPt A.X => φ.symm (Additive.ofMul P)) := by
+  let _ := classicalTopology A.X
+  exact continuous_iff_continuousAt.mpr fun P => continuousAt_symm hφ P
+
+theorem uPt_image_eq (S : Set (Fin g → ℂ)) :
+    uPt φ '' S = (fun P : CPt A.X => φ.symm (Additive.ofMul P)) ⁻¹' (proj Λ '' S) := by
+  ext P
+  constructor
+  · rintro ⟨v, hv, rfl⟩
+    exact ⟨v, hv, by simp [uPt]⟩
+  · rintro ⟨v, hv, hvP⟩
+    refine ⟨v, hv, ?_⟩
+    show Additive.toMul (φ (proj Λ v)) = P
+    rw [hvP, AddEquiv.apply_symm_apply]; rfl
+
+/-- **A regular chart at every point, from a uniformization (proved).** Clause (ii) gives regular
+functions `f` on `U ∋ P₀` with `G = f ∘ φ ∘ proj` of invertible derivative at `v₀`; the inverse function
+theorem makes `G` a homeomorphism from a neighbourhood `S` of `v₀` (on which `dG` stays invertible)
+onto an open set, and `Q ↦ f(Q)` is a homeomorphism from `φ(proj S)` onto `G(S)`, with inverse
+`φ ∘ proj ∘ G⁻¹`; regular functions are analytic in it (clause (i) and the analytic inverse function
+theorem at each point of `G(S)`). -/
+theorem exists_rChart (hφ : IsUniformization A Λ φ) (P₀ : CPt A.X) :
+    letI := classicalTopology A.X
+    ∃ c : RChart A.X g, P₀ ∈ c.e.source := by
+  letI := classicalTopology A.X
+  set v₀ := (φ.symm (Additive.ofMul P₀)).out
+  have hv₀ : proj Λ v₀ = φ.symm (Additive.ofMul P₀) := QuotientAddGroup.out_eq' _
+  have hP₀ : uPt φ v₀ = P₀ := by
+    show Additive.toMul (φ (proj Λ v₀)) = P₀
+    rw [hv₀, AddEquiv.apply_symm_apply]; rfl
+  obtain ⟨U, fA, e, hU0, hder⟩ := hφ.coords v₀
+  set O : Set (Fin g → ℂ) := {v | PtIn A (uPt φ v) U} with hOdef
+  have hO : IsOpen O := (hφ.holo U 0).1
+  set Gf : (Fin g → ℂ) → (Fin g → ℂ) := fun v i => evalAt A U (fA i) (uPt φ v) with hGf
+  have hGa : AnalyticOnNhd ℂ Gf O := fun v hv => AnalyticAt.pi fun i => (hφ.holo U (fA i)).2 v hv
+  have hGc : ContDiffOn ℂ ω Gf O := hGa.contDiffOn hO.uniqueDiffOn
+  have hn : (ω : WithTop ℕ∞) ≠ 0 := by simp
+  have hs : HasStrictFDerivAt Gf (e : (Fin g → ℂ) →L[ℂ] (Fin g → ℂ)) v₀ :=
+    (hGa v₀ hU0).contDiffAt.hasStrictFDerivAt' hder hn
+  set h := hs.toOpenPartialHomeomorph Gf with hhdef
+  have hcoe : (h : (Fin g → ℂ) → (Fin g → ℂ)) = Gf := hs.toOpenPartialHomeomorph_coe
+  set S : Set (Fin g → ℂ) := h.source ∩ (O ∩ {v | (fderiv ℂ Gf v).IsInvertible}) with hSdef
+  have hSo : IsOpen S := by
+    refine h.open_source.inter ?_
+    exact (hGc.continuousOn_fderiv_of_isOpen hO (by simp)).isOpen_inter_preimage hO
+      ContinuousLinearMap.isOpen_setOfPred_isInvertible
+  have hv₀S : v₀ ∈ S := ⟨hs.mem_toOpenPartialHomeomorph_source, hU0, ⟨e, hder.fderiv.symm⟩⟩
+  have hSh : S ⊆ h.source := inter_subset_left
+  have hΘ : ∀ v, (fun i => XevalAt A.X U (fA i) (uPt φ v)) = h v := by
+    intro v; rw [hcoe]; rfl
+  let E : OpenPartialHomeomorph (CPt A.X) (Fin g → ℂ) :=
+    { toFun := fun P i => XevalAt A.X U (fA i) P
+      invFun := fun w => uPt φ (h.symm w)
+      source := uPt φ '' S
+      target := h '' S
+      map_source' := by
+        rintro _ ⟨v, hv, rfl⟩
+        exact ⟨v, hv, (hΘ v).symm⟩
+      map_target' := by
+        rintro _ ⟨v, hv, rfl⟩
+        refine ⟨v, hv, ?_⟩
+        show uPt φ v = uPt φ (h.symm (h v))
+        rw [h.left_inv (hSh hv)]
+      left_inv' := by
+        rintro _ ⟨v, hv, rfl⟩
+        show uPt φ (h.symm (fun i => XevalAt A.X U (fA i) (uPt φ v))) = uPt φ v
+        rw [hΘ v, h.left_inv (hSh hv)]
+      right_inv' := by
+        rintro _ ⟨v, hv, rfl⟩
+        show (fun i => XevalAt A.X U (fA i) (uPt φ (h.symm (h v)))) = h v
+        rw [h.left_inv (hSh hv), hΘ v]
+      open_source := by
+        rw [uPt_image_eq]
+        exact (QuotientAddGroup.isOpenMap_coe _ hSo).preimage (continuous_symm hφ)
+      open_target := h.isOpen_image_of_subset_source hSo hSh
+      continuousOn_toFun := by
+        refine continuousOn_pi.mpr fun i => (continuousOn_xevalAt U (fA i)).mono ?_
+        rintro _ ⟨v, hv, rfl⟩
+        exact hv.2.1
+      continuousOn_invFun := by
+        refine (continuous_uPt hφ).comp_continuousOn (h.continuousOn_symm.mono ?_)
+        rintro _ ⟨v, hv, rfl⟩
+        exact h.map_source (hSh hv) }
+  refine ⟨⟨U, fA, E, ?_, fun Q _ => rfl, ?_⟩, ⟨v₀, hv₀S, hP₀⟩⟩
+  · rintro _ ⟨v, hv, rfl⟩
+    exact hv.2.1
+  · rintro W g₀ w ⟨v, hv, rfl⟩ hW
+    have hvL : h.symm (h v) = v := h.left_inv (hSh hv)
+    -- `h⁻¹` is analytic at `h v`
+    obtain ⟨e', he'⟩ := hv.2.2
+    have hL : ContDiffAt ℂ ω h.symm (h v) := by
+      refine h.contDiffAt_symm (f₀' := e') (h.map_source (hSh hv)) ?_ ?_
+      · rw [hvL, he', hcoe]
+        exact ((hGa v hv.2.1).differentiableAt).hasFDerivAt
+      · rw [hvL, hcoe]; exact (hGa v hv.2.1).contDiffAt
+    have hW' : PtIn A (uPt φ (h.symm (h v))) W := hW
+    have hg : ContDiffAt ℂ ω (fun v' => evalAt A W g₀ (uPt φ v')) (h.symm (h v)) :=
+      ((hφ.holo W g₀).2 _ hW').contDiffAt
+    exact hg.comp (h v) hL
+
+end Unif
+
 end GAGAAn
