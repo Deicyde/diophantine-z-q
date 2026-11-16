@@ -19,6 +19,8 @@ Released under Apache 2.0 license as described in the repository LICENSE.
 
 noncomputable section
 
+set_option linter.style.haveILetI false
+
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open scoped CategoryTheory.MonObj
 
@@ -77,7 +79,8 @@ theorem multiplication_finite (n : ℕ) (hnk : (n : k) ≠ 0) :
     have h := ((𝟙 A.X ^ n : A.X ⟶ A.X).left).etale_appLE hU hV e
     algebraize [(((𝟙 A.X ^ n : A.X ⟶ A.X).left).appLE U V e).hom]
     haveI : Algebra.Etale Γ(A.X.left, U) Γ(A.X.left, V) := h
-    exact inferInstance
+    change Algebra.QuasiFinite Γ(A.X.left, U) Γ(A.X.left, V)
+    infer_instance
   exact IsFinite.of_isProper_of_locallyQuasiFinite _
 
 /-- Over an algebraically closed field, the original `n`-torsion set is finite.
@@ -97,11 +100,20 @@ theorem finite_torsion [IsAlgClosed k] (n : ℕ) (hnk : (n : k) ≠ 0) :
       have hp : p.1 ≫ (𝟙 A.X ^ n : A.X ⟶ A.X) = 1 := by
         rw [MonObj.comp_pow, Category.comp_id]
         exact p.2
-      have hp' := congrArg (fun f : PkgI2.Pts A k => f.left s) hp
-      simpa [Hom.one_def, PkgI2.specOver, e] using hp'⟩
+      have hp' := congrArg (fun f : PkgI2.Pts A k => f.left) hp
+      change p.1.left ≫ (𝟙 A.X ^ n : A.X ⟶ A.X).left = (1 : PkgI2.Pts A k).left at hp'
+      have hpoint := congrArg (fun f : Spec (.of k) ⟶ A.X.left => f s) hp'
+      change (𝟙 A.X ^ n : A.X ⟶ A.X).left (p.1.left s) =
+        (1 : PkgI2.Pts A k).left s at hpoint
+      have hone : (1 : PkgI2.Pts A k).left s = e := by
+        simp [Hom.one_def, PkgI2.specOver, e]
+        rfl
+      exact hpoint.trans hone⟩
   exact Finite.of_injective F (fun p q hpq =>
     Subtype.ext (Over.OverMorphism.ext
-      (ext_of_apply_closedPoint_eq A.X.hom (Over.w p.1) (Over.w q.1)
+      (ext_of_apply_closedPoint_eq A.X.hom
+        (by simpa [PkgI2.specOver] using Over.w p.1)
+        (by simpa [PkgI2.specOver] using Over.w q.1)
         (congrArg Subtype.val hpq))))
 
 end ZInQ.Contrib.CloudB3W16Torsion
