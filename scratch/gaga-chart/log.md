@@ -29,3 +29,13 @@
 - ShimuraThm54 (hcm-g1): `IsAnalyticIso` = surjective hom, kernel L, Weierstrass coordinates holomorphic off L; no
   derivative/inverse clause, objects are Mathlib Weierstrass points (no analyticTopology/CPt). The chart restatement
   here does not apply verbatim (different objects, and no coords clause to feed the IFT). VERIFIED (read).
+
+## Contribution module v1 (11-16 04:15)
+- `ZInQKernel/Contrib/OneProof/GAGAChart.lean` (A.lean + docs): `lake build ZInQKernel.Contrib.OneProof.GAGAChart` OK.
+- `lake build ZInQKernel.OneProof.Main ZInQKernel.OneProof.Discharges` OK (12994 jobs);
+  `lake env lean scratch/gaga-chart/DischargesCheck.lean` → scratch/gaga-chart/discharges.txt. VERIFIED:
+  DISCHARGES [OpenTextbookLeaves11.gagaMorphism] by GAGAAn.gagaMorphism_of_chart
+    still assumes: [UniformizationLeafAll, SmoothComplexManifoldAn, GAGAAn.GAGAChart]; standard axioms
+  DISCHARGES [OpenTextbookLeaves11.gagaMorphism] by GAGAAn.gagaMorphism_of_chart_etale
+    still assumes: [UniformizationLeafAll, SGA1Etale.SGA1_XII_3_1_Etale, GAGAAn.GAGAChart]; standard axioms
+  #discharges: 63 open hypotheses, 1926 theorems checked, 13 discharge one
