@@ -22,20 +22,22 @@ import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
 set_option backward.isDefEq.respectTransparency false
 
+-- register P2M local namespaces opened before declaration (p2m_open semantics)
+namespace P2MW.S_AlgebraicGeometry_Scheme_Modules_pullbackTensorUnitObjIso_hom_app_pullbackLocalSection_unitSection.AlgebraicGeometry end P2MW.S_AlgebraicGeometry_Scheme_Modules_pullbackTensorUnitObjIso_hom_app_pullbackLocalSection_unitSection.AlgebraicGeometry
 namespace P2MW.S_AlgebraicGeometry_Scheme_Modules_pullbackTensorUnitObjIso_hom_app_pullbackLocalSection_unitSection
 
 set_option autoImplicit false
 set_option backward.isDefEq.respectTransparency false
 
 universe u
-open CategoryTheory
-open CategoryTheory.MonoidalCategory
-open AlgebraicGeometry
--- Source-local namespace open deferred until its declaration.
-open Opposite
-open TensorProduct
-open CategoryTheory.Functor.LaxMonoidal
-open CategoryTheory.Functor.OplaxMonoidal
+open _root_.CategoryTheory
+open _root_.CategoryTheory.MonoidalCategory
+open _root_.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_pullbackTensorUnitObjIso_hom_app_pullbackLocalSection_unitSection.AlgebraicGeometry  -- restored P2M scope (namespace registered above)
+open _root_.Opposite
+open _root_.TensorProduct
+open _root_.CategoryTheory.Functor.LaxMonoidal
+open _root_.CategoryTheory.Functor.OplaxMonoidal
 
 noncomputable section
 
@@ -45,9 +47,9 @@ namespace Scheme
 export _root_.AlgebraicGeometry.Scheme (Modules.Hom.app_smul ringCatSheaf Modules.pullback Hom.id_app Hom Γ Modules.Hom.comp_app Hom.app Modules.Hom Modules.Hom.id_app Modules.Hom.app Hom.comp_app Modules Opens grothendieckTopology PresheafOfModules Modules.sheafify Modules.pullbackTensorUnitObjIso Modules.tensorSections Modules.unitSection Modules.pullbackLocalSection Modules.sheafify_mu_app_tensorSections)
 namespace Modules
 export _root_.AlgebraicGeometry.Scheme.Modules (Hom.app_smul pullback presheaf Hom.comp_app Hom Hom.id_app Hom.app pullbackPushforwardAdjunction tensor sheafify pullback₀ pullbackTensorUnitObjIso tensorSections unitSection pullbackLocalSection pullbackLocalSection_smul pullbackLocalSection_app sheafify_mu_app_tensorSections)
-open AlgebraicGeometry.Scheme.Modules
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
 
 namespace PullbackTensorSections
 
@@ -127,7 +129,9 @@ lemma pb₀_δ_eq (P Q : Y.PresheafOfModules) :
 lemma pb₀_δ_app_pb₀Section_tmul (P Q : Y.PresheafOfModules) (V : Y.Opens) (x : P.obj (op V)) (y : Q.obj (op V)) :
     (δ (pullback₀ f) P Q).app (op (f ⁻¹ᵁ V)) (pb₀Section f (P ⊗ Q) V (x ⊗ₜ[Γ(Y, V)] y)) =
       (pb₀Section f P V x ⊗ₜ[Γ(X, f ⁻¹ᵁ V)] pb₀Section f Q V y :
-        (((pullback₀ f).obj P).obj (op (f ⁻¹ᵁ V)) ⊗ ((pullback₀ f).obj Q).obj (op (f ⁻¹ᵁ V)) :)) := by
+        -- Lean 4.35 adaptation: the ring of the source's `A ⊗ B` (TensorProduct notation) is no longer
+        -- inferred from the `⊗ₜ[Γ(X, f ⁻¹ᵁ V)]` term; it is written explicitly (same type).
+        (((pullback₀ f).obj P).obj (op (f ⁻¹ᵁ V)) ⊗[Γ(X, f ⁻¹ᵁ V)] ((pullback₀ f).obj Q).obj (op (f ⁻¹ᵁ V)) :)) := by
   rw [pb₀_δ_eq]
   refine (homEquiv_symm_app_pb₀Section f
     (((adj₀ f).unit.app P ⊗ₘ (adj₀ f).unit.app Q) ≫ μ (pf f) _ _) V (x ⊗ₜ[Γ(Y, V)] y)).trans ?_

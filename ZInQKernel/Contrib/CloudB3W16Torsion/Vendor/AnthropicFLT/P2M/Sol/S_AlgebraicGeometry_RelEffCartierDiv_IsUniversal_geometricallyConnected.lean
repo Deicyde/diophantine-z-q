@@ -34,7 +34,9 @@ namespace AlgebraicGeometry
 export _root_.AlgebraicGeometry (SmoothOfRelativeDimension.smooth SmoothOfRelativeDimension geometrically_iff_of_isClosedUnderIsomorphisms GeometricallyConnected.comp Scheme Smooth UniversallyOpen IsSeparated GeometricallyConnected geometrically RelEffCartierDiv.IsUniversal RelEffCartierDiv fibrePowOver fibrePowOver.toBase RelEffCartierDiv.IsUniversal.exists_sumMap GeometricallyConnected.of_comp_of_surjective)
 open AlgebraicGeometry
 
-namespace GeometricallyConnected p2m_export "AlgebraicGeometry.GeometricallyConnected" "comp of_comp_of_surjective" end GeometricallyConnected
+namespace GeometricallyConnected
+export _root_.AlgebraicGeometry.GeometricallyConnected (comp of_comp_of_surjective)
+end GeometricallyConnected
 open scoped AlgebraicGeometry.GeometricallyConnected in
 theorem GeometricallyConnected.id (X : Scheme.{u}) : GeometricallyConnected (𝟙 X) := by
   refine ⟨geometrically_iff_of_isClosedUnderIsomorphisms.mpr fun K _ k ↦ ?_⟩
