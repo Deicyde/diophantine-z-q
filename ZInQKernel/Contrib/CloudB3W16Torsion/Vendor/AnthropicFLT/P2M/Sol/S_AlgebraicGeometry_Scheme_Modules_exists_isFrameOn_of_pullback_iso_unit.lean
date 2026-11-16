@@ -14,26 +14,28 @@ import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
 set_option backward.isDefEq.respectTransparency false
 
+-- register P2M local namespaces opened before declaration (p2m_open semantics)
+namespace P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_isFrameOn_of_pullback_iso_unit.AlgebraicGeometry end P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_isFrameOn_of_pullback_iso_unit.AlgebraicGeometry
 namespace P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_isFrameOn_of_pullback_iso_unit
 
 universe u
-open CategoryTheory
-open CategoryTheory.MonoidalCategory
-open AlgebraicGeometry
--- Source-local namespace open deferred until its declaration.
+open _root_.CategoryTheory
+open _root_.CategoryTheory.MonoidalCategory
+open _root_.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_isFrameOn_of_pullback_iso_unit.AlgebraicGeometry  -- restored P2M scope (namespace registered above)
 
 set_option autoImplicit false
 set_option backward.isDefEq.respectTransparency false
-open CategoryTheory
-open CategoryTheory.MonoidalCategory
-open CategoryTheory.Limits
-open CategoryTheory.MonoidalCategory.Limits
+open _root_.CategoryTheory
+open _root_.CategoryTheory.MonoidalCategory
+open _root_.CategoryTheory.Limits
+open _root_.CategoryTheory.MonoidalCategory.Limits
 
 noncomputable section
 
 namespace PresheafOfModules
 export _root_.PresheafOfModules (presheaf sections pullback naturality_apply pushforward map map_comp_apply Hom unit free restriction obj InternalHom.map_id_apply)
-open PresheafOfModules
+open _root_.PresheafOfModules
 
 namespace FrameBridge
 
@@ -58,9 +60,9 @@ namespace Scheme
 export _root_.AlgebraicGeometry.Scheme (ringCatSheaf Modules.pullback Hom Γ Opens.ι_appIso Hom.image_preimage_eq_opensRange_inf Modules.restrictFunctor restrictFunctor Modules Opens grothendieckTopology Opens.opensRange_ι PresheafOfModules Modules.IsFrameOn)
 namespace Modules
 export _root_.AlgebraicGeometry.Scheme.Modules (pushforward pullback presheaf Hom restrictFunctor restrictFunctorIsoPullback map_smul IsInvertible IsFrameOn)
-open AlgebraicGeometry.Scheme.Modules
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
 
 namespace FrameBridge
 
@@ -129,7 +131,10 @@ omit e in
 
 lemma bijective_smul_map_eqToHom {A B : X.Opens} (q : A = B) (t : L.val.obj (op A))
     (h : Function.Bijective (fun b : Γ(X, A) => b • t)) :
-    Function.Bijective (fun a : Γ(X, B) => a • L.val.map (eqToHom q.symm : B ⟶ A).op t) := by
+    -- Lean 4.35 Mathlib adaptation: `L.val.map f t` now lands in a `restrictScalars` carrier, so the
+    -- source's `a • _` needs the (definitionally equal) type `L.val.obj (op B)` stated explicitly.
+    Function.Bijective (fun a : Γ(X, B) =>
+      a • (show L.val.obj (op B) from L.val.map (eqToHom q.symm : B ⟶ A).op t)) := by
   subst q
   have e1 : L.val.map (eqToHom (rfl : A = A) : A ⟶ A).op t = t := by
     rw [eqToHom_refl, op_id]

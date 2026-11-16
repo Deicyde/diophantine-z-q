@@ -17,13 +17,15 @@ import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
 set_option backward.isDefEq.respectTransparency false
 
+-- register P2M local namespaces opened before declaration (p2m_open semantics)
+namespace P2MW.S_AlgebraicGeometry_Scheme_Modules_leftUnitor_hom_app_tensorSections.AlgebraicGeometry end P2MW.S_AlgebraicGeometry_Scheme_Modules_leftUnitor_hom_app_tensorSections.AlgebraicGeometry
 namespace P2MW.S_AlgebraicGeometry_Scheme_Modules_leftUnitor_hom_app_tensorSections
 
 universe u
-open CategoryTheory
-open CategoryTheory.MonoidalCategory
-open AlgebraicGeometry
--- Source-local namespace open deferred until its declaration.
+open _root_.CategoryTheory
+open _root_.CategoryTheory.MonoidalCategory
+open _root_.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_leftUnitor_hom_app_tensorSections.AlgebraicGeometry  -- restored P2M scope (namespace registered above)
 
 set_option autoImplicit false
 set_option backward.isDefEq.respectTransparency false
@@ -36,9 +38,9 @@ namespace Scheme
 export _root_.AlgebraicGeometry.Scheme (ringCatSheaf Γ Modules Opens PresheafOfModules Modules.sheafify Modules.tensorSections)
 namespace Modules
 export _root_.AlgebraicGeometry.Scheme.Modules (sheafify tensorSections)
-open AlgebraicGeometry.Scheme.Modules
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
 
 namespace UnitorSections
 
@@ -72,7 +74,9 @@ lemma unitTensorIso_hom_comp_leftUnitor_hom :
       (Modules.sheafify X).map (λ_ ((ι X).obj N)).hom ≫ (adj X).counit.app N := by
   dsimp only [unitTensorIso, Iso.trans_hom, Iso.symm_hom, Iso.app_hom, asIso_hom,
     MonoidalCategory.tensorIso_hom, Iso.symm_inv]
-  rw [MonoidalCategory.tensorIso_hom, Iso.app_hom, asIso_hom, Iso.symm_hom]
+  -- Lean 4.35 adaptation: the `dsimp only` above already unfolds `tensorIso_hom`, so the source's
+  -- `rw [MonoidalCategory.tensorIso_hom, Iso.app_hom, asIso_hom, Iso.symm_hom]` finds no pattern.
+  try simp only [MonoidalCategory.tensorIso_hom, Iso.app_hom, asIso_hom, Iso.symm_hom]
   rw [Functor.Monoidal.μIso_inv, Functor.Monoidal.εIso_inv, Functor.Monoidal.map_leftUnitor,
     MonoidalCategory.tensorHom_def]
   simp only [Category.assoc]

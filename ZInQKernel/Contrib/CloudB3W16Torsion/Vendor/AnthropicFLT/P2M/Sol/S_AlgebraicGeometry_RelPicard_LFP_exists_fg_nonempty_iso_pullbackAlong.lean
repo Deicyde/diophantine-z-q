@@ -30,20 +30,23 @@ import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
 set_option backward.isDefEq.respectTransparency false
 
+-- register P2M local namespaces opened before declaration (p2m_open semantics)
+namespace P2MW.S_AlgebraicGeometry_RelPicard_LFP_exists_fg_nonempty_iso_pullbackAlong.AlgebraicGeometry end P2MW.S_AlgebraicGeometry_RelPicard_LFP_exists_fg_nonempty_iso_pullbackAlong.AlgebraicGeometry
+namespace P2MW.S_AlgebraicGeometry_RelPicard_LFP_exists_fg_nonempty_iso_pullbackAlong.AlgebraicGeometry.RelPicard end P2MW.S_AlgebraicGeometry_RelPicard_LFP_exists_fg_nonempty_iso_pullbackAlong.AlgebraicGeometry.RelPicard
 namespace P2MW.S_AlgebraicGeometry_RelPicard_LFP_exists_fg_nonempty_iso_pullbackAlong
 
 set_option autoImplicit false
 
 universe u v w
-open CategoryTheory
-open CategoryTheory.Limits
-open Opposite
-open AlgebraicGeometry
--- Source-local namespace open deferred until its declaration.
-open AlgebraicGeometry.RelPicard
-open P2MW.S_AlgebraicGeometry_RelPicard_LFP_exists_fg_nonempty_iso_pullbackAlong.AlgebraicGeometry.RelPicard
-open NeronModelInfra
-open TensorProduct
+open _root_.CategoryTheory
+open _root_.CategoryTheory.Limits
+open _root_.Opposite
+open _root_.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_RelPicard_LFP_exists_fg_nonempty_iso_pullbackAlong.AlgebraicGeometry  -- restored P2M scope (namespace registered above)
+open _root_.AlgebraicGeometry.RelPicard
+open _root_.P2MW.S_AlgebraicGeometry_RelPicard_LFP_exists_fg_nonempty_iso_pullbackAlong.AlgebraicGeometry.RelPicard
+open _root_.NeronModelInfra
+open _root_.TensorProduct
 
 namespace AlgebraicGeometry
 export _root_.AlgebraicGeometry (Scheme.Hom.map_appLE Scheme.Modules.pullback Scheme.Hom Scheme.Hom.appLE_comp_appLE Spec Scheme Scheme.Hom.naturality Scheme.Modules Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE RelPicard.baseChangeSnd Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap FGSubalgebra RelPicard.LFP.stageHom)
@@ -51,9 +54,9 @@ namespace RelPicard
 export _root_.AlgebraicGeometry.RelPicard (baseChangeSnd RigidifiedLineBundle LFP.stageHom RigidifiedLineBundle.ofInvertible RigidifiedLineBundle.nonempty_ofInvertible_iso_of_iso RigidifiedLineBundle.nonempty_ofInvertible_iso_of_rigidified RigidifiedLineBundle.nonempty_ofInvertible_pullbackAlong_iso)
 namespace LFP
 export _root_.AlgebraicGeometry.RelPicard.LFP (stageHom)
-open AlgebraicGeometry.RelPicard.LFP
-open AlgebraicGeometry.RelPicard
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.RelPicard.LFP
+open _root_.AlgebraicGeometry.RelPicard
+open _root_.AlgebraicGeometry
 
 section ActR
 
@@ -640,9 +643,9 @@ namespace RelPicard
 export _root_.AlgebraicGeometry.RelPicard (baseChangeSnd RigidifiedLineBundle LFP.stageHom RigidifiedLineBundle.ofInvertible RigidifiedLineBundle.nonempty_ofInvertible_iso_of_iso RigidifiedLineBundle.nonempty_ofInvertible_iso_of_rigidified RigidifiedLineBundle.nonempty_ofInvertible_pullbackAlong_iso)
 namespace LFP
 export _root_.AlgebraicGeometry.RelPicard.LFP (stageHom)
-open AlgebraicGeometry.RelPicard.LFP
-open AlgebraicGeometry.RelPicard
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.RelPicard.LFP
+open _root_.AlgebraicGeometry.RelPicard
+open _root_.AlgebraicGeometry
 
 section Vertex
 
@@ -688,25 +691,29 @@ end AlgebraicGeometry.RelPicard.LFP
 
 namespace AlgebraicGeometry
 export _root_.AlgebraicGeometry (Scheme.Hom.map_appLE Scheme.Modules.pullback Scheme.Hom Scheme.Hom.appLE_comp_appLE Spec Scheme Scheme.Hom.naturality Scheme.Modules Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE RelPicard.baseChangeSnd Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap FGSubalgebra RelPicard.LFP.stageHom)
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry
 
 open CategoryTheory Opposite
 
-namespace Scheme p2m_export "AlgebraicGeometry.Scheme" "Hom.map_appLE Modules.pullback Hom mk Hom.appLE_comp_appLE Γ Hom.naturality Modules Opens Hom.appLE_map Hom.app_eq_appLE Cover TwoAffineOpenCover TwoAffineOpenCover.specMap" namespace Hom p2m_export "AlgebraicGeometry.Scheme.Hom" "map_appLE image appLE_comp_appLE app injective surjective mk naturality cover appLE_map app_eq_appLE comp_apply appLE finrank" end Scheme.Hom
-open scoped AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.Hom in
+namespace Scheme
+export _root_.AlgebraicGeometry.Scheme (Hom.map_appLE Modules.pullback Hom mk Hom.appLE_comp_appLE Γ Hom.naturality Modules Opens Hom.appLE_map Hom.app_eq_appLE Cover TwoAffineOpenCover TwoAffineOpenCover.specMap)
+namespace Hom
+export _root_.AlgebraicGeometry.Scheme.Hom (map_appLE image appLE_comp_appLE app injective surjective mk naturality cover appLE_map app_eq_appLE comp_apply appLE finrank)
+end Scheme.Hom
+open scoped _root_.AlgebraicGeometry.Scheme _root_.AlgebraicGeometry.Scheme.Hom in
 theorem Scheme.Hom.appLE_app_apply_of_comp_eq {X Y Z : Scheme.{u}} (f : X ⟶ Y) (g : Y ⟶ Z) (k : X ⟶ Z)
     (h : f ≫ g = k) (U : Z.Opens) (V : X.Opens) (e : V ≤ f ⁻¹ᵁ (g ⁻¹ᵁ U))
     (s : Γ(Z, U)) : (f.appLE (g ⁻¹ᵁ U) V e).hom ((g.app U).hom s) = (k.appLE U V (by subst h; exact e)).hom s := by
   subst h
   rw [← CategoryTheory.ConcreteCategory.comp_apply, Scheme.Hom.app_eq_appLE, Scheme.Hom.appLE_comp_appLE]
-open scoped AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.Hom in
+open scoped _root_.AlgebraicGeometry.Scheme _root_.AlgebraicGeometry.Scheme.Hom in
 theorem Scheme.Hom.appLE_apply_map {X Y : Scheme.{u}} (f : X ⟶ Y) {U U' : Y.Opens} {V V' : X.Opens}
     (e : V ≤ f ⁻¹ᵁ U) (e' : V' ≤ f ⁻¹ᵁ U') (hU : U' ≤ U) (hV : V' ≤ V) (s : Γ(Y, U)) :
     (f.appLE U' V' e').hom ((Y.presheaf.map (homOfLE hU).op).hom s) =
       (X.presheaf.map (homOfLE hV).op).hom ((f.appLE U V e).hom s) := by
   rw [← CategoryTheory.ConcreteCategory.comp_apply, ← CategoryTheory.ConcreteCategory.comp_apply,
     Scheme.Hom.map_appLE, Scheme.Hom.appLE_map]
-open scoped AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.Hom in
+open scoped _root_.AlgebraicGeometry.Scheme _root_.AlgebraicGeometry.Scheme.Hom in
 theorem Scheme.Hom.app_apply_map {X Y : Scheme.{u}} (f : X ⟶ Y) {U U' : Y.Opens} (hU : U' ≤ U) (s : Γ(Y, U)) :
     (f.app U').hom ((Y.presheaf.map (homOfLE hU).op).hom s) =
       (X.presheaf.map (homOfLE (show f ⁻¹ᵁ U' ≤ f ⁻¹ᵁ U from fun _ hx => hU hx)).op).hom ((f.app U).hom s) := by
@@ -722,12 +729,12 @@ namespace RelPicard
 export _root_.AlgebraicGeometry.RelPicard (baseChangeSnd RigidifiedLineBundle LFP.stageHom RigidifiedLineBundle.ofInvertible RigidifiedLineBundle.nonempty_ofInvertible_iso_of_iso RigidifiedLineBundle.nonempty_ofInvertible_iso_of_rigidified RigidifiedLineBundle.nonempty_ofInvertible_pullbackAlong_iso)
 namespace LFP
 export _root_.AlgebraicGeometry.RelPicard.LFP (stageHom)
-open AlgebraicGeometry.RelPicard.LFP
-open AlgebraicGeometry.RelPicard
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.RelPicard.LFP
+open _root_.AlgebraicGeometry.RelPicard
+open _root_.AlgebraicGeometry
 
 section VertexGeo
-open AlgebraicGeometry.FGSubalgebra
+open _root_.AlgebraicGeometry.FGSubalgebra
 
 variable (R : Type u) [CommRing R] (A : Type u) [CommRing A] [Algebra R A]
   (Γ : Type u) [CommRing Γ] [Algebra R Γ]
@@ -779,7 +786,7 @@ end VertexGeo
 
 section AbstractSurj
 open TwoChartCech
-open AlgebraicGeometry.FGSubalgebra
+open _root_.AlgebraicGeometry.FGSubalgebra
 
 set_option maxHeartbeats 48000000 in
 set_option synthInstance.maxHeartbeats 1600000 in
@@ -1213,7 +1220,7 @@ theorem exists_fg_gluingData
 end AbstractSurj
 
 section GeoDict
-open AlgebraicGeometry.Scheme.TwoAffineOpenCover
+open _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover
 open TwoChartCech
 
 variable {R : Type u} [CommRing R] {C : Scheme.{u}} (𝒱 : C.TwoAffineOpenCover) (c : C ⟶ Spec (.of R))
@@ -1368,9 +1375,9 @@ theorem φU01_present
 end GeoDict
 
 section Final
-open AlgebraicGeometry.Scheme.TwoAffineOpenCover
+open _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover
 open TwoChartCech
-open AlgebraicGeometry.FGSubalgebra
+open _root_.AlgebraicGeometry.FGSubalgebra
 
 set_option maxHeartbeats 6400000 in
 set_option synthInstance.maxHeartbeats 800000 in
