@@ -1,0 +1,1696 @@
+{
+ "upstream": "anthropics/fermats-last-theorem",
+ "commit": "6e837e75355538c7f80bab5b956861e86c4eacc2",
+ "license": "Apache-2.0",
+ "root": "Theorems.Thm_PDivisibleGroup_exists_basis_padicComplex_tateModule_eq_cyclotomicCharacter_pow_smul_of_hasDimension_of_ringOfIntegers",
+ "reused_from_main": [
+  "ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.Definitions.Def_EllipticCurve_FrobeniusTrace",
+  "ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.Definitions.Def_FLTPrelim_FreyPackage",
+  "ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.Definitions.Def_FLTPrelim_GaloisRep",
+  "ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.Definitions.Def_FLTPrelim_Ramification"
+ ],
+ "dropped": [
+  "P2M.Util (elaborators; replaced by standard commands/explicit terms)"
+ ],
+ "modules": [
+  {
+   "module": "Definitions.Def_EllipticCurve_TateModule",
+   "upstream_path": "Definitions/Def_EllipticCurve_TateModule.lean",
+   "upstream_sha256": "5fa554207e5df8299b16b82260a210e05c7c43e598dcd456e45d63241d6aeb0b",
+   "upstream_git_blob": "3f226de7d84dc1c7520f28527f63f2edd5d85eb1",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Definitions/Def_EllipticCurve_TateModule.lean",
+   "local_sha256": "6da6ad70dd3271c06d9c2e9e5cc1a9cfe69a300c007dca3cfcc7de9f4129d43f"
+  },
+  {
+   "module": "Definitions.Def_FLTPrelim_Modularity",
+   "upstream_path": "Definitions/Def_FLTPrelim_Modularity.lean",
+   "upstream_sha256": "5a68b3d1fd8bcb1fcd56c254cb84983ace76ba53a9c437a208350ce3e8cabe02",
+   "upstream_git_blob": "9f2ad60d351dbc01aba577f418e2642524c7b997",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Definitions/Def_FLTPrelim_Modularity.lean",
+   "local_sha256": "bd39befc90f4849faddd214c20dc81486f7aadfec29bc3b57d5c4d70fe9b05cd"
+  },
+  {
+   "module": "Definitions.Def_FiniteFlat_SchematicClosure",
+   "upstream_path": "Definitions/Def_FiniteFlat_SchematicClosure.lean",
+   "upstream_sha256": "d1130f296c9ff4225624599ed38ed860797b3017b09a71398d6bb9d2a5c71745",
+   "upstream_git_blob": "2932d3ed138b34640cd990a7bba3a79ed05a4549",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Definitions/Def_FiniteFlat_SchematicClosure.lean",
+   "local_sha256": "d0039c946270ee52b59d50359bc86a2a9eb1a8a1991b21236d934b8289c6d15c"
+  },
+  {
+   "module": "Definitions.Def_GaloisRep_Adic",
+   "upstream_path": "Definitions/Def_GaloisRep_Adic.lean",
+   "upstream_sha256": "7aafea250f807eafc26c3c64e7c61ae3b53ee5a213520ed9010bc62c97845898",
+   "upstream_git_blob": "04a2edd4d23c749b02162be1265770ade332b39f",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Definitions/Def_GaloisRep_Adic.lean",
+   "local_sha256": "65f9ec6eb95efe68e8784a2a724f369d6e9d69715dacaef88f0185b54e34a82d"
+  },
+  {
+   "module": "Definitions.Def_GaloisRep_CompletionBridge",
+   "upstream_path": "Definitions/Def_GaloisRep_CompletionBridge.lean",
+   "upstream_sha256": "e530d7b3800be6f07e26a0f7c81f8b3d71caf98a8b4d068851b2e0945ec506d6",
+   "upstream_git_blob": "63ed2c006f2bfbd32117fcac2454cf99549c1582",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Definitions/Def_GaloisRep_CompletionBridge.lean",
+   "local_sha256": "6614483a64c310df58f79eba860cfc31ed43a6a49b8b314fe01aedab8007ce5d"
+  },
+  {
+   "module": "Definitions.Def_GaloisRep_Residual",
+   "upstream_path": "Definitions/Def_GaloisRep_Residual.lean",
+   "upstream_sha256": "cd335782f0b607066bf114f70f892db500c06d52dffd2b19827490c513e02537",
+   "upstream_git_blob": "9cdbdf68671901e15cedaf03663683d056992b91",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Definitions/Def_GaloisRep_Residual.lean",
+   "local_sha256": "54556d75d48e91ebb9ed957c7767fd5e4186e03a3fdba3d80a9dc1eb8c9e5932"
+  },
+  {
+   "module": "Definitions.Def_GaloisRep_ResidualEquiv",
+   "upstream_path": "Definitions/Def_GaloisRep_ResidualEquiv.lean",
+   "upstream_sha256": "af92fde8af42e9f71257b28bf620b8e152bf2527b01a45cd028ccda762a0fd99",
+   "upstream_git_blob": "2d2423093199ebdc84f73674b396d00984f89b4c",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Definitions/Def_GaloisRep_ResidualEquiv.lean",
+   "local_sha256": "11bbaac3f88e33c69d6bb2348d07388f6abbe315be07dd79adf52f6f5ee68557"
+  },
+  {
+   "module": "Definitions.Def_HopfAlgebra_CartierDual",
+   "upstream_path": "Definitions/Def_HopfAlgebra_CartierDual.lean",
+   "upstream_sha256": "22800df78ba5d4edd65eaa0072a17604558346f895f3e92dee44be1049f9fa32",
+   "upstream_git_blob": "da4378988e315f010bd13ac01d8b4e9c2e25a250",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Definitions/Def_HopfAlgebra_CartierDual.lean",
+   "local_sha256": "8bb0155b1b84f3748204bd8319cc96b6004d7c8f4dd08099e4c8956d0358d03c"
+  },
+  {
+   "module": "Definitions.Def_HopfAlgebra_CartierDualInstances",
+   "upstream_path": "Definitions/Def_HopfAlgebra_CartierDualInstances.lean",
+   "upstream_sha256": "a2fba13a986f99b845862678b44d5c32e2789d27513570b8adc17258cf61975c",
+   "upstream_git_blob": "d93f0f9bb91447baa024da46aeb2467cf9416990",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Definitions/Def_HopfAlgebra_CartierDualInstances.lean",
+   "local_sha256": "f2b2c02560dbabc07a8fd4450f0d3803fd065ba747e5d4c2b826a33df962017b"
+  },
+  {
+   "module": "Definitions.Def_HopfAlgebra_CartierDualMap",
+   "upstream_path": "Definitions/Def_HopfAlgebra_CartierDualMap.lean",
+   "upstream_sha256": "1ac5040a68ec70ca874548b277ca7c933bc529cb0e3c52c4b5c89d17ea64bb72",
+   "upstream_git_blob": "fd2f611860c687bca17da78dfe4975121fbedcc9",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Definitions/Def_HopfAlgebra_CartierDualMap.lean",
+   "local_sha256": "5bff39fb26c9efaf247a0555a7f2669d2201852e6d6f5006b34674977058354a"
+  },
+  {
+   "module": "Definitions.Def_HopfAlgebra_CharacterClosure",
+   "upstream_path": "Definitions/Def_HopfAlgebra_CharacterClosure.lean",
+   "upstream_sha256": "71b90e98347d203919a17bc9042213f9dc6f23f9148665ded37206c7b7d5ab69",
+   "upstream_git_blob": "48e3cdafa4719d944634bce8bff03019089a46a8",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Definitions/Def_HopfAlgebra_CharacterClosure.lean",
+   "local_sha256": "605d05b95fbe60659dedab5955c565bc97d4294487d2518c1c38291efa789fca"
+  },
+  {
+   "module": "Definitions.Def_HopfAlgebra_HopfKer",
+   "upstream_path": "Definitions/Def_HopfAlgebra_HopfKer.lean",
+   "upstream_sha256": "97ebc95aa2b649956109cf34f165825d0c4613522c8c88a365f13b914727121d",
+   "upstream_git_blob": "59074fa6829492e2536459143c32751cebff4bfc",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Definitions/Def_HopfAlgebra_HopfKer.lean",
+   "local_sha256": "e14e56ead5961b05a8464feab9eff9cf3cb00650aa6bb6fb250db590be4dae23"
+  },
+  {
+   "module": "Definitions.Def_HopfAlgebra_HopfKerHopf",
+   "upstream_path": "Definitions/Def_HopfAlgebra_HopfKerHopf.lean",
+   "upstream_sha256": "4f27418c5f0ccb68de9bb7150b61154d9bb7c50ccf8c0fc8eece0b3895eaf6b1",
+   "upstream_git_blob": "bfda04bcac7442d17085309f4cc48bd32f50e08d",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Definitions/Def_HopfAlgebra_HopfKerHopf.lean",
+   "local_sha256": "46612bec52fcb2931fc1edb3a285ea95bf157a38396be87dd4815f04e8c1f577"
+  },
+  {
+   "module": "Definitions.Def_PDivisibleGroup_BaseChange",
+   "upstream_path": "Definitions/Def_PDivisibleGroup_BaseChange.lean",
+   "upstream_sha256": "3af08c2b7e3dfe0d9e842a14adb5c34f4230949107ae18d105b1252b3c5f63a1",
+   "upstream_git_blob": "3c02577c61552af3bb09c152e11a1252b92a545f",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Definitions/Def_PDivisibleGroup_BaseChange.lean",
+   "local_sha256": "c48a8cb78f8bbed8241587b97c938fce6c0738a60c15fae8be1bd61e290c0042"
+  },
+  {
+   "module": "Definitions.Def_PDivisibleGroup_Basic",
+   "upstream_path": "Definitions/Def_PDivisibleGroup_Basic.lean",
+   "upstream_sha256": "a4b330fbef79f6dc9fc85dce500e0012b06d5bf592bd1cb41781f467c02bf84b",
+   "upstream_git_blob": "0b7f317f122637f3cb9fa6fc095a2d456a561575",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Definitions/Def_PDivisibleGroup_Basic.lean",
+   "local_sha256": "3ab88e7ef089b47fe91356c2481701d7ada759b102c462703a87cce828eeccea"
+  },
+  {
+   "module": "Definitions.Def_PDivisibleGroup_CartierDuality",
+   "upstream_path": "Definitions/Def_PDivisibleGroup_CartierDuality.lean",
+   "upstream_sha256": "fdec5ca8acf58532b9990b625ad3ab55407e3348f79ae287c71061710a6cca20",
+   "upstream_git_blob": "a7b02b1b06a702bcd628df8d392957182ecc72ed",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Definitions/Def_PDivisibleGroup_CartierDuality.lean",
+   "local_sha256": "67c66e66de8e39b643e9e398026d315bde93addf3142cf2815daab05ed3150ec"
+  },
+  {
+   "module": "Definitions.Def_PDivisibleGroup_CharacterDifferential",
+   "upstream_path": "Definitions/Def_PDivisibleGroup_CharacterDifferential.lean",
+   "upstream_sha256": "a59022ed20e29c86187f0be251dca415387c75522351ca54a1a727b9a993e782",
+   "upstream_git_blob": "5de2cd20b8dc8b8a17fa7d85cacc316163d77e27",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Definitions/Def_PDivisibleGroup_CharacterDifferential.lean",
+   "local_sha256": "047861a1b03207ae26aaadd6798330acdb4ff178070abb2b284ed8459eb4a0c9"
+  },
+  {
+   "module": "Definitions.Def_PDivisibleGroup_CompletedPoints",
+   "upstream_path": "Definitions/Def_PDivisibleGroup_CompletedPoints.lean",
+   "upstream_sha256": "3b00cc10fd97dcaef70c44d923e8a3a21fd7b96e0bfe3aec8f70ac32b650c879",
+   "upstream_git_blob": "d05e01940c1ed06e24fc6a77cf5aeb6f54d46161",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Definitions/Def_PDivisibleGroup_CompletedPoints.lean",
+   "local_sha256": "9fab29a0a61b4f9ddbc9b87a5f994b166ad2fcf16e2bac678fbab5e2f7baa7f4"
+  },
+  {
+   "module": "Definitions.Def_PDivisibleGroup_Dimension",
+   "upstream_path": "Definitions/Def_PDivisibleGroup_Dimension.lean",
+   "upstream_sha256": "b00745714ab9cb023ebce13783c5a9f88712381f824f7ed33be4b142cc01916f",
+   "upstream_git_blob": "96af30c391e7936df09b7a9b6712eb877a8e8069",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Definitions/Def_PDivisibleGroup_Dimension.lean",
+   "local_sha256": "34be33b9f1a6eab28ee7c7727dc08173612d84389bf20491372d466b01297fcd"
+  },
+  {
+   "module": "Definitions.Def_PDivisibleGroup_Points",
+   "upstream_path": "Definitions/Def_PDivisibleGroup_Points.lean",
+   "upstream_sha256": "fabda6eec2f15e46f193db1b08c67f361a993826a3ee1b8653289f13e2e099ae",
+   "upstream_git_blob": "7ecc8ae63504490013700b300319575c6f570767",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Definitions/Def_PDivisibleGroup_Points.lean",
+   "local_sha256": "7347793ff2c3c95b762d746e0ac2df8049548bdb6a45d53fa267e6668ebf69f2"
+  },
+  {
+   "module": "Definitions.Def_PDivisibleGroup_PrimaryTorsion",
+   "upstream_path": "Definitions/Def_PDivisibleGroup_PrimaryTorsion.lean",
+   "upstream_sha256": "4c9a9c6aca5d821a4052b6a4bdd878c063de171c6d93901ac549b4804e2ae998",
+   "upstream_git_blob": "2808182a1a3ad0c2573687854680923d7af0c39f",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Definitions/Def_PDivisibleGroup_PrimaryTorsion.lean",
+   "local_sha256": "f4e102929c290e2135ad7f6348553097ab319a99731a1a435b2c69ce8696255f"
+  },
+  {
+   "module": "Definitions.Def_PadicAlgCl_RingOfIntegers",
+   "upstream_path": "Definitions/Def_PadicAlgCl_RingOfIntegers.lean",
+   "upstream_sha256": "5efafe3dcc32972db41070708e9f51ab255a4e899510969d732e997a2e6825ed",
+   "upstream_git_blob": "d9110a2d4ed9719f12b1f6b276bd1af2ac621f8f",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Definitions/Def_PadicAlgCl_RingOfIntegers.lean",
+   "local_sha256": "77369a08e8726a169b164c4d36c94c79fe867367148e1671dd7e716010ace022"
+  },
+  {
+   "module": "P2M.Sol.S_Algebra_Etale_eq_of_forall_algHom_apply_eq",
+   "upstream_path": "P2M/Sol/S_Algebra_Etale_eq_of_forall_algHom_apply_eq.lean",
+   "upstream_sha256": "d0131c323222cf800a3bd739930cfce09c7f3c0f71a84448753defc57753fff4",
+   "upstream_git_blob": "e92f5eb6eb6dab8de6dd39d711bcfe72183410ac",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_Algebra_Etale_eq_of_forall_algHom_apply_eq.lean",
+   "local_sha256": "63b594063a50f8b0f0fb8b4e7a30c679456119b3642ee9079a6d376bc962eacf"
+  },
+  {
+   "module": "P2M.Sol.S_Algebra_Etale_natCard_algHom_eq_finrank_of_isAlgClosed",
+   "upstream_path": "P2M/Sol/S_Algebra_Etale_natCard_algHom_eq_finrank_of_isAlgClosed.lean",
+   "upstream_sha256": "362b992e834324ae0d44b5ea6916528b7f65c7575c82cb8f3b4ef31baf7366f0",
+   "upstream_git_blob": "9336e426143c0a0124911ee89115cafd432d5449",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_Algebra_Etale_natCard_algHom_eq_finrank_of_isAlgClosed.lean",
+   "local_sha256": "4be68faff5ebd7b23bba009ccc82cbf0a70c27d8b460c37c26b297788d28616e"
+  },
+  {
+   "module": "P2M.Sol.S_CartierDual_basisPairing_eq_and_map_convMul_and_comp_and_transpose",
+   "upstream_path": "P2M/Sol/S_CartierDual_basisPairing_eq_and_map_convMul_and_comp_and_transpose.lean",
+   "upstream_sha256": "6d35a4f2df14327102c116b4af709e672ee855904b64c60dd241a1110a3b1c55",
+   "upstream_git_blob": "edd58087c2af259c1c9a128d666b0f2fa1ee207d",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_CartierDual_basisPairing_eq_and_map_convMul_and_comp_and_transpose.lean",
+   "local_sha256": "2b494dce24ecf7d4312b5c90cd94b37f8acfe9c1541d1d9ec033faa6cfdc7c12"
+  },
+  {
+   "module": "P2M.Sol.S_CartierDual_dualBaseChangeLin_bijective_integral",
+   "upstream_path": "P2M/Sol/S_CartierDual_dualBaseChangeLin_bijective_integral.lean",
+   "upstream_sha256": "1d197fec89af2a1a393a449ee3ef9557580243eecaaab1d67c8ead9d10a56f35",
+   "upstream_git_blob": "64e11fad9fb3d32ec4f1b607f75dadeafe420432",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_CartierDual_dualBaseChangeLin_bijective_integral.lean",
+   "local_sha256": "1238ded5b2c106b9e544d925beda8a3fc3667b42f39a687ef5b27171954c0c87"
+  },
+  {
+   "module": "P2M.Sol.S_CartierDual_exists_bialgEquiv_bidual",
+   "upstream_path": "P2M/Sol/S_CartierDual_exists_bialgEquiv_bidual.lean",
+   "upstream_sha256": "bbf99b8e8b9e448d96f8521511463227ce1345725fbe3d85eeb6e597cfcdf218",
+   "upstream_git_blob": "f4b5234d49cd698ece3eb2b4086da8786eab8ed6",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_CartierDual_exists_bialgEquiv_bidual.lean",
+   "local_sha256": "cad62fbad47b81bb79007b3811017bc2d6444f4777f1858bbc72482c5dfba4d1"
+  },
+  {
+   "module": "P2M.Sol.S_CartierDual_forall_hopfKer_apply_eq_zero_iff_mem_map_ker_counit",
+   "upstream_path": "P2M/Sol/S_CartierDual_forall_hopfKer_apply_eq_zero_iff_mem_map_ker_counit.lean",
+   "upstream_sha256": "0ab9c902b46df2d0c780498c0186d9fdb5c8e1d403728f4f5ae0503945e81817",
+   "upstream_git_blob": "4d442aa055ce0a6bda043b27a4833beaf8198201",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_CartierDual_forall_hopfKer_apply_eq_zero_iff_mem_map_ker_counit.lean",
+   "local_sha256": "091b85426eb5bcd8a16242cfd2c03b36c4ef92baefe3be6db4ec5f0696252f96"
+  },
+  {
+   "module": "P2M.Sol.S_CartierDual_pow_apply_pow_eq_apply_nsmulAlgHom_pow",
+   "upstream_path": "P2M/Sol/S_CartierDual_pow_apply_pow_eq_apply_nsmulAlgHom_pow.lean",
+   "upstream_sha256": "81a4af1dd44a291ac4dedce39d78ffa0971148637e4cf35e0732816bff6c5f7a",
+   "upstream_git_blob": "f2d753c6ee6b7f2d5a82a26fbdd648572a81065c",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_CartierDual_pow_apply_pow_eq_apply_nsmulAlgHom_pow.lean",
+   "local_sha256": "ed6c9405ad214496be3f42026d7c09b99bf151d52664ba3647642979dbaa35ce"
+  },
+  {
+   "module": "P2M.Sol.S_HopfAlgebra_algebra_etale_of_module_finite_of_charZero",
+   "upstream_path": "P2M/Sol/S_HopfAlgebra_algebra_etale_of_module_finite_of_charZero.lean",
+   "upstream_sha256": "58274eb6ad6d18b0d2c37854f018c10a12ba8221ce9877871bf2bbd5927ba087",
+   "upstream_git_blob": "6560d2fb8877b408d3632426aaf04d3638b0d4f2",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_HopfAlgebra_algebra_etale_of_module_finite_of_charZero.lean",
+   "local_sha256": "cc2ccb94e9706b7059bda926c2eb8c98d5295d78a39f97259ffa25e4bec355bd"
+  },
+  {
+   "module": "P2M.Sol.S_HopfAlgebra_canMap_surjective_of_surjective",
+   "upstream_path": "P2M/Sol/S_HopfAlgebra_canMap_surjective_of_surjective.lean",
+   "upstream_sha256": "0666c27e4304f0011537be51726472a5aaff3bac075d19ef34b9739a2c7735b2",
+   "upstream_git_blob": "8a2a6cf1108f7fb776083e69ccf54ee480f3f11f",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_HopfAlgebra_canMap_surjective_of_surjective.lean",
+   "local_sha256": "d55cd6942d0726eeaae78bf7002e628c41c91aded5e3fd11e306d93146f0d5e8"
+  },
+  {
+   "module": "P2M.Sol.S_HopfAlgebra_exists_algEquiv_comap_ker_counitAlgHom_eq_ker_algHom",
+   "upstream_path": "P2M/Sol/S_HopfAlgebra_exists_algEquiv_comap_ker_counitAlgHom_eq_ker_algHom.lean",
+   "upstream_sha256": "d13de92a5a410c0706f68f809e4d680876c887e9b719726d37fe46eb0abbf52c",
+   "upstream_git_blob": "5298bb413eeff3d1e04faa7c226f4b3ff023737a",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_HopfAlgebra_exists_algEquiv_comap_ker_counitAlgHom_eq_ker_algHom.lean",
+   "local_sha256": "2f982114713631d2bb534a1e4c4528dc3cd98030319017869a85299badcb4f8b"
+  },
+  {
+   "module": "P2M.Sol.S_HopfAlgebra_exists_fin_lift_basis_ker_counitAlgHom_sq_of_finiteType",
+   "upstream_path": "P2M/Sol/S_HopfAlgebra_exists_fin_lift_basis_ker_counitAlgHom_sq_of_finiteType.lean",
+   "upstream_sha256": "7dd9e64dc8afcc65a2d66e8a2bf2ed2bd2334de8ea80ac2a1978b1c9e90c0825",
+   "upstream_git_blob": "3875abf5b1d7f9dbc4a386f58512f3cf2359560f",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_HopfAlgebra_exists_fin_lift_basis_ker_counitAlgHom_sq_of_finiteType.lean",
+   "local_sha256": "041d39ea4505079a235a2750c934f560e06eae154ac5833963ec5baa9f973794"
+  },
+  {
+   "module": "P2M.Sol.S_HopfAlgebra_exists_leftIntegral_sum_apply_mul_eq_counit",
+   "upstream_path": "P2M/Sol/S_HopfAlgebra_exists_leftIntegral_sum_apply_mul_eq_counit.lean",
+   "upstream_sha256": "a54cbb526c7288e00ee82d3c5229dc0fc2dac9722b805370f8cc30a4555c34f7",
+   "upstream_git_blob": "7fbef461f1c5821274291f37737028dd229c301e",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_HopfAlgebra_exists_leftIntegral_sum_apply_mul_eq_counit.lean",
+   "local_sha256": "6c62d62eaa4a7a40f517fa361f0cbd116f367217ba6f38e26748c1b585dc95e7"
+  },
+  {
+   "module": "P2M.Sol.S_HopfAlgebra_exists_retraction_hopfKer_and_rankAtStalk_mul_finrank_of_surjective",
+   "upstream_path": "P2M/Sol/S_HopfAlgebra_exists_retraction_hopfKer_and_rankAtStalk_mul_finrank_of_surjective.lean",
+   "upstream_sha256": "288f58f32b8efb8387cf9d2dd9f98eb62fd284f2af8e7aec792d45d07806408c",
+   "upstream_git_blob": "391b6d785c16f8fcfd8acd5a82790e82d0e7f9d7",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_HopfAlgebra_exists_retraction_hopfKer_and_rankAtStalk_mul_finrank_of_surjective.lean",
+   "local_sha256": "462408160780cad8dff8d836e7a9c76d2fd37892f670c7f80a16caa79b883f10"
+  },
+  {
+   "module": "P2M.Sol.S_HopfAlgebra_finite_projective_hopfKer_of_surjective",
+   "upstream_path": "P2M/Sol/S_HopfAlgebra_finite_projective_hopfKer_of_surjective.lean",
+   "upstream_sha256": "81262d1e0ce1debdb053707101fe351954a471a812c0061d9605782c35dae566",
+   "upstream_git_blob": "10a529400a03c6fced92e77622b9b8e24cf27242",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_HopfAlgebra_finite_projective_hopfKer_of_surjective.lean",
+   "local_sha256": "4ecf65518f7dd421ea2761892d5d534993ae475e3bf3975863a6471fc25af5f5"
+  },
+  {
+   "module": "P2M.Sol.S_HopfAlgebra_finrank_eq_pow_finrank_cotangent_of_forall_pow_prime_eq_zero",
+   "upstream_path": "P2M/Sol/S_HopfAlgebra_finrank_eq_pow_finrank_cotangent_of_forall_pow_prime_eq_zero.lean",
+   "upstream_sha256": "78d60b98e903a115c9ff8ac7df9ced0b26c5f88cbb239093d2fbbf82e81a0f91",
+   "upstream_git_blob": "36bbb21ec32fd08c031726bb0d9c80aa40db33fd",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_HopfAlgebra_finrank_eq_pow_finrank_cotangent_of_forall_pow_prime_eq_zero.lean",
+   "local_sha256": "5cda0a467a2b6252c4e14e0ba555cabaf5d1a4575ebcffcd276731cc14fee5fa"
+  },
+  {
+   "module": "P2M.Sol.S_HopfAlgebra_finrank_quotient_span_pow_mul_finrank_cartierDual_quotient_eq",
+   "upstream_path": "P2M/Sol/S_HopfAlgebra_finrank_quotient_span_pow_mul_finrank_cartierDual_quotient_eq.lean",
+   "upstream_sha256": "73639c93727284881974703909e9db4b7c1b44592fc49b1ad1f605ba1be8eab9",
+   "upstream_git_blob": "d562eaae063f40300d8e3e188f379c2dc92e66ec",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_HopfAlgebra_finrank_quotient_span_pow_mul_finrank_cartierDual_quotient_eq.lean",
+   "local_sha256": "5bd9b32f46f0b6c14e3875aaa0bc9685f77cc3ddd90a4849ab3b7811eed31e48"
+  },
+  {
+   "module": "P2M.Sol.S_HopfAlgebra_finrank_quotient_span_pow_prime_eq_pow_finrank_cotangent",
+   "upstream_path": "P2M/Sol/S_HopfAlgebra_finrank_quotient_span_pow_prime_eq_pow_finrank_cotangent.lean",
+   "upstream_sha256": "eb00b49b67ee5b6dedab84377199001cad0f93ec0d33dac5f7ff5f157bba980f",
+   "upstream_git_blob": "102ce2abe550fec0b11789cb1279261c611eb618",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_HopfAlgebra_finrank_quotient_span_pow_prime_eq_pow_finrank_cotangent.lean",
+   "local_sha256": "0077442dab8c21fcf5aba39bd8ef3e0f323ef03b338a2416074e98c58810b0b3"
+  },
+  {
+   "module": "P2M.Sol.S_HopfAlgebra_isDomain_localization_atPrime_ker_algHom_of_finiteType_of_charZero",
+   "upstream_path": "P2M/Sol/S_HopfAlgebra_isDomain_localization_atPrime_ker_algHom_of_finiteType_of_charZero.lean",
+   "upstream_sha256": "f03220db2c4492966a1f3b69552e910bfb26e28540751ef79135eed1d0bfb46b",
+   "upstream_git_blob": "7b26e3b8b785fa25cc640f65b7a80692ba56f0d4",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_HopfAlgebra_isDomain_localization_atPrime_ker_algHom_of_finiteType_of_charZero.lean",
+   "local_sha256": "c37f0f872733ed9027e8e8be667e3d405d6fb7fb8a482b37af3d98f876d75fcb"
+  },
+  {
+   "module": "P2M.Sol.S_HopfAlgebra_isDomain_localization_atPrime_ker_counitAlgHom_of_finiteType_of_charZero",
+   "upstream_path": "P2M/Sol/S_HopfAlgebra_isDomain_localization_atPrime_ker_counitAlgHom_of_finiteType_of_charZero.lean",
+   "upstream_sha256": "1c56dbe60be4ee4bdc258da4610b8721d9908bba0324741d701ce5cf8e340d2f",
+   "upstream_git_blob": "7caf71c2b431f8cffe20be9149493cdfbc8f3ff9",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_HopfAlgebra_isDomain_localization_atPrime_ker_counitAlgHom_of_finiteType_of_charZero.lean",
+   "local_sha256": "5b420ebdca694de0bd011ec1f3a893e6126d5868953ae48c1879378591b41503"
+  },
+  {
+   "module": "P2M.Sol.S_HopfAlgebra_isHopfGalois_of_surjective",
+   "upstream_path": "P2M/Sol/S_HopfAlgebra_isHopfGalois_of_surjective.lean",
+   "upstream_sha256": "13d061b0a502f6bea11ff7cfa3dc157b47195239a69e1648b1324432b81bb48c",
+   "upstream_git_blob": "07b55a68db82a164ba8ce9c2927b516326faca7f",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_HopfAlgebra_isHopfGalois_of_surjective.lean",
+   "local_sha256": "d0460e528aaa89a258cfa9b6b1ae4e57c70973970947535954a92d168e82e390"
+  },
+  {
+   "module": "P2M.Sol.S_HopfAlgebra_isReduced_of_finiteType_of_charZero",
+   "upstream_path": "P2M/Sol/S_HopfAlgebra_isReduced_of_finiteType_of_charZero.lean",
+   "upstream_sha256": "4de8f426fcf0f68e84b67b7ec1927cf5f453773620c0aa0468b3128be9665269",
+   "upstream_git_blob": "a76dd172b89f97e343ff7222999130a2d064f350",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_HopfAlgebra_isReduced_of_finiteType_of_charZero.lean",
+   "local_sha256": "194cb54e5d68a2b0968346d4b421237ca7634f9b14a5eb17a77e2647e65a66f2"
+  },
+  {
+   "module": "P2M.Sol.S_HopfAlgebra_isReduced_of_finiteType_of_isAlgClosed_of_charZero",
+   "upstream_path": "P2M/Sol/S_HopfAlgebra_isReduced_of_finiteType_of_isAlgClosed_of_charZero.lean",
+   "upstream_sha256": "78ecb42cafa39d9cabb3580182d2fbdb5ae0f5e2fbc68fbeb3b3d6b93f728379",
+   "upstream_git_blob": "cfac259d47132ef7c02896486ee3edf9df22ad5c",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_HopfAlgebra_isReduced_of_finiteType_of_isAlgClosed_of_charZero.lean",
+   "local_sha256": "ad6fa626c9b08ebf262af3c34f83c995f830d71ce4a31b85f97e75f8f2ffefb3"
+  },
+  {
+   "module": "P2M.Sol.S_HopfAlgebra_mul_not_mem_ker_counitAlgHom_pow_succ_of_lift_basis_charZero",
+   "upstream_path": "P2M/Sol/S_HopfAlgebra_mul_not_mem_ker_counitAlgHom_pow_succ_of_lift_basis_charZero.lean",
+   "upstream_sha256": "9fe9faae1abae4d7e3e0b8b5c7efc8be18e35435fd59c730c4bed552faf75ddb",
+   "upstream_git_blob": "59c0a6057d8c0c9b70462cb24941596dc34f3fd5",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_HopfAlgebra_mul_not_mem_ker_counitAlgHom_pow_succ_of_lift_basis_charZero.lean",
+   "local_sha256": "274488c8d7eec0510ed7e9c6abc7028a122268214d2a8be6fc4ba2e48396de79"
+  },
+  {
+   "module": "P2M.Sol.S_HopfAlgebra_natCard_algHom_eq_finrank_of_charZero",
+   "upstream_path": "P2M/Sol/S_HopfAlgebra_natCard_algHom_eq_finrank_of_charZero.lean",
+   "upstream_sha256": "970029466ae75c8f084b6b3698521572c7df5c4b2976700800f8e10e2a03c375",
+   "upstream_git_blob": "96a946c9a040dd3e48d152fe139e04ecb6f84f88",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_HopfAlgebra_natCard_algHom_eq_finrank_of_charZero.lean",
+   "local_sha256": "6083f9c03a12a06f596007a779439034c227ff917f07989243ece44c2863a18d"
+  },
+  {
+   "module": "P2M.Sol.S_IsCyclotomicExtension_Padic_isIntegralClosure_adjoin_singleton_of_prime_pow",
+   "upstream_path": "P2M/Sol/S_IsCyclotomicExtension_Padic_isIntegralClosure_adjoin_singleton_of_prime_pow.lean",
+   "upstream_sha256": "9ebb524d0b4c7149931b1b152c23b5bd38778d2fcecb69fa1fd205234453a0ff",
+   "upstream_git_blob": "bd047e4757be621678e36234c64861157afec9df",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_IsCyclotomicExtension_Padic_isIntegralClosure_adjoin_singleton_of_prime_pow.lean",
+   "local_sha256": "ccc14af05fb652ee0255bd4f4a15579469543bbe40816d69f4a6754b8dca7d0f"
+  },
+  {
+   "module": "P2M.Sol.S_IsGalois_exists_basis_baseChange_forall_apply_eq_self",
+   "upstream_path": "P2M/Sol/S_IsGalois_exists_basis_baseChange_forall_apply_eq_self.lean",
+   "upstream_sha256": "be1180d78d2a4b91150e23ff3259e243387da73ae82141de58285cbb26c42121",
+   "upstream_git_blob": "6a6f3ae1e3b3b63f8f23ab33bedfb4f06d6a1071",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_IsGalois_exists_basis_baseChange_forall_apply_eq_self.lean",
+   "local_sha256": "01f7f80d6e9a13a7690ca392895084d6378473b86fd8527bde665d003a6f7dc1"
+  },
+  {
+   "module": "P2M.Sol.S_IsLocalRing_exists_le_maximalIdeal_pow_of_antitone_of_iInf_eq_bot",
+   "upstream_path": "P2M/Sol/S_IsLocalRing_exists_le_maximalIdeal_pow_of_antitone_of_iInf_eq_bot.lean",
+   "upstream_sha256": "1c07b18b256a87bf6179221610364a1d10c6dd1f728f253a1373f27c9579d70c",
+   "upstream_git_blob": "b40109d9c7ab1b4d25f02fdc66c6eb048d7d949e",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_IsLocalRing_exists_le_maximalIdeal_pow_of_antitone_of_iInf_eq_bot.lean",
+   "local_sha256": "4610880fce4a392156404b35c611c95709afb11c7fc8409580c820ad5689201c"
+  },
+  {
+   "module": "P2M.Sol.S_IsLocalRing_exists_mvPowerSeries_algHom_apply_X_eq_and_surjective_of_span",
+   "upstream_path": "P2M/Sol/S_IsLocalRing_exists_mvPowerSeries_algHom_apply_X_eq_and_surjective_of_span.lean",
+   "upstream_sha256": "407195c4356c18db4b30a4cddcabc36e2da318b80450daa994ab46eebf415c6f",
+   "upstream_git_blob": "087f24e115fb287c9f8d1fbd75818ce894068156",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_IsLocalRing_exists_mvPowerSeries_algHom_apply_X_eq_and_surjective_of_span.lean",
+   "local_sha256": "c976435e14e3b81e82ca9fd185f5f7edf812f34260024dbd562b4218b5525f88"
+  },
+  {
+   "module": "P2M.Sol.S_IsLocalRing_mk_comp_algebraMap_surjective_of_maximalIdeal_le",
+   "upstream_path": "P2M/Sol/S_IsLocalRing_mk_comp_algebraMap_surjective_of_maximalIdeal_le.lean",
+   "upstream_sha256": "fa1ce131968da58f8d2277290fd2f90c4e03231aaece77e2084974f2e8e69b18",
+   "upstream_git_blob": "5ca10390574d869c0b07bb563040f858b534ece5",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_IsLocalRing_mk_comp_algebraMap_surjective_of_maximalIdeal_le.lean",
+   "local_sha256": "9be5b821c4ba15a3b0ba0871d104b548b554c9398709f4377fc24e863432ee6f"
+  },
+  {
+   "module": "P2M.Sol.S_MulSemiringAction_exists_basis_extending_invariants_eq_zpow_smul_and_iff_mem_span_fixedPoints_of_pairing_of_continuous_cocycle",
+   "upstream_path": "P2M/Sol/S_MulSemiringAction_exists_basis_extending_invariants_eq_zpow_smul_and_iff_mem_span_fixedPoints_of_pairing_of_continuous_cocycle.lean",
+   "upstream_sha256": "bfb4558fd315a5227375377085a516db5258a4b091cfb0f6c2f2d84c235fbf55",
+   "upstream_git_blob": "3e1679c49b40053c1a85856c9a2b6b0b1dbc918a",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_MulSemiringAction_exists_basis_extending_invariants_eq_zpow_smul_and_iff_mem_span_fixedPoints_of_pairing_of_continuous_cocycle.lean",
+   "local_sha256": "03c692ad2fc1697686a502eb3d49beb960fa365fe73af68f6559fc50315f877d"
+  },
+  {
+   "module": "P2M.Sol.S_MvPowerSeries_algHom_ext_of_apply_X_mem",
+   "upstream_path": "P2M/Sol/S_MvPowerSeries_algHom_ext_of_apply_X_mem.lean",
+   "upstream_sha256": "132e075303c47f1dd73edbc5f4956950ccbdccc907a6d9d350870b04d4bb538d",
+   "upstream_git_blob": "d4d2a2a3c49dfc5baeed4a03966771a7e1533dc6",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_MvPowerSeries_algHom_ext_of_apply_X_mem.lean",
+   "local_sha256": "b6412e8922cd7a105b21ed3876bcc6713eae29dd09030ee3315da2862e110a1a"
+  },
+  {
+   "module": "P2M.Sol.S_MvPowerSeries_algHom_surjective_of_apply_X_eq",
+   "upstream_path": "P2M/Sol/S_MvPowerSeries_algHom_surjective_of_apply_X_eq.lean",
+   "upstream_sha256": "0be47f45e701e61882ede8cb8aa6d0325e04ae630d557c2de4df6c2d4cc56079",
+   "upstream_git_blob": "f52d2a5e40b1886af18237f77169682fea039b0b",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_MvPowerSeries_algHom_surjective_of_apply_X_eq.lean",
+   "local_sha256": "9974ec65367d84c845be24cd3e4d573c5b59f7c5701f1f7316a9f62517391138"
+  },
+  {
+   "module": "P2M.Sol.S_MvPowerSeries_exists_algHom_apply_X_eq",
+   "upstream_path": "P2M/Sol/S_MvPowerSeries_exists_algHom_apply_X_eq.lean",
+   "upstream_sha256": "b97a6e3b3a78bd1a94c1f7d88d45265b06bcba2232ddadf6b8ecd602200d5c88",
+   "upstream_git_blob": "506808ff072bd68f16b65dc1bb9bf00b2232c003",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_MvPowerSeries_exists_algHom_apply_X_eq.lean",
+   "local_sha256": "e270d51972aed3b07c3ccd6d5ebfb91ed9065fa512db93a061e249a47e47a58a"
+  },
+  {
+   "module": "P2M.Sol.S_MvPowerSeries_isAdicComplete_maximalIdeal",
+   "upstream_path": "P2M/Sol/S_MvPowerSeries_isAdicComplete_maximalIdeal.lean",
+   "upstream_sha256": "22320302d4d9a373d5263304b536d6fd911118d3776d3bec76ab1db86f72bb90",
+   "upstream_git_blob": "6574bc683695f5fb33142a6ba6dd7bdada7a25f9",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_MvPowerSeries_isAdicComplete_maximalIdeal.lean",
+   "local_sha256": "2258a441e1a960fca05bf751cb52d3199ef1bf195312737d06c53ee96bf0a688"
+  },
+  {
+   "module": "P2M.Sol.S_MvPowerSeries_isNoetherianRing_of_finite",
+   "upstream_path": "P2M/Sol/S_MvPowerSeries_isNoetherianRing_of_finite.lean",
+   "upstream_sha256": "f2b39d9bef28c99912db0b3b4ddec0d1324d1acee5f739e489cccb138eacd1ba",
+   "upstream_git_blob": "6f5d755a560ea8255b0089207c6afbe25463da5b",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_MvPowerSeries_isNoetherianRing_of_finite.lean",
+   "local_sha256": "3d0ec407c1948fb159b030a370559ff0d4da11b465203966e7693d4578fb4e9c"
+  },
+  {
+   "module": "P2M.Sol.S_MvPowerSeries_mem_pow_span_X_of_coeff_eq_zero",
+   "upstream_path": "P2M/Sol/S_MvPowerSeries_mem_pow_span_X_of_coeff_eq_zero.lean",
+   "upstream_sha256": "453bbf306331a871c7cb194f800e6e900dbed24263557e2403e10ceb0cd266ab",
+   "upstream_git_blob": "46cdd2ce5980ae818a0c632bb849fc478ed28a87",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_MvPowerSeries_mem_pow_span_X_of_coeff_eq_zero.lean",
+   "local_sha256": "53b4e427e0c0ba471cb415257d747c0cff804f0ae5c4fc019173d0f285da0d6b"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_CartierDuality_bijective_tateModule_pairing_of_isAlgClosed",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_CartierDuality_bijective_tateModule_pairing_of_isAlgClosed.lean",
+   "upstream_sha256": "6a102b68b039473f7e41c90a51c490b2c39991db10c45daccacfaa72f4ec1702",
+   "upstream_git_blob": "6754dfbc7fd16fa288c247b5be9647fc87f22867",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_CartierDuality_bijective_tateModule_pairing_of_isAlgClosed.lean",
+   "local_sha256": "514850da507e0c90a942fc3537c441ef1a19c59377cb1f37caa8684168b453d6"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_CartierDuality_charElem_mul_and_charDiff_mul_and_lTensor_cotangentMap_charDiff",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_CartierDuality_charElem_mul_and_charDiff_mul_and_lTensor_cotangentMap_charDiff.lean",
+   "upstream_sha256": "36e29448578c74e097a495e8f7275ba1126675bec350bdde56140dda2f44d6c3",
+   "upstream_git_blob": "36fe5f42877a99744f68011851866bf1d5f980f5",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_CartierDuality_charElem_mul_and_charDiff_mul_and_lTensor_cotangentMap_charDiff.lean",
+   "local_sha256": "2360c75bb964ed7147f5ef0e9c543d062107c4ecbc750a5072abe5da2444534c"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_CartierDuality_cpoints_eq_zero_of_forall_pair_eq_one_of_forall_mem_range_iff",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_CartierDuality_cpoints_eq_zero_of_forall_pair_eq_one_of_forall_mem_range_iff.lean",
+   "upstream_sha256": "a4256f739ff7d448d2c2b1149f91d7a2eb40a61e5f25d7bf347bfb87079d61c0",
+   "upstream_git_blob": "71ced34e6cc13ac6f4d32b729ac2d11ae7421c73",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_CartierDuality_cpoints_eq_zero_of_forall_pair_eq_one_of_forall_mem_range_iff.lean",
+   "local_sha256": "171f37e5e2d4caf93940e68469fc384faebb06ac8e948aed4044380a38b59e82"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_CartierDuality_eq_one_of_forall_pair_eq_one_and_exists_pair_eq_of_isAlgClosed",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_CartierDuality_eq_one_of_forall_pair_eq_one_and_exists_pair_eq_of_isAlgClosed.lean",
+   "upstream_sha256": "50905a77f095ec66f2f2e74705e6f76bfb71b910f50b53b5ac126ccb1a63ddd5",
+   "upstream_git_blob": "b74f473fd8aa88d90f8e26e39e2250d1942ebe2d",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_CartierDuality_eq_one_of_forall_pair_eq_one_and_exists_pair_eq_of_isAlgClosed.lean",
+   "local_sha256": "12a6a562dce1acc3e23021d64c79a6b243d0370f3f28957a74b61961f77092d0"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_CartierDuality_exists_addMonoidHom_tangentSpace_cpoints_pair_eq_sum_pow_of_ker_cotangentModuleProj_eq",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_CartierDuality_exists_addMonoidHom_tangentSpace_cpoints_pair_eq_sum_pow_of_ker_cotangentModuleProj_eq.lean",
+   "upstream_sha256": "5026356aac07f333c2f0599b9361b213bc300a4ab6098a64d1ee4582b72d4bae",
+   "upstream_git_blob": "24d7bd33dab5631a3fb66bcf1f21f3c0a6ec8a53",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_CartierDuality_exists_addMonoidHom_tangentSpace_cpoints_pair_eq_sum_pow_of_ker_cotangentModuleProj_eq.lean",
+   "local_sha256": "7cd43b6236d38e1a6ee41093547685d2b36183365ad85bc3757178ed8a0a6b2a"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_CartierDuality_exists_addMonoidHom_tateModule_apply_eq_charDiff",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_CartierDuality_exists_addMonoidHom_tateModule_apply_eq_charDiff.lean",
+   "upstream_sha256": "a1b413f881188974ed3a8a4777e6ee7f1bafb02d733852ad073c24d7b69a2c4b",
+   "upstream_git_blob": "45c60448f99de5b4be5a8c8a6367b9b7b127cec1",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_CartierDuality_exists_addMonoidHom_tateModule_apply_eq_charDiff.lean",
+   "local_sha256": "32648937a797d696fc1ccc18c3980b4bab53508d9779467d38d306799c2d28fb"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_CartierDuality_exists_addMonoidHom_tateModule_padicComplex_smul_eq_and_norm_sub_le_of_ringOfIntegers",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_CartierDuality_exists_addMonoidHom_tateModule_padicComplex_smul_eq_and_norm_sub_le_of_ringOfIntegers.lean",
+   "upstream_sha256": "895da55d909337c07c172335d84793b1681ff94869c3cb8db32e882ee7bf7e84",
+   "upstream_git_blob": "d63fc684941d8449682935075771547b63146662",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_CartierDuality_exists_addMonoidHom_tateModule_padicComplex_smul_eq_and_norm_sub_le_of_ringOfIntegers.lean",
+   "local_sha256": "99586d3911802b57b8d9c9177f2c63b5382a31a9a49632dbf46313d7cb40f389"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_CartierDuality_exists_linearIndependent_invariant_dual_padicComplex_tateModule_of_hasDimension_of_ringOfIntegers",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_CartierDuality_exists_linearIndependent_invariant_dual_padicComplex_tateModule_of_hasDimension_of_ringOfIntegers.lean",
+   "upstream_sha256": "b795e2ad7631e135a38de9b6225081bff60bb6127c3838f4399fea5dd23611d4",
+   "upstream_git_blob": "643560070fa81490b1168c98df2937330a066fa2",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_CartierDuality_exists_linearIndependent_invariant_dual_padicComplex_tateModule_of_hasDimension_of_ringOfIntegers.lean",
+   "local_sha256": "4aa43cbcf92b1d2b7d11b2dbe8df5487c68f0995fa50ed16bb1f137583e00e4e"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_CartierDuality_exists_points_tateModule_pairing_eq_pair",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_CartierDuality_exists_points_tateModule_pairing_eq_pair.lean",
+   "upstream_sha256": "a6d06bb673b48c9761c1289a7fb9a2b3e47874d9e6fd8d66c958f28d25609f97",
+   "upstream_git_blob": "c745032f675c5e5be46414e4e9ff8af862a1d5a9",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_CartierDuality_exists_points_tateModule_pairing_eq_pair.lean",
+   "local_sha256": "b7afe77e35d4221349565a6f444ca9fcf3310b96f966d2628349df16dbbd92cd"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_CartierDuality_exists_tateModule_pairing_eq_pair",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_CartierDuality_exists_tateModule_pairing_eq_pair.lean",
+   "upstream_sha256": "6b275b847532a19ac1897b1748b6fb8ca3eed101e979bcab203ffad1dcaa106d",
+   "upstream_git_blob": "e724105fa571dbc6bb57557a6ea6c1b77a7f3c98",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_CartierDuality_exists_tateModule_pairing_eq_pair.lean",
+   "local_sha256": "0c3adf27dcaa0b1215241f68f75df84cfdaaafbab5bf415f4447aa40d9134858"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_CartierDuality_finrank_cotangent_one_add_finrank_cotangent_one_eq_height",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_CartierDuality_finrank_cotangent_one_add_finrank_cotangent_one_eq_height.lean",
+   "upstream_sha256": "c40b2385c05b9d3dee355878f8aba5f19b93a627db1b242ff0e8fe267283574a",
+   "upstream_git_blob": "fc389c3fb9760c94d2eef7369c7464bdbfd5c57a",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_CartierDuality_finrank_cotangent_one_add_finrank_cotangent_one_eq_height.lean",
+   "local_sha256": "67c779a4291e10a6c346772ea62ddcca72236f0692adf90b12dbd7f899f268de"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_CartierDuality_isCartierDual_symm",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_CartierDuality_isCartierDual_symm.lean",
+   "upstream_sha256": "827806b303a0c4300161994da4f1966c23bdd60cff7a7cba4b760b00d64374b0",
+   "upstream_git_blob": "4c9e207cfb165897f7ab335d5be5040fa07ccb2d",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_CartierDuality_isCartierDual_symm.lean",
+   "local_sha256": "22760822554604703e3c291b63f496fa199cbda5e99004e889d670aa33bd4e4b"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_CartierDuality_linearIndependent_tateModule_padicComplex_of_norm_sub_le_of_ringOfIntegers",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_CartierDuality_linearIndependent_tateModule_padicComplex_of_norm_sub_le_of_ringOfIntegers.lean",
+   "upstream_sha256": "098c7622cfdb541d4190891454e911e981162fcdb7949dee9f5944fd34920783",
+   "upstream_git_blob": "5f01885f38bb933afe2d985fb3e2df49b15c28c9",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_CartierDuality_linearIndependent_tateModule_padicComplex_of_norm_sub_le_of_ringOfIntegers.lean",
+   "local_sha256": "8105d1f46b5809f6e48584c0d236354947e0cfdc4a68f5df88e1035bf59bbdf1"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_CartierDuality_mem_of_forall_pair_eq_one_and_exists_tateModule_forall_pair_eq_one",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_CartierDuality_mem_of_forall_pair_eq_one_and_exists_tateModule_forall_pair_eq_one.lean",
+   "upstream_sha256": "10174712f9a04a000fb89368272438af77bbdb5a367eb051d09c8416a23df9e1",
+   "upstream_git_blob": "24f473c32d07beec9427edd39bc1c992545f6edd",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_CartierDuality_mem_of_forall_pair_eq_one_and_exists_tateModule_forall_pair_eq_one.lean",
+   "local_sha256": "f3f772256305ee224a940b3cb2a47d72252520474682ab0105540739d7a8da86"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_CartierDuality_nsmul_mem_and_eq_zero_and_exists_nsmul_eq_of_forall_pair_eq_one_of_isIntegral_iff",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_CartierDuality_nsmul_mem_and_eq_zero_and_exists_nsmul_eq_of_forall_pair_eq_one_of_isIntegral_iff.lean",
+   "upstream_sha256": "e9f768f569fea6d3ebcee3d423321936430ea4a614f8ed73dd7ceeba6c070e2e",
+   "upstream_git_blob": "94ec267941849882a5313548a6e09528e65cd52d",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_CartierDuality_nsmul_mem_and_eq_zero_and_exists_nsmul_eq_of_forall_pair_eq_one_of_isIntegral_iff.lean",
+   "local_sha256": "8784a92be2b05d98397e39ef0301682c642335b12757fafabfcc36c5906b1d31"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_CartierDuality_pair_pointMap_eq_one_of_forall_isNilpotent_of_isIntegral_iff",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_CartierDuality_pair_pointMap_eq_one_of_forall_isNilpotent_of_isIntegral_iff.lean",
+   "upstream_sha256": "94b961d3fc372df6882fc5bb699321baa5201cd914904d0c9ff407998fff0d33",
+   "upstream_git_blob": "10319e8171c45b32ee5f1169a07a721fe11be87a",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_CartierDuality_pair_pointMap_eq_one_of_forall_isNilpotent_of_isIntegral_iff.lean",
+   "local_sha256": "26fb0a75c5694894b356476d69a4b7c5489061d2aee4f77b276aed4514720899"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_Hopf_convPow_apply_mul_eq_sum_of_apply_mul_eq",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_Hopf_convPow_apply_mul_eq_sum_of_apply_mul_eq.lean",
+   "upstream_sha256": "30313c4d005906a50e04cfa5beea51c5690bea66f3a8e5db8d956fcd237c0055",
+   "upstream_git_blob": "77300b2a62cb51899010aec5f8bf1a137c69d862",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_Hopf_convPow_apply_mul_eq_sum_of_apply_mul_eq.lean",
+   "local_sha256": "68c8d5f765b0ade9bdcab870bd2e232e623cb847802cb8cc65fb469c01109615"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_Hopf_nsmulAlgHom_eq_sum_pow_apply_smul_pow",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_Hopf_nsmulAlgHom_eq_sum_pow_apply_smul_pow.lean",
+   "upstream_sha256": "f7fd0701bad6d854ea8631f820f3bc0dddc78d3a03d974b3fdb0adedc9e02c91",
+   "upstream_git_blob": "5e01f155dce72b86dc1cf41ab8704c5e4c96dea1",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_Hopf_nsmulAlgHom_eq_sum_pow_apply_smul_pow.lean",
+   "local_sha256": "e273f88794a43c572b22eed6edbb4f08cb4817e7dd1cd57a3f17408f145a7f4b"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_Hopf_nsmulAlgHom_sub_nsmul_mem_augIdeal_sq",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_Hopf_nsmulAlgHom_sub_nsmul_mem_augIdeal_sq.lean",
+   "upstream_sha256": "8f6645033d73229a1954aaf690e5de971630cd8c6052204f450582a91be750a0",
+   "upstream_git_blob": "3140338b81464f047cc250a775cb01a2af90e648",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_Hopf_nsmulAlgHom_sub_nsmul_mem_augIdeal_sq.lean",
+   "local_sha256": "c820eb88524bb294e408cabba0fb25950238bc499cc0e043c160d5500afd7380"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_IsCartierDual_baseChange",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_IsCartierDual_baseChange.lean",
+   "upstream_sha256": "6aea1b042f085b4a190a77c5cebe7381ed4252e987ffd048d0d6885aa55a0a36",
+   "upstream_git_blob": "9266a3b278fe2b8b9fc247b94b25a8dfd55e0a97",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_IsCartierDual_baseChange.lean",
+   "local_sha256": "51fe318abc16066ae69dc6c0b083c6b588e1fd94142cd923e55375c6cf266711"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_add_eq_height_of_hasDimension_of_cartierDuality",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_add_eq_height_of_hasDimension_of_cartierDuality.lean",
+   "upstream_sha256": "fcd4b6e7c9847c1a807437877ea3f2298a71fc1180e04af20f91e9de5bb3beda",
+   "upstream_git_blob": "6f88ae9bee92d439fa13aa36700dadab3ad1847b",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_add_eq_height_of_hasDimension_of_cartierDuality.lean",
+   "local_sha256": "091e6e026f319a84a26d4bfbc6efbed65db2b5131be3741f654ec10e9900cb13"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_bijective_pointsMap_val_integralClosure_and_exists_tateModule_equiv",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_bijective_pointsMap_val_integralClosure_and_exists_tateModule_equiv.lean",
+   "upstream_sha256": "025e6623358821a1b15b098095364fc469199f3ed9cd13a732e04750cd2cf9d2",
+   "upstream_git_blob": "e81a1660aeb246507a378d3f357b455ee0a9b3c6",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_bijective_pointsMap_val_integralClosure_and_exists_tateModule_equiv.lean",
+   "local_sha256": "a04f33853cd45533dace630581193535972055ee954132f0edb815ff98278d40"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_cotangentBaseChange_bijective",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_cotangentBaseChange_bijective.lean",
+   "upstream_sha256": "b84f1069860a6705ea59b6c8883223e6d038989a4ad624b6d9d81033ed2dd7f6",
+   "upstream_git_blob": "fe9df118e3a19fd0c732e7640effe5c1072ea377",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_cotangentBaseChange_bijective.lean",
+   "local_sha256": "768b70a2477f9f75c36e7a2193097fb3b0eb582e385828209b0c281d20d621bf"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_cpointsProj_succ_nsmul_eq_zero_of_cpointsProj_eq_zero",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_cpointsProj_succ_nsmul_eq_zero_of_cpointsProj_eq_zero.lean",
+   "upstream_sha256": "4bc8f30feaad067cefd571914326e468adff012fe043fb16d86e9063f494b5ed",
+   "upstream_git_blob": "3a89d67d2640265683e70c389b5d003b1e796971",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_cpointsProj_succ_nsmul_eq_zero_of_cpointsProj_eq_zero.lean",
+   "local_sha256": "56c56a76e81ccd58fcf1774f01e0814350530a71e31197eedd412fe1c408ed38"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_existsUnique_cpointsMap_ofId_eq_of_forall_smul_eq_of_forall_mem_range_iff",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_existsUnique_cpointsMap_ofId_eq_of_forall_smul_eq_of_forall_mem_range_iff.lean",
+   "upstream_sha256": "2ce4a8c9cc4993ff1a4aea1adb1851356cbf048f9427bda07a5a67b580323d87",
+   "upstream_git_blob": "cc22cc2f78af7ee617686aa83ee1e5ac4c4a5636",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_existsUnique_cpointsMap_ofId_eq_of_forall_smul_eq_of_forall_mem_range_iff.lean",
+   "local_sha256": "6b8026a08f5405a05b9d534deb693bcc2afa05b419d35fff3e2ac1d7408a65ab"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_exists_algEquiv_range_nsmulAlgHom_and_finite_projective_rankAtStalk",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_exists_algEquiv_range_nsmulAlgHom_and_finite_projective_rankAtStalk.lean",
+   "upstream_sha256": "e5b2aa4051d0a5beeaf73f4ea535c6fcbbad3ee0b1151abf04d489c550ebca3e",
+   "upstream_git_blob": "1ae3bf28410005b0f3c264e05e6fe1fc8c234467",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_exists_algEquiv_range_nsmulAlgHom_and_finite_projective_rankAtStalk.lean",
+   "local_sha256": "f5fc38eae7ec27e9078fe7d934ca7c007b11f80c596a6ac325a2f6b97d458c64"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_exists_basis_padicComplex_tateModule_eq_cyclotomicCharacter_pow_smul_of_hasDimension_of_ringOfIntegers",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_exists_basis_padicComplex_tateModule_eq_cyclotomicCharacter_pow_smul_of_hasDimension_of_ringOfIntegers.lean",
+   "upstream_sha256": "330b48554e7e4b4b65e189837427074666621fb42b6f18e1a525e0f5980b6c2b",
+   "upstream_git_blob": "bbdcdc68439cc608b13d9639594b61a232c839f8",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_exists_basis_padicComplex_tateModule_eq_cyclotomicCharacter_pow_smul_of_hasDimension_of_ringOfIntegers.lean",
+   "local_sha256": "7733808b164aeec74541cf2f757b42505a0dfd4f82a7dbd46f0202e69c167c81"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_exists_hasDimension",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_exists_hasDimension.lean",
+   "upstream_sha256": "784f7f278797e48514a598b7ec58bf14d3ef71fc371981759d4ad21b29eb662d",
+   "upstream_git_blob": "4b3c12c0500e56287997269eb69ee9201ec72fe1",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_exists_hasDimension.lean",
+   "local_sha256": "81fb5af739de4699fddfbbe151914cfe3c6d63d244a74b022e2211fae4c1f9c6"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_exists_isCartierDual",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_exists_isCartierDual.lean",
+   "upstream_sha256": "a21483148f8cdd4844383287b0ee835704db57d2ba3a770c9060338b9575b6af",
+   "upstream_git_blob": "1e144367d335ef1a4709f4e2194987037d6a30c1",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_exists_isCartierDual.lean",
+   "local_sha256": "d260ee5695f0c1e1e769ea6d0475e08d532b6bf465c0ead76fd222d054587f42"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_exists_nsmul_eq_of_forall_isNilpotent_cpointsProj_one_of_isIntegral_iff",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_exists_nsmul_eq_of_forall_isNilpotent_cpointsProj_one_of_isIntegral_iff.lean",
+   "upstream_sha256": "937af70b886ee558466f575da095e12894c70b21e90f93bcc2defcbfb9e268d9",
+   "upstream_git_blob": "da0dcc1f0263973dbd44865b9def267431fbecc9",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_exists_nsmul_eq_of_forall_isNilpotent_cpointsProj_one_of_isIntegral_iff.lean",
+   "local_sha256": "5465d4b95baf8bec0dd1c24b0b3ef7c6585b50e21aaed5b328046cfbcdc9cd66"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_exists_toCPoints_pointsMkAdd_eq_of_nsmul_eq_zero_of_isIntegral_iff",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_exists_toCPoints_pointsMkAdd_eq_of_nsmul_eq_zero_of_isIntegral_iff.lean",
+   "upstream_sha256": "b3805bd6848218440c25c3e62bf29f5ef49292930de16ea7ab17c3a007b408f0",
+   "upstream_git_blob": "1110e7730577739402b4710d79e7066c820fa97b",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_exists_toCPoints_pointsMkAdd_eq_of_nsmul_eq_zero_of_isIntegral_iff.lean",
+   "local_sha256": "bef9a5c835e9ce4ec11a1b7c44382af6729dbb84fc35d25cef1561fe4d309d89"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_finrank_level_quotient_span_pow_eq_pow_mul_finrank_cotangent_one",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_finrank_level_quotient_span_pow_eq_pow_mul_finrank_cotangent_one.lean",
+   "upstream_sha256": "23d9c03d19a695ec720e21c143616d657c243d2fc89dc122678809153cebed1c",
+   "upstream_git_blob": "4375bf55daac834be1507b95cb0dbe6904fb8840",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_finrank_level_quotient_span_pow_eq_pow_mul_finrank_cotangent_one.lean",
+   "local_sha256": "f3ca2ac0a7199e5addc4d3af935a93597af6322f3f15d7e94710d7f1cc457e23"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_free_cotangent_of_isArtinianRing_of_pow_eq_zero",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_free_cotangent_of_isArtinianRing_of_pow_eq_zero.lean",
+   "upstream_sha256": "39ca89cb0af9666d2fad60f7456309ca694871bd9e63203e27092703d4774d7d",
+   "upstream_git_blob": "536cb7ccd0120e3533391c271d6bbf7c4ecba4e3",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_free_cotangent_of_isArtinianRing_of_pow_eq_zero.lean",
+   "local_sha256": "d29d538f9c24420997c621e28fe79d8ea2f85df94d0fbf215bde244254be8f9c"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_isOpen_setOf_restrictScalars_smul_points_eq",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_isOpen_setOf_restrictScalars_smul_points_eq.lean",
+   "upstream_sha256": "924fca6742df0bff40081068552d85f90513005048ac3be52392913fe485b48a",
+   "upstream_git_blob": "96390766e91c9646053e0be08bf4d2dd40b0a7cf",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_isOpen_setOf_restrictScalars_smul_points_eq.lean",
+   "local_sha256": "0d7e7c849984c13e0263b7bf640f4432d6e8a1ce453bc9429adcaf5ec71ce1c5"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_ker_cotangentMap_eq_smul_top_and_smul_top_eq_bot",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_ker_cotangentMap_eq_smul_top_and_smul_top_eq_bot.lean",
+   "upstream_sha256": "68bbf9b8e19c8bab5d4c8dc6ec275f0659b2cb8516e1a845fc1bb3865ff8b7d1",
+   "upstream_git_blob": "51cd4df73574441d7ff5f4455d3bed03fb6068f6",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_ker_cotangentMap_eq_smul_top_and_smul_top_eq_bot.lean",
+   "local_sha256": "c12c42ba6645b8047b2fe2f745c15770b44a0114d6ff181fb91ca17064cd341a"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_mem_span_pow_of_forall_pow_apply_eq_zero",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_mem_span_pow_of_forall_pow_apply_eq_zero.lean",
+   "upstream_sha256": "1f1002cce428b988dbf7d405ad38778968387c6439b4b6d1c21ca330e253b478",
+   "upstream_git_blob": "ab23596ba6f2dc6ff29e25a964ad42b035745635",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_mem_span_pow_of_forall_pow_apply_eq_zero.lean",
+   "local_sha256": "2d021cbbf1592ff1d818ecd16c8ba4fb2a65ff4583de0d28a3382fa8afa027de"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_nonempty_basis_cotangentModule_of_hasDimension",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_nonempty_basis_cotangentModule_of_hasDimension.lean",
+   "upstream_sha256": "450b4f367317f7c931df75dcb18fe70ecb84f3c671bcbc23d73df7e40e83c582",
+   "upstream_git_blob": "a72f7913e9a833106ba0be0ec3fa1f9abd31295b",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_nonempty_basis_cotangentModule_of_hasDimension.lean",
+   "local_sha256": "36467c8f7933d23b9b08578c37adf4db463f626c9cbd3440780c2c42d8d448bb"
+  },
+  {
+   "module": "P2M.Sol.S_PDivisibleGroup_nonempty_basis_tateModule_points",
+   "upstream_path": "P2M/Sol/S_PDivisibleGroup_nonempty_basis_tateModule_points.lean",
+   "upstream_sha256": "b0476ebc27cfd17c1cf38727c13a74db4931f509aa3464b9187227331321114e",
+   "upstream_git_blob": "8e1ab7dc995087b2932a3e24282eb22ab470dd63",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PDivisibleGroup_nonempty_basis_tateModule_points.lean",
+   "local_sha256": "eee94231d17e79cac39e7dc665794d1a4819966b9358f13179095d40ad05b89a"
+  },
+  {
+   "module": "P2M.Sol.S_PadicAlgCl_exists_forall_exists_polynomial_aeval_eq_of_norm_le_one",
+   "upstream_path": "P2M/Sol/S_PadicAlgCl_exists_forall_exists_polynomial_aeval_eq_of_norm_le_one.lean",
+   "upstream_sha256": "582931319498a8f8573ae210df2c0ea61c0abfeb93bfeacc43fffb4dac11fe3f",
+   "upstream_git_blob": "36478404043d9e249c6d2832d49c1d14b26ea88c",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PadicAlgCl_exists_forall_exists_polynomial_aeval_eq_of_norm_le_one.lean",
+   "local_sha256": "b1384fb2daf57b7821d55dc397ae590754a0925785d7b34b4a76f83f83a80c5e"
+  },
+  {
+   "module": "P2M.Sol.S_PadicAlgCl_exists_forall_ringHom_apply_algebraMap_eq_of_free_of_ker_eq_span_pow",
+   "upstream_path": "P2M/Sol/S_PadicAlgCl_exists_forall_ringHom_apply_algebraMap_eq_of_free_of_ker_eq_span_pow.lean",
+   "upstream_sha256": "1a40aa929bb7758fd31ab9b3fe2beb84cd40f2ca2d87e08a0de6f997db2cc12f",
+   "upstream_git_blob": "34357129f254dab9e25b532a2310da261d6542e5",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PadicAlgCl_exists_forall_ringHom_apply_algebraMap_eq_of_free_of_ker_eq_span_pow.lean",
+   "local_sha256": "9afceea4b1238efa2f4d4ce3e3cf387cc27d001155bc701122263d6560aed159"
+  },
+  {
+   "module": "P2M.Sol.S_PadicAlgCl_exists_forall_rpow_neg_lt_norm_algEquiv_sub_of_mem_sup_cyclotomicTower",
+   "upstream_path": "P2M/Sol/S_PadicAlgCl_exists_forall_rpow_neg_lt_norm_algEquiv_sub_of_mem_sup_cyclotomicTower.lean",
+   "upstream_sha256": "52a7e5a43aad1a6f870595ea89b95aacac25498209ceda63d2965e526ec490d6",
+   "upstream_git_blob": "4a91ea71989572593d96ebfc291316af7042549a",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PadicAlgCl_exists_forall_rpow_neg_lt_norm_algEquiv_sub_of_mem_sup_cyclotomicTower.lean",
+   "local_sha256": "605ea8b36ddf737cd073cca55cf09e7e14c7516fa6bdfff4deb4ac7bfe0d827a"
+  },
+  {
+   "module": "P2M.Sol.S_PadicAlgCl_exists_forall_traceDual_norm_le_rpow_sup_cyclotomicTower",
+   "upstream_path": "P2M/Sol/S_PadicAlgCl_exists_forall_traceDual_norm_le_rpow_sup_cyclotomicTower.lean",
+   "upstream_sha256": "49e07aa11a4f1e101b5430c4114f4f0db8474b50ac88457160c97043ff702ee6",
+   "upstream_git_blob": "a62f6dd686318c082ad92f6833d6786fb97a4203",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PadicAlgCl_exists_forall_traceDual_norm_le_rpow_sup_cyclotomicTower.lean",
+   "local_sha256": "fe75096bdaa2f718138986a0c617e140c6b545ffdba79687a1a5cc490408cf66"
+  },
+  {
+   "module": "P2M.Sol.S_PadicAlgCl_exists_norm_le_one_and_trace_eq_of_forall_traceDual_norm_le",
+   "upstream_path": "P2M/Sol/S_PadicAlgCl_exists_norm_le_one_and_trace_eq_of_forall_traceDual_norm_le.lean",
+   "upstream_sha256": "6e2717b9691b394f37344a0eaf017ce469d29aed8823743687389b67e95d2b3b",
+   "upstream_git_blob": "1df89a70fff31de068c0c0d9739ad105db83cb90",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PadicAlgCl_exists_norm_le_one_and_trace_eq_of_forall_traceDual_norm_le.lean",
+   "local_sha256": "cdcda24d8da572942a51d56f01b67f0b8b9a63b04ca15a30f4210d5ba05b5ffa"
+  },
+  {
+   "module": "P2M.Sol.S_PadicAlgCl_exists_norm_le_one_and_trace_eq_of_norm_lt_one_sup_cyclotomicTower",
+   "upstream_path": "P2M/Sol/S_PadicAlgCl_exists_norm_le_one_and_trace_eq_of_norm_lt_one_sup_cyclotomicTower.lean",
+   "upstream_sha256": "36a2e28372342c6f7d7b319df52646343d72f567531ed3295883816c092bfb4d",
+   "upstream_git_blob": "3ef884b15ce5388ca4f134b442c2bbcecc7a92a1",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PadicAlgCl_exists_norm_le_one_and_trace_eq_of_norm_lt_one_sup_cyclotomicTower.lean",
+   "local_sha256": "9c133b64cb8c79637aa6b5c75d23a054e5f096fddecb03cd0a3b3cf09754c490"
+  },
+  {
+   "module": "P2M.Sol.S_PadicAlgCl_isIntegral_padicInt_iff_norm_le_one",
+   "upstream_path": "P2M/Sol/S_PadicAlgCl_isIntegral_padicInt_iff_norm_le_one.lean",
+   "upstream_sha256": "8920d6736ded7ff2757e516c302fda2a91a16daad7d97b7394d208ba2386e18d",
+   "upstream_git_blob": "4a2167e3d3b9bf8f9e4a51d7d6b771e818156936",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PadicAlgCl_isIntegral_padicInt_iff_norm_le_one.lean",
+   "local_sha256": "c4780b2f338627fe1a89588d39c6b2ead318b9c86f8056ee58f466ae0f7dcf7c"
+  },
+  {
+   "module": "P2M.Sol.S_PadicAlgCl_norm_apply_sub_le_norm_apply_sub_of_mem_cyclotomicTower",
+   "upstream_path": "P2M/Sol/S_PadicAlgCl_norm_apply_sub_le_norm_apply_sub_of_mem_cyclotomicTower.lean",
+   "upstream_sha256": "3b80b55480e11adcf25cbb8606cdc0517cf83789f8f0b942e8ea429719841c58",
+   "upstream_git_blob": "7f7a4633fb250c05cd06391e96ff36da36e006da",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PadicAlgCl_norm_apply_sub_le_norm_apply_sub_of_mem_cyclotomicTower.lean",
+   "local_sha256": "3665fd1d85cb246d155f44bccd3ca4188c7a568ae4b3750e6c87a9913fcb2cd7"
+  },
+  {
+   "module": "P2M.Sol.S_PadicAlgCl_norm_apply_sub_self_eq_of_isPrimitiveRoot_of_mem_fixingSubgroup",
+   "upstream_path": "P2M/Sol/S_PadicAlgCl_norm_apply_sub_self_eq_of_isPrimitiveRoot_of_mem_fixingSubgroup.lean",
+   "upstream_sha256": "5e0546ada3e1806992ff2d65b9d868e94cb7d7bb6596f9ab785a94bda5674b92",
+   "upstream_git_blob": "c86f44c7013598cf947877877fc1c4ce75a811a9",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PadicAlgCl_norm_apply_sub_self_eq_of_isPrimitiveRoot_of_mem_fixingSubgroup.lean",
+   "local_sha256": "cc4c7943009c454fdaf586cf8f551a89a70c504350856c33e12582d706c85f45"
+  },
+  {
+   "module": "P2M.Sol.S_PadicAlgCl_norm_mul_aeval_derivative_minpoly_le_one_of_forall_norm_trace_mul_le_one",
+   "upstream_path": "P2M/Sol/S_PadicAlgCl_norm_mul_aeval_derivative_minpoly_le_one_of_forall_norm_trace_mul_le_one.lean",
+   "upstream_sha256": "26209fccd75203f2cfd7deb269c039ae23a7b2dd9e880d7672d0d6456918e5f8",
+   "upstream_git_blob": "84b0cc73947b4acc70e6ed9605ae24a3eff61bee",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PadicAlgCl_norm_mul_aeval_derivative_minpoly_le_one_of_forall_norm_trace_mul_le_one.lean",
+   "local_sha256": "d754e61bf1d2179c1dedd6bd46731608fa5f4c4125e5974a711e607abe43247e"
+  },
+  {
+   "module": "P2M.Sol.S_PadicAlgCl_ringOfIntegers_finite_and_isDiscreteValuationRing_and_isAdicComplete",
+   "upstream_path": "P2M/Sol/S_PadicAlgCl_ringOfIntegers_finite_and_isDiscreteValuationRing_and_isAdicComplete.lean",
+   "upstream_sha256": "2b308b3e9a251d02ee1bce25eb200c6b5d7aafede7a9ad88b85190ec0a7130fa",
+   "upstream_git_blob": "3f769d74b9e5bae038ee994279ba317871cdc42b",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PadicAlgCl_ringOfIntegers_finite_and_isDiscreteValuationRing_and_isAdicComplete.lean",
+   "local_sha256": "c38e1f9dc12f6128ae9af01c71e0e33738e701ec0a6c6386b3804220d61d4f73"
+  },
+  {
+   "module": "P2M.Sol.S_PadicComplex_bijOn_towerClosure_smul_sub_mul_of_isTateTrace",
+   "upstream_path": "P2M/Sol/S_PadicComplex_bijOn_towerClosure_smul_sub_mul_of_isTateTrace.lean",
+   "upstream_sha256": "90109f9247b41c4cc2587e79f387db8d65ec4262eae0d16588493e868ee824d3",
+   "upstream_git_blob": "a082280b39ee351e1d6172f7b8e44927cd9005f1",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PadicComplex_bijOn_towerClosure_smul_sub_mul_of_isTateTrace.lean",
+   "local_sha256": "2e6009d3ba1e22465f2a9af55a0af2366712d5b19190ffa5e16c71227e698b0e"
+  },
+  {
+   "module": "P2M.Sol.S_PadicComplex_exists_eq_cyclotomicCharacter_zpow_mul_smul_sub_of_continuous_cocycle",
+   "upstream_path": "P2M/Sol/S_PadicComplex_exists_eq_cyclotomicCharacter_zpow_mul_smul_sub_of_continuous_cocycle.lean",
+   "upstream_sha256": "280ebc698a0569e053134c3aba4927b8892e0047ee93b850febdb414c7239b8e",
+   "upstream_git_blob": "892e1f4a4d2708f1d92daae4ca9c18415e9b9305",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PadicComplex_exists_eq_cyclotomicCharacter_zpow_mul_smul_sub_of_continuous_cocycle.lean",
+   "local_sha256": "839702b6862afaf358af97b4827a69064269fb82681183c988f5333c84a3c23f"
+  },
+  {
+   "module": "P2M.Sol.S_PadicComplex_exists_eq_smul_sub_of_continuous_cocycle_fixingSubgroup_sup_cyclotomicTower",
+   "upstream_path": "P2M/Sol/S_PadicComplex_exists_eq_smul_sub_of_continuous_cocycle_fixingSubgroup_sup_cyclotomicTower.lean",
+   "upstream_sha256": "253813f0c894354707f0ea7e0393b672776001648d0125e2e5cca1b294ae2f0d",
+   "upstream_git_blob": "725de2ca218ccb385f5eb0369a8c5117d9d2cea7",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PadicComplex_exists_eq_smul_sub_of_continuous_cocycle_fixingSubgroup_sup_cyclotomicTower.lean",
+   "local_sha256": "3de5fe5fe7b127e13ed9efd39e0ee65f6eebb17ef48f1d35df0fba4a191241f7"
+  },
+  {
+   "module": "P2M.Sol.S_PadicComplex_exists_eq_smul_sub_of_continuous_cocycle_of_forall_exists_trace_eq",
+   "upstream_path": "P2M/Sol/S_PadicComplex_exists_eq_smul_sub_of_continuous_cocycle_of_forall_exists_trace_eq.lean",
+   "upstream_sha256": "abeb24c435d838be5c204090ea70749c088609878bbf7f14d1a5cfa466ab313f",
+   "upstream_git_blob": "763472a9079a503559c749e5f25adf99036a27f6",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PadicComplex_exists_eq_smul_sub_of_continuous_cocycle_of_forall_exists_trace_eq.lean",
+   "local_sha256": "78cb0d37947b11e882525a30dd1401610b54d0892381dc07a01f1b027483c123"
+  },
+  {
+   "module": "P2M.Sol.S_PadicComplex_exists_linearIndependent_forall_apply_eq_mul_smul_of_forall_mem_fixingSubgroup",
+   "upstream_path": "P2M/Sol/S_PadicComplex_exists_linearIndependent_forall_apply_eq_mul_smul_of_forall_mem_fixingSubgroup.lean",
+   "upstream_sha256": "8c006eab0b633fa6b96f937c787566ca4da9d316825f59bcdafac433a5b3ff04",
+   "upstream_git_blob": "cd2f81d9d6a3418d364a21755751e14d987a326f",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_PadicComplex_exists_linearIndependent_forall_apply_eq_mul_smul_of_forall_mem_fixingSubgroup.lean",
+   "local_sha256": "be33f48afd35b3ffdc36cdc63312601cbaf99e94d2ae3856867c46d5f3d54a3b"
+  },
+  {
+   "module": "P2M.Sol.S_TateModule_nonempty_basis_of_card_torsionBy",
+   "upstream_path": "P2M/Sol/S_TateModule_nonempty_basis_of_card_torsionBy.lean",
+   "upstream_sha256": "bd06546f395e8dcaa42665be3b9b85c20bec420d3247d08dc940c2a9d3101c38",
+   "upstream_git_blob": "a194d077686c317da46fcb7cbe3a4e0611928cfb",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_TateModule_nonempty_basis_of_card_torsionBy.lean",
+   "local_sha256": "030e39744e4ac43f3ce569c64878bd21dea0a244aebd7bdc4646373abcd5d756"
+  },
+  {
+   "module": "P2M.Sol.S_ValuationSubring_exists_ringHom_comp_eq_of_moduleFinite_of_flat",
+   "upstream_path": "P2M/Sol/S_ValuationSubring_exists_ringHom_comp_eq_of_moduleFinite_of_flat.lean",
+   "upstream_sha256": "262f50be60bc56d5083129cd13bf3fe4a47707e87f93efaea72430f14d2e33cd",
+   "upstream_git_blob": "1e03872d7ce4cc3e9d44fca2e9d634c3f5a4ce01",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_ValuationSubring_exists_ringHom_comp_eq_of_moduleFinite_of_flat.lean",
+   "local_sha256": "46d10cd69d667ad820964b761135f4c91d42e3ae4f79c4043b6f8dc4542d44c0"
+  },
+  {
+   "module": "P2M.Sol.S_integralClosure_finite_and_isDiscreteValuationRing_and_isAdicComplete_maximalIdeal",
+   "upstream_path": "P2M/Sol/S_integralClosure_finite_and_isDiscreteValuationRing_and_isAdicComplete_maximalIdeal.lean",
+   "upstream_sha256": "dd2e3d62d39bf59ca896e5c7a2bdb8d47a5bb75678fd777752f793e3f8731ac9",
+   "upstream_git_blob": "80ef716adea40c6ecb1c1bf6d6a0362f54aabca7",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/P2M/Sol/S_integralClosure_finite_and_isDiscreteValuationRing_and_isAdicComplete_maximalIdeal.lean",
+   "local_sha256": "74e642c997e23ceb043075488281637566ced04baedad5a278aa5a58a212c69e"
+  },
+  {
+   "module": "Theorems.Thm_Algebra_Etale_eq_of_forall_algHom_apply_eq",
+   "upstream_path": "Theorems/Thm_Algebra_Etale_eq_of_forall_algHom_apply_eq.lean",
+   "upstream_sha256": "85aa85cf741d2be827f0c5d39492ba205e92da17f411bf2bbca77e608e5c1517",
+   "upstream_git_blob": "9727ce111d35323349dd3c4a177bed78647f2e5b",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_Algebra_Etale_eq_of_forall_algHom_apply_eq.lean",
+   "local_sha256": "db1ac2d2b8c3a90430e1c3be7732957e847a56190f64d67801d7f8cdbf084e6a"
+  },
+  {
+   "module": "Theorems.Thm_Algebra_Etale_natCard_algHom_eq_finrank_of_isAlgClosed",
+   "upstream_path": "Theorems/Thm_Algebra_Etale_natCard_algHom_eq_finrank_of_isAlgClosed.lean",
+   "upstream_sha256": "ab89ed58552f74c45643675342b2fdb2e8463bf1302b6c2f50a48083e9a8b1fa",
+   "upstream_git_blob": "732731bc8ac093bfa3f5e9817df678f3e9ebe785",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_Algebra_Etale_natCard_algHom_eq_finrank_of_isAlgClosed.lean",
+   "local_sha256": "d406004b50c7fa02163c2553b6e52d6f25141c3b69da6796e6feaf4f6cf0a023"
+  },
+  {
+   "module": "Theorems.Thm_CartierDual_basisPairing_eq_and_map_convMul_and_comp_and_transpose",
+   "upstream_path": "Theorems/Thm_CartierDual_basisPairing_eq_and_map_convMul_and_comp_and_transpose.lean",
+   "upstream_sha256": "f74d36cef33269e3e2a8d2d9136ef0352f6d89fb5585331187f70ce099b4ffd2",
+   "upstream_git_blob": "45cdf0ba9b817c3e2f0f2e44251c682f6520b73a",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_CartierDual_basisPairing_eq_and_map_convMul_and_comp_and_transpose.lean",
+   "local_sha256": "5807c2257d0f42c3c051d2252f5ff7a249ff5e2a87b4a9d2768b0ea83611169d"
+  },
+  {
+   "module": "Theorems.Thm_CartierDual_dualBaseChangeLin_bijective_integral",
+   "upstream_path": "Theorems/Thm_CartierDual_dualBaseChangeLin_bijective_integral.lean",
+   "upstream_sha256": "84856c0e38f303ec372767e1e2be84f66bda13c697a085b67c96aee556186f90",
+   "upstream_git_blob": "50add4d067bd4f8435dc082ba14f3036a186b36e",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_CartierDual_dualBaseChangeLin_bijective_integral.lean",
+   "local_sha256": "f8d77717ce8eda1ee211a6aa8e788924948e2e01f131eabd5f88c82cf8900762"
+  },
+  {
+   "module": "Theorems.Thm_CartierDual_exists_bialgEquiv_bidual",
+   "upstream_path": "Theorems/Thm_CartierDual_exists_bialgEquiv_bidual.lean",
+   "upstream_sha256": "bb892750f1185231791539d913ed4f6179689ea198201a774676f4fca9536d06",
+   "upstream_git_blob": "c8af45b843dbb7a5a1759d602f2b981d5961fb26",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_CartierDual_exists_bialgEquiv_bidual.lean",
+   "local_sha256": "d58768ab4eee900b2d1f5252867b4a0d277089a75f658218f0dbe1d838dc1547"
+  },
+  {
+   "module": "Theorems.Thm_CartierDual_forall_hopfKer_apply_eq_zero_iff_mem_map_ker_counit",
+   "upstream_path": "Theorems/Thm_CartierDual_forall_hopfKer_apply_eq_zero_iff_mem_map_ker_counit.lean",
+   "upstream_sha256": "56a44ea5a9b1144aa3f53a97d907919c8047650a656cbf33da7c3d00f679b904",
+   "upstream_git_blob": "f83b7fdb0b5c9bcfbcdc99fe47da96f992d3f0f7",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_CartierDual_forall_hopfKer_apply_eq_zero_iff_mem_map_ker_counit.lean",
+   "local_sha256": "73fe7347c5807004d791313c88ec6575fd1facac279333a17a92087b30ada638"
+  },
+  {
+   "module": "Theorems.Thm_CartierDual_pow_apply_pow_eq_apply_nsmulAlgHom_pow",
+   "upstream_path": "Theorems/Thm_CartierDual_pow_apply_pow_eq_apply_nsmulAlgHom_pow.lean",
+   "upstream_sha256": "8dbe2a9edb9f37bb493ba790cc3624819d22bccec92a95c3cd612f8b72fc42ac",
+   "upstream_git_blob": "166496b56d289bee8d0978956edb333ca36f072b",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_CartierDual_pow_apply_pow_eq_apply_nsmulAlgHom_pow.lean",
+   "local_sha256": "d8581177ac4e59f4394f36fd6b088010085eae1b0c8cc3e6bf11b9d4de4a8501"
+  },
+  {
+   "module": "Theorems.Thm_HopfAlgebra_algebra_etale_of_module_finite_of_charZero",
+   "upstream_path": "Theorems/Thm_HopfAlgebra_algebra_etale_of_module_finite_of_charZero.lean",
+   "upstream_sha256": "54c5c88d2ad6826aa02b540f11178f13625cf8a4bbbc2252e8fd682630526963",
+   "upstream_git_blob": "c9501f6542c2a308a842edaab66af7d9b2555d5a",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_HopfAlgebra_algebra_etale_of_module_finite_of_charZero.lean",
+   "local_sha256": "e1604b1db2f2dfe3a7f3e90f5cb871c3228f903741b0a093e4f702e4d53f6e96"
+  },
+  {
+   "module": "Theorems.Thm_HopfAlgebra_canMap_surjective_of_surjective",
+   "upstream_path": "Theorems/Thm_HopfAlgebra_canMap_surjective_of_surjective.lean",
+   "upstream_sha256": "273aafbee02fdb13d46a3f7899db7e46c7b5c5c1860021474f6071d82002666d",
+   "upstream_git_blob": "655b6bb798402f12794d56b13e1d30763b38aa79",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_HopfAlgebra_canMap_surjective_of_surjective.lean",
+   "local_sha256": "bcf0e80fdfc7307a40111966ac5430edd7706422111178c52a55cdb19e1b5876"
+  },
+  {
+   "module": "Theorems.Thm_HopfAlgebra_exists_algEquiv_comap_ker_counitAlgHom_eq_ker_algHom",
+   "upstream_path": "Theorems/Thm_HopfAlgebra_exists_algEquiv_comap_ker_counitAlgHom_eq_ker_algHom.lean",
+   "upstream_sha256": "c2160d67efb6b90c25f417aae2b64a371802ace47d210fbf312e1c2c30f9f06f",
+   "upstream_git_blob": "4b0c6242256e47a802a0f9c92176af3065ca9e1f",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_HopfAlgebra_exists_algEquiv_comap_ker_counitAlgHom_eq_ker_algHom.lean",
+   "local_sha256": "320ab71602698039678f68a22b81ec86d2760f7ff5410c91b18c4fbcfef6223f"
+  },
+  {
+   "module": "Theorems.Thm_HopfAlgebra_exists_fin_lift_basis_ker_counitAlgHom_sq_of_finiteType",
+   "upstream_path": "Theorems/Thm_HopfAlgebra_exists_fin_lift_basis_ker_counitAlgHom_sq_of_finiteType.lean",
+   "upstream_sha256": "640bef4ae8c6a90ca64040c3a32661c7556c8302fbe301b6a2518b092706ea48",
+   "upstream_git_blob": "726d3e83df53c0e83c64cd4e61e1cbb2252e0af3",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_HopfAlgebra_exists_fin_lift_basis_ker_counitAlgHom_sq_of_finiteType.lean",
+   "local_sha256": "0e30a25ac36b57e4a0f42ca00ed667157e78ca063cd2629a992987d6569788b5"
+  },
+  {
+   "module": "Theorems.Thm_HopfAlgebra_exists_leftIntegral_sum_apply_mul_eq_counit",
+   "upstream_path": "Theorems/Thm_HopfAlgebra_exists_leftIntegral_sum_apply_mul_eq_counit.lean",
+   "upstream_sha256": "7b42bcb0682ad2fe40f4ffddd2f88e2fd6326fd443419f9cc0f1eedc27d775cf",
+   "upstream_git_blob": "6aa3bbe6511b56523f1e4f80118fa538fedc30fe",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_HopfAlgebra_exists_leftIntegral_sum_apply_mul_eq_counit.lean",
+   "local_sha256": "61b675db1f9d649c02228c7e33dedbe10fa11d3c9cfadcd1741a4076c70aaed8"
+  },
+  {
+   "module": "Theorems.Thm_HopfAlgebra_exists_retraction_hopfKer_and_rankAtStalk_mul_finrank_of_surjective",
+   "upstream_path": "Theorems/Thm_HopfAlgebra_exists_retraction_hopfKer_and_rankAtStalk_mul_finrank_of_surjective.lean",
+   "upstream_sha256": "c152d61898dccd96c577cf17f8fda8596c565cd223277dafe8ad79cf6b396a09",
+   "upstream_git_blob": "fa508c3a3b07330d4cd57b5f7bba4b76427c7e01",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_HopfAlgebra_exists_retraction_hopfKer_and_rankAtStalk_mul_finrank_of_surjective.lean",
+   "local_sha256": "20839059f02656730c6e09647bbc4d01d90417a87a5cd290872c5ed60883c730"
+  },
+  {
+   "module": "Theorems.Thm_HopfAlgebra_finite_projective_hopfKer_of_surjective",
+   "upstream_path": "Theorems/Thm_HopfAlgebra_finite_projective_hopfKer_of_surjective.lean",
+   "upstream_sha256": "2257bf2c281d2de9999d4096afeb5484593b21dc1801dcd9d3e4362a4ed59b53",
+   "upstream_git_blob": "c183783f14316f90d649db0df24b5f27350ee942",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_HopfAlgebra_finite_projective_hopfKer_of_surjective.lean",
+   "local_sha256": "1ed4854a60206977591ac7c115e431fc09aecb68090abc6c2e03e89ac71414de"
+  },
+  {
+   "module": "Theorems.Thm_HopfAlgebra_finrank_eq_pow_finrank_cotangent_of_forall_pow_prime_eq_zero",
+   "upstream_path": "Theorems/Thm_HopfAlgebra_finrank_eq_pow_finrank_cotangent_of_forall_pow_prime_eq_zero.lean",
+   "upstream_sha256": "271c64732b27dd41ee908b01a29abf9b387216b5fb0b3432ea0c048a3cccec3a",
+   "upstream_git_blob": "2945debadf51f053384fb4db985d3e2ec45dc775",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_HopfAlgebra_finrank_eq_pow_finrank_cotangent_of_forall_pow_prime_eq_zero.lean",
+   "local_sha256": "2809d3f57435c83677ffe9708aa068a6eb14683945c0c7890f15234a3f61342c"
+  },
+  {
+   "module": "Theorems.Thm_HopfAlgebra_finrank_quotient_span_pow_mul_finrank_cartierDual_quotient_eq",
+   "upstream_path": "Theorems/Thm_HopfAlgebra_finrank_quotient_span_pow_mul_finrank_cartierDual_quotient_eq.lean",
+   "upstream_sha256": "62fc159e0ad95e53d6e98e724e7a09dbd14606abe05f201c1d46f4c9f43fc5ad",
+   "upstream_git_blob": "e11e181c194c0a40925f85a6e33a9a08c9841bb2",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_HopfAlgebra_finrank_quotient_span_pow_mul_finrank_cartierDual_quotient_eq.lean",
+   "local_sha256": "1355195245cea6f712dd02cf35f5ba3d051f51e64bc94f8ecf6c293d13e32a65"
+  },
+  {
+   "module": "Theorems.Thm_HopfAlgebra_finrank_quotient_span_pow_prime_eq_pow_finrank_cotangent",
+   "upstream_path": "Theorems/Thm_HopfAlgebra_finrank_quotient_span_pow_prime_eq_pow_finrank_cotangent.lean",
+   "upstream_sha256": "c9a9400fc17ae3e4975a52150aa2c0fa42a154d18e4e4c4669d58064c607f996",
+   "upstream_git_blob": "1341d101f7061ac69c1467de23885750719c89b5",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_HopfAlgebra_finrank_quotient_span_pow_prime_eq_pow_finrank_cotangent.lean",
+   "local_sha256": "2234652ac2bba7daf455c0dc2ea4562282d930be91f865b091f53933fa98d9fd"
+  },
+  {
+   "module": "Theorems.Thm_HopfAlgebra_isDomain_localization_atPrime_ker_algHom_of_finiteType_of_charZero",
+   "upstream_path": "Theorems/Thm_HopfAlgebra_isDomain_localization_atPrime_ker_algHom_of_finiteType_of_charZero.lean",
+   "upstream_sha256": "197baf1932f13776e6f320013713830f567ff61ffe5b38ff35bcc5c6f111f69e",
+   "upstream_git_blob": "06506c5319d6c8dced539c8055bfcb4b635b1ec2",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_HopfAlgebra_isDomain_localization_atPrime_ker_algHom_of_finiteType_of_charZero.lean",
+   "local_sha256": "f066f25c32226763f90e39a4662dafb40dfbcd84bbfc1aab6469882ae5803aa0"
+  },
+  {
+   "module": "Theorems.Thm_HopfAlgebra_isDomain_localization_atPrime_ker_counitAlgHom_of_finiteType_of_charZero",
+   "upstream_path": "Theorems/Thm_HopfAlgebra_isDomain_localization_atPrime_ker_counitAlgHom_of_finiteType_of_charZero.lean",
+   "upstream_sha256": "cb32f19826232b10683694b9cf610922652a60ac049d4b6b29d10db656832897",
+   "upstream_git_blob": "f8524e3f018e3ec7e3156a40e38107c8adb9bb17",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_HopfAlgebra_isDomain_localization_atPrime_ker_counitAlgHom_of_finiteType_of_charZero.lean",
+   "local_sha256": "176ae5cbf2d0f0f1ef1c4e6f5cf998d9543f3c639cf61a078b99019fa8838928"
+  },
+  {
+   "module": "Theorems.Thm_HopfAlgebra_isHopfGalois_of_surjective",
+   "upstream_path": "Theorems/Thm_HopfAlgebra_isHopfGalois_of_surjective.lean",
+   "upstream_sha256": "07275fdac0b6efc6e0d3d9cb9f3a1f9a56dd250dfe20208e831134338c993f85",
+   "upstream_git_blob": "c4ea7ad5a367dbadf4d3eb83078f1c43aa712cc1",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_HopfAlgebra_isHopfGalois_of_surjective.lean",
+   "local_sha256": "79f29613fe1adeceae2b331644f58af52f70eb65384485f6118bc69f95990c57"
+  },
+  {
+   "module": "Theorems.Thm_HopfAlgebra_isReduced_of_finiteType_of_charZero",
+   "upstream_path": "Theorems/Thm_HopfAlgebra_isReduced_of_finiteType_of_charZero.lean",
+   "upstream_sha256": "74251bc31f3007211b615e3a93c2dd3dbb2228f9992b727e7f7f777cf9d36704",
+   "upstream_git_blob": "10c28449dc406c294f97f6f11057a1260e4e08bc",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_HopfAlgebra_isReduced_of_finiteType_of_charZero.lean",
+   "local_sha256": "4e7c621c702ff8e814aff1ffd4253c6b25f94a9c0581bf452dec048c99a6f130"
+  },
+  {
+   "module": "Theorems.Thm_HopfAlgebra_isReduced_of_finiteType_of_isAlgClosed_of_charZero",
+   "upstream_path": "Theorems/Thm_HopfAlgebra_isReduced_of_finiteType_of_isAlgClosed_of_charZero.lean",
+   "upstream_sha256": "610e33c922aaf4884561de6c9f434da04ae810b27651493d5441ae073b26a059",
+   "upstream_git_blob": "d7f4362ffb6017c820b2f013412083ffd62104b8",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_HopfAlgebra_isReduced_of_finiteType_of_isAlgClosed_of_charZero.lean",
+   "local_sha256": "b1f399c8fafd52ce8476cd8bf5ddb6e6b94314644b7a63968286a8213ee22674"
+  },
+  {
+   "module": "Theorems.Thm_HopfAlgebra_mul_not_mem_ker_counitAlgHom_pow_succ_of_lift_basis_charZero",
+   "upstream_path": "Theorems/Thm_HopfAlgebra_mul_not_mem_ker_counitAlgHom_pow_succ_of_lift_basis_charZero.lean",
+   "upstream_sha256": "e67dcb575e8819c4d50f07aa0ab77a211616ee9981716dd9009df1946ddf1d13",
+   "upstream_git_blob": "30ee9c298592cf73bf68a3f0a4451def67a9ba54",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_HopfAlgebra_mul_not_mem_ker_counitAlgHom_pow_succ_of_lift_basis_charZero.lean",
+   "local_sha256": "9dd4a2bf3abe3261e809947226b8783084a8c80180323b215e7ab99be3e785a4"
+  },
+  {
+   "module": "Theorems.Thm_HopfAlgebra_natCard_algHom_eq_finrank_of_charZero",
+   "upstream_path": "Theorems/Thm_HopfAlgebra_natCard_algHom_eq_finrank_of_charZero.lean",
+   "upstream_sha256": "23a661dd3a4f7ac1c376b42318650cd56a5c6245cb2673496a411ebdcc6b0fe2",
+   "upstream_git_blob": "8e502979ddbdc3e2b7898c5f4bffc261e761cca0",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_HopfAlgebra_natCard_algHom_eq_finrank_of_charZero.lean",
+   "local_sha256": "e49239614391627e6411b89b305767a58a83bf57c196b758c417a2f5f73f93c2"
+  },
+  {
+   "module": "Theorems.Thm_IsCyclotomicExtension_Padic_isIntegralClosure_adjoin_singleton_of_prime_pow",
+   "upstream_path": "Theorems/Thm_IsCyclotomicExtension_Padic_isIntegralClosure_adjoin_singleton_of_prime_pow.lean",
+   "upstream_sha256": "3138d35da9b6ffa623e99deaefe5c43100de21b125d64b23863beec327ac560c",
+   "upstream_git_blob": "7cf4579c4c4d59c1ab781d6862639a73c5433e51",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_IsCyclotomicExtension_Padic_isIntegralClosure_adjoin_singleton_of_prime_pow.lean",
+   "local_sha256": "6427e68d67c9ef53afa0bd367dec75645ec1f5653bd049d04530ea5243465a4f"
+  },
+  {
+   "module": "Theorems.Thm_IsGalois_exists_basis_baseChange_forall_apply_eq_self",
+   "upstream_path": "Theorems/Thm_IsGalois_exists_basis_baseChange_forall_apply_eq_self.lean",
+   "upstream_sha256": "edd6bbc05447fb3de7a98ed8af947b77098246d6d94a13e2da72d052d40bdc66",
+   "upstream_git_blob": "a388a51eaf7d9ec31c1694ef73428cc26b6708c2",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_IsGalois_exists_basis_baseChange_forall_apply_eq_self.lean",
+   "local_sha256": "cb15f4f811e56b31e36fe2850c48376696ac4c626dd1366d114974ad111164a0"
+  },
+  {
+   "module": "Theorems.Thm_IsLocalRing_exists_le_maximalIdeal_pow_of_antitone_of_iInf_eq_bot",
+   "upstream_path": "Theorems/Thm_IsLocalRing_exists_le_maximalIdeal_pow_of_antitone_of_iInf_eq_bot.lean",
+   "upstream_sha256": "4d99467c7349e3c72a42f86ee30d5509bf9b8f46bafa40ea10253baabe7ade9f",
+   "upstream_git_blob": "71f6640145cfe22de4e9c21919fcb3b698cffda2",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_IsLocalRing_exists_le_maximalIdeal_pow_of_antitone_of_iInf_eq_bot.lean",
+   "local_sha256": "cc50998f4dbe3e32f94f2b9d574a7fdc9fac94b120fbe44fd7878e703db20da4"
+  },
+  {
+   "module": "Theorems.Thm_IsLocalRing_exists_mvPowerSeries_algHom_apply_X_eq_and_surjective_of_span",
+   "upstream_path": "Theorems/Thm_IsLocalRing_exists_mvPowerSeries_algHom_apply_X_eq_and_surjective_of_span.lean",
+   "upstream_sha256": "ff3e3abfd48deb54358b865730193c04366c1891908054dc8c7a98e302136d5f",
+   "upstream_git_blob": "17e5e43cf6bc3db20e2b8e2505c8a9bb56b54cb7",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_IsLocalRing_exists_mvPowerSeries_algHom_apply_X_eq_and_surjective_of_span.lean",
+   "local_sha256": "d8dba3720146dca5862a66959b6014df71ba2583100ce987cc487e12bbaa6e60"
+  },
+  {
+   "module": "Theorems.Thm_IsLocalRing_mk_comp_algebraMap_surjective_of_maximalIdeal_le",
+   "upstream_path": "Theorems/Thm_IsLocalRing_mk_comp_algebraMap_surjective_of_maximalIdeal_le.lean",
+   "upstream_sha256": "691a9d2ad7fb8b64d0ab0a93f2600cad764bcbf59575938fbc02dd4b8241c034",
+   "upstream_git_blob": "89c7b6358d25620e486f3870a221baa089686c84",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_IsLocalRing_mk_comp_algebraMap_surjective_of_maximalIdeal_le.lean",
+   "local_sha256": "8e5949172c9f3029a4b558ee272e5738b77740e9f767506aa40c567e0720d353"
+  },
+  {
+   "module": "Theorems.Thm_MulSemiringAction_exists_basis_extending_invariants_eq_zpow_smul_and_iff_mem_span_fixedPoints_of_pairing_of_continuous_cocycle",
+   "upstream_path": "Theorems/Thm_MulSemiringAction_exists_basis_extending_invariants_eq_zpow_smul_and_iff_mem_span_fixedPoints_of_pairing_of_continuous_cocycle.lean",
+   "upstream_sha256": "0ce76c818e742a87e6a2d41c0e6b588a4dce6797bcc945816c038cc20499370e",
+   "upstream_git_blob": "c2f886b69b55ecd433c4f6c57ea8f13991b78ffb",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_MulSemiringAction_exists_basis_extending_invariants_eq_zpow_smul_and_iff_mem_span_fixedPoints_of_pairing_of_continuous_cocycle.lean",
+   "local_sha256": "c339862e1f8bb0886325c77e8d90039f4c09f0f69211bbe71d4545afcee4112a"
+  },
+  {
+   "module": "Theorems.Thm_MvPowerSeries_algHom_ext_of_apply_X_mem",
+   "upstream_path": "Theorems/Thm_MvPowerSeries_algHom_ext_of_apply_X_mem.lean",
+   "upstream_sha256": "fbb8124958a1a92d7d1dfa0d92e5fcb5c1434a29c21970bf338bd24bba7b74da",
+   "upstream_git_blob": "aa2c075185222f20bf78af9ed28bbcd70113846f",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_MvPowerSeries_algHom_ext_of_apply_X_mem.lean",
+   "local_sha256": "5558c9f9f829fde6ae6bcf19168171bd758970fefe69092177aeaee12e395af6"
+  },
+  {
+   "module": "Theorems.Thm_MvPowerSeries_algHom_surjective_of_apply_X_eq",
+   "upstream_path": "Theorems/Thm_MvPowerSeries_algHom_surjective_of_apply_X_eq.lean",
+   "upstream_sha256": "3f0f3fc588ac489a88f23418604b8997ad13a4e509948616fc720b6fedb03af6",
+   "upstream_git_blob": "b634cbd7be15bfe02f1a3f82f3bd6aaf77b3fa0b",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_MvPowerSeries_algHom_surjective_of_apply_X_eq.lean",
+   "local_sha256": "1b3cf702123e2b2d13b0b949805f17f623fe5291b0d54b5e4cafb8c736f3af22"
+  },
+  {
+   "module": "Theorems.Thm_MvPowerSeries_exists_algHom_apply_X_eq",
+   "upstream_path": "Theorems/Thm_MvPowerSeries_exists_algHom_apply_X_eq.lean",
+   "upstream_sha256": "5778a9d5fc2b2ef5724b5be2fead6b95b44f8edde7a24f24ac85d18785b3bf39",
+   "upstream_git_blob": "a5b91a3ae0845ff264d3ec01ac8bf108dc0abdd0",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_MvPowerSeries_exists_algHom_apply_X_eq.lean",
+   "local_sha256": "7b2f4ef0245448d8538f2b65df22c59248530461bdc5eb88c421d00e16497398"
+  },
+  {
+   "module": "Theorems.Thm_MvPowerSeries_isAdicComplete_maximalIdeal",
+   "upstream_path": "Theorems/Thm_MvPowerSeries_isAdicComplete_maximalIdeal.lean",
+   "upstream_sha256": "65f94ec48b2f72354baf59e6b636412919307831267f775172f86eccb41036ac",
+   "upstream_git_blob": "92960e6551fbf143008ca4b8ec85534b3beb510d",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_MvPowerSeries_isAdicComplete_maximalIdeal.lean",
+   "local_sha256": "f2ffcf452e170805facc03c9ea9e937c494a0bdb49650462ba017d2ca51686c7"
+  },
+  {
+   "module": "Theorems.Thm_MvPowerSeries_isNoetherianRing_of_finite",
+   "upstream_path": "Theorems/Thm_MvPowerSeries_isNoetherianRing_of_finite.lean",
+   "upstream_sha256": "69c8df8f44411f5b43a663692e10ba1fc46112f8ce1173f69d4fd4358abed8fb",
+   "upstream_git_blob": "51c00a255ff7bd01a802e9be7ca85f94602c7af4",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_MvPowerSeries_isNoetherianRing_of_finite.lean",
+   "local_sha256": "f59efe0335e26f4353987264d43f5df86ea2dda049a59359e74516a7af950762"
+  },
+  {
+   "module": "Theorems.Thm_MvPowerSeries_mem_pow_span_X_of_coeff_eq_zero",
+   "upstream_path": "Theorems/Thm_MvPowerSeries_mem_pow_span_X_of_coeff_eq_zero.lean",
+   "upstream_sha256": "c9c635770d55708510ed1404134397e206b0942cc74e95c18eafe4c7603e9245",
+   "upstream_git_blob": "ff62a5ad28f6099f7d5167cd3e3d5413c8903a17",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_MvPowerSeries_mem_pow_span_X_of_coeff_eq_zero.lean",
+   "local_sha256": "64a0d728f09efdd325d027c15763886176cb8a93225c150021f78e1fe87a035b"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_CartierDuality_bijective_tateModule_pairing_of_isAlgClosed",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_CartierDuality_bijective_tateModule_pairing_of_isAlgClosed.lean",
+   "upstream_sha256": "26b40c6f8cbd7aeff1acd07e4d64196e440f2a02696d7b72ca8347508fc71220",
+   "upstream_git_blob": "228aba8306bbd209547310b2892bd37a2aa4950a",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_CartierDuality_bijective_tateModule_pairing_of_isAlgClosed.lean",
+   "local_sha256": "ac1f086c8c7baa1ff58578d71e08705742de3ccb5a54ad77904f753c61bd8e4c"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_CartierDuality_charElem_mul_and_charDiff_mul_and_lTensor_cotangentMap_charDiff",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_CartierDuality_charElem_mul_and_charDiff_mul_and_lTensor_cotangentMap_charDiff.lean",
+   "upstream_sha256": "d7f54ddba70f6f622df565ac625db84b711230f69667c7182b5aac1766cef19d",
+   "upstream_git_blob": "b83c783e7bdbe1692300b2bd97a580e7a665c9c3",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_CartierDuality_charElem_mul_and_charDiff_mul_and_lTensor_cotangentMap_charDiff.lean",
+   "local_sha256": "fe515542fff4d8eb5ed6e64e72bb4aeaa27d3f1c6f82bde4e536e1edd69d3734"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_CartierDuality_cpoints_eq_zero_of_forall_pair_eq_one_of_forall_mem_range_iff",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_CartierDuality_cpoints_eq_zero_of_forall_pair_eq_one_of_forall_mem_range_iff.lean",
+   "upstream_sha256": "925d8b4065049006925e5b3814c9d8131cf794e294d03f1c88995f8c0f2ddc07",
+   "upstream_git_blob": "f765e4027210debdb33a0492ff95de9d08da75c5",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_CartierDuality_cpoints_eq_zero_of_forall_pair_eq_one_of_forall_mem_range_iff.lean",
+   "local_sha256": "8687b8805f78f538559bae8cb76db3dbe2c90e393a10dceae7c92357908ab219"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_CartierDuality_eq_one_of_forall_pair_eq_one_and_exists_pair_eq_of_isAlgClosed",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_CartierDuality_eq_one_of_forall_pair_eq_one_and_exists_pair_eq_of_isAlgClosed.lean",
+   "upstream_sha256": "16c75c5d92ba6a452651bbdf80093e19fbf826d47d49545b8684426d7f5fe46f",
+   "upstream_git_blob": "37993c5bf9f7da4a5d34078d515e826c49d09939",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_CartierDuality_eq_one_of_forall_pair_eq_one_and_exists_pair_eq_of_isAlgClosed.lean",
+   "local_sha256": "eae683f8987844ab6b69e3d5177cf63e152802f9da52c47d92b90eda2f73e6b1"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_CartierDuality_exists_addMonoidHom_tangentSpace_cpoints_pair_eq_sum_pow_of_ker_cotangentModuleProj_eq",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_CartierDuality_exists_addMonoidHom_tangentSpace_cpoints_pair_eq_sum_pow_of_ker_cotangentModuleProj_eq.lean",
+   "upstream_sha256": "95817188b89203740cecf0654be8741ebccb64a8ff5d88508e7e1cdb2c32df03",
+   "upstream_git_blob": "043dbb047aedc003e577d651121b26a0027ac9c9",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_CartierDuality_exists_addMonoidHom_tangentSpace_cpoints_pair_eq_sum_pow_of_ker_cotangentModuleProj_eq.lean",
+   "local_sha256": "90b9f6bde86c93d2569563c1877fb92589c3238df0c7a294f6e52ad6b37b6bb0"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_CartierDuality_exists_addMonoidHom_tateModule_apply_eq_charDiff",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_CartierDuality_exists_addMonoidHom_tateModule_apply_eq_charDiff.lean",
+   "upstream_sha256": "94eb2da88405edd6f2ec261c1e365b2f3d60a5a6309fcd4a404449f88f3eea0e",
+   "upstream_git_blob": "f00b644f197539eedf09d17327bc1bbf6971bd01",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_CartierDuality_exists_addMonoidHom_tateModule_apply_eq_charDiff.lean",
+   "local_sha256": "d0d3f93de5d9c3b2e2f77f028a7395bb596129fa7b46e15d140afc223211f5ca"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_CartierDuality_exists_addMonoidHom_tateModule_padicComplex_smul_eq_and_norm_sub_le_of_ringOfIntegers",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_CartierDuality_exists_addMonoidHom_tateModule_padicComplex_smul_eq_and_norm_sub_le_of_ringOfIntegers.lean",
+   "upstream_sha256": "f0125294b80f3b3834b72fdaa90ffdd2c33f4aa8460a7dc2fbdde51a8e98d5e0",
+   "upstream_git_blob": "2256c92b0c38b7f35bb7d5a0c2174bc399077958",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_CartierDuality_exists_addMonoidHom_tateModule_padicComplex_smul_eq_and_norm_sub_le_of_ringOfIntegers.lean",
+   "local_sha256": "b6ca3d88ae160a34c8dbbac4e05e9d9230f0f30940ed8cf047b2378f4b64aa34"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_CartierDuality_exists_linearIndependent_invariant_dual_padicComplex_tateModule_of_hasDimension_of_ringOfIntegers",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_CartierDuality_exists_linearIndependent_invariant_dual_padicComplex_tateModule_of_hasDimension_of_ringOfIntegers.lean",
+   "upstream_sha256": "d253c94fd1098b9796d97a1c1d2bfbd1f0a3e5887b8913f45bd63ab085c0fb05",
+   "upstream_git_blob": "cdb078cbde49f6a140714e07aad260096b04d2a3",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_CartierDuality_exists_linearIndependent_invariant_dual_padicComplex_tateModule_of_hasDimension_of_ringOfIntegers.lean",
+   "local_sha256": "fe3c7377fb7f7414c5c3219d4caec63a11c4a484a2ac4bbf91b7a0be030e5815"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_CartierDuality_exists_points_tateModule_pairing_eq_pair",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_CartierDuality_exists_points_tateModule_pairing_eq_pair.lean",
+   "upstream_sha256": "61dca2e72a5472aa20eade11f626494a7b0ac03872bf9918ce1c34a5f09e7db4",
+   "upstream_git_blob": "c0593a8202738d76b91558e735be97355dc8a3b1",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_CartierDuality_exists_points_tateModule_pairing_eq_pair.lean",
+   "local_sha256": "99cc1400994927ff0122a44a6f4714a1f8db15f37358f5026135cfdd3c52fa98"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_CartierDuality_exists_tateModule_pairing_eq_pair",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_CartierDuality_exists_tateModule_pairing_eq_pair.lean",
+   "upstream_sha256": "d18698c2912d004fceb64fd359eb1f48b74a4eb3fb09391ed1f2f23095982058",
+   "upstream_git_blob": "7067e1f2f60ec5da3977dc652527d5b45350e85d",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_CartierDuality_exists_tateModule_pairing_eq_pair.lean",
+   "local_sha256": "ce046e921a1196d878d96752b94414563cb413457ce8e26d47aaf1a322fb5ab9"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_CartierDuality_finrank_cotangent_one_add_finrank_cotangent_one_eq_height",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_CartierDuality_finrank_cotangent_one_add_finrank_cotangent_one_eq_height.lean",
+   "upstream_sha256": "c4e145236e2e8616adfbf30319f3ca121ac37284f41c20e4b194c04811f5351b",
+   "upstream_git_blob": "40d35bcad62cfa07d99cd0731fba7b4a0dcd3b5b",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_CartierDuality_finrank_cotangent_one_add_finrank_cotangent_one_eq_height.lean",
+   "local_sha256": "6b3444fb495467a4d5bf3b028362bde10e46f35d64993ef0a47ef89d7bb29133"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_CartierDuality_isCartierDual_symm",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_CartierDuality_isCartierDual_symm.lean",
+   "upstream_sha256": "4de67770d4e3c515d9239f6c6cda0dc9f177c9dcee6407bf595fe30c80f3b6f8",
+   "upstream_git_blob": "11b0b06b778549d35df88391c0845b54dc33e543",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_CartierDuality_isCartierDual_symm.lean",
+   "local_sha256": "1a633e432453a437e2886ac7511108bb5a027d91e989d9a09a30e308c56b946f"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_CartierDuality_linearIndependent_tateModule_padicComplex_of_norm_sub_le_of_ringOfIntegers",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_CartierDuality_linearIndependent_tateModule_padicComplex_of_norm_sub_le_of_ringOfIntegers.lean",
+   "upstream_sha256": "38b23982231a23e6d0db226f733434b4c6e07afad02f7e09407b7794c2f6de65",
+   "upstream_git_blob": "7319ffedb273bab29498dd52cb7cb5c1203647e9",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_CartierDuality_linearIndependent_tateModule_padicComplex_of_norm_sub_le_of_ringOfIntegers.lean",
+   "local_sha256": "4d94c7aeaa8a4560e044ceeb3a6c0e03b5aa13e2fda406f4d382fb5867410f8e"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_CartierDuality_mem_of_forall_pair_eq_one_and_exists_tateModule_forall_pair_eq_one",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_CartierDuality_mem_of_forall_pair_eq_one_and_exists_tateModule_forall_pair_eq_one.lean",
+   "upstream_sha256": "5fdb66a24225a95c1485885107c72c7c8bfcc3beda37b08ba3b5be1ee5af68e1",
+   "upstream_git_blob": "b3c04f94dd607fea85ecd324f367524940e01661",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_CartierDuality_mem_of_forall_pair_eq_one_and_exists_tateModule_forall_pair_eq_one.lean",
+   "local_sha256": "07b503b4187494ae745cce3f4aacb5ca6aea261a99db598a305e67d6b2579e73"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_CartierDuality_nsmul_mem_and_eq_zero_and_exists_nsmul_eq_of_forall_pair_eq_one_of_isIntegral_iff",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_CartierDuality_nsmul_mem_and_eq_zero_and_exists_nsmul_eq_of_forall_pair_eq_one_of_isIntegral_iff.lean",
+   "upstream_sha256": "f6a57073dca5019fca8c96882d1b42c4442539c99aefffe11bf64eeded482b1a",
+   "upstream_git_blob": "fb55accaf04bc0be5e79f47bfc590cb51a2381a3",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_CartierDuality_nsmul_mem_and_eq_zero_and_exists_nsmul_eq_of_forall_pair_eq_one_of_isIntegral_iff.lean",
+   "local_sha256": "74c6ccc3de46df77a5c766f769c887765759a6f23a326847bd34bc326e92886e"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_CartierDuality_pair_pointMap_eq_one_of_forall_isNilpotent_of_isIntegral_iff",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_CartierDuality_pair_pointMap_eq_one_of_forall_isNilpotent_of_isIntegral_iff.lean",
+   "upstream_sha256": "2fe61ddef082c76e7e60b144d5a55eb1e8f53440352731ed67ea8ac1a5d4bbfc",
+   "upstream_git_blob": "1c10d4e8d4ff98f284a1719de748f0b78e27904e",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_CartierDuality_pair_pointMap_eq_one_of_forall_isNilpotent_of_isIntegral_iff.lean",
+   "local_sha256": "474baa11bb186b9f0fb58661123131e4a0ad9d8230b705fdf64a94b5945cf748"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_Hopf_convPow_apply_mul_eq_sum_of_apply_mul_eq",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_Hopf_convPow_apply_mul_eq_sum_of_apply_mul_eq.lean",
+   "upstream_sha256": "dc9577c9f6ccc780d7e1dfd820eaab25249b9e95c35a7260f7bc54d2a8d94de9",
+   "upstream_git_blob": "b476146f7f279b5085dba1db36c71069ba56946f",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_Hopf_convPow_apply_mul_eq_sum_of_apply_mul_eq.lean",
+   "local_sha256": "359468805dab5812c7eb89453330a77eefd962c17f9d8d4d1370e6059a9c0a2e"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_Hopf_nsmulAlgHom_eq_sum_pow_apply_smul_pow",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_Hopf_nsmulAlgHom_eq_sum_pow_apply_smul_pow.lean",
+   "upstream_sha256": "81189384f87df7a212e8b0bca7c9ca25bfcfca0e6386623512847b7834cdeb45",
+   "upstream_git_blob": "e4558e6c32c5df8b4c5cabfcf9aaf29097d33168",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_Hopf_nsmulAlgHom_eq_sum_pow_apply_smul_pow.lean",
+   "local_sha256": "7b062fe205d2beff885479d0bc3fc035d4fb8f15d52e147c934fe921279f8799"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_Hopf_nsmulAlgHom_sub_nsmul_mem_augIdeal_sq",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_Hopf_nsmulAlgHom_sub_nsmul_mem_augIdeal_sq.lean",
+   "upstream_sha256": "cbbb88b61e73e38164c061ad1dbf1be6d1f1534ace340b148b406cc8fb9e000b",
+   "upstream_git_blob": "82cbebe4a71b8dd8b6e90d2c8dc8c47f53e15702",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_Hopf_nsmulAlgHom_sub_nsmul_mem_augIdeal_sq.lean",
+   "local_sha256": "0c2afe13b17db03b8a8343d1d05fa4536ce0e49d4d314f65ccaff9eead556ae4"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_IsCartierDual_baseChange",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_IsCartierDual_baseChange.lean",
+   "upstream_sha256": "9b2cb59797275f080fbf381f157350212e3191671a86db697c75c78a17faec2d",
+   "upstream_git_blob": "003b1e3fcf0b91fc9e63c3a6b1676a9a9d63b166",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_IsCartierDual_baseChange.lean",
+   "local_sha256": "61b451582479e4b225dce19788ff324e81b8712fec3e9c915191f11921874d81"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_add_eq_height_of_hasDimension_of_cartierDuality",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_add_eq_height_of_hasDimension_of_cartierDuality.lean",
+   "upstream_sha256": "34db9b6b96eb8f44f279df5ee1f4d1ac2c12caf66d609c23155d7884a7c1c206",
+   "upstream_git_blob": "092324bdffbe2f8ec45a1aaa6f98985ef9572eb1",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_add_eq_height_of_hasDimension_of_cartierDuality.lean",
+   "local_sha256": "05c0c1967b5fb0515720fa2d45807020245687c58f16e1fcb310c3b64215e70b"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_bijective_pointsMap_val_integralClosure_and_exists_tateModule_equiv",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_bijective_pointsMap_val_integralClosure_and_exists_tateModule_equiv.lean",
+   "upstream_sha256": "ebf566f0c59bc8d839dd596540e29d968a91ee68ef81b80984bb55753ed20478",
+   "upstream_git_blob": "aafe922f4459f2d16e81618cf38f14a95a0dfc3a",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_bijective_pointsMap_val_integralClosure_and_exists_tateModule_equiv.lean",
+   "local_sha256": "870dd9ec0bd96417496c15df429abb54354b5f80025f0094ded938d9ede02af0"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_cotangentBaseChange_bijective",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_cotangentBaseChange_bijective.lean",
+   "upstream_sha256": "9b8f7d056e3fcedffe99b8e9b59fe9877fd9c72b89766f0f72bbc83eea28d6ce",
+   "upstream_git_blob": "9fa8661407a9a2b7e2bbdfee7eb37425a7593931",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_cotangentBaseChange_bijective.lean",
+   "local_sha256": "282f0619e49bb8d4b3ebcbaa0582f75a8f3cdd74e249f29a3904b886326477a7"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_cpointsProj_succ_nsmul_eq_zero_of_cpointsProj_eq_zero",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_cpointsProj_succ_nsmul_eq_zero_of_cpointsProj_eq_zero.lean",
+   "upstream_sha256": "79b8014404a1b94bb0f7d4762cbad61faea9cc39a1a10dea9b2c8d81ed112e9f",
+   "upstream_git_blob": "d255651bc96a4dc2ef51390ab67a1d4ac4fb827f",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_cpointsProj_succ_nsmul_eq_zero_of_cpointsProj_eq_zero.lean",
+   "local_sha256": "772eeab151d234b3df0a5d35ae939698f64411856003e29054fd78e9445c53e0"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_existsUnique_cpointsMap_ofId_eq_of_forall_smul_eq_of_forall_mem_range_iff",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_existsUnique_cpointsMap_ofId_eq_of_forall_smul_eq_of_forall_mem_range_iff.lean",
+   "upstream_sha256": "2196e868674fa0a2114fb6a337cc1bdefd3e76c17ce2ef09e07a533e88828cdb",
+   "upstream_git_blob": "671a3fe5cb84862f9a10e2df776c0d5af7d4bd47",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_existsUnique_cpointsMap_ofId_eq_of_forall_smul_eq_of_forall_mem_range_iff.lean",
+   "local_sha256": "097cca27637df1c2ac1d21c248da663463c0498a3c91341eab9d29f5c6c4fc4b"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_exists_algEquiv_range_nsmulAlgHom_and_finite_projective_rankAtStalk",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_exists_algEquiv_range_nsmulAlgHom_and_finite_projective_rankAtStalk.lean",
+   "upstream_sha256": "61def287e299937a2c386ef59da8dc4bb6d1ff6c786289054fa42d4cd9bd9fb5",
+   "upstream_git_blob": "63f3c0ca0abebbcbc9c6e02e1b4976ad02804599",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_exists_algEquiv_range_nsmulAlgHom_and_finite_projective_rankAtStalk.lean",
+   "local_sha256": "03176aa871a84087ec0411af9e291323efdce0fa900f6e183ec5862cc82e99aa"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_exists_basis_padicComplex_tateModule_eq_cyclotomicCharacter_pow_smul_of_hasDimension_of_ringOfIntegers",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_exists_basis_padicComplex_tateModule_eq_cyclotomicCharacter_pow_smul_of_hasDimension_of_ringOfIntegers.lean",
+   "upstream_sha256": "2356f6a52f69e6e1abaf7e106575d824b08b53868477ba432ea056917c483ff2",
+   "upstream_git_blob": "9c923d6961c601449c91f929083018a77af5fe8a",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_exists_basis_padicComplex_tateModule_eq_cyclotomicCharacter_pow_smul_of_hasDimension_of_ringOfIntegers.lean",
+   "local_sha256": "2813e96a32ea5a099f93f9a6209003cd1230af58798353eba8c6de0c3bfb5bb5"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_exists_hasDimension",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_exists_hasDimension.lean",
+   "upstream_sha256": "fdf80e6e501b9642819beac71b5f48e965f4f9e5289d65e5e27e88d53d690067",
+   "upstream_git_blob": "276dcd07da7251483f3134b60e1930a2bc6f4bc8",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_exists_hasDimension.lean",
+   "local_sha256": "1edca36235ef41e688e8436258441d145a97dc7ebfa3daf7955e3fd26dcc9c1f"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_exists_isCartierDual",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_exists_isCartierDual.lean",
+   "upstream_sha256": "87429a6f82447482d708378609ccc089829b4cfb2bb1a8978ef7080922d399fd",
+   "upstream_git_blob": "14e10ddd154d5f0bea3374a8a729639d9eb496be",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_exists_isCartierDual.lean",
+   "local_sha256": "f666aca517a6fdd6f255ed08528bc608a6be1f025ae8edf1b23874ce27defe5f"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_exists_nsmul_eq_of_forall_isNilpotent_cpointsProj_one_of_isIntegral_iff",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_exists_nsmul_eq_of_forall_isNilpotent_cpointsProj_one_of_isIntegral_iff.lean",
+   "upstream_sha256": "5dcd1f24935a21ad83453743f020c3b8e0fcae70e7944a0e7685bd0e906de270",
+   "upstream_git_blob": "432a2b7d27710b80eeac316f3ad683ab7091c19a",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_exists_nsmul_eq_of_forall_isNilpotent_cpointsProj_one_of_isIntegral_iff.lean",
+   "local_sha256": "4e9a508a8385fdaa0ec2e7fe71519259f329c157346689fdb80cf6ed78f6cae5"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_exists_toCPoints_pointsMkAdd_eq_of_nsmul_eq_zero_of_isIntegral_iff",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_exists_toCPoints_pointsMkAdd_eq_of_nsmul_eq_zero_of_isIntegral_iff.lean",
+   "upstream_sha256": "e64d28f4557d71c2c10baf3d72f0ff67815996fa43c6377dadb7d95e7d32c381",
+   "upstream_git_blob": "64ff5a1168a0985e8ba94db402058aac47bd7e18",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_exists_toCPoints_pointsMkAdd_eq_of_nsmul_eq_zero_of_isIntegral_iff.lean",
+   "local_sha256": "e0a8cd634d947c2072c0fdaf886c0f0d4fdec7fe9a1311f96d57eb5a6da9f931"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_finrank_level_quotient_span_pow_eq_pow_mul_finrank_cotangent_one",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_finrank_level_quotient_span_pow_eq_pow_mul_finrank_cotangent_one.lean",
+   "upstream_sha256": "d298f7f9d1adf91c313a968cf52ffd83d21c88927da1d5433501a9a7c51df719",
+   "upstream_git_blob": "f72ad0e28f536f8e0125457ff1173c8f6dc3672c",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_finrank_level_quotient_span_pow_eq_pow_mul_finrank_cotangent_one.lean",
+   "local_sha256": "053904121ac25597f2c2248237a15054bbf87aed7c940d5885a3c78c2fef0786"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_free_cotangent_of_isArtinianRing_of_pow_eq_zero",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_free_cotangent_of_isArtinianRing_of_pow_eq_zero.lean",
+   "upstream_sha256": "851c400840a674ab90eb631e1b6f89e302ae98e19121a147f3a8dada2e038430",
+   "upstream_git_blob": "d973630d47cc34fe6490f39b2c5f3a8e127b1196",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_free_cotangent_of_isArtinianRing_of_pow_eq_zero.lean",
+   "local_sha256": "aaabe70ee1e767a658485a84bd0930f71ef368c6afa5feef6298b1f0ce12bf6e"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_isOpen_setOf_restrictScalars_smul_points_eq",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_isOpen_setOf_restrictScalars_smul_points_eq.lean",
+   "upstream_sha256": "2413d466c01a1f07d0687ecbfba6a14c8f312821b4941c34da4116c7534a0044",
+   "upstream_git_blob": "5356a0b7ec03aea475f2412dcf7fbd3bda795351",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_isOpen_setOf_restrictScalars_smul_points_eq.lean",
+   "local_sha256": "8a7dafcc4ae4cefc9852314ea8a99faf1918247c01ebee75e2e704d5d5b9a220"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_ker_cotangentMap_eq_smul_top_and_smul_top_eq_bot",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_ker_cotangentMap_eq_smul_top_and_smul_top_eq_bot.lean",
+   "upstream_sha256": "8cbbfb20a6990bd96d4f2745b1b16145d42a59df466ecf157b948b085b10a261",
+   "upstream_git_blob": "074cff61edff93fa28f59004e8d395fe938201f0",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_ker_cotangentMap_eq_smul_top_and_smul_top_eq_bot.lean",
+   "local_sha256": "11254946358d097ec82a8a20f019d31e1a9689e3a4610d592f6561c935b259c1"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_mem_span_pow_of_forall_pow_apply_eq_zero",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_mem_span_pow_of_forall_pow_apply_eq_zero.lean",
+   "upstream_sha256": "1abce51e9d3ba535f7e2e37a0f9e40e6709ad86565424c93a13b7a768772eece",
+   "upstream_git_blob": "ff0a2e875a24d91a5c34960125dacf4ad76fc371",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_mem_span_pow_of_forall_pow_apply_eq_zero.lean",
+   "local_sha256": "b1c438ecdf0480ebc85b003bcc4d1edfc09d20a0937ed6ba3d1249c5f6876afe"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_nonempty_basis_cotangentModule_of_hasDimension",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_nonempty_basis_cotangentModule_of_hasDimension.lean",
+   "upstream_sha256": "4b8f0c712cdca3b77820ca5fedb8501cb3b72302b3d85e7ff872f64a530349b5",
+   "upstream_git_blob": "28951fcd50ba5e1dfa63fe4a225dc65fb47fcf93",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_nonempty_basis_cotangentModule_of_hasDimension.lean",
+   "local_sha256": "18f13437b4e8fd6956f5fa782eea303bc46ff1079988aa8b6119a5b26da6d8bd"
+  },
+  {
+   "module": "Theorems.Thm_PDivisibleGroup_nonempty_basis_tateModule_points",
+   "upstream_path": "Theorems/Thm_PDivisibleGroup_nonempty_basis_tateModule_points.lean",
+   "upstream_sha256": "5f893f64164d8f3cfbac5f28b325e47396d60f6fe3f24ff8473aff5ed7d44e7f",
+   "upstream_git_blob": "65c4cb073881f3a8cc2ea47bfebdf6df28f81e7f",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PDivisibleGroup_nonempty_basis_tateModule_points.lean",
+   "local_sha256": "aedb92d85053fd3de3bb1176ef2588a437587aa3f5e3d1f7839a8f99d674febc"
+  },
+  {
+   "module": "Theorems.Thm_PadicAlgCl_exists_forall_exists_polynomial_aeval_eq_of_norm_le_one",
+   "upstream_path": "Theorems/Thm_PadicAlgCl_exists_forall_exists_polynomial_aeval_eq_of_norm_le_one.lean",
+   "upstream_sha256": "7df0b58c05ab775041c6c7bf5de7a53b425a32420e0ca701da9ba1560cc83bd8",
+   "upstream_git_blob": "36e0fd40db1b9d483466126bb7646b3a688848c3",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PadicAlgCl_exists_forall_exists_polynomial_aeval_eq_of_norm_le_one.lean",
+   "local_sha256": "ae66fd2df8f3217a828e9d5c3c35e70296aef91122e6ad9309e78e91bfdb52aa"
+  },
+  {
+   "module": "Theorems.Thm_PadicAlgCl_exists_forall_ringHom_apply_algebraMap_eq_of_free_of_ker_eq_span_pow",
+   "upstream_path": "Theorems/Thm_PadicAlgCl_exists_forall_ringHom_apply_algebraMap_eq_of_free_of_ker_eq_span_pow.lean",
+   "upstream_sha256": "8bae3136f2db453c218ea3e98a04bd822227b7bf8d1f8b193203f696eac57592",
+   "upstream_git_blob": "be4d5f056c33d007b2accc4882c9287e151f6df0",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PadicAlgCl_exists_forall_ringHom_apply_algebraMap_eq_of_free_of_ker_eq_span_pow.lean",
+   "local_sha256": "e9558cc7a46151f609b6f7f4e7114a8e52d6f8743f8ebd84d4e91e11b696fe67"
+  },
+  {
+   "module": "Theorems.Thm_PadicAlgCl_exists_forall_rpow_neg_lt_norm_algEquiv_sub_of_mem_sup_cyclotomicTower",
+   "upstream_path": "Theorems/Thm_PadicAlgCl_exists_forall_rpow_neg_lt_norm_algEquiv_sub_of_mem_sup_cyclotomicTower.lean",
+   "upstream_sha256": "17a62ce002bbdc36b17aae29939f9d143846f63304634201937c7ec63feeead5",
+   "upstream_git_blob": "ad6dd18382e2f023df14df7b97ab1f5d78dd8205",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PadicAlgCl_exists_forall_rpow_neg_lt_norm_algEquiv_sub_of_mem_sup_cyclotomicTower.lean",
+   "local_sha256": "80db26869130a8ac53837c88cc1fdc1d64f4de0c55e0cfe9f4702cad214e2cd6"
+  },
+  {
+   "module": "Theorems.Thm_PadicAlgCl_exists_forall_traceDual_norm_le_rpow_sup_cyclotomicTower",
+   "upstream_path": "Theorems/Thm_PadicAlgCl_exists_forall_traceDual_norm_le_rpow_sup_cyclotomicTower.lean",
+   "upstream_sha256": "10bba8361b3b89406b7b7ec069d6b1048f7fc0b759f4c7321d5fc8366c6b7964",
+   "upstream_git_blob": "17b3da55fff03e124ef173560029f45dd7f9ad96",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PadicAlgCl_exists_forall_traceDual_norm_le_rpow_sup_cyclotomicTower.lean",
+   "local_sha256": "aa9a9e371fc8e3cea072604ee099c45a9ac3af1da5a3253d98de1806ece44676"
+  },
+  {
+   "module": "Theorems.Thm_PadicAlgCl_exists_norm_le_one_and_trace_eq_of_forall_traceDual_norm_le",
+   "upstream_path": "Theorems/Thm_PadicAlgCl_exists_norm_le_one_and_trace_eq_of_forall_traceDual_norm_le.lean",
+   "upstream_sha256": "ce5a350850d49fe68ad3eb584015d6cb40ee84f89fbcdbf685b3a3395569f28f",
+   "upstream_git_blob": "a71bc37c5c4a267b06c9413810ff0133a3f9a70f",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PadicAlgCl_exists_norm_le_one_and_trace_eq_of_forall_traceDual_norm_le.lean",
+   "local_sha256": "bafd2d97cc8960c64feba5114a7ca9b89475ee718c5c86bea55817a63e6940d6"
+  },
+  {
+   "module": "Theorems.Thm_PadicAlgCl_exists_norm_le_one_and_trace_eq_of_norm_lt_one_sup_cyclotomicTower",
+   "upstream_path": "Theorems/Thm_PadicAlgCl_exists_norm_le_one_and_trace_eq_of_norm_lt_one_sup_cyclotomicTower.lean",
+   "upstream_sha256": "0af08d8d5fffccf0ec9f6c3fd7ae8dc920875c185d641da8f7cac1a360c47c5d",
+   "upstream_git_blob": "cd5d91bba83500ce9327f7dce2b262ef442f69a8",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PadicAlgCl_exists_norm_le_one_and_trace_eq_of_norm_lt_one_sup_cyclotomicTower.lean",
+   "local_sha256": "cf6ed7fafe4153a0630da8f58188261860ceaf3bfa0caabf589b7dfb99eb8b10"
+  },
+  {
+   "module": "Theorems.Thm_PadicAlgCl_isIntegral_padicInt_iff_norm_le_one",
+   "upstream_path": "Theorems/Thm_PadicAlgCl_isIntegral_padicInt_iff_norm_le_one.lean",
+   "upstream_sha256": "9dc113ae889fc1e55aabb29be5e0e4380b940e9229f276247513f3cbcf895d2b",
+   "upstream_git_blob": "b824ed119446db66f8f6f9a9441f4100597cd2e5",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PadicAlgCl_isIntegral_padicInt_iff_norm_le_one.lean",
+   "local_sha256": "7ea532833089207b40f3025394002879d642421a2574340f60a4f7c4210a4154"
+  },
+  {
+   "module": "Theorems.Thm_PadicAlgCl_norm_apply_sub_le_norm_apply_sub_of_mem_cyclotomicTower",
+   "upstream_path": "Theorems/Thm_PadicAlgCl_norm_apply_sub_le_norm_apply_sub_of_mem_cyclotomicTower.lean",
+   "upstream_sha256": "e407e05238c94502634b1398782fdd6dc36177c8a542a0abd7ff01890850870e",
+   "upstream_git_blob": "6eb40f130fe6932d7ea695694a2fca0a58fb930e",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PadicAlgCl_norm_apply_sub_le_norm_apply_sub_of_mem_cyclotomicTower.lean",
+   "local_sha256": "28638c3ddf5473cf2ef63b45d5d56861ec4705b2c90293886270a6c3066c6daa"
+  },
+  {
+   "module": "Theorems.Thm_PadicAlgCl_norm_apply_sub_self_eq_of_isPrimitiveRoot_of_mem_fixingSubgroup",
+   "upstream_path": "Theorems/Thm_PadicAlgCl_norm_apply_sub_self_eq_of_isPrimitiveRoot_of_mem_fixingSubgroup.lean",
+   "upstream_sha256": "b040b3556b99ecd8a5978313cbde88865fcd190255e6ba4f8bb158a4988a6a1b",
+   "upstream_git_blob": "321e82d72793cafc2728ea635e943d263cea3bd8",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PadicAlgCl_norm_apply_sub_self_eq_of_isPrimitiveRoot_of_mem_fixingSubgroup.lean",
+   "local_sha256": "d2b7c3b0861a1c5831f64257e0f5a86deebb9f44b9dbad6ffa4a2c9f86b6ebfc"
+  },
+  {
+   "module": "Theorems.Thm_PadicAlgCl_norm_mul_aeval_derivative_minpoly_le_one_of_forall_norm_trace_mul_le_one",
+   "upstream_path": "Theorems/Thm_PadicAlgCl_norm_mul_aeval_derivative_minpoly_le_one_of_forall_norm_trace_mul_le_one.lean",
+   "upstream_sha256": "0de8c67c5cb2bb818e2602a89f034010d7065f44874d361383a3d76c9c661643",
+   "upstream_git_blob": "0991f00855274e075fc9d448a0d5a3762c1957a9",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PadicAlgCl_norm_mul_aeval_derivative_minpoly_le_one_of_forall_norm_trace_mul_le_one.lean",
+   "local_sha256": "db8a603621104e64e22e15a214a1d6bf94c6292d4959363d3b61ea876491297f"
+  },
+  {
+   "module": "Theorems.Thm_PadicAlgCl_ringOfIntegers_finite_and_isDiscreteValuationRing_and_isAdicComplete",
+   "upstream_path": "Theorems/Thm_PadicAlgCl_ringOfIntegers_finite_and_isDiscreteValuationRing_and_isAdicComplete.lean",
+   "upstream_sha256": "ede18e20de9b1bab4c13e0b1f0be2751fb822d90b9256ba6ac533103741b182b",
+   "upstream_git_blob": "4ccc608bb50c28a8212dd20ce0bb1f9747ef82ba",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PadicAlgCl_ringOfIntegers_finite_and_isDiscreteValuationRing_and_isAdicComplete.lean",
+   "local_sha256": "055084ce032c77609682235f4ef64860539d5bcb9e5e98934e5f108a8fa4a699"
+  },
+  {
+   "module": "Theorems.Thm_PadicComplex_bijOn_towerClosure_smul_sub_mul_of_isTateTrace",
+   "upstream_path": "Theorems/Thm_PadicComplex_bijOn_towerClosure_smul_sub_mul_of_isTateTrace.lean",
+   "upstream_sha256": "5429311104d7f4199f27130c9526a6e234b4de334262e6c4b78766c01918062a",
+   "upstream_git_blob": "a46d9738c6ea31705e39d8e4e10121bd48398460",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PadicComplex_bijOn_towerClosure_smul_sub_mul_of_isTateTrace.lean",
+   "local_sha256": "b6d1e1dc64c2b9767412feb4c0932a77fda2f482faabed50b3d2e511d47aeed3"
+  },
+  {
+   "module": "Theorems.Thm_PadicComplex_exists_eq_cyclotomicCharacter_zpow_mul_smul_sub_of_continuous_cocycle",
+   "upstream_path": "Theorems/Thm_PadicComplex_exists_eq_cyclotomicCharacter_zpow_mul_smul_sub_of_continuous_cocycle.lean",
+   "upstream_sha256": "7bbda9c04452035a39e0d697e40ffd549d3729dc91f0c6b56e764d5585495918",
+   "upstream_git_blob": "ab85e17af4ffc28de816ac8ff315c4ea7795c674",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PadicComplex_exists_eq_cyclotomicCharacter_zpow_mul_smul_sub_of_continuous_cocycle.lean",
+   "local_sha256": "aef2791f52669a9257d8e71c3812167512eb6d782a247cc82f7cee738f941bd9"
+  },
+  {
+   "module": "Theorems.Thm_PadicComplex_exists_eq_smul_sub_of_continuous_cocycle_fixingSubgroup_sup_cyclotomicTower",
+   "upstream_path": "Theorems/Thm_PadicComplex_exists_eq_smul_sub_of_continuous_cocycle_fixingSubgroup_sup_cyclotomicTower.lean",
+   "upstream_sha256": "c38af2e368f87f690cc94d3471f9c6b1bf67db67b1145089a5a8f377714c7356",
+   "upstream_git_blob": "7edafc4697131390071420972d833e2f17aa5319",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PadicComplex_exists_eq_smul_sub_of_continuous_cocycle_fixingSubgroup_sup_cyclotomicTower.lean",
+   "local_sha256": "8a87d01ec358633458dfcc9a6407328abd9e6234354b649f2958fbed2302176d"
+  },
+  {
+   "module": "Theorems.Thm_PadicComplex_exists_eq_smul_sub_of_continuous_cocycle_of_forall_exists_trace_eq",
+   "upstream_path": "Theorems/Thm_PadicComplex_exists_eq_smul_sub_of_continuous_cocycle_of_forall_exists_trace_eq.lean",
+   "upstream_sha256": "5bc9537b52fcd1992342a74445bb1ef89fd975711c3e9bcd70cc0d0c8d92d73d",
+   "upstream_git_blob": "d10e312a0869cd04fd6870320b593af9c8ea707f",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PadicComplex_exists_eq_smul_sub_of_continuous_cocycle_of_forall_exists_trace_eq.lean",
+   "local_sha256": "1347691ebbe9b41a027c466897cca103096b9dbc662f8b9b0cc4a705610ef3b7"
+  },
+  {
+   "module": "Theorems.Thm_PadicComplex_exists_isTateTrace_cyclotomicTower",
+   "upstream_path": "Theorems/Thm_PadicComplex_exists_isTateTrace_cyclotomicTower.lean",
+   "upstream_sha256": "ee0edb2f4fbd9b230eb3ccaaebc095e814d77961172e1b6da6c40aa18469fe46",
+   "upstream_git_blob": "295b0628eec8c3633fd21dfa9154d3af8558d4b7",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PadicComplex_exists_isTateTrace_cyclotomicTower.lean",
+   "local_sha256": "138dd41ff963eb72b02a4e71ef4be794e1dced7b208c30df9f8769d369ab3557"
+  },
+  {
+   "module": "Theorems.Thm_PadicComplex_exists_linearIndependent_forall_apply_eq_mul_smul_of_forall_mem_fixingSubgroup",
+   "upstream_path": "Theorems/Thm_PadicComplex_exists_linearIndependent_forall_apply_eq_mul_smul_of_forall_mem_fixingSubgroup.lean",
+   "upstream_sha256": "cd465376a6ad64ebc81b53a50f72b2fd165a9ac9688376e6e6e4f4c597461842",
+   "upstream_git_blob": "a6c2c71b5b69b67d1c36ecb9e82c44ca0549c748",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_PadicComplex_exists_linearIndependent_forall_apply_eq_mul_smul_of_forall_mem_fixingSubgroup.lean",
+   "local_sha256": "e17c07b9c03ee3b322c3e977cbfe8e7833040cd37d9dacae329b34a34ecd4d71"
+  },
+  {
+   "module": "Theorems.Thm_TateModule_nonempty_basis_of_card_torsionBy",
+   "upstream_path": "Theorems/Thm_TateModule_nonempty_basis_of_card_torsionBy.lean",
+   "upstream_sha256": "84ff1ecbb185750c4e97558639580dd3061cf093f96c97abba033f901557d12d",
+   "upstream_git_blob": "dc02615076a936f0d6b274ab00fb9b764c17ba9a",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_TateModule_nonempty_basis_of_card_torsionBy.lean",
+   "local_sha256": "729e79e81336fc27cef365dd9e3d28d5f944ec4692e9e706d62f7b3234737e19"
+  },
+  {
+   "module": "Theorems.Thm_ValuationSubring_exists_ringHom_comp_eq_of_moduleFinite_of_flat",
+   "upstream_path": "Theorems/Thm_ValuationSubring_exists_ringHom_comp_eq_of_moduleFinite_of_flat.lean",
+   "upstream_sha256": "ac1209da3bf824f8921fc5deddada063f1d38e0585cea586cd3e676688379292",
+   "upstream_git_blob": "c4d2358cf9cb01a3eb5c7c639ac98030e4ceb542",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_ValuationSubring_exists_ringHom_comp_eq_of_moduleFinite_of_flat.lean",
+   "local_sha256": "aa7ca0191b62d1c3d1f626ea2fbd1053ee46dcd01334b7ed997bfa1e5794626c"
+  },
+  {
+   "module": "Theorems.Thm_integralClosure_finite_and_isDiscreteValuationRing_and_isAdicComplete_maximalIdeal",
+   "upstream_path": "Theorems/Thm_integralClosure_finite_and_isDiscreteValuationRing_and_isAdicComplete_maximalIdeal.lean",
+   "upstream_sha256": "04dfacebd816e8dd09836abb1f869278ad39fb1ff1dcf631837a6ab3c1fbf255",
+   "upstream_git_blob": "b9f656c48a2ed0ad038f3f9ab4922ea321910efc",
+   "local_path": "ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/Theorems/Thm_integralClosure_finite_and_isDiscreteValuationRing_and_isAdicComplete_maximalIdeal.lean",
+   "local_sha256": "24efee86207175f93ce7275d5283a9091704a7378862b1fccf2eda6a9e5234f8"
+  }
+ ],
+ "provided_by_W11_PR29_fefce8ef": [
+  "Definitions.Def_PadicComplex_GaloisAction",
+  "Definitions.Def_PadicAlgCl_CyclotomicTower",
+  "Definitions.Def_PadicComplex_TateTrace",
+  "Theorems.Thm_PadicAlgCl_finrank_cyclotomicTower_and_pow_mem_fixingSubgroup",
+  "Theorems.Thm_PadicComplex_forall_smul_eq_self_iff_mem_closure"
+ ]
+}

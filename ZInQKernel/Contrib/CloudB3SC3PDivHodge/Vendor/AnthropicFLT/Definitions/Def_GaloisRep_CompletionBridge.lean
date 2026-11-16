@@ -1,0 +1,83 @@
+/-
+Vendored from anthropics/fermats-last-theorem, commit 6e837e75355538c7f80bab5b956861e86c4eacc2, Apache-2.0.
+Upstream module: Definitions.Def_GaloisRep_CompletionBridge
+Modified for the Z-in-Q kernel (2026-11-16, p-divisible Hodge-Tate port): local import paths
+are relocated, the P2M.Util elaborators are replaced by standard Lean commands or explicit terms,
+local notations are expanded in place, and the upstream lakefile options are set as `set_option`
+lines after the imports; see ZInQKernel/Contrib/CloudB3SC3PDivHodge/PORTING.md. Any other change is marked `-- [port]`.
+Original copyright/attribution notices: NOTICE.upstream and ATTRIBUTION.upstream.md in
+ZInQKernel/Contrib/CloudB3SC3PDivHodge/Vendor/AnthropicFLT/; license: LICENSE in that directory.
+-/
+import Mathlib
+import ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.Definitions.Def_FLTPrelim_Ramification
+
+set_option maxHeartbeats 4000000
+set_option synthInstance.maxHeartbeats 400000
+set_option backward.isDefEq.respectTransparency.types false
+set_option autoImplicit false
+
+set_option autoImplicit false
+
+open scoped NNReal Pointwise
+
+local instance isAlgebraicQbar_cb : Algebra.IsAlgebraic ℚ (AlgebraicClosure ℚ) :=
+  AlgebraicClosure.isAlgebraic ℚ
+local instance isAlgClosureQbar_cb : IsAlgClosure ℚ (AlgebraicClosure ℚ) :=
+  ⟨inferInstance, inferInstance⟩
+local instance normalQbar_cb : Normal ℚ (AlgebraicClosure ℚ) :=
+  IsAlgClosure.normal ℚ (AlgebraicClosure ℚ)
+
+variable (q : ℕ) [Fact q.Prime]
+
+noncomputable def padicEmbedding : AlgebraicClosure ℚ →ₐ[ℚ] PadicAlgCl q :=
+  IsAlgClosed.lift
+
+noncomputable abbrev padicIntegers : ValuationSubring (PadicAlgCl q) :=
+  (Valued.v : Valuation (PadicAlgCl q) ℝ≥0).valuationSubring
+
+lemma mem_padicIntegers_iff {x : PadicAlgCl q} : x ∈ padicIntegers q ↔ ‖x‖₊ ≤ 1 := Iff.rfl
+
+noncomputable def padicPlace : ValuationSubring (AlgebraicClosure ℚ) :=
+  (padicIntegers q).comap (padicEmbedding q).toRingHom
+
+theorem mem_padicPlace_iff {x : AlgebraicClosure ℚ} :
+    x ∈ padicPlace q ↔ ‖padicEmbedding q x‖₊ ≤ 1 := Iff.rfl
+
+section Galois
+
+noncomputable local instance instAlgebraQbarPadic : Algebra (AlgebraicClosure ℚ) (PadicAlgCl q) :=
+  (padicEmbedding q).toRingHom.toAlgebra
+local instance instTowerQbarPadic :
+    IsScalarTower ℚ (AlgebraicClosure ℚ) (PadicAlgCl q) :=
+  IsScalarTower.of_algebraMap_eq' (Subsingleton.elim _ _)
+local instance instTowerQqPadic : IsScalarTower ℚ ℚ_[q] (PadicAlgCl q) :=
+  IsScalarTower.of_algebraMap_eq' (Subsingleton.elim _ _)
+
+noncomputable def localGaloisToGlobal :
+    (PadicAlgCl q ≃ₐ[ℚ_[q]] PadicAlgCl q) →* (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) :=
+  (AlgEquiv.restrictNormalHom (F := ℚ) (K₁ := PadicAlgCl q) (AlgebraicClosure ℚ)).comp
+    (MonoidHom.mk' (fun τ => τ.restrictScalars ℚ) (fun _ _ => rfl))
+
+theorem padicEmbedding_localGaloisToGlobal (τ : PadicAlgCl q ≃ₐ[ℚ_[q]] PadicAlgCl q)
+    (x : AlgebraicClosure ℚ) :
+    padicEmbedding q (localGaloisToGlobal q τ x) = τ (padicEmbedding q x) :=
+  AlgEquiv.restrictNormal_commutes (τ.restrictScalars ℚ) (AlgebraicClosure ℚ) x
+
+theorem nnnorm_padicAlgCl_algEquiv (τ : PadicAlgCl q ≃ₐ[ℚ_[q]] PadicAlgCl q)
+    (y : PadicAlgCl q) : ‖τ y‖₊ = ‖y‖₊ := by
+  ext
+  exact (spectralNorm_eq_of_equiv τ y).symm
+
+theorem localGaloisToGlobal_mem_decompositionSubgroup
+    (τ : PadicAlgCl q ≃ₐ[ℚ_[q]] PadicAlgCl q) :
+    localGaloisToGlobal q τ ∈ (padicPlace q).decompositionSubgroup ℚ := by
+  rw [MulAction.mem_stabilizer_iff]
+  apply SetLike.ext
+  intro x
+  rw [ValuationSubring.mem_pointwise_smul_iff_inv_smul_mem]
+  have hinv : (localGaloisToGlobal q τ)⁻¹ = localGaloisToGlobal q τ⁻¹ := (map_inv _ τ).symm
+  rw [AlgEquiv.smul_def, hinv]
+  rw [mem_padicPlace_iff, mem_padicPlace_iff, padicEmbedding_localGaloisToGlobal,
+    nnnorm_padicAlgCl_algEquiv]
+
+end Galois
