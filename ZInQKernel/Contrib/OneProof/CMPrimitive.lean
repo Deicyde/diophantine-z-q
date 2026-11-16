@@ -13,10 +13,15 @@ the first use is not covered. This file states the leaves for primitive types on
 `MainTheoremCMPolPrim`, `MainTheoremCMPolMaxPrim`), which are printed under every reading and are implied by
 mtcm-polar's leaves, and proves the consumers from them:
 
-* every CM type of an imaginary quadratic field is primitive (`isPrimitiveType_of_finrank_two`);
-* mtcm-polar's isogeny step for primitive types (`mainTheoremCMSignPrim_of_polar`, a copy of
-  `MainCMPolar.mainTheoremCMSign_of_polar` with the hypothesis `IsPrimitiveType Φ` threaded through);
-* the reduction from the induced type of `E = K(√2)` to `(K, κ)` (`mainTheoremCMEK_of_prim`): `B = ℂ/κ(N𝓞_K)`,
+* every CM type of an imaginary quadratic field is primitive (`isPrimitiveType_of_finrank_two`), and the induced
+  type of `K(√2)` is not (`not_isPrimitiveType_PhiE`);
+* both consumers need the main theorem only for imaginary quadratic fields, so an even weaker leaf suffices: the
+  main theorem for CM elliptic curves (`MainTheoremCMPolQuad`, `MainTheoremCMPolMaxQuad`; Shimura 1971 Thm 5.4),
+  implied by the primitive leaves (`polQuad_of_polPrim`, `polMaxQuad_of_polMaxPrim`);
+* mtcm-polar's isogeny step on any class of CM types (`mainTheoremCMSignOn_of_polar`, a copy of
+  `MainCMPolar.mainTheoremCMSign_of_polar` with the hypothesis `P E g Φ` threaded through);
+* an abelian variety of the induced type is isogenous to `B²`, `B` of type `(K, κ)` (`exists_isogeny_EK`);
+* the reduction from the induced type of `E = K(√2)` to `(K, κ)` (`mainTheoremCMEK_of_quad`): `B = ℂ/κ(N𝓞_K)`,
   the two homomorphisms `B → A`, `w ↦ θ(wΦ(1))`, `w ↦ θ(wΦ(√2))` (an isogeny `B² → A`), their conjugates, and
   `θ'(w₁Φ(1) + w₂Φ(√2)) = f₁^σ(θ'_B(w₁)) · f₂^σ(θ'_B(w₂))`; the reflex field of `(E, Φ)` is `κ(K)`
   (`QMRecPrinted.reflex_eq`) and its reflex norm is `𝔸_{K,f} → 𝔸_f ⊗ E` (`QMRecPrinted.reflexNorm_rhoK`),
@@ -217,24 +222,222 @@ theorem signPrim_of_sign {ε : ℤˣ} (h : HcmPrinted.MainTheoremCMSign ε) : Ma
   fun E _ _ _ g Φ hdeg hinj _ Er _ _ κr hκ n ρ j hρ σ s hs A hA 𝔞 θ hθ htype A' hh hpb hone =>
     h E g Φ hdeg hinj Er κr hκ n ρ j hρ σ s hs A hA 𝔞 θ hθ htype A' hh hpb hone
 
+/-! ### The imaginary quadratic case (`g = 1`, CM elliptic curves)
+
+Both consumers use the main theorem only for imaginary quadratic fields: hcm-printed's at `(QNeg m, κ)`, and the
+reduction `mainTheoremCMEK_of_quad` below at `(K, κ)`. So an even weaker form of the leaf suffices: the main theorem
+for `[E : ℚ] = 2` (every such type is primitive, `isPrimitiveType_of_finrank_two`). -/
+
+/-- **LEAF `MainTheoremCMPolMaxQuad` (the main theorem of complex multiplication for CM elliptic curves with
+`𝓞_E`-ideal lattices, in Shimura's normalization; printed form).** mtcm-polar's `MainCMPolar.MainTheoremCMPolMax`
+with the one added hypothesis `Module.finrank ℚ E = 2` (so `g = 1`: `E` imaginary quadratic, `A` an elliptic curve
+with CM by `𝓞_E`).
+
+*Published statement*: G. Shimura, *Introduction to the arithmetic theory of automorphic functions* (1971), Thm 5.4
+(elliptic curves: `ξ(u)^σ = ξ'(s⁻¹u)` for `σ = [s, K]`, `ξ' : ℂ/s⁻¹𝔞 ≅ E^σ`); S. Lang, *Elliptic functions*, Ch. 10,
+Thm 3; J. Silverman, *Advanced topics in the arithmetic of elliptic curves*, Thm II.8.2 (numbers UNVERIFIED). In
+dimension `1` the reflex field of `(E, {κ})` is `κ(E)`, the reflex norm is the identity (`reflexNorm_rho1`), every
+lattice of the leaf is an `𝓞_E`-ideal and every elliptic curve is polarized, so the leaf is the printed statement
+for `𝓞_E`-ideal lattices with the clauses on the type of `(E^σ, θ')` and the uniqueness of `θ'` dropped. Implied by
+`MainTheoremCMPolMaxPrim` (`polMaxQuad_of_polMaxPrim`). -/
+def MainTheoremCMPolMaxQuad : Prop :=
+  ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (g : ℕ) (Φ : Fin g → E →+* ℂ),
+    Module.finrank ℚ E = 2 * g →
+    Function.Injective (Sum.elim Φ fun i => (starRingEnd ℂ).comp (Φ i)) →
+    Module.finrank ℚ E = 2 →
+  ∀ (Er : Type) [Field Er] [NumberField Er] (κr : Er →+* ℂ),
+    κr.fieldRange = Subfield.closure (Set.range fun e : E => ∑ i, Φ i e) →
+  ∀ (n : ℕ) (ρ : Er →ₐ[ℚ] Matrix (Fin n) (Fin n) E) (j : (Fin n → E) →+ (Fin g → ℂ)),
+    IsReflexModel Φ κr ρ j →
+  ∀ (σ : ℂ ≃+* ℂ) (s : IdeleGroup (𝓞 Er) Er), ArtinCondC κr σ s →
+  ∀ (A : PkgI3.AbVar ℂ), A.dim = (g : WithBot ℕ∞) →
+  ∀ (𝔞 : AddSubgroup E) (θ : (Fin g → ℂ) → CPts A (RingHom.id ℂ)),
+    IsUniformization (RingHom.id ℂ) (cmLat Φ 𝔞) θ → IsOfType Φ 𝔞 θ →
+    IsOLattice 𝔞 → (∃ ζ : E, IsRiemannDatum Φ 𝔞 ζ) →
+  ∀ (A' : PkgI3.AbVar ℂ) (h : A'.X.left ⟶ A.X.left),
+    IsPullback h A'.X.hom A.X.hom (Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ))) →
+    (1 : CPts A' (RingHom.id ℂ)).left ≫ h =
+      Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ)) ≫ (1 : CPts A (RingHom.id ℂ)).left →
+  ∃ θ' : (Fin g → ℂ) → CPts A' (RingHom.id ℂ),
+    IsUniformization (RingHom.id ℂ)
+      (cmLat Φ (latAct ((reflexNorm ρ (IdeleGroup.toFiniteIdele (𝓞 Er) Er s) : (AQ ⊗[ℚ] E)ˣ) : AQ ⊗[ℚ] E) 𝔞))
+      θ' ∧
+    ∀ x y : E,
+      ((reflexNorm ρ (IdeleGroup.toFiniteIdele (𝓞 Er) Er s) : (AQ ⊗[ℚ] E)ˣ) : AQ ⊗[ℚ] E) * (1 ⊗ₜ y) - 1 ⊗ₜ x ∈
+          latHat 𝔞 →
+        (θ' (cmVec Φ y)).left ≫ h = Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ)) ≫ (θ (cmVec Φ x)).left
+
+/-- `MainTheoremCMPolMaxQuad` at a sign `ε`. -/
+def MainTheoremCMPolQuadSign (ε : ℤˣ) : Prop :=
+  ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (g : ℕ) (Φ : Fin g → E →+* ℂ),
+    Module.finrank ℚ E = 2 * g →
+    Function.Injective (Sum.elim Φ fun i => (starRingEnd ℂ).comp (Φ i)) →
+    Module.finrank ℚ E = 2 →
+  ∀ (Er : Type) [Field Er] [NumberField Er] (κr : Er →+* ℂ),
+    κr.fieldRange = Subfield.closure (Set.range fun e : E => ∑ i, Φ i e) →
+  ∀ (n : ℕ) (ρ : Er →ₐ[ℚ] Matrix (Fin n) (Fin n) E) (j : (Fin n → E) →+ (Fin g → ℂ)),
+    IsReflexModel Φ κr ρ j →
+  ∀ (σ : ℂ ≃+* ℂ) (s : IdeleGroup (𝓞 Er) Er), ArtinCondC κr σ s →
+  ∀ (A : PkgI3.AbVar ℂ), A.dim = (g : WithBot ℕ∞) →
+  ∀ (𝔞 : AddSubgroup E) (θ : (Fin g → ℂ) → CPts A (RingHom.id ℂ)),
+    IsUniformization (RingHom.id ℂ) (cmLat Φ 𝔞) θ → IsOfType Φ 𝔞 θ →
+    IsOLattice 𝔞 → (∃ ζ : E, IsRiemannDatum Φ 𝔞 ζ) →
+  ∀ (A' : PkgI3.AbVar ℂ) (h : A'.X.left ⟶ A.X.left),
+    IsPullback h A'.X.hom A.X.hom (Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ))) →
+    (1 : CPts A' (RingHom.id ℂ)).left ≫ h =
+      Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ)) ≫ (1 : CPts A (RingHom.id ℂ)).left →
+  ∃ θ' : (Fin g → ℂ) → CPts A' (RingHom.id ℂ),
+    IsUniformization (RingHom.id ℂ)
+      (cmLat Φ (latAct ((reflexNorm ρ (IdeleGroup.toFiniteIdele (𝓞 Er) Er s) ^ (ε : ℤ) :
+        (AQ ⊗[ℚ] E)ˣ) : AQ ⊗[ℚ] E) 𝔞)) θ' ∧
+    ∀ x y : E,
+      ((reflexNorm ρ (IdeleGroup.toFiniteIdele (𝓞 Er) Er s) ^ (ε : ℤ) : (AQ ⊗[ℚ] E)ˣ) : AQ ⊗[ℚ] E) *
+          (1 ⊗ₜ y) - 1 ⊗ₜ x ∈ latHat 𝔞 →
+        (θ' (cmVec Φ y)).left ≫ h = Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ)) ≫ (θ (cmVec Φ x)).left
+
+/-- **LEAF `MainTheoremCMPolQuad` (the main theorem of CM for CM elliptic curves with `𝓞_E`-ideal lattices, sign of
+the Artin map left open; printed form).** `∃ ε, MainTheoremCMPolQuadSign ε`. Same sources as
+`MainTheoremCMPolMaxQuad`; implied by it and by `MainTheoremCMPolPrim` (`polQuad_of_polPrim`). -/
+def MainTheoremCMPolQuad : Prop := ∃ ε : ℤˣ, MainTheoremCMPolQuadSign ε
+
+/-- **Glue target** `MainTheoremCMSignQuad ε`: `HcmPrinted.MainTheoremCMSign ε` for imaginary quadratic `E`. -/
+def MainTheoremCMSignQuad (ε : ℤˣ) : Prop :=
+  ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (g : ℕ) (Φ : Fin g → E →+* ℂ),
+    Module.finrank ℚ E = 2 * g →
+    Function.Injective (Sum.elim Φ fun i => (starRingEnd ℂ).comp (Φ i)) →
+    Module.finrank ℚ E = 2 →
+  ∀ (Er : Type) [Field Er] [NumberField Er] (κr : Er →+* ℂ),
+    κr.fieldRange = Subfield.closure (Set.range fun e : E => ∑ i, Φ i e) →
+  ∀ (n : ℕ) (ρ : Er →ₐ[ℚ] Matrix (Fin n) (Fin n) E) (j : (Fin n → E) →+ (Fin g → ℂ)),
+    IsReflexModel Φ κr ρ j →
+  ∀ (σ : ℂ ≃+* ℂ) (s : IdeleGroup (𝓞 Er) Er), ArtinCondC κr σ s →
+  ∀ (A : PkgI3.AbVar ℂ), A.dim = (g : WithBot ℕ∞) →
+  ∀ (𝔞 : AddSubgroup E) (θ : (Fin g → ℂ) → CPts A (RingHom.id ℂ)),
+    IsUniformization (RingHom.id ℂ) (cmLat Φ 𝔞) θ → IsOfType Φ 𝔞 θ →
+  ∀ (A' : PkgI3.AbVar ℂ) (h : A'.X.left ⟶ A.X.left),
+    IsPullback h A'.X.hom A.X.hom (Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ))) →
+    (1 : CPts A' (RingHom.id ℂ)).left ≫ h =
+      Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ)) ≫ (1 : CPts A (RingHom.id ℂ)).left →
+  ∃ θ' : (Fin g → ℂ) → CPts A' (RingHom.id ℂ),
+    IsUniformization (RingHom.id ℂ)
+      (cmLat Φ (latAct ((reflexNorm ρ (IdeleGroup.toFiniteIdele (𝓞 Er) Er s) ^ (ε : ℤ) :
+        (AQ ⊗[ℚ] E)ˣ) : AQ ⊗[ℚ] E) 𝔞)) θ' ∧
+    ∀ x y : E,
+      ((reflexNorm ρ (IdeleGroup.toFiniteIdele (𝓞 Er) Er s) ^ (ε : ℤ) : (AQ ⊗[ℚ] E)ˣ) : AQ ⊗[ℚ] E) *
+          (1 ⊗ₜ y) - 1 ⊗ₜ x ∈ latHat 𝔞 →
+        (θ' (cmVec Φ y)).left ≫ h = Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ)) ≫ (θ (cmVec Φ x)).left
+
+theorem polQuadSign_of_polPrimSign {ε : ℤˣ} (h : MainTheoremCMPolPrimSign ε) : MainTheoremCMPolQuadSign ε := by
+  intro E _ _ _ g Φ hdeg hinj h2 Er _ _ κr hκ n ρ j hρ σ s hs A hA 𝔞 θ hθ htype hO hζ A' hh hpb hone
+  obtain rfl : g = 1 := by omega
+  exact h E 1 Φ hdeg hinj (isPrimitiveType_of_finrank_two Φ h2 hinj) Er κr hκ n ρ j hρ σ s hs A hA 𝔞 θ hθ htype
+    hO hζ A' hh hpb hone
+
+/-- The quadratic leaf is implied by the primitive leaf. -/
+theorem polMaxQuad_of_polMaxPrim (h : MainTheoremCMPolMaxPrim) : MainTheoremCMPolMaxQuad := by
+  intro E _ _ _ g Φ hdeg hinj h2 Er _ _ κr hκ n ρ j hρ σ s hs A hA 𝔞 θ hθ htype hO hζ A' hh hpb hone
+  obtain rfl : g = 1 := by omega
+  exact h E 1 Φ hdeg hinj (isPrimitiveType_of_finrank_two Φ h2 hinj) Er κr hκ n ρ j hρ σ s hs A hA 𝔞 θ hθ htype
+    hO hζ A' hh hpb hone
+
+/-- The quadratic leaf is implied by the primitive leaf. -/
+theorem polQuad_of_polPrim (h : MainTheoremCMPolPrim) : MainTheoremCMPolQuad := by
+  obtain ⟨ε, h⟩ := h
+  exact ⟨ε, polQuadSign_of_polPrimSign h⟩
+
+theorem polQuadSign_one_of_polMaxQuad (h : MainTheoremCMPolMaxQuad) : MainTheoremCMPolQuadSign 1 := by
+  intro E _ _ _ g Φ hdeg hinj h2 Er _ _ κr hκ n ρ j hρ σ s hs A hA 𝔞 θ hθ htype hO hζ A' hh hpb hone
+  simp only [Units.val_one, zpow_one]
+  exact h E g Φ hdeg hinj h2 Er κr hκ n ρ j hρ σ s hs A hA 𝔞 θ hθ htype hO hζ A' hh hpb hone
+
+theorem polQuad_of_polMaxQuad (h : MainTheoremCMPolMaxQuad) : MainTheoremCMPolQuad :=
+  ⟨1, polQuadSign_one_of_polMaxQuad h⟩
+
+theorem signQuad_of_signPrim {ε : ℤˣ} (h : MainTheoremCMSignPrim ε) : MainTheoremCMSignQuad ε := by
+  intro E _ _ _ g Φ hdeg hinj h2 Er _ _ κr hκ n ρ j hρ σ s hs A hA 𝔞 θ hθ htype A' hh hpb hone
+  obtain rfl : g = 1 := by omega
+  exact h E 1 Φ hdeg hinj (isPrimitiveType_of_finrank_two Φ h2 hinj) Er κr hκ n ρ j hρ σ s hs A hA 𝔞 θ hθ htype
+    A' hh hpb hone
+
+/-! ### Generic forms (a class of CM types), for the copied proof -/
+
+/-- A class of CM types `(E, Φ)`. -/
+abbrev CMTypeClass : Type 1 :=
+  ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (g : ℕ), (Fin g → E →+* ℂ) → Prop
+
+/-- `MainCMPolar.MainTheoremCMPolSign ε` restricted to a class `P` of CM types. -/
+def MainTheoremCMPolOn (P : CMTypeClass) (ε : ℤˣ) : Prop :=
+  ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (g : ℕ) (Φ : Fin g → E →+* ℂ),
+    Module.finrank ℚ E = 2 * g →
+    Function.Injective (Sum.elim Φ fun i => (starRingEnd ℂ).comp (Φ i)) →
+    P E g Φ →
+  ∀ (Er : Type) [Field Er] [NumberField Er] (κr : Er →+* ℂ),
+    κr.fieldRange = Subfield.closure (Set.range fun e : E => ∑ i, Φ i e) →
+  ∀ (n : ℕ) (ρ : Er →ₐ[ℚ] Matrix (Fin n) (Fin n) E) (j : (Fin n → E) →+ (Fin g → ℂ)),
+    IsReflexModel Φ κr ρ j →
+  ∀ (σ : ℂ ≃+* ℂ) (s : IdeleGroup (𝓞 Er) Er), ArtinCondC κr σ s →
+  ∀ (A : PkgI3.AbVar ℂ), A.dim = (g : WithBot ℕ∞) →
+  ∀ (𝔞 : AddSubgroup E) (θ : (Fin g → ℂ) → CPts A (RingHom.id ℂ)),
+    IsUniformization (RingHom.id ℂ) (cmLat Φ 𝔞) θ → IsOfType Φ 𝔞 θ →
+    IsOLattice 𝔞 → (∃ ζ : E, IsRiemannDatum Φ 𝔞 ζ) →
+  ∀ (A' : PkgI3.AbVar ℂ) (h : A'.X.left ⟶ A.X.left),
+    IsPullback h A'.X.hom A.X.hom (Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ))) →
+    (1 : CPts A' (RingHom.id ℂ)).left ≫ h =
+      Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ)) ≫ (1 : CPts A (RingHom.id ℂ)).left →
+  ∃ θ' : (Fin g → ℂ) → CPts A' (RingHom.id ℂ),
+    IsUniformization (RingHom.id ℂ)
+      (cmLat Φ (latAct ((reflexNorm ρ (IdeleGroup.toFiniteIdele (𝓞 Er) Er s) ^ (ε : ℤ) :
+        (AQ ⊗[ℚ] E)ˣ) : AQ ⊗[ℚ] E) 𝔞)) θ' ∧
+    ∀ x y : E,
+      ((reflexNorm ρ (IdeleGroup.toFiniteIdele (𝓞 Er) Er s) ^ (ε : ℤ) : (AQ ⊗[ℚ] E)ˣ) : AQ ⊗[ℚ] E) *
+          (1 ⊗ₜ y) - 1 ⊗ₜ x ∈ latHat 𝔞 →
+        (θ' (cmVec Φ y)).left ≫ h = Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ)) ≫ (θ (cmVec Φ x)).left
+
+/-- `HcmPrinted.MainTheoremCMSign ε` restricted to a class `P` of CM types. -/
+def MainTheoremCMSignOn (P : CMTypeClass) (ε : ℤˣ) : Prop :=
+  ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (g : ℕ) (Φ : Fin g → E →+* ℂ),
+    Module.finrank ℚ E = 2 * g →
+    Function.Injective (Sum.elim Φ fun i => (starRingEnd ℂ).comp (Φ i)) →
+    P E g Φ →
+  ∀ (Er : Type) [Field Er] [NumberField Er] (κr : Er →+* ℂ),
+    κr.fieldRange = Subfield.closure (Set.range fun e : E => ∑ i, Φ i e) →
+  ∀ (n : ℕ) (ρ : Er →ₐ[ℚ] Matrix (Fin n) (Fin n) E) (j : (Fin n → E) →+ (Fin g → ℂ)),
+    IsReflexModel Φ κr ρ j →
+  ∀ (σ : ℂ ≃+* ℂ) (s : IdeleGroup (𝓞 Er) Er), ArtinCondC κr σ s →
+  ∀ (A : PkgI3.AbVar ℂ), A.dim = (g : WithBot ℕ∞) →
+  ∀ (𝔞 : AddSubgroup E) (θ : (Fin g → ℂ) → CPts A (RingHom.id ℂ)),
+    IsUniformization (RingHom.id ℂ) (cmLat Φ 𝔞) θ → IsOfType Φ 𝔞 θ →
+  ∀ (A' : PkgI3.AbVar ℂ) (h : A'.X.left ⟶ A.X.left),
+    IsPullback h A'.X.hom A.X.hom (Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ))) →
+    (1 : CPts A' (RingHom.id ℂ)).left ≫ h =
+      Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ)) ≫ (1 : CPts A (RingHom.id ℂ)).left →
+  ∃ θ' : (Fin g → ℂ) → CPts A' (RingHom.id ℂ),
+    IsUniformization (RingHom.id ℂ)
+      (cmLat Φ (latAct ((reflexNorm ρ (IdeleGroup.toFiniteIdele (𝓞 Er) Er s) ^ (ε : ℤ) :
+        (AQ ⊗[ℚ] E)ˣ) : AQ ⊗[ℚ] E) 𝔞)) θ' ∧
+    ∀ x y : E,
+      ((reflexNorm ρ (IdeleGroup.toFiniteIdele (𝓞 Er) Er s) ^ (ε : ℤ) : (AQ ⊗[ℚ] E)ˣ) : AQ ⊗[ℚ] E) *
+          (1 ⊗ₜ y) - 1 ⊗ₜ x ∈ latHat 𝔞 →
+        (θ' (cmVec Φ y)).left ≫ h = Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ)) ≫ (θ (cmVec Φ x)).left
+
 end Leaves
 
 /-! ## §3 mtcm-polar's isogeny step for primitive types
 
 Copy of `MainCMPolar.mainTheoremCMSign_of_polar` (`ZInQKernel/Contrib/OneProof/MainCMPolar.lean`, wip/mtcm-polar
-50dcdc48, lines 637-846), with the hypothesis `hprim : IsPrimitiveType Φ` introduced and passed to the leaf; no
-other change. -/
+50dcdc48, lines 637-846), for a class `P` of CM types: the hypothesis `hprim : P E g Φ` is introduced and passed to
+the leaf; no other change. -/
 
 section Proof
 
 open MonObj HcmPrinted
 open AvSplit.HomLatticeAN3 (bcC projC ptE ptE_left)
 
-/-- **The main theorem of CM for arbitrary lattices and primitive types from the polarized, maximal-order print
-for primitive types, at any sign `ε`.** -/
-theorem mainTheoremCMSignPrim_of_polar (ε : ℤˣ) (hP : MainTheoremCMPolPrimSign ε) (hX : CMAbVarExists)
+/-- **The main theorem of CM for arbitrary lattices from the polarized, maximal-order print, on any class `P` of CM
+types, at any sign `ε`.** -/
+theorem mainTheoremCMSignOn_of_polar (P : CMTypeClass) (ε : ℤˣ) (hP : MainTheoremCMPolOn P ε) (hX : CMAbVarExists)
     (hUL : BPAnalytic.Uniformization.UniformizationLeafAll) (hG : ZInQ.HomLattice.GAGAMorphism) :
-    MainTheoremCMSignPrim ε := by
+    MainTheoremCMSignOn P ε := by
   have hH : ZInQ.HomUnify.HomLatticeCorr := AvSplit.Final.h69 hUL hG
   intro E _ _ _ g Φ hdeg hinj hprim Er _ _ κr hκ n ρ j hρ σ s hs A hdimA 𝔞 θ hθ htype A' h hpb hone
   set t : AQ ⊗[ℚ] E := ((reflexNorm ρ (IdeleGroup.toFiniteIdele (𝓞 Er) Er s) ^ (ε : ℤ) : (AQ ⊗[ℚ] E)ˣ) :
@@ -441,6 +644,18 @@ theorem mainTheoremCMSignPrim_of_polar (ε : ℤˣ) (hP : MainTheoremCMPolPrimSi
     rw [key, hddrel _ _ hrem', hμ', map_add, hθ.1, (hθ.2.1 _).2 (mem_cmLat.2 ⟨a, ha, rfl⟩), _root_.mul_one]
   exact ⟨θ', (isUniformization_iff _ _ _).2
     ⟨isAnalyticHom_comp (isAnalyticHom_of_unif hθB') muO, hker, hsurj⟩, htors⟩
+
+/-- **The main theorem of CM for arbitrary lattices and primitive types** from the primitive print. -/
+theorem mainTheoremCMSignPrim_of_polar (ε : ℤˣ) (hP : MainTheoremCMPolPrimSign ε) (hX : CMAbVarExists)
+    (hUL : BPAnalytic.Uniformization.UniformizationLeafAll) (hG : ZInQ.HomLattice.GAGAMorphism) :
+    MainTheoremCMSignPrim ε :=
+  mainTheoremCMSignOn_of_polar (fun _ _ _ _ _ Φ => IsPrimitiveType Φ) ε hP hX hUL hG
+
+/-- **The main theorem of CM for arbitrary lattices on CM elliptic curves** from the quadratic print. -/
+theorem mainTheoremCMSignQuad_of_polar (ε : ℤˣ) (hP : MainTheoremCMPolQuadSign ε) (hX : CMAbVarExists)
+    (hUL : BPAnalytic.Uniformization.UniformizationLeafAll) (hG : ZInQ.HomLattice.GAGAMorphism) :
+    MainTheoremCMSignQuad ε :=
+  mainTheoremCMSignOn_of_polar (fun E _ _ _ _ _ => Module.finrank ℚ E = 2) ε hP hX hUL hG
 
 end Proof
 
@@ -839,9 +1054,9 @@ theorem ek_of_sign {ε : ℤˣ} (h : HcmPrinted.MainTheoremCMSign ε) : MainTheo
     σ s hs A hA 𝔞 θ hθ ht A' h' hpb hone
 
 /-- **The reduction from the induced type of `E = K(√2)` to the primitive type `(K, κ)`.** The main theorem of CM
-for primitive types (every lattice), Shimura's existence theorem and the textbook leaves give the main theorem for
-`(E, PhiE κ)`. -/
-theorem mainTheoremCMEK_of_prim (ε : ℤˣ) (hP : MainTheoremCMSignPrim ε) (hX : CMAbVarExists)
+for imaginary quadratic fields (every lattice), Shimura's existence theorem and the textbook leaves give the main
+theorem for `(E, PhiE κ)`. -/
+theorem mainTheoremCMEK_of_quad (ε : ℤˣ) (hP : MainTheoremCMSignQuad ε) (hX : CMAbVarExists)
     (hUL : BPAnalytic.Uniformization.UniformizationLeafAll) (hG : ZInQ.HomLattice.GAGAMorphism) :
     MainTheoremCMEK ε := by
   intro K _ _ _ hK _ κ σ s hs A hdimA 𝔞 θ hθ htype A' h hpb hone
@@ -902,7 +1117,7 @@ theorem mainTheoremCMEK_of_prim (ε : ℤˣ) (hP : MainTheoremCMSignPrim ε) (hX
         exact mem_cmLat.2 ⟨e * x, he x hx, by funext i; simp [Me, cmVec]⟩)
     exact ⟨f, fun w => hf w⟩
   -- the main theorem for the primitive type `(K, κ)`, applied to `B`
-  obtain ⟨θB', hθB', hrelB⟩ := hP K 1 Φ0 (by rw [hK]) hinj1 (isPrimitiveType_of_finrank_two Φ0 hK hinj1)
+  obtain ⟨θB', hθB', hrelB⟩ := hP K 1 Φ0 (by rw [hK]) hinj1 hK
     K κ (reflex1 κ) 1 rho1 (j1 κ) (model1 κ) σ s hs B hdimB 𝔟 θB hθB htypeB
     (bcC B (σ : ℂ →+* ℂ)) (projC B (σ : ℂ →+* ℂ)) (isPullback_bc σ B) (one_left_bc σ B)
   have hddB : ∀ x y : K, tK * (1 ⊗ₜ y) - 1 ⊗ₜ x ∈ latHat 𝔟 →
@@ -1073,6 +1288,125 @@ theorem mainTheoremCMEK_of_prim (ε : ℤˣ) (hP : MainTheoremCMSignPrim ε) (hX
   rw [hrelA x y hxy] at this
   exact this
 
+/-- **The reduction from the induced type of `E = K(√2)`**, from the main theorem for primitive types. -/
+theorem mainTheoremCMEK_of_prim (ε : ℤˣ) (hP : MainTheoremCMSignPrim ε) (hX : CMAbVarExists)
+    (hUL : BPAnalytic.Uniformization.UniformizationLeafAll) (hG : ZInQ.HomLattice.GAGAMorphism) :
+    MainTheoremCMEK ε :=
+  mainTheoremCMEK_of_quad ε (signQuad_of_signPrim hP) hX hUL hG
+
+/-- **The reflex norm of the induced type is the reflex norm of `(K, κ)` followed by `𝔸_f ⊗ K → 𝔸_f ⊗ E`**
+(with the reflex field `κ(K)` of both, `QMRecPrinted.reflex_eq` and `reflex1`). -/
+theorem reflexNorm_rhoK_eq (K : Type) [Field K] [NumberField K] [Fact (Irreducible (X ^ 2 - C (2 : K)))]
+    (u : (FiniteAdeleRing (𝓞 K) K)ˣ) :
+    (reflexNorm rhoK u : AQ ⊗[ℚ] EK K) = inclA (reflexNorm rho1 u : AQ ⊗[ℚ] K) := by
+  rw [reflexNorm_rhoK, reflexNorm_rho1]
+
+/-- **An abelian variety of the induced type `(K(√2), PhiE κ)` is isogenous to the square of an elliptic curve of
+type `(K, κ)`**: for `θ : ℂ²/Φ(𝔞) ≅ A(ℂ)` there are `B` with `θ_B : ℂ/κ(𝔟) ≅ B(ℂ)` (`𝔟` an `𝓞_K`-ideal) and
+homomorphisms `f₁, f₂ : B → A` with `θ(w₁Φ(1) + w₂Φ(√2)) = f₁(θ_B(w₁)) · f₂(θ_B(w₂))`, so that
+`B × B → A`, `(P, Q) ↦ f₁(P) f₂(Q)`, is surjective with kernel killed by some `m > 0`. -/
+theorem exists_isogeny_EK (hX : CMAbVarExists) (hUL : BPAnalytic.Uniformization.UniformizationLeafAll)
+    (hG : ZInQ.HomLattice.GAGAMorphism) (K : Type) [Field K] [NumberField K] [IsTotallyComplex K]
+    (hK : Module.finrank ℚ K = 2) [Fact (Irreducible (X ^ 2 - C (2 : K)))] (κ : K →+* ℂ)
+    (A : PkgI3.AbVar ℂ) (hdimA : A.dim = ((2 : ℕ) : WithBot ℕ∞)) (𝔞 : AddSubgroup (EK K))
+    (θ : (Fin 2 → ℂ) → CPts A (RingHom.id ℂ)) (hθ : IsUniformization (RingHom.id ℂ) (cmLat (PhiE κ) 𝔞) θ) :
+    ∃ (B : PkgI3.AbVar ℂ) (θB : (Fin 1 → ℂ) → CPts B (RingHom.id ℂ)) (𝔟 : AddSubgroup K)
+      (f₁ f₂ : PkgI3.AbVar.Hom B A) (m : ℕ),
+      B.dim = ((1 : ℕ) : WithBot ℕ∞) ∧ IsOLattice 𝔟 ∧
+      IsUniformization (RingHom.id ℂ) (cmLat (fun _ : Fin 1 => κ) 𝔟) θB ∧ 0 < m ∧
+      (∀ w₁ w₂ : Fin 1 → ℂ, θ (w₁ 0 • cmVec (PhiE κ) 1 + w₂ 0 • cmVec (PhiE κ) (AdjoinRoot.root _)) =
+        θB w₁ ≫ f₁.hom * θB w₂ ≫ f₂.hom) ∧
+      (∀ P : CPts A (RingHom.id ℂ), ∃ Q₁ Q₂ : CPts B (RingHom.id ℂ), P = Q₁ ≫ f₁.hom * Q₂ ≫ f₂.hom) ∧
+      (∀ Q₁ Q₂ : CPts B (RingHom.id ℂ), Q₁ ≫ f₁.hom * Q₂ ≫ f₂.hom = 1 → Q₁ ^ m = 1 ∧ Q₂ ^ m = 1) := by
+  have hH : ZInQ.HomUnify.HomLatticeCorr := AvSplit.Final.h69 hUL hG
+  haveI : IsCMField K := isCMField_K hK
+  haveI : IsCMField (EK K) := isCMField_EK hK
+  set Φ := PhiE κ with hΦ
+  set Φ0 : Fin 1 → K →+* ℂ := fun _ => κ with hΦ0
+  set r : EK K := AdjoinRoot.root (X ^ 2 - C (2 : K)) with hr
+  have hdeg : Module.finrank ℚ (EK K) = 2 * 2 := by rw [finrank_EK hK]
+  have hinj1 := type_inj1 κ
+  obtain ⟨⟨N, hN, hNa⟩, ⟨d, hd, hda⟩⟩ := lattice_of_unif hUL Φ two_pos hdeg hθ
+  let 𝔟 : AddSubgroup K := nO N
+  have hOL : IsOLattice 𝔟 := by
+    refine ⟨fun o x hx => ?_, ⟨N, hN, fun o => mem_nO.2 ⟨o, rfl⟩⟩, ⟨1, one_pos, fun x hx => ?_⟩⟩
+    · obtain ⟨o', rfl⟩ := mem_nO.1 hx
+      exact mem_nO.2 ⟨o * o', by push_cast; ring⟩
+    · obtain ⟨o, rfl⟩ := mem_nO.1 hx
+      have := coe_integral ((N : 𝓞 K) * o)
+      push_cast at this
+      rw [Nat.cast_one, _root_.one_mul]; exact this
+  obtain ⟨ζ0, hζc, hζi⟩ := exists_zeta Φ0 hinj1
+  obtain ⟨y, hy0, hy⟩ := exists_integral_multiples ℤ ℚ (L := K) {ζ0}
+  have hyζ := hy ζ0 (Finset.mem_singleton_self ζ0)
+  have hζint : IsIntegral ℤ ((y * y) • ζ0) := by
+    rw [mul_smul, zsmul_eq_mul]
+    exact (by simpa using (isIntegral_algebraMap (R := ℤ) (A := K) (x := y)) : IsIntegral ℤ (y : K)).mul hyζ
+  have hζ : IsRiemannDatum Φ0 𝔟 ((y * y) • ζ0) := by
+    refine ⟨by rw [map_zsmul, hζc, smul_neg], fun i => ?_, fun x hx x' hx' => ?_⟩
+    · rw [map_zsmul, zsmul_eq_mul, Complex.mul_im, Complex.intCast_re, Complex.intCast_im, zero_mul,
+        add_zero]
+      exact mul_pos (by exact_mod_cast mul_self_pos.2 hy0) (hζi i)
+    · obtain ⟨o, rfl⟩ := mem_nO.1 hx
+      obtain ⟨o', rfl⟩ := mem_nO.1 hx'
+      apply trace_int
+      have h1 : IsIntegral ℤ ((N : K) * (o : K)) := by
+        have := coe_integral ((N : 𝓞 K) * o); push_cast at this; exact this
+      have h2 : IsIntegral ℤ ((N : K) * (o' : K)) := by
+        have := coe_integral ((N : 𝓞 K) * o'); push_cast at this; exact this
+      exact (hζint.mul h1).mul (h2.map (IsCMField.complexConj K))
+  obtain ⟨B, θB, hdimB, hθB⟩ := hX K 1 Φ0 (by rw [hK]) hinj1 𝔟 hOL ⟨_, hζ⟩
+  have hMlat : ∀ α : EK K, IsIntegral ℤ α → ∀ z ∈ cmLat Φ0 𝔟, Mv κ α z ∈ cmLat Φ 𝔞 := by
+    intro α hα z hz
+    obtain ⟨b, hb, rfl⟩ := mem_cmLat.1 hz
+    obtain ⟨o, rfl⟩ := mem_nO.1 hb
+    refine mem_cmLat.2 ⟨_, hNa ⟨algebraMap K (EK K) (o : K) * α,
+      ((coe_integral o).map (IsScalarTower.toAlgHom ℤ K (EK K))).mul hα⟩, ?_⟩
+    rw [Mv_cmVec]
+    congr 1
+    show (N : EK K) * (algebraMap K (EK K) (o : K) * α) = algebraMap K (EK K) ((N : K) * (o : K)) * α
+    rw [map_mul, map_natCast, _root_.mul_assoc]
+  obtain ⟨f1, hf1, -⟩ := hH.2 B A 1 2 (cmLat Φ0 𝔟) (cmLat Φ 𝔞) θB θ hdimB hdimA hθB hθ (Mv κ 1)
+    (hMlat 1 isIntegral_one)
+  obtain ⟨fr, hfr, -⟩ := hH.2 B A 1 2 (cmLat Φ0 𝔟) (cmLat Φ 𝔞) θB θ hdimB hdimA hθB hθ (Mv κ r)
+    (hMlat r isIntegral_root)
+  obtain ⟨D0, hD0, hD0'⟩ := exists_den_lin (crd 0 : EK K →ₗ[ℚ] K)
+  obtain ⟨D1, hD1, hD1'⟩ := exists_den_lin (crd 1 : EK K →ₗ[ℚ] K)
+  have hDint : ∀ i, ∀ o : 𝓞 (EK K), IsIntegral ℤ (((D0 * D1 : ℕ) : K) * crd i (o : EK K)) := by
+    intro i o
+    fin_cases i
+    · have := (hD0' o).mul (isIntegral_algebraMap (R := ℤ) (A := K) (x := (D1 : ℤ)))
+      convert this using 1; push_cast; ring
+    · have := (hD1' o).mul (isIntegral_algebraMap (R := ℤ) (A := K) (x := (D0 : ℤ)))
+      convert this using 1; push_cast; ring
+  set m : ℕ := N * (D0 * D1) * d with hmdef
+  have hmpos : 0 < m := Nat.mul_pos (Nat.mul_pos hN (Nat.mul_pos hD0 hD1)) hd
+  have hmcrd : ∀ i, ∀ x ∈ 𝔞, (m : K) * crd i x ∈ 𝔟 := by
+    intro i x hx
+    refine mem_nO.2 ⟨⟨_, hDint i ⟨(d : EK K) * x, hda x hx⟩⟩, ?_⟩
+    show (N : K) * (((D0 * D1 : ℕ) : K) * crd i ((d : EK K) * x)) = (m : K) * crd i x
+    rw [crd_natCast_mul, hmdef]; push_cast; ring
+  have hfor : ∀ w₁ w₂ : Fin 1 → ℂ, θ (w₁ 0 • cmVec Φ 1 + w₂ 0 • cmVec Φ r) = θB w₁ ≫ f1.hom * θB w₂ ≫ fr.hom := by
+    intro w₁ w₂
+    rw [← Mv_apply, ← Mv_apply, hθ.1, hf1, hfr]
+  refine ⟨B, θB, 𝔟, f1, fr, m, hdimB, hOL, hθB, hmpos, hfor, fun P => ?_, fun Q₁ Q₂ hQ => ?_⟩
+  · obtain ⟨u, rfl⟩ := hθ.2.2.1 P
+    refine ⟨θB (ell0 u), θB (ell1 u), ?_⟩
+    rw [← hfor, ← Mv_apply, ← Mv_apply, span_Mv]
+  · obtain ⟨v0, rfl⟩ := hθB.2.2.1 Q₁
+    obtain ⟨v1, rfl⟩ := hθB.2.2.1 Q₂
+    rw [← hfor, ← Mv_apply, ← Mv_apply] at hQ
+    obtain ⟨e, he, hee⟩ := mem_cmLat.1 ((hθ.2.1 _).1 hQ)
+    have hv0e : v0 = cmVec Φ0 (crd 0 e) := by
+      rw [← ell0_cmVec, hee, map_add, ell0_Mv1, ell0_Mvr, add_zero]
+    have hv1e : v1 = cmVec Φ0 (crd 1 e) := by
+      rw [← ell1_cmVec, hee, map_add, ell1_Mv1, ell1_Mvr, zero_add]
+    have key : ∀ (v : Fin 1 → ℂ) (c : K), v = cmVec Φ0 c → (m : K) * c ∈ 𝔟 → θB v ^ m = 1 := by
+      intro v c hv hc
+      rw [← map_nsmul_of_hom hθB.1, hv, ← map_nsmul, nsmul_eq_mul]
+      exact (hθB.2.1 _).2 ((cmVec_mem_cmLat one_pos).2 hc)
+    exact ⟨key v0 _ hv0e (hmcrd 0 e he), key v1 _ hv1e (hmcrd 1 e he)⟩
+
 /-- **Sanity check: the induced type of `K(√2)` is not primitive** (it is induced from `K`), so the primitive leaf
 does not apply to it directly and the reduction `mainTheoremCMEK_of_prim` is needed. -/
 theorem not_isPrimitiveType_PhiE {K : Type} [Field K] [NumberField K] [Fact (Irreducible (X ^ 2 - C (2 : K)))]
@@ -1113,17 +1447,24 @@ theorem mainTheoremCMEK_of_polPrim (hP : MainTheoremCMPolPrim) (hX : CMAbVarExis
   obtain ⟨ε, h⟩ := hP
   exact ⟨ε, mainTheoremCMEK_of_prim ε (mainTheoremCMSignPrim_of_polar ε h hX hUL hG) hX hUL hG⟩
 
+/-- **The main theorem of CM at the induced type of `K(√2)`** (existential sign) from the quadratic print. -/
+theorem mainTheoremCMEK_of_polQuad (hP : MainTheoremCMPolQuad) (hX : CMAbVarExists)
+    (hUL : BPAnalytic.Uniformization.UniformizationLeafAll) (hG : ZInQ.HomLattice.GAGAMorphism) :
+    ∃ ε : ℤˣ, MainTheoremCMEK ε := by
+  obtain ⟨ε, h⟩ := hP
+  exact ⟨ε, mainTheoremCMEK_of_quad ε (mainTheoremCMSignQuad_of_polar ε h hX hUL hG) hX hUL hG⟩
+
 end EK
 
 /-! ## §8 The consumers
 
 `qmReciprocityL3_of_ek` is a copy of `QMRecPrinted.qmReciprocityL3_of_printed`
 (`ZInQKernel/Contrib/OneProof/QMRecPrinted.lean`, wip/mtcm-polar 50dcdc48, lines 880-1073) whose only change is the
-hypothesis `∃ ε, MainTheoremCMEK ε` in place of `MainTheoremCM`, applied at the same instance (line 933 there).
-`shimuraMainCM_of_arithPrim` is a copy of `HcmPrinted.shimuraMainCM_of_printed`
+hypothesis `∃ ε, MainTheoremCMEK ε` in place of `MainTheoremCM`, applied at the same instance (line 934 there).
+`shimuraMainCM_of_arithQuad` is a copy of `HcmPrinted.shimuraMainCM_of_printed`
 (`ZInQKernel/Contrib/OneProof/ShimuraMainCMPrinted.lean`, lines 1189-1256) whose only change is the hypothesis
-`MainTheoremCMSignPrim 1` in place of `MainTheoremCMArith`, with the primitivity of `(QNeg m, κ)` supplied by
-`isPrimitiveType_of_finrank_two`. -/
+`MainTheoremCMSignQuad 1` in place of `MainTheoremCMArith`, applied at the same instance (line 1237 there) with the
+extra argument `finrank_QNeg`. -/
 
 section QMRec
 
@@ -1330,11 +1671,15 @@ theorem qmReciprocityL3_of_ek (hM : ∃ ε : ℤˣ, MainTheoremCMEK ε) (hC : ZI
 existence theorem and the textbook leaves. -/
 theorem qmReciprocityL3_of_polPrim (hP : MainTheoremCMPolPrim) (hX : CMAbVarExists)
     (hUL : BPAnalytic.Uniformization.UniformizationLeafAll) (hG : ZInQ.HomLattice.GAGAMorphism) :
-    ShimuraSplit2.QMReciprocityL3 := by
-  obtain ⟨ε, h⟩ := hP
-  exact qmReciprocityL3_of_ek
-    ⟨ε, mainTheoremCMEK_of_prim ε (mainTheoremCMSignPrim_of_polar ε h hX hUL hG) hX hUL hG⟩
-    (AvSplit.Final.h69 hUL hG)
+    ShimuraSplit2.QMReciprocityL3 :=
+  qmReciprocityL3_of_ek (mainTheoremCMEK_of_polPrim hP hX hUL hG) (AvSplit.Final.h69 hUL hG)
+
+/-- **`QMReciprocityL3` from the main theorem of CM for CM elliptic curves** (`𝓞_E`-ideal lattices, existential
+sign), Shimura's existence theorem and the textbook leaves. -/
+theorem qmReciprocityL3_of_polQuad (hP : MainTheoremCMPolQuad) (hX : CMAbVarExists)
+    (hUL : BPAnalytic.Uniformization.UniformizationLeafAll) (hG : ZInQ.HomLattice.GAGAMorphism) :
+    ShimuraSplit2.QMReciprocityL3 :=
+  qmReciprocityL3_of_ek (mainTheoremCMEK_of_polQuad hP hX hUL hG) (AvSplit.Final.h69 hUL hG)
 
 /-- **The former field `rayClassCMAb`** (shimura-split2's `rayClassCMAb_of_leaves2`) from the primitive print. -/
 theorem rayClassCMAb_of_polPrim (hR : ShimuraGlue.DeligneComponentsX6PrintedAb) (hP : MainTheoremCMPolPrim)
@@ -1342,6 +1687,13 @@ theorem rayClassCMAb_of_polPrim (hR : ShimuraGlue.DeligneComponentsX6PrintedAb) 
     (hG : ZInQ.HomLattice.GAGAMorphism) (hMum : AvSplit.MumfordTorsionAlgClosed) :
     ShimuraGlue.Ray.RayClassCMAb :=
   rayClassCMAb_of_leaves2 hR (qmReciprocityL3_of_polPrim hP hX hUL hG) hUL hG hMum
+
+/-- **The former field `rayClassCMAb`** from the quadratic print. -/
+theorem rayClassCMAb_of_polQuad (hR : ShimuraGlue.DeligneComponentsX6PrintedAb) (hP : MainTheoremCMPolQuad)
+    (hX : CMAbVarExists) (hUL : BPAnalytic.Uniformization.UniformizationLeafAll)
+    (hG : ZInQ.HomLattice.GAGAMorphism) (hMum : AvSplit.MumfordTorsionAlgClosed) :
+    ShimuraGlue.Ray.RayClassCMAb :=
+  rayClassCMAb_of_leaves2 hR (qmReciprocityL3_of_polQuad hP hX hUL hG) hUL hG hMum
 
 end QMRec
 
@@ -1355,9 +1707,9 @@ open Complex MonObj HcmPrinted
 open ZInQ.LeafPush2 (cEvalAt cDom)
 open AvSplit.HomLatticeAN3 (bcC projC ptE ptE_left)
 
-/-- **`T5Glue.ShimuraMainCM` from the main theorem of CM for primitive types** (`ε = 1`), the Weierstrass leaves
-and `HomLatticeCorr`. -/
-theorem shimuraMainCM_of_arithPrim (hM : MainTheoremCMSignPrim 1) (hWU : WeierstrassUniformization)
+/-- **`T5Glue.ShimuraMainCM` from the main theorem of CM for imaginary quadratic fields** (`ε = 1`), the
+Weierstrass leaves and `HomLatticeCorr`. -/
+theorem shimuraMainCM_of_arithQuad (hM : MainTheoremCMSignQuad 1) (hWU : WeierstrassUniformization)
     (hWP : WeierstrassParam) (hWA : WeierstrassAbVar) (hH : ZInQ.HomUnify.HomLatticeCorr) :
     T5Glue.ShimuraMainCM := by
   intro m _ hsq e he σ s hs 𝔞 P P' hP hP'
@@ -1405,8 +1757,8 @@ theorem shimuraMainCM_of_arithPrim (hM : MainTheoremCMSignPrim 1) (hWU : Weierst
     rw [Algebra.TensorProduct.includeRight_apply, htmul, hadel, AlgEquiv.apply_symm_apply]
     rfl
   -- the main theorem of CM
-  obtain ⟨θ', hθ', hrel⟩ := hM (QNeg m) 1 (fun _ => kap m) (by rw [finrank_QNeg]) type_inj
-    (isPrimitiveType_of_finrank_two _ finrank_QNeg type_inj) (QNeg m) (kap m)
+  obtain ⟨θ', hθ', hrel⟩ := hM (QNeg m) 1 (fun _ => kap m) (by rw [finrank_QNeg]) type_inj finrank_QNeg
+    (QNeg m) (kap m)
     reflex_range 1 rhoQ jQ model σ s (artinCondC_of_artinCond e he σ s hs) A hdim S θ
     (by rw [cmLat_eq S P (by rw [hP, hS])]; exact hθ)
     (isOfType_of_corr hH A hdim θ P hθ S (by rw [hP, hS]))
@@ -1428,6 +1780,12 @@ theorem shimuraMainCM_of_arithPrim (hM : MainTheoremCMSignPrim 1) (hWU : Weierst
 
 
 
+/-- `T5Glue.ShimuraMainCM` from the main theorem of CM for primitive types. -/
+theorem shimuraMainCM_of_arithPrim (hM : MainTheoremCMSignPrim 1) (hWU : WeierstrassUniformization)
+    (hWP : WeierstrassParam) (hWA : WeierstrassAbVar) (hH : ZInQ.HomUnify.HomLatticeCorr) :
+    T5Glue.ShimuraMainCM :=
+  shimuraMainCM_of_arithQuad (signQuad_of_signPrim hM) hWU hWP hWA hH
+
 /-- **`hCM = T5Glue.ShimuraMainCM` from the polarized, maximal-order print for primitive types** (`ε = 1`),
 Shimura's existence theorem, hcm-printed's Weierstrass leaves and the textbook leaves. -/
 theorem shimuraMainCM_of_polMaxPrim (hP : MainTheoremCMPolMaxPrim) (hX : CMAbVarExists)
@@ -1435,6 +1793,15 @@ theorem shimuraMainCM_of_polMaxPrim (hP : MainTheoremCMPolMaxPrim) (hX : CMAbVar
     (hWA : HcmPrinted.WeierstrassAbVar) (hUL : BPAnalytic.Uniformization.UniformizationLeafAll)
     (hG : ZInQ.HomLattice.GAGAMorphism) : T5Glue.ShimuraMainCM :=
   shimuraMainCM_of_arithPrim (mainTheoremCMSignPrim_of_polar 1 (polPrimSign_one_of_polMaxPrim hP) hX hUL hG)
+    hWU hWP hWA (AvSplit.Final.h69 hUL hG)
+
+/-- **`hCM = T5Glue.ShimuraMainCM` from the main theorem of CM for CM elliptic curves** (`𝓞_E`-ideal lattices,
+`ε = 1`), Shimura's existence theorem, hcm-printed's Weierstrass leaves and the textbook leaves. -/
+theorem shimuraMainCM_of_polMaxQuad (hP : MainTheoremCMPolMaxQuad) (hX : CMAbVarExists)
+    (hWU : HcmPrinted.WeierstrassUniformization) (hWP : HcmPrinted.WeierstrassParam)
+    (hWA : HcmPrinted.WeierstrassAbVar) (hUL : BPAnalytic.Uniformization.UniformizationLeafAll)
+    (hG : ZInQ.HomLattice.GAGAMorphism) : T5Glue.ShimuraMainCM :=
+  shimuraMainCM_of_arithQuad (mainTheoremCMSignQuad_of_polar 1 (polQuadSign_one_of_polMaxQuad hP) hX hUL hG)
     hWU hWP hWA (AvSplit.Final.h69 hUL hG)
 
 end Hcm

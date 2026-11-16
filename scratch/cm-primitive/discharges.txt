@@ -1,0 +1,1 @@
+scratch/cm-primitive/Discharges.lean:1:0: error: object file '/home/jackmccarthy/dzq-wt/cm-primitive/lean/.lake/build/lib/lean/ZInQ/RationalPositiveGuard.olean' of module ZInQ.RationalPositiveGuard does not exist
