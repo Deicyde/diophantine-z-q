@@ -49,7 +49,7 @@ open CategoryTheory.MonoidalCategory
 open AlgebraicGeometry
 -- Source-local namespace open deferred until its declaration.
 open AlgebraicGeometry.RelPicard
-open P2MW.S_AlgebraicGeometry_RelPicard_finrank_H0_fibre_eq_one_of_subsingleton_H1.AlgebraicGeometry.RelPicard
+-- [port] The module-local RelPicard namespace is declared below, not opened forward.
 open NeronModelInfra
 
 noncomputable section
