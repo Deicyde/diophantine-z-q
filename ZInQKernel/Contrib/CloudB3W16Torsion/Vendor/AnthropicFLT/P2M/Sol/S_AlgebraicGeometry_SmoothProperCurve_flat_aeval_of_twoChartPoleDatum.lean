@@ -16,7 +16,7 @@ import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_Alg
 import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_SmoothProperCurve_injective_aeval_tensor_of_twoChartPoleDatum
 import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
-set_option backward.isDefEq.respectTransparency false
+set_option backward.isDefEq.respectTransparency true
 
 namespace P2MW.S_AlgebraicGeometry_SmoothProperCurve_flat_aeval_of_twoChartPoleDatum
 

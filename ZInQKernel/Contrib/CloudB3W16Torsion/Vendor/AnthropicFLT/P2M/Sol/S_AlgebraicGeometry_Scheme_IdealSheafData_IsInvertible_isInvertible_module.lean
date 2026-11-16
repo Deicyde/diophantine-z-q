@@ -24,11 +24,11 @@ set_option autoImplicit false
 set_option backward.isDefEq.respectTransparency false
 
 universe u
-open CategoryTheory
-open CategoryTheory.Limits
-open CategoryTheory.MonoidalCategory
-open TopologicalSpace
-open Opposite
+open _root_.CategoryTheory
+open _root_.CategoryTheory.Limits
+open _root_.CategoryTheory.MonoidalCategory
+open _root_.TopologicalSpace
+open _root_.Opposite
 
 noncomputable section
 
@@ -38,9 +38,9 @@ namespace Scheme
 export _root_.AlgebraicGeometry.Scheme (forget ringCatSheaf Modules.pullback Hom Γ Opens.ι_appIso Hom.image_preimage_eq_opensRange_inf Modules.restrictFunctor Modules.restrictFunctorIsoPullback restrictFunctor affineBasicOpen affineOpens basicOpen Modules IdealSheafData.map_ideal Opens grothendieckTopology Opens.opensRange_ι basicOpen_le restrict PresheafOfModules IdealSheafData Modules.IsInvertible IdealSheafData.IsInvertible)
 namespace IdealSheafData
 export _root_.AlgebraicGeometry.Scheme.IdealSheafData (map subscheme map_id ideal map_comp inclusion subschemeι map_ideal ker_subschemeι_app module invModule IsInvertible)
-open AlgebraicGeometry.Scheme.IdealSheafData
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.Scheme.IdealSheafData
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
 
 variable {X : Scheme.{u}} (I : X.IdealSheafData)
 

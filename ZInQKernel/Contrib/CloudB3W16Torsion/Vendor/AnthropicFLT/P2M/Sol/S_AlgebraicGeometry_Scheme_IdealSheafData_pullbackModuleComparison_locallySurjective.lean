@@ -24,9 +24,9 @@ set_option synthInstance.maxHeartbeats 800000
 
 universe u
 
-open CategoryTheory CategoryTheory.Limits
+open _root_.CategoryTheory _root_.CategoryTheory.Limits
 
-open scoped TensorProduct
+open scoped _root_.TensorProduct
 
 namespace Algebra
 export _root_.Algebra (TensorProduct.rid ofId IsPushout TensorProduct.includeRight algebraMap TensorProduct.lTensor_ker IsPushout.equiv smul_def TensorProduct.includeLeft id TensorProduct.map)
@@ -100,9 +100,9 @@ namespace Scheme
 export _root_.AlgebraicGeometry.Scheme (Hom.resLE_comp_ι Hom.map_appLE Modules.Hom.app_smul Opens.topIso_inv ringCatSheaf Modules.pushforward Modules.pullback Hom Γ Opens.ι_appIso topIso_hom Modules.Hom Hom.appTop Opens.topIso_hom affineOpens isBasis_affineOpens Modules Hom.ker_apply Opens Hom.appLE_map Hom.resLE_app_top Opens.ι_image_top restrict IdealSheafData)
 namespace IdealSheafData
 export _root_.AlgebraicGeometry.Scheme.IdealSheafData (comap_comp map subscheme subschemeι_app_surjective ideal inclusion subschemeι comap ker_subschemeι_app ideal_comap_of_isOpenImmersion moduleToPushforwardComapModule pullbackModuleComparison module moduleι range_moduleIota_app_and_injective)
-open AlgebraicGeometry.Scheme.IdealSheafData
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.Scheme.IdealSheafData
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
 
 variable {X Y : Scheme.{u}}
 
@@ -155,11 +155,11 @@ namespace Scheme
 export _root_.AlgebraicGeometry.Scheme (Hom.resLE_comp_ι Hom.map_appLE Modules.Hom.app_smul Opens.topIso_inv ringCatSheaf Modules.pushforward Modules.pullback Hom Γ Opens.ι_appIso topIso_hom Modules.Hom Hom.appTop Opens.topIso_hom affineOpens isBasis_affineOpens Modules Hom.ker_apply Opens Hom.appLE_map Hom.resLE_app_top Opens.ι_image_top restrict IdealSheafData)
 namespace IdealSheafData
 export _root_.AlgebraicGeometry.Scheme.IdealSheafData (comap_comp map subscheme subschemeι_app_surjective ideal inclusion subschemeι comap ker_subschemeι_app ideal_comap_of_isOpenImmersion moduleToPushforwardComapModule pullbackModuleComparison module moduleι range_moduleIota_app_and_injective)
-open AlgebraicGeometry.Scheme.IdealSheafData
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.Scheme.IdealSheafData
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
 
-open Opposite TopologicalSpace
+open _root_.Opposite _root_.TopologicalSpace
 
 private lemma _root_.AlgebraicGeometry.Scheme.IdealSheafData.moduleToPushforwardComapModule_comp_map_moduleι {X X' : Scheme.{u}} (f : X' ⟶ X)
     (I : X.IdealSheafData) :
@@ -219,11 +219,11 @@ theorem lbE_pullbackModuleComparison_locallySurjective {X X' : Scheme.{u}} (f : 
     { carrier := {z | ∃ t : Γ(P, V), ι'.app V (α.app V t) = z}
       add_mem' := by
         rintro _ _ ⟨t₁, rfl⟩ ⟨t₂, rfl⟩
-        exact ⟨t₁ + t₂, by rw [map_add, map_add]; rfl⟩
-      zero_mem' := ⟨0, by rw [map_zero, map_zero]; rfl⟩
+        exact ⟨t₁ + t₂, by rw [map_add, map_add]⟩
+      zero_mem' := ⟨0, by rw [map_zero, map_zero]⟩
       smul_mem' := by
         rintro c _ ⟨t, rfl⟩
-        exact ⟨c • t, by rw [Modules.Hom.app_smul, Modules.Hom.app_smul]; rfl⟩ }
+        exact ⟨c • t, by rw [Modules.Hom.app_smul, Modules.Hom.app_smul]⟩ }
 
   have hα_nat : ∀ y : Γ(P, f ⁻¹ᵁ U₀),
       α.app V (P.presheaf.map (homOfLE hVU₀).op y) =

@@ -31,7 +31,7 @@ namespace PresheafOfModules
 namespace InternalHom
 
 variable {C : Type u'} [Category.{v'} C] {R : Cᵒᵖ ⥤ CommRingCat.{u}}
-  (F N : PresheafOfModules.{u} (R ⋙ forget₂ _ _))
+  (F N : PresheafOfModulesOfCommRing.{u} R)
 
 private noncomputable def toPresheafHom (X : Cᵒᵖ) (φ : naturalFamilies F N X) :
     (presheafHom F.presheaf N.presheaf).obj X where
@@ -39,7 +39,7 @@ private noncomputable def toPresheafHom (X : Cᵒᵖ) (φ : naturalFamilies F N 
   naturality {Y Y'} k := by
     ext x
     change φ.1 Y'.unop.hom.op (F.map k.unop.left.op x) = N.map k.unop.left.op (φ.1 Y.unop.hom.op x)
-    rw [φ.2 Y.unop.hom.op k.unop.left.op x]
+    erw [φ.2 Y.unop.hom.op k.unop.left.op x]
     exact congr_app φ (by rw [← op_comp, Over.w]) _
 
 variable {F N} in
@@ -108,7 +108,7 @@ private lemma linearSub_local {J : GrothendieckTopology C}
     erw [e] at h
     exact h
   change N.map k.op (appAt s (Opposite.op Y) (r • x)) = N.map k.op (r • appAt s (Opposite.op Y) x)
-  rw [← nat, N.map_smul, ← nat, F.map_smul]
+  erw [← nat, N.map_smul, ← nat, F.map_smul]
   exact hlin _ _
 
 end InternalHom
@@ -118,7 +118,7 @@ end PresheafOfModules
 end
 
 private theorem PresheafOfModules.isSheaf_ihomObj_loc {C : Type u} [Category.{u} C]
-    {R : Cᵒᵖ ⥤ CommRingCat.{u}} (F N : PresheafOfModules.{u} (R ⋙ forget₂ CommRingCat RingCat))
+    {R : Cᵒᵖ ⥤ CommRingCat.{u}} (F N : PresheafOfModulesOfCommRing.{u} R)
     {J : GrothendieckTopology C} (hN : Presheaf.IsSheaf J N.presheaf) :
     Presheaf.IsSheaf J (PresheafOfModules.ihomObj F N).presheaf := by
   change Presheaf.IsSheaf J (PresheafOfModules.InternalHom.presheaf F N)
@@ -181,7 +181,7 @@ private lemma isIso_unit_app_of_isSheaf (N : PMod 𝒪) (hN : Presheaf.IsSheaf J
 
 private lemma isIso_shf_map_unit_whiskerRight (d d' : PMod 𝒪) :
     IsIso ((shf 𝒪 R α).map (((adj 𝒪 R α).unit.app d) ▷ d')) := by
-  have h := (Monoidal.Reflective.isIso_tfae (adj 𝒪 R α)).out 0 2
+  have h := (Monoidal.Reflective.isIso_tfae (adj 𝒪 R α)).out 1 3
   refine (h.mp ?_) d d'
   intro c d
   apply isIso_unit_app_of_isSheaf

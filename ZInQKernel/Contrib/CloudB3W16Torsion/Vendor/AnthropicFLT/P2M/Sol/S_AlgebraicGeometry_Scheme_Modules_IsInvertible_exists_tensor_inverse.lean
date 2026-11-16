@@ -17,12 +17,14 @@ import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_
 import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_ModulesPullbackMonoidal
 import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
-set_option backward.isDefEq.respectTransparency false
+set_option backward.isDefEq.respectTransparency true
+set_option backward.isDefEq.respectTransparency.types false
 
 namespace P2MW.S_AlgebraicGeometry_Scheme_Modules_IsInvertible_exists_tensor_inverse
 
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
+set_option backward.isDefEq.respectTransparency true
+set_option backward.isDefEq.respectTransparency.types false
 
 universe u
 open CategoryTheory
@@ -40,9 +42,9 @@ open PresheafOfModules.InternalHom
 open TensorProduct
 
 variable {C : Type u} [Category.{u} C] {R : Cᵒᵖ ⥤ CommRingCat.{u}}
-  (F : PresheafOfModules.{u} (R ⋙ forget₂ CommRingCat RingCat))
+  (F : PresheafOfModulesOfCommRing.{u} R)
 
-noncomputable abbrev dual : PresheafOfModules.{u} (R ⋙ forget₂ CommRingCat RingCat) :=
+noncomputable abbrev dual : PresheafOfModulesOfCommRing.{u} R :=
   ihomObj F (𝟙_ _)
 
 noncomputable abbrev ev : F ⊗ dual F ⟶ 𝟙_ _ := uncurry' F (𝟙 (dual F))
@@ -79,7 +81,7 @@ lemma coord_gen_smul {Y : Cᵒᵖ} (f : X₀ ⟶ Y) (a : R.obj Y) : D.coord f (a
 lemma coord_map {Y Z : Cᵒᵖ} (f : X₀ ⟶ Y) (g : Y ⟶ Z) (x : F.obj Y) :
     D.coord (f ≫ g) (F.map g x) = R.map g (D.coord f x) := by
   conv_lhs => rw [← D.coord_smul_gen f x]
-  rw [PresheafOfModules.map_smul, D.compat]
+  erw [PresheafOfModules.map_smul, D.compat]
   exact D.coord_gen_smul (f ≫ g) _
 
 noncomputable def dualGen : (dual F).obj X₀ :=
@@ -105,17 +107,14 @@ noncomputable def evInv : R.obj X₀ →ₗ[R.obj X₀] (F.obj X₀ ⊗[R.obj X�
 
 omit D in
 lemma ev_app_tmul (x : F.obj X₀) (φ : (dual F).obj X₀) :
-    DFunLike.coe (α := (F.obj X₀ ⊗ (dual F).obj X₀ :)) (β := fun _ => (𝟙_ (PresheafOfModules.{u}
-      (R ⋙ forget₂ CommRingCat RingCat))).obj X₀)
+    DFunLike.coe (α := (F.obj X₀ ⊗ (dual F).obj X₀ :)) (β := fun _ => (𝟙_ (PresheafOfModulesOfCommRing.{u} R)).obj X₀)
       ((ev F).app X₀).hom (x ⊗ₜ[R.obj X₀] φ) = φ.1 (𝟙 X₀) x :=
   uncurry'_app_tmul F (𝟙 (dual F)) x φ
 
 lemma ev_evInv (a : R.obj X₀) :
-    DFunLike.coe (α := (F.obj X₀ ⊗ (dual F).obj X₀ :)) (β := fun _ => (𝟙_ (PresheafOfModules.{u}
-      (R ⋙ forget₂ CommRingCat RingCat))).obj X₀)
+    DFunLike.coe (α := (F.obj X₀ ⊗ (dual F).obj X₀ :)) (β := fun _ => (𝟙_ (PresheafOfModulesOfCommRing.{u} R)).obj X₀)
       ((ev F).app X₀).hom (D.evInv a) = a := by
-  change DFunLike.coe (α := (F.obj X₀ ⊗ (dual F).obj X₀ :)) (β := fun _ => (𝟙_ (PresheafOfModules.{u}
-      (R ⋙ forget₂ CommRingCat RingCat))).obj X₀)
+  change DFunLike.coe (α := (F.obj X₀ ⊗ (dual F).obj X₀ :)) (β := fun _ => (𝟙_ (PresheafOfModulesOfCommRing.{u} R)).obj X₀)
       ((ev F).app X₀).hom (a • (D.gen (𝟙 X₀) ⊗ₜ[R.obj X₀] D.dualGen)) = a
   rw [LinearMap.map_smul]
   erw [ev_app_tmul]
@@ -123,7 +122,7 @@ lemma ev_evInv (a : R.obj X₀) :
 
 lemma evInv_ev (z : (F.obj X₀ ⊗[R.obj X₀] (dual F).obj X₀)) :
     D.evInv (DFunLike.coe (α := (F.obj X₀ ⊗ (dual F).obj X₀ :)) (β := fun _ =>
-      (𝟙_ (PresheafOfModules.{u} (R ⋙ forget₂ CommRingCat RingCat))).obj X₀)
+      (𝟙_ (PresheafOfModulesOfCommRing.{u} R)).obj X₀)
         ((ev F).app X₀).hom z) = z := by
   induction z using TensorProduct.induction_on with
   | zero => rw [map_zero, map_zero]
@@ -158,8 +157,7 @@ theorem W_ev {J : GrothendieckTopology C} [J.WEqualsLocallyBijective AddCommGrpC
     refine J.superset_covering ?_ hS
     intro V i hi
     obtain ⟨D⟩ := hS' i hi
-    obtain ⟨t, ht⟩ := D.ev_app_bijective.2 (((𝟙_ (PresheafOfModules.{u}
-      (R ⋙ forget₂ CommRingCat RingCat))).presheaf.map i.op) s)
+    obtain ⟨t, ht⟩ := D.ev_app_bijective.2 (((𝟙_ (PresheafOfModulesOfCommRing.{u} R)).presheaf.map i.op) s)
     exact ⟨t, ht⟩
   have hinj : Presheaf.IsLocallyInjective J ((toPresheaf _).map (ev F)) := by
     constructor

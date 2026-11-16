@@ -13,7 +13,7 @@ import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_Alg
 import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_RingHom_finiteDimensional_adjoin_range_of_finite_of_forall_mem_range
 import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
-set_option backward.isDefEq.respectTransparency false
+set_option backward.isDefEq.respectTransparency true
 
 namespace P2MW.S_AlgebraicGeometry_exists_smoothProperCurve_hom_comp_eq_of_ringKrullDim_eq_one
 
@@ -130,7 +130,7 @@ theorem valuationRing_localization_atPrime {R B : Type*} [CommRing R] [CommRing 
   haveI : IsNoetherianRing (Localization.AtPrime q) :=
     IsLocalization.isNoetherianRing q.primeCompl _ inferInstance
   exact ((tfae_of_isNoetherianRing_of_isLocalRing_of_isDomain
-    (Localization.AtPrime q)).out 4 1).mp hprinc
+    (Localization.AtPrime q)).out 5 2).mp hprinc
 
 theorem isPrincipalIdealRing_mvPolynomial_fin_one (K : Type*) [Field K] :
     IsPrincipalIdealRing (MvPolynomial (Fin 1) K) :=
@@ -303,8 +303,8 @@ theorem ringKrullDim_eq_of_ringHom_isIntegral_of_injective {R S : Type*} [CommRi
 
 theorem ringKrullDim_mvPolynomial_fin (k : Type u) [Field k] (s : ℕ) :
     ringKrullDim (MvPolynomial (Fin s) k) = s := by
-  rw [MvPolynomial.ringKrullDim_of_isNoetherianRing, ringKrullDim_eq_zero_of_field, zero_add,
-    Nat.card_eq_fintype_card, Fintype.card_fin]
+  rw [MvPolynomial.ringKrullDim_of_isNoetherianRing, ringKrullDim_eq_zero_of_field, zero_add]
+  simp
 
 theorem exists_transcendental_finiteDimensional (k : Type u) (A : Type v) [Field k] [CommRing A]
     [IsDomain A] [Algebra k A] [Algebra.FiniteType k A] (hA : ringKrullDim A = 1) :

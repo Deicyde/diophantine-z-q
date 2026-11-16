@@ -20,7 +20,8 @@ import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_Mod
 import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_Module_finitePresentation_of_rankAtStalk_eq
 import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
-set_option backward.isDefEq.respectTransparency false
+set_option backward.isDefEq.respectTransparency true
+set_option backward.isDefEq.respectTransparency.types false
 
 namespace P2MW.S_AlgebraicGeometry_RelEffCartierDiv_exists_I_eq_mul
 
@@ -217,7 +218,7 @@ theorem hom_predicate_seam {Z Y : Scheme.{u}} (q : Z ⟶ Y) (U : Y.Opens)
     (show q ⁻¹ᵁ U = (q ⁻¹ᵁ U).ι ''ᵁ ((q ∣_ U) ⁻¹ᵁ ⊤) by
       rw [TopologicalSpace.Opens.map_top, Scheme.Opens.ι_image_top]) P).symm
 
-set_option backward.isDefEq.respectTransparency false in
+set_option backward.isDefEq.respectTransparency true in
 
 theorem mk_subschemeObjIso_inclusion_appLE {X : Scheme.{u}} {I J : X.IdealSheafData}
     (h : I ≤ J) (W : X.affineOpens) :
@@ -244,7 +245,7 @@ theorem presheaf_map_injective_of_eq {X : Scheme.{u}} {U V : X.Opens} (hUV : U =
   rw [CategoryTheory.Functor.map_id]
   exact fun a b hab => hab
 
-set_option backward.isDefEq.respectTransparency false in
+set_option backward.isDefEq.respectTransparency true in
 
 theorem inclusion_app_mk_eq_zero_iff {X : Scheme.{u}} {I J : X.IdealSheafData} (h : I ≤ J)
     (W : X.affineOpens) (y : Γ(X, W.1)) :
@@ -651,7 +652,7 @@ theorem finite_kerπI : Module.Finite (Γ(T, U.1)) (RingHom.ker (πI D E U).toRi
   haveI := finite_ker (πI D E U).toLinearMap (πI_surjective D E U)
   Module.Finite.equiv (kerπIEquiv D E U).symm
 
-set_option backward.isDefEq.respectTransparency false in
+set_option backward.isDefEq.respectTransparency true in
 set_option maxHeartbeats 6400000 in
 
 theorem exists_basicOpen_localizedModule_equiv (z : (D.I * E.I).subscheme)
