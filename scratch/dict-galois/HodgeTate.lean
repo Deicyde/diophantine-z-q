@@ -19,6 +19,7 @@ set_option linter.style.longLine false
 namespace HodgeTateDict
 
 open ZInQ.Contrib.G9.PkgI4 ZInQ.Contrib.HodgeSplit Module
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open scoped TensorProduct
 
 noncomputable section
