@@ -507,6 +507,40 @@ def NeronSpecialFibreComm : Prop :=
     (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A] (𝒩 : GroupModelO (ObjBridge.ofGrp A) O),
       𝒩.IsNeronModel → ∀ x y : algPt (ResBarO O) (ResBarO O) ⟶ geomSpecialFibre 𝒩, x * y = y * x
 
+
+/-- **A Néron model of a commutative group variety is commutative**: `fst * snd` and `snd * fst` on `𝒩 ×_O 𝒩`
+(smooth) have the same generic fibre (`gen` is a homomorphism into the commutative `A`), so they agree by the
+Néron mapping property. -/
+theorem isCommMonObj_neron {K : Type} [Field K] {O : ValuationSubring K} {A' : PkgI3.AbVar K}
+    [IsCommMonObj A'.X] (𝒩 : GroupModelO A' O) (h𝒩 : 𝒩.IsNeronModel) : IsCommMonObj 𝒩.G := by
+  let F := Over.pullback (jO O)
+  letI : GrpObj (F.obj 𝒩.G) := Functor.grpObjObj
+  haveI : IsMonHom 𝒩.gen.hom := 𝒩.gen_hom
+  haveI hY : Smooth (𝒩.G ⊗ 𝒩.G).hom :=
+    ZInQ.Contrib.NeronC.smooth_tensor _ _ inferInstance inferInstance
+  have key : (fst 𝒩.G 𝒩.G * snd 𝒩.G 𝒩.G : 𝒩.G ⊗ 𝒩.G ⟶ 𝒩.G) = snd _ _ * fst _ _ := by
+    apply (@h𝒩 (𝒩.G ⊗ 𝒩.G) hY).1
+    change F.map (fst 𝒩.G 𝒩.G * snd 𝒩.G 𝒩.G) ≫ 𝒩.gen.hom = F.map (snd 𝒩.G 𝒩.G * fst 𝒩.G 𝒩.G) ≫ 𝒩.gen.hom
+    rw [Functor.map_mul, Functor.map_mul, MonObj.mul_comp, MonObj.mul_comp, mul_comm]
+  rw [isCommMonObj_iff_isMulCommutative]
+  intro X
+  refine ⟨⟨fun f g => ?_⟩⟩
+  have h1 : f * g = lift f g ≫ (fst 𝒩.G 𝒩.G * snd 𝒩.G 𝒩.G) := by
+    rw [MonObj.comp_mul, lift_fst, lift_snd]
+  have h2 : g * f = lift f g ≫ (snd 𝒩.G 𝒩.G * fst 𝒩.G 𝒩.G) := by
+    rw [MonObj.comp_mul, lift_fst, lift_snd]
+  rw [h1, h2, key]
+
+/-- **GLUE `NeronSpecialFibreComm`, PROVED**: base change along `Spec κ̄ → Spec O` is braided, so the geometric
+special fibre of the commutative `𝒩` is commutative. -/
+theorem neronSpecialFibreComm_proof : NeronSpecialFibreComm := by
+  intro K _ O _ A _ 𝒩 h𝒩 x y
+  haveI : IsCommMonObj (ObjBridge.ofGrp A).X := ObjBridge.isCommMonObj A
+  haveI := isCommMonObj_neron 𝒩 h𝒩
+  haveI : IsCommMonObj (geomSpecialFibre 𝒩) :=
+    Functor.isCommMonObj_obj (F := Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap O (ResBarO O)))))
+  exact mul_comm x y
+
 /-- **`SemiAbelianTorsionBound`** (to be proved from `mumfordTorsionAlgClosed`): over an algebraically closed `k`,
 `#U(k)[m] ≤ m^r · m^{2a}` for a semi-abelian `U` with torus rank `r` and abelian quotient of dimension `a`. -/
 def SemiAbelianTorsionBound : Prop :=
@@ -733,11 +767,11 @@ theorem torusRankZero_of_count (hInj : TorsionInjectsSpecialFibre) (hComp : Comp
   exact hB7 _ _ hlfp U inc B π hU
 
 /-- **`TorusRankZero` from the count with the proved pieces**: glue `TorsionInjectsSpecialFibre`,
-`ComponentIndexBound`, `DimensionRelation`, `NeronSpecialFibreComm` and the field `mumfordTorsionAlgClosed`. -/
+`ComponentIndexBound`, `DimensionRelation` and the field `mumfordTorsionAlgClosed`. -/
 theorem torusRankZero_of_glue (hInj : TorsionInjectsSpecialFibre) (hComp : ComponentIndexBound)
-    (hDim : DimensionRelation) (hComm : NeronSpecialFibreComm) (hM : AvSplit.MumfordTorsionAlgClosed) :
-    TorusRankZero :=
-  torusRankZero_of_count hInj hComp hDim hComm hM (semiAbelianTorsionBound_of hM) rankZeroAbelian_proof
+    (hDim : DimensionRelation) (hM : AvSplit.MumfordTorsionAlgClosed) : TorusRankZero :=
+  torusRankZero_of_count hInj hComp hDim neronSpecialFibreComm_proof hM (semiAbelianTorsionBound_of hM)
+    rankZeroAbelian_proof
 
 end TorusDecomp
 
@@ -753,4 +787,5 @@ end NOSConverse
 #print axioms NOSConverse.torusRankZero_of_count
 #print axioms NOSConverse.rankZeroAbelian_proof
 #print axioms NOSConverse.semiAbelianTorsionBound_of
+#print axioms NOSConverse.neronSpecialFibreComm_proof
 #print axioms NOSConverse.torusRankZero_of_glue
