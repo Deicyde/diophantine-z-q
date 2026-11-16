@@ -30,14 +30,15 @@ If you are unsure where your idea fits, open an issue and ask before writing any
 ## What happens to a pull request
 
 1. You open it from a fork and fill in the template.
-2. Automated checks run: the paper builds, the computations replay, the Lean code builds and is audited for axioms. Green checks mean these reproduce. They do not mean the mathematics is right.
+2. Automated checks run: the paper builds, the computations replay, and for Lean changes the code builds and is audited for axioms. For a first-time contributor a maintainer has to approve these runs. Green checks mean these reproduce. They do not mean the mathematics is right.
 3. A maintainer looks at it and, if it is ready, starts the review. Outside contributors cannot start it themselves. This is deliberate: each round costs money and runs your changes through the project's reviewers.
-4. Two AI reviewers read your change and the parts of the manuscript it touches, and post one summary. Each finding is labelled:
+4. Two AI reviewers read your change and the parts of the manuscript it touches. Each posts its report, and the gate posts one summary. Each finding is labelled:
    - **Error** or **gap**: has to be fixed or answered before merging.
    - **Note**: wording and presentation. Recorded in a backlog, does not hold you up.
-   - **Source access**: a reviewer could not open a reference; a precise citation usually settles it.
+   - **Source access**: a reviewer could not open a reference. It holds things up unless the other reviewer read the same passage; a precise citation usually settles it.
+   - **Incomplete review**: a reviewer could not finish. Smaller pull requests avoid this.
 5. You push fixes and ask for another round. One round per request.
-6. The maintainer merges when both reviewers have no blocking finding. Only the repository owner can overrule a finding, and when that happens the record says so openly.
+6. The maintainer merges when both reviewers have no blocking finding. Only a repository admin can overrule a finding, and when that happens the record says so openly.
 
 ## What we ask of you
 

@@ -30,7 +30,7 @@ This is the most useful contribution and the cheapest to make. Open an issue con
 - what you found: a counterexample, a calculation, or a precise statement of the implication that is missing;
 - what you tried in order to close the gap yourself, and why it did not work.
 
-Say which of these it is: a false statement, an incomplete justification, or unclear exposition. They are handled differently. Wording and typography points do not block anything here; collect several into one issue and label it as wording.
+Say which of these it is: a false statement, an incomplete justification, or unclear exposition. They are handled differently. Wording and typography points do not block anything here; collect several into one issue and say in its title that it is about wording.
 
 ### B. A small documentation fix (a pull request)
 
@@ -72,13 +72,14 @@ You built the paper or reran a computation and something differed. Give the plat
 ## 5. How review works, and what to expect
 
 - Fill in every section of the pull request template. Write "does not apply" with a reason where that is the case.
-- Automated checks (paper build, computation replays, Lean build and audit) start on their own. Passing them shows the builds and computations reproduce. It does not show the argument is right.
+- Automated checks (paper build, computation replays, and, for changes that touch Lean, the Lean build and audit) run on the pull request. For a first-time contributor from a fork they wait until a maintainer approves the run. Passing them shows the builds and computations reproduce. It does not show the argument is right.
 - The mathematical review is done by two AI reviewers from different model families, run by the repository itself. You do not need API keys.
 - **For an outside contributor the review does not start by itself.** A maintainer with write access has to comment `/protocol-b review` on the pull request. Typing that command yourself does nothing. You get one review round per request.
 - The reviewers post a summary with findings. Each finding is one of:
   - an **error** or a **gap**: blocking. Fix it by pushing to your branch, then say in a comment what changed and ask the maintainer for another round.
   - a **note**: wording or presentation. It does not block and goes to a clean-up backlog. You may fix it, but you do not have to.
-  - a **source-access** item: a reviewer could not open a reference. Help by giving a precise citation and a legitimate place to find it.
+  - a **source-access** item: a reviewer could not open a reference. It blocks unless the other reviewer read the same passage and checked its use without objection. Help by giving a precise citation and a legitimate place to find it.
+  - an **incomplete-review** item: a reviewer could not finish its scope. It blocks until the review is completed or an admin accepts it; a smaller pull request is the usual cure.
 - Pushing new commits after a review does not trigger another round automatically. Ask.
 - Only a repository admin can overrule a finding. Do not ask reviewers to waive one and do not argue by repetition. If you think a finding is wrong, reply once with the specific reason and evidence.
 - Do not push repeatedly while a review is running, and do not force-push over reviewed history without saying so.
