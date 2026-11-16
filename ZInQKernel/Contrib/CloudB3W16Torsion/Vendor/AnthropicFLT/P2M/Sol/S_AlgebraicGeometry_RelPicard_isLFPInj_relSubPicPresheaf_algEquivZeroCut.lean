@@ -31,7 +31,7 @@ open Opposite
 open AlgebraicGeometry
 -- Source-local namespace open deferred until its declaration.
 open AlgebraicGeometry.RelPicard
-open P2MW.S_AlgebraicGeometry_RelPicard_isLFPInj_relSubPicPresheaf_algEquivZeroCut.AlgebraicGeometry.RelPicard
+-- [port] Existing root RelPicard is open; this module-local namespace is declared below.
 open NeronModelInfra
 open AlgebraicGeometry.AffineLimit
 
@@ -60,5 +60,5 @@ theorem solution
     (h𝔉 : ∀ m₀ : ℕ, ∃ 𝔉 : SmoothProperCurve.FiniteMapData c ε, m₀ ≤ 𝔉.m) :
     IsLFPInj (relSubPicPresheaf c ε (algEquivZeroCut c ε)) := by
   obtain ⟨𝔉, -⟩ := h𝔉 0
-  exact isLFPInj_relSubPicPresheaf_of_relPicardPresheaf c ε _
+  exact AlgebraicGeometry.RelPicard.isLFPInj_relSubPicPresheaf_of_relPicardPresheaf c ε _
     (isLFPInj_relPicardPresheaf R 𝔉.twoAffineOpenCover c ε)

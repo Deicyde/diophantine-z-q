@@ -37,7 +37,7 @@ open CategoryTheory.Limits
 open AlgebraicGeometry
 -- Source-local namespace open deferred until its declaration.
 open AlgebraicGeometry.RelPicard
-open P2MW.S_AlgebraicGeometry_RelPicard_pullback_map_counit_app_ne_zero_of_forall_fibre.AlgebraicGeometry.RelPicard
+-- [port] The module-local namespace is declared below; no forward open is needed.
 open NeronModelInfra
 open CategoryTheory.MonoidalCategory
 open AlgebraicGeometry.SmoothProperCurve
