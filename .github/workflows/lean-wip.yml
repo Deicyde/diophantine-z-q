@@ -1,7 +1,7 @@
-# Scratch build of the OneProof follow-up, on the runner type of upstream's kernel job
-# (4 threads, upstream's extra swap). Job "base" builds #114's tree (BASE_SHA) and saves its build
-# outputs; job "followup" restores them on the follow-up tree, so it builds only what the
-# follow-up adds or changes, timing the new packages and the rest separately.
+# Scratch build of the follow-up's largest new package on the runner type of upstream's kernel job
+# (4 threads, extra swap). CloudB2X0Transitive's 664 vendored modules (ported from Anthropic's FLT
+# formalization) need only Mathlib and CloudW02Connectedness's vendored FLT utilities, so this
+# avoids the cold build of main's modules, which lost its runner in three of five attempts.
 
 name: lean wip
 
@@ -11,71 +11,13 @@ on:
 permissions:
   contents: read
 
-env:
-  BASE_SHA: 17e4f8cc19d1cf3d9274f6beec696c142d7b4a15
-  LEAN_NUM_THREADS: '4'
-
 jobs:
-  base:
-    name: base (#114's tree)
+  vendor:
+    name: CloudB2X0Transitive vendor tree
     runs-on: ubuntu-24.04
     timeout-minutes: 355
-    steps:
-      - name: Check out #114's head
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          ref: ${{ env.BASE_SHA }}
-
-      - name: Install elan
-        run: |
-          set -euo pipefail
-          curl -sSfL \
-            https://github.com/leanprover/elan/releases/download/v4.2.3/elan-x86_64-unknown-linux-gnu.tar.gz \
-            -o elan.tar.gz
-          echo "df0b2b3a439961ffcbb3985214365ffe40f49bc871df04dff268c7d8e21ca8b2  elan.tar.gz" \
-            | sha256sum --check --strict
-          tar xzf elan.tar.gz
-          ./elan-init -y --default-toolchain none
-          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
-
-      - name: Add 24 GiB swap
-        run: |
-          set -euo pipefail
-          swap_file=$(mktemp "$RUNNER_TEMP/swap.XXXXXX")
-          sudo fallocate -l 24G "$swap_file"
-          sudo chmod 600 "$swap_file"
-          sudo mkswap "$swap_file"
-          sudo swapon "$swap_file"
-          free -m; df -h .
-
-      - name: Fetch the Mathlib build cache
-        run: lake exe cache get
-
-      - name: Build main's modules and every Contrib module of #114
-        run: |
-          set -o pipefail
-          mods=$(git ls-tree -r --name-only HEAD -- ZInQKernel/Contrib | grep '\.lean$' | sed 's/\.lean$//; s|/|.|g')
-          echo "Contrib modules: $(echo "$mods" | wc -l)"
-          /usr/bin/time -v lake build ZInQKernel $mods 2>&1 | tee build-base.log | tail -25
-
-      - name: Save the build outputs for the follow-up job
-        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830
-        with:
-          path: |
-            .lake/build
-            .lake/packages/TauCeti/.lake/build
-          key: followup-base-${{ github.run_id }}
-
-      - name: Summary
-        if: always()
-        run: |
-          grep -E 'Elapsed \(wall clock\)|Maximum resident|Build completed|error:' build-base.log | head -20; df -h .
-
-  followup:
-    name: follow-up (delta on #114)
-    needs: base
-    runs-on: ubuntu-24.04
-    timeout-minutes: 355
+    env:
+      LEAN_NUM_THREADS: '4'
     steps:
       - name: Check out the follow-up
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -105,40 +47,17 @@ jobs:
       - name: Fetch the Mathlib build cache
         run: lake exe cache get
 
-      - name: Restore the base job's build outputs
-        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
-        with:
-          path: |
-            .lake/build
-            .lake/packages/TauCeti/.lake/build
-          key: followup-base-${{ github.run_id }}
-          fail-on-cache-miss: true
-
-      - name: "Group 1: new packages"
+      - name: Build the vendored FLT tree
         continue-on-error: true
         run: |
           set -o pipefail
-          /usr/bin/time -v lake build $(cat scratch-targets/new-packages.txt) 2>&1 | tee build-1-new.log | tail -25
-
-      - name: "Group 2: everything else the follow-up changes"
-        continue-on-error: true
-        run: |
-          set -o pipefail
-          mods=$(git ls-tree -r --name-only HEAD -- ZInQKernel/Contrib | grep '\.lean$' | sed 's/\.lean$//; s|/|.|g')
-          /usr/bin/time -v lake build ZInQKernel $mods 2>&1 | tee build-2-rest.log | tail -25
-
-      - name: "Axioms of frozenTarget"
-        continue-on-error: true
-        run: |
-          set -o pipefail
-          printf 'import ZInQKernel.Contrib.OneProof.Main\n#print axioms ZInQ.OneProof.frozenTarget\n' > Axioms.lean
-          lake env lean Axioms.lean 2>&1 | tee axioms.log
+          mods=$(git ls-tree -r --name-only HEAD -- ZInQKernel/Contrib/CloudB2X0Transitive/Vendor | grep '\.lean$' | sed 's/\.lean$//; s|/|.|g')
+          echo "modules: $(echo "$mods" | wc -l)"
+          /usr/bin/time -v lake build $mods 2>&1 | tee build-vendor.log | tail -25
 
       - name: Summary
         if: always()
         run: |
-          for f in build-*.log; do
-            echo "== $f"
-            grep -E 'Elapsed \(wall clock\)|Maximum resident|User time|Build completed|error:' "$f" | head -8
-          done
-          cat axioms.log; df -h .
+          grep -E 'Elapsed \(wall clock\)|Maximum resident|User time|Build completed|error:' build-vendor.log | head -12
+          grep -c '✔' build-vendor.log || true
+          df -h .; free -m
