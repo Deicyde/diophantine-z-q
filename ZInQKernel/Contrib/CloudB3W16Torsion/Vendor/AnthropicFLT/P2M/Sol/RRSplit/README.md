@@ -2,7 +2,9 @@
 
 **Status: source draft, not yet compiled or axiom-checked. This is not an H102 discharge.**
 
-Base: `0e70c94e4a2d26838f0766cd69b39bd02f48fb85`, fixed Lean 4.35.0.
+Initial base: `0e70c94e4a2d26838f0766cd69b39bd02f48fb85`. Rebased onto the
+parent-approved restored main `2dc949d688c407e32823c4e751679d66b2f40e65`, whose
+source tree equals that initial base; fixed Lean 4.35.0.
 Source: `anthropics/fermats-last-theorem`, immutable revision
 `6e837e75355538c7f80bab5b956861e86c4eacc2`, Lean 4.33.1.
 This lane owns only the five assigned source edges, the subsequently transferred

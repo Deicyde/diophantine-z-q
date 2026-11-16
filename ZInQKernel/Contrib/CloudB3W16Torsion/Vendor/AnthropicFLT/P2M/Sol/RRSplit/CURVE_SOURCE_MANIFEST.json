@@ -1,7 +1,8 @@
 {
   "source_repository": "https://github.com/anthropics/fermats-last-theorem",
   "source_pin": "6e837e75355538c7f80bab5b956861e86c4eacc2",
-  "target_base": "0e70c94e4a2d26838f0766cd69b39bd02f48fb85",
+  "initial_base": "0e70c94e4a2d26838f0766cd69b39bd02f48fb85",
+  "target_base": "2dc949d688c407e32823c4e751679d66b2f40e65",
   "lean": "4.35.0",
   "status": "factored source draft; not compiled or axiom-checked",
   "modules": [

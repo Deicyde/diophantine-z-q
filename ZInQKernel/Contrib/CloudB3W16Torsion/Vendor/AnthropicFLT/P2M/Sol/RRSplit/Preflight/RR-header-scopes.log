@@ -1,0 +1,32 @@
+/home/jackmccarthy/cloud-b3/w16/h102-curve/RRHeaderScopeCheck.lean:199:12: warning: Ambiguous namespace `Pointwise`: it is interpreted as `_root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.Pointwise` because this `open` occurs inside `namespace P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place`, while `_root_.Pointwise` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.Pointwise`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+/home/jackmccarthy/cloud-b3/w16/h102-curve/RRHeaderScopeCheck.lean:214:12: warning: Ambiguous namespace `Pointwise`: it is interpreted as `_root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.Pointwise` because this `open` occurs inside `namespace P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Divisor`, while `_root_.Pointwise` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.Pointwise`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+/home/jackmccarthy/cloud-b3/w16/h102-curve/RRHeaderScopeCheck.lean:226:12: warning: Ambiguous namespace `Pointwise`: it is interpreted as `_root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.Pointwise` because this `open` occurs inside `namespace P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Pic0`, while `_root_.Pointwise` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.Pointwise`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+	Command being timed: "/home/jackmccarthy/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean -j 1 /home/jackmccarthy/cloud-b3/w16/h102-curve/RRHeaderScopeCheck.lean"
+	User time (seconds): 2.20
+	System time (seconds): 1.63
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:03.87
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 7112912
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 217815
+	Voluntary context switches: 1008
+	Involuntary context switches: 256
+	Swaps: 0
+	File system inputs: 1000
+	File system outputs: 8
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
