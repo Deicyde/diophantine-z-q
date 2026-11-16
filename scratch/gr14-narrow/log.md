@@ -19,3 +19,12 @@ Closure of `ZInQ.OneProof.frozenTarget`: 244,312 constants.
   `isogenyReverseExists_of_weil`, `reverseIsogeny_of_weil`.
 - Finding: in TailB's import closure `IsReduced A.X.left` is not found by instance search (Y not determined);
   `GeometricallyReduced.isReduced_of_flat_of_isLocallyNoetherian A.X.hom` supplies it.
+
+## Leaf helper + contributor file — compiled
+- `lake build ZInQKernel.Contrib.OneProof.GR14Narrow.Leaf` OK; `lake build ZInQKernel.Contrib.OneProof.GR14Narrow`
+  OK (12300 jobs; lake rebuilt the TYZGenus modules whose oleans/traces were missing in the copied build).
+- `GapGR.GaudronRemondThm14Fwd`, `gaudronRemondThm14Fwd_of_field`, `r19Fwd_of_leaves`,
+  `r19Fwd_of_leaves_of_field` (rfl), `isogenyReverseExists_of_milne`, `reverseIsogeny_of_milne`,
+  `isogenyReverseExists_of_milne_eq_weil` (rfl), `gaudronRemondThm14Fwd_of_open`, `isogenyReverseExists_of_open`.
+- Fold script scratch/gr14-narrow/apply_fold.py: --dry-run on the worktree: 27 edits in 20 files, every old text
+  found exactly once.
