@@ -1,0 +1,8 @@
+✔ [12901/12904] Built ZInQKernel.Contrib.OneProof.QMRecPrinted (14s)
+✔ [12903/12904] Built ZInQKernel.Contrib.OneProof.HolFamilyPrinted (5.1s)
+✔ [12904/12904] Built ZInQKernel.Contrib.OneProof.PELHodge (7.5s)
+Build completed successfully (12904 jobs).
+EXIT 0
+✔ [12904/12904] Built ZInQKernel.Contrib.OneProof.PELHodge (7.5s)
+Build completed successfully (12904 jobs).
+EXIT 0
