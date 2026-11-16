@@ -42,8 +42,8 @@ theorem ringKrullDim_quotient_map_maximalIdeal_eq_zero
 
   haveI : Nontrivial (S ⧸ (maximalIdeal R).map (algebraMap R S)) := by
     rw [Ideal.Quotient.nontrivial_iff]
-    exact ((((local_hom_TFAE (algebraMap R S)).out 0 2 rfl rfl).mp inferInstance).trans_lt
-      (inferInstance : (maximalIdeal S).IsMaximal).ne_top.lt_top).ne
+    -- [port] Mathlib's named properness lemma replaces the former zero-based TFAE lookup.
+    exact (IsLocalRing.map_maximalIdeal_lt_top (algebraMap R S)).ne
   exact ringKrullDimZero_iff_ringKrullDim_eq_zero.mp inferInstance
 
 end FD0625672e

@@ -12,6 +12,8 @@ import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_Ide
 import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
 set_option backward.isDefEq.respectTransparency false
+-- [port] The normal-polynomial instance search is larger in the pinned Mathlib.
+set_option maxHeartbeats 2000000
 
 namespace P2MW.S_Ideal_height_eq_height_under_of_finiteType_of_isIntegral
 
@@ -28,6 +30,9 @@ theorem solution
   haveI : IsNoetherianRing A := Algebra.FiniteType.isNoetherianRing k A
   haveI : IsNoetherianRing B := Algebra.FiniteType.isNoetherianRing k B
   obtain ⟨d, g, hinj, hint⟩ := exists_integral_inj_algHom_of_fg k A
+  -- [port] Cache the standard polynomial normality instance before adding tower algebras.
+  haveI : IsIntegrallyClosed (MvPolynomial (Fin d) k) :=
+    UniqueFactorizationMonoid.instIsIntegrallyClosed
   letI : Algebra (MvPolynomial (Fin d) k) A := g.toRingHom.toAlgebra
   letI : Algebra (MvPolynomial (Fin d) k) B := ((algebraMap A B).comp g.toRingHom).toAlgebra
   haveI : IsScalarTower (MvPolynomial (Fin d) k) A B := IsScalarTower.of_algebraMap_eq (fun _ => rfl)

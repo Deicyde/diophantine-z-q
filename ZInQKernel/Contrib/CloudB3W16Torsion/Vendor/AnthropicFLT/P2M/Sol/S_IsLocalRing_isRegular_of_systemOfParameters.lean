@@ -9,6 +9,8 @@ Full original notices/credits: NOTICE.upstream, ATTRIBUTION.upstream.md, LICENSE
 -/
 import Mathlib
 import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_Patching_SystemTypes
+-- [port] Explicit quotient-ring finiteness compatibility, without global instances.
+import ZInQKernel.Contrib.CloudB3W16Torsion.CompatFlatness.QuotSMulTop
 import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
 set_option backward.isDefEq.respectTransparency false
@@ -79,7 +81,8 @@ lemma Module.depth_le_krullDim_support [Nontrivial M] [Module.Finite R M] :
   simp only [WithBot.coe_le_coe, ge_iff_le]
   induction n using Nat.strong_induction_on generalizing M with
   | h n IH =>
-    rw [depth, sSup_le_iff]
+    -- [port] Disambiguate the imported depth definition from namespace-local depth lemmas.
+    rw [_root_.Module.depth, sSup_le_iff]
     rintro _ ⟨l, hl, hl', rfl⟩
     apply WithTop.coe_le_coe.mpr ?_
     cases l with
@@ -1888,6 +1891,9 @@ theorem Module.free_of_quotSMulTop_free (x : R) (hx : x ∈ IsLocalRing.maximalI
     Module.Free R M := by
   haveI := hfree
 
+  -- [port] The quotient's finite module instance needs its quotient scalar tower explicitly.
+  haveI : Module.Finite (R ⧸ Ideal.span {x}) (QuotSMulTop x M) :=
+    ZInQ.Contrib.CloudB3W16Torsion.CompatFlatness.finite_quotSMulTop x
   haveI : Fintype (Module.Free.ChooseBasisIndex (R ⧸ Ideal.span {x}) (QuotSMulTop x M)) :=
     Module.Free.ChooseBasisIndex.fintype _ _
   obtain ⟨b', -⟩ := QuotSMulTop.exists_basis_lift x hx hreg
@@ -1907,6 +1913,9 @@ theorem Module.finrank_quotSMulTop_eq (x : R) (hx : x ∈ IsLocalRing.maximalIde
     Module.finrank (R ⧸ Ideal.span {x}) (QuotSMulTop x M) = Module.finrank R M := by
   haveI := hfree
   haveI : Nontrivial (R ⧸ Ideal.span {x}) := QuotSMulTop.nontrivial_quotientRing x hx
+  -- [port] The quotient's finite module instance needs its quotient scalar tower explicitly.
+  haveI : Module.Finite (R ⧸ Ideal.span {x}) (QuotSMulTop x M) :=
+    ZInQ.Contrib.CloudB3W16Torsion.CompatFlatness.finite_quotSMulTop x
   haveI : Fintype (Module.Free.ChooseBasisIndex (R ⧸ Ideal.span {x}) (QuotSMulTop x M)) :=
     Module.Free.ChooseBasisIndex.fintype _ _
   obtain ⟨b', -⟩ := QuotSMulTop.exists_basis_lift x hx hreg
@@ -1934,7 +1943,8 @@ section QuotientInfrastructure
 
 variable {R : Type u} [CommRing R]
 
-private theorem _root_.Ws14Port.No4PatchingCore.isLocalRing_quotient_span_singleton [IsLocalRing R] {x : R}
+-- [port] Keep this private helper in the module-local namespace, avoiding a self-export.
+private theorem isLocalRing_quotient_span_singleton [IsLocalRing R] {x : R}
     (hx : x ∈ maximalIdeal R) : IsLocalRing (R ⧸ Ideal.span {x}) := by
   have hne : Ideal.span {x} ≠ ⊤ := by
     intro h
@@ -1942,7 +1952,7 @@ private theorem _root_.Ws14Port.No4PatchingCore.isLocalRing_quotient_span_single
       (top_le_iff.mp (h ▸ Ideal.span_le.mpr (Set.singleton_subset_iff.mpr hx)))
   haveI : Nontrivial (R ⧸ Ideal.span {x}) := Ideal.Quotient.nontrivial_iff.mpr hne
   exact IsLocalRing.of_surjective' (Ideal.Quotient.mk _) Ideal.Quotient.mk_surjective
-export Ws14Port.No4PatchingCore (isLocalRing_quotient_span_singleton)
+-- [port] The private helper above is already in No4PatchingCore; no export alias is needed.
 theorem isScalarTower_quotient_span_singleton {M : Type v} [AddCommGroup M] [Module R M]
     (x : R) : IsScalarTower R (R ⧸ Ideal.span {x}) (QuotSMulTop x M) :=
   IsScalarTower.of_algebraMap_smul fun r m => by
@@ -2879,7 +2889,8 @@ theorem isRegular_of_sop_of_cmUnmixedness (hunmix : CMUnmixednessHypothesis.{u})
         (Submodule.quotEquivOfEq _ _ hsub)
     exact (LinearEquiv.isRegular_congr e' _).mp hIH
 
-private theorem _root_.Ws14Port.IsLocalRing.isRegular_of_sop {R : Type u} [CommRing R] [IsLocalRing R] [IsNoetherianRing R]
+-- [port] Keep the private SOP alias in the existing module-local IsLocalRing namespace.
+private theorem isRegular_of_sop {R : Type u} [CommRing R] [IsLocalRing R] [IsNoetherianRing R]
     (hunmix : CMUnmixednessHypothesis.{u}) {d : ℕ}
     (hCM : (.some (Module.depth R R) : WithBot ℕ∞) = ringKrullDim R)
     (hdim : ringKrullDim R = (d : WithBot ℕ∞))
@@ -2888,7 +2899,7 @@ private theorem _root_.Ws14Port.IsLocalRing.isRegular_of_sop {R : Type u} [CommR
     (hsop : ringKrullDim (R ⧸ Ideal.ofList xs) = 0) :
     Sequence.IsRegular R xs :=
   isRegular_of_sop_of_cmUnmixedness hunmix d R hCM hdim xs hlen hmem hsop
-export Ws14Port.IsLocalRing (isRegular_of_sop)
+-- [port] The private SOP alias needs no namespace self-export.
 theorem IsCohenMacaulayOfDim.isRegular_of_sop {R : Type u} [CommRing R] [IsLocalRing R]
     [IsNoetherianRing R] {d : ℕ} (hCM : IsCohenMacaulayOfDim R d)
     (hunmix : CMUnmixednessHypothesis.{u})
@@ -3048,7 +3059,8 @@ theorem ringKrullDim_quotient_eq_zero_of_radical_eq_maximalIdeal {I : Ideal R}
           (maximalIdeal.isMaximal _).isPrime).symm⟩
 
   haveI : Ring.KrullDimLE 0 (R ⧸ I) :=
-    (((Ring.krullDimLE_zero_and_isLocalRing_tfae (R ⧸ I)).out 1 0 rfl rfl).mp huniq).1
+    -- [port] List.TFAE.out is one-based in the pinned Mathlib.
+    (((Ring.krullDimLE_zero_and_isLocalRing_tfae (R ⧸ I)).out 2 1 rfl rfl).mp huniq).1
   exact ringKrullDimZero_iff_ringKrullDim_eq_zero.mp inferInstance
 
 theorem eq_maximalIdeal_of_isPrime_of_le_of_ringKrullDim_quotient_le_zero {I p : Ideal R}
