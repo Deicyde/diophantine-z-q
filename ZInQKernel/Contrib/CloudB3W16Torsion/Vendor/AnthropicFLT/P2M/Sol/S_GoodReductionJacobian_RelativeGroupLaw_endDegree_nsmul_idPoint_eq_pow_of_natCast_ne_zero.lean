@@ -69,7 +69,6 @@ open scoped CategoryTheory.MonObj
 
 variable {K : Type u} [Field K] {A : Scheme.{u}} {f : A ⟶ Spec (CommRingCat.of K)}
 
-local infixl:80 " ⊚ " => NeronModelInfra.schemeHomOverComp
 
 section Points
 
@@ -77,17 +76,19 @@ variable (L : RelativeGroupLaw K f)
 
 theorem compT_mul {T : Scheme.{u}} {t : T ⟶ Spec (CommRingCat.of K)} (z : SchemeHomOver t f)
     (β δ : SchemeHomOver f f) :
-    z ⊚ (L.mul f β δ) = L.mul t (z ⊚ β) (z ⊚ δ) := by
+    NeronModelInfra.schemeHomOverComp z (L.mul f β δ) =
+      L.mul t (NeronModelInfra.schemeHomOverComp z β) (NeronModelInfra.schemeHomOverComp z δ) := by
   have h := L.mul_natural f t z.1 z.2 β δ
-  have e : ∀ δ : SchemeHomOver f f, GoodReductionJacobian.schemeHomOverComp z.1 z.2 δ = z ⊚ δ :=
+  have e : ∀ δ : SchemeHomOver f f, GoodReductionJacobian.schemeHomOverComp z.1 z.2 δ = NeronModelInfra.schemeHomOverComp z δ :=
     fun δ => Subtype.ext rfl
   rw [e, e, e] at h
   exact h
 
 theorem compT_one {T : Scheme.{u}} {t : T ⟶ Spec (CommRingCat.of K)} (z : SchemeHomOver t f) :
-    z ⊚ (L.one f) = L.one t := by
+    NeronModelInfra.schemeHomOverComp z (L.one f) = L.one t := by
   have h := L.one_natural f t z.1 z.2
-  have e : GoodReductionJacobian.schemeHomOverComp z.1 z.2 (L.one f) = z ⊚ (L.one f) := Subtype.ext rfl
+  have e : GoodReductionJacobian.schemeHomOverComp z.1 z.2 (L.one f) =
+    NeronModelInfra.schemeHomOverComp z (L.one f) := Subtype.ext rfl
   rw [e] at h
   exact h
 
@@ -99,23 +100,28 @@ theorem pow_eq_nsmul {T : Scheme.{u}} (t : T ⟶ Spec (CommRingCat.of K)) (x : S
   | succ n ih => rw [pow_succ, ih]; rfl
 
 theorem comp_idPoint {T : Scheme.{u}} {t : T ⟶ Spec (CommRingCat.of K)} (x : SchemeHomOver t f) :
-    x ⊚ (RelativeGroupLaw.idPoint (f := f)) = x :=
+    NeronModelInfra.schemeHomOverComp x (RelativeGroupLaw.idPoint (f := f)) = x :=
   Subtype.ext (Category.comp_id _)
 
 theorem isHom_nsmul (hc : L.IsCommutative) (n : ℕ) {T : Scheme.{u}} (t : T ⟶ Spec (CommRingCat.of K))
     (x y : SchemeHomOver t f) :
-    (L.mul t x y) ⊚ (L.nsmul f n RelativeGroupLaw.idPoint) =
-      L.mul t (x ⊚ L.nsmul f n RelativeGroupLaw.idPoint) (y ⊚ L.nsmul f n RelativeGroupLaw.idPoint) := by
+    NeronModelInfra.schemeHomOverComp (L.mul t x y) (L.nsmul f n RelativeGroupLaw.idPoint) =
+      L.mul t (NeronModelInfra.schemeHomOverComp x (L.nsmul f n RelativeGroupLaw.idPoint))
+        (NeronModelInfra.schemeHomOverComp y (L.nsmul f n RelativeGroupLaw.idPoint)) := by
   induction n with
   | zero =>
-      change (L.mul t x y) ⊚ (L.one f) = L.mul t (x ⊚ L.one f) (y ⊚ L.one f)
+      change NeronModelInfra.schemeHomOverComp (L.mul t x y) (L.one f) =
+        L.mul t (NeronModelInfra.schemeHomOverComp x (L.one f))
+          (NeronModelInfra.schemeHomOverComp y (L.one f))
       rw [compT_one, compT_one, compT_one, L.one_mul]
   | succ n ih =>
       rw [RelativeGroupLaw.nsmul_succ, compT_mul, compT_mul, compT_mul, ih, comp_idPoint, comp_idPoint,
         comp_idPoint]
       letI := L.pointCommGroup hc t
-      change (x ⊚ L.nsmul f n RelativeGroupLaw.idPoint * (y ⊚ L.nsmul f n RelativeGroupLaw.idPoint)) * (x * y) =
-        (x ⊚ L.nsmul f n RelativeGroupLaw.idPoint * x) * (y ⊚ L.nsmul f n RelativeGroupLaw.idPoint * y)
+      change (NeronModelInfra.schemeHomOverComp x (L.nsmul f n RelativeGroupLaw.idPoint) *
+          NeronModelInfra.schemeHomOverComp y (L.nsmul f n RelativeGroupLaw.idPoint)) * (x * y) =
+        (NeronModelInfra.schemeHomOverComp x (L.nsmul f n RelativeGroupLaw.idPoint) * x) *
+          (NeronModelInfra.schemeHomOverComp y (L.nsmul f n RelativeGroupLaw.idPoint) * y)
       exact mul_mul_mul_comm _ _ _ _
 
 end Points
