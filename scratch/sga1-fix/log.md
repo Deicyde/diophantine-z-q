@@ -9,3 +9,12 @@ Base: wip/gaga-chart 5626f0b0. Build tree copied (cp -r) from ~/dzq-wt/gaga-char
 2. New leaf `SGA1_XII_2_4`: X loc. fin. type, X preconnected ⇒ X^an preconnected.
 3. Concrete sheaf of holomorphic functions on X^an (`AnFunAt`: locally H ∘ (regular functions), H analytic) and
    analytic morphisms (`IsAnMorphism`); prove IsAnStr-holomorphic ⇔ AnFun; new atlas-free GAGA leaf.
+
+## 11-16 07:10 A.lean, B.lean (VERIFIED compiled)
+- A.lean: `exists_analytic_of_standardEtale` (standard étale presentation over ℂ[y] + ring maps `ev z` over `y z`,
+  `y`, `ev · x` continuous ⇒ every element is locally `h ∘ y`, `h` analytic). Analytic inverse function theorem
+  for Φ(y,τ) = (y, f(y;τ)). Standard axioms.
+- B.lean: `regular_half` (half (2) of sga1-etale's leaf, from étaleness only: `Algebra.IsEtaleAt.exists_isStandardEtale`
+  on D(s) ∋ P). `#print axioms regular_half`: [propext, Classical.choice, Quot.sound].
+  `sga1_XII_3_1_Etale_of_3_3a`, `connectedPreconnectedAn_of_2_4`, `uniformizationLeafAll_of_printed`
+  (from MumfordComplexTorus, SGA1_XII_3_3a, ProperCompactAn, SGA1_XII_2_4): standard axioms.
