@@ -134,7 +134,7 @@ lemma pb₀_δ_eq (P Q : Y.PresheafOfModules) :
 lemma pb₀_δ_app_pb₀Section_tmul (P Q : Y.PresheafOfModules) (V : Y.Opens) (x : P.obj (op V)) (y : Q.obj (op V)) :
     (δ (pullback₀ f) P Q).app (op (f ⁻¹ᵁ V)) (pb₀Section f (P ⊗ Q) V (x ⊗ₜ[Γ(Y, V)] y)) =
       (pb₀Section f P V x ⊗ₜ[Γ(X, f ⁻¹ᵁ V)] pb₀Section f Q V y :
-        (((pullback₀ f).obj P).obj (op (f ⁻¹ᵁ V)) ⊗ ((pullback₀ f).obj Q).obj (op (f ⁻¹ᵁ V)) :)) := by
+        (((pullback₀ f).obj P).obj (op (f ⁻¹ᵁ V)) ⊗[Γ(X, f ⁻¹ᵁ V)] ((pullback₀ f).obj Q).obj (op (f ⁻¹ᵁ V)) :)) := by
   rw [pb₀_δ_eq]
   refine (homEquiv_symm_app_pb₀Section f
     (((adj₀ f).unit.app P ⊗ₘ (adj₀ f).unit.app Q) ≫ μ (pf f) _ _) V (x ⊗ₜ[Γ(Y, V)] y)).trans ?_
@@ -394,13 +394,13 @@ namespace Ws31Restrict
 
 variable {W X Y Z : Scheme.{u}}
 
-private theorem _root_.Ws31Restrict.pullbackTensorObjIso_hom_app_pullbackLocalSection_tensorSections (f : X ⟶ Y) (L M : Y.Modules)
+private theorem pullbackTensorObjIso_hom_app_pullbackLocalSection_tensorSections (f : X ⟶ Y) (L M : Y.Modules)
     (V : Y.Opens) (s : Γ(L, V)) (t : Γ(M, V)) :
     ((pullbackTensorObjIso f L M).hom.app (f ⁻¹ᵁ V)) (pullbackLocalSection f (tensorSections s t))
       = tensorSections (pullbackLocalSection f s) (pullbackLocalSection f t) :=
   AlgebraicGeometry.Scheme.Modules.PullbackTensorSections.pullbackTensorObjIso_hom_app_pullbackLocalSection_tensorSections
     f L M V s t
-export _root_.Ws31Restrict (pullbackTensorObjIso_hom_app_pullbackLocalSection_tensorSections)
+-- [port] The private wrapper above stays module-local, without a root self-export.
 theorem pullbackTensorUnitObjIso_hom_app_pullbackLocalSection (f : X ⟶ Y) (V : Y.Opens) (g : Γ(𝟙_ Y.Modules, V)) :
     ((pullbackTensorUnitObjIso f).hom.app (f ⁻¹ᵁ V)) (pullbackLocalSection f g)
       = (f.app V (g : Γ(Y, V)) : Γ(𝟙_ X.Modules, f ⁻¹ᵁ V)) :=

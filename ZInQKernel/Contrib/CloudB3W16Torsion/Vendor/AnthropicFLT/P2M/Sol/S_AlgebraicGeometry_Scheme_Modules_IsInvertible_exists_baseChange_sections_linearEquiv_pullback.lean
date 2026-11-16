@@ -362,7 +362,6 @@ theorem isLocalizedModule_powers_of_comap {A B M N : Type*} [CommRing A] [CommRi
     rw [Module.End.isUnit_iff] at hu
     have e : (fun y : N => r ^ n • y) = fun y : N => φ r ^ n • y := funext fun y => by rw [hN, map_pow]
     convert hu using 1
-    exact e
   · intro y
     obtain ⟨⟨x, ⟨_, n, rfl⟩⟩, hx⟩ := IsLocalizedModule.surj (Submonoid.powers (φ r)) f y
     refine ⟨⟨x, ⟨r ^ n, n, rfl⟩⟩, ?_⟩
