@@ -131,8 +131,13 @@ def PazukiCor13UpperPP : Prop :=
   `θ[a;0](0, 2Ω)`, the leaf overstates the print by about `log 4`.
 - **Not stronger than the print.** Every hypothesis of the print is implied by the leaf's hypotheses:
   - `(A_{K'}, L)` is a principally polarized abelian surface over a number field;
-  - `L` is symmetric (Pazuki works with symmetric `L`; the leaf assumes it);
+  - `L` is symmetric (whether Pazuki requires this is UNVERIFIED; assuming it only weakens the leaf);
   - `Ω` is its period matrix.
+- **One reading step remains in the leaf's encoding.** "`Ω` is the period matrix of `(A_σ, L)`" is written through
+  the theta divisor (`IsThetaPeriodMatrix`). That is Riemann's classical theorem that `θ(·, Ω)` is the section of the
+  principal line bundle. Pazuki's own Def. 2.6 also defines the theta coordinates as sections of powers of `L`. It is
+  a definitional reading, not a mathematical step of the proof. If a reviewer counts it as a step, the leaf is a
+  consequence of one theorem, not printed form.
 
   The conclusion is the upper half of the printed display.
 
@@ -214,6 +219,61 @@ No dimension theory is needed. Injectivity uses only `IsPeriodMatrix`, through `
    `IsThetaPeriodMatrix … Ω`.
 4. `PazukiCor13UpperPP` gives the bound for the same `x`, `Ω`, `z`, `c`.
 
-## 4. Checks
+## 4. Checks (all VERIFIED)
 
-(Filled in below as they complete: full build, `#discharges`, autofold dry run.)
+- **Verbatim statement.** `scratch/pazuki-dict/Verbatim.lean` copies the field's definition text from TailY (lines
+  as at 2880fef1) and checks `PazukiCor13Upper = ZInQ.HeightSplit.PazukiCor13Upper := rfl`. It compiles.
+- **Build.** `lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges
+  +ZInQKernel.Contrib.OneProof.PazukiCor13Upper`: `Build completed successfully (13699 jobs)`, with 0 errors. The
+  build tree was copied from pic-dict's leaf-fold30 tree, so OneProof was rebuilt from LPrefix on (16 min).
+- **`#discharges`** (`scratch/pazuki-dict/Discharges.lean`; output in `scratch/pazuki-dict/discharges-output.txt`):
+
+  ```
+  DISCHARGES [OpenResearchLeaves26.pazukiCor13Upper] by PazukiDict.pazukiCor13Upper_of_printed
+    still assumes: [BPAnalytic.Uniformization.UniformizationLeafAll,
+   PazukiDict.AnalyticPPAlgebraic,
+   PazukiDict.PazukiCor13UpperPP]
+    axioms: [propext, Classical.choice, Quot.sound]
+  #discharges: 56 open hypotheses, 2885 theorems checked, 8 discharge one
+  ```
+
+  `UniformizationLeafAll` is the existing textbook field `uniformizationLeafAll`, not a new leaf.
+- **Autofold dry run** (`scratch/pazuki-dict/autofold.json`).
+  - Without `--allow-rise` it is refused: `strict count: 34/11 on 45 -> 34/12 on 46; strictest 34/11 -> 34/12`.
+    kinds.tsv still rates `pazukiCor13Upper` LEAF; the 11-16 dictionary pass rated it a consequence, i.e. GLUE.
+    Against that re-rating the fold is neutral (one GLUE out, one LEAF and one GLUE in). Against the current file it
+    is +1 GLUE.
+  - With `--allow-rise`, the generated module (line 1 stripped) is `scratch/pazuki-dict/FoldCheck.lean`. It compiles,
+    and `HDec.HSyn.sixContactMin_of_open36` depends on axioms `[propext, Classical.choice, Quot.sound]`.
+- The Contrib file has no `#eval`, `run_cmd`, `#print`, notation or macros. It imports `ZInQKernel.OneProof.H.TailY`
+  (the field's module), `TailQ`, `TailZ24` and vendored Picard modules, and never `ZInQKernel.OneProof.Main`.
+
+## 5. Leaf ratings (summary)
+
+| new statement | kind | rating | reason |
+| --- | --- | --- | --- |
+| `PazukiCor13UpperPP` | published | **LEAF, printed form**; flag *reading risk* (Def. 2.6 coordinates) | It is the print's display (upper half) for the print's object: an algebraic principally polarized abelian surface over `ℚ̄`, given by a model `(A_{K'}, L)`, with its period matrix and the biholomorphic uniformization. The remaining reading items are those already accepted for the field (`h_D = h_F + log π`, ℓ²-height, stable height), plus the Def. 2.6 risk, which is unchanged. |
+| `AnalyticPPAlgebraic` | composite | **GLUE** | Appell–Humbert/Frobenius + GAGA/Chow + ampleness + NS invariance + `Pic⁰[2]` torsor. Not one printed theorem, and not statable over genuine analytic line bundles in Lean today. |
+| `ThetaDivisorAlgebraicC` (optional split) | composite | GLUE | Appell–Humbert/Frobenius + GAGA (analytic half over `ℂ`). |
+| `SymmPrincipalDescends` (optional split) | composite | GLUE | NS invariance + `Pic⁰[2]` + flat base change (arithmetic half). |
+
+**Proposed locators.md rows** (not added: other tasks' file).
+
+- `PazukiCor13UpperPP`: Pazuki, Bull. SMF 140 (2012), Cor. 1.3(2), pp. 21-22 (arXiv v2 p. 3); theta height
+  Def. 2.6 (v2 p. 9; journal p. 30). Open check: Def. 2.6 coordinates, and whether `L` is assumed symmetric.
+- `AnalyticPPAlgebraic`:
+  - Mumford, *Abelian varieties*, §2 (Appell–Humbert), §3 (Frobenius' theorem, `h⁰ = √det E`), §6 Application 1;
+  - Serre, GAGA, Ann. Inst. Fourier 6 (1956);
+  - Maulik–Poonen, *Néron–Severi groups under specialization*, Duke 161 (2012), Prop. 3.1;
+  - Birkenhake–Lange §8.5.
+
+  All UNVERIFIED.
+
+## 6. What remains
+
+- `AnalyticPPAlgebraic` (or its two halves) is GLUE with no Lean proof. A Lean proof needs analytic line bundles or
+  divisors on `A(ℂ)`, which do not exist in Mathlib. With gaga-chart/sga1-etale's `IsAnStr` structure one could
+  state Chow's theorem for `A(ℂ)` in printed form. Then the theta divisor would be an analytic subset (provable),
+  and the remaining steps would be algebraic geometry (Cartier divisor, ampleness, `h⁰`), which is a large project.
+- The Def. 2.6 reading of Pazuki is unchanged: someone must read p. 9 (v2) / p. 30 (journal).
+- The fold needs `--allow-rise`, or the 11-16 re-rating of `pazukiCor13Upper` applied first.
