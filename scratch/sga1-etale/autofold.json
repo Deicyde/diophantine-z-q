@@ -1,0 +1,46 @@
+{
+ "name": "sga1-etale",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.SmoothComplexManifoldEtale"
+ ],
+ "discharges": [
+  {
+   "field": "uniformizationLeafAll",
+   "proof": "_root_.SGA1Etale.uniformizationLeafAll_of_etale {n}.mumfordComplexTorus {n}.sga1_XII_3_1_Etale {n}.properCompactAn {n}.connectedPreconnectedAn",
+   "leaves": [
+    {
+     "name": "mumfordComplexTorus",
+     "type": "_root_.UnifPrinted.MumfordComplexTorus",
+     "doc": "unif-printed: Mumford, Abelian varieties, section 1 (printed form over Mathlib's complex Lie groups): a compact connected complex Lie group of dimension g is biholomorphic and isomorphic to C^g / Lambda for a lattice Lambda (locator UNVERIFIED)",
+     "kind": "published",
+     "flag": "unread: new printed leaf, no reading recorded; locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties (1970/1974), section 1, theorem on compact connected complex Lie groups; Birkenhake-Lange, Complex abelian varieties, 1.1 (locators UNVERIFIED)"
+    },
+    {
+     "name": "sga1_XII_3_1_Etale",
+     "type": "_root_.SGA1Etale.SGA1_XII_3_1_Etale",
+     "doc": "sga1-etale: SGA 1 XII 3.1, etale clause, with the analytic space of XII 1.1: for X locally of finite type over C, U affine open and f_1..f_n in Gamma(U) with C[x_1..x_n] -> Gamma(U) etale, Q -> (f_i(Q)) is a homeomorphism from an open neighbourhood of each P in U(C) (analytic topology) onto an open of C^n, and every regular function on U is near P a holomorphic function of the f_i (printed form, special case U affine; locators UNVERIFIED)",
+     "kind": "published",
+     "flag": "unread: new printed leaf, no reading recorded; locator UNVERIFIED",
+     "source": "SGA 1 (Grothendieck, LNM 224, 1971), Exp. XII, 1.1 (construction of X^an) and Prop. 3.1 (f etale iff f^an etale, i.e. a local isomorphism of analytic spaces) (locators UNVERIFIED)"
+    },
+    {
+     "name": "properCompactAn",
+     "type": "_root_.UnifTopology.ProperCompactAn",
+     "doc": "unif-topology: X proper over C implies X(C) compact in the analytic topology (printed form; Serre, GAGA 2 Prop. 6; SGA 1 XII 3.2; locators UNVERIFIED)",
+     "kind": "published",
+     "flag": "unread: new printed leaf, no reading recorded; locator UNVERIFIED",
+     "source": "Serre, GAGA (1956), 2, Prop. 6; SGA 1, Exp. XII, Prop. 3.2 (locators UNVERIFIED)"
+    },
+    {
+     "name": "connectedPreconnectedAn",
+     "type": "_root_.SGA1Etale.ConnectedPreconnectedAn",
+     "doc": "sga1-etale: X proper and irreducible over C implies X(C) connected in the analytic topology, connected in Bourbaki's sense (empty allowed; Mathlib PreconnectedSpace) (printed form, special case X proper; Shafarevich BAG 2, VII 2.1 Thm 1; SGA 1 XII 2.4; locators UNVERIFIED)",
+     "kind": "published",
+     "flag": "unread: new printed leaf, no reading recorded; locator UNVERIFIED",
+     "source": "Shafarevich, Basic algebraic geometry 2 (2nd ed.), Ch. VII 2.1, Thm. 1; SGA 1, Exp. XII, Prop. 2.4 (locators UNVERIFIED)"
+    }
+   ]
+  }
+ ]
+}
