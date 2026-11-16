@@ -1,0 +1,5 @@
+'CompositeOut.y3ConnectedAb_of_L3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CompositeOut.y3Connected_of_L3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CompositeOut.shimuraFamilyAb_of_L3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CompositeOut.rayClassCMAb_of_L3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CompositeOut.compositeUses_of_L3' depends on axioms: [propext, Classical.choice, Quot.sound]

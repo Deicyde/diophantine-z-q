@@ -1,0 +1,6 @@
+'HDec.HSyn.sixContactMin_of_open31' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZChain.frozenTarget_holfam' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	0m5.976s
+user	0m3.288s
+sys	0m2.775s
