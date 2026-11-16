@@ -5,3 +5,12 @@
 - kinds.tsv (after merge): pazukiCor13Upper = consequence/GLUE (11-16 re-rating); gagaMorphism = consequence/GLUE;
   uniformizationLeafAll no longer a field (ZInQKernel/Contrib/OneProof/UniformizationLeafAll.lean, PR #35). VERIFIED (read).
 - gaga-serre (origin/wip/gaga-serre 1d7687e7) is NOT merged into main. VERIFIED (git merge-base).
+
+## 2026-11-16 16:30 analysis (no Lean)
+- Finding (VERIFIED by reading the statements): GAGAMorphism (TailQ:875) only algebraizes holomorphic homomorphisms
+  between abelian varieties; exists_closedImmersion_projectiveSpace / SerreGAGAMorphism only maps to P^N. Neither produces
+  a line bundle with h0 = 1 (theta maps give nTheta, n >= 2, as pullbacks of O(1)); nothing in the fold descends a line
+  bundle from A_C to A_{K'} (needs NS(A_Qbar) = NS(A_C)). So AnalyticPPAlgebraic is not provable from those inputs.
+- Plan: ThetaDivisorAlgebraicC <= RiemannPPAV (per-Omega algebraicity of the ppav of Omega) + GAGAMorphism (twice:
+  iso B ~ B0) + SymmPrincipalTransport (proved). SymmPrincipalDescends (arithmetic half) kept as composite GLUE.
+- Lean file: ZInQKernel/Contrib/OneProof/PazukiAlg.lean (namespace PazukiAlg).
