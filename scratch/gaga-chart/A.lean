@@ -225,6 +225,39 @@ theorem gagaMorphism_of_chart (hU : UniformizationLeafAll) (hMan : SmoothComplex
   refine ⟨f, fun z => ?_⟩
   exact (hFψ z).symm.trans (hf (Φ z))
 
+/-! ## The structure `IsAnStr` is unique, and sga1-etale's charts have it -/
+
+/-- **Uniqueness of the analytic structure (proved).** Two charted-space structures on `X(ℂ)`, over
+the same topology in which every `U(ℂ)` is open, both satisfying `IsAnStr`, have the same
+holomorphic maps: the identity is holomorphic from either to the other. So `IsAnStr` pins down the
+complex structure of `X^an`, and a map holomorphic for one choice is holomorphic for every choice. -/
+theorem contMDiff_id_of_isAnStr {X : Over (Spec (CommRingCat.of ℂ))} {n m : ℕ}
+    [t : TopologicalSpace (CPt X)] (hopen : ∀ U : X.left.Opens, IsOpen {P : CPt X | XPtIn X P U})
+    (c₁ : ChartedSpace (Fin n → ℂ) (CPt X)) (c₂ : ChartedSpace (Fin m → ℂ) (CPt X))
+    (h₁ : @IsAnStr X n t c₁) (h₂ : @IsAnStr X m t c₂) :
+    @ContMDiff _ _ _ _ _ _ _ 𝓘(ℂ, Fin n → ℂ) (CPt X) t c₁ _ _ _ _ _ 𝓘(ℂ, Fin m → ℂ) (CPt X) t c₂
+      ω (id : CPt X → CPt X) := by
+  intro P
+  refine @contMDiffAt_of_regular X (Fin n → ℂ) _ _ (CPt X) t c₁ m t c₂ h₂ id P
+    continuousAt_id fun U f hP => ?_
+  exact (h₁.2.1 U f P hP).contMDiffAt ((hopen U).mem_nhds hP)
+
+/-- sga1-etale's analytic structure (the atlas of étale charts, `SGA1Etale.chartedSpaceOf`) satisfies
+`IsAnStr` (proved there, from the étale clause of SGA 1 XII 3.1). -/
+theorem isAnStr_of_etale (hL : SGA1Etale.SGA1_XII_3_1_Etale) (X : Over (Spec (CommRingCat.of ℂ)))
+    [Smooth X.hom] [IsProper X.hom] [IrreducibleSpace X.left] :
+    letI := analyticTopology X
+    ∃ (n : ℕ) (_ : ChartedSpace (Fin n → ℂ) (CPt X)), IsAnStr X n :=
+  SGA1Etale.smoothComplexManifoldAn_of_etale hL X inferInstance inferInstance inferInstance
+
+/-- **`GAGAMorphism` from the chart form of GAGA, with sga1-etale's charts (proved).** -/
+theorem gagaMorphism_of_chart_etale (hU : UniformizationLeafAll)
+    (hL : SGA1Etale.SGA1_XII_3_1_Etale) (hG : GAGAChart) : ZInQ.HomLattice.GAGAMorphism :=
+  gagaMorphism_of_chart hU (SGA1Etale.smoothComplexManifoldAn_of_etale hL) hG
+
+#print axioms gagaMorphism_of_chart
+#print axioms gagaMorphism_of_chart_etale
+#print axioms contMDiff_id_of_isAnStr
+
 end GAGAAn
 
-#print axioms GAGAAn.gagaMorphism_of_chart

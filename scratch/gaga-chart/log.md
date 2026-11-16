@@ -23,3 +23,9 @@
   ZInQ.HomLattice.GAGAMorphism` — axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
   Inverse function step: Mathlib `ContDiffAt.localInverse`/`to_localInverse` at ω (analytic IFT) on
   Θ∘φ∘proj (clause (ii) of the uniformization gives the invertible derivative).
+- added `contMDiff_id_of_isAnStr` (two IsAnStr structures over a topology with open U(ℂ): identity holomorphic
+  both ways), `isAnStr_of_etale`, `gagaMorphism_of_chart_etale (hU) (hL : SGA1_XII_3_1_Etale) (hG)`. All compile,
+  standard axioms. VERIFIED.
+- ShimuraThm54 (hcm-g1): `IsAnalyticIso` = surjective hom, kernel L, Weierstrass coordinates holomorphic off L; no
+  derivative/inverse clause, objects are Mathlib Weierstrass points (no analyticTopology/CPt). The chart restatement
+  here does not apply verbatim (different objects, and no coords clause to feed the IFT). VERIFIED (read).
