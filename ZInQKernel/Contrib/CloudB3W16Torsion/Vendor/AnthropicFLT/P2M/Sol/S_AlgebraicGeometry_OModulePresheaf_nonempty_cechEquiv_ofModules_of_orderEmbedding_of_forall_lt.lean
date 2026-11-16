@@ -624,7 +624,6 @@ theorem hexS_succ (x : ((OModulePresheaf.ofModules π M)).cochain K' (m + 2)) (h
       ((OModulePresheaf.ofModules π M)).res_res]
     show _ • ((OModulePresheaf.ofModules π M)).res _ (((OModulePresheaf.ofModules π M)).res _ (x (snocIdx K K' e j₀ hlt (m + 1) (K.face s' j)))) = _
     rw [((OModulePresheaf.ofModules π M)).res_res]
-    rfl
 
   haveI := subsingleton_HSucc_restrictOpen π ((OModulePresheaf.ofModules π M)) K (U₀ K' j₀) (K'.isAffineOpen j₀) hq m
   obtain ⟨yt, hyt⟩ := exists_d_eq_of_subsingleton_HSucc (G π M K' j₀) (KU π K K' j₀) m xt hxt

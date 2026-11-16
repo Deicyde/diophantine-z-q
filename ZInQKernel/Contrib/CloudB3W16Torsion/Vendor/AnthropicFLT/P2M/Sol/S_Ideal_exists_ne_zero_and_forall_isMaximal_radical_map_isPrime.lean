@@ -14,7 +14,7 @@ import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_Ide
 import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_Algebra_exists_monic_irreducible_map_algebraicClosure_hypersurfaceModel_of_forall_isSeparable
 import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
-set_option backward.isDefEq.respectTransparency false
+set_option backward.isDefEq.respectTransparency true
 
 namespace P2MW.S_Ideal_exists_ne_zero_and_forall_isMaximal_radical_map_isPrime
 
@@ -172,7 +172,7 @@ variable (k : Type u) [Field k] {R : Type v} {C : Type w} [CommRing R] [IsDomain
     [Algebra.FiniteType k R] [CommRing C] [IsDomain C] [Algebra k C] [Algebra R C]
     [IsScalarTower k R C] [Algebra.FiniteType R C] [FaithfulSMul R C]
 
-set_option backward.isDefEq.respectTransparency false in
+set_option backward.isDefEq.respectTransparency true in
 set_option maxHeartbeats 12800000 in
 set_option synthInstance.maxHeartbeats 1600000 in
 theorem main
@@ -399,8 +399,8 @@ theorem main
 
     have hDF := Ideal.height_add_ringKrullDim_quotient_eq_ringKrullDim_of_finiteType n.ResidueField (RingHom.ker ψb)
     have hdimB : ringKrullDim (MvPolynomial (Fin d) n.ResidueField) = d := by
-      rw [MvPolynomial.ringKrullDim_of_isNoetherianRing, ringKrullDim_eq_zero_of_field, zero_add,
-        Nat.card_eq_fintype_card, Fintype.card_fin]
+      rw [MvPolynomial.ringKrullDim_of_isNoetherianRing, ringKrullDim_eq_zero_of_field, zero_add]
+      simp
     rw [hdimB] at hDF
     have hht0 : (RingHom.ker ψb).height = 0 := by
       obtain ⟨hq, hhq⟩ : ∃ hq : ℕ, (RingHom.ker ψb).height = hq :=
@@ -432,7 +432,7 @@ theorem main
   have hgb : ∀ Qb ∈ minimalPrimes (C ⧸ n.map (algebraMap R C)), gb ∉ Qb := by
     intro Qb hQb hmem
     have h1 : MvPolynomial.map φ g = 0 := hinjQ Qb hQb _ (Ideal.Quotient.eq_zero_iff_mem.mpr hmem)
-    have h2 : (MvPolynomial.map φ g).coeff μ = 0 := by rw [h1, MvPolynomial.coeff_zero]
+    have h2 : (MvPolynomial.map φ g).coeff μ = 0 := by rw [h1]; rfl
     rw [MvPolynomial.coeff_map] at h2
     exact hγn ((hφ0 _).mp h2)
 

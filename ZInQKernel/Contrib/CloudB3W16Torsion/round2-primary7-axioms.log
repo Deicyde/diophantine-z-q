@@ -1,0 +1,42 @@
+'AlgebraicCurve.CurveModel.nonempty_body' depends on axioms: [propext, Classical.choice, Quot.sound]
+'P2MW.S_AlgebraicCurve_isCurveOver_of_ringEquiv_functionField_of_isIntegral_of_smoothOfRelativeDimension_one.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_AlgebraicGeometry_OModulePresheaf_nonempty_cechEquiv_ofModules_of_orderEmbedding_of_forall_lt.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_AlgebraicGeometry_RelEffCartierDiv_exists_I_eq_ker_graphOver_mul.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'IntermediateField.mem_adjoin_sum_mul_of_isSeparable_of_algebraicIndependent' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_Module_Flat_exists_fg_subalgebra_flat_localization_tensorProduct.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_Ideal_exists_ne_zero_and_forall_isMaximal_radical_map_isPrime.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+	Command being timed: "lake env lean -M16000 CheckRound2Math7.lean"
+	User time (seconds): 2.65
+	System time (seconds): 2.34
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:05.01
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 7195912
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 243862
+	Voluntary context switches: 4715
+	Involuntary context switches: 321
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 288
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

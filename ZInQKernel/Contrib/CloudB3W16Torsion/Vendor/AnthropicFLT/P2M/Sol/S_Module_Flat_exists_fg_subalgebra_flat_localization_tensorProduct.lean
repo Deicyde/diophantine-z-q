@@ -38,12 +38,14 @@ def equiv : FreeCover A X ≃ₗ[A] (X →₀ A) := LinearEquiv.refl A _
 
 end FreeCover
 
+open scoped FreeCover
+
 section KernelGeneration
 
 variable {A : Type u} [CommRing A] {D : Type v} [CommRing D] [Algebra A D]
 
 def cover (N₂ : Type*) [AddCommGroup N₂] [Module A N₂] : FreeCover A N₂ →ₗ[A] N₂ :=
-  Finsupp.linearCombination A (id : N₂ → N₂) ∘ₗ (FreeCover.equiv A N₂).toLinearMap
+  Finsupp.linearCombination A (_root_.id : N₂ → N₂) ∘ₗ (FreeCover.equiv A N₂).toLinearMap
 
 theorem cover_surjective (N₂ : Type*) [AddCommGroup N₂] [Module A N₂] :
     Function.Surjective (cover (A := A) N₂) :=
@@ -172,9 +174,9 @@ theorem exists_generators_of_ker_baseChange (J : Ideal A) (S : Submonoid D)
   let e := FreeCover.equiv A N₂
   let mr : (N₂ →₀ J) →ₗ[A] (N₂ →₀ A) := Finsupp.mapRange.linearMap (Submodule.subtype J)
   let κ : (N₂ →₀ J) →ₗ[A] FreeCover A N₂ := e.symm.toLinearMap ∘ₗ mr
-  have hvκ : ∀ z, v (κ z) = Finsupp.linearCombination A (id : N₂ → N₂) (mr z) := by
+  have hvκ : ∀ z, v (κ z) = Finsupp.linearCombination A (_root_.id : N₂ → N₂) (mr z) := by
     intro z
-    show Finsupp.linearCombination A (id : N₂ → N₂) (e (e.symm (mr z))) = _
+    show Finsupp.linearCombination A (_root_.id : N₂ → N₂) (e (e.symm (mr z))) = _
     rw [LinearEquiv.apply_symm_apply]
   have hκv : ∀ z, v (κ z) ∈ LinearMap.range f := by
     intro z

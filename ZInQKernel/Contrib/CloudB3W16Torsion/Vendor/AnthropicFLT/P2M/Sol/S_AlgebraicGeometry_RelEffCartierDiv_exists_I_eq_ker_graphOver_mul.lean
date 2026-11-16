@@ -666,8 +666,8 @@ theorem πC_surjective : Function.Surjective (πC D a₀ h₀ hle U) :=
 
 noncomputable def kerπCEquiv : (RingHom.ker (πC D a₀ h₀ hle U).toRingHom) ≃ₗ[(Γ(T, U.1))]
     ↥(LinearMap.ker (πC D a₀ h₀ hle U).toLinearMap) :=
-  { toFun := fun x => ⟨x.1, by have h__af := x.2; simp [LinearMap.mem_ker] at h__af; exact h__af⟩
-    invFun := fun x => ⟨x.1, by have h__af := x.2; simp [RingHom.mem_ker] at h__af; exact h__af⟩
+  { toFun := fun x => ⟨x.1, by change (πC D a₀ h₀ hle U) x.1 = 0; exact x.2⟩
+    invFun := fun x => ⟨x.1, by change (πC D a₀ h₀ hle U) x.1 = 0; exact x.2⟩
     map_add' := fun _ _ => rfl
     map_smul' := fun _ _ => rfl
     left_inv := fun _ => rfl
