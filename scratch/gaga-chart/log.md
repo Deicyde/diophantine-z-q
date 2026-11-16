@@ -61,3 +61,6 @@
   under leaf-fold32's re-rating, consequence/GLUE, the fold is -1 GLUE). VERIFIED.
 - FoldDryRun.lean (dry-run module minus line 1) compiles; `HDec.HSyn.sixContactMin_of_open30` axioms
   [propext, Classical.choice, Quot.sound]. VERIFIED.
+- added `GAGAChartSome` (GAGA for some IsAnStr charts) and `gagaChart_of_some : GAGAChartSome → GAGAChart`
+  (the ∀ over charts in the leaf adds nothing). Module rebuilt; #discharges rerun: same gagaMorphism rows,
+  "63 open hypotheses, 1952 theorems checked, 15 discharge one"; all listed axioms standard. VERIFIED.

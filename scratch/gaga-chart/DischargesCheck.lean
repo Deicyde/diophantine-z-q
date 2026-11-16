@@ -11,4 +11,5 @@ import ZInQKernel.Contrib.OneProof.GAGAChart
 #print axioms GAGAAn.exists_isAnStr_of_unif
 #print axioms GAGAAn.exists_rChart
 #print axioms GAGAAn.contMDiff_id_of_isAnStr
+#print axioms GAGAAn.gagaChart_of_some
 #print axioms GAGAAn.contMDiffAt_of_regular

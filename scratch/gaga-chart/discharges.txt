@@ -54,7 +54,7 @@ DISCHARGES [OpenResearchLeaves22.sga7_IX_3_5_ForwardGeom] by UnipotentForward.fo
 DISCHARGES [OpenResearchLeaves22.mumfordGroupLaw] by ZInQ.Contrib.MumfordRigidity.mumfordGroupLaw_of_core
   still assumes: [LeafQM.AV.R1UnivRigid.MumfordRigidityCore]
   axioms: [propext, Classical.choice, Quot.sound]
-#discharges: 63 open hypotheses, 1951 theorems checked, 15 discharge one
+#discharges: 63 open hypotheses, 1952 theorems checked, 15 discharge one
 'GAGAAn.gagaMorphism_of_gagaChart' depends on axioms: [propext, Classical.choice, Quot.sound]
 'GAGAAn.gagaMorphism_of_chart' depends on axioms: [propext, Classical.choice, Quot.sound]
 'GAGAAn.gagaMorphism_of_chart_etale' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -62,4 +62,5 @@ DISCHARGES [OpenResearchLeaves22.mumfordGroupLaw] by ZInQ.Contrib.MumfordRigidit
 'GAGAAn.exists_isAnStr_of_unif' depends on axioms: [propext, Classical.choice, Quot.sound]
 'GAGAAn.exists_rChart' depends on axioms: [propext, Classical.choice, Quot.sound]
 'GAGAAn.contMDiff_id_of_isAnStr' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GAGAAn.gagaChart_of_some' depends on axioms: [propext, Classical.choice, Quot.sound]
 'GAGAAn.contMDiffAt_of_regular' depends on axioms: [propext, Classical.choice, Quot.sound]
