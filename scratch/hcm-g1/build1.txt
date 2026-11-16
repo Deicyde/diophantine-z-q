@@ -1,0 +1,20 @@
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/GZStatements/Compat.lean:164:29: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+⚠ [12989/12995] Replayed ZInQKernel.Contrib.OneProof.FHNonvanishing.Basic
+warning: ZInQKernel/Contrib/OneProof/FHNonvanishing/Basic.lean: imports `Mathlib.NumberTheory.LSeries.PrimesInAP` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/OneProof/FHNonvanishing/Basic.lean: imports `Mathlib.NumberTheory.Padics.RingHoms` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+ℹ [12993/12995] Replayed ZInQKernel.OneProof.Main
+info: ZInQKernel/OneProof/Main.lean:75:0: 'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [12995/12995] Built ZInQKernel.Contrib.OneProof.ShimuraMainCMG1 (69s)
+warning: ZInQKernel/Contrib/OneProof/ShimuraMainCMG1.lean:409:24: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/OneProof/ShimuraMainCMG1.lean:410:8: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+Build completed successfully (12995 jobs).

@@ -1,0 +1,19 @@
+{"name": "hcm-g1-fold",
+ "imports": ["ZInQKernel.Contrib.OneProof.ShimuraMainCMG1"],
+ "discharges": [
+   {"field": "hCM",
+    "proof": "_root_.HcmG1.shimuraMainCM_of_g1 {n}.shimuraThm54 {n}.weierstrassUniformization {n}.weierstrassParam",
+    "leaves": [
+      {"name": "shimuraThm54", "type": "_root_.HcmG1.ShimuraThm54",
+       "doc": "hcm-g1: the main theorem of complex multiplication for elliptic curves, lattice form (g = 1). K = Q(sqrt -m) in C via kappa, sigma = [s, K] on K^ab (T5Glue.ArtinCond, Tau Ceti's arithmetic Artin map), a any lattice of K (any order), E an elliptic curve over C (Mathlib WeierstrassCurve with IsElliptic), xi : C/kappa(a) -> E(C) an analytic isomorphism (IsAnalyticIso: surjective group homomorphism with kernel kappa(a) whose Weierstrass coordinates are holomorphic off the lattice). Then there is an analytic isomorphism xi' : C/kappa(s^-1 a) -> E^sigma(C) with xi(u)^sigma = xi'(s^-1 u) for u in K/a (v represents s^-1 u iff s_f v - u lies in a-hat). Uniqueness of xi' dropped.",
+       "kind": "published",
+       "flag": "unread: locator and wording from memory (UNVERIFIED); normalization of [s, K]: Shimura 1971 section 5.2 not read, direction checked by computation (K = Q(sqrt -23), p | 2: arithmetic Frob_p sends j(O_K) to j(p^-1), scratch/hcm-g1/frob_check.py), so a reading can change only the textual match, not the truth",
+       "source": "Shimura, Introduction to the arithmetic theory of automorphic functions (1971) Thm 5.4; Lang, Elliptic functions, Ch. 10 section 2 Thm 3; Silverman, Advanced topics, Thm II.8.2 (O_K only) (locators UNVERIFIED)"},
+      {"name": "weierstrassUniformization", "type": "_root_.HcmG1.WeierstrassUniformization",
+       "doc": "hcm-g1 (gz-weil's statement verbatim, = HcmPrinted.WeierstrassUniformization): for a, b in C with a^3 - 27 b^2 != 0 there is a lattice L with g2(L) = a, g3(L) = b.",
+       "kind": "published", "flag": "",
+       "source": "Silverman, The Arithmetic of Elliptic Curves (GTM 106, 2nd ed.) Thm VI.5.1; Serre, A Course in Arithmetic VII section 3 (locators UNVERIFIED)"},
+      {"name": "weierstrassParam", "type": "_root_.HcmG1.WeierstrassParam",
+       "doc": "hcm-g1 (= HcmPrinted.WeierstrassParam verbatim): for every lattice, Delta != 0 and z -> (wp(z), wp'(z)/2) is a surjective group homomorphism C -> E(C) with kernel the lattice (Mathlib's Weierstrass curve y^2 = x^3 - (g2/4)x - g3/4 and its group law); the analytic clause of the print is dropped.",
+       "kind": "published", "flag": "",
+       "source": "Silverman, The Arithmetic of Elliptic Curves (GTM 106, 2nd ed.) Prop. VI.3.6; Lang, Elliptic functions Ch. 1 section 3 (locators UNVERIFIED)"}]}]}
