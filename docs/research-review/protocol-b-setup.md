@@ -875,7 +875,10 @@ branch remains visible until the PR closes and its runs are confirmed terminal.
 
 That pinned kernel workflow uses GitHub-hosted runners, SHA-pinned actions,
 read-only permissions, no environments and no secrets. Project build-cache
-restore runs only on `refs/heads/main`. Every non-main execution skips the
+restore runs only on the exact, case-sensitive `refs/heads/main` ref.
+A pre-checkout shell step performs this comparison because Actions string
+equality ignores case; branches named `Main` or `MAIN` do not qualify.
+Ordinary pull-request merge refs also build without the project cache. Every non-main execution skips the
 restore action completely, including exact-key and fallback-key lookup on an
 ordinary branch or a predictable reserved ref with caches from an earlier run.
 An accepted non-main direct run therefore cannot inherit those earlier project

@@ -445,7 +445,7 @@ jobs:
           # secrets, GitHub-hosted runners and SHA-pinned actions. Project cache restore
           # is main-only, even for pre-existing reserved refs; save is push-on-main-only.
           # A change requires a reviewed pin update.
-          LEAN_WORKFLOW_SHA256 = '45928eaa4c05adfa8c3b824302e44457c341340a68a9ecc56a487b9059ae94cc'
+          LEAN_WORKFLOW_SHA256 = 'a340919517c59da2c446ab3f7119377d9b4aa2cdc7760159cf93d5165cd7d745'
           LEAN_REF_PREFIX = 'refs/heads/codex/protocol-b-kernel/'
 
 
