@@ -41,14 +41,14 @@ namespace P2MW.S_AlgebraicGeometry_Scheme_Modules_IsInvertible_subsingleton_H1_s
 set_option autoImplicit false
 
 universe u
-open CategoryTheory
-open CategoryTheory.Limits
-open CategoryTheory.MonoidalCategory
-open AlgebraicGeometry
+open _root_.CategoryTheory
+open _root_.CategoryTheory.Limits
+open _root_.CategoryTheory.MonoidalCategory
+open _root_.AlgebraicGeometry
 
 namespace AlgebraicCurve
 export _root_.AlgebraicCurve (Place Divisor Divisor.degree Divisor.degree_single H1 IsCurveOver IsCurveOver.deg_eq_one_of_isAlgClosed ell ConstantsAreBase ell_zero_eq_one_of_constantsAreBase indexOfSpecialty baseToFunctionField cechH0 cechH1 placesOf nonempty_linearEquiv_cechH0_and_cechH1_sectionsOf nonempty_linearEquiv_cechH0_and_cechH1 placesOf_union_eq_univ_of_sup_eq_top isCurveOver_of_isIntegral_of_smoothOfRelativeDimension_one essFiniteType_functionField constantsAreBase_of_deg_eq_one stichtenothGenusExists_of_isCurveOver indexOfSpecialty_eq_of_genusReached cechRiemannRoch_of_genusReached ell_eq_zero_of_degree_neg exists_canonicalDivisor_genus_riemannRoch)
-open AlgebraicCurve hiding genus
+open _root_.AlgebraicCurve hiding genus
 open CategoryTheory AlgebraicGeometry TopologicalSpace
 
 theorem ne_top_of_isAffineOpen_e9 {C : Scheme.{u}} (hC : ¬ IsAffine C) {U : C.Opens}
@@ -167,7 +167,7 @@ theorem subsingleton_H1_sectionsOf_of_le_eulerChar_sub'
   exact eM1.toEquiv.subsingleton
 
 end AlgebraicCurve
-open AlgebraicCurve hiding genus in open _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_IsInvertible_subsingleton_H1_sectionsOf_of_le_eulerChar_sub.AlgebraicCurve in
+open _root_.AlgebraicCurve hiding genus in open _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_IsInvertible_subsingleton_H1_sectionsOf_of_le_eulerChar_sub.AlgebraicCurve in
 theorem solution
     (K : Type u) [Field K] [IsAlgClosed K] {X : Scheme.{u}} (x : X ⟶ Spec (CommRingCat.of K))
     [IsIntegral X] [IsProper x] [SmoothOfRelativeDimension 1 x]

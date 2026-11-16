@@ -201,7 +201,9 @@ variable {X : Scheme.{u}} (M : X.Modules) (U : X.affineOpens) (f : Γ(X, U.1))
 theorem ψ_add {W : X.Opens} (hWV : W ≤ V) (m m' : Γ(M, W)) :
     ψ M V e hWV (m + m') = ψ M V e hWV m + ψ M V e hWV m' := by
   simp only [ψ, rM, rO, eApp, map_add]
-  first
+  -- Lean 4.35 adaptation: the `simp only` above may now close the goal; the source's `first`
+  -- fallback chain is kept for any goal that remains.
+  all_goals first
     | rfl
     | (erw [AddMonoidHom.map_add, RingHom.map_add])
     | (erw [map_add, map_add])
