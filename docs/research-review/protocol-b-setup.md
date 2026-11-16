@@ -707,3 +707,12 @@ record and original artifact. A final report with a form error returns feedback
 to the reviewer for correction. If that correction is interrupted, its delivered
 substantive findings remain blocking in the recorded incomplete review. Runtime
 records saying no model reviewed the PR do not consume automatic review rounds.
+
+Each completed verdict is atomically checkpointed before any report comment is
+posted. Working-comment delivery cannot discard a delivered final verdict.
+If a report comment contains an objection that never reached an authenticated
+App record, the gate preserves it as an explicitly unverified report-comment
+claim, with its original ID, comment location and hash. This does not authenticate
+its asserted model identity or grant approval. It requires review or its own
+admin decision; overriding only missing-review scope does not erase it. App-only
+findings whose report comments failed can still receive exact-head admin decisions.

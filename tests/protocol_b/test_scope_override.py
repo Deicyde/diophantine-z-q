@@ -146,7 +146,6 @@ class ScopeOverride(unittest.TestCase):
         with patch.dict(os.environ, {'GITHUB_RUN_ID': '7', 'GITHUB_RUN_ATTEMPT': '1'}):
             gate.ensure_scope_records(state, previous)
         self.assertEqual(state['reports']['astra']['review'], previous['astra']['review'])
-        self.assertIn('1-1-astra-F1', state['reports']['astra']['carried_findings'])
         with self.assertRaisesRegex(ValueError, '1-1-astra-F1'):
             gate.overridden_decision(state['reports'], {'scope-1-1-astra': {}}, HEAD)
 

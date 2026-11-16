@@ -153,7 +153,9 @@ jobs:
 
           def record(name, value):
               OUT.mkdir(parents=True, exist_ok=True)
-              (OUT / name).write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+              temporary = OUT / (name + "." + str(time.time_ns()) + ".tmp")
+              temporary.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+              temporary.replace(OUT / name)
 
 
           def log(message):
@@ -830,6 +832,16 @@ jobs:
                                  for x in output if x.get("type") not in {"thinking", "reasoning", "redacted_thinking"}]
                       turns.append({"response_id": response_id, "reported_model": served, "usage": usage, "context_budget": budget, "stop_reason": stop_reason, "visible_output": visible})
                       record(self.family + "-turns.json", turns)
+                      # Capture a delivered verdict before any notification can fail.
+                      delivered = [x for x in output if x.get('name') == 'finish_review'
+                                   and x.get('type') in {'function_call', 'tool_use'}]
+                      if delivered:
+                          try:
+                              raw_final = json.loads(delivered[0]['arguments']) if self.family == 'astra' else delivered[0]['input']
+                              self.invalid_finish = json.loads(json.dumps(raw_final))
+                              record(self.family+'-delivered-final.json', raw_final)
+                          except (ValueError, TypeError, KeyError) as error:
+                              record(self.family+'-final-decode-error.json', {'error': str(error)})
                       # Preserve prose objections before the next model request. These are
                       # discussion, never approval. A failed later turn cannot erase them.
                       prose = []
@@ -849,10 +861,14 @@ jobs:
                                      "artifact_url": f"https://github.com/{self.gh.repo}/actions/runs/{os.environ['GITHUB_RUN_ID']}/attempts/{os.environ['GITHUB_RUN_ATTEMPT']}"}
                           record(self.family + '-working-notes.json', working)
                           body = working_comment_body(working)
-                          if self.working_comment is None:
-                              self.working_comment = self.gh.call(f"/issues/{self.pr['number']}/comments", "POST", {"body": body})['id']
-                          else:
-                              self.gh.call(f"/issues/comments/{self.working_comment}", "PATCH", {"body": body})
+                          try:
+                              if self.working_comment is None:
+                                  self.working_comment = self.gh.call(f"/issues/{self.pr['number']}/comments", "POST", {"body": body})['id']
+                              else:
+                                  self.gh.call(f"/issues/comments/{self.working_comment}", "PATCH", {"body": body})
+                          except Exception as error:
+                              record(self.family+'-working-comment-error.json', {'error': str(error), 'turn': turn+1})
+                              log(self.family+': working notification failed; original output retained: '+str(error))
                       if self.family == "astra":
                           conversation.extend(output)
                           calls = [x for x in output if x.get("type") == "function_call"]
@@ -960,13 +976,13 @@ jobs:
               return comment["user"]["login"] == "github-actions[bot]"
 
 
-          def history(gh, pr):
+          def history(gh, pr, known=None):
               comments = gh.pages(f"/issues/{pr['number']}/comments")
               discussion = [{"id": c["id"], "author": c["user"]["login"], "created": c["created_at"], "body": c["body"]}
                             for c in comments if not (own_comment(gh, c) and c["body"].startswith((MARKER, WORKING_MARKER, SUMMARY_MARKER, "<!-- protocol-b-working-note -->")))]
               for endpoint in ("reviews", "comments"):
                   discussion.extend(gh.pages(f"/pulls/{pr['number']}/" + endpoint))
-              prior, overrides, latest, completed_runs = {}, {}, {}, set()
+              prior, overrides, latest, completed_runs = dict(known or {}), {}, {}, set()
               for comment in comments:
                   body = comment["body"]
                   if body.startswith(MARKER) and own_comment(gh, comment):
@@ -983,7 +999,9 @@ jobs:
                                              'reviewer': report['reviewer'], 'head': report['head'],
                                              'review_run': report['run'], 'review_attempt': report['attempt']})
                       for finding in blocking_findings(report["review"]):
-                          prior[finding_id(report, finding['id'])] = finding
+                          prior[finding_id(report, finding['id'])] = {**finding, 'report_comment': {
+                              'id': comment['id'], 'url': comment.get('html_url'),
+                              'sha256': hashlib.sha256(body.encode()).hexdigest()}}
                       scope = review_scope_item(report)
                       if scope:
                           prior[scope['id']] = scope
@@ -1056,7 +1074,7 @@ jobs:
                   for family, envelope in pair.items():
                       value = envelope.get('review', {})
                       for ident, item in envelope.get('carried_findings', {}).items():
-                          states[item['origin_reviewer'], ident] = item
+                          states.setdefault((item['origin_reviewer'], ident), item)
                       for f in blocking_findings(value):
                           ident = finding_id(envelope, f['id'])
                           states[family, ident] = {'origin_reviewer': family,
@@ -1066,6 +1084,9 @@ jobs:
                           resolution = f['resolution'] if envelope.get('complete') and envelope.get('read_prerequisites_complete') is not False else 'unresolved'
                           states[family, f['id']] = {'origin_reviewer': family,
                               'resolution': resolution, 'reason': f.get('reason', '')}
+                          if resolution == 'resolved' and ('history', f['id']) in states:
+                              states['history', f['id']] = {'origin_reviewer': 'history',
+                                  'resolution': 'resolved', 'reason': f.get('reason', '')}
               active = {}
               for (_, ident), item in states.items():
                   if item['resolution'] != 'resolved':
@@ -1075,10 +1096,16 @@ jobs:
 
           def carry_obligations(reports, candidates):
               obligations = historical_obligations(candidates, reports)
+              explicit = set()
+              for envelope in reports.values():
+                  explicit.update(finding_id(envelope, f['id']) for f in blocking_findings(envelope.get('review', {})))
+                  explicit.update(f['id'] for f in envelope.get('review', {}).get('prior_findings', []) if f['resolution'] != 'resolved')
+                  envelope.pop('carried_findings', None)
               for envelope in reports.values():
                   if review_scope_item(envelope):
-                      # Runtime metadata is separate from the original model's verdict.
-                      envelope['carried_findings'] = obligations
+                      # One runtime copy, separate from model verdicts and existing items.
+                      envelope['carried_findings'] = {k: v for k, v in obligations.items() if k not in explicit}
+                      break
               return obligations
 
 
@@ -1115,6 +1142,21 @@ jobs:
                                      'findings': [], 'prior_findings': []}}
               carry_obligations(state['reports'], [(0, previous or {})] + list(candidates or []))
               state['scope_items'] = [item for e in state['reports'].values() if (item := review_scope_item(e))]
+
+
+          def unmatched_report_claims(gh, pr, candidates, current):
+              """Unverified report comments are allegations to resolve, never model authority."""
+              known = set()
+              for pair in [pair for _, pair in candidates] + [current]:
+                  for envelope in pair.values():
+                      known.update(finding_id(envelope, f['id']) for f in blocking_findings(envelope.get('review', {})))
+                      known.update(f['id'] for f in envelope.get('review', {}).get('prior_findings', []))
+                      known.update(envelope.get('carried_findings', {}))
+              prior = history(gh, pr)[1]
+              return {ident: {'origin_reviewer': 'history', 'resolution': 'unresolved',
+                      'reason': 'Unverified report-comment claim, not authenticated model identity: '+str(finding.get('objection', '')),
+                      'report_comment': finding.get('report_comment')}
+                      for ident, finding in prior.items() if ident not in known and finding.get('report_comment')}
 
 
           def administrator(gh, user):
@@ -1859,9 +1901,13 @@ jobs:
                   # Even missing patches remain listed so both reviewers must fetch sources.
                   declaration = "No mathematical content changed." in (pr.get("body") or "")
                   change_class = classify(files, declaration)
-                  discussion, prior, overrides, _ = history(gh, pr)
-                  for ident, item in historical_obligations(spend['candidates']).items():
-                      prior.setdefault(ident, {'objection': item['reason'], 'origin': 'App-authenticated earlier review'})
+                  known = {ident: {'objection': item['reason'], 'origin': 'App-authenticated earlier review'}
+                           for ident, item in historical_obligations(spend['candidates']).items()}
+                  if override_command:
+                      saved = trusted_reports(app, pr, name, check['id'])
+                      for ident in override_findings(saved, pr['head']['sha']):
+                          known.setdefault(ident, {'objection': 'Item recorded in the current App check.'})
+                  discussion, prior, overrides, _ = history(gh, pr, known)
                   record("context.json", {"head": pr["head"]["sha"], "base": pr["base"]["sha"],
                                          "trusted_workflow": trusted_ref, "class": change_class,
                                          "prior_findings": prior, "overrides": overrides, "discussion": discussion})
@@ -1946,6 +1992,8 @@ jobs:
                                               "reuse_binding": None}
                                   envelopes[family] = envelope
                                   record(family + "-report.json", envelope)
+                                  state['reports'] = envelopes
+                                  record('decision.json', state)
                                   envelope["reuse_binding"] = optional_reuse_binding(gh, pr, files, reviewers[family])
                                   if family in supplements:
                                       envelope["reuse_binding"] = inherit_reuse_binding(envelope["reuse_binding"], supplements[family])
@@ -1954,6 +2002,8 @@ jobs:
                                                                         ('head', 'run', 'attempt', 'policy_ref', 'reuse_check')}
                                   bounded_report(envelope)
                                   record(family + "-report.json", envelope)
+                                  state['reports'] = envelopes
+                                  record('decision.json', state)
                                   # Append, never edit away an objection. Each completed
                                   # review is saved even if the other reviewer fails.
                                   body = MARKER + "\n" + run_url + "\n```json\n" + json.dumps(envelope, ensure_ascii=False) + "\n```"
@@ -1994,6 +2044,8 @@ jobs:
                                               'attempted_resolution': finding.get('attempted_resolution', '')})
                                   envelopes[family] = problem
                                   record(family + "-failure.json", problem)
+                                  state['reports'] = envelopes
+                                  record('decision.json', state)
                                   gh.call(f"/issues/{number}/comments", "POST", {"body": MARKER + "\n```json\n" + json.dumps(problem, ensure_ascii=False, indent=2) + "\n```"})
                       if failures:
                           raise RuntimeError(json.dumps(failures))
@@ -2392,7 +2444,11 @@ jobs:
               current = gh.call(f"/pulls/{state['number']}")
               if state['conclusion'] != 'success':
                   previous = trusted_reports(app, current, state['name'], state['check'])
-                  ensure_scope_records(state, previous, state.get('prior_candidates', []))
+                  candidates = list(state.get('prior_candidates', []))
+                  unknown = unmatched_report_claims(gh, current, candidates, state['reports'])
+                  if unknown:
+                      candidates.append((-1, {'history': {'review': {'findings': [], 'prior_findings': []}, 'carried_findings': unknown}}))
+                  ensure_scope_records(state, previous, candidates)
               record('scope-items.json', state.get('scope_items', []))
               latest_ref = gh.call('/commits/' + state['default'])['sha']
               check = app.call(f"/check-runs/{state['check']}")
