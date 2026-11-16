@@ -64,7 +64,8 @@ for an outside author's PR. Permissions are checked through GitHub's API.
 Before review, and again before each model request, the gate reads required
 computation checks. A concluded failure blocks further model calls with "fix
 failing checks first". Pending checks can run in parallel with review. A PR
-gets at most four automatic rounds; further rounds require the collaborator
+ordinarily gets at most four automatic rounds; the [light profile](#light-profile)
+limits qualifying PRs to one paid round before another explicit collaborator
 command. Started automatic rounds count even if interrupted. Each start is
 saved in the App check, with a pointer on the PR so force-pushing does not lose
 the count. Earlier report records locate historical checks; only verified App
@@ -641,9 +642,7 @@ reports and a `nonblocking-notes.json` artifact also retain them. If backlog
 delivery fails, the original PR report remains durable, the failure is recorded,
 and it does not change review acceptance or stop a protected merge.
 
-This change does not introduce the separate one-round or Lean profiles. Until
-those profiles are deployed, the existing reviewer and computation requirements
-still apply.
+The Lean-specific review scope remains a separate reform.
 
 
 ### Admin decisions on incomplete review
@@ -785,3 +784,33 @@ those obligations. The gate checks the original comment hashes and withholds
 merge until each original report has arrived. Malformed final-output containers
 are treated as diagnostic data; failure processing is isolated per worker so
 it cannot interrupt collection of the peer reviewer's verdict.
+
+
+## Light profile
+
+The light profile limits automatic repetition; both approved reviewers still
+review the complete applicable scope. It applies to outside contributors and
+to complete documentation diffs of at most five files and 200 added/deleted
+lines. Its ordinary-documentation allowlist is README.md, CREDITS.md,
+THIRD_PARTY_NOTICES.md, docs/building.md and docs/research-guide.md.
+All other documentation retains the full profile, including unclassified new
+paths. This excludes gate policy, manuscript/release policy and research records
+such as docs/theorem-application-audit/ and docs/quartic-9625/verification/reviews/.
+Renames, incomplete patches, manuscript/record changes and mixed code changes
+do not qualify through the focused-documents rule. The separate outside-author
+rule still applies to every outside contributor without reducing review scope.
+
+Outside contributors still need a write collaborator's `/protocol-b review`
+before any model call. One paid round runs both missing reviewers and may pass
+normally if the review requirement is met. Otherwise the author can repair the
+change, and a maintainer chooses what happens next. Automatic pushes do not
+start a second paid round. A write collaborator may deliberately request another
+round with `/protocol-b review`; only an admin may decide a finding or incomplete
+scope item through the existing exact-head override command. There is no implicit
+acceptance, no change to required computations, and no reduction in review budget.
+
+The count includes authenticated started rounds, even if interrupted or originally
+requested explicitly, across heads and force-pushes. Reusing a completed review
+does not consume another round. Current-head, dependency, history and policy
+checks still govern reuse. The artifact, App record and summary identify the
+profile and count. The full profile retains its four-automatic-round limit.
