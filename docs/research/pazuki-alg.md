@@ -162,10 +162,10 @@ This is the arithmetic half: a symmetric principal `(L, s)` on `A_ℂ` is the ba
   - the symmetric bundles in one class form a torsor under `Pic⁰[2]`, whose points are `ℚ̄`-points;
   - flat base change of `H⁰` and descent of ampleness.
 - **Why it was not reduced further in Lean.** Any finer split still contains the Néron–Severi step, which is not one
-  printed theorem over the project's definitions. The base-change glue (injectivity of `Pic(A_{K'}) → Pic(A_ℂ)`,
-  `H⁰` under field extension, descent of ampleness) has no infrastructure in Mathlib or the vendored libraries
-  (searched: no such lemmas under `ZInQKernel/` or Mathlib's `AlgebraicGeometry/`). A finer split would only add
-  GLUE rows.
+  printed theorem over the project's definitions. Of the base-change glue, only `H⁰` under field extension has
+  infrastructure (the vendored `Scheme.Modules.finrankH_pullback`). Injectivity of `Pic(A_{K'}) → Pic(A_ℂ)` and the
+  descent of ampleness were not found (grep of `ZInQKernel/` and Mathlib's `AlgebraicGeometry/`). A finer split
+  would only add GLUE rows.
 
 ## 3. Lean (VERIFIED, compiled; `ZInQKernel/Contrib/OneProof/PazukiAlg.lean`)
 
