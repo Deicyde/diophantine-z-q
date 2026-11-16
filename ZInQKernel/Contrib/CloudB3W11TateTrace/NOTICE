@@ -1,0 +1,56 @@
+W11 Author C Tate trace contribution
+===================================
+
+Adapted Tate/trace proof material:
+  Fermat's Last Theorem in Lean 4
+  Copyright 2026 Anthropic, PBC
+  https://github.com/anthropics/fermats-last-theorem
+  Commit 6e837e75355538c7f80bab5b956861e86c4eacc2
+  Apache License, Version 2.0; see LICENSE.
+
+Adapted files and source paths:
+  TraceModel.lean:
+    Definitions/Def_PadicComplex_TateTrace.lean
+  TraceNormBound.lean:
+    P2M/Sol/S_PadicAlgCl_norm_sum_pow_apply_le_of_mem_cyclotomicTower.lean
+  TraceConstruction.lean:
+    P2M/Sol/S_PadicComplex_exists_isTateTrace_of_norm_sum_pow_apply_le.lean
+  CyclotomicTrace.lean:
+    P2M/Sol/S_PadicComplex_exists_isTateTrace_cyclotomicTower.lean
+  TensorTwist.lean:
+    P2M/Sol/S_PadicComplex_exists_forall_pow_eq_one_of_isTateTrace_of_tmul_eq_mul.lean
+  TwistWholeGroup.lean:
+    P2M/Sol/S_PadicComplex_eq_zero_of_forall_smul_eq_cyclotomicCharacter_zpow_mul.lean
+
+Changes made for this contribution:
+  - Import paths redirected to kernel-compiled W11 supporting modules.
+  - Namespaces moved under ZInQ.Contrib.CloudB3W11TateTrace, except the
+    shared, genuine PadicComplex.IsTateTrace/towerClosure API.
+  - P2M.Util and all P2M metaprogramming removed. Ordinary declarations and
+    attributes replace the alias/export/scoped-activation plumbing.
+  - Local notation inlined. Superscript-units types written explicitly.
+  - The whole-group theorem stated with the local cyclotomicCharacter on
+    PadicAlgCl p; irrelevant global-Qbar transport removed.
+  - Lean 4.35 compatibility adjustments, notably the closure-inclusion proof.
+  - Duplicate primitive-root/fixing/congruence/power-action helpers removed
+    from TraceNormBound and reused from Author D's compiled TowerDefinition.
+    The whole-group adapter reuses Author D's InfiniteImage finishing theorem;
+    its copied TH0 arithmetic block is removed.
+
+UPSTREAM_ATTRIBUTION.md is the upstream attribution document recovered by
+this task's scout. UPSTREAM_NOTICE preserves the upstream NOTICE (its first
+80 lines), together with the pre-existing Z-in-Q vendor annex carried by the
+copy used here. That older annex describes earlier vendor integrations,
+not the modifications listed above.
+
+Original supporting modules written for W11:
+  AlgebraicTrace.lean, Tower.lean, ContinuousTrace.lean, Equivariance.lean,
+  TraceComparison.lean, CyclotomicBounds.lean.
+They reuse Mathlib normalized trace and normed completion, and the vendored
+Tau Ceti cyclotomic root-adjoin/character theorems. Mathlib and Tau Ceti are
+Apache-2.0; their author and provenance notices remain in their source files.
+
+Mathematical references read:
+  J. Tate, p-divisible groups, Proc. Conf. Local Fields (Driebergen 1966),
+  Springer 1967, printed pp. 170-174, especially Proposition 5, Corollary 3,
+  Proposition 6 with its base-shift remark, and the continuous trace on p. 173.

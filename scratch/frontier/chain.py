@@ -3,14 +3,16 @@
 Usage: python3 scratch/frontier/chain.py [A|F]   (default: both); `doc` compares frontier.md with scenario F; `onep`
 compares the library theorem ZInQ.OneProof.frozenTarget with scenario A
 
-Scenario A ("compiled"): only theorems that compose in one Lean world today, i.e. the top chain (r3: atkin-li's
-C2 and tyz-chain's T0, kernel modules) and the compiled H assembly: leaf-fold19's `HDec.HSyn.sixContactMin_of_open26`
-(refresh r8; r7 leaf-fold13's `sixContactMin_of_open16`, r6 leaf-fold11's `sixContactMin_of_open15`, r5 leaf-fold9's
-`sixContactMin_of_open9`, r4 leaf-fold8's `sixContactMin_of_open8`, r3
-leaf-fold5's `sixContactMin_of_open5`, r2 leaf-fold4's `sixContactMin_of_open4`, before that assemble-port's
-`sixContactMin_of_leaves5`). Its open set is the hypothesis list of that composite.
+Scenario A ("compiled"): only theorems that compose in one Lean world today, i.e. the top chain (r3: atkin-li's C2
+and tyz-chain's T0, kernel modules) and the compiled H assembly: leaf-fold29's `HDec.HSyn.sixContactMin_of_open31`
+(refresh r9; r8 leaf-fold19's `sixContactMin_of_open26`, r7 leaf-fold13's `sixContactMin_of_open16`, r6
+leaf-fold11's `sixContactMin_of_open15`, r5 leaf-fold9's `sixContactMin_of_open9`, r4 leaf-fold8's
+`sixContactMin_of_open8`, r3 leaf-fold5's `sixContactMin_of_open5`, r2 leaf-fold4's `sixContactMin_of_open4`, before
+that assemble-port's `sixContactMin_of_leaves5`).
+Its open set is the hypothesis list of that composite.
 
-Scenario F ("frontier"): A plus every proof or reduction of an open Prop found on today's branches.
+Scenario F ("frontier"): A plus every proof or reduction of an open Prop found on today's branches; since r9 its top is
+gz-statements' C_d form of C2 (the restricted hL2 and hL3), on which the Gross–Zagier split needs no composite.
 Each edge is a compiled theorem on its branch (per the branch's own log), but the edges live in different
 Lean files ("worlds"), so their composition is NOT compiled; only the def texts are compared (check 3).
 
@@ -34,14 +36,14 @@ B5 = ("93a1e33c", "scratch/cpts-transport/Bundle5.lean")
 AP = ("92a27877", "scratch/assemble-port/AssemblePort.lean")  # assemble-port final flat check (27 glue fields, 1126 s)
 LF4 = ("9dcf1ca8", "scratch/leaf-fold4/Leaves4.lean")  # leaf-fold4 final flat file (md5 6bbeb639, 1048 s, 26+19+20+1 fields)
 LF5 = ("5a7e03d1", "scratch/leaf-fold5/Leaves5.lean")  # leaf-fold5 final flat file (md5 5999e1db, flat run 2: 1570 s, 26+21+21+2)
-# r8: the H base is leaf-fold19 inside the library (ZInQKernel/OneProof/H/, on main since 11-15: leaf-fold14 to
-# leaf-fold19, with sem-prune and the crowd kit, over leaf-fold13; r7: leaf-fold13, since w66; r6: leaf-fold11, since
+# r9: the H base is leaf-fold29 inside the library (ZInQKernel/OneProof/H/: leaf-fold20 to leaf-fold29 and
+# leaf-fold-hx over leaf-fold19; r8: leaf-fold19, since 11-15; r7: leaf-fold13, since w66; r6: leaf-fold11, since
 # w63; r5: leaf-fold9, since w60; r4: leaf-fold8, since w59). "OPH" is read as the text of all those modules
-# (OpenResearchLeaves19 is in TailZ29.lean, OpenAddedLeaves16 in TailZ31.lean, OpenTextbookLeaves11 and
-# sixContactMin_of_open26 in TailZ32.lean, the glue bundle OpenGlue7 in TailX.lean; defcheck looks for the chain's
+# (OpenResearchLeaves24 and sixContactMin_of_open31 are in TailZ37.lean, OpenAddedLeaves17 in TailZ34.lean,
+# OpenTextbookLeaves11 in TailZ32.lean, the glue bundle OpenGlue7 in TailX.lean; defcheck looks for the chain's
 # copies anywhere in them).
-OPX = (MAIN, "ZInQKernel/OneProof/H/TailZ29.lean")
-OPX31 = (MAIN, "ZInQKernel/OneProof/H/TailZ31.lean")
+OPX = (MAIN, "ZInQKernel/OneProof/H/TailZ37.lean")
+OPX34 = (MAIN, "ZInQKernel/OneProof/H/TailZ34.lean")
 OPX32 = (MAIN, "ZInQKernel/OneProof/H/TailZ32.lean")
 OPX7 = (MAIN, "ZInQKernel/OneProof/H/TailX.lean")
 OPH = ("OPH", "ZInQKernel/OneProof/H/")
@@ -161,9 +163,43 @@ def mp_heads(txt, name):
 # reductions verbatim; both scenarios use it.  (TopChain.lean is the fork-main-only variant.)
 # r3: the top is two kernel modules on main: atkin-li's C2 (GZ through FHNonvanishing, GrossZagierHeegner, with
 # HeckeThetaNewform proved) and tyz-chain's reading A from four TYZ Props (everything else on the TYZ side proved).
+# r9: scenario F takes gz-statements' C_d form of the top (on main since 11-13): the headline uses hL2 and hL3 only at
+# the curves C_d, and on that form gz-weil's parametrization, with Jacobi's formula proved by jacobi-lambda, leaves
+# gz-hl3's split no composite of its own. The library theorem (scenario A) still takes the general hL3. First, so it
+# wins over C2 in scenario F.
+edge("FrozenTarget", "frozenTarget_of_sixContactMin_tyzThm35ReadingA_fhNonvanishingCd_grossZagierHeegnerCd", MAIN,
+     "ZInQKernel/Contrib/GZStatements/Weak.lean",
+     ["SixContactMin", "TYZThm35ReadingA", "FHNonvanishingCd", "GrossZagierHeegnerCd"], "F",
+     "gz-statements: the C_d form of the top")
+edge("FHNonvanishingCd", "fhNonvanishingCd_of_fhNonvanishing", MAIN, "ZInQKernel/Contrib/GZStatements/Weak.lean",
+     ["FHNonvanishing"], "F", "gz-statements: the restricted form is weaker")
+edge("GrossZagierHeegnerCd", "grossZagierHeegnerCd_of_leaves4", MAIN,
+     "ZInQKernel/Contrib/OneProof/GrossZagierHeegner/JacobiLambdaDeriv.lean",
+     ["WeierstrassUniformization", "HeegnerPointRationalCd", "GrossZagierFormulaCd", "GrossConjugationCd"], "F",
+     "gz-hl3's C_d split with gz-weil's parametrization, Jacobi's formula proved by jacobi-lambda")
+edge("HeegnerPointRationalCd", "heegnerPointRationalCd_of_printed", MAIN,
+     "ZInQKernel/Contrib/OneProof/GrossZagierHeegner/HeegnerCd.lean", ["ShimuraMainCM", "X0ModuliGaloisMero"], "F",
+     "gz-heegner: the C_d form of gz-hl3's composite leaf")
 edge("FrozenTarget", "frozenTarget_of_sixContactMin_tyzThm35ReadingA_fhNonvanishing_grossZagierHeegner", MAIN,
      "ZInQKernel/Contrib/GZTheta/NewCMFinal.lean",
      ["SixContactMin", "TYZThm35ReadingA", "FHNonvanishing", "GrossZagierHeegner"])
+# r9 (leaf-fold24): gz-fh proves the twisted functional equation, so frozenTarget takes FHNonvanishing from the single
+# leaf FriedbergHoffsteinB_FE (until r8: the top hypothesis hL2 itself)
+edge("FHNonvanishing", "fhNonvanishing_of_friedbergHoffsteinB_FE", MAIN,
+     "ZInQKernel/Contrib/OneProof/FHNonvanishing.lean", ["FriedbergHoffsteinB_FE"], "AF",
+     "gz-fh, in the library since leaf-fold24")
+# r9 (leaf-fold29): h29-ne3 proves TYZLemma29Mod2 from six published leaves (TYZ Lemma 2.9 for n != 3, Theorem 2.1 at
+# (3, 1), Proposition 2.3, the test vector's existence, Legendre's and Jones-Pall's ternary forms), and frozenTarget
+# takes them in place of h29
+edge("TYZLemma29Mod2", "tyzLemma29Mod2_of_sixLeaves", MAIN, "ZInQKernel/Contrib/OneProof/TYZLemma29Mod2.lean",
+     ["LegendreThreeSquares", "JonesPallX2Y2Z16", "TYZTestVectorExists", "TYZLemma29PrintedNe3", "TYZThm21At31",
+      "TYZProp23Printed"], "AF", "h29-ne3, in the library since leaf-fold29")
+# r9 (leaf-fold-hx): theta-wp8 proves ThetaWeierstrass8, so hx-used's eta route gives Shimura reciprocity for modular
+# functions at level 32 from ShimuraMainCM alone, and frozenTarget drops hX. First, so it wins over the edges below,
+# which stay compiled but are off the route.
+edge("TYZThm35ReadingA", "tyzThm35ReadingA_noHX", MAIN, "ZInQKernel/Contrib/OneProof/ThetaWeierstrass8.lean",
+     ["TYZThm11Integral", "TYZLemma29Mod2", "ShimuraMainCM", "TYZThm33"], "AF",
+     "theta-wp8 with hx-used's eta route, in the library since leaf-fold-hx")
 # r4 (w59): leaf-fold8 compiles tyz-split's derivation of T0's pinned hypothesis from the printed TYZ Theorem 3.3 into
 # OneProof (TYZSplit.lean = scratch/tyz-split/T11.lean from line 2), so both scenarios take T-11 from `TYZThm33`.
 # (Until w58 scenario F used tyz-split's `tyzThm35ReadingA_of_printedThm33` in scratch/tyz-split/T11.lean.)
@@ -181,8 +217,13 @@ edge("ShimuraReciprocityModFn", "shimuraReciprocityModFn_of_printed", MAIN,
 #  cm-bridge's B1; it stays compiled there but is off the route)
 
 # --- H
-edge("SixContactMin", "sixContactMin_of_open26", *OPX32,
-     ["OpenResearchLeaves19", "OpenTextbookLeaves11", "OpenAddedLeaves16", "OpenGlue7"])
+edge("SixContactMin", "sixContactMin_of_open31", *OPX,
+     ["OpenResearchLeaves24", "OpenTextbookLeaves11", "OpenAddedLeaves17", "OpenGlue7"])
+# (r8 at main 37391b11: leaf-fold19's sixContactMin_of_open26 in TailZ32.lean, bundles OpenResearchLeaves19,
+#  OpenTextbookLeaves11, OpenAddedLeaves16, OpenGlue7; leaf-fold20 to leaf-fold28b fold gt-sga7, gt-unip, yu-prune,
+#  gt-rayclass, sgr-split, h33-sign, gt-rigidity with rigid-prune, gz-fh, r16-split, elkies-coord and flt-cqj2,
+#  leaf-fold-hx removes the top's hX (theta-wp8), and leaf-fold29 folds bg-explicit, st-qbar, faltings5-lower and
+#  r6-nf with neron-dvr (four research fields go) and replaces the top's h29 by h29-ne3's six leaves)
 # (r7 at w66: leaf-fold13's sixContactMin_of_open16 in TailZ22.lean, bundles OpenResearchLeaves13,
 #  OpenTextbookLeaves10, OpenAddedLeaves12, OpenGlue7; leaf-fold14 to leaf-fold19 fold reduct-b (Route B-cp) and
 #  t09-pic (their leaves become fields), sem-prune, gt-ega, gt-blr, gt-gamma, gt-theta, gt-ringclass (the top's hS
@@ -367,6 +408,16 @@ LQC = (MAIN, "scratch/leafq-check/CMDescendsGlue.lean")
 edge("CMDescends", "cmDescends_of", *LQC, ["STQM", "T11b_Rigidity", "TorsionDescends", "R1R2fpRep"], "F",
      "leafq-check; T11b_Rigidity from leaf-fold5's T11bExists through av-b2's edge")
 edge("TorsionDescends", "torsionDescends_of_t5", *LQC, ["TorsionStructure"], "F", "leafq-check")
+# --- r9: reports merged since r8 that no fold takes: gz-hl3 (hL3 from six leaves over genuine definitions: the
+# Heegner point is a Lean object) and gz-heegner (gz-hl3's composite leaf HeegnerPointRational from ShimuraMainCM and
+# the printed canonical-model theorem X0ModuliGaloisMero; grossZagierHeegner_of_printed composes the two). Off the
+# route: scenario F takes the C_d form of the top (above), where the parametrization needs no leaf.
+edge("GrossZagierHeegner", "grossZagierHeegner_of_leaves", MAIN, "ZInQKernel/Contrib/OneProof/GrossZagierHeegner.lean",
+     ["WeierstrassUniformization", "StrongWeilCurve", "IsogenyLattice", "HeegnerPointRational", "GrossZagierFormula",
+      "GrossConjugation"], "F", "gz-hl3: the Heegner point built from Mathlib's Weierstrass p and the Eichler integral")
+edge("HeegnerPointRational", "heegnerPointRational_of_printed", MAIN,
+     "ZInQKernel/Contrib/OneProof/GrossZagierHeegner/Heegner.lean", ["ShimuraMainCM", "X0ModuliGaloisMero"], "F",
+     "gz-heegner: Shimura reciprocity and the canonical model of X0(N) for functions with poles in the upper half-plane")
 # --- r8: the former textbook field mulEtaleAbelianScheme, proved over every commutative base by fork PR #19
 # (leaf-fold19 removes the field); unipotent-b's split of semistableUnipotent (F) still takes it
 edge("MulEtaleAbelianScheme", "mulEtaleAbelianScheme_proof", MAIN, "ZInQKernel/Contrib/OneProof/MulEtale.lean", [], "F",
@@ -670,9 +721,9 @@ edge("NeronMappingAbelianSchemeSurj", "NeronMappingAbelianSchemeSurj_proof", MAI
 
 # ---------------------------------------------------------------- bundles
 STRUCTS = {
-    "OpenResearchLeaves19": (OPX, "OpenResearchLeaves19"),
+    "OpenResearchLeaves24": (OPX, "OpenResearchLeaves24"),
     "OpenTextbookLeaves11": (OPX32, "OpenTextbookLeaves11"),
-    "OpenAddedLeaves16": (OPX31, "OpenAddedLeaves16"),
+    "OpenAddedLeaves17": (OPX34, "OpenAddedLeaves17"),
     "OpenGlue7": (OPX7, "OpenGlue7"),
 }
 # fields the proof does not use: none (r6: the integrator's prune, merged in w62, removed r3, serreTateThm2 and t10,
@@ -708,6 +759,21 @@ BYPASS = {
                 (MAIN, "scratch/theta-split/ThetaUse.lean", "thetaPointOfFibre_of_qm_curve",
                  ["FibreQMPeriod", "ThetaEightSquare", "QMThetaSymmetricCurve"], "ThetaPointOfFibre")],
         field=None, uses=[]),
+    # r9: dcy3-used (merged by leaf-fold29, not folded: the used form is weaker than the field, so autofold.py cannot
+    # take it). The chain reads the field only through TailZ23 and TailZ13's y3Connected_of_deligne
+    # (deligneComponentsY3_of_printed …), as Y3Connected, which follows from two research fields.
+    "DeligneComponentsY3PrintedAb": dict(
+        task="dcy3-used", new=["MumfordGroupLaw", "ShimuraMainThmIDeligneY3AbU"],
+        note="the term y3Connected_of_deligne (deligneComponentsY3_of_printed …) of TailZ13 is replaced by "
+             "y3Connected_of_leaves",
+        checks=[(MAIN, "ZInQKernel/OneProof/H/TailZ12.lean", "deligneComponentsY3_of_printed",
+                 ["DeligneComponentsY3Printed"], "DeligneComponentsY3"),
+                (MAIN, "ZInQKernel/Contrib/OneProof/DeligneComponentsY3Used.lean", "y3Connected_of_leaves",
+                 ["MumfordGroupLaw", "ShimuraMainThmIDeligneY3AbU"], "Y3Connected")],
+        field="deligneComponentsY3PrintedAb",
+        uses=[r"^\s*deligneComponentsY3PrintedAb : _root_\.ShimuraGlue\.DeligneComponentsY3PrintedAb$",
+              r"^\s*deligneComponentsY3PrintedAb := [a-z]\.deligneComponentsY3PrintedAb$",
+              r"^\s*l\.deligneComponentsY3PrintedAb$", r"^\* `deligneComponentsY3Printed : "]),
 }
 # r6: leaves on which the forms of other rows rest, listed in F although no edge takes them. (Drafted at w62 with
 # r1univ-rigid's MumfordRigidityCore, a field of the library theorem since w63; at w62 also BYPASS "GenusX1Field":
@@ -1011,10 +1077,19 @@ def worldcheck():
     `ZInQKernel/OneProof/Main.lean`. defcheck skips these edges (no deffile). r6: the same for such a file at a branch
     head, which must also see the defining module's text of that constant as main has it; a definition of the name in
     a namespace other than the constant's own (a `Verbatim` copy for an `rfl` check) is reported, not refused (r7: at
-    main too, where c-to-printed2's file is since w66, and in a `section Verbatim`, as in t09-pic's file)."""
+    main too, where c-to-printed2's file is since w66, and in a `section Verbatim`, as in t09-pic's file). r9: a
+    constant that Main does not import may be defined in the import closure of the followed F edge's file at main
+    that takes it (gz-statements' GrossZagierHeegnerCd, which its C_d top takes); and a library module at main may
+    define the constant it concludes if every followed F edge that takes it is in that module or imports it
+    (gz-statements' FHNonvanishingCd)."""
     kern = _files(MAIN, "ZInQKernel/")
     res = lambda mod: (lambda p: p if p in kern else None)(mod.replace(".", "/") + ".lean")
     base = set(_closure(["ZInQKernel/OneProof/Main.lean"], res))
+    takers = {}
+    for e2 in FOLLOWED:
+        if e2["thm"] and "F" in e2["sc"] and e2["rev"] == MAIN:
+            for h in e2["hyps"]:
+                takers.setdefault(h, set()).add(e2["file"])
     out = []
     for e in FOLLOWED:
         if e["sc"] != "F" or not e["thm"] or e["deffile"] or e["file"].startswith(OPH[1]):
@@ -1026,17 +1101,25 @@ def worldcheck():
             continue
         name = c.short_of(e["concl"])
         own = [ln for ln in _decls(txt, name) if not ln.startswith("theorem") and not ln.startswith("lemma")]
+        cons = sorted(takers.get(name, ()))
         if own and not all(_in_verbatim(txt, ln) for ln in own):
+            if e["rev"] == MAIN and e["file"].startswith("ZInQKernel/") and cons and all(
+                    e["file"] in set(_closure([f], res)) for f in cons):
+                out.append((name, f"the library's own constant: defined in {e['file']} itself, which "
+                                  f"{', '.join(cons)} (the file that takes it) is or imports"))
+                continue
             out.append((name, f"CHECK: {e['file']} has its own definition"))
             continue
         defs = [f for f in _closure([e["file"]], res, e["rev"]) if f != e["file"]
                 and c.def_texts_all(_show(MAIN, f), name)]
-        if not (defs and all(f in base for f in defs)):
+        near = set(_closure(cons, res)) if cons else set()
+        if not (defs and all(f in base or f in near for f in defs)):
             out.append((name, f"CHECK: defined in {defs or 'no imported file'} ({e['file']})"))
             continue
         phrase = "only a `Verbatim` copy (for an `rfl` check) in" if own else "no definition in"
-        v = f"the library's own constant: {phrase} {e['file']}, which imports {', '.join(defs)} (in " \
-            f"OneProof/Main's import closure)"
+        where = ("in OneProof/Main's import closure" if all(f in base for f in defs) else
+                 "in the import closure of %s, which takes it" % ", ".join(cons))
+        v = f"the library's own constant: {phrase} {e['file']}, which imports {', '.join(defs)} ({where})"
         if e["rev"] != MAIN:
             same = all(c.def_texts_all(c.show(e["rev"], f), name) == c.def_texts_all(_show(MAIN, f), name) for f in defs)
             v = v.replace(phrase, "at %s, %s" % (e["rev"], phrase), 1)
@@ -1204,7 +1287,7 @@ def doc_check(path="docs/research/frontier.md"):
 # rulings, not this check.)
 FIELDS_TSV = "docs/one-proof/kinds.tsv"
 OPEN_JSON = "docs/one-proof/open-statements.json"
-TSV_BUNDLE = {"OpenResearchLeaves19": "research", "OpenTextbookLeaves11": "textbook", "OpenAddedLeaves16": "added",
+TSV_BUNDLE = {"OpenResearchLeaves24": "research", "OpenTextbookLeaves11": "textbook", "OpenAddedLeaves17": "added",
               "OpenGlue7": "glue"}
 
 

@@ -1,0 +1,42 @@
+HodgeConjecture (vendored Lean code)
+====================================
+
+Copyright 2026 The Formal Conjectures Authors
+
+Licensed under the Apache License, Version 2.0; see LICENSE in this directory
+(a byte-for-byte copy of the LICENSE file of the source repository). The source
+repository has no NOTICE file; this file was written by the Z-in-Q project.
+
+Source
+------
+
+Repository: https://github.com/Paul-Lez/HodgeConjecture
+
+- Commit 2ead713179628a3c738197d5996f51c8a9c886ac (2026-10-16), Lean
+  v4.35.0-rc4, Mathlib 1f414401f69059aa7eead47b53ee40bd38455eeb. That Mathlib
+  revision is a direct ancestor of this project's pin
+  56a005855ea17e0b0958f73ec801ae140b0a1679 (v4.35.0), 168 commits behind.
+
+Scope
+-----
+
+The 25 modules under `Port/` are the complete import closure of
+`HodgeConjecture.Lemmas.AlgebraicGeometry.ComplexPoint.Manifold`, which supplies
+the complex-analytic manifold structure on the complex points of a smooth
+complex scheme. The closure has no dependency outside Mathlib, so no Lake
+dependency was added.
+
+Modifications
+-------------
+
+Every file under `Port/` carries a provenance header recording the source
+revision, the source path, and the modification made. The only modification
+applied mechanically to all of them is the remapping of module names
+`HodgeConjecture.A.B` to `ZInQKernel.Contrib.CloudB3W17Hodge.Port.A.B`. The
+upstream Apache-2.0 file headers are retained in place. Any file additionally
+changed to compile against this project's newer Mathlib pin carries a further
+"Modified for the Z-in-Q kernel" line naming the change; the list of such files
+is kept in `Port/MODIFIED.md`.
+
+Files outside `Port/` in this directory are original work of the Z-in-Q project
+and are not copied from HodgeConjecture.

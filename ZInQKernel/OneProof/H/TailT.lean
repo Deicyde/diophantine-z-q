@@ -1528,7 +1528,7 @@ section Closed
 open ZInQ.Contrib.G9.PkgI4
 
 /-- **H-22 closed.** `R14Det` from the two printed theorems `DSThm965` (Deligne, via Diamond–Shurman
-Thm 9.6.5) and `DSThm966` (Deligne–Serre, via Diamond–Shurman Thm 9.6.6) only. -/
+Thm 9.6.5) and `DSThm966` (Deligne–Serre 1974 Thm 4.1 (4.1.1), p. 514) only. -/
 theorem r14Det_of_printed (hD : DSThm965) (hDS : DSThm966) : G0Galois.R14Det :=
   r14Det_of_wt (artinTransport_proof hDS)
     (r14DetWtGe2_of_ds hD semisimplification2_proof detFromFrobenius_proof)
@@ -1988,7 +1988,7 @@ end BdRSec4
 
 /-- **The p-adic Hodge theory rows of the frontier.** H-52, H-32, H-8, H-22, H-51 from seven
 published-form leaves (Tate's two theorems, the Hodge–Tate decomposition of `V_p(A)`, the de Rham
-property of `H¹`, `B_dR^{G_{ℚ_p}} = ℚ_p`, Diamond–Shurman 9.6.5 and 9.6.6); H-10 also from
+property of `H¹`, `B_dR^{G_{ℚ_p}} = ℚ_p`, Diamond–Shurman 9.6.5 and Deligne–Serre 1974 Thm 4.1 (4.1.1)); H-10 also from
 `EigenformHTNew` (Kato's theorem for newforms, not statable in Mathlib today) and the kernel's leaf I4-L5
 `NewformOfEigenform`. (H-9 needs `B_st`.) -/
 theorem hodge_rows_of_leaves (hT : TateTwistInvariants) (hA : AxSenTate)

@@ -2600,7 +2600,7 @@ structure OpenAddedLeavesQ5 : Prop where
   egaIV_17_7_8_ii : _root_.ZInQ.Contrib.SpreadOut.EGAIV_17_7_8_ii
 
 theorem openAddedLeaves4_of_Q5 (l : OpenAddedLeavesQ5) : OpenAddedLeaves4 :=
-  ⟨l.cmOptimalEmbedding, l.thetaRatiosAlgebraic, l.qmHauptmodul, l.qmClassNumberOne, l.senTwist,
+  ⟨l.cmOptimalEmbedding, l.qmHauptmodul, l.qmClassNumberOne, l.senTwist,
     l.finiteImageHT, l.t09SymmIsogenyExists, l.isogenyQuasiInverse, l.x6ConicModel, l.y3Connected,
     l.qmAutCard, l.serreRigidity3, l.alFixedPoints, l.zariskiConnectedness, l.cmDescends,
     LeafQCheck.gammaStarGen_proof, l.valenceBoundGammaStar, l.egaIV_8_8_2_ii, l.egaIV_8_10_5_xii,
@@ -2820,7 +2820,6 @@ structure OpenTextbookLeaves6 : Prop where
 `qmHauptmodul` → `qmHauptmodulBase3`. 20 fields. -/
 structure OpenAddedLeaves6 : Prop where
   cmOptimalEmbedding : FS5NoCM.CMOptimalEmbedding
-  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
   /-- leafq-check, LEAF?: the Hauptmodul property of the theta quotient on `Γ*` and its value `−16/27` at the
   order-2 point (the clauses at the discriminants `−4`, `−3` are proved). -/
   qmHauptmodulBase3 : LeafQCheck.HM.QMHauptmodulBase3
@@ -2891,7 +2890,6 @@ theorem qmHauptmodul_of6 (r : OpenResearchLeaves5) (l : OpenAddedLeaves6) : PkgI
 theorem addedLeaves4_of_open6 (r : OpenResearchLeaves5) (t : OpenTextbookLeaves6) (l : OpenAddedLeaves6) :
     OpenAddedLeaves4 where
   cmOptimalEmbedding := l.cmOptimalEmbedding
-  thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
   qmHauptmodul := qmHauptmodul_of6 r l
   qmClassNumberOne := l.qmClassNumberOne
   senTwist := l.senTwist
@@ -2930,9 +2928,10 @@ theorem glue4_of_open6 (r : OpenResearchLeaves5) (t : OpenTextbookLeaves6) (l : 
 * `OpenGlue6`: 1 glue Prop (`ModelCoordinateResidue`).
 The table of every field is `docs/research/leaf-fold6.md` §2. -/
 theorem sixContactMin_of_open6 (r : OpenResearchLeaves5) (t : OpenTextbookLeaves6)
-    (l : OpenAddedLeaves6) (g : OpenGlue6) (h20 : G0Split.R20Lower) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
+    (l : OpenAddedLeaves6) (g : OpenGlue6) (h20 : G0Split.R20Lower) (hYu : QMLattice.YuB6Alg)
+    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
   sixContactMin_of_open4 (researchLeaves2_of_open5 r) (textbookLeaves4_of_open6 t l) (addedLeaves4_of_open6 r t l)
-    (glue4_of_open6 r t l g) h20 hYu
+    (glue4_of_open6 r t l g) h20 hYu hθ
 
 end HDec.HSyn
 
@@ -2940,7 +2939,8 @@ end
 
 example : ∀ (_ : HDec.HSyn.OpenResearchLeaves5) (_ : HDec.HSyn.OpenTextbookLeaves6)
     (_ : HDec.HSyn.OpenAddedLeaves6) (_ : HDec.HSyn.OpenGlue6) (_ : HDec.HSyn.G0Split.R20Lower)
-    (_ : HDec.QMLattice.YuB6Alg), _root_.ZInQ.SixContactMin :=
+    (_ : HDec.QMLattice.YuB6Alg)
+    (_ : HDec.PkgI1.QMHauptmodul → HDec.HSyn.G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM), _root_.ZInQ.SixContactMin :=
   HDec.HSyn.sixContactMin_of_open6
 
 #print axioms HDec.HSyn.t8_ofK6

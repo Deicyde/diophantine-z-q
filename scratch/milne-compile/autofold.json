@@ -1,0 +1,5 @@
+{"name": "milne-compile",
+ "imports": ["ZInQKernel.Contrib.OneProof.MilneIsogenyQuasiInverse"],
+ "discharges": [
+   {"field": "milneIsogenyQuasiInverse",
+    "proof": "_root_.ZInQ.Contrib.MilneQuasiInverse.milneIsogenyQuasiInverse_proof"}]}

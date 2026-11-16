@@ -1,0 +1,69 @@
+{
+ "name": "pic-fix-both",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.PhiAmpleIsogeny",
+  "ZInQKernel.Contrib.OneProof.PicZeroAbVar"
+ ],
+ "discharges": [
+  {
+   "field": "phiAmpleIsogeny",
+   "proof": "_root_.PicFix.phiAmpleIsogeny_of_printed {n}.mumfordKLFiniteSectionAC {n}.mumfordPhiSurjectiveAC",
+   "leaves": [
+    {
+     "name": "mumfordKLFiniteSectionAC",
+     "type": "_root_.PicFix.MumfordKLFiniteSectionAC",
+     "doc": "pic-fix: K(L) finite for L ample with a nonzero global section s (L = O(D), D = Z(s) effective) on an abelian variety over an algebraically closed field (Mumford, Abelian varieties, section 6 Application 1, (iv) => (ii), printed for L = O(D) with D effective; locator UNVERIFIED).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Mumford 6 Application 1 for L = O(D), D effective, stated as L with a nonzero global section s, D = Z(s)); locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, 6 Application 1: for D effective and L = O(D) ample, K(L) is finite"
+    },
+    {
+     "name": "mumfordPhiSurjectiveAC",
+     "type": "_root_.PicDict.MumfordPhiSurjectiveAC",
+     "doc": "pic-dict: for L ample every L' in Pic0(X) is t_x^*L (x) L^-1, X an abelian variety over an algebraically closed field (Mumford section 8 Thm 1; locator UNVERIFIED).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Mumford's statement over an algebraically closed field, Pic0 = translation-invariant classes); locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, 8 Thm 1"
+    }
+   ]
+  },
+  {
+   "field": "picZeroAbVar",
+   "proof": "_root_.PicFix.picZeroAbVar_of_printed {n}.picLocFinType {n}.identityComponentLFT {n}.picZeroSmooth {n}.kleimanPicZeroProper",
+   "leaves": [
+    {
+     "name": "picLocFinType",
+     "type": "_root_.PicDict.PicLocFinType",
+     "doc": "pic-dict: a scheme representing Pic_{A/K} of an abelian variety A over a field K is locally of finite type (Murre 1964 / Oort 1962, BLR, Neron models, 8.2 Thm 3: Pic_{X/k} exists and is locally of finite type for X proper over a field; also Kleiman, The Picard scheme, Thm 9.4.8 for X projective, A being projective by the vendored GrpObj.exists_isImmersion_projectiveSpace_of_smooth_of_geometricallyIntegral; any representing object by Yoneda; locators UNVERIFIED).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (BLR 8.2 Thm 3 / Murre-Oort for proper X over a field; Kleiman 9.4.8 for projective X, A projective by the vendored lemma; any representing object by Yoneda uniqueness); locator UNVERIFIED",
+     "source": "BLR, Neron models, 8.2 Thm 3 (Murre 1964, Oort 1962); Kleiman, The Picard scheme, 9.4.8"
+    },
+    {
+     "name": "identityComponentLFT",
+     "type": "_root_.PicDict.IdentityComponentLFT",
+     "doc": "pic-dict: the identity component of a group scheme locally of finite type over a field is an open, geometrically irreducible subgroup (SGA 3 VI_A 2.4; Stacks 0B7R; locators UNVERIFIED).",
+     "kind": "published",
+     "flag": "unread: new printed leaf; locator UNVERIFIED",
+     "source": "SGA 3, VI_A 2.4; Stacks 0B7R"
+    },
+    {
+     "name": "picZeroSmooth",
+     "type": "_root_.PicDict.PicZeroSmooth",
+     "doc": "pic-dict: the identity component of Pic_{A/K} is smooth over K (Mumford 13 over Kbar with the identification and descent; one print over K pending reading: BLR 8.4, FGA Explained 9.5, Milne 1986 10; locators UNVERIFIED).",
+     "kind": "published",
+     "flag": "pending reading: one print over an arbitrary field not located (Mumford 13 is over Kbar; BLR 8.4 / FGA Explained 9.5 / Milne 1986 10 to read); Stacks 00TV is proved on main (regularSmoothPerfect_proof), so regular => smooth over a perfect field is no longer a step; locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, 13 (over Kbar); BLR 8.4; Milne 1986 10"
+    },
+    {
+     "name": "kleimanPicZeroProper",
+     "type": "_root_.PicFix.KleimanPicZeroProper",
+     "doc": "pic-fix: for X proper and geometrically normal over a field K, the identity component of Pic_{X/K} is proper (Kleiman, The Picard scheme, Thm 9.5.4; locator UNVERIFIED); stated for every representing scheme.",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Kleiman 9.5.4, X proper and geometrically normal over a field, every representing object); locator UNVERIFIED",
+     "source": "Kleiman, The Picard scheme, 9.5.4"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,75 @@
+W17ProperCompact.chowDatumProj_surjective.{u} {R : Type u} [CommRing R] {X : AlgebraicGeometry.Scheme}
+  {s : X ⟶ AlgebraicGeometry.Spec ↧R} (D : AlgebraicGeometry.ChowDatumProj s) : AlgebraicGeometry.Surjective D.p
+W17ProperCompact.exists_surjective_chowDatumProj.{u} {R : Type u} [CommRing R] [IsNoetherianRing R]
+  {X : AlgebraicGeometry.Scheme} (s : X ⟶ AlgebraicGeometry.Spec ↧R) [AlgebraicGeometry.IsProper s]
+  [AlgebraicGeometry.IsIntegral X] : ∃ D, AlgebraicGeometry.Surjective D.p
+W17ProperCompact.surjective_over_points.{u} {K : Type u} [Field K] [IsAlgClosed K]
+  {X Y : CategoryTheory.Over (AlgebraicGeometry.Spec ↧K)} (f : X ⟶ Y)
+  [AlgebraicGeometry.LocallyOfFiniteType (CategoryTheory.Over.Hom.left f)]
+  [AlgebraicGeometry.Surjective (CategoryTheory.Over.Hom.left f)] :
+  Function.Surjective fun P => CategoryTheory.CategoryStruct.comp P f
+W17ProperCompact.projSpaceOverIsoTerminal.{u} (R : Type u) [CommRing R] (n : ℕ) :
+  CategoryTheory.Over.mk (AlgebraicGeometry.ProjSpace.π R n) ≅
+    CategoryTheory.Over.mk
+      (CategoryTheory.Limits.pullback.fst (CategoryTheory.Limits.terminal.from (AlgebraicGeometry.Spec ↧R))
+        (CategoryTheory.Limits.terminal.from
+          (AlgebraicGeometry.Proj (MvPolynomial.homogeneousSubmodule (Fin (n + 1)) (ULift.{u, 0} ℤ)))))
+W17ProperCompact.projSpaceOverIsoTerminal_hom_comp.{u} (R : Type u) [CommRing R] (n : ℕ) :
+  CategoryTheory.CategoryStruct.comp (CategoryTheory.Over.Hom.left (W17ProperCompact.projSpaceOverIsoTerminal R n).hom)
+      (CategoryTheory.Limits.pullback.fst (CategoryTheory.Limits.terminal.from (AlgebraicGeometry.Spec ↧R))
+        (CategoryTheory.Limits.terminal.from
+          (AlgebraicGeometry.Proj (MvPolynomial.homogeneousSubmodule (Fin (n + 1)) (ULift.{u, 0} ℤ))))) =
+    AlgebraicGeometry.ProjSpace.π R n
+W17ProperCompact.exists_native_projective_chow_cover.{u} {R : Type u} [CommRing R] [IsNoetherianRing R]
+  (X : CategoryTheory.Over (AlgebraicGeometry.Spec ↧R)) [AlgebraicGeometry.IsProper X.hom]
+  [AlgebraicGeometry.IsIntegral X.left] :
+  ∃ n Y p i,
+    AlgebraicGeometry.IsProper (CategoryTheory.Over.Hom.left p) ∧
+      AlgebraicGeometry.Surjective (CategoryTheory.Over.Hom.left p) ∧
+        AlgebraicGeometry.IsClosedImmersion (CategoryTheory.Over.Hom.left i)
+W17ProperCompact.degreeZeroEquiv_eq.{u} (R : Type u) [CommRing R] (n : ℕ) :
+  ProjectiveSpace.degreeZeroEquiv (Fin (n + 1)) R = (AlgebraicGeometry.ProjSpace.grad0Equiv R n).symm
+W17ProperCompact.projSpaceOverIsoNative.{u} (R : Type u) [CommRing R] (n : ℕ) :
+  CategoryTheory.Over.mk (AlgebraicGeometry.ProjSpace.π R n) ≅
+    CategoryTheory.Over.mk (ProjectiveSpace.toBase (Fin (n + 1)) (AlgebraicGeometry.Spec ↧R))
+W17ProperCompact.exists_projective_surjective_cover.{u} {R : Type u} [CommRing R] [IsNoetherianRing R]
+  (X : CategoryTheory.Over (AlgebraicGeometry.Spec ↧R)) [AlgebraicGeometry.IsProper X.hom]
+  [AlgebraicGeometry.IsIntegral X.left] :
+  ∃ Y p,
+    AlgebraicGeometry.IsProjective Y.hom ∧
+      AlgebraicGeometry.IsProper (CategoryTheory.Over.Hom.left p) ∧
+        AlgebraicGeometry.Surjective (CategoryTheory.Over.Hom.left p)
+W17ProperCompact.surjective_native_point_map {K : Type} [Field K] [IsAlgClosed K]
+  {X Y : CategoryTheory.Over (AlgebraicGeometry.Spec ↧K)} (f : X ⟶ Y)
+  [AlgebraicGeometry.LocallyOfFiniteType (CategoryTheory.Over.Hom.left f)]
+  [AlgebraicGeometry.Surjective (CategoryTheory.Over.Hom.left f)] : Function.Surjective (AlgebraicGeometry.Point.map f)
+W17ProperCompact.exists_projective_continuous_surjective_point_map (X : CategoryTheory.Over (AlgebraicGeometry.Spec ↧ℂ))
+  [AlgebraicGeometry.IsProper X.hom] [AlgebraicGeometry.IsIntegral X.left] :
+  ∃ Y p,
+    AlgebraicGeometry.IsProjective Y.hom ∧
+      Continuous (AlgebraicGeometry.Point.map p) ∧ Function.Surjective (AlgebraicGeometry.Point.map p)
+W17ProperCompact.compactSpace_complexPoint_of_isIntegral_isProper (X : CategoryTheory.Over (AlgebraicGeometry.Spec ↧ℂ))
+  [AlgebraicGeometry.IsProper X.hom] [AlgebraicGeometry.IsIntegral X.left] :
+  CompactSpace (AlgebraicGeometry.ComplexPoint X)
+W17ProperCompact.compactSpace_complexPoint_abVar (A : PkgI3.AbVar ℂ) : CompactSpace (AlgebraicGeometry.ComplexPoint A.X)
+'W17ProperCompact.chowDatumProj_surjective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'W17ProperCompact.exists_surjective_chowDatumProj' depends on axioms: [propext, Classical.choice, Quot.sound]
+'W17ProperCompact.surjective_over_points' depends on axioms: [propext, Classical.choice, Quot.sound]
+'W17ProperCompact.projSpaceOverIsoTerminal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'W17ProperCompact.projSpaceOverIsoTerminal_hom_comp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'W17ProperCompact.exists_native_projective_chow_cover' depends on axioms: [propext, Classical.choice, Quot.sound]
+'W17ProperCompact.degreeZeroEquiv_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'W17ProperCompact.projSpaceOverIsoNative' depends on axioms: [propext, Classical.choice, Quot.sound]
+'W17ProperCompact.exists_projective_surjective_cover' depends on axioms: [propext, Classical.choice, Quot.sound]
+'W17ProperCompact.surjective_native_point_map' depends on axioms: [propext, Classical.choice, Quot.sound]
+'W17ProperCompact.exists_projective_continuous_surjective_point_map' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'W17ProperCompact.compactSpace_complexPoint_of_isIntegral_isProper' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'W17ProperCompact.compactSpace_complexPoint_abVar' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgebraicGeometry.IsProjective.complexPoint_compactSpace' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgebraicGeometry.ProjectiveSpace.Presentation.complexPoint_compactSpace' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

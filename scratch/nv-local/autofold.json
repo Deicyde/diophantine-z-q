@@ -1,0 +1,38 @@
+{
+  "task": "nv-local",
+  "status": "no fold executed (as sgr-direct: a deep bypass at generation 5 is needed; this task replaces sgr-direct's new GLUE Prop NVLocalInertia by the smaller general commutative-algebra GLUE Prop TameBranchNormal, so the count of that bypass is unchanged: two GLUE rows out, one in)",
+  "reason": "SGRDirect.NVLocal.heckeVertWitness_of_tame (ZInQKernel/Contrib/OneProof/SGRDirectNVLocal.lean) proves HDec.HeckeRestNV.HeckeVertWitness, the single consumer of shimuraIntegralModelRep and quotientP1Coordinate, from the bundle fields r1r2 (as R1R2fp), t5 (as TorsionStructure), qmAutCard, serreRigidity3, alFixedPoints, elkiesX6StarPrinted and one new GLUE Prop, SGRDirect.NVLocal.TameBranchNormal (no project-specific definitions). SGRDirect.NVLocalInertia is proved from it (nvLocalInertia_of_tame, via BranchRegular). HeckeVertWitness is not a top-level field, so autofold.py cannot express the fold.",
+  "bypass": "As scratch/sgr-direct/autofold.json, with the new field tameBranchNormal : SGRDirect.NVLocal.TameBranchNormal instead of nvLocalInertia; in glue4_of_open5 set heckeVertWitness := SGRDirect.NVLocal.heckeVertWitness_of_tame (LeafAdopt.R1R2fp_of_rep r.r1r2) (torsionStructure_ofK5 t.t5) l.qmAutCard l.serreRigidity3 l.alFixedPoints n.tameBranchNormal r.elkiesX6StarPrinted (then-current field names).",
+  "new_leaves": [
+    {
+      "field": "tameBranchNormal",
+      "type": "SGRDirect.NVLocal.TameBranchNormal",
+      "kind": "project glue",
+      "flag": "",
+      "strict": "GLUE",
+      "source": "h-b1 §3 Lemma NV step 3 (geometric half), general form; consequence of Abhyankar's lemma (SGA 1 XIII 5.2-5.3, UNVERIFIED numbers) and Zariski-Nagata purity (SGA 1 X 3.1, UNVERIFIED; proved in the chain in dimension 2, PropTSGlue.purityGlobalDim2); not a printed statement",
+      "doc": "docs/research/nv-local.md §2-4"
+    }
+  ],
+  "module": "ZInQKernel.Contrib.OneProof.SGRDirectNVLocal",
+  "theorem": "SGRDirect.NVLocal.heckeVertWitness_of_tame",
+  "imports": [
+    "ZInQKernel.Contrib.OneProof.SGRDirectNVLocal"
+  ],
+  "proved_in_files": [
+    "SGRDirect.NVLocal.nvLocalInertia_of_tame",
+    "SGRDirect.NVLocal.nvLocalInertia_of_branchRegular",
+    "SGRDirect.NVLocal.branchRegular_of_tame",
+    "SGRDirect.NVLocal.exists_branch",
+    "SGRDirect.NVLocal.eq_one_of_inertia_of_unram",
+    "SGRDirect.NVLocal.eq_one_of_primeOf",
+    "SGRDirect.NVLocal.ramificationIdx_map_localization",
+    "SGRDirect.NVLocal.unram_near",
+    "SGRDirect.NVLocal.heckeVertWitness_of_branchRegular",
+    "SGRDirect.NVLocal.heckeVertWitness_of_tame"
+  ],
+  "removed_fields": [
+    "shimuraIntegralModelRep",
+    "quotientP1Coordinate"
+  ]
+}

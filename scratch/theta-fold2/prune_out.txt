@@ -1,0 +1,24 @@
+TailK:191  [field OpenAddedLeaves4.thetaRatiosAlgebraic]    thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+TailN:230  [assignment thetaRatiosAlgebraic in addedLeaves4_of_open5]    thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
+TailO:2603  [element l.thetaRatiosAlgebraic in openAddedLeaves4_of_Q5 (line edited)]    ⟨l.cmOptimalEmbedding, l.thetaRatiosAlgebraic, l.qmHauptmodul, l.qmClassNumberOne, l.senTwist,
+TailO:2823  [field OpenAddedLeaves6.thetaRatiosAlgebraic]    thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+TailO:2894  [assignment thetaRatiosAlgebraic in addedLeaves4_of_open6]    thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
+TailX:152  [field OpenAddedLeaves7.thetaRatiosAlgebraic]    thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+TailX:242  [assignment thetaRatiosAlgebraic in addedLeaves6_of_open7]    thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
+TailZ13:21  [field OpenAddedLeaves9.thetaRatiosAlgebraic]    thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+TailZ13:44  [assignment thetaRatiosAlgebraic in addedLeaves8_of_open9]    thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
+TailZ17:250  [assignment thetaRatiosAlgebraic in addedLeaves9_of_open10]    thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
+TailZ22:238  [field OpenAddedLeaves12.thetaRatiosAlgebraic]    thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+TailZ23:736  [assignment thetaRatiosAlgebraic in addedLeaves9_of_open14]    thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
+TailZ24:770  [field OpenAddedLeaves13.thetaRatiosAlgebraic]    thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+TailZ24:803  [assignment thetaRatiosAlgebraic in addedLeaves12_of_open13]    thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
+TailZ26:127  [field OpenAddedLeaves14.thetaRatiosAlgebraic]    thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+TailZ26:155  [assignment thetaRatiosAlgebraic in openAddedLeaves13_of_OpenAddedLeaves14]    thetaRatiosAlgebraic := n.thetaRatiosAlgebraic
+TailZ30:15  [field OpenAddedLeaves15.thetaRatiosAlgebraic]    thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+TailZ30:42  [assignment thetaRatiosAlgebraic in openAddedLeaves14_of_OpenAddedLeaves15]    thetaRatiosAlgebraic := n.thetaRatiosAlgebraic
+TailZ31:15  [field OpenAddedLeaves16.thetaRatiosAlgebraic]    thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+TailZ31:39  [assignment thetaRatiosAlgebraic in openAddedLeaves15_of_OpenAddedLeaves16]    thetaRatiosAlgebraic := n.thetaRatiosAlgebraic
+TailZ34:112  [field OpenAddedLeaves17.thetaRatiosAlgebraic]    thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+TailZ34:136  [assignment thetaRatiosAlgebraic in openAddedLeaves16_of_OpenAddedLeaves17]    thetaRatiosAlgebraic := n.thetaRatiosAlgebraic
+TailZ4:127  [field OpenAddedLeaves8.thetaRatiosAlgebraic]    thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+TailZ4:227  [assignment thetaRatiosAlgebraic in addedLeaves7_of_open8]    thetaRatiosAlgebraic := l.thetaRatiosAlgebraic

@@ -1,0 +1,4 @@
+{"name": "abhyankar-fold",
+ "imports": ["ZInQKernel.Contrib.OneProof.Abhyankar"],
+ "discharges": [
+   {"field": "nvLocalInertia", "proof": "_root_.Abhyankar.nvLocalInertia"}]}
