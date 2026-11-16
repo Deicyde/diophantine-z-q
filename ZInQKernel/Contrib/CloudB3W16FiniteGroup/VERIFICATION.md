@@ -67,7 +67,7 @@ Lean 4.35.0, commit `eb6cafb7290e8bd5f2937522d8d804f58f02bafc`;
 Mathlib `56a005855ea17e0b0958f73ec801ae140b0a1679`.
 
 All successful Lean commands serialized through
-`flock -x /home/jackmccarthy/cloud-b3/w16/lake-build.lock`, with
+a shared local build lock, with
 `LEAN_NUM_THREADS=2` and `lean -M 3072`:
 
 ```sh
