@@ -158,7 +158,7 @@ theorem not_isRegularLocalRing_localization_atPrime_dualNumber (K : Type*) [Fiel
   have hf : IsField (Localization.AtPrime (maximalIdeal (DualNumber K))) :=
     isField_of_isRegularLocalRing_of_krullDimLE_zero
       (Localization.AtPrime (maximalIdeal (DualNumber K)))
-  letI := hf.toField
+  letI : Field (Localization.AtPrime (maximalIdeal (DualNumber K))) := hf.toField
   have hz : algebraMap (DualNumber K)
       (Localization.AtPrime (maximalIdeal (DualNumber K))) DualNumber.eps = 0 :=
     (DualNumber.isNilpotent_eps.map (algebraMap (DualNumber K)
