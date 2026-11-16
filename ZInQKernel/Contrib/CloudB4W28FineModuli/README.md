@@ -76,7 +76,7 @@ edited. Only this helper/vendor directory and the new OneProof entry are added.
 
 ## Verification actually run
 
-Heavy compilation ran on a fresh session-owned 32 GiB FaaS node. The authorized
+Heavy compilation ran on a fresh session-owned 32 GiB Linux node. The authorized
 host was used only for its host-local GitHub login, public source/cache downloads
 and source-only authors/reviewers. No credentials were transferred.
 
@@ -98,12 +98,12 @@ All eleven axiom prints contain exactly:
 Actual focused-build command:
 
 ```sh
-python3 /tmp/cloud-b4/w28/direct_build.py \
-  --root /tmp/cloud-b4/w28/current-repo \
-  --out /tmp/cloud-b4/w28/build-current \
-  --reuse-result /tmp/cloud-b4/w28/build-base/RESULT.json \
-  --reuse-lib /tmp/cloud-b4/w28/build-base/lib/lean \
-  --toolchain /tmp/cloud-b4/w28/toolchains/leanprover--lean4---v4.35.0 \
+python3 <REDACTED_WORKDIR>/direct_build.py \
+  --root <REDACTED_WORKDIR>/current-repo \
+  --out <REDACTED_WORKDIR>/build-current \
+  --reuse-result <REDACTED_WORKDIR>/build-base/RESULT.json \
+  --reuse-lib <REDACTED_WORKDIR>/build-base/lib/lean \
+  --toolchain <REDACTED_WORKDIR>/toolchains/leanprover--lean4---v4.35.0 \
   --jobs 2 --max-failures 1 --module-timeout 300 \
   ZInQKernel.Contrib.OneProof.R1fpAbOrderBridges
 ```
@@ -120,9 +120,9 @@ source root and output library, on `checks/ProofCheck.lean` and
 
 ```sh
 LEAN_PATH=<recorded refreshed libraries> \
-  /tmp/cloud-b4/w28/toolchains/leanprover--lean4---v4.35.0/bin/lean \
-  --threads=2 -Ddebug.skipKernelTC=false -R /tmp/cloud-b4/w28/checks \
-  /tmp/cloud-b4/w28/checks/ProofCheck.lean
+  <REDACTED_WORKDIR>/toolchains/leanprover--lean4---v4.35.0/bin/lean \
+  --threads=2 -Ddebug.skipKernelTC=false -R <REDACTED_WORKDIR>/checks \
+  <REDACTED_WORKDIR>/checks/ProofCheck.lean
 # Same command on EntryProofCheck.lean.
 ```
 
@@ -189,7 +189,7 @@ arguments), affine-to-global gluing, all-field point equivalences, and the actua
 
 ## Review and AI assistance
 
-AI-assisted agentcloud source work used three disjoint single-writer lanes for
+AI-assisted source work used three disjoint single-writer lanes for
 maximality, ramification, and cone/reuse analysis. Source-agent model requests
 were `gpt-6.1-sol`; the effective serving identity is not asserted. The parent
 coordinator separately obtained read-only independent mathematical/source
@@ -200,3 +200,7 @@ coordinator independently matched all 28 owned Lean hashes, closed examples,
 Static source review is distinguished from the actual compiler results above.
 No human mathematical acceptance is claimed. No merge, landing, or human ping
 is requested or authorized by this contribution.
+
+## Public evidence sanitization
+
+Public sanitization: private runtime paths and execution-service identifiers are omitted. Command representations use redacted placeholders and are not literal original argv. Mathematical source hashes, toolchain pins, actual result counts, axiom outputs and limitations are unchanged; unsanitized raw originals remain in private evidence. No new-head compilation or CI pass is inferred from this documentation-only change. License text and source attribution remain complete and unchanged. Historical metadata now records a sanitized projection, not byte-exact public raw receipts.

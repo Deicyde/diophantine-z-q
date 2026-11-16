@@ -49,37 +49,37 @@
     {
       "run": "1794824323051629866",
       "command": [
-        "/tmp/cloud-b4/w28/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "<REDACTED_WORKDIR>/toolchains/leanprover--lean4---v4.35.0/bin/lean",
         "--threads=2",
         "-Ddebug.skipKernelTC=false",
         "-R",
-        "/tmp/cloud-b4/w28/checks",
-        "/tmp/cloud-b4/w28/checks/ProofCheck.lean"
+        "<REDACTED_WORKDIR>/checks",
+        "<REDACTED_WORKDIR>/checks/ProofCheck.lean"
       ],
-      "LEAN_PATH": "/tmp/cloud-b4/w28/build-current/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/Cli/.lake/build/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/batteries/.lake/build/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/Qq/.lake/build/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/aesop/.lake/build/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/proofwidgets/.lake/build/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/importGraph/.lake/build/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/plausible/.lake/build/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/mathlib/.lake/build/lib/lean:/tmp/cloud-b4/w28/toolchains/leanprover--lean4---v4.35.0/lib/lean",
+      "LEAN_PATH": "<REDACTED_WORKDIR>/build-current/lib/lean:<REDACTED_WORKDIR>/current-repo/.lake/packages/Cli/.lake/build/lib/lean:<REDACTED_WORKDIR>/current-repo/.lake/packages/batteries/.lake/build/lib/lean:<REDACTED_WORKDIR>/current-repo/.lake/packages/Qq/.lake/build/lib/lean:<REDACTED_WORKDIR>/current-repo/.lake/packages/aesop/.lake/build/lib/lean:<REDACTED_WORKDIR>/current-repo/.lake/packages/proofwidgets/.lake/build/lib/lean:<REDACTED_WORKDIR>/current-repo/.lake/packages/importGraph/.lake/build/lib/lean:<REDACTED_WORKDIR>/current-repo/.lake/packages/LeanSearchClient/.lake/build/lib/lean:<REDACTED_WORKDIR>/current-repo/.lake/packages/plausible/.lake/build/lib/lean:<REDACTED_WORKDIR>/current-repo/.lake/packages/mathlib/.lake/build/lib/lean:<REDACTED_WORKDIR>/toolchains/leanprover--lean4---v4.35.0/lib/lean",
       "source_sha256": "ea07503af759e448fc59aa7b94d3ac3b04a8b3256bbb4aadf674c575475fc158",
       "source_unchanged": true,
       "exit_code": 0,
       "elapsed_seconds": 3.854,
-      "log": "/tmp/cloud-b4/w28/current-check-results/ProofCheck.1794824323051629866.log",
+      "log": "<REDACTED_WORKDIR>/current-check-results/ProofCheck.1794824323051629866.log",
       "log_sha256": "1f22c81d2498f96e120559fef8b05286b322be97b038b4692357694ade7808b1"
     },
     {
       "run": "1794824326977142043",
       "command": [
-        "/tmp/cloud-b4/w28/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "<REDACTED_WORKDIR>/toolchains/leanprover--lean4---v4.35.0/bin/lean",
         "--threads=2",
         "-Ddebug.skipKernelTC=false",
         "-R",
-        "/tmp/cloud-b4/w28/checks",
-        "/tmp/cloud-b4/w28/checks/EntryProofCheck.lean"
+        "<REDACTED_WORKDIR>/checks",
+        "<REDACTED_WORKDIR>/checks/EntryProofCheck.lean"
       ],
-      "LEAN_PATH": "/tmp/cloud-b4/w28/build-current/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/Cli/.lake/build/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/batteries/.lake/build/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/Qq/.lake/build/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/aesop/.lake/build/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/proofwidgets/.lake/build/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/importGraph/.lake/build/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/plausible/.lake/build/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/mathlib/.lake/build/lib/lean:/tmp/cloud-b4/w28/toolchains/leanprover--lean4---v4.35.0/lib/lean",
+      "LEAN_PATH": "<REDACTED_WORKDIR>/build-current/lib/lean:<REDACTED_WORKDIR>/current-repo/.lake/packages/Cli/.lake/build/lib/lean:<REDACTED_WORKDIR>/current-repo/.lake/packages/batteries/.lake/build/lib/lean:<REDACTED_WORKDIR>/current-repo/.lake/packages/Qq/.lake/build/lib/lean:<REDACTED_WORKDIR>/current-repo/.lake/packages/aesop/.lake/build/lib/lean:<REDACTED_WORKDIR>/current-repo/.lake/packages/proofwidgets/.lake/build/lib/lean:<REDACTED_WORKDIR>/current-repo/.lake/packages/importGraph/.lake/build/lib/lean:<REDACTED_WORKDIR>/current-repo/.lake/packages/LeanSearchClient/.lake/build/lib/lean:<REDACTED_WORKDIR>/current-repo/.lake/packages/plausible/.lake/build/lib/lean:<REDACTED_WORKDIR>/current-repo/.lake/packages/mathlib/.lake/build/lib/lean:<REDACTED_WORKDIR>/toolchains/leanprover--lean4---v4.35.0/lib/lean",
       "source_sha256": "420123262126fcd32e44e76877db5db7b3aa6fa430e711b7ceffe7d0c5cec7b1",
       "source_unchanged": true,
       "exit_code": 0,
       "elapsed_seconds": 3.759,
-      "log": "/tmp/cloud-b4/w28/current-check-results/EntryProofCheck.1794824326977142043.log",
+      "log": "<REDACTED_WORKDIR>/current-check-results/EntryProofCheck.1794824326977142043.log",
       "log_sha256": "554de3c958dbdb84de290a310fc7fe10a4a28d1655d02641a0e46c9ffa2c0e57"
     }
   ],
@@ -142,5 +142,12 @@
     "fresh_modules": 3,
     "unchanged_transitive_source_fingerprints_reused": 29,
     "change": "Remove one newly added EOF blank line in the exact predicate-prefix module; statement/body unchanged; recompile predicate, Ramification, entry"
+  },
+  "public_sanitization": {
+    "kind": "public-safe projection",
+    "private_raw_originals_retained": true,
+    "command_paths_are_redacted_placeholders_not_literal_argv": true,
+    "no_new_execution_or_ci_result_claimed": true,
+    "scope": "Documentation only; all Lean source blobs unchanged"
   }
 }
