@@ -124,7 +124,8 @@ private theorem _root_.P2mLowerT.step {A : Type*} [CommRing A] [Algebra k A] (p 
     funext j
     refine Fin.cases ?_ (fun j => ?_) j <;> simp
   rwa [heq] at key
-export _root_.P2mLowerT (step)
+-- Lean 4.35 port: the source alias of the private root lemma `P2mLowerT.step` (P2M's `p2m_export` resolved private
+-- names; native `export` cannot, as the private declaration registers no root namespace). Its one use below is qualified.
 theorem exists_algebraicIndependent_of_ltSeries {A : Type*} [CommRing A] [Algebra k A]
     (l : LTSeries (PrimeSpectrum A))
     (hinj : Function.Injective (algebraMap k (A ⧸ l.last.asIdeal))) :
@@ -146,7 +147,7 @@ theorem exists_algebraicIndependent_of_ltSeries {A : Type*} [CommRing A] [Algebr
       obtain ⟨y, hy⟩ := ih (by omega)
       have hlt : (l ⟨l.length - (i + 1), by omega⟩).asIdeal < (l ⟨l.length - i, by omega⟩).asIdeal :=
         l.strictMono (Fin.mk_lt_mk.mpr (by omega))
-      exact step _ _ hlt y hy
+      exact P2mLowerT.step _ _ hlt y hy
   obtain ⟨y, hy⟩ := claim l.length le_rfl
   exact ⟨y, AlgebraicIndependent.of_comp _ hy⟩
 
