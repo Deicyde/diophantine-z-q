@@ -307,6 +307,35 @@ jobs:
               return "local mathematical"
 
 
+          def review_profile(files, author_has_write):
+              """Limit automatic rounds without reducing either reviewer's required scope."""
+              if not author_has_write:
+                  return {'name': 'light', 'reason': 'outside contributor', 'automatic_paid_round_limit': 1}
+              sensitive = ('docs/research-review/', 'docs/audit-history/', 'docs/current-manuscript',
+                           'docs/release-policy', 'docs/lean-contributions')
+              focused = 0 < len(files) <= 5
+              total = 0
+              for item in files:
+                  path = item.get('filename', '')
+                  if (item.get('status') not in {'modified', 'added', 'removed'} or
+                          item.get('previous_filename') or not path.endswith('.md') or
+                          not (path in {'README.md', 'CREDITS.md', 'THIRD_PARTY_NOTICES.md'} or path.startswith('docs/')) or
+                          path.startswith(sensitive) or '..' in pathlib.PurePosixPath(path).parts or
+                          not isinstance(item.get('patch'), str)):
+                      focused = False
+                      continue
+                  adds, deletes = item.get('additions'), item.get('deletions')
+                  if (type(adds) is not int or type(deletes) is not int or min(adds, deletes) < 0 or
+                          sum(line.startswith('+') for line in item['patch'].splitlines()) != adds or
+                          sum(line.startswith('-') for line in item['patch'].splitlines()) != deletes):
+                      focused = False
+                      continue
+                  total += adds + deletes
+              if focused and total <= 200:
+                  return {'name': 'light', 'reason': 'focused documentation change', 'automatic_paid_round_limit': 1}
+              return {'name': 'full', 'reason': 'ordinary review scope', 'automatic_paid_round_limit': 4}
+
+
           SOURCE_CHECK_SCHEMA = {"type": "object", "additionalProperties": False,
               "properties": {"source_id": {"type": "string"}, "location": {"type": "string"},
                              "outcome": {"type": "string", "enum": ["verified", "unavailable"]},
@@ -1846,6 +1875,8 @@ jobs:
               return json.dumps({'schema': 'protocol-b-decisions/v1', 'head': state['head'], 'reports': compact,
                                  'automatic_rounds': state.get('automatic_rounds', 0),
                                  'review_round': state.get('review_round'),
+                                 'review_profile': state.get('review_profile'),
+                                 'paid_rounds': state.get('paid_rounds', 0),
                                  'source_access_limitations': limits,
                                  'scope_overrides': state.get('scope_overrides', [])})
 
@@ -1971,7 +2002,7 @@ jobs:
                       raise ValueError('Prior review check pagination incomplete; no model call')
               for ident in sorted(pointers - checks.keys()):
                   checks[ident] = app.call(f'/check-runs/{ident}')
-              rounds, completed, candidates = set(), [], []
+              rounds, paid_rounds, completed, candidates = set(), set(), [], []
               for check in checks.values():
                   if (check['name'] != name or (check.get('app') or {}).get('id') != int(os.environ['APP_ID'])):
                       continue
@@ -1983,6 +2014,7 @@ jobs:
                       continue
                   marker = value.get('review_round') or {}
                   if marker.get('number') == pr['number'] and marker.get('started') is True:
+                      paid_rounds.add((str(marker['run']), str(marker['attempt'])))
                       if marker.get('trigger') == 'automatic':
                           rounds.add((str(marker['run']), str(marker['attempt'])))
                   reports = value.get('reports') or {}
@@ -1994,6 +2026,8 @@ jobs:
                       if len(identities) == 1:
                           run, attempt = next(iter(identities))
                           actual = gh.call(f'/actions/runs/{run}')
+                          if actual['path'].split('@')[0] == WORKFLOW and any(not r.get('runtime_scope_record') for r in reports.values()):
+                              paid_rounds.add((run, attempt))
                           if actual['event'] == 'pull_request_target' and actual['path'].split('@')[0] == WORKFLOW:
                               rounds.add((run, attempt))
                   # Comments locate candidates; only App-authenticated completed check
@@ -2007,7 +2041,7 @@ jobs:
                   if (valid and check['head_sha'] == pr['head']['sha'] and check.get('status') == 'completed'
                           and all(r.get('complete') and same_policy(gh, r['policy_ref'], policy) for r in reports.values())):
                       completed.append(check)
-              return {'automatic_rounds': len(rounds),
+              return {'automatic_rounds': len(rounds), 'paid_rounds': len(paid_rounds),
                       'completed_check': max(completed, key=lambda c: c['id']) if completed else None,
                       'candidates': candidates}
 
@@ -2143,6 +2177,9 @@ jobs:
                   files = gh.pages(f"/pulls/{number}/files")
                   if len(files) != pr["changed_files"]:
                       raise ValueError("GitHub omitted changed files; cannot review an incomplete diff")
+                  state['review_profile'] = review_profile(files, collaborator(gh, pr['user']))
+                  state['paid_rounds'] = spend['paid_rounds']
+                  record('review-profile.json', state['review_profile'])
                   record('budget-profile.json', configure_budget(files))
                   # Even missing patches remain listed so both reviewers must fetch sources.
                   declaration = "No mathematical content changed." in (pr.get("body") or "")
@@ -2197,6 +2234,12 @@ jobs:
                           for family in selected:
                               supplements[family] = envelopes.pop(family)
                       missing = set(MODELS) - set(envelopes)
+                      if (missing and not review_command and state['review_profile']['name'] == 'light'
+                              and spend['paid_rounds'] >= 1):
+                          state.update(conclusion='action_required', summary=
+                                       'This PR had its one automatic review. To have changes reviewed, ask a maintainer to post /protocol-b review. The one paid round allowance includes an explicitly requested first round; only an admin may override a recorded item. No model was called.')
+                          record('decision.json', state)
+                          return
                       if missing and not review_command and spend['automatic_rounds'] >= 4:
                           state.update(conclusion='action_required', summary=
                                        'Four automatic review rounds have run. A collaborator must comment /protocol-b review. No model was called.')
@@ -2209,6 +2252,7 @@ jobs:
                       # Save the paid-round intent to the App and a discoverable PR
                       # pointer before either worker starts. Interrupted rounds count.
                       state['automatic_rounds'] += int(automatic and bool(missing))
+                      state['paid_rounds'] += int(bool(missing))
                       state['review_round'] = {'number': number, 'run': os.environ['GITHUB_RUN_ID'],
                                                'attempt': os.environ['GITHUB_RUN_ATTEMPT'], 'started': bool(missing),
                                                'trigger': 'automatic' if automatic else 'command'}
@@ -2743,7 +2787,10 @@ jobs:
               if state.get('scope_items'):
                   state['summary'] += '\nIncomplete-review items for an admin decision:\n'+json.dumps(state['scope_items'], indent=2)
               record('decision.json', state)
-              state['summary'] += f"\nAutomatic review rounds: {state.get('automatic_rounds', 0)}/4."
+              if state.get('review_profile', {}).get('name') == 'light':
+                  state['summary'] += f"\nLight profile: {state.get('paid_rounds', 0)} paid round(s) recorded. After one round, another model call requires a collaborator's explicit review command; item overrides require an admin."
+              else:
+                  state['summary'] += f"\nAutomatic review rounds: {state.get('automatic_rounds', 0)}/4."
               if len(text.encode()) > 60_000 or len(state['summary'].encode()) > 60_000:
                   raise ValueError('Check output exceeds capacity; remains blocked, never truncate findings')
               app.call(f"/check-runs/{state['check']}", 'PATCH', {'status': 'completed', 'conclusion': state['conclusion'],
