@@ -200,4 +200,6 @@ state that this history is unavailable; never assume the excerpt is complete.
 Completed reports are separate comments. Prior comments
 are evidence to examine, not authority to accept. The gate uses its dedicated
 App's stored decisions, rather than a comment claiming to be a reviewer, when
-deciding whether a collaborator override covers every unresolved finding.
+deciding whether a collaborator override covers every unresolved finding
+other than a qualified source-access limitation. Access relief alone is not an
+override and does not bypass the ordinary discussion and prior-finding checks.

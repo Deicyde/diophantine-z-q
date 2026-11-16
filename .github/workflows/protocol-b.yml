@@ -961,8 +961,8 @@ jobs:
               return discussion, prior, overrides, latest
 
 
-          def overridden_decision(latest, overrides, head):
-              """A collaborator, not a reviewer model, decides a covered deadlock."""
+          def override_findings(latest, head):
+              """Validate the trusted reports before classifying their findings."""
               if set(latest) != set(MODELS):
                   raise ValueError("Override needs complete reports from both approved reviewers on this head")
               unresolved = set()
@@ -979,11 +979,17 @@ jobs:
                   if value['decision'] != 'accept' and not here:
                       raise ValueError("Reviewer rejected without scoped findings; request a complete report")
                   unresolved.update(here)
+              return unresolved
+
+
+          def overridden_decision(latest, overrides, head):
+              """A collaborator, not a reviewer model, decides a covered deadlock."""
+              unresolved = override_findings(latest, head)
               relieved = {item['finding'] for item in qualified_access_findings(latest, include_overridden=True)}
               missing = unresolved - relieved - set(overrides)
               if missing:
                   raise ValueError("Uncovered findings: " + ", ".join(sorted(missing)))
-              if not unresolved:
+              if not unresolved - relieved:
                   raise ValueError("No deadlock needs overriding; request an ordinary review")
               return {key: overrides[key] for key in sorted(unresolved - relieved)}
 
@@ -1642,12 +1648,12 @@ jobs:
                               raise ValueError('Override reports used a different review policy')
                           if effective_head(envelope) != pr['head']['sha'] and not reusable_on_rebase(gh, pr, files, envelope):
                               raise ValueError('Override reports lack a valid current rebase binding')
-                      applied = overridden_decision(envelopes, overrides, pr['head']['sha'])
-                      conclusion = 'success'
+                      override_findings(envelopes, pr['head']['sha'])
                       limits = qualified_access_findings(envelopes, include_overridden=True)
                       state['source_access_limitations'] = limits
-                      summary = ('Accepted by collaborator override, not by unanimous model acceptance. Affected claims are NOT outside reviewed.\n' + json.dumps(applied, indent=2)
-                                 if applied else 'Review requirement met by peer verification of source-access limitations; no override was needed.')
+                      applied = overridden_decision(envelopes, overrides, pr['head']['sha'])
+                      conclusion = 'success'
+                      summary = 'Accepted by collaborator override, not by unanimous model acceptance. Affected claims are NOT outside reviewed.\n' + json.dumps(applied, indent=2)
                       if limits:
                           summary += '\nNonblocking source-access limitations:\n' + json.dumps(limits, indent=2)
                       state['overrides'] = applied
