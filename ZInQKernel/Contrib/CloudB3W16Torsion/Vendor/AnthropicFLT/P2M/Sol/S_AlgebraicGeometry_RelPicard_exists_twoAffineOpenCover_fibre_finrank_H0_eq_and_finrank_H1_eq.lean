@@ -20,18 +20,21 @@ import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
 set_option backward.isDefEq.respectTransparency false
 
+-- register P2M local namespaces opened before declaration (p2m_open semantics)
+namespace P2MW.S_AlgebraicGeometry_RelPicard_exists_twoAffineOpenCover_fibre_finrank_H0_eq_and_finrank_H1_eq.AlgebraicGeometry end P2MW.S_AlgebraicGeometry_RelPicard_exists_twoAffineOpenCover_fibre_finrank_H0_eq_and_finrank_H1_eq.AlgebraicGeometry
+namespace P2MW.S_AlgebraicGeometry_RelPicard_exists_twoAffineOpenCover_fibre_finrank_H0_eq_and_finrank_H1_eq.AlgebraicGeometry.RelPicard end P2MW.S_AlgebraicGeometry_RelPicard_exists_twoAffineOpenCover_fibre_finrank_H0_eq_and_finrank_H1_eq.AlgebraicGeometry.RelPicard
 namespace P2MW.S_AlgebraicGeometry_RelPicard_exists_twoAffineOpenCover_fibre_finrank_H0_eq_and_finrank_H1_eq
 
 set_option autoImplicit false
 
 universe u
-open CategoryTheory
-open CategoryTheory.Limits
-open AlgebraicGeometry
--- Source-local namespace open deferred until its declaration.
-open AlgebraicGeometry.RelPicard
-open P2MW.S_AlgebraicGeometry_RelPicard_exists_twoAffineOpenCover_fibre_finrank_H0_eq_and_finrank_H1_eq.AlgebraicGeometry.RelPicard
-open NeronModelInfra
+open _root_.CategoryTheory
+open _root_.CategoryTheory.Limits
+open _root_.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_RelPicard_exists_twoAffineOpenCover_fibre_finrank_H0_eq_and_finrank_H1_eq.AlgebraicGeometry  -- restored P2M scope (namespace registered above)
+open _root_.AlgebraicGeometry.RelPicard
+open _root_.P2MW.S_AlgebraicGeometry_RelPicard_exists_twoAffineOpenCover_fibre_finrank_H0_eq_and_finrank_H1_eq.AlgebraicGeometry.RelPicard
+open _root_.NeronModelInfra
 
 namespace AlgebraicGeometry
 open _root_.P2MW.S_AlgebraicGeometry_RelPicard_exists_twoAffineOpenCover_fibre_finrank_H0_eq_and_finrank_H1_eq.AlgebraicGeometry
@@ -39,8 +42,8 @@ export _root_.AlgebraicGeometry (Surjective Scheme.Modules.pullback Spec Scheme 
 namespace RelPicard
 export _root_.AlgebraicGeometry.RelPicard (fibreAt fibreModule)
 namespace ChiExt
-open AlgebraicGeometry.RelPicard
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.RelPicard
+open _root_.AlgebraicGeometry
 
 open TensorProduct
 

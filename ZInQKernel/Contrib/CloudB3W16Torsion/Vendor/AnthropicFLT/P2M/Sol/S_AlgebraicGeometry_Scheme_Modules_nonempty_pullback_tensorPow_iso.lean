@@ -25,7 +25,13 @@ open AlgebraicGeometry
 -- Source-local namespace open deferred until its declaration.
 open CategoryTheory.MonoidalCategory
 
-namespace AlgebraicGeometry p2m_export "AlgebraicGeometry" "Scheme.Modules.pullback Scheme Scheme.Modules Scheme.Modules.pullbackTensorObjIso Scheme.Modules.pullbackTensorUnitObjIso" namespace Scheme p2m_export "AlgebraicGeometry.Scheme" "Modules.pullback Modules Modules.pullbackTensorObjIso Modules.pullbackTensorUnitObjIso" namespace Modules p2m_export "AlgebraicGeometry.Scheme.Modules" "pullback tensorPow pullbackTensorObjIso pullbackTensorUnitObjIso" end AlgebraicGeometry.Scheme.Modules
+namespace AlgebraicGeometry
+export _root_.AlgebraicGeometry (Scheme.Modules.pullback Scheme Scheme.Modules Scheme.Modules.pullbackTensorObjIso Scheme.Modules.pullbackTensorUnitObjIso)
+namespace Scheme
+export _root_.AlgebraicGeometry.Scheme (Modules.pullback Modules Modules.pullbackTensorObjIso Modules.pullbackTensorUnitObjIso)
+namespace Modules
+export _root_.AlgebraicGeometry.Scheme.Modules (pullback tensorPow pullbackTensorObjIso pullbackTensorUnitObjIso)
+end AlgebraicGeometry.Scheme.Modules
 open scoped AlgebraicGeometry AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.Modules in
 noncomputable def AlgebraicGeometry.Scheme.Modules.pullbackTensorPowIso
     {X Y : Scheme.{u}} (f : X ⟶ Y) (L : Y.Modules) :

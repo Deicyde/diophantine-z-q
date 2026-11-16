@@ -26,7 +26,10 @@ open CategoryTheory.Limits
 open AlgebraicGeometry
 -- Source-local namespace open deferred until its declaration.
 
-namespace AlgebraicGeometry p2m_export "AlgebraicGeometry" "SmoothOfRelativeDimension pointOfClosedPoint LocallyOfFiniteType Spec Scheme LocallyOfFiniteType.jacobsonSpace pointOfClosedPoint_comp IsSeparated RelEffCartierDiv mapOnProdOver RelEffCartierDiv.pullbackAlong_comp prodKerGraph RelEffCartierDiv.exists_split prodKerGraph_comap_mapOnProdOver" namespace SumPtsAux end AlgebraicGeometry.SumPtsAux
+namespace AlgebraicGeometry
+export _root_.AlgebraicGeometry (SmoothOfRelativeDimension pointOfClosedPoint LocallyOfFiniteType Spec Scheme LocallyOfFiniteType.jacobsonSpace pointOfClosedPoint_comp IsSeparated RelEffCartierDiv mapOnProdOver RelEffCartierDiv.pullbackAlong_comp prodKerGraph RelEffCartierDiv.exists_split prodKerGraph_comap_mapOnProdOver)
+namespace SumPtsAux
+end AlgebraicGeometry.SumPtsAux
 open scoped AlgebraicGeometry in
 theorem AlgebraicGeometry.SumPtsAux.exists_comp_eq_id_of_isAlgClosed
     {K : Type u} [Field K] [IsAlgClosed K] {X : Scheme.{u}} (f : X ⟶ Spec (CommRingCat.of K))
