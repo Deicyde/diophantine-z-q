@@ -1,0 +1,5 @@
+import ZInQKernel.Contrib.OneProof.RegularSmoothPerfect
+#print axioms ZInQ.Contrib.SmoothRegular.regularSmoothPerfect
+#print axioms ZInQ.Contrib.SmoothRegular.isRegularLocalRing_of_smooth
+#print axioms ZInQ.Contrib.SmoothRegular.smooth_iff_nonsingularAfter_algebraicClosure
+#print axioms ZInQ.Contrib.SmoothRegular.exists_abVar_iff_nonsingularAfter
