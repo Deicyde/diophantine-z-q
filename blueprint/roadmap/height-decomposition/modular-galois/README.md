@@ -1,0 +1,23 @@
+---
+article_id: af_31b1488b551276bc318db774
+---
+
+# Galois representations of modular forms
+
+Fix embeddings $\iota_{\mathbb C}:\overline{\mathbb Q}\to\mathbb C$ and
+$\iota_\ell:\overline{\mathbb Q}\to\overline{\mathbb Q}_\ell$. A continuous representation
+$\rho:G_{\mathbb Q}\to\mathrm{GL}_2(\overline{\mathbb Q}_\ell)$ is *attached* to a normalized
+eigenform $f$ of level $N$ when, at every prime $p\nmid N\ell$, it is unramified and the trace of an
+arithmetic Frobenius at $p$ is $\iota_\ell\iota_{\mathbb C}^{-1}(a_p(f))$. These statements give the
+representations attached to eigenforms of weight $k\ge2$ (Deligne) and of weight $1$
+(Deligne–Serre), their Hodge–Tate weights (Kato), their conductors (Carayol), and Shimura's abelian
+varieties attached to newforms of weight $2$.
+
+Of these five statements, two are published statements, two are consequences of published theorems
+and one combines several published theorems; none is proved here.
+
+- [Hodge–Tate weights of the representation of a newform](kato-hodge-tate-weights.md)
+- [The Deligne–Serre theorem](deligne-serre.md)
+- [Carayol's theorem on the conductor](carayol-conductor.md)
+- [Shimura's abelian varieties attached to newforms](shimura-abelian-varieties.md)
+- [Deligne's Galois representations of eigenforms](deligne-representations.md)
