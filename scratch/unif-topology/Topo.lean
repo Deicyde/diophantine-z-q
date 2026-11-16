@@ -235,6 +235,60 @@ theorem induced_classicalTopology_eq {U : X.left.Opens} (hU : IsAffineOpen U) {k
       (continuous_pi fun i => continuous_xevalAt_restrict U (f i))
   · exact continuous_iff_le_induced.mp (continuous_val_coord hU f hf)
 
+/-! ## `U(ℂ) → ℂ^k` is injective: `U(ℂ)` is a subspace of `ℂ^k` -/
+
+instance : IsAffine (PkgI3.AbVar.ptObj (K := ℂ) ℂ).left :=
+  inferInstanceAs (IsAffine (Spec (CommRingCat.of ℂ)))
+
+/-- A `ℂ`-point in an affine open `U` is determined by its ring map `Γ(X, U) → Γ(Spec ℂ, ⊤)`. -/
+theorem eq_of_appLE_eq {U : X.left.Opens} (hU : IsAffineOpen U) {P Q : CPt X}
+    (hP : ⊤ ≤ P.left ⁻¹ᵁ U) (hQ : ⊤ ≤ Q.left ⁻¹ᵁ U)
+    (h : P.left.appLE U ⊤ hP = Q.left.appLE U ⊤ hQ) : P = Q := by
+  have eP := IsAffineOpen.SpecMap_appLE_fromSpec P.left hU (isAffineOpen_top _) hP
+  have eQ := IsAffineOpen.SpecMap_appLE_fromSpec Q.left hU (isAffineOpen_top _) hQ
+  rw [h] at eP
+  have e : (isAffineOpen_top _).fromSpec ≫ P.left = (isAffineOpen_top _).fromSpec ≫ Q.left :=
+    eP.symm.trans eQ
+  rw [IsAffineOpen.fromSpec_top] at e
+  apply Over.OverMorphism.ext
+  exact (cancel_epi _).mp e
+
+/-- **`U(ℂ) → ℂ^k` is injective** for `U` affine and `f` generating `Γ(X, U)`. -/
+theorem coord_injective {U : X.left.Opens} (hU : IsAffineOpen U) {k : ℕ}
+    (f : Fin k → Γ(X.left, U)) (hf : Generates U f) : Function.Injective (coord f) := by
+  intro P Q hPQ
+  have hev : evP P.1 U P.2 = evP Q.1 U Q.2 := by
+    ext y
+    obtain ⟨p, rfl⟩ := hf y
+    simp only [MvPolynomial.coe_eval₂Hom]
+    rw [evP_eval₂, evP_eval₂]
+    have e1 : (fun i => evP P.1 U P.2 (f i)) = coord f P :=
+      funext fun i => by rw [coord, xevalAt_eq_evP P.2]
+    have e2 : (fun i => evP Q.1 U Q.2 (f i)) = coord f Q :=
+      funext fun i => by rw [coord, xevalAt_eq_evP Q.2]
+    rw [e1, e2, hPQ]
+  have e : ∀ z : Γ(Spec (CommRingCat.of ℂ), ⊤), (Scheme.ΓSpecIso (CommRingCat.of ℂ)).inv.hom
+      ((Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom.hom z) = z := fun z => by
+    change ((Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom ≫ (Scheme.ΓSpecIso _).inv).hom z = z
+    rw [Iso.hom_inv_id]; rfl
+  refine Subtype.ext (eq_of_appLE_eq hU P.2 Q.2 (CommRingCat.hom_ext (RingHom.ext fun y => ?_)))
+  have h1 : (P.1.left.appLE U ⊤ P.2).hom y =
+      (Scheme.ΓSpecIso (CommRingCat.of ℂ)).inv.hom (evP P.1 U P.2 y) := (e _).symm
+  have h2 : (Q.1.left.appLE U ⊤ Q.2).hom y =
+      (Scheme.ΓSpecIso (CommRingCat.of ℂ)).inv.hom (evP Q.1 U Q.2 y) := (e _).symm
+  refine h1.trans ?_
+  rw [hev]
+  exact h2.symm
+
+/-- **Affine pieces, embedding form.** For `U` affine and `f₁, …, f_k` generating `Γ(X, U)`, the map
+`U(ℂ) → ℂ^k` is a topological embedding when `U(ℂ) ⊂ X(ℂ)` carries the classical topology: `U(ℂ)` is
+homeomorphic to its image with the subspace topology of `ℂ^k`. -/
+theorem isEmbedding_coord {U : X.left.Opens} (hU : IsAffineOpen U) {k : ℕ}
+    (f : Fin k → Γ(X.left, U)) (hf : Generates U f) :
+    @Topology.IsEmbedding _ _ ((classicalTopology X).induced Subtype.val) _ (coord f) :=
+  letI : TopologicalSpace (UPt X U) := (classicalTopology X).induced Subtype.val
+  ⟨⟨induced_classicalTopology_eq hU f hf⟩, coord_injective hU f hf⟩
+
 /-! ## Gluing along an affine cover -/
 
 /-- The topology on `X(ℂ)` glued from affine charts: `S` is open iff for every `j`, `S ∩ U_j(ℂ)` is
@@ -397,4 +451,5 @@ end UnifTopology
 
 #print axioms UnifTopology.classicalTopology_eq_analyticTopology
 #print axioms UnifTopology.classicalTopology_eq_gluedTopology
+#print axioms UnifTopology.isEmbedding_coord
 #print axioms UnifTopology.uniformizationLeafAll_of_analytic
