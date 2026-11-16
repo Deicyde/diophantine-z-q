@@ -1,0 +1,31 @@
+D= -115 n= 109 lean_def=-1 cohen=-1  J(n||D|)=-1
+D=   65 n= 207 lean_def=-1 cohen=-1  J(n||D|)=-1
+D=  157 n= 172 lean_def=-1 cohen=-1  J(n||D|)=-1
+D=   12 n= 331 lean_def=-1 cohen=-1
+D=  -59 n= 294 lean_def=-1 cohen=-1  J(n||D|)=-1
+D= -195 n= 259 lean_def= 1 cohen= 1  J(n||D|)= 1
+D= -119 n= 352 lean_def=-1 cohen=-1  J(n||D|)=-1
+D= -199 n= 389 lean_def=-1 cohen=-1  J(n||D|)=-1
+D=   17 n= 257 lean_def= 1 cohen= 1  J(n||D|)= 1
+D=   61 n= 294 lean_def=-1 cohen=-1  J(n||D|)=-1
+D=  -47 n= 257 lean_def=-1 cohen=-1  J(n||D|)=-1
+D=  193 n= 125 lean_def=-1 cohen=-1  J(n||D|)=-1
+D=   37 n= 266 lean_def= 1 cohen= 1  J(n||D|)= 1
+D=  -19 n= 287 lean_def=-1 cohen=-1  J(n||D|)=-1
+D=  -51 n= 285 lean_def= 0 cohen= 0  J(n||D|)= 0
+D=  -91 n= 361 lean_def= 1 cohen= 1  J(n||D|)= 1
+D= -184 n= 114 lean_def= 0 cohen= 0
+D=   40 n= 222 lean_def= 0 cohen= 0
+D=  -31 n= 234 lean_def=-1 cohen=-1  J(n||D|)=-1
+D=   69 n=  62 lean_def=-1 cohen=-1  J(n||D|)=-1
+D=  133 n= 238 lean_def= 0 cohen= 0  J(n||D|)= 0
+D=  173 n= 104 lean_def=-1 cohen=-1  J(n||D|)=-1
+D= -120 n= 116 lean_def= 0 cohen= 0
+D=  141 n= 296 lean_def=-1 cohen=-1  J(n||D|)=-1
+D= -199 n=   3 lean_def=-1 cohen=-1  J(n||D|)=-1
+D=  193 n= 109 lean_def= 1 cohen= 1  J(n||D|)= 1
+D=  -35 n= 248 lean_def= 1 cohen= 1  J(n||D|)= 1
+D=   97 n=  80 lean_def=-1 cohen=-1  J(n||D|)=-1
+D= -119 n= 371 lean_def= 0 cohen= 0  J(n||D|)= 0
+D= -139 n= 127 lean_def= 1 cohen= 1  J(n||D|)= 1
+mismatches: 0

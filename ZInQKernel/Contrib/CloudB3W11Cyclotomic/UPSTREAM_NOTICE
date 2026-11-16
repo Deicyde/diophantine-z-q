@@ -1,0 +1,59 @@
+UPSTREAM NOTICE — ZInQKernel/Contrib/CloudB3W11Cyclotomic/
+=========================================================
+
+Task cloud-b3/w11 (author D), 2026-11-16. The modules in this directory carry material
+ported from a third-party work under the Apache License, Version 2.0.
+
+Upstream work
+-------------
+Fermat's Last Theorem in Lean 4
+Copyright 2026 Anthropic, PBC
+https://github.com/anthropics/fermats-last-theorem, commit
+6e837e75355538c7f80bab5b956861e86c4eacc2
+Released under the Apache License, Version 2.0.
+
+The upstream Lean files are published byte-for-byte without attribution headers; the upstream
+`NOTICE` and `ATTRIBUTION.md` are where its per-file notices are reproduced, and they record
+that parts of that repository are themselves derived from the Imperial College London FLT
+project, from flt-regular and from Mathlib, each under the Apache License, Version 2.0. Copies
+of the upstream `LICENSE`, `NOTICE.upstream` and `ATTRIBUTION.upstream.md` are already carried
+by this repository at `ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/`, and the
+same `LICENSE`/`UPSTREAM_NOTICE`/`UPSTREAM_ATTRIBUTION.md` at
+`ZInQKernel/Contrib/CloudB3W11TateTrace/`. Nothing here relicenses that material.
+
+Upstream files ported in this directory
+---------------------------------------
+* `Definitions/Def_PadicAlgCl_CyclotomicTower.lean`
+* `Theorems/Thm_PadicAlgCl_finrank_cyclotomicTower_and_pow_mem_fixingSubgroup.lean`
+* `P2M/Sol/S_PadicAlgCl_finrank_cyclotomicTower_and_pow_mem_fixingSubgroup.lean`
+
+  -> `TowerDefinition.lean`, `TowerDegree.lean`.
+
+  The upstream names `PadicAlgCl.cyclotomicTower`,
+  `PadicAlgCl.mem_cyclotomicTower_of_pow_eq_one`,
+  `PadicAlgCl.finrank_cyclotomicTower`,
+  `PadicAlgCl.pow_mem_and_not_mem_fixingSubgroup` and
+  `PadicAlgCl.finrank_cyclotomicTower_and_pow_mem_fixingSubgroup` are kept, with the same
+  statements.
+
+Changes made in the port
+------------------------
+* the upstream `local notation` for the algebraic closure and its automorphism group is
+  removed and the types are written out;
+* the upstream `p2m_export` commands and the `P2M.Util` import are dropped: this repository
+  admits no code that runs at build time (no `#eval`, `run_cmd`, `initialize`, new `syntax`,
+  `notation`, macros or elaborators);
+* the upstream `private`/`_root_.CYT` two-layer naming is flattened into one namespace;
+* the upstream private lemmas `isEisensteinAt_padicInt` and `irreducible_cyclotomic`, which
+  derive `Irreducible (cyclotomic (p ^ n) ℚ_p)` by Eisenstein at `p` after `X ↦ X + 1`, are
+  not reproduced: this repository already carries that theorem as Tau Ceti's
+  `TauCeti.irreducible_cyclotomic_prime_pow_ratPadic`
+  (`ZInQKernel/Contrib/TauCeti/NumberTheory/Cyclotomic/Irreducible.lean`; Tau Ceti,
+  https://github.com/TauCetiProject/TauCeti commit 5a01f5fe3621, Apache-2.0, with its own
+  notice preserved in that file);
+* the upstream `IsSepClosedOfCharZero` route to a primitive `p^n`-th root of unity is replaced
+  by Mathlib's `HasEnoughRootsOfUnity`;
+* the proofs are adjusted from Lean 4.33 to Lean 4.35.0 / Mathlib 56a00585.
+
+`InfiniteImage.lean` is original to this task: the upstream work contains no statement of it.
+It uses the repository's own `ZInQ.Contrib.G9.PkgI4.cyc`, `cycPow` and `cpAct`.

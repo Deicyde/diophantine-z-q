@@ -1,0 +1,54 @@
+/-
+Adapted from AxiomMath/Stacks c496df0d9beea9deaeabcea8492605f9a0a2313b.
+Source: StacksFrontier/CategoryTheory/Sites/AbelianSheafificationExistence.lean
+Source SHA256: b21c8cb5f299411e305416657b9eb341ec140bd2d1270f89dd578111953bfc1e
+Apache-2.0; see LICENSE and NOTICE.md.
+Changes: isolated vendor namespaces and import paths; citation attributes removed.
+-/
+import Mathlib.Algebra.Category.Grp.Colimits
+import Mathlib.Algebra.Category.Grp.FilteredColimits
+import Mathlib.Algebra.Category.Grp.Limits
+import Mathlib.CategoryTheory.Sites.Equivalence
+import Mathlib.CategoryTheory.Sites.LeftExact
+
+namespace ZInQ.Contrib.CloudB3W16Cartier.Vendor
+open _root_.CategoryTheory
+
+
+/-!
+# Existence of sheafification for presheaves of abelian groups
+
+Presheaves of abelian groups with sections in `Type w` on a site admit a left exact
+sheafification as soon as the site is essentially small at `w`; no inequality between `w` and the
+universes of the objects and morphisms of the site is required.
+
+## Main results
+
+* `CategoryTheory.GrothendieckTopology.hasSheafify_addCommGrpCat_of_essentiallySmall`:
+  abelian presheaves with sections in `w` on a site essentially small at `w` can be sheafified.
+
+## References
+
+* [Stacks Project, Tag 00WI](https://stacks.math.columbia.edu/tag/00WI)
+-/
+
+section
+
+open CategoryTheory CategoryTheory.Limits
+
+namespace CategoryTheory.GrothendieckTopology
+
+/-- Presheaves of abelian groups with sections in `Type w` on a site which is essentially small
+at `w` admit a sheafification, and it is left exact. Neither the universe of the objects of the
+site nor that of its morphisms need be contained in `w`. -/
+theorem hasSheafify_addCommGrpCat_of_essentiallySmall.{w, v, u} {C : Type u} [Category.{v} C]
+    (J : GrothendieckTopology C) [EssentiallySmall.{w} C] :
+    HasSheafify J AddCommGrpCat.{w} :=
+  have : HasSheafify ((equivSmallModel.{w} C).inverse.inducedTopology J) AddCommGrpCat.{w} :=
+    inferInstance
+  hasSheafifyEssentiallySmallSite.{v, w, u, w + 1, w} J _
+
+end CategoryTheory.GrothendieckTopology
+
+end
+end ZInQ.Contrib.CloudB3W16Cartier.Vendor

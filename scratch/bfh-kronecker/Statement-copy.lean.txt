@@ -1,0 +1,101 @@
+-- Verbatim copies (task bfh-kronecker, base 516c2abe) of the statements involved. Not compiled from here.
+
+-- ZInQKernel/Contrib/GZDecomp/Decomp.lean
+def IsEntireCont (a : ℕ → ℂ) (σ : ℝ) (G : ℂ → ℂ) : Prop :=
+  Differentiable ℂ G ∧ ∀ s : ℂ, σ < s.re → G s = LSeries a s
+
+noncomputable def chiD (D : ℤ) (n : ℕ) : ℂ := (jacobiSym (n : ℤ) D.natAbs : ℂ)
+
+def IsOddImagFundDisc (D : ℤ) : Prop := D < 0 ∧ D % 4 = 1 ∧ Squarefree D
+
+def HeegnerHyp (N : ℕ) (D : ℤ) : Prop :=
+  ∀ p : ℕ, p.Prime → p ∣ N → jacobiSym (p : ℤ) D.natAbs = 1
+
+noncomputable def twistCoeff {N : ℕ} [NeZero N] {k : ℤ} (f : Newform N k) (D : ℤ) (n : ℕ) : ℂ :=
+  coeff f n * chiD D n
+
+def FHNonvanishing : Prop :=
+  ∀ (N : ℕ) [NeZero N] (f : Newform N 2) (hχ : f.χ = 1), rootNumber f hχ = -1 →
+    ∀ B : ℕ, ∃ D : ℤ, D < -(B : ℤ) ∧ IsOddImagFundDisc D ∧ HeegnerHyp N D ∧
+      ∀ G : ℂ → ℂ, IsEntireCont (twistCoeff f D) 2 G → G 1 ≠ 0
+
+-- ZInQKernel/Contrib/OneProof/FHPrinted/LocalNorm.lean
+def IsLocalNorm (K : Type*) [Field K] (d : ℤ) (x : K) : Prop :=
+  ∃ y z : K, x = y ^ 2 - d * z ^ 2
+
+noncomputable def charAtPrime (d : ℤ) (p : ℕ) : ℤ := by
+  classical
+  exact if hp : p.Prime then
+    haveI := Fact.mk hp
+    if (∀ u : ℤ_[p], IsUnit u → IsLocalNorm ℚ_[p] d (u : ℚ_[p])) then
+      (if IsLocalNorm ℚ_[p] d (p : ℚ_[p]) then 1 else -1)
+    else 0
+  else 0
+
+noncomputable def idelicChar (d : ℤ) (n : ℕ) : ℤ :=
+  n.factorization.prod fun p k => charAtPrime d p ^ k
+
+-- ZInQKernel/Contrib/OneProof/FriedbergHoffsteinBFE.lean
+noncomputable def printedTwistCoeff {N : ℕ} [NeZero N] (f : Newform N 2) (d : ℤ) (n : ℕ) : ℂ :=
+  coeff f n * (idelicChar d n : ℂ)
+
+def CentralValueNeZero {N : ℕ} [NeZero N] (f : Newform N 2) (d : ℤ) : Prop :=
+  ∀ G : ℂ → ℂ, IsEntireCont (printedTwistCoeff f d) 2 G → G 1 ≠ 0
+
+-- ZInQKernel/Contrib/OneProof/BFHPrinted/Split.lean
+def SplitsIn (K : Type*) [Field K] [NumberField K] (p : ℕ) : Prop :=
+  ∃ P ∈ (Ideal.span {(p : ℤ)}).primesOver (𝓞 K),
+    ∃ Q ∈ (Ideal.span {(p : ℤ)}).primesOver (𝓞 K), P ≠ Q
+
+-- ZInQKernel/Contrib/OneProof/BFHNonvanishing.lean (bfh-leaf)
+def IsFESign {N : ℕ} [NeZero N] (f : Newform N 2) (ε : ℤ) : Prop :=
+  ∃ G : ℂ → ℂ, IsEntireCont (coeff f) 2 G ∧ ∀ s : ℂ, 0 < s.re → s.re < 2 →
+    ZInQ.Literature.completedL N G (2 - s) = (ε : ℂ) * ZInQ.Literature.completedL N G s
+
+def SplitsInQuadratic (d : ℤ) (S : Finset ℕ) : Prop :=
+  ∃ (K : Type) (_ : Field K) (_ : NumberField K), Module.finrank ℚ K = 2 ∧
+    (∃ δ : K, δ ^ 2 = (d : K)) ∧ ∀ p ∈ S, SplitsIn K p
+
+def BFHClauseII : Prop :=
+  ∀ (N : ℕ) [NeZero N] (f : Newform N 2), f.χ = 1 →
+  ∀ ε : ℤ, IsFESign f ε →
+  ∀ S : Finset ℕ, (∀ p ∈ S, p.Prime) → (∀ p : ℕ, p.Prime → p ∣ 2 * N → p ∈ S) →
+    ∃ d : ℤ, Int.IsFundamentalDiscr d ∧ d ≠ 1 ∧ 0 < ε * d ∧ SplitsInQuadratic d S ∧
+      CentralValueNeZero f d
+
+-- NEW: ZInQKernel/Contrib/OneProof/BFHPrinted/Kronecker.lean
+noncomputable def kroneckerPrime (D : ℤ) (p : ℕ) : ℤ :=
+  if p = 2 then ZMod.χ₈ (D : ZMod 8) else jacobiSym D p
+
+noncomputable def kroneckerSym (D : ℤ) (n : ℕ) : ℤ :=
+  if n = 0 then (if D.natAbs = 1 then 1 else 0)
+  else n.factorization.prod fun p k => kroneckerPrime D p ^ k
+
+-- NEW: ZInQKernel/Contrib/OneProof/BFHKronecker.lean
+noncomputable def kroneckerTwistCoeff {N : ℕ} [NeZero N] (f : Newform N 2) (D : ℤ) (n : ℕ) : ℂ :=
+  coeff f n * (kroneckerSym D n : ℂ)
+
+def KroneckerCentralValueNeZero {N : ℕ} [NeZero N] (f : Newform N 2) (D : ℤ) : Prop :=
+  ∀ G : ℂ → ℂ, IsEntireCont (kroneckerTwistCoeff f D) 2 G → G 1 ≠ 0
+
+def BFHClauseIIKronecker : Prop :=
+  ∀ (N : ℕ) [NeZero N] (f : Newform N 2), f.χ = 1 →
+  ∀ ε : ℤ, IsFESign f ε →
+  ∀ S : Finset ℕ, (∀ p ∈ S, p.Prime) → (∀ p : ℕ, p.Prime → p ∣ N → p ∈ S) →
+    ∃ D : ℤ, Int.IsFundamentalDiscr D ∧ D ≠ 1 ∧ 0 < ε * D ∧ SplitsInQuadratic D S ∧
+      KroneckerCentralValueNeZero f D
+
+-- ZInQKernel/OneProof/Main.lean (the top theorem, binder hFH)
+theorem _root_.ZInQ.OneProof.frozenTarget
+    (r : HDec.HSyn.OpenResearchLeaves22) (t : HDec.HSyn.OpenTextbookLeaves11) (l : HDec.HSyn.OpenAddedLeaves17)
+    (g : HDec.HSyn.OpenGlue7)
+    (h11 : TYZThm11Integral) (h29 : TYZLemma29Mod2)
+    (hCM : _root_.T5Glue.ShimuraMainCM)
+    (h33 : ZInQ.Contrib.TYZGenus.TYZSplit.TYZThm33)
+    (hFH : ZInQ.GZFH.FriedbergHoffsteinB_FE) (hL3 : ZInQ.GZDecomp.GrossZagierHeegner) :
+    ZInQ.FrozenTarget :=
+  ZInQ.GZDecomp.frozenTarget_of_sixContactMin_tyzThm35ReadingA_gzLeaves
+    (HDec.HSyn.sixContactMin_of_open29 r t l g)
+    (ThetaWP8.tyzThm35ReadingA_noHX h11 h29 hCM h33)
+    ZInQ.GZTheta.Frontier.heckeThetaNewform (ZInQ.GZFH.fhNonvanishing_of_friedbergHoffsteinB_FE hFH) hL3
+
