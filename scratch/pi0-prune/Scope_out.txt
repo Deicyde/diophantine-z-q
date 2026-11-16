@@ -1,0 +1,65 @@
+TAINTED HDec.HSyn.OpenResearchLeaves2
+TAINTED HDec.HSyn.OpenResearchLeaves5
+TAINTED HDec.HSyn.OpenResearchLeaves7
+TAINTED HDec.HSyn.OpenResearchLeaves8
+TAINTED HDec.HSyn.OpenResearchLeaves9
+TAINTED HDec.HSyn.ResearchLeaves3
+TAINTED HDec.LeafAdopt.R1R2fpRep
+ZInQKernel.OneProof.H.LPrefix:5225 HDec.LeafAdopt.R1R2fp_of_rep depth=72
+ZInQKernel.OneProof.H.TailC:8447 HDec.HSyn.G0Split.FibreQM.fibreQMPeriod_main_rep depth=23
+ZInQKernel.OneProof.H.TailD:117 HDec.HSyn.G0RevIsog.reverseIsogeny_of_leaves3 depth=8
+ZInQKernel.OneProof.H.TailD:128 HDec.G0Galois.g8_g12_of_leaves3 depth=57
+ZInQKernel.OneProof.H.TailD:150 HDec.HSyn.G0AssembleMod.newformLeaves_of3 depth=15
+ZInQKernel.OneProof.H.TailD:156 HDec.HSyn.G0AssembleMod.afterG7_of3 depth=166
+ZInQKernel.OneProof.H.TailD:192 HDec.HSyn.G0Split.hom_of_common3 depth=96
+ZInQKernel.OneProof.H.TailD:201 HDec.HSyn.glueOutputs_of_leaves3 depth=179
+ZInQKernel.OneProof.H.TailD:255 HDec.HSyn.sixContactMin_of_leavesR3 depth=9
+ZInQKernel.OneProof.H.TailD:534 HDec.HSyn.r1r2fpFull_of depth=41
+ZInQKernel.OneProof.H.TailD:85 HDec.HSyn.ResearchLeaves3.h5 depth=5
+ZInQKernel.OneProof.H.TailE:6569 HDec.HSyn.researchLeaves3_of_open2 depth=23
+ZInQKernel.OneProof.H.TailI:71 HDec.HSyn.propTSAll_of_pieces3 depth=19
+ZInQKernel.OneProof.H.TailK:282 HDec.HSyn.gluePieces_of_open4 depth=33
+ZInQKernel.OneProof.H.TailK:344 HDec.HSyn.sixContactMin_of_open4 depth=13
+ZInQKernel.OneProof.H.TailK:69 HDec.HSyn.periodMapGlue_of_leaves4 depth=21
+ZInQKernel.OneProof.H.TailN:33 HDec.HSyn.heckeVertWitness_of_leaves5 depth=12
+ZInQKernel.OneProof.H.TailN:99 HDec.HSyn.researchLeaves2_of_open5 depth=25
+ZInQKernel.OneProof.H.TailO:1176 HDec.HSyn.G0Split.FibreQM.PeriodMapH.LeafQCheck.descend_main depth=147
+ZInQKernel.OneProof.H.TailO:1301 HDec.HSyn.G0Split.FibreQM.PeriodMapH.LeafQCheck.cmDescends_of depth=86
+ZInQKernel.OneProof.H.TailO:2869 HDec.HSyn.cmDescends_of6 depth=8
+ZInQKernel.OneProof.H.TailO:2875 HDec.HSyn.qmHauptmodul_of6 depth=8
+ZInQKernel.OneProof.H.TailO:2882 HDec.HSyn.addedLeaves4_of_open6 depth=24
+ZInQKernel.OneProof.H.TailO:2906 HDec.HSyn.glue4_of_open6 depth=11
+ZInQKernel.OneProof.H.TailO:2913 HDec.HSyn.sixContactMin_of_open6 depth=13
+ZInQKernel.OneProof.H.TailU:1914 HDec.QMSplit.Moduli.r1r2fpRep_of depth=67
+ZInQKernel.OneProof.H.TailU:1965 HDec.QMSplit.Moduli.r1b_of depth=23
+ZInQKernel.OneProof.H.TailU:1990 HDec.QMSplit.Moduli.x6ConicModel_of depth=42
+ZInQKernel.OneProof.H.TailU:2267 HDec.QMSplit.Moduli.r1r2fpRep_of' depth=11
+ZInQKernel.OneProof.H.TailU:2272 HDec.QMSplit.Moduli.r1b_of' depth=3
+ZInQKernel.OneProof.H.TailX:189 HDec.HSyn.researchLeaves5_of_open7 depth=26
+ZInQKernel.OneProof.H.TailX:244 HDec.HSyn.addedLeaves6_of_open7 depth=28
+ZInQKernel.OneProof.H.TailX:274 HDec.HSyn.sixContactMin_of_open7 depth=14
+ZInQKernel.OneProof.H.TailZ11:51 HDec.HSyn.sixContactMin_of_open10 depth=12
+ZInQKernel.OneProof.H.TailZ13:64 HDec.HSyn.sixContactMin_of_open11 depth=12
+ZInQKernel.OneProof.H.TailZ20:1030 HDec.QMSplit.Moduli.pairsLift_of_rep depth=60
+ZInQKernel.OneProof.H.TailZ20:1062 HDec.QMSplit.Moduli.coarseFactor_of_rep depth=5
+ZInQKernel.OneProof.H.TailZ20:1084 HDec.QMSplit.Moduli.coarseFactor_of_rep' depth=3
+ZInQKernel.OneProof.H.TailZ20:1743 HDec.QMSplit.Moduli.r1r2fpRep_of_split depth=10
+ZInQKernel.OneProof.H.TailZ20:1786 HDec.QMSplit.Moduli.r1r2fpRep_of_split5 depth=11
+ZInQKernel.OneProof.H.TailZ20:1820 HDec.QMSplit.Moduli.r1r2fpRep_of_split6 depth=10
+ZInQKernel.OneProof.H.TailZ20:1851 HDec.QMSplit.Moduli.r1r2fpRep_of_printed depth=51
+ZInQKernel.OneProof.H.TailZ20:1910 HDec.QMSplit.Moduli.x6ConicModel_of_elkies depth=9
+ZInQKernel.OneProof.H.TailZ20:1921 HDec.QMSplit.Moduli.x6ConicModel_of_elkies_t5 depth=6
+ZInQKernel.OneProof.H.TailZ20:1937 HDec.QMSplit.Moduli.r1r2fpRep_of_printed_t5 depth=12
+ZInQKernel.OneProof.H.TailZ21:1420 HDec.QMSplit.Moduli.r1r2_of_published depth=13
+ZInQKernel.OneProof.H.TailZ21:1453 HDec.QMSplit.Moduli.x6Rows_of_leaves depth=10
+ZInQKernel.OneProof.H.TailZ23:709 HDec.HSyn.x6Rows_of_open14 depth=16
+ZInQKernel.OneProof.H.TailZ23:769 HDec.HSyn.researchLeaves9_of_open14 depth=34
+ZInQKernel.OneProof.H.TailZ4:151 HDec.HSyn.heightRowsNo20_of8 depth=15
+ZInQKernel.OneProof.H.TailZ4:172 HDec.HSyn.r20Lower_of8 depth=9
+ZInQKernel.OneProof.H.TailZ4:180 HDec.HSyn.researchLeaves7_of_open8 depth=29
+ZInQKernel.OneProof.H.TailZ4:231 HDec.HSyn.addedLeaves7_of_open8 depth=24
+ZInQKernel.OneProof.H.TailZ4:253 HDec.HSyn.sixContactMin_of_open8 depth=14
+ZInQKernel.OneProof.H.TailZ5:258 HDec.HSyn.r1rec_of_rep depth=66
+ZInQKernel.OneProof.H.TailZ5:267 HDec.HSyn.r5fp_of_rep depth=95
+ZInQKernel.OneProof.H.TailZ9:139 HDec.HSyn.sixContactMin_of_open9 depth=14
+ZInQKernel.OneProof.H.TailZ9:88 HDec.HSyn.researchLeaves8_of_open9 depth=31
