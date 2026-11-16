@@ -32,7 +32,7 @@ noncomputable section
 open Finset Function MvPolynomial
 
 namespace ProjSpaceCech
-export ProjSpaceCech (GradedModule GradedModule.Hom GradedModule.Hom.HMap GradedModule.Hom.cochainMap_bijective_of_saturated GradedModule.HMap_bijective_of_cochainMap_bijective)
+export _root_.ProjSpaceCech (GradedModule GradedModule.Hom GradedModule.Hom.HMap GradedModule.Hom.cochainMap_bijective_of_saturated GradedModule.HMap_bijective_of_cochainMap_bijective)
 open ProjSpaceCech
 
 section HMapSat

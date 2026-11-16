@@ -31,9 +31,9 @@ open CategoryTheory
 open CategoryTheory.Limits
 open CategoryTheory.MonoidalCategory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_RelPicard_exists_twoAffineOpenCover_fibre_linearEquiv_sectionsOf_of_isPullback.AlgebraicGeometry
+-- Deferred synthetic P2M scope; existing root namespace retained.
 open AlgebraicGeometry.RelPicard
-open P2MW.S_AlgebraicGeometry_RelPicard_exists_twoAffineOpenCover_fibre_linearEquiv_sectionsOf_of_isPullback.AlgebraicGeometry.RelPicard
+-- Deferred synthetic P2M scope; existing root namespace retained.
 open NeronModelInfra
 open AlgebraicGeometry.SmoothProperCurve
 

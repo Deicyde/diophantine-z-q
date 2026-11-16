@@ -30,7 +30,7 @@ universe u
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_RelEffCartierDiv_exists_split.AlgebraicGeometry
+-- Deferred synthetic P2M scope; existing root namespace retained.
 
 namespace AlgebraicGeometry
 export _root_.AlgebraicGeometry (Surjective Scheme.Hom.le_ker_comp SmoothOfRelativeDimension Scheme.Hom Scheme.IdealSheafData.map_ker IsFinite Scheme Smooth Scheme.IdealSheafData.le_map_iff_comap_le Scheme.IdealSheafData.comap_top Flat IsClosedImmersion IsSeparated IsClosedImmersion.lift IsClosedImmersion.lift_fac Scheme.Hom.one_le_finrank_iff_surjective LocallyOfFinitePresentation Scheme.Hom.finrank_eq_one_of_isIso Scheme.IdealSheafData prodKerGraph prodKerGraph_zero prodKerGraph_succ RelEffCartierDiv.I_eq_top_of_degree_zero graphOver graphOver_fst RelEffCartierDiv.ofPoint graphOver_snd_assoc RelEffCartierDiv mapOnProdOver mapOnProdOver_fst mapOnProdOver_snd RelEffCartierDiv.pullbackAlong_comp RelEffCartierDiv.I RelEffCartierDiv.exists_I_eq_ker_graphOver_mul RelEffCartierDiv.isInvertible_I RelEffCartierDiv.pullbackAlong_ofPoint Scheme.IdealSheafData.comap_mul Scheme.Hom.finrank_comp_of_finrank_eq_const)
@@ -124,7 +124,7 @@ namespace SplitProof
 open AlgebraicGeometry.RelEffCartierDiv
 open AlgebraicGeometry
 open AlgebraicGeometry.RelEffCartierDiv
-open P2MW.S_AlgebraicGeometry_RelEffCartierDiv_exists_split.AlgebraicGeometry.RelEffCartierDiv
+-- Deferred synthetic P2M scope; existing root namespace retained.
 
 variable {𝒞 S : Scheme.{u}} {f : 𝒞 ⟶ S}
 

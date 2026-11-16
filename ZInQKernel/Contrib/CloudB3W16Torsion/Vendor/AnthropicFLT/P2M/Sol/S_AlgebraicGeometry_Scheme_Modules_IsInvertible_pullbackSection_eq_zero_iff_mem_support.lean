@@ -24,7 +24,7 @@ open CategoryTheory
 open CategoryTheory.Limits
 open CategoryTheory.MonoidalCategory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_IsInvertible_pullbackSection_eq_zero_iff_mem_support.AlgebraicGeometry
+-- Deferred synthetic P2M scope; existing root namespace retained.
 open Opposite
 
 noncomputable section

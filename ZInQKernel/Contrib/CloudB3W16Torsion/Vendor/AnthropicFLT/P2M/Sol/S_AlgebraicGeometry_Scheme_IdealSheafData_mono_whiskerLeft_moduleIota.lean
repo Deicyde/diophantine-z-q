@@ -26,7 +26,7 @@ open CategoryTheory
 open CategoryTheory.Limits
 open CategoryTheory.MonoidalCategory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_IdealSheafData_mono_whiskerLeft_moduleIota.AlgebraicGeometry
+-- Deferred synthetic P2M scope; existing root namespace retained.
 open Opposite
 open TopologicalSpace
 

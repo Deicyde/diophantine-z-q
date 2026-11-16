@@ -40,7 +40,7 @@ open CategoryTheory
 open CategoryTheory.Limits
 open CategoryTheory.MonoidalCategory
 open AlgebraicGeometry hiding Scheme.IdealSheafData.ideal_comap_of_le
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_IsInvertible_isInvertible_zeroSchemeIdeal_and_flat.AlgebraicGeometry
+-- Deferred synthetic P2M scope; existing root namespace retained.
 open TensorProduct
 open nonZeroDivisors
 

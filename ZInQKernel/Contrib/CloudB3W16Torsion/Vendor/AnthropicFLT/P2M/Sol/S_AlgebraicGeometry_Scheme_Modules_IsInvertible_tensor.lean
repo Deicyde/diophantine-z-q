@@ -26,7 +26,7 @@ universe u
 open CategoryTheory
 open CategoryTheory.MonoidalCategory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_IsInvertible_tensor.AlgebraicGeometry
+-- Deferred synthetic P2M scope; existing root namespace retained.
 
 namespace AlgebraicGeometry
 export _root_.AlgebraicGeometry (Scheme Scheme.Modules Scheme.Modules.IsInvertible Scheme.Modules.pullbackUnitIso)

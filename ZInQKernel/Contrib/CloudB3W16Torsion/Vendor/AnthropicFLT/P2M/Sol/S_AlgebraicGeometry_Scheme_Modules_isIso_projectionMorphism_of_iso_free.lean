@@ -25,7 +25,7 @@ open CategoryTheory
 open CategoryTheory.Limits
 open CategoryTheory.MonoidalCategory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_isIso_projectionMorphism_of_iso_free.AlgebraicGeometry
+-- Deferred synthetic P2M scope; existing root namespace retained.
 
 set_option synthInstance.maxHeartbeats 1600000
 set_option maxHeartbeats 6400000

@@ -21,7 +21,7 @@ set_option autoImplicit false
 universe u
 open CategoryTheory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_rankAtStalk_sections_eq_one_of_locallyTrivial.AlgebraicGeometry
+-- Deferred synthetic P2M scope; existing root namespace retained.
 open TopologicalSpace
 open Opposite
 

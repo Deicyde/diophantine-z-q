@@ -28,7 +28,7 @@ noncomputable section
 universe u
 open CategoryTheory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_SmoothProperCurve_FiniteMapData_finite_H0_H1_sectionsOf.AlgebraicGeometry
+-- Deferred synthetic P2M scope; existing root namespace retained.
 open Opposite
 open NeronModelInfra
 

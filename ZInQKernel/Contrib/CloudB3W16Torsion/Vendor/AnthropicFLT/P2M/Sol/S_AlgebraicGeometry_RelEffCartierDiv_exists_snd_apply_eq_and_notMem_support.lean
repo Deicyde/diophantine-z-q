@@ -32,7 +32,7 @@ open CategoryTheory
 open CategoryTheory.Limits
 open CategoryTheory.MonoidalCategory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_RelEffCartierDiv_exists_snd_apply_eq_and_notMem_support.AlgebraicGeometry
+-- Deferred synthetic P2M scope; existing root namespace retained.
 open AlgebraicGeometry.RelPicard
 open NeronModelInfra
 open AlgebraicGeometry.SmoothProperCurve

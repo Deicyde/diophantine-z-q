@@ -23,7 +23,7 @@ universe u
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_OModulePresheaf_exists_cochain_baseChange_equiv_of_locallyTrivial.AlgebraicGeometry
+-- Deferred synthetic P2M scope; existing root namespace retained.
 open TensorProduct
 open AlgebraicGeometry.Scheme.TwoAffineOpenCover
 

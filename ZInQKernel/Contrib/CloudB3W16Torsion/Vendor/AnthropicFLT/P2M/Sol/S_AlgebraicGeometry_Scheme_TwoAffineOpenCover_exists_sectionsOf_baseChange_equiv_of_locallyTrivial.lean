@@ -23,10 +23,10 @@ universe u
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_TwoAffineOpenCover_exists_sectionsOf_baseChange_equiv_of_locallyTrivial.AlgebraicGeometry
+-- Deferred synthetic P2M scope; existing root namespace retained.
 open TensorProduct
 open AlgebraicGeometry.Scheme.TwoAffineOpenCover
-open P2MW.S_AlgebraicGeometry_Scheme_TwoAffineOpenCover_exists_sectionsOf_baseChange_equiv_of_locallyTrivial.AlgebraicGeometry.Scheme.TwoAffineOpenCover
+-- Deferred synthetic P2M scope; existing root namespace retained.
 
 namespace AlgebraicGeometry
 export _root_.AlgebraicGeometry (Scheme.Modules.pullback Spec Scheme Scheme.Modules.pullbackPushforwardAdjunction Scheme.Modules Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap Scheme.Modules.exists_linearEquiv_sections_baseChange_of_locallyTrivial)

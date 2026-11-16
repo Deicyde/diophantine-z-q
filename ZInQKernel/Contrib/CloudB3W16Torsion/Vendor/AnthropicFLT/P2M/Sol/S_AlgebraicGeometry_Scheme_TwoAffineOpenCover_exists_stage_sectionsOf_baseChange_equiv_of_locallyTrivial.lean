@@ -26,10 +26,10 @@ open CategoryTheory
 open CategoryTheory.Limits
 open Opposite
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_TwoAffineOpenCover_exists_stage_sectionsOf_baseChange_equiv_of_locallyTrivial.AlgebraicGeometry
+-- Deferred synthetic P2M scope; existing root namespace retained.
 open TensorProduct
 open AlgebraicGeometry.Scheme.TwoAffineOpenCover
-open P2MW.S_AlgebraicGeometry_Scheme_TwoAffineOpenCover_exists_stage_sectionsOf_baseChange_equiv_of_locallyTrivial.AlgebraicGeometry.Scheme.TwoAffineOpenCover
+-- Deferred synthetic P2M scope; existing root namespace retained.
 open AlgebraicGeometry.RelPicard.LFP
 
 noncomputable section
@@ -45,7 +45,7 @@ open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry
 open AlgebraicGeometry.Scheme.Modules
-open P2MW.S_AlgebraicGeometry_Scheme_TwoAffineOpenCover_exists_stage_sectionsOf_baseChange_equiv_of_locallyTrivial.AlgebraicGeometry.Scheme.Modules
+-- Deferred synthetic P2M scope; existing root namespace retained.
 
 section Comp
 
@@ -166,8 +166,8 @@ open AlgebraicGeometry.Scheme.TwoAffineOpenCover
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry
 open AlgebraicGeometry.Scheme.Modules
-open P2MW.S_AlgebraicGeometry_Scheme_TwoAffineOpenCover_exists_stage_sectionsOf_baseChange_equiv_of_locallyTrivial.AlgebraicGeometry.Scheme.Modules
-open P2MW.S_AlgebraicGeometry_Scheme_TwoAffineOpenCover_exists_stage_sectionsOf_baseChange_equiv_of_locallyTrivial.AlgebraicGeometry.Scheme.Modules.StageTransport
+-- Deferred synthetic P2M scope; existing root namespace retained.
+-- Deferred synthetic P2M scope; existing root namespace retained.
 
 theorem exists_linearEquiv_transport
     {A' : Type u} [CommRing A'] {X' Z X₀ : Scheme.{u}} (κ : X' ⟶ Z) [IsIso κ] (fZ : Z ⟶ X₀) (σ : X' ⟶ X₀)
