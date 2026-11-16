@@ -1,0 +1,10 @@
+**research** (25): `bostLowerBound` (published, LEAF), `deRhamH1AbVarT` (published, LEAF), `dsThm965Weak` (published, LEAF), `dsThm966` (published, LEAF), `eigenformHTNew` (consequence, GLUE), `elkiesX6StarFunctionField` (published, LEAF), `gaudronRemondThm14` (published, LEAF), `gonzalezRotgerProp56X6` (published, LEAF), `gonzalezRotgerX6Ab` (published, LEAF), `hodgeTateDecompAbVar` (published, LEAF), `javanpeykarBound` (published, LEAF), `mumfordGroupLaw` (published, LEAF), `neronBaseChangeStrictHenselization` (published, LEAF), `pazukiCor13Upper` (published, LEAF), `r11r12` (composite, GLUE), `r16CoreY` (composite, GLUE), `r17` (consequence, GLUE), `r7a` (published, LEAF), `r9a` (published, LEAF), `r9b` (published, LEAF), `raynaudSemistableSH` (published, LEAF), `sga3_VIB_3_10` (published, LEAF), `sga7_IX_3_3_SH` (published, LEAF), `sga7_IX_3_5_ForwardGeom` (published, LEAF), `shimuraMainThmIDeligneY3AbU` (composite, GLUE)
+
+**textbook** (10): `cartierSmooth` (published, LEAF), `charPolyIndepOfEllAlgClosed` (published, LEAF), `gagaMorphism` (published, LEAF), `geomConnOfRationalPoint` (published, LEAF), `groupSchemeEquidim` (published, LEAF), `homFreeFiniteAlgClosed` (published, LEAF), `mumfordTorsionAlgClosed` (published, LEAF), `neronSchemeExtensionExists` (published, LEAF), `poincareComplement` (published, LEAF), `uniformizationLeafAll` (consequence, GLUE)
+
+**added** (8): `axSenTate` (published, LEAF), `egaIV_8_10_5_xii` (published, LEAF), `milneIsogenyQuasiInverse` (published, LEAF), `phiAmpleIsogeny` (consequence, GLUE), `picRepresentableAbVar` (published, LEAF), `picZeroAbVar` (consequence, GLUE), `tateTwistInvariants` (published, LEAF), `weilPairingMumford` (consequence, GLUE)
+
+**glue** (1): `nvLocalInertia` (project glue, GLUE)
+
+**frozenTarget** (11): `h11` (published, LEAF), `hL29` (published, LEAF), `hT21` (published, LEAF), `hP23` (published, LEAF), `hfx` (published, LEAF), `hL3s` (published, LEAF), `hJP` (published, LEAF), `hCM` (consequence, GLUE), `h33` (published, LEAF), `hFH` (consequence, GLUE), `hL3` (composite, GLUE)
+

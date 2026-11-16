@@ -1,0 +1,52 @@
+'HDec.ThetaDirect.thetaRatiosAtQM_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ThetaDirect.thetaRatiosAtQM_of_qmHauptmodul' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ThetaDirect.thetaPointOfFibre_of_qmPeriod' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ThetaDirect.qmThetaSymmetricAlg_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ThetaDirect.thetaRatiosAtQM_of_symAlg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ThetaDirect.rel1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ThetaDirect.rel2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ThetaDirect.psi6Th_M4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ThetaDirect.psi6Th_M6' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ThetaDirect.chi12Th_M4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ThetaDirect.chi12Th_M6' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ThetaDirect.nodeAlg_om24' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ThetaDirect.nodeAlg_cm4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ThetaDirect.eq_zero_of_nodes' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ThetaDirect.autoGS' depends on axioms: [propext, Classical.choice, Quot.sound]
+HDec.ThetaDirect.thetaRatiosAtQM_proof : HDec.HSyn.G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM
+HDec.ThetaDirect.thetaRatiosAtQM_of_qmHauptmodul : HDec.PkgI1.QMHauptmodul →
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM
+HDec.ThetaDirect.thetaPointOfFibre_of_qmPeriod : HDec.HSyn.G0Split.ThetaPt.FibreQMPeriod →
+  HDec.HSyn.G0Split.ThetaPointOfFibre
+@HDec.ThetaDirect.rel1 : ∀ {z : ℂ},
+  0 < z.im →
+    HDec.HSyn.G0Split.ThetaPt.ThetaGlue.psi6Th (HDec.PkgI1.Omega z) * HDec.PkgI1.thetaSum8 (HDec.PkgI1.Omega z) =
+      HDec.ThetaDirect.c1 * HDec.PkgI1.thetaProd2 (HDec.PkgI1.Omega z)
+@HDec.ThetaDirect.rel2 : ∀ {z : ℂ},
+  0 < z.im →
+    HDec.PkgI1.thetaSum8 (HDec.PkgI1.Omega z) ^ 2 * HDec.HSyn.G0Split.ThetaPt.ThetaGlue.chi12Th (HDec.PkgI1.Omega z) =
+      HDec.ThetaDirect.c2 * HDec.PkgI1.thetaSum8 (HDec.PkgI1.Omega z) ^ 5 +
+        HDec.ThetaDirect.c3 * HDec.PkgI1.thetaProd2 (HDec.PkgI1.Omega z) ^ 2
+HDec.ThetaDirect.c1_mem : HDec.ThetaDirect.c1 ∈ algebraicClosure ℚ ℂ
+def HDec.HSyn.G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM : Prop :=
+∀ (τ : ℂ),
+  0 < τ.im →
+    ∀ (q : ℚ),
+      q ≠ 0 →
+        HDec.PkgI1.jNum (HDec.PkgI1.Omega τ) / HDec.PkgI1.jDen (HDec.PkgI1.Omega τ) = ↑q →
+          ∃ m₀,
+            ZInQ.LeafPush2.thetaConst (BPAnalytic.QM.Omega τ) m₀ ≠ 0 ∧
+              ∀ (m : ZInQ.LeafPush2.Char2),
+                IsAlgebraic ℚ
+                  (ZInQ.LeafPush2.thetaConst (BPAnalytic.QM.Omega τ) m /
+                    ZInQ.LeafPush2.thetaConst (BPAnalytic.QM.Omega τ) m₀)
+def HDec.ThetaDirect.QMThetaSymmetricAlg : Prop :=
+∀ (τ : ℂ),
+  0 < τ.im →
+    ∀ (q : ℚ),
+      q ≠ 0 →
+        HDec.PkgI1.jNum (HDec.PkgI1.Omega τ) / HDec.PkgI1.jDen (HDec.PkgI1.Omega τ) = ↑q →
+          ∀ k ≤ 10,
+            (HDec.HSyn.G0Split.ThetaPt.ThetaSplit.thetaEight (HDec.PkgI1.Omega τ)).esymm k /
+                HDec.PkgI1.thetaSum8 (HDec.PkgI1.Omega τ) ^ k ∈
+              algebraicClosure ℚ ℂ

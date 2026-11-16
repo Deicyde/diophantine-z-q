@@ -18,7 +18,6 @@ namespace HSyn
 shimura-glue's `DeligneComponentsY3Printed`. 14 fields. dcy3-fold: that field is pruned (13 fields); `y3Connected`
 is an argument of `addedLeaves8_of_open9`. -/
 structure OpenAddedLeaves9 : Prop where
-  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
   qmCentralizerCMC : QMSplit.Aut.QMCentralizerCMC
   tateTwistInvariants : _root_.ZInQ.Contrib.HodgeSplit.TateTwistInvariants
   axSenTate : _root_.ZInQ.Contrib.HodgeSplit.AxSenTate
@@ -41,7 +40,6 @@ structure OpenAddedLeaves9 : Prop where
 `sixContactMin_of_open28` (TailZ34) by dcy3-used's `DCY3Used.y3Connected_of_leaves` from the research fields
 `mumfordGroupLaw` and `shimuraMainThmIDeligneY3AbU`; Deligne's printed leaf is no longer read. -/
 theorem addedLeaves8_of_open9 (l : OpenAddedLeaves9) (hY3 : TSHecke.Y3Connected) : OpenAddedLeaves8 where
-  thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
   qmCentralizerCMC := l.qmCentralizerCMC
   tateTwistInvariants := l.tateTwistInvariants
   axSenTate := l.axSenTate
@@ -60,8 +58,9 @@ theorem addedLeaves8_of_open9 (l : OpenAddedLeaves9) (hY3 : TSHecke.Y3Connected)
 `docs/research/leaf-fold10.md` §2. -/
 theorem sixContactMin_of_open11 (r : OpenResearchLeaves9) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves9)
     (g : OpenGlue7) (hF5 : _root_.ZInQ.HeightSplit.FaltingsLemma5BCLower) (hYu : QMLattice.YuB6Alg)
-    (hY3 : TSHecke.Y3Connected) : ZInQ.SixContactMin :=
-  sixContactMin_of_open10 r t (addedLeaves8_of_open9 l hY3) g hF5 hYu
+    (hY3 : TSHecke.Y3Connected)
+    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
+  sixContactMin_of_open10 r t (addedLeaves8_of_open9 l hY3) g hF5 hYu hθ
 
 end HSyn
 

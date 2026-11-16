@@ -51,8 +51,9 @@ theorem textbookLeaves9_of_open10 (t : OpenTextbookLeaves10) : OpenTextbookLeave
 leaf-fold8's `OpenAddedLeaves8` (14) and leaf-fold7's `OpenGlue7` (1, `QuotientP1Coordinate`). The table of every
 field is `docs/research/leaf-fold10.md` §2. -/
 theorem sixContactMin_of_open10 (r : OpenResearchLeaves9) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves8)
-    (g : OpenGlue7) (hF5 : _root_.ZInQ.HeightSplit.FaltingsLemma5BCLower) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
-  sixContactMin_of_open9 r (textbookLeaves9_of_open10 t) l g hF5 hYu
+    (g : OpenGlue7) (hF5 : _root_.ZInQ.HeightSplit.FaltingsLemma5BCLower) (hYu : QMLattice.YuB6Alg)
+    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
+  sixContactMin_of_open9 r (textbookLeaves9_of_open10 t) l g hF5 hYu hθ
 
 end HSyn
 

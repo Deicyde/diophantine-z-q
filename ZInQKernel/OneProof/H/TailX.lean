@@ -27,7 +27,7 @@ from the new ones. Folded (docs/research/leaf-fold7.md lists every field):
   `IgusaPsi4` and `IgusaChi10`, `r1b` from `ShimuraFamily`;
 * hodge-split (`TailS`, `TailT`, transports in `TailV`): `r10` from the Hodge–Tate decomposition, the de Rham
   property of `H¹_ét` and Tate's two theorems, `r13` from its newform case `EigenformHTNew` (with T25, proved in
-  the kernel), `r14` from Diamond–Shurman's Thms 9.6.5-9.6.6, `t23` from
+  the kernel), `r14` from Diamond–Shurman's Thm 9.6.5 and Deligne–Serre 1974 Thm 4.1 (4.1.1), `t23` from
   `B_dR^{G_{ℚ_p}} = ℚ_p`, `senTwist` and `finiteImageHT` from Tate's two theorems on `ℂ_p(i)^{G_K}`;
 * mcr-glue (`TailW`): the glue `ModelCoordinateResidue` from the smaller glue `QuotientP1Coordinate`.
 
@@ -98,7 +98,7 @@ structure OpenResearchLeaves7 : Prop where
   eigenformHTNew : _root_.ZInQ.Contrib.HodgeSplit.EigenformHTNew
   /-- hodge-split, H-22: Diamond–Shurman Thm 9.6.5 (`k ≥ 2`, Deligne; with `dsThm966`, replaces `r14`). -/
   dsThm965 : _root_.ZInQ.Contrib.HodgeSplit.DSThm965
-  /-- hodge-split, H-22: Diamond–Shurman Thm 9.6.6 (`k = 1`, Deligne–Serre Thm 4.1). -/
+  /-- hodge-split, H-22: Deligne–Serre 1974 Thm 4.1 (4.1.1), p. 514 (`k = 1`). -/
   dsThm966 : _root_.ZInQ.Contrib.HodgeSplit.DSThm966
   r15 : DeligneSerreConseq
   r16 : _root_.LeafModCurves.R16_EichlerShimuraJ1'
@@ -149,7 +149,6 @@ structure OpenTextbookLeaves7 : Prop where
 `ShimuraTaniyamaQbar`, `isogenyQuasiInverse` by `MilneIsogenyQuasiInverse`, `senTwist`, `finiteImageHT` by
 Tate's two theorems, and `shimuraGoodReduction` by its guard-free form. 16 fields. -/
 structure OpenAddedLeaves7 : Prop where
-  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
   qmHauptmodulBase3 : LeafQCheck.HM.QMHauptmodulBase3
   /-- qm-split, H-42/H-61/H-63: `End_𝒪(A)` of a QM surface over `ℂ` is `ℤ` or an optimally embedded order of an
   imaginary quadratic field (replaces `cmOptimalEmbedding`, `qmAutCard`, `alFixedPoints`). -/
@@ -239,7 +238,6 @@ theorem qmRows_of7 (t : OpenTextbookLeaves7) (l : OpenAddedLeaves7) :
 theorem addedLeaves6_of_open7 (r : OpenResearchLeaves7) (t : OpenTextbookLeaves7) (l : OpenAddedLeaves7) :
     OpenAddedLeaves6 where
   cmOptimalEmbedding := (qmRows_of7 t l).2.2
-  thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
   qmHauptmodulBase3 := l.qmHauptmodulBase3
   qmClassNumberOne := QMSplit.CNO.qmClassNumberOne_proof
   senTwist := HodgeLF7.senTwist (_root_.ZInQ.Contrib.HodgeSplit.senTwist_of_tate l.tateTwistInvariants l.axSenTate)
@@ -271,9 +269,10 @@ theorem glue6_of_open7 (g : OpenGlue7) : OpenGlue6 where
 `ZInQ.SixContactMin` follows from `OpenResearchLeaves7` (29), `OpenTextbookLeaves7` (23), `OpenAddedLeaves7` (16)
 and `OpenGlue7` (1, `QuotientP1Coordinate`). The table of every field is `docs/research/leaf-fold7.md` §2. -/
 theorem sixContactMin_of_open7 (r : OpenResearchLeaves7) (t : OpenTextbookLeaves7) (l : OpenAddedLeaves7)
-    (g : OpenGlue7) (h20 : G0Split.R20Lower) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
+    (g : OpenGlue7) (h20 : G0Split.R20Lower) (hYu : QMLattice.YuB6Alg)
+    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
   sixContactMin_of_open6 (researchLeaves5_of_open7 r l) (textbookLeaves6_of_open7 t l) (addedLeaves6_of_open7 r t l)
-    (glue6_of_open7 g) h20 hYu
+    (glue6_of_open7 g) h20 hYu hθ
 
 end HSyn
 

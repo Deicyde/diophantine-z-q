@@ -1,0 +1,34 @@
+DISCHARGES [OpenResearchLeaves22.gonzalezRotgerProp56X6] by GRCountX6.prop56X6_of_r5fpCount
+  still assumes: [LeafQM.AV.R5fpCount]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves22.neronBaseChangeStrictHenselization] by GapSHPair.neronBaseChangeStrictHenselization_of_unramified
+  still assumes: [ReductGlue.NeronBaseChangeUnramifiedDVR]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves22.elkiesX6StarPrinted] by HDec.QMSplit.Moduli.ElkiesX6Star.elkiesX6StarPrinted_of_ab
+  still assumes: [HDec.QMSplit.Moduli.ElkiesEquationsX6Ab]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves22.r16CoreY] by R16Split.coreY_of_r16
+  still assumes: [LeafModCurves.R16_EichlerShimuraJ1']
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves22.sga7_IX_3_3_SH] by SGA7PersistsNF.sga7_IX_3_3_SH_of_field
+  still assumes: [CToPrinted.SGA7_IX_3_3]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves22.sga7_IX_3_5_ForwardGeom] by UnipotentForward.forwardGeom_of_forward
+  still assumes: [UnipotentForward.SGA7_IX_3_5_Forward, UnipotentForward.SemiAbelianDescendsSepClosed]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves22.mumfordGroupLaw] by ZInQ.Contrib.MumfordRigidity.mumfordGroupLaw_of_core
+  still assumes: [LeafQM.AV.R1UnivRigid.MumfordRigidityCore]
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 63 open hypotheses, 1923 theorems checked, 7 discharge one
+'SGRDirect.NVLocal.eq_one_of_inertia_of_unram' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SGRDirect.NVLocal.exists_branch' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SGRDirect.NVLocal.primeOf_isPrime' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SGRDirect.NVLocal.inertia_primeOf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SGRDirect.NVLocal.eq_one_of_primeOf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SGRDirect.NVLocal.nvLocalInertia_of_branchRegular' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SGRDirect.NVLocal.heckeVertWitness_of_branchRegular' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SGRDirect.NVLocal.ramificationIdx_map_localization' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SGRDirect.NVLocal.unram_near' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SGRDirect.NVLocal.branchRegular_of_tame' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SGRDirect.NVLocal.nvLocalInertia_of_tame' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SGRDirect.NVLocal.heckeVertWitness_of_tame' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -1,0 +1,31 @@
+DISCHARGES [OpenResearchLeaves22.gonzalezRotgerProp56X6] by GRCountX6.prop56X6_of_r5fpCount
+  still assumes: [LeafQM.AV.R5fpCount]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves22.neronBaseChangeStrictHenselization] by GapSHPair.neronBaseChangeStrictHenselization_of_unramified
+  still assumes: [ReductGlue.NeronBaseChangeUnramifiedDVR]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves22.elkiesX6StarPrinted] by HDec.QMSplit.Moduli.ElkiesX6Star.elkiesX6StarPrinted_of_ab
+  still assumes: [HDec.QMSplit.Moduli.ElkiesEquationsX6Ab]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves22.r16CoreY] by R16Split.coreY_of_r16
+  still assumes: [LeafModCurves.R16_EichlerShimuraJ1']
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves22.sga7_IX_3_3_SH] by SGA7PersistsNF.sga7_IX_3_3_SH_of_field
+  still assumes: [CToPrinted.SGA7_IX_3_3]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves22.sga7_IX_3_5_ForwardGeom] by UnipotentForward.forwardGeom_of_forward
+  still assumes: [UnipotentForward.SGA7_IX_3_5_Forward, UnipotentForward.SemiAbelianDescendsSepClosed]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves22.mumfordGroupLaw] by ZInQ.Contrib.MumfordRigidity.mumfordGroupLaw_of_core
+  still assumes: [LeafQM.AV.R1UnivRigid.MumfordRigidityCore]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [hFH] by ZInQ.FHPrinted.friedbergHoffsteinB_FE_of_printed
+  still assumes: [ZInQ.FHPrinted.FriedbergHoffsteinB_Printed]
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 63 open hypotheses, 1918 theorems checked, 8 discharge one
+'fhprinted_frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.FHPrinted.friedbergHoffsteinB_FE_of_printed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.FHPrinted.friedbergHoffsteinB_printed_of_FE' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.FHPrinted.friedbergHoffsteinB_printed_iff_FE' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.FHPrinted.rootNumberTwistEqOne_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.FHPrinted.idelicChar_eq_jacobiSym' depends on axioms: [propext, Classical.choice, Quot.sound]

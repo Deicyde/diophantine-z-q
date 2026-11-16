@@ -1,0 +1,30 @@
+{
+ "name": "pic-fix",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.PhiAmpleIsogeny"
+ ],
+ "discharges": [
+  {
+   "field": "phiAmpleIsogeny",
+   "proof": "_root_.PicFix.phiAmpleIsogeny_of_printed {n}.mumfordKLFiniteSectionAC {n}.mumfordPhiSurjectiveAC",
+   "leaves": [
+    {
+     "name": "mumfordKLFiniteSectionAC",
+     "type": "_root_.PicFix.MumfordKLFiniteSectionAC",
+     "doc": "pic-fix: K(L) finite for L ample with a nonzero global section s (L = O(D), D = Z(s) effective) on an abelian variety over an algebraically closed field (Mumford, Abelian varieties, section 6 Application 1, (iv) => (ii), printed for L = O(D) with D effective; locator UNVERIFIED).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Mumford 6 Application 1 for L = O(D), D effective, stated as L with a nonzero global section s, D = Z(s)); locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, 6 Application 1: for D effective and L = O(D) ample, K(L) is finite"
+    },
+    {
+     "name": "mumfordPhiSurjectiveAC",
+     "type": "_root_.PicDict.MumfordPhiSurjectiveAC",
+     "doc": "pic-dict: for L ample every L' in Pic0(X) is t_x^*L (x) L^-1, X an abelian variety over an algebraically closed field (Mumford section 8 Thm 1; locator UNVERIFIED).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Mumford's statement over an algebraically closed field, Pic0 = translation-invariant classes); locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, 8 Thm 1"
+    }
+   ]
+  }
+ ]
+}
