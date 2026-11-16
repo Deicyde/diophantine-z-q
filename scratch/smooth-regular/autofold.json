@@ -1,0 +1,29 @@
+{
+ "name": "smooth-regular",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.RegularSmoothPerfect",
+  "ZInQKernel.Contrib.OneProof.PicZeroAbVarNonsingular"
+ ],
+ "discharges": [
+  {
+   "field": "regularSmoothPerfect",
+   "proof": "_root_.ZInQ.Contrib.SmoothRegular.regularSmoothPerfect"
+  },
+  {
+   "field": "picZeroAbVar",
+   "proof": "_root_.ZInQ.Contrib.SmoothRegular.picZeroAbVar_of_nonsingular {n}.picZeroAbVarNonsingular",
+   "leaves": [
+    {
+     "name": "picZeroAbVarNonsingular",
+     "type": "_root_.ZInQ.Contrib.SmoothRegular.PicZeroAbVarNonsingular",
+     "doc": "picZeroAbVar with Mathlib's Smooth replaced by the print's 'nonsingular' over Kbar (regular local rings of B x_K Kbar at closed points): Pic0 of an abelian variety is a complete nonsingular group variety (Mumford, Abelian varieties, 13 with 4, over Kbar; Kleiman, The Picard scheme, 9.5.1 and 9.5.3; SGA 3 VI_A 2.4; Milne 1986 9-10; locators UNVERIFIED). Equivalent to picZeroAbVar (ZInQ.Contrib.SmoothRegular.picZeroAbVarNonsingular_of_picZeroAbVar).",
+     "kind": "published",
+     "flag": "combines Mumford 13 with 4 (over Kbar, nonsingular) with descent to K (Kleiman 9.5.1) and geometric connectedness of the identity component (SGA 3 VI_A 2.4); smooth replaced by the print's nonsingular (smooth-regular); pending review (statement not yet reviewed)",
+     "source": "Mumford, Abelian varieties, 13 and 4; Kleiman, The Picard scheme, Prop. 9.5.1 and 9.5.3; Milne 1986, 9-10: the identity component of Pic_{A/K} is a complete group variety, nonsingular over Kbar (locators UNVERIFIED)",
+     "flag_class": "note,pending-review"
+    }
+   ]
+  }
+ ],
+ "note": "regularSmoothPerfect (Stacks 00TV) is proved outright (vendored Jacobian criterion + Mathlib perfect-field and smooth-locus lemmas; no leaf). picZeroAbVar is replaced by its nonsingular form through smooth_of_nonsingularAfter_algebraicClosure (ZInQKernel/Contrib/OneProof/SmoothRegular/Basic.lean). Report docs/research/smooth-regular.md."
+}
