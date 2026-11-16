@@ -61,14 +61,14 @@ theorem d5_obligation : D5_Obligation := by
   refine ⟨u, h, surfaceOfEq P B hA, qmOfEq P B hA, levelOfEq P B hA, ?_, ?_, ?_⟩
   · intro a
     have hi : ((qmOfEq P B hA).iota a).hom = (P.q.iota a).hom := by
-      simpa only [eqToHom_refl, Category.id_comp, Category.comp_id] using
-        (qmOfEq_hom P B hA (show B.X = P.A.X from rfl) a)
+      refine (qmOfEq_hom P B hA (show B.X = P.A.X from rfl) a).trans ?_
+      erw [eqToHom_refl, Category.id_comp, Category.comp_id]
     exact (congrArg CommaMorphism.left hi).trans (kernelFakeEC_act P a).symm
   · intro a
     have he : Additive.toMul ((levelOfEq P B hA).eta a) =
         Additive.toMul (P.e.eta a) := by
-      simpa only [eqToHom_refl, Category.comp_id] using
-        (levelOfEq_pt P B hA (show B.X = P.A.X from rfl) a)
+      refine (levelOfEq_pt P B hA (show B.X = P.A.X from rfl) a).trans ?_
+      erw [eqToHom_refl, Category.comp_id]
     exact (congrArg CommaMorphism.left he).trans (kernelWithFullLevel_points P a).symm
   · exact ⟨objectOfEq_iso P B hA⟩
 

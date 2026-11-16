@@ -26,7 +26,7 @@ The source theorem has no final premises. Its **source exists, but this declarat
 ## Actual verified source builds
 
 Pinned environment: Lean 4.35.0 / mathlib `56a005855ea17e0b0958f73ec801ae140b0a1679`.
-Final sequential verification run: `-j2 -M11264`, `LEAN_NUM_THREADS=2`, one Lean process at a time, `/usr/bin/time -v`, warm root `.lake` and warm local helper-package `lean/.lake`.
+Initial bounded verification run (before the hidden-carrier follow-up): `-j2 -M11264`, `LEAN_NUM_THREADS=2`, one Lean process at a time, `/usr/bin/time -v`, warm root `.lake` and warm local helper-package `lean/.lake`.
 
 | module under `CloudB3W13.Dictionary.D5` | wall seconds | peak RSS (KiB) | result |
 | --- | ---: | ---: | --- |
@@ -46,8 +46,16 @@ Final sequential verification run: `-j2 -M11264`, `LEAN_NUM_THREADS=2`, one Lean
 - `GeometricPoints`: original eta is precomposed with the actual field-spectrum map. `Epi` of field spectra proves its kernel remains exactly `3O` at every field map.
 - `Construction` (unbuilt): FakeEC at N=1 with original carrier/action/law; actual identity subgroup; canonical tangent trace provider plus main's `SGRSplit.abVarSurfaceRelDim`.
 - `Generation` (unbuilt): actual `eta(1)` as distinguished point; genuine arbitrary-geometric-field torsion cardinality 81 supplies generation, and the original kernel supplies the annihilator.
-- `Transport`: explicit Eq.rec transport of surface/action/level, with carrier-aware hom/point formulas and a kernel object isomorphism. `Checks/Transport` verifies the full dependent packaging shape on genuine abelian varieties with a fixed carrier.
-- `Assembly` (unbuilt): now uses the verified transport helpers, not goal-wide `rw [hA]` (which the independent review identified as an ill-typed dependent motive).
+- `Transport`: explicit Eq.rec transport of surface/action/level, with carrier-aware hom/point formulas and a kernel object isomorphism. `Checks/Transport` now verifies the dependent packaging shape with `Over.mk P.A.X.hom` behind the genuine `hiddenCarrier` definition, matching Assembly rather than using a literal `P.A.X` carrier.
+- `Assembly` (unbuilt): uses the verified transport helpers, not goal-wide `rw [hA]`. The two carrier equations now compose the helper equality with `.trans` and close the identity composition using `erw`, which unfolds the hidden `Over.mk` carrier enough for `eqToHom_refl`.
+
+## Hidden-carrier follow-up, 2026-11-16
+
+Independent review found that the first fixed-carrier check at `ffa6b8495175f875c56f8adddabcf62dff8a1631` was not faithful: it used `X := P.A.X` literally, whereas Assembly uses `Over.mk P.A.X.hom` behind a definition. The two `simpa only [eqToHom_refl, ...]` steps therefore still failed in the reviewer's faithful reproduction.
+
+The source fix is the tested `.trans` / `erw` pattern for both action and level equations. The strengthened `Checks/Transport.lean` uses the hidden carrier and copies these exact clause proofs. It was rebuilt from source successfully in **6.13s**, peak RSS **6,876,424KiB**, with exactly `[propext, Classical.choice, Quot.sound]`. `Checks/Foundations.lean` was rerun successfully in **5.53s**, peak RSS **8,795,068KiB**, and every printed support/regression conclusion again has exactly those standard axioms.
+
+This verifies the bounded carrier-unfolding repair in the faithful reproduction, **not** the complete Assembly or D5 dependency graph. Full D5/H119 remain unbuilt/unverified.
 
 ## Still required
 
