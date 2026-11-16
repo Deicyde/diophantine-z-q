@@ -25,11 +25,11 @@ open Opposite
 open TopologicalSpace
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme Scheme.Modules)
+export _root_.AlgebraicGeometry (Scheme Scheme.Modules)
 namespace Scheme
-export AlgebraicGeometry.Scheme (forget Γ Modules Opens evaluation)
+export _root_.AlgebraicGeometry.Scheme (forget «Γ» Modules Opens evaluation)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (toPresheaf)
+export _root_.AlgebraicGeometry.Scheme.Modules (toPresheaf)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry

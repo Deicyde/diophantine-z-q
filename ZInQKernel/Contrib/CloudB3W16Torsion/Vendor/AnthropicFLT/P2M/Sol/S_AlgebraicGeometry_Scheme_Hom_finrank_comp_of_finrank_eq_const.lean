@@ -26,7 +26,7 @@ open AlgebraicGeometry
 open TensorProduct
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Spec.map_comp Scheme.Hom.finrank_comp_left_of_isIso Scheme.Hom Flat.SpecMap_iff IsFinite Scheme.Hom.finrank_pullback_snd isAffine_of_isAffineHom IsAffine Spec Spec.map Scheme Scheme.Hom.finrank_SpecMap_eq_finrank Flat Scheme.Hom.finrank_of_isPullback Spec.preimage IsFinite.SpecMap_iff Scheme.Hom.comp_apply)
+export _root_.AlgebraicGeometry (Spec.map_comp Scheme.Hom.finrank_comp_left_of_isIso Scheme.Hom Flat.SpecMap_iff IsFinite Scheme.Hom.finrank_pullback_snd isAffine_of_isAffineHom IsAffine Spec Spec.map Scheme Scheme.Hom.finrank_SpecMap_eq_finrank Flat Scheme.Hom.finrank_of_isPullback Spec.preimage IsFinite.SpecMap_iff Scheme.Hom.comp_apply)
 namespace FinrankComp
 open AlgebraicGeometry
 
@@ -144,5 +144,6 @@ theorem solution
   have e : f' ≫ g' = (pullbackRightPullbackFstIso g i f).hom ≫ pullback.snd (f ≫ g) i := by
     simp [f', g']
   rw [e, Scheme.Hom.finrank_comp_left_of_isIso, Scheme.Hom.finrank_pullback_snd,
-    Scheme.Hom.finrank_pullback_snd, hz] at key
-  exact key
+    Scheme.Hom.finrank_pullback_snd] at key
+  -- Lean 4.35 port: `rw [hz]` no longer matches the coerced point `i pt`; transport along `hz`.
+  rw [← hz]; exact key

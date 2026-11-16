@@ -25,11 +25,11 @@ open Opposite
 open TopologicalSpace
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Spec Scheme tilde.isUnit_algebraMap_end_basicOpen modulesSpecToSheaf StructureSheaf.globalSectionsIso Scheme.Modules tilde basicOpen_eq_of_affine Scheme.ΓSpecIso Scheme.Modules.isIso_fromTildeGamma_iff_isLocalizedModule)
+export _root_.AlgebraicGeometry (Spec Scheme tilde.isUnit_algebraMap_end_basicOpen modulesSpecToSheaf StructureSheaf.globalSectionsIso Scheme.Modules tilde basicOpen_eq_of_affine Scheme.ΓSpecIso Scheme.Modules.isIso_fromTildeGamma_iff_isLocalizedModule)
 namespace Scheme
-export AlgebraicGeometry.Scheme (mk Γ basicOpen Modules Opens basicOpen_le ΓSpecIso Modules.isIso_fromTildeGamma_iff_isLocalizedModule)
+export _root_.AlgebraicGeometry.Scheme (mk «Γ» basicOpen Modules Opens basicOpen_le ΓSpecIso Modules.isIso_fromTildeGamma_iff_isLocalizedModule)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (presheaf fromTildeΓ isIso_fromTildeGamma_iff_isLocalizedModule)
+export _root_.AlgebraicGeometry.Scheme.Modules (presheaf fromTildeΓ isIso_fromTildeGamma_iff_isLocalizedModule)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry

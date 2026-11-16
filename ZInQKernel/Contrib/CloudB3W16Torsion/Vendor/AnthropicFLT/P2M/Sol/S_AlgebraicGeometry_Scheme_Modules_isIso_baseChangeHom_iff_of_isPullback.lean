@@ -25,13 +25,13 @@ open AlgebraicGeometry
 -- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.hom_ext Scheme.Modules.Hom.comp_app Scheme.Modules.Hom Scheme Scheme.Modules Scheme.Modules.baseChangeHom Scheme.Modules.unit_app_comp_pullbackComp_inv)
+export _root_.AlgebraicGeometry (Scheme.Modules.hom_ext Scheme.Modules.Hom.comp_app Scheme.Modules.Hom Scheme Scheme.Modules Scheme.Modules.baseChangeHom Scheme.Modules.unit_app_comp_pullbackComp_inv)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Modules.hom_ext Hom mk Modules.Hom.comp_app Modules.Hom Hom.comp_app Modules Opens Modules.baseChangeHom Modules.unit_app_comp_pullbackComp_inv)
+export _root_.AlgebraicGeometry.Scheme (Modules.hom_ext Hom mk Modules.Hom.comp_app Modules.Hom Hom.comp_app Modules Opens Modules.baseChangeHom Modules.unit_app_comp_pullbackComp_inv)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (hom_ext pushforwardCongr pushforward pushforwardComp pullback presheaf Hom.comp_app pushforwardId Hom pullbackPushforwardAdjunction pullbackComp baseChangeHom unit_app_app_comp_baseChangeHom_app unit_app_comp_pullbackComp_inv)
-open AlgebraicGeometry.Scheme.Modules
-open AlgebraicGeometry.Scheme
+export _root_.AlgebraicGeometry.Scheme.Modules (hom_ext pushforwardCongr pushforward pushforwardComp pullback presheaf Hom.comp_app pushforwardId Hom pullbackPushforwardAdjunction pullbackComp baseChangeHom unit_app_app_comp_baseChangeHom_app unit_app_comp_pullbackComp_inv)
+open _root_.AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme
 open AlgebraicGeometry
 
 theorem invE5_map_eqToHom_comp_app {Y : Scheme.{u}} {M N : Y.Modules} (φ : M ⟶ N) {U V : Y.Opens}
@@ -97,7 +97,7 @@ theorem invE5_baseChangeHom_iso_comp {X T T' X₁ X₂ : Scheme.{u}} {π : X ⟶
     invE5_inv_app_map_eqToHom_id_hom_app ((pullbackComp θ.hom g₂).app F) e₂θ
   show _ = ((pullbackPushforwardAdjunction (θ.hom ≫ g₂)).unit.app F).app (π ⁻¹ᵁ U) ≫ (((pullbackComp θ.hom g₂).inv.app F).app ((θ.hom ≫ g₂) ⁻¹ᵁ (π ⁻¹ᵁ U)) ≫ ((pullback θ.hom).obj ((pullback g₂).obj F)).presheaf.map (eqToHom e₂θ).op ≫ 𝟙 _ ≫ ((pullbackComp θ.hom g₂).hom.app F).app ((θ.hom ≫ π₂) ⁻¹ᵁ (ψ ⁻¹ᵁ U)))
   erw [fin]
-  rfl
+  -- Lean 4.35 port: `erw [fin]` now closes the goal by `rfl`; the trailing `rfl` was removed.
 
 theorem _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_isIso_baseChangeHom_iff_of_isPullback.solution
     {X T T' X₁ X₂ : Scheme.{u}} {π : X ⟶ T} {ψ : T' ⟶ T}

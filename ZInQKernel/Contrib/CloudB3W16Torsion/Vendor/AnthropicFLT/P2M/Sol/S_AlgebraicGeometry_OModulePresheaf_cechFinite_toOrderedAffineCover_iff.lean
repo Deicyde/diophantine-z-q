@@ -26,33 +26,33 @@ open AlgebraicGeometry
 -- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Surjective Spec Scheme Scheme.OrderedAffineCover Scheme.OrderedAffineCover.Idx OModulePresheaf Scheme.TwoAffineOpenCover)
+export _root_.AlgebraicGeometry (Surjective Spec Scheme Scheme.OrderedAffineCover Scheme.OrderedAffineCover.Idx OModulePresheaf Scheme.TwoAffineOpenCover)
 open AlgebraicGeometry
 
 variable {R : Type u} [CommRing R] {X : Scheme.{u}} (𝒱 : X.TwoAffineOpenCover) {c : X ⟶ Spec (.of R)}
 variable (F : OModulePresheaf c)
 
 namespace Scheme
-export AlgebraicGeometry.Scheme (mk empty Opens OrderedAffineCover OrderedAffineCover.Idx TwoAffineOpenCover)
+export _root_.AlgebraicGeometry.Scheme (mk empty Opens OrderedAffineCover OrderedAffineCover.Idx TwoAffineOpenCover)
 namespace TwoAffineOpenCover
-export AlgebraicGeometry.Scheme.TwoAffineOpenCover (toOrderedAffineCover cover res_res U1 U0 mk)
-open AlgebraicGeometry.Scheme.TwoAffineOpenCover
-open AlgebraicGeometry.Scheme
+export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (toOrderedAffineCover cover res_res U1 U0 mk)
+open _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover
+open _root_.AlgebraicGeometry.Scheme
 
 -- CloudW16 port: expanded the source-local shorthand in its original lexical scope.
 
 private def _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover.idx0 (i : ULift.{u} (Fin 2)) : ((𝒱.toOrderedAffineCover)).Idx 0 := ⟨fun _ => i, fun a b h => absurd h (by omega)⟩
-export AlgebraicGeometry.Scheme.TwoAffineOpenCover (idx0)
+export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (idx0)
 private def _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover.idx01 : ((𝒱.toOrderedAffineCover)).Idx 1 :=
   ⟨fun j => ⟨j⟩, fun a b h => by
     change (⟨a⟩ : ULift.{u} (Fin 2)) < ⟨b⟩
     exact h⟩
-export AlgebraicGeometry.Scheme.TwoAffineOpenCover (idx01)
+export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (idx01)
 theorem idx0_val (i : ULift.{u} (Fin 2)) (j : Fin 1) : (𝒱.idx0 i).1 j = i := rfl
 
 private theorem _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover.eq_idx0 (s : ((𝒱.toOrderedAffineCover)).Idx 0) : s = 𝒱.idx0 (s.1 0) :=
   Subtype.ext (funext fun j => by fin_cases j; rfl)
-export AlgebraicGeometry.Scheme.TwoAffineOpenCover (eq_idx0)
+export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (eq_idx0)
 def idxZeroEquiv : ((𝒱.toOrderedAffineCover)).Idx 0 ≃ ULift.{u} (Fin 2) where
   toFun s := s.1 0
   invFun := 𝒱.idx0
@@ -68,9 +68,9 @@ private theorem _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover.eq_idx01 (s :
   have h0 : (s.1 0).down = 0 := by omega
   have h1 : (s.1 1).down = 1 := by omega
   fin_cases j
-  · exact ULift.ext _ _ h0
-  · exact ULift.ext _ _ h1
-export AlgebraicGeometry.Scheme.TwoAffineOpenCover (eq_idx01)
+  · exact ULift.ext h0
+  · exact ULift.ext h1
+export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (eq_idx01)
 scoped instance uniqueIdxOne : Unique (((𝒱.toOrderedAffineCover)).Idx 1) where
   default := 𝒱.idx01
   uniq := 𝒱.eq_idx01
@@ -82,20 +82,20 @@ private theorem _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover.isEmpty_Idx_a
   simp only [Fintype.card_fin] at this
   change i + 2 + 1 ≤ Fintype.card (ULift.{u} (Fin 2)) at this
   simp at this
-export AlgebraicGeometry.Scheme.TwoAffineOpenCover (isEmpty_Idx_add_two)
+export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (isEmpty_Idx_add_two)
 private theorem _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover.inter_idx0 (i : ULift.{u} (Fin 2)) : ((𝒱.toOrderedAffineCover)).inter (𝒱.idx0 i) = ((𝒱.toOrderedAffineCover)).U i :=
   le_antisymm (iInf_le _ 0) (le_iInf fun _ => le_rfl)
-export AlgebraicGeometry.Scheme.TwoAffineOpenCover (inter_idx0)
+export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (inter_idx0)
 private theorem _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover.inter_idx01 : ((𝒱.toOrderedAffineCover)).inter 𝒱.idx01 = 𝒱.U0 ⊓ 𝒱.U1 :=
   le_antisymm (le_inf (iInf_le _ 0) (iInf_le _ 1))
     (le_iInf fun j => by fin_cases j <;> [exact inf_le_left; exact inf_le_right])
-export AlgebraicGeometry.Scheme.TwoAffineOpenCover (inter_idx01)
+export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (inter_idx01)
 end Scheme.TwoAffineOpenCover
 
 
 namespace OModulePresheaf
-export AlgebraicGeometry.OModulePresheaf (res_refl_apply res_res cochain d d_apply H0 HSucc CechFinite twoChartSections res mk obj)
-open AlgebraicGeometry.OModulePresheaf
+export _root_.AlgebraicGeometry.OModulePresheaf (res_refl_apply res_res cochain d d_apply H0 HSucc CechFinite twoChartSections res mk obj)
+open _root_.AlgebraicGeometry.OModulePresheaf
 
 private def _root_.AlgebraicGeometry.OModulePresheaf.resEq {U U' : X.Opens} (h : U = U') : F.obj U' ≃ₗ[R] F.obj U where
   toLinearMap := F.res h.le
@@ -106,7 +106,7 @@ private def _root_.AlgebraicGeometry.OModulePresheaf.resEq {U U' : X.Opens} (h :
   right_inv x := by
     show F.res h.le (F.res h.ge x) = x
     rw [F.res_res]; exact F.res_refl_apply _ x
-export AlgebraicGeometry.OModulePresheaf (resEq)
+export _root_.AlgebraicGeometry.OModulePresheaf (resEq)
 theorem resEq_apply {U U' : X.Opens} (h : U = U') (x : F.obj U') : F.resEq h x = F.res h.le x := rfl
 
 theorem res_resEq {U U' W : X.Opens} (h : U = U') (hW : W ≤ U) (x : F.obj U') :
@@ -118,7 +118,7 @@ theorem res_resEq {U U' W : X.Opens} (h : U = U') (hW : W ≤ U) (x : F.obj U') 
 private def _root_.AlgebraicGeometry.OModulePresheaf.pick (p : F.obj 𝒱.U0 × F.obj 𝒱.U1) : ∀ i : ULift.{u} (Fin 2), F.obj (((𝒱.toOrderedAffineCover)).U i)
   | ⟨⟨0, _⟩⟩ => p.1
   | ⟨⟨1, _⟩⟩ => p.2
-export AlgebraicGeometry.OModulePresheaf (pick)
+export _root_.AlgebraicGeometry.OModulePresheaf (pick)
 theorem pick_zero (p : F.obj 𝒱.U0 × F.obj 𝒱.U1) : F.pick 𝒱 p ⟨0⟩ = p.1 := rfl
 theorem pick_one (p : F.obj 𝒱.U0 × F.obj 𝒱.U1) : F.pick 𝒱 p ⟨1⟩ = p.2 := rfl
 
@@ -128,26 +128,26 @@ private theorem _root_.AlgebraicGeometry.OModulePresheaf.pick_add (p q : F.obj �
   · rfl
   · rfl
   · omega
-export AlgebraicGeometry.OModulePresheaf (pick_add)
+export _root_.AlgebraicGeometry.OModulePresheaf (pick_add)
 private theorem _root_.AlgebraicGeometry.OModulePresheaf.pick_smul (r : R) (p : F.obj 𝒱.U0 × F.obj 𝒱.U1) (i : ULift.{u} (Fin 2)) :
     F.pick 𝒱 (r • p) i = r • F.pick 𝒱 p i := by
   rcases i with ⟨⟨_ | _ | n, hn⟩⟩
   · rfl
   · rfl
   · omega
-export AlgebraicGeometry.OModulePresheaf (pick_smul)
+export _root_.AlgebraicGeometry.OModulePresheaf (pick_smul)
 private def _root_.AlgebraicGeometry.OModulePresheaf.pickₗ (i : ULift.{u} (Fin 2)) : F.obj 𝒱.U0 × F.obj 𝒱.U1 →ₗ[R] F.obj (((𝒱.toOrderedAffineCover)).U i) where
   toFun p := F.pick 𝒱 p i
   map_add' p q := F.pick_add 𝒱 p q i
   map_smul' r p := F.pick_smul 𝒱 r p i
-export AlgebraicGeometry.OModulePresheaf (pickₗ)
+export _root_.AlgebraicGeometry.OModulePresheaf (pickₗ)
 private def _root_.AlgebraicGeometry.OModulePresheaf.cochainZeroTo : F.cochain (𝒱.toOrderedAffineCover) 0 →ₗ[R] F.obj 𝒱.U0 × F.obj 𝒱.U1 :=
   ((F.resEq (𝒱.inter_idx0 ⟨0⟩)).symm.toLinearMap.comp (LinearMap.proj (𝒱.idx0 ⟨0⟩))).prod
     ((F.resEq (𝒱.inter_idx0 ⟨1⟩)).symm.toLinearMap.comp (LinearMap.proj (𝒱.idx0 ⟨1⟩)))
-export AlgebraicGeometry.OModulePresheaf (cochainZeroTo)
+export _root_.AlgebraicGeometry.OModulePresheaf (cochainZeroTo)
 private def _root_.AlgebraicGeometry.OModulePresheaf.cochainZeroOf : F.obj 𝒱.U0 × F.obj 𝒱.U1 →ₗ[R] F.cochain (𝒱.toOrderedAffineCover) 0 :=
   LinearMap.pi fun s => (F.res (((𝒱.toOrderedAffineCover)).inter_le s 0)).comp (F.pickₗ 𝒱 (s.1 0))
-export AlgebraicGeometry.OModulePresheaf (cochainZeroOf)
+export _root_.AlgebraicGeometry.OModulePresheaf (cochainZeroOf)
 theorem cochainZeroTo_apply (f : F.cochain (𝒱.toOrderedAffineCover) 0) :
     F.cochainZeroTo 𝒱 f
       = (F.res (𝒱.inter_idx0 ⟨0⟩).ge (f (𝒱.idx0 ⟨0⟩)), F.res (𝒱.inter_idx0 ⟨1⟩).ge (f (𝒱.idx0 ⟨1⟩))) :=
@@ -164,7 +164,7 @@ private theorem _root_.AlgebraicGeometry.OModulePresheaf.cochainZeroTo_cochainZe
     rw [F.res_res, pick_zero]; exact F.res_refl_apply _ _
   · show F.res _ (F.res _ (F.pick 𝒱 p ⟨1⟩)) = p.2
     rw [F.res_res, pick_one]; exact F.res_refl_apply _ _
-export AlgebraicGeometry.OModulePresheaf (cochainZeroTo_cochainZeroOf)
+export _root_.AlgebraicGeometry.OModulePresheaf (cochainZeroTo_cochainZeroOf)
 private theorem _root_.AlgebraicGeometry.OModulePresheaf.cochainZeroOf_cochainZeroTo (f : F.cochain (𝒱.toOrderedAffineCover) 0) :
     F.cochainZeroOf 𝒱 (F.cochainZeroTo 𝒱 f) = f := by
   funext s
@@ -176,17 +176,17 @@ private theorem _root_.AlgebraicGeometry.OModulePresheaf.cochainZeroOf_cochainZe
   · show F.res _ (F.res _ (f _)) = f _
     rw [F.res_res]; exact F.res_refl_apply _ _
   · omega
-export AlgebraicGeometry.OModulePresheaf (cochainZeroOf_cochainZeroTo)
+export _root_.AlgebraicGeometry.OModulePresheaf (cochainZeroOf_cochainZeroTo)
 private def _root_.AlgebraicGeometry.OModulePresheaf.cochainZeroEquiv : F.cochain (𝒱.toOrderedAffineCover) 0 ≃ₗ[R] F.obj 𝒱.U0 × F.obj 𝒱.U1 :=
   LinearEquiv.ofLinear (F.cochainZeroTo 𝒱) (F.cochainZeroOf 𝒱)
     (LinearMap.ext (F.cochainZeroTo_cochainZeroOf 𝒱)) (LinearMap.ext (F.cochainZeroOf_cochainZeroTo 𝒱))
-export AlgebraicGeometry.OModulePresheaf (cochainZeroEquiv)
+export _root_.AlgebraicGeometry.OModulePresheaf (cochainZeroEquiv)
 private theorem _root_.AlgebraicGeometry.OModulePresheaf.finite_HSucc_succ (i : ℕ) : Module.Finite R (F.HSucc (𝒱.toOrderedAffineCover) (i + 1)) := by
   haveI := 𝒱.isEmpty_Idx_add_two i
   haveI : Subsingleton (F.cochain (𝒱.toOrderedAffineCover) (i + 1 + 1)) := inferInstance
   haveI : Subsingleton (F.HSucc (𝒱.toOrderedAffineCover) (i + 1)) := Quot.Subsingleton
   exact Module.Finite.of_finite
-export AlgebraicGeometry.OModulePresheaf (finite_HSucc_succ)
+export _root_.AlgebraicGeometry.OModulePresheaf (finite_HSucc_succ)
 end OModulePresheaf
 
 end AlgebraicGeometry
@@ -196,8 +196,8 @@ end
 noncomputable section
 
 namespace TwoChartCech
-export TwoChartCech (Sections Sections.cechDiff_apply kerMap cokerMap)
-open TwoChartCech
+export _root_.TwoChartCech (Sections Sections.cechDiff_apply kerMap cokerMap)
+open _root_.TwoChartCech
 
 universe uR uK uC
 
@@ -243,8 +243,8 @@ theorem cokerMap_bijective_of_bijective (dK : K0 →ₗ[R] K1) (d : C0 →ₗ[R]
 end TwoChartCech
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Surjective Spec Scheme Scheme.OrderedAffineCover Scheme.OrderedAffineCover.Idx OModulePresheaf Scheme.TwoAffineOpenCover)
-open AlgebraicGeometry
+export _root_.AlgebraicGeometry (Surjective Spec Scheme Scheme.OrderedAffineCover Scheme.OrderedAffineCover.Idx OModulePresheaf Scheme.TwoAffineOpenCover)
+open _root_.AlgebraicGeometry
 
 universe u
 
@@ -254,45 +254,45 @@ variable {R : Type u} [CommRing R] {X : Scheme.{u}} (𝒱 : X.TwoAffineOpenCover
 variable (F : OModulePresheaf c)
 
 namespace Scheme
-export AlgebraicGeometry.Scheme (mk empty Opens OrderedAffineCover OrderedAffineCover.Idx TwoAffineOpenCover)
+export _root_.AlgebraicGeometry.Scheme (mk empty Opens OrderedAffineCover OrderedAffineCover.Idx TwoAffineOpenCover)
 namespace TwoAffineOpenCover
-export AlgebraicGeometry.Scheme.TwoAffineOpenCover (toOrderedAffineCover cover res_res U1 U0 mk)
-open AlgebraicGeometry.Scheme.TwoAffineOpenCover
-open AlgebraicGeometry.Scheme
+export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (toOrderedAffineCover cover res_res U1 U0 mk)
+open _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover
+open _root_.AlgebraicGeometry.Scheme
 
 -- CloudW16 port: expanded the source-local shorthand in its original lexical scope.
 
 private theorem _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover.face_idx01_zero : ((𝒱.toOrderedAffineCover)).face 𝒱.idx01 0 = 𝒱.idx0 ⟨1⟩ :=
   Subtype.ext (funext fun j => by fin_cases j; rfl)
-export AlgebraicGeometry.Scheme.TwoAffineOpenCover (face_idx01_zero)
+export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (face_idx01_zero)
 private theorem _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover.face_idx01_one : ((𝒱.toOrderedAffineCover)).face 𝒱.idx01 1 = 𝒱.idx0 ⟨0⟩ :=
   Subtype.ext (funext fun j => by fin_cases j; rfl)
-export AlgebraicGeometry.Scheme.TwoAffineOpenCover (face_idx01_one)
+export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (face_idx01_one)
 private theorem _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover.inter_le_inf (s : ((𝒱.toOrderedAffineCover)).Idx 1) : ((𝒱.toOrderedAffineCover)).inter s ≤ 𝒱.U0 ⊓ 𝒱.U1 := by
   rw [𝒱.eq_idx01 s, 𝒱.inter_idx01]
-export AlgebraicGeometry.Scheme.TwoAffineOpenCover (inter_le_inf)
+export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (inter_le_inf)
 private theorem _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover.inf_le_inter (s : ((𝒱.toOrderedAffineCover)).Idx 1) : 𝒱.U0 ⊓ 𝒱.U1 ≤ ((𝒱.toOrderedAffineCover)).inter s := by
   rw [𝒱.eq_idx01 s, 𝒱.inter_idx01]
-export AlgebraicGeometry.Scheme.TwoAffineOpenCover (inf_le_inter)
+export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (inf_le_inter)
 end Scheme.TwoAffineOpenCover
 
 
 namespace OModulePresheaf
-export AlgebraicGeometry.OModulePresheaf (res_refl_apply res_res cochain d d_apply H0 HSucc CechFinite twoChartSections res mk obj)
-open AlgebraicGeometry.OModulePresheaf
+export _root_.AlgebraicGeometry.OModulePresheaf (res_refl_apply res_res cochain d d_apply H0 HSucc CechFinite twoChartSections res mk obj)
+open _root_.AlgebraicGeometry.OModulePresheaf
 
 -- CloudW16 port: expanded the source-local shorthand in its original lexical scope.
 
 private theorem _root_.AlgebraicGeometry.OModulePresheaf.res_congr_idx {i : ℕ} (co : F.cochain (𝒱.toOrderedAffineCover) i) {s s' : ((𝒱.toOrderedAffineCover)).Idx i} (e : s = s') {W : X.Opens}
     (p : W ≤ ((𝒱.toOrderedAffineCover)).inter s) (p' : W ≤ ((𝒱.toOrderedAffineCover)).inter s') : F.res p (co s) = F.res p' (co s') := by
   subst e; rfl
-export AlgebraicGeometry.OModulePresheaf (res_congr_idx)
+export _root_.AlgebraicGeometry.OModulePresheaf (res_congr_idx)
 private def _root_.AlgebraicGeometry.OModulePresheaf.cochainOneTo : F.cochain (𝒱.toOrderedAffineCover) 1 →ₗ[R] F.obj (𝒱.U0 ⊓ 𝒱.U1) :=
   (F.res (𝒱.inf_le_inter 𝒱.idx01)).comp (LinearMap.proj 𝒱.idx01)
-export AlgebraicGeometry.OModulePresheaf (cochainOneTo)
+export _root_.AlgebraicGeometry.OModulePresheaf (cochainOneTo)
 private def _root_.AlgebraicGeometry.OModulePresheaf.cochainOneOf : F.obj (𝒱.U0 ⊓ 𝒱.U1) →ₗ[R] F.cochain (𝒱.toOrderedAffineCover) 1 :=
   LinearMap.pi fun s => F.res (𝒱.inter_le_inf s)
-export AlgebraicGeometry.OModulePresheaf (cochainOneOf)
+export _root_.AlgebraicGeometry.OModulePresheaf (cochainOneOf)
 theorem cochainOneTo_apply (co : F.cochain (𝒱.toOrderedAffineCover) 1) :
     F.cochainOneTo 𝒱 co = F.res (𝒱.inf_le_inter 𝒱.idx01) (co 𝒱.idx01) := rfl
 
@@ -303,7 +303,7 @@ private theorem _root_.AlgebraicGeometry.OModulePresheaf.cochainOneTo_cochainOne
     F.cochainOneTo 𝒱 (F.cochainOneOf 𝒱 x) = x := by
   rw [cochainOneTo_apply, cochainOneOf_apply, F.res_res]
   exact F.res_refl_apply _ x
-export AlgebraicGeometry.OModulePresheaf (cochainOneTo_cochainOneOf)
+export _root_.AlgebraicGeometry.OModulePresheaf (cochainOneTo_cochainOneOf)
 private theorem _root_.AlgebraicGeometry.OModulePresheaf.cochainOneOf_cochainOneTo (co : F.cochain (𝒱.toOrderedAffineCover) 1) :
     F.cochainOneOf 𝒱 (F.cochainOneTo 𝒱 co) = co := by
   funext s
@@ -311,11 +311,11 @@ private theorem _root_.AlgebraicGeometry.OModulePresheaf.cochainOneOf_cochainOne
   have hs := 𝒱.eq_idx01 s
   subst hs
   exact F.res_refl_apply _ _
-export AlgebraicGeometry.OModulePresheaf (cochainOneOf_cochainOneTo)
+export _root_.AlgebraicGeometry.OModulePresheaf (cochainOneOf_cochainOneTo)
 private def _root_.AlgebraicGeometry.OModulePresheaf.cochainOneEquiv : F.cochain (𝒱.toOrderedAffineCover) 1 ≃ₗ[R] F.obj (𝒱.U0 ⊓ 𝒱.U1) :=
   LinearEquiv.ofLinear (F.cochainOneTo 𝒱) (F.cochainOneOf 𝒱)
     (LinearMap.ext (F.cochainOneTo_cochainOneOf 𝒱)) (LinearMap.ext (F.cochainOneOf_cochainOneTo 𝒱))
-export AlgebraicGeometry.OModulePresheaf (cochainOneEquiv)
+export _root_.AlgebraicGeometry.OModulePresheaf (cochainOneEquiv)
 private theorem _root_.AlgebraicGeometry.OModulePresheaf.cochainOneTo_d (co : F.cochain (𝒱.toOrderedAffineCover) 0) :
     F.cochainOneTo 𝒱 (F.d (𝒱.toOrderedAffineCover) 0 co) = (F.twoChartSections 𝒱).cechDiff (F.cochainZeroTo 𝒱 co) := by
   rw [cochainOneTo_apply, F.d_apply, Fin.sum_univ_two]
@@ -331,30 +331,30 @@ private theorem _root_.AlgebraicGeometry.OModulePresheaf.cochainOneTo_d (co : F.
       ((inf_le_right : 𝒱.U0 ⊓ 𝒱.U1 ≤ 𝒱.U1).trans (𝒱.inter_idx0 ⟨1⟩).ge),
     F.res_congr_idx 𝒱 co (𝒱.face_idx01_one) _
       ((inf_le_left : 𝒱.U0 ⊓ 𝒱.U1 ≤ 𝒱.U0).trans (𝒱.inter_idx0 ⟨0⟩).ge)]
-export AlgebraicGeometry.OModulePresheaf (cochainOneTo_d)
+export _root_.AlgebraicGeometry.OModulePresheaf (cochainOneTo_d)
 private theorem _root_.AlgebraicGeometry.OModulePresheaf.cechDiff_comp_cochainZeroEquiv :
     (F.twoChartSections 𝒱).cechDiff ∘ₗ (F.cochainZeroEquiv 𝒱).toLinearMap
       = (F.cochainOneEquiv 𝒱).toLinearMap ∘ₗ F.d (𝒱.toOrderedAffineCover) 0 := by
   apply LinearMap.ext
   intro co
   exact (F.cochainOneTo_d 𝒱 co).symm
-export AlgebraicGeometry.OModulePresheaf (cechDiff_comp_cochainZeroEquiv)
+export _root_.AlgebraicGeometry.OModulePresheaf (cechDiff_comp_cochainZeroEquiv)
 private def _root_.AlgebraicGeometry.OModulePresheaf.H0Equiv : F.H0 (𝒱.toOrderedAffineCover) ≃ₗ[R] (F.twoChartSections 𝒱).H0 :=
   LinearEquiv.ofBijective _
     (TwoChartCech.kerMap_bijective_of_bijective (F.d (𝒱.toOrderedAffineCover) 0) (F.twoChartSections 𝒱).cechDiff
       (F.cochainZeroEquiv 𝒱).toLinearMap (F.cochainOneEquiv 𝒱).toLinearMap
       (F.cechDiff_comp_cochainZeroEquiv 𝒱) (F.cochainZeroEquiv 𝒱).bijective
       (F.cochainOneEquiv 𝒱).injective)
-export AlgebraicGeometry.OModulePresheaf (H0Equiv)
+export _root_.AlgebraicGeometry.OModulePresheaf (H0Equiv)
 private theorem _root_.AlgebraicGeometry.OModulePresheaf.d_one_eq_zero : F.d (𝒱.toOrderedAffineCover) 1 = 0 := by
   haveI := 𝒱.isEmpty_Idx_add_two 0
   apply LinearMap.ext
   intro co
   exact Subsingleton.elim _ _
-export AlgebraicGeometry.OModulePresheaf (d_one_eq_zero)
+export _root_.AlgebraicGeometry.OModulePresheaf (d_one_eq_zero)
 private theorem _root_.AlgebraicGeometry.OModulePresheaf.ker_d_one_eq_top : LinearMap.ker (F.d (𝒱.toOrderedAffineCover) 1) = ⊤ := by
   rw [F.d_one_eq_zero 𝒱, LinearMap.ker_zero]
-export AlgebraicGeometry.OModulePresheaf (ker_d_one_eq_top)
+export _root_.AlgebraicGeometry.OModulePresheaf (ker_d_one_eq_top)
 private def _root_.AlgebraicGeometry.OModulePresheaf.HSuccZeroEquivCoker : F.HSucc (𝒱.toOrderedAffineCover) 0 ≃ₗ[R] (F.cochain (𝒱.toOrderedAffineCover) 1 ⧸ LinearMap.range (F.d (𝒱.toOrderedAffineCover) 0)) :=
   Submodule.Quotient.equiv _ _ (LinearEquiv.ofTop _ (F.ker_d_one_eq_top 𝒱)) (by
     apply le_antisymm
@@ -362,14 +362,14 @@ private def _root_.AlgebraicGeometry.OModulePresheaf.HSuccZeroEquivCoker : F.HSu
       exact hy
     · intro y hy
       refine ⟨⟨y, by rw [F.ker_d_one_eq_top 𝒱]; trivial⟩, hy, rfl⟩)
-export AlgebraicGeometry.OModulePresheaf (HSuccZeroEquivCoker)
+export _root_.AlgebraicGeometry.OModulePresheaf (HSuccZeroEquivCoker)
 private def _root_.AlgebraicGeometry.OModulePresheaf.HSuccZeroEquiv : F.HSucc (𝒱.toOrderedAffineCover) 0 ≃ₗ[R] (F.twoChartSections 𝒱).H1 :=
   (F.HSuccZeroEquivCoker 𝒱).trans (LinearEquiv.ofBijective _
     (TwoChartCech.cokerMap_bijective_of_bijective (F.d (𝒱.toOrderedAffineCover) 0) (F.twoChartSections 𝒱).cechDiff
       (F.cochainZeroEquiv 𝒱).toLinearMap (F.cochainOneEquiv 𝒱).toLinearMap
       (F.cechDiff_comp_cochainZeroEquiv 𝒱) (F.cochainZeroEquiv 𝒱).surjective
       (F.cochainOneEquiv 𝒱).bijective))
-export AlgebraicGeometry.OModulePresheaf (HSuccZeroEquiv)
+export _root_.AlgebraicGeometry.OModulePresheaf (HSuccZeroEquiv)
 theorem cechFinite_toOrderedAffineCover_iff' :
     F.CechFinite (𝒱.toOrderedAffineCover) ↔
       Module.Finite R (F.twoChartSections 𝒱).H0 ∧ Module.Finite R (F.twoChartSections 𝒱).H1 := by

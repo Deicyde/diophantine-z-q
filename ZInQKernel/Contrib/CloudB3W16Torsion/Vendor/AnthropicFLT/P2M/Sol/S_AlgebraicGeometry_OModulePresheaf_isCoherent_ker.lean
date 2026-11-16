@@ -32,9 +32,9 @@ open Opposite
 noncomputable section
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (IsLocallyNoetherian Spec Scheme IsLocallyNoetherian.component_noetherian IsNoetherian OModulePresheaf.ker OModulePresheaf.kerImSES OModulePresheaf.Hom OModulePresheaf OModulePresheaf.IsCoherent)
+export _root_.AlgebraicGeometry (IsLocallyNoetherian Spec Scheme IsLocallyNoetherian.component_noetherian IsNoetherian OModulePresheaf.ker OModulePresheaf.kerImSES OModulePresheaf.Hom OModulePresheaf OModulePresheaf.IsCoherent)
 namespace OModulePresheaf
-export AlgebraicGeometry.OModulePresheaf (ker kerImSES Hom IsCoherent obj)
+export _root_.AlgebraicGeometry.OModulePresheaf (ker kerImSES Hom IsCoherent obj)
 namespace G4T
 open AlgebraicGeometry.OModulePresheaf
 open AlgebraicGeometry

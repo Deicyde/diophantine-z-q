@@ -24,13 +24,13 @@ open AlgebraicGeometry.Scheme.Modules
 -- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.pullback Scheme Scheme.Modules Scheme.Modules.IsLocallyFreeOfRank)
+export _root_.AlgebraicGeometry (Scheme.Modules.pullback Scheme Scheme.Modules Scheme.Modules.IsLocallyFreeOfRank)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Modules.pullback Modules Opens Modules.IsLocallyFreeOfRank)
+export _root_.AlgebraicGeometry.Scheme (Modules.pullback Modules Opens Modules.IsLocallyFreeOfRank)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (pullback pullbackCongr pullbackComp IsLocallyFreeOfRank)
+export _root_.AlgebraicGeometry.Scheme.Modules (pullback pullbackCongr pullbackComp IsLocallyFreeOfRank)
 open AlgebraicGeometry.Scheme.Modules
-open AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry.Scheme
 open AlgebraicGeometry
 
 theorem opensMap_final' {X Y : Scheme.{u}} (f : X ⟶ Y) : (TopologicalSpace.Opens.map f.base).Final :=
@@ -41,6 +41,8 @@ noncomputable def pullbackFreeIso' {X Y : Scheme.{u}} (f : X ⟶ Y) (I : Type u)
   haveI := opensMap_final' f
   SheafOfModules.pullbackObjFreeIso f.toRingCatSheafHom I
 end AlgebraicGeometry.Scheme.Modules
+-- Deferred source P2M scope: open the local namespaces once declared.
+open _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_IsLocallyFreeOfRank_of_forall_exists_opens.AlgebraicGeometry _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_IsLocallyFreeOfRank_of_forall_exists_opens.AlgebraicGeometry.Scheme.Modules
 
 open _root_.AlgebraicGeometry _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_IsLocallyFreeOfRank_of_forall_exists_opens.AlgebraicGeometry in
 theorem solution {X : Scheme.{u}} {n : ℕ} {M : X.Modules}

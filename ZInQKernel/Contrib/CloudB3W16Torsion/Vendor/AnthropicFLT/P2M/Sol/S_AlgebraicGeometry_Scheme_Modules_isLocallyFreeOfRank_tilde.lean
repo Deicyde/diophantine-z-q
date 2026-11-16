@@ -26,7 +26,7 @@ open Opposite
 open TensorProduct
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (IsOpenImmersion.isoOfRangeEq_inv_fac Scheme.Modules.pullback Spec Spec.map Scheme tildeFinsupp pullbackSpecIso basicOpenIsoSpecAway IsOpenImmersion Scheme.Modules.pullbackCongr Scheme.Modules.pullbackId tilde.functor Scheme.Modules tilde Scheme.Modules.pullbackComp Scheme.Modules.IsLocallyFreeOfRank tilde.pullbackSpecIso)
+export _root_.AlgebraicGeometry (IsOpenImmersion.isoOfRangeEq_inv_fac Scheme.Modules.pullback Spec Spec.map Scheme tildeFinsupp pullbackSpecIso basicOpenIsoSpecAway IsOpenImmersion Scheme.Modules.pullbackCongr Scheme.Modules.pullbackId tilde.functor Scheme.Modules tilde Scheme.Modules.pullbackComp Scheme.Modules.IsLocallyFreeOfRank tilde.pullbackSpecIso)
 open AlgebraicGeometry
 
 theorem free_finite_finrank_of_algebra_eq {A S : Type u} [CommRing A] [CommRing S]

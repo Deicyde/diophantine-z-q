@@ -26,9 +26,9 @@ open AlgebraicGeometry
 -- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (IsOpenImmersion.lift Scheme.Opens.range_ι Scheme IsOpenImmersion Scheme.Opens IsOpenImmersion.lift_fac RelEffCartierDiv.supportedIn RelEffCartierDiv.functor RelEffCartierDiv)
+export _root_.AlgebraicGeometry (IsOpenImmersion.lift Scheme.Opens.range_ι Scheme IsOpenImmersion Scheme.Opens IsOpenImmersion.lift_fac RelEffCartierDiv.supportedIn RelEffCartierDiv.functor RelEffCartierDiv)
 namespace RelEffCartierDiv
-export AlgebraicGeometry.RelEffCartierDiv (SupportedIn supportedInLocus supportedIn_pullbackAlong_iff supportedIn mem_supportedIn_iff functor functor_map_snd ext pullbackAlong)
+export _root_.AlgebraicGeometry.RelEffCartierDiv (SupportedIn supportedInLocus supportedIn_pullbackAlong_iff supportedIn mem_supportedIn_iff functor functor_map_snd ext pullbackAlong)
 open AlgebraicGeometry.RelEffCartierDiv
 open AlgebraicGeometry
 

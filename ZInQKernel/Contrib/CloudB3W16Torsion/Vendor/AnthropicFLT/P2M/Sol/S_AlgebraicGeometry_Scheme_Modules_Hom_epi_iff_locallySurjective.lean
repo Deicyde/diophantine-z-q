@@ -27,7 +27,7 @@ open TopologicalSpace
 universe v v' u'
 
 namespace SheafOfModules
-export SheafOfModules (forget restrictScalars toSheaf sections)
+export _root_.SheafOfModules (forget restrictScalars toSheaf sections)
 open SheafOfModules
 
 variable {C : Type u'} [Category.{v'} C] {J : GrothendieckTopology C} {R : Sheaf J RingCat.{u}}
@@ -82,11 +82,11 @@ theorem epi_toSheaf_map_of_epi {M N : SheafOfModules.{v} R} (φ : M ⟶ N) [Epi 
 end SheafOfModules
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme Scheme.Modules)
+export _root_.AlgebraicGeometry (Scheme Scheme.Modules)
 namespace Scheme
-export AlgebraicGeometry.Scheme (forget ringCatSheaf Γ Modules Opens grothendieckTopology PresheafOfModules)
+export _root_.AlgebraicGeometry.Scheme (forget ringCatSheaf «Γ» Modules Opens grothendieckTopology PresheafOfModules)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (toPresheaf presheaf)
+export _root_.AlgebraicGeometry.Scheme.Modules (toPresheaf presheaf)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry

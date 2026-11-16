@@ -24,7 +24,7 @@ open AlgebraicGeometry
 -- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Surjective Spec Scheme GeometricallyConnected geometrically)
+export _root_.AlgebraicGeometry (Surjective Spec Scheme GeometricallyConnected geometrically)
 namespace GeometricallyConnectedDescentAux
 open AlgebraicGeometry
 

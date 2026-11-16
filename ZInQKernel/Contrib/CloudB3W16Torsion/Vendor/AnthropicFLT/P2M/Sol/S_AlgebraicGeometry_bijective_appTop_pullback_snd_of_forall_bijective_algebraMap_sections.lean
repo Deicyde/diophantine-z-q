@@ -27,7 +27,7 @@ open Opposite
 open TopologicalSpace
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Spec.map_comp Scheme.Hom morphismRestrict_appTop IsAffineOpen.fromSpec_top IsAffineOpen.isoSpec_inv_ι IsAffineOpen.SpecMap_appLE_fromSpec Spec Scheme.Hom.id_appTop Spec.map Scheme Scheme.isoSpec_Spec_inv pullbackRestrictIsoRestrict_hom_morphismRestrict image_morphismRestrict_preimage Scheme.Hom.comp_appTop isAffineOpen_top IsAffineOpen pullbackRestrictIsoRestrict Scheme.Opens Scheme.Hom.app_eq_appLE Scheme.Opens.ι_image_top Scheme.ΓSpecIso Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap Scheme.TwoAffineOpenCover.algebraOfHom)
+export _root_.AlgebraicGeometry (Spec.map_comp Scheme.Hom morphismRestrict_appTop IsAffineOpen.fromSpec_top IsAffineOpen.isoSpec_inv_ι IsAffineOpen.SpecMap_appLE_fromSpec Spec Scheme.Hom.id_appTop Spec.map Scheme Scheme.isoSpec_Spec_inv pullbackRestrictIsoRestrict_hom_morphismRestrict image_morphismRestrict_preimage Scheme.Hom.comp_appTop isAffineOpen_top IsAffineOpen pullbackRestrictIsoRestrict Scheme.Opens Scheme.Hom.app_eq_appLE Scheme.Opens.ι_image_top Scheme.ΓSpecIso Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap Scheme.TwoAffineOpenCover.algebraOfHom)
 namespace SectionsBaseChangeAux
 open AlgebraicGeometry
 

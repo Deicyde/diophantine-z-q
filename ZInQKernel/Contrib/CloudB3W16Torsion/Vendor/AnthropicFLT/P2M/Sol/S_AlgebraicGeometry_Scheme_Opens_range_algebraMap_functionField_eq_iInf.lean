@@ -26,7 +26,7 @@ open Opposite
 universe u
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.germToFunctionField IsIntegral Scheme exists_isAffineOpen_mem_and_subset IsAffineOpen functionField_isScalarTower)
+export _root_.AlgebraicGeometry (Scheme.germToFunctionField IsIntegral Scheme exists_isAffineOpen_mem_and_subset IsAffineOpen functionField_isScalarTower)
 namespace EngineOpen
 open AlgebraicGeometry
 

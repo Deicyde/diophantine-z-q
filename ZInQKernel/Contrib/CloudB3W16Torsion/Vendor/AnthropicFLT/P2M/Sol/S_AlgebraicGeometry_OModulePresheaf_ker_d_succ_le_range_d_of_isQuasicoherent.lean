@@ -32,9 +32,9 @@ open Opposite
 noncomputable section
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.basicOpen_res IsAffine Spec Scheme IsSeparated isAffineOpen_top IsAffineOpen Scheme.OrderedAffineCover OModulePresheaf Scheme.OrderedAffineCoverOf Scheme.OrderedAffineCoverOf.Idx Scheme.OrderedAffineCoverOf.inter Scheme.OrderedAffineCoverOf.face Scheme.OrderedAffineCover.isAffineOpen_inf_of_isSeparated)
+export _root_.AlgebraicGeometry (Scheme.basicOpen_res IsAffine Spec Scheme IsSeparated isAffineOpen_top IsAffineOpen Scheme.OrderedAffineCover OModulePresheaf Scheme.OrderedAffineCoverOf Scheme.OrderedAffineCoverOf.Idx Scheme.OrderedAffineCoverOf.inter Scheme.OrderedAffineCoverOf.face Scheme.OrderedAffineCover.isAffineOpen_inf_of_isSeparated)
 namespace OModulePresheaf
-export AlgebraicGeometry.OModulePresheaf (res_refl_apply res_res d IsQuasicoherent res res_smul module obj)
+export _root_.AlgebraicGeometry.OModulePresheaf (res_refl_apply res_res d IsQuasicoherent res res_smul module obj)
 namespace AffineAcyclicF
 open AlgebraicGeometry.OModulePresheaf
 open AlgebraicGeometry

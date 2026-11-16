@@ -30,7 +30,7 @@ open AlgebraicCurve
 
 namespace Place
 export _root_.AlgebraicCurve.Place (ord_neg mem_of_eval_monic_eq_zero finite_setOf_restrict_eq restrict ord_restrict ord ord_mul toValuationSubring ord_nonneg_of_mem mem_of_ord_nonneg)
-open AlgebraicCurve.Place hiding ord_eq_zero_iff_adicValuation_eq_one exists_ord_pos
+open _root_.AlgebraicCurve.Place hiding ord_eq_zero_iff_adicValuation_eq_one exists_ord_pos
 
 section SupportTransfer
 

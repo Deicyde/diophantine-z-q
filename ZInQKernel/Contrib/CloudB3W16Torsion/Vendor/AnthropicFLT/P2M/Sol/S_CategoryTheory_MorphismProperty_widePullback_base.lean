@@ -25,12 +25,12 @@ open CategoryTheory.Limits
 -- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 
 namespace CategoryTheory
-export CategoryTheory (Category MorphismProperty inv over IsIso)
+export _root_.CategoryTheory (Category MorphismProperty inv IsIso)
 namespace Limits
-export CategoryTheory.Limits (WidePullback.lift_π pullback.hom_ext WidePullback.lift_base_assoc WidePullback.lift_base HasPullbacks pullback.condition pullback WidePullback.lift_π_assoc WidePullback.π WidePullback.hom_ext pullback.snd WidePullback.π_arrow WidePullback.base widePullback WidePullback.lift HasFiniteWidePullbacks pullback.lift pullback.fst)
+export _root_.CategoryTheory.Limits (WidePullback.lift_π pullback.hom_ext WidePullback.lift_base_assoc WidePullback.lift_base HasPullbacks pullback.condition pullback WidePullback.lift_π_assoc WidePullback.π WidePullback.hom_ext pullback.snd WidePullback.π_arrow WidePullback.base widePullback WidePullback.lift HasFiniteWidePullbacks pullback.lift pullback.fst)
 namespace WidePullback
-export CategoryTheory.Limits.WidePullback (lift_π lift_base_assoc lift_base lift_π_assoc π hom_ext π_arrow base lift)
-open CategoryTheory.Limits.WidePullback
+export _root_.CategoryTheory.Limits.WidePullback (lift_π lift_base_assoc lift_base lift_π_assoc π hom_ext π_arrow base lift)
+open _root_.CategoryTheory.Limits.WidePullback
 open CategoryTheory.Limits
 open CategoryTheory
 
@@ -89,12 +89,14 @@ theorem succIsoPullback_hom_snd_base {S : C} {r : ℕ} (X : Fin (r + 1) → C) (
   simp [succIsoPullback]
 
 end CategoryTheory.Limits.WidePullback
+-- Deferred source P2M scope: open the local namespaces once declared.
+open _root_.P2MW.S_CategoryTheory_MorphismProperty_widePullback_base.CategoryTheory _root_.P2MW.S_CategoryTheory_MorphismProperty_widePullback_base.CategoryTheory.Limits
 
 namespace CategoryTheory
-export CategoryTheory (Category MorphismProperty inv over IsIso)
+export _root_.CategoryTheory (Category MorphismProperty inv IsIso)
 namespace MorphismProperty
-export CategoryTheory.MorphismProperty (pullback_snd IsStableUnderBaseChange over IsMultiplicative pullbacks cancel_left_of_respectsIso under of_isIso comp_mem)
-open CategoryTheory.MorphismProperty
+export _root_.CategoryTheory.MorphismProperty (pullback_snd IsStableUnderBaseChange IsMultiplicative pullbacks cancel_left_of_respectsIso of_isIso comp_mem)
+open _root_.CategoryTheory.MorphismProperty
 open CategoryTheory
 
 variable {C : Type u} [Category.{v} C] [HasPullbacks C] [HasFiniteWidePullbacks C]

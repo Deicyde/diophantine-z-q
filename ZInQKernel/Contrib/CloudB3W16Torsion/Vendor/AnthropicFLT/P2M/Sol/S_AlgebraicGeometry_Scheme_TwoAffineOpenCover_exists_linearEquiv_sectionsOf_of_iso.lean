@@ -27,11 +27,11 @@ open TopologicalSpace
 open Opposite
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.pushforwardCongr Scheme.Modules.Hom.app_smul Scheme.Modules.pushforward Scheme.Modules.pushforwardComp Scheme.Modules.pullback Scheme.Hom Scheme.Hom.appLE_comp_appLE Scheme.Modules.Hom.comp_app Scheme.Modules.pushforwardId Scheme.Modules.Hom Spec Scheme.Modules.mapPresheaf_app Scheme Scheme.Modules.Hom.id_app Scheme.Modules.pullbackPushforwardAdjunction IsAffineOpen Scheme.Modules Scheme.Hom.app_eq_appLE Scheme.TwoAffineOpenCover)
+export _root_.AlgebraicGeometry (Scheme.Modules.pushforwardCongr Scheme.Modules.Hom.app_smul Scheme.Modules.pushforward Scheme.Modules.pushforwardComp Scheme.Modules.pullback Scheme.Hom Scheme.Hom.appLE_comp_appLE Scheme.Modules.Hom.comp_app Scheme.Modules.pushforwardId Scheme.Modules.Hom Spec Scheme.Modules.mapPresheaf_app Scheme Scheme.Modules.Hom.id_app Scheme.Modules.pullbackPushforwardAdjunction IsAffineOpen Scheme.Modules Scheme.Hom.app_eq_appLE Scheme.TwoAffineOpenCover)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Modules.pushforwardCongr Modules.Hom.app_smul Modules.pushforward Modules.pushforwardComp Modules.pullback Hom.id_app Hom mk Hom.appLE_comp_appLE Γ Modules.Hom.comp_app Modules.pushforwardId Modules.Hom Modules.mapPresheaf_app Modules.Hom.id_app Hom.comp_app Modules.pullbackPushforwardAdjunction Modules Opens Hom.app_eq_appLE Cover TwoAffineOpenCover)
+export _root_.AlgebraicGeometry.Scheme (Modules.pushforwardCongr Modules.Hom.app_smul Modules.pushforward Modules.pushforwardComp Modules.pullback Hom.id_app Hom mk Hom.appLE_comp_appLE «Γ» Modules.Hom.comp_app Modules.pushforwardId Modules.Hom Modules.mapPresheaf_app Modules.Hom.id_app Hom.comp_app Modules.pullbackPushforwardAdjunction Modules Opens Hom.app_eq_appLE Cover TwoAffineOpenCover)
 namespace TwoAffineOpenCover
-export AlgebraicGeometry.Scheme.TwoAffineOpenCover (algebraOfHom algebraMap_algebraOfHom cover pullback isAffineOpen_U0 isAffineOpen_inf U1 U0 mk sup_eq_top isAffineOpen_U1 moduleSectionsOfHom sectionsOf)
+export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (algebraOfHom algebraMap_algebraOfHom cover pullback isAffineOpen_U0 isAffineOpen_inf U1 U0 mk sup_eq_top isAffineOpen_U1 moduleSectionsOfHom sectionsOf)
 namespace Trans
 open AlgebraicGeometry.Scheme.TwoAffineOpenCover
 open AlgebraicGeometry.Scheme

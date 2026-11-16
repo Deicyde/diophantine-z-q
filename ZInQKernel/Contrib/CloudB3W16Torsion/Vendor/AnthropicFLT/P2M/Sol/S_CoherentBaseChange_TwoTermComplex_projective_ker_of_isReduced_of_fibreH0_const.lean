@@ -278,7 +278,8 @@ theorem free_localizedModule_of_isReduced [IsReduced R] [Module.Finite R M] {e :
       LinearEquiv.refl_apply]
     have hsymm : ebc.symm (LocalizedModule.mkLinearMap S M (m i)) = (1 : Rp) ⊗ₜ[R] m i := by
       rw [LinearEquiv.symm_apply_eq, IsBaseChange.equiv_tmul, one_smul]
-    rw [hsymm, TensorProduct.AlgebraTensorModule.cancelBaseChange_tmul, one_smul]
+    rw [TensorProduct.AlgebraTensorModule.congr_tmul, LinearEquiv.refl_apply, hsymm,
+      TensorProduct.AlgebraTensorModule.cancelBaseChange_tmul, one_smul]
   have hli : LinearIndependent Rp bv := by
     rw [Fintype.linearIndependent_iff]
     intro c hc i
@@ -319,10 +320,10 @@ end FittingFree
 end CBCSol
 
 namespace CoherentBaseChange
-export CoherentBaseChange (TwoTermComplex)
+export _root_.CoherentBaseChange (TwoTermComplex)
 namespace TwoTermComplex
-export CoherentBaseChange.TwoTermComplex (fibreH0 fibreH1 kerBaseChangeHom mk C0 d C1)
-open CoherentBaseChange.TwoTermComplex
+export _root_.CoherentBaseChange.TwoTermComplex (fibreH0 fibreH1 kerBaseChangeHom mk C0 d C1)
+open _root_.CoherentBaseChange.TwoTermComplex
 open CoherentBaseChange
 
 open CBCSol
@@ -331,14 +332,14 @@ variable {R : Type u} [CommRing R] (G : TwoTermComplex.{u, v} R)
 
 private def _root_.CoherentBaseChange.TwoTermComplex.fibreRank (𝔭 : PrimeSpectrum R) : ℕ :=
   Module.finrank (κ 𝔭) (LinearMap.range (G.d.baseChange (κ 𝔭)))
-export CoherentBaseChange.TwoTermComplex (fibreRank)
+export _root_.CoherentBaseChange.TwoTermComplex (fibreRank)
 private theorem _root_.CoherentBaseChange.TwoTermComplex.fibreH0_add_fibreRank (𝔭 : PrimeSpectrum R) :
     G.fibreH0 𝔭 + G.fibreRank 𝔭 = Module.finrank (κ 𝔭) (κ 𝔭 ⊗[R] G.C0) := by
   have h := LinearMap.finrank_range_add_finrank_ker (G.d.baseChange (κ 𝔭))
   show Module.finrank (κ 𝔭) (LinearMap.ker (G.d.baseChange (κ 𝔭)))
       + Module.finrank (κ 𝔭) (LinearMap.range (G.d.baseChange (κ 𝔭))) = _
   omega
-export CoherentBaseChange.TwoTermComplex (fibreH0_add_fibreRank)
+export _root_.CoherentBaseChange.TwoTermComplex (fibreH0_add_fibreRank)
 private theorem _root_.CoherentBaseChange.TwoTermComplex.fibreRank_add_fibreH1 (𝔭 : PrimeSpectrum R) :
     G.fibreRank 𝔭 + G.fibreH1 𝔭 = Module.finrank (κ 𝔭) (κ 𝔭 ⊗[R] G.C1) := by
   have h := Submodule.finrank_quotient_add_finrank
@@ -347,7 +348,7 @@ private theorem _root_.CoherentBaseChange.TwoTermComplex.fibreRank_add_fibreH1 (
       + Module.finrank (κ 𝔭)
           ((κ 𝔭 ⊗[R] G.C1) ⧸ LinearMap.range (G.d.baseChange (κ 𝔭))) = _
   omega
-export CoherentBaseChange.TwoTermComplex (fibreRank_add_fibreH1)
+export _root_.CoherentBaseChange.TwoTermComplex (fibreRank_add_fibreH1)
 private theorem _root_.CoherentBaseChange.TwoTermComplex.fibre_euler [StrongRankCondition R] (𝔭 : PrimeSpectrum R) :
     (G.fibreH0 𝔭 : ℤ) - (G.fibreH1 𝔭 : ℤ)
       = (Module.finrank R G.C0 : ℤ) - (Module.finrank R G.C1 : ℤ) := by
@@ -359,9 +360,9 @@ private theorem _root_.CoherentBaseChange.TwoTermComplex.fibre_euler [StrongRank
   have h1' : (G.fibreRank 𝔭 : ℤ) + (G.fibreH1 𝔭 : ℤ) = (Module.finrank R G.C1 : ℤ) := by
     exact_mod_cast h1
   omega
-export CoherentBaseChange.TwoTermComplex (fibre_euler)
+export _root_.CoherentBaseChange.TwoTermComplex (fibre_euler)
 private abbrev _root_.CoherentBaseChange.TwoTermComplex.coker : Type v := G.C1 ⧸ LinearMap.range G.d
-export CoherentBaseChange.TwoTermComplex (coker)
+export _root_.CoherentBaseChange.TwoTermComplex (coker)
 scoped instance coker_finitePresentation : Module.FinitePresentation R G.coker :=
   haveI : Module.FinitePresentation R G.C1 := Module.finitePresentation_of_projective R G.C1
   Module.finitePresentation_of_surjective (LinearMap.range G.d).mkQ
@@ -379,11 +380,11 @@ private def _root_.CoherentBaseChange.TwoTermComplex.cokerBaseChangeEquiv (𝔭 
     rw [LinearMap.baseChange_eq_ltensor]
     exact LinearMap.lTensor_surjective _ (Submodule.Quotient.mk_surjective _)
   exact hexact.linearEquivOfSurjective hsurj
-export CoherentBaseChange.TwoTermComplex (cokerBaseChangeEquiv)
+export _root_.CoherentBaseChange.TwoTermComplex (cokerBaseChangeEquiv)
 private theorem _root_.CoherentBaseChange.TwoTermComplex.finrank_residue_tensor_coker (𝔭 : PrimeSpectrum R) :
     Module.finrank (κ 𝔭) (κ 𝔭 ⊗[R] G.coker) = G.fibreH1 𝔭 :=
   ((G.cokerBaseChangeEquiv 𝔭).finrank_eq).symm
-export CoherentBaseChange.TwoTermComplex (finrank_residue_tensor_coker)
+export _root_.CoherentBaseChange.TwoTermComplex (finrank_residue_tensor_coker)
 private theorem _root_.CoherentBaseChange.TwoTermComplex.fibreH1_eq_of_fibreH0_const {c : ℕ} (h0 : ∀ 𝔭, G.fibreH0 𝔭 = c)
     (𝔭 𝔮 : PrimeSpectrum R) : G.fibreH1 𝔭 = G.fibreH1 𝔮 := by
   haveI : Nontrivial R :=
@@ -394,7 +395,7 @@ private theorem _root_.CoherentBaseChange.TwoTermComplex.fibreH1_eq_of_fibreH0_c
   rw [h0 𝔭] at h𝔭
   rw [h0 𝔮] at h𝔮
   omega
-export CoherentBaseChange.TwoTermComplex (fibreH1_eq_of_fibreH0_const)
+export _root_.CoherentBaseChange.TwoTermComplex (fibreH1_eq_of_fibreH0_const)
 private theorem _root_.CoherentBaseChange.TwoTermComplex.projective_coker_of_isReduced_of_fibreH0_const [IsReduced R] {c : ℕ}
     (h0 : ∀ 𝔭, G.fibreH0 𝔭 = c) : Module.Projective R G.coker := by
   refine Module.projective_of_localization_maximal (fun I hI => ?_)
@@ -402,7 +403,7 @@ private theorem _root_.CoherentBaseChange.TwoTermComplex.projective_coker_of_isR
   haveI := free_localizedModule_of_isReduced (M := G.coker) (e := G.fibreH1 𝔪)
     (fun 𝔮 => by rw [G.finrank_residue_tensor_coker, G.fibreH1_eq_of_fibreH0_const h0 𝔮 𝔪]) 𝔪
   exact Module.Projective.of_free
-export CoherentBaseChange.TwoTermComplex (projective_coker_of_isReduced_of_fibreH0_const)
+export _root_.CoherentBaseChange.TwoTermComplex (projective_coker_of_isReduced_of_fibreH0_const)
 private theorem _root_.CoherentBaseChange.TwoTermComplex.exists_retraction_range [Module.Projective R G.coker] :
     ∃ r : G.C1 →ₗ[R] LinearMap.range G.d,
       r ∘ₗ (LinearMap.range G.d).subtype = LinearMap.id := by
@@ -420,20 +421,20 @@ private theorem _root_.CoherentBaseChange.TwoTermComplex.exists_retraction_range
   apply Subtype.ext
   have hx0 : (LinearMap.range G.d).mkQ x = 0 := (Submodule.Quotient.mk_eq_zero _).mpr hx
   simp [r, LinearMap.codRestrict_apply, hx0]
-export CoherentBaseChange.TwoTermComplex (exists_retraction_range)
+export _root_.CoherentBaseChange.TwoTermComplex (exists_retraction_range)
 private theorem _root_.CoherentBaseChange.TwoTermComplex.projective_range_of_isReduced_of_fibreH0_const [IsReduced R] {c : ℕ}
     (h0 : ∀ 𝔭, G.fibreH0 𝔭 = c) : Module.Projective R (LinearMap.range G.d) := by
   haveI := G.projective_coker_of_isReduced_of_fibreH0_const h0
   obtain ⟨r, hr⟩ := G.exists_retraction_range
   exact Module.Projective.of_split (LinearMap.range G.d).subtype r hr
-export CoherentBaseChange.TwoTermComplex (projective_range_of_isReduced_of_fibreH0_const)
+export _root_.CoherentBaseChange.TwoTermComplex (projective_range_of_isReduced_of_fibreH0_const)
 private theorem _root_.CoherentBaseChange.TwoTermComplex.projective_ker_of_isReduced_impl [IsReduced R] {c : ℕ}
     (h0 : ∀ 𝔭, G.fibreH0 𝔭 = c) : Module.Projective R (LinearMap.ker G.d) := by
   haveI := G.projective_range_of_isReduced_of_fibreH0_const h0
   rw [← LinearMap.ker_rangeRestrict]
   exact projective_ker_of_surjective_of_projective G.d.rangeRestrict
     (LinearMap.surjective_rangeRestrict G.d)
-export CoherentBaseChange.TwoTermComplex (projective_ker_of_isReduced_impl)
+export _root_.CoherentBaseChange.TwoTermComplex (projective_ker_of_isReduced_impl)
 theorem kerBaseChangeHom_eq (A : Type w) [CommRing A] [Algebra R A] :
     G.kerBaseChangeHom A = kerBaseChangeHomOf A G.d := rfl
 
@@ -489,14 +490,14 @@ private theorem _root_.CoherentBaseChange.TwoTermComplex.kerBaseChangeHom_biject
       ext; simp
     rw [hcomp]
     exact hw0
-export CoherentBaseChange.TwoTermComplex (kerBaseChangeHom_bijective_of_isReduced_impl)
+export _root_.CoherentBaseChange.TwoTermComplex (kerBaseChangeHom_bijective_of_isReduced_impl)
 private theorem _root_.CoherentBaseChange.TwoTermComplex.finrank_residue_ker_of_isReduced_impl [IsReduced R] {c : ℕ}
     (h0 : ∀ 𝔭, G.fibreH0 𝔭 = c) (𝔭 : PrimeSpectrum R) :
     Module.finrank (κ 𝔭) (κ 𝔭 ⊗[R] LinearMap.ker G.d) = c := by
   have hb := G.kerBaseChangeHom_bijective_of_isReduced_impl h0 (κ 𝔭)
   rw [(LinearEquiv.ofBijective (G.kerBaseChangeHom (κ 𝔭)) hb).finrank_eq]
   exact h0 𝔭
-export CoherentBaseChange.TwoTermComplex (finrank_residue_ker_of_isReduced_impl)
+export _root_.CoherentBaseChange.TwoTermComplex (finrank_residue_ker_of_isReduced_impl)
 end CoherentBaseChange.TwoTermComplex
 
 
