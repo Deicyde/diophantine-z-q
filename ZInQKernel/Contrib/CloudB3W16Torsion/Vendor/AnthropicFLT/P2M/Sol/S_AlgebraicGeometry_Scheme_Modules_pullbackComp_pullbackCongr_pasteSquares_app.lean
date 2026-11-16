@@ -11,6 +11,8 @@ import Mathlib
 import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
 set_option backward.isDefEq.respectTransparency false
+-- [port] The transport-iso simplification exceeds the former default heartbeat budget.
+set_option maxHeartbeats 3200000
 
 namespace P2MW.S_AlgebraicGeometry_Scheme_Modules_pullbackComp_pullbackCongr_pasteSquares_app
 
@@ -74,6 +76,7 @@ theorem τ_paste_app (f : X₀ ⟶ X₁) (g : X₁ ⟶ X₂) (h : X₂ ⟶ X₃)
   subst e₁ e₂ e₃
   simp only [τ_hom_app, eqToHom_refl, Category.comp_id]
   rw [pullbackComp_paste_app]
+  simp only [eqToHom_refl, Category.comp_id]
 
 theorem τ_inv_app (f : X₀ ⟶ X₁) (g : X₁ ⟶ X₂) (m : X₀ ⟶ X₂) (e : f ≫ g = m) (M : X₂.Modules) :
     (τ f g m e).inv.app M = eqToHom (by rw [e]) ≫ (pullbackComp f g).inv.app M := by

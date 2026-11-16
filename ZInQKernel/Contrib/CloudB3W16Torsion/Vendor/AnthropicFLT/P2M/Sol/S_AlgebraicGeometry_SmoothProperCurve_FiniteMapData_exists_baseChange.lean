@@ -142,7 +142,6 @@ private theorem _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData.res_app
   change ((pullback c (specMap R R')).presheaf.map (homOfLE _).op).hom ((p.app 𝔉.U).hom 𝔉.f) *
     ((pullback c (specMap R R')).presheaf.map (homOfLE _).op).hom ((p.app 𝔉.V).hom 𝔉.g) = 1
   erw [h₁, h₂, ← map_mul, 𝔉.res_f_mul_res_g, map_one]
-  rfl
 export _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData (res_app_f_mul_res_app_g)
 end FiniteMapData
 
@@ -214,7 +213,6 @@ lemma ΓIso_hom_eq : (ΓIso c R' U hU halg).hom =
     ((p c R') ⁻¹ᵁ U).topIso.inv ≫ (Φ c R' U hU halg).inv.appTop ≫
       (Scheme.ΓSpecIso (.of (Γ(C, U) ⊗[R] R'))).hom := by
   simp only [ΓIso, Iso.trans_hom, Iso.symm_hom, Functor.mapIso_inv, Iso.op_inv, Scheme.Γ_map_op]
-  rfl
 
 lemma Φ_hom_appTop_comp_inv_appTop :
     (Φ c R' U hU halg).hom.appTop ≫ (Φ c R' U hU halg).inv.appTop = 𝟙 _ := by
@@ -476,7 +474,9 @@ lemma isLocalHom_algebraMap_of_isIntegral {S : Type u} [CommRing S] [IsLocalRing
   haveI : Nontrivial R' := (algebraMap R' S).domain_nontrivial
   obtain ⟨m, hm⟩ := Ideal.exists_maximal R'
   haveI := hm
-  have hcomap : (m.comap (algebraMap R R')).IsMaximal := Ideal.isMaximal_comap_of_isIntegral_of_isMaximal m
+  have hcomap : (m.comap (algebraMap R R')).IsMaximal :=
+    Ideal.isMaximal_comap_of_isIntegral_of_isMaximal (algebraMap R R')
+      (algebraMap_isIntegral_iff.mpr inferInstance) m
   have hmax : m.comap (algebraMap R R') = IsLocalRing.maximalIdeal R := IsLocalRing.eq_maximalIdeal hcomap
   have hmem : algebraMap R R' r ∈ m := by rw [← Ideal.mem_comap, hmax]; exact hr'
   exact hm.ne_top (Ideal.eq_top_of_isUnit_mem _ hmem h1)

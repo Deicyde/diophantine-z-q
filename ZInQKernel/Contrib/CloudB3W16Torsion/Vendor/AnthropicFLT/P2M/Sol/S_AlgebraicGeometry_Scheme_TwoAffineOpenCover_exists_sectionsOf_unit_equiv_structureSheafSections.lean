@@ -52,7 +52,7 @@ def toFunH0 (x : (SU 𝒱 c).H0) : (SO 𝒱 c).H0 :=
   ⟨(show (SO 𝒱 c).M0 × (SO 𝒱 c).M1 from x.1), by
     have hx := x.2
     rw [LinearMap.mem_ker] at hx ⊢
-    rw [← cechDiff_eq, hx]; rfl⟩
+    rw [← cechDiff_eq, hx]⟩
 
 def invFunH0 (x : (SO 𝒱 c).H0) : (SU 𝒱 c).H0 :=
   ⟨(show (SU 𝒱 c).M0 × (SU 𝒱 c).M1 from x.1), by

@@ -1082,6 +1082,8 @@ theorem infinite_residueField : Infinite (IsLocalRing.ResidueField (RX R)) :=
 
 end L8
 
+-- [port] Activate the source's existing scoped local-hom instance outside namespace L8.
+open scoped L8 in
 theorem L8_exists_flat_local_infinite (R : Type u) [CommRing R] [IsLocalRing R] :
     ∃ (R' : Type u) (_ : CommRing R') (_ : IsLocalRing R') (_ : Algebra R R'),
       Module.FaithfullyFlat R R' ∧ IsLocalHom (algebraMap R R') ∧
@@ -1726,7 +1728,8 @@ theorem L4c_setOf_isMaximal_finite [IsLocalRing C] [Algebra.IsIntegral C A] :
   haveI : q.IsMaximal := hq
   have hcontract : ∀ (I : Ideal A) [I.IsMaximal], I.comap (algebraMap C A) = IsLocalRing.maximalIdeal C :=
     fun I _ => IsLocalRing.eq_maximalIdeal
-      (Ideal.isMaximal_comap_of_isIntegral_of_isMaximal (R := C) I)
+      (Ideal.isMaximal_comap_of_isIntegral_of_isMaximal (algebraMap C A)
+        (algebraMap_isIntegral_iff.mpr inferInstance) I)
   obtain ⟨𝔯, h𝔯p, h𝔯s, h𝔯t⟩ := L4b_exists_prime_of_comap_eq_of_isMaximal (t := t) hgen hequiv hinv r hr
     q₀ q ((hcontract q₀).trans (hcontract q).symm)
   refine ⟨⟨𝔯, h𝔯p⟩, ?_, h𝔯t⟩
@@ -2048,7 +2051,9 @@ theorem L5_exists_basis_of_isLocalRing [Infinite (IsLocalRing.ResidueField C)]
     intro 𝔪 h𝔪
     haveI := hℳmax 𝔪 h𝔪
     rw [Ideal.map_le_iff_le_comap,
-      IsLocalRing.eq_maximalIdeal (Ideal.isMaximal_comap_of_isIntegral_of_isMaximal (R := C) 𝔪)]
+      IsLocalRing.eq_maximalIdeal
+        (Ideal.isMaximal_comap_of_isIntegral_of_isMaximal (algebraMap C A)
+          (algebraMap_isIntegral_iff.mpr inferInstance) 𝔪)]
 
   obtain ⟨x, hx⟩ := exists_forall_linearIndependent (t := t) hgen hinv r hr ℳ hℳmax hℳ r le_rfl
   have hspan : ∀ 𝔪 ∈ ℳ, Submodule.span (A ⧸ 𝔪) (Set.range fun j => Tfib t 𝔪 hinv (x j)) = ⊤ := by
