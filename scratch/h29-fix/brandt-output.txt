@@ -1,0 +1,31 @@
+classes X = 8 (TYZ Lemma 2.5: 8)
+orbit sizes all 24 (free O_B^x/{+-1}... action of O_B^x on (O_B/4)^x)
+reps 1+2x, x = a i + b j + c zeta: {(0, 0, 0): 0, (0, 0, 1): 6, (0, 1, 0): 3, (0, 1, 1): 7, (1, 0, 0): 5, (1, 0, 1): 1, (1, 1, 0): 4, (1, 1, 1): 2}
+chi_0 o nrd on classes: [1, -1, -1, 1, 1, 1, -1, -1]
+dim A_0^U = 6
+p=3 a_p=0  T_p = a_p on A_0^U: True   T_p 1=(p+1)1: True   T_p chi0=chi0(p)(p+1)chi0: True
+p=5 a_p=-2  T_p = a_p on A_0^U: True   T_p 1=(p+1)1: True   T_p chi0=chi0(p)(p+1)chi0: True
+p=7 a_p=0  T_p = a_p on A_0^U: True   T_p 1=(p+1)1: True   T_p chi0=chi0(p)(p+1)chi0: True
+p=11 a_p=0  T_p = a_p on A_0^U: True   T_p 1=(p+1)1: True   T_p chi0=chi0(p)(p+1)chi0: True
+p=13 a_p=6  T_p = a_p on A_0^U: True   T_p 1=(p+1)1: True   T_p chi0=chi0(p)(p+1)chi0: True
+p=17 a_p=2  T_p = a_p on A_0^U: True   T_p 1=(p+1)1: True   T_p chi0=chi0(p)(p+1)chi0: True
+p=19 a_p=0  T_p = a_p on A_0^U: True   T_p 1=(p+1)1: True   T_p chi0=chi0(p)(p+1)chi0: True
+p=23 a_p=0  T_p = a_p on A_0^U: True   T_p 1=(p+1)1: True   T_p chi0=chi0(p)(p+1)chi0: True
+p=29 a_p=-10  T_p = a_p on A_0^U: True   T_p 1=(p+1)1: True   T_p chi0=chi0(p)(p+1)chi0: True
+p=31 a_p=0  T_p = a_p on A_0^U: True   T_p 1=(p+1)1: True   T_p chi0=chi0(p)(p+1)chi0: True
+p=37 a_p=-2  T_p = a_p on A_0^U: True   T_p 1=(p+1)1: True   T_p chi0=chi0(p)(p+1)chi0: True
+n=3 tau(sqrt-n)=(1, 1, 1): dim pi^{U_n}=1, f_n on classes=[-3, 1, 1, 1, 1, 1, -3, 1], values=[-3, 1], Q(n)=f_n(1)=-3
+n=3 tau(sqrt-n)=(1, 1, -1): dim pi^{U_n}=1, f_n on classes=[-3, 1, -3, 1, 1, 1, 1, 1], values=[-3, 1], Q(n)=f_n(1)=-3
+n=3 tau(sqrt-n)=(1, -1, 1): dim pi^{U_n}=1, f_n on classes=[3, -1, -1, -1, -1, -1, -1, 3], values=[-1, 3], Q(n)=f_n(1)=3
+n=3 tau(sqrt-n)=(1, -1, -1): dim pi^{U_n}=1, f_n on classes=[-3, -3, 1, 1, 1, 1, 1, 1], values=[-3, 1], Q(n)=f_n(1)=-3
+n=3 tau(sqrt-n)=(-1, 1, 1): dim pi^{U_n}=1, f_n on classes=[-3, -3, 1, 1, 1, 1, 1, 1], values=[-3, 1], Q(n)=f_n(1)=-3
+n=3 tau(sqrt-n)=(-1, 1, -1): dim pi^{U_n}=1, f_n on classes=[3, -1, -1, -1, -1, -1, -1, 3], values=[-1, 3], Q(n)=f_n(1)=3
+n=3 tau(sqrt-n)=(-1, -1, 1): dim pi^{U_n}=1, f_n on classes=[-3, 1, -3, 1, 1, 1, 1, 1], values=[-3, 1], Q(n)=f_n(1)=-3
+n=3 tau(sqrt-n)=(-1, -1, -1): dim pi^{U_n}=1, f_n on classes=[-3, 1, 1, 1, 1, 1, -3, 1], values=[-3, 1], Q(n)=f_n(1)=-3
+n=11 tau(sqrt-n)=(1, 1, 3): dim pi^{U_n}=1, f_n on classes=[1, 1, 1, 1, -3, 1, -3, 1], values=[-3, 1], Q(n)=f_n(1)=1
+n=11 tau(sqrt-n)=(3, 1, 1): dim pi^{U_n}=1, f_n on classes=[1, 1, 1, 1, 1, -3, -3, 1], values=[-3, 1], Q(n)=f_n(1)=1
+n=11 tau(sqrt-n)=(-1, 1, 3): dim pi^{U_n}=1, f_n on classes=[1, -3, 1, 1, -3, 1, 1, 1], values=[-3, 1], Q(n)=f_n(1)=1
+n=11 tau(sqrt-n)=(1, -3, 1): dim pi^{U_n}=1, f_n on classes=[-1, -1, -1, 3, -1, -1, -1, 3], values=[-1, 3], Q(n)=f_n(1)=-1
+n=19 tau(sqrt-n)=(1, 3, 3): dim pi^{U_n}=1, f_n on classes=[1, 1, 1, 1, 1, -3, -3, 1], values=[-3, 1], Q(n)=f_n(1)=1
+n=19 tau(sqrt-n)=(3, 3, 1): dim pi^{U_n}=1, f_n on classes=[1, 1, 1, 1, -3, 1, -3, 1], values=[-3, 1], Q(n)=f_n(1)=1
+n=19 tau(sqrt-n)=(-3, 1, 3): dim pi^{U_n}=1, f_n on classes=[1, -3, 1, -3, 1, 1, 1, 1], values=[-3, 1], Q(n)=f_n(1)=1

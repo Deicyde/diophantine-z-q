@@ -1,0 +1,22 @@
+DELETED Definitions/Def_Compat_Mathlib430.lean 1 /-
+DELETED Definitions/Def_Compat_Mathlib430.lean 2 Copyright: the vendored blocks below are verbatim copies from Mathlib (Apache-2.0; see Mathlib's LICENSE),
+DELETED Definitions/Def_Compat_Mathlib430.lean 3 release v4.30.0 = leanprover-community/mathlib4 commit c5ea00351c28e24afc9f0f84379aa41082b1188f, with declarations
+DELETED Definitions/Def_Compat_Mathlib430.lean 4 RENAMED (suffix `Finsupp` / trailing prime) so they do not clash with Mathlib v4.33.0. Bodies are the Mathlib v4.30.0 text
+DELETED Definitions/Def_Compat_Mathlib430.lean 5 with its docstrings omitted, otherwise byte-identical unless a line is marked `-- [port]`.
+DELETED Definitions/Def_Compat_Mathlib430.lean 6 -/
+OTHER Definitions/Def_Compat_Mathlib430.lean 17 /-
+OTHER P2M/Sol/S_WeierstrassCurve_Affine_CoordinateRing_isDedekindDomain.lean 183   obtain ⟨x, y, hxy, rfl⟩ := (isMaximal_iff_exists_eq_XYIdeal' P).mp hmax
+OTHER P2M/Sol/S_WeierstrassCurve_Affine_CoordinateRing_isDedekindDomain.lean 184   exact isDiscreteValuationRing_localization_XYIdeal' (equation_iff_nonsingular.mp hxy)
+DELETED Definitions/Def_FLTPrelim_FreyPackage.lean 1 /-
+DELETED Definitions/Def_FLTPrelim_FreyPackage.lean 2 Copyright (c) 2024 Kevin Buzzard, Ruben Van de Velde, Pietro Monticone. All rights reserved.
+DELETED Definitions/Def_FLTPrelim_FreyPackage.lean 3 Released under Apache 2.0 license as described in the file LICENSE.
+DELETED Definitions/Def_FLTPrelim_FreyPackage.lean 4 Ported from the Imperial College London FLT formalization
+DELETED Definitions/Def_FLTPrelim_FreyPackage.lean 5 (https://github.com/ImperialCollegeLondon/FLT, blueprint §2.5–2.6).
+DELETED Definitions/Def_FLTPrelim_FreyPackage.lean 6 -/
+OTHER Definitions/Def_FLTPrelim_FreyPackage.lean 14 /-
+OTHER Definitions/Def_FLTPrelim_FreyPackage.lean 15 Copyright (c) 2024 Kevin Buzzard, Ruben Van de Velde, Pietro Monticone. All rights reserved.
+OTHER Definitions/Def_FLTPrelim_FreyPackage.lean 16 Released under Apache 2.0 license as described in the file LICENSE.
+OTHER Definitions/Def_FLTPrelim_FreyPackage.lean 17 Ported from the Imperial College London FLT formalization
+OTHER Definitions/Def_FLTPrelim_FreyPackage.lean 18 (https://github.com/ImperialCollegeLondon/FLT, blueprint §2.5–2.6).
+OTHER Definitions/Def_FLTPrelim_FreyPackage.lean 19 -/
+{'rename': 1326, 'port': 94, 'import': 1806, 'setopt': 1656, 'other': 21}

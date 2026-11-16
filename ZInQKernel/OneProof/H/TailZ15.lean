@@ -23,7 +23,7 @@ namespace HSyn
 `semistableReductionThm` and `semistablePersists`, with `raynaudSemistable`, `semistablePersistsDVR` and
 `neronLocalizesDVR` added (reduct-glue). 30 fields. -/
 structure OpenResearchLeaves10 : Prop where
-  r1r2 : LeafAdopt.R1R2fpRep
+  r1r2 : LeafAdopt.R1R2fpRepW
   shimuraFamily : QMSplit.Moduli.ShimuraFamily
   igusaPsi4 : QMSplit.Theta.IgusaPsi4
   igusaChi10 : QMSplit.Theta.IgusaChi10
@@ -97,8 +97,8 @@ theorem researchLeaves9_of_open10 (r : OpenResearchLeaves10) (t : OpenTextbookLe
   shimuraFamily := r.shimuraFamily
   igusaPsi4 := r.igusaPsi4
   igusaChi10 := r.igusaChi10
-  r6 := _root_.ReductGlue.raynaudCriterion_leaves r.raynaudSemistable r.semistableUnipotent
-    r.neronSchemeModelExistsDVR t.mumfordTorsionAlgClosed t.mulEtaleAbelianScheme
+  r6 := PkgI2.raynaudCriterionNF_of_general (_root_.ReductGlue.raynaudCriterion_leaves r.raynaudSemistable
+    r.semistableUnipotent r.neronSchemeModelExistsDVR t.mumfordTorsionAlgClosed t.mulEtaleAbelianScheme)
   r7a := r.r7a
   r9a := r.r9a
   r9b := r.r9b
@@ -120,9 +120,6 @@ theorem researchLeaves9_of_open10 (r : OpenResearchLeaves10) (t : OpenTextbookLe
   javanpeykarBound := r.javanpeykarBound
   pazukiCor13Upper := r.pazukiCor13Upper
   gaudronRemondThm14 := r.gaudronRemondThm14
-  semistableReductionDVR := r.semistableReductionDVR
-  semistableUnipotent := r.semistableUnipotent
-  neronSchemeModelExistsDVR := r.neronSchemeModelExistsDVR
   gonzalezRotgerCountX6 := r.gonzalezRotgerCountX6
 
 /-- **G0 with only the open leaves and the open glue** (leaf-fold10; no `sorry`, standard axioms).
@@ -130,9 +127,9 @@ theorem researchLeaves9_of_open10 (r : OpenResearchLeaves10) (t : OpenTextbookLe
 and leaf-fold7's `OpenGlue7` (1, `QuotientP1Coordinate`). The table of every field is
 `docs/research/leaf-fold10.md` §2. -/
 theorem sixContactMin_of_open12 (r : OpenResearchLeaves10) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves9)
-    (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
+    (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) (hY3 : TSHecke.Y3Connected) : ZInQ.SixContactMin :=
   sixContactMin_of_open11 (researchLeaves9_of_open10 r t l) t l g
-    (_root_.ZInQ.HeightSplit.faltingsLemma5BCLower_of_BC r.faltingsLemma5BC) hYu
+    (_root_.ZInQ.HeightSplit.faltingsLemma5BCLower_of_BC r.faltingsLemma5BC) hYu hY3
 
 end HSyn
 

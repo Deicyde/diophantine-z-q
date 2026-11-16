@@ -1,0 +1,12 @@
+import ZInQKernel.Contrib.OneProof.PersistsDVR
+
+#check @GapPersists.semistablePersistsDVR_of_printed
+#check @GapPersists.semistablePersistsSHcp_of_printed
+#check @GapPersists.semistablePersistsSHcp_of_SH
+#check @GapPersists.ss1_ss3_of_printedNF
+#print axioms GapPersists.isAlgebraic_resMap
+#print axioms GapPersists.hasSemiAbelian_transfer
+#print axioms GapPersists.semistablePersistsDVR_of_printed
+#print axioms GapPersists.semistablePersistsSHcp_of_printed
+#print axioms GapPersists.semistablePersistsSHcp_of_SH
+#print axioms GapPersists.ss1_ss3_of_printedNF

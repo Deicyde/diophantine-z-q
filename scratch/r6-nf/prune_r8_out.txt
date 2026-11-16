@@ -1,0 +1,25 @@
+TailD:55  [field ResearchLeaves3.r8]    r8 : PkgI2.GrothendieckMonodromy.{0}
+TailD:98  [assignment r8 in researchLeaves3_of]      r8 := r.r8,
+TailE:6472  [field OpenResearchLeaves2.r8]    r8 : PkgI2.GrothendieckMonodromy.{0}
+TailE:6577  [assignment r8 in researchLeaves3_of_open2]    r8 := r.r8
+TailN:79  [field OpenResearchLeaves5.r8]    r8 : _root_.PkgI2.GrothendieckMonodromy.{0}
+TailN:109  [assignment r8 in researchLeaves2_of_open5]    r8 := grothendieckMonodromy_ofK5 r.r8
+TailX:84  [field OpenResearchLeaves7.r8]    r8 : _root_.PkgI2.GrothendieckMonodromy.{0}
+TailX:199  [assignment r8 in researchLeaves5_of_open7]    r8 := r.r8
+TailZ15:123  [assignment semistableReductionDVR in researchLeaves9_of_open10]    semistableReductionDVR := r.semistableReductionDVR
+TailZ15:124  [assignment semistableUnipotent in researchLeaves9_of_open10]    semistableUnipotent := r.semistableUnipotent
+TailZ15:125  [assignment neronSchemeModelExistsDVR in researchLeaves9_of_open10]    neronSchemeModelExistsDVR := r.neronSchemeModelExistsDVR
+TailZ23:801  [assignment semistableReductionDVR in researchLeaves9_of_open14]    semistableReductionDVR := semistableReductionDVR_of14 r t
+TailZ23:802  [assignment semistableUnipotent in researchLeaves9_of_open14]    semistableUnipotent := r.semistableUnipotent
+TailZ23:803  [assignment neronSchemeModelExistsDVR in researchLeaves9_of_open14]    neronSchemeModelExistsDVR := r.neronSchemeModelExistsDVR
+TailZ4:76  [field OpenResearchLeaves8.r8]    r8 : _root_.PkgI2.GrothendieckMonodromy.{0}
+TailZ4:191  [assignment r8 in researchLeaves7_of_open8]    r8 := r.r8
+TailZ9:57  [field OpenResearchLeaves9.semistableReductionDVR]    /-- reduct-split, r8: SGA 7 IX Thm 3.6 over a DVR (semistable reduction after a finite extension, at every place
+TailZ9:58  [field OpenResearchLeaves9.semistableReductionDVR]    above `O`). -/
+TailZ9:59  [field OpenResearchLeaves9.semistableReductionDVR]    semistableReductionDVR : _root_.ReductSplit.SemistableReductionDVR
+TailZ9:60  [field OpenResearchLeaves9.semistableUnipotent]    /-- reduct-split, r8: SGA 7 IX Prop. 3.5, "semistable ⇒ `(σ - 1)² = 0` on `T_ℓ`" (weakest reading). -/
+TailZ9:61  [field OpenResearchLeaves9.semistableUnipotent]    semistableUnipotent : _root_.ReductSplit.SemistableUnipotent
+TailZ9:62  [field OpenResearchLeaves9.neronSchemeModelExistsDVR]    /-- reduct-split, r8: BLR §1.4 Thm 3 over a DVR (scheme form). -/
+TailZ9:63  [field OpenResearchLeaves9.neronSchemeModelExistsDVR]    neronSchemeModelExistsDVR : _root_.ReductSplit.NeronSchemeModelExistsDVR
+TailZ9:99  [assignment r8 in researchLeaves8_of_open9]    r8 := _root_.ReductSplit.grothendieckMonodromy_final' r.semistableReductionDVR r.semistableUnipotent
+TailZ9:100  [assignment r8 in researchLeaves8_of_open9]      r.neronSchemeModelExistsDVR t.mumfordTorsionAlgClosed

@@ -70,7 +70,7 @@ theorem t11aRiemannHom_of_corr4 (h : HomUnify.HomLatticeCorr) :
 period-glue's pieces, as in period-glue's `fibreQMPeriod_periodGlue`; part c90). Inputs: R1fp, R1hecke, R2fp
 (the bundle `R1R2fpRep`), T5 (`TorsionStructure`), `T11aRiemannHom` (from `HomLatticeCorr`), the leaf
 candidate `CMDescends`; `AutOInnerFinite` and Skolem–Noether are kernel theorems. -/
-theorem periodMapGlue_of_leaves4 (h : LeafAdopt.R1R2fpRep) (hT : PkgI2.TorsionStructure.{0})
+theorem periodMapGlue_of_leaves4 (h : LeafAdopt.R1R2fpRepW) (hT : PkgI2.TorsionStructure.{0})
     (hC : HomUnify.HomLatticeCorr) (hD : G0Split.FibreQM.PeriodMapH.CMDescends) :
     G0Split.FibreQM.PeriodMapGlue (G0Split.FibreQM.ownY (LeafAdopt.R1R2fp_of_rep h))
       (G0Split.FibreQM.ownΦ (LeafAdopt.R1R2fp_of_rep h))

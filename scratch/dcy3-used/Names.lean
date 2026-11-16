@@ -1,0 +1,10 @@
+import ZInQKernel.OneProof.H.TailZ35
+#check @TSHecke.Y3Connected
+#check @ShimuraGlue.pi0K3Equiv
+#check @ShimuraGlue.cycU_apply
+#check @ShimuraGlue.chi_cycU
+#check @ShimuraGlue.zmod3_zpow
+#check @ShimuraGlue.pi0K3Equiv_mk
+#check @LeafQM.AV.R1UnivRigid.r1fpProps_eq_ab_gl
+#check @LeafQM.AV.R1UnivRigid.QMFamilyGroupLaw
+#check @DCY3Used.y3ConnectedAb_of_U

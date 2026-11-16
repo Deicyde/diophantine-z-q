@@ -17,7 +17,12 @@ As route-a-fold did for the other moduli leaves (`TailZ17`), the five leaves sta
 problem): each `LAb` below is the text of `L` with `R1fpProps` replaced by `R1fpPropsAb`, in `L`'s namespace with `L`'s
 `open`s, and `L_iff_ab` (under Mumford's rigidity, from the field `mumfordRigidityCore`) closes by rewriting
 `R1fpProps = R1fpPropsAb` (`r1fpProps_eq_ab'`), which checks that the two texts elaborate to the same term up to that
-one constant. docs/research/x6-fold.md lists the fields. -/
+one constant. docs/research/x6-fold.md lists the fields.
+
+pi0-fold: the fields `deligneComponentsX6PrintedAb` and `geomConnOfAlgClosure` of `OpenAddedLeaves12` are removed (the
+chain carries the weak row `LeafAdopt.R1R2fpRepW`, whose base witness comes from `GonzalezRotgerX6`; TailZ23's
+`x6Rows_of_open14`), with this module's off-chain readers `x6Rows_of_open13`, `researchLeaves12_of_open13`,
+`addedLeaves11_of_open12` and `sixContactMin_of_open16`. -/
 
 /-! ## The abelian-scheme forms of the five moduli leaves -/
 
@@ -236,105 +241,15 @@ structure OpenAddedLeaves12 : Prop where
   axSenTate : _root_.ZInQ.Contrib.HodgeSplit.AxSenTate
   t09SymmIsogenyExists : WeilPairing.T09_SymmIsogenyExists
   milneIsogenyQuasiInverse : _root_.AvSplit.MilneIsogenyQuasiInverse
-  shimuraTaniyamaQbar : G0Split.FibreQM.PeriodMapH.QMSplitSTQM.ShimuraTaniyamaQbar
   egaIV_8_10_5_xii : _root_.ZInQ.Contrib.SpreadOut.EGAIV_8_10_5_xii
-  shimuraGoodReductionNoGuard : CurveSplitGR.ShimuraGoodReductionNoGuard
   /-- qm-split, H-87/H-88: the valence formula for a cocompact Fuchsian group (Shimura 1971 Prop. 2.16,
   Thm 2.20; Rankin Thm 4.1.4). -/
   valenceFormulaCocompactEq : LeafQCheck.HM.QMSplit.ValenceFormulaCocompactEq
   /-- qm-split, H-87/H-88: `ι(𝒪¹)` is cocompact Fuchsian with covolume `2π/3` (Shimura 1971 Prop. 9.2;
   Shimizu 1965). -/
   shimizuCovolumeO1 : LeafQCheck.HM.QMSplit.ShimizuCovolumeO1
-  /-- shimura-glue, printed form, on abelian schemes (route-a-fold): Deligne's theorem on the connected
-  components of a Shimura variety for `G = B^×` at level `K₃` on one fine witness `Y₃` (Deligne, Sém. Bourbaki
-  389 (1971) Thm 2.4, §3; PSPM 33 (1979) 2.1.3, 2.6.3; locators UNVERIFIED). -/
-  deligneComponentsY3PrintedAb : _root_.ShimuraGlue.DeligneComponentsY3PrintedAb
-  /-- x6-glue (shimura-glue), printed form (on abelian schemes): Deligne's theorem on the connected components of a
-  Shimura variety (Sém. Bourbaki 389 (1971) Thm 2.4, §3; PSPM 33 (1979) 2.6.3; locators UNVERIFIED) for
-  `G = B^×` at level `𝒪̂^×` on one canonical coarse witness `X₆` (the double coset is computed in Lean). -/
-  deligneComponentsX6PrintedAb : _root_.ShimuraGlue.DeligneComponentsX6PrintedAb
-  /-- x6-glue (shimura-split), textbook, weakened: for a proper `X → Spec k`, `char k = 0`, connectedness of
-  `X ×_k k̄` gives geometric connectedness (EGA IV 4.5; Stacks 0389; locators UNVERIFIED). -/
-  geomConnOfAlgClosure : QMSplit.Moduli.GeomConnOfAlgClosure
 
 /-! ## From the new bundles to leaf-fold12's -/
-
-/-- **The two `X₆` rows from the new bundles** (x6-glue's `x6Rows_of_leaves`): each leaf from its abelian-scheme form
-under Mumford's rigidity (`mumfordRigidityCore`), and T5 from the textbook field `mumfordTorsionAlgClosed`. -/
-theorem x6Rows_of_open13 (r : OpenResearchLeaves13) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves12) :
-    LeafAdopt.R1R2fpRep ∧ X6Kummer.X6ConicModel :=
-  have hR := _root_.LeafQM.AV.R1UnivRigid.mumfordRigidity_of_core r.mumfordRigidityCore
-  QMSplit.Moduli.x6Rows_of_leaves
-    { deligneX6P := (_root_.LeafQM.AV.R1UnivRigid.deligneComponentsX6Printed_iff_ab hR).mpr
-        l.deligneComponentsX6PrintedAb
-      geomConn := l.geomConnOfAlgClosure
-      t5 := _root_.AvSplit.torsionStructure_of_mumford t.mumfordTorsionAlgClosed
-      babaGranathR := (_root_.LeafQM.AV.R1UnivRigid.babaGranathRational_iff_ab hR).mpr r.babaGranathRationalAb
-      rayClass := (_root_.LeafQM.AV.R1UnivRigid.rayClassCM_iff_ab hR).mpr r.rayClassCMAb
-      gonzalezRotger := (_root_.LeafQM.AV.R1UnivRigid.gonzalezRotgerX6_iff_ab hR).mpr r.gonzalezRotgerX6Ab
-      elkiesEq := (_root_.LeafQM.AV.R1UnivRigid.elkiesEquationsX6_iff_ab hR).mpr r.elkiesEquationsX6Ab }
-
-/-- leaf-fold12's research bundle from x6-fold's: `r1r2Ab` from x6-glue's `r1r2_of_published` and route-a-fold's
-`r1R2fpRep_iff_ab`. -/
-theorem researchLeaves12_of_open13 (r : OpenResearchLeaves13) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves12) :
-    OpenResearchLeaves12 where
-  r1r2Ab := (_root_.LeafQM.AV.R1UnivRigid.r1R2fpRep_iff_ab
-    (_root_.LeafQM.AV.R1UnivRigid.mumfordRigidity_of_core r.mumfordRigidityCore)).mp (x6Rows_of_open13 r t l).1
-  shimuraFamilyAb := r.shimuraFamilyAb
-  igusaPsi4 := r.igusaPsi4
-  igusaChi10 := r.igusaChi10
-  r7a := r.r7a
-  r9a := r.r9a
-  r9b := r.r9b
-  hodgeTateDecompAbVar := r.hodgeTateDecompAbVar
-  deRhamH1AbVarT := r.deRhamH1AbVarT
-  r11r12 := r.r11r12
-  eigenformHTNew := r.eigenformHTNew
-  dsThm965 := r.dsThm965
-  dsThm966 := r.dsThm966
-  r16 := r.r16
-  r17 := r.r17
-  bostLowerBound := r.bostLowerBound
-  javanpeykarBound := r.javanpeykarBound
-  pazukiCor13Upper := r.pazukiCor13Upper
-  gaudronRemondThm14 := r.gaudronRemondThm14
-  semistableReductionDVR := r.semistableReductionDVR
-  semistableUnipotent := r.semistableUnipotent
-  neronSchemeModelExistsDVR := r.neronSchemeModelExistsDVR
-  gonzalezRotgerCountX6Ab := r.gonzalezRotgerCountX6Ab
-  raynaudSemistable := r.raynaudSemistable
-  semistablePersistsDVR := r.semistablePersistsDVR
-  mumfordRigidityCore := r.mumfordRigidityCore
-  blr_1_2_4 := r.blr_1_2_4
-  faltingsLemma5Printed := r.faltingsLemma5Printed
-  raynaudKernelBound := r.raynaudKernelBound
-  sga3_VIB_3_10 := r.sga3_VIB_3_10
-  sga7_IX_3_3 := r.sga7_IX_3_3
-  egaIV_8_10_5_openImm := r.egaIV_8_10_5_openImm
-
-/-- leaf-fold12's added-leaf bundle from x6-fold's: `x6ConicModel` from x6-glue's `x6ConicModel_of_published`. -/
-theorem addedLeaves11_of_open12 (r : OpenResearchLeaves13) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves12) :
-    OpenAddedLeaves11 where
-  thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
-  qmCentralizerCMC := l.qmCentralizerCMC
-  tateTwistInvariants := l.tateTwistInvariants
-  axSenTate := l.axSenTate
-  t09SymmIsogenyExists := l.t09SymmIsogenyExists
-  milneIsogenyQuasiInverse := l.milneIsogenyQuasiInverse
-  shimuraTaniyamaQbar := l.shimuraTaniyamaQbar
-  egaIV_8_10_5_xii := l.egaIV_8_10_5_xii
-  shimuraGoodReductionNoGuard := l.shimuraGoodReductionNoGuard
-  valenceFormulaCocompactEq := l.valenceFormulaCocompactEq
-  shimizuCovolumeO1 := l.shimizuCovolumeO1
-  deligneComponentsY3PrintedAb := l.deligneComponentsY3PrintedAb
-  x6ConicModel := (x6Rows_of_open13 r t l).2
-
-/-- **G0 with only the open leaves and the open glue** (x6-fold; no `sorry`, standard axioms).
-`ZInQ.SixContactMin` from `OpenResearchLeaves13` (35), `OpenTextbookLeaves10` (15), `OpenAddedLeaves12` (14) and
-`OpenGlue7` (1). -/
-theorem sixContactMin_of_open16 (r : OpenResearchLeaves13) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves12)
-    (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
-  sixContactMin_of_open15 (researchLeaves12_of_open13 r t l) t (addedLeaves11_of_open12 r t l) g hYu
 
 end HSyn
 
@@ -342,7 +257,3 @@ end HDec
 
 #print axioms HDec.QMSplit.Moduli.r1r2_of_published
 #print axioms HDec.QMSplit.Moduli.x6ConicModel_of_published
-#print axioms HDec.HSyn.x6Rows_of_open13
-#print axioms HDec.HSyn.researchLeaves12_of_open13
-#print axioms HDec.HSyn.addedLeaves11_of_open12
-#print axioms HDec.HSyn.sixContactMin_of_open16

@@ -1,0 +1,4174 @@
+{
+"Theorems.Thm_WeierstrassCurve_bijOn_cyclicQuotientJ_isRoot_modularPolynomial_of_transcendental_j": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_WeierstrassCurve_CyclicQuotientJ",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_bijOn_cyclicQuotientJ_isRoot_modularPolynomial_of_transcendental_j"
+],
+"P2M.Sol.S_WeierstrassCurve_bijOn_cyclicQuotientJ_isRoot_modularPolynomial_of_transcendental_j": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_FibrePoly",
+"Definitions.Def_ModularCurve_PhiGen",
+"Definitions.Def_WeierstrassCurve_CyclicQuotientJ",
+"Definitions.Def_WeierstrassCurve_VeluPointMap",
+"Definitions.Def_WeierstrassCurve_VeluPointMap2",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"Definitions.Def_WeierstrassCurve_VariableChangePointEquiv",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_dvd_resultant_of_mul",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_irreducible_map_ratFunc_of_natCast_ne_zero",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_separable_map_ratFunc_of_natCast_ne_zero",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_evalSymm_of_prime",
+"Theorems.Thm_ModularCurve_swapBivar_eq_of_evalSymm",
+"Theorems.Thm_ModularCurve_nonempty_modularPolynomialData",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eq_all",
+"Theorems.Thm_WeierstrassCurve_cyclicQuotientJ_baseChange_map_eq_of_isAlgClosed",
+"Theorems.Thm_WeierstrassCurve_cyclicQuotientJ_variableChange_eq",
+"Theorems.Thm_WeierstrassCurve_stepCurve_stepSubgroup_eq_of_prime_ne_two",
+"Theorems.Thm_WeierstrassCurve_stepCurve_stepSubgroup_two_eq",
+"Theorems.Thm_WeierstrassCurve_exists_enum_cyclicKernels_veluQuotient_discriminant_ne_zero",
+"Theorems.Thm_WeierstrassCurve_exists_veluPointHom_oddOrderSummingSet_of_isAlgClosed",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_fibrePoly_j_eq_prod_veluQuotient_j",
+"Theorems.Thm_WeierstrassCurve_exists_enum_twoTorsion_veluQuotient2_discriminant_ne_zero",
+"Theorems.Thm_WeierstrassCurve_exists_addMonoidHom_coe_eq_veluPointMap2",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_fibrePoly_j_eq_prod_veluQuotient2_j",
+"Theorems.Thm_WeierstrassCurve_nonempty_torsionBy_addEquiv_zmod_prod_of_isAlgClosed",
+"Theorems.Thm_AddCommGroup_natCard_isAddCyclic_addSubgroup_eq_dedekindPsi_of_addEquiv_torsionBy",
+"Theorems.Thm_WeierstrassCurve_Affine_Point_vcInvFun_add",
+"P2M.Util"
+],
+"P2M.Util": [
+"Lean"
+],
+"Lean": null,
+"Theorems.Thm_WeierstrassCurve_Affine_Point_vcInvFun_add": [
+"Definitions.Def_WeierstrassCurve_VariableChangePointEquiv",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_Point_vcInvFun_add"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_Point_vcInvFun_add": [
+"Definitions.Def_WeierstrassCurve_VariableChangePointEquiv",
+"P2M.Util"
+],
+"Definitions.Def_WeierstrassCurve_VariableChangePointEquiv": [],
+"Theorems.Thm_AddCommGroup_natCard_isAddCyclic_addSubgroup_eq_dedekindPsi_of_addEquiv_torsionBy": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_AddCommGroup_natCard_isAddCyclic_addSubgroup_eq_dedekindPsi_of_addEquiv_torsionBy"
+],
+"P2M.Sol.S_AddCommGroup_natCard_isAddCyclic_addSubgroup_eq_dedekindPsi_of_addEquiv_torsionBy": [
+"Definitions.Def_ModularCurve_X0",
+"Theorems.Thm_ZMod_natCard_isAddCyclic_addSubgroup_prod_eq_dedekindPsi",
+"P2M.Util"
+],
+"Theorems.Thm_ZMod_natCard_isAddCyclic_addSubgroup_prod_eq_dedekindPsi": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ZMod_natCard_isAddCyclic_addSubgroup_prod_eq_dedekindPsi"
+],
+"P2M.Sol.S_ZMod_natCard_isAddCyclic_addSubgroup_prod_eq_dedekindPsi": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_ProjectiveLine",
+"Theorems.Thm_ModularCurve_card_projectiveLine_zmod",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_card_projectiveLine_zmod": [
+"Definitions.Def_ModularCurve_ProjectiveLine",
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_card_projectiveLine_zmod"
+],
+"P2M.Sol.S_ModularCurve_card_projectiveLine_zmod": [
+"Definitions.Def_ModularCurve_ProjectiveLine",
+"Definitions.Def_ModularCurve_X0",
+"Theorems.Thm_ModularCurve_dedekindPsi_prime_pow",
+"Theorems.Thm_ModularCurve_dedekindPsi_mul_of_coprime",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_dedekindPsi_mul_of_coprime": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_dedekindPsi_mul_of_coprime"
+],
+"P2M.Sol.S_ModularCurve_dedekindPsi_mul_of_coprime": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util"
+],
+"Definitions.Def_ModularCurve_PhiGen": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_LaurentCoeff"
+],
+"Definitions.Def_ModularCurve_LaurentCoeff": [],
+"Definitions.Def_ModularCurve_X0": [],
+"Theorems.Thm_ModularCurve_dedekindPsi_prime_pow": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_dedekindPsi_prime_pow"
+],
+"P2M.Sol.S_ModularCurve_dedekindPsi_prime_pow": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util"
+],
+"Definitions.Def_ModularCurve_ProjectiveLine": [],
+"Theorems.Thm_WeierstrassCurve_nonempty_torsionBy_addEquiv_zmod_prod_of_isAlgClosed": [
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_nonempty_torsionBy_addEquiv_zmod_prod_of_isAlgClosed"
+],
+"P2M.Sol.S_WeierstrassCurve_nonempty_torsionBy_addEquiv_zmod_prod_of_isAlgClosed": [
+"Theorems.Thm_WeierstrassCurve_card_torsion_of_isAlgClosed",
+"Theorems.Thm_AddCommGroup_nonempty_zmod_prod_addEquiv_torsionBy_of_card_torsionBy_eq_sq",
+"P2M.Util"
+],
+"Theorems.Thm_AddCommGroup_nonempty_zmod_prod_addEquiv_torsionBy_of_card_torsionBy_eq_sq": [
+"P2M.Util",
+"P2M.Sol.S_AddCommGroup_nonempty_zmod_prod_addEquiv_torsionBy_of_card_torsionBy_eq_sq"
+],
+"P2M.Sol.S_AddCommGroup_nonempty_zmod_prod_addEquiv_torsionBy_of_card_torsionBy_eq_sq": [
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_card_torsion_of_isAlgClosed": [
+"Definitions.Def_FLTPrelim_GaloisRep",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_card_torsion_of_isAlgClosed"
+],
+"P2M.Sol.S_WeierstrassCurve_card_torsion_of_isAlgClosed": [
+"Definitions.Def_WeierstrassCurve_EDSEngine",
+"P2M.Util"
+],
+"Definitions.Def_WeierstrassCurve_EDSEngine": [
+"Definitions.Def_Compat_Mathlib430"
+],
+"Definitions.Def_Compat_Mathlib430": [],
+"Definitions.Def_FLTPrelim_GaloisRep": [],
+"Theorems.Thm_ModularCurve_ModularPolynomialData_fibrePoly_j_eq_prod_veluQuotient2_j": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_FibrePoly",
+"Definitions.Def_WeierstrassCurve_Velu",
+"Definitions.Def_WeierstrassCurve_VeluOrderTwo",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_fibrePoly_j_eq_prod_veluQuotient2_j"
+],
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_fibrePoly_j_eq_prod_veluQuotient2_j": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_FibrePoly",
+"Definitions.Def_ModularCurve_ClassicalModularPolynomials",
+"Definitions.Def_WeierstrassCurve_Velu",
+"Definitions.Def_WeierstrassCurve_VeluOrderTwo",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_phi_eq_phiTwo",
+"Theorems.Thm_ModularCurve_fibrePoly_phiTwo_j_eq_prod_veluQuotient2_j",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_fibrePoly_phiTwo_j_eq_prod_veluQuotient2_j": [
+"Definitions.Def_ModularCurve_FibrePoly",
+"Definitions.Def_ModularCurve_ClassicalModularPolynomials",
+"Definitions.Def_WeierstrassCurve_Velu",
+"Definitions.Def_WeierstrassCurve_VeluOrderTwo",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_fibrePoly_phiTwo_j_eq_prod_veluQuotient2_j"
+],
+"P2M.Sol.S_ModularCurve_fibrePoly_phiTwo_j_eq_prod_veluQuotient2_j": [
+"Definitions.Def_ModularCurve_FibrePoly",
+"Definitions.Def_ModularCurve_ClassicalModularPolynomials",
+"Definitions.Def_WeierstrassCurve_Velu",
+"Definitions.Def_WeierstrassCurve_VeluOrderTwo",
+"Theorems.Thm_WeierstrassCurve_isElliptic_veluQuotient2_of_isElliptic",
+"Theorems.Thm_WeierstrassCurve_veluQuotient2_j",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_veluQuotient2_j": [
+"Definitions.Def_WeierstrassCurve_VeluOrderTwo",
+"Theorems.Thm_WeierstrassCurve_isElliptic_veluQuotient2_of_isElliptic",
+"Theorems.Thm_WeierstrassCurve_veluQuotient2_Delta_eq",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_veluQuotient2_j"
+],
+"P2M.Sol.S_WeierstrassCurve_veluQuotient2_j": [
+"Definitions.Def_WeierstrassCurve_VeluOrderTwo",
+"Definitions.Def_WeierstrassCurve_VeluQuotientJInvariant",
+"Theorems.Thm_WeierstrassCurve_isElliptic_veluQuotient2_of_isElliptic",
+"Theorems.Thm_WeierstrassCurve_veluQuotient2_Delta_eq",
+"Theorems.Thm_WeierstrassCurve_veluQuotient2_cFour",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_veluQuotient2_cFour": [
+"Definitions.Def_WeierstrassCurve_VeluOrderTwo",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_veluQuotient2_cFour"
+],
+"P2M.Sol.S_WeierstrassCurve_veluQuotient2_cFour": [
+"Definitions.Def_WeierstrassCurve_VeluOrderTwo",
+"P2M.Util"
+],
+"Definitions.Def_WeierstrassCurve_VeluOrderTwo": [
+"Definitions.Def_WeierstrassCurve_Velu"
+],
+"Definitions.Def_WeierstrassCurve_Velu": [],
+"Theorems.Thm_WeierstrassCurve_veluQuotient2_Delta_eq": [
+"Definitions.Def_WeierstrassCurve_VeluOrderTwo",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_veluQuotient2_Delta_eq"
+],
+"P2M.Sol.S_WeierstrassCurve_veluQuotient2_Delta_eq": [
+"Definitions.Def_WeierstrassCurve_VeluOrderTwo",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_isElliptic_veluQuotient2_of_isElliptic": [
+"Definitions.Def_WeierstrassCurve_VeluOrderTwo",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_isElliptic_veluQuotient2_of_isElliptic"
+],
+"P2M.Sol.S_WeierstrassCurve_isElliptic_veluQuotient2_of_isElliptic": [
+"Definitions.Def_WeierstrassCurve_VeluOrderTwo",
+"Theorems.Thm_WeierstrassCurve_veluQuotient2_Delta_ne_zero",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_veluQuotient2_Delta_ne_zero": [
+"Definitions.Def_WeierstrassCurve_VeluOrderTwo",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_veluQuotient2_Delta_ne_zero"
+],
+"P2M.Sol.S_WeierstrassCurve_veluQuotient2_Delta_ne_zero": [
+"Definitions.Def_WeierstrassCurve_VeluOrderTwo",
+"Theorems.Thm_WeierstrassCurve_veluQuotient2_Delta_eq",
+"Theorems.Thm_WeierstrassCurve_veluGx_ne_zero_of_two_torsion",
+"Theorems.Thm_WeierstrassCurve_velu2QuadDisc_ne_zero_of_two_torsion",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_velu2QuadDisc_ne_zero_of_two_torsion": [
+"Definitions.Def_WeierstrassCurve_VeluOrderTwo",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_velu2QuadDisc_ne_zero_of_two_torsion"
+],
+"P2M.Sol.S_WeierstrassCurve_velu2QuadDisc_ne_zero_of_two_torsion": [
+"Definitions.Def_WeierstrassCurve_VeluOrderTwo",
+"Theorems.Thm_WeierstrassCurve_Delta_eq_veluGx_sq_mul_velu2QuadDisc",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_Delta_eq_veluGx_sq_mul_velu2QuadDisc": [
+"Definitions.Def_WeierstrassCurve_VeluOrderTwo",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Delta_eq_veluGx_sq_mul_velu2QuadDisc"
+],
+"P2M.Sol.S_WeierstrassCurve_Delta_eq_veluGx_sq_mul_velu2QuadDisc": [
+"Definitions.Def_WeierstrassCurve_VeluOrderTwo",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_veluGx_ne_zero_of_two_torsion": [
+"Definitions.Def_WeierstrassCurve_VeluOrderTwo",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_veluGx_ne_zero_of_two_torsion"
+],
+"P2M.Sol.S_WeierstrassCurve_veluGx_ne_zero_of_two_torsion": [
+"Definitions.Def_WeierstrassCurve_VeluOrderTwo",
+"Theorems.Thm_WeierstrassCurve_Delta_eq_veluGx_sq_mul_velu2QuadDisc",
+"P2M.Util"
+],
+"Definitions.Def_WeierstrassCurve_VeluQuotientJInvariant": [
+"Definitions.Def_WeierstrassCurve_VeluQuotientMap"
+],
+"Definitions.Def_WeierstrassCurve_VeluQuotientMap": [
+"Definitions.Def_WeierstrassCurve_Velu"
+],
+"Definitions.Def_ModularCurve_ClassicalModularPolynomials": [],
+"Definitions.Def_ModularCurve_FibrePoly": [
+"Definitions.Def_ModularCurve_KroneckerTransport"
+],
+"Definitions.Def_ModularCurve_KroneckerTransport": [
+"Definitions.Def_ModularCurve_X0"
+],
+"Theorems.Thm_ModularCurve_ModularPolynomialData_phi_eq_phiTwo": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_ClassicalModularPolynomials",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_phi_eq_phiTwo"
+],
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_phi_eq_phiTwo": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_ClassicalModularPolynomials",
+"Theorems.Thm_ModularCurve_coeff_jNum_le_six",
+"Theorems.Thm_ModularCurve_eq_zero_of_natDegree_le_of_coeff_evalAtJ_eq_zero",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_natDegree_coeff_le",
+"Theorems.Thm_ModularCurve_PhiGen_splits_prime_of_isPrimitiveRoot",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_PhiGen_splits_prime_of_isPrimitiveRoot": [
+"Definitions.Def_ModularCurve_PhiGen",
+"Definitions.Def_ModularCurve_JqCoeff",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_PhiGen_splits_prime_of_isPrimitiveRoot"
+],
+"P2M.Sol.S_ModularCurve_PhiGen_splits_prime_of_isPrimitiveRoot": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_coeffMap_injective",
+"Theorems.Thm_ModularCurve_coeff_jqModC_neg_one",
+"Theorems.Thm_ModularCurve_order_jqModC",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eval_jqNModC_mul_eq_zero",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eval_jqNModC_of_mul_eq_zero",
+"Theorems.Thm_ModularCurve_PhiGen_splits_of_prime",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_PhiGen_splits_of_prime": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_PhiGen_splits_of_prime"
+],
+"P2M.Sol.S_ModularCurve_PhiGen_splits_of_prime": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eq_of_prime",
+"Theorems.Thm_ModularCurve_PhiGen_exists_phiGenDescends",
+"Theorems.Thm_ModularCurve_PhiGen_PhiGenDescends_intCoeffs",
+"Theorems.Thm_ModularCurve_PhiGen_mem_adjoin_jq_of_phiGenDescends",
+"Theorems.Thm_ModularCurve_PhiGen_exists_modularPolynomialData_coeff_eq",
+"Theorems.Thm_ModularCurve_PhiGen_splits_of_coeff_evalAtJ_eq",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_PhiGen_splits_of_coeff_evalAtJ_eq": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_PhiGen_splits_of_coeff_evalAtJ_eq"
+],
+"P2M.Sol.S_ModularCurve_PhiGen_splits_of_coeff_evalAtJ_eq": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_PhiGen_exists_modularPolynomialData_coeff_eq": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_PhiGen_exists_modularPolynomialData_coeff_eq"
+],
+"P2M.Sol.S_ModularCurve_PhiGen_exists_modularPolynomialData_coeff_eq": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_PhiGen_PhiGenDescends_c_top",
+"Theorems.Thm_ModularCurve_PhiGen_PhiGenDescends_c_eq_zero",
+"Theorems.Thm_ModularCurve_PhiGen_PhiGenDescends_poleOrderLE",
+"Theorems.Thm_ModularCurve_PhiGen_PhiGenDescends_sum_mul_jqN_pow_eq_zero",
+"Theorems.Thm_ModularCurve_PhiGen_evalAtJ_injective",
+"Theorems.Thm_ModularCurve_PhiGen_aeval_jq_intCoeffs_descent",
+"Theorems.Thm_ModularCurve_dedekindPsi_prime",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_dedekindPsi_prime": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_dedekindPsi_prime"
+],
+"P2M.Sol.S_ModularCurve_dedekindPsi_prime": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_PhiGen_aeval_jq_intCoeffs_descent": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_PhiGen_aeval_jq_intCoeffs_descent"
+],
+"P2M.Sol.S_ModularCurve_PhiGen_aeval_jq_intCoeffs_descent": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_PhiGen_evalAtJ_injective": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_PhiGen_evalAtJ_injective"
+],
+"P2M.Sol.S_ModularCurve_PhiGen_evalAtJ_injective": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_coeffEmb_injective",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_coeffEmb_injective": [
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_coeffEmb_injective"
+],
+"P2M.Sol.S_ModularCurve_coeffEmb_injective": [
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Theorems.Thm_ModularCurve_coeffMap_injective",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_coeffMap_injective": [
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_coeffMap_injective"
+],
+"P2M.Sol.S_ModularCurve_coeffMap_injective": [
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_coeffMap_qExpand": [
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_coeffMap_qExpand"
+],
+"P2M.Sol.S_ModularCurve_coeffMap_qExpand": [
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_PhiGen_PhiGenDescends_sum_mul_jqN_pow_eq_zero": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_PhiGen_PhiGenDescends_sum_mul_jqN_pow_eq_zero"
+],
+"P2M.Sol.S_ModularCurve_PhiGen_PhiGenDescends_sum_mul_jqN_pow_eq_zero": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_coeffEmb_injective",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_PhiGen_PhiGenDescends_poleOrderLE": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_PhiGen_PhiGenDescends_poleOrderLE"
+],
+"P2M.Sol.S_ModularCurve_PhiGen_PhiGenDescends_poleOrderLE": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_coeffEmb_injective",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_PhiGen_PhiGenDescends_c_eq_zero": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_PhiGen_PhiGenDescends_c_eq_zero"
+],
+"P2M.Sol.S_ModularCurve_PhiGen_PhiGenDescends_c_eq_zero": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_coeffEmb_injective",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_PhiGen_PhiGenDescends_c_top": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_PhiGen_PhiGenDescends_c_top"
+],
+"P2M.Sol.S_ModularCurve_PhiGen_PhiGenDescends_c_top": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_coeffEmb_injective",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_PhiGen_mem_adjoin_jq_of_phiGenDescends": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_PhiGen_mem_adjoin_jq_of_phiGenDescends"
+],
+"P2M.Sol.S_ModularCurve_PhiGen_mem_adjoin_jq_of_phiGenDescends": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"Definitions.Def_ModularForm_HeckeOperator",
+"Theorems.Thm_ModularCurve_PhiGen_PhiGenDescends_hasSum_cosetPoly_coeff",
+"Theorems.Thm_ModularCurve_mem_adjoin_jq_of_hasSum_of_slash_invariant",
+"Theorems.Thm_ModularCurve_cosetPoly_smul",
+"Theorems.Thm_ModularCurve_E4_cube_div_discriminant_smul",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_E4_cube_div_discriminant_smul": [
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_E4_cube_div_discriminant_smul"
+],
+"P2M.Sol.S_ModularCurve_E4_cube_div_discriminant_smul": [
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_cosetPoly_smul": [
+"Definitions.Def_ModularForm_HeckeOperator",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_cosetPoly_smul"
+],
+"P2M.Sol.S_ModularCurve_cosetPoly_smul": [
+"Definitions.Def_ModularForm_HeckeOperator",
+"P2M.Util"
+],
+"Definitions.Def_ModularForm_HeckeOperator": [],
+"Theorems.Thm_ModularCurve_mem_adjoin_jq_of_hasSum_of_slash_invariant": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_mem_adjoin_jq_of_hasSum_of_slash_invariant"
+],
+"P2M.Sol.S_ModularCurve_mem_adjoin_jq_of_hasSum_of_slash_invariant": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"Definitions.Def_ModularForm_HeckeOperator",
+"Theorems.Thm_ModularCurve_hasSum_jq_qParam",
+"Theorems.Thm_ModularCurve_coeff_eq_zero_of_hasSum_of_slash_invariant",
+"Theorems.Thm_ModularCurve_hasSum_qParam_mul_laurent",
+"Theorems.Thm_ModularCurve_E4_cube_div_discriminant_smul",
+"Theorems.Thm_ModularCurve_exists_aeval_jq_sub_holomorphicAtInfty",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_exists_aeval_jq_sub_holomorphicAtInfty": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_exists_aeval_jq_sub_holomorphicAtInfty"
+],
+"P2M.Sol.S_ModularCurve_exists_aeval_jq_sub_holomorphicAtInfty": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_hasSum_qParam_mul_laurent": [
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_hasSum_qParam_mul_laurent"
+],
+"P2M.Sol.S_ModularCurve_hasSum_qParam_mul_laurent": [
+"Theorems.Thm_ModularCurve_hasSum_qParam_mul",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_hasSum_qParam_mul": [
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_hasSum_qParam_mul"
+],
+"P2M.Sol.S_ModularCurve_hasSum_qParam_mul": [
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_coeff_eq_zero_of_hasSum_of_slash_invariant": [
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_coeff_eq_zero_of_hasSum_of_slash_invariant"
+],
+"P2M.Sol.S_ModularCurve_coeff_eq_zero_of_hasSum_of_slash_invariant": [
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_hasSum_jq_qParam": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_hasSum_jq_qParam"
+],
+"P2M.Sol.S_ModularCurve_hasSum_jq_qParam": [
+"Definitions.Def_ModularCurve_X0",
+"Theorems.Thm_ModularCurve_hasSum_jNum_qParam",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_hasSum_jNum_qParam": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_hasSum_jNum_qParam"
+],
+"P2M.Sol.S_ModularCurve_hasSum_jNum_qParam": [
+"Definitions.Def_ModularCurve_X0",
+"Theorems.Thm_ModularCurve_qExpansion_E4_eq_map_eisenstein4",
+"Theorems.Thm_ModularCurve_qExpansion_discriminant_eq_map_X_mul_dedekindEtaUnit",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_qExpansion_discriminant_eq_map_X_mul_dedekindEtaUnit": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_qExpansion_discriminant_eq_map_X_mul_dedekindEtaUnit"
+],
+"P2M.Sol.S_ModularCurve_qExpansion_discriminant_eq_map_X_mul_dedekindEtaUnit": [
+"Definitions.Def_ModularCurve_X0",
+"Theorems.Thm_ModularCurve_qExpansion_discriminant_eq_X_mul_tprod",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_qExpansion_discriminant_eq_X_mul_tprod": [
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_qExpansion_discriminant_eq_X_mul_tprod"
+],
+"P2M.Sol.S_ModularCurve_qExpansion_discriminant_eq_X_mul_tprod": [
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_qExpansion_E4_eq_map_eisenstein4": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_qExpansion_E4_eq_map_eisenstein4"
+],
+"P2M.Sol.S_ModularCurve_qExpansion_E4_eq_map_eisenstein4": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_PhiGen_PhiGenDescends_hasSum_cosetPoly_coeff": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"Definitions.Def_ModularForm_HeckeOperator",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_PhiGen_PhiGenDescends_hasSum_cosetPoly_coeff"
+],
+"P2M.Sol.S_ModularCurve_PhiGen_PhiGenDescends_hasSum_cosetPoly_coeff": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"Definitions.Def_ModularForm_HeckeOperator",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_hasSum_jq_qParam",
+"Theorems.Thm_ModularCurve_hasSum_qParam_mul_laurent",
+"Theorems.Thm_ModularCurve_hasSum_qParam_heckeMatrix_smul",
+"Theorems.Thm_ModularCurve_hasSum_qParam_heckeDiagMatrix_smul",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_hasSum_qParam_heckeDiagMatrix_smul": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularForm_HeckeOperator",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_hasSum_qParam_heckeDiagMatrix_smul"
+],
+"P2M.Sol.S_ModularCurve_hasSum_qParam_heckeDiagMatrix_smul": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularForm_HeckeOperator",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_hasSum_qParam_heckeMatrix_smul": [
+"Definitions.Def_ModularForm_HeckeOperator",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_hasSum_qParam_heckeMatrix_smul"
+],
+"P2M.Sol.S_ModularCurve_hasSum_qParam_heckeMatrix_smul": [
+"Definitions.Def_ModularForm_HeckeOperator",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_PhiGen_PhiGenDescends_intCoeffs": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_PhiGen_PhiGenDescends_intCoeffs"
+],
+"P2M.Sol.S_ModularCurve_PhiGen_PhiGenDescends_intCoeffs": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_PhiGen_exists_phiGenDescends": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_PhiGen_exists_phiGenDescends"
+],
+"P2M.Sol.S_ModularCurve_PhiGen_exists_phiGenDescends": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eq_of_prime": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_eq_of_prime"
+],
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_eq_of_prime": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_finrank_adjoin_jqN_eq_of_prime",
+"Theorems.Thm_ModularCurve_dedekindPsi_prime",
+"Theorems.Thm_ModularCurve_PhiGen_evalAtJ_injective",
+"Theorems.Thm_ModularCurve_exists_phiIrreducible_evalSymm",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_exists_phiIrreducible_evalSymm": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_exists_phiIrreducible_evalSymm"
+],
+"P2M.Sol.S_ModularCurve_exists_phiIrreducible_evalSymm": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_PhiGen_exists_phiGenDescends",
+"Theorems.Thm_ModularCurve_PhiGen_PhiGenDescends_intCoeffs",
+"Theorems.Thm_ModularCurve_PhiGen_mem_adjoin_jq_of_phiGenDescends",
+"Theorems.Thm_ModularCurve_PhiGen_exists_modularPolynomialData_coeff_eq",
+"Theorems.Thm_ModularCurve_PhiGen_evalSymm_of_coeff_evalAtJ_eq",
+"Theorems.Thm_ModularCurve_PhiGen_splits_of_coeff_evalAtJ_eq",
+"Theorems.Thm_ModularCurve_PhiGen_phiIrreducible_of_splits",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_PhiGen_phiIrreducible_of_splits": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_PhiGen_phiIrreducible_of_splits"
+],
+"P2M.Sol.S_ModularCurve_PhiGen_phiIrreducible_of_splits": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_one_le_coeff_jq",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_coeffEmb_qExpand",
+"Theorems.Thm_ModularCurve_transcendental_jq",
+"Theorems.Thm_ModularCurve_dedekindPsi_prime",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_transcendental_jq": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_transcendental_jq"
+],
+"P2M.Sol.S_ModularCurve_transcendental_jq": [
+"Definitions.Def_ModularCurve_X0",
+"Theorems.Thm_ModularCurve_aeval_jq_eq_zero",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_aeval_jq_eq_zero": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_aeval_jq_eq_zero"
+],
+"P2M.Sol.S_ModularCurve_aeval_jq_eq_zero": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_coeffEmb_qExpand": [
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_coeffEmb_qExpand"
+],
+"P2M.Sol.S_ModularCurve_coeffEmb_qExpand": [
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_X0",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_one_le_coeff_jq": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_one_le_coeff_jq"
+],
+"P2M.Sol.S_ModularCurve_one_le_coeff_jq": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_PhiGen_evalSymm_of_coeff_evalAtJ_eq": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_PhiGen_evalSymm_of_coeff_evalAtJ_eq"
+],
+"P2M.Sol.S_ModularCurve_PhiGen_evalSymm_of_coeff_evalAtJ_eq": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_PhiGen_PhiGenDescends_poleOrderLE",
+"Theorems.Thm_ModularCurve_PhiGen_phiProd_conj_coeff_zero_lead",
+"Theorems.Thm_ModularCurve_PhiGen_phiProd_conj_coeff_eq_zero_of_le",
+"Theorems.Thm_ModularCurve_PhiGen_splits_of_coeff_evalAtJ_eq",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_transposeToAdjoin_monic_of_qExpansion",
+"Theorems.Thm_ModularCurve_PhiGen_evalSymm_of_splits",
+"Theorems.Thm_ModularCurve_dedekindPsi_prime",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_PhiGen_evalSymm_of_splits": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_PhiGen_evalSymm_of_splits"
+],
+"P2M.Sol.S_ModularCurve_PhiGen_evalSymm_of_splits": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_one_le_coeff_jq",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_coeffEmb_qExpand",
+"Theorems.Thm_ModularCurve_transcendental_jq",
+"Theorems.Thm_ModularCurve_dedekindPsi_prime",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_ModularPolynomialData_transposeToAdjoin_monic_of_qExpansion": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_transposeToAdjoin_monic_of_qExpansion"
+],
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_transposeToAdjoin_monic_of_qExpansion": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_coeffEmb_qExpand",
+"Theorems.Thm_ModularCurve_transcendental_jq",
+"Theorems.Thm_ModularCurve_dedekindPsi_prime",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_PhiGen_phiProd_conj_coeff_eq_zero_of_le": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_PhiGen_phiProd_conj_coeff_eq_zero_of_le"
+],
+"P2M.Sol.S_ModularCurve_PhiGen_phiProd_conj_coeff_eq_zero_of_le": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_PhiGen_phiProd_conj_coeff_zero_lead": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_PhiGen_phiProd_conj_coeff_zero_lead"
+],
+"P2M.Sol.S_ModularCurve_PhiGen_phiProd_conj_coeff_zero_lead": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_finrank_adjoin_jqN_eq_of_prime": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_finrank_adjoin_jqN_eq_of_prime"
+],
+"P2M.Sol.S_ModularCurve_finrank_adjoin_jqN_eq_of_prime": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_exists_phiIrreducible_evalSymm",
+"Theorems.Thm_ModularCurve_dedekindPsi_prime",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eval_jqNModC_of_mul_eq_zero": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_eval_jqNModC_of_mul_eq_zero"
+],
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_eval_jqNModC_of_mul_eq_zero": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_coeffMap_injective",
+"P2M.Util"
+],
+"Definitions.Def_ModularCurve_JqCoeff": [
+"Definitions.Def_ModularCurve_X0"
+],
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eval_jqNModC_mul_eq_zero": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_JqCoeff",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_eval_jqNModC_mul_eq_zero"
+],
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_eval_jqNModC_mul_eq_zero": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_coeffMap_injective",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_order_jqModC": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_order_jqModC"
+],
+"P2M.Sol.S_ModularCurve_order_jqModC": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_coeff_jqModC_neg_one": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_coeff_jqModC_neg_one"
+],
+"P2M.Sol.S_ModularCurve_coeff_jqModC_neg_one": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_ModularPolynomialData_natDegree_coeff_le": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_natDegree_coeff_le"
+],
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_natDegree_coeff_le": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_evalSymm_of_prime",
+"Theorems.Thm_ModularCurve_swapBivar_eq_of_evalSymm",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_swapBivar_eq_of_evalSymm": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_swapBivar_eq_of_evalSymm"
+],
+"P2M.Sol.S_ModularCurve_swapBivar_eq_of_evalSymm": [
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_ModularPolynomialData_evalSymm_of_prime": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_evalSymm_of_prime"
+],
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_evalSymm_of_prime": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eq_of_prime",
+"Theorems.Thm_ModularCurve_exists_modularPolynomialData_evalSymm",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_exists_modularPolynomialData_evalSymm": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_exists_modularPolynomialData_evalSymm"
+],
+"P2M.Sol.S_ModularCurve_exists_modularPolynomialData_evalSymm": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_PhiGen_exists_phiGenDescends",
+"Theorems.Thm_ModularCurve_PhiGen_PhiGenDescends_intCoeffs",
+"Theorems.Thm_ModularCurve_PhiGen_mem_adjoin_jq_of_phiGenDescends",
+"Theorems.Thm_ModularCurve_PhiGen_exists_modularPolynomialData_coeff_eq",
+"Theorems.Thm_ModularCurve_PhiGen_evalSymm_of_coeff_evalAtJ_eq",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_eq_zero_of_natDegree_le_of_coeff_evalAtJ_eq_zero": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_eq_zero_of_natDegree_le_of_coeff_evalAtJ_eq_zero"
+],
+"P2M.Sol.S_ModularCurve_eq_zero_of_natDegree_le_of_coeff_evalAtJ_eq_zero": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_coeff_jNum_le_six": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_coeff_jNum_le_six"
+],
+"P2M.Sol.S_ModularCurve_coeff_jNum_le_six": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_exists_addMonoidHom_coe_eq_veluPointMap2": [
+"Definitions.Def_WeierstrassCurve_Velu",
+"Definitions.Def_WeierstrassCurve_VeluOrderTwo",
+"Definitions.Def_WeierstrassCurve_VeluPointMap2",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_exists_addMonoidHom_coe_eq_veluPointMap2"
+],
+"P2M.Sol.S_WeierstrassCurve_exists_addMonoidHom_coe_eq_veluPointMap2": [
+"Definitions.Def_WeierstrassCurve_VeluPointMap2",
+"Theorems.Thm_WeierstrassCurve_veluQuotient2_Delta_eq",
+"Theorems.Thm_WeierstrassCurve_velu2_secant_negAddY_cleared_identity",
+"Theorems.Thm_WeierstrassCurve_velu2_tangent_addX_cleared_identity",
+"Theorems.Thm_WeierstrassCurve_velu2_tangent_negAddY_cleared_identity",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_velu2_tangent_negAddY_cleared_identity": [
+"Definitions.Def_WeierstrassCurve_Velu",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_velu2_tangent_negAddY_cleared_identity"
+],
+"P2M.Sol.S_WeierstrassCurve_velu2_tangent_negAddY_cleared_identity": [
+"Definitions.Def_WeierstrassCurve_Velu",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_velu2_tangent_addX_cleared_identity": [
+"Definitions.Def_WeierstrassCurve_Velu",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_velu2_tangent_addX_cleared_identity"
+],
+"P2M.Sol.S_WeierstrassCurve_velu2_tangent_addX_cleared_identity": [
+"Definitions.Def_WeierstrassCurve_Velu",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_velu2_secant_negAddY_cleared_identity": [
+"Definitions.Def_WeierstrassCurve_Velu",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_velu2_secant_negAddY_cleared_identity"
+],
+"P2M.Sol.S_WeierstrassCurve_velu2_secant_negAddY_cleared_identity": [
+"Definitions.Def_WeierstrassCurve_Velu",
+"P2M.Util"
+],
+"Definitions.Def_WeierstrassCurve_VeluPointMap2": [
+"Definitions.Def_WeierstrassCurve_VeluOrderTwo"
+],
+"Theorems.Thm_WeierstrassCurve_exists_enum_twoTorsion_veluQuotient2_discriminant_ne_zero": [
+"Definitions.Def_WeierstrassCurve_Velu",
+"Definitions.Def_WeierstrassCurve_VeluOrderTwo",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_exists_enum_twoTorsion_veluQuotient2_discriminant_ne_zero"
+],
+"P2M.Sol.S_WeierstrassCurve_exists_enum_twoTorsion_veluQuotient2_discriminant_ne_zero": [
+"Definitions.Def_WeierstrassCurve_Velu",
+"Definitions.Def_WeierstrassCurve_VeluOrderTwo",
+"Theorems.Thm_WeierstrassCurve_isElliptic_veluQuotient2_of_isElliptic",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_ModularPolynomialData_fibrePoly_j_eq_prod_veluQuotient_j": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_FibrePoly",
+"Definitions.Def_WeierstrassCurve_Velu",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_fibrePoly_j_eq_prod_veluQuotient_j"
+],
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_fibrePoly_j_eq_prod_veluQuotient_j": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_FibrePoly",
+"Definitions.Def_WeierstrassCurve_Velu",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"Definitions.Def_WeierstrassCurve_ReduceHom",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_fibrePoly_j_eq_prod_veluQuotient_j_of_transcendental_of_isAlgClosed",
+"Theorems.Thm_WeierstrassCurve_exists_map_eq_veluQuotient_and_map_residue_eq_veluQuotient_reduceHom",
+"Theorems.Thm_WeierstrassCurve_veluQuotient_oddOrderSummingSet_discriminant_ne_zero_of_addOrderOf_eq",
+"Theorems.Thm_WeierstrassCurve_exists_valuationSubring_with_transcendental_of_charZero",
+"Theorems.Thm_WittVector_exists_valuationSubring_lift_with_transcendental",
+"Theorems.Thm_WeierstrassCurve_transcendental_j_perturb",
+"Theorems.Thm_WeierstrassCurve_exists_reduceHom_eq_of_nsmul_eq_zero_of_natCast_ne_zero",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_exists_reduceHom_eq_of_nsmul_eq_zero_of_natCast_ne_zero": [
+"Definitions.Def_WeierstrassCurve_ReduceHom",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_exists_reduceHom_eq_of_nsmul_eq_zero_of_natCast_ne_zero"
+],
+"P2M.Sol.S_WeierstrassCurve_exists_reduceHom_eq_of_nsmul_eq_zero_of_natCast_ne_zero": [
+"Definitions.Def_WeierstrassCurve_ReduceHom",
+"Theorems.Thm_WeierstrassCurve_nonempty_torsionBy_addEquiv_zmod_prod_of_isAlgClosed",
+"P2M.Util"
+],
+"Definitions.Def_WeierstrassCurve_ReduceHom": [
+"Definitions.Def_WeierstrassCurve_TorsionIntegral"
+],
+"Definitions.Def_WeierstrassCurve_TorsionIntegral": [
+"Definitions.Def_WeierstrassCurve_ReductionMap"
+],
+"Definitions.Def_WeierstrassCurve_ReductionMap": [
+"Definitions.Def_FLTPrelim_Ramification",
+"Definitions.Def_FreyPackage_GaloisRep"
+],
+"Definitions.Def_FreyPackage_GaloisRep": [
+"Definitions.Def_FLTPrelim_FreyPackage",
+"Definitions.Def_FLTPrelim_GaloisRep",
+"Definitions.Def_EllipticCurve_FrobeniusTrace"
+],
+"Definitions.Def_EllipticCurve_FrobeniusTrace": [
+"Definitions.Def_FLTPrelim_GaloisRep",
+"Definitions.Def_FLTPrelim_Ramification"
+],
+"Definitions.Def_FLTPrelim_Ramification": [
+"Definitions.Def_FLTPrelim_FreyPackage",
+"Definitions.Def_FLTPrelim_GaloisRep"
+],
+"Definitions.Def_FLTPrelim_FreyPackage": [],
+"Theorems.Thm_WeierstrassCurve_transcendental_j_perturb": [
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_transcendental_j_perturb"
+],
+"P2M.Sol.S_WeierstrassCurve_transcendental_j_perturb": [
+"P2M.Util"
+],
+"Theorems.Thm_WittVector_exists_valuationSubring_lift_with_transcendental": [
+"P2M.Util",
+"P2M.Sol.S_WittVector_exists_valuationSubring_lift_with_transcendental"
+],
+"P2M.Sol.S_WittVector_exists_valuationSubring_lift_with_transcendental": [
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_exists_valuationSubring_with_transcendental_of_charZero": [
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_exists_valuationSubring_with_transcendental_of_charZero"
+],
+"P2M.Sol.S_WeierstrassCurve_exists_valuationSubring_with_transcendental_of_charZero": [
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_veluQuotient_oddOrderSummingSet_discriminant_ne_zero_of_addOrderOf_eq": [
+"Definitions.Def_WeierstrassCurve_Velu",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_veluQuotient_oddOrderSummingSet_discriminant_ne_zero_of_addOrderOf_eq"
+],
+"P2M.Sol.S_WeierstrassCurve_veluQuotient_oddOrderSummingSet_discriminant_ne_zero_of_addOrderOf_eq": [
+"Definitions.Def_WeierstrassCurve_Velu",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"Theorems.Thm_WeierstrassCurve_veluQuotient_oddOrderSummingSet_discriminant_prod_veluU_pow",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_veluQuotient_oddOrderSummingSet_discriminant_prod_veluU_pow": [
+"Definitions.Def_WeierstrassCurve_Velu",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_veluQuotient_oddOrderSummingSet_discriminant_prod_veluU_pow"
+],
+"P2M.Sol.S_WeierstrassCurve_veluQuotient_oddOrderSummingSet_discriminant_prod_veluU_pow": [
+"Definitions.Def_WeierstrassCurve_Velu",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"Definitions.Def_WeierstrassCurve_VeluQuotientMap",
+"Definitions.Def_WeierstrassCurve_VeluVariableChange",
+"Definitions.Def_WeierstrassCurve_VeluEquivariance",
+"P2M.Util"
+],
+"Definitions.Def_WeierstrassCurve_VeluEquivariance": [
+"Definitions.Def_WeierstrassCurve_VeluBundledMap"
+],
+"Definitions.Def_WeierstrassCurve_VeluBundledMap": [
+"Definitions.Def_WeierstrassCurve_VeluPointMap"
+],
+"Definitions.Def_WeierstrassCurve_VeluPointMap": [
+"Definitions.Def_WeierstrassCurve_VeluQuotientMap"
+],
+"Definitions.Def_WeierstrassCurve_VeluVariableChange": [
+"Definitions.Def_WeierstrassCurve_Velu",
+"Definitions.Def_WeierstrassCurve_VariableChangePointEquiv"
+],
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet": [],
+"Theorems.Thm_WeierstrassCurve_exists_map_eq_veluQuotient_and_map_residue_eq_veluQuotient_reduceHom": [
+"Definitions.Def_WeierstrassCurve_Velu",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"Definitions.Def_WeierstrassCurve_ReduceHom",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_exists_map_eq_veluQuotient_and_map_residue_eq_veluQuotient_reduceHom"
+],
+"P2M.Sol.S_WeierstrassCurve_exists_map_eq_veluQuotient_and_map_residue_eq_veluQuotient_reduceHom": [
+"Definitions.Def_WeierstrassCurve_Velu",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"Definitions.Def_WeierstrassCurve_ReduceHom",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_ModularPolynomialData_fibrePoly_j_eq_prod_veluQuotient_j_of_transcendental_of_isAlgClosed": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_FibrePoly",
+"Definitions.Def_WeierstrassCurve_Velu",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_fibrePoly_j_eq_prod_veluQuotient_j_of_transcendental_of_isAlgClosed"
+],
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_fibrePoly_j_eq_prod_veluQuotient_j_of_transcendental_of_isAlgClosed": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_FibrePoly",
+"Definitions.Def_WeierstrassCurve_Velu",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_fibrePoly_j_eq_prod_veluQuotient_j_of_transcendental",
+"Theorems.Thm_HahnSeries_isAlgClosed_rat",
+"P2M.Util"
+],
+"Theorems.Thm_HahnSeries_isAlgClosed_rat": [
+"P2M.Util",
+"P2M.Sol.S_HahnSeries_isAlgClosed_rat"
+],
+"P2M.Sol.S_HahnSeries_isAlgClosed_rat": [
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_ModularPolynomialData_fibrePoly_j_eq_prod_veluQuotient_j_of_transcendental": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_FibrePoly",
+"Definitions.Def_WeierstrassCurve_Velu",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_fibrePoly_j_eq_prod_veluQuotient_j_of_transcendental"
+],
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_fibrePoly_j_eq_prod_veluQuotient_j_of_transcendental": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_FibrePoly",
+"Definitions.Def_WeierstrassCurve_Velu",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_isRoot_map_j_veluQuotient_j_of_addOrderOf_eq",
+"Theorems.Thm_WeierstrassCurve_zmultiples_eq_of_veluQuotient_j_eq_of_transcendental",
+"Theorems.Thm_ModularCurve_monic_fibrePoly",
+"Theorems.Thm_ModularCurve_natDegree_fibrePoly",
+"Theorems.Thm_ModularCurve_dedekindPsi_prime",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_natDegree_fibrePoly": [
+"Definitions.Def_ModularCurve_FibrePoly",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_natDegree_fibrePoly"
+],
+"P2M.Sol.S_ModularCurve_natDegree_fibrePoly": [
+"Definitions.Def_ModularCurve_FibrePoly",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_monic_fibrePoly": [
+"Definitions.Def_ModularCurve_FibrePoly",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_monic_fibrePoly"
+],
+"P2M.Sol.S_ModularCurve_monic_fibrePoly": [
+"Definitions.Def_ModularCurve_FibrePoly",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_zmultiples_eq_of_veluQuotient_j_eq_of_transcendental": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_WeierstrassCurve_Velu",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_zmultiples_eq_of_veluQuotient_j_eq_of_transcendental"
+],
+"P2M.Sol.S_WeierstrassCurve_zmultiples_eq_of_veluQuotient_j_eq_of_transcendental": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_WeierstrassCurve_Velu",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Theorems.Thm_WeierstrassCurve_Affine_IsogenyEndDatum_exists_forall_pointEnd_eq_zsmul_of_transcendental_j",
+"Theorems.Thm_WeierstrassCurve_zmultiples_eq_of_veluQuotient_j_eq_of_forall_isogenyEndDatum_exists_int",
+"Theorems.Thm_WeierstrassCurve_Affine_exists_genusOnePlaceGate_isCentred_and_abelTheorem",
+"Theorems.Thm_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField",
+"Theorems.Thm_HahnSeries_isAlgClosed_rat",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_isDedekindDomain",
+"Theorems.Thm_AlgebraicCurve_normFormulaAlong",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_normFormulaAlong": [
+"Definitions.Def_AlgebraicCurve_Correspondence",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_normFormulaAlong"
+],
+"P2M.Sol.S_AlgebraicCurve_normFormulaAlong": [
+"Definitions.Def_AlgebraicCurve_Correspondence",
+"Theorems.Thm_AlgebraicCurve_Divisor_pushforwardNormFormula",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_Divisor_pushforwardNormFormula": [
+"Definitions.Def_AlgebraicCurve_DivisorPushPull",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_Divisor_pushforwardNormFormula"
+],
+"P2M.Sol.S_AlgebraicCurve_Divisor_pushforwardNormFormula": [
+"Definitions.Def_AlgebraicCurve_DivisorPushPull",
+"Theorems.Thm_AlgebraicCurve_Place_ord_nonneg_of_mem",
+"Theorems.Thm_AlgebraicCurve_Place_mem_of_ord_nonneg",
+"Theorems.Thm_AlgebraicCurve_Place_mem_iff_ord_nonneg",
+"Theorems.Thm_AlgebraicCurve_Place_exists_ord_pos",
+"Theorems.Thm_AlgebraicCurve_Place_ord_eq_zero_iff_adicValuation_eq_one",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_Place_ord_eq_zero_iff_adicValuation_eq_one": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_Place_ord_eq_zero_iff_adicValuation_eq_one",
+"Definitions.Def_AlgebraicCurve_RatFuncPlaces"
+],
+"Definitions.Def_AlgebraicCurve_RatFuncPlaces": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup"
+],
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup": [],
+"P2M.Sol.S_AlgebraicCurve_Place_ord_eq_zero_iff_adicValuation_eq_one": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_Place_exists_ord_pos": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_Place_exists_ord_pos",
+"Definitions.Def_ModularCurve_CharLFrobeniusGeomLevel"
+],
+"Definitions.Def_ModularCurve_CharLFrobeniusGeomLevel": [
+"Definitions.Def_AlgebraicCurve_IsCurveOver",
+"Definitions.Def_AlgebraicCurve_DivisorPushPull",
+"Definitions.Def_AlgebraicCurve_RatFuncPlaces",
+"Definitions.Def_AlgebraicCurve_FrobeniusEndo",
+"Definitions.Def_AlgebraicCurve_FrobeniusEndoPic0",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_FibrePoly",
+"Definitions.Def_HeckeGalois_EichlerShimura",
+"Theorems.Thm_ModularCurve_frobenius_identity_geom_unconditional"
+],
+"Theorems.Thm_ModularCurve_frobenius_identity_geom_unconditional": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_frobenius_identity_geom_unconditional"
+],
+"P2M.Sol.S_ModularCurve_frobenius_identity_geom_unconditional": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"Theorems.Thm_ModularCurve_map_intCast_pow_char_eq_qExpand",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_map_intCast_pow_char_eq_qExpand": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_map_intCast_pow_char_eq_qExpand"
+],
+"P2M.Sol.S_ModularCurve_map_intCast_pow_char_eq_qExpand": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util"
+],
+"Definitions.Def_HeckeGalois_EichlerShimura": [
+"Definitions.Def_FLTPrelim_Ramification",
+"Definitions.Def_EllipticCurve_FrobeniusTrace"
+],
+"Definitions.Def_AlgebraicCurve_FrobeniusEndoPic0": [
+"Definitions.Def_AlgebraicCurve_FrobeniusEndo"
+],
+"Definitions.Def_AlgebraicCurve_FrobeniusEndo": [
+"Definitions.Def_AlgebraicCurve_Correspondence"
+],
+"Definitions.Def_AlgebraicCurve_Correspondence": [
+"Definitions.Def_AlgebraicCurve_DivisorPushPull",
+"Definitions.Def_AlgebraicCurve_BaseChangeGalois"
+],
+"Definitions.Def_AlgebraicCurve_BaseChangeGalois": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup"
+],
+"Definitions.Def_AlgebraicCurve_DivisorPushPull": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup"
+],
+"Definitions.Def_AlgebraicCurve_IsCurveOver": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup"
+],
+"P2M.Sol.S_AlgebraicCurve_Place_exists_ord_pos": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_Place_mem_iff_ord_nonneg": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_Place_mem_iff_ord_nonneg",
+"Definitions.Def_ModularCurve_CharLFrobeniusGeomLevel"
+],
+"P2M.Sol.S_AlgebraicCurve_Place_mem_iff_ord_nonneg": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_Place_mem_of_ord_nonneg": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_Place_mem_of_ord_nonneg",
+"Definitions.Def_ModularCurve_CharLFrobeniusGeomLevel"
+],
+"P2M.Sol.S_AlgebraicCurve_Place_mem_of_ord_nonneg": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_Place_ord_nonneg_of_mem": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_Place_ord_nonneg_of_mem",
+"Definitions.Def_ModularCurve_CharLFrobeniusGeomLevel"
+],
+"P2M.Sol.S_AlgebraicCurve_Place_ord_nonneg_of_mem": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_isDedekindDomain": [
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_CoordinateRing_isDedekindDomain"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_CoordinateRing_isDedekindDomain": [
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"Definitions.Def_AlgebraicCurve_DivisorPushPull",
+"Definitions.Def_AlgebraicCurve_PlacesOverDVR",
+"Definitions.Def_AlgebraicCurve_RatFuncPlaces",
+"Theorems.Thm_AlgebraicCurve_Place_ord_eq_neg_log_of_valuationSubring_eq",
+"Theorems.Thm_AlgebraicCurve_hasPrincipalDivisors_of_finiteDimensional_ratFunc",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_hasPrincipalDivisors_of_finiteDimensional_ratFunc": [
+"Definitions.Def_AlgebraicCurve_PlacesOverDVR",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_hasPrincipalDivisors_of_finiteDimensional_ratFunc"
+],
+"P2M.Sol.S_AlgebraicCurve_hasPrincipalDivisors_of_finiteDimensional_ratFunc": [
+"Definitions.Def_AlgebraicCurve_PlacesOverDVR",
+"Theorems.Thm_AlgebraicCurve_Place_mem_iff_ord_nonneg",
+"Theorems.Thm_AlgebraicCurve_Place_ord_nonneg_of_mem",
+"Theorems.Thm_AlgebraicCurve_Place_mem_of_ord_nonneg",
+"Theorems.Thm_AlgebraicCurve_RationalFunctionField_finite_setOf_ord_ne_zero",
+"Theorems.Thm_AlgebraicCurve_RationalFunctionField_degree_eq_zero_of_forall_eq_ord",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_RationalFunctionField_degree_eq_zero_of_forall_eq_ord": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_RationalFunctionField_degree_eq_zero_of_forall_eq_ord"
+],
+"P2M.Sol.S_AlgebraicCurve_RationalFunctionField_degree_eq_zero_of_forall_eq_ord": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"Theorems.Thm_AlgebraicCurve_RationalFunctionField_degree_eq_zero_of_forall_eq_ord_algebraMap",
+"Theorems.Thm_AlgebraicCurve_RationalFunctionField_finite_setOf_ord_ne_zero",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_RationalFunctionField_finite_setOf_ord_ne_zero": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_RationalFunctionField_finite_setOf_ord_ne_zero"
+],
+"P2M.Sol.S_AlgebraicCurve_RationalFunctionField_finite_setOf_ord_ne_zero": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_RationalFunctionField_degree_eq_zero_of_forall_eq_ord_algebraMap": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_RationalFunctionField_degree_eq_zero_of_forall_eq_ord_algebraMap"
+],
+"P2M.Sol.S_AlgebraicCurve_RationalFunctionField_degree_eq_zero_of_forall_eq_ord_algebraMap": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"Theorems.Thm_AlgebraicCurve_RationalFunctionField_exists_forall_ne_ofHeightOneSpectrum",
+"Theorems.Thm_AlgebraicCurve_RationalFunctionField_subsingleton_setOf_forall_ne_ofHeightOneSpectrum",
+"Theorems.Thm_AlgebraicCurve_RationalFunctionField_ord_ofHeightOneSpectrum_of_span",
+"Theorems.Thm_AlgebraicCurve_RationalFunctionField_ord_eq_neg_intDegree_of_forall_ne_ofHeightOneSpectrum",
+"Theorems.Thm_AlgebraicCurve_RationalFunctionField_deg_ofHeightOneSpectrum",
+"Theorems.Thm_AlgebraicCurve_RationalFunctionField_deg_eq_one_of_forall_ne_ofHeightOneSpectrum",
+"Theorems.Thm_AlgebraicCurve_Place_ord_ofHeightOneSpectrum_ne_zero_iff",
+"Theorems.Thm_AlgebraicCurve_Place_ord_algebraMap",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_Place_ord_algebraMap": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_Place_ord_algebraMap"
+],
+"P2M.Sol.S_AlgebraicCurve_Place_ord_algebraMap": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_Place_ord_ofHeightOneSpectrum_ne_zero_iff": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_Place_ord_ofHeightOneSpectrum_ne_zero_iff",
+"Definitions.Def_AlgebraicCurve_RatFuncPlaces"
+],
+"P2M.Sol.S_AlgebraicCurve_Place_ord_ofHeightOneSpectrum_ne_zero_iff": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_RationalFunctionField_deg_eq_one_of_forall_ne_ofHeightOneSpectrum": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_RationalFunctionField_deg_eq_one_of_forall_ne_ofHeightOneSpectrum"
+],
+"P2M.Sol.S_AlgebraicCurve_RationalFunctionField_deg_eq_one_of_forall_ne_ofHeightOneSpectrum": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"Theorems.Thm_AlgebraicCurve_RationalFunctionField_toValuationSubring_eq_of_forall_ne_ofHeightOneSpectrum",
+"Theorems.Thm_AlgebraicCurve_Place_isEquiv_adicValuation_of_valuationSubring_eq",
+"Theorems.Thm_AlgebraicCurve_Place_mem_maximalIdeal_iff_adicValuation_lt_one",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_Place_mem_maximalIdeal_iff_adicValuation_lt_one": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_Place_mem_maximalIdeal_iff_adicValuation_lt_one",
+"Definitions.Def_AlgebraicCurve_RatFuncPlaces"
+],
+"P2M.Sol.S_AlgebraicCurve_Place_mem_maximalIdeal_iff_adicValuation_lt_one": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_Place_isEquiv_adicValuation_of_valuationSubring_eq": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_Place_isEquiv_adicValuation_of_valuationSubring_eq",
+"Definitions.Def_AlgebraicCurve_RatFuncPlaces"
+],
+"P2M.Sol.S_AlgebraicCurve_Place_isEquiv_adicValuation_of_valuationSubring_eq": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_RationalFunctionField_toValuationSubring_eq_of_forall_ne_ofHeightOneSpectrum": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_RationalFunctionField_toValuationSubring_eq_of_forall_ne_ofHeightOneSpectrum"
+],
+"P2M.Sol.S_AlgebraicCurve_RationalFunctionField_toValuationSubring_eq_of_forall_ne_ofHeightOneSpectrum": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"Theorems.Thm_AlgebraicCurve_Place_adicValuation_valuationSubring",
+"Theorems.Thm_AlgebraicCurve_Place_adicValuation_isRankOneDiscrete",
+"Theorems.Thm_AlgebraicCurve_Place_adicValuation_isTrivialOn",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_Place_adicValuation_isTrivialOn": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_Place_adicValuation_isTrivialOn"
+],
+"P2M.Sol.S_AlgebraicCurve_Place_adicValuation_isTrivialOn": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_Place_adicValuation_isRankOneDiscrete": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_Place_adicValuation_isRankOneDiscrete"
+],
+"P2M.Sol.S_AlgebraicCurve_Place_adicValuation_isRankOneDiscrete": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_Place_adicValuation_valuationSubring": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_Place_adicValuation_valuationSubring",
+"Definitions.Def_AlgebraicCurve_RatFuncPlaces"
+],
+"P2M.Sol.S_AlgebraicCurve_Place_adicValuation_valuationSubring": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_RationalFunctionField_deg_ofHeightOneSpectrum": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_RationalFunctionField_deg_ofHeightOneSpectrum",
+"Definitions.Def_AlgebraicCurve_RatFuncPlaces"
+],
+"P2M.Sol.S_AlgebraicCurve_RationalFunctionField_deg_ofHeightOneSpectrum": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"Theorems.Thm_AlgebraicCurve_Place_mem_iff_adicValuation_le_one",
+"Theorems.Thm_AlgebraicCurve_Place_mem_maximalIdeal_iff_adicValuation_lt_one",
+"Theorems.Thm_AlgebraicCurve_Place_isEquiv_adicValuation_ofHeightOneSpectrum",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_Place_isEquiv_adicValuation_ofHeightOneSpectrum": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_Place_isEquiv_adicValuation_ofHeightOneSpectrum",
+"Definitions.Def_AlgebraicCurve_RatFuncPlaces"
+],
+"P2M.Sol.S_AlgebraicCurve_Place_isEquiv_adicValuation_ofHeightOneSpectrum": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_Place_mem_iff_adicValuation_le_one": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_Place_mem_iff_adicValuation_le_one",
+"Definitions.Def_AlgebraicCurve_RatFuncPlaces"
+],
+"P2M.Sol.S_AlgebraicCurve_Place_mem_iff_adicValuation_le_one": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_RationalFunctionField_ord_eq_neg_intDegree_of_forall_ne_ofHeightOneSpectrum": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_RationalFunctionField_ord_eq_neg_intDegree_of_forall_ne_ofHeightOneSpectrum"
+],
+"P2M.Sol.S_AlgebraicCurve_RationalFunctionField_ord_eq_neg_intDegree_of_forall_ne_ofHeightOneSpectrum": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"Theorems.Thm_AlgebraicCurve_Place_ord_eq_neg_log_of_valuationSubring_eq",
+"Theorems.Thm_AlgebraicCurve_RationalFunctionField_toValuationSubring_eq_of_forall_ne_ofHeightOneSpectrum",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_Place_ord_eq_neg_log_of_valuationSubring_eq": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_Place_ord_eq_neg_log_of_valuationSubring_eq"
+],
+"P2M.Sol.S_AlgebraicCurve_Place_ord_eq_neg_log_of_valuationSubring_eq": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"Theorems.Thm_AlgebraicCurve_Place_isEquiv_adicValuation_of_valuationSubring_eq",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_RationalFunctionField_ord_ofHeightOneSpectrum_of_span": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_RationalFunctionField_ord_ofHeightOneSpectrum_of_span"
+],
+"P2M.Sol.S_AlgebraicCurve_RationalFunctionField_ord_ofHeightOneSpectrum_of_span": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"Theorems.Thm_AlgebraicCurve_RationalFunctionField_ord_ofHeightOneSpectrum_eq_neg_log",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_RationalFunctionField_ord_ofHeightOneSpectrum_eq_neg_log": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_RationalFunctionField_ord_ofHeightOneSpectrum_eq_neg_log"
+],
+"P2M.Sol.S_AlgebraicCurve_RationalFunctionField_ord_ofHeightOneSpectrum_eq_neg_log": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"Theorems.Thm_AlgebraicCurve_Place_ord_eq_neg_log_of_valuationSubring_eq",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_RationalFunctionField_subsingleton_setOf_forall_ne_ofHeightOneSpectrum": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_RationalFunctionField_subsingleton_setOf_forall_ne_ofHeightOneSpectrum"
+],
+"P2M.Sol.S_AlgebraicCurve_RationalFunctionField_subsingleton_setOf_forall_ne_ofHeightOneSpectrum": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_RationalFunctionField_exists_forall_ne_ofHeightOneSpectrum": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_RationalFunctionField_exists_forall_ne_ofHeightOneSpectrum"
+],
+"P2M.Sol.S_AlgebraicCurve_RationalFunctionField_exists_forall_ne_ofHeightOneSpectrum": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util"
+],
+"Definitions.Def_AlgebraicCurve_PlacesOverDVR": [
+"Definitions.Def_AlgebraicCurve_DivisorPushPull"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_exists_genusOnePlaceGate_isCentred_and_abelTheorem": [
+"Definitions.Def_WeierstrassCurve_GenusOnePic0",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_exists_genusOnePlaceGate_isCentred_and_abelTheorem"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_exists_genusOnePlaceGate_isCentred_and_abelTheorem": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"Definitions.Def_AlgebraicCurve_DivisorPushPull",
+"Definitions.Def_AlgebraicCurve_PlacesOverDVR",
+"Definitions.Def_AlgebraicCurve_RatFuncPlaces",
+"Theorems.Thm_AlgebraicCurve_Place_ord_eq_neg_log_of_valuationSubring_eq",
+"Definitions.Def_WeierstrassCurve_GenusOnePic0",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"P2M.Util"
+],
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred": [
+"Definitions.Def_WeierstrassCurve_GenusOnePic0"
+],
+"Definitions.Def_WeierstrassCurve_GenusOnePic0": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup"
+],
+"Theorems.Thm_WeierstrassCurve_zmultiples_eq_of_veluQuotient_j_eq_of_forall_isogenyEndDatum_exists_int": [
+"Definitions.Def_WeierstrassCurve_Velu",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_zmultiples_eq_of_veluQuotient_j_eq_of_forall_isogenyEndDatum_exists_int"
+],
+"P2M.Sol.S_WeierstrassCurve_zmultiples_eq_of_veluQuotient_j_eq_of_forall_isogenyEndDatum_exists_int": [
+"Definitions.Def_WeierstrassCurve_Velu",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Theorems.Thm_WeierstrassCurve_Affine_IsogenyHomDatum_exists_pointHom_comp_eq_of_ker_le_of_isCentred",
+"Theorems.Thm_WeierstrassCurve_exists_veluFunctionFieldHom_pointMapOfPushforward_ker_eq_zmultiples",
+"Theorems.Thm_WeierstrassCurve_Affine_natCard_ker_pointMapOfPushforward_eq_finrankAlong",
+"Theorems.Thm_WeierstrassCurve_Affine_pointMapOfPushforward_surjective",
+"Theorems.Thm_WeierstrassCurve_Affine_Point_exists_zsmul_eq_of_isAlgClosed",
+"Theorems.Thm_WeierstrassCurve_card_torsionBy_eq_sq_of_isAlgClosed",
+"Theorems.Thm_WeierstrassCurve_Affine_IsogenyEndDatum_exists_pointEnd_eq_of_mem_isogenyEndSubring",
+"Theorems.Thm_WeierstrassCurve_nonempty_functionField_algEquiv_of_variableChange",
+"Theorems.Thm_WeierstrassCurve_Affine_exists_genusOnePlaceGate_isCentred_and_abelTheorem",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_isDedekindDomain",
+"Theorems.Thm_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField",
+"Theorems.Thm_AlgebraicCurve_normFormulaAlong",
+"Theorems.Thm_AlgebraicCurve_Divisor_pushforwardAlong_pushforwardAlong",
+"Theorems.Thm_AlgebraicCurve_finiteAlong_comp",
+"Theorems.Thm_AlgebraicCurve_finiteAlong_of_surjective",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_finiteAlong_of_surjective": [
+"Definitions.Def_AlgebraicCurve_Correspondence",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_finiteAlong_of_surjective"
+],
+"P2M.Sol.S_AlgebraicCurve_finiteAlong_of_surjective": [
+"Definitions.Def_AlgebraicCurve_Correspondence",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_finiteAlong_comp": [
+"Definitions.Def_AlgebraicCurve_Correspondence",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_finiteAlong_comp"
+],
+"P2M.Sol.S_AlgebraicCurve_finiteAlong_comp": [
+"Definitions.Def_AlgebraicCurve_Correspondence",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_Divisor_pushforwardAlong_pushforwardAlong": [
+"Definitions.Def_AlgebraicCurve_Correspondence",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_Divisor_pushforwardAlong_pushforwardAlong"
+],
+"P2M.Sol.S_AlgebraicCurve_Divisor_pushforwardAlong_pushforwardAlong": [
+"Definitions.Def_AlgebraicCurve_Correspondence",
+"Theorems.Thm_AlgebraicCurve_Place_restrictAlong_restrictAlong",
+"Theorems.Thm_AlgebraicCurve_Place_inertiaDegAlong_comp",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_Place_inertiaDegAlong_comp": [
+"Definitions.Def_AlgebraicCurve_Correspondence",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_Place_inertiaDegAlong_comp"
+],
+"P2M.Sol.S_AlgebraicCurve_Place_inertiaDegAlong_comp": [
+"Definitions.Def_AlgebraicCurve_Correspondence",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_Place_restrictAlong_restrictAlong": [
+"Definitions.Def_AlgebraicCurve_Correspondence",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_Place_restrictAlong_restrictAlong"
+],
+"P2M.Sol.S_AlgebraicCurve_Place_restrictAlong_restrictAlong": [
+"Definitions.Def_AlgebraicCurve_Correspondence",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_nonempty_functionField_algEquiv_of_variableChange": [
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_nonempty_functionField_algEquiv_of_variableChange"
+],
+"P2M.Sol.S_WeierstrassCurve_nonempty_functionField_algEquiv_of_variableChange": [
+"Definitions.Def_WeierstrassCurve_FunctionFieldQuadratic",
+"Definitions.Def_WeierstrassCurve_VariableChangePointEquiv",
+"Theorems.Thm_WeierstrassCurve_Affine_adjoin_yCoord_eq_top",
+"Theorems.Thm_WeierstrassCurve_Affine_finiteDimensional_ratFunc_functionField",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_finiteDimensional_ratFunc_functionField": [
+"Definitions.Def_WeierstrassCurve_FunctionFieldQuadratic",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_finiteDimensional_ratFunc_functionField"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_finiteDimensional_ratFunc_functionField": [
+"Definitions.Def_WeierstrassCurve_FunctionFieldQuadratic",
+"Theorems.Thm_WeierstrassCurve_Affine_adjoin_yCoord_eq_top",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_adjoin_yCoord_eq_top": [
+"Definitions.Def_WeierstrassCurve_FunctionFieldQuadratic",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_adjoin_yCoord_eq_top"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_adjoin_yCoord_eq_top": [
+"Definitions.Def_WeierstrassCurve_FunctionFieldQuadratic",
+"P2M.Util"
+],
+"Definitions.Def_WeierstrassCurve_FunctionFieldQuadratic": [],
+"Theorems.Thm_WeierstrassCurve_Affine_IsogenyEndDatum_exists_pointEnd_eq_of_mem_isogenyEndSubring": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_IsogenyEndDatum_exists_pointEnd_eq_of_mem_isogenyEndSubring"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_IsogenyEndDatum_exists_pointEnd_eq_of_mem_isogenyEndSubring": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Definitions.Def_AlgebraicCurve_PlacesOverDVR",
+"Definitions.Def_AlgebraicCurve_PlaceEvaluation",
+"Definitions.Def_AlgebraicCurve_RatFuncPlaces",
+"Theorems.Thm_WeierstrassCurve_Affine_placeOfPoint_some_eq_ofHeightOneSpectrum",
+"Theorems.Thm_WeierstrassCurve_Affine_algebraMap_mk_C_X_notMem_toValuationSubring_placeOfPoint_zero",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_isDedekindDomain",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_exists_eq_XYIdeal",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_isMaximal",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_ne_bot",
+"Theorems.Thm_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField",
+"Theorems.Thm_AlgebraicCurve_normFormulaAlong",
+"Theorems.Thm_WeierstrassCurve_Affine_IsogenyEndDatum_exists_pointEnd_eq_add",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_IsogenyEndDatum_exists_pointEnd_eq_add": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_IsogenyEndDatum_exists_pointEnd_eq_add"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_IsogenyEndDatum_exists_pointEnd_eq_add": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Theorems.Thm_WeierstrassCurve_Affine_IsogenyEndDatum_exists_restrictAlong_placeOfPoint_eq_add",
+"Theorems.Thm_WeierstrassCurve_Affine_IsogenyEndDatum_pointEnd_apply_eq_sub",
+"Theorems.Thm_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField",
+"Theorems.Thm_AlgebraicCurve_normFormulaAlong",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_IsogenyEndDatum_pointEnd_apply_eq_sub": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_IsogenyEndDatum_pointEnd_apply_eq_sub"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_IsogenyEndDatum_pointEnd_apply_eq_sub": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"P2M.Util"
+],
+"Definitions.Def_Isogeny_ConditionalCurrency": [
+"Definitions.Def_AlgebraicCurve_Correspondence",
+"Definitions.Def_WeierstrassCurve_GenusOnePic0"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_IsogenyEndDatum_exists_restrictAlong_placeOfPoint_eq_add": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_IsogenyEndDatum_exists_restrictAlong_placeOfPoint_eq_add"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_IsogenyEndDatum_exists_restrictAlong_placeOfPoint_eq_add": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Definitions.Def_AlgebraicCurve_PlacesOverDVR",
+"Definitions.Def_AlgebraicCurve_PlaceEvaluation",
+"Definitions.Def_AlgebraicCurve_RatFuncPlaces",
+"Theorems.Thm_WeierstrassCurve_Affine_placeOfPoint_some_eq_ofHeightOneSpectrum",
+"Theorems.Thm_WeierstrassCurve_Affine_algebraMap_mk_C_X_notMem_toValuationSubring_placeOfPoint_zero",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_isDedekindDomain",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_exists_eq_XYIdeal",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_isMaximal",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_ne_bot",
+"Theorems.Thm_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField",
+"Theorems.Thm_AlgebraicCurve_normFormulaAlong",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_ne_bot": [
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_ne_bot"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_ne_bot": [
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_isMaximal": [
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_isMaximal",
+"Definitions.Def_EllipticCurve_FunctionFieldPullback"
+],
+"Definitions.Def_EllipticCurve_FunctionFieldPullback": [],
+"P2M.Sol.S_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_isMaximal": [
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_exists_eq_XYIdeal": [
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_CoordinateRing_exists_eq_XYIdeal",
+"Definitions.Def_EllipticCurve_FunctionFieldPullback"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_CoordinateRing_exists_eq_XYIdeal": [
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_algebraMap_mk_C_X_notMem_toValuationSubring_placeOfPoint_zero": [
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_algebraMap_mk_C_X_notMem_toValuationSubring_placeOfPoint_zero"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_algebraMap_mk_C_X_notMem_toValuationSubring_placeOfPoint_zero": [
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Theorems.Thm_WeierstrassCurve_Affine_placeOfPoint_some_eq_ofHeightOneSpectrum",
+"Theorems.Thm_WeierstrassCurve_Affine_FunctionField_exists_eq_valuationSubring_of_X_mem",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_exists_eq_XYIdeal",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_isDedekindDomain",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_FunctionField_exists_eq_valuationSubring_of_X_mem": [
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_FunctionField_exists_eq_valuationSubring_of_X_mem"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_FunctionField_exists_eq_valuationSubring_of_X_mem": [
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_placeOfPoint_some_eq_ofHeightOneSpectrum": [
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_placeOfPoint_some_eq_ofHeightOneSpectrum"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_placeOfPoint_some_eq_ofHeightOneSpectrum": [
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Theorems.Thm_AlgebraicCurve_Place_eq_ofHeightOneSpectrum_of_XClass_mem_nonunits_of_YClass_mem_nonunits",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_Place_eq_ofHeightOneSpectrum_of_XClass_mem_nonunits_of_YClass_mem_nonunits": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_Place_eq_ofHeightOneSpectrum_of_XClass_mem_nonunits_of_YClass_mem_nonunits"
+],
+"P2M.Sol.S_AlgebraicCurve_Place_eq_ofHeightOneSpectrum_of_XClass_mem_nonunits_of_YClass_mem_nonunits": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"Theorems.Thm_WeierstrassCurve_Affine_FunctionField_exists_eq_valuationSubring_of_X_mem",
+"P2M.Util"
+],
+"Definitions.Def_AlgebraicCurve_PlaceEvaluation": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup"
+],
+"Theorems.Thm_WeierstrassCurve_card_torsionBy_eq_sq_of_isAlgClosed": [
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_card_torsionBy_eq_sq_of_isAlgClosed"
+],
+"P2M.Sol.S_WeierstrassCurve_card_torsionBy_eq_sq_of_isAlgClosed": [
+"Theorems.Thm_WeierstrassCurve_card_torsion_of_isAlgClosed_light",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_card_torsion_of_isAlgClosed_light": [
+"Definitions.Def_FLTPrelim_GaloisRep",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_card_torsion_of_isAlgClosed_light"
+],
+"P2M.Sol.S_WeierstrassCurve_card_torsion_of_isAlgClosed_light": [
+"Theorems.Thm_WeierstrassCurve_card_torsion_of_isAlgClosed",
+"Definitions.Def_FLTPrelim_GaloisRep",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_Point_exists_zsmul_eq_of_isAlgClosed": [
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_Point_exists_zsmul_eq_of_isAlgClosed"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_Point_exists_zsmul_eq_of_isAlgClosed": [
+"Definitions.Def_WeierstrassCurve_EDSEngine",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_pointMapOfPushforward_surjective": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_pointMapOfPushforward_surjective"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_pointMapOfPushforward_surjective": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Theorems.Thm_AlgebraicCurve_Place_restrictAlong_surjective",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_Place_restrictAlong_surjective": [
+"Definitions.Def_AlgebraicCurve_Correspondence",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_Place_restrictAlong_surjective"
+],
+"P2M.Sol.S_AlgebraicCurve_Place_restrictAlong_surjective": [
+"Definitions.Def_AlgebraicCurve_Correspondence",
+"Theorems.Thm_AlgebraicCurve_Place_exists_restrict_eq",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_Place_exists_restrict_eq": [
+"Definitions.Def_AlgebraicCurve_DivisorPushPull",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_Place_exists_restrict_eq"
+],
+"P2M.Sol.S_AlgebraicCurve_Place_exists_restrict_eq": [
+"Definitions.Def_AlgebraicCurve_PlacesOverDVR",
+"Theorems.Thm_AlgebraicCurve_Place_sum_ramificationIndex_mul_inertiaDeg_fiberOver",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_Place_sum_ramificationIndex_mul_inertiaDeg_fiberOver": [
+"Definitions.Def_AlgebraicCurve_PlacesOverDVR",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_Place_sum_ramificationIndex_mul_inertiaDeg_fiberOver"
+],
+"P2M.Sol.S_AlgebraicCurve_Place_sum_ramificationIndex_mul_inertiaDeg_fiberOver": [
+"Definitions.Def_AlgebraicCurve_PlacesOverDVR",
+"Theorems.Thm_AlgebraicCurve_Place_mem_iff_ord_nonneg",
+"Theorems.Thm_AlgebraicCurve_Place_ord_nonneg_of_mem",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_natCard_ker_pointMapOfPushforward_eq_finrankAlong": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_natCard_ker_pointMapOfPushforward_eq_finrankAlong"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_natCard_ker_pointMapOfPushforward_eq_finrankAlong": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_AlgebraicCurve_PlacesOverDVR",
+"Theorems.Thm_AlgebraicCurve_Place_sum_ramificationIndex_mul_inertiaDeg",
+"Theorems.Thm_AlgebraicCurve_Place_ramificationIndex_eq_ramificationIdx_fiberCenter",
+"Theorems.Thm_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField",
+"Theorems.Thm_WeierstrassCurve_Affine_pointMapOfPushforward_surjective",
+"Theorems.Thm_WeierstrassCurve_card_torsionBy_eq_sq_of_isAlgClosed",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_Place_ramificationIndex_eq_ramificationIdx_fiberCenter": [
+"Definitions.Def_AlgebraicCurve_PlacesOverDVR",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_Place_ramificationIndex_eq_ramificationIdx_fiberCenter"
+],
+"P2M.Sol.S_AlgebraicCurve_Place_ramificationIndex_eq_ramificationIdx_fiberCenter": [
+"Definitions.Def_AlgebraicCurve_PlacesOverDVR",
+"Theorems.Thm_AlgebraicCurve_Place_mem_iff_ord_nonneg",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_Place_sum_ramificationIndex_mul_inertiaDeg": [
+"Definitions.Def_AlgebraicCurve_DivisorPushPull",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_Place_sum_ramificationIndex_mul_inertiaDeg"
+],
+"P2M.Sol.S_AlgebraicCurve_Place_sum_ramificationIndex_mul_inertiaDeg": [
+"Definitions.Def_AlgebraicCurve_DivisorPushPull",
+"Theorems.Thm_AlgebraicCurve_Place_ord_nonneg_of_mem",
+"Theorems.Thm_AlgebraicCurve_Place_mem_of_ord_nonneg",
+"Theorems.Thm_AlgebraicCurve_Place_mem_iff_ord_nonneg",
+"Theorems.Thm_AlgebraicCurve_Place_exists_ord_pos",
+"Theorems.Thm_AlgebraicCurve_Place_ord_eq_zero_iff_adicValuation_eq_one",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_exists_veluFunctionFieldHom_pointMapOfPushforward_ker_eq_zmultiples": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Definitions.Def_WeierstrassCurve_Velu",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_exists_veluFunctionFieldHom_pointMapOfPushforward_ker_eq_zmultiples"
+],
+"P2M.Sol.S_WeierstrassCurve_exists_veluFunctionFieldHom_pointMapOfPushforward_ker_eq_zmultiples": [
+"Theorems.Thm_WeierstrassCurve_exists_veluFunctionFieldHom_restrictAlong_placeOfPoint_eq",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_exists_veluFunctionFieldHom_restrictAlong_placeOfPoint_eq": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Definitions.Def_WeierstrassCurve_VeluPointMap",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_exists_veluFunctionFieldHom_restrictAlong_placeOfPoint_eq"
+],
+"P2M.Sol.S_WeierstrassCurve_exists_veluFunctionFieldHom_restrictAlong_placeOfPoint_eq": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Definitions.Def_AlgebraicCurve_PlacesOverDVR",
+"Definitions.Def_AlgebraicCurve_PlaceEvaluation",
+"Definitions.Def_AlgebraicCurve_RatFuncPlaces",
+"Theorems.Thm_WeierstrassCurve_Affine_placeOfPoint_some_eq_ofHeightOneSpectrum",
+"Theorems.Thm_WeierstrassCurve_Affine_algebraMap_mk_C_X_notMem_toValuationSubring_placeOfPoint_zero",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_isDedekindDomain",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_exists_eq_XYIdeal",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_isMaximal",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_ne_bot",
+"Theorems.Thm_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField",
+"Theorems.Thm_AlgebraicCurve_normFormulaAlong",
+"Definitions.Def_WeierstrassCurve_VeluPointMap",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"Theorems.Thm_WeierstrassCurve_velu_map_equation_of_oddOrderSummingSet",
+"Theorems.Thm_WeierstrassCurve_Affine_natCard_ker_pointMapOfPushforward_eq_finrankAlong",
+"Theorems.Thm_WeierstrassCurve_Affine_GenusOnePlaceGate_ext_of_isCentred",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_GenusOnePlaceGate_ext_of_isCentred": [
+"Definitions.Def_WeierstrassCurve_GenusOnePic0",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_GenusOnePlaceGate_ext_of_isCentred"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_GenusOnePlaceGate_ext_of_isCentred": [
+"Definitions.Def_WeierstrassCurve_GenusOnePic0",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Theorems.Thm_WeierstrassCurve_Affine_placeOfPoint_some_eq_ofHeightOneSpectrum",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_isMaximal",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_ne_bot",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_velu_map_equation_of_oddOrderSummingSet": [
+"Definitions.Def_WeierstrassCurve_VeluPointMap",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_velu_map_equation_of_oddOrderSummingSet"
+],
+"P2M.Sol.S_WeierstrassCurve_velu_map_equation_of_oddOrderSummingSet": [
+"Definitions.Def_WeierstrassCurve_VeluPointMap",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_IsogenyHomDatum_exists_pointHom_comp_eq_of_ker_le_of_isCentred": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_IsogenyHomDatum_exists_pointHom_comp_eq_of_ker_le_of_isCentred"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_IsogenyHomDatum_exists_pointHom_comp_eq_of_ker_le_of_isCentred": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Definitions.Def_AlgebraicCurve_PlaceEvaluation",
+"Theorems.Thm_WeierstrassCurve_Affine_exists_algEquiv_restrictAlong_placeOfPoint_eq_add",
+"Theorems.Thm_WeierstrassCurve_Affine_algHom_ext_of_forall_restrictAlong_placeOfPoint_eq",
+"Theorems.Thm_WeierstrassCurve_Affine_IsogenyHomDatum_pointHom_apply_eq_sub",
+"Theorems.Thm_WeierstrassCurve_Affine_natCard_ker_pointMapOfPushforward_eq_finrankAlong",
+"Theorems.Thm_AlgebraicCurve_Place_restrictAlong_restrictAlong",
+"Theorems.Thm_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField",
+"Theorems.Thm_AlgebraicCurve_normFormulaAlong",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_IsogenyHomDatum_pointHom_apply_eq_sub": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_IsogenyHomDatum_pointHom_apply_eq_sub"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_IsogenyHomDatum_pointHom_apply_eq_sub": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_algHom_ext_of_forall_restrictAlong_placeOfPoint_eq": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Definitions.Def_AlgebraicCurve_PlaceEvaluation",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_algHom_ext_of_forall_restrictAlong_placeOfPoint_eq"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_algHom_ext_of_forall_restrictAlong_placeOfPoint_eq": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Definitions.Def_AlgebraicCurve_PlacesOverDVR",
+"Definitions.Def_AlgebraicCurve_PlaceEvaluation",
+"Definitions.Def_AlgebraicCurve_RatFuncPlaces",
+"Theorems.Thm_WeierstrassCurve_Affine_placeOfPoint_some_eq_ofHeightOneSpectrum",
+"Theorems.Thm_WeierstrassCurve_Affine_algebraMap_mk_C_X_notMem_toValuationSubring_placeOfPoint_zero",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_isDedekindDomain",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_exists_eq_XYIdeal",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_isMaximal",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_ne_bot",
+"Theorems.Thm_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField",
+"Theorems.Thm_AlgebraicCurve_normFormulaAlong",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_exists_algEquiv_restrictAlong_placeOfPoint_eq_add": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Definitions.Def_AlgebraicCurve_PlaceEvaluation",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_exists_algEquiv_restrictAlong_placeOfPoint_eq_add"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_exists_algEquiv_restrictAlong_placeOfPoint_eq_add": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Definitions.Def_AlgebraicCurve_PlacesOverDVR",
+"Definitions.Def_AlgebraicCurve_PlaceEvaluation",
+"Definitions.Def_AlgebraicCurve_RatFuncPlaces",
+"Theorems.Thm_WeierstrassCurve_Affine_placeOfPoint_some_eq_ofHeightOneSpectrum",
+"Theorems.Thm_WeierstrassCurve_Affine_algebraMap_mk_C_X_notMem_toValuationSubring_placeOfPoint_zero",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_isDedekindDomain",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_exists_eq_XYIdeal",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_isMaximal",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_ne_bot",
+"Theorems.Thm_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField",
+"Theorems.Thm_AlgebraicCurve_normFormulaAlong",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_IsogenyEndDatum_exists_forall_pointEnd_eq_zsmul_of_transcendental_j": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_IsogenyEndDatum_exists_forall_pointEnd_eq_zsmul_of_transcendental_j"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_IsogenyEndDatum_exists_forall_pointEnd_eq_zsmul_of_transcendental_j": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Theorems.Thm_WeierstrassCurve_Affine_IsogenyEndDatum_exists_sq_lt_four_mul_and_forall_exists_finrankAlong_eq",
+"Theorems.Thm_Int_exists_squarefree_sq_add_mul_add_mul_sq_of_sq_lt_four_mul",
+"Theorems.Thm_WeierstrassCurve_Affine_IsogenyEndDatum_aeval_j_diag_eq_zero_of_finrankAlong_eq",
+"Theorems.Thm_ModularCurve_nonempty_modularPolynomialData",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_isUnit_leadingCoeff_diag",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_ModularPolynomialData_isUnit_leadingCoeff_diag": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_isUnit_leadingCoeff_diag"
+],
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_isUnit_leadingCoeff_diag": [
+"Definitions.Def_ModularCurve_X0",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_isUnit_leadingCoeff_diag_of_not_isSquare",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_ModularPolynomialData_isUnit_leadingCoeff_diag_of_not_isSquare": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_isUnit_leadingCoeff_diag_of_not_isSquare"
+],
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_isUnit_leadingCoeff_diag_of_not_isSquare": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_PhiGen_splits_prime_at_slot",
+"Theorems.Thm_ModularCurve_minpoly_jqN_map_eq_prod_slots",
+"Theorems.Thm_ModularCurve_finrank_adjoin_jqN_eq_dedekindPsi",
+"Theorems.Thm_ModularCurve_modularFunctionField_eq_full",
+"Theorems.Thm_ModularCurve_PhiGen_evalAtJ_injective",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_modularFunctionField_eq_full": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_modularFunctionField_eq_full"
+],
+"P2M.Sol.S_ModularCurve_modularFunctionField_eq_full": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_PhiGen_splits_prime_at_slot",
+"Theorems.Thm_ModularCurve_minpoly_jqN_map_eq_prod_slots",
+"Theorems.Thm_ModularCurve_jqN_prime_not_mem_full",
+"Theorems.Thm_ModularCurve_jqN_pow_not_mem_adjoin_full",
+"Theorems.Thm_ModularCurve_full_eq_adjoin_full_div_prime",
+"Theorems.Thm_ModularCurve_relfinrank_full_eq_mul",
+"Theorems.Thm_ModularCurve_jqN_div_mem_modularFunctionField",
+"Theorems.Thm_ModularCurve_modularFunctionField_eq_full_of",
+"Theorems.Thm_ModularCurve_relfinrank_modularFunctionField",
+"Theorems.Thm_ModularCurve_dedekindPsi_mul_of_coprime",
+"Theorems.Thm_ModularCurve_dedekindPsi_prime_pow",
+"Theorems.Thm_ModularCurve_exists_phiIrreducible_of_finrank_eq",
+"Theorems.Thm_ModularCurve_functionFieldGeneration_iff_full_eq",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_functionFieldGeneration_iff_full_eq": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_functionFieldGeneration_iff_full_eq"
+],
+"P2M.Sol.S_ModularCurve_functionFieldGeneration_iff_full_eq": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_exists_phiIrreducible_of_finrank_eq": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_exists_phiIrreducible_of_finrank_eq"
+],
+"P2M.Sol.S_ModularCurve_exists_phiIrreducible_of_finrank_eq": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_exists_monic_evalAtJ_jqN_eq_zero",
+"Theorems.Thm_ModularCurve_PhiGen_evalAtJ_injective",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_exists_monic_evalAtJ_jqN_eq_zero": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_exists_monic_evalAtJ_jqN_eq_zero"
+],
+"P2M.Sol.S_ModularCurve_exists_monic_evalAtJ_jqN_eq_zero": [
+"Definitions.Def_ModularCurve_X0",
+"Theorems.Thm_ModularCurve_exists_phiIrreducible_evalSymm",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_relfinrank_modularFunctionField": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_relfinrank_modularFunctionField"
+],
+"P2M.Sol.S_ModularCurve_relfinrank_modularFunctionField": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_modularFunctionField_eq_full_of": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_modularFunctionField_eq_full_of"
+],
+"P2M.Sol.S_ModularCurve_modularFunctionField_eq_full_of": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_PhiGen_splits_prime_at_slot",
+"Theorems.Thm_Polynomial_mem_range_of_unique_common_root",
+"Theorems.Thm_ModularCurve_coeffMap_injective",
+"Theorems.Thm_ModularCurve_exists_phiIrreducible_evalSymm",
+"P2M.Util"
+],
+"Theorems.Thm_Polynomial_mem_range_of_unique_common_root": [
+"P2M.Util",
+"P2M.Sol.S_Polynomial_mem_range_of_unique_common_root"
+],
+"P2M.Sol.S_Polynomial_mem_range_of_unique_common_root": [
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_PhiGen_splits_prime_at_slot": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_PhiGen_splits_prime_at_slot"
+],
+"P2M.Sol.S_ModularCurve_PhiGen_splits_prime_at_slot": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_PhiGen_splits_of_prime",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_jqN_div_mem_modularFunctionField": [
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_jqN_div_mem_modularFunctionField"
+],
+"P2M.Sol.S_ModularCurve_jqN_div_mem_modularFunctionField": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_PhiGen_splits_prime_at_slot",
+"Theorems.Thm_Polynomial_mem_range_of_unique_common_root",
+"Theorems.Thm_ModularCurve_coeffMap_injective",
+"Theorems.Thm_ModularCurve_exists_phiIrreducible_evalSymm",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_relfinrank_full_eq_mul": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_relfinrank_full_eq_mul"
+],
+"P2M.Sol.S_ModularCurve_relfinrank_full_eq_mul": [
+"Definitions.Def_ModularCurve_X0",
+"Theorems.Thm_ModularCurve_finrank_adjoin_jqN_prime_of_not_mem",
+"Theorems.Thm_ModularCurve_finrank_adjoin_jqN_pow_succ_of_not_mem",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_finrank_adjoin_jqN_pow_succ_of_not_mem": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_finrank_adjoin_jqN_pow_succ_of_not_mem"
+],
+"P2M.Sol.S_ModularCurve_finrank_adjoin_jqN_pow_succ_of_not_mem": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_PhiGen_splits_prime_at_slot",
+"Theorems.Thm_Polynomial_irreducible_of_transitive_ringAut",
+"Theorems.Thm_ModularCurve_exists_phiIrreducible_evalSymm",
+"Theorems.Thm_ModularCurve_dedekindPsi_prime",
+"P2M.Util"
+],
+"Theorems.Thm_Polynomial_irreducible_of_transitive_ringAut": [
+"P2M.Util",
+"P2M.Sol.S_Polynomial_irreducible_of_transitive_ringAut"
+],
+"P2M.Sol.S_Polynomial_irreducible_of_transitive_ringAut": [
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_finrank_adjoin_jqN_prime_of_not_mem": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_finrank_adjoin_jqN_prime_of_not_mem"
+],
+"P2M.Sol.S_ModularCurve_finrank_adjoin_jqN_prime_of_not_mem": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_PhiGen_splits_of_prime",
+"Theorems.Thm_Polynomial_irreducible_of_transitive_ringAut",
+"Theorems.Thm_ModularCurve_exists_phiIrreducible_evalSymm",
+"Theorems.Thm_ModularCurve_dedekindPsi_prime",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_full_eq_adjoin_full_div_prime": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_full_eq_adjoin_full_div_prime"
+],
+"P2M.Sol.S_ModularCurve_full_eq_adjoin_full_div_prime": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_PhiGen_splits_prime_at_slot",
+"Theorems.Thm_Polynomial_mem_range_of_unique_common_root",
+"Theorems.Thm_ModularCurve_coeffMap_injective",
+"Theorems.Thm_ModularCurve_exists_phiIrreducible_evalSymm",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_jqN_pow_not_mem_adjoin_full": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_jqN_pow_not_mem_adjoin_full"
+],
+"P2M.Sol.S_ModularCurve_jqN_pow_not_mem_adjoin_full": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_PhiGen_splits_prime_at_slot",
+"Theorems.Thm_ModularCurve_exists_phiIrreducible_evalSymm",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_jqN_prime_not_mem_full": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_jqN_prime_not_mem_full"
+],
+"P2M.Sol.S_ModularCurve_jqN_prime_not_mem_full": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_PhiGen_splits_prime_at_slot",
+"Theorems.Thm_ModularCurve_exists_phiIrreducible_evalSymm",
+"Theorems.Thm_ModularCurve_finrank_adjoin_jqN_eq_of_prime",
+"Theorems.Thm_ModularCurve_dedekindPsi_prime_pow",
+"Theorems.Thm_ModularCurve_dedekindPsi_mul_of_coprime",
+"Theorems.Thm_ModularCurve_functionFieldGeneration_of_squarefree",
+"Theorems.Thm_ModularCurve_functionFieldGeneration_iff_full_eq",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_functionFieldGeneration_of_squarefree": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_functionFieldGeneration_of_squarefree"
+],
+"P2M.Sol.S_ModularCurve_functionFieldGeneration_of_squarefree": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_finrank_adjoin_jqN_eq_of_squarefree",
+"Theorems.Thm_ModularCurve_relfinrank_full_of_squarefree",
+"Theorems.Thm_ModularCurve_relfinrank_modularFunctionField",
+"Theorems.Thm_ModularCurve_functionFieldGeneration_iff_full_eq",
+"Theorems.Thm_ModularCurve_dedekindPsi_of_squarefree",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_dedekindPsi_of_squarefree": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_dedekindPsi_of_squarefree"
+],
+"P2M.Sol.S_ModularCurve_dedekindPsi_of_squarefree": [
+"Definitions.Def_ModularCurve_X0",
+"Theorems.Thm_ModularCurve_dedekindPsi_mul_of_coprime",
+"Theorems.Thm_ModularCurve_dedekindPsi_prime",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_relfinrank_full_of_squarefree": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_relfinrank_full_of_squarefree"
+],
+"P2M.Sol.S_ModularCurve_relfinrank_full_of_squarefree": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_PhiGen_splits_prime_at_slot",
+"Theorems.Thm_ModularCurve_full_eq_adjoin_primes",
+"Theorems.Thm_ModularCurve_finrank_adjoin_jqN_prime_of_not_mem",
+"Theorems.Thm_ModularCurve_jqN_prime_not_mem_adjoin",
+"Theorems.Thm_ModularCurve_dedekindPsi_of_squarefree",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_jqN_prime_not_mem_adjoin": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_jqN_prime_not_mem_adjoin"
+],
+"P2M.Sol.S_ModularCurve_jqN_prime_not_mem_adjoin": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_PhiGen_splits_prime_at_slot",
+"Theorems.Thm_ModularCurve_finrank_adjoin_jqN_prime_of_not_mem",
+"Theorems.Thm_ModularCurve_finrank_adjoin_jqN_eq_of_prime",
+"Theorems.Thm_ModularCurve_dedekindPsi_prime",
+"Theorems.Thm_ModularCurve_exists_phiIrreducible_evalSymm",
+"Theorems.Thm_ModularCurve_coeffMap_injective",
+"Theorems.Thm_Polynomial_mem_range_of_eval_eq_const",
+"P2M.Util"
+],
+"Theorems.Thm_Polynomial_mem_range_of_eval_eq_const": [
+"P2M.Util",
+"P2M.Sol.S_Polynomial_mem_range_of_eval_eq_const"
+],
+"P2M.Sol.S_Polynomial_mem_range_of_eval_eq_const": [
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_full_eq_adjoin_primes": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_full_eq_adjoin_primes"
+],
+"P2M.Sol.S_ModularCurve_full_eq_adjoin_primes": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_PhiGen_splits_prime_at_slot",
+"Theorems.Thm_Polynomial_mem_range_of_unique_common_root",
+"Theorems.Thm_ModularCurve_coeffMap_injective",
+"Theorems.Thm_ModularCurve_exists_phiIrreducible_evalSymm",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_finrank_adjoin_jqN_eq_of_squarefree": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_finrank_adjoin_jqN_eq_of_squarefree"
+],
+"P2M.Sol.S_ModularCurve_finrank_adjoin_jqN_eq_of_squarefree": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_PhiGen_splits_prime_at_slot",
+"Theorems.Thm_ModularCurve_full_eq_adjoin_primes",
+"Theorems.Thm_ModularCurve_relfinrank_full_of_squarefree",
+"Theorems.Thm_ModularCurve_finrank_adjoin_jqN_eq_of_prime",
+"Theorems.Thm_ModularCurve_dedekindPsi_prime",
+"Theorems.Thm_ModularCurve_exists_phiIrreducible_evalSymm",
+"Theorems.Thm_ModularCurve_dedekindPsi_of_squarefree",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_minpoly_jqN_map_eq_prod_slots": [
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_minpoly_jqN_map_eq_prod_slots"
+],
+"P2M.Sol.S_ModularCurve_minpoly_jqN_map_eq_prod_slots": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_PhiGen_splits_prime_at_slot",
+"Theorems.Thm_ModularCurve_exists_phiIrreducible_evalSymm",
+"Theorems.Thm_ModularCurve_finrank_adjoin_jqN_eq_of_prime",
+"Theorems.Thm_ModularCurve_dedekindPsi_prime_pow",
+"Theorems.Thm_ModularCurve_dedekindPsi_mul_of_coprime",
+"Theorems.Thm_ModularCurve_functionFieldGeneration_of_squarefree",
+"Theorems.Thm_ModularCurve_functionFieldGeneration_iff_full_eq",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_finrank_adjoin_jqN_eq_dedekindPsi": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_finrank_adjoin_jqN_eq_dedekindPsi"
+],
+"P2M.Sol.S_ModularCurve_finrank_adjoin_jqN_eq_dedekindPsi": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_PhiGen_splits_prime_at_slot",
+"Theorems.Thm_ModularCurve_minpoly_jqN_map_eq_prod_slots",
+"Theorems.Thm_ModularCurve_jqN_prime_not_mem_full",
+"Theorems.Thm_ModularCurve_jqN_pow_not_mem_adjoin_full",
+"Theorems.Thm_ModularCurve_full_eq_adjoin_full_div_prime",
+"Theorems.Thm_ModularCurve_relfinrank_full_eq_mul",
+"Theorems.Thm_ModularCurve_jqN_div_mem_modularFunctionField",
+"Theorems.Thm_ModularCurve_modularFunctionField_eq_full_of",
+"Theorems.Thm_ModularCurve_relfinrank_modularFunctionField",
+"Theorems.Thm_ModularCurve_dedekindPsi_mul_of_coprime",
+"Theorems.Thm_ModularCurve_dedekindPsi_prime_pow",
+"Theorems.Thm_ModularCurve_exists_phiIrreducible_of_finrank_eq",
+"Theorems.Thm_ModularCurve_functionFieldGeneration_iff_full_eq",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_nonempty_modularPolynomialData": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_nonempty_modularPolynomialData"
+],
+"P2M.Sol.S_ModularCurve_nonempty_modularPolynomialData": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_RouteBCoordRing",
+"Theorems.Thm_ModularCurve_finrank_adjoin_jqN_eq_dedekindPsi",
+"Theorems.Thm_ModularCurve_evalAtJGen_injective",
+"Theorems.Thm_ModularCurve_exists_monic_evalAtJ_jqN_eq_zero",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_evalAtJGen_injective": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_evalAtJGen_injective"
+],
+"P2M.Sol.S_ModularCurve_evalAtJGen_injective": [
+"Theorems.Thm_ModularCurve_PhiGen_evalAtJ_injective",
+"P2M.Util"
+],
+"Definitions.Def_ModularCurve_RouteBCoordRing": [
+"Definitions.Def_ModularCurve_X0"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_IsogenyEndDatum_aeval_j_diag_eq_zero_of_finrankAlong_eq": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_IsogenyEndDatum_aeval_j_diag_eq_zero_of_finrankAlong_eq"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_IsogenyEndDatum_aeval_j_diag_eq_zero_of_finrankAlong_eq": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PrimCosetReps",
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePic0",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Definitions.Def_AlgebraicCurve_Correspondence",
+"Definitions.Def_PeriodPair_Uniformization",
+"Theorems.Thm_WeierstrassCurve_exists_intermediateField_countable_map_eq_and_finrankAlong_eq",
+"Theorems.Thm_WeierstrassCurve_Affine_exists_algHom_functionField_baseChange_finrankAlong_eq",
+"Theorems.Thm_WeierstrassCurve_Affine_natCard_ker_pointMapOfPushforward_eq_finrankAlong",
+"Theorems.Thm_IsAddCyclic_of_squarefree_natCard",
+"Theorems.Thm_PeriodPair_jLattice_surjective",
+"Theorems.Thm_PeriodPair_discriminant_ne_zero",
+"Theorems.Thm_PeriodPair_isUniformization_toPoint",
+"Theorems.Thm_PeriodPair_exists_variableChange_smul_weierstrassCurve_eq",
+"Theorems.Thm_WeierstrassCurve_nonempty_functionField_algEquiv_of_variableChange",
+"Theorems.Thm_PeriodPair_exists_scale_lattice_subset_and_sublatticeIndex_eq_and_isAddCyclic_sublatticeQuotient",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eval_jLattice_eq_zero_of_isAddCyclic",
+"Theorems.Thm_WeierstrassCurve_Affine_exists_genusOnePlaceGate_isCentred_and_abelTheorem",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_isDedekindDomain",
+"Theorems.Thm_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField",
+"Theorems.Thm_AlgebraicCurve_normFormulaAlong",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eval_jLattice_eq_zero_of_isAddCyclic": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PrimCosetReps",
+"Definitions.Def_PeriodPair_Uniformization",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_eval_jLattice_eq_zero_of_isAddCyclic"
+],
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_eval_jLattice_eq_zero_of_isAddCyclic": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PrimCosetReps",
+"Definitions.Def_PeriodPair_Uniformization",
+"Theorems.Thm_PeriodPair_exists_mem_primCosetReps_and_jLattice_eq_of_isAddCyclic",
+"Theorems.Thm_PeriodPair_jLattice_ofTau",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eval_E4_cube_div_discriminant_coset_eq_zero",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eval_E4_cube_div_discriminant_coset_eq_zero": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_PrimCosetReps",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_eval_E4_cube_div_discriminant_coset_eq_zero"
+],
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_eval_E4_cube_div_discriminant_coset_eq_zero": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_PrimCosetReps",
+"Definitions.Def_ModularForm_HeckeOperator",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eval_E4_cube_div_discriminant_smul_eq_zero",
+"Theorems.Thm_Matrix_SpecialLinearGroup_exists_eq_mul_diagonal_mul_of_gcd_eq_one",
+"P2M.Util"
+],
+"Theorems.Thm_Matrix_SpecialLinearGroup_exists_eq_mul_diagonal_mul_of_gcd_eq_one": [
+"P2M.Util",
+"P2M.Sol.S_Matrix_SpecialLinearGroup_exists_eq_mul_diagonal_mul_of_gcd_eq_one"
+],
+"P2M.Sol.S_Matrix_SpecialLinearGroup_exists_eq_mul_diagonal_mul_of_gcd_eq_one": [
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eval_E4_cube_div_discriminant_smul_eq_zero": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_PrimCosetReps",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_eval_E4_cube_div_discriminant_smul_eq_zero"
+],
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_eval_E4_cube_div_discriminant_smul_eq_zero": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_PrimCosetReps",
+"Definitions.Def_ModularForm_HeckeOperator",
+"Theorems.Thm_ModularCurve_jqModC_eq_qExpansion_E4_cube_div_discriminant",
+"Theorems.Thm_ModularForm_qExpansion_heckeDiagMatrix_smul_eq_qExpand_of_levelOne",
+"Theorems.Thm_ModularForm_exists_degeneracy_Gamma0",
+"P2M.Util"
+],
+"Theorems.Thm_ModularForm_exists_degeneracy_Gamma0": [
+"Definitions.Def_ModularForm_HeckeOperator",
+"P2M.Util",
+"P2M.Sol.S_ModularForm_exists_degeneracy_Gamma0"
+],
+"P2M.Sol.S_ModularForm_exists_degeneracy_Gamma0": [
+"Definitions.Def_ModularForm_HeckeOperator",
+"P2M.Util"
+],
+"Theorems.Thm_ModularForm_qExpansion_heckeDiagMatrix_smul_eq_qExpand_of_levelOne": [
+"Definitions.Def_ModularForm_HeckeOperator",
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularForm_qExpansion_heckeDiagMatrix_smul_eq_qExpand_of_levelOne"
+],
+"P2M.Sol.S_ModularForm_qExpansion_heckeDiagMatrix_smul_eq_qExpand_of_levelOne": [
+"Definitions.Def_ModularForm_HeckeOperator",
+"Definitions.Def_ModularCurve_X0",
+"Theorems.Thm_ModularForm_exists_degeneracy_Gamma0",
+"Theorems.Thm_ModularCurve_laurent_qParam_coeff_unique",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_laurent_qParam_coeff_unique": [
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_laurent_qParam_coeff_unique"
+],
+"P2M.Sol.S_ModularCurve_laurent_qParam_coeff_unique": [
+"Theorems.Thm_ModularCurve_qParam_coeff_unique",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_qParam_coeff_unique": [
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_qParam_coeff_unique"
+],
+"P2M.Sol.S_ModularCurve_qParam_coeff_unique": [
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_jqModC_eq_qExpansion_E4_cube_div_discriminant": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_jqModC_eq_qExpansion_E4_cube_div_discriminant"
+],
+"P2M.Sol.S_ModularCurve_jqModC_eq_qExpansion_E4_cube_div_discriminant": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Theorems.Thm_ModularCurve_hasSum_jq_qParam",
+"Theorems.Thm_ModularCurve_hasSum_qParam_mul_laurent",
+"Theorems.Thm_ModularCurve_laurent_qParam_coeff_unique",
+"Theorems.Thm_ModularCurve_coeffEmb_jq",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_coeffEmb_jq": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_coeffEmb_jq"
+],
+"P2M.Sol.S_ModularCurve_coeffEmb_jq": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"P2M.Util"
+],
+"Definitions.Def_ModularCurve_PrimCosetReps": [
+"Definitions.Def_ModularCurve_PhiGen"
+],
+"Theorems.Thm_PeriodPair_jLattice_ofTau": [
+"Definitions.Def_PeriodPair_Uniformization",
+"P2M.Util",
+"P2M.Sol.S_PeriodPair_jLattice_ofTau"
+],
+"P2M.Sol.S_PeriodPair_jLattice_ofTau": [
+"Definitions.Def_PeriodPair_Uniformization",
+"Theorems.Thm_PeriodPair_discriminant_ne_zero",
+"P2M.Util"
+],
+"Theorems.Thm_PeriodPair_discriminant_ne_zero": [
+"Definitions.Def_PeriodPair_Uniformization",
+"P2M.Util",
+"P2M.Sol.S_PeriodPair_discriminant_ne_zero"
+],
+"P2M.Sol.S_PeriodPair_discriminant_ne_zero": [
+"Definitions.Def_PeriodPair_Uniformization",
+"P2M.Util"
+],
+"Definitions.Def_PeriodPair_Uniformization": [],
+"Theorems.Thm_PeriodPair_exists_mem_primCosetReps_and_jLattice_eq_of_isAddCyclic": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PrimCosetReps",
+"Definitions.Def_PeriodPair_Uniformization",
+"P2M.Util",
+"P2M.Sol.S_PeriodPair_exists_mem_primCosetReps_and_jLattice_eq_of_isAddCyclic"
+],
+"P2M.Sol.S_PeriodPair_exists_mem_primCosetReps_and_jLattice_eq_of_isAddCyclic": [
+"Definitions.Def_ModularCurve_PrimCosetReps",
+"Definitions.Def_PeriodPair_Uniformization",
+"P2M.Util"
+],
+"Theorems.Thm_PeriodPair_exists_scale_lattice_subset_and_sublatticeIndex_eq_and_isAddCyclic_sublatticeQuotient": [
+"Definitions.Def_PeriodPair_Uniformization",
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"P2M.Util",
+"P2M.Sol.S_PeriodPair_exists_scale_lattice_subset_and_sublatticeIndex_eq_and_isAddCyclic_sublatticeQuotient"
+],
+"P2M.Sol.S_PeriodPair_exists_scale_lattice_subset_and_sublatticeIndex_eq_and_isAddCyclic_sublatticeQuotient": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Definitions.Def_AlgebraicCurve_PlacesOverDVR",
+"Definitions.Def_AlgebraicCurve_PlaceEvaluation",
+"Definitions.Def_AlgebraicCurve_RatFuncPlaces",
+"Theorems.Thm_WeierstrassCurve_Affine_placeOfPoint_some_eq_ofHeightOneSpectrum",
+"Theorems.Thm_WeierstrassCurve_Affine_algebraMap_mk_C_X_notMem_toValuationSubring_placeOfPoint_zero",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_isDedekindDomain",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_exists_eq_XYIdeal",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_isMaximal",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_ne_bot",
+"Theorems.Thm_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField",
+"Theorems.Thm_AlgebraicCurve_normFormulaAlong",
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_ne_zero",
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_congr",
+"Theorems.Thm_AlgebraicCurve_Place_ord_algebraMap",
+"Theorems.Thm_AlgebraicCurve_Place_min_ord_le_ord_add",
+"Theorems.Thm_PeriodPair_exists_differentiable_toPoint_comp_eq_pointMapOfPushforward_toPoint",
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_algebraMap",
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_mul",
+"Theorems.Thm_PeriodPair_exists_scale_lattice_subset_and_sublatticeIndex_eq_natCard_ker",
+"Definitions.Def_PeriodPair_Uniformization",
+"Theorems.Thm_PeriodPair_discriminant_ne_zero",
+"Theorems.Thm_PeriodPair_isUniformization_toPoint",
+"P2M.Util"
+],
+"Theorems.Thm_PeriodPair_isUniformization_toPoint": [
+"Definitions.Def_PeriodPair_Uniformization",
+"P2M.Util",
+"P2M.Sol.S_PeriodPair_isUniformization_toPoint"
+],
+"P2M.Sol.S_PeriodPair_isUniformization_toPoint": [
+"Definitions.Def_PeriodPair_Uniformization",
+"Theorems.Thm_PeriodPair_discriminant_ne_zero",
+"P2M.Util"
+],
+"Theorems.Thm_PeriodPair_exists_scale_lattice_subset_and_sublatticeIndex_eq_natCard_ker": [
+"Definitions.Def_PeriodPair_Uniformization",
+"P2M.Util",
+"P2M.Sol.S_PeriodPair_exists_scale_lattice_subset_and_sublatticeIndex_eq_natCard_ker"
+],
+"P2M.Sol.S_PeriodPair_exists_scale_lattice_subset_and_sublatticeIndex_eq_natCard_ker": [
+"Definitions.Def_PeriodPair_Uniformization",
+"Theorems.Thm_PeriodPair_discriminant_ne_zero",
+"Theorems.Thm_PeriodPair_isUniformization_toPoint",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_mul": [
+"Definitions.Def_AlgebraicCurve_PlaceEvaluation",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_Place_evalAt_mul"
+],
+"P2M.Sol.S_AlgebraicCurve_Place_evalAt_mul": [
+"Definitions.Def_AlgebraicCurve_PlaceEvaluation",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_algebraMap": [
+"Definitions.Def_AlgebraicCurve_PlaceEvaluation",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_Place_evalAt_algebraMap"
+],
+"P2M.Sol.S_AlgebraicCurve_Place_evalAt_algebraMap": [
+"Definitions.Def_AlgebraicCurve_PlaceEvaluation",
+"P2M.Util"
+],
+"Theorems.Thm_PeriodPair_exists_differentiable_toPoint_comp_eq_pointMapOfPushforward_toPoint": [
+"Definitions.Def_PeriodPair_Uniformization",
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"P2M.Util",
+"P2M.Sol.S_PeriodPair_exists_differentiable_toPoint_comp_eq_pointMapOfPushforward_toPoint"
+],
+"P2M.Sol.S_PeriodPair_exists_differentiable_toPoint_comp_eq_pointMapOfPushforward_toPoint": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Definitions.Def_AlgebraicCurve_PlacesOverDVR",
+"Definitions.Def_AlgebraicCurve_PlaceEvaluation",
+"Definitions.Def_AlgebraicCurve_RatFuncPlaces",
+"Theorems.Thm_WeierstrassCurve_Affine_placeOfPoint_some_eq_ofHeightOneSpectrum",
+"Theorems.Thm_WeierstrassCurve_Affine_algebraMap_mk_C_X_notMem_toValuationSubring_placeOfPoint_zero",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_isDedekindDomain",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_exists_eq_XYIdeal",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_isMaximal",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_ne_bot",
+"Theorems.Thm_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField",
+"Theorems.Thm_AlgebraicCurve_normFormulaAlong",
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_ne_zero",
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_congr",
+"Theorems.Thm_AlgebraicCurve_Place_ord_algebraMap",
+"Theorems.Thm_WeierstrassCurve_Affine_natCard_ker_pointMapOfPushforward_eq_finrankAlong",
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_algebraMap",
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_mul",
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_inv",
+"Definitions.Def_WeierstrassCurve_FunctionFieldQuadratic",
+"Definitions.Def_PeriodPair_Uniformization",
+"Theorems.Thm_PeriodPair_discriminant_ne_zero",
+"Theorems.Thm_PeriodPair_isUniformization_toPoint",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_inv": [
+"Definitions.Def_AlgebraicCurve_PlaceEvaluation",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_Place_evalAt_inv"
+],
+"P2M.Sol.S_AlgebraicCurve_Place_evalAt_inv": [
+"Definitions.Def_AlgebraicCurve_PlaceEvaluation",
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_mul",
+"Theorems.Thm_AlgebraicCurve_Place_mem_of_ord_nonneg",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_congr": [
+"Definitions.Def_AlgebraicCurve_PlaceEvaluation",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_Place_evalAt_congr"
+],
+"P2M.Sol.S_AlgebraicCurve_Place_evalAt_congr": [
+"Definitions.Def_AlgebraicCurve_PlaceEvaluation",
+"Theorems.Thm_AlgebraicCurve_Place_mem_maximalIdeal_iff_adicValuation_lt_one",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_ne_zero": [
+"Definitions.Def_AlgebraicCurve_PlaceEvaluation",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_Place_evalAt_ne_zero"
+],
+"P2M.Sol.S_AlgebraicCurve_Place_evalAt_ne_zero": [
+"Definitions.Def_AlgebraicCurve_PlaceEvaluation",
+"Theorems.Thm_AlgebraicCurve_Place_mem_of_ord_nonneg",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_Place_min_ord_le_ord_add": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_Place_min_ord_le_ord_add"
+],
+"P2M.Sol.S_AlgebraicCurve_Place_min_ord_le_ord_add": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util"
+],
+"Theorems.Thm_PeriodPair_exists_variableChange_smul_weierstrassCurve_eq": [
+"Definitions.Def_PeriodPair_Uniformization",
+"P2M.Util",
+"P2M.Sol.S_PeriodPair_exists_variableChange_smul_weierstrassCurve_eq"
+],
+"P2M.Sol.S_PeriodPair_exists_variableChange_smul_weierstrassCurve_eq": [
+"Definitions.Def_PeriodPair_Uniformization",
+"Theorems.Thm_PeriodPair_jLattice_surjective",
+"P2M.Util"
+],
+"Theorems.Thm_PeriodPair_jLattice_surjective": [
+"Definitions.Def_PeriodPair_Uniformization",
+"P2M.Util",
+"P2M.Sol.S_PeriodPair_jLattice_surjective"
+],
+"P2M.Sol.S_PeriodPair_jLattice_surjective": [
+"Definitions.Def_PeriodPair_Uniformization",
+"Theorems.Thm_PeriodPair_discriminant_ne_zero",
+"P2M.Util"
+],
+"Theorems.Thm_IsAddCyclic_of_squarefree_natCard": [
+"P2M.Util",
+"P2M.Sol.S_IsAddCyclic_of_squarefree_natCard"
+],
+"P2M.Sol.S_IsAddCyclic_of_squarefree_natCard": [
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_exists_algHom_functionField_baseChange_finrankAlong_eq": [
+"Definitions.Def_AlgebraicCurve_Correspondence",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_exists_algHom_functionField_baseChange_finrankAlong_eq"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_exists_algHom_functionField_baseChange_finrankAlong_eq": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Definitions.Def_AlgebraicCurve_Correspondence",
+"Definitions.Def_WeierstrassCurve_FunctionFieldQuadratic",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_exists_intermediateField_countable_map_eq_and_finrankAlong_eq": [
+"Definitions.Def_AlgebraicCurve_Correspondence",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_exists_intermediateField_countable_map_eq_and_finrankAlong_eq"
+],
+"P2M.Sol.S_WeierstrassCurve_exists_intermediateField_countable_map_eq_and_finrankAlong_eq": [
+"Definitions.Def_AlgebraicCurve_Correspondence",
+"Definitions.Def_WeierstrassCurve_FunctionFieldQuadratic",
+"Theorems.Thm_WeierstrassCurve_Affine_adjoin_yCoord_eq_top",
+"Theorems.Thm_WeierstrassCurve_Affine_finiteDimensional_ratFunc_functionField",
+"P2M.Util"
+],
+"Theorems.Thm_Int_exists_squarefree_sq_add_mul_add_mul_sq_of_sq_lt_four_mul": [
+"P2M.Util",
+"P2M.Sol.S_Int_exists_squarefree_sq_add_mul_add_mul_sq_of_sq_lt_four_mul"
+],
+"P2M.Sol.S_Int_exists_squarefree_sq_add_mul_add_mul_sq_of_sq_lt_four_mul": [
+"Theorems.Thm_Nat_exists_squarefree_sq_add",
+"P2M.Util"
+],
+"Theorems.Thm_Nat_exists_squarefree_sq_add": [
+"P2M.Util",
+"P2M.Sol.S_Nat_exists_squarefree_sq_add"
+],
+"P2M.Sol.S_Nat_exists_squarefree_sq_add": [
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_IsogenyEndDatum_exists_sq_lt_four_mul_and_forall_exists_finrankAlong_eq": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Definitions.Def_DualIsogenyAPI",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_IsogenyEndDatum_exists_sq_lt_four_mul_and_forall_exists_finrankAlong_eq"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_IsogenyEndDatum_exists_sq_lt_four_mul_and_forall_exists_finrankAlong_eq": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Definitions.Def_DualIsogenyAPI",
+"Theorems.Thm_WeierstrassCurve_Affine_IsogenyEndDatum_exists_dualEndData_dual_mem_and_norm_eq_finrankAlong",
+"Theorems.Thm_WeierstrassCurve_Affine_IsogenyEndDatum_exists_pointEnd_eq_of_mem_isogenyEndSubring",
+"Theorems.Thm_WeierstrassCurve_Affine_Point_exists_zsmul_eq_of_isAlgClosed",
+"Theorems.Thm_WeierstrassCurve_card_torsionBy_eq_sq_of_isAlgClosed",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_IsogenyEndDatum_exists_dualEndData_dual_mem_and_norm_eq_finrankAlong": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Definitions.Def_DualIsogenyAPI",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_IsogenyEndDatum_exists_dualEndData_dual_mem_and_norm_eq_finrankAlong"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_IsogenyEndDatum_exists_dualEndData_dual_mem_and_norm_eq_finrankAlong": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Definitions.Def_AlgebraicCurve_PlacesOverDVR",
+"Definitions.Def_AlgebraicCurve_PlaceEvaluation",
+"Definitions.Def_AlgebraicCurve_RatFuncPlaces",
+"Theorems.Thm_WeierstrassCurve_Affine_placeOfPoint_some_eq_ofHeightOneSpectrum",
+"Theorems.Thm_WeierstrassCurve_Affine_algebraMap_mk_C_X_notMem_toValuationSubring_placeOfPoint_zero",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_isDedekindDomain",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_exists_eq_XYIdeal",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_isMaximal",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_ne_bot",
+"Theorems.Thm_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField",
+"Theorems.Thm_AlgebraicCurve_normFormulaAlong",
+"Definitions.Def_DualIsogenyAPI",
+"Definitions.Def_WeierstrassCurve_FunctionFieldQuadratic",
+"Theorems.Thm_WeierstrassCurve_Affine_FunctionField_addX_addY_specialize_at_place",
+"Theorems.Thm_WeierstrassCurve_finite_torsionBy_of_natCast_ne_zero",
+"Theorems.Thm_WeierstrassCurve_Affine_Point_exists_zsmul_eq_of_isAlgClosed",
+"Theorems.Thm_WeierstrassCurve_nonempty_torsionBy_addEquiv_zmod_prod_of_isAlgClosed",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_finite_torsionBy_of_natCast_ne_zero": [
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_finite_torsionBy_of_natCast_ne_zero"
+],
+"P2M.Sol.S_WeierstrassCurve_finite_torsionBy_of_natCast_ne_zero": [
+"Theorems.Thm_WeierstrassCurve_card_torsion_of_isAlgClosed",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_FunctionField_addX_addY_specialize_at_place": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"Definitions.Def_WeierstrassCurve_FunctionFieldQuadratic",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_FunctionField_addX_addY_specialize_at_place"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_FunctionField_addX_addY_specialize_at_place": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"Definitions.Def_WeierstrassCurve_FunctionFieldQuadratic",
+"Definitions.Def_AlgebraicCurve_PlacesOverDVR",
+"P2M.Util"
+],
+"Definitions.Def_DualIsogenyAPI": [],
+"Theorems.Thm_ModularCurve_ModularPolynomialData_isRoot_map_j_veluQuotient_j_of_addOrderOf_eq": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_WeierstrassCurve_Velu",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_isRoot_map_j_veluQuotient_j_of_addOrderOf_eq"
+],
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_isRoot_map_j_veluQuotient_j_of_addOrderOf_eq": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_WeierstrassCurve_Velu",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Theorems.Thm_WeierstrassCurve_Affine_eval_modularPolynomial_map_j_eq_zero_of_isAddCyclic_ker_pointMapOfPushforward",
+"Theorems.Thm_WeierstrassCurve_exists_veluFunctionFieldHom_pointMapOfPushforward_ker_eq_zmultiples",
+"Theorems.Thm_WeierstrassCurve_Affine_exists_genusOnePlaceGate_isCentred_and_abelTheorem",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_isDedekindDomain",
+"Theorems.Thm_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField",
+"Theorems.Thm_HahnSeries_isAlgClosed_rat",
+"Theorems.Thm_AlgebraicCurve_normFormulaAlong",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_eval_modularPolynomial_map_j_eq_zero_of_isAddCyclic_ker_pointMapOfPushforward": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_eval_modularPolynomial_map_j_eq_zero_of_isAddCyclic_ker_pointMapOfPushforward"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_eval_modularPolynomial_map_j_eq_zero_of_isAddCyclic_ker_pointMapOfPushforward": [
+"Definitions.Def_AlgebraicCurve_Correspondence",
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Definitions.Def_WeierstrassCurve_GenusOnePic0",
+"Definitions.Def_PeriodPair_Uniformization",
+"Definitions.Def_ModularCurve_X0",
+"Theorems.Thm_PeriodPair_exists_variableChange_smul_weierstrassCurve_eq",
+"Theorems.Thm_WeierstrassCurve_nonempty_functionField_algEquiv_of_variableChange",
+"Theorems.Thm_WeierstrassCurve_Affine_isAddCyclic_ker_pointMapOfPushforward_of_algEquiv_conj",
+"Theorems.Thm_PeriodPair_exists_scale_lattice_subset_and_sublatticeIndex_eq_and_isAddCyclic_sublatticeQuotient",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eval_jLattice_eq_zero_of_isAddCyclic",
+"Theorems.Thm_WeierstrassCurve_Affine_exists_genusOnePlaceGate_isCentred_and_abelTheorem",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_isDedekindDomain",
+"Theorems.Thm_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField",
+"Theorems.Thm_AlgebraicCurve_normFormulaAlong",
+"Theorems.Thm_PeriodPair_discriminant_ne_zero",
+"Theorems.Thm_WeierstrassCurve_Affine_exists_intermediateField_countable_map_eq_of_isAddCyclic_ker_pointMapOfPushforward",
+"Theorems.Thm_WeierstrassCurve_Affine_exists_algHom_baseChange_of_isAddCyclic_ker_pointMapOfPushforward",
+"Theorems.Thm_Field_nonempty_ringHom_complex_of_countable",
+"P2M.Util"
+],
+"Theorems.Thm_Field_nonempty_ringHom_complex_of_countable": [
+"P2M.Util",
+"P2M.Sol.S_Field_nonempty_ringHom_complex_of_countable"
+],
+"P2M.Sol.S_Field_nonempty_ringHom_complex_of_countable": [
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_exists_algHom_baseChange_of_isAddCyclic_ker_pointMapOfPushforward": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_exists_algHom_baseChange_of_isAddCyclic_ker_pointMapOfPushforward"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_exists_algHom_baseChange_of_isAddCyclic_ker_pointMapOfPushforward": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Definitions.Def_AlgebraicCurve_PlacesOverDVR",
+"Definitions.Def_AlgebraicCurve_PlaceEvaluation",
+"Definitions.Def_AlgebraicCurve_RatFuncPlaces",
+"Theorems.Thm_WeierstrassCurve_Affine_placeOfPoint_some_eq_ofHeightOneSpectrum",
+"Theorems.Thm_WeierstrassCurve_Affine_algebraMap_mk_C_X_notMem_toValuationSubring_placeOfPoint_zero",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_isDedekindDomain",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_exists_eq_XYIdeal",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_isMaximal",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_ne_bot",
+"Theorems.Thm_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField",
+"Theorems.Thm_AlgebraicCurve_normFormulaAlong",
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_ne_zero",
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_congr",
+"Theorems.Thm_AlgebraicCurve_Place_ord_algebraMap",
+"Theorems.Thm_WeierstrassCurve_Affine_natCard_ker_pointMapOfPushforward_eq_finrankAlong",
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_algebraMap",
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_mul",
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_inv",
+"Definitions.Def_WeierstrassCurve_FunctionFieldQuadratic",
+"Theorems.Thm_WeierstrassCurve_card_torsionBy_eq_sq_of_isAlgClosed",
+"Theorems.Thm_AddCommGroup_nonempty_zmod_prod_addEquiv_torsionBy_of_card_torsionBy_eq_sq",
+"Definitions.Def_PeriodPair_Uniformization",
+"Theorems.Thm_PeriodPair_discriminant_ne_zero",
+"Theorems.Thm_PeriodPair_isUniformization_toPoint",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_exists_intermediateField_countable_map_eq_of_isAddCyclic_ker_pointMapOfPushforward": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_exists_intermediateField_countable_map_eq_of_isAddCyclic_ker_pointMapOfPushforward"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_exists_intermediateField_countable_map_eq_of_isAddCyclic_ker_pointMapOfPushforward": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Definitions.Def_AlgebraicCurve_PlacesOverDVR",
+"Definitions.Def_AlgebraicCurve_PlaceEvaluation",
+"Definitions.Def_AlgebraicCurve_RatFuncPlaces",
+"Theorems.Thm_WeierstrassCurve_Affine_placeOfPoint_some_eq_ofHeightOneSpectrum",
+"Theorems.Thm_WeierstrassCurve_Affine_algebraMap_mk_C_X_notMem_toValuationSubring_placeOfPoint_zero",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_isDedekindDomain",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_exists_eq_XYIdeal",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_isMaximal",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_ne_bot",
+"Theorems.Thm_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField",
+"Theorems.Thm_AlgebraicCurve_normFormulaAlong",
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_ne_zero",
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_congr",
+"Theorems.Thm_AlgebraicCurve_Place_ord_algebraMap",
+"Theorems.Thm_WeierstrassCurve_Affine_natCard_ker_pointMapOfPushforward_eq_finrankAlong",
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_algebraMap",
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_mul",
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_inv",
+"Definitions.Def_WeierstrassCurve_FunctionFieldQuadratic",
+"Theorems.Thm_WeierstrassCurve_Affine_exists_genusOnePlaceGate_isCentred_and_abelTheorem",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_isDedekindDomain",
+"Theorems.Thm_WeierstrassCurve_Affine_GenusOnePlaceGate_ext_of_isCentred",
+"Theorems.Thm_WeierstrassCurve_Affine_isAddCyclic_ker_pointMapOfPushforward_of_baseChange_algHom",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_isAddCyclic_ker_pointMapOfPushforward_of_baseChange_algHom": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Definitions.Def_WeierstrassCurve_FunctionFieldQuadratic",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_isAddCyclic_ker_pointMapOfPushforward_of_baseChange_algHom"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_isAddCyclic_ker_pointMapOfPushforward_of_baseChange_algHom": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Definitions.Def_AlgebraicCurve_PlacesOverDVR",
+"Definitions.Def_AlgebraicCurve_PlaceEvaluation",
+"Definitions.Def_AlgebraicCurve_RatFuncPlaces",
+"Theorems.Thm_WeierstrassCurve_Affine_placeOfPoint_some_eq_ofHeightOneSpectrum",
+"Theorems.Thm_WeierstrassCurve_Affine_algebraMap_mk_C_X_notMem_toValuationSubring_placeOfPoint_zero",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_isDedekindDomain",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_exists_eq_XYIdeal",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_isMaximal",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_ne_bot",
+"Theorems.Thm_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField",
+"Theorems.Thm_AlgebraicCurve_normFormulaAlong",
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_ne_zero",
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_congr",
+"Theorems.Thm_AlgebraicCurve_Place_ord_algebraMap",
+"Theorems.Thm_WeierstrassCurve_Affine_natCard_ker_pointMapOfPushforward_eq_finrankAlong",
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_algebraMap",
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_mul",
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_inv",
+"Definitions.Def_WeierstrassCurve_FunctionFieldQuadratic",
+"Theorems.Thm_WeierstrassCurve_card_torsionBy_eq_sq_of_isAlgClosed",
+"Theorems.Thm_AddCommGroup_nonempty_zmod_prod_addEquiv_torsionBy_of_card_torsionBy_eq_sq",
+"Definitions.Def_PeriodPair_Uniformization",
+"Theorems.Thm_PeriodPair_discriminant_ne_zero",
+"Theorems.Thm_PeriodPair_isUniformization_toPoint",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_isAddCyclic_ker_pointMapOfPushforward_of_algEquiv_conj": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_isAddCyclic_ker_pointMapOfPushforward_of_algEquiv_conj"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_isAddCyclic_ker_pointMapOfPushforward_of_algEquiv_conj": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Definitions.Def_AlgebraicCurve_PlacesOverDVR",
+"Definitions.Def_AlgebraicCurve_PlaceEvaluation",
+"Definitions.Def_AlgebraicCurve_RatFuncPlaces",
+"Theorems.Thm_WeierstrassCurve_Affine_placeOfPoint_some_eq_ofHeightOneSpectrum",
+"Theorems.Thm_WeierstrassCurve_Affine_algebraMap_mk_C_X_notMem_toValuationSubring_placeOfPoint_zero",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_isDedekindDomain",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_exists_eq_XYIdeal",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_isMaximal",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_ne_bot",
+"Theorems.Thm_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField",
+"Theorems.Thm_AlgebraicCurve_normFormulaAlong",
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_ne_zero",
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_congr",
+"Theorems.Thm_AlgebraicCurve_Place_ord_algebraMap",
+"Theorems.Thm_WeierstrassCurve_Affine_natCard_ker_pointMapOfPushforward_eq_finrankAlong",
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_algebraMap",
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_mul",
+"Theorems.Thm_AlgebraicCurve_Place_evalAt_inv",
+"Definitions.Def_WeierstrassCurve_FunctionFieldQuadratic",
+"Definitions.Def_PeriodPair_Uniformization",
+"Theorems.Thm_PeriodPair_discriminant_ne_zero",
+"Theorems.Thm_PeriodPair_isUniformization_toPoint",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_exists_veluPointHom_oddOrderSummingSet_of_isAlgClosed": [
+"Definitions.Def_WeierstrassCurve_Velu",
+"Definitions.Def_WeierstrassCurve_VeluQuotientMap",
+"Definitions.Def_WeierstrassCurve_VeluPointMap",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_exists_veluPointHom_oddOrderSummingSet_of_isAlgClosed"
+],
+"P2M.Sol.S_WeierstrassCurve_exists_veluPointHom_oddOrderSummingSet_of_isAlgClosed": [
+"Definitions.Def_WeierstrassCurve_Velu",
+"Definitions.Def_WeierstrassCurve_VeluQuotientMap",
+"Definitions.Def_WeierstrassCurve_VeluPointMap",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Definitions.Def_WeierstrassCurve_GenusOnePic0",
+"Definitions.Def_AlgebraicCurve_Correspondence",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_isDedekindDomain",
+"Theorems.Thm_WeierstrassCurve_Affine_exists_genusOnePlaceGate_isCentred_and_abelTheorem",
+"Theorems.Thm_Algebra_IsSeparable_of_coprime_finrank_expChar",
+"Theorems.Thm_AlgebraicCurve_normFormulaAlong_of_separableAlong",
+"Theorems.Thm_WeierstrassCurve_veluQuotient_oddOrderSummingSet_discriminant_ne_zero_of_addOrderOf_eq",
+"Theorems.Thm_WeierstrassCurve_hasPrincipalDivisors_functionField_of_isElliptic",
+"Theorems.Thm_WeierstrassCurve_exists_veluFunctionFieldHom_restrictAlong_placeOfPoint_eq_of_isAlgClosed",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_exists_veluFunctionFieldHom_restrictAlong_placeOfPoint_eq_of_isAlgClosed": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Definitions.Def_WeierstrassCurve_VeluPointMap",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_exists_veluFunctionFieldHom_restrictAlong_placeOfPoint_eq_of_isAlgClosed"
+],
+"P2M.Sol.S_WeierstrassCurve_exists_veluFunctionFieldHom_restrictAlong_placeOfPoint_eq_of_isAlgClosed": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_WeierstrassCurve_GenusOnePlaceGateCentred",
+"Definitions.Def_AlgebraicCurve_PlacesOverDVR",
+"Definitions.Def_AlgebraicCurve_PlaceEvaluation",
+"Definitions.Def_AlgebraicCurve_RatFuncPlaces",
+"Theorems.Thm_WeierstrassCurve_Affine_placeOfPoint_some_eq_ofHeightOneSpectrum",
+"Theorems.Thm_WeierstrassCurve_Affine_algebraMap_mk_C_X_notMem_toValuationSubring_placeOfPoint_zero",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_isDedekindDomain",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_exists_eq_XYIdeal",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_isMaximal",
+"Theorems.Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_ne_bot",
+"Theorems.Thm_WeierstrassCurve_hasPrincipalDivisors_functionField_of_isElliptic",
+"Theorems.Thm_AlgebraicCurve_normFormulaAlong_of_separableAlong",
+"Definitions.Def_WeierstrassCurve_VeluPointMap",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"Theorems.Thm_WeierstrassCurve_velu_map_equation_of_oddOrderSummingSet_of_isAlgClosed",
+"Theorems.Thm_WeierstrassCurve_Affine_natCard_ker_pointMapOfPushforward_eq_finrankAlong_of_separableAlong",
+"Theorems.Thm_WeierstrassCurve_Affine_GenusOnePlaceGate_ext_of_isCentred",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_natCard_ker_pointMapOfPushforward_eq_finrankAlong_of_separableAlong": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_natCard_ker_pointMapOfPushforward_eq_finrankAlong_of_separableAlong"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_natCard_ker_pointMapOfPushforward_eq_finrankAlong_of_separableAlong": [
+"Definitions.Def_Isogeny_ConditionalCurrency",
+"Definitions.Def_AlgebraicCurve_PlacesOverDVR",
+"Theorems.Thm_AlgebraicCurve_Place_sum_ramificationIndex_mul_inertiaDeg",
+"Theorems.Thm_AlgebraicCurve_Place_ramificationIndex_eq_ramificationIdx_fiberCenter",
+"Theorems.Thm_AlgebraicCurve_Place_restrictAlong_surjective",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_velu_map_equation_of_oddOrderSummingSet_of_isAlgClosed": [
+"Definitions.Def_WeierstrassCurve_VeluPointMap",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_velu_map_equation_of_oddOrderSummingSet_of_isAlgClosed"
+],
+"P2M.Sol.S_WeierstrassCurve_velu_map_equation_of_oddOrderSummingSet_of_isAlgClosed": [
+"Definitions.Def_WeierstrassCurve_VeluPointMap",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_normFormulaAlong_of_separableAlong": [
+"Definitions.Def_AlgebraicCurve_Correspondence",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_normFormulaAlong_of_separableAlong"
+],
+"P2M.Sol.S_AlgebraicCurve_normFormulaAlong_of_separableAlong": [
+"Definitions.Def_AlgebraicCurve_Correspondence",
+"Theorems.Thm_AlgebraicCurve_Divisor_pushforwardNormFormula_of_isSeparable",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_Divisor_pushforwardNormFormula_of_isSeparable": [
+"Definitions.Def_AlgebraicCurve_DivisorPushPull",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_Divisor_pushforwardNormFormula_of_isSeparable"
+],
+"P2M.Sol.S_AlgebraicCurve_Divisor_pushforwardNormFormula_of_isSeparable": [
+"Definitions.Def_AlgebraicCurve_DivisorPushPull",
+"Theorems.Thm_AlgebraicCurve_relNorm_eq_pow_of_isMaximal_of_isSeparable",
+"Theorems.Thm_AlgebraicCurve_Place_ord_nonneg_of_mem",
+"Theorems.Thm_AlgebraicCurve_Place_mem_of_ord_nonneg",
+"Theorems.Thm_AlgebraicCurve_Place_mem_iff_ord_nonneg",
+"Theorems.Thm_AlgebraicCurve_Place_exists_ord_pos",
+"Theorems.Thm_AlgebraicCurve_Place_ord_eq_zero_iff_adicValuation_eq_one",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_relNorm_eq_pow_of_isMaximal_of_isSeparable": [
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_relNorm_eq_pow_of_isMaximal_of_isSeparable"
+],
+"P2M.Sol.S_AlgebraicCurve_relNorm_eq_pow_of_isMaximal_of_isSeparable": [
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_hasPrincipalDivisors_functionField_of_isElliptic": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_hasPrincipalDivisors_functionField_of_isElliptic"
+],
+"P2M.Sol.S_WeierstrassCurve_hasPrincipalDivisors_functionField_of_isElliptic": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"Theorems.Thm_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField_of_two_ne_zero_or",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField_of_two_ne_zero_or": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField_of_two_ne_zero_or"
+],
+"P2M.Sol.S_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField_of_two_ne_zero_or": [
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"Definitions.Def_WeierstrassCurve_FunctionFieldQuadratic",
+"Theorems.Thm_WeierstrassCurve_Affine_adjoin_yCoord_eq_top",
+"Theorems.Thm_WeierstrassCurve_Affine_finiteDimensional_ratFunc_functionField",
+"Theorems.Thm_AlgebraicCurve_hasPrincipalDivisors_of_finiteDimensional_ratFunc_of_isSeparable",
+"P2M.Util"
+],
+"Theorems.Thm_AlgebraicCurve_hasPrincipalDivisors_of_finiteDimensional_ratFunc_of_isSeparable": [
+"Definitions.Def_AlgebraicCurve_PlacesOverDVR",
+"P2M.Util",
+"P2M.Sol.S_AlgebraicCurve_hasPrincipalDivisors_of_finiteDimensional_ratFunc_of_isSeparable"
+],
+"P2M.Sol.S_AlgebraicCurve_hasPrincipalDivisors_of_finiteDimensional_ratFunc_of_isSeparable": [
+"Definitions.Def_AlgebraicCurve_PlacesOverDVR",
+"Theorems.Thm_AlgebraicCurve_Place_mem_iff_ord_nonneg",
+"Theorems.Thm_AlgebraicCurve_Place_ord_nonneg_of_mem",
+"Theorems.Thm_AlgebraicCurve_Place_mem_of_ord_nonneg",
+"Theorems.Thm_AlgebraicCurve_RationalFunctionField_finite_setOf_ord_ne_zero",
+"Theorems.Thm_AlgebraicCurve_RationalFunctionField_degree_eq_zero_of_forall_eq_ord",
+"P2M.Util"
+],
+"Theorems.Thm_Algebra_IsSeparable_of_coprime_finrank_expChar": [
+"P2M.Util",
+"P2M.Sol.S_Algebra_IsSeparable_of_coprime_finrank_expChar"
+],
+"P2M.Sol.S_Algebra_IsSeparable_of_coprime_finrank_expChar": [
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_exists_enum_cyclicKernels_veluQuotient_discriminant_ne_zero": [
+"Definitions.Def_WeierstrassCurve_Velu",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_exists_enum_cyclicKernels_veluQuotient_discriminant_ne_zero"
+],
+"P2M.Sol.S_WeierstrassCurve_exists_enum_cyclicKernels_veluQuotient_discriminant_ne_zero": [
+"Definitions.Def_WeierstrassCurve_Velu",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"Theorems.Thm_WeierstrassCurve_veluQuotient_oddOrderSummingSet_discriminant_ne_zero_of_addOrderOf_eq",
+"Theorems.Thm_WeierstrassCurve_nonempty_torsionBy_addEquiv_zmod_prod_of_isAlgClosed",
+"Theorems.Thm_AddCommGroup_natCard_isAddCyclic_addSubgroup_eq_dedekindPsi_of_addEquiv_torsionBy",
+"Theorems.Thm_ModularCurve_dedekindPsi_prime",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_stepCurve_stepSubgroup_two_eq": [
+"Definitions.Def_WeierstrassCurve_CyclicQuotientJ",
+"Definitions.Def_WeierstrassCurve_VeluPointMap2",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_stepCurve_stepSubgroup_two_eq"
+],
+"P2M.Sol.S_WeierstrassCurve_stepCurve_stepSubgroup_two_eq": [
+"Definitions.Def_WeierstrassCurve_CyclicQuotientJ",
+"Definitions.Def_WeierstrassCurve_VeluPointMap2",
+"P2M.Util"
+],
+"Definitions.Def_WeierstrassCurve_CyclicQuotientJ": [
+"Definitions.Def_WeierstrassCurve_Velu",
+"Definitions.Def_WeierstrassCurve_VeluOrderTwo",
+"Definitions.Def_WeierstrassCurve_VeluPointMap2",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet"
+],
+"Theorems.Thm_WeierstrassCurve_stepCurve_stepSubgroup_eq_of_prime_ne_two": [
+"Definitions.Def_WeierstrassCurve_CyclicQuotientJ",
+"Definitions.Def_WeierstrassCurve_VeluQuotientMap",
+"Definitions.Def_WeierstrassCurve_VeluPointMap",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_stepCurve_stepSubgroup_eq_of_prime_ne_two"
+],
+"P2M.Sol.S_WeierstrassCurve_stepCurve_stepSubgroup_eq_of_prime_ne_two": [
+"Definitions.Def_WeierstrassCurve_CyclicQuotientJ",
+"Definitions.Def_WeierstrassCurve_VeluQuotientMap",
+"Definitions.Def_WeierstrassCurve_VeluPointMap",
+"Theorems.Thm_WeierstrassCurve_isOddVeluSet_oddOrderSummingSet",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_isOddVeluSet_oddOrderSummingSet": [
+"Definitions.Def_WeierstrassCurve_VeluQuotientMap",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_isOddVeluSet_oddOrderSummingSet"
+],
+"P2M.Sol.S_WeierstrassCurve_isOddVeluSet_oddOrderSummingSet": [
+"Definitions.Def_WeierstrassCurve_VeluQuotientMap",
+"Definitions.Def_WeierstrassCurve_OddOrderSummingSet",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_cyclicQuotientJ_variableChange_eq": [
+"Definitions.Def_WeierstrassCurve_CyclicQuotientJ",
+"Definitions.Def_WeierstrassCurve_VariableChangePointEquiv",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_cyclicQuotientJ_variableChange_eq"
+],
+"P2M.Sol.S_WeierstrassCurve_cyclicQuotientJ_variableChange_eq": [
+"Definitions.Def_WeierstrassCurve_CyclicQuotientJ",
+"Definitions.Def_WeierstrassCurve_VariableChangePointEquiv",
+"Theorems.Thm_WeierstrassCurve_Affine_Point_vcInvFun_add",
+"P2M.Util"
+],
+"Theorems.Thm_WeierstrassCurve_cyclicQuotientJ_baseChange_map_eq_of_isAlgClosed": [
+"Definitions.Def_WeierstrassCurve_CyclicQuotientJ",
+"P2M.Util",
+"P2M.Sol.S_WeierstrassCurve_cyclicQuotientJ_baseChange_map_eq_of_isAlgClosed"
+],
+"P2M.Sol.S_WeierstrassCurve_cyclicQuotientJ_baseChange_map_eq_of_isAlgClosed": [
+"Definitions.Def_WeierstrassCurve_CyclicQuotientJ",
+"Definitions.Def_WeierstrassCurve_VeluEquivariance",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eq_all": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_eq_all"
+],
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_eq_all": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_finrank_adjoin_jqN_eq_dedekindPsi",
+"Theorems.Thm_ModularCurve_PhiGen_evalAtJ_injective",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_ModularPolynomialData_separable_map_ratFunc_of_natCast_ne_zero": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_PrimCosetReps",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_separable_map_ratFunc_of_natCast_ne_zero"
+],
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_separable_map_ratFunc_of_natCast_ne_zero": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_PrimCosetReps",
+"Theorems.Thm_ModularCurve_card_primCosetReps_eq_dedekindPsi",
+"Theorems.Thm_ModularCurve_eq_cosetTwoVarPoly_of_forall_isRoot",
+"Theorems.Thm_ModularCurve_separable_cosetTwoVarPoly",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_forall_isRoot_cosetConj_jqModC_of_complex",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_exists_isPrimitiveRoot_forall_isRoot_cosetConj_complex",
+"Theorems.Thm_ModularCurve_transcendental_jqModC",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_transcendental_jqModC": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_transcendental_jqModC"
+],
+"P2M.Sol.S_ModularCurve_transcendental_jqModC": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_ModularPolynomialData_exists_isPrimitiveRoot_forall_isRoot_cosetConj_complex": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_PrimCosetReps",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_exists_isPrimitiveRoot_forall_isRoot_cosetConj_complex"
+],
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_exists_isPrimitiveRoot_forall_isRoot_cosetConj_complex": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_PrimCosetReps",
+"Theorems.Thm_ModularCurve_qExpansion_cosetTranslate_eq_cosetSubst",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eval_E4_cube_div_discriminant_coset_eq_zero",
+"Theorems.Thm_ModularCurve_jqModC_eq_qExpansion_E4_cube_div_discriminant",
+"Theorems.Thm_ModularCurve_laurent_qParam_coeff_unique",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_qExpansion_cosetTranslate_eq_cosetSubst": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_PrimCosetReps",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_qExpansion_cosetTranslate_eq_cosetSubst"
+],
+"P2M.Sol.S_ModularCurve_qExpansion_cosetTranslate_eq_cosetSubst": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_PrimCosetReps",
+"Theorems.Thm_ModularCurve_hasSum_cosetSubst_coeff_mul_qParam_pow",
+"Theorems.Thm_ModularCurve_laurent_qParam_coeff_unique",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_hasSum_cosetSubst_coeff_mul_qParam_pow": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_PrimCosetReps",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_hasSum_cosetSubst_coeff_mul_qParam_pow"
+],
+"P2M.Sol.S_ModularCurve_hasSum_cosetSubst_coeff_mul_qParam_pow": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_PrimCosetReps",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_ModularPolynomialData_forall_isRoot_cosetConj_jqModC_of_complex": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_PrimCosetReps",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_forall_isRoot_cosetConj_jqModC_of_complex"
+],
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_forall_isRoot_cosetConj_jqModC_of_complex": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_PrimCosetReps",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_separable_cosetTwoVarPoly": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_PrimCosetReps",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_separable_cosetTwoVarPoly"
+],
+"P2M.Sol.S_ModularCurve_separable_cosetTwoVarPoly": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_PrimCosetReps",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_eq_cosetTwoVarPoly_of_forall_isRoot": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_PrimCosetReps",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_eq_cosetTwoVarPoly_of_forall_isRoot"
+],
+"P2M.Sol.S_ModularCurve_eq_cosetTwoVarPoly_of_forall_isRoot": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_PrimCosetReps",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_card_primCosetReps_eq_dedekindPsi": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_PrimCosetReps",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_card_primCosetReps_eq_dedekindPsi"
+],
+"P2M.Sol.S_ModularCurve_card_primCosetReps_eq_dedekindPsi": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PrimCosetReps",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_ModularPolynomialData_irreducible_map_ratFunc_of_natCast_ne_zero": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_irreducible_map_ratFunc_of_natCast_ne_zero"
+],
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_irreducible_map_ratFunc_of_natCast_ne_zero": [
+"Definitions.Def_ModularCurve_X0ModL",
+"Theorems.Thm_ModularCurve_modularFunctionFieldC_eq_modularFunctionFieldFullC",
+"Theorems.Thm_ModularCurve_finrank_adjoin_jqModC_modularFunctionFieldFullC_eq_dedekindPsi",
+"Theorems.Thm_ModularCurve_transcendental_jqModC",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_finrank_adjoin_jqModC_modularFunctionFieldFullC_eq_dedekindPsi": [
+"Definitions.Def_ModularCurve_X0ModL",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_finrank_adjoin_jqModC_modularFunctionFieldFullC_eq_dedekindPsi"
+],
+"P2M.Sol.S_ModularCurve_finrank_adjoin_jqModC_modularFunctionFieldFullC_eq_dedekindPsi": [
+"Definitions.Def_ModularCurve_X0ModL",
+"Theorems.Thm_ModularCurve_finrank_adjoin_jqNModC_eq_dedekindPsi_of_socket",
+"Theorems.Thm_ModularCurve_StarBank_starBank",
+"Theorems.Thm_ModularCurve_jqNModC_prime_not_mem_adjoin_of_charZero",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eval_jqNModC_mul_eq_zero",
+"Theorems.Thm_ModularCurve_nonempty_modularPolynomialData",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_jqNModC_prime_not_mem_adjoin_of_charZero": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_jqNModC_prime_not_mem_adjoin_of_charZero"
+],
+"P2M.Sol.S_ModularCurve_jqNModC_prime_not_mem_adjoin_of_charZero": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_coeff_jqModC_neg_one",
+"Theorems.Thm_ModularCurve_order_jqModC",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eval_jqNModC_mul_eq_zero",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eval_jqNModC_of_mul_eq_zero",
+"Theorems.Thm_ModularCurve_coeff_jqModC_pow_of_lt",
+"Theorems.Thm_ModularCurve_coeff_jqModC_pow_self",
+"Theorems.Thm_ModularCurve_transcendental_jqModC",
+"Theorems.Thm_ModularCurve_exists_phiIrreducible_evalSymm",
+"Theorems.Thm_ModularCurve_one_le_coeff_jq",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_coeff_jqModC_pow_self": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_coeff_jqModC_pow_self"
+],
+"P2M.Sol.S_ModularCurve_coeff_jqModC_pow_self": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_coeff_jqModC_pow_of_lt": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_coeff_jqModC_pow_of_lt"
+],
+"P2M.Sol.S_ModularCurve_coeff_jqModC_pow_of_lt": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_StarBank_starBank": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_StarBank_starBank"
+],
+"P2M.Sol.S_ModularCurve_StarBank_starBank": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_jqNModC_prime_not_mem_adjoin_of_forall_aeval_ne",
+"Theorems.Thm_ModularCurve_StarBank_closure",
+"Theorems.Thm_ModularCurve_StarBank_count",
+"Theorems.Thm_ModularCurve_StarBank_deltaNorm",
+"Theorems.Thm_ModularCurve_StarBank_delta_pow_ne",
+"Theorems.Thm_ModularCurve_StarBank_eisInt_not_dvd_num",
+"Theorems.Thm_ModularCurve_StarBank_eisInt_series",
+"Theorems.Thm_ModularCurve_StarBank_hassePolyDescent",
+"Theorems.Thm_ModularCurve_StarBank_onePoint",
+"Theorems.Thm_ModularCurve_StarBank_press",
+"Theorems.Thm_ModularCurve_StarBank_starK",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_StarBank_starK": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_StarBank_starK"
+],
+"P2M.Sol.S_ModularCurve_StarBank_starK": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_StarBank_press": [
+"Definitions.Def_ModularCurve_PhiGen",
+"Definitions.Def_ModularCurve_JqCoeff",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_StarBank_press"
+],
+"P2M.Sol.S_ModularCurve_StarBank_press": [
+"Definitions.Def_ModularCurve_PhiGen",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Theorems.Thm_ModularCurve_coeff_jqModC_neg_one",
+"Theorems.Thm_ModularCurve_coeff_jqModC_pow_self",
+"Theorems.Thm_ModularCurve_coeff_jqModC_pow_of_lt",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_StarBank_onePoint": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_StarBank_onePoint"
+],
+"P2M.Sol.S_ModularCurve_StarBank_onePoint": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_StarBank_hassePolyDescent": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_StarBank_hassePolyDescent"
+],
+"P2M.Sol.S_ModularCurve_StarBank_hassePolyDescent": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"Theorems.Thm_ModularForm_exists_qExpansion_eq_aeval_mul_pow_levelOne",
+"Theorems.Thm_ModularCurve_qExpansion_discriminant_eq_map_X_mul_dedekindEtaUnit",
+"Theorems.Thm_ModularCurve_jqModC_eq_qExpansion_E4_cube_div_discriminant",
+"P2M.Util"
+],
+"Theorems.Thm_ModularForm_exists_qExpansion_eq_aeval_mul_pow_levelOne": [
+"P2M.Util",
+"P2M.Sol.S_ModularForm_exists_qExpansion_eq_aeval_mul_pow_levelOne"
+],
+"P2M.Sol.S_ModularForm_exists_qExpansion_eq_aeval_mul_pow_levelOne": [
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_StarBank_eisInt_series": [
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_StarBank_eisInt_series"
+],
+"P2M.Sol.S_ModularCurve_StarBank_eisInt_series": [
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_StarBank_eisInt_not_dvd_num": [
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_StarBank_eisInt_not_dvd_num"
+],
+"P2M.Sol.S_ModularCurve_StarBank_eisInt_not_dvd_num": [
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_StarBank_delta_pow_ne": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_StarBank_delta_pow_ne"
+],
+"P2M.Sol.S_ModularCurve_StarBank_delta_pow_ne": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"Theorems.Thm_ModularCurve_map_intCast_pow_char_eq_qExpand",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_StarBank_deltaNorm": [
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_StarBank_deltaNorm"
+],
+"P2M.Sol.S_ModularCurve_StarBank_deltaNorm": [
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_StarBank_count": [
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_StarBank_count"
+],
+"P2M.Sol.S_ModularCurve_StarBank_count": [
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_StarBank_closure": [
+"Definitions.Def_ModularCurve_PhiGen",
+"Definitions.Def_ModularCurve_JqCoeff",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_StarBank_closure"
+],
+"P2M.Sol.S_ModularCurve_StarBank_closure": [
+"Definitions.Def_ModularCurve_PhiGen",
+"Definitions.Def_ModularCurve_JqCoeff",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_jqNModC_prime_not_mem_adjoin_of_forall_aeval_ne": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_jqNModC_prime_not_mem_adjoin_of_forall_aeval_ne"
+],
+"P2M.Sol.S_ModularCurve_jqNModC_prime_not_mem_adjoin_of_forall_aeval_ne": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_coeff_jqModC_neg_one",
+"Theorems.Thm_ModularCurve_order_jqModC",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eval_jqNModC_mul_eq_zero",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eval_jqNModC_of_mul_eq_zero",
+"Theorems.Thm_ModularCurve_coeff_jqModC_pow_of_lt",
+"Theorems.Thm_ModularCurve_coeff_jqModC_pow_self",
+"Theorems.Thm_ModularCurve_transcendental_jqModC",
+"Theorems.Thm_ModularCurve_exists_phiIrreducible_evalSymm",
+"Theorems.Thm_ModularCurve_one_le_coeff_jq",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_finrank_adjoin_jqNModC_eq_dedekindPsi_of_socket": [
+"Definitions.Def_ModularCurve_PhiGen",
+"Definitions.Def_ModularCurve_JqCoeff",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_finrank_adjoin_jqNModC_eq_dedekindPsi_of_socket"
+],
+"P2M.Sol.S_ModularCurve_finrank_adjoin_jqNModC_eq_dedekindPsi_of_socket": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_coeff_jqModC_neg_one",
+"Theorems.Thm_ModularCurve_order_jqModC",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eval_jqNModC_mul_eq_zero",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eval_jqNModC_of_mul_eq_zero",
+"Theorems.Thm_ModularCurve_coeff_jqModC_pow_of_lt",
+"Theorems.Thm_ModularCurve_coeff_jqModC_pow_self",
+"Theorems.Thm_ModularCurve_coeffMap_injective",
+"Theorems.Thm_ModularCurve_qExpand_jqModC_eq_pow_unconditional",
+"Theorems.Thm_ModularCurve_exists_phiIrreducible",
+"Theorems.Thm_ModularCurve_isIntegral_jqNModC_of_modularPolynomialData",
+"Theorems.Thm_ModularCurve_jqNModC_prime_not_mem_adjoin_of_forall_aeval_ne",
+"Theorems.Thm_ModularCurve_jqNModC_prime_not_mem_adjoin_of_charZero",
+"Theorems.Thm_ModularCurve_package_of_socket",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_package_of_socket": [
+"Definitions.Def_ModularCurve_PhiGen",
+"Definitions.Def_ModularCurve_JqCoeff",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_package_of_socket"
+],
+"P2M.Sol.S_ModularCurve_package_of_socket": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_coeff_jqModC_neg_one",
+"Theorems.Thm_ModularCurve_order_jqModC",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eval_jqNModC_mul_eq_zero",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eval_jqNModC_of_mul_eq_zero",
+"Theorems.Thm_ModularCurve_PhiGen_splits_prime_at_slot_of_isPrimitiveRoot",
+"Theorems.Thm_ModularCurve_exists_phiIrreducible_evalSymm",
+"Theorems.Thm_Polynomial_mem_range_of_unique_common_root",
+"Theorems.Thm_ModularCurve_dedekindPsi_prime",
+"Theorems.Thm_ModularCurve_dedekindPsi_prime_pow",
+"Theorems.Thm_ModularCurve_dedekindPsi_mul_of_coprime",
+"Theorems.Thm_ModularCurve_relfinrank_fullC_mul_prime_pow",
+"Theorems.Thm_ModularCurve_jqNModC_prime_not_mem_fullC",
+"Theorems.Thm_ModularCurve_jqNModC_mem_modularFunctionFieldC_mul_prime",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_jqNModC_mem_modularFunctionFieldC_mul_prime": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_jqNModC_mem_modularFunctionFieldC_mul_prime"
+],
+"P2M.Sol.S_ModularCurve_jqNModC_mem_modularFunctionFieldC_mul_prime": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_coeff_jqModC_neg_one",
+"Theorems.Thm_ModularCurve_order_jqModC",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eval_jqNModC_mul_eq_zero",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eval_jqNModC_of_mul_eq_zero",
+"Theorems.Thm_ModularCurve_PhiGen_splits_prime_at_slot_of_isPrimitiveRoot",
+"Theorems.Thm_ModularCurve_exists_phiIrreducible_evalSymm",
+"Theorems.Thm_Polynomial_mem_range_of_unique_common_root",
+"Theorems.Thm_ModularCurve_minpoly_jqNModC_map_eq_prod_slots",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_minpoly_jqNModC_map_eq_prod_slots": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_minpoly_jqNModC_map_eq_prod_slots"
+],
+"P2M.Sol.S_ModularCurve_minpoly_jqNModC_map_eq_prod_slots": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_coeff_jqModC_neg_one",
+"Theorems.Thm_ModularCurve_order_jqModC",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eval_jqNModC_mul_eq_zero",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eval_jqNModC_of_mul_eq_zero",
+"Theorems.Thm_ModularCurve_PhiGen_splits_prime_at_slot_of_isPrimitiveRoot",
+"Theorems.Thm_ModularCurve_exists_phiIrreducible_evalSymm",
+"Theorems.Thm_ModularCurve_dedekindPsi_prime_pow",
+"Theorems.Thm_ModularCurve_dedekindPsi_mul_of_coprime",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_PhiGen_splits_prime_at_slot_of_isPrimitiveRoot": [
+"Definitions.Def_ModularCurve_PhiGen",
+"Definitions.Def_ModularCurve_JqCoeff",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_PhiGen_splits_prime_at_slot_of_isPrimitiveRoot"
+],
+"P2M.Sol.S_ModularCurve_PhiGen_splits_prime_at_slot_of_isPrimitiveRoot": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_coeffMap_injective",
+"Theorems.Thm_ModularCurve_coeff_jqModC_neg_one",
+"Theorems.Thm_ModularCurve_order_jqModC",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eval_jqNModC_mul_eq_zero",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eval_jqNModC_of_mul_eq_zero",
+"Theorems.Thm_ModularCurve_PhiGen_splits_of_prime",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_jqNModC_prime_not_mem_fullC": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_jqNModC_prime_not_mem_fullC"
+],
+"P2M.Sol.S_ModularCurve_jqNModC_prime_not_mem_fullC": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_coeff_jqModC_neg_one",
+"Theorems.Thm_ModularCurve_order_jqModC",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eval_jqNModC_mul_eq_zero",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eval_jqNModC_of_mul_eq_zero",
+"Theorems.Thm_ModularCurve_PhiGen_splits_prime_at_slot_of_isPrimitiveRoot",
+"Theorems.Thm_ModularCurve_exists_phiIrreducible_evalSymm",
+"Theorems.Thm_ModularCurve_dedekindPsi_prime_pow",
+"Theorems.Thm_ModularCurve_dedekindPsi_mul_of_coprime",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_relfinrank_fullC_mul_prime_pow": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_relfinrank_fullC_mul_prime_pow"
+],
+"P2M.Sol.S_ModularCurve_relfinrank_fullC_mul_prime_pow": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"Definitions.Def_ModularCurve_JqCoeff",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_coeff_jqModC_neg_one",
+"Theorems.Thm_ModularCurve_order_jqModC",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eval_jqNModC_mul_eq_zero",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_eval_jqNModC_of_mul_eq_zero",
+"Theorems.Thm_ModularCurve_PhiGen_splits_prime_at_slot_of_isPrimitiveRoot",
+"Theorems.Thm_ModularCurve_exists_phiIrreducible_evalSymm",
+"Theorems.Thm_Polynomial_mem_range_of_unique_common_root",
+"Theorems.Thm_Polynomial_irreducible_of_transitive_ringAut",
+"Theorems.Thm_ModularCurve_dedekindPsi_prime",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_isIntegral_jqNModC_of_modularPolynomialData": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_isIntegral_jqNModC_of_modularPolynomialData"
+],
+"P2M.Sol.S_ModularCurve_isIntegral_jqNModC_of_modularPolynomialData": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_coeff_jqModC_neg_one",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_dedekindPsi_prime",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_exists_phiIrreducible": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_exists_phiIrreducible"
+],
+"P2M.Sol.S_ModularCurve_exists_phiIrreducible": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_PhiGen_splits_prime_at_slot",
+"Theorems.Thm_ModularCurve_minpoly_jqN_map_eq_prod_slots",
+"Theorems.Thm_ModularCurve_jqN_prime_not_mem_full",
+"Theorems.Thm_ModularCurve_jqN_pow_not_mem_adjoin_full",
+"Theorems.Thm_ModularCurve_full_eq_adjoin_full_div_prime",
+"Theorems.Thm_ModularCurve_relfinrank_full_eq_mul",
+"Theorems.Thm_ModularCurve_jqN_div_mem_modularFunctionField",
+"Theorems.Thm_ModularCurve_modularFunctionField_eq_full_of",
+"Theorems.Thm_ModularCurve_relfinrank_modularFunctionField",
+"Theorems.Thm_ModularCurve_dedekindPsi_mul_of_coprime",
+"Theorems.Thm_ModularCurve_dedekindPsi_prime_pow",
+"Theorems.Thm_ModularCurve_exists_phiIrreducible_of_finrank_eq",
+"Theorems.Thm_ModularCurve_functionFieldGeneration_iff_full_eq",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_qExpand_jqModC_eq_pow_unconditional": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_qExpand_jqModC_eq_pow_unconditional"
+],
+"P2M.Sol.S_ModularCurve_qExpand_jqModC_eq_pow_unconditional": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"Theorems.Thm_ModularCurve_map_intCast_pow_char_eq_qExpand",
+"P2M.Util"
+],
+"Definitions.Def_ModularCurve_X0ModL": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_coeff_jqModC_pow_self",
+"Theorems.Thm_ModularCurve_coeff_jqModC_pow_of_lt",
+"Theorems.Thm_ModularCurve_coeff_jqModC_neg_one"
+],
+"Theorems.Thm_ModularCurve_modularFunctionFieldC_eq_modularFunctionFieldFullC": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_X0ModL",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_modularFunctionFieldC_eq_modularFunctionFieldFullC"
+],
+"P2M.Sol.S_ModularCurve_modularFunctionFieldC_eq_modularFunctionFieldFullC": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_X0ModL",
+"Theorems.Thm_ModularCurve_modularFunctionFieldC_eq_modularFunctionFieldFullC_of_charZero",
+"Theorems.Thm_ModularCurve_modularFunctionFieldC_eq_modularFunctionFieldFullC_of_charP_pos",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_modularFunctionFieldC_eq_modularFunctionFieldFullC_of_charP_pos": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_X0ModL",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_modularFunctionFieldC_eq_modularFunctionFieldFullC_of_charP_pos"
+],
+"P2M.Sol.S_ModularCurve_modularFunctionFieldC_eq_modularFunctionFieldFullC_of_charP_pos": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_X0ModL",
+"Theorems.Thm_ModularCurve_finrank_adjoin_jqNModC_eq_dedekindPsi_of_socket",
+"Theorems.Thm_ModularCurve_StarBank_starBank",
+"Theorems.Thm_ModularCurve_finrank_adjoin_jqModC_modularFunctionFieldFullC_eq_dedekindPsi",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_modularFunctionFieldC_eq_modularFunctionFieldFullC_of_charZero": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_X0ModL",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_modularFunctionFieldC_eq_modularFunctionFieldFullC_of_charZero"
+],
+"P2M.Sol.S_ModularCurve_modularFunctionFieldC_eq_modularFunctionFieldFullC_of_charZero": [
+"Definitions.Def_ModularCurve_JqCoeff",
+"Definitions.Def_ModularCurve_X0ModL",
+"Theorems.Thm_ModularCurve_functionFieldGeneration",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_functionFieldGeneration": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_functionFieldGeneration"
+],
+"P2M.Sol.S_ModularCurve_functionFieldGeneration": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_PhiGen_splits_prime_at_slot",
+"Theorems.Thm_ModularCurve_minpoly_jqN_map_eq_prod_slots",
+"Theorems.Thm_ModularCurve_jqN_prime_not_mem_full",
+"Theorems.Thm_ModularCurve_jqN_pow_not_mem_adjoin_full",
+"Theorems.Thm_ModularCurve_full_eq_adjoin_full_div_prime",
+"Theorems.Thm_ModularCurve_relfinrank_full_eq_mul",
+"Theorems.Thm_ModularCurve_jqN_div_mem_modularFunctionField",
+"Theorems.Thm_ModularCurve_modularFunctionField_eq_full_of",
+"Theorems.Thm_ModularCurve_relfinrank_modularFunctionField",
+"Theorems.Thm_ModularCurve_dedekindPsi_mul_of_coprime",
+"Theorems.Thm_ModularCurve_dedekindPsi_prime_pow",
+"Theorems.Thm_ModularCurve_exists_phiIrreducible_of_finrank_eq",
+"Theorems.Thm_ModularCurve_functionFieldGeneration_iff_full_eq",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_ModularPolynomialData_dvd_resultant_of_mul": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_dvd_resultant_of_mul"
+],
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_dvd_resultant_of_mul": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_phiIrreducible_all",
+"Theorems.Thm_ModularCurve_ModularPolynomialData_minpoly_jqN_eq",
+"Theorems.Thm_ModularCurve_transcendental_jq",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_ModularPolynomialData_minpoly_jqN_eq": [
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_minpoly_jqN_eq"
+],
+"P2M.Sol.S_ModularCurve_ModularPolynomialData_minpoly_jqN_eq": [
+"Theorems.Thm_ModularCurve_minpoly_jqN_eq_toAdjoin",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_minpoly_jqN_eq_toAdjoin": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_minpoly_jqN_eq_toAdjoin"
+],
+"P2M.Sol.S_ModularCurve_minpoly_jqN_eq_toAdjoin": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_phiIrreducible_all": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_phiIrreducible_all"
+],
+"P2M.Sol.S_ModularCurve_phiIrreducible_all": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_LaurentCoeff",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_coeffMap_qExpand",
+"Theorems.Thm_ModularCurve_PhiGen_splits_prime_at_slot",
+"Theorems.Thm_ModularCurve_finrank_adjoin_jqN_eq_dedekindPsi",
+"Theorems.Thm_ModularCurve_aeval_jqN_toAdjoin",
+"Theorems.Thm_ModularCurve_phiIrreducible_of_prime",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_phiIrreducible_of_prime": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_phiIrreducible_of_prime"
+],
+"P2M.Sol.S_ModularCurve_phiIrreducible_of_prime": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"Theorems.Thm_ModularCurve_finrank_adjoin_jqN_eq_of_prime",
+"Theorems.Thm_ModularCurve_dedekindPsi_prime",
+"Theorems.Thm_ModularCurve_PhiGen_evalAtJ_injective",
+"Theorems.Thm_ModularCurve_exists_phiIrreducible_evalSymm",
+"P2M.Util"
+],
+"Theorems.Thm_ModularCurve_aeval_jqN_toAdjoin": [
+"Definitions.Def_ModularCurve_X0",
+"P2M.Util",
+"P2M.Sol.S_ModularCurve_aeval_jqN_toAdjoin"
+],
+"P2M.Sol.S_ModularCurve_aeval_jqN_toAdjoin": [
+"Definitions.Def_ModularCurve_X0",
+"Definitions.Def_ModularCurve_PhiGen",
+"P2M.Util"
+]
+}

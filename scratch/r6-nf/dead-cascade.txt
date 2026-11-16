@@ -1,0 +1,17 @@
+ZInQKernel.OneProof.H.TailZ23 HDec.HSyn.OpenResearchLeaves14.casesOn
+ZInQKernel.OneProof.H.TailZ23 HDec.HSyn.OpenResearchLeaves14.recOn
+ZInQKernel.OneProof.H.TailZ23 HDec.HSyn.ss1_ss3_of14
+ZInQKernel.OneProof.H.TailZ25 HDec.HSyn.OpenResearchLeaves15.casesOn
+ZInQKernel.OneProof.H.TailZ25 HDec.HSyn.OpenResearchLeaves15.recOn
+ZInQKernel.OneProof.H.TailZ26 HDec.HSyn.OpenResearchLeaves16.casesOn
+ZInQKernel.OneProof.H.TailZ26 HDec.HSyn.OpenResearchLeaves16.recOn
+ZInQKernel.OneProof.H.TailZ27 HDec.HSyn.OpenResearchLeaves17.casesOn
+ZInQKernel.OneProof.H.TailZ27 HDec.HSyn.OpenResearchLeaves17.recOn
+ZInQKernel.OneProof.H.TailZ28 HDec.HSyn.OpenResearchLeaves18.casesOn
+ZInQKernel.OneProof.H.TailZ28 HDec.HSyn.OpenResearchLeaves18.recOn
+ZInQKernel.OneProof.H.TailZ29 HDec.HSyn.OpenResearchLeaves19.casesOn
+ZInQKernel.OneProof.H.TailZ29 HDec.HSyn.OpenResearchLeaves19.recOn
+ZInQKernel.OneProof.H.TailZ33 HDec.HSyn.OpenResearchLeaves20.casesOn
+ZInQKernel.OneProof.H.TailZ33 HDec.HSyn.OpenResearchLeaves20.recOn
+ZInQKernel.OneProof.H.TailZ34 HDec.HSyn.OpenResearchLeaves21.casesOn
+ZInQKernel.OneProof.H.TailZ34 HDec.HSyn.OpenResearchLeaves21.recOn

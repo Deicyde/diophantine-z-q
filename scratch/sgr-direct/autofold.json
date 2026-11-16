@@ -1,0 +1,37 @@
+{
+  "task": "sgr-direct",
+  "status": "no fold executed (deep bypass needed; strict count would go -1: two GLUE rows out, one in)",
+  "reason": "SGRDirect.heckeVertWitness_of_nvElkies (ZInQKernel/Contrib/OneProof/SGRDirectElkies.lean) proves HDec.HeckeRestNV.HeckeVertWitness, the single consumer of shimuraIntegralModelRep and quotientP1Coordinate, from bundle fields (r1r2, t5, qmAutCard, serreRigidity3, alFixedPoints, elkiesX6StarPrinted) and one new GLUE Prop, SGRDirect.NVLocalInertia. Neither removed field is itself proved, so autofold.py (which discharges top-level fields by proofs) cannot express the fold.",
+  "bypass": "Regenerate the bundles from generation 5 (TailN) up without shimuraGoodReduction / shimuraGoodReductionNoGuard / shimuraIntegralModelRep and modelCoordinateResidue / quotientP1Coordinate, with the new field nvLocalInertia : SGRDirect.NVLocalInertia; in glue4_of_open5 set heckeVertWitness := SGRDirect.heckeVertWitness_of_nvElkies (LeafAdopt.R1R2fp_of_rep r.r1r2) (torsionStructure_ofK5 t.t5) l.qmAutCard l.serreRigidity3 l.alFixedPoints n.nvLocalInertia r.elkiesX6StarPrinted (then-current field names). elkiesX6StarPrinted is a field of today's top research bundle but not of generation 5: carry it (or the Prop SGRDirect.HeckeSqrtBranchAny, built at the top by heckeSqrtBranchAny_of_elkies) down through the regenerated generations together with nvLocalInertia.",
+  "new_leaves": [
+    {
+      "field": "nvLocalInertia",
+      "type": "SGRDirect.NVLocalInertia",
+      "kind": "project glue",
+      "flag": "",
+      "strict": "GLUE",
+      "source": "h-b1 §3 Lemma NV step 3; consequence of Abhyankar's lemma (SGA 1 XIII 5.3, UNVERIFIED) and Zariski-Nagata purity (SGA 1 X 3.1; proved in the chain in dimension 2, PropTSGlue.PurityGlobalDim2)",
+      "doc": "docs/research/sgr-direct.md §4"
+    }
+  ],
+  "module": "ZInQKernel.Contrib.OneProof.SGRDirectNV",
+  "theorem": "SGRDirect.heckeVertWitness_of_nvElkies",
+  "imports": [
+    "ZInQKernel.Contrib.OneProof.SGRDirectNV",
+    "ZInQKernel.Contrib.OneProof.SGRDirectElkies"
+  ],
+  "proved_in_files": [
+    "SGRDirect.ramifiedSqrtInertia",
+    "SGRDirect.vertInertiaTrivial",
+    "SGRDirect.heckeBranchFibreUnram",
+    "SGRDirect.exists_good_sqrt",
+    "SGRDirect.heckeSqrtBranchAny_of_elkies",
+    "SGRDirect.even_padicValRat_of_sq_mem",
+    "SGRDirect.eq_zero_of_forall_ringHom_qbar",
+    "SGRDirect.elkies_coordinate"
+  ],
+  "removed_fields": [
+    "shimuraIntegralModelRep",
+    "quotientP1Coordinate"
+  ]
+}

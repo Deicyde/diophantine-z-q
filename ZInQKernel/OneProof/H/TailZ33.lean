@@ -36,17 +36,12 @@ structure OpenResearchLeaves20 : Prop where
   pazukiCor13Upper : _root_.ZInQ.HeightSplit.PazukiCor13Upper
   /-- height-split, H-15: Gaudron–Rémond 2014 Thm 1.4 over the published stable height, replaces `r19`. -/
   gaudronRemondThm14 : _root_.ZInQ.HeightSplit.GaudronRemondThm14
-  /-- reduct-split, r8: BLR §1.4 Thm 3 over a DVR (scheme form). -/
-  neronSchemeModelExistsDVR : _root_.ReductSplit.NeronSchemeModelExistsDVR
   /-- gt-rigidity, rigid-prune (leaf-fold23): **Mumford's GIT Thm 6.14 over a base** (on each connected component;
   numbers UNVERIFIED): a proper smooth geometrically connected family over a locally noetherian `S` with a section
   `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
   identity `e`. Replaces `mumfordRigidityCore`, which also asked Cor. 6.4 (not needed: rigid-prune proves that each
   `ι(a)` is a homomorphism from the field points). -/
   mumfordGroupLaw : _root_.ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw
-  /-- c-to-printed, printed form: Faltings 1983, Lemma 5 (the change of the Faltings height under an isogeny
-  through `log #s*Ω¹` of its kernel; locator UNVERIFIED). With `raynaudKernelBound` replaces `faltingsLemma5BC`. -/
-  faltingsLemma5Printed : _root_.CToPrinted.FaltingsLemma5Printed
   /-- c-to-printed, printed form: SGA 3 VI_B 3.10 (the identity component `G⁰` of a smooth group scheme is open;
   number UNVERIFIED). With the next two and `geomConnOfRationalPoint` replaces `semistableNeronBaseChange`. -/
   sga3_VIB_3_10 : _root_.CToPrinted.SGA3_VIB_3_10
@@ -104,9 +99,7 @@ theorem openResearchLeaves19_of_OpenResearchLeaves20 (n : OpenResearchLeaves20) 
   pazukiCor13Upper := n.pazukiCor13Upper
   gaudronRemondThm14 := n.gaudronRemondThm14
   semistableUnipotent := _root_.UnipotentForward.semistableUnipotent_of_forwardGeom n.sga7_IX_3_5_ForwardGeom _root_.ZInQ.Contrib.OneProof.MulEtale.mulEtaleAbelianScheme_proof n.neronBaseChangeStrictHenselization
-  neronSchemeModelExistsDVR := n.neronSchemeModelExistsDVR
   mumfordGroupLaw := n.mumfordGroupLaw
-  faltingsLemma5Printed := n.faltingsLemma5Printed
   sga3_VIB_3_10 := n.sga3_VIB_3_10
   sga7_IX_3_3 := _root_.SGA7PersistsNF.sga7_IX_3_3_of_SH n.sga7_IX_3_3_SH n.neronBaseChangeStrictHenselization n.sga3_VIB_3_10 t.geomConnOfRationalPoint
   babaGranathRationalAb := n.babaGranathRationalAb
@@ -119,8 +112,9 @@ theorem openResearchLeaves19_of_OpenResearchLeaves20 (n : OpenResearchLeaves20) 
   elkiesX6StarPrinted := n.elkiesX6StarPrinted
 
 /-- **G0 with only the open leaves and the open glue** (leaf-fold20; generated). -/
-theorem sixContactMin_of_open27 (r : OpenResearchLeaves20) (t : OpenTextbookLeaves11) (l : OpenAddedLeaves16) (g : OpenGlue7) : ZInQ.SixContactMin :=
-  sixContactMin_of_open26 (openResearchLeaves19_of_OpenResearchLeaves20 r t) t l g
+theorem sixContactMin_of_open27 (r : OpenResearchLeaves20) (t : OpenTextbookLeaves11) (l : OpenAddedLeaves16) (g : OpenGlue7)
+    (hY3 : TSHecke.Y3Connected) : ZInQ.SixContactMin :=
+  sixContactMin_of_open26 (openResearchLeaves19_of_OpenResearchLeaves20 r t) t l g hY3
 
 end HSyn
 

@@ -1,12 +1,16 @@
 # frontier: every open Prop on the path to `ZInQ.FrozenTarget`
 
-Task frontier, 2026-11-13; refreshes r2 to r6, 2026-11-14 (text checks only, no Lean run). Base of r6:
-integration w63 (fork main b5ff0474), on wip/frontier-r6. Branch snapshot: the commits in `scratch/frontier/refs.txt`
-(r6 section, read 18:41 PST). Lean: `scratch/frontier/TYZChain.lean`, `TopChain.lean`
-(compiled 11-13, unchanged in r2). Mechanical check: `scratch/frontier/chain.py` (with `chainlib.py`), run from the
-repository root; output `scratch/frontier/chain_out.txt`. Results log: `scratch/frontier/log.md`. Working notes from
-three read-only survey agents (11-13): `scratch/frontier/agent-{h-glue,h-leaves,tyz}.md`. Only this report and
-`scratch/frontier/` were edited. Model work; no human review.
+Task frontier, 2026-11-13; refreshes r2 to r8, 2026-11-14 and 11-15 (text checks only, no Lean run). Base of r8: fork
+main 37391b11 (11-15: integration w70, 6edf020d, with leaf-fold19 and the merge-bar commits), on wip/frontier-r8.
+Branch snapshot: the commits in `scratch/frontier/refs.txt` (r8 section, read 04:33 PST). Lean:
+`scratch/frontier/TYZChain.lean`, `TopChain.lean` (compiled 11-13, unchanged in r2). Mechanical check:
+`scratch/frontier/chain.py` (with `chainlib.py`), run from the repository root; output
+`scratch/frontier/chain_out.txt`. Results log: `scratch/frontier/log.md`. Working notes from three read-only survey
+agents (11-13): `scratch/frontier/agent-{h-glue,h-leaves,tyz}.md`. Only this report and `scratch/frontier/` were
+edited. Model work; no human review.
+
+**Counts.** This report's counts describe the snapshot named above. The public count of open statements is the count
+line of `docs/one-proof/OPEN.md`, which the integrator regenerates from the Lean build at every fold.
 
 Marks: **VERIFIED** (read in a named Lean file or report at a named commit, or compiled here), **REPORTED** (a task's
 report or log says so; the Lean was not re-read), **UNVERIFIED** (a theorem number or locator taken from a report or
@@ -30,81 +34,92 @@ becomes a strict LEAF once its derivation is compiled; the form column says wher
 
 ## 0. Main result
 
-**The list.** If every proof and reduction that the branches had compiled by 2026-11-14 18:41 PST is folded in
-(scenario F, §5), the open Props on the path to `ZInQ.FrozenTarget` are **86: 54 LEAF and 32 GLUE** in the strict
-count. If consequences of one theorem count as leaves, they are 69 LEAF and 17 GLUE. Four rows (H-182, H-183, H-184,
-H-185), reduct-glue's leaves over a strictly henselian base, follow the first version of the base review and are
-tagged "review v1, v2 pending".
+**The list.** If every proof and reduction that the branches had compiled by 2026-11-15 04:33 PST is folded in
+(scenario F, §5), the open Props on the path to `ZInQ.FrozenTarget` are **75: 49 LEAF and 26 GLUE** in the strict
+count. If consequences of one theorem count as leaves, they are 59 LEAF and 16 GLUE.
 
-**The library theorem.** `ZInQ.OneProof.frozenTarget` on main (scenario A) has 67 hypotheses, leaf-fold11's 61 fields
-and the six TYZ and GZ Props, and its proof uses all of them (leaf-fold11's scan finds no unused field). The
-integrator's convention (11-14): a leaf with a flagged plausible weaker reading counts GLUE; a leaf that is merely
-unread stays LEAF, flagged. So the four SGA 7 IX DVR fields (`semistableReductionDVR`, `raynaudSemistable`,
-`semistablePersistsDVR`, `semistableUnipotent`), `blr_1_2_4` and `sga7_IX_3_3` count as consequences, and
-`gonzalezRotgerCountX6Ab` as a composite. The fields are then **43 LEAF and 18 GLUE** in the strict count; 44 and 17
-if `gonzalezRotgerCountX6Ab` counts as published, as in leaf-fold11's table, whose own count is 50 and 11. With the
-top: 45 LEAF and 22 GLUE strict, 56 and 11 lenient. Scenario F has more rows because it also applies the splits that
-the folds leave out on purpose: each replaces one field by a leaf plus smaller statements (leaf-fold9 §5).
+**The library theorem.** `ZInQ.OneProof.frozenTarget` on main (scenario A) has 65 hypotheses, leaf-fold19's 58 fields
+and the seven TYZ and GZ Props, and its proof uses all of them (sem-prune's scan found no unused field, and each later
+fold removes a field or adds only leaves its proof takes). Its fields and its seven other hypotheses are classified in
+the integrator's table `docs/one-proof/kinds.tsv` (rendered in `docs/one-proof/OPEN.md`), whose headline follows the
+integrator's strict convention: a leaf with a flagged plausible weaker reading counts GLUE, a merely unread leaf stays
+LEAF, flagged. The fields are then **44 LEAF and 14 GLUE** in the strict count (the strictest reading, with
+`weilPairingMumford` a composite), as OPEN.md's count line says; 45 and 13 with `weilPairingMumford` published (the
+table's strict column); by kind alone, 46 published and 12 other. With the top: 47 LEAF and 18 GLUE strict, 55 and 10
+lenient. Scenario F has more rows because it also applies the splits that the folds leave out on purpose: each
+replaces one field by a leaf plus smaller statements (leaf-fold9 §5).
 
 | premise | open Props | strict LEAF | strict GLUE | lenient LEAF | lenient GLUE | table |
 |---|---|---|---|---|---|---|
 | GZ, `Literature.GrossZagier` | 2 | 0 | 2 | 0 | 2 | §2.2 |
-| TYZ, `Literature.TYZThm35ReadingA` | 6 | 3 | 3 | 4 | 2 | §3.2 |
+| TYZ, `Literature.TYZThm35ReadingA` | 5 | 3 | 2 | 4 | 1 | §3.2 |
 | H, `SixContactMin`: research-level fields of r3 | 5 | 3 | 2 | 3 | 2 | §4.2 |
 | H: textbook fields of r3 | 0 | 0 | 0 | 0 | 0 | §4.3 |
-| H: fields that were glue in C4 | 1 | 0 | 1 | 1 | 0 | §4.4 |
+| H: fields that were glue in C4 | 0 | 0 | 0 | 0 | 0 | §4.4 |
 | H: Props introduced by reductions until r3 | 5 | 5 | 0 | 5 | 0 | §4.5 |
-| H: fields of the H base introduced in r4 | 29 | 28 | 1 | 28 | 1 | §4.6 |
-| H: Props open only in scenario F, introduced in r4 | 10 | 2 | 8 | 4 | 6 | §4.7 |
+| H: fields of the H base introduced in r4 | 22 | 21 | 1 | 21 | 1 | §4.6 |
+| H: Props open only in scenario F, introduced in r4 | 9 | 1 | 8 | 3 | 6 | §4.7 |
 | H: fields of leaf-fold9 introduced in r5 | 1 | 1 | 0 | 1 | 0 | §4.8 |
-| H: Props open only in scenario F, introduced in r5 | 3 | 1 | 2 | 3 | 0 | §4.9 |
-| H: fields of leaf-fold10 and leaf-fold11 introduced in r6 | 9 | 6 | 3 | 8 | 1 | §4.10 |
-| H: Props open only in scenario F, introduced in r6 | 15 | 5 | 10 | 12 | 3 | §4.11 |
-| **total** | **86** | **54** | **32** | **69** | **17** | |
+| H: Props open only in scenario F, introduced in r5 | 2 | 0 | 2 | 2 | 0 | §4.9 |
+| H: fields of leaf-fold10 and leaf-fold11 introduced in r6 | 5 | 3 | 2 | 4 | 1 | §4.10 |
+| H: Props open only in scenario F, introduced in r6 | 3 | 0 | 3 | 2 | 1 | §4.11 |
+| H: fields of leaf-fold13 introduced in r7 | 5 | 4 | 1 | 5 | 0 | §4.12 |
+| H: Props open only in scenario F, introduced in r7 | 2 | 1 | 1 | 1 | 1 | §4.13 |
+| H: fields of leaf-fold14 to leaf-fold19 introduced in r8 | 9 | 7 | 2 | 8 | 1 | §4.14 |
+| **total** | **75** | **49** | **26** | **59** | **16** | |
 
-By form: 54 published form, 15 consequences of one theorem, 11 composites, 6 project glue (`CMStabObj`,
-`CoverModelOfHeckeN`, `IgusaAlg`, `P1SchemeQ`, `ReductionFromSH`, `RingClassLattice`).
+By form: 49 published form, 10 consequences of one theorem, 12 composites, 4 project glue (`CMStabObj`,
+`CoverModelOfHeckeN`, `P1SchemeQ`, `SemiAbelianDescendsSepClosed`).
 
-**Since r5 (27 new rows; 12 LEAF and 15 GLUE strict, 22 and 5 lenient).** Six rows are proved (H-144 `IgusaCMValue24`,
-H-159 `HTDual`, H-161 `FixedTorsionRationalImperfect`, H-163 `SemistableLocalGlobal`, H-164 `SemistableAlmostAll`,
-H-166 `SemistableNeronBaseChangeLocalGlobal`), 10 are split into smaller statements (§4.1), 6 leave the route (H-79,
-H-133, H-134, H-156, H-165, H-167) and 3 are replaced (H-145, H-155, H-158). The H base is leaf-fold11's
-`sixContactMin_of_open15` inside the library (C4'''''', §1). Below it, leaf-fold10 proves `dimJacobianEqGenus`
-(dimjac-glue), takes `y3Connected` from Deligne's printed theorem (shimura-glue) and `r6`, `semistableReductionThm`,
-`semistablePersists` from leaves over a DVR (reduct-glue, which also proves reduct-split's glue), and the prune
-removes `r3`, `serreTateThm2`, `t10`. leaf-fold11 and leaf-fold12 remove `genusX1Field` (genus-fold), restate four
-fields on abelian schemes with the new field `mumfordRigidityCore` (route-a-fold), prove `igusaCMValue24` (cm24-value)
-and replace `neronLocalizesDVR`, `faltingsLemma5BC`, `semistableNeronBaseChange` by six printed leaves (c-to-printed).
-On top of it scenario F applies x6-glue (`r1r2Ab` through route A's transfer, and `x6ConicModel`), c-to-printed2
-(`eigenformHTNew`), reduct-glue's printed bases (the four DVR fields), theta-split's route 1 with theta-glue's proof
-of `ThetaEightSquare` and its reduction of the curve part, t5-glue on the TYZ side, and r5's splits that still apply.
+**Since r7 (4 new rows; 3 LEAF and 1 GLUE strict, 4 and 0 lenient).** Nine rows are proved (H-101, H-129, H-131,
+H-132, H-135, H-136, H-171, H-176, T-17), two are pruned (H-124, H-173) and four are replaced by smaller statements
+(H-168, H-185, H-187, H-195); five rows that r7 listed as open only in scenario F are fields now (H-182, H-199, H-200,
+H-201, H-202). The H base is leaf-fold19's `sixContactMin_of_open26` inside the library (C4'''''''', §1): leaf-fold14
+folds reduct-b's Route B-cp and t09-pic, sem-prune removes two fields that were used only syntactically, and the
+integrator's `autofold.py` folds the contributions of gt-ega, gt-blr, gt-gamma, gt-theta, gt-grcount, gt-shpair,
+gt-elkies, gt-qm, gt-valence and fork PR #19 (leaf-fold15 to leaf-fold19). gt-ringclass proves `RingClassLattice`, so
+the library theorem takes its CM hypothesis from the two printed leaves T-15 and T-16 (B8, §3.1). The count of rows
+goes from 86 to 75: 15 go, 4 come.
 
-**Being attempted (cloud workers W11-W15):** `TateTwistInvariants`, `AxSenTate`, `X0Transitive` (it would remove
-`IgusaGL2`), `RegularSmoothPerfect`, `ShimuraGoodReductionNoGuard`, and the F-only leaf `FiniteQuotientExists`; the
-rows say so.
+**Not applied** (§4.1): the reports of the branches after main (below), which are not merged; gt-qm's reroute of
+`yuThm11`'s four live uses, a scratch check that no fold takes yet (H-128 says so); unipotent-b's split of
+`semistableUnipotent`, which raises both GLUE counts (§6.2); and, as in r7, sh-route's theorems, shimura-cft's leaf
+for `shimuraFamilyAb` and gap-triage's probe for `CoverModelOfHeckeN` (H-95).
 
-**Tasks in flight** (the integrator, 11-14; the rows say which): reduct-b (`semistableReductionDVR`,
-`raynaudSemistable`, `semistablePersistsDVR`), unipotent-b (`semistableUnipotent`), sh-route (the three
-strict-henselization leaves), shimura-cft (`shimuraFamilyAb`), t09-pic (`t09SymmIsogenyExists`), igusa-alg
-(`IgusaAlg`), gap-triage, and leaf-fold13, which folds x6-glue. reduct-b, unipotent-b, sh-route and shimura-cft
-already have fleet summaries on their branches; this report does not use them.
+**Who works on what** (the integrator's `docs/one-proof/claims.tsv` with the crowd kit's columns; the rows say which):
+rayclass-cft on `rayClassCMAb` and mcr-quot on `quotientP1Coordinate` are in progress; shimura-cft's leaf for
+`shimuraFamilyAb` awaits a rating; the cloud claims mark 28 rows (12 by cloud batch 2, 8 by cloud batch 3, 8 by cloud
+round 2). claims.tsv still lists unipotent-b and igusa-alg as in progress: w66 merged their reports and scenario F
+uses them, but no fold has taken them. After main the fork's branches carry gt-rayclass (28ec5c91; `rayClassCMAb` and
+`shimuraFamilyAb` from Shimura's Main Theorem I in Deligne's adelic form on `Y₃`), gt-rigidity (762ea48b;
+`mumfordRigidityCore` from two published leaves, with Mumford's Cor. 6.4 proved), gt-sga3 (deba22d7; `sga3_VIB_3_10`
+from a weaker published leaf and `geomConnOfRationalPoint`), gt-sga7 (70a16c4c; `sga7_IX_3_3` from its strictly
+henselian form and three bundle fields), gt-unip (42e1af66; `semistableUnipotent` from the forward half of SGA 7 IX
+3.5 and two bundle fields, with no glue), gt-x6facts (80631ed5; `babaGranathRationalAb` from `elkiesEquationsX6Ab` and
+a witness-free leaf, stated over leaf-fold17's bundles), rayclass-cft (7b27f1c3; `rayClassCMAb` from Shimura's Main
+Theorem I, in flight in r7), linyang-printed (3bb5a828; `LinYangThetaCurve` from two printed leaves), sh-printed2
+(ea486e30; `blr_1_2_4` (now proved) and `sga7_IX_3_3` in characteristic 0 from their strictly henselian forms). Their
+reports are not merged, so this report does not use them, and the rows they name say so.
 
-**The 86 names** (L = LEAF in both counts; c = consequence of one theorem, LEAF only in the lenient count; all others
+**The 75 names** (L = LEAF in both counts; c = consequence of one theorem, LEAF only in the lenient count; all others
 GLUE; details in the tables):
 - GZ: `ZInQ.GZDecomp.FHNonvanishing`; `ZInQ.GZDecomp.GrossZagierHeegner`.
-- TYZ: `ZInQ.Contrib.TYZDecomp.TYZThm11Integral` (L); `ZInQ.Contrib.TYZDecomp.TYZLemma29Mod2`; `ZInQ.Contrib.TYZGenus.TYZSplit.TYZThm33` (L); `T5Glue.ShimuraMainCM` (L); `T5Glue.X0ModuliGalois` (c); `T5Glue.RingClassLattice`.
-- H: `PkgI2.NeronOggShafarevich` (L); `PkgI3.FaltingsSemisimple` (L); `PkgI3.FaltingsTate` (L); `PkgI4.PanBerger`; `LeafModCurves.R16_EichlerShimuraJ1'`; `WeilPairing.T09_SymmIsogenyExists` (c); `ZInQ.Contrib.SpreadOut.EGAIV_8_10_5_xii` (L); `ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed` (L); `ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed` (L); `ZInQ.Contrib.AVB1.PoincareComplement` (L); `ZInQ.Contrib.NeronC.NeronSchemeExtensionExists` (L); `AVGlue.CartierSmooth` (L); `AVGlue.GeomConnOfRationalPoint` (L); `AVGlue.GroupSchemeEquidim` (L); `AvSplit.T4.MulEtaleAbelianScheme` (L); `AvSplit.MumfordTorsionAlgClosed` (L); `BPAnalytic.Uniformization.UniformizationLeafAll` (L); `AvSplit.MilneIsogenyQuasiInverse` (L); `ZInQ.HomLattice.GAGAMorphism` (L); `ZInQ.HeightSplit.JavanpeykarBound` (L); `ZInQ.HeightSplit.GaudronRemondThm14` (L); `ZInQ.HeightSplit.BostLowerBound` (L); `ZInQ.HeightSplit.PazukiCor13Upper` (L); `ZInQ.RLeaf.IgusaGL2` (L); `CurveSplit.RegularSmoothPerfect` (L); `CurveSplit.ShimuraGoodReductionNoGuard`; `ZInQ.Contrib.HodgeSplit.TateTwistInvariants` (L); `ZInQ.Contrib.HodgeSplit.AxSenTate` (L); `ZInQ.Contrib.HodgeSplit.HodgeTateDecompAbVar` (L); `ZInQ.Contrib.HodgeSplit.DeRhamH1AbVarT` (L); `ZInQ.Contrib.HodgeSplit.BdRInvariants` (L); `ZInQ.Contrib.HodgeSplit.DSThm965` (L); `ZInQ.Contrib.HodgeSplit.DSThm966` (L); `HDec.QMSplit.Yu.YuThm11` (L); `HDec.QMSplit.Aut.QMCentralizerCMC` (L); `HDec.HSyn.G0Split.FibreQM.PeriodMapH.QMSplitSTQM.ShimuraTaniyamaQbar` (L); `HDec.QMSplit.Theta.IgusaPsi4` (L); `HDec.QMSplit.Theta.IgusaChi10` (L); `HDec.LeafQCheck.HM.QMSplit.ValenceFormulaCocompactEq` (L); `HDec.LeafQCheck.HM.QMSplit.ShimizuCovolumeO1` (L); `MCRGlue.ProperCurveAF`; `MCRGlue.FiniteQuotientExists` (L); `MCRGlue.TameQuotientSmooth`; `MCRGlue.SmoothModelOfP1` (c); `MCRGlue.TameFixedPointsDisjoint` (c); `MCRGlue.TameInertiaCyclic`; `HDec.PropTSRed.CoverModelOfHeckeN`; `MCRQuot.P1SchemeQ`; `MCRQuot.CMStabObj`; `HDec.QMSplit.Moduli.GonzalezRotgerX6` (L); `ReductSplit.NeronSchemeModelExistsDVR` (L); `HDec.QMSplit.Moduli.GeomConnOfAlgClosure` (L); `HDec.QMSplit.Moduli.ShimuraHolFamily` (c); `ModularSplit.R17.CarayolRealization` (c); `ShimuraSplit.GonzalezRotgerCountX6Ab`; `ShimuraGlue.DeligneComponentsY3PrintedAb` (L); `LeafQM.AV.R1UnivRigid.MumfordRigidityCore` (L); `CToPrinted.BLR_1_2_4` (c); `CToPrinted.FaltingsLemma5Printed` (L); `CToPrinted.RaynaudKernelBound` (L); `CToPrinted.SGA3_VIB_3_10` (L); `CToPrinted.SGA7_IX_3_3` (c); `CToPrinted.EGAIV_8_10_5_openImm` (L); `ShimuraGlue.DeligneComponentsX6Printed` (L); `HDec.QMSplit.Moduli.BabaGranathRational` (L); `ShimuraGlue.Ray.RayClassCM` (c); `HDec.QMSplit.Moduli.ElkiesEquationsX6` (L); `CToPrinted2.KatoRealizationCohSS` (c); `ReductGlue.RaynaudSemistableSH` (L); `ReductGlue.SemistableReductionSH` (L); `ReductGlue.SemistableUnipotentSH` (c); `ReductGlue.SemistablePersistsSH` (c); `ReductGlue.StrictHenselizationNeron` (c); `ReductGlue.StrictHenselizationPair` (c); `ReductGlue.StrictHenselizationInside` (c); `ReductGlue.ReductionFromSH`; `HDec.HSyn.G0Split.ThetaPt.ThetaGlue.LinYangThetaCurve`; `HDec.HSyn.G0Split.ThetaPt.ThetaGlue.IgusaAlg`.
+- TYZ: `ZInQ.Contrib.TYZDecomp.TYZThm11Integral` (L); `ZInQ.Contrib.TYZDecomp.TYZLemma29Mod2`; `ZInQ.Contrib.TYZGenus.TYZSplit.TYZThm33` (L); `T5Glue.ShimuraMainCM` (L); `T5Glue.X0ModuliGalois` (c).
+- H: `PkgI2.NeronOggShafarevich` (L); `PkgI3.FaltingsSemisimple` (L); `PkgI3.FaltingsTate` (L); `PkgI4.PanBerger`; `LeafModCurves.R16_EichlerShimuraJ1'`; `ZInQ.Contrib.SpreadOut.EGAIV_8_10_5_xii` (L); `ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed` (L); `ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed` (L); `ZInQ.Contrib.AVB1.PoincareComplement` (L); `ZInQ.Contrib.NeronC.NeronSchemeExtensionExists` (L); `AVGlue.CartierSmooth` (L); `AVGlue.GeomConnOfRationalPoint` (L); `AVGlue.GroupSchemeEquidim` (L); `AvSplit.MumfordTorsionAlgClosed` (L); `BPAnalytic.Uniformization.UniformizationLeafAll` (L); `AvSplit.MilneIsogenyQuasiInverse` (L); `ZInQ.HomLattice.GAGAMorphism` (L); `ZInQ.HeightSplit.JavanpeykarBound` (L); `ZInQ.HeightSplit.GaudronRemondThm14` (L); `ZInQ.HeightSplit.BostLowerBound` (L); `ZInQ.HeightSplit.PazukiCor13Upper` (L); `ZInQ.RLeaf.IgusaGL2` (L); `CurveSplit.RegularSmoothPerfect` (L); `CurveSplit.ShimuraGoodReductionNoGuard`; `ZInQ.Contrib.HodgeSplit.TateTwistInvariants` (L); `ZInQ.Contrib.HodgeSplit.AxSenTate` (L); `ZInQ.Contrib.HodgeSplit.HodgeTateDecompAbVar` (L); `ZInQ.Contrib.HodgeSplit.DeRhamH1AbVarT` (L); `ZInQ.Contrib.HodgeSplit.DSThm965` (L); `ZInQ.Contrib.HodgeSplit.DSThm966` (L); `HDec.QMSplit.Yu.YuThm11` (L); `HDec.HSyn.G0Split.FibreQM.PeriodMapH.QMSplitSTQM.ShimuraTaniyamaQbar` (L); `MCRGlue.ProperCurveAF`; `MCRGlue.FiniteQuotientExists` (L); `MCRGlue.TameQuotientSmooth`; `MCRGlue.SmoothModelOfP1` (c); `MCRGlue.TameFixedPointsDisjoint` (c); `MCRGlue.TameInertiaCyclic`; `HDec.PropTSRed.CoverModelOfHeckeN`; `MCRQuot.P1SchemeQ`; `MCRQuot.CMStabObj`; `ReductSplit.NeronSchemeModelExistsDVR` (L); `HDec.QMSplit.Moduli.ShimuraHolFamily` (c); `ModularSplit.R17.CarayolRealization` (c); `ShimuraGlue.DeligneComponentsY3PrintedAb`; `LeafQM.AV.R1UnivRigid.MumfordRigidityCore` (L); `CToPrinted.FaltingsLemma5Printed` (L); `CToPrinted.SGA3_VIB_3_10` (L); `CToPrinted.SGA7_IX_3_3` (c); `CToPrinted2.KatoRealizationCohSS` (c); `ReductGlue.StrictHenselizationInside` (c); `HDec.HSyn.G0Split.ThetaPt.ThetaGlue.LinYangThetaCurve`; `HDec.QMSplit.Moduli.GeomConnOfAlgClosure` (L); `ShimuraGlue.DeligneComponentsX6PrintedAb` (L); `HDec.QMSplit.Moduli.BabaGranathRationalAb` (L); `HDec.QMSplit.Moduli.GonzalezRotgerX6Ab` (L); `ShimuraGlue.Ray.RayClassCMAb` (c); `UnipotentB.SemistableUnipotentPrintedGen` (L); `UnipotentB.SemiAbelianDescendsSepClosed`; `ReductGlue.RaynaudSemistableSH` (L); `T09Pic.PicRepresentableAbVar` (L); `T09Pic.PicZeroAbVar` (L); `T09Pic.PhiAmpleIsogeny` (L); `T09Pic.WeilPairingMumford`; `ReductB.SemistablePersistsSHcp` (L); `GRCountX6.GonzalezRotgerProp56X6` (L); `GapSHPair.NeronBaseChangeStrictHenselization` (L); `HDec.QMSplit.Moduli.ElkiesX6Star.ElkiesX6StarPrinted` (c).
 
 **How far this is checked.**
 - **Scenario A is one compiled theorem.** `ZInQ.OneProof.frozenTarget` (`ZInQKernel/OneProof/Main.lean`, on
-  leaf-fold11's bundles since w63) derives `ZInQ.FrozenTarget` from leaf-fold11's four bundles (32 + 15 + 13 + 1 = 61
-  fields), the TYZ Props `TYZThm11Integral`, `TYZLemma29Mod2`, `ShimuraReciprocityModFn`, `TYZThm33` and the two GZ
-  Props. leaf-fold11 reports `lake build +ZInQKernel.OneProof.Main` passing, standard axioms and no unused field
-  (REPORTED, leaf-fold11 §4). `chain.py onep` reads the signature: its hypotheses are scenario A's (the four bundles and the six top Props), and `fields11.tsv`, whose types this report copied from the bundles, lists the same 61 fields.
+  leaf-fold19's bundles since 11-15) derives `ZInQ.FrozenTarget` from leaf-fold19's four bundles (30 + 13 + 14 + 1 =
+  58 fields), the TYZ Props `TYZThm11Integral`, `TYZLemma29Mod2`, `ShimuraMainCM`, `X0ModuliGalois`, `TYZThm33` and
+  the two GZ Props. OPEN.md states that the kernel checks it with no `sorry` and only the standard axioms (REPORTED;
+  the folds regenerate the build's `open-statements.json`). `chain.py onep` reads the signature: its hypotheses are
+  scenario A's (the four bundles and the seven top Props); the bundles' fields are the 58 field rows of `kinds.tsv`,
+  with the names and type heads of the build's `open-statements.json`, whose seven other hypotheses have scenario A's
+  heads.
 - **Scenario F.** A plus the edges of §4.1, each compiled on its branch per its report and log. `chain.py` checks
-  signatures (0 mismatches over 190 theorem edges, 36 of them followed on the route), the modus-ponens steps on the
-  definitions of reduct-glue's named glue, route A's transfers and theta-split's consumer replacement, and compares
-  definitions where a proof lives in another Lean world (§5.2). F is not compiled as one file.
+  signatures (0 mismatches over 198 theorem edges, 27 of them followed on the route), route A's transfer and
+  theta-split's consumer replacement, and compares definitions where a proof lives in another Lean world (§5.2). F is
+  not compiled as one file.
 
 **Declarations proved by this task.** All compile with `lake env lean` (exit 0, no `sorry`), and `#print axioms` gives
 `[propext, Classical.choice, Quot.sound]` for each (VERIFIED; outputs `scratch/frontier/TYZChain_out.txt`,
@@ -137,10 +152,9 @@ theorem ZInQ.Frontier.frozenTarget_of_open_main (hH : ZInQ.SixContactMin)
 `newCM`/`heckeThetaNewform` show that atkin-li's proof of the GZ leaf `HeckeThetaNewform` compiles verbatim over fork
 main's modules; `TYZChain.lean` shows that tyz-cm's and cm-bridge's reductions compose.
 
-**Findings in brief** (§7): since r5, 6 rows proved, 10 split, 6 off the route and 3 replaced; scenario A is one
-library theorem with 67 hypotheses, all used, its 61 fields 43 LEAF strict by the integrator's convention; the 6
-project-glue Props are `CMStabObj`, `CoverModelOfHeckeN`, `IgusaAlg`, `P1SchemeQ`, `ReductionFromSH`,
-`RingClassLattice`.
+**Findings in brief** (§7): since r7, nine rows proved, two pruned and four replaced; scenario A is one library
+theorem with 65 hypotheses, all used, its 58 fields 44 LEAF strict by the integrator's table, as OPEN.md says; the 4
+project-glue Props are `CMStabObj`, `CoverModelOfHeckeN`, `P1SchemeQ`, `SemiAbelianDescendsSepClosed`.
 
 ## 1. The chain to `ZInQ.FrozenTarget`
 
@@ -150,7 +164,9 @@ project-glue Props are `CMStabObj`, `CoverModelOfHeckeN`, `IgusaAlg`, `P1SchemeQ
 | C1 | `ZInQ.GZDecomp.frozenTarget_of_sixContactMin_tyzThm35ReadingA_gzLeaves` | `Contrib/GZDecomp/Decomp.lean` @ main | `SixContactMin`, `TYZThm35ReadingA`, `HeckeThetaNewform`, `FHNonvanishing`, `GrossZagierHeegner` → `FrozenTarget` (via `GrossZagierCd`; `HeckeContinuation`, `FunctionalEquation5` discharged by the proved `ZInQ.Contrib.heckeContinuation`, `functionalEquation5`) |
 | C2 | `ZInQ.GZTheta.frozenTarget_of_sixContactMin_tyzThm35ReadingA_fhNonvanishing_grossZagierHeegner` | `Contrib/GZTheta/NewCMFinal.lean` @ wip/atkin-li 6f77abb1 | `SixContactMin`, `TYZThm35ReadingA`, `FHNonvanishing`, `GrossZagierHeegner` → `FrozenTarget` |
 | C3 | TYZ: §3.1 | | → `TYZThm35ReadingA` |
-| C4'''''' (r6) | H: `HDec.HSyn.sixContactMin_of_open15 (r : OpenResearchLeaves12) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves11) (g : OpenGlue7)` | `ZInQKernel/OneProof/H/TailZ19.lean` L1895 @ main (leaf-fold11 b73da969, merged in w63, with leaf-fold12's `TailZ18`, `TailZ19`; over leaf-fold10 a5df68fe, merged in w61, and the prune 0218a662, merged in w62: `lake build +ZInQKernel.OneProof.Main` passes, standard axioms, no unused field, REPORTED by leaf-fold11 §4) | → `ZInQ.SixContactMin`; 32 + 15 + 13 + 1 fields (§4) |
+| C4'''''''' (r8) | H: `HDec.HSyn.sixContactMin_of_open26 (r : OpenResearchLeaves19) (t : OpenTextbookLeaves11) (l : OpenAddedLeaves16) (g : OpenGlue7)` | `ZInQKernel/OneProof/H/TailZ32.lean` L47 @ main (leaf-fold19 c2ad4181, folding fork PR #19, over leaf-fold18 3782dac8, leaf-fold17 be8511f3, leaf-fold16 a454ad64, leaf-fold15 63205204 (gt-ega's `TailZ25`), sem-prune 2b486d04 and leaf-fold14 97579a97: `TailZ23`-`TailZ32` over leaf-fold13's `TailZ22`; leaf-fold14 reports `lake build +ZInQKernel.OneProof.Main` passing with standard axioms, and the later folds are `autofold.py`'s, with the build's `open-statements.json` regenerated, REPORTED) | → `ZInQ.SixContactMin`; 30 + 13 + 14 + 1 fields (§4) |
+| C4''''''' (r7) | H: `HDec.HSyn.sixContactMin_of_open16 (r : OpenResearchLeaves13) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves12) (g : OpenGlue7)` | `ZInQKernel/OneProof/H/TailZ22.lean` L335 @ main (leaf-fold13 29885092, merged in w66: x6-fold e33b690a, which adds `TailZ20`-`TailZ22` over leaf-fold11 b73da969: `lake build +ZInQKernel.OneProof.Main` passes, standard axioms, no unused field, no existing constant changed, REPORTED by x6-fold §1) | → `ZInQ.SixContactMin`, 35 + 15 + 14 + 1 fields; superseded: leaf-fold14's bundles map to leaf-fold9's directly, so `open12` to `open16` are compiled but off the path (leaf-fold14 §1) |
+| C4'''''' (r6) | H: `HDec.HSyn.sixContactMin_of_open15 (r : OpenResearchLeaves12) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves11) (g : OpenGlue7)` | `ZInQKernel/OneProof/H/TailZ19.lean` L1895 @ main (leaf-fold11 b73da969, merged in w63, with leaf-fold12's `TailZ18`, `TailZ19`; over leaf-fold10 a5df68fe, merged in w61, and the prune 0218a662, merged in w62: `lake build +ZInQKernel.OneProof.Main` passes, standard axioms, no unused field, REPORTED by leaf-fold11 §4) | → `ZInQ.SixContactMin`, 32 + 15 + 13 + 1 fields; superseded: leaf-fold13 fills its bundles inside OneProof |
 | C4''''' (r5) | H: `HDec.HSyn.sixContactMin_of_open9 (r : OpenResearchLeaves9) (t : OpenTextbookLeaves9) (l : OpenAddedLeaves8) (g : OpenGlue7)` | `ZInQKernel/OneProof/H/TailZ9.lean` L161 @ main (leaf-fold9 cf6914e1, merged in w60; over leaf-fold8's `sixContactMin_of_open8` in `TailZ4.lean`: `lake build +ZInQKernel.OneProof.Main` exit 0, standard axioms, the closure of `sixContactMin_of_open9` without `sorryAx`; REPORTED by its report §1, §4) | → `ZInQ.SixContactMin`, 30 + 18 + 14 + 1 fields; superseded: leaf-fold10 and leaf-fold11 fill its bundles inside OneProof |
 | C4'''' (r4) | H: `HDec.HSyn.sixContactMin_of_open8 (r : OpenResearchLeaves8) (t : OpenTextbookLeaves8) (l : OpenAddedLeaves8) (g : OpenGlue7)` | `ZInQKernel/OneProof/H/TailZ4.lean` L265 @ main (leaf-fold8 b0f2f6da, merged in w59; over leaf-fold7's `sixContactMin_of_open7` in `TailX.lean`, w58: `lake build +ZInQKernel.OneProof.Main` exit 0, standard axioms, the closure of `sixContactMin_of_open8` without `sorryAx`; REPORTED by its report §1) | → `ZInQ.SixContactMin`, 31 + 20 + 14 + 1 fields; superseded: leaf-fold9 fills its bundles (`researchLeaves8_of_open9`, `textbookLeaves8_of_open9`) inside OneProof |
 | C4''' | H: leaf-fold6's `HDec.HSyn.sixContactMin_of_open6` | `scratch/leaf-fold6/parts/f20_fold6.lean` @ main (leaf-fold6 733d8013, in w55; flat file compiled, REPORTED) | superseded: leaf-fold7 fills its bundles (`researchLeaves5_of_open7`, `glue6_of_open7`, …) inside OneProof |
@@ -158,14 +174,14 @@ project-glue Props are `CMStabObj`, `CoverModelOfHeckeN`, `IgusaAlg`, `P1SchemeQ
 | C4' (r2) | H: `HDec.HSyn.sixContactMin_of_open4 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves4) (l : OpenAddedLeaves4) (g : OpenGlue4)` | `scratch/leaf-fold4/Leaves4.lean` L118447 @ wip/leaf-fold4 9dcf1ca8 (final; flat file, 118 478 lines, md5 6bbeb639: `lake env lean` exit 0 in 1048 s, 0 errors, no `sorry`, 326 axiom reports all standard; olean chain and `Check4.lean`, the kernel conclusion, compiled; REPORTED by its report and log); on fork main since w49 | → `ZInQ.SixContactMin`; 26 + 19 + 20 + 1 fields (§4) |
 | C5 | assemble-port's `HDec.HSyn.sixContactMin_of_leaves5` (C4 of the 17:35 report; 26 + 17 + 27 fields) | `scratch/assemble-port/AssemblePort.lean` L116751 @ 92a27877 | C4' is its successor through leaf-fold2-4: the 17:35 scenario-F edges folded, `chartProper`, `chartQuasiFinite`, `hauptmodulUnique` proved, `periodMapGlue`, `abVarSpreadsOut` reduced to leaves, `DivisiblePoints` removed (leaf-fold4 §1.1); g0-assemble3's 46-glue-field `sixContactMin_of_leaves4` before it |
 | C6 | H, per field: §4 | | each open field, or the Props it was reduced to |
-| **C0 ∘ C4'''''' in the library (r6)** | `ZInQ.OneProof.frozenTarget (r : HDec.HSyn.OpenResearchLeaves12) (t : HDec.HSyn.OpenTextbookLeaves10) (l : HDec.HSyn.OpenAddedLeaves11) (g : HDec.HSyn.OpenGlue7) (h11 …) (h29 …) (hS …) (h33 : ZInQ.Contrib.TYZGenus.TYZSplit.TYZThm33) (hL2 …) (hL3 …) : ZInQ.FrozenTarget` | `ZInQKernel/OneProof/Main.lean` @ main (OneProof since w56; `OneProof/TYZSplit.lean` since w59; leaf-fold11's bundles since w63) | scenario A of this report: C4'''''' with tyz-chain's T0, T-11 from the printed Theorem 3.3, and the kernel's C1 |
+| **C0 ∘ C4'''''''' in the library (r8)** | `ZInQ.OneProof.frozenTarget (r : HDec.HSyn.OpenResearchLeaves19) (t : HDec.HSyn.OpenTextbookLeaves11) (l : HDec.HSyn.OpenAddedLeaves16) (g : HDec.HSyn.OpenGlue7) (h11 …) (h29 …) (hCM : _root_.T5Glue.ShimuraMainCM) (hX : _root_.T5Glue.X0ModuliGalois) (h33 : ZInQ.Contrib.TYZGenus.TYZSplit.TYZThm33) (hL2 …) (hL3 …) : ZInQ.FrozenTarget` | `ZInQKernel/OneProof/Main.lean` @ main (OneProof since w56; `OneProof/TYZSplit.lean` since w59; B8 since leaf-fold17; leaf-fold19's bundles since 11-15) | scenario A of this report: C4'''''''' with tyz-chain's T0, T-11 from the printed Theorem 3.3, the CM hypothesis from B8, and the kernel's C1 |
 
 The fork's registered headline (`ZInQKernel/MainLiterature.lean`) has five hypotheses; two are proved
 (`ZInQ.Contrib.heckeContinuation`, `functionalEquation5`) and C1 already uses them. C4' concludes the kernel's
 `ZInQ.SixContactMin` (the flat file imports the kernel's definition; `Leaves.lean` is wrapped in `namespace HDec`), so
-C0 and C4'''''' compose by modus ponens. Earlier compiled H assemblies (cpts-transport's 44-field and linked-ram's 45-field
-`GluePieces5` in the W0 world, lt-goodred's and linked-frob's variants, leaf-fold2's `sixContactMin_of_open2`) are
-superseded by C4, C4', C4'', C4''', C4'''' and C4'''''.
+C0 and C4'''''''' compose by modus ponens. Earlier compiled H assemblies (cpts-transport's 44-field and linked-ram's
+45-field `GluePieces5` in the W0 world, lt-goodred's and linked-frob's variants, leaf-fold2's
+`sixContactMin_of_open2`) are superseded by C4, C4', C4'', C4''', C4'''', C4''''', C4'''''' and C4'''''''.
 
 ## 2. GZ: `ZInQ.Literature.GrossZagier`
 
@@ -213,86 +229,98 @@ read by AI agents in the arXiv version only; `Lnnnn` are lines of its source `Pe
 | B5 (r3) | `T318.package_lemma318Literal_HHprime_of_sqrtTwoNotIn` with `Sqrt2Glue.sqrtTwoNotInHHprime` | `Contrib/TYZChain/Lemma318.lean`, `Sqrt2Glue.lean` @ w54 (tyz-318 94b05c87, sqrt2-glue 84107b66) | → `Lemma318Literal HHprime`, no hypotheses (ss-exponent proved the supersingular exponent tyz-318 used) |
 | **T0 (r3, kernel)** | `ZInQ.Contrib.TYZChain.tyzThm35ReadingA_of_leaves` | `Contrib/TYZChain/Main.lean` @ w54 (tyz-chain; B1 with B2-B5 as kernel modules) | `TYZThm11Integral`, `TYZLemma29Mod2`, `Shimura.ShimuraReciprocityModFn`, `∀ ℓ, IsTYZLcal ℓ → TYZThm33Pinned ℓ` → `TYZThm35ReadingA` |
 | T0' (r4) | `ZInQ.Contrib.TYZGenus.TYZSplit.tyzThm33Pinned_of_tyzThm33` | `ZInQKernel/OneProof/TYZSplit.lean` @ main (tyz-split 99e582b5, compiled into OneProof by leaf-fold8) | `TYZThm33` → T0's hypothesis `∀ ℓ, IsTYZLcal ℓ → TYZThm33Pinned ℓ`, so T-11 follows from the printed Theorem 3.3; both scenarios use it |
-| B6 (r4) | `ZInQ.Contrib.TYZGenus.TYZSplitT5.shimuraReciprocityModFn_of_split` | `scratch/tyz-split/T5.lean` @ main | `CMModuli`, `X0RatStructure` → `Shimura.ShimuraReciprocityModFn`; scenario F uses it |
-| B7 (r6) | `T5Glue.cmModuli_of_t5'`, `T5Glue.x0RatStructure_of_leaf` | `scratch/t5-glue/T5Glue.lean` @ t5-glue 405763f6 (its branch head; w62 has an earlier commit) | `ShimuraMainCM`, `RingClassLattice` → `CMModuli` (the absolute Artin map's surjectivity and `InvertibleColon` proved over Tau Ceti); `X0ModuliGalois` → `X0RatStructure`; scenario F uses them under B6 |
+| B6 (r4) | `ZInQ.Contrib.TYZGenus.TYZSplitT5.shimuraReciprocityModFn_of_split` | `scratch/tyz-split/T5.lean` @ main | `CMModuli`, `X0RatStructure` → `Shimura.ShimuraReciprocityModFn`; scenario F used it until r7 (r8: off the route, B8) |
+| B7 (r6) | `T5Glue.cmModuli_of_t5'`, `T5Glue.x0RatStructure_of_leaf` | `scratch/t5-glue/T5Glue.lean` @ main (t5-glue 39bb3cd2, merged in w66; r6 read it at the earlier head 405763f6, the same file; the later commits add the report and its second review, which finds `RingClassLattice` true) | `ShimuraMainCM`, `RingClassLattice` → `CMModuli` (the absolute Artin map's surjectivity and `InvertibleColon` proved over Tau Ceti); `X0ModuliGalois` → `X0RatStructure`; scenario F used them under B6 until r7 (r8: off the route, B8) |
+| B8 (r8) | `T5Glue.shimuraReciprocityModFn_of_printed` | `ZInQKernel/Contrib/OneProof/RingClassLattice.lean` L3352 @ main (gt-ringclass 06f03bd4, folded by leaf-fold17: t5-glue's development verbatim, with `RingClassLattice` proved as `T5Glue.ringClassLattice`) | `ShimuraMainCM`, `X0ModuliGalois` → `Shimura.ShimuraReciprocityModFn`; the library theorem takes T-15 and T-16 in place of `hS`, so both scenarios use it |
 
-### 3.2 Open Props (6: 3 LEAF, 3 GLUE in the strict count; 4 LEAF, 2 GLUE in the lenient count)
+### 3.2 Open Props (5: 3 LEAF, 2 GLUE in the strict count; 4 LEAF, 1 GLUE in the lenient count)
 
 | # | Lean name | defined in | class | citation (UNVERIFIED unless marked) | last task; newest commit | running now | form (strict LEAF = published form) |
 |---|---|---|---|---|---|---|---|
-| T-1 | `ZInQ.Contrib.TYZDecomp.TYZThm11Integral` | `Contrib/TYZDecomp/Leaves.lean` @ main | **LEAF** (specialization: odd `m` only) | TYZ Thm 1.1, first assertion, L371–380 (read by nt-tyz) | tyz-decomp; main (tyz-lcal audit 11-13: faithful, not stronger) | no | published form: specialization of TYZ Thm 1.1 to odd `m` (tyz-lcal audit: faithful, not stronger) |
-| T-3 | `ZInQ.Contrib.TYZDecomp.TYZLemma29Mod2` | same | GLUE (mod-2 composite of Lemma 2.9 and Prop. 2.3) | TYZ Lemma 2.9, L1062–1066 (journal Lemma 2.9 per the AI locator audit); Prop. 2.3, L580–586 | tyz-decomp; main (tyz-lcal audit 11-13: faithful, not stronger) | no | composite: TYZ Lemma 2.9 with Prop. 2.3, read mod 2 (tyz-lcal audit) |
-| T-12 | `ZInQ.Contrib.TYZGenus.TYZSplit.TYZThm33` | `ZInQKernel/OneProof/TYZSplit.lean` L147 @ main | **LEAF** | TYZ Theorem 3.3 over the kernel's definitions, for `n ≡ 5, 7 (mod 8)`, `𝒫(d)` existential | tyz-split | no | published form: TYZ Thm 3.3, Period7.tex L1299-1311, specialized (tyz-split §1), carried along the kernel's eta model of `X₀(32)` by the q-expansion principle (`IsRatModFn 32`), which already sits behind `hS`; a clause-by-clause statement review found the leaf Thm 3.3 or weaker (tyz-split §1 and the docstring, wip/w61 3c241950); the `[i]` sign of the base point is printed (`α = −i` in the Hecke-action proof, about L1564-1566) |
-| T-15 | `T5Glue.ShimuraMainCM` | `scratch/t5-glue/T5Glue.lean` L908 @ t5-glue 405763f6 | **LEAF** | the main theorem of complex multiplication with torsion, idelic, in Weierstrass coordinates over Mathlib's `PeriodPair`, finite adeles and Tau Ceti's `ideleClassArtinMap` (replaces T-13 (from T-5)) | t5-glue (its branch head) | no | published form: Shimura 1971 Thm 5.4; Lang, Elliptic functions, Ch. 10 Thm 3 (t5-glue §0; numbers UNVERIFIED) |
-| T-16 | `T5Glue.X0ModuliGalois` | `scratch/t5-glue/T5Glue.lean` L670 @ t5-glue 405763f6 | GLUE in the strict count (consequence of one theorem; LEAF in the lenient count) | the canonical model of `X₀(N)`: `σ(g(τ)) = g(τ')` when `σ ∈ Aut(ℂ)` carries `(E_τ, ⟨1/N⟩)` to `(E_τ', ⟨k/N⟩)`, for `g` regular on `ℍ`; no CM (replaces T-14 (from T-5)) | t5-glue (its branch head) | no | consequence of one theorem: Shimura 1971 §6.7; Deligne–Rapoport VI-VII; Diamond–Shurman §7.5-7.7 (t5-glue §0; numbers UNVERIFIED); the report's label: LEAF, a consequence of the print |
-| T-17 | `T5Glue.RingClassLattice` | `scratch/t5-glue/T5Glue.lean` L2303 @ t5-glue 405763f6 | GLUE (project glue) | the idelic and the congruence descriptions of `Pic O` agree: the lattice of an idele whose ring class is that of `J ∩ O` is a multiple of `J ∩ O` (replaces T-13 (from T-5)) | t5-glue (its branch head) | no | project glue: t5-glue's named glue (standard: Neukirch I §12 and VI §1, Cox §7 and §9; numbers UNVERIFIED); the absolute Artin map's surjectivity and `InvertibleColon` are proved (Tau Ceti) |
+| T-1 | `ZInQ.Contrib.TYZDecomp.TYZThm11Integral` | `Contrib/TYZDecomp/Leaves.lean` @ main | **LEAF** (specialization: odd `m` only) | TYZ Thm 1.1, first assertion, L371–380 (read by nt-tyz) | tyz-decomp; main (tyz-lcal audit 11-13: faithful, not stronger) | cloud round 2: in progress (T-1); new base case TYZLcalOne proved (claims.tsv) | published form: specialization of TYZ Thm 1.1 to odd `m` (tyz-lcal audit: faithful, not stronger) |
+| T-3 | `ZInQ.Contrib.TYZDecomp.TYZLemma29Mod2` | same | GLUE (mod-2 composite of Lemma 2.9 and Prop. 2.3) | TYZ Lemma 2.9, L1062–1066 (journal Lemma 2.9 per the AI locator audit); Prop. 2.3, L580–586 | tyz-decomp; main (tyz-lcal audit 11-13: faithful, not stronger) | cloud round 2: in progress (T-3) (claims.tsv) | composite: TYZ Lemma 2.9 with Prop. 2.3, read mod 2 (tyz-lcal audit) |
+| T-12 | `ZInQ.Contrib.TYZGenus.TYZSplit.TYZThm33` | `ZInQKernel/OneProof/TYZSplit.lean` L157 @ main | **LEAF** | TYZ Theorem 3.3 over the kernel's definitions, for `n ≡ 5, 7 (mod 8)`, `𝒫(d)` existential | tyz-split | no | published form: TYZ Thm 3.3, Period7.tex L1299-1311, specialized (tyz-split §1), carried along the kernel's eta model of `X₀(32)` by the q-expansion principle (`IsRatModFn 32`), which already sits behind `hS`; a clause-by-clause statement review found the leaf Thm 3.3 or weaker (tyz-split §1 and the docstring, wip/w61 3c241950); the `[i]` sign of the base point is printed (`α = −i` in the Hecke-action proof, about L1564-1566) |
+| T-15 | `T5Glue.ShimuraMainCM` | `ZInQKernel/Contrib/OneProof/RingClassLattice.lean` L911 @ main | **LEAF** | the main theorem of complex multiplication with torsion, idelic, in Weierstrass coordinates over Mathlib's `PeriodPair`, finite adeles and Tau Ceti's `ideleClassArtinMap` (replaces T-13 (from T-5)) | t5-glue; hypothesis `hCM` of the library theorem since leaf-fold17 (gt-ringclass) | no | published form: Shimura 1971 Thm 5.4; Lang, Elliptic functions, Ch. 10 Thm 3 (t5-glue §0; numbers UNVERIFIED); leaf-fold17's statement review: the docstring cites the Artin-map lemmas that fix the normalization (kinds.tsv: unread, a new printed leaf) |
+| T-16 | `T5Glue.X0ModuliGalois` | `ZInQKernel/Contrib/OneProof/RingClassLattice.lean` L673 @ main | GLUE in the strict count (consequence of one theorem; LEAF in the lenient count) | the canonical model of `X₀(N)`: `σ(g(τ)) = g(τ')` when `σ ∈ Aut(ℂ)` carries `(E_τ, ⟨1/N⟩)` to `(E_τ', ⟨k/N⟩)`, for `g` regular on `ℍ`; no CM (replaces T-14 (from T-5)) | t5-glue; hypothesis `hX` of the library theorem since leaf-fold17 (gt-ringclass) | cloud batch 3 (W18, on its leaf VeluCyclic): briefed 2026-11-15, not yet claimed on the issue (claims.tsv) | consequence of one theorem: Shimura 1971 §6.7; Deligne–Rapoport VI-VII; Diamond–Shurman §7.5-7.7 (t5-glue §0; numbers UNVERIFIED); the report's label: LEAF, a consequence of the print; leaf-fold17's statement review: a consequence, with the theorem numbers aligned to `IsRatModFn`'s (kinds.tsv: unread, numbers UNVERIFIED) |
 
 Retired rows: T-2 `TYZLcalOne` (proved, B2), T-4 `Lemma318Literal` (proved, B5), T-6 `Thm35First` (reduced to T-11,
 B4), T-7 `Lemma321Five` (proved, B3); r4: T-5 (split by tyz-split into `CMModuli` and `X0RatStructure`), T-11 (from
 the printed TYZ Thm 3.3 (`TYZThm33`, tyz-split)); r6: T-13 `CMModuli` and T-14 `X0RatStructure` (split by t5-glue,
-B7).
+B7); r8: T-17 `RingClassLattice` (proved by gt-ringclass, B8). Since r8 T-15 and T-16 are hypotheses of the library
+theorem, defined in gt-ringclass's verbatim copy of t5-glue's file.
 
 ## 4. H: `ZInQ.SixContactMin`
 
-Base (r6): leaf-fold11's compiled C4'''''' (b73da969, in w63, with leaf-fold12's `TailZ18`, `TailZ19`), inside
-OneProof, over leaf-fold10 (a5df68fe, w61), the prune (0218a662, w62), leaf-fold9 (cf6914e1, w60), leaf-fold8
-(b0f2f6da, w59) and leaf-fold7 (53acb891, w58). Bundles: `OpenResearchLeaves12` (32), `OpenTextbookLeaves10` (15),
-`OpenAddedLeaves11` (13) and leaf-fold7's `OpenGlue7` (1: `quotientP1Coordinate`). leaf-fold11 has no field table; its
-report counts by leaf-fold10's table less the removed fields, with route A's four restated fields keeping their kinds
-and the new fields published, which this report records in `scratch/frontier/fields11.tsv`: 50 published form, 5
-consequences, 5 composites, 1 project glue. With the integrator's convention this report counts the four SGA 7 IX DVR
-fields, `blr_1_2_4` and `sga7_IX_3_3` as consequences and `gonzalezRotgerCountX6Ab` as a composite; scenario F
-replaces the four DVR fields (§4.1). `chain.py` reads the bundles from `ZInQKernel/OneProof/H/TailZ19.lean`,
-`TailZ11.lean`, `TailZ18.lean` and `TailX.lean` at main. Row numbers are kept, retired rows listed, new rows from
-H-168 (§4.10, §4.11).
+Base (r8): leaf-fold19's compiled C4'''''''' (c2ad4181, on main since 11-15), inside OneProof: leaf-fold14 (97579a97)
+with reduct-b's Route B-cp and t09-pic, sem-prune (2b486d04), leaf-fold15 (63205204, gt-ega's fold), leaf-fold16
+(a454ad64), leaf-fold17 (be8511f3), leaf-fold18 (3782dac8) and leaf-fold19, over leaf-fold13 (29885092, w66),
+leaf-fold11 (w63), leaf-fold10 (w61), the prune (w62), leaf-fold9 (w60), leaf-fold8 (w59) and leaf-fold7 (w58).
+Bundles: `OpenResearchLeaves19` (30), `OpenTextbookLeaves11` (13), `OpenAddedLeaves16` (14) and leaf-fold7's
+`OpenGlue7` (1: `quotientP1Coordinate`). The fields' forms are the integrator's `kinds.tsv` (with the crowd kit,
+1c791eb1): 46 published, 7 consequences, 4 composites, 1 project glue by kind; its strict convention counts two
+published kinds as GLUE, and this report records them as composites: `deligneComponentsY3PrintedAb` and
+`weilPairingMumford` (the strictest reading). Its seven rows with bundle `frozenTarget` give the forms of the top
+(§2.2, §3.2). `chain.py` reads the bundles from `ZInQKernel/OneProof/H/TailZ29.lean`, `TailZ32.lean`, `TailZ31.lean`
+and `TailX.lean` at main. Row numbers are kept, retired rows listed, new rows from H-203 (§4.14).
 
-### 4.1 What changed since r5 (signatures VERIFIED by `chain.py`)
+### 4.1 What changed since r7 (signatures VERIFIED by `chain.py`)
 
-Compiled into C4'''''' (scenario A): by leaf-fold10, `dimJacobianEqGenus` proved (dimjac-glue; r5's split of it,
-H-156, is off the route), `y3Connected` from shimura-glue's printed Deligne leaf (r5's H-155 replaced), and `r6`,
-`semistableReductionThm`, `semistablePersists` from reduct-split's leaves over a discrete valuation ring, now fields,
-with reduct-split's glue proved by reduct-glue: `FixedTorsionRationalImperfect` (H-161) from the field
-`mulEtaleAbelianScheme`, `SemistableAlmostAll` (H-164) from `AbVarSpreadsOut` and Zariski's connectedness theorem,
-`SemistableLocalGlobal` (H-163) and `SemistableNeronBaseChangeLocalGlobal` (H-166) from reduct-glue's local leaves; by
-the prune, `r3`, `serreTateThm2` and `t10` removed; by leaf-fold11 and leaf-fold12, `genusX1Field` removed (H-79;
-genus-fold), `r1r2`, `shimuraFamily`, `gonzalezRotgerCountX6` and the printed Deligne leaf restated on abelian schemes
-with the field `mumfordRigidityCore` (route-a-fold; H-145 replaced), `igusaCMValue24` proved (H-144; cm24-value), and
-`neronLocalizesDVR`, `faltingsLemma5BC`, `semistableNeronBaseChange` proved from six printed fields (c-to-printed),
-which takes H-165 and H-167 off the route. r5's changes are in the r5 report (`git show
-085a7a53:docs/research/frontier.md`, §4.1).
+Compiled into C4'''''''' (scenario A), fold by fold. leaf-fold14: reduct-b's Route B-cp replaces the DVR fields
+`semistableReductionDVR`, `raynaudSemistable`, `semistablePersistsDVR` by `raynaudSemistableSH` (H-182), the
+restricted `semistablePersistsSHcp` (H-203) and `strictHenselizationPair` (H-187); t09-pic's four leaves replace
+`t09SymmIsogenyExists` (H-199 to H-202); unipotent-b is not taken. sem-prune: `bdRInvariants` and `raynaudKernelBound`
+go (H-124, H-173). leaf-fold15: `egaIV_8_10_5_openImm` (gt-ega) proved (H-176). leaf-fold16: `blr_1_2_4` (gt-blr),
+`shimizuCovolumeO1` (gt-gamma), `igusaPsi4` and `igusaChi10` (gt-theta) proved (H-171, H-136, H-131, H-132).
+leaf-fold17: gt-ringclass's B8 (T-17 proved; the top takes T-15 and T-16), and gt-grcount's `GonzalezRotgerProp56X6`
+(H-204) in place of `gonzalezRotgerCountX6Ab` (H-168). leaf-fold18: gt-shpair's `NeronBaseChangeStrictHenselization`
+(H-205) in place of `strictHenselizationPair`, gt-elkies's `ElkiesX6StarPrinted` (H-206) in place of
+`elkiesEquationsX6Ab` (H-195), and `qmCentralizerCMC` (gt-qm) and `valenceFormulaCocompactEq` (gt-valence) proved
+(H-129, H-135). leaf-fold19: `mulEtaleAbelianScheme` proved over every commutative base (fork PR #19; H-101). r7's
+changes are in the r7 report (`git show 3691994d:docs/research/frontier.md`, §4.1).
 
 Applied on top by scenario F:
 
-| field of C4'''''' (rows) | now | theorems · task · file |
+| field of C4'''''''' (rows) | now | theorems · task · file |
 |---|---|---|
-| `r1r2Ab` (H-1; r5: H-149, H-151, H-152) | ⇐ `R1R2fpRep` with route A's transfer and the field `MumfordRigidityCore`; `R1R2fpRep` ⇐ `DeligneComponentsX6Printed`, `GeomConnOfAlgClosure`, T5, `BabaGranathRational`, `RayClassCM` and `GonzalezRotgerX6` (H-177, H-150, H-178, H-179, H-142): shimura-split's proof over shimura-glue's printed forms | `LeafQM.AV.R1UnivRigid.r1R2fpRep_iff_ab` (route-a-fold, `TailZ17`) and `LeafQM.AV.R1UnivRigid.mumfordRigidity_of_core` (`TailZ16`); `HDec.QMSplit.Moduli.r1r2_of_published` · x6-glue · `scratch/x6-glue/X6Glue.lean` @ 685a56e1 |
-| `x6ConicModel` (H-43; r5: H-153) | ⇐ the same six leaves and `ElkiesEquationsX6` (H-180), Elkies' equations as a statement about the scheme; the points form is proved from the charts | `HDec.QMSplit.Moduli.x6ConicModel_of_published` · x6-glue · `scratch/x6-glue/X6Glue.lean` @ 685a56e1 |
-| `shimuraFamilyAb` (H-139) | ⇐ `ShimuraFamily` with route A's transfer and `MumfordRigidityCore`; `ShimuraFamily` ⇐ `ShimuraHolFamily` (H-154) with the GAGA-level step (as in r5) | `LeafQM.AV.R1UnivRigid.shimuraFamily_iff_ab` (route-a-fold); `HDec.QMSplit.Moduli.shimuraFamily_of_hol` · shimura-split · `scratch/shimura-split/ShimuraFam.lean` |
-| `r17` (H-21) | ⇐ `CarayolRealization` (H-157); the transport to every attached representation is proved (as in r5; c-to-printed2 proves the two equivalent over the bundle) | `ModularSplit.R17.carayolR17'_of_realization` · modular-split · `scratch/modular-split/R17.lean` |
-| `eigenformHTNew` (H-127; r5: H-158, H-159) | ⇐ `KatoRealizationCohSS` (H-181) and the fields `TateTwistInvariants`, `AxSenTate`; c-to-printed2 proves r5's glue `HTDual` and the semisimplicity of the contragredient | `CToPrinted2.eigenformHTNew_of_printedSS` · c-to-printed2 · `scratch/c-to-printed2/CToPrinted2.lean` @ dbeaecf7 |
-| `raynaudSemistable`, `semistableUnipotent` (r5: H-160, H-147; fields since leaf-fold10) | ⇐ `RaynaudSemistableSH`, `StrictHenselizationNeron` and the field `MulEtaleAbelianScheme` (H-182, H-186, H-101); `SemistableUnipotentSH` with `UnipotentFromSH`, which reduct-glue proves from `StrictHenselizationInside` (H-184, H-188) | `ReductGlue.raynaudSemistable_of_SH'`; modus ponens on `UnipotentFromSH`, with `ReductGlue.unipotentFromSH_of` · reduct-glue · `ZInQKernel/OneProof/H/TailZ14.lean` (its `Body.lean`) |
-| `semistableReductionDVR`, `semistablePersistsDVR` (r5: H-146, H-162; fields since leaf-fold10) | ⇐ `SemistableReductionSH` with the named glue `ReductionFromSH` (H-183, H-189); `SemistablePersistsSH` with `PersistsFromSH`, which reduct-glue proves from `StrictHenselizationPair` (H-185, H-187) | modus ponens on `ReductionFromSH` and `PersistsFromSH`, with `ReductGlue.persistsFromSH_of` · reduct-glue · `ZInQKernel/OneProof/H/TailZ14.lean` (its `Body.lean`) |
-| `thetaRatiosAlgebraic` (H-44; r5: H-133, H-134) | replaced at its consumer (theta-split, route 1): TailA's `ThetaPointOfFibre` from `FibreQMPeriod`, `ThetaEightSquare` and `QMThetaSymmetricCurve`, in place of `HDec.HSyn.G0Split.ThetaPt.thetaPointOfFibre_of_qm_ratios`; theta-glue proves `ThetaEightSquare` and reduces `QMThetaSymmetricCurve` to `LinYangThetaCurve` and `IgusaAlg` (H-190, H-191), proving `IgusaAlg 3` and `IgusaAlg 4` | `HDec.HSyn.G0Split.ThetaPt.ThetaSplit.thetaPointOfFibre_of_qm_curve` · theta-split · `scratch/theta-split/ThetaUse.lean`; `HDec.HSyn.G0Split.ThetaPt.ThetaGlue.thetaEightSquare`, `HDec.HSyn.G0Split.ThetaPt.ThetaGlue.qmThetaSymmetricCurve_of_alg59` · theta-glue (running) · `scratch/theta-glue/ThetaGlue.lean` @ 336ec1fd |
+| `shimuraFamilyAb` (H-139) | ⇐ `ShimuraFamily` with route A's transfer and `MumfordRigidityCore`; `ShimuraFamily` ⇐ `ShimuraHolFamily` (H-154) with the GAGA-level step (as in r6 and r7; shimura-cft's stronger leaf is not taken) | `LeafQM.AV.R1UnivRigid.shimuraFamily_iff_ab` (route-a-fold); `LeafQM.AV.R1UnivRigid.mumfordRigidity_of_core`; `HDec.QMSplit.Moduli.shimuraFamily_of_hol` · shimura-split · `scratch/shimura-split/ShimuraFam.lean` |
+| `r17` (H-21) | ⇐ `CarayolRealization` (H-157); the transport to every attached representation is proved (as in r6 and r7) | `ModularSplit.R17.carayolR17'_of_realization` · modular-split · `scratch/modular-split/R17.lean` |
+| `eigenformHTNew` (H-127) | ⇐ `KatoRealizationCohSS` (H-181) and the fields `TateTwistInvariants`, `AxSenTate` (as in r6 and r7) | `CToPrinted2.eigenformHTNew_of_printedSS` · c-to-printed2 · `scratch/c-to-printed2/CToPrinted2.lean` |
+| `semistableUnipotent` (r6: H-184) | ⇐ SGA 7 IX 3.5 as printed (`SemistableUnipotentPrintedGen`, H-197), the glue `SemiAbelianDescendsSepClosed` (H-198; proved for perfect residue fields), `StrictHenselizationInside` (H-188) and `MulEtaleAbelianScheme`, proved since leaf-fold19 (as in r7, which had it as a field) | `UnipotentB.semistableUnipotent_of_printedGen` · unipotent-b · `scratch/unipotent-b/UnipotentB.lean`; `ZInQ.Contrib.OneProof.MulEtale.mulEtaleAbelianScheme_proof` · fork PR #19 · `ZInQKernel/Contrib/OneProof/MulEtale.lean` |
+| `thetaRatiosAlgebraic` (H-44; r6: H-191) | replaced at its consumer (theta-split, route 1): TailA's `ThetaPointOfFibre` from `FibreQMPeriod`, `ThetaEightSquare` and `QMThetaSymmetricCurve`, in place of `HDec.HSyn.G0Split.ThetaPt.thetaPointOfFibre_of_qm_ratios`; theta-glue proves `ThetaEightSquare`, and igusa-alg proves `IgusaAlg 5` to `9`, so `QMThetaSymmetricCurve` follows from `LinYangThetaCurve` alone (H-190) | `HDec.HSyn.G0Split.ThetaPt.ThetaSplit.thetaPointOfFibre_of_qm_curve` · theta-split · `scratch/theta-split/ThetaUse.lean`; `HDec.HSyn.G0Split.ThetaPt.ThetaGlue.thetaEightSquare` · theta-glue · `scratch/theta-glue/ThetaGlue.lean`; `HDec.HSyn.G0Split.ThetaPt.IgusaAlgFinal.qmThetaSymmetricCurve_of_linYang` · igusa-alg · `scratch/igusa-alg/IgusaAlg.lean` |
 | `quotientP1Coordinate` (the glue field; H-84's successor) | ⇐ mcr-glue's six leaves (H-89..H-94; `TameQuotientSmooth` is L3), T5, and three glue Props: mcr-quot's `P1SchemeQ` and `CMStabObj`, and the decomposition's `CoverModelOfHeckeN` | `HDec.MCRGlue.quotientP1Coordinate_of_leaves` (compiled in `ZInQKernel/OneProof/H/TailW.lean`) with mcr-glue's `coordinateNormalization_of` · mcr-glue · `scratch/mcr-glue/MCRGlue.lean`; `fibreAutTame_of''`, `genericQuotientP1_of''`, `cMSectionsDisjoint_of''`, `coordinateFromSections_of''` and their inputs (namespace `MCRQuot`) · mcr-quot · `scratch/mcr-quot/MCRQuot.lean` |
 
-On the TYZ side F uses B6 and, under it, t5-glue's B7 (§3.1). The leaves on a witness of the moduli clause (H-142,
-H-154 and x6-glue's printed forms) carry `R1fpProps`; route A's transfers make each equivalent to the same leaf on
-abelian schemes once the field `mumfordRigidityCore` (H-170) is given, so r5's open check on them rests on that one
-field. leaf-fold13, which folds x6-glue, is to use the abelian-scheme forms of r1univ-rigid's `R1UnivLeaves.lean`.
+On the TYZ side both scenarios use B8 (§3.1): the CM hypothesis rests on T-15 and T-16, and tyz-split's B6 and
+t5-glue's B7 are off the route. The leaves on a witness of the moduli clause that carry `R1fpProps` are still only
+H-154; route A's transfer makes that leaf equivalent to the same leaf on abelian schemes once the field
+`mumfordRigidityCore` (H-170) is given.
 
 mcr-quot proves the four glue Props under the coordinate (`FibreAutTame`, `GenericQuotientP1`, `CMSectionsDisjoint`,
-`CoordinateFromSections`) from T5, L3, `CurveBijIso` and three glue Props: `P1SchemeQ` and `CMStabObj`, which are
-new, and `CoverModelOfHeckeN`, the decomposition's own glue. The chain derives `CoverModelOfHeckeN` only through
+`CoordinateFromSections`) from T5, L3, `CurveBijIso` and three glue Props: `P1SchemeQ` and `CMStabObj`, which are new,
+and `CoverModelOfHeckeN`, the decomposition's own glue. The chain derives `CoverModelOfHeckeN` only through
 `HeckeNoVertRam`, downstream of the coordinate that mcr-quot feeds, so here it is counted as open glue: the coordinate
-still rests on project glue, and mcr-quot does not discharge it.
+still rests on project glue, and mcr-quot does not discharge it. gap-triage (w66) finds it unnecessary: mcr-quot's
+`ModelYIrreducible` is the chain's `HeckeIrreducible`, which the chain proves from the field
+`deligneComponentsY3PrintedAb`, and mcr-quot's composite compiles with it in place of `CoverModelOfHeckeN`
+(`scratch/gap-triage/GlueProbe.lean`, `MCRQuotNV.lean`); the probe takes leaf-fold9's whole bundle, so scenario F does
+not apply it yet (H-95).
 
-Off the route since r6 (the edges stay in `chain.py`): `HDec.QMSplit.Moduli.y3Connected_of_deligne` (shimura-split)
-and `ModularSplit.DimJac.dimJacobianEqGenus_of_glue` (modular-split), whose fields leaf-fold10 compiles;
-reduct-split's `ReductSplit.raynaudCriterion_final'`, `ReductSplit.semistableReductionThm_final`,
-`ReductSplit.semistablePersists_final`, `ReductSplit.semistableNeronBaseChange_of_leaves` and
-`ReductSplit.faltingsLemma5BC_final`, whose conclusions are no longer fields; shimura-split's
-`HDec.QMSplit.Moduli.r1r2fpRep_of_printed_t5` and `HDec.QMSplit.Moduli.x6ConicModel_of_elkies_t5` with shimura-glue's
-edges, which x6-glue's theorems replace; modular-split's `ModularSplit.EigenHT.eigenformHTNew_of_coh`; qm-split's
+Off the route since r8 (the edges stay in `chain.py`): reduct-b's `ReductB.raynaudSemistable_of_SH_pair`,
+`ReductB.semistablePersistsDVR_of_SH_pair` and `ReductB.semistableReductionDVR_of_raynaud`, whose fields leaf-fold14
+replaces by their strictly henselian forms; t09-pic's `T09Pic.t09SymmIsogenyExists_of_four`, which leaf-fold14
+compiles; tyz-split's `ZInQ.Contrib.TYZGenus.TYZSplitT5.shimuraReciprocityModFn_of_split` (B6) with t5-glue's
+`T5Glue.cmModuli_of_t5'` and `T5Glue.x0RatStructure_of_leaf` (B7), which B8 replaces; since r7: x6-glue's
+`HDec.QMSplit.Moduli.r1r2_of_published` and `HDec.QMSplit.Moduli.x6ConicModel_of_published` with route A's
+`LeafQM.AV.R1UnivRigid.r1R2fpRep_iff_ab`, whose conclusions x6-fold proves in C4'''''''; reduct-glue's
+`ReductGlue.raynaudSemistable_of_SH'` and the modus-ponens steps through `ReductionFromSH`, `PersistsFromSH` and
+`UnipotentFromSH`, which reduct-b's and unipotent-b's theorems replace; theta-glue's
+`HDec.HSyn.G0Split.ThetaPt.ThetaGlue.qmThetaSymmetricCurve_of_alg59`, which igusa-alg's theorem replaces; since r6:
+`HDec.QMSplit.Moduli.y3Connected_of_deligne` (shimura-split) and `ModularSplit.DimJac.dimJacobianEqGenus_of_glue`
+(modular-split), whose fields leaf-fold10 compiles; reduct-split's `ReductSplit.raynaudCriterion_final'`,
+`ReductSplit.semistableReductionThm_final`, `ReductSplit.semistablePersists_final`,
+`ReductSplit.semistableNeronBaseChange_of_leaves` and `ReductSplit.faltingsLemma5BC_final`, whose conclusions are no
+longer fields; shimura-split's `HDec.QMSplit.Moduli.r1r2fpRep_of_printed_t5` and
+`HDec.QMSplit.Moduli.x6ConicModel_of_elkies_t5` with shimura-glue's edges, which x6-glue's theorems replace;
+modular-split's `ModularSplit.EigenHT.eigenformHTNew_of_coh`; qm-split's
 `HDec.HSyn.G0Split.ThetaPt.QMSplitTheta.thetaRatiosAlgebraic_of`, whose field theta-split bypasses; cm24-value's
 `CM24.igusaCMValue24_field`, now inside C4''''''; since r5: coarse-factor's `r1r2fpRep_of_canonical''`, which
 shimura-split's theorem extends; qm-glue's and coarse-factor's `x6ConicModel` theorems with `ConicCanonical`, which is
@@ -303,22 +331,32 @@ H-10, H-14..H-20, H-22, H-24, H-25, H-32, H-33, H-35, H-36, H-38, H-41..H-44, H-
 H-64, H-66, H-67, H-69, H-73..H-76, H-80..H-88, T-5, T-11; r5: H-4, H-12, H-21, H-59, H-78, H-106, H-107, H-108,
 H-111, H-114, H-115, H-116, H-127, H-137, H-138, H-139, H-140, H-141, H-143; r6: H-79, H-133, H-134, H-144, H-145,
 H-146, H-147, H-149, H-151, H-152, H-153, H-155, H-156, H-158, H-159, H-160, H-161, H-162, H-163, H-164, H-165, H-166,
-H-167, T-13, T-14. Not applied: the variants each report keeps aside (r6: c-to-printed's `shimuraFamily_of_mainThmI`,
-whose leaf `ShimuraMainThmIY3` implies H-154 and is still a consequence; c-to-printed2's
-`eigenformHTNew_of_realization` with the leaf `KatoRealization`; theta-split's route 2, `thetaRatiosAtQM_of_cm`
-through Shimura's theorem on theta-nulls at CM points; reduct-glue's `strictHenselizationNeron_of` from the pair
-`StrictHenselizationDVR`, `NeronBaseChangeUnramifiedDVR`, whose second member may exceed the print; reduct-glue's
-`SerreTateFromComplete`, whose field `serreTateThm2` the prune removed; r4: height-split's `r20_of_leaves` with
-`IsogenySemistableBaseChange`; curve-split's `x0Transitive_of_igusaSL2X`; qm-split's `qmHauptmodulBase3_of_shimizu`
-and `y3Connected_of`; hodge-split's `panBerger_of_templates`; r5: shimura-split's `r1r2fpRep_of_split6`, which keeps
-`r1rec` and `r5` as inputs; modular-split's weaker `KatoRealization` leaf; reduct-split's `raynaudCriterion_final`,
-which `raynaudCriterion_final'` supersedes by proving the perfect case of its glue).
+H-167, T-13, T-14; r7: H-53, H-142, H-177, H-178, H-179, H-180, H-183, H-184, H-186, H-189, H-191; r8: H-101, H-124,
+H-129, H-131, H-132, H-135, H-136, H-168, H-171, H-173, H-176, H-185, H-187, H-195, T-17. Not applied: the variants
+each report keeps aside (r8: the reports of the branches after main (§0); gt-qm's reroute of `yuThm11`'s four live
+uses (H-128); unipotent-b's split, which leaf-fold14 leaves out (§6.2); r7: sh-route's
+`strictHenselizationNeron0_final`, `strictHenselizationPair0_final`, `strictHenselizationInside0_final` and
+`route_final` from `NeronBaseChangeSH`, whose statements add `[CharZero K]` and a perfect residue field; reduct-b's
+Route B-cp, `ss1_ss3_of_cp`, over the restricted leaf `SemistablePersistsSHcp`, which leaf-fold14 compiles;
+unipotent-b's `semistableUnipotent0_of_printed`, which concludes the field with two instances added; t09-pic's split
+of `WeilPairingMumford` into one printed property per leaf (L4a-L4f, `t09SymmIsogenyExists_of_split`) and its weaker
+variants; shimura-cft's `shimuraFamilyAb_of_mainThmI`, whose leaf implies H-154; gap-triage's
+`modelYIrreducible_of_open9`, over leaf-fold9's bundle; r6: c-to-printed's `shimuraFamily_of_mainThmI`, whose leaf
+`ShimuraMainThmIY3` implies H-154 and is still a consequence; c-to-printed2's `eigenformHTNew_of_realization` with the
+leaf `KatoRealization`; theta-split's route 2, `thetaRatiosAtQM_of_cm` through Shimura's theorem on theta-nulls at CM
+points; reduct-glue's `strictHenselizationNeron_of` from the pair `StrictHenselizationDVR`,
+`NeronBaseChangeUnramifiedDVR`, whose second member may exceed the print; reduct-glue's `SerreTateFromComplete`, whose
+field `serreTateThm2` the prune removed; r4: height-split's `r20_of_leaves` with `IsogenySemistableBaseChange`;
+curve-split's `x0Transitive_of_igusaSL2X`; qm-split's `qmHauptmodulBase3_of_shimizu` and `y3Connected_of`;
+hodge-split's `panBerger_of_templates`; r5: shimura-split's `r1r2fpRep_of_split6`, which keeps `r1rec` and `r5` as
+inputs; modular-split's weaker `KatoRealization` leaf; reduct-split's `raynaudCriterion_final`, which
+`raynaudCriterion_final'` supersedes by proving the perfect case of its glue).
 
 ### 4.2 Research-level fields of r3 still open (5: 3 LEAF, 2 GLUE strict; 3 LEAF, 2 GLUE lenient)
 
 | # | field : Lean name | leaf | class | citation | flags | last task | form (strict LEAF = published form) |
 |---|---|---|---|---|---|---|---|
-| H-5 | `r7a : PkgI2.NeronOggShafarevich` | R7(a) | **LEAF** | Serre–Tate, Ann. of Math. 88 (1968), Thm 1 | UNVERIFIED | pkg-I2 | published form: Serre–Tate 1968 Thm 1 (leaf-review-b §2.2) |
+| H-5 | `r7a : PkgI2.NeronOggShafarevich` | R7(a) | **LEAF** | Serre–Tate, Ann. of Math. 88 (1968), Thm 1 | UNVERIFIED | pkg-I2; cloud round 2: in progress (H-5, Néron–Ogg–Shafarevich) (claims.tsv) | published form: Serre–Tate 1968 Thm 1 (leaf-review-b §2.2) |
 | H-6 | `r9a : PkgI3.FaltingsSemisimple` | R9(a) | **LEAF** | Faltings, Invent. Math. 73 (1983), Satz 3 (erratum 75 (1984)) | UNVERIFIED | pkg-I3 | published form: Faltings 1983 (leaf-review-b §2.3) |
 | H-7 | `r9b : PkgI3.FaltingsTate` | R9(b) | **LEAF** | Faltings 1983, Satz 4, Kor. 1 | UNVERIFIED | pkg-I3 | published form: Faltings 1983 (leaf-review-b §2.3) |
 | H-9 | `r11r12 : PkgI4.PanBerger` | R11 + R12 | GLUE (joint consequence of two theorems) | Berger, Invent. Math. 148 (2002), Thm 0.7; Pan, JAMS 35 (2022), Thm 1.0.4 | JAMS numbering UNVERIFIED | pkg-I4 | composite: Pan and Berger (leaf-review-b §2.4) |
@@ -331,172 +369,217 @@ None left: each is proved or split (§4.1).
 T6, T7, T8, T9, T11(b), T3, T41, T34 and T38 are proved or reduced (r2); their replacements are rows of §4.5.
 T4, T5, T23, T24, T27, T33, T35, T40 and the normal model of a function field are proved or split in r4 (§4.1).
 
-### 4.4 Fields that were glue in C4, still open (in C4'''''' they are `OpenAddedLeaves11` fields) (1: 0 LEAF, 1 GLUE strict; 1 LEAF, 0 GLUE lenient)
+### 4.4 Fields that were glue in C4, still open (in C4'''''''' they are `OpenAddedLeaves16` fields) (0: 0 LEAF, 0 GLUE strict; 0 LEAF, 0 GLUE lenient)
 
 | # | field : Lean name | def part | content; nearest published sources (UNVERIFIED) | report's label | last task; running | form (strict LEAF = published form) |
 |---|---|---|---|---|---|---|
-| H-53 | `t09SymmIsogenyExists : WeilPairing.T09_SymmIsogenyExists` | a35 | symmetric isogeny to a dual; "existential in D, hence a consequence" (Mumford §§6, 8, 20, 23) | LEAF | weil-pairing; in flight: t09-pic (`t09SymmIsogenyExists`) | consequence of one theorem: Mumford §§6, 8, 20, 23 (leaf-review-b §2.1) |
 
 ### 4.5 Props introduced by reductions until r3, still open (5: 5 LEAF, 0 GLUE strict; 5 LEAF, 0 GLUE lenient)
 
 | # | Lean name | def file @ commit | from field | class; content; sources (UNVERIFIED) | last task; running | form (strict LEAF = published form) |
 |---|---|---|---|---|---|---|
-| H-65 | `ZInQ.Contrib.SpreadOut.EGAIV_8_10_5_xii` | `ZInQKernel/Contrib/SpreadOut/Spread.lean` L49 @ main | 44-46 | **LEAF** (descent of properness; EGA IV₃ 8.10.5(xii), Stacks 081F) | spread-out | published form: EGA IV₃ 8.10.5(xii) (spread-out) |
-| H-70 | `ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed` | `Contrib/AVB1/AlgClosed.lean` L38 @ main | t6 (H-26) | **LEAF** (T6 over algebraically closed fields only: Mumford, *Abelian varieties* §19 Thm 3 in Mumford's own setting; Milne 1986 Thm 12.5) | av-b1 | published form: Mumford §19 Thm 3 in its own setting (av-b1 §3.1) |
-| H-71 | `ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed` | same, L51 | t7 (H-27) | **LEAF** (specialization: T7 over algebraically closed fields, without `deg P = 2g` and `P(n) = deg(n − φ)`; Mumford §19 Thm 4) | av-b1 | published form: specialization of Mumford §19 Thm 4 (av-b1 §3.2) |
-| H-72 | `ZInQ.Contrib.AVB1.PoincareComplement` | `Contrib/AVB1/Poincare.lean` L42 @ main | t8 (H-28) | **LEAF** (Poincaré's complete reducibility in its complement form, weakened; Milne 1986 Prop. 12.1; Mumford §19 Thm 1) | av-b1 | published form: Milne 1986 Prop. 12.1, weakened (av-b1 §3.3) |
-| H-77 | `ZInQ.Contrib.NeronC.NeronSchemeExtensionExists` | `Contrib/NeronC/NeronGroup.lean` L82 @ main | t41 (H-39) | **LEAF** (a smooth separated quasi-compact model with the extension property and no group law: weaker than BLR §1.4 Thm 3; the group law, `gen` a homomorphism and uniqueness are proved) | neron-c | published form: BLR §1.4 Thm 3 without the group law (neron-c §1) |
+| H-65 | `ZInQ.Contrib.SpreadOut.EGAIV_8_10_5_xii` | `ZInQKernel/Contrib/SpreadOut/Spread.lean` L49 @ main | 44-46 | **LEAF** (descent of properness; EGA IV₃ 8.10.5(xii), Stacks 081F) | spread-out; cloud round 2: in progress: repairing round 1's vendored port (H-65) (claims.tsv) | published form: EGA IV₃ 8.10.5(xii) (spread-out) |
+| H-70 | `ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed` | `Contrib/AVB1/AlgClosed.lean` L38 @ main | t6 (H-26) | **LEAF** (T6 over algebraically closed fields only: Mumford, *Abelian varieties* §19 Thm 3 in Mumford's own setting; Milne 1986 Thm 12.5) | av-b1; cloud round 2: in progress (H-70) (claims.tsv) | published form: Mumford §19 Thm 3 in its own setting (av-b1 §3.1) |
+| H-71 | `ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed` | same, L51 | t7 (H-27) | **LEAF** (specialization: T7 over algebraically closed fields, without `deg P = 2g` and `P(n) = deg(n − φ)`; Mumford §19 Thm 4) | av-b1; cloud round 2: in progress (H-71); supplier PR Deicyde/diophantine-z-q#13 held until it lands (claims.tsv) | published form: specialization of Mumford §19 Thm 4 (av-b1 §3.2) |
+| H-72 | `ZInQ.Contrib.AVB1.PoincareComplement` | `Contrib/AVB1/Poincare.lean` L42 @ main | t8 (H-28) | **LEAF** (Poincaré's complete reducibility in its complement form, weakened; Milne 1986 Prop. 12.1; Mumford §19 Thm 1) | av-b1; cloud round 2: in progress (H-72) (claims.tsv) | published form: Milne 1986 Prop. 12.1, weakened (av-b1 §3.3) |
+| H-77 | `ZInQ.Contrib.NeronC.NeronSchemeExtensionExists` | `Contrib/NeronC/NeronGroup.lean` L82 @ main | t41 (H-39) | **LEAF** (a smooth separated quasi-compact model with the extension property and no group law: weaker than BLR §1.4 Thm 3; the group law, `gen` a homomorphism and uniqueness are proved) | neron-c; cloud round 2: in progress (H-77) (claims.tsv) | published form: BLR §1.4 Thm 3 without the group law (neron-c §1) |
 
-Proved and gone from the tables: r6, `IgusaCMValue24` (cm24-value), `HTDual` (c-to-printed2),
-`FixedTorsionRationalImperfect`, `SemistableAlmostAll`, `SemistableLocalGlobal` and
-`SemistableNeronBaseChangeLocalGlobal` (reduct-glue, the last two through c-to-printed's printed fields); r5,
-`DeligneSerreConseq` (modular-split); r4, `EigenformTwist`, the two EGA IV descents, `ZariskiConnectedness`,
-`T11bExists`, `NeronMappingAbelianSchemeSurj` (PRs #6-#10), `JacobianExists ℚ`, `NormalModelOfFunctionFieldQ`
-(cloud-w07), `QMClassNumberOne` (qm-split), `CurveBijIso` (curve-split); r3, `GammaStarGen`; r2, `SerreRigidity3`,
-`T09_WeilPairing` (av-b2), and in the chain below `HeckeVertWitness`: `SmoothFibreReduced` (smooth-fibre),
-`SpecialFibreMaxIdeal`, `SpecialFibreUniformizer`, `SpecialFibreDVR` (vert-witness), `ModelGenericFibre`,
-`GermOfQbarValues`, `ModelIntegral`, `ModelFunctionField` (model-glue). Props that r4's own tasks introduced and
-proved were never rows: height-split's glue (`AnalyticUniformizationExists`, `AnalyticUniformizationUnique`,
-`UniformizationDim`, `MetrizationOfUniformization`, `NeronMetrizable`, proved from T35 by height-glue), qm-split's
-`GammaStarFromO1` (qm-glue), qm-glue's `CoarseFactor` (coarse-factor), mcr-glue's four glue Props (mcr-quot, from
-three others). Proved before 17:35: see the 17:35 report (`git show d8c95123:docs/research/frontier.md`). Props that
-r5's tasks introduced and proved were never rows: reduct-split's `TorsionFieldOfDefinition`, `DVRFiniteExtension`,
-`DVRComapFinite` and `IsogenyBaseChangeDeg`; shimura-split's `PairsLift` (from T5). Props that r6's tasks introduced
-and proved or reduced were never rows: shimura-glue's `MobiusCompose` (proved); reduct-glue's `UnipotentFromSH` and
-`PersistsFromSH` (from the strict-henselization leaves); x6-glue's `ConicModelT` (from its charts); t5-glue's
-`AbsArtinSurjectiveQNeg` and `InvertibleColon` (proved over Tau Ceti); theta-glue's `ThetaEightSquare`,
-`IgusaThetaSymmetric` (from `IgusaAlg`) and `IgusaAlg 3`, `IgusaAlg 4` (proved); genus-route's `DimJ1Le5` (proved);
-route A's `MumfordRigidity` (from `mumfordRigidityCore`).
+Proved and gone from the tables: r8, `RingClassLattice` (gt-ringclass), `MulEtaleAbelianScheme` (fork PR #19),
+`QMCentralizerCMC` (gt-qm), `ValenceFormulaCocompactEq` (gt-valence), `IgusaPsi4`, `IgusaChi10` (gt-theta),
+`ShimizuCovolumeO1` (gt-gamma), `BLR_1_2_4` (gt-blr), `EGAIV_8_10_5_openImm` (gt-ega), and from new leaves
+`GonzalezRotgerCountX6Ab`, `StrictHenselizationPair` and `ElkiesEquationsX6Ab`; r7, `IgusaAlg` (igusa-alg); r6,
+`IgusaCMValue24` (cm24-value), `HTDual` (c-to-printed2), `FixedTorsionRationalImperfect`, `SemistableAlmostAll`,
+`SemistableLocalGlobal` and `SemistableNeronBaseChangeLocalGlobal` (reduct-glue, the last two through c-to-printed's
+printed fields); r5, `DeligneSerreConseq` (modular-split); r4, `EigenformTwist`, the two EGA IV descents,
+`ZariskiConnectedness`, `T11bExists`, `NeronMappingAbelianSchemeSurj` (PRs #6-#10), `JacobianExists ℚ`,
+`NormalModelOfFunctionFieldQ` (cloud-w07), `QMClassNumberOne` (qm-split), `CurveBijIso` (curve-split); r3,
+`GammaStarGen`; r2, `SerreRigidity3`, `T09_WeilPairing` (av-b2), and in the chain below `HeckeVertWitness`:
+`SmoothFibreReduced` (smooth-fibre), `SpecialFibreMaxIdeal`, `SpecialFibreUniformizer`, `SpecialFibreDVR`
+(vert-witness), `ModelGenericFibre`, `GermOfQbarValues`, `ModelIntegral`, `ModelFunctionField` (model-glue). Props
+that r4's own tasks introduced and proved were never rows: height-split's glue (`AnalyticUniformizationExists`,
+`AnalyticUniformizationUnique`, `UniformizationDim`, `MetrizationOfUniformization`, `NeronMetrizable`, proved from T35
+by height-glue), qm-split's `GammaStarFromO1` (qm-glue), qm-glue's `CoarseFactor` (coarse-factor), mcr-glue's four
+glue Props (mcr-quot, from three others). Proved before 17:35: see the 17:35 report (`git show
+d8c95123:docs/research/frontier.md`). Props that r5's tasks introduced and proved were never rows: reduct-split's
+`TorsionFieldOfDefinition`, `DVRFiniteExtension`, `DVRComapFinite` and `IsogenyBaseChangeDeg`; shimura-split's
+`PairsLift` (from T5). Props that r6's tasks introduced and proved or reduced were never rows: shimura-glue's
+`MobiusCompose` (proved); reduct-glue's `UnipotentFromSH` and `PersistsFromSH` (from the strict-henselization leaves);
+x6-glue's `ConicModelT` (from its charts); t5-glue's `AbsArtinSurjectiveQNeg` and `InvertibleColon` (proved over Tau
+Ceti); theta-glue's `ThetaEightSquare`, `IgusaThetaSymmetric` (from `IgusaAlg`) and `IgusaAlg 3`, `IgusaAlg 4`
+(proved); genus-route's `DimJ1Le5` (proved); route A's `MumfordRigidity` (from `mumfordRigidityCore`). Props that r7's
+tasks introduced and proved were never rows: t09-pic's `veryAmpleIsAmple` (formerly a leaf, EGA II 4.5.10) and its
+genuine definitions; igusa-alg's `IgusaAlg 3` to `IgusaAlg 9` and its two theta-route theorems; sh-route's commutative
+algebra (`SHExists0`, `SHInside0`, `SHPair0`); unipotent-b's two `K^s` versus `K̄` Props. Props that r8's tasks
+introduced and proved were never rows: sem-prune's `G9GlueNoT23` and `FaltingsLemma5BCLower`; gt-shpair's commutative
+algebra (`IsSHSep` pins the strict henselization in every characteristic); gt-elkies's Atkin–Lehner group, a
+definition, and its moduli step `orbit_iff_twist`; gt-grcount's passage from `R5fpCount`.
 
-### 4.6 Fields of the H base introduced in r4 (29: 28 LEAF, 1 GLUE strict; 28 LEAF, 1 GLUE lenient)
+### 4.6 Fields of the H base introduced in r4 (22: 21 LEAF, 1 GLUE strict; 21 LEAF, 1 GLUE lenient)
 
-Each row is a field of C4'''''' (its name is in the 'last task' column; leaf-fold9 to leaf-fold11 keep leaf-fold8's
-fields) and the hypothesis of a compiled theorem in the task's file. Its form is leaf-fold11's (`fields11.tsv`), which
-keeps leaf-fold8's; where this report's reading differs the pointer says so. Theorem numbers are the reports' and
-UNVERIFIED unless a report read the source.
+Each row is a field of C4'''''''' (its name is in the 'last task' column; leaf-fold9 to leaf-fold19 keep leaf-fold8's
+fields, less those proved or pruned since) and the hypothesis of a compiled theorem in the task's file. Its form is
+the kind in the integrator's `kinds.tsv`, which keeps leaf-fold8's; where this report's reading differs the pointer
+says so. Theorem numbers are the reports' and UNVERIFIED unless a report read the source.
 
 | # | Lean name | def file @ commit | replaces | class; content | last task | form (strict LEAF = published form) |
 |---|---|---|---|---|---|---|
-| H-98 | `AVGlue.CartierSmooth` | `scratch/av-glue/Combined.lean` L297 @ main | H-73, H-74 | **LEAF**; a group scheme locally of finite type over a field of characteristic 0 is smooth | av-glue; field `cartierSmooth` of leaf-fold11 | published form: Cartier's theorem; Mumford AV §11 Thm 1; Stacks 047N (av-glue §5) |
-| H-99 | `AVGlue.GeomConnOfRationalPoint` | `scratch/av-glue/Combined.lean` L902 @ main | H-74 | **LEAF**; a connected scheme of finite type over `k` with a rational point is geometrically connected | av-glue; field `geomConnOfRationalPoint` of leaf-fold11 | published form: Stacks 04KV, specialized to finite type with a rational point (av-glue §5) |
-| H-100 | `AVGlue.GroupSchemeEquidim` | `scratch/av-glue/Combined.lean` L913 @ main | H-74 | **LEAF**; the irreducible components of a group scheme of finite type over a field have its dimension | av-glue; field `groupSchemeEquidim` of leaf-fold11 | published form: Stacks, group schemes over a field; SGA 3 VI_A 2.4, finite type (av-glue §5) |
-| H-101 | `AvSplit.T4.MulEtaleAbelianScheme` | `scratch/av-split/AvSplitAll.lean` L1835 @ main | H-24 | **LEAF**; `[m]` on an abelian scheme over `Spec O` is étale if `m ∈ O×` | av-split; field `mulEtaleAbelianScheme` of leaf-fold11 | published form: BLR §7.3 Lemma 2; Mumford GIT §6 (av-split §1) |
-| H-102 | `AvSplit.MumfordTorsionAlgClosed` | `scratch/av-split/AvSplitAll.lean` L1411 @ main | H-25, H-38 | **LEAF**; over `k = k̄`, `A(k)[n] ≅ (ℤ/n)^{2g}` for `char k ∤ n` | av-split; field `mumfordTorsionAlgClosed` of leaf-fold11 | published form: Mumford AV §6 Application 2 (iv) (the integrator's correction of av-split's §4; UNVERIFIED) |
-| H-103 | `BPAnalytic.Uniformization.UniformizationLeafAll` | `ZInQKernel/HDecomp/Analytic/Uniformization.lean` L91 @ main | H-38, H-69 | **LEAF**; the kernel's AN3 leaf: `A^an` in coordinate form | av-split; field `uniformizationLeafAll` of leaf-fold11 | published form: Mumford §1 in coordinate form (bp-analytic §4; av-split §1 shares the judgement) |
-| H-104 | `AvSplit.MilneIsogenyQuasiInverse` | `scratch/av-split/AvSplitAll.lean` L1361 @ main | H-54 | **LEAF**; `fg = [d]`, `gf = [d]` as morphisms for some `d ≥ 1` | av-split; field `milneIsogenyQuasiInverse` of leaf-fold11 | published form: Milne 1986 Rem. 8.4; Mumford §7 (av-split §1) |
-| H-105 | `ZInQ.HomLattice.GAGAMorphism` | `scratch/av-split/AvSplitAll.lean` L1029 @ main | H-69 | **LEAF**; GAGA for homomorphisms of complex abelian varieties | av-split; field `gagaMorphism` of leaf-fold11 | published form: Serre, GAGA, in the form of homlattice §3.2 (av-split §1) |
-| H-109 | `ZInQ.HeightSplit.JavanpeykarBound` | `scratch/height-split/HeightSplit.lean` L508 @ main | H-14 | **LEAF**; Javanpeykar's bound over the published stable height | height-split; field `javanpeykarBound` of leaf-fold11 | published form: specialization of Javanpeykar 2014 Thm 1.1.1 to `K` with a `K`-rational Belyi function (height-split §4; leaf-fold8 §2; height-split §7 notes that a stricter reader may call it a consequence) |
-| H-110 | `ZInQ.HeightSplit.GaudronRemondThm14` | `scratch/height-split/HeightSplit.lean` L773 @ main | H-15 | **LEAF**; Gaudron–Rémond's bound over the published stable height | height-split; field `gaudronRemondThm14` of leaf-fold11 | published form: Gaudron–Rémond 2014 Thm 1.4 (height-split table) |
-| H-112 | `ZInQ.HeightSplit.BostLowerBound` | `scratch/height-split/HeightSplit.lean` L429 @ main | H-17 | **LEAF**; `h_D ≥ −(g/2) log 2π` (Deligne's normalization) | height-split; field `bostLowerBound` of leaf-fold11 | published form: Bost, Sém. Bourbaki 795 (display unread; height-split §2) |
-| H-113 | `ZInQ.HeightSplit.PazukiCor13Upper` | `scratch/height-split/HeightSplit.lean` L717 @ main | H-18 | **LEAF**; the upper side of Pazuki's comparison of theta and Faltings heights | height-split; field `pazukiCor13Upper` of leaf-fold11 | published form: Pazuki 2012 Cor. 1.3(2), read off the same display (height-split §3) |
-| H-117 | `ZInQ.RLeaf.IgusaGL2` | `ZInQKernel/Contrib/RLeaf/IgusaSL2.lean` L120 @ main | H-41 | **LEAF**; Igusa's theorem: `GL₂(ℤ/N)` is the Galois image on `E_j[N]` | curve-split; field `igusaGL2` of leaf-fold11; being attempted (cloud as `X0Transitive`, which would remove this row) | published form: Igusa 1959; Shimura 1971 Thm 6.6 (curve-split §3.1) |
-| H-118 | `CurveSplit.RegularSmoothPerfect` | `scratch/curve-split/CurvesGSplit.lean` L81 @ main | H-81 | **LEAF**; a finite type algebra over a perfect field is smooth at a prime with regular local ring | curve-split; field `regularSmoothPerfect` of leaf-fold11; being attempted (cloud) | published form: Stacks 00TV, the ⇐ half (curve-split §3.3) |
-| H-119 | `CurveSplit.ShimuraGoodReductionNoGuard` | `scratch/curve-split/ShimuraGR.lean` L162 @ main | H-83 | GLUE (composite); `ShimuraGoodReduction` without its guard clause | curve-split; field `shimuraGoodReductionNoGuard` of leaf-fold11; being attempted (cloud) | composite: Morita, Carayol, Kottwitz, Buzzard; not statable in published form today (curve-split §3.6) |
-| H-120 | `ZInQ.Contrib.HodgeSplit.TateTwistInvariants` | `scratch/hodge-split/HodgeSplit.lean` L65 @ main | H-8, H-51, H-52 | **LEAF**; `ℂ_p(i)^{G_K} = 0` for `i ≠ 0` | hodge-split; field `tateTwistInvariants` of leaf-fold11; being attempted (cloud) | published form: Tate 1967 §3.3 Thm 2 (hodge-split §1) |
-| H-121 | `ZInQ.Contrib.HodgeSplit.AxSenTate` | `scratch/hodge-split/HodgeSplit.lean` L75 @ main | H-8, H-51, H-52 | **LEAF**; `ℂ_p^{G_K} ⊆ K` | hodge-split; field `axSenTate` of leaf-fold11; being attempted (cloud) | published form: Tate 1967 §3.3 Thm 1; Sen 1969; Ax 1970 (hodge-split §1) |
-| H-122 | `ZInQ.Contrib.HodgeSplit.HodgeTateDecompAbVar` | `scratch/hodge-split/HodgeSplit.lean` L343 @ main | H-8 | **LEAF**; the Hodge–Tate decomposition of `ℂ_p ⊗ V_p(A)` | hodge-split; field `hodgeTateDecompAbVar` of leaf-fold11 | published form: Fontaine 1982; Faltings 1988 (hodge-split §1) |
-| H-123 | `ZInQ.Contrib.HodgeSplit.DeRhamH1AbVarT` | `scratch/hodge-split/HodgeSplit.lean` L1988 @ main | H-8 | **LEAF**; `Hom(V_p A, ℚ_p)` is de Rham | hodge-split; field `deRhamH1AbVarT` of leaf-fold11 | published form: Faltings 1989; Tsuji 1999; Scholze 2013 Cor. 1.8, Hom form (hodge-split §1) |
-| H-124 | `ZInQ.Contrib.HodgeSplit.BdRInvariants` | `scratch/hodge-split/HodgeSplit.lean` L3611 @ main | H-32 | **LEAF**; `B_dR^{G_{ℚ_p}} = ℚ_p` | hodge-split; field `bdRInvariants` of leaf-fold11 | published form: Fontaine, Astérisque 223 Exp. II; Brinon–Conrad §4 (hodge-split §1) |
-| H-125 | `ZInQ.Contrib.HodgeSplit.DSThm965` | `scratch/hodge-split/HodgeSplit.lean` L1106 @ main | H-10, H-22 | **LEAF**; `k ≥ 2`: the Galois representation of an eigenform and its Frobenius polynomials | hodge-split; field `dsThm965` of leaf-fold11 | published form: Diamond–Shurman Thm 9.6.5 (Deligne 1971; Shimura 1971 Thm 7.14) (hodge-split §1) |
-| H-126 | `ZInQ.Contrib.HodgeSplit.DSThm966` | `scratch/hodge-split/HodgeSplit.lean` L1124 @ main | H-10, H-22 | **LEAF**; `k = 1`: the Artin representation of an eigenform | hodge-split; field `dsThm966` of leaf-fold11 | published form: Deligne–Serre 1974 Thm 4.1; Diamond–Shurman Thm 9.6.6 (hodge-split §1) |
-| H-128 | `HDec.QMSplit.Yu.YuThm11` | `scratch/qm-split/YuLeaf.lean` L34 @ main | H-35 | **LEAF**; Yu's dichotomy for QM abelian surfaces, with the splitting clause | qm-split; field `yuThm11` of leaf-fold11 | published form: Yu 2013 Thm 1.1, case labels dropped (qm-split §1) |
-| H-129 | `HDec.QMSplit.Aut.QMCentralizerCMC` | `scratch/qm-split/QMAut.lean` L1018 @ main | H-42, H-61, H-63 | **LEAF**; over `ℂ`, `End_𝒪(A)` is `ℤ` or an optimally embedded `Φ⁻¹(𝒪)` | qm-split; field `qmCentralizerCMC` of leaf-fold11 | published form: Shimura 1967 §§1-3; Jordan 1981 §3; González–Rotger 2006 §5 (qm-split §1) |
-| H-130 | `HDec.HSyn.G0Split.FibreQM.PeriodMapH.QMSplitSTQM.ShimuraTaniyamaQbar` | `scratch/qm-split/STQM.lean` L66 @ main | H-86 | **LEAF**; a surface over `ℂ` with a degree-4 field in `End⁰` has a model over `ℚ̄` | qm-split; field `shimuraTaniyamaQbar` of leaf-fold11 | published form: Milne, CM notes §7; Shimura–Taniyama 1961 §12.4 print a number-field model (qm-split §4) |
-| H-131 | `HDec.QMSplit.Theta.IgusaPsi4` | `scratch/qm-split/ThetaSplit.lean` L42 @ main | H-2 | **LEAF**; `2⁻²Σθ⁸` is Siegel modular of weight 4 | qm-split; field `igusaPsi4` of leaf-fold11 | published form: Igusa 1962-1967 (leaf-fold7's form; qm-split §4 flags that Igusa prints it as an identity of Eisenstein series) |
-| H-132 | `HDec.QMSplit.Theta.IgusaChi10` | `scratch/qm-split/ThetaSplit.lean` L52 @ main | H-2 | **LEAF**; `−2⁻¹⁴∏θ²` is Siegel modular of weight 10 | qm-split; field `igusaChi10` of leaf-fold11 | published form: Igusa 1962-1967, as for `IgusaPsi4` (leaf-fold7's form; flag of qm-split §4) |
-| H-135 | `HDec.LeafQCheck.HM.QMSplit.ValenceFormulaCocompactEq` | `scratch/qm-split/Haupt.lean` L2244 @ main | H-87, H-88 | **LEAF**; the valence formula for cocompact Fuchsian groups | qm-split; field `valenceFormulaCocompactEq` of leaf-fold11 | published form: Shimura 1971 Prop. 2.16, Thm 2.20; Rankin Thm 4.1.4 (qm-split §1) |
-| H-136 | `HDec.LeafQCheck.HM.QMSplit.ShimizuCovolumeO1` | `scratch/qm-split/Haupt.lean` L3205 @ main | H-87, H-88 | **LEAF**; `ι(𝒪¹)` is cocompact Fuchsian with covolume `2π/3` | qm-split; field `shimizuCovolumeO1` of leaf-fold11 | published form: Shimura 1971 Prop. 9.2; Shimizu 1965 (qm-split §1) |
+| H-98 | `AVGlue.CartierSmooth` | `scratch/av-glue/Combined.lean` L297 @ main | H-73, H-74 | **LEAF**; a group scheme locally of finite type over a field of characteristic 0 is smooth | av-glue; field `cartierSmooth` of leaf-fold19; cloud batch 2: claimed on the issue 2026-11-15 02:14Z, in progress (claims.tsv) | published form: Cartier's theorem; Mumford AV §11 Thm 1; Stacks 047N (av-glue §5) |
+| H-99 | `AVGlue.GeomConnOfRationalPoint` | `scratch/av-glue/Combined.lean` L902 @ main | H-74 | **LEAF**; a connected scheme of finite type over `k` with a rational point is geometrically connected | av-glue; field `geomConnOfRationalPoint` of leaf-fold19; cloud batch 2: claimed on the issue 2026-11-15 02:14Z, in progress (claims.tsv) | published form: Stacks 04KV, specialized to finite type with a rational point (av-glue §5) |
+| H-100 | `AVGlue.GroupSchemeEquidim` | `scratch/av-glue/Combined.lean` L913 @ main | H-74 | **LEAF**; the irreducible components of a group scheme of finite type over a field have its dimension | av-glue; field `groupSchemeEquidim` of leaf-fold19; cloud batch 2: claimed on the issue 2026-11-15 02:14Z, in progress (claims.tsv) | published form: Stacks, group schemes over a field; SGA 3 VI_A 2.4, finite type (av-glue §5) |
+| H-102 | `AvSplit.MumfordTorsionAlgClosed` | `scratch/av-split/AvSplitAll.lean` L1411 @ main | H-25, H-38 | **LEAF**; over `k = k̄`, `A(k)[n] ≅ (ℤ/n)^{2g}` for `char k ∤ n` | av-split; field `mumfordTorsionAlgClosed` of leaf-fold19; cloud batch 2: claimed on the issue 2026-11-15 02:14Z, in progress (claims.tsv) | published form: Mumford AV §6 Application 2 (iv) (the integrator's correction of av-split's §4; UNVERIFIED) |
+| H-103 | `BPAnalytic.Uniformization.UniformizationLeafAll` | `ZInQKernel/HDecomp/Analytic/Uniformization.lean` L91 @ main | H-38, H-69 | **LEAF**; the kernel's AN3 leaf: `A^an` in coordinate form | av-split; field `uniformizationLeafAll` of leaf-fold19; cloud batch 2: claimed on the issue 2026-11-15 02:14Z, in progress (claims.tsv) | published form: Mumford §1 in coordinate form (bp-analytic §4; av-split §1 shares the judgement) |
+| H-104 | `AvSplit.MilneIsogenyQuasiInverse` | `scratch/av-split/AvSplitAll.lean` L1361 @ main | H-54 | **LEAF**; `fg = [d]`, `gf = [d]` as morphisms for some `d ≥ 1` | av-split; field `milneIsogenyQuasiInverse` of leaf-fold19; cloud batch 2: briefed (characteristic-zero form); the batch-2 comment of 2026-11-15 02:14Z mentions it only as a possible follow-on (claims.tsv) | published form: Milne 1986 Rem. 8.4; Mumford §7 (av-split §1) |
+| H-105 | `ZInQ.HomLattice.GAGAMorphism` | `scratch/av-split/AvSplitAll.lean` L1029 @ main | H-69 | **LEAF**; GAGA for homomorphisms of complex abelian varieties | av-split; field `gagaMorphism` of leaf-fold19; cloud batch 2: claimed on the issue 2026-11-15 02:14Z, in progress (claims.tsv) | published form: Serre, GAGA, in the form of homlattice §3.2 (av-split §1) |
+| H-109 | `ZInQ.HeightSplit.JavanpeykarBound` | `scratch/height-split/HeightSplit.lean` L508 @ main | H-14 | **LEAF**; Javanpeykar's bound over the published stable height | height-split; field `javanpeykarBound` of leaf-fold19 | published form: specialization of Javanpeykar 2014 Thm 1.1.1 to `K` with a `K`-rational Belyi function (height-split §4; leaf-fold8 §2; height-split §7 notes that a stricter reader may call it a consequence) |
+| H-110 | `ZInQ.HeightSplit.GaudronRemondThm14` | `scratch/height-split/HeightSplit.lean` L773 @ main | H-15 | **LEAF**; Gaudron–Rémond's bound over the published stable height | height-split; field `gaudronRemondThm14` of leaf-fold19 | published form: Gaudron–Rémond 2014 Thm 1.4 (height-split table) |
+| H-112 | `ZInQ.HeightSplit.BostLowerBound` | `scratch/height-split/HeightSplit.lean` L429 @ main | H-17 | **LEAF**; `h_D ≥ −(g/2) log 2π` (Deligne's normalization) | height-split; field `bostLowerBound` of leaf-fold19 | published form: Bost, Sém. Bourbaki 795 (display unread; height-split §2) |
+| H-113 | `ZInQ.HeightSplit.PazukiCor13Upper` | `scratch/height-split/HeightSplit.lean` L717 @ main | H-18 | **LEAF**; the upper side of Pazuki's comparison of theta and Faltings heights | height-split; field `pazukiCor13Upper` of leaf-fold19 | published form: Pazuki 2012 Cor. 1.3(2), read off the same display (height-split §3) |
+| H-117 | `ZInQ.RLeaf.IgusaGL2` | `ZInQKernel/Contrib/RLeaf/IgusaSL2.lean` L120 @ main | H-41 | **LEAF**; Igusa's theorem: `GL₂(ℤ/N)` is the Galois image on `E_j[N]` | curve-split; field `igusaGL2` of leaf-fold19 | published form: Igusa 1959; Shimura 1971 Thm 6.6 (curve-split §3.1) |
+| H-118 | `CurveSplit.RegularSmoothPerfect` | `scratch/curve-split/CurvesGSplit.lean` L81 @ main | H-81 | **LEAF**; a finite type algebra over a perfect field is smooth at a prime with regular local ring | curve-split; field `regularSmoothPerfect` of leaf-fold19; cloud batch 2: claimed on the issue 2026-11-15 02:14Z, in progress (claims.tsv) | published form: Stacks 00TV, the ⇐ half (curve-split §3.3) |
+| H-119 | `CurveSplit.ShimuraGoodReductionNoGuard` | `scratch/curve-split/ShimuraGR.lean` L162 @ main | H-83 | GLUE (composite); `ShimuraGoodReduction` without its guard clause | curve-split; field `shimuraGoodReductionNoGuard` of leaf-fold19; cloud batch 2: claimed on the issue 2026-11-15 02:14Z, in progress (claims.tsv) | composite: Morita, Carayol, Kottwitz, Buzzard; not statable in published form today (curve-split §3.6) |
+| H-120 | `ZInQ.Contrib.HodgeSplit.TateTwistInvariants` | `scratch/hodge-split/HodgeSplit.lean` L65 @ main | H-8, H-51, H-52 | **LEAF**; `ℂ_p(i)^{G_K} = 0` for `i ≠ 0` | hodge-split; field `tateTwistInvariants` of leaf-fold19; cloud batch 2: claimed on the issue 2026-11-15 02:14Z, in progress (claims.tsv) | published form: Tate 1967 §3.3 Thm 2 (hodge-split §1) |
+| H-121 | `ZInQ.Contrib.HodgeSplit.AxSenTate` | `scratch/hodge-split/HodgeSplit.lean` L75 @ main | H-8, H-51, H-52 | **LEAF**; `ℂ_p^{G_K} ⊆ K` | hodge-split; field `axSenTate` of leaf-fold19; cloud batch 2: claimed on the issue 2026-11-15 02:14Z, in progress (claims.tsv) | published form: Tate 1967 §3.3 Thm 1; Sen 1969; Ax 1970 (hodge-split §1) |
+| H-122 | `ZInQ.Contrib.HodgeSplit.HodgeTateDecompAbVar` | `scratch/hodge-split/HodgeSplit.lean` L343 @ main | H-8 | **LEAF**; the Hodge–Tate decomposition of `ℂ_p ⊗ V_p(A)` | hodge-split; field `hodgeTateDecompAbVar` of leaf-fold19 | published form: Fontaine 1982; Faltings 1988 (hodge-split §1) |
+| H-123 | `ZInQ.Contrib.HodgeSplit.DeRhamH1AbVarT` | `scratch/hodge-split/HodgeSplit.lean` L1988 @ main | H-8 | **LEAF**; `Hom(V_p A, ℚ_p)` is de Rham | hodge-split; field `deRhamH1AbVarT` of leaf-fold19 | published form: Faltings 1989; Tsuji 1999; Scholze 2013 Cor. 1.8, Hom form (hodge-split §1) |
+| H-125 | `ZInQ.Contrib.HodgeSplit.DSThm965` | `scratch/hodge-split/HodgeSplit.lean` L1106 @ main | H-10, H-22 | **LEAF**; `k ≥ 2`: the Galois representation of an eigenform and its Frobenius polynomials | hodge-split; field `dsThm965` of leaf-fold19 | published form: Diamond–Shurman Thm 9.6.5 (Deligne 1971; Shimura 1971 Thm 7.14) (hodge-split §1) |
+| H-126 | `ZInQ.Contrib.HodgeSplit.DSThm966` | `scratch/hodge-split/HodgeSplit.lean` L1124 @ main | H-10, H-22 | **LEAF**; `k = 1`: the Artin representation of an eigenform | hodge-split; field `dsThm966` of leaf-fold19 | published form: Deligne–Serre 1974 Thm 4.1; Diamond–Shurman Thm 9.6.6 (hodge-split §1) |
+| H-128 | `HDec.QMSplit.Yu.YuThm11` | `scratch/qm-split/YuLeaf.lean` L34 @ main | H-35 | **LEAF**; Yu's dichotomy for QM abelian surfaces, with the splitting clause | qm-split; field `yuThm11` of leaf-fold19 | published form: Yu 2013 Thm 1.1, case labels dropped (qm-split §1); gt-qm compiles the chain's four live uses, all at `(2, −3)` over `ℚ̄`, with `YuB6Alg` in place of it, which follows from the textbook fields `uniformizationLeafAll`, `gagaMorphism` and `mumfordTorsionAlgClosed` (`scratch/gt-qm/Reroute.lean`); not applied: no fold takes it yet |
+| H-130 | `HDec.HSyn.G0Split.FibreQM.PeriodMapH.QMSplitSTQM.ShimuraTaniyamaQbar` | `scratch/qm-split/STQM.lean` L66 @ main | H-86 | **LEAF**; a surface over `ℂ` with a degree-4 field in `End⁰` has a model over `ℚ̄` | qm-split; field `shimuraTaniyamaQbar` of leaf-fold19 | published form: Milne, CM notes §7; Shimura–Taniyama 1961 §12.4 print a number-field model (qm-split §4) |
 
-### 4.7 Props open only in scenario F, introduced in r4 (10: 2 LEAF, 8 GLUE strict; 4 LEAF, 6 GLUE lenient)
+### 4.7 Props open only in scenario F, introduced in r4 (9: 1 LEAF, 8 GLUE strict; 3 LEAF, 6 GLUE lenient)
 
-Each row is a hypothesis of a compiled theorem that scenario F applies on top of C4''''''. Its form is the task
+Each row is a hypothesis of a compiled theorem that scenario F applies on top of C4''''''''. Its form is the task
 report's label, or my reading where the report's own text (docstring or review) names more than one source; the
 pointer says which.
 
 | # | Lean name | def file @ commit | replaces | class; content | last task | form (strict LEAF = published form) |
 |---|---|---|---|---|---|---|
-| H-89 | `MCRGlue.ProperCurveAF` | `scratch/mcr-glue/MCRGlue.lean` L4044 @ main | H-84 | GLUE (composite); L1: finite sets of points of a proper smooth curve over `ℤ_(p)` lie in an affine open | mcr-glue | composite: Lichtenbaum 1968 Thm 2.8 with EGA II 4.5.4 (mcr-glue §3: composite of two results) |
-| H-90 | `MCRGlue.FiniteQuotientExists` | `scratch/mcr-glue/MCRGlue.lean` L4057 @ main | H-84 | **LEAF**; L2: the quotient by a finite group of `ℤ_(p)`-automorphisms exists and is finite | mcr-glue; being attempted (cloud) | published form: SGA 1 Exp. V Prop. 1.8 and 1.1, special case (mcr-glue §3) |
-| H-91 | `MCRGlue.TameQuotientSmooth` | `scratch/mcr-glue/MCRGlue.lean` L4072 @ main | H-84 | GLUE (composite); L3: a tame quotient of a proper smooth relative curve is proper and smooth | mcr-glue | composite: SGA 1 Exp. V, Mumford AV §7 Thm 3, EGA IV 17.5.1 (mcr-glue §3: composite of three results) |
-| H-92 | `MCRGlue.SmoothModelOfP1` | `scratch/mcr-glue/MCRGlue.lean` L4086 @ main | H-84 | GLUE in the strict count (consequence of one theorem; LEAF in the lenient count); L4: a proper smooth `ℤ_(p)`-curve with generic fibre `P¹_ℚ` is `P¹_{ℤ_(p)}` | mcr-glue | consequence of one theorem: Liu, AGAC §8.3, §10.1 (mcr-glue §3: STANDARD; reading) |
-| H-93 | `MCRGlue.TameFixedPointsDisjoint` | `scratch/mcr-glue/MCRGlue.lean` L4100 @ main | H-84 | GLUE in the strict count (consequence of one theorem; LEAF in the lenient count); L5: fixed points of a tame automorphism with distinct underlying points have disjoint closures | mcr-glue | consequence of one theorem: Edixhoven 1992 Prop. 3.4 with finite étale over a DVR (mcr-glue §3: leaf consequence) |
-| H-94 | `MCRGlue.TameInertiaCyclic` | `scratch/mcr-glue/MCRGlue.lean` L4119 @ main | H-84 | GLUE (composite); L6: a finite tame inertia group as in L5 is cyclic | mcr-glue | composite: Serre, Local Fields IV §2 Cor. 1 of Prop. 7, with L5's source (mcr-glue §3: composite of two results) |
-| H-95 | `HDec.PropTSRed.CoverModelOfHeckeN` | `ZInQKernel/OneProof/H/TailG.lean` L743 @ main | H-84 | GLUE (project glue); the decomposition's own glue: a model of the Hecke cover of level `N` (gives `ModelYIrreducible` with T5) | mcr-quot | project glue: open here: the chain derives it only through `HeckeNoVertRam`, downstream of the coordinate that mcr-quot feeds (mcr-quot §1) |
-| H-96 | `MCRQuot.P1SchemeQ` | `scratch/mcr-quot/MCRQuot.lean` L8549 @ main | H-84 | GLUE (project glue); `P¹_ℚ` exists, is proper and smooth, and represents maps to `P¹` by charts | mcr-quot | project glue: foundations: `Proj ℚ[X₀, X₁]` with its functor of points, not in Mathlib (mcr-quot §1) |
-| H-97 | `MCRQuot.CMStabObj` | `scratch/mcr-quot/MCRQuot.lean` L7648 @ main | H-84 | GLUE (project glue); each CM class is fixed by a Hecke operation of order exactly 2 on classes (QM objects over `ℚ̄`) | mcr-quot | project glue: object-level glue on CM points, no schemes (mcr-quot §1) |
-| H-142 | `HDec.QMSplit.Moduli.GonzalezRotgerX6` | `scratch/qm-glue/ModuliCompare.lean` L600 @ main | H-1 | **LEAF**; some coarse witness has the residue fields of CM points (`R5ptProps`) | qm-glue | published form: González–Rotger 2006 Thm 5.12 (qm-glue §4.2); carries `R1fpProps`; with the field `mumfordRigidityCore` (H-170) a leaf on `R1fpProps` is equivalent to the same leaf on abelian schemes (r1univ-rigid's `…_iff_ab`), so r5's open check on this row rests on that one leaf |
+| H-89 | `MCRGlue.ProperCurveAF` | `scratch/mcr-glue/MCRGlue.lean` L4044 @ main | H-84 | GLUE (composite); L1: finite sets of points of a proper smooth curve over `ℤ_(p)` lie in an affine open | mcr-glue; in flight: mcr-quot (`quotientP1Coordinate`) | composite: Lichtenbaum 1968 Thm 2.8 with EGA II 4.5.4 (mcr-glue §3: composite of two results) |
+| H-90 | `MCRGlue.FiniteQuotientExists` | `scratch/mcr-glue/MCRGlue.lean` L4057 @ main | H-84 | **LEAF**; L2: the quotient by a finite group of `ℤ_(p)`-automorphisms exists and is finite | mcr-glue; being attempted (cloud); in flight: mcr-quot (`quotientP1Coordinate`) | published form: SGA 1 Exp. V Prop. 1.8 and 1.1, special case (mcr-glue §3) |
+| H-91 | `MCRGlue.TameQuotientSmooth` | `scratch/mcr-glue/MCRGlue.lean` L4072 @ main | H-84 | GLUE (composite); L3: a tame quotient of a proper smooth relative curve is proper and smooth | mcr-glue; in flight: mcr-quot (`quotientP1Coordinate`) | composite: SGA 1 Exp. V, Mumford AV §7 Thm 3, EGA IV 17.5.1 (mcr-glue §3: composite of three results) |
+| H-92 | `MCRGlue.SmoothModelOfP1` | `scratch/mcr-glue/MCRGlue.lean` L4086 @ main | H-84 | GLUE in the strict count (consequence of one theorem; LEAF in the lenient count); L4: a proper smooth `ℤ_(p)`-curve with generic fibre `P¹_ℚ` is `P¹_{ℤ_(p)}` | mcr-glue; in flight: mcr-quot (`quotientP1Coordinate`) | consequence of one theorem: Liu, AGAC §8.3, §10.1 (mcr-glue §3: STANDARD; reading) |
+| H-93 | `MCRGlue.TameFixedPointsDisjoint` | `scratch/mcr-glue/MCRGlue.lean` L4100 @ main | H-84 | GLUE in the strict count (consequence of one theorem; LEAF in the lenient count); L5: fixed points of a tame automorphism with distinct underlying points have disjoint closures | mcr-glue; in flight: mcr-quot (`quotientP1Coordinate`) | consequence of one theorem: Edixhoven 1992 Prop. 3.4 with finite étale over a DVR (mcr-glue §3: leaf consequence) |
+| H-94 | `MCRGlue.TameInertiaCyclic` | `scratch/mcr-glue/MCRGlue.lean` L4119 @ main | H-84 | GLUE (composite); L6: a finite tame inertia group as in L5 is cyclic | mcr-glue; in flight: mcr-quot (`quotientP1Coordinate`) | composite: Serre, Local Fields IV §2 Cor. 1 of Prop. 7, with L5's source (mcr-glue §3: composite of two results) |
+| H-95 | `HDec.PropTSRed.CoverModelOfHeckeN` | `ZInQKernel/OneProof/H/TailG.lean` L743 @ main | H-84 | GLUE (project glue); the decomposition's own glue: a model of the Hecke cover of level `N` (gives `ModelYIrreducible` with T5) | mcr-quot; in flight: mcr-quot (`quotientP1Coordinate`) | project glue: open here: the chain derives it only through `HeckeNoVertRam`, downstream of the coordinate that mcr-quot feeds (mcr-quot §1); gap-triage (finding 3, compiled probe): not needed, since `ModelYIrreducible` is the chain's `HeckeIrreducible`, which follows from the field `deligneComponentsY3PrintedAb` (`scratch/gap-triage/GlueProbe.lean`, `MCRQuotNV.lean`); not applied, as the probe takes leaf-fold9's whole bundle `OpenAddedLeaves9` |
+| H-96 | `MCRQuot.P1SchemeQ` | `scratch/mcr-quot/MCRQuot.lean` L8549 @ main | H-84 | GLUE (project glue); `P¹_ℚ` exists, is proper and smooth, and represents maps to `P¹` by charts | mcr-quot; in flight: mcr-quot (`quotientP1Coordinate`) | project glue: foundations: `Proj ℚ[X₀, X₁]` with its functor of points, not in Mathlib (mcr-quot §1) |
+| H-97 | `MCRQuot.CMStabObj` | `scratch/mcr-quot/MCRQuot.lean` L7648 @ main | H-84 | GLUE (project glue); each CM class is fixed by a Hecke operation of order exactly 2 on classes (QM objects over `ℚ̄`) | mcr-quot; in flight: mcr-quot (`quotientP1Coordinate`) | project glue: object-level glue on CM points, no schemes (mcr-quot §1) |
 
 ### 4.8 Fields of leaf-fold9 introduced in r5 (1: 1 LEAF, 0 GLUE strict; 1 LEAF, 0 GLUE lenient)
 
-The row left is a field of C4'''''' that leaf-fold9 introduced, and the hypothesis of a compiled theorem in
+The row left is a field of C4'''''''' that leaf-fold9 introduced, and the hypothesis of a compiled theorem in
 reduct-split's `Reduction.lean` (`TailZ7`, verbatim); it is used in both scenarios since leaf-fold10 (r5: only in
 scenario F). r5's other three rows here are gone: H-145 is restated on abelian schemes (route-a-fold), and H-146 and
-H-147 are fields that scenario F replaces by their strictly henselian forms (§4.1). Form: leaf-fold11's, which the
+H-147 are fields that scenario F replaces by their strictly henselian forms (§4.1). Form: kinds.tsv's, which the
 integrator kept after the base review.
 
 | # | Lean name | def file @ commit | replaces | class; content | last task | form (strict LEAF = published form) |
 |---|---|---|---|---|---|---|
-| H-148 | `ReductSplit.NeronSchemeModelExistsDVR` | `ZInQKernel/OneProof/H/TailZ7.lean` L238 @ main | H-4, H-106, H-108 | **LEAF**; Néron's existence theorem over a discrete valuation ring, scheme form | reduct-split; field `neronSchemeModelExistsDVR` of leaf-fold11 | published form: BLR §1.4 Thm 3 with §1.2 Def. 1 (reduct-split §2); kept a published form by the integrator after the base review (printed over an arbitrary DVR, reduct-glue §4; UNVERIFIED) |
+| H-148 | `ReductSplit.NeronSchemeModelExistsDVR` | `ZInQKernel/OneProof/H/TailZ7.lean` L238 @ main | H-4, H-106, H-108 | **LEAF**; Néron's existence theorem over a discrete valuation ring, scheme form | reduct-split; field `neronSchemeModelExistsDVR` of leaf-fold19 | published form: BLR §1.4 Thm 3 with §1.2 Def. 1 (reduct-split §2); kept a published form by the integrator after the base review (printed over an arbitrary DVR, reduct-glue §4; UNVERIFIED) |
 
-### 4.9 Props open only in scenario F, introduced in r5 (3: 1 LEAF, 2 GLUE strict; 3 LEAF, 0 GLUE lenient)
+### 4.9 Props open only in scenario F, introduced in r5 (2: 0 LEAF, 2 GLUE strict; 2 LEAF, 0 GLUE lenient)
 
-Each row is a hypothesis of a compiled theorem that scenario F applies on top of C4''''''. Its form is the task
+Each row is a hypothesis of a compiled theorem that scenario F applies on top of C4''''''''. Its form is the task
 report's label, or my reading where the report's own text names more than one source or gives no label; the pointer
-says which.
+says which. Its H-150 is a field since leaf-fold13 and moved to §4.12.
 
 | # | Lean name | def file @ commit | replaces | class; content | last task | form (strict LEAF = published form) |
 |---|---|---|---|---|---|---|
-| H-150 | `HDec.QMSplit.Moduli.GeomConnOfAlgClosure` | `scratch/shimura-split/Rows.lean` L4287 @ main | H-140 (from H-1) | **LEAF**; a proper `X → Spec k` with `X ×_k k̄` connected is geometrically connected | shimura-split | published form: EGA IV₂ 4.5.1-4.5.2; Stacks 0389, weakened by `IsProper` and characteristic 0 (shimura-split §2, §3.2) |
-| H-154 | `HDec.QMSplit.Moduli.ShimuraHolFamily` | `scratch/shimura-split/ShimuraFam.lean` L258 @ main | H-139 (from H-20) | GLUE in the strict count (consequence of one theorem; LEAF in the lenient count); one holomorphic family `φ : ℍ → Y₃(ℂ)` with the moduli clause; the step to every `π : Y₃ → P¹` is proved | shimura-split; in flight: shimura-cft (`shimuraFamilyAb`) | consequence of one theorem: Shimura 1967 Main Thm I, through Deligne 1971 §4 for the `ℚ`-model (shimura-split §3.4 and its review §7); carries `R1fpProps`; with the field `mumfordRigidityCore` (H-170) a leaf on `R1fpProps` is equivalent to the same leaf on abelian schemes (r1univ-rigid's `…_iff_ab`), so r5's open check on this row rests on that one leaf |
+| H-154 | `HDec.QMSplit.Moduli.ShimuraHolFamily` | `scratch/shimura-split/ShimuraFam.lean` L258 @ main | H-139 (from H-20) | GLUE in the strict count (consequence of one theorem; LEAF in the lenient count); one holomorphic family `φ : ℍ → Y₃(ℂ)` with the moduli clause; the step to every `π : Y₃ → P¹` is proved | shimura-split; in flight: gt-rayclass (`shimuraFamilyAb`) | consequence of one theorem: Shimura 1967 Main Thm I, through Deligne 1971 §4 for the `ℚ`-model (shimura-split §3.4 and its review §7); carries `R1fpProps`; with the field `mumfordRigidityCore` (H-170) a leaf on `R1fpProps` is equivalent to the same leaf on abelian schemes (r1univ-rigid's `…_iff_ab`), so r5's open check on this row rests on that one leaf; shimura-cft derives `shimuraFamilyAb` from Shimura's Main Theorem I in Deligne's adelic form (`ShimuraMainThmIDeligneY3Ab`, a consequence by its report and a composite by its review), which implies this row's leaf (`mainThmIY3_of_mainThmI` with c-to-printed's `shimuraHolFamily_of_mainThmI`), so scenario F keeps this one |
 | H-157 | `ModularSplit.R17.CarayolRealization` | `scratch/modular-split/R17.lean` L127 @ main | H-21 | GLUE in the strict count (consequence of one theorem; LEAF in the lenient count); some semisimple `ρ` attached to the newform has conductor exponent `v_p(N)` at every `p ≠ ℓ`; the transport to every attached `ρ` is proved | modular-split | consequence of one theorem: Carayol 1986 Thm (A) at his realization (audit), with Casselman's `a(π_p) = v_p(N)` and Ribet's irreducibility (modular-split §2: still a consequence) |
 
-### 4.10 Fields of leaf-fold10 and leaf-fold11 introduced in r6 (9: 6 LEAF, 3 GLUE strict; 8 LEAF, 1 GLUE lenient)
+### 4.10 Fields of leaf-fold10 and leaf-fold11 introduced in r6 (5: 3 LEAF, 2 GLUE strict; 4 LEAF, 1 GLUE lenient)
 
-Each row is a field of C4'''''' that leaf-fold10 or leaf-fold11 introduced, and the hypothesis of a compiled theorem
-in its file (`TailZ16`, `TailZ17`: route-a-fold; `TailZ19`: c-to-printed's printed leaves). Forms: leaf-fold11's
-(`fields11.tsv`), with the integrator's convention for `blr_1_2_4`, `sga7_IX_3_3` and `gonzalezRotgerCountX6Ab`.
-leaf-fold10's other new fields are not rows: `neronLocalizesDVR` is proved since leaf-fold11, and scenario F replaces
-the four DVR fields.
-
-| # | Lean name | def file @ commit | replaces | class; content | last task | form (strict LEAF = published form) |
-|---|---|---|---|---|---|---|
-| H-168 | `ShimuraSplit.GonzalezRotgerCountX6Ab` | `ZInQKernel/OneProof/H/TailZ17.lean` L31 @ main | H-145 | GLUE (composite); `GonzalezRotgerCountX6` restated on abelian schemes (`R1fpPropsAb`, the printed fine-moduli problem): some witness has exactly `2^{inertCount6 k}·#Pic(R)` points with CM by `R` | route-a-fold; field `gonzalezRotgerCountX6Ab` of leaf-fold11 | composite: González–Rotger 2006 Prop. 5.6 at `(D, N) = (6, 1)` (audit read it) together with the canonical models it is stated on (Shimura 1967, Deligne 1971), so a composite by the integrator's ruling (leaf-fold11's table: published form); open check: `inertCount6 k` is González–Rotger's `b(k)` |
-| H-169 | `ShimuraGlue.DeligneComponentsY3PrintedAb` | `ZInQKernel/OneProof/H/TailZ17.lean` L54 @ main | H-155 (from H-59) | **LEAF**; Deligne's theorem on the connected components of `Sh_K` in printed form, for `G = B^×`, `B = (2, −3 | ℚ)`, at level `K₃`, over Mathlib's finite adeles, quaternion algebra and cyclotomic character, on abelian schemes (leaf-fold10 folds shimura-glue's printed leaf; route-a-fold restates it) | route-a-fold; field `deligneComponentsY3PrintedAb` of leaf-fold11 | published form: Deligne, Sém. Bourbaki 389 (1971) Thm 2.4 and §3; PSPM 33 (1979) 2.1.3, 2.6.3; Milne 2005 Thms 5.17, 13.6 (shimura-glue §2, §4; locators UNVERIFIED), specialized to one witness |
-| H-170 | `LeafQM.AV.R1UnivRigid.MumfordRigidityCore` | `ZInQKernel/OneProof/H/TailZ16.lean` L463 @ main | none (closes r5's open check on the rows stated on `R1fpProps`) | **LEAF**; a smooth proper geometrically connected family with a section whose field fibres are abelian varieties carries a group law with that identity, and maps that fix the identity are homomorphisms | route-a-fold; field `mumfordRigidityCore` of leaf-fold11 | published form: Mumford, GIT Thm 6.14 with Cor. 6.4 (r1univ-rigid §5.2; numbers UNVERIFIED); counted LEAF by leaf-fold11 and the integrator; r1univ-rigid calls it a consequence of printed statements |
-| H-171 | `CToPrinted.BLR_1_2_4` | `ZInQKernel/OneProof/H/TailZ19.lean` L63 @ main | H-163 (through `neronLocalizesDVR`) | GLUE in the strict count (consequence of one theorem; LEAF in the lenient count); BLR §1.2 Prop. 4, the full "iff": over a Dedekind domain, a smooth separated scheme of finite type is a Néron model iff it is one over every local ring | c-to-printed; field `blr_1_2_4` of leaf-fold11 | consequence of one theorem: BLR, Néron models, §1.2 Prop. 4 (c-to-printed §2; UNVERIFIED); a consequence by the integrator's convention: it may be printed with strict henselizations, a plausible weaker reading |
-| H-172 | `CToPrinted.FaltingsLemma5Printed` | `ZInQKernel/OneProof/H/TailZ19.lean` L387 @ main | H-167 (through `faltingsLemma5BC`) | **LEAF**; Faltings' Lemma 5, the identity with the correction term `[K:ℚ]⁻¹ log #s*Ω¹_{G/S}` | c-to-printed; field `faltingsLemma5Printed` of leaf-fold11 | published form: Faltings, Invent. Math. 73 (1983) Lemma 5 (c-to-printed §3; not read, so LEAF and flagged) |
-| H-173 | `CToPrinted.RaynaudKernelBound` | `ZInQKernel/OneProof/H/TailZ19.lean` L399 @ main | H-167 (through `faltingsLemma5BC`) | **LEAF**; Raynaud's bound on the kernel term of an isogeny of semistable abelian varieties | c-to-printed; field `raynaudKernelBound` of leaf-fold11 | published form: Raynaud, Astérisque 127 (1985) VII 2.1.3 (c-to-printed §3; number unconfirmed, flagged) |
-| H-174 | `CToPrinted.SGA3_VIB_3_10` | `ZInQKernel/OneProof/H/TailZ19.lean` L199 @ main | H-166 (through `semistableNeronBaseChange`) | **LEAF**; for a smooth group scheme over a base, the union of the identity components of the fibres is open | c-to-printed; field `sga3_VIB_3_10` of leaf-fold11 | published form: SGA 3 I Exp. VI_B Thm 3.10 (c-to-printed §4; number unconfirmed, flagged) |
-| H-175 | `CToPrinted.SGA7_IX_3_3` | `ZInQKernel/OneProof/H/TailZ19.lean` L249 @ main | H-165 (through `semistableNeronBaseChange`) | GLUE in the strict count (consequence of one theorem; LEAF in the lenient count); SGA 7 IX 3.3, second assertion: for semistable reduction the identity component of the Néron model base changes, `N⁰ ⊗ R' ≅ N'⁰` | c-to-printed; field `sga7_IX_3_3` of leaf-fold11 | consequence of one theorem: SGA 7 I Exp. IX 3.3 (c-to-printed §4; UNVERIFIED); a consequence by the integrator's convention, as the SGA 7 IX DVR fields (the base ring may be printed strictly henselian) |
-| H-176 | `CToPrinted.EGAIV_8_10_5_openImm` | `ZInQKernel/OneProof/H/TailZ19.lean` L281 @ main | H-166 (through `semistableNeronBaseChange`) | **LEAF**; open immersions spread out: a morphism of finite presentation that is an open immersion over the generic points of a limit is one over some stage | c-to-printed; field `egaIV_8_10_5_openImm` of leaf-fold11 | published form: EGA IV₃ 8.10.5, the open-immersion item (c-to-printed §4; UNVERIFIED) |
-
-### 4.11 Props open only in scenario F, introduced in r6 (15: 5 LEAF, 10 GLUE strict; 12 LEAF, 3 GLUE lenient)
-
-Each row is a hypothesis of a compiled theorem that scenario F applies on top of C4'''''' (§4.1). Its form is the task
-report's label, or my reading where the report gives none or names more than one source (the pointer says "reading").
-The four strictly henselian rows follow the base review's first version ("review v1, v2 pending"). x6-glue's,
-c-to-printed2's and theta-glue's rows are at their branch heads; theta-glue is running.
+Each row is a field of C4'''''''' that leaf-fold10 or leaf-fold11 introduced, and the hypothesis of a compiled theorem
+in its file (`TailZ16`, `TailZ17`: route-a-fold; `TailZ19`: c-to-printed's printed leaves). Forms: kinds.tsv's, with
+the integrator's convention for `deligneComponentsY3PrintedAb` (GLUE since r7, after shimura-cft's review). r8:
+`gonzalezRotgerCountX6Ab` is replaced (gt-grcount), `blr_1_2_4` and `egaIV_8_10_5_openImm` are proved and
+`raynaudKernelBound` is pruned (§4.1). leaf-fold10's other new fields are not rows: `neronLocalizesDVR` is proved
+since leaf-fold11, and leaf-fold14 replaces the DVR fields.
 
 | # | Lean name | def file @ commit | replaces | class; content | last task | form (strict LEAF = published form) |
 |---|---|---|---|---|---|---|
-| H-177 | `ShimuraGlue.DeligneComponentsX6Printed` | `ZInQKernel/OneProof/H/TailZ12.lean` L1331 @ main | H-149 | **LEAF**; Deligne's theorem on `π₀` in printed form at level `𝒪̂^×`, on one coarse witness `X₆`; with `ℚ^×_{>0}\𝔸_f^×/nrd(𝒪̂^×) = 1` (compiled) it gives `DeligneComponentsX6` | shimura-glue | published form: Deligne, Sém. Bourbaki 389 (1971) Thm 2.4 and §3; PSPM 33 (1979) 2.1.3, 2.6.3 (shimura-glue §2, x6-glue §2; UNVERIFIED), at level `𝒪̂^×`; carries `R1fpProps`; with the field `mumfordRigidityCore` (H-170) a leaf on `R1fpProps` is equivalent to the same leaf on abelian schemes (r1univ-rigid's `…_iff_ab`), so r5's open check on this row rests on that one leaf |
-| H-178 | `HDec.QMSplit.Moduli.BabaGranathRational` | `scratch/shimura-glue/RowsGlue.lean` L6402 @ main | H-151 | **LEAF**; Baba–Granath's fibre clause with three distinct rational points that are exactly the images of `CM(−4)`, `CM(−3)`, `CM(−24)`; no `j`-normalization (the Möbius glue is proved) | shimura-glue | published form: Baba–Granath 2008 Thm 2.1 and Lemma 3.1 (audit YES), with the CM assignment read from their §3.1 table, an UNVERIFIED reading (locators.md grades that row NO; shimura-glue §5.3, x6-glue §4); carries `R1fpProps`; with the field `mumfordRigidityCore` (H-170) a leaf on `R1fpProps` is equivalent to the same leaf on abelian schemes (r1univ-rigid's `…_iff_ab`), so r5's open check on this row rests on that one leaf |
-| H-179 | `ShimuraGlue.Ray.RayClassCM` | `scratch/shimura-glue/RowsGlue.lean` L6739 @ main | H-152 | GLUE in the strict count (consequence of one theorem; LEAF in the lenient count); on one fine witness, the residue field of a CM point by the maximal order of `ℚ(i)`, `ℚ(ζ₃)` or `ℚ(√−6)` embeds into Tau Ceti's ray class field of conductor 3 | shimura-glue | consequence of one theorem: Shimura 1967 Main Thm I and Deligne 1971 §3, ray-class form (shimura-glue §5.1, x6-glue §5.1; locators UNVERIFIED); stronger than `ReciprocityCanonical`, weaker than the printed reciprocity law; carries `R1fpProps`; the rigidity transfer of r1univ-rigid (with the field `mumfordRigidityCore`, H-170) applies as for the 18 leaves it lists, but was not compiled for this one |
-| H-180 | `HDec.QMSplit.Moduli.ElkiesEquationsX6` | `scratch/x6-glue/X6Glue.lean` L7269 @ x6-glue 685a56e1 | H-153 | **LEAF**; Elkies' model of `X₆` as a statement about the scheme: over `t ≠ ∞` the affine curve `s² = −t`, `r² = 3(t − 1)`, over `t ≠ 0` the same chart in `1/s`, `r/s`, `1/t`, glued on the overlap; with the fibre clause of `t` | x6-glue (its branch head) | published form: Elkies, ANTS-III (1998) §3 (x6-glue §3-§4; UNVERIFIED), as x6-glue and the integrator count it; its fibre clause reads Elkies' "`t` is a coordinate on `X₆/W`" with the moduli meaning of `W`, a composite of two printed statements (x6-glue §5.2), which the strict convention may flag; carries `R1fpProps`; with the field `mumfordRigidityCore` (H-170) a leaf on `R1fpProps` is equivalent to the same leaf on abelian schemes (r1univ-rigid's `…_iff_ab`), so r5's open check on this row rests on that one leaf |
-| H-181 | `CToPrinted2.KatoRealizationCohSS` | `scratch/c-to-printed2/CToPrinted2.lean` L618 @ c-to-printed2 dbeaecf7 | H-158 (from H-127) | GLUE in the strict count (consequence of one theorem; LEAF in the lenient count); some semisimple `ρ` attached to the newform, with Kato's Hodge–Tate weights; with the fields `tateTwistInvariants` and `axSenTate` it gives `eigenformHTNew`, and is equivalent to it over the bundle | c-to-printed2 (its branch head) | consequence of one theorem: Kato, Astérisque 295 (2004) §8.3 and §§9.2-9.4 at his `V_{F_λ}(f)`, quantified existentially (c-to-printed2 §2.1; locators read by locators.md row R13): the report's label, a consequence |
-| H-182 | `ReductGlue.RaynaudSemistableSH` | `ZInQKernel/OneProof/H/TailZ14.lean` L1099 @ main | H-160 | **LEAF**; Raynaud's criterion over a strictly henselian DVR; the general-DVR field follows with the strict henselization and the field `mulEtaleAbelianScheme` | reduct-glue; in flight: reduct-b (`raynaudSemistable`) | published form: SGA 7 I Exp. IX Prop. 4.7 over a strictly henselian DVR (reduct-glue §4; locator UNVERIFIED); review v1, v2 pending |
-| H-183 | `ReductGlue.SemistableReductionSH` | `ZInQKernel/OneProof/H/TailZ14.lean` L1108 @ main | H-146 | **LEAF**; SGA 7 IX 3.6 over a strictly henselian DVR | reduct-glue; in flight: reduct-b (`semistableReductionDVR`) | published form: SGA 7 I Exp. IX Thm 3.6 over a strictly henselian DVR (reduct-glue §4; locator UNVERIFIED); review v1, v2 pending |
-| H-184 | `ReductGlue.SemistableUnipotentSH` | `ZInQKernel/OneProof/H/TailZ14.lean` L1089 @ main | H-147 | GLUE in the strict count (consequence of one theorem; LEAF in the lenient count); SGA 7 IX 3.5 (semistable ⇒ `(σ - 1)² = 0` on `T_ℓ A`) over a strictly henselian DVR | reduct-glue; in flight: unipotent-b (`semistableUnipotent`) | consequence of one theorem: SGA 7 I Exp. IX Prop. 3.5 over a strictly henselian DVR; the review's first version finds that its form depends on the reading (reduct-glue §4); review v1, v2 pending |
-| H-185 | `ReductGlue.SemistablePersistsSH` | `ZInQKernel/OneProof/H/TailZ14.lean` L1117 @ main | H-162 | GLUE in the strict count (consequence of one theorem; LEAF in the lenient count); SGA 7 IX 3.3, first assertion (semistable reduction persists in finite extensions), strictly henselian | reduct-glue; in flight: reduct-b (`semistablePersistsDVR`) | consequence of one theorem: SGA 7 I Exp. IX 3.3, first assertion, over a strictly henselian DVR; depends on the reading (review v1); review v1, v2 pending |
-| H-186 | `ReductGlue.StrictHenselizationNeron` | `ZInQKernel/OneProof/H/TailZ14.lean` L1535 @ main | H-160 | GLUE in the strict count (consequence of one theorem; LEAF in the lenient count); for a DVR `O`, a strictly henselian DVR `O' ⊇ O` with algebraic residue extension, to which Néron models base change | reduct-glue; in flight: sh-route (`StrictHenselizationNeron`); reduct-b (`raynaudSemistable`) | consequence of one theorem: EGA IV₄ 18.8.8 and 18.8.13 with BLR §1.2 Prop. 2 (reduct-glue §2; UNVERIFIED); the integrator counts the strict-henselization leaves as consequences (review v1) |
-| H-187 | `ReductGlue.StrictHenselizationPair` | `ZInQKernel/OneProof/H/TailZ14.lean` L2021 @ main | H-162 | GLUE in the strict count (consequence of one theorem; LEAF in the lenient count); the same for `O ⊆ O'` over a finite `K'/K`: strict henselizations `P ⊆ P'` with `[E' : E]` finite | reduct-glue; in flight: sh-route (`StrictHenselizationPair`); reduct-b (`semistablePersistsDVR`) | consequence of one theorem: EGA IV 18.8.10 and 18.6.8, Stacks 05WR, BLR §1.2 Prop. 2 (reduct-glue §2; UNVERIFIED); review v1 reads it as a consequence |
-| H-188 | `ReductGlue.StrictHenselizationInside` | `ZInQKernel/OneProof/H/TailZ14.lean` L2103 @ main | H-147 | GLUE in the strict count (consequence of one theorem; LEAF in the lenient count); inside an algebraic closure at a place `w`: the inertia field, on which `w` is a strict henselization of `O` | reduct-glue; in flight: sh-route (`StrictHenselizationInside`); unipotent-b (`semistableUnipotent`) | consequence of one theorem: Stacks 0BSK-0BSL; Raynaud, Anneaux locaux henséliens, VIII; BLR §1.2 Prop. 2 (reduct-glue §2; UNVERIFIED); review v1 reads it as a consequence |
-| H-189 | `ReductGlue.ReductionFromSH` | `ZInQKernel/OneProof/H/TailZ14.lean` L1602 @ main | H-146 | GLUE (project glue); SGA 7 IX 3.6 over every DVR from its strictly henselian form: descend a finite `L/K^sh` to a finite `K'/K` and compare the places | reduct-glue; in flight: reduct-b (`semistableReductionDVR`) | project glue: reduct-glue's named glue (§4: `K^sh` as a filtered union of fraction fields of étale `O`-algebras, Krasner); not in Mathlib |
-| H-190 | `HDec.HSyn.G0Split.ThetaPt.ThetaGlue.LinYangThetaCurve` | `scratch/theta-glue/ThetaGlue.lean` L593 @ theta-glue 336ec1fd | H-133, H-134 (from H-44) | GLUE (composite); along the explicit QM curve `τ ↦ Ω(τ)`: `ψ₄ψ₆ = 2¹²3⁵χ₁₀` and `ψ₄³ + ψ₆² = 2¹²3⁶χ₁₂` in Igusa's theta expressions | theta-glue (its branch head) | composite: Lin–Yang, Math. Z. 295 (2020), Example 29 with eqs. (13)-(14), after eliminating `j` (so weaker than the print), with Igusa's theta expressions (Amer. J. Math. 89 (1967) §4); locators UNVERIFIED; numerically VERIFIED (80 digits at 12 points); theta-glue's label: a composite |
-| H-191 | `HDec.HSyn.G0Split.ThetaPt.ThetaGlue.IgusaAlg` | `scratch/theta-glue/ThetaGlue.lean` L669 @ theta-glue 336ec1fd | H-133, H-134 (from H-44) | GLUE (project glue); for `5 ≤ k ≤ 9`: `e_k(t_m⁴) = P_k(ψ₄(t), ψ₆(t), χ₁₀(t), χ₁₂(t))` for `t_m` the squares of the ten even theta constants written in the four second-order constants; `k = 3, 4` are proved | theta-glue (its branch head); in flight: igusa-alg (`IgusaAlg`) | project glue: theta-glue's GLUE: closed polynomial identities of weight `4k`, VERIFIED by exact expansion (py/verify_pk.py); theta-glue's direct Lean proofs of `k ≥ 5` exceeded the memory limit, and igusa-alg works on a proof by evaluation in the kernel |
+| H-169 | `ShimuraGlue.DeligneComponentsY3PrintedAb` | `ZInQKernel/OneProof/H/TailZ17.lean` L54 @ main | H-155 (from H-59) | GLUE (composite); Deligne's theorem on the connected components of `Sh_K` in printed form, for `G = B^×`, `B = (2, −3 \| ℚ)`, at level `K₃`, over Mathlib's finite adeles, quaternion algebra and cyclotomic character, on abelian schemes (leaf-fold10 folds shimura-glue's printed leaf; route-a-fold restates it) | route-a-fold; field `deligneComponentsY3PrintedAb` of leaf-fold19 | composite: Deligne, Sém. Bourbaki 389 (1971) Thm 2.4 and §3; PSPM 33 (1979) 2.1.3, 2.6.3; Milne 2005 Thms 5.17, 13.6 (shimura-glue §2, §4; locators UNVERIFIED), specialized to one witness; GLUE by the integrator's ruling after shimura-cft's review (kinds.tsv, 11-14): it depends on whether one display states that the PEL moduli scheme with its uniformization is the canonical model at `B = (2, −3 \| ℚ)`, level `K₃` (Deligne 389 §5, Milne 2005 §14), and is otherwise Deligne's theorem with that identification |
+| H-170 | `LeafQM.AV.R1UnivRigid.MumfordRigidityCore` | `ZInQKernel/OneProof/H/TailZ16.lean` L463 @ main | none (closes r5's open check on the rows stated on `R1fpProps`) | **LEAF**; a smooth proper geometrically connected family with a section whose field fibres are abelian varieties carries a group law with that identity, and maps that fix the identity are homomorphisms | route-a-fold; field `mumfordRigidityCore` of leaf-fold19; in flight: gt-rigidity (`mumfordRigidityCore`); cloud batch 3 (W20, on MumfordGroupLaw, which replaces this field in leaf-fold23): briefed 2026-11-15, not yet claimed on the issue (claims.tsv) | published form: Mumford, GIT Thm 6.14 with Cor. 6.4 (r1univ-rigid §5.2; numbers UNVERIFIED); counted LEAF by leaf-fold11 and the integrator; r1univ-rigid calls it a consequence of printed statements |
+| H-172 | `CToPrinted.FaltingsLemma5Printed` | `ZInQKernel/OneProof/H/TailZ19.lean` L387 @ main | H-167 (through `faltingsLemma5BC`) | **LEAF**; Faltings' Lemma 5, the identity with the correction term `[K:ℚ]⁻¹ log #s*Ω¹_{G/S}` | c-to-printed; field `faltingsLemma5Printed` of leaf-fold19 | published form: Faltings, Invent. Math. 73 (1983) Lemma 5 (c-to-printed §3; not read, so LEAF and flagged) |
+| H-174 | `CToPrinted.SGA3_VIB_3_10` | `ZInQKernel/OneProof/H/TailZ19.lean` L199 @ main | H-166 (through `semistableNeronBaseChange`) | **LEAF**; for a smooth group scheme over a base, the union of the identity components of the fibres is open | c-to-printed; field `sga3_VIB_3_10` of leaf-fold19; in flight: gt-sga3 (`sga3_VIB_3_10`); cloud batch 3 (W19): briefed 2026-11-15, not yet claimed on the issue (claims.tsv) | published form: SGA 3 I Exp. VI_B Thm 3.10 (c-to-printed §4; number unconfirmed, flagged) |
+| H-175 | `CToPrinted.SGA7_IX_3_3` | `ZInQKernel/OneProof/H/TailZ19.lean` L249 @ main | H-165 (through `semistableNeronBaseChange`) | GLUE in the strict count (consequence of one theorem; LEAF in the lenient count); SGA 7 IX 3.3, second assertion: for semistable reduction the identity component of the Néron model base changes, `N⁰ ⊗ R' ≅ N'⁰` | c-to-printed; field `sga7_IX_3_3` of leaf-fold19; in flight: gt-sga7 (`sga7_IX_3_3`); sh-printed2 (`sga7_IX_3_3`) | consequence of one theorem: SGA 7 I Exp. IX 3.3 (c-to-printed §4; UNVERIFIED); a consequence by the integrator's convention, as the SGA 7 IX DVR fields (the base ring may be printed strictly henselian) |
 
-### 4.12 Bundle fields never projected, and the prune (not on the list)
+### 4.11 Props open only in scenario F, introduced in r6 (3: 0 LEAF, 3 GLUE strict; 2 LEAF, 1 GLUE lenient)
 
+Each row is a hypothesis of a compiled theorem that scenario F applies on top of C4'''''''' (§4.1). Its form is the
+task report's label, or my reading where the report gives none or names more than one source (the pointer says
+"reading"). r8: H-182 is a field since leaf-fold14 (§4.14), and H-185 and H-187 are replaced (§4.1); H-188 stays a
+consequence by the base review. r6's branch heads are merged (w66), so the rows point at main; r6's rows for x6-glue's
+leaves are replaced by fields (§4.12).
+
+| # | Lean name | def file @ commit | replaces | class; content | last task | form (strict LEAF = published form) |
+|---|---|---|---|---|---|---|
+| H-181 | `CToPrinted2.KatoRealizationCohSS` | `scratch/c-to-printed2/CToPrinted2.lean` L618 @ main | H-158 (from H-127) | GLUE in the strict count (consequence of one theorem; LEAF in the lenient count); some semisimple `ρ` attached to the newform, with Kato's Hodge–Tate weights; with the fields `tateTwistInvariants` and `axSenTate` it gives `eigenformHTNew`, and is equivalent to it over the bundle | c-to-printed2 | consequence of one theorem: Kato, Astérisque 295 (2004) §8.3 and §§9.2-9.4 at his `V_{F_λ}(f)`, quantified existentially (c-to-printed2 §2.1; locators read by locators.md row R13): the report's label, a consequence |
+| H-188 | `ReductGlue.StrictHenselizationInside` | `ZInQKernel/OneProof/H/TailZ14.lean` L2137 @ main | H-147 | GLUE in the strict count (consequence of one theorem; LEAF in the lenient count); inside an algebraic closure at a place `w`: the inertia field, on which `w` is a strict henselization of `O` | reduct-glue; in flight: gt-unip (`semistableUnipotent`) | consequence of one theorem: Stacks 0BSK-0BSL; Raynaud, Anneaux locaux henséliens, VIII; BLR §1.2 Prop. 2 (reduct-glue §2; UNVERIFIED); review v1 reads it as a consequence; sh-route proves its characteristic-0 form from `NeronBaseChangeSH`, not applied; it does not follow from `StrictHenselizationPair` (it asks for the inertia field inside a fixed algebraic closure; leaf-fold14 §1) |
+| H-190 | `HDec.HSyn.G0Split.ThetaPt.ThetaGlue.LinYangThetaCurve` | `scratch/theta-glue/ThetaGlue.lean` L593 @ main | H-133, H-134 (from H-44) | GLUE (composite); along the explicit QM curve `τ ↦ Ω(τ)`: `ψ₄ψ₆ = 2¹²3⁵χ₁₀` and `ψ₄³ + ψ₆² = 2¹²3⁶χ₁₂` in Igusa's theta expressions | theta-glue; in flight: linyang-printed (`LinYangThetaCurve`) | composite: Lin–Yang, Math. Z. 295 (2020), Example 29 with eqs. (13)-(14), after eliminating `j` (so weaker than the print), with Igusa's theta expressions (Amer. J. Math. 89 (1967) §4); locators UNVERIFIED; numerically VERIFIED (80 digits at 12 points); theta-glue's label: a composite; igusa-alg proves `IgusaAlg 5` to `9`, so the route rests on this leaf alone (`qmThetaSymmetricCurve_of_linYang`) |
+
+### 4.12 Fields of leaf-fold13 introduced in r7 (5: 4 LEAF, 1 GLUE strict; 5 LEAF, 0 GLUE lenient)
+
+Each row is a field of C4'''''''' that leaf-fold13 introduced (x6-fold), and the hypothesis of a compiled theorem in
+`TailZ20`-`TailZ22`. Four restate x6-glue's leaves on abelian schemes (r6's rows H-142, H-177, H-178, H-179); H-150
+keeps its row from r5 (until r6 open only in scenario F). Forms: kinds.tsv's. r8: H-195 is replaced by gt-elkies's
+leaf (H-206, §4.14).
+
+| # | Lean name | def file @ commit | replaces | class; content | last task | form (strict LEAF = published form) |
+|---|---|---|---|---|---|---|
+| H-150 | `HDec.QMSplit.Moduli.GeomConnOfAlgClosure` | `ZInQKernel/OneProof/H/TailZ20.lean` L1842 @ main | H-140 (from H-1) | **LEAF**; a proper `X → Spec k` with `X ×_k k̄` connected is geometrically connected | shimura-split; field `geomConnOfAlgClosure` of leaf-fold19; cloud batch 2: claimed on the issue 2026-11-15 02:14Z, in progress (claims.tsv) | published form: EGA IV₂ 4.5.1-4.5.2; Stacks 0389, weakened by `IsProper` and characteristic 0 (shimura-split §2, §3.2) |
+| H-192 | `ShimuraGlue.DeligneComponentsX6PrintedAb` | `ZInQKernel/OneProof/H/TailZ22.lean` L33 @ main | H-177 | **LEAF**; Deligne's theorem on `π₀` in printed form at level `𝒪̂^×`, on one coarse witness `X₆`, on abelian schemes; with `ℚ^×_{>0}\𝔸_f^×/nrd(𝒪̂^×) = 1` (compiled) it gives `DeligneComponentsX6` | x6-fold; field `deligneComponentsX6PrintedAb` of leaf-fold19 | published form: Deligne, Sém. Bourbaki 389 (1971) Thm 2.4 and §3; PSPM 33 (1979) 2.1.3, 2.6.3 (shimura-glue §2, x6-glue §2; UNVERIFIED), at level `𝒪̂^×`; x6-fold restates it on abelian schemes (`R1fpPropsAb`, the printed fine-moduli problem; `deligneComponentsX6Printed_iff_ab` with the field `mumfordRigidityCore`, H-170) |
+| H-193 | `HDec.QMSplit.Moduli.BabaGranathRationalAb` | `ZInQKernel/OneProof/H/TailZ22.lean` L91 @ main | H-178 | **LEAF**; Baba–Granath's fibre clause on abelian schemes: three distinct rational points that are exactly the images of `CM(−4)`, `CM(−3)`, `CM(−24)`; no `j`-normalization (the Möbius glue is proved) | x6-fold; field `babaGranathRationalAb` of leaf-fold19; in flight: gt-x6facts (`babaGranathRationalAb`) | published form: Baba–Granath 2008 Thm 2.1 and Lemma 3.1 (audit YES), with the CM assignment read from their §3.1 table, an UNVERIFIED reading (kinds.tsv flags it; shimura-glue §5.3, x6-glue §4); x6-fold restates it on abelian schemes (`R1fpPropsAb`, the printed fine-moduli problem; `babaGranathRational_iff_ab` with the field `mumfordRigidityCore`, H-170) |
+| H-194 | `HDec.QMSplit.Moduli.GonzalezRotgerX6Ab` | `ZInQKernel/OneProof/H/TailZ22.lean` L64 @ main | H-142 | **LEAF**; some coarse witness, on abelian schemes, has the residue fields of CM points (`R5ptProps`) | x6-fold; field `gonzalezRotgerX6Ab` of leaf-fold19 | published form: González–Rotger 2006 Thm 5.12 (qm-glue §4.2; UNVERIFIED); x6-fold restates it on abelian schemes (`R1fpPropsAb`, the printed fine-moduli problem; `gonzalezRotgerX6_iff_ab` with the field `mumfordRigidityCore`, H-170) |
+| H-196 | `ShimuraGlue.Ray.RayClassCMAb` | `ZInQKernel/OneProof/H/TailZ22.lean` L48 @ main | H-179 | GLUE in the strict count (consequence of one theorem; LEAF in the lenient count); on one fine witness, on abelian schemes, the residue field of a CM point by the maximal order of `ℚ(i)`, `ℚ(ζ₃)` or `ℚ(√−6)` embeds into Tau Ceti's ray class field of conductor 3 | x6-fold; field `rayClassCMAb` of leaf-fold19; in flight: rayclass-cft (`rayClassCMAb`); gt-rayclass (`rayClassCMAb`) | consequence of one theorem: Shimura 1967 Main Thm I and Deligne 1971 §3, ray-class form (shimura-glue §5.1, x6-glue §5.1; locators UNVERIFIED); stronger than `ReciprocityCanonical`, weaker than the printed reciprocity law; x6-fold restates it on abelian schemes (`R1fpPropsAb`, the printed fine-moduli problem; `rayClassCM_iff_ab` with the field `mumfordRigidityCore`, H-170); gap-triage reads `R1recProps`, the clause it serves, as probably unread (finding 8, SPECULATIVE): if so, the field drops |
+
+### 4.13 Props open only in scenario F, introduced in r7 (2: 1 LEAF, 1 GLUE strict; 1 LEAF, 1 GLUE lenient)
+
+Each row is a hypothesis of a compiled theorem that scenario F applies on top of C4'''''''' (§4.1): unipotent-b's
+printed SGA 7 IX 3.5 and its glue. Its form is the task report's label. r8: t09-pic's four leaves are fields since
+leaf-fold14 (§4.14).
+
+| # | Lean name | def file @ commit | replaces | class; content | last task | form (strict LEAF = published form) |
+|---|---|---|---|---|---|---|
+| H-197 | `UnipotentB.SemistableUnipotentPrintedGen` | `scratch/unipotent-b/UnipotentB.lean` L275 @ main | H-184 (from H-147) | **LEAF**; SGA 7 IX 3.5 as printed, over every field: `O` strictly henselian, `Ω = K^s`, semistability over `k(s)`, `ℓ` invertible in `O`; semistable iff inertia acts unipotently, and then `(σ - 1)(τ - 1) = 0` on `T_ℓ` | unipotent-b; in flight: gt-unip (`semistableUnipotent`) | published form: SGA 7 I Exp. IX Prop. 3.5 (unipotent-b §2; wording UNVERIFIED, no network): the printed strictly henselian base, so the base reading of the four DVR fields does not arise here |
+| H-198 | `UnipotentB.SemiAbelianDescendsSepClosed` | `scratch/unipotent-b/UnipotentB.lean` L298 @ main | H-184 (from H-147) | GLUE (project glue); for a DVR with separably closed residue field `k`, a group model whose special fibre over `k̄` has semi-abelian identity component has one over `k` already | unipotent-b; in flight: gt-unip (`semistableUnipotent`) | project glue: unipotent-b's named glue (§3.3: maximal tori over `k`, SGA 3 XIV 1.1; properness descends, EGA IV₂ 2.7.1; UNVERIFIED); proved when `k` is perfect, so needed only for imperfect residue fields; not in Mathlib |
+
+### 4.14 Fields of leaf-fold14 to leaf-fold19 introduced in r8 (9: 7 LEAF, 2 GLUE strict; 8 LEAF, 1 GLUE lenient)
+
+Each row is a field of C4'''''''' that leaf-fold14 to leaf-fold19 introduced, and the hypothesis of a compiled theorem
+in its file: leaf-fold14's fold 1, reduct-b's Route B-cp (H-182, H-203; the third, `strictHenselizationPair`, is
+replaced by gt-shpair's H-205 in leaf-fold18), and fold 2, t09-pic's four leaves (H-199 to H-202); gt-grcount's H-204
+(leaf-fold17); gt-elkies's H-206 (leaf-fold18). The five that r7 listed as open only in scenario F keep their rows.
+Forms: kinds.tsv's, with the integrator's convention for `weilPairingMumford` (a composite in the strictest reading);
+r7 read H-201 and H-202 as consequences.
+
+| # | Lean name | def file @ commit | replaces | class; content | last task | form (strict LEAF = published form) |
+|---|---|---|---|---|---|---|
+| H-182 | `ReductGlue.RaynaudSemistableSH` | `ZInQKernel/OneProof/H/TailZ14.lean` L1105 @ main | H-160 | **LEAF**; Raynaud's criterion over a strictly henselian DVR; with `strictHenselizationPair` (from H-205) and `mulEtaleAbelianScheme` (proved since leaf-fold19) it gives the general-DVR form | reduct-glue; field `raynaudSemistableSH` of leaf-fold19 (since leaf-fold14) | published form: SGA 7 I Exp. IX Prop. 4.7 over a strictly henselian DVR (reduct-glue §4; locator UNVERIFIED); kinds.tsv: a reading risk (the print may assume an algebraically closed residue field, reduct-b §5), rated low by the next-fold review |
+| H-199 | `T09Pic.PicRepresentableAbVar` | `ZInQKernel/OneProof/H/TailZ24.lean` L289 @ main | H-53 | **LEAF**; the relative Picard fppf sheaf of an abelian variety is representable | t09-pic; field `picRepresentableAbVar` of leaf-fold19 (since leaf-fold14); cloud batch 3 (W22): briefed 2026-11-15, not yet claimed on the issue (claims.tsv) | published form: Murre (1964), Oort (1962); FGA Exp. 232 Thm 3.1; Kleiman, The Picard scheme, Thm 9.4.8 with Thm 9.2.5 (t09-pic §3; UNVERIFIED) |
+| H-200 | `T09Pic.PicZeroAbVar` | `ZInQKernel/OneProof/H/TailZ24.lean` L302 @ main | H-53 | **LEAF**; the identity component of the Picard scheme is an abelian variety, by an open immersion that is a homomorphism | t09-pic; field `picZeroAbVar` of leaf-fold19 (since leaf-fold14); cloud batch 3 (W22): briefed 2026-11-15, not yet claimed on the issue (claims.tsv) | published form: Mumford, Abelian Varieties §13; Kleiman Prop. 9.5.1 and 9.5.3; Milne 1986 §§9-10 (t09-pic §3; UNVERIFIED) |
+| H-201 | `T09Pic.PhiAmpleIsogeny` | `ZInQKernel/OneProof/H/TailZ24.lean` L366 @ main | H-53 | **LEAF**; for an ample `L`, the homomorphism `λ` with `λ ≫ ι = φ_L` is finite and surjective | t09-pic; field `phiAmpleIsogeny` of leaf-fold19 (since leaf-fold14); cloud batch 3 (W22): briefed 2026-11-15, not yet claimed on the issue (claims.tsv) | published form: Mumford §6 Application 1 and §8 Thm 1 (t09-pic §3; UNVERIFIED), the kind in kinds.tsv, flagged: finiteness over a non-closed `K` descends from `K̄`, and Mumford states Application 1 for effective `D` (r7 read it as a consequence) |
+| H-202 | `T09Pic.WeilPairingMumford` | `ZInQKernel/OneProof/H/TailZ24.lean` L708 @ main | H-53 | GLUE (composite); for `n` invertible in `K`, a perfect, `G_K`-equivariant, compatible pairing `A[n] × Pic⁰[n] → μ_n` with Mumford's values (`weilScalar`), adjoint for the genuine `f^∨`, with `e_n(x, λ_L x) = 1` for ample `L` | t09-pic; field `weilPairingMumford` of leaf-fold19 (since leaf-fold14); cloud batch 3 (W22): briefed 2026-11-15, not yet claimed on the issue (claims.tsv) | composite: Mumford §20 and §23; Milne 1986 Lemma 16.2(c) and §16 (t09-pic §3; UNVERIFIED); kinds.tsv: published kind, LEAF in its strict column, GLUE in its strictest (one leaf bundling several printed properties of `e_n`), so a composite by the integrator's convention; t09-pic's label: a consequence of the print; it also compiles the split into one printed property per leaf (L4a-L4f, `t09SymmIsogenyExists_of_split`) |
+| H-203 | `ReductB.SemistablePersistsSHcp` | `ZInQKernel/OneProof/H/TailZ23.lean` L315 @ main | H-185 | **LEAF**; SGA 7 IX 3.3, first assertion (semistable reduction persists in finite extensions), over a strictly henselian DVR of a field of characteristic 0 with perfect (hence algebraically closed) residue field; a specialization of `SemistablePersistsSH`; with `strictHenselizationPair` it gives SS1 and SS3 at number fields (`ReductB.ss1_ss3_of_cp`) | reduct-b; field `semistablePersistsSHcp` of leaf-fold19 (since leaf-fold14) | published form: SGA 7 I Exp. IX Prop. 3.3, first assertion, restricted to characteristic 0 and an algebraically closed residue field (number UNVERIFIED; reduct-b's Route B-cp); kinds.tsv: a specialization of every reading of the print, rated (a) by the next-fold review |
+| H-204 | `GRCountX6.GonzalezRotgerProp56X6` | `ZInQKernel/Contrib/OneProof/GRCountX6.lean` L72 @ main | H-168 | **LEAF**; González–Rotger's count on every witness of the moduli description of `X₀(6,1)`, with no existence claim: the CM points by an order `R` that occurs as some `End_𝒪(A)` number `2^{inertCount6 k}·#Pic(R)`; with the field `gonzalezRotgerX6Ab` it gives `gonzalezRotgerCountX6Ab` | gt-grcount; field `gonzalezRotgerProp56X6` of leaf-fold19 (since leaf-fold17) | published form: González–Rotger, J. Math. Soc. Japan 58 (2006) Prop. 5.6, p. 943 (read by the locator audit), at `(D, N) = (6, 1)` (gt-grcount; statement review 11-14, two lenses: faithful); kinds.tsv flags that `D(R)`, the product of the `p ∣ D` with `(R/p) = −1`, is to be confirmed against the paper |
+| H-205 | `GapSHPair.NeronBaseChangeStrictHenselization` | `ZInQKernel/Contrib/OneProof/StrictHenselizationPair.lean` L1527 @ main | H-187 | **LEAF**; Néron models commute with strict henselization: for a DVR `O` and an unramified strictly henselian extension `O₁` with `K₁/K` separable (`IsSHSep`, which pins `O₁` as `O^sh` in every characteristic), the base change of a Néron model is a Néron model; gt-shpair proves `StrictHenselizationPair` from it | gt-shpair; field `neronBaseChangeStrictHenselization` of leaf-fold19 (since leaf-fold18); cloud batch 3 (W21): briefed 2026-11-15, not yet claimed on the issue (claims.tsv) | published form: Bosch–Lütkebohmert–Raynaud, Néron models, §1.2 Prop. 2 (gt-shpair; locator UNVERIFIED; statement review 11-14, two lenses: published form); a specialization of the chain's `NeronBaseChangeUnramifiedDVR` |
+| H-206 | `HDec.QMSplit.Moduli.ElkiesX6Star.ElkiesX6StarPrinted` | `ZInQKernel/Contrib/OneProof/ElkiesX6Star.lean` L67 @ main | H-195 | GLUE in the strict count (consequence of one theorem; LEAF in the lenient count); Elkies' coordinate `t` on `X*(6) = X₆/W` on one witness of the moduli clause: `t(x) = t(x′)` iff `x′ = w(x)` for some `w ∈ W = {1, w₂, w₃, w₆}`, with `W` defined by its moduli action; the CM values `t = 0, 1, ∞` at discriminants −24, −4, −3; the two charts of `X₆` over the `t`-line; gt-elkies proves the moduli step (`orbit_iff_twist`) | gt-elkies; field `elkiesX6StarPrinted` of leaf-fold19 (since leaf-fold18) | consequence of one theorem: Elkies, ANTS-III (1998) §3 on `X*(6)` (section, display and the `0/∞` orientation UNVERIFIED); the statement review (11-14, two lenses) reads it as a consequence, the `ℚ̄`-point form of the printed coordinate statement, and the integrator ruled it GLUE under the strict rule |
+
+### 4.15 Bundle fields never projected, and the prune (not on the list)
+
+r8: sem-prune (`docs/research/sem-prune.md`) removes the two fields that gap-triage found used only syntactically,
+`bdRInvariants` (H-124) and `raynaudKernelBound` (H-173), from every bundle generation, after re-proving their
+consumers without them (`G0Galois.G9GlueNoT23`; `HeightSplit.FaltingsLemma5BCLower` from the field
+`faltingsLemma5Printed`). Its PruneScan finds no unused field before and after, and `chain.py`'s `UNUSED` is empty.
+
+Until r7:
+r7: none. x6-fold's scan (`scratch/x6-fold/PruneScan.lean`, genus-fold's scan) finds no unused field at w66, and
+`chain.py`'s `UNUSED` is empty. gap-triage finds two fields used only syntactically, which a scan of projections
+cannot see: `bdRInvariants` (passed on by `g8_g11`, `g8_g12`, whose only proofs ignore it) and `raynaudKernelBound`
+(`faltingsLemma5_of_printed` needs only the half that `faltingsLemma5Printed` gives); its attack list ranks removing
+both first (gap-triage §1, A1).
+
+Until r6:
 r6: none. The integrator's prune (0218a662, merged in w62) removed `r3 : ZInQ.LeafPush2.R03_LinYang`, `serreTateThm2`
 and `t10 : T10Etale.T10_TateDuality` from every bundle generation: the three fields that its fixed Lean scan
 (wip/prune-scan e3045e7d) found unused at w61 (the prune's diff only removes lines: 63, with one structure-literal
@@ -530,7 +613,7 @@ OneProof/H they occur only as `f := r.f` or `f := t.f`, or a transport `_ofK5` o
 `TailD`, `TailE`, `TailI`, `TailK`, `TailN`, `TailO` and `TailX`, and `t10` in LPrefix's `T10_groupIso_of_tateDuality`
 (VERIFIED, grep at main); leaf-fold7 and leaf-fold8 left the chain from LPrefix to TailO unchanged.
 
-### 4.13 Statement reviews of the leaves (leaf-review-a, leaf-review-b, leafq-check, the r4 to r6 tasks)
+### 4.16 Statement reviews of the leaves (leaf-review-a, leaf-review-b, leafq-check, the r4 to r8 tasks)
 
 leaf-review-a (groups A, A′, F: 21 fields) and leaf-review-b (groups B, C, D, E, G: 41 fields) read every leaf-fold3
 field with the definitions it uses: 8 PUBLISHED-FORM (`t11b`, `serreRigidity3`, `r7a`, `t41`, `r9a`, `r9b`, `r19`, `t33`),
@@ -567,8 +650,9 @@ Every leaf stated on a witness of the moduli clause lists carries `R1fpProps`, w
 families without a group law, while the published moduli theorem classifies abelian schemes; r5 put the open check on
 the step between them (rigidity, extension of the polarization) in those rows. Since r6 it rests on one field,
 `mumfordRigidityCore` (H-170): with it r1univ-rigid compiles, for 18 leaves, that the leaf on `R1fpProps` is
-equivalent to the same leaf on abelian schemes, and route-a-fold restates four fields that way. The rows that still
-carry `R1fpProps` say so (H-142, H-154 and x6-glue's printed forms; `RayClassCM`, H-179, is not among the 18).
+equivalent to the same leaf on abelian schemes, and route-a-fold restates four fields that way. The row that still
+carries `R1fpProps` says so (H-154); since r7, x6-fold states x6-glue's leaves on abelian schemes (§4.12),
+`RayClassCMAb` included.
 
 The r6 tasks checked their rows against the sources they could read; none reports a row false or vacuous.
 reduct-glue's base review, first version, with the integrator's rulings (11-14): `NeronSchemeModelExistsDVR` (H-148)
@@ -589,25 +673,50 @@ printed objects are quantified existentially. t5-glue's `ShimuraMainCM` is Shimu
 (numbers UNVERIFIED). theta-glue's `LinYangThetaCurve` is numerically VERIFIED (80 digits at 12 points) and `IgusaAlg`
 by exact expansion, neither proved.
 
+The r7 tasks checked their rows against the sources they could read; none reports a row false or vacuous, and none had
+network access, so every locator is UNVERIFIED. reduct-b changes no statement: its three theorems prove the DVR fields
+from the strictly henselian leaves already on the list. unipotent-b's `SemistableUnipotentPrintedGen` is 3.5 over the
+printed strictly henselian base, with the echelon clause as recalled; its glue is needed only when the residue field
+is imperfect. t09-pic states its four leaves over genuine definitions (Picard sheaf, `Pic⁰`, ample and very ample
+bundles, Mumford's `ē_n` as `weilScalar`) and argues that `WeilPairingMumford` is a consequence of the print, not
+stronger: each clause is one printed property and holds under either sign convention. shimura-cft's leaf (not used
+here) is a consequence by its report, a composite by its review. kinds.tsv flags `deligneComponentsY3PrintedAb`
+(depends on one display, Deligne 389 §5 and Milne 2005 §14) and `elkiesEquationsX6Ab` (its fibre clause), both GLUE by
+the integrator's convention, and keeps the reading of Baba–Granath's table flagged on `babaGranathRationalAb`, LEAF.
+igusa-alg's proofs replace theta-glue's exact expansions by Lean theorems with standard axioms; `LinYangThetaCurve`
+stays a composite, numerically VERIFIED.
+
+The r8 tasks and folds checked their new leaves with an AI statement review (two lenses, from memory, 11-14; recorded
+in kinds.tsv's `rated_by`); none had network access, so every locator is UNVERIFIED. `GonzalezRotgerProp56X6` is
+faithful, with `D(R)` to be confirmed against the paper; `NeronBaseChangeStrictHenselization` is a published form;
+`ElkiesX6StarPrinted` is a consequence (the `ℚ̄`-point form of Elkies' coordinate statement), GLUE by the integrator's
+ruling. Of the top's two new hypotheses, `X0ModuliGalois` is a consequence, and `ShimuraMainCM` cites the Artin-map
+lemmas that fix its normalization. leaf-fold14's next-fold review rates `raynaudSemistableSH` and
+`semistablePersistsSHcp` (a): kinds.tsv calls the first's reading risk (the print may assume an algebraically closed
+residue field) low and the second a specialization of every reading of the print. t09-pic's four leaves are pending a
+review (one model review, no errors), and kinds.tsv counts `weilPairingMumford` a composite in its strictest reading.
+gt-valence's proof of the valence formula settles its statement: the volume is Mathlib's invariant measure, so it is
+the genuine formula, neither vacuous nor stronger than its source.
+
 ## 5. Completeness check
 
 ### 5.1 Scenario A (compiled composite)
 
-`python3 scratch/frontier/chain.py A` (from the repository root): 0 signature mismatches; 67 open nodes = the 32 + 15
-+ 13 + 1 = 61 fields of C4'''''''s four bundles (each expanded from the structure as read at main) plus the 6 TYZ and
-GZ hypotheses of the top: the hypothesis list of the composite of C2, T0 with T0', and C4'''''', all of them used
-(§4.12). With the integrator's convention and this report's forms for the top: 45 LEAF and 22 GLUE strict, 56 and 11
-lenient; with `gonzalezRotgerCountX6Ab` published (leaf-fold11's table): 46 LEAF and 21 GLUE strict; with
-leaf-fold11's forms for every field: 52 and 15. `chain.py onep`: its hypotheses are scenario A's (the four bundles and the six top Props), and `fields11.tsv`, whose types this report copied from the bundles, lists the same 61 fields.
+`python3 scratch/frontier/chain.py A` (from the repository root): 0 signature mismatches; 65 open nodes = the 30 + 13
++ 14 + 1 = 58 fields of C4'''''''''s four bundles (each expanded from the structure as read at main) plus the 7 TYZ
+and GZ hypotheses of the top: the hypothesis list of the composite of C2, T0 with T0' and B8, and C4'''''''', all of
+them used (§4.15). With kinds.tsv's forms (strictest reading, and its `frozenTarget` rows for the top): 47 LEAF and 18
+GLUE strict, 55 and 10 lenient; with `weilPairingMumford` published (kinds.tsv's strict column): 48 LEAF and 17 GLUE
+strict. `chain.py onep`: its hypotheses are scenario A's (the four bundles and the seven top Props); the bundles'
+fields are the 58 field rows of `kinds.tsv`, with the names and type heads of the build's `open-statements.json`,
+whose seven other hypotheses have scenario A's heads.
 
 ### 5.2 Scenario F (frontier)
 
-`python3 scratch/frontier/chain.py F`: 0 signature mismatches over 190 theorem edges in the file (36 followed on the
-route, among them 3 modus-ponens steps, 2 transfers along an equivalence and 1 consumer replacement); 86 open nodes =
-the 86 of §0 (no never-projected field is left). Where a followed edge's file is not the H base, the check compares
-the Prop it proves with the one the route uses (`defcheck`):
-- `X0RatStructure`: identical (vs scratch/tyz-split/T5.lean, which takes it).
-- `CMModuli`: identical (vs scratch/tyz-split/T5.lean, which takes it).
+`python3 scratch/frontier/chain.py F`: 0 signature mismatches over 198 theorem edges in the file (27 followed on the
+route, among them 1 transfer along an equivalence and 1 consumer replacement; no modus-ponens step is followed); 75
+open nodes = the 75 of §0 (no never-projected field is left). Where a followed edge's file is not the H base, the
+check compares the Prop it proves with the one the route uses (`defcheck`):
 - `CoordinateNormalization`: identical.
 - `CoordinateFromSections`: identical (vs scratch/mcr-glue/MCRGlue.lean, which takes it).
 - `TorsionStructure`: the kernel's own constant (ZInQKernel/HDecomp/Objects.lean), which OneProof/H imports.
@@ -617,33 +726,30 @@ the Prop it proves with the one the route uses (`defcheck`):
 - `GenericQuotientP1`: identical.
 - `QMThetaSymmetricCurve`: identical (vs scratch/theta-split/ThetaUse.lean, which takes it).
 - `ThetaEightSquare`: identical (vs scratch/theta-split/ThetaUse.lean, which takes it).
-The F-only edges in library files outside OneProof/H (shimura-split, modular-split, tyz-split's T-5 split, x6-glue,
-c-to-printed2) prove the library's own constants: each file imports ZInQKernel modules, has no definition of the Prop
-it proves, and imports the module that defines it, which `OneProof/Main.lean` imports too (`worldcheck`):
-- `ShimuraReciprocityModFn` (`scratch/tyz-split/T5.lean`): defined in `ZInQKernel/Contrib/TYZGenus/ShimuraModFn.lean`.
-- `X6ConicModel` (`scratch/x6-glue/X6Glue.lean` @ 685a56e1): defined in `ZInQKernel/OneProof/H/TailE.lean`, whose definition of it is the same at 685a56e1 and at main.
+The F-only edges in library files outside OneProof/H (shimura-split, modular-split, c-to-printed2, unipotent-b, fork
+PR #19) prove the library's own constants: each file imports ZInQKernel modules, has no definition of the Prop it
+proves (or only a copy for an `rfl` check), and imports the module that defines it, which `OneProof/Main.lean` imports
+too (`worldcheck`):
+- `SemistableUnipotent` (`scratch/unipotent-b/UnipotentB.lean`): defined in `ZInQKernel/OneProof/H/TailZ7.lean`.
+- `MulEtaleAbelianScheme` (`ZInQKernel/Contrib/OneProof/MulEtale.lean`): defined in `ZInQKernel/OneProof/H/TailQ.lean`.
 - `CarayolR17'` (`scratch/modular-split/R17.lean`): defined in `ZInQKernel/HDecomp/Conductor/LadicCond.lean`.
-- `EigenformHTNew` (`scratch/c-to-printed2/CToPrinted2.lean` @ dbeaecf7, which has only a `Verbatim` copy for an `rfl` check): defined in `ZInQKernel/OneProof/H/TailS.lean`, whose definition of it is the same at dbeaecf7 and at main.
+- `EigenformHTNew` (`scratch/c-to-printed2/CToPrinted2.lean`, which has only a `Verbatim` copy for an `rfl` check): defined in `ZInQKernel/OneProof/H/TailS.lean`.
 - `ShimuraFamily` (`scratch/shimura-split/ShimuraFam.lean`): defined in `ZInQKernel/OneProof/H/TailU.lean`.
-- `R1R2fpRep` (`scratch/x6-glue/X6Glue.lean` @ 685a56e1): defined in `ZInQKernel/OneProof/H/LPrefix.lean`, whose definition of it is the same at 685a56e1 and at main.
-The fields that cloud-w07 proved are inside C4'''''' now, so `rootcheck` has nothing to check; no followed edge's file
-is over leaf-fold4's chain any more (theta-split bypasses qm-split's split of H-44), so `chaincheck` has nothing to
-compare either.
-The modus-ponens steps (`SemistableUnipotent`, `SemistableReductionDVR`, `SemistablePersistsDVR`) are checked on the
-definitions of reduct-glue's implications (`def UnipotentFromSH : Prop := SemistableUnipotentSH →
-SemistableUnipotent`, and so on): antecedent and consequent heads as the edge says. The transfers (`r1R2fpRep_iff_ab`,
-`shimuraFamily_iff_ab`) are checked on the two sides of their `↔` and on their hypothesis `MumfordRigidity`. The
-consumer replacement (`bypass_check`: the signatures of the old and the new consumer):
+No followed edge concludes a kernel constant written with `_root_` in the bundles, so `rootcheck` has nothing to
+check, and no followed edge's file is over leaf-fold4's chain, so `chaincheck` has nothing to compare either.
+The transfer (`LeafQM.AV.R1UnivRigid.shimuraFamily_iff_ab`) is checked on the two sides of its `↔` and on its
+hypothesis `MumfordRigidity`. The consumer replacement (`bypass_check`: the signatures of the old and the new
+consumer):
 - `ThetaRatiosAlgebraic`: ok; ok (TailA's `thetaPointOfFibre_of_qm_ratios` and theta-split's `thetaPointOfFibre_of_qm_curve` conclude the same `ThetaPointOfFibre`).
 Each F-only row's definition (the file in its row) is identical to the definition in the file of every followed edge
-that takes it and has its own copy (18 comparisons; 0 more edges import the Prop instead).
+that takes it and has its own copy (9 comparisons; 1 more edge imports the Prop instead).
 The pairwise checks of r2 still pass. The eight kernel leaf copies that the flat files carried are gone: OneProof/H
 imports `ZInQKernel/HDecomp/Objects.lean` itself. mcr-quot's and shimura-split's T5 is the kernel's
 `ObjBridge.TorsionStructure` or `PkgI2.TorsionStructure.{0}`, which `Objects.lean` proves equal by `Iff.rfl`
 (`torsionStructure_iff`).
 
-`python3 scratch/frontier/chain.py doc` compares the rows `Z-n`, `T-n`, `H-n` with the scenario-F open set:
-86 rows with 86 distinct heads, equal to the F open set.
+`python3 scratch/frontier/chain.py doc` compares the rows `Z-n`, `T-n`, `H-n` with the scenario-F open set: 75 rows
+with 75 distinct heads, equal to the open set.
 
 What the script does not check: that the edges compose in one Lean environment; argument instantiation (for example
 `heckeVertWitness_of_leaves5` takes `R1R2fp`, extracted from `r1r2` by `Classical.choice`); section variables that a
@@ -653,41 +759,109 @@ the defs that a Prop's def mentions (only the top-level def text is compared).
 ## 6. Integration state
 
 ### 6.1 Composites that exist
-- **`ZInQ.OneProof.frozenTarget`** (main; leaf-fold11's bundles since w63; T0' since w59): scenario A as one library
-  theorem (§1).
-- **C4'''''', leaf-fold11** (b73da969, in w63, with leaf-fold12; over leaf-fold10 a5df68fe, w61, and the prune
-  0218a662, w62): 32 + 15 + 13 + 1 fields inside OneProof (`TailZ16`-`TailZ19` and `OneProof/Genus/*` over
-  leaf-fold10's `TailZ10`-`TailZ15`, leaf-fold9's `TailZ5`-`TailZ9`, leaf-fold8's `TailY`-`TailZ4` and leaf-fold7's
-  `TailP`-`TailX`); lake build, axioms and the unused-field scan REPORTED.
-- **The top in the kernel**: C2 (atkin-li) and tyz-chain's T0, with T0' (tyz-split) in `OneProof/TYZSplit.lean`.
-- Superseded: C4''''' (leaf-fold9), C4'''' (leaf-fold8), C4''' (leaf-fold6), C4'' (leaf-fold5), C4' (leaf-fold4), C4
-  (assemble-port) and the variants listed in r2.
+- **`ZInQ.OneProof.frozenTarget`** (main; leaf-fold19's bundles since 11-15; B8 since leaf-fold17; T0' since w59):
+  scenario A as one library theorem (§1).
+- **C4'''''''', leaf-fold19** (c2ad4181, over leaf-fold18 3782dac8, leaf-fold17 be8511f3, leaf-fold16 a454ad64,
+  leaf-fold15 63205204, sem-prune 2b486d04 and leaf-fold14 97579a97): 30 + 13 + 14 + 1 fields inside OneProof
+  (`TailZ23`-`TailZ32` over leaf-fold13's `TailZ20`-`TailZ22`, leaf-fold11's `TailZ16`-`TailZ19` and
+  `OneProof/Genus/*`, leaf-fold10's `TailZ10`-`TailZ15`, leaf-fold9's `TailZ5`-`TailZ9`, leaf-fold8's `TailY`-`TailZ4`
+  and leaf-fold7's `TailP`-`TailX`); the contributions it folds are in `ZInQKernel/Contrib/OneProof/`; lake build and
+  axioms REPORTED.
+- **The top in the kernel**: C2 (atkin-li) and tyz-chain's T0, with T0' (tyz-split) in `OneProof/TYZSplit.lean` and B8
+  (gt-ringclass) in `Contrib/OneProof/RingClassLattice.lean`.
+- **The contributor and crowd kits** (contrib-kit 46afc732, w66; crowd kit 1c791eb1): `docs/one-proof/OPEN.md` and
+  `pages-wanted.md`, generated from the build's `open-statements.json`, `kinds.tsv` (with packets, labels, tiers and
+  flag classes), `claims.tsv` (with public holders), `reviews.tsv`, `credits.tsv` and `issues.json`;
+  `ZInQKernel/OneProof/Discharges.lean`, whose `#discharges` names the hypotheses of `frozenTarget` that a
+  contribution proves; and `scripts/one_proof/autofold.py`, which writes the fold that removes them and refuses a rise
+  of either GLUE count.
+- Superseded: C4''''''' (leaf-fold13), C4'''''' (leaf-fold11), C4''''' (leaf-fold9), C4'''' (leaf-fold8), C4'''
+  (leaf-fold6), C4'' (leaf-fold5), C4' (leaf-fold4), C4 (assemble-port) and the variants listed in r2.
 
-### 6.2 What folding scenario F into C4'''''' needs
-leaf-fold7 to leaf-fold11 take a fold only if neither GLUE count rises and the fold lowers the strict GLUE count or
-replaces a consequence or composite by published-form leaves (leaf-fold9 §5). With this report's forms (SPECULATIVE
-until compiled):
-- x6-glue (leaf-fold13, in flight): `r1r2Ab` and `x6ConicModel` over five published leaves and `RayClassCM`, with T5;
-  the composite `r1r2Ab` and the consequence `x6ConicModel` go, `RayClassCM` comes, so the strict GLUE count falls by
-  one;
-- c-to-printed2: `eigenformHTNew` → `KatoRealizationCohSS`, a consequence for a consequence: neutral, as the report
-  says;
-- reduct-glue: the four DVR fields over their strictly henselian forms add the project-glue implication
-  `ReductionFromSH` and three strict-henselization consequences (sh-route works on those); reduct-b and unipotent-b
-  work on the DVR fields themselves;
-- theta-split with theta-glue: the composite `thetaRatiosAlgebraic` → the composite `LinYangThetaCurve` and the
-  project glue `IgusaAlg` (igusa-alg works on it), strict GLUE +1 until `IgusaAlg` is proved;
-- t5-glue (B7) changes the TYZ hypothesis `hS` (§6.3); the coordinate stays out: one glue field becomes three glue
-  Props with mcr-glue's six leaves.
+### 6.2 What folding scenario F into C4'''''''' needs
+leaf-fold7 to leaf-fold19 take a fold only if neither GLUE count rises and the fold lowers the strict GLUE count or
+replaces a consequence or composite by published-form leaves (leaf-fold9 §5; `autofold.py` refuses a rise). With this
+report's forms (SPECULATIVE until compiled):
+- unipotent-b: the consequence `semistableUnipotent` goes, the published `SemistableUnipotentPrintedGen`, the glue
+  `SemiAbelianDescendsSepClosed` and the consequence `StrictHenselizationInside` come (`mulEtaleAbelianScheme` is
+  proved since leaf-fold19): both GLUE counts +1, so the rule keeps it out (leaf-fold14 §1); gt-unip, after main,
+  reports a route with no glue;
+- igusa-alg with theta-split: the composite `thetaRatiosAlgebraic` → the composite `LinYangThetaCurve`: neutral, with
+  every closed identity proved; linyang-printed, after main, reduces the leaf to two printed leaves;
+- modular-split (`r17` → `CarayolRealization`) and c-to-printed2 (`eigenformHTNew` → `KatoRealizationCohSS`): neutral
+  (consequences both); shimura-split (`shimuraFamilyAb` → `ShimuraHolFamily`): neutral; mcr-glue and mcr-quot
+  (`quotientP1Coordinate` → nine Props, three of them project glue): both GLUE counts rise;
+- in flight on fields: rayclass-cft and gt-rayclass (`rayClassCMAb`, and gt-rayclass also `shimuraFamilyAb`),
+  gt-rigidity (`mumfordRigidityCore`), gt-sga3 (`sga3_VIB_3_10`), gt-sga7 and sh-printed2 (`sga7_IX_3_3`), gt-x6facts
+  (`babaGranathRationalAb`); shimura-cft's leaf for `shimuraFamilyAb` awaits a rating.
 
 ### 6.3 The library theorem
-`ZInQ.OneProof.frozenTarget` has exactly the hypotheses of scenario A, and its proof uses all of them. Each F edge
-removes or replaces a field once folded; B6 with B7 would change its TYZ hypothesis `hS` to `ShimuraMainCM`,
-`RingClassLattice` and `X0ModuliGalois`.
+`ZInQ.OneProof.frozenTarget` has exactly the hypotheses of scenario A, and its proof uses all of them. Since
+leaf-fold17 its TYZ hypothesis `hS` is replaced by `hCM` and `hX` (B8). Each F edge removes or replaces a field once
+folded.
 
 ## 7. Findings
 
-**Refresh r6 (2026-11-14).**
+**Refresh r8 (2026-11-15).**
+
+1. **Nine rows proved, two pruned, four replaced** (§0, §4.1). The 4 new rows are 3 published forms and 1 consequence
+   of one theorem, and five rows that were open only in scenario F are fields now. The total goes from 86 to 75, the
+   strict count from 54/32 to 49/26 and the lenient count from 68/18 to 59/16.
+2. **Scenario A is one compiled theorem** on main, `ZInQ.OneProof.frozenTarget`, now over leaf-fold19: 65 hypotheses,
+   all used. Its 58 fields are 44 LEAF and 14 GLUE strict by the integrator's table, as OPEN.md's count line says (45
+   and 13 with `weilPairingMumford` published); with the top, 47 LEAF and 18 GLUE strict, 55 and 10 lenient. `chain.py
+   onep` reads its hypotheses from `Main.lean` and finds scenario A's, and the bundles and the top agree with
+   `kinds.tsv` and the build's `open-statements.json`.
+3. **The CM hypothesis rests on two printed leaves**: gt-ringclass proves `RingClassLattice`, so the library theorem
+   takes `ShimuraMainCM` and `X0ModuliGalois` (T-15, T-16) in place of `hS`, and tyz-split's and t5-glue's splits are
+   off the route.
+4. **Three of the four SGA 7 IX DVR fields are gone from the library theorem**: leaf-fold14 folds reduct-b's Route
+   B-cp, so the strictly henselian `raynaudSemistableSH` and the restricted `semistablePersistsSHcp` are fields in
+   their place, and gt-shpair proves the strict-henselization pair from BLR §1.2 Prop. 2 in every characteristic; the
+   fourth, `semistableUnipotent`, stays a field.
+5. **Contributions fold mechanically**: since gt-ega, the integrator's `autofold.py` writes each fold (the next bundle
+   generation, its conversion, the top, `kinds.tsv`, `claims.tsv`), and refuses a rise of either GLUE count. sem-prune
+   removes the two fields that gap-triage found used only syntactically.
+6. **One field table for the whole theorem**: kinds.tsv's rows with bundle `frozenTarget` give the forms of the seven
+   TYZ and GZ hypotheses, and they agree with this report's rows (§2.2, §3.2).
+7. **claims.tsv** (crowd kit): the cloud claims are batch and round labels with public holders; it still lists
+   unipotent-b and igusa-alg as in progress, merged in w66 and not folded.
+8. **Nine branches after main** (gt-rayclass, gt-rigidity, gt-sga3, gt-sga7, gt-unip, gt-x6facts, rayclass-cft,
+   linyang-printed, sh-printed2) report reductions of fields on the list (§0); this report does not use them until
+   they are merged.
+9. **Project glue** is 4 Props: `CMStabObj`, `CoverModelOfHeckeN`, `P1SchemeQ`, `SemiAbelianDescendsSepClosed`.
+10. **chain.py**: the H base is leaf-fold19 (bundles in `TailZ29`, `TailZ32`, `TailZ31`, `TailX`); B8 is an edge of
+   both scenarios; fork PR #19's proof of `mulEtaleAbelianScheme` is an F edge, since unipotent-b's split still takes
+   it; `onep` compares the top with kinds.tsv's `frozenTarget` rows through the build's JSON.
+
+**Refresh r7** (unchanged):
+
+1. **One row proved, two split, three off the route, five replaced** (§0, §4.1). The 11 new rows are 6 published
+   forms, 3 consequences of one theorem, 1 composite and 1 project glue. The total (86) and the strict count (54/32)
+   are r6's; the lenient count goes from 69/17 to 68/18.
+2. **Scenario A is one compiled theorem** on main, `ZInQ.OneProof.frozenTarget`, now over leaf-fold13: 71 hypotheses,
+   all used. Its 65 fields are 46 LEAF and 19 GLUE strict by the integrator's table (47 and 18 with
+   `gonzalezRotgerCountX6Ab` published); with the top, 48 LEAF and 23 GLUE strict, 59 and 12 lenient. `chain.py onep`
+   reads its hypotheses from `Main.lean` and finds scenario A's, and the bundles agree with `kinds.tsv` and the
+   build's `open-statements.json`.
+3. **One field table.** The forms of the fields come from the integrator's `kinds.tsv`; r6's own `fields11.tsv` is
+   gone. The table's strictest column is this report's strict count, and its strict column the alternative.
+4. **x6-glue's leaves are on abelian schemes now**, so the rows that carry `R1fpProps` shrink to H-154; their open
+   check rests on `mumfordRigidityCore` (H-170).
+5. **The SGA 7 IX rows**: reduct-b takes `SemistableReductionSH`, `ReductionFromSH` and `StrictHenselizationNeron` off
+   the route, and unipotent-b replaces `SemistableUnipotentSH` by the printed 3.5; the base reading of the DVR fields
+   (a human reading of SGA 7 IX) still decides whether they count as consequences.
+6. **The theta route rests on one leaf**: igusa-alg proves `IgusaAlg 5` to `9` in Lean, so `QMThetaSymmetricCurve`
+   follows from `LinYangThetaCurve` alone.
+7. **claims.tsv lags w66**: it lists reduct-b, unipotent-b, t09-pic and igusa-alg as in progress, but their reports
+   are merged and scenario F uses them.
+8. **Project glue** is 5 Props: `CMStabObj`, `CoverModelOfHeckeN`, `P1SchemeQ`, `RingClassLattice`,
+   `SemiAbelianDescendsSepClosed`.
+9. **chain.py**: the H base is leaf-fold13 (bundles in `TailZ22`, `TailZ11`, `TailX`); the field table is `kinds.tsv`,
+   and `onep` also compares the bundles with `open-statements.json`; r6's branch heads are read at main; `worldcheck`
+   accepts a copy for an `rfl` check in a `section Verbatim` and at main.
+
+**Refresh r6** (unchanged):
 
 1. **6 rows proved, 10 split, 6 off the route, 3 replaced** (§0, §4.1). The 27 new rows are 12 published forms, 10
    consequences of one theorem, 2 composites and 3 project glue.
@@ -823,20 +997,23 @@ and the open textbook rows are those of §4.3 and §4.5):
 6. **Statement changes proposed here: none.** (Finding 2 is linked-ram's proposal, adopted by assemble-port; gz-decomp's
    `GrossZagierCd` and gz-statements' restricted GZ leaves are on record.)
 
-## 8. Tasks (snapshot 2026-11-14 18:41 PST; heads in `scratch/frontier/refs.txt`)
+## 8. Tasks (snapshot 2026-11-15 04:33 PST; heads in `scratch/frontier/refs.txt`)
 
-Finished, with results used in r6: leaf-fold11 (b73da969, with leaf-fold12), genus-fold (d5df7c4d), route-a-fold
-(6f939b14), cm24-value (d8d1363a) and c-to-printed (ba24fa83), both copied into OneProof by leaf-fold12; leaf-fold10
-(a5df68fe), the prune (0218a662), shimura-glue (2e698102), reduct-glue (221ba4e7), dimjac-glue (24435c82), theta-split
-(b285cb60), genus-route (4be3bdae), r1univ-rigid (b40823ba); x6-glue (685a56e1), c-to-printed2 (dbeaecf7) and t5-glue
-(405763f6), at their branch heads after their reports. Running, used: theta-glue (336ec1fd). In flight, not used:
-reduct-b, unipotent-b, sh-route, shimura-cft, t09-pic, igusa-alg, gap-triage and leaf-fold13 (§0). Used in r5 and
-compiled inside C4'''''' or applied by scenario F: leaf-fold9, shimura-split, reduct-split, modular-split and
-tyz-split's statement review (heads in the r5 section of `refs.txt`). Used in r4 and compiled inside C4'''''' or
-applied by scenario F: leaf-fold8, mcr-quot, coarse-factor, cloud-w07 (fork PR #11), leaf-fold7, height-glue, qm-glue,
-leaf-fold6, mcr-glue, av-glue, av-split, height-split, curve-split, hodge-split, qm-split, tyz-split, fork PRs #6-#10
-(heads in the r4 section of `refs.txt`). Used in r3 and compiled inside C4'''''': leaf-fold5, leafq-check, tyz-chain
-and the r2 tasks. Read, not folded: leaf-review-a, leaf-review-b. Being attempted: cloud workers W11-W15 (§0).
+Finished, with results used in r8: leaf-fold14 (97579a97) with reduct-b (85495b37) and t09-pic (3d0f47a8); sem-prune
+(2b486d04); leaf-fold15 (63205204) with gt-ega (cf8e5042); leaf-fold16 (a454ad64) with gt-blr (bca6c158), gt-gamma
+(57264686), gt-theta (e32311e5); leaf-fold17 (be8511f3) with gt-ringclass (06f03bd4) and gt-grcount (77774f85);
+leaf-fold18 (3782dac8) with gt-shpair (00bfe84a), gt-elkies (0f83a86a), gt-qm (1509a623), gt-valence (36d94c0d);
+leaf-fold19 (c2ad4181) with fork PR #19; the crowd kit (1c791eb1). After main, not used: gt-rayclass (28ec5c91),
+gt-rigidity (762ea48b), gt-sga3 (deba22d7), gt-sga7 (70a16c4c), gt-unip (42e1af66), gt-x6facts (80631ed5),
+rayclass-cft (7b27f1c3), linyang-printed (3bb5a828), sh-printed2 (ea486e30). Used in r7 and still applied by scenario
+F: unipotent-b (24c44f3d), igusa-alg (c9360203); read, not applied: shimura-cft (c1f76fc2), sh-route, gap-triage
+(heads in the r7 section of `refs.txt`). Used in r6 and compiled inside C4'''''''' or applied by scenario F:
+leaf-fold11, leaf-fold10, the prune, genus-fold, route-a-fold, shimura-glue, reduct-glue, dimjac-glue, theta-split,
+genus-route, r1univ-rigid, theta-glue, c-to-printed2, t5-glue, x6-glue. Used in r5: leaf-fold9, shimura-split,
+reduct-split, modular-split and tyz-split's statement review. Used in r4: leaf-fold8, mcr-quot, coarse-factor,
+cloud-w07 (fork PR #11), leaf-fold7, height-glue, qm-glue, leaf-fold6, mcr-glue, av-glue, av-split, height-split,
+curve-split, hodge-split, qm-split, tyz-split, fork PRs #6-#10. Used in r3: leaf-fold5, leafq-check, tyz-chain and the
+r2 tasks. Read, not folded: leaf-review-a, leaf-review-b. Cloud claims: claims.tsv (§0).
 
 Running tasks are on the fork's tracker issue #3.
 
@@ -846,4 +1023,4 @@ that the narrower `ZInQ.GZStatements.FHNonvanishingCd` and `GrossZagierHeegnerCd
 (`frozenTarget_of_sixContactMin_tyzThm35ReadingA_fhNonvanishingCd_grossZagierHeegnerCd`); they could replace Z-1, Z-2
 (both remain GLUE). Not adopted here (not compiled together with `TYZChain.lean`).
 
-This branch is integration w63 plus this refresh.
+This branch is fork main 37391b11 plus this refresh.

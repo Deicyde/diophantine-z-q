@@ -1,0 +1,68 @@
+PROJS [HDec.HSyn.OpenAddedLeaves17.geomConnOfAlgClosure,
+ HDec.HSyn.OpenAddedLeaves14.geomConnOfAlgClosure,
+ HDec.HSyn.OpenAddedLeaves12.deligneComponentsX6PrintedAb,
+ HDec.HSyn.OpenResearchLeaves9.r1r2,
+ HDec.HSyn.OpenAddedLeaves16.geomConnOfAlgClosure,
+ HDec.HSyn.OpenAddedLeaves17.deligneComponentsX6PrintedAb,
+ HDec.HSyn.OpenAddedLeaves16.deligneComponentsX6PrintedAb,
+ HDec.HSyn.OpenResearchLeaves5.r1b,
+ HDec.HSyn.OpenAddedLeaves14.deligneComponentsX6PrintedAb,
+ HDec.HSyn.OpenAddedLeaves15.geomConnOfAlgClosure,
+ HDec.HSyn.OpenAddedLeaves15.deligneComponentsX6PrintedAb,
+ HDec.HSyn.OpenAddedLeaves13.deligneComponentsX6PrintedAb,
+ HDec.HSyn.ResearchLeaves3.r1r2,
+ HDec.HSyn.OpenResearchLeaves8.r1r2,
+ HDec.HSyn.OpenResearchLeaves2.r1b,
+ HDec.HSyn.OpenResearchLeaves2.r1r2,
+ HDec.HSyn.OpenResearchLeaves5.r1r2,
+ HDec.HSyn.OpenResearchLeaves7.r1r2,
+ HDec.HSyn.OpenAddedLeaves13.geomConnOfAlgClosure,
+ HDec.HSyn.OpenAddedLeaves12.geomConnOfAlgClosure]
+SCOPE 47
+ZInQKernel.Contrib.OneProof.SGRFold:42-49 -V HDec.HSyn.SGRFold.heckeSqrtBranchAny_of_open29 P=[]
+ZInQKernel.Contrib.OneProof.STQM:756-813 TV GapST.cm_point P=[]
+ZInQKernel.Contrib.OneProof.STQM:879-904 TV GapST.stQM_of P=[]
+ZInQKernel.OneProof.H.LPrefix:5245-5250 TV HDec.LeafAdopt.R1R2fp_of_rep P=[]
+ZInQKernel.OneProof.H.TailC:8447-8458 TV HDec.HSyn.G0Split.FibreQM.fibreQMPeriod_main_rep P=[]
+ZInQKernel.OneProof.H.TailD:199-251 -- HDec.HSyn.glueOutputs_of_leaves3 P=[HDec.HSyn.ResearchLeaves3.r1r2]
+ZInQKernel.OneProof.H.TailD:532-535 -- HDec.HSyn.r1r2fpFull_of P=[HDec.HSyn.ResearchLeaves3.r1r2]
+ZInQKernel.OneProof.H.TailE:6568-6588 -- HDec.HSyn.researchLeaves3_of_open2 P=[HDec.HSyn.OpenResearchLeaves2.r1r2]
+ZInQKernel.OneProof.H.TailI:71-86 TV HDec.HSyn.propTSAll_of_pieces3 P=[]
+ZInQKernel.OneProof.H.TailK:282-342 -- HDec.HSyn.gluePieces_of_open4 P=[HDec.HSyn.OpenResearchLeaves2.r1r2, HDec.HSyn.OpenResearchLeaves2.r1b]
+ZInQKernel.OneProof.H.TailK:69-94 TV HDec.HSyn.periodMapGlue_of_leaves4 P=[]
+ZInQKernel.OneProof.H.TailN:98-121 -- HDec.HSyn.researchLeaves2_of_open5 P=[HDec.HSyn.OpenResearchLeaves5.r1r2, HDec.HSyn.OpenResearchLeaves5.r1b]
+ZInQKernel.OneProof.H.TailO:1177-1300 TV HDec.HSyn.G0Split.FibreQM.PeriodMapH.LeafQCheck.descend_main P=[]
+ZInQKernel.OneProof.H.TailO:1302-1323 TV HDec.HSyn.G0Split.FibreQM.PeriodMapH.LeafQCheck.cmDescends_of P=[]
+ZInQKernel.OneProof.H.TailO:2870-2874 -- HDec.HSyn.cmDescends_of6 P=[HDec.HSyn.OpenResearchLeaves5.r1r2]
+ZInQKernel.OneProof.H.TailO:2907-2916 -- HDec.HSyn.glue4_of_open6 P=[HDec.HSyn.OpenResearchLeaves5.r1r2]
+ZInQKernel.OneProof.H.TailU:1914-1921 TV HDec.QMSplit.Moduli.r1r2fpRep_of P=[]
+ZInQKernel.OneProof.H.TailU:1965-1973 TV HDec.QMSplit.Moduli.r1b_of P=[]
+ZInQKernel.OneProof.H.TailU:1990-1993 TV HDec.QMSplit.Moduli.x6ConicModel_of P=[]
+ZInQKernel.OneProof.H.TailU:2267-2270 T- HDec.QMSplit.Moduli.r1r2fpRep_of' P=[]
+ZInQKernel.OneProof.H.TailU:2272-2278 T- HDec.QMSplit.Moduli.r1b_of' P=[]
+ZInQKernel.OneProof.H.TailX:183-208 -- HDec.HSyn.researchLeaves5_of_open7 P=[HDec.HSyn.OpenResearchLeaves7.r1r2]
+ZInQKernel.OneProof.H.TailX:237-262 -- HDec.HSyn.addedLeaves6_of_open7 P=[HDec.HSyn.OpenResearchLeaves7.r1r2]
+ZInQKernel.OneProof.H.TailZ20:1030-1032 TV HDec.QMSplit.Moduli.pairsLift_of_rep P=[]
+ZInQKernel.OneProof.H.TailZ20:1062-1065 TV HDec.QMSplit.Moduli.coarseFactor_of_rep P=[]
+ZInQKernel.OneProof.H.TailZ20:1084-1086 TV HDec.QMSplit.Moduli.coarseFactor_of_rep' P=[]
+ZInQKernel.OneProof.H.TailZ20:1743-1753 T- HDec.QMSplit.Moduli.r1r2fpRep_of_split P=[]
+ZInQKernel.OneProof.H.TailZ20:1786-1791 T- HDec.QMSplit.Moduli.r1r2fpRep_of_split5 P=[]
+ZInQKernel.OneProof.H.TailZ20:1820-1823 T- HDec.QMSplit.Moduli.r1r2fpRep_of_split6 P=[]
+ZInQKernel.OneProof.H.TailZ20:1851-1859 T- HDec.QMSplit.Moduli.r1r2fpRep_of_printed P=[]
+ZInQKernel.OneProof.H.TailZ20:1910-1915 TV HDec.QMSplit.Moduli.x6ConicModel_of_elkies P=[]
+ZInQKernel.OneProof.H.TailZ20:1921-1925 TV HDec.QMSplit.Moduli.x6ConicModel_of_elkies_t5 P=[]
+ZInQKernel.OneProof.H.TailZ20:1937-1941 T- HDec.QMSplit.Moduli.r1r2fpRep_of_printed_t5 P=[]
+ZInQKernel.OneProof.H.TailZ21:1420-1433 T- HDec.QMSplit.Moduli.r1r2_of_published P=[]
+ZInQKernel.OneProof.H.TailZ21:1453-1456 TV HDec.QMSplit.Moduli.x6Rows_of_leaves P=[]
+ZInQKernel.OneProof.H.TailZ23:705-717 T- HDec.HSyn.x6Rows_of_open14 P=[HDec.HSyn.OpenAddedLeaves12.deligneComponentsX6PrintedAb, HDec.HSyn.OpenAddedLeaves12.geomConnOfAlgClosure]
+ZInQKernel.OneProof.H.TailZ23:733-747 -V HDec.HSyn.addedLeaves9_of_open14 P=[]
+ZInQKernel.OneProof.H.TailZ23:749-787 -V HDec.HSyn.researchLeaves9_of_open14 P=[]
+ZInQKernel.OneProof.H.TailZ24:808-821 -- HDec.HSyn.addedLeaves12_of_open13 P=[HDec.HSyn.OpenAddedLeaves13.deligneComponentsX6PrintedAb, HDec.HSyn.OpenAddedLeaves13.geomConnOfAlgClosure]
+ZInQKernel.OneProof.H.TailZ26:160-175 -- HDec.HSyn.openAddedLeaves13_of_OpenAddedLeaves14 P=[HDec.HSyn.OpenAddedLeaves14.deligneComponentsX6PrintedAb, HDec.HSyn.OpenAddedLeaves14.geomConnOfAlgClosure]
+ZInQKernel.OneProof.H.TailZ30:47-61 -- HDec.HSyn.openAddedLeaves14_of_OpenAddedLeaves15 P=[HDec.HSyn.OpenAddedLeaves15.deligneComponentsX6PrintedAb, HDec.HSyn.OpenAddedLeaves15.geomConnOfAlgClosure]
+ZInQKernel.OneProof.H.TailZ31:44-57 -- HDec.HSyn.openAddedLeaves15_of_OpenAddedLeaves16 P=[HDec.HSyn.OpenAddedLeaves16.deligneComponentsX6PrintedAb, HDec.HSyn.OpenAddedLeaves16.geomConnOfAlgClosure]
+ZInQKernel.OneProof.H.TailZ34:141-153 -- HDec.HSyn.openAddedLeaves16_of_OpenAddedLeaves17 P=[HDec.HSyn.OpenAddedLeaves17.deligneComponentsX6PrintedAb, HDec.HSyn.OpenAddedLeaves17.geomConnOfAlgClosure]
+ZInQKernel.OneProof.H.TailZ4:176-202 -- HDec.HSyn.researchLeaves7_of_open8 P=[HDec.HSyn.OpenResearchLeaves8.r1r2]
+ZInQKernel.OneProof.H.TailZ5:258-265 TV HDec.HSyn.r1rec_of_rep P=[]
+ZInQKernel.OneProof.H.TailZ5:267-277 TV HDec.HSyn.r5fp_of_rep P=[]
+ZInQKernel.OneProof.H.TailZ9:80-108 -- HDec.HSyn.researchLeaves8_of_open9 P=[HDec.HSyn.OpenResearchLeaves9.r1r2]

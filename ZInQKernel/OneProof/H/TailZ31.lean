@@ -16,20 +16,7 @@ structure OpenAddedLeaves16 : Prop where
   tateTwistInvariants : _root_.ZInQ.Contrib.HodgeSplit.TateTwistInvariants
   axSenTate : _root_.ZInQ.Contrib.HodgeSplit.AxSenTate
   milneIsogenyQuasiInverse : _root_.AvSplit.MilneIsogenyQuasiInverse
-  shimuraTaniyamaQbar : G0Split.FibreQM.PeriodMapH.QMSplitSTQM.ShimuraTaniyamaQbar
   egaIV_8_10_5_xii : _root_.ZInQ.Contrib.SpreadOut.EGAIV_8_10_5_xii
-  shimuraGoodReductionNoGuard : CurveSplitGR.ShimuraGoodReductionNoGuard
-  /-- shimura-glue, printed form, on abelian schemes (route-a-fold): Deligne's theorem on the connected
-  components of a Shimura variety for `G = B^×` at level `K₃` on one fine witness `Y₃` (Deligne, Sém. Bourbaki
-  389 (1971) Thm 2.4, §3; PSPM 33 (1979) 2.1.3, 2.6.3; locators UNVERIFIED). -/
-  deligneComponentsY3PrintedAb : _root_.ShimuraGlue.DeligneComponentsY3PrintedAb
-  /-- x6-glue (shimura-glue), printed form (on abelian schemes): Deligne's theorem on the connected components of a
-  Shimura variety (Sém. Bourbaki 389 (1971) Thm 2.4, §3; PSPM 33 (1979) 2.6.3; locators UNVERIFIED) for
-  `G = B^×` at level `𝒪̂^×` on one canonical coarse witness `X₆` (the double coset is computed in Lean). -/
-  deligneComponentsX6PrintedAb : _root_.ShimuraGlue.DeligneComponentsX6PrintedAb
-  /-- x6-glue (shimura-split), textbook, weakened: for a proper `X → Spec k`, `char k = 0`, connectedness of
-  `X ×_k k̄` gives geometric connectedness (EGA IV 4.5; Stacks 0389; locators UNVERIFIED). -/
-  geomConnOfAlgClosure : QMSplit.Moduli.GeomConnOfAlgClosure
   /-- t09-pic, L1, printed form: the relative Picard fppf sheaf of an abelian variety over a field is representable
   (Murre 1964, Oort 1962; FGA Exp. 232 Thm 3.1; Kleiman, *The Picard scheme*, Thm 9.4.8 with 9.2.5; locators
   UNVERIFIED). With the next three replaces `t09SymmIsogenyExists`. -/
@@ -53,21 +40,17 @@ theorem openAddedLeaves15_of_OpenAddedLeaves16 (n : OpenAddedLeaves16) : OpenAdd
   tateTwistInvariants := n.tateTwistInvariants
   axSenTate := n.axSenTate
   milneIsogenyQuasiInverse := n.milneIsogenyQuasiInverse
-  shimuraTaniyamaQbar := n.shimuraTaniyamaQbar
   egaIV_8_10_5_xii := n.egaIV_8_10_5_xii
-  shimuraGoodReductionNoGuard := n.shimuraGoodReductionNoGuard
   valenceFormulaCocompactEq := _root_.ValenceCocompact.valenceFormulaCocompactEq_proof
-  deligneComponentsY3PrintedAb := n.deligneComponentsY3PrintedAb
-  deligneComponentsX6PrintedAb := n.deligneComponentsX6PrintedAb
-  geomConnOfAlgClosure := n.geomConnOfAlgClosure
   picRepresentableAbVar := n.picRepresentableAbVar
   picZeroAbVar := n.picZeroAbVar
   phiAmpleIsogeny := n.phiAmpleIsogeny
   weilPairingMumford := n.weilPairingMumford
 
 /-- **G0 with only the open leaves and the open glue** (leaf-fold18; generated). -/
-theorem sixContactMin_of_open25 (r : OpenResearchLeaves19) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves16) (g : OpenGlue7) : ZInQ.SixContactMin :=
-  sixContactMin_of_open24 r t (openAddedLeaves15_of_OpenAddedLeaves16 l) g
+theorem sixContactMin_of_open25 (r : OpenResearchLeaves19) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves16) (g : OpenGlue7)
+    (hY3 : TSHecke.Y3Connected) : ZInQ.SixContactMin :=
+  sixContactMin_of_open24 r t (openAddedLeaves15_of_OpenAddedLeaves16 l) g hY3
 
 end HSyn
 

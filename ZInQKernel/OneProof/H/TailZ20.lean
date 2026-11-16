@@ -368,7 +368,7 @@ theorem conicOfWitness_of' (hC : ConicCanonical) (hK : CoarseCompare) (hU : Haup
   · rw [hagree]; exact he₀i (x ≫ k.hom) b hb
 
 /-- **Row H-43 from `r1r2`, the canonical conic model, `CoarseFactor`, `CurveBijIso` and `MobiusGlue`.** -/
-theorem x6ConicModel_of_canonical' (hR : LeafAdopt.R1R2fpRep) (hC : ConicCanonical) (hF : CoarseFactor)
+theorem x6ConicModel_of_canonical' (hR : LeafAdopt.R1R2fpRepW) (hC : ConicCanonical) (hF : CoarseFactor)
     (hCB : ModelGlue.CurveBijIso) (hM : Pin.MobiusGlue) : X6Kummer.X6ConicModel :=
   x6ConicModel_of hR (conicOfWitness_of' hC (coarseCompare_of hF hCB) (hauptmodulUniqueX6S_of hM))
 
@@ -1027,8 +1027,8 @@ theorem pairsLift_of_canonical (h : CanonicalCoarseX6) : PairsLift := by
   obtain ⟨Y, Φ, X, Ψ, fY, -, h6, hs, -⟩ := h
   exact pairsLift_of_witness h6 hs
 
-theorem pairsLift_of_rep (h : LeafAdopt.R1R2fpRep) : PairsLift := by
-  obtain ⟨Y, Φ, X, Ψ, fY, π₆, -, -, h6, -, -, hs, -, -⟩ := h
+theorem pairsLift_of_rep (h : LeafAdopt.R1R2fpRepW) : PairsLift := by
+  obtain ⟨Y, Φ, X, Ψ, fY, π₆, -, -, h6, -, -, hs, -⟩ := h
   exact pairsLift_of_witness h6 hs.2
 
 /-- **`CoarseFactor` from `PairsLift` and `FactorThroughSurj`.** -/
@@ -1061,7 +1061,7 @@ theorem coarseFactor_of_canonical (hC : CanonicalCoarseX6) (hF : FactorThroughSu
 
 /-- `CoarseFactor` from the bundle leaf `R1R2fpRep` (the hypothesis of qm-glue's
 `x6ConicModel_of_canonical'`) and the AG glue. -/
-theorem coarseFactor_of_rep (hR : LeafAdopt.R1R2fpRep) (hF : FactorThroughSurj) : CoarseFactor :=
+theorem coarseFactor_of_rep (hR : LeafAdopt.R1R2fpRepW) (hF : FactorThroughSurj) : CoarseFactor :=
   coarseFactor_of (pairsLift_of_rep hR) hF
 
 end HDec.QMSplit.Moduli
@@ -1082,7 +1082,7 @@ theorem coarseFactor_of_canonical' (hC : CanonicalCoarseX6) : CoarseFactor :=
   coarseFactor_of_canonical hC factorThroughSurj_proof
 
 /-- **`CoarseFactor` from `R1R2fpRep`.** -/
-theorem coarseFactor_of_rep' (hR : LeafAdopt.R1R2fpRep) : CoarseFactor :=
+theorem coarseFactor_of_rep' (hR : LeafAdopt.R1R2fpRepW) : CoarseFactor :=
   coarseFactor_of_rep hR factorThroughSurj_proof
 
 /-- **`CoarseCompare` from `CanonicalCoarseX6` alone.** -/
@@ -1909,7 +1909,7 @@ theorem conicOfWitness_of_elkies (hC : ElkiesConicX6) (hK : CoarseCompare) (hU :
 
 /-- **Row H-43 (`x6ConicModel`) from `r1r2`, Elkies' model `ElkiesConicX6` and `MobiusGlue`** (the kernel
 proves `MobiusGlue` from T5: `LeafQM.AV.CurveGlue.mobiusGlue_of_T5`). -/
-theorem x6ConicModel_of_elkies (hR : LeafAdopt.R1R2fpRep) (hC : ElkiesConicX6) (hM : Pin.MobiusGlue) :
+theorem x6ConicModel_of_elkies (hR : LeafAdopt.R1R2fpRepW) (hC : ElkiesConicX6) (hM : Pin.MobiusGlue) :
     X6Kummer.X6ConicModel :=
   x6ConicModel_of hR (conicOfWitness_of_elkies hC
     (coarseCompare_of (coarseFactor_of_rep' hR) CurveSplit.curveBijIso) (hauptmodulUniqueX6S_of hM))
@@ -1920,7 +1920,7 @@ namespace HDec.QMSplit.Moduli
 
 /-- **Row H-43 with `MobiusGlue` discharged from T5** (`PkgI2.TorsionStructure`, the bundle's T5 form; the
 kernel's `LeafQM.AV.CurveGlue.mobiusGlue_of_t5`, image-plane). -/
-theorem x6ConicModel_of_elkies_t5 (hR : LeafAdopt.R1R2fpRep) (hC : ElkiesConicX6)
+theorem x6ConicModel_of_elkies_t5 (hR : LeafAdopt.R1R2fpRepW) (hC : ElkiesConicX6)
     (hT : PkgI2.TorsionStructure.{0}) : X6Kummer.X6ConicModel :=
   x6ConicModel_of_elkies hR hC (LeafQM.AV.CurveGlue.mobiusGlue_of_t5 hT)
 

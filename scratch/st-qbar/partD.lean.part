@@ -1,0 +1,89 @@
+
+/-! ## Part D: the normalizing automorphism and the fixed class -/
+
+section Twist
+
+open MonoidalCategory CartesianMonoidalCategory MonObj
+
+variable {A : PkgI3.AbVar ℂ}
+
+/-- `w a = α(a) w` for `α = rep k` (conjugation by `w = tt k`). -/
+theorem w_mul_eq (k : Fin 4) (w : O) (hw : (w : B) = (HDec.LeafQM.AV.Pin.Exact.tt k : B)) (a : O) :
+    w * a = HDec.LeafQM.AV.Pin.Exact.rep k a * w := by
+  apply Subtype.ext
+  rw [MulMemClass.coe_mul, MulMemClass.coe_mul]
+  change (w : B) * a = ((HDec.LeafQM.AV.Pin.Exact.conjO _ _ a : O) : B) * w
+  rw [HDec.LeafQM.AV.Pin.Exact.conjO_apply, hw, _root_.mul_assoc, Units.inv_mul, _root_.mul_one]
+
+/-- **The Atkin–Lehner-type automorphism.** If `f = ι(w)c` (`c ∈ End_𝒪(A)`, `w = tt k`) kills `A[n]` and
+`f² = n²r` with `r` a unit, then `ψ = f/n` is an automorphism of `A` with `ψ ι(a) = ι(α a) ψ`, i.e. a QM
+isomorphism `(A, ι) ≅ (A, ι ∘ α)`, `α = rep k`. -/
+theorem qmIso_twist (hU : ZInQ.LeafPush2.UniformizationExists) (hC : HDec.HomUnify.HomLatticeCorr)
+    (q : QMStr A) (k : Fin 4) (w : O) (hw : (w : B) = (HDec.LeafQM.AV.Pin.Exact.tt k : B))
+    (n : ℕ) (hn : 0 < n) (c : PkgI3.AbVar.End A) (hc : c ∈ com q)
+    (hkill : ∀ x : A.Pt ℂ, x ^ n = 1 → act (q.iota w * c) x = 1)
+    (r r' : PkgI3.AbVar.End A) (hrr : r * r' = 1) (hr'r : r' * r = 1)
+    (hf2 : (q.iota w * c) * (q.iota w * c) = ((n * n : ℕ) : PkgI3.AbVar.End A) * r) :
+    Nonempty (QMIso q (q.twist (HDec.LeafQM.AV.Pin.Exact.rep k))) := by
+  obtain ⟨ψ, hψ⟩ := dvd_of_kills hU hC n hn _ hkill
+  have hcomm : ∀ a : O, c * q.iota a = q.iota a * c := by
+    intro a
+    rw [com, Subring.mem_centralizer_iff] at hc
+    exact (hc _ ⟨a, rfl⟩).symm
+  have hψ2 : ψ * ψ = r := by
+    apply cancel_natCast hU (n * n) (Nat.mul_pos hn hn)
+    rw [← hf2, ← hψ, Nat.cast_mul]
+    calc ((n : PkgI3.AbVar.End A) * n) * (ψ * ψ) = (n : PkgI3.AbVar.End A) * ((n * ψ) * ψ) := by
+          rw [_root_.mul_assoc, _root_.mul_assoc, _root_.mul_assoc]
+      _ = (n : PkgI3.AbVar.End A) * (ψ * (n * ψ)) := by
+          rw [← (Nat.cast_commute n ψ).eq, _root_.mul_assoc]
+      _ = ((n : PkgI3.AbVar.End A) * ψ) * ((n : PkgI3.AbVar.End A) * ψ) := by
+          rw [_root_.mul_assoc]
+  have hinvR : ψ * (ψ * r') = 1 := by rw [← _root_.mul_assoc, hψ2, hrr]
+  have hinvL : (r' * ψ) * ψ = 1 := by rw [_root_.mul_assoc, hψ2, hr'r]
+  have heq : r' * ψ = ψ * r' := left_inv_eq_right_inv hinvL hinvR
+  have heqv : ∀ a : O, ψ * q.iota a = q.iota (HDec.LeafQM.AV.Pin.Exact.rep k a) * ψ := by
+    intro a
+    apply cancel_natCast hU n hn
+    rw [← _root_.mul_assoc, hψ, ← _root_.mul_assoc, ← (Nat.cast_commute n _).eq,
+      _root_.mul_assoc, hψ, _root_.mul_assoc, hcomm, ← _root_.mul_assoc, ← map_mul,
+      w_mul_eq k w hw a, map_mul, _root_.mul_assoc]
+  exact ⟨{ φ := ψ
+           ψ := ψ * r'
+           left := by
+             change ((ψ * r') * ψ).hom = (1 : PkgI3.AbVar.End A).hom
+             rw [← heq, hinvL]
+           right := by
+             change (ψ * (ψ * r')).hom = (1 : PkgI3.AbVar.End A).hom
+             rw [hinvR]
+           equivariant := fun a => by
+             change (ψ * q.iota a).hom = (q.iota (HDec.LeafQM.AV.Pin.Exact.rep k a) * ψ).hom
+             rw [heqv a] }⟩
+
+/-- **The fixed class.** A QM isomorphism `(A, ι) ≅ (A, ι ∘ α)` makes the class of `Q` a fixed point of
+`rightMul u ∘ twist α` for some `u ∈ 𝒪^×` (the level structures differ by a unit mod 3: `Level3.torsor`,
+and `𝒪^× → (𝒪/3𝒪)^×` is onto). -/
+theorem fixed_class (hT : ObjBridge.TorsionStructure) (Q : QML3 ℂ) (α : O ≃+* O)
+    (θ : QMIso Q.q (Q.q.twist α)) :
+    ∃ u : Oˣ, M3.mk Q = M3.rightMul u (M3.twist α (M3.mk Q)) := by
+  let e' := HDec.G0ModField.transportLevel θ Q.e
+  obtain ⟨u₀, v₀, hv, hu⟩ := Level3.torsor (K := ℂ) hT (Q.twist α) e'
+  obtain ⟨u, d, hd⟩ := HDec.TSHeckeUnits.exists_unit_congr u₀ v₀ hv
+  refine ⟨u, ?_⟩
+  have he : e' = (Q.twist α).e.rightMul u := by
+    apply Level3.ext'
+    ext a
+    rw [hu a]
+    change (Q.twist α).e.eta (a * u₀) = (Q.twist α).e.eta (a * u)
+    rw [Level3.eq_iff]
+    exact ⟨a * d, by rw [← mul_sub, hd]; noncomm_ring⟩
+  have hiso := HDec.G0ModField.transportIso Q Q.surface θ
+  rw [M3.twist_mk]
+  change M3.mk Q = M3.mk ((Q.twist α).rightMul u)
+  apply Quotient.sound
+  have : ((Q.twist α).rightMul u) = ⟨Q.A, Q.surface, Q.q.twist α, e'⟩ := by rw [he]; rfl
+  rw [this]
+  exact ⟨hiso⟩
+
+end Twist
+

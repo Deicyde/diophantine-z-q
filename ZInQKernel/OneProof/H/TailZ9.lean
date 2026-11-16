@@ -23,11 +23,11 @@ open CategoryTheory AlgebraicGeometry Limits
 (`ReductSplit.serreTatePotentialGood_final`, `grothendieckMonodromy_final'`), and `r5count` replaced by shimura-split's
 `GonzalezRotgerCountX6` (`ShimuraSplit.r5fpCount_of_points`). 30 fields. -/
 structure OpenResearchLeaves9 : Prop where
-  r1r2 : LeafAdopt.R1R2fpRep
+  r1r2 : LeafAdopt.R1R2fpRepW
   shimuraFamily : QMSplit.Moduli.ShimuraFamily
   igusaPsi4 : QMSplit.Theta.IgusaPsi4
   igusaChi10 : QMSplit.Theta.IgusaChi10
-  r6 : _root_.PkgI2.RaynaudCriterion.{0}
+  r6 : PkgI2.RaynaudCriterionNF.{0}
   r7a : _root_.PkgI2.NeronOggShafarevich.{0}
   r9a : _root_.PkgI3.FaltingsSemisimple
   r9b : _root_.PkgI3.FaltingsTate
@@ -54,13 +54,6 @@ structure OpenResearchLeaves9 : Prop where
   pazukiCor13Upper : _root_.ZInQ.HeightSplit.PazukiCor13Upper
   /-- height-split, H-15: Gaudron–Rémond 2014 Thm 1.4 over the published stable height, replaces `r19`. -/
   gaudronRemondThm14 : _root_.ZInQ.HeightSplit.GaudronRemondThm14
-  /-- reduct-split, r8: SGA 7 IX Thm 3.6 over a DVR (semistable reduction after a finite extension, at every place
-  above `O`). -/
-  semistableReductionDVR : _root_.ReductSplit.SemistableReductionDVR
-  /-- reduct-split, r8: SGA 7 IX Prop. 3.5, "semistable ⇒ `(σ - 1)² = 0` on `T_ℓ`" (weakest reading). -/
-  semistableUnipotent : _root_.ReductSplit.SemistableUnipotent
-  /-- reduct-split, r8: BLR §1.4 Thm 3 over a DVR (scheme form). -/
-  neronSchemeModelExistsDVR : _root_.ReductSplit.NeronSchemeModelExistsDVR
   /-- shimura-split, r5count: González–Rotger 2006 Prop. 5.6 at `(D, N) = (6, 1)` on the points of one canonical
   coarse witness `X₆` (`#CM(R) = 2^{b(k)} h(R)`; the audit read Prop. 5.6). -/
   gonzalezRotgerCountX6 : _root_.ShimuraSplit.GonzalezRotgerCountX6
@@ -80,7 +73,6 @@ structure OpenTextbookLeaves9 : Prop where
   gagaMorphism : _root_.ZInQ.HomLattice.GAGAMorphism
   dimJacobianEqGenus : _root_.ZInQ.Contrib.CurvesG.DimJacobianEqGenus
   regularSmoothPerfect : _root_.CurveSplit.RegularSmoothPerfect
-  igusaGL2 : _root_.ZInQ.RLeaf.IgusaGL2
   neronSchemeExtensionExists : _root_.ZInQ.Contrib.NeronC.NeronSchemeExtensionExists
 
 /-! ## From the new bundles to leaf-fold8's -/
@@ -96,8 +88,6 @@ theorem researchLeaves8_of_open9 (r : OpenResearchLeaves9) (t : OpenTextbookLeav
   r5count := _root_.ShimuraSplit.r5fpCount_of_points r.gonzalezRotgerCountX6
   r6 := r.r6
   r7a := r.r7a
-  r8 := _root_.ReductSplit.grothendieckMonodromy_final' r.semistableReductionDVR r.semistableUnipotent
-    r.neronSchemeModelExistsDVR t.mumfordTorsionAlgClosed
   r9a := r.r9a
   r9b := r.r9b
   hodgeTateDecompAbVar := r.hodgeTateDecompAbVar
@@ -133,7 +123,6 @@ theorem textbookLeaves8_of_open9 (t : OpenTextbookLeaves9) : OpenTextbookLeaves8
   dimJacobianEqGenus := t.dimJacobianEqGenus
   normalModelOfFunctionFieldQ := _root_.ZInQ.Contrib.CloudW07JacobiansCurves.NormalModelOfFunctionFieldQ_proof
   regularSmoothPerfect := t.regularSmoothPerfect
-  igusaGL2 := t.igusaGL2
   neronSchemeExtensionExists := t.neronSchemeExtensionExists
 
 /-- **G0 with only the open leaves and the open glue** (leaf-fold9; no `sorry`, standard axioms).

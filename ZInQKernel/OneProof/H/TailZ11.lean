@@ -26,7 +26,6 @@ structure OpenTextbookLeaves10 : Prop where
   uniformizationLeafAll : _root_.BPAnalytic.Uniformization.UniformizationLeafAll
   gagaMorphism : _root_.ZInQ.HomLattice.GAGAMorphism
   regularSmoothPerfect : _root_.CurveSplit.RegularSmoothPerfect
-  igusaGL2 : _root_.ZInQ.RLeaf.IgusaGL2
   neronSchemeExtensionExists : _root_.ZInQ.Contrib.NeronC.NeronSchemeExtensionExists
 
 /-! ## From the new bundle to leaf-fold9's -/
@@ -45,7 +44,6 @@ theorem textbookLeaves9_of_open10 (t : OpenTextbookLeaves10) : OpenTextbookLeave
   gagaMorphism := t.gagaMorphism
   dimJacobianEqGenus := _root_.ModularSplit.DimJac.dimJacobianEqGenus
   regularSmoothPerfect := t.regularSmoothPerfect
-  igusaGL2 := t.igusaGL2
   neronSchemeExtensionExists := t.neronSchemeExtensionExists
 
 /-- **G0 with only the open leaves and the open glue** (leaf-fold10; no `sorry`, standard axioms).

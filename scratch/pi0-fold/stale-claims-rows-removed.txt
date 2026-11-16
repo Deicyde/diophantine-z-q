@@ -1,0 +1,4 @@
+igusaGL2	flt-cqj2	host task flt-cqj2 running (replaces flt-cqj)	2026-11-15	elliotglazer/diophantine-z-q#83	project	project	https://github.com/elliotglazer/diophantine-z-q/issues/83#issuecomment-6887798638	held
+h29	h29-fix	h29-fix done (five leaves, none pending reading); fold queued after the re-rating	2026-11-15	elliotglazer/diophantine-z-q#74	project	project	https://github.com/elliotglazer/diophantine-z-q/issues/74#issuecomment-6885321859	held
+elkiesX6StarPrinted	elkies-coord	host task elkies-coord running	2026-11-15		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/elkies-coord	held
+semistablePersistsSHcp	persists-dvr	host task persists-dvr running: SemistablePersistsDVR from SGA 3 VI_B 3.10, SGA 7 IX 3.3 and GeomConnOfRationalPoint	2026-11-15		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/persists-dvr	held

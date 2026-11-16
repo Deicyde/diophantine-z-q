@@ -1,5 +1,6 @@
 import ZInQKernel.OneProof.H.TailZ22
 import ZInQKernel.OneProof.H.TailZ40
+import ZInQKernel.Contrib.OneProof.FaltingsLemma5Lower
 
 /-! # OneProof H, leaf-fold14 (1/2): the reduct fold, `OpenResearchLeaves14` and `sixContactMin_of_open17`
 
@@ -640,8 +641,6 @@ structure OpenResearchLeaves14 : Prop where
   gaudronRemondThm14 : _root_.ZInQ.HeightSplit.GaudronRemondThm14
   /-- reduct-split, r8: SGA 7 IX Prop. 3.5, "semistable ⇒ `(σ - 1)² = 0` on `T_ℓ`" (weakest reading). -/
   semistableUnipotent : _root_.ReductSplit.SemistableUnipotent
-  /-- reduct-split, r8: BLR §1.4 Thm 3 over a DVR (scheme form). -/
-  neronSchemeModelExistsDVR : _root_.ReductSplit.NeronSchemeModelExistsDVR
   /-- shimura-split, r5count, printed form: González–Rotger 2006 Prop. 5.6 at `(D, N) = (6, 1)` on the points of
   one canonical coarse witness `X₆` of the fine moduli scheme of abelian schemes. Replaces
   `gonzalezRotgerCountX6`. -/
@@ -656,9 +655,6 @@ structure OpenResearchLeaves14 : Prop where
   domain, a smooth separated model of finite type is a Néron model iff its localizations at the closed points are;
   locator UNVERIFIED). Replaces `neronLocalizesDVR`. -/
   blr_1_2_4 : _root_.CToPrinted.BLR_1_2_4
-  /-- c-to-printed, printed form: Faltings 1983, Lemma 5 (the change of the Faltings height under an isogeny
-  through `log #s*Ω¹` of its kernel; locator UNVERIFIED). With `raynaudKernelBound` replaces `faltingsLemma5BC`. -/
-  faltingsLemma5Printed : _root_.CToPrinted.FaltingsLemma5Printed
   /-- c-to-printed, printed form: SGA 3 VI_B 3.10 (the identity component `G⁰` of a smooth group scheme is open;
   number UNVERIFIED). With the next two and `geomConnOfRationalPoint` replaces `semistableNeronBaseChange`. -/
   sga3_VIB_3_10 : _root_.CToPrinted.SGA3_VIB_3_10
@@ -706,15 +702,14 @@ The terms are those of `researchLeaves12_of_open13`, `addedLeaves11_of_open12` (
 `addedLeaves9_of_open10` (`TailZ17`) and `researchLeaves9_of_open10` (`TailZ15`), composed; only the three reduct
 fields change. -/
 
-/-- **The two `X₆` rows from the new bundles** (the term of `x6Rows_of_open13`). -/
+/-- **The two `X₆` rows from the new bundles** (the term of `x6Rows_of_open13`). pi0-fold: the weak row
+`R1R2fpRepW` from `x6Rows_of_leavesW`, whose base witness is González–Rotger's (`GonzalezRotgerX6`); the added leaves
+`deligneComponentsX6PrintedAb` and `geomConnOfAlgClosure` are no longer read. -/
 theorem x6Rows_of_open14 (r : OpenResearchLeaves14) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves12) :
-    LeafAdopt.R1R2fpRep ∧ X6Kummer.X6ConicModel :=
+    LeafAdopt.R1R2fpRepW ∧ X6Kummer.X6ConicModel :=
   have hR := _root_.LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_groupLaw r.mumfordGroupLaw
-  QMSplit.Moduli.x6Rows_of_leaves
-    { deligneX6P := (_root_.LeafQM.AV.R1UnivRigid.deligneComponentsX6Printed_iff_ab_gl hR).mpr
-        l.deligneComponentsX6PrintedAb
-      geomConn := l.geomConnOfAlgClosure
-      t5 := _root_.AvSplit.torsionStructure_of_mumford t.mumfordTorsionAlgClosed
+  QMSplit.Moduli.x6Rows_of_leavesW
+    { t5 := _root_.AvSplit.torsionStructure_of_mumford t.mumfordTorsionAlgClosed
       babaGranathR := (_root_.LeafQM.AV.R1UnivRigid.babaGranathRational_iff_ab_gl hR).mpr r.babaGranathRationalAb
       rayClass := (_root_.LeafQM.AV.R1UnivRigid.rayClassCM_iff_ab_gl hR).mpr r.rayClassCMAb
       gonzalezRotger := (_root_.LeafQM.AV.R1UnivRigid.gonzalezRotgerX6_iff_ab_gl hR).mpr r.gonzalezRotgerX6Ab
@@ -745,31 +740,19 @@ theorem addedLeaves9_of_open14 (r : OpenResearchLeaves14) (t : OpenTextbookLeave
   t09SymmIsogenyExists := l.t09SymmIsogenyExists
   milneIsogenyQuasiInverse := l.milneIsogenyQuasiInverse
   x6ConicModel := (x6Rows_of_open14 r t l).2
-  shimuraTaniyamaQbar := l.shimuraTaniyamaQbar
   egaIV_8_10_5_xii := l.egaIV_8_10_5_xii
-  shimuraGoodReductionNoGuard := l.shimuraGoodReductionNoGuard
   valenceFormulaCocompactEq := l.valenceFormulaCocompactEq
   shimizuCovolumeO1 := l.shimizuCovolumeO1
   igusaCMValue24 := _root_.CM24.igusaCMValue24_field
-  deligneComponentsY3Printed :=
-    (_root_.LeafQM.AV.R1UnivRigid.deligneComponentsY3Printed_iff_ab_gl
-      (_root_.LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_groupLaw r.mumfordGroupLaw)).mpr
-      l.deligneComponentsY3PrintedAb
-
-/-- **SS1 and SS3** (`semistableReductionThm`, `semistablePersists`) from the restricted printed leaf
-`semistablePersistsSHcp`, the pair, 3.6 (K1), BLR 1.4/3 and the glue of `TailZ15` (`semistableLocalGlobal` from
-`blr_1_2_4` through c-to-printed's `neronLocalizesDVR_of_printed`; `semistableAlmostAll_of10`). -/
-theorem ss1_ss3_of14 (r : OpenResearchLeaves14) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves12) :
-    _root_.ZInQ.HeightSplit.SemistableReductionThm ∧ _root_.ZInQ.HeightSplit.SemistablePersists :=
-  _root_.ReductB.ss1_ss3_of_cp r.semistablePersistsSHcp r.strictHenselizationPair (semistableReductionDVR_of14 r t)
-    r.neronSchemeModelExistsDVR
-    (_root_.ReductGlue.semistableLocalGlobal_leaf (_root_.CToPrinted.neronLocalizesDVR_of_printed r.blr_1_2_4))
-    (semistableAlmostAll_of10 (addedLeaves9_of_open14 r t l))
 
 /-- leaf-fold9's research bundle from leaf-fold14's (the composite of `researchLeaves12_of_open13`,
 `researchLeaves11_of_open12`, `researchLeaves10_of_open11` and `researchLeaves9_of_open10`, with the three reduct
-fields replaced by reduct-b's theorems and SS1, SS3 by `ss1_ss3_of14`). -/
-theorem researchLeaves9_of_open14 (r : OpenResearchLeaves14) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves12) :
+fields replaced by reduct-b's theorems). r6-nf: r6 (at number fields) and SS1, SS3 are arguments, supplied in
+`sixContactMin_of_open20` (TailZ26) by `raynaudCriterionNF_of14` and `ss1_ss3_of14NF` from neron-dvr's
+number-field Néron theorem (N1 alone), which replaced BLR 1.4/3 over every DVR. -/
+theorem researchLeaves9_of_open14 (r : OpenResearchLeaves14) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves12)
+    (h6 : PkgI2.RaynaudCriterionNF.{0})
+    (hSS : _root_.ZInQ.HeightSplit.SemistableReductionThm ∧ _root_.ZInQ.HeightSplit.SemistablePersists) :
     OpenResearchLeaves9 where
   r1r2 := (x6Rows_of_open14 r t l).1
   shimuraFamily := (_root_.LeafQM.AV.R1UnivRigid.shimuraFamily_iff_ab_gl
@@ -777,8 +760,7 @@ theorem researchLeaves9_of_open14 (r : OpenResearchLeaves14) (t : OpenTextbookLe
     r.shimuraFamilyAb
   igusaPsi4 := r.igusaPsi4
   igusaChi10 := r.igusaChi10
-  r6 := _root_.ReductGlue.raynaudCriterion_leaves (raynaudSemistable_of14 r t) r.semistableUnipotent
-    r.neronSchemeModelExistsDVR t.mumfordTorsionAlgClosed t.mulEtaleAbelianScheme
+  r6 := h6
   r7a := r.r7a
   r9a := r.r9a
   r9b := r.r9b
@@ -790,17 +772,14 @@ theorem researchLeaves9_of_open14 (r : OpenResearchLeaves14) (t : OpenTextbookLe
   dsThm966 := r.dsThm966
   r16 := r.r16
   r17 := r.r17
-  semistableReductionThm := (ss1_ss3_of14 r t l).1
+  semistableReductionThm := hSS.1
   semistableNeronBaseChange := _root_.CToPrinted.semistableNeronBaseChange_of_printed_full r.blr_1_2_4
     r.sga3_VIB_3_10 r.sga7_IX_3_3 r.egaIV_8_10_5_openImm t.geomConnOfRationalPoint
-  semistablePersists := (ss1_ss3_of14 r t l).2
+  semistablePersists := hSS.2
   bostLowerBound := r.bostLowerBound
   javanpeykarBound := r.javanpeykarBound
   pazukiCor13Upper := r.pazukiCor13Upper
   gaudronRemondThm14 := r.gaudronRemondThm14
-  semistableReductionDVR := semistableReductionDVR_of14 r t
-  semistableUnipotent := r.semistableUnipotent
-  neronSchemeModelExistsDVR := r.neronSchemeModelExistsDVR
   gonzalezRotgerCountX6 :=
     (_root_.LeafQM.AV.R1UnivRigid.gonzalezRotgerCountX6_iff_ab_gl
       (_root_.LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_groupLaw r.mumfordGroupLaw)).mpr
@@ -810,9 +789,11 @@ theorem researchLeaves9_of_open14 (r : OpenResearchLeaves14) (t : OpenTextbookLe
 `ZInQ.SixContactMin` from `OpenResearchLeaves14` (35), `OpenTextbookLeaves10` (15), `OpenAddedLeaves12` (14) and
 `OpenGlue7` (1). -/
 theorem sixContactMin_of_open17 (r : OpenResearchLeaves14) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves12)
-    (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
-  sixContactMin_of_open11 (researchLeaves9_of_open14 r t l) t (addedLeaves9_of_open14 r t l) g
-    (_root_.CToPrinted.faltingsLemma5BCLower_of_printed r.faltingsLemma5Printed) hYu
+    (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) (h6 : PkgI2.RaynaudCriterionNF.{0})
+    (hSS : _root_.ZInQ.HeightSplit.SemistableReductionThm ∧ _root_.ZInQ.HeightSplit.SemistablePersists)
+    (hY3 : TSHecke.Y3Connected) : ZInQ.SixContactMin :=
+  sixContactMin_of_open11 (researchLeaves9_of_open14 r t l h6 hSS) t (addedLeaves9_of_open14 r t l) g
+    (_root_.ReductSplit.faltingsLemma5BCLower_final _root_.GapHeight.faltingsLemma5Lower) hYu hY3
 
 end HSyn
 

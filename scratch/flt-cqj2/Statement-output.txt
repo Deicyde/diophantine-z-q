@@ -1,0 +1,3 @@
+'cyclicQuotientJBijOnCopy_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
+'modularEquationGenericCopy_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
+'x0TransitiveCopy_proof' depends on axioms: [propext, Classical.choice, Quot.sound]

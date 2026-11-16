@@ -1,0 +1,13 @@
+{"name": "ds965-weak",
+ "imports": ["ZInQKernel.Contrib.OneProof.DSThm965Weak"],
+ "discharges": [
+   {"field": "dsThm965",
+    "proof": "_root_.DS965Weak.dsThm965_of_weak {n}.dsThm965Weak",
+    "leaves": [
+      {"name": "dsThm965Weak",
+       "type": "_root_.DS965Weak.DSThm965Weak",
+       "doc": "Diamond-Shurman, GTM 228 (2005), Thm 9.6.5 (k >= 2; Deligne 1971, Shimura 1971 Thm 7.14 for k = 2), in its weakest reading: rho_{f,lambda}(Frob_p) satisfies x^2 - a_p x + chi(p) p^(k-1) (numbering UNVERIFIED). Printed under every reading: it is the print if the print says 'satisfies', and a consequence of it (Cayley-Hamilton, DS965Weak.dsThm965Weak_of_dsThm965) if it says 'characteristic polynomial'.",
+       "kind": "published",
+       "flag": "unread: new printed leaf (weakest reading of DS 9.6.5, Frobenius satisfies the polynomial; implied by every stronger reading via Cayley-Hamilton); locator UNVERIFIED",
+       "source": "Diamond-Shurman, GTM 228, Thm 9.6.5 (Deligne 1971; Shimura 1971 Thm 7.14 for k = 2), weakest reading: rho(Frob_p) satisfies x^2 - a_p x + chi(p) p^(k-1); coefficients extended along iota_L o iota_C^-1"}]}],
+ "note": "DSThm965 (characteristic polynomial) is proved from the weak leaf with no other leaf: glue = the kernel's T18 (frobeniusDense_C9) and Mathlib's cyclotomic characters (hodge-split eps0, cycQ). Report docs/research/ds965-weak.md."}

@@ -64,16 +64,15 @@ theorem t11bExists_lf8 : AVB2.T11bExists := _root_.ZInQ.Contrib.CloudW06Poincare
 /-- **The research leaves still open** (leaf-fold8): leaf-fold7's `OpenResearchLeaves7` with the six height rows
 `r18`-`r22`, `h5fin` replaced by height-split's leaves over the published stable height. 31 fields. -/
 structure OpenResearchLeaves8 : Prop where
-  r1r2 : LeafAdopt.R1R2fpRep
+  r1r2 : LeafAdopt.R1R2fpRepW
   shimuraFamily : QMSplit.Moduli.ShimuraFamily
   r1rec : LeafQM.AV.R1rec
   igusaPsi4 : QMSplit.Theta.IgusaPsi4
   igusaChi10 : QMSplit.Theta.IgusaChi10
   r5 : LeafQM.AV.R5fp
   r5count : LeafQM.AV.R5fpCount
-  r6 : _root_.PkgI2.RaynaudCriterion.{0}
+  r6 : PkgI2.RaynaudCriterionNF.{0}
   r7a : _root_.PkgI2.NeronOggShafarevich.{0}
-  r8 : _root_.PkgI2.GrothendieckMonodromy.{0}
   r9a : _root_.PkgI3.FaltingsSemisimple
   r9b : _root_.PkgI3.FaltingsTate
   hodgeTateDecompAbVar : _root_.ZInQ.Contrib.HodgeSplit.HodgeTateDecompAbVar
@@ -118,7 +117,6 @@ structure OpenTextbookLeaves8 : Prop where
   dimJacobianEqGenus : _root_.ZInQ.Contrib.CurvesG.DimJacobianEqGenus
   normalModelOfFunctionFieldQ : _root_.ZInQ.Contrib.CurvesG.NormalModelOfFunctionFieldQ
   regularSmoothPerfect : _root_.CurveSplit.RegularSmoothPerfect
-  igusaGL2 : _root_.ZInQ.RLeaf.IgusaGL2
   neronSchemeExtensionExists : _root_.ZInQ.Contrib.NeronC.NeronSchemeExtensionExists
 
 /-- **The added leaves still open** (leaf-fold8): leaf-fold7's `OpenAddedLeaves7` without `zariskiConnectedness`,
@@ -134,9 +132,7 @@ structure OpenAddedLeaves8 : Prop where
   milneIsogenyQuasiInverse : _root_.AvSplit.MilneIsogenyQuasiInverse
   x6ConicModel : X6Kummer.X6ConicModel
   y3Connected : TSHecke.Y3Connected
-  shimuraTaniyamaQbar : G0Split.FibreQM.PeriodMapH.QMSplitSTQM.ShimuraTaniyamaQbar
   egaIV_8_10_5_xii : _root_.ZInQ.Contrib.SpreadOut.EGAIV_8_10_5_xii
-  shimuraGoodReductionNoGuard : CurveSplitGR.ShimuraGoodReductionNoGuard
   /-- qm-split, H-87/H-88: the valence formula for a cocompact Fuchsian group (Shimura 1971 Prop. 2.16,
   Thm 2.20; Rankin Thm 4.1.4). -/
   valenceFormulaCocompactEq : LeafQCheck.HM.QMSplit.ValenceFormulaCocompactEq
@@ -188,7 +184,6 @@ theorem researchLeaves7_of_open8 (r : OpenResearchLeaves8) (t : OpenTextbookLeav
   r5count := r.r5count
   r6 := r.r6
   r7a := r.r7a
-  r8 := r.r8
   r9a := r.r9a
   r9b := r.r9b
   hodgeTateDecompAbVar := r.hodgeTateDecompAbVar
@@ -225,7 +220,6 @@ theorem textbookLeaves7_of_open8 (t : OpenTextbookLeaves8) : OpenTextbookLeaves7
   dimJacobianEqGenus := t.dimJacobianEqGenus
   normalModelOfFunctionFieldQ := t.normalModelOfFunctionFieldQ
   regularSmoothPerfect := t.regularSmoothPerfect
-  igusaGL2 := t.igusaGL2
   neronSchemeExtensionExists := t.neronSchemeExtensionExists
 
 /-- leaf-fold7's added bundle from leaf-fold8's. -/
@@ -242,13 +236,11 @@ theorem addedLeaves7_of_open8 (r : OpenResearchLeaves8) (l : OpenAddedLeaves8) :
   x6ConicModel := l.x6ConicModel
   y3Connected := l.y3Connected
   zariskiConnectedness := _root_.ZariskiConn.ZariskiConnectedness_proof.{0}
-  shimuraTaniyamaQbar := l.shimuraTaniyamaQbar
   valenceFormulaGammaStar :=
     LeafQCheck.HM.QMSplit.valenceFormulaGammaStar_of_leaves l.valenceFormulaCocompactEq l.shimizuCovolumeO1
   egaIV_8_8_2_ii := _root_.ZInQ.Contrib.SpreadOut.EGAIV_8_8_2_ii_proof
   egaIV_8_10_5_xii := l.egaIV_8_10_5_xii
   egaIV_17_7_8_ii := _root_.ZInQ.Contrib.SpreadOut.EGAIV_17_7_8_ii_proof
-  shimuraGoodReductionNoGuard := l.shimuraGoodReductionNoGuard
 
 /-- **G0 with only the open leaves and the open glue** (leaf-fold8; no `sorry`, standard axioms).
 `ZInQ.SixContactMin` follows from `OpenResearchLeaves8` (31), `OpenTextbookLeaves8` (20), `OpenAddedLeaves8` (14)

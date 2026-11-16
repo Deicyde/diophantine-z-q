@@ -1,0 +1,5 @@
+{"name": "jacobi-lambda",
+ "imports": ["ZInQKernel.Contrib.OneProof.GrossZagierHeegner.JacobiLambdaDeriv"],
+ "discharges": [
+   {"field": "jacobiLambdaDeriv", "proof": "_root_.ZInQ.GZWeil.jacobiLambdaDeriv", "leaves": []}],
+ "note": "Discharges gz-weil's printed leaf ZInQ.GZWeil.JacobiLambdaDeriv outright (no new leaves). At f4a06a48 that leaf is not yet a bundle field: gz-weil proposes it as a frozenTarget argument replacing hL3 (scratch/gz-weil/MainEdit.lean). Apply this spec after gz-weil's leaves are folded with the field name jacobiLambdaDeriv; before that, use scratch/jacobi-lambda/MainEdit.lean (frozenTarget_jacobiLambda: hL3 replaced by four leaves WeierstrassUniformization, HeegnerPointRationalCd, GrossZagierFormulaCd, GrossConjugationCd)."}

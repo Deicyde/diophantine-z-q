@@ -1964,7 +1964,7 @@ def R1bTransport : Prop :=
 
 /-- **Row H-20 from the split** (the research field `r1b` of C4''). -/
 theorem r1b_of (hS : ShimuraFamily) (hT : R1bTransport) :
-    ∀ h : LeafAdopt.R1R2fpRep,
+    ∀ h : LeafAdopt.R1R2fpRepW,
       HSyn.G0Split.FibreQM.R1bFamily (HSyn.G0Split.FibreQM.ownY (LeafAdopt.R1R2fp_of_rep h))
         (HSyn.G0Split.FibreQM.ownΦ (LeafAdopt.R1R2fp_of_rep h))
         (HSyn.G0Split.FibreQM.ownπ (LeafAdopt.R1R2fp_of_rep h)) := by
@@ -1988,7 +1988,7 @@ def ConicOfWitness : Prop :=
     FS5NoCM.R1R2fpFullProps Y Φ X Ψ fY π₆ → X6Kummer.ConicModel X π₆
 
 /-- **Row H-43 from the bundle leaf `r1r2` (H-1) and the conic glue.** -/
-theorem x6ConicModel_of (hR : LeafAdopt.R1R2fpRep) (hC : ConicOfWitness) : X6Kummer.X6ConicModel := by
+theorem x6ConicModel_of (hR : LeafAdopt.R1R2fpRepW) (hC : ConicOfWitness) : X6Kummer.X6ConicModel := by
   obtain ⟨Y, Φ, X, Ψ, fY, π₆, h⟩ := LeafAdopt.R1R2fp_of_rep hR
   exact ⟨Y, Φ, X, Ψ, fY, π₆, h, hC Y Φ X Ψ fY π₆ h⟩
 
@@ -2271,7 +2271,7 @@ theorem r1r2fpRep_of' (hE : CanonicalModelY3) (hX : CoarseX6OfFine) (hP : Hauptm
 
 /-- **Row H-20 from the leaf candidate `ShimuraFamily` alone** (`R1bTransport` discharged). -/
 theorem r1b_of' (hS : ShimuraFamily) :
-    ∀ h : LeafAdopt.R1R2fpRep,
+    ∀ h : LeafAdopt.R1R2fpRepW,
       HSyn.G0Split.FibreQM.R1bFamily (HSyn.G0Split.FibreQM.ownY (LeafAdopt.R1R2fp_of_rep h))
         (HSyn.G0Split.FibreQM.ownΦ (LeafAdopt.R1R2fp_of_rep h))
         (HSyn.G0Split.FibreQM.ownπ (LeafAdopt.R1R2fp_of_rep h)) :=

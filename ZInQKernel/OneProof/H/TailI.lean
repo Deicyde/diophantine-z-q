@@ -51,7 +51,7 @@ theorem goodRedTorsion_proved3 : HSyn.LinkedTate.GoodRedTorsion := LTGoodRed.goo
 /-- **G3 and G5-G6 on G7's model from the leaves R6, R7a, T5** (linked-tate's route, part c70,
 with `GoodRedTorsion` proved and `FibreSimple`): replaces g0-assemble2's glue `ModelG3`. -/
 theorem modelG3G6_of_leaves3 (hFS : G0Split.FibreSimple) (hNOS : PkgI2.NeronOggShafarevich.{0})
-    (hRay : PkgI2.RaynaudCriterion.{0}) (hTors : PkgI2.TorsionStructure.{0}) :
+    (hRay : PkgI2.RaynaudCriterionNF.{0}) (hTors : PkgI2.TorsionStructure.{0}) :
     G0AssembleMod.ModelG3G6 :=
   HSyn.LinkedTate.modelG3G6_of hFS (HSyn.LinkedTate.qmModelG3_of hNOS hRay hTors
     (HSyn.LinkedTate.goodRedG3Bridge_of_torsion goodRedTorsion_proved3))
@@ -75,7 +75,7 @@ ts-hecke, hecke-rest; part c80): prop-ts's `propTSAll_of_bundle_meet` with `Kumm
 (R1conn), `QMAutCard`, `SerreRigidity3`, `ALFixedPoints`, the leaf T5, and the glue `ChartProper`,
 `ChartQuasiFinite`, `HeckeVertWitness`. -/
 -- (leaf-fold4) hecke-rest now proves ChartProper and ChartQuasiFinite; hP, hQ are unused here.
-theorem propTSAll_of_pieces3 (hR : LeafAdopt.R1R2fpRep) (h5 : PkgI2.TorsionStructure.{0})
+theorem propTSAll_of_pieces3 (hR : LeafAdopt.R1R2fpRepW) (h5 : PkgI2.TorsionStructure.{0})
     (hconn : TSHecke.Y3Connected) (hA : HeckeRest.QMAutCard) (hS : HeckeRest.SerreRigidity3)
     (hW : HeckeRest.ALFixedPoints) (hP : HeckeRestCurve.ChartProper)
     (hQ : HeckeRestCurve.ChartQuasiFinite) (hV : HeckeRestNV.HeckeVertWitness) :
@@ -96,12 +96,12 @@ theorem propTSAll_of_pieces3 (hR : LeafAdopt.R1R2fpRep) (h5 : PkgI2.TorsionStruc
   (`NeronMappingAbelianScheme`); `AbsFrob`, `SmoothGeomConnIntegral`, `FExtendGen` are proved there;
 * `FibreSimple` (derived below) and `QMEndRank` (lt-goodred, from T6 and T27).
 lg-kerwild's every-`ℓ` theorem `exists_localGlue_of_tateModuleFree` (rv-fast's CONCERN) is not used. -/
-theorem linkedTateLocal_of_leaves3 (hR6 : PkgI2.RaynaudCriterion.{0}) (h5 : PkgI2.TorsionStructure.{0})
+theorem linkedTateLocal_of_leaves3 (hR6 : PkgI2.RaynaudCriterionNF.{0}) (h5 : PkgI2.TorsionStructure.{0})
     (hT : PkgI3.TateModuleFree) (hsp : FrobPiecesNeron.AbVarSpreadsOut)
     (hc : FrobPiecesNeron.ProperSmoothGenConnected) (hRed : PkgI2.ReductionTorsionBijective.{0})
     (hN : PkgI2.NeronMappingAbelianScheme.{0}) (hFS : G0Split.FibreSimple)
     (h6 : PkgI3.HomFreeFinite) (hYu : QMLattice.YuB6Alg) : G0AssembleMod.LinkedTateLocal :=
-  LTLocal.linkedTateLocal_of_tateBridge35 (ObjBridge.raynaudCriterion_iff.mpr hR6)
+  LTLocal.linkedTateLocal_of_tateBridge35 hR6
     (ObjBridge.torsionStructure_iff.mpr h5) (@UnramRootsTask.unramRoots_all 2 _ 5 _)
     (@UnramRootsTask.unramRoots_all 2 _ 3 _)
     (FrobPiecesGood.tateBridge35_of_neron_nmp hT hsp hc hRed hN) hFS (qmEndRank_of_leaves3 h6 hYu)
@@ -180,7 +180,7 @@ and `modelG3` (linked-tate's route with lt-goodred's `GoodRedTorsion`), with `pr
 the three glue Props hecke-rest leaves under it (`propTSAll_of_pieces3`), and with `linkedTateLocal`
 replaced by N1-g1 `AbVarSpreadsOut` (`linkedTateLocal_of_leaves3`). -/
 structure OpenGlue3 : Prop where
-  periodMapGlue : ∀ h : LeafAdopt.R1R2fpRep,
+  periodMapGlue : ∀ h : LeafAdopt.R1R2fpRepW,
     G0Split.FibreQM.PeriodMapGlue (G0Split.FibreQM.ownY (LeafAdopt.R1R2fp_of_rep h))
       (G0Split.FibreQM.ownΦ (LeafAdopt.R1R2fp_of_rep h))
       (G0Split.FibreQM.ownπ (LeafAdopt.R1R2fp_of_rep h))

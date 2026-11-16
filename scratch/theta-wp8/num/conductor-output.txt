@@ -1,0 +1,8 @@
+5 800 True
+13 5408 True
+21 14112 True
+29 26912 True
+37 43808 True
+53 89888 True
+d 5 p 13 a_p(C_1) 6 a_p(C_d) -6
+d 13 p 5 a_p(C_1) -2 a_p(C_d) 2

@@ -1,0 +1,118 @@
+
+/-! ## Part F: the three CM types -/
+
+section CM
+
+open MonoidalCategory CartesianMonoidalCategory MonObj
+
+variable {A : PkgI3.AbVar ℂ}
+
+theorem oij_sq : (oi * oj) * (oi * oj) = 6 := by
+  calc (oi * oj) * (oi * oj) = oi * (oj * oi) * oj := by noncomm_ring
+    _ = oi * (-(oi * oj)) * oj := by rw [eq_neg_of_add_eq_zero_left oj_mul_oi_add]
+    _ = -((oi * oi) * (oj * oj)) := by noncomm_ring
+    _ = 6 := by rw [oi_mul_oi, oj_mul_oj]; norm_num
+
+theorem act_inv_eq (y : A.Pt ℂ) : act (-1 : PkgI3.AbVar.End A) y = 1 → y = 1 := by
+  rw [act_neg_one]; exact inv_eq_one.mp
+
+/-- A generator of `A[2]` as an `𝒪`-module. -/
+theorem gen2 (hT : PkgI2.TorsionStructure.{0}) (hA : A.dim = 2) (q : QMStr A) :
+    ∃ v : A.Pt ℂ, v ^ 2 = 1 ∧ (∀ a : O, act (q.iota a) v = 1 ↔ ∃ c : O, a = ((2 : ℕ) : O) * c) ∧
+      (∀ x : A.Pt ℂ, x ^ 2 = 1 → ∃ a : O, act (q.iota a) v = x) := by
+  obtain ⟨v, hv, hw⟩ := exists_not_killed hT hA q 2 (by norm_num) oi 1
+    (by rw [← map_mul, oi_mul_oi, _root_.mul_one, map_ofNat, Nat.cast_ofNat])
+    (fun y hy => by rwa [act_one] at hy)
+  have hann := ann_iff q 2 oi v hv hw (d1_of oi hd1_2)
+  exact ⟨v, hv, hann, surj_of_ann hT hA q 2 v hv hann⟩
+
+/-- A generator of `A[3]` as an `𝒪`-module. -/
+theorem gen3 (hT : PkgI2.TorsionStructure.{0}) (hA : A.dim = 2) (q : QMStr A) :
+    ∃ v : A.Pt ℂ, v ^ 3 = 1 ∧ (∀ a : O, act (q.iota a) v = 1 ↔ ∃ c : O, a = ((3 : ℕ) : O) * c) ∧
+      (∀ x : A.Pt ℂ, x ^ 3 = 1 → ∃ a : O, act (q.iota a) v = x) := by
+  obtain ⟨v, hv, hw⟩ := exists_not_killed hT hA q 3 (by norm_num) oj (-1)
+    (by rw [← map_mul, oj_mul_oj, map_neg, map_ofNat, Nat.cast_ofNat, mul_neg, _root_.mul_one])
+    act_inv_eq
+  have hann := ann_iff q 3 oj v hv hw (d1_of oj hd1_3)
+  exact ⟨v, hv, hann, surj_of_ann hT hA q 3 v hv hann⟩
+
+theorem mem_com_iff (q : QMStr A) (c : PkgI3.AbVar.End A) :
+    c ∈ com q ↔ ∀ a : O, c * q.iota a = q.iota a * c := by
+  rw [com, Subring.mem_centralizer_iff]
+  constructor
+  · intro h a; exact (h _ ⟨a, rfl⟩).symm
+  · rintro h _ ⟨a, rfl⟩; exact (h a).symm
+
+theorem kills6 (f : PkgI3.AbVar.End A) (h2 : ∀ x : A.Pt ℂ, x ^ 2 = 1 → act f x = 1)
+    (h3 : ∀ x : A.Pt ℂ, x ^ 3 = 1 → act f x = 1) : ∀ x : A.Pt ℂ, x ^ 6 = 1 → act f x = 1 := by
+  intro x hx
+  have e2 : act f (x ^ 3) = 1 := h2 _ (by rw [← pow_mul]; exact hx)
+  have e3 : act f (x ^ 2) = 1 := h3 _ (by rw [← pow_mul]; exact hx)
+  rw [pow_succ, act_pt_mul, e3, _root_.one_mul] at e2
+  exact e2
+
+/-- **The QM isomorphism `(A, ι) ≅ (A, ι ∘ rep k)` of a CM point**, with `k = 1, 2, 3` for CM by `ℤ[i]`,
+`ℤ[ζ₃]`, `ℤ[√−6]`. -/
+theorem twist_of_cm (hT : PkgI2.TorsionStructure.{0}) (hU : ZInQ.LeafPush2.UniformizationExists)
+    (hC : HDec.HomUnify.HomLatticeCorr) (hA : A.dim = 2) (q : QMStr A)
+    (hcm : HasCM4 q ∨ HasCM3 q ∨ HasCM24 q) :
+    (HasCM4 q ∧ Nonempty (QMIso q (q.twist (HDec.LeafQM.AV.Pin.Exact.rep 1)))) ∨
+    (HasCM3 q ∧ Nonempty (QMIso q (q.twist (HDec.LeafQM.AV.Pin.Exact.rep 2)))) ∨
+    (HasCM24 q ∧ Nonempty (QMIso q (q.twist (HDec.LeafQM.AV.Pin.Exact.rep 3)))) := by
+  obtain ⟨v2, hv2, hann2, hsurj2⟩ := gen2 hT hA q
+  obtain ⟨v3, hv3, hann3, hsurj3⟩ := gen3 hT hA q
+  rcases hcm with h4 | h3 | h24
+  · left
+    refine ⟨h4, ?_⟩
+    obtain ⟨φ, hφ, hφ2⟩ := h4
+    have hc : (1 + φ) ∈ com q := Subring.add_mem _ (Subring.one_mem _) hφ
+    have hcc : (1 + φ) * (1 + φ) = ((2 : ℕ) : PkgI3.AbVar.End A) * φ := by
+      have e : (1 + φ) * (1 + φ) = 1 + 2 * φ + φ * φ := by noncomm_ring
+      rw [e, hφ2, Nat.cast_ofNat]; noncomm_ring
+    have hkill := kills_of q 2 v2 hv2 hann2 hsurj2 oi (d2_of oi hc2i) _ hc φ hcc
+    refine qmIso_twist hU hC q 1 oi rfl 2 (by norm_num) _ hc hkill φ (-φ)
+      (by rw [mul_neg, hφ2, neg_neg]) (by rw [neg_mul, hφ2, neg_neg]) ?_
+    rw [mem_com_iff] at hc
+    calc (q.iota oi * (1 + φ)) * (q.iota oi * (1 + φ))
+        = q.iota oi * ((1 + φ) * q.iota oi) * (1 + φ) := by noncomm_ring
+      _ = (q.iota oi * q.iota oi) * ((1 + φ) * (1 + φ)) := by rw [hc]; noncomm_ring
+      _ = ((2 * 2 : ℕ) : PkgI3.AbVar.End A) * φ := by
+          rw [hcc, ← map_mul, oi_mul_oi, map_ofNat, Nat.cast_mul, Nat.cast_ofNat]; noncomm_ring
+  · right; left
+    refine ⟨h3, ?_⟩
+    obtain ⟨φ, hφ, hφ2⟩ := h3
+    have hc : (2 * φ - 1) ∈ com q :=
+      Subring.sub_mem _ (Subring.mul_mem _ (Subring.natCast_mem _ 2) hφ) (Subring.one_mem _)
+    have hcc : (2 * φ - 1) * (2 * φ - 1) = ((3 : ℕ) : PkgI3.AbVar.End A) * (-1) := by
+      have e : (2 * φ - 1) * (2 * φ - 1) = 4 * (φ * φ - φ + 1) - 3 := by noncomm_ring
+      rw [e, hφ2, Nat.cast_ofNat]; noncomm_ring
+    have hkill := kills_of q 3 v3 hv3 hann3 hsurj3 oj (d2_of oj hc3j) _ hc (-1) hcc
+    refine qmIso_twist hU hC q 2 oj rfl 3 (by norm_num) _ hc hkill 1 1 (_root_.mul_one _)
+      (_root_.mul_one _) ?_
+    rw [mem_com_iff] at hc
+    calc (q.iota oj * (2 * φ - 1)) * (q.iota oj * (2 * φ - 1))
+        = q.iota oj * ((2 * φ - 1) * q.iota oj) * (2 * φ - 1) := by noncomm_ring
+      _ = (q.iota oj * q.iota oj) * ((2 * φ - 1) * (2 * φ - 1)) := by rw [hc]; noncomm_ring
+      _ = ((3 * 3 : ℕ) : PkgI3.AbVar.End A) * 1 := by
+          rw [hcc, ← map_mul, oj_mul_oj, map_neg, map_ofNat, Nat.cast_mul, Nat.cast_ofNat]
+          noncomm_ring
+  · right; right
+    refine ⟨h24, ?_⟩
+    obtain ⟨φ, hφ, hφ2⟩ := h24
+    have hcc2 : φ * φ = ((2 : ℕ) : PkgI3.AbVar.End A) * (-3) := by
+      rw [hφ2, Nat.cast_ofNat]; noncomm_ring
+    have hcc3 : φ * φ = ((3 : ℕ) : PkgI3.AbVar.End A) * (-2) := by
+      rw [hφ2, Nat.cast_ofNat]; noncomm_ring
+    have hk2 := kills_of q 2 v2 hv2 hann2 hsurj2 (oi * oj) (d2_of _ hc2ij) _ hφ _ hcc2
+    have hk3 := kills_of q 3 v3 hv3 hann3 hsurj3 (oi * oj) (d2_of _ hc3ij) _ hφ _ hcc3
+    refine qmIso_twist hU hC q 3 (oi * oj) rfl 6 (by norm_num) _ hφ (kills6 _ hk2 hk3) (-1) (-1)
+      (by noncomm_ring) (by noncomm_ring) ?_
+    have hc := (mem_com_iff q φ).1 hφ
+    calc (q.iota (oi * oj) * φ) * (q.iota (oi * oj) * φ)
+        = q.iota (oi * oj) * (φ * q.iota (oi * oj)) * φ := by noncomm_ring
+      _ = (q.iota (oi * oj) * q.iota (oi * oj)) * (φ * φ) := by rw [hc]; noncomm_ring
+      _ = ((6 * 6 : ℕ) : PkgI3.AbVar.End A) * (-1) := by
+          rw [hφ2, ← map_mul, oij_sq, map_ofNat, Nat.cast_mul, Nat.cast_ofNat]; noncomm_ring
+
+end CM
+

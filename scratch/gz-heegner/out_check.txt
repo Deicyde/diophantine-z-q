@@ -1,0 +1,6 @@
+'ZInQ.GZHeegner.heegnerPointRational_of_printed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZHeegner.grossZagierHeegner_of_printed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZHeegner.x0ModuliGalois_of_mero' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.GZHeegner.heegnerPointRational_of_printed : T5Glue.ShimuraMainCM →
+  ZInQ.GZHeegner.X0ModuliGaloisMero → ZInQ.GZHL3.HeegnerPointRational
+'ZInQ.GZHeegner.grossZagierHeegnerCd_of_printed' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -13,10 +13,10 @@ same genuine objects (Tau Ceti's `Newform`, the root number `GZDecomp.rootNumber
 Ceti's proved functional equation, `GZDecomp.coeff`, `GZDecomp.twistCoeff`, Mathlib's `jacobiSym`,
 `ℚ_[p]`), and proves `FHNonvanishing` from them:
 
-* `FriedbergHoffsteinB` (LEAF): Friedberg–Hoffstein, Ann. of Math. 142 (1995), Theorem B, for
+* `FriedbergHoffsteinB` (consequence of the print): Friedberg–Hoffstein, Ann. of Math. 142 (1995), Theorem B, for
   `F = ℚ`, `π = π_f` with `f` a weight-2 newform of trivial nebentypus, and local data `χ₀,v`
   unramified at the finite places of `S`;
-* `TwistNewformRootNumber` (LEAF): Atkin–Li 1978 / Iwaniec–Kowalski Prop. 14.20: the twist of a
+* `TwistNewformRootNumber` (consequence of the print): Atkin–Li 1978 / Iwaniec–Kowalski Prop. 14.20: the twist of a
   newform by a quadratic character of conductor prime to the level is a newform of level `N r²`
   with root number `χ(−N) ε(f)` (Gauss sum `τ(χ_D)² = χ_D(−1)|D|` evaluated);
 * the glue (proved here): Dirichlet's theorem (Mathlib) gives a prime `q ≡ −1 (mod 8N)`;
@@ -102,8 +102,9 @@ Prop. 14.20; Atkin–Li, Invent. Math. 48 (1978) 221–243, Thm. 3.1 / Cor.; Shi
 for the functional equation; all UNVERIFIED numbers): for `f` primitive in `S_k(N, ψ)` and `χ`
 primitive mod `r`, `(r, N) = 1`, `f ⊗ χ` is primitive in `S_k(N r², ψ χ²)` with Fricke
 pseudo-eigenvalue `η(f ⊗ χ) = ψ(r) χ(N) τ(χ)² r⁻¹ η(f)`. This leaf is its specialization to
-`k = 2`, `ψ = 1`, `χ = χ_D`, with `τ(χ_D)² = χ_D(−1) |D|` (Gauss) and `rootNumber = i^k η`; for real
-`χ` the readings `χ(N)`, `χ̄(N)`, `χ(−N)` of the print coincide once `τ(χ)²` is evaluated. -/
+`k = 2`, `ψ = 1`, `χ = χ_D`, with `τ(χ_D)² = χ_D(−1) |D|` (Gauss) and `rootNumber = i^k η`. For real
+`χ` the print's `χ(N)` and `χ̄(N)` agree; the factor `χ_D(−N)` here is `χ_D(N)` times the `χ_D(−1)` from
+`τ(χ_D)²`, and it differs from `χ_D(N)` when `χ_D(−1) = −1` (e.g. `D = −59`, `N = 11`). -/
 def TwistNewformRootNumber : Prop :=
   ∀ (N : ℕ) [NeZero N] (f : Newform N 2) (hχ : f.χ = 1),
   ∀ D : ℤ, IsOddFundDisc D → Nat.Coprime D.natAbs N →

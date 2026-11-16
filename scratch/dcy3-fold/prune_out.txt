@@ -1,0 +1,52 @@
+TailZ13:37  [field OpenAddedLeaves9.deligneComponentsY3Printed]    /-- shimura-glue: Deligne's theorem on the connected components of a Shimura variety, printed form, for
+TailZ13:38  [field OpenAddedLeaves9.deligneComponentsY3Printed]    `G = B^×` at level `K₃` on one fine witness `Y₃` (a bijection `π₀(Y ×_ℚ ℚ̄) ≃ ℚ^×_{>0}\𝔸_f^×/nrd(K₃)` under which
+TailZ13:39  [field OpenAddedLeaves9.deligneComponentsY3Printed]    `σ` acts by the cyclotomic idele to a fixed sign; Deligne, Sém. Bourbaki 389 (1971) Thm 2.4, §3; PSPM 33
+TailZ13:40  [field OpenAddedLeaves9.deligneComponentsY3Printed]    (1979) 2.1.3, 2.6.3; locators UNVERIFIED), replaces `y3Connected`. -/
+TailZ13:41  [field OpenAddedLeaves9.deligneComponentsY3Printed]    deligneComponentsY3Printed : _root_.ShimuraGlue.DeligneComponentsY3Printed
+TailZ17:205  [field OpenAddedLeaves10.deligneComponentsY3PrintedAb]    /-- shimura-glue, printed form: Deligne's theorem on the connected components of a Shimura variety for
+TailZ17:206  [field OpenAddedLeaves10.deligneComponentsY3PrintedAb]    `G = B^×` at level `K₃` on one fine witness `Y₃` of the moduli problem of abelian schemes with `𝒪`-action and
+TailZ17:207  [field OpenAddedLeaves10.deligneComponentsY3PrintedAb]    level 3 (Deligne, Sém. Bourbaki 389 (1971) Thm 2.4, §3; PSPM 33 (1979) 2.1.3, 2.6.3; locators UNVERIFIED).
+TailZ17:208  [field OpenAddedLeaves10.deligneComponentsY3PrintedAb]    Replaces `deligneComponentsY3Printed`. -/
+TailZ17:209  [field OpenAddedLeaves10.deligneComponentsY3PrintedAb]    deligneComponentsY3PrintedAb : _root_.ShimuraGlue.DeligneComponentsY3PrintedAb
+TailZ17:267  [assignment deligneComponentsY3Printed in addedLeaves9_of_open10]    deligneComponentsY3Printed :=
+TailZ17:268  [assignment deligneComponentsY3Printed in addedLeaves9_of_open10]      (_root_.LeafQM.AV.R1UnivRigid.deligneComponentsY3Printed_iff_ab (mumfordRigidity_of11 r)).mpr
+TailZ17:269  [assignment deligneComponentsY3Printed in addedLeaves9_of_open10]        l.deligneComponentsY3PrintedAb
+TailZ18:1224  [field OpenAddedLeaves11.deligneComponentsY3PrintedAb]    /-- shimura-glue, printed form, on abelian schemes (route-a-fold): Deligne's theorem on the connected
+TailZ18:1225  [field OpenAddedLeaves11.deligneComponentsY3PrintedAb]    components of a Shimura variety for `G = B^×` at level `K₃` on one fine witness `Y₃` (Deligne, Sém. Bourbaki
+TailZ18:1226  [field OpenAddedLeaves11.deligneComponentsY3PrintedAb]    389 (1971) Thm 2.4, §3; PSPM 33 (1979) 2.1.3, 2.6.3; locators UNVERIFIED). -/
+TailZ18:1227  [field OpenAddedLeaves11.deligneComponentsY3PrintedAb]    deligneComponentsY3PrintedAb : _root_.ShimuraGlue.DeligneComponentsY3PrintedAb
+TailZ18:1243  [assignment deligneComponentsY3PrintedAb in addedLeaves10_of_open11]    deligneComponentsY3PrintedAb := l.deligneComponentsY3PrintedAb
+TailZ22:247  [field OpenAddedLeaves12.deligneComponentsY3PrintedAb]    /-- shimura-glue, printed form, on abelian schemes (route-a-fold): Deligne's theorem on the connected
+TailZ22:248  [field OpenAddedLeaves12.deligneComponentsY3PrintedAb]    components of a Shimura variety for `G = B^×` at level `K₃` on one fine witness `Y₃` (Deligne, Sém. Bourbaki
+TailZ22:249  [field OpenAddedLeaves12.deligneComponentsY3PrintedAb]    389 (1971) Thm 2.4, §3; PSPM 33 (1979) 2.1.3, 2.6.3; locators UNVERIFIED). -/
+TailZ22:250  [field OpenAddedLeaves12.deligneComponentsY3PrintedAb]    deligneComponentsY3PrintedAb : _root_.ShimuraGlue.DeligneComponentsY3PrintedAb
+TailZ22:327  [assignment deligneComponentsY3PrintedAb in addedLeaves11_of_open12]    deligneComponentsY3PrintedAb := l.deligneComponentsY3PrintedAb
+TailZ23:749  [assignment deligneComponentsY3Printed in addedLeaves9_of_open14]    deligneComponentsY3Printed :=
+TailZ23:750  [assignment deligneComponentsY3Printed in addedLeaves9_of_open14]      (_root_.LeafQM.AV.R1UnivRigid.deligneComponentsY3Printed_iff_ab_gl
+TailZ23:751  [assignment deligneComponentsY3Printed in addedLeaves9_of_open14]        (_root_.LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_groupLaw r.mumfordGroupLaw)).mpr
+TailZ23:752  [assignment deligneComponentsY3Printed in addedLeaves9_of_open14]        l.deligneComponentsY3PrintedAb
+TailZ24:783  [field OpenAddedLeaves13.deligneComponentsY3PrintedAb]    /-- shimura-glue, printed form, on abelian schemes (route-a-fold): Deligne's theorem on the connected
+TailZ24:784  [field OpenAddedLeaves13.deligneComponentsY3PrintedAb]    components of a Shimura variety for `G = B^×` at level `K₃` on one fine witness `Y₃` (Deligne, Sém. Bourbaki
+TailZ24:785  [field OpenAddedLeaves13.deligneComponentsY3PrintedAb]    389 (1971) Thm 2.4, §3; PSPM 33 (1979) 2.1.3, 2.6.3; locators UNVERIFIED). -/
+TailZ24:786  [field OpenAddedLeaves13.deligneComponentsY3PrintedAb]    deligneComponentsY3PrintedAb : _root_.ShimuraGlue.DeligneComponentsY3PrintedAb
+TailZ24:826  [assignment deligneComponentsY3PrintedAb in addedLeaves12_of_open13]    deligneComponentsY3PrintedAb := l.deligneComponentsY3PrintedAb
+TailZ26:137  [field OpenAddedLeaves14.deligneComponentsY3PrintedAb]    /-- shimura-glue, printed form, on abelian schemes (route-a-fold): Deligne's theorem on the connected
+TailZ26:138  [field OpenAddedLeaves14.deligneComponentsY3PrintedAb]    components of a Shimura variety for `G = B^×` at level `K₃` on one fine witness `Y₃` (Deligne, Sém. Bourbaki
+TailZ26:139  [field OpenAddedLeaves14.deligneComponentsY3PrintedAb]    389 (1971) Thm 2.4, §3; PSPM 33 (1979) 2.1.3, 2.6.3; locators UNVERIFIED). -/
+TailZ26:140  [field OpenAddedLeaves14.deligneComponentsY3PrintedAb]    deligneComponentsY3PrintedAb : _root_.ShimuraGlue.DeligneComponentsY3PrintedAb
+TailZ26:176  [assignment deligneComponentsY3PrintedAb in openAddedLeaves13_of_OpenAddedLeaves14]    deligneComponentsY3PrintedAb := n.deligneComponentsY3PrintedAb
+TailZ30:24  [field OpenAddedLeaves15.deligneComponentsY3PrintedAb]    /-- shimura-glue, printed form, on abelian schemes (route-a-fold): Deligne's theorem on the connected
+TailZ30:25  [field OpenAddedLeaves15.deligneComponentsY3PrintedAb]    components of a Shimura variety for `G = B^×` at level `K₃` on one fine witness `Y₃` (Deligne, Sém. Bourbaki
+TailZ30:26  [field OpenAddedLeaves15.deligneComponentsY3PrintedAb]    389 (1971) Thm 2.4, §3; PSPM 33 (1979) 2.1.3, 2.6.3; locators UNVERIFIED). -/
+TailZ30:27  [field OpenAddedLeaves15.deligneComponentsY3PrintedAb]    deligneComponentsY3PrintedAb : _root_.ShimuraGlue.DeligneComponentsY3PrintedAb
+TailZ30:62  [assignment deligneComponentsY3PrintedAb in openAddedLeaves14_of_OpenAddedLeaves15]    deligneComponentsY3PrintedAb := n.deligneComponentsY3PrintedAb
+TailZ31:21  [field OpenAddedLeaves16.deligneComponentsY3PrintedAb]    /-- shimura-glue, printed form, on abelian schemes (route-a-fold): Deligne's theorem on the connected
+TailZ31:22  [field OpenAddedLeaves16.deligneComponentsY3PrintedAb]    components of a Shimura variety for `G = B^×` at level `K₃` on one fine witness `Y₃` (Deligne, Sém. Bourbaki
+TailZ31:23  [field OpenAddedLeaves16.deligneComponentsY3PrintedAb]    389 (1971) Thm 2.4, §3; PSPM 33 (1979) 2.1.3, 2.6.3; locators UNVERIFIED). -/
+TailZ31:24  [field OpenAddedLeaves16.deligneComponentsY3PrintedAb]    deligneComponentsY3PrintedAb : _root_.ShimuraGlue.DeligneComponentsY3PrintedAb
+TailZ31:58  [assignment deligneComponentsY3PrintedAb in openAddedLeaves15_of_OpenAddedLeaves16]    deligneComponentsY3PrintedAb := n.deligneComponentsY3PrintedAb
+TailZ34:117  [field OpenAddedLeaves17.deligneComponentsY3PrintedAb]    /-- shimura-glue, printed form, on abelian schemes (route-a-fold): Deligne's theorem on the connected
+TailZ34:118  [field OpenAddedLeaves17.deligneComponentsY3PrintedAb]    components of a Shimura variety for `G = B^×` at level `K₃` on one fine witness `Y₃` (Deligne, Sém. Bourbaki
+TailZ34:119  [field OpenAddedLeaves17.deligneComponentsY3PrintedAb]    389 (1971) Thm 2.4, §3; PSPM 33 (1979) 2.1.3, 2.6.3; locators UNVERIFIED). -/
+TailZ34:120  [field OpenAddedLeaves17.deligneComponentsY3PrintedAb]    deligneComponentsY3PrintedAb : _root_.ShimuraGlue.DeligneComponentsY3PrintedAb
+TailZ34:155  [assignment deligneComponentsY3PrintedAb in openAddedLeaves16_of_OpenAddedLeaves17]    deligneComponentsY3PrintedAb := n.deligneComponentsY3PrintedAb

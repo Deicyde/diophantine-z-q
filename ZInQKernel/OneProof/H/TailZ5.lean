@@ -257,8 +257,8 @@ open CategoryTheory AlgebraicGeometry Limits
 
 /-- **`R1rec` from `R1R2fpRep`**: the object `P` is the object at a point `y` of the fine witness (`Φ` is a
 bijection), the witness's reciprocity clause makes `ℚ(y)` unramified above 5, and `fieldOfModuli3 P ⊆ ℚ(y)`. -/
-theorem r1rec_of_rep (h : LeafAdopt.R1R2fpRep) : LeafQM.AV.R1rec := by
-  obtain ⟨Y, Φ, X, Ψ, fY, π₆, h1, -, -, -, hrec, -, -, -⟩ := h
+theorem r1rec_of_rep (h : LeafAdopt.R1R2fpRepW) : LeafQM.AV.R1rec := by
+  obtain ⟨Y, Φ, X, Ψ, fY, π₆, h1, -, -, -, hrec, -, -⟩ := h
   intro P hcm
   have hy : Φ _ ((Φ _).symm (LeafQM.AV.M3.mk P)) = LeafQM.AV.M3.mk P := Equiv.apply_symm_apply _ _
   exact _root_.ZInQ.LeafFold9.unramifiedAbove5_mono (_root_.ZInQ.LeafFold9.fieldOfModuli3_le h1 _ P hy)
@@ -266,8 +266,8 @@ theorem r1rec_of_rep (h : LeafAdopt.R1R2fpRep) : LeafQM.AV.R1rec := by
 
 /-- **`R5fp` from `R1R2fpRep`**: the pair `P` is the pair at a point `x` of the coarse witness (`Ψ` is a
 bijection), the witness's González–Rotger clause is about `ℚ(x)`, and `ℚ(x)` is the field of moduli of `P`. -/
-theorem r5fp_of_rep (h : LeafAdopt.R1R2fpRep) : LeafQM.AV.R5fp := by
-  obtain ⟨Y, Φ, X, Ψ, fY, π₆, -, -, h6, -, -, -, h5, -⟩ := h
+theorem r5fp_of_rep (h : LeafAdopt.R1R2fpRepW) : LeafQM.AV.R5fp := by
+  obtain ⟨Y, Φ, X, Ψ, fY, π₆, -, -, h6, -, -, -, h5⟩ := h
   intro k _ _ _ hk R hR hc P hP
   have hx : Ψ (Ψ.symm (Quotient.mk _ P)) = Quotient.mk _ P := Equiv.apply_symm_apply _ _
   obtain ⟨h5a, h5b⟩ := h5 k hk R hR hc _ P hx hP

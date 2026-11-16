@@ -1,0 +1,5 @@
+{"name": "persists-dvr",
+ "imports": ["ZInQKernel.Contrib.OneProof.PersistsDVR"],
+ "discharges": [
+   {"field": "semistablePersistsSHcp",
+    "proof": "_root_.GapPersists.semistablePersistsSHcp_of_SH {n}.sga3_VIB_3_10 {n}.sga7_IX_3_3_SH {n}.neronBaseChangeStrictHenselization {t}.geomConnOfRationalPoint"}]}

@@ -1,0 +1,9 @@
+{"name": "elkies-coord-fold",
+ "imports": ["ZInQKernel.Contrib.OneProof.ElkiesX6StarPrinted"],
+ "discharges": [
+   {"field": "elkiesX6StarPrinted",
+    "proof": "_root_.HDec.QMSplit.Moduli.ElkiesCoord.elkiesX6StarPrinted_of_functionField {n}.elkiesX6StarFunctionField",
+    "leaves": [{"name": "elkiesX6StarFunctionField", "type": "_root_.HDec.QMSplit.Moduli.ElkiesCoord.ElkiesX6StarFunctionField",
+                "doc": "elkies-coord: Elkies, Shimura curve computations (ANTS-III 1998) section 3 on X*(6) = X6/W in his function-field form on the canonical witness: Q(X6)^W = Q(t) whenever X6 is integral and t regular at its generic point (both proved from the charts) (t generates the function field of X6/W; W = {1,w2,w3,w6} by its moduli action, acting by pullback on Mathlib's function field), t = 0, 1, infinity at the CM points of discriminant -24, -4, -3, and the charts s^2 = -t, r^2 = 3(t-1) (section, display and 0/infinity orientation UNVERIFIED). Replaces elkiesX6StarPrinted (its Qbar-point fibre clause is proved: elkiesX6StarPrinted_of_functionField).",
+                "kind": "published", "flag": "locator UNVERIFIED (section, display, 0/infinity orientation)",
+                "source": "Elkies 1998 (ANTS-III, LNCS 1423) section 3, X*(6) = X6/W with coordinate t (function-field form Q(X6)^W = Q(t)), CM values and equations of X6 over the t-line (section, display and 0/infinity orientation UNVERIFIED)"}]}]}

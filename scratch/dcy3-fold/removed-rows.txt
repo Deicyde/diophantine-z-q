@@ -1,0 +1,3 @@
+docs/one-proof/kinds.tsv:41:added	deligneComponentsY3PrintedAb	published	pending
+docs/one-proof/claims.tsv:42:deligneComponentsY3PrintedAb	dcy3-used	dcy3-used do
+added	deligneComponentsY3PrintedAb	published	pending reading: depends (medium), whether one display states that the PEL moduli scheme with its uniformization is the canonical model at B = (2,-3|Q), level K3 (Deligne 389 section 5, Milne 2005 section 14)	GLUE	GLUE	Deligne, Sem. Bourbaki 389 (1971) Thm 2.4 and 3; PSPM 33 (1979) 2.1.3, 2.6.3; Milne 2005 Thms 5.17, 13.6 (UNVERIFIED): pi0(Y x_Q Qbar) =

@@ -1,3 +1,6 @@
+import ZInQKernel.Contrib.OneProof.ModularEquationGeneric
+import ZInQKernel.Contrib.OneProof.STQM
+import ZInQKernel.Contrib.OneProof.Pi0FoldSTQM
 import ZInQKernel.OneProof.H.TailO
 import ZInQKernel.OneProof.H.TailP
 import ZInQKernel.OneProof.H.TailQ
@@ -69,7 +72,7 @@ Igusa's two modularity statements, `r1b` by `ShimuraFamily` (qm-split) and `r14`
 (hodge-split), and `r10` by the Hodge–Tate decomposition and the de Rham property of `H¹_ét` (hodge-split, with
 Tate's two theorems from the added bundle). 29 fields. -/
 structure OpenResearchLeaves7 : Prop where
-  r1r2 : LeafAdopt.R1R2fpRep
+  r1r2 : LeafAdopt.R1R2fpRepW
   /-- qm-split, H-20: Shimura 1967 Main Thm I on one fine witness, for every map `π : Y → P¹` (replaces `r1b`). -/
   shimuraFamily : QMSplit.Moduli.ShimuraFamily
   r1rec : LeafQM.AV.R1rec
@@ -79,9 +82,8 @@ structure OpenResearchLeaves7 : Prop where
   igusaChi10 : QMSplit.Theta.IgusaChi10
   r5 : LeafQM.AV.R5fp
   r5count : LeafQM.AV.R5fpCount
-  r6 : _root_.PkgI2.RaynaudCriterion.{0}
+  r6 : PkgI2.RaynaudCriterionNF.{0}
   r7a : _root_.PkgI2.NeronOggShafarevich.{0}
-  r8 : _root_.PkgI2.GrothendieckMonodromy.{0}
   r9a : _root_.PkgI3.FaltingsSemisimple
   r9b : _root_.PkgI3.FaltingsTate
   /-- hodge-split, H-8: the Hodge–Tate decomposition `ℂ_p ⊗ V_p(A) ≅ ℂ_p(1)^g ⊕ ℂ_p^g` (Fontaine 1982; Tate 1967;
@@ -140,9 +142,6 @@ structure OpenTextbookLeaves7 : Prop where
   normalModelOfFunctionFieldQ : _root_.ZInQ.Contrib.CurvesG.NormalModelOfFunctionFieldQ
   /-- curve-split, H-81: Stacks 00TV (regular ⇒ smooth over a perfect field; replaces `normalCurveSmoothQ`). -/
   regularSmoothPerfect : _root_.CurveSplit.RegularSmoothPerfect
-  /-- Igusa's theorem (kernel leaf; Igusa 1959; Lang, *Elliptic functions* Ch. 6 §3): the Galois image on `E_j[N]`
-  is `GL₂(ℤ/N)` (curve-split, H-41; replaces `x0Transitive`). -/
-  igusaGL2 : _root_.ZInQ.RLeaf.IgusaGL2
   neronSchemeExtensionExists : _root_.ZInQ.Contrib.NeronC.NeronSchemeExtensionExists
 
 /-- **The added leaves still open** (leaf-fold7): leaf-fold6's `OpenAddedLeaves6` without `qmClassNumberOne` and
@@ -166,23 +165,19 @@ structure OpenAddedLeaves7 : Prop where
   x6ConicModel : X6Kummer.X6ConicModel
   y3Connected : TSHecke.Y3Connected
   zariskiConnectedness : _root_.ZariskiConn.ZariskiConnectedness.{0}
-  /-- qm-split, H-86: Shimura–Taniyama, a CM abelian variety over `ℂ` has a model over `ℚ̄` (replaces `stQM`). -/
-  shimuraTaniyamaQbar : G0Split.FibreQM.PeriodMapH.QMSplitSTQM.ShimuraTaniyamaQbar
   valenceFormulaGammaStar : LeafQCheck.VB.ValenceFormulaGammaStar
   egaIV_8_8_2_ii : _root_.ZInQ.Contrib.SpreadOut.EGAIV_8_8_2_ii
   egaIV_8_10_5_xii : _root_.ZInQ.Contrib.SpreadOut.EGAIV_8_10_5_xii
   egaIV_17_7_8_ii : _root_.ZInQ.Contrib.SpreadOut.EGAIV_17_7_8_ii
-  /-- curve-split, H-83: vert-witness's `ShimuraGoodReduction` without the `ℚ̄`-point guard of `IsShimuraModel`
-  (redundant given `r1r2`; replaces `shimuraGoodReduction`). -/
-  shimuraGoodReductionNoGuard : CurveSplitGR.ShimuraGoodReductionNoGuard
 
 /-- **The glue still open** (leaf-fold7): mcr-glue's `QuotientP1Coordinate` (the coordinate of the tame quotient
 `𝒴/Γ' ≅ P¹_{ℤ_(p)}` as a finite map with the fibre relation; the residue clause of `ModelCoordinateResidue` is
 proved, `MCRGlue.modelCoordinateResidue_of_quotient'`). -/
 structure OpenGlue7 : Prop where
-  /-- mcr-glue: a finite `q : 𝒴 → 𝒵` over `ℤ_(p)` and an isomorphism `𝒵 ≅ P¹_{ℤ_(p)}` by charts whose composite
-  has R2fp's fibre relation (replaces `modelCoordinateResidue`). -/
-  quotientP1Coordinate : MCRGlue.QuotientP1Coordinate
+  /-- sgr-fold (sgr-direct): h-b1 §3 Lemma NV step 3 (`SGRDirect.NVLocalInertia`, GLUE). -/
+  nvLocalInertia : SGRDirect.NVLocalInertia
+  /-- sgr-fold (sgr-direct): `√(c (27X + 16))` in the Hecke cover (filled at the top from `elkiesX6StarPrinted`). -/
+  heckeSqrtBranchAny : SGRDirect.HeckeSqrtBranchAny
 
 /-! ## From the new bundles to leaf-fold6's -/
 
@@ -196,7 +191,6 @@ theorem researchLeaves5_of_open7 (r : OpenResearchLeaves7) (l : OpenAddedLeaves7
   r5count := r.r5count
   r6 := r.r6
   r7a := r.r7a
-  r8 := r.r8
   r9a := r.r9a
   r9b := r.r9b
   r10 := HodgeLF7.r10 (_root_.ZInQ.Contrib.HodgeSplit.deRhamComparisonHT_of_leavesT r.hodgeTateDecompAbVar
@@ -233,7 +227,7 @@ theorem textbookLeaves6_of_open7 (t : OpenTextbookLeaves7) (l : OpenAddedLeaves7
   normalCurveSmoothQ := _root_.CurveSplit.normalCurveSmoothQ_of_regularSmooth t.regularSmoothPerfect
   geomConnectedOfConstantFieldQ :=
     _root_.CurveSplit.geomConnectedOfConstantFieldQ_of_zariski l.zariskiConnectedness
-  x0Transitive := _root_.CurveSplit.x0Transitive_of_igusaGL2 t.igusaGL2
+  x0Transitive := _root_.FltCqj2.x0Transitive_proof
   neronSchemeExtensionExists := t.neronSchemeExtensionExists
 
 /-- The three QM rows from `QMCentralizerCMC` and T11(b) (qm-split's `rows_of_C`). -/
@@ -258,18 +252,20 @@ theorem addedLeaves6_of_open7 (r : OpenResearchLeaves7) (t : OpenTextbookLeaves7
   qmAutCard := (qmRows_of7 t l).1
   alFixedPoints := (qmRows_of7 t l).2.1
   zariskiConnectedness := l.zariskiConnectedness
-  stQM := stQM_lf7 l.shimuraTaniyamaQbar
+  stQM := _root_.GapST.stQM_ofW r.r1r2 l.y3Connected (qmRows_of7 t l).2.1
+    (_root_.AvSplit.Final.h25 t.mumfordTorsionAlgClosed)
+    (_root_.AvSplit.Final.h38 t.uniformizationLeafAll t.mumfordTorsionAlgClosed)
+    (_root_.AvSplit.Final.h69 t.uniformizationLeafAll t.gagaMorphism)
   valenceFormulaGammaStar := l.valenceFormulaGammaStar
   egaIV_8_8_2_ii := l.egaIV_8_8_2_ii
   egaIV_8_10_5_xii := l.egaIV_8_10_5_xii
   egaIV_17_7_8_ii := l.egaIV_17_7_8_ii
-  shimuraGoodReduction := CurveSplitGR.shimuraGoodReduction_of_noGuard (LeafAdopt.R1R2fp_of_rep r.r1r2)
-    l.shimuraGoodReductionNoGuard
   curveBijIso := curveBijIso_lf7
 
 /-- leaf-fold6's glue bundle from leaf-fold7's. -/
 theorem glue6_of_open7 (g : OpenGlue7) : OpenGlue6 where
-  modelCoordinateResidue := MCRGlue.modelCoordinateResidue_of_quotient' g.quotientP1Coordinate
+  nvLocalInertia := g.nvLocalInertia
+  heckeSqrtBranchAny := g.heckeSqrtBranchAny
 
 /-- **G0 with only the open leaves and the open glue** (leaf-fold7; no `sorry`, standard axioms).
 `ZInQ.SixContactMin` follows from `OpenResearchLeaves7` (29), `OpenTextbookLeaves7` (23), `OpenAddedLeaves7` (16)

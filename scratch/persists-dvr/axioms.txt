@@ -1,0 +1,21 @@
+GapPersists.semistablePersistsDVR_of_printed : CToPrinted.SGA3_VIB_3_10 →
+  CToPrinted.SGA7_IX_3_3 → AVGlue.GeomConnOfRationalPoint → ReductSplit.SemistablePersistsDVR
+GapPersists.semistablePersistsSHcp_of_printed : CToPrinted.SGA3_VIB_3_10 →
+  CToPrinted.SGA7_IX_3_3 → AVGlue.GeomConnOfRationalPoint → ReductB.SemistablePersistsSHcp
+GapPersists.semistablePersistsSHcp_of_SH : CToPrinted.SGA3_VIB_3_10 →
+  SGA7PersistsNF.SGA7_IX_3_3_SH →
+    GapSHPair.NeronBaseChangeStrictHenselization → AVGlue.GeomConnOfRationalPoint → ReductB.SemistablePersistsSHcp
+GapPersists.ss1_ss3_of_printedNF : CToPrinted.SGA3_VIB_3_10 →
+  CToPrinted.SGA7_IX_3_3 →
+    AVGlue.GeomConnOfRationalPoint →
+      ReductSplit.SemistableReductionDVR →
+        GapNeron.NeronSchemeModelExistsDVRNF →
+          ReductSplit.SemistableLocalGlobal →
+            ReductSplit.SemistableAlmostAll →
+              ZInQ.HeightSplit.SemistableReductionThm ∧ ZInQ.HeightSplit.SemistablePersists
+'GapPersists.isAlgebraic_resMap' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GapPersists.hasSemiAbelian_transfer' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GapPersists.semistablePersistsDVR_of_printed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GapPersists.semistablePersistsSHcp_of_printed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GapPersists.semistablePersistsSHcp_of_SH' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GapPersists.ss1_ss3_of_printedNF' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -1,0 +1,19 @@
+info: ZInQKernel/Contrib/OneProof/X0ModuliUsed.lean:395:0: 'X0ModuliUsed.frozenTarget_of_used' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/X0ModuliUsed.lean:396:0: 'X0EtaRoute.srAt_x' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/X0ModuliUsed.lean:397:0: 'X0EtaRoute.srAt_y' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/X0ModuliUsed.lean:398:0: 'X0ModuliUsed.tyzThm35ReadingA_of_eta' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/X0ModuliUsed.lean:399:0: 'X0ModuliUsed.frozenTarget_of_eta' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/X0ModuliUsed.lean:400:0: 'X0EtaRoute.xEtaWeierstrass_of_theta' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/X0ModuliUsed.lean:401:0: 'X0ModuliUsed.tyzThm35ReadingA_of_theta' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/X0ModuliUsed.lean:402:0: 'X0ModuliUsed.frozenTarget_of_theta' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [12995/12996] Built ZInQKernel.Contrib.OneProof.ThetaWeierstrass8 (7.6s)
+warning: ZInQKernel/Contrib/OneProof/ThetaWeierstrass8.lean: imports `Mathlib.Analysis.SpecialFunctions.Elliptic.Weierstrass` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/OneProof/ThetaWeierstrass8.lean: imports `Mathlib.Analysis.Complex.RemovableSingularity` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/OneProof/ThetaWeierstrass8.lean: imports `Mathlib.Analysis.Complex.Liouville` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+ℹ [12996/12996] Built ZInQKernel.OneProof.Main (4.6s)
+info: ZInQKernel/OneProof/Main.lean:76:0: 'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (12996 jobs).
+
+real	2m32.978s
+user	1m25.598s
+sys	0m14.969s

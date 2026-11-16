@@ -429,9 +429,9 @@ theorem reductionTorsionBijective_ofK5 (h : _root_.PkgI2.ReductionTorsionBijecti
   haveI : _root_.PkgI2.IsAbelianScheme 𝒜 := ⟨h𝒜.proper, h𝒜.smooth, h𝒜.geomConnected⟩
   exact h K O w hw A 𝒜 e m hm hmO
 
-/-- R6 (`RaynaudCriterion`, SGA 7 IX 4.7) from the kernel's statement. -/
-theorem raynaudCriterion_ofK5 (h : _root_.PkgI2.RaynaudCriterion.{0}) : PkgI2.RaynaudCriterion.{0} := by
-  intro K _ O _ w hw A hA
+/-- R6 (`RaynaudCriterion`, SGA 7 IX 4.7) from the kernel's statement (r6-nf: at number fields). -/
+theorem raynaudCriterion_ofK5 (h : PkgI2.RaynaudCriterionNF.{0}) : PkgI2.RaynaudCriterionNF.{0} := by
+  intro K _ _ O _ w hw A hA
   haveI : _root_.PkgI2.IsAbelianVariety A := ⟨hA.proper, hA.smooth, hA.geomIntegral⟩
   exact h K O w hw A
 

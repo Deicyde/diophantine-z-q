@@ -1,0 +1,25 @@
+{
+  "name": "flt-cqj",
+  "status": "NOT RUNNABLE: no 'discharges' key on purpose (autofold.py stops with KeyError instead of writing an empty fold). The field igusaGL2 cannot be discharged by autofold: its type is ZInQ.RLeaf.IgusaGL2 (Igusa's full GL2 image), and nothing proved here (CyclicQuotientJBijOn, ModularEquationGeneric, X0Transitive) implies it. The tree has only the converse route CurveSplit.x0Transitive_of_igusaGL2 (OneProof/H/TailR.lean:1592), used once (textbookLeaves6_of_open7, TailX.lean:239, field x0Transitive of OpenTextbookLeaves6). The fold is a bypass fold (weaker leaf): scratch/flt-cqj/gen_bypass.py writes it; FoldBypassModEq.lean and FoldBypass.lean compile with standard axioms.",
+  "bypass": {
+    "replaced_field": "igusaGL2",
+    "replaced_type": "_root_.ZInQ.RLeaf.IgusaGL2",
+    "bundle": "OpenTextbookLeaves11",
+    "consumer": "HDec.HSyn.textbookLeaves6_of_open7 (field x0Transitive : ZInQ.RLeaf.X0Transitive)",
+    "imports": ["ZInQKernel.Contrib.CloudB2X0Transitive.ModularEquation"],
+    "preferred": {
+      "new_field": "modularEquationGeneric",
+      "new_type": "_root_.FltCqj.ModularEquationGeneric",
+      "x0Transitive": "_root_.FltCqj.x0Transitive_of_modularEquationGeneric t.modularEquationGeneric",
+      "generator": "python3 scratch/flt-cqj/gen_bypass.py OUT.lean modeq",
+      "kind": "published (consequence of Cox Thm 11.18 / Lang Ch. 5 §2 Thm 3 over C, Velu 1971, and an embedding of Qbar(j) into C; locators UNVERIFIED); also the MapsTo half of Anthropic FLT's bijOn_cyclicQuotientJ_isRoot_modularPolynomial_of_transcendental_j (proved in Lean at anthropics/fermats-last-theorem@6e837e75, Lean 4.33.1; not ported)"
+    },
+    "alternative": {
+      "new_field": "cyclicQuotientJBijOn",
+      "new_type": "_root_.ZInQ.Contrib.CloudB2X0Transitive.CyclicQuotientJBijOn",
+      "x0Transitive": "_root_.ZInQ.Contrib.CloudB2X0Transitive.x0Transitive_of_cyclicQuotientJBijOn t.cyclicQuotientJBijOn",
+      "generator": "python3 scratch/flt-cqj/gen_bypass.py OUT.lean bijon"
+    },
+    "when_proved": "Once ModularEquationGeneric (or CyclicQuotientJBijOn) has a proof P, the bypass module with the field filled by P removes igusaGL2 from frozenTarget's hypotheses: frozenTarget_cqj then needs OpenTextbookLeaves11Cqj, whose field modularEquationGeneric is filled by P (a one-field autofold on top of the bypass generation)."
+  }
+}

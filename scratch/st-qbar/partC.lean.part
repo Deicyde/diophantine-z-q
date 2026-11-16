@@ -1,0 +1,63 @@
+
+/-! ## Part C: division by `n` in `End(A)` (uniformization and `HomLatticeCorr`) -/
+
+section Div
+
+open MonoidalCategory CartesianMonoidalCategory MonObj
+
+variable {A : PkgI3.AbVar ℂ}
+
+theorem unif_pow {g : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)}
+    {Φ : (Fin g → ℂ) → ZInQ.LeafPush2.CPts A (RingHom.id ℂ)}
+    (hadd : ∀ z w, Φ (z + w) = Φ z * Φ w) (hker : ∀ z, Φ z = 1 ↔ z ∈ Λ) (n : ℕ)
+    (z : Fin g → ℂ) : Φ ((n : ℂ) • z) = Φ z ^ n := by
+  induction n with
+  | zero => rw [Nat.cast_zero, zero_smul, pow_zero]; exact (hker 0).2 (zero_mem _)
+  | succ n ih => rw [Nat.cast_succ, add_smul, one_smul, hadd, ih, pow_succ]
+
+/-- **An endomorphism killing `A[n]` is `n` times an endomorphism.** -/
+theorem dvd_of_kills (hU : ZInQ.LeafPush2.UniformizationExists) (hC : HDec.HomUnify.HomLatticeCorr)
+    (n : ℕ) (hn : 0 < n) (f : PkgI3.AbVar.End A) (hf : ∀ x : A.Pt ℂ, x ^ n = 1 → act f x = 1) :
+    ∃ g : PkgI3.AbVar.End A, (n : PkgI3.AbVar.End A) * g = f := by
+  obtain ⟨d, hd⟩ := PkgI3.AbVar.dim_finite A
+  obtain ⟨Λ, Φ, hdisc, hΛ, hΦ⟩ := hU ℂ A (RingHom.id ℂ) d hd
+  obtain ⟨M, hM⟩ := hC.1 ℂ A A (RingHom.id ℂ) d d Λ Λ Φ Φ hd hd hΦ hΦ f
+  have hΦ' := hΦ
+  obtain ⟨hadd, hker, hsurj, -, -⟩ := hΦ'
+  have hn' : (n : ℂ) ≠ 0 := by exact_mod_cast hn.ne'
+  have hM' : ∀ z ∈ Λ, ((n : ℂ)⁻¹ • M) z ∈ Λ := by
+    intro z hz
+    rw [LinearMap.smul_apply, ← map_smul, ← hker, hM]
+    apply hf
+    change Φ _ ^ n = 1
+    rw [← unif_pow hadd hker, smul_smul, mul_inv_cancel₀ hn', one_smul]
+    exact (hker z).2 hz
+  obtain ⟨g, hg, -⟩ := hC.2 A A d d Λ Λ Φ Φ hd hd hΦ hΦ _ hM'
+  refine ⟨g, PkgI3.AbVar.Hom.ext' (HDec.AVB2.hom_ext_of_pts _ _ fun x => ?_)⟩
+  obtain ⟨z, hz⟩ := hsurj x
+  change act ((n : PkgI3.AbVar.End A) * g) x = act f x
+  rw [act_mul, act_natCast, ← hz]
+  change (Φ z ≫ g.hom) ^ n = Φ z ≫ f.hom
+  rw [← hg z, ← hM z, ← unif_pow hadd hker, LinearMap.smul_apply, smul_smul,
+    mul_inv_cancel₀ hn', one_smul]
+
+/-- **`End(A)` is torsion-free.** -/
+theorem eq_zero_of_natCast_mul (hU : ZInQ.LeafPush2.UniformizationExists) (n : ℕ) (hn : 0 < n)
+    (g : PkgI3.AbVar.End A) (h : (n : PkgI3.AbVar.End A) * g = 0) : g = 0 := by
+  obtain ⟨d, hd⟩ := PkgI3.AbVar.dim_finite A
+  obtain ⟨Λ, Φ, hdisc, hΛ, hadd, hker, hsurj, -, -⟩ := hU ℂ A (RingHom.id ℂ) d hd
+  have hn' : (n : ℂ) ≠ 0 := by exact_mod_cast hn.ne'
+  refine PkgI3.AbVar.Hom.ext' (HDec.AVB2.hom_ext_of_pts _ _ fun x => ?_)
+  obtain ⟨z, hz⟩ := hsurj x
+  change act g x = act 0 x
+  have e : x = Φ ((n : ℂ)⁻¹ • z) ^ n := by
+    rw [← unif_pow hadd hker, smul_smul, mul_inv_cancel₀ hn', one_smul, hz]
+  rw [act_zero, e, act_pow, ← act_natCast, ← act_mul, h, act_zero]
+
+theorem cancel_natCast (hU : ZInQ.LeafPush2.UniformizationExists) (n : ℕ) (hn : 0 < n)
+    {g g' : PkgI3.AbVar.End A} (h : (n : PkgI3.AbVar.End A) * g = (n : PkgI3.AbVar.End A) * g') :
+    g = g' :=
+  sub_eq_zero.1 (eq_zero_of_natCast_mul hU n hn _ (by rw [mul_sub, h, sub_self]))
+
+end Div
+

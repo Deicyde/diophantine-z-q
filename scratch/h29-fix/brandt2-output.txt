@@ -1,0 +1,38 @@
+n=3 tau=(-1, -1, 1) h=1 cyc=[] #2Cl=1: f_n=[-3, 1, -3, 1, 1, 1, 1, 1] Q(n)=-3; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-3, 3] (terms [1]): Lemma 2.9 (w_K form) OK
+n=3 tau=(-1, -1, -1) h=1 cyc=[] #2Cl=1: f_n=[-3, 1, 1, 1, 1, 1, -3, 1] Q(n)=-3; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-3, 3] (terms [1]): Lemma 2.9 (w_K form) OK
+n=11 tau=(-3, -1, 1) h=1 cyc=[] #2Cl=1: f_n=[1, 1, -3, 1, 1, -3, 1, 1] Q(n)=1; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-1, 1] (terms [1]): Lemma 2.9 (w_K form) OK
+n=11 tau=(-3, -1, -1) h=1 cyc=[] #2Cl=1: f_n=[1, 1, 1, 1, 1, -3, -3, 1] Q(n)=1; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-1, 1] (terms [1]): Lemma 2.9 (w_K form) OK
+n=17 tau=(-4, -1, 0) h=4 cyc=[4] #2Cl=2: f_n=[-1, 0, 0, -1, 1, 1, 0, 0] Q(n)=-2; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-2, 2] (terms [2]): Lemma 2.9 (w_K form) OK
+n=17 tau=(-4, 1, 0) h=4 cyc=[4] #2Cl=2: f_n=[-1, 0, 0, -1, 1, 1, 0, 0] Q(n)=-2; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-2, 2] (terms [2]): Lemma 2.9 (w_K form) OK
+n=19 tau=(-3, -3, 1) h=1 cyc=[] #2Cl=1: f_n=[1, 1, -3, 1, -3, 1, 1, 1] Q(n)=1; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-1, 1] (terms [1]): Lemma 2.9 (w_K form) OK
+n=19 tau=(-3, -3, -1) h=1 cyc=[] #2Cl=1: f_n=[1, 1, 1, 1, -3, 1, -3, 1] Q(n)=1; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-1, 1] (terms [1]): Lemma 2.9 (w_K form) OK
+n=33 tau=(-4, -1, 4) h=4 cyc=[2, 2] #2Cl=1: f_n=[-1, 0, 0, -1, 1, 1, 0, 0] Q(n)=-1; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-1, 1] (terms [1]): Lemma 2.9 (w_K form) OK
+n=33 tau=(-4, -1, -4) h=4 cyc=[2, 2] #2Cl=1: f_n=[-1, 0, 0, -1, 1, 1, 0, 0] Q(n)=-1; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-1, 1] (terms [1]): Lemma 2.9 (w_K form) OK
+n=35 tau=(-5, -3, 1) h=2 cyc=[2] #2Cl=1: f_n=[-1, -1, -1, -1, 3, -1, -1, 3] Q(n)=-1; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-1, 1] (terms [1]): Lemma 2.9 (w_K form) OK
+n=35 tau=(-5, -3, -1) h=2 cyc=[2] #2Cl=1: f_n=[1, -3, 1, 1, -3, 1, 1, 1] Q(n)=1; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-1, 1] (terms [1]): Lemma 2.9 (w_K form) OK
+n=41 tau=(-5, -4, 0) h=8 cyc=[8] #2Cl=4: f_n=[1, 0, 0, -1, -1, 1, 0, 0] Q(n)=0; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [0] (terms [0]): Lemma 2.9 (w_K form) OK
+n=41 tau=(-5, 0, 4) h=8 cyc=[8] #2Cl=4: f_n=[1, 0, 0, -1, -1, 1, 0, 0] Q(n)=0; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [0] (terms [0]): Lemma 2.9 (w_K form) OK
+n=43 tau=(-5, -3, 3) h=1 cyc=[] #2Cl=1: f_n=[3, -1, -1, -1, -1, -1, -1, 3] Q(n)=3; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-3, 3] (terms [3]): Lemma 2.9 (w_K form) OK
+n=43 tau=(-5, -3, -3) h=1 cyc=[] #2Cl=1: f_n=[-3, -3, 1, 1, 1, 1, 1, 1] Q(n)=-3; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-3, 3] (terms [3]): Lemma 2.9 (w_K form) OK
+n=51 tau=(-7, -1, 1) h=2 cyc=[2] #2Cl=1: f_n=[3, -1, -1, -1, -1, -1, -1, 3] Q(n)=3; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-3, -1, 1, 3] (terms [1, 2]): Lemma 2.9 (w_K form) OK
+n=51 tau=(-7, -1, -1) h=2 cyc=[2] #2Cl=1: f_n=[-3, -3, 1, 1, 1, 1, 1, 1] Q(n)=-3; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-3, -1, 1, 3] (terms [1, 2]): Lemma 2.9 (w_K form) OK
+n=57 tau=(-5, -4, 4) h=4 cyc=[2, 2] #2Cl=1: f_n=[1, 0, 0, -1, -1, 1, 0, 0] Q(n)=1; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-1, 1] (terms [1]): Lemma 2.9 (w_K form) OK
+n=57 tau=(-5, -4, -4) h=4 cyc=[2, 2] #2Cl=1: f_n=[1, 0, 0, -1, -1, 1, 0, 0] Q(n)=1; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-1, 1] (terms [1]): Lemma 2.9 (w_K form) OK
+n=59 tau=(-7, -3, 1) h=3 cyc=[3] #2Cl=3: f_n=[-1, -1, -1, 3, -1, -1, -1, 3] Q(n)=1; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-1, 1] (terms [1]): Lemma 2.9 (w_K form) OK
+n=59 tau=(-7, -3, -1) h=3 cyc=[3] #2Cl=3: f_n=[1, -3, 1, -3, 1, 1, 1, 1] Q(n)=-1; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-1, 1] (terms [1]): Lemma 2.9 (w_K form) OK
+n=67 tau=(-7, -3, 3) h=1 cyc=[] #2Cl=1: f_n=[-1, -1, -1, -1, -1, 3, -1, 3] Q(n)=-1; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-1, 1] (terms [1]): Lemma 2.9 (w_K form) OK
+n=67 tau=(-7, -3, -3) h=1 cyc=[] #2Cl=1: f_n=[1, -3, 1, 1, 1, -3, 1, 1] Q(n)=1; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-1, 1] (terms [1]): Lemma 2.9 (w_K form) OK
+n=73 tau=(-8, -3, 0) h=4 cyc=[4] #2Cl=2: f_n=[-1, 0, 0, -1, 1, 1, 0, 0] Q(n)=-2; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-2, 2] (terms [2]): Lemma 2.9 (w_K form) OK
+n=73 tau=(-8, 3, 0) h=4 cyc=[4] #2Cl=2: f_n=[-1, 0, 0, -1, 1, 1, 0, 0] Q(n)=-2; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-2, 2] (terms [2]): Lemma 2.9 (w_K form) OK
+n=83 tau=(-9, -1, 1) h=3 cyc=[3] #2Cl=3: f_n=[-3, 1, -3, 1, 1, 1, 1, 1] Q(n)=-1; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-1, 1] (terms [1]): Lemma 2.9 (w_K form) OK
+n=83 tau=(-9, -1, -1) h=3 cyc=[3] #2Cl=3: f_n=[-3, 1, 1, 1, 1, 1, -3, 1] Q(n)=-1; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-1, 1] (terms [1]): Lemma 2.9 (w_K form) OK
+n=89 tau=(-8, -5, 0) h=12 cyc=[12] #2Cl=6: f_n=[-1, 0, 0, -1, 1, 1, 0, 0] Q(n)=2; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-2, 2] (terms [2]): Lemma 2.9 (w_K form) OK
+n=89 tau=(-8, -3, 4) h=12 cyc=[12] #2Cl=6: f_n=[-1, 0, 0, -1, 1, 1, 0, 0] Q(n)=-2; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-2, 2] (terms [2]): Lemma 2.9 (w_K form) OK
+n=97 tau=(-9, -4, 0) h=4 cyc=[4] #2Cl=2: f_n=[1, 0, 0, -1, -1, 1, 0, 0] Q(n)=2; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-2, 2] (terms [2]): Lemma 2.9 (w_K form) OK
+n=97 tau=(-9, 0, 4) h=4 cyc=[4] #2Cl=2: f_n=[1, 0, 0, -1, -1, 1, 0, 0] Q(n)=2; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-2, 2] (terms [2]): Lemma 2.9 (w_K form) OK
+n=105 tau=(-8, -5, 4) h=8 cyc=[2, 2, 2] #2Cl=1: f_n=[-1, 0, 0, -1, 1, 1, 0, 0] Q(n)=-1; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-1, 1] (terms [1]): Lemma 2.9 (w_K form) OK
+n=105 tau=(-8, -5, -4) h=8 cyc=[2, 2, 2] #2Cl=1: f_n=[-1, 0, 0, -1, 1, 1, 0, 0] Q(n)=-1; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-1, 1] (terms [1]): Lemma 2.9 (w_K form) OK
+n=113 tau=(-9, -4, 4) h=8 cyc=[8] #2Cl=4: f_n=[1, 0, 0, -1, -1, 1, 0, 0] Q(n)=4; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-4, 4] (terms [4]): Lemma 2.9 (w_K form) OK
+n=113 tau=(-9, -4, -4) h=8 cyc=[8] #2Cl=4: f_n=[1, 0, 0, -1, -1, 1, 0, 0] Q(n)=4; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-4, 4] (terms [4]): Lemma 2.9 (w_K form) OK
+n=123 tau=(-11, -1, 1) h=2 cyc=[2] #2Cl=1: f_n=[1, 1, -3, 1, 1, -3, 1, 1] Q(n)=1; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-1, 1] (terms [1, 0]): Lemma 2.9 (w_K form) OK
+n=123 tau=(-11, -1, -1) h=2 cyc=[2] #2Cl=1: f_n=[1, 1, 1, 1, 1, -3, -3, 1] Q(n)=1; f_n odd on 2Cl: True; w_K*sum eps L L ranges over [-1, 1] (terms [1, 0]): Lemma 2.9 (w_K form) OK

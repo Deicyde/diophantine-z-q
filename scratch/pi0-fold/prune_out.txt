@@ -1,0 +1,130 @@
+TailZ22:246  [field OpenAddedLeaves12.deligneComponentsX6PrintedAb]    /-- x6-glue (shimura-glue), printed form (on abelian schemes): Deligne's theorem on the connected components of a
+TailZ22:247  [field OpenAddedLeaves12.deligneComponentsX6PrintedAb]    Shimura variety (Sém. Bourbaki 389 (1971) Thm 2.4, §3; PSPM 33 (1979) 2.6.3; locators UNVERIFIED) for
+TailZ22:248  [field OpenAddedLeaves12.deligneComponentsX6PrintedAb]    `G = B^×` at level `𝒪̂^×` on one canonical coarse witness `X₆` (the double coset is computed in Lean). -/
+TailZ22:249  [field OpenAddedLeaves12.deligneComponentsX6PrintedAb]    deligneComponentsX6PrintedAb : _root_.ShimuraGlue.DeligneComponentsX6PrintedAb
+TailZ22:250  [field OpenAddedLeaves12.geomConnOfAlgClosure]    /-- x6-glue (shimura-split), textbook, weakened: for a proper `X → Spec k`, `char k = 0`, connectedness of
+TailZ22:251  [field OpenAddedLeaves12.geomConnOfAlgClosure]    `X ×_k k̄` gives geometric connectedness (EGA IV 4.5; Stacks 0389; locators UNVERIFIED). -/
+TailZ22:252  [field OpenAddedLeaves12.geomConnOfAlgClosure]    geomConnOfAlgClosure : QMSplit.Moduli.GeomConnOfAlgClosure
+TailZ22:256  [dead reader x6Rows_of_open13]  /-- **The two `X₆` rows from the new bundles** (x6-glue's `x6Rows_of_leaves`): each leaf from its abelian-scheme form
+TailZ22:257  [dead reader x6Rows_of_open13]  under Mumford's rigidity (`mumfordRigidityCore`), and T5 from the textbook field `mumfordTorsionAlgClosed`. -/
+TailZ22:258  [dead reader x6Rows_of_open13]  theorem x6Rows_of_open13 (r : OpenResearchLeaves13) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves12) :
+TailZ22:259  [dead reader x6Rows_of_open13]      LeafAdopt.R1R2fpRep ∧ X6Kummer.X6ConicModel :=
+TailZ22:260  [dead reader x6Rows_of_open13]    have hR := _root_.LeafQM.AV.R1UnivRigid.mumfordRigidity_of_core r.mumfordRigidityCore
+TailZ22:261  [dead reader x6Rows_of_open13]    QMSplit.Moduli.x6Rows_of_leaves
+TailZ22:262  [dead reader x6Rows_of_open13]      { deligneX6P := (_root_.LeafQM.AV.R1UnivRigid.deligneComponentsX6Printed_iff_ab hR).mpr
+TailZ22:263  [dead reader x6Rows_of_open13]          l.deligneComponentsX6PrintedAb
+TailZ22:264  [dead reader x6Rows_of_open13]        geomConn := l.geomConnOfAlgClosure
+TailZ22:265  [dead reader x6Rows_of_open13]        t5 := _root_.AvSplit.torsionStructure_of_mumford t.mumfordTorsionAlgClosed
+TailZ22:266  [dead reader x6Rows_of_open13]        babaGranathR := (_root_.LeafQM.AV.R1UnivRigid.babaGranathRational_iff_ab hR).mpr r.babaGranathRationalAb
+TailZ22:267  [dead reader x6Rows_of_open13]        rayClass := (_root_.LeafQM.AV.R1UnivRigid.rayClassCM_iff_ab hR).mpr r.rayClassCMAb
+TailZ22:268  [dead reader x6Rows_of_open13]        gonzalezRotger := (_root_.LeafQM.AV.R1UnivRigid.gonzalezRotgerX6_iff_ab hR).mpr r.gonzalezRotgerX6Ab
+TailZ22:269  [dead reader x6Rows_of_open13]        elkiesEq := (_root_.LeafQM.AV.R1UnivRigid.elkiesEquationsX6_iff_ab hR).mpr r.elkiesEquationsX6Ab }
+TailZ22:270  [dead reader x6Rows_of_open13]  
+TailZ22:271  [dead reader researchLeaves12_of_open13]  /-- leaf-fold12's research bundle from x6-fold's: `r1r2Ab` from x6-glue's `r1r2_of_published` and route-a-fold's
+TailZ22:272  [dead reader researchLeaves12_of_open13]  `r1R2fpRep_iff_ab`. -/
+TailZ22:273  [dead reader researchLeaves12_of_open13]  theorem researchLeaves12_of_open13 (r : OpenResearchLeaves13) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves12) :
+TailZ22:274  [dead reader researchLeaves12_of_open13]      OpenResearchLeaves12 where
+TailZ22:275  [dead reader researchLeaves12_of_open13]    r1r2Ab := (_root_.LeafQM.AV.R1UnivRigid.r1R2fpRep_iff_ab
+TailZ22:276  [dead reader researchLeaves12_of_open13]      (_root_.LeafQM.AV.R1UnivRigid.mumfordRigidity_of_core r.mumfordRigidityCore)).mp (x6Rows_of_open13 r t l).1
+TailZ22:277  [dead reader researchLeaves12_of_open13]    shimuraFamilyAb := r.shimuraFamilyAb
+TailZ22:278  [dead reader researchLeaves12_of_open13]    igusaPsi4 := r.igusaPsi4
+TailZ22:279  [dead reader researchLeaves12_of_open13]    igusaChi10 := r.igusaChi10
+TailZ22:280  [dead reader researchLeaves12_of_open13]    r7a := r.r7a
+TailZ22:281  [dead reader researchLeaves12_of_open13]    r9a := r.r9a
+TailZ22:282  [dead reader researchLeaves12_of_open13]    r9b := r.r9b
+TailZ22:283  [dead reader researchLeaves12_of_open13]    hodgeTateDecompAbVar := r.hodgeTateDecompAbVar
+TailZ22:284  [dead reader researchLeaves12_of_open13]    deRhamH1AbVarT := r.deRhamH1AbVarT
+TailZ22:285  [dead reader researchLeaves12_of_open13]    r11r12 := r.r11r12
+TailZ22:286  [dead reader researchLeaves12_of_open13]    eigenformHTNew := r.eigenformHTNew
+TailZ22:287  [dead reader researchLeaves12_of_open13]    dsThm965 := r.dsThm965
+TailZ22:288  [dead reader researchLeaves12_of_open13]    dsThm966 := r.dsThm966
+TailZ22:289  [dead reader researchLeaves12_of_open13]    r16 := r.r16
+TailZ22:290  [dead reader researchLeaves12_of_open13]    r17 := r.r17
+TailZ22:291  [dead reader researchLeaves12_of_open13]    bostLowerBound := r.bostLowerBound
+TailZ22:292  [dead reader researchLeaves12_of_open13]    javanpeykarBound := r.javanpeykarBound
+TailZ22:293  [dead reader researchLeaves12_of_open13]    pazukiCor13Upper := r.pazukiCor13Upper
+TailZ22:294  [dead reader researchLeaves12_of_open13]    gaudronRemondThm14 := r.gaudronRemondThm14
+TailZ22:295  [dead reader researchLeaves12_of_open13]    semistableReductionDVR := r.semistableReductionDVR
+TailZ22:296  [dead reader researchLeaves12_of_open13]    semistableUnipotent := r.semistableUnipotent
+TailZ22:297  [dead reader researchLeaves12_of_open13]    neronSchemeModelExistsDVR := r.neronSchemeModelExistsDVR
+TailZ22:298  [dead reader researchLeaves12_of_open13]    gonzalezRotgerCountX6Ab := r.gonzalezRotgerCountX6Ab
+TailZ22:299  [dead reader researchLeaves12_of_open13]    raynaudSemistable := r.raynaudSemistable
+TailZ22:300  [dead reader researchLeaves12_of_open13]    semistablePersistsDVR := r.semistablePersistsDVR
+TailZ22:301  [dead reader researchLeaves12_of_open13]    mumfordRigidityCore := r.mumfordRigidityCore
+TailZ22:302  [dead reader researchLeaves12_of_open13]    blr_1_2_4 := r.blr_1_2_4
+TailZ22:303  [dead reader researchLeaves12_of_open13]    faltingsLemma5Printed := r.faltingsLemma5Printed
+TailZ22:304  [dead reader researchLeaves12_of_open13]    raynaudKernelBound := r.raynaudKernelBound
+TailZ22:305  [dead reader researchLeaves12_of_open13]    sga3_VIB_3_10 := r.sga3_VIB_3_10
+TailZ22:306  [dead reader researchLeaves12_of_open13]    sga7_IX_3_3 := r.sga7_IX_3_3
+TailZ22:307  [dead reader researchLeaves12_of_open13]    egaIV_8_10_5_openImm := r.egaIV_8_10_5_openImm
+TailZ22:308  [dead reader researchLeaves12_of_open13]  
+TailZ22:309  [dead reader addedLeaves11_of_open12]  /-- leaf-fold12's added-leaf bundle from x6-fold's: `x6ConicModel` from x6-glue's `x6ConicModel_of_published`. -/
+TailZ22:310  [dead reader addedLeaves11_of_open12]  theorem addedLeaves11_of_open12 (r : OpenResearchLeaves13) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves12) :
+TailZ22:311  [dead reader addedLeaves11_of_open12]      OpenAddedLeaves11 where
+TailZ22:312  [dead reader addedLeaves11_of_open12]    thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
+TailZ22:313  [dead reader addedLeaves11_of_open12]    qmCentralizerCMC := l.qmCentralizerCMC
+TailZ22:314  [dead reader addedLeaves11_of_open12]    tateTwistInvariants := l.tateTwistInvariants
+TailZ22:315  [dead reader addedLeaves11_of_open12]    axSenTate := l.axSenTate
+TailZ22:316  [dead reader addedLeaves11_of_open12]    t09SymmIsogenyExists := l.t09SymmIsogenyExists
+TailZ22:317  [dead reader addedLeaves11_of_open12]    milneIsogenyQuasiInverse := l.milneIsogenyQuasiInverse
+TailZ22:318  [dead reader addedLeaves11_of_open12]    egaIV_8_10_5_xii := l.egaIV_8_10_5_xii
+TailZ22:319  [dead reader addedLeaves11_of_open12]    valenceFormulaCocompactEq := l.valenceFormulaCocompactEq
+TailZ22:320  [dead reader addedLeaves11_of_open12]    shimizuCovolumeO1 := l.shimizuCovolumeO1
+TailZ22:321  [dead reader addedLeaves11_of_open12]    x6ConicModel := (x6Rows_of_open13 r t l).2
+TailZ22:322  [dead reader addedLeaves11_of_open12]  
+TailZ22:323  [dead reader sixContactMin_of_open16]  /-- **G0 with only the open leaves and the open glue** (x6-fold; no `sorry`, standard axioms).
+TailZ22:324  [dead reader sixContactMin_of_open16]  `ZInQ.SixContactMin` from `OpenResearchLeaves13` (35), `OpenTextbookLeaves10` (15), `OpenAddedLeaves12` (14) and
+TailZ22:325  [dead reader sixContactMin_of_open16]  `OpenGlue7` (1). -/
+TailZ22:326  [dead reader sixContactMin_of_open16]  theorem sixContactMin_of_open16 (r : OpenResearchLeaves13) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves12)
+TailZ22:327  [dead reader sixContactMin_of_open16]      (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) (hY3 : TSHecke.Y3Connected) : ZInQ.SixContactMin :=
+TailZ22:328  [dead reader sixContactMin_of_open16]    sixContactMin_of_open15 (researchLeaves12_of_open13 r t l) t (addedLeaves11_of_open12 r t l) g hYu hY3
+TailZ22:329  [dead reader sixContactMin_of_open16]  
+TailZ22:336  [#print of dead reader x6Rows_of_open13]  #print axioms HDec.HSyn.x6Rows_of_open13
+TailZ22:337  [#print of dead reader researchLeaves12_of_open13]  #print axioms HDec.HSyn.researchLeaves12_of_open13
+TailZ22:338  [#print of dead reader addedLeaves11_of_open12]  #print axioms HDec.HSyn.addedLeaves11_of_open12
+TailZ22:339  [#print of dead reader sixContactMin_of_open16]  #print axioms HDec.HSyn.sixContactMin_of_open16
+TailZ24:782  [field OpenAddedLeaves13.deligneComponentsX6PrintedAb]    /-- x6-glue (shimura-glue), printed form (on abelian schemes): Deligne's theorem on the connected components of a
+TailZ24:783  [field OpenAddedLeaves13.deligneComponentsX6PrintedAb]    Shimura variety (Sém. Bourbaki 389 (1971) Thm 2.4, §3; PSPM 33 (1979) 2.6.3; locators UNVERIFIED) for
+TailZ24:784  [field OpenAddedLeaves13.deligneComponentsX6PrintedAb]    `G = B^×` at level `𝒪̂^×` on one canonical coarse witness `X₆` (the double coset is computed in Lean). -/
+TailZ24:785  [field OpenAddedLeaves13.deligneComponentsX6PrintedAb]    deligneComponentsX6PrintedAb : _root_.ShimuraGlue.DeligneComponentsX6PrintedAb
+TailZ24:786  [field OpenAddedLeaves13.geomConnOfAlgClosure]    /-- x6-glue (shimura-split), textbook, weakened: for a proper `X → Spec k`, `char k = 0`, connectedness of
+TailZ24:787  [field OpenAddedLeaves13.geomConnOfAlgClosure]    `X ×_k k̄` gives geometric connectedness (EGA IV 4.5; Stacks 0389; locators UNVERIFIED). -/
+TailZ24:788  [field OpenAddedLeaves13.geomConnOfAlgClosure]    geomConnOfAlgClosure : QMSplit.Moduli.GeomConnOfAlgClosure
+TailZ24:820  [assignment deligneComponentsX6PrintedAb in addedLeaves12_of_open13]    deligneComponentsX6PrintedAb := l.deligneComponentsX6PrintedAb
+TailZ24:821  [assignment geomConnOfAlgClosure in addedLeaves12_of_open13]    geomConnOfAlgClosure := l.geomConnOfAlgClosure
+TailZ26:136  [field OpenAddedLeaves14.deligneComponentsX6PrintedAb]    /-- x6-glue (shimura-glue), printed form (on abelian schemes): Deligne's theorem on the connected components of a
+TailZ26:137  [field OpenAddedLeaves14.deligneComponentsX6PrintedAb]    Shimura variety (Sém. Bourbaki 389 (1971) Thm 2.4, §3; PSPM 33 (1979) 2.6.3; locators UNVERIFIED) for
+TailZ26:138  [field OpenAddedLeaves14.deligneComponentsX6PrintedAb]    `G = B^×` at level `𝒪̂^×` on one canonical coarse witness `X₆` (the double coset is computed in Lean). -/
+TailZ26:139  [field OpenAddedLeaves14.deligneComponentsX6PrintedAb]    deligneComponentsX6PrintedAb : _root_.ShimuraGlue.DeligneComponentsX6PrintedAb
+TailZ26:140  [field OpenAddedLeaves14.geomConnOfAlgClosure]    /-- x6-glue (shimura-split), textbook, weakened: for a proper `X → Spec k`, `char k = 0`, connectedness of
+TailZ26:141  [field OpenAddedLeaves14.geomConnOfAlgClosure]    `X ×_k k̄` gives geometric connectedness (EGA IV 4.5; Stacks 0389; locators UNVERIFIED). -/
+TailZ26:142  [field OpenAddedLeaves14.geomConnOfAlgClosure]    geomConnOfAlgClosure : QMSplit.Moduli.GeomConnOfAlgClosure
+TailZ26:170  [assignment deligneComponentsX6PrintedAb in openAddedLeaves13_of_OpenAddedLeaves14]    deligneComponentsX6PrintedAb := n.deligneComponentsX6PrintedAb
+TailZ26:171  [assignment geomConnOfAlgClosure in openAddedLeaves13_of_OpenAddedLeaves14]    geomConnOfAlgClosure := n.geomConnOfAlgClosure
+TailZ30:23  [field OpenAddedLeaves15.deligneComponentsX6PrintedAb]    /-- x6-glue (shimura-glue), printed form (on abelian schemes): Deligne's theorem on the connected components of a
+TailZ30:24  [field OpenAddedLeaves15.deligneComponentsX6PrintedAb]    Shimura variety (Sém. Bourbaki 389 (1971) Thm 2.4, §3; PSPM 33 (1979) 2.6.3; locators UNVERIFIED) for
+TailZ30:25  [field OpenAddedLeaves15.deligneComponentsX6PrintedAb]    `G = B^×` at level `𝒪̂^×` on one canonical coarse witness `X₆` (the double coset is computed in Lean). -/
+TailZ30:26  [field OpenAddedLeaves15.deligneComponentsX6PrintedAb]    deligneComponentsX6PrintedAb : _root_.ShimuraGlue.DeligneComponentsX6PrintedAb
+TailZ30:27  [field OpenAddedLeaves15.geomConnOfAlgClosure]    /-- x6-glue (shimura-split), textbook, weakened: for a proper `X → Spec k`, `char k = 0`, connectedness of
+TailZ30:28  [field OpenAddedLeaves15.geomConnOfAlgClosure]    `X ×_k k̄` gives geometric connectedness (EGA IV 4.5; Stacks 0389; locators UNVERIFIED). -/
+TailZ30:29  [field OpenAddedLeaves15.geomConnOfAlgClosure]    geomConnOfAlgClosure : QMSplit.Moduli.GeomConnOfAlgClosure
+TailZ30:56  [assignment deligneComponentsX6PrintedAb in openAddedLeaves14_of_OpenAddedLeaves15]    deligneComponentsX6PrintedAb := n.deligneComponentsX6PrintedAb
+TailZ30:57  [assignment geomConnOfAlgClosure in openAddedLeaves14_of_OpenAddedLeaves15]    geomConnOfAlgClosure := n.geomConnOfAlgClosure
+TailZ31:20  [field OpenAddedLeaves16.deligneComponentsX6PrintedAb]    /-- x6-glue (shimura-glue), printed form (on abelian schemes): Deligne's theorem on the connected components of a
+TailZ31:21  [field OpenAddedLeaves16.deligneComponentsX6PrintedAb]    Shimura variety (Sém. Bourbaki 389 (1971) Thm 2.4, §3; PSPM 33 (1979) 2.6.3; locators UNVERIFIED) for
+TailZ31:22  [field OpenAddedLeaves16.deligneComponentsX6PrintedAb]    `G = B^×` at level `𝒪̂^×` on one canonical coarse witness `X₆` (the double coset is computed in Lean). -/
+TailZ31:23  [field OpenAddedLeaves16.deligneComponentsX6PrintedAb]    deligneComponentsX6PrintedAb : _root_.ShimuraGlue.DeligneComponentsX6PrintedAb
+TailZ31:24  [field OpenAddedLeaves16.geomConnOfAlgClosure]    /-- x6-glue (shimura-split), textbook, weakened: for a proper `X → Spec k`, `char k = 0`, connectedness of
+TailZ31:25  [field OpenAddedLeaves16.geomConnOfAlgClosure]    `X ×_k k̄` gives geometric connectedness (EGA IV 4.5; Stacks 0389; locators UNVERIFIED). -/
+TailZ31:26  [field OpenAddedLeaves16.geomConnOfAlgClosure]    geomConnOfAlgClosure : QMSplit.Moduli.GeomConnOfAlgClosure
+TailZ31:52  [assignment deligneComponentsX6PrintedAb in openAddedLeaves15_of_OpenAddedLeaves16]    deligneComponentsX6PrintedAb := n.deligneComponentsX6PrintedAb
+TailZ31:53  [assignment geomConnOfAlgClosure in openAddedLeaves15_of_OpenAddedLeaves16]    geomConnOfAlgClosure := n.geomConnOfAlgClosure
+TailZ34:117  [field OpenAddedLeaves17.deligneComponentsX6PrintedAb]    /-- x6-glue (shimura-glue), printed form (on abelian schemes): Deligne's theorem on the connected components of a
+TailZ34:118  [field OpenAddedLeaves17.deligneComponentsX6PrintedAb]    Shimura variety (Sém. Bourbaki 389 (1971) Thm 2.4, §3; PSPM 33 (1979) 2.6.3; locators UNVERIFIED) for
+TailZ34:119  [field OpenAddedLeaves17.deligneComponentsX6PrintedAb]    `G = B^×` at level `𝒪̂^×` on one canonical coarse witness `X₆` (the double coset is computed in Lean). -/
+TailZ34:120  [field OpenAddedLeaves17.deligneComponentsX6PrintedAb]    deligneComponentsX6PrintedAb : _root_.ShimuraGlue.DeligneComponentsX6PrintedAb
+TailZ34:121  [field OpenAddedLeaves17.geomConnOfAlgClosure]    /-- x6-glue (shimura-split), textbook, weakened: for a proper `X → Spec k`, `char k = 0`, connectedness of
+TailZ34:122  [field OpenAddedLeaves17.geomConnOfAlgClosure]    `X ×_k k̄` gives geometric connectedness (EGA IV 4.5; Stacks 0389; locators UNVERIFIED). -/
+TailZ34:123  [field OpenAddedLeaves17.geomConnOfAlgClosure]    geomConnOfAlgClosure : QMSplit.Moduli.GeomConnOfAlgClosure
+TailZ34:148  [assignment deligneComponentsX6PrintedAb in openAddedLeaves16_of_OpenAddedLeaves17]    deligneComponentsX6PrintedAb := n.deligneComponentsX6PrintedAb
+TailZ34:149  [assignment geomConnOfAlgClosure in openAddedLeaves16_of_OpenAddedLeaves17]    geomConnOfAlgClosure := n.geomConnOfAlgClosure

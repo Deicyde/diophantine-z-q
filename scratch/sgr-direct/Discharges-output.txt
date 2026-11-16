@@ -1,0 +1,33 @@
+DISCHARGES [OpenResearchLeaves22.gonzalezRotgerProp56X6] by GRCountX6.prop56X6_of_r5fpCount
+  still assumes: [LeafQM.AV.R5fpCount]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves22.neronBaseChangeStrictHenselization] by GapSHPair.neronBaseChangeStrictHenselization_of_unramified
+  still assumes: [ReductGlue.NeronBaseChangeUnramifiedDVR]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves22.elkiesX6StarPrinted] by HDec.QMSplit.Moduli.ElkiesX6Star.elkiesX6StarPrinted_of_ab
+  still assumes: [HDec.QMSplit.Moduli.ElkiesEquationsX6Ab]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves22.r16CoreY] by R16Split.coreY_of_r16
+  still assumes: [LeafModCurves.R16_EichlerShimuraJ1']
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves22.sga7_IX_3_3_SH] by SGA7PersistsNF.sga7_IX_3_3_SH_of_field
+  still assumes: [CToPrinted.SGA7_IX_3_3]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves22.sga7_IX_3_5_ForwardGeom] by UnipotentForward.forwardGeom_of_forward
+  still assumes: [UnipotentForward.SGA7_IX_3_5_Forward, UnipotentForward.SemiAbelianDescendsSepClosed]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves22.mumfordGroupLaw] by ZInQ.Contrib.MumfordRigidity.mumfordGroupLaw_of_core
+  still assumes: [LeafQM.AV.R1UnivRigid.MumfordRigidityCore]
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 63 open hypotheses, 1869 theorems checked, 7 discharge one
+'SGRDirect.heckeVertWitness_of_nv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SGRDirect.vertUnramWitness_of_nv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SGRDirect.ramifiedSqrtInertia' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SGRDirect.vertInertiaTrivial' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SGRDirect.heckeVertWitness_of_nvLocal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SGRDirect.heckeBranchFibreUnram' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SGRDirect.heckeVertWitness_of_nvSqrt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SGRDirect.exists_good_sqrt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SGRDirect.heckeVertWitness_of_nvSqrtAny' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SGRDirect.heckeSqrtBranchAny_of_elkies' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SGRDirect.heckeVertWitness_of_nvElkies' depends on axioms: [propext, Classical.choice, Quot.sound]

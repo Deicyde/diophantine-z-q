@@ -1,0 +1,215 @@
+
+theorem red_sub (p : ℕ) (n m : Fin 4 → ℤ) : red p (n - m) = red p n - red p m := by
+  funext i; simp [red]
+
+/-- **D1** in `𝒪`: an element not in `p𝒪` has a left multiple `≡ 1` or `≡ w₀` mod `p`. -/
+theorem d1_of {p : ℕ} [NeZero p] (w₀ : O)
+    (hc : ∀ x : Fin 4 → ZMod p, x ≠ 0 →
+      ∃ y : Fin 4 → ZMod p, mulZ y x = red p (crd 1) ∨ mulZ y x = red p (crd w₀))
+    (a : O) (ha : ¬ ∃ c : O, a = (p : O) * c) :
+    ∃ b : O, (∃ c : O, b * a - 1 = (p : O) * c) ∨ (∃ c : O, b * a - w₀ = (p : O) * c) := by
+  rw [mem_iff] at ha
+  obtain ⟨y, hy⟩ := hc _ ha
+  refine ⟨liftP y, ?_⟩
+  simp only [mem_iff, crd_sub, crd_mul, red_sub, red_mul, red_liftP]
+  rcases hy with hy | hy
+  · left; rw [hy, sub_self]
+  · right; rw [hy, sub_self]
+
+theorem hd1_2 : ∀ x : Fin 4 → ZMod 2, x ≠ 0 →
+    ∃ y : Fin 4 → ZMod 2, mulZ y x = red 2 (crd 1) ∨ mulZ y x = red 2 (crd oi) := by
+  intro x hx
+  rw [vec_eta x] at hx
+  obtain ⟨b0, b1, b2, b3, h⟩ := d1_2i _ _ _ _ hx
+  refine ⟨![b0, b1, b2, b3], ?_⟩
+  rw [crd_one, crd_oi, vec_eta x]
+  have e1 : red 2 ![1, 0, 0, 0] = ![1, 0, 0, 0] := by funext i; fin_cases i <;> rfl
+  have e2 : red 2 ![0, 1, 0, 0] = ![0, 1, 0, 0] := by funext i; fin_cases i <;> rfl
+  rw [e1, e2]; exact h
+
+theorem hd1_3 : ∀ x : Fin 4 → ZMod 3, x ≠ 0 →
+    ∃ y : Fin 4 → ZMod 3, mulZ y x = red 3 (crd 1) ∨ mulZ y x = red 3 (crd oj) := by
+  intro x hx
+  rw [vec_eta x] at hx
+  obtain ⟨b0, b1, b2, b3, h⟩ := d1_3j _ _ _ _ hx
+  refine ⟨![b0, b1, b2, b3], ?_⟩
+  rw [crd_one, crd_oj, vec_eta x]
+  have e1 : red 3 ![1, 0, 0, 0] = ![1, 0, 0, 0] := by funext i; fin_cases i <;> rfl
+  have e2 : red 3 ![-1, 0, 2, 0] = ![2, 0, 2, 0] := by funext i; fin_cases i <;> rfl
+  rw [e1, e2]; exact h
+
+theorem hc3j : ∀ x a : Fin 4 → ZMod 3, mulZ x x = 0 → mulZ (mulZ (red 3 (crd oj)) a) x = 0 := by
+  intro x a h
+  rw [vec_eta x] at h ⊢; rw [vec_eta a]
+  have : red 3 (crd oj) = ![2, 0, 2, 0] := by rw [crd_oj]; funext i; fin_cases i <;> rfl
+  rw [this]; exact d2_3j _ _ _ _ _ _ _ _ h
+
+theorem hc3ij : ∀ x a : Fin 4 → ZMod 3, mulZ x x = 0 →
+    mulZ (mulZ (red 3 (crd (oi * oj))) a) x = 0 := by
+  intro x a h
+  rw [vec_eta x] at h ⊢; rw [vec_eta a]
+  have : red 3 (crd (oi * oj)) = ![0, 2, 0, 2] := by rw [crd_oij]; funext i; fin_cases i <;> rfl
+  rw [this]; exact d2_3ij _ _ _ _ _ _ _ _ h
+
+theorem hc2ij : ∀ x a : Fin 4 → ZMod 2, mulZ x x = 0 →
+    mulZ (mulZ (red 2 (crd (oi * oj))) a) x = 0 := by
+  intro x a h
+  rw [vec_eta x] at h ⊢; rw [vec_eta a]
+  have : red 2 (crd (oi * oj)) = ![0, 1, 0, 0] := by rw [crd_oij]; funext i; fin_cases i <;> rfl
+  rw [this]; exact d2_2i _ _ _ _ _ _ _ _ h
+
+/-! ## Part B: `A[p]` for a QM surface over `ℂ` -/
+
+open MonoidalCategory CartesianMonoidalCategory MonObj
+
+section Points
+
+variable {A : PkgI3.AbVar ℂ}
+
+/-- An endomorphism acting on `ℂ`-points. -/
+abbrev act (f : PkgI3.AbVar.End A) (x : A.Pt ℂ) : A.Pt ℂ := x ≫ f.hom
+
+theorem act_mul (f g : PkgI3.AbVar.End A) (x : A.Pt ℂ) : act (f * g) x = act f (act g x) := by
+  change x ≫ (g.hom ≫ f.hom) = (x ≫ g.hom) ≫ f.hom
+  rw [Category.assoc]
+
+theorem act_one (x : A.Pt ℂ) : act 1 x = x := Category.comp_id x
+
+theorem act_add (f g : PkgI3.AbVar.End A) (x : A.Pt ℂ) : act (f + g) x = act f x * act g x := by
+  change x ≫ (f.hom * g.hom) = _
+  exact MonObj.comp_mul _ _ _
+
+theorem act_zero (x : A.Pt ℂ) : act 0 x = 1 := by
+  change x ≫ (1 : A.X ⟶ A.X) = 1
+  exact MonObj.comp_one _
+
+theorem act_pt_mul (f : PkgI3.AbVar.End A) (x y : A.Pt ℂ) : act f (x * y) = act f x * act f y :=
+  MonObj.mul_comp _ _ _
+
+theorem act_pt_one (f : PkgI3.AbVar.End A) : act f (1 : A.Pt ℂ) = 1 := MonObj.one_comp _
+
+theorem act_pow (f : PkgI3.AbVar.End A) (x : A.Pt ℂ) (n : ℕ) : act f (x ^ n) = (act f x) ^ n :=
+  MonObj.pow_comp _ _ _
+
+theorem act_neg (f : PkgI3.AbVar.End A) (x : A.Pt ℂ) : act (-f) x = (act f x)⁻¹ := by
+  have h := act_add (-f) f x
+  rw [neg_add_cancel, act_zero] at h
+  exact eq_inv_of_mul_eq_one_left h.symm
+
+theorem act_sub (f g : PkgI3.AbVar.End A) (x : A.Pt ℂ) : act (f - g) x = act f x * (act g x)⁻¹ := by
+  rw [sub_eq_add_neg, act_add, act_neg]
+
+theorem act_natCast (n : ℕ) (x : A.Pt ℂ) : act (n : PkgI3.AbVar.End A) x = x ^ n := by
+  induction n with
+  | zero => rw [Nat.cast_zero, act_zero, pow_zero]
+  | succ n ih => rw [Nat.cast_succ, act_add, ih, act_one, pow_succ]
+
+theorem act_neg_one (x : A.Pt ℂ) : act (-1 : PkgI3.AbVar.End A) x = x⁻¹ := by
+  rw [act_neg, act_one]
+
+theorem card_tors (hT : PkgI2.TorsionStructure.{0}) (hA : A.dim = 2) (n : ℕ) (hn : 0 < n) :
+    Nat.card {x : A.Pt ℂ // x ^ n = 1} = n ^ 4 := by
+  have := HDec.HSyn.G0Split.FibreQM.PeriodMapH.LeafQCheck.card_torsion_algClosed hT A 2
+    (by rw [hA]; rfl) n hn
+  rwa [show 2 * 2 = 4 from rfl] at this
+
+/-- **No `w₀` with `ι(w₀)² = p·ε` kills `A[p]`** (else `A[p²] ⊆ A[p]`, against the count `p⁸ > p⁴`). -/
+theorem exists_not_killed (hT : PkgI2.TorsionStructure.{0}) (hA : A.dim = 2) (q : QMStr A)
+    (p : ℕ) (hp : 1 < p) (w₀ : O) (ε : PkgI3.AbVar.End A)
+    (hw : q.iota w₀ * q.iota w₀ = (p : PkgI3.AbVar.End A) * ε)
+    (hε : ∀ y : A.Pt ℂ, act ε y = 1 → y = 1) :
+    ∃ v : A.Pt ℂ, v ^ p = 1 ∧ act (q.iota w₀) v ≠ 1 := by
+  by_contra H
+  push Not at H
+  have hp0 : 0 < p := by omega
+  have key : ∀ x : A.Pt ℂ, x ^ (p * p) = 1 → x ^ p = 1 := by
+    intro x hx
+    have h1 : act (q.iota w₀) (x ^ p) = 1 := H _ (by rw [← pow_mul]; exact hx)
+    have h2 : act (q.iota w₀) (act (q.iota w₀) x) = 1 := H _ (by rw [← act_pow]; exact h1)
+    rw [← act_mul, hw, act_mul, act_natCast, ← act_pow] at h2
+    exact hε _ h2
+  let F : {x : A.Pt ℂ // x ^ (p * p) = 1} → {x : A.Pt ℂ // x ^ p = 1} := fun x => ⟨x.1, key _ x.2⟩
+  have hF : Function.Injective F := fun x y h => Subtype.ext (congrArg Subtype.val h)
+  have c1 := card_tors hT hA (p * p) (Nat.mul_pos hp0 hp0)
+  have c2 := card_tors hT hA p hp0
+  haveI : Finite {x : A.Pt ℂ // x ^ p = 1} := Nat.finite_of_card_ne_zero (by rw [c2]; positivity)
+  have := Nat.card_le_card_of_injective F hF
+  rw [c1, c2] at this
+  have h4 : p ^ 4 < (p * p) ^ 4 := Nat.pow_lt_pow_left (by nlinarith) (by norm_num)
+  omega
+
+/-- **The annihilator of `v` is `p𝒪`** (given `D1` for `(p, w₀)`). -/
+theorem ann_iff (q : QMStr A) (p : ℕ) (w₀ : O) (v : A.Pt ℂ) (hv : v ^ p = 1)
+    (hw : act (q.iota w₀) v ≠ 1)
+    (hD1 : ∀ a : O, (¬ ∃ c : O, a = (p : O) * c) →
+      ∃ b : O, (∃ c : O, b * a - 1 = (p : O) * c) ∨ (∃ c : O, b * a - w₀ = (p : O) * c))
+    (a : O) : act (q.iota a) v = 1 ↔ ∃ c : O, a = (p : O) * c := by
+  have hpc : ∀ c : O, act (q.iota ((p : O) * c)) v = 1 := by
+    intro c
+    rw [map_mul, map_natCast, act_mul, act_natCast, ← act_pow, hv, act_pt_one]
+  constructor
+  · intro ha
+    by_contra hne
+    obtain ⟨b, hb⟩ := hD1 a hne
+    have hba : act (q.iota (b * a)) v = 1 := by rw [map_mul, act_mul, ha, act_pt_one]
+    rcases hb with ⟨c, hc⟩ | ⟨c, hc⟩
+    · have e : (1 : O) = b * a - (p : O) * c := by rw [← hc]; abel
+      apply hw
+      have : v = 1 := by
+        have h1 := act_one (A := A) v
+        rw [← map_one q.iota, e, map_sub, act_sub, hba, hpc, inv_one, mul_one] at h1
+        exact h1.symm
+      rw [this, act_pt_one]
+    · have e : w₀ = b * a - (p : O) * c := by rw [← hc]; abel
+      apply hw
+      rw [e, map_sub, act_sub, hba, hpc, inv_one, mul_one]
+  · rintro ⟨c, rfl⟩; exact hpc c
+
+/-- **`a ↦ ι(a)v` is onto `A[p]`** (injective on `𝒪/p𝒪`, and `#A[p] = p⁴ = #(𝒪/p𝒪)`). -/
+theorem surj_of_ann (hT : PkgI2.TorsionStructure.{0}) (hA : A.dim = 2) (q : QMStr A) (p : ℕ)
+    [NeZero p] (v : A.Pt ℂ) (hv : v ^ p = 1)
+    (hann : ∀ a : O, act (q.iota a) v = 1 ↔ ∃ c : O, a = (p : O) * c) :
+    ∀ x : A.Pt ℂ, x ^ p = 1 → ∃ a : O, act (q.iota a) v = x := by
+  have hp0 : 0 < p := Nat.pos_of_ne_zero (NeZero.ne p)
+  let F : (Fin 4 → ZMod p) → {x : A.Pt ℂ // x ^ p = 1} := fun c =>
+    ⟨act (q.iota (liftP c)) v, by rw [← act_pow, hv, act_pt_one]⟩
+  have hF : Function.Injective F := by
+    intro c c' h
+    have h1 : act (q.iota (liftP c)) v = act (q.iota (liftP c')) v := congrArg Subtype.val h
+    have h2 : act (q.iota (liftP c - liftP c')) v = 1 := by
+      rw [map_sub, act_sub, h1, mul_inv_cancel]
+    rw [hann, mem_iff, crd_sub, red_sub, red_liftP, red_liftP, sub_eq_zero] at h2
+    exact h2
+  have c2 := card_tors hT hA p hp0
+  haveI : Finite {x : A.Pt ℂ // x ^ p = 1} := Nat.finite_of_card_ne_zero (by rw [c2]; positivity)
+  have hbij : Function.Bijective F := hF.bijective_of_nat_card_le (by
+    rw [c2, Nat.card_eq_fintype_card, Fintype.card_fun, ZMod.card, Fintype.card_fin])
+  intro x hx
+  obtain ⟨c, hc⟩ := hbij.2 ⟨x, hx⟩
+  exact ⟨liftP c, congrArg Subtype.val hc⟩
+
+/-- **`ι(w)c` kills `A[p]`** when `c ∈ End_𝒪(A)`, `c² ∈ p·End(A)` and `D2` holds for `(p, w)`. -/
+theorem kills_of (q : QMStr A) (p : ℕ) (v : A.Pt ℂ) (hv : v ^ p = 1)
+    (hann : ∀ a : O, act (q.iota a) v = 1 ↔ ∃ c : O, a = (p : O) * c)
+    (hsurj : ∀ x : A.Pt ℂ, x ^ p = 1 → ∃ a : O, act (q.iota a) v = x)
+    (w : O) (hD2 : ∀ x : O, (∃ c : O, x * x = (p : O) * c) → ∀ a : O, ∃ c : O, w * a * x = (p : O) * c)
+    (c : PkgI3.AbVar.End A) (hc : c ∈ com q) (d : PkgI3.AbVar.End A)
+    (hcd : c * c = (p : PkgI3.AbVar.End A) * d) :
+    ∀ x : A.Pt ℂ, x ^ p = 1 → act (q.iota w * c) x = 1 := by
+  have hcomm : ∀ a : O, c * q.iota a = q.iota a * c := by
+    intro a
+    rw [com, Subring.mem_centralizer_iff] at hc
+    exact (hc _ ⟨a, rfl⟩).symm
+  obtain ⟨u, hu⟩ := hsurj (act c v) (by rw [← act_pow, hv, act_pt_one])
+  have hca : ∀ a : O, act c (act (q.iota a) v) = act (q.iota (a * u)) v := by
+    intro a
+    rw [← act_mul, hcomm, act_mul, ← hu, map_mul, act_mul]
+  have huu : ∃ e : O, u * u = (p : O) * e := by
+    rw [← hann, hca, hu, ← act_mul, hcd, act_mul, act_natCast, ← act_pow, hv, act_pt_one]
+  intro x hx
+  obtain ⟨a, rfl⟩ := hsurj x hx
+  rw [act_mul, hca, ← act_mul, ← map_mul, hann, ← _root_.mul_assoc]
+  exact hD2 u huu a
+
+end Points
+

@@ -1,0 +1,2080 @@
+{
+ "repository": "anthropics/fermats-last-theorem",
+ "revision": "6e837e75355538c7f80bab5b956861e86c4eacc2",
+ "source_lean_toolchain": "leanprover/lean4:v4.33.1",
+ "target": "Lean 4.35.0 / Mathlib v4.35.0",
+ "root": "Theorems.Thm_WeierstrassCurve_bijOn_cyclicQuotientJ_isRoot_modularPolynomial_of_transcendental_j",
+ "note": "the 414 modules of the root's import cone not already in SOURCE_MANIFEST.json; ported by task flt-cqj2 (see NOTICE)",
+ "modules": [
+  {
+   "upstream_path": "Definitions/Def_ModularCurve_KroneckerTransport.lean",
+   "upstream_sha256": "6c5811d299024b4057458612dd9f34614ae40916df5be809c094d34946bf0caa",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_ModularCurve_KroneckerTransport.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_ModularCurve_FibrePoly.lean",
+   "upstream_sha256": "64086a5caad18a071c82d69cd0fea10313079a6a82a4af62b7fa91a49726af3b",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_ModularCurve_FibrePoly.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_WeierstrassCurve_VariableChangePointEquiv.lean",
+   "upstream_sha256": "b70b69a622f17e82cdbc9f35e4f9610d1a932254ce71da959c59cd148b816284",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_WeierstrassCurve_VariableChangePointEquiv.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_aeval_jqN_toAdjoin.lean",
+   "upstream_sha256": "94e6f9ab43029be9c769ef3cc114aef2e2fa885d061ded1c40235ac99dd263c0",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_aeval_jqN_toAdjoin.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_aeval_jqN_toAdjoin.lean",
+   "upstream_sha256": "205f3d98dc9d78e80c28354e48b110b8c1fb548c8be71d0e76c76772f9645c20",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_aeval_jqN_toAdjoin.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_phiIrreducible_of_prime.lean",
+   "upstream_sha256": "75d468d58492abe7bed4bca7f2d2fd76f3394e4c36862100644272c1a3b798bb",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_phiIrreducible_of_prime.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_phiIrreducible_of_prime.lean",
+   "upstream_sha256": "d0b0946c021c5d9670e05461d2a9e4feba00aeabd911ba0ab5ab974bdcd02c4f",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_phiIrreducible_of_prime.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_phiIrreducible_all.lean",
+   "upstream_sha256": "b0090f8b87ec7cba0005585826fa9813dd08c648f1664714cb2742c439c04680",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_phiIrreducible_all.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_phiIrreducible_all.lean",
+   "upstream_sha256": "83edf45cc18e7e082c52ff3896164a75a155369fc41c6d1070e2136309cc00a6",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_phiIrreducible_all.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_minpoly_jqN_eq_toAdjoin.lean",
+   "upstream_sha256": "fcdc9a1d9617564a3781d45b3e1ca9513cb3a1dd26f417016d4750b4547d9215",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_minpoly_jqN_eq_toAdjoin.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_minpoly_jqN_eq_toAdjoin.lean",
+   "upstream_sha256": "9daa2d07d35ccbab2edf29eb30cd69a4e0e7eb0388b178c968b4f49a4eb6af27",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_minpoly_jqN_eq_toAdjoin.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_ModularPolynomialData_minpoly_jqN_eq.lean",
+   "upstream_sha256": "360b723be6252a96218b2b10a8c3c152d2a82a4f7536d255be89c70fdf73d08a",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_ModularPolynomialData_minpoly_jqN_eq.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_ModularPolynomialData_minpoly_jqN_eq.lean",
+   "upstream_sha256": "18f41d84f640ecca510d3ae0b4c8ee0e7d77c3fd2fac67f2226731b508cc3fb2",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_ModularPolynomialData_minpoly_jqN_eq.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_ModularPolynomialData_dvd_resultant_of_mul.lean",
+   "upstream_sha256": "f7635757547022673dcae91eea532f68b1e13dc4602a056881c6100089055752",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_ModularPolynomialData_dvd_resultant_of_mul.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_ModularPolynomialData_dvd_resultant_of_mul.lean",
+   "upstream_sha256": "238732351727839c4a77022c37a1cbba979b292d4e3c8621a61093ec57dddd33",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_ModularPolynomialData_dvd_resultant_of_mul.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_ModularCurve_PrimCosetReps.lean",
+   "upstream_sha256": "1b940f8fd2d223d69e0aadbc382c50976843ae2e936404264bfc444c8c7abb2b",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_ModularCurve_PrimCosetReps.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_card_primCosetReps_eq_dedekindPsi.lean",
+   "upstream_sha256": "afe05f2aaa9dfdacefc4ade4e6f6ddd6fe3728617bc82f8c360f9efe98f7c478",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_card_primCosetReps_eq_dedekindPsi.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_card_primCosetReps_eq_dedekindPsi.lean",
+   "upstream_sha256": "e4e492fa0b4ad93c777134db6885a1a584265ca049f5b6e9b8240c4ef8211345",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_card_primCosetReps_eq_dedekindPsi.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_eq_cosetTwoVarPoly_of_forall_isRoot.lean",
+   "upstream_sha256": "85bdac0cd56aeae5171df144eb1ca11ff7476708066d916471cc48f507bf75e0",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_eq_cosetTwoVarPoly_of_forall_isRoot.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_eq_cosetTwoVarPoly_of_forall_isRoot.lean",
+   "upstream_sha256": "4605cb53dbe76ab5bd523b5d14aa537e5f246cd580b0c3bb845e7b491726db17",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_eq_cosetTwoVarPoly_of_forall_isRoot.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_separable_cosetTwoVarPoly.lean",
+   "upstream_sha256": "79f5e4eacdcaaf821a3ffdbbe5b17d325df942a2d77052907ae1b6e287abc95a",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_separable_cosetTwoVarPoly.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_separable_cosetTwoVarPoly.lean",
+   "upstream_sha256": "569504e7f9dce866b7845f291348767138f60fd45f944721916800101168271b",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_separable_cosetTwoVarPoly.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_ModularPolynomialData_forall_isRoot_cosetConj_jqModC_of_complex.lean",
+   "upstream_sha256": "e19794d69346d3a74511f4ca597b3ea492c07bcc85d7653afc5ac8deefe0ec91",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_ModularPolynomialData_forall_isRoot_cosetConj_jqModC_of_complex.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_ModularPolynomialData_forall_isRoot_cosetConj_jqModC_of_complex.lean",
+   "upstream_sha256": "dae4045e8473917c77537d792e254b1cf1d2040743a4e720a9c5c29050d221b3",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_ModularPolynomialData_forall_isRoot_cosetConj_jqModC_of_complex.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_hasSum_cosetSubst_coeff_mul_qParam_pow.lean",
+   "upstream_sha256": "2fe081159a51f1bcdfb303485d424b8a0927d05ad8a4ead5a450c2b66e1a50cb",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_hasSum_cosetSubst_coeff_mul_qParam_pow.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_hasSum_cosetSubst_coeff_mul_qParam_pow.lean",
+   "upstream_sha256": "a1b12da1c7502c4851b790e11440ea740fb4ab92f58f21213818eb04d679260e",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_hasSum_cosetSubst_coeff_mul_qParam_pow.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_qExpansion_cosetTranslate_eq_cosetSubst.lean",
+   "upstream_sha256": "d45ca776aacdc523acd2549a1cde6424a0987603f203faf7a230c78e17f3a664",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_qExpansion_cosetTranslate_eq_cosetSubst.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_qExpansion_cosetTranslate_eq_cosetSubst.lean",
+   "upstream_sha256": "5b329d8f8f120e5aa210ae9d3e18a471823d94c8d215bb8c917f8b495d10c83f",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_qExpansion_cosetTranslate_eq_cosetSubst.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularForm_exists_degeneracy_Gamma0.lean",
+   "upstream_sha256": "1b5a2d2a93a040a15339856b253e7c8b8e2a9a218f39c9627dfa73c91e6ee085",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularForm_exists_degeneracy_Gamma0.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularForm_exists_degeneracy_Gamma0.lean",
+   "upstream_sha256": "07510b789377bb420a009566246d5317c7585974fc58da1852d7fee2ba6cc028",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularForm_exists_degeneracy_Gamma0.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularForm_qExpansion_heckeDiagMatrix_smul_eq_qExpand_of_levelOne.lean",
+   "upstream_sha256": "97a5020e140c54d96a70e7a5f8f0bf35144451328531754845fb83c8ace8ed37",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularForm_qExpansion_heckeDiagMatrix_smul_eq_qExpand_of_levelOne.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularForm_qExpansion_heckeDiagMatrix_smul_eq_qExpand_of_levelOne.lean",
+   "upstream_sha256": "b831a6a00654e7f4f8f5e0b9cb566fe55790963af7b613a9cea7ca67b0c47b2c",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularForm_qExpansion_heckeDiagMatrix_smul_eq_qExpand_of_levelOne.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_ModularPolynomialData_eval_E4_cube_div_discriminant_smul_eq_zero.lean",
+   "upstream_sha256": "56c2c6d2de7970cf1b262bfc8a0b7ca6423d3ec8ef20b63032925bb160855a6e",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_ModularPolynomialData_eval_E4_cube_div_discriminant_smul_eq_zero.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_ModularPolynomialData_eval_E4_cube_div_discriminant_smul_eq_zero.lean",
+   "upstream_sha256": "3399a0f2959216e0654e15a48d470bbcc4ce0cd7ea183dbbe47938950ea0c9fc",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_ModularPolynomialData_eval_E4_cube_div_discriminant_smul_eq_zero.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_Matrix_SpecialLinearGroup_exists_eq_mul_diagonal_mul_of_gcd_eq_one.lean",
+   "upstream_sha256": "4ab8581ee704958fa1ec61735b86dc582379ecde612d38c60691669e342545cf",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_Matrix_SpecialLinearGroup_exists_eq_mul_diagonal_mul_of_gcd_eq_one.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_Matrix_SpecialLinearGroup_exists_eq_mul_diagonal_mul_of_gcd_eq_one.lean",
+   "upstream_sha256": "1703363d870d503891b2a13bbe3e3e3d6b8892566df4d0850e1d0fb8ba75efd8",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_Matrix_SpecialLinearGroup_exists_eq_mul_diagonal_mul_of_gcd_eq_one.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_ModularPolynomialData_eval_E4_cube_div_discriminant_coset_eq_zero.lean",
+   "upstream_sha256": "472e59493fa0811f3c4a1e0c9ce8874247bec926e8880158ef740d9b04c0023c",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_ModularPolynomialData_eval_E4_cube_div_discriminant_coset_eq_zero.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_ModularPolynomialData_eval_E4_cube_div_discriminant_coset_eq_zero.lean",
+   "upstream_sha256": "e124230def16aa8dcd8666a8b102b6ab45a8bf99b01ebcdef144eb0bccb8858e",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_ModularPolynomialData_eval_E4_cube_div_discriminant_coset_eq_zero.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_ModularPolynomialData_exists_isPrimitiveRoot_forall_isRoot_cosetConj_complex.lean",
+   "upstream_sha256": "be7c9cae53f13e0a9d485b534e684b3b75b314c3592cd2c2aa1f16bf5029ee17",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_ModularPolynomialData_exists_isPrimitiveRoot_forall_isRoot_cosetConj_complex.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_ModularPolynomialData_exists_isPrimitiveRoot_forall_isRoot_cosetConj_complex.lean",
+   "upstream_sha256": "e0873b879c0083954ad7a048b1cf8b9a06b69c341df9882aec14ce0da53c9302",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_ModularPolynomialData_exists_isPrimitiveRoot_forall_isRoot_cosetConj_complex.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_ModularPolynomialData_separable_map_ratFunc_of_natCast_ne_zero.lean",
+   "upstream_sha256": "f9a0b72d12228940b851b4edb4751df35d2c6e9677ae76a7dd8b334d9265744b",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_ModularPolynomialData_separable_map_ratFunc_of_natCast_ne_zero.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_ModularPolynomialData_separable_map_ratFunc_of_natCast_ne_zero.lean",
+   "upstream_sha256": "6aa78cef7dfa46e1073457c8ba721adf99583c5f01d40a59ee9cfe8020008f10",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_ModularPolynomialData_separable_map_ratFunc_of_natCast_ne_zero.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_exists_modularPolynomialData_evalSymm.lean",
+   "upstream_sha256": "4e192bc1cc085243c4eac0a35e219234111a5144f5b58975ae2156e467f2a8ac",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_exists_modularPolynomialData_evalSymm.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_exists_modularPolynomialData_evalSymm.lean",
+   "upstream_sha256": "7fbc1787e886583c029ebdecb00ef6f02e7d04bcbffcfc37f99130133a9e2ae4",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_exists_modularPolynomialData_evalSymm.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_ModularPolynomialData_evalSymm_of_prime.lean",
+   "upstream_sha256": "37da49a3a19dd5e33683ccbd95576f6e3fe1b62baf83e051cfdec4cf5c4403b8",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_ModularPolynomialData_evalSymm_of_prime.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_ModularPolynomialData_evalSymm_of_prime.lean",
+   "upstream_sha256": "fd30bf4509d888512809cc40df3c1266b7160c5246dc1dd4bc2abdfeb289bab9",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_ModularPolynomialData_evalSymm_of_prime.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_swapBivar_eq_of_evalSymm.lean",
+   "upstream_sha256": "3451a3a668f18f8f425dd72c81ca0c7358571eb28d230b4194aed0e4df2c9958",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_swapBivar_eq_of_evalSymm.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_swapBivar_eq_of_evalSymm.lean",
+   "upstream_sha256": "a0e4ca13cd65bddf2c2b9d1f0b11b54f0f23187ef0128bd9addac00416ef961f",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_swapBivar_eq_of_evalSymm.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_ModularPolynomialData_eq_all.lean",
+   "upstream_sha256": "1dc7f48b54fe1cb8c71742ee1d0da56b9db730e4bca6c63d1e842709a6b2093c",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_ModularPolynomialData_eq_all.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_ModularPolynomialData_eq_all.lean",
+   "upstream_sha256": "e1ad6c0620a3988fccc31d048ce8a5d26810b5b5d15749cdd6777085ebcd647e",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_ModularPolynomialData_eq_all.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_Point_vcInvFun_add.lean",
+   "upstream_sha256": "e7fe8d7a49b33c82d6aba8a5a3553886ed3041a5fd8150287967705d3ed1dc39",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_Point_vcInvFun_add.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_Point_vcInvFun_add.lean",
+   "upstream_sha256": "5d74f09e9961de9694950a436e770933b3bf5e952fcb34289219534a13dfa5ba",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_Point_vcInvFun_add.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_cyclicQuotientJ_variableChange_eq.lean",
+   "upstream_sha256": "8159c11bd94379201cb213edc0e58bc1e179c18f3b13b51cb0890846a1e0bafe",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_cyclicQuotientJ_variableChange_eq.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_cyclicQuotientJ_variableChange_eq.lean",
+   "upstream_sha256": "5ff17bc4917ec25d4f67b8e4ff8ea797778a5b10c512c41ae81abd85d692ffcf",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_cyclicQuotientJ_variableChange_eq.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_isOddVeluSet_oddOrderSummingSet.lean",
+   "upstream_sha256": "039cf5ca0ed74a87ff137ecc42cc281f9c8ce0beaa51fe99837bb15df425b435",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_isOddVeluSet_oddOrderSummingSet.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_isOddVeluSet_oddOrderSummingSet.lean",
+   "upstream_sha256": "3528fbe9fb41c9be06939e0967465cb8b97ddffe7bbd3a8b45ca03cc16f4c179",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_isOddVeluSet_oddOrderSummingSet.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_stepCurve_stepSubgroup_eq_of_prime_ne_two.lean",
+   "upstream_sha256": "e3b07655ae682a8d8b251645789e49da60b5ff6e3de84239b14c7b76f887da54",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_stepCurve_stepSubgroup_eq_of_prime_ne_two.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_stepCurve_stepSubgroup_eq_of_prime_ne_two.lean",
+   "upstream_sha256": "1d9a297e9b0673c7608f055d33f7d0eedede72d338f3ffce82a59c2c03ad3fb4",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_stepCurve_stepSubgroup_eq_of_prime_ne_two.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_stepCurve_stepSubgroup_two_eq.lean",
+   "upstream_sha256": "721468a4e46d0e037d15ce68de49e9f9bb1a2f9c1a1e28da4ddf5d7d23fa499d",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_stepCurve_stepSubgroup_two_eq.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_stepCurve_stepSubgroup_two_eq.lean",
+   "upstream_sha256": "a9ca203922661be0667ea0026a26b60ca895c2f0451fcb4ab576181a8b61f3ba",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_stepCurve_stepSubgroup_two_eq.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_WeierstrassCurve_VeluVariableChange.lean",
+   "upstream_sha256": "357b8699331e710b9490798194632d2cca6ffba35b651e9fb6ac3e8181755bf5",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_WeierstrassCurve_VeluVariableChange.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_veluQuotient_oddOrderSummingSet_discriminant_prod_veluU_pow.lean",
+   "upstream_sha256": "e35d35dbb05c69ee9fcc1f20464dcccfda3ed2f7ba70acb999cc3973f69bc0df",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_veluQuotient_oddOrderSummingSet_discriminant_prod_veluU_pow.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_veluQuotient_oddOrderSummingSet_discriminant_prod_veluU_pow.lean",
+   "upstream_sha256": "d2d438dcdfdcec5ef6aa77c9f165e63abd25fd3b0dad06418a62ea26e3d15b2f",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_veluQuotient_oddOrderSummingSet_discriminant_prod_veluU_pow.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_veluQuotient_oddOrderSummingSet_discriminant_ne_zero_of_addOrderOf_eq.lean",
+   "upstream_sha256": "7330f676772642d6a49ae14e4d2808a2878270d438f6574edcc6e1d0e7d324a6",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_veluQuotient_oddOrderSummingSet_discriminant_ne_zero_of_addOrderOf_eq.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_veluQuotient_oddOrderSummingSet_discriminant_ne_zero_of_addOrderOf_eq.lean",
+   "upstream_sha256": "22d2c566eaa59c1378e05b8e4b28ef4bbe7f68b752e57d107a200998c8f723d9",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_veluQuotient_oddOrderSummingSet_discriminant_ne_zero_of_addOrderOf_eq.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_FLTPrelim_GaloisRep.lean",
+   "upstream_sha256": "c6d8d02063a6f3c3543574e285f4b55b162ace12040404a9a27b03b928c2778d",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_FLTPrelim_GaloisRep.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_Compat_Mathlib430.lean",
+   "upstream_sha256": "0d80c765130229fcd9bbeb5b234bfc4af5afaff2354b56ae0acc90e04b8b8e54",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_Compat_Mathlib430.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_WeierstrassCurve_EDSEngine.lean",
+   "upstream_sha256": "4947ab0923d7c6b1b3a82cc971e843c10edbb3acb2df2791234dae8289b572d2",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_WeierstrassCurve_EDSEngine.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_card_torsion_of_isAlgClosed.lean",
+   "upstream_sha256": "216d04eddd1f7c7ea3b67fb8d1c6bd4fcf2d2b6c1f3a7ea362fc89548cadadf1",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_card_torsion_of_isAlgClosed.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_card_torsion_of_isAlgClosed.lean",
+   "upstream_sha256": "fba5cff94f763c3cf0354e7536409bef66caadb11d1e598141df03766a14817d",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_card_torsion_of_isAlgClosed.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AddCommGroup_nonempty_zmod_prod_addEquiv_torsionBy_of_card_torsionBy_eq_sq.lean",
+   "upstream_sha256": "377ad580b94c67008f78044270b1e7154bb1f671f450d0415fbf6e3186c38fa9",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AddCommGroup_nonempty_zmod_prod_addEquiv_torsionBy_of_card_torsionBy_eq_sq.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AddCommGroup_nonempty_zmod_prod_addEquiv_torsionBy_of_card_torsionBy_eq_sq.lean",
+   "upstream_sha256": "6c8f83310d985681f4b96e1c44c1cb0ece49929872859f638fa201bbff63a474",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AddCommGroup_nonempty_zmod_prod_addEquiv_torsionBy_of_card_torsionBy_eq_sq.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_nonempty_torsionBy_addEquiv_zmod_prod_of_isAlgClosed.lean",
+   "upstream_sha256": "0f2a8199dff87a11ff1bbe7697b6b95dd44460969d1624bd0d7045b7c605c30c",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_nonempty_torsionBy_addEquiv_zmod_prod_of_isAlgClosed.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_nonempty_torsionBy_addEquiv_zmod_prod_of_isAlgClosed.lean",
+   "upstream_sha256": "b2f9623402a16b4d75778bf35f75fdb5d97839e23825f80869fa9a92f0dc77f9",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_nonempty_torsionBy_addEquiv_zmod_prod_of_isAlgClosed.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_ModularCurve_ProjectiveLine.lean",
+   "upstream_sha256": "aabe4813c8fcabc7e1e3d3817764d0d232f713eb05acf89244774108067edeaa",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_ModularCurve_ProjectiveLine.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_card_projectiveLine_zmod.lean",
+   "upstream_sha256": "be73b3ad2c8bc5439d830bafcdd9d89e452649056198f43536f4196a2c61bd00",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_card_projectiveLine_zmod.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_card_projectiveLine_zmod.lean",
+   "upstream_sha256": "7a11ad7acdfc659ba8b0f1af88eddb7d0076e5834b5432e53a03c9458bda4481",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_card_projectiveLine_zmod.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ZMod_natCard_isAddCyclic_addSubgroup_prod_eq_dedekindPsi.lean",
+   "upstream_sha256": "46d859df61d3e5ae367b853aea942222a5049a7c5ecfbbb61e365b4993971197",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ZMod_natCard_isAddCyclic_addSubgroup_prod_eq_dedekindPsi.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ZMod_natCard_isAddCyclic_addSubgroup_prod_eq_dedekindPsi.lean",
+   "upstream_sha256": "daa816f642aaadabf320eed9c5b5975d136691492abd59eaef1414922a9cee25",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ZMod_natCard_isAddCyclic_addSubgroup_prod_eq_dedekindPsi.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AddCommGroup_natCard_isAddCyclic_addSubgroup_eq_dedekindPsi_of_addEquiv_torsionBy.lean",
+   "upstream_sha256": "9dfaa945b49bd06ca516d8548d415ede2ae7161190e8e1359c24bc44d48c2334",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AddCommGroup_natCard_isAddCyclic_addSubgroup_eq_dedekindPsi_of_addEquiv_torsionBy.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AddCommGroup_natCard_isAddCyclic_addSubgroup_eq_dedekindPsi_of_addEquiv_torsionBy.lean",
+   "upstream_sha256": "6d650d6f1d807752a864a711f87471437e9ae57b183a02904d300aa42ffb8822",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AddCommGroup_natCard_isAddCyclic_addSubgroup_eq_dedekindPsi_of_addEquiv_torsionBy.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_exists_enum_cyclicKernels_veluQuotient_discriminant_ne_zero.lean",
+   "upstream_sha256": "572577b56c88e09c19e8a23287c81d86ff367c352987b54dac77bc87c496b6e7",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_exists_enum_cyclicKernels_veluQuotient_discriminant_ne_zero.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_exists_enum_cyclicKernels_veluQuotient_discriminant_ne_zero.lean",
+   "upstream_sha256": "2bfb2de68ad60a106390c6fa8002a435c9eff99ff708f8c7361abff0e8d95705",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_exists_enum_cyclicKernels_veluQuotient_discriminant_ne_zero.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_AlgebraicCurve_DivisorPushPull.lean",
+   "upstream_sha256": "ca80a6139646c59cd06c3ba8f3f6368fd53a9d72aadd763458b3efb66e36240b",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_AlgebraicCurve_DivisorPushPull.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_AlgebraicCurve_BaseChangeGalois.lean",
+   "upstream_sha256": "e76a128259e1eb661772bc484bed89ba8ae7a325293eb56accf0a73826a8be66",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_AlgebraicCurve_BaseChangeGalois.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_AlgebraicCurve_Correspondence.lean",
+   "upstream_sha256": "e629145603b579a1dbaca401787ec45e4384d8dbaec8a33b3d9781bb28c7721c",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_AlgebraicCurve_Correspondence.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_WeierstrassCurve_GenusOnePic0.lean",
+   "upstream_sha256": "5a06c156076a5e2868d77834780e6bde72aec149d6f89b72136d562b533071d1",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_WeierstrassCurve_GenusOnePic0.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_Isogeny_ConditionalCurrency.lean",
+   "upstream_sha256": "2ca49e4669bd14aa0496844ab7283fb50b29d85554a223df6433f08ba4d33df0",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_Isogeny_ConditionalCurrency.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_WeierstrassCurve_GenusOnePlaceGateCentred.lean",
+   "upstream_sha256": "b6e420b2d271069ae786f2f19c7470a4ce87e32005e3fbc43aaa0820ac1037c6",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_WeierstrassCurve_GenusOnePlaceGateCentred.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_CoordinateRing_isDedekindDomain.lean",
+   "upstream_sha256": "c5e7c7a96319d26ec8161167d39a9adb7582b47df2387e93ab7b36d57a5f267a",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_CoordinateRing_isDedekindDomain.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_CoordinateRing_isDedekindDomain.lean",
+   "upstream_sha256": "9ad2f7967aaf267f448712044edc97335d6bdd70823e46ad4851a132dbc9ff5d",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_CoordinateRing_isDedekindDomain.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+   "upstream_sha256": "4786895eaa0b7f27ba9fec56a58a787f1d1d3ec8be0e893436e6b1f8293ac7b7",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_AlgebraicCurve_RatFuncPlaces.lean",
+   "upstream_sha256": "9cec158e7fc0831ebb5816c6045e9b511f713ca5ae52b1b15035f79a3ef64542",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_AlgebraicCurve_RatFuncPlaces.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_Place_isEquiv_adicValuation_of_valuationSubring_eq.lean",
+   "upstream_sha256": "2f703cce92c1b61ec146fc4f1f921235e4ecab578416b773fc04d116d01d9ad2",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_Place_isEquiv_adicValuation_of_valuationSubring_eq.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_Place_isEquiv_adicValuation_of_valuationSubring_eq.lean",
+   "upstream_sha256": "a8f0c686927325f012a7510abdb09c883c5d3e5885bad3194b722ad28b6b3816",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_Place_isEquiv_adicValuation_of_valuationSubring_eq.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_Place_ord_eq_neg_log_of_valuationSubring_eq.lean",
+   "upstream_sha256": "5f4dc8fa5d505c68931acbbdc9d728ea6242a3f903dbb44282e508c48743da16",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_Place_ord_eq_neg_log_of_valuationSubring_eq.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_Place_ord_eq_neg_log_of_valuationSubring_eq.lean",
+   "upstream_sha256": "45fb7469f8c12ea92d01e599999bbdc3582ef884df116beeb1e97ae51034d6fb",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_Place_ord_eq_neg_log_of_valuationSubring_eq.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_exists_genusOnePlaceGate_isCentred_and_abelTheorem.lean",
+   "upstream_sha256": "c1212be5fd46f36eb82b4c8de7eb7cb7b1e3a28a33cd7663241d446a3232db3e",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_exists_genusOnePlaceGate_isCentred_and_abelTheorem.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_exists_genusOnePlaceGate_isCentred_and_abelTheorem.lean",
+   "upstream_sha256": "867bcc51d38973bd29a0ec5e253fd3f9052dff98af35fad9589035f64c479818",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_exists_genusOnePlaceGate_isCentred_and_abelTheorem.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_Algebra_IsSeparable_of_coprime_finrank_expChar.lean",
+   "upstream_sha256": "6297338e2ed39cc246ea171f99b92a8623f7425dea584caabe98764ee11abd77",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_Algebra_IsSeparable_of_coprime_finrank_expChar.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_Algebra_IsSeparable_of_coprime_finrank_expChar.lean",
+   "upstream_sha256": "498ac83af71568dc4b4740b40f7ba551ee21d9f7d435ff9142fa9c2622d961e8",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_Algebra_IsSeparable_of_coprime_finrank_expChar.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_relNorm_eq_pow_of_isMaximal_of_isSeparable.lean",
+   "upstream_sha256": "b83638a964d92e6dcb95cb3de2810457dfd7a0d2815666b179d89aa6b888de0e",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_relNorm_eq_pow_of_isMaximal_of_isSeparable.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_relNorm_eq_pow_of_isMaximal_of_isSeparable.lean",
+   "upstream_sha256": "b6ceea1851dd0602fe88608f63fb67eadf7f61508a20891dca7bf31b15384a76",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_relNorm_eq_pow_of_isMaximal_of_isSeparable.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_Place_ord_nonneg_of_mem.lean",
+   "upstream_sha256": "51cbbe8633f729a6b96663f641594493b69af41ff758439db781f7b0dda240c9",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_Place_ord_nonneg_of_mem.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_AlgebraicCurve_IsCurveOver.lean",
+   "upstream_sha256": "ddc4f1ffdde98e5a811bb6f1749ff1084d23ba0ed260ebc639f755147ec5354e",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_AlgebraicCurve_IsCurveOver.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_AlgebraicCurve_FrobeniusEndo.lean",
+   "upstream_sha256": "559a6a282e1adf2db1f67ea7356ab0d4ea4e455d2342bd8c4428b3222c46f277",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_AlgebraicCurve_FrobeniusEndo.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_AlgebraicCurve_FrobeniusEndoPic0.lean",
+   "upstream_sha256": "a4d80bae7e713b9dbde1f7e8e7aec563ba67dc2193a5a47b221d7f9df89cc8be",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_AlgebraicCurve_FrobeniusEndoPic0.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_FLTPrelim_FreyPackage.lean",
+   "upstream_sha256": "db451a2116b5dde045bc9ca63ca3106f1edbfe44c96929c8437436d139ce116f",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_FLTPrelim_FreyPackage.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_FLTPrelim_Ramification.lean",
+   "upstream_sha256": "2316e21cc68b2b5737dc40bc99aef5bcc03cb7d0a971b1f017235debb28fb1da",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_FLTPrelim_Ramification.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+   "upstream_sha256": "1cc42c05b68c6513dbf53f6ece3dbaed0794191525ecb74caa60f90cb84c8be4",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_EllipticCurve_FrobeniusTrace.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_HeckeGalois_EichlerShimura.lean",
+   "upstream_sha256": "0235053a0daba3c2763fc42dbba23f6eadfaa66e50325176a43461aac9d4606b",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_HeckeGalois_EichlerShimura.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_frobenius_identity_geom_unconditional.lean",
+   "upstream_sha256": "c6f6df706092590de495a63a6099a7340c5be9d71f4628147b9fba8cba9c064d",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_frobenius_identity_geom_unconditional.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_frobenius_identity_geom_unconditional.lean",
+   "upstream_sha256": "7e5d9b63712b79f4d0e1af90f08c1cae6e9319fecdaf21d16a3524ff54aecba6",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_frobenius_identity_geom_unconditional.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_ModularCurve_CharLFrobeniusGeomLevel.lean",
+   "upstream_sha256": "385e94bdc4cf9a31ffc0a5367ee1f883ce122a0a5efc8d4d5b73c95b68c4d3cd",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_ModularCurve_CharLFrobeniusGeomLevel.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_Place_ord_nonneg_of_mem.lean",
+   "upstream_sha256": "8d81bf00110965f200c0e9227702f443d22af29a8ba109312c00cdc841ae2891",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_Place_ord_nonneg_of_mem.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_Place_mem_of_ord_nonneg.lean",
+   "upstream_sha256": "9618ddc52c9e1056b44a0b4a9581b07ae418ad928148190c2dc3c12f0bb8d497",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_Place_mem_of_ord_nonneg.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_Place_mem_of_ord_nonneg.lean",
+   "upstream_sha256": "db14cf446be69ce9689caa7ac75de2a9c36cbdbf25e1a3f5253e8fcf9d6493aa",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_Place_mem_of_ord_nonneg.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_Place_mem_iff_ord_nonneg.lean",
+   "upstream_sha256": "146975c5f991773f4c4ed210c65be1bbb7c88e13a407afd96f505ce3f24468d2",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_Place_mem_iff_ord_nonneg.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_Place_mem_iff_ord_nonneg.lean",
+   "upstream_sha256": "ced82c49e3e198e05173f2db47341554d0538edbe9d3bc300c5d51f5187f7965",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_Place_mem_iff_ord_nonneg.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_Place_exists_ord_pos.lean",
+   "upstream_sha256": "cbe575578d3813baae09886bf0d462c07df8fb3374787b3c59086dbfd0020319",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_Place_exists_ord_pos.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_Place_exists_ord_pos.lean",
+   "upstream_sha256": "c3dee9802975d48c9ee549552174a04c7c88450ff23e5acabbddb5d764dd5d90",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_Place_exists_ord_pos.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_Place_ord_eq_zero_iff_adicValuation_eq_one.lean",
+   "upstream_sha256": "e246be983d154c374bb6e35dca2c03f9c333f280cb10b1b6c2b8f5659d027437",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_Place_ord_eq_zero_iff_adicValuation_eq_one.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_Place_ord_eq_zero_iff_adicValuation_eq_one.lean",
+   "upstream_sha256": "0f12a0ca74ad0383ed5e4cfd78fca576194d782a6a9aa7c13904bf2030ff841e",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_Place_ord_eq_zero_iff_adicValuation_eq_one.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_Divisor_pushforwardNormFormula_of_isSeparable.lean",
+   "upstream_sha256": "65bdce388bf5276fd0767e46e2e3a67eae335387968669e0805ef6822aa99e4d",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_Divisor_pushforwardNormFormula_of_isSeparable.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_Divisor_pushforwardNormFormula_of_isSeparable.lean",
+   "upstream_sha256": "80db38bf516d6caf6b27b115dd8a751355f5668549bb42e6c33bdc178ae9f8f5",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_Divisor_pushforwardNormFormula_of_isSeparable.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_normFormulaAlong_of_separableAlong.lean",
+   "upstream_sha256": "ebd50a3462fc7b3ec46df28f9c467dfa27aaeef650bc1f8a0ad1a33d8594dbdd",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_normFormulaAlong_of_separableAlong.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_normFormulaAlong_of_separableAlong.lean",
+   "upstream_sha256": "e29ed9fd0e2f01bcd525563e140d0c8d26093ad26d18b7486702da376f9917c7",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_normFormulaAlong_of_separableAlong.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_WeierstrassCurve_FunctionFieldQuadratic.lean",
+   "upstream_sha256": "e4e916e3ceeaede811f7ee0385c754446f0e373aa3feaa8358b93026cb4c5297",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_WeierstrassCurve_FunctionFieldQuadratic.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_adjoin_yCoord_eq_top.lean",
+   "upstream_sha256": "9f0dfc744bd9397667ff0c0b7b2238b132b69e06435e8938fe080d58bbd5bf88",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_adjoin_yCoord_eq_top.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_adjoin_yCoord_eq_top.lean",
+   "upstream_sha256": "49c21918bfa521468663660cdd96c1c5f82e0c9bd936ad2a5248911357ae120c",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_adjoin_yCoord_eq_top.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_finiteDimensional_ratFunc_functionField.lean",
+   "upstream_sha256": "f034aed58055f2d5f69160d6ec3b1bfe346203e84ffb62934d5e769a9987d5c0",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_finiteDimensional_ratFunc_functionField.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_finiteDimensional_ratFunc_functionField.lean",
+   "upstream_sha256": "0cc2a536cea6ad876f4015703180dd889893150d8f6d9d9b20e130313fbce57a",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_finiteDimensional_ratFunc_functionField.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_RationalFunctionField_finite_setOf_ord_ne_zero.lean",
+   "upstream_sha256": "450519db49182319f16b1ec3ef76a0c8b3ef1991c950755cf28637a1dcef237b",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_RationalFunctionField_finite_setOf_ord_ne_zero.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_RationalFunctionField_finite_setOf_ord_ne_zero.lean",
+   "upstream_sha256": "0149f680a1896c0b43db27fc045909ab829f007179eb78fd19972f382787b645",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_RationalFunctionField_finite_setOf_ord_ne_zero.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_RationalFunctionField_exists_forall_ne_ofHeightOneSpectrum.lean",
+   "upstream_sha256": "7fd1e4e79a33d613d809c81c8db8b7035b13e547f9f42d577eb60f64247ff047",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_RationalFunctionField_exists_forall_ne_ofHeightOneSpectrum.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_RationalFunctionField_exists_forall_ne_ofHeightOneSpectrum.lean",
+   "upstream_sha256": "073ca5b76127dba2395ddc93d438fa27407f3fc8ee17fd69f33d59334da93973",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_RationalFunctionField_exists_forall_ne_ofHeightOneSpectrum.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_RationalFunctionField_subsingleton_setOf_forall_ne_ofHeightOneSpectrum.lean",
+   "upstream_sha256": "3f96fd48174eff327da8d4e40f378f312debc0b11f202d0731a06dad3e7f2820",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_RationalFunctionField_subsingleton_setOf_forall_ne_ofHeightOneSpectrum.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_RationalFunctionField_subsingleton_setOf_forall_ne_ofHeightOneSpectrum.lean",
+   "upstream_sha256": "f229983c90e4cc8380799c09401b256636b27bb30a2401dd4600dfd2148f112f",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_RationalFunctionField_subsingleton_setOf_forall_ne_ofHeightOneSpectrum.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_RationalFunctionField_ord_ofHeightOneSpectrum_eq_neg_log.lean",
+   "upstream_sha256": "c408ba97972f7ce8d17c2a717869b949aa0af7f2f8a1cfd4be32ccb98221b2ab",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_RationalFunctionField_ord_ofHeightOneSpectrum_eq_neg_log.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_RationalFunctionField_ord_ofHeightOneSpectrum_eq_neg_log.lean",
+   "upstream_sha256": "50fdf3a903232fdf4e79199a4624ad161a0d2f0a769ab3c2f5bfb3b5ecdda5d5",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_RationalFunctionField_ord_ofHeightOneSpectrum_eq_neg_log.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_RationalFunctionField_ord_ofHeightOneSpectrum_of_span.lean",
+   "upstream_sha256": "209ba486545af575763cf1a8d2ccf3046c138a8fbf1ba462eb956b45504d8f28",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_RationalFunctionField_ord_ofHeightOneSpectrum_of_span.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_RationalFunctionField_ord_ofHeightOneSpectrum_of_span.lean",
+   "upstream_sha256": "a9f3fbae87a8d89579035f804ef8f8f6f5653f23aefce084de28e4cd1e4c0ce2",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_RationalFunctionField_ord_ofHeightOneSpectrum_of_span.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_Place_adicValuation_valuationSubring.lean",
+   "upstream_sha256": "2b1ab6d9ffbf76ae31208de3f8991e222784285f88655bd822944b9b902d0bbb",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_Place_adicValuation_valuationSubring.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_Place_adicValuation_valuationSubring.lean",
+   "upstream_sha256": "54b62a55e2841a8450ebd0f6c32cc1bafefe6cb510f91ea28707788f44dc32d8",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_Place_adicValuation_valuationSubring.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_Place_adicValuation_isRankOneDiscrete.lean",
+   "upstream_sha256": "82db358907bbcd8f62247ea26efa9a027e6bea426f9b45aa778b5fba03509dde",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_Place_adicValuation_isRankOneDiscrete.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_Place_adicValuation_isRankOneDiscrete.lean",
+   "upstream_sha256": "d8ca06c76a322ce26331e3c5a91362af384ece4d3cb354e64ece5c2667a73c69",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_Place_adicValuation_isRankOneDiscrete.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_Place_adicValuation_isTrivialOn.lean",
+   "upstream_sha256": "384b59f50be6ddb085469cea41f88df7d6b22dcd37832ff24d9ca7810fef3593",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_Place_adicValuation_isTrivialOn.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_Place_adicValuation_isTrivialOn.lean",
+   "upstream_sha256": "6f33e1de9c20446f9233264705f6ced93c941023c24a59501531e3d318bd56c1",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_Place_adicValuation_isTrivialOn.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_RationalFunctionField_toValuationSubring_eq_of_forall_ne_ofHeightOneSpectrum.lean",
+   "upstream_sha256": "5546c41ceca1ff24816d44fcb8fe0198991cdb249e18abe3b58a37b96dd08f7b",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_RationalFunctionField_toValuationSubring_eq_of_forall_ne_ofHeightOneSpectrum.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_RationalFunctionField_toValuationSubring_eq_of_forall_ne_ofHeightOneSpectrum.lean",
+   "upstream_sha256": "e0ac5a112be18b23223e3890d14b9ca63a8e83f789d72953c377d104dd18d146",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_RationalFunctionField_toValuationSubring_eq_of_forall_ne_ofHeightOneSpectrum.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_RationalFunctionField_ord_eq_neg_intDegree_of_forall_ne_ofHeightOneSpectrum.lean",
+   "upstream_sha256": "cc4d1edc93b27db6fd87c5400fcbdb62f3919d77a116b24f09a1e0b3a6bbca7b",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_RationalFunctionField_ord_eq_neg_intDegree_of_forall_ne_ofHeightOneSpectrum.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_RationalFunctionField_ord_eq_neg_intDegree_of_forall_ne_ofHeightOneSpectrum.lean",
+   "upstream_sha256": "02cf4202c5053b630ff58721409431d10d1854c7317fcc221b7909e769d189dd",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_RationalFunctionField_ord_eq_neg_intDegree_of_forall_ne_ofHeightOneSpectrum.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_Place_mem_iff_adicValuation_le_one.lean",
+   "upstream_sha256": "be75f8611f7b0330bd7e04a0026b51a954a6a60f8f82f0857cfd65d52c15becb",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_Place_mem_iff_adicValuation_le_one.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_Place_mem_iff_adicValuation_le_one.lean",
+   "upstream_sha256": "7d79f7a48fa562a89c878df027ac510c1a13ba509b4fd1ac12d777e14ca810be",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_Place_mem_iff_adicValuation_le_one.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_Place_mem_maximalIdeal_iff_adicValuation_lt_one.lean",
+   "upstream_sha256": "8148295aebd3cd64504057f5b93d854828fd33083c2f80b96694a682d64e4269",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_Place_mem_maximalIdeal_iff_adicValuation_lt_one.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_Place_mem_maximalIdeal_iff_adicValuation_lt_one.lean",
+   "upstream_sha256": "fbf5ec37d60f49ea7cf400ecff4ce2437e6f0a68f9e7a6c1258fa263fac7d56d",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_Place_mem_maximalIdeal_iff_adicValuation_lt_one.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_Place_isEquiv_adicValuation_ofHeightOneSpectrum.lean",
+   "upstream_sha256": "71491fdad30a4cd43c9b36ece837b0a3fd101935eaad5192735c9ab8988045f8",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_Place_isEquiv_adicValuation_ofHeightOneSpectrum.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_Place_isEquiv_adicValuation_ofHeightOneSpectrum.lean",
+   "upstream_sha256": "cbf469aceb419ba37af69d6501d70b8f537913eea2a08e97eef23153c15e0d42",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_Place_isEquiv_adicValuation_ofHeightOneSpectrum.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_RationalFunctionField_deg_ofHeightOneSpectrum.lean",
+   "upstream_sha256": "837ea9f92e6a8b83179079532975c013cec88db2fd5358b43b91a9b0aa5f5ce0",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_RationalFunctionField_deg_ofHeightOneSpectrum.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_RationalFunctionField_deg_ofHeightOneSpectrum.lean",
+   "upstream_sha256": "e23661cba66396154aa78ee91183b9a9c81f787ab87e67a1bcfea4f874332172",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_RationalFunctionField_deg_ofHeightOneSpectrum.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_RationalFunctionField_deg_eq_one_of_forall_ne_ofHeightOneSpectrum.lean",
+   "upstream_sha256": "1c886bf80f9cc1cceaf2c3455d53e8068e65f39f66f6665c5860bac80ae1e4f3",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_RationalFunctionField_deg_eq_one_of_forall_ne_ofHeightOneSpectrum.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_RationalFunctionField_deg_eq_one_of_forall_ne_ofHeightOneSpectrum.lean",
+   "upstream_sha256": "0f8d9c602a33b767c55eaea7ee4e4f76efb05bf3d74efa1f59758c810dddbe4e",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_RationalFunctionField_deg_eq_one_of_forall_ne_ofHeightOneSpectrum.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_Place_ord_ofHeightOneSpectrum_ne_zero_iff.lean",
+   "upstream_sha256": "d92cbcce110bddcdc109c8f47a80088b52b6425a50ed1b8c22c2ce0996d6dad6",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_Place_ord_ofHeightOneSpectrum_ne_zero_iff.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_Place_ord_ofHeightOneSpectrum_ne_zero_iff.lean",
+   "upstream_sha256": "d65c527661de5b4371928690ecf15fb1016cb765c3de2d79826fea88b163d536",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_Place_ord_ofHeightOneSpectrum_ne_zero_iff.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_Place_ord_algebraMap.lean",
+   "upstream_sha256": "bfb8a88e5d782c3109db503fc655c6c794ecc7284a9b2c7d5745c7fcdcb020af",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_Place_ord_algebraMap.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_Place_ord_algebraMap.lean",
+   "upstream_sha256": "3d5601fb98e4a6603770bd89bdb327f4bc1eb4123da9c3d71949b41fff4febe8",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_Place_ord_algebraMap.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_RationalFunctionField_degree_eq_zero_of_forall_eq_ord_algebraMap.lean",
+   "upstream_sha256": "a9a0efe90ae30e6e3d0905b9ec079f1e8d1102d30a1f4fd2ce4797ab3e431e57",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_RationalFunctionField_degree_eq_zero_of_forall_eq_ord_algebraMap.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_RationalFunctionField_degree_eq_zero_of_forall_eq_ord_algebraMap.lean",
+   "upstream_sha256": "d74a1d8793c5f0b540d3c33440f4027a7d530cb86263ba014b9c18784fd02d17",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_RationalFunctionField_degree_eq_zero_of_forall_eq_ord_algebraMap.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_RationalFunctionField_degree_eq_zero_of_forall_eq_ord.lean",
+   "upstream_sha256": "ecf1ae7278a70e42f2e288087a5e755dc42818c9e802e7b50eac113de3e241ed",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_RationalFunctionField_degree_eq_zero_of_forall_eq_ord.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_RationalFunctionField_degree_eq_zero_of_forall_eq_ord.lean",
+   "upstream_sha256": "2d3c844efad73fd759fdfddd675a5b2000fc639a62028257a36faaed19dc5544",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_RationalFunctionField_degree_eq_zero_of_forall_eq_ord.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_hasPrincipalDivisors_of_finiteDimensional_ratFunc_of_isSeparable.lean",
+   "upstream_sha256": "24e6493d2ab50d7fc9776191a17d3c3bbcffe48bb04666a8a74a9b8a6276a24a",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_hasPrincipalDivisors_of_finiteDimensional_ratFunc_of_isSeparable.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_hasPrincipalDivisors_of_finiteDimensional_ratFunc_of_isSeparable.lean",
+   "upstream_sha256": "5d04e90e3a34cd9d0270b83e014c299565cb5fea9950b7560e800015e107d119",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_hasPrincipalDivisors_of_finiteDimensional_ratFunc_of_isSeparable.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField_of_two_ne_zero_or.lean",
+   "upstream_sha256": "9a2055e479819145882aa11fb6d38375520084562d476f81efec3c414f0cba6f",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField_of_two_ne_zero_or.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField_of_two_ne_zero_or.lean",
+   "upstream_sha256": "6baf59b74c2105c61ef4012148fe6f231a257f2982c315d39bcd0aafe86ebf65",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField_of_two_ne_zero_or.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_hasPrincipalDivisors_functionField_of_isElliptic.lean",
+   "upstream_sha256": "65923340858c1cc58b3d293518494073472167d5fa31670b342c5adc8d8ece77",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_hasPrincipalDivisors_functionField_of_isElliptic.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_hasPrincipalDivisors_functionField_of_isElliptic.lean",
+   "upstream_sha256": "bc955a47246fedcb174796ddf4cfd6616e4582aad056a4d68db3b520c52340ca",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_hasPrincipalDivisors_functionField_of_isElliptic.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_AlgebraicCurve_PlaceEvaluation.lean",
+   "upstream_sha256": "c0b3d3143f70373b1c4c7d1f6898cee192e18fff867521ee4c451ef71319b8a6",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_AlgebraicCurve_PlaceEvaluation.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_FunctionField_exists_eq_valuationSubring_of_X_mem.lean",
+   "upstream_sha256": "54fc099e5e0dde7708de051468c9e980850aabee2d99de53990056a8f41d6683",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_FunctionField_exists_eq_valuationSubring_of_X_mem.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_FunctionField_exists_eq_valuationSubring_of_X_mem.lean",
+   "upstream_sha256": "0bc1bef7374e1e493250827d8a8fabbd7cfbf94f60e44bcd507e6de045b9c2cf",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_FunctionField_exists_eq_valuationSubring_of_X_mem.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_Place_eq_ofHeightOneSpectrum_of_XClass_mem_nonunits_of_YClass_mem_nonunits.lean",
+   "upstream_sha256": "c1415477e4b55904c2ddafe3feda5617c6c538069cfc95404f75e1a8f17e3a17",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_Place_eq_ofHeightOneSpectrum_of_XClass_mem_nonunits_of_YClass_mem_nonunits.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_Place_eq_ofHeightOneSpectrum_of_XClass_mem_nonunits_of_YClass_mem_nonunits.lean",
+   "upstream_sha256": "2d7fb8942e88452180e0a7525d59a4f431dd8a3a1148d164110efaf26f9d1d9b",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_Place_eq_ofHeightOneSpectrum_of_XClass_mem_nonunits_of_YClass_mem_nonunits.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_placeOfPoint_some_eq_ofHeightOneSpectrum.lean",
+   "upstream_sha256": "4feb294a33f2f8ee79ed144dcba82f9f85762c36335de836bacac0ec2a56c071",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_placeOfPoint_some_eq_ofHeightOneSpectrum.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_placeOfPoint_some_eq_ofHeightOneSpectrum.lean",
+   "upstream_sha256": "85866bc7a7026e5a9a6ef2dd2e1fc124e5962c8930a58a58c808df52ba1f8650",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_placeOfPoint_some_eq_ofHeightOneSpectrum.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_CoordinateRing_exists_eq_XYIdeal.lean",
+   "upstream_sha256": "9f3fc772600e0f96adfbc4fc3db07e884a42e9ae77dfe2b6e78e3166908e1533",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_CoordinateRing_exists_eq_XYIdeal.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_EllipticCurve_FunctionFieldPullback.lean",
+   "upstream_sha256": "f5c0e4028fabdccc6e889c36826cf7e3d9fa158ccc0519364774e5c564e6bc4a",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_EllipticCurve_FunctionFieldPullback.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_CoordinateRing_exists_eq_XYIdeal.lean",
+   "upstream_sha256": "9e0f8a39f087d6a1151a5648f1ad1f6f136aff0fefe4f3df3d8f86510f80efe2",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_CoordinateRing_exists_eq_XYIdeal.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_algebraMap_mk_C_X_notMem_toValuationSubring_placeOfPoint_zero.lean",
+   "upstream_sha256": "11b0ecc12079610c5d09d3b4e22c2118a6a5da471681e5132bc03aaf99fa3a21",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_algebraMap_mk_C_X_notMem_toValuationSubring_placeOfPoint_zero.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_algebraMap_mk_C_X_notMem_toValuationSubring_placeOfPoint_zero.lean",
+   "upstream_sha256": "5b606f0567cf2494f00c1f53b2bec2e90214307b9de16f9beeabaa430c206ae7",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_algebraMap_mk_C_X_notMem_toValuationSubring_placeOfPoint_zero.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_isMaximal.lean",
+   "upstream_sha256": "63ce3fa1b49ce7c4b4a1602212881b14c452c56a4f89b233f8a3f041cd7b5861",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_isMaximal.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_isMaximal.lean",
+   "upstream_sha256": "e30317051f27eaf05366ccdf3df595239b6d3ee205105090b457f32d560ed0d8",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_isMaximal.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_ne_bot.lean",
+   "upstream_sha256": "1ee1dc7208914c37626a694dcad6b53546f45626cb195c81559ec931ac3d452e",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_ne_bot.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_ne_bot.lean",
+   "upstream_sha256": "be69d401ab0b36a81a24336e0672b7fcb35f61a37f9a865494790ceb03de4a48",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_CoordinateRing_XYIdeal_ne_bot.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_velu_map_equation_of_oddOrderSummingSet_of_isAlgClosed.lean",
+   "upstream_sha256": "7baa781256ef28314da2f5dbca005c3ee5dc2abc86a60b9419b647b40b84aad4",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_velu_map_equation_of_oddOrderSummingSet_of_isAlgClosed.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_velu_map_equation_of_oddOrderSummingSet_of_isAlgClosed.lean",
+   "upstream_sha256": "b0a60062dc5ba30c4b39d9d63230e17489c3a47326a55dc9d7764e004144ae12",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_velu_map_equation_of_oddOrderSummingSet_of_isAlgClosed.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_Place_sum_ramificationIndex_mul_inertiaDeg.lean",
+   "upstream_sha256": "d13d81af7eb0002f03789e2552b0334b6dfe0643e8a284af35037221e998bf9c",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_Place_sum_ramificationIndex_mul_inertiaDeg.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_Place_sum_ramificationIndex_mul_inertiaDeg.lean",
+   "upstream_sha256": "f18888199c44f85f2c5dad0526813c3675e43e604ff857ea4ec8b3e9ecae3d1b",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_Place_sum_ramificationIndex_mul_inertiaDeg.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_Place_ramificationIndex_eq_ramificationIdx_fiberCenter.lean",
+   "upstream_sha256": "fc78ed308405bc04ba5c0e6871b430a3e0b8add2d85cfece09ad857a03968a2b",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_Place_ramificationIndex_eq_ramificationIdx_fiberCenter.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_Place_ramificationIndex_eq_ramificationIdx_fiberCenter.lean",
+   "upstream_sha256": "9f9cb54a0d8282ce20f4faf4de2091f0d70fdf3aa8092aea138a6dabb7713d9c",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_Place_ramificationIndex_eq_ramificationIdx_fiberCenter.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_Place_sum_ramificationIndex_mul_inertiaDeg_fiberOver.lean",
+   "upstream_sha256": "d0a4998b6afd4e5ac2594563f9d23d6c310c1fb73ee993a2488882faa523e847",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_Place_sum_ramificationIndex_mul_inertiaDeg_fiberOver.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_Place_sum_ramificationIndex_mul_inertiaDeg_fiberOver.lean",
+   "upstream_sha256": "7eecd555efa840beec01d9d5bf4eb9dc9350b7255c603e7204b8e22c32adadd5",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_Place_sum_ramificationIndex_mul_inertiaDeg_fiberOver.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_Place_exists_restrict_eq.lean",
+   "upstream_sha256": "7e96ab98df61b0fdea5dfae7479e242e0d70b401768b6bed6f0241fdf8e4e197",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_Place_exists_restrict_eq.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_Place_exists_restrict_eq.lean",
+   "upstream_sha256": "7ce0f425aa51fdd1cbb34a2c59b8c9e573be6d85a4e0bc415f4d7d3e47744069",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_Place_exists_restrict_eq.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_Place_restrictAlong_surjective.lean",
+   "upstream_sha256": "a4cee4d2f767e1ae9500ab6bc503de5217496f4ec436aa3f08e8fb8d78b22d68",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_Place_restrictAlong_surjective.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_Place_restrictAlong_surjective.lean",
+   "upstream_sha256": "476f981413d37fc2cbbeda16e1cb1436eb1d33ca0d6811a3c8cfe821eeeaf8d2",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_Place_restrictAlong_surjective.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_natCard_ker_pointMapOfPushforward_eq_finrankAlong_of_separableAlong.lean",
+   "upstream_sha256": "b640d86345666d54a18a6a976eb5e45ef0c5e41bfcc54c11393fd143d6b0ac85",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_natCard_ker_pointMapOfPushforward_eq_finrankAlong_of_separableAlong.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_natCard_ker_pointMapOfPushforward_eq_finrankAlong_of_separableAlong.lean",
+   "upstream_sha256": "fbd22d3aabe432e0a08a611c8c332d6cbf08564da8121eeae14877a67ca2fbc2",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_natCard_ker_pointMapOfPushforward_eq_finrankAlong_of_separableAlong.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_GenusOnePlaceGate_ext_of_isCentred.lean",
+   "upstream_sha256": "8a6fe84fcaff70a1ae8832fb5a46a3d9f7ccb730e260a654202786b1489ffc71",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_GenusOnePlaceGate_ext_of_isCentred.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_GenusOnePlaceGate_ext_of_isCentred.lean",
+   "upstream_sha256": "5743f0ada80361db75df26ba2929f56e4dfae0facc26d697f2b672b74d754e05",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_GenusOnePlaceGate_ext_of_isCentred.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_exists_veluFunctionFieldHom_restrictAlong_placeOfPoint_eq_of_isAlgClosed.lean",
+   "upstream_sha256": "263e48ef048dfb50c7225ea76b787a050bc08269b5543a69560e40aec702a45c",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_exists_veluFunctionFieldHom_restrictAlong_placeOfPoint_eq_of_isAlgClosed.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_exists_veluFunctionFieldHom_restrictAlong_placeOfPoint_eq_of_isAlgClosed.lean",
+   "upstream_sha256": "00d2f2d51370c862c715b41fd2207bd5b206c9ccd0eed1d9a15a74140dd36cee",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_exists_veluFunctionFieldHom_restrictAlong_placeOfPoint_eq_of_isAlgClosed.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_exists_veluPointHom_oddOrderSummingSet_of_isAlgClosed.lean",
+   "upstream_sha256": "43d5f50bd2932a620df00aacfa4fe45174a767a0142ace73c882d335fe85ba0e",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_exists_veluPointHom_oddOrderSummingSet_of_isAlgClosed.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_exists_veluPointHom_oddOrderSummingSet_of_isAlgClosed.lean",
+   "upstream_sha256": "4bcaf1d30a9b9f0ea0cf3250efa5b753db4f477de39eb563cb4eabd26fd6f5b1",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_exists_veluPointHom_oddOrderSummingSet_of_isAlgClosed.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_FreyPackage_GaloisRep.lean",
+   "upstream_sha256": "d4e5371b9934603383630b0512cb51edfad0c80fe577e4ee4465b55bddd75a26",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_FreyPackage_GaloisRep.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_WeierstrassCurve_ReductionMap.lean",
+   "upstream_sha256": "0483924cd7cfd5fc325de7bfe16ec769e9486cf615e715280e70d1cebef94911",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_WeierstrassCurve_ReductionMap.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_WeierstrassCurve_TorsionIntegral.lean",
+   "upstream_sha256": "cce6b96c159a22d389746550269b7ea988872e4b68a0059e5011d27830f6a879",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_WeierstrassCurve_TorsionIntegral.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_WeierstrassCurve_ReduceHom.lean",
+   "upstream_sha256": "eff8ab2bd6c9514bc317a0fa0810c3dba989af83009a2618c692fc3809b8dc7c",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_WeierstrassCurve_ReduceHom.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_PeriodPair_Uniformization.lean",
+   "upstream_sha256": "570fbf7464e86a88a131ececac451bd95734258b7b7e4a82928535cfd2d9f52e",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_PeriodPair_Uniformization.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_PeriodPair_discriminant_ne_zero.lean",
+   "upstream_sha256": "ff279b440c11bc3cecd32a86e9cb5134e231610b4de7343beec4dceae74cdd43",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_PeriodPair_discriminant_ne_zero.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_PeriodPair_discriminant_ne_zero.lean",
+   "upstream_sha256": "dfda8d521d7f3ef41fcedeaef08e49238df9a7080c314d9ea6ad7447d643542d",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_PeriodPair_discriminant_ne_zero.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_PeriodPair_jLattice_surjective.lean",
+   "upstream_sha256": "73d2ba28924813ed5ac6ecc211bdd102d95eb07a5e79c6c74171b595515b99c1",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_PeriodPair_jLattice_surjective.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_PeriodPair_jLattice_surjective.lean",
+   "upstream_sha256": "5b6071253524c6a49d9eac8396717aeac6d88d36da6bccd4e6d20f81d4988e63",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_PeriodPair_jLattice_surjective.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_PeriodPair_exists_variableChange_smul_weierstrassCurve_eq.lean",
+   "upstream_sha256": "60685384d1c86cf5b238e0f156906312805afaf272b9dc367b2efdafd3efe8b4",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_PeriodPair_exists_variableChange_smul_weierstrassCurve_eq.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_PeriodPair_exists_variableChange_smul_weierstrassCurve_eq.lean",
+   "upstream_sha256": "89b026b483882f26f3b9a0aea264b63537a8952b1f5297d339ee4b5413866366",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_PeriodPair_exists_variableChange_smul_weierstrassCurve_eq.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_nonempty_functionField_algEquiv_of_variableChange.lean",
+   "upstream_sha256": "abcdc31565a98d3326ec688fa7793f1bf1877ac8a4eb8bd8c01d70f49cac4319",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_nonempty_functionField_algEquiv_of_variableChange.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_nonempty_functionField_algEquiv_of_variableChange.lean",
+   "upstream_sha256": "cf7cd69eeff47cdbf16c48468df78254707c69c6d23ad2444e8743adcc10f362",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_nonempty_functionField_algEquiv_of_variableChange.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_hasPrincipalDivisors_of_finiteDimensional_ratFunc.lean",
+   "upstream_sha256": "13fe932988f545afb4b5409711a4071b5e82e94404569a448145da238999c6e7",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_hasPrincipalDivisors_of_finiteDimensional_ratFunc.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_hasPrincipalDivisors_of_finiteDimensional_ratFunc.lean",
+   "upstream_sha256": "a6d980408583df55bea633daeb4aae9b90d3504298159ca7739ddebd8d3f0356",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_hasPrincipalDivisors_of_finiteDimensional_ratFunc.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField.lean",
+   "upstream_sha256": "441783acd5ad26be4d5b2d0b8ab20b299634a95107fe5201416a5b072acf7950",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField.lean",
+   "upstream_sha256": "12ca2d8ce42098b03ad9ab127d5a569cd252502dbcb67dee715d469a79b714d3",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_hasPrincipalDivisors_functionField.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_Divisor_pushforwardNormFormula.lean",
+   "upstream_sha256": "bcfbf98277d6216a6853345e14e18f0318e63bd38e4610f149b7fd32e6fdd180",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_Divisor_pushforwardNormFormula.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_Divisor_pushforwardNormFormula.lean",
+   "upstream_sha256": "9e144499676d6e368d59a5928f707f259c0224c892e731cb6ed6e9b4685dd5ac",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_Divisor_pushforwardNormFormula.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_normFormulaAlong.lean",
+   "upstream_sha256": "0cc4e035029a70255fa757a715bef968342b9e2e7e8abc6df113154ec587dfdc",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_normFormulaAlong.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_normFormulaAlong.lean",
+   "upstream_sha256": "222edd1d3675a44f754f49b48ec81051e519c6616b0fcc7ef4dc70dc9918029b",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_normFormulaAlong.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_Place_evalAt_ne_zero.lean",
+   "upstream_sha256": "d4fe20d461423eeda683bf3d0795fb49bac1a86f303925fec63fa5fff8469cbe",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_Place_evalAt_ne_zero.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_Place_evalAt_ne_zero.lean",
+   "upstream_sha256": "5cffce5ed7b35eebcb3f074177686f59ccbcc8109c89360e6b5515e2b6a67d40",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_Place_evalAt_ne_zero.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_Place_evalAt_congr.lean",
+   "upstream_sha256": "6c5bbc5255eb9b7873a3d90b963493e95f76b0c7236fbbe577bec5f0bc19dbb4",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_Place_evalAt_congr.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_Place_evalAt_congr.lean",
+   "upstream_sha256": "e1e50e7812e725a4dccc96ff8a53f9946d8a51824d4b6627e24ccdc3c22ee4cb",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_Place_evalAt_congr.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_pointMapOfPushforward_surjective.lean",
+   "upstream_sha256": "ed67c448c553507ec67aec5a6d03ffa8f06350f374bd1a7194bc1ec221e7fb45",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_pointMapOfPushforward_surjective.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_pointMapOfPushforward_surjective.lean",
+   "upstream_sha256": "ce6fc0fda6b3318dc4e0f51533960591f5a93de2f0be944e4bad335dcf592f86",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_pointMapOfPushforward_surjective.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_card_torsion_of_isAlgClosed_light.lean",
+   "upstream_sha256": "f599266738bde794412a238f37414bfb678caadad6b12eefd7e110a3abe50f28",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_card_torsion_of_isAlgClosed_light.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_card_torsion_of_isAlgClosed_light.lean",
+   "upstream_sha256": "de5ce0bc851a8f3220d8fe04173309d28f2bd8be840fa23610675539b0b32208",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_card_torsion_of_isAlgClosed_light.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_card_torsionBy_eq_sq_of_isAlgClosed.lean",
+   "upstream_sha256": "2d25040be2b54146f29e479594c1ecc82eaa86a78e8b497fc2fbb987e5df0352",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_card_torsionBy_eq_sq_of_isAlgClosed.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_card_torsionBy_eq_sq_of_isAlgClosed.lean",
+   "upstream_sha256": "05842bd8adc6471f5b344272491dbfd859751385bc8de40d2f90a6a5ed9403f4",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_card_torsionBy_eq_sq_of_isAlgClosed.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_natCard_ker_pointMapOfPushforward_eq_finrankAlong.lean",
+   "upstream_sha256": "eee80eb74206aab938b9ecf8b10260be0386461fdf600f8ca28ea8eb0b2527c2",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_natCard_ker_pointMapOfPushforward_eq_finrankAlong.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_natCard_ker_pointMapOfPushforward_eq_finrankAlong.lean",
+   "upstream_sha256": "200d3ed30be9e356c12222f21984cc4e65c2eff6e2aae35ef77d8744a014eb6a",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_natCard_ker_pointMapOfPushforward_eq_finrankAlong.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_Place_evalAt_algebraMap.lean",
+   "upstream_sha256": "f35b88fdcabcb28dc8654a68d1834069a1ffd8fc3a6d6b966919c80123cbe4e4",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_Place_evalAt_algebraMap.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_Place_evalAt_algebraMap.lean",
+   "upstream_sha256": "39798210d8a13573e4d2c019ad1417840854b246f88d7e6d7b44fca7baf2e0dc",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_Place_evalAt_algebraMap.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_Place_evalAt_mul.lean",
+   "upstream_sha256": "4889e2adb0e03ef180eba5c9723ce261e1adf9344a3efa5761b05b08be187d19",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_Place_evalAt_mul.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_Place_evalAt_mul.lean",
+   "upstream_sha256": "5e919ef18e10d00ebe87f733bd3c5079fb0cbb4421e5a2abf2af6b969f2edecd",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_Place_evalAt_mul.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_Place_evalAt_inv.lean",
+   "upstream_sha256": "d415d3f3f085a731cb35289fa9c4cf87b462b4ab4ec4a27fef393efcce77a991",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_Place_evalAt_inv.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_Place_evalAt_inv.lean",
+   "upstream_sha256": "3bcf11ee4f4282dddcdd886228dfeb0ce9fc9e0dec968b3ae0e8fb183c768c54",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_Place_evalAt_inv.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_PeriodPair_isUniformization_toPoint.lean",
+   "upstream_sha256": "c65bc565300ba81dcaec63c79eb397249cb142bedb7980aedac1a967e866fcb2",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_PeriodPair_isUniformization_toPoint.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_PeriodPair_isUniformization_toPoint.lean",
+   "upstream_sha256": "acac42fbe3a81e196c1360a0c8122849ed45b00c30b23480c32ce5601739452a",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_PeriodPair_isUniformization_toPoint.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_isAddCyclic_ker_pointMapOfPushforward_of_algEquiv_conj.lean",
+   "upstream_sha256": "dee2913cb1d133fb9feec9ccfd782732707a288f3121b93a55a00be87c411154",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_isAddCyclic_ker_pointMapOfPushforward_of_algEquiv_conj.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_isAddCyclic_ker_pointMapOfPushforward_of_algEquiv_conj.lean",
+   "upstream_sha256": "be42e7c0e9ab94cb14d22dfcdc434d3c39c00f9bc556c0d95eef5756035ae0dd",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_isAddCyclic_ker_pointMapOfPushforward_of_algEquiv_conj.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_Place_min_ord_le_ord_add.lean",
+   "upstream_sha256": "abb1b57658e0eda266e1240b7e2bb914a4c25c762e4cfbea6e53184696c7fc57",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_Place_min_ord_le_ord_add.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_Place_min_ord_le_ord_add.lean",
+   "upstream_sha256": "897646ecf59c2bc5d0ca7cf823529cabba2b65c2f58e72ed63e4527c523e8a9a",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_Place_min_ord_le_ord_add.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_PeriodPair_exists_differentiable_toPoint_comp_eq_pointMapOfPushforward_toPoint.lean",
+   "upstream_sha256": "ac912e7bfebe67dcee958622a47da321ca4ad92e8037729f0371371450c898e6",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_PeriodPair_exists_differentiable_toPoint_comp_eq_pointMapOfPushforward_toPoint.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_PeriodPair_exists_differentiable_toPoint_comp_eq_pointMapOfPushforward_toPoint.lean",
+   "upstream_sha256": "8c3145fe65697030dc46d0ac8eb2cd09cd366e8c816cab9a03f8c1f551a819a5",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_PeriodPair_exists_differentiable_toPoint_comp_eq_pointMapOfPushforward_toPoint.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_PeriodPair_exists_scale_lattice_subset_and_sublatticeIndex_eq_natCard_ker.lean",
+   "upstream_sha256": "94a1a3ac25405874ed9578b682db99fa2d740eda64126759b5ce9308383968da",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_PeriodPair_exists_scale_lattice_subset_and_sublatticeIndex_eq_natCard_ker.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_PeriodPair_exists_scale_lattice_subset_and_sublatticeIndex_eq_natCard_ker.lean",
+   "upstream_sha256": "267edc4cf5899a1748c6d1a9883f3f8ebe384c060500e28c8fa6148e7d9b16ad",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_PeriodPair_exists_scale_lattice_subset_and_sublatticeIndex_eq_natCard_ker.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_PeriodPair_exists_scale_lattice_subset_and_sublatticeIndex_eq_and_isAddCyclic_sublatticeQuotient.lean",
+   "upstream_sha256": "21490b8d7943982ab220c7da7a1a9ce491311a50de97743c8dfe5149b4a10a02",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_PeriodPair_exists_scale_lattice_subset_and_sublatticeIndex_eq_and_isAddCyclic_sublatticeQuotient.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_PeriodPair_exists_scale_lattice_subset_and_sublatticeIndex_eq_and_isAddCyclic_sublatticeQuotient.lean",
+   "upstream_sha256": "1e0e10b99a41eec81733d6a91680f43ca89921be3773d2e99fe447681849fa9e",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_PeriodPair_exists_scale_lattice_subset_and_sublatticeIndex_eq_and_isAddCyclic_sublatticeQuotient.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_PeriodPair_exists_mem_primCosetReps_and_jLattice_eq_of_isAddCyclic.lean",
+   "upstream_sha256": "505195303c406fa5c49e4bb5ede42b40177441157432b1804b5e0efc80d6f89b",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_PeriodPair_exists_mem_primCosetReps_and_jLattice_eq_of_isAddCyclic.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_PeriodPair_exists_mem_primCosetReps_and_jLattice_eq_of_isAddCyclic.lean",
+   "upstream_sha256": "ecf06b2391b0cea1e761cd7911c2343b7d603db342b5994ce796136f0c51430b",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_PeriodPair_exists_mem_primCosetReps_and_jLattice_eq_of_isAddCyclic.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_PeriodPair_jLattice_ofTau.lean",
+   "upstream_sha256": "7a0ccf09fff3b4e9a8625797b14e2da22246144f1be449bd5ee6d7037bc6012a",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_PeriodPair_jLattice_ofTau.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_PeriodPair_jLattice_ofTau.lean",
+   "upstream_sha256": "82f8e0890f7b0773157aa85f4c54056d172aa65902a52fd53c95b7ec276dd52b",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_PeriodPair_jLattice_ofTau.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_ModularPolynomialData_eval_jLattice_eq_zero_of_isAddCyclic.lean",
+   "upstream_sha256": "9153cbb78433744fffd4fc68f488ecc8a57d8b49c408e6cbcec1615ba1199292",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_ModularPolynomialData_eval_jLattice_eq_zero_of_isAddCyclic.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_ModularPolynomialData_eval_jLattice_eq_zero_of_isAddCyclic.lean",
+   "upstream_sha256": "8d8a7a6fd841dd6ae7ed985f1c1ec48bd68ba074571e6a5335a4614afb9b6d12",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_ModularPolynomialData_eval_jLattice_eq_zero_of_isAddCyclic.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_isAddCyclic_ker_pointMapOfPushforward_of_baseChange_algHom.lean",
+   "upstream_sha256": "ff9047528ac51f359873783ee4998cc8229cb5bd87391b7f141b6d1c27b2981c",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_isAddCyclic_ker_pointMapOfPushforward_of_baseChange_algHom.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_isAddCyclic_ker_pointMapOfPushforward_of_baseChange_algHom.lean",
+   "upstream_sha256": "5fc102cae7064b067cb3be15a2fc9c72679df0a8f9cb8d42efda5eb895f845eb",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_isAddCyclic_ker_pointMapOfPushforward_of_baseChange_algHom.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_exists_intermediateField_countable_map_eq_of_isAddCyclic_ker_pointMapOfPushforward.lean",
+   "upstream_sha256": "d63eabdec3cd0d74e78db16f7b98a79436705364103b69a08d5c7e05f7352130",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_exists_intermediateField_countable_map_eq_of_isAddCyclic_ker_pointMapOfPushforward.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_exists_intermediateField_countable_map_eq_of_isAddCyclic_ker_pointMapOfPushforward.lean",
+   "upstream_sha256": "1001d7540b321dc299bbe22b960698b1a83255f7c97f81337a08f27a7f77f5c0",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_exists_intermediateField_countable_map_eq_of_isAddCyclic_ker_pointMapOfPushforward.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_exists_algHom_baseChange_of_isAddCyclic_ker_pointMapOfPushforward.lean",
+   "upstream_sha256": "5f8081129385d522cae8ab75f37a0abee00b2433b89516c4ddf8d1f14d1b77f9",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_exists_algHom_baseChange_of_isAddCyclic_ker_pointMapOfPushforward.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_exists_algHom_baseChange_of_isAddCyclic_ker_pointMapOfPushforward.lean",
+   "upstream_sha256": "b1366ff0a0fc8ede6eb7da7f78e851dca3a70f425c9d4c4bc933654ade130953",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_exists_algHom_baseChange_of_isAddCyclic_ker_pointMapOfPushforward.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_Field_nonempty_ringHom_complex_of_countable.lean",
+   "upstream_sha256": "3835384b354abf64abea34f8885a1ba6d9f9b2dea8aee08fc7db6c94e755f116",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_Field_nonempty_ringHom_complex_of_countable.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_Field_nonempty_ringHom_complex_of_countable.lean",
+   "upstream_sha256": "b3eb7cac02d25fd9850b096c97dc0547d50c37fa5216ed6c700b7721c4b89248",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_Field_nonempty_ringHom_complex_of_countable.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_eval_modularPolynomial_map_j_eq_zero_of_isAddCyclic_ker_pointMapOfPushforward.lean",
+   "upstream_sha256": "580bb9592948304890cbb681bdcd63e492eb2fb262d484a8ed1dca2a86040fdb",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_eval_modularPolynomial_map_j_eq_zero_of_isAddCyclic_ker_pointMapOfPushforward.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_eval_modularPolynomial_map_j_eq_zero_of_isAddCyclic_ker_pointMapOfPushforward.lean",
+   "upstream_sha256": "9285e57ad01d73cbafeecc16ba07d7a955b9e00fcb6393ac0531e354761ccb82",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_eval_modularPolynomial_map_j_eq_zero_of_isAddCyclic_ker_pointMapOfPushforward.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_velu_map_equation_of_oddOrderSummingSet.lean",
+   "upstream_sha256": "c596bd23bb428e1ce6bfe858288d2ad71560c4c40682935d5a7e3735af3672ae",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_velu_map_equation_of_oddOrderSummingSet.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_velu_map_equation_of_oddOrderSummingSet.lean",
+   "upstream_sha256": "0e18a1c9b3772a6fd212555eb2b78cfeb6dd19a16ac5b9e13bec34a76249a24d",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_velu_map_equation_of_oddOrderSummingSet.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_exists_veluFunctionFieldHom_restrictAlong_placeOfPoint_eq.lean",
+   "upstream_sha256": "c1a7f6857d8475105812c45b38272f5b1aa5e0eec2332b4e5cc8a1aec7c065b2",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_exists_veluFunctionFieldHom_restrictAlong_placeOfPoint_eq.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_exists_veluFunctionFieldHom_restrictAlong_placeOfPoint_eq.lean",
+   "upstream_sha256": "d4ec99c317bf5e4dadb172fb0741f9d37000df66aa67dfb8d5644df7570f3c23",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_exists_veluFunctionFieldHom_restrictAlong_placeOfPoint_eq.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_exists_veluFunctionFieldHom_pointMapOfPushforward_ker_eq_zmultiples.lean",
+   "upstream_sha256": "7ea846c54d2be8dead529c2defd942d7151d03f1b4650ea7854f42221161114d",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_exists_veluFunctionFieldHom_pointMapOfPushforward_ker_eq_zmultiples.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_exists_veluFunctionFieldHom_pointMapOfPushforward_ker_eq_zmultiples.lean",
+   "upstream_sha256": "d3c900357970e1d197bd90e92ba0190842fe32ee323d65bbaa12649530ed2cc9",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_exists_veluFunctionFieldHom_pointMapOfPushforward_ker_eq_zmultiples.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_HahnSeries_isAlgClosed_rat.lean",
+   "upstream_sha256": "831156d8c8ab21ba676165370730b8fd4d3055a2e9c73a7238b545e348372f04",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_HahnSeries_isAlgClosed_rat.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_HahnSeries_isAlgClosed_rat.lean",
+   "upstream_sha256": "c24468e4ff2db3af43d3ed54b3f040dbd776d1014cea6b32e22f915917b455ea",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_HahnSeries_isAlgClosed_rat.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_ModularPolynomialData_isRoot_map_j_veluQuotient_j_of_addOrderOf_eq.lean",
+   "upstream_sha256": "88f9f251fa4b14eff94337ccfb18ea12d93d6eb0af66d1943ab010c1d526bd1e",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_ModularPolynomialData_isRoot_map_j_veluQuotient_j_of_addOrderOf_eq.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_ModularPolynomialData_isRoot_map_j_veluQuotient_j_of_addOrderOf_eq.lean",
+   "upstream_sha256": "0b6ce241906662b2041a75575cb205ac9c0a2ef73a43186bb1ba5292c9944a7f",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_ModularPolynomialData_isRoot_map_j_veluQuotient_j_of_addOrderOf_eq.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_DualIsogenyAPI.lean",
+   "upstream_sha256": "e1834edc4581bc38534ad896e66fd7fa8738eda400376d4e7f7d5fd03daa434d",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_DualIsogenyAPI.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_FunctionField_addX_addY_specialize_at_place.lean",
+   "upstream_sha256": "db46ee3d042dedd1683843f0ea65ce572be13bfd3c75ff321e5ba8c6bf10d0c9",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_FunctionField_addX_addY_specialize_at_place.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_FunctionField_addX_addY_specialize_at_place.lean",
+   "upstream_sha256": "5661eb9b06db1497026b89030420262aebb6e9e233154bb5292b924fa8a10e51",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_FunctionField_addX_addY_specialize_at_place.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_finite_torsionBy_of_natCast_ne_zero.lean",
+   "upstream_sha256": "3f771d370e07345d85d54cf683972176816e19fc29907a36a0954e7440fb6b60",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_finite_torsionBy_of_natCast_ne_zero.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_finite_torsionBy_of_natCast_ne_zero.lean",
+   "upstream_sha256": "3188f95e76171442d53861dd45fb744ec661dc97593d2323ad2673bc63c7549a",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_finite_torsionBy_of_natCast_ne_zero.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_Point_exists_zsmul_eq_of_isAlgClosed.lean",
+   "upstream_sha256": "212551b6c7a2a5bb6e93a5fb8bc98580947942ea51abd09f4b8d652c5bdae60f",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_Point_exists_zsmul_eq_of_isAlgClosed.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_Point_exists_zsmul_eq_of_isAlgClosed.lean",
+   "upstream_sha256": "cb5fdefb1dd5ce492b9613ed99fd4b097f76d69f2dc9d5c7afd8abc06c898ff2",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_Point_exists_zsmul_eq_of_isAlgClosed.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_IsogenyEndDatum_exists_dualEndData_dual_mem_and_norm_eq_finrankAlong.lean",
+   "upstream_sha256": "55dd8aeff7a706be8fd2a6453efbe488067bee9d86d97c1a780e2f50195b2ef3",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_IsogenyEndDatum_exists_dualEndData_dual_mem_and_norm_eq_finrankAlong.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_IsogenyEndDatum_exists_dualEndData_dual_mem_and_norm_eq_finrankAlong.lean",
+   "upstream_sha256": "03e946eccd838c39118200d7f884d510178ff9a746b475a61bc2f23c2237ee01",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_IsogenyEndDatum_exists_dualEndData_dual_mem_and_norm_eq_finrankAlong.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_IsogenyEndDatum_exists_restrictAlong_placeOfPoint_eq_add.lean",
+   "upstream_sha256": "764a43e0d4e1c12909646b8a4a9cefb83c2eb664eb4d3aaa5e3ff6de0f269b57",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_IsogenyEndDatum_exists_restrictAlong_placeOfPoint_eq_add.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_IsogenyEndDatum_exists_restrictAlong_placeOfPoint_eq_add.lean",
+   "upstream_sha256": "74d7a2152b0eaeb8b5c39be47a42119821546f29437eef36aa82a34cb85736d1",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_IsogenyEndDatum_exists_restrictAlong_placeOfPoint_eq_add.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_IsogenyEndDatum_pointEnd_apply_eq_sub.lean",
+   "upstream_sha256": "7c0283baf28cd0c3aca4b24a0da908debcab700e0cf4bee69a34955f88f7b237",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_IsogenyEndDatum_pointEnd_apply_eq_sub.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_IsogenyEndDatum_pointEnd_apply_eq_sub.lean",
+   "upstream_sha256": "158bb512823611b229946614a24e308eb116576f373da2d6d4a6bdb5b667602c",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_IsogenyEndDatum_pointEnd_apply_eq_sub.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_IsogenyEndDatum_exists_pointEnd_eq_add.lean",
+   "upstream_sha256": "4d1bda4681f20324a8e036eee6c49343c3f4e59560479e0a3ed129fcab08511a",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_IsogenyEndDatum_exists_pointEnd_eq_add.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_IsogenyEndDatum_exists_pointEnd_eq_add.lean",
+   "upstream_sha256": "b28890d20e414a51ec03db5e03c5134366ef17401b0761878899a9aaaf275a7c",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_IsogenyEndDatum_exists_pointEnd_eq_add.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_IsogenyEndDatum_exists_pointEnd_eq_of_mem_isogenyEndSubring.lean",
+   "upstream_sha256": "4efbab40f5c7ad434b89c7442801e3cf41d749f150e7ac1eb12fa6bad60732e6",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_IsogenyEndDatum_exists_pointEnd_eq_of_mem_isogenyEndSubring.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_IsogenyEndDatum_exists_pointEnd_eq_of_mem_isogenyEndSubring.lean",
+   "upstream_sha256": "d1c57dd12b6bb1352800fe494e39e517daa9aafba51540f8d4bbb86a2e6bf9df",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_IsogenyEndDatum_exists_pointEnd_eq_of_mem_isogenyEndSubring.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_IsogenyEndDatum_exists_sq_lt_four_mul_and_forall_exists_finrankAlong_eq.lean",
+   "upstream_sha256": "97c1d7e690e1e48a3dc8f458c5544e2bee970a09b54f55fc1587e355271d5c9e",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_IsogenyEndDatum_exists_sq_lt_four_mul_and_forall_exists_finrankAlong_eq.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_IsogenyEndDatum_exists_sq_lt_four_mul_and_forall_exists_finrankAlong_eq.lean",
+   "upstream_sha256": "3acaf2caea9eaaf6a7ccc5e985d3f04fad11fc37aafe36d77e4f87fab0a4c41c",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_IsogenyEndDatum_exists_sq_lt_four_mul_and_forall_exists_finrankAlong_eq.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_Nat_exists_squarefree_sq_add.lean",
+   "upstream_sha256": "a7357474feb10254452816bfec47489d865fc2e4eba300a71d423f62ebb9f224",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_Nat_exists_squarefree_sq_add.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_Nat_exists_squarefree_sq_add.lean",
+   "upstream_sha256": "274807dcffdf6f1aa5b6d2a3532230c65aab0fcb1cbf62ae38683a2f04fd6f55",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_Nat_exists_squarefree_sq_add.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_Int_exists_squarefree_sq_add_mul_add_mul_sq_of_sq_lt_four_mul.lean",
+   "upstream_sha256": "2b2ecb182582c15e0d2dba73de14865b5a4ddf60874dd20b226cc7f296059e09",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_Int_exists_squarefree_sq_add_mul_add_mul_sq_of_sq_lt_four_mul.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_Int_exists_squarefree_sq_add_mul_add_mul_sq_of_sq_lt_four_mul.lean",
+   "upstream_sha256": "6f3829f5272a63d3049693c7546c0217b19109c0e94936f2503637e52661cdb2",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_Int_exists_squarefree_sq_add_mul_add_mul_sq_of_sq_lt_four_mul.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_exists_intermediateField_countable_map_eq_and_finrankAlong_eq.lean",
+   "upstream_sha256": "12936a98644ee62028c949463e8e103e8923fbf2652363b78035f730e8b214c5",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_exists_intermediateField_countable_map_eq_and_finrankAlong_eq.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_exists_intermediateField_countable_map_eq_and_finrankAlong_eq.lean",
+   "upstream_sha256": "e1acb7511b31dd23d5b316ead8bd4a8d27383a9d5f90cf26d3d07b3608187a2c",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_exists_intermediateField_countable_map_eq_and_finrankAlong_eq.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_exists_algHom_functionField_baseChange_finrankAlong_eq.lean",
+   "upstream_sha256": "602828b3ee67aaaa32f898902df01f2abef7d69fd0734cf3778364ed16ec3169",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_exists_algHom_functionField_baseChange_finrankAlong_eq.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_exists_algHom_functionField_baseChange_finrankAlong_eq.lean",
+   "upstream_sha256": "536b728b1f25bf722242b13df41bc368b65ba9b9e1a92e9fa67c81117d20b679",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_exists_algHom_functionField_baseChange_finrankAlong_eq.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_IsAddCyclic_of_squarefree_natCard.lean",
+   "upstream_sha256": "3971ff14d89a37efe1518157e66ec266dc87dc5f424cbc7dd4d54922132bcc6b",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_IsAddCyclic_of_squarefree_natCard.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_IsAddCyclic_of_squarefree_natCard.lean",
+   "upstream_sha256": "33f0d30132e4c37edcd0ce3a356a4683ed7dfae59edde3de883dac656df0f8a5",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_IsAddCyclic_of_squarefree_natCard.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_IsogenyEndDatum_aeval_j_diag_eq_zero_of_finrankAlong_eq.lean",
+   "upstream_sha256": "41bd6b4d82c10d6a546166829403c88db1dcab2d9ca021e951042dd66904255b",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_IsogenyEndDatum_aeval_j_diag_eq_zero_of_finrankAlong_eq.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_IsogenyEndDatum_aeval_j_diag_eq_zero_of_finrankAlong_eq.lean",
+   "upstream_sha256": "c933aa3d2b1b7d64ac8662d1e2a867f79de06e752293fea923e6805b1ed4fb41",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_IsogenyEndDatum_aeval_j_diag_eq_zero_of_finrankAlong_eq.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_modularFunctionField_eq_full.lean",
+   "upstream_sha256": "40d315ee269aac1d6a5faa7a326a8cf2d77f5eb76995b5e26677d771aded8249",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_modularFunctionField_eq_full.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_modularFunctionField_eq_full.lean",
+   "upstream_sha256": "6fd08343eb5cff5d838d01f50b9df295233bc7cfc36ac72aea4d26dc761f8c3a",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_modularFunctionField_eq_full.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_ModularPolynomialData_isUnit_leadingCoeff_diag_of_not_isSquare.lean",
+   "upstream_sha256": "169c4f47ac5559d1548141d16fdc2cc159835233dd703b3967a3c9c344dae6e3",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_ModularPolynomialData_isUnit_leadingCoeff_diag_of_not_isSquare.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_ModularPolynomialData_isUnit_leadingCoeff_diag_of_not_isSquare.lean",
+   "upstream_sha256": "fca890c31a4b571bfe2c164068e1d98ac06d786ff766c364803b8c547402b21e",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_ModularPolynomialData_isUnit_leadingCoeff_diag_of_not_isSquare.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_ModularPolynomialData_isUnit_leadingCoeff_diag.lean",
+   "upstream_sha256": "594e9310ea493d0073c3f58e5d3d0b6f4280c054515d7f190dcb17d217ad7770",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_ModularPolynomialData_isUnit_leadingCoeff_diag.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_ModularPolynomialData_isUnit_leadingCoeff_diag.lean",
+   "upstream_sha256": "cf66741716e8c0f1ba6694cfb37e7e43683df2c8ed47940b3e2d8e03c3392f38",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_ModularPolynomialData_isUnit_leadingCoeff_diag.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_IsogenyEndDatum_exists_forall_pointEnd_eq_zsmul_of_transcendental_j.lean",
+   "upstream_sha256": "c7b66dcac34681e8807895d91d0b5ca0ac4cef86123bfb26e64741f7da11c519",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_IsogenyEndDatum_exists_forall_pointEnd_eq_zsmul_of_transcendental_j.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_IsogenyEndDatum_exists_forall_pointEnd_eq_zsmul_of_transcendental_j.lean",
+   "upstream_sha256": "26c83fdbec094e62dbaf38d825236351bdb8d7d7bb69ce4f06d9d68c7055f1c8",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_IsogenyEndDatum_exists_forall_pointEnd_eq_zsmul_of_transcendental_j.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_exists_algEquiv_restrictAlong_placeOfPoint_eq_add.lean",
+   "upstream_sha256": "651a7673408984b6038deb2ef01dd09fe6b36829d5f9dcbee55c7e162f6cb887",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_exists_algEquiv_restrictAlong_placeOfPoint_eq_add.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_exists_algEquiv_restrictAlong_placeOfPoint_eq_add.lean",
+   "upstream_sha256": "5716e958c435bb0ee11281fde02af8d501795e61df659e9eb0c1b771eaee8eaf",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_exists_algEquiv_restrictAlong_placeOfPoint_eq_add.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_algHom_ext_of_forall_restrictAlong_placeOfPoint_eq.lean",
+   "upstream_sha256": "6af24ce9a97e76a0ce0838029a48432577cf23b8ec5ade07343102e6bc19002d",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_algHom_ext_of_forall_restrictAlong_placeOfPoint_eq.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_algHom_ext_of_forall_restrictAlong_placeOfPoint_eq.lean",
+   "upstream_sha256": "609b299178c36f24e9bb9d413592abed5d59fe3449257838f56ae6caae8a3c91",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_algHom_ext_of_forall_restrictAlong_placeOfPoint_eq.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_IsogenyHomDatum_pointHom_apply_eq_sub.lean",
+   "upstream_sha256": "e21fc52c26bae1ed12bd9c0619dc962746187857b4866a75e8c232c0eb3914e5",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_IsogenyHomDatum_pointHom_apply_eq_sub.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_IsogenyHomDatum_pointHom_apply_eq_sub.lean",
+   "upstream_sha256": "638cdb2a326b5cc3692fdce188724c8d1d2b90061f27d9bd64ca806b5c32da54",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_IsogenyHomDatum_pointHom_apply_eq_sub.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_Place_restrictAlong_restrictAlong.lean",
+   "upstream_sha256": "b0f05d6d984455ca83d1a9fcb49100007419f3660476e7f143e473e18cff32d5",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_Place_restrictAlong_restrictAlong.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_Place_restrictAlong_restrictAlong.lean",
+   "upstream_sha256": "42d563f874226acd16bbb7d78255a3b7c5cbd226ef0fe53baff62e4317ea77a7",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_Place_restrictAlong_restrictAlong.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Affine_IsogenyHomDatum_exists_pointHom_comp_eq_of_ker_le_of_isCentred.lean",
+   "upstream_sha256": "c86b7a87df845136d00a1818a571efdb5e715967663e2d6038e83753d0a2e12a",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Affine_IsogenyHomDatum_exists_pointHom_comp_eq_of_ker_le_of_isCentred.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Affine_IsogenyHomDatum_exists_pointHom_comp_eq_of_ker_le_of_isCentred.lean",
+   "upstream_sha256": "3eb53baf185c5f50a9474f5e1cc64cd95712dd4a72e96c652367ed044e3a2592",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Affine_IsogenyHomDatum_exists_pointHom_comp_eq_of_ker_le_of_isCentred.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_Place_inertiaDegAlong_comp.lean",
+   "upstream_sha256": "c7dc42aacc64a41318e03aad2913d1f20211cb888ea8f45f28d12ed511edbc7f",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_Place_inertiaDegAlong_comp.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_Place_inertiaDegAlong_comp.lean",
+   "upstream_sha256": "290e1e29b95a3102265c7344c498a6aa376033b9e52cfbd20ddafd4fa3c6a89c",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_Place_inertiaDegAlong_comp.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_Divisor_pushforwardAlong_pushforwardAlong.lean",
+   "upstream_sha256": "eeef6a8e2e502ee32ab398a64f4c11abeb6606250652311a3f7a020ae2ba7356",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_Divisor_pushforwardAlong_pushforwardAlong.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_Divisor_pushforwardAlong_pushforwardAlong.lean",
+   "upstream_sha256": "bc453a898eb531a97ee2ddaf4f72e8b70737b356268ffbe5971713e08ab23dd7",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_Divisor_pushforwardAlong_pushforwardAlong.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_finiteAlong_comp.lean",
+   "upstream_sha256": "7125c0f9c2a76c982dcdef72ed8027cd815d1c0878ceb325f6154fbe3cdd7d0f",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_finiteAlong_comp.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_finiteAlong_comp.lean",
+   "upstream_sha256": "e8c1cc24cc99d4f3c9f4af84c55f909566ef8ef45b3810889cc52e376c1474ce",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_finiteAlong_comp.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_AlgebraicCurve_finiteAlong_of_surjective.lean",
+   "upstream_sha256": "7d2c06df98cbc90c0bef37af9ff560814cee30990a7f7d525a28ec728fca8e3a",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_finiteAlong_of_surjective.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_AlgebraicCurve_finiteAlong_of_surjective.lean",
+   "upstream_sha256": "e300accff7c0d1ce1eff556e33379c99482ca33875fb4bb9c4db5e186ef12a3f",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_AlgebraicCurve_finiteAlong_of_surjective.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_zmultiples_eq_of_veluQuotient_j_eq_of_forall_isogenyEndDatum_exists_int.lean",
+   "upstream_sha256": "590e608d63ced3fbf5cc3541c1b6c398ca2df94d970608e54771c52202a5e085",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_zmultiples_eq_of_veluQuotient_j_eq_of_forall_isogenyEndDatum_exists_int.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_zmultiples_eq_of_veluQuotient_j_eq_of_forall_isogenyEndDatum_exists_int.lean",
+   "upstream_sha256": "0850678ce83a8c30261884dd225cd8b56dc24a4ff011a3781aca859584c92c84",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_zmultiples_eq_of_veluQuotient_j_eq_of_forall_isogenyEndDatum_exists_int.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_zmultiples_eq_of_veluQuotient_j_eq_of_transcendental.lean",
+   "upstream_sha256": "55d752b2ac77d59fa2491f4f29c19056665fc4d3a971e0d6e46662de57b08fe5",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_zmultiples_eq_of_veluQuotient_j_eq_of_transcendental.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_zmultiples_eq_of_veluQuotient_j_eq_of_transcendental.lean",
+   "upstream_sha256": "f27e51daf74107bdd5711368c3a26189be3d5cac4d5b10656a6bd0cc9cdbf8bb",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_zmultiples_eq_of_veluQuotient_j_eq_of_transcendental.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_monic_fibrePoly.lean",
+   "upstream_sha256": "bebb282f784b4f98a9b14fe5b078760ae9931440f68e6f830d05f6eb6668eb58",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_monic_fibrePoly.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_monic_fibrePoly.lean",
+   "upstream_sha256": "4b157d24fdc1abba50f8300f31131cb3de41e3ad7b3806ccc00080d06b4023e9",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_monic_fibrePoly.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_natDegree_fibrePoly.lean",
+   "upstream_sha256": "eb16502801f4bbad9dc3fccd5958bcc031470aa2fbd9dbd9dbb917a84a567613",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_natDegree_fibrePoly.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_natDegree_fibrePoly.lean",
+   "upstream_sha256": "929b75ba49b91e6b71e001a1e5c6284cd0d557126966ae1dbec8561943357265",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_natDegree_fibrePoly.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_ModularPolynomialData_fibrePoly_j_eq_prod_veluQuotient_j_of_transcendental.lean",
+   "upstream_sha256": "1a4a2656e78efdb3737ff23f155f55edda5ead0c2289d83aab48ef4dafc25e46",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_ModularPolynomialData_fibrePoly_j_eq_prod_veluQuotient_j_of_transcendental.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_ModularPolynomialData_fibrePoly_j_eq_prod_veluQuotient_j_of_transcendental.lean",
+   "upstream_sha256": "c9a522d25434b800f92c1efc0d5bb3af4b96b51cb50a4a76847573b27247391a",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_ModularPolynomialData_fibrePoly_j_eq_prod_veluQuotient_j_of_transcendental.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_ModularPolynomialData_fibrePoly_j_eq_prod_veluQuotient_j_of_transcendental_of_isAlgClosed.lean",
+   "upstream_sha256": "db6fdfd58c319a3ee237d15e3b93afc227e8ccc78838cca067635a50bc47862b",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_ModularPolynomialData_fibrePoly_j_eq_prod_veluQuotient_j_of_transcendental_of_isAlgClosed.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_ModularPolynomialData_fibrePoly_j_eq_prod_veluQuotient_j_of_transcendental_of_isAlgClosed.lean",
+   "upstream_sha256": "4a9b62f61086b42b8cb9a632c15c224428b0cb0a48f0192d04dc617af0e421c4",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_ModularPolynomialData_fibrePoly_j_eq_prod_veluQuotient_j_of_transcendental_of_isAlgClosed.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_exists_map_eq_veluQuotient_and_map_residue_eq_veluQuotient_reduceHom.lean",
+   "upstream_sha256": "a54c4f6f64330ad4d07c9ab82fc80ec9e764dca3a69eaae3fa60e5b177cbb3ee",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_exists_map_eq_veluQuotient_and_map_residue_eq_veluQuotient_reduceHom.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_exists_map_eq_veluQuotient_and_map_residue_eq_veluQuotient_reduceHom.lean",
+   "upstream_sha256": "7fbf85e1018f2979280deb5766f1bfa380e503bca6f2c1a205b393f37ee53f0a",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_exists_map_eq_veluQuotient_and_map_residue_eq_veluQuotient_reduceHom.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_exists_valuationSubring_with_transcendental_of_charZero.lean",
+   "upstream_sha256": "39c2274ce34b18380efd4d8d5c9ba986052b16a09f939327a701d31b05b446de",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_exists_valuationSubring_with_transcendental_of_charZero.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_exists_valuationSubring_with_transcendental_of_charZero.lean",
+   "upstream_sha256": "24b96cc76264e9b408bc1f145f0aa47e16c54a9c4ae175023e6ddccf23bf99ac",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_exists_valuationSubring_with_transcendental_of_charZero.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WittVector_exists_valuationSubring_lift_with_transcendental.lean",
+   "upstream_sha256": "a246f460c8a53376f65e1d3437ece2714fdd679ccaed24537baa76920a905bc5",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WittVector_exists_valuationSubring_lift_with_transcendental.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WittVector_exists_valuationSubring_lift_with_transcendental.lean",
+   "upstream_sha256": "9d20b8acf0e98ad22e3488279a25c2007bc890cb072c31ca5691e81b67e4bb3b",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WittVector_exists_valuationSubring_lift_with_transcendental.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_transcendental_j_perturb.lean",
+   "upstream_sha256": "09ba047921d3058915ecab8474b048f52c7b2f4168ee26cf6fd338424b6cfdeb",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_transcendental_j_perturb.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_transcendental_j_perturb.lean",
+   "upstream_sha256": "cf1d2cb46c44605a2e5c4ff27faecc1bdb8fc8b093990fce125d8c1d92c3b55b",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_transcendental_j_perturb.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_exists_reduceHom_eq_of_nsmul_eq_zero_of_natCast_ne_zero.lean",
+   "upstream_sha256": "6c392ceef210b0834d0b2e1a0fa5b98c4402d16953339bbefad60199b40c7bf7",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_exists_reduceHom_eq_of_nsmul_eq_zero_of_natCast_ne_zero.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_exists_reduceHom_eq_of_nsmul_eq_zero_of_natCast_ne_zero.lean",
+   "upstream_sha256": "4505e53f6b2fb64c70383ecc1b33752372e9eca7ef07508753316069a95f5ed8",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_exists_reduceHom_eq_of_nsmul_eq_zero_of_natCast_ne_zero.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_ModularPolynomialData_fibrePoly_j_eq_prod_veluQuotient_j.lean",
+   "upstream_sha256": "cf3c2af1906ced2a02120a3795ccaa5b63dadcf860a20bd867dbce813ffd2cc5",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_ModularPolynomialData_fibrePoly_j_eq_prod_veluQuotient_j.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_ModularPolynomialData_fibrePoly_j_eq_prod_veluQuotient_j.lean",
+   "upstream_sha256": "eecb71660603dad35a4be17e77897476034c0dbde0b5002a64eac936efaa88f1",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_ModularPolynomialData_fibrePoly_j_eq_prod_veluQuotient_j.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_veluQuotient2_Delta_eq.lean",
+   "upstream_sha256": "ea93b934525839029bc55495bf536be8f5592ba26d6062d0f0f9ad0d0b02b94e",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_veluQuotient2_Delta_eq.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_veluQuotient2_Delta_eq.lean",
+   "upstream_sha256": "d7527d40f29efc1818c01001e4a56a0048f1c0ba5b9d1cdde6df113b80c2b7d4",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_veluQuotient2_Delta_eq.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_Delta_eq_veluGx_sq_mul_velu2QuadDisc.lean",
+   "upstream_sha256": "9c200b1a4af14bb616765bd924580889cc9478866d994b00108824691587433a",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_Delta_eq_veluGx_sq_mul_velu2QuadDisc.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_Delta_eq_veluGx_sq_mul_velu2QuadDisc.lean",
+   "upstream_sha256": "607144bd13f09b932118e503eff7480cfc8752f3ef0688a73c78ddcf74fa9386",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_Delta_eq_veluGx_sq_mul_velu2QuadDisc.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_veluGx_ne_zero_of_two_torsion.lean",
+   "upstream_sha256": "ff6bdbc3bd614bf4d18344981c615ce06566353c56d434b8380d3cbdada72234",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_veluGx_ne_zero_of_two_torsion.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_veluGx_ne_zero_of_two_torsion.lean",
+   "upstream_sha256": "4a23e121d7bc5b540ddb9fe1bb39dc58a1a4fdb7d281853ac3726dd0103906c0",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_veluGx_ne_zero_of_two_torsion.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_velu2QuadDisc_ne_zero_of_two_torsion.lean",
+   "upstream_sha256": "9125c430814b54efea72b8aedf30373aa9cd90d9266d8cbfbbe8c03b61fe38be",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_velu2QuadDisc_ne_zero_of_two_torsion.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_velu2QuadDisc_ne_zero_of_two_torsion.lean",
+   "upstream_sha256": "180a41172c74ded8b539e8d827f817a73cc9febe1592eff78f8cc93ce61b6268",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_velu2QuadDisc_ne_zero_of_two_torsion.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_veluQuotient2_Delta_ne_zero.lean",
+   "upstream_sha256": "5afac4a1842b2a9609ab3768fdf7f24af0a2b04b782e70c057f05ba96a4a2dd3",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_veluQuotient2_Delta_ne_zero.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_veluQuotient2_Delta_ne_zero.lean",
+   "upstream_sha256": "680aa791dde83b65c2d55a29d5ae77ac616295194d4a5c4be48ff9a3776a9b30",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_veluQuotient2_Delta_ne_zero.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_isElliptic_veluQuotient2_of_isElliptic.lean",
+   "upstream_sha256": "ff4324b17cf3ab04139a260331f7b84b652266ed6eb639694bcd1492a8993187",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_isElliptic_veluQuotient2_of_isElliptic.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_isElliptic_veluQuotient2_of_isElliptic.lean",
+   "upstream_sha256": "2e7b25881cd8ab69c612184c1062a958d9c630c14be8546166ca4f060767d49d",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_isElliptic_veluQuotient2_of_isElliptic.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_exists_enum_twoTorsion_veluQuotient2_discriminant_ne_zero.lean",
+   "upstream_sha256": "a1a38825eddac2433a4259d675b772dc3f25ad0695e4fbb07f91b8392090b5eb",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_exists_enum_twoTorsion_veluQuotient2_discriminant_ne_zero.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_exists_enum_twoTorsion_veluQuotient2_discriminant_ne_zero.lean",
+   "upstream_sha256": "abd7c26ad14eb21746420ab0705ae2b6bb6233026ff0d7be35db1baaade82ae1",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_exists_enum_twoTorsion_veluQuotient2_discriminant_ne_zero.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_velu2_secant_negAddY_cleared_identity.lean",
+   "upstream_sha256": "426df439b2e6357892ba9f7de6c721b90d743e0b4e6a4891a928faebe96c319b",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_velu2_secant_negAddY_cleared_identity.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_velu2_secant_negAddY_cleared_identity.lean",
+   "upstream_sha256": "51cb821a8d7b5ea66df906bc25f89fafe613c63ac6370d2a3dcb48a46c4d6370",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_velu2_secant_negAddY_cleared_identity.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_velu2_tangent_addX_cleared_identity.lean",
+   "upstream_sha256": "f3671f58ca3c3f2b5b4f830b9b7efe4ec1d5da6ead850105a7909b430639b0ce",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_velu2_tangent_addX_cleared_identity.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_velu2_tangent_addX_cleared_identity.lean",
+   "upstream_sha256": "724e4ab4f693415bcd3c4227aefffba179e94a6ab1d91ff03dde9aae7946c3f2",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_velu2_tangent_addX_cleared_identity.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_velu2_tangent_negAddY_cleared_identity.lean",
+   "upstream_sha256": "a31af97701700b34c94ed924d6d759f66711f4a67644c14d661c105bef45f874",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_velu2_tangent_negAddY_cleared_identity.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_velu2_tangent_negAddY_cleared_identity.lean",
+   "upstream_sha256": "4d0a6e06a3ce6fc71279cdb44f85560d579c832620f2a1ece20d0dce80200e02",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_velu2_tangent_negAddY_cleared_identity.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_exists_addMonoidHom_coe_eq_veluPointMap2.lean",
+   "upstream_sha256": "f41b560bd78e490d6dd4122a7e2df00b12a387f28aca60ff81fb3d4d55b535e0",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_exists_addMonoidHom_coe_eq_veluPointMap2.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_exists_addMonoidHom_coe_eq_veluPointMap2.lean",
+   "upstream_sha256": "d5b71161cbdbd4341de7ace208c1cc3348b11c6172b90be58b4bd1253f73e988",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_exists_addMonoidHom_coe_eq_veluPointMap2.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_ModularCurve_ClassicalModularPolynomials.lean",
+   "upstream_sha256": "25071b2aa51b93af7ac8422770276871dda144cf0443268fbd601d5be682a246",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_ModularCurve_ClassicalModularPolynomials.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_coeff_jNum_le_six.lean",
+   "upstream_sha256": "40aed8d3020f11f63bf190dae224fc1c86b95fc4c79ed4724d6e965c14bb9fb0",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_coeff_jNum_le_six.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_coeff_jNum_le_six.lean",
+   "upstream_sha256": "c58ad562ddd84cd55a3a34d32e3b99168715e16c0f6d9f2bb00b4718a12bbafc",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_coeff_jNum_le_six.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_eq_zero_of_natDegree_le_of_coeff_evalAtJ_eq_zero.lean",
+   "upstream_sha256": "addf2438b1d909b4a7fbc6e0a2415fcd971a82f5887c95eefcde8cf04a8cab31",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_eq_zero_of_natDegree_le_of_coeff_evalAtJ_eq_zero.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_eq_zero_of_natDegree_le_of_coeff_evalAtJ_eq_zero.lean",
+   "upstream_sha256": "c8ac51282befdc16472c19b5e51cf06b791431fc2648d180c3e8dfdd12bd1a09",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_eq_zero_of_natDegree_le_of_coeff_evalAtJ_eq_zero.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_ModularPolynomialData_natDegree_coeff_le.lean",
+   "upstream_sha256": "6a6ada28db5db03bf0dd78d81851592eae0b8388d6289d7e1ed6da51161e3d1e",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_ModularPolynomialData_natDegree_coeff_le.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_ModularPolynomialData_natDegree_coeff_le.lean",
+   "upstream_sha256": "481bbabb381d5cb82fdec33ff605675acccf82b254b14d2ab1a3b7509b0381da",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_ModularPolynomialData_natDegree_coeff_le.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_PhiGen_splits_prime_of_isPrimitiveRoot.lean",
+   "upstream_sha256": "173e2fccda7700b9dea460cb1d85b97d092a623fcd3d78195c1b30ab4f47f0f5",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_PhiGen_splits_prime_of_isPrimitiveRoot.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_PhiGen_splits_prime_of_isPrimitiveRoot.lean",
+   "upstream_sha256": "70b3ec20f367ae297b3a781491199735c354434d0721d6a66eeccd2a6166a8da",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_PhiGen_splits_prime_of_isPrimitiveRoot.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_ModularPolynomialData_phi_eq_phiTwo.lean",
+   "upstream_sha256": "0bc29b01cde3aae99567960b437e83cb5963b4211b8286de9e9bdb2b7eeee01f",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_ModularPolynomialData_phi_eq_phiTwo.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_ModularPolynomialData_phi_eq_phiTwo.lean",
+   "upstream_sha256": "e592cf1b3ec4a560b384672a2f1472fd765b38f284536e37a642eea64bf2e416",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_ModularPolynomialData_phi_eq_phiTwo.lean"
+  },
+  {
+   "upstream_path": "Definitions/Def_WeierstrassCurve_VeluQuotientJInvariant.lean",
+   "upstream_sha256": "0e78e647c438f6bdb703f26b3714ffb8be059af0951668e36f749e4cc6d83d44",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_WeierstrassCurve_VeluQuotientJInvariant.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_veluQuotient2_cFour.lean",
+   "upstream_sha256": "2a07b147fb987ff6f91a2bc6d45b9a8c96ba9d5ba1a3e2ffb386ee04589b7aee",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_veluQuotient2_cFour.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_veluQuotient2_cFour.lean",
+   "upstream_sha256": "8569c811abfe90e5acf99c00e03fe0f2aac2b1c957f5198ee49c7aba1e341f39",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_veluQuotient2_cFour.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_veluQuotient2_j.lean",
+   "upstream_sha256": "740fabcdf35164e6557b410ad4477b81eb5323cc2b2e413396fa1af5e6ad10fb",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_veluQuotient2_j.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_veluQuotient2_j.lean",
+   "upstream_sha256": "5ca68331d2d17dde18ef852f7821248cbdf0cd0649f4d04eabca4f7a27237e41",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_veluQuotient2_j.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_fibrePoly_phiTwo_j_eq_prod_veluQuotient2_j.lean",
+   "upstream_sha256": "c552a3d96da47cc5c974ba4ac09c67422b150bf27ad37cb2bf64eae8a7d53356",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_fibrePoly_phiTwo_j_eq_prod_veluQuotient2_j.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_fibrePoly_phiTwo_j_eq_prod_veluQuotient2_j.lean",
+   "upstream_sha256": "04364676c10b38a8fe7420834506dcc53ce6a4c389f868009a86cabaae60d038",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_fibrePoly_phiTwo_j_eq_prod_veluQuotient2_j.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_ModularCurve_ModularPolynomialData_fibrePoly_j_eq_prod_veluQuotient2_j.lean",
+   "upstream_sha256": "d40fabfdf8bb0fc5f4e580a21824ea9c16e34dd51d0fb14a11d8073e25e4d3ef",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_ModularPolynomialData_fibrePoly_j_eq_prod_veluQuotient2_j.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_ModularCurve_ModularPolynomialData_fibrePoly_j_eq_prod_veluQuotient2_j.lean",
+   "upstream_sha256": "0e22df3226b4b1785a688d0a46558b3ffef190bba49700052daf8f61e09f7699",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_ModularPolynomialData_fibrePoly_j_eq_prod_veluQuotient2_j.lean"
+  },
+  {
+   "upstream_path": "P2M/Sol/S_WeierstrassCurve_bijOn_cyclicQuotientJ_isRoot_modularPolynomial_of_transcendental_j.lean",
+   "upstream_sha256": "83900a7ae8a09e240c6bd4ded2d12a8a0412b469dff725119adf92ff50800a67",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_WeierstrassCurve_bijOn_cyclicQuotientJ_isRoot_modularPolynomial_of_transcendental_j.lean"
+  },
+  {
+   "upstream_path": "Theorems/Thm_WeierstrassCurve_bijOn_cyclicQuotientJ_isRoot_modularPolynomial_of_transcendental_j.lean",
+   "upstream_sha256": "299e421c8ccef928edf53e77d642b4202d155e13e461e1ca31cfd004b3c403cc",
+   "local_path": "ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/Theorems/Thm_WeierstrassCurve_bijOn_cyclicQuotientJ_isRoot_modularPolynomial_of_transcendental_j.lean"
+  }
+ ]
+}

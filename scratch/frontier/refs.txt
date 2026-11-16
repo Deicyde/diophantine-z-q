@@ -120,3 +120,52 @@ theta-glue 336ec1fd 2026-11-14 17:55:13 -0800 (running)
 # revisions chain.py reads that are not on main (their branches must stay): r4's (above), and wip/x6-glue 685a56e1,
 # wip/c-to-printed2 dbeaecf7, wip/theta-glue 336ec1fd, wip/t5-glue 405763f6 (on the route); wip/cm24-value d8d1363a
 # (off the route).
+
+# refresh r7: heads read at 2026-11-14 19:53 PST (fork main 4db0a627: w66 ecdb5d84 with r6 merged)
+main 4db0a627 2026-11-14 19:51:49 -0800 (w66 with r6 merged)
+w66 ecdb5d84 2026-11-14 18:56:17 -0800 (integration w66)
+leaf-fold13 29885092 2026-11-14 18:49:30 -0800 (merged in w66)
+x6-fold e33b690a 2026-11-14 18:21:23 -0800 (merged in w66 through leaf-fold13)
+contrib-kit 46afc732 2026-11-14 18:26:20 -0800 (merged in w66)
+reduct-b 85495b37 2026-11-14 18:13:04 -0800 (merged in w66; used)
+unipotent-b 24c44f3d 2026-11-14 18:15:26 -0800 (merged in w66; used)
+t09-pic 3d0f47a8 2026-11-14 18:36:27 -0800 (merged in w66; used)
+igusa-alg c9360203 2026-11-14 18:41:59 -0800 (merged in w66; used)
+sh-route 89c75e42 2026-11-14 18:12:45 -0800 (merged in w66; read, not applied)
+shimura-cft c1f76fc2 2026-11-14 18:03:24 -0800 (merged in w66; read, not applied)
+gap-triage 33bd9eb5 2026-11-14 18:32:28 -0800 (merged in w66; read, not applied)
+t5-glue 39bb3cd2 2026-11-14 15:56:55 -0800 (merged in w66; r6 read 405763f6, the same T5Glue.lean)
+theta-glue 336ec1fd 2026-11-14 17:55:13 -0800 (merged in w66)
+c-to-printed2 dbeaecf7 2026-11-14 17:40:13 -0800 (merged in w66)
+x6-glue 685a56e1 2026-11-14 17:31:15 -0800 (merged in w66; folded by x6-fold)
+# in flight at the snapshot, not used: rayclass-cft 7b27f1c3, leaf-fold14 97579a97, linyang-printed 3bb5a828,
+# sh-printed2 ea486e30, sem-prune 15a9a0ae
+# revisions chain.py reads that are not on main (their branches must stay): r4's (above); r7 adds none, and r6's
+# branch heads are on main since w66.
+
+# refresh r8: heads read at 2026-11-15 04:33 PST (fork main 37391b11: w70 6edf020d with leaf-fold19 and the merge-bar commits)
+main 37391b11 2026-11-15 04:04:54 -0800 (w70 with leaf-fold19 and the merge-bar commits)
+w70 6edf020d 2026-11-15 02:14:52 -0800 (integration w70)
+leaf-fold19 c2ad4181 2026-11-15 02:28:42 -0800 (on main; fork PR #19 folded)
+leaf-fold18 3782dac8 2026-11-15 01:35:47 -0800 (on main)
+leaf-fold17 be8511f3 2026-11-14 23:24:50 -0800 (on main)
+leaf-fold16 a454ad64 2026-11-14 22:31:43 -0800 (on main)
+leaf-fold15 63205204 2026-11-14 21:46:53 -0800 (on main; gt-ega folded)
+leaf-fold14 97579a97 2026-11-14 19:21:28 -0800 (on main; reduct-b's Route B-cp and t09-pic folded)
+sem-prune 2b486d04 2026-11-14 20:48:22 -0800 (on main)
+crowd-kit 1c791eb1 2026-11-14 23:01:39 -0800 (on main)
+gt-ega cf8e5042 2026-11-14 21:34:52 -0800 (on main; folded)
+gt-blr bca6c158 2026-11-14 22:02:45 -0800 (on main; folded)
+gt-gamma 57264686 2026-11-14 22:06:56 -0800 (on main; folded)
+gt-theta e32311e5 2026-11-14 21:57:51 -0800 (on main; folded)
+gt-ringclass 06f03bd4 2026-11-14 23:04:00 -0800 (on main; folded)
+gt-grcount 77774f85 2026-11-14 23:04:37 -0800 (on main; folded)
+gt-shpair 00bfe84a 2026-11-14 23:21:37 -0800 (on main; folded)
+gt-elkies 0f83a86a 2026-11-14 23:18:05 -0800 (on main; folded)
+gt-qm 1509a623 2026-11-14 23:23:19 -0800 (on main; folded)
+gt-valence 36d94c0d 2026-11-14 23:30:00 -0800 (on main; folded)
+# after main at the snapshot, not used: gt-rayclass 28ec5c91, gt-rigidity 762ea48b, gt-sga3 deba22d7, gt-sga7
+# 70a16c4c, gt-unip 42e1af66, gt-x6facts 80631ed5, rayclass-cft 7b27f1c3, linyang-printed 3bb5a828, sh-printed2
+# ea486e30
+# revisions chain.py reads that are not on main (their branches must stay): r4's (above); r8 adds none, and r7's
+# branch heads were on main already.

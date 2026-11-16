@@ -1,0 +1,27 @@
+'HDec.HSyn.sixContactMin_of_open26_cqj' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZChain.frozenTarget_cqj2' depends on axioms: [propext, Classical.choice, Quot.sound]
+OpenTextbookLeaves7Cqj: 19 fields = original 20 minus igusaGL2 (types checked)
+OpenTextbookLeaves8Cqj: 16 fields = original 17 minus igusaGL2 (types checked)
+OpenTextbookLeaves9Cqj: 14 fields = original 15 minus igusaGL2 (types checked)
+OpenTextbookLeaves10Cqj: 13 fields = original 14 minus igusaGL2 (types checked)
+OpenTextbookLeaves11Cqj: 12 fields = original 13 minus igusaGL2 (types checked)
+ZInQ.OneProof.frozenTarget : HDec.HSyn.OpenResearchLeaves19 →
+  HDec.HSyn.OpenTextbookLeaves11 →
+    HDec.HSyn.OpenAddedLeaves16 →
+      HDec.HSyn.OpenGlue7 →
+        ZInQ.Contrib.TYZDecomp.TYZThm11Integral →
+          ZInQ.Contrib.TYZDecomp.TYZLemma29Mod2 →
+            T5Glue.ShimuraMainCM →
+              T5Glue.X0ModuliGalois →
+                ZInQ.Contrib.TYZGenus.TYZSplit.TYZThm33 →
+                  ZInQ.GZDecomp.FHNonvanishing → ZInQ.GZDecomp.GrossZagierHeegner → ZInQ.FrozenTarget
+ZInQ.Contrib.TYZChain.frozenTarget_cqj2 : HDec.HSyn.OpenResearchLeaves19 →
+  HDec.HSyn.OpenTextbookLeaves11Cqj →
+    HDec.HSyn.OpenAddedLeaves16 →
+      HDec.HSyn.OpenGlue7 →
+        ZInQ.Contrib.TYZDecomp.TYZThm11Integral →
+          ZInQ.Contrib.TYZDecomp.TYZLemma29Mod2 →
+            T5Glue.ShimuraMainCM →
+              T5Glue.X0ModuliGalois →
+                ZInQ.Contrib.TYZGenus.TYZSplit.TYZThm33 →
+                  ZInQ.GZDecomp.FHNonvanishing → ZInQ.GZDecomp.GrossZagierHeegner → ZInQ.FrozenTarget

@@ -1,0 +1,91 @@
+
+section Final
+
+open MonoidalCategory CartesianMonoidalCategory MonObj
+open HDec.HSyn.G0Split.FibreQM.PeriodMapH.LeafQCheck
+
+/-- `Q'.A ≅ P.A ×_{ℚ̄,ιe} ℂ` from `IsBaseChangeOf ιe P Q'` (the comparison of `descend_main`, TailO). -/
+theorem bc_iso (ιe : Qbar →+* ℂ) (P : QML3 Qbar) (Q' : QML3 ℂ) (hBC : IsBaseChangeOf ιe P Q') :
+    ∃ (θ : PkgI3.AbVar.Hom Q'.A (bcC ιe P.A)) (θ' : PkgI3.AbVar.Hom (bcC ιe P.A) Q'.A),
+      θ.hom ≫ θ'.hom = 𝟙 _ ∧ θ'.hom ≫ θ.hom = 𝟙 _ := by
+  obtain ⟨g', hg', hι', hl'⟩ := hBC
+  let θ : Q'.A.X ⟶ (bcC ιe P.A).X :=
+    Over.homMk ((bc_isPullback ιe P.A).lift g' Q'.A.X.hom hg'.w)
+      ((bc_isPullback ιe P.A).lift_snd _ _ _)
+  let θ' : (bcC ιe P.A).X ⟶ Q'.A.X :=
+    Over.homMk (hg'.lift (fstC ιe P.A) (bcC ιe P.A).X.hom (bc_isPullback ιe P.A).w)
+      (hg'.lift_snd _ _ _)
+  have hθ : θ.left ≫ fstC ιe P.A = g' := (bc_isPullback ιe P.A).lift_fst _ _ _
+  have hθ' : θ'.left ≫ g' = fstC ιe P.A := hg'.lift_fst _ _ _
+  have hθθ' : θ ≫ θ' = 𝟙 _ := by
+    ext1
+    exact hg'.hom_ext (by rw [Over.comp_left, Category.assoc, hθ', hθ]; simp)
+      (by rw [Over.comp_left, Category.assoc, Over.w θ', Over.w θ]; simp)
+  have hθ'θ : θ' ≫ θ = 𝟙 _ := by
+    ext1
+    exact (bc_isPullback ιe P.A).hom_ext (by rw [Over.comp_left, Category.assoc, hθ, hθ']; simp)
+      (by rw [Over.comp_left, Category.assoc, Over.w θ, Over.w θ']; simp)
+  have hη : η[Q'.A.X] ≫ θ = η[(bcC ιe P.A).X] := by
+    ext1
+    refine (bc_isPullback ιe P.A).hom_ext ?_ ?_
+    · rw [Over.comp_left, Category.assoc, hθ, HDec.HSyn.G0Split.FibreQM.PeriodGlue.eta_comp hl',
+        eta_bc_fst]
+    · rw [Over.comp_left, Category.assoc, Over.w θ, Over.w η[Q'.A.X], Over.w η[(bcC ιe P.A).X]]
+  have hη' : η[(bcC ιe P.A).X] ≫ θ' = η[Q'.A.X] := by
+    rw [← hη, Category.assoc, hθθ', Category.comp_id]
+  haveI : IsMonHom θ :=
+    HDec.PeriodGlue.MulRigidity.isMonHom_of_geometricallyIntegral Q'.A.X (bcC ιe P.A).X θ hη
+  haveI : IsMonHom θ' :=
+    HDec.PeriodGlue.MulRigidity.isMonHom_of_geometricallyIntegral (bcC ιe P.A).X Q'.A.X θ' hη'
+  exact ⟨PkgI3.AbVar.Hom.mk' θ, PkgI3.AbVar.Hom.mk' θ', hθθ', hθ'θ⟩
+
+/-- **Every QM abelian surface over `ℂ` has a level-3 structure** (a generator of `A[3]` as an
+`𝒪`-module: `gen3`). -/
+theorem exists_level3 {A : PkgI3.AbVar ℂ} (hT : PkgI2.TorsionStructure.{0}) (hA : A.dim = 2)
+    (q : QMStr A) : Nonempty (Level3 q) := by
+  obtain ⟨v, hv, hann, -⟩ := gen3 hT hA q
+  refine ⟨{ eta := { toFun := fun a => Additive.ofMul (act (q.iota a) v)
+                     map_zero' := by
+                       change Additive.ofMul (act (q.iota 0) v) = Additive.ofMul 1
+                       rw [map_zero, act_zero]
+                     map_add' := fun a b => by
+                       change Additive.ofMul (act (q.iota (a + b)) v) =
+                         Additive.ofMul (act (q.iota a) v * act (q.iota b) v)
+                       rw [map_add, act_add] }
+            linear := fun a b => by
+              change Additive.ofMul (act (q.iota (a * b)) v) =
+                Additive.ofMul (act (q.iota b) v ≫ (q.iota a).hom)
+              rw [map_mul, act_mul]
+            ker := fun a => by
+              change Additive.ofMul (act (q.iota a) v) = Additive.ofMul 1 ↔ _
+              rw [Additive.ofMul.injective.eq_iff, hann, Nat.cast_ofNat] }⟩
+
+/-- **`STQM`, proved** (task st-qbar). A QM abelian surface over `ℂ` with CM by `ℤ[i]`, `ℤ[ζ₃]` or
+`ℤ[√−6]` is isomorphic to `A₀ ×_{ℚ̄,ιe} ℂ` for an abelian variety `A₀/ℚ̄`.
+
+Hypotheses, all already in the bundles or proved on the base:
+* `hRep` — research field `r1r2` (`LeafAdopt.R1R2fpRep`);
+* `hconn` — added field `y3Connected` (`TSHecke.Y3Connected`);
+* `hAL` — `HeckeRest.ALFixedPoints`, proved in the chain as `(qmRows_of7 t l).2.1` (TailX);
+* `hT` — `PkgI2.TorsionStructure` (T5; textbook `t5`, from `mumfordTorsionAlgClosed`);
+* `hU` — `ZInQ.LeafPush2.UniformizationExists` (T35; textbook `t35`, from `uniformizationLeafAll`);
+* `hC` — `ZInQ.HomUnify.HomLatticeCorr` (textbook `homLatticeCorr`, from `uniformizationLeafAll`,
+  `gagaMorphism`). -/
+theorem stQM_of (hRep : HDec.LeafAdopt.R1R2fpRep) (hconn : HDec.TSHecke.Y3Connected)
+    (hAL : HDec.HeckeRest.ALFixedPoints) (hT : _root_.PkgI2.TorsionStructure.{0})
+    (hU : _root_.ZInQ.LeafPush2.UniformizationExists) (hC : _root_.ZInQ.HomUnify.HomLatticeCorr) :
+    HDec.HSyn.G0Split.FibreQM.PeriodMapH.LeafQCheck.STQM := by
+  intro A q hA hcm
+  obtain ⟨e⟩ := exists_level3 hT hA q
+  obtain ⟨ιe, P, Q', hBC, ⟨i⟩⟩ :=
+    cm_point hRep hconn hAL hT hU (HDec.HSyn.homLatticeCorr_ofK5 hC) ⟨A, hA, q, e⟩ hcm
+  obtain ⟨θ, θ', h1, h2⟩ := bc_iso ιe P Q' hBC
+  refine ⟨ιe, P.A, PkgI3.AbVar.Hom.mk' (θ'.hom ≫ i.ψ.hom), PkgI3.AbVar.Hom.mk' (i.φ.hom ≫ θ.hom),
+    ?_, ?_⟩
+  · simp only [PkgI3.AbVar.Hom.hom_mk', Category.assoc]
+    rw [reassoc_of% i.right, h2]
+  · simp only [PkgI3.AbVar.Hom.hom_mk', Category.assoc]
+    rw [reassoc_of% h1, i.left]
+
+end Final
+

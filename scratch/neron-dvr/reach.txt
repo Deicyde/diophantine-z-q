@@ -1,0 +1,107 @@
+ReductSplit.NeronSchemeModelExistsDVR: 26 reachable constants mention it
+HDec.HSyn.OpenResearchLeaves14.mk [ZInQKernel.OneProof.H.TailZ23] type:true value:false
+HDec.HSyn.OpenResearchLeaves14.neronSchemeModelExistsDVR [ZInQKernel.OneProof.H.TailZ23] type:true value:false
+HDec.HSyn.OpenResearchLeaves15.mk [ZInQKernel.OneProof.H.TailZ25] type:true value:false
+HDec.HSyn.OpenResearchLeaves15.neronSchemeModelExistsDVR [ZInQKernel.OneProof.H.TailZ25] type:true value:false
+HDec.HSyn.OpenResearchLeaves16.mk [ZInQKernel.OneProof.H.TailZ26] type:true value:false
+HDec.HSyn.OpenResearchLeaves16.neronSchemeModelExistsDVR [ZInQKernel.OneProof.H.TailZ26] type:true value:false
+HDec.HSyn.OpenResearchLeaves17.mk [ZInQKernel.OneProof.H.TailZ27] type:true value:false
+HDec.HSyn.OpenResearchLeaves17.neronSchemeModelExistsDVR [ZInQKernel.OneProof.H.TailZ27] type:true value:false
+HDec.HSyn.OpenResearchLeaves18.mk [ZInQKernel.OneProof.H.TailZ28] type:true value:false
+HDec.HSyn.OpenResearchLeaves18.neronSchemeModelExistsDVR [ZInQKernel.OneProof.H.TailZ28] type:true value:false
+HDec.HSyn.OpenResearchLeaves19.neronSchemeModelExistsDVR [ZInQKernel.OneProof.H.TailZ29] type:true value:false
+HDec.HSyn.OpenResearchLeaves9.mk [ZInQKernel.OneProof.H.TailZ9] type:true value:false
+HDec.HSyn.OpenResearchLeaves9.neronSchemeModelExistsDVR [ZInQKernel.OneProof.H.TailZ9] type:true value:false
+ReductB.semistablePersists_final_nf [ZInQKernel.OneProof.H.TailZ23] type:true value:true
+ReductB.semistablePersists_of_leaves_nf [ZInQKernel.OneProof.H.TailZ23] type:true value:true
+ReductB.semistableReductionThm_final_nf [ZInQKernel.OneProof.H.TailZ23] type:true value:true
+ReductB.semistableReductionThm_of_leaves_nf [ZInQKernel.OneProof.H.TailZ23] type:true value:true
+ReductB.ss1_ss3_of_cp [ZInQKernel.OneProof.H.TailZ23] type:true value:true
+ReductGlue.raynaudCriterion_leaves [ZInQKernel.OneProof.H.TailZ14] type:true value:true
+ReductSplit.exists_neron_groupModel [ZInQKernel.OneProof.H.TailZ7] type:true value:true
+ReductSplit.grothendieckMonodromy_final [ZInQKernel.OneProof.H.TailZ7] type:true value:true
+ReductSplit.grothendieckMonodromy_final' [ZInQKernel.OneProof.H.TailZ7] type:true value:true
+ReductSplit.grothendieckMonodromy_of_leaves [ZInQKernel.OneProof.H.TailZ7] type:true value:true
+ReductSplit.hasSemistableReduction_of [ZInQKernel.OneProof.H.TailZ7] type:true value:true
+ReductSplit.raynaudCriterion_final [ZInQKernel.OneProof.H.TailZ7] type:true value:true
+ReductSplit.raynaudCriterion_of_leaves [ZInQKernel.OneProof.H.TailZ7] type:true value:true
+PkgI2.GrothendieckMonodromy: 13 reachable constants mention it
+HDec.HSyn.OpenResearchLeaves2.mk [ZInQKernel.OneProof.H.TailE] type:true value:false
+HDec.HSyn.OpenResearchLeaves2.r8 [ZInQKernel.OneProof.H.TailE] type:true value:false
+HDec.HSyn.OpenResearchLeaves5.mk [ZInQKernel.OneProof.H.TailN] type:true value:false
+HDec.HSyn.OpenResearchLeaves5.r8 [ZInQKernel.OneProof.H.TailN] type:true value:false
+HDec.HSyn.OpenResearchLeaves7.mk [ZInQKernel.OneProof.H.TailX] type:true value:false
+HDec.HSyn.OpenResearchLeaves7.r8 [ZInQKernel.OneProof.H.TailX] type:true value:false
+HDec.HSyn.OpenResearchLeaves8.mk [ZInQKernel.OneProof.H.TailZ4] type:true value:false
+HDec.HSyn.OpenResearchLeaves8.r8 [ZInQKernel.OneProof.H.TailZ4] type:true value:false
+HDec.HSyn.ResearchLeaves3.mk [ZInQKernel.OneProof.H.TailD] type:true value:false
+HDec.HSyn.grothendieckMonodromy_ofK5 [ZInQKernel.OneProof.H.TailM] type:true value:true
+ReductSplit.grothendieckMonodromy_final [ZInQKernel.OneProof.H.TailZ7] type:true value:false
+ReductSplit.grothendieckMonodromy_final' [ZInQKernel.OneProof.H.TailZ7] type:true value:false
+ReductSplit.grothendieckMonodromy_of_leaves [ZInQKernel.OneProof.H.TailZ7] type:true value:false
+PkgI2.RaynaudCriterion: 30 reachable constants mention it
+HDec.G0ModField.KernelField.good_of_QML3 [ZInQKernel.OneProof.H.TailC] type:true value:true
+HDec.G0ModField.KernelField.kernelFieldExists_of_leaves [ZInQKernel.OneProof.H.TailC] type:true value:true
+HDec.G0ModField.KernelField.kernelFieldExists_of_leaves_FS5 [ZInQKernel.OneProof.H.TailC] type:true value:true
+HDec.G0ModField.KernelField.kernelFieldExists_of_pieces [ZInQKernel.OneProof.H.TailC] type:true value:true
+HDec.G0ModField.KernelField.kernelFieldExists_of_split [ZInQKernel.OneProof.H.TailC] type:true value:true
+HDec.G0ModField.KernelField.kernelFieldExists_of_split' [ZInQKernel.OneProof.H.TailC] type:true value:true
+HDec.G0ModField.KernelField.kernelFieldExists_of_split'' [ZInQKernel.OneProof.H.TailC] type:true value:true
+HDec.HSyn.LinkedTate.qmModelG3_of [ZInQKernel.OneProof.H.TailF] type:true value:true
+HDec.HSyn.OpenResearchLeaves2.mk [ZInQKernel.OneProof.H.TailE] type:true value:false
+HDec.HSyn.OpenResearchLeaves2.r6 [ZInQKernel.OneProof.H.TailE] type:true value:false
+HDec.HSyn.OpenResearchLeaves5.mk [ZInQKernel.OneProof.H.TailN] type:true value:false
+HDec.HSyn.OpenResearchLeaves5.r6 [ZInQKernel.OneProof.H.TailN] type:true value:false
+HDec.HSyn.OpenResearchLeaves7.mk [ZInQKernel.OneProof.H.TailX] type:true value:false
+HDec.HSyn.OpenResearchLeaves7.r6 [ZInQKernel.OneProof.H.TailX] type:true value:false
+HDec.HSyn.OpenResearchLeaves8.mk [ZInQKernel.OneProof.H.TailZ4] type:true value:false
+HDec.HSyn.OpenResearchLeaves8.r6 [ZInQKernel.OneProof.H.TailZ4] type:true value:false
+HDec.HSyn.OpenResearchLeaves9.mk [ZInQKernel.OneProof.H.TailZ9] type:true value:false
+HDec.HSyn.OpenResearchLeaves9.r6 [ZInQKernel.OneProof.H.TailZ9] type:true value:false
+HDec.HSyn.ResearchLeaves3.mk [ZInQKernel.OneProof.H.TailD] type:true value:false
+HDec.HSyn.linkedTateLocal_of_leaves3 [ZInQKernel.OneProof.H.TailI] type:true value:true
+HDec.HSyn.modelG3G6_of_leaves3 [ZInQKernel.OneProof.H.TailI] type:true value:true
+HDec.HSyn.raynaudCriterion_ofK5 [ZInQKernel.OneProof.H.TailM] type:true value:true
+HDec.LeafQM.AV.QML3.goodReduction [ZInQKernel.OneProof.H.LPrefix] type:true value:true
+HDec.PkgI2.goodReduction_of_QM_rational3 [ZInQKernel.OneProof.H.LPrefix] type:true value:true
+HDec.PkgI2.goodReduction_of_QM_rational3' [ZInQKernel.OneProof.H.LPrefix] type:true value:true
+HDec.PkgI2.goodReduction_of_QM_rational3_of_alg [ZInQKernel.OneProof.H.LPrefix] type:true value:true
+ObjBridge.raynaudCriterion_iff [ZInQKernel.HDecomp.Objects] type:true value:false
+ReductGlue.raynaudCriterion_leaves [ZInQKernel.OneProof.H.TailZ14] type:true value:false
+ReductSplit.raynaudCriterion_final [ZInQKernel.OneProof.H.TailZ7] type:true value:false
+ReductSplit.raynaudCriterion_of_leaves [ZInQKernel.OneProof.H.TailZ7] type:true value:false
+projections .r8: [HDec.HSyn.OpenResearchLeaves2.r8,
+ HDec.HSyn.OpenResearchLeaves5.r8,
+ HDec.HSyn.OpenResearchLeaves7.r8,
+ HDec.HSyn.OpenResearchLeaves8.r8]
+HDec.HSyn.OpenResearchLeaves2.r8 <- HDec.HSyn.researchLeaves3_of_open2 [ZInQKernel.OneProof.H.TailE]
+HDec.HSyn.OpenResearchLeaves5.r8 <- HDec.HSyn.researchLeaves2_of_open5 [ZInQKernel.OneProof.H.TailN]
+HDec.HSyn.OpenResearchLeaves7.r8 <- HDec.HSyn.researchLeaves5_of_open7 [ZInQKernel.OneProof.H.TailX]
+HDec.HSyn.OpenResearchLeaves8.r8 <- HDec.HSyn.researchLeaves7_of_open8 [ZInQKernel.OneProof.H.TailZ4]
+projections .r6: [HDec.HSyn.OpenResearchLeaves2.r6,
+ HDec.HSyn.OpenResearchLeaves5.r6,
+ HDec.HSyn.OpenResearchLeaves7.r6,
+ HDec.HSyn.OpenResearchLeaves8.r6,
+ HDec.HSyn.OpenResearchLeaves9.r6]
+HDec.HSyn.OpenResearchLeaves2.r6 <- HDec.HSyn.gluePieces_of_open4 [ZInQKernel.OneProof.H.TailK]
+HDec.HSyn.OpenResearchLeaves2.r6 <- HDec.HSyn.researchLeaves3_of_open2 [ZInQKernel.OneProof.H.TailE]
+HDec.HSyn.OpenResearchLeaves5.r6 <- HDec.HSyn.researchLeaves2_of_open5 [ZInQKernel.OneProof.H.TailN]
+HDec.HSyn.OpenResearchLeaves7.r6 <- HDec.HSyn.researchLeaves5_of_open7 [ZInQKernel.OneProof.H.TailX]
+HDec.HSyn.OpenResearchLeaves8.r6 <- HDec.HSyn.researchLeaves7_of_open8 [ZInQKernel.OneProof.H.TailZ4]
+HDec.HSyn.OpenResearchLeaves9.r6 <- HDec.HSyn.researchLeaves8_of_open9 [ZInQKernel.OneProof.H.TailZ9]
+ObjBridge.RaynaudCriterion: 14 reachable constants mention it
+HDec.G15Ram.localGlue_of_descent [ZInQKernel.OneProof.H.TailH] type:true value:true
+HDec.G15Ram.localGlue_of_leaves [ZInQKernel.OneProof.H.TailH] type:true value:true
+HDec.G15Ram.raynaudPlace_of_R6 [ZInQKernel.OneProof.H.TailH] type:true value:true
+HDec.G15Ram.tateWildKE_of_descent [ZInQKernel.OneProof.H.TailH] type:true value:true
+HDec.G15Ram.tateWildK_of_R6 [ZInQKernel.OneProof.H.TailH] type:true value:true
+HDec.G15Ram.torsFixWildE_of_twist [ZInQKernel.OneProof.H.TailH] type:true value:true
+HDec.G15Ram.torsFixWildOdd_of_descent [ZInQKernel.OneProof.H.TailH] type:true value:true
+HDec.G15Ram.torsFix_of_descent [ZInQKernel.OneProof.H.TailH] type:true value:true
+HDec.HSyn.linkedTateLocal_of_leaves3 [ZInQKernel.OneProof.H.TailI] type:false value:true
+HDec.LTLocal.linkedTateLocalD_of_tateBridge35 [ZInQKernel.OneProof.H.TailH] type:true value:true
+HDec.LTLocal.linkedTateLocalD_of_tateBridge35' [ZInQKernel.OneProof.H.TailH] type:true value:true
+HDec.LTLocal.linkedTateLocal_of_tateBridge35 [ZInQKernel.OneProof.H.TailH] type:true value:true
+HDec.LTLocal.localGlue_at [ZInQKernel.OneProof.H.TailH] type:true value:true
+ObjBridge.raynaudCriterion_iff [ZInQKernel.HDecomp.Objects] type:true value:true
+ObjBridge.GrothendieckMonodromy: 0 reachable constants mention it

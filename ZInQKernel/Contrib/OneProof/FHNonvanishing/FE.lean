@@ -3,8 +3,8 @@ import ZInQKernel.Contrib.OneProof.FHNonvanishing.Basic
 /-!
 # gz-fh, variant: Friedberg–Hoffstein with the root number read off the functional equation
 
-The root number `ε(½, π ⊗ χ₀)` is by definition the sign of the functional equation of the
-completed L-function of `π ⊗ χ₀`. This file states Friedberg–Hoffstein in that form
+The root number `ε(½, π ⊗ χ₀)` is the sign of the functional equation of the completed
+L-function of `π ⊗ χ₀`, by the global functional equation (it is not the definition of `ε`). This file states Friedberg–Hoffstein in that form
 (`FriedbergHoffsteinB_FE`), states the twisted functional equation `TwistFunctionalEquation`
 (GLUE: the conjugation of the Fricke involution through the twist by Gauss sums, no newform
 theory; proved in `FHNonvanishing/TwistFE.lean` as `twistFunctionalEquation`), and proves:

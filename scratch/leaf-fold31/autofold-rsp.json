@@ -1,0 +1,5 @@
+{"name": "leaf-fold31",
+ "imports": ["ZInQKernel.Contrib.OneProof.RegularSmoothPerfect"],
+ "discharges": [
+   {"field": "regularSmoothPerfect",
+    "proof": "_root_.ZInQ.Contrib.OneProof.RegularSmoothPerfect.regularSmoothPerfect_proof"}]}

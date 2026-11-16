@@ -1,0 +1,46 @@
+{
+ "name": "h29-split",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.TYZLemma29Mod2"
+ ],
+ "discharges": [
+  {
+   "field": "h29",
+   "proof": "_root_.ZInQ.Contrib.TYZDecomp.H29Split.tyzLemma29Mod2_of_printedLeaves_threeSquares {n}.legendreJonesPall {n}.tyzTestVectorExists {n}.tyzLemma29Printed {n}.tyzProp23Printed",
+   "leaves": [
+    {
+     "name": "tyzLemma29Printed",
+     "type": "_root_.ZInQ.Contrib.TYZDecomp.H29Split.TYZLemma29Printed",
+     "doc": "Tian-Yuan-Zhang, Genus periods, genus points and congruent number problem, Asian J. Math. 21 (2017); arXiv:1411.4728v1 Lemma 2.9 (source L1062-1066), printed form over the genuine test vector and genus period, n = 1, 3 mod 8, factor w_K admitted at n = 3",
+     "kind": "published",
+     "flag": "",
+     "source": "Tian-Yuan-Zhang, Asian J. Math. 21 (2017), arXiv:1411.4728v1 Lemma 2.9"
+    },
+    {
+     "name": "tyzProp23Printed",
+     "type": "_root_.ZInQ.Contrib.TYZDecomp.H29Split.TYZProp23Printed",
+     "doc": "Tian-Yuan-Zhang, arXiv:1411.4728v1 Proposition 2.3 (source L580-586), first assertion f_n((B^x)^2) in 1 + 2Z, printed form, n = 1, 3 mod 8",
+     "kind": "published",
+     "flag": "",
+     "source": "Tian-Yuan-Zhang, Asian J. Math. 21 (2017), arXiv:1411.4728v1 Proposition 2.3"
+    },
+    {
+     "name": "legendreJonesPall",
+     "type": "_root_.ZInQ.Contrib.TYZDecomp.H29Split.LegendreJonesPall",
+     "doc": "Legendre's three-square theorem with the refinement cited by Tian-Yuan-Zhang (arXiv:1411.4728v1, source L533): a squarefree n = 1, 3 mod 8 is a^2+b^2+c^2 with 4 | c when n = 1 mod 8 (Jones-Pall, Acta Math. 70 (1939) 165-191, Theorem 5, as cited by TYZ; wording of that theorem UNVERIFIED)",
+     "kind": "published",
+     "flag": "locator UNVERIFIED: Jones-Pall Theorem 5 not read",
+     "source": "Legendre (three squares); Jones-Pall, Acta Math. 70 (1939) 165-191, Theorem 5 (cited by TYZ L533)"
+    },
+    {
+     "name": "tyzTestVectorExists",
+     "type": "_root_.ZInQ.Contrib.TYZDecomp.H29Split.TYZTestVectorExists",
+     "doc": "Tian-Yuan-Zhang, arXiv:1411.4728v1 section 2.1 (source L542-550) with Theorem 2.6 at chi = 1 (L809-840): pi_Z^{U_n} is free of rank one; here only the existence of a generator f_n, with pi pinned by its Hecke eigenvalues a_p(E) at odd p (strong multiplicity one)",
+     "kind": "published",
+     "flag": "pending reading: pi^{U_n} identified with the a_p(E)-eigenspace of U_n-invariant forms by strong multiplicity one and Jacquet-Langlands (standard), not by TYZ's text",
+     "source": "Tian-Yuan-Zhang, arXiv:1411.4728v1 section 2.1 and Theorem 2.6"
+    }
+   ]
+  }
+ ]
+}

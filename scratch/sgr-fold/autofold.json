@@ -1,0 +1,33 @@
+{
+  "task": "sgr-fold",
+  "status": "executed by hand (r6-nf style); autofold.py cannot express a bypass fold (neither removed field is proved: both are bypassed at their consumer)",
+  "base": "862bd440 (wip/leaf-fold-hx) + origin/wip/sgr-direct 56478c75",
+  "top_before": "HDec.HSyn.sixContactMin_of_open29 (TailZ35): OpenResearchLeaves22, OpenTextbookLeaves11, OpenAddedLeaves17, OpenGlue7",
+  "top_after": "HDec.HSyn.sixContactMin_of_open30 (TailZ36): OpenResearchLeaves22, OpenTextbookLeaves11, OpenAddedLeaves17 (pruned), OpenGlue8",
+  "removed_fields": [
+    {"field": "shimuraIntegralModelRep", "bundle": "OpenAddedLeaves17", "strict": "GLUE", "kind": "consequence"},
+    {"field": "quotientP1Coordinate", "bundle": "OpenGlue7", "strict": "GLUE", "kind": "project glue"}
+  ],
+  "consumer": "HDec.HeckeRestNV.HeckeVertWitness, filled in TailO HDec.HSyn.glue4_of_open6 by SGRDirect.heckeVertWitness_of_nvSqrtAny (LeafAdopt.R1R2fp_of_rep r.r1r2) (torsionStructure_ofK5 t.t5) l.qmAutCard (serreRigidity3_of_T35_5 ..) l.alFixedPoints g.nvLocalInertia g.heckeSqrtBranchAny",
+  "carried_down": "OpenGlue6 and OpenGlue7 carry nvLocalInertia : SGRDirect.NVLocalInertia and heckeSqrtBranchAny : SGRDirect.HeckeSqrtBranchAny; the top conversion openGlue7_of_OpenGlue8 fills heckeSqrtBranchAny by HDec.HSyn.SGRFold.heckeSqrtBranchAny_of_open29 (sgr-direct's heckeSqrtBranchAny_of_elkies with elkiesX6StarPrinted)",
+  "new_leaves": [
+    {
+      "field": "nvLocalInertia",
+      "bundle": "OpenGlue8",
+      "type": "SGRDirect.NVLocalInertia",
+      "kind": "project glue",
+      "flag": "",
+      "strict": "GLUE",
+      "strictest": "GLUE",
+      "printed_form": "no: no published statement has this form; it is h-b1 section 3 Lemma NV step 3, a consequence of Abhyankar's lemma (SGA 1 XIII 5.3) and Zariski-Nagata purity (SGA 1 X 3.1), locators UNVERIFIED",
+      "area_issue": "elliotglazer/diophantine-z-q#37",
+      "claim": "nv-local (host task, wip/nv-local)",
+      "doc": "docs/research/sgr-direct.md section 4; docs/research/sgr-fold.md"
+    }
+  ],
+  "module": "ZInQKernel.Contrib.OneProof.SGRFold",
+  "theorems": ["HDec.HSyn.SGRFold.heckeSqrtBranchAny_of_open29", "HDec.HSyn.SGRFold.openGlue7_of_nvLocalInertia"],
+  "imports": ["ZInQKernel.OneProof.H.TailZ35", "ZInQKernel.Contrib.OneProof.SGRDirectElkies"],
+  "pruned": "scratch/sgr-fold/prune-set-stepA.txt (12 FIELD lines) plus the off-chain OpenAddedLeaves10/11.shimuraGoodReductionNoGuard and the dead reader addedLeaves5_of_open6; every deleted line in scratch/sgr-fold/prune_sgr_out.txt",
+  "counts": {"H_fields": "56 -> 55", "strict": "45/11 -> 45/10", "strictest": "43/13 -> 43/12", "open_hypotheses": "62 -> 61"}
+}

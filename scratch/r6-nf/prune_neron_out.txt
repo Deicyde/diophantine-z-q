@@ -1,0 +1,33 @@
+TailZ23:642  [field OpenResearchLeaves14.neronSchemeModelExistsDVR]    /-- reduct-split, r8: BLR §1.4 Thm 3 over a DVR (scheme form). -/
+TailZ23:643  [field OpenResearchLeaves14.neronSchemeModelExistsDVR]    neronSchemeModelExistsDVR : _root_.ReductSplit.NeronSchemeModelExistsDVR
+TailZ23:760  [dead reader ss1_ss3_of14]  /-- **SS1 and SS3** (`semistableReductionThm`, `semistablePersists`) from the restricted printed leaf
+TailZ23:761  [dead reader ss1_ss3_of14]  `semistablePersistsSHcp`, the pair, 3.6 (K1), BLR 1.4/3 and the glue of `TailZ15` (`semistableLocalGlobal` from
+TailZ23:762  [dead reader ss1_ss3_of14]  `blr_1_2_4` through c-to-printed's `neronLocalizesDVR_of_printed`; `semistableAlmostAll_of10`). -/
+TailZ23:763  [dead reader ss1_ss3_of14]  theorem ss1_ss3_of14 (r : OpenResearchLeaves14) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves12) :
+TailZ23:764  [dead reader ss1_ss3_of14]      _root_.ZInQ.HeightSplit.SemistableReductionThm ∧ _root_.ZInQ.HeightSplit.SemistablePersists :=
+TailZ23:765  [dead reader ss1_ss3_of14]    _root_.ReductB.ss1_ss3_of_cp r.semistablePersistsSHcp r.strictHenselizationPair (semistableReductionDVR_of14 r t)
+TailZ23:766  [dead reader ss1_ss3_of14]      r.neronSchemeModelExistsDVR
+TailZ23:767  [dead reader ss1_ss3_of14]      (_root_.ReductGlue.semistableLocalGlobal_leaf (_root_.CToPrinted.neronLocalizesDVR_of_printed r.blr_1_2_4))
+TailZ23:768  [dead reader ss1_ss3_of14]      (semistableAlmostAll_of10 (addedLeaves9_of_open14 r t l))
+TailZ23:769  [dead reader ss1_ss3_of14]  
+TailZ25:42  [field OpenResearchLeaves15.neronSchemeModelExistsDVR]    /-- reduct-split, r8: BLR §1.4 Thm 3 over a DVR (scheme form). -/
+TailZ25:43  [field OpenResearchLeaves15.neronSchemeModelExistsDVR]    neronSchemeModelExistsDVR : _root_.ReductSplit.NeronSchemeModelExistsDVR
+TailZ25:119  [assignment neronSchemeModelExistsDVR in openResearchLeaves14_of_OpenResearchLeaves15]    neronSchemeModelExistsDVR := n.neronSchemeModelExistsDVR
+TailZ26:43  [field OpenResearchLeaves16.neronSchemeModelExistsDVR]    /-- reduct-split, r8: BLR §1.4 Thm 3 over a DVR (scheme form). -/
+TailZ26:44  [field OpenResearchLeaves16.neronSchemeModelExistsDVR]    neronSchemeModelExistsDVR : _root_.ReductSplit.NeronSchemeModelExistsDVR
+TailZ26:116  [assignment neronSchemeModelExistsDVR in openResearchLeaves15_of_OpenResearchLeaves16]    neronSchemeModelExistsDVR := n.neronSchemeModelExistsDVR
+TailZ27:40  [field OpenResearchLeaves17.neronSchemeModelExistsDVR]    /-- reduct-split, r8: BLR §1.4 Thm 3 over a DVR (scheme form). -/
+TailZ27:41  [field OpenResearchLeaves17.neronSchemeModelExistsDVR]    neronSchemeModelExistsDVR : _root_.ReductSplit.NeronSchemeModelExistsDVR
+TailZ27:109  [assignment neronSchemeModelExistsDVR in openResearchLeaves16_of_OpenResearchLeaves17]    neronSchemeModelExistsDVR := n.neronSchemeModelExistsDVR
+TailZ28:40  [field OpenResearchLeaves18.neronSchemeModelExistsDVR]    /-- reduct-split, r8: BLR §1.4 Thm 3 over a DVR (scheme form). -/
+TailZ28:41  [field OpenResearchLeaves18.neronSchemeModelExistsDVR]    neronSchemeModelExistsDVR : _root_.ReductSplit.NeronSchemeModelExistsDVR
+TailZ28:108  [assignment neronSchemeModelExistsDVR in openResearchLeaves17_of_OpenResearchLeaves18]    neronSchemeModelExistsDVR := n.neronSchemeModelExistsDVR
+TailZ29:40  [field OpenResearchLeaves19.neronSchemeModelExistsDVR]    /-- reduct-split, r8: BLR §1.4 Thm 3 over a DVR (scheme form). -/
+TailZ29:41  [field OpenResearchLeaves19.neronSchemeModelExistsDVR]    neronSchemeModelExistsDVR : _root_.ReductSplit.NeronSchemeModelExistsDVR
+TailZ29:105  [assignment neronSchemeModelExistsDVR in openResearchLeaves18_of_OpenResearchLeaves19]    neronSchemeModelExistsDVR := n.neronSchemeModelExistsDVR
+TailZ33:39  [field OpenResearchLeaves20.neronSchemeModelExistsDVR]    /-- reduct-split, r8: BLR §1.4 Thm 3 over a DVR (scheme form). -/
+TailZ33:40  [field OpenResearchLeaves20.neronSchemeModelExistsDVR]    neronSchemeModelExistsDVR : _root_.ReductSplit.NeronSchemeModelExistsDVR
+TailZ33:106  [assignment neronSchemeModelExistsDVR in openResearchLeaves19_of_OpenResearchLeaves20]    neronSchemeModelExistsDVR := n.neronSchemeModelExistsDVR
+TailZ34:36  [field OpenResearchLeaves21.neronSchemeModelExistsDVR]    /-- reduct-split, r8: BLR §1.4 Thm 3 over a DVR (scheme form). -/
+TailZ34:37  [field OpenResearchLeaves21.neronSchemeModelExistsDVR]    neronSchemeModelExistsDVR : _root_.ReductSplit.NeronSchemeModelExistsDVR
+TailZ34:100  [assignment neronSchemeModelExistsDVR in openResearchLeaves20_of_OpenResearchLeaves21]    neronSchemeModelExistsDVR := n.neronSchemeModelExistsDVR

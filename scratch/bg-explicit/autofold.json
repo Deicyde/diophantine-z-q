@@ -1,0 +1,5 @@
+{"name": "bg-explicit",
+ "imports": ["ZInQKernel.Contrib.OneProof.BabaGranathRationalAb"],
+ "discharges": [
+   {"field": "babaGranathRationalAb",
+    "proof": "_root_.BGExplicit.babaGranathRationalAb_of_printed {n}.elkiesX6StarPrinted {t}.uniformizationLeafAll {t}.gagaMorphism {t}.mumfordTorsionAlgClosed"}]}

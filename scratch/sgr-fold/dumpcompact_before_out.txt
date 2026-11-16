@@ -1,0 +1,7 @@
+ZInQ.OneProof.frozenTarget : ∀ (r : HDec.HSyn.OpenResearchLeaves22) (t : HDec.HSyn.OpenTextbookLeaves11)
+  (l : HDec.HSyn.OpenAddedLeaves17) (g : HDec.HSyn.OpenGlue7) (h11 : ZInQ.Contrib.TYZDecomp.TYZThm11Integral)
+  (h29 : ZInQ.Contrib.TYZDecomp.TYZLemma29Mod2) (hCM : T5Glue.ShimuraMainCM)
+  (h33 : ZInQ.Contrib.TYZGenus.TYZSplit.TYZThm33) (hFH : ZInQ.GZFH.FriedbergHoffsteinB_FE)
+  (hL3 : ZInQ.GZDecomp.GrossZagierHeegner), ZInQ.FrozenTarget
+'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+16258 constants hashed

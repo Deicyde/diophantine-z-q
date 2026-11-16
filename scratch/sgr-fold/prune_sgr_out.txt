@@ -1,0 +1,64 @@
+TailO:2838  [field OpenAddedLeaves6.shimuraGoodReduction]    /-- vert-witness, LEAF?: good reduction of the level-3 Shimura curve `Y₃` at `p > 324` with its universal
+TailO:2839  [field OpenAddedLeaves6.shimuraGoodReduction]    family and Hecke automorphisms (Kottwitz 1992 §5; Morita 1981; Carayol 1986; Buzzard 1997). -/
+TailO:2840  [field OpenAddedLeaves6.shimuraGoodReduction]    shimuraGoodReduction : VertWitness.ShimuraGoodReduction
+TailO:2847  [field OpenGlue6.modelCoordinateResidue]    /-- model-glue: a coordinate `ρ : 𝒴 → P¹` on the smooth model with transcendental residue at every point
+TailO:2848  [field OpenGlue6.modelCoordinateResidue]    whose stalk is a DVR with maximal ideal `(p)` (the tame quotient `𝒴/Γ' ≅ P¹_{ℤ_(p)}`). -/
+TailO:2849  [field OpenGlue6.modelCoordinateResidue]    modelCoordinateResidue : ModelGlue.ModelCoordinateResidue
+TailO:2936  [dead reader addedLeaves5_of_open6]  /-- leaf-fold5's added-leaves bundle from leaf-fold6's: the four fields leafq-check replaced are theorems from the
+TailO:2937  [dead reader addedLeaves5_of_open6]  new fields (and `r4`, `r1r2`, T5, T11(b)); the other 17 are the same fields. -/
+TailO:2938  [dead reader addedLeaves5_of_open6]  theorem addedLeaves5_of_open6 (r : OpenResearchLeaves5) (t : OpenTextbookLeaves6) (l : OpenAddedLeaves6) :
+TailO:2939  [dead reader addedLeaves5_of_open6]      OpenAddedLeaves5 where
+TailO:2940  [dead reader addedLeaves5_of_open6]    cmOptimalEmbedding := l.cmOptimalEmbedding
+TailO:2941  [dead reader addedLeaves5_of_open6]    thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
+TailO:2942  [dead reader addedLeaves5_of_open6]    qmHauptmodul := qmHauptmodul_of6 r l
+TailO:2943  [dead reader addedLeaves5_of_open6]    qmClassNumberOne := l.qmClassNumberOne
+TailO:2944  [dead reader addedLeaves5_of_open6]    senTwist := l.senTwist
+TailO:2945  [dead reader addedLeaves5_of_open6]    finiteImageHT := l.finiteImageHT
+TailO:2946  [dead reader addedLeaves5_of_open6]    t09SymmIsogenyExists := l.t09SymmIsogenyExists
+TailO:2947  [dead reader addedLeaves5_of_open6]    isogenyQuasiInverse := l.isogenyQuasiInverse
+TailO:2948  [dead reader addedLeaves5_of_open6]    x6ConicModel := l.x6ConicModel
+TailO:2949  [dead reader addedLeaves5_of_open6]    y3Connected := l.y3Connected
+TailO:2950  [dead reader addedLeaves5_of_open6]    qmAutCard := l.qmAutCard
+TailO:2951  [dead reader addedLeaves5_of_open6]    alFixedPoints := l.alFixedPoints
+TailO:2952  [dead reader addedLeaves5_of_open6]    zariskiConnectedness := l.zariskiConnectedness
+TailO:2953  [dead reader addedLeaves5_of_open6]    cmDescends := cmDescends_of6 r t l
+TailO:2954  [dead reader addedLeaves5_of_open6]    gammaStarGen := LeafQCheck.gammaStarGen_proof
+TailO:2955  [dead reader addedLeaves5_of_open6]    valenceBoundGammaStar := LeafQCheck.VB.valenceBound_of_formula l.valenceFormulaGammaStar
+TailO:2956  [dead reader addedLeaves5_of_open6]    egaIV_8_8_2_ii := l.egaIV_8_8_2_ii
+TailO:2957  [dead reader addedLeaves5_of_open6]    egaIV_8_10_5_xii := l.egaIV_8_10_5_xii
+TailO:2958  [dead reader addedLeaves5_of_open6]    egaIV_17_7_8_ii := l.egaIV_17_7_8_ii
+TailO:2959  [dead reader addedLeaves5_of_open6]    shimuraGoodReduction := l.shimuraGoodReduction
+TailO:2960  [dead reader addedLeaves5_of_open6]    curveBijIso := l.curveBijIso
+TailO:2961  [dead reader addedLeaves5_of_open6]  
+TailO:2977  [#print of dead reader addedLeaves5_of_open6]  #print axioms HDec.HSyn.addedLeaves5_of_open6
+TailX:175  [field OpenAddedLeaves7.shimuraGoodReductionNoGuard]    /-- curve-split, H-83: vert-witness's `ShimuraGoodReduction` without the `ℚ̄`-point guard of `IsShimuraModel`
+TailX:176  [field OpenAddedLeaves7.shimuraGoodReductionNoGuard]    (redundant given `r1r2`; replaces `shimuraGoodReduction`). -/
+TailX:177  [field OpenAddedLeaves7.shimuraGoodReductionNoGuard]    shimuraGoodReductionNoGuard : CurveSplitGR.ShimuraGoodReductionNoGuard
+TailX:183  [field OpenGlue7.quotientP1Coordinate]    /-- mcr-glue: a finite `q : 𝒴 → 𝒵` over `ℤ_(p)` and an isomorphism `𝒵 ≅ P¹_{ℤ_(p)}` by charts whose composite
+TailX:184  [field OpenGlue7.quotientP1Coordinate]    has R2fp's fibre relation (replaces `modelCoordinateResidue`). -/
+TailX:185  [field OpenGlue7.quotientP1Coordinate]    quotientP1Coordinate : MCRGlue.QuotientP1Coordinate
+TailX:270  [assignment shimuraGoodReduction in addedLeaves6_of_open7]    shimuraGoodReduction := CurveSplitGR.shimuraGoodReduction_of_noGuard (LeafAdopt.R1R2fp_of_rep r.r1r2)
+TailX:271  [assignment shimuraGoodReduction in addedLeaves6_of_open7]      l.shimuraGoodReductionNoGuard
+TailX:276  [assignment modelCoordinateResidue in glue6_of_open7]    modelCoordinateResidue := MCRGlue.modelCoordinateResidue_of_quotient' g.quotientP1Coordinate
+TailZ13:29  [field OpenAddedLeaves9.shimuraGoodReductionNoGuard]    shimuraGoodReductionNoGuard : CurveSplitGR.ShimuraGoodReductionNoGuard
+TailZ13:59  [assignment shimuraGoodReductionNoGuard in addedLeaves8_of_open9]    shimuraGoodReductionNoGuard := l.shimuraGoodReductionNoGuard
+TailZ17:197  [field OpenAddedLeaves10.shimuraGoodReductionNoGuard]    shimuraGoodReductionNoGuard : CurveSplitGR.ShimuraGoodReductionNoGuard
+TailZ17:265  [assignment shimuraGoodReductionNoGuard in addedLeaves9_of_open10]    shimuraGoodReductionNoGuard := l.shimuraGoodReductionNoGuard
+TailZ18:1218  [field OpenAddedLeaves11.shimuraGoodReductionNoGuard]    shimuraGoodReductionNoGuard : CurveSplitGR.ShimuraGoodReductionNoGuard
+TailZ18:1241  [assignment shimuraGoodReductionNoGuard in addedLeaves10_of_open11]    shimuraGoodReductionNoGuard := l.shimuraGoodReductionNoGuard
+TailZ22:241  [field OpenAddedLeaves12.shimuraGoodReductionNoGuard]    shimuraGoodReductionNoGuard : CurveSplitGR.ShimuraGoodReductionNoGuard
+TailZ22:326  [assignment shimuraGoodReductionNoGuard in addedLeaves11_of_open12]    shimuraGoodReductionNoGuard := l.shimuraGoodReductionNoGuard
+TailZ23:750  [assignment shimuraGoodReductionNoGuard in addedLeaves9_of_open14]    shimuraGoodReductionNoGuard := l.shimuraGoodReductionNoGuard
+TailZ24:777  [field OpenAddedLeaves13.shimuraGoodReductionNoGuard]    shimuraGoodReductionNoGuard : CurveSplitGR.ShimuraGoodReductionNoGuard
+TailZ24:825  [assignment shimuraGoodReductionNoGuard in addedLeaves12_of_open13]    shimuraGoodReductionNoGuard := l.shimuraGoodReductionNoGuard
+TailZ26:140  [field OpenAddedLeaves14.shimuraGoodReductionNoGuard]    shimuraGoodReductionNoGuard : CurveSplitGR.ShimuraGoodReductionNoGuard
+TailZ26:181  [assignment shimuraGoodReductionNoGuard in openAddedLeaves13_of_OpenAddedLeaves14]    shimuraGoodReductionNoGuard := n.shimuraGoodReductionNoGuard
+TailZ30:21  [field OpenAddedLeaves15.shimuraGoodReductionNoGuard]    shimuraGoodReductionNoGuard : CurveSplitGR.ShimuraGoodReductionNoGuard
+TailZ30:62  [assignment shimuraGoodReductionNoGuard in openAddedLeaves14_of_OpenAddedLeaves15]    shimuraGoodReductionNoGuard := n.shimuraGoodReductionNoGuard
+TailZ31:21  [field OpenAddedLeaves16.shimuraGoodReductionNoGuard]    shimuraGoodReductionNoGuard : CurveSplitGR.ShimuraGoodReductionNoGuard
+TailZ31:58  [assignment shimuraGoodReductionNoGuard in openAddedLeaves15_of_OpenAddedLeaves16]    shimuraGoodReductionNoGuard := n.shimuraGoodReductionNoGuard
+TailZ34:151  [field OpenAddedLeaves17.shimuraIntegralModelRep]    /-- Representability over Z_(p), p > 324, of the moduli problem of QM abelian surfaces (disc 6) with full level 3, by a proper smooth curve (printed form on QMAbScheme): Kottwitz, J. AMS 5 (1992) 5; Buzzard, Duke 87 (1997) 1-4; Morita, Hokkaido 10 (1981); locators UNVERIFIED -/
+TailZ34:152  [field OpenAddedLeaves17.shimuraIntegralModelRep]    shimuraIntegralModelRep : _root_.SGRSplit.ShimuraIntegralModelRep
+TailZ34:162  [assignment shimuraGoodReductionNoGuard in openAddedLeaves16_of_OpenAddedLeaves17]    shimuraGoodReductionNoGuard := _root_.SGRSplit.shimuraGoodReductionNoGuard_of_printed n.shimuraIntegralModelRep
+TailZ4:139  [field OpenAddedLeaves8.shimuraGoodReductionNoGuard]    shimuraGoodReductionNoGuard : CurveSplitGR.ShimuraGoodReductionNoGuard
+TailZ4:251  [assignment shimuraGoodReductionNoGuard in addedLeaves7_of_open8]    shimuraGoodReductionNoGuard := l.shimuraGoodReductionNoGuard

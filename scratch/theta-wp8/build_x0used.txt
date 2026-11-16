@@ -1,0 +1,12 @@
+info: ZInQKernel/Contrib/OneProof/X0ModuliUsed.lean:396:0: 'X0EtaRoute.srAt_x' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/X0ModuliUsed.lean:397:0: 'X0EtaRoute.srAt_y' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/X0ModuliUsed.lean:398:0: 'X0ModuliUsed.tyzThm35ReadingA_of_eta' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/X0ModuliUsed.lean:399:0: 'X0ModuliUsed.frozenTarget_of_eta' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/X0ModuliUsed.lean:400:0: 'X0EtaRoute.xEtaWeierstrass_of_theta' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/X0ModuliUsed.lean:401:0: 'X0ModuliUsed.tyzThm35ReadingA_of_theta' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/X0ModuliUsed.lean:402:0: 'X0ModuliUsed.frozenTarget_of_theta' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (12994 jobs).
+
+real	0m42.523s
+user	0m32.982s
+sys	0m6.732s

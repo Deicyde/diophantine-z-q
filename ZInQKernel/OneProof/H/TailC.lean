@@ -5944,7 +5944,7 @@ theorem bc_dim {K L : IF} (hKL : K ≤ L) (A : PkgI3.AbVar K) (hA : A.dim = 2) :
 `RaynaudCriterion`, `TorsionStructure` through `LeafQM.AV.QML3.goodReduction`, with
 inertia-homs' `comap_isDVR` and `isUnit_prime_of_liesOver`): good reduction at every place over
 every `p ∉ T` when `3 ∈ T`. -/
-theorem good_of_QML3 (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+theorem good_of_QML3 (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
     (hTors : PkgI2.TorsionStructure.{0}) (K : IF) [FiniteDimensional ℚ K] (PK : QML3 K)
     (T : Finset ℕ) (h3 : 3 ∈ T) :
     ∀ p : ℕ, p.Prime → p ∉ T → ∀ w : ValuationSubring Qbar, GlueB3Unram.LiesOver w p →
@@ -6056,7 +6056,7 @@ def ConjMapsOnHomField : Prop :=
 (`kernelField_of_model`), `MorphismsDescend` (morph-descend), `hdim` (g0-dim), `hgood` (G3 on
 `QML3` objects), and the discrepancy algebra (`conjugacyData_of_maps`). -/
 theorem kernelFieldExists_of_pieces (hHFF : PkgI3.HomFreeFinite)
-    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
     (hTors : PkgI2.TorsionStructure.{0}) (hCount : TorsionCountPts)
     (hMaps : ConjMapsOnHomField) : KernelFieldExists := by
   intro Y Φ π u P hctx K _ _ hKF hramK PK hPK
@@ -6076,7 +6076,7 @@ Leaves: `HomFreeFinite` (Mumford §19 Thm 3), `NeronOggShafarevich` (Serre–Tat
 `RaynaudCriterion` (Raynaud / Grothendieck SGA 7 IX), `TorsionStructure` (Mumford §4/§6).
 Glue: `ConjMapsOnHomField` (the conjugacy maps on the Hom field: A7 + Skolem–Noether + NoCM). -/
 theorem kernelFieldExists_of_leaves (hHFF : PkgI3.HomFreeFinite)
-    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
     (hTors : PkgI2.TorsionStructure.{0}) (hMaps : ConjMapsOnHomField) : KernelFieldExists :=
   kernelFieldExists_of_pieces hHFF hNOS hRay hTors (torsionCountPts_of_leaf hTors) hMaps
 
@@ -6130,7 +6130,7 @@ theorem conjMapsOnHomField_of (h5 : G0FibreSimple.FibreComTrivial) (h : ConjMaps
 `FibreComTrivial` (g0-fibresimple; its truth for every triple is qm-pin's repair) and the glue
 `ConjMapsNoCM`. -/
 theorem kernelFieldExists_of_leaves_FS5 (hHFF : PkgI3.HomFreeFinite)
-    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
     (hTors : PkgI2.TorsionStructure.{0}) (h5 : G0FibreSimple.FibreComTrivial)
     (hMaps : ConjMapsNoCM) : KernelFieldExists :=
   kernelFieldExists_of_leaves hHFF hNOS hRay hTors (conjMapsOnHomField_of h5 hMaps)
@@ -6569,7 +6569,7 @@ theorem conjMapsNoCM_of (hTors : PkgI2.TorsionStructure.{0}) (hG : ConjIsogMaps)
 `NeronOggShafarevich`, `RaynaudCriterion`, `TorsionStructure` and the glue `FibreComTrivial`
 (FS5, g0-fibresimple), `ConjIsogMaps` (geometric) and `EndEqOOnHomField` (NoCM consequence). -/
 theorem kernelFieldExists_of_split (hHFF : PkgI3.HomFreeFinite)
-    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
     (hTors : PkgI2.TorsionStructure.{0}) (h5 : G0FibreSimple.FibreComTrivial)
     (hG : ConjIsogMaps) (hE : EndEqOOnHomField) : KernelFieldExists :=
   kernelFieldExists_of_leaves_FS5 hHFF hNOS hRay hTors h5 (conjMapsNoCM_of hTors hG hE)
@@ -6609,7 +6609,7 @@ theorem endEqOOnHomField_of (ha : EndEqOFibre) (hb : EndTransport) : EndEqOOnHom
 `NeronOggShafarevich`, `RaynaudCriterion`, `TorsionStructure` and the glue FS5
 `FibreComTrivial`, `ConjIsogMaps`, `EndEqOFibre`, `EndTransport`. -/
 theorem kernelFieldExists_of_split' (hHFF : PkgI3.HomFreeFinite)
-    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
     (hTors : PkgI2.TorsionStructure.{0}) (h5 : G0FibreSimple.FibreComTrivial)
     (hG : ConjIsogMaps) (ha : EndEqOFibre) (hb : EndTransport) : KernelFieldExists :=
   kernelFieldExists_of_split hHFF hNOS hRay hTors h5 hG (endEqOOnHomField_of ha hb)
@@ -6916,7 +6916,7 @@ theorem endEqOFibre_of (hYu : QMLattice.YuB6Alg) (hHF : PkgI3.HomFreeFinite)
 `QMDichotomyYu` (T27). Glue: FS5 `FibreComTrivial`, `OMaximal` (pure algebra),
 `EndTransport`, `ConjIsogMaps`. -/
 theorem kernelFieldExists_of_split'' (hHFF : PkgI3.HomFreeFinite)
-    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
     (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
     (h5 : G0FibreSimple.FibreComTrivial) (hmax : OMaximal) (hb : EndTransport)
     (hG : ConjIsogMaps) : KernelFieldExists :=
@@ -6926,7 +6926,7 @@ theorem kernelFieldExists_of_split'' (hHFF : PkgI3.HomFreeFinite)
 (T6), `NeronOggShafarevich`, `RaynaudCriterion`, `TorsionStructure`, `QMDichotomyYu` (T27) and the
 glue FS5 `FibreComTrivial`, `EndTransport`, `ConjIsogMaps`. -/
 theorem kernelFieldExists_of_final (hHFF : PkgI3.HomFreeFinite)
-    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
     (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
     (h5 : G0FibreSimple.FibreComTrivial) (hb : EndTransport) (hG : ConjIsogMaps) :
     KernelFieldExists :=
@@ -6976,7 +6976,7 @@ theorem endTransport_of (h : EndTransportBC) : EndTransport := by
 
 /-- **Headline, final form with `EndTransportBC` (proved).** -/
 theorem kernelFieldExists_of_final' (hHFF : PkgI3.HomFreeFinite)
-    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
     (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
     (h5 : G0FibreSimple.FibreComTrivial) (hbc : EndTransportBC) (hG : ConjIsogMaps) :
     KernelFieldExists :=
@@ -7151,7 +7151,7 @@ theorem endTransportBC_of_rigidity (hR : G0FibreSimple.RigidityHom) : EndTranspo
 `QMDichotomyYu` (T27), `RigidityHom` (Mumford §4 Cor. 1; g0-fibresimple's textbook leaf). Glue:
 FS5 `FibreComTrivial` (g0-fibresimple) and `ConjIsogMaps`. -/
 theorem kernelFieldExists_of_rigidity (hHFF : PkgI3.HomFreeFinite)
-    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
     (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
     (hRig : G0FibreSimple.RigidityHom) (h5 : G0FibreSimple.FibreComTrivial)
     (hG : ConjIsogMaps) : KernelFieldExists :=
@@ -8339,7 +8339,7 @@ theorem fibreQMPeriod_of_named_all (hH : PkgI1.QMHauptmodul) (hU : QMComplexUnif
   fun Y Φ π h1 h2 => fibreQMPeriodAt_of Y Φ π h1 hH hU (hV Y Φ π h1 h2) hD hT
 
 /-- The same from the decomposition's bundle form of the leaf (`LeafAdopt.R1R2fpRep`). -/
-theorem fibreQMPeriod_of_named_rep (h : LeafAdopt.R1R2fpRep) (hM : Pin.MobiusGlue)
+theorem fibreQMPeriod_of_named_rep (h : LeafAdopt.R1R2fpRepW) (hM : Pin.MobiusGlue)
     (hH : PkgI1.QMHauptmodul) (hU : QMComplexUnif)
     (hV : QMPeriodValue (ownY (LeafAdopt.R1R2fp_of_rep h)) (ownΦ (LeafAdopt.R1R2fp_of_rep h))
       (ownπ (LeafAdopt.R1R2fp_of_rep h)))
@@ -8446,7 +8446,7 @@ theorem fibreQMPeriod_main (h : R1R2fp) (hM : Pin.MobiusGlue)
 
 /-- **Main result from the decomposition's bundle form of the leaf (`LeafAdopt.R1R2fpRep`,
 proved).** -/
-theorem fibreQMPeriod_main_rep (h : LeafAdopt.R1R2fpRep) (hM : Pin.MobiusGlue)
+theorem fibreQMPeriod_main_rep (h : LeafAdopt.R1R2fpRepW) (hM : Pin.MobiusGlue)
     (hH : PkgI1.QMHauptmodul) (hE : UniformizationExistsT35) (hR11 : T11aRiemannEnd)
     (hCN : QMClassNumberOne)
     (hR : R1bFamily (ownY (LeafAdopt.R1R2fp_of_rep h)) (ownΦ (LeafAdopt.R1R2fp_of_rep h))

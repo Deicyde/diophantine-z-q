@@ -1,5 +1,6 @@
 import ZInQKernel.OneProof.H.TailZ25
 import ZInQKernel.Contrib.OneProof.BLRLocalizes
+import ZInQKernel.Contrib.OneProof.NeronDVR
 import ZInQKernel.Contrib.OneProof.GammaStarArea
 import ZInQKernel.Contrib.OneProof.ThetaModularityM46
 
@@ -39,8 +40,6 @@ structure OpenResearchLeaves16 : Prop where
   gaudronRemondThm14 : _root_.ZInQ.HeightSplit.GaudronRemondThm14
   /-- reduct-split, r8: SGA 7 IX Prop. 3.5, "semistable ⇒ `(σ - 1)² = 0` on `T_ℓ`" (weakest reading). -/
   semistableUnipotent : _root_.ReductSplit.SemistableUnipotent
-  /-- reduct-split, r8: BLR §1.4 Thm 3 over a DVR (scheme form). -/
-  neronSchemeModelExistsDVR : _root_.ReductSplit.NeronSchemeModelExistsDVR
   /-- shimura-split, r5count, printed form: González–Rotger 2006 Prop. 5.6 at `(D, N) = (6, 1)` on the points of
   one canonical coarse witness `X₆` of the fine moduli scheme of abelian schemes. Replaces
   `gonzalezRotgerCountX6`. -/
@@ -51,9 +50,6 @@ structure OpenResearchLeaves16 : Prop where
   identity `e`. Replaces `mumfordRigidityCore`, which also asked Cor. 6.4 (not needed: rigid-prune proves that each
   `ι(a)` is a homomorphism from the field points). -/
   mumfordGroupLaw : _root_.ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw
-  /-- c-to-printed, printed form: Faltings 1983, Lemma 5 (the change of the Faltings height under an isogeny
-  through `log #s*Ω¹` of its kernel; locator UNVERIFIED). With `raynaudKernelBound` replaces `faltingsLemma5BC`. -/
-  faltingsLemma5Printed : _root_.CToPrinted.FaltingsLemma5Printed
   /-- c-to-printed, printed form: SGA 3 VI_B 3.10 (the identity component `G⁰` of a smooth group scheme is open;
   number UNVERIFIED). With the next two and `geomConnOfRationalPoint` replaces `semistableNeronBaseChange`. -/
   sga3_VIB_3_10 : _root_.CToPrinted.SGA3_VIB_3_10
@@ -113,11 +109,9 @@ theorem openResearchLeaves15_of_OpenResearchLeaves16 (n : OpenResearchLeaves16) 
   pazukiCor13Upper := n.pazukiCor13Upper
   gaudronRemondThm14 := n.gaudronRemondThm14
   semistableUnipotent := n.semistableUnipotent
-  neronSchemeModelExistsDVR := n.neronSchemeModelExistsDVR
   gonzalezRotgerCountX6Ab := n.gonzalezRotgerCountX6Ab
   mumfordGroupLaw := n.mumfordGroupLaw
   blr_1_2_4 := _root_.GapBLR.blr_1_2_4
-  faltingsLemma5Printed := n.faltingsLemma5Printed
   sga3_VIB_3_10 := n.sga3_VIB_3_10
   sga7_IX_3_3 := n.sga7_IX_3_3
   babaGranathRationalAb := n.babaGranathRationalAb
@@ -135,23 +129,10 @@ structure OpenAddedLeaves14 : Prop where
   tateTwistInvariants : _root_.ZInQ.Contrib.HodgeSplit.TateTwistInvariants
   axSenTate : _root_.ZInQ.Contrib.HodgeSplit.AxSenTate
   milneIsogenyQuasiInverse : _root_.AvSplit.MilneIsogenyQuasiInverse
-  shimuraTaniyamaQbar : G0Split.FibreQM.PeriodMapH.QMSplitSTQM.ShimuraTaniyamaQbar
   egaIV_8_10_5_xii : _root_.ZInQ.Contrib.SpreadOut.EGAIV_8_10_5_xii
-  shimuraGoodReductionNoGuard : CurveSplitGR.ShimuraGoodReductionNoGuard
   /-- qm-split, H-87/H-88: the valence formula for a cocompact Fuchsian group (Shimura 1971 Prop. 2.16,
   Thm 2.20; Rankin Thm 4.1.4). -/
   valenceFormulaCocompactEq : LeafQCheck.HM.QMSplit.ValenceFormulaCocompactEq
-  /-- shimura-glue, printed form, on abelian schemes (route-a-fold): Deligne's theorem on the connected
-  components of a Shimura variety for `G = B^×` at level `K₃` on one fine witness `Y₃` (Deligne, Sém. Bourbaki
-  389 (1971) Thm 2.4, §3; PSPM 33 (1979) 2.1.3, 2.6.3; locators UNVERIFIED). -/
-  deligneComponentsY3PrintedAb : _root_.ShimuraGlue.DeligneComponentsY3PrintedAb
-  /-- x6-glue (shimura-glue), printed form (on abelian schemes): Deligne's theorem on the connected components of a
-  Shimura variety (Sém. Bourbaki 389 (1971) Thm 2.4, §3; PSPM 33 (1979) 2.6.3; locators UNVERIFIED) for
-  `G = B^×` at level `𝒪̂^×` on one canonical coarse witness `X₆` (the double coset is computed in Lean). -/
-  deligneComponentsX6PrintedAb : _root_.ShimuraGlue.DeligneComponentsX6PrintedAb
-  /-- x6-glue (shimura-split), textbook, weakened: for a proper `X → Spec k`, `char k = 0`, connectedness of
-  `X ×_k k̄` gives geometric connectedness (EGA IV 4.5; Stacks 0389; locators UNVERIFIED). -/
-  geomConnOfAlgClosure : QMSplit.Moduli.GeomConnOfAlgClosure
   /-- t09-pic, L1, printed form: the relative Picard fppf sheaf of an abelian variety over a field is representable
   (Murre 1964, Oort 1962; FGA Exp. 232 Thm 3.1; Kleiman, *The Picard scheme*, Thm 9.4.8 with 9.2.5; locators
   UNVERIFIED). With the next three replaces `t09SymmIsogenyExists`. -/
@@ -176,22 +157,41 @@ theorem openAddedLeaves13_of_OpenAddedLeaves14 (n : OpenAddedLeaves14) : OpenAdd
   tateTwistInvariants := n.tateTwistInvariants
   axSenTate := n.axSenTate
   milneIsogenyQuasiInverse := n.milneIsogenyQuasiInverse
-  shimuraTaniyamaQbar := n.shimuraTaniyamaQbar
   egaIV_8_10_5_xii := n.egaIV_8_10_5_xii
-  shimuraGoodReductionNoGuard := n.shimuraGoodReductionNoGuard
   valenceFormulaCocompactEq := n.valenceFormulaCocompactEq
   shimizuCovolumeO1 := _root_.HDec.GammaStarArea.shimizuCovolumeO1_proof
-  deligneComponentsY3PrintedAb := n.deligneComponentsY3PrintedAb
-  deligneComponentsX6PrintedAb := n.deligneComponentsX6PrintedAb
-  geomConnOfAlgClosure := n.geomConnOfAlgClosure
   picRepresentableAbVar := n.picRepresentableAbVar
   picZeroAbVar := n.picZeroAbVar
   phiAmpleIsogeny := n.phiAmpleIsogeny
   weilPairingMumford := n.weilPairingMumford
 
-/-- **G0 with only the open leaves and the open glue** (leaf-fold16; generated). -/
-theorem sixContactMin_of_open20 (r : OpenResearchLeaves16) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves14) (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
+/-- **r6 at number fields** (r6-nf) from leaf-fold14's bundles: neron-dvr's `GapNeron.raynaudCriterion_leavesNF`
+with the Néron field at number fields proved from the textbook field N1 (`GapNeron.neronSchemeModelExistsNF`),
+replacing `ReductGlue.raynaudCriterion_leaves … r.neronSchemeModelExistsDVR …` (BLR 1.4/3 over every DVR). -/
+theorem raynaudCriterionNF_of14 (r : OpenResearchLeaves14) (t : OpenTextbookLeaves10) :
+    PkgI2.RaynaudCriterionNF.{0} :=
+  _root_.GapNeron.raynaudCriterion_leavesNF (raynaudSemistable_of14 r t) r.semistableUnipotent
+    (_root_.GapNeron.neronSchemeModelExistsNF t.neronSchemeExtensionExists) t.mumfordTorsionAlgClosed
+    t.mulEtaleAbelianScheme
+
+/-- **SS1 and SS3** (r6-nf; the reroute of `ss1_ss3_of14`, docs/research/neron-dvr.md §3.2): neron-dvr's
+`GapNeron.ss1_ss3_of_cpNF`, with the Néron field at number fields from N1. -/
+theorem ss1_ss3_of14NF (r : OpenResearchLeaves14) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves12) :
+    _root_.ZInQ.HeightSplit.SemistableReductionThm ∧ _root_.ZInQ.HeightSplit.SemistablePersists :=
+  _root_.GapNeron.ss1_ss3_of_cpNF r.semistablePersistsSHcp r.strictHenselizationPair (semistableReductionDVR_of14 r t)
+    (_root_.GapNeron.neronSchemeModelExistsNF t.neronSchemeExtensionExists)
+    (_root_.ReductGlue.semistableLocalGlobal_leaf (_root_.CToPrinted.neronLocalizesDVR_of_printed r.blr_1_2_4))
+    (semistableAlmostAll_of10 (addedLeaves9_of_open14 r t l))
+
+/-- **G0 with only the open leaves and the open glue** (leaf-fold16; generated; r6-nf: supplies r6 at number fields
+and SS1/SS3 to `sixContactMin_of_open19`). -/
+theorem sixContactMin_of_open20 (r : OpenResearchLeaves16) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves14) (g : OpenGlue7) (hYu : QMLattice.YuB6Alg)
+    (hY3 : TSHecke.Y3Connected) : ZInQ.SixContactMin :=
   sixContactMin_of_open19 (openResearchLeaves15_of_OpenResearchLeaves16 r) t (openAddedLeaves13_of_OpenAddedLeaves14 l) g hYu
+    (raynaudCriterionNF_of14
+      (openResearchLeaves14_of_OpenResearchLeaves15 (openResearchLeaves15_of_OpenResearchLeaves16 r)) t)
+    (ss1_ss3_of14NF (openResearchLeaves14_of_OpenResearchLeaves15 (openResearchLeaves15_of_OpenResearchLeaves16 r)) t
+      (addedLeaves12_of_open13 (openAddedLeaves13_of_OpenAddedLeaves14 l))) hY3
 
 end HSyn
 

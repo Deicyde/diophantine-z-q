@@ -577,7 +577,7 @@ theorem G0ModField.KernelField.endTransport : G0ModField.KernelField.EndTranspor
 
 /-- `KernelFieldExists` with `RigidityHom` discharged: five leaves and two glue Props. -/
 theorem G0ModField.KernelField.kernelFieldExists_of_five (hHFF : PkgI3.HomFreeFinite)
-    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
     (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
     (h5 : G0FibreSimple.FibreComTrivial) (hG : G0ModField.KernelField.ConjIsogMaps) :
     G0ModField.KernelFieldExists :=
@@ -880,7 +880,7 @@ theorem conjIsogMaps_of_semilinearIsogMaps (h : SemilinearIsogMaps) : ConjIsogMa
 
 /-- `KernelFieldExists` with `ConjIsogMaps` replaced by `SemilinearIsogMaps`. -/
 theorem kernelFieldExists_of_semilinear (hHFF : PkgI3.HomFreeFinite)
-    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
     (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
     (h5 : G0FibreSimple.FibreComTrivial) (hS : SemilinearIsogMaps) : KernelFieldExists :=
   kernelFieldExists_of_five hHFF hNOS hRay hTors hYu h5 (conjIsogMaps_of_semilinearIsogMaps hS)
@@ -1163,7 +1163,7 @@ theorem conjIsogMaps_of_twist (hMul : G0FibreSimple.MulIsogeny) (h : SemilinearT
 
 /-- `KernelFieldExists` from the five leaves, FS5, `MulIsogeny` and `SemilinearTwistIsos`. -/
 theorem kernelFieldExists_of_twist (hHFF : PkgI3.HomFreeFinite)
-    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
     (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
     (h5 : G0FibreSimple.FibreComTrivial) (hMul : G0FibreSimple.MulIsogeny)
     (hS : SemilinearTwistIsos) : KernelFieldExists :=
@@ -1361,7 +1361,7 @@ theorem conjIsogMaps_of_descent (hMul : G0FibreSimple.MulIsogeny) (hD : TwistDes
 
 /-- `KernelFieldExists` from the five leaves, FS5, `MulIsogeny` and `TwistDescent`. -/
 theorem kernelFieldExists_of_descent (hHFF : PkgI3.HomFreeFinite)
-    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
     (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
     (h5 : G0FibreSimple.FibreComTrivial) (hMul : G0FibreSimple.MulIsogeny)
     (hD : TwistDescent) : KernelFieldExists :=
@@ -1383,7 +1383,7 @@ theorem conjIsogMaps_of_cotangent (h1 : MulRigidity.KerUnitOpenOfCotangentSurj)
 `KerUnitOpen` (mul-rigidity; implied by the published `MulEtale`). Glue: FS5 `FibreComTrivial`
 (g0-fibresimple) and `TwistDescent` (Galois descent). -/
 theorem kernelFieldExists_of_kerUnitOpen (hHFF : PkgI3.HomFreeFinite)
-    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
     (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
     (h5 : G0FibreSimple.FibreComTrivial) (hK : MulRigidity.KerUnitOpen) (hD : TwistDescent) :
     KernelFieldExists :=
@@ -2001,7 +2001,7 @@ theorem conjIsogMaps_of_cotangent' (h1 : MulRigidity.KerUnitOpenOfCotangentSurj)
 /-- **`KernelFieldExists` without `TwistDescent`.** Leaves: T6, NOS, Raynaud, TorsionStructure,
 T27, `KerUnitOpen`; glue: FS5 `FibreComTrivial`. -/
 theorem kernelFieldExists_of_kerUnitOpen' (hHFF : PkgI3.HomFreeFinite)
-    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
     (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
     (h5 : G0FibreSimple.FibreComTrivial) (hK : MulRigidity.KerUnitOpen) :
     KernelFieldExists :=
@@ -2009,7 +2009,7 @@ theorem kernelFieldExists_of_kerUnitOpen' (hHFF : PkgI3.HomFreeFinite)
 
 /-- **`KernelFieldExists` without `TwistDescent`**, with `MulIsogeny`. -/
 theorem kernelFieldExists_of_mulIsogeny (hHFF : PkgI3.HomFreeFinite)
-    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
     (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
     (h5 : G0FibreSimple.FibreComTrivial) (hMul : G0FibreSimple.MulIsogeny) :
     KernelFieldExists :=
@@ -2290,10 +2290,16 @@ def GoodRedG3Bridge : Prop :=
 /-- **`QMModelG3`, proved** from the leaves R6 (Raynaud), R7a (NOS), T5 (`TorsionStructure`)
 through `LeafQM.AV.QML3.goodReduction` (proved in `Leaves.lean`: a `QML3` object has good
 reduction at every DVR with `3` a unit) and the glue `GoodRedG3Bridge`. -/
-theorem qmModelG3_of (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+theorem qmModelG3_of (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
     (hTors : PkgI2.TorsionStructure.{0}) (hB : GoodRedG3Bridge) : QMModelG3 :=
   fun K L L' _ hKL hLL' PK ℓ _ => hB hNOS K L L' hKL hLL' PK.A
-    (fun Ov _ h3 => LeafQM.AV.QML3.goodReduction (P := PK) hNOS hRay hTors Ov h3) ℓ
+    (fun Ov _ h3 =>
+      -- r6-nf: `K ≤ L ≤ L'` with `L'/ℚ` finite, so `K` is a number field (R6 is applied at number fields)
+      haveI : FiniteDimensional ℚ K :=
+        Module.Finite.of_injective (IntermediateField.inclusion (hKL.trans hLL')).toLinearMap
+          (IntermediateField.inclusion (hKL.trans hLL')).injective
+      haveI : NumberField K := ⟨⟩
+      LeafQM.AV.QML3.goodReduction (P := PK) hNOS hRay hTors Ov h3) ℓ
 
 /-- `3 ∈ T(u)` (`3 ∈ S_mul`). -/
 theorem three_mem_T (u : ℚ) : 3 ∈ T u :=

@@ -6457,9 +6457,9 @@ theorem unramifiedConjugates_proved : G0ModField.UnramifiedConjugates :=
 * `r17`: R17 concretely (`LadicCond.CarayolR17'`, Carayol 1986 Thm (A); was
   `GluePieces3.carayolR17` and, before that, the `opaque` `r17`). -/
 structure OpenResearchLeaves2 : Prop where
-  r1r2 : LeafAdopt.R1R2fpRep
+  r1r2 : LeafAdopt.R1R2fpRepW
   /-- R1(b), concrete (family form), for the triple of the leaf bundle. -/
-  r1b : ∀ h : LeafAdopt.R1R2fpRep,
+  r1b : ∀ h : LeafAdopt.R1R2fpRepW,
     G0Split.FibreQM.R1bFamily (G0Split.FibreQM.ownY (LeafAdopt.R1R2fp_of_rep h))
       (G0Split.FibreQM.ownΦ (LeafAdopt.R1R2fp_of_rep h))
       (G0Split.FibreQM.ownπ (LeafAdopt.R1R2fp_of_rep h))
@@ -6467,9 +6467,8 @@ structure OpenResearchLeaves2 : Prop where
   r4 : PkgI1.ThetaModularity
   r5 : LeafQM.AV.R5fp
   r5count : LeafQM.AV.R5fpCount
-  r6 : PkgI2.RaynaudCriterion.{0}
+  r6 : PkgI2.RaynaudCriterionNF.{0}
   r7a : PkgI2.NeronOggShafarevich.{0}
-  r8 : PkgI2.GrothendieckMonodromy.{0}
   r9a : PkgI3.FaltingsSemisimple
   r9b : PkgI3.FaltingsTate
   /-- R10 corrected (with multiplicity `0` off `{0, −1}`). -/
@@ -6553,7 +6552,7 @@ final theorem needs neither). -/
 structure OpenGlue2 : Prop where
   hodgeBCInjective : ZInQ.HeightBC.HodgeBCInjective
   omegaBaseChange : ZInQ.HeightBC.OmegaBaseChange
-  periodMapGlue : ∀ h : LeafAdopt.R1R2fpRep,
+  periodMapGlue : ∀ h : LeafAdopt.R1R2fpRepW,
     G0Split.FibreQM.PeriodMapGlue (G0Split.FibreQM.ownY (LeafAdopt.R1R2fp_of_rep h))
       (G0Split.FibreQM.ownΦ (LeafAdopt.R1R2fp_of_rep h))
       (G0Split.FibreQM.ownπ (LeafAdopt.R1R2fp_of_rep h))
@@ -6574,7 +6573,6 @@ theorem researchLeaves3_of_open2 (r : OpenResearchLeaves2) : ResearchLeaves3 whe
   r5count := r.r5count
   r6 := r.r6
   r7a := r.r7a
-  r8 := r.r8
   r9a := r.r9a
   r9b := r.r9b
   r10 := PkgI4.deRhamComparison_of_HT r.r10

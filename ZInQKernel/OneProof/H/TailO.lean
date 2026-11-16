@@ -1,4 +1,5 @@
 import ZInQKernel.OneProof.H.TailN
+import ZInQKernel.Contrib.OneProof.SGRDirectNV
 
 /-! ## leaf-fold6, part f10: leafq-check's `Fold.lean`, ported after leaf-fold5's chain (made by `mk_f10.py`:
 `import TailK` dropped; leafq-check's `OpenAddedLeaves5`-`10`, `sixContactMin_of_open5`-`10`,
@@ -1175,7 +1176,7 @@ theorem torsionDescends_of_t5 (hT : PkgI2.TorsionStructure.{0}) : TorsionDescend
 
 /-- **The descended data** (glue, proved). -/
 theorem descend_main (hST : STQM) (hR : ZInQ.LeafPush2.T11b_Rigidity) (hTD : TorsionDescends)
-    (hRep : LeafAdopt.R1R2fpRep) (Q : QML3 ℂ) (hcm : HasCM4 Q.q ∨ HasCM3 Q.q ∨ HasCM24 Q.q) :
+    (hRep : LeafAdopt.R1R2fpRepW) (Q : QML3 ℂ) (hcm : HasCM4 Q.q ∨ HasCM3 Q.q ∨ HasCM24 Q.q) :
     ∃ (ιe : Qbar →+* ℂ) (P : QML3 Qbar) (Q' : QML3 ℂ)
       (κ : PkgI3.AbVar.End Q.A →+* PkgI3.AbVar.End P.A),
       IsBaseChangeOf ιe P Q' ∧ Nonempty (QMIso Q.q Q'.q) ∧ ∀ a, κ (Q.q.iota a) = P.q.iota a := by
@@ -1298,9 +1299,10 @@ theorem descend_main (hST : STQM) (hR : ZInQ.LeafPush2.T11b_Rigidity) (hTD : Tor
         · simp [Over.w] }
   exact ⟨iso1.trans iso2.symm⟩
 
-/-- **`CMDescends` from `STQM`, `T11b_Rigidity`, `TorsionDescends` and `R1R2fpRep` (proved).** -/
-theorem cmDescends_of (hST : STQM) (hR : ZInQ.LeafPush2.T11b_Rigidity) (hTD : TorsionDescends)
-    (hRep : LeafAdopt.R1R2fpRep) : CMDescends := by
+/-- **`CMDescends` from `STQM`, `T11b_Rigidity`, `TorsionDescends` and the weak row `R1R2fpRepW` (proved;
+pi0-fold: `cmDescends_of` with the weak row, same proof).** -/
+theorem cmDescends_ofW (hST : STQM) (hR : ZInQ.LeafPush2.T11b_Rigidity) (hTD : TorsionDescends)
+    (hRep : LeafAdopt.R1R2fpRepW) : CMDescends := by
   intro Q
   have com_of : ∀ (P : QML3 Qbar) (κ : PkgI3.AbVar.End Q.A →+* PkgI3.AbVar.End P.A),
       (∀ a, κ (Q.q.iota a) = P.q.iota a) → ∀ φ ∈ com Q.q, κ φ ∈ com P.q := by
@@ -1320,6 +1322,12 @@ theorem cmDescends_of (hST : STQM) (hR : ZInQ.LeafPush2.T11b_Rigidity) (hTD : To
     obtain ⟨φ, hφ, hφ2⟩ := h
     exact ⟨ιe, P, Q', hBC, ⟨κ φ, com_of P κ hκ φ hφ, by rw [← map_mul, hφ2, map_neg, map_ofNat]⟩,
       hiso⟩
+
+/-- **`CMDescends` from `STQM`, `T11b_Rigidity`, `TorsionDescends` and `R1R2fpRep` (proved).** pi0-fold: through
+`cmDescends_ofW`; kept for st-qbar's `GapST.cmDescends_of`. -/
+theorem cmDescends_of (hST : STQM) (hR : ZInQ.LeafPush2.T11b_Rigidity) (hTD : TorsionDescends)
+    (hRep : LeafAdopt.R1R2fpRep) : CMDescends :=
+  cmDescends_ofW hST hR hTD (LeafAdopt.R1R2fpRepW_of_rep hRep)
 
 end Glue2
 
@@ -2834,18 +2842,18 @@ structure OpenAddedLeaves6 : Prop where
   egaIV_8_8_2_ii : _root_.ZInQ.Contrib.SpreadOut.EGAIV_8_8_2_ii
   egaIV_8_10_5_xii : _root_.ZInQ.Contrib.SpreadOut.EGAIV_8_10_5_xii
   egaIV_17_7_8_ii : _root_.ZInQ.Contrib.SpreadOut.EGAIV_17_7_8_ii
-  /-- vert-witness, LEAF?: good reduction of the level-3 Shimura curve `Y₃` at `p > 324` with its universal
-  family and Hecke automorphisms (Kottwitz 1992 §5; Morita 1981; Carayol 1986; Buzzard 1997). -/
-  shimuraGoodReduction : VertWitness.ShimuraGoodReduction
   /-- model-glue, LEAF?: a morphism of proper smooth curves over `ℚ` bijective on `ℚ̄`-points is an
   isomorphism (Hartshorne II.6.7-6.9, III.10.7; EGA III 4.4.2). -/
   curveBijIso : ModelGlue.CurveBijIso
 
 /-- **The glue still open** (leaf-fold6): model-glue's `ModelCoordinateResidue` only. -/
 structure OpenGlue6 : Prop where
-  /-- model-glue: a coordinate `ρ : 𝒴 → P¹` on the smooth model with transcendental residue at every point
-  whose stalk is a DVR with maximal ideal `(p)` (the tame quotient `𝒴/Γ' ≅ P¹_{ℤ_(p)}`). -/
-  modelCoordinateResidue : ModelGlue.ModelCoordinateResidue
+  /-- sgr-fold (sgr-direct): h-b1 §3 Lemma NV step 3, local inertia of tame covers of `P¹_{ℤ_(p)}`
+  (`SGRDirect.NVLocalInertia`, GLUE). -/
+  nvLocalInertia : SGRDirect.NVLocalInertia
+  /-- sgr-fold (sgr-direct): the Hecke cover contains `√(c (27X + 16))` (`SGRDirect.HeckeSqrtBranchAny`; filled at
+  the top from Elkies' printed model, `SGRDirect.heckeSqrtBranchAny_of_elkies`). -/
+  heckeSqrtBranchAny : SGRDirect.HeckeSqrtBranchAny
 
 /-- leaf-fold4's textbook bundle from leaf-fold6's (as leaf-fold5's `textbookLeaves4_of_open5`, with
 `t8 := t8_ofK6 t.t8`). -/
@@ -2869,7 +2877,7 @@ theorem textbookLeaves4_of_open6 (t : OpenTextbookLeaves6) (l : OpenAddedLeaves6
 /-- **`CMDescends` from Shimura–Taniyama** (leafq-check's `cmDescends_of`, with leaf-fold5's T11(b) and T5). -/
 theorem cmDescends_of6 (r : OpenResearchLeaves5) (t : OpenTextbookLeaves6) (l : OpenAddedLeaves6) :
     G0Split.FibreQM.PeriodMapH.CMDescends :=
-  G0Split.FibreQM.PeriodMapH.LeafQCheck.cmDescends_of l.stQM (t11b_of_exists5 t.t11bExists)
+  G0Split.FibreQM.PeriodMapH.LeafQCheck.cmDescends_ofW l.stQM (t11b_of_exists5 t.t11bExists)
     (G0Split.FibreQM.PeriodMapH.LeafQCheck.torsionDescends_of_t5 (torsionStructure_ofK5 t.t5)) r.r1r2
 
 /-- **`QMHauptmodul` from `QMHauptmodulBase3`** (leafq-check's `base2_of_base3` and `qmHauptmodul_of_base2`:
@@ -2903,12 +2911,16 @@ theorem addedLeaves4_of_open6 (r : OpenResearchLeaves5) (t : OpenTextbookLeaves6
   egaIV_8_10_5_xii := l.egaIV_8_10_5_xii
   egaIV_17_7_8_ii := l.egaIV_17_7_8_ii
 
-/-- leaf-fold4's glue bundle from leaf-fold6's: `HeckeVertWitness` from leaves and `ModelCoordinateResidue`
-(leaf-fold5's `heckeVertWitness_of_leaves5`). -/
+/-- leaf-fold4's glue bundle from leaf-fold6's: `HeckeVertWitness` by sgr-direct's route NV
+(`SGRDirect.heckeVertWitness_of_nvSqrtAny`) from `r1r2`, T5, `qmAutCard`, Serre's rigidity (from T35),
+`alFixedPoints`, `NVLocalInertia` and `HeckeSqrtBranchAny`, without the integral model of the Shimura curve
+(sgr-fold; leaf-fold5's `heckeVertWitness_of_leaves5` needed `shimuraGoodReduction` and `ModelCoordinateResidue`). -/
 theorem glue4_of_open6 (r : OpenResearchLeaves5) (t : OpenTextbookLeaves6) (l : OpenAddedLeaves6)
     (g : OpenGlue6) : OpenGlue4 where
-  heckeVertWitness := heckeVertWitness_of_leaves5 l.shimuraGoodReduction r.r1r2 (torsionStructure_ofK5 t.t5)
-    g.modelCoordinateResidue l.curveBijIso
+  heckeVertWitness := SGRDirect.heckeVertWitness_of_nvSqrtAny (LeafAdopt.R1R2fp_of_rep r.r1r2)
+    (torsionStructure_ofK5 t.t5) l.qmAutCard
+    (serreRigidity3_of_T35_5 (uniformizationExists_ofK5 t.t35) (homLatticeCorr_ofK5 t.homLatticeCorr))
+    l.alFixedPoints g.nvLocalInertia g.heckeSqrtBranchAny
 
 /-- **G0 with only the open leaves and the open glue** (leaf-fold6; no `sorry`, standard axioms).
 `ZInQ.SixContactMin` follows from
@@ -2921,32 +2933,6 @@ theorem sixContactMin_of_open6 (r : OpenResearchLeaves5) (t : OpenTextbookLeaves
     (l : OpenAddedLeaves6) (g : OpenGlue6) (h20 : G0Split.R20Lower) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
   sixContactMin_of_open4 (researchLeaves2_of_open5 r) (textbookLeaves4_of_open6 t l) (addedLeaves4_of_open6 r t l)
     (glue4_of_open6 r t l g) h20 hYu
-
-/-- leaf-fold5's added-leaves bundle from leaf-fold6's: the four fields leafq-check replaced are theorems from the
-new fields (and `r4`, `r1r2`, T5, T11(b)); the other 17 are the same fields. -/
-theorem addedLeaves5_of_open6 (r : OpenResearchLeaves5) (t : OpenTextbookLeaves6) (l : OpenAddedLeaves6) :
-    OpenAddedLeaves5 where
-  cmOptimalEmbedding := l.cmOptimalEmbedding
-  thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
-  qmHauptmodul := qmHauptmodul_of6 r l
-  qmClassNumberOne := l.qmClassNumberOne
-  senTwist := l.senTwist
-  finiteImageHT := l.finiteImageHT
-  t09SymmIsogenyExists := l.t09SymmIsogenyExists
-  isogenyQuasiInverse := l.isogenyQuasiInverse
-  x6ConicModel := l.x6ConicModel
-  y3Connected := l.y3Connected
-  qmAutCard := l.qmAutCard
-  alFixedPoints := l.alFixedPoints
-  zariskiConnectedness := l.zariskiConnectedness
-  cmDescends := cmDescends_of6 r t l
-  gammaStarGen := LeafQCheck.gammaStarGen_proof
-  valenceBoundGammaStar := LeafQCheck.VB.valenceBound_of_formula l.valenceFormulaGammaStar
-  egaIV_8_8_2_ii := l.egaIV_8_8_2_ii
-  egaIV_8_10_5_xii := l.egaIV_8_10_5_xii
-  egaIV_17_7_8_ii := l.egaIV_17_7_8_ii
-  shimuraGoodReduction := l.shimuraGoodReduction
-  curveBijIso := l.curveBijIso
 
 end HDec.HSyn
 
@@ -2963,5 +2949,4 @@ example : ∀ (_ : HDec.HSyn.OpenResearchLeaves5) (_ : HDec.HSyn.OpenTextbookLea
 #print axioms HDec.HSyn.textbookLeaves4_of_open6
 #print axioms HDec.HSyn.addedLeaves4_of_open6
 #print axioms HDec.HSyn.glue4_of_open6
-#print axioms HDec.HSyn.addedLeaves5_of_open6
 #print axioms HDec.HSyn.sixContactMin_of_open6

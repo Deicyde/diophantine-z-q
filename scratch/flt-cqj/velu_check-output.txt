@@ -1,0 +1,31 @@
+N=2 p=821 a=[25, 487, 719, 784, 735] P=[Mod(554, 821), Mod(515, 821)] j(E)=Mod(652, 821) j_lean=Mod(453, 821) j_pari=Mod(453, 821) agree=True Phi_N(j_lean,j)=Mod(0, 821)
+N=3 p=509 a=[40, 278, 469, 253, 81] P=[Mod(491, 509), Mod(415, 509)] j(E)=Mod(115, 509) j_lean=Mod(363, 509) j_pari=Mod(363, 509) agree=True Phi_N(j_lean,j)=Mod(0, 509)
+N=4 p=907 a=[348, 872, 791, 141, 373] P=[Mod(435, 907), Mod(655, 907)] j(E)=Mod(45, 907) j_lean=Mod(667, 907) j_pari=Mod(667, 907) agree=True
+N=5 p=223 a=[92, 142, 76, 197, 194] P=[Mod(17, 223), Mod(169, 223)] j(E)=Mod(13, 223) j_lean=Mod(13, 223) j_pari=Mod(13, 223) agree=True Phi_N(j_lean,j)=Mod(0, 223)
+N=6 p=1511 a=[193, 911, 1303, 919, 711] P=[Mod(429, 1511), Mod(1138, 1511)] j(E)=Mod(582, 1511) j_lean=Mod(1305, 1511) j_pari=Mod(1305, 1511) agree=True
+N=7 p=1307 a=[1110, 336, 673, 1081, 763] P=[Mod(790, 1307), Mod(1203, 1307)] j(E)=Mod(149, 1307) j_lean=Mod(771, 1307) j_pari=Mod(771, 1307) agree=True Phi_N(j_lean,j)=Mod(0, 1307)
+N=8 p=1811 a=[1466, 1215, 791, 1234, 243] P=[Mod(1302, 1811), Mod(1057, 1811)] j(E)=Mod(1437, 1811) j_lean=Mod(697, 1811) j_pari=Mod(697, 1811) agree=True
+N=9 p=409 a=[271, 137, 386, 198, 205] P=[Mod(217, 409), Mod(334, 409)] j(E)=Mod(53, 409) j_lean=Mod(214, 409) j_pari=Mod(214, 409) agree=True
+N=10 p=1361 a=[1306, 1186, 316, 1213, 855] P=[Mod(1213, 1361), Mod(145, 1361)] j(E)=Mod(638, 1361) j_lean=Mod(1120, 1361) j_pari=Mod(1120, 1361) agree=True
+N=12 p=1117 a=[1021, 981, 758, 508, 421] P=[Mod(586, 1117), Mod(93, 1117)] j(E)=Mod(746, 1117) j_lean=Mod(666, 1117) j_pari=Mod(666, 1117) agree=True
+N=2 p=223 a=[26, 108, 160, 119, 192] P=[Mod(139, 223), Mod(120, 223)] j(E)=Mod(142, 223) j_lean=Mod(93, 223) j_pari=Mod(93, 223) agree=True Phi_N(j_lean,j)=Mod(0, 223)
+N=3 p=293 a=[243, 128, 37, 16, 264] P=[Mod(24, 293), Mod(222, 293)] j(E)=Mod(172, 293) j_lean=Mod(159, 293) j_pari=Mod(159, 293) agree=True Phi_N(j_lean,j)=Mod(0, 293)
+N=4 p=1279 a=[33, 238, 1248, 1193, 1011] P=[Mod(815, 1279), Mod(1225, 1279)] j(E)=Mod(734, 1279) j_lean=Mod(937, 1279) j_pari=Mod(937, 1279) agree=True
+N=5 p=1489 a=[706, 1176, 598, 35, 1125] P=[Mod(1156, 1489), Mod(972, 1489)] j(E)=Mod(446, 1489) j_lean=Mod(1360, 1489) j_pari=Mod(1360, 1489) agree=True Phi_N(j_lean,j)=Mod(0, 1489)
+N=6 p=1693 a=[810, 1001, 1402, 1225, 462] P=[Mod(1605, 1693), Mod(841, 1693)] j(E)=Mod(1166, 1693) j_lean=Mod(724, 1693) j_pari=Mod(724, 1693) agree=True
+N=7 p=929 a=[683, 687, 620, 364, 648] P=[Mod(654, 929), Mod(920, 929)] j(E)=Mod(40, 929) j_lean=Mod(458, 929) j_pari=Mod(458, 929) agree=True Phi_N(j_lean,j)=Mod(0, 929)
+N=8 p=373 a=[234, 108, 81, 71, 286] P=[Mod(269, 373), Mod(296, 373)] j(E)=Mod(151, 373) j_lean=Mod(43, 373) j_pari=Mod(43, 373) agree=True
+N=9 p=1481 a=[179, 1118, 304, 980, 323] P=[Mod(838, 1481), Mod(529, 1481)] j(E)=Mod(1077, 1481) j_lean=Mod(1397, 1481) j_pari=Mod(1397, 1481) agree=True
+N=10 p=1277 a=[148, 256, 286, 1235, 232] P=[Mod(666, 1277), Mod(915, 1277)] j(E)=Mod(649, 1277) j_lean=Mod(224, 1277) j_pari=Mod(224, 1277) agree=True
+N=12 p=683 a=[188, 528, 356, 320, 190] P=[Mod(100, 683), Mod(31, 683)] j(E)=Mod(117, 683) j_lean=Mod(450, 683) j_pari=Mod(450, 683) agree=True
+N=2 p=311 a=[158, 153, 209, 252, 229] P=[Mod(120, 311), Mod(212, 311)] j(E)=Mod(192, 311) j_lean=Mod(303, 311) j_pari=Mod(303, 311) agree=True Phi_N(j_lean,j)=Mod(0, 311)
+N=3 p=947 a=[10, 652, 636, 8, 285] P=[Mod(209, 947), Mod(530, 947)] j(E)=Mod(569, 947) j_lean=Mod(810, 947) j_pari=Mod(810, 947) agree=True Phi_N(j_lean,j)=Mod(0, 947)
+N=4 p=631 a=[540, 253, 473, 336, 21] P=[Mod(551, 631), Mod(548, 631)] j(E)=Mod(92, 631) j_lean=Mod(260, 631) j_pari=Mod(260, 631) agree=True
+N=5 p=1381 a=[749, 1155, 825, 1345, 620] P=[Mod(454, 1381), Mod(300, 1381)] j(E)=Mod(1085, 1381) j_lean=Mod(356, 1381) j_pari=Mod(356, 1381) agree=True Phi_N(j_lean,j)=Mod(0, 1381)
+N=6 p=1361 a=[62, 1121, 632, 107, 63] P=[Mod(161, 1361), Mod(578, 1361)] j(E)=Mod(841, 1361) j_lean=Mod(1047, 1361) j_pari=Mod(1047, 1361) agree=True
+N=7 p=821 a=[701, 765, 818, 708, 52] P=[Mod(58, 821), Mod(343, 821)] j(E)=Mod(181, 821) j_lean=Mod(486, 821) j_pari=Mod(486, 821) agree=True Phi_N(j_lean,j)=Mod(0, 821)
+N=8 p=617 a=[0, 57, 58, 353, 249] P=[Mod(606, 617), Mod(39, 617)] j(E)=Mod(29, 617) j_lean=Mod(24, 617) j_pari=Mod(24, 617) agree=True
+N=9 p=809 a=[443, 27, 726, 353, 616] P=[Mod(609, 809), Mod(273, 809)] j(E)=Mod(783, 809) j_lean=Mod(661, 809) j_pari=Mod(661, 809) agree=True
+N=10 p=1721 a=[1665, 711, 294, 1412, 276] P=[Mod(673, 1721), Mod(655, 1721)] j(E)=Mod(1153, 1721) j_lean=Mod(218, 1721) j_pari=Mod(218, 1721) agree=True
+N=12 p=1867 a=[878, 880, 446, 1054, 1698] P=[Mod(498, 1867), Mod(1095, 1867)] j(E)=Mod(1476, 1867) j_lean=Mod(1417, 1867) j_pari=Mod(1417, 1867) agree=True
+30/30 agree

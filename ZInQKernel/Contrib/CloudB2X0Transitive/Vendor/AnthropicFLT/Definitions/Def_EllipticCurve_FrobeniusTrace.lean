@@ -1,0 +1,80 @@
+/-
+Vendored from anthropics/fermats-last-theorem, commit 6e837e75355538c7f80bab5b956861e86c4eacc2, Apache-2.0.
+Upstream module: Definitions.Def_EllipticCurve_FrobeniusTrace
+Modified for the Z-in-Q kernel (2026-11-15, task flt-cqj2): local import paths are relocated
+(`P2M.Util` is the copy published by Cloud Worker 2) and the upstream lakefile options are set
+as `set_option` lines after the imports; any other change is marked `-- [port]`.
+Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
+Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+-/
+import Mathlib.LinearAlgebra.Trace
+import Mathlib.RingTheory.Valuation.RamificationGroup
+import ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.Definitions.Def_FLTPrelim_GaloisRep
+import ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.Definitions.Def_FLTPrelim_Ramification
+
+set_option maxHeartbeats 4000000
+set_option synthInstance.maxHeartbeats 400000
+set_option backward.isDefEq.respectTransparency.types false
+set_option autoImplicit false
+
+noncomputable section
+
+open scoped WeierstrassCurve.Affine
+
+namespace WeierstrassCurve.Affine.Point
+
+universe r s v
+
+variable {R : Type r} {S : Type s} {K : Type v} [CommRing R] [CommRing S] [Field K]
+  [DecidableEq K] {W' : Affine R} [Algebra R S] [Algebra R K] [Algebra S K]
+  [IsScalarTower R S K]
+
+instance instSMulCommClassAlgEquivZModTorsionBy (n : ℕ) :
+    SMulCommClass (K ≃ₐ[S] K) (ZMod n) (Submodule.torsionBy ℤ (W'⁄K).Point n) where
+  smul_comm σ c x :=
+    ZMod.map_smul (DistribSMul.toAddMonoidHom (Submodule.torsionBy ℤ (W'⁄K).Point n) σ) c x
+
+variable (S) in
+
+def galoisRepModuleEnd (W' : Affine R) (n : ℕ) :
+    (K ≃ₐ[S] K) →* Module.End (ZMod n) (Submodule.torsionBy ℤ (W'⁄K).Point n) :=
+  DistribMulAction.toModuleEnd (ZMod n) (Submodule.torsionBy ℤ (W'⁄K).Point n)
+
+@[simp] lemma galoisRepModuleEnd_apply (W' : Affine R) (n : ℕ) (σ : K ≃ₐ[S] K)
+    (x : Submodule.torsionBy ℤ (W'⁄K).Point n) :
+    galoisRepModuleEnd S W' n σ x = σ • x :=
+  rfl
+
+variable (S) in
+
+def galoisTrace (W' : Affine R) (n : ℕ) (σ : K ≃ₐ[S] K) : ZMod n :=
+  LinearMap.trace (ZMod n) (Submodule.torsionBy ℤ (W'⁄K).Point n) (galoisRepModuleEnd S W' n σ)
+
+lemma galoisTrace_def (W' : Affine R) (n : ℕ) (σ : K ≃ₐ[S] K) :
+    galoisTrace S W' n σ =
+      LinearMap.trace (ZMod n) (Submodule.torsionBy ℤ (W'⁄K).Point n)
+        (galoisRepModuleEnd S W' n σ) :=
+  rfl
+
+end WeierstrassCurve.Affine.Point
+
+namespace ValuationSubring
+
+variable {K L : Type*} [Field K] [Field L] [Algebra K L]
+
+def IsFrobeniusAt (A : ValuationSubring L) (σ : L ≃ₐ[K] L) (q : ℕ) : Prop :=
+  ∃ hσ : σ ∈ A.decompositionSubgroup K,
+    ∀ x : IsLocalRing.ResidueField A, (⟨σ, hσ⟩ : A.decompositionSubgroup K) • x = x ^ q
+
+lemma IsFrobeniusAt.mem_decompositionSubgroup {A : ValuationSubring L} {σ : L ≃ₐ[K] L} {q : ℕ}
+    (h : A.IsFrobeniusAt σ q) : σ ∈ A.decompositionSubgroup K :=
+  h.choose
+
+lemma IsFrobeniusAt.smul_residue_eq {A : ValuationSubring L} {σ : L ≃ₐ[K] L} {q : ℕ}
+    (h : A.IsFrobeniusAt σ q) (x : IsLocalRing.ResidueField A) :
+    (⟨σ, h.mem_decompositionSubgroup⟩ : A.decompositionSubgroup K) • x = x ^ q :=
+  h.choose_spec x
+
+end ValuationSubring
+
+end
