@@ -642,7 +642,7 @@ reports and a `nonblocking-notes.json` artifact also retain them. If backlog
 delivery fails, the original PR report remains durable, the failure is recorded,
 and it does not change review acceptance or stop a protected merge.
 
-The Lean-specific review scope remains a separate reform.
+The Lean profile below uses the same one-round rule with a narrower model-review scope.
 
 
 ### Admin decisions on incomplete review
@@ -814,3 +814,93 @@ requested explicitly, across heads and force-pushes. Reusing a completed review
 does not consume another round. Current-head, dependency, history and policy
 checks still govern reuse. The artifact, App record and summary identify the
 profile and count. The full profile retains its four-automatic-round limit.
+
+
+## Lean profile
+
+PRs confined to `ZInQKernel.lean`, `ZInQKernel/**/*.lean`, `lean/ZInQ.lean`,
+`lean/ZInQ/**/*.lean`, `ThirdParty/GreenTao/**/*.lean`, `lakefile.toml`,
+`lake-manifest.json`, `lean-toolchain` and `KERNEL_CONTRACT.json` qualify.
+Mixed manuscript, record, audit-script or gate changes use full review. Lean
+files outside the audited module roots also use full review, including the
+frozen reference statement, which is compared but not replayed as a module.
+Both reviewers check statements, definitions, hypotheses, axioms, published-leaf
+assumptions, pins and contract changes, including their source meaning and consumers.
+They do not re-prove the mathematical reasoning in theorem proof bodies.
+
+Temporary Option A applies until the kernel audit is isolated from candidate
+execution. Both reviewers must inspect every changed Lean hunk for execution
+and checking-environment effects, including proof text and generated or vendored
+code. They follow relevant dependencies and inspect I/O, process/file operations,
+unsafe or external code, options, tactics, elaborators, macros and environment
+changes. There is no size exemption or keyword-only shortcut. An unresolved
+integrity gap blocks acceptance; missing required inspection is an explicit
+incomplete-scope item. This is an interim human/model inspection safeguard,
+not process isolation or a claim that a successful build authenticates itself.
+
+### Direct kernel execution and secret separation
+
+A separate preparation job, without an environment or provider/App keys, waits
+up to 180 minutes for direct kernel execution at the exact reviewed head. Its
+time is separate from the 120-minute model-review job. Only successful `push`
+or `workflow_dispatch` runs of this repository's kernel workflow can supply
+evidence. A `pull_request` test-merge run is never accepted for this purpose,
+even if its audit JSON claims the PR head or its other changes look disjoint.
+Failed, missing, ambiguous or unmatched evidence prevents model calls.
+
+For a fork or another head without a direct run, preparation creates an immutable
+branch in `codex/protocol-b-kernel/<PR>/<head SHA>/<base SHA>` at that head and
+dispatches `kernel-lean.yml` there. Before either write, the PR must target and
+contain the current default-branch tip. The exact workflow at both base and head
+must match the reviewed SHA256 embedded in the gate. The complete `scripts`,
+`tests` and `.github` trees, checkout attributes and any `.gitmodules` entry must
+also match the protected base. This binds every local helper and action/workflow
+reference used by the pinned workflow. A workflow change needs a separately
+reviewed pin update; it cannot silently broaden this producer.
+
+On an outside author's Lean PR, a current collaborator's `/protocol-b review`
+command is the approval to create that branch in this repository and run the
+outside code there. The build uses the pinned workflow's read-only token and
+receives no environment or secrets. It does not wait for the separate
+first-time-contributor approval used by fork `pull_request` runs. The reserved
+branch remains visible until the PR closes and its runs are confirmed terminal.
+
+That pinned kernel workflow uses GitHub-hosted runners, SHA-pinned actions,
+read-only permissions, no environments and no secrets. Its explicit cache-save
+step runs only on pushes to `main`, never on these dispatches. The reserved
+branch namespace must never be used as a PR base or as the starting point for
+another branch. GitHub scopes any candidate-created caches to that branch;
+main and sibling branches must not restore them. Option A inspection must also
+consider candidate code attempting cache or runner-environment mutations.
+
+Ref creation is the durable at-most-once claim. The gate never moves an existing
+ref and never dispatches again for an existing claim without a visible run.
+It records intent before writes, preserves the exact dispatch response/run ID,
+and confirms the run's repository, event, workflow, branch and execution SHA.
+An uncertain write or missing receipt stops preparation and retains the claim
+for a maintainer to reconcile against actual Actions records. Time passing is
+not evidence that a dispatch failed. Do not delete an unresolved claim to retry.
+
+A separate job with no environment or provider/App keys cleans only unmoved
+refs in that namespace after the PR is closed and all runs on the ref are
+terminal, with at least one confirmed exact-head execution. It runs on PR
+closure and hourly, since workflow-token merges do not emit ordinary closed
+workflow events. Unknown or active runs keep their refs. Cleanup records the
+ref, PR, head/base, run IDs and outcome; it never deletes a real contributor branch.
+
+The bounded `audit.json` is read without extracting or executing downloaded
+files. The run must have succeeded; its artifact must bind that run and head,
+and the downloaded ZIP must match GitHub's artifact digest. The audit must bind
+the head and contract, and cover all changed Lean modules. Reviewers receive
+the actual used axioms, target statuses, conditional headline type and runtime
+declarations not replayed. The durable App decision retains the run/attempt,
+artifact/digest, audited commit, trusted source binding and audit hash. A model
+scope override still requires this authentic evidence; it cannot replace it.
+
+There is no regex-based proof-only fast path or statement-only reuse. A disjoint
+rebase may reuse a completed model review only under the existing whole-diff and
+dependency rules, and needs fresh exact-head kernel evidence. One paid round
+consumes the automatic allowance; later model calls need a write collaborator's
+`/protocol-b review`. Admin decisions remain explicit, exact-head overrides.
+The existing required computation checks still apply. No model review is
+treated as formal verification.
