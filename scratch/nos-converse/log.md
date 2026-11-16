@@ -18,3 +18,13 @@ Base wip/nos-proof e9828e92, merged origin/main e41a7169 (STATUS.md only). Build
 - `shimuraIntegralModelRep` (the only integral-model field for QM surfaces) was pruned at sgr-fold (TailZ39), so
   the consumer cannot get good reduction from a proper integral Shimura model either.
 - No field gives l-independence of inertia (GrothendieckMonodromy/RaynaudCriterion only give (σ-1)^2 = 0).
+
+## Lean (scratch/nos-converse/Reduction.lean) — compiles 11-16 ~15:40, standard axioms (VERIFIED)
+- `NOSConverse.nosConverseNF_of_pieces : NeronSchemeExtensionExists → NeronBaseChangeStrictHenselization →
+  RaynaudSemistableSH → InertiaFixedRational → TorusRankZero → AbelianReductionGood → NOSConverseNF`.
+- `nosConverseBar_of_pieces`: same over every field with `ReductSplit.NeronSchemeModelExistsDVR` (BLR 1.4/3 over any
+  DVR, not a field) in place of N1. `neronOggShafarevich_of_bar : NOSConverseBar → r7a`; `bar_of_sep`.
+- `goodReduction_of_QM_rational3_of_algNF`: the live consumer with `NOSConverseNF` in place of r7a (compiles).
+- Pieces: InertiaFixedRational (GLUE, Galois: inertia-fixed torsion rational over the inertia field),
+  TorusRankZero (GLUE, Serre–Tate torsion count on the semistable special fibre), AbelianReductionGood (LEAF,
+  N⁰_{k̄} abelian ⇒ good reduction; properness criterion).

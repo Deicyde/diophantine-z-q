@@ -194,7 +194,108 @@ theorem nosConverseBar_of_pieces (hN : NeronSchemeModelExistsDVR)
   obtain ⟨𝒩, h𝒩⟩ := exists_neron_groupModel hN O (ObjBridge.ofGrp A)
   exact goodReduction_of_neron hSH hR ZInQ.Contrib.OneProof.MulEtale.mulEtaleAbelianScheme_proof hA hB hC O w hw A 𝒩 h𝒩 hinf
 
+/-! ## §3 Relations with `r7a`, the old leaf and the consumer -/
+
+/-- **`r7a` from `NOSConverseBar`** ((a) ⇒ (b) and (b) ⇒ (c) proved by nos-proof). -/
+theorem neronOggShafarevich_of_bar (h : NOSConverseBar) : PkgI2.NeronOggShafarevich.{0} := by
+  intro K _ O _ w hw A _
+  have hbc : (∀ m : ℕ, 0 < m → IsUnit (m : O) → InertiaTrivialOn A w m) →
+      {m : ℕ | 0 < m ∧ IsUnit (m : O) ∧ InertiaTrivialOn A w m}.Infinite := by
+    intro hb
+    refine (NOSProof.infinite_natCast_isUnit O).mono ?_
+    rintro m ⟨hm, hu⟩
+    exact ⟨hm, hu, hb m hm hu⟩
+  have hab : HasGoodReduction A O → ∀ m : ℕ, 0 < m → IsUnit (m : O) → InertiaTrivialOn A w m :=
+    fun hA m hm hu => NOSProof.inertiaTrivialOn_of_goodReduction O w hw A hA m hm hu
+  exact ⟨⟨hab, fun hb => h K O w hw A (hbc hb)⟩, ⟨fun hA => hbc (hab hA), h K O w hw A⟩⟩
+
+/-- `NOSConverseBar` is the converse direction of `r7a`. -/
+theorem bar_of_neronOggShafarevich (h : PkgI2.NeronOggShafarevich.{0}) : NOSConverseBar :=
+  fun K _ O _ w hw A _ hinf => (h K O w hw A).2.mpr hinf
+
+/-- nos-proof's leaf gives `NOSConverseBar` (via `r7a`). -/
+theorem bar_of_sep (h : NOSProof.NOSConverseSep) : NOSConverseBar :=
+  bar_of_neronOggShafarevich (NOSProof.neronOggShafarevich_of_converse h)
+
+/-- The number-field form is a specialization. -/
+theorem nf_of_bar (h : NOSConverseBar) : NOSConverseNF :=
+  fun K _ _ O _ w hw A _ hinf => h K O w hw A hinf
+
+/-- **The live consumer reads only `NOSConverseNF`**: `PkgI2.goodReduction_of_QM_rational3_of_alg` (LPrefix
+l. 814) with `hNOS : NeronOggShafarevich` replaced by `NOSConverseNF` (proof otherwise verbatim). -/
+theorem goodReduction_of_QM_rational3_of_algNF {K : Type} [Field K] [NumberField K] (hNOS : NOSConverseNF)
+    (hRay : HDec.PkgI2.RaynaudCriterionNF.{0}) (hTors : PkgI2.TorsionStructure.{0})
+    (hAlg : HDec.PkgI2.QuatUnipotentTrivial.{0})
+    (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    (w : ValuationSubring (AlgebraicClosure K))
+    (hw : w.comap (algebraMap K (AlgebraicClosure K)) = O)
+    (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A]
+    (hdim : topologicalKrullDim A.X.left = ((2 : ℕ) : WithBot ℕ∞))
+    (I J : A ⟶ A)
+    (hI : ∀ x : Pts A (AlgebraicClosure K), (x ≫ I.hom.hom) ≫ I.hom.hom = x ^ 2)
+    (hJ : ∀ x : Pts A (AlgebraicClosure K), (x ≫ J.hom.hom) ≫ J.hom.hom * x ^ 3 = 1)
+    (hIJ : ∀ x : Pts A (AlgebraicClosure K),
+      (x ≫ I.hom.hom) ≫ J.hom.hom * (x ≫ J.hom.hom) ≫ I.hom.hom = 1)
+    (h3 : IsUnit (3 : O))
+    (hrat : ∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K,
+      ∀ x ∈ torsion A (AlgebraicClosure K) 3, galAct A σ x = x) :
+    HasGoodReduction A O := by
+  have : IsProper A.X.hom := IsAbelianVariety.proper
+  have : GeometricallyIntegral A.X.hom := IsAbelianVariety.geomIntegral
+  have : IsCommMonObj A.X := isCommMonObj_of_isProper_of_geometricallyIntegral A.X
+  have h3' : IsUnit ((3 : ℕ) : O) := by exact_mod_cast h3
+  have h3K : ((3 : ℕ) : K) ≠ 0 := by
+    intro h
+    apply h3.ne_zero
+    apply Subtype.val_injective
+    have h' : (3 : K) = 0 := by exact_mod_cast h
+    have e3 : ((3 : O) : K) = 3 := rfl
+    rw [e3, h']
+    rfl
+  have key : ∀ k : ℕ, 1 ≤ k → InertiaTrivialOn A w (3 ^ k) := by
+    intro k hk σ hσ x hx
+    obtain ⟨e, he⟩ := hTors K A 2 (3 ^ (2 * k)) hdim (by positivity)
+      (by rw [Nat.cast_pow]; exact pow_ne_zero _ h3K)
+    exact hAlg (Pts A (AlgebraicClosure K)) k hk (HDec.PkgI2.endPts A I) (HDec.PkgI2.endPts A J)
+      (HDec.PkgI2.galHomPts A σ) hI hJ hIJ (fun x => by
+        simp only [HDec.PkgI2.galHomPts, HDec.PkgI2.endPts, MonoidHom.coe_mk, OneHom.coe_mk, galAct,
+          Category.assoc])
+      (fun x => by
+        simp only [HDec.PkgI2.galHomPts, HDec.PkgI2.endPts, MonoidHom.coe_mk, OneHom.coe_mk, galAct,
+          Category.assoc])
+      ⟨e, he⟩ (fun y hy => hRay K O w hw A 3 le_rfl h3' hrat σ hσ 3 Nat.prime_three h3'
+        (2 * k) y hy) x hx
+  -- Néron–Ogg–Shafarevich (c) ⇒ (a), at a number field
+  refine hNOS K O w hw A ?_
+  refine Set.infinite_of_injective_forall_mem (f := fun k : ℕ => 3 ^ (k + 1)) ?_ ?_
+  · intro a b hab
+    simpa using (Nat.pow_right_injective (by norm_num : 2 ≤ 3) hab)
+  · intro k
+    refine ⟨by positivity, ?_, key (k + 1) (by omega)⟩
+    rw [Nat.cast_pow]; exact h3'.pow _
+
+/-- Sanity: the copy agrees with the original on `r7a`. -/
+example {K : Type} [Field K] [NumberField K] (hNOS : PkgI2.NeronOggShafarevich.{0})
+    (hRay : HDec.PkgI2.RaynaudCriterionNF.{0}) (hTors : PkgI2.TorsionStructure.{0})
+    (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    (w : ValuationSubring (AlgebraicClosure K))
+    (hw : w.comap (algebraMap K (AlgebraicClosure K)) = O)
+    (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A]
+    (hdim : topologicalKrullDim A.X.left = ((2 : ℕ) : WithBot ℕ∞)) (I J : A ⟶ A)
+    (hI : ∀ x : Pts A (AlgebraicClosure K), (x ≫ I.hom.hom) ≫ I.hom.hom = x ^ 2)
+    (hJ : ∀ x : Pts A (AlgebraicClosure K), (x ≫ J.hom.hom) ≫ J.hom.hom * x ^ 3 = 1)
+    (hIJ : ∀ x : Pts A (AlgebraicClosure K),
+      (x ≫ I.hom.hom) ≫ J.hom.hom * (x ≫ J.hom.hom) ≫ I.hom.hom = 1)
+    (h3 : IsUnit (3 : O))
+    (hrat : ∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K,
+      ∀ x ∈ torsion A (AlgebraicClosure K) 3, galAct A σ x = x) :
+    HasGoodReduction A O :=
+  goodReduction_of_QM_rational3_of_algNF (nf_of_bar (bar_of_neronOggShafarevich hNOS)) hRay hTors
+    HDec.PkgI2.quatUnipotentTrivial O w hw A hdim I J hI hJ hIJ h3 hrat
+
 end NOSConverse
 
 #print axioms NOSConverse.nosConverseNF_of_pieces
 #print axioms NOSConverse.nosConverseBar_of_pieces
+#print axioms NOSConverse.neronOggShafarevich_of_bar
+#print axioms NOSConverse.goodReduction_of_QM_rational3_of_algNF
