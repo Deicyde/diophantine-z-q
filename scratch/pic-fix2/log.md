@@ -26,3 +26,14 @@ Base: wip/pic-fix be79cb5b; origin/main 2880fef1e already an ancestor (merge: no
 * `isVeryAmple_bcPic`: very ample base-changes to K̄ (vendored liftBaseChange + pullbackMapTwistIso).
 * `phiVeryAmpleIsogeny_of_reading : MumfordKLFiniteDivisorAC → MumfordPhiSurjectiveVAC → PhiVeryAmpleIsogeny`.
 * `t09SymmIsogenyExists_of_four_va` (h3 : PhiVeryAmpleIsogeny): the consumer term for a narrowing fold.
+
+## Contribution file, #discharges, autofold (VERIFIED)
+* ZInQKernel/Contrib/OneProof/PhiAmpleIsogenyReading.lean (namespace PicFix2; imports PicDictionary and the vendored
+  ZeroLocusTensor, EffectiveCartier; not Main). `lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges
+  +ZInQKernel.Contrib.OneProof.PhiAmpleIsogenyReading`: success, 13700 jobs.
+* #discharges (scratch/pic-fix2/discharges.txt):
+  DISCHARGES [OpenAddedLeaves17.phiAmpleIsogeny] by PicFix2.phiAmpleIsogeny_of_reading
+    still assumes: [PicFix2.MumfordKLFiniteDivisorAC, PicFix2.MumfordPhiSurjectiveVAC, PicFix2.AmplePowVeryAmple]
+    axioms: [propext, Classical.choice, Quot.sound]
+* autofold.json dry run: `strict count: 34/11 on 45 -> 37/10 on 47; strictest 34/11 -> 37/10` (-1 both).
+  FoldDryRun.lean (line 1 stripped) compiles: sixContactMin_of_open36 axioms standard.

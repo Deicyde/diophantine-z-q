@@ -1,0 +1,38 @@
+{
+ "name": "pic-fix2",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.PhiAmpleIsogenyReading"
+ ],
+ "discharges": [
+  {
+   "field": "phiAmpleIsogeny",
+   "proof": "_root_.PicFix2.phiAmpleIsogeny_of_reading {n}.mumfordKLFiniteDivisorAC {n}.mumfordPhiSurjectiveVAC {n}.amplePowVeryAmple",
+   "leaves": [
+    {
+     "name": "mumfordKLFiniteDivisorAC",
+     "type": "_root_.PicFix2.MumfordKLFiniteDivisorAC",
+     "doc": "pic-fix2: for D an effective Cartier divisor (invertible ideal sheaf) on an abelian variety over an algebraically closed field with L = O(D) ample (IsAmple) and very ample (IsVeryAmple), K(L) is finite (Mumford, Abelian varieties, section 6 Application 1, (iv) => (ii); an instance of the print under either reading of Mumford's 'ample'; locator UNVERIFIED).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Mumford 6 Application 1, D effective Cartier divisor, L = O(D) with IsAmple and IsVeryAmple, an instance under either reading of 'ample'); locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, 6 Application 1: for D effective and L = O(D) ample, K(L) is finite"
+    },
+    {
+     "name": "mumfordPhiSurjectiveVAC",
+     "type": "_root_.PicFix2.MumfordPhiSurjectiveVAC",
+     "doc": "pic-fix2: for L ample (IsAmple) and very ample (IsVeryAmple) on an abelian variety X over an algebraically closed field, every translation-invariant class is t_x^*L (x) L^-1 for some x in X(k) (Mumford, Abelian varieties, section 8 Thm 1; an instance of the print under either reading of 'ample'; locator UNVERIFIED).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Mumford 8 Thm 1 with IsAmple and IsVeryAmple, an instance under either reading of 'ample'); locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, 8 Thm 1"
+    },
+    {
+     "name": "amplePowVeryAmple",
+     "type": "_root_.PicFix2.AmplePowVeryAmple",
+     "doc": "pic-fix2: an ample class (IsAmple, Stacks 01PS) on an abelian variety over a field k has a power L^d, d >= 1, with an immersion i into P^N_k over k and L^d = i^*O(1) (Stacks, Morphisms, Lemma 29.39.4, Tag 01VU, (1) => (5); EGA II 4.5.10; Hartshorne II 7.6; locator UNVERIFIED).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (ample implies a power is very ample, X of finite type over Spec k; instance of the print for X an abelian variety); locator UNVERIFIED",
+     "source": "Stacks Project, Morphisms, Lemma 29.39.4 (Tag 01VU); EGA II 4.5.10; Hartshorne II Thm 7.6"
+    }
+   ]
+  }
+ ]
+}
