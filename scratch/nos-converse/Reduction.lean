@@ -514,6 +514,74 @@ def RankZeroAbelian : Prop :=
     ∀ (U : Over (Spec (CommRingCat.of k))) [GrpObj U] (inc : U ⟶ G) (B : PkgI3.AbVar k) (π : U ⟶ B.X),
       SemiAbelianRank G U inc B π 0 → HasAbelianIdentityComponent G
 
+
+/-- With torus rank `0`, two morphisms `Spec R → U` with the same composite to `B` are equal. -/
+theorem eq_of_comp_eq_rank_zero {k : Type} [Field k] {G : Over (Spec (CommRingCat.of k))} [GrpObj G]
+    {U : Over (Spec (CommRingCat.of k))} [GrpObj U] {inc : U ⟶ G} {B : PkgI3.AbVar k} {π : U ⟶ B.X}
+    (hU : SemiAbelianRank G U inc B π 0) (R : CommRingCat.{0}) (h1 h2 : Spec R ⟶ U.left)
+    (h : h1 ≫ π.left = h2 ≫ π.left) : h1 = h2 := by
+  obtain ⟨-, -, -, hπ, -, -, e, -, hker, -⟩ := hU
+  let s : Spec R ⟶ Spec (CommRingCat.of k) := h1 ≫ U.hom
+  let φ : CommRingCat.of k ⟶ R := Spec.preimage s
+  letI : Algebra k R := φ.hom.toAlgebra
+  have hs : Spec.map (CommRingCat.ofHom (algebraMap k R)) = s := by
+    change Spec.map (CommRingCat.ofHom φ.hom) = s
+    rw [CommRingCat.ofHom_hom, Spec.map_preimage]
+  have hw2 : h2 ≫ U.hom = s := by
+    change h2 ≫ U.hom = h1 ≫ U.hom
+    rw [← Over.w π, ← Category.assoc, ← h, Category.assoc]
+  let u1 : algPt k R ⟶ U := Over.homMk h1 (by simpa [algPt] using hs.symm)
+  let u2 : algPt k R ⟶ U := Over.homMk h2 (by simp only [algPt, Over.mk_hom]; rw [hw2, hs])
+  have hu : u1 ≫ π = u2 ≫ π := by
+    apply Over.OverMorphism.ext
+    rw [Over.comp_left, Over.comp_left]
+    exact h
+  let F : (algPt k R ⟶ U) →* (algPt k R ⟶ B.X) :=
+    { toFun := fun x => x ≫ π
+      map_one' := MonObj.one_comp π
+      map_mul' := fun x y => MonObj.mul_comp x y π }
+  have h0 : (u1 * u2⁻¹) ≫ π = 1 := by
+    change F (u1 * u2⁻¹) = 1
+    rw [map_mul, map_inv]
+    change (u1 ≫ π) * (u2 ≫ π)⁻¹ = 1
+    rw [hu, mul_inv_cancel]
+  obtain ⟨t, ht⟩ := (hker R (u1 * u2⁻¹)).mp h0
+  have ht1 : t = 1 := funext fun i => Fin.elim0 i
+  rw [ht1, map_one] at ht
+  have h12 : u1 = u2 := (mul_inv_eq_one.mp ht.symm)
+  exact congrArg Over.Hom.left h12
+
+/-- **`RankZeroAbelian`, PROVED**: with torus rank `0`, `π : U → B` is a flat surjective monomorphism locally of
+finite presentation, hence an isomorphism (Mathlib `IsOpenImmersion.of_flat_of_mono`), so `U` is proper. -/
+theorem rankZeroAbelian_proof : RankZeroAbelian := by
+  intro k _ G _ hG U _ inc B π hU
+  have hU' := hU
+  obtain ⟨hinc, hmon, hconn, hπ, hflat, hsurj, -⟩ := hU'
+  haveI : Mono π.left := ⟨fun {Z} g1 g2 h => by
+    refine Scheme.hom_ext_of_forall g1 g2 fun z => ?_
+    obtain ⟨_, ⟨V, hV, rfl⟩, hzV, -⟩ :=
+      Z.isBasis_affineOpens.exists_subset_of_mem_open (Set.mem_univ z) isOpen_univ
+    change Z.Opens at V
+    change IsAffineOpen V at hV
+    refine ⟨V, hzV, ?_⟩
+    rw [← cancel_epi hV.isoSpec.inv, ← Category.assoc, ← Category.assoc]
+    exact eq_of_comp_eq_rank_zero hU Γ(Z, V) _ _ (by rw [Category.assoc, Category.assoc, Category.assoc,
+      Category.assoc, h])⟩
+  haveI : LocallyOfFiniteType U.hom := by
+    rw [← Over.w inc]; infer_instance
+  haveI : LocallyOfFiniteType (π.left ≫ B.X.hom) := by
+    rw [Over.w π]; infer_instance
+  haveI : LocallyOfFiniteType π.left := locallyOfFiniteType_of_comp π.left B.X.hom
+  haveI : IsLocallyNoetherian B.X.left := LocallyOfFiniteType.isLocallyNoetherian B.X.hom
+  haveI : LocallyOfFinitePresentation π.left :=
+    LocallyOfFinitePresentation.iff_locallyOfFiniteType.mpr inferInstance
+  haveI : IsOpenImmersion π.left := IsOpenImmersion.of_flat_of_mono π.left
+  haveI : IsIso π.left := (isIso_iff_isOpenImmersion_and_surjective π.left).mpr ⟨inferInstance, hsurj⟩
+  haveI : IsProper B.X.hom := B.proper
+  refine ⟨U, inferInstance, inc, hinc, hmon, hconn, ?_⟩
+  rw [← Over.w π]
+  infer_instance
+
 /-- `m` invertible in `O` is nonzero in `κ̄(O)`. -/
 theorem natCast_ne_zero_resBar {K : Type} [Field K] (O : ValuationSubring K) {m : ℕ}
     (hm : IsUnit (m : O)) : (m : ResBarO O) ≠ 0 := by
@@ -590,3 +658,4 @@ end NOSConverse
 #print axioms NOSConverse.nosConverseNF_of_two
 #print axioms NOSConverse.neronOggShafarevich_of_two
 #print axioms NOSConverse.torusRankZero_of_count
+#print axioms NOSConverse.rankZeroAbelian_proof
