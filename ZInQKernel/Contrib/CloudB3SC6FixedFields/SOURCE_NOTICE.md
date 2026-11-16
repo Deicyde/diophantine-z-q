@@ -42,6 +42,12 @@ and proves that point-fibre invariance fixes the coordinate germ. It proves only
 containment `Q(t) ⊆ fixedByW`; it neither assumes the equality nor constructs a moduli witness.
 The old function-field-to-fibre proofs are unchanged.
 
+`SignRealization.lean` is new project glue. On the same chart and coarse-witness hypotheses,
+`exists_W_with_signs_of_point_fibres` proves that every coordinate-sign pair is realized by a
+member of W on the function field. It uses one point fibre with both coordinates nonzero
+and reuses the existing constant-sign/chart-action proof. It does not assert a degree bound,
+construct a field automorphism enumeration, or assume a fixed-field equality.
+
 ## Scope
 
 These are supporting theorems, not a proof of the existential
