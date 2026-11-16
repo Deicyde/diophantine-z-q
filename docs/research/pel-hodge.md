@@ -278,3 +278,19 @@ here.
   files that fold28b changed; holfam's `CompositeOut` / `DeligneComponentsY3Used` import `TailZ40`.
 * No statement was changed. Nothing under `ZInQKernel/` was edited except the new file
   `ZInQKernel/Contrib/OneProof/PELHodge.lean`.
+
+## 9. Statement review (model, read-only, no Lean run)
+
+A read-only adversarial review by a subagent, which read the code but ran no Lean, found no soundness issue.
+
+* **The `H₁` form.** `H1Form` / `IsHodgeFibre` is the Hodge-structure isomorphism.
+  * It is not stronger than that: it never requires `e` to be onto or to have kernel exactly `Λ`.
+  * It is not vacuous, given `phiHomeo` and `h1Form_iff`.
+* **The `𝒪`-action.** `IotaCompatible` and `qmLattice` use the same `iota`. So `𝒪` acts on `Λ_τ` by left
+  multiplication.
+* **The leaf against the print.** The leaf copies holfam's non-fibre clauses unchanged and drops the polarization
+  and level data, so it is weaker than the print. The `h_τ` / `h̄_τ` convention does not matter, because `sτ` is
+  existential.
+* **The topology.** `H1`, `loopClass` and the `Path` in `H1Form` all elaborate under the same local instance,
+  `classicalTopology`. No other `TopologicalSpace` instance on `A.Pt ℂ` exists in the tree (grep).
+* **Inherited from holfam, not re-audited:** `IsHolFamily` and the clause "every field fibre is a `QML3`".
