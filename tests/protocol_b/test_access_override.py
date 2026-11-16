@@ -82,7 +82,7 @@ class AccessOverride(unittest.TestCase):
         gh, app = FakeGH(), FakeApp()
         pair = self.pair()
         app.prior(pair)
-        gh.permission = 'write'
+        gh.permission = 'admin'
         command = comment('/protocol-b override '+HEAD+' 1-1-astra-F2 Accepted by owner', 'collaborator')
         gh.comments = [report_comment(e) for e in pair.values()]+[command]
         event = {'issue': {'number': 1}, 'comment': command, 'sender': {'login': 'collaborator'}}
