@@ -7,8 +7,11 @@ helpers to ordinary commands and resolved metadata aliases directly. Mathematica
 bodies retained, subject to documented Lean 4.35 API adaptations.
 Full original notices/credits: NOTICE.upstream, ATTRIBUTION.upstream.md, LICENSE in this vendor root.
 -/
-import Mathlib
-
+import Mathlib.AlgebraicGeometry.Morphisms.Smooth
+import Mathlib.AlgebraicGeometry.Morphisms.Proper
+import Mathlib.AlgebraicGeometry.Pullbacks
+import Mathlib.RingTheory.DedekindDomain.Basic
+import Mathlib.NumberTheory.Padics.RingHoms
 set_option backward.isDefEq.respectTransparency false
 
 set_option autoImplicit false

@@ -60,7 +60,8 @@ theorem smoothOfRelativeDimension (g : ℕ)
     (relativeLaw A) g
   intro s
   rw [fibre_eq_univ]
-  simpa only [Topology.topologicalKrullDim_univ] using hg
+  exact (IsHomeomorph.topologicalKrullDim_eq _
+    (Homeomorph.Set.univ A.X.left).isHomeomorph).trans hg
 
 /-- `Spec k` over itself has the identity structure morphism. -/
 theorem specOver_self_hom : (PkgI2.specOver k k).hom = 𝟙 (Spec (.of k)) := by
