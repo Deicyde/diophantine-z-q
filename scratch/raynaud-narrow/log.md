@@ -38,3 +38,18 @@ sixContactMin_of_current: [propext, Classical.choice, Quot.sound].
 ChainCheck.lean (chaincheck-output.txt): closure of RNarrow.sixContactMin_of_open38 (241,439 constants) contains neither
 ReductGlue.RaynaudSemistableSH nor DictModels.RaynaudOr.RaynaudSemistableSHOr nor HDec.HSyn.OpenResearchLeaves14 nor
 raynaudSemistable_of14; contains ReductB.RaynaudSemistableSHcp and the original HDec.HSyn.sixContactMin_of_open11.
+
+## Fold (VERIFIED)
+- scratch/raynaud-narrow/gen_fold.py writes TailZ46.lean (proposed H module: OpenResearchLeaves29 = 28 with
+  raynaudSemistableSHOr → raynaudSemistableSHcp; rNarrowLeaves28_of_OpenResearchLeaves29; sixContactMin_of_open39) and,
+  with --tree DIR, Main.lean switched and the kinds.tsv row renamed.
+- autofold.json: discharges raynaudSemistableSHcp by `RaynaudNarrow.raynaudSemistableSHcp_of_cpOr' {n}.raynaudSemistableSHcpOr`,
+  leaf raynaudSemistableSHcpOr (published, reading risk m > 3). Dry run in a temp tree (/tmp copy with gen_fold --tree):
+  "strict count: 16/21 on 37 -> 16/21 on 37; strictest 16/21 -> 16/21" (autofold-dryrun.txt).
+- FoldDryRun.lean (TailZ46 + dry-run TailZ47 concatenated): compiles; open39, open40 standard axioms (folddryrun-output.txt).
+- EndToEnd.lean: Main's frozenTarget restated over sixContactMin_of_open40 (frozenTarget_raynaudNarrow): compiles,
+  [propext, Classical.choice, Quot.sound] (endtoend-output.txt).
+- #discharges (DischargesCheck.lean, discharges-output.txt): "45 open hypotheses, 7150 theorems checked, 244 discharge
+  one"; 231 of the 244 are projections of the copied RNarrow bundles (RNarrow.OpenResearchLeavesN.f, each "proves" a
+  field from the copied bundle: artifact of the copy, not a discharge); the other 13 are the base's. No theorem of the
+  new files discharges an open hypothesis (expected: raynaudSemistableSHOr is narrowed, not proved).

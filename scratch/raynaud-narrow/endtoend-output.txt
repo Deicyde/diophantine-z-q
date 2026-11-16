@@ -1,0 +1,11 @@
+'ZInQ.Contrib.TYZChain.frozenTarget_raynaudNarrow' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.TYZChain.frozenTarget_raynaudNarrow : HDec.HSyn.OpenResearchLeaves30 →
+  HDec.HSyn.OpenTextbookLeaves13 →
+    HDec.HSyn.OpenAddedLeaves19 →
+      ZInQ.Contrib.TYZDecomp.TYZThm11Integral →
+        ZInQ.Contrib.TYZDecomp.H29Split.TYZTestVectorExists →
+          ZInQ.Contrib.TYZDecomp.H29Split.TYZLemma29PrintedNe3 →
+            ZInQ.Contrib.TYZDecomp.H29Split.TYZProp23Printed →
+              T5Glue.ShimuraMainCM →
+                ZInQ.Contrib.TYZGenus.TYZSplit.TYZThm33 →
+                  ZInQ.BFHPrinted.BFHClauseIIGamma0 → ZInQ.GZDecomp.GrossZagierHeegner → ZInQ.FrozenTarget
