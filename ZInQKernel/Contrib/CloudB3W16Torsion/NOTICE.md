@@ -1,7 +1,8 @@
 # Worker16 torsion source port
 
-**Verification status:** source assembly only. No H102 discharge is claimed until
-all imported modules, the leaf, and the exact Main/Discharges scratch compile.
+**Verification status:** staged source port with separately checked prerequisites.
+No H102 discharge is claimed until the genuine geometric provider, the leaf,
+and the exact newest-Main/Discharges scratch compile.
 
 ## Immutable sources
 
@@ -35,8 +36,11 @@ cardinality formula.
 
 - Local import paths moved below this contribution; original declaration namespaces retained.
 - Nonessential broad negative-instance/simp preambles and reactivation scaffolding removed.
-- Namespace/open/export commands expanded to ordinary Lean commands; metadata aliases
-  resolved directly. No new elaborators, macros, syntax or notation introduced.
+- Standalone namespace/open/export scaffold has been translated to ordinary Lean
+  commands where needed. Some multi-command inline `p2m_export` invocations remain
+  and use the existing imported `P2M.Util` helpers; this port does not define new
+  elaborators, macros, syntax or notation. Per-file conversion headers describe
+  the porting method, not a claim that every existing helper invocation is gone.
 - Source-local notation expanded as literal expressions at its lexical scope.
 - Backward elaboration transparency restored for the fixed Lean4.35/Mathlib56a00585
   environment. Definitions and theorem conclusions are not weakened.
