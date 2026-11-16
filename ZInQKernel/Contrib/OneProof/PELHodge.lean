@@ -497,6 +497,62 @@ theorem compositeUses_of_hodge (hR : ShimuraGlue.DeligneComponentsX6PrintedAb) (
     ShimuraGlue.Ray.RayClassCMAb ∧ HDec.QMSplit.Moduli.ShimuraFamilyAb ∧ HDec.TSHecke.Y3Connected :=
   HolFamilyPrinted.compositeUses_of_pel hR (pelHolFamily_of_hodge hUL h) hM hUL hG hMum hGL
 
+/-! ## Consumers with the fine witness from the R1fp clauses (without `deligneComponentsX6PrintedAb`)
+
+pi0-prune removes `deligneComponentsX6PrintedAb` from the bundles; holfam's consumers read only its fine witness
+(`ShimuraSplit2.witness_of_x6`). The same witness comes from the R1fp clause of the moduli rows: of `r1r2`
+(`R1R2fpRep`, or pi0-prune's `R1R2fpRepW`, through `R1fpProps = R1fpPropsAb` under `mumfordGroupLaw`), of its
+abelian-scheme form `R1R2fpRepAb`, or of the research field `gonzalezRotgerX6Ab`. -/
+
+/-- A fine witness from any `R1fpProps` witness, under Mumford's group law (`r1fpProps_eq_ab_gl`). -/
+theorem witness_of_r1fp (hGL : ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw)
+    (h : ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y), R1fpProps Y Φ) :
+    ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y), LeafQM.AV.R1UnivRigid.R1fpPropsAb Y Φ := by
+  rw [← LeafQM.AV.R1UnivRigid.r1fpProps_eq_ab_gl (LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_groupLaw hGL)]
+  exact h
+
+/-- A fine witness from the row `r1r2` (`R1R2fpRep`), under Mumford's group law. -/
+theorem witness_of_r1r2 (hGL : ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw) (h : HDec.LeafAdopt.R1R2fpRep) :
+    ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y), LeafQM.AV.R1UnivRigid.R1fpPropsAb Y Φ := by
+  obtain ⟨Y, Φ, -, -, -, -, h1, -⟩ := h
+  exact witness_of_r1fp hGL ⟨Y, Φ, h1⟩
+
+/-- A fine witness from the abelian-scheme row `R1R2fpRepAb`. -/
+theorem witness_of_r1r2Ab (h : HDec.LeafAdopt.R1R2fpRepAb) :
+    ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y), LeafQM.AV.R1UnivRigid.R1fpPropsAb Y Φ := by
+  obtain ⟨Y, Φ, -, -, -, -, h1, -⟩ := h
+  exact ⟨Y, Φ, h1⟩
+
+/-- A fine witness from the research field `gonzalezRotgerX6Ab`. -/
+theorem witness_of_grX6Ab (h : HDec.QMSplit.Moduli.GonzalezRotgerX6Ab) :
+    ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y), LeafQM.AV.R1UnivRigid.R1fpPropsAb Y Φ := by
+  obtain ⟨Y, Φ, -, -, -, h1, -⟩ := h
+  exact ⟨Y, Φ, h1⟩
+
+/-- `ShimuraSplit2.ShimuraHolFamilyAb` from `PELHolFamilyHodge` and any fine witness. -/
+theorem shimuraHolFamilyAb_of_hodgeW
+    (hW : ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y), LeafQM.AV.R1UnivRigid.R1fpPropsAb Y Φ)
+    (hU : Uniformization.UniformizationLeafAll) (h : PELHolFamilyHodge) : ShimuraSplit2.ShimuraHolFamilyAb :=
+  ShimuraSplit2.shimuraHolFamilyAb_of_all hW (shimuraHolModAll_of_hodge hU h)
+
+/-- **The three uses of the composite** from `PELHolFamilyHodge`, `MainTheoremCM`, any fine witness, the textbook
+fields and `mumfordGroupLaw` (no `deligneComponentsX6PrintedAb`). -/
+theorem compositeUses_of_hodgeW
+    (hW : ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y), LeafQM.AV.R1UnivRigid.R1fpPropsAb Y Φ)
+    (h : PELHolFamilyHodge) (hM : QMRecPrinted.MainTheoremCM)
+    (hUL : BPAnalytic.Uniformization.UniformizationLeafAll) (hG : ZInQ.HomLattice.GAGAMorphism)
+    (hMum : AvSplit.MumfordTorsionAlgClosed) (hGL : ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw) :
+    ShimuraGlue.Ray.RayClassCMAb ∧ HDec.QMSplit.Moduli.ShimuraFamilyAb ∧ HDec.TSHecke.Y3Connected :=
+  CompositeOut.compositeUses_of_hol (shimuraHolFamilyAb_of_hodgeW hW hUL h) hM hUL hG hMum hGL
+
+/-- The same with the witness of the research field `gonzalezRotgerX6Ab`. -/
+theorem compositeUses_of_hodge_gr (hGR : HDec.QMSplit.Moduli.GonzalezRotgerX6Ab) (h : PELHolFamilyHodge)
+    (hM : QMRecPrinted.MainTheoremCM) (hUL : BPAnalytic.Uniformization.UniformizationLeafAll)
+    (hG : ZInQ.HomLattice.GAGAMorphism) (hMum : AvSplit.MumfordTorsionAlgClosed)
+    (hGL : ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw) :
+    ShimuraGlue.Ray.RayClassCMAb ∧ HDec.QMSplit.Moduli.ShimuraFamilyAb ∧ HDec.TSHecke.Y3Connected :=
+  compositeUses_of_hodgeW (witness_of_grX6Ab hGR) h hM hUL hG hMum hGL
+
 end PELHodge
 
 end

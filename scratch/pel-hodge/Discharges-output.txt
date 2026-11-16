@@ -28,7 +28,7 @@ DISCHARGES [OpenResearchLeaves22.sga7_IX_3_5_ForwardGeom] by UnipotentForward.fo
 DISCHARGES [OpenResearchLeaves22.mumfordGroupLaw] by ZInQ.Contrib.MumfordRigidity.mumfordGroupLaw_of_core
   still assumes: [LeafQM.AV.R1UnivRigid.MumfordRigidityCore]
   axioms: [propext, Classical.choice, Quot.sound]
-#discharges: 63 open hypotheses, 2297 theorems checked, 9 discharge one
+#discharges: 63 open hypotheses, 2304 theorems checked, 9 discharge one
 'PELHodge.h1Form_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PELHodge.isHodgeFibre_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PELHodge.pelHolFamily_of_hodge' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -38,3 +38,12 @@ DISCHARGES [OpenResearchLeaves22.mumfordGroupLaw] by ZInQ.Contrib.MumfordRigidit
 'PELHodge.shimuraFamilyAb_of_hodge' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PELHodge.y3Connected_of_hodge' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PELHodge.compositeUses_of_hodge' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PELHodge.witness_of_r1fp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PELHodge.witness_of_r1r2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PELHodge.witness_of_r1r2Ab' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PELHodge.witness_of_grX6Ab' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PELHodge.shimuraHolFamilyAb_of_hodgeW' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PELHodge.compositeUses_of_hodgeW' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PELHodge.compositeUses_of_hodge_gr' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PELHodge.isUniformization_of_H1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PELHodge.exists_H1_of_isUniformization' depends on axioms: [propext, Classical.choice, Quot.sound]
