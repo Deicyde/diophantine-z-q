@@ -31,3 +31,7 @@
 - #discharges (discharges.txt): 63 open hypotheses, 2129 theorems, 123 lines. 116 are auto-generated projections of the
   copied structures (…W / …P) whose "still assumes" is the copied bundle itself: not discharges. The other 7 are the
   pre-existing contributions. Pi0Prune discharges no field (expected: it is a prune, not a proof of a field).
+- STQMW.lean (VERIFIED, compiled 21 s): st-qbar's STQM.lean (origin/wip/st-qbar 0de7c471) with hRep : R1R2fpRepW in
+  cm_point/stQM_of/cmDescends_of, cm_point's pattern without the dropped `-` (it already discarded R1pi0Props), and
+  LeafQCheck.cmDescends_ofW; import Pi0Prune.Base instead of TailO. GapST.stQM_of, GapST.cmDescends_of axioms
+  [propext, Classical.choice, Quot.sound]. st-qbar needs only conjuncts that R1R2fpRepW keeps.
