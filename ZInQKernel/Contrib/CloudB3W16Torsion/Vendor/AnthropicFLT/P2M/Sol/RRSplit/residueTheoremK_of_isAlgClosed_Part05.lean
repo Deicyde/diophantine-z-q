@@ -415,7 +415,7 @@ theorem kwF4R1V386a_inertiaDeg_completion_eq
         (algebraMap (w'.restrict E).adicCompletionIntegers w'.adicCompletionIntegers)
         = maximalIdeal (w'.restrict E).adicCompletionIntegers :=
       ((IsLocalRing.local_hom_TFAE (algebraMap (w'.restrict E).adicCompletionIntegers
-        w'.adicCompletionIntegers)).out 0 4).mp ‹IsLocalHom _›
+        w'.adicCompletionIntegers)).out 1 5).mp ‹IsLocalHom _›
     exact ⟨hcomap.symm⟩
   rw [Ideal.inertiaDeg'_algebraMap]
 

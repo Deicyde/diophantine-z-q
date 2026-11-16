@@ -1762,4 +1762,5 @@ end
 
 end
 
+end
 end P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed

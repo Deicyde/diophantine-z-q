@@ -250,7 +250,7 @@ open _root_.Module
 end Module
 namespace MonoidWithZeroHom
 
-export _root_.MonoidWithZeroHom (ext mk mem_valueGroup coe_coe comp_apply inl coe_comp comp inr valueGroup)
+export _root_.MonoidWithZeroHom (ext mk mem_valueGroup comp_apply inl coe_comp comp inr valueGroup)
 
 open _root_.MonoidWithZeroHom
 end MonoidWithZeroHom
@@ -301,13 +301,13 @@ open _root_.TensorProduct
 end TensorProduct
 namespace Valuation
 
-export _root_.Valuation (norm_add_le map_add' valuationSubring ext mem_valuationSubring_iff map_sub map IsTrivialOn.valuation_algebraMap_le_one Integers.isIntegrallyClosed valuationSubring_isDiscreteValuationRing Integers IsRankOneDiscrete ne_zero_iff valuationSubring_eq_top_iff congr map_add_of_distinct_val RankOne.hom map_neg coe_coe IsTrivialOn restrict norm_def comap mk IsEquiv isEquiv_iff_valuationSubring norm_nonneg RankOne norm)
+export _root_.Valuation (norm_add_le map_add' valuationSubring ext mem_valuationSubring_iff map_sub map IsTrivialOn.valuation_algebraMap_le_one Integers.isIntegrallyClosed valuationSubring_isDiscreteValuationRing Integers IsRankOneDiscrete ne_zero_iff valuationSubring_eq_top_iff congr map_add_of_distinct_val RankOne.hom map_neg IsTrivialOn restrict norm_def comap mk IsEquiv isEquiv_iff_valuationSubring norm_nonneg RankOne norm)
 
 open _root_.Valuation
 end Valuation
 namespace Valuation
 
-export _root_.Valuation (norm_add_le map_add' valuationSubring ext mem_valuationSubring_iff map_sub map IsTrivialOn.valuation_algebraMap_le_one Integers.isIntegrallyClosed valuationSubring_isDiscreteValuationRing Integers IsRankOneDiscrete ne_zero_iff valuationSubring_eq_top_iff congr map_add_of_distinct_val RankOne.hom map_neg coe_coe IsTrivialOn restrict norm_def comap mk IsEquiv isEquiv_iff_valuationSubring norm_nonneg RankOne norm)
+export _root_.Valuation (norm_add_le map_add' valuationSubring ext mem_valuationSubring_iff map_sub map IsTrivialOn.valuation_algebraMap_le_one Integers.isIntegrallyClosed valuationSubring_isDiscreteValuationRing Integers IsRankOneDiscrete ne_zero_iff valuationSubring_eq_top_iff congr map_add_of_distinct_val RankOne.hom map_neg IsTrivialOn restrict norm_def comap mk IsEquiv isEquiv_iff_valuationSubring norm_nonneg RankOne norm)
 
 namespace IsRankOneDiscrete
 

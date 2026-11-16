@@ -20,6 +20,7 @@ Complete original LICENSE, NOTICE, and attribution are in this vendor root; a lo
 copy is supplied in RRSplit for independent distribution of this support patch.
 -/
 import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.RRSplit.tateTraceCompat_of_isSeparable_Part01
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.RRSplit.LinearConjugation
 
 set_option autoImplicit false
 set_option backward.isDefEq.respectTransparency false
@@ -1593,11 +1594,8 @@ theorem kwF4gRRTate_blockSum_of_integralBasisCompat
     finiteDimensional_range_tateCommDual_tateProj (w.restrict E) (M i i) hπvmem
 
   have hPconj : eD.conj pI = P := by
-    apply LinearMap.ext; intro x
-    simp only [heD, hpI, integralProdProj, hP, LinearEquiv.conj_apply, LinearMap.comp_apply,
-      LinearEquiv.coe_coe, LinearEquiv.symm_symm, LinearEquiv.apply_symm_apply,
-      LinearEquiv.symm_apply_apply]
-    rfl
+    change eD.conj (eD.symm.conj P) = P
+    exact P2MW.CloudB3W16RRSplit.conj_symm_conj eD P
   have hTCDconj : eD.conj (tateCommDual pI (lmulK w (algebraMap F W₀ g)) (lmulK w ghF))
       = tateCommDual P (matMulLin (w.restrict E) M') (scalarLin (w.restrict E) πv) := by
     rw [tateCommDual_conj, hPconj, heD, integralBasisEquivFunK_conj_lmulK_algebraMap,

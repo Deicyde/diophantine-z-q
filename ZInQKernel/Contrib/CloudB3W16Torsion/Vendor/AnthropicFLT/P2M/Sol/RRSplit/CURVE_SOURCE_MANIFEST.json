@@ -2,9 +2,9 @@
   "source_repository": "https://github.com/anthropics/fermats-last-theorem",
   "source_pin": "6e837e75355538c7f80bab5b956861e86c4eacc2",
   "initial_base": "0e70c94e4a2d26838f0766cd69b39bd02f48fb85",
-  "target_base": "2dc949d688c407e32823c4e751679d66b2f40e65",
+  "target_base": "e22df37cdef936f5b0f29ec09501854bea6c7316",
   "lean": "4.35.0",
-  "status": "partial native proof-part compilation; full six solutions and axiom checks pending",
+  "status": "All six solution exports compiled and checked; standard AX3 only; not H102 discharge",
   "modules": [
     {
       "original_module": "P2M.Sol.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed",
@@ -765,7 +765,7 @@
           "Classical.choice",
           "Quot.sound"
         ],
-        "axiom_log": "Compile/verified/RATAxioms.log"
+        "axiom_log": "Compile/verified/CurveProofCheck.log"
       }
     },
     {
@@ -782,8 +782,8 @@
             1,
             1734
           ],
-          "bytes": 109657,
-          "sha256": "8f6bdc68c2fac4e38b9c895e04f1bc5fadef955ba231ed76229c587f4556bb62"
+          "bytes": 109633,
+          "sha256": "f1cb958cfe6c152199ca8d8bd81aacac1ae8dba3db958c033df0c344732ce91c"
         },
         {
           "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_of_isAlgClosed_Part02.lean",
@@ -792,8 +792,8 @@
             1735,
             3202
           ],
-          "bytes": 109705,
-          "sha256": "6a4d39ca91e1f186edb4d9d0e3d17feb6e2789c5e4d377c63264af3629697209"
+          "bytes": 109709,
+          "sha256": "31d2b737ccaea54beb20dc7a89f24b6033f4f1a4524aabff6043d88d57f06dfc"
         },
         {
           "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_of_isAlgClosed_Part03.lean",
@@ -812,8 +812,8 @@
             5270,
             7508
           ],
-          "bytes": 107795,
-          "sha256": "2b2a0725114b976156e34be117fd6b328c256cdc944502973d7c8cc821e0fa8e"
+          "bytes": 107972,
+          "sha256": "155ec1d5f11c86f58add9971c6f4f014d86ca09663b80783023d4de53ce304a5"
         },
         {
           "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_of_isAlgClosed_Part05.lean",
@@ -823,7 +823,7 @@
             8121
           ],
           "bytes": 36772,
-          "sha256": "017fe5ff8592514d251379d8ebdab23994a1129bde781ec9b89794c8a6b5ae2b"
+          "sha256": "54dd9ca91786e758a22297994d3641f1e775490721896e244e2428e87f32f4f4"
         }
       ],
       "promoted_private_helpers": [
@@ -975,8 +975,18 @@
       ],
       "compatibility_edits": [
         "Restore source-private root field lookup with transparent private abbreviations of promoted helpers, repeated at import boundaries.",
-        "Use absolute root namespaces in all open scoped commands."
-      ]
+        "Use absolute root namespaces in all open scoped commands.",
+        "Drop confirmed absent optional coe_coe exports; close implicit factoring scope; pin regularPoleSubmodule_zero equality; update local_hom_TFAE from zero-based 0/4 to one-based 1/5."
+      ],
+      "native_verification": {
+        "parts_and_facade_compiled": true,
+        "solution_axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "axiom_log": "Compile/verified/CurveProofCheck.log"
+      }
     },
     {
       "original_module": "P2M.Sol.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed",
@@ -1336,7 +1346,8 @@
       "compatibility_edits": [
         "Restore source-private root field lookup with transparent private abbreviations of promoted helpers, repeated at import boundaries.",
         "Use absolute root namespaces in all open scoped commands.",
-        "Pin correction definition and pole-space equality targets to retain original definitional proof after private-name factoring."
+        "Pin correction definition and pole-space equality targets to retain original definitional proof after private-name factoring.",
+        "Drop confirmed absent optional coe_coe exports; close implicit factoring scope; pin regularPoleSubmodule_zero equality; update local_hom_TFAE from zero-based 0/4 to one-based 1/5."
       ],
       "native_verification": {
         "parts_and_facade_compiled": true,
@@ -1345,8 +1356,7 @@
           "Classical.choice",
           "Quot.sound"
         ],
-        "axiom_log": "Compile/verified/RRAxioms.log",
-        "remaining_input": "Original hRTK: ResidueTheoremK K F; unchanged source signature"
+        "axiom_log": "Compile/verified/CurveProofCheck.log"
       }
     },
     {
@@ -1438,7 +1448,7 @@
           "Classical.choice",
           "Quot.sound"
         ],
-        "axiom_log": "Compile/verified/TateAgreementAxioms.log"
+        "axiom_log": "Compile/verified/CurveProofCheck.log"
       }
     },
     {
@@ -1465,8 +1475,8 @@
             2341,
             4418
           ],
-          "bytes": 94112,
-          "sha256": "67a806700f8c4660a650952d05f28de190319a7a7c6ef516d5da06c9fed94f31"
+          "bytes": 94053,
+          "sha256": "ac1af61b81dfe28c9f148c5463200e7fa9a7c6bd7714f084b2fee532593a0ec5"
         }
       ],
       "promoted_private_helpers": [
@@ -1551,8 +1561,18 @@
       "compatibility_edits": [
         "Restore source-private root field lookup with transparent private abbreviations of promoted helpers, repeated at import boundaries.",
         "Use absolute root namespaces in all open scoped commands.",
-        "Drop confirmed absent optional MonoidWithZeroHom.coe_coe and Valuation.coe_coe export metadata."
-      ]
+        "Drop confirmed absent optional MonoidWithZeroHom.coe_coe and Valuation.coe_coe export metadata.",
+        "Prove inverse-conjugation cancellation explicitly using the ordinary LinearConjugation helper rather than relying on rfl after folded map coercions."
+      ],
+      "native_verification": {
+        "parts_and_facade_compiled": true,
+        "solution_axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "axiom_log": "Compile/verified/CurveProofCheck.log"
+      }
     },
     {
       "original_module": "P2M.Sol.S_AlgebraicCurve_tateChainRule",
@@ -1654,7 +1674,44 @@
       "compatibility_edits": [
         "Restore source-private root field lookup with transparent private abbreviations of promoted helpers, repeated at import boundaries.",
         "Use absolute root namespaces in all open scoped commands."
+      ],
+      "native_verification": {
+        "parts_and_facade_compiled": true,
+        "solution_axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "axiom_log": "Compile/verified/CurveProofCheck.log"
+      }
+    }
+  ],
+  "auxiliary_helpers": [
+    {
+      "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/LinearConjugation.lean",
+      "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.RRSplit.LinearConjugation",
+      "bytes": 1320,
+      "sha256": "6d0a6360298cb05f937e6ee3ba27e8ecf9b49fc4acd45c5214d97ad0f17badf4",
+      "axioms_used_conj_symm_conj": [
+        "propext",
+        "Quot.sound"
       ]
     }
-  ]
+  ],
+  "read_only_prerequisite_update": {
+    "owner": "RR55 support author",
+    "head": "a8726b2de09c54a71cc36e9b44002578fd94c391",
+    "source_count": 8,
+    "compiled_cache_count": 41,
+    "source_and_cache_sha_validated": true,
+    "not_part_of_this_change_set": true
+  },
+  "restored_base": "2dc949d688c407e32823c4e751679d66b2f40e65",
+  "verified_base": "e22df37cdef936f5b0f29ec09501854bea6c7316",
+  "final_combined_check": {
+    "command": "stock Lean4.35 CurveProofCheck.lean with -j4 -M16000 under private lock",
+    "exit_status": 0,
+    "solution_count": 6,
+    "standard_axioms_only": true
+  }
 }

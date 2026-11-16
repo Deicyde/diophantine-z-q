@@ -1078,7 +1078,10 @@ theorem cotraceFiberIdentityK_of_uniform_layer
     intro w₁ hw₁ w₂ hw₂ hp₁ hp₂
     exfalso
     have hreg := hf w₁ hw₁
-    rw [Place.regularPoleSubmodule_zero] at hreg
+    have hEq : w₁.regularPoleSubmodule (kaehlerPullback K F E ωE) 0 =
+        w₁.regularSubmodule (kaehlerPullback K F E ωE) :=
+      Place.regularPoleSubmodule_zero w₁ (kaehlerPullback K F E ωE)
+    rw [hEq] at hreg
     exact hp₁ hreg
   | succ N ih =>
     intro f hf
