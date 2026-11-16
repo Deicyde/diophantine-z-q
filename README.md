@@ -1,5 +1,13 @@
 # Z is Diophantine in Q
 
+## Contributors and citation
+
+This project uses the collective agentic notes from Stefan Baranczuk, Jose Brox, Gabe Conant, Sohail Farhangi, James Freitag, Elliot Glazer, Jennifer Park, and Caroline Terry.
+
+See also [Jose Brox's repository](https://github.com/JoseBrox/diophantine-z-q_improvements) for updated results and related work.
+
+Cite this work as "ℤℚ Diophantine Project contributors. ℤ _is Diophantine in_ ℚ. 2026. https://github.com/elliotglazer/diophantine-z-q"  
+
 ## Version 18
 
 [Read the manuscript](manuscripts/quartic_v18.pdf) or [open the TeX source](manuscripts/quartic_v18.tex). This edition presents Jose Brox's 196-variable quartic, built on Gabriel Conant's 198-variable construction. Its 182 quadratic residuals give a quartic with 2,943 nonzero coordinate monomials. The complete arithmetic proof, elimination lemma and coefficient table are included in the manuscript.
@@ -28,7 +36,6 @@ The [222-variable package](research/version15/quartics/quartic-222/README.md) in
 
 This repository also preserves *Z is Diophantine in Q*, Version 14, dated November 9, 2026. It gives quartics in **299 total variables** with exact symbolic coefficients and **314 total variables** with every coefficient written out in decimal. The original large construction, earlier quartic proofs and Version 11 Kato index-set and limiting-class repair remain in the manuscript. The Version 9 starting reductions were contributed by Gabriel Conant with ChatGPT.
 
-The project uses the collective agentic notes from Stefan Baranczuk, Jose Brox, Gabe Conant, Sohail Farhangi, James Freitag, Elliot Glazer, Jennifer Park, and Caroline Terry.
 
 | To | Open |
 | --- | --- |
