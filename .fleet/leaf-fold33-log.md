@@ -68,3 +68,13 @@ Base: 6b7a45445 (lf32b: 37 H fields, strict 16 LEAF / 21 GLUE, top sixContactMin
   each [propext, Classical.choice, Quot.sound]. (PicFix.phiAmpleIsogeny_of_printed and milneIsogenyQuasiInverse_proof
   are lf32b terms not imported by these modules; they are already in Main through TailZ44/45 and are checked by the
   final frozenTarget axioms line.)
+* Final check, first run (on 744902a12): BUILD-RC=1. TailZ46.lean:105 "Invalid field notation ... l has type
+  OpenAddedLeaves20": autofold writes the textbook conversion (poincareComplement, whose proof reads {l}) before the
+  new structure OpenAddedLeaves20 of the same module, so the name is an auto-bound implicit there. One spec cannot both
+  discharge a field from {l} and replace the added bundle. The later steps ran on stale oleans (CHECK-RC=1, kinds rows
+  mismatched); no generated docs were committed.
+* Fix: the autofold commit reverted (git revert 744902a12) and the fold split into two autofolds with the same
+  discharges: scratch/leaf-fold33/autofold-a.json (poincareComplement with {l}.picZeroAbVar, the field still present in
+  OpenAddedLeaves19, and blr_7_2_1) and autofold-b.json (picZeroAbVar by pic-smooth). The combined autofold.json is
+  kept for the record. Fold a: `16/21 on 37 -> 15/20 on 35` (TailZ46, sixContactMin_of_open39); fold b:
+  `15/20 on 35 -> 18/20 on 38` (TailZ47, sixContactMin_of_open40), the same end state as the combined spec.

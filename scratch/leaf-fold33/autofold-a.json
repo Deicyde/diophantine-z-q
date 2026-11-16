@@ -1,0 +1,19 @@
+{
+ "name": "leaf-fold33a",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.PoincareComplement",
+  "ZInQKernel.Contrib.OneProof.Fold33.NeronBLR"
+ ],
+ "discharges": [
+  {
+   "field": "poincareComplement",
+   "proof": "_root_.ZInQ.Contrib.OneProof.PoincareComplement.poincareComplement_of_open {l}.picRepresentableAbVar {l}.picZeroAbVar (_root_.PicFix.phiAmpleIsogeny_of_printed {l}.mumfordKLFiniteSectionAC {l}.mumfordPhiSurjectiveAC) _root_.ZInQ.Contrib.MilneQuasiInverse.milneIsogenyQuasiInverse_proof _root_.ZInQ.Contrib.OneProof.CartierSmooth.cartierSmooth_proof",
+   "leaves": []
+  },
+  {
+   "field": "blr_7_2_1",
+   "proof": "_root_.ZInQ.Contrib.OneProof.Fold33.blr_7_2_1_proof",
+   "leaves": []
+  }
+ ]
+}
