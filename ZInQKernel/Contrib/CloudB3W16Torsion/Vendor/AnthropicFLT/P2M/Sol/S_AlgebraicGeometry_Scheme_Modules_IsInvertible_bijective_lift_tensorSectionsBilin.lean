@@ -67,8 +67,6 @@ theorem isLocalizedModule_resBO (hN : Scheme.Modules.IsInvertible N) (hU : IsAff
       rw [map_pow]; exact (IsLocalization.Away.algebraMap_isUnit f).pow n
     have := hu.smul_bijective (β := Γ(N, X.basicOpen f))
     convert this using 1
-    funext a
-    rw [Module.algebraMap_end_apply, algebraMap_smul]
   · intro y
     obtain ⟨n, x, hx⟩ := h1 y
     exact ⟨⟨x, ⟨f ^ n, n, rfl⟩⟩, hx.symm⟩

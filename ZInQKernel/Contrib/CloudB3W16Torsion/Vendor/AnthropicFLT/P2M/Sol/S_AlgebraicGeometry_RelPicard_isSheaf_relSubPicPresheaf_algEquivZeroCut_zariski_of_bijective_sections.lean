@@ -42,8 +42,17 @@ theorem solution
   have hJ : Scheme.zariskiTopology.over (Spec (CommRingCat.of R)) =
       (Scheme.overPretopology @IsOpenImmersion (Spec (CommRingCat.of R))).toGrothendieck :=
     Scheme.overGrothendieckTopology_eq_toGrothendieck_overPretopology _ _
-  rw [hJ, Presieve.isSheaf_pretopology]
-  rintro Y _ ⟨𝒰, h𝒰, rfl⟩
+  rw [hJ, Precoverage.toGrothendieck_toPretopology_eq_toGrothendieck,
+    Precoverage.isSheaf_toGrothendieck_iff_of_isStableUnderBaseChange_of_small.{u}]
+  intro Y E
+  let 𝒰 : Y.left.Cover (Scheme.precoverage @IsOpenImmersion) :=
+    E.map (Over.forget (Spec (CommRingCat.of R))) le_rfl
+  letI : Y.left.Over (Spec (CommRingCat.of R)) := ⟨Y.hom⟩
+  letI (i : E.I₀) : (𝒰.X i).Over (Spec (CommRingCat.of R)) := ⟨(E.X i).hom⟩
+  letI : 𝒰.Over (Spec (CommRingCat.of R)) :=
+    { «over» i := inferInstance
+      isOver_map i := ⟨Over.w (E.f i)⟩ }
+  change Presieve.IsSheafFor _ (𝒰.toPresieveOver)
   rw [Scheme.Cover.toPresieveOver, Presieve.isSheafFor_arrows_iff]
   intro x hx
 
