@@ -34,7 +34,7 @@ The only difference between the two leaves is the fibre clause.
 Going from the second to the first is Riemann's `A(ℂ) = Lie A / H₁(A, ℤ)`. Here that step is the Lean proof
 `h1Form_iff`, which identifies `H₁(A(ℂ), ℤ)` with the period lattice of the uniformization.
 
-**File:** `ZInQKernel/Contrib/OneProof/PELHodge.lean`, namespace `PELHodge`, about 34 KB. It imports
+**File:** `ZInQKernel/Contrib/OneProof/PELHodge.lean`, namespace `PELHodge`, about 33 KB. It imports
 `ZInQKernel.Contrib.OneProof.HolFamilyPrinted` (which defines the discharged statement) and
 `ZInQKernel.Contrib.OneProof.UniformizationPrinted` (for the classical topology).
 
