@@ -44,8 +44,8 @@ export _root_.AlgebraicGeometry.Scheme (Modules.Hom.app_smul ringCatSheaf Module
 namespace Modules
 export _root_.AlgebraicGeometry.Scheme.Modules (Hom.app_smul pushforward pullback presheaf Hom isSheaf pullbackPushforwardAdjunction IsFrameOn Hom.epi_iff_locallySurjective Hom.mono_iff_injective exists_app_eq_of_exact_of_app_eq_zero bijective_unit_app_of_le_opensRange IsInvertible)
 namespace SesAffine
-open AlgebraicGeometry.Scheme.Modules
-open AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme
 open AlgebraicGeometry
 
 variable {X : Scheme.{u}}
@@ -494,7 +494,7 @@ end AlgebraicGeometry.Scheme.Modules.SesAffine
 
 end
 
-open CategoryTheory CategoryTheory.Limits _root_.CategoryTheory.MonoidalCategory _root_.AlgebraicGeometry in
+open CategoryTheory CategoryTheory.Limits _root_.CategoryTheory.MonoidalCategory _root_.AlgebraicGeometry _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_surjective_app_of_shortExact_of_locallyTrivial.AlgebraicGeometry in
 theorem solution
     {X : Scheme.{u}} (S : ShortComplex X.Modules) (hS : S.ShortExact)
     (htriv : ∀ p : X, ∃ W : X.Opens, p ∈ W ∧
