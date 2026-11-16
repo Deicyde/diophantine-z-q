@@ -25,3 +25,17 @@ Task: make `pazukiCor13Upper : ZInQ.HeightSplit.PazukiCor13Upper` printed (base 
   without the TailZ24 import and with `T09Pic.IsAmple B.X.left L ∧` removed from `IsSymmPrincipal` (TailZ24 chain
   not yet rebuilt): compiles, no errors; `#print axioms pazukiCor13Upper_of_printed`, `analyticPPAlgebraic_of_split`:
   [propext, Classical.choice, Quot.sound] (VERIFIED, compiled 05:31).
+
+## Full build and checks (11-16 05:45)
+- `lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges +ZInQKernel.Contrib.OneProof.PazukiCor13Upper`:
+  Build completed successfully (13699 jobs), 16m45s; the real file (with `T09Pic.IsAmple`) built in 6.7 s, 0 errors
+  (VERIFIED, `build2.out`).
+- `#discharges` (`scratch/pazuki-dict/Discharges.lean`, output `discharges-output.txt`, VERIFIED):
+  `DISCHARGES [OpenResearchLeaves26.pazukiCor13Upper] by PazukiDict.pazukiCor13Upper_of_printed`,
+  still assumes `[BPAnalytic.Uniformization.UniformizationLeafAll, PazukiDict.AnalyticPPAlgebraic,
+  PazukiDict.PazukiCor13UpperPP]`, axioms `[propext, Classical.choice, Quot.sound]`;
+  `#discharges: 56 open hypotheses, 2885 theorems checked, 8 discharge one`.
+- `#synth Module Γ(X, ⊤) Γ(M, ⊤)` = `Scheme.Modules.instModuleCarrier…` (natural instance; Test2.lean).
+- autofold dry run (`autofold.json`): without `--allow-rise` refused: "strict count: 34/11 on 45 -> 34/12 on 46;
+  strictest 34/11 -> 34/12". With `--allow-rise`, output minus line 1 = `FoldCheck.lean`: compiles,
+  `HDec.HSyn.sixContactMin_of_open36` axioms [propext, Classical.choice, Quot.sound] (VERIFIED).
