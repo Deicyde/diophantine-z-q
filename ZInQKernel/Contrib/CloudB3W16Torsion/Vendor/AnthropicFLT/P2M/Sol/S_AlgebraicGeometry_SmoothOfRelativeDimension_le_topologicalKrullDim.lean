@@ -29,8 +29,8 @@ theorem height_eq_of_isMaximal_mvPolynomial (L : Type u) [Field L] (n : ℕ)
   have hquot : ringKrullDim (MvPolynomial (Fin n) L ⧸ 𝔭) = 0 :=
     ringKrullDim_eq_zero_of_isField (Ideal.Quotient.maximal_ideal_iff_isField_quotient 𝔭 |>.mp h𝔭)
   have hP : ringKrullDim (MvPolynomial (Fin n) L) = n := by
-    rw [MvPolynomial.ringKrullDim_of_isNoetherianRing, ringKrullDim_eq_zero_of_field, Nat.card_eq_fintype_card,
-      Fintype.card_fin, zero_add]
+    rw [MvPolynomial.ringKrullDim_of_isNoetherianRing, ringKrullDim_eq_zero_of_field, zero_add]
+    simp
   rw [hquot, hP, add_zero] at hform
   exact_mod_cast hform
 
@@ -51,10 +51,12 @@ theorem le_ringKrullDim_of_isStandardSmoothOfRelativeDimension {L R : Type u} [C
       Algebra.FiniteType.trans (S := R) inferInstance inferInstance
     haveI : Module.Finite (MvPolynomial (Fin n) L) (R ⧸ 𝔪) :=
       finite_of_finite_type_of_isJacobsonRing (MvPolynomial (Fin n) L) (R ⧸ 𝔪)
-    haveI : Algebra.IsIntegral (MvPolynomial (Fin n) L) (R ⧸ 𝔪) := inferInstance
+    haveI : Algebra.IsIntegral (MvPolynomial (Fin n) L) (R ⧸ 𝔪) :=
+      Algebra.IsIntegral.of_finite (MvPolynomial (Fin n) L) (R ⧸ 𝔪)
     have hbot : (⊥ : Ideal (R ⧸ 𝔪)).IsMaximal := Ideal.bot_isMaximal
     have hcomap : ((⊥ : Ideal (R ⧸ 𝔪)).comap (algebraMap (MvPolynomial (Fin n) L) (R ⧸ 𝔪))).IsMaximal :=
-      Ideal.isMaximal_comap_of_isIntegral_of_isMaximal ⊥
+      Ideal.isMaximal_under_of_isIntegral_of_isMaximal
+        (R := MvPolynomial (Fin n) L) (S := R ⧸ 𝔪) (⊥ : Ideal (R ⧸ 𝔪))
     have heq : (⊥ : Ideal (R ⧸ 𝔪)).comap (algebraMap (MvPolynomial (Fin n) L) (R ⧸ 𝔪)) = 𝔭 := by
       rw [show algebraMap (MvPolynomial (Fin n) L) (R ⧸ 𝔪) = (Ideal.Quotient.mk 𝔪).comp g from rfl,
         ← Ideal.comap_comap, ← RingHom.ker_eq_comap_bot, Ideal.mk_ker]
