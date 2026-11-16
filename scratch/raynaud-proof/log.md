@@ -25,3 +25,10 @@ type `ReductGlue.RaynaudSemistableSH`, TailZ14 L1105).
 - No field states Grothendieck's quasi-unipotence (SGA 7 IX 4.3 / Serre-Tate appendix), the semistable reduction
   theorem 3.6, or the converse of 3.5 (unipotent => semistable). r8 (GrothendieckMonodromy) is dead and was derived
   from 3.6 <- 4.7 anyway.
+
+## 2026-11-16 ~14:30 compile (VERIFIED)
+- Fresh worktree lacked `lean/.lake` ("unknown module prefix 'ZInQ'"): reflink-copied from ~/dzq-wt/abhyankar
+  (identical `lean/ZInQ`).
+- `lake env lean ZInQKernel/Contrib/OneProof/RaynaudSemistableCP.lean`: no errors, no warnings (first version).
+- `lake build +ZInQKernel.Contrib.OneProof.RaynaudSemistableCP +ZInQKernel.OneProof.Discharges`: "Build completed
+  successfully (12999 jobs)" (RingClassGalois and the OneProof tail were rebuilt: stale traces in the copied build).
