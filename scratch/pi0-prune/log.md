@@ -15,3 +15,8 @@
   GeomConnX6W, geomConnX6W_of_gr, r1r2fpRep_of_printedW, r1r2_of_publishedW, x6Rows_of_leavesW) and copied
   destructurers/consumers. COMPILED (lake env lean, 8 s) after 3 pattern fixes (one conjunct fewer in r1rec_of_rep,
   r5fp_of_rep, pairsLift_of_rep).
+- Pi0Prune/Old.lean (6 W bundles + 37 copied decls) COMPILED first try; Pi0Prune/Upper.lean (OpenAddedLeaves12P..17P,
+  conversions, x6Rows_of_open14W, open17W..open29W) COMPILED first try.
+- Pi0Prune.lean: openAddedLeaves17P_of, sixContactMin_of_open29P, sixContactMin_of_open29_pruned.
+  `lake build ZInQKernel.Contrib.OneProof.Pi0Prune` OK; #print axioms of r1r2_of_publishedW, sixContactMin_of_open29P,
+  sixContactMin_of_open29_pruned: [propext, Classical.choice, Quot.sound] (VERIFIED).
