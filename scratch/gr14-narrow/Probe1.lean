@@ -1,0 +1,14 @@
+import ZInQKernel.OneProof.H.TailB
+open CategoryTheory
+#check @HDec.WeilPairing.IsogenyQuasiInverse
+#print HDec.WeilPairing.IsogenyQuasiInverse
+#print HDec.WeilPairing.IsQuasiInverse
+#print HDec.WeilPairing.homP
+#print HDec.WeilPairing.P
+#check @HDec.HSyn.G0RevIsog.IsogenyReverseExists
+#check @HDec.HSyn.G0FibreSimple.MulIsogeny
+#check @HDec.HSyn.G0Split.transfer_core
+#check @HDec.HSyn.G0Split.R20Lower
+#check @HDec.HSyn.G0Split.log_grKappa
+#check @HDec.HSyn.G0RevIsog.reverseIsogeny_of_exists
+#check @HDec.LeafAdopt.abVarEquiv
