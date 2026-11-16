@@ -581,3 +581,15 @@ also removes that report's inherited evidence, so a removed withdrawal cannot
 expose an older verification. The decision is recomputed before publication. Completed
 verdicts and findings remain, including a rejecting supplement; missing evidence
 does not revive an older acceptance or a withdrawn source verification.
+
+
+### Source-access relief when other findings need a decision
+
+A source-access limitation qualified by the other reviewer's exact-passage
+verification does not need a second, explicit override when a separate
+substantive finding blocks the same round. The gate records that limitation
+even while the other finding remains blocking. It requires an override only
+for the remaining unresolved findings. Every active occurrence of an ID must
+qualify for source-access relief: a substantive objection by either reviewer
+cannot disappear because the other report calls the same ID access-only.
+Original reviewer decisions and source evidence remain in the record.
