@@ -18,6 +18,7 @@ Source provenance and full credits/notices/license are preserved in
 noncomputable section
 
 open CategoryTheory AlgebraicGeometry
+open scoped CategoryTheory.MonObj
 
 namespace ZInQ.Contrib.CloudB3W16Torsion
 
