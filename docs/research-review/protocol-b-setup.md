@@ -230,8 +230,8 @@ message; a Fable `pause_turn` is resumed unchanged before that guidance can be
 inserted. See the provider's [append-only instruction rules](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking/change-tools-or-instructions).
 A finish-now report records whether source/history reads were admitted. Without
 history, every earlier finding stays unresolved in code. Without either read
-prerequisite, the report cannot be accepted by collaborator override; a new
-review with sufficient context is needed. These completed rejection reports
+prerequisite, the gate records an explicit incomplete-review scope item. An
+admin may override it with the missing coverage still recorded as incomplete. These completed rejection reports
 can still be reused to avoid another automatic charge on the same head.
 Required computation failures are checked before each model turn and again
 after every provider retry backoff, before a further paid request is sent.
@@ -239,11 +239,11 @@ after every provider retry backoff, before a further paid request is sent.
 An immediate cross-reviewer stop on a fatal finding is a separate follow-up;
 this change does not add a fatal-finding field, shared cancellation flag or a
 ban on later automatic rounds specifically because a finding is fatal.
-An incomplete necessary check must be reported as a finding with a request for
-changes. That blocked decision is permitted even if the reviewer could not
-finish its source/history reads; acceptance still requires those reads and
-disposition of every prior finding. The gate never silently truncates conversation history or repository
-reads, and it does not accept a partial review. This does not make
+An incomplete necessary check belongs in the unreviewed-scope list with a
+request for changes. It creates an administrative scope item rather than a
+mathematical-error finding. Without an explicit admin override, incomplete
+coverage remains blocking. The gate never silently truncates conversation
+history or repository reads and never labels a partial review complete. This does not make
 provider-truncated web content a complete source read.
 Scope reads to the changed argument and affected consumers.
 Split a review that cannot fit while preserving all necessary dependencies.
@@ -269,20 +269,22 @@ A current collaborator with write, maintain or admin access can request a run:
 /protocol-b review
 ```
 
-The check summary prints full finding IDs. Only a current repository admin
-may decide a deadlock:
+The check summary prints full finding and scope-item IDs. Only a current
+repository admin may decide a deadlock:
 
 ```text
 /protocol-b override FULL_HEAD_SHA RUN-ATTEMPT-REVIEWER-FINDING_ID Reason for this decision
 ```
 
-Post one command per finding. A run checks current admin access and the
-exact head. It takes the latest completed pair of decisions from this App's
-check output, never from a bot comment claiming acceptance. If every new and
-unresolved finding that is not a qualified source-access limitation is covered,
-it passes without asking either model to agree. If a model never completed,
-the head changed, or another finding remains uncovered, the override does not pass. The summary records collaborator names and reasons
-and states that affected claims are **not outside reviewed**.
+Post one command per finding or scope item, using its full displayed ID. A run
+checks current admin access and the exact head. It takes the preserved review
+records from this App's check output, never from a bot comment claiming acceptance.
+If every blocking finding other than a qualified source-access limitation,
+and every incomplete-scope item, is covered, it passes
+without another model call. A stale head, wrong model or uncovered item still
+blocks. The summary records the admin and reason and states that affected
+claims are **not outside reviewed**. An incomplete review stays recorded as
+incomplete after the override.
 
 ## Testing before activation
 
@@ -587,19 +589,6 @@ verdicts and findings remain, including a rejecting supplement; missing evidence
 does not revive an older acceptance or a withdrawn source verification.
 
 
-### Override authorization
-
-Only repository admins may override reviewer findings. The gate checks current
-admin permission when receiving a command and again when reading stored override
-comments. Edited comments are not accepted, including edits made by an admin;
-post a new comment instead. Both timestamps and GitHub's `lastEditedAt`/`editor`
-metadata must establish an unedited comment with the matching body and author.
-Missing metadata fails closed. A non-admin collaborator's override has no effect
-and receives a short reply. The gate's ignored-override replies do not alter the
-reviewed discussion digest or trigger paid supplements. Write-access collaborators retain automatic review, `/protocol-b review`,
-and ordinary protected merge access. This change does not alter any review,
-computation, head-binding or merge requirement.
-
 ### Source-access relief when other findings need a decision
 
 A source-access limitation qualified by the other reviewer's exact-passage
@@ -619,3 +608,83 @@ In a mixed case, an authenticated override of the remaining substantive findings
 uses the existing human-decision path without another model call, including
 when there is new discussion. Qualified limitations stay recorded if some other
 finding still lacks an override; the overall check remains blocked.
+
+
+## Blocking findings and nonblocking notes
+
+Fresh findings carry a severity, `blocking` or `note`. Blocking findings identify
+a substantive error, a specific unclosed gap, or a source-access limitation
+under the existing peer-verification rule. A gap must locate the missing step
+and record an attempt to close it, including the obstruction that remains.
+Pure wording, naming, typography, style and optional exposition are notes.
+A step the reviewer can fill is an expository note, with its short argument.
+The contributor need not fix those notes for this PR to pass.
+
+Reports also state `scope_complete`. Unread work and an interrupted or exhausted
+review cannot become an acceptance merely because no mathematical error has
+been found. A completed review with only editorial notes meets the review
+requirement, even if its original decision says `changes_requested`; that
+original decision remains visible, and the gate does not call it unanimous
+acceptance. Substantive findings and unresolved earlier findings still block.
+Historical reports without severity retain their blocking meaning. Earlier
+findings require an explicit disposition grounded in the current argument.
+
+Set the repository variable `PROTOCOL_B_NOTES_ISSUE` to the number of an open
+issue in this repository used for optional cleanup. After finalizing a round,
+the gate appends its nonblocking notes there with their original finding IDs,
+locations, PR head and App check. Reused notes are not posted again. The full
+reports and a `nonblocking-notes.json` artifact also retain them. If backlog
+delivery fails, the original PR report remains durable, the failure is recorded,
+and it does not change review acceptance or stop a protected merge.
+
+This change does not introduce the separate one-round or Lean profiles. Until
+those profiles are deployed, the existing reviewer and computation requirements
+still apply.
+
+
+### Admin decisions on incomplete review
+
+Only a current repository admin can override an item, both when the command is
+received and when stored override comments are read back. A non-admin override
+has no effect and receives a short explanation. Write-access collaborators keep
+automatic reviews, `/protocol-b review`, and ordinary protected merge access.
+
+Incomplete review is always presented as an explicit administrative item with
+ID `scope-RUN-ATTEMPT-REVIEWER`. This covers unfinished scope, missing required
+source/history reads, rejection without an actionable finding, and a review
+that did not start or complete. Its record includes the unreviewed work or says
+that no itemized list was produced, with links to the original records. This is
+not a finding that the mathematics is false. An admin may accept the item with
+the ordinary exact-head override command and a reason. The resulting App record
+and summary say the PR was accepted with incomplete reviewer scope; they do not
+change an incomplete execution or rejecting model verdict into acceptance.
+A long unreviewed-scope list stays in the original report and artifact; the App
+record retains its hash, item count and location instead of overflowing the
+check. The scope item remains incomplete and explicitly overridable.
+Even if neither model review ran, an admin can accept the two recorded scope
+items explicitly; the resulting record still says neither review ran.
+
+Every remaining substantive finding also needs its own resolution or override.
+An override must come from the App's records for the current head and policy.
+Stale-head and wrong-model protections, required computations, and the protected
+merge rules still apply. Runtime coverage records for missing reviews explicitly
+say no model verdict was produced; they do not invent a model execution.
+
+For gap findings, the attempted-resolution text-length minimum merely rejects
+empty or near-empty fields. It does not certify the quality of the attempt.
+The reviewer must actually attempt the derivation or check the relevant source.
+Backlog notes are grouped into bounded comments per round, with individual note
+markers retained so reused notes are not duplicated.
+
+### Unedited admin commands
+
+Only repository admins may override reviewer findings. The gate checks current
+admin permission when receiving a command and again when reading stored override
+comments. Edited comments are not accepted, including edits made by an admin;
+post a new comment instead. Both timestamps and GitHub's `lastEditedAt`/`editor`
+metadata must establish an unedited comment with the matching body and author.
+Missing metadata fails closed. A non-admin collaborator's override has no effect
+and receives a short reply. The gate's ignored-override replies do not alter the
+reviewed discussion digest or trigger paid supplements. Write-access collaborators retain automatic review, `/protocol-b review`,
+and ordinary protected merge access. This change does not alter any review,
+computation, head-binding or merge requirement.

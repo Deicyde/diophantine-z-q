@@ -222,7 +222,7 @@ class Spending(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'standard or expanded'):
                 gate.configure_budget([changed('manuscripts/new.tex')])
 
-    def test_unread_history_stays_unresolved_and_cannot_be_overridden(self):
+    def test_unread_history_requires_an_explicit_scope_override(self):
         gh = FakeGH()
         prior_id = '1-1-astra-EARLIER'
         review = gate.Review(gh, gh.pr, [], [], {prior_id: {}}, {}, 'trusted', 'fable', 'local mathematical')
@@ -238,8 +238,10 @@ class Spending(unittest.TestCase):
         self.assertEqual(result['prior_findings'][0]['resolution'], 'unresolved')
         pair = {'astra': envelope(), 'fable': envelope('fable')}
         pair['fable'].update(review=result, finished_early=True, read_prerequisites_complete=False)
-        with self.assertRaisesRegex(ValueError, 'missing source or history'):
+        with self.assertRaisesRegex(ValueError, 'scope-1-1-fable'):
             gate.overridden_decision(pair, {prior_id: {}, '1-1-fable-BUDGET': {}}, HEAD)
+        allowed = {prior_id: {}, '1-1-fable-BUDGET': {}, 'scope-1-1-fable': {}}
+        self.assertIn('scope-1-1-fable', gate.overridden_decision(pair, allowed, HEAD))
         gh, app, _, state = run_pipeline(FakeGH(), provider=Mock(return_value=result))
         self.assertIs(state['reports']['fable']['read_prerequisites_complete'], False)
         stored = json.loads(app.final['output']['text'])

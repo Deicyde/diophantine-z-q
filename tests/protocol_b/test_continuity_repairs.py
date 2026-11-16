@@ -61,7 +61,7 @@ class FreshAttestationCapacity(unittest.TestCase):
     def test_two_fresh_large_reports_keep_rejection_authoritative(self):
         reviews = self.large_checks()
         reviews['astra'].update(decision='changes_requested', findings=[{
-            'id': 'gap', 'location': 'p.tex:1', 'objection': 'The implication has a counterexample.'}])
+            'id': 'gap', 'location': 'p.tex:1', 'objection': 'The implication has a counterexample.', 'severity': 'blocking', 'kind': 'error', 'attempted_resolution': ''}])
         gh, app, errors, _, payload = self.run_fresh(reviews)
         self.assertEqual(errors, ['Protocol B review is blocked', 'Protocol B review is blocked'])
         self.assertEqual(app.final['conclusion'], 'failure')

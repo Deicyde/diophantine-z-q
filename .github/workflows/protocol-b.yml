@@ -57,6 +57,7 @@ jobs:
           MODE: ${{ vars.PROTOCOL_B_MODE }}
           MANUSCRIPT_PROFILE: ${{ vars.PROTOCOL_B_MANUSCRIPT_PROFILE }}
           TEST_PR: ${{ vars.PROTOCOL_B_TEST_PR }}
+          NOTES_ISSUE: ${{ vars.PROTOCOL_B_NOTES_ISSUE }}
         run: |
           cat > "$RUNNER_TEMP/protocol-b.py" <<'PROTOCOL_B_PYTHON'
           """Embedded in the trusted default-branch workflow; never imports candidate code."""
@@ -95,8 +96,8 @@ jobs:
               'file reads, searches, or web fetches. In the report, include a Not reviewed '
               'list naming the relevant sources, claims, or checks you did not complete '
               '(write None if all required review is complete). If any required check '
-              'remains incomplete, request changes and identify it as an unresolved '
-              'finding. A budget limit is not evidence of acceptance. Preserve and '
+              'remains incomplete, request changes and set scope_complete to false; '
+              'unread work is not itself a mathematical finding. Preserve and '
               'disposition every earlier finding; do not claim to have read omitted material.'
           )
           WEB_MAX_USES = {'web_search': 3, 'web_fetch': 5}
@@ -317,10 +318,16 @@ jobs:
               "type": "object", "additionalProperties": False,
               "properties": {
                   "decision": {"type": "string", "enum": ["accept", "changes_requested"]},
+                  "not_reviewed": {"type": "array", "items": {"type": "string"}, "description": "Specific unreviewed sources, arguments or checks; empty only when the required scope is complete."},
+                  "scope_complete": {"type": "boolean", "description": "All required review was completed, apart from explicitly recorded source-access limitations. False for unread work, interruptions or budget exhaustion."},
                   "report": {"type": "string", "description": "Full substantive review with source locations, scope and limitations."},
                   "findings": {"type": "array", "items": {"type": "object", "additionalProperties": False,
                       "properties": {"id": {"type": "string"}, "location": {"type": "string"},
-                                     "objection": {"type": "string"}}, "required": ["id", "location", "objection"]}},
+                                     "objection": {"type": "string"},
+                                     "severity": {"type": "string", "enum": ["blocking", "note"]},
+                                     "kind": {"type": "string", "enum": ["error", "gap", "source_access", "editorial"]},
+                                     "attempted_resolution": {"type": "string"}},
+                      "required": ["id", "location", "objection", "severity", "kind", "attempted_resolution"]}},
                   "prior_findings": {"type": "array", "items": {"type": "object", "additionalProperties": False,
                       "properties": {"id": {"type": "string"}, "resolution": {"type": "string", "enum": ["resolved", "unresolved", "overridden"]},
                                      "reason": {"type": "string"}}, "required": ["id", "resolution", "reason"]}},
@@ -328,7 +335,7 @@ jobs:
                   "source_checks": {"type": "array", "items": SOURCE_CHECK_SCHEMA},
                   "access_limitations": {"type": "array", "items": ACCESS_LIMIT_SCHEMA},
                   "not_outside_reviewed": {"type": "array", "items": {"type": "string"}},
-              }, "required": ["decision", "report", "findings", "prior_findings", "sources_read", "not_outside_reviewed", "source_checks", "access_limitations"],
+              }, "required": ["decision", "scope_complete", "not_reviewed", "report", "findings", "prior_findings", "sources_read", "not_outside_reviewed", "source_checks", "access_limitations"],
           }
           TOOLS = [
               {"name": "read_file", "description": "Read a pinned PR or base text file by lines; binary PDFs return a pinned public URL. Never executes content.",
@@ -345,6 +352,11 @@ jobs:
           ]
 
 
+          def blocking_findings(review):
+              # Old stored reports did not carry severity. They remain blocking.
+              return [f for f in review['findings'] if f.get('severity', 'blocking') != 'note']
+
+
           def validate_review(value, prior_ids, overrides, allow_incomplete=False):
               if set(value) != set(FINISH_SCHEMA["required"]):
                   raise ValueError("Incomplete final report")
@@ -355,9 +367,30 @@ jobs:
                       raise ValueError("Expected report list: " + key)
               if not value["sources_read"] and not (allow_incomplete and value['decision'] == 'changes_requested'):
                   raise ValueError("No sources read")
+              if type(value['scope_complete']) is not bool:
+                  raise ValueError('Report must state whether its required scope was reviewed')
+              if value['decision'] == 'accept' and not value['scope_complete']:
+                  raise ValueError('Incomplete review cannot accept')
+              if not isinstance(value['not_reviewed'], list) or any(not isinstance(x, str) or not x.strip() for x in value['not_reviewed']):
+                  raise ValueError('Unreviewed scope must be an itemized list')
+              if not value['scope_complete'] and not value['not_reviewed']:
+                  raise ValueError('Incomplete scope must identify what was not reviewed')
+              if value['scope_complete'] and value['not_reviewed']:
+                  raise ValueError('Unreviewed work cannot be called complete')
               ids = [x["id"] for x in value["findings"]]
               if len(ids) != len(set(ids)) or any(not re.fullmatch(r"[A-Za-z0-9_-]{1,40}", i) for i in ids):
                   raise ValueError("Invalid or duplicate finding IDs")
+              for finding in value['findings']:
+                  if finding.get('severity') not in {'blocking', 'note'}:
+                      raise ValueError('Each fresh finding needs a severity')
+                  if finding.get('kind') not in {'error', 'gap', 'source_access', 'editorial'}:
+                      raise ValueError('Each fresh finding needs a kind')
+                  if (finding['severity'] == 'note') != (finding['kind'] == 'editorial'):
+                      raise ValueError('Only editorial observations are nonblocking notes')
+                  if not isinstance(finding.get('attempted_resolution'), str):
+                      raise ValueError('Each finding needs its attempted-resolution field')
+                  if finding['kind'] == 'gap' and len(finding['attempted_resolution'].strip()) < 40:
+                      raise ValueError('A gap needs the attempted argument or source check and its remaining obstruction')
               dispositions = value["prior_findings"]
               if len(dispositions) != len(prior_ids) or {x["id"] for x in dispositions} != prior_ids:
                   raise ValueError("Earlier findings were omitted or duplicated")
@@ -368,7 +401,7 @@ jobs:
                       raise ValueError("No authenticated collaborator override")
               if any(x["resolution"] == "overridden" for x in dispositions) and not value["not_outside_reviewed"]:
                   raise ValueError("Override must leave the affected claim not outside reviewed")
-              if value["decision"] == "accept" and (value["findings"] or any(x["resolution"] == "unresolved" for x in dispositions)):
+              if value["decision"] == "accept" and (blocking_findings(value) or any(x["resolution"] == "unresolved" for x in dispositions)):
                   raise ValueError("Acceptance cannot contain unresolved objections")
               checks = value['source_checks']
               if len({s['source_id'] for s in checks}) != len(checks):
@@ -378,7 +411,7 @@ jobs:
                           or not s['location'].strip() or len(s['detail'].strip()) < 20):
                       raise ValueError('A source check needs a precise passage and substantive detail')
               unavailable = {s['source_id'] for s in checks if s['outcome'] == 'unavailable'}
-              unresolved = set(ids) | {s['id'] for s in dispositions if s['resolution'] == 'unresolved'}
+              unresolved = {f['id'] for f in blocking_findings(value)} | {s['id'] for s in dispositions if s['resolution'] == 'unresolved'}
               limits = value['access_limitations']
               if len({s['finding_id'] for s in limits}) != len(limits):
                   raise ValueError('Duplicate access limitations')
@@ -659,6 +692,7 @@ jobs:
                   self.history_read, self.reads, self.tree, self.chars = False, [], None, 0
                   self.file_lines, self.working_comment, self.notes = {}, None, []
                   self.finish_now = False
+                  self.identity_error = False
                   self.discovery = {}
                   self.binary_dependencies = set()
                   self.initial_files = files
@@ -787,6 +821,7 @@ jobs:
                       previous = {**budget, 'usage': usage,
                                   'server_tools': any(x.get('type') == 'server_tool_use' for x in output)}
                       if served != MODELS[self.family]:
+                          self.identity_error = True
                           raise RuntimeError(f"Requested {MODELS[self.family]}, API reported {served}; no silent substitution")
                       # The exact provider conversation, including signed/encrypted reasoning,
                       # stays in memory. Retain inputs, source reads, visible report and usage.
@@ -935,8 +970,11 @@ jobs:
                                              'review_access_limitations': report['review'].get('access_limitations', []),
                                              'reviewer': report['reviewer'], 'head': report['head'],
                                              'review_run': report['run'], 'review_attempt': report['attempt']})
-                      for finding in report["review"]["findings"]:
+                      for finding in blocking_findings(report["review"]):
                           prior[finding_id(report, finding['id'])] = finding
+                      scope = review_scope_item(report)
+                      if scope:
+                          prior[scope['id']] = scope
                       key = (report['run'], report['attempt'], report['reviewer'])
                       if report.get('complete'):
                           completed_runs.add(key)
@@ -953,11 +991,83 @@ jobs:
               pattern = re.compile(r"^/protocol-b override ([0-9a-f]{40}) ([A-Za-z0-9_-]+)\s+(.+)$", re.S)
               for comment in comments:
                   match = pattern.fullmatch(comment["body"].strip())
-                  if match and match[1] == pr["head"]["sha"] and match[2] in prior:
+                  if match and match[1] == pr["head"]["sha"] and (match[2] in prior or re.fullmatch(r"scope-[0-9]+-[0-9]+-(astra|fable)", match[2])):
                       login = comment["user"]["login"]
                       if administrator(gh, comment["user"]) and unedited_override_comment(gh, comment):
                           overrides[match[2]] = {"collaborator": login, "reason": match[3], "url": comment["html_url"]}
               return discussion, prior, overrides, latest
+
+
+          def review_scope_item(envelope):
+              """An administrative coverage item, never a claim that the mathematics is false."""
+              if envelope.get('scope_coverage'):
+                  return envelope['scope_coverage']
+              value = envelope.get('review', {})
+              reasons = []
+              if not envelope.get('complete'):
+                  reasons.append('The review did not complete.')
+              if value.get('scope_complete') is False:
+                  reasons.append('The reviewer reported incomplete coverage.')
+              if envelope.get('read_prerequisites_complete') is False:
+                  reasons.append('Required source or history reads were not completed.')
+              if envelope.get('finished_early') and value.get('decision') != 'accept':
+                  reasons.append('The review stopped at its context limit.')
+              active = blocking_findings(value) or any(f['resolution'] != 'resolved' for f in value.get('prior_findings', []))
+              notes = any(f.get('severity') == 'note' for f in value.get('findings', [])) or envelope.get('nonblocking_notes_omitted', {}).get('count', 0) > 0
+              if value.get('decision') not in {'accept', 'not_reviewed'} and not active and not notes:
+                  reasons.append('The reviewer rejected without an itemized blocking finding.')
+              if not reasons:
+                  return None
+              unread = value.get('not_reviewed') or [
+                  'The unreviewed scope was not itemized; the original report and diagnostic records remain authoritative.']
+              encoded = json.dumps(unread, ensure_ascii=False).encode()
+              scope = {'id': 'scope-'+str(envelope['run'])+'-'+str(envelope['attempt'])+'-'+envelope['reviewer'],
+                       'kind': 'review_scope', 'location': envelope['reviewer']+' review coverage',
+                       'objection': ' '.join(reasons), 'not_reviewed': unread,
+                       'original_run': str(envelope['run']), 'reviewer': envelope['reviewer']}
+              if len(encoded) > 6_000:
+                  # Coverage remains explicitly incomplete. Full text is preserved in
+                  # the original report/artifact, with a binding hash in the App record.
+                  scope['not_reviewed'] = ['Coverage list exceeds the App summary allowance; see the full original report and run artifact.']
+                  scope['coverage_omitted'] = {'sha256': hashlib.sha256(encoded).hexdigest(),
+                      'items': len(unread), 'bytes': len(encoded),
+                      'run': str(envelope['run']), 'attempt': str(envelope['attempt']),
+                      'artifact_file': envelope['reviewer']+'-report.json'}
+              return scope
+
+
+          def ensure_scope_records(state, previous=None):
+              """Record absent reviews as absent; never manufacture a model execution or verdict."""
+              for family in MODELS:
+                  prior = (previous or {}).get(family)
+                  if family not in state['reports'] and prior and effective_head(prior) == state['head']:
+                      # A skipped later run must not erase an earlier authentic rejection.
+                      state['reports'][family] = json.loads(json.dumps(prior))
+                  current = state['reports'].get(family)
+                  if (current and not current.get('complete') and prior
+                          and effective_head(prior) == state['head']):
+                      # An interrupted replacement did not resolve the earlier objections.
+                      carried = {finding_id(prior, f['id']): f.get('objection', '')
+                                 for f in blocking_findings(prior['review'])}
+                      carried.update({f['id']: f.get('reason', '')
+                                      for f in prior['review'].get('prior_findings', [])
+                                      if f['resolution'] != 'resolved'})
+                      existing = {f['id'] for f in current['review'].get('prior_findings', [])}
+                      current['review'].setdefault('prior_findings', []).extend(
+                          {'id': ident, 'resolution': 'unresolved',
+                           'reason': 'Retained from the earlier App record; the interrupted review did not resolve it. '+reason}
+                          for ident, reason in sorted(carried.items()) if ident not in existing)
+                  if family not in state['reports']:
+                      state['reports'][family] = {
+                          'reviewer': family, 'model': MODELS[family], 'reported_model': None,
+                          'runtime_scope_record': True, 'complete': False,
+                          'head': state['head'], 'policy_ref': state['policy_ref'],
+                          'run': os.environ['GITHUB_RUN_ID'], 'attempt': os.environ['GITHUB_RUN_ATTEMPT'],
+                          'review': {'decision': 'not_reviewed', 'scope_complete': False,
+                                     'report': 'Runtime record of an absent review, not a model verdict.',
+                                     'not_reviewed': ['No completed '+family+' review was produced. '+state.get('summary', '')],
+                                     'findings': [], 'prior_findings': []}}
+              state['scope_items'] = [item for e in state['reports'].values() if (item := review_scope_item(e))]
 
 
           def administrator(gh, user):
@@ -993,20 +1103,18 @@ jobs:
           def override_findings(latest, head):
               """Validate the trusted reports before classifying their findings."""
               if set(latest) != set(MODELS):
-                  raise ValueError("Override needs complete reports from both approved reviewers on this head")
+                  raise ValueError("Override needs the App records for both reviewers on this head")
               unresolved = set()
               for family, envelope in latest.items():
-                  if not envelope.get('complete') or envelope.get('reused_for', envelope.get('head')) != head or envelope.get('model') != MODELS[family]:
-                      raise ValueError("Override cannot replace an incomplete, stale or wrong-model review")
-                  # Historical completed envelopes predate this flag; their policy
-                  # required both reads and could not produce a no-read completion.
-                  if envelope.get('read_prerequisites_complete', True) is not True:
-                      raise ValueError('Override cannot replace missing source or history reads in a finish-now report')
+                  if (envelope.get('reused_for', envelope.get('head')) != head
+                          or envelope.get('model') != MODELS[family] or envelope.get('identity_error')):
+                      raise ValueError("Override cannot replace a stale or wrong-model review")
                   value = envelope['review']
-                  here = {finding_id(envelope, f['id']) for f in value['findings']}
+                  here = {finding_id(envelope, f['id']) for f in blocking_findings(value)}
                   here.update(f['id'] for f in value['prior_findings'] if f['resolution'] != 'resolved')
-                  if value['decision'] != 'accept' and not here:
-                      raise ValueError("Reviewer rejected without scoped findings; request a complete report")
+                  scope = review_scope_item(envelope)
+                  if scope:
+                      here.add(scope['id'])
                   unresolved.update(here)
               return unresolved
 
@@ -1030,7 +1138,10 @@ jobs:
           def findings_summary(reports):
               rows = []
               for envelope in reports.values():
-                  for finding in envelope['review']['findings']:
+                  scope = review_scope_item(envelope)
+                  if scope:
+                      rows.append(f"- `{scope['id']}`: incomplete review scope: {scope['objection']}")
+                  for finding in blocking_findings(envelope['review']):
                       rows.append(f"- `{finding_id(envelope, finding['id'])}`: {finding.get('location', '')}: {finding.get('objection', '')}")
                   for prior in envelope['review'].get('prior_findings', []):
                       if prior['resolution'] == 'unresolved':
@@ -1400,12 +1511,26 @@ jobs:
           def decision_text(state, reports, limits):
               compact = json.loads(json.dumps(reports))
               for e in compact.values():
+                  if (scope := review_scope_item(e)):
+                      e['scope_coverage'] = scope
+                      if scope.get('coverage_omitted'):
+                          e['review']['not_reviewed'] = scope['not_reviewed']
+                  notes = [f for f in e['review']['findings'] if f.get('severity') == 'note']
+                  if notes:
+                      # The full original report is permanent in the PR and artifact.
+                      # Notes cannot overflow the App payload and block acceptance.
+                      e['nonblocking_notes_omitted'] = {
+                          'count': len(notes),
+                          'sha256': hashlib.sha256(json.dumps(notes, sort_keys=True, ensure_ascii=False).encode()).hexdigest(),
+                          'location': 'Full original reviewer report on the PR and in its original run artifact.'}
+                      e['review']['findings'] = blocking_findings(e['review'])
                   e['review'].pop('report', None)
                   e['review'].pop('sources_read', None)
               return json.dumps({'schema': 'protocol-b-decisions/v1', 'head': state['head'], 'reports': compact,
                                  'automatic_rounds': state.get('automatic_rounds', 0),
                                  'review_round': state.get('review_round'),
-                                 'source_access_limitations': limits})
+                                 'source_access_limitations': limits,
+                                 'scope_overrides': state.get('scope_overrides', [])})
 
 
           def bounded_decision(state, envelopes, prior, discussion):
@@ -1439,7 +1564,7 @@ jobs:
               occurrences, qualified = {}, {}
               for family, envelope in envelopes.items():
                   review = envelope['review']
-                  unresolved = {finding_id(envelope, f['id']) for f in review['findings']}
+                  unresolved = {finding_id(envelope, f['id']) for f in blocking_findings(review)}
                   unresolved.update(f['id'] for f in review['prior_findings']
                                     if f['resolution'] == 'unresolved' or
                                     (include_overridden and f['resolution'] == 'overridden'))
@@ -1472,16 +1597,24 @@ jobs:
               if discussion is not None and uncovered_history(envelopes, discussion):
                   return False, []
               addressed = {f['id'] for e in envelopes.values() for f in e['review'].get('prior_findings', [])}
-              addressed.update(finding_id(e, f['id']) for e in envelopes.values() for f in e['review']['findings'])
+              addressed.update(finding_id(e, f['id']) for e in envelopes.values() for f in blocking_findings(e['review']))
               if set(prior or {}) - addressed:
                   return False, []
               limits = qualified_access_findings(envelopes)
               for family, envelope in envelopes.items():
                   review = envelope['review']
+                  if review.get('scope_complete', True) is not True:
+                      return False, limits
                   if review['decision'] == 'accept':
                       continue
-                  unresolved = {finding_id(envelope, f['id']) for f in review['findings']}
+                  unresolved = {finding_id(envelope, f['id']) for f in blocking_findings(review)}
                   unresolved.update(f['id'] for f in review['prior_findings'] if f['resolution'] == 'unresolved')
+                  if (not unresolved and review.get('scope_complete') is True
+                          and (review['findings'] or envelope.get('nonblocking_notes_omitted', {}).get('count', 0) > 0)
+                          and not envelope.get('finished_early') and envelope.get('read_prerequisites_complete') is not False):
+                      # A fully reviewed change with only editorial notes meets the
+                      # requirement. Keep the reviewer's original decision visible.
+                      continue
                   if not unresolved or envelope.get('finished_early') or envelope.get('read_prerequisites_complete') is False:
                       return False, limits
                   covered = {item['finding'] for item in limits if item['reviewer_unable_to_open'] == family}
@@ -1695,6 +1828,10 @@ jobs:
                       if limits:
                           summary += '\nNonblocking source-access limitations:\n' + json.dumps(limits, indent=2)
                       state['overrides'] = applied
+                      state['scope_overrides'] = [item for e in envelopes.values()
+                                                  if (item := review_scope_item(e)) and item['id'] in applied]
+                      if state['scope_overrides']:
+                          summary += '\nAccepted by admin with incomplete reviewer scope. This is not completed model review:\n' + json.dumps(state['scope_overrides'], indent=2)
                       gh.call(f'/issues/{number}/comments', 'POST', {'body': summary + findings_summary(envelopes)})
                   elif change_class == "editorial" and not prior:
                       conclusion, summary = "success", "Editorial change under the path/diff rule; author declared no mathematical change. No model review."
@@ -1775,9 +1912,10 @@ jobs:
                                   # error by itself is not a mathematical finding.
                                   problem = {"reviewer": family, "model": MODELS[family], "head": pr["head"]["sha"],
                                              "run": os.environ["GITHUB_RUN_ID"], "attempt": os.environ["GITHUB_RUN_ATTEMPT"],
-                                             "complete": False, "policy_ref": os.environ['GITHUB_SHA'],
+                                             "complete": False, "identity_error": reviewers[family].identity_error, "policy_ref": os.environ['GITHUB_SHA'],
                                              "initial_packet": reviewers[family].initial_packet,
                                              "review": {"decision": "changes_requested", "report": "Infrastructure failure, not a model verdict: " + str(error),
+                                                        "scope_complete": False, "not_reviewed": ["Review interrupted: " + str(error)],
                                                         "findings": [], "prior_findings": []}}
                                   envelopes[family] = problem
                                   record(family + "-failure.json", problem)
@@ -1790,6 +1928,8 @@ jobs:
                       if accepted:
                           conclusion = "success"
                           summary = "Both approved reviewers accepted this revision. When either family authored the change, only the other is an outside reviewer. This is informal review, not a formal proof."
+                          if any(e['review']['decision'] != 'accept' for e in envelopes.values()):
+                              summary = 'Review requirement met with only nonblocking observations. Original reviewer decisions are preserved; this is not unanimous acceptance.'
                           if limits:
                               summary = ("Review requirement met with nonblocking source-access limitations. "
                                          "The named other reviewer verified each unavailable passage; this is not unanimous source inspection.\n"
@@ -2016,9 +2156,22 @@ jobs:
               decisions = {}
               for family, envelope in reports.items():
                   review = envelope.get('review', {})
-                  decisions[family] = review.get('decision', 'incomplete') if envelope.get('complete') else 'incomplete'
+                  decisions[family] = review.get('decision', 'incomplete') if envelope.get('complete') and review.get('scope_complete', True) else 'incomplete'
+                  scope = review_scope_item(envelope)
+                  if scope:
+                      detail = scope['objection']+' Unreviewed: '+'; '.join(scope['not_reviewed'])
+                      if scope['id'] in overridden:
+                          nonblocking[scope['id']] = 'Admin accepted incomplete review scope. '+detail
+                      else:
+                          blocking[scope['id']] = 'Incomplete review scope, not a mathematical error. '+detail
+                  omitted = envelope.get('nonblocking_notes_omitted', {})
+                  if omitted.get('count', 0):
+                      nonblocking[family+'-retained-notes'] = str(omitted['count'])+" editorial notes remain in this reviewer's original linked report."
                   entries = [(finding_id(envelope, item['id']), item.get('location', ''),
-                              item.get('objection', ''), 'unresolved') for item in review.get('findings', [])]
+                              item.get('objection', ''), 'unresolved') for item in blocking_findings(review)]
+                  for item in review.get('findings', []):
+                      if item.get('severity') == 'note':
+                          nonblocking[finding_id(envelope, item['id'])] = item.get('location', '') + ': ' + item.get('objection', '')
                   entries += [(item['id'], '', item.get('reason', ''), item['resolution'])
                               for item in review.get('prior_findings', []) if item['resolution'] != 'resolved']
                   for ident, location, detail, resolution in entries:
@@ -2027,7 +2180,7 @@ jobs:
                           description = 'Source access: '+item['reviewer_who_checked']+' verified the named passage; '+item['reviewer_unable_to_open']+' could not open it.'
                           nonblocking[ident] = ' '.join(sorted({description, nonblocking.get(ident, '')})).strip()
                       elif ident in overridden or resolution == 'overridden':
-                          nonblocking[ident] = 'Accepted by a recorded maintainer override. The affected claim is not outside reviewed.'
+                          nonblocking[ident] = 'Accepted by a recorded admin override. The reviewers did not accept this point.'
                       else:
                           description = (location+': ' if location else '')+detail
                           blocking[ident] = ' '.join(sorted({description, blocking.get(ident, '')})).strip()
@@ -2049,7 +2202,7 @@ jobs:
                       rows.extend(['None.', ''])
                       return
                   for ident, detail in list(sorted(items.items()))[:10]:
-                      excerpt = ' '.join(detail.split())
+                      excerpt = ' '.join(detail.split()).replace('@', '@\u200b')
                       if len(excerpt) > 500:
                           excerpt = excerpt[:497]+'...'
                       rows.append('- `'+ident+'`: '+excerpt)
@@ -2062,9 +2215,13 @@ jobs:
               if accepted:
                   rows.append('No review changes are required. Merge remains subject to the repository\'s required checks and current-head rules.')
               elif blocking:
-                  rows.append('Address the blocking findings above or ask a maintainer to decide them. The nonblocking observations do not require changes in this PR.')
+                  rows.append('Address the blocking findings above, or reply on this PR to request an admin decision. The nonblocking observations do not require changes in this PR.')
               else:
                   rows.append('The review has not produced an accepted result. See the check summary for missing prerequisites or an interrupted review; this alone is not a mathematical error.')
+              scope_ids = sorted(item['id'] for e in reports.values()
+                                 if (item := review_scope_item(e)) and item['id'] in blocking)
+              if scope_ids:
+                  rows.append('Current incomplete-scope items: '+', '.join('`'+ident+'`' for ident in scope_ids)+'. An admin decision must name these current IDs and this head; an older round has different IDs.')
               rows += ['', '[Full App check and retained review records]('+check_url+').', '']
               runs = sorted({str(e['run']) for e in reports.values() if e.get('run')})
               if runs:
@@ -2090,6 +2247,63 @@ jobs:
               record('round-summary.json', {'check': state['check'], 'comment': result, 'body': body})
 
 
+          def review_notes(state):
+              notes = []
+              for family, envelope in state.get('reports', {}).items():
+                  if not envelope.get('complete'):
+                      continue
+                  for finding in envelope['review']['findings']:
+                      if finding.get('severity') == 'note':
+                          notes.append({'id': finding_id(envelope, finding['id']), 'reviewer': family,
+                                        'location': finding['location'], 'note': finding['objection']})
+              return notes
+
+
+          def publish_notes_backlog(gh, state, check):
+              """Append notes to a configured issue, without making delivery a merge gate."""
+              notes = review_notes(state)
+              if not notes:
+                  return
+              record('nonblocking-notes.json', {'number': state['number'], 'head': state['head'], 'notes': notes})
+              issue = os.environ.get('NOTES_ISSUE', '')
+              if not re.fullmatch(r'[1-9][0-9]*', issue):
+                  raise ValueError('PROTOCOL_B_NOTES_ISSUE is not configured')
+              target = gh.call('/issues/'+issue)
+              if target.get('pull_request') or target.get('state') != 'open':
+                  raise ValueError('The nonblocking-notes backlog must be an open issue')
+              # One marker per original note prevents duplicate collection after review reuse.
+              existing = {marker for c in gh.pages('/issues/'+issue+'/comments') if own_comment(gh, c)
+                          for marker in re.findall(r'<!-- protocol-b-note:[A-Za-z0-9_-]+ -->', c['body'])}
+              header = ('Nonblocking review notes from PR #' + str(state['number']) +
+                        ', head `' + state['head'] + '`.\n\n'
+                        'For optional maintainer cleanup. They are not conditions of accepting that PR.\n\n'
+                        '[Original App check](https://github.com/' + gh.repo + '/runs/' + str(state['check']) + ')\n\n')
+              chunks, entries, ids = [], [], []
+              def safe_text(value):
+                  return value.replace('@', '@\u200b').replace('<', '&lt;')
+              # Construct all bounded batches before posting. Usually one comment suffices.
+              # Retain per-note markers so reuse can never create a second copy of a note.
+              for note in notes:
+                  marker = '<!-- protocol-b-note:' + note['id'] + ' -->'
+                  if marker in existing:
+                      continue
+                  entry = marker+'\n### '+safe_text(note['location'])+'\n\n'+safe_text(note['note'])+'\n\n'
+                  if len((header+entry).encode()) > 45_000:
+                      raise ValueError('A note exceeds the backlog comment limit; original PR report retained')
+                  if entries and len((header+''.join(entries)+entry).encode()) > 45_000:
+                      chunks.append((header+''.join(entries), ids))
+                      entries, ids = [], []
+                  entries.append(entry)
+                  ids.append(note['id'])
+              if entries:
+                  chunks.append((header+''.join(entries), ids))
+              posted = []
+              for body, ids in chunks:
+                  result = gh.call('/issues/'+issue+'/comments', 'POST', {'body': body})
+                  posted.append({'findings': ids, 'comment': result['id']})
+              record('notes-backlog-result.json', {'issue': int(issue), 'posted': posted})
+
+
           def publish():
               """Use a fresh official-action token after the potentially long review."""
               path = OUT / 'decision.json'
@@ -2099,6 +2313,10 @@ jobs:
               state = json.loads(path.read_text(encoding='utf-8'))
               gh, app = start_clients()
               current = gh.call(f"/pulls/{state['number']}")
+              if state['conclusion'] != 'success':
+                  previous = trusted_reports(app, current, state['name'], state['check'])
+                  ensure_scope_records(state, previous)
+              record('scope-items.json', state.get('scope_items', []))
               latest_ref = gh.call('/commits/' + state['default'])['sha']
               check = app.call(f"/check-runs/{state['check']}")
               if check['app']['id'] != int(os.environ['APP_ID']) or check['head_sha'] != state['head'] or check['name'] != state['name']:
@@ -2117,6 +2335,9 @@ jobs:
                   payload = json.loads(text)
                   payload['reports'] = compact
                   text = json.dumps(payload)
+              if state.get('scope_items'):
+                  state['summary'] += '\nIncomplete-review items for an admin decision:\n'+json.dumps(state['scope_items'], indent=2)
+              record('decision.json', state)
               state['summary'] += f"\nAutomatic review rounds: {state.get('automatic_rounds', 0)}/4."
               if len(text.encode()) > 60_000 or len(state['summary'].encode()) > 60_000:
                   raise ValueError('Check output exceeds capacity; remains blocked, never truncate findings')
@@ -2128,6 +2349,11 @@ jobs:
                   # An explanatory comment cannot invalidate an accepted check.
                   record('round-summary-error.json', {'message': str(error), 'check': state['check']})
                   log('Round summary could not be posted: '+str(error))
+              try:
+                  publish_notes_backlog(gh, state, check)
+              except Exception as error:
+                  record('notes-backlog-error.json', {'message': str(error), 'check': state['check']})
+                  log('Nonblocking notes remain in original PR reports; backlog delivery failed: '+str(error))
               if state['conclusion'] != 'success':
                   raise RuntimeError('Protocol B review is blocked')
               if state['mode'] == 'live':
@@ -2155,6 +2381,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           APP_TOKEN: ${{ steps.app_finish.outputs.token }}
           APP_ID: ${{ vars.PROTOCOL_B_APP_ID }}
+          NOTES_ISSUE: ${{ vars.PROTOCOL_B_NOTES_ISSUE }}
         run: python3 "$RUNNER_TEMP/protocol-b.py" publish
       - name: Preserve reports and diagnostic output
         if: always()

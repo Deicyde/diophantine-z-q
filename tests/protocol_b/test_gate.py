@@ -32,9 +32,12 @@ def changed(path='README.md', diff='@@ -1 +1 @@\n-alpha  \n+alpha', **kwargs):
 
 
 def report(**kwargs):
-    return {'decision': 'accept', 'report': 'The source and its consumers have been read. The stated hypotheses match the supplied objects.',
+    result = {'decision': 'accept', 'report': 'The source and its consumers have been read. The stated hypotheses match the supplied objects.',
             'findings': [], 'prior_findings': [], 'sources_read': ['test.tex:1'],
-            'not_outside_reviewed': [], 'source_checks': [], 'access_limitations': [], **kwargs}
+            'scope_complete': True, 'not_reviewed': [], 'not_outside_reviewed': [], 'source_checks': [], 'access_limitations': [], **kwargs}
+    result['findings'] = [{'severity': 'blocking', 'kind': 'error', 'attempted_resolution': '', **f}
+                          for f in result['findings']]
+    return result
 
 
 def envelope(family='astra', **kwargs):
