@@ -49,3 +49,9 @@ Base wip/nos-proof e9828e92, merged origin/main e41a7169 (STATUS.md only). Build
   DimensionRelation → AbelianReductionGood → r7a`; `nosConverseNF_of_glue` with N1 in place of the first.
 - #discharges re-run (Discharges-output.txt): r7a by neronOggShafarevich_of_glue, still assumes the 8 above.
 - autofold dry run for that spec: "strict count: 34/11 on 45 -> 34/15 on 49; strictest 34/11 -> 34/15"; refused.
+- ComponentIndexBound PROVED (`index_bound`: translates of an open subgroup by k̄-points cover the closed points
+  (Mathlib pointOfClosedPoint), hence G (IsClosed.exists_closed_singleton); finite subcover; commutativity).
+- Final form: `neronOggShafarevich_of_open : NeronSchemeModelExistsDVR → NeronBaseChangeStrictHenselization →
+  RaynaudSemistableSH → MumfordTorsionAlgClosed → TorsionInjectsSpecialFibre → DimensionRelation →
+  AbelianReductionGood → r7a`; `nosConverseNF_of_open` with N1. Contrib rebuilt; #discharges re-run (VERIFIED).
+- autofold dry run (final spec): "strict count: 34/11 on 45 -> 34/14 on 48; strictest 34/11 -> 34/14"; refused.

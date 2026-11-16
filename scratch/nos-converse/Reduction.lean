@@ -934,6 +934,29 @@ theorem neronOggShafarevich_of_glue (hN : NeronSchemeModelExistsDVR)
     PkgI2.NeronOggShafarevich.{0} :=
   neronOggShafarevich_of_two hN hSH hR (torusRankZero_of_glue hInj hComp hDim hM) hC
 
+/-- **`TorusRankZero` from two glue Props and a field**: `TorsionInjectsSpecialFibre`, `DimensionRelation`,
+`mumfordTorsionAlgClosed` (`ComponentIndexBound` and `NeronSpecialFibreComm` are proved). -/
+theorem torusRankZero_of_open (hInj : TorsionInjectsSpecialFibre) (hDim : DimensionRelation)
+    (hM : AvSplit.MumfordTorsionAlgClosed) : TorusRankZero :=
+  torusRankZero_of_glue hInj componentIndexBound_proof hDim hM
+
+/-- **`NOSConverseNF` from four open fields, two glue Props and one leaf** (the final form): fields
+`neronSchemeExtensionExists`, `neronBaseChangeStrictHenselization`, `raynaudSemistableSH`,
+`mumfordTorsionAlgClosed`; GLUE `TorsionInjectsSpecialFibre`, `DimensionRelation`; LEAF `AbelianReductionGood`. -/
+theorem nosConverseNF_of_open (hN1 : ZInQ.Contrib.NeronC.NeronSchemeExtensionExists)
+    (hSH : GapSHPair.NeronBaseChangeStrictHenselization) (hR : RaynaudSemistableSH)
+    (hM : AvSplit.MumfordTorsionAlgClosed) (hInj : TorsionInjectsSpecialFibre) (hDim : DimensionRelation)
+    (hC : AbelianReductionGood) : NOSConverseNF :=
+  nosConverseNF_of_two hN1 hSH hR (torusRankZero_of_open hInj hDim hM) hC
+
+/-- **`r7a` (the final form)**: BLR §1.4 Thm 3 over every DVR, three open fields, `mumfordTorsionAlgClosed`, two glue
+Props and one leaf. -/
+theorem neronOggShafarevich_of_open (hN : NeronSchemeModelExistsDVR)
+    (hSH : GapSHPair.NeronBaseChangeStrictHenselization) (hR : RaynaudSemistableSH)
+    (hM : AvSplit.MumfordTorsionAlgClosed) (hInj : TorsionInjectsSpecialFibre) (hDim : DimensionRelation)
+    (hC : AbelianReductionGood) : PkgI2.NeronOggShafarevich.{0} :=
+  neronOggShafarevich_of_two hN hSH hR (torusRankZero_of_open hInj hDim hM) hC
+
 end NOSConverse
 
 #print axioms NOSConverse.nosConverseNF_of_pieces
@@ -951,3 +974,5 @@ end NOSConverse
 #print axioms NOSConverse.torusRankZero_of_glue
 #print axioms NOSConverse.nosConverseNF_of_glue
 #print axioms NOSConverse.neronOggShafarevich_of_glue
+#print axioms NOSConverse.nosConverseNF_of_open
+#print axioms NOSConverse.neronOggShafarevich_of_open
