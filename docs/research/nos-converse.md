@@ -16,31 +16,31 @@ Task nos-converse, 2026-11-16. Base wip/nos-proof `e9828e92`, merged origin/main
      `NOSConverseSep` quantifies over every field `K` (for example `K = ℂ((t))`), and nothing in the bundles
      produces an abelian scheme over such an `O`. So a discharge of `r7a` over every field needs BLR §1.4 Thm 3 over
      an arbitrary DVR (`ReductSplit.NeronSchemeModelExistsDVR`, not a field) as a new leaf.
-  2. *Even at number fields, two inputs of Serre–Tate's proof are missing from the bundles and from Mathlib.* One is
+  2. *Even at number fields, inputs of Serre–Tate's proof are missing from the bundles and from Mathlib.* One is
      "if the identity component of the geometric special fibre of the Néron model is an abelian variety, then `A`
-     has good reduction" (a properness criterion; leaf `AbelianReductionGood`). The other is three geometric facts
+     has good reduction" (a properness criterion; leaf `AbelianReductionGood`). The others are two geometric facts
      about Néron models used in the torsion count (glue, §2).
 * **What is proved (standard axioms, VERIFIED by `lake build` and `#print axioms`):** `r7a`, and its converse at
   number fields, from the open fields plus the pieces of Serre–Tate's proof that no field supplies. Along the way
-  four pieces are **proved outright**: `InertiaFixedRational`, `SemiAbelianTorsionBound`, `RankZeroAbelian` and
-  `NeronSpecialFibreComm` (§3).
+  five pieces are **proved outright**: `InertiaFixedRational`, `ComponentIndexBound`, `SemiAbelianTorsionBound`,
+  `RankZeroAbelian` and `NeronSpecialFibreComm` (§3).
 
   ```
-  nosConverseNF_of_glue : NeronSchemeExtensionExists → NeronBaseChangeStrictHenselization →
+  nosConverseNF_of_open : NeronSchemeExtensionExists → NeronBaseChangeStrictHenselization →
     RaynaudSemistableSH → MumfordTorsionAlgClosed →
-    TorsionInjectsSpecialFibre → ComponentIndexBound → DimensionRelation → AbelianReductionGood → NOSConverseNF
-  neronOggShafarevich_of_glue : NeronSchemeModelExistsDVR → (the same seven) → PkgI2.NeronOggShafarevich.{0}
+    TorsionInjectsSpecialFibre → DimensionRelation → AbelianReductionGood → NOSConverseNF
+  neronOggShafarevich_of_open : NeronSchemeModelExistsDVR → (the same six) → PkgI2.NeronOggShafarevich.{0}
   ```
 
-  The first four hypotheses of `nosConverseNF_of_glue` are fields of the current bundles. The last four are open:
-  three GLUE and one LEAF.
+  The first four hypotheses of `nosConverseNF_of_open` are fields of the current bundles. The last three are open:
+  two GLUE and one LEAF.
 * **The narrowing asked for exists and is proved, but it gives no discharge.** The one live consumer
   (`PkgI2.goodReduction_of_QM_rational3_of_alg`, LPrefix l. 814, QM surfaces over number fields) reads only the
   number-field form `NOSConverseNF` (`goodReduction_of_QM_rational3_of_algNF`, compiled). No weaker statement that
   the bundles supply serves it: the consumer has inertia-triviality only on `A[3^∞]` and needs good reduction,
   hence `ℓ`-adic triviality for every `ℓ` downstream, and no field gives that `ℓ`-independence (§4).
 * **Recommendation: keep nos-proof's leaf `NOSConverseSep`**, one printed theorem (Serre–Tate 1968 Thm 1,
-  (c) ⇒ (a)). Through this file the autofold dry run gives `strict count: 34/11 on 45 -> 34/15 on 49`, and autofold
+  (c) ⇒ (a)). Through this file the autofold dry run gives `strict count: 34/11 on 45 -> 34/14 on 48`, and autofold
   refuses it because GLUE rises. If the consumer is rethreaded, the integrator may instead use the strictly weaker
   printed leaf `NOSConverseNF`; `goodReduction_of_QM_rational3_of_algNF` is the replacement consumer.
 
@@ -51,13 +51,12 @@ contributions omitted):
 DISCHARGES [OpenResearchLeaves26.r7a] by NOSConverse.neronOggShafarevich_of_bar
   still assumes: [NOSConverse.NOSConverseBar]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves26.r7a] by NOSConverse.neronOggShafarevich_of_glue
+DISCHARGES [OpenResearchLeaves26.r7a] by NOSConverse.neronOggShafarevich_of_open
   still assumes: [ReductSplit.NeronSchemeModelExistsDVR,
  GapSHPair.NeronBaseChangeStrictHenselization,
  ReductGlue.RaynaudSemistableSH,
  AvSplit.MumfordTorsionAlgClosed,
  NOSConverse.TorsionInjectsSpecialFibre,
- NOSConverse.ComponentIndexBound,
  NOSConverse.DimensionRelation,
  NOSConverse.AbelianReductionGood]
   axioms: [propext, Classical.choice, Quot.sound]
@@ -82,7 +81,7 @@ inertia is trivial on `A(K̄)[m]` for infinitely many `m` invertible in `O`.
 | 2 | inertia-fixed `m`-torsion is rational over the inertia field `E`; `w ∩ E` is the strict henselization (`GapSHPair.isSHSep_inertia`) | `InertiaFixedRational` | **proved here** |
 | 3 | `𝒩 ⊗ O^sh` is a semistable Néron model, so `𝒩` is semistable | fields `neronBaseChangeStrictHenselization` and `raynaudSemistableSH` (at `m ≥ 3`); `ReductGlue.isSemistable_bcDVR_iff` (proved) | from fields |
 | 4a | `A(K̄)[m] ↪ 𝒩_{k̄}(k̄)[m]` | `TorsionInjectsSpecialFibre` | **open GLUE** |
-| 4b | `#𝒩_{k̄}(k̄)[m] ≤ c · #U(k̄)[m]` (`U` the semi-abelian identity component) | `ComponentIndexBound` | **open GLUE** |
+| 4b | `#𝒩_{k̄}(k̄)[m] ≤ c · #U(k̄)[m]` (`U` the semi-abelian identity component) | `ComponentIndexBound` (`componentIndexBound_proof`) | **proved here** |
 | 4c | `#U(k̄)[m] ≤ m^r · m^{2a}` | `semiAbelianTorsionBound_of`, from the field `mumfordTorsionAlgClosed` | **proved here** |
 | 4d | `a + r = g` | `DimensionRelation` | **open GLUE** |
 | 4e | `#A(K̄)[m] = m^{2g}` | `AvSplit.torsionStructure_of_mumford` (field `mumfordTorsionAlgClosed`) | proved (tree) |
@@ -109,10 +108,8 @@ nos-proof proved (a) ⇒ (b) ⇒ (c); this file reuses them in `neronOggShafarev
   reduction `𝒩(O^sh)[m] → 𝒩(k̄)[m]` is injective because `𝒩[m]` is étale and separated (BLR §7.3 Lemma 2; PR #19
   proves `[m]` étale only for abelian schemes). Missing from Lean: `[m]` étale on a smooth group scheme, which
   needs the fibrewise flatness criterion.
-* **`ComponentIndexBound`** (GLUE, open): an open subgroup `U` of the geometric special fibre `G` of a Néron model
-  has `#G(k̄)[m] ≤ c · #U(k̄)[m]` for a fixed `c`. Proof route: `G` is quasi-compact, the translates of `U` by
-  `k̄`-points are open and cover `G`, so `U(k̄)` has finite index; `G` is commutative (4h). Missing from Lean:
-  translations as scheme automorphisms, and closed points of a finite-type `k̄`-scheme being `k̄`-points.
+* **`ComponentIndexBound`** (GLUE, **proved**: `componentIndexBound_proof`): an open subgroup `U` of the geometric
+  special fibre `G` of a Néron model has `#G(k̄)[m] ≤ c · #U(k̄)[m]` for a fixed `c`.
 * **`DimensionRelation`** (GLUE, open): for semi-abelian identity component data `(U, B, r)` on the geometric special
   fibre, `dim B + r = dim A`, both finite. Proof route: `dim U = dim A` (fibre dimension of the smooth `𝒩` along
   the identity section; field `groupSchemeEquidim`, infra-smooth-dim), and `dim U = dim B + r` (flat surjection
@@ -130,7 +127,7 @@ nos-proof proved (a) ⇒ (b) ⇒ (c); this file reuses them in `neronOggShafarev
   the closed fibre `k` gives this `k̄`-form only together with descent of properness of `G⁰` along `k̄/k` (glue).
   The statement is true: `𝒩⁰` is then an abelian scheme with generic fibre `A`. It is not vacuous, since the zero
   abelian variety satisfies it. It is a consequence of the published equivalence, never stronger.
-* `TorsionInjectsSpecialFibre`, `ComponentIndexBound`, `DimensionRelation`: **GLUE** (consequences of standard
+* `TorsionInjectsSpecialFibre`, `DimensionRelation`: **GLUE** (consequences of standard
   facts about Néron models, BLR §7.3 and §9.2; no single print). Each is true as stated and none is vacuous: each
   has content whenever a Néron model exists.
 * `NeronSchemeModelExistsDVR` (existing def, TailZ7 l. 238): printed form (BLR §1.4 Thm 3 over any DVR; locator
@@ -160,6 +157,13 @@ nos-proof proved (a) ⇒ (b) ⇒ (c); this file reuses them in `neronOggShafarev
   smooth `𝒩 ×_O 𝒩`, `fst · snd` and `snd · fst` have the same generic fibre (`gen` is a homomorphism into the
   commutative `A`; Mathlib `Functor.map_mul`), so they are equal by the Néron property. Base change is braided
   (`Functor.isCommMonObj_obj`).
+* **`index_bound`, `componentIndexBound_proof`**: for a commutative quasi-compact group scheme `G` locally of finite
+  type over an algebraically closed `k` and an open subgroup `U`, `U(k)` has finite index in `G(k)`. The left
+  translates `τ_x = lift(x ∘ str, 𝟙) ≫ μ` give open sets `τ_x⁻¹(U)`. They cover the closed points: every closed point
+  is a `k`-point (Mathlib `pointOfClosedPoint`) and lies in its own translate. So they cover `G`, since a nonempty
+  closed complement would contain a closed point (`IsClosed.exists_closed_singleton`). Finitely many suffice
+  (compactness). Each coset meets `G(k)[m]` in at most `#U(k)[m]` points (translate by a point of the coset;
+  commutativity).
 * **`torusRankZero_of_count`**: from 4a–4g, `m^{2g} ≤ c · m^r · m^{2a}` with `a + r = g`, so `m^r ≤ c` for
   infinitely many `m`, hence `r = 0`.
 
@@ -174,7 +178,7 @@ and `good_of_QML3` (TailC l. 5947). Both turn `HasGoodReduction` into `ℓ`-adic
 * *Number fields only*: proved. `goodReduction_of_QM_rational3_of_algNF` is the consumer with `NOSConverseNF` in
   place of `r7a`, and the rest of its proof is verbatim. It compiles, and an `example` checks that it specializes
   back. The bundles do not supply `NOSConverseNF`, though (§1). A fold through it would be a rethread: thread a new
-  binder through LPrefix, TailC and TailF, following the semantic-prune recipe. That fold gives `34/11 → 33/15`
+  binder through LPrefix, TailC and TailF, following the semantic-prune recipe. That fold gives `34/11 → 33/14`
   through this file, or `34/11 → 34/11` with `NOSConverseNF` as a printed leaf in place of `NOSConverseSep`.
 * *Good reduction from trivial inertia on `T_ℓ` for every `ℓ`*: not useful. The consumer only has `ℓ = 3` (and
   `ℓ = 2` by `QuatUnipotentTrivial`). For `ℓ ∤ 6`, `B ⊗ ℚ_ℓ ≅ M₂(ℚ_ℓ)` has nonzero square-zero elements. The
@@ -188,13 +192,14 @@ and `good_of_QML3` (TailC l. 5947). Both turn `HasGoodReduction` into `ℓ`-adic
 ## 5. For the integrator
 
 * **Do not fold** `scratch/nos-converse/autofold.json`. Its dry run gives
-  `strict count: 34/11 on 45 -> 34/15 on 49; strictest 34/11 -> 34/15`, and autofold refuses it
+  `strict count: 34/11 on 45 -> 34/14 on 48; strictest 34/11 -> 34/14`, and autofold refuses it
   (`autofold-dryrun.txt`). The spec is kept as a record of the trade.
 * Reusable results:
   * `NOSConverse.isInertia_of_fixes` (`Aut(K̄/E) ⊆ I_w`) and `inertiaFixedRational_proof`;
   * `isCommMonObj_neron` (Néron models of abelian varieties are commutative);
-  * `semiAbelianTorsionBound_of` and `rankZeroAbelian_proof` (semi-abelian varieties over `k̄`).
-* `nosConverseNF_of_glue` becomes a discharge (after a rethread) once the three glue Props are proved and
+  * `semiAbelianTorsionBound_of` and `rankZeroAbelian_proof` (semi-abelian varieties over `k̄`);
+  * `index_bound` (open subgroups of quasi-compact group schemes over `k̄` have finite index on `k̄`-points).
+* `nosConverseNF_of_open` becomes a discharge (after a rethread) once the two glue Props are proved and
   `AbelianReductionGood` is read.
 * Proposed `docs/research/locators.md` row: `NOSConverse.AbelianReductionGood | Serre–Tate 1968 §1–§2; BLR §7.4;
   EGA IV₃ 15.7.10 | UNVERIFIED | pending reading (k vs k̄)`.
