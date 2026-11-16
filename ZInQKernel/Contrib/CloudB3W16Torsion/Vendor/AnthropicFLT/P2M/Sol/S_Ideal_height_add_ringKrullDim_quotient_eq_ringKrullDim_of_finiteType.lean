@@ -96,8 +96,8 @@ theorem height_eq_height_under_of_hasGoingDown {R S : Type*} [CommRing R] [CommR
 
 theorem ringKrullDim_mvPolynomial_fin (k : Type u) [Field k] (s : ℕ) :
     ringKrullDim (MvPolynomial (Fin s) k) = s := by
-  rw [MvPolynomial.ringKrullDim_of_isNoetherianRing, ringKrullDim_eq_zero_of_field, zero_add,
-    Nat.card_eq_fintype_card, Fintype.card_fin]
+  rw [MvPolynomial.ringKrullDim_of_isNoetherianRing, ringKrullDim_eq_zero_of_field, zero_add]
+  simp
 
 theorem height_eq_of_isMaximal_mvPolynomial (k : Type u) [Field k] :
     ∀ (n : ℕ) (M : Ideal (MvPolynomial (Fin n) k)), M.IsMaximal → M.height = n := by
@@ -145,6 +145,12 @@ theorem height_eq_ringKrullDim_of_isMaximal (k : Type u) {A : Type v} [Field k] 
     exact (ringKrullDim_eq_of_isIntegral_of_injective (R := MvPolynomial (Fin s) k) hinj).symm
   refine le_antisymm (Ideal.height_le_ringKrullDim_of_ne_top hm.ne_top) ?_
   let m' : Ideal (MvPolynomial (Fin s) k) := m.under (MvPolynomial (Fin s) k)
+  haveI : UniqueFactorizationMonoid (MvPolynomial (Fin s) k) :=
+    MvPolynomial.uniqueFactorizationMonoid (Fin s)
+  haveI : IsGCDMonoid (MvPolynomial (Fin s) k) :=
+    ⟨UniqueFactorizationMonoid.toGCDMonoid (MvPolynomial (Fin s) k)⟩
+  haveI : IsIntegrallyClosed (MvPolynomial (Fin s) k) := GCDMonoid.toIsIntegrallyClosed
+  haveI : Algebra.HasGoingDown (MvPolynomial (Fin s) k) A := inferInstance
   have h1 : m'.height = s := height_eq_of_isMaximal_mvPolynomial k s m' inferInstance
   have h2 : m.height = m'.height + _ := Ideal.height_eq_height_add_of_liesOver_of_hasGoingDown m' m
   have h3 : (s : ℕ∞) ≤ m.height := by
@@ -276,7 +282,9 @@ theorem ringKrullDim_quotient_add_one_of_height_eq_one (k : Type u) {A : Type v}
     (faithfulSMul_iff_algebraMap_injective _ _).mpr hinj
   haveI : IsNoetherianRing A := Algebra.FiniteType.isNoetherianRing k A
   set B := MvPolynomial (Fin s) k with hB
-  haveI : IsIntegrallyClosed B := inferInstanceAs (IsIntegrallyClosed (MvPolynomial (Fin s) k))
+  haveI : UniqueFactorizationMonoid B := MvPolynomial.uniqueFactorizationMonoid (Fin s)
+  haveI : IsGCDMonoid B := ⟨UniqueFactorizationMonoid.toGCDMonoid B⟩
+  haveI : IsIntegrallyClosed B := GCDMonoid.toIsIntegrallyClosed
   haveI : Algebra.HasGoingDown B A :=
     inferInstanceAs (Algebra.HasGoingDown (MvPolynomial (Fin s) k) A)
 
