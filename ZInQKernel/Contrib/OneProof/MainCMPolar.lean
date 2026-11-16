@@ -458,13 +458,15 @@ type `(E, Φ; 𝔞, ζ)` with `𝔞` a fractional `𝓞_E`-ideal; printed form).
 `(Er, κr)` its reflex field with a model `ρ` of `ℂ^Φ` (reflex norm `N = N_{Φ*}`), `σ ∈ Aut(ℂ)` and `s` an idele of
 `E*` with `σ = [s, E*]` on `E*^ab` (Tau Ceti's arithmetic Artin map). Let `A/ℂ` be an abelian variety of dimension
 `g` with `θ : ℂ^g/Φ(𝔞) ≅ A(ℂ)`, `(A, θ)` of type `(E, Φ)`, where `𝔞` is a fractional `𝓞_E`-ideal (`IsOLattice`)
-and the polarization `C` of `A` is given through its Riemann form `Tr_{E/ℚ}(ζ x ȳ)` (`IsRiemannDatum`). Then
+and `A` admits, via `θ`, a polarization `C` of type `ζ`: the form `Tr_{E/ℚ}(ζ x ȳ)` (or its negative, by the sign
+convention) is a Riemann form on `ℂ^g/Φ(𝔞)` (`IsRiemannDatum`), hence the Riemann form of a polarization of `A`. Then
 `A^σ` is uniformized by `θ' : ℂ^g/Φ(N(s)⁻¹𝔞) ≅ A^σ(ℂ)` with `θ(Φ(x))^σ = θ'(Φ(y))` whenever `N(s) y − x ∈ 𝔞̂`.
 
 *Published statement*: G. Shimura, *Introduction to the arithmetic theory of automorphic functions* (1971),
 Thm 5.15 (with §5.5: "Let `(A, C, θ)` be of type `(K, Φ; 𝔞, ζ)` …", `ξ(u)^σ = ξ'(N_{Φ*}(s)⁻¹u)`); G. Shimura,
 *Abelian varieties with complex multiplication and modular functions* (1998), §18, Thm 18.6; Shimura–Taniyama
-(1961), §§13–14 (numbers UNVERIFIED; this host has no network).
+(1961), §§13–14; for an arbitrary (possibly non-primitive) CM type also J. S. Milne, *Complex multiplication*
+(notes), §9 (numbers UNVERIFIED; this host has no network).
 
 *Form*: the print restricted to maximal-order (`𝓞_E`-ideal) lattices and to structures with a polarization of
 the given type, in Shimura's arithmetic normalization (`ε = 1`, hcm-printed's `MainTheoremCMArith`); the

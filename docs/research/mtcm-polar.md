@@ -232,7 +232,7 @@ DISCHARGES [OpenResearchLeaves22.sga7_IX_3_5_ForwardGeom] by UnipotentForward.fo
 DISCHARGES [OpenResearchLeaves22.mumfordGroupLaw] by ZInQ.Contrib.MumfordRigidity.mumfordGroupLaw_of_core
   still assumes: [LeafQM.AV.R1UnivRigid.MumfordRigidityCore]
   axioms: [propext, Classical.choice, Quot.sound]
-#discharges: 63 open hypotheses, 2190 theorems checked, 10 discharge one
+#discharges: 63 open hypotheses, 2196 theorems checked, 10 discharge one
 ```
 
 On this base no bundle field consumes `MainTheoremCM`. `rayClassCMAb` was removed by leaf-fold22 (TailZ34.lean:7), and
@@ -291,6 +291,20 @@ leaves), replace the binder `hM` by `hP hE` and the term `hM` by
 On the qmrec route, after shimura-split2's fold use `autofold-after-split2.json`, which proves `qmReciprocityL3` by
 `qmReciprocityL3_of_pol {n}.mainTheoremCMPol {n}.cmAbVarExists {t}.uniformizationLeafAll {t}.gagaMorphism`; it
 supersedes qmrec-printed's spec. If qmrec-printed's `mainTheoremCM` is already a field, use `autofold-after-qmrec.json`.
+
+## Independent statement review
+
+A read-only reviewer subagent checked the statements without running Lean (`scratch/mtcm-polar/review.md`). It found
+no soundness problem: all three leaves are true, and each is weaker than its print.
+* `IsOLattice` holds exactly for nonzero fractional ideals.
+* `∃ ζ, IsRiemannDatum` is never vacuous, by `exists_zeta`.
+* No coercion traps (`1 ⊗ₜ y` is `includeRight y`).
+* The `MainTheoremCMPolSign` diff matches `MainTheoremCMSign` plus the one added line.
+* `CMAbVarExists` follows from Shimura §6.2 or from Riemann's theorem plus GAGA.
+
+It made one wording point: nothing ties `ζ` to a given polarization of `A`. The `MainTheoremCMPolMax` docstring now says
+"`A` admits, via `θ`, a polarization of type `ζ`". It also suggested citing Milne, *Complex multiplication*, §9
+(UNVERIFIED locator), for the non-primitive case, and that citation was added to the docstring.
 
 ## Method
 

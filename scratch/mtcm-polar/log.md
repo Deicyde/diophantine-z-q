@@ -45,3 +45,5 @@
 - VERIFIED (diff): `MainTheoremCMPolSign ε` body = `HcmPrinted.MainTheoremCMSign ε` body + one line
   `IsOLattice 𝔞 → (∃ ζ : E, IsRiemannDatum Φ 𝔞 ζ) →`.
 - Report drafted: docs/research/mtcm-polar.md.
+- Review subagent (statements only, read-only): no soundness issue; wording fix on the polarization clause applied;
+  Milne CM notes §9 added as citation for non-primitive types (UNVERIFIED). Notes in review.md.

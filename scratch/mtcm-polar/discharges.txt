@@ -43,4 +43,4 @@ DISCHARGES [OpenResearchLeaves22.sga7_IX_3_5_ForwardGeom] by UnipotentForward.fo
 DISCHARGES [OpenResearchLeaves22.mumfordGroupLaw] by ZInQ.Contrib.MumfordRigidity.mumfordGroupLaw_of_core
   still assumes: [LeafQM.AV.R1UnivRigid.MumfordRigidityCore]
   axioms: [propext, Classical.choice, Quot.sound]
-#discharges: 63 open hypotheses, 2190 theorems checked, 10 discharge one
+#discharges: 63 open hypotheses, 2196 theorems checked, 10 discharge one
