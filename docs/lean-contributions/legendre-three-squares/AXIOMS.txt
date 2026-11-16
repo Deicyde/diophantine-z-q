@@ -1,0 +1,10 @@
+Public-safe selected theorem/type/axiom output. Private runtime argv is not included.
+legendreThreeSquares_proof : ∀ (n : ℕ), (∀ (a b : ℕ), n ≠ 4 ^ a * (8 * b + 7)) → ∃ x y z, ↑n = x ^ 2 + y ^ 2 + z ^ 2
+Atlas.Nat.exists_three_squares_of_not_four_pow_mul_eight_mul_add_seven : ∀ (n : ℕ),
+  (¬∃ a b, n = 4 ^ a * (8 * b + 7)) → ∃ x y z, x ^ 2 + y ^ 2 + z ^ 2 = n
+'ZInQ.Contrib.OneProof.LegendreThreeSquares.legendreThreeSquares_proof' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.OneProof.LegendreThreeSquares.Atlas.Nat.exists_three_squares_of_not_four_pow_mul_eight_mul_add_seven' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

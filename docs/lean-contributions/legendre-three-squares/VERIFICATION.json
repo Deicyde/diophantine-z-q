@@ -1,0 +1,67 @@
+{
+  "schema": "legendre-upstream-verified-component/v1",
+  "upstream_base": "fe026617ddd1f2275d7dd0190e5a3814a1c5d1b6",
+  "primary_source": "47ca4df214d1402caa3de40c7d6f661567120fcd",
+  "compiler": "Lean 4.35.0 eb6cafb7290e8bd5f2937522d8d804f58f02bafc",
+  "mathlib": "56a005855ea17e0b0958f73ec801ae140b0a1679",
+  "fresh_compile": {
+    "modules": 2,
+    "project_artifacts_reused": 0,
+    "exit_code": 0,
+    "seconds": 9.941,
+    "source_hashes": {
+      "ZInQKernel.Contrib.OneProof.LegendreThreeSquares": "ef2bac29100910b108e889fe71fd3ab5a76a86d28face335f2610be5fef96ee0",
+      "ZInQKernel.Contrib.OneProof.LegendreThreeSquares.Atlas": "ca50ef1ad9cd9519c4fb440d53803810e9b6c9d8b8a9ca3bea75d74fbaed4797"
+    }
+  },
+  "type_checks": {
+    "full_expanded_literal": true,
+    "closed_at_export": true,
+    "integer_witnesses": true,
+    "zero_case": true,
+    "extra_outer_assumptions": false,
+    "exit_code": 0,
+    "source_sha256": "546663ff6bc04f69863a51c12bda2c40e22ba9fbc9db733209752b9d48a72d00",
+    "raw_log_sha256": "4528736c04cd088b4c397dc3d0f2828e8c9963260f0a046d67f1db3106ff582a"
+  },
+  "axioms": {
+    "reports": 2,
+    "all_exactly_standard_three": true,
+    "allowed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "selected_kernel_replay": {
+    "modules": 3,
+    "declarations": 101,
+    "raw_serialized_bodies": 101,
+    "duplicate_bodies_checked": 0,
+    "runtime_not_replayed": [],
+    "allowed_axioms_used": [
+      "Quot.sound",
+      "Classical.choice",
+      "propext"
+    ],
+    "independent_literal_headline_type": "∀ (n : Nat),\n  (∀ (a b : Nat), Ne n (instHMul.hMul (instHPow.hPow 4 a) (instHAdd.hAdd (instHMul.hMul 8 b) 7))) →\n    Exists fun x =>\n      Exists fun y =>\n        Exists fun z =>\n          Eq n.cast (instHAdd.hAdd (instHAdd.hAdd (instHPow.hPow x 2) (instHPow.hPow y 2)) (instHPow.hPow z 2))",
+    "protocol_acceptance": false,
+    "auditor_sha256": "79096b836bce4c04735cc4ab2f6af21e207cb9b1b84fc46b959b55369787198a",
+    "spec_sha256": "a23b6981ea6e9ed0433500734b68afa73432ce2671980fa41257cf196d6db5cd",
+    "raw_log_sha256": "682886fe021855d58d69ef7843f54bb333ec6671aae5f3ce4c88c120c59e3d8e",
+    "exit_code": 0,
+    "seconds": 14.014
+  },
+  "upstream_H29_definition_present": false,
+  "upstream_H29_definition_copied": false,
+  "full_upstream_registry_ci": "NOT_RUN",
+  "primary_cold_registry_and_trust0_run": "Primary-owned; not forecast",
+  "full_H10_proved": false,
+  "command_rendering": "Portable/redacted representations only; original argv and runtime records retained privately",
+  "kernel_adversarial_tests": {
+    "tests": 18,
+    "exit_code": 0,
+    "seconds": 115.791,
+    "scope": "Actual unchanged pinned Lean kernel auditor tests; separate from full project CI"
+  }
+}

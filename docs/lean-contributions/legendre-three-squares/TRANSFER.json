@@ -1,0 +1,57 @@
+{
+  "schema": "legendre-upstream-transfer/v1",
+  "upstream_base": "fe026617ddd1f2275d7dd0190e5a3814a1c5d1b6",
+  "fork_source": "47ca4df214d1402caa3de40c7d6f661567120fcd",
+  "files": [
+    {
+      "source_commit": "47ca4df214d1402caa3de40c7d6f661567120fcd",
+      "source_path": "ZInQKernel/Contrib/OneProof/LegendreThreeSquares.lean",
+      "source_sha256": "e182ed368e595f4d43dc5353c2da0dc53148b6e2268577f49fb362d3010cbae2",
+      "upstream_path": "ZInQKernel/Contrib/OneProof/LegendreThreeSquares.lean",
+      "upstream_sha256": "ef2bac29100910b108e889fe71fd3ab5a76a86d28face335f2610be5fef96ee0",
+      "bytes_identical": false,
+      "change": "exact expanded target, unchanged mathematical proof body"
+    },
+    {
+      "source_commit": "47ca4df214d1402caa3de40c7d6f661567120fcd",
+      "source_path": "ZInQKernel/Contrib/OneProof/LegendreThreeSquares/Atlas.lean",
+      "source_sha256": "ca50ef1ad9cd9519c4fb440d53803810e9b6c9d8b8a9ca3bea75d74fbaed4797",
+      "upstream_path": "ZInQKernel/Contrib/OneProof/LegendreThreeSquares/Atlas.lean",
+      "upstream_sha256": "ca50ef1ad9cd9519c4fb440d53803810e9b6c9d8b8a9ca3bea75d74fbaed4797",
+      "bytes_identical": true,
+      "change": "byte-identical vendor source and imports"
+    },
+    {
+      "source_commit": "47ca4df214d1402caa3de40c7d6f661567120fcd",
+      "source_path": "ZInQKernel/Contrib/OneProof/LegendreThreeSquares/LICENSE",
+      "source_sha256": "fc78801eadec58b04e0d5cabe735eb6808e23f47b0cb92b89b55792019b54131",
+      "upstream_path": "ThirdParty/LegendreThreeSquares/LICENSE",
+      "upstream_sha256": "fc78801eadec58b04e0d5cabe735eb6808e23f47b0cb92b89b55792019b54131",
+      "bytes_identical": true,
+      "change": "byte-identical complete license including prefatory line"
+    },
+    {
+      "source_commit": "47ca4df214d1402caa3de40c7d6f661567120fcd",
+      "source_path": "ZInQKernel/Contrib/OneProof/LegendreThreeSquares/NOTICE.md",
+      "source_sha256": "823203793fc81c181e56c6e662be724823367d5c92730e509e7cc1a7df0610fb",
+      "upstream_path": "ThirdParty/LegendreThreeSquares/NOTICE-fork.md",
+      "upstream_sha256": "823203793fc81c181e56c6e662be724823367d5c92730e509e7cc1a7df0610fb",
+      "bytes_identical": true,
+      "change": "byte-identical historical source/change record"
+    }
+  ],
+  "full_expanded_type": "∀ n : ℕ, (∀ a b : ℕ, n ≠ 4 ^ a * (8 * b + 7)) → ∃ x y z : ℤ, (n : ℤ) = x ^ 2 + y ^ 2 + z ^ 2",
+  "public_export": "ZInQ.Contrib.OneProof.LegendreThreeSquares.legendreThreeSquares_proof",
+  "original_proof_body_unchanged": true,
+  "new_lean_dependencies": 0,
+  "new_lake_dependencies": 0,
+  "H29_defining_module_accepted_upstream": false,
+  "H29_defining_module_copied": false,
+  "fork_integration_and_full_H10_claimed": false,
+  "fork_registry_discharge": "Primary writer-owned; pending result is not forecast",
+  "draft_only": true,
+  "public_command_rendering": "Portable or redacted placeholders, never literal private argv",
+  "notice_reference_addendum": "Atlas comment44–45 and historical NOTICE describe original fork adjacency; exact preserved license and historical notice now live under ThirdParty/LegendreThreeSquares. Current README supersedes only locators and distinguishes primary pending receipts from new upstream checks.",
+  "atlas_original_public_source_sha256": "a902763f2e8c6ca272f03774536d58b93c99f5843214288efe226f5e767da284",
+  "atlas_namespace_unwrap_recovers_exact_original": true
+}
