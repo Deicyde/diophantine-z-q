@@ -25,3 +25,4 @@
 - foldcheck_output.txt: `frozenTarget_cmPrimitive`, `frozenTarget_cmQuad` standard axioms (VERIFIED).
 - autofold dry-runs: all four specs refused "not a field of the current bundles" (hCM / qmReciprocityL3), as for
   mtcm-polar (VERIFIED) -> manual fold.
+- 01:20 report docs/research/cm-primitive.md and .fleet/cm-primitive.md written and committed (5bf89448). Done.
