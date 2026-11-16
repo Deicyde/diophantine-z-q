@@ -143,7 +143,7 @@ hypotheses. Its output (generated from `scratch/contrib-kit/DischargesTest-outpu
 <!-- worked-example:begin -->
 ```
 scratch/contrib-kit/DischargesTest.lean:13:8: warning: declaration uses `sorry`
-DISCHARGES [OpenResearchLeaves28.dsThm965Printed] by DSCoeffExt.dsThm965Printed_of_charpoly
+DISCHARGES [OpenResearchLeaves29.dsThm965Printed] by DSCoeffExt.dsThm965Printed_of_charpoly
   still assumes: [∀ (N : ℕ) [inst : NeZero N] (k : ℤ) (χ : DirichletCharacter ℂ N) (f : ZInQ.Contrib.G9.PkgI4.CF N k),
    2 ≤ k →
      DSCoeffExt.IsNormalizedEigenformDS f χ →
@@ -176,22 +176,19 @@ DISCHARGES [OpenResearchLeaves28.dsThm965Printed] by DSCoeffExt.dsThm965Printed_
                                              (↥(DSCoeffExt.coeffField f)) lam))
                                          b)]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves28.mumfordGroupLawConn] by DictModels.MumfordConn.conn_of_field
+DISCHARGES [OpenResearchLeaves29.mumfordGroupLawConn] by DictModels.MumfordConn.conn_of_field
   still assumes: [ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves28.raynaudSemistableSHOr] by DictModels.RaynaudOr.or_of_field
+DISCHARGES [OpenResearchLeaves29.raynaudSemistableSHOr] by DictModels.RaynaudOr.or_of_field
   still assumes: [ReductGlue.RaynaudSemistableSH]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves28.sga7_IX_3_3_SHpre] by DictModels.SGA7Pre.pre_of_SH
+DISCHARGES [OpenResearchLeaves29.sga7_IX_3_3_SHpre] by DictModels.SGA7Pre.pre_of_SH
   still assumes: [SGA7PersistsNF.SGA7_IX_3_3_SH, CToPrinted.SGA3_VIB_3_10, AVGlue.GeomConnOfRationalPoint]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves28.gonzalezRotgerProp56X6] by GRCountX6.prop56X6_of_r5fpCount
+DISCHARGES [OpenResearchLeaves29.gonzalezRotgerProp56X6] by GRCountX6.prop56X6_of_r5fpCount
   still assumes: [LeafQM.AV.R5fpCount]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenAddedLeaves19.picZeroAbVar] by PicDict.picZeroAbVar_of_leaves
-  still assumes: [PicDict.PicLocFinType, PicDict.IdentityComponentLFT, PicDict.PicZeroSmooth, PicDict.PicZeroProper]
-  axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenAddedLeaves19.weilPairingMumford] by PicDict.weilPairingMumford_final
+DISCHARGES [OpenAddedLeaves20.weilPairingMumford] by PicDict.weilPairingMumford_final
   still assumes: [PicDict.MumfordSquareAC,
  PicDict.MumfordMulNPicZeroAC,
  PicDict.MumfordPhiSurjectiveAC,
@@ -200,7 +197,7 @@ DISCHARGES [OpenAddedLeaves19.weilPairingMumford] by PicDict.weilPairingMumford_
  PicDict.MumfordWeilAltAC,
  PicDict.MumfordKLFiniteAC]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenAddedLeaves19.weilPairingMumford] by PicDict.weilPairingMumford_of_ac
+DISCHARGES [OpenAddedLeaves20.weilPairingMumford] by PicDict.weilPairingMumford_of_ac
   still assumes: [PicDict.MumfordSquareAC,
  PicDict.MumfordMulNPicZeroAC,
  PicDict.MumfordPhiSurjectiveAC,
@@ -210,7 +207,7 @@ DISCHARGES [OpenAddedLeaves19.weilPairingMumford] by PicDict.weilPairingMumford_
  PicDict.MumfordWeilAltAC,
  T09Pic.PhiAmpleIsogeny]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenAddedLeaves19.weilPairingMumford] by PicDict.weilPairingMumford_of_mumford
+DISCHARGES [OpenAddedLeaves20.weilPairingMumford] by PicDict.weilPairingMumford_of_mumford
   still assumes: [PicDict.MumfordSquareAC,
  PicDict.MumfordMulNPicZeroAC,
  PicDict.MumfordPhiSurjectiveAC,
@@ -219,7 +216,7 @@ DISCHARGES [OpenAddedLeaves19.weilPairingMumford] by PicDict.weilPairingMumford_
  PicDict.MumfordWeilAltAC,
  T09Pic.PhiAmpleIsogeny]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenAddedLeaves19.weilPairingMumford] by PicDict.weilPairingMumford_of_printed
+DISCHARGES [OpenAddedLeaves20.weilPairingMumford] by PicDict.weilPairingMumford_of_printed
   still assumes: [PicDict.MumfordSquare,
  PicDict.MumfordMulNPicZero,
  PicDict.MumfordPhiSurjective,
@@ -229,16 +226,16 @@ DISCHARGES [OpenAddedLeaves19.weilPairingMumford] by PicDict.weilPairingMumford_
  PicDict.MumfordWeilAlt,
  T09Pic.PhiAmpleIsogeny]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves28.r16CoreY] by R16Split.coreY_of_r16
+DISCHARGES [OpenResearchLeaves29.r16CoreY] by R16Split.coreY_of_r16
   still assumes: [LeafModCurves.R16_EichlerShimuraJ1']
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves28.sga7_IX_3_5_ForwardGeom] by UnipotentForward.forwardGeom_of_forward
+DISCHARGES [OpenResearchLeaves29.sga7_IX_3_5_ForwardGeom] by UnipotentForward.forwardGeom_of_forward
   still assumes: [UnipotentForward.SGA7_IX_3_5_Forward, UnipotentForward.SemiAbelianDescendsSepClosed]
   axioms: [propext, Classical.choice, Quot.sound]
 DISCHARGES [hBFH] by ZInQ.BFHPrinted.bfhClauseIIGamma0_of_bfhClauseIIKronecker
   still assumes: [ZInQ.BFHPrinted.BFHClauseIIKronecker]
   axioms: [propext, Classical.choice, Quot.sound]
-#discharges: 45 open hypotheses, 6680 theorems checked, 13 discharge one
+#discharges: 46 open hypotheses, 6810 theorems checked, 12 discharge one
 ```
 <!-- worked-example:end -->
 
