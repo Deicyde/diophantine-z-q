@@ -31,3 +31,15 @@ VERIFIED (lake build, axioms standard; T2.lean then Basic.lean, T3.lean prints a
 VERIFIED (lake build ZInQKernel.Contrib.OneProof.RegularSmoothPerfect OK; axioms propext, Classical.choice, Quot.sound):
 * `ZInQ.Contrib.SmoothRegular.regularSmoothPerfect : CurveSplit.RegularSmoothPerfect` (no hypotheses).
 * `ZInQ.Contrib.SmoothRegular.isRegularLocalRing_of_smooth` (00TV ⇒, algebraic form, any field).
+
+## Step 4. picZeroAbVar variant, #discharges, fold check (all VERIFIED)
+
+* `lake build ZInQKernel.OneProof.Main ZInQKernel.OneProof.Discharges` EXIT 0 (13695 jobs).
+* `ZInQKernel/Contrib/OneProof/PicZeroAbVarNonsingular.lean` builds: `PicZeroAbVarNonsingular`,
+  `picZeroAbVar_of_nonsingular`, `picZeroAbVarNonsingular_of_picZeroAbVar` (standard axioms).
+* `#discharges` (Discharges.lean → discharges-output.txt): picZeroAbVar by picZeroAbVar_of_nonsingular
+  (still assumes PicZeroAbVarNonsingular); regularSmoothPerfect by regularSmoothPerfect (still assumes []).
+* T4.lean: WeierstrassAbVar ⇔ WeierstrassAbVarNonsingular, CMAbVarExists ⇔ CMAbVarExistsNonsingular (copies
+  verbatim per verbatim_check.py against origin/wip/hcm-g1 f4f7d8db and origin/wip/cm-primitive 646e706c), standard axioms.
+* autofold --dry-run: strict 40/8 on 48 -> 39/8 on 47; strictest 39/9 -> 38/9. FoldCheck.lean (dry-run, line 1
+  stripped) compiles; sixContactMin_of_open35 standard axioms.

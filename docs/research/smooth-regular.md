@@ -144,4 +144,55 @@ changes.
 
 ## 5. Outputs
 
-(filled in below from the runs)
+All runs on 2026-11-16 against the base build (`lake build ZInQKernel.OneProof.Main ZInQKernel.OneProof.Discharges`,
+13695 jobs, EXIT 0; then `lake build ZInQKernel.Contrib.OneProof.PicZeroAbVarNonsingular
+ZInQKernel.Contrib.OneProof.RegularSmoothPerfect`, success). VERIFIED.
+
+`#discharges` (`scratch/smooth-regular/Discharges.lean`, full output in `discharges-output.txt`), the lines of this
+contribution:
+
+```
+DISCHARGES [OpenAddedLeaves17.picZeroAbVar] by ZInQ.Contrib.SmoothRegular.picZeroAbVar_of_nonsingular
+  still assumes: [ZInQ.Contrib.SmoothRegular.PicZeroAbVarNonsingular]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenTextbookLeaves11.regularSmoothPerfect] by ZInQ.Contrib.SmoothRegular.regularSmoothPerfect
+  still assumes: []
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 59 open hypotheses, 2888 theorems checked, 9 discharge one
+```
+
+Axioms (`#print axioms`, same file): `regularSmoothPerfect`, `picZeroAbVar_of_nonsingular`,
+`picZeroAbVarNonsingular_of_picZeroAbVar`, `smooth_tfae_perfect`, `smooth_iff_nonsingularAfter_algebraicClosure`,
+`isRegularLocalRing_of_smooth`: `[propext, Classical.choice, Quot.sound]`. `T4.lean`: the four Weierstrass/CM
+theorems, same axioms.
+
+Autofold dry run (`python3 scripts/one_proof/autofold.py scratch/smooth-regular/autofold.json --dry-run`, output
+`autofold-dryrun.txt`):
+
+```
+strict count: 40/8 on 48 -> 39/8 on 47; strictest 39/9 -> 38/9
+```
+
+(one LEAF fewer: `regularSmoothPerfect` leaves the list, `picZeroAbVar` is swapped one-for-one.) The generated module,
+line 1 stripped, compiles as `scratch/smooth-regular/FoldCheck.lean`; `#print axioms HDec.HSyn.sixContactMin_of_open35`:
+`[propext, Classical.choice, Quot.sound]`.
+
+## 6. Locator rows proposed for `docs/research/locators.md` (not edited here)
+
+| leaf | source | locator status |
+| --- | --- | --- |
+| `picZeroAbVarNonsingular` | Mumford, *Abelian varieties*, §4 (group varieties are nonsingular) and §13 (`Pic⁰ = Â`); Kleiman, *The Picard scheme*, 9.5.1, 9.5.3; SGA 3 VI_A 2.4 | UNVERIFIED (from memory, no network) |
+| `WeierstrassAbVarNonsingular` (branch hcm-g1) | Silverman, AEC (GTM 106, 2nd ed.), III.1.4, III.2-3, VI.3.6 | UNVERIFIED |
+| `CMAbVarExistsNonsingular` (branch cm-primitive) | Shimura 1998 §6.2 Thm 4; Mumford §3-4 | UNVERIFIED |
+
+Stacks tags cited for the proved glue (00TV, 00TT, 038U/038V, 05AX) are UNVERIFIED (from memory and the vendored
+docstrings); they label proved theorems, so nothing rests on them.
+
+## 7. What remains
+
+* `WeierstrassAbVarNonsingular` and `CMAbVarExistsNonsingular` are proved against verbatim copies in scratch only;
+  once hcm-g1 / cm-primitive are on main, their two-line proofs move to a contribution file importing those modules.
+* The variants keep "regular local rings at closed points" as the reading of "nonsingular"; a reading via
+  "geometrically reduced group variety" (Mumford's definition before §4) would need the theorem that a reduced group
+  scheme over an algebraically closed field is smooth (generic smoothness plus homogeneity), not in Mathlib 4.35 or
+  the vendored libraries.
