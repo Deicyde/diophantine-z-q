@@ -25,6 +25,22 @@ def lex_comment_state(lines):
 
 STRUCT = re.compile(r'^(noncomputable\s+)?(namespace|section|end)\b|^(open|set_option|attribute|variable|universe)\b')
 
+def find_decl(lines, name, nodoc, fname):
+    pat = re.compile(r'^(private |protected |noncomputable )*(theorem|def|structure|lemma|abbrev) ' + re.escape(name) + r'(?![\w\'.])')
+    hits = [k for k, l in enumerate(lines) if pat.match(l)]
+    assert len(hits) == 1, (fname, name, hits)
+    k = hits[0]
+    a = k
+    j = k
+    while j > 0 and lines[j - 1].startswith('--'): j -= 1
+    if not nodoc and j > 0 and lines[j - 1].rstrip().endswith('-/'):
+        t = j - 1
+        while '/--' not in lines[t]: t -= 1
+        a = t
+    e = k
+    while e + 1 < len(lines) and lines[e + 1].strip() != '': e += 1
+    return a + 1, e + 1
+
 def rename(text, ren):
     for old, new in sorted(ren.items(), key=lambda kv: -len(kv[0])):
         text = re.sub(r"(?<![\w'])" + re.escape(old) + r"(?![\w'])", new, text)
@@ -36,8 +52,12 @@ for fname, ranges in cfg['SEGMENTS']:
     inc = lex_comment_state(lines)
     sel = {}
     for r in ranges:
-        a, b = r[0], r[1]
-        opts = r[2] if len(r) > 2 else {}
+        if isinstance(r[0], str):
+            a, b = find_decl(lines, r[0], (r[1] if len(r) > 1 else {}).get('nodoc', False), fname)
+            opts = r[1] if len(r) > 1 else {}
+        else:
+            a, b = r[0], r[1]
+            opts = r[2] if len(r) > 2 else {}
         sel[a] = (b, opts)
     out.append(f'\n/-! ## Copied from `ZInQKernel/OneProof/H/{fname}` (base 43513d87) -/\n')
     i = 1
