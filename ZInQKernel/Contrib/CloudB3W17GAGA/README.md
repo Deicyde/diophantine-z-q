@@ -27,7 +27,7 @@ they are clearly visible conditions of this optional graph supplier only.
 Lean 4.35.0, Mathlib `56a005855ea17e0b0958f73ec801ae140b0a1679`.
 Original author head `64726068607df8dfe2cfdba07a71a8c6f1ca3613`, base restored
 main `2dc949d688c407e32823c4e751679d66b2f40e65`. Two new Lean modules, 357 lines;
-all 25 checked declarations use exactly `propext`, `Classical.choice`, `Quot.sound`.
+all 27 checked declarations use exactly `propext`, `Classical.choice`, `Quot.sound`.
 Author module and exact-usage checks pass without warnings; four threads,
 maximum successful RSS 6,952,572 KB. Fresh named build/discharge and independent
 rebuilt-pushed-commit review are separate PR evidence, not inferred from that run.
