@@ -10,10 +10,9 @@ lean: HDec.HSyn.OpenGlue8.nvLocalInertia
 
 The *local inertia statement* is the following assertion. Let $p$ be a prime and $E$ a finite Galois
 extension of $\mathbb Q(X)$ of degree less than $p$ whose finite branch points lie in a set $S$ of
-rational numbers that are $p$-integral and distinct modulo $p$. Let $b\in S$ be a branch point such
-that the residue fields of $E$ above $X-b$ are unramified at $p$. Then every element of an inertia
-group at a prime of $E$ above $p\mathbb Z[X]$ is conjugate to an element of an inertia group above
-$X-b$.
+rational numbers that are $p$-integral and distinct modulo $p$. Let $b\in S$ be such that the
+residue fields of $E$ above $X-b$ are unramified at $p$. Then every element of an inertia group at a
+prime of $E$ above $p\mathbb Z[X]$ is conjugate to an element of an inertia group above $X-b$.
 
 No published statement has this form; it is a step of the project's own argument. It is the third
 step of the project's Lemma NV, through which the proof obtains an unramified vertical prime above

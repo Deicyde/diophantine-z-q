@@ -29,10 +29,11 @@ The proof follows the manuscript's proof of its Theorem 4.1 at the one instance 
 uses, which the project has split into named steps, each proved from these statements and the steps
 before it. Among them are the existence of an unramified vertical prime above each prime $p>324$ in
 the Hecke cover, from the local inertia statement and the moduli description of the Shimura curves;
-the inequalities between heights, from the analytic uniformization and the bounds of the section on
-heights; the Galois representation of a newform as a subrepresentation of the Tate module of
-$J_1(N)$, with its semisimplicity and its conductor; and the last stretch, from the level bound, the
-theta point and the height inequalities to the minimal height hypothesis.
+the inequalities between heights, from the analytic uniformization, the existence of Néron models,
+the bounds of the section on heights and the results on semistable reduction and Néron models; the
+Galois representation of a newform as a subrepresentation of the Tate module of $J_1(N)$, with its
+semisimplicity and its conductor; and the last stretch, from the level bound, the theta point and
+the height inequalities to the minimal height hypothesis.
 
 ## Depends on
 

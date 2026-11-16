@@ -405,10 +405,11 @@ D. Mumford, *Abelian varieties*, §6, Application 1, and §8, Theorem 1. Locator
         anchor='Weil pairing',
         statement=r"""
 The *Weil-pairing statement* is the following assertion. Let $A$ be an abelian variety over a field
-$K$ and $n\ge1$ an integer invertible in $K$. Then there is a pairing
-$A[n]\times\operatorname{Pic}^0_{A/K}[n]\to\mu_n$ with the values of Mumford's pairing $\bar e_n$
-that is perfect, Galois-equivariant and compatible in $n$, adjoint for the dual $f^\vee$ of every
-homomorphism $f$, and trivial on the pairs $(x,\lambda_L x)$ for every ample line bundle $L$.
+$K$. Then there is a family of pairings $e_n:A[n]\times\operatorname{Pic}^0_{A/K}[n]\to\mu_n$, one for
+each $n\ge1$, such that for every $n$ invertible in $K$: $e_n$ takes the values of Mumford's pairing
+$\bar e_n$ and is perfect and Galois-equivariant, it is adjoint for the dual $f^\vee$ of every
+endomorphism $f$ of $A$, and it is trivial on the pairs $(x,\lambda_L x)$ for every ample line bundle
+$L$; and the family is compatible in $n$.
 """,
         caveat=r"""
 The printed pairing is on Mumford's dual; reading it on $\operatorname{Pic}^0_{A/K}$ passes through
@@ -445,8 +446,9 @@ Locators unverified.
         anchor='Neron models and strict henselization',
         statement=r"""
 The *strict henselization statement* is the following assertion. Let $\mathcal O\to\mathcal O'$ be an
-unramified extension of discrete valuation rings, with fraction fields $K\subset K'$, such that
-$\mathcal O'$ is strictly henselian and its residue field is separable over that of $\mathcal O$, and
+extension of discrete valuation rings, with fraction fields $K\subset K'$, such that $K'/K$ is
+separable algebraic, a uniformizer of $\mathcal O$ is a uniformizer of $\mathcal O'$, $\mathcal O'$ is
+strictly henselian and its residue field is separable over that of $\mathcal O$, and
 let $A$ be an abelian variety over $K$ with a Néron model $N$ over $\mathcal O$. Then
 $N\times_{\mathcal O}\mathcal O'$ is a Néron model of $A_{K'}$.
 """,
@@ -500,7 +502,8 @@ valuation ring. Number unverified.
         anchor='SGA 7 IX 3.3',
         statement=r"""
 The *base-change statement* is the following assertion. Let $\mathcal O\to\mathcal O'$ be a local
-extension of strictly henselian discrete valuation rings with fraction fields $K\subset K'$, and $A$ an
+extension of strictly henselian discrete valuation rings whose fraction fields $K\subset K'$ form a
+finite extension, and $A$ an
 abelian variety over $K$ with semistable reduction, with Néron models $N$ over $\mathcal O$ and $N'$ of
 $A_{K'}$ over $\mathcal O'$. Then the canonical morphism $N^0\times_{\mathcal O}\mathcal O'\to N'^0$
 of identity components is an isomorphism.
@@ -561,7 +564,7 @@ over a field, every irreducible component of $G$ has dimension $\dim G$.
         caveat='',
         src=r"""
 Stacks Project, Groupoid schemes, properties of group schemes over a field; SGA 3, Exposé VI_A, 2.4;
-J. S. Milne, *Algebraic Groups* (2017), Proposition 1.37. Locators unverified.
+J. S. Milne, *Algebraic Groups* (2017), possibly Proposition 1.37 (number uncertain). Locators unverified.
 """),
     'sga3_VIB_3_10': dict(
         group='group-schemes', slug='identity-component-open',
@@ -656,8 +659,8 @@ normalization. Display and locator unverified.
         title="Javanpeykar's bound for curves with a Belyi function",
         anchor='Javanpeykar bound',
         statement=r"""
-The *Javanpeykar statement* is the following assertion. Let $X$ be an integral curve over a number
-field $K$ with a $K$-rational point, $J$ its Jacobian, of dimension $g\ge1$, and $t$ a Belyi function
+The *Javanpeykar statement* is the following assertion. Let $X$ be a smooth proper geometrically
+connected curve over a number field $K$ with a $K$-rational point, $J$ its Jacobian, of dimension $g\ge1$, and $t$ a Belyi function
 on $X$ over $K$ (a rational function unramified outside $0,1,\infty$) of degree $d$. Then
 $$h_F(J)\le13\cdot10^6\,g\,d^5.$$
 """,
@@ -911,8 +914,8 @@ Sci. ÉNS 19 (1986), Théorème (A), read by the locator audit.
         statement=r"""
 The *local inertia statement* is the following assertion. Let $p$ be a prime and $E$ a finite Galois
 extension of $\mathbb Q(X)$ of degree less than $p$ whose finite branch points lie in a set $S$ of
-rational numbers that are $p$-integral and distinct modulo $p$. Let $b\in S$ be a branch point such
-that the residue fields of $E$ above $X-b$ are unramified at $p$. Then every element of an inertia
+rational numbers that are $p$-integral and distinct modulo $p$. Let $b\in S$ be such that the residue
+fields of $E$ above $X-b$ are unramified at $p$. Then every element of an inertia
 group at a prime of $E$ above $p\mathbb Z[X]$ is conjugate to an element of an inertia group above
 $X-b$.
 """,

@@ -9,9 +9,9 @@ lean: HDec.HSyn.OpenResearchLeaves26.sga7_IX_3_3_SH
 # Semistable reduction persists under base change
 
 The *base-change statement* is the following assertion. Let $\mathcal O\to\mathcal O'$ be a local
-extension of strictly henselian discrete valuation rings with fraction fields $K\subset K'$, and $A$
-an abelian variety over $K$ with semistable reduction, with Néron models $N$ over $\mathcal O$ and
-$N'$ of $A_{K'}$ over $\mathcal O'$. Then the canonical morphism
+extension of strictly henselian discrete valuation rings whose fraction fields $K\subset K'$ form a
+finite extension, and $A$ an abelian variety over $K$ with semistable reduction, with Néron models
+$N$ over $\mathcal O$ and $N'$ of $A_{K'}$ over $\mathcal O'$. Then the canonical morphism
 $N^0\times_{\mathcal O}\mathcal O'\to N'^0$ of identity components is an isomorphism.
 
 It is a published statement: the printed theorem, or a direct instance of it that needs no argument.

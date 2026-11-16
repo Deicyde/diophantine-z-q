@@ -185,7 +185,8 @@ Stacks Project, Varieties, Lemma 33.7.14 (Tag 04KV). Locator unverified.
 ## Group schemes are equidimensional
 
 Stacks Project, Groupoid schemes, properties of group schemes over a field; SGA 3, Exposé VI_A, 2.4;
-J. S. Milne, *Algebraic Groups* (2017), Proposition 1.37. Locators unverified.
+J. S. Milne, *Algebraic Groups* (2017), possibly Proposition 1.37 (number uncertain). Locators
+unverified.
 
 ## Analytic uniformization
 

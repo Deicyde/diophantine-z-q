@@ -225,6 +225,7 @@ for g in groups:
 
 # ---- top theorem ----
 glue = [f for f in fields if LEAVES[f]['group'] is None]
+assert len(glue) <= 1, glue
 nlit = len(fields) - len(glue)
 top = os.path.join(CH, 'minimal-height-from-leaves.md')
 glue_links = ', '.join(f"[{LEAVES[f]['title'].lower()}]({LEAVES[f]['slug']}.md)" for f in glue)
@@ -233,8 +234,8 @@ body = [front(top, declaration='theorem', origin='bridged', statement='formalize
         f'# The minimal height hypothesis from {w(len(fields))} statements', '',
         para(f"""
 The [minimal height hypothesis](../main/six-contact-min.md) follows from the {w(len(fields))} statements
-of this chapter taken together: {w(nlit)} statements from the literature, grouped by the theory they come
-from ({group_links}), and {w(len(glue))} step of the project's own argument, {glue_links}.
+of this chapter taken together: {w(nlit) + ' statements' if glue else 'theorems'} from the literature, grouped by
+the theory they come from ({group_links}){f", and one step of the project's own argument, {glue_links}" if glue else ''}.
 Of the {w(nlit)} statements from the literature, {w(count['published'])} are published statements, some of
 them specialized or weakened; {w(count['consequence'])} are consequences of published theorems, which take
 further theorems to reach from the print; and {w(count['composite'])} combine several published theorems.
@@ -244,8 +245,9 @@ None of the {w(len(fields))} is proved here.
 The proof follows the manuscript's proof of its Theorem 4.1 at the one instance the main theorem uses,
 which the project has split into named steps, each proved from these statements and the steps before
 it. Among them are the existence of an unramified vertical prime above each prime $p>324$ in the Hecke
-cover, from the local inertia statement and the moduli description of the Shimura curves; the
-inequalities between heights, from the analytic uniformization and the bounds of the section on heights;
+cover, {'from the local inertia statement and the moduli description of the Shimura curves' if glue else "along the steps of the project's Lemma NV"}; the
+inequalities between heights, from the analytic uniformization, the existence of Néron models, the bounds
+of the section on heights and the results on semistable reduction and Néron models;
 the Galois representation of a newform as a subrepresentation of the Tate module of $J_1(N)$, with its
 semisimplicity and its conductor; and the last stretch, from the level bound, the theta point and the
 height inequalities to the minimal height hypothesis.
@@ -261,8 +263,8 @@ readme = os.path.join(CH, 'README.md')
 body = [front(readme), '# The minimal height hypothesis from the literature', '',
         para(f"""
 This chapter proves the [minimal height hypothesis](../main/six-contact-min.md) from {w(len(fields))}
-statements: {w(nlit)} theorems from the literature, some of them specialized, weakened or combined, and
-{w(len(glue))} step of the project's own argument. The manuscript's route to the hypothesis uses
+statements: {f'{w(nlit)} ' if glue else ''}theorems from the literature, some of them specialized, weakened or
+combined{", and one step of the project's own argument" if glue else ''}. The manuscript's route to the hypothesis uses
 twenty-three research-level theorems, thirty-five textbook theorems and twenty glue steps; the project
 has split these into smaller statements, proved many of them, and replaced others by published
 statements from which it derives them. What remains is listed here, grouped by the theory each statement
@@ -273,15 +275,14 @@ convenience.
 Of the {w(nlit)} statements from the literature, {w(count['published'])} are published statements: the
 printed theorem, or a direct instance of it that needs no argument. {w(count['consequence']).capitalize()}
 are consequences of published theorems, which take further theorems to reach from the print, and
-{w(count['composite'])} combine several published theorems. The remaining statement,
-{glue_links}, has no published form. None of the {w(len(fields))} is proved here, and every step from
+{w(count['composite'])} combine several published theorems.{f' The remaining statement, {glue_links}, has no published form.' if glue else ''} None of the {w(len(fields))} is proved here, and every step from
 them to the minimal height hypothesis is.
 """), '',
         '## The theorem', '',
-        f'- [The minimal height hypothesis from {w(len(fields))} statements](minimal-height-from-leaves.md)', '',
-        "## The project's step", '']
-body += [f"- [{LEAVES[f]['title']}]({LEAVES[f]['slug']}.md)" for f in glue]
-body += ['', '## The statements from the literature', '']
+        f'- [The minimal height hypothesis from {w(len(fields))} statements](minimal-height-from-leaves.md)', '']
+if glue:
+    body += ["## The project's step", ''] + [f"- [{LEAVES[f]['title']}]({LEAVES[f]['slug']}.md)" for f in glue] + ['']
+body += ['## The statements from the literature', '']
 body += [f"- [{g['title']}]({g['dir']}/README.md)" for g in groups]
 write(readme, '\n'.join(body))
 
@@ -306,4 +307,34 @@ for f in fields:
     body += [f"## {L['anchor']}", '', para(L['src']), '']
 write(SRC, '\n'.join(body))
 
-print(f'{len(written)} files; kinds {count}')
+# ---- the coverage row ----
+cov = os.path.join(vault, 'blueprint/coverage/README.md')
+kinds_text = (f"{w(count['published'])} published statements, {w(count['consequence'])} consequences of published "
+              f"theorems and {w(count['composite'])} that combine several published theorems")
+row = ('| Section 4 replaced: the minimal height hypothesis from statements of the literature (project notes '
+       'h-decomposition, leaf-fold9 §3; docs/one-proof/OPEN.md) | `DECOMPOSED` | The [height-decomposition chapter]'
+       '(../roadmap/height-decomposition/README.md) proves [the minimal height hypothesis from '
+       f'{w(len(fields))} statements](../roadmap/height-decomposition/minimal-height-from-leaves.md): '
+       + (f"{w(nlit)} from the literature ({kinds_text}), grouped by the theory they come from, and "
+          f"[one step of the project's own argument](../roadmap/height-decomposition/{LEAVES[glue[0]]['slug']}.md)"
+          if glue else f"all from the literature ({kinds_text}), grouped by the theory they come from")
+       + f'. None of the {w(len(fields))} is proved here. |')
+lines = open(cov).read().split('\n')
+hits = [i for i, ln in enumerate(lines) if ln.startswith('| Section 4 replaced: the minimal height hypothesis')]
+if hits:
+    lines[hits[0]] = row
+else:
+    lines.insert(next(i for i, ln in enumerate(lines) if ln.startswith('| Section 4, last step:')), row)
+open(cov, 'w').write('\n'.join(lines))
+
+# ---- articles of statements gone since the last run ----
+removed = []
+for dirpath, _, files in os.walk(CH, topdown=False):
+    for name in files:
+        path = os.path.join(dirpath, name)
+        if name.endswith('.md') and path not in written:
+            os.remove(path)
+            removed.append(os.path.relpath(path, vault))
+    if not os.listdir(dirpath):
+        os.rmdir(dirpath)
+print(f'{len(written)} files; kinds {count}; removed {removed}')

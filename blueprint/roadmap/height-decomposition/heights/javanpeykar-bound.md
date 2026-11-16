@@ -8,9 +8,10 @@ lean: HDec.HSyn.OpenResearchLeaves26.javanpeykarBound
 
 # Javanpeykar's bound for curves with a Belyi function
 
-The *Javanpeykar statement* is the following assertion. Let $X$ be an integral curve over a number
-field $K$ with a $K$-rational point, $J$ its Jacobian, of dimension $g\ge1$, and $t$ a Belyi
-function on $X$ over $K$ (a rational function unramified outside $0,1,\infty$) of degree $d$. Then
+The *Javanpeykar statement* is the following assertion. Let $X$ be a smooth proper geometrically
+connected curve over a number field $K$ with a $K$-rational point, $J$ its Jacobian, of dimension
+$g\ge1$, and $t$ a Belyi function on $X$ over $K$ (a rational function unramified outside
+$0,1,\infty$) of degree $d$. Then
 $$h_F(J)\le13\cdot10^6\,g\,d^5.$$
 
 It is a published statement: the printed theorem, or a direct instance of it that needs no argument.
