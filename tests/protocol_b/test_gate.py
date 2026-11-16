@@ -17,6 +17,10 @@ from unittest.mock import patch
 import urllib.error
 
 ROOT = Path(__file__).resolve().parents[2]
+# Direct Review.run fixtures need the same run identity as run_pipeline.
+# These are offline test identifiers, never provider or GitHub credentials.
+os.environ.setdefault('GITHUB_RUN_ID', '7')
+os.environ.setdefault('GITHUB_RUN_ATTEMPT', '1')
 workflow = (ROOT / '.github/workflows/protocol-b.yml').read_text(encoding='utf-8')
 block = workflow.split("<<'PROTOCOL_B_PYTHON'\n", 1)[1].split('          PROTOCOL_B_PYTHON\n', 1)[0]
 source = '\n'.join(line[10:] if line.startswith('          ') else line for line in block.splitlines()) + '\n'
@@ -32,9 +36,12 @@ def changed(path='README.md', diff='@@ -1 +1 @@\n-alpha  \n+alpha', **kwargs):
 
 
 def report(**kwargs):
-    return {'decision': 'accept', 'report': 'The source and its consumers have been read. The stated hypotheses match the supplied objects.',
+    result = {'decision': 'accept', 'report': 'The source and its consumers have been read. The stated hypotheses match the supplied objects.',
             'findings': [], 'prior_findings': [], 'sources_read': ['test.tex:1'],
-            'not_outside_reviewed': [], 'source_checks': [], 'access_limitations': [], **kwargs}
+            'scope_complete': True, 'not_reviewed': [], 'not_outside_reviewed': [], 'source_checks': [], 'access_limitations': [], **kwargs}
+    result['findings'] = [{'severity': 'blocking', 'kind': 'error', 'attempted_resolution': '', **f}
+                          for f in result['findings']]
+    return result
 
 
 def envelope(family='astra', **kwargs):

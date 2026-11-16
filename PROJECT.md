@@ -16,17 +16,32 @@ The owner selected these two reviewer models on November 13, 2026:
 | OpenAI | `gpt-6-astra` |
 | Anthropic | `claude-fable-5-2` |
 
-Both must review every mathematical change. An App-authenticated acceptance
-remains valid for an unchanged head. Completed reviews can also carry across a
-rebase with an unchanged diff and unchanged reviewed dependencies. Both must
-accept, except for the documented source-access limitation or an explicit
-collaborator override of a recorded deadlock. A source-access-only finding is
-nonblocking if the other reviewer actually checked the same source passage and
-application without objection; its limitation remains in the record. An overridden step is
-not outside reviewed. There is no
-fallback model. Changing this list is the owner's decision and takes effect at
-the next release. The workflow records the requested and returned model IDs;
-it does not claim cryptographic verification of a provider's internal model.
+Both reviewers must complete their review and accept mathematical changes,
+subject to the explicit exceptions below. An App-authenticated acceptance remains
+valid for an unchanged head. Completed reviews can also carry across a rebase with an unchanged diff
+and unchanged reviewed dependencies.
+
+Editorial notes do not block. A completed review with only editorial notes meets
+the review requirement even if its original decision is `changes_requested`;
+the record preserves that decision and does not call it unanimous acceptance.
+A source-access-only finding is nonblocking if the other reviewer actually
+checked the same source passage and application without objection; its limitation
+remains in the record. Substantive findings and named gaps otherwise require
+resolution or an explicit admin override.
+
+A current repository admin may explicitly accept a recorded finding or an
+incomplete or absent review for one exact head, using the documented override
+command and a reason. Each remaining substantive finding needs its own resolution
+or override; a scope override does not cover it. The record identifies the affected
+claims as not outside reviewed and discloses the unreviewed work. If no model review
+completed, it says so, including when neither model ran. It never changes an
+incomplete execution or rejecting model verdict into a model acceptance.
+Write-access collaborators retain ordinary review commands and protected merge
+access; only admins may override.
+
+There is no fallback model. Changing this list is the owner's decision and takes
+effect at the next release. The workflow records the requested and returned model
+IDs; it does not claim cryptographic verification of a provider's internal model.
 
 ## Deployment state
 
@@ -39,7 +54,7 @@ up-to-date protection. This is a dated operator observation, not a claim that
 anonymous readers independently verified those settings. The
 [readback and limits](docs/research-review/reviews/activation-2026-11-13/README.md)
 preserve the non-secret evidence. The [current contributor guide](docs/research-review/README.md) describes
-the review requirement and the collaborator override path. Activation does not
+the review requirement and the admin override path. Activation does not
 retroactively certify the repository's historical claims.
 
 The App key and two model API keys belong in the `protocol-b` GitHub Environment,

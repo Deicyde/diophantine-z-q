@@ -38,8 +38,8 @@ class RoundSummary(unittest.TestCase):
         reports = {'astra': envelope(review=report(decision='changes_requested', findings=[{'id': 'F1', 'objection': 'Gap'}]))}
         text = gate.round_summary_body(self.state(reports=reports, overrides={'1-1-astra-F1': {}}), 'x/y', 'check')
         self.assertIn('Astra: requested changes', text)
-        self.assertIn('recorded maintainer override', text)
-        self.assertIn('not outside reviewed', text)
+        self.assertIn('recorded admin override', text)
+        self.assertIn('The reviewers did not accept this point.', text)
         self.assertIn('"blocking_count": 0', text)
 
     def test_peer_objection_wins_over_other_reviewers_access_relief_in_both_orders(self):

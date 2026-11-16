@@ -194,12 +194,13 @@ class Spending(unittest.TestCase):
             response = ([{'type': 'tool_use', 'id': 'finish', 'name': 'finish_review', 'input': result}],
                         gate.MODELS['fable'], {}, 'fixture', 'end_turn')
             with tempfile.TemporaryDirectory() as tmp, patch.object(gate, 'OUT', Path(tmp)), \
-                 patch.object(gate, 'model_turn', return_value=response) as model:
-                if decision == 'accept':
-                    with self.assertRaises(ValueError):
-                        review.run()
-                else:
-                    self.assertEqual(review.run()['decision'], 'changes_requested')
+                 patch.object(gate, 'model_turn', side_effect=[response,
+                     ([{'type': 'tool_use', 'id': 'corrected', 'name': 'finish_review',
+                        'input': {**result, 'decision': 'changes_requested', 'scope_complete': False,
+                                  'not_reviewed': ['Source statements and consumers remain unread.']}}],
+                      gate.MODELS['fable'], {}, 'corrected', 'end_turn')]) as model:
+                self.assertEqual(review.run()['decision'], 'changes_requested')
+                self.assertEqual(model.call_count, 2 if decision == 'accept' else 1)
                 self.assertEqual(model.call_args.args[1], 'trusted')
                 self.assertTrue(any(gate.FINISH_NOW_INSTRUCTION in str(m.get('content', ''))
                                     for m in model.call_args.args[2] if m.get('role') == 'system'))
@@ -222,7 +223,7 @@ class Spending(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'standard or expanded'):
                 gate.configure_budget([changed('manuscripts/new.tex')])
 
-    def test_unread_history_stays_unresolved_and_cannot_be_overridden(self):
+    def test_unread_history_requires_an_explicit_scope_override(self):
         gh = FakeGH()
         prior_id = '1-1-astra-EARLIER'
         review = gate.Review(gh, gh.pr, [], [], {prior_id: {}}, {}, 'trusted', 'fable', 'local mathematical')
@@ -238,8 +239,10 @@ class Spending(unittest.TestCase):
         self.assertEqual(result['prior_findings'][0]['resolution'], 'unresolved')
         pair = {'astra': envelope(), 'fable': envelope('fable')}
         pair['fable'].update(review=result, finished_early=True, read_prerequisites_complete=False)
-        with self.assertRaisesRegex(ValueError, 'missing source or history'):
+        with self.assertRaisesRegex(ValueError, 'scope-1-1-fable'):
             gate.overridden_decision(pair, {prior_id: {}, '1-1-fable-BUDGET': {}}, HEAD)
+        allowed = {prior_id: {}, '1-1-fable-BUDGET': {}, 'scope-1-1-fable': {}}
+        self.assertIn('scope-1-1-fable', gate.overridden_decision(pair, allowed, HEAD))
         gh, app, _, state = run_pipeline(FakeGH(), provider=Mock(return_value=result))
         self.assertIs(state['reports']['fable']['read_prerequisites_complete'], False)
         stored = json.loads(app.final['output']['text'])
