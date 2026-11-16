@@ -86,6 +86,17 @@ theorem raynaudCriterion_leavesNF_cp (hR : ReductB.RaynaudSemistableSHcp)
   raynaudCriterion_of_leavesNF_cp (raynaudSemistableNF_of_SHcp hR hPair hE) hU hN
     (AvSplit.torsionStructure_of_mumford hM) (ReductGlue.fixedTorsionRational_of_mulEtale hE)
 
+/-- **The two live consumers from the restricted printed 4.7 and the other inputs, as hypotheses** (robust to folds
+that change how the other inputs are supplied). -/
+theorem consumers_of_cp_leaves (hR : ReductB.RaynaudSemistableSHcp)
+    (hPair : ReductGlue.StrictHenselizationPair) (hU : SemistableUnipotent)
+    (hN : NeronSchemeModelExistsDVRNF) (hSH : ReductB.SemistablePersistsSHcp)
+    (hM : AvSplit.MumfordTorsionAlgClosed) (hE : AvSplit.T4.MulEtaleAbelianScheme)
+    (hLG : SemistableLocalGlobal) (hAA : SemistableAlmostAll) :
+    RaynaudCriterionNF ∧
+      (ZInQ.HeightSplit.SemistableReductionThm ∧ ZInQ.HeightSplit.SemistablePersists) :=
+  ⟨raynaudCriterion_leavesNF_cp hR hPair hU hN hM hE, ss1_ss3_of_cp_fullNF hR hSH hPair hM hE hN hLG hAA⟩
+
 /-- **The two live consumers of `raynaudSemistableSH` from `RaynaudSemistableSHcp` and the other fields of the
 current top bundles**: r6 at number fields and SS1, SS3 (the two arguments that `sixContactMin_of_open20`, TailZ26,
 computes from leaf-fold14's bundles with `raynaudCriterionNF_of14` and `ss1_ss3_of14NF`). The field
@@ -113,7 +124,6 @@ theorem consumers_of_cp (hR : ReductB.RaynaudSemistableSHcp) (r : HDec.HSyn.Open
       (HDec.HSyn.abVarSpreadsOut_of_ega4 ZInQ.Contrib.SpreadOut.EGAIV_8_8_2_ii_proof l.egaIV_8_10_5_xii
         ZInQ.Contrib.SpreadOut.EGAIV_17_7_8_ii_proof)
       (HDec.HSyn.properSmoothGenConnected_of_zariski4 ZariskiConn.ZariskiConnectedness_proof.{0})
-  exact ⟨raynaudCriterion_leavesNF_cp hR hPair hU hN t.mumfordTorsionAlgClosed hE,
-    ss1_ss3_of_cp_fullNF hR hSH hPair t.mumfordTorsionAlgClosed hE hN hLG hAA⟩
+  exact consumers_of_cp_leaves hR hPair hU hN hSH t.mumfordTorsionAlgClosed hE hLG hAA
 
 end RaynaudCP
