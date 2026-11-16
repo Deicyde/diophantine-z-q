@@ -15,10 +15,11 @@ of units lie in inertia).
 -/
 
 set_option linter.style.longLine false
+set_option linter.style.haveILetI false
 
 namespace TateTwistDict
 
-open ZInQ.Contrib.G9.PkgI4 TauCeti TauCeti.ClassFieldTheory
+open ZInQ.Contrib.G9.PkgI4 TauCeti TauCeti.ClassFieldTheory ValuativeRel
 
 noncomputable section
 
@@ -35,7 +36,7 @@ statement is a consequence of the print. -/
 def TateTwistInvariantsChar : Prop :=
   ∀ (p : ℕ) [Fact p.Prime] (K : IntermediateField ℚ_[p] (PadicAlgCl p)) [FiniteDimensional ℚ_[p] K]
     (ψ : K.fixingSubgroup →* ℤ_[p]ˣ), Continuous ψ →
-    (ψ '' {σ | (σ : Field.absoluteGaloisGroup ℚ_[p]) ∈ inertiaSubgroup ℚ_[p]}).Infinite →
+    (ψ '' {σ | σ.1 ∈ inertiaSubgroup ℚ_[p]}).Infinite →
     ∀ x : ℂ_[p], (∀ σ : K.fixingSubgroup, (((ψ σ : ℤ_[p]) : ℚ_[p])) • cpAct p σ x = x) → x = 0
 
 /-- **LEAF (Tate 1967, §3.3, Theorem 2, as printed in either wording; locator UNVERIFIED).** The disjunction of
@@ -59,7 +60,7 @@ theorem infinite_units_padicInt : Infinite ℤ_[p]ˣ := by
       rw [norm_mul]
       calc ‖(p : ℤ_[p])‖ * ‖x‖ ≤ ‖(p : ℤ_[p])‖ * 1 :=
             mul_le_mul_of_nonneg_left (PadicInt.norm_le_one x) (norm_nonneg _)
-        _ < 1 := by rw [mul_one]; exact PadicInt.norm_p_lt_one
+        _ < 1 := by rw [mul_one]; rw [PadicInt.norm_p]; exact inv_lt_one_of_one_lt₀ (by exact_mod_cast (Fact.out : p.Prime).one_lt)
     have h2 : ‖(1 : ℤ_[p])‖ = 1 := norm_one
     rw [add_comm]
     exact (PadicInt.norm_add_eq_max_of_ne (by rw [h2]; exact h1.ne)).trans (by rw [h2]; exact max_eq_right h1.le)
@@ -84,7 +85,8 @@ theorem finite_zpow_fibre {k : ℤ} (hk : k ≠ 0) (b : ℤ_[p]ˣ) :
     rcases Int.natAbs_eq k with h | h
     · rw [h] at hy; exact_mod_cast hy
     · rw [h, zpow_neg, inv_eq_one] at hy; exact_mod_cast hy
-  have hfin : (rootsOfUnity k.natAbs ℤ_[p] : Set ℤ_[p]ˣ).Finite := Set.toFinite _
+  have hfin : (rootsOfUnity k.natAbs ℤ_[p] : Set ℤ_[p]ˣ).Finite :=
+    Set.finite_coe_iff.mp (inferInstanceAs (Finite (rootsOfUnity k.natAbs ℤ_[p])))
   refine (hfin.image fun y => y * x0).subset ?_
   intro x hx
   refine ⟨x * x0⁻¹, hroot _ ?_, by simp⟩
@@ -122,7 +124,7 @@ theorem valuation_unit_eq_one (u : ℤ_[p]ˣ) :
   change v ((u : ℤ_[p]) : ℚ_[p]) = 1
   refine le_antisymm h1 ?_
   calc (1 : _) = v ((u : ℤ_[p]) : ℚ_[p]) * v (((u⁻¹ : ℤ_[p]ˣ) : ℤ_[p]) : ℚ_[p]) := h3.symm
-    _ ≤ v ((u : ℤ_[p]) : ℚ_[p]) * 1 := mul_le_mul_left' h2 _
+    _ ≤ v ((u : ℤ_[p]) : ℚ_[p]) * 1 := mul_le_mul' le_rfl h2
     _ = _ := mul_one _
 
 /-- **`χ(I_{ℚ_p}) = ℤ_p^×`** (local class field theory, Tau Ceti): a lift of `Art(u⁻¹)` lies in inertia and has
@@ -155,7 +157,7 @@ theorem continuous_chiPowK (K : IntermediateField ℚ_[p] (PadicAlgCl p)) (i : �
 `σ`, and `χ(I_{ℚ_p}) = ℤ_p^×`, so the image contains every `u^{[G:N] i}`; `u ↦ u^k` has finite fibres. -/
 theorem infinite_chiPowK_inertia (K : IntermediateField ℚ_[p] (PadicAlgCl p)) [FiniteDimensional ℚ_[p] K]
     {i : ℤ} (hi : i ≠ 0) :
-    (chiPowK p K i '' {σ | (σ : Field.absoluteGaloisGroup ℚ_[p]) ∈ inertiaSubgroup ℚ_[p]}).Infinite := by
+    (chiPowK p K i '' {σ | σ.1 ∈ inertiaSubgroup ℚ_[p]}).Infinite := by
   haveI := isGalois_padicAlgCl p
   have hidx : K.fixingSubgroup.index ≠ 0 := by
     rw [← IntermediateField.finrank_eq_fixingSubgroup_index]
@@ -168,13 +170,13 @@ theorem infinite_chiPowK_inertia (K : IntermediateField ℚ_[p] (PadicAlgCl p)) 
   have hk : (m : ℤ) * i ≠ 0 := mul_ne_zero (Nat.cast_ne_zero.mpr hm) hi
   haveI := infinite_units_padicInt p
   have hsub : (fun u : ℤ_[p]ˣ => u ^ ((m : ℤ) * i)) '' Set.univ ⊆
-      chiPowK p K i '' {σ | (σ : Field.absoluteGaloisGroup ℚ_[p]) ∈ inertiaSubgroup ℚ_[p]} := by
+      chiPowK p K i '' {σ | σ.1 ∈ inertiaSubgroup ℚ_[p]} := by
     rintro _ ⟨u, -, rfl⟩
     obtain ⟨σ, hσI, hσ⟩ := exists_inertia_chi_eq p u
     have hσN : σ ^ m ∈ N := Subgroup.pow_index_mem N σ
     refine ⟨⟨σ ^ m, hNle hσN⟩, (inertiaSubgroup ℚ_[p]).pow_mem hσI m, ?_⟩
-    simp only [chiPowK, MonoidHom.coe_comp, Function.comp_apply, Subgroup.coe_subtype, zpowGroupHom_apply,
-      map_pow, hσ, zpow_mul, zpow_natCast]
+    change (chi p (σ ^ m)) ^ i = u ^ ((m : ℤ) * i)
+    rw [map_pow, hσ, zpow_mul, zpow_natCast]
   exact (infinite_image_zpow p hk Set.infinite_univ).mono hsub
 
 /-- **The chain's field from the disjunction leaf.** -/

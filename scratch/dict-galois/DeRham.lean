@@ -157,6 +157,19 @@ theorem lift_Phi (ρ : Representation ℚ_[p] (Field.absoluteGaloisGroup F) V) (
       φ.2 σ v, smul_eq_mul, smul_eq_mul, map_mul]
   | add x y hx hy => rw [map_add, map_add, hx, hy, map_add, map_add]
 
+theorem lbc_add (φ ψ : V →ₗ[ℚ_[p]] BdR p) (m : BdR p ⊗[ℚ_[p]] V) :
+    (φ + ψ).liftBaseChange (BdR p) m = φ.liftBaseChange (BdR p) m + ψ.liftBaseChange (BdR p) m := by
+  rw [LinearMap.liftBaseChange, map_add]
+  rfl
+
+theorem lbc_smul (c : ℚ_[p]) (φ : V →ₗ[ℚ_[p]] BdR p) (m : BdR p ⊗[ℚ_[p]] V) :
+    (c • φ).liftBaseChange (BdR p) m = c • φ.liftBaseChange (BdR p) m := by
+  induction m using TensorProduct.induction_on with
+  | zero => simp
+  | tmul b v =>
+    rw [LinearMap.liftBaseChange_tmul, LinearMap.liftBaseChange_tmul, LinearMap.smul_apply, smul_comm]
+  | add x y hx hy => rw [map_add, map_add, hx, hy, smul_add]
+
 /-- **The dual of a de Rham representation is de Rham** (Fontaine; proved from `B_dR` a field and
 `B_dR^{G_F} = F`). In pkg-I4's Hom form: `dim_{ℚ_p} Hom_{G_F}(V, B_dR) = [F:ℚ_p] dim V`. -/
 theorem isDeRhamOver_of_tensor [FiniteDimensional ℚ_[p] V]
@@ -201,10 +214,15 @@ theorem isDeRhamOver_of_tensor [FiniteDimensional ℚ_[p] V]
         rw [← lift_Phi, (mem_ddrTensorOver p ρ _).mp (hβD i) σ]⟩
       map_add' := fun φ ψ => by
         funext i; apply Subtype.ext
-        simp [LinearMap.liftBaseChange_add]
+        change ((φ + ψ : ddrSpaceOver p ρ) : V →ₗ[ℚ_[p]] BdR p).liftBaseChange (BdR p) (β i) =
+          (φ : V →ₗ[ℚ_[p]] BdR p).liftBaseChange (BdR p) (β i) +
+            (ψ : V →ₗ[ℚ_[p]] BdR p).liftBaseChange (BdR p) (β i)
+        rw [Submodule.coe_add, lbc_add]
       map_smul' := fun c φ => by
         funext i; apply Subtype.ext
-        simp [LinearMap.liftBaseChange_smul] }
+        change ((c • φ : ddrSpaceOver p ρ) : V →ₗ[ℚ_[p]] BdR p).liftBaseChange (BdR p) (β i) =
+          c • (φ : V →ₗ[ℚ_[p]] BdR p).liftBaseChange (BdR p) (β i)
+        rw [Submodule.coe_smul, lbc_smul] }
   have hΨ : Function.Injective Ψ := by
     rw [← LinearMap.ker_eq_bot, LinearMap.ker_eq_bot']
     intro φ hφ
