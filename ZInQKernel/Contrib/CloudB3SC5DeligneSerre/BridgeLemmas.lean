@@ -21,8 +21,9 @@ kernel contains the fixing subgroup of a finite intermediate field.
 * `liesOverPrime_iff_liesOver` (L6), `mem_inertiaSubgroupIn_of_mem_inertiaSubgroup` (L7) and
   `isFrobeniusAt_of_isArithFrob` (L8): the place, inertia and Frobenius conversions.
 
-STATUS: UNCOMPILED (written 2026-11-16 without a Lean run; the host had too little free memory).
-Every statement is to be checked by an actual build on the fixed pins before use.
+Checked 2026-11-16 with Lean v4.35.0 and Mathlib `56a005855ea17e0b0958f73ec801ae140b0a1679`:
+the file compiles without warnings of its own, and every theorem depends only on `propext`,
+`Classical.choice` and `Quot.sound`.
 -/
 
 noncomputable section
@@ -60,7 +61,7 @@ theorem coeff_prime_mul_add_of_isNormalizedEigenform {N : ℕ} (χ : DirichletCh
     have hgcd : Nat.gcd p (p * m) = p := Nat.gcd_eq_left (dvd_mul_right p m)
     have hp1 : (1 : ℕ) ≠ p := hp.one_lt.ne
     rw [hgcd, hp.divisors]
-    simp only [Finset.sum_pair hp1, if_pos (dvd_mul_right p m)]
+    simp only [Finset.sum_pair hp1, dvd_mul_right p m, ↓reduceIte]
     have e1 : p * (p * m) / 1 ^ 2 = p * (p * m) := by rw [one_pow, Nat.div_one]
     have e2 : p * (p * m) / p ^ 2 = m := by
       rw [← mul_assoc, ← pow_two, Nat.mul_div_cancel_left m (pow_pos hp.pos 2)]
@@ -68,7 +69,7 @@ theorem coeff_prime_mul_add_of_isNormalizedEigenform {N : ℕ} (χ : DirichletCh
     rw [e1, e2, e3, Nat.cast_one, map_one, one_mul]
   · have hcop : Nat.gcd p n = 1 := (Nat.Prime.coprime_iff_not_dvd hp).mpr hdvd
     rw [hcop, Nat.divisors_one]
-    simp only [Finset.sum_singleton, if_neg hdvd, one_pow, Nat.div_one, Nat.cast_one, map_one,
+    simp only [Finset.sum_singleton, hdvd, ↓reduceIte, one_pow, Nat.div_one, Nat.cast_one, map_one,
       one_mul, mul_zero, add_zero]
 
 end HeckeRecurrence
@@ -76,6 +77,8 @@ end HeckeRecurrence
 /-! ## L4. A homomorphism that factors through a finite level is continuous -/
 
 section Continuity
+
+open scoped Pointwise
 
 /-- **L4.** If `ρ : Gal(ℚ̄/ℚ) →* M` is trivial on `Gal(ℚ̄/L)` for a finite `L/ℚ`, then `ρ` is
 continuous for the Krull topology and any topology on `M` (it is constant on the open cosets of
@@ -109,7 +112,7 @@ theorem continuous_of_exists_finiteLevel {M : Type*} [Monoid M] [TopologicalSpac
       ∀ σ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ, (∀ x ∈ L, σ x = x) → ρ σ = 1) :
     Continuous ρ := by
   obtain ⟨L, hL, hker⟩ := h
-  haveI := hL
+  have := hL
   exact continuous_of_fixingSubgroup ρ L hker
 
 end Continuity
