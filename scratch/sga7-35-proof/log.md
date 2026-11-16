@@ -21,3 +21,20 @@ kinds.tsv row 25: research / published / LEAF / LEAF, unverified-locator).
   semistable), sga7_IX_3_3_SH (N⁰ base change), neronBaseChangeStrictHenselization, r7a (NOS), mulEtale
   (proved), and in OpenAddedLeaves17: picRepresentableAbVar, picZeroAbVar, weilPairingMumford (dual abelian
   variety Pic⁰ and Mumford's ē_n, perfect and Galois-equivariant).
+- Analysis (STANDARD content, SGA 7 IX §§2-3; numbers UNVERIFIED): the forward direction needs Grothendieck's
+  orthogonality theorem (T_t = kernel of the Weil pairing on T_f × T'_f) plus rank counts; raynaudSemistableSH
+  is the converse direction; sga7_IX_3_3_SH + Néron fields give only T^{I'} = T^I for open I' ⊆ I, which does not
+  force unipotence over a strictly henselian base (no Frobenius). Verdict: not provable outright from the fields.
+- Orth.lean (scratch) COMPILES, axioms [propext, Classical.choice, Quot.sound] (VERIFIED):
+  `SGA7Orth.sga7_IX_3_5_ForwardGeom_of_orth (hOrth : GrothendieckOrthogonalitySS) (h1 : PicRepresentableAbVar)
+  (h2 : PicZeroAbVar) (h4 : WeilPairingMumford) : UnipotentForward.SGA7_IX_3_5_ForwardGeom`.
+  Glue proved: `exists_isPrimitiveRoot_O` (Hensel lift of a primitive N-th root, N unit in SH O),
+  `gal_fixes_rootsOfUnity` (μ_N(K̄) ⊆ K), `galMu_eq_self`, `unipSq_tors` ((σ-1)² = 0 on A(K̄)[ℓⁿ]), K^s → K̄
+  transport by `IsAlgClosed.lift` + `AlgEquiv.liftNormal` + `extPt_injective`/`extPt_galAct`.
+- New leaf `GrothendieckOrthogonalitySS`: rated consequence (GLUE) — finite-level, Mumford-pairing form of
+  SGA 7 IX 2.4 + semistable rank count. kinds.tsv: consequence rows count GLUE/GLUE (VERIFIED, 8 rows), so the fold
+  would move 1 LEAF → 1 GLUE; NOT recommended.
+- Consumers' narrowing (VERIFIED, read): A6 `goodReduction_of_QM_rational3` uses r6 at ℓ = m = 3 on QM surfaces;
+  TailH uses wild σ on abelian surfaces. Both need unipotence in general; no narrowing avoids orthogonality.
+- Build: first `lake build +Main +Discharges +Contrib` started a cascade rebuild (my lean/.lake/build copy from
+  weil-proof was in flux); stopped; copied .lake/build and lean/.lake/build from raynaud-proof (same Main.lean).
