@@ -1,0 +1,74 @@
+DISCHARGES [OpenResearchLeaves19.gonzalezRotgerProp56X6] by GRCountX6.prop56X6_of_r5fpCount
+  still assumes: [LeafQM.AV.R5fpCount]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.neronBaseChangeStrictHenselization] by GapSHPair.neronBaseChangeStrictHenselization_of_unramified
+  still assumes: [ReductGlue.NeronBaseChangeUnramifiedDVR]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.elkiesX6StarPrinted] by HDec.QMSplit.Moduli.ElkiesX6Star.elkiesX6StarPrinted_of_ab
+  still assumes: [HDec.QMSplit.Moduli.ElkiesEquationsX6Ab]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.rayClassCMAb] by QMRecPrinted.rayClassCMAb_of_mainCM
+  still assumes: [ShimuraGlue.DeligneComponentsX6PrintedAb,
+ QMRecPrinted.MainTheoremCM,
+ BPAnalytic.Uniformization.UniformizationLeafAll,
+ ZInQ.HomLattice.GAGAMorphism,
+ AvSplit.MumfordTorsionAlgClosed]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.rayClassCMAb] by RayClassCFT.rayClassCMAb_of
+  still assumes: [RayClassCFT.ShimuraMainThmIDeligneY3AbU, ZInQ.HomUnify.HomLinearLift]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.rayClassCMAb] by RayClassCFT.rayClassCMAb_of_leaves
+  still assumes: [RayClassCFT.ShimuraMainThmIDeligneY3AbU,
+ BPAnalytic.Uniformization.UniformizationLeafAll,
+ ZInQ.HomLattice.GAGAMorphism]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.shimuraFamilyAb] by RayClassCFT.shimuraFamilyAb_of_U
+  still assumes: [RayClassCFT.ShimuraMainThmIDeligneY3AbU]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.shimuraFamilyAb] by ShimuraCFT.shimuraFamilyAb_of_mainThmI
+  still assumes: [ShimuraCFT.ShimuraMainThmIDeligneY3Ab]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.rayClassCMAb] by ShimuraSplit2.rayClassCMAb_of_leaves2
+  still assumes: [ShimuraGlue.DeligneComponentsX6PrintedAb,
+ ShimuraSplit2.QMReciprocityL3,
+ BPAnalytic.Uniformization.UniformizationLeafAll,
+ ZInQ.HomLattice.GAGAMorphism,
+ AvSplit.MumfordTorsionAlgClosed]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.rayClassCMAb] by ShimuraSplit2.rayClassCMAb_of_printed
+  still assumes: [ShimuraSplit2.ShimuraHolFamilyAb,
+ ShimuraSplit2.QMReciprocityL3,
+ BPAnalytic.Uniformization.UniformizationLeafAll,
+ ZInQ.HomLattice.GAGAMorphism,
+ AvSplit.MumfordTorsionAlgClosed]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.rayClassCMAb] by ShimuraSplit2.rayClassCMAb_of_split
+  still assumes: [ShimuraSplit2.ShimuraHolFamilyAb,
+ ShimuraSplit2.QMReciprocityL3,
+ ShimuraSplit2.DCRelTransport,
+ ShimuraSplit2.UnifDetermines,
+ ShimuraSplit2.ComplexUnifL3,
+ ZInQ.HomUnify.HomLinearLift]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.rayClassCMAb] by ShimuraSplit2.rayClassCMAb_of_witness
+  still assumes: [∃ Y Φ, LeafQM.AV.R1UnivRigid.R1fpPropsAb Y Φ,
+ ShimuraSplit2.QMReciprocityL3,
+ ShimuraSplit2.DCRelTransport,
+ ShimuraSplit2.UnifDetermines,
+ ShimuraSplit2.ComplexUnifL3,
+ ZInQ.HomUnify.HomLinearLift]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.shimuraFamilyAb] by ShimuraSplit2.shimuraFamilyAb_of_hol
+  still assumes: [ShimuraSplit2.ShimuraHolFamilyAb]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.shimuraFamilyAb] by ShimuraSplit2.shimuraFamilyAb_of_leaves2
+  still assumes: [ShimuraGlue.DeligneComponentsX6PrintedAb, ShimuraSplit2.ShimuraHolModAll]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.shimuraFamilyAb] by ShimuraSplit2.shimuraFamilyAb_of_printed
+  still assumes: [ShimuraSplit2.ShimuraHolFamilyAb]
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 65 open hypotheses, 1725 theorems checked, 15 discharge one
+'QMRecPrinted.qmReciprocityL3_of_printed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QMRecPrinted.qmReciprocityL3_of_textbook' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QMRecPrinted.rayClassCMAb_of_mainCM' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QMRecPrinted.isCMField_EK' depends on axioms: [propext, Classical.choice, Quot.sound]

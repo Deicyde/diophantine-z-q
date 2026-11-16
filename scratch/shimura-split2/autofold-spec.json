@@ -1,0 +1,15 @@
+{"name": "shimura-split2-fold",
+ "imports": ["ZInQKernel.Contrib.OneProof.ShimuraSplit2"],
+ "discharges": [
+   {"field": "rayClassCMAb",
+    "proof": "_root_.ShimuraSplit2.rayClassCMAb_of_leaves2 {l}.deligneComponentsX6PrintedAb {n}.qmReciprocityL3 {t}.uniformizationLeafAll {t}.gagaMorphism {t}.mumfordTorsionAlgClosed",
+    "leaves": [{"name": "qmReciprocityL3", "type": "_root_.ShimuraSplit2.QMReciprocityL3",
+                "doc": "shimura-split2: Shimura's reciprocity law at CM points on the QM surfaces T(z,g) = (C^2/iota(L_g)(z,1)^T, iota, eta_g), L_g = B cap O-hat g^-1, with level 3: if P is T(z,g) and P' is its conjugate by sigma = [s,K], then P' is T(z, q-hat(s)^eps g) (signs eps, delta existential). No map Psi and no fine witness. A consequence of the main theorem of complex multiplication for the CM algebra F (x) K acting on H_1 = L_g.",
+                "kind": "consequence", "flag": "",
+                "source": "main theorem of CM, adelic form (Shimura-Taniyama; Shimura 1998 Thm 18.6; Milne, Introduction to Shimura varieties (2005) Thm 11.2), applied to E = F (x) K acting on L_g; the QM form is the step of Shimura, Ann. of Math. 85 (1967) sections 2-3 behind Main Theorem I and of Deligne, Sem. Bourbaki 389 (1971) section 4 (locators UNVERIFIED)"}]},
+   {"field": "shimuraFamilyAb",
+    "proof": "_root_.ShimuraSplit2.shimuraFamilyAb_of_leaves2 {l}.deligneComponentsX6PrintedAb {n}.shimuraHolModAll",
+    "leaves": [{"name": "shimuraHolModAll", "type": "_root_.ShimuraSplit2.ShimuraHolModAll",
+                "doc": "shimura-split2: Shimura's Main Theorem I, complex part, for every fine witness (Y, Phi) of R1fpPropsAb (no existence claim): a holomorphic tau -> y_tau in Y(C) whose object is, as a QM pair, C^2/iota(O)(tau,1)^T. Equivalent, given one fine witness, to the exists-form ShimuraHolFamilyAb (proved: shimuraHolModAll_of_hol, shimuraHolFamilyAb_of_all).",
+                "kind": "published", "flag": "pending reading: whether Shimura 1967 Main Theorem I (on V_S over Q(zeta_3)) with Deligne 1971 section 4 states the holomorphic moduli map on the fine moduli scheme Y3 over Q in this form",
+                "source": "Shimura, Ann. of Math. 85 (1967) Main Theorem I and sections 2-3; Shimura, Ann. of Math. 78 (1963) (analytic families); Deligne, Sem. Bourbaki 389 (1971) section 4 (locators UNVERIFIED)"}]}]}
