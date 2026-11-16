@@ -516,6 +516,55 @@ def CMAbVarExists : Prop :=
   ∃ (B : PkgI3.AbVar ℂ) (θ : (Fin g → ℂ) → CPts B (RingHom.id ℂ)),
     B.dim = (g : WithBot ℕ∞) ∧ IsUniformization (RingHom.id ℂ) (cmLat Φ 𝔟) θ
 
+/-- `MainTheoremCMPolMax` at a sign `ε` (`t = N(s)^ε`): the body of `HcmPrinted.MainTheoremCMSign ε` with the two
+hypotheses `IsOLattice 𝔞` and `∃ ζ, IsRiemannDatum Φ 𝔞 ζ` added. -/
+def MainTheoremCMPolSign (ε : ℤˣ) : Prop :=
+  ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (g : ℕ) (Φ : Fin g → E →+* ℂ),
+    Module.finrank ℚ E = 2 * g →
+    Function.Injective (Sum.elim Φ fun i => (starRingEnd ℂ).comp (Φ i)) →
+  ∀ (Er : Type) [Field Er] [NumberField Er] (κr : Er →+* ℂ),
+    κr.fieldRange = Subfield.closure (Set.range fun e : E => ∑ i, Φ i e) →
+  ∀ (n : ℕ) (ρ : Er →ₐ[ℚ] Matrix (Fin n) (Fin n) E) (j : (Fin n → E) →+ (Fin g → ℂ)),
+    IsReflexModel Φ κr ρ j →
+  ∀ (σ : ℂ ≃+* ℂ) (s : IdeleGroup (𝓞 Er) Er), ArtinCondC κr σ s →
+  ∀ (A : PkgI3.AbVar ℂ), A.dim = (g : WithBot ℕ∞) →
+  ∀ (𝔞 : AddSubgroup E) (θ : (Fin g → ℂ) → CPts A (RingHom.id ℂ)),
+    IsUniformization (RingHom.id ℂ) (cmLat Φ 𝔞) θ → IsOfType Φ 𝔞 θ →
+    IsOLattice 𝔞 → (∃ ζ : E, IsRiemannDatum Φ 𝔞 ζ) →
+  ∀ (A' : PkgI3.AbVar ℂ) (h : A'.X.left ⟶ A.X.left),
+    IsPullback h A'.X.hom A.X.hom (Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ))) →
+    (1 : CPts A' (RingHom.id ℂ)).left ≫ h =
+      Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ)) ≫ (1 : CPts A (RingHom.id ℂ)).left →
+  ∃ θ' : (Fin g → ℂ) → CPts A' (RingHom.id ℂ),
+    IsUniformization (RingHom.id ℂ)
+      (cmLat Φ (latAct ((reflexNorm ρ (IdeleGroup.toFiniteIdele (𝓞 Er) Er s) ^ (ε : ℤ) :
+        (AQ ⊗[ℚ] E)ˣ) : AQ ⊗[ℚ] E) 𝔞)) θ' ∧
+    ∀ x y : E,
+      ((reflexNorm ρ (IdeleGroup.toFiniteIdele (𝓞 Er) Er s) ^ (ε : ℤ) : (AQ ⊗[ℚ] E)ˣ) : AQ ⊗[ℚ] E) *
+          (1 ⊗ₜ y) - 1 ⊗ₜ x ∈ latHat 𝔞 →
+        (θ' (cmVec Φ y)).left ≫ h = Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ)) ≫ (θ (cmVec Φ x)).left
+
+/-- **LEAF `MainTheoremCMPol` (the polarized, maximal-order print with the sign of the Artin map left open;
+printed form).** `MainTheoremCMPolMax` with `t = N(s)^ε` for some `ε = ±1`, as in qmrec-printed's `MainTheoremCM`:
+the same published statements (Shimura 1971 Thm 5.15 / §5.5, Shimura 1998 Thm 18.6, Milne's form with
+`N(s)⁻¹` in the geometric normalization), weakened by the existential sign, so that no reading of the
+normalization of `[s, E*]` is needed. Implied by `MainTheoremCMPolMax` (`mainTheoremCMPol_of_polMax`) and by
+`QMRecPrinted.MainTheoremCM` (`mainTheoremCMPol_of_mainTheoremCM`). -/
+def MainTheoremCMPol : Prop := ∃ ε : ℤˣ, MainTheoremCMPolSign ε
+
+theorem polSign_one_of_polMax (h : MainTheoremCMPolMax) : MainTheoremCMPolSign 1 := by
+  intro E _ _ _ g Φ hdeg hinj Er _ _ κr hκ n ρ j hρ σ s hs A hA 𝔞 θ hθ htype hO hζ A' hh hpb hone
+  simp only [Units.val_one, zpow_one]
+  exact h E g Φ hdeg hinj Er κr hκ n ρ j hρ σ s hs A hA 𝔞 θ hθ htype hO hζ A' hh hpb hone
+
+theorem mainTheoremCMPol_of_polMax (h : MainTheoremCMPolMax) : MainTheoremCMPol := ⟨1, polSign_one_of_polMax h⟩
+
+/-- `MainTheoremCMPol` is implied by qmrec-printed's `MainTheoremCM` (it only adds hypotheses). -/
+theorem mainTheoremCMPol_of_mainTheoremCM (h : QMRecPrinted.MainTheoremCM) : MainTheoremCMPol := by
+  obtain ⟨ε, h⟩ := h
+  exact ⟨ε, fun E _ _ _ g Φ hdeg hinj Er _ _ κr hκ n ρ j hρ σ s hs A hA 𝔞 θ hθ htype _ _ A' hh hpb hone =>
+    h E g Φ hdeg hinj Er κr hκ n ρ j hρ σ s hs A hA 𝔞 θ hθ htype A' hh hpb hone⟩
+
 /-- The new leaf is implied by the old one (it only adds hypotheses): `MainTheoremCMArith → MainTheoremCMPolMax`. -/
 theorem mainTheoremCMPolMax_of_arith (h : HcmPrinted.MainTheoremCMArith) : MainTheoremCMPolMax := by
   intro E _ _ _ g Φ hdeg hinj Er _ _ κr hκ n ρ j hρ σ s hs A hA 𝔞 θ hθ htype _ _ A' hh hpb hone
@@ -578,15 +627,15 @@ def ddHom (σ : ℂ ≃+* ℂ) (B : PkgI3.AbVar ℂ) :
 
 end Aux
 
-/-- **`MainTheoremCMArith` from the polarized, maximal-order print** (steps (2) and (3)). -/
-theorem mainTheoremCMArith_of_polar (hP : MainTheoremCMPolMax) (hX : CMAbVarExists)
+/-- **The main theorem of CM for arbitrary lattices from the polarized, maximal-order print, at any sign `ε`**
+(steps (2) and (3)): `MainTheoremCMPolSign ε → MainTheoremCMSign ε`. -/
+theorem mainTheoremCMSign_of_polar (ε : ℤˣ) (hP : MainTheoremCMPolSign ε) (hX : CMAbVarExists)
     (hUL : BPAnalytic.Uniformization.UniformizationLeafAll) (hG : ZInQ.HomLattice.GAGAMorphism) :
-    HcmPrinted.MainTheoremCMArith := by
+    HcmPrinted.MainTheoremCMSign ε := by
   have hH : ZInQ.HomUnify.HomLatticeCorr := AvSplit.Final.h69 hUL hG
   intro E _ _ _ g Φ hdeg hinj Er _ _ κr hκ n ρ j hρ σ s hs A hdimA 𝔞 θ hθ htype A' h hpb hone
-  simp only [Units.val_one, zpow_one]
-  set t : AQ ⊗[ℚ] E := ((reflexNorm ρ (IdeleGroup.toFiniteIdele (𝓞 Er) Er s) : (AQ ⊗[ℚ] E)ˣ) : AQ ⊗[ℚ] E)
-    with ht
+  set t : AQ ⊗[ℚ] E := ((reflexNorm ρ (IdeleGroup.toFiniteIdele (𝓞 Er) Er s) ^ (ε : ℤ) : (AQ ⊗[ℚ] E)ˣ) :
+    AQ ⊗[ℚ] E) with ht
   have hg : 0 < g := by
     have := Module.finrank_pos (R := ℚ) (M := E); omega
   obtain ⟨⟨N, hN, hNa⟩, ⟨d, hd, hda⟩⟩ := lattice_of_unif hUL Φ hg hdeg hθ
@@ -790,6 +839,19 @@ theorem mainTheoremCMArith_of_polar (hP : MainTheoremCMPolMax) (hX : CMAbVarExis
   exact ⟨θ', (isUniformization_iff _ _ _).2
     ⟨isAnalyticHom_comp (isAnalyticHom_of_unif hθB') muO, hker, hsurj⟩, htors⟩
 
+/-- **`MainTheoremCMArith` from the polarized, maximal-order print** (`ε = 1`). -/
+theorem mainTheoremCMArith_of_polar (hP : MainTheoremCMPolMax) (hX : CMAbVarExists)
+    (hUL : BPAnalytic.Uniformization.UniformizationLeafAll) (hG : ZInQ.HomLattice.GAGAMorphism) :
+    HcmPrinted.MainTheoremCMArith :=
+  mainTheoremCMSign_of_polar 1 (polSign_one_of_polMax hP) hX hUL hG
+
+/-- **qmrec-printed's `MainTheoremCM` from the polarized, maximal-order print with existential sign.** -/
+theorem mainTheoremCM_of_pol (hP : MainTheoremCMPol) (hX : CMAbVarExists)
+    (hUL : BPAnalytic.Uniformization.UniformizationLeafAll) (hG : ZInQ.HomLattice.GAGAMorphism) :
+    QMRecPrinted.MainTheoremCM := by
+  obtain ⟨ε, h⟩ := hP
+  exact ⟨ε, mainTheoremCMSign_of_polar ε h hX hUL hG⟩
+
 end Proof
 
 /-! ## §6 Consequences: qmrec-printed's and hcm-printed's targets from the polarized print -/
@@ -802,13 +864,20 @@ theorem mainTheoremCM_of_polar (hP : MainTheoremCMPolMax) (hX : CMAbVarExists)
     QMRecPrinted.MainTheoremCM :=
   HcmPrinted.mainTheoremCM_of_arith (mainTheoremCMArith_of_polar hP hX hUL hG)
 
-/-- **The field `rayClassCMAb`** (qmrec-printed's `rayClassCMAb_of_mainCM`) with `MainTheoremCM` derived from the
-polarized, maximal-order print. -/
-theorem rayClassCMAb_of_polar (hR : ShimuraGlue.DeligneComponentsX6PrintedAb) (hP : MainTheoremCMPolMax)
+/-- **shimura-split2's `QMReciprocityL3`** (qmrec-printed's `qmReciprocityL3_of_textbook`) from the polarized,
+maximal-order print with existential sign. -/
+theorem qmReciprocityL3_of_pol (hP : MainTheoremCMPol) (hX : CMAbVarExists)
+    (hUL : BPAnalytic.Uniformization.UniformizationLeafAll) (hG : ZInQ.HomLattice.GAGAMorphism) :
+    ShimuraSplit2.QMReciprocityL3 :=
+  QMRecPrinted.qmReciprocityL3_of_textbook (mainTheoremCM_of_pol hP hX hUL hG) hUL hG
+
+/-- **The former field `rayClassCMAb`** (qmrec-printed's `rayClassCMAb_of_mainCM`) with `MainTheoremCM` derived from
+the polarized, maximal-order print with existential sign. -/
+theorem rayClassCMAb_of_polar (hR : ShimuraGlue.DeligneComponentsX6PrintedAb) (hP : MainTheoremCMPol)
     (hX : CMAbVarExists) (hUL : BPAnalytic.Uniformization.UniformizationLeafAll)
     (hG : ZInQ.HomLattice.GAGAMorphism) (hMum : AvSplit.MumfordTorsionAlgClosed) :
     ShimuraGlue.Ray.RayClassCMAb :=
-  QMRecPrinted.rayClassCMAb_of_mainCM hR (mainTheoremCM_of_polar hP hX hUL hG) hUL hG hMum
+  QMRecPrinted.rayClassCMAb_of_mainCM hR (mainTheoremCM_of_pol hP hX hUL hG) hUL hG hMum
 
 /-- **`hCM = T5Glue.ShimuraMainCM`** (hcm-printed's `shimuraMainCM_of_textbook`) with `MainTheoremCMArith` derived
 from the polarized, maximal-order print. -/
