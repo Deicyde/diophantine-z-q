@@ -1,5 +1,5 @@
 import ZInQKernel.Contrib.OneProof.PazukiCor13Upper
-import ZInQKernel.Contrib.OneProof.UniformizationLeafAll
+-- import ZInQKernel.Contrib.OneProof.UniformizationLeafAll
 
 /-!
 # pazuki-alg: the analytic half of `AnalyticPPAlgebraic` from Riemann's theorem and GAGA for morphisms
@@ -49,7 +49,7 @@ def periodLattice (Ω : Matrix (Fin 2) (Fin 2) ℂ) : Submodule ℤ (Fin 2 → �
       funext i; simp
     rw [h1, h2, Matrix.mulVec_add]
     abel
-  zero_mem' := ⟨0, 0, by funext i; simp⟩
+  zero_mem' := ⟨0, 0, by funext i; fin_cases i <;> simp⟩
   smul_mem' := by
     rintro c _ ⟨m, n, rfl⟩
     refine ⟨c • m, c • n, ?_⟩
@@ -71,7 +71,7 @@ theorem im_periodVec (Ω : Matrix (Fin 2) (Fin 2) ℂ) (m n : Fin 2 → ℤ) :
     (fun i => ((Ω.mulVec (fun j => (m j : ℂ)) + fun j => (n j : ℂ)) i).im) =
       (Ω.map Complex.im).mulVec (fun j => (m j : ℝ)) := by
   funext i
-  simp [Matrix.mulVec, dotProduct, Fin.sum_univ_two, Complex.mul_im]
+  fin_cases i <;> simp [Matrix.mulVec, dotProduct, Fin.sum_univ_two, Complex.mul_im]
 
 /-- **`Ωℤ² + ℤ²` has no nonzero vectors near `0`** for `Ω ∈ 𝔥₂` (`Im Ω` is invertible). -/
 theorem exists_eq_zero_of_norm_lt {Ω : Matrix (Fin 2) (Fin 2) ℂ} (hΩ : IsSiegel Ω) :
@@ -94,9 +94,8 @@ theorem exists_eq_zero_of_norm_lt {Ω : Matrix (Fin 2) (Fin 2) ℂ} (hΩ : IsSie
   have hxY : x = Y.mulVec (fun j => (m j : ℝ)) := im_periodVec Ω m n
   have hm' : Y⁻¹.mulVec x = fun j => (m j : ℝ) := by
     rw [hxY, Matrix.mulVec_mulVec, Matrix.nonsing_inv_mul Y hdet, Matrix.one_mulVec]
-  have hlt := hδ' (x := x) (by simpa [dist_eq_norm] using hxn)
-  simp only [Matrix.mulVec_zero, dist_zero_right] at hlt
-  rw [hm'] at hlt
+  have hlt : dist (Y⁻¹.mulVec x) (Y⁻¹.mulVec 0) < 1 := hδ' (by rw [dist_zero_right]; exact hxn)
+  rw [Matrix.mulVec_zero, dist_zero_right, hm'] at hlt
   have hm0 : m = 0 := by
     funext i
     have hi : ‖(m i : ℝ)‖ < 1 := lt_of_le_of_lt (norm_le_pi_norm (fun j => (m j : ℝ)) i) hlt
@@ -105,13 +104,15 @@ theorem exists_eq_zero_of_norm_lt {Ω : Matrix (Fin 2) (Fin 2) ℂ} (hΩ : IsSie
   subst hm0
   have hn0 : n = 0 := by
     funext i
-    have hv1' : ‖(fun i => (n i : ℂ))‖ < 1 := by simpa using hv1
+    have h0 : (Ω.mulVec fun i => ((0 : Fin 2 → ℤ) i : ℂ)) = 0 := by
+      funext j; simp [Matrix.mulVec, dotProduct]
+    have hv1' : ‖(fun i => (n i : ℂ))‖ < 1 := by rw [h0, zero_add] at hv1; exact hv1
     have hi : ‖(n i : ℂ)‖ < 1 := lt_of_le_of_lt (norm_le_pi_norm (fun j => (n j : ℂ)) i) hv1'
     rw [Complex.norm_intCast, ← Int.cast_abs, ← Int.cast_one, Int.cast_lt, Int.abs_lt_one_iff] at hi
     exact hi
   subst hn0
   funext i
-  simp
+  fin_cases i <;> simp
 
 /-- **`Ωℤ² + ℤ²` is discrete** for `Ω ∈ 𝔥₂`. -/
 theorem discreteTopology_periodLattice {Ω : Matrix (Fin 2) (Fin 2) ℂ} (hΩ : IsSiegel Ω) :
@@ -119,12 +120,58 @@ theorem discreteTopology_periodLattice {Ω : Matrix (Fin 2) (Fin 2) ℂ} (hΩ : 
   obtain ⟨ε, hε, h⟩ := exists_eq_zero_of_norm_lt hΩ
   refine DiscreteTopology.of_forall_le_dist hε fun x y hxy => ?_
   by_contra hlt
-  push_neg at hlt
+  push Not at hlt
   apply hxy
   have hmem : (x : Fin 2 → ℂ) - y ∈ periodLattice Ω := sub_mem x.2 y.2
   have hn : ‖(x : Fin 2 → ℂ) - y‖ < ε := by
     rwa [Subtype.dist_eq, dist_eq_norm] at hlt
   exact Subtype.ext (sub_eq_zero.mp (h _ hmem hn))
+
+/-! ## §1b. Consistency of the new leaf: the zero set of `θ(·, Ω)` is `Ωℤ² + ℤ²`-periodic (proved)
+
+The leaf `RiemannPPAV` compares a condition on `proj v ∈ ℂ² ⧸ (Ωℤ² + ℤ²)` with `θ(v, Ω) = 0`; this is only
+consistent because `θ(v + λ, Ω) = e_λ(v) θ(v, Ω)` with `e_λ(v) ≠ 0` (the functional equation of `θ`). The proof
+reindexes the `tsum` and needs no convergence. -/
+
+/-- `θ(z + n, Ω) = θ(z, Ω)` for `n ∈ ℤ²`. -/
+theorem riemannTheta_add_int (Ω : Matrix (Fin 2) (Fin 2) ℂ) (z : Fin 2 → ℂ) (k : Fin 2 → ℤ) :
+    riemannTheta Ω (z + fun i => (k i : ℂ)) = riemannTheta Ω z := by
+  unfold riemannTheta
+  refine tsum_congr fun n => ?_
+  have hk : ((fun i => (n i : ℂ)) ⬝ᵥ fun i => (k i : ℂ)) = ((∑ i, n i * k i : ℤ) : ℂ) := by
+    simp [dotProduct]
+  rw [dotProduct_add, hk, mul_add, ← add_assoc, Complex.exp_add,
+    show 2 * (Real.pi : ℂ) * Complex.I * ((∑ i, n i * k i : ℤ) : ℂ) =
+      ((∑ i, n i * k i : ℤ) : ℂ) * (2 * Real.pi * Complex.I) by ring,
+    Complex.exp_int_mul_two_pi_mul_I, _root_.mul_one]
+
+/-- `θ(z + Ωm, Ω) = exp(−πi mᵀΩm − 2πi mᵀz) θ(z, Ω)` for symmetric `Ω` and `m ∈ ℤ²`. -/
+theorem riemannTheta_add_period (Ω : Matrix (Fin 2) (Fin 2) ℂ) (hΩ : Ω.transpose = Ω)
+    (z : Fin 2 → ℂ) (m : Fin 2 → ℤ) :
+    riemannTheta Ω (z + Ω.mulVec fun i => (m i : ℂ)) =
+      Complex.exp (-(Real.pi * Complex.I * ((fun i => (m i : ℂ)) ⬝ᵥ Ω.mulVec fun i => (m i : ℂ))) -
+        2 * Real.pi * Complex.I * ((fun i => (m i : ℂ)) ⬝ᵥ z)) * riemannTheta Ω z := by
+  have h01 : Ω 0 1 = Ω 1 0 := by
+    have := congrFun (congrFun hΩ 1) 0
+    simpa [Matrix.transpose_apply] using this
+  unfold riemannTheta
+  rw [← tsum_mul_left]
+  conv_rhs => rw [← (Equiv.addRight m).tsum_eq]
+  refine tsum_congr fun n => ?_
+  rw [← Complex.exp_add]
+  congr 1
+  simp only [Equiv.coe_addRight, Pi.add_apply, Int.cast_add, dotProduct, Matrix.mulVec,
+    Fin.sum_univ_two, Pi.add_apply]
+  rw [h01]
+  ring
+
+/-- **The zero set of `θ(·, Ω)` is invariant under `Ωℤ² + ℤ²`** (`Ω` symmetric). -/
+theorem riemannTheta_add_mem_eq_zero_iff {Ω : Matrix (Fin 2) (Fin 2) ℂ} (hΩ : Ω.transpose = Ω)
+    (z : Fin 2 → ℂ) {v : Fin 2 → ℂ} (hv : v ∈ periodLattice Ω) :
+    riemannTheta Ω (z + v) = 0 ↔ riemannTheta Ω z = 0 := by
+  obtain ⟨m, k, rfl⟩ := hv
+  rw [← add_assoc, riemannTheta_add_int, riemannTheta_add_period Ω hΩ, mul_eq_zero]
+  simp [Complex.exp_ne_zero]
 
 /-! ## §2. The new statements -/
 
@@ -176,10 +223,10 @@ variable {X Y : Scheme.{0}}
 
 /-- `(f^*M)^{⊗n} ≅ f^*(M^{⊗n})` (pullback is monoidal). -/
 def tensorPowPullbackIso (f : X ⟶ Y) (M : Y.Modules) :
-    ∀ n : ℕ, ((Modules.pullback f).obj M).tensorPow n ≅ (Modules.pullback f).obj (M.tensorPow n)
-  | 0 => Functor.Monoidal.εIso (Modules.pullback f)
+    ∀ n : ℕ, ((Scheme.Modules.pullback f).obj M).tensorPow n ≅ (Scheme.Modules.pullback f).obj (M.tensorPow n)
+  | 0 => Functor.Monoidal.εIso (Scheme.Modules.pullback f)
   | n + 1 => (Iso.refl _ ⊗ᵢ tensorPowPullbackIso f M n) ≪≫
-      Functor.Monoidal.μIso (Modules.pullback f) M (M.tensorPow n)
+      Functor.Monoidal.μIso (Scheme.Modules.pullback f) M (M.tensorPow n)
 
 /-- `M ≅ N ⟹ M^{⊗n} ≅ N^{⊗n}`. -/
 def tensorPowMapIso {M N : X.Modules} (i : M ≅ N) : ∀ n : ℕ, M.tensorPow n ≅ N.tensorPow n
@@ -187,19 +234,19 @@ def tensorPowMapIso {M N : X.Modules} (i : M ≅ N) : ∀ n : ℕ, M.tensorPow n
   | n + 1 => i ⊗ᵢ tensorPowMapIso i n
 
 /-- The pulled-back section `𝟙 ≅ f^*𝟙 ⟶ f^*N ≅ N'`. -/
-def pullbackSec (f : X ⟶ Y) {N : Y.Modules} {N' : X.Modules} (iN : N' ≅ (Modules.pullback f).obj N)
+def pullbackSec (f : X ⟶ Y) {N : Y.Modules} {N' : X.Modules} (iN : N' ≅ (Scheme.Modules.pullback f).obj N)
     (t : 𝟙_ Y.Modules ⟶ N) : 𝟙_ X.Modules ⟶ N' :=
-  (Functor.Monoidal.εIso (Modules.pullback f)).hom ≫ (Modules.pullback f).map t ≫ iN.inv
+  (Functor.Monoidal.εIso (Scheme.Modules.pullback f)).hom ≫ (Scheme.Modules.pullback f).map t ≫ iN.inv
 
 /-- **The divisor of the pulled-back section is the preimage.** -/
 theorem support_zeroLocus_pullbackSec (f : X ⟶ Y) {N : Y.Modules} {N' : X.Modules} [N.IsInvertible]
-    [N'.IsInvertible] (iN : N' ≅ (Modules.pullback f).obj N) (t : 𝟙_ Y.Modules ⟶ N) :
+    [N'.IsInvertible] (iN : N' ≅ (Scheme.Modules.pullback f).obj N) (t : 𝟙_ Y.Modules ⟶ N) :
     (Hom.zeroLocus (pullbackSec f iN t)).support = (Hom.zeroLocus t).support.preimage f.continuous := by
-  have h1 : Hom.zeroLocus (pullbackSec f iN t) = Hom.zeroLocus ((Modules.pullback f).map t) := by
+  have h1 : Hom.zeroLocus (pullbackSec f iN t) = Hom.zeroLocus ((Scheme.Modules.pullback f).map t) := by
     refine Hom.zeroLocus_eq_of_arrowIso _ _
-      (Arrow.isoMk (Functor.Monoidal.εIso (Modules.pullback f)) iN ?_)
+      (Arrow.isoMk (Functor.Monoidal.εIso (Scheme.Modules.pullback f)) iN ?_)
     simp [pullbackSec]
-  rw [h1, ← Hom.comap_zeroLocus, IdealSheafData.support_comap]
+  rw [h1, ← Hom.comap_zeroLocus, Scheme.IdealSheafData.support_comap]
 
 /-- **Ampleness transports along an isomorphism.** -/
 theorem isAmple_map (f : X ⟶ Y) [IsIso f] (L₀ : Y.Pic) (h : T09Pic.IsAmple Y L₀) :
@@ -208,14 +255,13 @@ theorem isAmple_map (f : X ⟶ Y) [IsIso f] (L₀ : Y.Pic) (h : T09Pic.IsAmple Y
   refine ⟨f.homeomorph.symm.compactSpace, fun x => ?_⟩
   obtain ⟨n, hn, t, hxt, haff⟩ := h2 (f x)
   let M₀ := (fromSkeleton Y.Modules).obj L₀.val
-  let iE : (fromSkeleton X.Modules).obj (Scheme.Pic.map f L₀).val ≅ (Modules.pullback f).obj M₀ :=
-    Scheme.Pic.mkIso ((Modules.pullback f).obj M₀)
+  let iE : (fromSkeleton X.Modules).obj (Scheme.Pic.map f L₀).val ≅ (Scheme.Modules.pullback f).obj M₀ :=
+    Scheme.Pic.mkIso ((Scheme.Modules.pullback f).obj M₀)
   let iN := tensorPowMapIso iE n ≪≫ tensorPowPullbackIso f M₀ n
   have hsupp := support_zeroLocus_pullbackSec f iN t
   have hopen : (Hom.zeroLocus (pullbackSec f iN t)).support.compl =
       f ⁻¹ᵁ (Hom.zeroLocus t).support.compl := by
-    ext y
-    simp only [TopologicalSpace.Closeds.mem_compl, hsupp]
+    rw [hsupp]
     rfl
   refine ⟨n, hn, pullbackSec f iN t, ?_, ?_⟩
   · rw [hopen]
@@ -229,42 +275,37 @@ theorem finrank_map (f : X ⟶ Y) [IsIso f] (L₀ : Y.Pic) :
     Module.finrank Γ(X, ⊤) Γ((fromSkeleton X.Modules).obj (Scheme.Pic.map f L₀).val, ⊤) =
       Module.finrank Γ(Y, ⊤) Γ((fromSkeleton Y.Modules).obj L₀.val, ⊤) := by
   let M₀ := (fromSkeleton Y.Modules).obj L₀.val
-  let iE : (fromSkeleton X.Modules).obj (Scheme.Pic.map f L₀).val ≅ (Modules.pullback f).obj M₀ :=
-    Scheme.Pic.mkIso ((Modules.pullback f).obj M₀)
+  let iE : (fromSkeleton X.Modules).obj (Scheme.Pic.map f L₀).val ≅ (Scheme.Modules.pullback f).obj M₀ :=
+    Scheme.Pic.mkIso ((Scheme.Modules.pullback f).obj M₀)
   have hrange : (⊤ : Y.Opens) ≤ f.opensRange := by
     intro y _
     exact ⟨(inv f).base y, by
       rw [← Scheme.Hom.comp_apply, IsIso.inv_hom_id]
       rfl⟩
   have hb1 : Function.Bijective ((pullbackUnit f M₀).app ⊤) :=
-    bijective_pullbackUnit_app_of_isOpenImmersion M₀ hrange
-  have hb2 : Function.Bijective (iE.inv.app (f ⁻¹ᵁ ⊤)) := by
-    refine ⟨fun a b hab => ?_, fun b => ⟨iE.hom.app _ b, ?_⟩⟩
-    · have := congrArg (iE.hom.app (f ⁻¹ᵁ ⊤)) hab
-      rwa [← Hom.comp_app_apply, ← Hom.comp_app_apply, iE.inv_hom_id] at this
-    · rw [← Hom.comp_app_apply, iE.hom_inv_id]
-      rfl
+    bijective_pullbackUnit_app_of_isOpenImmersion f M₀ hrange
+  have hb2 : Function.Bijective (iE.inv.app (f ⁻¹ᵁ ⊤)) :=
+    ConcreteCategory.bijective_of_isIso (iE.inv.app (f ⁻¹ᵁ ⊤))
   let j : Γ(M₀, ⊤) ≃+ Γ((fromSkeleton X.Modules).obj (Scheme.Pic.map f L₀).val, ⊤) :=
-    AddEquiv.ofBijective
-      { toFun := fun m => iE.inv.app (f ⁻¹ᵁ ⊤) ((pullbackUnit f M₀).app ⊤ m)
-        map_zero' := by simp
-        map_add' := fun a b => by simp } (hb2.comp hb1)
+    AddEquiv.ofBijective ((iE.inv.app (f ⁻¹ᵁ ⊤)).hom.comp ((pullbackUnit f M₀).app ⊤).hom)
+      (hb2.comp hb1)
   have hi : Function.Bijective (f.app ⊤) := ConcreteCategory.bijective_of_isIso (f.app ⊤)
-  have hr := rank_eq_of_equiv_equiv (f.app ⊤) j hi (fun r m => by
-    show iE.inv.app (f ⁻¹ᵁ ⊤) ((pullbackUnit f M₀).app ⊤ (r • m)) =
-      f.app ⊤ r • iE.inv.app (f ⁻¹ᵁ ⊤) ((pullbackUnit f M₀).app ⊤ m)
-    rw [Hom.app_smul, Hom.app_smul])
+  have hr := rank_eq_of_equiv_equiv (R := Γ(Y, ⊤)) (R' := Γ(X, ⊤)) (fun r => f.app ⊤ r) j hi
+    (fun r m => by
+      show iE.inv.app (f ⁻¹ᵁ ⊤) (pullbackSection f (r • m)) =
+        (f.app ⊤ r : Γ(X, ⊤)) • iE.inv.app (f ⁻¹ᵁ ⊤) (pullbackSection f m)
+      rw [pullbackSection_smul, Hom.app_smul])
   unfold Module.finrank
   rw [hr]
 
 /-- **`SymmPrincipalTransport` (proved).** -/
 theorem symmPrincipalTransport : SymmPrincipalTransport := by
   intro B B₀ u _ hu L₀ s₀ hL₀
-  haveI : IsIso u.left := (Over.forget _).map_isIso u
+  have : IsIso u.left := (Over.forget _).map_isIso u
   let M₀ := (fromSkeleton B₀.X.left.Modules).obj L₀.val
   let iE : (fromSkeleton B.X.left.Modules).obj (Scheme.Pic.map u.left L₀).val ≅
-      (Modules.pullback u.left).obj M₀ :=
-    Scheme.Pic.mkIso ((Modules.pullback u.left).obj M₀)
+      (Scheme.Modules.pullback u.left).obj M₀ :=
+    Scheme.Pic.mkIso ((Scheme.Modules.pullback u.left).obj M₀)
   refine ⟨Scheme.Pic.map u.left L₀, pullbackSec u.left iE s₀,
     ⟨isAmple_map _ _ hL₀.1, ?_, ?_⟩, fun q => ?_⟩
   · rw [← Scheme.Pic.map_comp, ← Over.comp_left, ← hu, Over.comp_left, Scheme.Pic.map_comp, hL₀.2.1]
@@ -282,7 +323,8 @@ open ZInQ.HomLattice (IsAnalyticHom isAnalyticHom_of_unif isAnalyticHom_lin isSt
 
 /-- Every complex point is `φ(proj w)` for some `w`. -/
 theorem exists_proj_eq {A : PkgI3.AbVar ℂ} {g : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)}
-    (φ : Torus Λ ≃+ Additive (A.Pt ℂ)) (p : A.Pt ℂ) : ∃ w, Additive.toMul (φ (proj Λ w)) = p := by
+    (φ : Torus Λ ≃+ Additive (CPts A (RingHom.id ℂ))) (p : CPts A (RingHom.id ℂ)) :
+    ∃ w, Additive.toMul (φ (proj Λ w)) = p := by
   obtain ⟨w, hw⟩ := QuotientAddGroup.mk_surjective (φ.symm (Additive.ofMul p))
   refine ⟨w, ?_⟩
   show Additive.toMul (φ (QuotientAddGroup.mk w)) = p
@@ -291,7 +333,7 @@ theorem exists_proj_eq {A : PkgI3.AbVar ℂ} {g : ℕ} {Λ : Submodule ℤ (Fin 
 
 /-- `φ ∘ proj` turns `-w` into the inverse. -/
 theorem toMul_proj_neg {A : PkgI3.AbVar ℂ} {g : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)}
-    (φ : Torus Λ ≃+ Additive (A.Pt ℂ)) (w : Fin g → ℂ) :
+    (φ : Torus Λ ≃+ Additive (CPts A (RingHom.id ℂ))) (w : Fin g → ℂ) :
     Additive.toMul (φ (proj Λ (-w))) = (Additive.toMul (φ (proj Λ w)))⁻¹ := by
   rw [show proj Λ (-w) = -proj Λ w from rfl, map_neg, toMul_neg]
 
@@ -302,12 +344,14 @@ morphisms, applied to `φ₀ ∘ proj ∘ T` (source `B`) and to `φ ∘ proj �
 (`hom_ext_of_cpts`), compatible with the inverse maps; `SymmPrincipalTransport` pulls `(L₀, s₀)` back along `h`. -/
 theorem thetaDivisorAlgebraicC_of_riemann (hR : RiemannPPAV) (hG : ZInQ.HomLattice.GAGAMorphism)
     (hT : SymmPrincipalTransport) : ThetaDivisorAlgebraicC := by
-  intro B g Λ φ hφ Ω hΩ T hTΛ
-  obtain ⟨B₀, φ₀, hφ₀, L₀, s₀, hL₀, hz₀⟩ := hR Ω hΩ
-  haveI hdisc₀ : DiscreteTopology (periodLattice Ω) := discreteTopology_periodLattice hΩ
+  intro B g Λ φ' hφ Ω hΩ T hTΛ
+  obtain ⟨B₀, φ₀', hφ₀, L₀, s₀, hL₀, hz₀⟩ := hR Ω hΩ
+  let φ : Torus Λ ≃+ Additive (CPts B (RingHom.id ℂ)) := φ'
+  let φ₀ : Torus (periodLattice Ω) ≃+ Additive (CPts B₀ (RingHom.id ℂ)) := φ₀'
+  have hdisc₀ : DiscreteTopology (periodLattice Ω) := discreteTopology_periodLattice hΩ
   have hmem : ∀ w, w ∈ Λ ↔ T w ∈ periodLattice Ω := fun w => hTΛ w
   -- `Λ` is discrete: `w ↦ T w` is a continuous injection of `Λ` into the discrete `Ωℤ² + ℤ²`.
-  haveI hdisc : DiscreteTopology Λ := by
+  have hdisc : DiscreteTopology Λ := by
     let F : Λ → periodLattice Ω := fun w => ⟨T w, (hmem w).1 w.2⟩
     have hFc : Continuous F :=
       Continuous.subtype_mk ((LinearMap.continuous_of_finiteDimensional
@@ -353,7 +397,7 @@ theorem thetaDivisorAlgebraicC_of_riemann (hR : RiemannPPAV) (hG : ZInQ.HomLatti
     refine ZInQ.HomUnify.hom_ext_of_cpts _ _ fun p => ?_
     obtain ⟨v, rfl⟩ := exists_proj_eq φ₀ p
     rw [← Category.assoc, hfv, hhw, LinearEquiv.apply_symm_apply, Category.comp_id]
-  haveI : IsIso h := ⟨⟨f, hhf, hfh⟩⟩
+  have : IsIso h := ⟨⟨f, hhf, hfh⟩⟩
   have hinv : h ≫ GrpObj.inv = GrpObj.inv ≫ h := by
     refine ZInQ.HomUnify.hom_ext_of_cpts _ _ fun p => ?_
     obtain ⟨w, rfl⟩ := exists_proj_eq φ p
@@ -367,7 +411,12 @@ theorem thetaDivisorAlgebraicC_of_riemann (hR : RiemannPPAV) (hG : ZInQ.HomLatti
     rw [e1, e2]
   obtain ⟨L, s, hL, hs⟩ := hT B B₀ h hinv L₀ s₀ hL₀
   refine ⟨L, s, 0, hL, fun w => ?_⟩
-  rw [hs, add_zero, ← hz₀ (T w), ← hhw w]
-  rfl
+  have h1 := hs (Additive.toMul (φ (proj Λ w))).left
+  have e2 : (Additive.toMul (φ (proj Λ w)) : CPts B (RingHom.id ℂ)).left ≫ h.left =
+      (Additive.toMul (φ₀ (proj (periodLattice Ω) (T w))) : CPts B₀ (RingHom.id ℂ)).left := by
+    rw [← Over.comp_left]
+    exact congrArg CommaMorphism.left (hhw w)
+  rw [add_zero, ← hz₀ (T w)]
+  exact h1.trans (Iff.of_eq (congrArg (OnZeroLocus s₀) e2))
 
 end PazukiAlg

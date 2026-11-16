@@ -14,3 +14,11 @@
 - Plan: ThetaDivisorAlgebraicC <= RiemannPPAV (per-Omega algebraicity of the ppav of Omega) + GAGAMorphism (twice:
   iso B ~ B0) + SymmPrincipalTransport (proved). SymmPrincipalDescends (arithmetic half) kept as composite GLUE.
 - Lean file: ZInQKernel/Contrib/OneProof/PazukiAlg.lean (namespace PazukiAlg).
+
+## 2026-11-16 15:50 compile 1
+- (log time correction: the "16:30" entry above was written at ~15:25.)
+- `lake build ZInQKernel.Contrib.OneProof.PazukiCor13Upper`: Build completed successfully (12811 jobs). VERIFIED.
+- `lake env lean ZInQKernel/Contrib/OneProof/PazukiAlg.lean` (without the UniformizationLeafAll import): 0 errors. VERIFIED.
+  Proved: discreteTopology_periodLattice; riemannTheta_add_int / _add_period / _add_mem_eq_zero_iff (consistency of the
+  leaf); tensorPowPullbackIso, support_zeroLocus_pullbackSec, isAmple_map, finrank_map, symmPrincipalTransport;
+  thetaDivisorAlgebraicC_of_riemann (RiemannPPAV + GAGAMorphism + SymmPrincipalTransport => ThetaDivisorAlgebraicC).
