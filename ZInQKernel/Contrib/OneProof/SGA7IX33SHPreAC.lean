@@ -90,7 +90,7 @@ theorem SGA7_IX_3_3_SHcp_of_preAC (h : SGA7_IX_3_3_SHpreAC) (h3 : SGA3_VIB_3_10)
     exact Algebra.IsAlgebraic.perfectField (IsLocalRing.ResidueField O)
   haveI : IsAlgClosed (IsLocalRing.ResidueField O') := isAlgClosed_of_SH_perfect hS'
   exact h K O hS K' O' hS' hO A hA 𝒩 h𝒩 𝒩' h𝒩' c hc hci U
-    (hU.trans (DictModels.SGA7Pre.preimage_eq hO 𝒩 h3 hG))
+    (hU.trans (DictModels.SGA7Pre.preimage_eq hO 𝒩 h3 hG).symm)
 
 end DictModels.SGA7PreAC
 
