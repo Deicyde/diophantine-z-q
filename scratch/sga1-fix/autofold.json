@@ -1,0 +1,60 @@
+{
+ "name": "sga1-fix",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.SGA1Printed"
+ ],
+ "discharges": [
+  {
+   "field": "uniformizationLeafAll",
+   "proof": "_root_.SGA1Printed.uniformizationLeafAll_of_printed {n}.mumfordComplexTorus {n}.sga1_XII_3_3a {n}.properCompactAn {n}.sga1_XII_2_4",
+   "leaves": [
+    {
+     "name": "mumfordComplexTorus",
+     "type": "_root_.UnifPrinted.MumfordComplexTorus",
+     "doc": "unif-printed: Mumford, Abelian varieties, section 1 (printed form over Mathlib's complex Lie groups): a compact connected complex Lie group of dimension g is biholomorphic and isomorphic to C^g / Lambda for a lattice Lambda (locator UNVERIFIED)",
+     "kind": "published",
+     "flag": "unread: new printed leaf, no reading recorded; locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties (1970/1974), section 1, theorem on compact connected complex Lie groups; Birkenhake-Lange, Complex abelian varieties, 1.1 (locators UNVERIFIED)"
+    },
+    {
+     "name": "sga1_XII_3_3a",
+     "type": "_root_.SGA1Printed.SGA1_XII_3_3a",
+     "doc": "sga1-fix: SGA 1 XII Remarque 3.3(a) (f etale implies f^an a local isomorphism), topological part, special case f : U -> A^n with U an affine open of X locally of finite type over C: Q -> (f_i(Q)) is a homeomorphism from an open neighbourhood of each P in U(C) (analytic topology) onto an open subset of C^n (printed form, special case and consequence; the regular-functions half is proved in Lean; locator UNVERIFIED)",
+     "kind": "published",
+     "flag": "unread: new printed leaf, no reading recorded; locator UNVERIFIED",
+     "source": "SGA 1 (Grothendieck, LNM 224, 1971), Exp. XII, Remarque 3.3(a), p. 325 (page per the 11-16 review), with the analytic space of XII 1.1 (locators UNVERIFIED)"
+    },
+    {
+     "name": "properCompactAn",
+     "type": "_root_.UnifTopology.ProperCompactAn",
+     "doc": "unif-topology: X proper over C implies X(C) compact in the analytic topology (printed form; Serre, GAGA 2 Prop. 6; SGA 1 XII 3.2; locators UNVERIFIED)",
+     "kind": "published",
+     "flag": "unread: new printed leaf, no reading recorded; locator UNVERIFIED",
+     "source": "Serre, GAGA (1956), 2, Prop. 6; SGA 1, Exp. XII, Prop. 3.2 (locators UNVERIFIED)"
+    },
+    {
+     "name": "sga1_XII_2_4",
+     "type": "_root_.SGA1Printed.SGA1_XII_2_4",
+     "doc": "sga1-fix: SGA 1 XII 2.4, only-if direction: X locally of finite type over C and connected implies X^an connected, with connected = Mathlib PreconnectedSpace on both sides (X(C) with the analytic topology) (printed form; locator UNVERIFIED)",
+     "kind": "published",
+     "flag": "unread: new printed leaf, no reading recorded; locator UNVERIFIED",
+     "source": "SGA 1 (Grothendieck, LNM 224, 1971), Exp. XII, Prop. 2.4 (locator UNVERIFIED)"
+    }
+   ]
+  },
+  {
+   "field": "gagaMorphism",
+   "proof": "_root_.SGA1Printed.gagaMorphism_of_printed {n}.mumfordComplexTorus {n}.sga1_XII_3_3a {n}.properCompactAn {n}.sga1_XII_2_4 {n}.sga1_XII_4_4",
+   "leaves": [
+    {
+     "name": "sga1_XII_4_4",
+     "type": "_root_.SGA1Printed.SGA1_XII_4_4",
+     "doc": "sga1-fix: GAGA for morphisms, abelian varieties: every morphism of analytic spaces A^an -> B^an (IsAnMorphism: continuous for the analytic topologies, pulls back holomorphic functions AnFunOn, the structure sheaf of the reduced X^an; no atlas) is P -> P >> f for a morphism of schemes f : A -> B (printed form, special case; SGA 1 XII 4.4 and its corollary for X proper; Serre GAGA for projective varieties; locators UNVERIFIED)",
+     "kind": "published",
+     "flag": "unread: new printed leaf, no reading recorded; locator UNVERIFIED",
+     "source": "SGA 1 (LNM 224, 1971), Exp. XII, Thm. 4.4 and its corollary on morphisms (X proper over C: Hom(X, Y) -> Hom(X^an, Y^an) bijective); Serre, GAGA, Ann. Inst. Fourier 6 (1956) (locators UNVERIFIED)"
+    }
+   ]
+  }
+ ]
+}

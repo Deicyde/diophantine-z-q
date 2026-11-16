@@ -34,3 +34,11 @@ Base: wip/gaga-chart 5626f0b0. Build tree copied (cp -r) from ~/dzq-wt/gaga-char
   gagaMorphism by gagaMorphism_of_printed, still assumes [MumfordComplexTorus, SGA1_XII_3_3a, ProperCompactAn,
   SGA1_XII_2_4, SGA1_XII_4_4]; uniformizationLeafAll by uniformizationLeafAll_of_printed, still assumes the first
   four. Axioms standard. "#discharges: 63 open hypotheses, 1976 theorems checked, 17 discharge one".
+
+## 11-16 08:00 autofold (VERIFIED)
+- `scratch/sga1-fix/autofold.json`: discharges uniformizationLeafAll and gagaMorphism (textbook bundle); leaves
+  mumfordComplexTorus, sga1_XII_3_3a, properCompactAn, sga1_XII_2_4 (under the first), sga1_XII_4_4 (second).
+- `autofold.py --dry-run` exit 0: "strict count: 46/10 on 56 -> 49/10 on 59; strictest 45/11 -> 48/11" (this base
+  rates both fields LEAF). With the two rows set to GLUE as in the 11-16 re-rating (origin/wip/leaf-fold32,
+  temporary edit of kinds.tsv, restored): "44/12 on 56 -> 49/10 on 59; strictest 43/13 -> 48/11" = -2 GLUE.
+- FoldDryRun.lean (dry run minus line 1) compiles; sixContactMin_of_open30 axioms standard.
