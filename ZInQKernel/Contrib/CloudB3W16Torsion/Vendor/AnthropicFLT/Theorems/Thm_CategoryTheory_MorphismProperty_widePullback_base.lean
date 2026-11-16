@@ -1,0 +1,28 @@
+/-
+Vendored from anthropics/fermats-last-theorem @ 6e837e75355538c7f80bab5b956861e86c4eacc2.
+Original module: Theorems.Thm_CategoryTheory_MorphismProperty_widePullback_base. Apache-2.0.
+Modification notice (CloudB3 Worker16, 2026-11-16): relocated imports; removed
+nonessential negative-attribute and reactivation scaffolding; expanded namespace/open/export
+helpers to ordinary commands and resolved metadata aliases directly. Mathematical proof
+bodies retained, subject to documented Lean 4.35 API adaptations.
+Full original notices/credits: NOTICE.upstream, ATTRIBUTION.upstream.md, LICENSE in this vendor root.
+-/
+import Mathlib.CategoryTheory.MorphismProperty.Limits
+import Mathlib.CategoryTheory.Limits.Shapes.WidePullbacks
+import Mathlib.CategoryTheory.Limits.Shapes.FiniteLimits
+import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.S_CategoryTheory_MorphismProperty_widePullback_base
+
+set_option backward.isDefEq.respectTransparency false
+
+set_option autoImplicit false
+
+universe v u
+
+open CategoryTheory CategoryTheory.Limits
+
+theorem CategoryTheory.MorphismProperty.widePullback_base
+    {C : Type u} [Category.{v} C] [HasPullbacks C] [HasFiniteWidePullbacks C]
+    {P : MorphismProperty C} [P.IsMultiplicative] [P.IsStableUnderBaseChange]
+    {S : C} {r : ℕ} (X : Fin r → C) (f : ∀ i, X i ⟶ S) (hf : ∀ i, P (f i)) :
+    P (WidePullback.base f) := by p2m_exact_reverting @_root_.P2MW.S_CategoryTheory_MorphismProperty_widePullback_base.solution
