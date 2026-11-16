@@ -51,3 +51,4 @@
   a temporary copy with the six keys renamed to the binder names: render_open.py "50 H hypotheses, strictest 39/11,
   11 others"; --check "ok: 61 open hypotheses, all classified; 4 generated files up to date".
   (The committed generated docs were already stale at the base: STATUS.md said 55 H hypotheses, OpenResearchLeaves23.)
+- 00:00 report written; local drop-in reverted (working tree clean).
