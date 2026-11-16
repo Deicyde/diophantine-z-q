@@ -104,7 +104,8 @@ noncomputable instance (𝒢 : GroupModel A L) (𝔭 : Ideal (𝓞 L)) [𝔭.IsP
 /-- **Semistable reduction everywhere** (applied to a Néron model `𝒩` of `A_L`): at every maximal
 ideal `𝔭` of `𝓞_L`, the identity component of the geometric special fibre `𝒩_{κ̄(𝔭)}` is
 semi-abelian. (SGA 7 IX Déf. 3.1/3.2, UNVERIFIED locators; the special fibre of the global Néron
-model at `𝔭` is that of the Néron model over `𝓞_{L,𝔭}`, BLR 1.2/2, UNVERIFIED.) -/
+model at `𝔭` is that of the Néron model over `𝓞_{L,𝔭}`: Néron models localize, BLR §1.2 Prop. 4,
+number UNVERIFIED.) -/
 def IsSemistable (𝒢 : GroupModel A L) : Prop :=
   ∀ (𝔭 : Ideal (𝓞 L)) [𝔭.IsMaximal], HasSemiAbelianIdentityComponent (geomFibre 𝒢 𝔭)
 
@@ -636,6 +637,53 @@ theorem r20_of_leaves' (hF : FaltingsLemma5BC) (hN1 : NeronModelExists)
 /-- The literal-over-`K` form is the case `L = K` of the base-change form. -/
 theorem faltingsLemma5_of_BC (h : FaltingsLemma5BC) : FaltingsLemma5 :=
   fun K _ _ A B φ hφ 𝒩A 𝒩B hA hB sA sB x y hx hy => h K A B φ hφ K 𝒩A 𝒩B hA hB sA sB x y hx hy
+
+/-! ### sem-prune: the lower halves (`h(B) ≤ h(A) + ½ log deg φ`), the only half the chain uses -/
+
+/-- The lower half of `FaltingsLemma5` (sem-prune). -/
+def FaltingsLemma5Lower : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A B : PkgI3.AbVar K) (φ : A.X ⟶ B.X), IsIsogeny φ →
+    ∀ (𝒩A : GroupModel A K) (𝒩B : GroupModel B K), 𝒩A.IsNeronModel → 𝒩B.IsNeronModel →
+      IsSemistable 𝒩A → IsSemistable 𝒩B →
+      ∀ x y : ℝ, 𝒩A.height = x → 𝒩B.height = y → -((1 / 2) * Real.log (isogDeg φ)) ≤ x - y
+
+/-- The lower half of `FaltingsLemma5BC` (sem-prune). -/
+def FaltingsLemma5BCLower : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A B : PkgI3.AbVar K) (φ : A.X ⟶ B.X), IsIsogeny φ →
+    ∀ (L : Type) [Field L] [NumberField L] [Algebra K L]
+      (𝒩A : GroupModel A L) (𝒩B : GroupModel B L), 𝒩A.IsNeronModel → 𝒩B.IsNeronModel →
+      IsSemistable 𝒩A → IsSemistable 𝒩B →
+      ∀ x y : ℝ, 𝒩A.height = x → 𝒩B.height = y → -((1 / 2) * Real.log (isogDeg φ)) ≤ x - y
+
+/-- `FaltingsLemma5BC` gives its lower half (for the callers off the chain). -/
+theorem faltingsLemma5BCLower_of_BC (h : FaltingsLemma5BC) : FaltingsLemma5BCLower :=
+  fun K _ _ A B φ hφ L _ _ _ 𝒩A 𝒩B hA hB sA sB x y hx hy =>
+    (abs_le.mp (h K A B φ hφ L 𝒩A 𝒩B hA hB sA sB x y hx hy)).1
+
+/-- **The lower half of R20 from the lower half of Faltings' Lemma 5 (for base changes)** and N1, SS1,
+SS2, SS3: the proof of `r20_of_leaves'` (sem-prune). The statement is the body of
+`HDec.HSyn.G0Split.R20Lower` (LPrefix, not imported here). -/
+theorem r20Lower_of_leaves' (hF : FaltingsLemma5BCLower) (hN1 : NeronModelExists)
+    (hSS1 : SemistableReductionThm) (hSS2 : SemistableNeronBaseChange)
+    (hSS3 : SemistablePersists) :
+    ∀ (K : Type) [Field K] [NumberField K] (A B : _root_.ZInQ.DefFaltings.AbVar K) (φ : A.X ⟶ B.X),
+      _root_.ZInQ.DefFaltings.IsIsogeny φ →
+      ∀ x y : ℝ, _root_.ZInQ.DefFaltings.stableFaltingsHeight A = x →
+        _root_.ZInQ.DefFaltings.stableFaltingsHeight B = y →
+        -((1 / 2) * Real.log (_root_.ZInQ.DefFaltings.isogDeg φ)) ≤ x - y := by
+  intro K _ _ A B φ hφ x y hx hy
+  obtain ⟨L₁, i1, i2, i3, hL₁⟩ := hSS1 K A
+  obtain ⟨L₂, j1, j2, j3, hL₂⟩ := hSS1 K B
+  obtain ⟨L, k1, k2, k3, k4, k5, t1, t2⟩ := compositum K L₁ L₂
+  obtain ⟨𝒩A₁, hA₁⟩ := hN1 K A L₁
+  obtain ⟨𝒩B₂, hB₂⟩ := hN1 K B L₂
+  obtain ⟨𝒩A, hA⟩ := hN1 K A L
+  obtain ⟨𝒩B, hB⟩ := hN1 K B L
+  have sA : IsSemistable 𝒩A := hSS3 K A L₁ 𝒩A₁ hA₁ (hL₁ 𝒩A₁ hA₁) L 𝒩A hA
+  have sB : IsSemistable 𝒩B := hSS3 K B L₂ 𝒩B₂ hB₂ (hL₂ 𝒩B₂ hB₂) L 𝒩B hB
+  have hxA : 𝒩A.height = x := (stableFaltingsHeight_eq_of_semistable hN1 hSS2 A 𝒩A hA sA).symm.trans hx
+  have hyB : 𝒩B.height = y := (stableFaltingsHeight_eq_of_semistable hN1 hSS2 B 𝒩B hB sB).symm.trans hy
+  exact hF K A B φ hφ L 𝒩A 𝒩B hA hB sA sB x y hxA hyB
 
 /-! ## §G. H-18, R22 (Pazuki) -/
 

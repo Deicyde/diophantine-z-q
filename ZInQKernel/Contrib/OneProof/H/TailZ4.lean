@@ -71,9 +71,8 @@ structure OpenResearchLeaves8 : Prop where
   igusaChi10 : QMSplit.Theta.IgusaChi10
   r5 : LeafQM.AV.R5fp
   r5count : LeafQM.AV.R5fpCount
-  r6 : _root_.PkgI2.RaynaudCriterion.{0}
+  r6 : PkgI2.RaynaudCriterionNF.{0}
   r7a : _root_.PkgI2.NeronOggShafarevich.{0}
-  r8 : _root_.PkgI2.GrothendieckMonodromy.{0}
   r9a : _root_.PkgI3.FaltingsSemisimple
   r9b : _root_.PkgI3.FaltingsTate
   hodgeTateDecompAbVar : _root_.ZInQ.Contrib.HodgeSplit.HodgeTateDecompAbVar
@@ -96,9 +95,6 @@ structure OpenResearchLeaves8 : Prop where
   /-- height-split, H-14: Javanpeykar 2014 Thm 1.1.1 for curves over `K` with a `K`-rational Belyi function,
   replaces `r18`. -/
   javanpeykarBound : _root_.ZInQ.HeightSplit.JavanpeykarBound
-  /-- height-split, H-16: Faltings 1983 Lemma 5 (semistable form) over every number field `L ⊇ K`, replaces
-  `r20`. -/
-  faltingsLemma5BC : _root_.ZInQ.HeightSplit.FaltingsLemma5BC
   /-- height-split, H-18: the upper half of Pazuki 2012 Cor. 1.3(2), replaces `r22`. -/
   pazukiCor13Upper : _root_.ZInQ.HeightSplit.PazukiCor13Upper
   /-- height-split, H-15: Gaudron–Rémond 2014 Thm 1.4 over the published stable height, replaces `r19`. -/
@@ -117,13 +113,10 @@ structure OpenTextbookLeaves8 : Prop where
   groupSchemeEquidim : _root_.AVGlue.GroupSchemeEquidim
   uniformizationLeafAll : _root_.BPAnalytic.Uniformization.UniformizationLeafAll
   gagaMorphism : _root_.ZInQ.HomLattice.GAGAMorphism
-  bdRInvariants : ∀ (p : ℕ) [Fact p.Prime], _root_.ZInQ.Contrib.HodgeSplit.BdRInvariants p
-  yuThm11 : QMSplit.Yu.YuThm11
   t33 : _root_.LeafModCurves.JacobianExists ℚ
   dimJacobianEqGenus : _root_.ZInQ.Contrib.CurvesG.DimJacobianEqGenus
   normalModelOfFunctionFieldQ : _root_.ZInQ.Contrib.CurvesG.NormalModelOfFunctionFieldQ
   regularSmoothPerfect : _root_.CurveSplit.RegularSmoothPerfect
-  igusaGL2 : _root_.ZInQ.RLeaf.IgusaGL2
   neronSchemeExtensionExists : _root_.ZInQ.Contrib.NeronC.NeronSchemeExtensionExists
 
 /-- **The added leaves still open** (leaf-fold8): leaf-fold7's `OpenAddedLeaves7` without `zariskiConnectedness`,
@@ -139,9 +132,7 @@ structure OpenAddedLeaves8 : Prop where
   milneIsogenyQuasiInverse : _root_.AvSplit.MilneIsogenyQuasiInverse
   x6ConicModel : X6Kummer.X6ConicModel
   y3Connected : TSHecke.Y3Connected
-  shimuraTaniyamaQbar : G0Split.FibreQM.PeriodMapH.QMSplitSTQM.ShimuraTaniyamaQbar
   egaIV_8_10_5_xii : _root_.ZInQ.Contrib.SpreadOut.EGAIV_8_10_5_xii
-  shimuraGoodReductionNoGuard : CurveSplitGR.ShimuraGoodReductionNoGuard
   /-- qm-split, H-87/H-88: the valence formula for a cocompact Fuchsian group (Shimura 1971 Prop. 2.16,
   Thm 2.20; Rankin Thm 4.1.4). -/
   valenceFormulaCocompactEq : LeafQCheck.HM.QMSplit.ValenceFormulaCocompactEq
@@ -153,26 +144,34 @@ structure OpenAddedLeaves8 : Prop where
 
 /-! ## From the new bundles to leaf-fold7's -/
 
-/-- Height-split's leaf bundle from the new research fields and N1 (from `neronSchemeExtensionExists`). -/
-theorem heightLeaves_of8 (r : OpenResearchLeaves8) (t : OpenTextbookLeaves8) :
-    _root_.ZInQ.HeightSplit.HeightLeaves where
-  n1 := _root_.ZInQ.Contrib.NeronC.neronModelExists_of_extension t.neronSchemeExtensionExists
-  ss1 := r.semistableReductionThm
-  ss2 := r.semistableNeronBaseChange
-  ss3 := r.semistablePersists
-  bost := r.bostLowerBound
-  javanpeykar := r.javanpeykarBound
-  faltings5 := r.faltingsLemma5BC
-  pazuki := r.pazukiCor13Upper
-  gaudronRemond := r.gaudronRemondThm14
-
-/-- The six height rows from height-split's leaves and T35 (av-split's `h38` from the textbook fields). -/
-theorem heightRows_of8 (r : OpenResearchLeaves8) (t : OpenTextbookLeaves8) :
+/-- **The five height rows other than R20** (sem-prune), from the fields `heightRows_of8` reads except
+`faltingsLemma5BC`: the proofs of `ZInQ.HeightSplit.heightRows_of`'s other components. -/
+theorem heightRowsNo20_of8 (r : OpenResearchLeaves8) (t : OpenTextbookLeaves8) :
     _root_.ZInQ.LeafPush2.R18_Javanpeykar ∧ _root_.ZInQ.DefFaltings.R19_GaudronRemond ∧
-      _root_.ZInQ.DefFaltings.R20_FaltingsLemma5 ∧ _root_.ZInQ.DefFaltings.R21_Bost ∧
-      _root_.ZInQ.LeafPush2.R22_Pazuki ∧ _root_.ZInQ.DefFaltings.StableHeightFinite :=
-  _root_.ZInQ.HeightGlue.heightRows_of_t35 (heightLeaves_of8 r t)
+      _root_.ZInQ.DefFaltings.R21_Bost ∧ _root_.ZInQ.LeafPush2.R22_Pazuki ∧
+      _root_.ZInQ.DefFaltings.StableHeightFinite :=
+  have hN1 := _root_.ZInQ.Contrib.NeronC.neronModelExists_of_extension t.neronSchemeExtensionExists
+  have gl := _root_.ZInQ.HeightGlue.heightGlue_of_t35
     (_root_.AvSplit.Final.h38 t.uniformizationLeafAll t.mumfordTorsionAlgClosed)
+  have hMet := _root_.ZInQ.HeightSplit.neronMetrizable_of gl.an3Exists gl.unifDim gl.metrize
+  ⟨_root_.ZInQ.HeightSplit.r18_of_leaves r.javanpeykarBound hN1 r.semistableReductionThm
+      r.semistableNeronBaseChange hMet,
+    _root_.ZInQ.HeightSplit.r19_of_leaves r.gaudronRemondThm14 hN1 r.semistableReductionThm
+      r.semistableNeronBaseChange,
+    _root_.ZInQ.HeightSplit.r21_of_leaves' r.bostLowerBound hN1 r.semistableReductionThm
+      r.semistableNeronBaseChange gl.an3Unique,
+    _root_.ZInQ.HeightSplit.r22_of_upper r.pazukiCor13Upper hN1 r.semistableReductionThm
+      r.semistableNeronBaseChange,
+    _root_.ZInQ.HeightSplit.stableHeightFinite_of' hN1 r.semistableReductionThm r.semistableNeronBaseChange
+      hMet gl.an3Unique⟩
+
+/-- **The lower half of R20** (sem-prune) from the lower half of `faltingsLemma5BC` and the fields
+`heightRows_of8` uses for R20 (N1 from `neronSchemeExtensionExists`, SS1, SS2, SS3). -/
+theorem r20Lower_of8 (r : OpenResearchLeaves8) (t : OpenTextbookLeaves8)
+    (hF5 : _root_.ZInQ.HeightSplit.FaltingsLemma5BCLower) : G0Split.R20Lower :=
+  _root_.ZInQ.HeightSplit.r20Lower_of_leaves' hF5
+    (_root_.ZInQ.Contrib.NeronC.neronModelExists_of_extension t.neronSchemeExtensionExists)
+    r.semistableReductionThm r.semistableNeronBaseChange r.semistablePersists
 
 /-- leaf-fold7's research bundle from leaf-fold8's. -/
 theorem researchLeaves7_of_open8 (r : OpenResearchLeaves8) (t : OpenTextbookLeaves8) : OpenResearchLeaves7 where
@@ -185,7 +184,6 @@ theorem researchLeaves7_of_open8 (r : OpenResearchLeaves8) (t : OpenTextbookLeav
   r5count := r.r5count
   r6 := r.r6
   r7a := r.r7a
-  r8 := r.r8
   r9a := r.r9a
   r9b := r.r9b
   hodgeTateDecompAbVar := r.hodgeTateDecompAbVar
@@ -197,12 +195,11 @@ theorem researchLeaves7_of_open8 (r : OpenResearchLeaves8) (t : OpenTextbookLeav
   r15 := r.r15
   r16 := r.r16
   r17 := r.r17
-  r18 := r18_lf8 (heightRows_of8 r t).1
-  r19 := (heightRows_of8 r t).2.1
-  r20 := (heightRows_of8 r t).2.2.1
-  r21 := (heightRows_of8 r t).2.2.2.1
-  r22 := r22_lf8 (heightRows_of8 r t).2.2.2.2.1
-  h5fin := (heightRows_of8 r t).2.2.2.2.2
+  r18 := r18_lf8 (heightRowsNo20_of8 r t).1
+  r19 := (heightRowsNo20_of8 r t).2.1
+  r21 := (heightRowsNo20_of8 r t).2.2.1
+  r22 := r22_lf8 (heightRowsNo20_of8 r t).2.2.2.1
+  h5fin := (heightRowsNo20_of8 r t).2.2.2.2
 
 /-- leaf-fold7's textbook bundle from leaf-fold8's. -/
 theorem textbookLeaves7_of_open8 (t : OpenTextbookLeaves8) : OpenTextbookLeaves7 where
@@ -218,14 +215,11 @@ theorem textbookLeaves7_of_open8 (t : OpenTextbookLeaves8) : OpenTextbookLeaves7
   uniformizationLeafAll := t.uniformizationLeafAll
   gagaMorphism := t.gagaMorphism
   t11bExists := t11bExists_lf8
-  bdRInvariants := t.bdRInvariants
   t24 := _root_.ZInQ.Contrib.CloudW08EigenformTwists.EigenformTwist_proof
-  yuThm11 := t.yuThm11
   t33 := t.t33
   dimJacobianEqGenus := t.dimJacobianEqGenus
   normalModelOfFunctionFieldQ := t.normalModelOfFunctionFieldQ
   regularSmoothPerfect := t.regularSmoothPerfect
-  igusaGL2 := t.igusaGL2
   neronSchemeExtensionExists := t.neronSchemeExtensionExists
 
 /-- leaf-fold7's added bundle from leaf-fold8's. -/
@@ -242,21 +236,20 @@ theorem addedLeaves7_of_open8 (r : OpenResearchLeaves8) (l : OpenAddedLeaves8) :
   x6ConicModel := l.x6ConicModel
   y3Connected := l.y3Connected
   zariskiConnectedness := _root_.ZariskiConn.ZariskiConnectedness_proof.{0}
-  shimuraTaniyamaQbar := l.shimuraTaniyamaQbar
   valenceFormulaGammaStar :=
     LeafQCheck.HM.QMSplit.valenceFormulaGammaStar_of_leaves l.valenceFormulaCocompactEq l.shimizuCovolumeO1
   egaIV_8_8_2_ii := _root_.ZInQ.Contrib.SpreadOut.EGAIV_8_8_2_ii_proof
   egaIV_8_10_5_xii := l.egaIV_8_10_5_xii
   egaIV_17_7_8_ii := _root_.ZInQ.Contrib.SpreadOut.EGAIV_17_7_8_ii_proof
-  shimuraGoodReductionNoGuard := l.shimuraGoodReductionNoGuard
 
 /-- **G0 with only the open leaves and the open glue** (leaf-fold8; no `sorry`, standard axioms).
 `ZInQ.SixContactMin` follows from `OpenResearchLeaves8` (31), `OpenTextbookLeaves8` (20), `OpenAddedLeaves8` (14)
 and leaf-fold7's `OpenGlue7` (1, `QuotientP1Coordinate`). The table of every field is
 `docs/research/leaf-fold8.md` §2. -/
 theorem sixContactMin_of_open8 (r : OpenResearchLeaves8) (t : OpenTextbookLeaves8) (l : OpenAddedLeaves8)
-    (g : OpenGlue7) : ZInQ.SixContactMin :=
+    (g : OpenGlue7) (hF5 : _root_.ZInQ.HeightSplit.FaltingsLemma5BCLower) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
   sixContactMin_of_open7 (researchLeaves7_of_open8 r t) (textbookLeaves7_of_open8 t) (addedLeaves7_of_open8 r l) g
+    (r20Lower_of8 r t hF5) hYu
 
 end HSyn
 

@@ -1694,10 +1694,10 @@ def ComOfMatrixEnd0 : Prop :=
         conductor R ≠ 0 ∧ Nonempty (com q ≃+* R)
 
 /-- **N1a from T27 (Yu), T6 and N1a-CM.** -/
-theorem comIntOrQuadOrder_of (t27 : PkgI3.QMDichotomyYu) (t6 : PkgI3.HomFreeFinite)
+theorem comIntOrQuadOrder_of (hYu : QMLattice.YuB6Alg) (t6 : PkgI3.HomFreeFinite)
     (hCM : ComOfMatrixEnd0) : ComIntOrQuadOrder := by
   intro P
-  rcases PkgI3.qmDichotomy_B6 t27 Qbar P.A P.surface B6_isUnit (qm_embeds_end0 P.q) with
+  rcases hYu Qbar P.A P.surface P.q with
     he | ⟨d, hd, hM⟩
   · obtain ⟨e⟩ := he
     exact Or.inl (com_int_of_end0_quat t6 P.q e)
@@ -1706,9 +1706,9 @@ theorem comIntOrQuadOrder_of (t27 : PkgI3.QMDichotomyYu) (t6 : PkgI3.HomFreeFini
 /-- **FS5 with the repaired clauses, from the leaves and named glue**: the bundle, R5fpCount,
 T27, T6 (in `TextbookLeaves`), N1b, and the glue `MobiusGlue`, N1a-CM, N2. -/
 theorem fibreComTrivialFull_of_leaves (hL : R1R2fpFull) (hM : MobiusGlue)
-    (t27 : PkgI3.QMDichotomyYu) (t6 : PkgI3.HomFreeFinite) (hCM : ComOfMatrixEnd0)
+    (hYu : QMLattice.YuB6Alg) (t6 : PkgI3.HomFreeFinite) (hCM : ComOfMatrixEnd0)
     (hB : CMConductorCoprime6) (hK : X6KummerFibre) (hC : R5fpCount) : FibreComTrivialFull :=
-  fibreComTrivialFull_of hL hM (comIntOrQuadOrder_of t27 t6 hCM) hB hK hC
+  fibreComTrivialFull_of hL hM (comIntOrQuadOrder_of hYu t6 hCM) hB hK hC
 
 end FS5NoCM
 
@@ -2061,16 +2061,16 @@ theorem comOfMatrixEnd0_of_homFree (hHF : PkgI3.HomFreeFinite) : ComOfMatrixEnd0
   exact AddSubgroup.index_ne_zero_of_finite (hH := this)
 
 /-- **N1a proved from the leaves T27 (Yu) and T6.** -/
-theorem comIntOrQuadOrder_of_leaves (t27 : PkgI3.QMDichotomyYu) (t6 : PkgI3.HomFreeFinite) :
+theorem comIntOrQuadOrder_of_leaves (hYu : QMLattice.YuB6Alg) (t6 : PkgI3.HomFreeFinite) :
     ComIntOrQuadOrder :=
-  comIntOrQuadOrder_of t27 t6 (comOfMatrixEnd0_of_homFree t6)
+  comIntOrQuadOrder_of hYu t6 (comOfMatrixEnd0_of_homFree t6)
 
 /-- **FS5 with the repaired clauses, from the leaves and named glue**: the bundle, R5fpCount,
 T27, T6 and N1b (leaves), and `MobiusGlue` and N2 (glue). -/
 theorem fibreComTrivialFull_of_leaves' (hL : R1R2fpFull) (hM : MobiusGlue)
-    (t27 : PkgI3.QMDichotomyYu) (t6 : PkgI3.HomFreeFinite) (hB : CMConductorCoprime6)
+    (hYu : QMLattice.YuB6Alg) (t6 : PkgI3.HomFreeFinite) (hB : CMConductorCoprime6)
     (hK : X6KummerFibre) (hC : R5fpCount) : FibreComTrivialFull :=
-  fibreComTrivialFull_of hL hM (comIntOrQuadOrder_of_leaves t27 t6) hB hK hC
+  fibreComTrivialFull_of hL hM (comIntOrQuadOrder_of_leaves hYu t6) hB hK hC
 
 end FS5NoCM
 
@@ -2286,9 +2286,9 @@ theorem cmConductorCoprime6_of (h : CMOptimalEmbedding) : CMConductorCoprime6 :=
 /-- **FS5 with the repaired clauses, from leaves and named glue**: the bundle, R5fpCount, T27, T6,
 N1b′ `CMOptimalEmbedding` (leaves), and `MobiusGlue`, N2 (glue). -/
 theorem fibreComTrivialFull_of_leaves'' (hL : R1R2fpFull) (hM : LeafQM.AV.Pin.MobiusGlue)
-    (t27 : PkgI3.QMDichotomyYu) (t6 : PkgI3.HomFreeFinite) (hE : CMOptimalEmbedding)
+    (hYu : QMLattice.YuB6Alg) (t6 : PkgI3.HomFreeFinite) (hE : CMOptimalEmbedding)
     (hK : X6KummerFibre) (hC : LeafQM.AV.R5fpCount) : FibreComTrivialFull :=
-  fibreComTrivialFull_of_leaves' hL hM t27 t6 (cmConductorCoprime6_of hE) hK hC
+  fibreComTrivialFull_of_leaves' hL hM hYu t6 (cmConductorCoprime6_of hE) hK hC
 
 end FS5NoCM
 
@@ -2775,7 +2775,7 @@ noncomputable def transportIso (Q : QML3 K) {A' : PkgI3.AbVar K} (hs : A'.dim = 
 
 end TwistCount
 
-/-- **`TwistClassCard` from the 3-torsion bound and the Atkin–Lehner count** (Glazer's
+/-- **`TwistClassCard` from the 3-torsion bound and the Atkin–Lehner count** (the manuscript's
 `4·81 = 324`): a class in the twist class of `P` is `[(A, ι∘w, η')]` for `w ∈ W` and a level
 structure `η'`, which is determined by the `3`-torsion point `η'(1)`. -/
 theorem twistClassCard_of (hT : TorsionBound3) (hW : InnerTwistCount) : TwistClassCard := by
@@ -5944,7 +5944,7 @@ theorem bc_dim {K L : IF} (hKL : K ≤ L) (A : PkgI3.AbVar K) (hA : A.dim = 2) :
 `RaynaudCriterion`, `TorsionStructure` through `LeafQM.AV.QML3.goodReduction`, with
 inertia-homs' `comap_isDVR` and `isUnit_prime_of_liesOver`): good reduction at every place over
 every `p ∉ T` when `3 ∈ T`. -/
-theorem good_of_QML3 (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+theorem good_of_QML3 (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
     (hTors : PkgI2.TorsionStructure.{0}) (K : IF) [FiniteDimensional ℚ K] (PK : QML3 K)
     (T : Finset ℕ) (h3 : 3 ∈ T) :
     ∀ p : ℕ, p.Prime → p ∉ T → ∀ w : ValuationSubring Qbar, GlueB3Unram.LiesOver w p →
@@ -6056,7 +6056,7 @@ def ConjMapsOnHomField : Prop :=
 (`kernelField_of_model`), `MorphismsDescend` (morph-descend), `hdim` (g0-dim), `hgood` (G3 on
 `QML3` objects), and the discrepancy algebra (`conjugacyData_of_maps`). -/
 theorem kernelFieldExists_of_pieces (hHFF : PkgI3.HomFreeFinite)
-    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
     (hTors : PkgI2.TorsionStructure.{0}) (hCount : TorsionCountPts)
     (hMaps : ConjMapsOnHomField) : KernelFieldExists := by
   intro Y Φ π u P hctx K _ _ hKF hramK PK hPK
@@ -6076,7 +6076,7 @@ Leaves: `HomFreeFinite` (Mumford §19 Thm 3), `NeronOggShafarevich` (Serre–Tat
 `RaynaudCriterion` (Raynaud / Grothendieck SGA 7 IX), `TorsionStructure` (Mumford §4/§6).
 Glue: `ConjMapsOnHomField` (the conjugacy maps on the Hom field: A7 + Skolem–Noether + NoCM). -/
 theorem kernelFieldExists_of_leaves (hHFF : PkgI3.HomFreeFinite)
-    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
     (hTors : PkgI2.TorsionStructure.{0}) (hMaps : ConjMapsOnHomField) : KernelFieldExists :=
   kernelFieldExists_of_pieces hHFF hNOS hRay hTors (torsionCountPts_of_leaf hTors) hMaps
 
@@ -6130,7 +6130,7 @@ theorem conjMapsOnHomField_of (h5 : G0FibreSimple.FibreComTrivial) (h : ConjMaps
 `FibreComTrivial` (g0-fibresimple; its truth for every triple is qm-pin's repair) and the glue
 `ConjMapsNoCM`. -/
 theorem kernelFieldExists_of_leaves_FS5 (hHFF : PkgI3.HomFreeFinite)
-    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
     (hTors : PkgI2.TorsionStructure.{0}) (h5 : G0FibreSimple.FibreComTrivial)
     (hMaps : ConjMapsNoCM) : KernelFieldExists :=
   kernelFieldExists_of_leaves hHFF hNOS hRay hTors (conjMapsOnHomField_of h5 hMaps)
@@ -6569,7 +6569,7 @@ theorem conjMapsNoCM_of (hTors : PkgI2.TorsionStructure.{0}) (hG : ConjIsogMaps)
 `NeronOggShafarevich`, `RaynaudCriterion`, `TorsionStructure` and the glue `FibreComTrivial`
 (FS5, g0-fibresimple), `ConjIsogMaps` (geometric) and `EndEqOOnHomField` (NoCM consequence). -/
 theorem kernelFieldExists_of_split (hHFF : PkgI3.HomFreeFinite)
-    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
     (hTors : PkgI2.TorsionStructure.{0}) (h5 : G0FibreSimple.FibreComTrivial)
     (hG : ConjIsogMaps) (hE : EndEqOOnHomField) : KernelFieldExists :=
   kernelFieldExists_of_leaves_FS5 hHFF hNOS hRay hTors h5 (conjMapsNoCM_of hTors hG hE)
@@ -6609,7 +6609,7 @@ theorem endEqOOnHomField_of (ha : EndEqOFibre) (hb : EndTransport) : EndEqOOnHom
 `NeronOggShafarevich`, `RaynaudCriterion`, `TorsionStructure` and the glue FS5
 `FibreComTrivial`, `ConjIsogMaps`, `EndEqOFibre`, `EndTransport`. -/
 theorem kernelFieldExists_of_split' (hHFF : PkgI3.HomFreeFinite)
-    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
     (hTors : PkgI2.TorsionStructure.{0}) (h5 : G0FibreSimple.FibreComTrivial)
     (hG : ConjIsogMaps) (ha : EndEqOFibre) (hb : EndTransport) : KernelFieldExists :=
   kernelFieldExists_of_split hHFF hNOS hRay hTors h5 hG (endEqOOnHomField_of ha hb)
@@ -6821,11 +6821,10 @@ def OMaximal : Prop :=
 theorem oMaximal : OMaximal := oMaximal'
 
 /-- **`EndEqOFibre` from T27 (Yu), T6 (Mumford §19 Thm 3) and `OMaximal` (proved).** -/
-theorem endEqOFibre_of (t27 : PkgI3.QMDichotomyYu) (hHF : PkgI3.HomFreeFinite)
+theorem endEqOFibre_of (hYu : QMLattice.YuB6Alg) (hHF : PkgI3.HomFreeFinite)
     (hmax : OMaximal) : EndEqOFibre := by
   intro P hcom f
-  have hY := PkgI3.qmDichotomy_B6 t27 Qbar P.A P.surface G0FibreSimple.B6_isUnit
-    (G0FibreSimple.qm_embeds_end0 P.q)
+  have hY := hYu Qbar P.A P.surface P.q
   have hB : Nonempty (PkgI3.AbVar.End0 P.A ≃ₐ[ℚ] ℍ[ℚ, 2, -3]) := by
     rcases hY with hB | ⟨d, hd, hM⟩
     · exact hB
@@ -6917,21 +6916,21 @@ theorem endEqOFibre_of (t27 : PkgI3.QMDichotomyYu) (hHF : PkgI3.HomFreeFinite)
 `QMDichotomyYu` (T27). Glue: FS5 `FibreComTrivial`, `OMaximal` (pure algebra),
 `EndTransport`, `ConjIsogMaps`. -/
 theorem kernelFieldExists_of_split'' (hHFF : PkgI3.HomFreeFinite)
-    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
-    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
+    (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
     (h5 : G0FibreSimple.FibreComTrivial) (hmax : OMaximal) (hb : EndTransport)
     (hG : ConjIsogMaps) : KernelFieldExists :=
-  kernelFieldExists_of_split' hHFF hNOS hRay hTors h5 hG (endEqOFibre_of t27 hHFF hmax) hb
+  kernelFieldExists_of_split' hHFF hNOS hRay hTors h5 hG (endEqOFibre_of hYu hHFF hmax) hb
 
 /-- **Headline, final split form (proved).** `KernelFieldExists` from the leaves `HomFreeFinite`
 (T6), `NeronOggShafarevich`, `RaynaudCriterion`, `TorsionStructure`, `QMDichotomyYu` (T27) and the
 glue FS5 `FibreComTrivial`, `EndTransport`, `ConjIsogMaps`. -/
 theorem kernelFieldExists_of_final (hHFF : PkgI3.HomFreeFinite)
-    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
-    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
+    (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
     (h5 : G0FibreSimple.FibreComTrivial) (hb : EndTransport) (hG : ConjIsogMaps) :
     KernelFieldExists :=
-  kernelFieldExists_of_split'' hHFF hNOS hRay hTors t27 h5 oMaximal hb hG
+  kernelFieldExists_of_split'' hHFF hNOS hRay hTors hYu h5 oMaximal hb hG
 
 
 /-- `End = ι(𝒪)` moves along an isomorphism of `QML3` objects (proved). -/
@@ -6977,11 +6976,11 @@ theorem endTransport_of (h : EndTransportBC) : EndTransport := by
 
 /-- **Headline, final form with `EndTransportBC` (proved).** -/
 theorem kernelFieldExists_of_final' (hHFF : PkgI3.HomFreeFinite)
-    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
-    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
+    (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
     (h5 : G0FibreSimple.FibreComTrivial) (hbc : EndTransportBC) (hG : ConjIsogMaps) :
     KernelFieldExists :=
-  kernelFieldExists_of_final hHFF hNOS hRay hTors t27 h5 (endTransport_of hbc) hG
+  kernelFieldExists_of_final hHFF hNOS hRay hTors hYu h5 (endTransport_of hbc) hG
 
 end G0ModField.KernelField
 
@@ -7152,11 +7151,11 @@ theorem endTransportBC_of_rigidity (hR : G0FibreSimple.RigidityHom) : EndTranspo
 `QMDichotomyYu` (T27), `RigidityHom` (Mumford §4 Cor. 1; g0-fibresimple's textbook leaf). Glue:
 FS5 `FibreComTrivial` (g0-fibresimple) and `ConjIsogMaps`. -/
 theorem kernelFieldExists_of_rigidity (hHFF : PkgI3.HomFreeFinite)
-    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
-    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
+    (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
     (hRig : G0FibreSimple.RigidityHom) (h5 : G0FibreSimple.FibreComTrivial)
     (hG : ConjIsogMaps) : KernelFieldExists :=
-  kernelFieldExists_of_final' hHFF hNOS hRay hTors t27 h5 (endTransportBC_of_rigidity hRig) hG
+  kernelFieldExists_of_final' hHFF hNOS hRay hTors hYu h5 (endTransportBC_of_rigidity hRig) hG
 
 end G0ModField.KernelField
 
@@ -8921,7 +8920,7 @@ the representation `r` is the scalar `β(σ)` (`ρ_ℓ(σ) = β(σ)⁻¹ a_σ μ
 on `G_L ⊇ G_F`, and the Tate action of `A` trivial on `P_p ∩ G_F`: by Raynaud's criterion (R6)
 `A` is semistable over `F ⊇ L_v(A[3])` (`A[5]` if `p = 3`), and then wild inertia acts trivially
 (D2, `PkgI2.D2_fixed_of_raynaud`); at `p > D` by good reduction (G3) and
-Néron–Ogg–Shafarevich). Here `β` is the local twist (the inverse of Glazer's `β`). -/
+Néron–Ogg–Shafarevich). Here `β` is the local twist (the inverse of the manuscript's `β`). -/
 def TwistShape (r : GaloisRep ℓ 2) (F : Fld p) (β : GQp p → PadicAlgCl ℓ) : Prop :=
   ∀ σ ∈ fixSet F ∩ wildSet,
     ((r.restrictLocal p σ : GL (Fin 2) (PadicAlgCl ℓ)) : Matrix (Fin 2) (Fin 2) (PadicAlgCl ℓ)) =
@@ -14117,6 +14116,46 @@ theorem g9Glue_of_fieldEmb (hLM : G9Bridge.LocalModel) (hW : G9Bridge.R10Weights
   exact ⟨⟨E, hE, ρE, hmap, core_dR_F ℓ F ιB hιB (A'.galRep ℓ) ρE eE he hdR⟩,
     ⟨E, hE, ρE, hmap, core_ht ℓ F (A'.galRep ℓ) ρE eE he h0 h1 hw⟩⟩
 
+/-- **`G9GlueNoT23` from `LocalModel`, `R10Weights` and an embedding `F' ⊆ B_dR`** (sem-prune): the proof of
+`g9Glue_of_fieldEmb` without its unused T23 binder. -/
+theorem g9GlueNoT23_of_fieldEmb (hLM : G9Bridge.LocalModel) (hW : G9Bridge.R10Weights)
+    (hB : G9Bridge.FieldEmbBdR) : G9GlueNoT23 := by
+  intro hR10 K _ _ A ℓ _ r e hdim hint
+  obtain ⟨F, _, _, _, _, A', j, c, g, hdim', hc, hg⟩ := hLM K A ℓ hdim
+  obtain ⟨hdR, h0, h1⟩ := hR10 ℓ F A' 2 (by rw [hdim']; rfl)
+  obtain ⟨ιB, hιB⟩ := hB ℓ F
+  let cb : PadicAlgCl ℓ ⊗[ℚ_[ℓ]] A'.V ℓ ≃ₗ[PadicAlgCl ℓ] PadicAlgCl ℓ ⊗[ℚ_[ℓ]] A.V ℓ :=
+    LinearEquiv.baseChange ℚ_[ℓ] (PadicAlgCl ℓ) _ _ c
+  let e' := (cb.trans e).trans (twistPair r g)
+  have hcb : ∀ σ x, cb ((A'.galRep ℓ σ).baseChange (PadicAlgCl ℓ) x) =
+      tate A ℓ (j σ) (cb x) := by
+    intro σ x
+    induction x using TensorProduct.induction_on with
+    | zero => simp
+    | tmul a v =>
+      change cb (a ⊗ₜ (A'.galRep ℓ σ v)) = (A.galRep ℓ (j σ)).baseChange (PadicAlgCl ℓ) (cb (a ⊗ₜ v))
+      simp only [cb, LinearEquiv.baseChange_tmul, LinearMap.baseChange_tmul, hc]
+    | add x x' hx hx' => rw [map_add, map_add, hx, hx', map_add, map_add]
+  have he' : ∀ σ x, e' ((A'.galRep ℓ σ).baseChange (PadicAlgCl ℓ) x) =
+      ((r.restrictLocal ℓ (gfToGqp ℓ F σ) : Matrix (Fin 2) (Fin 2) (PadicAlgCl ℓ)).mulVec (e' x).1,
+        (r.restrictLocal ℓ (gfToGqp ℓ F σ) : Matrix (Fin 2) (Fin 2) (PadicAlgCl ℓ)).mulVec
+          (e' x).2) := by
+    intro σ x
+    have hR : (r.restrictLocal ℓ (gfToGqp ℓ F σ) : Matrix (Fin 2) (Fin 2) (PadicAlgCl ℓ)) =
+        r.mat (decomp ℓ (gfToGqp ℓ F σ)) := rfl
+    have hconj : r.mat g⁻¹ * r.mat (resQ K (j σ)) =
+        r.mat (decomp ℓ (gfToGqp ℓ F σ)) * r.mat g⁻¹ := by
+      rw [hg σ, galoisRep_mat_mul, galoisRep_mat_mul, ← mul_assoc, ← mul_assoc,
+        galoisRep_mat_inv_mul, one_mul]
+    simp only [e', LinearEquiv.trans_apply, hcb, twistPair_apply, hint _ (cb x), hR,
+      Matrix.mulVec_mulVec, hconj]
+  obtain ⟨E, hE, ρE, eE, hmap, he⟩ :=
+    coef_descent ℓ F (A'.galRep ℓ) (r.restrictLocal ℓ) e' he'
+  have hw : ∀ w : ℤ, w ≠ 0 → w ≠ -1 → htMultOver ℓ (A'.galRep ℓ) w = 0 :=
+    fun w hw0 hw1 => hW ℓ F A' w hw0 hw1
+  exact ⟨⟨E, hE, ρE, hmap, core_dR_F ℓ F ιB hιB (A'.galRep ℓ) ρE eE he hdR⟩,
+    ⟨E, hE, ρE, hmap, core_ht ℓ F (A'.galRep ℓ) ρE eE he h0 h1 hw⟩⟩
+
 /-- **G9 from the three bridges.** -/
 theorem g9Glue_of_bridges (hLM : G9Bridge.LocalModel) (hW : G9Bridge.R10Weights)
     (hB : G9Bridge.BdRContainsQbar) : G9Glue :=
@@ -14157,6 +14196,11 @@ theorem fieldEmbBdR : G9Bridge.FieldEmbBdR := by
 theorem g9Glue_of_localModel (hLM : G9Bridge.LocalModel) (hW : G9Bridge.R10Weights) :
     G9Glue :=
   g9Glue_of_fieldEmb hLM hW fieldEmbBdR
+
+/-- `G9GlueNoT23` from F2 and F1 (sem-prune). -/
+theorem g9GlueNoT23_of_localModel (hLM : G9Bridge.LocalModel) (hW : G9Bridge.R10Weights) :
+    G9GlueNoT23 :=
+  g9GlueNoT23_of_fieldEmb hLM hW fieldEmbBdR
 
 end ZInQ.Contrib.G9
 
@@ -14349,6 +14393,11 @@ theorem localModel_of_abVarBaseChange (h : G9Bridge.AbVarBaseChange) : G9Bridge.
 theorem g9Glue_of_abVarBaseChange (hBC : G9Bridge.AbVarBaseChange) (hW : G9Bridge.R10Weights) :
     G9Glue :=
   g9Glue_of_localModel (localModel_of_abVarBaseChange hBC) hW
+
+/-- `G9GlueNoT23` from base change of abelian varieties and the weight clause of R10 (sem-prune). -/
+theorem g9GlueNoT23_of_abVarBaseChange (hBC : G9Bridge.AbVarBaseChange) (hW : G9Bridge.R10Weights) :
+    G9GlueNoT23 :=
+  g9GlueNoT23_of_localModel (localModel_of_abVarBaseChange hBC) hW
 
 end
 

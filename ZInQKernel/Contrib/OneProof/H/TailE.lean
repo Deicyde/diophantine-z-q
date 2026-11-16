@@ -6389,6 +6389,11 @@ theorem g9Glue_of_deRhamComparisonHT (h : PkgI4.DeRhamComparisonHT) : G0Galois.G
   ZInQ.Contrib.G9.g9Glue_of_abVarBaseChange g9AbVarBaseChange_proved
     (PkgI4.deRhamComparisonHT_iff.mp h).2
 
+/-- **`G9GlueNoT23` from the amended R10** (sem-prune; the proof of `g9Glue_of_deRhamComparisonHT`). -/
+theorem g9GlueNoT23_of_deRhamComparisonHT (h : PkgI4.DeRhamComparisonHT) : G0Galois.G9GlueNoT23 :=
+  ZInQ.Contrib.G9.g9GlueNoT23_of_abVarBaseChange g9AbVarBaseChange_proved
+    (PkgI4.deRhamComparisonHT_iff.mp h).2
+
 /-! ### Kernel-field and conj-twist glue closed (their later commits; parts a75, b05) -/
 
 /-- **`OMaximal` proved** (kernel-field, `G0ModField.KernelField.oMaximal`, pure algebra). -/
@@ -6462,9 +6467,8 @@ structure OpenResearchLeaves2 : Prop where
   r4 : PkgI1.ThetaModularity
   r5 : LeafQM.AV.R5fp
   r5count : LeafQM.AV.R5fpCount
-  r6 : PkgI2.RaynaudCriterion.{0}
+  r6 : PkgI2.RaynaudCriterionNF.{0}
   r7a : PkgI2.NeronOggShafarevich.{0}
-  r8 : PkgI2.GrothendieckMonodromy.{0}
   r9a : PkgI3.FaltingsSemisimple
   r9b : PkgI3.FaltingsTate
   /-- R10 corrected (with multiplicity `0` off `{0, −1}`). -/
@@ -6479,7 +6483,6 @@ structure OpenResearchLeaves2 : Prop where
   r17 : LadicCond.CarayolR17'
   r18 : ZInQ.LeafPush2.R18_Javanpeykar
   r19 : ZInQ.DefFaltings.R19_GaudronRemond
-  r20 : ZInQ.DefFaltings.R20_FaltingsLemma5
   r21 : ZInQ.DefFaltings.R21_Bost
   r22 : ZInQ.LeafPush2.R22_Pazuki
   /-- H5's finiteness half (its `NeronModelMinimal` half is proved, h5-glue). -/
@@ -6497,10 +6500,8 @@ structure OpenTextbookLeaves2 : Prop where
   t9 : LeafPush.T09_WeilPairing.{0}
   t11a : ZInQ.LeafPush2.T11a_RiemannEnd
   t11b : ZInQ.LeafPush2.T11b_Rigidity
-  t23 : ∀ (p : ℕ) [Fact p.Prime], PkgI4.T23_FontaineClosure p
   t24 : EigenformTwist
   t26 : PkgI3.TateModuleFree
-  t27 : PkgI3.QMDichotomyYu
   t33 : LeafModCurves.JacobianExists ℚ
   t35 : ZInQ.LeafPush2.UniformizationExists
   /-- T38 (x1-belyi): a function field over `ℚ` with constant field `ℚ` is that of a smooth
@@ -6572,7 +6573,6 @@ theorem researchLeaves3_of_open2 (r : OpenResearchLeaves2) : ResearchLeaves3 whe
   r5count := r.r5count
   r6 := r.r6
   r7a := r.r7a
-  r8 := r.r8
   r9a := r.r9a
   r9b := r.r9b
   r10 := PkgI4.deRhamComparison_of_HT r.r10
@@ -6583,7 +6583,6 @@ theorem researchLeaves3_of_open2 (r : OpenResearchLeaves2) : ResearchLeaves3 whe
   r16 := r.r16
   r18 := r.r18
   r19 := r.r19
-  r20 := r.r20
   r21 := r.r21
   r22 := r.r22
   h5fin := r.h5fin
@@ -6609,84 +6608,14 @@ theorem textbookLeaves_of_open2 (t : OpenTextbookLeaves2) : TextbookLeaves where
   t16a := t16a_proved
   t17 := t17_proved
   t18 := t18_proved
-  t23 := t.t23
   t24 := t.t24
   t25 := t25_proved
   t26 := t.t26
-  t27 := t.t27
   t31 := t31_proved
   t33 := t.t33
   t35 := t.t35
   x1 := x1Leaves_of_open2 t
   t41 := t.t41
-
-/-- **Leaves.lean's `GluePieces` from the open statements.** g0-assemble2's
-`gluePieces_of_gluePieces3`, with every proved field replaced by its proof (`mulIsogeny_proved` for
-`mulIsogeny_of_mulEtale gp.mulEtale`, the curve facts inside `mobiusGlue_of_t5'`, `oMaximal_proved`,
-`endTransport_proved`, `cotangentSpanBC_proved`, `uniformizationLiftAnalytic_proved`, G9 from
-`r.r10`, G10 from conj-twist's `conjTwistNontrivial_of_leaves`). -/
-theorem gluePieces_of_open2 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2)
-    (l : OpenAddedLeaves2) (g : OpenGlue2) : GluePieces :=
-  let r3 := researchLeaves3_of_open2 r
-  let t3 := textbookLeaves_of_open2 t
-  have hMob : LeafQM.AV.Pin.MobiusGlue := mobiusGlue_of_t5' t.t5
-  have hFS5 : G0FibreSimple.FibreComTrivial :=
-    fibreComTrivial_of_full (FS5NoCM.fibreComTrivialFull_of_leaves'' (r1r2fpFull_of r3)
-      hMob t.t27 t.t6 l.cmOptimalEmbedding (X6Kummer.x6KummerFibre_of_conic hMob l.x6ConicModel)
-      r.r5count)
-  have hFS : G0Split.FibreSimple :=
-    G0FibreSimple.fibreSimple_of_leaves t3 mulIsogeny_proved G0FibreSimple.rigidityHom
-      ⟨G0FibreSimple.finiteDescends_proof, hFS5⟩
-  { dimFinite := G0Split.dimFinite
-    dimBaseChange := G0Split.dimBaseChange
-    fibreSimple := hFS
-    productModelHeight := ZInQ.ProductHeight.productModelHeight_of_splits productUnifSplits_proved
-      (productMetrizationOfProductUnif_of_t35 t.t35)
-    stableHeightBaseChange := G0StableBC.stableHeightBaseChange_of_hodgeLine
-      (ZInQ.HeightBC.g0_hodgeLine_iff.mpr (ZInQ.HeightBC.hodgeLineBaseChange_of_glue4
-        g.hodgeBCInjective cotangentSpanBC_proved g.omegaBaseChange
-        uniformizationLiftAnalytic_proved))
-    productExists := G0Product.productExists
-    reverseIsogeny := G0RevIsog.reverseIsogeny_of_leaves3 r3 G0Split.dimFinite
-    thetaPoint := G0Split.ThetaPt.thetaPointOfFibre_of_qm_ratios
-      (G0Split.FibreQM.fibreQMPeriod_main_rep r.r1r2 hMob l.qmHauptmodul
-        t.t35 t.t11a l.qmClassNumberOne (r.r1b r.r1r2) (g.periodMapGlue r.r1r2)
-        g.hauptmodulUnique l.qmDenZeroCM3 g.cPtsTransport)
-      l.thetaRatiosAlgebraic
-    modularConstituent := modularConstituent_of_field t3
-      (G0ModField.fibreCoverExists_of_propTSAll' t.t5 g.propTSAll unramifiedConjugates_proved)
-      (G0ModField.KernelField.kernelFieldExists_of_split'' t.t6 r.r7a r.r6 t.t5 t.t27
-        hFS5 G0ModField.KernelField.oMaximal endTransport_proved g.conjIsogMaps)
-      UnramTate.unramifiedSup_mf
-      (G0AssembleMod.afterG7_of3 r3 t3
-        ⟨l.burnsideAbsIrred, r.r14,
-          g9Glue_of_deRhamComparisonHT r.r10,
-          G0Galois.g10Glue_of_conjTwist
-            (G0Galois.conjTwistNontrivial_of_leaves t.t5 t.t26 t.t35 l.homLinearLift),
-          G0Galois.g12Weight_of_senTwist l.senTwist l.finiteImageHT,
-          G0Galois.detTate_of_leaves l.t09SymmIsogenyExists l.isogenyQuasiInverse
-            l.divisiblePoints t.t26,
-          G0AssembleMod.resQFiniteIndex⟩
-        (G0ModNewform.dirichletOfFinite_of_t17 t17_proved) r.r17
-        Swan.swanIndependent_proved Swan.swanIntegral_proved
-        Swan.adaptedExists_proved
-        (G0AssembleMod.modelG3G6_of hFS
-          (G0AssembleMod.modelNoncomm_of_mulIsogeny mulIsogeny_proved) g.modelG3)
-        (G0AssembleMod.linkedTateData_of_local t.t7 g.linkedTateLocal))
-    heightCopies := G0HeightCopies.heightCopiesAgree }
-
-/-- **G0 with only the open leaves and the open glue** (leaf-fold2; no `sorry`, standard axioms).
-`ZInQ.SixContactMin` follows from
-* `OpenResearchLeaves2`: 26 research-level fields (R1(b), R10, R14, R17 in concrete or corrected
-  form; no `opaque` placeholder);
-* `OpenTextbookLeaves2`: 18 textbook fields;
-* `OpenAddedLeaves2`: 13 leaves (9 LEAF, 4 LEAF?) introduced by the wave 26-27 reductions and x6-kummer;
-* `OpenGlue2`: 9 glue Props.
-The table of every field, its kind and source is `docs/research/leaf-fold2.md`. -/
-theorem sixContactMin_of_open2 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2)
-    (l : OpenAddedLeaves2) (g : OpenGlue2) : ZInQ.SixContactMin :=
-  sixContactMin_of_leavesR3 (researchLeaves3_of_open2 r) (textbookLeaves_of_open2 t)
-    (gluePieces_of_open2 r t l g)
 
 end HSyn
 
@@ -6717,8 +6646,6 @@ end
 #print axioms HSyn.unramifiedConjugates_proved
 #print axioms HSyn.researchLeaves3_of_open2
 #print axioms HSyn.textbookLeaves_of_open2
-#print axioms HSyn.gluePieces_of_open2
-#print axioms HSyn.sixContactMin_of_open2
 
 end G0A2_b20_fold
 

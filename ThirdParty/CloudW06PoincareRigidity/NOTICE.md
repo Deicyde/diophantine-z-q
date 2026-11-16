@@ -58,5 +58,5 @@ renamed copy of the kernel's `PkgI3`; in this file the same text resolves to the
 
 ## AI use
 
-Written by an AI agent (Metamate / agentcloud session, worker 6). It compiles with the project's
+Written by an AI agent (a cloud session). It compiles with the project's
 pinned toolchain; it has not been reviewed by a person.

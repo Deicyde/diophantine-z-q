@@ -192,9 +192,7 @@ structure OpenAddedLeaves10 : Prop where
   t09SymmIsogenyExists : WeilPairing.T09_SymmIsogenyExists
   milneIsogenyQuasiInverse : _root_.AvSplit.MilneIsogenyQuasiInverse
   x6ConicModel : X6Kummer.X6ConicModel
-  shimuraTaniyamaQbar : G0Split.FibreQM.PeriodMapH.QMSplitSTQM.ShimuraTaniyamaQbar
   egaIV_8_10_5_xii : _root_.ZInQ.Contrib.SpreadOut.EGAIV_8_10_5_xii
-  shimuraGoodReductionNoGuard : CurveSplitGR.ShimuraGoodReductionNoGuard
   /-- qm-split, H-87/H-88: the valence formula for a cocompact Fuchsian group (Shimura 1971 Prop. 2.16,
   Thm 2.20; Rankin Thm 4.1.4). -/
   valenceFormulaCocompactEq : LeafQCheck.HM.QMSplit.ValenceFormulaCocompactEq
@@ -203,11 +201,6 @@ structure OpenAddedLeaves10 : Prop where
   shimizuCovolumeO1 : LeafQCheck.HM.QMSplit.ShimizuCovolumeO1
   /-- qm-glue, H-88: Lin–Yang's Igusa vector at the Baba–Granath CM value `j = −16/27` (discriminant `−24`). -/
   igusaCMValue24 : LeafQCheck.HM.QMSplit.Value24.IgusaCMValue24
-  /-- shimura-glue, printed form: Deligne's theorem on the connected components of a Shimura variety for
-  `G = B^×` at level `K₃` on one fine witness `Y₃` of the moduli problem of abelian schemes with `𝒪`-action and
-  level 3 (Deligne, Sém. Bourbaki 389 (1971) Thm 2.4, §3; PSPM 33 (1979) 2.1.3, 2.6.3; locators UNVERIFIED).
-  Replaces `deligneComponentsY3Printed`. -/
-  deligneComponentsY3PrintedAb : _root_.ShimuraGlue.DeligneComponentsY3PrintedAb
 
 /-! ## From the new bundles to leaf-fold10's -/
 
@@ -260,23 +253,18 @@ theorem addedLeaves9_of_open10 (r : OpenResearchLeaves11) (l : OpenAddedLeaves10
   t09SymmIsogenyExists := l.t09SymmIsogenyExists
   milneIsogenyQuasiInverse := l.milneIsogenyQuasiInverse
   x6ConicModel := l.x6ConicModel
-  shimuraTaniyamaQbar := l.shimuraTaniyamaQbar
   egaIV_8_10_5_xii := l.egaIV_8_10_5_xii
-  shimuraGoodReductionNoGuard := l.shimuraGoodReductionNoGuard
   valenceFormulaCocompactEq := l.valenceFormulaCocompactEq
   shimizuCovolumeO1 := l.shimizuCovolumeO1
   igusaCMValue24 := l.igusaCMValue24
-  deligneComponentsY3Printed :=
-    (_root_.LeafQM.AV.R1UnivRigid.deligneComponentsY3Printed_iff_ab (mumfordRigidity_of11 r)).mpr
-      l.deligneComponentsY3PrintedAb
 
 /-- **G0 with only the open leaves and the open glue** (route-a-fold; no `sorry`, standard axioms).
 `ZInQ.SixContactMin` follows from `OpenResearchLeaves11` (29), `OpenTextbookLeaves10` (16), `OpenAddedLeaves10` (14)
 and leaf-fold7's `OpenGlue7` (1, `QuotientP1Coordinate`). The moduli leaves are stated on abelian schemes, as
 printed; the table of every changed field is `docs/research/route-a-fold.md` §2. -/
 theorem sixContactMin_of_open13 (r : OpenResearchLeaves11) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves10)
-    (g : OpenGlue7) : ZInQ.SixContactMin :=
-  sixContactMin_of_open12 (researchLeaves10_of_open11 r) t (addedLeaves9_of_open10 r l) g
+    (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) (hY3 : TSHecke.Y3Connected) : ZInQ.SixContactMin :=
+  sixContactMin_of_open12 (researchLeaves10_of_open11 r) t (addedLeaves9_of_open10 r l) g hYu hY3
 
 end HSyn
 

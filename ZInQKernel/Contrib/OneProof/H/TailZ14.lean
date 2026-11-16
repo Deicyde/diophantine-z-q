@@ -35,7 +35,9 @@ Task reduct-glue (2026-11-14). Everything above this point is a verbatim copy of
 * `semistableNeronBaseChangeLocalGlobal_of`: `SemistableNeronBaseChangeLocalGlobal` from the new
   leaves `IdentityComponentOL` (SGA 3 VI_B 3.10), `OpenImmersionOfLocal` (EGA IV₃ 8.10.5) and
   `NeronLocalizesDVR`.
-* `rows_of_leaves_noGlue`: reduct-split's seven rows with no project glue.
+* `rows_of_leaves_noGlue`: reduct-split's seven rows with no named glue Prop. This holds only
+  relative to reduct-split's `ReductLeaves`, whose six SGA 7 and Serre–Tate fields count as (b)
+  under the strict rule; on the printed route three named glue Props remain.
 * Printed bases: `IsStrictlyHenselianDVR`, `IsCompleteDVR`, the six printed-base leaves, and the
   reductions `raynaudSemistable_of_SH'` (4.7), `persistsFromSH_of` (3.3, first assertion),
   `unipotentFromSH_of` (3.5) from strict-henselization leaves; three reductions remain named glue
@@ -1085,7 +1087,9 @@ def IsCompleteDVR {K : Type} [Field K] (O : ValuationSubring K) : Prop :=
 
 /-- **LEAF (printed base) `SemistableUnipotentSH`**: `SemistableUnipotent` for a strictly
 henselian `O` (SGA 7 I, Exp. IX, Prop. 3.5, if printed over a strictly henselian trait;
-UNVERIFIED). -/
+UNVERIFIED). The base is not the only open reading (all UNVERIFIED): SGA 7 may define semistability over
+`k(s)` rather than on the geometric special fibre, as `HasSemistableReduction` does (this matters
+for imperfect `k`), and the 3.5 display may include the echelon clause. -/
 def SemistableUnipotentSH : Prop :=
   ∀ (K : Type) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O],
     IsStrictlyHenselianDVR O →
@@ -1095,7 +1099,9 @@ def SemistableUnipotentSH : Prop :=
       ∀ t : TΩ A Ω ℓ, galTΩ A ℓ σ (galTΩ A ℓ σ t) - 2 • galTΩ A ℓ σ t + t = 0
 
 /-- **LEAF (printed base) `RaynaudSemistableSH`**: Raynaud's criterion for a strictly henselian
-`O` (SGA 7 I, Exp. IX, Prop. 4.7, if printed over a strictly henselian trait; UNVERIFIED). -/
+`O` (SGA 7 I, Exp. IX, Prop. 4.7, if printed over a strictly henselian trait; UNVERIFIED). Other
+open readings (UNVERIFIED): the print may state a Galois-form conclusion rather than the Néron
+form, and may require `n > 3` (here `m = 3` is allowed). -/
 def RaynaudSemistableSH : Prop :=
   ∀ (K : Type) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O],
     IsStrictlyHenselianDVR O → ∀ (A : PkgI3.AbVar K) (m : ℕ), 3 ≤ m → IsUnit (m : O) →
@@ -1113,7 +1119,10 @@ def SemistableReductionSH : Prop :=
         O'.comap (algebraMap K K') = O → SemistableNeronModels (A.baseChange K') O'
 
 /-- **LEAF (printed base) `SemistablePersistsSH`** (SGA 7 I, Exp. IX, Prop. 3.3, first assertion,
-over a strictly henselian base trait; UNVERIFIED). -/
+over a strictly henselian base trait; UNVERIFIED). Other open readings (UNVERIFIED): SGA 7 may
+define semistability over `k(s)` rather than on the geometric special fibre, as
+`HasSemistableReduction` does (this matters for imperfect `k`), and may require `S'` finite over
+`S`. -/
 def SemistablePersistsSH : Prop :=
   ∀ (K : Type) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O],
     IsStrictlyHenselianDVR O →
@@ -1122,7 +1131,10 @@ def SemistablePersistsSH : Prop :=
     ∀ A : PkgI3.AbVar K, HasSemistableReduction A O → SemistableNeronModels (A.baseChange K') O'
 
 /-- **LEAF (printed base) `IdentityComponentBaseChangeSH`** (SGA 7 I, Exp. IX, Prop. 3.3, second
-assertion, over a strictly henselian base trait; UNVERIFIED). -/
+assertion, over a strictly henselian base trait; UNVERIFIED). Other open readings (UNVERIFIED):
+SGA 7 may define semistability over `k(s)` rather than on the geometric special fibre, as
+`HasSemistableReduction` does (this matters for imperfect `k`), and may require `S'` finite over
+`S`. -/
 def IdentityComponentBaseChangeSH : Prop :=
   ∀ (K : Type) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O],
     IsStrictlyHenselianDVR O →
@@ -1142,7 +1154,10 @@ def IdentityComponentBaseChangeSH : Prop :=
          IsMonHom j)
 
 /-- **LEAF (printed base) `SerreTateThm2Complete`**: Serre–Tate's Thm. 2 for a complete discrete
-valuation ring (if Serre–Tate 1968 assume `K` complete; UNVERIFIED). -/
+valuation ring (if Serre–Tate 1968 assume `K` complete; UNVERIFIED). Other open reading
+(UNVERIFIED): Serre–Tate may build `T_ℓ` over a separable closure `K_s`; in characteristic `p` the
+statement here (over an algebraic closure, with `K'` possibly inseparable) can then be stronger
+than the print. -/
 def SerreTateThm2Complete : Prop :=
   ∀ (K : Type) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O], IsCompleteDVR O →
     ∀ (w : ValuationSubring (AlgebraicClosure K)),
@@ -1154,9 +1169,9 @@ def SerreTateThm2Complete : Prop :=
        (Set.range fun σ : {σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K // IsInertia w σ} =>
           (ObjBridge.ofGrp A).galT (ℓ := ℓ) σ.1).Finite)
 
-/-- The printed-base leaves imply the general-DVR leaves trivially in the other direction (each
-printed-base leaf is a specialization of the general one): sanity check that the new statements
-are no stronger than reduct-split's. -/
+/-- The general-DVR leaves imply the printed-base leaves (each printed-base leaf is a
+specialization of the general one): sanity check that the new statements are no stronger than
+reduct-split's. -/
 theorem printed_of_general (h35 : SemistableUnipotent) (h47 : RaynaudSemistable)
     (h36 : SemistableReductionDVR) (h33a : SemistablePersistsDVR)
     (h33b : IdentityComponentBaseChangeDVR) (hST : SerreTateThm2) :
@@ -1525,13 +1540,18 @@ theorem raynaudSemistable_of_SH (hR : RaynaudSemistableSH) (hG1 : StrictHenseliz
   ext a
   simp
 
-/-- **LEAF `StrictHenselizationNeron`** (the form used; a consequence of EGA IV₄ 18.8.8/18.8.13
-(strict henselization of a DVR is a strictly henselian DVR with separably closed residue field) and
-BLR §1.2 Prop. 2 (Néron models commute with strict henselization); numbers UNVERIFIED). For a DVR
-`O ⊆ K` there are `K' ⊇ K` and a strictly henselian DVR `O' ⊆ K'` over `O` with algebraic residue
-extension, such that the base change of every Néron model over `O` is a Néron model over `O'`.
-This replaces the pair `StrictHenselizationDVR`, `NeronBaseChangeUnramifiedDVR` (whose second member
-is stated for all unramified extensions, a generality that may exceed the print). -/
+/-- **Leaf `StrictHenselizationNeron`, counted (b), redundant given `StrictHenselizationPair`**
+(the form used; no single print: it combines EGA IV₄ 18.8.8/18.8.13 (strict henselization of a DVR
+is a strictly henselian DVR with separably closed residue field) and BLR §1.2 Prop. 2 (Néron models
+commute with strict henselization); numbers UNVERIFIED). For a DVR `O ⊆ K` there are `K' ⊇ K` and a
+strictly henselian DVR `O' ⊆ K'` over `O` with algebraic residue extension, such that the base
+change of every Néron model over `O` is a Néron model over `O'`. This replaces the pair
+`StrictHenselizationDVR`, `NeronBaseChangeUnramifiedDVR` (whose second member is stated for all
+unramified extensions, a generality that may exceed the print). It is the instance `K' = K`,
+`O' = O` of `StrictHenselizationPair` (whose `IsSHNeronExt` has the same clauses), so on the final
+printed route (`reductLeaves_of_printed''`, which also takes the pair) it is redundant once the
+lemma `StrictHenselizationPair → StrictHenselizationNeron` is proved; that lemma is not in this
+file. -/
 def StrictHenselizationNeron : Prop :=
   ∀ (K : Type) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O],
     ∃ (K' : Type) (_ : Field K') (_ : Algebra K K') (O' : ValuationSubring K')
@@ -1581,15 +1601,17 @@ end RaynaudSH
 
 section PrintedGlue
 
-/-- **GLUE `UnipotentFromSH`** (general-DVR SGA 7 IX 3.5 from the strictly henselian form). Needs:
+/-- **GLUE `UnipotentFromSH`** (general-DVR SGA 7 IX 3.5 from the strictly henselian form; proved
+below as `unipotentFromSH_of` from the leaf `StrictHenselizationInside`). Needs:
 (i) a strict henselization of `O` *inside* `Ω` at `w`: a subfield `K^sh ⊆ Ω` with
-`w ∩ K^sh` a strictly henselian DVR, unramified over `O` with separable residue extension, and
-fixed by the inertia group of `w` (decomposition/inertia theory of valuations plus the universal
-property of `O^sh`; Raynaud, *Anneaux locaux henséliens*, or EGA IV 18.8, with Serre, *Corps
-locaux*, I §7; UNVERIFIED; not in Mathlib); (ii) the hypothesis transfers: `HasSemistableReduction
-A O → HasSemistableReduction A_{K^sh} (w ∩ K^sh)` by `NeronBaseChangeUnramifiedDVR` and
-`isSemistable_bcDVR_iff` (proved here); (iii) `T_ℓ(A_{K^sh})` over `Ω` is `T_ℓ(A)` over `Ω`
-compatibly with `σ` (the kernel's `bcPt_galAct`). -/
+`w ∩ K^sh` a strictly henselian DVR with algebraic residue extension over `O`, along which Néron
+models base change, and fixed by the inertia group of `w` (decomposition/inertia theory of
+valuations plus the universal property of `O^sh`; Raynaud, *Anneaux locaux henséliens*, or EGA IV
+18.8, with Serre, *Corps locaux*, I §7; UNVERIFIED; not in Mathlib; this is the content of
+`StrictHenselizationInside`); (ii) the hypothesis transfers: `HasSemistableReduction A O →
+HasSemistableReduction A_{K^sh} (w ∩ K^sh)` by that Néron base change and `isSemistable_bcDVR_iff`
+(proved here); (iii) `T_ℓ(A_{K^sh})` over `Ω` is `T_ℓ(A)` over `Ω` compatibly with `σ` (the
+kernel's `bcPt_galAct`). -/
 def UnipotentFromSH : Prop := SemistableUnipotentSH → SemistableUnipotent
 
 /-- **GLUE `ReductionFromSH`** (general-DVR SGA 7 IX 3.6 from the strictly henselian form). Needs,
@@ -1597,8 +1619,8 @@ besides the strict henselization (`StrictHenselizationDVR`) and Néron base chan
 (`NeronBaseChangeUnramifiedDVR`): a finite extension `L/K^sh` making `A` semistable descends to a
 finite `K'/K` inside `K̄` with `K' K^sh ⊇ L` at every place over `O` (`K^sh` is a filtered union of
 finite étale `K`-algebras' fraction fields; Krasner's lemma for the henselian `K^sh`), and the
-places of `K'` over `O` all become places over `O^sh` after composing with `K^sh`. None of this is
-in Mathlib. -/
+places of `K'` over `O` all become places over `O^sh` after composing with `K^sh`; and SGA 7 IX 3.3
+(first assertion) to pass semistability from `L` up to `K' K^sh`. None of this is in Mathlib. -/
 def ReductionFromSH : Prop := SemistableReductionSH → SemistableReductionDVR
 
 /-- **GLUE `PersistsFromSH`** (SGA 7 IX 3.3, first assertion, from the strictly henselian form).
@@ -1613,7 +1635,9 @@ def PersistsFromSH : Prop := SemistablePersistsSH → SemistablePersistsDVR
 henselian form). Needs, besides what `PersistsFromSH` needs: open immersions descend along the
 faithfully flat `O' → O'^sh` (fpqc descent of the property "open immersion", EGA IV 2.7.1,
 UNVERIFIED; Mathlib has descent of some properties along faithfully flat maps but not this one in
-`Over`-category form) and the comparison of the two extension maps by the Néron property. -/
+`Over`-category form); the comparison of the two extension maps by the Néron property; and the
+transfer of the hypotheses on `U` (connected generic fibre, connected geometric special fibre) to
+its base change over the strict henselization `P` of `O`. -/
 def IdentityComponentFromSH : Prop := IdentityComponentBaseChangeSH → IdentityComponentBaseChangeDVR
 
 /-- **GLUE `SerreTateFromComplete`** (Serre–Tate Thm. 2 over a general discrete valuation from the
@@ -1622,11 +1646,17 @@ package "completion of a DVR is a complete DVR with the same residue field"), an
 to an algebraic closure of `K̂` and the identification of inertia groups `I_ŵ ≅ I_w` (henselian
 `K̂`; Serre, *Corps locaux*, II §3, UNVERIFIED), `T_ℓ` identification (kernel `bcPt_galAct`), and
 good reduction ascends and descends along `O ⊆ Ô` (Néron models commute with completion, BLR §7.2
-Thm. 1 / §1.2 Prop. 2, UNVERIFIED, plus the Néron criterion). -/
+Thm. 1 / §1.2 Prop. 2, UNVERIFIED, plus the Néron criterion). It also needs: the descent of a
+finite extension `K''` of `K̂` to a finite extension of `K` (Krasner's lemma, or density of `K` in
+`K̂`); the identification of the completions involved; the choice of a `K`-embedding `ι` of `K̄`
+into an algebraic closure of `K̂`; the bijection on `A[ℓ^n]` between the points over `K̄` and over
+that algebraic closure; and, in characteristic `p`, the case of an inseparable `K'`, which needs
+Serre–Tate Thm. 1 (the field `r7a`). -/
 def SerreTateFromComplete : Prop := SerreTateThm2Complete → SerreTateThm2
 
-/-- The leaves in printed form (strictly henselian / complete bases) and the published inputs of
-the base-change reductions. -/
+/-- The leaves in printed form (strictly henselian / complete bases) and the inputs of the
+base-change reductions. `StrictHenselizationNeron` is not one published statement: it combines two
+prints (EGA IV 18.8 and BLR §1.2) and counts (b) under the strict rule. -/
 structure ReductLeavesPrinted : Prop where
   neronDVR : NeronSchemeModelExistsDVR
   sga7_3_5 : SemistableUnipotentSH
@@ -1639,7 +1669,7 @@ structure ReductLeavesPrinted : Prop where
   strictHenselizationNeron : StrictHenselizationNeron
   mulEtale : AvSplit.T4.MulEtaleAbelianScheme
 
-/-- The base-change reductions that remain glue (4.7's is proved: `raynaudSemistable_of_SH`). -/
+/-- The base-change reductions that remain glue (4.7's is proved: `raynaudSemistable_of_SH'`). -/
 structure ReductPrintedGlue : Prop where
   unipotent : UnipotentFromSH
   reduction : ReductionFromSH
@@ -1978,7 +2008,11 @@ theorem reductGlue_leaves (hE : AvSplit.T4.MulEtaleAbelianScheme) (hL : NeronLoc
     ReductGlue :=
   reductGlue_of hE hL hsp hc (semistableNeronBaseChangeLocalGlobal_of hIC hOI hL)
 
-/-- The new published leaves of this task (besides reduct-split's `ReductLeaves`). -/
+/-- The further hypotheses of this task's general route (besides reduct-split's `ReductLeaves`).
+Only `NeronLocalizesDVR`, `IdentityComponentOL` and `OpenImmersionOfLocal` are new leaves, each
+counted (b) under the strict rule; `MulEtaleAbelianScheme` is an existing bundle leaf, and
+`AbVarSpreadsOut` and `ProperSmoothGenConnected` are kernel theorems (`abVarSpreadsOut_of_ega4`,
+`properSmoothGenConnected_of_zariski4`). -/
 structure ReductGlueLeaves : Prop where
   mulEtale : AvSplit.T4.MulEtaleAbelianScheme
   neronLocalizes : NeronLocalizesDVR

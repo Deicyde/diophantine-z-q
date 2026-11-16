@@ -167,9 +167,7 @@ structure OpenTextbookLeaves4 : Prop where
   /-- hom-unify: analytic representation of homomorphisms (replaces T11(a) and `HomLinearLift`). -/
   homLatticeCorr : HomUnify.HomLatticeCorr
   t11b : ZInQ.LeafPush2.T11b_Rigidity
-  t23 : ∀ (p : ℕ) [Fact p.Prime], PkgI4.T23_FontaineClosure p
   t24 : EigenformTwist
-  t27 : PkgI3.QMDichotomyYu
   t33 : LeafModCurves.JacobianExists ℚ
   t35 : ZInQ.LeafPush2.UniformizationExists
   t38 : X1Belyi.CurveOfFunctionFieldQ
@@ -236,10 +234,8 @@ theorem textbookLeaves3_of_open4 (t : OpenTextbookLeaves4) : OpenTextbookLeaves3
   t9 := t.t9
   homLatticeCorr := t.homLatticeCorr
   t11b := t.t11b
-  t23 := t.t23
   t24 := t.t24
   t26 := tateModuleFree_of_t5' t.t5
-  t27 := t.t27
   t33 := t.t33
   t35 := t.t35
   t38 := t.t38
@@ -287,17 +283,17 @@ theorem detTate_of_leaves4 (h9 : WeilPairing.T09_SymmIsogenyExists)
 verbatim but for: the fields closed by leaf-fold4 replaced by their theorems above; T26 from T5
 (`tateModuleFree_of_t5'`); `DetTate` from `detTate_of_leaves4`, i.e. without the leaf `DivisiblePoints`). -/
 theorem gluePieces_of_open4 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves4)
-    (l : OpenAddedLeaves4) (g : OpenGlue4) : GluePieces :=
+    (l : OpenAddedLeaves4) (g : OpenGlue4) (hYu : QMLattice.YuB6Alg) : GluePieces :=
   let t2 := textbookLeaves2_of_open3 (textbookLeaves3_of_open4 t)
   let r3 := researchLeaves3_of_open2 r
   let t3 := textbookLeaves_of_open2 t2
   have hMob : LeafQM.AV.Pin.MobiusGlue := mobiusGlue_of_t5' t.t5
   have hFS5 : G0FibreSimple.FibreComTrivial :=
     fibreComTrivial_of_full (FS5NoCM.fibreComTrivialFull_of_leaves'' (r1r2fpFull_of r3)
-      hMob t.t27 t.t6 l.cmOptimalEmbedding (X6Kummer.x6KummerFibre_of_conic hMob l.x6ConicModel)
+      hMob hYu t.t6 l.cmOptimalEmbedding (X6Kummer.x6KummerFibre_of_conic hMob l.x6ConicModel)
       r.r5count)
   have hFS : G0Split.FibreSimple :=
-    G0FibreSimple.fibreSimple_of_leaves t3 mulIsogeny_proved G0FibreSimple.rigidityHom
+    G0FibreSimple.fibreSimple_of_leaves t3 hYu mulIsogeny_proved G0FibreSimple.rigidityHom
       ⟨G0FibreSimple.finiteDescends_proof, hFS5⟩
   { dimFinite := G0Split.dimFinite
     dimBaseChange := G0Split.dimBaseChange
@@ -320,7 +316,7 @@ theorem gluePieces_of_open4 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves4)
       (G0ModField.fibreCoverExists_of_propTSAll' t.t5
         (propTSAll_of_pieces3 r.r1r2 t.t5 l.y3Connected l.qmAutCard l.serreRigidity3 l.alFixedPoints
           chartProper_proved4 chartQuasiFinite_proved4 g.heckeVertWitness) unramifiedConjugates_proved)
-      (G0ModField.KernelField.kernelFieldExists_of_split'' t.t6 r.r7a r.r6 t.t5 t.t27
+      (G0ModField.KernelField.kernelFieldExists_of_split'' t.t6 r.r7a r.r6 t.t5 hYu
         hFS5 G0ModField.KernelField.oMaximal endTransport_proved conjIsogMaps_proved3)
       UnramTate.unramifiedSup_mf
       (G0AssembleMod.afterG7_of3 r3 t3
@@ -333,6 +329,7 @@ theorem gluePieces_of_open4 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves4)
           detTate_of_leaves4 l.t09SymmIsogenyExists l.isogenyQuasiInverse t.t5
             (tateModuleFree_of_t5' t.t5),
           G0AssembleMod.resQFiniteIndex⟩
+        (g9GlueNoT23_of_deRhamComparisonHT r.r10)
         (G0ModNewform.dirichletOfFinite_of_t17 t17_proved) r.r17
         Swan.swanIndependent_proved Swan.swanIntegral_proved
         Swan.adaptedExists_proved
@@ -341,7 +338,7 @@ theorem gluePieces_of_open4 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves4)
           (linkedTateLocal_of_leaves3 r.r6 t.t5 (tateModuleFree_of_t5' t.t5)
             (abVarSpreadsOut_of_ega4 l.egaIV_8_8_2_ii l.egaIV_8_10_5_xii l.egaIV_17_7_8_ii)
             (properSmoothGenConnected_of_zariski4 l.zariskiConnectedness)
-            t.t4 t.t3 hFS t.t6 t.t27)))
+            t.t4 t.t3 hFS t.t6 hYu)))
     heightCopies := G0HeightCopies.heightCopiesAgree }
 
 /-- **G0 with only the open leaves and the open glue** (leaf-fold4; no `sorry`, standard axioms).
@@ -352,10 +349,10 @@ theorem gluePieces_of_open4 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves4)
 * `OpenGlue4`: 1 glue Prop (`HeckeVertWitness`).
 The table of every field is `docs/research/leaf-fold4.md` §2. -/
 theorem sixContactMin_of_open4 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves4)
-    (l : OpenAddedLeaves4) (g : OpenGlue4) : ZInQ.SixContactMin :=
+    (l : OpenAddedLeaves4) (g : OpenGlue4) (h20 : G0Split.R20Lower) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
   sixContactMin_of_leavesR3 (researchLeaves3_of_open2 r)
     (textbookLeaves_of_open2 (textbookLeaves2_of_open3 (textbookLeaves3_of_open4 t)))
-    (gluePieces_of_open4 r t l g)
+    (gluePieces_of_open4 r t l g hYu) h20
 
 end HSyn
 

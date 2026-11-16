@@ -1,7 +1,11 @@
-import ZInQKernel.Contrib.OneProof.H.TailZ19
+import ZInQKernel.Contrib.OneProof.H.TailZ41
 import ZInQKernel.Contrib.OneProof.TYZSplit
 import ZInQKernel.Contrib.OneProof.TopChain
 import ZInQKernel.Contrib.TYZChain.Main
+import ZInQKernel.Contrib.OneProof.RingClassLattice
+import ZInQKernel.Contrib.OneProof.TYZLemma29Mod2
+import ZInQKernel.Contrib.OneProof.FHNonvanishing
+import ZInQKernel.Contrib.OneProof.ThetaWeierstrass8
 
 /-!
 # The whole proof in one theorem
@@ -9,8 +13,8 @@ import ZInQKernel.Contrib.TYZChain.Main
 `ZInQ.OneProof.frozenTarget` derives the frozen target `ZInQ.FrozenTarget` from every statement that is still open on
 the development fork, and from nothing else. It composes three compiled chains:
 
-* H: `HDec.HSyn.sixContactMin_of_open15` (`OneProof/H/`) proves `ZInQ.SixContactMin` from the open research leaves
-  (`OpenResearchLeaves12`), textbook leaves (`OpenTextbookLeaves10`), added leaves (`OpenAddedLeaves11`) and glue
+* H: `HDec.HSyn.sixContactMin_of_open18` (`OneProof/H/`) proves `ZInQ.SixContactMin` from the open research leaves
+  (`OpenResearchLeaves14`), textbook leaves (`OpenTextbookLeaves10`), added leaves (`OpenAddedLeaves13`) and glue
   (`OpenGlue7`). The modules up to `TailK` are leaf-fold4's chain moved onto the kernel's declarations (op-dedupe,
   op-compact); `TailL`-`TailN` are leaf-fold5's and `TailO` is leaf-fold6's, copied from their olean chains;
   `TailP`-`TailX` are leaf-fold7's (the split tasks av-glue, av-split, curve-split, hodge-split, qm-split, mcr-glue
@@ -25,10 +29,25 @@ the development fork, and from nothing else. It composes three compiled chains:
   `gonzalezRotgerCountX6`, `deligneComponentsY3Printed` restated on abelian schemes, as printed, plus the leaf
   `mumfordRigidityCore`; docs/research/route-a-fold.md); `TailZ18`-`TailZ19` are leaf-fold12's (cm24-value's proof of
   `igusaCMValue24`; c-to-printed's `neronLocalizesDVR`, `faltingsLemma5BC`, `semistableNeronBaseChange` from printed
-  leaves).
+  leaves); `TailZ20`-`TailZ22` are x6-fold's (x6-glue's `r1r2Ab` and `x6ConicModel` from Deligne's, Baba–Granath's,
+  González–Rotger's and Elkies' printed theorems, the textbook criterion `GeomConnOfAlgClosure`, T5 and the ray-class
+  form of Shimura reciprocity; docs/research/x6-fold.md); `TailZ23` is leaf-fold14's reduct fold (reduct-b's proofs of
+  `semistableReductionDVR`, `raynaudSemistable` and of SS1/SS3 from the strictly henselian printed leaves of SGA 7 IX
+  4.7 and 3.3 and `StrictHenselizationPair`) and `TailZ24` its t09-pic fold (`t09SymmIsogenyExists` from four printed
+  leaves over the Picard functor: representability, `Pic⁰`, `φ_L` an isogeny, Mumford's `ē_n`;
+  docs/research/leaf-fold14.md); `TailZ40` is rigid-prune's (TailZ23's conversions use the field
+  `mumfordRigidityCore` only as Mumford's GIT Thm 6.14 on QM families, `QMFamilyGroupLaw`, proved from gt-rigidity's
+  `MumfordGroupLaw` without Cor. 6.4; docs/research/rigid-prune.md); dcy3-fold removed the added field `deligneComponentsY3PrintedAb`: the chain
+  reads it only as `TSHecke.Y3Connected`, now proved by dcy3-used's `DCY3Used.y3Connected_of_leaves` from
+  `mumfordGroupLaw` and `shimuraMainThmIDeligneY3AbU` and passed from `sixContactMin_of_open28` down to
+  `addedLeaves8_of_open9`; docs/research/dcy3-fold.md).
 * TYZ: `ZInQ.Contrib.TYZChain.tyzThm35ReadingA_of_leaves` proves reading A of Tian–Yuan–Zhang from four leaves; the
   fourth, tyz-35's pinned form of TYZ Theorem 3.3, is derived from TYZ Theorem 3.3 in its printed form
-  (`ZInQ.Contrib.TYZGenus.TYZSplit.tyzThm33Pinned_of_tyzThm33`, `OneProof/TYZSplit.lean`, task tyz-split).
+  (`ZInQ.Contrib.TYZGenus.TYZSplit.tyzThm33Pinned_of_tyzThm33`, `OneProof/TYZSplit.lean`, task tyz-split), and the
+  third, Shimura reciprocity for modular functions, from `T5Glue.ShimuraMainCM` alone: every use is at level 32 for
+  the coordinates x, y of the eta-quotient model of X0(N), where the eta route with the proved identity
+  `ThetaWeierstrass8` replaces the canonical-model hypothesis on X0(N) (`ThetaWP8.tyzThm35ReadingA_noHX`,
+  `Contrib/OneProof/ThetaWeierstrass8.lean`, tasks hx-used and theta-wp8).
 * GZ and assembly: `ZInQ.GZDecomp.frozenTarget_of_sixContactMin_tyzThm35ReadingA_gzLeaves` proves `ZInQ.FrozenTarget`
   from H, reading A and the two open Gross–Zagier statements, with `HeckeThetaNewform` proved
   (`OneProof/TopChain.lean`) and Hecke's continuation and the functional equation proved
@@ -44,16 +63,20 @@ open ZInQ.Contrib.TYZDecomp ZInQ.Contrib.TYZGenus
 
 /-- **Theorem 1.1, from every statement still open.** -/
 theorem _root_.ZInQ.OneProof.frozenTarget
-    (r : HDec.HSyn.OpenResearchLeaves12) (t : HDec.HSyn.OpenTextbookLeaves10) (l : HDec.HSyn.OpenAddedLeaves11)
-    (g : HDec.HSyn.OpenGlue7)
-    (h11 : TYZThm11Integral) (h29 : TYZLemma29Mod2) (hS : Shimura.ShimuraReciprocityModFn)
+    (r : HDec.HSyn.OpenResearchLeaves26) (t : HDec.HSyn.OpenTextbookLeaves11) (l : HDec.HSyn.OpenAddedLeaves17)
+    (g : HDec.HSyn.OpenGlue8)
+    (h11 : TYZThm11Integral)
+    (hL3s : H29Split.LegendreThreeSquares) (hJP : H29Split.JonesPallX2Y2Z16)
+    (hfx : H29Split.TYZTestVectorExists) (hL29 : H29Split.TYZLemma29PrintedNe3)
+    (hT21 : H29Split.TYZThm21At31) (hP23 : H29Split.TYZProp23Printed)
+    (hCM : _root_.T5Glue.ShimuraMainCM)
     (h33 : ZInQ.Contrib.TYZGenus.TYZSplit.TYZThm33)
-    (hL2 : ZInQ.GZDecomp.FHNonvanishing) (hL3 : ZInQ.GZDecomp.GrossZagierHeegner) :
+    (hFH : ZInQ.GZFH.FriedbergHoffsteinB_FE) (hL3 : ZInQ.GZDecomp.GrossZagierHeegner) :
     ZInQ.FrozenTarget :=
   ZInQ.GZDecomp.frozenTarget_of_sixContactMin_tyzThm35ReadingA_gzLeaves
-    (HDec.HSyn.sixContactMin_of_open15 r t l g)
-    (tyzThm35ReadingA_of_leaves h11 h29 hS (ZInQ.Contrib.TYZGenus.TYZSplit.tyzThm33Pinned_of_tyzThm33 h33))
-    ZInQ.GZTheta.Frontier.heckeThetaNewform hL2 hL3
+    (HDec.HSyn.sixContactMin_of_open34 r t l g)
+    (ThetaWP8.tyzThm35ReadingA_noHX h11 (H29Split.tyzLemma29Mod2_of_sixLeaves hL3s hJP hfx hL29 hT21 hP23) hCM h33)
+    ZInQ.GZTheta.Frontier.heckeThetaNewform (ZInQ.GZFH.fhNonvanishing_of_friedbergHoffsteinB_FE hFH) hL3
 
 end ZInQ.Contrib.TYZChain
 

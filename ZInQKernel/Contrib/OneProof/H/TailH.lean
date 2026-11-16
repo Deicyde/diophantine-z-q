@@ -59,7 +59,7 @@ Check with `lake env lean scratch/g15-ram/G15Ram.lean`.
   1684-1690, 2037, 2448-2464) of `ModData`, `U0`, `LocalRamG`, `G15RamG`, and (from
   `scratch/g0-mod-galois/part_galois.lean` line 164) of `G0Galois.G11Out`.
 * §1. The named smaller Props (glue), each with its glue step and source.
-* §2. Local field: `upperBreakFix_of_hilbertSerre` (proved): Glazer's break bound
+* §2. Local field: `upperBreakFix_of_hilbertSerre` (proved): the manuscript's break bound
   `G_{ℚ_p}^t ⊆ G_F` for `t > 4a²` when `e(F/ℚ_p) ≤ a!`, at the level of `LadicCond`'s
   `upperAbs`, from the transport `HilbertSerreLadic` of T20 + T21 and the kernel's D1 arithmetic
   `GlueConductor.upper_break_le`.
@@ -2445,7 +2445,7 @@ theorem isInertia_of_wild {σ : GQp p} (hσ : σ ∈ wildSet)
   nlinarith
 
 /-- **`RaynaudPlace` when `A[m]` is `K`-rational, from the leaf R6 (proved).** -/
-theorem raynaudPlace_rational (hR6 : ObjBridge.RaynaudCriterion) (A : PkgI3.AbVar K) {m : ℕ}
+theorem raynaudPlace_rational (hR6 : PkgI2.RaynaudCriterionNF.{0}) (A : PkgI3.AbVar K) {m : ℕ}
     (hm3 : 3 ≤ m) (hpm : ¬ p ∣ m)
     (hrat : ∀ τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K,
       ∀ P : A.Pt (AlgebraicClosure K), P ^ m = 1 → A.galAct τ P = P) :
@@ -2574,7 +2574,7 @@ theorem exists_fin_le_torsStab (A : PkgI3.AbVar K) (m : ℕ) [NeZero m] (hT : To
 by `ptFinite`) to the base change `A_F`, with the valuation rings at the place of `embP`
 transported along `K̄ ≅ F̄`; points of `A_F` are those of `A` (`bcPt`, `trPt`, copied from
 scratch/unram-tate). -/
-theorem raynaudPlace_of_R6 (hR6 : ObjBridge.RaynaudCriterion)
+theorem raynaudPlace_of_R6 (hR6 : PkgI2.RaynaudCriterionNF.{0})
     (hTors : ObjBridge.TorsionStructure) (A : PkgI3.AbVar K) (hdim : A.dim = 2) {m : ℕ}
     (hm3 : 3 ≤ m) (hpm : ¬ p ∣ m) : RaynaudPlace (p := p) A m := by
   intro σ hσ σ' hσ' hfix ℓ hℓ hℓp n x hx
@@ -2668,7 +2668,7 @@ theorem raynaudPlace_of_R6 (hR6 : ObjBridge.RaynaudCriterion)
 
 /-- **`TateWildK` at `p ≥ 7`, `p ≠ ℓ`, from the leaves R6 and I2-Tors alone (proved).**
 `m = 3` for `p ≠ 13`, `m = 7` for `p = 13` (`raynaudPlace_of_R6`, `tateWildK_of_raynaud`). -/
-theorem tateWildK_of_R6 (hR6 : ObjBridge.RaynaudCriterion) (hTors : ObjBridge.TorsionStructure)
+theorem tateWildK_of_R6 (hR6 : PkgI2.RaynaudCriterionNF.{0}) (hTors : ObjBridge.TorsionStructure)
     {A : PkgI3.AbVar K} (hdim : A.dim = 2) {ℓ : ℕ} [Fact ℓ.Prime] (hℓp : ℓ ≠ p) (h7 : 7 ≤ p) :
     TateWildK (p := p) A ℓ := by
   have hp : p.Prime := Fact.out
@@ -2684,7 +2684,7 @@ theorem tateWildK_of_R6 (hR6 : ObjBridge.RaynaudCriterion) (hTors : ObjBridge.To
 /-- **`LocalGlue` on G7's data from the leaves R6 and I2-Tors (proved), with the remaining glue
 `KerWild`, `TateWildKE` (`p ≤ 5`) and `BetaTwist2` (`p = 2`).** At `p ≥ 7`, `p ≠ ℓ`, no glue is
 left. -/
-theorem localGlue_of_leaves (hR6 : ObjBridge.RaynaudCriterion)
+theorem localGlue_of_leaves (hR6 : PkgI2.RaynaudCriterionNF.{0})
     (hTors : ObjBridge.TorsionStructure) {ℓ : ℕ} [Fact ℓ.Prime] (hpℓ : p ≠ ℓ)
     {A : PkgI3.AbVar K}
     {Tm : GQ → Module.End (PadicAlgCl ℓ) (G0Galois.Vb A ℓ)} {c ε : GQ → GQ → PadicAlgCl ℓ}
@@ -2958,7 +2958,7 @@ every `ℓⁿ`-torsion point of `A(K̄)` through `G_K` (`ℓ ≠ p`). `E` is the
 `M` by a basis of `L(A₀[q])`, finite by `ptFinite`), and `[E:ℚ_p] = [G_{ℚ_p} : H]`. For wild
 `σ ∈ G_E`, `decomp σ = resQ_L σ₀` with `σ₀` fixing `A₀[q]`; Raynaud (`RaynaudPlace A₀ q`) and the
 `p`-power period (`wildIter`) give that `σ₀` fixes `A₀[ℓⁿ]` (D2), and `φ` carries this to `A`. -/
-theorem torsFix_of_descent (hR6 : ObjBridge.RaynaudCriterion)
+theorem torsFix_of_descent (hR6 : PkgI2.RaynaudCriterionNF.{0})
     (hTors : ObjBridge.TorsionStructure) {A : PkgI3.AbVar K}
     {L : IntermediateField ℚ PkgI4.Qbar} [FiniteDimensional ℚ L] (hD : DescentPts A L)
     {ℓ : ℕ} [Fact ℓ.Prime] (hℓp : ℓ ≠ p) (q : ℕ) [Fact q.Prime] (hq3 : 3 ≤ q) (hpq : q ≠ p)
@@ -3097,8 +3097,8 @@ theorem card_GL4_five :
 
 /-- **`TorsFixWildOdd` at every `p ≠ ℓ` (proved)** from the leaves R6, I2-Tors and the glue
 `DescentPts`: `torsFix_of_descent` with `M = L_v` and `q = 3` (`q = 5` if `p = 3`);
-`|GL₄(𝔽₃)| = 24261120 ≤ G₀` and `|GL₄(𝔽₅)| = G₀` (Glazer's `E = L_v(A_L[3])`, resp. `A_L[5]`). -/
-theorem torsFixWildOdd_of_descent (hR6 : ObjBridge.RaynaudCriterion)
+`|GL₄(𝔽₃)| = 24261120 ≤ G₀` and `|GL₄(𝔽₅)| = G₀` (the manuscript's `E = L_v(A_L[3])`, resp. `A_L[5]`). -/
+theorem torsFixWildOdd_of_descent (hR6 : PkgI2.RaynaudCriterionNF.{0})
     (hTors : ObjBridge.TorsionStructure) {A : PkgI3.AbVar K}
     {L : IntermediateField ℚ PkgI4.Qbar} [FiniteDimensional ℚ L] (hD : DescentPts A L)
     {ℓ : ℕ} [Fact ℓ.Prime] (hℓp : ℓ ≠ p) : TorsFixWildOdd (p := p) A ℓ L := by
@@ -3119,7 +3119,7 @@ theorem torsFixWildOdd_of_descent (hR6 : ObjBridge.RaynaudCriterion)
 
 /-- **`TorsFixWildE` from `BetaTwist2` (proved; used at `p = 2`, valid for `p ≠ 3`)**:
 `torsFix_of_descent` with `q = 3` over `BetaTwist2`'s `M`; `4·|GL₄(𝔽₃)| ≤ G₀`. -/
-theorem torsFixWildE_of_twist (hR6 : ObjBridge.RaynaudCriterion)
+theorem torsFixWildE_of_twist (hR6 : PkgI2.RaynaudCriterionNF.{0})
     (hTors : ObjBridge.TorsionStructure) {A : PkgI3.AbVar K}
     {L : IntermediateField ℚ PkgI4.Qbar} [FiniteDimensional ℚ L] (hD : DescentPts A L)
     {ℓ : ℕ} [Fact ℓ.Prime] (hℓp : ℓ ≠ p) (hp3 : p ≠ 3) {β : GQ → PadicAlgCl ℓ}
@@ -3140,7 +3140,7 @@ theorem torsFixWildE_of_twist (hR6 : ObjBridge.RaynaudCriterion)
 
 /-- **`TateWildKE` at every `p ≠ ℓ` (proved)** from R6, I2-Tors, `DescentPts`, G7's clauses and,
 at `p = 2`, `BetaTwist2`. -/
-theorem tateWildKE_of_descent (hR6 : ObjBridge.RaynaudCriterion)
+theorem tateWildKE_of_descent (hR6 : PkgI2.RaynaudCriterionNF.{0})
     (hTors : ObjBridge.TorsionStructure) {A : PkgI3.AbVar K} {ℓ : ℕ} [Fact ℓ.Prime]
     {β : GQ → PadicAlgCl ℓ} {ε : GQ → GQ → PadicAlgCl ℓ}
     {L : IntermediateField ℚ PkgI4.Qbar} [FiniteDimensional ℚ L] (hC : G7Clauses β ε L)
@@ -3154,7 +3154,7 @@ theorem tateWildKE_of_descent (hR6 : ObjBridge.RaynaudCriterion)
 
 /-- **`LocalGlue p Tm a β L` on G7's data (proved)** from the leaves R6 and I2-Tors and the glue
 `KerWild` (all `p`), `DescentPts` (`p ≤ 5`) and `BetaTwist2` (`p = 2`). -/
-theorem localGlue_of_descent (hR6 : ObjBridge.RaynaudCriterion)
+theorem localGlue_of_descent (hR6 : PkgI2.RaynaudCriterionNF.{0})
     (hTors : ObjBridge.TorsionStructure) {ℓ : ℕ} [Fact ℓ.Prime] (hpℓ : p ≠ ℓ)
     {A : PkgI3.AbVar K}
     {Tm : GQ → Module.End (PadicAlgCl ℓ) (G0Galois.Vb A ℓ)} {c ε : GQ → GQ → PadicAlgCl ℓ}
@@ -3519,7 +3519,7 @@ variable {K : Type} [Field K] [NumberField K]
 
 /-- **`LocalGlue p Tm a β L` on G7's data (proved)** from the leaves R6 and I2-Tors, the textbook
 Prop `UnramRoots` (used at `p = 2`), and the glue `KerWild` (all `p`) and `DescentPts` (`p ≤ 5`). -/
-theorem localGlue_of_unramRoots (hR6 : ObjBridge.RaynaudCriterion)
+theorem localGlue_of_unramRoots (hR6 : PkgI2.RaynaudCriterionNF.{0})
     (hTors : ObjBridge.TorsionStructure) (hU : UnramRoots p ℓ) (hpℓ : p ≠ ℓ)
     {A : PkgI3.AbVar K}
     {Tm : GQ → Module.End (PadicAlgCl ℓ) (G0Galois.Vb A ℓ)} {c ε : GQ → GQ → PadicAlgCl ℓ}
@@ -3736,7 +3736,7 @@ the kernel-field clause `G_{L'} = G_L ∩ ker β_ℂ`, and the transport `β = �
 injective, `LocalGlue p Tm a β L` holds at every `p ≠ ℓ`, from the leaves R6 and I2-Tors and the
 textbook Prop `UnramRoots` (used at `p = 2`). -/
 theorem localGlue_of_baseChange {p : ℕ} [Fact p.Prime] {ℓ : ℕ} [Fact ℓ.Prime]
-    (hR6 : ObjBridge.RaynaudCriterion) (hTors : ObjBridge.TorsionStructure)
+    (hR6 : PkgI2.RaynaudCriterionNF.{0}) (hTors : ObjBridge.TorsionStructure)
     (hU : UnramRoots p ℓ) (hpℓ : p ≠ ℓ) [IsGalois ℚ L'] (A₀ : PkgI3.AbVar L)
     (hdim₀ : A₀.dim = 2)
     {Tm : GQ → Module.End (PadicAlgCl ℓ) (G0Galois.Vb (bcL' hLL' A₀) ℓ)}
@@ -3839,7 +3839,7 @@ def G7LocalPackR (ℓ : ℕ) [Fact ℓ.Prime] (r : GaloisRep ℓ 2) (P : ℕ →
       (p = 2 → @G15Ram.TorsFixWildE p ⟨hp⟩ K _ _ A ℓ _ β L ∧ @G15Ram.BetaTwist2 p ⟨hp⟩ ℓ _ β L)
 
 /-- **`G7LocalPackK` from `G7LocalPackR`, the leaf I2-Tors and `p ≠ ℓ` on `P` (proved).** -/
-theorem g7LocalPackK_of_R (hR6 : ObjBridge.RaynaudCriterion)
+theorem g7LocalPackK_of_R (hR6 : PkgI2.RaynaudCriterionNF.{0})
     (hTors : ObjBridge.TorsionStructure) {ℓ : ℕ} [Fact ℓ.Prime]
     {r : GaloisRep ℓ 2} {P : ℕ → Prop} (hPℓ : ∀ p, P p → p ≠ ℓ) (h : G7LocalPackR ℓ r P) :
     G7LocalPackK ℓ r P := by
@@ -3861,7 +3861,7 @@ theorem g7LocalPackK_of_R (hR6 : ObjBridge.RaynaudCriterion)
       exact G15Ram.torsFixWildE_of_odd hp2 hC (hO h3 h5)
 
 /-- **`G15RamG` from the leaf-and-bridge packs and I2-Tors (proved).** -/
-theorem g15RamG_of_packR (hR6 : ObjBridge.RaynaudCriterion)
+theorem g15RamG_of_packR (hR6 : PkgI2.RaynaudCriterionNF.{0})
     (hTors : ObjBridge.TorsionStructure) {L : Type} [Field L]
     [NumberField L] {A : AbVar L} (D : ModData L A) (u : ℚ)
     (h5 : G7LocalPackR 5 D.r5 (fun p => p ≠ 5)) (h3 : G7LocalPackR 3 D.r3 (fun p => p = 5))
@@ -3886,7 +3886,7 @@ def G7LocalPackD (ℓ : ℕ) [Fact ℓ.Prime] (r : GaloisRep ℓ 2) (P : ℕ →
 
 /-- **`G8LocalPack` from `G7LocalPackD`, the leaves R6 and I2-Tors, and `p ≠ ℓ` on `P` (proved)**,
 by `G15Ram.localGlue_of_descent`. -/
-theorem g8LocalPack_of_D (hR6 : ObjBridge.RaynaudCriterion)
+theorem g8LocalPack_of_D (hR6 : PkgI2.RaynaudCriterionNF.{0})
     (hTors : ObjBridge.TorsionStructure) {ℓ : ℕ} [Fact ℓ.Prime]
     {r : GaloisRep ℓ 2} {P : ℕ → Prop} (hPℓ : ∀ p, P p → p ≠ ℓ) (h : G7LocalPackD ℓ r P) :
     G8LocalPack ℓ r P := by
@@ -3897,7 +3897,7 @@ theorem g8LocalPack_of_D (hR6 : ObjBridge.RaynaudCriterion)
   exact G15Ram.localGlue_of_descent hR6 hTors (hPℓ p hP) h7 hC hK hD hB
 
 /-- **`G15RamG` from the descent packs and the leaves R6, I2-Tors (proved).** -/
-theorem g15RamG_of_packD (hR6 : ObjBridge.RaynaudCriterion)
+theorem g15RamG_of_packD (hR6 : PkgI2.RaynaudCriterionNF.{0})
     (hTors : ObjBridge.TorsionStructure) {L : Type} [Field L]
     [NumberField L] {A : AbVar L} (D : ModData L A) (u : ℚ)
     (h5 : G7LocalPackD 5 D.r5 (fun p => p ≠ 5)) (h3 : G7LocalPackD 3 D.r3 (fun p => p = 5))
@@ -3924,7 +3924,7 @@ def G7LocalPackU (ℓ : ℕ) [Fact ℓ.Prime] (r : GaloisRep ℓ 2) (P : ℕ →
 
 /-- **`G8LocalPack` from `G7LocalPackU`, the leaves R6, I2-Tors, the textbook Prop `UnramRoots`
 at `p = 2`, and `p ≠ ℓ` on `P` (proved)**, by `G15Ram.localGlue_of_unramRoots`. -/
-theorem g8LocalPack_of_U (hR6 : ObjBridge.RaynaudCriterion)
+theorem g8LocalPack_of_U (hR6 : PkgI2.RaynaudCriterionNF.{0})
     (hTors : ObjBridge.TorsionStructure) {ℓ : ℕ} [Fact ℓ.Prime]
     (hU : ∀ (hp : Nat.Prime 2), @G15Ram.UnramRoots 2 ⟨hp⟩ ℓ _)
     {r : GaloisRep ℓ 2} {P : ℕ → Prop} (hPℓ : ∀ p, P p → p ≠ ℓ) (h : G7LocalPackU ℓ r P) :
@@ -3938,7 +3938,7 @@ theorem g8LocalPack_of_U (hR6 : ObjBridge.RaynaudCriterion)
   exact G15Ram.betaTwist2_of_unramRoots rfl hC (hU hp)
 
 /-- **`G15RamG` from the packs `G7LocalPackU` (proved).** -/
-theorem g15RamG_of_packU (hR6 : ObjBridge.RaynaudCriterion)
+theorem g15RamG_of_packU (hR6 : PkgI2.RaynaudCriterionNF.{0})
     (hTors : ObjBridge.TorsionStructure) (hU2 : ∀ (hp : Nat.Prime 2) (ℓ : ℕ) [Fact ℓ.Prime],
       @G15Ram.UnramRoots 2 ⟨hp⟩ ℓ _) {L : Type} [Field L]
     [NumberField L] {A : AbVar L} (D : ModData L A) (u : ℚ)
@@ -3971,7 +3971,7 @@ def G7LocalPackBC (ℓ : ℕ) [Fact ℓ.Prime] (r : GaloisRep ℓ 2) : Prop :=
 
 /-- **`G8LocalPack` from `G7LocalPackBC`, the leaves R6, I2-Tors and the textbook Prop
 `UnramRoots` (at `p = 2`), for `p ≠ ℓ` on `P` (proved)**, by `G15Ram.localGlue_of_baseChange`. -/
-theorem g8LocalPack_of_BC (hR6 : ObjBridge.RaynaudCriterion)
+theorem g8LocalPack_of_BC (hR6 : PkgI2.RaynaudCriterionNF.{0})
     (hTors : ObjBridge.TorsionStructure) {ℓ : ℕ} [Fact ℓ.Prime]
     (hU : ∀ (p : ℕ) [Fact p.Prime], G15Ram.UnramRoots p ℓ)
     {r : GaloisRep ℓ 2} {P : ℕ → Prop} (hPℓ : ∀ p, P p → p ≠ ℓ) (h : G7LocalPackBC ℓ r) :
@@ -3985,7 +3985,7 @@ theorem g8LocalPack_of_BC (hR6 : ObjBridge.RaynaudCriterion)
     hι hβ
 
 /-- **`G15RamG` from the packs `G7LocalPackBC` (proved).** -/
-theorem g15RamG_of_packBC (hR6 : ObjBridge.RaynaudCriterion)
+theorem g15RamG_of_packBC (hR6 : PkgI2.RaynaudCriterionNF.{0})
     (hTors : ObjBridge.TorsionStructure)
     (hU : ∀ (p : ℕ) [Fact p.Prime] (ℓ : ℕ) [Fact ℓ.Prime], G15Ram.UnramRoots p ℓ) {L : Type}
     [Field L] [NumberField L] {A : AbVar L} (D : ModData L A) (u : ℚ)
@@ -4780,7 +4780,7 @@ data, `dim A_{L'} = 2`, `G7Out` at `ℓ` for `A_{L'}` with `β' = j ∘ β_ℚ̄
 (the output of `TateBridgeT`, or of `TateBridge35` at `ℓ = 5, 3`), and G7's clauses
 (`G7Clauses`): `LocalGlue p Tm a β' L` at every `p ≠ ℓ`, from the leaves R6 and I2-Tors and the
 textbook Prop `UnramRoots` (used at `p = 2`). -/
-theorem localGlue_of_transport (hR6 : ObjBridge.RaynaudCriterion)
+theorem localGlue_of_transport (hR6 : PkgI2.RaynaudCriterionNF.{0})
     (hTors : ObjBridge.TorsionStructure) {p ℓ : ℕ} [Fact p.Prime] [Fact ℓ.Prime]
     (hU : G15Ram.UnramRoots p ℓ) (hpℓ : p ≠ ℓ) {u : ℚ} {P : QML3 Qbar} {L : IF}
     [FiniteDimensional ℚ L] [IsGalois ℚ L] {A : PkgI3.AbVar L} {ε : GQ → GQ → ℂˣ} {N : ℕ}
@@ -4806,7 +4806,7 @@ theorem localGlue_of_transport (hR6 : ObjBridge.RaynaudCriterion)
 /-- **`LocalGlue` on `TateBridge35`'s data at `ℓ = 5` and `ℓ = 3` (proved).** For G7's data and the
 output of g14-trace's `TateBridge35`, with G7's clauses for `j_ℓ ∘ β_ℚ̄`: `LocalGlue` at every
 `p ≠ 5` for `Tm₅` and at every `p ≠ 3` for `Tm₃`, from R6, I2-Tors and `UnramRoots`. -/
-theorem localGlue_of_tateBridge35 (hR6 : ObjBridge.RaynaudCriterion)
+theorem localGlue_of_tateBridge35 (hR6 : PkgI2.RaynaudCriterionNF.{0})
     (hTors : ObjBridge.TorsionStructure)
     (hU : ∀ (p : ℕ) [Fact p.Prime] (ℓ : ℕ) [Fact ℓ.Prime], G15Ram.UnramRoots p ℓ)
     {u : ℚ} {P : QML3 Qbar} {L : IF}
@@ -5149,7 +5149,7 @@ namespace LGKerWild
 `A/L` with `L ≤ L'` finite Galois, `G7Out` at `ℓ` for `A_{L'}` (base change along `incAlg`, as in
 `TateBridge`), the kernel-field clause and G7's clauses: `LocalGlue` at every `p ≠ ℓ`, from R6,
 I2-Tors and `UnramRoots`. `DescentPts` is discharged by `descentPts_of_g7`. -/
-theorem localGlue_of_kerWild (hR6 : ObjBridge.RaynaudCriterion)
+theorem localGlue_of_kerWild (hR6 : PkgI2.RaynaudCriterionNF.{0})
     (hTors : ObjBridge.TorsionStructure) {p ℓ : ℕ} [Fact p.Prime] [Fact ℓ.Prime]
     (hU : G15Ram.UnramRoots p ℓ) (hpℓ : p ≠ ℓ) {L L' : IF} [FiniteDimensional ℚ L]
     [IsGalois ℚ L] [FiniteDimensional ℚ L'] (hLL' : L ≤ L') (A : PkgI3.AbVar L)
@@ -5172,7 +5172,7 @@ theorem localGlue_of_kerWild (hR6 : ObjBridge.RaynaudCriterion)
 `dim A_{L'} = 2`, `rank End(A_{L'}) = 4` and every coefficient prime `ℓ`, there are operator data
 with `G7Out` at `ℓ` such that `G7Clauses β' ε' L` gives `LocalGlue p Tm a β' L` at every `p ≠ ℓ`,
 from R6, I2-Tors and `UnramRoots`. No `KerWild` or `DescentPts` hypothesis. -/
-theorem exists_localGlue_of_tateBridgeK (hB : TateBridgeK) (hR6 : ObjBridge.RaynaudCriterion)
+theorem exists_localGlue_of_tateBridgeK (hB : TateBridgeK) (hR6 : PkgI2.RaynaudCriterionNF.{0})
     (hTors : ObjBridge.TorsionStructure)
     (hU : ∀ (p : ℕ) [Fact p.Prime] (ℓ : ℕ) [Fact ℓ.Prime], G15Ram.UnramRoots p ℓ)
     (u : ℚ) (P : QML3 Qbar) (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (A : PkgI3.AbVar L)
@@ -5199,7 +5199,7 @@ theorem exists_localGlue_of_tateBridgeK (hB : TateBridgeK) (hR6 : ObjBridge.Rayn
 
 /-- **The same from the leaf I3.M0 (proved)**: `TateBridgeK` is `tateBridgeK_of_tateModuleFree`. -/
 theorem exists_localGlue_of_tateModuleFree (hT : PkgI3.TateModuleFree)
-    (hR6 : ObjBridge.RaynaudCriterion) (hTors : ObjBridge.TorsionStructure)
+    (hR6 : PkgI2.RaynaudCriterionNF.{0}) (hTors : ObjBridge.TorsionStructure)
     (hU : ∀ (p : ℕ) [Fact p.Prime] (ℓ : ℕ) [Fact ℓ.Prime], G15Ram.UnramRoots p ℓ)
     (u : ℚ) (P : QML3 Qbar) (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (A : PkgI3.AbVar L)
     (ε : GQ → GQ → ℂˣ) (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ) (L' : IF)
@@ -5550,7 +5550,7 @@ def LinkedTateLocalD : Prop :=
 
 /-- **lg-kerwild's `localGlue_of_transport` with `UnramRoots` only at `p = 2` (proved; its proof,
 through local-glue's `localGlue_of_descent`).** -/
-theorem localGlue_at (hR6 : ObjBridge.RaynaudCriterion)
+theorem localGlue_at (hR6 : PkgI2.RaynaudCriterionNF.{0})
     (hTors : ObjBridge.TorsionStructure) {p ℓ : ℕ} [Fact p.Prime] [Fact ℓ.Prime]
     (hU : p = 2 → G15Ram.UnramRoots p ℓ) (hpℓ : p ≠ ℓ) {u : ℚ} {P : LeafQM.AV.QML3 Qbar} {L : IF}
     [FiniteDimensional ℚ L] [IsGalois ℚ L] {A : PkgI3.AbVar L} {ε : GQ → GQ → ℂˣ} {N : ℕ}
@@ -5583,7 +5583,7 @@ Prop `UnramRoots` at `p = 2` for `ℓ = 5, 3`; g14-trace's glue `TateBridge35`; 
 `G7Clauses` for `j_ℓ ∘ βQ` (`g7Clauses_of_transport`, with `[L:ℚ] ≤ D`); `LocalGlue` at `p ≠ ℓ`
 (`localGlue_at`: lg-kerwild's `KerWild` and `DescentPts` discharges); `LocalData` for every `r_ℓ`
 with G8's output (local-data's `localData_of_g7`). -/
-theorem linkedTateLocalD_of_tateBridge35 (hR6 : ObjBridge.RaynaudCriterion)
+theorem linkedTateLocalD_of_tateBridge35 (hR6 : PkgI2.RaynaudCriterionNF.{0})
     (hTors : ObjBridge.TorsionStructure) (hU5 : G15Ram.UnramRoots 2 5)
     (hU3 : G15Ram.UnramRoots 2 3) (hB : G14Bridge.TateBridge35) (hRk : ModelEndRank4) :
     LinkedTateLocalD := by
@@ -5718,7 +5718,7 @@ theorem modelEndRank4_of_qmEndRank (hFS : HSyn.G0Split.FibreSimple)
   exact hR K L L' hKL hLL' PK (endDivision_of_fibreSimple hFS hctx L' _ hmod)
 
 /-- **`LinkedTateLocalD` from `TateBridge35`, `FibreSimple` and `QMEndRank` (proved).** -/
-theorem linkedTateLocalD_of_tateBridge35' (hR6 : ObjBridge.RaynaudCriterion)
+theorem linkedTateLocalD_of_tateBridge35' (hR6 : PkgI2.RaynaudCriterionNF.{0})
     (hTors : ObjBridge.TorsionStructure) (hU5 : G15Ram.UnramRoots 2 5)
     (hU3 : G15Ram.UnramRoots 2 3) (hB : G14Bridge.TateBridge35)
     (hFS : HSyn.G0Split.FibreSimple) (hR : HSyn.LinkedTate.QMEndRank) : LinkedTateLocalD :=
@@ -5752,7 +5752,7 @@ theorem g7DegreeBound_gp4 : G7DegreeBound := by
 /-- **g0-assemble2's `LinkedTateLocal` (GLUE field 39), over g0-assemble3's `G7Data` (proved)**
 from the leaves R6 and I2-Tors, local-glue's textbook Prop `UnramRoots` at `p = 2` for `ℓ = 5, 3`,
 g14-trace's glue `TateBridge35`, g0-split's `FibreSimple` and linked-tate's `QMEndRank`. -/
-theorem linkedTateLocal_of_tateBridge35 (hR6 : ObjBridge.RaynaudCriterion)
+theorem linkedTateLocal_of_tateBridge35 (hR6 : PkgI2.RaynaudCriterionNF.{0})
     (hTors : ObjBridge.TorsionStructure) (hU5 : G15Ram.UnramRoots 2 5)
     (hU3 : G15Ram.UnramRoots 2 3) (hB : G14Bridge.TateBridge35)
     (hFS : HSyn.G0Split.FibreSimple) (hR : HSyn.LinkedTate.QMEndRank) :
@@ -5762,7 +5762,7 @@ theorem linkedTateLocal_of_tateBridge35 (hR6 : ObjBridge.RaynaudCriterion)
 
 /-- The same with `TateBridge35` from frob-trace's reduction (`FrobTrace.tateBridge35_of_algFrobRed`:
 the leaf I3.M0 `PkgI3.TateModuleFree` and the glue `FrobTrace.AlgFrobRed`). -/
-theorem linkedTateLocal_of_algFrobRed (hR6 : ObjBridge.RaynaudCriterion)
+theorem linkedTateLocal_of_algFrobRed (hR6 : PkgI2.RaynaudCriterionNF.{0})
     (hTors : ObjBridge.TorsionStructure) (hU5 : G15Ram.UnramRoots 2 5)
     (hU3 : G15Ram.UnramRoots 2 3) (hT : PkgI3.TateModuleFree) (hA : FrobTrace.AlgFrobRed)
     (hFS : HSyn.G0Split.FibreSimple) (hR : HSyn.LinkedTate.QMEndRank) :

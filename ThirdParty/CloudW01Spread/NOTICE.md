@@ -29,7 +29,7 @@ needed by these proofs are included, not the upstream root library.
 ## Exact target bridges
 
 The new bridge modules `FinitePresentation.lean` and `Smooth.lean` are authored
-for this contribution, with Metamate/agentcloud assistance. They target the
+for this contribution, with AI-agent assistance. They target the
 unchanged Props in `Contrib/SpreadOut/Spread.lean` at project revision
 `cba8157f7d5d09a4a3c8462aba2f3245494a870e`.
 

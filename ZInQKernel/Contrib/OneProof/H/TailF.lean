@@ -577,11 +577,11 @@ theorem G0ModField.KernelField.endTransport : G0ModField.KernelField.EndTranspor
 
 /-- `KernelFieldExists` with `RigidityHom` discharged: five leaves and two glue Props. -/
 theorem G0ModField.KernelField.kernelFieldExists_of_five (hHFF : PkgI3.HomFreeFinite)
-    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
-    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
+    (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
     (h5 : G0FibreSimple.FibreComTrivial) (hG : G0ModField.KernelField.ConjIsogMaps) :
     G0ModField.KernelFieldExists :=
-  G0ModField.KernelField.kernelFieldExists_of_rigidity hHFF hNOS hRay hTors t27
+  G0ModField.KernelField.kernelFieldExists_of_rigidity hHFF hNOS hRay hTors hYu
     G0FibreSimple.rigidityHom h5 hG
 
 end KfGlueEndTransport
@@ -880,10 +880,10 @@ theorem conjIsogMaps_of_semilinearIsogMaps (h : SemilinearIsogMaps) : ConjIsogMa
 
 /-- `KernelFieldExists` with `ConjIsogMaps` replaced by `SemilinearIsogMaps`. -/
 theorem kernelFieldExists_of_semilinear (hHFF : PkgI3.HomFreeFinite)
-    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
-    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
+    (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
     (h5 : G0FibreSimple.FibreComTrivial) (hS : SemilinearIsogMaps) : KernelFieldExists :=
-  kernelFieldExists_of_five hHFF hNOS hRay hTors t27 h5 (conjIsogMaps_of_semilinearIsogMaps hS)
+  kernelFieldExists_of_five hHFF hNOS hRay hTors hYu h5 (conjIsogMaps_of_semilinearIsogMaps hS)
 
 end G0ModField.KernelField
 
@@ -1163,11 +1163,11 @@ theorem conjIsogMaps_of_twist (hMul : G0FibreSimple.MulIsogeny) (h : SemilinearT
 
 /-- `KernelFieldExists` from the five leaves, FS5, `MulIsogeny` and `SemilinearTwistIsos`. -/
 theorem kernelFieldExists_of_twist (hHFF : PkgI3.HomFreeFinite)
-    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
-    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
+    (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
     (h5 : G0FibreSimple.FibreComTrivial) (hMul : G0FibreSimple.MulIsogeny)
     (hS : SemilinearTwistIsos) : KernelFieldExists :=
-  kernelFieldExists_of_five hHFF hNOS hRay hTors t27 h5 (conjIsogMaps_of_twist hMul hS)
+  kernelFieldExists_of_five hHFF hNOS hRay hTors hYu h5 (conjIsogMaps_of_twist hMul hS)
 
 end G0ModField.KernelField
 
@@ -1361,11 +1361,11 @@ theorem conjIsogMaps_of_descent (hMul : G0FibreSimple.MulIsogeny) (hD : TwistDes
 
 /-- `KernelFieldExists` from the five leaves, FS5, `MulIsogeny` and `TwistDescent`. -/
 theorem kernelFieldExists_of_descent (hHFF : PkgI3.HomFreeFinite)
-    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
-    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
+    (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
     (h5 : G0FibreSimple.FibreComTrivial) (hMul : G0FibreSimple.MulIsogeny)
     (hD : TwistDescent) : KernelFieldExists :=
-  kernelFieldExists_of_five hHFF hNOS hRay hTors t27 h5 (conjIsogMaps_of_descent hMul hD)
+  kernelFieldExists_of_five hHFF hNOS hRay hTors hYu h5 (conjIsogMaps_of_descent hMul hD)
 
 /-- **`ConjIsogMaps` from mul-rigidity's leaf `KerUnitOpen` and `TwistDescent` (proved).** -/
 theorem conjIsogMaps_of_kerUnitOpen (hK : MulRigidity.KerUnitOpen) (hD : TwistDescent) :
@@ -1383,11 +1383,11 @@ theorem conjIsogMaps_of_cotangent (h1 : MulRigidity.KerUnitOpenOfCotangentSurj)
 `KerUnitOpen` (mul-rigidity; implied by the published `MulEtale`). Glue: FS5 `FibreComTrivial`
 (g0-fibresimple) and `TwistDescent` (Galois descent). -/
 theorem kernelFieldExists_of_kerUnitOpen (hHFF : PkgI3.HomFreeFinite)
-    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
-    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
+    (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
     (h5 : G0FibreSimple.FibreComTrivial) (hK : MulRigidity.KerUnitOpen) (hD : TwistDescent) :
     KernelFieldExists :=
-  kernelFieldExists_of_five hHFF hNOS hRay hTors t27 h5 (conjIsogMaps_of_kerUnitOpen hK hD)
+  kernelFieldExists_of_five hHFF hNOS hRay hTors hYu h5 (conjIsogMaps_of_kerUnitOpen hK hD)
 
 end G0ModField.KernelField
 
@@ -2001,19 +2001,19 @@ theorem conjIsogMaps_of_cotangent' (h1 : MulRigidity.KerUnitOpenOfCotangentSurj)
 /-- **`KernelFieldExists` without `TwistDescent`.** Leaves: T6, NOS, Raynaud, TorsionStructure,
 T27, `KerUnitOpen`; glue: FS5 `FibreComTrivial`. -/
 theorem kernelFieldExists_of_kerUnitOpen' (hHFF : PkgI3.HomFreeFinite)
-    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
-    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
+    (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
     (h5 : G0FibreSimple.FibreComTrivial) (hK : MulRigidity.KerUnitOpen) :
     KernelFieldExists :=
-  kernelFieldExists_of_kerUnitOpen hHFF hNOS hRay hTors t27 h5 hK twistDescent
+  kernelFieldExists_of_kerUnitOpen hHFF hNOS hRay hTors hYu h5 hK twistDescent
 
 /-- **`KernelFieldExists` without `TwistDescent`**, with `MulIsogeny`. -/
 theorem kernelFieldExists_of_mulIsogeny (hHFF : PkgI3.HomFreeFinite)
-    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
-    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
+    (hTors : PkgI2.TorsionStructure.{0}) (hYu : QMLattice.YuB6Alg)
     (h5 : G0FibreSimple.FibreComTrivial) (hMul : G0FibreSimple.MulIsogeny) :
     KernelFieldExists :=
-  kernelFieldExists_of_descent hHFF hNOS hRay hTors t27 h5 hMul twistDescent
+  kernelFieldExists_of_descent hHFF hNOS hRay hTors hYu h5 hMul twistDescent
 
 end G0ModField.KernelField
 
@@ -2290,10 +2290,16 @@ def GoodRedG3Bridge : Prop :=
 /-- **`QMModelG3`, proved** from the leaves R6 (Raynaud), R7a (NOS), T5 (`TorsionStructure`)
 through `LeafQM.AV.QML3.goodReduction` (proved in `Leaves.lean`: a `QML3` object has good
 reduction at every DVR with `3` a unit) and the glue `GoodRedG3Bridge`. -/
-theorem qmModelG3_of (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+theorem qmModelG3_of (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterionNF.{0})
     (hTors : PkgI2.TorsionStructure.{0}) (hB : GoodRedG3Bridge) : QMModelG3 :=
   fun K L L' _ hKL hLL' PK ℓ _ => hB hNOS K L L' hKL hLL' PK.A
-    (fun Ov _ h3 => LeafQM.AV.QML3.goodReduction (P := PK) hNOS hRay hTors Ov h3) ℓ
+    (fun Ov _ h3 =>
+      -- r6-nf: `K ≤ L ≤ L'` with `L'/ℚ` finite, so `K` is a number field (R6 is applied at number fields)
+      haveI : FiniteDimensional ℚ K :=
+        Module.Finite.of_injective (IntermediateField.inclusion (hKL.trans hLL')).toLinearMap
+          (IntermediateField.inclusion (hKL.trans hLL')).injective
+      haveI : NumberField K := ⟨⟩
+      LeafQM.AV.QML3.goodReduction (P := PK) hNOS hRay hTors Ov h3) ℓ
 
 /-- `3 ∈ T(u)` (`3 ∈ S_mul`). -/
 theorem three_mem_T (u : ℚ) : 3 ∈ T u :=
@@ -2321,7 +2327,7 @@ theorem modelG3G6_of (hFS : HSyn.G0Split.FibreSimple) (hG3 : QMModelG3) :
 
 /-! ### §5 `G15RamWild` from the descended operators (proved) -/
 
-/-- **Glazer's wild-ramification clauses (i)-(ii) for an operator family `ρ` on `V`** (the form of
+/-- **The manuscript's wild-ramification clauses (i)-(ii) for an operator family `ρ` on `V`** (the form of
 `LocalRamWild` on the descended `ρ_ℓ = β_ℓ⁻¹ a_ℓ Tm_ℓ` instead of on G8's `r_ℓ`; N5 L819-852,
 D1-D4): for `p ≤ D` the absolute upper ramification groups `G_{ℚ_p}^t`, `t > U₀`, act trivially
 through `decomp p`; for `p > D` wild inertia does. -/
@@ -2380,7 +2386,7 @@ with
   separately from I3.M0, plus `dim A_{L'} = 2` and `rank_ℤ End(A_{L'}) = 4`);
 * g14-trace's `FrobTraceLink` for the two operator families (N5 L777-786: reduction at a
   Frobenius, the relative Frobenius composed with `μ̄_τ`);
-* Glazer's wild-ramification clauses (i)-(ii) for the descended operators `ρ₅` at `p ≠ 5` and
+* The manuscript's wild-ramification clauses (i)-(ii) for the descended operators `ρ₅` at `p ≠ 5` and
   `ρ₃` at `p = 5` (`RhoRamWild`; N5 L819-852, D1-D4).
 GLUE. -/
 def LinkedTateCore : Prop :=
@@ -2507,31 +2513,6 @@ theorem linkedTateData_of (hM : PkgI3.CharPolyIndepOfEll) (hC : LinkedTateCore) 
       fun h => localRamWild_of_rho p hp _ r₃ e3 he3 ((hR p hp).2 h)⟩
 
 /-! ### §7 `AfterG7` with the two joint Props replaced (proved) -/
-
-/-- **`AfterG7` (G8-G16)** from g0-assemble's inputs of `afterG7_of` with `ModelG3G6` replaced by
-`FibreSimple` and `QMModelG3`, and `LinkedTateData` by `LinkedTateCore` (T7 is `t.t7`). -/
-theorem afterG7_of_linked (r : HSyn.ResearchLeaves) (t : HSyn.TextbookLeaves)
-    (m : G0Galois.GaloisPieces) (hDF : G0ModNewform.DirichletOfFinite)
-    (hCar : LadicCond.CarayolR17')
-    (hSw : ∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p))
-    (hL8 : LadicCond.SwanIntegral)
-    (hAd : ∀ (p : ℕ) [Fact p.Prime], LadicCond.AdaptedExists (p := p))
-    (hFS : HSyn.G0Split.FibreSimple) (hG3 : QMModelG3) (hC : LinkedTateCore) : AfterG7 :=
-  HSyn.G0AssembleMod.afterG7_of r t m hDF hCar hSw hL8 hAd (modelG3G6_of hFS hG3)
-    (linkedTateData_of t.t7 hC)
-
-/-- **`AfterG7` with G3 reduced to the bundle's R6, R7a, T5 and `GoodRedG3Bridge`, and
-`LinkedTateCore` to `QMEndRank` and `LinkedTateCoreDR`.** -/
-theorem afterG7_of_linked' (r : HSyn.ResearchLeaves) (t : HSyn.TextbookLeaves)
-    (m : G0Galois.GaloisPieces) (hDF : G0ModNewform.DirichletOfFinite)
-    (hCar : LadicCond.CarayolR17')
-    (hSw : ∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p))
-    (hL8 : LadicCond.SwanIntegral)
-    (hAd : ∀ (p : ℕ) [Fact p.Prime], LadicCond.AdaptedExists (p := p))
-    (hFS : HSyn.G0Split.FibreSimple) (hB : GoodRedG3Bridge) (hR : QMEndRank)
-    (hDR : LinkedTateCoreDR) : AfterG7 :=
-  afterG7_of_linked r t m hDF hCar hSw hL8 hAd hFS (qmModelG3_of r.r7a r.r6 t.t5 hB)
-    (linkedTateCore_of hFS hR hDR)
 
 end HSyn.LinkedTate
 
@@ -2666,7 +2647,7 @@ theorem scalarTransferQ (L' : IF) [FiniteDimensional ℚ L'] [IsGalois ℚ L'] (
     apply hκ
     rw [hgam, map_one, hg1 k hk]
 
-/-- **Glue: the Frobenius trace link and Glazer's wild ramification for the canonical
+/-- **Glue: the Frobenius trace link and the manuscript's wild ramification for the canonical
 operators** (linked-tate; the remaining content of `LinkedTateCoreDR`). For every fibre context
 and G7 data, every transport `(Θ, h)` with unram-tate's `TatePoints` property, every
 points-level descent datum `(m, a, n, d)` of `A` for `ε` (the clauses of g0-mod-field's
@@ -2764,7 +2745,7 @@ def LinkedFrob : Prop :=
       G14Trace.FrobTraceLink (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL'))
         (tmOf hLL' A Θ h m 5) (tmOf hLL' A Θ h m 3)
 
-/-- **Glue: Glazer's wild ramification for the canonical descended operators** (linked-tate;
+/-- **Glue: the manuscript's wild ramification for the canonical descended operators** (linked-tate;
 N5 L819-852, D1-D4). Same data as `LinkedFrob`, and every `γ₀ : G_ℚ → ℚ̄` that is `β/a` under some embedding `ℚ̄ → ℂ` (the
 scalars of G7, N5 L719-722), with `∂γ₀ = n/d`, constant on `G_{L'}`-cosets and `1` on `G_{L'}`, and
 all embeddings `j₅`, `j₃`: `RhoRamWild` for
@@ -2985,25 +2966,6 @@ theorem HSyn.LinkedTate.linkedTateData_of_frobRam (hM : PkgI3.CharPolyIndepOfEll
     HSyn.G0AssembleMod.LinkedTateData :=
   HSyn.LinkedTate.linkedTateData_of hM
     (HSyn.LinkedTate.linkedTateCore_of hFS hR (UnramTate.linkedTateCoreDR_of hT hFR))
-
-/-- **`AfterG7` (G8-G16) with both joint Props of g0-assemble reduced** (proved): g0-assemble's
-inputs of `afterG7_of` (leaf bundles, `GaloisPieces`, `DirichletOfFinite`, `CarayolR17'`, the
-three LadicCond glue Props) with `ModelG3G6` and `LinkedTateData` replaced by the glue Props
-`FibreSimple` (already a `GluePieces` field), `GoodRedG3Bridge`, `QMEndRank`, `LinkedFrob`,
-`LinkedRam`; the leaves used are the bundles' R6, R7a, T5 (G3), T7 (G14) and T26 = I3.M0. -/
-theorem HSyn.LinkedTate.afterG7_of_final (r : HSyn.ResearchLeaves) (t : HSyn.TextbookLeaves)
-    (m : G0Galois.GaloisPieces) (hDF : G0ModNewform.DirichletOfFinite)
-    (hCar : LadicCond.CarayolR17')
-    (hSw : ∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p))
-    (hL8 : LadicCond.SwanIntegral)
-    (hAd : ∀ (p : ℕ) [Fact p.Prime], LadicCond.AdaptedExists (p := p))
-    (hFS : HSyn.G0Split.FibreSimple) (hB : HSyn.LinkedTate.GoodRedG3Bridge)
-    (hR : HSyn.LinkedTate.QMEndRank) (hF : UnramTate.LinkedFrob) (hRam : UnramTate.LinkedRam) :
-    G0ModField.AfterG7 :=
-  HSyn.G0AssembleMod.afterG7_of r t m hDF hCar hSw hL8 hAd
-    (HSyn.LinkedTate.modelG3G6_of hFS (HSyn.LinkedTate.qmModelG3_of r.r7a r.r6 t.t5 hB))
-    (HSyn.LinkedTate.linkedTateData_of_frobRam t.t7 t.t26 hFS hR
-      (UnramTate.linkedFrobRam_of hF hRam))
 
 end
 
@@ -4055,7 +4017,7 @@ def QMSplitCaseRank : Prop :=
 
 /-- **`QMEndRank`, proved** from the leaves I3.M1 (`PkgI3.HomFreeFinite`, Mumford §19 Thm 3) and
 T27 (`PkgI3.QMDichotomyYu`, Yu 2013 Thm 1.1) and the glue `QMSplitCaseRank`. -/
-theorem qmEndRank_of (hM1 : PkgI3.HomFreeFinite) (hT27 : PkgI3.QMDichotomyYu)
+theorem qmEndRank_of (hM1 : PkgI3.HomFreeFinite) (hYu : QMLattice.YuB6Alg)
     (hS : QMSplitCaseRank) : HSyn.LinkedTate.QMEndRank := by
   intro K L L' _ hKL hLL' PK hdiv
   letI iKL : Algebra K L := incAlg hKL
@@ -4079,8 +4041,10 @@ theorem qmEndRank_of (hM1 : PkgI3.HomFreeFinite) (hT27 : PkgI3.QMDichotomyYu)
     show (A'.baseChange Ω).dim = 2
     rw [G0Dim.pkgI3_dim_baseChange]; exact hdimA'
   let φ'' : O →+* PkgI3.AbVar.End A'' := (HSyn.LinkedTate.endBC A' Ω).comp φ
-  rcases hT27 Ω A'' hdimA'' 2 (-3) PkgI3.quatIndefinite_two_neg_three quatB6_isUnit
-      (quatEmbed A'' φ'') with he | ⟨d, hd, he⟩
+  haveI : Algebra.IsAlgebraic ℚ Ω := by
+    haveI : Algebra.IsAlgebraic ℚ L' := Algebra.IsAlgebraic.of_finite ℚ L'
+    exact Algebra.IsAlgebraic.trans ℚ L' (AlgebraicClosure L')
+  rcases hYu Ω A'' hdimA'' ⟨φ'', (HSyn.LinkedTate.endBC_injective A' Ω).comp hφ⟩ with he | ⟨d, hd, he⟩
   · obtain ⟨e⟩ := he
     calc Module.finrank ℤ (PkgI3.AbVar.End A')
         ≤ Module.finrank ℤ (PkgI3.AbVar.End A'') := finrank_le_baseChange hM1 A' Ω
@@ -4321,9 +4285,9 @@ theorem qmSplitCaseRank (hM1 : PkgI3.HomFreeFinite) : QMSplitCaseRank := by
   exact hm0 (eq_zero_of_mul_self_eq_zero A hdiv hdim m hmm)
 
 /-- **`QMEndRank` from the leaves I3.M1 and T27 alone** (proved). -/
-theorem qmEndRank_of_leaves (hM1 : PkgI3.HomFreeFinite) (hT27 : PkgI3.QMDichotomyYu) :
+theorem qmEndRank_of_leaves (hM1 : PkgI3.HomFreeFinite) (hYu : QMLattice.YuB6Alg) :
     HSyn.LinkedTate.QMEndRank :=
-  qmEndRank_of hM1 hT27 (qmSplitCaseRank hM1)
+  qmEndRank_of hM1 hYu (qmSplitCaseRank hM1)
 
 end LTGoodRed.QM
 

@@ -444,6 +444,24 @@ theorem faltingsLemma5_of_printed (hF : FaltingsLemma5Printed) (hR : RaynaudKern
   rw [hid, abs_le]
   constructor <;> linarith
 
+/-- **The lower half of `FaltingsLemma5` from the printed Lemma 5 alone** (sem-prune): `h(B) = h(A) + ½ log deg φ −
+[K:ℚ]⁻¹ log #s*Ω¹` with `0 ≤ log #s*Ω¹` (`kerOmegaLog_nonneg`); Raynaud's bound is not needed for this half. -/
+theorem faltingsLemma5Lower_of_printed (hF : FaltingsLemma5Printed) :
+    ZInQ.HeightSplit.FaltingsLemma5Lower := by
+  intro K _ _ A B φ hφ 𝒩A 𝒩B hA hB sA sB x y hx hy
+  obtain ⟨φ𝒩, hm, he⟩ := exists_extension φ hφ 𝒩A 𝒩B hB
+  have hid := hF K A B φ hφ 𝒩A 𝒩B hA hB sA sB φ𝒩 hm he x y hx hy
+  have hlb := kerOmegaLog_nonneg φ𝒩 hm
+  have hn : (0 : ℝ) < Module.finrank ℚ K := by exact_mod_cast Module.finrank_pos
+  have h2 : 0 ≤ kerOmegaLog φ𝒩 hm / Module.finrank ℚ K := div_nonneg hlb hn.le
+  rw [hid]
+  linarith
+
+/-- **The lower half of the field `faltingsLemma5BC` from the printed Lemma 5 alone** (sem-prune). -/
+theorem faltingsLemma5BCLower_of_printed (hF : FaltingsLemma5Printed) :
+    ZInQ.HeightSplit.FaltingsLemma5BCLower :=
+  ReductSplit.faltingsLemma5BCLower_final (faltingsLemma5Lower_of_printed hF)
+
 /-- **The field `faltingsLemma5BC` from the printed Lemma 5 and Raynaud's bound** (compiled, with
 reduct-split's `faltingsLemma5BC_final`). -/
 theorem faltingsLemma5BC_of_printed (hF : FaltingsLemma5Printed) (hR : RaynaudKernelBound) :
@@ -1893,8 +1911,8 @@ theorem researchLeaves11_of_open12 (r : OpenResearchLeaves12) (t : OpenTextbookL
 `ZInQ.SixContactMin` from `OpenResearchLeaves12` (32), `OpenTextbookLeaves10` (15), `OpenAddedLeaves11` (13) and
 `OpenGlue7` (1). -/
 theorem sixContactMin_of_open15 (r : OpenResearchLeaves12) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves11)
-    (g : OpenGlue7) : ZInQ.SixContactMin :=
-  sixContactMin_of_open14 (researchLeaves11_of_open12 r t) t l g
+    (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) (hY3 : TSHecke.Y3Connected) : ZInQ.SixContactMin :=
+  sixContactMin_of_open14 (researchLeaves11_of_open12 r t) t l g hYu hY3
 
 end HSyn
 

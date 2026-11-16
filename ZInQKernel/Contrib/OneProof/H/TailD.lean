@@ -50,9 +50,8 @@ structure ResearchLeaves3 : Prop where
   r5 : LeafQM.AV.R5fp
   /-- R5(i), González–Rotger Prop. 5.6, `#CM(R) = 2^b h(R)` (premise Lemma P, rv-qm-polar). -/
   r5count : LeafQM.AV.R5fpCount
-  r6 : PkgI2.RaynaudCriterion.{0}
+  r6 : PkgI2.RaynaudCriterionNF.{0}
   r7a : PkgI2.NeronOggShafarevich.{0}
-  r8 : PkgI2.GrothendieckMonodromy.{0}
   r9a : PkgI3.FaltingsSemisimple
   r9b : PkgI3.FaltingsTate
   r10 : PkgI4.DeRhamComparison
@@ -74,7 +73,6 @@ structure ResearchLeaves3 : Prop where
   they say something only together with `h5` (`StableHeightFinite`), which is where a defect of
   the definition would surface, as a false leaf (rv-leaves48, `RvLeaves48D`). -/
   r19 : ZInQ.DefFaltings.R19_GaudronRemond
-  r20 : ZInQ.DefFaltings.R20_FaltingsLemma5
   r21 : ZInQ.DefFaltings.R21_Bost
   /-- R22, Pazuki's upper half, over all uniformizations and period matrices (leaf-push2). -/
   r22 : ZInQ.LeafPush2.R22_Pazuki
@@ -94,9 +92,8 @@ theorem researchLeaves3_of (r : ResearchLeaves) : ResearchLeaves3 :=
     r4 := r.r4,
     r5 := r.r5,
     r5count := r.r5count,
-    r6 := r.r6,
+    r6 := PkgI2.raynaudCriterionNF_of_general r.r6,
     r7a := r.r7a,
-    r8 := r.r8,
     r9a := r.r9a,
     r9b := r.r9b,
     r10 := r.r10,
@@ -107,7 +104,6 @@ theorem researchLeaves3_of (r : ResearchLeaves) : ResearchLeaves3 :=
     r16 := r.r16,
     r18 := r.r18,
     r19 := r.r19,
-    r20 := r.r20,
     r21 := r.r21,
     r22 := r.r22,
     h5fin := r.h5.1 }
@@ -128,6 +124,7 @@ namespace G0Galois
 open _root_.PkgI4 (GaloisRep GaloisChar) -- op-dedupe
 
 theorem g8_g12_of_leaves3 (r : HSyn.ResearchLeaves3) (t : HSyn.TextbookLeaves) (m : GaloisPieces)
+    (h9 : G9GlueNoT23)
     {K : Type} [Field K] [NumberField K] [IsGalois ℚ K] (A : PkgI3.AbVar K) (T : Finset ℕ)
     (h2 : G2Out K T) (h6 : G6Out A) (h3 : G3Out A 5 T)
     (Tm : PkgI4.GQ → Module.End (PadicAlgCl 5) (Vb A 5))
@@ -136,8 +133,8 @@ theorem g8_g12_of_leaves3 (r : HSyn.ResearchLeaves3) (t : HSyn.TextbookLeaves) (
     (h7 : G7Out A 5 Tm c ε a β u) :
     ∃ r₅ : GaloisRep 5 2, G8Out A 5 (GlueDescent.rho Tm a β) r₅ ∧ G9Out r₅ ∧ G10Out r₅ ∧
       G11Out T r₅ ∧ G12Out r₅ :=
-  g8_g12 r.r9a r.r9b t.t26 t.t6 HSyn.G0Split.semisimpleBaseChange r.r10 t.t23 t.t11a t.t11b
-    r.r11r12 r.r14 r.r13 r.r15 t.frobeniusDense HSyn.t19_proved t.t9 (g8Matrix_of_burnside m.burnside) m.deRham m.odd m.weight
+  g8_g12 r.r9a r.r9b t.t26 t.t6 HSyn.G0Split.semisimpleBaseChange r.r10 t.t11a t.t11b
+    r.r11r12 r.r14 r.r13 r.r15 t.frobeniusDense HSyn.t19_proved t.t9 (g8Matrix_of_burnside m.burnside) h9 m.odd m.weight
     (g12Det_of m.r14det m.detTate m.finIndex (frobeniusDenseQ_of t.frobeniusDense))
     A T h2 h6 h3 Tm c ε a β u h7
 
@@ -155,6 +152,7 @@ theorem newformLeaves_of3 (r : ResearchLeaves3) (t : TextbookLeaves)
     TSkolemKW.C10.brauerNesbittChar0'⟩
 
 theorem afterG7_of3 (r : ResearchLeaves3) (t : TextbookLeaves) (m : G0Galois.GaloisPieces)
+    (h9 : G0Galois.G9GlueNoT23)
     (hDF : G0ModNewform.DirichletOfFinite) (hCar : LadicCond.CarayolR17')
     (hSw : ∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p))
     (hL8 : LadicCond.SwanIntegral)
@@ -168,10 +166,10 @@ theorem afterG7_of3 (r : ResearchLeaves3) (t : TextbookLeaves) (m : G0Galois.Gal
   have h2 : G0Galois.G2Out L' (T u) :=
     galoisG2Out_of_g7Data resQRange u P L A ε N χ β L' hLL' hdata
   obtain ⟨r₅, h8₅, -, -, h11₅, h12⟩ :=
-    G0Galois.g8_g12_of_leaves3 r t m _ (T u) h2 h6 h3₅ Tm₅ c₅ ε₅ a₅ β₅ u₅ h7₅
+    G0Galois.g8_g12_of_leaves3 r t m h9 _ (T u) h2 h6 h3₅ Tm₅ c₅ ε₅ a₅ β₅ u₅ h7₅
   obtain ⟨r₃, h8₃, -, -, h11₃⟩ :=
-    G0Galois.g8_g11 r.r9a r.r9b t.t26 t.t6 HSyn.G0Split.semisimpleBaseChange r.r10 t.t23 t.t11a
-      t.t11b (G0Galois.g8Matrix_of_burnside m.burnside) m.deRham m.odd _ (T u) h2 h6 3 h3₃
+    G0Galois.g8_g11 r.r9a r.r9b t.t26 t.t6 HSyn.G0Split.semisimpleBaseChange r.r10 t.t11a
+      t.t11b (G0Galois.g8Matrix_of_burnside m.burnside) h9 m.odd _ (T u) h2 h6 3 h3₃
       Tm₃ c₃ ε₃ a₃ β₃ u₃ h7₃
   obtain ⟨i, ιC, ι5, hspec⟩ := G0ModNewform.g12Spec_of_galois hDF _ _ _ r₅ r₃ h8₅ h8₃ h12
   obtain ⟨ι3, h14, h15⟩ := hlink r₅ r₃ h8₅ h8₃ i ιC ι5
@@ -198,8 +196,8 @@ theorem hom_of_common3 (r : ResearchLeaves3) (t : TextbookLeaves) {K : Type} [Fi
 end G0Split
 
 open G0Split in
-theorem glueOutputs_of_leaves3 (r : ResearchLeaves3) (t : TextbookLeaves) (gp : GluePieces) :
-    GlueAssembly.GlueOutputs ZInQ.Mult.S_mul := by
+theorem glueOutputs_of_leaves3 (r : ResearchLeaves3) (t : TextbookLeaves) (gp : GluePieces)
+    (h20 : R20Lower) : GlueAssembly.GlueOutputs ZInQ.Mult.S_mul := by
   obtain ⟨hDimF, hDim, hSimp, hPMH, hBC, hProdE, hRev, hThetaPt, hMod, hCopies⟩ := gp
   have hBelyi : X1BelyiOnModel := x1BelyiOnModel_of_belyiX1 t.belyiX1
   have hAdd : HeightAdditivity := heightAdditivity_of_h5neron t.t41 r.h5.2 hPMH
@@ -248,14 +246,14 @@ theorem glueOutputs_of_leaves3 (r : ResearchLeaves3) (t : TextbookLeaves) (gp : 
   have hN1 : (1 : ℝ) ≤ N := by exact_mod_cast hN0
   have hgN' : (gJ : ℝ) ≤ (N : ℝ) ^ 2 := by exact_mod_cast hgN
   -- E3-E4 (proved from R19-R21)
-  exact transfer_core r.r19 r.r20 r.r21 (((LeafAdopt.abVarEquiv ℚ).symm J).baseChange L.K) Pr A
+  exact transfer_core r.r19 h20 r.r21 (((LeafAdopt.abVarEquiv ℚ).symm J).baseChange L.K) Pr A
     ((LeafAdopt.abVarEquiv L.K).symm Z) gJ gZ hJLd hZd (by omega) (by omega) φ hφ _ _ _ _ hxJ hyP
     hzZ hadd hN1 hNQ hJb hgN' hdQ
 
 /-- **G0 with `ResearchLeaves3`** (`sixContactMin_of_leaves` of Leaves.lean, copied). -/
-theorem sixContactMin_of_leavesR3 (r : ResearchLeaves3) (t : TextbookLeaves) (gp : GluePieces) :
-    ZInQ.SixContactMin :=
-  sixContactMin_of_glueOutputs (glueOutputs_of_leaves3 r t gp)
+theorem sixContactMin_of_leavesR3 (r : ResearchLeaves3) (t : TextbookLeaves) (gp : GluePieces)
+    (h20 : G0Split.R20Lower) : ZInQ.SixContactMin :=
+  sixContactMin_of_glueOutputs (glueOutputs_of_leaves3 r t gp h20)
 
 end HSyn
 
@@ -551,78 +549,10 @@ theorem mobiusGlue_of_gp3 (t : TextbookLeaves) (gp : GluePieces3) : LeafQM.AV.Pi
       gp.ratFactorAlgClosed).2
     t.t5
 
-/-- FS5 (NoCM on the fibre) from `GluePieces3` (fs5-nocm). -/
-theorem fibreComTrivial_of_gp3 (r : ResearchLeaves3) (t : TextbookLeaves) (gp : GluePieces3) :
-    G0FibreSimple.FibreComTrivial :=
-  fibreComTrivial_of_full (FS5NoCM.fibreComTrivialFull_of_leaves'' (r1r2fpFull_of r)
-    (mobiusGlue_of_gp3 t gp) t.t27 t.t6 gp.cmOptimalEmbedding gp.x6KummerFibre r.r5count)
-
-/-- `FibreSimple` from `GluePieces3` (fs1-descend, mul-rigidity, fs5-nocm). -/
-theorem fibreSimple_of_gp3 (r : ResearchLeaves3) (t : TextbookLeaves) (gp : GluePieces3) :
-    G0Split.FibreSimple :=
-  G0FibreSimple.fibreSimple_of_leaves t
-    (MulRigidity.mulIsogeny_of_mulEtale gp.mulEtale) G0FibreSimple.rigidityHom
-    ⟨G0FibreSimple.finiteDescends_proof, fibreComTrivial_of_gp3 r t gp⟩
-
-/-- **`GluePieces` from `GluePieces3` and the leaf bundles** (g0-assemble2). -/
-theorem gluePieces_of_gluePieces3 (r : ResearchLeaves3) (t : TextbookLeaves) (gp : GluePieces3) :
-    GluePieces where
-  dimFinite := G0Split.dimFinite
-  dimBaseChange := G0Split.dimBaseChange
-  fibreSimple := fibreSimple_of_gp3 r t gp
-  productModelHeight := ZInQ.ProductHeight.productModelHeight_of_splits gp.productUnifSplits
-    gp.productMetrizationOfProductUnif
-  stableHeightBaseChange := G0StableBC.stableHeightBaseChange_of_hodgeLine
-    (ZInQ.HeightBC.g0_hodgeLine_iff.mpr (ZInQ.HeightBC.hodgeLineBaseChange_of_glue4
-      gp.hodgeBCInjective gp.cotangentSpanBC gp.omegaBaseChange gp.uniformizationLiftAnalytic))
-  productExists := G0Product.productExists
-  reverseIsogeny := G0RevIsog.reverseIsogeny_of_leaves3 r G0Split.dimFinite
-  thetaPoint := G0Split.ThetaPt.thetaPointOfFibre_of_qm_ratios
-    (G0Split.FibreQM.fibreQMPeriod_main_rep r.r1r2 (mobiusGlue_of_gp3 t gp) gp.qmHauptmodul
-      t.t35 t.t11a gp.qmClassNumberOne (gp.r1bFamily r.r1r2) (gp.periodMapGlue r.r1r2)
-      gp.hauptmodulUnique gp.qmDenZeroCM3 gp.cPtsTransport)
-    gp.thetaRatiosAlgebraic
-  modularConstituent := modularConstituent_of_field t
-    (G0ModField.fibreCoverExists_of_propTSAll' t.t5 gp.propTSAll gp.unramifiedConjugates)
-    (G0ModField.KernelField.kernelFieldExists_of_split'' t.t6 r.r7a r.r6 t.t5 t.t27
-      (fibreComTrivial_of_gp3 r t gp) gp.oMaximal gp.endTransport gp.conjIsogMaps)
-    UnramTate.unramifiedSup_mf
-    (G0AssembleMod.afterG7_of3 r t
-      ⟨gp.burnsideAbsIrred, gp.r14Det,
-        ZInQ.Contrib.G9.g9Glue_of_abVarBaseChange gp.g9AbVarBaseChange gp.g9R10Weights,
-        G0Galois.g10Glue_of_conjTwist (G0Galois.conjTwistNontrivial_main t.t26 t.t35
-          gp.artinTorsionSurj gp.homLinearLift gp.conjUniformization),
-        G0Galois.g12Weight_of_senTwist gp.senTwist gp.finiteImageHT,
-        G0Galois.detTate_of_leaves gp.t09SymmIsogenyExists gp.isogenyQuasiInverse
-          gp.divisiblePoints t.t26,
-        G0AssembleMod.resQFiniteIndex⟩
-      (G0ModNewform.dirichletOfFinite_of_t17 t.t17) gp.carayolR17
-      Swan.swanIndependent_proved Swan.swanIntegral_proved
-      Swan.adaptedExists_proved
-      (G0AssembleMod.modelG3G6_of (fibreSimple_of_gp3 r t gp)
-        (G0AssembleMod.modelNoncomm_of_mulIsogeny
-          (MulRigidity.mulIsogeny_of_mulEtale gp.mulEtale)) gp.modelG3)
-      (G0AssembleMod.linkedTateData_of_local t.t7 gp.linkedTateLocal))
-  heightCopies := G0HeightCopies.heightCopiesAgree
-
-/-- **G0 after waves 26-27** (g0-assemble2): the leaf bundles (`ResearchLeaves3`: no `opaque`
-placeholder) and `GluePieces3` imply `ZInQ.SixContactMin`. -/
-theorem sixContactMin_of_leaves3 (r : ResearchLeaves3) (t : TextbookLeaves) (gp : GluePieces3) :
-    ZInQ.SixContactMin :=
-  sixContactMin_of_leavesR3 r t (gluePieces_of_gluePieces3 r t gp)
-
-/-- The same with Leaves.lean's `ResearchLeaves` (which implies `ResearchLeaves3`). -/
-theorem sixContactMin_of_leaves3' (r : ResearchLeaves) (t : TextbookLeaves) (gp : GluePieces3) :
-    ZInQ.SixContactMin :=
-  sixContactMin_of_leaves3 (researchLeaves3_of r) t gp
-
 end HSyn
 
 end
 
-#print axioms HSyn.gluePieces_of_gluePieces3
-#print axioms HSyn.sixContactMin_of_leaves3
-#print axioms HSyn.sixContactMin_of_leaves3'
 #print axioms HSyn.researchLeaves3_of
 
 end G0A2_z90_bundle3

@@ -788,11 +788,31 @@ noncomputable def endPts (A : Grp (Over (Spec (.of K)))) {L : Type u} [CommRing 
   map_one' := MonObj.one_comp _
   map_mul' x y := MonObj.mul_comp x y _
 
+/-- **R6 at number fields** (r6-nf): `PkgI2.RaynaudCriterion` (HDecomp/Objects.lean L1436, verbatim) with
+`[NumberField K]` added; at `.{0}` the same statement as neron-dvr's `GapNeron.RaynaudCriterionNF`. The chain applies
+R6 only at number fields (docs/research/neron-dvr.md §3.3), so the old bundles carry this form. -/
+def RaynaudCriterionNF : Prop :=
+  ∀ (K : Type u) [Field K] [NumberField K] (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    (w : ValuationSubring (AlgebraicClosure K)),
+    w.comap (algebraMap K (AlgebraicClosure K)) = O →
+    ∀ (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A] (m : ℕ), 3 ≤ m → IsUnit (m : O) →
+      (∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K,
+          ∀ x ∈ torsion A (AlgebraicClosure K) m, galAct A σ x = x) →
+      ∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K, IsInertia w σ →
+        ∀ ℓ : ℕ, ℓ.Prime → IsUnit (ℓ : O) →
+          ∀ n : ℕ, ∀ x ∈ torsion A (AlgebraicClosure K) (ℓ ^ n), UnipSq A σ x
+
+/-- R6 over every field gives R6 at number fields (r6-nf; used where an off-chain bundle still has the general
+form). -/
+theorem raynaudCriterionNF_of_general (h : RaynaudCriterion.{u}) : RaynaudCriterionNF.{u} :=
+  fun K _ _ O _ w hw A _ m hm hmO hrat σ hσ ℓ hℓ hℓO n x hx =>
+    h K O w hw A m hm hmO hrat σ hσ ℓ hℓ hℓO n x hx
+
 /-- **Glue A6 (Lemma PR(ii), Raynaud route), proved from the leaves `NeronOggShafarevich`,
 `RaynaudCriterion`, `TorsionStructure` and the pure-algebra glue `QuatUnipotentTrivial`.**
 Same statement as `PkgI2.goodReduction_of_QM_rational3` (scratch/pkg-I2/I2.lean). -/
-theorem goodReduction_of_QM_rational3_of_alg (hNOS : NeronOggShafarevich.{u})
-    (hRay : RaynaudCriterion.{u}) (hTors : TorsionStructure.{u})
+theorem goodReduction_of_QM_rational3_of_alg [NumberField K] (hNOS : NeronOggShafarevich.{u})
+    (hRay : RaynaudCriterionNF.{u}) (hTors : TorsionStructure.{u})
     (hAlg : QuatUnipotentTrivial.{u})
     (O : ValuationSubring K) [IsDiscreteValuationRing O]
     (w : ValuationSubring (AlgebraicClosure K))
@@ -846,8 +866,8 @@ theorem goodReduction_of_QM_rational3_of_alg (hNOS : NeronOggShafarevich.{u})
 `NeronOggShafarevich`, `RaynaudCriterion` and `TorsionStructure` alone** (the pure-algebra glue
 `QuatUnipotentTrivial` is now a theorem). Same statement as
 `PkgI2.goodReduction_of_QM_rational3` (scratch/pkg-I2/I2.lean). -/
-theorem goodReduction_of_QM_rational3 (hNOS : NeronOggShafarevich.{u})
-    (hRay : RaynaudCriterion.{u}) (hTors : TorsionStructure.{u})
+theorem goodReduction_of_QM_rational3 [NumberField K] (hNOS : NeronOggShafarevich.{u})
+    (hRay : RaynaudCriterionNF.{u}) (hTors : TorsionStructure.{u})
     (O : ValuationSubring K) [IsDiscreteValuationRing O]
     (w : ValuationSubring (AlgebraicClosure K))
     (hw : w.comap (algebraMap K (AlgebraicClosure K)) = O)
@@ -867,8 +887,8 @@ theorem goodReduction_of_QM_rational3 (hNOS : NeronOggShafarevich.{u})
 
 /-- **A6 without the auxiliary `w`**: the valuation subring of `K̄` over `O` exists
 (`GlueA6Alg.Alg.exists_valuationSubring_comap_eq`), so it is not a hypothesis. -/
-theorem goodReduction_of_QM_rational3' (hNOS : NeronOggShafarevich.{u})
-    (hRay : RaynaudCriterion.{u}) (hTors : TorsionStructure.{u})
+theorem goodReduction_of_QM_rational3' [NumberField K] (hNOS : NeronOggShafarevich.{u})
+    (hRay : RaynaudCriterionNF.{u}) (hTors : TorsionStructure.{u})
     (O : ValuationSubring K) [IsDiscreteValuationRing O]
     (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A]
     (hdim : topologicalKrullDim A.X.left = ((2 : ℕ) : WithBot ℕ∞))
@@ -2469,7 +2489,7 @@ section CondBreaksSec
 /-! ### Copied from `scratch/glue-conductor/Breaks.lean` (compiled there). -/
 
 /-!
-# glue-conductor: the elementary core of Glazer's uniform conductor bound (D1, D3, D4)
+# glue-conductor: the elementary core of the manuscript's uniform conductor bound (D1, D3, D4)
 
 Manuscript `diophantine_zq.tex` L796-851 (h-trust steps D1-D4). Everything here is about
 integers and rationals; the ramification data enter as the sequence `g i = |G_i|` of orders
@@ -3094,7 +3114,7 @@ section DescProjRepSec
 # glue-descent: the algebraic core of B1 and C1 (N5 L632-664, L719-731)
 
 All statements are over arbitrary groups, fields, vector spaces and algebras (genuine Mathlib
-definitions). They are the steps of Glazer's scalar descent after the abelian surface has been
+definitions). They are the steps of the manuscript's scalar descent after the abelian surface has been
 replaced by its Tate realization:
 
 * `G` stands for `G_ℚ`, `E` for a finite extension of `ℚ_ℓ` containing the image of the
@@ -4226,8 +4246,8 @@ local notation "Kb" => AlgebraicClosure K
 `NeronOggShafarevich`, `RaynaudCriterion`, `TorsionStructure` (via
 `PkgI2.goodReduction_of_QM_rational3'`). With R1fp, this applies to the fibre object over
 `J(u)` (A4 + A6). -/
-theorem QML3.goodReduction [CharZero K] (hNOS : PkgI2.NeronOggShafarevich.{0})
-    (hRay : PkgI2.RaynaudCriterion.{0}) (hTors : PkgI2.TorsionStructure.{0})
+theorem QML3.goodReduction [NumberField K] (hNOS : PkgI2.NeronOggShafarevich.{0})
+    (hRay : PkgI2.RaynaudCriterionNF.{0}) (hTors : PkgI2.TorsionStructure.{0})
     (Ov : ValuationSubring K) [IsDiscreteValuationRing Ov] (h3 : IsUnit (3 : Ov)) :
     PkgI2.HasGoodReduction (toGrp P.A) Ov := by
   have hdim : topologicalKrullDim (toGrp P.A).X.left = ((2 : ℕ) : WithBot ℕ∞) := P.surface
@@ -11669,11 +11689,9 @@ structure TextbookLeaves : Prop where
   -- leaf-adopt3: T20, T21 in local form are proved (t-different: `PkgI6.hilbertDifferentFormula`,
   -- `PkgI6.differentBound`); the global forms above remain leaves. T22 (both parts) is proved
   -- (`PkgI6.herbrandQuotient`, `PkgI6.herbrandTransitivity`), no longer a field.
-  t23 : ∀ (p : ℕ) [Fact p.Prime], PkgI4.T23_FontaineClosure p
   t24 : EigenformTwist
   t25 : PkgI4.NewformOfEigenform
   t26 : PkgI3.TateModuleFree
-  t27 : PkgI3.QMDichotomyYu
   -- leaf-fold2: field `t28` deleted (no proof on the route uses it; g0-assemble2 §7)
   -- leaf-fold2: field `t29a` deleted (no proof on the route uses it; g0-assemble2 §7)
   -- leaf-fold2: field `t29b` deleted (no proof on the route uses it; g0-assemble2 §7)
@@ -12139,10 +12157,20 @@ theorem one_le_grKappa (g d : ℕ) (x : ℝ) (hg : 1 ≤ g) (hd : 1 ≤ d) : 1 �
   exact one_le_mul_of_one_le_of_one_le (one_le_mul_of_one_le_of_one_le (one_le_pow₀ h14) hd')
     (one_le_pow₀ hm)
 
+/-- **The lower half of R20** (sem-prune): `−½ log deg φ ≤ h_F(A) − h_F(B)`, i.e. `h_F(B) ≤ h_F(A) + ½ log deg φ`,
+the only half `transfer_core` uses. It follows from the printed Faltings Lemma 5 and `0 ≤ log #s*Ω¹` alone
+(`HSyn.G0Split.r20Lower_of_leaves'`, TailY, and `CToPrinted.faltingsLemma5Lower_of_printed`, TailZ19). -/
+def R20Lower : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A B : _root_.ZInQ.DefFaltings.AbVar K) (φ : A.X ⟶ B.X),
+    _root_.ZInQ.DefFaltings.IsIsogeny φ →
+    ∀ x y : ℝ, _root_.ZInQ.DefFaltings.stableFaltingsHeight A = x →
+      _root_.ZInQ.DefFaltings.stableFaltingsHeight B = y →
+      -((1 / 2) * Real.log (_root_.ZInQ.DefFaltings.isogDeg φ)) ≤ x - y
+
 /-- **E3-E4 numerics on concrete objects (proved from R19, R20, R21).** Over a number field `L`,
 for `J` of dimension `g ≥ 2` with an isogeny `J → P`, `h_F(A) + h_F(Z) ≤ h_F(P)`, `dim Z ≤ g`,
 the bounds on `N`, `[L:ℚ]`, `h_F(J)` and `g ≤ N²` give glue-assembly's `NonCMOutput`. -/
-theorem transfer_core (r19 : R19_GaudronRemond) (r20 : R20_FaltingsLemma5) (r21 : R21_Bost)
+theorem transfer_core (r19 : R19_GaudronRemond) (r20 : R20Lower) (r21 : R21_Bost)
     {L : Type} [Field L] [NumberField L] (J P A Z : ZInQ.DefFaltings.AbVar L) (g gZ : ℕ)
     (hJd : J.dim = (g : WithBot ℕ∞)) (hZd : Z.dim = (gZ : WithBot ℕ∞)) (hgZ : gZ ≤ g)
     (hg2 : 2 ≤ g) (φ : J.X ⟶ P.X) (hφ : IsIsogeny φ) (x y a z : ℝ)
@@ -12168,7 +12196,7 @@ theorem transfer_core (r19 : R19_GaudronRemond) (r20 : R20_FaltingsLemma5) (r21 
   refine ⟨N, g, d, x, Real.log (isogDeg ψ), z, hN1, hN, hJav, by exact_mod_cast hg2, hgN,
     by exact_mod_cast hd1, hd, ?_, ?_, ?_⟩
   · rw [hκ] at hlogdeg; exact hlogdeg
-  · have := (abs_le.mp hvar).1
+  · have := hvar
     linarith
   · have hgZr : (gZ : ℝ) ≤ g := by exact_mod_cast hgZ
     linarith
@@ -13714,11 +13742,9 @@ theorem textbookLeaves_of_open (t : OpenTextbookLeaves) : TextbookLeaves where
   t16a := t16a_proved
   t17 := t17_proved
   t18 := t18_proved
-  t23 := t.t23
   t24 := t.t24
   t25 := t25_proved
   t26 := t.t26
-  t27 := t.t27
   t31 := t31_proved
   t33 := t.t33
   t35 := t.t35

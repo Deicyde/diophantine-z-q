@@ -1,3 +1,5 @@
+import ZInQKernel.Contrib.OneProof.ModularEquationGeneric
+import ZInQKernel.Contrib.OneProof.STQM
 import ZInQKernel.Contrib.OneProof.H.TailO
 import ZInQKernel.Contrib.OneProof.H.TailP
 import ZInQKernel.Contrib.OneProof.H.TailQ
@@ -79,9 +81,8 @@ structure OpenResearchLeaves7 : Prop where
   igusaChi10 : QMSplit.Theta.IgusaChi10
   r5 : LeafQM.AV.R5fp
   r5count : LeafQM.AV.R5fpCount
-  r6 : _root_.PkgI2.RaynaudCriterion.{0}
+  r6 : PkgI2.RaynaudCriterionNF.{0}
   r7a : _root_.PkgI2.NeronOggShafarevich.{0}
-  r8 : _root_.PkgI2.GrothendieckMonodromy.{0}
   r9a : _root_.PkgI3.FaltingsSemisimple
   r9b : _root_.PkgI3.FaltingsTate
   /-- hodge-split, H-8: the Hodge–Tate decomposition `ℂ_p ⊗ V_p(A) ≅ ℂ_p(1)^g ⊕ ℂ_p^g` (Fontaine 1982; Tate 1967;
@@ -103,7 +104,6 @@ structure OpenResearchLeaves7 : Prop where
   r17 : _root_.LadicCond.CarayolR17'
   r18 : ZInQ.LeafPush2.R18_Javanpeykar
   r19 : ZInQ.DefFaltings.R19_GaudronRemond
-  r20 : ZInQ.DefFaltings.R20_FaltingsLemma5
   r21 : ZInQ.DefFaltings.R21_Bost
   r22 : ZInQ.LeafPush2.R22_Pazuki
   h5fin : ZInQ.DefFaltings.StableHeightFinite
@@ -135,19 +135,12 @@ structure OpenTextbookLeaves7 : Prop where
   /-- homlattice, via av-split, H-69: GAGA for homomorphisms of complex abelian varieties. -/
   gagaMorphism : _root_.ZInQ.HomLattice.GAGAMorphism
   t11bExists : AVB2.T11bExists
-  /-- hodge-split, H-32: `B_dR^{G_{ℚ_p}} = ℚ_p` (Fontaine, Astérisque 223 Exp. II; replaces `t23`). -/
-  bdRInvariants : ∀ (p : ℕ) [Fact p.Prime], _root_.ZInQ.Contrib.HodgeSplit.BdRInvariants p
   t24 : _root_.PkgI4.EigenformTwist
-  /-- qm-split, H-35: Yu 2013 Thm 1.1 with its splitting clause (replaces `t27`). -/
-  yuThm11 : QMSplit.Yu.YuThm11
   t33 : _root_.LeafModCurves.JacobianExists ℚ
   dimJacobianEqGenus : _root_.ZInQ.Contrib.CurvesG.DimJacobianEqGenus
   normalModelOfFunctionFieldQ : _root_.ZInQ.Contrib.CurvesG.NormalModelOfFunctionFieldQ
   /-- curve-split, H-81: Stacks 00TV (regular ⇒ smooth over a perfect field; replaces `normalCurveSmoothQ`). -/
   regularSmoothPerfect : _root_.CurveSplit.RegularSmoothPerfect
-  /-- Igusa's theorem (kernel leaf; Igusa 1959; Lang, *Elliptic functions* Ch. 6 §3): the Galois image on `E_j[N]`
-  is `GL₂(ℤ/N)` (curve-split, H-41; replaces `x0Transitive`). -/
-  igusaGL2 : _root_.ZInQ.RLeaf.IgusaGL2
   neronSchemeExtensionExists : _root_.ZInQ.Contrib.NeronC.NeronSchemeExtensionExists
 
 /-- **The added leaves still open** (leaf-fold7): leaf-fold6's `OpenAddedLeaves6` without `qmClassNumberOne` and
@@ -171,23 +164,19 @@ structure OpenAddedLeaves7 : Prop where
   x6ConicModel : X6Kummer.X6ConicModel
   y3Connected : TSHecke.Y3Connected
   zariskiConnectedness : _root_.ZariskiConn.ZariskiConnectedness.{0}
-  /-- qm-split, H-86: Shimura–Taniyama, a CM abelian variety over `ℂ` has a model over `ℚ̄` (replaces `stQM`). -/
-  shimuraTaniyamaQbar : G0Split.FibreQM.PeriodMapH.QMSplitSTQM.ShimuraTaniyamaQbar
   valenceFormulaGammaStar : LeafQCheck.VB.ValenceFormulaGammaStar
   egaIV_8_8_2_ii : _root_.ZInQ.Contrib.SpreadOut.EGAIV_8_8_2_ii
   egaIV_8_10_5_xii : _root_.ZInQ.Contrib.SpreadOut.EGAIV_8_10_5_xii
   egaIV_17_7_8_ii : _root_.ZInQ.Contrib.SpreadOut.EGAIV_17_7_8_ii
-  /-- curve-split, H-83: vert-witness's `ShimuraGoodReduction` without the `ℚ̄`-point guard of `IsShimuraModel`
-  (redundant given `r1r2`; replaces `shimuraGoodReduction`). -/
-  shimuraGoodReductionNoGuard : CurveSplitGR.ShimuraGoodReductionNoGuard
 
 /-- **The glue still open** (leaf-fold7): mcr-glue's `QuotientP1Coordinate` (the coordinate of the tame quotient
 `𝒴/Γ' ≅ P¹_{ℤ_(p)}` as a finite map with the fibre relation; the residue clause of `ModelCoordinateResidue` is
 proved, `MCRGlue.modelCoordinateResidue_of_quotient'`). -/
 structure OpenGlue7 : Prop where
-  /-- mcr-glue: a finite `q : 𝒴 → 𝒵` over `ℤ_(p)` and an isomorphism `𝒵 ≅ P¹_{ℤ_(p)}` by charts whose composite
-  has R2fp's fibre relation (replaces `modelCoordinateResidue`). -/
-  quotientP1Coordinate : MCRGlue.QuotientP1Coordinate
+  /-- sgr-fold (sgr-direct): h-b1 §3 Lemma NV step 3 (`SGRDirect.NVLocalInertia`, GLUE). -/
+  nvLocalInertia : SGRDirect.NVLocalInertia
+  /-- sgr-fold (sgr-direct): `√(c (27X + 16))` in the Hecke cover (filled at the top from `elkiesX6StarPrinted`). -/
+  heckeSqrtBranchAny : SGRDirect.HeckeSqrtBranchAny
 
 /-! ## From the new bundles to leaf-fold6's -/
 
@@ -201,7 +190,6 @@ theorem researchLeaves5_of_open7 (r : OpenResearchLeaves7) (l : OpenAddedLeaves7
   r5count := r.r5count
   r6 := r.r6
   r7a := r.r7a
-  r8 := r.r8
   r9a := r.r9a
   r9b := r.r9b
   r10 := HodgeLF7.r10 (_root_.ZInQ.Contrib.HodgeSplit.deRhamComparisonHT_of_leavesT r.hodgeTateDecompAbVar
@@ -215,7 +203,6 @@ theorem researchLeaves5_of_open7 (r : OpenResearchLeaves7) (l : OpenAddedLeaves7
   r17 := r.r17
   r18 := r.r18
   r19 := r.r19
-  r20 := r.r20
   r21 := r.r21
   r22 := r.r22
   h5fin := r.h5fin
@@ -231,9 +218,7 @@ theorem textbookLeaves6_of_open7 (t : OpenTextbookLeaves7) (l : OpenAddedLeaves7
     (isogenyQuasiInverseAG_lf7 l.milneIsogenyQuasiInverse) t.geomConnOfRationalPoint t.groupSchemeEquidim
   homLatticeCorr := _root_.AvSplit.Final.h69 t.uniformizationLeafAll t.gagaMorphism
   t11bExists := t.t11bExists
-  t23 := HodgeLF7.t23 (_root_.ZInQ.Contrib.HodgeSplit.t23_all_of_bdrInvariants t.bdRInvariants)
   t24 := t.t24
-  t27 := QMSplit.Yu.qmDichotomyYu_of_yu t.yuThm11
   t33 := t.t33
   dimJacobianEqGenus := t.dimJacobianEqGenus
   t35 := _root_.AvSplit.Final.h38 t.uniformizationLeafAll t.mumfordTorsionAlgClosed
@@ -241,7 +226,7 @@ theorem textbookLeaves6_of_open7 (t : OpenTextbookLeaves7) (l : OpenAddedLeaves7
   normalCurveSmoothQ := _root_.CurveSplit.normalCurveSmoothQ_of_regularSmooth t.regularSmoothPerfect
   geomConnectedOfConstantFieldQ :=
     _root_.CurveSplit.geomConnectedOfConstantFieldQ_of_zariski l.zariskiConnectedness
-  x0Transitive := _root_.CurveSplit.x0Transitive_of_igusaGL2 t.igusaGL2
+  x0Transitive := _root_.FltCqj2.x0Transitive_proof
   neronSchemeExtensionExists := t.neronSchemeExtensionExists
 
 /-- The three QM rows from `QMCentralizerCMC` and T11(b) (qm-split's `rows_of_C`). -/
@@ -266,26 +251,28 @@ theorem addedLeaves6_of_open7 (r : OpenResearchLeaves7) (t : OpenTextbookLeaves7
   qmAutCard := (qmRows_of7 t l).1
   alFixedPoints := (qmRows_of7 t l).2.1
   zariskiConnectedness := l.zariskiConnectedness
-  stQM := stQM_lf7 l.shimuraTaniyamaQbar
+  stQM := _root_.GapST.stQM_of r.r1r2 l.y3Connected (qmRows_of7 t l).2.1
+    (_root_.AvSplit.Final.h25 t.mumfordTorsionAlgClosed)
+    (_root_.AvSplit.Final.h38 t.uniformizationLeafAll t.mumfordTorsionAlgClosed)
+    (_root_.AvSplit.Final.h69 t.uniformizationLeafAll t.gagaMorphism)
   valenceFormulaGammaStar := l.valenceFormulaGammaStar
   egaIV_8_8_2_ii := l.egaIV_8_8_2_ii
   egaIV_8_10_5_xii := l.egaIV_8_10_5_xii
   egaIV_17_7_8_ii := l.egaIV_17_7_8_ii
-  shimuraGoodReduction := CurveSplitGR.shimuraGoodReduction_of_noGuard (LeafAdopt.R1R2fp_of_rep r.r1r2)
-    l.shimuraGoodReductionNoGuard
   curveBijIso := curveBijIso_lf7
 
 /-- leaf-fold6's glue bundle from leaf-fold7's. -/
 theorem glue6_of_open7 (g : OpenGlue7) : OpenGlue6 where
-  modelCoordinateResidue := MCRGlue.modelCoordinateResidue_of_quotient' g.quotientP1Coordinate
+  nvLocalInertia := g.nvLocalInertia
+  heckeSqrtBranchAny := g.heckeSqrtBranchAny
 
 /-- **G0 with only the open leaves and the open glue** (leaf-fold7; no `sorry`, standard axioms).
 `ZInQ.SixContactMin` follows from `OpenResearchLeaves7` (29), `OpenTextbookLeaves7` (23), `OpenAddedLeaves7` (16)
 and `OpenGlue7` (1, `QuotientP1Coordinate`). The table of every field is `docs/research/leaf-fold7.md` §2. -/
 theorem sixContactMin_of_open7 (r : OpenResearchLeaves7) (t : OpenTextbookLeaves7) (l : OpenAddedLeaves7)
-    (g : OpenGlue7) : ZInQ.SixContactMin :=
+    (g : OpenGlue7) (h20 : G0Split.R20Lower) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
   sixContactMin_of_open6 (researchLeaves5_of_open7 r l) (textbookLeaves6_of_open7 t l) (addedLeaves6_of_open7 r t l)
-    (glue6_of_open7 g)
+    (glue6_of_open7 g) h20 hYu
 
 end HSyn
 
