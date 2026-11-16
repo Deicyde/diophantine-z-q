@@ -8,6 +8,9 @@ bodies retained, subject to documented Lean 4.35 API adaptations.
 Full original notices/credits: NOTICE.upstream, ATTRIBUTION.upstream.md, LICENSE in this vendor root.
 -/
 import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_RelativeGroupLaw
+import Mathlib.AlgebraicGeometry.Group.Abelian
+import Mathlib.CategoryTheory.Monoidal.Cartesian.Grp
+import Mathlib.CategoryTheory.Monoidal.Cartesian.Over
 
 set_option backward.isDefEq.respectTransparency false
 

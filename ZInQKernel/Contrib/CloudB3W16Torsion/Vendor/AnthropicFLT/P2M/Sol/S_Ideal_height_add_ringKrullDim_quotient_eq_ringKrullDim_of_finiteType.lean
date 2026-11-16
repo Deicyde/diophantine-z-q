@@ -11,6 +11,7 @@ import Mathlib
 import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
 set_option backward.isDefEq.respectTransparency false
+set_option maxHeartbeats 2000000
 
 namespace P2MW.S_Ideal_height_add_ringKrullDim_quotient_eq_ringKrullDim_of_finiteType
 
@@ -275,6 +276,9 @@ theorem ringKrullDim_quotient_add_one_of_height_eq_one (k : Type u) {A : Type v}
     (faithfulSMul_iff_algebraMap_injective _ _).mpr hinj
   haveI : IsNoetherianRing A := Algebra.FiniteType.isNoetherianRing k A
   set B := MvPolynomial (Fin s) k with hB
+  haveI : IsIntegrallyClosed B := inferInstanceAs (IsIntegrallyClosed (MvPolynomial (Fin s) k))
+  haveI : Algebra.HasGoingDown B A :=
+    inferInstanceAs (Algebra.HasGoingDown (MvPolynomial (Fin s) k) A)
 
   let p : Ideal B := P.comap (algebraMap B A)
   have hp : p.height = 1 := by
