@@ -46,3 +46,15 @@
   "34/11 on 45 -> 38/10 on 48; strictest 34/11 -> 38/10" (autofold-dryrun.txt).
 - With kinds.tsv's gagaMorphism row temporarily set to consequence/GLUE/GLUE as on origin/wip/leaf-fold32 (11-16
   re-rating; file restored after): "33/12 on 45 -> 38/10 on 48; strictest 33/12 -> 38/10" = −2 GLUE in both columns.
+
+## Chain build, #discharges, fold dry-run compile — VERIFIED
+- `lake build ZInQKernel.OneProof.Main ZInQKernel.OneProof.Discharges`: success, 13698 jobs, 29m47s (build-main.txt).
+- DischargesCheck.lean → discharges.txt: gagaMorphism DISCHARGED by SerreGAGA.gagaMorphism_of_serre, still assumes
+  [MumfordComplexTorus, SGA1_XII_3_3a, ProperCompactAn, SGA1_XII_2_4, SerreGAGAMorphism], standard axioms;
+  "#discharges: 56 open hypotheses, 3051 theorems checked, 18 discharge one".
+- FoldDryRun.lean compiles; sixContactMin_of_open36 standard axioms.
+
+## S3.lean / chart independence — VERIFIED, moved into SerreGAGA.lean
+- `anFunAt_iff_forall_chart`: AnFunAt X F P ↔ ∀ AffineChart c ∋ P, ∃ H analytic, F = H ∘ c.f near P
+  (basic open D(s) ⊆ U, isLocalization_basicOpen, g = p(f)/q(f)^m). `serreHolAt_iff_forall_chart` corollary.
+- SerreGAGA.lean rebuilt; axioms.txt: 9 declarations, standard axioms.

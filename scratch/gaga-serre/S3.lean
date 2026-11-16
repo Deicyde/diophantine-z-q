@@ -68,12 +68,12 @@ theorem anFunAt_iff_forall_chart [LocallyOfFiniteType X.hom] (F : CPt X → ℂ)
       intro Q hQ; funext j
       rw [eq_div_iff (pow_ne_zero _ (hsQ Q hQ))]
       have h1 := congrArg (fun x => XevalAt X D x Q) (ha j)
-      simp only at h1
       rw [xevalAt_eq_evP hQ, map_mul, ← xevalAt_eq_evP hQ, ← xevalAt_eq_evP hQ,
         xevalAt_res hsle (g j) hQ, xevalAt_algebraMap_basicOpen s _ hQ,
         xevalAt_algebraMap_basicOpen s _ hQ, xevalAt_eq_evP (hDc Q hQ), map_pow,
-        ← xevalAt_eq_evP (hDc Q hQ), ← xevalAt_eq_evP (hDc Q hQ)] at h1
-      rw [h1, ← hp j, ← hq, xevalAt_eval₂ c.f _ (hDc Q hQ), xevalAt_eval₂ c.f _ (hDc Q hQ)]
+        ← xevalAt_eq_evP (hDc Q hQ)] at h1
+      rw [← xevalAt_eval₂ c.f q (hDc Q hQ), hq, ← xevalAt_eval₂ c.f (p j) (hDc Q hQ), hp j]
+      exact h1
     refine ⟨fun v => H (fun j => MvPolynomial.eval v (p j) / MvPolynomial.eval v q ^ m j), ?_, ?_⟩
     · refine AnalyticAt.comp (g := H)
         (f := fun v j => MvPolynomial.eval v (p j) / MvPolynomial.eval v q ^ m j) ?_

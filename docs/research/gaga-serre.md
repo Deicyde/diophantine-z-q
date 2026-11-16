@@ -76,13 +76,23 @@ Every object is an existing concrete definition; no structure was invented:
 | `isAnMorphism_iff_germ` | sga1-fix's `IsAnMorphism` (stated with opens `W`) ⇔ continuous and pulls back germs at every point |
 | `exists_affineChart_le` | every open `U ∋ P` contains an `AffineChart` at `P` (`X` locally of finite type) |
 | `anFunAt_iff_serreHolAt` | **`AnFunAt X F P ↔ SerreHolAt X F P`**. The arbitrary regular functions `g` are restricted to an affine chart inside `U`, and there `gⱼ = pⱼ(f)` with `pⱼ` polynomials (`Generates`, `evP_eval₂`) |
+| `anFunAt_iff_forall_chart`, `serreHolAt_iff_forall_chart` | **chart independence**: holomorphic in some affine chart ⇔ holomorphic in every affine chart at `P` (see below) |
 | `isAnMorphism_iff_isSerreHolMap` | **`IsAnMorphism X Y F ↔ IsSerreHolMap X Y F`** (`X`, `Y` locally of finite type) |
 | `locallyOfFiniteType_of_isProjVar` | projective varieties are of finite type (closed immersion followed by the proper `ℙ^N → Spec ℂ`) |
 | `isProjVar` | **abelian varieties are projective varieties**. `A` is integral (`GeometricallyIntegral.isIntegral_of_subsingleton`), hence reduced. The vendored `GrpObj.exists_isImmersion_projectiveSpace_of_smooth_of_geometricallyIntegral` gives an immersion `i : A → ℙ^N_ℂ` over ℂ. `i` is proper (`IsProper.of_comp`, since `ℙ^N_ℂ` is separated), so its range is closed and `i` is a closed immersion (`IsClosedImmersion.of_isPreimmersion`) |
 | `sga1_XII_4_4_of_serre` | `SerreGAGAMorphism → SGA1Printed.SGA1_XII_4_4` |
 | `gagaMorphism_of_serre` | **main theorem**, through sga1-fix's `gagaMorphism_of_printed` |
 
-CHART_INDEPENDENCE_PLACEHOLDER
+**Chart independence (VERIFIED, compiled).** `anFunAt_iff_forall_chart` and `serreHolAt_iff_forall_chart` say:
+a function holomorphic at `P` in some affine chart is holomorphic in the coordinates of **every** affine chart at
+`P`. So `SerreHolAt`, which uses one chart, is the same sheaf as the one glued from any affine cover, which checks
+every chart of the cover. This settles the remaining definitional point: Serre builds `X^h` by gluing over an
+affine cover, and whichever cover he uses, the sheaf is `SerreHolAt`.
+
+The proof works on a basic open `D(s) ∋ P` of the chart lying inside `U`:
+- `Γ(D(s)) = Γ(c.U)[1/s]` (Mathlib's `IsAffineOpen.isLocalization_basicOpen`);
+- so on `D(s)` each regular `gⱼ` is `pⱼ(f)/q(f)^m`, with `q(f)(P) = s(P) ≠ 0`;
+- and `H ∘ (pⱼ/q^m)` is analytic near `f(P)`.
 
 ## 3. Does Serre state the morphism result itself? (UNVERIFIED: GAGA was not available to this task)
 
@@ -158,7 +168,32 @@ This affects only the docstring of `SGA1_XII_4_4`, which is no longer a leaf in 
 - `ProperCompactAn`: SGA 1, Exp. XII, Prop. 3.2 (with `Y = Spec ℂ`); Serre GAGA §2 Prop. 6 for varieties.
   UNVERIFIED.
 
-DISCHARGES_PLACEHOLDER
+## 5. `#discharges` (VERIFIED)
+
+First `lake build ZInQKernel.OneProof.Main ZInQKernel.OneProof.Discharges` was run at the merged base. It took
+13,698 jobs and 30 minutes, since the merge of main rebuilt the chain. Then
+`lake env lean scratch/gaga-serre/DischargesCheck.lean` was run; the full output is in
+`scratch/gaga-serre/discharges.txt`:
+
+```
+DISCHARGES [OpenTextbookLeaves12.gagaMorphism] by SerreGAGA.gagaMorphism_of_serre
+  still assumes: [UnifPrinted.MumfordComplexTorus,
+ SGA1Printed.SGA1_XII_3_3a,
+ UnifTopology.ProperCompactAn,
+ SGA1Printed.SGA1_XII_2_4,
+ SerreGAGA.SerreGAGAMorphism]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenTextbookLeaves12.uniformizationLeafAll] by SGA1Printed.uniformizationLeafAll_of_printed
+  still assumes: [UnifPrinted.MumfordComplexTorus,
+ SGA1Printed.SGA1_XII_3_3a,
+ UnifTopology.ProperCompactAn,
+ SGA1Printed.SGA1_XII_2_4]
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 56 open hypotheses, 3051 theorems checked, 18 discharge one
+```
+
+`#print axioms` gives `[propext, Classical.choice, Quot.sound]` for each of the nine theorems in
+`scratch/gaga-serre/axioms.txt`.
 
 ## 6. Autofold spec (VERIFIED dry run)
 
@@ -180,7 +215,8 @@ gagaMorphism := _root_.SerreGAGA.gagaMorphism_of_serre {n}.mumfordComplexTorus {
   `origin/wip/leaf-fold32`, and the file was restored afterwards. The dry run then printed **"33/12 on 45 ->
   38/10 on 48; strictest 33/12 -> 38/10"**.
 
-FOLD_PLACEHOLDER
+**The dry-run module compiles (VERIFIED).** `scratch/gaga-serre/FoldDryRun.lean` is the dry-run output without its
+first line. It compiles against the rebuilt chain, and `HDec.HSyn.sixContactMin_of_open36` has standard axioms.
 
 **This spec replaces sga1-fix's**: fold this one instead. It drops `sga1_XII_4_4`. If sga1-fix's spec is folded
 first, discharge its `sga1_XII_4_4` field with `_root_.SerreGAGA.sga1_XII_4_4_of_serre {n}.serreGAGAMorphism`.

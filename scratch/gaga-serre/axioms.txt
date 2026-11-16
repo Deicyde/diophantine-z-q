@@ -5,3 +5,5 @@
 'SerreGAGA.isAnMorphism_iff_isSerreHolMap' depends on axioms: [propext, Classical.choice, Quot.sound]
 'SerreGAGA.isAnMorphism_iff_germ' depends on axioms: [propext, Classical.choice, Quot.sound]
 'SerreGAGA.locallyOfFiniteType_of_isProjVar' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SerreGAGA.anFunAt_iff_forall_chart' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SerreGAGA.serreHolAt_iff_forall_chart' depends on axioms: [propext, Classical.choice, Quot.sound]

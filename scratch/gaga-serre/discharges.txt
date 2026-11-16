@@ -1,0 +1,82 @@
+DISCHARGES [OpenResearchLeaves26.dsThm965Weak] by DS965Weak.dsThm965Weak_of_dsThm965
+  still assumes: [ZInQ.Contrib.HodgeSplit.DSThm965]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenTextbookLeaves12.gagaMorphism] by GAGAAn.gagaMorphism_of_chart
+  still assumes: [BPAnalytic.Uniformization.UniformizationLeafAll,
+ UnifTopology.SmoothComplexManifoldAn,
+ GAGAAn.GAGAChart]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenTextbookLeaves12.gagaMorphism] by GAGAAn.gagaMorphism_of_chart_core
+  still assumes: [BPAnalytic.Uniformization.UniformizationLeafAll, GAGAAn.IsAnStrExists, GAGAAn.GAGAChart]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenTextbookLeaves12.gagaMorphism] by GAGAAn.gagaMorphism_of_chart_etale
+  still assumes: [BPAnalytic.Uniformization.UniformizationLeafAll, SGA1Etale.SGA1_XII_3_1_Etale, GAGAAn.GAGAChart]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenTextbookLeaves12.gagaMorphism] by GAGAAn.gagaMorphism_of_gagaChart
+  still assumes: [BPAnalytic.Uniformization.UniformizationLeafAll, GAGAAn.GAGAChart]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves26.gonzalezRotgerProp56X6] by GRCountX6.prop56X6_of_r5fpCount
+  still assumes: [LeafQM.AV.R5fpCount]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves26.neronBaseChangeStrictHenselization] by GapSHPair.neronBaseChangeStrictHenselization_of_unramified
+  still assumes: [ReductGlue.NeronBaseChangeUnramifiedDVR]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves26.r16CoreY] by R16Split.coreY_of_r16
+  still assumes: [LeafModCurves.R16_EichlerShimuraJ1']
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenTextbookLeaves12.uniformizationLeafAll] by SGA1Etale.uniformizationLeafAll_of_etale
+  still assumes: [UnifPrinted.MumfordComplexTorus,
+ SGA1Etale.SGA1_XII_3_1_Etale,
+ UnifTopology.ProperCompactAn,
+ SGA1Etale.ConnectedPreconnectedAn]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenTextbookLeaves12.gagaMorphism] by SGA1Printed.gagaMorphism_of_printed
+  still assumes: [UnifPrinted.MumfordComplexTorus,
+ SGA1Printed.SGA1_XII_3_3a,
+ UnifTopology.ProperCompactAn,
+ SGA1Printed.SGA1_XII_2_4,
+ SGA1Printed.SGA1_XII_4_4]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenTextbookLeaves12.uniformizationLeafAll] by SGA1Printed.uniformizationLeafAll_of_printed
+  still assumes: [UnifPrinted.MumfordComplexTorus,
+ SGA1Printed.SGA1_XII_3_3a,
+ UnifTopology.ProperCompactAn,
+ SGA1Printed.SGA1_XII_2_4]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves26.sga7_IX_3_3_SH] by SGA7PersistsNF.sga7_IX_3_3_SH_of_field
+  still assumes: [CToPrinted.SGA7_IX_3_3]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenTextbookLeaves12.gagaMorphism] by SerreGAGA.gagaMorphism_of_serre
+  still assumes: [UnifPrinted.MumfordComplexTorus,
+ SGA1Printed.SGA1_XII_3_3a,
+ UnifTopology.ProperCompactAn,
+ SGA1Printed.SGA1_XII_2_4,
+ SerreGAGA.SerreGAGAMorphism]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenTextbookLeaves12.uniformizationLeafAll] by UnifPrinted.uniformizationLeafAll_of_lieGroup
+  still assumes: [UnifPrinted.MumfordComplexTorus, UnifPrinted.AbVarAnalyticLieGroup]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenTextbookLeaves12.uniformizationLeafAll] by UnifPrinted.uniformizationLeafAll_of_printed
+  still assumes: [UnifPrinted.MumfordComplexTorus,
+ UnifPrinted.SmoothComplexManifold,
+ UnifPrinted.ProperCompact,
+ UnifPrinted.ConnectedConnected]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenTextbookLeaves12.uniformizationLeafAll] by UnifTopology.uniformizationLeafAll_of_analytic
+  still assumes: [UnifPrinted.MumfordComplexTorus,
+ UnifTopology.SmoothComplexManifoldAn,
+ UnifTopology.ProperCompactAn,
+ UnifTopology.ConnectedConnectedAn]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves26.sga7_IX_3_5_ForwardGeom] by UnipotentForward.forwardGeom_of_forward
+  still assumes: [UnipotentForward.SGA7_IX_3_5_Forward, UnipotentForward.SemiAbelianDescendsSepClosed]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves26.mumfordGroupLaw] by ZInQ.Contrib.MumfordRigidity.mumfordGroupLaw_of_core
+  still assumes: [LeafQM.AV.R1UnivRigid.MumfordRigidityCore]
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 56 open hypotheses, 3051 theorems checked, 18 discharge one
+'SerreGAGA.gagaMorphism_of_serre' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SerreGAGA.sga1_XII_4_4_of_serre' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SerreGAGA.isProjVar' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SerreGAGA.anFunAt_iff_serreHolAt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SerreGAGA.isAnMorphism_iff_isSerreHolMap' depends on axioms: [propext, Classical.choice, Quot.sound]

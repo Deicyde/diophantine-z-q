@@ -6,3 +6,5 @@ import ZInQKernel.Contrib.OneProof.SerreGAGA
 #print axioms SerreGAGA.isAnMorphism_iff_isSerreHolMap
 #print axioms SerreGAGA.isAnMorphism_iff_germ
 #print axioms SerreGAGA.locallyOfFiniteType_of_isProjVar
+#print axioms SerreGAGA.anFunAt_iff_forall_chart
+#print axioms SerreGAGA.serreHolAt_iff_forall_chart
