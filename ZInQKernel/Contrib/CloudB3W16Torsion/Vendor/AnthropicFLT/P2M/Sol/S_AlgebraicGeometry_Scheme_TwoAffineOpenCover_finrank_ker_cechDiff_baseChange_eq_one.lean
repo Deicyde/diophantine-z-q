@@ -11,6 +11,8 @@ import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.Definitions.
 import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_Scheme_TwoAffineOpenCover_toH0_bijective
 import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_Scheme_TwoAffineOpenCover_exists_baseChangeIsos_structureSheaf
 import Mathlib.AlgebraicGeometry.Properties
+-- [port] This slim source refers to the standard geometric Flat predicate.
+import Mathlib.AlgebraicGeometry.Morphisms.Flat
 import Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure
 import Mathlib.LinearAlgebra.Dimension.Finrank
 import Mathlib.LinearAlgebra.Dimension.Free
@@ -34,6 +36,8 @@ noncomputable section
 universe u
 
 open CategoryTheory CategoryTheory.Limits Opposite TensorProduct
+-- [port] Activate existing scheme section notation before introducing a local alias namespace.
+open _root_.AlgebraicGeometry
 
 namespace TwoChartCech
 export _root_.TwoChartCech (kerBaseChangeHom kerBaseChangeHom_apply_coe)

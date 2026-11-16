@@ -32,6 +32,9 @@ universe u
 
 noncomputable section
 
+-- [port] Activate the root's existing section/preimage syntax before local namespaces.
+open _root_.AlgebraicGeometry
+
 namespace AlgebraicGeometry
 export _root_.AlgebraicGeometry (Scheme.Hom.congr_app tilde.map Scheme.Modules.Hom.app_smul IsOpenImmersion.of_comp Scheme.Modules.pullback tilde.toOpen_map_app Scheme.Hom Scheme.Hom.preimage_inf Scheme.Modules.Hom.comp_app Scheme.Modules.Hom moduleSpecΓFunctor Spec Spec.map Scheme Scheme.Modules.Hom.id_app pullbackSpecIso Scheme.Modules.Hom.app tilde.isoTop IsOpenImmersion modulesSpecToSheaf tilde.functor StructureSheaf.globalSectionsIso IsAffineOpen Scheme.Modules tilde Scheme.Modules.map_smul tilde.toOpen Scheme.ΓSpecIso Scheme.TwoAffineOpenCover Scheme.Modules.IsInvertible Scheme.Modules.IsLocallyFreeOfRank tilde.pullbackSpecIso Scheme.Modules.isLocallyFreeOfRank_one_iff_isInvertible Scheme.Modules.bijective_unit_app_of_le_opensRange tilde.pullbackSpecIso_hom_app_top_unit_toOpen Scheme.Modules.isLocallyFreeOfRank_tilde Scheme.Modules.IsLocallyFreeOfRank.pullback Scheme.Modules.IsLocallyFreeOfRank.of_forall_exists_opens Scheme.Modules.exists_fibreProduct_sections_bijective Scheme.Modules.nonempty_pullback_iso_of_bijective_app_of_le_opensRange)
 namespace Scheme

@@ -193,7 +193,10 @@ theorem Twist.coeff_d {i : ℕ} (f : Twist.cochain R n d i)
       have key : (⟨a, hok⟩ : Twist.Mon n d (Idx.img n s))
           = Twist.Mon.incl n d (Idx.img_face_subset n s j)
               ⟨a, hok.1, hface⟩ := rfl
-      rw [key, Finsupp.mapDomain_apply (Twist.Mon.incl_injective n d _)]
+      -- [port] The injective-evaluation API now has its own explicit theorem name.
+      rw [key]
+      exact Finsupp.mapDomain_apply_of_injective
+        (Twist.Mon.incl_injective n d _) _ _
     · rw [Twist.coeff_of_not _ _ _ _ _ hface, smul_zero,
         Finsupp.mapDomain_notin_range, smul_zero]
       rintro ⟨⟨b, hb1, hb2⟩, hb⟩

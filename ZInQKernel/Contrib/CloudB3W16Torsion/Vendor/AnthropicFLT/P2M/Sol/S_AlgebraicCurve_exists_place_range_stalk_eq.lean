@@ -77,7 +77,7 @@ theorem solution
   ·
     intro a
     rw [hmemA]
-    exact ⟨_, (baseToFunctionField_apply_eq_algebraMap_stalk c x a).symm⟩
+    exact ⟨_, (AlgebraicCurve.baseToFunctionField_apply_eq_algebraMap_stalk c x a).symm⟩
   ·
     intro htop
     apply IsDiscreteValuationRing.not_isField O
