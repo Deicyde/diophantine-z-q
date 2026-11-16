@@ -9,7 +9,7 @@ Working base: `2dc949d688c407e32823c4e751679d66b2f40e65` (restored main; H119/in
 
 **The complete D5 converse is NOT yet kernel-verified. No H119 or discharge pass is claimed.**
 
-Four main-only support modules and two verification modules were rebuilt successfully from source after the final print-hygiene edits. `Construction`, `Generation`, `Assembly`, `Count`, and `Checks/Assembly` remain unbuilt pending normalized recovered dependency cones. The parent requested bounded remaining spend after the newer route-NV fold made H119 a fallback; no missing 1378-module cone or full world was cold-built in this lane.
+Four main-only support modules, `Construction`, and three verification modules have been compiled successfully from source. `Construction` retains main's original `SGRSplit.abVarSurfaceRelDim` and uses the normalized core's canonical existing main Galois providers. `Generation`, `Assembly`, `Count`, and `Checks/Assembly` remain unbuilt pending the normalized geometric torsion-cardinality cone. The parent requested bounded remaining spend after the newer route-NV fold made H119 a fallback; no missing 1378-module cone or full world was cold-built in this lane.
 
 ## Exact intended export
 
@@ -44,7 +44,7 @@ Initial bounded verification run (before the hidden-carrier follow-up): `-j2 -M1
 - `KernelGroup`: canonical relative group law of the original kernel `A.grp`, genuine proper/smooth/connected bundle, original carrier dimension, actual rational sections, and the identity subgroup. Point multiplication is proved with named `Hom.mul_def` / `Over.lift_left` projection lemmas, point-object normalization, and congruence, avoiding expensive kernel delta-equality of Over instance data.
 - `FiniteLevel`: the original 81 `liftO` representatives are distinct from the exact original kernel `3O`; equal cardinality of genuine torsion then proves generation without replacing the given points.
 - `GeometricPoints`: original eta is precomposed with the actual field-spectrum map. `Epi` of field spectra proves its kernel remains exactly `3O` at every field map.
-- `Construction` (unbuilt): FakeEC at N=1 with original carrier/action/law; actual identity subgroup; canonical tangent trace provider plus main's `SGRSplit.abVarSurfaceRelDim`.
+- `Construction` (compiled): FakeEC at N=1 with original carrier/action/law; actual identity subgroup; canonical tangent trace provider plus main's unchanged `SGRSplit.abVarSurfaceRelDim`. The actual arbitrary-geometric-field `kernelAct_trace` and all N=1 FakeEC fields compile with only standard axioms.
 - `Generation` (unbuilt): actual `eta(1)` as distinguished point; genuine arbitrary-geometric-field torsion cardinality 81 supplies generation, and the original kernel supplies the annihilator.
 - `Transport`: explicit Eq.rec transport of surface/action/level, with carrier-aware hom/point formulas and a kernel object isomorphism. `Checks/Transport` now verifies the dependent packaging shape with `Over.mk P.A.X.hom` behind the genuine `hiddenCarrier` definition, matching Assembly rather than using a literal `P.A.X` carrier.
 - `Assembly` (unbuilt): uses the verified transport helpers, not goal-wide `rw [hA]`. The two carrier equations now compose the helper equality with `.trans` and close the identity composition using `erw`, which unfolds the hidden `Over.mk` carrier enough for `eqToHom_refl`.
@@ -57,10 +57,24 @@ The source fix is the tested `.trans` / `erw` pattern for both action and level 
 
 This verifies the bounded carrier-unfolding repair in the faithful reproduction, **not** the complete Assembly or D5 dependency graph. Full D5/H119 remain unbuilt/unverified.
 
+## Canonical-provider Construction check, 2026-11-16
+
+The normalized 75-module core initially collided with the existing main SGR closure because three new TateCp copies redeclared the same root names as main's canonical CloudB2X0Transitive providers. The normalizer fixed this in `52136f73128cf9abc692b8bf6bcbcd63b927a2c9`, retargeting the new imports to the identical canonical existing providers and removing only the three new duplicates. The remaining 72-module core was compiled by that lane; its exact ignored warm cache was copied into this lane, and the obsolete three cache files were dropped. No provider source was changed in the D5 lane.
+
+The original `ZInQKernel.Contrib.OneProof.ShimuraGoodReductionNoGuard` import and `SGRSplit.abVarSurfaceRelDim` supplier are retained. An attempted narrow dimension helper was not integrated or banked. Two minor structure-field binder errors (`lev_stable` and `lev_fibre`) were fixed by explicit binder introductions, without statement or mathematical-data changes.
+
+Actual bounded tests on Lean 4.35.0 / mathlib 56a005, one `lean -j2 -M11264` process at a time:
+
+- `Construction`: **pass**, 27.54s, peak RSS **8,714,268KiB**.
+- `Checks.Construction`: **pass**, 4.96s, peak RSS **8,737,144KiB**.
+- The actual `kernelAct_trace`, `identityLevelEquiv`, `kernelFakeEC`, and `kernelFakeEC_act` all print exactly **`[propext, Classical.choice, Quot.sound]`**. The typed FakeEC example also compiles.
+
+This proves the actual tangent bridge and the complete original-carrier N=1 FakeEC construction. It does **not** prove full-level-three generation or the complete D5 converse. No Generation or 1378-module torsion cone was built.
+
 ## Still required
 
-1. Import-ready normalized trace/interface and geometric torsion-cardinality cones, with warm compiled dependencies.
-2. Build `Construction`, `Generation`, `Assembly`, `Count`, and `Checks/Assembly` against those exact definitions; repair any real errors.
+1. Import-ready normalized geometric torsion-cardinality cone, with warm compiled dependencies. The trace/interface core is now ready and used by Construction.
+2. Build `Generation`, `Assembly`, `Count`, and `Checks/Assembly` against those exact definitions; repair any real errors.
 3. Check `d5_obligation`'s exact type and full axioms. Any H119 integration/discharge is the lead's separate verification, not supplied by this partial handoff.
 
 ## Scope and provenance

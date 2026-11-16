@@ -157,7 +157,8 @@ def kernelFakeEC [CharZero K] (P : AV.QML3 K) : FakeEC K where
     change (kernelLaw P.A).mul t ((kernelLaw P.A).one t) Q = _
     rw [(kernelLaw P.A).one_mul]
     exact (factors_kernelIdentity_iff P.A t Q).mp hQ
-  lev_stable x t Q hQ := by
+  lev_stable := by
+    intro x T t Q hQ
     apply (factors_kernelIdentity_iff P.A t _).mpr
     rw [(factors_kernelIdentity_iff P.A t Q).mp hQ]
     apply Subtype.ext
@@ -166,8 +167,11 @@ def kernelFakeEC [CharZero K] (P : AV.QML3 K) : FakeEC K where
   lev_flat := by rw [kernelIdentity_over]; infer_instance
   lev_finitePresentation := by rw [kernelIdentity_over]; infer_instance
   lev_rank s := by rw [kernelIdentity_over, Scheme.Hom.finrank_eq_one_of_isIso]; rfl
-  lev_fibre k sk _ := ⟨identityLevelEquiv P k sk, fun _ _ =>
-    ((kernelLaw P.A).one_mul (geomPoint k sk) ((kernelLaw P.A).one _)).symm⟩
+  lev_fibre := by
+    intro k _ _ sk hn
+    refine ⟨identityLevelEquiv P k sk, ?_⟩
+    intro x y
+    exact ((kernelLaw P.A).one_mul (geomPoint k sk) ((kernelLaw P.A).one _)).symm
 
 @[simp] theorem kernelFakeEC_act [CharZero K] (P : AV.QML3 K) (a : O) :
     (kernelFakeEC P).act (toΛ a) = (P.q.iota a).hom.left := by
