@@ -1,5 +1,6 @@
 """Offline dispatch/provenance/recovery checks; no API or candidate code runs."""
 import copy
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -103,6 +104,22 @@ class KernelDispatch(unittest.TestCase):
     def tearDown(self):
         self.patch.stop()
         self.tmp.cleanup()
+
+    def test_gate_pin_matches_cache_restricted_workflow(self):
+        kernel = (ROOT / '.github/workflows/kernel-lean.yml').read_text(encoding='utf-8')
+        self.assertEqual(gate.LEAN_WORKFLOW_SHA256, hashlib.sha256(kernel.encode()).hexdigest())
+        self.assertIn("if: github.ref == 'refs/heads/main' && (steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false')", kernel)
+
+    def test_existing_direct_run_cannot_bypass_old_cache_workflow_rejection(self):
+        gh = KernelGH()
+        gh.runs = [gh.run()]
+        gh.kernel_text = gh.kernel_text.replace(
+            "github.ref == 'refs/heads/main' && (steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false')",
+            "steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false'")
+        with self.assertRaisesRegex(ValueError, 'dispatch configuration'):
+            gate.ensure_kernel_dispatch(gh, gh.pr)
+        self.assertFalse(gh.writes)
+        self.assertFalse(gh.dispatches)
 
     def test_workflow_and_all_helper_trees_must_match_protected_base(self):
         for prefix in ('scripts', 'tests', '.github'):
