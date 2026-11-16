@@ -76,6 +76,8 @@ theorem stwE5_isInvertible_sectionIdeal (c : C ⟶ Spec (CommRingCat.of R))
   exact Scheme.Hom.isInvertible_ker_of_comp_eq_id (RelPicard.rigSection c t ε) hσq
 
 end AlgebraicGeometry
+-- Deferred source P2M scope: the top-level open of the local namespace(s), once declared.
+open _root_.P2MW.S_AlgebraicGeometry_RelPicard_nonempty_pullback_sectionTwist_iso.AlgebraicGeometry
 
 theorem solution
     (R : Type u) [CommRing R] {C : Scheme.{u}} (c : C ⟶ Spec (CommRingCat.of R))

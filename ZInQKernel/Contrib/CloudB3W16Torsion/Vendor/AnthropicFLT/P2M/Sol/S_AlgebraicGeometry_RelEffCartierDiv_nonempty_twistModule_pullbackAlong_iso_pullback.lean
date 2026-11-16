@@ -73,6 +73,8 @@ theorem lbT_sectionIdeal_comap (c : C ⟶ Spec (CommRingCat.of R)) [IsSeparated 
   simp only [hpt']
 
 end AlgebraicGeometry
+-- Deferred source P2M scope: the top-level open of the local namespace(s), once declared.
+open _root_.P2MW.S_AlgebraicGeometry_RelEffCartierDiv_nonempty_twistModule_pullbackAlong_iso_pullback.AlgebraicGeometry
 
 variable {R : Type u} [CommRing R] {C : Scheme.{u}}
 

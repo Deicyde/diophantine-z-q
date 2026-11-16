@@ -28,7 +28,6 @@ open CategoryTheory.MonoidalCategory
 open AlgebraicGeometry
 -- Source-local namespace open deferred until its declaration.
 open AlgebraicGeometry.RelPicard
-open P2MW.S_AlgebraicGeometry_RelPicard_nonempty_invModule_prodKerGraph_tensor_module_pow_iso_pointsSubBasepointModule.AlgebraicGeometry.RelPicard
 open NeronModelInfra
 
 namespace AlgebraicGeometry
@@ -107,6 +106,8 @@ theorem main (ε : SchemeHomOver (𝟙 (Spec (CommRingCat.of k))) a) {r : ℕ}
     exact ⟨(c₁ ⊗ᵢ c₂) ≪≫ (e₁ ⊗ᵢ e₂) ≪≫ shuffle _ _ _ _ ≪≫ whiskerLeftIso _ e₃⟩
 
 end AlgebraicGeometry.RelPicard.TensorList
+-- Deferred source P2M scope: the top-level open of the local namespace(s), once declared.
+open _root_.P2MW.S_AlgebraicGeometry_RelPicard_nonempty_invModule_prodKerGraph_tensor_module_pow_iso_pointsSubBasepointModule.AlgebraicGeometry _root_.P2MW.S_AlgebraicGeometry_RelPicard_nonempty_invModule_prodKerGraph_tensor_module_pow_iso_pointsSubBasepointModule.AlgebraicGeometry.RelPicard
 
 theorem solution
     {k : Type u} [Field k] {A : Scheme.{u}} {a : A ⟶ Spec (CommRingCat.of k)}
