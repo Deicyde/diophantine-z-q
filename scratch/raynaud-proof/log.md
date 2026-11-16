@@ -32,3 +32,13 @@ type `ReductGlue.RaynaudSemistableSH`, TailZ14 L1105).
 - `lake env lean ZInQKernel/Contrib/OneProof/RaynaudSemistableCP.lean`: no errors, no warnings (first version).
 - `lake build +ZInQKernel.Contrib.OneProof.RaynaudSemistableCP +ZInQKernel.OneProof.Discharges`: "Build completed
   successfully (12999 jobs)" (RingClassGalois and the OneProof tail were rebuilt: stale traces in the copied build).
+
+## 2026-11-16 13:45-14:00 checks (VERIFIED)
+- `lake build +ZInQKernel.OneProof.Main`: Build completed successfully (13697 jobs).
+- DischargesCheck.lean: `#discharges: 56 open hypotheses, 2871 theorems checked, 7 discharge one`; none from
+  RaynaudCP (expected: no discharge). Axioms of consumers_of_cp, consumers_of_cp_leaves, raynaudSemistableSHcp_of_SH:
+  [propext, Classical.choice, Quot.sound].
+- Statements.lean: verbatim copies rfl-equal (needed `open ... MonObj` for the group instance on Pt); exit 0.
+- FieldUse.lean (2m56s): closure 259583 constants; readers of the field/its type: OpenResearchLeaves14..26.mk,
+  the pass-through maps 14_of_15 .. 25_of_26, HDec.HSyn.raynaudSemistable_of14, ReductB.raynaudSemistable_of_SH_pair,
+  ReductGlue.raynaudSemistable_of_SH'. Nothing else.

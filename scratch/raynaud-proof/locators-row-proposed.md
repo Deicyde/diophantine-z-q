@@ -1,0 +1,3 @@
+Proposed locators.md row (raynaud-proof), to sit under the existing R6 rows:
+
+| R6 (cp): Raynaud's criterion, char 0 and algebraically closed residue field | SGA 7 I, Exp. IX, Prop. 4.7 (unread); Silverberg-Zarhin AIF 45 (1995) Thm 3.5 citing it (see R6) | - | as R6 | **Specialization** of the R6 torsion criterion to strictly henselian DVRs of characteristic 0 with algebraically closed residue field (`ReductB.RaynaudSemistableSHcp`). Under either reading of SGA 7's base (any strictly henselian trait, or algebraically closed residue field) this is the print or a consequence. The m = 3 boundary of R6 is unchanged and still UNVERIFIED. |

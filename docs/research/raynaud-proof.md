@@ -179,6 +179,25 @@ If dict-models' fold (`raynaudSemistableSH` → `RaynaudSemistableSHOr`) lands f
 
 Compile, axioms and `#discharges` output: §7.
 
-## 7. Checks
+## 7. Checks (VERIFIED; outputs in `scratch/raynaud-proof/`)
 
-See `scratch/raynaud-proof/log.md` for the commands and outputs.
+* `lake build +ZInQKernel.Contrib.OneProof.RaynaudSemistableCP +ZInQKernel.OneProof.Discharges`: "Build completed
+  successfully (12999 jobs)"; then `lake build +ZInQKernel.OneProof.Main`: "Build completed successfully (13697 jobs)".
+* `#discharges` (`DischargesCheck.lean`, output `discharges-output.txt`): `56 open hypotheses, 2871 theorems checked,
+  7 discharge one`. None of the seven is in `RaynaudCP`: as expected, no theorem of this file proves an open
+  hypothesis, because the field is not discharged. Axioms of `consumers_of_cp`, `consumers_of_cp_leaves` and
+  `raynaudSemistableSHcp_of_SH`: `[propext, Classical.choice, Quot.sound]`.
+* Verbatim statement check (`Statements.lean`, output `statements-output.txt`): copies of `RaynaudSemistableSH` and
+  `RaynaudSemistableSHcp` are `rfl`-equal to the originals; exit 0.
+* Closure probe (`FieldUse.lean`, output `fielduse-output.txt`, about 3 min): the closure of
+  `ZInQ.OneProof.frozenTarget` has 259,583 constants. Those that mention `ReductGlue.RaynaudSemistableSH` or any
+  projection `OpenResearchLeavesN.raynaudSemistableSH` are:
+  * the constructors `OpenResearchLeaves14.mk` … `26.mk`;
+  * the pass-through maps `openResearchLeaves14_of_…15` … `25_of_…26`;
+  * `HDec.HSyn.raynaudSemistable_of14`;
+  * the two lemmas taking the leaf as a hypothesis, `ReductB.raynaudSemistable_of_SH_pair` and
+    `ReductGlue.raynaudSemistable_of_SH'`.
+
+  So `raynaudSemistable_of14` is the only reader. Its readers (grep) are `raynaudCriterionNF_of14` and
+  `semistableReductionDVR_of14`, and the latter is read only by `ss1_ss3_of14NF`. These are exactly the two
+  conclusions `consumers_of_cp` provides.

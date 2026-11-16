@@ -18,8 +18,8 @@ open Lean Meta Elab Command
       for d in ci.getUsedConstantsAsSet do
         unless visited.contains d do stack := stack.push d
   IO.println s!"closure size {visited.size}"
-  let watched : NameSet := visited.fold (init := ({} : NameSet).insert `ReductGlue.RaynaudSemistableSH)
-    fun s n => if n.getString! == "raynaudSemistableSH" then s.insert n else s
+  let watched : NameSet := visited.toList.foldl (init := ({} : NameSet).insert `ReductGlue.RaynaudSemistableSH)
+    fun s n => if (match n with | .str _ s => s == "raynaudSemistableSH" | _ => false) then s.insert n else s
   IO.println s!"watched {watched.toList}"
   let mut readers : Array (Name × List Name) := #[]
   for c in visited.toList do

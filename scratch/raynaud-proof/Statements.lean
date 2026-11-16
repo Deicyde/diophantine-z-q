@@ -2,7 +2,7 @@ import ZInQKernel.Contrib.OneProof.RaynaudSemistableCP
 
 /-! raynaud-proof: verbatim copies of the field and of the restricted leaf, checked against the originals. -/
 
-open CategoryTheory AlgebraicGeometry
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open ReductSplit ReductGlue
 
 namespace RaynaudProofCopy
