@@ -41,10 +41,10 @@ export _root_.AlgebraicGeometry.Scheme (Modules.Hom.app_smul forget ringCatSheaf
 namespace Modules
 export _root_.AlgebraicGeometry.Scheme.Modules (hom_ext Hom.app_smul pushforward pullback presheaf restrictAdjunction_unit_app_app Hom.comp_app Hom Hom.id_app Hom.app restrictAdjunction pullbackCongr Hom.isIso_iff_isIso_app pullbackPushforwardAdjunction conjugateEquiv_pullbackComp_inv map_smul pullbackComp exists_linearEquiv_sections_baseChange_of_locallyTrivial)
 namespace StageTransport
-open AlgebraicGeometry.Scheme.Modules
-open AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme
 open AlgebraicGeometry
-open AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme.Modules
 -- Deferred synthetic P2M scope; existing root namespace retained.
 
 section Comp
@@ -123,6 +123,8 @@ theorem appLE_algebraMap_eq' {A : Type u} [CommRing A] (q₀ : Y ⟶ Spec (.of A
 end Scalars
 
 end AlgebraicGeometry.Scheme.Modules.StageTransport
+-- Deferred source P2M scope: the top-level open of the local namespace, once declared.
+open _root_.P2MW.S_AlgebraicGeometry_Scheme_TwoAffineOpenCover_exists_stage_sectionsOf_baseChange_equiv_of_locallyTrivial.AlgebraicGeometry
 
 namespace AlgebraicGeometry
 export _root_.AlgebraicGeometry (Spec.map_comp Scheme.Modules.Hom.app_smul Scheme.Modules.pushforward Scheme.Modules.pullback Scheme.Hom Scheme.Hom.appLE_comp_appLE Scheme.Modules.Hom.comp_app Scheme.Modules.Hom Scheme.Hom.image_preimage_eq_opensRange_inf Spec Spec.map Scheme Scheme.Modules.Hom.app Scheme.Hom.preimage_mono Scheme.Hom.opensRange_of_isIso Scheme.Modules.pullbackCongr Scheme.Modules.pullbackPushforwardAdjunction IsAffineOpen Scheme.Modules Scheme.Hom.comp_preimage Scheme.Modules.map_smul Scheme.Modules.pullbackComp Scheme.ΓSpecIso RelPicard.baseChangeSnd Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap RelPicard.LFP.stageHom Scheme.TwoAffineOpenCover.baseChangeSnd_preimage_U0 Scheme.TwoAffineOpenCover.baseChangeSnd_preimage_U1 Scheme.TwoAffineOpenCover.baseChangeSnd_preimage_inf Scheme.Modules.exists_linearEquiv_sections_baseChange_of_locallyTrivial)
@@ -131,8 +133,8 @@ export _root_.AlgebraicGeometry.Scheme (Modules.Hom.app_smul forget ringCatSheaf
 namespace Modules
 export _root_.AlgebraicGeometry.Scheme.Modules (hom_ext Hom.app_smul pushforward pullback presheaf restrictAdjunction_unit_app_app Hom.comp_app Hom Hom.id_app Hom.app restrictAdjunction pullbackCongr Hom.isIso_iff_isIso_app pullbackPushforwardAdjunction conjugateEquiv_pullbackComp_inv map_smul pullbackComp exists_linearEquiv_sections_baseChange_of_locallyTrivial)
 namespace StageTransport
-open AlgebraicGeometry.Scheme.Modules
-open AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme
 open AlgebraicGeometry
 
 theorem unit_app_map {X' X₀ : Scheme.{u}} (σ : X' ⟶ X₀) (M : X₀.Modules) {U V : X₀.Opens} (h : V ≤ U)
@@ -163,11 +165,11 @@ namespace TwoAffineOpenCover
 export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (specMap cover pullback isAffineOpen_U0 isAffineOpen_inf U1 U0 isAffineOpen_U1 moduleSectionsOfHom sectionsOf baseChangeSnd_fst baseChangeSnd_preimage_U0 baseChangeSnd_preimage_U1 baseChangeSnd_preimage_inf)
 namespace StageBC
 open AlgebraicGeometry.Scheme.TwoAffineOpenCover
-open AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry.Scheme
 open AlgebraicGeometry
-open AlgebraicGeometry.Scheme.Modules
--- Deferred synthetic P2M scope; existing root namespace retained.
--- Deferred synthetic P2M scope; existing root namespace retained.
+open _root_.AlgebraicGeometry.Scheme.Modules _root_.P2MW.S_AlgebraicGeometry_Scheme_TwoAffineOpenCover_exists_stage_sectionsOf_baseChange_equiv_of_locallyTrivial.AlgebraicGeometry.Scheme.Modules
+-- Source P2M scope (local namespaces, already declared above):
+open _root_.P2MW.S_AlgebraicGeometry_Scheme_TwoAffineOpenCover_exists_stage_sectionsOf_baseChange_equiv_of_locallyTrivial.AlgebraicGeometry.Scheme.Modules _root_.P2MW.S_AlgebraicGeometry_Scheme_TwoAffineOpenCover_exists_stage_sectionsOf_baseChange_equiv_of_locallyTrivial.AlgebraicGeometry.Scheme.Modules.StageTransport
 
 theorem exists_linearEquiv_transport
     {A' : Type u} [CommRing A'] {X' Z X₀ : Scheme.{u}} (κ : X' ⟶ Z) [IsIso κ] (fZ : Z ⟶ X₀) (σ : X' ⟶ X₀)
@@ -284,6 +286,8 @@ theorem exists_linearEquiv_sections_stage
   exact ⟨eZ.trans T, fun m => by rw [LinearEquiv.trans_apply, heZ, hT]⟩
 
 end AlgebraicGeometry.Scheme.TwoAffineOpenCover.StageBC
+-- Deferred source P2M scope: the top-level open of the local namespace, once declared.
+open _root_.P2MW.S_AlgebraicGeometry_Scheme_TwoAffineOpenCover_exists_stage_sectionsOf_baseChange_equiv_of_locallyTrivial.AlgebraicGeometry.Scheme.TwoAffineOpenCover
 
 set_option maxHeartbeats 6400000 in
 theorem solution
