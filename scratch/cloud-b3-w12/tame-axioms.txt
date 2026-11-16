@@ -1,0 +1,2 @@
+'HDec.CloudB3W12Tame.tameQuotientSmooth_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
+HDec.CloudB3W12Tame.tameQuotientSmooth_proof : HDec.MCRGlue.TameQuotientSmooth
