@@ -33,7 +33,7 @@ universe u
 open CategoryTheory AlgebraicGeometry Opposite TensorProduct
 
 namespace TwoChartCech
-export TwoChartCech (exists_twoTermComplex_kerMapBaseChange_bijective finrank_ker_baseChange_eq_of_field_extension nonempty_kerBaseChangeTowerEquiv)
+export _root_.TwoChartCech (exists_twoTermComplex_kerMapBaseChange_bijective finrank_ker_baseChange_eq_of_field_extension nonempty_kerBaseChangeTowerEquiv)
 open TwoChartCech
 namespace Family
 

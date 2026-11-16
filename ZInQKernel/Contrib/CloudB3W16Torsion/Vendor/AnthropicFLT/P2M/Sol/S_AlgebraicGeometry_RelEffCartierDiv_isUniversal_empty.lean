@@ -21,12 +21,12 @@ universe u
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_RelEffCartierDiv_isUniversal_empty.AlgebraicGeometry
+-- Deferred synthetic P2M scope: root namespace remains open.
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme Scheme.IdealSheafData.comap_top Scheme.IdealSheafData RelEffCartierDiv.empty RelEffCartierDiv.empty_I RelEffCartierDiv)
+export _root_.AlgebraicGeometry (Scheme Scheme.IdealSheafData.comap_top Scheme.IdealSheafData RelEffCartierDiv.empty RelEffCartierDiv.empty_I RelEffCartierDiv)
 namespace RelEffCartierDiv
-export AlgebraicGeometry.RelEffCartierDiv (empty empty_I I_eq_top_of_degree_zero ext I IsUniversal)
+export _root_.AlgebraicGeometry.RelEffCartierDiv (empty empty_I I_eq_top_of_degree_zero ext I IsUniversal)
 open AlgebraicGeometry.RelEffCartierDiv
 open AlgebraicGeometry
 

@@ -28,11 +28,11 @@ open Opposite
 noncomputable section
 
 namespace PresheafOfModules
-export PresheafOfModules (presheaf map Hom restriction mk homMk obj InternalHom.presheaf ihomObj)
+export _root_.PresheafOfModules (presheaf map Hom restriction mk homMk obj InternalHom.presheaf ihomObj)
 open PresheafOfModules
 
 namespace InternalHom
-export PresheafOfModules.InternalHom (naturalFamilies naturalFamilies_ext naturality congr_app presheaf)
+export _root_.PresheafOfModules.InternalHom (naturalFamilies naturalFamilies_ext naturality congr_app presheaf)
 open PresheafOfModules.InternalHom
 
 variable {C : Type u'} [Category.{v'} C] {R : Cᵒᵖ ⥤ CommRingCat.{u}}

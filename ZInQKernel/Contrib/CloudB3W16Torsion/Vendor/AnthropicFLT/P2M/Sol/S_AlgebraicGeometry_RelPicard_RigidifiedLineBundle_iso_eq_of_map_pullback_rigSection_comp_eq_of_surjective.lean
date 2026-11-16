@@ -23,15 +23,15 @@ universe u
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_RelPicard_RigidifiedLineBundle_iso_eq_of_map_pullback_rigSection_comp_eq_of_surjective.AlgebraicGeometry
+-- Deferred synthetic P2M scope: root namespace remains open.
 open Opposite
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Surjective Scheme.Modules.pullback Scheme.Hom Scheme.Modules.Hom Spec Scheme Scheme.Modules.Hom.id_app Scheme.Modules.Hom.app Scheme.Hom.appTop Scheme.Hom.comp_appTop Scheme.Hom.naturality Scheme.Modules Scheme.Modules.IsInvertible Scheme.Modules.IsInvertible.existsUnique_app_eq_smul)
+export _root_.AlgebraicGeometry (Surjective Scheme.Modules.pullback Scheme.Hom Scheme.Modules.Hom Spec Scheme Scheme.Modules.Hom.id_app Scheme.Modules.Hom.app Scheme.Hom.appTop Scheme.Hom.comp_appTop Scheme.Hom.naturality Scheme.Modules Scheme.Modules.IsInvertible Scheme.Modules.IsInvertible.existsUnique_app_eq_smul)
 namespace Scheme
-export AlgebraicGeometry.Scheme (ringCatSheaf Modules.pullback Hom.id_app Hom Γ Hom.app Modules.Hom Modules.Hom.id_app Modules.Hom.app Hom.appTop Hom.comp_appTop Hom.naturality Modules Opens Modules.map_smul PresheafOfModules Modules.IsInvertible Modules.IsInvertible.existsUnique_app_eq_smul)
+export _root_.AlgebraicGeometry.Scheme (ringCatSheaf Modules.pullback Hom.id_app Hom Γ Hom.app Modules.Hom Modules.Hom.id_app Modules.Hom.app Hom.appTop Hom.comp_appTop Hom.naturality Modules Opens Modules.map_smul PresheafOfModules Modules.IsInvertible Modules.IsInvertible.existsUnique_app_eq_smul)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (Hom.app_smul pushforward pullback presheaf Hom mapPresheaf_app Hom.id_app Hom.app pullbackPushforwardAdjunction map_smul IsInvertible IsInvertible.existsUnique_app_eq_smul)
+export _root_.AlgebraicGeometry.Scheme.Modules (Hom.app_smul pushforward pullback presheaf Hom mapPresheaf_app Hom.id_app Hom.app pullbackPushforwardAdjunction map_smul IsInvertible IsInvertible.existsUnique_app_eq_smul)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry
@@ -181,7 +181,7 @@ end AlgebraicGeometry.Scheme.Modules
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_RelPicard_RigidifiedLineBundle_iso_eq_of_map_pullback_rigSection_comp_eq_of_surjective.AlgebraicGeometry
+-- Deferred synthetic P2M scope: root namespace remains open.
 open AlgebraicGeometry.RelPicard
 open NeronModelInfra
 open _root_.AlgebraicGeometry.Scheme.Modules _root_.P2MW.S_AlgebraicGeometry_RelPicard_RigidifiedLineBundle_iso_eq_of_map_pullback_rigSection_comp_eq_of_surjective.AlgebraicGeometry.Scheme.Modules in

@@ -20,7 +20,7 @@ universe u v
 open CategoryTheory
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme Proj.mem_basicOpen Proj Proj.isAffineOpen_basicOpen Proj.basicOpen IsAffineOpen IsAffineHom)
+export _root_.AlgebraicGeometry (Scheme Proj.mem_basicOpen Proj Proj.isAffineOpen_basicOpen Proj.basicOpen IsAffineOpen IsAffineHom)
 open AlgebraicGeometry
 section ProjOpen
 variable {A σ : Type*} [CommRing A] [SetLike σ A] [AddSubgroupClass σ A] (𝒜 : ℕ → σ) [GradedRing 𝒜]

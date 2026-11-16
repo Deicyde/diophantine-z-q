@@ -23,7 +23,7 @@ universe u
 open CategoryTheory AlgebraicGeometry IsLocalRing Topology
 
 namespace AlgebraicCurve
-export AlgebraicCurve (Place baseToFunctionField isClosed_singleton_of_ne_genericPoint)
+export _root_.AlgebraicCurve (Place baseToFunctionField isClosed_singleton_of_ne_genericPoint)
 open AlgebraicCurve
 
 theorem exists_lift_of_valuationSubring

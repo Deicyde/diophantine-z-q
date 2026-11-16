@@ -36,7 +36,7 @@ universe u
 open CategoryTheory CategoryTheory.Limits Opposite TensorProduct
 
 namespace TwoChartCech
-export TwoChartCech (kerBaseChangeHom kerBaseChangeHom_apply_coe)
+export _root_.TwoChartCech (kerBaseChangeHom kerBaseChangeHom_apply_coe)
 open TwoChartCech
 
 theorem kerBaseChangeHom_bijective_of_flat {R : Type u} [CommRing R] {C0 C1 : Type u} [AddCommGroup C0]
@@ -120,11 +120,11 @@ end ChangeField
 end TwoChartCech
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Spec IsIntegral Scheme Flat Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap)
+export _root_.AlgebraicGeometry (Spec IsIntegral Scheme Flat Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Γ TwoAffineOpenCover TwoAffineOpenCover.specMap)
+export _root_.AlgebraicGeometry.Scheme (Γ TwoAffineOpenCover TwoAffineOpenCover.specMap)
 namespace TwoAffineOpenCover
-export AlgebraicGeometry.Scheme.TwoAffineOpenCover (specMap algebraOfHom structureSheafSections pullback toH0_bijective exists_baseChangeIsos_structureSheaf)
+export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (specMap algebraOfHom structureSheafSections pullback toH0_bijective exists_baseChangeIsos_structureSheaf)
 open AlgebraicGeometry.Scheme.TwoAffineOpenCover
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry

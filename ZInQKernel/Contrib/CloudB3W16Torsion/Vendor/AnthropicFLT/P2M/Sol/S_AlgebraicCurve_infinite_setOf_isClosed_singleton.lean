@@ -24,7 +24,7 @@ open CategoryTheory AlgebraicGeometry IsLocalRing
 universe u
 
 namespace AlgebraicCurve
-export AlgebraicCurve (isClosed_singleton_of_ne_genericPoint)
+export _root_.AlgebraicCurve (isClosed_singleton_of_ne_genericPoint)
 namespace LInf
 open AlgebraicCurve
 

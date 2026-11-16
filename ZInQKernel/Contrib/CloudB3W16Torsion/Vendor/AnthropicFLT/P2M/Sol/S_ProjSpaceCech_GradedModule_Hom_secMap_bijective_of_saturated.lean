@@ -31,7 +31,7 @@ noncomputable section
 open Finset Function MvPolynomial
 
 namespace ProjSpaceCech
-export ProjSpaceCech (GradedModule GradedModule.monMul GradedModule.monMul_add_apply GradedModule.monMul_single GradedModule.Frac GradedModule.sec GradedModule.sec.mk GradedModule.sec_mk_eq GradedModule.Hom GradedModule.Hom.secMap GradedModule.Hom.secMap_injective)
+export _root_.ProjSpaceCech (GradedModule GradedModule.monMul GradedModule.monMul_add_apply GradedModule.monMul_single GradedModule.Frac GradedModule.sec GradedModule.sec.mk GradedModule.sec_mk_eq GradedModule.Hom GradedModule.Hom.secMap GradedModule.Hom.secMap_injective)
 open ProjSpaceCech
 
 section SecMapSat

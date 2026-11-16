@@ -22,7 +22,7 @@ set_option autoImplicit false
 universe u
 
 namespace TwoChartCech
-export TwoChartCech (Cover Sections Sections.cechDiff_apply Sections.finite_H1_of_chartFinite kerMap_injective_of_H0_eq_zero)
+export _root_.TwoChartCech (Cover Sections Sections.cechDiff_apply Sections.finite_H1_of_chartFinite kerMap_injective_of_H0_eq_zero)
 namespace SerreH0
 open TwoChartCech
 
@@ -73,7 +73,7 @@ theorem P1Cover_ρ1_apply (p : R[X]) :
 end TwoChartCech.SerreH0
 
 namespace TwoChartCech
-export TwoChartCech (Cover Sections Sections.cechDiff_apply Sections.finite_H1_of_chartFinite kerMap_injective_of_H0_eq_zero)
+export _root_.TwoChartCech (Cover Sections Sections.cechDiff_apply Sections.finite_H1_of_chartFinite kerMap_injective_of_H0_eq_zero)
 namespace SerreH0
 open TwoChartCech
 open Polynomial LaurentPolynomial
@@ -154,7 +154,7 @@ theorem ker_cechDiff_twistSections_eq_bot (m a : ℕ) (ha : 1 ≤ a) :
 end TwoChartCech.SerreH0
 
 namespace TwoChartCech
-export TwoChartCech (Cover Sections Sections.cechDiff_apply Sections.finite_H1_of_chartFinite kerMap_injective_of_H0_eq_zero)
+export _root_.TwoChartCech (Cover Sections Sections.cechDiff_apply Sections.finite_H1_of_chartFinite kerMap_injective_of_H0_eq_zero)
 namespace SerreH0
 open TwoChartCech
 open Polynomial LaurentPolynomial
@@ -224,7 +224,7 @@ end evalUnit
 end TwoChartCech.SerreH0
 
 namespace TwoChartCech
-export TwoChartCech (Cover Sections Sections.cechDiff_apply Sections.finite_H1_of_chartFinite kerMap_injective_of_H0_eq_zero)
+export _root_.TwoChartCech (Cover Sections Sections.cechDiff_apply Sections.finite_H1_of_chartFinite kerMap_injective_of_H0_eq_zero)
 namespace SerreH0
 open TwoChartCech
 open Polynomial LaurentPolynomial
@@ -322,7 +322,7 @@ end SerreData
 end TwoChartCech.SerreH0
 
 namespace TwoChartCech
-export TwoChartCech (Cover Sections Sections.cechDiff_apply Sections.finite_H1_of_chartFinite kerMap_injective_of_H0_eq_zero)
+export _root_.TwoChartCech (Cover Sections Sections.cechDiff_apply Sections.finite_H1_of_chartFinite kerMap_injective_of_H0_eq_zero)
 namespace SerreH0
 open TwoChartCech
 open Polynomial LaurentPolynomial
@@ -533,7 +533,7 @@ end construction
 end TwoChartCech.SerreH0
 
 namespace TwoChartCech
-export TwoChartCech (Cover Sections Sections.cechDiff_apply Sections.finite_H1_of_chartFinite kerMap_injective_of_H0_eq_zero)
+export _root_.TwoChartCech (Cover Sections Sections.cechDiff_apply Sections.finite_H1_of_chartFinite kerMap_injective_of_H0_eq_zero)
 namespace SerreH0
 open TwoChartCech
 open Polynomial LaurentPolynomial
@@ -638,7 +638,7 @@ end SerreData
 end TwoChartCech.SerreH0
 
 namespace TwoChartCech
-export TwoChartCech (Cover Sections Sections.cechDiff_apply Sections.finite_H1_of_chartFinite kerMap_injective_of_H0_eq_zero)
+export _root_.TwoChartCech (Cover Sections Sections.cechDiff_apply Sections.finite_H1_of_chartFinite kerMap_injective_of_H0_eq_zero)
 namespace SerreH0
 open TwoChartCech
 open Polynomial LaurentPolynomial

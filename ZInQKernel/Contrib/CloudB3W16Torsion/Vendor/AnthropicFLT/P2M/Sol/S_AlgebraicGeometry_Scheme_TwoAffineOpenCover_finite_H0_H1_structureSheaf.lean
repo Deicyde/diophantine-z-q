@@ -23,7 +23,7 @@ set_option autoImplicit false
 universe u
 
 namespace TwoChartCech
-export TwoChartCech (Cover Sections Sections.cechDiff_apply Cover.lineBundle_r0_apply Cover.lineBundle_r1_apply kerMap cokerMap)
+export _root_.TwoChartCech (Cover Sections Sections.cechDiff_apply Cover.lineBundle_r0_apply Cover.lineBundle_r1_apply kerMap cokerMap)
 namespace Sk1
 open TwoChartCech
 

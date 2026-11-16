@@ -26,14 +26,14 @@ universe u
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_isIso_baseChangeHom_of_forall_exists_isPullback.AlgebraicGeometry
+-- Deferred synthetic P2M scope: root namespace remains open.
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.pullback Scheme.Hom Scheme.Modules.Hom.comp_app Scheme.Modules.Hom Scheme Scheme.Modules.Hom.app IsOpenImmersion Scheme.Hom.opensRange_comp_of_isIso Scheme.Modules Scheme.Opens Scheme.Opens.opensRange_ι Scheme.Modules.baseChangeHom)
+export _root_.AlgebraicGeometry (Scheme.Modules.pullback Scheme.Hom Scheme.Modules.Hom.comp_app Scheme.Modules.Hom Scheme Scheme.Modules.Hom.app IsOpenImmersion Scheme.Hom.opensRange_comp_of_isIso Scheme.Modules Scheme.Opens Scheme.Opens.opensRange_ι Scheme.Modules.baseChangeHom)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Modules.pullback Hom Modules.Hom.comp_app Hom.app Modules.Hom Modules.Hom.app Hom.comp_app Hom.opensRange_comp_of_isIso Modules Opens Opens.opensRange_ι restrict Modules.baseChangeHom)
+export _root_.AlgebraicGeometry.Scheme (Modules.pullback Hom Modules.Hom.comp_app Hom.app Modules.Hom Modules.Hom.app Hom.comp_app Hom.opensRange_comp_of_isIso Modules Opens Opens.opensRange_ι restrict Modules.baseChangeHom)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (pushforward pullback Hom.comp_app Hom Hom.app Hom.isIso_iff_isIso_app pullbackPushforwardAdjunction restrict pullbackComp baseChangeHom baseChangeHom_comp_horizontal isIso_baseChangeHom_iff_of_isPullback isIso_baseChangeHom_of_isOpenImmersion Hom.isIso_of_isIso_app_of_iSup_eq_top bijective_unit_app_of_le_opensRange)
+export _root_.AlgebraicGeometry.Scheme.Modules (pushforward pullback Hom.comp_app Hom Hom.app Hom.isIso_iff_isIso_app pullbackPushforwardAdjunction restrict pullbackComp baseChangeHom baseChangeHom_comp_horizontal isIso_baseChangeHom_iff_of_isPullback isIso_baseChangeHom_of_isOpenImmersion Hom.isIso_of_isIso_app_of_iSup_eq_top bijective_unit_app_of_le_opensRange)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry

@@ -22,11 +22,11 @@ namespace P2MW.S_AlgebraicCurve_Place_exists_forall_adicValuation_sub_le
 set_option autoImplicit false
 
 namespace AlgebraicCurve
-export AlgebraicCurve (Place Place.adicValuation_le_exp_iff Place.exists_forall_ord_eq_finset)
+export _root_.AlgebraicCurve (Place Place.adicValuation_le_exp_iff Place.exists_forall_ord_eq_finset)
 open AlgebraicCurve
 
 namespace Place
-export AlgebraicCurve.Place (adicValuation ord ord_zero ord_one ord_mul ord_inv ord_zpow adicValuation_le_exp_iff exists_forall_ord_eq_finset ord_add_eq_of_lt min_ord_le_ord_add ord_neg)
+export _root_.AlgebraicCurve.Place (adicValuation ord ord_zero ord_one ord_mul ord_inv ord_zpow adicValuation_le_exp_iff exists_forall_ord_eq_finset ord_add_eq_of_lt min_ord_le_ord_add ord_neg)
 open AlgebraicCurve.Place
 
 variable {K F : Type*} [Field K] [Field F] [Algebra K F] (v : Place K F)
@@ -35,7 +35,7 @@ private theorem _root_.AlgebraicCurve.Place.wa_add_ne_zero_of_ord_lt {f g : F} (
   intro h0
   rw [eq_neg_of_add_eq_zero_right h0, v.ord_neg] at hlt
   exact lt_irrefl _ hlt
-export AlgebraicCurve.Place (wa_add_ne_zero_of_ord_lt)
+export _root_.AlgebraicCurve.Place (wa_add_ne_zero_of_ord_lt)
 private theorem _root_.AlgebraicCurve.Place.wa_min_ord_le_ord_add {f g : F} (hfg : f + g ≠ 0) :
     min (v.ord f) (v.ord g) ≤ v.ord (f + g) := by
   rcases eq_or_ne f 0 with rfl | hf
@@ -43,7 +43,7 @@ private theorem _root_.AlgebraicCurve.Place.wa_min_ord_le_ord_add {f g : F} (hfg
   rcases eq_or_ne g 0 with rfl | hg
   · rw [add_zero]; exact min_le_left _ _
   exact v.min_ord_le_ord_add hf hg hfg
-export AlgebraicCurve.Place (wa_min_ord_le_ord_add)
+export _root_.AlgebraicCurve.Place (wa_min_ord_le_ord_add)
 theorem wa_exists_separating_finset [DecidableEq (Place K F)] (T : Finset (Place K F)) :
     ∃ t : F, t ≠ 0 ∧ v.ord t = 1 ∧ ∀ w ∈ T, w ≠ v → w.ord t = -1 := by
   obtain ⟨t, ht0, ht⟩ :=
@@ -70,7 +70,7 @@ private theorem _root_.AlgebraicCurve.Place.wa_ord_finsetSum_ge {ι : Type*} (s 
         · rcases eq_or_ne (g i + s.sum g) 0 with hz' | hz'
           · exact Or.inl hz'
           · exact Or.inr (le_trans (le_min hgi hlt) (v.wa_min_ord_le_ord_add hz'))
-export AlgebraicCurve.Place (wa_ord_finsetSum_ge)
+export _root_.AlgebraicCurve.Place (wa_ord_finsetSum_ge)
 end Place
 
 end AlgebraicCurve

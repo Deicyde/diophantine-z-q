@@ -26,7 +26,7 @@ namespace P2MW.S_AlgebraicCurve_exists_forall_adicValuation_sub_le_of_riemannGen
 set_option autoImplicit false
 
 namespace AlgebraicCurve
-export AlgebraicCurve (Place Divisor Divisor.degree Divisor.degree_single HasPrincipalDivisors HasPrincipalDivisors.exists_divisor IsCurveOver LSpace ell mem_lSpace_iff_ord mem_adeleBdd diagonalHom_apply adeleSpace adeleBdd_le_adeleSpace RiemannGenusReachedAt finiteDimensional_lSpace RiemannGenusReachedAt.eq_of_ge adeleSpace_eq_of_genusReached one_le_deg ell_add_of_forall_eq_ord)
+export _root_.AlgebraicCurve (Place Divisor Divisor.degree Divisor.degree_single HasPrincipalDivisors HasPrincipalDivisors.exists_divisor IsCurveOver LSpace ell mem_lSpace_iff_ord mem_adeleBdd diagonalHom_apply adeleSpace adeleBdd_le_adeleSpace RiemannGenusReachedAt finiteDimensional_lSpace RiemannGenusReachedAt.eq_of_ge adeleSpace_eq_of_genusReached one_le_deg ell_add_of_forall_eq_ord)
 open AlgebraicCurve
 
 theorem strongApprox_aux {K F : Type*} [Field K] [Field F] [Algebra K F] [IsCurveOver K F]

@@ -39,7 +39,7 @@ section Topology
 include π in
 private theorem _root_.P2mFiltQ.isLocallyNoetherian [IsNoetherianRing R] [IsProper π] : IsLocallyNoetherian V :=
   LocallyOfFiniteType.isLocallyNoetherian π
-export P2mFiltQ (isLocallyNoetherian)
+export _root_.P2mFiltQ (isLocallyNoetherian)
 include π in
 theorem compactSpace [IsProper π] : CompactSpace V :=
   (HasAffineProperty.iff_of_isAffine (P := @QuasiCompact) (f := π)).mp inferInstance

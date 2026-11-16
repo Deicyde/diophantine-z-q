@@ -22,7 +22,7 @@ set_option autoImplicit false
 universe u
 open CategoryTheory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_ProjSpace_exists_sec_shift_twistGradedModule_equiv.AlgebraicGeometry
+-- Deferred synthetic P2M scope: root namespace remains open.
 
 attribute [local instance] MvPolynomial.gradedAlgebra
 
@@ -38,9 +38,9 @@ noncomputable section
 open CategoryTheory Opposite MvPolynomial HomogeneousLocalization TopologicalSpace
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.mem_basicOpen Scheme.basicOpen_res Surjective Scheme.preimage_basicOpen Spec Scheme Proj.mem_basicOpen Proj Proj.stalkIso' Proj.basicOpen Proj.basicOpen_mul Scheme.basicOpen_mul IsAffineOpen IsAffineHom Proj.awayToSection Scheme.basicOpen_le ProjectiveSpectrum.Proj.awayToSection_germ ProjSpace.X_mem_one Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom ProjSpace.pullbackChart ProjSpace.twistObj ProjSpace.twistRes ProjSpace.twistGradedModule)
+export _root_.AlgebraicGeometry (Scheme.mem_basicOpen Scheme.basicOpen_res Surjective Scheme.preimage_basicOpen Spec Scheme Proj.mem_basicOpen Proj Proj.stalkIso' Proj.basicOpen Proj.basicOpen_mul Scheme.basicOpen_mul IsAffineOpen IsAffineHom Proj.awayToSection Scheme.basicOpen_le ProjectiveSpectrum.Proj.awayToSection_germ ProjSpace.X_mem_one Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom ProjSpace.pullbackChart ProjSpace.twistObj ProjSpace.twistRes ProjSpace.twistGradedModule)
 namespace ProjSpace
-export AlgebraicGeometry.ProjSpace (π X_mem_one ratio map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twistRes twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twist_res_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
+export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one ratio map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twistRes twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twist_res_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 namespace GMSec
 open AlgebraicGeometry.ProjSpace
 open AlgebraicGeometry
@@ -107,9 +107,9 @@ noncomputable section
 open CategoryTheory Opposite MvPolynomial HomogeneousLocalization TopologicalSpace
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.mem_basicOpen Scheme.basicOpen_res Surjective Scheme.preimage_basicOpen Spec Scheme Proj.mem_basicOpen Proj Proj.stalkIso' Proj.basicOpen Proj.basicOpen_mul Scheme.basicOpen_mul IsAffineOpen IsAffineHom Proj.awayToSection Scheme.basicOpen_le ProjectiveSpectrum.Proj.awayToSection_germ ProjSpace.X_mem_one Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom ProjSpace.pullbackChart ProjSpace.twistObj ProjSpace.twistRes ProjSpace.twistGradedModule)
+export _root_.AlgebraicGeometry (Scheme.mem_basicOpen Scheme.basicOpen_res Surjective Scheme.preimage_basicOpen Spec Scheme Proj.mem_basicOpen Proj Proj.stalkIso' Proj.basicOpen Proj.basicOpen_mul Scheme.basicOpen_mul IsAffineOpen IsAffineHom Proj.awayToSection Scheme.basicOpen_le ProjectiveSpectrum.Proj.awayToSection_germ ProjSpace.X_mem_one Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom ProjSpace.pullbackChart ProjSpace.twistObj ProjSpace.twistRes ProjSpace.twistGradedModule)
 namespace ProjSpace
-export AlgebraicGeometry.ProjSpace (π X_mem_one ratio map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twistRes twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twist_res_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
+export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one ratio map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twistRes twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twist_res_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 namespace GMSec
 open AlgebraicGeometry.ProjSpace
 open AlgebraicGeometry
@@ -211,9 +211,9 @@ noncomputable section
 open CategoryTheory Opposite MvPolynomial HomogeneousLocalization TopologicalSpace
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.mem_basicOpen Scheme.basicOpen_res Surjective Scheme.preimage_basicOpen Spec Scheme Proj.mem_basicOpen Proj Proj.stalkIso' Proj.basicOpen Proj.basicOpen_mul Scheme.basicOpen_mul IsAffineOpen IsAffineHom Proj.awayToSection Scheme.basicOpen_le ProjectiveSpectrum.Proj.awayToSection_germ ProjSpace.X_mem_one Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom ProjSpace.pullbackChart ProjSpace.twistObj ProjSpace.twistRes ProjSpace.twistGradedModule)
+export _root_.AlgebraicGeometry (Scheme.mem_basicOpen Scheme.basicOpen_res Surjective Scheme.preimage_basicOpen Spec Scheme Proj.mem_basicOpen Proj Proj.stalkIso' Proj.basicOpen Proj.basicOpen_mul Scheme.basicOpen_mul IsAffineOpen IsAffineHom Proj.awayToSection Scheme.basicOpen_le ProjectiveSpectrum.Proj.awayToSection_germ ProjSpace.X_mem_one Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom ProjSpace.pullbackChart ProjSpace.twistObj ProjSpace.twistRes ProjSpace.twistGradedModule)
 namespace ProjSpace
-export AlgebraicGeometry.ProjSpace (π X_mem_one ratio map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twistRes twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twist_res_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
+export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one ratio map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twistRes twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twist_res_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 namespace GMSec
 open AlgebraicGeometry.ProjSpace
 open AlgebraicGeometry
@@ -271,9 +271,9 @@ noncomputable section
 open CategoryTheory Opposite MvPolynomial HomogeneousLocalization TopologicalSpace
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.mem_basicOpen Scheme.basicOpen_res Surjective Scheme.preimage_basicOpen Spec Scheme Proj.mem_basicOpen Proj Proj.stalkIso' Proj.basicOpen Proj.basicOpen_mul Scheme.basicOpen_mul IsAffineOpen IsAffineHom Proj.awayToSection Scheme.basicOpen_le ProjectiveSpectrum.Proj.awayToSection_germ ProjSpace.X_mem_one Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom ProjSpace.pullbackChart ProjSpace.twistObj ProjSpace.twistRes ProjSpace.twistGradedModule)
+export _root_.AlgebraicGeometry (Scheme.mem_basicOpen Scheme.basicOpen_res Surjective Scheme.preimage_basicOpen Spec Scheme Proj.mem_basicOpen Proj Proj.stalkIso' Proj.basicOpen Proj.basicOpen_mul Scheme.basicOpen_mul IsAffineOpen IsAffineHom Proj.awayToSection Scheme.basicOpen_le ProjectiveSpectrum.Proj.awayToSection_germ ProjSpace.X_mem_one Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom ProjSpace.pullbackChart ProjSpace.twistObj ProjSpace.twistRes ProjSpace.twistGradedModule)
 namespace ProjSpace
-export AlgebraicGeometry.ProjSpace (π X_mem_one ratio map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twistRes twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twist_res_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
+export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one ratio map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twistRes twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twist_res_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 namespace GMSec
 open AlgebraicGeometry.ProjSpace
 open AlgebraicGeometry
@@ -329,9 +329,9 @@ noncomputable section
 open CategoryTheory Opposite MvPolynomial HomogeneousLocalization TopologicalSpace
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.mem_basicOpen Scheme.basicOpen_res Surjective Scheme.preimage_basicOpen Spec Scheme Proj.mem_basicOpen Proj Proj.stalkIso' Proj.basicOpen Proj.basicOpen_mul Scheme.basicOpen_mul IsAffineOpen IsAffineHom Proj.awayToSection Scheme.basicOpen_le ProjectiveSpectrum.Proj.awayToSection_germ ProjSpace.X_mem_one Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom ProjSpace.pullbackChart ProjSpace.twistObj ProjSpace.twistRes ProjSpace.twistGradedModule)
+export _root_.AlgebraicGeometry (Scheme.mem_basicOpen Scheme.basicOpen_res Surjective Scheme.preimage_basicOpen Spec Scheme Proj.mem_basicOpen Proj Proj.stalkIso' Proj.basicOpen Proj.basicOpen_mul Scheme.basicOpen_mul IsAffineOpen IsAffineHom Proj.awayToSection Scheme.basicOpen_le ProjectiveSpectrum.Proj.awayToSection_germ ProjSpace.X_mem_one Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom ProjSpace.pullbackChart ProjSpace.twistObj ProjSpace.twistRes ProjSpace.twistGradedModule)
 namespace ProjSpace
-export AlgebraicGeometry.ProjSpace (π X_mem_one ratio map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twistRes twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twist_res_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
+export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one ratio map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twistRes twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twist_res_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 namespace GMSec
 open AlgebraicGeometry.ProjSpace
 open AlgebraicGeometry
@@ -434,9 +434,9 @@ noncomputable section
 open CategoryTheory Opposite MvPolynomial HomogeneousLocalization TopologicalSpace
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.mem_basicOpen Scheme.basicOpen_res Surjective Scheme.preimage_basicOpen Spec Scheme Proj.mem_basicOpen Proj Proj.stalkIso' Proj.basicOpen Proj.basicOpen_mul Scheme.basicOpen_mul IsAffineOpen IsAffineHom Proj.awayToSection Scheme.basicOpen_le ProjectiveSpectrum.Proj.awayToSection_germ ProjSpace.X_mem_one Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom ProjSpace.pullbackChart ProjSpace.twistObj ProjSpace.twistRes ProjSpace.twistGradedModule)
+export _root_.AlgebraicGeometry (Scheme.mem_basicOpen Scheme.basicOpen_res Surjective Scheme.preimage_basicOpen Spec Scheme Proj.mem_basicOpen Proj Proj.stalkIso' Proj.basicOpen Proj.basicOpen_mul Scheme.basicOpen_mul IsAffineOpen IsAffineHom Proj.awayToSection Scheme.basicOpen_le ProjectiveSpectrum.Proj.awayToSection_germ ProjSpace.X_mem_one Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom ProjSpace.pullbackChart ProjSpace.twistObj ProjSpace.twistRes ProjSpace.twistGradedModule)
 namespace ProjSpace
-export AlgebraicGeometry.ProjSpace (π X_mem_one ratio map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twistRes twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twist_res_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
+export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one ratio map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twistRes twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twist_res_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 namespace GMSec
 open AlgebraicGeometry.ProjSpace
 open AlgebraicGeometry
@@ -505,9 +505,9 @@ noncomputable section
 open CategoryTheory Opposite MvPolynomial HomogeneousLocalization TopologicalSpace
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.mem_basicOpen Scheme.basicOpen_res Surjective Scheme.preimage_basicOpen Spec Scheme Proj.mem_basicOpen Proj Proj.stalkIso' Proj.basicOpen Proj.basicOpen_mul Scheme.basicOpen_mul IsAffineOpen IsAffineHom Proj.awayToSection Scheme.basicOpen_le ProjectiveSpectrum.Proj.awayToSection_germ ProjSpace.X_mem_one Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom ProjSpace.pullbackChart ProjSpace.twistObj ProjSpace.twistRes ProjSpace.twistGradedModule)
+export _root_.AlgebraicGeometry (Scheme.mem_basicOpen Scheme.basicOpen_res Surjective Scheme.preimage_basicOpen Spec Scheme Proj.mem_basicOpen Proj Proj.stalkIso' Proj.basicOpen Proj.basicOpen_mul Scheme.basicOpen_mul IsAffineOpen IsAffineHom Proj.awayToSection Scheme.basicOpen_le ProjectiveSpectrum.Proj.awayToSection_germ ProjSpace.X_mem_one Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom ProjSpace.pullbackChart ProjSpace.twistObj ProjSpace.twistRes ProjSpace.twistGradedModule)
 namespace ProjSpace
-export AlgebraicGeometry.ProjSpace (π X_mem_one ratio map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twistRes twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twist_res_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
+export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one ratio map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twistRes twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twist_res_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 namespace GMSec
 open AlgebraicGeometry.ProjSpace
 open AlgebraicGeometry
@@ -568,9 +568,9 @@ noncomputable section
 open CategoryTheory Opposite MvPolynomial HomogeneousLocalization TopologicalSpace
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.mem_basicOpen Scheme.basicOpen_res Surjective Scheme.preimage_basicOpen Spec Scheme Proj.mem_basicOpen Proj Proj.stalkIso' Proj.basicOpen Proj.basicOpen_mul Scheme.basicOpen_mul IsAffineOpen IsAffineHom Proj.awayToSection Scheme.basicOpen_le ProjectiveSpectrum.Proj.awayToSection_germ ProjSpace.X_mem_one Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom ProjSpace.pullbackChart ProjSpace.twistObj ProjSpace.twistRes ProjSpace.twistGradedModule)
+export _root_.AlgebraicGeometry (Scheme.mem_basicOpen Scheme.basicOpen_res Surjective Scheme.preimage_basicOpen Spec Scheme Proj.mem_basicOpen Proj Proj.stalkIso' Proj.basicOpen Proj.basicOpen_mul Scheme.basicOpen_mul IsAffineOpen IsAffineHom Proj.awayToSection Scheme.basicOpen_le ProjectiveSpectrum.Proj.awayToSection_germ ProjSpace.X_mem_one Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom ProjSpace.pullbackChart ProjSpace.twistObj ProjSpace.twistRes ProjSpace.twistGradedModule)
 namespace ProjSpace
-export AlgebraicGeometry.ProjSpace (π X_mem_one ratio map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twistRes twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twist_res_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
+export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one ratio map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twistRes twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twist_res_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 namespace GMSec
 open AlgebraicGeometry.ProjSpace
 open AlgebraicGeometry
@@ -650,9 +650,9 @@ end Inj
 end AlgebraicGeometry.ProjSpace.GMSec
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.mem_basicOpen Scheme.basicOpen_res Surjective Scheme.preimage_basicOpen Spec Scheme Proj.mem_basicOpen Proj Proj.stalkIso' Proj.basicOpen Proj.basicOpen_mul Scheme.basicOpen_mul IsAffineOpen IsAffineHom Proj.awayToSection Scheme.basicOpen_le ProjectiveSpectrum.Proj.awayToSection_germ ProjSpace.X_mem_one Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom ProjSpace.pullbackChart ProjSpace.twistObj ProjSpace.twistRes ProjSpace.twistGradedModule)
+export _root_.AlgebraicGeometry (Scheme.mem_basicOpen Scheme.basicOpen_res Surjective Scheme.preimage_basicOpen Spec Scheme Proj.mem_basicOpen Proj Proj.stalkIso' Proj.basicOpen Proj.basicOpen_mul Scheme.basicOpen_mul IsAffineOpen IsAffineHom Proj.awayToSection Scheme.basicOpen_le ProjectiveSpectrum.Proj.awayToSection_germ ProjSpace.X_mem_one Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom ProjSpace.pullbackChart ProjSpace.twistObj ProjSpace.twistRes ProjSpace.twistGradedModule)
 namespace ProjSpace
-export AlgebraicGeometry.ProjSpace (π X_mem_one ratio map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twistRes twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twist_res_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
+export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one ratio map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twistRes twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twist_res_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 namespace GMSec
 open AlgebraicGeometry.ProjSpace
 open AlgebraicGeometry
@@ -731,9 +731,9 @@ noncomputable section
 open CategoryTheory Opposite MvPolynomial HomogeneousLocalization TopologicalSpace
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.mem_basicOpen Scheme.basicOpen_res Surjective Scheme.preimage_basicOpen Spec Scheme Proj.mem_basicOpen Proj Proj.stalkIso' Proj.basicOpen Proj.basicOpen_mul Scheme.basicOpen_mul IsAffineOpen IsAffineHom Proj.awayToSection Scheme.basicOpen_le ProjectiveSpectrum.Proj.awayToSection_germ ProjSpace.X_mem_one Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom ProjSpace.pullbackChart ProjSpace.twistObj ProjSpace.twistRes ProjSpace.twistGradedModule)
+export _root_.AlgebraicGeometry (Scheme.mem_basicOpen Scheme.basicOpen_res Surjective Scheme.preimage_basicOpen Spec Scheme Proj.mem_basicOpen Proj Proj.stalkIso' Proj.basicOpen Proj.basicOpen_mul Scheme.basicOpen_mul IsAffineOpen IsAffineHom Proj.awayToSection Scheme.basicOpen_le ProjectiveSpectrum.Proj.awayToSection_germ ProjSpace.X_mem_one Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom ProjSpace.pullbackChart ProjSpace.twistObj ProjSpace.twistRes ProjSpace.twistGradedModule)
 namespace ProjSpace
-export AlgebraicGeometry.ProjSpace (π X_mem_one ratio map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twistRes twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twist_res_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
+export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one ratio map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twistRes twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twist_res_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 namespace GMSec
 open AlgebraicGeometry.ProjSpace
 open AlgebraicGeometry
@@ -819,9 +819,9 @@ end Surj
 end AlgebraicGeometry.ProjSpace.GMSec
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.mem_basicOpen Scheme.basicOpen_res Surjective Scheme.preimage_basicOpen Spec Scheme Proj.mem_basicOpen Proj Proj.stalkIso' Proj.basicOpen Proj.basicOpen_mul Scheme.basicOpen_mul IsAffineOpen IsAffineHom Proj.awayToSection Scheme.basicOpen_le ProjectiveSpectrum.Proj.awayToSection_germ ProjSpace.X_mem_one Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom ProjSpace.pullbackChart ProjSpace.twistObj ProjSpace.twistRes ProjSpace.twistGradedModule)
+export _root_.AlgebraicGeometry (Scheme.mem_basicOpen Scheme.basicOpen_res Surjective Scheme.preimage_basicOpen Spec Scheme Proj.mem_basicOpen Proj Proj.stalkIso' Proj.basicOpen Proj.basicOpen_mul Scheme.basicOpen_mul IsAffineOpen IsAffineHom Proj.awayToSection Scheme.basicOpen_le ProjectiveSpectrum.Proj.awayToSection_germ ProjSpace.X_mem_one Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom ProjSpace.pullbackChart ProjSpace.twistObj ProjSpace.twistRes ProjSpace.twistGradedModule)
 namespace ProjSpace
-export AlgebraicGeometry.ProjSpace (π X_mem_one ratio map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twistRes twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twist_res_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
+export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one ratio map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twistRes twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twist_res_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 namespace GMSec
 open AlgebraicGeometry.ProjSpace
 open AlgebraicGeometry
@@ -906,9 +906,9 @@ end Surj3
 end AlgebraicGeometry.ProjSpace.GMSec
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.mem_basicOpen Scheme.basicOpen_res Surjective Scheme.preimage_basicOpen Spec Scheme Proj.mem_basicOpen Proj Proj.stalkIso' Proj.basicOpen Proj.basicOpen_mul Scheme.basicOpen_mul IsAffineOpen IsAffineHom Proj.awayToSection Scheme.basicOpen_le ProjectiveSpectrum.Proj.awayToSection_germ ProjSpace.X_mem_one Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom ProjSpace.pullbackChart ProjSpace.twistObj ProjSpace.twistRes ProjSpace.twistGradedModule)
+export _root_.AlgebraicGeometry (Scheme.mem_basicOpen Scheme.basicOpen_res Surjective Scheme.preimage_basicOpen Spec Scheme Proj.mem_basicOpen Proj Proj.stalkIso' Proj.basicOpen Proj.basicOpen_mul Scheme.basicOpen_mul IsAffineOpen IsAffineHom Proj.awayToSection Scheme.basicOpen_le ProjectiveSpectrum.Proj.awayToSection_germ ProjSpace.X_mem_one Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom ProjSpace.pullbackChart ProjSpace.twistObj ProjSpace.twistRes ProjSpace.twistGradedModule)
 namespace ProjSpace
-export AlgebraicGeometry.ProjSpace (π X_mem_one ratio map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twistRes twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twist_res_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
+export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one ratio map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twistRes twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twist_res_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 namespace GMSec
 open AlgebraicGeometry.ProjSpace
 open AlgebraicGeometry
@@ -1016,9 +1016,9 @@ noncomputable section
 open CategoryTheory Opposite MvPolynomial HomogeneousLocalization TopologicalSpace
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.mem_basicOpen Scheme.basicOpen_res Surjective Scheme.preimage_basicOpen Spec Scheme Proj.mem_basicOpen Proj Proj.stalkIso' Proj.basicOpen Proj.basicOpen_mul Scheme.basicOpen_mul IsAffineOpen IsAffineHom Proj.awayToSection Scheme.basicOpen_le ProjectiveSpectrum.Proj.awayToSection_germ ProjSpace.X_mem_one Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom ProjSpace.pullbackChart ProjSpace.twistObj ProjSpace.twistRes ProjSpace.twistGradedModule)
+export _root_.AlgebraicGeometry (Scheme.mem_basicOpen Scheme.basicOpen_res Surjective Scheme.preimage_basicOpen Spec Scheme Proj.mem_basicOpen Proj Proj.stalkIso' Proj.basicOpen Proj.basicOpen_mul Scheme.basicOpen_mul IsAffineOpen IsAffineHom Proj.awayToSection Scheme.basicOpen_le ProjectiveSpectrum.Proj.awayToSection_germ ProjSpace.X_mem_one Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom ProjSpace.pullbackChart ProjSpace.twistObj ProjSpace.twistRes ProjSpace.twistGradedModule)
 namespace ProjSpace
-export AlgebraicGeometry.ProjSpace (π X_mem_one ratio map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twistRes twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twist_res_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
+export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one ratio map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twistRes twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twist_res_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 namespace GMSec
 open AlgebraicGeometry.ProjSpace
 open AlgebraicGeometry
@@ -1087,9 +1087,9 @@ end Nat
 end AlgebraicGeometry.ProjSpace.GMSec
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.mem_basicOpen Scheme.basicOpen_res Surjective Scheme.preimage_basicOpen Spec Scheme Proj.mem_basicOpen Proj Proj.stalkIso' Proj.basicOpen Proj.basicOpen_mul Scheme.basicOpen_mul IsAffineOpen IsAffineHom Proj.awayToSection Scheme.basicOpen_le ProjectiveSpectrum.Proj.awayToSection_germ ProjSpace.X_mem_one Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom ProjSpace.pullbackChart ProjSpace.twistObj ProjSpace.twistRes ProjSpace.twistGradedModule)
+export _root_.AlgebraicGeometry (Scheme.mem_basicOpen Scheme.basicOpen_res Surjective Scheme.preimage_basicOpen Spec Scheme Proj.mem_basicOpen Proj Proj.stalkIso' Proj.basicOpen Proj.basicOpen_mul Scheme.basicOpen_mul IsAffineOpen IsAffineHom Proj.awayToSection Scheme.basicOpen_le ProjectiveSpectrum.Proj.awayToSection_germ ProjSpace.X_mem_one Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom ProjSpace.pullbackChart ProjSpace.twistObj ProjSpace.twistRes ProjSpace.twistGradedModule)
 namespace ProjSpace
-export AlgebraicGeometry.ProjSpace (π X_mem_one ratio map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twistRes twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twist_res_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
+export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one ratio map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twistRes twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twist_res_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 namespace GMSec
 open AlgebraicGeometry.ProjSpace
 open AlgebraicGeometry
@@ -1169,9 +1169,9 @@ end AlgebraicGeometry.ProjSpace.GMSec
 end
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.mem_basicOpen Scheme.basicOpen_res Surjective Scheme.preimage_basicOpen Spec Scheme Proj.mem_basicOpen Proj Proj.stalkIso' Proj.basicOpen Proj.basicOpen_mul Scheme.basicOpen_mul IsAffineOpen IsAffineHom Proj.awayToSection Scheme.basicOpen_le ProjectiveSpectrum.Proj.awayToSection_germ ProjSpace.X_mem_one Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom ProjSpace.pullbackChart ProjSpace.twistObj ProjSpace.twistRes ProjSpace.twistGradedModule)
+export _root_.AlgebraicGeometry (Scheme.mem_basicOpen Scheme.basicOpen_res Surjective Scheme.preimage_basicOpen Spec Scheme Proj.mem_basicOpen Proj Proj.stalkIso' Proj.basicOpen Proj.basicOpen_mul Scheme.basicOpen_mul IsAffineOpen IsAffineHom Proj.awayToSection Scheme.basicOpen_le ProjectiveSpectrum.Proj.awayToSection_germ ProjSpace.X_mem_one Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom ProjSpace.pullbackChart ProjSpace.twistObj ProjSpace.twistRes ProjSpace.twistGradedModule)
 namespace ProjSpace
-export AlgebraicGeometry.ProjSpace (π X_mem_one ratio map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twistRes twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twist_res_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
+export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one ratio map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twistRes twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twist_res_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 open AlgebraicGeometry.ProjSpace
 open AlgebraicGeometry
 

@@ -37,9 +37,9 @@ open CategoryTheory CategoryTheory.Limits TensorProduct
 open CategoryTheory CategoryTheory.Limits TensorProduct
 
 namespace Algebra
-export Algebra (TensorProduct.rid ofId IsPushout TensorProduct.includeRight mk algebraMap TensorProduct.lTensor_ker IsPushout.equiv smul_def TensorProduct.includeLeft id TensorProduct.map TensorProduct.includeLeftRingHom FinitePresentation)
+export _root_.Algebra (TensorProduct.rid ofId IsPushout TensorProduct.includeRight mk algebraMap TensorProduct.lTensor_ker IsPushout.equiv smul_def TensorProduct.includeLeft id TensorProduct.map TensorProduct.includeLeftRingHom FinitePresentation)
 namespace IsPushout
-export Algebra.IsPushout (mk equiv symm)
+export _root_.Algebra.IsPushout (mk equiv symm)
 open Algebra.IsPushout
 open Algebra
 
@@ -86,7 +86,7 @@ theorem ker_algebraMap_eq_map_ker
 end Algebra.IsPushout
 
 namespace CommRingCat
-export CommRingCat (hom_comp free of hom_ext flat ofHom hom_ofHom Hom isPushout_tensorProduct isPushout_iff_isPushout)
+export _root_.CommRingCat (hom_comp free of hom_ext flat ofHom hom_ofHom Hom isPushout_tensorProduct isPushout_iff_isPushout)
 open CommRingCat
 
 theorem ker_eq_map_ker_of_isPushout {R B C P : CommRingCat.{u}} {f : R ⟶ B} {g : R ⟶ C}
@@ -103,11 +103,11 @@ theorem ker_eq_map_ker_of_isPushout {R B C P : CommRingCat.{u}} {f : R ⟶ B} {g
 end CommRingCat
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Hom.resLE_comp_ι Scheme.Hom.map_appLE Scheme.Opens.topIso_inv Scheme.IdealSheafData.equivOfIsAffine Surjective HasAffineProperty IsFinite.iff_isIntegralHom_and_locallyOfFiniteType isPushout_appTop_of_isPullback Scheme.Hom Scheme.Hom.flat_appTop Scheme.Opens.ι_appIso ext_of_isAffine IsIntegralHom UniversallyClosed IsFinite isAffine_of_isAffineHom QuasiCompact IsAffine LocallyOfFiniteType Spec Spec.map Scheme Scheme.Hom.appTop Scheme.Opens.topIso_hom HasAffineProperty.iff_of_isAffine Flat Scheme.Hom.finrank_of_isPullback isAffineOpen_top Scheme.isoSpec_hom_naturality Scheme.IdealSheafData.ext_of_isAffine Scheme.IdealSheafData.ideal_map_of_isAffineHom HasRingHomProperty.descendsAlong_flat Scheme.Hom.ker_apply Scheme.Opens Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE LocallyOfFinitePresentation Scheme.Hom.resLE_app_top Scheme.Opens.ι_image_top IsAffineHom Scheme.IdealSheafData.ofIdealTop HasRingHomProperty isIntegral_appTop_of_universallyClosed Scheme.IdealSheafData RelEffCartierDiv RelEffCartierDiv.ext mapOnProdOver mapOnProdOver_fst mapOnProdOver_snd isPullback_mapOnProdOver isPullback_comap_snd_over RelEffCartierDiv.I mapOnProdOver_snd_assoc Scheme.IdealSheafData.comap_injective_of_flat_of_surjective)
+export _root_.AlgebraicGeometry (Scheme.Hom.resLE_comp_ι Scheme.Hom.map_appLE Scheme.Opens.topIso_inv Scheme.IdealSheafData.equivOfIsAffine Surjective HasAffineProperty IsFinite.iff_isIntegralHom_and_locallyOfFiniteType isPushout_appTop_of_isPullback Scheme.Hom Scheme.Hom.flat_appTop Scheme.Opens.ι_appIso ext_of_isAffine IsIntegralHom UniversallyClosed IsFinite isAffine_of_isAffineHom QuasiCompact IsAffine LocallyOfFiniteType Spec Spec.map Scheme Scheme.Hom.appTop Scheme.Opens.topIso_hom HasAffineProperty.iff_of_isAffine Flat Scheme.Hom.finrank_of_isPullback isAffineOpen_top Scheme.isoSpec_hom_naturality Scheme.IdealSheafData.ext_of_isAffine Scheme.IdealSheafData.ideal_map_of_isAffineHom HasRingHomProperty.descendsAlong_flat Scheme.Hom.ker_apply Scheme.Opens Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE LocallyOfFinitePresentation Scheme.Hom.resLE_app_top Scheme.Opens.ι_image_top IsAffineHom Scheme.IdealSheafData.ofIdealTop HasRingHomProperty isIntegral_appTop_of_universallyClosed Scheme.IdealSheafData RelEffCartierDiv RelEffCartierDiv.ext mapOnProdOver mapOnProdOver_fst mapOnProdOver_snd isPullback_mapOnProdOver isPullback_comap_snd_over RelEffCartierDiv.I mapOnProdOver_snd_assoc Scheme.IdealSheafData.comap_injective_of_flat_of_surjective)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Hom.resLE_comp_ι Hom.map_appLE Opens.topIso_inv IdealSheafData.equivOfIsAffine Hom mk Γ Hom.flat_appTop Opens.ι_appIso topIso_hom Hom.appTop Opens.topIso_hom isoSpec Hom.finrank_of_isPullback affineOpens isoSpec_hom_naturality IdealSheafData.ext_of_isAffine IdealSheafData.ideal_map_of_isAffineHom Hom.ker_apply Opens Hom.appLE_map Hom.app_eq_appLE Hom.resLE_app_top Opens.ι_image_top IdealSheafData.ofIdealTop restrict IdealSheafData IdealSheafData.comap_injective_of_flat_of_surjective)
+export _root_.AlgebraicGeometry.Scheme (Hom.resLE_comp_ι Hom.map_appLE Opens.topIso_inv IdealSheafData.equivOfIsAffine Hom mk Γ Hom.flat_appTop Opens.ι_appIso topIso_hom Hom.appTop Opens.topIso_hom isoSpec Hom.finrank_of_isPullback affineOpens isoSpec_hom_naturality IdealSheafData.ext_of_isAffine IdealSheafData.ideal_map_of_isAffineHom Hom.ker_apply Opens Hom.appLE_map Hom.app_eq_appLE Hom.resLE_app_top Opens.ι_image_top IdealSheafData.ofIdealTop restrict IdealSheafData IdealSheafData.comap_injective_of_flat_of_surjective)
 namespace IdealSheafData
-export AlgebraicGeometry.Scheme.IdealSheafData (equivOfIsAffine comap_comp mk map subscheme subschemeι_app_surjective ideal ext_of_isAffine ideal_map_of_isAffineHom subschemeι comap ofIdealTop ker_subschemeι_app ideal_comap_of_isOpenImmersion comap_injective_of_flat_of_surjective)
+export _root_.AlgebraicGeometry.Scheme.IdealSheafData (equivOfIsAffine comap_comp mk map subscheme subschemeι_app_surjective ideal ext_of_isAffine ideal_map_of_isAffineHom subschemeι comap ofIdealTop ker_subschemeι_app ideal_comap_of_isOpenImmersion comap_injective_of_flat_of_surjective)
 open AlgebraicGeometry.Scheme.IdealSheafData
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry
@@ -179,9 +179,9 @@ scoped instance AlgebraicGeometry.Flat.descendsAlong_surjective_inf_flat_inf_qua
   AlgebraicGeometry.HasRingHomProperty.descendsAlong_flat RingHom.Flat.codescendsAlong_faithfullyFlat'
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Hom.resLE_comp_ι Scheme.Hom.map_appLE Scheme.Opens.topIso_inv Scheme.IdealSheafData.equivOfIsAffine Surjective HasAffineProperty IsFinite.iff_isIntegralHom_and_locallyOfFiniteType isPushout_appTop_of_isPullback Scheme.Hom Scheme.Hom.flat_appTop Scheme.Opens.ι_appIso ext_of_isAffine IsIntegralHom UniversallyClosed IsFinite isAffine_of_isAffineHom QuasiCompact IsAffine LocallyOfFiniteType Spec Spec.map Scheme Scheme.Hom.appTop Scheme.Opens.topIso_hom HasAffineProperty.iff_of_isAffine Flat Scheme.Hom.finrank_of_isPullback isAffineOpen_top Scheme.isoSpec_hom_naturality Scheme.IdealSheafData.ext_of_isAffine Scheme.IdealSheafData.ideal_map_of_isAffineHom HasRingHomProperty.descendsAlong_flat Scheme.Hom.ker_apply Scheme.Opens Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE LocallyOfFinitePresentation Scheme.Hom.resLE_app_top Scheme.Opens.ι_image_top IsAffineHom Scheme.IdealSheafData.ofIdealTop HasRingHomProperty isIntegral_appTop_of_universallyClosed Scheme.IdealSheafData RelEffCartierDiv RelEffCartierDiv.ext mapOnProdOver mapOnProdOver_fst mapOnProdOver_snd isPullback_mapOnProdOver isPullback_comap_snd_over RelEffCartierDiv.I mapOnProdOver_snd_assoc Scheme.IdealSheafData.comap_injective_of_flat_of_surjective)
+export _root_.AlgebraicGeometry (Scheme.Hom.resLE_comp_ι Scheme.Hom.map_appLE Scheme.Opens.topIso_inv Scheme.IdealSheafData.equivOfIsAffine Surjective HasAffineProperty IsFinite.iff_isIntegralHom_and_locallyOfFiniteType isPushout_appTop_of_isPullback Scheme.Hom Scheme.Hom.flat_appTop Scheme.Opens.ι_appIso ext_of_isAffine IsIntegralHom UniversallyClosed IsFinite isAffine_of_isAffineHom QuasiCompact IsAffine LocallyOfFiniteType Spec Spec.map Scheme Scheme.Hom.appTop Scheme.Opens.topIso_hom HasAffineProperty.iff_of_isAffine Flat Scheme.Hom.finrank_of_isPullback isAffineOpen_top Scheme.isoSpec_hom_naturality Scheme.IdealSheafData.ext_of_isAffine Scheme.IdealSheafData.ideal_map_of_isAffineHom HasRingHomProperty.descendsAlong_flat Scheme.Hom.ker_apply Scheme.Opens Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE LocallyOfFinitePresentation Scheme.Hom.resLE_app_top Scheme.Opens.ι_image_top IsAffineHom Scheme.IdealSheafData.ofIdealTop HasRingHomProperty isIntegral_appTop_of_universallyClosed Scheme.IdealSheafData RelEffCartierDiv RelEffCartierDiv.ext mapOnProdOver mapOnProdOver_fst mapOnProdOver_snd isPullback_mapOnProdOver isPullback_comap_snd_over RelEffCartierDiv.I mapOnProdOver_snd_assoc Scheme.IdealSheafData.comap_injective_of_flat_of_surjective)
 namespace RelEffCartierDiv
-export AlgebraicGeometry.RelEffCartierDiv (ext pullbackAlong I mk flat isFinite finrank_eq locallyOfFinitePresentation)
+export _root_.AlgebraicGeometry.RelEffCartierDiv (ext pullbackAlong I mk flat isFinite finrank_eq locallyOfFinitePresentation)
 namespace AffineDescent
 open AlgebraicGeometry.RelEffCartierDiv
 open AlgebraicGeometry

@@ -31,7 +31,7 @@ noncomputable section
 open Finset Function
 
 namespace ProjSpaceCech
-export ProjSpaceCech (Twist.MonExp Twist.negSupp Twist.mem_negSupp Twist.Mon Twist.Mon.incl Twist.Mon.incl_injective Twist.Sec Idx Idx.img Idx.card_img Idx.face Idx.img_face_subset Twist.faceRes Twist.cochain Twist.d Twist.d_apply Twist.cochain_subsingleton_of_lt Twist.H Twist.subsingleton_cohomology_succ_of_le Twist.subsingleton_cohomology_of_lt)
+export _root_.ProjSpaceCech (Twist.MonExp Twist.negSupp Twist.mem_negSupp Twist.Mon Twist.Mon.incl Twist.Mon.incl_injective Twist.Sec Idx Idx.img Idx.card_img Idx.face Idx.img_face_subset Twist.faceRes Twist.cochain Twist.d Twist.d_apply Twist.cochain_subsingleton_of_lt Twist.H Twist.subsingleton_cohomology_succ_of_le Twist.subsingleton_cohomology_of_lt)
 open ProjSpaceCech
 
 section Homotopy

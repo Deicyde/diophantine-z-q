@@ -23,11 +23,11 @@ universe u v
 noncomputable section
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.hom_ext Scheme.Modules.Hom.app_smul Surjective Scheme.Hom.opensRange_comp Scheme.Hom Scheme.Modules.Hom.comp_app Scheme.Modules.Hom Scheme.Hom.image_preimage_eq_opensRange_inf Scheme.Modules.restrictFunctorCongr Scheme Scheme.Modules.restrictFunctor Scheme.Modules.Hom.id_app Scheme.Modules.Hom.app IsOpenImmersion Scheme.Modules.restrictFunctorComp Scheme.Modules Scheme.Modules.map_smul Scheme.Hom.image_le_opensRange Scheme.Modules.exists_fibreProduct_sections_bijective Scheme.Modules.Hom.isIso_of_isIso_app_of_iSup_eq_top)
+export _root_.AlgebraicGeometry (Scheme.Modules.hom_ext Scheme.Modules.Hom.app_smul Surjective Scheme.Hom.opensRange_comp Scheme.Hom Scheme.Modules.Hom.comp_app Scheme.Modules.Hom Scheme.Hom.image_preimage_eq_opensRange_inf Scheme.Modules.restrictFunctorCongr Scheme Scheme.Modules.restrictFunctor Scheme.Modules.Hom.id_app Scheme.Modules.Hom.app IsOpenImmersion Scheme.Modules.restrictFunctorComp Scheme.Modules Scheme.Modules.map_smul Scheme.Hom.image_le_opensRange Scheme.Modules.exists_fibreProduct_sections_bijective Scheme.Modules.Hom.isIso_of_isIso_app_of_iSup_eq_top)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Modules.hom_ext Modules.Hom.app_smul Hom.opensRange_comp Hom.id_app Hom Γ Modules.Hom.comp_app Hom.app Modules.Hom Hom.image_preimage_eq_opensRange_inf Modules.restrictFunctorCongr Modules.restrictFunctor Modules.Hom.id_app Modules.Hom.app restrictFunctor Hom.comp_app Modules.restrictFunctorComp Modules Opens Modules.map_smul restrict Hom.image_le_opensRange PresheafOfModules Modules.exists_fibreProduct_sections_bijective Modules.Hom.isIso_of_isIso_app_of_iSup_eq_top)
+export _root_.AlgebraicGeometry.Scheme (Modules.hom_ext Modules.Hom.app_smul Hom.opensRange_comp Hom.id_app Hom Γ Modules.Hom.comp_app Hom.app Modules.Hom Hom.image_preimage_eq_opensRange_inf Modules.restrictFunctorCongr Modules.restrictFunctor Modules.Hom.id_app Modules.Hom.app restrictFunctor Hom.comp_app Modules.restrictFunctorComp Modules Opens Modules.map_smul restrict Hom.image_le_opensRange PresheafOfModules Modules.exists_fibreProduct_sections_bijective Modules.Hom.isIso_of_isIso_app_of_iSup_eq_top)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (hom_ext Hom.app_smul pushforward presheaf Hom.comp_app Hom restrictFunctorCongr restrictFunctor Hom.id_app Hom.app restrictAdjunction restrictFunctorComp restrict map_smul exists_fibreProduct_sections_bijective Hom.isIso_of_isIso_app_of_iSup_eq_top)
+export _root_.AlgebraicGeometry.Scheme.Modules (hom_ext Hom.app_smul pushforward presheaf Hom.comp_app Hom restrictFunctorCongr restrictFunctor Hom.id_app Hom.app restrictAdjunction restrictFunctorComp restrict map_smul exists_fibreProduct_sections_bijective Hom.isIso_of_isIso_app_of_iSup_eq_top)
 namespace GlueHom
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme

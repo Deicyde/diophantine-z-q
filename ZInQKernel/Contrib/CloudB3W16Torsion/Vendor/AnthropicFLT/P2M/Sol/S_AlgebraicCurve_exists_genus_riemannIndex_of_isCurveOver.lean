@@ -26,10 +26,10 @@ namespace P2MW.S_AlgebraicCurve_exists_genus_riemannIndex_of_isCurveOver
 
 open IntermediateField
 open AlgebraicCurve
-open P2MW.S_AlgebraicCurve_exists_genus_riemannIndex_of_isCurveOver.AlgebraicCurve
+-- Deferred synthetic P2M scope: root namespace remains open.
 
 namespace AlgebraicCurve
-export AlgebraicCurve (Divisor Divisor.degree IsCurveOver ell ConstantsAreBase adeleSpace indexOfSpecialty adeleBddPrincipal StichtenothGenusExists IsCurveOver.exists_separating_transcendental RationalFunctionField.stichtenothGenusExists exists_genus_riemannIndex_of_stichtenothGenusExists)
+export _root_.AlgebraicCurve (Divisor Divisor.degree IsCurveOver ell ConstantsAreBase adeleSpace indexOfSpecialty adeleBddPrincipal StichtenothGenusExists IsCurveOver.exists_separating_transcendental RationalFunctionField.stichtenothGenusExists exists_genus_riemannIndex_of_stichtenothGenusExists)
 namespace TowerFreePort
 open AlgebraicCurve
 theorem stichtenothGenusExists_of_isCurveOver_port {K : Type*} {F : Type*} [Field K] [Field F] [Algebra K F] [PerfectField K] [Algebra.EssFiniteType K F] [IsCurveOver K F] (hC : ConstantsAreBase K F) :

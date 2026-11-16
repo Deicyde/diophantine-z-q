@@ -25,10 +25,10 @@ namespace P2MW.S_AlgebraicCurve_stichtenothGenusExists_of_isCurveOver
 
 open IntermediateField
 open AlgebraicCurve
-open P2MW.S_AlgebraicCurve_stichtenothGenusExists_of_isCurveOver.AlgebraicCurve
+-- Deferred synthetic P2M scope: root namespace remains open.
 
 namespace AlgebraicCurve
-export AlgebraicCurve (IsCurveOver ConstantsAreBase StichtenothGenusExists IsCurveOver.exists_separating_transcendental RationalFunctionField.stichtenothGenusExists)
+export _root_.AlgebraicCurve (IsCurveOver ConstantsAreBase StichtenothGenusExists IsCurveOver.exists_separating_transcendental RationalFunctionField.stichtenothGenusExists)
 namespace TowerFreePort
 open AlgebraicCurve
 theorem solution {K : Type*} {F : Type*} [Field K] [Field F] [Algebra K F] [PerfectField K] [Algebra.EssFiniteType K F] [IsCurveOver K F] (hC : ConstantsAreBase K F) :

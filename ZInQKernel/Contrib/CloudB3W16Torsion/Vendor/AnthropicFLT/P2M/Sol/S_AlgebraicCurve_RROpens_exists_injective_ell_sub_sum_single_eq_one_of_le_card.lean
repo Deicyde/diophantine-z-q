@@ -28,7 +28,7 @@ noncomputable section
 open Module
 
 namespace AlgebraicCurve
-export AlgebraicCurve (Place Divisor Divisor.degree Divisor.degree_single HasPrincipalDivisors HasPrincipalDivisors.exists_divisor IsCurveOver IsCurveOver.finite_residueField LSpace ell mem_lSpace_iff_ord lSpace_mono ell_eq_zero_of_degree_neg)
+export _root_.AlgebraicCurve (Place Divisor Divisor.degree Divisor.degree_single HasPrincipalDivisors HasPrincipalDivisors.exists_divisor IsCurveOver IsCurveOver.finite_residueField LSpace ell mem_lSpace_iff_ord lSpace_mono ell_eq_zero_of_degree_neg)
 open AlgebraicCurve
 
 namespace RROpensFinPoolImpl

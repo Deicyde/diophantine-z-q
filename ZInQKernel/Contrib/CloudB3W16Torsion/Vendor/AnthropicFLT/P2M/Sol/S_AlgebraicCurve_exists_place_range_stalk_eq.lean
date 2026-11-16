@@ -22,7 +22,7 @@ set_option maxHeartbeats 1600000
 open CategoryTheory
 open AlgebraicGeometry
 open AlgebraicCurve
-open P2MW.S_AlgebraicCurve_exists_place_range_stalk_eq.AlgebraicCurve
+-- Deferred synthetic P2M scope: root namespace remains open.
 
 universe u
 

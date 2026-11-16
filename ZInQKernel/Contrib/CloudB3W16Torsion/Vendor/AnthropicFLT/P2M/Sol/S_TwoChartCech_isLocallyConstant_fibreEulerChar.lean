@@ -34,9 +34,9 @@ open scoped TensorProduct
 universe u
 
 namespace TwoChartCech
-export TwoChartCech (Mumford.rank Mumford.K0 kerMapBaseChange cokerMapBaseChange Mumford.finite_K0 Mumford.flat_K0 Mumford.bijective_kerMapBaseChange Mumford.bijective_cokerMapBaseChange)
+export _root_.TwoChartCech (Mumford.rank Mumford.K0 kerMapBaseChange cokerMapBaseChange Mumford.finite_K0 Mumford.flat_K0 Mumford.bijective_kerMapBaseChange Mumford.bijective_cokerMapBaseChange)
 namespace Mumford
-export TwoChartCech.Mumford (rank K0 dK ι0 ι1 comm finite_K0 flat_K0 bijective_kerMapBaseChange bijective_cokerMapBaseChange)
+export _root_.TwoChartCech.Mumford (rank K0 dK ι0 ι1 comm finite_K0 flat_K0 bijective_kerMapBaseChange bijective_cokerMapBaseChange)
 open TwoChartCech.Mumford
 open TwoChartCech
 

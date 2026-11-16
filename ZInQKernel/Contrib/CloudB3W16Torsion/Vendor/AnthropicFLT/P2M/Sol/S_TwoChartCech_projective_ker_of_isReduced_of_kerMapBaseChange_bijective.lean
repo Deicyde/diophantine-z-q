@@ -28,7 +28,7 @@ open scoped TensorProduct
 universe u
 
 namespace TwoChartCech
-export TwoChartCech (kerBaseChangeHom kerMap kerMapBaseChange)
+export _root_.TwoChartCech (kerBaseChangeHom kerMap kerMapBaseChange)
 open TwoChartCech
 namespace KerModel
 

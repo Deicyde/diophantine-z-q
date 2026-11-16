@@ -34,9 +34,9 @@ section
 open scoped TensorProduct
 
 namespace TwoChartCech
-export TwoChartCech (kerBaseChangeHom kerBaseChangeHom_apply_coe kerMap kerMapBaseChange Mumford.dK)
+export _root_.TwoChartCech (kerBaseChangeHom kerBaseChangeHom_apply_coe kerMap kerMapBaseChange Mumford.dK)
 namespace Mumford
-export TwoChartCech.Mumford (rank K0 mem_K0_iff dK ι0 ι1 comm projective_K0 bijective_kerMapBaseChange bijective_cokerMapBaseChange)
+export _root_.TwoChartCech.Mumford (rank K0 mem_K0_iff dK ι0 ι1 comm projective_K0 bijective_kerMapBaseChange bijective_cokerMapBaseChange)
 namespace FibreSurj
 open TwoChartCech.Mumford
 open TwoChartCech

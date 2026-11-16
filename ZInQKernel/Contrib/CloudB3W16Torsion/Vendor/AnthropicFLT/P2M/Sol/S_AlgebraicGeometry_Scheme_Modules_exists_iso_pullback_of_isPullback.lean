@@ -26,16 +26,16 @@ universe u
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_iso_pullback_of_isPullback.AlgebraicGeometry
+-- Deferred synthetic P2M scope: root namespace remains open.
 open Opposite
 open TopologicalSpace
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Spec.map_comp Scheme.Modules.pullback IsAffineOpen.fromSpec_top isPullback_morphismRestrict IsAffineOpen.SpecMap_appLE_fromSpec LocallyOfFiniteType Spec Spec.map Scheme Scheme.isoSpec_Spec_inv isAffineOpen_top IsAffineOpen Scheme.Modules Scheme.ΓSpecIso Scheme.TwoAffineOpenCover)
+export _root_.AlgebraicGeometry (Spec.map_comp Scheme.Modules.pullback IsAffineOpen.fromSpec_top isPullback_morphismRestrict IsAffineOpen.SpecMap_appLE_fromSpec LocallyOfFiniteType Spec Spec.map Scheme Scheme.isoSpec_Spec_inv isAffineOpen_top IsAffineOpen Scheme.Modules Scheme.ΓSpecIso Scheme.TwoAffineOpenCover)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Modules.pullback mk Γ isoSpec_Spec_inv isoSpec Modules Opens ΓSpecIso TwoAffineOpenCover)
+export _root_.AlgebraicGeometry.Scheme (Modules.pullback mk Γ isoSpec_Spec_inv isoSpec Modules Opens ΓSpecIso TwoAffineOpenCover)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (pushforwardCongr pushforward pushforwardComp pullback pushforwardId restrictFunctorIsoPullback pullbackCongr pullbackPushforwardAdjunction pullbackComp IsLocallyFreeOfRank pushforwardRestrictIso IsLocallyFreeOfRank.of_forall_exists_opens IsLocallyFreeOfRank.of_iso)
+export _root_.AlgebraicGeometry.Scheme.Modules (pushforwardCongr pushforward pushforwardComp pullback pushforwardId restrictFunctorIsoPullback pullbackCongr pullbackPushforwardAdjunction pullbackComp IsLocallyFreeOfRank pushforwardRestrictIso IsLocallyFreeOfRank.of_forall_exists_opens IsLocallyFreeOfRank.of_iso)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry
@@ -120,11 +120,11 @@ theorem exists_iso_pullback_of_isPullback_aux
 end AlgebraicGeometry.Scheme.Modules
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Spec.map_comp Scheme.Modules.pullback IsAffineOpen.fromSpec_top isPullback_morphismRestrict IsAffineOpen.SpecMap_appLE_fromSpec LocallyOfFiniteType Spec Spec.map Scheme Scheme.isoSpec_Spec_inv isAffineOpen_top IsAffineOpen Scheme.Modules Scheme.ΓSpecIso Scheme.TwoAffineOpenCover)
+export _root_.AlgebraicGeometry (Spec.map_comp Scheme.Modules.pullback IsAffineOpen.fromSpec_top isPullback_morphismRestrict IsAffineOpen.SpecMap_appLE_fromSpec LocallyOfFiniteType Spec Spec.map Scheme Scheme.isoSpec_Spec_inv isAffineOpen_top IsAffineOpen Scheme.Modules Scheme.ΓSpecIso Scheme.TwoAffineOpenCover)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Modules.pullback mk Γ isoSpec_Spec_inv isoSpec Modules Opens ΓSpecIso TwoAffineOpenCover)
+export _root_.AlgebraicGeometry.Scheme (Modules.pullback mk Γ isoSpec_Spec_inv isoSpec Modules Opens ΓSpecIso TwoAffineOpenCover)
 namespace TwoAffineOpenCover
-export AlgebraicGeometry.Scheme.TwoAffineOpenCover (specMap algebraOfHom pullback mk)
+export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (specMap algebraOfHom pullback mk)
 open AlgebraicGeometry.Scheme.TwoAffineOpenCover
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry

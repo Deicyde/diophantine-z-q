@@ -25,21 +25,21 @@ universe u
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_TwoAffineOpenCover_exists_stage_baseChangeIsos_structureSheaf.AlgebraicGeometry
+-- Deferred synthetic P2M scope: root namespace remains open.
 open TensorProduct
 open NeronModelInfra
 open AlgebraicGeometry.Scheme.TwoAffineOpenCover
 open AlgebraicGeometry.RelPicard.LFP
-open P2MW.S_AlgebraicGeometry_Scheme_TwoAffineOpenCover_exists_stage_baseChangeIsos_structureSheaf.AlgebraicGeometry.RelPicard.LFP
+-- Deferred synthetic P2M scope: root namespace remains open.
 
 noncomputable section
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Hom Scheme.Hom.appLE_comp_appLE Spec Scheme Scheme.Hom.app_eq_appLE Scheme.Hom.comp_preimage Scheme.ΓSpecIso RelPicard.baseChangeSnd Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap RelPicard.LFP.stageHom Scheme.TwoAffineOpenCover.baseChangeSnd_preimage_U0 Scheme.TwoAffineOpenCover.baseChangeSnd_preimage_U1 Scheme.TwoAffineOpenCover.baseChangeSnd_preimage_inf RelPicard.isPullback_baseChangeSnd Scheme.TwoAffineOpenCover.exists_baseChangeIsos_structureSheaf)
+export _root_.AlgebraicGeometry (Scheme.Hom Scheme.Hom.appLE_comp_appLE Spec Scheme Scheme.Hom.app_eq_appLE Scheme.Hom.comp_preimage Scheme.ΓSpecIso RelPicard.baseChangeSnd Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap RelPicard.LFP.stageHom Scheme.TwoAffineOpenCover.baseChangeSnd_preimage_U0 Scheme.TwoAffineOpenCover.baseChangeSnd_preimage_U1 Scheme.TwoAffineOpenCover.baseChangeSnd_preimage_inf RelPicard.isPullback_baseChangeSnd Scheme.TwoAffineOpenCover.exists_baseChangeIsos_structureSheaf)
 namespace RelPicard
-export AlgebraicGeometry.RelPicard (baseChangeSnd LFP.stageHom isPullback_baseChangeSnd)
+export _root_.AlgebraicGeometry.RelPicard (baseChangeSnd LFP.stageHom isPullback_baseChangeSnd)
 namespace LFP
-export AlgebraicGeometry.RelPicard.LFP (stageHom)
+export _root_.AlgebraicGeometry.RelPicard.LFP (stageHom)
 namespace StageTransport
 open AlgebraicGeometry.RelPicard.LFP
 open AlgebraicGeometry.RelPicard
@@ -92,11 +92,11 @@ theorem exists_transportAlgEquiv :
 end AlgebraicGeometry.RelPicard.LFP.StageTransport
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Hom Scheme.Hom.appLE_comp_appLE Spec Scheme Scheme.Hom.app_eq_appLE Scheme.Hom.comp_preimage Scheme.ΓSpecIso RelPicard.baseChangeSnd Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap RelPicard.LFP.stageHom Scheme.TwoAffineOpenCover.baseChangeSnd_preimage_U0 Scheme.TwoAffineOpenCover.baseChangeSnd_preimage_U1 Scheme.TwoAffineOpenCover.baseChangeSnd_preimage_inf RelPicard.isPullback_baseChangeSnd Scheme.TwoAffineOpenCover.exists_baseChangeIsos_structureSheaf)
+export _root_.AlgebraicGeometry (Scheme.Hom Scheme.Hom.appLE_comp_appLE Spec Scheme Scheme.Hom.app_eq_appLE Scheme.Hom.comp_preimage Scheme.ΓSpecIso RelPicard.baseChangeSnd Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap RelPicard.LFP.stageHom Scheme.TwoAffineOpenCover.baseChangeSnd_preimage_U0 Scheme.TwoAffineOpenCover.baseChangeSnd_preimage_U1 Scheme.TwoAffineOpenCover.baseChangeSnd_preimage_inf RelPicard.isPullback_baseChangeSnd Scheme.TwoAffineOpenCover.exists_baseChangeIsos_structureSheaf)
 namespace RelPicard
-export AlgebraicGeometry.RelPicard (baseChangeSnd LFP.stageHom isPullback_baseChangeSnd)
+export _root_.AlgebraicGeometry.RelPicard (baseChangeSnd LFP.stageHom isPullback_baseChangeSnd)
 namespace LFP
-export AlgebraicGeometry.RelPicard.LFP (stageHom)
+export _root_.AlgebraicGeometry.RelPicard.LFP (stageHom)
 namespace Stage
 open AlgebraicGeometry.RelPicard.LFP
 open AlgebraicGeometry.RelPicard
@@ -140,11 +140,11 @@ end AlgebraicGeometry.RelPicard.LFP.Stage
 
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Hom Scheme.Hom.appLE_comp_appLE Spec Scheme Scheme.Hom.app_eq_appLE Scheme.Hom.comp_preimage Scheme.ΓSpecIso RelPicard.baseChangeSnd Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap RelPicard.LFP.stageHom Scheme.TwoAffineOpenCover.baseChangeSnd_preimage_U0 Scheme.TwoAffineOpenCover.baseChangeSnd_preimage_U1 Scheme.TwoAffineOpenCover.baseChangeSnd_preimage_inf RelPicard.isPullback_baseChangeSnd Scheme.TwoAffineOpenCover.exists_baseChangeIsos_structureSheaf)
+export _root_.AlgebraicGeometry (Scheme.Hom Scheme.Hom.appLE_comp_appLE Spec Scheme Scheme.Hom.app_eq_appLE Scheme.Hom.comp_preimage Scheme.ΓSpecIso RelPicard.baseChangeSnd Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap RelPicard.LFP.stageHom Scheme.TwoAffineOpenCover.baseChangeSnd_preimage_U0 Scheme.TwoAffineOpenCover.baseChangeSnd_preimage_U1 Scheme.TwoAffineOpenCover.baseChangeSnd_preimage_inf RelPicard.isPullback_baseChangeSnd Scheme.TwoAffineOpenCover.exists_baseChangeIsos_structureSheaf)
 namespace RelPicard
-export AlgebraicGeometry.RelPicard (baseChangeSnd LFP.stageHom isPullback_baseChangeSnd)
+export _root_.AlgebraicGeometry.RelPicard (baseChangeSnd LFP.stageHom isPullback_baseChangeSnd)
 namespace LFP
-export AlgebraicGeometry.RelPicard.LFP (stageHom)
+export _root_.AlgebraicGeometry.RelPicard.LFP (stageHom)
 namespace Stage
 open AlgebraicGeometry.RelPicard.LFP
 open AlgebraicGeometry.RelPicard

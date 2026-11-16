@@ -23,7 +23,7 @@ set_option autoImplicit false
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_ProjPresentation_exists_baseChange_of_isPullback.AlgebraicGeometry
+-- Deferred synthetic P2M scope: root namespace remains open.
 
 attribute [local instance] MvPolynomial.gradedAlgebra
 
@@ -32,11 +32,11 @@ universe u
 open Opposite TopologicalSpace HomogeneousLocalization
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Hom.congr_app Scheme.Modules.pullback Scheme.Hom Proj.awayToSection_comp_appLE Spec Spec.map Scheme Proj Scheme.Hom.comp_app Scheme.Modules.pullbackPushforwardAdjunction Proj.basicOpen Scheme.Modules Scheme.Hom.comp_preimage Proj.awayToSection Scheme.Hom.appLE ProjSpace.π ProjSpace.X_mem_one ProjSpace.ratio ProjSpace.mvMapGraded ProjSpace.mvMapGraded_X ProjSpace.irrelevant_le_map_mvMapGraded ProjSpace.map ProjSpace.isPullback_map ProjSpace.map_preimage_basicOpen_X)
+export _root_.AlgebraicGeometry (Scheme.Hom.congr_app Scheme.Modules.pullback Scheme.Hom Proj.awayToSection_comp_appLE Spec Spec.map Scheme Proj Scheme.Hom.comp_app Scheme.Modules.pullbackPushforwardAdjunction Proj.basicOpen Scheme.Modules Scheme.Hom.comp_preimage Proj.awayToSection Scheme.Hom.appLE ProjSpace.π ProjSpace.X_mem_one ProjSpace.ratio ProjSpace.mvMapGraded ProjSpace.mvMapGraded_X ProjSpace.irrelevant_le_map_mvMapGraded ProjSpace.map ProjSpace.isPullback_map ProjSpace.map_preimage_basicOpen_X)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Hom.congr_app Modules.Hom.app_smul Modules.pullback Hom mk Γ Modules.Hom Hom.comp_app basicOpen Modules.pullbackPushforwardAdjunction Modules Opens Hom.comp_preimage Modules.map_smul Hom.appLE)
+export _root_.AlgebraicGeometry.Scheme (Hom.congr_app Modules.Hom.app_smul Modules.pullback Hom mk Γ Modules.Hom Hom.comp_app basicOpen Modules.pullbackPushforwardAdjunction Modules Opens Hom.comp_preimage Modules.map_smul Hom.appLE)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (Hom.app_smul pullback presheaf Hom.comp_app Hom mapPresheaf_app pullbackPushforwardAdjunction map_smul ProjPresentation bijective_smul_unit_app_of_bijective_smul)
+export _root_.AlgebraicGeometry.Scheme.Modules (Hom.app_smul pullback presheaf Hom.comp_app Hom mapPresheaf_app pullbackPushforwardAdjunction map_smul ProjPresentation bijective_smul_unit_app_of_bijective_smul)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry
@@ -122,11 +122,11 @@ end PresBC
 end AlgebraicGeometry.Scheme.Modules
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Hom.congr_app Scheme.Modules.pullback Scheme.Hom Proj.awayToSection_comp_appLE Spec Spec.map Scheme Proj Scheme.Hom.comp_app Scheme.Modules.pullbackPushforwardAdjunction Proj.basicOpen Scheme.Modules Scheme.Hom.comp_preimage Proj.awayToSection Scheme.Hom.appLE ProjSpace.π ProjSpace.X_mem_one ProjSpace.ratio ProjSpace.mvMapGraded ProjSpace.mvMapGraded_X ProjSpace.irrelevant_le_map_mvMapGraded ProjSpace.map ProjSpace.isPullback_map ProjSpace.map_preimage_basicOpen_X)
+export _root_.AlgebraicGeometry (Scheme.Hom.congr_app Scheme.Modules.pullback Scheme.Hom Proj.awayToSection_comp_appLE Spec Spec.map Scheme Proj Scheme.Hom.comp_app Scheme.Modules.pullbackPushforwardAdjunction Proj.basicOpen Scheme.Modules Scheme.Hom.comp_preimage Proj.awayToSection Scheme.Hom.appLE ProjSpace.π ProjSpace.X_mem_one ProjSpace.ratio ProjSpace.mvMapGraded ProjSpace.mvMapGraded_X ProjSpace.irrelevant_le_map_mvMapGraded ProjSpace.map ProjSpace.isPullback_map ProjSpace.map_preimage_basicOpen_X)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Hom.congr_app Modules.Hom.app_smul Modules.pullback Hom mk Γ Modules.Hom Hom.comp_app basicOpen Modules.pullbackPushforwardAdjunction Modules Opens Hom.comp_preimage Modules.map_smul Hom.appLE)
+export _root_.AlgebraicGeometry.Scheme (Hom.congr_app Modules.Hom.app_smul Modules.pullback Hom mk Γ Modules.Hom Hom.comp_app basicOpen Modules.pullbackPushforwardAdjunction Modules Opens Hom.comp_preimage Modules.map_smul Hom.appLE)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (Hom.app_smul pullback presheaf Hom.comp_app Hom mapPresheaf_app pullbackPushforwardAdjunction map_smul ProjPresentation bijective_smul_unit_app_of_bijective_smul)
+export _root_.AlgebraicGeometry.Scheme.Modules (Hom.app_smul pullback presheaf Hom.comp_app Hom mapPresheaf_app pullbackPushforwardAdjunction map_smul ProjPresentation bijective_smul_unit_app_of_bijective_smul)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry

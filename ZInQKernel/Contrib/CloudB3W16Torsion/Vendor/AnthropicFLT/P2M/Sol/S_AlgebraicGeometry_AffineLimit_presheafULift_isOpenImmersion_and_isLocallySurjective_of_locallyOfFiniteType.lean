@@ -24,13 +24,13 @@ open CategoryTheory
 open CategoryTheory.Limits
 open Opposite
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_AffineLimit_presheafULift_isOpenImmersion_and_isLocallySurjective_of_locallyOfFiniteType.AlgebraicGeometry
+-- Deferred synthetic P2M scope: root namespace remains open.
 open TopologicalSpace
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Spec.map_comp Spec.map_preimage IsOpenImmersion.lift Scheme.openCoverOfIsOpenCover_X Scheme.zariskiTopology morphismRestrict_ι Scheme.Opens.range_ι Scheme.Hom IsAffine LocallyOfFiniteType Spec Spec.map Scheme IsOpenImmersion Scheme.openCoverOfIsOpenCover_f Scheme.Hom.isoImage_inv_ι Spec.preimage HasRingHomProperty.Spec_iff Scheme.Cover.glueMorphisms Scheme.Opens.ι_apply Scheme.isBasis_affineOpens IsAffineOpen Scheme.Opens Scheme.homOfLE_ι Scheme.Hom.coe_image Scheme.Cover.ι_glueMorphisms Scheme.Cover.hom_ext Scheme.Opens.iSupOpenCover HasRingHomProperty IsOpenImmersion.lift_fac Scheme.Hom.comp_apply Scheme.Cover)
+export _root_.AlgebraicGeometry (Spec.map_comp Spec.map_preimage IsOpenImmersion.lift Scheme.openCoverOfIsOpenCover_X Scheme.zariskiTopology morphismRestrict_ι Scheme.Opens.range_ι Scheme.Hom IsAffine LocallyOfFiniteType Spec Spec.map Scheme IsOpenImmersion Scheme.openCoverOfIsOpenCover_f Scheme.Hom.isoImage_inv_ι Spec.preimage HasRingHomProperty.Spec_iff Scheme.Cover.glueMorphisms Scheme.Opens.ι_apply Scheme.isBasis_affineOpens IsAffineOpen Scheme.Opens Scheme.homOfLE_ι Scheme.Hom.coe_image Scheme.Cover.ι_glueMorphisms Scheme.Cover.hom_ext Scheme.Opens.iSupOpenCover HasRingHomProperty IsOpenImmersion.lift_fac Scheme.Hom.comp_apply Scheme.Cover)
 namespace AffineLimit
-export AlgebraicGeometry.AffineLimit (specOver IsLFPSurj IsLFPInj HomIsLFP)
+export _root_.AlgebraicGeometry.AffineLimit (specOver IsLFPSurj IsLFPInj HomIsLFP)
 open AlgebraicGeometry.AffineLimit
 open AlgebraicGeometry
 
@@ -504,7 +504,7 @@ end LFPExtend
 
 end AlgebraicGeometry.AffineLimit
 open AlgebraicGeometry.AffineLimit
-open P2MW.S_AlgebraicGeometry_AffineLimit_presheafULift_isOpenImmersion_and_isLocallySurjective_of_locallyOfFiniteType.AlgebraicGeometry.AffineLimit
+-- Deferred synthetic P2M scope: root namespace remains open.
 
 theorem solution (R : Type u) [CommRing R] (G : (Over (Spec (CommRingCat.of R)))ᵒᵖ ⥤ Type (u + 1))
     (hG : Presieve.IsSheaf Scheme.zariskiTopology G.overTotal)

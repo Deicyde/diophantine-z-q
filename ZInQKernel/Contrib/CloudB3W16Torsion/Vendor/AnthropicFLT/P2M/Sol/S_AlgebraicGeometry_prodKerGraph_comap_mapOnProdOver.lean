@@ -23,10 +23,10 @@ universe u
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_prodKerGraph_comap_mapOnProdOver.AlgebraicGeometry
+-- Deferred synthetic P2M scope: root namespace remains open.
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme IsSeparated Scheme.IdealSheafData prodKerGraph prodKerGraph_eq_prod graphOver RelEffCartierDiv mapOnProdOver RelEffCartierDiv.I RelEffCartierDiv.pullbackAlong_ofPoint Scheme.IdealSheafData.comap_mul)
+export _root_.AlgebraicGeometry (Scheme IsSeparated Scheme.IdealSheafData prodKerGraph prodKerGraph_eq_prod graphOver RelEffCartierDiv mapOnProdOver RelEffCartierDiv.I RelEffCartierDiv.pullbackAlong_ofPoint Scheme.IdealSheafData.comap_mul)
 namespace ProdKerGraphNaturality
 open AlgebraicGeometry
 

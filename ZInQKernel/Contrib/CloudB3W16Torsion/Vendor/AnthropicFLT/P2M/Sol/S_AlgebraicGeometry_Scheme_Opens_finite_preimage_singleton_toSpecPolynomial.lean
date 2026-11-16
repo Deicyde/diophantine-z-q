@@ -25,14 +25,14 @@ universe u
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Opens_finite_preimage_singleton_toSpecPolynomial.AlgebraicGeometry
+-- Deferred synthetic P2M scope: root namespace remains open.
 open Polynomial
 open AlgebraicGeometry.Polynomial
 open TopologicalSpace
 open Opposite
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Spec.map_comp SmoothOfRelativeDimension.smooth Scheme.Opens.topIso_inv Scheme.germToFunctionField SmoothOfRelativeDimension basicOpen_eq_bot_iff Scheme.Hom QuasiCompact Scheme.Hom.image_top_eq_opensRange LocallyOfFiniteType Spec IsIntegral Spec.map Scheme.toSpecΓ_naturality Scheme Smooth Scheme.Hom.comp_appTop locallyOfFiniteType_of_comp toSpecΓ_SpecMap_ΓSpecIso_inv Scheme.Opens.mem_basicOpen_toScheme Scheme.Opens Scheme.Opens.ι_appTop Scheme.Opens.opensRange_ι toSpecΓ Scheme.ΓSpecIso)
+export _root_.AlgebraicGeometry (Spec.map_comp SmoothOfRelativeDimension.smooth Scheme.Opens.topIso_inv Scheme.germToFunctionField SmoothOfRelativeDimension basicOpen_eq_bot_iff Scheme.Hom QuasiCompact Scheme.Hom.image_top_eq_opensRange LocallyOfFiniteType Spec IsIntegral Spec.map Scheme.toSpecΓ_naturality Scheme Smooth Scheme.Hom.comp_appTop locallyOfFiniteType_of_comp toSpecΓ_SpecMap_ΓSpecIso_inv Scheme.Opens.mem_basicOpen_toScheme Scheme.Opens Scheme.Opens.ι_appTop Scheme.Opens.opensRange_ι toSpecΓ Scheme.ΓSpecIso)
 open AlgebraicGeometry
 
 variable {k : Type u} [Field k] {C : Scheme.{u}} (c : C ⟶ Spec (CommRingCat.of k))

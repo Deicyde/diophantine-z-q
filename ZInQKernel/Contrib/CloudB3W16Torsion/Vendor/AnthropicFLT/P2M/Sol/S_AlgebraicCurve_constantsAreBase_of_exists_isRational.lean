@@ -20,14 +20,14 @@ set_option backward.isDefEq.respectTransparency false
 
 namespace P2MW.S_AlgebraicCurve_constantsAreBase_of_exists_isRational
 open AlgebraicCurve
-open P2MW.S_AlgebraicCurve_constantsAreBase_of_exists_isRational.AlgebraicCurve
+-- Deferred synthetic P2M scope: root namespace remains open.
 
 namespace AlgebraicCurve
-export AlgebraicCurve (mem_lSpace_iff_ord algebraMap_mem_lSpace_zero ConstantsAreBase Place Place.coe_algebraMap Divisor Divisor.degree HasPrincipalDivisors HasPrincipalDivisors.exists_divisor Divisor.degree_eq_sum_support)
+export _root_.AlgebraicCurve (mem_lSpace_iff_ord algebraMap_mem_lSpace_zero ConstantsAreBase Place Place.coe_algebraMap Divisor Divisor.degree HasPrincipalDivisors HasPrincipalDivisors.exists_divisor Divisor.degree_eq_sum_support)
 open AlgebraicCurve
 
 namespace Place
-export AlgebraicCurve.Place (ext coe_algebraMap ResidueField deg ord algebraMap_mem' toValuationSubring IsRational evalAt algebraMap_evalAt mem_of_ord_nonneg ord_nonneg_of_mem evalAt_ne_zero)
+export _root_.AlgebraicCurve.Place (ext coe_algebraMap ResidueField deg ord algebraMap_mem' toValuationSubring IsRational evalAt algebraMap_evalAt mem_of_ord_nonneg ord_nonneg_of_mem evalAt_ne_zero)
 open AlgebraicCurve.Place
 
 variable {K F : Type*} [Field K] [Field F] [Algebra K F] (v : Place K F)
@@ -57,7 +57,7 @@ private theorem _root_.AlgebraicCurve.Place.ord_sub_evalAt_pos_s17 (hrat : v.IsR
     exact (map_eq_zero_iff _ (algebraMap K v.ResidueField).injective).mp hres
   · have hnonneg := v.ord_nonneg_of_mem hmem
     omega
-export AlgebraicCurve.Place (ord_sub_evalAt_pos_s17)
+export _root_.AlgebraicCurve.Place (ord_sub_evalAt_pos_s17)
 variable [HasPrincipalDivisors K F]
 
 theorem eq_algebraMap_of_forall_ord_nonneg_s17 (v₀ : Place K F) (hrat : v₀.IsRational)
