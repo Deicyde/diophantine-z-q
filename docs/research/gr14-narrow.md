@@ -12,7 +12,7 @@ form `isogenyQuasiInverse`) and the chain's proved `MulIsogeny`. The reading ris
 `κ(A)` or `κ(B)`?" therefore drops out of the proof.
 
 The fold is a manual fold (a weaker statement in place of the field, with consumers rerouted). It is given below as
-27 exact edits in 20 chain files, and as a script, `scratch/gr14-narrow/apply_fold.py`. FOLD-BUILD-RESULT
+27 exact edits in 20 chain files, and as a script, `scratch/gr14-narrow/apply_fold.py`. **The fold is VERIFIED.** It was applied to a private copy of the tree (reflink copy `~/gr14-foldtest`, outside the repository; the worktree was not edited), and `lake build +ZInQKernel.OneProof.Main` completed (12,995 jobs, about 14 minutes; `TailD` onward rebuilt). The result: `'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]`, with `OpenResearchLeaves22.gaudronRemondThm14 : GapGR.GaudronRemondThm14Fwd`. The unified diff is `scratch/gr14-narrow/fold.patch` (26 hunks; `git apply --check` passes at the base).
 
 Everything below compiles with no `sorry` and only the axioms `[propext, Classical.choice, Quot.sound]` (VERIFIED,
 `#print axioms` in `scratch/gr14-narrow/FoldCheck.lean`, output `FoldCheck_out.txt`).
@@ -127,7 +127,16 @@ Checks at the base, before the fold (`FoldCheck.lean`, compiled):
   mulIsogeny_proved l.isogenyQuasiInverse }`, so edit 10 typechecks in context.
 * (c) `heightRowsNo20_of8_gr14`: edits 11-12 with the forward leaf as hypothesis.
 
-FOLD-BUILD-DETAIL
+Full fold check (VERIFIED). `apply_fold.py` was run on the reflink copy and then `lake build +ZInQKernel.OneProof.Main`
+(summary in `scratch/gr14-narrow/foldbuild_summary.txt`):
+* `Build completed successfully (12995 jobs)`;
+* `'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]`.
+
+The post-fold probe (`PostFold.lean`, run in the copy; output `PostFold_out.txt`) walks the closure of `frozenTarget`
+(244,317 constants). `ZInQ.HeightSplit.GaudronRemondThm14`, `ZInQ.DefFaltings.R19_GaudronRemond`,
+`isogenyReverseExists_of_r19` and `reverseIsogeny_of_leaves3` are **no longer in the closure**. In their place are
+`GapGR.GaudronRemondThm14Fwd` (the fields of OpenResearchLeaves8, 9, 14-22), `GapGR.R19Fwd` (OpenResearchLeaves7,
+5, 2, ResearchLeaves3), `GapGR.transfer_core_fwd` and `GapGR.reverseIsogeny_of_weil`.
 
 ## Method
 

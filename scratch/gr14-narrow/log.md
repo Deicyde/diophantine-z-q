@@ -28,3 +28,19 @@ Closure of `ZInQ.OneProof.frozenTarget`: 244,312 constants.
   `isogenyReverseExists_of_milne_eq_weil` (rfl), `gaudronRemondThm14Fwd_of_open`, `isogenyReverseExists_of_open`.
 - Fold script scratch/gr14-narrow/apply_fold.py: --dry-run on the worktree: 27 edits in 20 files, every old text
   found exactly once.
+
+## #discharges (discharges.txt) — VERIFIED
+63 open hypotheses, 1822 theorems checked, 7 discharge one (all earlier contributions); no GapGR theorem
+discharges a field (expected: narrowing).
+
+## FoldCheck.lean — compiled
+(a) transfer_core_fwd ∘ r19Fwd_of_r19 = transfer_core (rfl); (b) gluePieces_of_open4 with the new reverseIsogeny
+term; (c) heightRowsNo20_of8 with R19Fwd. All #print axioms: [propext, Classical.choice, Quot.sound].
+
+## Full fold build — VERIFIED
+apply_fold.py on a reflink copy ~/gr14-foldtest (outside the repo, .git renamed so no git ops), then
+`lake build +ZInQKernel.OneProof.Main`: Build completed successfully (12995 jobs, ~14 min);
+frozenTarget axioms [propext, Classical.choice, Quot.sound]. Post-fold probe (PostFold_out.txt): old
+GaudronRemondThm14 / R19_GaudronRemond / isogenyReverseExists_of_r19 / reverseIsogeny_of_leaves3 absent from the
+live closure (244,317 constants). fold.patch = unified diff (26 hunks, git apply --check OK at base).
+Note: ~/gr14-foldtest (~21 GB apparent, reflinked) is left in place (no rm -rf allowed).
