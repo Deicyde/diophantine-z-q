@@ -10,11 +10,13 @@ Full original notices/credits: NOTICE.upstream, ATTRIBUTION.upstream.md, LICENSE
 import Mathlib
 import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
-set_option backward.isDefEq.respectTransparency false
+set_option backward.isDefEq.respectTransparency true
 
 namespace P2MW.S_IntermediateField_mem_adjoin_sum_mul_of_isSeparable_of_algebraicIndependent
 
 set_option autoImplicit false
+set_option maxHeartbeats 2000000
+set_option synthInstance.maxHeartbeats 100000
 
 open Polynomial
 
@@ -480,8 +482,9 @@ theorem linearIndependent_powerBasis_over_adjoin {ι : Type*} {x : ι → E}
 
   have hcoeff : ∀ m : ι →₀ ℕ, ∑ j ∈ u, (P j).coeff m • pb.basis j = 0 := by
     intro m
-    have := congrArg (MvPolynomial.coeff m) hQzero
+    have := congrArg (fun p : MvPolynomial ι A => p.coeff m) hQzero
     rw [hQ, MvPolynomial.coeff_sum, MvPolynomial.coeff_zero] at this
+    simp only [Finsupp.zero_apply] at this
     rw [← this]
     apply Finset.sum_congr rfl
     intro j _

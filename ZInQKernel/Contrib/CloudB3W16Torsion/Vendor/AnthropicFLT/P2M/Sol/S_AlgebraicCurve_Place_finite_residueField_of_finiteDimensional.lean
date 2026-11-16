@@ -84,6 +84,8 @@ open IsLocalRing in
 theorem finite_residueField (w : Place K F') :
     Module.Finite (w.restrict F).ResidueField w.ResidueField := by
   classical
+  haveI : Module.Free (w.restrict F).ResidueField w.ResidueField :=
+    Module.Free.of_divisionRing (w.restrict F).ResidueField w.ResidueField
   rw [← Module.rank_lt_aleph0_iff]
   refine lt_of_le_of_lt (rank_le (n := Module.finrank F F') fun s hs => ?_)
     Cardinal.natCast_lt_aleph0

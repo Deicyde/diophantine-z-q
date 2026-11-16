@@ -31,25 +31,25 @@ set_option autoImplicit false
 
 universe u
 
-open TensorProduct
+open _root_.TensorProduct
 
 section FreeIdeal
 
 variable {R : Type*} [CommRing R]
 
 namespace Ideal p2m_export "Ideal" "map_le_iff_le_comap map_map submodule_span_eq mem_span_singleton map_span primeCompl isUnit_iff mem_bot span mul_mem_left map span_singleton_le_iff_mem exists_le_maximal FG ext span_eq mem_span_singleton' map_coe mem_map_of_mem comap_symm under comap comap_coe subset_span exists_isPrime_liesOver_of_faithfullyFlat mem_span_singleton_self" end Ideal
-open scoped Ideal in
+open scoped _root_.Ideal in
 noncomputable def Ideal.equivSpanSingletonOfMemNonZeroDivisors {g : R}
     (hg : g ∈ nonZeroDivisors R) : R ≃ₗ[R] (Ideal.span {g} : Ideal R) :=
   LinearEquiv.ofInjective (LinearMap.toSpanSingleton R R g)
       ((injective_iff_map_eq_zero _).mpr fun r hr ↦
         (mul_right_mem_nonZeroDivisors_eq_zero_iff hg).mp (by simpa using hr)) ≪≫ₗ
     LinearEquiv.ofEq _ _ (by rw [← LinearMap.span_singleton_eq_range, Ideal.submodule_span_eq])
-open scoped Ideal in
+open scoped _root_.Ideal in
 theorem Ideal.free_span_singleton_of_mem_nonZeroDivisors {g : R} (hg : g ∈ nonZeroDivisors R) :
     Module.Free R (Ideal.span {g} : Ideal R) :=
   Module.Free.of_equiv (Ideal.equivSpanSingletonOfMemNonZeroDivisors hg)
-open scoped Ideal in
+open scoped _root_.Ideal in
 theorem Ideal.eq_bot_or_exists_span_singleton_nonZeroDivisor_of_free (I : Ideal R)
     [Module.Free R I] : I = ⊥ ∨ ∃ j ∈ nonZeroDivisors R, I = Ideal.span {j} := by
   classical
@@ -102,7 +102,7 @@ end FreeIdeal
 section Transport
 
 variable {R S S' : Type*} [CommRing R] [CommRing S] [CommRing S'] [Algebra R S] [Algebra R S']
-open scoped Ideal in
+open scoped _root_.Ideal in
 theorem Ideal.exists_nonZeroDivisor_map_eq_span_of_algEquiv (e : S ≃ₐ[R] S') (I : Ideal R)
     (h : ∃ g ∈ nonZeroDivisors S, I.map (algebraMap R S) = Ideal.span {g}) :
     ∃ g ∈ nonZeroDivisors S', I.map (algebraMap R S') = Ideal.span {g} := by
@@ -122,7 +122,7 @@ section LocalAndDescent
 variable {A : Type u} [CommRing A]
 
 namespace Submodule p2m_export "Submodule" "span_singleton_eq_range span_eq span_singleton_le_iff_mem mk mem_bot mem_span_singleton_self span mem_map_of_mem mem_span_singleton baseChange map_smul' zero of_localizationSpan' one map_span map toLocalized' map_coe subset_span localized' module smul_def FG comap_comp ext comap_coe add comap span_induction map_le_iff_le_comap" end Submodule
-open scoped Submodule in
+open scoped _root_.Submodule in
 theorem Submodule.fg_of_localizationSpan' {M : Type*} [AddCommGroup M] [Module A M]
     {N : Submodule A M} (s : Set A) (hs : Ideal.span s = ⊤)
     {Mₚ : ∀ (_ : s), Type*} [∀ (g : s), AddCommGroup (Mₚ g)] [∀ (g : s), Module A (Mₚ g)]
@@ -137,7 +137,7 @@ theorem Submodule.fg_of_localizationSpan' {M : Type*} [AddCommGroup M] [Module A
     (fun g ↦ Module.Finite.iff_fg.mpr (H g))]
 
 namespace Module p2m_export "Module" "FaithfullyFlat.of_comap_surjective Flat Injective Free.chooseBasis Free.ChooseBasisIndex End.isUnit_iff FinitePresentation.fg_ker Finite.exists_fin' equiv Finite.equiv free_of_flat_of_isLocalRing Finite.of_localizationSpan' Finite.of_finite_tensorProduct_of_faithfullyFlat Flat.of_flat_tensorProduct FinitePresentation.of_equiv Free algebraMap_end_apply mk FaithfullyFlat Free.of_equiv Flat.of_linearEquiv Finite.iff_fg End flat_of_isLocalized_span FinitePresentation Flat.trans Flat.lTensor_preserves_injective_linearMap FinitePresentation.exists_free_localizedModule_powers FinitePresentation.fg_ker_iff Finite.of_isLocalizedModule" namespace FinitePresentation p2m_export "Module.FinitePresentation" "mk trans fg_ker of_equiv of_localizationSpan' exists_free_localizedModule_powers fg_ker_iff" end Module.FinitePresentation
-open scoped Module Module.FinitePresentation in
+open scoped _root_.Module _root_.Module.FinitePresentation in
 theorem Module.FinitePresentation.of_localizationSpan_of_isLocalizedModule
     {M : Type*} [AddCommGroup M] [Module A M] (s : Set A) (hs : Ideal.span s = ⊤)
     {Mₚ : ∀ (_ : s), Type*} [∀ (g : s), AddCommGroup (Mₚ g)] [∀ (g : s), Module A (Mₚ g)]
@@ -159,7 +159,7 @@ theorem Module.FinitePresentation.of_localizationSpan_of_isLocalizedModule
   simp [← LinearMap.localized'_range_eq_range_localizedMap (Rₚ g) (Submonoid.powers g.1), fsurj]
 
 variable (B : Type*) [CommRing B] [Algebra A B]
-open scoped Module Module.FinitePresentation in
+open scoped _root_.Module _root_.Module.FinitePresentation in
 theorem Module.FinitePresentation.of_finitePresentation_tensorProduct_of_faithfullyFlat'
     (M : Type*) [AddCommGroup M] [Module A M] [Module.FaithfullyFlat A B]
     [Module.FinitePresentation B (B ⊗[A] M)] : Module.FinitePresentation A M := by
@@ -183,7 +183,7 @@ theorem Module.FinitePresentation.of_finitePresentation_tensorProduct_of_faithfu
     Module.Finite.iff_fg.mpr (Module.FinitePresentation.fg_ker _ hsurj)
   have : Module.Finite B (B ⊗[A] K) := Module.Finite.equiv e.symm
   exact Module.Finite.of_finite_tensorProduct_of_faithfullyFlat B
-open scoped Ideal in
+open scoped _root_.Ideal in
 theorem Ideal.nonempty_tensorProduct_linearEquiv_map [Module.Flat A B] (J : Ideal A) :
     Nonempty (B ⊗[A] J ≃ₗ[B] (J.map (algebraMap A B) : Ideal B)) := by
   let f : B ⊗[A] J →ₗ[B] B :=
@@ -199,7 +199,6 @@ theorem Ideal.nonempty_tensorProduct_linearEquiv_map [Module.Flat A B] (J : Idea
       simp [f, Algebra.smul_def]
     · rintro - ⟨x, rfl⟩
       induction x with
-      | zero => simp
       | add _ _ _ _ => simp_all [Ideal.add_mem]
       | tmul s x =>
         have : f (s ⊗ₜ[A] x) = s • f (1 ⊗ₜ x) := by simp [f]
@@ -209,7 +208,7 @@ theorem Ideal.nonempty_tensorProduct_linearEquiv_map [Module.Flat A B] (J : Idea
   exact ⟨.ofInjective _ hf ≪≫ₗ .ofEq _ _ this.symm⟩
 
 variable {B}
-open scoped Ideal in
+open scoped _root_.Ideal in
 theorem Ideal.free_map_of_free_localizedModule (J : Ideal A) (r : A)
     [Module.Free (Localization (.powers r)) (LocalizedModule (.powers r) J)]
     (Aᵣ : Type*) [CommRing Aᵣ] [Algebra A Aᵣ] [IsLocalization.Away r Aᵣ] :
@@ -239,7 +238,7 @@ section Main
 variable {A B : Type*} [CommRing A] [CommRing B] [Algebra A B]
 
 namespace Ideal
-open scoped Ideal in
+open scoped _root_.Ideal in
 private theorem _root_.Ideal.exists_span_singleton_nonZeroDivisor_of_faithfullyFlat [Module.FaithfullyFlat A B]
     (J : Ideal A)
     (hB : ∀ 𝔮 : PrimeSpectrum B, ∃ u ∉ 𝔮.asIdeal, ∃ g ∈ nonZeroDivisors (Localization.Away u),
@@ -359,9 +358,8 @@ private theorem _root_.Ideal.exists_span_singleton_nonZeroDivisor_of_faithfullyF
     exact 𝔭.isPrime.mem_of_pow_mem _ this
 
 end Ideal
-export  (Ideal.exists_span_singleton_nonZeroDivisor_of_faithfullyFlat)
 namespace Ideal
-open scoped Ideal in
+open scoped _root_.Ideal in
 private theorem _root_.Ideal.exists_span_singleton_nonZeroDivisor_of_faithfullyFlat'
     [Module.FaithfullyFlat A B] (J : Ideal A)
     (hB : ∀ 𝔮 : PrimeSpectrum B, ∃ u ∉ 𝔮.asIdeal, ∃ g ∈ nonZeroDivisors (Localization.Away u),
@@ -374,8 +372,7 @@ private theorem _root_.Ideal.exists_span_singleton_nonZeroDivisor_of_faithfullyF
     (IsLocalization.algEquiv (.powers s) (Localization.Away s) Aₛ) J h⟩
 
 end Ideal
-export  (Ideal.exists_span_singleton_nonZeroDivisor_of_faithfullyFlat')
-open scoped Ideal in
+open scoped _root_.Ideal in
 theorem Ideal.exists_span_singleton_nonZeroDivisor_of_flat_of_surjective [Module.Flat A B]
     (hsurj : Function.Surjective (PrimeSpectrum.comap (algebraMap A B))) (J : Ideal A)
     (hB : ∀ 𝔮 : PrimeSpectrum B, ∃ u ∉ 𝔮.asIdeal, ∃ g ∈ nonZeroDivisors (Localization.Away u),
@@ -388,14 +385,14 @@ theorem Ideal.exists_span_singleton_nonZeroDivisor_of_flat_of_surjective [Module
 
 end Main
 
-open CategoryTheory CategoryTheory.Limits TensorProduct
+open _root_.CategoryTheory _root_.CategoryTheory.Limits _root_.TensorProduct
 
 namespace Algebra
-export Algebra (TensorProduct.rid ofId IsPushout TensorProduct.includeRight mk algebraMap TensorProduct.lTensor_ker IsPushout.equiv idealMap smul_def TensorProduct.includeLeft id mem_bot TensorProduct.map subsingleton FinitePresentation)
+export _root_.Algebra (TensorProduct.rid ofId IsPushout TensorProduct.includeRight mk algebraMap TensorProduct.lTensor_ker IsPushout.equiv idealMap smul_def TensorProduct.includeLeft id mem_bot TensorProduct.map subsingleton FinitePresentation)
 namespace IsPushout
-export Algebra.IsPushout (of_equiv mk equiv symm)
-open Algebra.IsPushout
-open Algebra
+export _root_.Algebra.IsPushout (of_equiv mk equiv symm)
+open _root_.Algebra.IsPushout
+open _root_.Algebra
 
 theorem ker_algebraMap_eq_map_ker
     (R B C P : Type*) [CommRing R] [CommRing B] [CommRing C] [CommRing P]
@@ -440,8 +437,8 @@ theorem ker_algebraMap_eq_map_ker
 end Algebra.IsPushout
 
 namespace CommRingCat
-export CommRingCat (hom_comp free of flat toAlgHom Hom isPushout_iff_isPushout)
-open CommRingCat
+export _root_.CommRingCat (hom_comp free of flat toAlgHom Hom isPushout_iff_isPushout)
+open _root_.CommRingCat
 
 theorem ker_eq_map_ker_of_isPushout {R B C P : CommRingCat.{u}} {f : R ⟶ B} {g : R ⟶ C}
     {inl : B ⟶ P} {inr : C ⟶ P} (h : IsPushout f g inl inr)
@@ -457,14 +454,14 @@ theorem ker_eq_map_ker_of_isPushout {R B C P : CommRingCat.{u}} {f : R ⟶ B} {g
 end CommRingCat
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Hom.resLE_comp_ι Scheme.Hom.map_appLE Scheme.Opens.topIso_inv Surjective isPushout_appTop_of_isPullback Scheme.Hom exists_basicOpen_le_affine_inter Scheme.Opens.ι_appIso IsFinite isAffine_of_isAffineHom IsAffine Spec Scheme Scheme.Hom.appTop Scheme.Opens.topIso_hom Flat isAffineOpen_top IsAffineOpen.comap_primeIdealOf_appLE Scheme.IdealSheafData.ideal_map_of_isAffineHom IsAffineOpen IsAffineOpen.fromSpec_primeIdealOf Scheme.Hom.ker_apply Scheme.Opens Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE Flat.flat_appLE Scheme.Hom.resLE_app_top Scheme.Opens.ι_image_top IsAffineHom geometrically Scheme.IdealSheafData)
+export _root_.AlgebraicGeometry (Scheme.Hom.resLE_comp_ι Scheme.Hom.map_appLE Scheme.Opens.topIso_inv Surjective isPushout_appTop_of_isPullback Scheme.Hom exists_basicOpen_le_affine_inter Scheme.Opens.ι_appIso IsFinite isAffine_of_isAffineHom IsAffine Spec Scheme Scheme.Hom.appTop Scheme.Opens.topIso_hom Flat isAffineOpen_top IsAffineOpen.comap_primeIdealOf_appLE Scheme.IdealSheafData.ideal_map_of_isAffineHom IsAffineOpen IsAffineOpen.fromSpec_primeIdealOf Scheme.Hom.ker_apply Scheme.Opens Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE Flat.flat_appLE Scheme.Hom.resLE_app_top Scheme.Opens.ι_image_top IsAffineHom Scheme.IdealSheafData)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Hom.resLE_comp_ι Hom.map_appLE mem_basicOpen Opens.topIso_inv Hom mk Γ Opens.ι_appIso topIso_hom Hom.appTop Opens.topIso_hom affineBasicOpen affineOpens basicOpen IdealSheafData.ideal_map_of_isAffineHom isBasis_affineOpens Hom.ker_apply Opens Hom.appLE_map Hom.app_eq_appLE Hom.resLE_app_top Opens.ι_image_top basicOpen_le restrict IdealSheafData)
+export _root_.AlgebraicGeometry.Scheme (Hom.resLE_comp_ι Hom.map_appLE mem_basicOpen Opens.topIso_inv Hom mk Γ Opens.ι_appIso topIso_hom Hom.appTop Opens.topIso_hom affineBasicOpen affineOpens basicOpen IdealSheafData.ideal_map_of_isAffineHom isBasis_affineOpens Hom.ker_apply Opens Hom.appLE_map Hom.app_eq_appLE Hom.resLE_app_top Opens.ι_image_top basicOpen_le restrict IdealSheafData)
 namespace IdealSheafData
-export AlgebraicGeometry.Scheme.IdealSheafData (comap_comp mk map subscheme subschemeι_app_surjective ideal ideal_map_of_isAffineHom subschemeι comap map_ideal_basicOpen map_ideal ker_subschemeι_app ideal_comap_of_isOpenImmersion IsInvertible resLE)
-open AlgebraicGeometry.Scheme.IdealSheafData
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
+export _root_.AlgebraicGeometry.Scheme.IdealSheafData (comap_comp mk map subscheme subschemeι_app_surjective ideal ideal_map_of_isAffineHom subschemeι comap map_ideal_basicOpen map_ideal ker_subschemeι_app ideal_comap_of_isOpenImmersion IsInvertible resLE)
+open _root_.AlgebraicGeometry.Scheme.IdealSheafData
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
 
 variable {X Y : Scheme.{u}}
 
@@ -514,15 +511,15 @@ private theorem _root_.AlgebraicGeometry.Scheme.IdealSheafData.ideal_comap_of_is
     (I.comap f).ideal ⟨f ⁻¹ᵁ U, U.2.preimage f⟩ = (I.ideal U).map (f.app U).hom := by
   rw [Scheme.Hom.app_eq_appLE]
   exact ideal_comap_of_le I f U ⟨f ⁻¹ᵁ U, U.2.preimage f⟩ le_rfl
-export AlgebraicGeometry.Scheme.IdealSheafData (ideal_comap_of_isAffineHom)
+export _root_.AlgebraicGeometry.Scheme.IdealSheafData (ideal_comap_of_isAffineHom)
 end AlgebraicGeometry.Scheme.IdealSheafData
 
 section SchemeGlue
-open CategoryTheory
-open CategoryTheory.Limits
-open TopologicalSpace
-open Opposite
-open AlgebraicGeometry
+open _root_.CategoryTheory
+open _root_.CategoryTheory.Limits
+open _root_.TopologicalSpace
+open _root_.Opposite
+open _root_.AlgebraicGeometry
 open P2MW.S_AlgebraicGeometry_Scheme_IdealSheafData_isInvertible_of_isInvertible_comap.AlgebraicGeometry
 
 namespace InvertibleIdealDescent
@@ -628,7 +625,7 @@ end InvertibleIdealDescent
 
 end SchemeGlue
 
-open CategoryTheory _root_.AlgebraicGeometry _root_.P2MW.S_AlgebraicGeometry_Scheme_IdealSheafData_isInvertible_of_isInvertible_comap.AlgebraicGeometry in
+open _root_.CategoryTheory _root_.AlgebraicGeometry _root_.P2MW.S_AlgebraicGeometry_Scheme_IdealSheafData_isInvertible_of_isInvertible_comap.AlgebraicGeometry in
 
 theorem solution
     {X Y : Scheme.{u}} (π : Y ⟶ X) [IsFinite π] [Flat π] [Surjective π]

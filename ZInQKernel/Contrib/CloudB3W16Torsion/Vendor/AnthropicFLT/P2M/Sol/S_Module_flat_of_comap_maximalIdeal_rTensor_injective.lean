@@ -35,6 +35,8 @@ def equiv : FreeCover R X ≃ₗ[R] (X →₀ R) := LinearEquiv.refl R _
 
 end FreeCover
 
+open scoped FreeCover
+
 section KernelTransfer
 
 variable {R : Type u} [CommRing R] {M : Type v} [AddCommGroup M] [Module R M]
@@ -67,7 +69,7 @@ theorem lTensor_injective_of_cover
 
 def cover (N₂ : Type*) [AddCommGroup N₂] [Module R N₂] :
     FreeCover R N₂ →ₗ[R] N₂ :=
-  Finsupp.linearCombination R (id : N₂ → N₂) ∘ₗ (FreeCover.equiv R N₂).toLinearMap
+  Finsupp.linearCombination R (_root_.id : N₂ → N₂) ∘ₗ (FreeCover.equiv R N₂).toLinearMap
 
 theorem cover_surjective (N₂ : Type*) [AddCommGroup N₂] [Module R N₂] :
     Function.Surjective (cover (R := R) N₂) :=
@@ -176,8 +178,8 @@ theorem torVanish_of_torsion (I : Ideal R)
     intro z
     rw [← hfg.linearMap_ker_eq]
     rw [LinearMap.mem_ker]
-    have : v (κ z) = Finsupp.linearCombination R (id : N₂ → N₂) (mr z) := by
-      show Finsupp.linearCombination R (id : N₂ → N₂) (e (e.symm (mr z))) = _
+    have : v (κ z) = Finsupp.linearCombination R (_root_.id : N₂ → N₂) (mr z) := by
+      show Finsupp.linearCombination R (_root_.id : N₂ → N₂) (e (e.symm (mr z))) = _
       rw [LinearEquiv.apply_symm_apply]
     rw [this]
     simp only [mr, Finsupp.mapRange.linearMap_apply, Finsupp.linearCombination_apply]

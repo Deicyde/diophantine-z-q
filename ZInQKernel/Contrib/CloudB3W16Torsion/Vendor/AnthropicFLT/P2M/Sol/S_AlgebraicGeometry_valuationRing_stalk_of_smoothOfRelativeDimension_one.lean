@@ -47,7 +47,7 @@ theorem valuationRing_localization_atPrime {R B : Type*} [CommRing R] [CommRing 
   haveI : IsNoetherianRing (Localization.AtPrime q) :=
     IsLocalization.isNoetherianRing q.primeCompl _ inferInstance
   exact ((tfae_of_isNoetherianRing_of_isLocalRing_of_isDomain
-    (Localization.AtPrime q)).out 4 1).mp hprinc
+    (Localization.AtPrime q)).out 5 2).mp hprinc
 
 theorem isPrincipalIdealRing_mvPolynomial_fin_one (K : Type*) [Field K] :
     IsPrincipalIdealRing (MvPolynomial (Fin 1) K) :=

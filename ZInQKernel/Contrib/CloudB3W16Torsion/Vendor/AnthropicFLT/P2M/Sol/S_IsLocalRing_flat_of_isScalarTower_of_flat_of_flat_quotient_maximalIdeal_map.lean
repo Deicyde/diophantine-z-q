@@ -547,17 +547,16 @@ theorem kwFF13_restrictScalars_subtype_rTensor_inj_of_flat
   have hnat : ∀ w, (Submodule.subtype
         ((K' : Submodule (S ⧸ I) (S ⧸ I)).restrictScalars S)).rTensor S' (eK w)
       = eQ (K'.subtype.rTensor ((S ⧸ I) ⊗[S] S') w) := fun w => by
-    induction w using TensorProduct.induction_on with
-    | zero => simp only [map_zero]; exact map_zero _
+    induction w using TensorProduct.inductionOn with
     | tmul k ab =>
-      induction ab using TensorProduct.induction_on with
-      | zero => simp only [TensorProduct.tmul_zero, map_zero]; exact map_zero _
+      induction ab using TensorProduct.inductionOn with
       | tmul a n => rfl
       | add x y hx hy =>
         simp only [TensorProduct.tmul_add, map_add]
-        exact (map_add _ _ _).trans (congrArg₂ HAdd.hAdd hx hy)
+        exact congrArg₂ HAdd.hAdd hx hy
     | add x y hx hy =>
-      simp only [map_add]; exact (map_add _ _ _).trans (congrArg₂ HAdd.hAdd hx hy)
+      simp only [map_add]
+      exact congrArg₂ HAdd.hAdd hx hy
 
   intro z₁ z₂ hz
   obtain ⟨w₁, rfl⟩ :=

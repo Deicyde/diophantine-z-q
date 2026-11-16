@@ -11,7 +11,7 @@ import Mathlib
 import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_AlgebraicCurve_RelCartier
 import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
-set_option backward.isDefEq.respectTransparency false
+set_option backward.isDefEq.respectTransparency true
 
 namespace P2MW.S_AlgebraicGeometry_Scheme_Hom_isInvertible_ker_of_comp_eq_id
 
@@ -56,7 +56,9 @@ theorem exists_ker_map_eq_span {A E : Type*} [CommRing A] [CommRing E] [Algebra 
     simp [hh])
   obtain ⟨e₀, he₁, he₂⟩ := exists_map_eq_one_mul_eq_zero σ'
   obtain ⟨u, rfl⟩ := Ideal.Quotient.mk_surjective e₀
-  have hσu : σ u = 1 := by simpa [σ'] using he₁
+  have hσu : σ u = 1 := by
+    change σ u = 1 at he₁
+    exact he₁
   refine ⟨u, fun huP => ?_, fun L _ _ _ => ?_⟩
   ·
     have h1u : 1 - u ∈ P := hP (by simp [RingHom.mem_ker, hσu])
@@ -66,7 +68,7 @@ theorem exists_ker_map_eq_span {A E : Type*} [CommRing A] [CommRing E] [Algebra 
     · rw [Ideal.map_le_iff_le_comap]
       intro y hy
       have hyu : Ideal.Quotient.mk (Ideal.span {h}) y * Ideal.Quotient.mk (Ideal.span {h}) u = 0 :=
-        he₂ _ (by simpa [σ'] using hy)
+        he₂ _ (by change σ y = 0; exact hy)
       rw [← map_mul, Ideal.Quotient.eq_zero_iff_mem] at hyu
       obtain ⟨b, hb⟩ := Ideal.mem_span_singleton'.mp hyu
 
@@ -142,7 +144,7 @@ theorem formallyUnramified_essFiniteType_quotient {A P E : Type*} [CommRing A] [
   haveI : IsScalarTower P (P ⧸ Ideal.span {p₀}) (E ⧸ Ideal.span {algebraMap P E p₀}) :=
     IsScalarTower.of_algebraMap_eq fun p => by
       change Ideal.Quotient.mk _ (algebraMap P E p) = ψ (Ideal.Quotient.mk _ p)
-      simp [ψ]
+      rfl
 
   haveI : Algebra.FormallyUnramified (P ⧸ Ideal.span {p₀})
       (E ⧸ Ideal.span {algebraMap P E p₀}) :=
@@ -245,7 +247,7 @@ theorem section_local_equation {X T : Scheme.{u}} (p : X ⟶ T) [IsSeparated p]
         rw [Scheme.Hom.app_eq_appLE, Scheme.Hom.appLE_comp_appLE_assoc, Scheme.Hom.appLE,
           Scheme.Hom.congr_app hσ₀,
           Scheme.Hom.id_app]
-        simp only [Category.assoc, ← Functor.map_comp]
+        erw [Category.id_comp, ← T.presheaf.map_comp, ← T.presheaf.map_comp]
         exact hmap _
       intro a
       simpa [ρ, σ] using congr(($hcomp).hom a)

@@ -1,4 +1,4 @@
-# Retained math/API compatibility: nine compiled roots
+# Retained math/API compatibility: all 22 compiled roots
 
 This is a staged H102 source-port checkpoint, not final degree/cardinality or
 Mumford discharge evidence. The first provider DAG and its 124 failures are a
@@ -42,9 +42,26 @@ Actual scratch command `lake env lean -M16000 Check.lean` returned0,4.86s,
  Quot.sound]
 ```
 
-The remaining 13 retained roots are tested and repaired against their current
-code separately. A33/B33/C32 compatibility ownership is disjoint; the primary does
-not edit those 98 modules after transfer, nor the separately assigned finite3,
+## Complete retained-22 checkpoint
+
+All 22 primary-retained modules now compile on the pinned toolchain. The fresh
+`CheckRetained22.lean` imports exactly those 22 modules and prints axioms of the
+seven definition APIs plus all 15 original `solution` declarations. Exit0,
+4.79s,7205712KiB peak RSS: all **22 actual axiom lists** are exactly
+`[propext, Classical.choice, Quot.sound]`.
+
+Additional repairs preserve the original telescopes: absolute namespace exports/
+opens, discarding absent registration aliases, one-based TFAE list positions,
+new tensor induction forms, explicit free vector-space and scalar-tower proofs,
+and the current AddMonoidAlgebra coefficient representation. Restoring the current
+`backward.isDefEq.respectTransparency=true` setting removes speculative scalar
+instance loops; the remaining definitional coercions are addressed by local
+`change`, `rfl`, or `erw`, not assumptions. A module-private zero-coefficient lemma
+is reflexivity only. The original geometric retraction and invertible-ideal
+arguments remain the source proofs, not substituted providers.
+
+A33/B33/C32 compatibility ownership is disjoint; the primary does not edit those
+98 modules after transfer, nor the separately assigned finite3,
 flat22, RR55 or giant6. Foreign verified source/cache is consumed unchanged with
 payload/source SHA checks. The final original torsion theorem has no additional
 provider hypothesis, but is not claimed as proved until its actual degree/cardinality

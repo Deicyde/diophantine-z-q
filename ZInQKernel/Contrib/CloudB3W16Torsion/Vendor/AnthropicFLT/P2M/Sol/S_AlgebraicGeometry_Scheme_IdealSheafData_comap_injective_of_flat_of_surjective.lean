@@ -26,16 +26,16 @@ set_option autoImplicit false
 
 universe u
 
-open CategoryTheory CategoryTheory.Limits TensorProduct
+open _root_.CategoryTheory _root_.CategoryTheory.Limits _root_.TensorProduct
 
-open CategoryTheory CategoryTheory.Limits TensorProduct
+open _root_.CategoryTheory _root_.CategoryTheory.Limits _root_.TensorProduct
 
 namespace Algebra
-export Algebra (TensorProduct.rid ofId IsPushout TensorProduct.includeRight algebraMap TensorProduct.lTensor_ker IsPushout.equiv smul_def TensorProduct.includeLeft id TensorProduct.map)
+export _root_.Algebra (TensorProduct.rid ofId IsPushout TensorProduct.includeRight algebraMap TensorProduct.lTensor_ker IsPushout.equiv smul_def TensorProduct.includeLeft id TensorProduct.map)
 namespace IsPushout
-export Algebra.IsPushout (equiv symm)
-open Algebra.IsPushout
-open Algebra
+export _root_.Algebra.IsPushout (equiv symm)
+open _root_.Algebra.IsPushout
+open _root_.Algebra
 
 theorem ker_algebraMap_eq_map_ker
     (R B C P : Type*) [CommRing R] [CommRing B] [CommRing C] [CommRing P]
@@ -80,8 +80,8 @@ theorem ker_algebraMap_eq_map_ker
 end Algebra.IsPushout
 
 namespace CommRingCat
-export CommRingCat (hom_comp of flat Hom isPushout_iff_isPushout)
-open CommRingCat
+export _root_.CommRingCat (hom_comp of flat Hom isPushout_iff_isPushout)
+open _root_.CommRingCat
 
 theorem ker_eq_map_ker_of_isPushout {R B C P : CommRingCat.{u}} {f : R ⟶ B} {g : R ⟶ C}
     {inl : B ⟶ P} {inr : C ⟶ P} (h : IsPushout f g inl inr)
@@ -97,14 +97,14 @@ theorem ker_eq_map_ker_of_isPushout {R B C P : CommRingCat.{u}} {f : R ⟶ B} {g
 end CommRingCat
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Hom.resLE_comp_ι Scheme.Hom.map_appLE Scheme.Opens.topIso_inv Surjective isPushout_appTop_of_isPullback Scheme.Hom Scheme.Opens.ι_appIso isAffine_of_isAffineHom IsAffine Scheme Scheme.Hom.appTop Scheme.Opens.topIso_hom Flat isAffineOpen_top IsAffineOpen.comap_primeIdealOf_appLE Scheme.IdealSheafData.ideal_map_of_isAffineHom IsAffineOpen IsAffineOpen.fromSpec_primeIdealOf Scheme.Hom.ker_apply Scheme.Opens Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE Flat.flat_appLE Scheme.Hom.resLE_app_top Scheme.Opens.ι_image_top IsAffineHom Scheme.IdealSheafData.ext Scheme.IdealSheafData)
+export _root_.AlgebraicGeometry (Scheme.Hom.resLE_comp_ι Scheme.Hom.map_appLE Scheme.Opens.topIso_inv Surjective isPushout_appTop_of_isPullback Scheme.Hom Scheme.Opens.ι_appIso isAffine_of_isAffineHom IsAffine Scheme Scheme.Hom.appTop Scheme.Opens.topIso_hom Flat isAffineOpen_top IsAffineOpen.comap_primeIdealOf_appLE Scheme.IdealSheafData.ideal_map_of_isAffineHom IsAffineOpen IsAffineOpen.fromSpec_primeIdealOf Scheme.Hom.ker_apply Scheme.Opens Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE Flat.flat_appLE Scheme.Hom.resLE_app_top Scheme.Opens.ι_image_top IsAffineHom Scheme.IdealSheafData.ext Scheme.IdealSheafData)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Hom.resLE_comp_ι Hom.map_appLE Opens.topIso_inv Hom Γ Opens.ι_appIso topIso_hom Hom.appTop Opens.topIso_hom affineOpens IdealSheafData.ideal_map_of_isAffineHom isBasis_affineOpens Hom.ker_apply Opens Hom.appLE_map Hom.app_eq_appLE Hom.resLE_app_top Opens.ι_image_top IdealSheafData.ext restrict IdealSheafData)
+export _root_.AlgebraicGeometry.Scheme (Hom.resLE_comp_ι Hom.map_appLE Opens.topIso_inv Hom Γ Opens.ι_appIso topIso_hom Hom.appTop Opens.topIso_hom affineOpens IdealSheafData.ideal_map_of_isAffineHom isBasis_affineOpens Hom.ker_apply Opens Hom.appLE_map Hom.app_eq_appLE Hom.resLE_app_top Opens.ι_image_top IdealSheafData.ext restrict IdealSheafData)
 namespace IdealSheafData
-export AlgebraicGeometry.Scheme.IdealSheafData (comap_comp map subscheme subschemeι_app_surjective ideal ideal_map_of_isAffineHom subschemeι comap ker_subschemeι_app ideal_comap_of_isOpenImmersion)
-open AlgebraicGeometry.Scheme.IdealSheafData
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
+export _root_.AlgebraicGeometry.Scheme.IdealSheafData (comap_comp map subscheme subschemeι_app_surjective ideal ideal_map_of_isAffineHom subschemeι comap ker_subschemeι_app ideal_comap_of_isOpenImmersion)
+open _root_.AlgebraicGeometry.Scheme.IdealSheafData
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
 
 variable {X Y : Scheme.{u}}
 

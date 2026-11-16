@@ -108,7 +108,7 @@ theorem isDiscreteValuationRing_of_maximalIdeal_eq_colon
         exact Ideal.mul_mem_right _ _ (Ideal.mem_span_singleton_self n)
       · rw [Ideal.submodule_span_eq, Ideal.span_singleton_le_iff_mem]
         exact hn
-    exact ((IsDiscreteValuationRing.TFAE B hnf).out 0 4).mpr hprinc
+    exact ((IsDiscreteValuationRing.TFAE B hnf).out 1 5).mpr hprinc
   ·
     push Not at hcase
     exfalso

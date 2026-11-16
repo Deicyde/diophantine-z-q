@@ -10,7 +10,7 @@ Full original notices/credits: NOTICE.upstream, ATTRIBUTION.upstream.md, LICENSE
 import Mathlib
 import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
-set_option backward.isDefEq.respectTransparency false
+set_option backward.isDefEq.respectTransparency true
 
 namespace P2MW.S_MvPolynomial_exists_ne_zero_and_forall_irreducible_map_of_irreducible_map_algebraicClosure
 
@@ -23,6 +23,9 @@ namespace P2mBertiniNoether
 universe u v w
 
 variable {σ : Type v}
+
+private theorem coeff_zero {R : Type u} [CommSemiring R] (m : σ →₀ ℕ) :
+    (0 : MvPolynomial σ R).coeff m = 0 := rfl
 
 def BddExp (σ : Type v) (d : ℕ) : Type v := {α : σ →₀ ℕ // ∀ s, α s ≤ d}
 
@@ -75,16 +78,24 @@ noncomputable def readH {E : Type w} [CommRing E] (ψ : MvPolynomial (Vars σ d)
 
 lemma map_genG {E : Type w} [CommRing E] (ψ : MvPolynomial (Vars σ d) R →+* E) :
     map ψ (genG (R := R) d) = readG ψ := by
-  simp only [genG, readG, map_sum, map_monomial]
+  unfold genG readG
+  rw [map_sum]
+  apply Finset.sum_congr rfl
+  intro b _
+  exact map_monomial ψ b.1 _
 
 lemma map_genH {E : Type w} [CommRing E] (ψ : MvPolynomial (Vars σ d) R →+* E) :
     map ψ (genH (R := R) d) = readH ψ := by
-  simp only [genH, readH, map_sum, map_monomial]
+  unfold genH readH
+  rw [map_sum]
+  apply Finset.sum_congr rfl
+  intro b _
+  exact map_monomial ψ b.1 _
 
 lemma map_genRel {E : Type w} [CommRing E] (ψ : MvPolynomial (Vars σ d) R →+* E)
     (F : MvPolynomial σ R) :
     map ψ (genRel d F) = readG ψ * readH ψ - map (ψ.comp C) F := by
-  simp only [genRel, map_sub, map_mul, map_genG, map_genH, map_map]
+  rw [genRel, map_sub, map_mul, map_genG, map_genH, map_map]
 
 lemma coeff_sum_monomial {E : Type w} [CommRing E] (c : BddExp σ d → E) (a : BddExp σ d) :
     (∑ b : BddExp σ d, monomial b.1 (c b) : MvPolynomial σ E).coeff a.1 = c a := by
@@ -184,7 +195,7 @@ lemma exists_hom_of_factor {E : Type w} [CommRing E] (φ : R →+* E) (F : MvPol
 
 end System
 
-set_option backward.isDefEq.respectTransparency false in
+set_option backward.isDefEq.respectTransparency true in
 
 theorem exists_C_mem_of_forall_exists_aeval_ne_zero
     {R : Type u} [CommRing R] [IsDomain R] {ι : Type v} [Finite ι]
@@ -304,7 +315,7 @@ end Main
 
 section Final
 
-set_option backward.isDefEq.respectTransparency false in
+set_option backward.isDefEq.respectTransparency true in
 
 theorem bertiniNoether {R : Type u} [CommRing R] [IsDomain R] [Finite σ]
     (F : MvPolynomial σ R)

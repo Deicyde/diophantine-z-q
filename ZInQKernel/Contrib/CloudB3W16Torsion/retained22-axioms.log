@@ -1,0 +1,77 @@
+'AlgebraicCurve.CurveModel.rank_kaehler_chartRing_localization_away_eq_one' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'AlgebraicGeometry.finFibrePow.permAut' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgebraicGeometry.Scheme.LocalRepresentabilityULift.comp_toGlued_eq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'AlgebraicGeometry.ProjSpace.frameUnit_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PresheafOfModules.exteriorPowerMap_app_ιMulti' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PresheafOfModules.tensorIhomAdj' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PresheafOfModules.restrictScalars_laxMonoidal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'P2MW.S_AlgebraicCurve_Place_finite_residueField_of_finiteDimensional.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_AlgebraicGeometry_Scheme_IdealSheafData_comap_injective_of_flat_of_surjective.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_AlgebraicGeometry_Scheme_IdealSheafData_comap_mul.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_AlgebraicGeometry_Scheme_Hom_isInvertible_ker_of_comp_eq_id.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_AlgebraicGeometry_Scheme_IdealSheafData_ideal_comap_of_le.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_AlgebraicGeometry_Scheme_IdealSheafData_isInvertible_of_isInvertible_comap.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_AlgebraicGeometry_valuationRing_stalk_of_smoothOfRelativeDimension_one.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_Ideal_natCast_le_ringKrullDim_quotient_of_mem_minimalPrimes_map_of_algebraicIndependent.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_IsIntegrallyClosed_isDiscreteValuationRing_of_maximalIdeal_mem_associatedPrimes.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_IntermediateField_mem_adjoin_sum_mul_of_isSeparable_of_algebraicIndependent.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_Module_depth_quotSMulTop_succ_eq.solution' depends on axioms: [propext, Classical.choice, Quot.sound]
+'P2MW.S_Module_flat_of_comap_maximalIdeal_rTensor_injective.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_Module_free_of_depth_eq_ringKrullDim_of_isRegularLocalRing.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_MvPolynomial_exists_ne_zero_and_forall_irreducible_map_of_irreducible_map_algebraicClosure.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_IsLocalRing_flat_of_isScalarTower_of_flat_of_flat_quotient_maximalIdeal_map.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+	Command being timed: "lake env lean -M16000 CheckRetained22.lean"
+	User time (seconds): 2.57
+	System time (seconds): 2.54
+	Percent of CPU this job got: 106%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:04.79
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 7205712
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 243745
+	Voluntary context switches: 13239
+	Involuntary context switches: 313
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 320
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
