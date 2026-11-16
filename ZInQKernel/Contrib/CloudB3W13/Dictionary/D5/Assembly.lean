@@ -1,4 +1,5 @@
 import ZInQKernel.Contrib.CloudB3W13.Dictionary.D5.Generation
+import ZInQKernel.Contrib.CloudB3W13.Dictionary.D5.Transport
 
 /-!
 # D5: unconditional converse dictionary
@@ -55,17 +56,20 @@ theorem d5_obligation : D5_Obligation := by
   intro P
   let u : FLTL3 AV.Qbar := kernelWithFullLevel P
   let h : AbVarProps u.1 := ⟨P.A.proper, P.A.smooth, P.A.geomInt⟩
-  have hA : abVarOfFakeEC u.1 h = P.A := abVarOfKernel_eq P h
-  refine ⟨u, h, ?_⟩
-  rw [hA]
-  refine ⟨P.surface, P.q, P.e, ?_, ?_, ?_⟩
+  let B : AbVar AV.Qbar := abVarOfFakeEC u.1 h
+  have hA : B = P.A := abVarOfKernel_eq P h
+  refine ⟨u, h, surfaceOfEq P B hA, qmOfEq P B hA, levelOfEq P B hA, ?_, ?_, ?_⟩
   · intro a
-    exact (kernelFakeEC_act P a).symm
+    have hi : ((qmOfEq P B hA).iota a).hom = (P.q.iota a).hom := by
+      simpa only [eqToHom_refl, Category.id_comp, Category.comp_id] using
+        (qmOfEq_hom P B hA (show B.X = P.A.X from rfl) a)
+    exact (congrArg CommaMorphism.left hi).trans (kernelFakeEC_act P a).symm
   · intro a
-    exact (kernelWithFullLevel_points P a).symm
-  · exact ⟨AV.QML3.Iso.refl P⟩
-
-#print axioms kernelLaw_roundtrip
-#print axioms d5_obligation
+    have he : Additive.toMul ((levelOfEq P B hA).eta a) =
+        Additive.toMul (P.e.eta a) := by
+      simpa only [eqToHom_refl, Category.comp_id] using
+        (levelOfEq_pt P B hA (show B.X = P.A.X from rfl) a)
+    exact (congrArg CommaMorphism.left he).trans (kernelWithFullLevel_points P a).symm
+  · exact ⟨objectOfEq_iso P B hA⟩
 
 end ZInQ.Contrib.CloudB2Shimura.Dictionary.D5

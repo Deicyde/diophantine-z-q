@@ -173,7 +173,4 @@ def kernelFakeEC [CharZero K] (P : AV.QML3 K) : FakeEC K where
     (kernelFakeEC P).act (toΛ a) = (P.q.iota a).hom.left := by
   simp only [kernelFakeEC, kernelAct, fromΛ_toΛ]
 
-#print axioms kernelAct_trace
-#print axioms kernelFakeEC
-
 end ZInQ.Contrib.CloudB2Shimura.Dictionary.D5

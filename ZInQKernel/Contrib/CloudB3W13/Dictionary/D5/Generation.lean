@@ -204,7 +204,4 @@ theorem kernelWithFullLevel_points [CharZero K] (P : AV.QML3 K) (a : O) :
   simpa only [mul_one, kernelWithFullLevel, fltLevelPoint, kernelFakeEC_act,
     kernelFullLevel, kernelPt] using h
 
-#print axioms algLevel_torsion_card
-#print axioms kernelFullLevel
-
 end ZInQ.Contrib.CloudB2Shimura.Dictionary.D5
