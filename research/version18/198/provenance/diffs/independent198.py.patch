@@ -1,0 +1,47 @@
+--- original/independent198.py
++++ checks/independent198.py
+@@ -8,11 +8,10 @@
+ from hashlib import sha256
+ from math import gcd,lcm
+ import json,sys
++from portable_io import independent_paths, pinned_file
+ import sympy as s
+ 
+-HERE=Path(__file__).resolve().parent
+-INV=HERE.parents[1]/'v18-198-dependency-inventory-20261114'
+-PKG=INV/'package/H10-quartic198'
++PKG,PINS,ARCHIVE,OUTPUT=independent_paths()
+ CIR=PKG/'circuits'
+ FINAL=CIR/'inverse198'
+ source=PKG/'source/computation/quartic/reciprocal204_v27/unbalanced-quadratic.json'
+@@ -22,7 +21,7 @@
+ def need(ok,message):
+     if not ok:raise AssertionError(message)
+     checks.append(message)
+-def read(p):return json.loads(p.read_text())
++def read(p):return json.loads(p.read_text(encoding='utf-8'))
+ def decode(row,mp=None):
+     out={}
+     for t in row['terms']:
+@@ -62,11 +61,11 @@
+     return out
+ def serialize_profiles(ps):return [{'monomial':list(m),'coefficients':{str(a):str(v) for a,v in p.items()}} for m,p in sorted(ps.items())]
+ 
+-pins=read(INV/'PACKAGE-PINS.json')
+-zipfile=Path(pins['zip'])
++pins=read(PINS)
++zipfile=ARCHIVE
+ need(sha256(zipfile.read_bytes()).hexdigest()==pins['zip_sha256'],'selected archive hash')
+ for f in pins['files']:
+-    need(sha256((INV/'package'/f['path']).read_bytes()).hexdigest()==f['sha256'],'frozen package hash '+f['path'])
++    need(sha256(pinned_file(PKG,f['path']).read_bytes()).hexdigest()==f['sha256'],'frozen package hash '+f['path'])
+ need(sha256(source.read_bytes()).hexdigest()=='21da11b4a5c9f11d8a3253162283cbd339c0f35599ab9d578a2302009f725536','pinned 204 source hash')
+ 
+ parent=read(source);affine=read(CIR/'affine200/quadratic.json')
+@@ -273,5 +272,5 @@
+     'files':{n:sha256((FINAL/n).read_bytes()).hexdigest() for n in ['quadratic.json','polynomial.json','balanced-quadratic.json','balanced-polynomial.json','balancing-weights.json']},
+     'checker_sha256':sha256(Path(__file__).read_bytes()).hexdigest(),'assertions':len(checks),
+     'scope':'Exact finite algebra and coefficient specification only. No audit of inherited infinite arithmetic or Busy Beaver theorems.'}
+-(HERE/'independent198-result.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8',newline='\n')
++OUTPUT.write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8',newline='\n')
+ print(json.dumps({k:v for k,v in report.items() if k!='balanced_opposite_sign_profiles'},indent=2))

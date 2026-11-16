@@ -1,0 +1,21 @@
+{
+  "status": "path adaptation verified by relocated finite replay; no new proof acceptance",
+  "original_source": "work/jose196-audit-20261115/independent_audit.py",
+  "original_sha256": "37a1b5d497e5cb7b7fe2233519827792c77fa2c2ea6caf047c62de525314e959",
+  "adapted_sha256": "d5b58958a1a606fe0bea9a2c97dec1fcdd62d275a5b0afad6d30968bc13bddbd",
+  "helper_sha256": "58d4d75c66043d9b2cfaa00539a53e9c018b16975e4f89cee26e5957e2d859af",
+  "diff_sha256": "964fd81740b787417e8fe501b140d34f9dbf1495e9f0f37c185531fbda3d7505",
+  "literal_reverse_patch_reproduces_original": true,
+  "changes": [
+    "Replace local input paths with explicit CLI arguments",
+    "Replace fixed result location with explicit output",
+    "Authenticate source pins and all 29 inputs before the unchanged checks; reject optimized Python and protected/occupied outputs"
+  ],
+  "mathematical_check_body_changed": false,
+  "source_imports": "Only Python standard library plus the local I/O helper; upstream code is data only",
+  "proof_scope": "Replays root's independent finite audit. Does not newly accept inherited arithmetic, BB, assembled manuscript, or final release.",
+  "validation": {
+    "path": "evidence/PORTABILITY-CHECK.json",
+    "sha256": "310da389302e6144acad61dc8477965d0d341c44a638bfd9055189ffd86bd385"
+  }
+}

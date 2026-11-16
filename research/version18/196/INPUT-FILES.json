@@ -1,0 +1,214 @@
+{
+  "public_root": "research/version18/196",
+  "upstream_commit": "5c35db3253a70b0875acec4b451cdaac4da3c8fd",
+  "runtime": "Python standard library only; tested with Python 3.14.7",
+  "checker": "checks/independent196.py",
+  "io_helper": "checks/portable_io196.py",
+  "source_root": "upstream/source",
+  "source_pins": "provenance/SOURCE-PINS.json",
+  "all_29_source_files_required_for_authentication": true,
+  "source_files": [
+    {
+      "path": "upstream/source/computation/quartic/laurent_recovery_v38/README.md",
+      "bytes": 891,
+      "sha256": "c746510f3479584795a57faa24092d75160af744d9e01fcf714f7161b1f2da21",
+      "used_by_mathematical_check_body": false
+    },
+    {
+      "path": "upstream/source/computation/quartic/laurent_recovery_v38/algebra.py",
+      "bytes": 4679,
+      "sha256": "3c0a7618f95a41d42c186b6dae6afbf8d5702d5b6b94944387d774be58536060",
+      "used_by_mathematical_check_body": false
+    },
+    {
+      "path": "upstream/source/computation/quartic/laurent_recovery_v38/balance258-weights.json",
+      "bytes": 2991,
+      "sha256": "3042649ba3da265f77ac13eb06ebbcaba1d70e9dbc5fa7d5de963c59bb8b7ad2",
+      "used_by_mathematical_check_body": false
+    },
+    {
+      "path": "upstream/source/computation/quartic/laurent_recovery_v38/build.py",
+      "bytes": 2673,
+      "sha256": "db0e557a9e219f3b262ff169ca2144b4fb6b753610c402da96d0d1de5794d1af",
+      "used_by_mathematical_check_body": false
+    },
+    {
+      "path": "upstream/source/computation/quartic/laurent_recovery_v38/build_explicit.py",
+      "bytes": 2791,
+      "sha256": "d3aacec4eb6ee18074f708166e49d831a77c0b91c5d22b2297616c7d131347f2",
+      "used_by_mathematical_check_body": false
+    },
+    {
+      "path": "upstream/source/computation/quartic/laurent_recovery_v38/check.py",
+      "bytes": 10274,
+      "sha256": "6dc350e15453e59788a5dacc6d3c1dbce122d87105b97d50cce9207a75efd772",
+      "used_by_mathematical_check_body": false
+    },
+    {
+      "path": "upstream/source/computation/quartic/laurent_recovery_v38/check_explicit.py",
+      "bytes": 8761,
+      "sha256": "8867d88ca19594dd5b17883bffd891849127a2124c9ee89c4d5030c1a92a2e38",
+      "used_by_mathematical_check_body": false
+    },
+    {
+      "path": "upstream/source/computation/quartic/laurent_recovery_v38/config196.json",
+      "bytes": 5010,
+      "sha256": "801074e615529c34d376026a7f6c604f019070585facf1b07ff72d6c2491c3cb",
+      "used_by_mathematical_check_body": true
+    },
+    {
+      "path": "upstream/source/computation/quartic/laurent_recovery_v38/config258.json",
+      "bytes": 2074,
+      "sha256": "562e60dabe3a704f097652376c8df74bdc3e7feab685f92601199c539704c46e",
+      "used_by_mathematical_check_body": false
+    },
+    {
+      "path": "upstream/source/computation/quartic/laurent_recovery_v38/config259.json",
+      "bytes": 1653,
+      "sha256": "00733ffed9c1b4163ccf473cd12187cb3f085f7b9f9e4ce468787e0379c4e8f8",
+      "used_by_mathematical_check_body": false
+    },
+    {
+      "path": "upstream/source/computation/quartic/laurent_recovery_v38/family196/balanced-polynomial.json",
+      "bytes": 446465,
+      "sha256": "30767c50b8b14108bb600136bc11431fab6ebb43b171c7d0a557adbb3b48bc4e",
+      "used_by_mathematical_check_body": true
+    },
+    {
+      "path": "upstream/source/computation/quartic/laurent_recovery_v38/family196/balanced-quadratic.json",
+      "bytes": 180354,
+      "sha256": "5b86e26d395e60360ecd1210dd87819b3f57b60e3585db7ad7deff0d677a593c",
+      "used_by_mathematical_check_body": true
+    },
+    {
+      "path": "upstream/source/computation/quartic/laurent_recovery_v38/family196/balancing.json",
+      "bytes": 19230,
+      "sha256": "0700615a7c66a5ee3ebe519b010676a398d6051c37e4b30255c69173b3328537",
+      "used_by_mathematical_check_body": true
+    },
+    {
+      "path": "upstream/source/computation/quartic/laurent_recovery_v38/family196/certificate.json",
+      "bytes": 39489,
+      "sha256": "7d8e83561aafc768ee1a62d6275a62b9fdd81b1cf15dd78ed1868880e668ed57",
+      "used_by_mathematical_check_body": true
+    },
+    {
+      "path": "upstream/source/computation/quartic/laurent_recovery_v38/family196/polynomial.json",
+      "bytes": 444690,
+      "sha256": "a8ab93d66fe83f4bdfd4b176d47c250c2e124f42535d7a6a133edff6a97389ad",
+      "used_by_mathematical_check_body": true
+    },
+    {
+      "path": "upstream/source/computation/quartic/laurent_recovery_v38/family196/quadratic.json",
+      "bytes": 180374,
+      "sha256": "3b6ab20da25bced159559c35e512e2bb2e56959b734b4265c8f80a7bd9cdb1c1",
+      "used_by_mathematical_check_body": true
+    },
+    {
+      "path": "upstream/source/computation/quartic/laurent_recovery_v38/family258/balanced-polynomial.json",
+      "bytes": 567256,
+      "sha256": "9300057e338db0064c32b2ad5ebf4c37118af37948f620aca36d1a7b0a6b3fb8",
+      "used_by_mathematical_check_body": false
+    },
+    {
+      "path": "upstream/source/computation/quartic/laurent_recovery_v38/family258/balanced-quadratic.json",
+      "bytes": 236142,
+      "sha256": "ad8204d383210613590b3daa8031dc43113d50b0d26e84d067971cac5f37fe4c",
+      "used_by_mathematical_check_body": false
+    },
+    {
+      "path": "upstream/source/computation/quartic/laurent_recovery_v38/family258/balancing.json",
+      "bytes": 27114,
+      "sha256": "ed43917252f3eeb579deeb71093e28432b0cd47678fb6b7a7df1ab7f11ee9976",
+      "used_by_mathematical_check_body": false
+    },
+    {
+      "path": "upstream/source/computation/quartic/laurent_recovery_v38/family258/certificate.json",
+      "bytes": 39409,
+      "sha256": "ccae0e9249ebeaf814f81e0e8caebccdfb8cdbffb85414018f7ed85413e98836",
+      "used_by_mathematical_check_body": false
+    },
+    {
+      "path": "upstream/source/computation/quartic/laurent_recovery_v38/family258/polynomial.json",
+      "bytes": 572143,
+      "sha256": "154ce825b8821dd76f2541ea77c5422bf824f8fe508d8ff72e18f824b205bd20",
+      "used_by_mathematical_check_body": false
+    },
+    {
+      "path": "upstream/source/computation/quartic/laurent_recovery_v38/family258/quadratic.json",
+      "bytes": 237355,
+      "sha256": "97f980d6f970210c483fb8c65d0f91da86f2a41ee9c25e228c057b106c907ddd",
+      "used_by_mathematical_check_body": false
+    },
+    {
+      "path": "upstream/source/computation/quartic/laurent_recovery_v38/family259/certificate.json",
+      "bytes": 39145,
+      "sha256": "f50dce4b5120fdaafdf41e268f69d16ece533184a1029330a2741c869fa55791",
+      "used_by_mathematical_check_body": false
+    },
+    {
+      "path": "upstream/source/computation/quartic/laurent_recovery_v38/family259/polynomial.json",
+      "bytes": 569736,
+      "sha256": "415d7f8cda473a36134bf989f567c5998842a30f4ebdb203a51ae2ed38402c9f",
+      "used_by_mathematical_check_body": false
+    },
+    {
+      "path": "upstream/source/computation/quartic/laurent_recovery_v38/family259/quadratic.json",
+      "bytes": 237251,
+      "sha256": "e058a226b26999b292dd0894a0e0ba673054acf926abbe6b05b3ac95a3a72eac",
+      "used_by_mathematical_check_body": false
+    },
+    {
+      "path": "upstream/source/data/audits/laurent196_20261115_v38.json",
+      "bytes": 1148,
+      "sha256": "421e09b115765e533efd1215face63e0ec3b584c7d4b0a2f9b275f28d2339189",
+      "used_by_mathematical_check_body": false
+    },
+    {
+      "path": "upstream/source/papers/quartic/laurent_elimination_20261115_v38.tex",
+      "bytes": 19408,
+      "sha256": "5ba965e483472b3ea6c74b31098b055525e0e86c8e317eff1ee42cfcfd8efdda",
+      "used_by_mathematical_check_body": false
+    },
+    {
+      "path": "upstream/source/papers/quartic/laurent_weights_20261115_v38.tex",
+      "bytes": 3386,
+      "sha256": "62450927e59d3648f9988739eeee5cc7d2d94d9edf04c8a2f1922f4016b8929a",
+      "used_by_mathematical_check_body": false
+    },
+    {
+      "path": "upstream/source/sources/h10_quartic198/circuits/inverse198/quadratic.json",
+      "bytes": 223391,
+      "sha256": "c55d7eefe41f62fee88b467e3ea8f6be8ba1e66f6a94b30eb74b39f6f6e7efad",
+      "used_by_mathematical_check_body": true
+    }
+  ],
+  "separately_checked_parent": {
+    "path": "../198/upstream/H10-quartic198/circuits/inverse198/quadratic.json",
+    "sha256": "c55d7eefe41f62fee88b467e3ea8f6be8ba1e66f6a94b30eb74b39f6f6e7efad"
+  },
+  "required_support_files": [
+    {
+      "path": "checks/independent196.py",
+      "sha256": "d5b58958a1a606fe0bea9a2c97dec1fcdd62d275a5b0afad6d30968bc13bddbd"
+    },
+    {
+      "path": "checks/portable_io196.py",
+      "sha256": "58d4d75c66043d9b2cfaa00539a53e9c018b16975e4f89cee26e5957e2d859af"
+    },
+    {
+      "path": "provenance/SOURCE-PINS.json",
+      "sha256": "e29aa9a32a69e8d2a6c36795b8f8e71bbdc9262817054e989018165c093eb63f"
+    }
+  ],
+  "output": "Choose a new path outside the source and checker directories; example reproduction-output/196-result.json from the repository root",
+  "selected_table": "upstream/source/computation/quartic/laurent_recovery_v38/family196/polynomial.json",
+  "selected_table_sha256": "a8ab93d66fe83f4bdfd4b176d47c250c2e124f42535d7a6a133edff6a97389ad",
+  "unchanged_metadata": "The upstream table says sufficientDefiningThreshold=Ineffective. Version 18 supplies its BB specialization in the manuscript; this proposal does not rewrite the supplied table.",
+  "not_selected": [
+    "balanced presentation",
+    "258/259 families",
+    "78-variable family",
+    "further optimization"
+  ]
+}

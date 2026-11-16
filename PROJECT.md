@@ -16,8 +16,13 @@ The owner selected these two reviewer models on November 13, 2026:
 | OpenAI | `gpt-6-astra` |
 | Anthropic | `claude-fable-5-2` |
 
-Both must review every mathematical change and both must accept, except for an
-explicit collaborator override of a recorded deadlock. An overridden step is
+Both must review every mathematical change. An App-authenticated acceptance
+remains valid for an unchanged head. Completed reviews can also carry across a
+rebase with an unchanged diff and unchanged reviewed dependencies. Both must
+accept, except for the documented source-access limitation or an explicit
+collaborator override of a recorded deadlock. A source-access-only finding is
+nonblocking if the other reviewer actually checked the same source passage and
+application without objection; its limitation remains in the record. An overridden step is
 not outside reviewed. There is no
 fallback model. Changing this list is the owner's decision and takes effect at
 the next release. The workflow records the requested and returned model IDs;
@@ -44,7 +49,7 @@ specifies the App identity, secret names, activation checks and deferred tests.
 The retired controller and local runner are not used.
 
 Non-author-family review of the implementation and repairs remains an activation
-requirement. The [pre-activation review record](docs/research-review/reviews/pre-activation-reviews.md)
+requirement. The [pre-activation review record](https://github.com/elliotglazer/diophantine-z-q/blob/005b17abfbefd8bee7b34f3bbe8f5aabf872eb1f/docs/research-review/reviews/pre-activation-reviews.md)
 records Fable 5.2's original review files, the retrospective PR73 record, and
 owner-reported in-session acceptances of later commits. It also records PR88's owner-bypass
 merge on those reviews, not an App acceptance. Branch/tag key-isolation testing
@@ -60,12 +65,15 @@ Protocol reference: [Protocol B, edition 2](https://github.com/elliotglazer/prot
 
 This is a review map, not a new acceptance of the historical arguments. Follow
 the current-manuscript profile above before using the labels below. For Version
-17, the following parts need outside review when changed, along with their
+18, the following parts need outside review when changed, along with their
 affected consumers:
 
 | Step | Current manuscript labels | Why it is load-bearing |
 |---|---|---|
-| Main family and its finite algebra | `q214:theorem`, `q214:certificates` | The equations, parameter range and coefficient representation must match the claimed projection and the regenerated artifacts. |
+| Selected 196 family and elimination | `q196:fixed`, `q196:general`, `q196:family`, `q196:rows` | Both projection directions, nonzero rescaling factors, all retained guards and printed coefficients must agree with the parent and selected table. |
+| Parent arithmetic and finite algebra | `q198:family`, `q198:finite-algebra`, `q198:soundness`, `q198:completeness` | The 198-coordinate parent must supply the integer characterization for the same parameter and simultaneous witness choices. |
+| Busy Beaver parameter and coefficient bound | `q198bb:fixed`, `q198bb:threshold`, `q198bb:compiler`, `q198bb:coefficient` | The uniform threshold, halting-machine size, machine convention and strict coefficient comparison must justify the selected fixed parameter. |
+| Retained 214 foundation | `q214:theorem`, `q214:certificates` | The inherited arithmetic interfaces and finite identities retain their separate proof scopes. |
 | Arithmetic height input | `sec:height`, `thm:height`, `q214:height-supplier` | Soundness needs the height bound for the actual contact data, including exceptional cases and uniformity. |
 | Modularity, evaluation and height comparison | `q214:modularity`, `q214:height-evaluation`, `q214:height-different`, `q214:height-metric`, `q214:height-averaging`, `q214:height-assembly` | These compare different models, metrics and normalizations; a citation must supply the object actually consumed. |
 | Pole predicate and restricted converse | `sec:pole`, `sec:rc`, `q214:source-carry` | Completeness uses simultaneous realization and the analytic/arithmetic converse chain, including determinant, limit and local-condition arguments. |

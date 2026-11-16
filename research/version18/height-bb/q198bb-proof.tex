@@ -1,0 +1,1233 @@
+% Standalone author component. Requires amsmath, amssymb, amsthm, hyperref.
+% All labels and new bibliography keys use q198bb:.
+\providecommand{\BB}{\operatorname{BB}}
+\providecommand{\Q}{\mathbb Q}
+\providecommand{\Z}{\mathbb Z}
+\section{A fixed 198-variable quartic selected by Busy Beaver}
+\label{q198bb:specialization}
+
+We retain the arithmetic hypotheses and the exact polynomial table of
+ the 198-variable construction. The argument in this section bounds a
+sufficient threshold by bounding the number of records in a computable
+search. It then gives a separate strict bound on the coefficients.
+Neither step evaluates a Busy Beaver value or computes an unknown
+height constant by recognizing the last record.
+
+\paragraph{Machine convention.}
+Let $\BB(s)$ be the maximum blank-tape halting time of a deterministic
+machine with exactly $s$ working states, a distinguished initial state,
+symbols $0,1$, one two-way infinite tape initially all zero, and moves
+left or right. A separate halting state is not counted. The transition
+entering it, including its write and move, counts as one step. Unused
+working states are allowed. The finite set of transition tables contains
+a halting table, so the maximum exists. Padding proves that $\BB$ is
+nondecreasing.
+
+\begin{theorem}[The Busy Beaver specialization]\label{q198bb:fixed}
+Subject to the arithmetic premises of the 198-variable construction,
+let $Q_1(A),\ldots,Q_{184}(A)$ be its primitive integer quadratic
+residuals in 198 total coordinates, with the first coordinate the input.
+Use the unbalanced presentation, whose coefficients are polynomials in
+$A$. Set
+\[
+ N_{\rm BB}=\BB(2^{1000}),\qquad
+ A_{\rm BB}=149^{2N_{\rm BB}+1},\qquad
+ P_{\rm BB}=\sum_{i=1}^{184}Q_i(A_{\rm BB})^2.
+\]
+Then, for every $x\in\Q$,
+\[
+ x\in\Z\quad\Longleftrightarrow\quad
+ \exists(z_2,\ldots,z_{198})\in\Q^{197}:
+ P_{\rm BB}(x,z_2,\ldots,z_{198})=0.
+\]
+The polynomial has degree four, content one and exactly 2945 nonzero
+coordinate monomials. Its largest absolute coefficient is
+\[
+ H(P_{\rm BB})=149^{4\BB(2^{1000})+2}<\BB(2^{2000}).
+\]
+The parameter $A_{\rm BB}$ is fixed and is not an additional quantified
+coordinate. The count 198 is an upper bound, not a minimum-variable claim.
+\end{theorem}
+
+\subsection{The arithmetic inputs and their precise scope}
+\label{q198bb:inputs}
+We state the conclusions supplied by the preceding arithmetic proof
+that are used below. Write $h$ for absolute logarithmic Weil height and
+$\widehat h_E$ for the elliptic canonical height.
+Put $K=\Q(\rho)$, $\rho^2=2$, $d=3-\rho$, $D=d^2$ and
+\[
+ E:y^2=x^3-Dx,\qquad R_0=(1+\rho,2\rho),\qquad
+ P=2R_0=\left((57-28\rho)/8,(-660+417\rho)/32\right).
+\]
+The retained group and height statements give
+$E(K)=\Z R_0+E[2](K)$, uniquely, with
+$E[2](K)=\{O,(0,0),(d,0),(-d,0)\}$ and
+$\widehat h_E(P)\ge1/2$. The two pointed images of $R_0$ on
+$E_0:Y^2=X^3-X$, obtained from the conjugate curves by their fixed
+pointed isomorphisms, are independent modulo torsion over $\Z[i]$.
+The fixed real-orbit recurrence, finite-place preparation, compatible
+CRT, simultaneous-prime and prepared pole-realization statements are
+those of the 198 construction.
+
+Every rational solution recovers four finite points
+$Q_i=[m_i]R_0+\tau_i$, with $m_i\in\Z$ and $\tau_i\in E[2](K)$,
+and labels
+\[
+ n=m_1/2,\qquad a=m_2\ne0,\qquad t=m_3,\qquad b=2m_4+1.
+\]
+Its aggregate and scalar data are
+\[
+ T=7+\frac14\operatorname{Tr}_{K/\Q}\sum_i x(Q_i)\ge1,
+ \quad t_0=\lambda,\quad t_1=\lambda+T,
+ \quad B=\max(1,|n|,|a|,|t|,|b|),\quad c=|a|,
+\]
+\[
+ \beta=51x^2+2504,\qquad
+ L_N=\lfloor9(2N-1)/4\rfloor+1\ge N,
+\]
+\[
+ c\ge149^{L_N},\qquad
+ h(\beta)\le C_3 149^{-L_N}c(1+\log(c)/3),\qquad C_3=2^{330770}.
+\]
+The retained contact radicals $M_j=M(t_j)$ satisfy
+\[
+ h(t_j)\le H_2M_j^{7/6},\qquad
+ M_j^3\mid\Delta\quad(\Delta\ne0),\qquad
+ M_j\mid J_x\quad(J_x\ne0),
+\]
+where
+\[
+ \Delta=t^2-(a+1)(a-1)tb+(a-1)^2b^2-1,\quad |\Delta|\le14B^4,
+ \qquad J_x=|\operatorname{num}(\beta-n)|\le4B e^{h(\beta)}.
+\]
+Here $\operatorname{num}$ means reduced numerator, and the divisibility
+statements concern nonzero integers. The contact supplier has
+$C_2<2^{7557/32}$ and $\alpha=2103/1024<7/3$, with
+$H_2=\log7+C_2B_\Sigma^\alpha$ and
+$B_\Sigma=\prod_{p\in\Sigma\setminus S_{10}}p$. The retained exceptional
+set consists of primes at most 76176 together with 2029147.
+Consequently
+\[
+ B_\Sigma\le2029147\,76176^{76176}<2^{1295013},\qquad
+ H_2<2^{4000000}.
+\]
+The norm-one/Lucas classification gives the following explicit
+consequence when $\Delta=0$ and $c\ge8$. Put $A'=a+1$,
+$c'=|A'|$ and $w=\operatorname{sgn}(A')(A'-2)b$. Then $w\ne0$ and
+$t^2-c'tw+w^2=1$. The retained classification gives
+$|w|=U_j(c')$, $|t|\in\{U_{j-1}(c'),U_{j+1}(c')\}$ and
+$j\ge c'-2$. The recurrence bound
+$U_\ell(c')\ge(c'-1)^{\ell-1}$ for $\ell\ge1$ therefore gives
+\[
+ \log B\ge(c'-5)\log(c'-2)\ge(c-6)\log(c-3).
+\]
+All bases and exponents in this weakening are positive for $c\ge8$.
+When $J_x=0$, the reduced-denominator argument using squarefreeness of
+102 gives $x\in\Z$.
+
+For completeness the actual scalar quotient is
+$Z=2z(Q_2)/z(H)$, where $z=-x/y$, and
+\[
+ R=\frac{149^{2N+1}r_s}{1+149^2r_s},\quad
+ r_s=\beta(\beta-1)(\beta-2401)(32\beta+343)\ge1,
+ \quad F=\operatorname{Nm}_{K/\Q}(1/x(H)),
+\]
+\[
+ W_s=Z_0^4/R^{10}+Z_1^2/R^5+F^2/R^4,\qquad
+ b_s=R(R+9792)W_s^2.
+\]
+The ordered completeness construction permits arbitrary required
+finite depths for $H$ and then $Q_2=[a_0]P$, including $3\mid a_0$,
+while keeping their fixed real neighborhoods. After their values and the
+labels have been chosen, the comparison-prime theorem applies to the
+fixed rational contact list, merging repetitions and retaining incidences.
+The final progression preserves the earlier preparation. Prepared pole
+realization is applied to each actual final input after $H$ is fixed.
+The only uniform lower restriction on $N$ in this construction is the
+one ensuring $0<b_s<17$; the later moduli, primes, slopes and certificates
+may depend on $(N,x)$ and impose no new lower bound on $N$.
+Section~\ref{q198bb:real} supplies an explicit sufficient uniform bound.
+
+Finally, the exact unbalanced coefficient calculation gives, for $N\ge1$,
+\[
+ H(P_N)=\max\{H_0,149^{4N+2}\},\quad
+ K_0=31581660^{28},\quad
+ H_0=(5898050446009651968K_0)^2<149^{214}.
+\]
+The degree, content and 2945-monomial support hold throughout this
+parameter range. The separate balanced table uses $C=149^N$ and has
+coefficients linear in $C$; it is not the polynomial-in-$A$ presentation
+selected in Theorem~\ref{q198bb:fixed}.
+
+\subsection{The enlarged point domain and the fixed geometry}
+\label{q198bb:geometry}
+For height purposes replace each $m_i$ by $|m_i|$: this preserves its
+abscissa since $-\tau_i=\tau_i$. Write
+$S=\sum_i m_i^2$. Freeze every zero-index coordinate to one of the three
+finite two-torsion points, and omit that factor. There are at most
+$4^4=256$ strata: in each position choose an active index or one of three
+fixed torsion points. Active torsion translates remain unrestricted.
+An all-frozen stratum has $S=0$ and produces no record below.
+
+For $k\ge1$ active positions use $A_k=E_0^{2k}$, embedded by the product
+of the complete plane-cubic embeddings and Segre. The cubic exact
+sequence gives surjectivity of restriction of homogeneous forms in
+every nonnegative degree; tensoring and Segre give the corresponding
+condition (1.1) of \cite{q198bb:VB}. The line bundle is ample and
+symmetric. On $A_k$ use the function
+\[
+ F=c_0+\frac d4\sum_{i=1}^kX_i+\frac {d'}4\sum_{i=1}^kX_i'.
+\]
+The constant $c_0$ includes 7 and the omitted contributions. Each omitted
+contribution is $0$ or $\pm3/2$, so $1\le c_0\le13$, its denominator
+divides 2, and $h(c_0)\le\log26$.
+
+We recall why the actual tuples avoid every exceptional abelian
+translate. A positive-dimensional abelian subvariety of a power of
+$E_0$ contains an elliptic subvariety isogenous to $E_0$. A direction
+through the tuple therefore has coordinate endomorphisms
+$\gamma_i,\gamma_i'\in\Z[i]$, not all zero. If two nonconstant
+first-block coordinates share a pole, elimination of its parameter gives
+$m_i\gamma_j=m_j\gamma_i$. The coefficient of their common double pole,
+including all terms with that pole, is proportional to
+\[
+ \frac d{4\gamma_i^2}\sum_j(m_i/m_j)^2\ne0.
+\]
+It cannot cancel. A pole shared across the two conjugate blocks would
+give a nonzero relation between the pointed images of $R_0$ modulo
+torsion, contrary to their retained independence. The same positive
+sum works in the second block. Thus $F$ is nonconstant on any such
+direction. The graph closure $V\subset A_k\times\mathbf P^1$ is
+integral; a fiberwise translate through an actual domain point meets
+the domain densely, so graph boundary components do not evade this
+argument.
+
+Multiplying its graph equation by the product of the $2k$ homogeneous
+$Z$ coordinates gives a hyperplane section in the Segre embedding of
+$A_k\times\mathbf P^1$. The graph is an irreducible component, whence
+\begin{gather*}
+ \dim V=2k\le8,\qquad m=2k+1\le9,
+ \qquad N_A+1=3^{2k}\le3^8,\qquad N_P+1=2,\\
+ D_V\le(2k+1)!3^{2k}\le9!3^8=2380855680<2^{32}.
+\end{gather*}
+The paired canonical height is
+\[
+ \widehat h_{A_k}=\alpha S,\qquad
+ \alpha=6\widehat h_E(R_0)=\tfrac32\widehat h_E(P)\ge\tfrac34.
+\]
+Torsion does not affect it. Normalized directions have exactly the
+Euclidean metric of $(m_i)/\sqrt S$, with zeros in omitted positions,
+in a four-dimensional cube. This covers the full point domain needed here.
+
+
+\subsection{Small fixed height constants.}
+We record generous bounds in the height convention of the projective
+embedding. The duplication map on the abscissa of $E_0$ is
+\[
+ (X:Z)\longmapsto\big((X^2+Z^2)^2:4XZ(X^2-Z^2)\big).
+\]
+Writing $F=(X^2+Z^2)^2$ and $G=4XZ(X^2-Z^2)$, the identities are
+\[
+\begin{aligned}
+ Z^7&=(Z^3-\tfrac34X^2Z)F
+              +(\tfrac5{16}XZ^2+\tfrac3{16}X^3)G,\\
+ X^7&=(X^3-\tfrac34XZ^2)F
+              -(\tfrac3{16}Z^3+\tfrac5{16}X^2Z)G.
+\end{aligned}
+\]
+Each row has sum of absolute coefficients $9/4$. The local height estimates give
+\[
+ 4h(x)-\log36\le h(x([2]Q))\le4h(x)+\log8.
+\]
+The estimate includes projective abscissas of torsion points. Telescoping
+gives $|h(x(Q))-2\widehat h_E(Q)|\le\log36/3$.
+The plane height differs from $\tfrac32h(x(Q))$ by at most $\log4$,
+as follows directly from $y^2=x^3-x$ at each place. It follows that
+$C_{\rm haut}<100$ on $A_k$ with the usual Weil height on the base.
+
+For addition and subtraction, the nine products of the coordinates of
+$Q+R$ and $Q-R$, multiplied in the affine chart by $(x_R-x_Q)^3$,
+reduce to polynomials of bidegree $(2,2)$ with integer coefficients of
+absolute value at most four. The nine polynomials are displayed in
+Section~\ref{q198bb:finite-algebra}. Their extensions are sections of
+$\mathcal O(6O)\boxtimes\mathcal O(6O)$, by the theorem of the square.
+The divisor of $x_R-x_Q$ identifies the common trivialization used in
+this calculation, so these sections give the addition-subtraction
+morphism also across the exceptional affine charts.
+Taking at most eight products and expressing them in Segre coordinates gives
+$h_{\rm add}<100$; even bounding every coefficient by $2^{40}$ suffices.
+
+
+For the successive-minima step we use the final published
+\cite[Theorem~5.2, p.~208]{q198bb:Zhang}, rather than relying on
+a comparison between the author text of \emph{Small points and adelic
+metrics} and its published edition.  Take the projective integral
+closure of the graph over the ring of integers of a field of definition,
+and the restriction of $\mathcal O(1)$ with its standard Fubini--Study
+metric.  The generic line bundle is ample.  Its finite-place model is
+relatively generated and its smooth metric is the projective quotient
+metric, so it is relatively semiample in the terminology of that theorem.
+The arithmetic dimension is $2k+1\le9$.  The theorem's upper inequality is
+\[
+ \frac{h_{\rm FS}(V)}{(2k+1)\deg V}\le e_1(V).
+\]
+Here the arithmetic intersection height is divided by the field degree;
+the same field degree occurs in the geometric degree, so no extension
+factor remains.
+
+Torsion tuples outside the poles of $F$ are Zariski dense in $A_k$.
+Their graph points are therefore dense in $V$.
+The duplication bound gives abscissa height at most $\log36/3$ on
+each factor and plane height less than $10$.  The at-most-eight-term height inequality, together with
+$h(d/4),h(d'/4)\le\tfrac12\log7+\log4$, bounds the active trace part
+by $40$. Adding $c_0$ costs at most $\log26+\log2<4$, so their
+$F$ values have height below $44$. Their graph points have Weil height
+below $124$. The Euclidean metric adds at most
+$\tfrac12\log(2\cdot3^8)<5$. In particular $e_1(V)\le200$, where
+this $e_1(V)$ denotes the essential minimum, not the later Vojta constant.
+The published inequality yields
+$h_{\rm FS}(V)\le(2k+1)D_V\cdot200\le9D_V\cdot200$.
+
+For clarity, the coarse Chow-height comparison used here can be made
+with $m=2k+1\le9$ blocks, $n=2\cdot3^{2k}\le2\cdot3^8$ coefficients per block, and block
+degree $D_V$.  Repeated one-variable coefficient--Mahler inequalities
+give $\log\|\operatorname{coeff}Q\|_\infty
+\le m_{\rm tor}(Q)+mnD_V\log2$.
+For sphere measure, the mean logarithm of a coordinate radius is
+$-H_{n-1}/2$.  Convexity of the torus logarithmic mean in the logarithms
+of the radii and homogeneity give
+$m_{\rm tor}(Q)\le m_{\rm sph}(Q)+mD_VH_{n-1}/2$.
+Here is the needed intersection calculation, so that no uninspected
+published comparison formula is required.  Write $r=\dim V=m-1$,
+$D=\deg V$, and $H_{n-1}=\sum_{k=1}^{n-1}1/k$.  For a unit vector
+$u\in\mathbb C^n$ put
+\[
+ \ell_u([z])=\langle u,z\rangle,\qquad
+ \log\|\ell_u([z])\|=\log|\langle u,z\rangle|-\log\|z\|_2.
+\]
+Let $u_0,\ldots,u_r$ be independent unit vectors with invariant
+probability measure.  Outside a set of measure zero their successive
+hyperplanes meet $V$ properly.  Set
+$V_j=V\cap\{\ell_{u_0}=\cdots=\ell_{u_{j-1}}=0\}$, with
+$V_0=V$, and let $\omega=c_1(\mathcal O(1),\|\cdot\|_{\rm FS})$.
+Every $V_j$ has degree $D$.  The recursive definition of a metrized
+intersection (or, equivalently, integration by parts with
+$dd^c\log\|\ell_u\|=[\ell_u=0]-\omega$) says that replacing
+one hyperplane section by its zero divisor changes the logarithm
+of its intersection symbol by
+\[
+ I_j=\int_{V_j(\mathbb C)}\log\|\ell_{u_j}\|\,\omega^{r-j}.
+\]
+Applying this recursion for $j=0,\ldots,r$ gives the local Chow
+symbol: its zero divisor in the hyperplane variables is precisely
+the locus where the $r+1$ hyperplanes have a common point on $V$,
+with the intersection multiplicities.  Thus its polynomial is the
+Chow form $Q$, up to a scalar.  In this identification the recursion
+reads
+\[
+ \log|Q(u_0,\ldots,u_r)|
+       =-\log\|q\|_{\rm int}+\sum_{j=0}^r I_j,
+\]
+where $q$ is the corresponding basis of the Chow line and
+$\|q\|_{\rm int}$ is its intersection metric.  The sign can also be
+checked in dimension zero: for $Q(u)=\langle u,z\rangle$ the right
+side is $\log\|z\|_2+\log\|\ell_u([z])\|$.
+This argument uses intersections of cycles and integration over their
+regular loci, so it does not require $V$ to be smooth.
+
+For fixed $[z]$, unitary invariance identifies
+$|\langle u,z\rangle|^2/\|z\|_2^2$ with the first squared coordinate
+of a uniform unit vector.  Its density on $[0,1]$ is
+$(n-1)(1-t)^{n-2}$, whence
+\[
+ \mathbb E_u\log\|\ell_u([z])\|
+ =\tfrac12(n-1)\int_0^1\log t\,(1-t)^{n-2}\,dt
+ =-\tfrac12 H_{n-1}.
+\]
+Conditioning on $u_0,\ldots,u_{j-1}$ therefore gives
+$\mathbb E I_j=-DH_{n-1}/2$.  These logarithms are integrable;
+indeed their negatives have the displayed finite integral, so
+Tonelli's theorem justifies the successive averages.  The archimedean
+intersection contribution is consequently
+$m_{\rm sph}(Q)+mDH_{n-1}/2$.
+
+At a finite place the same recursion uses the standard model
+$\mathcal O(1)$.  Take the hyperplane coefficients to be independent
+indeterminates with Gauss norm one.  A polynomial evaluated there
+has norm equal to its coefficient Gauss norm; the elimination symbol
+just identified with $Q$ therefore contributes
+$\log\|Q\|_{v,\rm Gauss}$.  This also follows by taking a primitive
+local Chow form: its reduction is nonzero, and generic hyperplanes
+over the residue function field avoid its zero locus.  Arbitrary
+scaling of $Q$ changes these local terms by $\log|c|_v$, whose weighted
+sum is zero.  Summing the local recursion and dividing by the field
+degree proves
+\[
+ h_{\rm FS}(V)=\frac1{[K:\mathbb Q]}
+ \left(\sum_{v\nmid\infty}[K_v:\mathbb Q_v]
+       \log\|Q\|_{v,\rm Gauss}
+ +\sum_{\sigma:K\hookrightarrow\mathbb C}
+       m_{\rm sph}(Q^\sigma)\right)+\frac{mD}{2}H_{n-1}.
+\]
+This supplies directly the comparison needed here.  The published
+Chow-form discussion in \cite[Section~4.3.4.1]{q198bb:BGS} is background;
+the displayed identity has been derived by the local intersection recursion.
+Thus the larger error
+$mnD_V\log n$ bounds the differences needed for the coefficient and
+unitary Chow conventions.  Here this is
+$9D_V(2\cdot3^8)\log(2\cdot3^8)<2^{60}$.
+Thus $h(V)<2^{100}$ in the convention consumed by the family theorem.
+Together with the displayed finite addition and duplication calculations,
+this preserves the estimates $h_{\rm add},C_{\rm haut}<100$ and all
+the record-count constants $\Lambda,\psi,e_i,\mu,U,K$ used below.
+
+
+
+
+\subsection{A finite number of computable records}
+\label{q198bb:records}
+Apply the quantitative theorem \cite[Theorem~3.1, p.~312]{q198bb:VB}
+to each stratum. Its constants are given by (3.2) in that source:
+\[
+ \Lambda=2^{m^2}(8m\dim V)^{m\dim V}(N_A+1)(N_P+1)D_V^{3m},
+ \qquad \psi=\prod_{j=2}^{m\dim V}(3j+1),
+\]
+\[
+ e_1=8\Lambda^\psi,\quad e_2=2\Lambda^{2\psi},\quad
+ \mu=4\Lambda^\psi,\quad
+ e_3=(4(N_A+1))^{2m^2\dim V}\Lambda^{8\psi}
+                  \max(h(V),h_{\rm add},C_{\rm haut}).
+\]
+It forbids $m$ points outside the fiberwise translate locus when
+consecutive normalized directions have distance at most $1/e_1$,
+consecutive heights increase by at least $e_2^2$, the first height is
+at least $e_3$, and every height is at least $\mu$ times its base height.
+We may majorize all constants by evaluating the displayed formulas at
+the bounds for $k=4$. Thus we use common upper envelopes below, and
+nine points suffice to contradict the theorem in any stratum.
+
+The geometry estimates give
+\[
+ \Lambda<2^{1700},\qquad \psi<2^{568},\qquad U=2^{2^{600}}.
+\]
+In particular
+\[
+ \log_2 e_3<19440+13600\cdot2^{568}+100<2^{583},
+ \qquad \mu,e_2^2,e_3<U/4.
+\]
+Cover $[-1,1]^4$ by cubes of side at most $1/(2e_1)$, with at most
+$\lceil4e_1+1\rceil^4$ cells and diameter at most $1/e_1$.
+Each cell in each stratum can contain at most eight records satisfying
+the height conditions. Put $K=8\lceil4e_1+1\rceil^4$.
+The bound $\log_2K<2^{584}$ gives $256K<U$.
+
+For a rational $T=u/v$ in lowest terms with $v>0$, put
+\[
+ b(T)=\operatorname{bitlength}(\max(|u|,v));\qquad
+ h(T)\le b(T)\le2h(T)+1.
+\]
+Encode a finite elliptic point by a positive integer $q=4m+e$, where
+$m\ge0$ and $e=0,1,2,3$ denotes the torsion translate
+$O,(0,0),(d,0),(-d,0)$ respectively. The only excluded pair is $(m,e)=(0,0)$.
+Enumerate all positive code quadruples by their maximum code and then
+lexicographically within each finite shell. Compute their exact rational
+aggregate and $S=\sum_i\lfloor q_i/4\rfloor^2$.
+
+Initialize $r=U$. Declare a record exactly when
+\[
+ S>Ur\quad\hbox{and}\quad S>Ub(T),
+\]
+and then replace $r$ by $S$. These predicates use only exact integer and
+quadratic-field arithmetic. They require no comparison of computable
+real numbers. Each recorded canonical height is at least $3S/4$, hence
+exceeds $e_3$ and $\mu h(T)$. Consecutive records have height ratio
+exceeding $U>e_2^2$. A subsequence in a fixed stratum and direction cell
+preserves this growth. It follows that the number $j_*$ of records is
+finite and $j_*<256K<U$.
+
+Let $r_*=U$ if there are no records, and otherwise let $r_*$ be the last
+record. Every tuple satisfying $S>Ub(T)$ has $S\le Ur_*$: a later
+violation would be another record, and every earlier running value is
+at most $r_*$. Consequently
+\[
+ S\le Ub(T)+Ur_*\le2Uh(T)+U(r_*+1).
+\]
+For the signed labels of Section~\ref{q198bb:inputs},
+$|2m_4+1|\le2|m_4|+1$ gives
+\[
+ B^2\le9(S+1)\le18Uh(T)+10U(r_*+1).
+\]
+The last inequality uses $U(r_*+1)\ge9$. Thus the uniform aggregate
+constants $M_1=18U$ and $M_2=10U(r_*+1)$ cover every rational solution,
+including zero-index torsion differences.
+
+\subsection{The all-larger-parameter arithmetic threshold}
+\label{q198bb:threshold-arithmetic}
+Set
+\[
+ G(r)=U^{32}(r+1),\qquad N\ge G(r_*),\qquad
+ C=2M_1H_2=36UH_2<U^2,\qquad J_1=32U(r_*+1)<G(r_*).
+\]
+The extra $M_1\log2$ in
+$h(T)\le h(t_0)+h(t_1)+\log2$ is absorbed by $J_1$.
+The retained scalar inequalities give $B\ge c\ge149^{L_N}>N$.
+If $\Delta\ne0$, cubic contact divisibility gives
+\[
+ B^2\le C14^{7/18}B^{14/9}+J_1
+      \le C14^{7/16}B^{7/4}+J_1.
+\]
+Since $C14^{7/16}<4U^2$ and $B>U^{32}$, the first term is less than
+$B^2/2$. Since $J_1<N<B$ and $B>2$, so is the second. This contradiction
+proves $\Delta=0$.
+
+If $J_x\ne0$, its size bound and linear contact divisibility, after
+absorbing $J_1<B^2/2$, give
+\[
+ \log B\le\tfrac65\log(2C)+\tfrac75\log4+\tfrac75h(\beta)
+ \le C'+7C_3 149^{-L_N}c(1+\log(c)/3),
+\]
+where $C'=4\log(2C)+7\log2<U$. Our lower bound on $N$ implies
+$7C_3 149^{-L_N}<1$ and $c>\max(C',e^{12})$.
+The Lucas inequality gives
+\[
+ \log B\ge(c-6)\log(c-3)>2c+c\log(c)/3
+                         >C'+c+c\log(c)/3,
+\]
+contradicting the upper bound. For the strict middle inequality one may
+use $c-6>0.9c$ and $\log(c-3)>\log c-1$ when $c\ge e^{12}$.
+Thus $J_x=0$ and $x\in\Z$. All inequalities hold for every larger $N$;
+no monotonicity assertion about the zero sets themselves is used.
+
+\subsection{Uniform explicit real preparation.}\label{q198bb:real}
+We give an explicit bound independent of the input and of all later
+finite moduli.  This avoids assuming that a particular multiple such
+as $64P$ lies in the identity component of the closure of the paired
+real orbit.
+
+For $\epsilon\in\{+1,-1\}$ put $d_\epsilon=3+\epsilon\sqrt2$ and
+$E_\epsilon:y^2=x^3-d_\epsilon^2x$.
+Let $P_\epsilon$ be the image of $P$ under
+$\sqrt2\mapsto-\epsilon\sqrt2$.
+Let $G$ be the closure of the cyclic subgroup generated by
+$(P_+,P_-)$ in $E_+(\mathbb R)\times E_-(\mathbb R)$, and let
+$G^0$ be its identity component.
+Both projections of $G^0$ onto the real identity circles are surjective.
+Indeed each projected $P_\epsilon$ has infinite order.  The image of
+$G$ under either projection is therefore infinite.  If the image of
+$G^0$ were trivial, that image would be a quotient of the finite
+component group $G/G^0$, a contradiction.  The image of $G^0$ is a
+connected closed subgroup of a circle, so it must be the whole circle.
+Probability Haar measure on $G^0$ therefore pushes forward to
+probability Haar measure on each circle.  No independence assertion
+about the two projections is needed.
+
+For $1<d<5$, the identity component of $E_d$ has finite abscissa
+$x\ge d$.  Its normalized invariant measure is obtained from
+$dx/(2|y|)$ on the two branches.  Write
+\[
+ \Omega_d=\int_d^\infty \frac{dx}{\sqrt{x^3-d^2x}}.
+\]
+Integration on $[d,2d]$ gives
+$\Omega_d\ge1/(2\sqrt2\sqrt d)$.
+For $X\ge2d$, integration on $[X,\infty)$ gives
+\[
+ \int_X^\infty \frac{dx}{\sqrt{x^3-d^2x}}
+           \le \frac{4}{\sqrt3\sqrt X}.
+\]
+Moreover $|z|^2=x/(x^2-d^2)>1/x$ for $z=-x/y$.
+Thus the Haar measure of $|z|<1/1000$ is less than
+$8\sqrt{2d}/(1000\sqrt3)<32/1000$.
+The union bound shows that a point of $G^0$ exists where both real
+$z$ values have absolute value greater than $1/1000$.
+The finite exceptional points and the equality level sets have measure
+zero, so they can be avoided.  Fix a compact neighborhood of such a
+point, within $G^0$, on which both $|z|>1/2000$ and the reference
+charts are defined.
+
+Let $m=|G/G^0|$.  Enlarge any finite preparation modulus to a multiple
+of $m$ and $64$.  Its multiples of the paired point are dense in
+$G^0$: multiplication by that modulus kills the component group and
+is surjective on the torus $G^0$.
+The retained positive-orbit recurrence therefore chooses the initial
+reference $H$ in the fixed neighborhood with all required finite
+divisibilities.  The scalar point $[a_0]P$ is then chosen in a fixed
+neighborhood of the identity with both $|z([a_0]P)|\le1$, and with the additional fixed divisibility $3\mid a_0$.
+Continuity fixes a residue class for the later reference choices,
+and the retained CRT and real-progression argument preserves it.
+This is the same order of choices as the 198-variable completeness
+argument; no bound on $m$ or on the final indices is required.
+
+The two real values of the actual quotient
+$Z=2z([a_0]P)/z(H)$ have absolute value below $4000$,
+so its rational components satisfy $|Z_0|,|Z_1|<2^{12}$.
+Also $|F|=|\operatorname{Nm}(1/x(H))|\le1/7$, since the two positive
+real abscissae are at least $d_+,d_-$ and $d_+d_-=7$.
+The actual scalar expression (writing $R_s=R$) is
+\[
+ W_s=\frac{Z_0^4}{R_s^{10}}+\frac{Z_1^2}{R_s^5}+\frac{F^2}{R_s^4},
+ \qquad b_s=R_s(R_s+9792)W_s^2.
+\]
+For $R_s\ge1$ it satisfies
+\[
+ 0<W_s<2^{49}R_s^{-4},\qquad 0<b_s<2^{112}R_s^{-6}.
+\]
+In particular $R_s\ge2^{20}$ suffices for $0<b_s<17$.
+The uniform lower bound
+$R_s\ge149^{2N+1}/(1+149^2)$ and $N\ge G(r_*)$ are more than enough.
+The factor two is a unit at every odd preparation prime and increases
+the required $2$-adic depths. The finite preparation can still be made
+arbitrarily deep. All subsequent finite, CRT, contact-prime, slope and
+pole-certificate choices may depend on $(N,x)$ and impose no further
+lower bound on $N$, by the actual 198 completeness construction stated
+in Section~\ref{q198bb:inputs}. All labels and $T$ are fixed before
+comparison primes; repeated contacts are merged with their incidences.
+The pole predicate is applied to the final scalar input after $H$ has
+been fixed. Thus every $N\ge G(r_*)$ gives completeness for every
+integer input. Together with Section~\ref{q198bb:threshold-arithmetic}
+this proves that $G(r_*)$ is an all-larger-parameter defining threshold.
+In particular $G(r_*)>53$.
+
+
+
+
+\subsection{The halting selector and its threshold}
+\begin{theorem}\label{q198bb:threshold}
+There is a sufficient defining threshold $N_*<\BB(2^{1000})$ for the
+198-variable family. Every $N\ge N_*$ defines the integers.
+\end{theorem}
+For each integer $0\le j<U$, the program of
+Section~\ref{q198bb:programs} enumerates the encoded finite point
+quadruples until its $j$th record. When $j=0$ it immediately uses $r=U$.
+It then computes $G(r)=U^{32}(r+1)$, performs $G(r)$ increments, and halts.
+For $j=j_*$ it halts: the final record occurs in a finite shell, all
+preceding shells are finite, and every exact arithmetic call terminates.
+Programs with an input larger than the actual record count may run
+forever. No instruction attempts to decide that a record is final.
+The following compilation charges the hardwired finite ordinal $j_*$;
+it does not hardwire the unknown value $r_*$ or the threshold.
+
+\subsection{A constructive finite-state budget}\label{q198bb:compiler}
+We use deterministic one-tape machines on a two-way infinite binary
+tape, initially all zero, with moves left or right. The initial
+working state is distinguished, the halting state is not counted,
+and the transition entering it counts as a step. Unused working
+states are permitted. These conventions fix the function $\BB$ used
+below.
+
+Here is a compilation bound for the two displayed integer programs.
+It concerns their mathematical unbounded-integer semantics, not the
+resources available to a particular Python interpreter. We first
+compile to counter instructions
+\[
+ \operatorname{INC}(i,a),\qquad
+ \operatorname{DECJZ}(i,a,b),\qquad \operatorname{HALT}.
+\]
+The second instruction decrements counter $i$ and goes to $a$ when
+that counter is nonzero; otherwise it goes to $b$. All counters are
+natural numbers. A dedicated counter kept zero implements an
+unconditional jump by a single zero test.
+
+For clarity, the following bounds include all loop and exit labels.
+Clearing a counter uses one decrement loop. Moving a counter into
+another uses a decrement followed by an increment. To copy $a$ into
+$b$ while preserving $a$, first clear $b$ and a scratch counter $t$,
+move one unit at a time from $a$ to both $b$ and $t$, then move $t$
+back into $a$. This uses at most ten instructions. To compare two
+natural numbers, copy them and decrement the copies in parallel,
+recording which becomes zero first. Truncated subtraction uses the
+same loop and retains the remaining first copy. Multiplication
+copies the second factor to a loop counter and repeatedly adds the
+first factor to an initially zero result. Division with remainder
+by a positive number repeatedly compares and subtracts that number
+from a copy of the dividend, incrementing the quotient each time.
+These constructions give the following static instruction bounds;
+their running times need not be bounded here:
+\[
+\begin{array}{c|rrrrrrr}
+\text{operation}&\text{clear}&\text{move}&\text{copy}&\text{add}
+ &\text{compare/subtract}&\text{multiply}&\text{divide/remainder}\\
+\hline
+\text{instructions}&1&3&10&24&64&64&256.
+\end{array}
+\]
+For example, division contains one comparison template, one
+subtraction template, initial copies and the quotient increment;
+it contains no unrolled subtraction loop. Every scratch counter is
+cleared before use, and no bound depends on the values in counters.
+The input counters of copy, addition, comparison, multiplication and
+division are preserved; their output counters are distinct from
+their inputs and from each other. Move is explicitly destructive.
+Its source and destination are distinct. Inputs may coincide with
+each other. All generated scratch names belong to a reserved
+namespace disjoint from source variables and live arguments.
+Truncated subtraction has both a fresh-output version and a version
+that updates its first argument; division uses the latter only
+after a successful comparison. Before overwriting a source-language
+variable, expression evaluation writes into fresh temporary
+counters, then copies the result into that variable. Scratch
+counters belonging to distinct expanded nodes are disjoint. These
+contracts also apply to signed magnitudes and signs, tuple fields,
+\texttt{None} tags and return-value copies. Fields not used when a
+tag is \texttt{None} are initialized to zero and are not inspected
+as tuple values on that branch.
+
+Represent a signed integer by a sign bit and a magnitude, with sign
+zero for magnitude zero. Addition and comparison split into the
+four sign cases and use the preceding natural-number operations.
+For division, first divide the magnitudes. In the opposite-sign
+case with nonzero remainder, increase the quotient magnitude by
+one and replace the remainder magnitude by the divisor magnitude
+minus the old remainder. Assign the remainder the divisor's sign.
+This implements floor division and the corresponding remainder,
+including negative arguments. Fewer than $2^{12}$ counter
+instructions, and fewer than that many scratch counters, suffice
+for each signed operation: even four separate copies of the
+256-instruction division template, the adjustments, copies and
+sign tests fit this bound. A literal of magnitude at most 1000
+uses at most 1001 instructions. Conditions use these comparisons
+and jumps; while loops branch back to their condition. Boolean
+short-circuiting is preserved by branches.
+
+The record program has 1398 syntax nodes, fifteen functions and
+acyclic call depth ten. Each function has fewer than $2^{12}$ nodes.
+Using the looser depth bound twelve, the inlining recurrence
+$a_d\le2^{12}(1+a_{d-1})$ is bounded by $2^{13d}$, giving fewer than
+$2^{156}$ fully inlined nodes. The coefficient interpreter has 302
+nodes and call depth three; the bounds $2^{11}$ per function and depth
+nine give fewer than $2^{110}$ inlined nodes for it. Fixed tuples have
+length at most three and nesting depth at most two. Flattening them needs at most nine
+integer fields and a tag for \texttt{None}; returns become copies
+to designated fields followed by a jump. Componentwise equality,
+tuple unpacking, tags and return handling expand each node into
+fewer than $2^{10}$ scalar operations. Thus fewer than $2^{166}$
+scalar nodes suffice for the record program and fewer than $2^{128}$
+for the coefficient interpreter. The only executed primitives are
+the operations just described, tuple-field selection at fixed
+indices, assignments, tests and loops. There are no recursive,
+library or dynamically dispatched calls.
+
+Allowing $2^{20}$ counter instructions and fresh counters per
+expanded node is more than the explicit bounds above. Thus the
+record core has fewer than $2^{186}$ instructions and counters;
+the coefficient core has fewer than $2^{148}$. All divisions in the
+record search have nonzero divisors: the field routines normalize
+genuine elements of $\mathbb Q(\sqrt2)$, every positive code describes
+a finite point, and the chord/tangent routine handles the identity,
+inverse and two-torsion cases before dividing. The coefficient interpreter divides only by positive
+powers of two. Consequently the arithmetic templates terminate
+on every invocation that occurs in a halting computation.
+
+We next give the counter-to-tape bound. A machine with $L$
+counter instructions and $R$ counters represents its data as
+\[
+ \mathtt{L}\,\mathtt{\#}\,1^{r_0}\,
+ \mathtt{\#}\,1^{r_1}\cdots
+ \mathtt{\#}\,1^{r_{R-1}}\,\mathtt{E}
+\]
+on a tape with blank symbol distinct from these four symbols.
+At every instruction boundary the head is at $\mathtt{L}$.
+To access counter $i$, the finite control counts at most $R$
+separators while scanning right. Increment inserts a mark before
+the counter's next separator: carry that separator right, then
+carry each displaced symbol right, until the end marker has been
+moved onto the next blank. Decrement deletes the first mark by
+copying each following symbol one cell left through the end marker
+and erasing its former cell. An empty block takes the zero branch.
+Each shifting routine stores just one of the five tape symbols
+and a phase in finite control. It uses fewer than 32 states.
+Returning left to $\mathtt{L}$ takes a separate scan for each
+continuation. Including the initial writing of the $R$ empty
+blocks, all locating, shifting, branching and return states fit
+within $128(L+1)(R+1)$ states over at most eight symbols.
+
+Encode each tape symbol by a three-bit word, choosing 000 for
+blank. At a simulated step boundary the head is at the first bit
+of the current block. A seven-state binary decision tree reads
+its three bits. For each possible symbol, fewer than ten further
+states return to the first bit, write the new three-bit block and
+move to the first bit of the adjacent block. Thus fewer than 128
+binary states per simulated state suffice. This simulation works
+on the initially blank tape and requires no end-of-tape convention.
+More explicitly, number the current block's cells 0,1,2. The
+three read transitions move right, right, left, leaving the head
+at cell 1 with the read word in finite control. Preserve cell 1
+and move left, then write the three new bits while moving right,
+right, and the simulated direction. For a right move the head is
+already at cell 3. For a left move it is at cell 1; four
+symbol-preserving left moves reach cell -3. Thus at most eight
+post-read states per read word suffice, with no stationary move.
+A halting transition enters the halting state at the end of the
+same write-and-move sequence. Every other transition returns
+block-aligned to the next state's read routine.
+In particular the generous bound
+\[
+                    2^{20}(L+1)(R+1)
+\]
+counts all working states of the resulting binary machine.
+
+We hardwire finite input without assuming a decoder. Starting at
+zero, an input counter is replaced by twice itself plus the next
+bit, reading the fixed bit string from most significant to least
+significant bit. Copy followed by move doubles the counter, and
+one additional increment writes a one bit. Fewer than sixteen
+counter instructions per bit, and two reusable scratch counters,
+suffice. This is a finite chain of instructions, not a variable
+input tape. The literal width 1000 in the coefficient interpreter
+costs at most 1001 additional instructions.
+For this input prefix specifically, every copy uses the same two
+scratch counters: copy the input counter to the first while using
+the second to restore it, then move the first into the input
+counter. Both scratch counters are zero afterwards. The next bit
+may therefore reuse them. Fresh labels are generated for each bit
+but fresh counters are not. This explicit reuse is distinct from
+the convenient fresh-per-node allocation for the fixed core.
+
+For the record search, $0\le j<U=2^{2^{600}}$ requires at most
+$2^{600}$ bits, including the representation 0 when $j=0$.
+After hardwiring this input the counter program has
+$L<2^{605}$ and $R<2^{187}$. Its binary machine consequently has
+fewer than $2^{20+606+188}=2^{814}<2^{900}$ working states, in particular fewer than
+$2^{1000}$. The final loop has $G(r)$ increments, each taking at
+least one binary transition, and initialization and termination
+take further transitions. Its total halting time is strictly
+greater than $G(r)$.
+
+For the coefficient machine, put $s=2^{1000}$. A complete table
+has $\ell=2006s$ bits, including the written bit, direction bit,
+halting bit and 1000-bit next-state index for each of $2s$
+entries. Hardwiring all these bits and width 1000 gives
+$L<2^{1016}$ and $R<2^{149}$. The same construction therefore
+uses fewer than $2^{1200}$ binary working states, in particular
+fewer than $2^{2000}$. No input decoder or small universal
+machine is assumed in either count. Unused states pad these
+machines to exactly the state counts occurring in $\BB$.
+
+These are constructive upper bounds, not claims that an enormous
+transition table has been printed. The finite syntax checks verify
+the stated source restrictions. The compilation templates and
+tape simulation above provide the state bound; interpreter test
+cases alone would not provide it.
+
+For the actual finite input $j=j_*$, the record program halts and its
+running time is strictly larger than $G(r_*)$. Its compiled state count
+and padding therefore give
+\[
+ G(r_*)<\BB(2^{1000}).
+\]
+The existence of this finite hardwired input does not require an
+algorithm deciding whether a record is the final record.
+
+
+Taking $N_*=G(r_*)$ proves Theorem~\ref{q198bb:threshold}.
+Its all-larger-parameter form applies at $N_{\rm BB}=\BB(2^{1000})$.
+The independent coefficient crossover check is given next.
+
+
+\subsection{A strict Busy Beaver bound for the coefficients}
+\begin{lemma}\label{q198bb:coefficient}
+For the fixed binary, two-way-tape, running-time convention above,
+\[
+ 149^{4\BB(2^{1000})+2}+1<\BB(2^{2000}).
+\]
+\end{lemma}
+\begin{proof}
+Put $s=2^{1000}$. There are finitely many $s$-state transition
+tables and at least one halting table. Choose a table whose
+blank-tape halting time is $T=\BB(s)$. This is an existence
+choice, not an algorithm for finding a maximizing machine.
+Number the working states $0,\ldots,s-1$, with state 0 initial.
+For each pair of working state and scanned symbol, record the
+written bit, direction bit, halting bit and 1000 bits for the next
+working-state index. The index is ignored on a halting transition.
+The complete table therefore uses exactly
+\[
+                        \ell=2006\cdot2^{1000}
+\]
+bits, allowing leading zero bits.
+
+The displayed fixed integer interpreter simulates this table.
+Its left and right integers store tape symbols with the nearest
+cell as the least significant bit, and its separate symbol
+register stores the cell under the head. Writing and then moving
+pushes the written bit onto one integer and pops the other.
+Trailing zero bits represent arbitrarily many blank cells, so
+this describes the full two-way infinite tape. The loop counts
+the final transition, including its write and move, before
+observing the halt bit. It therefore returns exactly $T$.
+
+The program next computes $H=149^{4T+2}+1$ and performs $H+1$
+increments before halting. Section~\ref{q198bb:compiler} constructs
+a binary machine with fewer than $2^{1200}<2^{2000}$ working
+states for this fixed interpreter and its hardwired table.
+Its final loop alone takes more than $H$ transitions. Padding
+with unused working states gives a machine of exactly
+$2^{2000}$ states without changing the run. Thus
+$H<\BB(2^{2000})$.
+
+Finally a chain of 54 working states, each moving right and
+passing to the next state, with the last transition halting,
+runs for 54 transitions on the blank tape. Padding it proves
+$\BB(2^{1000})\ge54>53$. Hence the separately checked coefficient
+formula $H(P_N)=\max\{H_0,149^{4N+2}\}=149^{4N+2}$ for $N\ge53$
+applies independently of the arithmetic-threshold argument. Therefore
+\[
+ H(P_{\rm BB})=149^{4N_{\rm BB}+2}
+ <149^{4N_{\rm BB}+2}+1<\BB(2^{2000}).
+\]
+\end{proof}
+
+
+Theorem~\ref{q198bb:threshold}, Lemma~\ref{q198bb:coefficient}, and the exact
+coefficient formula in Section~\ref{q198bb:inputs} prove
+Theorem~\ref{q198bb:fixed}. The construction now selects one polynomial
+using the specified Busy Beaver function. No assertion here computes
+that function or gives a decimal evaluation of the selected parameter.
+
+
+\subsection{Finite algebra for the fixed embedding}\label{q198bb:finite-algebra}
+For $Q=(x,y)$ and $R=(u,v)$ on $E_0$, put $\delta=u-x$.
+Let $s=(x(Q+R),y(Q+R),1)$ and
+$t=(x(Q-R),y(Q-R),1)$ wherever these affine expressions are defined.
+Then $B_{ij}=\delta^3s_it_j$ reduces, using $y^2=x^3-x$ and
+$v^2=u^3-u$, to the following polynomials. Each has degree at most
+two in $(x,y)$ and at most two in $(u,v)$, so it homogenizes to the
+claimed bidegree $(2,2)$ section.
+\[
+\begin{aligned}
+B_{1,1}={}&u-u^{2}y^{2}-x\\
+&+xu^{2}+x^{2}v^{2}-x^{2}u
+\end{aligned}
+\]
+
+\[
+\begin{aligned}
+B_{1,2}={}&v+y+uy^{2}v\\
+&+u^{2}y+xyv^{2}+2xuv\\
+&+2xuy+x^{2}v
+\end{aligned}
+\]
+
+\[
+\begin{aligned}
+B_{1,3}={}&-2uyv-uy^{2}-u^{2}\\
+&+xv^{2}+2xyv+x^{2}
+\end{aligned}
+\]
+
+\[
+\begin{aligned}
+B_{2,1}={}&-v+y-uy^{2}v\\
+&+u^{2}y+xyv^{2}-2xuv\\
+&+2xuy-x^{2}v
+\end{aligned}
+\]
+
+\[
+\begin{aligned}
+B_{2,2}={}&1+y^{2}v^{2}-u^{2}\\
+&-4xu-x^{2}-3x^{2}u^{2}
+\end{aligned}
+\]
+
+\[
+\begin{aligned}
+B_{2,3}={}&yv^{2}-y^{2}v+uv\\
+&-2uy+2xv-xy\\
+&+3xu^{2}y-3x^{2}uv
+\end{aligned}
+\]
+
+\[
+\begin{aligned}
+B_{3,1}={}&2uyv-uy^{2}-u^{2}\\
+&+xv^{2}-2xyv+x^{2}
+\end{aligned}
+\]
+
+\[
+\begin{aligned}
+B_{3,2}={}&yv^{2}+y^{2}v-uv\\
+&-2uy-2xv-xy\\
+&+3xu^{2}y+3x^{2}uv
+\end{aligned}
+\]
+
+\[
+\begin{aligned}
+B_{3,3}={}&v^{2}-y^{2}+u\\
+&-x-3xu^{2}+3x^{2}u
+\end{aligned}
+\]
+
+The formulas can be checked by the ordinary chord-and-tangent formulas,
+clearing powers of $u-x$, and reducing by the two curve equations.
+Their identities on this dense affine open determine their global
+sections. The theorem of the square gives the line-bundle identification
+used for the addition-subtraction morphism. Its trivialization here is
+multiplication by $(u-x)^3$.
+
+
+
+\subsection{The record-search program}\label{q198bb:programs}
+The following is executable notation for unbounded integer semantics.
+The finite input is $j$. Only the function definitions are displayed;
+reading them does not evaluate the production constant. Line wrapping
+in three expressions does not change the program's parsed syntax.
+\begingroup\small
+\begin{verbatim}
+"""Reference program with mathematical, unbounded integer semantics.
+
+The production constant is deliberately not evaluated when this file is imported.
+The proof uses only fixed-size tuples, acyclic function calls, and integer loops.
+Python is convenient executable notation for that register-machine program.
+"""
+
+
+def gcd(a, b):
+    if a < 0:
+        a = -a
+    if b < 0:
+        b = -b
+    while b != 0:
+        remainder = a % b
+        a = b
+        b = remainder
+    return a
+
+
+def field(a, b, denominator):
+    if denominator < 0:
+        a = -a
+        b = -b
+        denominator = -denominator
+    divisor = gcd(gcd(a, b), denominator)
+    return (a // divisor, b // divisor, denominator // divisor)
+
+
+def field_add(left, right):
+    a, b, c = left
+    d, e, f = right
+    return field(a*f + d*c, b*f + e*c, c*f)
+
+
+def field_neg(value):
+    a, b, c = value
+    return (-a, -b, c)
+
+
+def field_sub(left, right):
+    return field_add(left, field_neg(right))
+
+
+def field_mul(left, right):
+    a, b, c = left
+    d, e, f = right
+    return field(a*d + 2*b*e, a*e + b*d, c*f)
+
+
+def field_div(left, right):
+    a, b, c = right
+    reciprocal = field(c*a, -c*b, a*a - 2*b*b)
+    return field_mul(left, reciprocal)
+
+
+def point_add(left, right):
+    if left is None:
+        return right
+    if right is None:
+        return left
+    x1, y1 = left
+    x2, y2 = right
+    if x1 == x2:
+        if y1 != y2 or y1 == (0, 0, 1):
+            return None
+        numerator = field_sub(
+            field_mul((3, 0, 1), field_mul(x1, x1)), (11, -6, 1))
+        slope = field_div(numerator, field_mul((2, 0, 1), y1))
+    else:
+        slope = field_div(field_sub(y2, y1), field_sub(x2, x1))
+    x3 = field_sub(field_sub(field_mul(slope, slope), x1), x2)
+    y3 = field_sub(field_mul(slope, field_sub(x1, x3)), y1)
+    return (x3, y3)
+
+
+def multiple(n):
+    point = ((1, 1, 1), (0, 2, 1))
+    result = None
+    remaining = n
+    while remaining > 0:
+        if remaining % 2 != 0:
+            result = point_add(result, point)
+        remaining = remaining // 2
+        if remaining > 0:
+            point = point_add(point, point)
+    return result
+
+
+def point_encoded(q):
+    # Positive q encodes m=q//4 and one of four rational two-torsion points.
+    # q=0 alone is omitted, so every encoded point is finite.
+    m = q // 4
+    torsion = q % 4
+    point = multiple(m)
+    if torsion == 0:
+        translate = None
+    elif torsion == 1:
+        translate = ((0, 0, 1), (0, 0, 1))
+    elif torsion == 2:
+        translate = ((3, -1, 1), (0, 0, 1))
+    else:
+        translate = ((-3, 1, 1), (0, 0, 1))
+    return point_add(point, translate)
+
+def rational_add(left, right):
+    a, b = left
+    c, d = right
+    numerator = a*d + c*b
+    denominator = b*d
+    divisor = gcd(numerator, denominator)
+    return (numerator // divisor, denominator // divisor)
+
+
+def trace_height_bits(n1, n2, n3, n4):
+    # T = 7 plus one quarter of the trace, hence 7 plus half the sum
+    # of the rational coefficients of the four x-coordinates.
+    x1, y1 = point_encoded(n1)
+    x2, y2 = point_encoded(n2)
+    x3, y3 = point_encoded(n3)
+    x4, y4 = point_encoded(n4)
+    numerator, denominator = rational_add(
+        rational_add((x1[0], x1[2]), (x2[0], x2[2])),
+        rational_add((x3[0], x3[2]), (x4[0], x4[2])))
+    numerator = numerator + 14*denominator
+    denominator = 2*denominator
+    divisor = gcd(numerator, denominator)
+    numerator = numerator // divisor
+    denominator = denominator // divisor
+    if numerator < 0:
+        numerator = -numerator
+    height = denominator
+    if numerator > height:
+        height = numerator
+    bits = 0
+    while height > 0:
+        height = height // 2
+        bits = bits + 1
+    return bits
+
+
+def power(base, exponent):
+    result = 1
+    remaining = exponent
+    while remaining > 0:
+        result = result*base
+        remaining = remaining - 1
+    return result
+
+
+def threshold_after_record(j, scale):
+    record = scale
+    count = 0
+    radius = 0
+    while count < j:
+        radius = radius + 1
+        n1 = 1
+        while n1 <= radius and count < j:
+            n2 = 1
+            while n2 <= radius and count < j:
+                n3 = 1
+                while n3 <= radius and count < j:
+                    n4 = 1
+                    while n4 <= radius and count < j:
+                        if (n1 == radius or n2 == radius
+                                or n3 == radius or n4 == radius):
+                            size = ((n1//4)*(n1//4)
+                                    + (n2//4)*(n2//4)
+                                    + (n3//4)*(n3//4)
+                                    + (n4//4)*(n4//4))
+                            if size > scale*record:
+                                bits = trace_height_bits(n1, n2, n3, n4)
+                                if size > scale*bits:
+                                    record = size
+                                    count = count + 1
+                        n4 = n4 + 1
+                    n3 = n3 + 1
+                n2 = n2 + 1
+            n1 = n1 + 1
+    return power(scale, 32)*(record + 1)
+
+
+def machine(j):
+    scale = power(2, power(2, 600))
+    threshold = threshold_after_record(j, scale)
+    clock = 0
+    while clock < threshold:
+        clock = clock + 1
+    return threshold
+\end{verbatim}
+\endgroup
+
+\subsection{The coefficient-bound program}\label{q198bb:coefficient-program}
+The following fixed program takes the encoded transition table and
+\texttt{width}$=1000$. Its loop counts every simulated transition,
+including the transition that sets the halting bit. The final loop
+performs one more increment than the computed coefficient height.
+\begingroup\small
+\begin{verbatim}
+"""A fixed integer-register interpreter for the coefficient BB bound.
+
+For width w, states are 0,...,2**w-1. Each transition occupies w+3 bits:
+write bit, direction bit (0=left), halt bit, and next-state bits.
+The record for (state, symbol) begins at bit (w+3)*(2*state+symbol).
+All arithmetic has unbounded integer semantics. No BB value is computed.
+"""
+
+
+def pow2(exponent):
+    result = 1
+    while exponent > 0:
+        result = result * 2
+        exponent = exponent - 1
+    return result
+
+
+def simulate(table, width):
+    left = 0
+    right = 0
+    symbol = 0
+    state = 0
+    ticks = 0
+    halted = 0
+    while halted == 0:
+        offset = (width + 3) * (2 * state + symbol)
+        record = (table // pow2(offset)) % pow2(width + 3)
+        written = record % 2
+        direction = (record // 2) % 2
+        halted = (record // 4) % 2
+        state = record // 8
+        if direction == 0:
+            right = 2 * right + written
+            symbol = left % 2
+            left = left // 2
+        else:
+            left = 2 * left + written
+            symbol = right % 2
+            right = right // 2
+        ticks = ticks + 1
+    return ticks
+
+
+def machine(table, width):
+    ticks = simulate(table, width)
+    exponent = 4 * ticks + 2
+    value = 1
+    while exponent > 0:
+        value = value * 149
+        exponent = exponent - 1
+    bound = value + 1
+    clock = 0
+    while clock <= bound:
+        clock = clock + 1
+    return bound
+\end{verbatim}
+\endgroup

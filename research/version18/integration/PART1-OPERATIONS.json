@@ -1,0 +1,211 @@
+[
+  {
+    "old": "Section~\\ref{q198:main} proves the arithmetic equivalence for every\nsufficiently large parameter, using the inherited results identified\nthere.",
+    "new": "Section~\\ref{q198:main} states the arithmetic equivalence and its\ninherited inputs. Sections~\\ref{q198:table-transport},\n\\ref{q198:height-local}, \\ref{q198:completeness-section}\nand~\\ref{q198:finite-certificate} prove it for every sufficiently\nlarge parameter.",
+    "reason": "Carbon 2.1: distinguish statement from proof sections"
+  },
+  {
+    "old": "We use the arithmetic conclusions proved in Section~\\ref{q198:main}\nand the exact polynomial table in Section~\\ref{q198:rows}.",
+    "new": "We use Theorem~\\ref{q198:family}, proved in\nSections~\\ref{q198:table-transport}, \\ref{q198:height-local},\n\\ref{q198:completeness-section} and~\\ref{q198:finite-certificate},\nand the exact polynomial table in Section~\\ref{q198:rows}.",
+    "reason": "Carbon 2.1: BB consumes the proved parent family"
+  },
+  {
+    "old": "proved in Section~\\ref{q198:main}; the present section changes only the\nquantitative choice of its fixed parameter.",
+    "new": "proved by Lemmas~\\ref{q198:scalar-ratios},\n\\ref{q198:scalar-extraction}, \\ref{q198:half-generator-progression}\nand~\\ref{q198:additive-contacts}, and\nPropositions~\\ref{q198:scalar-preparation} and~\\ref{q198:completeness}.\nThe present section changes only the quantitative choice of its fixed parameter.",
+    "reason": "Carbon 2.1 and 3.2: cite actual 198 applications"
+  },
+  {
+    "old": "odd valuation. Section~\\ref{q214:height-supplier}, with the\noperative product argument of Section~\\ref{q214:height-averaging},\ngives a fixed $H_2>0$ such that",
+    "new": "odd valuation. The reflected application in\nSection~\\ref{q214:existence}, ``Height supplier and global consumers'',\nand Section~\\ref{q214:uniform-existence}, P10, gives a fixed $H_2>0$\nsuch that",
+    "reason": "Carbon 2.2: reflected height bound is the consumer, not the unreflected supplier"
+  },
+  {
+    "old": "contact bound and its exceptional set are proved in\nSection~\\ref{q214:height-supplier}.",
+    "new": "contact bound and its exceptional set are proved in\nSection~\\ref{q214:existence}, ``Height supplier and global consumers'',\nand Section~\\ref{q214:uniform-existence}, P10, using the unreflected\nsupplier of Section~\\ref{q214:height-supplier}.",
+    "reason": "Carbon 2.2: precise reflected-height join"
+  },
+  {
+    "old": "a point interpretation of $Z$. The scalar height supplier\n\\ref{v15:height:thm:contactheight} gives\n$h(\\beta)\\le C_3M_5(\\beta)^3(1+\\log M_5(\\beta))$,\nwhere $C_3=2^{330770}$.",
+    "new": "a point interpretation of $Z$.\nTheorem~\\ref{v15:height:thm:contactheight} gives\n$h(\\beta)\\le C_3M_5(\\beta)^3(1+\\log M_5(\\beta))$ with a constant\nstrictly below $2^{330770}$. We enlarge that constant to\n$C_3=2^{330770}$ throughout this part.",
+    "reason": "Carbon 2.4: explicit harmless enlargement, no constant change"
+  },
+  {
+    "old": "dictionary are printed in Section~\\ref{q198:rows}. There $Y_0=X$,\nand $Q_i(A_N)=r_{i,N}$ identifies the notation used below.",
+    "new": "dictionary are printed in Section~\\ref{q198:rows}. Its coordinates\n$\\mathbf Y=(Y_0,\\ldots,Y_{197})$ have $Y_0=X$; the input denoted $x$\nin that table is the same coordinate. Its row $q_i^{[198]}(\\mathbf Y;A_N)$\nis $r_{i,N}(X,Y_1,\\ldots,Y_{197})$. In the Busy Beaver section only,\n$Q_i(A)$ abbreviates this quadratic row with its coordinate arguments\nsuppressed. Those row polynomials are distinct objects from the four\nelliptic points also denoted $Q_i$ in the arithmetic proof.",
+    "reason": "Carbon 2.5: coordinate and overloaded-symbol dictionary"
+  },
+  {
+    "old": "For large c, $c'>2$, $w\\ne0$, and the equation becomes",
+    "new": "For $c\\ge8$, we have $c'\\ge c-1\\ge7>2$ and\n$|A-2|\\ge c'-2\\ge5$. Since $b\\ne0$, this gives $w\\ne0$,\nand the equation becomes",
+    "reason": "Carbon 2.3: explicit threshold for the existing norm-one proof"
+  },
+  {
+    "old": " \\log B\\ge(j-2)\\log(c'-1)\n \\ge(c'-5)\\log(c'-2)\\ge(c-6)\\log(c-3)\n\\]\nfor all sufficiently large c, using $c'\\ge c-1$.\nSection~\\ref{q198bb:inputs} records the explicit sufficient bound\n$c\\ge8$ for this growth inequality; the later threshold argument\nuses $c>e^{12}$.",
+    "new": " \\log B\\ge(j-2)\\log(c'-1)\n \\ge(c'-4)\\log(c'-1)\n \\ge(c'-5)\\log(c'-2)\\ge(c-6)\\log(c-3).\n\\]\nHere $j\\ge c'-2\\ge5$, so the recurrence bound applies at index\n$j-1\\ge4$. Every displayed factor is positive for $c\\ge8$;\nthe final comparison uses $c'\\ge c-1$ and monotonicity of the logarithm.\nThus $c\\ge8$ suffices for the growth inequality. The later threshold\nargument uses $c>e^{12}$.",
+    "reason": "Carbon 2.3: remove mutual deferral and prove the consumed bound"
+  },
+  {
+    "old": "The retained group and height statements give",
+    "new": "Proposition~\\ref{prop:generator}, Subsection~\\ref{q198:inherited}(1)\nand the canonical-height consequence of \\eqref{eq:o8-indexheight} give",
+    "reason": "Carbon 3.2.1: group and height supplier"
+  },
+  {
+    "old": "pointed isomorphisms, are independent modulo torsion over $\\Z[i]$.\nThe fixed real-orbit recurrence, finite-place preparation, compatible\nCRT, simultaneous-prime and prepared pole-realization statements are\nthose of the 198 construction.",
+    "new": "pointed isomorphisms, are independent modulo torsion over $\\Z[i]$\nby Lemma~\\ref{v15:aggregate:lem:independent} and the doubling argument\nin Subsection~\\ref{q198:inherited}(1).\nThe prime, CRT, real-recurrence and pole-realization suppliers are\nidentified in Subsection~\\ref{q198:inherited}(7)--(8). Their use on the\n198-coordinate domain is proved in\nLemmas~\\ref{q198:half-generator-reduction},\n\\ref{q198:half-generator-progression} and~\\ref{q198:additive-contacts},\nand Propositions~\\ref{q198:scalar-preparation} and~\\ref{q198:completeness}.",
+    "reason": "Carbon 3.2.2-3: independence and ordered completeness suppliers"
+  },
+  {
+    "old": "Every rational solution recovers four finite points\n",
+    "new": "Lemmas~\\ref{q198:reciprocal-pairs}, \\ref{q198:nonzero-scale},\n\\ref{q198:inverse-vieta}, \\ref{q198:pair-ratios}\nand~\\ref{q198:scalar-ratios}, together with\nSubsection~\\ref{q198:affine-fourth}, recover from every rational solution\nfour finite points\n",
+    "reason": "Carbon 3.2.4: recovery on the actual table domain"
+  },
+  {
+    "old": "Its aggregate and scalar data are\n",
+    "new": "Corollary~\\ref{q198:shifted-aggregate} and\nLemma~\\ref{q198:scalar-extraction} give its aggregate and scalar data:\n",
+    "reason": "Carbon 3.2.4: aggregate and scalar inequalities"
+  },
+  {
+    "old": "The retained contact radicals $M_j=M(t_j)$ satisfy",
+    "new": "Subsection~\\ref{q198:inherited}(6) and\nLemma~\\ref{q198:residual-divisibility} show that the contact radicals\n$M_j=M(t_j)$ satisfy",
+    "reason": "Carbon 3.2.5: radicals and separate divisibilities"
+  },
+  {
+    "old": "statements concern nonzero integers. The contact supplier has",
+    "new": "statements concern nonzero integers. Section~\\ref{q214:height-supplier}\ngives the unreflected contact supplier with",
+    "reason": "Carbon 3.2.5: constants are source bounds"
+  },
+  {
+    "old": "$B_\\Sigma=\\prod_{p\\in\\Sigma\\setminus S_{10}}p$. The retained exceptional\nset consists of primes at most 76176 together with 2029147.",
+    "new": "$B_\\Sigma=\\prod_{p\\in\\Sigma\\setminus S_{10}}p$. Here\n$S_{10}=\\{2,3,5,7,11,13,17,37,41,2399\\}$ and\n$\\Sigma=\\{p\\text{ prime}:p\\le76176\\}\\cup\\{2029147\\}$.\nThe reflected application and this exceptional set are the ones in\nSubsection~\\ref{q198:inherited}(6), supplied by\nSection~\\ref{q214:uniform-existence}, P10.",
+    "reason": "Carbon 3.2.5: define both sets at the consumer"
+  },
+  {
+    "old": "The norm-one/Lucas classification gives the following explicit\n",
+    "new": "The proof of Lemma~\\ref{q198:affine-lucas} gives the following explicit\n",
+    "reason": "Carbon 3.2.6: backward reference to the completed bound"
+  },
+  {
+    "old": "$t^2-c'tw+w^2=1$. The retained classification gives",
+    "new": "$t^2-c'tw+w^2=1$. That classification gives",
+    "reason": "Carbon 3.2.6: name the just-cited classification"
+  },
+  {
+    "old": "When $J_x=0$, the reduced-denominator argument using squarefreeness of\n102 gives $x\\in\\Z$.",
+    "new": "When $J_x=0$, Lemma~\\ref{q198:integer-input}, using the squarefreeness\nof 102, gives $x\\in\\Z$.",
+    "reason": "Carbon 3.2.6: integer-input supplier"
+  },
+  {
+    "old": "The ordered completeness construction permits arbitrary required\n",
+    "new": "Proposition~\\ref{q198:scalar-preparation} permits arbitrary required\n",
+    "reason": "Carbon 3.2.7: explicit uniform preparation supplier"
+  },
+  {
+    "old": "may depend on $(N,x)$ and impose no new lower bound on $N$.\nSection~\\ref{q198bb:real} supplies an explicit sufficient uniform bound.",
+    "new": "may depend on $(N,x)$ and impose no new lower bound on $N$, as proved\nin Lemmas~\\ref{q198:additive-contacts}\nand~\\ref{q198:half-generator-progression} and\nProposition~\\ref{q198:completeness}.\nSubsection~\\ref{q198bb:real} supplies an explicit sufficient uniform bound.",
+    "reason": "Carbon 3.2.7: actual final-input completeness consumer"
+  },
+  {
+    "old": "Finally, the exact unbalanced coefficient calculation gives, for $N\\ge1$,",
+    "new": "Finally, Proposition~\\ref{q198:finite-algebra} gives, for $N\\ge1$,",
+    "reason": "Carbon 3.2.8: finite coefficient calculation"
+  },
+  {
+    "old": "parameter range. The separate balanced table uses",
+    "new": "parameter range, as stated in Theorem~\\ref{q198:family}.\nThe separate balanced table uses",
+    "reason": "Carbon 3.2.8: support and content supplier"
+  },
+  {
+    "old": "torsion, contrary to their retained independence. The same positive",
+    "new": "torsion, contrary to Lemma~\\ref{v15:aggregate:lem:independent} and\nSubsection~\\ref{q198:inherited}(1). The same positive",
+    "reason": "Carbon 3.2.9: downstream independence use"
+  },
+  {
+    "old": "For the signed labels of Section~\\ref{q198bb:inputs},",
+    "new": "For the signed labels of Lemma~\\ref{q198:scalar-ratios} and\nSubsection~\\ref{q198:affine-fourth},",
+    "reason": "Carbon 3.2.9: signed label supplier"
+  },
+  {
+    "old": "The retained scalar inequalities give $B\\ge c\\ge149^{L_N}>N$.",
+    "new": "Lemma~\\ref{q198:scalar-extraction} gives $B\\ge c\\ge149^{L_N}>N$.",
+    "reason": "Carbon 3.2.9: scalar lower bound supplier"
+  },
+  {
+    "old": "The retained positive-orbit recurrence therefore chooses the initial\nreference $H$",
+    "new": "The positive-orbit recurrence of\nLemma~\\ref{v15:dependencies:lem:real-progression}, applied as in\nProposition~\\ref{q198:scalar-preparation}, therefore chooses the initial\nreference $H$",
+    "reason": "Carbon 3.2.9: actual real-preparation use"
+  },
+  {
+    "old": "and the retained CRT and real-progression argument preserves it.",
+    "new": "and Corollary~\\ref{v15:dependencies:cor:compatible-progressions}\nand Lemma~\\ref{q198:half-generator-progression} preserve it.",
+    "reason": "Carbon 3.2.9: later progression preserves earlier preparation"
+  },
+  {
+    "old": "by the actual 198 completeness construction stated\nin Section~\\ref{q198bb:inputs}.",
+    "new": "by Proposition~\\ref{q198:completeness} and\nLemma~\\ref{q198:additive-contacts}.",
+    "reason": "Carbon 3.2.9: no new uniform lower bound"
+  },
+  {
+    "old": "Hence the separately checked coefficient\nformula",
+    "new": "Hence the coefficient formula of Proposition~\\ref{q198:finite-algebra},",
+    "reason": "Carbon 3.2.9: exact coefficient formula supplier"
+  },
+  {
+    "old": "and the exact\ncoefficient formula in Section~\\ref{q198bb:inputs} prove\nTheorem~\\ref{q198bb:fixed}.",
+    "new": "and the exact\ncoefficient formula in Proposition~\\ref{q198:finite-algebra} prove\nTheorem~\\ref{q198bb:fixed}.",
+    "reason": "Carbon 3.2.9: final coefficient consumer"
+  },
+  {
+    "old": "Section~\\ref{q214foundation:tz-adaptation}",
+    "new": "Subsection~\\ref{q214foundation:tz-adaptation}",
+    "count": 1,
+    "reason": "Carbon 2.6: subsection locator"
+  },
+  {
+    "old": "Section~\\ref{q198:inherited}",
+    "new": "Subsection~\\ref{q198:inherited}",
+    "count": 1,
+    "reason": "Carbon 2.6: subsection locator"
+  },
+  {
+    "old": "Section~\\ref{v222:contacts}",
+    "new": "Subsection~\\ref{v222:contacts}",
+    "count": 2,
+    "reason": "Carbon 2.6: subsection locator"
+  },
+  {
+    "old": "Section~\\ref{q198:recovery-order}",
+    "new": "Subsection~\\ref{q198:recovery-order}",
+    "count": 1,
+    "reason": "Carbon 2.6: subsection locator"
+  },
+  {
+    "old": "Section~\\ref{subsec:v5-point-source}",
+    "new": "Subsection~\\ref{subsec:v5-point-source}",
+    "count": 1,
+    "reason": "Carbon 2.6: subsection locator"
+  },
+  {
+    "old": "Section~\\ref{q198bb:finite-algebra}",
+    "new": "Subsection~\\ref{q198bb:finite-algebra}",
+    "count": 1,
+    "reason": "Carbon 2.6: subsection locator"
+  },
+  {
+    "old": "Section~\\ref{q198bb:threshold-arithmetic}",
+    "new": "Subsection~\\ref{q198bb:threshold-arithmetic}",
+    "count": 1,
+    "reason": "Carbon 2.6: subsection locator"
+  },
+  {
+    "old": "Section~\\ref{q198bb:programs}",
+    "new": "Subsection~\\ref{q198bb:programs}",
+    "count": 1,
+    "reason": "Carbon 2.6: subsection locator"
+  },
+  {
+    "old": "Section~\\ref{q198bb:compiler}",
+    "new": "Subsection~\\ref{q198bb:compiler}",
+    "count": 1,
+    "reason": "Carbon 2.6: subsection locator"
+  }
+]

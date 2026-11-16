@@ -33,7 +33,7 @@ def changed(path='README.md', diff='@@ -1 +1 @@\n-alpha  \n+alpha', **kwargs):
 def report(**kwargs):
     return {'decision': 'accept', 'report': 'The source and its consumers have been read. The stated hypotheses match the supplied objects.',
             'findings': [], 'prior_findings': [], 'sources_read': ['test.tex:1'],
-            'not_outside_reviewed': [], **kwargs}
+            'not_outside_reviewed': [], 'source_checks': [], 'access_limitations': [], **kwargs}
 
 
 def envelope(family='astra', **kwargs):
@@ -68,7 +68,7 @@ class FakeGH:
         self.check_page_size, self.after_check_read = 100, None
         self.merge_result = {'merged': True, 'sha': 'd' * 40}
         self.extra_rules, self.rule_pages, self.compare_requests = [], [], []
-        self.comparison = {'behind_by': 0}
+        self.comparison = {'behind_by': 0, 'merge_base_commit': {'sha': BASE}}
         self.dispatches = []
         self.dispatched_runs = {}
         self.dispatch_head = 'd' * 40
@@ -100,6 +100,8 @@ class FakeGH:
         return []
 
     def text(self, path, ref):
+        if path == 'p.tex':
+            return 'alpha  ' if ref == BASE else 'alpha'
         return 'Review carefully. This is a test fixture, not a live provider call.'
 
     def call(self, path, method='GET', data=None):
@@ -122,6 +124,8 @@ class FakeGH:
         if path.startswith('/compare/'):
             self.compare_requests.append(path)
             return self.comparison
+        if path.startswith('/contents/'):
+            return {'type': 'file', 'sha': 'c' * 40}
         if path.startswith('/commits/'):
             return {'sha': self.main_sha}
         if path == '/pulls/1':
@@ -208,6 +212,7 @@ def run_pipeline(gh=None, app=None, mode='test', provider=None, event=None, fina
                 errors.append(str(error))
             # Keep spending-preflight reads separate from merge retry assertions.
             gh.review_rule_pages, gh.rule_pages = list(gh.rule_pages), []
+            gh.review_compare_requests, gh.compare_requests = list(gh.compare_requests), []
             if finalize:
                 try:
                     gate.publish()
