@@ -3,7 +3,7 @@ article_id: af_382f20c5e39c23b06cd884b7
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves26.elkiesX6StarFunctionField
+lean: HDec.HSyn.OpenResearchLeaves28.elkiesX6StarFunctionField
 ---
 
 # Elkies' coordinate on X₆/W
@@ -16,10 +16,12 @@ $-24$, the value $1$ at those with CM of discriminant $-4$, and the value $\inft
 of discriminant $-3$; and $X$ is covered, over the $t$-line, by Elkies' charts $s^2=-t$ and
 $r^2=3(t-1)$.
 
-It is a published statement: the printed theorem, or a direct instance of it that needs no argument.
-This is what the project takes to be Elkies' own wording, the equality of function fields
-$\mathbb Q(X_6)^W=\mathbb Q(t)$; it has not yet been read against his paper, and the section, the
-display and the orientation of $0$ and $\infty$ are unverified. It is a hypothesis, not proved here.
+It is not printed in this form but follows from published theorems; reaching it from the print takes
+further theorems, which are not proved here. This is what the project takes to be Elkies' own
+wording, the equality of function fields $\mathbb Q(X_6)^W=\mathbb Q(t)$; it has not yet been read
+against his paper, and the section, the display and the orientation of $0$ and $\infty$ are
+unverified. The statement also asserts that a moduli pair exists, which no source states in this
+form. It is a hypothesis, not proved here.
 
 ## Depends on
 

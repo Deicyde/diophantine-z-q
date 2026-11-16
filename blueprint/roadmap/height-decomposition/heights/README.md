@@ -10,7 +10,8 @@ normalization is $h_D=h_F+\frac g2\log\pi$ for an abelian variety of dimension $
 Faltings height is used in the project's definition, through a definition of semistability; that the
 two agree with the published definitions is a judgement of AI reviews.
 
-All six are published statements; none is proved here.
+Of these six statements, two are published statements and four are consequences of published
+theorems; none is proved here.
 
 - [Faltings' semisimplicity theorem](faltings-semisimplicity.md)
 - [Faltings' theorem on Tate's conjecture](faltings-tate-conjecture.md)

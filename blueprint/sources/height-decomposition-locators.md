@@ -10,14 +10,9 @@ web access (`docs/research/locators.md`) read some of them, as marked; the other
 
 ## The decomposition
 
-The minimal height hypothesis is proved from the forty-five statements of the chapter in the
+The minimal height hypothesis is proved from the thirty-seven statements of the chapter in the
 project's assembly of the proof of the manuscript's Theorem 4.1; the trust assessment of that proof
 is the project-authored note `docs/research/h-trust.md`.
-
-## Neron-Ogg-Shafarevich
-
-J.-P. Serre and J. Tate, *Good reduction of abelian varieties*, Ann. of Math. 88 (1968), Theorem 1.
-Locator unverified.
 
 ## Faltings semisimplicity
 
@@ -51,11 +46,6 @@ L. Pan, *The Fontaine–Mazur conjecture in the residually reducible case*, J. A
 K. Kato, Astérisque 295 (2004), 9.2–9.4, for newforms, transported to every semisimple attached
 representation and dualized. Locators unverified.
 
-## Deligne-Serre
-
-P. Deligne and J.-P. Serre, *Formes modulaires de poids 1*, Ann. Sci. ÉNS 7 (1974), Theorem 4.1;
-Diamond–Shurman, Theorem 9.6.6. Numbering unverified.
-
 ## Carayol conductor
 
 H. Carayol, *Sur les représentations $\ell$-adiques associées aux formes modulaires de Hilbert*,
@@ -82,43 +72,17 @@ read by the locator audit. The level-$2$ coordinates are a risk (project note he
 É. Gaudron and G. Rémond, *Polarisations et isogénies*, Duke Math. J. 163 (2014), Theorem 1.4, read
 by the locator audit, over the stable height.
 
-## Mumford GIT Theorem 6.14
-
-D. Mumford, J. Fogarty and F. Kirwan, *Geometric Invariant Theory*, Theorem 6.14 ($S$ connected and
-locally noetherian, $F\to S$ smooth and proper with a section $e$, a fibre an abelian variety: $F$
-is an abelian scheme with identity $e$), applied on each connected component. Numbers unverified.
-
-## SGA 3 VI_B 3.10
-
-SGA 3, Exposé VI_B, 3.10. Number unverified.
-
 ## Gonzalez-Rotger Theorem 5.12
 
 J. González and V. Rotger, *Non-elliptic Shimura curves of genus one*, J. Math. Soc. Japan 58
 (2006), Theorem 5.12, on the residue fields of the CM points of $X_0(6,1)$, in its printed form; the
 theorem number was read by the locator audit, but the locator is still marked unverified.
 
-## Raynaud criterion
-
-SGA 7 I, Exposé IX, Proposition 4.7 (Raynaud's criterion), over a strictly henselian discrete
-valuation ring; with the strict henselization statement it gives the criterion over every discrete
-valuation ring. Number unverified.
-
 ## Gonzalez-Rotger Proposition 5.6
 
 J. González and V. Rotger, J. Math. Soc. Japan 58 (2006), Proposition 5.6, p. 943, at $(D,N)=(6,1)$,
 read by the locator audit; restated for every moduli description of $X_0(6,1)$. The reading of
 $D(R)$ is to be confirmed against the paper.
-
-## Neron models and strict henselization
-
-S. Bosch, W. Lütkebohmert and M. Raynaud, *Néron Models*, §1.2, Proposition 2 (Néron models commute
-with strict henselization). Locator unverified.
-
-## SGA 7 IX 3.3
-
-SGA 7 I, Exposé IX, Proposition 3.3, second assertion, over strictly henselian traits. Number
-unverified.
 
 ## SGA 7 IX 3.5
 
@@ -147,11 +111,54 @@ with coordinate $t$: the function-field form $\mathbb Q(X_6)^W=\mathbb Q(t)$, th
 equations of $X_6$ over the $t$-line. Section, display and the orientation of $0$ and $\infty$
 unverified.
 
+## SGA 3 VI_B 3.10, neighbourhood form
+
+SGA 3 I, Exposé VI_B, Theorem 3.10; EGA IV₃ 15.6.5. Numbers unverified.
+
+## SGA 7 IX 3.3
+
+SGA 7 I, Exposé IX, Proposition 3.3, second assertion ($N^0\times_SS'\cong N'^0$ for semistable
+reduction), over strictly henselian traits. Number unverified.
+
+## Raynaud criterion
+
+SGA 7 I, Exposé IX, Proposition 4.7 (Raynaud's criterion), over a strictly henselian discrete
+valuation ring, with semistability read over the residue field or over its algebraic closure. Number
+unverified.
+
+## Mumford GIT Theorem 6.14
+
+D. Mumford, J. Fogarty and F. Kirwan, *Geometric Invariant Theory*, Theorem 6.14 ($S$ connected and
+locally noetherian, $F\to S$ smooth and proper with a section $e$, a fibre an abelian variety: $F$
+is an abelian scheme with identity $e$). Numbers unverified.
+
+## BLR 7.2 Theorem 1
+
+S. Bosch, W. Lütkebohmert and M. Raynaud, *Néron Models*, §7.2, Theorem 1 (Néron models commute with
+base change of ramification index $1$ with separable residue extension). Locator unverified; the
+reading risk is recorded in the project note reduct-glue, §5.
+
+## Neron-Ogg-Shafarevich
+
+J.-P. Serre and J. Tate, *Good reduction of abelian varieties*, Ann. of Math. 88 (1968), 492–517,
+§1, Theorem 1, over a separable closure, as printed. Numbering from memory, unverified.
+
 ## Deligne representations
 
 F. Diamond and J. Shurman, *A First Course in Modular Forms*, GTM 228 (2005), Theorem 9.6.5 (P.
-Deligne 1971; G. Shimura 1971, Theorem 7.14, for $k=2$), in its weakest reading; coefficients
-carried along $\iota_\ell\iota_{\mathbb C}^{-1}$. Numbering unverified.
+Deligne 1971; G. Shimura 1971, Theorem 7.14, for $k=2$), as printed over $K_{f,\lambda}$, with their
+Definition 5.8.1 of eigenforms. Numbering unverified.
+
+## Coefficient field
+
+F. Diamond and J. Shurman, GTM 228, Theorem 6.5.1 ($k=2$); G. Shimura, *Introduction to the
+arithmetic theory of automorphic functions* (1971), Theorem 3.52 and §3.5 (every $k$). Locators
+unverified.
+
+## Deligne-Serre
+
+P. Deligne and J.-P. Serre, *Formes modulaires de poids 1*, Ann. Sci. ÉNS (4) 7 (1974), Theorem 4.1
+with display (4.1.1), p. 514; Diamond–Shurman, Theorem 9.6.6. Locator unverified.
 
 ## Mumford torsion
 
@@ -172,27 +179,6 @@ J. S. Milne, *Abelian varieties*, in Cornell–Silverman (eds.), *Arithmetic Geo
 Proposition 12.1, over any field; over an algebraically closed field D. Mumford, *Abelian varieties*
 (1970), §19, Theorem 1. Locators unverified.
 
-## Cartier theorem
-
-P. Cartier, *Groupes algébriques et groupes formels*, Colloque Bruxelles (1962); F. Oort, Invent.
-Math. 2 (1966), 79–80; D. Mumford, *Abelian varieties*, §11, Theorem 1; J. S. Milne, *Algebraic
-Groups* (2017), Theorem 3.23; Stacks Project, Tag 047N. Locators unverified.
-
-## Geometric connectedness
-
-Stacks Project, Varieties, Lemma 33.7.14 (Tag 04KV). Locator unverified.
-
-## Group schemes are equidimensional
-
-Stacks Project, Groupoid schemes, properties of group schemes over a field; SGA 3, Exposé VI_A, 2.4;
-J. S. Milne, *Algebraic Groups* (2017), possibly Proposition 1.37 (number uncertain). Locators
-unverified.
-
-## Analytic uniformization
-
-D. Mumford, *Abelian varieties*, §1 ($A^{\rm an}=\mathbb C^g/\Lambda$), in coordinate form, reached
-through the analytification and GAGA.
-
 ## GAGA for homomorphisms
 
 J.-P. Serre, *Géométrie algébrique et géométrie analytique* (1956); SGA 1 XII 4.4
@@ -204,33 +190,6 @@ over $\mathbb C$). Locators unverified.
 S. Bosch, W. Lütkebohmert and M. Raynaud, *Néron Models*, §1.4, Theorem 3, with §1.2, Definition 1.
 Locators unverified.
 
-## Theta ratios
-
-G. Shimura, Duke Math. J. 43 (1976); D. Mumford, *Tata Lectures on Theta II*, IIIa §8 (Thomae's
-formula in genus 2); J. Igusa (1962, 1967) on the vanishing of even theta constants. Locators
-unverified.
-
-## Tate twists
-
-J. Tate, *$p$-divisible groups*, Proc. Conf. Local Fields (Driebergen 1966), Springer (1967),
-158–183, §3.3, Theorem 2. Locator unverified.
-
-## Ax-Sen-Tate
-
-J. Tate (1967), §3.3, Theorem 1; S. Sen, Ann. of Math. 90 (1969); J. Ax, Invent. Math. 10 (1970).
-Locators unverified.
-
-## Milne quasi-inverse
-
-J. S. Milne, *Abelian varieties*, in Cornell–Silverman (eds.), *Arithmetic Geometry* (1986), §8,
-Remark 8.4; also Milne's online notes *Abelian Varieties* (2008), Proposition 7.1 and Remark 7.3;
-over an algebraically closed field D. Mumford, *Abelian varieties* (1970), §7, remark after Theorem
-4. Locators unverified.
-
-## EGA IV 8.10.5 (xii)
-
-EGA IV₃, 8.10.5 (xii); also Stacks Project, Tag 081F. Locators unverified, quoted from memory.
-
 ## Picard scheme
 
 J. P. Murre (1964) and F. Oort (1962); A. Grothendieck, FGA, Exposé 232, Theorem 3.1; S. Kleiman,
@@ -241,18 +200,15 @@ J. P. Murre (1964) and F. Oort (1962); A. Grothendieck, FGA, Exposé 232, Theore
 D. Mumford, *Abelian varieties*, §13; S. Kleiman, *The Picard scheme*, Propositions 9.5.1 and 9.5.3;
 J. S. Milne (1986), §§9–10. Locators unverified.
 
-## Polarization isogeny
-
-D. Mumford, *Abelian varieties*, §6, Application 1, and §8, Theorem 1. Locators unverified.
-
 ## Weil pairing
 
 D. Mumford, *Abelian varieties*, §§20 and 23; J. S. Milne (1986), Lemma 16.2(c) and §16. Locators
 unverified.
 
-## Local inertia of tame covers
+## Mumford K(L) finite
 
-The project-authored note `docs/research/h-b1.md`, §3, Lemma NV, step 3, with the notes
-`docs/research/sgr-direct.md` and `docs/research/sgr-fold.md`: a consequence of Abhyankar's lemma
-(SGA 1 XIII 5.3) and Zariski–Nagata purity (SGA 1 X 3.1), locators unverified. No published
-statement has this form.
+D. Mumford, *Abelian varieties*, §6, Application 1, (iv) ⇒ (ii). Locator unverified.
+
+## Mumford phi_L surjective
+
+D. Mumford, *Abelian varieties*, §8, Theorem 1. Locator unverified.

@@ -4,8 +4,8 @@ docs/one-proof/kinds.tsv and chapter_text.py.
 Usage, from the repository root after each fold: python3 -I scripts/one_proof/vault_chapter/gen.py
 
 Keeps the article_id of every file it rewrites; a new file gets the ID autoform-bot would give it
-(a hash of its path and content). The bundles are read from open-statements.json (every bundle but frozenTarget's), and the top
-theorem is the one in ZInQKernel/OneProof/H/ that takes exactly those bundles. Refuses to run when the H fields of
+(a hash of its path and content). The top theorem is the one ZInQKernel/OneProof/Main.lean applies; its bundles and their fields are
+read from the Lean (and checked against open-statements.json once that is regenerated). Refuses to run when the H fields of
 open-statements.json differ from those in chapter_text.py or when the kinds do not add up.
 """
 import csv, hashlib, json, os, re, sys
@@ -18,24 +18,39 @@ vault = os.path.abspath(sys.argv[1] if len(sys.argv) > 1 else '.')
 CH = os.path.join(vault, 'blueprint/roadmap/height-decomposition')
 SRC = os.path.join(vault, 'blueprint/sources/height-decomposition-locators.md')
 
+# The top theorem is the one Main.lean applies; its binders are the bundles, read with their fields
+# from the Lean, so the chapter can be built before open-statements.json is regenerated.
+HDIR = os.path.join(vault, 'ZInQKernel/OneProof/H')
+main_src = open(os.path.join(vault, 'ZInQKernel/OneProof/Main.lean')).read()
+calls = set(re.findall(r'\(HDec\.HSyn\.(sixContactMin_of_open\d+)(?: [a-z]\w*)+\)', main_src))
+assert len(calls) == 1, calls
+top_name = calls.pop()
+TOP_LEAN = 'HDec.HSyn.' + top_name
+sources = {n: open(os.path.join(HDIR, n)).read() for n in sorted(os.listdir(HDIR)) if n.endswith('.lean')}
+heads = [m for t in sources.values() for m in re.finditer(rf'^theorem {top_name} ((?:\(\w+ : \w+\) ?)+):', t, re.M)]
+assert len(heads) == 1, top_name
+BUNDLES = re.findall(r': (\w+)\)', heads[0].group(1))
+fields, bundle_of = [], {}
+for b in BUNDLES:
+    blocks = [t[t.index(f'structure {b} '):].split('\n\n')[0] for t in sources.values() if f'structure {b} ' in t]
+    assert len(blocks) == 1, b
+    for m in re.finditer(r"^\s+([A-Za-z_][\w']*) : \S", blocks[0], re.M):
+        fields.append(m.group(1))
+        bundle_of[m.group(1)] = b
+lean = {f: f'HDec.HSyn.{bundle_of[f]}.{f}' for f in fields}  # the Prop names have copies under scratch/, which the scanner reads
 data = json.load(open(os.path.join(vault, 'docs/one-proof/open-statements.json')))
-BUNDLES = sorted({h['bundle'] for h in data['hypotheses']} - {'frozenTarget'})
-# The top theorem: the sixContactMin_of_open* whose binders are exactly the current bundles.
-tops = []
-hdir = os.path.join(vault, 'ZInQKernel/OneProof/H')
-for name in os.listdir(hdir):
-    if name.endswith('.lean'):
-        for m in re.finditer(r'^theorem (sixContactMin_of_open\d+) ((?:\(\w+ : \w+\) ?)+):', open(os.path.join(hdir, name)).read(), re.M):
-            if sorted(re.findall(r': (\w+)\)', m.group(2))) == BUNDLES:
-                tops.append('HDec.HSyn.' + m.group(1))
-assert len(tops) == 1, tops
-TOP_LEAN = tops[0]
-hyps = [h for h in data['hypotheses'] if h['bundle'] in BUNDLES]
+json_fields = {h['field'] for h in data['hypotheses'] if h['bundle'] in BUNDLES}
+if json_fields:
+    assert json_fields == set(fields), (sorted(json_fields ^ set(fields)))
+else:
+    print('note: docs/one-proof/open-statements.json predates these bundles; fields read from the Lean')
 kinds = {r['field']: r for r in csv.DictReader(open(os.path.join(vault, 'docs/one-proof/kinds.tsv')), delimiter='\t')}
-fields = [h['field'] for h in hyps]
-lean = {h['field']: f"HDec.HSyn.{h['bundle']}.{h['field']}" for h in hyps}  # the Prop names have copies under scratch/, which the scanner reads
-if set(fields) != set(LEAVES):
-    sys.exit(f'fields differ: new {sorted(set(fields) - set(LEAVES))}, gone {sorted(set(LEAVES) - set(fields))}')
+missing = [f for f in fields if f not in LEAVES]
+if missing:
+    sys.exit(f'no prose in chapter_text.py for {missing}')
+unused = sorted(set(LEAVES) - set(fields))
+if unused:
+    print(f'note: chapter_text.py has entries for fields no longer in H: {unused}')
 kind = {f: kinds[f]['kind'] for f in fields}
 count = {k: sum(1 for f in fields if kind[f] == k) for k in ('published', 'consequence', 'composite', 'project glue')}
 assert sum(count.values()) == len(fields), count
@@ -43,16 +58,24 @@ assert count['project glue'] == sum(1 for f in fields if LEAVES[f]['group'] is N
 for f in fields:
     if kind[f] != 'published':
         assert kinds[f]['strict'] != 'LEAF', (f, kinds[f]['strict'])
-    assert (kinds[f]['strict'] == 'LEAF') == (kind[f] == 'published'), f
+    if kind[f] == 'published' and kinds[f]['strict'] != 'LEAF':
+        assert kinds[f]['flag'].startswith('pending reading'), (f, kinds[f]['flag'])
+strict = sum(1 for f in fields if kinds[f]['strict'] == 'LEAF')
+pending = [f for f in fields if kind[f] == 'published' and kinds[f]['strict'] != 'LEAF']
 assert len({LEAVES[f]['slug'] for f in fields}) == len(fields)
 assert len({LEAVES[f]['anchor'] for f in fields}) == len(fields)
 
-WORDS = {1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five', 6: 'six', 7: 'seven', 8: 'eight', 9: 'nine',
-         10: 'ten', 11: 'eleven', 12: 'twelve', 34: 'thirty-four', 44: 'forty-four', 45: 'forty-five'}
+ONES = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve',
+        'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen']
+TENS = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety']
 
 
 def w(n):
-    return WORDS.get(n, str(n))
+    """English words for 0 <= n < 100 (the vault spells out counts)."""
+    if n < 20:
+        return ONES[n]
+    assert n < 100, n
+    return TENS[n // 10] + ('' if n % 10 == 0 else '-' + ONES[n % 10])
 
 
 KIND_SENTENCE = {
@@ -193,12 +216,16 @@ for f in fields:
     body = [front(p, declaration='def', origin=origin, statement='formalized', lean=lean[f]), f"# {L['title']}", '',
             para(L['statement']), '']
     tail = KIND_SENTENCE[kind[f]]
+    if f in pending:
+        tail += (" Its reading against the print is pending, and until it is checked the project's strict count "
+                 "does not count it as published.")
     if L['caveat'].strip():
         tail += ' ' + L['caveat'].strip()
     tail += ' It is a hypothesis, not proved here.'
     body += [para(tail), '']
     body += ['## Depends on', '']
-    body += ([f"- [{LEAVES[d]['title']}]({rel(d, p)})" for d in DEPS[f]] if f in DEPS else ['None.']) + ['']
+    deps = [d for d in DEPS.get(f, []) if d in fields]
+    body += ([f"- [{LEAVES[d]['title']}]({rel(d, p)})" for d in deps] if deps else ['None.']) + ['']
     src_rel = os.path.relpath(SRC, os.path.dirname(p))
     body += ['## Sources', '', f"- [{L['anchor']}]({src_rel}#{slugify(L['anchor'])})"]
     write(p, '\n'.join(body))
@@ -226,6 +253,9 @@ for g in groups:
 # ---- top theorem ----
 glue = [f for f in fields if LEAVES[f]['group'] is None]
 assert len(glue) <= 1, glue
+strict_sentence = (f"The project's strict convention, which counts a published statement only once its reading "
+                   f"against the print is checked, counts {w(strict)} of the {w(len(fields))} as published."
+                   if pending else '')
 nlit = len(fields) - len(glue)
 top = os.path.join(CH, 'minimal-height-from-leaves.md')
 glue_links = ', '.join(f"[{LEAVES[f]['title'].lower()}]({LEAVES[f]['slug']}.md)" for f in glue)
@@ -239,7 +269,7 @@ the theory they come from ({group_links}){f", and one step of the project's own 
 Of the {w(nlit)} statements from the literature, {w(count['published'])} are published statements, some of
 them specialized or weakened; {w(count['consequence'])} are consequences of published theorems, which take
 further theorems to reach from the print; and {w(count['composite'])} combine several published theorems.
-None of the {w(len(fields))} is proved here.
+{strict_sentence} None of the {w(len(fields))} is proved here.
 """), '',
         para(f"""
 The proof follows the manuscript's proof of its Theorem 4.1 at the one instance the main theorem uses,
@@ -275,7 +305,7 @@ convenience.
 Of the {w(nlit)} statements from the literature, {w(count['published'])} are published statements: the
 printed theorem, or a direct instance of it that needs no argument. {w(count['consequence']).capitalize()}
 are consequences of published theorems, which take further theorems to reach from the print, and
-{w(count['composite'])} combine several published theorems.{f' The remaining statement, {glue_links}, has no published form.' if glue else ''} None of the {w(len(fields))} is proved here, and every step from
+{w(count['composite'])} combine several published theorems.{f' The remaining statement, {glue_links}, has no published form.' if glue else ''} {strict_sentence} None of the {w(len(fields))} is proved here, and every step from
 them to the minimal height hypothesis is.
 """), '',
         '## The theorem', '',

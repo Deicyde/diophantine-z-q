@@ -23,8 +23,8 @@ $(A,\iota)$, $\operatorname{End}_{\mathcal O}(A)$ is the ring of endomorphisms c
 $\iota(\mathcal O)$; the pair has *CM by an order* $R$ of an imaginary quadratic field when this
 ring is isomorphic to $R$.
 
-Of these four statements, three are published statements and one combines several published
-theorems; none is proved here.
+Of these four statements, two are consequences of published theorems and two combine several
+published theorems; none is proved here.
 
 - [González–Rotger: residue fields of CM points on X₆](gonzalez-rotger-residue-fields.md)
 - [González–Rotger: the number of CM points on X₆](gonzalez-rotger-cm-count.md)

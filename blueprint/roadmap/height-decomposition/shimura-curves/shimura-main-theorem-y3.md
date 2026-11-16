@@ -3,7 +3,7 @@ article_id: af_f97d8970086eaa3ee8b63bb0
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves26.shimuraMainThmIDeligneY3AbU
+lean: HDec.HSyn.OpenResearchLeaves28.shimuraMainThmIDeligneY3AbU
 ---
 
 # Shimura's Main Theorem I on Y₃ in Deligne's form

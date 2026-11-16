@@ -3,7 +3,7 @@ article_id: af_36b24ab2bbf968a50ca43e8f
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves26.gonzalezRotgerX6Ab
+lean: HDec.HSyn.OpenResearchLeaves28.gonzalezRotgerX6Ab
 ---
 
 # González–Rotger: residue fields of CM points on X₆
@@ -15,10 +15,9 @@ has CM by $R$. If $2$ or $3$ is inert in $k$, the residue field $\mathbb Q(x)$ h
 over $\mathbb Q$ and contains a copy of $k$; otherwise it has degree $h(R)$. Here $h(R)$ is the
 order of the Picard group of $R$.
 
-It is a published statement: the printed theorem, or a direct instance of it that needs no argument.
-This is Theorem 5.12 of González and Rotger (2006) on $X_0(6,1)$, with the moduli properties of the
-level-$3$ curve stated for abelian schemes. It also asserts that a moduli pair exists. It is a
-hypothesis, not proved here.
+No single source prints it. It combines Theorem 5.12 of González and Rotger (2006), on the residue
+fields of the CM points of $X_0(6,1)$, with the assertion that a moduli pair exists, which no source
+states in this form. It is a hypothesis, not proved here.
 
 ## Depends on
 

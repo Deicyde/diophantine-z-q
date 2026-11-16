@@ -3,7 +3,7 @@ article_id: af_713bae1ffdec4d9810eae927
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenTextbookLeaves12.neronSchemeExtensionExists
+lean: HDec.HSyn.OpenTextbookLeaves13.neronSchemeExtensionExists
 ---
 
 # Néron models over rings of integers

@@ -3,7 +3,7 @@ article_id: af_87adc7d5c5afda1103a7ff11
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves26.sga7_IX_3_5_ForwardGeom
+lean: HDec.HSyn.OpenResearchLeaves28.sga7_IX_3_5_ForwardGeom
 ---
 
 # Semistable reduction gives unipotent inertia
@@ -15,11 +15,14 @@ semistable. Then $(\sigma-1)^2=0$ on $T_\ell A=\varprojlim A(K^s)[\ell^n]$ for e
 $\sigma\in\operatorname{Gal}(K^s/K)$.
 
 It is a published statement: the printed theorem, or a direct instance of it that needs no argument.
-The print gives $(\sigma-1)(\tau-1)=0$ for any two elements of inertia, and the converse; this is
-the forward direction at $\sigma=\tau$. If the print reads semistability on the special fibre over
-its own residue field, this form exceeds it for imperfect residue fields only, and if its display
-lacks the clause on filtrations, the bound comes from SGA 7 IX 2.4. It is a hypothesis, not proved
-here.
+Its reading against the print is pending, and until it is checked the project's strict count does
+not count it as published. The print gives $(\sigma-1)(\tau-1)=0$ for any two elements of inertia,
+and the converse; this is the forward direction at $\sigma=\tau$. Two recorded readings of the print
+make the statement a consequence of it rather than the print itself: if Proposition 3.5 reads
+semistability on the special fibre over its own residue field, the statement follows through the
+descent of semi-abelian varieties along separably closed extensions, which is proved here only for
+perfect residue fields; and if its display lacks the clause on filtrations, the bound comes from SGA
+7 IX 2.4. It is a hypothesis, not proved here.
 
 ## Depends on
 

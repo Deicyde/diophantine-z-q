@@ -3,7 +3,7 @@ article_id: af_43842268f7bc7634b9f3e4ab
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenTextbookLeaves12.poincareComplement
+lean: HDec.HSyn.OpenTextbookLeaves13.poincareComplement
 ---
 
 # Poincaré's complete reducibility

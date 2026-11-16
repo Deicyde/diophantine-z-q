@@ -3,7 +3,7 @@ article_id: af_70638693e5265599a45e25ae
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves26.r17
+lean: HDec.HSyn.OpenResearchLeaves28.r17
 ---
 
 # Carayol's theorem on the conductor

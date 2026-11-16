@@ -9,15 +9,15 @@ over $K$. A *Néron model* of $A$ is a smooth separated group scheme of finite t
 with generic fibre $A$ to which every morphism from the generic fibre of a smooth
 $\mathcal O$-scheme to $A$ extends uniquely; $A$ has *semistable reduction* when the identity
 component of the special fibre of its Néron model is an extension of an abelian variety by a torus.
-These statements give the existence of Néron models, their compatibility with strict henselization,
-the criterion of Néron–Ogg–Shafarevich, Raynaud's criterion for semistable reduction, and two
-results of SGA 7, Exposé IX, on semistable reduction over a strictly henselian base.
+These statements give the existence of Néron models and their behaviour under base change, the
+criterion of Néron–Ogg–Shafarevich, Raynaud's criterion for semistable reduction, and two results of
+SGA 7, Exposé IX, on semistable reduction over a strictly henselian base.
 
 All six are published statements; none is proved here.
 
-- [The criterion of Néron–Ogg–Shafarevich](neron-ogg-shafarevich.md)
-- [Raynaud's criterion for semistable reduction](raynaud-criterion.md)
-- [Néron models commute with strict henselization](neron-models-and-strict-henselization.md)
-- [Semistable reduction persists under base change](semistable-base-change.md)
 - [Semistable reduction gives unipotent inertia](semistable-unipotent-inertia.md)
+- [Semistable reduction persists under base change](semistable-base-change.md)
+- [Raynaud's criterion for semistable reduction](raynaud-criterion.md)
+- [Néron models commute with unramified base change](neron-models-and-unramified-base-change.md)
+- [The criterion of Néron–Ogg–Shafarevich](neron-ogg-shafarevich.md)
 - [Néron models over rings of integers](neron-models-exist.md)

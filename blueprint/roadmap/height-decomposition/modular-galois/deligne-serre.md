@@ -3,7 +3,7 @@ article_id: af_3dc8148f7829daedefdf2f85
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves26.dsThm966
+lean: HDec.HSyn.OpenResearchLeaves28.dsThm966Printed
 ---
 
 # The Deligne–Serre theorem
@@ -15,7 +15,7 @@ $p\nmid N$, such that the trace and the determinant of an arithmetic Frobenius a
 and $\chi(p)$.
 
 It is a published statement: the printed theorem, or a direct instance of it that needs no argument.
-It is a hypothesis, not proved here.
+Only AI agents have read it against the paper. It is a hypothesis, not proved here.
 
 ## Depends on
 

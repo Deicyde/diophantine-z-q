@@ -3,7 +3,7 @@ article_id: af_d99cc0ab823fc665290880e1
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenAddedLeaves17.picZeroAbVar
+lean: HDec.HSyn.OpenAddedLeaves19.picZeroAbVar
 ---
 
 # The identity component of the Picard scheme is an abelian variety

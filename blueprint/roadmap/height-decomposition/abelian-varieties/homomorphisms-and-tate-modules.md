@@ -3,7 +3,7 @@ article_id: af_0503d873afc5070611cfd7b6
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenTextbookLeaves12.homFreeFiniteAlgClosed
+lean: HDec.HSyn.OpenTextbookLeaves13.homFreeFiniteAlgClosed
 ---
 
 # Homomorphisms of abelian varieties and Tate modules
