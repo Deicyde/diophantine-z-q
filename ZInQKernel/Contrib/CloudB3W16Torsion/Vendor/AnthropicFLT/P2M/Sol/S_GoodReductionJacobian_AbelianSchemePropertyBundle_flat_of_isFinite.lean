@@ -34,10 +34,11 @@ namespace P2mIsogFlat
 
 variable {K : Type u} [Field K] {A : Scheme.{u}} {f : A ⟶ Spec (CommRingCat.of K)}
 
-private theorem _root_.P2mIsogFlat.isLocallyNoetherian (hA : AbelianSchemePropertyBundle K f) : IsLocallyNoetherian A := by
+-- [port] Keep the private helper in this module-local namespace, avoiding a self-export.
+private theorem isLocallyNoetherian (hA : AbelianSchemePropertyBundle K f) : IsLocallyNoetherian A := by
   haveI : Smooth f := hA.smooth
   exact LocallyOfFiniteType.isLocallyNoetherian f
-export P2mIsogFlat (isLocallyNoetherian)
+-- [port] No export alias is needed for the private helper above.
 theorem flat_stalkMap (hA : AbelianSchemePropertyBundle K f) (β : SchemeHomOver f f)
     [IsFinite β.1] (x : A) : (β.1.stalkMap x).hom.Flat := by
   haveI : Smooth f := hA.smooth
