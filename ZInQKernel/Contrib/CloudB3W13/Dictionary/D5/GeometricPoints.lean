@@ -11,8 +11,8 @@ Faithfulness is proved by the epimorphism of field spectra, not assumed as
 an extra geometric-level condition. All types here are existing kernel types.
 -/
 
-set_option backward.isDefEq.respectTransparency.types false
-set_option backward.isDefEq.respectTransparency.instanceSearchTypes false
+set_option backward.isDefEq.respectTransparency.types true
+set_option backward.isDefEq.respectTransparency.instanceSearchTypes true
 
 noncomputable section
 
@@ -27,7 +27,10 @@ variable {K k : Type} [Field K] [Field k]
 /-- The field map, as a morphism into the kernel's rational-point object. -/
 def geometricToK (s : Spec (CommRingCat.of k) ⟶ Spec (CommRingCat.of K)) :
     Over.mk s ⟶ AbVar.ptObj (K := K) K :=
-  Over.homMk s (by rw [kernelPtObj_self, Category.comp_id])
+  Over.homMk s (by
+    rw [kernelPtObj_self]
+    dsimp only [AbVar.ptObj, Over.mk_left, Over.mk_hom]
+    exact Category.comp_id s)
 
 /-- Precomposition on the actual original group of points. -/
 def geometricPointsMap (A : AbVar K)
