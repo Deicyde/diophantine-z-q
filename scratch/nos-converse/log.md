@@ -37,3 +37,8 @@ Base wip/nos-proof e9828e92, merged origin/main e41a7169 (STATUS.md only). Build
   ReductGlue.RaynaudSemistableSH, NOSConverse.TorusRankZero, NOSConverse.AbelianReductionGood]; standard axioms.
 - autofold.json dry run (autofold-dryrun.txt): "strict count: 34/11 on 45 -> 34/13 on 47; strictest 34/11 -> 34/13";
   refused (GLUE rises). Not a fold candidate: keep nos-proof's NOSConverseSep.
+- TorusRankZero decomposed (compiles, standard axioms, ~16:30):
+  `torusRankZero_of_glue : TorsionInjectsSpecialFibre → ComponentIndexBound → DimensionRelation →
+  NeronSpecialFibreComm → MumfordTorsionAlgClosed → TorusRankZero`; PROVED pieces: `semiAbelianTorsionBound_of`
+  (#U(k)[m] ≤ m^r·m^{2a} from Mumford, U(k)[m] ↪ B(k)[m] × μ_m^r), `rankZeroAbelian_proof` (r = 0 ⇒ π flat
+  surjective mono lfp ⇒ open immersion ⇒ iso ⇒ U proper), the counting assembly `torusRankZero_of_count`.
