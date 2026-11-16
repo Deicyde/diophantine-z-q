@@ -12,8 +12,9 @@ form) quantify over every lattice `𝔞 ⊂ E` (any multiplier ring) and carry n
 Shimura's main theorem (1971 Thm 5.15, 1998 Thm 18.6) is stated for polarized structures `(A, C, θ)` of a type
 `(E, Φ; 𝔞, ζ)`. This file derives `MainTheoremCMArith` from
 
-* `MainTheoremCMPolMax`: the main theorem for `𝔞` a fractional `𝓞_E`-ideal and `(A, θ)` carrying a Riemann form
-  `E(Φ(x), Φ(y)) = Tr_{E/ℚ}(ζ x ȳ)` (the polarized, maximal-order print);
+* `MainTheoremCMPolMax` (sign `ε = 1`) or `MainTheoremCMPol` (sign existential): the main theorem for `𝔞` a
+  fractional `𝓞_E`-ideal and `(A, θ)` carrying a Riemann form `E(Φ(x), Φ(y)) = Tr_{E/ℚ}(ζ x ȳ)` (the polarized,
+  maximal-order print);
 * `CMAbVarExists`: Shimura's converse, the existence of a polarized abelian variety of type `(E, Φ; 𝔟, ζ)`;
 * the textbook leaves `UniformizationLeafAll` and `GAGAMorphism` (hence `HomLatticeCorr`, `AvSplit.Final.h69`).
 
@@ -26,8 +27,10 @@ Glue proved here:
   property and rigidity), and `θ' = μ^σ ∘ θ'_{B₀}`, with `𝔞̂ = 𝔞 + 𝔟̂` (`latHat_decomp`) and the density of `E` in
   `𝔸_f ⊗ E` modulo `𝔟̂` (`exists_approx_latHat`) for the kernel and the torsion relation.
 
-Main results: `mainTheoremCMArith_of_polar`, `mainTheoremCM_of_polar`, `rayClassCMAb_of_polar`,
-`shimuraMainCM_of_polar`. No statement of the kernel is changed. No `sorry`; axioms `propext`, `Classical.choice`,
+Main results: `mainTheoremCMSign_of_polar` (every sign `ε`), `mainTheoremCMArith_of_polar`, `mainTheoremCM_of_pol`,
+`mainTheoremCM_of_polar`, `qmReciprocityL3_of_pol`, `rayClassCMAb_of_polar`, `shimuraMainCM_of_polar` (the argument
+`hCM` of `frozenTarget`); the new leaves are implied by the old ones (`mainTheoremCMPolMax_of_arith`,
+`mainTheoremCMPol_of_mainTheoremCM`). No statement of the kernel is changed. No `sorry`; axioms `propext`, `Classical.choice`,
 `Quot.sound`.
 -/
 
