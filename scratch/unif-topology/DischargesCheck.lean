@@ -1,0 +1,16 @@
+import ZInQKernel.OneProof.Main
+import ZInQKernel.OneProof.Discharges
+import ZInQKernel.Contrib.OneProof.UniformizationTopology
+
+#discharges
+
+#print axioms UnifTopology.uniformizationLeafAll_of_analytic
+#print axioms UnifTopology.classicalTopology_eq_analyticTopology
+#print axioms UnifTopology.classicalTopology_eq_gluedTopology
+#print axioms UnifTopology.isEmbedding_coord
+#print axioms UnifTopology.range_coord
+#print axioms UnifTopology.exists_homeomorph_zeroLocus
+#print axioms UnifTopology.induced_classicalTopology_eq
+#print axioms UnifTopology.smoothComplexManifoldAn_iff
+#print axioms UnifTopology.properCompactAn_iff
+#print axioms UnifTopology.connectedConnectedAn_iff
