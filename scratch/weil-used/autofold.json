@@ -1,0 +1,62 @@
+{
+ "name": "weil-used-fold",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.WeilPairingUsed"
+ ],
+ "discharges": [
+  {
+   "field": "weilPairingMumford",
+   "proof": "_root_.WeilUsed.weilPairingMumford_of_split {n}.weilPairingExists {n}.weilPairingPerfect {n}.weilPairingGalois {n}.weilPairingCompat {n}.weilPairingDual {n}.weilPairingAlternating",
+   "leaves": [
+    {
+     "name": "weilPairingExists",
+     "type": "_root_.WeilUsed.WeilPairingExists",
+     "doc": "weil-used (t09-pic L4a), printed form: Mumford's e_n : A[n] x Pic0[n] -> mu_n (n >= 1 invertible in K) is a bimultiplicative mu_n-valued pairing; its values are the genuine weilScalar (t_x^*psi o psi^-1 on A_Kbar). With the five leaves below replaces weilPairingMumford.",
+     "kind": "published",
+     "flag": "note: the values of Mumford's e_n are read on the Lean Pic0 through Kleiman 9.2.5 (Kbar-points of Pic are line bundles on A_Kbar) and Mumford 8 (iv) (n^*M trivial for M in Pic0[n]), as in weilPairingMumford; sign convention immaterial; locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, 20 (definition of e_n: bilinear, values in mu_n), with Kleiman, The Picard scheme, Thm 9.2.5 and Mumford 8 (iv) (locators UNVERIFIED)"
+    },
+    {
+     "name": "weilPairingPerfect",
+     "type": "_root_.WeilUsed.WeilPairingPerfect",
+     "doc": "weil-used (t09-pic L4b), printed form: every pairing with the values of Mumford's e_n is perfect for n >= 1 invertible in K.",
+     "kind": "published",
+     "flag": "locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, 20: e_n is a perfect pairing (locator UNVERIFIED)"
+    },
+    {
+     "name": "weilPairingGalois",
+     "type": "_root_.WeilUsed.WeilPairingGalois",
+     "doc": "weil-used (t09-pic L4c), printed form: every pairing with the values of Mumford's e_n is G_K-equivariant for n >= 1 invertible in K (e_n is defined over K).",
+     "kind": "published",
+     "flag": "locator UNVERIFIED: Mumford works over an algebraically closed field; equivariance from Milne 1986, 16",
+     "source": "Milne, Abelian varieties (Cornell-Silverman 1986), 16: e_n is defined over K, e_n(sigma x, sigma y) = sigma e_n(x, y) (locator UNVERIFIED)"
+    },
+    {
+     "name": "weilPairingCompat",
+     "type": "_root_.WeilUsed.WeilPairingCompat",
+     "doc": "weil-used (t09-pic L4d), printed form: e_{mn}(x, y) = e_n(m x, y) for x in A[mn], y in Pic0[n], mn invertible in K, for every pairing with the values of Mumford's e_n.",
+     "kind": "published",
+     "flag": "locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, 20: e_{nm}(x, y) = e_n(m x, y) (locator UNVERIFIED)"
+    },
+    {
+     "name": "weilPairingDual",
+     "type": "_root_.WeilUsed.WeilPairingDual",
+     "doc": "weil-used (t09-pic L4e), printed form: e_n(x, f^v y) = e_n(f x, y) for every endomorphism f of A and its genuine dual f^v on Pic0, for every pairing with the values of Mumford's e_n. Read only to fill WeilPairing.WeilDual.dualEnd, which no consumer on the route reads (docs/research/weil-used.md).",
+     "kind": "published",
+     "flag": "note: Mumford 20 (5) states the adjunction for isogenies; for every endomorphism Milne 1986 Lemma 16.2(c); inert downstream (WeilDual.dualEnd unread); locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, 20 (5) (isogenies); Milne, Abelian varieties (1986), Lemma 16.2(c) (all homomorphisms) (locators UNVERIFIED)"
+    },
+    {
+     "name": "weilPairingAlternating",
+     "type": "_root_.WeilUsed.WeilPairingAlternating",
+     "doc": "weil-used (t09-pic L4f), printed form: e^L_n(x, x) = e_n(x, lambda_L x) = 1 for ample L, every lift lambda_L : A -> Pic0 of phi_L, n >= 1 invertible in K, for every pairing with the values of Mumford's e_n (Mumford states it for every L).",
+     "kind": "published",
+     "flag": "locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, 23: e^L is skew-symmetric with e^L(x, x) = 1 (locator UNVERIFIED)"
+    }
+   ]
+  }
+ ]
+}
