@@ -19,8 +19,9 @@ Do not infer its internal audit phase from that incomplete log.
 
 ## Minimal mitigation and measurement
 
-The hosted Linux job adds **8 GiB of swap** before the build/audit step, preserving
-existing swap and leaving another 4 GiB of free disk headroom. If less than 12 GiB
+The hosted Linux job adds **24 GiB of swap** before the build/audit step (8 GiB when
+less than 28 GiB of disk is free), preserving existing swap and leaving another 4 GiB of
+free disk headroom. If less than 12 GiB
 is free, it warns and continues the full audit without additional swap. Only the disposable runner is changed; no repository
 secret or persistent host setting is involved. VM teardown removes the swap file.
 

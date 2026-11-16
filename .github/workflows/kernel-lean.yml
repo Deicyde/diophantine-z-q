@@ -200,19 +200,26 @@ jobs:
         id: restore
         uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
         with:
-          path: |
-            .lake/build
-            .lake/packages/TauCeti/.lake/build
+          path: .lake/build
           key: kernel-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lean/lake-manifest.json') }}-${{ github.sha }}
           restore-keys: |
             kernel-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lean/lake-manifest.json') }}-
             kernel-v1-${{ runner.os }}-
+      - name: Restore Tau Ceti build outputs
+        if: steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false'
+        id: restore-tauceti
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: .lake/packages/TauCeti/.lake/build
+          key: kernel-tauceti-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lean/lake-manifest.json') }}
+          restore-keys: |
+            kernel-tauceti-v1-${{ runner.os }}-
       - name: Load base proof-status evidence
         if: steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false'
         env:
           GH_TOKEN: ${{ github.token }}
         run: python -B scripts/kernel_base_report.py
-      - name: Add 8 GiB swap for the kernel audit
+      - name: Add swap for the kernel audit (24 GiB, or 8 GiB on a smaller disk)
         if: steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false'
         # Preserve existing swap. VM teardown releases this additional file.
         shell: bash
@@ -226,8 +233,13 @@ jobs:
             echo '::warning::Less than 12 GiB free; continuing the full kernel audit without additional swap.'
             echo 'Additional audit swap skipped: insufficient disk space. All audit checks still run.' >> "$GITHUB_STEP_SUMMARY"
           else
+            # The audit of the full library needs more than 8 GiB of swap; keep 4 GiB of disk free.
+            swap_size=8G
+            if (( available >= 28 * 1024 * 1024 * 1024 )); then
+              swap_size=24G
+            fi
             swap_file=$(mktemp "$RUNNER_TEMP/kernel-audit-swap.XXXXXX")
-            sudo fallocate -l 8G "$swap_file"
+            sudo fallocate -l "$swap_size" "$swap_file"
             sudo chmod 600 "$swap_file"
             sudo mkswap "$swap_file"
             sudo swapon "$swap_file"
@@ -245,10 +257,14 @@ jobs:
           path: build/kernel-ci/
           if-no-files-found: error
       - name: Save successful main build outputs
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && (steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false')
+        if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main' && (steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false')
         uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830
         with:
-          path: |
-            .lake/build
-            .lake/packages/TauCeti/.lake/build
+          path: .lake/build
           key: ${{ steps.restore.outputs.cache-primary-key }}
+      - name: Save successful main Tau Ceti build outputs
+        if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main' && steps.restore-tauceti.outputs.cache-hit != 'true' && (steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false')
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: .lake/packages/TauCeti/.lake/build
+          key: ${{ steps.restore-tauceti.outputs.cache-primary-key }}
