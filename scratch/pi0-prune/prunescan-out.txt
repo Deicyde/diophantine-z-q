@@ -1,0 +1,10 @@
+PRUNE closure=244301 relevant=846 visited=225 edgeTargets=722 used=4227 casesOn=3 [HDec.LeafQCheck.HM.QMSplit.IsCocompactFuchsian,
+ HDec.LeafQCheck.QMSplitVB.IsCocompactFuchsian,
+ HDec.HSyn.GluePieces]
+PRUNE bundle HDec.HSyn.OpenResearchLeaves22: 29 fields, unused 0: []
+PRUNE bundle HDec.HSyn.OpenTextbookLeaves11: 12 fields, unused 0: []
+PRUNE bundle HDec.HSyn.OpenAddedLeaves17: 14 fields, unused 2: [deligneComponentsX6PrintedAb, geomConnOfAlgClosure]
+PRUNE bundle HDec.HSyn.OpenGlue7: 1 fields, unused 0: []
+PRUNE total unused top-level fields: 2
+PRUNE bundles with unused fields: 56
+PRUNE prune set: 2 entries
