@@ -1,0 +1,449 @@
+AlgebraicCurve.Place.exists_forall_ord_eq_finset.{u_1, u_2} {K : Type u_1} {F : Type u_2} [Field K] [Field F]
+  [Algebra K F] (S : Finset (AlgebraicCurve.Place K F)) (n : AlgebraicCurve.Place K F → ℤ) :
+  ∃ g, g ≠ 0 ∧ ∀ v ∈ S, v.ord g = n v
+'AlgebraicCurve.Place.exists_forall_ord_eq_finset' depends on axioms: [propext, Classical.choice, Quot.sound]
+AlgebraicCurve.RiemannGenusReachedAt.eq_of_ge.{u_1, u_2} {K : Type u_1} {F : Type u_2} [Field K] [Field F] [Algebra K F]
+  [AlgebraicCurve.IsCurveOver K F] [Nonempty (AlgebraicCurve.Place K F)]
+  [FiniteDimensional K ↥(AlgebraicCurve.LSpace 0)] {γ : ℤ} {D₀ : AlgebraicCurve.Divisor K F}
+  (h : AlgebraicCurve.RiemannGenusReachedAt γ D₀) {D : AlgebraicCurve.Divisor K F} (hD : D₀ ≤ D) :
+  AlgebraicCurve.Divisor.degree D - ↑(AlgebraicCurve.ell D) = γ - 1
+'AlgebraicCurve.RiemannGenusReachedAt.eq_of_ge' depends on axioms: [propext, Classical.choice, Quot.sound]
+AlgebraicCurve.exists_placeEquiv_ord_eq_and_ell_mapDomain_eq.{u, v, w} {K : Type u} [Field K] {F : Type v} [Field F]
+  [Algebra K F] {F' : Type w} [Field F'] [Algebra K F'] (σ : F ≃ₐ[K] F') :
+  ∃ π,
+    (∀ (v : AlgebraicCurve.Place K F), ↑(π v).toValuationSubring = ⇑σ '' ↑v.toValuationSubring) ∧
+      (∀ (v : AlgebraicCurve.Place K F) (f : F), (π v).ord (σ f) = v.ord f) ∧
+        (∀ (v : AlgebraicCurve.Place K F), (π v).deg = v.deg) ∧
+          (∀ (D : AlgebraicCurve.Divisor K F), AlgebraicCurve.ell (Finsupp.mapDomain (⇑π) D) = AlgebraicCurve.ell D) ∧
+            (∀ (D : AlgebraicCurve.Divisor K F),
+                AlgebraicCurve.Divisor.degree (Finsupp.mapDomain (⇑π) D) = AlgebraicCurve.Divisor.degree D) ∧
+              ∀ (D : AlgebraicCurve.Divisor K F),
+                AlgebraicCurve.Divisor.IsPrincipal (Finsupp.mapDomain (⇑π) D) ↔ D.IsPrincipal
+'AlgebraicCurve.exists_placeEquiv_ord_eq_and_ell_mapDomain_eq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+AlgebraicCurve.finiteDimensional_lSpace.{u_1, u_2} {K : Type u_1} {F : Type u_2} [Field K] [Field F] [Algebra K F]
+  [AlgebraicCurve.IsCurveOver K F] [hL0 : FiniteDimensional K ↥(AlgebraicCurve.LSpace 0)]
+  (D : AlgebraicCurve.Divisor K F) : FiniteDimensional K ↥(AlgebraicCurve.LSpace D)
+'AlgebraicCurve.finiteDimensional_lSpace' depends on axioms: [propext, Classical.choice, Quot.sound]
+AlgebraicCurve.indexOfSpecialty_eq_of_genusReached.{u_1, u_2} {K : Type u_1} {F : Type u_2} [Field K] [Field F]
+  [Algebra K F] [AlgebraicCurve.IsCurveOver K F] [Nonempty (AlgebraicCurve.Place K F)]
+  [FiniteDimensional K ↥(AlgebraicCurve.LSpace 0)] {γ : ℤ} {D₀ : AlgebraicCurve.Divisor K F}
+  (h : AlgebraicCurve.RiemannGenusReachedAt γ D₀) (D : AlgebraicCurve.Divisor K F) :
+  Module.Finite K (↥(AlgebraicCurve.adeleSpace K F) ⧸ AlgebraicCurve.adeleBddPrincipal K F D) ∧
+    ↑(AlgebraicCurve.indexOfSpecialty D) = ↑(AlgebraicCurve.ell D) - (AlgebraicCurve.Divisor.degree D + 1 - γ)
+'AlgebraicCurve.indexOfSpecialty_eq_of_genusReached' depends on axioms: [propext, Classical.choice, Quot.sound]
+AlgebraicCurve.omegaSpace_finite_of_genusReached.{u_1, u_2} {K : Type u_1} {F : Type u_2} [Field K] [Field F]
+  [Algebra K F] [AlgebraicCurve.IsCurveOver K F] [Nonempty (AlgebraicCurve.Place K F)]
+  [FiniteDimensional K ↥(AlgebraicCurve.LSpace 0)] {γ : ℤ} {D₀ : AlgebraicCurve.Divisor K F}
+  (h : AlgebraicCurve.RiemannGenusReachedAt γ D₀) (D : AlgebraicCurve.Divisor K F) :
+  Module.Finite K ↥(AlgebraicCurve.omegaSpace D)
+'AlgebraicCurve.omegaSpace_finite_of_genusReached' depends on axioms: [propext, Classical.choice, Quot.sound]
+AlgebraicGeometry.GeometricallyIntegral.isIntegral_of_flat_of_universallyOpen.{u} {X S : AlgebraicGeometry.Scheme}
+  (f : X ⟶ S) [AlgebraicGeometry.GeometricallyIntegral f] [AlgebraicGeometry.Flat f]
+  [AlgebraicGeometry.UniversallyOpen f] [AlgebraicGeometry.IsIntegral S] : AlgebraicGeometry.IsIntegral X
+'AlgebraicGeometry.GeometricallyIntegral.isIntegral_of_flat_of_universallyOpen' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+AlgebraicGeometry.OModulePresheaf.eq_zero_of_forall_res_basicOpen_eq_zero.{u, u_1} {R : Type u} [CommRing R]
+  {V : AlgebraicGeometry.Scheme} {π : V ⟶ AlgebraicGeometry.Spec ↧R} {F : AlgebraicGeometry.OModulePresheaf π}
+  (hF : F.IsQuasicoherent) (U : ↑V.affineOpens) {ι : Type u_1} [Fintype ι] (h : ι → ↑(V.presheaf.obj (Opposite.op ↑U)))
+  (hcov : ↑U ≤ ⨆ j, V.basicOpen (h j)) (x : F.obj ↑U) (hx : ∀ (j : ι), (F.res ⋯) x = 0) : x = 0
+'AlgebraicGeometry.OModulePresheaf.eq_zero_of_forall_res_basicOpen_eq_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+AlgebraicGeometry.OModulePresheaf.isQuasicoherent_idealPow.{u} {R : Type u} [CommRing R] {V : AlgebraicGeometry.Scheme}
+  (π : V ⟶ AlgebraicGeometry.Spec ↧R) (I : V.IdealSheafData) (F : AlgebraicGeometry.OModulePresheaf π) (k : ℕ)
+  (hFq : F.IsQuasicoherent) : (AlgebraicGeometry.OModulePresheaf.idealPow π I F k).IsQuasicoherent
+'AlgebraicGeometry.OModulePresheaf.isQuasicoherent_idealPow' depends on axioms: [propext, Classical.choice, Quot.sound]
+AlgebraicGeometry.OModulePresheaf.nonempty_cechEquiv_ofModules_of_iso.{u} {R : Type u} [CommRing R]
+  {V : AlgebraicGeometry.Scheme} (π : V ⟶ AlgebraicGeometry.Spec ↧R) {M M' : V.Modules} (e : M ≅ M')
+  (K : V.OrderedAffineCover) :
+  Nonempty
+      (↥((AlgebraicGeometry.OModulePresheaf.ofModules π M).H0 K) ≃ₗ[R]
+        ↥((AlgebraicGeometry.OModulePresheaf.ofModules π M').H0 K)) ∧
+    (∀ (i : ℕ),
+        Nonempty
+          ((AlgebraicGeometry.OModulePresheaf.ofModules π M).HSucc K i ≃ₗ[R]
+            (AlgebraicGeometry.OModulePresheaf.ofModules π M').HSucc K i)) ∧
+      ((AlgebraicGeometry.OModulePresheaf.ofModules π M).CechFinite K ↔
+        (AlgebraicGeometry.OModulePresheaf.ofModules π M').CechFinite K)
+'AlgebraicGeometry.OModulePresheaf.nonempty_cechEquiv_ofModules_of_iso' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+AlgebraicGeometry.RelEffCartierDiv.pullbackAlong_ofPoint.{u} {𝒞 S : AlgebraicGeometry.Scheme} (f : 𝒞 ⟶ S)
+  [AlgebraicGeometry.IsSeparated f] {T T' : AlgebraicGeometry.Scheme} {g : T ⟶ S} {g' : T' ⟶ S} (a : T' ⟶ 𝒞)
+  (ha : CategoryTheory.CategoryStruct.comp a f = g') (φ : T ⟶ T') (hφ : CategoryTheory.CategoryStruct.comp φ g' = g) :
+  (AlgebraicGeometry.RelEffCartierDiv.ofPoint f a ha).pullbackAlong φ hφ =
+    AlgebraicGeometry.RelEffCartierDiv.ofPoint f (CategoryTheory.CategoryStruct.comp φ a) ⋯
+'AlgebraicGeometry.RelEffCartierDiv.pullbackAlong_ofPoint' depends on axioms: [propext, Classical.choice, Quot.sound]
+AlgebraicGeometry.Scheme.IdealSheafData.eq_of_forall_comap_openCover_eq.{u, u_1} {X : AlgebraicGeometry.Scheme}
+  (𝒰 : X.OpenCover) {I J : X.IdealSheafData} (h : ∀ (i : 𝒰.I₀), I.comap (𝒰.f i) = J.comap (𝒰.f i)) : I = J
+'AlgebraicGeometry.Scheme.IdealSheafData.eq_of_forall_comap_openCover_eq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+AlgebraicGeometry.Scheme.Modules.IsInvertible.existsUnique_app_eq_smul.{u} {X : AlgebraicGeometry.Scheme}
+  {M : X.Modules} (hM : M.IsInvertible) (g : M ⟶ M) :
+  ∃! s,
+    ∀ (U : X.Opens) (x : ↑(M.presheaf.obj (Opposite.op U))),
+      (CategoryTheory.ConcreteCategory.hom (AlgebraicGeometry.Scheme.Modules.Hom.app g U)) x =
+        (CategoryTheory.ConcreteCategory.hom (X.presheaf.map (CategoryTheory.homOfLE ⋯).op)) s • x
+'AlgebraicGeometry.Scheme.Modules.IsInvertible.existsUnique_app_eq_smul' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+AlgebraicGeometry.Scheme.Modules.IsLocallyFreeOfRank.pullback.{u} {X Y : AlgebraicGeometry.Scheme} (ψ : X ⟶ Y) {n : ℕ}
+  {E : Y.Modules} (hE : AlgebraicGeometry.Scheme.Modules.IsLocallyFreeOfRank n E) :
+  AlgebraicGeometry.Scheme.Modules.IsLocallyFreeOfRank n ((AlgebraicGeometry.Scheme.Modules.pullback ψ).obj E)
+'AlgebraicGeometry.Scheme.Modules.IsLocallyFreeOfRank.pullback' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+AlgebraicGeometry.Scheme.Modules.exists_fibreProduct_sections_bijective.{u} {X : AlgebraicGeometry.Scheme}
+  {N₀ N₁ N₀₁ : X.Modules} (a : N₀ ⟶ N₀₁) (b : N₁ ⟶ N₀₁) :
+  ∃ L π₀ π₁,
+    CategoryTheory.CategoryStruct.comp π₀ a = CategoryTheory.CategoryStruct.comp π₁ b ∧
+      (∀ (U : X.Opens),
+          Function.Injective fun s =>
+            ((CategoryTheory.ConcreteCategory.hom (AlgebraicGeometry.Scheme.Modules.Hom.app π₀ U)) s,
+              (CategoryTheory.ConcreteCategory.hom (AlgebraicGeometry.Scheme.Modules.Hom.app π₁ U)) s)) ∧
+        ∀ (U : X.Opens) (s₀ : ↑(N₀.presheaf.obj (Opposite.op U))) (s₁ : ↑(N₁.presheaf.obj (Opposite.op U))),
+          (CategoryTheory.ConcreteCategory.hom (AlgebraicGeometry.Scheme.Modules.Hom.app a U)) s₀ =
+              (CategoryTheory.ConcreteCategory.hom (AlgebraicGeometry.Scheme.Modules.Hom.app b U)) s₁ →
+            ∃ s,
+              (CategoryTheory.ConcreteCategory.hom (AlgebraicGeometry.Scheme.Modules.Hom.app π₀ U)) s = s₀ ∧
+                (CategoryTheory.ConcreteCategory.hom (AlgebraicGeometry.Scheme.Modules.Hom.app π₁ U)) s = s₁
+'AlgebraicGeometry.Scheme.Modules.exists_fibreProduct_sections_bijective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+AlgebraicGeometry.Scheme.Modules.isLocalization_basicOpen_of_finite_basicOpen_cover.{u} {X : AlgebraicGeometry.Scheme}
+  (M : X.Modules) (U : ↑X.affineOpens) (s : Finset ↑(X.presheaf.obj (Opposite.op ↑U)))
+  (hs : ↑U ≤ ⨆ h ∈ s, X.basicOpen h)
+  (hloc :
+    ∀ h ∈ s,
+      ∀ (g : ↑(X.presheaf.obj (Opposite.op (X.basicOpen h)))),
+        (∀ (x : ↑(M.presheaf.obj (Opposite.op (X.basicOpen g)))),
+            ∃ n y,
+              (CategoryTheory.ConcreteCategory.hom (M.presheaf.map (CategoryTheory.homOfLE ⋯).op)) y =
+                (CategoryTheory.ConcreteCategory.hom (X.presheaf.map (CategoryTheory.homOfLE ⋯).op)) (g ^ n) • x) ∧
+          ∀ (y : ↑(M.presheaf.obj (Opposite.op (X.basicOpen h)))),
+            (CategoryTheory.ConcreteCategory.hom (M.presheaf.map (CategoryTheory.homOfLE ⋯).op)) y = 0 →
+              ∃ n, g ^ n • y = 0)
+  (hloc₂ :
+    ∀ h ∈ s,
+      ∀ h' ∈ s,
+        ∀ (g : ↑(X.presheaf.obj (Opposite.op (X.basicOpen h ⊓ X.basicOpen h')))),
+          (∀ (x : ↑(M.presheaf.obj (Opposite.op (X.basicOpen g)))),
+              ∃ n y,
+                (CategoryTheory.ConcreteCategory.hom (M.presheaf.map (CategoryTheory.homOfLE ⋯).op)) y =
+                  (CategoryTheory.ConcreteCategory.hom (X.presheaf.map (CategoryTheory.homOfLE ⋯).op)) (g ^ n) • x) ∧
+            ∀ (y : ↑(M.presheaf.obj (Opposite.op (X.basicOpen h ⊓ X.basicOpen h')))),
+              (CategoryTheory.ConcreteCategory.hom (M.presheaf.map (CategoryTheory.homOfLE ⋯).op)) y = 0 →
+                ∃ n, g ^ n • y = 0)
+  (f : ↑(X.presheaf.obj (Opposite.op ↑U))) :
+  (∀ (x : ↑(M.presheaf.obj (Opposite.op (X.basicOpen f)))),
+      ∃ n y,
+        (CategoryTheory.ConcreteCategory.hom (M.presheaf.map (CategoryTheory.homOfLE ⋯).op)) y =
+          (CategoryTheory.ConcreteCategory.hom (X.presheaf.map (CategoryTheory.homOfLE ⋯).op)) (f ^ n) • x) ∧
+    ∀ (y : ↑(M.presheaf.obj (Opposite.op ↑U))),
+      (CategoryTheory.ConcreteCategory.hom (M.presheaf.map (CategoryTheory.homOfLE ⋯).op)) y = 0 → ∃ n, f ^ n • y = 0
+'AlgebraicGeometry.Scheme.Modules.isLocalization_basicOpen_of_finite_basicOpen_cover' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+AlgebraicGeometry.Scheme.Modules.pullbackComp_pullbackCongr_pasteSquares_app.{u}
+  {X X₀ X₁ Y Y₀ Y₁ : AlgebraicGeometry.Scheme} (a : X₀ ⟶ X₁) (b : X₁ ⟶ X) (d : X₀ ⟶ X)
+  (e : CategoryTheory.CategoryStruct.comp a b = d) (s₀ : Y₀ ⟶ X₀) (s₁ : Y₁ ⟶ X₁) (s : Y ⟶ X) (r : Y₀ ⟶ Y₁) (p : Y₁ ⟶ Y)
+  (m : Y₀ ⟶ Y) (G : CategoryTheory.CategoryStruct.comp r p = m)
+  (E : CategoryTheory.CategoryStruct.comp s₀ a = CategoryTheory.CategoryStruct.comp r s₁)
+  (F : CategoryTheory.CategoryStruct.comp s₁ b = CategoryTheory.CategoryStruct.comp p s)
+  (H : CategoryTheory.CategoryStruct.comp s₀ d = CategoryTheory.CategoryStruct.comp m s) (M : X.Modules) :
+  CategoryTheory.CategoryStruct.comp
+      ((AlgebraicGeometry.Scheme.Modules.pullbackComp s₀ a ≪≫
+              AlgebraicGeometry.Scheme.Modules.pullbackCongr E ≪≫
+                (AlgebraicGeometry.Scheme.Modules.pullbackComp r s₁).symm).hom.app
+        ((AlgebraicGeometry.Scheme.Modules.pullback b).obj M))
+      (CategoryTheory.CategoryStruct.comp
+        ((AlgebraicGeometry.Scheme.Modules.pullback r).map
+          ((AlgebraicGeometry.Scheme.Modules.pullbackComp s₁ b ≪≫
+                  AlgebraicGeometry.Scheme.Modules.pullbackCongr F ≪≫
+                    (AlgebraicGeometry.Scheme.Modules.pullbackComp p s).symm).hom.app
+            M))
+        ((AlgebraicGeometry.Scheme.Modules.pullbackComp r p ≪≫ AlgebraicGeometry.Scheme.Modules.pullbackCongr G).hom.app
+          ((AlgebraicGeometry.Scheme.Modules.pullback s).obj M))) =
+    CategoryTheory.CategoryStruct.comp
+      ((AlgebraicGeometry.Scheme.Modules.pullback s₀).map
+        ((AlgebraicGeometry.Scheme.Modules.pullbackComp a b ≪≫ AlgebraicGeometry.Scheme.Modules.pullbackCongr e).hom.app
+          M))
+      ((AlgebraicGeometry.Scheme.Modules.pullbackComp s₀ d ≪≫
+              AlgebraicGeometry.Scheme.Modules.pullbackCongr H ≪≫
+                (AlgebraicGeometry.Scheme.Modules.pullbackComp m s).symm).hom.app
+        M)
+'AlgebraicGeometry.Scheme.Modules.pullbackComp_pullbackCongr_pasteSquares_app' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+AlgebraicGeometry.Scheme.Modules.toDescentData_map_bijective_of_openCover.{v, u} {Y : AlgebraicGeometry.Scheme}
+  {ι : Type v} {V : ι → AlgebraicGeometry.Scheme} (g : (i : ι) → V i ⟶ Y)
+  [∀ (i : ι), AlgebraicGeometry.IsOpenImmersion (g i)] (hg : ∀ (y : ↥Y), ∃ i, y ∈ Set.range ⇑(g i))
+  (L₁ L₂ : Y.Modules) :
+  Function.Bijective
+    ((AlgebraicGeometry.Scheme.Modules.pseudofunctor.comp CategoryTheory.Bicategory.Adj.forget₁).toDescentData g).map
+'AlgebraicGeometry.Scheme.Modules.toDescentData_map_bijective_of_openCover' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+AlgebraicGeometry.Scheme.TwoAffineOpenCover.exists_sectionsOf_unit_equiv_structureSheafSections.{u} {R : Type u}
+  [CommRing R] {X : AlgebraicGeometry.Scheme} (𝒱 : X.TwoAffineOpenCover) (c : X ⟶ AlgebraicGeometry.Spec ↧R) :
+  ∃ e0 e1,
+    (∀ (x : ↥(𝒱.sectionsOf c (SheafOfModules.unit X.ringCatSheaf)).H0), ↑(e0 x) = ↑x) ∧
+      ∀ (y : (𝒱.sectionsOf c (SheafOfModules.unit X.ringCatSheaf)).M01),
+        e1 (Submodule.Quotient.mk y) =
+          Submodule.Quotient.mk
+            (have this := y;
+            this)
+'AlgebraicGeometry.Scheme.TwoAffineOpenCover.exists_sectionsOf_unit_equiv_structureSheafSections' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+AlgebraicGeometry.SmoothProperCurve.FiniteMapData.exists_baseChange.{u} {R : Type u} [CommRing R]
+  {C : AlgebraicGeometry.Scheme} {c : C ⟶ AlgebraicGeometry.Spec ↧R}
+  {ε : NeronModelInfra.SchemeHomOver (CategoryTheory.CategoryStruct.id (AlgebraicGeometry.Spec ↧R)) c}
+  (𝔉 : AlgebraicGeometry.SmoothProperCurve.FiniteMapData c ε) (R' : Type u) [CommRing R'] [Algebra R R'] :
+  ∃ 𝔉',
+    𝔉'.U =
+        (TopologicalSpace.Opens.map
+              (CategoryTheory.Limits.pullback.fst c (AlgebraicGeometry.SmoothProperCurve.specMap R R')).base).obj
+          𝔉.U ∧
+      𝔉'.V =
+          (TopologicalSpace.Opens.map
+                (CategoryTheory.Limits.pullback.fst c (AlgebraicGeometry.SmoothProperCurve.specMap R R')).base).obj
+            𝔉.V ∧
+        𝔉'.m = 𝔉.m ∧ (IsLocalRing R → Module.Finite R R' → 𝔉.LevelSetsGenericallyEtale → 𝔉'.LevelSetsGenericallyEtale)
+'AlgebraicGeometry.SmoothProperCurve.FiniteMapData.exists_baseChange' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+AlgebraicGeometry.isDomain_tensorProduct_sections_of_geometricallyIntegral.{u} {R : Type u} [CommRing R]
+  {C : AlgebraicGeometry.Scheme} (c : C ⟶ AlgebraicGeometry.Spec ↧R) [AlgebraicGeometry.GeometricallyIntegral c]
+  (U : C.Opens) (hU : AlgebraicGeometry.IsAffineOpen U) (K : Type u) [Field K] [Algebra R K]
+  (hne : Nontrivial (TensorProduct R K ↑(C.presheaf.obj (Opposite.op U)))) :
+  IsDomain (TensorProduct R K ↑(C.presheaf.obj (Opposite.op U)))
+'AlgebraicGeometry.isDomain_tensorProduct_sections_of_geometricallyIntegral' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+CoherentBaseChange.FibreH0Family.isClosed_setOf_le_h0.{u} {T : AlgebraicGeometry.Scheme}
+  (F : CoherentBaseChange.FibreH0Family T) (n : ℕ) : IsClosed {t | n ≤ F.h0 t}
+'CoherentBaseChange.FibreH0Family.isClosed_setOf_le_h0' depends on axioms: [propext, Classical.choice, Quot.sound]
+GoodReductionJacobian.RelativeGroupLaw.isFinite_of_isFinite_endKerStr.{u} (K : Type u) [Field K]
+  {A : AlgebraicGeometry.Scheme} (f : A ⟶ AlgebraicGeometry.Spec ↧K) [AlgebraicGeometry.IsProper f]
+  (L : GoodReductionJacobian.RelativeGroupLaw K f) (β : NeronModelInfra.SchemeHomOver f f)
+  (hβ :
+    ∀ {T : AlgebraicGeometry.Scheme} (t : T ⟶ AlgebraicGeometry.Spec ↧K) (x y : NeronModelInfra.SchemeHomOver t f),
+      NeronModelInfra.schemeHomOverComp (L.mul t x y) β =
+        L.mul t (NeronModelInfra.schemeHomOverComp x β) (NeronModelInfra.schemeHomOverComp y β))
+  [AlgebraicGeometry.IsFinite (L.endKerStr β)] : AlgebraicGeometry.IsFinite ↑β
+'GoodReductionJacobian.RelativeGroupLaw.isFinite_of_isFinite_endKerStr' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+LinearMap.nonempty_kerModRange_equiv_of_equiv_comm.{u} {R : Type u} [CommRing R] {C C' : ℕ → Type u}
+  [(i : ℕ) → AddCommGroup (C i)] [(i : ℕ) → Module R (C i)] [(i : ℕ) → AddCommGroup (C' i)] [(i : ℕ) → Module R (C' i)]
+  (d : (i : ℕ) → C i →ₗ[R] C (i + 1)) (d' : (i : ℕ) → C' i →ₗ[R] C' (i + 1)) (e : (i : ℕ) → C i ≃ₗ[R] C' i)
+  (he : ∀ (i : ℕ) (x : C i), (e (i + 1)) ((d i) x) = (d' i) ((e i) x)) :
+  Nonempty (↥(d 0).ker ≃ₗ[R] ↥(d' 0).ker) ∧
+    ∀ (i : ℕ),
+      Nonempty
+        ((↥(d (i + 1)).ker ⧸ Submodule.comap (d (i + 1)).ker.subtype (d i).range) ≃ₗ[R]
+          ↥(d' (i + 1)).ker ⧸ Submodule.comap (d' (i + 1)).ker.subtype (d' i).range)
+'LinearMap.nonempty_kerModRange_equiv_of_equiv_comm' depends on axioms: [propext, Classical.choice, Quot.sound]
+ProjSpaceCech.GradedModule.HMap_bijective_of_cochainMap_bijective.{u} {R : Type u} [CommRing R] {n : ℕ}
+  {D₁ D₂ : ProjSpaceCech.GradedModule R n} (φ : D₁.Hom D₂) (h : ∀ (i : ℕ), Function.Bijective ⇑(φ.cochainMap i))
+  (i : ℕ) : Function.Bijective ⇑(φ.HMap i)
+'ProjSpaceCech.GradedModule.HMap_bijective_of_cochainMap_bijective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ProjSpaceCech.Twist.subsingleton_cohomology_of_lt.{u} (R : Type u) [CommRing R] (n : ℕ) (d : ℤ) {i : ℕ} (hi : n < i) :
+  Subsingleton (ProjSpaceCech.Twist.H R n d i)
+'ProjSpaceCech.Twist.subsingleton_cohomology_of_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+TwoChartCech.GrothendieckComplex.nonempty_of_isLocalRing.{u} {R : Type u} [CommRing R] [IsNoetherianRing R]
+  [IsLocalRing R] {C0 C1 : Type u} [AddCommGroup C0] [Module R C0] [AddCommGroup C1] [Module R C1] [Module.Flat R C0]
+  [Module.Flat R C1] (d : C0 →ₗ[R] C1) [Module.Finite R ↥d.ker] [Module.Finite R (C1 ⧸ d.range)] :
+  Nonempty (TwoChartCech.GrothendieckComplex d)
+'TwoChartCech.GrothendieckComplex.nonempty_of_isLocalRing' depends on axioms: [propext, Classical.choice, Quot.sound]
+RingHom.isPushout_eqLocus_of_finiteLocallyFree_equivalenceRelation.{u} {A B C : Type u} [CommRing A] [CommRing B]
+  [CommRing C] [Algebra C A] (s t : A →+* B) (hs : Module.Finite A B) (hs' : Module.Projective A B)
+  (ht : Module.Finite A B) (ht' : Module.Projective A B) (hgen : s.range ⊔ t.range = ⊤)
+  (hequiv : ∀ (T : Type u) [inst : CommRing T], Equivalence fun x y => ∃ φ, φ.comp s = x ∧ φ.comp t = y)
+  (hinj : Function.Injective ⇑(algebraMap C A)) (hinv : ∀ (a : A), s a = t a ↔ a ∈ Set.range ⇑(algebraMap C A)) :
+  Module.Finite C A ∧
+    Module.Projective C A ∧
+      Module.FaithfullyFlat C A ∧
+        CategoryTheory.IsPushout (CommRingCat.ofHom (algebraMap C A)) (CommRingCat.ofHom (algebraMap C A))
+          (CommRingCat.ofHom s) (CommRingCat.ofHom t)
+'RingHom.isPushout_eqLocus_of_finiteLocallyFree_equivalenceRelation' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+TwoChartCech.finrank_ker_baseChange_eq_of_field_extension.{u} {R : Type u} [CommRing R] {C0 C1 : Type u}
+  [AddCommGroup C0] [Module R C0] [AddCommGroup C1] [Module R C1] (d : C0 →ₗ[R] C1) (K L : Type u) [Field K] [Field L]
+  [Algebra R K] [Algebra R L] [Algebra K L] [IsScalarTower R K L] :
+  Module.finrank K ↥(LinearMap.baseChange K d).ker = Module.finrank L ↥(LinearMap.baseChange L d).ker
+'TwoChartCech.finrank_ker_baseChange_eq_of_field_extension' depends on axioms: [propext, Classical.choice, Quot.sound]
+AlgebraicCurve.nonempty_linearEquiv_cechH0_and_cechH1_sectionsOf_of_range_eq_lSpaceOn.{u} {K : Type u} [Field K]
+  {X : AlgebraicGeometry.Scheme} (𝒱 : X.TwoAffineOpenCover) (x : X ⟶ AlgebraicGeometry.Spec ↧K)
+  [AlgebraicGeometry.IsIntegral X] [AlgebraicGeometry.IsSeparated x] [AlgebraicGeometry.SmoothOfRelativeDimension 1 x]
+  (h0 : Nonempty ↥↑𝒱.U0) (h1 : Nonempty ↥↑𝒱.U1) (M : X.Modules) (D : AlgebraicCurve.Divisor K ↑X.functionField)
+  (φ : (U : X.Opens) → ↑(M.presheaf.obj (Opposite.op U)) →+ ↑X.functionField)
+  (hnat :
+    ∀ (U V : X.Opens) (h : V ≤ U),
+      Nonempty ↥↑V →
+        ∀ (m : ↑(M.presheaf.obj (Opposite.op U))),
+          (φ V) ((CategoryTheory.ConcreteCategory.hom (M.presheaf.map (CategoryTheory.homOfLE h).op)) m) = (φ U) m)
+  (hsmul :
+    ∀ (U : X.Opens) [inst : Nonempty ↥↑U] (a : ↑(X.presheaf.obj (Opposite.op U)))
+      (m : ↑(M.presheaf.obj (Opposite.op U))),
+      (φ U) (a • m) = (algebraMap ↑(X.presheaf.obj (Opposite.op U)) ↑X.functionField) a * (φ U) m)
+  (hinj : ∀ (U : X.Opens), Nonempty ↥↑U → Function.Injective ⇑(φ U))
+  (hrange :
+    ∀ (U : X.Opens),
+      AlgebraicGeometry.IsAffineOpen U →
+        Nonempty ↥↑U → Set.range ⇑(φ U) = ↑(AlgebraicCurve.lSpaceOn (AlgebraicCurve.placesOf x U) D)) :
+  Nonempty
+      (↥(𝒱.sectionsOf x M).H0 ≃ₗ[K]
+        ↥(AlgebraicCurve.cechH0 (AlgebraicCurve.placesOf x 𝒱.U0) (AlgebraicCurve.placesOf x 𝒱.U1) D)) ∧
+    Nonempty
+      ((𝒱.sectionsOf x M).H1 ≃ₗ[K]
+        AlgebraicCurve.cechH1 (AlgebraicCurve.placesOf x 𝒱.U0) (AlgebraicCurve.placesOf x 𝒱.U1) D)
+'AlgebraicCurve.nonempty_linearEquiv_cechH0_and_cechH1_sectionsOf_of_range_eq_lSpaceOn' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+AlgebraicGeometry.Scheme.Modules.Hom.isIso_of_forall_exists_isIso_pullback_map.{u} {X : AlgebraicGeometry.Scheme}
+  {M N : X.Modules} (φ : M ⟶ N)
+  (h : ∀ (x : ↥X), ∃ U, x ∈ U ∧ CategoryTheory.IsIso ((AlgebraicGeometry.Scheme.Modules.pullback U.ι).map φ)) :
+  CategoryTheory.IsIso φ
+'AlgebraicGeometry.Scheme.Modules.Hom.isIso_of_forall_exists_isIso_pullback_map' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+AlgebraicGeometry.Scheme.Modules.isIso_baseChange_sections_of_isIso_fromTildeGamma.{u} {R S : CommRingCat} (φ : R ⟶ S)
+  (M : (AlgebraicGeometry.Spec R).Modules) (hM : CategoryTheory.IsIso M.fromTildeΓ) :
+  CategoryTheory.IsIso
+    (((ModuleCat.extendRestrictScalarsAdj (CommRingCat.Hom.hom φ)).homEquiv (AlgebraicGeometry.moduleSpecΓFunctor.obj M)
+          (AlgebraicGeometry.moduleSpecΓFunctor.obj
+            ((AlgebraicGeometry.Scheme.Modules.pullback (AlgebraicGeometry.Spec.map φ)).obj M))).symm
+      (CategoryTheory.CategoryStruct.comp
+        (AlgebraicGeometry.moduleSpecΓFunctor.map
+          ((AlgebraicGeometry.Scheme.Modules.pullbackPushforwardAdjunction (AlgebraicGeometry.Spec.map φ)).unit.app M))
+        ((AlgebraicGeometry.Scheme.Modules.pushforwardSpecCompΓIso φ).hom.app
+          ((AlgebraicGeometry.Scheme.Modules.pullback (AlgebraicGeometry.Spec.map φ)).obj M))))
+'AlgebraicGeometry.Scheme.Modules.isIso_baseChange_sections_of_isIso_fromTildeGamma' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_AlgebraicCurve_Place_exists_forall_ord_eq_finset.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_AlgebraicCurve_RiemannGenusReachedAt_eq_of_ge.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_AlgebraicCurve_exists_placeEquiv_ord_eq_and_ell_mapDomain_eq.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_AlgebraicCurve_finiteDimensional_lSpace.solution' depends on axioms: [propext, Classical.choice, Quot.sound]
+'P2MW.S_AlgebraicCurve_indexOfSpecialty_eq_of_genusReached.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_AlgebraicCurve_omegaSpace_finite_of_genusReached.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_AlgebraicGeometry_GeometricallyIntegral_isIntegral_of_flat_of_universallyOpen.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_AlgebraicGeometry_OModulePresheaf_eq_zero_of_forall_res_basicOpen_eq_zero.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_AlgebraicGeometry_OModulePresheaf_isQuasicoherent_idealPow.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_AlgebraicGeometry_OModulePresheaf_nonempty_cechEquiv_ofModules_of_iso.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_AlgebraicGeometry_RelEffCartierDiv_pullbackAlong_ofPoint.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_AlgebraicGeometry_Scheme_IdealSheafData_eq_of_forall_comap_openCover_eq.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_AlgebraicGeometry_Scheme_Modules_IsInvertible_existsUnique_app_eq_smul.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_AlgebraicGeometry_Scheme_Modules_IsLocallyFreeOfRank_pullback.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_fibreProduct_sections_bijective.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_AlgebraicGeometry_Scheme_Modules_isLocalization_basicOpen_of_finite_basicOpen_cover.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_AlgebraicGeometry_Scheme_Modules_pullbackComp_pullbackCongr_pasteSquares_app.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_AlgebraicGeometry_Scheme_Modules_toDescentData_map_bijective_of_openCover.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_AlgebraicGeometry_Scheme_TwoAffineOpenCover_exists_sectionsOf_unit_equiv_structureSheafSections.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_AlgebraicGeometry_SmoothProperCurve_FiniteMapData_exists_baseChange.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_AlgebraicGeometry_isDomain_tensorProduct_sections_of_geometricallyIntegral.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_CoherentBaseChange_FibreH0Family_isClosed_setOf_le_h0.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_GoodReductionJacobian_RelativeGroupLaw_isFinite_of_isFinite_endKerStr.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_LinearMap_nonempty_kerModRange_equiv_of_equiv_comm.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_ProjSpaceCech_GradedModule_HMap_bijective_of_cochainMap_bijective.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_ProjSpaceCech_Twist_subsingleton_cohomology_of_lt.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_TwoChartCech_GrothendieckComplex_nonempty_of_isLocalRing.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_RingHom_isPushout_eqLocus_of_finiteLocallyFree_equivalenceRelation.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_TwoChartCech_finrank_ker_baseChange_eq_of_field_extension.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_AlgebraicCurve_nonempty_linearEquiv_cechH0_and_cechH1_sectionsOf_of_range_eq_lSpaceOn.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_AlgebraicGeometry_Scheme_Modules_Hom_isIso_of_forall_exists_isIso_pullback_map.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'P2MW.S_AlgebraicGeometry_Scheme_Modules_isIso_baseChange_sections_of_isIso_fromTildeGamma.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+	Command being timed: "lake env lean -M16000 CheckC32.lean"
+	User time (seconds): 3.06
+	System time (seconds): 7.66
+	Percent of CPU this job got: 207%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:05.18
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 7352776
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 245805
+	Voluntary context switches: 42856
+	Involuntary context switches: 292
+	Swaps: 0
+	File system inputs: 32
+	File system outputs: 408
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
