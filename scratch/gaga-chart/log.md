@@ -14,3 +14,12 @@
   F : A(ℂ) → B(ℂ) holomorphic (ContMDiff ω) in these charts is `P ↦ P ≫ f` for a morphism f.
 - Glue: GAGAMorphism from GAGAChart + UniformizationLeafAll (B's uniformization, for analyticity of ψ)
   + SmoothComplexManifoldAn (existence of the charts; proved by sga1-etale from SGA1_XII_3_1_Etale).
+
+## A.lean (11-16 03:40) — COMPILES (VERIFIED, `lake env lean scratch/gaga-chart/A.lean`)
+- `GAGAAn.IsAnStr X n` (def, the three clauses of SmoothComplexManifoldAn), leaf `GAGAAn.GAGAChart`.
+- glue: `contMDiffAt_of_regular` (holomorphy into X(ℂ) from regular functions + continuity),
+  `continuous_analyticHom` (IsAnalyticHom ⇒ continuous, classical topology), `continuousAt_symm` (φ⁻¹ continuous).
+- `GAGAAn.gagaMorphism_of_chart (hU : UniformizationLeafAll) (hMan : SmoothComplexManifoldAn) (hG : GAGAChart) :
+  ZInQ.HomLattice.GAGAMorphism` — axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
+  Inverse function step: Mathlib `ContDiffAt.localInverse`/`to_localInverse` at ω (analytic IFT) on
+  Θ∘φ∘proj (clause (ii) of the uniformization gives the invertible derivative).
