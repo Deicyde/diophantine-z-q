@@ -43,3 +43,13 @@ The crossover `N = 7` is a coefficient comparison, not a sufficient defining thr
 `provenance/original-AUDIT.md` and `original-RESULT.json` retain root's original bytes and scope. That audit predates the user's correction of the Version 18 target to 196 and therefore still says the chosen target is 198. This is a historical statement, not the current selection. Likewise the source paper retains its original parent-premise and threshold qualifications. The manuscript proves the inherited inputs at the locations listed in the [current dependency inventory](../dependencies/CURRENT-V18-INVENTORY.md), and its sections `q198:completeness`, `q198bb:specialization` and `q196:fixed` give the parent completeness, fixed-parameter choice and transfer to 196.
 
 `evidence/PORTABILITY-CHECK.json` records the relocated replay. Final manuscript, PDF, build and reviewer identities remain pending. This package supplies finite reproducibility evidence and source provenance; it supplies no acceptance or publication record. The 258/259 data and programs among the authenticated source files are retained provenance only. No optimization was attempted.
+
+## Complete printed-table roundtrip
+
+The portable parser checks all printed coordinate scalings, the 182 row multipliers, both deleted coordinates, every quadratic coefficient and all expanded quartic coefficients. It then replays every Laurent identity using the parsed scalings and multipliers. It uses only the Python standard library.
+
+```sh
+python -B research/version18/196/checks/verify_q196_tex.py --source-root research/version18/196/upstream/source --rows research/version18/196/tex/q196-rows.tex --output build/version18/196-printed-table.json
+```
+
+Use a new output path. In required CI this follows the independent elimination checker, which authenticates the source package. `scripts/check_v18_table_binding.py` separately confirms that this complete checked component occurs unchanged in the current manuscript.
