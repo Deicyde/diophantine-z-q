@@ -5,6 +5,7 @@ No credentials, network calls, model reviews, or GitHub writes are performed.
 """
 import base64
 import copy
+import hashlib
 import io
 import json
 import os
@@ -44,7 +45,9 @@ def envelope(family='astra', **kwargs):
 
 def comment(body, user='github-actions[bot]'):
     return {'id': 3, 'user': {'login': user, 'type': 'Bot' if user.endswith('[bot]') else 'User'},
-            'body': body, 'created_at': 'now', 'html_url': 'https://github.com/x/y/issues/1#issuecomment-3'}
+            'body': body, 'created_at': 'now', 'updated_at': 'now',
+            'node_id': 'IC_'+hashlib.sha256(body.encode()).hexdigest(),
+            'html_url': 'https://github.com/x/y/issues/1#issuecomment-3'}
 
 
 def report_comment(value):
@@ -154,6 +157,11 @@ class FakeGH:
 
     def api(self, path, method='GET', data=None):
         assert path == '/graphql'
+        if data['query'].startswith('query($id:ID!)'):
+            item = next(c for c in self.comments if c.get('node_id') == data['variables']['id'])
+            return {'data': {'node': {'__typename': 'IssueComment', 'id': item['node_id'],
+                'body': item['body'], 'author': {'login': item['user']['login']},
+                'lastEditedAt': item.get('_lastEditedAt'), 'editor': item.get('_editor')}}}
         self.graphql = data
         if self.auto_callback:
             self.auto_callback(self)

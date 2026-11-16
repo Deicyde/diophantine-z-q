@@ -127,8 +127,10 @@ with write access can run a workflow as that bot and edit or delete its
 comments. The gate therefore trusts collaborators to preserve review history;
 it does not reconstruct tamper-resistant history from App checks across all PR
 commits. Outside fork contributors do not have that ability. This limit does
-not change override authority, which still comes from the dedicated App's
-check output rather than bot comments. Preserve substantive objections in the
+not grant override authority. The dedicated App's records determine the
+findings; authorization requires a current admin's new, unedited comment.
+The gate checks GitHub's edit metadata and the exact current body, so changing
+someone else's admin-authored comment cannot create an admin decision. Preserve substantive objections in the
 project's findings record as well as the PR discussion.
 
 Both reviewers default to a preflight context budget of 400,000 estimated tokens.
@@ -588,7 +590,11 @@ does not revive an older acceptance or a withdrawn source verification.
 
 Only repository admins may override reviewer findings. The gate checks current
 admin permission when receiving a command and again when reading stored override
-comments. A non-admin collaborator's override has no effect and receives a short
-reply. Write-access collaborators retain automatic review, `/protocol-b review`,
+comments. Edited comments are not accepted, including edits made by an admin;
+post a new comment instead. Both timestamps and GitHub's `lastEditedAt`/`editor`
+metadata must establish an unedited comment with the matching body and author.
+Missing metadata fails closed. A non-admin collaborator's override has no effect
+and receives a short reply. The gate's ignored-override replies do not alter the
+reviewed discussion digest or trigger paid supplements. Write-access collaborators retain automatic review, `/protocol-b review`,
 and ordinary protected merge access. This change does not alter any review,
 computation, head-binding or merge requirement.
