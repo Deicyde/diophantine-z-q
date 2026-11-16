@@ -704,8 +704,15 @@ exact-head admin override in addition to any scope item.
 
 If posting a completed report fails, the completed verdict remains in the App
 record and original artifact. A final report with a form error returns feedback
-to the reviewer for correction. If that correction is interrupted, its delivered
-substantive findings remain blocking in the recorded incomplete review. Runtime
+to the reviewer for correction. Every unsuccessful final submission remains in
+the artifact and in the worker's pending obligations, including concurrent final
+calls captured before diagnostics. Malformed corrections cannot remove earlier
+objections. A valid correction must retain each fresh blocking finding or
+explicitly disposition its full ID. If correction is interrupted, the union of
+delivered substantive findings and unresolved prior dispositions remains
+blocking in the recorded incomplete review. An invalid submission cannot resolve
+an earlier objection. Each worker has its own pending set, so one worker's
+resolution cannot erase the other's disagreement. Runtime
 records saying no model reviewed the PR do not consume automatic review rounds.
 
 Each completed verdict is atomically checkpointed before any report comment is
@@ -716,6 +723,16 @@ claim, with its original ID, comment location and hash. This does not authentica
 its asserted model identity or grant approval. It requires review or its own
 admin decision; overriding only missing-review scope does not erase it. App-only
 findings whose report comments failed can still receive exact-head admin decisions.
+
+A report comment can also reopen an existing finding through its prior
+dispositions. If that occurrence is absent from its corresponding App envelope,
+the gate records a separate `comment-COMMENTID-HASH` claim linked to the original
+finding. An older resolution of the original ID does not resolve the later
+occurrence. The claim, original ID and comment provenance are available in
+`read_history` before review or override processing. An exact prior entry already
+covered by its App envelope is not duplicated; a later completed review can
+explicitly resolve the occurrence claim. Comments remain unverified allegations,
+including when their author is the workflow bot.
 
 
 Before either ordinary acceptance or an override, the gate reconciles outstanding

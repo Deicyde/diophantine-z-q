@@ -359,7 +359,7 @@ jobs:
               return [f for f in review['findings'] if f.get('severity', 'blocking') != 'note']
 
 
-          def validate_review(value, prior_ids, overrides, allow_incomplete=False):
+          def validate_review(value, prior_ids, overrides, allow_incomplete=False, retained_findings=None):
               if set(value) != set(FINISH_SCHEMA["required"]):
                   raise ValueError("Incomplete final report")
               if value["decision"] not in {"accept", "changes_requested"} or not isinstance(value["report"], str) or len(value["report"]) < 80:
@@ -394,7 +394,11 @@ jobs:
                   if finding['kind'] == 'gap' and len(finding['attempted_resolution'].strip()) < 40:
                       raise ValueError('A gap needs the attempted argument or source check and its remaining obstruction')
               dispositions = value["prior_findings"]
-              if len(dispositions) != len(prior_ids) or {x["id"] for x in dispositions} != prior_ids:
+              retained_findings = set(retained_findings or ())
+              if not retained_findings <= prior_ids:
+                  raise ValueError('A retained finding must be an actual pending obligation')
+              required = prior_ids - retained_findings
+              if len(dispositions) != len(required) or {x["id"] for x in dispositions} != required:
                   raise ValueError("Earlier findings were omitted or duplicated")
               for item in dispositions:
                   if item["resolution"] not in {"resolved", "unresolved", "overridden"} or not item["reason"].strip():
@@ -686,10 +690,48 @@ jobs:
               return render()
 
 
+          def delivered_obligations(payloads, identity, known_prior):
+              """Failed submissions add objections; only a validated final can close them."""
+              findings, dispositions = {}, {}
+              for attempt, value in enumerate(payloads):
+                  if not isinstance(value, dict) or not isinstance(value.get('findings'), list):
+                      continue
+                  for index, finding in enumerate(value['findings']):
+                      if not isinstance(finding, dict) or (finding.get('severity') == 'note' and finding.get('kind') == 'editorial'):
+                          continue
+                      ident = str(finding.get('id', ''))
+                      if not re.fullmatch(r'[A-Za-z0-9_-]{1,40}', ident):
+                          ident = f'unvalidated-{attempt+1}-{index+1}'
+                      objection = 'Unvalidated delivered objection: '+str(finding.get('objection', finding))
+                      if ident not in findings:
+                          findings[ident] = {'id': ident, 'severity': 'blocking', 'kind': 'error',
+                              'location': str(finding.get('location', '')), 'objection': objection,
+                              'attempted_resolution': str(finding.get('attempted_resolution', ''))}
+                      elif objection not in findings[ident]['objection']:
+                          findings[ident]['objection'] += '\n'+objection
+              known = set(known_prior) | {finding_id(identity, ident) for ident in findings}
+              for value in payloads:
+                  if not isinstance(value, dict) or not isinstance(value.get('prior_findings'), list):
+                      continue
+                  for disposition in value['prior_findings']:
+                      if not isinstance(disposition, dict):
+                          continue
+                      ident = disposition.get('id')
+                      if isinstance(ident, str) and ident in known and disposition.get('resolution') != 'resolved':
+                          reason = 'Unvalidated delivered disposition: '+str(disposition.get('reason', 'No reason supplied.'))
+                          if ident not in dispositions:
+                              dispositions[ident] = {'id': ident, 'resolution': 'unresolved', 'reason': reason}
+                          elif reason not in dispositions[ident]['reason']:
+                              dispositions[ident]['reason'] += '\n'+reason
+              return {'findings': list(findings.values()), 'prior_findings': list(dispositions.values())}
+
+
           class Review:
               def __init__(self, gh, pr, files, history, prior, overrides, instructions, family, change_class):
                   self.gh, self.pr, self.family = gh, pr, family
-                  self.history, self.prior, self.overrides = history, prior, overrides
+                  self.history, self.prior, self.overrides = history, dict(prior), overrides
+                  self.original_prior_ids = set(prior)
+                  self.delivered_finals, self.pending_fresh_ids = [], set()
                   self.instructions = instructions
                   self.history_read, self.reads, self.tree, self.chars = False, [], None, 0
                   self.file_lines, self.working_comment, self.notes = {}, None, []
@@ -704,6 +746,35 @@ jobs:
                   self.input = {"repository": gh.repo, "pull_request": pr["number"], "head": pr["head"]["sha"],
                                 "base": pr["base"]["sha"], "change_class": change_class,
                                 "untrusted_title": pr["title"], "untrusted_description": pr.get("body"), "files": files}
+
+              def pending_payloads(self):
+                  values = list(self.delivered_finals)
+                  if self.invalid_finish is not None and self.invalid_finish not in values:
+                      values.append(self.invalid_finish)
+                  return values
+
+              def pending_obligations(self):
+                  identity = {'run': os.environ['GITHUB_RUN_ID'], 'attempt': os.environ['GITHUB_RUN_ATTEMPT'],
+                              'reviewer': self.family}
+                  return delivered_obligations(self.pending_payloads(), identity, self.prior)
+
+              def remember_delivered(self):
+                  identity = {'run': os.environ['GITHUB_RUN_ID'], 'attempt': os.environ['GITHUB_RUN_ATTEMPT'],
+                              'reviewer': self.family}
+                  for finding in self.pending_obligations()['findings']:
+                      ident = finding_id(identity, finding['id'])
+                      self.prior.setdefault(ident, {**finding, 'origin': 'Unvalidated final delivered by this reviewer in this run'})
+                      if ident not in self.original_prior_ids:
+                          self.pending_fresh_ids.add(ident)
+
+              def retained_pending_findings(self, value):
+                  if not isinstance(value, dict) or not isinstance(value.get('findings'), list):
+                      return set()
+                  identity = {'run': os.environ['GITHUB_RUN_ID'], 'attempt': os.environ['GITHUB_RUN_ATTEMPT'],
+                              'reviewer': self.family}
+                  return {finding_id(identity, f['id']) for f in value['findings']
+                          if isinstance(f, dict) and isinstance(f.get('id'), str)
+                          and f.get('severity') != 'note'} & self.pending_fresh_ids
 
               def tool(self, name, args):
                   if name == "read_history":
@@ -816,16 +887,23 @@ jobs:
                       if served != MODELS[self.family]:
                           self.identity_error = True
                           raise RuntimeError(f"Requested {MODELS[self.family]}, API reported {served}; no silent substitution")
-                      # Capture a delivered verdict before diagnostics or notification can fail.
+                      # Capture every final call before diagnostics, including malformed
+                      # concurrent submissions. Failed corrections cannot replace older ones.
                       delivered = [x for x in output if x.get('name') == 'finish_review'
                                    and x.get('type') in {'function_call', 'tool_use'}]
-                      if delivered:
+                      decode_errors = []
+                      for call in delivered:
                           try:
-                              raw_final = json.loads(delivered[0]['arguments']) if self.family == 'astra' else delivered[0]['input']
+                              raw_final = json.loads(call['arguments']) if self.family == 'astra' else call['input']
                               self.invalid_finish = json.loads(json.dumps(raw_final))
-                              record(self.family+'-delivered-final.json', raw_final)
+                              self.delivered_finals.append(self.invalid_finish)
                           except (ValueError, TypeError, KeyError) as error:
-                              record(self.family+'-final-decode-error.json', {'error': str(error)})
+                              decode_errors.append(str(error))
+                      if delivered:
+                          record(self.family+'-delivered-finals.json', self.delivered_finals)
+                          record(self.family+'-delivered-final.json', self.invalid_finish)
+                      if decode_errors:
+                          record(self.family+'-final-decode-error.json', {'errors': decode_errors})
                       if self.family == 'fable':
                           if web_trace:
                               web_trace[-1]['next_request'] = {
@@ -885,7 +963,8 @@ jobs:
                               record(self.family + '-delivered-final.json', value)
                               if len(calls) != 1:
                                   raise ValueError("Final review requires no concurrent tool calls")
-                              value = validate_review(value, set(self.prior), self.overrides, allow_incomplete=self.finish_now)
+                              value = validate_review(value, set(self.prior), self.overrides, allow_incomplete=self.finish_now,
+                                                      retained_findings=self.retained_pending_findings(value))
                               if (not self.history_read or not self.reads) and not (self.finish_now and value['decision'] == 'changes_requested'):
                                   raise ValueError("Final review requires prior source/history reads")
                               if not self.history_read:
@@ -894,9 +973,11 @@ jobs:
                                                   'Earlier finding history was not admitted to this review. Its disposition remains unresolved.')
                               record(self.family + "-source-reads.json", self.reads)
                               self.invalid_finish = None
+                              self.delivered_finals.clear()
                               return value
                           except (ValueError, TypeError, KeyError) as error:
-                              finish_error = 'Final report was not accepted: '+str(error)+'. Correct the form and resubmit finish_review; preserve all substantive objections.'
+                              self.remember_delivered()
+                              finish_error = ('Final report was not accepted: '+str(error)+'. Correct the form and resubmit finish_review. Retain each pending fresh finding or explicitly disposition its full ID. Earlier IDs, including unsuccessful deliveries: '+json.dumps(sorted(self.prior)))
                               record(self.family+'-final-validation-error.json', {'error': str(error)})
                       if not calls and stop_reason != "pause_turn":
                           # A paused server-tool turn is resumed with its assistant
@@ -1148,18 +1229,49 @@ jobs:
 
 
           def unmatched_report_claims(gh, pr, candidates, current):
-              """Unverified report comments are allegations to resolve, never model authority."""
-              known = set()
+              """Unverified occurrences need their own disposition, not an older ID's resolution."""
+              known, recorded = set(), {}
               for pair in [pair for _, pair in candidates] + [current]:
                   for envelope in pair.values():
                       known.update(finding_id(envelope, f['id']) for f in blocking_findings(envelope.get('review', {})))
                       known.update(f['id'] for f in envelope.get('review', {}).get('prior_findings', []))
                       known.update(envelope.get('carried_findings', {}))
+                      key = tuple(str(envelope.get(k, '')) for k in ('run', 'attempt', 'reviewer', 'head'))
+                      recorded.setdefault(key, []).extend(envelope.get('review', {}).get('prior_findings', []))
               prior = history(gh, pr)[1]
-              return {ident: {'origin_reviewer': 'history', 'resolution': 'unresolved',
+              claims = {ident: {'origin_reviewer': 'history', 'resolution': 'unresolved',
                       'reason': 'Unverified report-comment claim, not authenticated model identity: '+str(finding.get('objection', '')),
                       'report_comment': finding.get('report_comment')}
                       for ident, finding in prior.items() if ident not in known and finding.get('report_comment')}
+              for comment in gh.pages(f'/issues/{pr["number"]}/comments'):
+                  if not own_comment(gh, comment) or not comment['body'].startswith(MARKER):
+                      continue
+                  match = re.search(r"```json\n(.*)\n```", comment['body'], re.S)
+                  if not match:
+                      raise ValueError('Malformed report comment; recover its observations')
+                  report = json.loads(match[1])
+                  key = tuple(str(report.get(k, '')) for k in ('run', 'attempt', 'reviewer', 'head'))
+                  dispositions = report.get('review', {}).get('prior_findings', [])
+                  if not isinstance(dispositions, list):
+                      raise ValueError('Malformed report-comment dispositions; recover its observations')
+                  for item in dispositions:
+                      if (not isinstance(item, dict) or not isinstance(item.get('id'), str)
+                              or not re.fullmatch(r'[A-Za-z0-9_-]+', item['id']) or item.get('resolution') == 'resolved'):
+                          continue
+                      # Only the actual App envelope covering this exact occurrence can
+                      # subsume it. A different run's resolution of the same ID cannot.
+                      if item in recorded.get(key, []):
+                          continue
+                      digest = hashlib.sha256(json.dumps(item, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
+                      ident = 'comment-'+str(comment['id'])+'-'+digest
+                      if ident in known:
+                          continue  # Its own App-recorded disposition is tracked by the closure.
+                      claims[ident] = {'origin_reviewer': 'history', 'resolution': 'unresolved',
+                          'original_finding': item['id'],
+                          'reason': 'Unverified report-comment occurrence reopens '+item['id']+': '+str(item.get('reason', 'No reason supplied.')),
+                          'report_comment': {'id': comment['id'], 'url': comment.get('html_url'),
+                              'sha256': hashlib.sha256(comment['body'].encode()).hexdigest()}}
+              return claims
 
 
           def reconcile_obligations(gh, pr, reports, candidates):
@@ -1972,6 +2084,8 @@ jobs:
                   change_class = classify(files, declaration)
                   known = {ident: {'objection': item['reason'], 'origin': 'App-authenticated earlier review'}
                            for ident, item in historical_obligations(spend['candidates']).items()}
+                  known.update({ident: {'objection': item['reason'], **item}
+                                for ident, item in unmatched_report_claims(gh, pr, spend['candidates'], {}).items()})
                   if override_command:
                       saved = trusted_reports(app, pr, name, check['id'])
                       for ident in override_findings(saved, pr['head']['sha']):
@@ -2109,35 +2223,9 @@ jobs:
                                   try:
                                       if family in supplements:
                                           inherit_report_publications(problem, supplements[family])
-                                      if not problem['complete']:
-                                          delivered = reviewers[family].invalid_finish
-                                          if isinstance(delivered, dict):
-                                              problem['review']['report'] = 'Delivered final report failed validation; original retained in the artifact. '+str(error)
-                                              findings = delivered.get('findings')
-                                              # Invalid JSON containers are diagnostic data, not iterable findings.
-                                              findings = findings if isinstance(findings, list) else []
-                                              for i, finding in enumerate(findings):
-                                                  if not isinstance(finding, dict) or (finding.get('severity') == 'note' and finding.get('kind') == 'editorial'):
-                                                      continue
-                                                  ident = str(finding.get('id', ''))
-                                                  if not re.fullmatch(r'[A-Za-z0-9_-]+', ident):
-                                                      ident = 'unvalidated-'+str(i+1)
-                                                  problem['review']['findings'].append({
-                                                      'id': ident, 'severity': 'blocking', 'kind': 'error',
-                                                      'location': str(finding.get('location', '')),
-                                                      'objection': 'Unvalidated delivered objection: '+str(finding.get('objection', finding)),
-                                                      'attempted_resolution': str(finding.get('attempted_resolution', ''))})
-                                              dispositions = delivered.get('prior_findings')
-                                              dispositions = dispositions if isinstance(dispositions, list) else []
-                                              for disposition in dispositions:
-                                                  if not isinstance(disposition, dict):
-                                                      continue
-                                                  ident = disposition.get('id')
-                                                  if (isinstance(ident, str) and ident in reviewers[family].prior
-                                                          and disposition.get('resolution') != 'resolved'):
-                                                      problem['review']['prior_findings'].append({
-                                                          'id': ident, 'resolution': 'unresolved',
-                                                          'reason': 'Unvalidated delivered disposition: '+str(disposition.get('reason', 'No reason supplied.'))})
+                                      if not problem['complete'] and reviewers[family].pending_payloads():
+                                          problem['review']['report'] = 'Delivered final reports did not complete validation; originals retained in the artifact. '+str(error)
+                                          problem['review'].update(reviewers[family].pending_obligations())
                                       record(family + ('-report.json' if problem['complete'] else '-failure.json'), problem)
                                       record('decision.json', state)
                                       deliver_review_report(gh, pr, problem)
