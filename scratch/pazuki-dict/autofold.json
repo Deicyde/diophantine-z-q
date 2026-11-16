@@ -1,0 +1,19 @@
+{"name": "pazuki-dict",
+ "imports": ["ZInQKernel.Contrib.OneProof.PazukiCor13Upper"],
+ "discharges": [
+   {"field": "pazukiCor13Upper",
+    "proof": "_root_.PazukiDict.pazukiCor13Upper_of_printed {t}.uniformizationLeafAll {n}.analyticPPAlgebraic {n}.pazukiCor13UpperPP",
+    "leaves": [
+      {"name": "pazukiCor13UpperPP",
+       "type": "_root_.PazukiDict.PazukiCor13UpperPP",
+       "doc": "Pazuki, Theta height and Faltings height, Bull. SMF 140 (2012), Cor. 1.3(2) (g = r = 2), upper half, for an algebraic principally polarized abelian surface (A_K', L) (L ample, symmetric, h0 = 1) with the biholomorphic uniformization and the period matrix of (A_sigma, L) given by the theta divisor; printed form (pazuki-dict).",
+       "kind": "published",
+       "flag": "reading risk: Pazuki Def. 2.6 level-2 theta coordinates identified with the classical theta[a;b](0, Omega) (UNVERIFIED; locators.md item 5, leaf-review-b premise 3; if they are theta[a;0](0, 2 Omega) the leaf overstates the print by about log 4); locator UNVERIFIED",
+       "source": "Pazuki, Bull. SMF 140 (2012), Cor. 1.3(2), pp. 21-22 (arXiv:0907.1458v2 Cor. 1.3(2) p. 3; Def. 2.1 pp. 6-7; Def. 2.6 p. 9), upper half, algebraic (A, L) as printed"},
+      {"name": "analyticPPAlgebraic",
+       "type": "_root_.PazukiDict.AnalyticPPAlgebraic",
+       "doc": "Every analytic principal polarization of A_sigma(C), A over a number field, is the period matrix of a symmetric principal polarization L of A_K' for a number field K' (Appell-Humbert and Frobenius' theorem, Mumford AV 2-3; GAGA, Serre 1956; NS(A_Qbar) = NS(A_C); Pic0[2] finite). Composite of published results; splits as ThetaDivisorAlgebraicC + SymmPrincipalDescends (PazukiDict.analyticPPAlgebraic_of_split).",
+       "kind": "composite",
+       "flag": "composite of published results (analytic-to-algebraic polarization and descent to Qbar); locator UNVERIFIED",
+       "source": "Mumford, Abelian varieties, sections 2-3, 6 (Appell-Humbert, Frobenius, ampleness); Serre, GAGA (1956); Maulik-Poonen, Neron-Severi groups under specialization, Prop. 3.1 (NS invariant under algebraically closed extension); Birkenhake-Lange 8.5"}]}],
+ "note": "pazuki-dict (docs/research/pazuki-dict.md): pazukiCor13Upper (analytic Omega, leaf-push2's weak uniformization) from Pazuki's printed corollary over algebraic (A, L), the composite analytic-to-algebraic glue AnalyticPPAlgebraic, and the existing textbook field uniformizationLeafAll (weak-to-biholomorphic step proved in Lean: PazukiDict.exists_strong_of_weak). Against the current kinds.tsv (pazukiCor13Upper rated LEAF) the strict GLUE count rises by one (needs --allow-rise); against the 11-16 dictionary rating of pazukiCor13Upper as a consequence (GLUE) it is neutral."}
