@@ -1064,7 +1064,7 @@ jobs:
                   scope['coverage_omitted'] = {'sha256': hashlib.sha256(encoded).hexdigest(),
                       'items': len(unread), 'bytes': len(encoded),
                       'run': str(envelope['run']), 'attempt': str(envelope['attempt']),
-                      'artifact_file': envelope['reviewer']+'-report.json'}
+                      'artifact_file': envelope['reviewer']+('-report.json' if envelope.get('complete') else '-failure.json')}
               return scope
 
 
@@ -1189,12 +1189,17 @@ jobs:
                           if own_comment(gh, c) and hashlib.sha256(c['body'].encode()).hexdigest() == attempted:
                               envelope['report_publication'] = {'status': 'posted', 'comment': c['id'], 'sha256': attempted}
                               return
+                      required = ('report', 'sources_read') if envelope.get('complete') else ('report',)
+                      if (not all(k in envelope.get('review', {}) for k in required)
+                              or envelope.get('nonblocking_notes_omitted')):
+                          raise ValueError('Full original report is absent from this compact App record; recover its original run artifact. A compact record cannot be published as the original review.')
                   response = gh.call(f'/issues/{pr["number"]}/comments', 'POST', {'body': body})
                   envelope['report_publication'] = {'status': 'posted', 'comment': response['id'], 'sha256': digest}
               except Exception as error:
-                  envelope['report_publication'] = {'status': 'failed', 'error': str(error), 'sha256': digest,
+                  original_digest = envelope.get('report_publication', {}).get('sha256', digest) if retry else digest
+                  envelope['report_publication'] = {'status': 'failed', 'error': str(error), 'sha256': original_digest,
                       'original_report': url + '/attempts/' + str(envelope['attempt']),
-                      'artifact_file': envelope['reviewer']+'-report.json'}
+                      'artifact_file': envelope['reviewer']+('-report.json' if envelope.get('complete') else '-failure.json')}
                   record(envelope['reviewer']+'-publication-error.json', envelope['report_publication'])
                   log(envelope['reviewer']+': original verdict retained; report delivery failed: '+str(error))
 
@@ -2096,7 +2101,9 @@ jobs:
                                   record(family + "-failure.json", problem)
                                   state['reports'] = envelopes
                                   record('decision.json', state)
-                                  gh.call(f"/issues/{number}/comments", "POST", {"body": MARKER + "\n```json\n" + json.dumps(problem, ensure_ascii=False, indent=2) + "\n```"})
+                                  # A failed notification must not abandon the other paid future.
+                                  deliver_review_report(gh, pr, problem)
+                                  record('decision.json', state)
                       if failures:
                           raise RuntimeError(json.dumps(failures))
                       current_discussion, current_prior, _, _ = history(gh, pr, known)

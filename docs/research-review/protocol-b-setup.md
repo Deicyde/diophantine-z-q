@@ -733,3 +733,10 @@ run artifact and withholds merge; it does not claim the report is on the PR.
 Optional reuse-metadata failure does not suppress the report delivery attempt.
 A scoped supplement retains its original-review identity independently of that
 optional metadata. No paid verdict is replaced with an empty failure record.
+
+A later run may reconcile the exact original comment by its saved body hash.
+If only a compact App record remains and that comment is absent, publication
+stays blocked until the full original report is recovered from its run artifact.
+The compact record is never reposted as the original prose, source list or notes.
+Failure-report delivery uses the same guarded path, so one worker's notification
+failure cannot prevent the other worker's actual final result from being collected.
