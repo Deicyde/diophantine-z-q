@@ -1,0 +1,223 @@
+{
+  "source_revision": "6e837e75355538c7f80bab5b956861e86c4eacc2",
+  "roots": [
+    "Definitions.Def_QuaternionAlgebra_EichlerOrder",
+    "Definitions.Def_QuaternionAlgebra_ReducedNorm",
+    "Theorems.Thm_QuaternionAlgebra_IsOrder_exists_intCast_eq_nrd_and_exists_intCast_eq_trd",
+    "Definitions.Def_CerednikDrinfeld_ShimuraCurve",
+    "Definitions.Def_QuaternionAlgebra_BaseChange",
+    "Theorems.Thm_QuaternionAlgebra_forall_tensorProduct_adicCompletion_isUnit_iff_forall_normForm_eq_zero",
+    "Theorems.Thm_QuadraticForm_forall_quaternary_normForm_eq_zero_iff_forall_ternary_eq_zero",
+    "Theorems.Thm_Padic_exists_ternary_isotropic_two_mul_iff_of_norm_eq_one",
+    "Theorems.Thm_Padic_exists_ternary_isotropic_prime_mul_iff_isSquare_of_ne_two",
+    "Theorems.Thm_Rat_exists_ternary_isotropic_adicCompletion_of_intCast_notMem",
+    "Theorems.Thm_QuaternionAlgebra_nonempty_algEquiv_matrix_of_normForm_eq_zero"
+  ],
+  "prefix": "ZInQKernel.Contrib.CloudB4W28FineModuli.Vendor.AnthropicFLT",
+  "bridge_cuts": true,
+  "files": [
+    {
+      "upstream_module": "Definitions.Def_QuaternionAlgebra_Order",
+      "mode": "relocated",
+      "path": "Definitions/Def_QuaternionAlgebra_Order.lean",
+      "upstream_sha256": "faccac85465d034680318fbad412d3fa8dd1d2c7a97464fe5b937ca956ddf921",
+      "sha256": "29f0448db1dab2d120c2017ecfb1b190ec2a19085d6f0a8475700129970ce10b",
+      "baseline_alias": null
+    },
+    {
+      "upstream_module": "Definitions.Def_QuaternionAlgebra_EichlerOrder",
+      "mode": "relocated",
+      "path": "Definitions/Def_QuaternionAlgebra_EichlerOrder.lean",
+      "upstream_sha256": "6da872eec7bc51c1482426073820a03ce47ddda7e5c0ba94910699d1693d7926",
+      "sha256": "7967e9f1caf17d813241cb5cc0b99cb0ba35efd5bf30463337a2de55c6f2c6a3",
+      "baseline_alias": null
+    },
+    {
+      "upstream_module": "Definitions.Def_QuaternionAlgebra_ReducedNorm",
+      "mode": "relocated",
+      "path": "Definitions/Def_QuaternionAlgebra_ReducedNorm.lean",
+      "upstream_sha256": "358779c1f6c238c8673c5dff83c2e45e55ee638a1bf116d73c0aed67954d86c1",
+      "sha256": "8f156cf3d10a67f82d40cb9ecaa0608ba53eef0bbdfa98765b4706b7e6d26235",
+      "baseline_alias": null
+    },
+    {
+      "upstream_module": "P2M.Sol.S_QuaternionAlgebra_IsOrder_exists_intCast_eq_nrd_and_exists_intCast_eq_trd",
+      "mode": "relocated",
+      "path": "P2M/Sol/S_QuaternionAlgebra_IsOrder_exists_intCast_eq_nrd_and_exists_intCast_eq_trd.lean",
+      "upstream_sha256": "1ec2fe4b5e941387d8a0b3911ebf8dd0ea6040cabd576e9de760775ec56b6db6",
+      "sha256": "7580839c688322de50315829b6c077e41a4d485413c62ccc8399a84c266f45f8",
+      "baseline_alias": null
+    },
+    {
+      "upstream_module": "Theorems.Thm_QuaternionAlgebra_IsOrder_exists_intCast_eq_nrd_and_exists_intCast_eq_trd",
+      "mode": "relocated",
+      "path": "Theorems/Thm_QuaternionAlgebra_IsOrder_exists_intCast_eq_nrd_and_exists_intCast_eq_trd.lean",
+      "upstream_sha256": "d2a9ced3d83af420cdbf2e9620079094753651da9979916c74f253099b60e4db",
+      "sha256": "0ca79780c2abf9831d0d92cba7dd071c0508baa47d549e48fc684171993ff4e0",
+      "baseline_alias": null
+    },
+    {
+      "upstream_module": "Definitions.Def_CerednikDrinfeld_ShimuraCurve",
+      "mode": "exact_predicate_prefix_cut",
+      "path": "Definitions/Def_CerednikDrinfeld_ShimuraCurve.lean",
+      "upstream_sha256": "aff2aaa9d5a00b421616275de8d599053e9cd2b7ab90601780016e79a6118f25",
+      "sha256": "ddfeb097796b235c7f37b592034fef9347e0013ef6ece7db02350d78a0f956b6",
+      "baseline_alias": null
+    },
+    {
+      "upstream_module": "Definitions.Def_QuaternionAlgebra_BaseChange",
+      "mode": "relocated",
+      "path": "Definitions/Def_QuaternionAlgebra_BaseChange.lean",
+      "upstream_sha256": "72b80a8fee5a7b78008bc06a6ca6c73d6b4faa1b880a86ba9ed3112129886ddc",
+      "sha256": "90cdf6b9064b41a86cd5a5743c637a361fa19d37debf604ab32d3a4424279463",
+      "baseline_alias": null
+    },
+    {
+      "upstream_module": "P2M.Sol.S_QuaternionAlgebra_forall_isUnit_iff_forall_normForm_eq_zero",
+      "mode": "relocated",
+      "path": "P2M/Sol/S_QuaternionAlgebra_forall_isUnit_iff_forall_normForm_eq_zero.lean",
+      "upstream_sha256": "314b8ea079f0b8fd6f55442cea842ec15ed89093f8be0fec2155e78c178a3941",
+      "sha256": "813a660d15d3e5e31dd9d5866d958f756a71767a6fcef9737a8cb29a3870f876",
+      "baseline_alias": null
+    },
+    {
+      "upstream_module": "Theorems.Thm_QuaternionAlgebra_forall_isUnit_iff_forall_normForm_eq_zero",
+      "mode": "relocated",
+      "path": "Theorems/Thm_QuaternionAlgebra_forall_isUnit_iff_forall_normForm_eq_zero.lean",
+      "upstream_sha256": "64c133bed71df65c3590c061117c568856caea20a63d5dd71ae0be9c0ba3183a",
+      "sha256": "5f6967e8ebeb2e543d1ea8ef32cb204767c576ff6ae741470c2362588d828a15",
+      "baseline_alias": null
+    },
+    {
+      "upstream_module": "P2M.Sol.S_QuaternionAlgebra_nonempty_tensorProduct_adicCompletion_ringEquiv",
+      "mode": "relocated",
+      "path": "P2M/Sol/S_QuaternionAlgebra_nonempty_tensorProduct_adicCompletion_ringEquiv.lean",
+      "upstream_sha256": "1837e106d804c3be208256c6c477318746136eb02ddea0cac1a42e0664c780bf",
+      "sha256": "f14fc57aa9e39ee102420df36c84c6570fb9a1c2d2c68331ba7249c0a06d0b64",
+      "baseline_alias": null
+    },
+    {
+      "upstream_module": "Theorems.Thm_QuaternionAlgebra_nonempty_tensorProduct_adicCompletion_ringEquiv",
+      "mode": "relocated",
+      "path": "Theorems/Thm_QuaternionAlgebra_nonempty_tensorProduct_adicCompletion_ringEquiv.lean",
+      "upstream_sha256": "2c1c582f669f0312a255548739be3023f591643befb7016495cc633c66982e9a",
+      "sha256": "b5857f8c9af42509a37ce3810d52e52d8bfdb46873104f5c70dcab7af0456a23",
+      "baseline_alias": null
+    },
+    {
+      "upstream_module": "P2M.Sol.S_QuaternionAlgebra_forall_tensorProduct_adicCompletion_isUnit_iff_forall_normForm_eq_zero",
+      "mode": "relocated",
+      "path": "P2M/Sol/S_QuaternionAlgebra_forall_tensorProduct_adicCompletion_isUnit_iff_forall_normForm_eq_zero.lean",
+      "upstream_sha256": "aa2c310440444b2beb9d8a37ac6ee4da4b5f385e533afed599e0426510f96076",
+      "sha256": "8b6d0c6347e559174dcef036e6a7879bb680629515f650692da47a8f39746f8e",
+      "baseline_alias": null
+    },
+    {
+      "upstream_module": "Theorems.Thm_QuaternionAlgebra_forall_tensorProduct_adicCompletion_isUnit_iff_forall_normForm_eq_zero",
+      "mode": "relocated",
+      "path": "Theorems/Thm_QuaternionAlgebra_forall_tensorProduct_adicCompletion_isUnit_iff_forall_normForm_eq_zero.lean",
+      "upstream_sha256": "568f35968f7324ef30017831885224e90304a195adeee5f5ce62c12357e9ebb1",
+      "sha256": "6f0220fcf8a04e5d5977c934cacc53e1da4b246e19ea44827ad49dcd09fa4db2",
+      "baseline_alias": null
+    },
+    {
+      "upstream_module": "P2M.Sol.S_QuadraticForm_forall_quaternary_normForm_eq_zero_iff_forall_ternary_eq_zero",
+      "mode": "relocated",
+      "path": "P2M/Sol/S_QuadraticForm_forall_quaternary_normForm_eq_zero_iff_forall_ternary_eq_zero.lean",
+      "upstream_sha256": "f476ee42e10fe6ce602ea95a07ccce22d7ac09698fa36a2b6f1d8add80caf098",
+      "sha256": "4632b10a4c6bc816a425d14e41ef994e8af9beb86575fedb8ec6d03f0e44b2a9",
+      "baseline_alias": null
+    },
+    {
+      "upstream_module": "Theorems.Thm_QuadraticForm_forall_quaternary_normForm_eq_zero_iff_forall_ternary_eq_zero",
+      "mode": "relocated",
+      "path": "Theorems/Thm_QuadraticForm_forall_quaternary_normForm_eq_zero_iff_forall_ternary_eq_zero.lean",
+      "upstream_sha256": "aa1312d11fe6a7ce764f4799cee99c0e70b7ce65ee006f7e534d474bcc7a1857",
+      "sha256": "cfaa1dd1b3932ad2538b9f9d0020b7b92a7af95dd8c1b7cb5fd55de354b6ffd5",
+      "baseline_alias": null
+    },
+    {
+      "upstream_module": "P2M.Sol.S_Padic_exists_ternary_isotropic_two_mul_iff_of_norm_eq_one",
+      "mode": "relocated",
+      "path": "P2M/Sol/S_Padic_exists_ternary_isotropic_two_mul_iff_of_norm_eq_one.lean",
+      "upstream_sha256": "8efbc56b3e02fb1ffd01257f1d1167acad59391700cfbcbc16802f59e3b85081",
+      "sha256": "9eda74128691a0c17b2207925248bceef77d8ad4afa9aed9fd374cd752832bb1",
+      "baseline_alias": null
+    },
+    {
+      "upstream_module": "Theorems.Thm_Padic_exists_ternary_isotropic_two_mul_iff_of_norm_eq_one",
+      "mode": "relocated",
+      "path": "Theorems/Thm_Padic_exists_ternary_isotropic_two_mul_iff_of_norm_eq_one.lean",
+      "upstream_sha256": "2a50c322b7daa7b08d65ef6bd15a720bf9cff2d1955ae6f3b4b3240c573a9e28",
+      "sha256": "bab62aea38dfcb416b7d1feb7e4eb276124ed4f24ec23e5d5374e53a41cb6fa8",
+      "baseline_alias": null
+    },
+    {
+      "upstream_module": "P2M.Sol.S_Padic_exists_ternary_isotropic_prime_mul_iff_isSquare_of_ne_two",
+      "mode": "relocated",
+      "path": "P2M/Sol/S_Padic_exists_ternary_isotropic_prime_mul_iff_isSquare_of_ne_two.lean",
+      "upstream_sha256": "49716be3e9b5e4f9c8cc0ee8e3748b9582aa66d4fc11f3ba2b2d3b08ec9810ce",
+      "sha256": "826e835ce0974c37b3f10da14543d3f97f9df5ceb834766482971c5c80c21a00",
+      "baseline_alias": null
+    },
+    {
+      "upstream_module": "Theorems.Thm_Padic_exists_ternary_isotropic_prime_mul_iff_isSquare_of_ne_two",
+      "mode": "relocated",
+      "path": "Theorems/Thm_Padic_exists_ternary_isotropic_prime_mul_iff_isSquare_of_ne_two.lean",
+      "upstream_sha256": "d4798d41d0a2c6a9ca886902ee2bd1cca2550dc09ac05176552b7d82a3a88f35",
+      "sha256": "2ecfa35a9546691e6bc342d582d406d075beed9a2a01edee73e9297fd5d7ecb8",
+      "baseline_alias": null
+    },
+    {
+      "upstream_module": "P2M.Sol.S_Padic_exists_ternary_isotropic_of_norm_eq_one_of_ne_two",
+      "mode": "relocated",
+      "path": "P2M/Sol/S_Padic_exists_ternary_isotropic_of_norm_eq_one_of_ne_two.lean",
+      "upstream_sha256": "0179c900b76e478dde5bce4f5fbf5c2bf1284fd3382fe6c4dca4dc27f0fcb316",
+      "sha256": "151d5ee06f31749b7ce41b4080e001a903c97b622c2373c229a3873b52810a93",
+      "baseline_alias": null
+    },
+    {
+      "upstream_module": "Theorems.Thm_Padic_exists_ternary_isotropic_of_norm_eq_one_of_ne_two",
+      "mode": "relocated",
+      "path": "Theorems/Thm_Padic_exists_ternary_isotropic_of_norm_eq_one_of_ne_two.lean",
+      "upstream_sha256": "8f8dc49d680c9d074474e3a7a036bc9a04b1b0b50008ccff84203afb5ab5b3d2",
+      "sha256": "d460cdd2bfb8b244b18c9d528c3c434bc53f206ee08648fb572f2a9a802c0645",
+      "baseline_alias": null
+    },
+    {
+      "upstream_module": "P2M.Sol.S_Rat_exists_ternary_isotropic_adicCompletion_of_intCast_notMem",
+      "mode": "relocated",
+      "path": "P2M/Sol/S_Rat_exists_ternary_isotropic_adicCompletion_of_intCast_notMem.lean",
+      "upstream_sha256": "ed53ce13093e66cc167374c517e8b2fec45ff7357997307e2eefaa12f2a83388",
+      "sha256": "b0acf01682cd5cb9369fdb698dc6cb101038defeafb8d0469a4dbd47198d4e78",
+      "baseline_alias": null
+    },
+    {
+      "upstream_module": "Theorems.Thm_Rat_exists_ternary_isotropic_adicCompletion_of_intCast_notMem",
+      "mode": "relocated",
+      "path": "Theorems/Thm_Rat_exists_ternary_isotropic_adicCompletion_of_intCast_notMem.lean",
+      "upstream_sha256": "939399c197c1d17e7907763d9b486c079094603b2e3b651e4555c12d802bb1ad",
+      "sha256": "a014a8b01ffe7583f1d0a2752fcd4e4bc47903c9f1397b1984c1e6ac8fdf4d0c",
+      "baseline_alias": null
+    },
+    {
+      "upstream_module": "P2M.Sol.S_QuaternionAlgebra_nonempty_algEquiv_matrix_of_normForm_eq_zero",
+      "mode": "relocated",
+      "path": "P2M/Sol/S_QuaternionAlgebra_nonempty_algEquiv_matrix_of_normForm_eq_zero.lean",
+      "upstream_sha256": "84ce90dc9fa6b57f0a93bf3f66ec53ab92fd5d0709fcf7004018f127e0897453",
+      "sha256": "65fa5aefa9daade08962d5be389d7c728f2756a3546670f43a3787a60ae7882b",
+      "baseline_alias": null
+    },
+    {
+      "upstream_module": "Theorems.Thm_QuaternionAlgebra_nonempty_algEquiv_matrix_of_normForm_eq_zero",
+      "mode": "relocated_with_unused_import_pruning",
+      "path": "Theorems/Thm_QuaternionAlgebra_nonempty_algEquiv_matrix_of_normForm_eq_zero.lean",
+      "upstream_sha256": "1ffcf6509e269d8a25becbd9f33714e80b24903c9fc702e47c7ba35d5d5905e3",
+      "sha256": "1f66c6e80da7d6f5df6b2842b21a004fdc27fed1cb602c82d449c5b75a67423a",
+      "baseline_alias": null,
+      "changes": [
+        "Remove unused Def_Submodule_FiniteAdeleBox and Def_Submodule_LocalBox imports; no theorem or proof-body change"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,146 @@
+{
+  "kind": "W28_verified_arithmetic_prerequisites_not_R1fpAb",
+  "pinned_project_commit": "0e70c94e4a2d26838f0766cd69b39bd02f48fb85",
+  "review_base_commit": "e22df37cdef936f5b0f29ec09501854bea6c7316",
+  "lean_commit": "eb6cafb7290e8bd5f2937522d8d804f58f02bafc",
+  "mathlib_commit": "56a005855ea17e0b0958f73ec801ae140b0a1679",
+  "target_proved": false,
+  "target_name": "LeafQM.AV.R1UnivRigid.R1fpAb",
+  "owned_lean_sha256": {
+    "ZInQKernel/Contrib/CloudB4W28FineModuli/Vendor/AnthropicFLT/Definitions/Def_QuaternionAlgebra_Order.lean": "29f0448db1dab2d120c2017ecfb1b190ec2a19085d6f0a8475700129970ce10b",
+    "ZInQKernel/Contrib/CloudB4W28FineModuli/Vendor/AnthropicFLT/Definitions/Def_QuaternionAlgebra_EichlerOrder.lean": "7967e9f1caf17d813241cb5cc0b99cb0ba35efd5bf30463337a2de55c6f2c6a3",
+    "ZInQKernel/Contrib/CloudB4W28FineModuli/Vendor/AnthropicFLT/Definitions/Def_QuaternionAlgebra_ReducedNorm.lean": "8f156cf3d10a67f82d40cb9ecaa0608ba53eef0bbdfa98765b4706b7e6d26235",
+    "ZInQKernel/Contrib/CloudB4W28FineModuli/Vendor/AnthropicFLT/P2M/Sol/S_QuaternionAlgebra_IsOrder_exists_intCast_eq_nrd_and_exists_intCast_eq_trd.lean": "7580839c688322de50315829b6c077e41a4d485413c62ccc8399a84c266f45f8",
+    "ZInQKernel/Contrib/CloudB4W28FineModuli/Vendor/AnthropicFLT/Theorems/Thm_QuaternionAlgebra_IsOrder_exists_intCast_eq_nrd_and_exists_intCast_eq_trd.lean": "0ca79780c2abf9831d0d92cba7dd071c0508baa47d549e48fc684171993ff4e0",
+    "ZInQKernel/Contrib/CloudB4W28FineModuli/Vendor/AnthropicFLT/Definitions/Def_CerednikDrinfeld_ShimuraCurve.lean": "ddfeb097796b235c7f37b592034fef9347e0013ef6ece7db02350d78a0f956b6",
+    "ZInQKernel/Contrib/CloudB4W28FineModuli/Vendor/AnthropicFLT/Definitions/Def_QuaternionAlgebra_BaseChange.lean": "90cdf6b9064b41a86cd5a5743c637a361fa19d37debf604ab32d3a4424279463",
+    "ZInQKernel/Contrib/CloudB4W28FineModuli/Vendor/AnthropicFLT/P2M/Sol/S_QuaternionAlgebra_forall_isUnit_iff_forall_normForm_eq_zero.lean": "813a660d15d3e5e31dd9d5866d958f756a71767a6fcef9737a8cb29a3870f876",
+    "ZInQKernel/Contrib/CloudB4W28FineModuli/Vendor/AnthropicFLT/Theorems/Thm_QuaternionAlgebra_forall_isUnit_iff_forall_normForm_eq_zero.lean": "5f6967e8ebeb2e543d1ea8ef32cb204767c576ff6ae741470c2362588d828a15",
+    "ZInQKernel/Contrib/CloudB4W28FineModuli/Vendor/AnthropicFLT/P2M/Sol/S_QuaternionAlgebra_nonempty_tensorProduct_adicCompletion_ringEquiv.lean": "f14fc57aa9e39ee102420df36c84c6570fb9a1c2d2c68331ba7249c0a06d0b64",
+    "ZInQKernel/Contrib/CloudB4W28FineModuli/Vendor/AnthropicFLT/Theorems/Thm_QuaternionAlgebra_nonempty_tensorProduct_adicCompletion_ringEquiv.lean": "b5857f8c9af42509a37ce3810d52e52d8bfdb46873104f5c70dcab7af0456a23",
+    "ZInQKernel/Contrib/CloudB4W28FineModuli/Vendor/AnthropicFLT/P2M/Sol/S_QuaternionAlgebra_forall_tensorProduct_adicCompletion_isUnit_iff_forall_normForm_eq_zero.lean": "8b6d0c6347e559174dcef036e6a7879bb680629515f650692da47a8f39746f8e",
+    "ZInQKernel/Contrib/CloudB4W28FineModuli/Vendor/AnthropicFLT/Theorems/Thm_QuaternionAlgebra_forall_tensorProduct_adicCompletion_isUnit_iff_forall_normForm_eq_zero.lean": "6f0220fcf8a04e5d5977c934cacc53e1da4b246e19ea44827ad49dcd09fa4db2",
+    "ZInQKernel/Contrib/CloudB4W28FineModuli/Vendor/AnthropicFLT/P2M/Sol/S_QuadraticForm_forall_quaternary_normForm_eq_zero_iff_forall_ternary_eq_zero.lean": "4632b10a4c6bc816a425d14e41ef994e8af9beb86575fedb8ec6d03f0e44b2a9",
+    "ZInQKernel/Contrib/CloudB4W28FineModuli/Vendor/AnthropicFLT/Theorems/Thm_QuadraticForm_forall_quaternary_normForm_eq_zero_iff_forall_ternary_eq_zero.lean": "cfaa1dd1b3932ad2538b9f9d0020b7b92a7af95dd8c1b7cb5fd55de354b6ffd5",
+    "ZInQKernel/Contrib/CloudB4W28FineModuli/Vendor/AnthropicFLT/P2M/Sol/S_Padic_exists_ternary_isotropic_two_mul_iff_of_norm_eq_one.lean": "9eda74128691a0c17b2207925248bceef77d8ad4afa9aed9fd374cd752832bb1",
+    "ZInQKernel/Contrib/CloudB4W28FineModuli/Vendor/AnthropicFLT/Theorems/Thm_Padic_exists_ternary_isotropic_two_mul_iff_of_norm_eq_one.lean": "bab62aea38dfcb416b7d1feb7e4eb276124ed4f24ec23e5d5374e53a41cb6fa8",
+    "ZInQKernel/Contrib/CloudB4W28FineModuli/Vendor/AnthropicFLT/P2M/Sol/S_Padic_exists_ternary_isotropic_prime_mul_iff_isSquare_of_ne_two.lean": "826e835ce0974c37b3f10da14543d3f97f9df5ceb834766482971c5c80c21a00",
+    "ZInQKernel/Contrib/CloudB4W28FineModuli/Vendor/AnthropicFLT/Theorems/Thm_Padic_exists_ternary_isotropic_prime_mul_iff_isSquare_of_ne_two.lean": "2ecfa35a9546691e6bc342d582d406d075beed9a2a01edee73e9297fd5d7ecb8",
+    "ZInQKernel/Contrib/CloudB4W28FineModuli/Vendor/AnthropicFLT/P2M/Sol/S_Padic_exists_ternary_isotropic_of_norm_eq_one_of_ne_two.lean": "151d5ee06f31749b7ce41b4080e001a903c97b622c2373c229a3873b52810a93",
+    "ZInQKernel/Contrib/CloudB4W28FineModuli/Vendor/AnthropicFLT/Theorems/Thm_Padic_exists_ternary_isotropic_of_norm_eq_one_of_ne_two.lean": "d460cdd2bfb8b244b18c9d528c3c434bc53f206ee08648fb572f2a9a802c0645",
+    "ZInQKernel/Contrib/CloudB4W28FineModuli/Vendor/AnthropicFLT/P2M/Sol/S_Rat_exists_ternary_isotropic_adicCompletion_of_intCast_notMem.lean": "b0acf01682cd5cb9369fdb698dc6cb101038defeafb8d0469a4dbd47198d4e78",
+    "ZInQKernel/Contrib/CloudB4W28FineModuli/Vendor/AnthropicFLT/Theorems/Thm_Rat_exists_ternary_isotropic_adicCompletion_of_intCast_notMem.lean": "a014a8b01ffe7583f1d0a2752fcd4e4bc47903c9f1397b1984c1e6ac8fdf4d0c",
+    "ZInQKernel/Contrib/CloudB4W28FineModuli/Vendor/AnthropicFLT/P2M/Sol/S_QuaternionAlgebra_nonempty_algEquiv_matrix_of_normForm_eq_zero.lean": "65fa5aefa9daade08962d5be389d7c728f2756a3546670f43a3787a60ae7882b",
+    "ZInQKernel/Contrib/CloudB4W28FineModuli/Vendor/AnthropicFLT/Theorems/Thm_QuaternionAlgebra_nonempty_algEquiv_matrix_of_normForm_eq_zero.lean": "1f66c6e80da7d6f5df6b2842b21a004fdc27fed1cb602c82d449c5b75a67423a",
+    "ZInQKernel/Contrib/CloudB4W28FineModuli/MaximalOrder.lean": "9fe3c48986e4fd74a21af97a749737c41429461155cef2150e81997c402a5a67",
+    "ZInQKernel/Contrib/CloudB4W28FineModuli/Ramification.lean": "2fdae24d3d5cb218b3195f48ecf7e98c5e6153ca694b5a0911520e69691d67af",
+    "ZInQKernel/Contrib/OneProof/R1fpAbOrderBridges.lean": "0be3b793fb2db3edeadc417552aa2f3eda455681a1755c4138b74e9ce57dde8c"
+  },
+  "focused_build": {
+    "run": "1794823717429542149",
+    "successful": 32,
+    "failed": [],
+    "blocked": [],
+    "elapsed_seconds": 71.203,
+    "fresh_owned_modules": 28,
+    "unchanged_baseline_modules_reused": 4
+  },
+  "checks": [
+    {
+      "run": "1794824323051629866",
+      "command": [
+        "/tmp/cloud-b4/w28/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "--threads=2",
+        "-Ddebug.skipKernelTC=false",
+        "-R",
+        "/tmp/cloud-b4/w28/checks",
+        "/tmp/cloud-b4/w28/checks/ProofCheck.lean"
+      ],
+      "LEAN_PATH": "/tmp/cloud-b4/w28/build-current/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/Cli/.lake/build/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/batteries/.lake/build/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/Qq/.lake/build/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/aesop/.lake/build/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/proofwidgets/.lake/build/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/importGraph/.lake/build/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/plausible/.lake/build/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/mathlib/.lake/build/lib/lean:/tmp/cloud-b4/w28/toolchains/leanprover--lean4---v4.35.0/lib/lean",
+      "source_sha256": "ea07503af759e448fc59aa7b94d3ac3b04a8b3256bbb4aadf674c575475fc158",
+      "source_unchanged": true,
+      "exit_code": 0,
+      "elapsed_seconds": 3.854,
+      "log": "/tmp/cloud-b4/w28/current-check-results/ProofCheck.1794824323051629866.log",
+      "log_sha256": "1f22c81d2498f96e120559fef8b05286b322be97b038b4692357694ade7808b1"
+    },
+    {
+      "run": "1794824326977142043",
+      "command": [
+        "/tmp/cloud-b4/w28/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "--threads=2",
+        "-Ddebug.skipKernelTC=false",
+        "-R",
+        "/tmp/cloud-b4/w28/checks",
+        "/tmp/cloud-b4/w28/checks/EntryProofCheck.lean"
+      ],
+      "LEAN_PATH": "/tmp/cloud-b4/w28/build-current/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/Cli/.lake/build/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/batteries/.lake/build/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/Qq/.lake/build/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/aesop/.lake/build/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/proofwidgets/.lake/build/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/importGraph/.lake/build/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/plausible/.lake/build/lib/lean:/tmp/cloud-b4/w28/current-repo/.lake/packages/mathlib/.lake/build/lib/lean:/tmp/cloud-b4/w28/toolchains/leanprover--lean4---v4.35.0/lib/lean",
+      "source_sha256": "420123262126fcd32e44e76877db5db7b3aa6fa430e711b7ceffe7d0c5cec7b1",
+      "source_unchanged": true,
+      "exit_code": 0,
+      "elapsed_seconds": 3.759,
+      "log": "/tmp/cloud-b4/w28/current-check-results/EntryProofCheck.1794824326977142043.log",
+      "log_sha256": "554de3c958dbdb84de290a310fc7fe10a4a28d1655d02641a0e46c9ffa2c0e57"
+    }
+  ],
+  "axioms_allowlist": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "axiom_prints": 11,
+  "all_printed_axioms_equal_allowlist": true,
+  "discharges": {
+    "status": "NOT_RUN",
+    "reason": "Existing pinned OneProof.Main/TailZ16 import prerequisite exceeded 360s in CloudB2X0Transitive S_WeierstrassCurve_Affine_exists_intermediateField_countable_map_eq_of_isAddCyclic_ker_pointMapOfPushforward; no witness or field discharge claimed"
+  },
+  "source_hygiene": {
+    "owned_lean_files": 28,
+    "forbidden_construct_hits": [],
+    "upstream_predicate_locks": {
+      "structure IsOrder": {
+        "identical_body_and_binders": true,
+        "sha256": "94f41b5b244ce801dadce42c36b0f146a8ea68435a910be0d9012d505d25c9b7"
+      },
+      "def IsMaximalOrder": {
+        "identical_body_and_binders": true,
+        "sha256": "5c4671601d96febad76fca4d0c48aa88e345ff05198c3683545e478a8f58ea36"
+      },
+      "def IsIndefiniteRamifiedExactlyAt": {
+        "identical_body_and_binders": true,
+        "sha256": "c7a69cdf80264284242d6875baba0d74a4c91a6f43dee565aaec52e09eec1346"
+      }
+    },
+    "notices_byte_identical": {
+      "LICENSE": true,
+      "NOTICE.upstream": true,
+      "ATTRIBUTION.upstream.md": true
+    },
+    "frozen_target_sha256": "b8fdc7e7c9c70411a952f5384c7b219c1db84cd8d34a586a060bbde8a0d6c4b1",
+    "frozen_order_sha256": "0ee93924ff4f1b2ff63dc0562a2a3be166b950663bcbd423f19c9f9488a63441"
+  },
+  "full_fine_moduli_probe": {
+    "source_modules": 8788,
+    "successful": 83,
+    "failed_modules": [
+      "Definitions.Def_AlgebraicCurve_SymmetricPower",
+      "Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+      "Definitions.Def_AlgebraicGeometry_ProjSpace",
+      "Definitions.Def_AlgebraicGeometry_ProjSpaceCechGradedModule",
+      "Definitions.Def_Compat_Mathlib430"
+    ],
+    "pivot_applied": true
+  },
+  "scope": "Only new Contrib/CloudB4W28FineModuli files and Contrib/OneProof/R1fpAbOrderBridges.lean; no existing definitions, assemblies, root config or pins changed",
+  "verification_boundary": "Focused source/type/compiler/standard-axiom checks; not new imported-library replay or full witness integration",
+  "final_recheck": {
+    "run": "1794824309830575826",
+    "successful": 32,
+    "failed": [],
+    "blocked": [],
+    "elapsed_seconds": 13.154,
+    "fresh_modules": 3,
+    "unchanged_transitive_source_fingerprints_reused": 29,
+    "change": "Remove one newly added EOF blank line in the exact predicate-prefix module; statement/body unchanged; recompile predicate, Ramification, entry"
+  }
+}

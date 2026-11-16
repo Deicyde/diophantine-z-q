@@ -1,0 +1,30 @@
+W28 exact-type and axiom output
+Review base: e22df37cdef936f5b0f29ec09501854bea6c7316
+Lean 4.35.0; kernel checking enabled; both commands exited 0.
+No R1fpAb witness or open-field discharge is claimed.
+
+isMaximalOrder_orderLattice : QuaternionAlgebra.IsMaximalOrder orderLattice
+isIndefiniteRamifiedExactlyAt_two_neg_three : QuaternionAlgebra.IsIndefiniteRamifiedExactlyAt 2 (-3) 2 3
+division_two : ∀ (q : ℍ[ℚ_[2],2,-3]), q ≠ 0 → IsUnit q
+division_three : ∀ (q : ℍ[ℚ_[3],2,-3]), q ≠ 0 → IsUnit q
+split_real : Nonempty (ℝ ⊗[ℚ] ℍ[ℚ,2,-3] ≃ₐ[ℝ] Matrix (Fin 2) (Fin 2) ℝ)
+'ZInQ.Contrib.CloudB4W28.isOrder_orderLattice' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.CloudB4W28.isMaximalOrder_orderLattice' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.CloudB4W28.isIndefiniteRamifiedExactlyAt_two_neg_three' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.CloudB4W28.division_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.CloudB4W28.division_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.CloudB4W28.split_real' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.CloudB4W28.flt_order_trace_discriminant' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QuaternionAlgebra.IsOrder.exists_intCast_eq_nrd_and_exists_intCast_eq_trd' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+
+r1fpAb_maximalOrder_bridge : QuaternionAlgebra.IsMaximalOrder orderLattice
+r1fpAb_ramification_bridge : QuaternionAlgebra.IsIndefiniteRamifiedExactlyAt 2 (-3) 2 3
+r1fpAb_order_bridges : QuaternionAlgebra.IsMaximalOrder orderLattice ∧
+  QuaternionAlgebra.IsIndefiniteRamifiedExactlyAt 2 (-3) 2 3
+'ZInQ.Contrib.CloudB4W28.r1fpAb_maximalOrder_bridge' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.CloudB4W28.r1fpAb_ramification_bridge' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.CloudB4W28.r1fpAb_order_bridges' depends on axioms: [propext, Classical.choice, Quot.sound]
