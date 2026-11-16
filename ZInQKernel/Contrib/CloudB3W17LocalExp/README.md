@@ -11,6 +11,7 @@ axioms `propext`, `Classical.choice`, `Quot.sound`; no `sorry`, no `axiom`, no `
 | `GlobalHom.lean` | the same conclusion for a **given global** homomorphism with `LocalInverseData` (an analytic local section at `1` plus injectivity near `0`), with the kernel named: `torus_diffeo_of_globalHom` |
 | `ManifoldIFT.lean` | the **analytic inverse function theorem with vector-space source and manifold target**, missing from Mathlib |
 | `UnconditionalTorus.lean` | the unconditional theorem: a compact connected commutative complex Lie group is a complex torus |
+| `TorusExample.lean` | the analytic structure transported along `Multiplicative`, and a positive-dimensional in-tree instance: `ℂ / (ℤ + ℤ i)` |
 
 ## The inverse function theorem (new, general)
 
@@ -76,9 +77,19 @@ proved here. For abelian varieties it is not needed — `A.Pt ℂ` is commutativ
 * the torus's analytic structure: `BPAnalytic.Torus` (`ZInQKernel/HDecomp/Analytic/Torus.lean`),
   not re-proved here.
 
+## Non-vacuity (in Lean, not by literature ascription)
+
+`TorusExample.lean` transports the analytic structure along the type synonym `Multiplicative` —
+`ChartedSpace`, `IsManifold`, `LieGroup`, `ConnectedSpace`, `CompactSpace` for
+`Multiplicative (BPAnalytic.Torus Λ)`, each by `inferInstanceAs` on the same carrier, with
+multiplication and inversion supplied by the existing additive proofs (`BPAnalytic.lieAddGroup_torus`);
+Mathlib provides no such transport instances, and no torus analytic proof is repeated. It then takes
+the Siegel point `Ω = i`, so `Lat = ℤ i + ℤ` and `Ex = Multiplicative (Torus Lat) = ℂ / (ℤ + ℤ i)`, shows
+`Ex` is nontrivial (`1/2 ∉ Lat`, through `BPAnalytic.mem_periodLattice_iff`), and applies
+`exists_torus_diffeo`, `exists_exp_torus_diffeo` and `mumfordComplexTorus_comm` to it
+(`example_torus_diffeo`, `example_exp_torus_diffeo`, `example_mumfordComplexTorus_comm`). So the
+hypothesis class is inhabited by a one-dimensional group, inside Lean.
+
 ## Not done
 
-* No in-tree instance of the hypotheses is exhibited (the natural witness,
-  `Multiplicative (BPAnalytic.Torus Λ)`, needs `ChartedSpace`/`LieGroup` instances transported along
-  the `Multiplicative` type synonym, which Mathlib does not provide).
 * Commutativity of a general compact connected complex Lie group (Mumford §1's first half).
