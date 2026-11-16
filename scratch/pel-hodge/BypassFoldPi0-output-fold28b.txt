@@ -1,0 +1,8 @@
+scratch/pel-hodge/BypassFoldPi0.lean:165:90: warning: Variable name `l` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _l
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+'HDec.HSyn.sixContactMin_of_open31' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZChain.frozenTarget_pelHodgePi0' depends on axioms: [propext, Classical.choice, Quot.sound]

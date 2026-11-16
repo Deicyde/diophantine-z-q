@@ -235,9 +235,20 @@ written with `lake env lean -o`.
   standard axioms. In it, the only remaining reader of `deligneComponentsX6PrintedAb` is `x6Rows_of18`, which is
   pi0-prune's reroute.
 
-**Not run.**
-* A `lake build` of the merged fold28b tree, which would need the FLT port.
-* `autofold.py --dry-run`: `pelHolFamily` is not a field on this base, and holfam's spec is a hand-folded bypass.
+**Rerun on the true merged base (fold28b + unif-topology + holfam).** After the checks above, the FLT port, the
+fold28b chain and holfam's files were built here.
+* `lake build ZInQKernel.Contrib.OneProof.PELHodge`: "Build completed successfully (12904 jobs)", with
+  `CompositeOut`, `HolFamilyPrinted` and `PELHodge` built from source. See `scratch/pel-hodge/build-fold28b-tail.txt`.
+* `lake build ZInQKernel.OneProof.Main ZInQKernel.OneProof.Discharges`: "Build completed successfully (13667
+  jobs)".
+* `#discharges` on fold28b (`Discharges-output-fold28b.txt`): "61 open hypotheses, 2702 theorems checked, 8
+  discharge one". No `PELHodge` theorem matches an open field, as expected. All 18 `#print axioms` are standard.
+* Both bypass dry runs compile on fold28b as well, with standard axioms (`BypassFold-output-fold28b.txt`,
+  `BypassFoldPi0-output-fold28b.txt`). They still have holfam's fold25 bundle shape, so they are compile checks of
+  the consumer terms, not folds of fold28b.
+
+**Not run.** `autofold.py --dry-run`: `pelHolFamily` is not a field on this base, and holfam's spec is a hand-folded
+bypass.
 
 ## 6. Fold
 
@@ -274,8 +285,6 @@ here.
 * The reading in §7.
 * The fold: either `autofold.json` after holfam's fold, or `autofold-bypass.json` in place of holfam's spec. Each has
   a compiled dry run.
-* A build on the fold28b tree, once the FLT port is built there. Nothing in `PELHodge.lean` depends on the bundle
-  files that fold28b changed; holfam's `CompositeOut` / `DeligneComponentsY3Used` import `TailZ40`.
 * No statement was changed. Nothing under `ZInQKernel/` was edited except the new file
   `ZInQKernel/Contrib/OneProof/PELHodge.lean`.
 

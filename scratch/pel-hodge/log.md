@@ -40,3 +40,7 @@ identical sources in fold25 and fold28b; TailX..TailZ36 differ (igusaGL2 removed
 - h1Form_iff (hU : UniformizationLeafAll) [DiscreteTopology Λ] [IsZLattice ℝ Λ] :
   H1Form A Λ e ↔ IsUniformization id Λ e.  pelHolFamilyHodge_iff hU : PELHolFamilyHodge ↔ PELHolFamily.
 - gagaMorphism not used.
+- fold28b (merged tree): `lake build ZInQKernel.Contrib.OneProof.PELHodge` OK (12904 jobs, FLT port built);
+  `lake build Main Discharges` OK (13667 jobs); Discharges-output-fold28b.txt: 61 open, 2702 checked, 8 discharge
+  one, no PELHodge match, 18/18 standard axioms; BypassFold / BypassFoldPi0 compile on fold28b (standard axioms).
+- Read-only subagent statement review: no soundness issue (summary in report §9).
