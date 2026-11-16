@@ -21,7 +21,7 @@ Gabriel Conant with ChatGPT supplied the November 7, 2026 odd-product reduction 
 
 ## Version 6 sources
 
-The current manuscript credits the collective agentic notes of Stefan Baranczuk, Jose Brox, Gabe Conant, Sohail Farhangi, James Freitag, Elliot Glazer, Jennifer Park, and Caroline Terry. The 962-variable construction continues the independent reconstruction described below, with its own source changes and checks. The degree-four obstruction also follows the public improvements notes. The [Version 6 inventory](docs/quartic-962/README.md) binds each application to its exact source and review scope.
+The project credits the collective agentic notes of Stefan Baranczuk, Jose Brox, Gabe Conant, Sohail Farhangi, James Freitag, Elliot Glazer, and Caroline Terry. The 962-variable construction continues the independent reconstruction described below, with its own source changes and checks. The degree-four obstruction also follows the public improvements notes. The [Version 6 inventory](docs/quartic-962/README.md) binds each application to its exact source and review scope.
 
 Version 6 proves the required fixed Gaussian ray-field special case within the manuscript rather than assuming Frei–Tinková's theorem. Their work remains credited for the method. The replacement uses published results whose exact inspected versions are recorded in the inventory; no blanket claim is made that all final publisher texts were accessible. Downloaded reference articles and page images used for this new research are identified by source metadata and hashes rather than included in the new research directory.
 
