@@ -2,7 +2,7 @@
 
 ## Contributors and citation
 
-This project uses the collective agentic notes from Stefan Baranczuk, Jose Brox, Gabe Conant, Sohail Farhangi, James Freitag, Elliot Glazer, and Caroline Terry.
+This project uses the collective agentic notes from Stefan Baranczuk, Jose Brox, Gabe Conant, Sohail Farhangi, Cameron Freer, James Freitag, Elliot Glazer, and Caroline Terry.
 
 See also [Jose Brox's repository](https://github.com/JoseBrox/diophantine-z-q_improvements) for updated results and related work.
 
