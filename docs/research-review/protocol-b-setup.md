@@ -267,13 +267,14 @@ A current collaborator with write, maintain or admin access can request a run:
 /protocol-b review
 ```
 
-The check summary prints full finding IDs. To decide a deadlock:
+The check summary prints full finding IDs. Only a current repository admin
+may decide a deadlock:
 
 ```text
 /protocol-b override FULL_HEAD_SHA RUN-ATTEMPT-REVIEWER-FINDING_ID Reason for this decision
 ```
 
-Post one command per finding. A run checks current collaborator access and the
+Post one command per finding. A run checks current admin access and the
 exact head. It takes the latest completed pair of decisions from this App's
 check output, never from a bot comment claiming acceptance. If every new and
 unresolved finding is covered, it passes without asking either model to agree.
@@ -581,3 +582,13 @@ also removes that report's inherited evidence, so a removed withdrawal cannot
 expose an older verification. The decision is recomputed before publication. Completed
 verdicts and findings remain, including a rejecting supplement; missing evidence
 does not revive an older acceptance or a withdrawn source verification.
+
+
+### Override authorization
+
+Only repository admins may override reviewer findings. The gate checks current
+admin permission when receiving a command and again when reading stored override
+comments. A non-admin collaborator's override has no effect and receives a short
+reply. Write-access collaborators retain automatic review, `/protocol-b review`,
+and ordinary protected merge access. This change does not alter any review,
+computation, head-binding or merge requirement.

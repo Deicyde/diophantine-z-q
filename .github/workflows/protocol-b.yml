@@ -955,14 +955,25 @@ jobs:
                   match = pattern.fullmatch(comment["body"].strip())
                   if match and match[1] == pr["head"]["sha"] and match[2] in prior:
                       login = comment["user"]["login"]
-                      permission = gh.call("/collaborators/" + urllib.parse.quote(login, safe="") + "/permission")
-                      if permission["permission"] in {"write", "maintain", "admin"} and comment["user"].get("type") == "User":
+                      if administrator(gh, comment["user"]):
                           overrides[match[2]] = {"collaborator": login, "reason": match[3], "url": comment["html_url"]}
               return discussion, prior, overrides, latest
 
 
+          def administrator(gh, user):
+              if user.get('type') != 'User' or not user.get('login'):
+                  return False
+              try:
+                  permission = gh.call('/collaborators/'+urllib.parse.quote(user['login'], safe='')+'/permission')
+              except RequestError as error:
+                  if error.status == 404:
+                      return False
+                  raise
+              return permission['permission'] == 'admin'
+
+
           def overridden_decision(latest, overrides, head):
-              """A collaborator, not a reviewer model, decides a covered deadlock."""
+              """A repository admin, not a reviewer model, decides a covered deadlock."""
               if set(latest) != set(MODELS):
                   raise ValueError("Override needs complete reports from both approved reviewers on this head")
               unresolved = set()
@@ -1558,6 +1569,10 @@ jobs:
                   if event['comment']['user']['login'] != login or not collaborator(gh, event['comment']['user']):
                       return
                   override_command = command.startswith('/protocol-b override ')
+                  if override_command and not administrator(gh, event['comment']['user']):
+                      gh.call(f'/issues/{number}/comments', 'POST', {'body':
+                          'This override was ignored. Only a repository admin may override a review item.'})
+                      return
                   review_command = command == '/protocol-b review'
               pr = gh.call(f"/pulls/{number}")
               if pr["state"] != "open" or pr["draft"] or pr["base"]["ref"] != default:

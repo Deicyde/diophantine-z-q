@@ -307,7 +307,7 @@ class Checks(unittest.TestCase):
         gh.comments = [report_comment(envelope(review=report(findings=[{'id': 'F1'}]))),
                        comment('/protocol-b override ' + HEAD + ' 1-1-astra-F1 reason', 'collaborator')]
         self.assertFalse(gate.history(gh, gh.pr)[2])
-        gh.permission = 'write'
+        gh.permission = 'admin'
         self.assertEqual(gate.history(gh, gh.pr)[2]['1-1-astra-F1']['collaborator'], 'collaborator')
         gh.comments[-1]['body'] = gh.comments[-1]['body'].replace(HEAD, BASE)
         self.assertFalse(gate.history(gh, gh.pr)[2])
@@ -340,7 +340,7 @@ class Checks(unittest.TestCase):
         gh, app = FakeGH(), FakeApp()
         pair = {'astra': envelope(), 'fable': envelope('fable', review=report(decision='changes_requested', findings=[{'id': 'F1', 'location': 'p:1', 'objection': 'gap'}]))}
         app.prior(pair)
-        gh.permission = 'write'
+        gh.permission = 'admin'
         command = comment('/protocol-b override ' + HEAD + ' 1-1-fable-F1 accepted limitation', 'collaborator')
         gh.comments = [report_comment(v) for v in pair.values()] + [command]
         event = {'issue': {'number': 1}, 'comment': command, 'sender': {'login': 'collaborator'}}
