@@ -858,6 +858,13 @@ also match the protected base. This binds every local helper and action/workflow
 reference used by the pinned workflow. A workflow change needs a separately
 reviewed pin update; it cannot silently broaden this producer.
 
+On an outside author's Lean PR, a current collaborator's `/protocol-b review`
+command is the approval to create that branch in this repository and run the
+outside code there. The build uses the pinned workflow's read-only token and
+receives no environment or secrets. It does not wait for the separate
+first-time-contributor approval used by fork `pull_request` runs. The reserved
+branch remains visible until the PR closes and its runs are confirmed terminal.
+
 That pinned kernel workflow uses GitHub-hosted runners, SHA-pinned actions,
 read-only permissions, no environments and no secrets. Its explicit cache-save
 step runs only on pushes to `main`, never on these dispatches. The reserved

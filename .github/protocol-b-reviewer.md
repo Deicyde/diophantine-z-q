@@ -273,6 +273,9 @@ external code, options, tactics, elaborators, macros and environment changes.
 There is no size exemption or keyword-only shortcut. An unresolved integrity
 gap blocks acceptance. Uninspected required hunks must be recorded as incomplete
 scope; an admin's scope override does not turn them into inspected code.
+A changed dependency pin or toolchain whose new source was not inspected is
+an unresolved integrity gap or incomplete-scope item. A pin string alone
+cannot justify acceptance.
 
 This profile never applies to mixed manuscript, record or gate changes. There
 is no automatic proof-only declaration shortcut. Exact-head kernel provenance
