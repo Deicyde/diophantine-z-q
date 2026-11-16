@@ -1,0 +1,23 @@
+{
+ "name": "pel-hodge",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.PELHodge"
+ ],
+ "note": "Applies after holfam's fold (field pelHolFamily in the research bundle). Replaces pelHolFamily (published, pending reading: strict GLUE) by pelHolFamilyHodge (published, printed form: LEAF). If holfam's spec has not been folded yet, use scratch/pel-hodge/autofold-bypass.json instead (holfam's bypass with pelHolFamilyHodge; dry run scratch/pel-hodge/BypassFold.lean compiles).",
+ "discharges": [
+  {
+   "field": "pelHolFamily",
+   "proof": "_root_.PELHodge.pelHolFamily_of_hodge {t}.uniformizationLeafAll {n}.pelHolFamilyHodge",
+   "leaves": [
+    {
+     "name": "pelHolFamilyHodge",
+     "type": "_root_.PELHodge.PELHolFamilyHodge",
+     "doc": "pel-hodge: holfam's PELHolFamily with the fibre clause in the print's Hodge / H_1 form. Deligne's PEL moduli curve M_K3 over Q: a curve S proper and smooth of relative dimension 1 over Q, a QM abelian scheme with level-3 structure over S (QMAbScheme) whose field fibres are objects (QML3), and a holomorphic tau -> s_tau = [h_tau, 1] in S(C) (ShimuraSplit.IsHolFamily) whose fibre P has H_1(P.A(C), Z) = pi_1(P.A(C), 0)^ab (classical topology of unif-printed), with its O-action and Hodge structure, equal to (iota(O)(tau,1)^T, iota, i), i.e. to (O, left multiplication, h_tau) (IsHodgeFibre: a holomorphic homomorphism e : C^2 -> P.A(C), iota-compatible, killing Lambda_tau, with v -> [t -> e(t v)] a bijection Lambda_tau -> H_1). Implies holfam's lattice form with UniformizationLeafAll (pelHolFamily_of_hodge, proved) and conversely (pelHolFamilyHodge_of_pel, proved).",
+     "kind": "published",
+     "flag": "unread: new printed leaf; the fibre clause is now in the print's H_1 / Hodge form (dictionary H_1 = pi_1^ab, Lie A via holomorphic homomorphisms, ker exp = pi_1); the analytic clause (M_K(C) = G(Q)\\X x G(A_f)/K as complex spaces, i.e. tau -> [h_tau,1] holomorphic) is to be checked in the same reading (holfam's flag)",
+     "source": "Deligne, Travaux de Shimura, Sem. Bourbaki 389 (1971) sections 4.9-4.17 and Example 5.8 (M_K(C) = G(Q)\\X x G(A_f)/K, the point [h,g] carrying the abelian variety with H_1(A,Q) = V, Hodge structure h, lattice gL); Milne, Introduction to Shimura varieties (2005) sections 8 and 14 (locators UNVERIFIED)"
+    }
+   ]
+  }
+ ]
+}
