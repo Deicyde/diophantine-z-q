@@ -22,11 +22,11 @@ set_option autoImplicit false
 set_option backward.isDefEq.respectTransparency false
 
 universe u
-open CategoryTheory
-open CategoryTheory.MonoidalCategory
-open Opposite
-open TensorProduct
-open TopologicalSpace
+open _root_.CategoryTheory
+open _root_.CategoryTheory.MonoidalCategory
+open _root_.Opposite
+open _root_.TensorProduct
+open _root_.TopologicalSpace
 
 noncomputable section
 
@@ -36,9 +36,9 @@ namespace Scheme
 export _root_.AlgebraicGeometry.Scheme (forget ringCatSheaf Hom Γ Hom.image_preimage_eq_opensRange_inf Modules Opens Opens.ι_image_top grothendieckTopology Modules.map_smul Opens.opensRange_ι restrict PresheafOfModules Modules.tensorSections Modules.map_homOfLE_tensorSections Modules.IsFrameOn)
 namespace Modules
 export _root_.AlgebraicGeometry.Scheme.Modules (hom_ext toPresheaf pushforward presheaf Hom restrict map_smul tensor tensorSectionsHom tensorSections map_homOfLE_tensorSections IsFrameOn)
-open AlgebraicGeometry.Scheme.Modules
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
 
 namespace FrameTensor
 
@@ -90,7 +90,7 @@ lemma map_smul_tmul {W W' : X.Opens} (i : W' ⟶ W) (g : Γ(X, W)) (s : Γ(L, W)
     (L.val ⊗ M.val).map i.op (g • ((s : L.val.obj (op W)) ⊗ₜ[Γ(X, W)] (t : M.val.obj (op W)))) =
       X.presheaf.map i.op g • ((L.presheaf.map i.op s : L.val.obj (op W')) ⊗ₜ[Γ(X, W')]
         (M.presheaf.map i.op t : M.val.obj (op W'))) := by
-  erw [PresheafOfModules.map_smul, PresheafOfModules.Monoidal.tensorObj_map_tmul]
+  erw [PresheafOfModules.map_smul, _root_.PresheafOfModulesOfCommRing.Monoidal.tensorObj_map_tmul]
   rfl
 
 variable (L M) in

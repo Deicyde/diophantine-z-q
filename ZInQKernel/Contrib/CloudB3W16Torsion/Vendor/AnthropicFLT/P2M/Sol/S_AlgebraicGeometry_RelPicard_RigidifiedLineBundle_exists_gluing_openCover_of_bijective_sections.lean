@@ -82,6 +82,7 @@ theorem τ_paste_app (f : X₀ ⟶ X₁) (g : X₁ ⟶ X₂) (h : X₂ ⟶ X₃)
   subst e₁ e₂ e₃
   simp only [τ_hom_app, eqToHom_refl, Category.comp_id]
   rw [pullbackComp_paste_app]
+  simp only [eqToHom_refl, Category.comp_id]
 
 def sqIso {W X Y Z : Scheme.{u}} {f : W ⟶ X} {g : X ⟶ Z} {h : W ⟶ Y} {k : Y ⟶ Z}
     (e : f ≫ g = h ≫ k) : Scheme.Modules.pullback g ⋙ Scheme.Modules.pullback f ≅ Scheme.Modules.pullback k ⋙ Scheme.Modules.pullback h :=

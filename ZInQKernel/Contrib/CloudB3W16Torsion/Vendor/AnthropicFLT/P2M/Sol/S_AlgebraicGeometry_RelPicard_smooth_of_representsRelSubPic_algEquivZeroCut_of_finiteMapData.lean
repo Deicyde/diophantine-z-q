@@ -66,6 +66,7 @@ theorem solution
         Spec.map (CommRingCat.ofHom (algebraMap R B)) =
         Spec.map (CommRingCat.ofHom (algebraMap R (B ⧸ I))) := by
       rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
+      rfl
     set ι : SchemeHomOver (Spec.map (CommRingCat.ofHom (algebraMap R (B ⧸ I))))
         (Spec.map (CommRingCat.ofHom (algebraMap R B))) :=
       ⟨Spec.map (CommRingCat.ofHom (Ideal.Quotient.mk I)), hι_comp⟩ with hι_def
@@ -248,7 +249,7 @@ theorem solution
           (((D.P.affineCover.X i).isoSpec.inv.appTop).hom a))
         (Scheme.ΓSpecIso_naturality (CommRingCat.ofHom ψ.toRingHom))
       simp only [CommRingCat.hom_comp, RingHom.comp_apply, CommRingCat.hom_ofHom] at hnat3
-      rw [hnat3]
+      erw [hnat3]
 
       have htri : (D.P.affineCover.X i).isoSpec.inv.appTop ≫
           (Scheme.ΓSpecIso (Γ(D.P.affineCover.X i, ⊤))).hom = 𝟙 _ := by

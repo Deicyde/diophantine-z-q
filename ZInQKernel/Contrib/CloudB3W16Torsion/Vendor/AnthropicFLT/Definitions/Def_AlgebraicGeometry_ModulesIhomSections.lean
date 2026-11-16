@@ -31,7 +31,7 @@ namespace InternalHom
 namespace IsSheafAux
 
 variable {C : Type u'} [Category.{v'} C] {R : Cᵒᵖ ⥤ CommRingCat.{u}}
-  (F N : PresheafOfModules.{u} (R ⋙ forget₂ _ _))
+  (F N : PresheafOfModulesOfCommRing.{u} R)
 
 noncomputable def toPresheafHom (X : Cᵒᵖ) (φ : naturalFamilies F N X) :
     (presheafHom F.presheaf N.presheaf).obj X where
@@ -39,7 +39,7 @@ noncomputable def toPresheafHom (X : Cᵒᵖ) (φ : naturalFamilies F N X) :
   naturality {Y Y'} k := by
     ext x
     change φ.1 Y'.unop.hom.op (F.map k.unop.left.op x) = N.map k.unop.left.op (φ.1 Y.unop.hom.op x)
-    rw [φ.2 Y.unop.hom.op k.unop.left.op x]
+    erw [φ.2 Y.unop.hom.op k.unop.left.op x]
     exact congr_app φ (by rw [← op_comp, Over.w]) _
 
 variable {F N} in
@@ -108,7 +108,7 @@ lemma linearSub_local {J : GrothendieckTopology C}
     erw [e] at h
     exact h
   change N.map k.op (appAt s (Opposite.op Y) (r • x)) = N.map k.op (r • appAt s (Opposite.op Y) x)
-  rw [← nat, N.map_smul, ← nat, F.map_smul]
+  erw [← nat, N.map_smul, ← nat, F.map_smul]
   exact hlin _ _
 
 end IsSheafAux
@@ -120,7 +120,7 @@ end PresheafOfModules
 end
 
 theorem PresheafOfModules.ihomObj_isSheaf {C : Type u} [Category.{u} C]
-    {R : Cᵒᵖ ⥤ CommRingCat.{u}} (F N : PresheafOfModules.{u} (R ⋙ forget₂ CommRingCat RingCat))
+    {R : Cᵒᵖ ⥤ CommRingCat.{u}} (F N : PresheafOfModulesOfCommRing.{u} R)
     {J : GrothendieckTopology C} (hN : Presheaf.IsSheaf J N.presheaf) :
     Presheaf.IsSheaf J (PresheafOfModules.ihomObj F N).presheaf := by
   change Presheaf.IsSheaf J (PresheafOfModules.InternalHom.presheaf F N)
@@ -140,21 +140,21 @@ noncomputable section
 namespace PresheafOfModules
 
 variable {C : Type u} [Category.{u} C] {R : Cᵒᵖ ⥤ CommRingCat.{u}}
-  (F : PresheafOfModules.{u} (R ⋙ forget₂ _ _)) {G N N' : PresheafOfModules.{u} (R ⋙ forget₂ _ _)}
+  (F : PresheafOfModulesOfCommRing.{u} R) {G N N' : PresheafOfModulesOfCommRing.{u} R}
 
-lemma ihom_obj_eq_ihomObj (N : PresheafOfModules.{u} (R ⋙ forget₂ _ _)) :
+lemma ihom_obj_eq_ihomObj (N : PresheafOfModulesOfCommRing.{u} R) :
     (ihom F).obj N = ihomObj F N := rfl
 
 lemma ihom_map_app_val (ψ : N ⟶ N') {X : Cᵒᵖ} (φ : (ihomObj F N).obj X) {Y : Cᵒᵖ}
     (f : X ⟶ Y) (x : F.obj Y) :
     (((ihom F).map ψ).app X φ).1 f x = ψ.app Y (φ.1 f x) := rfl
 
-lemma ihom_adjunction_unit_app_val (G : PresheafOfModules.{u} (R ⋙ forget₂ _ _)) {X : Cᵒᵖ}
+lemma ihom_adjunction_unit_app_val (G : PresheafOfModulesOfCommRing.{u} R) {X : Cᵒᵖ}
     (y : G.obj X) {Y : Cᵒᵖ} (f : X ⟶ Y) (x : F.obj Y) :
     ((((ihom.adjunction F).unit.app G).app X y) : (ihomObj F (F ⊗ G)).obj X).1 f x =
       x ⊗ₜ[R.obj Y] G.map f y := rfl
 
-lemma ihom_adjunction_counit_app (N : PresheafOfModules.{u} (R ⋙ forget₂ _ _)) :
+lemma ihom_adjunction_counit_app (N : PresheafOfModulesOfCommRing.{u} R) :
     (ihom.adjunction F).counit.app N = uncurry' F (𝟙 (ihomObj F N)) := rfl
 
 end PresheafOfModules
@@ -269,7 +269,8 @@ lemma ihomSectionsEquivFamily_map_app {X Y Z : Cᵒᵖ} (f : X ⟶ Y) (t : ((iho
     (g : Y ⟶ Z) (m : M.val.obj Z) :
     (ihomSectionsEquivFamily 𝒪 h𝒪 M N Y (((ihom M).obj N).val.map f t)).1 g m =
       (ihomSectionsEquivFamily 𝒪 h𝒪 M N X t).1 (f ≫ g) m := by
-  rw [ihomSectionsEquivFamily_map, ihomObj_map_val]
+  rw [ihomSectionsEquivFamily_map]
+  rfl
 
 variable (M N)
 
@@ -441,7 +442,14 @@ lemma tmulSection_smul_right (X : Cᵒᵖ) (r : 𝒪.obj X) (m : M.val.obj X) (p
     tmulSection 𝒪 h𝒪 M P X m (r • p) = r • tmulSection 𝒪 h𝒪 M P X m p := by
   rw [tmulSection_def, tmulSection_def, ← LinearMap.map_smul]
   erw [← LinearMap.map_smul]
-  rw [TensorProduct.tmul_smul]
+  haveI : IsScalarTower (𝒪.obj X) (𝒪.obj X) (((toPMod 𝒪 h𝒪).obj M).obj X) :=
+    IsScalarTower.left (𝒪.obj X)
+  haveI : IsScalarTower (𝒪.obj X) (𝒪.obj X) (((toPMod 𝒪 h𝒪).obj P).obj X) :=
+    IsScalarTower.left (𝒪.obj X)
+  haveI : TensorProduct.CompatibleSMul (𝒪.obj X) (𝒪.obj X)
+      (((toPMod 𝒪 h𝒪).obj M).obj X) (((toPMod 𝒪 h𝒪).obj P).obj X) :=
+    TensorProduct.CompatibleSMul.isScalarTower
+  erw [TensorProduct.tmul_smul (R := (𝒪.obj X)) (R' := (𝒪.obj X)) r]
   rfl
 
 lemma toPMod_map_curry (θ : M ⊗ P ⟶ N) :
