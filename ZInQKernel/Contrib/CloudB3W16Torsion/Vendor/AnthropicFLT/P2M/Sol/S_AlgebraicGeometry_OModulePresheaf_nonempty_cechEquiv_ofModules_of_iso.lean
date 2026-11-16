@@ -21,7 +21,7 @@ noncomputable section
 universe u
 open CategoryTheory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_OModulePresheaf_nonempty_cechEquiv_ofModules_of_iso.AlgebraicGeometry
+-- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 open Opposite
 
 namespace AlgebraicGeometry

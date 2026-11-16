@@ -24,7 +24,7 @@ set_option linter.unusedSectionVars false
 set_option linter.unusedVariables false
 set_option autoImplicit false
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_OModulePresheaf_ker_d_succ_le_range_d_of_isQuasicoherent.AlgebraicGeometry
+-- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 open CategoryTheory
 open TopologicalSpace
 open Opposite

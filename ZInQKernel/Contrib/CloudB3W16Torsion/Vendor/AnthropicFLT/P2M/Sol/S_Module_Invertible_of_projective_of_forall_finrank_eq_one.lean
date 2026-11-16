@@ -21,7 +21,7 @@ universe u v
 open TensorProduct
 
 namespace Module
-export Module (finrank_zero_of_subsingleton Injective Finite.exists_fin' free_of_flat_of_isLocalRing finrank Free nonempty_linearEquiv_of_finrank_eq_one Dual ext' finrank_baseChange Dual.baseChange_apply_tmul Projective projective_lifting_property)
+export _root_.Module (finrank_zero_of_subsingleton Injective Finite.exists_fin' free_of_flat_of_isLocalRing finrank Free nonempty_linearEquiv_of_finrank_eq_one Dual ext' finrank_baseChange Dual.baseChange_apply_tmul Projective projective_lifting_property)
 namespace Invertible
 namespace RankOneAux
 open Module.Invertible

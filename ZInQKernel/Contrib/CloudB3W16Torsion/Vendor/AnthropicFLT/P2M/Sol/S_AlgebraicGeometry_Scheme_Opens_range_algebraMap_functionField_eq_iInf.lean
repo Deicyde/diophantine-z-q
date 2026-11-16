@@ -19,7 +19,7 @@ set_option autoImplicit false
 set_option maxHeartbeats 1600000
 open CategoryTheory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Opens_range_algebraMap_functionField_eq_iInf.AlgebraicGeometry
+-- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 open TopologicalSpace
 open Opposite
 

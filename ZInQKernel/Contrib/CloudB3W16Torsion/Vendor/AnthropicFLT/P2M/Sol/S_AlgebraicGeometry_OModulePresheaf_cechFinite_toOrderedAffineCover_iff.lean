@@ -23,7 +23,7 @@ universe u
 open CategoryTheory
 open Opposite
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_OModulePresheaf_cechFinite_toOrderedAffineCover_iff.AlgebraicGeometry
+-- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 
 namespace AlgebraicGeometry
 export AlgebraicGeometry (Surjective Spec Scheme Scheme.OrderedAffineCover Scheme.OrderedAffineCover.Idx OModulePresheaf Scheme.TwoAffineOpenCover)

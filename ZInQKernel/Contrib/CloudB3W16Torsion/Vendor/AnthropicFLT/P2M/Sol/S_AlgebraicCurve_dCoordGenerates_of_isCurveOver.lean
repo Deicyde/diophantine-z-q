@@ -107,8 +107,7 @@ private theorem _root_.AlgebraicCurve.Place.range_mapBaseChange_le_span_D_unifor
   letI := v.polynomialAlgebra
   letI := v.polynomialIsScalarTower
   rintro _ ⟨t, rfl⟩
-  induction t with
-  | zero => simp
+  induction t using TensorProduct.inductionOn with
   | add x y hx hy => rw [map_add]; exact add_mem hx hy
   | tmul b ω =>
     rw [KaehlerDifferential.mapBaseChange_tmul,
@@ -792,7 +791,6 @@ end Gates
 end AlgebraicCurve
 open IsLocalRing
 open IntermediateField
-open P2MW.S_AlgebraicCurve_dCoordGenerates_of_isCurveOver.IntermediateField
 open IntermediateField.algebraAdjoinAdjoin
 
 namespace AlgebraicCurve
@@ -959,7 +957,6 @@ end SeparatingTranscendental
 
 end AlgebraicCurve
 open IntermediateField
-open P2MW.S_AlgebraicCurve_dCoordGenerates_of_isCurveOver.IntermediateField
 
 namespace IntermediateField
 export _root_.IntermediateField (toAlgebra val inclusion ext adjoin_simple_le_iff equivOfEq adjoin comap mem_top restrictScalars mem_bot mem_adjoin_simple_self smul_mem map)
@@ -999,7 +996,6 @@ theorem isSeparable_adjoin_inv_s12 (t : F) [Algebra.IsSeparable K⟮t⟯ F] :
 
 end IntermediateField
 open IntermediateField
-open P2MW.S_AlgebraicCurve_dCoordGenerates_of_isCurveOver.IntermediateField
 
 namespace AlgebraicCurve
 export _root_.AlgebraicCurve (IsCurveOver Place Place.FiniteResidue Place.FiniteResidue.finite IsCurveOver.exists_separating_transcendental)

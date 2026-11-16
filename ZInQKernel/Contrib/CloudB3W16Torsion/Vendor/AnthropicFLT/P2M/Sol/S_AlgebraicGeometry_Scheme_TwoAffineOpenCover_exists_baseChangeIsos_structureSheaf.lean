@@ -24,11 +24,11 @@ universe u
 open CategoryTheory CategoryTheory.Limits Opposite TensorProduct
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Spec.map_comp Scheme.Hom.map_appLE Scheme.Opens.topIso_inv pullbackSpecIso_inv_snd Scheme.Hom Scheme.Γ IsAffineOpen.fromSpec_top IsAffineOpen.SpecMap_appLE_fromSpec Spec Spec.map Scheme.ΓSpecIso_inv_naturality Scheme pullbackSpecIso Scheme.isoSpec_Spec_inv IsAffineOpen.isoSpec_hom_appTop pullbackRestrictIsoRestrict_inv_fst_assoc Scheme.Opens.topIso_hom Scheme.Hom.comp_appTop Scheme.Hom.naturality pullbackSpecIso_inv_fst isAffineOpen_top IsAffineOpen pullbackRestrictIsoRestrict Scheme.Opens Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE Scheme.Opens.ι_appTop Scheme.Hom.appLE morphismRestrict_appLE Scheme.ΓSpecIso Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap)
+export _root_.AlgebraicGeometry (Spec.map_comp Scheme.Hom.map_appLE Scheme.Opens.topIso_inv pullbackSpecIso_inv_snd Scheme.Hom Scheme.Γ IsAffineOpen.fromSpec_top IsAffineOpen.SpecMap_appLE_fromSpec Spec Spec.map Scheme.ΓSpecIso_inv_naturality Scheme pullbackSpecIso Scheme.isoSpec_Spec_inv IsAffineOpen.isoSpec_hom_appTop pullbackRestrictIsoRestrict_inv_fst_assoc Scheme.Opens.topIso_hom Scheme.Hom.comp_appTop Scheme.Hom.naturality pullbackSpecIso_inv_fst isAffineOpen_top IsAffineOpen pullbackRestrictIsoRestrict Scheme.Opens Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE Scheme.Opens.ι_appTop Scheme.Hom.appLE morphismRestrict_appLE Scheme.ΓSpecIso Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Hom.map_appLE Opens.topIso_inv Hom mk Γ topIso_hom topIso ΓSpecIso_inv_naturality isoSpec_Spec_inv Opens.topIso_hom Hom.comp_appTop isoSpec Hom.naturality mk.injEq Opens Hom.appLE_map Hom.app_eq_appLE Opens.ι_appTop restrict Hom.appLE Cover ΓSpecIso TwoAffineOpenCover TwoAffineOpenCover.specMap)
+export _root_.AlgebraicGeometry.Scheme (Hom.map_appLE Opens.topIso_inv Hom mk Γ topIso_hom topIso ΓSpecIso_inv_naturality isoSpec_Spec_inv Opens.topIso_hom Hom.comp_appTop isoSpec Hom.naturality mk.injEq Opens Hom.appLE_map Hom.app_eq_appLE Opens.ι_appTop restrict Hom.appLE Cover ΓSpecIso TwoAffineOpenCover TwoAffineOpenCover.specMap)
 namespace TwoAffineOpenCover
-export AlgebraicGeometry.Scheme.TwoAffineOpenCover (specMap algebraOfHom algebraMap_algebraOfHom restrictAlgHom cover structureSheafSections pullback isAffineOpen_U0 isAffineOpen_inf mk.injEq U1 U0 mk isAffineOpen_U1)
+export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (specMap algebraOfHom algebraMap_algebraOfHom restrictAlgHom cover structureSheafSections pullback isAffineOpen_U0 isAffineOpen_inf mk.injEq U1 U0 mk isAffineOpen_U1)
 open AlgebraicGeometry.Scheme.TwoAffineOpenCover
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry
@@ -41,9 +41,9 @@ variable (A : Type u) [CommRing A] [Algebra R A]
 abbrev XA : Scheme.{u} := Limits.pullback c (specMap R A)
 
 private abbrev _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover.AffineBaseChange.fst : XA c A ⟶ X := Limits.pullback.fst c (specMap R A)
-export AlgebraicGeometry.Scheme.TwoAffineOpenCover.AffineBaseChange (fst)
+export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover.AffineBaseChange (fst)
 private abbrev _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover.AffineBaseChange.snd : XA c A ⟶ Spec (.of A) := Limits.pullback.snd c (specMap R A)
-export AlgebraicGeometry.Scheme.TwoAffineOpenCover.AffineBaseChange (snd)
+export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover.AffineBaseChange (snd)
 variable (U : X.Opens) (hU : IsAffineOpen U)
 
 theorem specMap_algebraMap_eq :
@@ -190,11 +190,11 @@ end AlgebraicGeometry.Scheme.TwoAffineOpenCover
 open CategoryTheory CategoryTheory.Limits Opposite TensorProduct
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Spec.map_comp Scheme.Hom.map_appLE Scheme.Opens.topIso_inv pullbackSpecIso_inv_snd Scheme.Hom Scheme.Γ IsAffineOpen.fromSpec_top IsAffineOpen.SpecMap_appLE_fromSpec Spec Spec.map Scheme.ΓSpecIso_inv_naturality Scheme pullbackSpecIso Scheme.isoSpec_Spec_inv IsAffineOpen.isoSpec_hom_appTop pullbackRestrictIsoRestrict_inv_fst_assoc Scheme.Opens.topIso_hom Scheme.Hom.comp_appTop Scheme.Hom.naturality pullbackSpecIso_inv_fst isAffineOpen_top IsAffineOpen pullbackRestrictIsoRestrict Scheme.Opens Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE Scheme.Opens.ι_appTop Scheme.Hom.appLE morphismRestrict_appLE Scheme.ΓSpecIso Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap)
+export _root_.AlgebraicGeometry (Spec.map_comp Scheme.Hom.map_appLE Scheme.Opens.topIso_inv pullbackSpecIso_inv_snd Scheme.Hom Scheme.Γ IsAffineOpen.fromSpec_top IsAffineOpen.SpecMap_appLE_fromSpec Spec Spec.map Scheme.ΓSpecIso_inv_naturality Scheme pullbackSpecIso Scheme.isoSpec_Spec_inv IsAffineOpen.isoSpec_hom_appTop pullbackRestrictIsoRestrict_inv_fst_assoc Scheme.Opens.topIso_hom Scheme.Hom.comp_appTop Scheme.Hom.naturality pullbackSpecIso_inv_fst isAffineOpen_top IsAffineOpen pullbackRestrictIsoRestrict Scheme.Opens Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE Scheme.Opens.ι_appTop Scheme.Hom.appLE morphismRestrict_appLE Scheme.ΓSpecIso Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Hom.map_appLE Opens.topIso_inv Hom mk Γ topIso_hom topIso ΓSpecIso_inv_naturality isoSpec_Spec_inv Opens.topIso_hom Hom.comp_appTop isoSpec Hom.naturality mk.injEq Opens Hom.appLE_map Hom.app_eq_appLE Opens.ι_appTop restrict Hom.appLE Cover ΓSpecIso TwoAffineOpenCover TwoAffineOpenCover.specMap)
+export _root_.AlgebraicGeometry.Scheme (Hom.map_appLE Opens.topIso_inv Hom mk Γ topIso_hom topIso ΓSpecIso_inv_naturality isoSpec_Spec_inv Opens.topIso_hom Hom.comp_appTop isoSpec Hom.naturality mk.injEq Opens Hom.appLE_map Hom.app_eq_appLE Opens.ι_appTop restrict Hom.appLE Cover ΓSpecIso TwoAffineOpenCover TwoAffineOpenCover.specMap)
 namespace TwoAffineOpenCover
-export AlgebraicGeometry.Scheme.TwoAffineOpenCover (specMap algebraOfHom algebraMap_algebraOfHom restrictAlgHom cover structureSheafSections pullback isAffineOpen_U0 isAffineOpen_inf mk.injEq U1 U0 mk isAffineOpen_U1)
+export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (specMap algebraOfHom algebraMap_algebraOfHom restrictAlgHom cover structureSheafSections pullback isAffineOpen_U0 isAffineOpen_inf mk.injEq U1 U0 mk isAffineOpen_U1)
 open AlgebraicGeometry.Scheme.TwoAffineOpenCover
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry
@@ -207,9 +207,9 @@ variable (A : Type u) [CommRing A] [Algebra R A]
 abbrev XA : Scheme.{u} := Limits.pullback c (specMap R A)
 
 private abbrev _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover.CechBaseChange.fst : XA c A ⟶ X := Limits.pullback.fst c (specMap R A)
-export AlgebraicGeometry.Scheme.TwoAffineOpenCover.CechBaseChange (fst)
+export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover.CechBaseChange (fst)
 private abbrev _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover.CechBaseChange.snd : XA c A ⟶ Spec (.of A) := Limits.pullback.snd c (specMap R A)
-export AlgebraicGeometry.Scheme.TwoAffineOpenCover.CechBaseChange (snd)
+export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover.CechBaseChange (snd)
 theorem restrict_compat {U V : X.Opens} (hVU : V ≤ U)
     (eU : letI := algebraOfHom c U; letI := algebraOfHom (snd c A) ((fst c A) ⁻¹ᵁ U)
       (A ⊗[R] Γ(X, U)) ≃ₐ[A] Γ(XA c A, (fst c A) ⁻¹ᵁ U))

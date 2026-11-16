@@ -22,7 +22,7 @@ universe u
 open TensorProduct
 
 namespace Ideal
-export Ideal (map_le_iff_le_comap map_map Quotient.eq_zero_iff_mem Quotient.mkₐ comap_map_eq_self_of_faithfullyFlat Quotient.mk map_id map quotientMap_injective' ext map_comap_le quotientMapₐ mem_map_of_mem mem_comap map_mono comap Quotient.mkₐ_eq_mk)
+export _root_.Ideal (map_le_iff_le_comap map_map Quotient.eq_zero_iff_mem Quotient.mkₐ comap_map_eq_self_of_faithfullyFlat Quotient.mk map_id map quotientMap_injective' ext map_comap_le quotientMapₐ mem_map_of_mem mem_comap map_mono comap Quotient.mkₐ_eq_mk)
 open Ideal
 
 variable {A B : Type u} [CommRing A] [CommRing B] [Algebra A B]
@@ -76,7 +76,7 @@ theorem map_comap_eq_self_of_descentCondition_of_section (σ : B →ₐ[A] A) (I
 end Ideal
 
 namespace Ideal
-export Ideal (map_le_iff_le_comap map_map Quotient.eq_zero_iff_mem Quotient.mkₐ comap_map_eq_self_of_faithfullyFlat Quotient.mk map_id map quotientMap_injective' ext map_comap_le quotientMapₐ mem_map_of_mem mem_comap map_mono comap Quotient.mkₐ_eq_mk)
+export _root_.Ideal (map_le_iff_le_comap map_map Quotient.eq_zero_iff_mem Quotient.mkₐ comap_map_eq_self_of_faithfullyFlat Quotient.mk map_id map quotientMap_injective' ext map_comap_le quotientMapₐ mem_map_of_mem mem_comap map_mono comap Quotient.mkₐ_eq_mk)
 open Ideal
 
 variable {A B : Type u} [CommRing A] [CommRing B] [Algebra A B]

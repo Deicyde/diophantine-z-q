@@ -22,7 +22,7 @@ universe u
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_IsInvertible_existsUnique_app_eq_smul.AlgebraicGeometry
+-- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 open Opposite
 
 namespace AlgebraicGeometry
@@ -321,7 +321,7 @@ end AlgebraicGeometry.Scheme.Modules
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_IsInvertible_existsUnique_app_eq_smul.AlgebraicGeometry
+-- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 
 theorem solution
     {X : Scheme.{u}} {M : X.Modules} (hM : Scheme.Modules.IsInvertible M) (g : M ⟶ M) :

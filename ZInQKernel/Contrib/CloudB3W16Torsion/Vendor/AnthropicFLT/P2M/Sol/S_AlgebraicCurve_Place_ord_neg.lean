@@ -16,7 +16,7 @@ set_option backward.isDefEq.respectTransparency false
 namespace P2MW.S_AlgebraicCurve_Place_ord_neg
 
 namespace AlgebraicCurve
-export AlgebraicCurve (Place Place.ord_algebraMap)
+export _root_.AlgebraicCurve (Place Place.ord_algebraMap)
 namespace FF2S
 open AlgebraicCurve
 

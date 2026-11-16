@@ -22,7 +22,7 @@ universe u
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_baseChangeHom_comp_horizontal.AlgebraicGeometry
+-- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 namespace AlgebraicGeometry
 export AlgebraicGeometry (Scheme.Modules.hom_ext Scheme.Modules.pushforward Scheme.Modules.pullback Scheme.Modules.Hom.comp_app Scheme.Modules.Hom Scheme Scheme.Modules.Hom.app Scheme.Modules Scheme.Modules.pullbackComp Scheme.Modules.baseChangeHom Scheme.Modules.unit_app_comp_pullbackComp_inv)
 namespace Scheme

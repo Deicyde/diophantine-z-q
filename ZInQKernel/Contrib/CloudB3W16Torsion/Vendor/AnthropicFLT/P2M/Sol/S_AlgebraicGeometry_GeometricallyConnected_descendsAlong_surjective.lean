@@ -21,7 +21,7 @@ open CategoryTheory
 open CategoryTheory.Limits
 open CategoryTheory.MorphismProperty
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_GeometricallyConnected_descendsAlong_surjective.AlgebraicGeometry
+-- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 
 namespace AlgebraicGeometry
 export AlgebraicGeometry (Surjective Spec Scheme GeometricallyConnected geometrically)

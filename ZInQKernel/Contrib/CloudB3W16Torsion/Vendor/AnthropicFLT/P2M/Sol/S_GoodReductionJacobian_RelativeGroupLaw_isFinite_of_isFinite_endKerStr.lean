@@ -277,7 +277,7 @@ private theorem _root_.P2mIsogFin.finite_preimage_singleton [IsFinite (L.endKerS
       exact hy ⟨a, rfl⟩
     rw [h]
     exact Set.finite_empty
-export P2mIsogFin (finite_preimage_singleton)
+export _root_.P2mIsogFin (finite_preimage_singleton)
 theorem locallyQuasiFinite [LocallyOfFiniteType f] [IsFinite (L.endKerStr β)] :
     LocallyQuasiFinite β.1 := by
   haveI : LocallyOfFiniteType β.1 := by

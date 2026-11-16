@@ -43,7 +43,7 @@ universe u v w
 
 open scoped TensorProduct
 open CoherentBaseChange
-open P2MW.S_CoherentBaseChange_TwoTermComplex_projective_ker_of_isReduced_of_fibreH0_const.CoherentBaseChange
+-- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 
 namespace CBCSol
 

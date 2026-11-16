@@ -21,7 +21,7 @@ universe u v w
 
 open scoped TensorProduct
 open CoherentBaseChange
-open P2MW.S_CoherentBaseChange_TwoTermComplex_natCast_finrank_ker_baseChange_sub_natCast_finrank_quotient_range_eq_chi.CoherentBaseChange
+-- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 
 namespace CoherentBaseChange
 export CoherentBaseChange (TwoTermComplex)

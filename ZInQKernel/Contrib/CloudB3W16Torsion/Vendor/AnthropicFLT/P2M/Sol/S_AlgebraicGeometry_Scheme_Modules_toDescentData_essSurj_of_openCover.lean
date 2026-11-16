@@ -19,10 +19,10 @@ set_option maxHeartbeats 1600000
 
 universe v v' u
 open CategoryTheory
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_toDescentData_essSurj_of_openCover.CategoryTheory
+-- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_toDescentData_essSurj_of_openCover.AlgebraicGeometry
+-- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 open Opposite
 open TopologicalSpace
 

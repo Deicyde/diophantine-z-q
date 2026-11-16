@@ -15,7 +15,7 @@ set_option backward.isDefEq.respectTransparency false
 namespace P2MW.S_AlgebraicCurve_Place_ord_add_eq_of_lt
 
 namespace AlgebraicCurve
-export AlgebraicCurve (Place Place.ord)
+export _root_.AlgebraicCurve (Place Place.ord)
 namespace FF2S
 open AlgebraicCurve
 

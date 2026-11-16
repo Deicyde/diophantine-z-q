@@ -19,7 +19,7 @@ set_option autoImplicit false
 set_option maxHeartbeats 9600000
 
 namespace AlgebraicCurve
-export AlgebraicCurve (repartitions repartitionsOf principalRepartitions mem_principalRepartitions_iff genusFF Place Place.ext Divisor)
+export _root_.AlgebraicCurve (repartitions repartitionsOf principalRepartitions mem_principalRepartitions_iff genusFF Place Place.ext Divisor)
 open AlgebraicCurve
 
 open WithZero
@@ -83,7 +83,7 @@ private def _root_.AlgebraicCurve.Place.congr (v : Place K F₁) : Place K F₂ 
     exact ⟨⟨e.symm y.1, hy₁⟩, Subtype.ext (e.apply_symm_apply y.1)⟩
 
 end Place
-export AlgebraicCurve (Place.congr)
+export _root_.AlgebraicCurve (Place.congr)
 open scoped AlgebraicCurve.Place in
 theorem Place.congr_toValuationSubring (v : Place K F₁) :
     (v.congr e).toValuationSubring = v.toValuationSubring.comap e.symm := rfl
@@ -96,7 +96,7 @@ private theorem _root_.AlgebraicCurve.Place.mem_congr_iff (v : Place K F₁) (x 
   simp
 
 end Place
-export AlgebraicCurve (Place.mem_congr_iff)
+export _root_.AlgebraicCurve (Place.mem_congr_iff)
 open scoped AlgebraicCurve.Place in
 theorem Place.congr_symm_congr (v : Place K F₁) :
     (v.congr e).congr e.symm = v := by

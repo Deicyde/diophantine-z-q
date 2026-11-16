@@ -27,9 +27,9 @@ open scoped TensorProduct
 universe u
 
 namespace TwoChartCech
-export TwoChartCech (Mumford.dK Mumford.ι0 Mumford.ι1 Mumford.comm cokerMapBaseChange)
+export _root_.TwoChartCech (Mumford.dK Mumford.ι0 Mumford.ι1 Mumford.comm cokerMapBaseChange)
 namespace Mumford
-export TwoChartCech.Mumford (rank lift surjective_coprod K0 dK ι0 ι1 ι1_eq comm)
+export _root_.TwoChartCech.Mumford (rank lift surjective_coprod K0 dK ι0 ι1 ι1_eq comm)
 open TwoChartCech.Mumford
 open TwoChartCech
 

@@ -20,9 +20,9 @@ set_option autoImplicit false
 
 universe v u
 open CategoryTheory
-open P2MW.S_CategoryTheory_MorphismProperty_widePullback_base.CategoryTheory
+-- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 open CategoryTheory.Limits
-open P2MW.S_CategoryTheory_MorphismProperty_widePullback_base.CategoryTheory.Limits
+-- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 
 namespace CategoryTheory
 export CategoryTheory (Category MorphismProperty inv over IsIso)

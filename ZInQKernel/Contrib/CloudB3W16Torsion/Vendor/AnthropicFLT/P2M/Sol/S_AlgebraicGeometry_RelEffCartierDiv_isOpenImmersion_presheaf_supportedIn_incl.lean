@@ -23,7 +23,7 @@ open CategoryTheory
 open CategoryTheory.Limits
 open Opposite
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_RelEffCartierDiv_isOpenImmersion_presheaf_supportedIn_incl.AlgebraicGeometry
+-- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 
 namespace AlgebraicGeometry
 export AlgebraicGeometry (IsOpenImmersion.lift Scheme.Opens.range_ι Scheme IsOpenImmersion Scheme.Opens IsOpenImmersion.lift_fac RelEffCartierDiv.supportedIn RelEffCartierDiv.functor RelEffCartierDiv)

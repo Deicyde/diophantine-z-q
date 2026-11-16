@@ -29,7 +29,7 @@ universe u
 open CategoryTheory AlgebraicGeometry Opposite TopologicalSpace
 
 namespace TwoChartCech
-export TwoChartCech (Sections Sections.cechDiff_apply kerMap cokerMap)
+export _root_.TwoChartCech (Sections Sections.cechDiff_apply kerMap cokerMap)
 open TwoChartCech
 
 universe uR uK
@@ -76,7 +76,7 @@ theorem cokerMap_bijective_of_bijective' (dK : K0 →ₗ[R] K1) (d : C0 →ₗ[R
 end TwoChartCech
 
 namespace AlgebraicCurve
-export AlgebraicCurve (Divisor baseToFunctionField placesOf placesOf_mono lSpaceOn cechDiff coe_cechDiff_apply cechH0 cechH1 H1 eq_of_range_stalk_eq)
+export _root_.AlgebraicCurve (Divisor baseToFunctionField placesOf placesOf_mono lSpaceOn cechDiff coe_cechDiff_apply cechH0 cechH1 H1 eq_of_range_stalk_eq)
 open AlgebraicCurve
 open CategoryTheory AlgebraicGeometry Opposite TopologicalSpace
 

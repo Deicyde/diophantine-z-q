@@ -21,9 +21,9 @@ open IsLocalRing
 attribute [local instance] Ideal.Quotient.field
 
 namespace Algebra
-export Algebra (commutes algebraMap mem_iInf FiniteType IsIntegral.of_finite Etale smul_def IsStandardSmoothOfRelativeDimension IsStandardSmoothOfRelativeDimension.exists_etale_mvPolynomial FiniteType.isNoetherianRing mem_bot isUnramifiedAt_iff_map_eq)
+export _root_.Algebra (commutes algebraMap mem_iInf FiniteType IsIntegral.of_finite Etale smul_def IsStandardSmoothOfRelativeDimension IsStandardSmoothOfRelativeDimension.exists_etale_mvPolynomial FiniteType.isNoetherianRing mem_bot isUnramifiedAt_iff_map_eq)
 namespace IsStandardSmoothOfRelativeDimension
-export Algebra.IsStandardSmoothOfRelativeDimension (out exists_etale_mvPolynomial trans)
+export _root_.Algebra.IsStandardSmoothOfRelativeDimension (out exists_etale_mvPolynomial trans)
 open Algebra.IsStandardSmoothOfRelativeDimension
 open Algebra
 

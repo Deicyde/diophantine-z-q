@@ -22,7 +22,7 @@ open CategoryTheory
 open AlgebraicGeometry
 open NeronModelInfra
 open GoodReductionJacobian
-open P2MW.S_GoodReductionJacobian_RelativeGroupLaw_formallyUnramified_schemeNsmul_of_isUnit_of_isLocalRing.GoodReductionJacobian
+-- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 open scoped TensorProduct
 
 universe u

@@ -20,7 +20,7 @@ namespace P2MW.S_AlgebraicCurve_mem_repartitionsOf_iff_coe_mem_adeleBdd
 set_option autoImplicit false
 
 namespace AlgebraicCurve
-export AlgebraicCurve (Place Divisor repartitions repartitionsOf adeleBdd)
+export _root_.AlgebraicCurve (Place Divisor repartitions repartitionsOf adeleBdd)
 open AlgebraicCurve
 
 open WithZero

@@ -24,9 +24,9 @@ universe u
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_SmoothProperCurve_FiniteMapData_exists_baseChange.AlgebraicGeometry
+-- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 open AlgebraicGeometry.SmoothProperCurve
-open P2MW.S_AlgebraicGeometry_SmoothProperCurve_FiniteMapData_exists_baseChange.AlgebraicGeometry.SmoothProperCurve
+-- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 open NeronModelInfra
 open TensorProduct
 

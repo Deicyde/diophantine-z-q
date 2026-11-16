@@ -23,9 +23,9 @@ open SetLike
 open DirectSum.SetLike
 
 namespace Ideal
-export Ideal (mul_mem_right sum_mem mul_mem_left IsHomogeneous pow_mem_of_mem IsPrime eq_top_iff_one)
+export _root_.Ideal (mul_mem_right sum_mem mul_mem_left IsHomogeneous pow_mem_of_mem IsPrime eq_top_iff_one)
 namespace IsHomogeneous
-export Ideal.IsHomogeneous (mem_iff)
+export _root_.Ideal.IsHomogeneous (mem_iff)
 open Ideal.IsHomogeneous
 open Ideal
 
@@ -39,7 +39,7 @@ private theorem _root_.Ideal.IsHomogeneous.exists_homogeneous_mem_notMem {I : Id
   apply hap
   rw [← DirectSum.sum_support_decompose 𝒜 a]
   exact Ideal.sum_mem _ fun i _ => H i _ (SetLike.coe_mem _) (hI i haI)
-export Ideal.IsHomogeneous (exists_homogeneous_mem_notMem)
+export _root_.Ideal.IsHomogeneous (exists_homogeneous_mem_notMem)
 private theorem _root_.Ideal.IsHomogeneous.exists_homogeneous_pos_mem_notMem {I : Ideal A} (hI : I.IsHomogeneous 𝒜)
     (hirr : I ≤ (HomogeneousIdeal.irrelevant 𝒜).toIdeal) {p : Ideal A} (h : ¬ I ≤ p) :
     ∃ (n : ℕ) (x : A), 0 < n ∧ x ∈ 𝒜 n ∧ x ∈ I ∧ x ∉ p := by
@@ -53,7 +53,7 @@ private theorem _root_.Ideal.IsHomogeneous.exists_homogeneous_pos_mem_notMem {I 
   rw [GradedRing.proj_apply, DirectSum.decompose_of_mem_same 𝒜 hxn] at hx0
   rw [hx0]
   exact p.zero_mem
-export Ideal.IsHomogeneous (exists_homogeneous_pos_mem_notMem)
+export _root_.Ideal.IsHomogeneous (exists_homogeneous_pos_mem_notMem)
 private theorem _root_.Ideal.IsHomogeneous.exists_homogeneous_pos_mem_forall_notMem {I : Ideal A} (hI : I.IsHomogeneous 𝒜)
     (hirr : I ≤ (HomogeneousIdeal.irrelevant 𝒜).toIdeal) (t : Finset (Ideal A))
     (hprime : ∀ p ∈ t, p.IsPrime) (hhom : ∀ p ∈ t, p.IsHomogeneous 𝒜) (havoid : ∀ p ∈ t, ¬ I ≤ p) :
@@ -122,7 +122,7 @@ private theorem _root_.Ideal.IsHomogeneous.exists_homogeneous_pos_mem_forall_not
           have h1 : Y ^ n ∈ p := p.pow_mem_of_mem (hYq p hp') _ hn
           simpa using p.sub_mem hz h1
         exact hx p hp' (hpP.mem_of_pow_mem _ this)
-export Ideal.IsHomogeneous (exists_homogeneous_pos_mem_forall_notMem)
+export _root_.Ideal.IsHomogeneous (exists_homogeneous_pos_mem_forall_notMem)
 end Ideal.IsHomogeneous
 
 theorem solution

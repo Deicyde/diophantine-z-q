@@ -25,11 +25,11 @@ noncomputable section
 open IsDedekindDomain WithZero IsLocalRing
 
 namespace AlgebraicCurve
-export AlgebraicCurve (Place.finite_setOf_restrict_eq Place RationalFunctionField.finite_setOf_ord_ne_zero)
+export _root_.AlgebraicCurve (Place.finite_setOf_restrict_eq Place RationalFunctionField.finite_setOf_ord_ne_zero)
 open AlgebraicCurve
 
 namespace Place
-export AlgebraicCurve.Place (ord_neg mem_of_eval_monic_eq_zero finite_setOf_restrict_eq restrict ord_restrict ord ord_mul toValuationSubring ord_nonneg_of_mem mem_of_ord_nonneg)
+export _root_.AlgebraicCurve.Place (ord_neg mem_of_eval_monic_eq_zero finite_setOf_restrict_eq restrict ord_restrict ord ord_mul toValuationSubring ord_nonneg_of_mem mem_of_ord_nonneg)
 open AlgebraicCurve.Place hiding ord_eq_zero_iff_adicValuation_eq_one exists_ord_pos
 
 section SupportTransfer
@@ -49,7 +49,7 @@ private theorem _root_.AlgebraicCurve.Place.aeval_mem {Q : Polynomial F} {x : F'
     Polynomial.aeval x Q ∈ w.toValuationSubring := by
   rw [Polynomial.aeval_def, Polynomial.eval₂_eq_sum_range]
   exact sum_mem fun i _ => mul_mem (hcoeff i) (pow_mem hx i)
-export AlgebraicCurve.Place (aeval_mem)
+export _root_.AlgebraicCurve.Place (aeval_mem)
 private theorem _root_.AlgebraicCurve.Place.exists_coeff_ord_ne_zero {f : F'} (hf : f ≠ 0) (hford : w.ord f ≠ 0) :
     ∃ i < (minpoly F f).natDegree, (minpoly F f).coeff i ≠ 0 ∧
       w.ord (algebraMap F F' ((minpoly F f).coeff i)) ≠ 0 := by
@@ -96,7 +96,7 @@ private theorem _root_.AlgebraicCurve.Place.exists_coeff_ord_ne_zero {f : F'} (h
     omega
   have := hcon 0 hdeg hc0
   omega
-export AlgebraicCurve.Place (exists_coeff_ord_ne_zero)
+export _root_.AlgebraicCurve.Place (exists_coeff_ord_ne_zero)
 end SupportTransfer
 
 end Place

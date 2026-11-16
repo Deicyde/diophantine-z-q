@@ -24,7 +24,7 @@ set_option autoImplicit false
 open IsLocalRing RingTheory
 
 namespace Module
-export Module (support mem_annihilator annihilator mk annihilator_eq_top_iff support_eq_empty_iff support_eq_zeroLocus length depth)
+export _root_.Module (support mem_annihilator annihilator mk annihilator_eq_top_iff support_eq_empty_iff support_eq_zeroLocus length depth)
 open Module
 
 variable (R M : Type*) [CommRing R] [IsLocalRing R] [AddCommGroup M] [Module R M]

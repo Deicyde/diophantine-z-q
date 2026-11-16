@@ -25,7 +25,7 @@ universe u
 open Polynomial
 
 namespace TwoChartCech
-export TwoChartCech (Cover Sections Sections.cechDiff_apply)
+export _root_.TwoChartCech (Cover Sections Sections.cechDiff_apply)
 namespace ChartFinite
 open TwoChartCech
 

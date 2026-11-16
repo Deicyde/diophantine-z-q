@@ -24,9 +24,9 @@ open scoped TensorProduct
 universe u v w
 
 namespace TwoChartCech
-export TwoChartCech (Mumford.K0)
+export _root_.TwoChartCech (Mumford.K0)
 namespace Mumford
-export TwoChartCech.Mumford (rank lift K0 mem_K0_iff dK ι0 dK_apply ι0_apply)
+export _root_.TwoChartCech.Mumford (rank lift K0 mem_K0_iff dK ι0 dK_apply ι0_apply)
 open TwoChartCech.Mumford
 open TwoChartCech
 

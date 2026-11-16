@@ -22,7 +22,7 @@ universe u
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_RelEffCartierDiv_exists_supportedIn_of_forall_finset.AlgebraicGeometry
+-- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 
 namespace AlgebraicGeometry
 export AlgebraicGeometry (Scheme.Opens.range_ι Scheme.Hom Scheme IsAffineOpen Scheme.Opens Scheme.Hom.comp_apply RelEffCartierDiv)

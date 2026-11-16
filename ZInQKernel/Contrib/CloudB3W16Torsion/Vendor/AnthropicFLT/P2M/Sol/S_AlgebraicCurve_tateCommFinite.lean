@@ -35,7 +35,7 @@ set_option autoImplicit false
 set_option synthInstance.maxHeartbeats 6400000
 set_option maxHeartbeats 12800000
 
-open scoped _root_.WithZero _root_.Multiplicative _root_.Topology
+open scoped _root_.WithZero _root_.Multiplicative _root_.Topology _root_.NumberField
 
 namespace AlgebraicCurve
 export _root_.AlgebraicCurve (Place Divisor Pic0 HasCanonicalLocalResidueKStar kwHgfV352_algebraMap_mem_adicCompletionIntegers_iff)

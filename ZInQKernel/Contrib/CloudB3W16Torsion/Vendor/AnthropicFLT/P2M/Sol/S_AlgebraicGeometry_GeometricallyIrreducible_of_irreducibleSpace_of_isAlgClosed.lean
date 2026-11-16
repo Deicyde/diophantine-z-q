@@ -27,7 +27,7 @@ open CategoryTheory CategoryTheory.Limits AlgebraicGeometry
 open scoped TensorProduct
 
 namespace IsAlgClosed
-export IsAlgClosed (lift algebraMap_bijective_of_isIntegral mk)
+export _root_.IsAlgClosed (lift algebraMap_bijective_of_isIntegral mk)
 namespace BaseChangeIrreducible
 open IsAlgClosed
 

@@ -75,7 +75,7 @@ private theorem _root_.NoncritGeom.isDomain (hne : letI := Scheme.TwoAffineOpenC
     MulEquiv.isDomain Γ(Spec (CommRingCat.of (Γ(C, U) ⊗[R] K)), ⊤)
       (Scheme.ΓSpecIso (.of (Γ(C, U) ⊗[R] K))).commRingCatIsoToRingEquiv.symm.toMulEquiv
   exact MulEquiv.isDomain (Γ(C, U) ⊗[R] K) (Algebra.TensorProduct.comm R K Γ(C, U)).toMulEquiv
-export NoncritGeom (isDomain)
+export _root_.NoncritGeom (isDomain)
 end NoncritGeom
 
 theorem solution

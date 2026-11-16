@@ -22,7 +22,7 @@ universe u v w
 
 noncomputable section
 open AlgebraicCurve
-open P2MW.S_AlgebraicCurve_exists_placeEquiv_ord_eq_and_ell_mapDomain_eq.AlgebraicCurve
+-- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 
 namespace AlgebraicCurve
 export AlgebraicCurve (Place Place.coe_algebraMap Divisor Divisor.degree Divisor.degree_single Divisor.IsPrincipal LSpace ell mem_riemannRochSpace_iff)

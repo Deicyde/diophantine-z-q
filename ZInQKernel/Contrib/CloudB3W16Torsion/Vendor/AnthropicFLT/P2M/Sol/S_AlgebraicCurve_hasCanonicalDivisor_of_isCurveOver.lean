@@ -111,8 +111,7 @@ private theorem _root_.AlgebraicCurve.Place.range_mapBaseChange_le_span_D_unifor
   letI := v.polynomialAlgebra
   letI := v.polynomialIsScalarTower
   rintro _ ⟨t, rfl⟩
-  induction t with
-  | zero => simp
+  induction t using TensorProduct.inductionOn with
   | add x y hx hy => rw [map_add]; exact add_mem hx hy
   | tmul b ω =>
     rw [KaehlerDifferential.mapBaseChange_tmul,
@@ -796,7 +795,6 @@ end Gates
 end AlgebraicCurve
 open IsLocalRing
 open IntermediateField
-open P2MW.S_AlgebraicCurve_hasCanonicalDivisor_of_isCurveOver.IntermediateField
 open IntermediateField.algebraAdjoinAdjoin
 
 namespace AlgebraicCurve
@@ -963,7 +961,6 @@ end SeparatingTranscendental
 
 end AlgebraicCurve
 open IntermediateField
-open P2MW.S_AlgebraicCurve_hasCanonicalDivisor_of_isCurveOver.IntermediateField
 
 namespace IntermediateField
 export _root_.IntermediateField (toAlgebra inclusion_injective val inclusion ext adjoin_simple_le_iff equivOfEq smul_def adjoin comap mem_top restrictScalars mem_bot mem_adjoin_simple_self smul_mem map)
@@ -1003,7 +1000,6 @@ theorem isSeparable_adjoin_inv_s12 (t : F) [Algebra.IsSeparable K⟮t⟯ F] :
 
 end IntermediateField
 open IntermediateField
-open P2MW.S_AlgebraicCurve_hasCanonicalDivisor_of_isCurveOver.IntermediateField
 
 namespace AlgebraicCurve
 export _root_.AlgebraicCurve (IsCurveOver Place Place.FiniteResidue HasPrincipalDivisors HasPrincipalDivisors.exists_divisor Place.FiniteResidue.finite HasCanonicalDivisor IsCurveOver.exists_separating_transcendental)
@@ -1332,7 +1328,6 @@ export _root_.AlgebraicCurve (IsCurveOver Place Place.FiniteResidue HasPrincipal
 open AlgebraicCurve
 open KaehlerDifferential
 open IntermediateField
-open P2MW.S_AlgebraicCurve_hasCanonicalDivisor_of_isCurveOver.IntermediateField
 open IntermediateField.algebraAdjoinAdjoin
 open Polynomial
 
@@ -1410,8 +1405,8 @@ end Place
 export _root_.AlgebraicCurve (Place.ordDifferential_D_eq_zero_of_span_eq_top_s12)
 theorem mem_span_D_adjoin_s12 (t : F) (ω : Ω[↥(Algebra.adjoin K ({t} : Set F))⁄K]) :
     ω ∈ Submodule.span ↥(Algebra.adjoin K ({t} : Set F))
-      ({KaehlerDifferential.D K ↥(Algebra.adjoin K ({t} : Set F))
-        ⟨t, Algebra.self_mem_adjoin_singleton K t⟩} : Set Ω[↥(Algebra.adjoin K ({t} : Set F))⁄K]) := by
+      (Set.singleton (KaehlerDifferential.D K ↥(Algebra.adjoin K ({t} : Set F))
+        ⟨t, Algebra.self_mem_adjoin_singleton K t⟩) : Set Ω[↥(Algebra.adjoin K ({t} : Set F))⁄K]) := by
   have htop : ω ∈ Submodule.span ↥(Algebra.adjoin K ({t} : Set F))
       (Set.range (KaehlerDifferential.D K ↥(Algebra.adjoin K ({t} : Set F)))) := by
     rw [KaehlerDifferential.span_range_derivation]; exact Submodule.mem_top
@@ -1437,8 +1432,8 @@ private theorem _root_.AlgebraicCurve.Place.span_D_eq_top_of_isUnramifiedAt_s12 
     (hunr : letI : Algebra ↥(Algebra.adjoin K ({t} : Set F)) T := (Subalgebra.inclusion hRT).toRingHom.toAlgebra
       Algebra.IsUnramifiedAt ↥(Algebra.adjoin K ({t} : Set F)) (v.centerIdeal T hT)) :
     Submodule.span v.toValuationSubring
-      ({KaehlerDifferential.D K v.toValuationSubring
-        ⟨t, hT (hRT (Algebra.self_mem_adjoin_singleton K t))⟩} : Set Ω[v.toValuationSubring⁄K]) = ⊤ := by
+      (Set.singleton (KaehlerDifferential.D K v.toValuationSubring
+        ⟨t, hT (hRT (Algebra.self_mem_adjoin_singleton K t))⟩) : Set Ω[v.toValuationSubring⁄K]) = ⊤ := by
   letI iRT : Algebra ↥(Algebra.adjoin K ({t} : Set F)) T := (Subalgebra.inclusion hRT).toRingHom.toAlgebra
   letI iTO : Algebra T v.toValuationSubring := v.modelAlgebra T hT
   letI iRO : Algebra ↥(Algebra.adjoin K ({t} : Set F)) v.toValuationSubring :=
@@ -1466,11 +1461,10 @@ private theorem _root_.AlgebraicCurve.Place.span_D_eq_top_of_isUnramifiedAt_s12 
   have hle : LinearMap.range
       (KaehlerDifferential.mapBaseChange K ↥(Algebra.adjoin K ({t} : Set F)) v.toValuationSubring)
       ≤ Submodule.span v.toValuationSubring
-        ({KaehlerDifferential.D K v.toValuationSubring
-          ⟨t, hT (hRT (Algebra.self_mem_adjoin_singleton K t))⟩} : Set Ω[v.toValuationSubring⁄K]) := by
+        (Set.singleton (KaehlerDifferential.D K v.toValuationSubring
+          ⟨t, hT (hRT (Algebra.self_mem_adjoin_singleton K t))⟩) : Set Ω[v.toValuationSubring⁄K]) := by
     rintro _ ⟨x, rfl⟩
-    induction x with
-    | zero => simp
+    induction x using TensorProduct.inductionOn with
     | add x y hx hy => rw [map_add]; exact add_mem hx hy
     | tmul b ω =>
       rw [KaehlerDifferential.mapBaseChange_tmul]

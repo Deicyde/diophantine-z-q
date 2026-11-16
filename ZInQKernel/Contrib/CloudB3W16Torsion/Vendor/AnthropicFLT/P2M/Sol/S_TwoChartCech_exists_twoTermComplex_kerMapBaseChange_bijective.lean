@@ -31,7 +31,7 @@ open scoped TensorProduct
 universe u
 
 namespace TwoChartCech
-export TwoChartCech (kerMapBaseChange)
+export _root_.TwoChartCech (kerMapBaseChange)
 open TwoChartCech
 
 namespace Truncation

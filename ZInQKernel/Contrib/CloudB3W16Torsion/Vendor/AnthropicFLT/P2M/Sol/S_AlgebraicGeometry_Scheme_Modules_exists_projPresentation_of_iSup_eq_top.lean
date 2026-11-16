@@ -22,15 +22,15 @@ universe u
 set_option autoImplicit false
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Spec.map_comp Scheme.Hom.resLE_comp_ι Scheme.Opens.toSpecΓ_SpecMap_presheaf_map_top_assoc Spec.map_inj Spec.map_comp_assoc Scheme.toSpecΓ_naturality_assoc Proj.opensRange_awayι Scheme.Hom SpecMap_preimage_basicOpen Proj.basicOpenIsoSpec isPullback_opens_inf Spec Spec.map RingedSpace.isUnit_res_basicOpen Scheme.Opens.toSpecΓ_preimage_basicOpen Scheme Proj.awayι Scheme.Hom.comp_base Proj Proj.awayι_preimage_basicOpen Scheme.Cover.glueMorphisms Proj.basicOpenIsoSpec_inv_ι toSpecΓ_SpecMap_ΓSpecIso_inv Proj.basicOpen Scheme.Opens.toSpecΓ_SpecMap_presheaf_map_assoc IsAffineOpen Scheme.Modules Scheme.Opens Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE Scheme.Cover.hom_ext Scheme.Opens.toSpecΓ_SpecMap_appLE Proj.SpecMap_awayMap_awayι Scheme.Hom.comp_preimage Proj.awayToSection Proj.basicOpenIsoSpec_hom toSpecΓ RingedSpace Scheme.Cover Scheme.ΓSpecIso ProjSpace.π ProjSpace.X_mem_one ProjSpace.awayι_comp_π ProjSpace.ratio ProjSpace.val_algebraMap)
+export _root_.AlgebraicGeometry (Spec.map_comp Scheme.Hom.resLE_comp_ι Scheme.Opens.toSpecΓ_SpecMap_presheaf_map_top_assoc Spec.map_inj Spec.map_comp_assoc Scheme.toSpecΓ_naturality_assoc Proj.opensRange_awayι Scheme.Hom SpecMap_preimage_basicOpen Proj.basicOpenIsoSpec isPullback_opens_inf Spec Spec.map RingedSpace.isUnit_res_basicOpen Scheme.Opens.toSpecΓ_preimage_basicOpen Scheme Proj.awayι Scheme.Hom.comp_base Proj Proj.awayι_preimage_basicOpen Scheme.Cover.glueMorphisms Proj.basicOpenIsoSpec_inv_ι toSpecΓ_SpecMap_ΓSpecIso_inv Proj.basicOpen Scheme.Opens.toSpecΓ_SpecMap_presheaf_map_assoc IsAffineOpen Scheme.Modules Scheme.Opens Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE Scheme.Cover.hom_ext Scheme.Opens.toSpecΓ_SpecMap_appLE Proj.SpecMap_awayMap_awayι Scheme.Hom.comp_preimage Proj.awayToSection Proj.basicOpenIsoSpec_hom toSpecΓ RingedSpace Scheme.Cover Scheme.ΓSpecIso ProjSpace.π ProjSpace.X_mem_one ProjSpace.awayι_comp_π ProjSpace.ratio ProjSpace.val_algebraMap)
 open AlgebraicGeometry
 
 open CategoryTheory CategoryTheory.Limits Opposite TopologicalSpace
 
 namespace Scheme
-export AlgebraicGeometry.Scheme (Hom.resLE_comp_ι Opens.toSpecΓ_SpecMap_presheaf_map_top_assoc toSpecΓ_naturality_assoc Hom mk Γ isoSpec_hom Opens.toSpecΓ_preimage_basicOpen OpenCover Hom.comp_base basicOpen Cover.glueMorphisms openCoverOfIsOpenCover Opens.toSpecΓ_SpecMap_presheaf_map_assoc isBasis_affineOpens Modules Opens homOfLE_ι Hom.appLE_map Hom.app_eq_appLE toSpecΓ_preimage_basicOpen Cover.hom_ext Opens.toSpecΓ_SpecMap_appLE Hom.comp_preimage Modules.map_smul basicOpen_le Cover ΓSpecIso toSpecΓ evaluation)
+export _root_.AlgebraicGeometry.Scheme (Hom.resLE_comp_ι Opens.toSpecΓ_SpecMap_presheaf_map_top_assoc toSpecΓ_naturality_assoc Hom mk Γ isoSpec_hom Opens.toSpecΓ_preimage_basicOpen OpenCover Hom.comp_base basicOpen Cover.glueMorphisms openCoverOfIsOpenCover Opens.toSpecΓ_SpecMap_presheaf_map_assoc isBasis_affineOpens Modules Opens homOfLE_ι Hom.appLE_map Hom.app_eq_appLE toSpecΓ_preimage_basicOpen Cover.hom_ext Opens.toSpecΓ_SpecMap_appLE Hom.comp_preimage Modules.map_smul basicOpen_le Cover ΓSpecIso toSpecΓ evaluation)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (hom_ext pullback presheaf Hom isSheaf map_smul ProjPresentation)
+export _root_.AlgebraicGeometry.Scheme.Modules (hom_ext pullback presheaf Hom isSheaf map_smul ProjPresentation)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 
@@ -200,15 +200,15 @@ end Scheme.Modules
 end AlgebraicGeometry
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Spec.map_comp Scheme.Hom.resLE_comp_ι Scheme.Opens.toSpecΓ_SpecMap_presheaf_map_top_assoc Spec.map_inj Spec.map_comp_assoc Scheme.toSpecΓ_naturality_assoc Proj.opensRange_awayι Scheme.Hom SpecMap_preimage_basicOpen Proj.basicOpenIsoSpec isPullback_opens_inf Spec Spec.map RingedSpace.isUnit_res_basicOpen Scheme.Opens.toSpecΓ_preimage_basicOpen Scheme Proj.awayι Scheme.Hom.comp_base Proj Proj.awayι_preimage_basicOpen Scheme.Cover.glueMorphisms Proj.basicOpenIsoSpec_inv_ι toSpecΓ_SpecMap_ΓSpecIso_inv Proj.basicOpen Scheme.Opens.toSpecΓ_SpecMap_presheaf_map_assoc IsAffineOpen Scheme.Modules Scheme.Opens Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE Scheme.Cover.hom_ext Scheme.Opens.toSpecΓ_SpecMap_appLE Proj.SpecMap_awayMap_awayι Scheme.Hom.comp_preimage Proj.awayToSection Proj.basicOpenIsoSpec_hom toSpecΓ RingedSpace Scheme.Cover Scheme.ΓSpecIso ProjSpace.π ProjSpace.X_mem_one ProjSpace.awayι_comp_π ProjSpace.ratio ProjSpace.val_algebraMap)
+export _root_.AlgebraicGeometry (Spec.map_comp Scheme.Hom.resLE_comp_ι Scheme.Opens.toSpecΓ_SpecMap_presheaf_map_top_assoc Spec.map_inj Spec.map_comp_assoc Scheme.toSpecΓ_naturality_assoc Proj.opensRange_awayι Scheme.Hom SpecMap_preimage_basicOpen Proj.basicOpenIsoSpec isPullback_opens_inf Spec Spec.map RingedSpace.isUnit_res_basicOpen Scheme.Opens.toSpecΓ_preimage_basicOpen Scheme Proj.awayι Scheme.Hom.comp_base Proj Proj.awayι_preimage_basicOpen Scheme.Cover.glueMorphisms Proj.basicOpenIsoSpec_inv_ι toSpecΓ_SpecMap_ΓSpecIso_inv Proj.basicOpen Scheme.Opens.toSpecΓ_SpecMap_presheaf_map_assoc IsAffineOpen Scheme.Modules Scheme.Opens Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE Scheme.Cover.hom_ext Scheme.Opens.toSpecΓ_SpecMap_appLE Proj.SpecMap_awayMap_awayι Scheme.Hom.comp_preimage Proj.awayToSection Proj.basicOpenIsoSpec_hom toSpecΓ RingedSpace Scheme.Cover Scheme.ΓSpecIso ProjSpace.π ProjSpace.X_mem_one ProjSpace.awayι_comp_π ProjSpace.ratio ProjSpace.val_algebraMap)
 open AlgebraicGeometry
 
 open CategoryTheory CategoryTheory.Limits Opposite TopologicalSpace MvPolynomial HomogeneousLocalization
 
 namespace Scheme
-export AlgebraicGeometry.Scheme (Hom.resLE_comp_ι Opens.toSpecΓ_SpecMap_presheaf_map_top_assoc toSpecΓ_naturality_assoc Hom mk Γ isoSpec_hom Opens.toSpecΓ_preimage_basicOpen OpenCover Hom.comp_base basicOpen Cover.glueMorphisms openCoverOfIsOpenCover Opens.toSpecΓ_SpecMap_presheaf_map_assoc isBasis_affineOpens Modules Opens homOfLE_ι Hom.appLE_map Hom.app_eq_appLE toSpecΓ_preimage_basicOpen Cover.hom_ext Opens.toSpecΓ_SpecMap_appLE Hom.comp_preimage Modules.map_smul basicOpen_le Cover ΓSpecIso toSpecΓ evaluation)
+export _root_.AlgebraicGeometry.Scheme (Hom.resLE_comp_ι Opens.toSpecΓ_SpecMap_presheaf_map_top_assoc toSpecΓ_naturality_assoc Hom mk Γ isoSpec_hom Opens.toSpecΓ_preimage_basicOpen OpenCover Hom.comp_base basicOpen Cover.glueMorphisms openCoverOfIsOpenCover Opens.toSpecΓ_SpecMap_presheaf_map_assoc isBasis_affineOpens Modules Opens homOfLE_ι Hom.appLE_map Hom.app_eq_appLE toSpecΓ_preimage_basicOpen Cover.hom_ext Opens.toSpecΓ_SpecMap_appLE Hom.comp_preimage Modules.map_smul basicOpen_le Cover ΓSpecIso toSpecΓ evaluation)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (hom_ext pullback presheaf Hom isSheaf map_smul ProjPresentation)
+export _root_.AlgebraicGeometry.Scheme.Modules (hom_ext pullback presheaf Hom isSheaf map_smul ProjPresentation)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 
@@ -367,15 +367,15 @@ end Scheme.Modules
 end AlgebraicGeometry
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Spec.map_comp Scheme.Hom.resLE_comp_ι Scheme.Opens.toSpecΓ_SpecMap_presheaf_map_top_assoc Spec.map_inj Spec.map_comp_assoc Scheme.toSpecΓ_naturality_assoc Proj.opensRange_awayι Scheme.Hom SpecMap_preimage_basicOpen Proj.basicOpenIsoSpec isPullback_opens_inf Spec Spec.map RingedSpace.isUnit_res_basicOpen Scheme.Opens.toSpecΓ_preimage_basicOpen Scheme Proj.awayι Scheme.Hom.comp_base Proj Proj.awayι_preimage_basicOpen Scheme.Cover.glueMorphisms Proj.basicOpenIsoSpec_inv_ι toSpecΓ_SpecMap_ΓSpecIso_inv Proj.basicOpen Scheme.Opens.toSpecΓ_SpecMap_presheaf_map_assoc IsAffineOpen Scheme.Modules Scheme.Opens Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE Scheme.Cover.hom_ext Scheme.Opens.toSpecΓ_SpecMap_appLE Proj.SpecMap_awayMap_awayι Scheme.Hom.comp_preimage Proj.awayToSection Proj.basicOpenIsoSpec_hom toSpecΓ RingedSpace Scheme.Cover Scheme.ΓSpecIso ProjSpace.π ProjSpace.X_mem_one ProjSpace.awayι_comp_π ProjSpace.ratio ProjSpace.val_algebraMap)
+export _root_.AlgebraicGeometry (Spec.map_comp Scheme.Hom.resLE_comp_ι Scheme.Opens.toSpecΓ_SpecMap_presheaf_map_top_assoc Spec.map_inj Spec.map_comp_assoc Scheme.toSpecΓ_naturality_assoc Proj.opensRange_awayι Scheme.Hom SpecMap_preimage_basicOpen Proj.basicOpenIsoSpec isPullback_opens_inf Spec Spec.map RingedSpace.isUnit_res_basicOpen Scheme.Opens.toSpecΓ_preimage_basicOpen Scheme Proj.awayι Scheme.Hom.comp_base Proj Proj.awayι_preimage_basicOpen Scheme.Cover.glueMorphisms Proj.basicOpenIsoSpec_inv_ι toSpecΓ_SpecMap_ΓSpecIso_inv Proj.basicOpen Scheme.Opens.toSpecΓ_SpecMap_presheaf_map_assoc IsAffineOpen Scheme.Modules Scheme.Opens Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE Scheme.Cover.hom_ext Scheme.Opens.toSpecΓ_SpecMap_appLE Proj.SpecMap_awayMap_awayι Scheme.Hom.comp_preimage Proj.awayToSection Proj.basicOpenIsoSpec_hom toSpecΓ RingedSpace Scheme.Cover Scheme.ΓSpecIso ProjSpace.π ProjSpace.X_mem_one ProjSpace.awayι_comp_π ProjSpace.ratio ProjSpace.val_algebraMap)
 open AlgebraicGeometry
 
 open CategoryTheory CategoryTheory.Limits Opposite TopologicalSpace MvPolynomial HomogeneousLocalization
 
 namespace Scheme
-export AlgebraicGeometry.Scheme (Hom.resLE_comp_ι Opens.toSpecΓ_SpecMap_presheaf_map_top_assoc toSpecΓ_naturality_assoc Hom mk Γ isoSpec_hom Opens.toSpecΓ_preimage_basicOpen OpenCover Hom.comp_base basicOpen Cover.glueMorphisms openCoverOfIsOpenCover Opens.toSpecΓ_SpecMap_presheaf_map_assoc isBasis_affineOpens Modules Opens homOfLE_ι Hom.appLE_map Hom.app_eq_appLE toSpecΓ_preimage_basicOpen Cover.hom_ext Opens.toSpecΓ_SpecMap_appLE Hom.comp_preimage Modules.map_smul basicOpen_le Cover ΓSpecIso toSpecΓ evaluation)
+export _root_.AlgebraicGeometry.Scheme (Hom.resLE_comp_ι Opens.toSpecΓ_SpecMap_presheaf_map_top_assoc toSpecΓ_naturality_assoc Hom mk Γ isoSpec_hom Opens.toSpecΓ_preimage_basicOpen OpenCover Hom.comp_base basicOpen Cover.glueMorphisms openCoverOfIsOpenCover Opens.toSpecΓ_SpecMap_presheaf_map_assoc isBasis_affineOpens Modules Opens homOfLE_ι Hom.appLE_map Hom.app_eq_appLE toSpecΓ_preimage_basicOpen Cover.hom_ext Opens.toSpecΓ_SpecMap_appLE Hom.comp_preimage Modules.map_smul basicOpen_le Cover ΓSpecIso toSpecΓ evaluation)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (hom_ext pullback presheaf Hom isSheaf map_smul ProjPresentation)
+export _root_.AlgebraicGeometry.Scheme.Modules (hom_ext pullback presheaf Hom isSheaf map_smul ProjPresentation)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 
@@ -543,15 +543,15 @@ end Scheme.Modules
 end AlgebraicGeometry
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Spec.map_comp Scheme.Hom.resLE_comp_ι Scheme.Opens.toSpecΓ_SpecMap_presheaf_map_top_assoc Spec.map_inj Spec.map_comp_assoc Scheme.toSpecΓ_naturality_assoc Proj.opensRange_awayι Scheme.Hom SpecMap_preimage_basicOpen Proj.basicOpenIsoSpec isPullback_opens_inf Spec Spec.map RingedSpace.isUnit_res_basicOpen Scheme.Opens.toSpecΓ_preimage_basicOpen Scheme Proj.awayι Scheme.Hom.comp_base Proj Proj.awayι_preimage_basicOpen Scheme.Cover.glueMorphisms Proj.basicOpenIsoSpec_inv_ι toSpecΓ_SpecMap_ΓSpecIso_inv Proj.basicOpen Scheme.Opens.toSpecΓ_SpecMap_presheaf_map_assoc IsAffineOpen Scheme.Modules Scheme.Opens Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE Scheme.Cover.hom_ext Scheme.Opens.toSpecΓ_SpecMap_appLE Proj.SpecMap_awayMap_awayι Scheme.Hom.comp_preimage Proj.awayToSection Proj.basicOpenIsoSpec_hom toSpecΓ RingedSpace Scheme.Cover Scheme.ΓSpecIso ProjSpace.π ProjSpace.X_mem_one ProjSpace.awayι_comp_π ProjSpace.ratio ProjSpace.val_algebraMap)
+export _root_.AlgebraicGeometry (Spec.map_comp Scheme.Hom.resLE_comp_ι Scheme.Opens.toSpecΓ_SpecMap_presheaf_map_top_assoc Spec.map_inj Spec.map_comp_assoc Scheme.toSpecΓ_naturality_assoc Proj.opensRange_awayι Scheme.Hom SpecMap_preimage_basicOpen Proj.basicOpenIsoSpec isPullback_opens_inf Spec Spec.map RingedSpace.isUnit_res_basicOpen Scheme.Opens.toSpecΓ_preimage_basicOpen Scheme Proj.awayι Scheme.Hom.comp_base Proj Proj.awayι_preimage_basicOpen Scheme.Cover.glueMorphisms Proj.basicOpenIsoSpec_inv_ι toSpecΓ_SpecMap_ΓSpecIso_inv Proj.basicOpen Scheme.Opens.toSpecΓ_SpecMap_presheaf_map_assoc IsAffineOpen Scheme.Modules Scheme.Opens Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE Scheme.Cover.hom_ext Scheme.Opens.toSpecΓ_SpecMap_appLE Proj.SpecMap_awayMap_awayι Scheme.Hom.comp_preimage Proj.awayToSection Proj.basicOpenIsoSpec_hom toSpecΓ RingedSpace Scheme.Cover Scheme.ΓSpecIso ProjSpace.π ProjSpace.X_mem_one ProjSpace.awayι_comp_π ProjSpace.ratio ProjSpace.val_algebraMap)
 open AlgebraicGeometry
 
 open CategoryTheory CategoryTheory.Limits Opposite TopologicalSpace MvPolynomial HomogeneousLocalization
 
 namespace Scheme
-export AlgebraicGeometry.Scheme (Hom.resLE_comp_ι Opens.toSpecΓ_SpecMap_presheaf_map_top_assoc toSpecΓ_naturality_assoc Hom mk Γ isoSpec_hom Opens.toSpecΓ_preimage_basicOpen OpenCover Hom.comp_base basicOpen Cover.glueMorphisms openCoverOfIsOpenCover Opens.toSpecΓ_SpecMap_presheaf_map_assoc isBasis_affineOpens Modules Opens homOfLE_ι Hom.appLE_map Hom.app_eq_appLE toSpecΓ_preimage_basicOpen Cover.hom_ext Opens.toSpecΓ_SpecMap_appLE Hom.comp_preimage Modules.map_smul basicOpen_le Cover ΓSpecIso toSpecΓ evaluation)
+export _root_.AlgebraicGeometry.Scheme (Hom.resLE_comp_ι Opens.toSpecΓ_SpecMap_presheaf_map_top_assoc toSpecΓ_naturality_assoc Hom mk Γ isoSpec_hom Opens.toSpecΓ_preimage_basicOpen OpenCover Hom.comp_base basicOpen Cover.glueMorphisms openCoverOfIsOpenCover Opens.toSpecΓ_SpecMap_presheaf_map_assoc isBasis_affineOpens Modules Opens homOfLE_ι Hom.appLE_map Hom.app_eq_appLE toSpecΓ_preimage_basicOpen Cover.hom_ext Opens.toSpecΓ_SpecMap_appLE Hom.comp_preimage Modules.map_smul basicOpen_le Cover ΓSpecIso toSpecΓ evaluation)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (hom_ext pullback presheaf Hom isSheaf map_smul ProjPresentation)
+export _root_.AlgebraicGeometry.Scheme.Modules (hom_ext pullback presheaf Hom isSheaf map_smul ProjPresentation)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 
@@ -591,7 +591,7 @@ theorem charts_compatible (k l : Fin (N + 1)) :
 
 private def _root_.AlgebraicGeometry.Scheme.Modules.LinSys.toProj : X ⟶ Proj (MvPolynomial.homogeneousSubmodule (Fin (N + 1)) R) :=
   (cover σ hcov).glueMorphisms (fun k => chartMax f σ k) (charts_compatible f σ)
-export AlgebraicGeometry.Scheme.Modules.LinSys (toProj)
+export _root_.AlgebraicGeometry.Scheme.Modules.LinSys (toProj)
 theorem ι_toProj (k : Fin (N + 1)) : (Umax σ k).ι ≫ toProj f σ hcov = chartMax f σ k :=
   (cover σ hcov).ι_glueMorphisms (fun k => chartMax f σ k) (charts_compatible f σ) k
 
@@ -614,15 +614,15 @@ end Scheme.Modules
 end AlgebraicGeometry
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Spec.map_comp Scheme.Hom.resLE_comp_ι Scheme.Opens.toSpecΓ_SpecMap_presheaf_map_top_assoc Spec.map_inj Spec.map_comp_assoc Scheme.toSpecΓ_naturality_assoc Proj.opensRange_awayι Scheme.Hom SpecMap_preimage_basicOpen Proj.basicOpenIsoSpec isPullback_opens_inf Spec Spec.map RingedSpace.isUnit_res_basicOpen Scheme.Opens.toSpecΓ_preimage_basicOpen Scheme Proj.awayι Scheme.Hom.comp_base Proj Proj.awayι_preimage_basicOpen Scheme.Cover.glueMorphisms Proj.basicOpenIsoSpec_inv_ι toSpecΓ_SpecMap_ΓSpecIso_inv Proj.basicOpen Scheme.Opens.toSpecΓ_SpecMap_presheaf_map_assoc IsAffineOpen Scheme.Modules Scheme.Opens Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE Scheme.Cover.hom_ext Scheme.Opens.toSpecΓ_SpecMap_appLE Proj.SpecMap_awayMap_awayι Scheme.Hom.comp_preimage Proj.awayToSection Proj.basicOpenIsoSpec_hom toSpecΓ RingedSpace Scheme.Cover Scheme.ΓSpecIso ProjSpace.π ProjSpace.X_mem_one ProjSpace.awayι_comp_π ProjSpace.ratio ProjSpace.val_algebraMap)
+export _root_.AlgebraicGeometry (Spec.map_comp Scheme.Hom.resLE_comp_ι Scheme.Opens.toSpecΓ_SpecMap_presheaf_map_top_assoc Spec.map_inj Spec.map_comp_assoc Scheme.toSpecΓ_naturality_assoc Proj.opensRange_awayι Scheme.Hom SpecMap_preimage_basicOpen Proj.basicOpenIsoSpec isPullback_opens_inf Spec Spec.map RingedSpace.isUnit_res_basicOpen Scheme.Opens.toSpecΓ_preimage_basicOpen Scheme Proj.awayι Scheme.Hom.comp_base Proj Proj.awayι_preimage_basicOpen Scheme.Cover.glueMorphisms Proj.basicOpenIsoSpec_inv_ι toSpecΓ_SpecMap_ΓSpecIso_inv Proj.basicOpen Scheme.Opens.toSpecΓ_SpecMap_presheaf_map_assoc IsAffineOpen Scheme.Modules Scheme.Opens Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE Scheme.Cover.hom_ext Scheme.Opens.toSpecΓ_SpecMap_appLE Proj.SpecMap_awayMap_awayι Scheme.Hom.comp_preimage Proj.awayToSection Proj.basicOpenIsoSpec_hom toSpecΓ RingedSpace Scheme.Cover Scheme.ΓSpecIso ProjSpace.π ProjSpace.X_mem_one ProjSpace.awayι_comp_π ProjSpace.ratio ProjSpace.val_algebraMap)
 open AlgebraicGeometry
 
 open CategoryTheory CategoryTheory.Limits Opposite TopologicalSpace MvPolynomial HomogeneousLocalization
 
 namespace Scheme
-export AlgebraicGeometry.Scheme (Hom.resLE_comp_ι Opens.toSpecΓ_SpecMap_presheaf_map_top_assoc toSpecΓ_naturality_assoc Hom mk Γ isoSpec_hom Opens.toSpecΓ_preimage_basicOpen OpenCover Hom.comp_base basicOpen Cover.glueMorphisms openCoverOfIsOpenCover Opens.toSpecΓ_SpecMap_presheaf_map_assoc isBasis_affineOpens Modules Opens homOfLE_ι Hom.appLE_map Hom.app_eq_appLE toSpecΓ_preimage_basicOpen Cover.hom_ext Opens.toSpecΓ_SpecMap_appLE Hom.comp_preimage Modules.map_smul basicOpen_le Cover ΓSpecIso toSpecΓ evaluation)
+export _root_.AlgebraicGeometry.Scheme (Hom.resLE_comp_ι Opens.toSpecΓ_SpecMap_presheaf_map_top_assoc toSpecΓ_naturality_assoc Hom mk Γ isoSpec_hom Opens.toSpecΓ_preimage_basicOpen OpenCover Hom.comp_base basicOpen Cover.glueMorphisms openCoverOfIsOpenCover Opens.toSpecΓ_SpecMap_presheaf_map_assoc isBasis_affineOpens Modules Opens homOfLE_ι Hom.appLE_map Hom.app_eq_appLE toSpecΓ_preimage_basicOpen Cover.hom_ext Opens.toSpecΓ_SpecMap_appLE Hom.comp_preimage Modules.map_smul basicOpen_le Cover ΓSpecIso toSpecΓ evaluation)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (hom_ext pullback presheaf Hom isSheaf map_smul ProjPresentation)
+export _root_.AlgebraicGeometry.Scheme.Modules (hom_ext pullback presheaf Hom isSheaf map_smul ProjPresentation)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 

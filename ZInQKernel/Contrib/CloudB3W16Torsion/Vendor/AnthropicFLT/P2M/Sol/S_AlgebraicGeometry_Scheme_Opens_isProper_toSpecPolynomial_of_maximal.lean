@@ -20,7 +20,7 @@ universe u
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Opens_isProper_toSpecPolynomial_of_maximal.AlgebraicGeometry
+-- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 open Polynomial
 open AlgebraicGeometry.Polynomial
 

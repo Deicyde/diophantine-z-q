@@ -23,11 +23,11 @@ noncomputable section
 universe u
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Spec Scheme Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom)
+export _root_.AlgebraicGeometry (Spec Scheme Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Γ Opens Cover TwoAffineOpenCover TwoAffineOpenCover.algebraOfHom)
+export _root_.AlgebraicGeometry.Scheme (Γ Opens Cover TwoAffineOpenCover TwoAffineOpenCover.algebraOfHom)
 namespace TwoAffineOpenCover
-export AlgebraicGeometry.Scheme.TwoAffineOpenCover (algebraOfHom cover structureSheafSections toH0 toH0_apply_coe U1 U0 sup_eq_top)
+export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (algebraOfHom cover structureSheafSections toH0 toH0_apply_coe U1 U0 sup_eq_top)
 open AlgebraicGeometry.Scheme.TwoAffineOpenCover
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry
@@ -42,7 +42,7 @@ private abbrev _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover.SheafCondition
   RingHom.eqLocus
     ((X.presheaf.map (homOfLE inf_le_left : U ⊓ V ⟶ U).op).hom.comp (RingHom.fst Γ(X, U) Γ(X, V)))
     ((X.presheaf.map (homOfLE inf_le_right : U ⊓ V ⟶ V).op).hom.comp (RingHom.snd Γ(X, U) Γ(X, V)))
-export AlgebraicGeometry.Scheme.TwoAffineOpenCover.SheafCondition (eqLocus)
+export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover.SheafCondition (eqLocus)
 theorem mem_eqLocus_iff (s : Γ(X, U) × Γ(X, V)) :
     s ∈ eqLocus X U V ↔
       (X.presheaf.map (homOfLE inf_le_left : U ⊓ V ⟶ U).op).hom s.1

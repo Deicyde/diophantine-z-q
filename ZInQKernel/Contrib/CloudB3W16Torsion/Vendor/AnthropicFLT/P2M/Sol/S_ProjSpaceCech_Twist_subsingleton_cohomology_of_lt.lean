@@ -29,7 +29,7 @@ noncomputable section
 open Finset Function
 
 namespace ProjSpaceCech
-export ProjSpaceCech (Twist.cochain_subsingleton_of_lt Twist.H)
+export _root_.ProjSpaceCech (Twist.cochain_subsingleton_of_lt Twist.H)
 open ProjSpaceCech
 
 section Cohomology

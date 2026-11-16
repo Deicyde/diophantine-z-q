@@ -24,7 +24,7 @@ set_option linter.unusedSimpArgs false
 set_option linter.unusedVariables false
 set_option autoImplicit false
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_OModulePresheaf_eq_zero_of_forall_res_basicOpen_eq_zero.AlgebraicGeometry
+-- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 open CategoryTheory
 open TopologicalSpace
 open Opposite

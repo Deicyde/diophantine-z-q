@@ -21,7 +21,7 @@ set_option autoImplicit false
 universe u
 open CategoryTheory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_OModulePresheaf_forall_pushforward_of_isIntegral.AlgebraicGeometry
+-- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 open TopologicalSpace
 open Opposite
 

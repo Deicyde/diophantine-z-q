@@ -19,7 +19,7 @@ set_option autoImplicit false
 universe u v w
 
 namespace LinearMap
-export LinearMap (mem_range range coe_coe ext submoduleMap ker mem_ker)
+export _root_.LinearMap (mem_range range coe_coe ext submoduleMap ker mem_ker)
 open LinearMap
 
 section KerModRange

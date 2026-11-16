@@ -35,7 +35,7 @@ open AlgebraicGeometry
 open CategoryTheory
 open Opposite
 open CoherentBaseChange
-open P2MW.S_CoherentBaseChange_FibreH0Family_isClosed_setOf_le_h0.CoherentBaseChange
+-- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 
 namespace CBCSol
 

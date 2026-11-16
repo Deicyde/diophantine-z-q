@@ -25,7 +25,7 @@ noncomputable section
 open IsDedekindDomain WithZero IsLocalRing
 
 namespace AlgebraicCurve
-export AlgebraicCurve (Place Place.ext Place.ord)
+export _root_.AlgebraicCurve (Place Place.ext Place.ord)
 open AlgebraicCurve
 
 namespace WC1bSolAW

@@ -22,10 +22,10 @@ set_option autoImplicit false
 set_option maxHeartbeats 3200000
 
 namespace AlgebraicCurve
-export AlgebraicCurve (Place Divisor Divisor.degree HasPrincipalDivisors HasPrincipalDivisors.exists_divisor IsCurveOver LSpace ell mem_lSpace_iff_ord WeilDifferentialRankOne StichtenothGenusExists)
+export _root_.AlgebraicCurve (Place Divisor Divisor.degree HasPrincipalDivisors HasPrincipalDivisors.exists_divisor IsCurveOver LSpace ell mem_lSpace_iff_ord WeilDifferentialRankOne StichtenothGenusExists)
 open AlgebraicCurve
 namespace Place
-export AlgebraicCurve.Place (deg ord ord_unit_smul_zpow exists_unit_mul_zpow toValuationSubring)
+export _root_.AlgebraicCurve.Place (deg ord ord_unit_smul_zpow exists_unit_mul_zpow toValuationSubring)
 open AlgebraicCurve.Place
 variable {K F : Type*} [Field K] [Field F] [Algebra K F] (v : Place K F)
 private theorem _root_.AlgebraicCurve.Place.ord_nonneg_of_mem {f : F} (hf : f ∈ v.toValuationSubring) : 0 ≤ v.ord f := by
@@ -42,7 +42,7 @@ private theorem _root_.AlgebraicCurve.Place.ord_nonneg_of_mem {f : F} (hf : f �
     exact h
   rw [hcoe, v.ord_unit_smul_zpow u hπ (n : ℤ)]
   exact Int.natCast_nonneg n
-export AlgebraicCurve.Place (ord_nonneg_of_mem)
+export _root_.AlgebraicCurve.Place (ord_nonneg_of_mem)
 private theorem _root_.AlgebraicCurve.Place.mem_of_ord_nonneg {f : F} (hf : f ≠ 0) (h : 0 ≤ v.ord f) :
     f ∈ v.toValuationSubring := by
   obtain ⟨π, hπ⟩ := IsDiscreteValuationRing.exists_irreducible v.toValuationSubring
@@ -50,7 +50,7 @@ private theorem _root_.AlgebraicCurve.Place.mem_of_ord_nonneg {f : F} (hf : f �
   rw [hu, show v.ord f = (((v.ord f).toNat : ℕ) : ℤ) from (Int.toNat_of_nonneg h).symm,
     zpow_natCast]
   exact mul_mem (u : v.toValuationSubring).2 (pow_mem (π : v.toValuationSubring).2 _)
-export AlgebraicCurve.Place (mem_of_ord_nonneg)
+export _root_.AlgebraicCurve.Place (mem_of_ord_nonneg)
 theorem mem_iff_ord_nonneg {f : F} (hf : f ≠ 0) :
     f ∈ v.toValuationSubring ↔ 0 ≤ v.ord f :=
   ⟨v.ord_nonneg_of_mem, v.mem_of_ord_nonneg hf⟩
@@ -58,7 +58,7 @@ end Place
 end AlgebraicCurve
 
 namespace AlgebraicCurve
-export AlgebraicCurve (Place Divisor Divisor.degree HasPrincipalDivisors HasPrincipalDivisors.exists_divisor IsCurveOver LSpace ell mem_lSpace_iff_ord WeilDifferentialRankOne StichtenothGenusExists)
+export _root_.AlgebraicCurve (Place Divisor Divisor.degree HasPrincipalDivisors HasPrincipalDivisors.exists_divisor IsCurveOver LSpace ell mem_lSpace_iff_ord WeilDifferentialRankOne StichtenothGenusExists)
 open AlgebraicCurve
 variable {K F : Type*} [Field K] [Field F] [Algebra K F]
 namespace Divisor p2m_export "AlgebraicCurve.Divisor" "degree" end Divisor

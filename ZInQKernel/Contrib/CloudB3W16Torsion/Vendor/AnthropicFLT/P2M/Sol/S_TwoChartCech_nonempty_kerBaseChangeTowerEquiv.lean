@@ -30,7 +30,7 @@ universe u
 open scoped TensorProduct
 
 namespace TwoChartCech
-export TwoChartCech (kerBaseChangeHom kerBaseChangeHom_apply_coe)
+export _root_.TwoChartCech (kerBaseChangeHom kerBaseChangeHom_apply_coe)
 open TwoChartCech
 
 theorem kerBaseChangeHom_bijective_of_flat {R : Type u} [CommRing R] {C0 C1 : Type u} [AddCommGroup C0]

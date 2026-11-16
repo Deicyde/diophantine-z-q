@@ -46,7 +46,7 @@ private theorem _root_.QuotFLF.hom_ext (hgen : s.range ⊔ t.range = ⊤) {T : T
   · rintro b (⟨a, rfl⟩ | ⟨a, rfl⟩)
     · exact RingHom.congr_fun h₁ a
     · exact RingHom.congr_fun h₂ a
-export QuotFLF (hom_ext)
+export _root_.QuotFLF (hom_ext)
 section structureMaps
 
 variable (hequiv : ∀ (T : Type u) [CommRing T], _root_.Equivalence (Rel s t T))
@@ -637,7 +637,7 @@ set_option linter.unusedVariables false in
 private noncomputable def _root_.QuotFLF.charpoly (r : ℕ) (hr : ∀ p, Module.rankAtStalk (R := R) S p = r) (b : S) :
     R[X] :=
   χ (𝓔₀ R S) b /ₘ (X - 1) ^ ((𝓔₀ R S).n - r)
-export QuotFLF (charpoly)
+export _root_.QuotFLF (charpoly)
 variable (r : ℕ) (hr : ∀ p, Module.rankAtStalk (R := R) S p = r)
 
 theorem monic_X_sub_one_pow (k : ℕ) : ((X - 1 : R[X]) ^ k).Monic := (monic_X_sub_C (1 : R)).pow k
