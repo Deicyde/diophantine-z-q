@@ -422,6 +422,164 @@ theorem neronOggShafarevich_of_two (hN : NeronSchemeModelExistsDVR)
     (hB : TorusRankZero) (hC : AbelianReductionGood) : PkgI2.NeronOggShafarevich.{0} :=
   neronOggShafarevich_of_bar (nosConverseBar_of_pieces hN hSH hR inertiaFixedRational_proof hB hC)
 
+/-! ## §5 `TorusRankZero` decomposed (Serre–Tate's count) -/
+
+section TorusDecomp
+
+open ZInQ.HeightSplit
+
+/-- The clauses of `HasSemiAbelianIdentityComponent G` for given `U, inc, B, π` and torus rank `r`. -/
+def SemiAbelianRank {k : Type} [Field k] (G : Over (Spec (CommRingCat.of k))) [GrpObj G]
+    (U : Over (Spec (CommRingCat.of k))) [GrpObj U] (inc : U ⟶ G) (B : PkgI3.AbVar k) (π : U ⟶ B.X)
+    (r : ℕ) : Prop :=
+  IsOpenImmersion inc.left ∧ IsMonHom inc ∧ ConnectedSpace U.left ∧ IsMonHom π ∧ Flat π.left ∧
+    Surjective π.left ∧
+    ∃ (e : ∀ (R : Type) [CommRing R] [Algebra k R], (Fin r → Rˣ) →* (algPt k R ⟶ U)),
+      (∀ (R : Type) [CommRing R] [Algebra k R], Function.Injective (e R)) ∧
+      (∀ (R : Type) [CommRing R] [Algebra k R] (u : algPt k R ⟶ U),
+        u ≫ π = 1 ↔ u ∈ (e R).range) ∧
+      (∀ (R S : Type) [CommRing R] [Algebra k R] [CommRing S] [Algebra k S] (f : R →ₐ[k] S)
+        (t : Fin r → Rˣ), e S (fun i => Units.map (f : R →* S) (t i)) = algPtMap f ≫ e R t)
+
+theorem hasSemiAbelian_iff {k : Type} [Field k] (G : Over (Spec (CommRingCat.of k))) [GrpObj G] :
+    HasSemiAbelianIdentityComponent G ↔
+      ∃ (U : Over (Spec (CommRingCat.of k))) (_ : GrpObj U) (inc : U ⟶ G) (B : PkgI3.AbVar k)
+        (π : U ⟶ B.X) (r : ℕ), SemiAbelianRank G U inc B π r := by
+  constructor
+  · rintro ⟨U, hU, inc, h1, h2, h3, B, π, h4, h5, h6, r, e, h7, h8, h9⟩
+    exact ⟨U, hU, inc, B, π, r, h1, h2, h3, h4, h5, h6, e, h7, h8, h9⟩
+  · rintro ⟨U, hU, inc, B, π, r, h1, h2, h3, h4, h5, h6, e, h7, h8, h9⟩
+    exact ⟨U, hU, inc, h1, h2, h3, B, π, h4, h5, h6, r, e, h7, h8, h9⟩
+
+/-- The `m`-torsion `k`-points of a group scheme `X` over `k`. -/
+def ptsTors {k : Type} [Field k] (X : Over (Spec (CommRingCat.of k))) [GrpObj X] (m : ℕ) :
+    Set (algPt k k ⟶ X) :=
+  {y | y ^ m = 1}
+
+/-- **GLUE `TorsionInjectsSpecialFibre`** (Serre–Tate §2, first half of the count; BLR §7.3 Lemma 2 for `[m]` étale
+on a smooth commutative group scheme, UNVERIFIED locator). The inertia-fixed `m`-torsion of `A(K̄)`, `m`
+invertible in `O`, injects into the `m`-torsion `k̄`-points of the geometric special fibre of a Néron model:
+it is rational over `K^sh` (`InertiaFixedRational`), `A(K^sh) = 𝒩(O^sh)` (Néron property, `𝒩 ⊗ O^sh` Néron by
+`neronBaseChangeStrictHenselization`), and reduction `𝒩(O^sh)[m] → 𝒩(κ(O^sh))[m] ⊆ 𝒩(k̄)[m]` is injective
+because `𝒩[m]` is étale and separated over `O^sh` (as in av-split's `UnramifiedSectionsEq`). -/
+def TorsionInjectsSpecialFibre : Prop :=
+  ∀ (K : Type) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    (w : ValuationSubring (AlgebraicClosure K)),
+    w.comap (algebraMap K (AlgebraicClosure K)) = O →
+    ∀ (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A] (𝒩 : GroupModelO (ObjBridge.ofGrp A) O),
+      𝒩.IsNeronModel → ∀ m : ℕ, IsUnit (m : O) →
+      ∃ f : {x // x ∈ torsion A (AlgebraicClosure K) m ∧
+          ∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K, IsInertia w σ → galAct A σ x = x} →
+        ptsTors (geomSpecialFibre 𝒩) m, Function.Injective f
+
+/-- **GLUE `ComponentIndexBound`** (finiteness of the component group). For a Néron model `𝒩` of an abelian
+variety and an open subgroup scheme `U` of its geometric special fibre `G`, there is `c` with
+`#G(k̄)[m] ≤ c · #U(k̄)[m]` for every `m`: `G` is of finite type, so `U(k̄)` has finite index `c` in `G(k̄)` (its
+cosets are disjoint opens), and `G` is commutative (the generic fibre `A` is commutative and schematically dense
+in the flat separated `𝒩`), so each coset meets `G(k̄)[m]` in a translate of a subset of `U(k̄)[m]`. -/
+def ComponentIndexBound : Prop :=
+  ∀ (K : Type) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A] (𝒩 : GroupModelO (ObjBridge.ofGrp A) O),
+      𝒩.IsNeronModel →
+      ∀ (U : Over (Spec (CommRingCat.of (ResBarO O)))) [GrpObj U] (inc : U ⟶ geomSpecialFibre 𝒩),
+        IsOpenImmersion inc.left → IsMonHom inc →
+        ∃ c : ℕ, ∀ m : ℕ, (ptsTors (geomSpecialFibre 𝒩) m).encard ≤ c * (ptsTors U m).encard
+
+/-- **GLUE `DimensionRelation`** (dimension of the special fibre). For a Néron model `𝒩` of an abelian variety `A`
+whose geometric special fibre has semi-abelian identity component `0 → 𝔾_m^r → U → B → 0`:
+`dim B + r = dim A`, both finite. (`dim U = dim A` since `𝒩` is smooth with fibres of constant dimension along the
+identity section, field `groupSchemeEquidim` and infra-smooth-dim; `dim U = dim B + r` for the flat surjection
+`U → B` with fibres `𝔾_m^r`.) -/
+def DimensionRelation : Prop :=
+  ∀ (K : Type) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A] (𝒩 : GroupModelO (ObjBridge.ofGrp A) O),
+      𝒩.IsNeronModel →
+      ∀ (U : Over (Spec (CommRingCat.of (ResBarO O)))) [GrpObj U] (inc : U ⟶ geomSpecialFibre 𝒩)
+        (B : PkgI3.AbVar (ResBarO O)) (π : U ⟶ B.X) (r : ℕ),
+        SemiAbelianRank (geomSpecialFibre 𝒩) U inc B π r →
+        ∃ g a : ℕ, topologicalKrullDim A.X.left = g ∧ topologicalKrullDim B.X.left = a ∧ a + r = g
+
+/-- **`SemiAbelianTorsionBound`** (to be proved from `mumfordTorsionAlgClosed`): over an algebraically closed `k`,
+`#U(k)[m] ≤ m^r · m^{2a}` for a semi-abelian `U` with torus rank `r` and abelian quotient of dimension `a`. -/
+def SemiAbelianTorsionBound : Prop :=
+  ∀ (k : Type) [Field k] [IsAlgClosed k] (G : Over (Spec (CommRingCat.of k))) [GrpObj G]
+    (U : Over (Spec (CommRingCat.of k))) [GrpObj U] (inc : U ⟶ G) (B : PkgI3.AbVar k) (π : U ⟶ B.X)
+    (r a m : ℕ), SemiAbelianRank G U inc B π r → topologicalKrullDim B.X.left = a → 0 < m →
+      (m : k) ≠ 0 → (ptsTors U m).encard ≤ ((m ^ r * m ^ (2 * a) : ℕ) : ℕ∞)
+
+/-- **`RankZeroAbelian`** (to be proved: Mathlib's `Flat.isIso_of_surjective_of_mono`): a semi-abelian identity
+component of torus rank `0` is an abelian variety. -/
+def RankZeroAbelian : Prop :=
+  ∀ (k : Type) [Field k] (G : Over (Spec (CommRingCat.of k))) [GrpObj G], LocallyOfFinitePresentation G.hom →
+    ∀ (U : Over (Spec (CommRingCat.of k))) [GrpObj U] (inc : U ⟶ G) (B : PkgI3.AbVar k) (π : U ⟶ B.X),
+      SemiAbelianRank G U inc B π 0 → HasAbelianIdentityComponent G
+
+/-- `m` invertible in `O` is nonzero in `κ̄(O)`. -/
+theorem natCast_ne_zero_resBar {K : Type} [Field K] (O : ValuationSubring K) {m : ℕ}
+    (hm : IsUnit (m : O)) : (m : ResBarO O) ≠ 0 := by
+  have h1 : IsUnit (m : IsLocalRing.ResidueField O) := by
+    have := hm.map (IsLocalRing.residue O)
+    rwa [map_natCast] at this
+  have h2 := h1.map (algebraMap (IsLocalRing.ResidueField O) (ResBarO O))
+  rw [map_natCast] at h2
+  exact h2.ne_zero
+
+/-- **`TorusRankZero` from Serre–Tate's count**: the glue `TorsionInjectsSpecialFibre`, `ComponentIndexBound`,
+`DimensionRelation`, the field `mumfordTorsionAlgClosed`, and `SemiAbelianTorsionBound`, `RankZeroAbelian`. -/
+theorem torusRankZero_of_count (hInj : TorsionInjectsSpecialFibre) (hComp : ComponentIndexBound)
+    (hDim : DimensionRelation) (hM : AvSplit.MumfordTorsionAlgClosed) (hSemi : SemiAbelianTorsionBound)
+    (hB7 : RankZeroAbelian) : TorusRankZero := by
+  intro K _ O _ w hw A _ 𝒩 h𝒩 hss hinf
+  obtain ⟨U, _, inc, B, π, r, hU⟩ := (hasSemiAbelian_iff _).mp hss
+  obtain ⟨g, a, hg, ha, hgar⟩ := hDim K O A 𝒩 h𝒩 U inc B π r hU
+  obtain ⟨c, hc⟩ := hComp K O A 𝒩 h𝒩 U inc hU.1 hU.2.1
+  have hbound : ∀ m : ℕ, 0 < m → IsUnit (m : O) → InertiaTrivialOn A w m → m ^ r ≤ c := by
+    intro m hm0 hmu hmt
+    haveI : NeZero m := ⟨hm0.ne'⟩
+    have hmK : (m : K) ≠ 0 := ReductSplit.natCast_ne_zero_of_isUnit O hmu
+    obtain ⟨e, -⟩ := AvSplit.torsionStructure_of_mumford hM K A g m hg hm0 hmK
+    have hA : (torsion A (AlgebraicClosure K) m).encard = ((m ^ (2 * g) : ℕ) : ℕ∞) := by
+      rw [Set.encard, ENat.card_congr e, ENat.card_eq_coe_fintype_card, Fintype.card_fun,
+        ZMod.card, Fintype.card_fin]
+    obtain ⟨f, hf⟩ := hInj K O w hw A 𝒩 h𝒩 m hmu
+    have h1 : (torsion A (AlgebraicClosure K) m).encard ≤ (ptsTors (geomSpecialFibre 𝒩) m).encard := by
+      have e2 : torsion A (AlgebraicClosure K) m ≃
+          {x // x ∈ torsion A (AlgebraicClosure K) m ∧
+            ∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K, IsInertia w σ → galAct A σ x = x} :=
+        { toFun := fun x => ⟨x.1, x.2, fun σ hσ => hmt σ hσ x.1 x.2⟩
+          invFun := fun x => ⟨x.1, x.2.1⟩
+          left_inv := fun _ => rfl
+          right_inv := fun _ => rfl }
+      rw [Set.encard, Set.encard, ENat.card_congr e2]
+      exact ENat.card_le_card_of_injective hf
+    have h2 := hSemi (ResBarO O) _ U inc B π r a m hU ha hm0 (natCast_ne_zero_resBar O hmu)
+    have h3 : ((m ^ (2 * g) : ℕ) : ℕ∞) ≤ ((c * (m ^ r * m ^ (2 * a)) : ℕ) : ℕ∞) := by
+      rw [← hA]
+      calc (torsion A (AlgebraicClosure K) m).encard ≤ (ptsTors (geomSpecialFibre 𝒩) m).encard := h1
+        _ ≤ c * (ptsTors U m).encard := hc m
+        _ ≤ c * ((m ^ r * m ^ (2 * a) : ℕ) : ℕ∞) := by gcongr
+        _ = ((c * (m ^ r * m ^ (2 * a)) : ℕ) : ℕ∞) := by push_cast; ring
+    have h4 : m ^ (2 * g) ≤ c * (m ^ r * m ^ (2 * a)) := by exact_mod_cast h3
+    have hpos : 0 < m ^ r * m ^ (2 * a) := by positivity
+    have h5 : m ^ r * (m ^ r * m ^ (2 * a)) ≤ c * (m ^ r * m ^ (2 * a)) := by
+      calc m ^ r * (m ^ r * m ^ (2 * a)) = m ^ (2 * g) := by
+            rw [← hgar, ← pow_add, ← pow_add]; ring_nf
+        _ ≤ _ := h4
+    exact Nat.le_of_mul_le_mul_right h5 hpos
+  have hr : r = 0 := by
+    by_contra hr0
+    apply hinf
+    refine (Set.finite_Iic c).subset ?_
+    rintro m ⟨hm0, hmu, hmt⟩
+    exact (Nat.le_self_pow hr0 m).trans (hbound m hm0 hmu hmt)
+  subst hr
+  have hlfp : LocallyOfFinitePresentation (geomSpecialFibre 𝒩).hom := by
+    change LocallyOfFinitePresentation (pullback.snd 𝒩.G.hom _)
+    infer_instance
+  exact hB7 _ _ hlfp U inc B π hU
+
+end TorusDecomp
+
 end NOSConverse
 
 #print axioms NOSConverse.nosConverseNF_of_pieces
@@ -431,3 +589,4 @@ end NOSConverse
 #print axioms NOSConverse.inertiaFixedRational_proof
 #print axioms NOSConverse.nosConverseNF_of_two
 #print axioms NOSConverse.neronOggShafarevich_of_two
+#print axioms NOSConverse.torusRankZero_of_count
