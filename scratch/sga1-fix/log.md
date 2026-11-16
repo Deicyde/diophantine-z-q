@@ -26,3 +26,11 @@ Base: wip/gaga-chart 5626f0b0. Build tree copied (cp -r) from ~/dzq-wt/gaga-char
   (AnFun = pullback of holomorphic functions along étale coordinates, X smooth, from SGA1_XII_3_3a),
   `isAnStr_of_3_3a`, `gagaChart_of_printed`, `printed_of_gagaChart`, `gagaChart_iff_printed (hL)`,
   `gagaMorphism_of_printed (hM hL hPC hC hG)`. All [propext, Classical.choice, Quot.sound].
+
+## 11-16 07:50 contribution module + #discharges (VERIFIED)
+- `ZInQKernel/Contrib/OneProof/SGA1Printed.lean` (C.lean minus #print, docstrings); `lake build
+  ZInQKernel.Contrib.OneProof.SGA1Printed` OK (9084 jobs, no warnings in the file).
+- `lake env lean scratch/sga1-fix/DischargesCheck.lean` → discharges.txt:
+  gagaMorphism by gagaMorphism_of_printed, still assumes [MumfordComplexTorus, SGA1_XII_3_3a, ProperCompactAn,
+  SGA1_XII_2_4, SGA1_XII_4_4]; uniformizationLeafAll by uniformizationLeafAll_of_printed, still assumes the first
+  four. Axioms standard. "#discharges: 63 open hypotheses, 1976 theorems checked, 17 discharge one".
