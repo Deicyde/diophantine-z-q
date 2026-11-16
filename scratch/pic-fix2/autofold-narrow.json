@@ -1,0 +1,30 @@
+{
+ "name": "pic-fix2-narrow",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.PhiAmpleIsogenyReading"
+ ],
+ "discharges": [
+  {
+   "field": "phiVeryAmpleIsogeny",
+   "proof": "_root_.PicFix2.phiVeryAmpleIsogeny_of_reading {n}.mumfordKLFiniteDivisorAC {n}.mumfordPhiSurjectiveVAC",
+   "leaves": [
+    {
+     "name": "mumfordKLFiniteDivisorAC",
+     "type": "_root_.PicFix2.MumfordKLFiniteDivisorAC",
+     "doc": "pic-fix2: for D an effective Cartier divisor (invertible ideal sheaf) on an abelian variety over an algebraically closed field with L = O(D) ample (IsAmple) and very ample (IsVeryAmple), K(L) is finite (Mumford, Abelian varieties, section 6 Application 1, (iv) => (ii); an instance of the print under either reading of Mumford's 'ample'; locator UNVERIFIED).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Mumford 6 Application 1, D effective Cartier divisor, L = O(D) with IsAmple and IsVeryAmple, an instance under either reading of 'ample'); locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, 6 Application 1: for D effective and L = O(D) ample, K(L) is finite"
+    },
+    {
+     "name": "mumfordPhiSurjectiveVAC",
+     "type": "_root_.PicFix2.MumfordPhiSurjectiveVAC",
+     "doc": "pic-fix2: for L ample (IsAmple) and very ample (IsVeryAmple) on an abelian variety X over an algebraically closed field, every translation-invariant class is t_x^*L (x) L^-1 for some x in X(k) (Mumford, Abelian varieties, section 8 Thm 1; an instance of the print under either reading of 'ample'; locator UNVERIFIED).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Mumford 8 Thm 1 with IsAmple and IsVeryAmple, an instance under either reading of 'ample'); locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, 8 Thm 1"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,77 @@
+{
+ "name": "pic-fix2-both",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.PhiAmpleIsogenyReading",
+  "ZInQKernel.Contrib.OneProof.PicZeroAbVar"
+ ],
+ "discharges": [
+  {
+   "field": "phiAmpleIsogeny",
+   "proof": "_root_.PicFix2.phiAmpleIsogeny_of_reading {n}.mumfordKLFiniteDivisorAC {n}.mumfordPhiSurjectiveVAC {n}.amplePowVeryAmple",
+   "leaves": [
+    {
+     "name": "mumfordKLFiniteDivisorAC",
+     "type": "_root_.PicFix2.MumfordKLFiniteDivisorAC",
+     "doc": "pic-fix2: for D an effective Cartier divisor (invertible ideal sheaf) on an abelian variety over an algebraically closed field with L = O(D) ample (IsAmple) and very ample (IsVeryAmple), K(L) is finite (Mumford, Abelian varieties, section 6 Application 1, (iv) => (ii); an instance of the print under either reading of Mumford's 'ample'; locator UNVERIFIED).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Mumford 6 Application 1, D effective Cartier divisor, L = O(D) with IsAmple and IsVeryAmple, an instance under either reading of 'ample'); locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, 6 Application 1: for D effective and L = O(D) ample, K(L) is finite"
+    },
+    {
+     "name": "mumfordPhiSurjectiveVAC",
+     "type": "_root_.PicFix2.MumfordPhiSurjectiveVAC",
+     "doc": "pic-fix2: for L ample (IsAmple) and very ample (IsVeryAmple) on an abelian variety X over an algebraically closed field, every translation-invariant class is t_x^*L (x) L^-1 for some x in X(k) (Mumford, Abelian varieties, section 8 Thm 1; an instance of the print under either reading of 'ample'; locator UNVERIFIED).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Mumford 8 Thm 1 with IsAmple and IsVeryAmple, an instance under either reading of 'ample'); locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, 8 Thm 1"
+    },
+    {
+     "name": "amplePowVeryAmple",
+     "type": "_root_.PicFix2.AmplePowVeryAmple",
+     "doc": "pic-fix2: an ample class (IsAmple, Stacks 01PS) on an abelian variety over a field k has a power L^d, d >= 1, with an immersion i into P^N_k over k and L^d = i^*O(1) (Stacks, Morphisms, Lemma 29.39.4, Tag 01VU, (1) => (5); EGA II 4.5.10; Hartshorne II 7.6; locator UNVERIFIED).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (ample implies a power is very ample, X of finite type over Spec k; instance of the print for X an abelian variety); locator UNVERIFIED",
+     "source": "Stacks Project, Morphisms, Lemma 29.39.4 (Tag 01VU); EGA II 4.5.10; Hartshorne II Thm 7.6"
+    }
+   ]
+  },
+  {
+   "field": "picZeroAbVar",
+   "proof": "_root_.PicFix.picZeroAbVar_of_printed {n}.picLocFinType {n}.identityComponentLFT {n}.picZeroSmooth {n}.kleimanPicZeroProper",
+   "leaves": [
+    {
+     "name": "picLocFinType",
+     "type": "_root_.PicDict.PicLocFinType",
+     "doc": "pic-dict: a scheme representing Pic_{A/K} of an abelian variety A over a field K is locally of finite type (Murre 1964 / Oort 1962, BLR, Neron models, 8.2 Thm 3: Pic_{X/k} exists and is locally of finite type for X proper over a field; also Kleiman, The Picard scheme, Thm 9.4.8 for X projective, A being projective by the vendored GrpObj.exists_isImmersion_projectiveSpace_of_smooth_of_geometricallyIntegral; any representing object by Yoneda; locators UNVERIFIED).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (BLR 8.2 Thm 3 / Murre-Oort for proper X over a field; Kleiman 9.4.8 for projective X, A projective by the vendored lemma; any representing object by Yoneda uniqueness); locator UNVERIFIED",
+     "source": "BLR, Neron models, 8.2 Thm 3 (Murre 1964, Oort 1962); Kleiman, The Picard scheme, 9.4.8"
+    },
+    {
+     "name": "identityComponentLFT",
+     "type": "_root_.PicDict.IdentityComponentLFT",
+     "doc": "pic-dict: the identity component of a group scheme locally of finite type over a field is an open, geometrically irreducible subgroup (SGA 3 VI_A 2.4; Stacks 0B7R; locators UNVERIFIED).",
+     "kind": "published",
+     "flag": "unread: new printed leaf; locator UNVERIFIED",
+     "source": "SGA 3, VI_A 2.4; Stacks 0B7R"
+    },
+    {
+     "name": "picZeroSmooth",
+     "type": "_root_.PicDict.PicZeroSmooth",
+     "doc": "pic-dict: the identity component of Pic_{A/K} is smooth over K (Mumford 13 over Kbar with the identification and descent; one print over K pending reading: BLR 8.4, FGA Explained 9.5, Milne 1986 10; locators UNVERIFIED).",
+     "kind": "published",
+     "flag": "pending reading: one print over an arbitrary field not located (Mumford 13 is over Kbar; BLR 8.4 / FGA Explained 9.5 / Milne 1986 10 to read); Stacks 00TV is proved on main (regularSmoothPerfect_proof), so regular => smooth over a perfect field is no longer a step; locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, 13 (over Kbar); BLR 8.4; Milne 1986 10"
+    },
+    {
+     "name": "kleimanPicZeroProper",
+     "type": "_root_.PicFix.KleimanPicZeroProper",
+     "doc": "pic-fix: for X proper and geometrically normal over a field K, the identity component of Pic_{X/K} is proper (Kleiman, The Picard scheme, Thm 9.5.4; locator UNVERIFIED); stated for every representing scheme.",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Kleiman 9.5.4, X proper and geometrically normal over a field, every representing object); locator UNVERIFIED",
+     "source": "Kleiman, The Picard scheme, 9.5.4"
+    }
+   ]
+  }
+ ]
+}

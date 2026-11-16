@@ -1,0 +1,128 @@
+diff -ru a/ZInQKernel/OneProof/H/TailZ24.lean b/ZInQKernel/OneProof/H/TailZ24.lean
+--- a/ZInQKernel/OneProof/H/TailZ24.lean	2026-11-16 08:36:08.965180059 -0800
++++ b/ZInQKernel/OneProof/H/TailZ24.lean	2026-11-16 08:36:09.006239152 -0800
+@@ -787,9 +787,9 @@
+   group law is an abelian variety (`IsPicZero`; Mumford §13, Kleiman 9.5.1 and 9.5.3, SGA 3 VI_A 2.4; locators
+   UNVERIFIED). -/
+   picZeroAbVar : _root_.T09Pic.PicZeroAbVar
+-  /-- t09-pic, L3, printed form: for ample `L`, the lift `λ_L : A → Pic⁰` of `φ_L` is an isogeny (Mumford §6
+-  Application 1 and §8 Thm 1; locators UNVERIFIED). -/
+-  phiAmpleIsogeny : _root_.T09Pic.PhiAmpleIsogeny
++  /-- t09-pic, L3, the form the chain reads (pic-fix2 narrowing): for very ample `L`, the lift `λ_L : A → Pic⁰` of
++  `φ_L` is an isogeny (Mumford §6 Application 1 and §8 Thm 1; locators UNVERIFIED). -/
++  phiVeryAmpleIsogeny : _root_.T09Pic.PhiVeryAmpleIsogeny
+   /-- t09-pic, L4, printed form (single leaf): there is a pairing `A[n] × Pic⁰[n] → μ_n`, `n` invertible in `K`, with
+   the values of Mumford's `ē_n` (`weilScalar`), perfect, Galois-equivariant, compatible in `n`, adjoint for the
+   genuine dual `f^∨`, and trivial on `(x, λ_L x)` for ample `L` (Mumford §20 and §23; Milne 1986 §16; locators
+@@ -804,8 +804,9 @@
+   qmCentralizerCMC := l.qmCentralizerCMC
+   tateTwistInvariants := l.tateTwistInvariants
+   axSenTate := l.axSenTate
+-  t09SymmIsogenyExists := _root_.T09Pic.t09SymmIsogenyExists_of_four l.picRepresentableAbVar l.picZeroAbVar
+-    l.phiAmpleIsogeny l.weilPairingMumford
++  t09SymmIsogenyExists := _root_.T09Pic.t09SymmIsogenyExists_of_leaves l.picRepresentableAbVar l.picZeroAbVar
++    l.phiVeryAmpleIsogeny (_root_.T09Pic.weilPairingPicZero_of_printed _root_.T09Pic.veryAmpleIsAmple
++      (_root_.T09Pic.weilPairingPicZeroPrinted_of_mumford l.weilPairingMumford))
+   milneIsogenyQuasiInverse := l.milneIsogenyQuasiInverse
+   egaIV_8_10_5_xii := l.egaIV_8_10_5_xii
+   valenceFormulaCocompactEq := l.valenceFormulaCocompactEq
+diff -ru a/ZInQKernel/OneProof/H/TailZ26.lean b/ZInQKernel/OneProof/H/TailZ26.lean
+--- a/ZInQKernel/OneProof/H/TailZ26.lean	2026-11-16 08:36:08.968496679 -0800
++++ b/ZInQKernel/OneProof/H/TailZ26.lean	2026-11-16 08:36:09.008076582 -0800
+@@ -141,9 +141,9 @@
+   group law is an abelian variety (`IsPicZero`; Mumford §13, Kleiman 9.5.1 and 9.5.3, SGA 3 VI_A 2.4; locators
+   UNVERIFIED). -/
+   picZeroAbVar : _root_.T09Pic.PicZeroAbVar
+-  /-- t09-pic, L3, printed form: for ample `L`, the lift `λ_L : A → Pic⁰` of `φ_L` is an isogeny (Mumford §6
+-  Application 1 and §8 Thm 1; locators UNVERIFIED). -/
+-  phiAmpleIsogeny : _root_.T09Pic.PhiAmpleIsogeny
++  /-- t09-pic, L3, the form the chain reads (pic-fix2 narrowing): for very ample `L`, the lift `λ_L : A → Pic⁰` of
++  `φ_L` is an isogeny (Mumford §6 Application 1 and §8 Thm 1; locators UNVERIFIED). -/
++  phiVeryAmpleIsogeny : _root_.T09Pic.PhiVeryAmpleIsogeny
+   /-- t09-pic, L4, printed form (single leaf): there is a pairing `A[n] × Pic⁰[n] → μ_n`, `n` invertible in `K`, with
+   the values of Mumford's `ē_n` (`weilScalar`), perfect, Galois-equivariant, compatible in `n`, adjoint for the
+   genuine dual `f^∨`, and trivial on `(x, λ_L x)` for ample `L` (Mumford §20 and §23; Milne 1986 §16; locators
+@@ -162,7 +162,7 @@
+   shimizuCovolumeO1 := _root_.HDec.GammaStarArea.shimizuCovolumeO1_proof
+   picRepresentableAbVar := n.picRepresentableAbVar
+   picZeroAbVar := n.picZeroAbVar
+-  phiAmpleIsogeny := n.phiAmpleIsogeny
++  phiVeryAmpleIsogeny := n.phiVeryAmpleIsogeny
+   weilPairingMumford := n.weilPairingMumford
+ 
+ /-- **r6 at number fields** (r6-nf) from leaf-fold14's bundles: neron-dvr's `GapNeron.raynaudCriterion_leavesNF`
+diff -ru a/ZInQKernel/OneProof/H/TailZ30.lean b/ZInQKernel/OneProof/H/TailZ30.lean
+--- a/ZInQKernel/OneProof/H/TailZ30.lean	2026-11-16 08:36:08.971978428 -0800
++++ b/ZInQKernel/OneProof/H/TailZ30.lean	2026-11-16 08:36:09.008278116 -0800
+@@ -28,9 +28,9 @@
+   group law is an abelian variety (`IsPicZero`; Mumford §13, Kleiman 9.5.1 and 9.5.3, SGA 3 VI_A 2.4; locators
+   UNVERIFIED). -/
+   picZeroAbVar : _root_.T09Pic.PicZeroAbVar
+-  /-- t09-pic, L3, printed form: for ample `L`, the lift `λ_L : A → Pic⁰` of `φ_L` is an isogeny (Mumford §6
+-  Application 1 and §8 Thm 1; locators UNVERIFIED). -/
+-  phiAmpleIsogeny : _root_.T09Pic.PhiAmpleIsogeny
++  /-- t09-pic, L3, the form the chain reads (pic-fix2 narrowing): for very ample `L`, the lift `λ_L : A → Pic⁰` of
++  `φ_L` is an isogeny (Mumford §6 Application 1 and §8 Thm 1; locators UNVERIFIED). -/
++  phiVeryAmpleIsogeny : _root_.T09Pic.PhiVeryAmpleIsogeny
+   /-- t09-pic, L4, printed form (single leaf): there is a pairing `A[n] × Pic⁰[n] → μ_n`, `n` invertible in `K`, with
+   the values of Mumford's `ē_n` (`weilScalar`), perfect, Galois-equivariant, compatible in `n`, adjoint for the
+   genuine dual `f^∨`, and trivial on `(x, λ_L x)` for ample `L` (Mumford §20 and §23; Milne 1986 §16; locators
+@@ -48,7 +48,7 @@
+   valenceFormulaCocompactEq := n.valenceFormulaCocompactEq
+   picRepresentableAbVar := n.picRepresentableAbVar
+   picZeroAbVar := n.picZeroAbVar
+-  phiAmpleIsogeny := n.phiAmpleIsogeny
++  phiVeryAmpleIsogeny := n.phiVeryAmpleIsogeny
+   weilPairingMumford := n.weilPairingMumford
+ 
+ /-- **G0 with only the open leaves and the open glue** (leaf-fold18; generated). -/
+diff -ru a/ZInQKernel/OneProof/H/TailZ31.lean b/ZInQKernel/OneProof/H/TailZ31.lean
+--- a/ZInQKernel/OneProof/H/TailZ31.lean	2026-11-16 08:36:08.974900432 -0800
++++ b/ZInQKernel/OneProof/H/TailZ31.lean	2026-11-16 08:36:09.008352417 -0800
+@@ -25,9 +25,9 @@
+   group law is an abelian variety (`IsPicZero`; Mumford §13, Kleiman 9.5.1 and 9.5.3, SGA 3 VI_A 2.4; locators
+   UNVERIFIED). -/
+   picZeroAbVar : _root_.T09Pic.PicZeroAbVar
+-  /-- t09-pic, L3, printed form: for ample `L`, the lift `λ_L : A → Pic⁰` of `φ_L` is an isogeny (Mumford §6
+-  Application 1 and §8 Thm 1; locators UNVERIFIED). -/
+-  phiAmpleIsogeny : _root_.T09Pic.PhiAmpleIsogeny
++  /-- t09-pic, L3, the form the chain reads (pic-fix2 narrowing): for very ample `L`, the lift `λ_L : A → Pic⁰` of
++  `φ_L` is an isogeny (Mumford §6 Application 1 and §8 Thm 1; locators UNVERIFIED). -/
++  phiVeryAmpleIsogeny : _root_.T09Pic.PhiVeryAmpleIsogeny
+   /-- t09-pic, L4, printed form (single leaf): there is a pairing `A[n] × Pic⁰[n] → μ_n`, `n` invertible in `K`, with
+   the values of Mumford's `ē_n` (`weilScalar`), perfect, Galois-equivariant, compatible in `n`, adjoint for the
+   genuine dual `f^∨`, and trivial on `(x, λ_L x)` for ample `L` (Mumford §20 and §23; Milne 1986 §16; locators
+@@ -44,7 +44,7 @@
+   valenceFormulaCocompactEq := _root_.ValenceCocompact.valenceFormulaCocompactEq_proof
+   picRepresentableAbVar := n.picRepresentableAbVar
+   picZeroAbVar := n.picZeroAbVar
+-  phiAmpleIsogeny := n.phiAmpleIsogeny
++  phiVeryAmpleIsogeny := n.phiVeryAmpleIsogeny
+   weilPairingMumford := n.weilPairingMumford
+ 
+ /-- **G0 with only the open leaves and the open glue** (leaf-fold18; generated). -/
+diff -ru a/ZInQKernel/OneProof/H/TailZ34.lean b/ZInQKernel/OneProof/H/TailZ34.lean
+--- a/ZInQKernel/OneProof/H/TailZ34.lean	2026-11-16 08:36:08.977935658 -0800
++++ b/ZInQKernel/OneProof/H/TailZ34.lean	2026-11-16 08:36:09.010016796 -0800
+@@ -122,9 +122,9 @@
+   group law is an abelian variety (`IsPicZero`; Mumford §13, Kleiman 9.5.1 and 9.5.3, SGA 3 VI_A 2.4; locators
+   UNVERIFIED). -/
+   picZeroAbVar : _root_.T09Pic.PicZeroAbVar
+-  /-- t09-pic, L3, printed form: for ample `L`, the lift `λ_L : A → Pic⁰` of `φ_L` is an isogeny (Mumford §6
+-  Application 1 and §8 Thm 1; locators UNVERIFIED). -/
+-  phiAmpleIsogeny : _root_.T09Pic.PhiAmpleIsogeny
++  /-- t09-pic, L3, the form the chain reads (pic-fix2 narrowing): for very ample `L`, the lift `λ_L : A → Pic⁰` of
++  `φ_L` is an isogeny (Mumford §6 Application 1 and §8 Thm 1; locators UNVERIFIED). -/
++  phiVeryAmpleIsogeny : _root_.T09Pic.PhiVeryAmpleIsogeny
+   /-- t09-pic, L4, printed form (single leaf): there is a pairing `A[n] × Pic⁰[n] → μ_n`, `n` invertible in `K`, with
+   the values of Mumford's `ē_n` (`weilScalar`), perfect, Galois-equivariant, compatible in `n`, adjoint for the
+   genuine dual `f^∨`, and trivial on `(x, λ_L x)` for ample `L` (Mumford §20 and §23; Milne 1986 §16; locators
+@@ -140,7 +140,7 @@
+   egaIV_8_10_5_xii := n.egaIV_8_10_5_xii
+   picRepresentableAbVar := n.picRepresentableAbVar
+   picZeroAbVar := n.picZeroAbVar
+-  phiAmpleIsogeny := n.phiAmpleIsogeny
++  phiVeryAmpleIsogeny := n.phiVeryAmpleIsogeny
+   weilPairingMumford := n.weilPairingMumford
+ 
+ /-- **G0 with only the open leaves and the open glue** (leaf-fold22; generated). dcy3-fold: supplies `TSHecke.Y3Connected`
