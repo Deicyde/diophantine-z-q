@@ -146,10 +146,4 @@ theorem kernelEnd_one (A : AbVar K) (phi : AbVar.End A) {T : Scheme}
   have h : (1 : Over.mk t ⟶ A.X) ≫ phi.hom = 1 := MonObj.one_comp _
   exact congrArg CommaMorphism.left h
 
-#print axioms kernelLaw_comm
-#print axioms kernel_bundle
-#print axioms kernelPt_mul
-#print axioms kernelPt_one
-#print axioms kernelIdentity_closed
-
 end ZInQ.Contrib.CloudB2Shimura.Dictionary.D5

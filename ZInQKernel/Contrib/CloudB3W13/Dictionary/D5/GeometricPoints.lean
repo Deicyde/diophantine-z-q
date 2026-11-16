@@ -91,7 +91,4 @@ theorem geometricEta_surjective (P : AV.QML3 K)
     ∃ a : O, geometricEta P s a = x :=
   eta_surjective_of_torsion_card (geometricEta P s) (geometricEta_ker P s) hcard x hx
 
-#print axioms geometricPointsMap_injective
-#print axioms geometricEta_ker
-
 end ZInQ.Contrib.CloudB2Shimura.Dictionary.D5

@@ -81,7 +81,4 @@ theorem eta_surjective_of_torsion_card (eta : O →+ G)
   obtain ⟨c, hc⟩ := hbij.surjective ⟨x, hx⟩
   exact ⟨AV.liftO c, congrArg Subtype.val hc⟩
 
-#print axioms representatives_injective
-#print axioms eta_surjective_of_torsion_card
-
 end ZInQ.Contrib.CloudB2Shimura.Dictionary.D5
