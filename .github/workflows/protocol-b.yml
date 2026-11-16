@@ -2127,6 +2127,17 @@ jobs:
                                                       'location': str(finding.get('location', '')),
                                                       'objection': 'Unvalidated delivered objection: '+str(finding.get('objection', finding)),
                                                       'attempted_resolution': str(finding.get('attempted_resolution', ''))})
+                                              dispositions = delivered.get('prior_findings')
+                                              dispositions = dispositions if isinstance(dispositions, list) else []
+                                              for disposition in dispositions:
+                                                  if not isinstance(disposition, dict):
+                                                      continue
+                                                  ident = disposition.get('id')
+                                                  if (isinstance(ident, str) and ident in reviewers[family].prior
+                                                          and disposition.get('resolution') != 'resolved'):
+                                                      problem['review']['prior_findings'].append({
+                                                          'id': ident, 'resolution': 'unresolved',
+                                                          'reason': 'Unvalidated delivered disposition: '+str(disposition.get('reason', 'No reason supplied.'))})
                                       record(family + ('-report.json' if problem['complete'] else '-failure.json'), problem)
                                       record('decision.json', state)
                                       deliver_review_report(gh, pr, problem)
