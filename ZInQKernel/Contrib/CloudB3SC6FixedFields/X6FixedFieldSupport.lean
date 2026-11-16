@@ -1,13 +1,16 @@
 import ZInQKernel.Contrib.CloudB3SC6FixedFields.PointFibreInvariance
+import ZInQKernel.Contrib.CloudB3SC6FixedFields.SignRealization
 import ZInQKernel.Contrib.CloudB3SC6FixedFields.FiniteAutomorphisms
 
 /-! # Supporting results for the X6 fixed-field converse
 
 This entry point exposes geometric-point detection, coordinate-germ invariance,
-and the finite-automorphism criterion. It is not an unconditional proof of
+coordinate-sign realization, and the finite-automorphism criterion. It is not
+an unconditional proof of
 `HDec.QMSplit.Moduli.ElkiesCoord.ElkiesX6StarFunctionField` and introduces no new
-printed leaf. In particular, the concrete X6 degree bound, four sign actions,
-and existential moduli witness are not supplied here.
+printed leaf. In particular, field generation, finiteness, the concrete X6
+degree bound, the distinct base-field-linear automorphism bridge, and the
+existential moduli witness are not supplied here.
 -/
 
 namespace CloudB3SC6FixedFieldSupport

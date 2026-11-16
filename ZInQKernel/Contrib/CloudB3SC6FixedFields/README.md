@@ -8,16 +8,21 @@ The existing development proves the implication from its fixed-field clause to
 This contribution adds checked supporting proofs on the same moduli objects:
 
 - Algebraic-closure points detect morphisms, sections and generic germs over a
-  field, reusing a proof from the pinned Anthropic Fermat development.
+  field, reusing a proof from the fixed upstream revision
+  `6e837e75355538c7f80bab5b956861e86c4eacc2` of the Anthropic Fermat development.
 - The point-fibre clause forces invariance of the coordinate germ and proves
   `Q(t) ⊆ fixedByW` without assuming fixed-field equality.
+- Every coordinate-sign pair is realized by an element of `W` on both
+  function-field coordinate germs.
 - A complete list of distinct automorphisms of a finite extension, together
   with the matching degree bound, determines its fixed field. The four-action
   specialization is ready for the X6 application.
 
-The concrete four sign actions and degree bound, and hence the reverse
-containment and full conditional converse, remain separate obligations.
-`ZInQKernel.Contrib.OneProof.X6FixedFieldSupport` is the build/check entry point.
+Field generation, finiteness and the degree bound, and the bridge to four
+**distinct base-field-linear automorphisms**, remain separate obligations. The
+reverse containment and full conditional converse are not yet proved.
+`ZInQKernel.Contrib.CloudB3SC6FixedFields.X6FixedFieldSupport` is the
+support-only build/check entry point; no closing hypothesis file is claimed.
 
 Only new supporting files are added. The fine-moduli construction, target
 statements, existing modules, and dependency pins remain untouched.
