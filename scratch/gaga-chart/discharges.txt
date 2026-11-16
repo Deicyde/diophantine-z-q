@@ -3,8 +3,14 @@ DISCHARGES [OpenTextbookLeaves11.gagaMorphism] by GAGAAn.gagaMorphism_of_chart
  UnifTopology.SmoothComplexManifoldAn,
  GAGAAn.GAGAChart]
   axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenTextbookLeaves11.gagaMorphism] by GAGAAn.gagaMorphism_of_chart_core
+  still assumes: [BPAnalytic.Uniformization.UniformizationLeafAll, GAGAAn.IsAnStrExists, GAGAAn.GAGAChart]
+  axioms: [propext, Classical.choice, Quot.sound]
 DISCHARGES [OpenTextbookLeaves11.gagaMorphism] by GAGAAn.gagaMorphism_of_chart_etale
   still assumes: [BPAnalytic.Uniformization.UniformizationLeafAll, SGA1Etale.SGA1_XII_3_1_Etale, GAGAAn.GAGAChart]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenTextbookLeaves11.gagaMorphism] by GAGAAn.gagaMorphism_of_gagaChart
+  still assumes: [BPAnalytic.Uniformization.UniformizationLeafAll, GAGAAn.GAGAChart]
   axioms: [propext, Classical.choice, Quot.sound]
 DISCHARGES [OpenResearchLeaves22.gonzalezRotgerProp56X6] by GRCountX6.prop56X6_of_r5fpCount
   still assumes: [LeafQM.AV.R5fpCount]
@@ -48,8 +54,12 @@ DISCHARGES [OpenResearchLeaves22.sga7_IX_3_5_ForwardGeom] by UnipotentForward.fo
 DISCHARGES [OpenResearchLeaves22.mumfordGroupLaw] by ZInQ.Contrib.MumfordRigidity.mumfordGroupLaw_of_core
   still assumes: [LeafQM.AV.R1UnivRigid.MumfordRigidityCore]
   axioms: [propext, Classical.choice, Quot.sound]
-#discharges: 63 open hypotheses, 1926 theorems checked, 13 discharge one
+#discharges: 63 open hypotheses, 1951 theorems checked, 15 discharge one
+'GAGAAn.gagaMorphism_of_gagaChart' depends on axioms: [propext, Classical.choice, Quot.sound]
 'GAGAAn.gagaMorphism_of_chart' depends on axioms: [propext, Classical.choice, Quot.sound]
 'GAGAAn.gagaMorphism_of_chart_etale' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GAGAAn.gagaMorphism_of_chart_core' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GAGAAn.exists_isAnStr_of_unif' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GAGAAn.exists_rChart' depends on axioms: [propext, Classical.choice, Quot.sound]
 'GAGAAn.contMDiff_id_of_isAnStr' depends on axioms: [propext, Classical.choice, Quot.sound]
 'GAGAAn.contMDiffAt_of_regular' depends on axioms: [propext, Classical.choice, Quot.sound]

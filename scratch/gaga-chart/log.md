@@ -39,3 +39,16 @@
   DISCHARGES [OpenTextbookLeaves11.gagaMorphism] by GAGAAn.gagaMorphism_of_chart_etale
     still assumes: [UniformizationLeafAll, SGA1Etale.SGA1_XII_3_1_Etale, GAGAAn.GAGAChart]; standard axioms
   #discharges: 63 open hypotheses, 1926 theorems checked, 13 discharge one
+
+## v2: charts from the uniformization (11-16 05:00) — COMPILES (VERIFIED)
+- B.lean: `RChart` (chart by regular functions with analytic representation), `rChartedSpace`,
+  `isManifold_rChart`, `contMDiffOn_xevalAt_rChart`, `isAnStr_rChart`; `uPt`, `continuous_uPt`, `continuous_symm`,
+  `exists_rChart` (IFT at v₀ on a nbhd S where dG invertible; chart Q ↦ Θ Q on φ(proj S); inverse φ∘proj∘G⁻¹;
+  regular functions analytic via `OpenPartialHomeomorph.contDiffAt_symm` at each point of G(S)).
+- Module now proves `GAGAAn.gagaMorphism_of_gagaChart (hU : UniformizationLeafAll) (hG : GAGAChart) : GAGAMorphism`
+  (no SmoothComplexManifoldAn / SGA1 leaf needed); `exists_isAnStr_of_unif`; core theorem over named glue
+  `IsAnStrExists`. C.lean = module copy.
+- `#discharges` (scratch/gaga-chart/discharges.txt), VERIFIED:
+  DISCHARGES [OpenTextbookLeaves11.gagaMorphism] by GAGAAn.gagaMorphism_of_gagaChart
+    still assumes: [BPAnalytic.Uniformization.UniformizationLeafAll, GAGAAn.GAGAChart]; axioms standard
+  (plus rows for gagaMorphism_of_chart, _core, _etale); #discharges: 63 open hypotheses, 1951 theorems checked, 15 discharge one
