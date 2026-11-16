@@ -24,11 +24,11 @@ open AlgebraicGeometry
 -- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme Scheme.IdealSheafData)
+export _root_.AlgebraicGeometry (Scheme Scheme.IdealSheafData)
 namespace Scheme
-export AlgebraicGeometry.Scheme (OpenCover affineOpens isBasis_affineOpens Opens IdealSheafData Cover)
+export _root_.AlgebraicGeometry.Scheme (OpenCover affineOpens isBasis_affineOpens Opens IdealSheafData Cover)
 namespace IdealSheafData
-export AlgebraicGeometry.Scheme.IdealSheafData (ideal ext_of_iSup_eq_top comap ideal_comap_of_isOpenImmersion)
+export _root_.AlgebraicGeometry.Scheme.IdealSheafData (ideal ext_of_iSup_eq_top comap ideal_comap_of_isOpenImmersion)
 open AlgebraicGeometry.Scheme.IdealSheafData
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry

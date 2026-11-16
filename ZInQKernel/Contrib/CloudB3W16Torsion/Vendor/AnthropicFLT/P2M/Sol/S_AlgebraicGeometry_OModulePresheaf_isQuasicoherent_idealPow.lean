@@ -32,9 +32,9 @@ open Opposite
 noncomputable section
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Spec Scheme OModulePresheaf.idealPow OModulePresheaf OModulePresheaf.IsQuasicoherent Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom)
+export _root_.AlgebraicGeometry (Spec Scheme OModulePresheaf.idealPow OModulePresheaf OModulePresheaf.IsQuasicoherent Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom)
 namespace OModulePresheaf
-export AlgebraicGeometry.OModulePresheaf (idealSections idealSections_eq_ideal idealPowSub idealPow idealPowSub_smul_mem IsQuasicoherent res res_smul isScalarTower obj)
+export _root_.AlgebraicGeometry.OModulePresheaf (idealSections idealSections_eq_ideal idealPowSub idealPow idealPowSub_smul_mem IsQuasicoherent res res_smul isScalarTower obj)
 namespace G4T
 open AlgebraicGeometry.OModulePresheaf
 open AlgebraicGeometry

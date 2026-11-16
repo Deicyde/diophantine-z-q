@@ -23,11 +23,11 @@ open AlgebraicGeometry
 -- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.pullback Scheme Scheme.Modules.pullbackCongr Scheme.Modules Scheme.Modules.pullbackComp)
+export _root_.AlgebraicGeometry (Scheme.Modules.pullback Scheme Scheme.Modules.pullbackCongr Scheme.Modules Scheme.Modules.pullbackComp)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Modules.pullback Modules.pullbackCongr Modules Modules.pullbackComp)
+export _root_.AlgebraicGeometry.Scheme (Modules.pullback Modules.pullbackCongr Modules Modules.pullbackComp)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (pullback pseudofunctor_associativity pullbackCongr pullbackComp)
+export _root_.AlgebraicGeometry.Scheme.Modules (pullback pseudofunctor_associativity pullbackCongr pullbackComp)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry
@@ -176,11 +176,11 @@ end Head
 end AlgebraicGeometry.Scheme.Modules
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.pullback Scheme Scheme.Modules.pullbackCongr Scheme.Modules Scheme.Modules.pullbackComp)
+export _root_.AlgebraicGeometry (Scheme.Modules.pullback Scheme Scheme.Modules.pullbackCongr Scheme.Modules Scheme.Modules.pullbackComp)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Modules.pullback Modules.pullbackCongr Modules Modules.pullbackComp)
+export _root_.AlgebraicGeometry.Scheme (Modules.pullback Modules.pullbackCongr Modules Modules.pullbackComp)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (pullback pseudofunctor_associativity pullbackCongr pullbackComp)
+export _root_.AlgebraicGeometry.Scheme.Modules (pullback pseudofunctor_associativity pullbackCongr pullbackComp)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry

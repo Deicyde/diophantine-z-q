@@ -32,9 +32,9 @@ open Opposite
 noncomputable section
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Spec Scheme OModulePresheaf.Hom OModulePresheaf OModulePresheaf.IsQuasicoherent)
+export _root_.AlgebraicGeometry (Spec Scheme OModulePresheaf.Hom OModulePresheaf OModulePresheaf.IsQuasicoherent)
 namespace OModulePresheaf
-export AlgebraicGeometry.OModulePresheaf (Hom IsQuasicoherent res obj)
+export _root_.AlgebraicGeometry.OModulePresheaf (Hom IsQuasicoherent res obj)
 namespace G4T
 open AlgebraicGeometry.OModulePresheaf
 open AlgebraicGeometry

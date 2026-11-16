@@ -26,11 +26,11 @@ open Opposite
 open TopologicalSpace
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.pullback Scheme.Hom Scheme.Hom.image_preimage_eq_opensRange_inf Scheme Scheme.Modules Scheme.Opens Scheme.Opens.opensRange_ι)
+export _root_.AlgebraicGeometry (Scheme.Modules.pullback Scheme.Hom Scheme.Hom.image_preimage_eq_opensRange_inf Scheme Scheme.Modules Scheme.Opens Scheme.Opens.opensRange_ι)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Modules.pullback Hom Hom.image_preimage_eq_opensRange_inf restrictFunctor Modules Opens Opens.opensRange_ι)
+export _root_.AlgebraicGeometry.Scheme (Modules.pullback Hom Hom.image_preimage_eq_opensRange_inf restrictFunctor Modules Opens Opens.opensRange_ι)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (pullback Hom restrictFunctor restrictFunctorIsoPullback Hom.isIso_iff_isIso_app Hom.isIso_of_isIso_app_of_iSup_eq_top)
+export _root_.AlgebraicGeometry.Scheme.Modules (pullback Hom restrictFunctor restrictFunctorIsoPullback Hom.isIso_iff_isIso_app Hom.isIso_of_isIso_app_of_iSup_eq_top)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry

@@ -25,7 +25,7 @@ open AlgebraicCurve
 -- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 
 namespace AlgebraicCurve
-export AlgebraicCurve (Place Place.coe_algebraMap Divisor Divisor.degree Divisor.degree_single Divisor.IsPrincipal LSpace ell mem_riemannRochSpace_iff)
+export _root_.AlgebraicCurve (Place Place.coe_algebraMap Divisor Divisor.degree Divisor.degree_single Divisor.IsPrincipal LSpace ell mem_riemannRochSpace_iff)
 namespace PlaceTransportGlue
 open AlgebraicCurve
 

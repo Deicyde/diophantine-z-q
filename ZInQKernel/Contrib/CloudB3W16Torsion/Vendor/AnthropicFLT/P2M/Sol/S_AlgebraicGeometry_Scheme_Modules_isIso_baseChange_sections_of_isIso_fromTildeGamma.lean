@@ -26,11 +26,11 @@ open AlgebraicGeometry
 open Opposite
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.pushforward Scheme.Modules.pullback tilde.adjunction moduleSpecΓFunctor Spec Spec.map Scheme pullbackSpecIso Scheme.Modules.pullbackPushforwardAdjunction Scheme.Modules tilde Scheme.Modules.pushforwardSpecCompΓIso tilde.pullbackSpecIso tilde.pullbackSpecIso_unit)
+export _root_.AlgebraicGeometry (Scheme.Modules.pushforward Scheme.Modules.pullback tilde.adjunction moduleSpecΓFunctor Spec Spec.map Scheme pullbackSpecIso Scheme.Modules.pullbackPushforwardAdjunction Scheme.Modules tilde Scheme.Modules.pushforwardSpecCompΓIso tilde.pullbackSpecIso tilde.pullbackSpecIso_unit)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Modules.pushforward Modules.pullback Γ Modules.pullbackPushforwardAdjunction Modules Modules.pushforwardSpecCompΓIso)
+export _root_.AlgebraicGeometry.Scheme (Modules.pushforward Modules.pullback Γ Modules.pullbackPushforwardAdjunction Modules Modules.pushforwardSpecCompΓIso)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (pushforward pullback fromTildeΓ pullbackPushforwardAdjunction pushforwardSpecCompΓIso)
+export _root_.AlgebraicGeometry.Scheme.Modules (pushforward pullback fromTildeΓ pullbackPushforwardAdjunction pushforwardSpecCompΓIso)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry

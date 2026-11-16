@@ -25,11 +25,11 @@ open Opposite
 open TopologicalSpace
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.hom_ext IsOpenImmersion.lift Scheme.Modules.Hom.app_smul Scheme.Modules.pseudofunctor Scheme.Opens.range_ι Scheme.Hom Scheme.Modules.Hom.comp_app Scheme.Modules.Hom Scheme.Hom.image_preimage_eq_opensRange_inf Scheme.Hom.comp_image Scheme.Hom.image_top_eq_opensRange Scheme Scheme.Modules.Hom.id_app Scheme.Modules.Hom.app IsOpenImmersion Scheme.Modules.pullbackCongr Scheme.Opens.ι_apply Scheme.Modules Scheme.Opens Scheme.Hom.coe_image IsOpenImmersion.lift_fac Scheme.Modules.map_smul Scheme.Opens.opensRange_ι Scheme.Hom.comp_apply Scheme.Modules.pullbackComp)
+export _root_.AlgebraicGeometry (Scheme.Modules.hom_ext IsOpenImmersion.lift Scheme.Modules.Hom.app_smul Scheme.Modules.pseudofunctor Scheme.Opens.range_ι Scheme.Hom Scheme.Modules.Hom.comp_app Scheme.Modules.Hom Scheme.Hom.image_preimage_eq_opensRange_inf Scheme.Hom.comp_image Scheme.Hom.image_top_eq_opensRange Scheme Scheme.Modules.Hom.id_app Scheme.Modules.Hom.app IsOpenImmersion Scheme.Modules.pullbackCongr Scheme.Opens.ι_apply Scheme.Modules Scheme.Opens Scheme.Hom.coe_image IsOpenImmersion.lift_fac Scheme.Modules.map_smul Scheme.Opens.opensRange_ι Scheme.Hom.comp_apply Scheme.Modules.pullbackComp)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Modules.hom_ext Modules.Hom.app_smul Modules.pseudofunctor Hom.id_app Opens.range_ι Hom mk Γ Modules.Hom.comp_app Hom.app Modules.Hom Hom.image_preimage_eq_opensRange_inf Hom.comp_image Hom.image_top_eq_opensRange Modules.Hom.id_app Modules.Hom.app restrictFunctor Hom.comp_app Modules.pullbackCongr Opens.ι_apply Modules Opens Hom.coe_image Modules.map_smul Opens.opensRange_ι restrict Hom.comp_apply PresheafOfModules Modules.pullbackComp)
+export _root_.AlgebraicGeometry.Scheme (Modules.hom_ext Modules.Hom.app_smul Modules.pseudofunctor Hom.id_app Opens.range_ι Hom mk Γ Modules.Hom.comp_app Hom.app Modules.Hom Hom.image_preimage_eq_opensRange_inf Hom.comp_image Hom.image_top_eq_opensRange Modules.Hom.id_app Modules.Hom.app restrictFunctor Hom.comp_app Modules.pullbackCongr Opens.ι_apply Modules Opens Hom.coe_image Modules.map_smul Opens.opensRange_ι restrict Hom.comp_apply PresheafOfModules Modules.pullbackComp)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (hom_ext Hom.app_smul pseudofunctor pushforward pushforwardComp pullback presheaf Hom.comp_app Hom restrictFunctorCongr restrictFunctor Hom.id_app Hom.app restrictFunctorIsoPullback restrictFunctorComp_hom_app_app restrictAdjunction pullbackCongr isSheaf pullbackPushforwardAdjunction restrictFunctorComp restrict conjugateEquiv_pullbackComp_inv map_smul pullbackComp)
+export _root_.AlgebraicGeometry.Scheme.Modules (hom_ext Hom.app_smul pseudofunctor pushforward pushforwardComp pullback presheaf Hom.comp_app Hom restrictFunctorCongr restrictFunctor Hom.id_app Hom.app restrictFunctorIsoPullback restrictFunctorComp_hom_app_app restrictAdjunction pullbackCongr isSheaf pullbackPushforwardAdjunction restrictFunctorComp restrict conjugateEquiv_pullbackComp_inv map_smul pullbackComp)
 namespace HomZar
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
@@ -367,7 +367,7 @@ variable {Y : Scheme.{u}} {ι : Type v} {X : ι → Scheme.{u}} (f : ∀ i, X i 
 private def _root_.AlgebraicGeometry.Scheme.Modules.HomZar.Compatible (ψ : ∀ i, L₁.restrict (f i) ⟶ L₂.restrict (f i)) : Prop :=
   ∀ (i j : ι) (V : (X i).Opens) (W : (X j).Opens) (hVW : (f i) ''ᵁ V = (f j) ''ᵁ W),
     L₁.presheaf.map (eqToHom hVW).op ≫ (ψ i).app V = (ψ j).app W ≫ L₂.presheaf.map (eqToHom hVW).op
-export AlgebraicGeometry.Scheme.Modules.HomZar (Compatible)
+export _root_.AlgebraicGeometry.Scheme.Modules.HomZar (Compatible)
 theorem image_preimage_eq_of_le (i : ι) (O : Y.Opens) (hO : O ≤ (f i).opensRange) : (f i) ''ᵁ (f i) ⁻¹ᵁ O = O := by
   rw [Scheme.Hom.image_preimage_eq_opensRange_inf, inf_eq_right.mpr hO]
 

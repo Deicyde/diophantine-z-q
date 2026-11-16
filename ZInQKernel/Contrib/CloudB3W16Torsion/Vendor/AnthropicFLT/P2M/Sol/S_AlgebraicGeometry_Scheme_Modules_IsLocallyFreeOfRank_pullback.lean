@@ -23,11 +23,11 @@ open AlgebraicGeometry
 -- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (morphismRestrict_ι Scheme.Modules.pullback Scheme Scheme.Modules Scheme.Modules.IsLocallyFreeOfRank)
+export _root_.AlgebraicGeometry (morphismRestrict_ι Scheme.Modules.pullback Scheme Scheme.Modules Scheme.Modules.IsLocallyFreeOfRank)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Modules.pullback Modules.pullbackCongr Modules Opens Modules.pullbackComp Modules.IsLocallyFreeOfRank)
+export _root_.AlgebraicGeometry.Scheme (Modules.pullback Modules.pullbackCongr Modules Opens Modules.pullbackComp Modules.IsLocallyFreeOfRank)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (pullback pullbackCongr pullbackComp IsLocallyFreeOfRank)
+export _root_.AlgebraicGeometry.Scheme.Modules (pullback pullbackCongr pullbackComp IsLocallyFreeOfRank)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry

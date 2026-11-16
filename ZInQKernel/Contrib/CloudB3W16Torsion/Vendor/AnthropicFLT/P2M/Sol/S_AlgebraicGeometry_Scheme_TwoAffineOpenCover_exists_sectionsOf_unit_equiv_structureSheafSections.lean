@@ -26,11 +26,11 @@ open AlgebraicGeometry
 open Opposite
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Spec Scheme Scheme.TwoAffineOpenCover)
+export _root_.AlgebraicGeometry (Spec Scheme Scheme.TwoAffineOpenCover)
 namespace Scheme
-export AlgebraicGeometry.Scheme (ringCatSheaf mk Modules Cover TwoAffineOpenCover)
+export _root_.AlgebraicGeometry.Scheme (ringCatSheaf mk Modules Cover TwoAffineOpenCover)
 namespace TwoAffineOpenCover
-export AlgebraicGeometry.Scheme.TwoAffineOpenCover (sectionsOf cover structureSheafSections mk)
+export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (sectionsOf cover structureSheafSections mk)
 open AlgebraicGeometry.Scheme.TwoAffineOpenCover
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry

@@ -52,7 +52,7 @@ noncomputable def preimageIso :
     ≪≫ pullbackSpecIso R Γ(C, U) K
 
 include hU in
-private theorem _root_.NoncritGeom.isDomain (hne : letI := Scheme.TwoAffineOpenCover.algebraOfHom c U; Nontrivial (K ⊗[R] Γ(C, U)))
+private theorem isDomain (hne : letI := Scheme.TwoAffineOpenCover.algebraOfHom c U; Nontrivial (K ⊗[R] Γ(C, U)))
     [GeometricallyIntegral c] :
     letI := Scheme.TwoAffineOpenCover.algebraOfHom c U
     IsDomain (K ⊗[R] Γ(C, U)) := by
@@ -75,7 +75,7 @@ private theorem _root_.NoncritGeom.isDomain (hne : letI := Scheme.TwoAffineOpenC
     MulEquiv.isDomain Γ(Spec (CommRingCat.of (Γ(C, U) ⊗[R] K)), ⊤)
       (Scheme.ΓSpecIso (.of (Γ(C, U) ⊗[R] K))).commRingCatIsoToRingEquiv.symm.toMulEquiv
   exact MulEquiv.isDomain (Γ(C, U) ⊗[R] K) (Algebra.TensorProduct.comm R K Γ(C, U)).toMulEquiv
-export _root_.NoncritGeom (isDomain)
+-- [port] This private helper is already in the module-local NoncritGeom namespace.
 end NoncritGeom
 
 theorem solution

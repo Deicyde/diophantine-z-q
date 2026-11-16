@@ -25,9 +25,9 @@ open AlgebraicGeometry
 open Opposite
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.Hom.app_smul Scheme.Modules.Hom.comp_app Scheme.Modules.Hom Spec Scheme.Modules.mapPresheaf_app Scheme Scheme.Modules.Hom.id_app Scheme.Modules OModulePresheaf.ofModules OModulePresheaf OModulePresheaf.cechFinite_iff)
+export _root_.AlgebraicGeometry (Scheme.Modules.Hom.app_smul Scheme.Modules.Hom.comp_app Scheme.Modules.Hom Spec Scheme.Modules.mapPresheaf_app Scheme Scheme.Modules.Hom.id_app Scheme.Modules OModulePresheaf.ofModules OModulePresheaf OModulePresheaf.cechFinite_iff)
 namespace OModulePresheaf
-export AlgebraicGeometry.OModulePresheaf (ofModules ofModules_algebraMap_smul cochain d d_apply H0 HSucc CechFinite cechFinite_iff res module obj)
+export _root_.AlgebraicGeometry.OModulePresheaf (ofModules ofModules_algebraMap_smul cochain d d_apply H0 HSucc CechFinite cechFinite_iff res module obj)
 open AlgebraicGeometry.OModulePresheaf
 open AlgebraicGeometry
 namespace IsoTransfer
@@ -103,12 +103,12 @@ def HSuccEquiv (i : ℕ) : F.HSucc K i ≃ₗ[R] G.HSucc K i :=
   Submodule.Quotient.equiv _ _ (kerEquiv φ K i) (map_boundaries φ K i)
 
 include φ in
-private theorem _root_.AlgebraicGeometry.OModulePresheaf.IsoTransfer.cechFinite_iff : F.CechFinite K ↔ G.CechFinite K := by
+private theorem cechFinite_iff : F.CechFinite K ↔ G.CechFinite K := by
   rw [OModulePresheaf.cechFinite_iff, OModulePresheaf.cechFinite_iff]
   exact and_congr (⟨fun _ => Module.Finite.equiv (H0Equiv φ K), fun _ => Module.Finite.equiv (H0Equiv φ K).symm⟩)
     (forall_congr' fun i => ⟨fun _ => Module.Finite.equiv (HSuccEquiv φ K i),
       fun _ => Module.Finite.equiv (HSuccEquiv φ K i).symm⟩)
-export AlgebraicGeometry.OModulePresheaf.IsoTransfer (cechFinite_iff)
+-- [port] The private Cech finiteness lemma is local to this IsoTransfer namespace.
 def ofIso {M M' : V.Modules} (e : M ≅ M') : LinIso (ofModules π M) (ofModules π M') where
   app U :=
     { toFun := fun x => (e.hom.app U).hom x

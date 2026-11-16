@@ -26,11 +26,11 @@ open AlgebraicGeometry
 open Opposite
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Hom Scheme.Opens.ι_appIso Scheme.Hom.image_preimage_eq_opensRange_inf Scheme Scheme.Hom.appTop Scheme.Hom.comp_appTop Scheme.Hom.naturality Scheme.Modules Scheme.Opens Scheme.Opens.ι_image_top Scheme.Opens.opensRange_ι Scheme.Modules.IsInvertible)
+export _root_.AlgebraicGeometry (Scheme.Hom Scheme.Opens.ι_appIso Scheme.Hom.image_preimage_eq_opensRange_inf Scheme Scheme.Hom.appTop Scheme.Hom.comp_appTop Scheme.Hom.naturality Scheme.Modules Scheme.Opens Scheme.Opens.ι_image_top Scheme.Opens.opensRange_ι Scheme.Modules.IsInvertible)
 namespace Scheme
-export AlgebraicGeometry.Scheme (ringCatSheaf Modules.pullback Hom Γ Opens.ι_appIso Hom.image_preimage_eq_opensRange_inf Hom.appTop Hom.comp_appTop Hom.naturality Modules Opens Opens.ι_image_top Modules.map_smul Opens.opensRange_ι restrict PresheafOfModules Modules.IsInvertible)
+export _root_.AlgebraicGeometry.Scheme (ringCatSheaf Modules.pullback Hom Γ Opens.ι_appIso Hom.image_preimage_eq_opensRange_inf Hom.appTop Hom.comp_appTop Hom.naturality Modules Opens Opens.ι_image_top Modules.map_smul Opens.opensRange_ι restrict PresheafOfModules Modules.IsInvertible)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (Hom.app_smul pushforward pullback presheaf Hom mapPresheaf_app restrictFunctorIsoPullback isSheaf pullbackPushforwardAdjunction restrict map_smul IsInvertible)
+export _root_.AlgebraicGeometry.Scheme.Modules (Hom.app_smul pushforward pullback presheaf Hom mapPresheaf_app restrictFunctorIsoPullback isSheaf pullbackPushforwardAdjunction restrict map_smul IsInvertible)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry
@@ -181,11 +181,11 @@ end AlgebraicGeometry.Scheme.Modules
 
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Hom Scheme.Opens.ι_appIso Scheme.Hom.image_preimage_eq_opensRange_inf Scheme Scheme.Hom.appTop Scheme.Hom.comp_appTop Scheme.Hom.naturality Scheme.Modules Scheme.Opens Scheme.Opens.ι_image_top Scheme.Opens.opensRange_ι Scheme.Modules.IsInvertible)
+export _root_.AlgebraicGeometry (Scheme.Hom Scheme.Opens.ι_appIso Scheme.Hom.image_preimage_eq_opensRange_inf Scheme Scheme.Hom.appTop Scheme.Hom.comp_appTop Scheme.Hom.naturality Scheme.Modules Scheme.Opens Scheme.Opens.ι_image_top Scheme.Opens.opensRange_ι Scheme.Modules.IsInvertible)
 namespace Scheme
-export AlgebraicGeometry.Scheme (ringCatSheaf Modules.pullback Hom Γ Opens.ι_appIso Hom.image_preimage_eq_opensRange_inf Hom.appTop Hom.comp_appTop Hom.naturality Modules Opens Opens.ι_image_top Modules.map_smul Opens.opensRange_ι restrict PresheafOfModules Modules.IsInvertible)
+export _root_.AlgebraicGeometry.Scheme (ringCatSheaf Modules.pullback Hom Γ Opens.ι_appIso Hom.image_preimage_eq_opensRange_inf Hom.appTop Hom.comp_appTop Hom.naturality Modules Opens Opens.ι_image_top Modules.map_smul Opens.opensRange_ι restrict PresheafOfModules Modules.IsInvertible)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (Hom.app_smul pushforward pullback presheaf Hom mapPresheaf_app restrictFunctorIsoPullback isSheaf pullbackPushforwardAdjunction restrict map_smul IsInvertible)
+export _root_.AlgebraicGeometry.Scheme.Modules (Hom.app_smul pushforward pullback presheaf Hom mapPresheaf_app restrictFunctorIsoPullback isSheaf pullbackPushforwardAdjunction restrict map_smul IsInvertible)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry

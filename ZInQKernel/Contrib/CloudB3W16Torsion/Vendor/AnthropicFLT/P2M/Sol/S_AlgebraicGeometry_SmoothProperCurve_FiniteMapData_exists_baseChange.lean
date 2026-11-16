@@ -31,9 +31,9 @@ open NeronModelInfra
 open TensorProduct
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Spec.map_comp Scheme.Opens.topIso_inv pullbackSpecIso_inv_snd pullbackRestrictIsoRestrict_hom_morphismRestrict_assoc Scheme.Hom Scheme.Γ Scheme.Hom.preimage_inf morphismRestrict_appTop IsAffineOpen.fromSpec_top Scheme.preimage_basicOpen IsAffineOpen.isoSpec_hom IsAffineOpen.SpecMap_appLE_fromSpec Spec IsIntegral Scheme.Hom.id_appTop Spec.map Scheme pullbackSpecIso Scheme.Opens.toSpecΓ_appTop Scheme.Hom.appTop Scheme.Γ_map_op Scheme.isoSpec_Spec_inv pullbackRestrictIsoRestrict_inv_fst_assoc Scheme.Hom.comp_appTop Scheme.Hom.naturality_assoc isAffineOpen_top Etale IsAffineOpen.isoSpec_inv_ι_assoc pullbackSpecIso_hom_fst IsAffineOpen Scheme.Hom.preimage_sup pullbackRestrictIsoRestrict Scheme.Opens Scheme.Opens.ι_image_top Scheme.ΓSpecIso_naturality Scheme.Opens.ι_appTop Scheme.Pullback.exists_preimage_pullback Scheme.Hom.appLE Scheme.ΓSpecIso Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom Scheme.TwoAffineOpenCover.isAffineHom_fst SmoothProperCurve.FiniteMapData)
+export _root_.AlgebraicGeometry (Spec.map_comp Scheme.Opens.topIso_inv pullbackSpecIso_inv_snd pullbackRestrictIsoRestrict_hom_morphismRestrict_assoc Scheme.Hom Scheme.Γ Scheme.Hom.preimage_inf morphismRestrict_appTop IsAffineOpen.fromSpec_top Scheme.preimage_basicOpen IsAffineOpen.isoSpec_hom IsAffineOpen.SpecMap_appLE_fromSpec Spec IsIntegral Scheme.Hom.id_appTop Spec.map Scheme pullbackSpecIso Scheme.Opens.toSpecΓ_appTop Scheme.Hom.appTop Scheme.Γ_map_op Scheme.isoSpec_Spec_inv pullbackRestrictIsoRestrict_inv_fst_assoc Scheme.Hom.comp_appTop Scheme.Hom.naturality_assoc isAffineOpen_top Etale IsAffineOpen.isoSpec_inv_ι_assoc pullbackSpecIso_hom_fst IsAffineOpen Scheme.Hom.preimage_sup pullbackRestrictIsoRestrict Scheme.Opens Scheme.Opens.ι_image_top Scheme.ΓSpecIso_naturality Scheme.Opens.ι_appTop Scheme.Pullback.exists_preimage_pullback Scheme.Hom.appLE Scheme.ΓSpecIso Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom Scheme.TwoAffineOpenCover.isAffineHom_fst SmoothProperCurve.FiniteMapData)
 namespace SmoothProperCurve
-export AlgebraicGeometry.SmoothProperCurve (specMap baseChange sectionBaseChange sectionBaseChange_coe_fst sectionBaseChange_coe_snd FiniteMapData)
+export _root_.AlgebraicGeometry.SmoothProperCurve (specMap baseChange sectionBaseChange sectionBaseChange_coe_fst sectionBaseChange_coe_snd FiniteMapData)
 open AlgebraicGeometry.SmoothProperCurve
 open AlgebraicGeometry
 
@@ -84,7 +84,7 @@ theorem range_sectionBaseChange :
 end
 
 namespace FiniteMapData
-export AlgebraicGeometry.SmoothProperCurve.FiniteMapData (LevelSetsGenericallyEtale mk finite_f U f sup_eq_top m V isAffineOpen_U inf_eq_basicOpen_g isAffineOpen_V finite_g g inf_eq_basicOpen mem_U_iff levelSet_free res_f_mul_res_g)
+export _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData (LevelSetsGenericallyEtale mk finite_f U f sup_eq_top m V isAffineOpen_U inf_eq_basicOpen_g isAffineOpen_V finite_g g inf_eq_basicOpen mem_U_iff levelSet_free res_f_mul_res_g)
 open AlgebraicGeometry.SmoothProperCurve.FiniteMapData
 
 variable {R : Type u} [CommRing R] {C : Scheme.{u}} {c : C ⟶ Spec (CommRingCat.of R)}
@@ -94,31 +94,31 @@ variable {R : Type u} [CommRing R] {C : Scheme.{u}} {c : C ⟶ Spec (CommRingCat
 private theorem _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData.isAffineOpen_preimage_U : IsAffineOpen ((pullback.fst c (specMap R R')) ⁻¹ᵁ 𝔉.U) :=
   haveI := Scheme.TwoAffineOpenCover.isAffineHom_fst c R'
   𝔉.isAffineOpen_U.preimage _
-export AlgebraicGeometry.SmoothProperCurve.FiniteMapData (isAffineOpen_preimage_U)
+export _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData (isAffineOpen_preimage_U)
 private theorem _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData.isAffineOpen_preimage_V : IsAffineOpen ((pullback.fst c (specMap R R')) ⁻¹ᵁ 𝔉.V) :=
   haveI := Scheme.TwoAffineOpenCover.isAffineHom_fst c R'
   𝔉.isAffineOpen_V.preimage _
-export AlgebraicGeometry.SmoothProperCurve.FiniteMapData (isAffineOpen_preimage_V)
+export _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData (isAffineOpen_preimage_V)
 private theorem _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData.preimage_U_sup_preimage_V :
     (pullback.fst c (specMap R R')) ⁻¹ᵁ 𝔉.U ⊔ (pullback.fst c (specMap R R')) ⁻¹ᵁ 𝔉.V = ⊤ := by
   rw [← Scheme.Hom.preimage_sup, 𝔉.sup_eq_top]
   rfl
-export AlgebraicGeometry.SmoothProperCurve.FiniteMapData (preimage_U_sup_preimage_V)
+export _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData (preimage_U_sup_preimage_V)
 private theorem _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData.mem_preimage_U_iff (x : ↑(pullback c (specMap R R'))) :
     x ∈ (pullback.fst c (specMap R R')) ⁻¹ᵁ 𝔉.U ↔ x ∉ Set.range (sectionBaseChange R' ε).1.base := by
   rw [range_sectionBaseChange ε R', Set.mem_preimage, ← 𝔉.mem_U_iff]
   rfl
-export AlgebraicGeometry.SmoothProperCurve.FiniteMapData (mem_preimage_U_iff)
+export _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData (mem_preimage_U_iff)
 private theorem _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData.preimage_U_inf_preimage_V_eq_basicOpen_f :
     (pullback.fst c (specMap R R')) ⁻¹ᵁ 𝔉.U ⊓ (pullback.fst c (specMap R R')) ⁻¹ᵁ 𝔉.V =
       (pullback c (specMap R R')).basicOpen (((pullback.fst c (specMap R R')).app 𝔉.U).hom 𝔉.f) := by
   rw [← Scheme.Hom.preimage_inf, 𝔉.inf_eq_basicOpen, Scheme.preimage_basicOpen]
-export AlgebraicGeometry.SmoothProperCurve.FiniteMapData (preimage_U_inf_preimage_V_eq_basicOpen_f)
+export _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData (preimage_U_inf_preimage_V_eq_basicOpen_f)
 private theorem _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData.preimage_U_inf_preimage_V_eq_basicOpen_g :
     (pullback.fst c (specMap R R')) ⁻¹ᵁ 𝔉.U ⊓ (pullback.fst c (specMap R R')) ⁻¹ᵁ 𝔉.V =
       (pullback c (specMap R R')).basicOpen (((pullback.fst c (specMap R R')).app 𝔉.V).hom 𝔉.g) := by
   rw [← Scheme.Hom.preimage_inf, 𝔉.inf_eq_basicOpen_g, Scheme.preimage_basicOpen]
-export AlgebraicGeometry.SmoothProperCurve.FiniteMapData (preimage_U_inf_preimage_V_eq_basicOpen_g)
+export _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData (preimage_U_inf_preimage_V_eq_basicOpen_g)
 private theorem _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData.res_app_f_mul_res_app_g :
     ((pullback c (specMap R R')).presheaf.map (homOfLE (inf_le_left :
         (pullback.fst c (specMap R R')) ⁻¹ᵁ 𝔉.U ⊓ (pullback.fst c (specMap R R')) ⁻¹ᵁ 𝔉.V ≤
@@ -143,7 +143,7 @@ private theorem _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData.res_app
     ((pullback c (specMap R R')).presheaf.map (homOfLE _).op).hom ((p.app 𝔉.V).hom 𝔉.g) = 1
   erw [h₁, h₂, ← map_mul, 𝔉.res_f_mul_res_g, map_one]
   rfl
-export AlgebraicGeometry.SmoothProperCurve.FiniteMapData (res_app_f_mul_res_app_g)
+export _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData (res_app_f_mul_res_app_g)
 end FiniteMapData
 
 end AlgebraicGeometry.SmoothProperCurve
@@ -151,7 +151,7 @@ end AlgebraicGeometry.SmoothProperCurve
 noncomputable section
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Spec.map_comp Scheme.Opens.topIso_inv pullbackSpecIso_inv_snd pullbackRestrictIsoRestrict_hom_morphismRestrict_assoc Scheme.Hom Scheme.Γ Scheme.Hom.preimage_inf morphismRestrict_appTop IsAffineOpen.fromSpec_top Scheme.preimage_basicOpen IsAffineOpen.isoSpec_hom IsAffineOpen.SpecMap_appLE_fromSpec Spec IsIntegral Scheme.Hom.id_appTop Spec.map Scheme pullbackSpecIso Scheme.Opens.toSpecΓ_appTop Scheme.Hom.appTop Scheme.Γ_map_op Scheme.isoSpec_Spec_inv pullbackRestrictIsoRestrict_inv_fst_assoc Scheme.Hom.comp_appTop Scheme.Hom.naturality_assoc isAffineOpen_top Etale IsAffineOpen.isoSpec_inv_ι_assoc pullbackSpecIso_hom_fst IsAffineOpen Scheme.Hom.preimage_sup pullbackRestrictIsoRestrict Scheme.Opens Scheme.Opens.ι_image_top Scheme.ΓSpecIso_naturality Scheme.Opens.ι_appTop Scheme.Pullback.exists_preimage_pullback Scheme.Hom.appLE Scheme.ΓSpecIso Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom Scheme.TwoAffineOpenCover.isAffineHom_fst SmoothProperCurve.FiniteMapData)
+export _root_.AlgebraicGeometry (Spec.map_comp Scheme.Opens.topIso_inv pullbackSpecIso_inv_snd pullbackRestrictIsoRestrict_hom_morphismRestrict_assoc Scheme.Hom Scheme.Γ Scheme.Hom.preimage_inf morphismRestrict_appTop IsAffineOpen.fromSpec_top Scheme.preimage_basicOpen IsAffineOpen.isoSpec_hom IsAffineOpen.SpecMap_appLE_fromSpec Spec IsIntegral Scheme.Hom.id_appTop Spec.map Scheme pullbackSpecIso Scheme.Opens.toSpecΓ_appTop Scheme.Hom.appTop Scheme.Γ_map_op Scheme.isoSpec_Spec_inv pullbackRestrictIsoRestrict_inv_fst_assoc Scheme.Hom.comp_appTop Scheme.Hom.naturality_assoc isAffineOpen_top Etale IsAffineOpen.isoSpec_inv_ι_assoc pullbackSpecIso_hom_fst IsAffineOpen Scheme.Hom.preimage_sup pullbackRestrictIsoRestrict Scheme.Opens Scheme.Opens.ι_image_top Scheme.ΓSpecIso_naturality Scheme.Opens.ι_appTop Scheme.Pullback.exists_preimage_pullback Scheme.Hom.appLE Scheme.ΓSpecIso Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom Scheme.TwoAffineOpenCover.isAffineHom_fst SmoothProperCurve.FiniteMapData)
 namespace AffineBaseChange
 open AlgebraicGeometry
 
@@ -486,11 +486,11 @@ end AlgebraicGeometry.AffineBaseChange
 end
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Spec.map_comp Scheme.Opens.topIso_inv pullbackSpecIso_inv_snd pullbackRestrictIsoRestrict_hom_morphismRestrict_assoc Scheme.Hom Scheme.Γ Scheme.Hom.preimage_inf morphismRestrict_appTop IsAffineOpen.fromSpec_top Scheme.preimage_basicOpen IsAffineOpen.isoSpec_hom IsAffineOpen.SpecMap_appLE_fromSpec Spec IsIntegral Scheme.Hom.id_appTop Spec.map Scheme pullbackSpecIso Scheme.Opens.toSpecΓ_appTop Scheme.Hom.appTop Scheme.Γ_map_op Scheme.isoSpec_Spec_inv pullbackRestrictIsoRestrict_inv_fst_assoc Scheme.Hom.comp_appTop Scheme.Hom.naturality_assoc isAffineOpen_top Etale IsAffineOpen.isoSpec_inv_ι_assoc pullbackSpecIso_hom_fst IsAffineOpen Scheme.Hom.preimage_sup pullbackRestrictIsoRestrict Scheme.Opens Scheme.Opens.ι_image_top Scheme.ΓSpecIso_naturality Scheme.Opens.ι_appTop Scheme.Pullback.exists_preimage_pullback Scheme.Hom.appLE Scheme.ΓSpecIso Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom Scheme.TwoAffineOpenCover.isAffineHom_fst SmoothProperCurve.FiniteMapData)
+export _root_.AlgebraicGeometry (Spec.map_comp Scheme.Opens.topIso_inv pullbackSpecIso_inv_snd pullbackRestrictIsoRestrict_hom_morphismRestrict_assoc Scheme.Hom Scheme.Γ Scheme.Hom.preimage_inf morphismRestrict_appTop IsAffineOpen.fromSpec_top Scheme.preimage_basicOpen IsAffineOpen.isoSpec_hom IsAffineOpen.SpecMap_appLE_fromSpec Spec IsIntegral Scheme.Hom.id_appTop Spec.map Scheme pullbackSpecIso Scheme.Opens.toSpecΓ_appTop Scheme.Hom.appTop Scheme.Γ_map_op Scheme.isoSpec_Spec_inv pullbackRestrictIsoRestrict_inv_fst_assoc Scheme.Hom.comp_appTop Scheme.Hom.naturality_assoc isAffineOpen_top Etale IsAffineOpen.isoSpec_inv_ι_assoc pullbackSpecIso_hom_fst IsAffineOpen Scheme.Hom.preimage_sup pullbackRestrictIsoRestrict Scheme.Opens Scheme.Opens.ι_image_top Scheme.ΓSpecIso_naturality Scheme.Opens.ι_appTop Scheme.Pullback.exists_preimage_pullback Scheme.Hom.appLE Scheme.ΓSpecIso Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom Scheme.TwoAffineOpenCover.isAffineHom_fst SmoothProperCurve.FiniteMapData)
 namespace SmoothProperCurve
-export AlgebraicGeometry.SmoothProperCurve (specMap baseChange sectionBaseChange sectionBaseChange_coe_fst sectionBaseChange_coe_snd FiniteMapData)
+export _root_.AlgebraicGeometry.SmoothProperCurve (specMap baseChange sectionBaseChange sectionBaseChange_coe_fst sectionBaseChange_coe_snd FiniteMapData)
 namespace FiniteMapData
-export AlgebraicGeometry.SmoothProperCurve.FiniteMapData (LevelSetsGenericallyEtale mk finite_f U f sup_eq_top m V isAffineOpen_U inf_eq_basicOpen_g isAffineOpen_V finite_g g inf_eq_basicOpen mem_U_iff levelSet_free res_f_mul_res_g)
+export _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData (LevelSetsGenericallyEtale mk finite_f U f sup_eq_top m V isAffineOpen_U inf_eq_basicOpen_g isAffineOpen_V finite_g g inf_eq_basicOpen mem_U_iff levelSet_free res_f_mul_res_g)
 open AlgebraicGeometry.SmoothProperCurve.FiniteMapData
 open AlgebraicGeometry.SmoothProperCurve
 open AlgebraicGeometry
@@ -527,7 +527,7 @@ private noncomputable def _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapDa
       haveI : IsScalarTower R R' S := IsScalarTower.of_algebraMap_eq (fun _ => rfl)
       exact levelSet_transport c R' 𝔉.U 𝔉.isAffineOpen_U (fun _ => rfl) (fun _ => rfl) S 𝔉.f s 𝔉.m
         (𝔉.levelSet_free S s) }
-export AlgebraicGeometry.SmoothProperCurve.FiniteMapData (baseChangeData)
+export _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData (baseChangeData)
 @[scoped simp] lemma baseChangeData_U : (𝔉.baseChangeData R').U = (pullback.fst c (specMap R R')) ⁻¹ᵁ 𝔉.U := rfl
 @[scoped simp] lemma baseChangeData_V : (𝔉.baseChangeData R').V = (pullback.fst c (specMap R R')) ⁻¹ᵁ 𝔉.V := rfl
 @[scoped simp] lemma baseChangeData_m : (𝔉.baseChangeData R').m = 𝔉.m := rfl
@@ -548,7 +548,7 @@ private theorem _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData.levelSe
   letI := Scheme.TwoAffineOpenCover.algebraOfHom (baseChange R c R')
     ((pullback.fst c (specMap R R')) ⁻¹ᵁ 𝔉.U)
   exact etale_transport c R' 𝔉.U 𝔉.isAffineOpen_U (fun _ => rfl) (fun _ => rfl) S 𝔉.f s (hD S s hs')
-export AlgebraicGeometry.SmoothProperCurve.FiniteMapData (levelSetsGenericallyEtale_baseChange)
+export _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData (levelSetsGenericallyEtale_baseChange)
 end AlgebraicGeometry.SmoothProperCurve.FiniteMapData
 
 

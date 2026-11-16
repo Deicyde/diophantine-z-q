@@ -104,9 +104,9 @@ abbrev κ {R : Type u} [CommRing R] (𝔭 : PrimeSpectrum R) : Type u := 𝔭.as
 end CBCSol
 
 namespace CoherentBaseChange
-export CoherentBaseChange (FibreH0Family TwoTermComplex)
+export _root_.CoherentBaseChange (FibreH0Family TwoTermComplex)
 namespace TwoTermComplex
-export CoherentBaseChange.TwoTermComplex (fibreH0 C0 d C1)
+export _root_.CoherentBaseChange.TwoTermComplex (fibreH0 C0 d C1)
 open CoherentBaseChange.TwoTermComplex
 open CoherentBaseChange
 
@@ -116,14 +116,14 @@ variable {R : Type u} [CommRing R] (G : TwoTermComplex.{u, v} R)
 
 private def _root_.CoherentBaseChange.TwoTermComplex.fibreRank (𝔭 : PrimeSpectrum R) : ℕ :=
   Module.finrank (κ 𝔭) (LinearMap.range (G.d.baseChange (κ 𝔭)))
-export CoherentBaseChange.TwoTermComplex (fibreRank)
+export _root_.CoherentBaseChange.TwoTermComplex (fibreRank)
 private theorem _root_.CoherentBaseChange.TwoTermComplex.fibreH0_add_fibreRank (𝔭 : PrimeSpectrum R) :
     G.fibreH0 𝔭 + G.fibreRank 𝔭 = Module.finrank (κ 𝔭) (κ 𝔭 ⊗[R] G.C0) := by
   have h := LinearMap.finrank_range_add_finrank_ker (G.d.baseChange (κ 𝔭))
   show Module.finrank (κ 𝔭) (LinearMap.ker (G.d.baseChange (κ 𝔭)))
       + Module.finrank (κ 𝔭) (LinearMap.range (G.d.baseChange (κ 𝔭))) = _
   omega
-export CoherentBaseChange.TwoTermComplex (fibreH0_add_fibreRank)
+export _root_.CoherentBaseChange.TwoTermComplex (fibreH0_add_fibreRank)
 private theorem _root_.CoherentBaseChange.TwoTermComplex.setOf_le_fibreH0_eq [StrongRankCondition R] (n : ℕ) :
     {𝔭 : PrimeSpectrum R | n ≤ G.fibreH0 𝔭}
       = {𝔭 | G.fibreRank 𝔭 + n ≤ Module.finrank R G.C0} := by
@@ -132,7 +132,7 @@ private theorem _root_.CoherentBaseChange.TwoTermComplex.setOf_le_fibreH0_eq [St
   rw [Module.finrank_baseChange] at h
   simp only [Set.mem_setOf_eq]
   omega
-export CoherentBaseChange.TwoTermComplex (setOf_le_fibreH0_eq)
+export _root_.CoherentBaseChange.TwoTermComplex (setOf_le_fibreH0_eq)
 theorem isClosed_add_le_const {X : Type*} [TopologicalSpace X] {f : X → ℕ}
     (hf : ∀ r, IsClosed {x | f x ≤ r}) (n c : ℕ) :
     IsClosed {x | f x + n ≤ c} := by
@@ -146,13 +146,13 @@ theorem isClosed_add_le_const {X : Type*} [TopologicalSpace X] {f : X → ℕ}
 
 private abbrev _root_.CoherentBaseChange.TwoTermComplex.b0 : Module.Basis (Module.Free.ChooseBasisIndex R G.C0) R G.C0 :=
   Module.Free.chooseBasis R G.C0
-export CoherentBaseChange.TwoTermComplex (b0)
+export _root_.CoherentBaseChange.TwoTermComplex (b0)
 private abbrev _root_.CoherentBaseChange.TwoTermComplex.b1 : Module.Basis (Module.Free.ChooseBasisIndex R G.C1) R G.C1 :=
   Module.Free.chooseBasis R G.C1
-export CoherentBaseChange.TwoTermComplex (b1)
+export _root_.CoherentBaseChange.TwoTermComplex (b1)
 private def _root_.CoherentBaseChange.TwoTermComplex.Md : Matrix (Module.Free.ChooseBasisIndex R G.C1) (Module.Free.ChooseBasisIndex R G.C0) R :=
   LinearMap.toMatrix G.b0 G.b1 G.d
-export CoherentBaseChange.TwoTermComplex (Md)
+export _root_.CoherentBaseChange.TwoTermComplex (Md)
 private theorem _root_.CoherentBaseChange.TwoTermComplex.fibreRank_eq_rank_map (𝔭 : PrimeSpectrum R) :
     G.fibreRank 𝔭 = (G.Md.map (algebraMap R (κ 𝔭))).rank := by
   classical
@@ -165,12 +165,12 @@ private theorem _root_.CoherentBaseChange.TwoTermComplex.fibreRank_eq_rank_map (
   rw [Matrix.toLin_toMatrix] at key
   rw [← key, LinearMap.toMatrix_baseChange]
   rfl
-export CoherentBaseChange.TwoTermComplex (fibreRank_eq_rank_map)
+export _root_.CoherentBaseChange.TwoTermComplex (fibreRank_eq_rank_map)
 private def _root_.CoherentBaseChange.TwoTermComplex.minors (r : ℕ) : Set R :=
   {x | ∃ (s : Fin (r + 1) → Module.Free.ChooseBasisIndex R G.C1)
          (t : Fin (r + 1) → Module.Free.ChooseBasisIndex R G.C0),
     x = (G.Md.submatrix s t).det}
-export CoherentBaseChange.TwoTermComplex (minors)
+export _root_.CoherentBaseChange.TwoTermComplex (minors)
 private theorem _root_.CoherentBaseChange.TwoTermComplex.det_map_submatrix (r : ℕ) (𝔭 : PrimeSpectrum R)
     (s : Fin (r + 1) → Module.Free.ChooseBasisIndex R G.C1)
     (t : Fin (r + 1) → Module.Free.ChooseBasisIndex R G.C0) :
@@ -179,7 +179,7 @@ private theorem _root_.CoherentBaseChange.TwoTermComplex.det_map_submatrix (r : 
   have hsub : (G.Md.map (algebraMap R (κ 𝔭))).submatrix s t
       = (algebraMap R (κ 𝔭)).mapMatrix (G.Md.submatrix s t) := rfl
   rw [hsub, ← RingHom.map_det]
-export CoherentBaseChange.TwoTermComplex (det_map_submatrix)
+export _root_.CoherentBaseChange.TwoTermComplex (det_map_submatrix)
 private theorem _root_.CoherentBaseChange.TwoTermComplex.minors_subset_of_fibreRank_le (r : ℕ) (𝔭 : PrimeSpectrum R)
     (hrk : G.fibreRank 𝔭 ≤ r) :
     G.minors r ⊆ (𝔭.asIdeal : Set R) := by
@@ -198,7 +198,7 @@ private theorem _root_.CoherentBaseChange.TwoTermComplex.minors_subset_of_fibreR
   show (G.Md.submatrix s t).det ∈ 𝔭.asIdeal
   have hker : (G.Md.submatrix s t).det ∈ RingHom.ker (algebraMap R (κ 𝔭)) := hdet
   rwa [Ideal.ker_algebraMap_residueField] at hker
-export CoherentBaseChange.TwoTermComplex (minors_subset_of_fibreRank_le)
+export _root_.CoherentBaseChange.TwoTermComplex (minors_subset_of_fibreRank_le)
 private theorem _root_.CoherentBaseChange.TwoTermComplex.setOf_fibreRank_le_eq_zeroLocus (r : ℕ) :
     {𝔭 : PrimeSpectrum R | G.fibreRank 𝔭 ≤ r} = PrimeSpectrum.zeroLocus (G.minors r) := by
   refine Set.Subset.antisymm (fun 𝔭 hrk => ?_) (fun 𝔭 h𝔭 => ?_)
@@ -211,12 +211,12 @@ private theorem _root_.CoherentBaseChange.TwoTermComplex.setOf_fibreRank_le_eq_z
     have hmem : (G.Md.submatrix s t).det ∈ 𝔭.asIdeal := h𝔭 ⟨s, t, rfl⟩
     show (G.Md.submatrix s t).det ∈ RingHom.ker (algebraMap R (κ 𝔭))
     rwa [Ideal.ker_algebraMap_residueField]
-export CoherentBaseChange.TwoTermComplex (setOf_fibreRank_le_eq_zeroLocus)
+export _root_.CoherentBaseChange.TwoTermComplex (setOf_fibreRank_le_eq_zeroLocus)
 private theorem _root_.CoherentBaseChange.TwoTermComplex.isClosed_fibreRank_le (r : ℕ) :
     IsClosed {𝔭 : PrimeSpectrum R | G.fibreRank 𝔭 ≤ r} := by
   rw [G.setOf_fibreRank_le_eq_zeroLocus r]
   exact PrimeSpectrum.isClosed_zeroLocus (G.minors r)
-export CoherentBaseChange.TwoTermComplex (isClosed_fibreRank_le)
+export _root_.CoherentBaseChange.TwoTermComplex (isClosed_fibreRank_le)
 private theorem _root_.CoherentBaseChange.TwoTermComplex.isClosed_le_fibreH0 (n : ℕ) :
     IsClosed {𝔭 : PrimeSpectrum R | n ≤ G.fibreH0 𝔭} := by
   rcases subsingleton_or_nontrivial R with hR | hR
@@ -226,13 +226,13 @@ private theorem _root_.CoherentBaseChange.TwoTermComplex.isClosed_le_fibreH0 (n 
   · haveI : StrongRankCondition R := commRing_strongRankCondition R
     rw [G.setOf_le_fibreH0_eq n]
     exact isClosed_add_le_const G.isClosed_fibreRank_le n (Module.finrank R G.C0)
-export CoherentBaseChange.TwoTermComplex (isClosed_le_fibreH0)
+export _root_.CoherentBaseChange.TwoTermComplex (isClosed_le_fibreH0)
 end CoherentBaseChange.TwoTermComplex
 
 namespace CoherentBaseChange
-export CoherentBaseChange (FibreH0Family TwoTermComplex)
+export _root_.CoherentBaseChange (FibreH0Family TwoTermComplex)
 namespace FibreH0Family
-export CoherentBaseChange.FibreH0Family (G hglue h0)
+export _root_.CoherentBaseChange.FibreH0Family (G hglue h0)
 open CoherentBaseChange.FibreH0Family
 open CoherentBaseChange
 
@@ -245,13 +245,13 @@ private theorem _root_.CoherentBaseChange.FibreH0Family.isClosed_le_h0_perAffine
     ext t; simp only [Set.mem_setOf_eq, Set.mem_preimage, F.hglue U hU t]
   rw [hset]
   exact ((F.G U hU).isClosed_le_fibreH0 n).preimage hU.isoSpec.hom.continuous
-export CoherentBaseChange.FibreH0Family (isClosed_le_h0_perAffine)
+export _root_.CoherentBaseChange.FibreH0Family (isClosed_le_h0_perAffine)
 private theorem _root_.CoherentBaseChange.FibreH0Family.isClosed_le_h0_impl (n : ℕ) :
     IsClosed {t : T | n ≤ F.h0 t} := by
   rw [TopologicalSpace.IsOpenCover.isClosed_iff_coe_preimage (iSup_affineOpens_eq_top T)]
   intro U
   exact F.isClosed_le_h0_perAffine U.1 U.2 n
-export CoherentBaseChange.FibreH0Family (isClosed_le_h0_impl)
+export _root_.CoherentBaseChange.FibreH0Family (isClosed_le_h0_impl)
 end CoherentBaseChange.FibreH0Family
 
 theorem solution {T : Scheme.{u}}

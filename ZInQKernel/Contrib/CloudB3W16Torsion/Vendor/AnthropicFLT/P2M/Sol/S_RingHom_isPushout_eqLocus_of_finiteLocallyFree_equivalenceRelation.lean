@@ -39,14 +39,14 @@ theorem Rel.map {T T' : Type u} [CommRing T] [CommRing T'] (g : T →+* T') {x y
   obtain ⟨φ, rfl, rfl⟩ := h
   exact ⟨g.comp φ, by rw [RingHom.comp_assoc], by rw [RingHom.comp_assoc]⟩
 
-private theorem _root_.QuotFLF.hom_ext (hgen : s.range ⊔ t.range = ⊤) {T : Type u} [CommRing T] {φ ψ : B →+* T}
+private theorem hom_ext (hgen : s.range ⊔ t.range = ⊤) {T : Type u} [CommRing T] {φ ψ : B →+* T}
     (h₁ : φ.comp s = ψ.comp s) (h₂ : φ.comp t = ψ.comp t) : φ = ψ := by
   apply RingHom.eq_of_eqOn_set_dense (s := (s.range : Set B) ∪ (t.range : Set B))
   · rw [Subring.closure_union, Subring.closure_eq, Subring.closure_eq, hgen]
   · rintro b (⟨a, rfl⟩ | ⟨a, rfl⟩)
     · exact RingHom.congr_fun h₁ a
     · exact RingHom.congr_fun h₂ a
-export _root_.QuotFLF (hom_ext)
+-- [port] Keep the private extensionality helper local, without a self-export alias.
 section structureMaps
 
 variable (hequiv : ∀ (T : Type u) [CommRing T], _root_.Equivalence (Rel s t T))

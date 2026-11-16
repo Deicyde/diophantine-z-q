@@ -253,7 +253,7 @@ end Translate
 variable (L : RelativeGroupLaw K f) {β : SchemeHomOver f f} (hβ : IsHom L β)
 include hβ
 
-private theorem _root_.P2mIsogFin.finite_preimage_singleton [IsFinite (L.endKerStr β)] (y : A) : (β.1 ⁻¹' {y}).Finite := by
+private theorem finite_preimage_singleton [IsFinite (L.endKerStr β)] (y : A) : (β.1 ⁻¹' {y}).Finite := by
   by_cases hy : y ∈ Set.range β.1
   · obtain ⟨x, rfl⟩ := hy
 
@@ -277,7 +277,7 @@ private theorem _root_.P2mIsogFin.finite_preimage_singleton [IsFinite (L.endKerS
       exact hy ⟨a, rfl⟩
     rw [h]
     exact Set.finite_empty
-export _root_.P2mIsogFin (finite_preimage_singleton)
+-- [port] The private fibre helper remains in the module-local P2mIsogFin namespace.
 theorem locallyQuasiFinite [LocallyOfFiniteType f] [IsFinite (L.endKerStr β)] :
     LocallyQuasiFinite β.1 := by
   haveI : LocallyOfFiniteType β.1 := by

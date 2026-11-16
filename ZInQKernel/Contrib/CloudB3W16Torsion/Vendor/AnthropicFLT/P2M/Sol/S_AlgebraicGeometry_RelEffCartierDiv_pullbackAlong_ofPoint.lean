@@ -23,9 +23,9 @@ open AlgebraicGeometry
 -- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Hom.ker_comp_of_isIso Scheme.Hom Scheme Scheme.IdealSheafData.ker_fst_of_isClosedImmersion IsSeparated Scheme.IdealSheafData graphOver graphOver_snd RelEffCartierDiv.ofPoint RelEffCartierDiv RelEffCartierDiv.ext mapOnProdOver isPullback_mapOnProdOver)
+export _root_.AlgebraicGeometry (Scheme.Hom.ker_comp_of_isIso Scheme.Hom Scheme Scheme.IdealSheafData.ker_fst_of_isClosedImmersion IsSeparated Scheme.IdealSheafData graphOver graphOver_snd RelEffCartierDiv.ofPoint RelEffCartierDiv RelEffCartierDiv.ext mapOnProdOver isPullback_mapOnProdOver)
 namespace RelEffCartierDiv
-export AlgebraicGeometry.RelEffCartierDiv (ofPoint ext pullbackAlong)
+export _root_.AlgebraicGeometry.RelEffCartierDiv (ofPoint ext pullbackAlong)
 namespace OfPointNaturality
 open AlgebraicGeometry.RelEffCartierDiv
 open AlgebraicGeometry
