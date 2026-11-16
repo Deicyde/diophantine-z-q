@@ -55,7 +55,7 @@ DISCHARGES [OpenAddedLeaves17.phiAmpleIsogeny] by PicFix2.phiAmpleIsogeny_of_rea
 
 * `FoldDryRun.lean` is fold A's module with line 1 stripped. It compiles against the built `TailZ42` to
   `sixContactMin_of_open36`, with the standard axioms.
-* `FoldDryRunBoth.lean` is the same for `autofold-both.json`. See `log.md` for its compile result.
+* `FoldDryRunBoth.lean` is the same for `autofold-both.json`. It also compiles, with the standard axioms.
 
 ## 2. The leaves (task items 1 and 2)
 
@@ -139,7 +139,7 @@ Then `autofold-narrow.json` discharges `phiVeryAmpleIsogeny` with `PicFix2.phiVe
 and the two Mumford leaves.
 
 **Test on a throwaway copy** (`/tmp/pf2n`, a reflinked copy of this worktree without `.git`; never committed):
-patch, rename the row, run autofold for real, build. The outcome is in §6 and `log.md`.
+patch, rename the row, run autofold for real, build. It passed (§6).
 
 **Hash guard.** The patch changes the five structures, their maps and `addedLeaves12_of_open13`, plus everything
 whose value depends on them. The integrator must accept these as listed exceptions, as for pi0-fold.
@@ -175,6 +175,18 @@ Proposed rows for `docs/research/locators.md` (not edited here, since it is anot
 * pic-fix's `PhiAmpleIsogeny.lean` is superseded for this row. Its `isAmple_pow` and `exists_pow_section` remain
   valid lemmas.
 
-## 6. Throwaway-copy test of fold B
+## 6. Throwaway-copy test of fold B (VERIFIED)
 
-See `log.md` (filled in when the build finishes).
+On `/tmp/pf2n`, a reflinked copy of this worktree without `.git` that was never committed:
+
+1. `patch -p1 < scratch/pic-fix2/narrow.patch`.
+2. Rename the kinds.tsv row.
+3. Run `autofold.py scratch/pic-fix2/autofold-narrow.json` for real. It printed
+   `34/11 on 45 -> 36/10 on 46; strictest 34/11 -> 36/10` and wrote `TailZ43` (a copy is in
+   `scratch/pic-fix2/NarrowFold-TailZ43.lean.txt`).
+4. `lake build +ZInQKernel.OneProof.Main +ZInQKernel.Contrib.OneProof.PhiAmpleIsogenyReading` succeeded (13700 jobs,
+   about 4 minutes from TailZ24 on).
+
+`#print axioms ZInQ.OneProof.frozenTarget` gives `[propext, Classical.choice, Quot.sound]`.
+
+Not run: the hash guard and the OPEN.md regeneration. The integrator does those.

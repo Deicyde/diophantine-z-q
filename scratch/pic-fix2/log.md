@@ -37,3 +37,18 @@ Base: wip/pic-fix be79cb5b; origin/main 2880fef1e already an ancestor (merge: no
     axioms: [propext, Classical.choice, Quot.sound]
 * autofold.json dry run: `strict count: 34/11 on 45 -> 37/10 on 47; strictest 34/11 -> 37/10` (-1 both).
   FoldDryRun.lean (line 1 stripped) compiles: sixContactMin_of_open36 axioms standard.
+
+## Fold B (narrowing) test on a throwaway copy /tmp/pf2n (reflinked worktree copy, no .git, never committed) — VERIFIED
+* `patch -p1 < scratch/pic-fix2/narrow.patch` (TailZ24/26/30/31/34), kinds.tsv row renamed phiAmpleIsogeny ->
+  phiVeryAmpleIsogeny, then `autofold.py scratch/pic-fix2/autofold-narrow.json` (real run):
+  `strict count: 34/11 on 45 -> 36/10 on 46; strictest 34/11 -> 36/10`; wrote TailZ43 (copy:
+  scratch/pic-fix2/NarrowFold-TailZ43.lean.txt), Main switched to sixContactMin_of_open36.
+* `lake build +ZInQKernel.OneProof.Main +ZInQKernel.Contrib.OneProof.PhiAmpleIsogenyReading`: success, 13700 jobs,
+  3 min 54 s (rebuild from TailZ24 on). `#print axioms ZInQ.OneProof.frozenTarget`: [propext, Classical.choice,
+  Quot.sound]. OpenAddedLeaves17.phiVeryAmpleIsogeny : T09Pic.PhiVeryAmpleIsogeny; OpenAddedLeaves18 has the leaves.
+* Not run: hash guard (DumpCompact/cmp_hashes), OpenStatements/render_open (integrator steps).
+
+## autofold-both.json (fold A + pic-fix's picZeroAbVar entry) — VERIFIED
+* dry run `34/11 on 45 -> 40/10 on 50; strictest 34/11 -> 40/10`; FoldDryRunBoth.lean compiles, axioms standard.
+## autofold-picfix-strictest.json (pic-fix's spec, KLSection flagged "strictest reading") — dry run
+* `34/11 -> 36/10; strictest 34/11 -> 35/11` (pic-fix's fold is 0 in strictest under the review's rating).
