@@ -1,0 +1,170 @@
+% Author component. Root alone incorporates this into the receiving manuscript.
+% The 198 arithmetic and Busy Beaver proofs are retained without alteration.
+\section{Brox's elimination from 198 to 196 coordinates}\label{q196:elimination}
+We apply the monomial elimination of Jos\'e Brox~\cite{q196:brox}
+to the 198-coordinate system proved above. This is an equivalence of
+entire rational solution sets for every fixed parameter; it changes
+neither the arithmetic hypotheses nor the sufficient parameter.
+
+\begin{lemma}[Elimination with nonzero rescaling coordinates]\label{q196:general}
+Let a polynomial system over $\Q$ have input $x$, retained coordinates
+$u_1,\ldots,u_k$, further coordinates $x_i$, and coordinates $t_j$
+to be eliminated. Suppose retained equations imply
+$u_1\cdots u_k\ne0$, and the equations defining $t_j$ uniquely express
+them as Laurent monomials in the $u_\ell$ with nonzero rational
+coefficients. Fix the input and the $u_\ell$, substitute those expressions,
+and make the changes
+\[
+ x_i=c_i\prod_{\ell=1}^k u_\ell^{e_{i\ell}}z_i,
+ \qquad c_i\in\Q^\times,\quad e_{i\ell}\in\Z.
+\]
+Suppose each remaining equation, after substitution and use of retained
+power identities, is a nonzero rational constant times a Laurent
+monomial in the $u_\ell$ times a new polynomial equation.
+Suppose the new equations imply the same nonvanishing and power identities.
+Then the old and new rational zero sets are in input-preserving bijection.
+If the new equations have degree at most two, their primitive integer
+forms have a sum of squares of degree at most four with the same input
+projection.
+\end{lemma}
+\begin{proof}
+At every old solution the nonzero coordinates permit inverse diagonal
+scaling. The row identities give a solution of the new system.
+At every new solution the required coordinates are again nonzero, so
+diagonal scaling and the unique Laurent formulas recover all old
+coordinates. The eliminated equations hold by construction, and each
+remaining old equation is zero by its row identity. The two maps are
+inverse and fix the input. Multiplying an equation by a nonzero rational
+number does not change its zeros. Over $\Q$ a sum of squares vanishes
+exactly when every summand vanishes.
+\end{proof}
+
+\paragraph{The three nonzero coordinates.}
+For this paragraph use the parent's one-based indices
+$x_i=Y_{i-1}$ from Section~\ref{q198:rows}. Put
+\[
+ R=x_{116},\quad J=x_{104},\quad u=x_{45},\quad v=x_{103},
+ \qquad w_0=x_{78},\quad w_1=x_{93}.
+\]
+The following rows remain literally unchanged after renumbering:
+\begin{align*}
+ u&=x^2,\\
+ 4v&=6255001+255102u+2601u^2,\\
+ 0&=14315517724+291790992u+15531948uv+767410608v-512v^2+RJ,\\
+ 0&=1+22201RJ-AJ.
+\end{align*}
+Substituting the first two equations into the third and expanding gives
+\[
+ RJ=r(x):=(51x^2+103)(51x^2+2503)(51x^2+2504)(1632x^2+80471)>0.
+\]
+Thus $R,J\ne0$ for every rational input; for $A>0$ the last row gives
+$R=Ar(x)/(1+22201r(x))>0$.
+The remaining retained rows used for elimination are
+\[
+ x_{115}=R^2,\qquad x_{77}w_0=1,\quad x_{79}=w_0^2,
+ \qquad x_{92}w_1=1,\quad x_{94}=w_1^2.
+\]
+In particular $w_0w_1\ne0$. These nine equations hold in the new system
+as well, so there is no unexamined zero-denominator component.
+
+\paragraph{The exact change of coordinates.}
+Delete coordinates 80 and 95 and their two defining rows, using
+\[
+ x_{80}=w_0^4,\qquad x_{95}=R^{-1}w_1^4.
+\]
+Keep the remaining coordinates in their parent order. If $z_i$ denotes
+the new coordinate carrying parent identifier $i$, set $x_i=m_i z_i$.
+All unlisted multipliers are one. The nonconstant multipliers are
+\[
+\begin{array}{c|c@{\qquad}c|c}
+ i&m_i&i&m_i\\\hline
+ 4,86&w_0^{-1}&8,101&w_1^{-1}\\
+ 5&w_0&9&w_1\\
+ 85&w_0^2&100&w_1^2\\
+ 81,82,83,84&w_0^{-2}&96,97,98,99&w_1^{-2}\\
+ 121,\ldots,136&w_0^{-2}&137,\ldots,146&Rw_1^{-2}\\
+ &&147,148&w_1^{-2}\\
+ &&149,150,151,152&R^{-1}w_1^{-2}
+\end{array}
+\]
+For the constant multipliers put $H=31581660^{14}$ and $K=82479248H$.
+They are
+\[
+\begin{array}{c|c}
+ i&m_i\\\hline
+ 107&H^{-1}\\
+ 108&-K^{-1}\\
+ 11&-K\\
+ 12,13,14&K\\
+ 109,111&K^2\\
+ 110&-1
+\end{array}
+\]
+These changes fix the input and the nine guard rows. None of $R,w_0,w_1$
+is rescaled. The two removed defining equations become identities.
+For each of the other 182 rows, substitute these expressions and reduce
+only by the displayed retained power identities. Collecting equal
+Laurent monomials gives a nonzero Laurent monomial in $R,w_0,w_1$
+times a nonzero rational constant times the corresponding row printed
+in Section~\ref{q196:rows}. Table~\ref{q196:rowmultipliers} gives the
+source row, target row and multiplier for every such identity.
+This is a coefficientwise identity: the
+printed parent and new rows and the preceding multiplier tables specify
+both sides completely. It can be checked by expanding each term,
+collecting its powers of $R,w_0,w_1$ and its remaining coordinates,
+then comparing the resulting rational coefficients. No arithmetic
+equation beyond the nine displayed guard and power equations is used
+in this calculation.
+
+\begin{proposition}[The 196-coordinate family]\label{q196:family}
+For every fixed integer $N\ge1$, put $A_N=149^{2N+1}$ and form
+\[
+ \mathcal P_{196,A_N}=\sum_{i=1}^{182}(q_i^{[196]}(A_N))^2
+\]
+from Section~\ref{q196:rows}. Its rational input projection equals that
+of $\mathcal P_{198,A_N}$ from Section~\ref{q198:rows}.
+It has 196 total coordinates, degree four, content one and 2943 nonzero
+coordinate monomials. Its exact coefficient height is
+\[
+ H(\mathcal P_{196,A_N})=
+ \max\{484991541504995159662206970923766531374664106904986910720,
+       149^{4N+2}\}.
+\]
+\end{proposition}
+\begin{proof}
+The row identities and the nonvanishing just proved satisfy
+Lemma~\ref{q196:general}. Exactly two coordinates and two rows were
+deleted, giving $198-2=196$ coordinates and $184-2=182$ quadratics.
+Expanding their sum of squares gives 2943 distinct coordinate monomials.
+Every coordinate occurs, and the coefficient of the fourth power of the
+input is one, proving both exact degree and integer content.
+In the new table's zero-based coordinates $\mathbf Y$, the entire
+parameter dependence is
+\[
+ \mathcal P_{196,A}(\mathbf Y)=\mathcal P_{196,0}(\mathbf Y)
+ -2AY_{101}-44402AY_{101}^{2}Y_{113}+A^2Y_{101}^{2}.
+\]
+The three displayed monomials do not occur in $\mathcal P_{196,0}$.
+The largest absolute coefficient in that constant part is the integer
+in the asserted maximum. These finite assertions follow by multiplying
+each printed row by itself and collecting equal monomials; the operation
+uses integer arithmetic throughout. Since $A_N\ge149^3>44402$,
+$A_N^2$ dominates the other parameter-dependent coefficients. No
+coefficient cancels at positive $A_N$, proving the monomial count and
+height formula for every $N\ge1$.
+\end{proof}
+
+The fixed integer in this maximum lies strictly between $149^{26}$
+and $149^{27}$. Hence $N\ge7$ suffices for the coefficient height to be
+$A_N^2$. This is only a coefficient crossover, not a defining threshold.
+
+\paragraph{Transfer of the fixed Busy Beaver specialization.}
+Theorem~\ref{q198bb:fixed} supplies the parent polynomial at
+$N_{\rm BB}=\BB(2^{1000})$. Proposition~\ref{q196:family} applies
+at that same parameter, so the new polynomial has exactly the same
+rational input projection, namely $\Z$. The machine convention and
+the threshold proof are unchanged. In particular $N_{\rm BB}\ge7$,
+and the new coefficient height is the parent's large-parameter value
+$A_{\rm BB}^2=149^{4\BB(2^{1000})+2}<\BB(2^{2000})$.
+This proves Theorem~\ref{q196:fixed} without a new arithmetic threshold
+or a new Busy Beaver program.

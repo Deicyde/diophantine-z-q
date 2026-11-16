@@ -1,0 +1,62 @@
+{
+  "status": "portable author copies; finite replay results recorded separately",
+  "proposed_root": "research/version18/198",
+  "scripts": [
+    {
+      "name": "independent198.py",
+      "source": "work/v18-198-bb-integration-20261115/reconstruction/independent198.py",
+      "source_sha256": "2a2cee362eb285e59bf6aab230244199f881c041ac79ff1b2722eb9dd63c9ed2",
+      "portable_sha256": "f37970a4fc90052973a30c39c233cb1a0eceb2231d39c9a7a555484548160f57",
+      "replacement_occurrences": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "scope": "Explicit paths and UTF-8 I/O only; mathematical statements and comparison loops retained"
+    },
+    {
+      "name": "verify_q198_tex.py",
+      "source": "work/v18-198-bb-integration-20261115/reconstruction/tex/verify_q198_tex.py",
+      "source_sha256": "7e87a730e99d53b03a6dc390cda8108bf5d336c58d4b91f03fa1720439cc0e1a",
+      "portable_sha256": "147e4151c9b9247242fe2a799bc1d8974b1606dc84e73a207964908e98c6cd29",
+      "replacement_occurrences": [
+        1,
+        1,
+        2,
+        1
+      ],
+      "scope": "Explicit paths and UTF-8 I/O only; mathematical statements and comparison loops retained"
+    },
+    {
+      "name": "generate_q198_tex.py",
+      "source": "work/v18-198-bb-integration-20261115/reconstruction/tex/generate_q198_tex.py",
+      "source_sha256": "9a127d20f46755619d7ae7a90ff39425e2147504e13f736d98ebec131475e19e",
+      "portable_sha256": "3ef95f2808ee05ce7f73192a9ddd62060616489227e66881bc6ad5dd52a6ec9e",
+      "replacement_occurrences": [
+        1,
+        1,
+        1
+      ],
+      "scope": "Explicit paths and UTF-8 I/O only; mathematical statements and comparison loops retained"
+    }
+  ],
+  "helper_sha256": "b91904cc39ba360fd0991445b237a5e7203db09d51310f9b9d6b832c7ba917c9",
+  "original_pins_sha256": "2cd29f16045282223964fabc5bd3b24d3db54b9868edf71e0ff87d1c32e725a1",
+  "archive_sha256": "33439f62ec243375b19f50c2801cad36500f21902285a82e5c08984a0c5568c4",
+  "rows_sha256": "a592e13b8d92fbd1602796a81b93cb035728dbde8d96c1de72dbf8c4e97e7cfc",
+  "changes": [
+    "Require explicit package, pins, archive and output paths.",
+    "Ignore the historical host path in PACKAGE-PINS.json; authenticate the archive passed by the caller.",
+    "Resolve every pinned member relative to the chosen package, with containment checks.",
+    "Use explicit UTF-8 decoding; preserve LF output.",
+    "Reject optimized Python and output paths inside the input package."
+  ],
+  "not_changed": [
+    "Every mathematical expression, row comparison, expansion, statistic and corruption check.",
+    "Selected unbalanced polynomial, supplied balanced comparison, source tables and source package bytes.",
+    "Receiving manuscript, Git state and release/gate records."
+  ]
+}

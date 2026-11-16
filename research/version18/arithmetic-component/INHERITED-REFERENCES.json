@@ -1,0 +1,98 @@
+{
+  "lem:v5-two-reductions": {
+    "public_line": 17432,
+    "pending_line": 17464
+  },
+  "prop:generator": {
+    "public_line": 5468,
+    "pending_line": 5469
+  },
+  "q214:factor-source": {
+    "public_line": 4115,
+    "pending_line": 4115
+  },
+  "q214:height-averaging": {
+    "public_line": 3188,
+    "pending_line": 3188
+  },
+  "q214:height-supplier": {
+    "public_line": 3046,
+    "pending_line": 3046
+  },
+  "q214:raw224-source": {
+    "public_line": 4254,
+    "pending_line": 4254
+  },
+  "q214:uniform-existence": {
+    "public_line": 2232,
+    "pending_line": 2232
+  },
+  "thm:v5-simultaneous-primes": {
+    "public_line": 22780,
+    "pending_line": 22824
+  },
+  "v15:aggregate:eq:VB": {
+    "public_line": 37062,
+    "pending_line": 37107
+  },
+  "v15:aggregate:lem:independent": {
+    "public_line": 37164,
+    "pending_line": 37209
+  },
+  "v15:base248:sec:scalar": {
+    "public_line": 38091,
+    "pending_line": 38136
+  },
+  "v15:dependencies:cor:compatible-progressions": {
+    "public_line": 37777,
+    "pending_line": 37822
+  },
+  "v15:dependencies:lem:arbitrary-avoidance": {
+    "public_line": 37735,
+    "pending_line": 37780
+  },
+  "v15:dependencies:lem:conic-complete": {
+    "public_line": 37910,
+    "pending_line": 37955
+  },
+  "v15:dependencies:lem:rational-contacts": {
+    "public_line": 37815,
+    "pending_line": 37860
+  },
+  "v15:dependencies:lem:real-progression": {
+    "public_line": 37834,
+    "pending_line": 37879
+  },
+  "v15:dependencies:sec:poles": {
+    "public_line": 37864,
+    "pending_line": 37909
+  },
+  "v15:height:thm:contactheight": {
+    "public_line": 36308,
+    "pending_line": 36353
+  },
+  "v15:logs:cor:uniform-logarithm-ratio": {
+    "public_line": 37378,
+    "pending_line": 37423
+  },
+  "v15:logs:thm:uniform-logarithm-tail": {
+    "public_line": 37344,
+    "pending_line": 37389
+  },
+  "v15x:scalar-local": {
+    "public_line": 40658,
+    "pending_line": 40703
+  },
+  "v222:contacts": {
+    "public_line": 42682,
+    "pending_line": 42727
+  },
+  "v222:reference": {
+    "public_line": 42802,
+    "pending_line": 42847
+  },
+  "v5:preparation-zero-bridge": {
+    "public_line": 16851,
+    "pending_line": 16883
+  }
+}

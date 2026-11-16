@@ -164,6 +164,24 @@ jobs:
         run: |
           python -B scripts/test_precision_call_arguments.py
           python -B scripts/check_precision_call_arguments.py --report build/precision-call-arguments.json
+      - name: Test and certify the printed 214 to 204 predecessor transport
+        run: |
+          python -B scripts/test_v18_predecessor_transport.py
+          python -B scripts/check_v18_predecessor_transport.py --root . --report build/v18-predecessor-transport.json
+      - name: Install the pinned finite-algebra dependency
+        run: python -m pip install -r research/version18/198/requirements.txt
+      - name: Check the 198 parent and its complete printed table
+        run: |
+          python -B research/version18/198/checks/independent198.py --package research/version18/198/upstream/H10-quartic198 --pins research/version18/198/provenance/PACKAGE-PINS.json --archive research/version18/198/upstream/H10-quartic198.zip --output build/version18/198-result.json
+          python -B research/version18/198/checks/verify_q198_tex.py --package research/version18/198/upstream/H10-quartic198 --rows research/version18/198/tex/q198-rows.tex --output build/version18/198-printed-table.json
+      - name: Check the 196 elimination and its complete printed table
+        run: |
+          python -B research/version18/196/checks/independent196.py --source-root research/version18/196/upstream/source --parent-table research/version18/198/upstream/H10-quartic198/circuits/inverse198/quadratic.json --output build/version18/196-result.json
+          python -B research/version18/196/checks/verify_q196_tex.py --source-root research/version18/196/upstream/source --rows research/version18/196/tex/q196-rows.tex --output build/version18/196-printed-table.json
+      - name: Bind both checked tables to the manuscript and check the input-test identity
+        run: |
+          python -B scripts/test_v18_table_binding.py
+          python -B scripts/check_v18_table_binding.py --root . --report build/version18/current-table-binding.json
       - run: python scripts/check_construction.py --report build/construction-checks.json
       - run: python -B docs/audit-history/issue3/replay_row_hash.py
       - run: python scripts/check_lean.py
@@ -174,6 +192,8 @@ jobs:
           path: |
             build/construction-checks.json
             build/precision-call-arguments.json
+            build/v18-predecessor-transport.json
+            build/version18/*.json
 
   paper:
     name: Paper build

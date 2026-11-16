@@ -3,12 +3,14 @@
 The filenames identify how the coefficients are written:
 
 - **`fully-expanded.txt`** lists every nonzero monomial with its coefficient written out as a decimal integer.
-- **`symbolic-coefficients.json`** also lists every nonzero monomial, but expresses some coefficients using a specified fixed integer `S` or `C` (the exponent depends on the construction). Those coefficients are exact; their full decimal digits are not written out. Neither constant is an additional variable.
+- **`symbolic-coefficients.json`** also lists every nonzero monomial, but expresses some coefficients using a specified fixed integer `S`, `C` or `A` (the exponent depends on the construction). Those coefficients are exact; their full decimal digits are not written out. None of these constants is an additional variable.
 
 All variable counts include the input. Each download below is a byte-identical copy of the table in its linked verification package.
 
 | Variables | Polynomial table | Coefficient format | Verification package |
 | ---: | --- | --- | --- |
+| 196 | [quartic-196-symbolic-coefficients.json](quartic-196-symbolic-coefficients.json) | Integer polynomials in fixed `A=149^(2*BB(2^1000)+1)` | [Version 18 reduction](../research/version18/196/REPRODUCTION.md) |
+| 198 (parent) | [quartic-198-symbolic-coefficients.json](quartic-198-symbolic-coefficients.json) | Retained parent at the same fixed `A` | [Parent reconstruction](../research/version18/198/REPRODUCTION.md) |
 | 299 | [quartic-299-symbolic-coefficients.json](quartic-299-symbolic-coefficients.json), [text](quartic-299-symbolic-coefficients.txt) | Exact coefficients, `C=3^(2^25)` | [Version 14 guide](../docs/manuscript-revisions/version14/GUIDE.md) |
 | 314 | [quartic-314-fully-expanded.txt](quartic-314-fully-expanded.txt) | Fully written decimal integers | [Version 14 guide](../docs/manuscript-revisions/version14/GUIDE.md) |
 | 394 | [quartic-394-symbolic-coefficients.json](quartic-394-symbolic-coefficients.json), [text](quartic-394-symbolic-coefficients.txt) | Exact coefficients, `C=3^(2^25)` | [Version 13 guide](../docs/manuscript-revisions/version13/GUIDE.md) |
@@ -22,6 +24,8 @@ All variable counts include the input. Each download below is a byte-identical c
 | 4,973 | [quartic-4973-fully-expanded.txt](quartic-4973-fully-expanded.txt) | Fully written decimal integers | [Version 4 package](quartic-4973/) |
 | 9,625 | [quartic-9625-fully-expanded.txt](quartic-9625-fully-expanded.txt) | Fully written decimal integers | [Version 3 package](quartic-9625/) |
 | 12,504 | [quartic-12504-fully-expanded.txt](quartic-12504-fully-expanded.txt) | Fully written decimal integers | [Version 2 package](quartic-12504/) |
+
+The selected 196-variable table is the unbalanced table at Jose Brox commit `5c35db3253a70b0875acec4b451cdaac4da3c8fd`, SHA-256 `a8ab93d66fe83f4bdfd4b176d47c250c2e124f42535d7a6a133edff6a97389ad`. It contains 2,943 coordinate monomials. Its largest absolute coefficient is `A^2 < BB(2^2000)` under the Version 18 specialization. The unchanged upstream metadata describes the original sufficiently-large-parameter family; the manuscript supplies the fixed Busy Beaver specialization. The stored parameter slot is not a quantified coordinate. The finite checker does not compute Busy Beaver or certify the arithmetic theorem.
 
 The 314-variable decimal table has 6,672 monomials, occupies 264,430 bytes and has coefficient magnitudes below `2^6496`. The 299-variable symbolic table has 6,630 monomials.
 

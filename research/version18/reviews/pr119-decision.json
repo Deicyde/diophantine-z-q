@@ -1,0 +1,351 @@
+{
+  "number": 119,
+  "head": "75c0ab58d80d93f3d164bf4c9fbe81b36db730b0",
+  "base": "f7b803e3252fa955ab6dcdc2ac3e756a03fde184",
+  "check": 132972854331,
+  "name": "Protocol B / review",
+  "mode": "live",
+  "policy_ref": "f7b803e3252fa955ab6dcdc2ac3e756a03fde184",
+  "default": "main",
+  "conclusion": "success",
+  "summary": "Accepted by collaborator override, not by unanimous model acceptance. Affected claims are NOT outside reviewed.\n{\n  \"43759477239-1-fable-F119-6\": {\n    \"collaborator\": \"elliotglazer\",\n    \"reason\": \"Journal access only; journal PDF compared locally by Fable and Astra, all cited statements and pages match.\",\n    \"url\": \"https://github.com/elliotglazer/diophantine-z-q/pull/119#issuecomment-6901995164\"\n  },\n  \"43761575519-1-fable-F119-10\": {\n    \"collaborator\": \"elliotglazer\",\n    \"reason\": \"Journal access only; Theorem 1.7 on page 5 and the Section 1 numbering confirmed against the journal PDF locally.\",\n    \"url\": \"https://github.com/elliotglazer/diophantine-z-q/pull/119#issuecomment-6902001948\"\n  },\n  \"43761575519-1-fable-F119-7\": {\n    \"collaborator\": \"elliotglazer\",\n    \"reason\": \"Coverage completed locally: Fable read all 666 non-typographic replacements; no mathematical change; statements, labels and displays unchanged.\",\n    \"url\": \"https://github.com/elliotglazer/diophantine-z-q/pull/119#issuecomment-6902006553\"\n  },\n  \"43764084542-1-fable-F119-11\": {\n    \"collaborator\": \"elliotglazer\",\n    \"reason\": \"Minor record sentence; correction prepared and will land in the 196 integration PR.\",\n    \"url\": \"https://github.com/elliotglazer/diophantine-z-q/pull/119#issuecomment-6902015508\"\n  }\n}\n\nFinding IDs for collaborator decisions:\n- `43759477239-1-fable-F119-6`: I did not obtain the necessary final-journal statements or printed pages. The current owner-session comparison is attributed evidence, not my verification of those passages. The six unavailable source checks below retain this access-only limitation.\n- `43761575519-1-fable-F119-7`: The readability repair is successful: all W0001–W1968 segments and the named occurrence-count record were read. However, remaining primary-argument/context checks, replacement provenance-target verification and complete historical-coverage checking were not completed within this review. The report identifies the remaining source ranges and a sensible scoped split. This is incomplete review, not a demonstrated false theorem, and is not access-only.\n- `43761575519-1-fable-F119-10`: The repository now gives an explicit Section 1 numbering explanation, but I could not obtain journal Theorem 1.7 p.5, Remark 1.9 p.5 or Theorem 1.10 p.6 to verify it. This remains solely a published-source access limitation.\n- `43764084542-1-fable-F119-11`: docs/research-review/version18-cleanup-status.md, 'Residual editorial status and provenance', sentence beginning 'Local inspection filenames for the Javanpeykar and von Känel sources have been removed from the catalogue'; manuscripts/quartic_v18.tex head 5054; comparison row W1298: Minor record accuracy. The head catalogue still carries the filename-style identifier `id: javanpeykar-published.pdf` (head 5054), and row W1298 shows that the removed field in the height-source catalogue is `omitted_local_path: GR2023-published.pdf`, a Gaudron–Rémond entry the sentence does not name. As worded the sentence is incomplete and can be read as contradicting the head. State which fields were removed (for every affected entry, including GR2023) and that filename-style ids are kept.\n- `43759477239-1-fable-F119-6`: Source access only. My fetch of the publisher page returned Appendix A without pagination, and the PDF URL returned empty content. The journal statements of Definitions 1.2, 1.3 and 5.1, Theorems 5.2 and 6.1, equation (6.1) and Proposition 6.3, and pages 3, 25, 28, 29, 30 and 36, remain unread by me. The owner-session and root checks recorded in the status files are not gate reviews, and no authenticated override exists.\n- `43761575519-1-fable-F119-7`: Partly repaired. The comparison is now word-level with short context, the inline-math inventory is complete as far as I can tell, and the d_minus/d_plus and Nprime renames are listed with whole-file counts. I read the full inventory and 787 of 1,968 rows (W0001-W0278, W1039-W1106, W1697-W1968 and samples) and found no mathematical change. About 1,180 rows remain unread: W0279-W1038, W1107-W1278 and W1302-W1696 apart from samples. At roughly 155 tokens per row the record still exceeds one review allowance. A CI normalization check for the mechanical class, with only residual rows listed, would let the rest fit; see the report for a split.\n- `43761575519-1-fable-F119-10`: Source access only. Journal Section 1 is not in the public HTML and the PDF could not be fetched, so the number, page and wording of journal Theorem 1.7 and the placement of Remark 1.9 remain unread by me. The public appendix confirms only the label Theorem 1.10 for the toral theorem.",
+  "reports": {
+    "astra": {
+      "reviewer": "astra",
+      "model": "gpt-6-astra",
+      "head": "75c0ab58d80d93f3d164bf4c9fbe81b36db730b0",
+      "base": "f7b803e3252fa955ab6dcdc2ac3e756a03fde184",
+      "run": "43764084542",
+      "attempt": "1",
+      "review": {
+        "decision": "changes_requested",
+        "findings": [],
+        "prior_findings": [
+          {
+            "id": "43759477239-1-fable-F119-1",
+            "resolution": "resolved",
+            "reason": "Resolved as the missing-comparison/navigation defect. The committed head comparison supplies exact old/new text, offsets and paired line ranges for W0001–W1968, all of which were read. This does not close the separate review-completion obligation retained under F119-7."
+          },
+          {
+            "id": "43759477239-1-fable-F119-2",
+            "resolution": "resolved",
+            "reason": "cleanup-diff.md:9–61 locates both symbols, supplies project-source passages and identifies their consumers. The pinned base spellings were h_{*} and j_{*}, which render identically to h_* and j_*. The current manuscript’s P14/P16 progression and the supplied C05 context preserve their intended meanings. The record corrects the earlier claim that damaged dot spellings occurred in the base."
+          },
+          {
+            "id": "43759477239-1-fable-F119-3",
+            "resolution": "resolved",
+            "reason": "The complete current GI derivation was read. At head 29980–29984 the stale clause referring to a deleted source-version qualification is gone, while dependence on the specified sources and retained same-step linearization remains explicit."
+          },
+          {
+            "id": "43759477239-1-fable-F119-4",
+            "resolution": "resolved",
+            "reason": "Resolved as the numbering-disclosure/incorporation defect: cleanup-status.md:124–126 and inverse-dependency.md:53–55 explicitly distinguish author-v3 Theorem 1.9 from journal Theorem 1.10, explain the asserted intervening Remark 1.9, and identify the retained Theorem 1.7 locator. Head 29585–29590 expressly avoids inferring filtration-group connectedness from that short statement. Personal verification of the journal numbering is not claimed and remains open under F119-10."
+          },
+          {
+            "id": "43759477239-1-fable-F119-5",
+            "resolution": "resolved",
+            "reason": "cleanup-status.md:118–122 restores the exact PR107 coverage IDs, original report references and distinct reviewer dispositions without declaring coverage closed. Lines 68–74 explicitly state that H170 remains open. The head manuscript’s rendered link at 128–130 supplies reader navigation to these limitations. Historical coverage itself remains separate under F119-7."
+          },
+          {
+            "id": "43759477239-1-fable-F119-6",
+            "resolution": "unresolved",
+            "reason": "I did not obtain the necessary final-journal statements or printed pages. The current owner-session comparison is attributed evidence, not my verification of those passages. The six unavailable source checks below retain this access-only limitation."
+          },
+          {
+            "id": "43761575519-1-fable-F119-7",
+            "resolution": "unresolved",
+            "reason": "The readability repair is successful: all W0001–W1968 segments and the named occurrence-count record were read. However, remaining primary-argument/context checks, replacement provenance-target verification and complete historical-coverage checking were not completed within this review. The report identifies the remaining source ranges and a sensible scoped split. This is incomplete review, not a demonstrated false theorem, and is not access-only."
+          },
+          {
+            "id": "43761575519-1-fable-F119-8",
+            "resolution": "resolved",
+            "reason": "Current P01 at head 2243 restores candidate214-brox and private revision bfeb8400982c9a169e4fdd39fb68ec053621e8ed beside the printed-row reference, explicitly stating that the revision identifies the historical artifact rather than the later manuscript section. This was compared with base 2248 and satisfies the requested provenance-preserving alternative."
+          },
+          {
+            "id": "43761575519-1-fable-F119-9",
+            "resolution": "resolved",
+            "reason": "Head 4568 restores Milne1986 exactly; the corresponding preserved JSON entry at 228–237 was read. cleanup-status.md:103 accurately discloses removal of actual_inspection fields and retention of Li/Serre qualifications, and points to PRIMARY_SOURCES.json, whose original fields were inspected in selected entries. Lines 3 and 89 now distinguish the stated current base/candidate hashes from historical preparation hashes. This resolves the identified identifier, disclosure and binding-description defects; it is not an independently executed whole-file hash or full catalogue audit."
+          },
+          {
+            "id": "43761575519-1-fable-F119-10",
+            "resolution": "unresolved",
+            "reason": "The repository now gives an explicit Section 1 numbering explanation, but I could not obtain journal Theorem 1.7 p.5, Remark 1.9 p.5 or Theorem 1.10 p.6 to verify it. This remains solely a published-source access limitation."
+          }
+        ],
+        "source_checks": [
+          {
+            "source_id": "Candela-Szegedy-Crelle-789-2022-Definitions-1.2-1.3-p3",
+            "location": "Journal Definitions 1.2–1.3, p.3; manuscript head 29595–29609 and 29665–29674",
+            "outcome": "unavailable",
+            "detail": "No readable final-journal passage or page image was obtained. The application requires the fixed isomorphism-class complexity enumeration and the Lipschitz/target-complexity conventions. Repository and owner-session descriptions are not personal verification of the journal definitions."
+          },
+          {
+            "source_id": "Candela-Szegedy-Crelle-789-2022-Definition-5.1-p25",
+            "location": "Journal Definition 5.1, p.25; manuscript head 29611–29616",
+            "outcome": "unavailable",
+            "detail": "The final balance definition and printed page were not obtained. Its cube-dimension range, probability metrics and balance convention are consumed by the manuscript."
+          },
+          {
+            "source_id": "Candela-Szegedy-Crelle-789-2022-Theorem-5.2-p28",
+            "location": "Journal Theorem 5.2, p.28; manuscript head 29648–29674",
+            "outcome": "unavailable",
+            "detail": "Could not read the final theorem. The application needs an arbitrary positive balance function, a uniform complexity bound, the stated correlation bound and the source-nilspace hypotheses; these remain unchecked against the journal statement by me."
+          },
+          {
+            "source_id": "Candela-Szegedy-Crelle-789-2022-Theorem-6.1-and-equation-6.1-p29",
+            "location": "Journal equation (6.1) and Theorem 6.1, p.29; manuscript head 29599–29608, 29641–29660 and 29676–29683",
+            "outcome": "unavailable",
+            "detail": "Could not obtain the final factor-consistent metric passage, torality theorem or pagination. The application uses their balance and prime thresholds to produce a uniform finite family."
+          },
+          {
+            "source_id": "Candela-Szegedy-Crelle-789-2022-Proposition-6.3-p30",
+            "location": "Journal Proposition 6.3, p.30; manuscript head 29809–29812",
+            "outcome": "unavailable",
+            "detail": "Could not read the final statement, hypotheses or page. The application requires a polynomial lift defined on all integers into the chosen filtered coset model."
+          },
+          {
+            "source_id": "Candela-Szegedy-Crelle-789-2022-Lemma-A.5-page-36",
+            "location": "Journal Lemma A.5 printed page 36; manuscript head 29813–29826",
+            "outcome": "unavailable",
+            "detail": "No journal page image was obtained. Earlier Fable verification of the unpaginated publisher-HTML Taylor-expansion statement remains attributed to its original review; I do not claim to have repeated it or to have verified page 36."
+          },
+          {
+            "source_id": "Candela-Szegedy-Crelle-789-2022-Theorem-1.7-p5",
+            "location": "Journal Theorem 1.7, p.5; manuscript head 29585–29590 and the two records’ Section 1 numbering notes",
+            "outcome": "unavailable",
+            "detail": "Could not obtain the journal passage to check its number, wording and printed page. The manuscript explicitly does not use the abbreviated statement to establish connectedness of every filtration group."
+          },
+          {
+            "source_id": "Candela-Szegedy-Crelle-789-2022-Remark-1.9-Theorem-1.10-pp5-6",
+            "location": "Journal Remark 1.9 p.5 and Theorem 1.10 p.6; cleanup-status.md:126 and inverse-dependency.md:55",
+            "outcome": "unavailable",
+            "detail": "The repository explanation was read, but the journal passages and page images were not obtained. Earlier peer evidence for the Appendix A label does not verify these printed Section 1 locations."
+          }
+        ],
+        "access_limitations": [
+          {
+            "finding_id": "43759477239-1-fable-F119-6",
+            "detail": "The entire remaining objection is inability to obtain the specified final-journal passages and pagination. DOI and publisher-HTML attempts produced no readable required body. This does not allege that the published conclusions are false, and it does not cover incomplete manuscript/provenance review under F119-7.",
+            "source_ids": [
+              "Candela-Szegedy-Crelle-789-2022-Definitions-1.2-1.3-p3",
+              "Candela-Szegedy-Crelle-789-2022-Definition-5.1-p25",
+              "Candela-Szegedy-Crelle-789-2022-Theorem-5.2-p28",
+              "Candela-Szegedy-Crelle-789-2022-Theorem-6.1-and-equation-6.1-p29",
+              "Candela-Szegedy-Crelle-789-2022-Proposition-6.3-p30",
+              "Candela-Szegedy-Crelle-789-2022-Lemma-A.5-page-36"
+            ]
+          },
+          {
+            "finding_id": "43761575519-1-fable-F119-10",
+            "detail": "The remaining objection is solely inability to read the journal Section 1 passages needed to verify the new page-5 citation and the stated Remark 1.9/Theorem 1.10 numbering comparison. The repository now discloses the distinction, but I cannot verify it from the final source.",
+            "source_ids": [
+              "Candela-Szegedy-Crelle-789-2022-Theorem-1.7-p5",
+              "Candela-Szegedy-Crelle-789-2022-Remark-1.9-Theorem-1.10-pp5-6"
+            ]
+          }
+        ],
+        "not_outside_reviewed": [
+          "The remaining primary-argument, replacement-provenance-target and historical-coverage checks under F119-7; all word-level edits were read, but that alone is not completion of those checks.",
+          "The final Candela–Szegedy journal passages and printed locators listed as unavailable in this report. Earlier peer statement checks retain their original attribution and scope.",
+          "H170’s historical propagation obligation and H201’s unresolved connection/disposition: preserved by the cleanup, not discharged by this review.",
+          "No new whole-assembly outside-reviewed status is conferred on the 214-variable theorem, its inherited geometry/modularity/height/analytic premises, or a numerical defining threshold.",
+          "Version 18 source/PDF correspondence, build and finite-check execution, and record-release readiness."
+        ]
+      },
+      "read_prerequisites_complete": true,
+      "finished_early": false,
+      "complete": true,
+      "policy_ref": "f7b803e3252fa955ab6dcdc2ac3e756a03fde184",
+      "history_digest": "9bd2b04eb6ea821c3d45f0e3c7191bf0eb46b70f64ec5cecf2a0a0cc525bb03f",
+      "reuse_binding": null
+    },
+    "fable": {
+      "reviewer": "fable",
+      "model": "claude-fable-5-2",
+      "head": "75c0ab58d80d93f3d164bf4c9fbe81b36db730b0",
+      "base": "f7b803e3252fa955ab6dcdc2ac3e756a03fde184",
+      "run": "43764084542",
+      "attempt": "1",
+      "review": {
+        "decision": "changes_requested",
+        "findings": [
+          {
+            "id": "F119-11",
+            "location": "docs/research-review/version18-cleanup-status.md, 'Residual editorial status and provenance', sentence beginning 'Local inspection filenames for the Javanpeykar and von Känel sources have been removed from the catalogue'; manuscripts/quartic_v18.tex head 5054; comparison row W1298",
+            "objection": "Minor record accuracy. The head catalogue still carries the filename-style identifier `id: javanpeykar-published.pdf` (head 5054), and row W1298 shows that the removed field in the height-source catalogue is `omitted_local_path: GR2023-published.pdf`, a Gaudron–Rémond entry the sentence does not name. As worded the sentence is incomplete and can be read as contradicting the head. State which fields were removed (for every affected entry, including GR2023) and that filename-style ids are kept."
+          }
+        ],
+        "prior_findings": [
+          {
+            "id": "43759477239-1-fable-F119-1",
+            "resolution": "resolved",
+            "reason": "A gate-visible before/after record is now committed (version18-cleanup-diff.md) with base and candidate line numbers and character offsets for every change. At the six head passages I opened (124-131, 2243, 2290-2292, 4566-4575, 29580-29603, 29807-29817) the text is exactly what the rows predict. The remaining reading obligation is carried by F119-7."
+          },
+          {
+            "id": "43759477239-1-fable-F119-2",
+            "resolution": "resolved",
+            "reason": "Sections F0406 and F0407 of the comparison give base and candidate lines (2328/2323 and 3390/3377), the supplier passages and the consumers. Rows W0233 and W1066 show the edits are brace-only (`h_{*}` to `h_*`, `j_{*}` to `j_*`), which render identically, and the record corrects the earlier description of a 'restoration'. I read the supplier text as quoted in the record, not the supplier files."
+          },
+          {
+            "id": "43759477239-1-fable-F119-3",
+            "resolution": "resolved",
+            "reason": "Row W1875 removes 'with the source-version qualification stated above' at base 30011-30012, leaving 'theorem.' at head 29982. The sentence no longer refers to a deleted condition."
+          },
+          {
+            "id": "43759477239-1-fable-F119-4",
+            "resolution": "resolved",
+            "reason": "Both records now contain 'Journal Section 1 numbering detail', stating that journal Theorem 1.7 is unchanged on page 5 and that the toral theorem is journal Theorem 1.10 (author v3 Theorem 1.9) after an inserted Remark 1.9. Head 29588-29590 cites 'Theorem 1.7 on page 5' and says the derivation relies on Theorems 5.2, 6.1 and Proposition 6.3, not on 1.7. I confirmed in the publisher HTML that Appendix A names the toral theorem 1.10. Verification of the Theorem 1.7 locator itself is the access limitation F119-10."
+          },
+          {
+            "id": "43759477239-1-fable-F119-5",
+            "resolution": "resolved",
+            "reason": "The head status record has a section 'Remaining PR107 coverage and the PR119 comparison' that restores C107, F107-1 and F107-3 with links and keeps the two reviewers' dispositions distinct, and says C107/F107-1 coverage is not closed. The H170 section now begins 'H170 remains an open, bounded historical incorporation obligation'."
+          },
+          {
+            "id": "43759477239-1-fable-F119-6",
+            "resolution": "unresolved",
+            "reason": "Source access only. My fetch of the publisher page returned Appendix A without pagination, and the PDF URL returned empty content. The journal statements of Definitions 1.2, 1.3 and 5.1, Theorems 5.2 and 6.1, equation (6.1) and Proposition 6.3, and pages 3, 25, 28, 29, 30 and 36, remain unread by me. The owner-session and root checks recorded in the status files are not gate reviews, and no authenticated override exists."
+          },
+          {
+            "id": "43761575519-1-fable-F119-7",
+            "resolution": "unresolved",
+            "reason": "Partly repaired. The comparison is now word-level with short context, the inline-math inventory is complete as far as I can tell, and the d_minus/d_plus and Nprime renames are listed with whole-file counts. I read the full inventory and 787 of 1,968 rows (W0001-W0278, W1039-W1106, W1697-W1968 and samples) and found no mathematical change. About 1,180 rows remain unread: W0279-W1038, W1107-W1278 and W1302-W1696 apart from samples. At roughly 155 tokens per row the record still exceeds one review allowance. A CI normalization check for the mechanical class, with only residual rows listed, would let the rest fit; see the report for a split."
+          },
+          {
+            "id": "43761575519-1-fable-F119-8",
+            "resolution": "resolved",
+            "reason": "Head 2243 reads: residuals 'in the historical candidate214-brox artifact at private source revision bfeb8400...', then 'Section q214:rows prints the residuals used here; the revision identifies the historical artifact, not that later manuscript section.' The artifact locator is kept as provenance and the hash is no longer attached to the section (rows W0175-W0177)."
+          },
+          {
+            "id": "43761575519-1-fable-F119-9",
+            "resolution": "resolved",
+            "reason": "(a) Head 4568 reads `id: Milne1986`, and no row changes it. (b) The status record now says the cleanup removes `actual_inspection` fields and keeps Li and Serre limitations as `qualification`, admits the earlier description was inaccurate, and points to the unchanged PRIMARY_SOURCES.json for per-source evidence. Rows W1385-W1416 match this. (c) The record now binds itself to the base commit, base hash e594eba7... and candidate hash ffb7a39b..., and labels 8067db11... and d53a28be... as historical drafts. I did not recompute the hashes. A separate small inaccuracy in the same record is raised as F119-11."
+          },
+          {
+            "id": "43761575519-1-fable-F119-10",
+            "resolution": "unresolved",
+            "reason": "Source access only. Journal Section 1 is not in the public HTML and the PDF could not be fetched, so the number, page and wording of journal Theorem 1.7 and the placement of Remark 1.9 remain unread by me. The public appendix confirms only the label Theorem 1.10 for the toral theorem."
+          }
+        ],
+        "not_outside_reviewed": [
+          "Comparison rows W0279-W1038, W1107-W1278 and W1302-W1696 apart from the samples listed in sources_read; that is, manuscript base lines 2353-3376, 3416-4337 and 4406-5206 outside the sampled rows",
+          "Agreement of the Candela-Szegedy journal edition with the cited statements, and every journal page locator (Definitions 1.2 and 1.3 p. 3; Theorem 1.7 p. 5; Definition 5.1 p. 25; Theorem 5.2 p. 28; Theorem 6.1 and equation (6.1) p. 29; Proposition 6.3 p. 30; Lemma A.5 p. 36)",
+          "The author's claims that the 1,968 replacements reconstruct the candidate exactly, the SHA256 values in the records, and the whole-file rename occurrence counts",
+          "The edit T*chi to T⊗chi in C06, checked only against the supplier sentence quoted in the record and not against the upstream proof at 13347-13946",
+          "Supplier files research/quartic214/proofs/uniform-existence.md and source-carry.md beyond the passages quoted in the comparison",
+          "The acknowledgements and AI usage statement at head (not opened; no comparison row touches them)",
+          "Version 18 PDF, build and source/PDF correspondence; any release",
+          "The assembled 214-variable proof and all inherited geometric, modularity, height, analytic and finite-check components, which this PR does not change and this review does not accept",
+          "H170 (open incorporation obligation) and H201 (undisposed adjacent finding)",
+          "PR118's inverse-theorem application, which was merged by owner override of source-access findings and is not re-reviewed here"
+        ],
+        "source_checks": [
+          {
+            "source_id": "Candela-Szegedy-Crelle-789-2022-Lemma-A.5-statement",
+            "location": "Publisher HTML of the version of record, Appendix A, Lemma A.5 (Taylor expansion); used at manuscripts/quartic_v18.tex head 29813-29816",
+            "outcome": "verified",
+            "detail": "Fetched in this review. The lemma gives unique Taylor coefficients g_i in G_i with g(n) the product of g_i raised to binomial(n,i) for a filtration of degree at most s, with the converse. This matches the manuscript's expansion with a_j in H_{Y,j}. The HTML has no pagination, so page 36 is not covered."
+          },
+          {
+            "source_id": "Candela-Szegedy-Crelle-789-2022-Lemma-A.5-page-36",
+            "location": "Journal page locator 'p. 36' at head 29813",
+            "outcome": "unavailable",
+            "detail": "The public HTML has no page numbers and the PDF URL returned empty content."
+          },
+          {
+            "source_id": "Candela-Szegedy-Crelle-789-2022-Proposition-6.3-p30",
+            "location": "Journal Section 6, Proposition 6.3, p. 30; used at head 29809-29812",
+            "outcome": "unavailable",
+            "detail": "Only the opening of the proof in Appendix A was readable (a morphism from Z to G/Gamma lifts to a polynomial map into G). The statement, its hypotheses and its page were not read."
+          },
+          {
+            "source_id": "Candela-Szegedy-Crelle-789-2022-Definitions-1.2-1.3-p3",
+            "location": "Journal Definitions 1.2 and 1.3, p. 3; used at head 29595-29598",
+            "outcome": "unavailable",
+            "detail": "Journal body not in the public HTML; PDF fetch returned empty content."
+          },
+          {
+            "source_id": "Candela-Szegedy-Crelle-789-2022-Definition-5.1-p25",
+            "location": "Journal Definition 5.1, p. 25; used at head 29615 (row W1870, p. 23 to p. 25)",
+            "outcome": "unavailable",
+            "detail": "Journal body not accessible; the locator change could not be checked."
+          },
+          {
+            "source_id": "Candela-Szegedy-Crelle-789-2022-Theorem-5.2-p28",
+            "location": "Journal Theorem 5.2, p. 28; used at head 29652 (row W1872, p. 26 to p. 28)",
+            "outcome": "unavailable",
+            "detail": "Journal body not accessible; the locator change could not be checked."
+          },
+          {
+            "source_id": "Candela-Szegedy-Crelle-789-2022-Theorem-6.1-and-equation-6.1-p29",
+            "location": "Journal Section 6, equation (6.1) and Theorem 6.1, p. 29; used at head 29600 and 29642 (rows W1868, W1869, W1871)",
+            "outcome": "unavailable",
+            "detail": "Journal body not accessible; the change from 'equation (5), pp. 26-27' to 'equation (6.1), p. 29' and from p. 27 to p. 29 could not be checked."
+          },
+          {
+            "source_id": "Candela-Szegedy-Crelle-789-2022-Theorem-1.7-p5",
+            "location": "Journal Section 1, Theorem 1.7, p. 5, with Remark 1.9 (p. 5) and Theorem 1.10 (p. 6) as described in the records; cited at head 29590",
+            "outcome": "unavailable",
+            "detail": "Journal Section 1 is not in the public HTML and the PDF could not be fetched."
+          },
+          {
+            "source_id": "Candela-Szegedy-Crelle-789-2022-Appendix-A-Theorem-1.10-label",
+            "location": "Publisher HTML of the version of record, Appendix A opening",
+            "outcome": "verified",
+            "detail": "The appendix states that its main aim is to prove Theorem 1.10 and later restates it. This supports the records' statement that the journal numbers the toral theorem 1.10. It does not show the number or page of Theorem 1.7."
+          }
+        ],
+        "access_limitations": [
+          {
+            "finding_id": "43759477239-1-fable-F119-6",
+            "detail": "The Crelle version of record exposes only the abstract and appendices in public HTML, without pagination, and the publisher PDF URL returned empty content in this review. The journal statements of Definitions 1.2, 1.3 and 5.1, Theorems 5.2 and 6.1, equation (6.1) and Proposition 6.3, and every journal page locator including page 36 for Lemma A.5, could not be read. The objection is solely inability to obtain these passages.",
+            "source_ids": [
+              "Candela-Szegedy-Crelle-789-2022-Lemma-A.5-page-36",
+              "Candela-Szegedy-Crelle-789-2022-Proposition-6.3-p30",
+              "Candela-Szegedy-Crelle-789-2022-Definitions-1.2-1.3-p3",
+              "Candela-Szegedy-Crelle-789-2022-Definition-5.1-p25",
+              "Candela-Szegedy-Crelle-789-2022-Theorem-5.2-p28",
+              "Candela-Szegedy-Crelle-789-2022-Theorem-6.1-and-equation-6.1-p29"
+            ]
+          },
+          {
+            "finding_id": "43761575519-1-fable-F119-10",
+            "detail": "The locator 'Theorem 1.7 on page 5' and the records' account of journal Section 1 numbering depend on the journal body, which could not be obtained. The public appendix confirms only the label Theorem 1.10 for the toral theorem. The objection is solely inability to read journal Section 1.",
+            "source_ids": [
+              "Candela-Szegedy-Crelle-789-2022-Theorem-1.7-p5"
+            ]
+          }
+        ]
+      },
+      "read_prerequisites_complete": true,
+      "finished_early": false,
+      "complete": true,
+      "policy_ref": "f7b803e3252fa955ab6dcdc2ac3e756a03fde184",
+      "history_digest": "9bd2b04eb6ea821c3d45f0e3c7191bf0eb46b70f64ec5cecf2a0a0cc525bb03f",
+      "reuse_binding": null
+    }
+  },
+  "automatic_rounds": 3,
+  "overrides": {
+    "43759477239-1-fable-F119-6": {
+      "collaborator": "elliotglazer",
+      "reason": "Journal access only; journal PDF compared locally by Fable and Astra, all cited statements and pages match.",
+      "url": "https://github.com/elliotglazer/diophantine-z-q/pull/119#issuecomment-6901995164"
+    },
+    "43761575519-1-fable-F119-10": {
+      "collaborator": "elliotglazer",
+      "reason": "Journal access only; Theorem 1.7 on page 5 and the Section 1 numbering confirmed against the journal PDF locally.",
+      "url": "https://github.com/elliotglazer/diophantine-z-q/pull/119#issuecomment-6902001948"
+    },
+    "43761575519-1-fable-F119-7": {
+      "collaborator": "elliotglazer",
+      "reason": "Coverage completed locally: Fable read all 666 non-typographic replacements; no mathematical change; statements, labels and displays unchanged.",
+      "url": "https://github.com/elliotglazer/diophantine-z-q/pull/119#issuecomment-6902006553"
+    },
+    "43764084542-1-fable-F119-11": {
+      "collaborator": "elliotglazer",
+      "reason": "Minor record sentence; correction prepared and will land in the 196 integration PR.",
+      "url": "https://github.com/elliotglazer/diophantine-z-q/pull/119#issuecomment-6902015508"
+    }
+  }
+}

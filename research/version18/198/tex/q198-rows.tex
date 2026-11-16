@@ -1,0 +1,1864 @@
+% Generated only from the frozen unbalanced Conant 198 table.
+% Root supplies the surrounding heading and label q198:rows.
+% Required packages: amsmath, longtable. No preamble or document class.
+% Source quadratic SHA-256: c55d7eefe41f62fee88b467e3ea8f6be8ba1e66f6a94b30eb74b39f6f6e7efad
+% Source quartic SHA-256: 652b5141aaa0d9f54ef89196ae9e442787335b2fd498e250c2772dc3af98a36c
+\begingroup
+\allowdisplaybreaks[1]
+This is the unbalanced 198-coordinate specification of Gabriel Conant,
+obtained from Jos\'e Brox's 204-coordinate family through the affine
+odd-fourth-label intermediate.  The source quadratic table has SHA-256
+\begin{center}\small\ttfamily
+c55d7eefe41f62fee88b467e3ea8f6be8ba1e66f6a94b30eb74b39f6f6e7efad
+\end{center}
+The variables are $\mathbf Y=(Y_0,\ldots,Y_{197})$, with $Y_0=x$ the input.
+The integer $A$ is a fixed coefficient, not a coordinate; the designated
+family uses $A=149^{2N+1}$ for an integer $N\geq1$.  Each residual below
+is an integral quadratic polynomial in $\mathbf Y$.  The polynomial
+specified by this table is
+\[
+\mathcal P_{198,A}(\mathbf Y)=
+\sum_{i=1}^{184}\bigl(q_i^{[198]}(\mathbf Y;A)\bigr)^2.
+\]
+Every displayed coordinate is quantified except the distinguished input
+$Y_0$; the named integer coefficients below introduce no further variables.
+\paragraph{Coordinate dictionary.}
+The formal identifier $j$ and exponent $e$ record the source convention
+$\xi_j=R^eY_i$, with $R=Y_{115}$.  Names are retained verbatim as source
+identifiers.  The displayed residuals, rather than these names, define
+the polynomial.  The dictionary lists all 198 coordinates.
+{\small
+\setlength{\tabcolsep}{4pt}
+\begin{longtable}{@{}r r r p{0.64\linewidth}@{}}
+\caption{Complete coordinate dictionary for the unbalanced 198 table.}
+\label{q198:coordinates}\\
+\hline
+Variable & Formal $j$ & $e$ & Source name \\
+\hline
+\endfirsthead
+\multicolumn{4}{l}{\emph{Coordinate dictionary, continued.}}\\
+\hline
+Variable & Formal $j$ & $e$ & Source name \\
+\hline
+\endhead
+\hline\multicolumn{4}{r}{\emph{Continued on the next page.}}\\
+\endfoot
+\hline
+\endlastfoot
+\(Y_{0}\) & 1 & 0 & \texttt{input} \\
+\(Y_{1}\) & 4 & 0 & \texttt{additive.\allowbreak{}lambda} \\
+\(Y_{2}\) & 5 & 0 & \texttt{detector0.\allowbreak{}normalized.\allowbreak{}scaled\_e} \\
+\(Y_{3}\) & 6 & 0 & \texttt{detector0.\allowbreak{}normalized.\allowbreak{}s} \\
+\(Y_{4}\) & 7 & -1 & \texttt{detector0.\allowbreak{}normalized.\allowbreak{}p} \\
+\(Y_{5}\) & 8 & -1 & \texttt{detector0.\allowbreak{}factored.\allowbreak{}q} \\
+\(Y_{6}\) & 9 & 0 & \texttt{detector1.\allowbreak{}normalized.\allowbreak{}scaled\_e} \\
+\(Y_{7}\) & 10 & 0 & \texttt{detector1.\allowbreak{}normalized.\allowbreak{}s} \\
+\(Y_{8}\) & 11 & -1 & \texttt{detector1.\allowbreak{}normalized.\allowbreak{}p} \\
+\(Y_{9}\) & 12 & -1 & \texttt{detector1.\allowbreak{}factored.\allowbreak{}q} \\
+\(Y_{10}\) & 13 & 0 & \texttt{normalized\_scalar.\allowbreak{}scaled\_e} \\
+\(Y_{11}\) & 14 & 0 & \texttt{normalized\_scalar.\allowbreak{}s} \\
+\(Y_{12}\) & 15 & -1 & \texttt{normalized\_scalar.\allowbreak{}p} \\
+\(Y_{13}\) & 16 & -1 & \texttt{normalized\_scalar.\allowbreak{}factored.\allowbreak{}q} \\
+\(Y_{14}\) & 17 & 0 & \texttt{U0.\allowbreak{}f.\allowbreak{}0} \\
+\(Y_{15}\) & 18 & 0 & \texttt{U0.\allowbreak{}f.\allowbreak{}1} \\
+\(Y_{16}\) & 19 & 0 & \texttt{primary.\allowbreak{}negativeReciprocalZ0.\allowbreak{}0} \\
+\(Y_{17}\) & 20 & 0 & \texttt{primary.\allowbreak{}negativeReciprocalZ0.\allowbreak{}1} \\
+\(Y_{18}\) & 21 & 0 & \texttt{logV0.\allowbreak{}fSquare.\allowbreak{}0.\allowbreak{}quadratic} \\
+\(Y_{19}\) & 22 & 0 & \texttt{logV0.\allowbreak{}fSquare.\allowbreak{}1.\allowbreak{}quadratic} \\
+\(Y_{20}\) & 23 & 0 & \texttt{logV1.\allowbreak{}fSquare.\allowbreak{}0.\allowbreak{}quadratic} \\
+\(Y_{21}\) & 24 & 0 & \texttt{logV1.\allowbreak{}fSquare.\allowbreak{}1.\allowbreak{}quadratic} \\
+\(Y_{22}\) & 25 & 0 & \texttt{logV2.\allowbreak{}fSquare.\allowbreak{}0.\allowbreak{}quadratic} \\
+\(Y_{23}\) & 26 & 0 & \texttt{logV2.\allowbreak{}fSquare.\allowbreak{}1.\allowbreak{}quadratic} \\
+\(Y_{24}\) & 27 & 0 & \texttt{logV3.\allowbreak{}fSquare.\allowbreak{}0.\allowbreak{}quadratic} \\
+\(Y_{25}\) & 28 & 0 & \texttt{logV3.\allowbreak{}fSquare.\allowbreak{}1.\allowbreak{}quadratic} \\
+\(Y_{26}\) & 29 & 0 & \texttt{logV4.\allowbreak{}fSquare.\allowbreak{}0.\allowbreak{}quadratic} \\
+\(Y_{27}\) & 30 & 0 & \texttt{logV4.\allowbreak{}fSquare.\allowbreak{}1.\allowbreak{}quadratic} \\
+\(Y_{28}\) & 31 & 0 & \texttt{L1.\allowbreak{}0} \\
+\(Y_{29}\) & 32 & 0 & \texttt{L1.\allowbreak{}1} \\
+\(Y_{30}\) & 33 & 0 & \texttt{LP1.\allowbreak{}0} \\
+\(Y_{31}\) & 34 & 0 & \texttt{LP1.\allowbreak{}1} \\
+\(Y_{32}\) & 35 & 1 & \texttt{L2.\allowbreak{}0.\allowbreak{}rescaled} \\
+\(Y_{33}\) & 36 & 1 & \texttt{L2.\allowbreak{}1.\allowbreak{}rescaled} \\
+\(Y_{34}\) & 37 & 1 & \texttt{LP2.\allowbreak{}0.\allowbreak{}rescaled} \\
+\(Y_{35}\) & 38 & 1 & \texttt{LP2.\allowbreak{}1.\allowbreak{}rescaled} \\
+\(Y_{36}\) & 39 & 0 & \texttt{v27.\allowbreak{}L3.\allowbreak{}0.\allowbreak{}rescaled.\allowbreak{}rescaling\_1} \\
+\(Y_{37}\) & 40 & 0 & \texttt{v27.\allowbreak{}L3.\allowbreak{}1.\allowbreak{}rescaled.\allowbreak{}rescaling\_1} \\
+\(Y_{38}\) & 41 & 0 & \texttt{v27.\allowbreak{}LP3.\allowbreak{}0.\allowbreak{}rescaled.\allowbreak{}rescaling\_1} \\
+\(Y_{39}\) & 42 & 0 & \texttt{v27.\allowbreak{}LP3.\allowbreak{}1.\allowbreak{}rescaled.\allowbreak{}rescaling\_1} \\
+\(Y_{40}\) & 43 & 0 & \texttt{v27.\allowbreak{}L4.\allowbreak{}0.\allowbreak{}rescaled.\allowbreak{}rescaling\_1} \\
+\(Y_{41}\) & 44 & 0 & \texttt{v27.\allowbreak{}L4.\allowbreak{}1.\allowbreak{}rescaled.\allowbreak{}rescaling\_1} \\
+\(Y_{42}\) & 45 & 0 & \texttt{v27.\allowbreak{}LP4.\allowbreak{}0.\allowbreak{}rescaled.\allowbreak{}rescaling\_1} \\
+\(Y_{43}\) & 46 & 0 & \texttt{v27.\allowbreak{}LP4.\allowbreak{}1.\allowbreak{}rescaled.\allowbreak{}rescaling\_1} \\
+\(Y_{44}\) & 47 & 0 & \texttt{inputSquare.\allowbreak{}quadratic} \\
+\(Y_{45}\) & 48 & 0 & \texttt{v27.\allowbreak{}Lucas.\allowbreak{}C.\allowbreak{}0.\allowbreak{}quadratic.\allowbreak{}rescaled.\allowbreak{}rescaling\_1} \\
+\(Y_{46}\) & 49 & 0 & \texttt{v27.\allowbreak{}Lucas.\allowbreak{}C.\allowbreak{}1.\allowbreak{}quadratic.\allowbreak{}rescaled.\allowbreak{}rescaling\_1} \\
+\(Y_{47}\) & 50 & 0 & \texttt{v27.\allowbreak{}Lucas.\allowbreak{}AT.\allowbreak{}0.\allowbreak{}quadratic.\allowbreak{}rescaled.\allowbreak{}rescaling\_1} \\
+\(Y_{48}\) & 51 & 0 & \texttt{v27.\allowbreak{}Lucas.\allowbreak{}AT.\allowbreak{}1.\allowbreak{}quadratic.\allowbreak{}rescaled.\allowbreak{}rescaling\_1} \\
+\(Y_{49}\) & 52 & 0 & \texttt{Lucas.\allowbreak{}F0.\allowbreak{}quadratic} \\
+\(Y_{50}\) & 53 & 0 & \texttt{Lucas.\allowbreak{}F1.\allowbreak{}quadratic} \\
+\(Y_{51}\) & 54 & 0 & \texttt{testSquare.\allowbreak{}1.\allowbreak{}0.\allowbreak{}0.\allowbreak{}quadratic} \\
+\(Y_{52}\) & 55 & 0 & \texttt{testSquare.\allowbreak{}1.\allowbreak{}0.\allowbreak{}1.\allowbreak{}quadratic} \\
+\(Y_{53}\) & 56 & 0 & \texttt{testSquare.\allowbreak{}1.\allowbreak{}1.\allowbreak{}0.\allowbreak{}quadratic} \\
+\(Y_{54}\) & 57 & 0 & \texttt{testSquare.\allowbreak{}1.\allowbreak{}1.\allowbreak{}1.\allowbreak{}quadratic} \\
+\(Y_{55}\) & 58 & 0 & \texttt{testSquare.\allowbreak{}1.\allowbreak{}2.\allowbreak{}0.\allowbreak{}quadratic} \\
+\(Y_{56}\) & 59 & 0 & \texttt{testSquare.\allowbreak{}1.\allowbreak{}2.\allowbreak{}1.\allowbreak{}quadratic} \\
+\(Y_{57}\) & 60 & 0 & \texttt{testSquare.\allowbreak{}1.\allowbreak{}3.\allowbreak{}0.\allowbreak{}quadratic} \\
+\(Y_{58}\) & 61 & 0 & \texttt{testSquare.\allowbreak{}1.\allowbreak{}3.\allowbreak{}1.\allowbreak{}quadratic} \\
+\(Y_{59}\) & 62 & 0 & \texttt{testSquare.\allowbreak{}12.\allowbreak{}0.\allowbreak{}0.\allowbreak{}quadratic} \\
+\(Y_{60}\) & 63 & 0 & \texttt{testSquare.\allowbreak{}12.\allowbreak{}0.\allowbreak{}1.\allowbreak{}quadratic} \\
+\(Y_{61}\) & 64 & 0 & \texttt{testSquare.\allowbreak{}12.\allowbreak{}1.\allowbreak{}0.\allowbreak{}quadratic} \\
+\(Y_{62}\) & 65 & 0 & \texttt{testSquare.\allowbreak{}12.\allowbreak{}1.\allowbreak{}1.\allowbreak{}quadratic} \\
+\(Y_{63}\) & 66 & 0 & \texttt{testSquare.\allowbreak{}40.\allowbreak{}0.\allowbreak{}0.\allowbreak{}quadratic} \\
+\(Y_{64}\) & 67 & 0 & \texttt{testSquare.\allowbreak{}40.\allowbreak{}0.\allowbreak{}1.\allowbreak{}quadratic} \\
+\(Y_{65}\) & 68 & 0 & \texttt{testSquare.\allowbreak{}40.\allowbreak{}1.\allowbreak{}0.\allowbreak{}quadratic} \\
+\(Y_{66}\) & 69 & 0 & \texttt{testSquare.\allowbreak{}40.\allowbreak{}1.\allowbreak{}1.\allowbreak{}quadratic} \\
+\(Y_{67}\) & 70 & 0 & \texttt{testSquare.\allowbreak{}40.\allowbreak{}2.\allowbreak{}0.\allowbreak{}quadratic} \\
+\(Y_{68}\) & 71 & 0 & \texttt{testSquare.\allowbreak{}40.\allowbreak{}2.\allowbreak{}1.\allowbreak{}quadratic} \\
+\(Y_{69}\) & 72 & 0 & \texttt{testSquare.\allowbreak{}40.\allowbreak{}3.\allowbreak{}0.\allowbreak{}quadratic} \\
+\(Y_{70}\) & 73 & 0 & \texttt{testSquare.\allowbreak{}40.\allowbreak{}3.\allowbreak{}1.\allowbreak{}quadratic} \\
+\(Y_{71}\) & 74 & 0 & \texttt{testSquare.\allowbreak{}40.\allowbreak{}4.\allowbreak{}0.\allowbreak{}quadratic} \\
+\(Y_{72}\) & 75 & 0 & \texttt{testSquare.\allowbreak{}40.\allowbreak{}4.\allowbreak{}1.\allowbreak{}quadratic} \\
+\(Y_{73}\) & 76 & 0 & \texttt{additive.\allowbreak{}detector0.\allowbreak{}contactSquare} \\
+\(Y_{74}\) & 77 & 0 & \texttt{additive.\allowbreak{}detector0.\allowbreak{}contactFourthPower} \\
+\(Y_{75}\) & 78 & 0 & \texttt{additive.\allowbreak{}detector0.\allowbreak{}contactCombination} \\
+\(Y_{76}\) & 79 & 0 & \texttt{detector0.\allowbreak{}q1} \\
+\(Y_{77}\) & 80 & 0 & \texttt{detector0.\allowbreak{}inverseWeight} \\
+\(Y_{78}\) & 81 & 0 & \texttt{detector0.\allowbreak{}inverseWeightSquared} \\
+\(Y_{79}\) & 82 & 0 & \texttt{detector0.\allowbreak{}inverseWeightFourthPower} \\
+\(Y_{80}\) & 83 & 0 & \texttt{detector0.\allowbreak{}actualW.\allowbreak{}0} \\
+\(Y_{81}\) & 84 & 0 & \texttt{detector0.\allowbreak{}actualW.\allowbreak{}1} \\
+\(Y_{82}\) & 85 & 0 & \texttt{detector0.\allowbreak{}normOver2w0} \\
+\(Y_{83}\) & 86 & 0 & \texttt{detector0.\allowbreak{}B} \\
+\(Y_{84}\) & 87 & 0 & \texttt{detector0.\allowbreak{}normalized.\allowbreak{}p2.\allowbreak{}quadratic} \\
+\(Y_{85}\) & 88 & 0 & \texttt{detector0.\allowbreak{}factored.\allowbreak{}v} \\
+\(Y_{86}\) & 89 & 0 & \texttt{detector0.\allowbreak{}factored.\allowbreak{}q2} \\
+\(Y_{87}\) & 90 & 0 & \texttt{additive.\allowbreak{}detector1.\allowbreak{}argument} \\
+\(Y_{88}\) & 91 & 0 & \texttt{additive.\allowbreak{}detector1.\allowbreak{}contactSquare} \\
+\(Y_{89}\) & 92 & 0 & \texttt{additive.\allowbreak{}detector1.\allowbreak{}contactFourthPower} \\
+\(Y_{90}\) & 93 & 0 & \texttt{additive.\allowbreak{}detector1.\allowbreak{}contactCombination} \\
+\(Y_{91}\) & 94 & 0 & \texttt{detector1.\allowbreak{}q1} \\
+\(Y_{92}\) & 95 & 0 & \texttt{detector1.\allowbreak{}inverseWeight} \\
+\(Y_{93}\) & 96 & 0 & \texttt{detector1.\allowbreak{}inverseWeightSquared} \\
+\(Y_{94}\) & 97 & 1 & \texttt{detector1.\allowbreak{}inverseWeightFourthPower} \\
+\(Y_{95}\) & 98 & 0 & \texttt{detector1.\allowbreak{}actualW.\allowbreak{}0} \\
+\(Y_{96}\) & 99 & 0 & \texttt{detector1.\allowbreak{}actualW.\allowbreak{}1} \\
+\(Y_{97}\) & 100 & 0 & \texttt{detector1.\allowbreak{}normOver2w0} \\
+\(Y_{98}\) & 101 & 0 & \texttt{detector1.\allowbreak{}B} \\
+\(Y_{99}\) & 102 & 0 & \texttt{detector1.\allowbreak{}normalized.\allowbreak{}p2.\allowbreak{}quadratic} \\
+\(Y_{100}\) & 103 & 0 & \texttt{detector1.\allowbreak{}factored.\allowbreak{}v} \\
+\(Y_{101}\) & 104 & 0 & \texttt{detector1.\allowbreak{}factored.\allowbreak{}q2} \\
+\(Y_{102}\) & 105 & 0 & \texttt{scalar.\allowbreak{}rPair1.\allowbreak{}quadratic} \\
+\(Y_{103}\) & 106 & 1 & \texttt{scalar.\allowbreak{}contactProduct} \\
+\(Y_{104}\) & 107 & 0 & \texttt{scalar.\allowbreak{}zRatio.\allowbreak{}0.\allowbreak{}rescaled} \\
+\(Y_{105}\) & 108 & 0 & \texttt{scalar.\allowbreak{}zRatio.\allowbreak{}1.\allowbreak{}rescaled} \\
+\(Y_{106}\) & 109 & 0 & \texttt{scalar.\allowbreak{}W2.\allowbreak{}quadratic.\allowbreak{}rescaled} \\
+\(Y_{107}\) & 110 & 0 & \texttt{scalar.\allowbreak{}b.\allowbreak{}quadratic} \\
+\(Y_{108}\) & 111 & 0 & \texttt{normalized\_scalar.\allowbreak{}p2.\allowbreak{}quadratic} \\
+\(Y_{109}\) & 112 & 0 & \texttt{normalized\_scalar.\allowbreak{}factored.\allowbreak{}v} \\
+\(Y_{110}\) & 113 & 0 & \texttt{normalized\_scalar.\allowbreak{}factored.\allowbreak{}q2} \\
+\(Y_{111}\) & 114 & 1 & \texttt{scalar.\allowbreak{}ratio1\_unscaled\_square.\allowbreak{}rescaled} \\
+\(Y_{112}\) & 115 & 0 & \texttt{parity\_scalar.\allowbreak{}C\_Z0square\_over\_R} \\
+\(Y_{113}\) & 116 & 0 & \texttt{reduced\_scalar.\allowbreak{}root.\allowbreak{}rescaled} \\
+\(Y_{114}\) & 117 & 0 & \texttt{scalar.\allowbreak{}r\_power\_2} \\
+\(Y_{115}\) & 118 & 0 & \texttt{scalar.\allowbreak{}forced\_positive\_parameter} \\
+\(Y_{116}\) & 119 & 0 & \texttt{amplified.\allowbreak{}C1.\allowbreak{}power4.\allowbreak{}0} \\
+\(Y_{117}\) & 120 & 0 & \texttt{amplified.\allowbreak{}C1.\allowbreak{}power4.\allowbreak{}1} \\
+\(Y_{118}\) & 121 & 0 & \texttt{residue.\allowbreak{}I.\allowbreak{}power4.\allowbreak{}0} \\
+\(Y_{119}\) & 122 & 0 & \texttt{residue.\allowbreak{}I.\allowbreak{}power4.\allowbreak{}1} \\
+\(Y_{120}\) & 123 & 0 & \texttt{amplified.\allowbreak{}det0.\allowbreak{}factor0.\allowbreak{}0} \\
+\(Y_{121}\) & 124 & 0 & \texttt{amplified.\allowbreak{}det0.\allowbreak{}factor0.\allowbreak{}1} \\
+\(Y_{122}\) & 125 & 0 & \texttt{amplified.\allowbreak{}det0.\allowbreak{}factor1.\allowbreak{}0} \\
+\(Y_{123}\) & 126 & 0 & \texttt{amplified.\allowbreak{}det0.\allowbreak{}factor1.\allowbreak{}1} \\
+\(Y_{124}\) & 127 & 0 & \texttt{amplified.\allowbreak{}det0.\allowbreak{}factor2.\allowbreak{}0} \\
+\(Y_{125}\) & 128 & 0 & \texttt{amplified.\allowbreak{}det0.\allowbreak{}factor2.\allowbreak{}1} \\
+\(Y_{126}\) & 129 & 0 & \texttt{amplified.\allowbreak{}det0.\allowbreak{}factor3.\allowbreak{}0} \\
+\(Y_{127}\) & 130 & 0 & \texttt{amplified.\allowbreak{}det0.\allowbreak{}factor3.\allowbreak{}1} \\
+\(Y_{128}\) & 131 & 0 & \texttt{amplified.\allowbreak{}det0.\allowbreak{}factor4.\allowbreak{}0} \\
+\(Y_{129}\) & 132 & 0 & \texttt{amplified.\allowbreak{}det0.\allowbreak{}factor4.\allowbreak{}1} \\
+\(Y_{130}\) & 133 & 0 & \texttt{amplified.\allowbreak{}det0.\allowbreak{}product1.\allowbreak{}0} \\
+\(Y_{131}\) & 134 & 0 & \texttt{amplified.\allowbreak{}det0.\allowbreak{}product1.\allowbreak{}1} \\
+\(Y_{132}\) & 135 & 0 & \texttt{amplified.\allowbreak{}det0.\allowbreak{}product2.\allowbreak{}0} \\
+\(Y_{133}\) & 136 & 0 & \texttt{amplified.\allowbreak{}det0.\allowbreak{}product2.\allowbreak{}1} \\
+\(Y_{134}\) & 137 & 0 & \texttt{amplified.\allowbreak{}det0.\allowbreak{}product3.\allowbreak{}0} \\
+\(Y_{135}\) & 138 & 0 & \texttt{amplified.\allowbreak{}det0.\allowbreak{}product3.\allowbreak{}1} \\
+\(Y_{136}\) & 139 & -1 & \texttt{amplified.\allowbreak{}det1.\allowbreak{}factor0.\allowbreak{}0} \\
+\(Y_{137}\) & 140 & -1 & \texttt{amplified.\allowbreak{}det1.\allowbreak{}factor0.\allowbreak{}1} \\
+\(Y_{138}\) & 141 & -1 & \texttt{amplified.\allowbreak{}det1.\allowbreak{}factor1.\allowbreak{}0} \\
+\(Y_{139}\) & 142 & -1 & \texttt{amplified.\allowbreak{}det1.\allowbreak{}factor1.\allowbreak{}1} \\
+\(Y_{140}\) & 143 & -1 & \texttt{amplified.\allowbreak{}det1.\allowbreak{}factor2.\allowbreak{}0} \\
+\(Y_{141}\) & 144 & -1 & \texttt{amplified.\allowbreak{}det1.\allowbreak{}factor2.\allowbreak{}1} \\
+\(Y_{142}\) & 145 & -1 & \texttt{amplified.\allowbreak{}det1.\allowbreak{}factor3.\allowbreak{}0} \\
+\(Y_{143}\) & 146 & -1 & \texttt{amplified.\allowbreak{}det1.\allowbreak{}factor3.\allowbreak{}1} \\
+\(Y_{144}\) & 147 & -1 & \texttt{amplified.\allowbreak{}det1.\allowbreak{}factor4.\allowbreak{}0} \\
+\(Y_{145}\) & 148 & -1 & \texttt{amplified.\allowbreak{}det1.\allowbreak{}factor4.\allowbreak{}1} \\
+\(Y_{146}\) & 149 & 0 & \texttt{amplified.\allowbreak{}det1.\allowbreak{}product1.\allowbreak{}0} \\
+\(Y_{147}\) & 150 & 0 & \texttt{amplified.\allowbreak{}det1.\allowbreak{}product1.\allowbreak{}1} \\
+\(Y_{148}\) & 151 & 1 & \texttt{amplified.\allowbreak{}det1.\allowbreak{}product2.\allowbreak{}0} \\
+\(Y_{149}\) & 152 & 1 & \texttt{amplified.\allowbreak{}det1.\allowbreak{}product2.\allowbreak{}1} \\
+\(Y_{150}\) & 153 & 1 & \texttt{amplified.\allowbreak{}det1.\allowbreak{}product3.\allowbreak{}0} \\
+\(Y_{151}\) & 154 & 1 & \texttt{amplified.\allowbreak{}det1.\allowbreak{}product3.\allowbreak{}1} \\
+\(Y_{152}\) & 183 & 0 & \texttt{shared.\allowbreak{}alternate.\allowbreak{}negativeReciprocalZ0.\allowbreak{}0} \\
+\(Y_{153}\) & 184 & 0 & \texttt{shared.\allowbreak{}alternate.\allowbreak{}negativeReciprocalZ0.\allowbreak{}1} \\
+\(Y_{154}\) & 185 & 0 & \texttt{pair1.\allowbreak{}f.\allowbreak{}0} \\
+\(Y_{155}\) & 186 & 0 & \texttt{pair1.\allowbreak{}f.\allowbreak{}1} \\
+\(Y_{156}\) & 187 & 0 & \texttt{pair1.\allowbreak{}h.\allowbreak{}0} \\
+\(Y_{157}\) & 188 & 0 & \texttt{pair1.\allowbreak{}h.\allowbreak{}1} \\
+\(Y_{158}\) & 189 & 0 & \texttt{pair1.\allowbreak{}g.\allowbreak{}0} \\
+\(Y_{159}\) & 190 & 0 & \texttt{pair1.\allowbreak{}g.\allowbreak{}1} \\
+\(Y_{160}\) & 191 & 0 & \texttt{pair1.\allowbreak{}k.\allowbreak{}0} \\
+\(Y_{161}\) & 192 & 0 & \texttt{pair1.\allowbreak{}k.\allowbreak{}1} \\
+\(Y_{162}\) & 193 & 0 & \texttt{pair1.\allowbreak{}s.\allowbreak{}0} \\
+\(Y_{163}\) & 194 & 0 & \texttt{pair1.\allowbreak{}s.\allowbreak{}1} \\
+\(Y_{164}\) & 195 & 0 & \texttt{pair3.\allowbreak{}f.\allowbreak{}0} \\
+\(Y_{165}\) & 196 & 0 & \texttt{pair3.\allowbreak{}f.\allowbreak{}1} \\
+\(Y_{166}\) & 197 & 0 & \texttt{pair3.\allowbreak{}h.\allowbreak{}0} \\
+\(Y_{167}\) & 198 & 0 & \texttt{pair3.\allowbreak{}h.\allowbreak{}1} \\
+\(Y_{168}\) & 199 & 0 & \texttt{pair3.\allowbreak{}g.\allowbreak{}0} \\
+\(Y_{169}\) & 200 & 0 & \texttt{pair3.\allowbreak{}g.\allowbreak{}1} \\
+\(Y_{170}\) & 201 & 0 & \texttt{pair3.\allowbreak{}k.\allowbreak{}0} \\
+\(Y_{171}\) & 202 & 0 & \texttt{pair3.\allowbreak{}k.\allowbreak{}1} \\
+\(Y_{172}\) & 203 & 0 & \texttt{pair3.\allowbreak{}s.\allowbreak{}0} \\
+\(Y_{173}\) & 204 & 0 & \texttt{pair3.\allowbreak{}s.\allowbreak{}1} \\
+\(Y_{174}\) & 205 & 0 & \texttt{pair4.\allowbreak{}f.\allowbreak{}0} \\
+\(Y_{175}\) & 206 & 0 & \texttt{pair4.\allowbreak{}f.\allowbreak{}1} \\
+\(Y_{176}\) & 207 & 0 & \texttt{pair4.\allowbreak{}h.\allowbreak{}0} \\
+\(Y_{177}\) & 208 & 0 & \texttt{pair4.\allowbreak{}h.\allowbreak{}1} \\
+\(Y_{178}\) & 209 & 0 & \texttt{pair4.\allowbreak{}g.\allowbreak{}0} \\
+\(Y_{179}\) & 210 & 0 & \texttt{pair4.\allowbreak{}g.\allowbreak{}1} \\
+\(Y_{180}\) & 211 & 0 & \texttt{pair4.\allowbreak{}k.\allowbreak{}0} \\
+\(Y_{181}\) & 212 & 0 & \texttt{pair4.\allowbreak{}k.\allowbreak{}1} \\
+\(Y_{182}\) & 213 & 0 & \texttt{pair4.\allowbreak{}s.\allowbreak{}0} \\
+\(Y_{183}\) & 214 & 0 & \texttt{pair4.\allowbreak{}s.\allowbreak{}1} \\
+\(Y_{184}\) & 215 & -1 & \texttt{scalar.\allowbreak{}inverseVieta.\allowbreak{}u.\allowbreak{}0} \\
+\(Y_{185}\) & 216 & -1 & \texttt{scalar.\allowbreak{}inverseVieta.\allowbreak{}u.\allowbreak{}1} \\
+\(Y_{186}\) & 217 & -1 & \texttt{scalar.\allowbreak{}inverseVieta.\allowbreak{}v.\allowbreak{}0} \\
+\(Y_{187}\) & 218 & -1 & \texttt{scalar.\allowbreak{}inverseVieta.\allowbreak{}v.\allowbreak{}1} \\
+\(Y_{188}\) & 219 & -1 & \texttt{scalar.\allowbreak{}inverseVieta.\allowbreak{}w.\allowbreak{}0} \\
+\(Y_{189}\) & 220 & -1 & \texttt{scalar.\allowbreak{}inverseVieta.\allowbreak{}w.\allowbreak{}1} \\
+\(Y_{190}\) & 221 & -1 & \texttt{scalar.\allowbreak{}inverseVieta.\allowbreak{}m.\allowbreak{}0} \\
+\(Y_{191}\) & 222 & -1 & \texttt{scalar.\allowbreak{}inverseVieta.\allowbreak{}m.\allowbreak{}1} \\
+\(Y_{192}\) & 223 & -1 & \texttt{scalar.\allowbreak{}inverseVieta.\allowbreak{}r.\allowbreak{}0} \\
+\(Y_{193}\) & 224 & -1 & \texttt{scalar.\allowbreak{}inverseVieta.\allowbreak{}r.\allowbreak{}1} \\
+\(Y_{194}\) & 225 & 0 & \texttt{scalar.\allowbreak{}inverseVieta.\allowbreak{}p.\allowbreak{}0} \\
+\(Y_{195}\) & 226 & 0 & \texttt{scalar.\allowbreak{}inverseVieta.\allowbreak{}p.\allowbreak{}1} \\
+\(Y_{196}\) & 227 & -2 & \texttt{scalar.\allowbreak{}inverseVieta.\allowbreak{}r2.\allowbreak{}0} \\
+\(Y_{197}\) & 228 & -2 & \texttt{scalar.\allowbreak{}inverseVieta.\allowbreak{}r2.\allowbreak{}1} \\
+\end{longtable}
+}
+\paragraph{Explicit integer coefficients.}
+The following positive integers abbreviate long coefficients.  Powers
+of ten are part of their explicit integer definitions.  No coefficient
+is defined recursively and none depends on $A$ or on a coordinate.
+\[
+\begin{aligned}
+\mathsf{k}_{1} &={} 225450225
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{2} &={} 291790992
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{3} &={} 402282898
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{4} &={} 559299438
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{5} &={} 615250593
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{6} &={} 632859681
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{7} &={} 760760576
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{8} &={} 767410608
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{9} &={} 804565796
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{10} &={} 853624686
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{11} &={} 1118598876
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{12} &={} 1707249372
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{13} &={} 1752629952
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{14} &={} 2158699200
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{15} &={} 2185741488
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{16} &={} 4317398400
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{17} &={} 4371482976
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{18} &={} 6299926668
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{19} &={} 8034039216
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{20} &={} 12599853336
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{21} &={} 14315517724
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{22} &={} 3813373161796
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{23} &={} 35893742479489
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{24} &={} 39896049934224
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{25} &={} 122376041313918
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{26} &={} 141822723674536
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{27} &={} 192222345736537
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{28} &={} 11103587832587241507327504
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{29} &={} 22207175665174483014655008
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{30} &={} 44414351330348966029310016
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{31} &={} 48449649836586406950484992
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{32} &={} 73337278472469394027868160
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{33} &={} 96752225322509135132811680
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{34} &={} 96899299673172813900969984
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{35} &={} 193504450645018270265623360
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{36} &={} 221885062050666200634840588
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{37} &={} 379803344151802263741759336
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{38} &={} 387008901290036540531246720
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{39} &={} 576646188893131060318065573
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{40} &={} 588237978875945932189940160
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{41} &={} 647265901015780366495244709
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{42} &={} 651636256831197039640656348
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{43} &={} 652461006517642156833128616
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{44} &={} 672629921754651149327507840
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{45} &={} 686923528829960141567886528
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{46} &={} 759606688303604527483518672
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{47} &={} 797514988115594446587154013
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{48} &={} 887540248202664802539362352
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{49} &={} 975462260105801738014285793
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{50} &={} 985061164914970179529857840
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{51} &={} 1149539095796314755226869484
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{52} &={} 1153292377786262120636131146
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{53} &={} 1254821386791945912952706976
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{54} &={} 1294531802031560732990489418
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{55} &={} 1345259843509302298655015680
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{56} &={} 1373847057659920283135773056
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{57} &={} 1532572190428498920661008288
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{58} &={} 1595029976231188893174308026
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{59} &={} 1723051656304506319706496064
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{60} &={} 1950924520211603476028571586
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{61} &={} 2509642773583891825905413952
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{62} &={} 2606545027324788158562625392
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{63} &={} 2747694115319840566271546112
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{64} &={} 3065144380856997841322016576
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{65} &={} 3446103312609012639412992128
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{66} &={} 4398006762181672234512370320
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{67} &={} 8796013524363344469024740640
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{68} &={} 13784413250436050557651968512
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{69} &={} 17592027048726688938049481280
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{70} &={} 981949949521011\cdot 10^{90}\\
+&{}+ 646279509932288013517604094669\cdot 10^{60}\\
+&{}+ 913140033589964224332595426527\cdot 10^{30}\\
+&{}+ 668691070368153600000000000000
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{71} &={} 80990493410131000784375\cdot 10^{90}\\
+&{}+ 977023646274345820490095244015\cdot 10^{60}\\
+&{}+ 289194989569855772668241364832\cdot 10^{30}\\
+&{}+ 628280392076492800000000000000
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{72} &={} 458946129324075671111463\cdot 10^{90}\\
+&{}+ 869800662221292982777206382753\cdot 10^{60}\\
+&{}+ 305438274229182711786701067384\cdot 10^{30}\\
+&{}+ 893588888433459200000000000000
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{73} &={} 917892258648151342222927\cdot 10^{90}\\
+&{}+ 739601324442585965554412765506\cdot 10^{60}\\
+&{}+ 610876548458365423573402134769\cdot 10^{30}\\
+&{}+ 787177776866918400000000000000
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{74} &={} 1376838387972227013334391\cdot 10^{90}\\
+&{}+ 609401986663878948331619148259\cdot 10^{60}\\
+&{}+ 916314822687548135360103202154\cdot 10^{30}\\
+&{}+ 680766665300377600000000000000
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{75} &={} 2753676775944454026668783\cdot 10^{90}\\
+&{}+ 218803973327757896663238296519\cdot 10^{60}\\
+&{}+ 832629645375096270720206404309\cdot 10^{30}\\
+&{}+ 361533330600755200000000000000
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{76} &={} 631894648864653571\cdot 10^{210}\\
+&{}+ 873175945229280662018444979247\cdot 10^{180}\\
+&{}+ 293017626849316401438015472961\cdot 10^{150}\\
+&{}+ 541724103664894830836146098454\cdot 10^{120}\\
+&{}+ 811858898268673455974674591659\cdot 10^{90}\\
+&{}+ 579647260424498812801114939752\cdot 10^{60}\\
+&{}+ 249369101083632379691878234193\cdot 10^{30}\\
+&{}+ 920000000000000000000000000000
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\mathsf{k}_{77} &={} 5687051839781882146\cdot 10^{210}\\
+&{}+ 858583507063525958166004813225\cdot 10^{180}\\
+&{}+ 637158641643847612942139256653\cdot 10^{150}\\
+&{}+ 875516932984053477525314886093\cdot 10^{120}\\
+&{}+ 306730084418061103772071324936\cdot 10^{90}\\
+&{}+ 216825343820489315210034457770\cdot 10^{60}\\
+&{}+ 244321909752691417226904107745\cdot 10^{30}\\
+&{}+ 280000000000000000000000000000
+\end{aligned}
+\]
+\paragraph{The 184 quadratic residuals.}
+Write $q_i^{[198]}$ for $q_i^{[198]}(\mathbf Y;A)$.  The equations
+of the system are $q_i^{[198]}=0$ for $1\leq i\leq184$.
+% Source residual 1: inputSquare.definition
+\begin{equation}\label{q198:row:001}
+\begin{aligned}
+q_{1}^{[198]} &={} Y_{0}^{2} - Y_{44}
+\end{aligned}
+\end{equation}
+% Source residual 2: affine.Lucas.C.0
+\begin{equation}\label{q198:row:002}
+\begin{aligned}
+q_{2}^{[198]} &={} Y_{32}Y_{40} + 2Y_{33}Y_{41} - Y_{40} - Y_{45}
+\end{aligned}
+\end{equation}
+% Source residual 3: affine.Lucas.C.1
+\begin{equation}\label{q198:row:003}
+\begin{aligned}
+q_{3}^{[198]} &={} Y_{32}Y_{41} + Y_{33}Y_{40} - Y_{41} - Y_{46}
+\end{aligned}
+\end{equation}
+% Source residual 4: affine.Lucas.AT.0
+\begin{equation}\label{q198:row:004}
+\begin{aligned}
+q_{4}^{[198]} &={} Y_{32}Y_{36} + 2Y_{33}Y_{37} + Y_{36} - Y_{47}
+\end{aligned}
+\end{equation}
+% Source residual 5: affine.Lucas.AT.1
+\begin{equation}\label{q198:row:005}
+\begin{aligned}
+q_{5}^{[198]} &={} Y_{32}Y_{37} + Y_{33}Y_{36} + Y_{37} - Y_{48}
+\end{aligned}
+\end{equation}
+% Source residual 6: affine.Lucas.F.0
+\begin{equation}\label{q198:row:006}
+\begin{aligned}
+q_{6}^{[198]} &={} Y_{36}^{2} + 2Y_{37}^{2} + Y_{45}^{2} - Y_{45}Y_{47} + 2Y_{46}^{2} - 2Y_{46}Y_{48}\\
+&{} - Y_{49}
+\end{aligned}
+\end{equation}
+% Source residual 7: affine.Lucas.F.1
+\begin{equation}\label{q198:row:007}
+\begin{aligned}
+q_{7}^{[198]} &={} 2Y_{36}Y_{37} + 2Y_{45}Y_{46} - Y_{45}Y_{48} - Y_{46}Y_{47} - 2Y_{50}
+\end{aligned}
+\end{equation}
+% Source residual 8: testSquare.12.0.0.definition
+\begin{equation}\label{q198:row:008}
+\begin{aligned}
+q_{8}^{[198]} &={} Y_{28}^{2} - 2Y_{28}Y_{30} + 2Y_{29}^{2} + 4Y_{29}Y_{31} + Y_{30}^{2} + 2Y_{31}^{2}\\
+&{} - Y_{59}
+\end{aligned}
+\end{equation}
+% Source residual 9: testSquare.12.0.1.definition
+\begin{equation}\label{q198:row:009}
+\begin{aligned}
+q_{9}^{[198]} &={} Y_{28}Y_{29} + Y_{28}Y_{31} - Y_{29}Y_{30} - Y_{30}Y_{31} - Y_{60}
+\end{aligned}
+\end{equation}
+% Source residual 10: testSquare.12.1.0.definition
+\begin{equation}\label{q198:row:010}
+\begin{aligned}
+q_{10}^{[198]} &={} 6255001 - 5002Y_{28} + Y_{28}^{2} - 102Y_{28}Y_{44} + 2Y_{29}^{2}\\
+&{} + 255102Y_{44} + 2601Y_{44}^{2} - Y_{61}
+\end{aligned}
+\end{equation}
+% Source residual 11: testSquare.12.1.1.definition
+\begin{equation}\label{q198:row:011}
+\begin{aligned}
+q_{11}^{[198]} &={} Y_{28}Y_{29} - 2501Y_{29} - 51Y_{29}Y_{44} - Y_{62}
+\end{aligned}
+\end{equation}
+% Source residual 12: testSquare.40.0.0.definition
+\begin{equation}\label{q198:row:012}
+\begin{aligned}
+q_{12}^{[198]} &={} Y_{14}^{2} + 2Y_{15}^{2} - Y_{63}
+\end{aligned}
+\end{equation}
+% Source residual 13: testSquare.40.0.1.definition
+\begin{equation}\label{q198:row:013}
+\begin{aligned}
+q_{13}^{[198]} &={} Y_{14}Y_{15} - Y_{64}
+\end{aligned}
+\end{equation}
+% Source residual 14: testSquare.40.1.0.definition
+\begin{equation}\label{q198:row:014}
+\begin{aligned}
+q_{14}^{[198]} &={} Y_{32}^{2} - 2Y_{32}Y_{34} + 2Y_{33}^{2} + 4Y_{33}Y_{35} + Y_{34}^{2} + 2Y_{35}^{2}\\
+&{} - Y_{65}
+\end{aligned}
+\end{equation}
+% Source residual 15: testSquare.40.1.1.definition
+\begin{equation}\label{q198:row:015}
+\begin{aligned}
+q_{15}^{[198]} &={} Y_{32}Y_{33} + Y_{32}Y_{35} - Y_{33}Y_{34} - Y_{34}Y_{35} - Y_{66}
+\end{aligned}
+\end{equation}
+% Source residual 16: v27.testSquare.40.2.0.definition
+\begin{equation}\label{q198:row:016}
+\begin{aligned}
+q_{16}^{[198]} &={} Y_{36}^{2} - 2Y_{36}Y_{38} + 2Y_{37}^{2} + 4Y_{37}Y_{39} + Y_{38}^{2} + 2Y_{39}^{2}\\
+&{} - Y_{67}
+\end{aligned}
+\end{equation}
+% Source residual 17: v27.testSquare.40.2.1.definition
+\begin{equation}\label{q198:row:017}
+\begin{aligned}
+q_{17}^{[198]} &={} Y_{36}Y_{37} + Y_{36}Y_{39} - Y_{37}Y_{38} - Y_{38}Y_{39} - Y_{68}
+\end{aligned}
+\end{equation}
+% Source residual 18: v27.testSquare.40.3.0.definition
+\begin{equation}\label{q198:row:018}
+\begin{aligned}
+q_{18}^{[198]} &={} Y_{40}^{2} - 2Y_{40}Y_{42} + 2Y_{41}^{2} + 4Y_{41}Y_{43} + Y_{42}^{2} + 2Y_{43}^{2}\\
+&{} - Y_{69}
+\end{aligned}
+\end{equation}
+% Source residual 19: v27.testSquare.40.3.1.definition
+\begin{equation}\label{q198:row:019}
+\begin{aligned}
+q_{19}^{[198]} &={} Y_{40}Y_{41} + Y_{40}Y_{43} - Y_{41}Y_{42} - Y_{42}Y_{43} - Y_{70}
+\end{aligned}
+\end{equation}
+% Source residual 20: testSquare.40.4.0.definition
+\begin{equation}\label{q198:row:020}
+\begin{aligned}
+q_{20}^{[198]} &={} Y_{49}^{2} + 8Y_{50}^{2} - Y_{71}
+\end{aligned}
+\end{equation}
+% Source residual 21: testSquare.40.4.1.definition
+\begin{equation}\label{q198:row:021}
+\begin{aligned}
+q_{21}^{[198]} &={} Y_{49}Y_{50} - Y_{72}
+\end{aligned}
+\end{equation}
+% Source residual 22: additive.detector0.contactSquare
+\begin{equation}\label{q198:row:022}
+\begin{aligned}
+q_{22}^{[198]} &={} 1 - 2Y_{1} + Y_{1}^{2} - Y_{73}
+\end{aligned}
+\end{equation}
+% Source residual 23: additive.detector0.contactFourthPower
+\begin{equation}\label{q198:row:023}
+\begin{aligned}
+q_{23}^{[198]} &={} Y_{73}^{2} - Y_{74}
+\end{aligned}
+\end{equation}
+% Source residual 24: additive.detector0.contactCombination
+\begin{equation}\label{q198:row:024}
+\begin{aligned}
+q_{24}^{[198]} &={} \mathsf{k}_{25}Y_{73} + \mathsf{k}_{22}Y_{73}Y_{74} + \mathsf{k}_{25}Y_{73}Y_{77}\\
+&{} - \mathsf{k}_{23}Y_{74} - \mathsf{k}_{23}Y_{74}Y_{77} - \mathsf{k}_{22}Y_{75}
+\end{aligned}
+\end{equation}
+% Source residual 25: additive.detector0.contactRelation
+\begin{equation}\label{q198:row:025}
+\begin{aligned}
+q_{25}^{[198]} &={} \mathsf{k}_{24} - \mathsf{k}_{26}Y_{73} - \mathsf{k}_{26}Y_{73}Y_{77} + \mathsf{k}_{27}Y_{74}\\
+&{} - \mathsf{k}_{22}Y_{74}Y_{75} + \mathsf{k}_{27}Y_{74}Y_{77} + \mathsf{k}_{24}Y_{77}
+\end{aligned}
+\end{equation}
+% Source residual 26: detector0.inverseWeight.definition
+\begin{equation}\label{q198:row:026}
+\begin{aligned}
+q_{26}^{[198]} &={} 1 - Y_{76}Y_{77}
+\end{aligned}
+\end{equation}
+% Source residual 27: detector0.inverseWeightSquared.definition
+\begin{equation}\label{q198:row:027}
+\begin{aligned}
+q_{27}^{[198]} &={} Y_{77}^{2} - Y_{78}
+\end{aligned}
+\end{equation}
+% Source residual 28: detector0.normOver2w0.definition
+\begin{equation}\label{q198:row:028}
+\begin{aligned}
+q_{28}^{[198]} &={} Y_{80}^{2} - 2Y_{80}Y_{82} - 2Y_{81}^{2}
+\end{aligned}
+\end{equation}
+% Source residual 29: balanced.detector0.poleInput.definition
+\begin{equation}\label{q198:row:029}
+\begin{aligned}
+q_{29}^{[198]} &={} 167281Y_{76}Y_{83} - 166464Y_{82}^{2} + 167281Y_{83}
+\end{aligned}
+\end{equation}
+% Source residual 30: detector0.p2.definition
+\begin{equation}\label{q198:row:030}
+\begin{aligned}
+q_{30}^{[198]} &={} Y_{4}^{2} - Y_{84}Y_{114}
+\end{aligned}
+\end{equation}
+% Source residual 31: detector0.firstConic
+\begin{equation}\label{q198:row:031}
+\begin{aligned}
+q_{31}^{[198]} &={} 289 + 34Y_{2} - 3Y_{2}^{2} - 17Y_{83}Y_{84}
+\end{aligned}
+\end{equation}
+% Source residual 32: detector0.Bh.definition
+\begin{equation}\label{q198:row:032}
+\begin{aligned}
+q_{32}^{[198]} &={} 17Y_{2} - Y_{2}Y_{83} - 17Y_{3}Y_{85}
+\end{aligned}
+\end{equation}
+% Source residual 33: detector0.q2.definition
+\begin{equation}\label{q198:row:033}
+\begin{aligned}
+q_{33}^{[198]} &={} Y_{5}^{2} - Y_{86}Y_{114}
+\end{aligned}
+\end{equation}
+% Source residual 34: detector0.secondConic
+\begin{equation}\label{q198:row:034}
+\begin{aligned}
+q_{34}^{[198]} &={} Y_{3}^{2} + 34Y_{3}Y_{85} - 17Y_{83}Y_{86} - 867Y_{85}^{2}
+\end{aligned}
+\end{equation}
+% Source residual 35: additive.detector1.contactSquare
+\begin{equation}\label{q198:row:035}
+\begin{aligned}
+q_{35}^{[198]} &={} 1 - 2Y_{87} + Y_{87}^{2} - Y_{88}
+\end{aligned}
+\end{equation}
+% Source residual 36: additive.detector1.contactFourthPower
+\begin{equation}\label{q198:row:036}
+\begin{aligned}
+q_{36}^{[198]} &={} Y_{88}^{2} - Y_{89}
+\end{aligned}
+\end{equation}
+% Source residual 37: additive.detector1.contactCombination
+\begin{equation}\label{q198:row:037}
+\begin{aligned}
+q_{37}^{[198]} &={} \mathsf{k}_{25}Y_{88} + \mathsf{k}_{22}Y_{88}Y_{89} + \mathsf{k}_{25}Y_{88}Y_{92}\\
+&{} - \mathsf{k}_{23}Y_{89} - \mathsf{k}_{23}Y_{89}Y_{92} - \mathsf{k}_{22}Y_{90}
+\end{aligned}
+\end{equation}
+% Source residual 38: additive.detector1.contactRelation
+\begin{equation}\label{q198:row:038}
+\begin{aligned}
+q_{38}^{[198]} &={} \mathsf{k}_{24} - \mathsf{k}_{26}Y_{88} - \mathsf{k}_{26}Y_{88}Y_{92} + \mathsf{k}_{27}Y_{89}\\
+&{} - \mathsf{k}_{22}Y_{89}Y_{90} + \mathsf{k}_{27}Y_{89}Y_{92} + \mathsf{k}_{24}Y_{92}
+\end{aligned}
+\end{equation}
+% Source residual 39: detector1.inverseWeight.definition
+\begin{equation}\label{q198:row:039}
+\begin{aligned}
+q_{39}^{[198]} &={} 1 - Y_{91}Y_{92}
+\end{aligned}
+\end{equation}
+% Source residual 40: detector1.inverseWeightSquared.definition
+\begin{equation}\label{q198:row:040}
+\begin{aligned}
+q_{40}^{[198]} &={} Y_{92}^{2} - Y_{93}
+\end{aligned}
+\end{equation}
+% Source residual 41: detector1.normOver2w0.definition
+\begin{equation}\label{q198:row:041}
+\begin{aligned}
+q_{41}^{[198]} &={} Y_{95}^{2} - 2Y_{95}Y_{97} - 2Y_{96}^{2}
+\end{aligned}
+\end{equation}
+% Source residual 42: balanced.detector1.poleInput.definition
+\begin{equation}\label{q198:row:042}
+\begin{aligned}
+q_{42}^{[198]} &={} 167281Y_{91}Y_{98} - 166464Y_{97}^{2} + 167281Y_{98}
+\end{aligned}
+\end{equation}
+% Source residual 43: detector1.p2.definition
+\begin{equation}\label{q198:row:043}
+\begin{aligned}
+q_{43}^{[198]} &={} Y_{8}^{2} - Y_{99}Y_{114}
+\end{aligned}
+\end{equation}
+% Source residual 44: detector1.firstConic
+\begin{equation}\label{q198:row:044}
+\begin{aligned}
+q_{44}^{[198]} &={} 289 + 34Y_{6} - 3Y_{6}^{2} - 17Y_{98}Y_{99}
+\end{aligned}
+\end{equation}
+% Source residual 45: detector1.Bh.definition
+\begin{equation}\label{q198:row:045}
+\begin{aligned}
+q_{45}^{[198]} &={} 17Y_{6} - Y_{6}Y_{98} - 17Y_{7}Y_{100}
+\end{aligned}
+\end{equation}
+% Source residual 46: detector1.q2.definition
+\begin{equation}\label{q198:row:046}
+\begin{aligned}
+q_{46}^{[198]} &={} Y_{9}^{2} - Y_{101}Y_{114}
+\end{aligned}
+\end{equation}
+% Source residual 47: detector1.secondConic
+\begin{equation}\label{q198:row:047}
+\begin{aligned}
+q_{47}^{[198]} &={} Y_{7}^{2} + 34Y_{7}Y_{100} - 17Y_{98}Y_{101} - 867Y_{100}^{2}
+\end{aligned}
+\end{equation}
+% Source residual 48: scalar.rPair1.definition
+\begin{equation}\label{q198:row:048}
+\begin{aligned}
+q_{48}^{[198]} &={} 6255001 + 255102Y_{44} + 2601Y_{44}^{2} - 4Y_{102}
+\end{aligned}
+\end{equation}
+% Source residual 49: scalar.four_contact_product.definition
+\begin{equation}\label{q198:row:049}
+\begin{aligned}
+q_{49}^{[198]} &={} \mathsf{k}_{21} + \mathsf{k}_{2}Y_{44} + 15531948Y_{44}Y_{102} + \mathsf{k}_{8}Y_{102}\\
+&{} - 512Y_{102}^{2} + Y_{103}Y_{115}
+\end{aligned}
+\end{equation}
+% Source residual 50: scalar.W2.definition
+\begin{equation}\label{q198:row:050}
+\begin{aligned}
+q_{50}^{[198]} &={} \mathsf{k}_{70}Y_{106}Y_{114} - Y_{113}^{2}
+\end{aligned}
+\end{equation}
+% Source residual 51: scalar.b.definition
+\begin{equation}\label{q198:row:051}
+\begin{aligned}
+q_{51}^{[198]} &={} 9792Y_{106} + Y_{106}Y_{115} + 82479248Y_{107}Y_{115}
+\end{aligned}
+\end{equation}
+% Source residual 52: scalar.p2.definition
+\begin{equation}\label{q198:row:052}
+\begin{aligned}
+q_{52}^{[198]} &={} Y_{12}^{2} - Y_{108}Y_{114}
+\end{aligned}
+\end{equation}
+% Source residual 53: scalar.firstConic
+\begin{equation}\label{q198:row:053}
+\begin{aligned}
+q_{53}^{[198]} &={} \mathsf{k}_{76} - \mathsf{k}_{73}Y_{10} - Y_{10}^{2} + \mathsf{k}_{72}Y_{107}Y_{108}
+\end{aligned}
+\end{equation}
+% Source residual 54: scalar.Bh.definition
+\begin{equation}\label{q198:row:054}
+\begin{aligned}
+q_{54}^{[198]} &={} 17Y_{10} + \mathsf{k}_{71}Y_{10}Y_{107} - 17Y_{11}Y_{109}
+\end{aligned}
+\end{equation}
+% Source residual 55: scalar.q2.definition
+\begin{equation}\label{q198:row:055}
+\begin{aligned}
+q_{55}^{[198]} &={} Y_{13}^{2} - Y_{110}Y_{114}
+\end{aligned}
+\end{equation}
+% Source residual 56: scalar.secondConic
+\begin{equation}\label{q198:row:056}
+\begin{aligned}
+q_{56}^{[198]} &={} Y_{11}^{2} - \mathsf{k}_{75}Y_{11}Y_{109} + \mathsf{k}_{74}Y_{107}Y_{110}\\
+&{} - \mathsf{k}_{77}Y_{109}^{2}
+\end{aligned}
+\end{equation}
+% Source residual 57: parity_scalar.reduced_scalar.root.power4
+\begin{equation}\label{q198:row:057}
+\begin{aligned}
+q_{57}^{[198]} &={} Y_{63}^{2} - 8Y_{64}^{2} + Y_{111}Y_{114} + Y_{112}^{2} - Y_{113}Y_{114}
+\end{aligned}
+\end{equation}
+% Source residual 58: detector0.inverseWeightFourthPower.definition
+\begin{equation}\label{q198:row:058}
+\begin{aligned}
+q_{58}^{[198]} &={} Y_{78}^{2} - Y_{79}
+\end{aligned}
+\end{equation}
+% Source residual 59: detector1.inverseWeightFourthPower.definition
+\begin{equation}\label{q198:row:059}
+\begin{aligned}
+q_{59}^{[198]} &={} Y_{93}^{2} - Y_{94}Y_{115}
+\end{aligned}
+\end{equation}
+% Source residual 60: scalar.r_power_2.definition
+\begin{equation}\label{q198:row:060}
+\begin{aligned}
+q_{60}^{[198]} &={} Y_{114} - Y_{115}^{2}
+\end{aligned}
+\end{equation}
+% Source residual 61: scalar.ratio1_unscaled_square.definition
+\begin{equation}\label{q198:row:061}
+\begin{aligned}
+q_{61}^{[198]} &={} Y_{105}^{2} - Y_{111}Y_{115}
+\end{aligned}
+\end{equation}
+% Source residual 62: parity_scalar.scalar.ratio_node.consolidated_denominator.power4
+\begin{equation}\label{q198:row:062}
+\begin{aligned}
+q_{62}^{[198]} &={} Y_{104}^{2} - Y_{112}Y_{115}
+\end{aligned}
+\end{equation}
+% Source residual 63: scalar.forced_prime.definition
+\begin{equation}\label{q198:row:063}
+\begin{aligned}
+q_{63}^{[198]} &={} 1 + 22201Y_{103}Y_{115} - AY_{103}
+\end{aligned}
+\end{equation}
+% Source residual 64: amplified.C1.power4.0.definition
+\begin{equation}\label{q198:row:064}
+\begin{aligned}
+q_{64}^{[198]} &={} Y_{59}^{2} + 8Y_{60}^{2} - Y_{116}
+\end{aligned}
+\end{equation}
+% Source residual 65: amplified.C1.power4.1.definition
+\begin{equation}\label{q198:row:065}
+\begin{aligned}
+q_{65}^{[198]} &={} 4Y_{59}Y_{60} - Y_{117}
+\end{aligned}
+\end{equation}
+% Source residual 66: residue.I.power4.0.definition
+\begin{equation}\label{q198:row:066}
+\begin{aligned}
+q_{66}^{[198]} &={} \mathsf{k}_{1} - 180180Y_{28} + 36Y_{28}^{2} - 3672Y_{28}Y_{44} - 12Y_{28}Y_{61}\\
+&{} + 72Y_{29}^{2} - 48Y_{29}Y_{62} + 9189180Y_{44} + 93636Y_{44}^{2}\\
+&{} + 612Y_{44}Y_{61} + 30030Y_{61} + Y_{61}^{2} + 8Y_{62}^{2} - Y_{118}
+\end{aligned}
+\end{equation}
+% Source residual 67: residue.I.power4.1.definition
+\begin{equation}\label{q198:row:067}
+\begin{aligned}
+q_{67}^{[198]} &={} 72Y_{28}Y_{29} - 24Y_{28}Y_{62} - 180180Y_{29} - 3672Y_{29}Y_{44}\\
+&{} - 12Y_{29}Y_{61} + 1224Y_{44}Y_{62} + 4Y_{61}Y_{62} + 60060Y_{62} - Y_{119}
+\end{aligned}
+\end{equation}
+% Source residual 68: residue.det0.factor0.0.reciprocal.definition
+\begin{equation}\label{q198:row:068}
+\begin{aligned}
+q_{68}^{[198]} &={} Y_{20}^{2} + 8Y_{21}^{2} + Y_{63}Y_{78} + Y_{65}Y_{76} + Y_{79} - Y_{79}Y_{120}
+\end{aligned}
+\end{equation}
+% Source residual 69: residue.det0.factor0.1.reciprocal.definition
+\begin{equation}\label{q198:row:069}
+\begin{aligned}
+q_{69}^{[198]} &={} 4Y_{20}Y_{21} - 2Y_{64}Y_{78} - 2Y_{66}Y_{76} + Y_{79}Y_{121}
+\end{aligned}
+\end{equation}
+% Source residual 70: residue.det0.factor1.0.reciprocal.definition
+\begin{equation}\label{q198:row:070}
+\begin{aligned}
+q_{70}^{[198]} &={} Y_{18}^{2} + 8Y_{19}^{2} - 2Y_{49}Y_{76} + Y_{55}Y_{78} + Y_{71}Y_{76} + Y_{76}\\
+&{} + Y_{79} - Y_{79}Y_{122}
+\end{aligned}
+\end{equation}
+% Source residual 71: residue.det0.factor1.1.reciprocal.definition
+\begin{equation}\label{q198:row:071}
+\begin{aligned}
+q_{71}^{[198]} &={} 4Y_{18}Y_{19} + 4Y_{50}Y_{76} - 2Y_{56}Y_{78} - 4Y_{72}Y_{76} + Y_{79}Y_{123}
+\end{aligned}
+\end{equation}
+% Source residual 72: residue.det0.factor2.0.reciprocal.definition
+\begin{equation}\label{q198:row:072}
+\begin{aligned}
+q_{72}^{[198]} &={} Y_{24}^{2} + 8Y_{25}^{2} + Y_{53}Y_{77} + Y_{57}Y_{78} + Y_{76}Y_{118} + Y_{79}\\
+&{} - Y_{79}Y_{124}
+\end{aligned}
+\end{equation}
+% Source residual 73: residue.det0.factor2.1.reciprocal.definition
+\begin{equation}\label{q198:row:073}
+\begin{aligned}
+q_{73}^{[198]} &={} 4Y_{24}Y_{25} - 2Y_{54}Y_{77} - 2Y_{58}Y_{78} - Y_{76}Y_{119} + Y_{79}Y_{125}
+\end{aligned}
+\end{equation}
+% Source residual 74: residue.det0.factor3.0.reciprocal.definition
+\begin{equation}\label{q198:row:074}
+\begin{aligned}
+q_{74}^{[198]} &={} Y_{26}^{2} + 8Y_{27}^{2} + Y_{67}Y_{76} + Y_{78}Y_{116} + Y_{79} - Y_{79}Y_{126}
+\end{aligned}
+\end{equation}
+% Source residual 75: residue.det0.factor3.1.reciprocal.definition
+\begin{equation}\label{q198:row:075}
+\begin{aligned}
+q_{75}^{[198]} &={} 4Y_{26}Y_{27} - 2Y_{68}Y_{76} - Y_{78}Y_{117} + Y_{79}Y_{127}
+\end{aligned}
+\end{equation}
+% Source residual 76: residue.det0.factor4.0.reciprocal.definition
+\begin{equation}\label{q198:row:076}
+\begin{aligned}
+q_{76}^{[198]} &={} Y_{22}^{2} + 8Y_{23}^{2} + Y_{51}Y_{78} + Y_{69}Y_{76} + Y_{79} - Y_{79}Y_{128}
+\end{aligned}
+\end{equation}
+% Source residual 77: residue.det0.factor4.1.reciprocal.definition
+\begin{equation}\label{q198:row:077}
+\begin{aligned}
+q_{77}^{[198]} &={} 4Y_{22}Y_{23} - 2Y_{52}Y_{78} - 2Y_{70}Y_{76} + Y_{79}Y_{129}
+\end{aligned}
+\end{equation}
+% Source residual 78: amplified.det0.product1.0.definition
+\begin{equation}\label{q198:row:078}
+\begin{aligned}
+q_{78}^{[198]} &={} Y_{120}Y_{122} + 2Y_{121}Y_{123} - Y_{130}
+\end{aligned}
+\end{equation}
+% Source residual 79: amplified.det0.product1.1.definition
+\begin{equation}\label{q198:row:079}
+\begin{aligned}
+q_{79}^{[198]} &={} Y_{120}Y_{123} + Y_{121}Y_{122} - Y_{131}
+\end{aligned}
+\end{equation}
+% Source residual 80: amplified.det0.product2.0.definition
+\begin{equation}\label{q198:row:080}
+\begin{aligned}
+q_{80}^{[198]} &={} Y_{124}Y_{130} + 2Y_{125}Y_{131} - Y_{132}
+\end{aligned}
+\end{equation}
+% Source residual 81: amplified.det0.product2.1.definition
+\begin{equation}\label{q198:row:081}
+\begin{aligned}
+q_{81}^{[198]} &={} Y_{124}Y_{131} + Y_{125}Y_{130} - Y_{133}
+\end{aligned}
+\end{equation}
+% Source residual 82: amplified.det0.product3.0.definition
+\begin{equation}\label{q198:row:082}
+\begin{aligned}
+q_{82}^{[198]} &={} Y_{126}Y_{132} + 2Y_{127}Y_{133} - Y_{134}
+\end{aligned}
+\end{equation}
+% Source residual 83: amplified.det0.product3.1.definition
+\begin{equation}\label{q198:row:083}
+\begin{aligned}
+q_{83}^{[198]} &={} Y_{126}Y_{133} + Y_{127}Y_{132} - Y_{135}
+\end{aligned}
+\end{equation}
+% Source residual 84: amplified.det0.product4.0.definition
+\begin{equation}\label{q198:row:084}
+\begin{aligned}
+q_{84}^{[198]} &={} Y_{80} - Y_{128}Y_{134} - 2Y_{129}Y_{135}
+\end{aligned}
+\end{equation}
+% Source residual 85: amplified.det0.product4.1.definition
+\begin{equation}\label{q198:row:085}
+\begin{aligned}
+q_{85}^{[198]} &={} Y_{81} - Y_{128}Y_{135} - Y_{129}Y_{134}
+\end{aligned}
+\end{equation}
+% Source residual 86: residue.det1.factor0.0.reciprocal.definition
+\begin{equation}\label{q198:row:086}
+\begin{aligned}
+q_{86}^{[198]} &={} Y_{20}^{2} + 8Y_{21}^{2} + Y_{63}Y_{93} + Y_{65}Y_{91} + Y_{94}Y_{115}\\
+&{} - Y_{94}Y_{136}
+\end{aligned}
+\end{equation}
+% Source residual 87: residue.det1.factor0.1.reciprocal.definition
+\begin{equation}\label{q198:row:087}
+\begin{aligned}
+q_{87}^{[198]} &={} 4Y_{20}Y_{21} - 2Y_{64}Y_{93} - 2Y_{66}Y_{91} + Y_{94}Y_{137}
+\end{aligned}
+\end{equation}
+% Source residual 88: residue.det1.factor1.0.reciprocal.definition
+\begin{equation}\label{q198:row:088}
+\begin{aligned}
+q_{88}^{[198]} &={} Y_{18}^{2} + 8Y_{19}^{2} - 2Y_{49}Y_{91} + Y_{55}Y_{93} + Y_{71}Y_{91} + Y_{91}\\
+&{} + Y_{94}Y_{115} - Y_{94}Y_{138}
+\end{aligned}
+\end{equation}
+% Source residual 89: residue.det1.factor1.1.reciprocal.definition
+\begin{equation}\label{q198:row:089}
+\begin{aligned}
+q_{89}^{[198]} &={} 4Y_{18}Y_{19} + 4Y_{50}Y_{91} - 2Y_{56}Y_{93} - 4Y_{72}Y_{91} + Y_{94}Y_{139}
+\end{aligned}
+\end{equation}
+% Source residual 90: residue.det1.factor2.0.reciprocal.definition
+\begin{equation}\label{q198:row:090}
+\begin{aligned}
+q_{90}^{[198]} &={} Y_{24}^{2} + 8Y_{25}^{2} + Y_{53}Y_{92} + Y_{57}Y_{93} + Y_{91}Y_{118}\\
+&{} + Y_{94}Y_{115} - Y_{94}Y_{140}
+\end{aligned}
+\end{equation}
+% Source residual 91: residue.det1.factor2.1.reciprocal.definition
+\begin{equation}\label{q198:row:091}
+\begin{aligned}
+q_{91}^{[198]} &={} 4Y_{24}Y_{25} - 2Y_{54}Y_{92} - 2Y_{58}Y_{93} - Y_{91}Y_{119} + Y_{94}Y_{141}
+\end{aligned}
+\end{equation}
+% Source residual 92: residue.det1.factor3.0.reciprocal.definition
+\begin{equation}\label{q198:row:092}
+\begin{aligned}
+q_{92}^{[198]} &={} Y_{26}^{2} + 8Y_{27}^{2} + Y_{67}Y_{91} + Y_{93}Y_{116} + Y_{94}Y_{115}\\
+&{} - Y_{94}Y_{142}
+\end{aligned}
+\end{equation}
+% Source residual 93: residue.det1.factor3.1.reciprocal.definition
+\begin{equation}\label{q198:row:093}
+\begin{aligned}
+q_{93}^{[198]} &={} 4Y_{26}Y_{27} - 2Y_{68}Y_{91} - Y_{93}Y_{117} + Y_{94}Y_{143}
+\end{aligned}
+\end{equation}
+% Source residual 94: residue.det1.factor4.0.reciprocal.definition
+\begin{equation}\label{q198:row:094}
+\begin{aligned}
+q_{94}^{[198]} &={} Y_{22}^{2} + 8Y_{23}^{2} + Y_{51}Y_{93} + Y_{69}Y_{91} + Y_{94}Y_{115}\\
+&{} - Y_{94}Y_{144}
+\end{aligned}
+\end{equation}
+% Source residual 95: residue.det1.factor4.1.reciprocal.definition
+\begin{equation}\label{q198:row:095}
+\begin{aligned}
+q_{95}^{[198]} &={} 4Y_{22}Y_{23} - 2Y_{52}Y_{93} - 2Y_{70}Y_{91} + Y_{94}Y_{145}
+\end{aligned}
+\end{equation}
+% Source residual 96: amplified.det1.product1.0.definition
+\begin{equation}\label{q198:row:096}
+\begin{aligned}
+q_{96}^{[198]} &={} Y_{114}Y_{146} - Y_{136}Y_{138} - 2Y_{137}Y_{139}
+\end{aligned}
+\end{equation}
+% Source residual 97: amplified.det1.product1.1.definition
+\begin{equation}\label{q198:row:097}
+\begin{aligned}
+q_{97}^{[198]} &={} Y_{114}Y_{147} - Y_{136}Y_{139} - Y_{137}Y_{138}
+\end{aligned}
+\end{equation}
+% Source residual 98: amplified.det1.product2.0.definition
+\begin{equation}\label{q198:row:098}
+\begin{aligned}
+q_{98}^{[198]} &={} Y_{114}Y_{148} - Y_{140}Y_{146} - 2Y_{141}Y_{147}
+\end{aligned}
+\end{equation}
+% Source residual 99: amplified.det1.product2.1.definition
+\begin{equation}\label{q198:row:099}
+\begin{aligned}
+q_{99}^{[198]} &={} Y_{114}Y_{149} - Y_{140}Y_{147} - Y_{141}Y_{146}
+\end{aligned}
+\end{equation}
+% Source residual 100: amplified.det1.product3.0.definition
+\begin{equation}\label{q198:row:100}
+\begin{aligned}
+q_{100}^{[198]} &={} Y_{115}Y_{150} - Y_{142}Y_{148} - 2Y_{143}Y_{149}
+\end{aligned}
+\end{equation}
+% Source residual 101: amplified.det1.product3.1.definition
+\begin{equation}\label{q198:row:101}
+\begin{aligned}
+q_{101}^{[198]} &={} Y_{115}Y_{151} - Y_{142}Y_{149} - Y_{143}Y_{148}
+\end{aligned}
+\end{equation}
+% Source residual 102: amplified.det1.product4.0.definition
+\begin{equation}\label{q198:row:102}
+\begin{aligned}
+q_{102}^{[198]} &={} Y_{95} - Y_{144}Y_{150} - 2Y_{145}Y_{151}
+\end{aligned}
+\end{equation}
+% Source residual 103: amplified.det1.product4.1.definition
+\begin{equation}\label{q198:row:103}
+\begin{aligned}
+q_{103}^{[198]} &={} Y_{96} - Y_{144}Y_{151} - Y_{145}Y_{150}
+\end{aligned}
+\end{equation}
+% Source residual 104: sharedT.reference.relation1.0
+\begin{equation}\label{q198:row:104}
+\begin{aligned}
+q_{104}^{[198]} &={} \mathsf{k}_{13} + \mathsf{k}_{18}Y_{14} + \mathsf{k}_{14}Y_{14}Y_{152} - \mathsf{k}_{15}Y_{14}Y_{153}\\
+&{} - \mathsf{k}_{19}Y_{15} - \mathsf{k}_{15}Y_{15}Y_{152} + \mathsf{k}_{16}Y_{15}Y_{153}\\
+&{} - \mathsf{k}_{10}Y_{16} + \mathsf{k}_{3}Y_{16}Y_{152} + \mathsf{k}_{6}Y_{17}\\
+&{} + \mathsf{k}_{9}Y_{17}Y_{153} + \mathsf{k}_{4}Y_{152} - \mathsf{k}_{5}Y_{153}
+\end{aligned}
+\end{equation}
+% Source residual 105: sharedT.reference.relation1.1
+\begin{equation}\label{q198:row:105}
+\begin{aligned}
+q_{105}^{[198]} &={} \mathsf{k}_{7} + \mathsf{k}_{19}Y_{14} + \mathsf{k}_{15}Y_{14}Y_{152} - \mathsf{k}_{16}Y_{14}Y_{153}\\
+&{} - \mathsf{k}_{20}Y_{15} - \mathsf{k}_{16}Y_{15}Y_{152} + \mathsf{k}_{17}Y_{15}Y_{153}\\
+&{} - \mathsf{k}_{6}Y_{16} - \mathsf{k}_{9}Y_{16}Y_{153} + \mathsf{k}_{12}Y_{17}\\
+&{} - \mathsf{k}_{9}Y_{17}Y_{152} + \mathsf{k}_{5}Y_{152} - \mathsf{k}_{11}Y_{153}
+\end{aligned}
+\end{equation}
+% Source residual 106: sharedT.reference.relation2.0
+\begin{equation}\label{q198:row:106}
+\begin{aligned}
+q_{106}^{[198]} &={} \mathsf{k}_{51} - \mathsf{k}_{50}Y_{14} - \mathsf{k}_{53}Y_{14}Y_{16} - \mathsf{k}_{52}Y_{14}Y_{17}\\
+&{} - \mathsf{k}_{66}Y_{14}Y_{18} + \mathsf{k}_{38}Y_{14}Y_{19} + \mathsf{k}_{57}Y_{14}Y_{152}\\
+&{} + \mathsf{k}_{54}Y_{14}Y_{153} - \mathsf{k}_{55}Y_{15} - \mathsf{k}_{52}Y_{15}Y_{16}\\
+&{} - \mathsf{k}_{61}Y_{15}Y_{17} + \mathsf{k}_{35}Y_{15}Y_{18} - \mathsf{k}_{69}Y_{15}Y_{19}\\
+&{} + \mathsf{k}_{54}Y_{15}Y_{152} + \mathsf{k}_{64}Y_{15}Y_{153} + \mathsf{k}_{32}Y_{16}\\
+&{} - \mathsf{k}_{45}Y_{16}Y_{18} + \mathsf{k}_{30}Y_{16}Y_{19} + \mathsf{k}_{34}Y_{17}\\
+&{} + \mathsf{k}_{29}Y_{17}Y_{18} - \mathsf{k}_{63}Y_{17}Y_{19} - \mathsf{k}_{47}Y_{18}\\
+&{} - \mathsf{k}_{59}Y_{18}Y_{63} - \mathsf{k}_{62}Y_{19} - \mathsf{k}_{68}Y_{19}Y_{64}\\
+&{} + \mathsf{k}_{49}Y_{63} + \mathsf{k}_{48}Y_{64} - \mathsf{k}_{40}Y_{152} - \mathsf{k}_{46}Y_{153}
+\end{aligned}
+\end{equation}
+% Source residual 107: sharedT.reference.relation2.1
+\begin{equation}\label{q198:row:107}
+\begin{aligned}
+q_{107}^{[198]} &={} \mathsf{k}_{43} - \mathsf{k}_{44}Y_{14} - \mathsf{k}_{39}Y_{14}Y_{16} - \mathsf{k}_{53}Y_{14}Y_{17}\\
+&{} + \mathsf{k}_{33}Y_{14}Y_{18} - \mathsf{k}_{67}Y_{14}Y_{19} + \mathsf{k}_{41}Y_{14}Y_{152}\\
+&{} + \mathsf{k}_{57}Y_{14}Y_{153} - \mathsf{k}_{50}Y_{15} - \mathsf{k}_{53}Y_{15}Y_{16}\\
+&{} - \mathsf{k}_{52}Y_{15}Y_{17} - \mathsf{k}_{66}Y_{15}Y_{18} + \mathsf{k}_{38}Y_{15}Y_{19}\\
+&{} + \mathsf{k}_{57}Y_{15}Y_{152} + \mathsf{k}_{54}Y_{15}Y_{153} + \mathsf{k}_{31}Y_{16}\\
+&{} + \mathsf{k}_{28}Y_{16}Y_{18} - \mathsf{k}_{56}Y_{16}Y_{19} + \mathsf{k}_{32}Y_{17}\\
+&{} - \mathsf{k}_{45}Y_{17}Y_{18} + \mathsf{k}_{30}Y_{17}Y_{19} - \mathsf{k}_{42}Y_{18}\\
+&{} - \mathsf{k}_{65}Y_{18}Y_{64} - \mathsf{k}_{58}Y_{19} - \mathsf{k}_{65}Y_{19}Y_{63}\\
+&{} + \mathsf{k}_{36}Y_{63} + \mathsf{k}_{60}Y_{64} - \mathsf{k}_{37}Y_{152} - \mathsf{k}_{40}Y_{153}
+\end{aligned}
+\end{equation}
+% Source residual 108: sharedT.reference.relation3.0
+\begin{equation}\label{q198:row:108}
+\begin{aligned}
+q_{108}^{[198]} &={} 186960 - 667923Y_{14}Y_{16} - 289924Y_{14}Y_{17} + 310419Y_{14}Y_{152}\\
+&{} - 61308Y_{14}Y_{153} - 289924Y_{15}Y_{16} - 1335846Y_{15}Y_{17}\\
+&{} - 61308Y_{15}Y_{152} + 620838Y_{15}Y_{153} + 1398264Y_{63}\\
+&{} + 658952Y_{63}Y_{152} - 2073288Y_{64} + 2635808Y_{64}Y_{153} - 147928Y_{152}\\
+&{} - 161376Y_{153}
+\end{aligned}
+\end{equation}
+% Source residual 109: sharedT.reference.relation3.1
+\begin{equation}\label{q198:row:109}
+\begin{aligned}
+q_{109}^{[198]} &={} 54858 - 144962Y_{14}Y_{16} - 667923Y_{14}Y_{17} - 30654Y_{14}Y_{152}\\
+&{} + 310419Y_{14}Y_{153} - 667923Y_{15}Y_{16} - 289924Y_{15}Y_{17}\\
+&{} + 310419Y_{15}Y_{152} - 61308Y_{15}Y_{153} - 518322Y_{63}\\
+&{} + 658952Y_{63}Y_{153} + 2796528Y_{64} + 1317904Y_{64}Y_{152} - 80688Y_{152}\\
+&{} - 147928Y_{153}
+\end{aligned}
+\end{equation}
+% Source residual 110: pair1.square.f.0
+\begin{equation}\label{q198:row:110}
+\begin{aligned}
+q_{110}^{[198]} &={} Y_{51} - Y_{154}^{2} - 2Y_{155}^{2}
+\end{aligned}
+\end{equation}
+% Source residual 111: pair1.square.f.1
+\begin{equation}\label{q198:row:111}
+\begin{aligned}
+q_{111}^{[198]} &={} Y_{52} - Y_{154}Y_{155}
+\end{aligned}
+\end{equation}
+% Source residual 112: pair1.square.g.0
+\begin{equation}\label{q198:row:112}
+\begin{aligned}
+q_{112}^{[198]} &={} Y_{20} - Y_{158}^{2} - 2Y_{159}^{2}
+\end{aligned}
+\end{equation}
+% Source residual 113: pair1.square.g.1
+\begin{equation}\label{q198:row:113}
+\begin{aligned}
+q_{113}^{[198]} &={} Y_{21} - Y_{158}Y_{159}
+\end{aligned}
+\end{equation}
+% Source residual 114: pair1.curve.0
+\begin{equation}\label{q198:row:114}
+\begin{aligned}
+q_{114}^{[198]} &={} 11Y_{51}Y_{154} - 12Y_{51}Y_{155} - 24Y_{52}Y_{154} + 44Y_{52}Y_{155} - Y_{154}\\
+&{} + Y_{156}^{2} + 2Y_{157}^{2}
+\end{aligned}
+\end{equation}
+% Source residual 115: pair1.curve.1
+\begin{equation}\label{q198:row:115}
+\begin{aligned}
+q_{115}^{[198]} &={} 6Y_{51}Y_{154} - 11Y_{51}Y_{155} - 22Y_{52}Y_{154} + 24Y_{52}Y_{155} + Y_{155}\\
+&{} - 2Y_{156}Y_{157}
+\end{aligned}
+\end{equation}
+% Source residual 116: pair1.secant.0
+\begin{equation}\label{q198:row:116}
+\begin{aligned}
+q_{116}^{[198]} &={} Y_{154}Y_{162} + 2Y_{155}Y_{163} - Y_{156} - Y_{158}Y_{162} - 2Y_{159}Y_{163} - Y_{160}
+\end{aligned}
+\end{equation}
+% Source residual 117: pair1.secant.1
+\begin{equation}\label{q198:row:117}
+\begin{aligned}
+q_{117}^{[198]} &={} Y_{154}Y_{163} + Y_{155}Y_{162} - Y_{157} - Y_{158}Y_{163} - Y_{159}Y_{162} - Y_{161}
+\end{aligned}
+\end{equation}
+% Source residual 118: pair1.tangent.0
+\begin{equation}\label{q198:row:118}
+\begin{aligned}
+q_{118}^{[198]} &={} 1 - 11Y_{20} + 24Y_{21} - 11Y_{51} + 24Y_{52} - 11Y_{154}Y_{158}\\
+&{} + 12Y_{154}Y_{159} + 12Y_{155}Y_{158} - 22Y_{155}Y_{159} - Y_{156}Y_{162}\\
+&{} - 2Y_{157}Y_{163} + Y_{160}Y_{162} + 2Y_{161}Y_{163}
+\end{aligned}
+\end{equation}
+% Source residual 119: pair1.tangent.1
+\begin{equation}\label{q198:row:119}
+\begin{aligned}
+q_{119}^{[198]} &={} 6Y_{20} - 22Y_{21} + 6Y_{51} - 22Y_{52} + 6Y_{154}Y_{158} - 11Y_{154}Y_{159}\\
+&{} - 11Y_{155}Y_{158} + 12Y_{155}Y_{159} - Y_{156}Y_{163} - Y_{157}Y_{162} + Y_{160}Y_{163}\\
+&{} + Y_{161}Y_{162}
+\end{aligned}
+\end{equation}
+% Source residual 120: pair1.ratio.primary.raw.0
+\begin{equation}\label{q198:row:120}
+\begin{aligned}
+q_{120}^{[198]} &={} Y_{16}Y_{154} + 2Y_{17}Y_{155} + Y_{28}Y_{156} + 2Y_{29}Y_{157}
+\end{aligned}
+\end{equation}
+% Source residual 121: pair1.ratio.primary.raw.1
+\begin{equation}\label{q198:row:121}
+\begin{aligned}
+q_{121}^{[198]} &={} Y_{16}Y_{155} + Y_{17}Y_{154} + Y_{28}Y_{157} + Y_{29}Y_{156}
+\end{aligned}
+\end{equation}
+% Source residual 122: pair1.ratio.primary.regular.0
+\begin{equation}\label{q198:row:122}
+\begin{aligned}
+q_{122}^{[198]} &={} Y_{16}Y_{156} + 2Y_{17}Y_{157} + Y_{28} - 11Y_{28}Y_{51} + 24Y_{28}Y_{52}\\
+&{} + 12Y_{29}Y_{51} - 44Y_{29}Y_{52}
+\end{aligned}
+\end{equation}
+% Source residual 123: pair1.ratio.primary.regular.1
+\begin{equation}\label{q198:row:123}
+\begin{aligned}
+q_{123}^{[198]} &={} Y_{16}Y_{157} + Y_{17}Y_{156} + 6Y_{28}Y_{51} - 22Y_{28}Y_{52} + Y_{29}\\
+&{} - 11Y_{29}Y_{51} + 24Y_{29}Y_{52}
+\end{aligned}
+\end{equation}
+% Source residual 124: pair1.ratio.alternate.raw.0
+\begin{equation}\label{q198:row:124}
+\begin{aligned}
+q_{124}^{[198]} &={} Y_{30}Y_{160} + 2Y_{31}Y_{161} + Y_{152}Y_{158} + 2Y_{153}Y_{159}
+\end{aligned}
+\end{equation}
+% Source residual 125: pair1.ratio.alternate.raw.1
+\begin{equation}\label{q198:row:125}
+\begin{aligned}
+q_{125}^{[198]} &={} Y_{30}Y_{161} + Y_{31}Y_{160} + Y_{152}Y_{159} + Y_{153}Y_{158}
+\end{aligned}
+\end{equation}
+% Source residual 126: pair1.ratio.alternate.regular.0
+\begin{equation}\label{q198:row:126}
+\begin{aligned}
+q_{126}^{[198]} &={} 11Y_{20}Y_{30} - 12Y_{20}Y_{31} - 24Y_{21}Y_{30} + 44Y_{21}Y_{31} - Y_{30}\\
+&{} - Y_{152}Y_{160} - 2Y_{153}Y_{161}
+\end{aligned}
+\end{equation}
+% Source residual 127: pair1.ratio.alternate.regular.1
+\begin{equation}\label{q198:row:127}
+\begin{aligned}
+q_{127}^{[198]} &={} 6Y_{20}Y_{30} - 11Y_{20}Y_{31} - 22Y_{21}Y_{30} + 24Y_{21}Y_{31} + Y_{31}\\
+&{} + Y_{152}Y_{161} + Y_{153}Y_{160}
+\end{aligned}
+\end{equation}
+% Source residual 128: pair3.square.f.0
+\begin{equation}\label{q198:row:128}
+\begin{aligned}
+q_{128}^{[198]} &={} Y_{55} - Y_{164}^{2} - 2Y_{165}^{2}
+\end{aligned}
+\end{equation}
+% Source residual 129: pair3.square.f.1
+\begin{equation}\label{q198:row:129}
+\begin{aligned}
+q_{129}^{[198]} &={} Y_{56} - Y_{164}Y_{165}
+\end{aligned}
+\end{equation}
+% Source residual 130: pair3.square.g.0
+\begin{equation}\label{q198:row:130}
+\begin{aligned}
+q_{130}^{[198]} &={} Y_{24} - Y_{168}^{2} - 2Y_{169}^{2}
+\end{aligned}
+\end{equation}
+% Source residual 131: pair3.square.g.1
+\begin{equation}\label{q198:row:131}
+\begin{aligned}
+q_{131}^{[198]} &={} Y_{25} - Y_{168}Y_{169}
+\end{aligned}
+\end{equation}
+% Source residual 132: pair3.curve.0
+\begin{equation}\label{q198:row:132}
+\begin{aligned}
+q_{132}^{[198]} &={} 11Y_{55}Y_{164} - 12Y_{55}Y_{165} - 24Y_{56}Y_{164} + 44Y_{56}Y_{165} - Y_{164}\\
+&{} + Y_{166}^{2} + 2Y_{167}^{2}
+\end{aligned}
+\end{equation}
+% Source residual 133: pair3.curve.1
+\begin{equation}\label{q198:row:133}
+\begin{aligned}
+q_{133}^{[198]} &={} 6Y_{55}Y_{164} - 11Y_{55}Y_{165} - 22Y_{56}Y_{164} + 24Y_{56}Y_{165} + Y_{165}\\
+&{} - 2Y_{166}Y_{167}
+\end{aligned}
+\end{equation}
+% Source residual 134: pair3.secant.0
+\begin{equation}\label{q198:row:134}
+\begin{aligned}
+q_{134}^{[198]} &={} Y_{164}Y_{172} + 2Y_{165}Y_{173} - Y_{166} - Y_{168}Y_{172} - 2Y_{169}Y_{173} - Y_{170}
+\end{aligned}
+\end{equation}
+% Source residual 135: pair3.secant.1
+\begin{equation}\label{q198:row:135}
+\begin{aligned}
+q_{135}^{[198]} &={} Y_{164}Y_{173} + Y_{165}Y_{172} - Y_{167} - Y_{168}Y_{173} - Y_{169}Y_{172} - Y_{171}
+\end{aligned}
+\end{equation}
+% Source residual 136: pair3.tangent.0
+\begin{equation}\label{q198:row:136}
+\begin{aligned}
+q_{136}^{[198]} &={} 1 - 11Y_{24} + 24Y_{25} - 11Y_{55} + 24Y_{56} - 11Y_{164}Y_{168}\\
+&{} + 12Y_{164}Y_{169} + 12Y_{165}Y_{168} - 22Y_{165}Y_{169} - Y_{166}Y_{172}\\
+&{} - 2Y_{167}Y_{173} + Y_{170}Y_{172} + 2Y_{171}Y_{173}
+\end{aligned}
+\end{equation}
+% Source residual 137: pair3.tangent.1
+\begin{equation}\label{q198:row:137}
+\begin{aligned}
+q_{137}^{[198]} &={} 6Y_{24} - 22Y_{25} + 6Y_{55} - 22Y_{56} + 6Y_{164}Y_{168} - 11Y_{164}Y_{169}\\
+&{} - 11Y_{165}Y_{168} + 12Y_{165}Y_{169} - Y_{166}Y_{173} - Y_{167}Y_{172} + Y_{170}Y_{173}\\
+&{} + Y_{171}Y_{172}
+\end{aligned}
+\end{equation}
+% Source residual 138: pair3.ratio.primary.raw.0
+\begin{equation}\label{q198:row:138}
+\begin{aligned}
+q_{138}^{[198]} &={} 2Y_{16}Y_{164} + 4Y_{17}Y_{165} + Y_{36}Y_{166} + 2Y_{37}Y_{167}
+\end{aligned}
+\end{equation}
+% Source residual 139: pair3.ratio.primary.raw.1
+\begin{equation}\label{q198:row:139}
+\begin{aligned}
+q_{139}^{[198]} &={} 2Y_{16}Y_{165} + 2Y_{17}Y_{164} + Y_{36}Y_{167} + Y_{37}Y_{166}
+\end{aligned}
+\end{equation}
+% Source residual 140: pair3.ratio.primary.regular.0
+\begin{equation}\label{q198:row:140}
+\begin{aligned}
+q_{140}^{[198]} &={} 2Y_{16}Y_{166} + 4Y_{17}Y_{167} + Y_{36} - 11Y_{36}Y_{55} + 24Y_{36}Y_{56}\\
+&{} + 12Y_{37}Y_{55} - 44Y_{37}Y_{56}
+\end{aligned}
+\end{equation}
+% Source residual 141: pair3.ratio.primary.regular.1
+\begin{equation}\label{q198:row:141}
+\begin{aligned}
+q_{141}^{[198]} &={} 2Y_{16}Y_{167} + 2Y_{17}Y_{166} + 6Y_{36}Y_{55} - 22Y_{36}Y_{56} + Y_{37}\\
+&{} - 11Y_{37}Y_{55} + 24Y_{37}Y_{56}
+\end{aligned}
+\end{equation}
+% Source residual 142: pair3.ratio.alternate.raw.0
+\begin{equation}\label{q198:row:142}
+\begin{aligned}
+q_{142}^{[198]} &={} Y_{38}Y_{170} + 2Y_{39}Y_{171} + 2Y_{152}Y_{168} + 4Y_{153}Y_{169}
+\end{aligned}
+\end{equation}
+% Source residual 143: pair3.ratio.alternate.raw.1
+\begin{equation}\label{q198:row:143}
+\begin{aligned}
+q_{143}^{[198]} &={} Y_{38}Y_{171} + Y_{39}Y_{170} + 2Y_{152}Y_{169} + 2Y_{153}Y_{168}
+\end{aligned}
+\end{equation}
+% Source residual 144: pair3.ratio.alternate.regular.0
+\begin{equation}\label{q198:row:144}
+\begin{aligned}
+q_{144}^{[198]} &={} 11Y_{24}Y_{38} - 12Y_{24}Y_{39} - 24Y_{25}Y_{38} + 44Y_{25}Y_{39} - Y_{38}\\
+&{} - 2Y_{152}Y_{170} - 4Y_{153}Y_{171}
+\end{aligned}
+\end{equation}
+% Source residual 145: pair3.ratio.alternate.regular.1
+\begin{equation}\label{q198:row:145}
+\begin{aligned}
+q_{145}^{[198]} &={} 6Y_{24}Y_{38} - 11Y_{24}Y_{39} - 22Y_{25}Y_{38} + 24Y_{25}Y_{39} + Y_{39}\\
+&{} + 2Y_{152}Y_{171} + 2Y_{153}Y_{170}
+\end{aligned}
+\end{equation}
+% Source residual 146: pair4.square.f.0
+\begin{equation}\label{q198:row:146}
+\begin{aligned}
+q_{146}^{[198]} &={} Y_{57} - Y_{174}^{2} - 2Y_{175}^{2}
+\end{aligned}
+\end{equation}
+% Source residual 147: pair4.square.f.1
+\begin{equation}\label{q198:row:147}
+\begin{aligned}
+q_{147}^{[198]} &={} Y_{58} - Y_{174}Y_{175}
+\end{aligned}
+\end{equation}
+% Source residual 148: pair4.square.g.0
+\begin{equation}\label{q198:row:148}
+\begin{aligned}
+q_{148}^{[198]} &={} Y_{26} - Y_{178}^{2} - 2Y_{179}^{2}
+\end{aligned}
+\end{equation}
+% Source residual 149: pair4.square.g.1
+\begin{equation}\label{q198:row:149}
+\begin{aligned}
+q_{149}^{[198]} &={} Y_{27} - Y_{178}Y_{179}
+\end{aligned}
+\end{equation}
+% Source residual 150: pair4.curve.0
+\begin{equation}\label{q198:row:150}
+\begin{aligned}
+q_{150}^{[198]} &={} 11Y_{57}Y_{174} - 12Y_{57}Y_{175} - 24Y_{58}Y_{174} + 44Y_{58}Y_{175} - Y_{174}\\
+&{} + Y_{176}^{2} + 2Y_{177}^{2}
+\end{aligned}
+\end{equation}
+% Source residual 151: pair4.curve.1
+\begin{equation}\label{q198:row:151}
+\begin{aligned}
+q_{151}^{[198]} &={} 6Y_{57}Y_{174} - 11Y_{57}Y_{175} - 22Y_{58}Y_{174} + 24Y_{58}Y_{175} + Y_{175}\\
+&{} - 2Y_{176}Y_{177}
+\end{aligned}
+\end{equation}
+% Source residual 152: pair4.secant.0
+\begin{equation}\label{q198:row:152}
+\begin{aligned}
+q_{152}^{[198]} &={} Y_{174}Y_{182} + 2Y_{175}Y_{183} - Y_{176} - Y_{178}Y_{182} - 2Y_{179}Y_{183} - Y_{180}
+\end{aligned}
+\end{equation}
+% Source residual 153: pair4.secant.1
+\begin{equation}\label{q198:row:153}
+\begin{aligned}
+q_{153}^{[198]} &={} Y_{174}Y_{183} + Y_{175}Y_{182} - Y_{177} - Y_{178}Y_{183} - Y_{179}Y_{182} - Y_{181}
+\end{aligned}
+\end{equation}
+% Source residual 154: pair4.tangent.0
+\begin{equation}\label{q198:row:154}
+\begin{aligned}
+q_{154}^{[198]} &={} 1 - 11Y_{26} + 24Y_{27} - 11Y_{57} + 24Y_{58} - 11Y_{174}Y_{178}\\
+&{} + 12Y_{174}Y_{179} + 12Y_{175}Y_{178} - 22Y_{175}Y_{179} - Y_{176}Y_{182}\\
+&{} - 2Y_{177}Y_{183} + Y_{180}Y_{182} + 2Y_{181}Y_{183}
+\end{aligned}
+\end{equation}
+% Source residual 155: pair4.tangent.1
+\begin{equation}\label{q198:row:155}
+\begin{aligned}
+q_{155}^{[198]} &={} 6Y_{26} - 22Y_{27} + 6Y_{57} - 22Y_{58} + 6Y_{174}Y_{178} - 11Y_{174}Y_{179}\\
+&{} - 11Y_{175}Y_{178} + 12Y_{175}Y_{179} - Y_{176}Y_{183} - Y_{177}Y_{182} + Y_{180}Y_{183}\\
+&{} + Y_{181}Y_{182}
+\end{aligned}
+\end{equation}
+% Source residual 156: pair4.ratio.primary.raw.0
+\begin{equation}\label{q198:row:156}
+\begin{aligned}
+q_{156}^{[198]} &={} 4Y_{16}Y_{174} + 8Y_{17}Y_{175} + Y_{40}Y_{176} + 2Y_{41}Y_{177} - Y_{176}
+\end{aligned}
+\end{equation}
+% Source residual 157: pair4.ratio.primary.raw.1
+\begin{equation}\label{q198:row:157}
+\begin{aligned}
+q_{157}^{[198]} &={} 4Y_{16}Y_{175} + 4Y_{17}Y_{174} + Y_{40}Y_{177} + Y_{41}Y_{176} - Y_{177}
+\end{aligned}
+\end{equation}
+% Source residual 158: pair4.ratio.primary.regular.0
+\begin{equation}\label{q198:row:158}
+\begin{aligned}
+q_{158}^{[198]} &={} 1 - 4Y_{16}Y_{176} - 8Y_{17}Y_{177} - Y_{40} + 11Y_{40}Y_{57} - 24Y_{40}Y_{58}\\
+&{} - 12Y_{41}Y_{57} + 44Y_{41}Y_{58} - 11Y_{57} + 24Y_{58}
+\end{aligned}
+\end{equation}
+% Source residual 159: pair4.ratio.primary.regular.1
+\begin{equation}\label{q198:row:159}
+\begin{aligned}
+q_{159}^{[198]} &={} 4Y_{16}Y_{177} + 4Y_{17}Y_{176} + 6Y_{40}Y_{57} - 22Y_{40}Y_{58} + Y_{41}\\
+&{} - 11Y_{41}Y_{57} + 24Y_{41}Y_{58} - 6Y_{57} + 22Y_{58}
+\end{aligned}
+\end{equation}
+% Source residual 160: pair4.ratio.alternate.raw.0
+\begin{equation}\label{q198:row:160}
+\begin{aligned}
+q_{160}^{[198]} &={} Y_{42}Y_{180} + 2Y_{43}Y_{181} + 4Y_{152}Y_{178} + 8Y_{153}Y_{179} - Y_{180}
+\end{aligned}
+\end{equation}
+% Source residual 161: pair4.ratio.alternate.raw.1
+\begin{equation}\label{q198:row:161}
+\begin{aligned}
+q_{161}^{[198]} &={} Y_{42}Y_{181} + Y_{43}Y_{180} + 4Y_{152}Y_{179} + 4Y_{153}Y_{178} - Y_{181}
+\end{aligned}
+\end{equation}
+% Source residual 162: pair4.ratio.alternate.regular.0
+\begin{equation}\label{q198:row:162}
+\begin{aligned}
+q_{162}^{[198]} &={} 1 - 11Y_{26} + 11Y_{26}Y_{42} - 12Y_{26}Y_{43} + 24Y_{27} - 24Y_{27}Y_{42}\\
+&{} + 44Y_{27}Y_{43} - Y_{42} - 4Y_{152}Y_{180} - 8Y_{153}Y_{181}
+\end{aligned}
+\end{equation}
+% Source residual 163: pair4.ratio.alternate.regular.1
+\begin{equation}\label{q198:row:163}
+\begin{aligned}
+q_{163}^{[198]} &={} 6Y_{26} - 6Y_{26}Y_{42} + 11Y_{26}Y_{43} - 22Y_{27} + 22Y_{27}Y_{42}\\
+&{} - 24Y_{27}Y_{43} - Y_{43} - 4Y_{152}Y_{181} - 4Y_{153}Y_{180}
+\end{aligned}
+\end{equation}
+% Source residual 164: inverse_vieta.product.0
+\begin{equation}\label{q198:row:164}
+\begin{aligned}
+q_{164}^{[198]} &={} Y_{114}Y_{194} - Y_{184}Y_{186} - 2Y_{185}Y_{187}
+\end{aligned}
+\end{equation}
+% Source residual 165: inverse_vieta.product.1
+\begin{equation}\label{q198:row:165}
+\begin{aligned}
+q_{165}^{[198]} &={} Y_{114}Y_{195} - Y_{184}Y_{187} - Y_{185}Y_{186}
+\end{aligned}
+\end{equation}
+% Source residual 166: inverse_vieta.r.0
+\begin{equation}\label{q198:row:166}
+\begin{aligned}
+q_{166}^{[198]} &={} Y_{188}Y_{194} + 2Y_{189}Y_{195} - Y_{192}
+\end{aligned}
+\end{equation}
+% Source residual 167: inverse_vieta.r.1
+\begin{equation}\label{q198:row:167}
+\begin{aligned}
+q_{167}^{[198]} &={} Y_{188}Y_{195} + Y_{189}Y_{194} - Y_{193}
+\end{aligned}
+\end{equation}
+% Source residual 168: inverse_vieta.sum.0
+\begin{equation}\label{q198:row:168}
+\begin{aligned}
+q_{168}^{[198]} &={} 11Y_{114} + Y_{184}Y_{192} + 2Y_{185}Y_{193} + Y_{186}Y_{192} + 2Y_{187}Y_{193}\\
+&{} + Y_{188}Y_{192} + 2Y_{189}Y_{193} + 2Y_{190}Y_{192} + 4Y_{191}Y_{193}
+\end{aligned}
+\end{equation}
+% Source residual 169: inverse_vieta.sum.1
+\begin{equation}\label{q198:row:169}
+\begin{aligned}
+q_{169}^{[198]} &={} 6Y_{114} - Y_{184}Y_{193} - Y_{185}Y_{192} - Y_{186}Y_{193} - Y_{187}Y_{192}\\
+&{} - Y_{188}Y_{193} - Y_{189}Y_{192} - 2Y_{190}Y_{193} - 2Y_{191}Y_{192}
+\end{aligned}
+\end{equation}
+% Source residual 170: inverse_vieta.pair.0
+\begin{equation}\label{q198:row:170}
+\begin{aligned}
+q_{170}^{[198]} &={} Y_{114}Y_{194} + Y_{184}Y_{188} + 2Y_{185}Y_{189} + Y_{186}Y_{188} + 2Y_{187}Y_{189}\\
+&{} - Y_{190}^{2} - 2Y_{191}^{2}
+\end{aligned}
+\end{equation}
+% Source residual 171: inverse_vieta.pair.1
+\begin{equation}\label{q198:row:171}
+\begin{aligned}
+q_{171}^{[198]} &={} Y_{114}Y_{195} + Y_{184}Y_{189} + Y_{185}Y_{188} + Y_{186}Y_{189} + Y_{187}Y_{188}\\
+&{} - 2Y_{190}Y_{191}
+\end{aligned}
+\end{equation}
+% Source residual 172: inverse_vieta.r2.0
+\begin{equation}\label{q198:row:172}
+\begin{aligned}
+q_{172}^{[198]} &={} Y_{192}^{2} + 2Y_{193}^{2} - Y_{196}
+\end{aligned}
+\end{equation}
+% Source residual 173: inverse_vieta.r2.1
+\begin{equation}\label{q198:row:173}
+\begin{aligned}
+q_{173}^{[198]} &={} 2Y_{192}Y_{193} - Y_{197}
+\end{aligned}
+\end{equation}
+% Source residual 174: inverse_vieta.fusquare.0
+\begin{equation}\label{q198:row:174}
+\begin{aligned}
+q_{174}^{[198]} &={} Y_{53}Y_{196} + 4Y_{54}Y_{197} - Y_{184}^{2} - 2Y_{185}^{2}
+\end{aligned}
+\end{equation}
+% Source residual 175: inverse_vieta.fusquare.1
+\begin{equation}\label{q198:row:175}
+\begin{aligned}
+q_{175}^{[198]} &={} Y_{53}Y_{197} + 2Y_{54}Y_{196} - 2Y_{184}Y_{185}
+\end{aligned}
+\end{equation}
+% Source residual 176: inverse_vieta.fvsquare.0
+\begin{equation}\label{q198:row:176}
+\begin{aligned}
+q_{176}^{[198]} &={} Y_{22}Y_{196} + 4Y_{23}Y_{197} - Y_{186}^{2} - 2Y_{187}^{2}
+\end{aligned}
+\end{equation}
+% Source residual 177: inverse_vieta.fvsquare.1
+\begin{equation}\label{q198:row:177}
+\begin{aligned}
+q_{177}^{[198]} &={} Y_{22}Y_{197} + 2Y_{23}Y_{196} - 2Y_{186}Y_{187}
+\end{aligned}
+\end{equation}
+% Source residual 178: inverse_vieta.primary.0
+\begin{equation}\label{q198:row:178}
+\begin{aligned}
+q_{178}^{[198]} &={} 2Y_{16}Y_{115} - Y_{32}Y_{184} - Y_{32}Y_{190} - 2Y_{33}Y_{185} - 2Y_{33}Y_{191}
+\end{aligned}
+\end{equation}
+% Source residual 179: inverse_vieta.primary.1
+\begin{equation}\label{q198:row:179}
+\begin{aligned}
+q_{179}^{[198]} &={} 2Y_{17}Y_{115} - Y_{32}Y_{185} - Y_{32}Y_{191} - Y_{33}Y_{184} - Y_{33}Y_{190}
+\end{aligned}
+\end{equation}
+% Source residual 180: inverse_vieta.alternate.0
+\begin{equation}\label{q198:row:180}
+\begin{aligned}
+q_{180}^{[198]} &={} Y_{34}Y_{186} + Y_{34}Y_{190} + 2Y_{35}Y_{187} + 2Y_{35}Y_{191} + 2Y_{115}Y_{152}
+\end{aligned}
+\end{equation}
+% Source residual 181: inverse_vieta.alternate.1
+\begin{equation}\label{q198:row:181}
+\begin{aligned}
+q_{181}^{[198]} &={} Y_{34}Y_{187} + Y_{34}Y_{191} + Y_{35}Y_{186} + Y_{35}Y_{190} + 2Y_{115}Y_{153}
+\end{aligned}
+\end{equation}
+% Source residual 182: inverse_vieta.scalar.0
+\begin{equation}\label{q198:row:182}
+\begin{aligned}
+q_{182}^{[198]} &={} 2Y_{16} + Y_{104}Y_{188} + Y_{104}Y_{190} + 2Y_{105}Y_{189} + 2Y_{105}Y_{191}
+\end{aligned}
+\end{equation}
+% Source residual 183: inverse_vieta.scalar.1
+\begin{equation}\label{q198:row:183}
+\begin{aligned}
+q_{183}^{[198]} &={} 2Y_{17} + Y_{104}Y_{189} + Y_{104}Y_{191} + Y_{105}Y_{188} + Y_{105}Y_{190}
+\end{aligned}
+\end{equation}
+% Source residual 184: inverse_vieta.unweighted.aggregate
+\begin{equation}\label{q198:row:184}
+\begin{aligned}
+q_{184}^{[198]} &={} 14 + 2Y_{1} - 2Y_{87} + 11Y_{154} - 12Y_{155} + 11Y_{158} - 12Y_{159} + Y_{162}^{2}\\
+&{} + 2Y_{163}^{2} + 11Y_{164} - 12Y_{165} + 11Y_{168} - 12Y_{169} + Y_{172}^{2} + 2Y_{173}^{2}\\
+&{} + 11Y_{174} - 12Y_{175} + 11Y_{178} - 12Y_{179} + Y_{182}^{2} + 2Y_{183}^{2} + Y_{194}
+\end{aligned}
+\end{equation}
+\endgroup

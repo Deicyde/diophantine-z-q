@@ -1,0 +1,31 @@
+{
+  "B01": "q198:contact-circuit",
+  "B02": [
+    "q198:additive-height",
+    "q198:additive-contacts"
+  ],
+  "B03": "q198:reciprocal-pairs",
+  "B04": "q198:pair-ratios",
+  "B05": "q198:half-index-comparison",
+  "B06": "q198:half-generator-reduction",
+  "B07": "q198:half-generator-progression",
+  "B08": "q198:trace-height",
+  "B09": [
+    "q198:transport",
+    "q198:finite-algebra"
+  ],
+  "B10": "q198:integer-input",
+  "N01": "q198:nonzero-scale",
+  "N02": "q198:inverse-vieta",
+  "N03": "q198:scalar-ratios",
+  "N04": "q198:recovery-order",
+  "N05": "q198:scalar-extraction",
+  "N06": "q198:affine-fourth",
+  "N07": "q198:affine-lucas",
+  "N08": "q198:shifted-aggregate",
+  "N09": "q198:residual-divisibility",
+  "N10": "q198:soundness",
+  "N11": "q198:scalar-preparation",
+  "N12": "q198:completeness",
+  "N13": "q198:finite-algebra"
+}
