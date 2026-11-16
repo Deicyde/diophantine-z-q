@@ -1,3 +1,6 @@
+/- RR non-giant compatibility (2026-11-16): resolve upstream export aliases
+from _root_, expand inline p2m_export metadata as ordinary exports, and use
+existing scoped notation. Mathematical statements and proof hypotheses unchanged. -/
 /-
 Vendored from anthropics/fermats-last-theorem @ 6e837e75355538c7f80bab5b956861e86c4eacc2.
 Original module: P2M.Sol.S_AlgebraicCurve_tateCommFinite. Apache-2.0.
@@ -32,86 +35,88 @@ set_option autoImplicit false
 set_option synthInstance.maxHeartbeats 6400000
 set_option maxHeartbeats 12800000
 
+open scoped _root_.WithZero _root_.Multiplicative _root_.Topology
+
 namespace AlgebraicCurve
-export AlgebraicCurve (Place Divisor Pic0 HasCanonicalLocalResidueKStar kwHgfV352_algebraMap_mem_adicCompletionIntegers_iff)
+export _root_.AlgebraicCurve (Place Divisor Pic0 HasCanonicalLocalResidueKStar kwHgfV352_algebraMap_mem_adicCompletionIntegers_iff)
 open AlgebraicCurve
 end AlgebraicCurve
 namespace AlgebraicCurve
-export AlgebraicCurve (Place Divisor Pic0 HasCanonicalLocalResidueKStar kwHgfV352_algebraMap_mem_adicCompletionIntegers_iff)
+export _root_.AlgebraicCurve (Place Divisor Pic0 HasCanonicalLocalResidueKStar kwHgfV352_algebraMap_mem_adicCompletionIntegers_iff)
 namespace Place
-export AlgebraicCurve.Place (ext ResidueField FiniteResidue heightOneSpectrum heightOneSpectrum_asIdeal ord ord_unit_smul_zpow exists_unit_mul_zpow FiniteResidue.finite algebraMap_mem' toValuationSubring mk restrict adicCompletion adicCompletionIntegers)
+export _root_.AlgebraicCurve.Place (ext ResidueField FiniteResidue heightOneSpectrum heightOneSpectrum_asIdeal ord ord_unit_smul_zpow exists_unit_mul_zpow FiniteResidue.finite algebraMap_mem' toValuationSubring mk restrict adicCompletion adicCompletionIntegers)
 open AlgebraicCurve.Place
 open AlgebraicCurve
 end AlgebraicCurve.Place
 namespace Filter
-export Filter (mem_bot ker mk mem_comap mem_ker comap unique map)
+export _root_.Filter (mem_bot ker mk mem_comap mem_ker comap unique map)
 open Filter
 end Filter
 namespace IsDedekindDomain
-export IsDedekindDomain (HeightOneSpectrum.ext mk HeightOneSpectrum)
+export _root_.IsDedekindDomain (HeightOneSpectrum.ext mk HeightOneSpectrum)
 open IsDedekindDomain
 end IsDedekindDomain
 namespace IsDedekindDomain
-export IsDedekindDomain (HeightOneSpectrum.ext mk HeightOneSpectrum)
+export _root_.IsDedekindDomain (HeightOneSpectrum.ext mk HeightOneSpectrum)
 namespace HeightOneSpectrum
-export IsDedekindDomain.HeightOneSpectrum (valuation_of_algebraMap intValuation_le_pow_iff_mem isMaximal mk comap valuedAdicCompletion_eq_valuation' adicCompletion valuation adicCompletionIntegers valuedAdicCompletion_surjective mem_integers_of_valuation_le_one denseRange_algebraMap intValuation completionIdeal adicCompletion.mem_completionIdeal_pow)
+export _root_.IsDedekindDomain.HeightOneSpectrum (valuation_of_algebraMap intValuation_le_pow_iff_mem isMaximal mk comap valuedAdicCompletion_eq_valuation' adicCompletion valuation adicCompletionIntegers valuedAdicCompletion_surjective mem_integers_of_valuation_le_one denseRange_algebraMap intValuation completionIdeal adicCompletion.mem_completionIdeal_pow)
 open IsDedekindDomain.HeightOneSpectrum
 open IsDedekindDomain
 end IsDedekindDomain.HeightOneSpectrum
 namespace IsLocalRing
-export IsLocalRing (ResidueField maximalIdeal maximalIdeal.isMaximal of_injective)
+export _root_.IsLocalRing (ResidueField maximalIdeal maximalIdeal.isMaximal of_injective)
 open IsLocalRing
 end IsLocalRing
 namespace LinearMap
-export LinearMap (mulLeft_apply mem_range range sub_apply ker_eq_bot id range_comp mulLeft ker_comp mk id_apply ext comp quotKerEquivRange restrictScalars ker mem_ker comp_apply mem_range_self restrict)
+export _root_.LinearMap (mulLeft_apply mem_range range sub_apply ker_eq_bot id range_comp mulLeft ker_comp mk id_apply ext comp quotKerEquivRange restrictScalars ker mem_ker comp_apply mem_range_self restrict)
 open LinearMap
 end LinearMap
 namespace ModularCurve
-export ModularCurve (KwF4gRRTate.KwF4gRRTateCommFinite)
+export _root_.ModularCurve (KwF4gRRTate.KwF4gRRTateCommFinite)
 namespace KwF4R1V410a
 open ModularCurve
 end ModularCurve.KwF4R1V410a
 namespace ModularCurve
-export ModularCurve (KwF4gRRTate.KwF4gRRTateCommFinite)
+export _root_.ModularCurve (KwF4gRRTate.KwF4gRRTateCommFinite)
 namespace KwF4gRRTate
-export ModularCurve.KwF4gRRTate (tateCommRestrict_apply tateComm_eq_of_commute adicIntegersKSubmod tateProj lmulK KwF4gRRTateCommFinite)
+export _root_.ModularCurve.KwF4gRRTate (tateCommRestrict_apply tateComm_eq_of_commute adicIntegersKSubmod tateProj lmulK KwF4gRRTateCommFinite)
 open ModularCurve.KwF4gRRTate
 open ModularCurve
 end ModularCurve.KwF4gRRTate
 namespace ModularCurve
-export ModularCurve (KwF4gRRTate.KwF4gRRTateCommFinite)
+export _root_.ModularCurve (KwF4gRRTate.KwF4gRRTateCommFinite)
 namespace Lg37
 open ModularCurve
 end ModularCurve.Lg37
 namespace MonoidWithZeroHom
-export MonoidWithZeroHom (id_apply id ext mk coe_one comp_apply comp)
+export _root_.MonoidWithZeroHom (id_apply id ext mk coe_one comp_apply comp)
 open MonoidWithZeroHom
 end MonoidWithZeroHom
 namespace Multiplicative
-export Multiplicative (ext)
+export _root_.Multiplicative (ext)
 open Multiplicative
 end Multiplicative
 namespace NumberField
-export NumberField (mk)
+export _root_.NumberField (mk)
 open NumberField
 end NumberField
 namespace Pointwise
 open Pointwise
 end Pointwise
 namespace Submodule
-export Submodule (quotEquivOfEq inclusion mem_sup_right smul_mem' mk mem_bot coe_mem Quotient.mk span restrictScalars projectionOnto_apply_left restrictScalars_top mem_closure_iff comapSubtypeEquivOfLe Quotient.restrictScalarsEquiv mem_comap Quotient.equiv mem_span_singleton mkQ map_smul' zero quotientQuotientEquivQuotient Quotient.mk_surjective restrictScalars_mono map mem_inf inclusion_apply Quotient.mk_eq_zero exists_isCompl projectionOnto finiteDimensional_of_le smul_def mk_eq_zero restrictScalarsEquiv mkQ_apply ext subtype_apply ker_mkQ comap finiteDimensional_sup mem_sup_left restrictScalars_mem)
+export _root_.Submodule (quotEquivOfEq inclusion mem_sup_right smul_mem' mk mem_bot coe_mem Quotient.mk span restrictScalars projectionOnto_apply_left restrictScalars_top mem_closure_iff comapSubtypeEquivOfLe Quotient.restrictScalarsEquiv mem_comap Quotient.equiv mem_span_singleton mkQ map_smul' zero quotientQuotientEquivQuotient Quotient.mk_surjective restrictScalars_mono map mem_inf inclusion_apply Quotient.mk_eq_zero exists_isCompl projectionOnto finiteDimensional_of_le smul_def mk_eq_zero restrictScalarsEquiv mkQ_apply ext subtype_apply ker_mkQ comap finiteDimensional_sup mem_sup_left restrictScalars_mem)
 open Submodule
 end Submodule
 namespace Topology
 open Topology
 end Topology
 namespace WithZero
-export WithZero (coe_one map coe_mul exp_eq_coe_ofAdd exp_ne_zero exp exp_zero exp_le_exp)
+export _root_.WithZero (coe_one map coe_mul exp_eq_coe_ofAdd exp_ne_zero exp exp_zero exp_le_exp)
 open WithZero
 end WithZero
 
 section
-namespace IsLocalRing p2m_export "IsLocalRing" "ResidueField maximalIdeal maximalIdeal.isMaximal of_injective" end IsLocalRing
+namespace IsLocalRing export _root_.IsLocalRing (ResidueField maximalIdeal maximalIdeal.isMaximal of_injective) end IsLocalRing
 open scoped IsLocalRing in
 theorem IsLocalRing.maximalIdeal_le {R : Type*} [CommSemiring R] [IsLocalRing R] {J : Ideal R}
     (hJ : J ≠ ⊤) (h : IsLocalRing.maximalIdeal R ≤ J) :
@@ -133,9 +138,9 @@ open P2MW.S_AlgebraicCurve_tateCommFinite.Submodule
 noncomputable section
 
 namespace ModularCurve
-export ModularCurve (KwF4gRRTate.KwF4gRRTateCommFinite)
+export _root_.ModularCurve (KwF4gRRTate.KwF4gRRTateCommFinite)
 namespace KwF4gRRTate
-export ModularCurve.KwF4gRRTate (tateCommRestrict_apply tateComm_eq_of_commute adicIntegersKSubmod tateProj lmulK KwF4gRRTateCommFinite)
+export _root_.ModularCurve.KwF4gRRTate (tateCommRestrict_apply tateComm_eq_of_commute adicIntegersKSubmod tateProj lmulK KwF4gRRTateCommFinite)
 open ModularCurve.KwF4gRRTate
 open ModularCurve
 
@@ -177,13 +182,13 @@ open IsLocalRing
 open P2MW.S_AlgebraicCurve_tateCommFinite.IsLocalRing
 
 namespace AlgebraicCurve
-export AlgebraicCurve (Place Divisor Pic0 HasCanonicalLocalResidueKStar kwHgfV352_algebraMap_mem_adicCompletionIntegers_iff)
+export _root_.AlgebraicCurve (Place Divisor Pic0 HasCanonicalLocalResidueKStar kwHgfV352_algebraMap_mem_adicCompletionIntegers_iff)
 open AlgebraicCurve
 
 variable (K F : Type*) [Field K] [Field F] [Algebra K F]
 
 namespace Place
-export AlgebraicCurve.Place (ext ResidueField FiniteResidue heightOneSpectrum heightOneSpectrum_asIdeal ord ord_unit_smul_zpow exists_unit_mul_zpow FiniteResidue.finite algebraMap_mem' toValuationSubring mk restrict adicCompletion adicCompletionIntegers)
+export _root_.AlgebraicCurve.Place (ext ResidueField FiniteResidue heightOneSpectrum heightOneSpectrum_asIdeal ord ord_unit_smul_zpow exists_unit_mul_zpow FiniteResidue.finite algebraMap_mem' toValuationSubring mk restrict adicCompletion adicCompletionIntegers)
 open AlgebraicCurve.Place
 
 variable {K F}
@@ -193,7 +198,7 @@ variable (v : Place K F)
 end Place
 
 namespace Divisor
-export AlgebraicCurve.Divisor (smul_def)
+export _root_.AlgebraicCurve.Divisor (smul_def)
 open AlgebraicCurve.Divisor
 
 variable {K F}
@@ -201,7 +206,7 @@ variable {K F}
 end Divisor
 
 namespace Pic0
-export AlgebraicCurve.Pic0 (mk mk_surjective)
+export _root_.AlgebraicCurve.Pic0 (mk mk_surjective)
 open AlgebraicCurve.Pic0
 
 variable {K F}
@@ -209,7 +214,7 @@ variable {K F}
 end Pic0
 
 namespace Place
-export AlgebraicCurve.Place (ext ResidueField FiniteResidue heightOneSpectrum heightOneSpectrum_asIdeal ord ord_unit_smul_zpow exists_unit_mul_zpow FiniteResidue.finite algebraMap_mem' toValuationSubring mk restrict adicCompletion adicCompletionIntegers)
+export _root_.AlgebraicCurve.Place (ext ResidueField FiniteResidue heightOneSpectrum heightOneSpectrum_asIdeal ord ord_unit_smul_zpow exists_unit_mul_zpow FiniteResidue.finite algebraMap_mem' toValuationSubring mk restrict adicCompletion adicCompletionIntegers)
 open AlgebraicCurve.Place
 open scoped Pointwise P2MW.S_AlgebraicCurve_tateCommFinite.Pointwise
 variable {K F}
@@ -220,7 +225,7 @@ variable (v : Place K F)
 end Place
 
 namespace Divisor
-export AlgebraicCurve.Divisor (smul_def)
+export _root_.AlgebraicCurve.Divisor (smul_def)
 open AlgebraicCurve.Divisor
 open scoped Pointwise P2MW.S_AlgebraicCurve_tateCommFinite.Pointwise
 variable {K F}
@@ -228,7 +233,7 @@ variable {K F}
 end Divisor
 
 namespace Pic0
-export AlgebraicCurve.Pic0 (mk mk_surjective)
+export _root_.AlgebraicCurve.Pic0 (mk mk_surjective)
 open AlgebraicCurve.Pic0
 open scoped Pointwise P2MW.S_AlgebraicCurve_tateCommFinite.Pointwise
 variable {K F}
@@ -236,7 +241,7 @@ variable {K F}
 end Pic0
 
 namespace Place
-export AlgebraicCurve.Place (ext ResidueField FiniteResidue heightOneSpectrum heightOneSpectrum_asIdeal ord ord_unit_smul_zpow exists_unit_mul_zpow FiniteResidue.finite algebraMap_mem' toValuationSubring mk restrict adicCompletion adicCompletionIntegers)
+export _root_.AlgebraicCurve.Place (ext ResidueField FiniteResidue heightOneSpectrum heightOneSpectrum_asIdeal ord ord_unit_smul_zpow exists_unit_mul_zpow FiniteResidue.finite algebraMap_mem' toValuationSubring mk restrict adicCompletion adicCompletionIntegers)
 open AlgebraicCurve.Place
 
 variable {K F}
@@ -263,11 +268,11 @@ open IsLocalRing
 open P2MW.S_AlgebraicCurve_tateCommFinite.IsLocalRing
 
 namespace AlgebraicCurve
-export AlgebraicCurve (Place Divisor Pic0 HasCanonicalLocalResidueKStar kwHgfV352_algebraMap_mem_adicCompletionIntegers_iff)
+export _root_.AlgebraicCurve (Place Divisor Pic0 HasCanonicalLocalResidueKStar kwHgfV352_algebraMap_mem_adicCompletionIntegers_iff)
 open AlgebraicCurve
 
 namespace Place
-export AlgebraicCurve.Place (ext ResidueField FiniteResidue heightOneSpectrum heightOneSpectrum_asIdeal ord ord_unit_smul_zpow exists_unit_mul_zpow FiniteResidue.finite algebraMap_mem' toValuationSubring mk restrict adicCompletion adicCompletionIntegers)
+export _root_.AlgebraicCurve.Place (ext ResidueField FiniteResidue heightOneSpectrum heightOneSpectrum_asIdeal ord ord_unit_smul_zpow exists_unit_mul_zpow FiniteResidue.finite algebraMap_mem' toValuationSubring mk restrict adicCompletion adicCompletionIntegers)
 open AlgebraicCurve.Place
 
 section SinglePlace
@@ -332,7 +337,7 @@ section
 
 variable {F : Type*} [Field F]
 
-namespace ValuationSubring p2m_export "ValuationSubring" "comap subtype mem_comap subtype_apply algebraMap_apply ext zero_mem mk mul_mem add_mem valuation inclusion" end ValuationSubring
+namespace ValuationSubring export _root_.ValuationSubring (comap subtype mem_comap subtype_apply algebraMap_apply ext zero_mem mk mul_mem add_mem valuation inclusion) end ValuationSubring
 open scoped ValuationSubring in
 theorem ValuationSubring.valued_eq_one_of_isUnit {K : Type*} [Field K] {Γ₀ : Type*}
     [LinearOrderedCommGroupWithZero Γ₀] [hv : Valued K Γ₀] (x : hv.v.valuationSubring)
@@ -384,9 +389,9 @@ open MonoidWithZeroHom
 open P2MW.S_AlgebraicCurve_tateCommFinite.MonoidWithZeroHom
 
 namespace AlgebraicCurve
-export AlgebraicCurve (Place Divisor Pic0 HasCanonicalLocalResidueKStar kwHgfV352_algebraMap_mem_adicCompletionIntegers_iff)
+export _root_.AlgebraicCurve (Place Divisor Pic0 HasCanonicalLocalResidueKStar kwHgfV352_algebraMap_mem_adicCompletionIntegers_iff)
 namespace Place
-export AlgebraicCurve.Place (ext ResidueField FiniteResidue heightOneSpectrum heightOneSpectrum_asIdeal ord ord_unit_smul_zpow exists_unit_mul_zpow FiniteResidue.finite algebraMap_mem' toValuationSubring mk restrict adicCompletion adicCompletionIntegers)
+export _root_.AlgebraicCurve.Place (ext ResidueField FiniteResidue heightOneSpectrum heightOneSpectrum_asIdeal ord ord_unit_smul_zpow exists_unit_mul_zpow FiniteResidue.finite algebraMap_mem' toValuationSubring mk restrict adicCompletion adicCompletionIntegers)
 open AlgebraicCurve.Place
 open AlgebraicCurve
 
@@ -453,9 +458,9 @@ open P2MW.S_AlgebraicCurve_tateCommFinite.ModularCurve.KwF4gRRTate
 noncomputable section
 
 namespace ModularCurve
-export ModularCurve (KwF4gRRTate.KwF4gRRTateCommFinite)
+export _root_.ModularCurve (KwF4gRRTate.KwF4gRRTateCommFinite)
 namespace KwF4gRRTate
-export ModularCurve.KwF4gRRTate (tateCommRestrict_apply tateComm_eq_of_commute adicIntegersKSubmod tateProj lmulK KwF4gRRTateCommFinite)
+export _root_.ModularCurve.KwF4gRRTate (tateCommRestrict_apply tateComm_eq_of_commute adicIntegersKSubmod tateProj lmulK KwF4gRRTateCommFinite)
 open ModularCurve.KwF4gRRTate
 open ModularCurve
 
@@ -542,9 +547,9 @@ open P2MW.S_AlgebraicCurve_tateCommFinite.IsLocalRing
 noncomputable section
 
 namespace ModularCurve
-export ModularCurve (KwF4gRRTate.KwF4gRRTateCommFinite)
+export _root_.ModularCurve (KwF4gRRTate.KwF4gRRTateCommFinite)
 namespace KwF4gRRTate
-export ModularCurve.KwF4gRRTate (tateCommRestrict_apply tateComm_eq_of_commute adicIntegersKSubmod tateProj lmulK KwF4gRRTateCommFinite)
+export _root_.ModularCurve.KwF4gRRTate (tateCommRestrict_apply tateComm_eq_of_commute adicIntegersKSubmod tateProj lmulK KwF4gRRTateCommFinite)
 open ModularCurve.KwF4gRRTate
 open ModularCurve
 
@@ -691,7 +696,8 @@ theorem kwF4gRRTate_commFinite_of_clearPole_of_poleWindowFinite
     KwF4gRRTateCommFinite K L := by
   intro u fh gh
   have hcomm : lmulK u fh ∘ₗ lmulK u gh = lmulK u gh ∘ₗ lmulK u fh := by
-    ext x
+    apply LinearMap.ext
+    intro x
     show fh * (gh * x) = gh * (fh * x)
     ring
   haveI hRf := finiteDimensional_principalPart_range u hCP hPW fh
@@ -748,9 +754,9 @@ open Filter
 open P2MW.S_AlgebraicCurve_tateCommFinite.Filter
 
 namespace IsDedekindDomain
-export IsDedekindDomain (HeightOneSpectrum.ext mk HeightOneSpectrum)
+export _root_.IsDedekindDomain (HeightOneSpectrum.ext mk HeightOneSpectrum)
 namespace HeightOneSpectrum
-export IsDedekindDomain.HeightOneSpectrum (valuation_of_algebraMap intValuation_le_pow_iff_mem isMaximal mk comap valuedAdicCompletion_eq_valuation' adicCompletion valuation adicCompletionIntegers valuedAdicCompletion_surjective mem_integers_of_valuation_le_one denseRange_algebraMap intValuation completionIdeal adicCompletion.mem_completionIdeal_pow)
+export _root_.IsDedekindDomain.HeightOneSpectrum (valuation_of_algebraMap intValuation_le_pow_iff_mem isMaximal mk comap valuedAdicCompletion_eq_valuation' adicCompletion valuation adicCompletionIntegers valuedAdicCompletion_surjective mem_integers_of_valuation_le_one denseRange_algebraMap intValuation completionIdeal adicCompletion.mem_completionIdeal_pow)
 open IsDedekindDomain.HeightOneSpectrum
 open IsDedekindDomain
 
@@ -758,7 +764,7 @@ variable {A : Type*} (K : Type*) [CommRing A] [Field K] [Algebra A K] [IsFractio
     [IsDedekindDomain A] (v : HeightOneSpectrum A)
 
 namespace adicCompletion
-export IsDedekindDomain.HeightOneSpectrum.adicCompletion (mem_completionIdeal_pow)
+export _root_.IsDedekindDomain.HeightOneSpectrum.adicCompletion (mem_completionIdeal_pow)
 open IsDedekindDomain.HeightOneSpectrum.adicCompletion
 
 -- CloudW16 port: expanded the source-local shorthand in its original lexical scope.
@@ -822,7 +828,7 @@ open AlgebraicCurve.Place
 open P2MW.S_AlgebraicCurve_tateCommFinite.AlgebraicCurve.Place
 
 namespace ModularCurve
-export ModularCurve (KwF4gRRTate.KwF4gRRTateCommFinite)
+export _root_.ModularCurve (KwF4gRRTate.KwF4gRRTateCommFinite)
 namespace KwF4R1V410a
 open ModularCurve
 
@@ -954,9 +960,9 @@ open P2MW.S_AlgebraicCurve_tateCommFinite.IsLocalRing
 noncomputable section
 
 namespace ModularCurve
-export ModularCurve (KwF4gRRTate.KwF4gRRTateCommFinite)
+export _root_.ModularCurve (KwF4gRRTate.KwF4gRRTateCommFinite)
 namespace KwF4gRRTate
-export ModularCurve.KwF4gRRTate (tateCommRestrict_apply tateComm_eq_of_commute adicIntegersKSubmod tateProj lmulK KwF4gRRTateCommFinite)
+export _root_.ModularCurve.KwF4gRRTate (tateCommRestrict_apply tateComm_eq_of_commute adicIntegersKSubmod tateProj lmulK KwF4gRRTateCommFinite)
 open ModularCurve.KwF4gRRTate
 open ModularCurve
 
@@ -1099,9 +1105,9 @@ open P2MW.S_AlgebraicCurve_tateCommFinite.IsLocalRing
 noncomputable section
 
 namespace ModularCurve
-export ModularCurve (KwF4gRRTate.KwF4gRRTateCommFinite)
+export _root_.ModularCurve (KwF4gRRTate.KwF4gRRTateCommFinite)
 namespace KwF4gRRTate
-export ModularCurve.KwF4gRRTate (tateCommRestrict_apply tateComm_eq_of_commute adicIntegersKSubmod tateProj lmulK KwF4gRRTateCommFinite)
+export _root_.ModularCurve.KwF4gRRTate (tateCommRestrict_apply tateComm_eq_of_commute adicIntegersKSubmod tateProj lmulK KwF4gRRTateCommFinite)
 open ModularCurve.KwF4gRRTate
 open ModularCurve
 
@@ -1264,9 +1270,9 @@ open P2MW.S_AlgebraicCurve_tateCommFinite.IsLocalRing
 noncomputable section
 
 namespace ModularCurve
-export ModularCurve (KwF4gRRTate.KwF4gRRTateCommFinite)
+export _root_.ModularCurve (KwF4gRRTate.KwF4gRRTateCommFinite)
 namespace KwF4gRRTate
-export ModularCurve.KwF4gRRTate (tateCommRestrict_apply tateComm_eq_of_commute adicIntegersKSubmod tateProj lmulK KwF4gRRTateCommFinite)
+export _root_.ModularCurve.KwF4gRRTate (tateCommRestrict_apply tateComm_eq_of_commute adicIntegersKSubmod tateProj lmulK KwF4gRRTateCommFinite)
 open ModularCurve.KwF4gRRTate
 open ModularCurve
 

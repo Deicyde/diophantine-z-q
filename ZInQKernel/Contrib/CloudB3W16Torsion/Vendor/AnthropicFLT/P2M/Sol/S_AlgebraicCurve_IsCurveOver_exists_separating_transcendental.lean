@@ -1,3 +1,6 @@
+/- RR non-giant compatibility (2026-11-16): resolve upstream export aliases
+from _root_, expand inline p2m_export metadata as ordinary exports, and use
+existing scoped notation. Mathematical statements and proof hypotheses unchanged. -/
 /-
 Vendored from anthropics/fermats-last-theorem @ 6e837e75355538c7f80bab5b956861e86c4eacc2.
 Original module: P2M.Sol.S_AlgebraicCurve_IsCurveOver_exists_separating_transcendental. Apache-2.0.
@@ -25,11 +28,11 @@ set_option autoImplicit false
 open KaehlerDifferential Algebra IntermediateField
 
 namespace AlgebraicCurve
-export AlgebraicCurve (IsCurveOver IsCurveOver.finrank_kaehler)
+export _root_.AlgebraicCurve (IsCurveOver IsCurveOver.finrank_kaehler)
 open AlgebraicCurve
 
 namespace IsCurveOver
-export AlgebraicCurve.IsCurveOver (finrank_kaehler instNontrivialKaehler)
+export _root_.AlgebraicCurve.IsCurveOver (finrank_kaehler instNontrivialKaehler)
 open AlgebraicCurve.IsCurveOver
 
 variable {K F : Type*} [Field K] [Field F] [Algebra K F]
@@ -68,7 +71,7 @@ end IsCurveOver
 
 variable {K F : Type*} [Field K] [Field F] [Algebra K F]
 
-namespace IsCurveOver p2m_export "AlgebraicCurve.IsCurveOver" "finrank_kaehler instNontrivialKaehler" end IsCurveOver
+namespace IsCurveOver export _root_.AlgebraicCurve.IsCurveOver (finrank_kaehler instNontrivialKaehler) end IsCurveOver
 open scoped AlgebraicCurve.IsCurveOver in
 theorem IsCurveOver.trdeg_eq_one [PerfectField K] [IsCurveOver K F]
     (htrdeg : Algebra.trdeg K F ≤ 1) :
@@ -88,7 +91,7 @@ open Module
 open scoped IntermediateField.algebraAdjoinAdjoin
 
 namespace AlgebraicCurve
-export AlgebraicCurve (IsCurveOver IsCurveOver.finrank_kaehler)
+export _root_.AlgebraicCurve (IsCurveOver IsCurveOver.finrank_kaehler)
 open AlgebraicCurve
 
 universe u₁ u₂
@@ -155,7 +158,7 @@ theorem finrank_kaehler_eq_card_of_separating' {s : Finset F}
   exact finrank_kaehler_eq_card_of_separating hs
 
 namespace IsCurveOver
-export AlgebraicCurve.IsCurveOver (finrank_kaehler instNontrivialKaehler)
+export _root_.AlgebraicCurve.IsCurveOver (finrank_kaehler instNontrivialKaehler)
 open AlgebraicCurve.IsCurveOver
 
 theorem trdeg_le_one [PerfectField K] [Algebra.EssFiniteType K F] [IsCurveOver K F] :
@@ -185,7 +188,7 @@ open TensorProduct.Algebra
 open Algebra.TensorProduct.Algebra
 
 namespace AlgebraicCurve
-export AlgebraicCurve (IsCurveOver IsCurveOver.finrank_kaehler)
+export _root_.AlgebraicCurve (IsCurveOver IsCurveOver.finrank_kaehler)
 open AlgebraicCurve
 
 universe u₁ u₂
@@ -193,7 +196,7 @@ universe u₁ u₂
 variable {K : Type u₁} {F : Type u₂} [Field K] [Field F] [Algebra K F]
 
 namespace IsCurveOver
-export AlgebraicCurve.IsCurveOver (finrank_kaehler instNontrivialKaehler)
+export _root_.AlgebraicCurve.IsCurveOver (finrank_kaehler instNontrivialKaehler)
 open AlgebraicCurve.IsCurveOver
 
 theorem exists_separating_transcendental_s6 [PerfectField K] [Algebra.EssFiniteType K F]

@@ -1,3 +1,6 @@
+/- RR non-giant compatibility (2026-11-16): resolve upstream export aliases
+from _root_, expand inline p2m_export metadata as ordinary exports, and use
+existing scoped notation. Mathematical statements and proof hypotheses unchanged. -/
 /-
 Vendored from anthropics/fermats-last-theorem @ 6e837e75355538c7f80bab5b956861e86c4eacc2.
 Original module: P2M.Sol.S_KaehlerDifferential_span_D_eq_top_of_transcendental. Apache-2.0.
@@ -21,10 +24,9 @@ namespace P2MW.S_KaehlerDifferential_span_D_eq_top_of_transcendental
 noncomputable section
 open Polynomial
 open KaehlerDifferential
-open P2MW.S_KaehlerDifferential_span_D_eq_top_of_transcendental.KaehlerDifferential
 
 namespace KaehlerDifferential
-export KaehlerDifferential (tensorKaehlerEquivOfFormallyEtale polynomialEquiv tensorKaehlerEquivOfFormallyEtale_apply mapBaseChange_tmul D map_D map)
+export _root_.KaehlerDifferential (tensorKaehlerEquivOfFormallyEtale polynomialEquiv tensorKaehlerEquivOfFormallyEtale_apply mapBaseChange_tmul D map_D map)
 namespace FF2
 open KaehlerDifferential
 
