@@ -18,3 +18,11 @@ Base: wip/gaga-chart 5626f0b0. Build tree copied (cp -r) from ~/dzq-wt/gaga-char
   on D(s) ∋ P). `#print axioms regular_half`: [propext, Classical.choice, Quot.sound].
   `sga1_XII_3_1_Etale_of_3_3a`, `connectedPreconnectedAn_of_2_4`, `uniformizationLeafAll_of_printed`
   (from MumfordComplexTorus, SGA1_XII_3_3a, ProperCompactAn, SGA1_XII_2_4): standard axioms.
+
+## 11-16 07:30 C.lean (VERIFIED compiled, all standard axioms)
+- `AnFunAt`/`AnFunOn` (structure sheaf of reduced X^an: locally H ∘ (regular g), H analytic), `IsAnMorphism`
+  (continuous + pulls back AnFun), leaf `SGA1_XII_4_4` (IsAnMorphism A(ℂ) → B(ℂ) is P ↦ P ≫ f).
+- `contMDiffAt_iff_anFunAt` (any IsAnStr atlas), `contMDiff_iff_isAnMorphism`, `anFunAt_iff_etale`
+  (AnFun = pullback of holomorphic functions along étale coordinates, X smooth, from SGA1_XII_3_3a),
+  `isAnStr_of_3_3a`, `gagaChart_of_printed`, `printed_of_gagaChart`, `gagaChart_iff_printed (hL)`,
+  `gagaMorphism_of_printed (hM hL hPC hC hG)`. All [propext, Classical.choice, Quot.sound].
