@@ -42,3 +42,12 @@ Base: wip/pic-fix be79cb5b. `git merge origin/main`: already up to date (main = 
   autofold-both). Both dry-run modules compile to sixContactMin_of_open36 with the standard axioms.
 * Net: PicZeroSmooth (all fields, GLUE) replaced by PicZeroSmoothPosChar (char p only, GLUE pending reading):
   the GLUE count does not drop; the target −1 for picZeroAbVar is not reached because the field is ∀ K.
+
+## Split (so the reduction builds without the h98 files)
+* ZInQKernel/Contrib/OneProof/PicZeroSmoothCartier.lean: everything with `hC : AVGlue.CartierSmooth` as a
+  hypothesis; imports only Contrib.OneProof.PicZeroAbVar (AVGlue.CartierSmooth comes from TailP via the chain).
+* ZInQKernel/Contrib/OneProof/PicZeroAbVarCartier.lean: imports it and CartierSmooth.lean; `picZeroAbVar_of_printed2`,
+  `picZeroAbVarAt_charZero`. Both build (12880 jobs). Axioms.lean: standard axioms for all three main theorems.
+* autofold-cartierleaf.json (for a main without CartierSmooth.lean: Cartier repeated as an added-bundle leaf
+  `cartierSmoothPic`, flagged unread): `34/11 on 45 -> 38/11 on 49`; dry run compiles (standard axioms).
+* #discharges rerun with both files: same lines, `56 open hypotheses, 3085 theorems checked, 21 discharge one`.

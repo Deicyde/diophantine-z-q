@@ -111,7 +111,3 @@ DISCHARGES [OpenTextbookLeaves12.cartierSmooth] by ZInQ.Contrib.OneProof.Cartier
   still assumes: []
   axioms: [propext, Classical.choice, Quot.sound]
 #discharges: 56 open hypotheses, 3085 theorems checked, 21 discharge one
-
-real	0m12.428s
-user	0m5.455s
-sys	0m2.868s
