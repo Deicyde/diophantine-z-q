@@ -30,11 +30,12 @@ namespace P2mIsogFin
 
 variable {K : Type u} [Field K] {A : Scheme.{u}} {f : A ⟶ Spec (CommRingCat.of K)}
 
-local infixl:80 " ⊚ " => NeronModelInfra.schemeHomOverComp
+-- [port] Use ordinary fully qualified composition calls; no local notation is declared.
 
 def IsHom (L : RelativeGroupLaw K f) (β : SchemeHomOver f f) : Prop :=
   ∀ {T : Scheme.{u}} (t : T ⟶ Spec (CommRingCat.of K)) (x y : SchemeHomOver t f),
-    (L.mul t x y) ⊚ β = L.mul t (x ⊚ β) (y ⊚ β)
+    (NeronModelInfra.schemeHomOverComp (L.mul t x y) β) =
+      L.mul t (NeronModelInfra.schemeHomOverComp x β) (NeronModelInfra.schemeHomOverComp y β)
 
 section Points
 
@@ -43,8 +44,8 @@ variable (L : RelativeGroupLaw K f)
 theorem pull_comp {T T' : Scheme.{u}} {t : T ⟶ Spec (CommRingCat.of K)}
     {t' : T' ⟶ Spec (CommRingCat.of K)} (ψ : T' ⟶ T) (hψ : ψ ≫ t = t')
     (x : SchemeHomOver t f) (β : SchemeHomOver f f) :
-    GoodReductionJacobian.schemeHomOverComp ψ hψ (x ⊚ β) =
-      (GoodReductionJacobian.schemeHomOverComp ψ hψ x) ⊚ β :=
+    GoodReductionJacobian.schemeHomOverComp ψ hψ (NeronModelInfra.schemeHomOverComp x β) =
+      (NeronModelInfra.schemeHomOverComp (GoodReductionJacobian.schemeHomOverComp ψ hψ x) β) :=
   Subtype.ext (Category.assoc _ _ _).symm
 
 theorem one_coe {T : Scheme.{u}} (t : T ⟶ Spec (CommRingCat.of K)) :
@@ -75,20 +76,27 @@ variable {β : SchemeHomOver f f} (hβ : IsHom L β)
 include hβ
 
 theorem hom_one {T : Scheme.{u}} (t : T ⟶ Spec (CommRingCat.of K)) :
-    (L.one t) ⊚ β = L.one t := by
+    (NeronModelInfra.schemeHomOverComp (L.one t) β) = L.one t := by
   letI := L.pointGroup t
-  have h : (L.one t) ⊚ β = L.mul t ((L.one t) ⊚ β) ((L.one t) ⊚ β) := by
+  have h : (NeronModelInfra.schemeHomOverComp (L.one t) β) =
+      L.mul t (NeronModelInfra.schemeHomOverComp (L.one t) β)
+        (NeronModelInfra.schemeHomOverComp (L.one t) β) := by
     conv_lhs => rw [← L.one_mul t (L.one t)]
     exact hβ t _ _
-  change (L.one t) ⊚ β = ((L.one t) ⊚ β) * ((L.one t) ⊚ β) at h
+  change (NeronModelInfra.schemeHomOverComp (L.one t) β) =
+    (NeronModelInfra.schemeHomOverComp (L.one t) β) *
+      (NeronModelInfra.schemeHomOverComp (L.one t) β) at h
   exact (mul_eq_left.mp h.symm)
 
 theorem hom_inv {T : Scheme.{u}} (t : T ⟶ Spec (CommRingCat.of K)) (x : SchemeHomOver t f) :
-    (L.inv t x) ⊚ β = L.inv t (x ⊚ β) := by
+    (NeronModelInfra.schemeHomOverComp (L.inv t x) β) =
+      L.inv t (NeronModelInfra.schemeHomOverComp x β) := by
   letI := L.pointGroup t
-  have h1 : L.mul t ((L.inv t x) ⊚ β) (x ⊚ β) = L.one t := by
+  have h1 : L.mul t (NeronModelInfra.schemeHomOverComp (L.inv t x) β)
+      (NeronModelInfra.schemeHomOverComp x β) = L.one t := by
     rw [← hβ, L.inv_mul_cancel, hom_one hβ]
-  change ((L.inv t x) ⊚ β) * (x ⊚ β) = 1 at h1
+  change (NeronModelInfra.schemeHomOverComp (L.inv t x) β) *
+    (NeronModelInfra.schemeHomOverComp x β) = 1 at h1
   exact eq_inv_of_mul_eq_one_left h1
 
 end Points
@@ -122,7 +130,8 @@ def q₁ : SchemeHomOver (t₁ t ξ (β := β)) f :=
 def x₁ : SchemeHomOver (t₁ t ξ (β := β)) f :=
   ⟨pullback.snd β.1 (ξ.1 ≫ β.1) ≫ ξ.1, by rw [Category.assoc, ξ.2]⟩
 
-theorem k₀_comp : (k₀ L t (β := β)) ⊚ β = L.one (t₀ L t (β := β)) := by
+theorem k₀_comp : (NeronModelInfra.schemeHomOverComp (k₀ L t (β := β)) β) =
+    L.one (t₀ L t (β := β)) := by
   apply Subtype.ext
   change (pullback.fst (L.endKerStr β) t ≫ L.endKerι β) ≫ β.1 = (L.one _).1
   rw [one_coe L (t₀ L t)]
@@ -130,7 +139,8 @@ theorem k₀_comp : (k₀ L t (β := β)) ⊚ β = L.one (t₀ L t (β := β)) :
   rw [Category.assoc, RelativeGroupLaw.endKerι_comp, ← Category.assoc, pullback.condition,
     Category.assoc]
 
-theorem q₁_comp : (q₁ t ξ (β := β)) ⊚ β = (x₁ t ξ (β := β)) ⊚ β := by
+theorem q₁_comp : (NeronModelInfra.schemeHomOverComp (q₁ t ξ (β := β)) β) =
+    (NeronModelInfra.schemeHomOverComp (x₁ t ξ (β := β)) β) := by
   apply Subtype.ext
   change pullback.fst β.1 (ξ.1 ≫ β.1) ≫ β.1 = (pullback.snd β.1 (ξ.1 ≫ β.1) ≫ ξ.1) ≫ β.1
   rw [pullback.condition, Category.assoc]
@@ -139,7 +149,8 @@ include hβ
 
 def Φ : P₀ L t (β := β) ⟶ P₁ t ξ (β := β) :=
   pullback.lift (L.mul _ (k₀ L t) (x₀ L t ξ)).1 (pullback.snd (L.endKerStr β) t) (by
-    have h : (L.mul _ (k₀ L t (β := β)) (x₀ L t ξ)) ⊚ β = (x₀ L t ξ) ⊚ β := by
+    have h : (NeronModelInfra.schemeHomOverComp (L.mul _ (k₀ L t (β := β)) (x₀ L t ξ)) β) =
+        (NeronModelInfra.schemeHomOverComp (x₀ L t ξ) β) := by
       rw [hβ, k₀_comp, L.one_mul]
     have h' := congrArg Subtype.val h
     change (L.mul _ (k₀ L t (β := β)) (x₀ L t ξ)).1 ≫ β.1 =
@@ -156,10 +167,12 @@ theorem Φ_snd : Φ L hβ t ξ ≫ pullback.snd β.1 (ξ.1 ≫ β.1) = pullback.
 
 def c : P₁ t ξ (β := β) ⟶ L.endKer β :=
   pullback.lift (L.mul _ (q₁ t ξ) (L.inv _ (x₁ t ξ))).1 (t₁ t ξ (β := β)) (by
-    have h : (L.mul _ (q₁ t ξ (β := β)) (L.inv _ (x₁ t ξ))) ⊚ β = L.one _ := by
+    have h : (NeronModelInfra.schemeHomOverComp (L.mul _ (q₁ t ξ (β := β)) (L.inv _ (x₁ t ξ))) β) =
+        L.one _ := by
       rw [hβ, hom_inv hβ, q₁_comp]
       letI := L.pointGroup (t₁ t ξ (β := β))
-      change ((x₁ t ξ (β := β)) ⊚ β) * ((x₁ t ξ (β := β)) ⊚ β)⁻¹ = 1
+      change (NeronModelInfra.schemeHomOverComp (x₁ t ξ (β := β)) β) *
+        (NeronModelInfra.schemeHomOverComp (x₁ t ξ (β := β)) β)⁻¹ = 1
       exact mul_inv_cancel _
     have h' := congrArg Subtype.val h
     change (L.mul _ (q₁ t ξ (β := β)) (L.inv _ (x₁ t ξ))).1 ≫ β.1 = (L.one _).1 at h'
