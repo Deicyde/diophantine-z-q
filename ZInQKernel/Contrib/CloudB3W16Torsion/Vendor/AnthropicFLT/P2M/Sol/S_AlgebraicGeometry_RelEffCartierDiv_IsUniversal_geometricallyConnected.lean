@@ -28,7 +28,7 @@ universe u
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_RelEffCartierDiv_IsUniversal_geometricallyConnected.AlgebraicGeometry
+-- Source-local namespace open deferred until its declaration.
 
 namespace AlgebraicGeometry
 export _root_.AlgebraicGeometry (SmoothOfRelativeDimension.smooth SmoothOfRelativeDimension geometrically_iff_of_isClosedUnderIsomorphisms GeometricallyConnected.comp Scheme Smooth UniversallyOpen IsSeparated GeometricallyConnected geometrically RelEffCartierDiv.IsUniversal RelEffCartierDiv fibrePowOver fibrePowOver.toBase RelEffCartierDiv.IsUniversal.exists_sumMap GeometricallyConnected.of_comp_of_surjective)
@@ -50,6 +50,7 @@ theorem isMultiplicative_geometricallyConnected_inf_universallyOpen :
     exact ⟨GeometricallyConnected.comp f g, inferInstance⟩
 
 end AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_RelEffCartierDiv_IsUniversal_geometricallyConnected.AlgebraicGeometry
 
 theorem solution
     {𝒞 S : Scheme.{u}} {f : 𝒞 ⟶ S} [IsSeparated f] [SmoothOfRelativeDimension 1 f]

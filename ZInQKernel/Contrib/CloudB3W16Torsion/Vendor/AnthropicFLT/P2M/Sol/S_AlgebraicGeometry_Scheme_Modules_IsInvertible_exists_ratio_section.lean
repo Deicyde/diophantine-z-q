@@ -23,7 +23,7 @@ universe u
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_IsInvertible_exists_ratio_section.AlgebraicGeometry
+-- Source-local namespace open deferred until its declaration.
 open CategoryTheory.MonoidalCategory
 open Opposite
 

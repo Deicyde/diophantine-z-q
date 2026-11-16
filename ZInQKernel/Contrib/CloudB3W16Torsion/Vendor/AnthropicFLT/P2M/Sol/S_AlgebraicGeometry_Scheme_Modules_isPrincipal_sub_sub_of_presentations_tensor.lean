@@ -36,7 +36,7 @@ set_option autoImplicit false
 universe u
 open CategoryTheory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_isPrincipal_sub_sub_of_presentations_tensor.AlgebraicGeometry
+-- Source-local namespace open deferred until its declaration.
 open Opposite
 open TopologicalSpace
 
@@ -525,7 +525,7 @@ theorem AlgebraicGeometry.Scheme.Modules.isPrincipal_sub_sub_of_presentations_te
     add_mem (sub_mem (sub_mem hP3 hP1) hP2) hP0
   exact mem
 
-open _root_.AlgebraicGeometry _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_isPrincipal_sub_sub_of_presentations_tensor.AlgebraicGeometry _root_.CategoryTheory.MonoidalCategory in
+open _root_.AlgebraicGeometry _root_.CategoryTheory.MonoidalCategory in
 theorem solution
     {K : Type u} [Field K] [IsAlgClosed K] {X : Scheme.{u}} (x : X ⟶ Spec (CommRingCat.of K))
     [IsIntegral X] [IsProper x] [SmoothOfRelativeDimension 1 x] (L L' : X.Modules)

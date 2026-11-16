@@ -38,7 +38,7 @@ universe u
 open CategoryTheory
 open CategoryTheory.MonoidalCategory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_isIso_pullback_map_projectionMorphism_iff.AlgebraicGeometry
+-- Source-local namespace open deferred until its declaration.
 open Opposite
 open TensorProduct
 open CategoryTheory.Functor.LaxMonoidal
@@ -400,7 +400,7 @@ private theorem _root_.Ws31Restrict.pullbackTensorObjIso_hom_app_pullbackLocalSe
       = tensorSections (pullbackLocalSection f s) (pullbackLocalSection f t) :=
   AlgebraicGeometry.Scheme.Modules.PullbackTensorSections.pullbackTensorObjIso_hom_app_pullbackLocalSection_tensorSections
     f L M V s t
-export Ws31Restrict (pullbackTensorObjIso_hom_app_pullbackLocalSection_tensorSections)
+export _root_.Ws31Restrict (pullbackTensorObjIso_hom_app_pullbackLocalSection_tensorSections)
 theorem pullbackTensorUnitObjIso_hom_app_pullbackLocalSection (f : X ⟶ Y) (V : Y.Opens) (g : Γ(𝟙_ Y.Modules, V)) :
     ((pullbackTensorUnitObjIso f).hom.app (f ⁻¹ᵁ V)) (pullbackLocalSection f g)
       = (f.app V (g : Γ(Y, V)) : Γ(𝟙_ X.Modules, f ⁻¹ᵁ V)) :=

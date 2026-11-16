@@ -31,7 +31,7 @@ universe u
 open CategoryTheory
 open CategoryTheory.MonoidalCategory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_pullbackTensorObjIso_hom_app_pullbackLocalSection.AlgebraicGeometry
+-- Source-local namespace open deferred until its declaration.
 open Opposite
 open TensorProduct
 open CategoryTheory.Functor.LaxMonoidal
@@ -277,7 +277,7 @@ end AlgebraicGeometry.Scheme.Modules
 
 end
 
-open _root_.AlgebraicGeometry _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_pullbackTensorObjIso_hom_app_pullbackLocalSection.AlgebraicGeometry _root_.AlgebraicGeometry.Scheme.Modules _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_pullbackTensorObjIso_hom_app_pullbackLocalSection.AlgebraicGeometry.Scheme.Modules in
+open _root_.AlgebraicGeometry _root_.AlgebraicGeometry.Scheme.Modules _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_pullbackTensorObjIso_hom_app_pullbackLocalSection.AlgebraicGeometry.Scheme.Modules in
 
 theorem solution {X Y : AlgebraicGeometry.Scheme.{u}} (φ : X ⟶ Y) {L M : Y.Modules} {U : Y.Opens}
     (s : Γ(L, U)) (t : Γ(M, U)) :

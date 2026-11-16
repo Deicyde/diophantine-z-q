@@ -31,7 +31,7 @@ universe u
 open CategoryTheory
 open CategoryTheory.MonoidalCategory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_pullbackTensorUnitObjIso_hom_app_pullbackLocalSection_unitSection.AlgebraicGeometry
+-- Source-local namespace open deferred until its declaration.
 open Opposite
 open TensorProduct
 open CategoryTheory.Functor.LaxMonoidal

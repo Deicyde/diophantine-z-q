@@ -35,7 +35,7 @@ open CategoryTheory.Limits
 open Opposite
 open TopologicalSpace
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_TwoAffineOpenCover_subsingleton_H1_sectionsOf_of_subsingleton_H1.AlgebraicGeometry
+-- Source-local namespace open deferred until its declaration.
 
 namespace AlgebraicGeometry
 export _root_.AlgebraicGeometry (Scheme.Modules.Hom.app_smul Scheme.Modules.pushforward Scheme.Modules.pullback Scheme.Hom Scheme.Hom.isAffineOpen_iff_of_isOpenImmersion Scheme.Modules.Hom Scheme.Hom.image_preimage_eq_opensRange_inf IsAffine Spec Scheme IsOpenImmersion IsSeparated Scheme.Hom.isIso_app isAffineOpen_top isAffineHom_diagonal_iff Scheme.Modules.pullbackPushforwardAdjunction Scheme.Hom.preimage_image_eq IsAffineOpen Scheme.Modules Scheme.Opens IsAffineHom Scheme.Opens.opensRange_ι toSpecΓ Scheme.Hom.image_le_opensRange Scheme.TwoAffineOpenCover OModulePresheaf OModulePresheaf.d_apply OModulePresheaf.ofModules OModulePresheaf.ofModules_res_apply Scheme.Modules.IsInvertible Scheme.Modules.bijective_unit_app_of_le_opensRange OModulePresheaf.ker_d_succ_le_range_d_of_isQuasicoherent OModulePresheaf.isQuasicoherent_ofModules_of_locallyTrivial)
@@ -634,7 +634,7 @@ end AlgebraicGeometry.Scheme.Modules.CoverIndep
 
 end
 
-open CategoryTheory _root_.AlgebraicGeometry _root_.P2MW.S_AlgebraicGeometry_Scheme_TwoAffineOpenCover_subsingleton_H1_sectionsOf_of_subsingleton_H1.AlgebraicGeometry in
+open CategoryTheory _root_.AlgebraicGeometry in
 theorem solution
     {R : Type u} [CommRing R] {X : Scheme.{u}} (c : X ⟶ Spec (.of R)) [IsSeparated c]
     (M : X.Modules)

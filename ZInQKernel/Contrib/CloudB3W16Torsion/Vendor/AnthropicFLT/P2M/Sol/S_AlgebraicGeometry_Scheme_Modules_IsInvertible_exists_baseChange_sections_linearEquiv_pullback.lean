@@ -171,7 +171,7 @@ private def _root_.P2mPullbackSectionsSol.lift (hs : Scheme.Modules.IsFrameOn s 
      naturality := fun {W₁ W₂} i => by
         ext x
         exact liftFun_map hs hP y i.unop x }⟩
-export P2mPullbackSectionsSol (lift)
+export _root_.P2mPullbackSectionsSol (lift)
 theorem lift_app (hs : Scheme.Modules.IsFrameOn s V)
     (hP : ∀ W : X.Opens, Function.Bijective (P.presheaf.map (homOfLE (inf_le_left : W ⊓ V ≤ W)).op))
     (y : Γ(P, V)) (W : X.Opens) (x : Γ(L, W)) :

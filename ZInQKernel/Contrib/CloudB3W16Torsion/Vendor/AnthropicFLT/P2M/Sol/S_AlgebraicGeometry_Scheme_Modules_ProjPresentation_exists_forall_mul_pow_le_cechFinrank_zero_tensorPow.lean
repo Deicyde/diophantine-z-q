@@ -124,7 +124,7 @@ private theorem _root_.P2mLowerT.step {A : Type*} [CommRing A] [Algebra k A] (p 
     funext j
     refine Fin.cases ?_ (fun j => ?_) j <;> simp
   rwa [heq] at key
-export P2mLowerT (step)
+export _root_.P2mLowerT (step)
 theorem exists_algebraicIndependent_of_ltSeries {A : Type*} [CommRing A] [Algebra k A]
     (l : LTSeries (PrimeSpectrum A))
     (hinj : Function.Injective (algebraMap k (A ⧸ l.last.asIdeal))) :

@@ -29,7 +29,7 @@ open CategoryTheory
 open CategoryTheory.Limits
 open CategoryTheory.MonoidalCategory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_IsInvertible_exists_dual_iso_module_zeroSchemeIdeal.AlgebraicGeometry
+-- Source-local namespace open deferred until its declaration.
 
 noncomputable section
 

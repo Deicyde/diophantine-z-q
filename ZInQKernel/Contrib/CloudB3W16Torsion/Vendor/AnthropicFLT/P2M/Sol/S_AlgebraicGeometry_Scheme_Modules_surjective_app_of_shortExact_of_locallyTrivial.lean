@@ -35,7 +35,7 @@ open CategoryTheory.Limits
 open Opposite
 open TopologicalSpace
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_surjective_app_of_shortExact_of_locallyTrivial.AlgebraicGeometry
+-- Source-local namespace open deferred until its declaration.
 
 namespace AlgebraicGeometry
 export _root_.AlgebraicGeometry (Scheme.Modules.Hom.app_smul Surjective Scheme.Modules.pushforward Scheme.Modules.pullback Scheme.Hom Scheme.Modules.Hom Scheme.Hom.image_preimage_eq_opensRange_inf IsAffine Scheme.preimage_basicOpen Scheme IsOpenImmersion Scheme.Hom.isIso_app isAffineOpen_top Scheme.Modules.pullbackPushforwardAdjunction Scheme.Hom.preimage_image_eq IsAffineOpen Scheme.Modules Scheme.Opens Scheme.Opens.ι_preimage_self Scheme.Opens.opensRange_ι toSpecΓ Scheme.Hom.image_le_opensRange OModulePresheaf OModulePresheaf.d_apply OModulePresheaf.ofModules OModulePresheaf.ofModules_res_apply Scheme.Modules.Hom.epi_iff_locallySurjective Scheme.Modules.Hom.mono_iff_injective Scheme.Modules.exists_app_eq_of_exact_of_app_eq_zero Scheme.Modules.bijective_unit_app_of_le_opensRange OModulePresheaf.ker_d_succ_le_range_d_of_isQuasicoherent OModulePresheaf.isQuasicoherent_ofModules_of_locallyTrivial Scheme.Modules.IsInvertible)
@@ -494,7 +494,7 @@ end AlgebraicGeometry.Scheme.Modules.SesAffine
 
 end
 
-open CategoryTheory CategoryTheory.Limits _root_.CategoryTheory.MonoidalCategory _root_.AlgebraicGeometry _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_surjective_app_of_shortExact_of_locallyTrivial.AlgebraicGeometry in
+open CategoryTheory CategoryTheory.Limits _root_.CategoryTheory.MonoidalCategory _root_.AlgebraicGeometry in
 theorem solution
     {X : Scheme.{u}} (S : ShortComplex X.Modules) (hS : S.ShortExact)
     (htriv : ∀ p : X, ∃ W : X.Opens, p ∈ W ∧

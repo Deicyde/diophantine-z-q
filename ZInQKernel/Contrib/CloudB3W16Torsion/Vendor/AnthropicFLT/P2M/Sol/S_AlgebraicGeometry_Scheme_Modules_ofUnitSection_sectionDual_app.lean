@@ -23,7 +23,7 @@ open CategoryTheory
 open CategoryTheory.Limits
 open CategoryTheory.MonoidalCategory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_ofUnitSection_sectionDual_app.AlgebraicGeometry
+-- Source-local namespace open deferred until its declaration.
 
 noncomputable section
 
