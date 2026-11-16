@@ -88,8 +88,10 @@ does not retroactively establish every theorem in the repository.
 Before calling an objection new, read its existing history. Separate a missing
 argument from an argument that exists but was omitted at the point of use.
 A repair needs a valid justification for the changed argument. If the reviewer
-fills a short missing step, record the argument as a nonblocking expository note;
-do not require a prose edit merely to insert that already-checked explanation. Check related uses after a substantive failure.
+reconstructs a short implicit step from the existing argument, record the
+derivation as a nonblocking expository note; do not require a prose edit just to
+spell out that reconstruction. This does not close a previously recorded
+substantive gap using a new argument found only in a review report. Check related uses after a substantive failure.
 
 Classify each new finding by `severity` and `kind`. A `blocking` finding
 identifies a substantive `error`, a specific unclosed `gap`, or a `source_access`
@@ -110,11 +112,15 @@ note. If unsure whether an issue affects correctness, retain it as blocking.
 For other finding kinds the attempted-resolution field may be empty.
 
 Earlier findings without severity remain blocking until explicitly resolved or
-overridden. Resolve an earlier purported gap only with the argument that fills
-it, or an explanation showing that it was purely editorial. If an explanatory
+overridden. For an earlier blocking gap, follow the audit-integration rule:
+locate the justification in the current primary proof source or cited result
+and identify its incorporation at the consuming step. A new load-bearing repair
+found only in your report remains blocking until incorporated. If the old
+finding misclassified an already-present argument as missing, cite that argument
+and explain why the old concern was only editorial. If an explanatory
 addition would help, preserve that recommendation as a new editorial note.
 
-Use `finish_review` exactly once, alone, to give your complete report. Include:
+Use `finish_review` alone to give your complete report. If the tool returns a validation error, correct the form and resubmit without dropping substantive objections. Include:
 
 - A decision, `accept` or `changes_requested`.
 - `scope_complete`: true only when the required review is finished, apart from

@@ -194,12 +194,13 @@ class Spending(unittest.TestCase):
             response = ([{'type': 'tool_use', 'id': 'finish', 'name': 'finish_review', 'input': result}],
                         gate.MODELS['fable'], {}, 'fixture', 'end_turn')
             with tempfile.TemporaryDirectory() as tmp, patch.object(gate, 'OUT', Path(tmp)), \
-                 patch.object(gate, 'model_turn', return_value=response) as model:
-                if decision == 'accept':
-                    with self.assertRaises(ValueError):
-                        review.run()
-                else:
-                    self.assertEqual(review.run()['decision'], 'changes_requested')
+                 patch.object(gate, 'model_turn', side_effect=[response,
+                     ([{'type': 'tool_use', 'id': 'corrected', 'name': 'finish_review',
+                        'input': {**result, 'decision': 'changes_requested', 'scope_complete': False,
+                                  'not_reviewed': ['Source statements and consumers remain unread.']}}],
+                      gate.MODELS['fable'], {}, 'corrected', 'end_turn')]) as model:
+                self.assertEqual(review.run()['decision'], 'changes_requested')
+                self.assertEqual(model.call_count, 2 if decision == 'accept' else 1)
                 self.assertEqual(model.call_args.args[1], 'trusted')
                 self.assertTrue(any(gate.FINISH_NOW_INSTRUCTION in str(m.get('content', ''))
                                     for m in model.call_args.args[2] if m.get('role') == 'system'))

@@ -617,7 +617,11 @@ a substantive error, a specific unclosed gap, or a source-access limitation
 under the existing peer-verification rule. A gap must locate the missing step
 and record an attempt to close it, including the obstruction that remains.
 Pure wording, naming, typography, style and optional exposition are notes.
-A step the reviewer can fill is an expository note, with its short argument.
+A short implicit step reconstructed from the existing argument is an expository
+note, with its derivation. A previously recorded substantive gap still follows
+the audit-integration rule: its repair must be located in the current primary
+proof source or cited result and incorporated at the consuming step. A new
+load-bearing proof appearing only in a reviewer report does not close it.
 The contributor need not fix those notes for this PR to pass.
 
 Reports also state `scope_complete`. Unread work and an interrupted or exhausted
@@ -688,3 +692,18 @@ and receives a short reply. The gate's ignored-override replies do not alter the
 reviewed discussion digest or trigger paid supplements. Write-access collaborators retain automatic review, `/protocol-b review`,
 and ordinary protected merge access. This change does not alter any review,
 computation, head-binding or merge requirement.
+
+
+### Preserving findings when delivery fails
+
+An absent or incomplete review carries unresolved obligations from the PR's
+App-authenticated earlier records across heads. An empty later record cannot
+erase a prior objection. These carried obligations are runtime metadata, separate
+from the original model verdict, and each still requires resolution or an
+exact-head admin override in addition to any scope item.
+
+If posting a completed report fails, the completed verdict remains in the App
+record and original artifact. A final report with a form error returns feedback
+to the reviewer for correction. If that correction is interrupted, its delivered
+substantive findings remain blocking in the recorded incomplete review. Runtime
+records saying no model reviewed the PR do not consume automatic review rounds.

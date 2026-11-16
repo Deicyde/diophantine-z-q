@@ -693,6 +693,7 @@ jobs:
                   self.file_lines, self.working_comment, self.notes = {}, None, []
                   self.finish_now = False
                   self.identity_error = False
+                  self.invalid_finish = None
                   self.discovery = {}
                   self.binary_dependencies = set()
                   self.initial_files = files
@@ -860,19 +861,27 @@ jobs:
                           calls = [x for x in output if x.get("type") == "tool_use"]
                       results = []
                       finish = [x for x in calls if x.get("name") == "finish_review"]
+                      finish_error = None
                       if finish:
-                          if len(calls) != 1:
-                              raise ValueError("Final review requires prior source/history reads and no concurrent tool calls")
-                          value = json.loads(finish[0]["arguments"]) if self.family == "astra" else finish[0]["input"]
-                          value = validate_review(value, set(self.prior), self.overrides, allow_incomplete=self.finish_now)
-                          if (not self.history_read or not self.reads) and not (self.finish_now and value['decision'] == 'changes_requested'):
-                              raise ValueError("Final review requires prior source/history reads and no concurrent tool calls")
-                          if not self.history_read:
-                              for item in value['prior_findings']:
-                                  item.update(resolution='unresolved', reason=
-                                              'Earlier finding history was not admitted to this review. Its disposition remains unresolved.')
-                          record(self.family + "-source-reads.json", self.reads)
-                          return value
+                          try:
+                              value = json.loads(finish[0]["arguments"]) if self.family == "astra" else finish[0]["input"]
+                              self.invalid_finish = json.loads(json.dumps(value))
+                              record(self.family + '-delivered-final.json', value)
+                              if len(calls) != 1:
+                                  raise ValueError("Final review requires no concurrent tool calls")
+                              value = validate_review(value, set(self.prior), self.overrides, allow_incomplete=self.finish_now)
+                              if (not self.history_read or not self.reads) and not (self.finish_now and value['decision'] == 'changes_requested'):
+                                  raise ValueError("Final review requires prior source/history reads")
+                              if not self.history_read:
+                                  for item in value['prior_findings']:
+                                      item.update(resolution='unresolved', reason=
+                                                  'Earlier finding history was not admitted to this review. Its disposition remains unresolved.')
+                              record(self.family + "-source-reads.json", self.reads)
+                              self.invalid_finish = None
+                              return value
+                          except (ValueError, TypeError, KeyError) as error:
+                              finish_error = 'Final report was not accepted: '+str(error)+'. Correct the form and resubmit finish_review; preserve all substantive objections.'
+                              record(self.family+'-final-validation-error.json', {'error': str(error)})
                       if not calls and stop_reason != "pause_turn":
                           # A paused server-tool turn is resumed with its assistant
                           # message unchanged, with no inserted user message.
@@ -906,9 +915,12 @@ jobs:
                           args = json.loads(call["arguments"]) if self.family == "astra" else call["input"]
                           reads_before, history_before = len(self.reads), self.history_read
                           try:
-                              if self.finish_now:
+                              if call["name"] == 'finish_review' and finish_error:
+                                  value = {'error': finish_error}
+                              elif self.finish_now:
                                   raise ValueError('Read too large for the remaining review allowance. ' + FINISH_NOW_INSTRUCTION)
-                              value = self.tool(call["name"], args)
+                              else:
+                                  value = self.tool(call["name"], args)
                           except (ValueError, UnicodeError) as error:
                               value = {"error": str(error)}
                           value = {**value, 'remaining_context_tokens': 0,
@@ -1036,7 +1048,41 @@ jobs:
               return scope
 
 
-          def ensure_scope_records(state, previous=None):
+          def historical_obligations(candidates, current=None):
+              """Preserve App-authenticated findings across heads and empty later records."""
+              states = {}
+              pairs = [pair for _, pair in sorted(candidates, key=lambda item: item[0])] + [current or {}]
+              for pair in pairs:
+                  for family, envelope in pair.items():
+                      value = envelope.get('review', {})
+                      for ident, item in envelope.get('carried_findings', {}).items():
+                          states[item['origin_reviewer'], ident] = item
+                      for f in blocking_findings(value):
+                          ident = finding_id(envelope, f['id'])
+                          states[family, ident] = {'origin_reviewer': family,
+                              'resolution': 'unresolved', 'reason': f.get('objection', '')}
+                      for f in value.get('prior_findings', []):
+                          # An incomplete execution cannot silently resolve old objections.
+                          resolution = f['resolution'] if envelope.get('complete') and envelope.get('read_prerequisites_complete') is not False else 'unresolved'
+                          states[family, f['id']] = {'origin_reviewer': family,
+                              'resolution': resolution, 'reason': f.get('reason', '')}
+              active = {}
+              for (_, ident), item in states.items():
+                  if item['resolution'] != 'resolved':
+                      active[ident] = item
+              return active
+
+
+          def carry_obligations(reports, candidates):
+              obligations = historical_obligations(candidates, reports)
+              for envelope in reports.values():
+                  if review_scope_item(envelope):
+                      # Runtime metadata is separate from the original model's verdict.
+                      envelope['carried_findings'] = obligations
+              return obligations
+
+
+          def ensure_scope_records(state, previous=None, candidates=None):
               """Record absent reviews as absent; never manufacture a model execution or verdict."""
               for family in MODELS:
                   prior = (previous or {}).get(family)
@@ -1067,6 +1113,7 @@ jobs:
                                      'report': 'Runtime record of an absent review, not a model verdict.',
                                      'not_reviewed': ['No completed '+family+' review was produced. '+state.get('summary', '')],
                                      'findings': [], 'prior_findings': []}}
+              carry_obligations(state['reports'], [(0, previous or {})] + list(candidates or []))
               state['scope_items'] = [item for e in state['reports'].values() if (item := review_scope_item(e))]
 
 
@@ -1112,6 +1159,7 @@ jobs:
                   value = envelope['review']
                   here = {finding_id(envelope, f['id']) for f in blocking_findings(value)}
                   here.update(f['id'] for f in value['prior_findings'] if f['resolution'] != 'resolved')
+                  here.update(envelope.get('carried_findings', {}))
                   scope = review_scope_item(envelope)
                   if scope:
                       here.add(scope['id'])
@@ -1141,6 +1189,8 @@ jobs:
                   scope = review_scope_item(envelope)
                   if scope:
                       rows.append(f"- `{scope['id']}`: incomplete review scope: {scope['objection']}")
+                  for ident, item in envelope.get('carried_findings', {}).items():
+                      rows.append(f"- `{ident}`: retained earlier finding: {item['reason']}")
                   for finding in blocking_findings(envelope['review']):
                       rows.append(f"- `{finding_id(envelope, finding['id'])}`: {finding.get('location', '')}: {finding.get('objection', '')}")
                   for prior in envelope['review'].get('prior_findings', []):
@@ -1160,7 +1210,8 @@ jobs:
                               (check.get('output', {}).get('text') or '').startswith('{')):
                           value = json.loads(check['output']['text'])
                           if value.get('schema') == 'protocol-b-decisions/v1' and value.get('head') == pr['head']['sha']:
-                              candidates.append((check['id'], value['reports']))
+                              if value.get('reports'):
+                                  candidates.append((check['id'], value['reports']))
                   if len(response['check_runs']) < 100:
                       return max(candidates, default=(0, {}))[1]
               raise ValueError('Too many prior checks; no partial override decision')
@@ -1673,7 +1724,7 @@ jobs:
                   valid = (set(reports) == set(MODELS) and all(
                       r.get('reused_for', r.get('head')) == check['head_sha'] and r.get('model') == MODELS[f]
                       for f, r in reports.items()))
-                  if valid and not marker:
+                  if valid and not marker and all(r.get('complete') and not r.get('runtime_scope_record') for r in reports.values()):
                       identities = {(str(r['run']), str(r['attempt'])) for r in reports.values()}
                       if len(identities) == 1:
                           run, attempt = next(iter(identities))
@@ -1783,7 +1834,7 @@ jobs:
               state = {'number': number, 'head': pr['head']['sha'], 'base': pr['base']['sha'], 'check': check['id'],
                        'name': name, 'mode': mode, 'policy_ref': os.environ['GITHUB_SHA'], 'default': default,
                        'conclusion': conclusion, 'summary': summary, 'reports': {},
-                       'automatic_rounds': spend['automatic_rounds']}
+                       'automatic_rounds': spend['automatic_rounds'], 'prior_candidates': spend['candidates']}
               record('decision.json', state)
               envelopes = {}
               try:
@@ -1809,6 +1860,8 @@ jobs:
                   declaration = "No mathematical content changed." in (pr.get("body") or "")
                   change_class = classify(files, declaration)
                   discussion, prior, overrides, _ = history(gh, pr)
+                  for ident, item in historical_obligations(spend['candidates']).items():
+                      prior.setdefault(ident, {'objection': item['reason'], 'origin': 'App-authenticated earlier review'})
                   record("context.json", {"head": pr["head"]["sha"], "base": pr["base"]["sha"],
                                          "trusted_workflow": trusted_ref, "class": change_class,
                                          "prior_findings": prior, "overrides": overrides, "discussion": discussion})
@@ -1819,6 +1872,7 @@ jobs:
                               raise ValueError('Override reports used a different review policy')
                           if effective_head(envelope) != pr['head']['sha'] and not reusable_on_rebase(gh, pr, files, envelope):
                               raise ValueError('Override reports lack a valid current rebase binding')
+                      carry_obligations(envelopes, spend['candidates'])
                       override_findings(envelopes, pr['head']['sha'])
                       limits = qualified_access_findings(envelopes, include_overridden=True)
                       state['source_access_limitations'] = limits
@@ -1906,6 +1960,13 @@ jobs:
                                   gh.call(f"/issues/{number}/comments", "POST", {"body": body})
                                   reviews[family] = value
                               except Exception as error:
+                                  if envelopes.get(family, {}).get('complete'):
+                                      # A notification/binding failure cannot erase the delivered verdict.
+                                      record(family+'-publication-error.json', {'error': str(error),
+                                          'report_retained': True, 'run': os.environ['GITHUB_RUN_ID']})
+                                      reviews[family] = envelopes[family]['review']
+                                      log(f"{family}: completed verdict retained despite publication error: {error}")
+                                      continue
                                   failures[family] = str(error)
                                   log(f"{family}: failed: {error}")
                                   # Preserve partial observations, but an infrastructure
@@ -1917,6 +1978,20 @@ jobs:
                                              "review": {"decision": "changes_requested", "report": "Infrastructure failure, not a model verdict: " + str(error),
                                                         "scope_complete": False, "not_reviewed": ["Review interrupted: " + str(error)],
                                                         "findings": [], "prior_findings": []}}
+                                  delivered = reviewers[family].invalid_finish
+                                  if isinstance(delivered, dict):
+                                      problem['review']['report'] = 'Delivered final report failed validation; original retained in the artifact. '+str(error)
+                                      for i, finding in enumerate(delivered.get('findings', [])):
+                                          if not isinstance(finding, dict) or (finding.get('severity') == 'note' and finding.get('kind') == 'editorial'):
+                                              continue
+                                          ident = str(finding.get('id', ''))
+                                          if not re.fullmatch(r'[A-Za-z0-9_-]+', ident):
+                                              ident = 'unvalidated-'+str(i+1)
+                                          problem['review']['findings'].append({
+                                              'id': ident, 'severity': 'blocking', 'kind': 'error',
+                                              'location': finding.get('location', ''),
+                                              'objection': 'Unvalidated delivered objection: '+str(finding.get('objection', finding)),
+                                              'attempted_resolution': finding.get('attempted_resolution', '')})
                                   envelopes[family] = problem
                                   record(family + "-failure.json", problem)
                                   gh.call(f"/issues/{number}/comments", "POST", {"body": MARKER + "\n```json\n" + json.dumps(problem, ensure_ascii=False, indent=2) + "\n```"})
@@ -2172,6 +2247,8 @@ jobs:
                   for item in review.get('findings', []):
                       if item.get('severity') == 'note':
                           nonblocking[finding_id(envelope, item['id'])] = item.get('location', '') + ': ' + item.get('objection', '')
+                  entries += [(ident, '', 'Retained from an earlier App review: '+item['reason'], 'unresolved')
+                              for ident, item in envelope.get('carried_findings', {}).items()]
                   entries += [(item['id'], '', item.get('reason', ''), item['resolution'])
                               for item in review.get('prior_findings', []) if item['resolution'] != 'resolved']
                   for ident, location, detail, resolution in entries:
@@ -2315,7 +2392,7 @@ jobs:
               current = gh.call(f"/pulls/{state['number']}")
               if state['conclusion'] != 'success':
                   previous = trusted_reports(app, current, state['name'], state['check'])
-                  ensure_scope_records(state, previous)
+                  ensure_scope_records(state, previous, state.get('prior_candidates', []))
               record('scope-items.json', state.get('scope_items', []))
               latest_ref = gh.call('/commits/' + state['default'])['sha']
               check = app.call(f"/check-runs/{state['check']}")
