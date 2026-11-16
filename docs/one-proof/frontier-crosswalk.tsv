@@ -62,7 +62,7 @@ H-67		ZariskiConn.ZariskiConnectedness	249195fd0,f6df5fa32,cba8157f7	no
 H-69		HomUnify.HomLatticeCorr	249195fd0,f6df5fa32,cba8157f7	no
 H-70	homFreeFiniteAlgClosed	ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed	f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
 H-71	charPolyIndepOfEllAlgClosed	ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed	f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
-H-72	poincareComplement	ZInQ.Contrib.AVB1.PoincareComplement	f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
+H-72		ZInQ.Contrib.AVB1.PoincareComplement	f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
 H-73		ZInQ.Contrib.AVB1.ImageFactorization	f6df5fa32,cba8157f7	no
 H-74		ZInQ.Contrib.AVB1.SimpleSurjIsogeny	f6df5fa32,cba8157f7	no
 H-75		AVB2.T11bExists	f6df5fa32,cba8157f7	no
@@ -190,7 +190,7 @@ H-196		ShimuraGlue.Ray.RayClassCMAb	3691994d4,f96b7323d	no
 H-197		UnipotentB.SemistableUnipotentPrintedGen	3691994d4,f96b7323d	no
 H-198		UnipotentB.SemiAbelianDescendsSepClosed	3691994d4,f96b7323d	no
 H-199	picRepresentableAbVar	T09Pic.PicRepresentableAbVar	3691994d4,f96b7323d,8342c2eb7	yes
-H-200	picZeroAbVar	T09Pic.PicZeroAbVar	3691994d4,f96b7323d,8342c2eb7	yes
+H-200		T09Pic.PicZeroAbVar	3691994d4,f96b7323d,8342c2eb7	yes
 H-201		T09Pic.PhiAmpleIsogeny	3691994d4,f96b7323d,8342c2eb7	yes
 H-202	weilPairingMumford	T09Pic.WeilPairingMumford	3691994d4,f96b7323d,8342c2eb7	yes
 H-203		ReductB.SemistablePersistsSHcp	f96b7323d,8342c2eb7	yes
