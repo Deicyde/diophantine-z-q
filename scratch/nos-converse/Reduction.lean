@@ -293,9 +293,141 @@ example {K : Type} [Field K] [NumberField K] (hNOS : PkgI2.NeronOggShafarevich.{
   goodReduction_of_QM_rational3_of_algNF (nf_of_bar (bar_of_neronOggShafarevich hNOS)) hRay hTors
     HDec.PkgI2.quatUnipotentTrivial O w hw A hdim I J hI hJ hIJ h3 hrat
 
+/-! ## §4 `InertiaFixedRational`, proved: `Aut(K̄/E)` is contained in the inertia group -/
+
+section InertiaGroup
+
+open GapSHPair
+open scoped IntermediateField Pointwise
+
+variable {K : Type} [Field K] {Ω : Type} [Field Ω] [Algebra K Ω] [IsAlgClosure K Ω]
+  (w : ValuationSubring Ω)
+
+/-- An element of a finite Galois `M` fixed by the finite inertia group `inertM w M` lies in the inertia field. -/
+theorem mem_inertiaField_of_fixed {M : IntermediateField K Ω} (hM : IsFG M) (z : M)
+    (hz : ∀ τ ∈ @inertM K _ Ω _ _ w M hM.1, τ z = z) : (z : Ω) ∈ inertiaField (K := K) w := by
+  haveI := hM.1
+  haveI := hM.2
+  refine ⟨M, hM, z.2, fun τ hτ => ?_⟩
+  have hmem : τ.restrictNormal M ∈ inertM w M := by
+    rw [mem_inertM]
+    intro y hy
+    have h := AlgEquiv.restrictNormal_commutes τ M y
+    change ((τ.restrictNormal M y : M) : Ω) = τ (y : Ω) at h
+    rw [h]
+    exact hτ y y.2 hy
+  have h1 := hz _ hmem
+  have h2 := AlgEquiv.restrictNormal_commutes τ M z
+  change ((τ.restrictNormal M z : M) : Ω) = τ (z : Ω) at h2
+  rw [h1] at h2
+  exact h2.symm
+
+/-- For `σ` fixing the inertia field and `y ∈ w` separable over `K`: `σ y - y ∈ 𝔪_w`. -/
+theorem sub_mem_nonunits_of_sep {σ : Ω ≃ₐ[K] Ω} (hσ : ∀ x ∈ inertiaField (K := K) w, σ x = x)
+    {y : Ω} (hsep : IsSeparable K y) (hy : y ∈ w) : σ y - y ∈ w.nonunits := by
+  haveI : FiniteDimensional K K⟮y⟯ :=
+    IntermediateField.adjoin.finiteDimensional (Algebra.IsIntegral.isIntegral (R := K) y)
+  haveI : Algebra.IsSeparable K K⟮y⟯ :=
+    (IntermediateField.isSeparable_adjoin_simple_iff_isSeparable K Ω).2 hsep
+  obtain ⟨M, hM, hle⟩ := isFG_of (K := K) (Ω := Ω) K⟮y⟯
+  haveI := hM.1
+  haveI := hM.2
+  have hyM : y ∈ M := hle (IntermediateField.mem_adjoin_simple_self K y)
+  have hτ : σ.restrictNormal M ∈ inertM w M := by
+    rw [← IntermediateField.fixingSubgroup_fixedField (inertM w M),
+      IntermediateField.mem_fixingSubgroup_iff]
+    intro z hz
+    have hzE := mem_inertiaField_of_fixed w hM z
+      (fun τ' hτ' => (IntermediateField.mem_fixedField_iff _ _).1 hz τ' hτ')
+    apply Subtype.ext
+    have h := AlgEquiv.restrictNormal_commutes σ M z
+    change ((σ.restrictNormal M z : M) : Ω) = σ (z : Ω) at h
+    rw [h]
+    exact hσ _ hzE
+  have h := (mem_inertM w).1 hτ ⟨y, hyM⟩ hy
+  have h2 := AlgEquiv.restrictNormal_commutes σ M ⟨y, hyM⟩
+  change ((σ.restrictNormal M ⟨y, hyM⟩ : M) : Ω) = σ y at h2
+  rwa [h2] at h
+
+/-- For `σ` fixing the inertia field: `σ y - y ∈ 𝔪_w` for every `y ∈ w` (the inseparable part by `p`-th powers). -/
+theorem sub_mem_nonunits {σ : Ω ≃ₐ[K] Ω} (hσ : ∀ x ∈ inertiaField (K := K) w, σ x = x)
+    {y : Ω} (hy : y ∈ w) : σ y - y ∈ w.nonunits := by
+  set p := ringExpChar K
+  haveI : ExpChar Ω p := expChar_of_injective_algebraMap (algebraMap K Ω).injective p
+  haveI : ExpChar (separableClosure K Ω) p :=
+    expChar_of_injective_algebraMap (algebraMap K _).injective p
+  obtain ⟨n, z, hz⟩ := (isPurelyInseparable_iff_pow_mem (separableClosure K Ω) p).mp inferInstance y
+  have hsep : IsSeparable K (y ^ p ^ n) := by
+    rw [← hz]; exact mem_separableClosure_iff.mp z.2
+  have h := sub_mem_nonunits_of_sep w hσ hsep (pow_mem hy _)
+  rw [map_pow, ← sub_pow_expChar_pow] at h
+  rw [ValuationSubring.mem_nonunits_iff] at h ⊢
+  rw [map_pow] at h
+  by_contra hc
+  exact absurd h (not_lt.mpr (one_le_pow_of_one_le' (not_lt.mp hc) _))
+
+/-- **`Aut(K̄/E)` lies in the inertia group of `w`**: an automorphism fixing the inertia field pointwise is
+inertia at `w`. -/
+theorem isInertia_of_fixes {σ : Ω ≃ₐ[K] Ω} (hσ : ∀ x ∈ inertiaField (K := K) w, σ x = x) :
+    PkgI2.IsInertia w σ := by
+  have hσ' : ∀ x ∈ inertiaField (K := K) w, σ.symm x = x := fun x hx => by
+    conv_lhs => rw [← hσ x hx]
+    exact σ.symm_apply_apply x
+  have hmap : ∀ {τ : Ω ≃ₐ[K] Ω}, (∀ x ∈ inertiaField (K := K) w, τ x = x) → ∀ y ∈ w, τ y ∈ w := by
+    intro τ hτ y hy
+    have : τ y = y + (τ y - y) := by ring
+    rw [this]
+    exact add_mem hy (ValuationSubring.nonunits_le (sub_mem_nonunits w hτ hy))
+  have hd : σ ∈ w.decompositionSubgroup K := by
+    show σ • w = w
+    ext y
+    simp only [← SetLike.mem_coe, ValuationSubring.coe_pointwise_smul, Set.mem_smul_set,
+      AlgEquiv.smul_def]
+    constructor
+    · rintro ⟨z, hz, rfl⟩
+      exact hmap hσ z hz
+    · intro hy
+      exact ⟨σ.symm y, hmap hσ' y hy, σ.apply_symm_apply y⟩
+  refine ⟨hd, ?_⟩
+  rw [ValuationSubring.inertiaSubgroup, MonoidHom.mem_ker]
+  refine RingEquiv.ext fun r => ?_
+  obtain ⟨b, rfl⟩ := IsLocalRing.residue_surjective r
+  change (⟨σ, hd⟩ : w.decompositionSubgroup K) • IsLocalRing.residue w b = IsLocalRing.residue w b
+  rw [← IsLocalRing.ResidueField.residue_smul, ← sub_eq_zero, ← map_sub,
+    IsLocalRing.residue_eq_zero_iff, GapSHPair.mem_max_iff]
+  exact sub_mem_nonunits w hσ b.2
+
+end InertiaGroup
+
+/-- **GLUE `InertiaFixedRational`, PROVED** (from `isInertia_of_fixes` and reduct-b's Galois descent of
+torsion to an intermediate field, `ReductB.fixedTorsionRational_inter`, with `[m]` étale, fork PR #19). -/
+theorem inertiaFixedRational_proof : InertiaFixedRational := by
+  intro K _ O _ w hw A _ m hmu x hx hfix
+  have hmK : (m : K) ≠ 0 := ReductSplit.natCast_ne_zero_of_isUnit O hmu
+  exact ReductB.fixedTorsionRational_inter ZInQ.Contrib.OneProof.MulEtale.mulEtaleAbelianScheme_proof
+    (GapSHPair.inertiaField (K := K) w) (ObjBridge.ofGrp A) m hmK x hx
+    (fun σ hσ => hfix σ (isInertia_of_fixes w hσ))
+
+
+/-- **`NOSConverseNF` from the open fields, the glue `TorusRankZero` and the leaf `AbelianReductionGood`**
+(`InertiaFixedRational` is proved). -/
+theorem nosConverseNF_of_two (hN1 : ZInQ.Contrib.NeronC.NeronSchemeExtensionExists)
+    (hSH : GapSHPair.NeronBaseChangeStrictHenselization) (hR : RaynaudSemistableSH)
+    (hB : TorusRankZero) (hC : AbelianReductionGood) : NOSConverseNF :=
+  nosConverseNF_of_pieces hN1 hSH hR inertiaFixedRational_proof hB hC
+
+/-- **`r7a` from BLR §1.4 Thm 3 over every DVR, the open fields, `TorusRankZero` and `AbelianReductionGood`.** -/
+theorem neronOggShafarevich_of_two (hN : NeronSchemeModelExistsDVR)
+    (hSH : GapSHPair.NeronBaseChangeStrictHenselization) (hR : RaynaudSemistableSH)
+    (hB : TorusRankZero) (hC : AbelianReductionGood) : PkgI2.NeronOggShafarevich.{0} :=
+  neronOggShafarevich_of_bar (nosConverseBar_of_pieces hN hSH hR inertiaFixedRational_proof hB hC)
+
 end NOSConverse
 
 #print axioms NOSConverse.nosConverseNF_of_pieces
 #print axioms NOSConverse.nosConverseBar_of_pieces
 #print axioms NOSConverse.neronOggShafarevich_of_bar
 #print axioms NOSConverse.goodReduction_of_QM_rational3_of_algNF
+#print axioms NOSConverse.inertiaFixedRational_proof
+#print axioms NOSConverse.nosConverseNF_of_two
+#print axioms NOSConverse.neronOggShafarevich_of_two
