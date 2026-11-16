@@ -775,6 +775,25 @@ theorem torusRankZero_of_glue (hInj : TorsionInjectsSpecialFibre) (hComp : Compo
 
 end TorusDecomp
 
+/-! ## §6 The finest form -/
+
+/-- **`NOSConverseNF` from the open fields and four open pieces**: fields `neronSchemeExtensionExists`,
+`neronBaseChangeStrictHenselization`, `raynaudSemistableSH`, `mumfordTorsionAlgClosed`; GLUE
+`TorsionInjectsSpecialFibre`, `ComponentIndexBound`, `DimensionRelation`; LEAF `AbelianReductionGood`. -/
+theorem nosConverseNF_of_glue (hN1 : ZInQ.Contrib.NeronC.NeronSchemeExtensionExists)
+    (hSH : GapSHPair.NeronBaseChangeStrictHenselization) (hR : RaynaudSemistableSH)
+    (hM : AvSplit.MumfordTorsionAlgClosed) (hInj : TorsionInjectsSpecialFibre)
+    (hComp : ComponentIndexBound) (hDim : DimensionRelation) (hC : AbelianReductionGood) : NOSConverseNF :=
+  nosConverseNF_of_two hN1 hSH hR (torusRankZero_of_glue hInj hComp hDim hM) hC
+
+/-- **`r7a` from BLR §1.4 Thm 3 over every DVR, the open fields and the four open pieces.** -/
+theorem neronOggShafarevich_of_glue (hN : NeronSchemeModelExistsDVR)
+    (hSH : GapSHPair.NeronBaseChangeStrictHenselization) (hR : RaynaudSemistableSH)
+    (hM : AvSplit.MumfordTorsionAlgClosed) (hInj : TorsionInjectsSpecialFibre)
+    (hComp : ComponentIndexBound) (hDim : DimensionRelation) (hC : AbelianReductionGood) :
+    PkgI2.NeronOggShafarevich.{0} :=
+  neronOggShafarevich_of_two hN hSH hR (torusRankZero_of_glue hInj hComp hDim hM) hC
+
 end NOSConverse
 
 #print axioms NOSConverse.nosConverseNF_of_pieces
@@ -789,3 +808,5 @@ end NOSConverse
 #print axioms NOSConverse.semiAbelianTorsionBound_of
 #print axioms NOSConverse.neronSpecialFibreComm_proof
 #print axioms NOSConverse.torusRankZero_of_glue
+#print axioms NOSConverse.nosConverseNF_of_glue
+#print axioms NOSConverse.neronOggShafarevich_of_glue

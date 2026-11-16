@@ -10,6 +10,16 @@ DISCHARGES [OpenResearchLeaves26.neronBaseChangeStrictHenselization] by GapSHPai
 DISCHARGES [OpenResearchLeaves26.r7a] by NOSConverse.neronOggShafarevich_of_bar
   still assumes: [NOSConverse.NOSConverseBar]
   axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves26.r7a] by NOSConverse.neronOggShafarevich_of_glue
+  still assumes: [ReductSplit.NeronSchemeModelExistsDVR,
+ GapSHPair.NeronBaseChangeStrictHenselization,
+ ReductGlue.RaynaudSemistableSH,
+ AvSplit.MumfordTorsionAlgClosed,
+ NOSConverse.TorsionInjectsSpecialFibre,
+ NOSConverse.ComponentIndexBound,
+ NOSConverse.DimensionRelation,
+ NOSConverse.AbelianReductionGood]
+  axioms: [propext, Classical.choice, Quot.sound]
 DISCHARGES [OpenResearchLeaves26.r7a] by NOSConverse.neronOggShafarevich_of_two
   still assumes: [ReductSplit.NeronSchemeModelExistsDVR,
  GapSHPair.NeronBaseChangeStrictHenselization,
@@ -32,4 +42,4 @@ DISCHARGES [OpenResearchLeaves26.sga7_IX_3_5_ForwardGeom] by UnipotentForward.fo
 DISCHARGES [OpenResearchLeaves26.mumfordGroupLaw] by ZInQ.Contrib.MumfordRigidity.mumfordGroupLaw_of_core
   still assumes: [LeafQM.AV.R1UnivRigid.MumfordRigidityCore]
   axioms: [propext, Classical.choice, Quot.sound]
-#discharges: 56 open hypotheses, 2921 theorems checked, 10 discharge one
+#discharges: 56 open hypotheses, 2933 theorems checked, 11 discharge one

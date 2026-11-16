@@ -42,3 +42,10 @@ Base wip/nos-proof e9828e92, merged origin/main e41a7169 (STATUS.md only). Build
   NeronSpecialFibreComm → MumfordTorsionAlgClosed → TorusRankZero`; PROVED pieces: `semiAbelianTorsionBound_of`
   (#U(k)[m] ≤ m^r·m^{2a} from Mumford, U(k)[m] ↪ B(k)[m] × μ_m^r), `rankZeroAbelian_proof` (r = 0 ⇒ π flat
   surjective mono lfp ⇒ open immersion ⇒ iso ⇒ U proper), the counting assembly `torusRankZero_of_count`.
+- NeronSpecialFibreComm PROVED (`isCommMonObj_neron`: Néron model of a commutative A is commutative, via the
+  Néron property on 𝒩 ×_O 𝒩; base change is braided). Finest form (compiles, lake build of the Contrib file OK):
+  `neronOggShafarevich_of_glue : NeronSchemeModelExistsDVR → NeronBaseChangeStrictHenselization →
+  RaynaudSemistableSH → MumfordTorsionAlgClosed → TorsionInjectsSpecialFibre → ComponentIndexBound →
+  DimensionRelation → AbelianReductionGood → r7a`; `nosConverseNF_of_glue` with N1 in place of the first.
+- #discharges re-run (Discharges-output.txt): r7a by neronOggShafarevich_of_glue, still assumes the 8 above.
+- autofold dry run for that spec: "strict count: 34/11 on 45 -> 34/15 on 49; strictest 34/11 -> 34/15"; refused.
