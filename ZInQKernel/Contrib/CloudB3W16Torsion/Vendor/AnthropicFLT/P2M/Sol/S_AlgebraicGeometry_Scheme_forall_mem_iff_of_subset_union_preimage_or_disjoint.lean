@@ -28,7 +28,7 @@ open CategoryTheory
 open CategoryTheory.Limits
 open CategoryTheory.MonoidalCategory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_forall_mem_iff_of_subset_union_preimage_or_disjoint.AlgebraicGeometry
+-- Source-local namespace open deferred until its declaration.
 
 open scoped CategoryTheory.MonObj
 

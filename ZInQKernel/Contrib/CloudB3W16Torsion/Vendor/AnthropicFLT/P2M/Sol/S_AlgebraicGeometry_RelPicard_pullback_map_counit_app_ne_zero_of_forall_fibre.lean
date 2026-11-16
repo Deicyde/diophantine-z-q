@@ -35,7 +35,7 @@ universe u
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_RelPicard_pullback_map_counit_app_ne_zero_of_forall_fibre.AlgebraicGeometry
+-- Source-local namespace open deferred until its declaration.
 open AlgebraicGeometry.RelPicard
 open P2MW.S_AlgebraicGeometry_RelPicard_pullback_map_counit_app_ne_zero_of_forall_fibre.AlgebraicGeometry.RelPicard
 open NeronModelInfra

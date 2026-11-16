@@ -28,7 +28,7 @@ universe v u
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_RelEffCartierDiv_exists_sameDivisorScheme.AlgebraicGeometry
+-- Source-local namespace open deferred until its declaration.
 
 namespace AlgebraicGeometry
 export _root_.AlgebraicGeometry (Surjective Scheme.Hom.finrank_comp_left_of_isIso SmoothOfRelativeDimension Scheme.Hom IsFinite Scheme Smooth Flat IsClosedImmersion IsSeparated IsFinite.of_comp LocallyOfFinitePresentation IsClosedImmersion.iff_isFinite_and_mono fibrePowOver fibrePowOver.proj fibrePowOver.toBase fibrePowOver.proj_comp prodKerGraph SameDivisor RelEffCartierDiv mapOnProdOver RelEffCartierDiv.I RelEffCartierDiv.exists_split RelEffCartierDiv.exists_I_eq_prodKerGraph prodKerGraph_comap_mapOnProdOver)
@@ -161,6 +161,7 @@ theorem main :
 end RelEffCartierDiv.SameDivisorScheme
 
 end AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_RelEffCartierDiv_exists_sameDivisorScheme.AlgebraicGeometry
 
 theorem solution
     {𝒞 S : Scheme.{u}} (f : 𝒞 ⟶ S) [IsSeparated f] [SmoothOfRelativeDimension 1 f] (r : ℕ) :

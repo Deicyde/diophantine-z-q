@@ -27,7 +27,7 @@ universe u
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_RelEffCartierDiv_IsUniversal_exists_sumMap.AlgebraicGeometry
+-- Source-local namespace open deferred until its declaration.
 
 namespace AlgebraicGeometry
 export _root_.AlgebraicGeometry (Surjective Scheme.Hom.finrank_comp_left_of_isIso SmoothOfRelativeDimension Scheme.Hom IsFinite Scheme Smooth Flat IsSeparated LocallyOfFinitePresentation fibrePowOver fibrePowOver.proj fibrePowOver.toBase fibrePowOver.proj_comp prodKerGraph fibrePowOver.tautIdeal RelEffCartierDiv mapOnProdOver RelEffCartierDiv.I RelEffCartierDiv.IsUniversal RelEffCartierDiv.exists_split RelEffCartierDiv.exists_I_eq_prodKerGraph prodKerGraph_comap_mapOnProdOver)
@@ -107,6 +107,7 @@ export _root_.AlgebraicGeometry.RelEffCartierDiv.IsUniversal (exists_sumMap_aux)
 end RelEffCartierDiv.IsUniversal
 
 end AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_RelEffCartierDiv_IsUniversal_exists_sumMap.AlgebraicGeometry
 
 theorem solution
     {𝒞 S : Scheme.{u}} {f : 𝒞 ⟶ S} [IsSeparated f] [SmoothOfRelativeDimension 1 f]

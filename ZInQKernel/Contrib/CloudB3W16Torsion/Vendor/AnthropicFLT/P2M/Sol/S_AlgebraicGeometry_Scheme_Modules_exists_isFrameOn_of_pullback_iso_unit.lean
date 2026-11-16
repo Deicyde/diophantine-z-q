@@ -20,7 +20,7 @@ universe u
 open CategoryTheory
 open CategoryTheory.MonoidalCategory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_isFrameOn_of_pullback_iso_unit.AlgebraicGeometry
+-- Source-local namespace open deferred until its declaration.
 
 set_option autoImplicit false
 set_option backward.isDefEq.respectTransparency false
@@ -176,7 +176,7 @@ end AlgebraicGeometry.Scheme.Modules
 
 end
 
-open _root_.AlgebraicGeometry _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_isFrameOn_of_pullback_iso_unit.AlgebraicGeometry in
+open _root_.AlgebraicGeometry in
 theorem solution {X : Scheme.{u}} {M : X.Modules} (U : X.Opens)
     (eU : (Scheme.Modules.pullback U.ι).obj M ≅ SheafOfModules.unit (U : Scheme.{u}).ringCatSheaf) :
     ∃ s : Γ(M, U), Scheme.Modules.IsFrameOn s U :=

@@ -47,7 +47,7 @@ open CategoryTheory
 open CategoryTheory.Limits
 open CategoryTheory.MonoidalCategory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_RelEffCartierDiv_isAlgEquivZero_twistModule_fibre.AlgebraicGeometry
+-- Source-local namespace open deferred until its declaration.
 open AlgebraicGeometry.RelPicard
 open NeronModelInfra
 
@@ -235,6 +235,7 @@ theorem K2Aux.isAlgEquivZero_twistModule_fibre'
   exact (Scheme.Modules.pullbackComp _ _).app _ ≪≫ (Scheme.Modules.pullbackCongr he2).app _
 
 end AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_RelEffCartierDiv_isAlgEquivZero_twistModule_fibre.AlgebraicGeometry
 
 theorem solution
     {R : Type u} [CommRing R] [IsNoetherianRing R] {C : Scheme.{u}} (c : C ⟶ Spec (CommRingCat.of R))

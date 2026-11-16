@@ -23,7 +23,7 @@ universe u
 open CategoryTheory
 open CategoryTheory.MonoidalCategory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_sheafify_mu_app_tensorSections.AlgebraicGeometry
+-- Source-local namespace open deferred until its declaration.
 
 set_option autoImplicit false
 set_option backward.isDefEq.respectTransparency false
@@ -115,7 +115,7 @@ end AlgebraicGeometry.Scheme.Modules
 
 end
 
-open CategoryTheory _root_.CategoryTheory.MonoidalCategory _root_.AlgebraicGeometry _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_sheafify_mu_app_tensorSections.AlgebraicGeometry _root_.AlgebraicGeometry.Scheme.Modules _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_sheafify_mu_app_tensorSections.AlgebraicGeometry.Scheme.Modules TensorProduct in
+open CategoryTheory _root_.CategoryTheory.MonoidalCategory _root_.AlgebraicGeometry _root_.AlgebraicGeometry.Scheme.Modules _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_sheafify_mu_app_tensorSections.AlgebraicGeometry.Scheme.Modules TensorProduct in
 
 theorem solution {X : AlgebraicGeometry.Scheme.{u}} (P Q : X.PresheafOfModules) {U : X.Opens}
     (x : P.obj (Opposite.op U)) (y : Q.obj (Opposite.op U)) :

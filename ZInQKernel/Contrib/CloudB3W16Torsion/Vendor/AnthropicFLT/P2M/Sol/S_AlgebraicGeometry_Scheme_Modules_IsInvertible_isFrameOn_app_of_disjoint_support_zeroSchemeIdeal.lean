@@ -29,7 +29,7 @@ open CategoryTheory
 open CategoryTheory.Limits
 open CategoryTheory.MonoidalCategory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_IsInvertible_isFrameOn_app_of_disjoint_support_zeroSchemeIdeal.AlgebraicGeometry
+-- Source-local namespace open deferred until its declaration.
 
 open scoped CategoryTheory.MonObj
 

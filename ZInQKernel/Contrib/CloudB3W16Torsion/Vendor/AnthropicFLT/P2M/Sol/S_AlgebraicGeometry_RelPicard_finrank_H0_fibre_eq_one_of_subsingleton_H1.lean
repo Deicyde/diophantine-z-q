@@ -47,7 +47,7 @@ open CategoryTheory
 open CategoryTheory.Limits
 open CategoryTheory.MonoidalCategory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_RelPicard_finrank_H0_fibre_eq_one_of_subsingleton_H1.AlgebraicGeometry
+-- Source-local namespace open deferred until its declaration.
 open AlgebraicGeometry.RelPicard
 open P2MW.S_AlgebraicGeometry_RelPicard_finrank_H0_fibre_eq_one_of_subsingleton_H1.AlgebraicGeometry.RelPicard
 open NeronModelInfra
@@ -307,7 +307,7 @@ theorem finrank_H0_fibre_eq_one_of_subsingleton_H1'
 
 end AlgebraicGeometry.RelPicard.ChartAux
 
-open CategoryTheory CategoryTheory.Limits _root_.CategoryTheory.MonoidalCategory _root_.AlgebraicGeometry _root_.P2MW.S_AlgebraicGeometry_RelPicard_finrank_H0_fibre_eq_one_of_subsingleton_H1.AlgebraicGeometry _root_.AlgebraicGeometry.RelPicard _root_.P2MW.S_AlgebraicGeometry_RelPicard_finrank_H0_fibre_eq_one_of_subsingleton_H1.AlgebraicGeometry.RelPicard NeronModelInfra in
+open CategoryTheory CategoryTheory.Limits _root_.CategoryTheory.MonoidalCategory _root_.AlgebraicGeometry _root_.AlgebraicGeometry.RelPicard _root_.P2MW.S_AlgebraicGeometry_RelPicard_finrank_H0_fibre_eq_one_of_subsingleton_H1.AlgebraicGeometry.RelPicard NeronModelInfra in
 theorem solution
     (R : Type u) [CommRing R] [IsNoetherianRing R] {C : Scheme.{u}} (c : C ⟶ Spec (CommRingCat.of R))
     [IsProper c] [SmoothOfRelativeDimension 1 c] [GeometricallyIntegral c]

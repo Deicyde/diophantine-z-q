@@ -23,7 +23,7 @@ universe u
 open CategoryTheory
 open CategoryTheory.MonoidalCategory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_leftUnitor_hom_app_tensorSections.AlgebraicGeometry
+-- Source-local namespace open deferred until its declaration.
 
 set_option autoImplicit false
 set_option backward.isDefEq.respectTransparency false
@@ -106,7 +106,7 @@ end AlgebraicGeometry.Scheme.Modules
 
 end
 
-open CategoryTheory _root_.CategoryTheory.MonoidalCategory _root_.AlgebraicGeometry _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_leftUnitor_hom_app_tensorSections.AlgebraicGeometry _root_.AlgebraicGeometry.Scheme.Modules _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_leftUnitor_hom_app_tensorSections.AlgebraicGeometry.Scheme.Modules in
+open CategoryTheory _root_.CategoryTheory.MonoidalCategory _root_.AlgebraicGeometry _root_.AlgebraicGeometry.Scheme.Modules _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_leftUnitor_hom_app_tensorSections.AlgebraicGeometry.Scheme.Modules in
 
 theorem solution {X : AlgebraicGeometry.Scheme.{u}} {N : X.Modules} {U : X.Opens} (g : Γ(X, U)) (n : Γ(N, U)) :
     (λ_ N).hom.app U

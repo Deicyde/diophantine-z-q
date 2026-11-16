@@ -39,7 +39,7 @@ open CategoryTheory
 open CategoryTheory.Limits
 open Opposite
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_RelPicard_LFP_exists_fg_nonempty_iso_pullbackAlong.AlgebraicGeometry
+-- Source-local namespace open deferred until its declaration.
 open AlgebraicGeometry.RelPicard
 open P2MW.S_AlgebraicGeometry_RelPicard_LFP_exists_fg_nonempty_iso_pullbackAlong.AlgebraicGeometry.RelPicard
 open NeronModelInfra
@@ -714,6 +714,7 @@ theorem Scheme.Hom.app_apply_map {X Y : Scheme.{u}} (f : X ⟶ Y) {U U' : Y.Open
   rfl
 
 end AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_RelPicard_LFP_exists_fg_nonempty_iso_pullbackAlong.AlgebraicGeometry
 
 namespace AlgebraicGeometry
 export _root_.AlgebraicGeometry (Scheme.Hom.map_appLE Scheme.Modules.pullback Scheme.Hom Scheme.Hom.appLE_comp_appLE Spec Scheme Scheme.Hom.naturality Scheme.Modules Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE RelPicard.baseChangeSnd Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap FGSubalgebra RelPicard.LFP.stageHom)
