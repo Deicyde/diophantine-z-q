@@ -46,3 +46,17 @@ Base: 6b7a45445 (lf32b: 37 H fields, strict 16 LEAF / 21 GLUE, top sixContactMin
   PicZeroAbVarCartier.lean, Fold33/NeronBLR.lean: no hits. No vendored file changed by the merges.
 * Combined spec scratch/leaf-fold33/autofold.json, --dry-run: `strict count: 16/21 on 37 -> 18/20 on 38;
   strictest 16/21 -> 18/20` (output scratch/leaf-fold33/autofold-dryrun.txt).
+
+## Rerun (continued after the dry run)
+
+* The earlier contribution build log was cut off at [12880/12886] with no errors (run interrupted); the build of
+  PoincareComplement, NeronBaseChangeStrictHenselization, Fold33.NeronBLR, PicZeroSmoothCartier and
+  PicZeroAbVarCartier is being rerun.
+* Step (a), main: `git merge-base --is-ancestor 5e235a40 origin/main` fails (origin/main = e41a71697), so 5e235a40
+  (origin/wip/integrate-w82) was merged: commit 075e3622c. Its only change against lf32b is STATUS.md (main's
+  NVLocalInertia wording). Conflict resolved by keeping the branch's STATUS.md: the paragraph main reworded is no
+  longer in the branch's STATUS.md (lf32b rewrote that section when NVLocalInertia left the chain), so main's hunk has
+  nothing to apply to. (The merge commit message says "plus main's NVLocalInertia wording"; in fact no hunk applied.)
+* Step (b), supplier PRs (first check): origin/pr/23 0eab413df, pr/25 7c9177bd9, pr/29 fefce8ef0, pr/31 d42bb38f4,
+  pr/34 4fa17fc59, pr/35 37a970528, pr/36 47ca4df21, pr/38 a9bc2e35c are all ancestors of HEAD; nothing to merge.
+  Rechecked before the final check.
