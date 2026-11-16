@@ -84,7 +84,7 @@ not changed. Only new files were added. The private branch is
 `cloud-b3/w17-complex-exp`, with `push.default=nothing` and no upstream.
 No public push or GitHub write was made.
 
-Final rebuild on **devvm54793.nha0.facebook.com** compiled all six modules
+Final rebuild on a dedicated internal build host compiled all six modules
 sequentially, one Lean process at a time:
 
 ```sh
@@ -94,7 +94,7 @@ for m in ScalarRestriction Realification GlobalFlow DerivRestriction ComplexOneP
     -i .lake/build/lib/lean/ZInQKernel/Contrib/CloudB3W17Realify/$m.ilean \
     ZInQKernel/Contrib/CloudB3W17Realify/$m.lean || exit $?
 done
-lake env lean -M7500 -j4 /home/jackmccarthy/cloud-b3/w17/scout/ComplexExpCheck.lean
+lake env lean -M7500 -j4 scratch/ComplexExpCheck.lean
 ```
 
 All module builds and the final usage/axiom check exit 0 without warnings.

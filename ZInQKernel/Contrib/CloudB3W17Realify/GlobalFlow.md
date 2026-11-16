@@ -72,14 +72,14 @@ lake env lean -M6144 -j4 \
   -o .lake/build/lib/lean/ZInQKernel/Contrib/CloudB3W17Realify/GlobalFlow.olean \
   -i .lake/build/lib/lean/ZInQKernel/Contrib/CloudB3W17Realify/GlobalFlow.ilean \
   ZInQKernel/Contrib/CloudB3W17Realify/GlobalFlow.lean
-lake env lean -M6144 -j4 /home/jackmccarthy/cloud-b3/w17/scout/GlobalFlowCheck.lean
+lake env lean -M6144 -j4 scratch/GlobalFlowCheck.lean
 ```
 
 Both exit 0 without warnings. Peak module RSS about 3.26 GB.
 Scratch `GlobalFlowCheck.lean` checks all three generic `∃!` interfaces,
 the subgroup law, and complex analytic use through the unchanged realification
 module. Full axiom output on all **11** new theorem declarations is in
-`/home/jackmccarthy/cloud-b3/w17/scout/GlobalFlow-Axiom-Output.txt`; every line
+`scratch/GlobalFlow-Axiom-Output.txt`; every line
 reports `[propext, Classical.choice, Quot.sound]`.
 No full repository build or `#discharges` field closure is claimed.
 
