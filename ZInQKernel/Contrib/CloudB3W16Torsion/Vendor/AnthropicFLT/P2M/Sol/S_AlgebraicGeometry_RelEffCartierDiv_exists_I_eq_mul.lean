@@ -234,9 +234,10 @@ theorem mk_subschemeObjIso_inclusion_appLE {X : Scheme.{u}} {I J : X.IdealSheafD
   rw [Scheme.Hom.comp_app] at h1
   simp only [← Category.assoc]
   rw [← Scheme.IdealSheafData.subschemeι_app, h1]
-  simp only [Category.assoc, ← Functor.map_comp, ← op_comp, eqToHom_trans, eqToHom_refl,
-    op_id, CategoryTheory.Functor.map_id, Category.comp_id,
-    Scheme.IdealSheafData.subschemeι_app, Iso.inv_hom_id]
+  set_option backward.isDefEq.respectTransparency false in
+    simp only [Category.assoc, ← Functor.map_comp, ← op_comp, eqToHom_trans, eqToHom_refl,
+      op_id, CategoryTheory.Functor.map_id, Category.comp_id,
+      Scheme.IdealSheafData.subschemeι_app, Iso.inv_hom_id]
 
 theorem presheaf_map_injective_of_eq {X : Scheme.{u}} {U V : X.Opens} (hUV : U = V)
     (i : Opposite.op V ⟶ Opposite.op U) : Function.Injective (X.presheaf.map i).hom := by
@@ -798,7 +799,7 @@ theorem exists_basicOpen_localizedModule_equiv (z : (D.I * E.I).subscheme)
             ((D.I * E.I).subschemeι ≫ pullback.snd c t)) ⁻¹ᵁ U.1) h) =
           Scheme.IdealSheafData.inclusion (mul_le_snd D.I E.I) ⁻¹ᵁ
             ((D.I * E.I).subscheme.basicOpen h) := by
-        rw [Scheme.preimage_basicOpen, RingHom.algebraMap_toAlgebra,
+        erw [Scheme.preimage_basicOpen, RingHom.algebraMap_toAlgebra,
           ← Scheme.Hom.app_eq_appLE]
         rfl
       have hsurjB' : Function.Surjective
@@ -886,6 +887,9 @@ theorem exists_basicOpen_localizedModule_equiv (z : (D.I * E.I).subscheme)
         (D.I * E.I).subscheme.presheaf.map (eqToHom hDh.symm).op
       have hreshinj : Function.Injective resh.hom :=
         presheaf_map_injective_of_eq hDh.symm _
+      haveI : IsIso resh := by
+        dsimp [resh]
+        infer_instance
       have hreshsurj : Function.Surjective resh.hom :=
         (ConcreteCategory.bijective_of_isIso resh).2
       have hsurjI := subschemeObjIso_inv_mk_surjective (D.I * E.I) Wt
