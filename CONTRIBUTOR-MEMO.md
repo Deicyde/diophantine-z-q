@@ -7,7 +7,7 @@
 - You can contribute with or without an AI agent. If you use one, give it `AGENT-INSTRUCTIONS.md` along with your request.
 - The most valuable thing an outsider can do is find a step that is wrong or not justified and report it precisely. That takes an issue, not a pull request.
 - Improvements (a better polynomial, a shorter proof, a Lean proof of one of the open premises) come in as a focused note or module. We integrate accepted improvements into the next full version of the manuscript and credit you.
-- Every pull request is reviewed by two AI reviewers from different model families. For outside contributors a maintainer has to start that review. Wording quibbles do not block you.
+- Every pull request that changes mathematics, proofs or policy is reviewed by two AI reviewers from different model families; purely editorial fixes can take a lighter path. For outside contributors a maintainer has to start that review. Wording quibbles do not block you.
 
 ## What the project is
 
