@@ -78,7 +78,7 @@ Base: 6b7a45445 (lf32b: 37 H fields, strict 16 LEAF / 21 GLUE, top sixContactMin
   OpenAddedLeaves19, and blr_7_2_1) and autofold-b.json (picZeroAbVar by pic-smooth). The combined autofold.json is
   kept for the record. Fold a: `16/21 on 37 -> 15/20 on 35` (TailZ46, sixContactMin_of_open39); fold b:
   `15/20 on 35 -> 18/20 on 38` (TailZ47, sixContactMin_of_open40), the same end state as the combined spec.
-* Final check, second run (on e34ff390e; ~/op-runs/lf33.log): BUILD-RC=0; frozenTarget axioms [propext,
+* Final check, second run (on e34ff390e; the check log lf33.log): BUILD-RC=0; frozenTarget axioms [propext,
   Classical.choice, Quot.sound]; PRUNE-RC=0, bundle OpenAddedLeaves20 8 fields unused 0, total unused 0; HASH 14038 ->
   14099, gone [], new 61, changed only ZInQ.OneProof.frozenTarget; #discharges 46 open hypotheses, 6810 theorems, 12
   discharge one; OpenStatements "38 H hypotheses, strictest 18/20, 8 others"; render --check "ok: 46 open hypotheses,
