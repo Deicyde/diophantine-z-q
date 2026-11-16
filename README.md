@@ -1,5 +1,7 @@
 # Z is Diophantine in Q
 
+New here? [Start here: status and how to contribute](https://github.com/elliotglazer/diophantine-z-q/issues/140).
+
 ## Contributors and citation
 
 This project uses the collective agentic notes from Stefan Baranczuk, Jose Brox, Gabe Conant, Sohail Farhangi, Cameron Freer, James Freitag, Elliot Glazer, and Caroline Terry.
