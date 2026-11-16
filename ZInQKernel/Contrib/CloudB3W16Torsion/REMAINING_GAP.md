@@ -1,6 +1,13 @@
-# H102 exact remaining gap and compiled bridge delivery
+# H102 historical first-pass provider checkpoint
 
-**Not discharged.** `mumfordTorsionAlgClosed_proof : AvSplit.MumfordTorsionAlgClosed`
+> This document records only the first frozen provider build at `bf6da311`.
+> Later API and namespace ports supersede its failure inventory; those counts
+> are not the current build status and do not establish mathematical absence.
+> This is not a final gap report or an acceptance verdict. Consult the later
+> `VERIFICATION_ROUND*_PRIMARY.md` records for the completed port stages.
+> The final theorem is claimed only after its own exact kernel/discharge checks.
+
+**Not discharged at this historical checkpoint.** `mumfordTorsionAlgClosed_proof : AvSplit.MumfordTorsionAlgClosed`
 is an exact-type source draft with no additional argument, but its complete
 geometric provider does not compile on the fixed pins. No final `#discharges`
 or final-leaf axiom verdict is claimed, and no PR is ready.
