@@ -740,3 +740,10 @@ stays blocked until the full original report is recovered from its run artifact.
 The compact record is never reposted as the original prose, source list or notes.
 Failure-report delivery uses the same guarded path, so one worker's notification
 failure cannot prevent the other worker's actual final result from being collected.
+
+A scoped supplement inherits outstanding publication obligations from every
+retained proof review in its chain. Its own delivered report does not satisfy
+those obligations. The gate checks the original comment hashes and withholds
+merge until each original report has arrived. Malformed final-output containers
+are treated as diagnostic data; failure processing is isolated per worker so
+it cannot interrupt collection of the peer reviewer's verdict.

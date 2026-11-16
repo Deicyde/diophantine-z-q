@@ -1204,6 +1204,32 @@ jobs:
                   log(envelope['reviewer']+': original verdict retained; report delivery failed: '+str(error))
 
 
+          def inherit_report_publications(envelope, previous):
+              """A supplement does not replace the proof report on which it relies."""
+              obligations = list(previous.get('retained_report_publications', []))
+              if previous.get('report_publication', {}).get('status') == 'failed':
+                  obligations.append({k: previous[k] for k in
+                      ('reviewer', 'head', 'run', 'attempt', 'report_publication')})
+              if obligations:
+                  envelope['retained_report_publications'] = json.loads(json.dumps(obligations))
+
+
+          def reconcile_report_publications(gh, pr, envelope):
+              obligations = envelope.get('retained_report_publications', [])
+              if not any(o['report_publication']['status'] == 'failed' for o in obligations):
+                  return
+              try:
+                  comments = {hashlib.sha256(c['body'].encode()).hexdigest(): c['id']
+                      for c in gh.pages(f'/issues/{pr["number"]}/comments') if own_comment(gh, c)}
+                  for obligation in obligations:
+                      publication = obligation['report_publication']
+                      if publication['status'] == 'failed' and publication['sha256'] in comments:
+                          publication.update(status='posted', comment=comments[publication['sha256']])
+              except Exception as error:
+                  # Keep the original identity/hash and failed status on a read failure.
+                  envelope['retained_publication_error'] = str(error)
+
+
           def administrator(gh, user):
               if user.get('type') != 'User' or not user.get('login'):
                   return False
@@ -2034,6 +2060,8 @@ jobs:
                                               "complete": True, "policy_ref": os.environ['GITHUB_SHA'],
                                               "history_digest": passage_digest(sorted(history_coverage(discussion))) if reviewers[family].history_read else None,
                                               "reuse_binding": None}
+                                  if family in supplements:
+                                      inherit_report_publications(envelope, supplements[family])
                                   envelopes[family] = envelope
                                   record(family + "-report.json", envelope)
                                   state['reports'] = envelopes
@@ -2061,49 +2089,52 @@ jobs:
                                   record('decision.json', state)
                                   reviews[family] = value
                               except Exception as error:
-                                  if envelopes.get(family, {}).get('complete'):
-                                      # A notification/binding failure cannot erase the delivered verdict.
-                                      envelopes[family]['post_review_error'] = str(error)
-                                      # Retain the paid verdict, but this run cannot silently approve
-                                      # a supplement whose required metadata failed to assemble.
-                                      failures[family] = str(error)
-                                      deliver_review_report(gh, pr, envelopes[family])
-                                      record('decision.json', state)
-                                      reviews[family] = envelopes[family]['review']
-                                      log(f"{family}: completed verdict retained despite publication error: {error}")
-                                      continue
                                   failures[family] = str(error)
-                                  log(f"{family}: failed: {error}")
-                                  # Preserve partial observations, but an infrastructure
-                                  # error by itself is not a mathematical finding.
-                                  problem = {"reviewer": family, "model": MODELS[family], "head": pr["head"]["sha"],
-                                             "run": os.environ["GITHUB_RUN_ID"], "attempt": os.environ["GITHUB_RUN_ATTEMPT"],
-                                             "complete": False, "identity_error": reviewers[family].identity_error, "policy_ref": os.environ['GITHUB_SHA'],
-                                             "initial_packet": reviewers[family].initial_packet,
-                                             "review": {"decision": "changes_requested", "report": "Infrastructure failure, not a model verdict: " + str(error),
-                                                        "scope_complete": False, "not_reviewed": ["Review interrupted: " + str(error)],
-                                                        "findings": [], "prior_findings": []}}
-                                  delivered = reviewers[family].invalid_finish
-                                  if isinstance(delivered, dict):
-                                      problem['review']['report'] = 'Delivered final report failed validation; original retained in the artifact. '+str(error)
-                                      for i, finding in enumerate(delivered.get('findings', [])):
-                                          if not isinstance(finding, dict) or (finding.get('severity') == 'note' and finding.get('kind') == 'editorial'):
-                                              continue
-                                          ident = str(finding.get('id', ''))
-                                          if not re.fullmatch(r'[A-Za-z0-9_-]+', ident):
-                                              ident = 'unvalidated-'+str(i+1)
-                                          problem['review']['findings'].append({
-                                              'id': ident, 'severity': 'blocking', 'kind': 'error',
-                                              'location': finding.get('location', ''),
-                                              'objection': 'Unvalidated delivered objection: '+str(finding.get('objection', finding)),
-                                              'attempted_resolution': finding.get('attempted_resolution', '')})
+                                  if envelopes.get(family, {}).get('complete'):
+                                      # Retain a completed verdict even if its bookkeeping failed.
+                                      problem = envelopes[family]
+                                      problem['post_review_error'] = str(error)
+                                      reviews[family] = problem['review']
+                                  else:
+                                      problem = {"reviewer": family, "model": MODELS[family], "head": pr["head"]["sha"],
+                                                 "run": os.environ["GITHUB_RUN_ID"], "attempt": os.environ["GITHUB_RUN_ATTEMPT"],
+                                                 "complete": False, "identity_error": reviewers[family].identity_error, "policy_ref": os.environ['GITHUB_SHA'],
+                                                 "initial_packet": reviewers[family].initial_packet,
+                                                 "review": {"decision": "changes_requested", "report": "Infrastructure failure, not a model verdict: " + str(error),
+                                                            "scope_complete": False, "not_reviewed": ["Review interrupted: " + str(error)],
+                                                            "findings": [], "prior_findings": []}}
+                                  # Install a safe minimum before salvage, persistence or notification.
                                   envelopes[family] = problem
-                                  record(family + "-failure.json", problem)
                                   state['reports'] = envelopes
-                                  record('decision.json', state)
-                                  # A failed notification must not abandon the other paid future.
-                                  deliver_review_report(gh, pr, problem)
-                                  record('decision.json', state)
+                                  try:
+                                      if family in supplements:
+                                          inherit_report_publications(problem, supplements[family])
+                                      if not problem['complete']:
+                                          delivered = reviewers[family].invalid_finish
+                                          if isinstance(delivered, dict):
+                                              problem['review']['report'] = 'Delivered final report failed validation; original retained in the artifact. '+str(error)
+                                              findings = delivered.get('findings')
+                                              # Invalid JSON containers are diagnostic data, not iterable findings.
+                                              findings = findings if isinstance(findings, list) else []
+                                              for i, finding in enumerate(findings):
+                                                  if not isinstance(finding, dict) or (finding.get('severity') == 'note' and finding.get('kind') == 'editorial'):
+                                                      continue
+                                                  ident = str(finding.get('id', ''))
+                                                  if not re.fullmatch(r'[A-Za-z0-9_-]+', ident):
+                                                      ident = 'unvalidated-'+str(i+1)
+                                                  problem['review']['findings'].append({
+                                                      'id': ident, 'severity': 'blocking', 'kind': 'error',
+                                                      'location': str(finding.get('location', '')),
+                                                      'objection': 'Unvalidated delivered objection: '+str(finding.get('objection', finding)),
+                                                      'attempted_resolution': str(finding.get('attempted_resolution', ''))})
+                                      record(family + ('-report.json' if problem['complete'] else '-failure.json'), problem)
+                                      record('decision.json', state)
+                                      deliver_review_report(gh, pr, problem)
+                                      record('decision.json', state)
+                                  except Exception as processing_error:
+                                      # Never leave as_completed before collecting the peer's paid verdict.
+                                      problem['post_review_error'] = str(processing_error)
+                                      failures[family] += '; failure processing: '+str(processing_error)
                       if failures:
                           raise RuntimeError(json.dumps(failures))
                       current_discussion, current_prior, _, _ = history(gh, pr, known)
@@ -2510,6 +2541,11 @@ jobs:
               if missing:
                   state.update(conclusion='failure', summary=state['summary']+'\nUnaddressed earlier objections: '+', '.join(sorted(missing)))
               for envelope in state['reports'].values():
+                  reconcile_report_publications(gh, current, envelope)
+                  pending = [o for o in envelope.get('retained_report_publications', [])
+                             if o['report_publication']['status'] == 'failed']
+                  if pending:
+                      state.update(conclusion='failure', summary=state['summary']+'\nRetained original proof report publication failed; a delivered supplement alone cannot authorize merge. See retained_report_publications for the original run, hash and artifact.')
                   if envelope.get('report_publication', {}).get('status') == 'failed':
                       deliver_review_report(gh, current, envelope, retry=True)
                   publication = envelope.get('report_publication', {})
