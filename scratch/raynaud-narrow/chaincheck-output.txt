@@ -1,0 +1,12 @@
+closure size 241439
+ReductGlue.RaynaudSemistableSH in closure: false
+DictModels.RaynaudOr.RaynaudSemistableSHOr in closure: false
+ReductB.RaynaudSemistableSHcp in closure: true
+HDec.HSyn.sixContactMin_of_open11 in closure: true
+HDec.HSyn.sixContactMin_of_open17 in closure: false
+HDec.HSyn.RNarrow.sixContactMin_of_open17 in closure: true
+HDec.HSyn.raynaudSemistable_of14 in closure: false
+HDec.HSyn.OpenResearchLeaves14 in closure: false
+HDec.HSyn.RNarrow.sixContactMin_of_open38 : HDec.HSyn.RNarrow.OpenResearchLeaves28 →
+  HDec.HSyn.OpenTextbookLeaves13 → HDec.HSyn.OpenAddedLeaves19 → ZInQ.SixContactMin
+'HDec.HSyn.RNarrow.sixContactMin_of_open38' depends on axioms: [propext, Classical.choice, Quot.sound]
