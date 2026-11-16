@@ -194,12 +194,7 @@ This is the arithmetic half: a symmetric principal `(L, s)` on `A_ℂ` is the ba
 6. `SymmPrincipalTransport` pulls `(L₀, s₀)` back along `h`. The divisor condition becomes
    `θ(Tw + c, Ω) = 0`, because `φ(proj w) ≫ h = φ₀(proj(Tw))`.
 
-**Checks.** (Results recorded in `scratch/pazuki-alg/log.md`.)
-
-- `lake env lean ZInQKernel/Contrib/OneProof/PazukiAlg.lean`: see §5.
-- `#discharges`: see §5.
-- Verbatim `rfl` check: see §5.
-- Autofold dry run: see §5.
+The checks are in §5 and in `scratch/pazuki-alg/log.md`.
 
 ## 4. Fold count
 
@@ -225,6 +220,64 @@ The finer spec costs one row but buys three things:
 If a reading finds the scheme form of Riemann's theorem in print, `riemannPPAV` becomes LEAF and the fine fold is
 neutral. A Lean proof of `SymmPrincipalDescends` would then give the −1.
 
-## 5. Check results
+## 5. Checks (all VERIFIED)
 
-(filled in below as the runs complete)
+- **Contrib file.** `lake env lean ZInQKernel/Contrib/OneProof/PazukiAlg.lean` reports 0 errors.
+  - A temporary `#print axioms` (removed afterwards) gave `[propext, Classical.choice, Quot.sound]` for
+    `pazukiCor13Upper_of_riemann`, `symmPrincipalTransport` and `thetaDivisorAlgebraicC_of_riemann`.
+  - The file has no `#eval`, `run_cmd`, `#print`, notation or macros. It imports
+    `ZInQKernel.Contrib.OneProof.PazukiCor13Upper` (where `AnalyticPPAlgebraic` and its halves are declared) and
+    `ZInQKernel.Contrib.OneProof.UniformizationLeafAll`, and never `ZInQKernel.OneProof.Main`.
+- **Verbatim statement.** `scratch/pazuki-alg/Verbatim.lean` checks `AnalyticPPAlgebraic` (copied text) `=`
+  `PazukiDict.AnalyticPPAlgebraic` by `rfl`. It compiles with no output.
+- **Build.** `lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges
+  +ZInQKernel.Contrib.OneProof.PazukiAlg` ends with `Build completed successfully (14103 jobs)`. `frozenTarget`
+  has the standard axioms.
+- **`#discharges`** (`scratch/pazuki-alg/Discharges.lean`; output in `scratch/pazuki-alg/discharges-output.txt`):
+
+  ```
+  DISCHARGES [OpenResearchLeaves28.pazukiCor13Upper] by PazukiAlg.pazukiCor13Upper_of_riemann
+    still assumes: [ZInQ.HomLattice.GAGAMorphism,
+   PazukiDict.PazukiCor13UpperPP,
+   PazukiAlg.RiemannPPAV,
+   PazukiDict.SymmPrincipalDescends]
+    axioms: [propext, Classical.choice, Quot.sound]
+  #discharges: 45 open hypotheses, 6725 theorems checked, 15 discharge one
+  ```
+
+  `GAGAMorphism` is the existing textbook field `gagaMorphism` (`{t}.gagaMorphism` in the spec), not a new leaf.
+- **Autofold dry run** (`scratch/pazuki-alg/autofold.json`).
+  - Without `--allow-rise` it is refused:
+    `strict count: 16/21 on 37 -> 17/22 on 39; strictest 16/21 -> 17/22`.
+  - With `--allow-rise`, the generated module with line 1 stripped is `scratch/pazuki-alg/FoldCheck.lean`. It
+    compiles, and `HDec.HSyn.sixContactMin_of_open39` depends on `[propext, Classical.choice, Quot.sound]`.
+
+## 6. Leaf ratings and proposed locators
+
+| new statement | kind | rating | reason |
+| --- | --- | --- | --- |
+| `RiemannPPAV` | composite | **GLUE; not printed form** | The print (Mumford AV §§2-3, Tata I Ch. II, BL 8.1/8.5) is analytic. The scheme form uses Chow/Lefschetz and GAGA, the same reading step the 11-16 dictionary pass counted for the uniformization leaf. It would become printed form if a print of the scheme form is found; Mumford §3 is the candidate (not read). |
+| `SymmPrincipalTransport` | glue | **proved** | scheme functoriality along an isomorphism |
+| `SymmPrincipalDescends` (pazuki-dict) | composite | GLUE | Néron–Severi invariance, the `Pic⁰[2]` torsor, base change of `H⁰`, descent of ampleness |
+| `PazukiCor13UpperPP` (pazuki-dict) | published | LEAF, printed form; flag *reading risk* (Def. 2.6) | unchanged from pazuki-dict |
+
+**Proposed locators.md row** (not added, because locators.md belongs to another task):
+`RiemannPPAV`, sourced to Mumford, *Abelian varieties*, §2 (Appell–Humbert) and §3 (Frobenius' theorem
+`h⁰ = √det E`, Lefschetz, algebraizability of `X_Ω`); Mumford, *Tata Lectures on Theta I*, Ch. II §1 (θ and its
+functional equation) and §3 (the theta embedding); Birkenhake–Lange, *Complex abelian varieties*, §8.1 (the ppav
+`(X_Z, H_Z)`) and §8.5 (θ the canonical theta function of `L(H_Z, χ₀)`); Serre, GAGA (1956). All UNVERIFIED.
+Open check: whether one of these prints states the scheme form, i.e. that the ample symmetric line bundle with
+`h⁰ = 1` and section θ is algebraic.
+
+## 7. What remains
+
+- **`SymmPrincipalDescends`** (descent of a symmetric principal polarization from `A_ℂ` to a number field) is the
+  only obstacle to a count-neutral fold with all analytic glue proved, and to −1 once `RiemannPPAV` is rated
+  printed.
+  - The vendored Jacobian library already has flat base change of cohomology over field extensions
+    (`Scheme.Modules.finrankH_pullback`, `Cohomology/FieldExtension.lean`), so the `h⁰` part of the descent is
+    within reach.
+  - The Néron–Severi invariance and the descent of ampleness have no Lean infrastructure.
+- **`RiemannPPAV`** needs a reading of Mumford §3 (scheme form or not), or a Lean development of analytic line
+  bundles on complex tori (Appell–Humbert, Frobenius) plus GAGA for line bundles.
+- **Unchanged from pazuki-dict:** the Def. 2.6 reading risk of `PazukiCor13UpperPP`.
