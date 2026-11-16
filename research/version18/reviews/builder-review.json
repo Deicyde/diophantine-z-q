@@ -1,0 +1,47 @@
+{
+  "schema": "record-manuscript-policy-review/v1",
+  "decision": "accepted_within_scope",
+  "reviewer": "Claude Fable 5.2, in Elliot Glazer's Claude Code session (local review, not the Protocol B gate reviewer)",
+  "author_of_policy_or_implementation": false,
+  "reviewed_at": "2026-11-16T01:05:00+00:00",
+  "reviewed_root": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\v18-release-final",
+  "request": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\v18-196-integration-20261115\\final-assembly\\BUILDER-REVIEW-REQUEST.json",
+  "files": [
+    {"path": "scripts/build_paper.py", "sha256": "f62e565f8543b7ff44a66d3cac6aa47189d1f8d7802e169ed4f9f3864bf4f86f", "bytes": 9646},
+    {"path": "scripts/check_current_manuscript.py", "sha256": "da533c8d5a480f152b9879bde10d944b035580d77d648e80afc4329c48099154", "bytes": 5527},
+    {"path": "docs/current-manuscript.json", "sha256": "8ef185c8f73fddcef04eb970ccc64635ebe10ddda036a5e41d479431d01b4c80", "bytes": 534},
+    {"path": "docs/audit-history/current.json", "sha256": "2b0dd7653076633f53c1e32b43dd4c11a664b5ace5b5685ff6afc30ed4b82ca4", "bytes": 372544},
+    {"path": "manuscripts/quartic_v18.tex", "sha256": "7004f12f00643ab83d9fad24d348009e31dfe56d48c162c58d702f9171f6a2c7", "bytes": 2322165},
+    {"path": "manuscripts/quartic_v18.pdf", "sha256": "311e9fdf1fd21ca222e2024521ab09a3ebb36e4d05a4e11bcebeb3b7474cd423", "bytes": 4862839},
+    {"path": "research/version18/BUILD.json", "sha256": "938d6a6d14f4f3220c236dacbf82af5d0d08a15eea96f6c75b18155d34b25d17", "bytes": 203817},
+    {"path": "research/version18/build_pdf.py", "sha256": "5afbf7050dd8b5ea45546560fc5e4f20b415c5c66c580e128fa93f8a349edf41", "bytes": 17800},
+    {"path": "manuscripts/quartic_v16.tex", "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74", "bytes": 1926498},
+    {"path": "manuscripts/quartic_v16.pdf", "sha256": "5634295d85bdfd2aef476ad49827b160f119e94996e1f644c3b05a96eabf6315", "bytes": 2732163},
+    {"path": "manuscripts/quartic_v17.tex", "sha256": "f6bf186008d33270dadbba6bd490f22116c66168975c3f84ad5bc6f281726e12", "bytes": 2338864},
+    {"path": "manuscripts/quartic_v17.pdf", "sha256": "20ee7ebabdbba1e15406af72d31854206beaaa257e1c52fca2abd113243ea7ea", "bytes": 3916929}
+  ],
+  "scope": "Build selection and recorded source/PDF/build correspondence for this exact Version 18 candidate, and byte preservation of the four released Version 16 and Version 17 files in this checkout. No mathematical acceptance of Version 18 is given or implied by this record.",
+  "checks": [
+    "Hashed all twelve files in the reviewed root: every hash and byte count equals the request.",
+    "scripts/build_paper.py (f62e565f...), scripts/check_current_manuscript.py (da533c8d..., canonical LF form) and research/version18/build_pdf.py (5afbf705...) are the same bytes as in my earlier records; I read all three in full for the first of those.",
+    "Ran the validator on the reviewed root: it accepts the profile 8ef185c8..., version 18, with exactly the tex, pdf and build-record pins listed above and no required TeX inputs.",
+    "research/version18/BUILD.json: source_sha256 7004f12f..., pdf_sha256 311e9fdf..., builder_sha256 equal to build_pdf.py; three serial passes with return code 0; the last pass has no TeX error lines, no unresolved or duplicate reference lines and no rerun request; auxiliary files stable; the only project input recorded is the TeX source.",
+    "PDF, checked independently with pdfinfo and pdftotext: 701 pages, title 'Z is Diophantine in Q, Version 18'; the extracted text contains the abstract sentence with 196 variables and 2 943 monomials exactly once.",
+    "Released files: quartic_v16.tex, quartic_v16.pdf, quartic_v17.tex and quartic_v17.pdf are physically present in this checkout. I hashed the working-tree files and, separately, the Git blobs at the checkout's HEAD (f7b803e3252f); the two agree for all four files and equal the values listed above.",
+    "Source delta from the journal-refresh source 431782f2... that I reviewed earlier: the two files have the same 263 theorem-type statement environments with no change, and the same 1,268 labels. The line diff has 45 hunks: 40 in the Part I prose before the 196 table, which are the Part I corrections I reviewed as PART1-DIFF.patch, and 5 later ones, which are the PR119 round-two and round-three edits I reviewed on that PR (front-matter status link, P01 locator, Milne1986 identifier, 'Theorem 1.7 on page 5', removal of the stale source-version clause)."
+  ],
+  "observations": [
+    "docs/current-manuscript.json and research/version18/BUILD.json have CRLF line endings. Both paths are -text in .gitattributes, so the hashes hold only if the files are committed byte for byte as they are.",
+    "pdf_text_sha256 in BUILD.json is a tool-specific observation."
+  ],
+  "limitations": [
+    "I did not run pdfLaTeX or any build. Correspondence between source and PDF rests on the build record and on my independent page-count, metadata and text checks.",
+    "I did not check docs/audit-history/builder-binding.json or its self-test.",
+    "This candidate incorporates PR119 at head 75c0ab58, which has not merged. If PR119 changes again, the source hash changes and this record no longer applies.",
+    "This is reviewer-authored evidence from a local session. It is not model authentication and not protected App acceptance."
+  ],
+  "correction_to_prior_record": {
+    "path": "relay/to-astra/20261115-1525-from-fable-v18-builder-review-journal-refresh.json",
+    "correction": "The last check in that record says the Version 16 and 17 files in the journal-refresh root have the released hashes. That statement was not verified: those files were not present in that directory, and my command printed nothing for them. I withdraw that one check. The other checks in that record stand. Preservation of the released files is verified in the present record, in a checkout that contains them."
+  }
+}

@@ -6,19 +6,19 @@
   },
   "profile": {
     "path": "docs/current-manuscript.json",
-    "sha256": "e9efcf581616cfc866263cda9e633892e399eaf6f86a63e1edd88d61b10e1890"
+    "sha256": "2ea6e40e597b908b751910c74f4c2c9fa47cd170838bcf17bbc7f2b6c7552562"
   },
   "historical_review": {
     "path": "docs/audit-history/current.json",
     "sha256": "2b0dd7653076633f53c1e32b43dd4c11a664b5ace5b5685ff6afc30ed4b82ca4"
   },
   "selected_manuscript": {
-    "path": "manuscripts/quartic_v17.tex",
-    "sha256": "f6bf186008d33270dadbba6bd490f22116c66168975c3f84ad5bc6f281726e12"
+    "path": "manuscripts/quartic_v18.tex",
+    "sha256": "0cb9c70baed00d736c88636243c4da96c38ce4f96090d029d0020ce459435a29"
   },
   "review": {
-    "path": "research/quartic214-native-review/v17-extension/canonical/BUILDER-REVIEW.json",
-    "sha256": "82e538e7fe632bc3d6415a3b1cb28df1ec56161aa3ce994a1ecf9699fb080ee0"
+    "path": "research/version18/reviews/pr120-builder-review.json",
+    "sha256": "c2202083d20b3e72407ffd53159262fdfce6abc62c8702b8b04f97cdedb97e97"
   },
-  "scope": "The exact independent review binds the unchanged profile-driven builder and Version17 selector. Historical V14 application records remain at their original manuscript and review scope. The separate Version17 source/body, policy and delivery reviews govern this promotion; neither this binding nor a build claims protected App acceptance."
+  "scope": "The original Fable owner-session review binds the exact unchanged builder, repaired Version18 selector, source, PDF and recorded build, and checks preservation of released Version16 and Version17 files. Earlier reviews remain unchanged at their original paths. This is build correspondence only, not assembled-proof or protected App acceptance."
 }

@@ -1,0 +1,108 @@
+{
+  "status": "Actual complete local Version18 candidate; protected release not yet accepted",
+  "previous_published": {
+    "schema": "current-manuscript/v1",
+    "version": 17,
+    "tex": {
+      "path": "manuscripts/quartic_v17.tex",
+      "sha256": "f6bf186008d33270dadbba6bd490f22116c66168975c3f84ad5bc6f281726e12"
+    },
+    "pdf": {
+      "path": "manuscripts/quartic_v17.pdf",
+      "sha256": "20ee7ebabdbba1e15406af72d31854206beaaa257e1c52fca2abd113243ea7ea"
+    },
+    "build_record": {
+      "path": "research/version17/BUILD.json",
+      "sha256": "1aeb718e4101365943c4d41df8030cd4682be0a27548e164bc745c17cdbe0d73"
+    },
+    "required_tex_inputs": []
+  },
+  "candidate_source_sha256": "0cb9c70baed00d736c88636243c4da96c38ce4f96090d029d0020ce459435a29",
+  "candidate_pdf_sha256": "e6fb5b6a7c5d3340db2c3b1f14e78fbb9c357f11544584c6a96ae2abc2c0579d",
+  "mathematical_body_unchanged": false,
+  "changes": [
+    "Complete Conant198 parent arithmetic, all 184 parent rows and 2945-monomial parent table retained",
+    "Jose196 elimination lemma, 182-row unbalanced table and 2943-monomial selected result at commit 5c35db3253a70b0875acec4b451cdaac4da3c8fd",
+    "Busy Beaver defining-threshold proof and strict coefficient bound",
+    "Tao-Ziegler adaptation, asserted without proof in Versions 16 and 17, now proved",
+    "Candela-Szegedy final-journal inverse-theorem dependency plus increment-group argument; local source comparisons and owner source-access overrides remain separately attributed",
+    "Version 18 foundation repairs and source-application corrections in final assembly",
+    "Forty bounded Part I reference, notation and explicit c>=8 proof corrections; original component statements, both exact tables and the196 elimination preserved"
+  ],
+  "final_changed_passage_inventory": {
+    "path": "research/version18/integration/PART1-OPERATIONS.json",
+    "sha256": "6f8ac66cef8b291086022898d1ea546f882846de7ea8b98ff209d61feb31d960"
+  },
+  "review_bindings": [],
+  "historical_manuscripts_preserved": [
+    "manuscripts/quartic_v17.tex",
+    "manuscripts/quartic_v17.pdf",
+    "manuscripts/quartic_v16.tex",
+    "manuscripts/quartic_v16.pdf"
+  ],
+  "assembly": {
+    "parent_198_source_sha256": "6c81db7a3c0dc2bf8653032ff7d7f5b373f714d0d3c0d73f908c6e787994f103",
+    "parent_statement_environments_retained": 253,
+    "new_statement_environments": 3,
+    "missing_references": [],
+    "components": [
+      {
+        "path": "research/version18/196/proof/theorem196.tex",
+        "sha256": "6e036231d4f6f2d11e2313f854eb818dc1cf43a671b237b2087906dd2f8a9eaf"
+      },
+      {
+        "path": "research/version18/196/proof/elimination196.tex",
+        "sha256": "34c7a434ccc12031fe28ee0ade7283f98e42c99fefdbcae5977afb9558ae5485"
+      },
+      {
+        "path": "research/version18/196/proof/bibliography196.tex",
+        "sha256": "e0fe5c201b52b2ba78533a4d44ec3ad39ec46bc4e7675a78fc50bce606b538e7"
+      },
+      {
+        "path": "research/version18/196/tex/q196-rows.tex",
+        "sha256": "9fd8c918535ad5b7364360fb6f1926c0ee935fbf9bb34ccc7cccc95d5411cd6b"
+      }
+    ],
+    "scope": "Root assembly from frozen components and the PR119 candidate. The forty Part I corrections have a separate original Fable delta review; final complete-release acceptance is pending."
+  },
+  "editorial_refresh": {
+    "old_source_sha256": "771b6af7f0cc2fe855cb3a645b1542e7a143927382b0ba79ae65ea0858c5d968",
+    "new_source_sha256": "bc61e797328387465c9850c37b6713faba5c572c80e73c690e0e0fe64d84c17a",
+    "changes": [
+      "Removed four stale TeX proposal comments",
+      "Added the scope sentence identifying unused limit-object clauses"
+    ],
+    "preserved": {
+      "statement_environments": 271,
+      "display_math": 3450,
+      "abstracts": 2
+    },
+    "labels_unchanged": true,
+    "historical_scope": "This earlier local refresh is preserved as history; it is not the current candidate binding."
+  },
+  "final_integration": {
+    "source_sha256": "7004f12f00643ab83d9fad24d348009e31dfe56d48c162c58d702f9171f6a2c7",
+    "cleanup_pr": 119,
+    "cleanup_head": "75c0ab58d80d93f3d164bf4c9fbe81b36db730b0",
+    "cleanup_source_sha256": "ffb7a39bbd45fc48d5d020b24c7f50a4ca11c795be293d5649f56257c9244f9b",
+    "part1_operations": {
+      "path": "research/version18/integration/PART1-OPERATIONS.json",
+      "sha256": "6f8ac66cef8b291086022898d1ea546f882846de7ea8b98ff209d61feb31d960"
+    },
+    "scope": "Exact author change inventory; not an independent mathematical verdict.",
+    "cleanup_merge": "3808e8c4bc6cbabbab43ead171377abe7f4ac48d",
+    "cleanup_acceptance": "Protected App success on four owner overrides; original model decisions remain changes_requested. See reviews/pr119-decision.json."
+  },
+  "pr120_repairs": {
+    "source_change_record": {
+      "path": "research/version18/integration/PR120-REPAIR-OPERATIONS.json",
+      "sha256": "38cc3f189b097c2c72012e14a3bb72b1a1158d4d7ae63fd5cfcba826fa267169"
+    },
+    "scope": "Owner-authorized removal of conditional exposition with existing proof references; added exact214/212/204 certificate and current196/BB dependency inventory; unchanged polynomial, counts, displayed equations and AI usage.",
+    "review_status": "Fresh local review requested; protected review must disposition every prior finding.",
+    "navigation": {
+      "path": "research/version18/dependencies/CURRENT-V18-LABELS.json",
+      "sha256": "73038f618486905be9dbccd9d465c7d5de05127812236d79ef1e457f7fea35c9"
+    }
+  }
+}

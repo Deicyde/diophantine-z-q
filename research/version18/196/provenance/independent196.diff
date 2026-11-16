@@ -1,0 +1,28 @@
+--- original-independent_audit.py
++++ checks/independent196.py
+@@ -5,8 +5,8 @@
+ from collections import defaultdict
+ from math import gcd
+ 
+-HERE=Path(__file__).resolve().parent
+-ROOT=HERE/'source'
++from portable_io196 import inputs
++ROOT, local, OUTPUT = inputs()
+ D=ROOT/'computation/quartic/laurent_recovery_v38'
+ def read(p): return json.loads(p.read_text(encoding='utf-8'))
+ def digest(p): return hashlib.sha256(p.read_bytes()).hexdigest()
+@@ -33,7 +33,6 @@
+     return clean(out)
+ 
+ parent_file=ROOT/'sources/h10_quartic198/circuits/inverse198/quadratic.json'
+-local=HERE.parent/'v18-198-dependency-inventory-20261114/package/H10-quartic198/circuits/inverse198/quadratic.json'
+ need(parent_file.read_bytes()==local.read_bytes(),'parent is byte-identical to frozen audited Conant table')
+ need(digest(parent_file)=='c55d7eefe41f62fee88b467e3ea8f6be8ba1e66f6a94b30eb74b39f6f6e7efad','parent hash')
+ old=read(parent_file); new=read(D/'family196/quadratic.json'); cfg=read(D/'config196.json'); cert=read(D/'family196/certificate.json')
+@@ -179,5 +178,5 @@
+     except AssertionError:negatives.append(kind)
+     else:raise AssertionError('corruption accepted: '+kind)
+ result={'commit':'5c35db3253a70b0875acec4b451cdaac4da3c8fd','status':'PASS','independent_checks':len(checks),'variables':196,'existential_variables':195,'rows':182,'monomials':2943,'degree':4,'content':1,'unbalanced_fixed_maximum':str(fixed),'unbalanced_height':'max(K_fixed,149^(4N+2))','coefficient_crossover_N':7,'balanced_height':'11903780636513165769654680680436132271178681610029854792 * 149^(2N)','corruption_controls_rejected':negatives,'row_identities':row_results,'inputs':{str(p.relative_to(ROOT)):digest(p) for p in [parent_file,D/'config196.json',D/'family196/quadratic.json',D/'family196/polynomial.json',D/'family196/balanced-quadratic.json',D/'family196/balanced-polynomial.json',D/'family196/certificate.json',D/'family196/balancing.json']},'scope':'Exact all-solution algebraic equivalence and coefficient audit; inherited 198 arithmetic premises not independently re-proved here.'}
+-(HERE/'RESULT.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
++OUTPUT.write_text(json.dumps(result,indent=2),encoding='utf-8')
+ print(json.dumps({k:v for k,v in result.items() if k not in ['row_identities','inputs']},indent=2))

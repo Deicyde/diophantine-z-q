@@ -65,12 +65,15 @@ Protocol reference: [Protocol B, edition 2](https://github.com/elliotglazer/prot
 
 This is a review map, not a new acceptance of the historical arguments. Follow
 the current-manuscript profile above before using the labels below. For Version
-17, the following parts need outside review when changed, along with their
+18, the following parts need outside review when changed, along with their
 affected consumers:
 
 | Step | Current manuscript labels | Why it is load-bearing |
 |---|---|---|
-| Main family and its finite algebra | `q214:theorem`, `q214:certificates` | The equations, parameter range and coefficient representation must match the claimed projection and the regenerated artifacts. |
+| Selected 196 family and elimination | `q196:fixed`, `q196:general`, `q196:family`, `q196:rows` | Both projection directions, nonzero rescaling factors, all retained guards and printed coefficients must agree with the parent and selected table. |
+| Parent arithmetic and finite algebra | `q198:family`, `q198:finite-algebra`, `q198:soundness`, `q198:completeness` | The 198-coordinate parent must supply the integer characterization for the same parameter and simultaneous witness choices. |
+| Busy Beaver parameter and coefficient bound | `q198bb:fixed`, `q198bb:threshold`, `q198bb:compiler`, `q198bb:coefficient` | The uniform threshold, halting-machine size, machine convention and strict coefficient comparison must justify the selected fixed parameter. |
+| Retained 214 foundation | `q214:theorem`, `q214:certificates` | The inherited arithmetic interfaces and finite identities retain their separate proof scopes. |
 | Arithmetic height input | `sec:height`, `thm:height`, `q214:height-supplier` | Soundness needs the height bound for the actual contact data, including exceptional cases and uniformity. |
 | Modularity, evaluation and height comparison | `q214:modularity`, `q214:height-evaluation`, `q214:height-different`, `q214:height-metric`, `q214:height-averaging`, `q214:height-assembly` | These compare different models, metrics and normalizations; a citation must supply the object actually consumed. |
 | Pole predicate and restricted converse | `sec:pole`, `sec:rc`, `q214:source-carry` | Completeness uses simultaneous realization and the analytic/arithmetic converse chain, including determinant, limit and local-condition arguments. |

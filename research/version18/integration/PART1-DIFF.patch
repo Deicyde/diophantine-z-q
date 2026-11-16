@@ -1,0 +1,417 @@
+--- before-part1-fixes/quartic_v18.tex
++++ manuscripts/quartic_v18.tex
+@@ -125,9 +125,11 @@
+ \end{theorem}
+ 
+ \paragraph{Reading order.}
+-Section~\ref{q198:main} proves the arithmetic equivalence for every
+-sufficiently large parameter, using the inherited results identified
+-there. Section~\ref{q198:rows} prints all coordinates and equations.
++Section~\ref{q198:main} states the arithmetic equivalence and its
++inherited inputs. Sections~\ref{q198:table-transport},
++\ref{q198:height-local}, \ref{q198:completeness-section}
++and~\ref{q198:finite-certificate} prove it for every sufficiently
++large parameter. Section~\ref{q198:rows} prints all coordinates and equations.
+ Section~\ref{q198bb:specialization} proves the fixed Busy Beaver
+ specialization, including the strict coefficient bound.
+ Section~\ref{q196:elimination} proves the exact reduction to 196
+@@ -141,7 +143,7 @@
+ 
+ \paragraph{Changes in Version 18.}
+ The Tao--Ziegler adaptation asserted without proof in Versions 16 and 17
+-is proved in Section~\ref{q214foundation:tz-adaptation}.
++is proved in Subsection~\ref{q214foundation:tz-adaptation}.
+ The inverse-theorem dependency now uses the published Candela--Szegedy
+ theorem and the increment-group argument in Part~\ref{v15:gi-full}.
+ Versions 16 and 17 remain unchanged.
+@@ -167,14 +169,19 @@
+  \Z[X,Y_1,\ldots,Y_{197}].
+ \]
+ All 184 residuals, their integer coefficients and the complete coordinate
+-dictionary are printed in Section~\ref{q198:rows}. There $Y_0=X$,
+-and $Q_i(A_N)=r_{i,N}$ identifies the notation used below.
++dictionary are printed in Section~\ref{q198:rows}. Its coordinates
++$\mathbf Y=(Y_0,\ldots,Y_{197})$ have $Y_0=X$; the input denoted $x$
++in that table is the same coordinate. Its row $q_i^{[198]}(\mathbf Y;A_N)$
++is $r_{i,N}(X,Y_1,\ldots,Y_{197})$. In the Busy Beaver section only,
++$Q_i(A)$ abbreviates this quadratic row with its coordinate arguments
++suppressed. Those row polynomials are distinct objects from the four
++elliptic points also denoted $Q_i$ in the arithmetic proof.
+ The exact interpretation and finite coefficient identities are proved
+ in Section~\ref{q198:finite-certificate} below. All coordinate counts
+ include the input.
+ 
+ The proof uses the results already established in this manuscript
+-and listed in Section~\ref{q198:inherited}.
++and listed in Subsection~\ref{q198:inherited}.
+ \begin{theorem}\label{q198:family}
+ There is one fixed integer $N_0\ge1$ such that
+ \[
+@@ -225,7 +232,7 @@
+ $S=y(H)/x(H)$ and $T_H=y(H-P_0)/x(H-P_0)$ are defined and nonzero.
+ These are the raw224-side maps, before the later paired-root and
+ common-quotient reductions.
+-\item Section~\ref{v222:contacts} proves for
++\item Subsection~\ref{v222:contacts} proves for
+ $\beta=51X^2+2504$ and
+ $r_s=\beta(\beta-1)(\beta-2401)(32\beta+343)$ that the physical
+ normalizer is $R=A_Nr_s/(1+149^2r_s)>0$.
+@@ -240,10 +247,11 @@
+  b_s=R(R+9792)W_s^2,\qquad F=\Nm(f(H))\ne0.
+ \]
+ It allows either component of $Z$ to vanish and does not presuppose
+-a point interpretation of $Z$. The scalar height supplier
+-\ref{v15:height:thm:contactheight} gives
+-$h(\beta)\le C_3M_5(\beta)^3(1+\log M_5(\beta))$,
+-where $C_3=2^{330770}$.
++a point interpretation of $Z$.
++Theorem~\ref{v15:height:thm:contactheight} gives
++$h(\beta)\le C_3M_5(\beta)^3(1+\log M_5(\beta))$ with a constant
++strictly below $2^{330770}$. We enlarge that constant to
++$C_3=2^{330770}$ throughout this part.
+ \item Theorem~\ref{v15:logs:thm:uniform-logarithm-tail} and
+ Corollary~\ref{v15:logs:cor:uniform-logarithm-ratio} give the
+ formal-logarithm isometry and relative error of order four at the
+@@ -263,9 +271,10 @@
+ \]
+ For $t\in\Q\setminus\Theta$, let $M(t)$ be the squarefree product
+ of primes outside $\Sigma$ at which some $t-\theta$ has positive
+-odd valuation. Section~\ref{q214:height-supplier}, with the
+-operative product argument of Section~\ref{q214:height-averaging},
+-gives a fixed $H_2>0$ such that
++odd valuation. The reflected application in
++Section~\ref{q214:existence}, ``Height supplier and global consumers'',
++and Section~\ref{q214:uniform-existence}, P10, gives a fixed $H_2>0$
++such that
+ \[
+                          h(t)\le H_2M(t)^{7/6}.
+ \]
+@@ -570,7 +579,7 @@
+ $a=2\nu(Q_2)\in\Z\setminus\{0\}$.
+ \end{lemma}
+ \begin{proof}
+-The three right sides are nonzero by Section~\ref{q198:recovery-order}.
++The three right sides are nonzero by Subsection~\ref{q198:recovery-order}.
+ Thus $M+U,M+V,M+W$ are nonzero, and the ordinates in
+ Lemma~\ref{q198:inverse-vieta} are nonzero. Substituting those
+ ordinates gives the three ratio identities with their displayed
+@@ -911,7 +920,9 @@
+ \end{lemma}
+ \begin{proof}
+ Put $A=a+1$, $c'=|A|$ and $w=\operatorname{sgn}(A)(A-2)b$.
+-For large c, $c'>2$, $w\ne0$, and the equation becomes
++For $c\ge8$, we have $c'\ge c-1\ge7>2$ and
++$|A-2|\ge c'-2\ge5$. Since $b\ne0$, this gives $w\ne0$,
++and the equation becomes
+ $t^2-c'tw+w^2=1$. We recall the elementary norm-one argument used
+ in Section~\ref{q214:uniform-existence}, P12. With
+ $\epsilon=(c'+\sqrt{c'^2-4})/2$, every positive norm-one unit in
+@@ -932,12 +943,14 @@
+ Thus
+ \[
+  \log B\ge(j-2)\log(c'-1)
+- \ge(c'-5)\log(c'-2)\ge(c-6)\log(c-3)
+-\]
+-for all sufficiently large c, using $c'\ge c-1$.
+-Section~\ref{q198bb:inputs} records the explicit sufficient bound
+-$c\ge8$ for this growth inequality; the later threshold argument
+-uses $c>e^{12}$.
++ \ge(c'-4)\log(c'-1)
++ \ge(c'-5)\log(c'-2)\ge(c-6)\log(c-3).
++\]
++Here $j\ge c'-2\ge5$, so the recurrence bound applies at index
++$j-1\ge4$. Every displayed factor is positive for $c\ge8$;
++the final comparison uses $c'\ge c-1$ and monotonicity of the logarithm.
++Thus $c\ge8$ suffices for the growth inequality. The later threshold
++argument uses $c>e^{12}$.
+ 
+ For the converse A=a+1 is odd and j=a-1 is odd and congruent
+ to 2 modulo 3. The recurrence modulo a-1 gives $U_j\equiv j=0$,
+@@ -3321,7 +3334,9 @@
+ \section{A fixed 198-variable quartic selected by Busy Beaver}
+ \label{q198bb:specialization}
+ 
+-We use the arithmetic conclusions proved in Section~\ref{q198:main}
++We use Theorem~\ref{q198:family}, proved in
++Sections~\ref{q198:table-transport}, \ref{q198:height-local},
++\ref{q198:completeness-section} and~\ref{q198:finite-certificate},
+ and the exact polynomial table in Section~\ref{q198:rows}. The argument in this section bounds a
+ sufficient threshold by bounding the number of records in a computable
+ search. It then gives a separate strict bound on the coefficients.
+@@ -3370,7 +3385,7 @@
+ \paragraph{Internal arithmetic suppliers.}
+ The group and torsion identifications used above follow from
+ Proposition~\ref{prop:generator}, with the normalized point and model
+-identified in Section~\ref{subsec:v5-point-source}.
++identified in Subsection~\ref{subsec:v5-point-source}.
+ The estimate \eqref{eq:o8-indexheight}, divided by the square of the
+ index and passed to the canonical-height limit, gives
+ $\widehat h_E(P)\ge1/2$.
+@@ -3380,8 +3395,10 @@
+ The scalar contact estimate is
+ Theorem~\ref{v15:height:thm:contactheight}, while the full reflected
+ contact bound and its exceptional set are proved in
+-Section~\ref{q214:height-supplier}.
+-Section~\ref{v222:contacts} supplies the four-contact scalar normalizer,
++Section~\ref{q214:existence}, ``Height supplier and global consumers'',
++and Section~\ref{q214:uniform-existence}, P10, using the unreflected
++supplier of Section~\ref{q214:height-supplier}.
++Subsection~\ref{v222:contacts} supplies the four-contact scalar normalizer,
+ its forced-149 valuation and its input-uniform lower bound.
+ The prepared pole predicate is proved in
+ Lemma~\ref{v5:preparation-zero-bridge} and stated with its precise
+@@ -3392,8 +3409,11 @@
+ Lemma~\ref{v15:dependencies:lem:real-progression} supply the ordered
+ prime, rational-contact, CRT and real-progression choices.
+ Their application to the final 198 labels and actual scalar input is
+-proved in Section~\ref{q198:main}; the present section changes only the
+-quantitative choice of its fixed parameter.
++proved by Lemmas~\ref{q198:scalar-ratios},
++\ref{q198:scalar-extraction}, \ref{q198:half-generator-progression}
++and~\ref{q198:additive-contacts}, and
++Propositions~\ref{q198:scalar-preparation} and~\ref{q198:completeness}.
++The present section changes only the quantitative choice of its fixed parameter.
+ 
+ 
+ \subsection{The arithmetic inputs and their precise scope}
+@@ -3406,23 +3426,34 @@
+  E:y^2=x^3-Dx,\qquad R_0=(1+\rho,2\rho),\qquad
+  P=2R_0=\left((57-28\rho)/8,(-660+417\rho)/32\right).
+ \]
+-The retained group and height statements give
++Proposition~\ref{prop:generator}, Subsection~\ref{q198:inherited}(1)
++and the canonical-height consequence of \eqref{eq:o8-indexheight} give
+ $E(K)=\Z R_0+E[2](K)$, uniquely, with
+ $E[2](K)=\{O,(0,0),(d,0),(-d,0)\}$ and
+ $\widehat h_E(P)\ge1/2$. The two pointed images of $R_0$ on
+ $E_0:Y^2=X^3-X$, obtained from the conjugate curves by their fixed
+-pointed isomorphisms, are independent modulo torsion over $\Z[i]$.
+-The fixed real-orbit recurrence, finite-place preparation, compatible
+-CRT, simultaneous-prime and prepared pole-realization statements are
+-those of the 198 construction.
+-
+-Every rational solution recovers four finite points
++pointed isomorphisms, are independent modulo torsion over $\Z[i]$
++by Lemma~\ref{v15:aggregate:lem:independent} and the doubling argument
++in Subsection~\ref{q198:inherited}(1).
++The prime, CRT, real-recurrence and pole-realization suppliers are
++identified in Subsection~\ref{q198:inherited}(7)--(8). Their use on the
++198-coordinate domain is proved in
++Lemmas~\ref{q198:half-generator-reduction},
++\ref{q198:half-generator-progression} and~\ref{q198:additive-contacts},
++and Propositions~\ref{q198:scalar-preparation} and~\ref{q198:completeness}.
++
++Lemmas~\ref{q198:reciprocal-pairs}, \ref{q198:nonzero-scale},
++\ref{q198:inverse-vieta}, \ref{q198:pair-ratios}
++and~\ref{q198:scalar-ratios}, together with
++Subsection~\ref{q198:affine-fourth}, recover from every rational solution
++four finite points
+ $Q_i=[m_i]R_0+\tau_i$, with $m_i\in\Z$ and $\tau_i\in E[2](K)$,
+ and labels
+ \[
+  n=m_1/2,\qquad a=m_2\ne0,\qquad t=m_3,\qquad b=2m_4+1.
+ \]
+-Its aggregate and scalar data are
++Corollary~\ref{q198:shifted-aggregate} and
++Lemma~\ref{q198:scalar-extraction} give its aggregate and scalar data:
+ \[
+  T=7+\frac14\operatorname{Tr}_{K/\Q}\sum_i x(Q_i)\ge1,
+  \quad t_0=\lambda,\quad t_1=\lambda+T,
+@@ -3436,7 +3467,9 @@
+  c\ge149^{L_N},\qquad
+  h(\beta)\le C_3 149^{-L_N}c(1+\log(c)/3),\qquad C_3=2^{330770}.
+ \]
+-The retained contact radicals $M_j=M(t_j)$ satisfy
++Subsection~\ref{q198:inherited}(6) and
++Lemma~\ref{q198:residual-divisibility} show that the contact radicals
++$M_j=M(t_j)$ satisfy
+ \[
+  h(t_j)\le H_2M_j^{7/6},\qquad
+  M_j^3\mid\Delta\quad(\Delta\ne0),\qquad
+@@ -3448,20 +3481,25 @@
+  \qquad J_x=|\operatorname{num}(\beta-n)|\le4B e^{h(\beta)}.
+ \]
+ Here $\operatorname{num}$ means reduced numerator, and the divisibility
+-statements concern nonzero integers. The contact supplier has
++statements concern nonzero integers. Section~\ref{q214:height-supplier}
++gives the unreflected contact supplier with
+ $C_2<2^{7557/32}$ and $\alpha=2103/1024<7/3$, with
+ $H_2=\log7+C_2B_\Sigma^\alpha$ and
+-$B_\Sigma=\prod_{p\in\Sigma\setminus S_{10}}p$. The retained exceptional
+-set consists of primes at most 76176 together with 2029147.
++$B_\Sigma=\prod_{p\in\Sigma\setminus S_{10}}p$. Here
++$S_{10}=\{2,3,5,7,11,13,17,37,41,2399\}$ and
++$\Sigma=\{p\text{ prime}:p\le76176\}\cup\{2029147\}$.
++The reflected application and this exceptional set are the ones in
++Subsection~\ref{q198:inherited}(6), supplied by
++Section~\ref{q214:uniform-existence}, P10.
+ Consequently
+ \[
+  B_\Sigma\le2029147\,76176^{76176}<2^{1295013},\qquad
+  H_2<2^{4000000}.
+ \]
+-The norm-one/Lucas classification gives the following explicit
++The proof of Lemma~\ref{q198:affine-lucas} gives the following explicit
+ consequence when $\Delta=0$ and $c\ge8$. Put $A'=a+1$,
+ $c'=|A'|$ and $w=\operatorname{sgn}(A')(A'-2)b$. Then $w\ne0$ and
+-$t^2-c'tw+w^2=1$. The retained classification gives
++$t^2-c'tw+w^2=1$. That classification gives
+ $|w|=U_j(c')$, $|t|\in\{U_{j-1}(c'),U_{j+1}(c')\}$ and
+ $j\ge c'-2$. The recurrence bound
+ $U_\ell(c')\ge(c'-1)^{\ell-1}$ for $\ell\ge1$ therefore gives
+@@ -3469,8 +3507,8 @@
+  \log B\ge(c'-5)\log(c'-2)\ge(c-6)\log(c-3).
+ \]
+ All bases and exponents in this weakening are positive for $c\ge8$.
+-When $J_x=0$, the reduced-denominator argument using squarefreeness of
+-102 gives $x\in\Z$.
++When $J_x=0$, Lemma~\ref{q198:integer-input}, using the squarefreeness
++of 102, gives $x\in\Z$.
+ 
+ For completeness the actual scalar quotient is
+ $Z=2z(Q_2)/z(H)$, where $z=-x/y$, and
+@@ -3483,7 +3521,7 @@
+  W_s=Z_0^4/R^{10}+Z_1^2/R^5+F^2/R^4,\qquad
+  b_s=R(R+9792)W_s^2.
+ \]
+-The ordered completeness construction permits arbitrary required
++Proposition~\ref{q198:scalar-preparation} permits arbitrary required
+ finite depths for $H$ and then $Q_2=[a_0]P$, including $3\mid a_0$,
+ while keeping their fixed real neighborhoods. After their values and the
+ labels have been chosen, the comparison-prime theorem applies to the
+@@ -3492,17 +3530,21 @@
+ realization is applied to each actual final input after $H$ is fixed.
+ The only uniform lower restriction on $N$ in this construction is the
+ one ensuring $0<b_s<17$; the later moduli, primes, slopes and certificates
+-may depend on $(N,x)$ and impose no new lower bound on $N$.
+-Section~\ref{q198bb:real} supplies an explicit sufficient uniform bound.
+-
+-Finally, the exact unbalanced coefficient calculation gives, for $N\ge1$,
++may depend on $(N,x)$ and impose no new lower bound on $N$, as proved
++in Lemmas~\ref{q198:additive-contacts}
++and~\ref{q198:half-generator-progression} and
++Proposition~\ref{q198:completeness}.
++Subsection~\ref{q198bb:real} supplies an explicit sufficient uniform bound.
++
++Finally, Proposition~\ref{q198:finite-algebra} gives, for $N\ge1$,
+ \[
+  H(P_N)=\max\{H_0,149^{4N+2}\},\quad
+  K_0=31581660^{28},\quad
+  H_0=(5898050446009651968K_0)^2<149^{214}.
+ \]
+ The degree, content and 2945-monomial support hold throughout this
+-parameter range. The separate balanced table uses $C=149^N$ and has
++parameter range, as stated in Theorem~\ref{q198:family}.
++The separate balanced table uses $C=149^N$ and has
+ coefficients linear in $C$; it is not the polynomial-in-$A$ presentation
+ selected in Theorem~\ref{q198bb:fixed}.
+ 
+@@ -3542,7 +3584,8 @@
+ \]
+ It cannot cancel. A pole shared across the two conjugate blocks would
+ give a nonzero relation between the pointed images of $R_0$ modulo
+-torsion, contrary to their retained independence. The same positive
++torsion, contrary to Lemma~\ref{v15:aggregate:lem:independent} and
++Subsection~\ref{q198:inherited}(1). The same positive
+ sum works in the second block. Thus $F$ is nonconstant on any such
+ direction. The graph closure $V\subset A_k\times\mathbf P^1$ is
+ integral; a fiberwise translate through an actual domain point meets
+@@ -3596,7 +3639,7 @@
+ $Q+R$ and $Q-R$, multiplied in the affine chart by $(x_R-x_Q)^3$,
+ reduce to polynomials of bidegree $(2,2)$ with integer coefficients of
+ absolute value at most four. The nine polynomials are displayed in
+-Section~\ref{q198bb:finite-algebra}. Their extensions are sections of
++Subsection~\ref{q198bb:finite-algebra}. Their extensions are sections of
+ $\mathcal O(6O)\boxtimes\mathcal O(6O)$, by the theorem of the square.
+ The divisor of $x_R-x_Q$ identifies the common trivialization used in
+ this calculation, so these sections give the addition-subtraction
+@@ -3799,7 +3842,8 @@
+ \[
+  S\le Ub(T)+Ur_*\le2Uh(T)+U(r_*+1).
+ \]
+-For the signed labels of Section~\ref{q198bb:inputs},
++For the signed labels of Lemma~\ref{q198:scalar-ratios} and
++Subsection~\ref{q198:affine-fourth},
+ $|2m_4+1|\le2|m_4|+1$ gives
+ \[
+  B^2\le9(S+1)\le18Uh(T)+10U(r_*+1).
+@@ -3817,7 +3861,7 @@
+ \]
+ The extra $M_1\log2$ in
+ $h(T)\le h(t_0)+h(t_1)+\log2$ is absorbed by $J_1$.
+-The retained scalar inequalities give $B\ge c\ge149^{L_N}>N$.
++Lemma~\ref{q198:scalar-extraction} gives $B\ge c\ge149^{L_N}>N$.
+ If $\Delta\ne0$, cubic contact divisibility gives
+ \[
+  B^2\le C14^{7/18}B^{14/9}+J_1
+@@ -3895,12 +3939,15 @@
+ of $m$ and $64$.  Its multiples of the paired point are dense in
+ $G^0$: multiplication by that modulus kills the component group and
+ is surjective on the torus $G^0$.
+-The retained positive-orbit recurrence therefore chooses the initial
++The positive-orbit recurrence of
++Lemma~\ref{v15:dependencies:lem:real-progression}, applied as in
++Proposition~\ref{q198:scalar-preparation}, therefore chooses the initial
+ reference $H$ in the fixed neighborhood with all required finite
+ divisibilities.  The scalar point $[a_0]P$ is then chosen in a fixed
+ neighborhood of the identity with both $|z([a_0]P)|\le1$, and with the additional fixed divisibility $3\mid a_0$.
+ Continuity fixes a residue class for the later reference choices,
+-and the retained CRT and real-progression argument preserves it.
++and Corollary~\ref{v15:dependencies:cor:compatible-progressions}
++and Lemma~\ref{q198:half-generator-progression} preserve it.
+ This is the same order of choices as the 198-variable completeness
+ argument; no bound on $m$ or on the final indices is required.
+ 
+@@ -3925,12 +3972,12 @@
+ the required $2$-adic depths. The finite preparation can still be made
+ arbitrarily deep. All subsequent finite, CRT, contact-prime, slope and
+ pole-certificate choices may depend on $(N,x)$ and impose no further
+-lower bound on $N$, by the actual 198 completeness construction stated
+-in Section~\ref{q198bb:inputs}. All labels and $T$ are fixed before
++lower bound on $N$, by Proposition~\ref{q198:completeness} and
++Lemma~\ref{q198:additive-contacts}. All labels and $T$ are fixed before
+ comparison primes; repeated contacts are merged with their incidences.
+ The pole predicate is applied to the final scalar input after $H$ has
+ been fixed. Thus every $N\ge G(r_*)$ gives completeness for every
+-integer input. Together with Section~\ref{q198bb:threshold-arithmetic}
++integer input. Together with Subsection~\ref{q198bb:threshold-arithmetic}
+ this proves that $G(r_*)$ is an all-larger-parameter defining threshold.
+ In particular $G(r_*)>53$.
+ 
+@@ -3943,7 +3990,7 @@
+ 198-variable family. Every $N\ge N_*$ defines the integers.
+ \end{theorem}
+ For each integer $0\le j<U$, the program of
+-Section~\ref{q198bb:programs} enumerates the encoded finite point
++Subsection~\ref{q198bb:programs} enumerates the encoded finite point
+ quadruples until its $j$th record. When $j=0$ it immediately uses $r=U$.
+ It then computes $G(r)=U^{32}(r+1)$, performs $G(r)$ increments, and halts.
+ For $j=j_*$ it halts: the final record occurs in a finite shell, all
+@@ -4203,7 +4250,7 @@
+ observing the halt bit. It therefore returns exactly $T$.
+ 
+ The program next computes $H=149^{4T+2}+1$ and performs $H+1$
+-increments before halting. Section~\ref{q198bb:compiler} constructs
++increments before halting. Subsection~\ref{q198bb:compiler} constructs
+ a binary machine with fewer than $2^{1200}<2^{2000}$ working
+ states for this fixed interpreter and its hardwired table.
+ Its final loop alone takes more than $H$ transitions. Padding
+@@ -4214,8 +4261,7 @@
+ Finally a chain of 54 working states, each moving right and
+ passing to the next state, with the last transition halting,
+ runs for 54 transitions on the blank tape. Padding it proves
+-$\BB(2^{1000})\ge54>53$. Hence the separately checked coefficient
+-formula $H(P_N)=\max\{H_0,149^{4N+2}\}=149^{4N+2}$ for $N\ge53$
++$\BB(2^{1000})\ge54>53$. Hence the coefficient formula of Proposition~\ref{q198:finite-algebra}, $H(P_N)=\max\{H_0,149^{4N+2}\}=149^{4N+2}$ for $N\ge53$
+ applies independently of the arithmetic-threshold argument. Therefore
+ \[
+  H(P_{\rm BB})=149^{4N_{\rm BB}+2}
+@@ -4225,7 +4271,7 @@
+ 
+ 
+ Theorem~\ref{q198bb:threshold}, Lemma~\ref{q198bb:coefficient}, and the exact
+-coefficient formula in Section~\ref{q198bb:inputs} prove
++coefficient formula in Proposition~\ref{q198:finite-algebra} prove
+ Theorem~\ref{q198bb:fixed}. The construction now selects one polynomial
+ using the specified Busy Beaver function. No assertion here computes
+ that function or gives a decimal evaluation of the selected parameter.

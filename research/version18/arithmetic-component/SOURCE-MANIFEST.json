@@ -1,0 +1,77 @@
+{
+  "V18_public": {
+    "path": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\version18-findings-20261114\\cleanup-split\\next-local-control\\quartic_v18.tex",
+    "sha256": "ca1ea465a0ebae934162a2c278186ab09477a91f14b60eefa71c5398ee71a165",
+    "bytes": 2356519
+  },
+  "V18_pending": {
+    "path": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\version18-findings-20261114\\cleanup-split\\combined-remaining-sources\\quartic_v18.tex",
+    "sha256": "800e23b01fe33c2b612557fad7ca5d3802fae5654cbf397e1dbf8b42af8d9848",
+    "bytes": 2361871
+  },
+  "J212": {
+    "path": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\v18-198-dependency-inventory-20261114\\J212.tex",
+    "sha256": "3bc847ccc53974cf39e4083ffbe9e27f74b87bf3a9f9b47e4212f7574010e1c2",
+    "bytes": 21439
+  },
+  "J204": {
+    "path": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\v18-198-dependency-inventory-20261114\\J204.tex",
+    "sha256": "d2ba4a3260d1bfd5f8010a31f1375a5cee5c0abfc52361817f42a67be35647af",
+    "bytes": 22843
+  },
+  "JWT": {
+    "path": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\v18-198-dependency-inventory-20261114\\JWT.tex",
+    "sha256": "75ff9bc3bf6ebee4ae200568a1537b3e24fede021aa0262368f7babc494018fe",
+    "bytes": 13541
+  },
+  "C198": {
+    "path": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\v18-198-dependency-inventory-20261114\\C198.tex",
+    "sha256": "3f8a91ccffc6c7138c166532fd2732f89448284f42d011d41b287260d4e1c5de",
+    "bytes": 20441
+  },
+  "C_affine": {
+    "path": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\v18-198-dependency-inventory-20261114\\C200affine.tex",
+    "sha256": "3996ce9bb5bbc3b0babdf38be24ef7f7fc51cd9d5fc2ed1ca637d2ab937d0c20",
+    "bytes": 10290
+  },
+  "C_chart": {
+    "path": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\v18-198-dependency-inventory-20261114\\Cchart.md",
+    "sha256": "2baf34fe702e5d287dda7b47dbaed62d266d7b887f7734c8b00ea828fc43c1a9",
+    "bytes": 5506
+  },
+  "quadratic": {
+    "path": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\v18-198-dependency-inventory-20261114\\package\\H10-quartic198\\circuits\\inverse198\\quadratic.json",
+    "sha256": "c55d7eefe41f62fee88b467e3ea8f6be8ba1e66f6a94b30eb74b39f6f6e7efad",
+    "bytes": 223391
+  },
+  "polynomial": {
+    "path": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\v18-198-dependency-inventory-20261114\\package\\H10-quartic198\\circuits\\inverse198\\polynomial.json",
+    "sha256": "652b5141aaa0d9f54ef89196ae9e442787335b2fd498e250c2772dc3af98a36c",
+    "bytes": 430831
+  },
+  "reconstruction_report": {
+    "path": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\v18-198-bb-integration-20261115\\reconstruction\\REPORT.md",
+    "sha256": "d7054c9ffddebbda5e5f31c2795aac5b2724cb880edf70fc65baab042a8eb978",
+    "bytes": 12371
+  },
+  "statistics": {
+    "path": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\v18-198-bb-integration-20261115\\reconstruction\\MANUSCRIPT-STATISTICS.md",
+    "sha256": "b04fd6e97b5ec00e993857bcbbefd6f7d8efd789720055c2d61f80920406b8e6",
+    "bytes": 2444
+  },
+  "independent_result": {
+    "path": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\v18-198-bb-integration-20261115\\reconstruction\\independent198-result.json",
+    "sha256": "90b332ef044496bcc896c922755d5f023c3568c77144352ae2222b1579f42d9e",
+    "bytes": 3864
+  },
+  "native_reproduction": {
+    "path": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\v18-198-bb-integration-20261115\\reconstruction\\native-reproduction.json",
+    "sha256": "e8711d21b3caeb379c4bafbc94227141a4da5f8db5e0ee33ba4290135ff7e39a",
+    "bytes": 2151
+  },
+  "independent_checker": {
+    "path": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\v18-198-bb-integration-20261115\\reconstruction\\independent198.py",
+    "sha256": "2a2cee362eb285e59bf6aab230244199f881c041ac79ff1b2722eb9dd63c9ed2",
+    "bytes": 16515
+  }
+}
