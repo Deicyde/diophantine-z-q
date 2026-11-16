@@ -22,3 +22,9 @@
   Proved: discreteTopology_periodLattice; riemannTheta_add_int / _add_period / _add_mem_eq_zero_iff (consistency of the
   leaf); tensorPowPullbackIso, support_zeroLocus_pullbackSec, isAmple_map, finrank_map, symmPrincipalTransport;
   thetaDivisorAlgebraicC_of_riemann (RiemannPPAV + GAGAMorphism + SymmPrincipalTransport => ThetaDivisorAlgebraicC).
+
+## 2026-11-16 16:05 compile 2
+- `lake build ZInQKernel.Contrib.OneProof.UniformizationLeafAll`: Build completed successfully (9136 jobs). VERIFIED.
+- PazukiAlg.lean with final theorems: 0 errors; `#print axioms` (temporary, removed after) for pazukiCor13Upper_of_riemann,
+  symmPrincipalTransport, thetaDivisorAlgebraicC_of_riemann: [propext, Classical.choice, Quot.sound]. VERIFIED.
+- RiemannPPAV now allows a translate theta(. + c) (weaker than the print, which has c = 0).

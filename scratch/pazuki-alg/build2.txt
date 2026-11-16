@@ -900,3 +900,47 @@ import Mathlib.Basic.Complex.Basic
 ✔ [9125/9136] Built ZInQKernel.Contrib.CloudB3W17Hodge.Port.Other.AlgebraicGeometry.ComplexPoint.AffineConnected (2.2s)
 ✔ [9126/9136] Built ZInQKernel.Contrib.CloudB3W17Hodge.Port.Other.AlgebraicGeometry.ComplexPoint.SmoothConnected (1.9s)
 ✔ [9127/9136] Built ZInQKernel.Contrib.CloudB3W17Uniformization.NativeAbelianGeometry (3.9s)
+⚠ [9128/9136] Built ZInQKernel.Contrib.CloudB3W17Hodge.Bridge (116s)
+warning: ZInQKernel/Contrib/CloudB3W17Hodge/Bridge.lean: imports `Mathlib.AlgebraicGeometry.Stalk` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W17Hodge/Bridge.lean:73:0: Definition `CloudB3W17Hodge.classicalTopology` of class type is semireducible. Most type class instances should be instance-reducible, so consider marking this
+definition with `@[instance_reducible]`. If it is intentionally semireducible, this warning can be disabled with `set_option warn.classDefReducibility false`.
+warning: ZInQKernel/Contrib/CloudB3W17Hodge/Bridge.lean:117:40: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/CloudB3W17Hodge/Bridge.lean:132:54: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/CloudB3W17Hodge/Bridge.lean:135:17: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/CloudB3W17Hodge/Bridge.lean:135:62: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/CloudB3W17Hodge/Bridge.lean:158:70: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ZInQKernel/Contrib/CloudB3W17Hodge/Bridge.lean:180:17: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ZInQKernel/Contrib/CloudB3W17Hodge/Bridge.lean:190:17: Definition `CloudB3W17Hodge.classicalTopology` of class type is semireducible. Most type class instances should be instance-reducible, so consider marking this
+definition with `@[instance_reducible]`. If it is intentionally semireducible, this warning can be disabled with `set_option warn.classDefReducibility false`.
+warning: ZInQKernel/Contrib/CloudB3W17Hodge/Bridge.lean:196:0: Definition `CloudB3W17Hodge.chartedSpace` of class type is semireducible. Most type class instances should be instance-reducible, so consider marking this
+definition with `@[instance_reducible]`. If it is intentionally semireducible, this warning can be disabled with `set_option warn.classDefReducibility false`.
+⚠ [9129/9136] Built ZInQKernel.Contrib.CloudB3W17Hodge.CptManifold (31s)
+warning: ZInQKernel/Contrib/CloudB3W17Hodge/CptManifold.lean:44:17: Definition `CloudB3W17Hodge.classicalTopology` of class type is semireducible. Most type class instances should be instance-reducible, so consider marking this
+definition with `@[instance_reducible]`. If it is intentionally semireducible, this warning can be disabled with `set_option warn.classDefReducibility false`.
+✔ [9130/9136] Built ZInQKernel.Contrib.CloudB3W17GAGA.CanonicalPointComparison (31s)
+✔ [9131/9136] Built ZInQKernel.Contrib.CloudB3W17Uniformization.ClassicalNeighborhood (32s)
+✔ [9132/9136] Built ZInQKernel.Contrib.CloudB3W17Uniformization.TransportAnalytic (32s)
+✔ [9133/9136] Built ZInQKernel.Contrib.CloudB3W17Uniformization.CanonicalAnalytic (4.2s)
+✔ [9134/9136] Built ZInQKernel.Contrib.CloudB3W17Uniformization.AbelianAnalyticAssembly (4.7s)
+✔ [9135/9136] Built ZInQKernel.Contrib.CloudB3W17Uniformization.Uniformization (4.3s)
+✔ [9136/9136] Built ZInQKernel.Contrib.OneProof.UniformizationLeafAll (4.2s)
+Build completed successfully (9136 jobs).
+EXIT 0

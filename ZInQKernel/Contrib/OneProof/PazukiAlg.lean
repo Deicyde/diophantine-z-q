@@ -438,3 +438,4 @@ theorem pazukiCor13Upper_of_riemann (hG : ZInQ.HomLattice.GAGAMorphism) (hP : Pa
     (analyticPPAlgebraic_of_riemann hR hG hD) hP
 
 end PazukiAlg
+
