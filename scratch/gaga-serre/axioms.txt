@@ -1,0 +1,7 @@
+'SerreGAGA.gagaMorphism_of_serre' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SerreGAGA.sga1_XII_4_4_of_serre' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SerreGAGA.isProjVar' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SerreGAGA.anFunAt_iff_serreHolAt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SerreGAGA.isAnMorphism_iff_isSerreHolMap' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SerreGAGA.isAnMorphism_iff_germ' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SerreGAGA.locallyOfFiniteType_of_isProjVar' depends on axioms: [propext, Classical.choice, Quot.sound]

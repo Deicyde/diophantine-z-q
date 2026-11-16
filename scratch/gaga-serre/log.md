@@ -28,3 +28,13 @@
 - `isAnMorphism_iff_serre`: IsAnMorphism X Y F ↔ continuous ∧ pulls back SerreHolAt germs at every point.
 - Fix noted: `AnalyticOnNhd.eval_continuousLinearMap (ContinuousLinearMap.id ..)` timed out (isDefEq); used
   `AnalyticAt.aeval_mvPolynomial` with `f := id` + `simpa [coe_aeval_eq_eval]` instead.
+
+## Contribution ZInQKernel/Contrib/OneProof/SerreGAGA.lean — VERIFIED
+- `lake build ZInQKernel.Contrib.OneProof.SerreGAGA` succeeds (9271 jobs). Imports SGA1Printed and the vendored
+  QuasiProjective only.
+- Leaf restated over Serre's own objects: `IsSerreHolMap X Y F` := continuous (analyticTopology) ∧ ∀ P s,
+  SerreHolAt Y s (F P) → SerreHolAt X (s ∘ F) P. `SerreGAGAMorphism` := ∀ X Y, IsProjVar X → IsProjVar Y →
+  ∀ F, IsSerreHolMap X Y F → ∃ f : X ⟶ Y, ∀ P, F P = P ≫ f.
+- Glue: `isAnMorphism_iff_isSerreHolMap` (LOFT X, Y), `locallyOfFiniteType_of_isProjVar`, `isProjVar`,
+  `sga1_XII_4_4_of_serre`, `gagaMorphism_of_serre hM hL hPC hC hS`.
+- axioms (scratch/gaga-serre/axioms.txt): all seven declarations [propext, Classical.choice, Quot.sound].
