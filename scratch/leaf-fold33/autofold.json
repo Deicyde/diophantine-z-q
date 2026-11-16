@@ -1,0 +1,58 @@
+{
+ "name": "leaf-fold33",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.PoincareComplement",
+  "ZInQKernel.Contrib.OneProof.Fold33.NeronBLR",
+  "ZInQKernel.Contrib.OneProof.PicZeroAbVarCartier"
+ ],
+ "discharges": [
+  {
+   "field": "poincareComplement",
+   "proof": "_root_.ZInQ.Contrib.OneProof.PoincareComplement.poincareComplement_of_open {l}.picRepresentableAbVar (_root_.PicSmooth.picZeroAbVar_of_printed2 {l}.picLocFinType {l}.identityComponentLFT {l}.picZeroSmoothPosChar {l}.kleimanPicZeroProper) (_root_.PicFix.phiAmpleIsogeny_of_printed {l}.mumfordKLFiniteSectionAC {l}.mumfordPhiSurjectiveAC) _root_.ZInQ.Contrib.MilneQuasiInverse.milneIsogenyQuasiInverse_proof _root_.ZInQ.Contrib.OneProof.CartierSmooth.cartierSmooth_proof",
+   "leaves": []
+  },
+  {
+   "field": "blr_7_2_1",
+   "proof": "_root_.ZInQ.Contrib.OneProof.Fold33.blr_7_2_1_proof",
+   "leaves": []
+  },
+  {
+   "field": "picZeroAbVar",
+   "proof": "_root_.PicSmooth.picZeroAbVar_of_printed2 {n}.picLocFinType {n}.identityComponentLFT {n}.picZeroSmoothPosChar {n}.kleimanPicZeroProper",
+   "leaves": [
+    {
+     "name": "picLocFinType",
+     "type": "_root_.PicDict.PicLocFinType",
+     "doc": "pic-dict: a scheme representing Pic_{A/K} of an abelian variety A over a field K is locally of finite type (Murre 1964 / Oort 1962, BLR, Neron models, 8.2 Thm 3: Pic_{X/k} exists and is locally of finite type for X proper over a field; also Kleiman, The Picard scheme, Thm 9.4.8 for X projective, A being projective by the vendored GrpObj.exists_isImmersion_projectiveSpace_of_smooth_of_geometricallyIntegral; any representing object by Yoneda; locators UNVERIFIED).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (BLR 8.2 Thm 3 / Murre-Oort for proper X over a field; Kleiman 9.4.8 for projective X, A projective by the vendored lemma; any representing object by Yoneda uniqueness); locator UNVERIFIED",
+     "source": "BLR, Neron models, 8.2 Thm 3 (Murre 1964, Oort 1962); Kleiman, The Picard scheme, 9.4.8"
+    },
+    {
+     "name": "identityComponentLFT",
+     "type": "_root_.PicDict.IdentityComponentLFT",
+     "doc": "pic-dict: the identity component of a group scheme locally of finite type over a field is an open, geometrically irreducible subgroup (SGA 3 VI_A 2.4; Stacks 0B7R; locators UNVERIFIED).",
+     "kind": "published",
+     "flag": "unread: new printed leaf; locator UNVERIFIED",
+     "source": "SGA 3, VI_A 2.4; Stacks 0B7R"
+    },
+    {
+     "name": "picZeroSmoothPosChar",
+     "type": "_root_.PicSmooth.PicZeroSmoothPosChar",
+     "doc": "pic-smooth: the identity component of Pic_{A/K} is smooth over K for A an abelian variety over a field K of characteristic p > 0 (PicDict.PicZeroSmooth restricted to positive characteristic, a consequence of it; characteristic 0 is proved from Cartier's theorem and PicLocFinType in PicSmooth.picZeroSmooth_of_cartier). Mumford 13 over Kbar with the identification of the dual with the fppf Pic0 and descent; one print over an arbitrary field pending reading: BLR 8.4, FGA Explained 9.5, Milne 1986 10; locators UNVERIFIED.",
+     "kind": "published",
+     "flag": "pending reading: positive-characteristic case only (char 0 proved via Cartier, cartierSmooth_proof); one print over an arbitrary field of characteristic p not located (Mumford 13 is over Kbar and about Mumford's dual, not the fppf Pic0; BLR 8.4 / FGA Explained 9.5 / Milne 1986 10 to read); locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, 13 (over Kbar); BLR 8.4; Milne 1986 10"
+    },
+    {
+     "name": "kleimanPicZeroProper",
+     "type": "_root_.PicFix.KleimanPicZeroProper",
+     "doc": "pic-fix: for X proper and geometrically normal over a field K, the identity component of Pic_{X/K} is proper (Kleiman, The Picard scheme, Thm 9.5.4; locator UNVERIFIED); stated for every representing scheme.",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Kleiman 9.5.4, X proper and geometrically normal over a field, every representing object); locator UNVERIFIED",
+     "source": "Kleiman, The Picard scheme, 9.5.4"
+    }
+   ]
+  }
+ ]
+}
