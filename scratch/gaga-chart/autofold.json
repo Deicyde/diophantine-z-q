@@ -1,0 +1,22 @@
+{
+ "name": "gaga-chart",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.GAGAChart"
+ ],
+ "discharges": [
+  {
+   "field": "gagaMorphism",
+   "proof": "_root_.GAGAAn.gagaMorphism_of_gagaChart {n}.uniformizationLeafAll {n}.gagaChart",
+   "leaves": [
+    {
+     "name": "gagaChart",
+     "type": "_root_.GAGAAn.GAGAChart",
+     "doc": "gaga-chart: GAGA for maps of complex abelian varieties, chart form: for abelian varieties A, B over C, with A(C), B(C) in the analytic topology (unif-topology) and complex analytic manifold structures satisfying IsAnStr (the complex structure of A^an: regular functions holomorphic, regular local coordinates; unique by contMDiff_id_of_isAnStr), every map A(C) -> B(C) holomorphic (ContMDiff omega) in these charts is P |-> P >> f for a morphism of schemes f : A -> B (printed form, special case; Serre GAGA for projective varieties; SGA 1 XII 4.4 for X proper; locators UNVERIFIED)",
+     "kind": "published",
+     "flag": "unread: new printed leaf, no reading recorded; locator UNVERIFIED",
+     "source": "Serre, GAGA, Ann. Inst. Fourier 6 (1956) (morphisms of projective varieties; abelian varieties are projective); SGA 1 (LNM 224, 1971), Exp. XII, Thm. 4.4 and its corollary on morphisms (X proper over C: Hom(X, Y) -> Hom(X^an, Y^an) bijective) (locators UNVERIFIED)"
+    }
+   ]
+  }
+ ]
+}

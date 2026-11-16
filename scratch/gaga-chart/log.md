@@ -52,3 +52,12 @@
   DISCHARGES [OpenTextbookLeaves11.gagaMorphism] by GAGAAn.gagaMorphism_of_gagaChart
     still assumes: [BPAnalytic.Uniformization.UniformizationLeafAll, GAGAAn.GAGAChart]; axioms standard
   (plus rows for gagaMorphism_of_chart, _core, _etale); #discharges: 63 open hypotheses, 1951 theorems checked, 15 discharge one
+
+## Autofold spec (11-16 05:10)
+- scratch/gaga-chart/autofold.json: gagaMorphism := GAGAAn.gagaMorphism_of_gagaChart {n}.uniformizationLeafAll {n}.gagaChart;
+  new leaf gagaChart (kind published, flag "unread: new printed leaf, no reading recorded; locator UNVERIFIED").
+- `python3 scripts/one_proof/autofold.py scratch/gaga-chart/autofold.json --dry-run`: exit 0,
+  "strict count: 46/10 on 56 -> 46/10 on 56; strictest 45/11 -> 45/11" (this base rates gagaMorphism LEAF;
+  under leaf-fold32's re-rating, consequence/GLUE, the fold is -1 GLUE). VERIFIED.
+- FoldDryRun.lean (dry-run module minus line 1) compiles; `HDec.HSyn.sixContactMin_of_open30` axioms
+  [propext, Classical.choice, Quot.sound]. VERIFIED.
