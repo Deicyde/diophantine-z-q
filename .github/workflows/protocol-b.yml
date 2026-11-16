@@ -83,6 +83,7 @@ jobs:
           WORKFLOW = ".github/workflows/protocol-b.yml"
           WORKING_MARKER = "<!-- protocol-b-working-v2 -->"
           ROUND_MARKER = "<!-- protocol-b-automatic-round-v1 -->"
+          SUMMARY_MARKER = "<!-- protocol-b-round-summary-v1 -->"
           CONTEXT_TOKEN_BUDGET = 400_000
           TOOL_CHARACTER_BUDGET = 1_200_000
           OUTPUT_TOKEN_BUDGET = 64_000
@@ -915,7 +916,7 @@ jobs:
           def history(gh, pr):
               comments = gh.pages(f"/issues/{pr['number']}/comments")
               discussion = [{"id": c["id"], "author": c["user"]["login"], "created": c["created_at"], "body": c["body"]}
-                            for c in comments if not (own_comment(gh, c) and c["body"].startswith((MARKER, WORKING_MARKER, "<!-- protocol-b-working-note -->")))]
+                            for c in comments if not (own_comment(gh, c) and c["body"].startswith((MARKER, WORKING_MARKER, SUMMARY_MARKER, "<!-- protocol-b-working-note -->")))]
               for endpoint in ("reviews", "comments"):
                   discussion.extend(gh.pages(f"/pulls/{pr['number']}/" + endpoint))
               prior, overrides, latest, completed_runs = {}, {}, {}, set()
@@ -1326,7 +1327,7 @@ jobs:
                   if body.strip() == '/protocol-b review' or re.fullmatch(
                           r'/protocol-b override [0-9a-f]{40} [A-Za-z0-9_-]+\s+.+', body.strip(), re.S):
                       continue  # Authorization commands are revalidated separately.
-                  if item.get('author') == 'github-actions[bot]' and body.startswith((ROUND_MARKER,
+                  if item.get('author') == 'github-actions[bot]' and body.startswith((ROUND_MARKER, SUMMARY_MARKER,
                           'Accepted by collaborator override, not by unanimous model acceptance.')):
                       continue
                   if 'incomplete_review' in item:
@@ -1936,6 +1937,87 @@ jobs:
               return confirm_and_dispatch(gh, state, expected_merge)
 
 
+          def round_summary_body(state, repo, check_url):
+              """Readable navigation; original reports and App decisions remain intact."""
+              reports = state.get('reports', {})
+              relieved = {item['finding']: item for item in state.get('source_access_limitations', [])}
+              overridden = state.get('overrides', {})
+              blocking, nonblocking = {}, {}
+              decisions = {}
+              for family, envelope in reports.items():
+                  review = envelope.get('review', {})
+                  decisions[family] = review.get('decision', 'incomplete') if envelope.get('complete') else 'incomplete'
+                  entries = [(finding_id(envelope, item['id']), item.get('location', ''),
+                              item.get('objection', ''), 'unresolved') for item in review.get('findings', [])]
+                  entries += [(item['id'], '', item.get('reason', ''), item['resolution'])
+                              for item in review.get('prior_findings', []) if item['resolution'] != 'resolved']
+                  for ident, location, detail, resolution in entries:
+                      if ident in relieved:
+                          item = relieved[ident]
+                          nonblocking[ident] = 'Source access: '+item['reviewer_who_checked']+' verified the named passage; '+item['reviewer_unable_to_open']+' could not open it.'
+                      elif ident in overridden or resolution == 'overridden':
+                          nonblocking[ident] = 'Accepted by a recorded maintainer override. The affected claim is not outside reviewed.'
+                      else:
+                          blocking[ident] = (location+': ' if location else '')+detail
+              # An unresolved objection in one report still counts if another report
+              # individually called it overridden without an applied whole-round override.
+              for ident in blocking:
+                  nonblocking.pop(ident, None)
+              accepted = state['conclusion'] == 'success'
+              title = 'Review requirement met' if accepted else 'Review requirement not met'
+              rows = [SUMMARY_MARKER, '<!-- check: '+str(state['check'])+' -->',
+                      '## '+title, '', 'Head `'+state['head']+'`.', '']
+              if decisions:
+                  display = {'accept': 'accepted', 'changes_requested': 'requested changes', 'incomplete': 'did not complete'}
+                  rows += ['; '.join(name.capitalize()+': '+display.get(decision, decision)
+                                    for name, decision in sorted(decisions.items()))+'.', '']
+              def section(title, items):
+                  rows.extend(['### '+title, ''])
+                  if not items:
+                      rows.extend(['None.', ''])
+                      return
+                  for ident, detail in list(sorted(items.items()))[:10]:
+                      excerpt = ' '.join(detail.split())
+                      if len(excerpt) > 500:
+                          excerpt = excerpt[:497]+'...'
+                      rows.append('- `'+ident+'`: '+excerpt)
+                  if len(items) > 10:
+                      rows.append('- '+str(len(items)-10)+' more entries are retained in the linked App check and original reports.')
+                  rows.append('')
+              section('Blocking findings', blocking)
+              section('Nonblocking observations', nonblocking)
+              rows.extend(['### Next step', ''])
+              if accepted:
+                  rows.append('No review changes are required. Merge remains subject to the repository\'s required checks and current-head rules.')
+              elif blocking:
+                  rows.append('Address the blocking findings above or ask a maintainer to decide them. The nonblocking observations do not require changes in this PR.')
+              else:
+                  rows.append('The review has not produced an accepted result. See the check summary for missing prerequisites or an interrupted review; this alone is not a mathematical error.')
+              rows += ['', '[Full App check and retained review records]('+check_url+').', '']
+              runs = sorted({str(e['run']) for e in reports.values() if e.get('run')})
+              if runs:
+                  rows += ['Original review runs: '+', '.join('[`'+run+'`](https://github.com/'+repo+'/actions/runs/'+run+')' for run in runs)+'.', '']
+              metadata = {'schema': 'protocol-b-round-summary/v1', 'head': state['head'],
+                          'check': state['check'], 'conclusion': state['conclusion'],
+                          'reviewer_decisions': decisions, 'blocking_count': len(blocking),
+                          'nonblocking_count': len(nonblocking)}
+              rows += ['<details><summary>Summary metadata</summary>', '', '```json',
+                       json.dumps(metadata, ensure_ascii=False, indent=2), '```', '', '</details>']
+              return '\n'.join(rows)
+
+
+          def post_round_summary(gh, state, check):
+              prefix = SUMMARY_MARKER+'\n<!-- check: '+str(state['check'])+' -->'
+              for comment in gh.pages(f"/issues/{state['number']}/comments"):
+                  if own_comment(gh, comment) and comment['body'].startswith(prefix+'\n'):
+                      record('round-summary.json', {'check': state['check'], 'existing_comment': comment['id']})
+                      return
+              body = round_summary_body(state, gh.repo, check.get('html_url') or
+                                        f"https://github.com/{gh.repo}/runs/{state['check']}")
+              result = gh.call(f"/issues/{state['number']}/comments", 'POST', {'body': body})
+              record('round-summary.json', {'check': state['check'], 'comment': result, 'body': body})
+
+
           def publish():
               """Use a fresh official-action token after the potentially long review."""
               path = OUT / 'decision.json'
@@ -1968,6 +2050,12 @@ jobs:
                   raise ValueError('Check output exceeds capacity; remains blocked, never truncate findings')
               app.call(f"/check-runs/{state['check']}", 'PATCH', {'status': 'completed', 'conclusion': state['conclusion'],
                        'output': {'title': state['name'], 'summary': state['summary'], 'text': text}})
+              try:
+                  post_round_summary(gh, state, check)
+              except Exception as error:
+                  # An explanatory comment cannot invalidate an accepted check.
+                  record('round-summary-error.json', {'message': str(error), 'check': state['check']})
+                  log('Round summary could not be posted: '+str(error))
               if state['conclusion'] != 'success':
                   raise RuntimeError('Protocol B review is blocked')
               if state['mode'] == 'live':

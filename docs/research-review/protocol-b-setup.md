@@ -91,6 +91,15 @@ trigger escalation. Other changes receive both reviews. This is a conservative
 classification rule, not a proof that arbitrary natural language is harmless.
 Do not use the declaration to misclassify a change.
 
+Each finalized round also posts a readable summary before its compact JSON
+metadata. It shows both reviewer decisions, blocking findings, qualified
+source-access limitations and overrides, and the next step. Long lists show
+the first ten entries and explicitly link to the complete App check and
+original reports. The summary never replaces those records or rewrites a
+reviewer decision. Failure to post this explanatory comment is recorded in
+the run artifact and does not invalidate the App result or prevent a protected
+merge. The gate excludes its own summaries from new review history.
+
 Working notes update one comment per reviewer/run. If they exceed the comment
 limit, the comment shows recent notes and links to the run artifact containing
 the complete notes. The review continues. After an interrupted run, retrieve
