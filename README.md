@@ -1,5 +1,14 @@
 # Z is Diophantine in Q
 
+## Contributors and citation
+
+This project uses the collective agentic notes from Stefan Baranczuk, Jose Brox, Gabe Conant, Sohail Farhangi, James Freitag, Elliot Glazer, Jennifer Park, and Caroline Terry.
+
+See also [Jose Brox's repository](https://github.com/JoseBrox/diophantine-z-q_improvements) for updated results and related work.
+
+Cite this work as "ℤℚ Diophantine Project contributors. ℤ _is Diophantine in_ ℚ. 2026. https://github.com/elliotglazer/diophantine-z-q"  
+
+
 ## Version 17
 
 [Read the manuscript](manuscripts/quartic_v17.pdf) or [open the TeX source](manuscripts/quartic_v17.tex). Dated November 13, 2026, this edition presents the 214-variable quartic family and its full arithmetic argument, followed by the corrected Version 16 foundation. It retains the original large construction and the 314-variable quartic with a complete decimal coefficient table. The 214-variable family's defining threshold remains ineffective; the coefficient calculation for N >= 53 does not certify a defining member. See the [release guide and review scope](research/version17/README.md), [artifact index](research/version17/ARTIFACT-INDEX.md) and [cumulative handoff](research/version17/CUMULATIVE-HANDOFF.md).
@@ -20,8 +29,6 @@ The [222-variable package](research/version15/quartics/quartic-222/README.md) in
 
 This repository also preserves *Z is Diophantine in Q*, Version 14, dated November 9, 2026. It gives quartics in **299 total variables** with exact symbolic coefficients and **314 total variables** with every coefficient written out in decimal. The original large construction, earlier quartic proofs and Version 11 Kato index-set and limiting-class repair remain in the manuscript. The Version 9 starting reductions were contributed by Gabriel Conant with ChatGPT.
 
-The project uses the collective agentic notes from Stefan Baranczuk, Jose Brox, Gabe Conant, Sohail Farhangi, James Freitag, Elliot Glazer, Jennifer Park, and Caroline Terry.
-Cite this work as "ℤℚ Diophantine Project contributors. ℤ _is Diophantine in_ ℚ. 2026. https://github.com/elliotglazer /diophantine-z-q"  
 
 | To | Open |
 | --- | --- |
