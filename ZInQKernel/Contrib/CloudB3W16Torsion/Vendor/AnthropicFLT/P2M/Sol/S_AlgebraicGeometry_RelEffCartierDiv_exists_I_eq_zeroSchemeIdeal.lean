@@ -46,7 +46,7 @@ open CategoryTheory
 open CategoryTheory.Limits
 open CategoryTheory.MonoidalCategory
 open AlgebraicGeometry hiding Scheme.IdealSheafData.ideal_comap_of_le
-open P2MW.S_AlgebraicGeometry_RelEffCartierDiv_exists_I_eq_zeroSchemeIdeal.AlgebraicGeometry
+-- Original source-local namespace open deferred until after its declaration.
 open TensorProduct
 open nonZeroDivisors
 
@@ -172,6 +172,7 @@ theorem ideal_comap_of_isAffineHom (I : X.IdealSheafData) (f : Y ⟶ X) [IsAffin
   exact ideal_comap_of_le I f U ⟨f ⁻¹ᵁ U, U.2.preimage f⟩ le_rfl
 
 end AlgebraicGeometry.Scheme.IdealSheafData
+open _root_.P2MW.S_AlgebraicGeometry_RelEffCartierDiv_exists_I_eq_zeroSchemeIdeal.AlgebraicGeometry
 
 namespace ZDFlatG
 

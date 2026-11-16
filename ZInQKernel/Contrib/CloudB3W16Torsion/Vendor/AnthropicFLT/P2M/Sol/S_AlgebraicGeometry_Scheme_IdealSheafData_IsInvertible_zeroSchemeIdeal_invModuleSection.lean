@@ -30,7 +30,7 @@ open CategoryTheory
 open CategoryTheory.Limits
 open CategoryTheory.MonoidalCategory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_IdealSheafData_IsInvertible_zeroSchemeIdeal_invModuleSection.AlgebraicGeometry
+-- Original source-local namespace open deferred until after its declaration.
 
 noncomputable section
 
@@ -129,6 +129,7 @@ theorem zeroSchemeIdeal_invModuleSection {I : X.IdealSheafData} (hI : I.IsInvert
 end ZeroSchemeCanon
 
 end AlgebraicGeometry.Scheme.Modules
+open _root_.P2MW.S_AlgebraicGeometry_Scheme_IdealSheafData_IsInvertible_zeroSchemeIdeal_invModuleSection.AlgebraicGeometry
 
 end
 

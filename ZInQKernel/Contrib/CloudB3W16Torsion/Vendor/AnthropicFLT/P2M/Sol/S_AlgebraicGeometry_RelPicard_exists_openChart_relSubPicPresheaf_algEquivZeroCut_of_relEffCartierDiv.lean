@@ -60,9 +60,9 @@ open CategoryTheory.Limits
 open Opposite
 open CategoryTheory.MonoidalCategory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_RelPicard_exists_openChart_relSubPicPresheaf_algEquivZeroCut_of_relEffCartierDiv.AlgebraicGeometry
+-- Original source-local namespace open deferred until after its declaration.
 open AlgebraicGeometry.RelPicard
-open P2MW.S_AlgebraicGeometry_RelPicard_exists_openChart_relSubPicPresheaf_algEquivZeroCut_of_relEffCartierDiv.AlgebraicGeometry.RelPicard
+-- Original source-local namespace open deferred until after its declaration.
 open NeronModelInfra
 
 noncomputable section
@@ -503,6 +503,8 @@ theorem clause_iii {T' : Scheme.{u}} (ψ : T' ⟶ T) (φ' : T' ⟶ (UY : Scheme.
 end Chart
 
 end AlgebraicGeometry.RelPicard.ChartOne
+open _root_.P2MW.S_AlgebraicGeometry_RelPicard_exists_openChart_relSubPicPresheaf_algEquivZeroCut_of_relEffCartierDiv.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_RelPicard_exists_openChart_relSubPicPresheaf_algEquivZeroCut_of_relEffCartierDiv.AlgebraicGeometry.RelPicard
 
 
 

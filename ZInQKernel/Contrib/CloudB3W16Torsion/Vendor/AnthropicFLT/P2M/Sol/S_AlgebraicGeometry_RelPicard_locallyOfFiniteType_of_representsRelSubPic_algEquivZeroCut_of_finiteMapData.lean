@@ -29,12 +29,12 @@ universe u
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_RelPicard_locallyOfFiniteType_of_representsRelSubPic_algEquivZeroCut_of_finiteMapData.AlgebraicGeometry
+-- Original source-local namespace open deferred until after its declaration.
 open AlgebraicGeometry.RelPicard
 open NeronModelInfra
 open GoodReductionJacobian
 open AlgebraicGeometry.AffineLimit
-open P2MW.S_AlgebraicGeometry_RelPicard_locallyOfFiniteType_of_representsRelSubPic_algEquivZeroCut_of_finiteMapData.AlgebraicGeometry.AffineLimit
+-- Original source-local namespace open deferred until after its declaration.
 open Opposite
 
 namespace AlgebraicGeometry
@@ -60,6 +60,8 @@ theorem exists_fg_factor_of_representableBy {R : Type u} [CommRing R] {X : Schem
   exact congrArg (fun k => k.left) hg
 
 end AlgebraicGeometry.AffineLimit
+open _root_.P2MW.S_AlgebraicGeometry_RelPicard_locallyOfFiniteType_of_representsRelSubPic_algEquivZeroCut_of_finiteMapData.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_RelPicard_locallyOfFiniteType_of_representsRelSubPic_algEquivZeroCut_of_finiteMapData.AlgebraicGeometry.AffineLimit
 
 theorem solution
     (R : Type u) [CommRing R] [IsNoetherianRing R] {C : Scheme.{u}} (c : C ⟶ Spec (CommRingCat.of R))

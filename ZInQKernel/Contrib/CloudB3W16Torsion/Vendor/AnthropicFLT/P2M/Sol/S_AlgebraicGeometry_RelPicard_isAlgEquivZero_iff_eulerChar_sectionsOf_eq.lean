@@ -48,9 +48,9 @@ open CategoryTheory.Limits
 open CategoryTheory.MonoidalCategory
 open Opposite
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_RelPicard_isAlgEquivZero_iff_eulerChar_sectionsOf_eq.AlgebraicGeometry
+-- Original source-local namespace open deferred until after its declaration.
 open AlgebraicGeometry.RelPicard
-open P2MW.S_AlgebraicGeometry_RelPicard_isAlgEquivZero_iff_eulerChar_sectionsOf_eq.AlgebraicGeometry.RelPicard
+-- Original source-local namespace open deferred until after its declaration.
 open NeronModelInfra
 open GoodReductionJacobian
 
@@ -234,6 +234,8 @@ theorem eulerChar_eq_of_isAlgEquivZero
   omega
 
 end AlgebraicGeometry.RelPicard.AlgzNum
+open _root_.P2MW.S_AlgebraicGeometry_RelPicard_isAlgEquivZero_iff_eulerChar_sectionsOf_eq.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_RelPicard_isAlgEquivZero_iff_eulerChar_sectionsOf_eq.AlgebraicGeometry.RelPicard
 
 open AlgebraicGeometry.RelPicard.AlgzNum in
 

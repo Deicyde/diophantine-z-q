@@ -62,9 +62,9 @@ open CategoryTheory.Limits
 open CategoryTheory.MonoidalCategory
 open Opposite
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_RelPicard_exists_chart_subsingleton_H1_fibre.AlgebraicGeometry
+-- Original source-local namespace open deferred until after its declaration.
 open AlgebraicGeometry.RelPicard
-open P2MW.S_AlgebraicGeometry_RelPicard_exists_chart_subsingleton_H1_fibre.AlgebraicGeometry.RelPicard
+-- Original source-local namespace open deferred until after its declaration.
 open NeronModelInfra
 open AlgebraicCurve hiding genus
 
@@ -237,6 +237,8 @@ theorem exists_cover_of_cover_unit (𝒲 : (pullback (pullback.snd c t) s).TwoAf
 end FibreIso
 
 end AlgebraicGeometry.RelPicard.K7cov35
+open _root_.P2MW.S_AlgebraicGeometry_RelPicard_exists_chart_subsingleton_H1_fibre.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_RelPicard_exists_chart_subsingleton_H1_fibre.AlgebraicGeometry.RelPicard
 
 namespace AlgebraicGeometry
 export _root_.AlgebraicGeometry (Scheme.Modules.Hom.zero_app SmoothOfRelativeDimension IsProper Scheme.Modules.pullback GeometricallyIntegral.geometrically_isIntegral Scheme.Hom GeometricallyIntegral Scheme.Modules.presheaf Scheme.Modules.Hom Spec IsIntegral Scheme Scheme.Modules.Hom.app IsSeparated Scheme.Modules.pullbackCongr Scheme.Modules.pullbackId Scheme.Modules Scheme.IdealSheafData Scheme.Modules.pullbackComp Scheme.Modules.IsInvertible RelEffCartierDiv mapOnProdOver RelEffCartierDiv.pullbackAlong_comp Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap prodKerGraph graphOver graphOver_snd Scheme.Modules.pullbackTensorObjIso Scheme.Modules.pullbackTensorUnitObjIso Scheme.IdealSheafData.IsInvertible Scheme.TwoAffineOpenCover.exists_linearEquiv_sectionsOf_of_iso Scheme.IdealSheafData.IsInvertible.isIso_pullbackModuleComparison Scheme.Hom.isInvertible_ker_of_comp_eq_id Scheme.TwoAffineOpenCover.exists_linearEquiv_sectionsOf_H0 RelEffCartierDiv.exists_I_eq_zeroSchemeIdeal_of_eulerChar_eq RelEffCartierDiv.exists_I_eq_prodKerGraph_of_isAlgClosed prodKerGraph_comap_mapOnProdOver Scheme.TwoAffineOpenCover.finrank_H1_sectionsOf_unit_eq_and_finrank_H0_eq_one)

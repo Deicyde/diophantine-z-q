@@ -43,7 +43,7 @@ open CategoryTheory
 open CategoryTheory.Limits
 open CategoryTheory.MonoidalCategory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_SmoothProperCurve_exists_section_pullback_invModule_pow_ker_notMem_support_of_twoAffineOpenCover.AlgebraicGeometry
+-- Original source-local namespace open deferred until after its declaration.
 open AlgebraicCurve
 open NeronModelInfra
 open AlgebraicGeometry.RelPicard
@@ -117,6 +117,7 @@ theorem exists_hom_app_top_eq (N : X.Modules) (v : Γ(N, ⊤)) :
   rfl
 
 end AlgebraicGeometry.SmoothProperCurve.FibreNonvanishAux
+open _root_.P2MW.S_AlgebraicGeometry_SmoothProperCurve_exists_section_pullback_invModule_pow_ker_notMem_support_of_twoAffineOpenCover.AlgebraicGeometry
 
 open AlgebraicGeometry.SmoothProperCurve.FibreNonvanishAux
 

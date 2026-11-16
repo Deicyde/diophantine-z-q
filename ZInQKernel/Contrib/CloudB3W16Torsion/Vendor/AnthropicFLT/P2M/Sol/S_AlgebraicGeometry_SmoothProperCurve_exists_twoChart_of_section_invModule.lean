@@ -38,9 +38,9 @@ open scoped TensorProduct
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_SmoothProperCurve_exists_twoChart_of_section_invModule.AlgebraicGeometry
+-- Original source-local namespace open deferred until after its declaration.
 open AlgebraicGeometry.SmoothProperCurve
-open P2MW.S_AlgebraicGeometry_SmoothProperCurve_exists_twoChart_of_section_invModule.AlgebraicGeometry.SmoothProperCurve
+-- Original source-local namespace open deferred until after its declaration.
 open NeronModelInfra
 open CategoryTheory.MonoidalCategory
 open Opposite
@@ -242,6 +242,8 @@ theorem main
 end
 
 end AlgebraicGeometry.SmoothProperCurve.ORDERCHART
+open _root_.P2MW.S_AlgebraicGeometry_SmoothProperCurve_exists_twoChart_of_section_invModule.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_SmoothProperCurve_exists_twoChart_of_section_invModule.AlgebraicGeometry.SmoothProperCurve
 
 theorem solution
     (R : Type u) [CommRing R] [IsLocalRing R] [IsNoetherianRing R]

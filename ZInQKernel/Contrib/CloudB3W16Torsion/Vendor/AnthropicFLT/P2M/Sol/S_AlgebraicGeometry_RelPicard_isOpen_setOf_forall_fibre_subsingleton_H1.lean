@@ -36,9 +36,9 @@ open CategoryTheory
 open CategoryTheory.Limits
 open CategoryTheory.MonoidalCategory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_RelPicard_isOpen_setOf_forall_fibre_subsingleton_H1.AlgebraicGeometry
+-- Original source-local namespace open deferred until after its declaration.
 open AlgebraicGeometry.RelPicard
-open P2MW.S_AlgebraicGeometry_RelPicard_isOpen_setOf_forall_fibre_subsingleton_H1.AlgebraicGeometry.RelPicard
+-- Original source-local namespace open deferred until after its declaration.
 open NeronModelInfra
 open AlgebraicGeometry.SmoothProperCurve
 
@@ -142,6 +142,8 @@ theorem main
     exact ⟨𝔭, toK4 c t M hW.fromSpec g' _ hcart 𝒱 𝔭 hx, rfl⟩
 
 end AlgebraicGeometry.RelPicard.OpenLocusSol
+open _root_.P2MW.S_AlgebraicGeometry_RelPicard_isOpen_setOf_forall_fibre_subsingleton_H1.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_RelPicard_isOpen_setOf_forall_fibre_subsingleton_H1.AlgebraicGeometry.RelPicard
 
 end
 

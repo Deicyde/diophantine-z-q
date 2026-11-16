@@ -54,9 +54,9 @@ universe u
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_RelPicard_surjective_of_poincare_pullbackAlong_iso_twistModule.AlgebraicGeometry
+-- Original source-local namespace open deferred until after its declaration.
 open AlgebraicGeometry.RelPicard
-open P2MW.S_AlgebraicGeometry_RelPicard_surjective_of_poincare_pullbackAlong_iso_twistModule.AlgebraicGeometry.RelPicard
+-- Original source-local namespace open deferred until after its declaration.
 open NeronModelInfra
 open GoodReductionJacobian
 open AlgebraicCurve
@@ -254,6 +254,8 @@ theorem main
   exact Scheme.fromSpecResidueField_apply z _
 
 end AlgebraicGeometry.RelPicard.AJSurj
+open _root_.P2MW.S_AlgebraicGeometry_RelPicard_surjective_of_poincare_pullbackAlong_iso_twistModule.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_RelPicard_surjective_of_poincare_pullbackAlong_iso_twistModule.AlgebraicGeometry.RelPicard
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry

@@ -38,9 +38,9 @@ open scoped TensorProduct
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_SmoothProperCurve_exists_forall_le_exists_section_invModule_disjoint_of_twoAffineOpenCover.AlgebraicGeometry
+-- Original source-local namespace open deferred until after its declaration.
 open AlgebraicGeometry.SmoothProperCurve
-open P2MW.S_AlgebraicGeometry_SmoothProperCurve_exists_forall_le_exists_section_invModule_disjoint_of_twoAffineOpenCover.AlgebraicGeometry.SmoothProperCurve
+-- Original source-local namespace open deferred until after its declaration.
 open NeronModelInfra
 open CategoryTheory.MonoidalCategory
 
@@ -118,6 +118,8 @@ lemma exists_pullbackSection_eq (F : X ⟶ Y) (M : Y.Modules)
   exact (congrArg (fun φ => (Scheme.Modules.pullbackUnitIso F).inv ≫ φ) h3).trans (by simp [t])
 
 end AlgebraicGeometry.SmoothProperCurve.LiftSectionAux
+open _root_.P2MW.S_AlgebraicGeometry_SmoothProperCurve_exists_forall_le_exists_section_invModule_disjoint_of_twoAffineOpenCover.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_SmoothProperCurve_exists_forall_le_exists_section_invModule_disjoint_of_twoAffineOpenCover.AlgebraicGeometry.SmoothProperCurve
 
 open AlgebraicGeometry.SmoothProperCurve.LiftSectionAux in
 theorem solution

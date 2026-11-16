@@ -34,9 +34,9 @@ universe u
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_RelPicard_isSeparated_of_representsRelSubPic_algEquivZeroCut_of_finiteMapData.AlgebraicGeometry
+-- Original source-local namespace open deferred until after its declaration.
 open AlgebraicGeometry.RelPicard
-open P2MW.S_AlgebraicGeometry_RelPicard_isSeparated_of_representsRelSubPic_algEquivZeroCut_of_finiteMapData.AlgebraicGeometry.RelPicard
+-- Original source-local namespace open deferred until after its declaration.
 open NeronModelInfra
 open GoodReductionJacobian
 open AlgebraicCurve
@@ -123,6 +123,8 @@ theorem nonempty_fibreModule_iso_unit_iff {D : RelativePic0Designation R c}
     exact ⟨isoUnitOfPullbackIso φ _ ((Φ (P₁.tensor Q)) ≪≫ Scheme.Modules.pullbackTensorObjIso _ _ _ ≪≫ e')⟩
 
 end AlgebraicGeometry.RelPicard.Sep
+open _root_.P2MW.S_AlgebraicGeometry_RelPicard_isSeparated_of_representsRelSubPic_algEquivZeroCut_of_finiteMapData.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_RelPicard_isSeparated_of_representsRelSubPic_algEquivZeroCut_of_finiteMapData.AlgebraicGeometry.RelPicard
 
 theorem solution
     (R : Type u) [CommRing R] [IsNoetherianRing R] {C : Scheme.{u}} (c : C ⟶ Spec (CommRingCat.of R))

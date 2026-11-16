@@ -40,7 +40,7 @@ set_option maxHeartbeats 1600000
 set_option autoImplicit false
 open CategoryTheory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_IdealSheafData_IsInvertible_exists_divisor_range_invModule_eq_lSpaceOn.AlgebraicGeometry
+-- Original source-local namespace open deferred until after its declaration.
 open Opposite
 open TopologicalSpace
 
@@ -329,6 +329,7 @@ theorem isGeneratorAt_rM {U W : X.Opens} (h : W ≤ U) (s : Γ(M, U)) (y : X) (h
 end Places
 
 end AlgebraicGeometry.Scheme.Modules.RatSec
+open _root_.P2MW.S_AlgebraicGeometry_Scheme_IdealSheafData_IsInvertible_exists_divisor_range_invModule_eq_lSpaceOn.AlgebraicGeometry
 
 namespace AlgebraicGeometry
 export _root_.AlgebraicGeometry (Scheme.Modules.Hom.app_smul Scheme.germToFunctionField SmoothOfRelativeDimension Scheme.Hom Scheme.germToFunctionField_injective Scheme.Opens.ι_appIso Scheme.Modules.Hom Scheme.Hom.image_preimage_eq_opensRange_inf QuasiCompact Spec IsIntegral Scheme.Modules.mapPresheaf_app Scheme Scheme.Hom.appIso Scheme.Opens.topIso_hom Scheme.Hom.preimage_mono IsSeparated IsAffineOpen Scheme.Modules Scheme.Opens Scheme.Hom.image_mono Scheme.Hom.opensFunctor Scheme.Opens.opensRange_ι Scheme.IdealSheafData Scheme.Modules.IsInvertible Scheme.Modules.toUnitSection Scheme.Modules.zeroSchemeIdeal Scheme.Modules.IsInvertible.exists_restrict_iso Scheme.IdealSheafData.IsInvertible Scheme.Modules.IsInvertible.exists_divisor_range_eq_lSpaceOn Scheme.Modules.IsInvertible.coeffIdeal_le_and_ideal_zeroSchemeIdeal_eq)

@@ -45,9 +45,9 @@ universe u
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_RelPicard_isClosed_setOf_exists_fibreModule_iso_unit.AlgebraicGeometry
+-- Original source-local namespace open deferred until after its declaration.
 open AlgebraicGeometry.RelPicard
-open P2MW.S_AlgebraicGeometry_RelPicard_isClosed_setOf_exists_fibreModule_iso_unit.AlgebraicGeometry.RelPicard
+-- Original source-local namespace open deferred until after its declaration.
 open NeronModelInfra
 open GoodReductionJacobian
 open AlgebraicCurve hiding cechDiff
@@ -196,6 +196,8 @@ theorem finrank_H0_fibreModule_unit_eq_one
   exact finrank_H0_unit_fibre_eq_one c k (s ≫ t) 𝒱
 
 end AlgebraicGeometry.RelPicard.UnitClosed
+open _root_.P2MW.S_AlgebraicGeometry_RelPicard_isClosed_setOf_exists_fibreModule_iso_unit.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_RelPicard_isClosed_setOf_exists_fibreModule_iso_unit.AlgebraicGeometry.RelPicard
 
 open AlgebraicGeometry.RelPicard.UnitClosed TensorProduct in
 

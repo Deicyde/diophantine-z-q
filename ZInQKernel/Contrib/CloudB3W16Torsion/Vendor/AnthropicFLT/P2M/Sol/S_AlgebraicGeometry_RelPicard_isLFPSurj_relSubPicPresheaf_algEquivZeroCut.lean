@@ -39,9 +39,9 @@ open CategoryTheory
 open CategoryTheory.Limits
 open Opposite
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_RelPicard_isLFPSurj_relSubPicPresheaf_algEquivZeroCut.AlgebraicGeometry
+-- Original source-local namespace open deferred until after its declaration.
 open AlgebraicGeometry.RelPicard
-open P2MW.S_AlgebraicGeometry_RelPicard_isLFPSurj_relSubPicPresheaf_algEquivZeroCut.AlgebraicGeometry.RelPicard
+-- Original source-local namespace open deferred until after its declaration.
 open NeronModelInfra
 open AlgebraicGeometry.AffineLimit
 
@@ -256,6 +256,8 @@ theorem exists_fg_preimage_eq_top {A : Type u} [CommRing A] [Algebra R A] (A₀ 
   exact ⟨j.unop.1, j.unop.2, f.unop.le, hf⟩
 
 end AlgebraicGeometry.RelPicard.LfpPicSurj
+open _root_.P2MW.S_AlgebraicGeometry_RelPicard_isLFPSurj_relSubPicPresheaf_algEquivZeroCut.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_RelPicard_isLFPSurj_relSubPicPresheaf_algEquivZeroCut.AlgebraicGeometry.RelPicard
 
 open AlgebraicGeometry.RelPicard.LfpPicSurj in
 

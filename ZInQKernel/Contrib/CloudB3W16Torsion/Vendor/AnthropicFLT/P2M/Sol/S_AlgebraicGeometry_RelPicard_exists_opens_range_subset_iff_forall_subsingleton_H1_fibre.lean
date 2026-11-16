@@ -41,9 +41,9 @@ open CategoryTheory.Limits
 open Opposite
 open CategoryTheory.MonoidalCategory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_RelPicard_exists_opens_range_subset_iff_forall_subsingleton_H1_fibre.AlgebraicGeometry
+-- Original source-local namespace open deferred until after its declaration.
 open AlgebraicGeometry.RelPicard
-open P2MW.S_AlgebraicGeometry_RelPicard_exists_opens_range_subset_iff_forall_subsingleton_H1_fibre.AlgebraicGeometry.RelPicard
+-- Original source-local namespace open deferred until after its declaration.
 open NeronModelInfra
 open AlgebraicGeometry.SmoothProperCurve
 
@@ -172,6 +172,8 @@ theorem main
       𝔉A.twoAffineOpenCover 𝔭 hO s' (hs'.trans h𝔭.symm) 𝒲'
 
 end AlgebraicGeometry.RelPicard.OpenLocusIffSol
+open _root_.P2MW.S_AlgebraicGeometry_RelPicard_exists_opens_range_subset_iff_forall_subsingleton_H1_fibre.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_RelPicard_exists_opens_range_subset_iff_forall_subsingleton_H1_fibre.AlgebraicGeometry.RelPicard
 
 end
 
