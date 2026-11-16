@@ -337,7 +337,7 @@ class Continuity(unittest.TestCase):
 
     def test_effective_head_override_after_binding_omitted_calls_no_model(self):
         gh, app = self.rebased_without_future_binding()
-        gh.permission = 'write'
+        gh.permission = 'admin'
         command = comment('/protocol-b override ' + HEAD + ' 1-1-fable-gap accepted limitation', 'collaborator')
         gh.comments.append(command)
         provider = Mock(side_effect=AssertionError('No model during authorized override'))
