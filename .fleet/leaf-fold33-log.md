@@ -68,8 +68,3 @@ Base: 6b7a45445 (lf32b: 37 H fields, strict 16 LEAF / 21 GLUE, top sixContactMin
   each [propext, Classical.choice, Quot.sound]. (PicFix.phiAmpleIsogeny_of_printed and milneIsogenyQuasiInverse_proof
   are lf32b terms not imported by these modules; they are already in Main through TailZ44/45 and are checked by the
   final frozenTarget axioms line.)
-* Autofold (no dry run): `strict count: 16/21 on 37 -> 18/20 on 38; strictest 16/21 -> 18/20`; wrote
-  ZInQKernel/OneProof/H/TailZ46.lean (top sixContactMin_of_open39, bundles OpenResearchLeaves29,
-  OpenTextbookLeaves14, OpenAddedLeaves20), switched Main.lean; kinds.tsv lost the rows blr_7_2_1, poincareComplement,
-  picZeroAbVar and gained picLocFinType, identityComponentLFT, picZeroSmoothPosChar, kleimanPicZeroProper (spec kinds
-  and flags); claims.tsv lost the rows poincareComplement, picZeroAbVar, blr_7_2_1.

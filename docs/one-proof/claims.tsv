@@ -3,9 +3,11 @@ mumfordTorsionAlgClosed	cloud batch 2	claimed on the issue 2026-11-15 02:14Z, in
 gagaMorphism	cloud batch 2	claimed on the issue 2026-11-15 02:14Z, in progress	2026-11-15	elliotglazer/diophantine-z-q#82	project	project	https://github.com/elliotglazer/diophantine-z-q/issues/82#issuecomment-6887799149	held
 homFreeFiniteAlgClosed	homfree-proof	host task homfree-proof running	2026-11-16	elliotglazer/diophantine-z-q#81	project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/homfree-proof	held
 charPolyIndepOfEllAlgClosed	deg-det	host task deg-det running	2026-11-16	elliotglazer/diophantine-z-q#81	project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/deg-det	held
+poincareComplement	poincare-proof	host task poincare-proof running	2026-11-16	elliotglazer/diophantine-z-q#81	project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/poincare-proof	held
 neronSchemeExtensionExists	neron-ext	host task neron-ext running	2026-11-16	elliotglazer/diophantine-z-q#85	project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/neron-ext	held
 h11	h11-reduce	host task h11-reduce running	2026-11-16	elliotglazer/diophantine-z-q#74	project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/h11-reduce	held
 picRepresentableAbVar	pic-repr	host task pic-repr running	2026-11-16	elliotglazer/diophantine-z-q#81	project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/pic-repr	held
+picZeroAbVar	cloud batch 3	briefed 2026-11-15, not yet claimed on the issue	2026-11-15	elliotglazer/diophantine-z-q#81	project	project		interest
 weilPairingMumford	weil-proof	host task weil-proof running	2026-11-16	elliotglazer/diophantine-z-q#81	project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/weil-proof	held
 hL3	gz-weil; gz-heegner; jacobi-lambda; gz-hl3	gz-weil, jacobi-lambda and gz-heegner done; the C_d fold is held (its leaves rate consequence); GrossZagierRankCd being read	2026-11-15		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/gz-hl3	held
 r17	r17-bypass	host task running	2026-11-15		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/r17-bypass	held
@@ -20,6 +22,7 @@ hCM	cm-primitive	host task cm-primitive running (reading risk of mtcm-polar Main
 mumfordGroupLawConn	group-law	host task group-law running: proves mumfordGroupLaw, which this leaf replaces	2026-11-16		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/group-law	held
 neronOggShafarevichSep	nos-proof	host task nos-proof running: proves r7a, which this leaf replaces	2026-11-16		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/nos-proof	held
 hfx	hfx-proof	host task hfx-proof running	2026-11-16		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/hfx-proof	held
+blr_7_2_1	neron-sh-proof	host task neron-sh-proof running: proves neronBaseChangeStrictHenselization, which this leaf replaces	2026-11-16		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/neron-sh-proof	held
 sga7_IX_3_5_ForwardGeom	sga7-35-proof	host task sga7-35-proof running	2026-11-16		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/sga7-35-proof	held
 raynaudSemistableSHOr	raynaud-proof	host task raynaud-proof running: proves raynaudSemistableSH, which this leaf replaces	2026-11-16		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/raynaud-proof	held
 hL29	h29-proof	host task h29-proof running	2026-11-16		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/h29-proof	held
