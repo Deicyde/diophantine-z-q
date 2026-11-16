@@ -20,3 +20,14 @@
 - Pi0Prune.lean: openAddedLeaves17P_of, sixContactMin_of_open29P, sixContactMin_of_open29_pruned.
   `lake build ZInQKernel.Contrib.OneProof.Pi0Prune` OK; #print axioms of r1r2_of_publishedW, sixContactMin_of_open29P,
   sixContactMin_of_open29_pruned: [propext, Classical.choice, Quot.sound] (VERIFIED).
+- ClosureCheck.lean (VERIFIED, compiled): closures of sixContactMin_of_open29_pruned (217,052 constants) and
+  sixContactMin_of_open29P contain no projection `*.deligneComponentsX6PrintedAb` / `*.geomConnOfAlgClosure`, no
+  DeligneComponentsX6Printed(Ab), GeomConnOfAlgClosure, R1pi0Props, R1R2fpRep, r1r2_of_published,
+  sixContactMin_of_open17/29. frozenTarget_pruned (frozenTarget's statement, via _pruned) and frozenTarget_P (over
+  OpenAddedLeaves17P) compile; axioms [propext, Classical.choice, Quot.sound].
+- PruneScanPi0.lean (r6-nf's PruneScan rooted at frozenTarget_pruned; 2 min 13 s): OpenResearchLeaves22 0/29 unused,
+  OpenTextbookLeaves11 0/12, OpenAddedLeaves17 2/14 unused [deligneComponentsX6PrintedAb, geomConnOfAlgClosure],
+  OpenGlue7 0/1; prune set = exactly those 2 FIELD lines (prune-set.txt). VERIFIED.
+- #discharges (discharges.txt): 63 open hypotheses, 2129 theorems, 123 lines. 116 are auto-generated projections of the
+  copied structures (…W / …P) whose "still assumes" is the copied bundle itself: not discharges. The other 7 are the
+  pre-existing contributions. Pi0Prune discharges no field (expected: it is a prune, not a proof of a field).
