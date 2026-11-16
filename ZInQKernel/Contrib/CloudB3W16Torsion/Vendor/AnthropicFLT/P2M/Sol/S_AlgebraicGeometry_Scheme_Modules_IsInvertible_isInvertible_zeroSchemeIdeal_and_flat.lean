@@ -116,9 +116,10 @@ namespace Scheme
 export _root_.AlgebraicGeometry.Scheme (Hom.resLE_comp_ι Hom.map_appLE Opens.topIso_inv Hom.isPullback_resLE Hom mk Hom.appLE_comp_appLE Γ Opens.ι_appIso topIso_hom Hom.map_appLE_assoc Hom.appTop Hom.comp_appLE Opens.topIso_hom affineBasicOpen affineOpens basicOpen IdealSheafData.ideal_map_of_isAffineHom isBasis_affineOpens Modules Hom.ker_apply Opens Hom.appLE_map Hom.app_eq_appLE Hom.resLE_app_top Opens.ι_image_top ΓSpecIso_naturality basicOpen_le restrict Hom.appLE IdealSheafData ΓSpecIso Modules.coeff Modules.zeroSchemeIdeal Modules.IsInvertible)
 namespace IdealSheafData
 export _root_.AlgebraicGeometry.Scheme.IdealSheafData (comap_comp mk map subscheme subschemeι_app_surjective ideal ideal_map_of_isAffineHom subschemeι comap map_ideal ker_subschemeι_app ideal_comap_of_isOpenImmersion module IsInvertible resLE)
-open AlgebraicGeometry.Scheme.IdealSheafData hiding ideal_comap_of_le
-open AlgebraicGeometry.Scheme hiding IdealSheafData.ideal_comap_of_le
-open AlgebraicGeometry hiding Scheme.IdealSheafData.ideal_comap_of_le
+-- [port] The module-local ideal-comap lemma is declared below; no forward hiding reference.
+open AlgebraicGeometry.Scheme.IdealSheafData
+open AlgebraicGeometry.Scheme
+open AlgebraicGeometry
 
 variable {X Y : Scheme.{u}}
 
@@ -346,7 +347,9 @@ theorem tmul_one_mem_nonZeroDivisors_of_isInvertible_comap
     show xbar.base p ∈ V.1
     have hp : V.2.fromSpec.base ((Spec.map ψ).base p) ∈ Set.range V.2.fromSpec.base := ⟨_, rfl⟩
     rw [V.2.range_fromSpec] at hp
-    simpa [hxbar] using hp
+    -- [port] Make the existing composition coercion explicit before using the membership proof.
+    change V.2.fromSpec ((Spec.map ψ) p) ∈ V.1
+    exact hp
   have H : IsPullback (pullback.fst q xbar) (pullback.snd q xbar) q xbar :=
     IsPullback.of_hasPullback q xbar
   let UY : (pullback q xbar).Opens := pullback.fst q xbar ⁻¹ᵁ U.1 ⊓ pullback.snd q xbar ⁻¹ᵁ ⊤

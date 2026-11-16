@@ -108,7 +108,7 @@ lemma mono_sigmaUnit_whiskerLeft {ι : Type*} [Finite ι] {P Q : C} (h : P ⟶ Q
   let σP : (∐ fun b => (tensorRight P).obj (f b)) ⟶ (tensorRight P).obj (∐ f) := sigmaComparison (tensorRight P) f
   let σQ : (∐ fun b => (tensorRight Q).obj (f b)) ⟶ (tensorRight Q).obj (∐ f) := sigmaComparison (tensorRight Q) f
   let Sm : (∐ fun b => (tensorRight P).obj (f b)) ⟶ (∐ fun b => (tensorRight Q).obj (f b)) :=
-    Limits.Sigma.map (f := fun b => (tensorRight P).obj (f b)) (g := fun b => (tensorRight Q).obj (f b))
+    Limits.Sigma.map (f := fun b => (tensorRight Q).obj (f b)) (g := fun b => (tensorRight P).obj (f b))
       (fun _ => 𝟙_ C ◁ h)
   let wh : (tensorRight P).obj (∐ f) ⟶ (tensorRight Q).obj (∐ f) := (∐ f) ◁ h
   have hnat : Sm ≫ σQ = σP ≫ wh := by
@@ -116,8 +116,8 @@ lemma mono_sigmaUnit_whiskerLeft {ι : Type*} [Finite ι] {P Q : C} (h : P ⟶ Q
     intro i
     have e1 : Sigma.ι (fun b => (tensorRight P).obj (f b)) i ≫ Sm =
         (𝟙_ C ◁ h) ≫ Sigma.ι (fun b => (tensorRight Q).obj (f b)) i :=
-      Limits.Sigma.ι_map (f := fun b => (tensorRight P).obj (f b))
-        (g := fun b => (tensorRight Q).obj (f b)) (fun _ => 𝟙_ C ◁ h) i
+      Limits.Sigma.ι_map (f := fun b => (tensorRight Q).obj (f b))
+        (g := fun b => (tensorRight P).obj (f b)) (fun _ => 𝟙_ C ◁ h) i
     have e2 : Sigma.ι (fun b => (tensorRight Q).obj (f b)) i ≫ σQ = (tensorRight Q).map (Sigma.ι f i) :=
       ι_comp_sigmaComparison (tensorRight Q) f i
     have e3 : Sigma.ι (fun b => (tensorRight P).obj (f b)) i ≫ σP = (tensorRight P).map (Sigma.ι f i) :=
