@@ -17,8 +17,8 @@ primary's unchanged consumption of this lane's earlier `ad29515b` repair patch
 (as `3e94f9f5d`). Its common-depth fix unblocked the final four owned modules.
 The original baseline tree was checked against restored main `2dc949d68`.
 
-Dedicated private checkout: `devvm18927`, `~/cloud-b3/w16/h102-flat`.
-GitHub operations only occur in the private `devvm19064` broker checkout.
+Work ran in a dedicated private checkout.
+GitHub operations only occur through a private publication broker.
 Both clones use `push.default=nothing`; only the explicit own branch refspec is pushed.
 The previously verified finite-group helper `7b22028e` remains frozen and unchanged.
 
@@ -130,7 +130,7 @@ Actual full AX3 log SHA256:
 `db8becb0b03dc96a4659211e5fe54969b37c1317015948305d1c883e8c1e4de8`.
 Private raw evidence is `flat-stage.json`, `flat-logs/`, `flat-all-axioms.log`,
 `CheckAll.lean`, and the earlier prerequisite logs/checks in the dedicated checkout;
-final summary/log bytes are also brokered to `devvm19064` for the primary.
+final summary/log bytes are also sent through the private publication broker for the primary.
 Ordinary source linter/deprecation warnings remain visible; they are not hidden.
 
 ## Failed attempts and boundary

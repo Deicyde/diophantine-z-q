@@ -11,8 +11,8 @@ helpers were not edited. No child agent was spawned.
 Base: `3d010dcf38c274630c8dd1efb9cd247e3d81ed09`, including the primary's earlier
 98 namespace/export repairs. This lane did not repeat those historical patches:
 fresh compilation identified the next nested alias and API failures in current code.
-Dedicated private checkout: `devvm68160`, `~/cloud-b3/w16/h102-core-c`.
-GitHub writes only ran in the private `devvm19064` broker checkout, with
+Work ran in a dedicated private checkout.
+GitHub writes only ran through a private publication broker, with
 `push.default=nothing` and full explicit own-branch refspecs.
 
 Source remains anthropics/fermats-last-theorem
@@ -105,7 +105,7 @@ restatement or extra assumption. SHA256:
 
 All failed attempts remain failed attempts. Their raw logs were retained under
 private `c-logs-pass1`, `c-logs-pass2`, and `c-logs-pass3`, with corresponding
-stage JSON files. The genuine first/second-pass archive was banked on `devvm19064`
+stage JSON files. The genuine first/second-pass archive was banked through the private publication broker
 with SHA256
 `05b5cd8758af31f83e91ad3ba326acd90c0bee720e0f17cd0165abb402ee3a73`.
 Source compiler linter/deprecation warnings remain visible and were not hidden.
