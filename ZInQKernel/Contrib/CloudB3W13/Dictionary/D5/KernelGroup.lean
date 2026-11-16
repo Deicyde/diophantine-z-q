@@ -91,31 +91,18 @@ def kernelPt (A : AbVar K) (x : A.Pt K) :
 theorem kernelPtObj_self : (AbVar.ptObj (K := K) K).hom = 𝟙 _ := by
   simp [AbVar.ptObj, Algebra.algebraMap_self]
 
-/-- Identify the kernel's point object with the identity object only by its actual map. -/
-def kernelPtUnit :
-    𝟙_ (Over (Spec (CommRingCat.of K))) ⟶ AbVar.ptObj (K := K) K :=
-  Over.homMk (𝟙 (Spec (CommRingCat.of K))) (by rw [kernelPtObj_self]; rfl)
-
-theorem kernelPt_overHom (A : AbVar K) (x : A.Pt K) :
-    (Over.homMk (U := 𝟙_ (Over (Spec (CommRingCat.of K))))
-      (V := A.X) x.left (kernelPt_over A x)) = kernelPtUnit (K := K) ≫ x := by
-  apply Over.OverMorphism.ext
-  exact (Category.id_comp x.left).symm
-
 theorem kernelPt_mul (A : AbVar K) (x y : A.Pt K) :
     kernelPt A (x * y) = (kernelLaw A).mul (𝟙 _) (kernelPt A x) (kernelPt A y) := by
   letI : GrpObj (Over.mk A.X.hom) := A.grp
-  have h := MonObj.comp_mul (kernelPtUnit (K := K)) x y
-  rw [← kernelPt_overHom A, ← kernelPt_overHom A, ← kernelPt_overHom A] at h
   apply Subtype.ext
-  exact congrArg CommaMorphism.left h
+  rfl
 
 theorem kernelPt_one (A : AbVar K) : kernelPt A 1 = (kernelLaw A).one (𝟙 _) := by
   letI : GrpObj (Over.mk A.X.hom) := A.grp
-  have h : kernelPtUnit (K := K) ≫ (1 : A.Pt K) = 1 := MonObj.comp_one _
-  rw [← kernelPt_overHom A] at h
   apply Subtype.ext
-  exact congrArg CommaMorphism.left h
+  change (AbVar.ptObj (K := K) K).hom ≫ η[A.X].left =
+    (𝟙 (Spec (CommRingCat.of K))) ≫ η[A.X].left
+  rw [kernelPtObj_self]
 
 /-- Identity section for the `N=1` subgroup; this is not a new point. -/
 def kernelIdentity (A : AbVar K) : Spec (CommRingCat.of K) ⟶ A.X.left :=

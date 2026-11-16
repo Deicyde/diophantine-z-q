@@ -72,14 +72,14 @@ def algLevelMap (P : AV.QML3 K) : O →+ (kernelLaw P.A).AlgPoints (kernelLaw_co
     rw [RelativeGroupLaw.AlgPoints.toPoint_zero]
     change FakeEllipticCurve.sectionAt (kernelPt P.A (Additive.toMul (P.e.eta 0)))
       k (algebraMap K k) = _
-    rw [map_zero, Additive.toMul_zero, kernelPt_one]
+    rw [map_zero, toMul_zero, kernelPt_one]
     exact (kernelLaw P.A).one_natural (𝟙 _) _ _ (Category.comp_id _)
   map_add' a b := by
     apply RelativeGroupLaw.AlgPoints.toPoint_injective
     rw [RelativeGroupLaw.AlgPoints.toPoint_add]
     change FakeEllipticCurve.sectionAt (kernelPt P.A (Additive.toMul (P.e.eta (a + b))))
       k (algebraMap K k) = _
-    rw [map_add, Additive.toMul_add, kernelPt_mul]
+    rw [map_add, toMul_add, kernelPt_mul]
     exact (kernelLaw P.A).mul_natural (𝟙 _) _ _ (Category.comp_id _) _ _
 
 /-- Base-change identity for the unchanged level points. -/
@@ -107,7 +107,7 @@ theorem algLevelMap_ker (P : AV.QML3 K) (a : O) :
     apply RelativeGroupLaw.AlgPoints.toPoint_injective
     change FakeEllipticCurve.sectionAt (kernelPt P.A (Additive.toMul (P.e.eta a)))
       k (algebraMap K k) = (kernelLaw P.A).one _
-    rw [h, Additive.toMul_zero, kernelPt_one]
+    rw [h, toMul_zero, kernelPt_one]
     exact (kernelLaw P.A).one_natural (𝟙 _) _ _ (Category.comp_id _)
 
 /-- The canonical genuine torsion cardinality, at every algebraically closed
@@ -122,7 +122,7 @@ theorem algLevel_torsion_card [CharZero K] [IsAlgClosed k] (P : AV.QML3 K) :
         change ((3 : ℕ) : ℤ) • x.1 = 0
         simpa only [natCast_zsmul] using x.2⟩
       invFun := fun x => ⟨x.1, by
-        have h := (Submodule.mem_torsionBy_iff _ _ _).mp x.2
+        have h := (Submodule.mem_torsionBy_iff (3 : ℤ) (x : G)).mp x.2
         change ((3 : ℕ) : ℤ) • x.1 = 0 at h
         simpa only [natCast_zsmul] using h⟩
       left_inv := fun _ => rfl
@@ -171,7 +171,8 @@ def kernelFullLevel [CharZero K] (P : AV.QML3 K) : (kernelFakeEC P).FullLevel 3 
     rw [kernelPt_pow, ← kernelPt_one]
     apply congrArg (kernelPt P.A)
     have h3 := eta_three P.e.eta P.e.ker (1 : O)
-    exact congrArg Additive.toMul h3
+    rw [← toMul_nsmul, h3]
+    rfl
   generates k sk Q hQ := by
     letI : Algebra K k := sk.toAlgebra
     have hx : (3 : ℕ) • RelativeGroupLaw.AlgPoints.ofPoint Q = 0 := by
