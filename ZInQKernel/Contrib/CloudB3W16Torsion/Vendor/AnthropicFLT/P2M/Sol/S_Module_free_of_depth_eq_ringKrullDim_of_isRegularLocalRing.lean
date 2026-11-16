@@ -8,6 +8,7 @@ bodies retained, subject to documented Lean 4.35 API adaptations.
 Full original notices/credits: NOTICE.upstream, ATTRIBUTION.upstream.md, LICENSE in this vendor root.
 -/
 import Mathlib
+import ZInQKernel.Contrib.CloudB3W16Torsion.CompatFlatness.QuotSMulTop
 import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_Patching_SystemTypes
 import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
@@ -79,7 +80,7 @@ lemma Module.depth_le_krullDim_support [Nontrivial M] [Module.Finite R M] :
   simp only [WithBot.coe_le_coe, ge_iff_le]
   induction n using Nat.strong_induction_on generalizing M with
   | h n IH =>
-    rw [depth, sSup_le_iff]
+    rw [_root_.Module.depth, sSup_le_iff]
     rintro _ ⟨l, hl, hl', rfl⟩
     apply WithTop.coe_le_coe.mpr ?_
     cases l with
@@ -1888,6 +1889,8 @@ theorem Module.free_of_quotSMulTop_free (x : R) (hx : x ∈ IsLocalRing.maximalI
     Module.Free R M := by
   haveI := hfree
 
+  haveI : Module.Finite (R ⧸ Ideal.span {x}) (QuotSMulTop x M) :=
+    ZInQ.Contrib.CloudB3W16Torsion.CompatFlatness.finite_quotSMulTop x
   haveI : Fintype (Module.Free.ChooseBasisIndex (R ⧸ Ideal.span {x}) (QuotSMulTop x M)) :=
     Module.Free.ChooseBasisIndex.fintype _ _
   obtain ⟨b', -⟩ := QuotSMulTop.exists_basis_lift x hx hreg
@@ -1907,6 +1910,8 @@ theorem Module.finrank_quotSMulTop_eq (x : R) (hx : x ∈ IsLocalRing.maximalIde
     Module.finrank (R ⧸ Ideal.span {x}) (QuotSMulTop x M) = Module.finrank R M := by
   haveI := hfree
   haveI : Nontrivial (R ⧸ Ideal.span {x}) := QuotSMulTop.nontrivial_quotientRing x hx
+  haveI : Module.Finite (R ⧸ Ideal.span {x}) (QuotSMulTop x M) :=
+    ZInQ.Contrib.CloudB3W16Torsion.CompatFlatness.finite_quotSMulTop x
   haveI : Fintype (Module.Free.ChooseBasisIndex (R ⧸ Ideal.span {x}) (QuotSMulTop x M)) :=
     Module.Free.ChooseBasisIndex.fintype _ _
   obtain ⟨b', -⟩ := QuotSMulTop.exists_basis_lift x hx hreg
@@ -1934,7 +1939,7 @@ section QuotientInfrastructure
 
 variable {R : Type u} [CommRing R]
 
-private theorem _root_.Ws14Port.No4PatchingCore.isLocalRing_quotient_span_singleton [IsLocalRing R] {x : R}
+private theorem isLocalRing_quotient_span_singleton [IsLocalRing R] {x : R}
     (hx : x ∈ maximalIdeal R) : IsLocalRing (R ⧸ Ideal.span {x}) := by
   have hne : Ideal.span {x} ≠ ⊤ := by
     intro h
@@ -1942,7 +1947,6 @@ private theorem _root_.Ws14Port.No4PatchingCore.isLocalRing_quotient_span_single
       (top_le_iff.mp (h ▸ Ideal.span_le.mpr (Set.singleton_subset_iff.mpr hx)))
   haveI : Nontrivial (R ⧸ Ideal.span {x}) := Ideal.Quotient.nontrivial_iff.mpr hne
   exact IsLocalRing.of_surjective' (Ideal.Quotient.mk _) Ideal.Quotient.mk_surjective
-export Ws14Port.No4PatchingCore (isLocalRing_quotient_span_singleton)
 theorem isScalarTower_quotient_span_singleton {M : Type v} [AddCommGroup M] [Module R M]
     (x : R) : IsScalarTower R (R ⧸ Ideal.span {x}) (QuotSMulTop x M) :=
   IsScalarTower.of_algebraMap_smul fun r m => by

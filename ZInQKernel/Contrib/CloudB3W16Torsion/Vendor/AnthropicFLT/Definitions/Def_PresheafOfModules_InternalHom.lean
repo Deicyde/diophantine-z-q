@@ -23,11 +23,11 @@ namespace PresheafOfModules
 section general
 
 variable {C : Type u'} [Category.{v'} C] {R : Cᵒᵖ ⥤ CommRingCat.{u}}
-  (F N : PresheafOfModules.{u} (R ⋙ forget₂ _ _))
+  (F N : PresheafOfModulesOfCommRing.{u} R)
 
 namespace InternalHom
 
-lemma map_id_apply (M : PresheafOfModules.{u} (R ⋙ forget₂ _ _)) (X : Cᵒᵖ) (x : M.obj X) :
+lemma map_id_apply (M : PresheafOfModulesOfCommRing.{u} R) (X : Cᵒᵖ) (x : M.obj X) :
     M.map (𝟙 X) x = x := by
   change (M.presheaf.map (𝟙 X)) x = x
   rw [M.presheaf.map_id]; rfl
@@ -69,7 +69,7 @@ instance (X : Cᵒᵖ) : SMul (R.obj X) (naturalFamilies F N X) where
   smul r φ := ⟨fun Y f => R.map f r • φ.1 f, by
     intro Y Z f g x
     simp only [LinearMap.smul_apply]
-    rw [N.map_smul]
+    erw [N.map_smul]
     erw [φ.2 f g x]
     congr 1
     rw [Functor.map_comp]
@@ -125,7 +125,7 @@ instance (X : Cᵒᵖ) : Module ((R ⋙ forget₂ CommRingCat RingCat).obj X) ((
 
 variable {N} in
 
-def postcomp {N' : PresheafOfModules.{u} (R ⋙ forget₂ _ _)} (ψ : N ⟶ N') (X : Cᵒᵖ) :
+def postcomp {N' : PresheafOfModulesOfCommRing.{u} R} (ψ : N ⟶ N') (X : Cᵒᵖ) :
     naturalFamilies F N X →+ naturalFamilies F N' X where
   toFun φ := ⟨fun Y f =>
     { toFun := fun x => ψ.app Y (φ.1 f x)
@@ -135,11 +135,11 @@ def postcomp {N' : PresheafOfModules.{u} (R ⋙ forget₂ _ _)} (ψ : N ⟶ N') 
         exact (ψ.app Y).hom.map_smul r _ }, by
     intro Y Z f g x
     change N'.map g (ψ.app Y (φ.1 f x)) = ψ.app Z (φ.1 (f ≫ g) (F.map g x))
-    rw [← naturality_apply, φ.2 f g x]⟩
+    erw [← naturality_apply, φ.2 f g x]⟩
   map_zero' := by ext Y f x; exact (ψ.app Y).hom.map_zero
   map_add' φ φ' := by ext Y f x; exact (ψ.app Y).hom.map_add _ _
 
-@[simp] lemma postcomp_app {N' : PresheafOfModules.{u} (R ⋙ forget₂ _ _)} (ψ : N ⟶ N') {X : Cᵒᵖ}
+@[simp] lemma postcomp_app {N' : PresheafOfModulesOfCommRing.{u} R} (ψ : N ⟶ N') {X : Cᵒᵖ}
     (φ : naturalFamilies F N X) {Y : Cᵒᵖ} (f : X ⟶ Y) (x : F.obj Y) :
     (postcomp F ψ X φ).1 f x = ψ.app Y (φ.1 f x) := rfl
 
@@ -147,7 +147,7 @@ end InternalHom
 
 open InternalHom
 
-@[simps! obj] noncomputable def ihomObj : PresheafOfModules.{max u u' v'} (R ⋙ forget₂ _ _) :=
+@[simps! obj] noncomputable def ihomObj : PresheafOfModulesOfCommRing.{max u u' v'} R :=
   ofPresheaf (InternalHom.presheaf F N) (by
     intro X X' h r φ
     apply naturalFamilies_ext
@@ -162,7 +162,7 @@ open InternalHom
 
 variable {N} in
 
-noncomputable def ihomMap {N' : PresheafOfModules.{u} (R ⋙ forget₂ _ _)} (ψ : N ⟶ N') :
+noncomputable def ihomMap {N' : PresheafOfModulesOfCommRing.{u} R} (ψ : N ⟶ N') :
     ihomObj F N ⟶ ihomObj F N' :=
   homMk { app := fun X => AddCommGrpCat.ofHom (postcomp F ψ X)
           naturality := fun {X X'} h => by ext φ; rfl } (by
@@ -171,12 +171,12 @@ noncomputable def ihomMap {N' : PresheafOfModules.{u} (R ⋙ forget₂ _ _)} (ψ
     intro Y f x
     exact (ψ.app Y).hom.map_smul _ _)
 
-@[simp] lemma ihomMap_app_val {N' : PresheafOfModules.{u} (R ⋙ forget₂ _ _)} (ψ : N ⟶ N')
+@[simp] lemma ihomMap_app_val {N' : PresheafOfModulesOfCommRing.{u} R} (ψ : N ⟶ N')
     {X : Cᵒᵖ} (φ : (ihomObj F N).obj X) {Y : Cᵒᵖ} (f : X ⟶ Y) (x : F.obj Y) :
     ((ihomMap F ψ).app X φ).1 f x = ψ.app Y (φ.1 f x) := rfl
 
 noncomputable def ihomFunctor :
-    PresheafOfModules.{u} (R ⋙ forget₂ _ _) ⥤ PresheafOfModules.{max u u' v'} (R ⋙ forget₂ _ _) where
+    PresheafOfModulesOfCommRing.{u} R ⥤ PresheafOfModulesOfCommRing.{max u u' v'} R where
   obj N := ihomObj F N
   map ψ := ihomMap F ψ
   map_id N := by
@@ -188,9 +188,9 @@ noncomputable def ihomFunctor :
     apply naturalFamilies_ext
     intro Y f y; rfl
 
-@[simp] lemma ihomFunctor_obj (N' : PresheafOfModules.{u} (R ⋙ forget₂ _ _)) :
+@[simp] lemma ihomFunctor_obj (N' : PresheafOfModulesOfCommRing.{u} R) :
     (ihomFunctor F).obj N' = ihomObj F N' := rfl
-@[simp] lemma ihomFunctor_map {N' N'' : PresheafOfModules.{u} (R ⋙ forget₂ _ _)} (ψ : N' ⟶ N'') :
+@[simp] lemma ihomFunctor_map {N' N'' : PresheafOfModulesOfCommRing.{u} R} (ψ : N' ⟶ N'') :
     (ihomFunctor F).map ψ = ihomMap F ψ := rfl
 
 end general
@@ -198,7 +198,7 @@ end general
 section closed
 
 variable {C : Type u} [Category.{u} C] {R : Cᵒᵖ ⥤ CommRingCat.{u}}
-  (F : PresheafOfModules.{u} (R ⋙ forget₂ _ _)) {G N : PresheafOfModules.{u} (R ⋙ forget₂ _ _)}
+  (F : PresheafOfModulesOfCommRing.{u} R) {G N : PresheafOfModulesOfCommRing.{u} R}
 
 namespace InternalHom
 
@@ -211,9 +211,10 @@ noncomputable def curryFamily (θ : F ⊗ G ⟶ N) {X : Cᵒᵖ} (y : G.obj X) :
         rfl }, by
     intro Y Z f g x
     change N.map g (θ.app Y _) = θ.app Z _
-    rw [← naturality_apply]
-    erw [Monoidal.tensorObj_map_tmul]
-    rw [← PresheafOfModules.map_comp_apply]⟩
+    erw [← naturality_apply]
+    erw [PresheafOfModulesOfCommRing.Monoidal.tensorObj_map_tmul]
+    erw [← PresheafOfModules.map_comp_apply]
+    rfl⟩
 
 @[simp] lemma curryFamily_app (θ : F ⊗ G ⟶ N) {X : Cᵒᵖ} (y : G.obj X) {Y : Cᵒᵖ} (f : X ⟶ Y)
     (x : F.obj Y) : (curryFamily F θ y).1 f x = θ.app Y (x ⊗ₜ[R.obj Y] G.map f y) := rfl
@@ -241,13 +242,17 @@ noncomputable def curry' (θ : F ⊗ G ⟶ N) : G ⟶ ihomObj F N :=
         ext y
         apply naturalFamilies_ext; intro Y f x
         change θ.app Y (x ⊗ₜ[R.obj Y] G.map f (G.map h y)) = θ.app Y (x ⊗ₜ[R.obj Y] G.map (h ≫ f) y)
-        rw [PresheafOfModules.map_comp_apply] }
+        erw [PresheafOfModules.map_comp_apply]
+        rfl }
     (by
       intro X r y
       apply naturalFamilies_ext; intro Y f x
       change θ.app Y (x ⊗ₜ[R.obj Y] G.map f (r • y)) = R.map f r • θ.app Y (x ⊗ₜ[R.obj Y] G.map f y)
-      rw [G.map_smul]
+      erw [G.map_smul]
       change θ.app Y (x ⊗ₜ[R.obj Y] ((R.map f r : R.obj Y) • G.map f y)) = _
+      haveI : IsScalarTower (R.obj Y) (R.obj Y) (F.obj Y) := IsScalarTower.left (R.obj Y)
+      haveI : IsScalarTower (R.obj Y) (R.obj Y) (G.obj Y) := IsScalarTower.left (R.obj Y)
+      haveI : TensorProduct.CompatibleSMul (R.obj Y) (R.obj Y) (F.obj Y) (G.obj Y) := inferInstance
       rw [TensorProduct.tmul_smul]
       exact (θ.app Y).hom.map_smul _ _)
 
@@ -285,7 +290,7 @@ noncomputable def uncurry' (κ : G ⟶ ihomObj F N) : F ⊗ G ⟶ N where
     dsimp
     erw [tensorObj_map_tmul' F (G := G) g x y]
     erw [uncurryApp_tmul, uncurryApp_tmul]
-    rw [naturality_apply κ g y]
+    erw [naturality_apply κ g y]
     erw [ihomObj_map_val]
     erw [(κ.app X y).2 (𝟙 X) g x]
     exact congr_app _ (by simp) _)
@@ -308,7 +313,7 @@ lemma curry'_uncurry' (κ : G ⟶ ihomObj F N) : curry' F (uncurry' F κ) = κ :
   apply naturalFamilies_ext; intro Y f x
   rw [curry'_app_val]
   erw [uncurry'_app_tmul]
-  rw [naturality_apply κ f y, ihomObj_map_val]
+  erw [naturality_apply κ f y, ihomObj_map_val]
   exact congr_app _ (by simp) _
 
 noncomputable def tensorIhomAdj : tensorLeft F ⊣ ihomFunctor F :=
@@ -331,7 +336,7 @@ noncomputable def tensorIhomAdj : tensorLeft F ⊣ ihomFunctor F :=
         rfl }
 
 noncomputable instance instMonoidalClosed :
-    MonoidalClosed (PresheafOfModules.{u} (R ⋙ forget₂ _ _)) where
+    MonoidalClosed (PresheafOfModulesOfCommRing.{u} R) where
   closed F := { rightAdj := ihomFunctor F, adj := tensorIhomAdj F }
 
 end closed

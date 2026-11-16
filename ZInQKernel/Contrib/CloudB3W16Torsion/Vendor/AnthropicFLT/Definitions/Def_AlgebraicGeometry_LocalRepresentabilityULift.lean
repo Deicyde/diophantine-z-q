@@ -147,7 +147,7 @@ lemma comp_toGlued_eq {U : Scheme.{u}} {i j : ι} (a : U ⟶ X i) (b : U ⟶ X j
   conv_rhs => rw [← (hf i).rep.lift'_snd a b h, assoc]
   congr 1
   exact ((glueData hf).glue_condition i j).symm.trans
-    (by simp [toGlued]; erw [Functor.relativelyRepresentable.symmetry_fst_assoc])
+    (by simp [toGlued])
 
 @[simp]
 lemma glueData_openCover_map : (glueData hf).openCover.f j = toGlued hf j := rfl

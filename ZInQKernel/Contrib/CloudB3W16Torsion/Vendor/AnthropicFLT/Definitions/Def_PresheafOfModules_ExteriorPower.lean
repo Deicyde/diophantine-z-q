@@ -181,8 +181,10 @@ lemma exteriorPowerMap_app_apply (n : ℕ) {M N : PresheafOfModules.{u} (R ⋙ f
 lemma exteriorPowerMap_app_ιMulti (n : ℕ) {M N : PresheafOfModules.{u} (R ⋙ forget₂ CommRingCat RingCat)}
     (φ : M ⟶ N) (X : Cᵒᵖ) (m : Fin n → M.obj X) :
     ((exteriorPowerMap n φ).app X (show (exteriorPower n M).obj X from exteriorPower.ιMulti (R.obj X) n m) :
-      ⋀[R.obj X]^n (N.obj X)) = exteriorPower.ιMulti (R.obj X) n (fun i => φ.app X (m i)) :=
-  exteriorPower.map_apply_ιMulti _ _
+      ⋀[R.obj X]^n (N.obj X)) = exteriorPower.ιMulti (R.obj X) n (fun i => φ.app X (m i)) := by
+  change exteriorPower.map n (ExteriorPower.appₗ φ X)
+    (exteriorPower.ιMulti (R.obj X) n m) = exteriorPower.ιMulti (R.obj X) n (fun i => φ.app X (m i))
+  exact exteriorPower.map_apply_ιMulti _ _
 
 variable (R) in
 

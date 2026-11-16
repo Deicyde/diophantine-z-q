@@ -37,7 +37,7 @@ theorem val_awayMap_ratio (i i' k : Fin (N + 1)) {f g : (MvPolynomial (Fin (N + 
       = Localization.mk (a * g) (⟨(X i * X i' : (MvPolynomial (Fin (N + 1)) A)) ^ 1, ⟨1, rfl⟩⟩ : Submonoid.powers (X i * X i' : (MvPolynomial (Fin (N + 1)) A))) := by
   rw [val_awayMap, hr]
   have hv : algebraMap (MvPolynomial (Fin (N + 1)) A) (Localization.Away (X i * X i' : (MvPolynomial (Fin (N + 1)) A))) f
-      * Localization.mk g (⟨(X i * X i' : S) ^ 1, ⟨1, rfl⟩⟩ : Submonoid.powers (X i * X i' : S)) = 1 := by
+      * Localization.mk g (⟨(X i * X i' : (MvPolynomial (Fin (N + 1)) A)) ^ 1, ⟨1, rfl⟩⟩ : Submonoid.powers (X i * X i' : (MvPolynomial (Fin (N + 1)) A))) = 1 := by
     rw [← Localization.mk_one_eq_algebraMap, Localization.mk_mul, ← Localization.mk_one,
       Localization.mk_eq_mk_iff, Localization.r_iff_exists]
     exact ⟨1, by simp [hx]⟩
@@ -46,7 +46,7 @@ theorem val_awayMap_ratio (i i' k : Fin (N + 1)) {f g : (MvPolynomial (Fin (N + 
 
 theorem awayMap_ratio_mul (i i' j : Fin (N + 1)) :
     awayMap (MvPolynomial.homogeneousSubmodule (Fin (N + 1)) A) (X_mem_one A N i') rfl (ratio A N i i')
-        * awayMap 𝒜 (X_mem_one A N i) (mul_comm (X i) (X i') : (X i * X i' : S) = X i' * X i) (ratio A N i' j)
+        * awayMap (MvPolynomial.homogeneousSubmodule (Fin (N + 1)) A) (X_mem_one A N i) (mul_comm (X i) (X i') : (X i * X i' : (MvPolynomial (Fin (N + 1)) A)) = X i' * X i) (ratio A N i' j)
       = awayMap (MvPolynomial.homogeneousSubmodule (Fin (N + 1)) A) (X_mem_one A N i') rfl (ratio A N i j) := by
   apply HomogeneousLocalization.val_injective
   rw [val_mul,
@@ -60,7 +60,7 @@ theorem awayMap_ratio_mul (i i' j : Fin (N + 1)) :
 
 theorem awayMap_ratio_mul_swap (i i' : Fin (N + 1)) :
     awayMap (MvPolynomial.homogeneousSubmodule (Fin (N + 1)) A) (X_mem_one A N i') rfl (ratio A N i i')
-        * awayMap 𝒜 (X_mem_one A N i) (mul_comm (X i) (X i') : (X i * X i' : S) = X i' * X i) (ratio A N i' i)
+        * awayMap (MvPolynomial.homogeneousSubmodule (Fin (N + 1)) A) (X_mem_one A N i) (mul_comm (X i) (X i') : (X i * X i' : (MvPolynomial (Fin (N + 1)) A)) = X i' * X i) (ratio A N i' i)
       = 1 := by
   rw [awayMap_ratio_mul, ratio_self, map_one]
 
@@ -352,7 +352,6 @@ theorem frameUnit_cocycle (i i' j : Fin (N + 1)) :
 
 theorem frameUnit_self (i : Fin (N + 1)) : frameUnit φ i i = 1 := by
   rw [frameUnit, ratio_self, map_one, map_one]
-  rfl
 
 theorem frameUnit_mul_swap (i i' : Fin (N + 1)) :
     restrictFun (pullbackOverlap_le_left φ i i') (frameUnit φ i i') * restrictFun (pullbackOverlap_le_right φ i i') (frameUnit φ i' i) = 1 := by

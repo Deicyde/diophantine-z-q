@@ -13,6 +13,7 @@ set_option backward.isDefEq.respectTransparency false
 
 set_option autoImplicit false
 set_option backward.isDefEq.respectTransparency false
+set_option maxHeartbeats 2000000
 
 universe v u v₁ u₁ v₂ u₂
 
@@ -30,12 +31,12 @@ abbrev ringCatHom : S ⋙ forget₂ CommRingCat RingCat ⟶ R ⋙ forget₂ Comm
 noncomputable abbrev restrictScalarsAt (U : Cᵒᵖ) : ModuleCat.{u} (R.obj U) ⥤ ModuleCat.{u} (S.obj U) :=
   ModuleCat.restrictScalars (φ.app U).hom
 
-example (M : PresheafOfModules.{u} (R ⋙ forget₂ _ _)) (U : Cᵒᵖ) :
+example (M : PresheafOfModulesOfCommRing.{u} R) (U : Cᵒᵖ) :
     ((restrictScalars (ringCatHom φ)).obj M).obj U = (restrictScalarsAt φ U).obj (M.obj U) := rfl
 
 noncomputable def restrictScalarsε :
-    𝟙_ (PresheafOfModules.{u} (S ⋙ forget₂ _ _)) ⟶
-      (restrictScalars (ringCatHom φ)).obj (𝟙_ (PresheafOfModules.{u} (R ⋙ forget₂ _ _))) where
+    𝟙_ (PresheafOfModulesOfCommRing.{u} S) ⟶
+      (restrictScalars (ringCatHom φ)).obj (𝟙_ (PresheafOfModulesOfCommRing.{u} R)) where
   app U := ε (restrictScalarsAt φ U)
   naturality {U V} i := by
     refine ModuleCat.hom_ext (LinearMap.ext fun (s : S.obj U) => ?_)
@@ -43,7 +44,7 @@ noncomputable def restrictScalarsε :
     erw [ModuleCat.restrictScalars_η, ModuleCat.restrictScalars_η]
     exact ConcreteCategory.congr_hom (φ.naturality i) s
 
-noncomputable def restrictScalarsμ (M N : PresheafOfModules.{u} (R ⋙ forget₂ _ _)) :
+noncomputable def restrictScalarsμ (M N : PresheafOfModulesOfCommRing.{u} R) :
     (restrictScalars (ringCatHom φ)).obj M ⊗ (restrictScalars (ringCatHom φ)).obj N ⟶
       (restrictScalars (ringCatHom φ)).obj (M ⊗ N) where
   app U := μ (restrictScalarsAt φ U) (M.obj U) (N.obj U)
@@ -51,9 +52,9 @@ noncomputable def restrictScalarsμ (M N : PresheafOfModules.{u} (R ⋙ forget�
     apply ModuleCat.MonoidalCategory.tensor_ext
     intro m n
     dsimp
-    erw [Monoidal.tensorObj_map_tmul]
+    erw [PresheafOfModulesOfCommRing.Monoidal.tensorObj_map_tmul]
     erw [ModuleCat.restrictScalars_μ_tmul, ModuleCat.restrictScalars_μ_tmul]
-    erw [Monoidal.tensorObj_map_tmul]
+    erw [PresheafOfModulesOfCommRing.Monoidal.tensorObj_map_tmul]
     rfl
 
 noncomputable instance restrictScalars_laxMonoidal :
@@ -62,24 +63,24 @@ noncomputable instance restrictScalars_laxMonoidal :
   μ M N := restrictScalarsμ φ M N
   μ_natural_left f N := by
     ext1 U
-    simp only [comp_app, whiskerRight_app, restrictScalars_map_app]
+    simp only [comp_app, PresheafOfModulesOfCommRing.whiskerRight_app, restrictScalars_map_app]
     exact μ_natural_left (restrictScalarsAt φ U) (f.app U) (N.obj U)
   μ_natural_right M f := by
     ext1 U
-    simp only [comp_app, whiskerLeft_app, restrictScalars_map_app]
+    simp only [comp_app, PresheafOfModulesOfCommRing.whiskerLeft_app, restrictScalars_map_app]
     exact μ_natural_right (restrictScalarsAt φ U) (M.obj U) (f.app U)
   associativity M N P := by
     ext1 U
-    simp only [comp_app, whiskerRight_app, whiskerLeft_app, restrictScalars_map_app,
-      associator_hom_app]
+    simp only [comp_app, PresheafOfModulesOfCommRing.whiskerRight_app, PresheafOfModulesOfCommRing.whiskerLeft_app, restrictScalars_map_app,
+      PresheafOfModulesOfCommRing.associator_hom_app]
     exact associativity (restrictScalarsAt φ U) (M.obj U) (N.obj U) (P.obj U)
   left_unitality M := by
     ext1 U
-    simp only [comp_app, whiskerRight_app, restrictScalars_map_app, leftUnitor_hom_app]
+    simp only [comp_app, PresheafOfModulesOfCommRing.whiskerRight_app, restrictScalars_map_app, PresheafOfModulesOfCommRing.leftUnitor_hom_app]
     exact left_unitality (restrictScalarsAt φ U) (M.obj U)
   right_unitality M := by
     ext1 U
-    simp only [comp_app, whiskerLeft_app, restrictScalars_map_app, rightUnitor_hom_app]
+    simp only [comp_app, PresheafOfModulesOfCommRing.whiskerLeft_app, restrictScalars_map_app, PresheafOfModulesOfCommRing.rightUnitor_hom_app]
     exact right_unitality (restrictScalarsAt φ U) (M.obj U)
 
 end restrictScalars
@@ -144,7 +145,7 @@ lemma freeObj_map_freeMk (T : Cᵒᵖ ⥤ Type u) {X Y : Cᵒᵖ} (f : X ⟶ Y) 
   simp [freeObj, ModuleCat.freeDesc_apply]
 
 noncomputable def freeεIso :
-    𝟙_ (PresheafOfModules.{u} (R ⋙ forget₂ CommRingCat RingCat)) ≅ (free (R ⋙ forget₂ CommRingCat RingCat)).obj (𝟙_ (Cᵒᵖ ⥤ Type u)) :=
+    𝟙_ (PresheafOfModulesOfCommRing.{u} R) ≅ (free (R ⋙ forget₂ CommRingCat RingCat)).obj (𝟙_ (Cᵒᵖ ⥤ Type u)) :=
   isoMk (fun X => ModuleCat.FreeMonoidal.εIso (R.obj X)) (by
     intro X Y f
     refine ModuleCat.hom_ext (LinearMap.ext fun (r : R.obj X) => ?_)
@@ -173,7 +174,7 @@ noncomputable def freeμIso (F G : Cᵒᵖ ⥤ Type u) :
         ((ModuleCat.FreeMonoidal.μIso (R.obj X) (F.obj X) (G.obj X)).inv (ModuleCat.freeMk (x, y)))) =
       ((free (R ⋙ forget₂ CommRingCat RingCat)).obj (F ⊗ G)).map f (ModuleCat.freeMk (x, y))
     erw [ModuleCat.FreeMonoidal.μIso_inv_freeMk]
-    erw [Monoidal.tensorObj_map_tmul]
+    erw [PresheafOfModulesOfCommRing.Monoidal.tensorObj_map_tmul]
     erw [freeObj_map_freeMk, freeObj_map_freeMk, freeObj_map_freeMk]
     erw [ModuleCat.FreeMonoidal.μIso_hom_freeMk_tmul_freeMk]
     rfl)
@@ -190,28 +191,28 @@ noncomputable instance free_monoidal : (free (R ⋙ forget₂ CommRingCat RingCa
       μIso := freeμIso
       μIso_hom_natural_left := fun {F F'} f G => by
         ext1 X
-        simp only [comp_app, whiskerRight_app, free_map_app, freeμIso_hom_app,
+        simp only [comp_app, PresheafOfModulesOfCommRing.whiskerRight_app, free_map_app, freeμIso_hom_app,
           Monoidal.whiskerRight_app]
         exact μ_natural_left (ModuleCat.free (R.obj X)) (f.app X) (G.obj X)
       μIso_hom_natural_right := fun {F F'} G f => by
         ext1 X
-        simp only [comp_app, whiskerLeft_app, free_map_app, freeμIso_hom_app,
+        simp only [comp_app, PresheafOfModulesOfCommRing.whiskerLeft_app, free_map_app, freeμIso_hom_app,
           Monoidal.whiskerLeft_app]
         exact μ_natural_right (ModuleCat.free (R.obj X)) (G.obj X) (f.app X)
       associativity := fun F G H => by
         ext1 X
-        simp only [comp_app, whiskerRight_app, whiskerLeft_app, free_map_app, freeμIso_hom_app,
-          associator_hom_app, Monoidal.associator_hom_app]
+        simp only [comp_app, PresheafOfModulesOfCommRing.whiskerRight_app, PresheafOfModulesOfCommRing.whiskerLeft_app, free_map_app, freeμIso_hom_app,
+          PresheafOfModulesOfCommRing.associator_hom_app, Monoidal.associator_hom_app]
         exact associativity (ModuleCat.free (R.obj X)) (F.obj X) (G.obj X) (H.obj X)
       left_unitality := fun F => by
         ext1 X
-        simp only [comp_app, whiskerRight_app, free_map_app, freeμIso_hom_app, freeεIso_hom_app,
-          leftUnitor_hom_app, Monoidal.leftUnitor_hom_app]
+        simp only [comp_app, PresheafOfModulesOfCommRing.whiskerRight_app, free_map_app, freeμIso_hom_app, freeεIso_hom_app,
+          PresheafOfModulesOfCommRing.leftUnitor_hom_app, Monoidal.leftUnitor_hom_app]
         exact left_unitality (ModuleCat.free (R.obj X)) (F.obj X)
       right_unitality := fun F => by
         ext1 X
-        simp only [comp_app, whiskerLeft_app, free_map_app, freeμIso_hom_app, freeεIso_hom_app,
-          rightUnitor_hom_app, Monoidal.rightUnitor_hom_app]
+        simp only [comp_app, PresheafOfModulesOfCommRing.whiskerLeft_app, free_map_app, freeμIso_hom_app, freeεIso_hom_app,
+          PresheafOfModulesOfCommRing.rightUnitor_hom_app, Monoidal.rightUnitor_hom_app]
         exact right_unitality (ModuleCat.free (R.obj X)) (F.obj X) }
 
 end PresheafOfModules
@@ -230,16 +231,16 @@ variable {C D : Type u} [SmallCategory C] [SmallCategory D]
 -- CloudW16 port: expanded the source-local shorthand in its original lexical scope.
 -- CloudW16 port: expanded the source-local shorthand in its original lexical scope.
 
-noncomputable abbrev pf : PresheafOfModules.{u} (R ⋙ forget₂ CommRingCat RingCat) ⥤ PresheafOfModules.{u} (S ⋙ forget₂ CommRingCat RingCat) :=
+noncomputable abbrev pf : PresheafOfModulesOfCommRing.{u} R ⥤ PresheafOfModulesOfCommRing.{u} S :=
   pushforward (R := (R ⋙ forget₂ CommRingCat RingCat)) (ringCatHom φ)
 
-noncomputable abbrev pb : PresheafOfModules.{u} (S ⋙ forget₂ CommRingCat RingCat) ⥤ PresheafOfModules.{u} (R ⋙ forget₂ CommRingCat RingCat) :=
+noncomputable abbrev pb : PresheafOfModulesOfCommRing.{u} S ⥤ PresheafOfModulesOfCommRing.{u} R :=
   pullback (R := (R ⋙ forget₂ CommRingCat RingCat)) (ringCatHom φ)
 
 noncomputable abbrev adj : pb F φ ⊣ pf F φ := pullbackPushforwardAdjunction (R := (R ⋙ forget₂ CommRingCat RingCat)) (ringCatHom φ)
 
-noncomputable abbrev gS (U : C) : PresheafOfModules.{u} (S ⋙ forget₂ CommRingCat RingCat) := (free (S ⋙ forget₂ CommRingCat RingCat)).obj (yoneda.obj U)
-noncomputable abbrev gR (V : D) : PresheafOfModules.{u} (R ⋙ forget₂ CommRingCat RingCat) := (free (R ⋙ forget₂ CommRingCat RingCat)).obj (yoneda.obj V)
+noncomputable abbrev gS (U : C) : PresheafOfModulesOfCommRing.{u} S := (free (S ⋙ forget₂ CommRingCat RingCat)).obj (yoneda.obj U)
+noncomputable abbrev gR (V : D) : PresheafOfModulesOfCommRing.{u} R := (free (R ⋙ forget₂ CommRingCat RingCat)).obj (yoneda.obj V)
 
 noncomputable abbrev h₂ (U : C) :
     (pf F φ ⋙ coyoneda.obj (op (gS U))).CorepresentableBy (gR (F.obj U)) :=
@@ -249,7 +250,7 @@ noncomputable def u₂ (U : C) : gS U ⟶ (pf F φ).obj (gR (F.obj U)) :=
   (h₂ F φ U).homEquiv (𝟙 _)
 
 omit [HasFiniteProducts C] [HasFiniteProducts D] [PreservesFiniteProducts F] in
-lemma freeYonedaEquiv_apply' {M : PresheafOfModules.{u} (S ⋙ forget₂ CommRingCat RingCat)} {X : C}
+lemma freeYonedaEquiv_apply' {M : PresheafOfModulesOfCommRing.{u} S} {X : C}
     (f : gS X ⟶ M) : freeYonedaEquiv f = f.app (op X) (ModuleCat.freeMk (𝟙 X)) := rfl
 
 omit [HasFiniteProducts C] [HasFiniteProducts D] [PreservesFiniteProducts F] in
@@ -277,19 +278,18 @@ lemma freeμIso_inv_app_freeMk {E : Type u} [SmallCategory E] {T : Eᵒᵖ ⥤ C
     (P Q : Eᵒᵖ ⥤ Type u) (X : Eᵒᵖ) (z : (P ⊗ Q).obj X) :
     (freeμIso (R := T) P Q).inv.app X (ModuleCat.freeMk z) =
       (ModuleCat.freeMk z.1 ⊗ₜ[T.obj X] ModuleCat.freeMk z.2 :
-        (((free (T ⋙ forget₂ CommRingCat RingCat)).obj P).obj X ⊗
-          ((free (T ⋙ forget₂ CommRingCat RingCat)).obj Q).obj X :)) :=
+        ((ModuleCat.free (T.obj X)).obj (P.obj X) ⊗
+          (ModuleCat.free (T.obj X)).obj (Q.obj X) :)) :=
   ModuleCat.FreeMonoidal.μIso_inv_freeMk _ z
 
 omit [HasFiniteProducts C] [HasFiniteProducts D] [PreservesFiniteProducts F] in
 
 lemma tensorHom_app_tmul {E : Type u} [SmallCategory E] {T : Eᵒᵖ ⥤ CommRingCat.{u}}
-    {M₁ M₂ M₃ M₄ : PresheafOfModules.{u} (T ⋙ forget₂ CommRingCat RingCat)}
+    {M₁ M₂ M₃ M₄ : PresheafOfModulesOfCommRing.{u} T}
     (f : M₁ ⟶ M₂) (g : M₃ ⟶ M₄) (X : Eᵒᵖ) (m : M₁.obj X) (n : M₃.obj X) :
     DFunLike.coe (α := (M₁.obj X ⊗ M₃.obj X :)) (β := fun _ => (M₂.obj X ⊗ M₄.obj X :))
       ((f ⊗ₘ g).app X).hom (m ⊗ₜ[T.obj X] n) = f.app X m ⊗ₜ[T.obj X] g.app X n := by
-  erw [PresheafOfModules.tensorHom_app]
-  exact ModuleCat.MonoidalCategory.tensorHom_tmul _ _ _ _
+  rfl
 
 omit [HasFiniteProducts C] [HasFiniteProducts D] [PreservesFiniteProducts F] in
 
@@ -300,7 +300,7 @@ lemma u₂_app_freeMk (U : C) {W : C} (a : W ⟶ U) :
       (ModuleCat.freeMk (𝟙 (F.obj U)) : (gR (R := R) (F.obj U)).obj (op (F.obj U))) := by
     erw [freeYonedaEquiv_symm_app]; rfl
   have h2 := naturality_apply (u₂ F φ U) a.op (ModuleCat.freeMk (𝟙 U))
-  rw [gS_map_freeMk, Category.comp_id] at h2
+  erw [gS_map_freeMk (S := S) (𝟙 U) a, Category.comp_id] at h2
   rw [h2, h1]
   erw [pushforward_obj_map_apply]
   change (gR (R := R) (F.obj U)).map (F.map a).op (ModuleCat.freeMk (𝟙 (F.obj U))) = _
@@ -358,7 +358,7 @@ noncomputable def tensorUnitIso (E : Type u) [SmallCategory E] [HasFiniteProduct
 noncomputable def j (U V : C) : gS (S := S) U ⊗ gS V ≅ gS (U ⨯ V) :=
   freeμIso (yoneda.obj U) (yoneda.obj V) ≪≫ (free (S ⋙ forget₂ CommRingCat RingCat)).mapIso (yonedaTensorIso U V)
 
-noncomputable def j₀ : 𝟙_ (PresheafOfModules.{u} (S ⋙ forget₂ CommRingCat RingCat)) ≅ gS (S := S) (⊤_ C) :=
+noncomputable def j₀ : 𝟙_ (PresheafOfModulesOfCommRing.{u} S) ≅ gS (S := S) (⊤_ C) :=
   freeεIso ≪≫ (free (S ⋙ forget₂ CommRingCat RingCat)).mapIso (tensorUnitIso C)
 
 noncomputable def r (U V : C) : gR (R := R) (F.obj (U ⨯ V)) ≅ gR (F.obj U) ⊗ gR (F.obj V) :=
@@ -372,7 +372,7 @@ noncomputable def r₀ : gR (R := R) (F.obj (⊤_ C)) ≅ 𝟙_ _ :=
 
 omit [HasFiniteProducts C] [HasFiniteProducts D] [PreservesFiniteProducts F] in
 
-lemma pf_μ_app_tmul (M N : PresheafOfModules.{u} (R ⋙ forget₂ CommRingCat RingCat)) (W : C)
+lemma pf_μ_app_tmul (M N : PresheafOfModulesOfCommRing.{u} R) (W : C)
     (m : M.obj (op (F.obj W))) (n : N.obj (op (F.obj W))) :
     DFunLike.coe (α := (((pf F φ).obj M).obj (op W) ⊗ ((pf F φ).obj N).obj (op W) :))
       (β := fun _ => ((pf F φ).obj (M ⊗ N)).obj (op W))
@@ -422,11 +422,8 @@ lemma keyR (U V : C) :
         (ModuleCat.freeMk (F.map (𝟙 (U ⨯ V)))))) = _
   erw [free_map_app_freeMk, free_map_app_freeMk, yonedaTensorIso_inv_app_apply,
     freeμIso_inv_app_freeMk]
-  change ModuleCat.freeMk ((F.map (𝟙 (U ⨯ V)) ≫ (PreservesLimitPair.iso F U V).hom) ≫ prod.fst)
-      ⊗ₜ[R.obj (op (F.obj (U ⨯ V)))]
-    ModuleCat.freeMk ((F.map (𝟙 (U ⨯ V)) ≫ (PreservesLimitPair.iso F U V).hom) ≫ prod.snd) = _
-  simp only [CategoryTheory.Functor.map_id, Category.id_comp, Category.assoc,
-    PreservesLimitPair.iso_hom, prodComparison_fst, prodComparison_snd]
+  simp [CategoryTheory.Functor.map_id, PreservesLimitPair.iso_hom,
+    prodComparison_fst, prodComparison_snd]
 
 lemma key_δ (U V : C) :
     (j (S := S) U V).inv ≫ ((u₂ F φ U ⊗ₘ u₂ F φ V) ≫
@@ -459,10 +456,10 @@ instance isIso_δ_gS (U V : C) : IsIso (δ (pb F φ) (gS U) (gS V)) := by
 omit [HasFiniteProducts C] [HasFiniteProducts D] [PreservesFiniteProducts F] in
 
 lemma isIso_app_of_freeYoneda {ℬ : Type*} [Category ℬ]
-    {H₁ H₂ : PresheafOfModules.{u} (S ⋙ forget₂ CommRingCat RingCat) ⥤ ℬ}
+    {H₁ H₂ : PresheafOfModulesOfCommRing.{u} S ⥤ ℬ}
     [PreservesColimitsOfSize.{u, u} H₁] [PreservesColimitsOfSize.{u, u} H₂] (τ : H₁ ⟶ H₂)
-    (h : ∀ U : C, IsIso (τ.app (gS U))) (M : PresheafOfModules.{u} (S ⋙ forget₂ CommRingCat RingCat)) : IsIso (τ.app M) := by
-  have hcop : ∀ (N : PresheafOfModules.{u} (S ⋙ forget₂ CommRingCat RingCat)), IsIso (τ.app N.freeYonedaCoproduct) := fun N =>
+    (h : ∀ U : C, IsIso (τ.app (gS U))) (M : PresheafOfModulesOfCommRing.{u} S) : IsIso (τ.app M) := by
+  have hcop : ∀ (N : PresheafOfModulesOfCommRing.{u} S), IsIso (τ.app N.freeYonedaCoproduct) := fun N =>
     isIso_app_of_isColimit τ (coproductIsCoproduct (Elements.freeYoneda (M := N)))
       (fun m => h m.as.1.unop)
   have : PreservesColimitsOfSize.{0, 0} H₁ := preservesSmallestColimits_of_preservesColimits H₁
@@ -472,9 +469,9 @@ lemma isIso_app_of_freeYoneda {ℬ : Type*} [Category ℬ]
 
 instance : PreservesColimitsOfSize.{u, u} (pb F φ) := (adj F φ).leftAdjoint_preservesColimits
 
-instance isIso_δ (A B : PresheafOfModules.{u} (S ⋙ forget₂ CommRingCat RingCat)) : IsIso (δ (pb F φ) A B) := by
+instance isIso_δ (A B : PresheafOfModulesOfCommRing.{u} S) : IsIso (δ (pb F φ) A B) := by
 
-  have h1 : ∀ (U : C) (B : PresheafOfModules.{u} (S ⋙ forget₂ CommRingCat RingCat)), IsIso (δ (pb F φ) (gS U) B) := fun U => by
+  have h1 : ∀ (U : C) (B : PresheafOfModulesOfCommRing.{u} S), IsIso (δ (pb F φ) (gS U) B) := fun U => by
     let σ : tensorLeft (gS (S := S) U) ⋙ pb F φ ⟶ pb F φ ⋙ tensorLeft ((pb F φ).obj (gS U)) :=
       { app := fun B => δ (pb F φ) (gS U) B
         naturality := fun B B' g => (δ_natural_right (pb F φ) (gS U) g).symm }

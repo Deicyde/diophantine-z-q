@@ -258,7 +258,7 @@ theorem rank_kaehler_chartRing_localization_away_eq_one [CharZero K]
     IsLocalization.localization_isScalarTower_of_submonoid_le (Localization.Away t) L
       (Submonoid.powers t) (nonZeroDivisors _) htnzd
   haveI : IsScalarTower K (Localization.Away t) L :=
-    IsScalarTower.of_algebraMap_eq fun a => by
+    IsScalarTower.of_algebraMap_eq (R := K) (S := Localization.Away t) (A := L) fun a => by
       rw [IsScalarTower.algebraMap_apply K (↥(chartRing K ({s} : Set L))) L,
         IsScalarTower.algebraMap_apply (↥(chartRing K ({s} : Set L))) (Localization.Away t) L,
         ← IsScalarTower.algebraMap_apply K (↥(chartRing K ({s} : Set L))) (Localization.Away t)]
