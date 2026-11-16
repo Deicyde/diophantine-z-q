@@ -28,3 +28,12 @@ Base wip/nos-proof e9828e92, merged origin/main e41a7169 (STATUS.md only). Build
 - Pieces: InertiaFixedRational (GLUE, Galois: inertia-fixed torsion rational over the inertia field),
   TorusRankZero (GLUE, Serre–Tate torsion count on the semistable special fibre), AbelianReductionGood (LEAF,
   N⁰_{k̄} abelian ⇒ good reduction; properness criterion).
+- `isInertia_of_fixes` (σ fixing the inertia field E pointwise is inertia at w) and `inertiaFixedRational_proof`
+  PROVED (compiles, standard axioms): GLUE InertiaFixedRational closed.
+- Contrib file ZInQKernel/Contrib/OneProof/NOSConverseReduction.lean: lake build OK (20 s), standard axioms.
+- #discharges (scratch/nos-converse/Discharges-output.txt, VERIFIED):
+  DISCHARGES [OpenResearchLeaves26.r7a] by NOSConverse.neronOggShafarevich_of_two
+  still assumes [ReductSplit.NeronSchemeModelExistsDVR, GapSHPair.NeronBaseChangeStrictHenselization,
+  ReductGlue.RaynaudSemistableSH, NOSConverse.TorusRankZero, NOSConverse.AbelianReductionGood]; standard axioms.
+- autofold.json dry run (autofold-dryrun.txt): "strict count: 34/11 on 45 -> 34/13 on 47; strictest 34/11 -> 34/13";
+  refused (GLUE rises). Not a fold candidate: keep nos-proof's NOSConverseSep.

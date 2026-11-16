@@ -1,0 +1,18 @@
+{"name": "nos-converse",
+ "imports": ["ZInQKernel.Contrib.OneProof.NOSConverseReduction"],
+ "discharges": [
+  {"field": "r7a",
+   "proof": "_root_.NOSConverse.neronOggShafarevich_of_two {n}.neronSchemeModelExistsDVR {n}.neronBaseChangeStrictHenselization {n}.raynaudSemistableSH {n}.torusRankZero {n}.abelianReductionGood",
+   "leaves": [
+    {"name": "neronSchemeModelExistsDVR", "type": "_root_.ReductSplit.NeronSchemeModelExistsDVR",
+     "doc": "Bosch-Lutkebohmert-Raynaud, Neron models (1990), 1.4 Thm 3 with 1.2 Def 1, over an arbitrary discrete valuation ring (locator UNVERIFIED). The bundles have it only over the rings of integers of number fields (neronSchemeExtensionExists).",
+     "kind": "published", "flag": "",
+     "source": "BLR 1.4 Thm 3 over any DVR (locator UNVERIFIED); needed for r7a over every field, not for its one live consumer (number fields)"},
+    {"name": "torusRankZero", "type": "_root_.NOSConverse.TorusRankZero",
+     "doc": "GLUE (nos-converse): Serre-Tate 1968 section 2, the torsion count: a semistable Neron model whose generic fibre has inertia-trivial m-torsion for infinitely many m prime to p has abelian identity component in the geometric special fibre.",
+     "kind": "project glue", "flag": "",
+     "source": "Serre-Tate 1968 section 2 (proof of Thm 1); glue: Neron property, [m] etale on smooth group schemes (BLR 7.3/2), torsion count on semi-abelian varieties, finite component group, equidimensionality"},
+    {"name": "abelianReductionGood", "type": "_root_.NOSConverse.AbelianReductionGood",
+     "doc": "Neron model whose geometric special fibre has abelian identity component => good reduction (Serre-Tate 1968 section 1; BLR 7.4; EGA IV 15.7.10-type properness criterion; locators UNVERIFIED).",
+     "kind": "published", "flag": "pending reading: no print located; the print may be over the closed fibre k rather than kbar (then a consequence only with descent of properness along kbar/k)",
+     "source": "Serre-Tate 1968 sections 1-2; BLR 7.4; EGA IV 15.7.10 (all UNVERIFIED)"}]}]}
