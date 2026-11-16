@@ -42,9 +42,9 @@ namespace Scheme
 export _root_.AlgebraicGeometry.Scheme (mk Γ isoSpec_Spec_inv Opens ΓSpecIso TwoAffineOpenCover TwoAffineOpenCover.specMap TwoAffineOpenCover.algebraOfHom)
 namespace TwoAffineOpenCover
 export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (specMap algebraOfHom restrictAlgHom cover structureSheafSections toH0 toH0_apply_coe pullback isAffineOpen_U0 isAffineOpen_inf U1 U0 mk isAffineOpen_U1 toH0_bijective exists_baseChangeIsos_structureSheaf)
-open AlgebraicGeometry.Scheme.TwoAffineOpenCover
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
 
 namespace PushforwardStructureSheaf
 
@@ -142,7 +142,8 @@ theorem bijective_algebraMap_of_forall_finrank_eq_one {B : Type u} [CommRing B] 
     rw [IsLocalizedModule.map_comp]
     ext
     simp [Algebra.algebraMap_eq_smul_one]
-    rw [Algebra.linearMap_apply, map_one, Algebra.TensorProduct.one_def]
+    -- Lean 4.35 Mathlib adaptation: the `restrictScalars` coercion now survives `simp`; unfold it first.
+    rw [LinearMap.coe_restrictScalars, Algebra.linearMap_apply, map_one, Algebra.TensorProduct.one_def]
   rw [hmap]
   exact hloc
 

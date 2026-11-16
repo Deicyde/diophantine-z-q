@@ -16,6 +16,10 @@ import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
 set_option backward.isDefEq.respectTransparency false
 
+-- register P2M local namespaces opened before declaration (p2m_open semantics)
+namespace P2MW.S_AlgebraicGeometry_SmoothProperCurve_FiniteMapData_finite_H0_H1_lineBundle.AlgebraicGeometry end P2MW.S_AlgebraicGeometry_SmoothProperCurve_FiniteMapData_finite_H0_H1_lineBundle.AlgebraicGeometry
+namespace P2MW.S_AlgebraicGeometry_SmoothProperCurve_FiniteMapData_finite_H0_H1_lineBundle.AlgebraicGeometry.Scheme.TwoAffineOpenCover end P2MW.S_AlgebraicGeometry_SmoothProperCurve_FiniteMapData_finite_H0_H1_lineBundle.AlgebraicGeometry.Scheme.TwoAffineOpenCover
+namespace P2MW.S_AlgebraicGeometry_SmoothProperCurve_FiniteMapData_finite_H0_H1_lineBundle.AlgebraicGeometry.Scheme.TwoAffineOpenCover.ChartFiniteInstances end P2MW.S_AlgebraicGeometry_SmoothProperCurve_FiniteMapData_finite_H0_H1_lineBundle.AlgebraicGeometry.Scheme.TwoAffineOpenCover.ChartFiniteInstances
 namespace P2MW.S_AlgebraicGeometry_SmoothProperCurve_FiniteMapData_finite_H0_H1_lineBundle
 
 set_option autoImplicit false
@@ -23,11 +27,11 @@ set_option autoImplicit false
 noncomputable section
 
 universe u
-open CategoryTheory
-open AlgebraicGeometry
--- Deferred synthetic P2M scope: root namespace remains open.
-open Opposite
-open NeronModelInfra
+open _root_.CategoryTheory
+open _root_.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_SmoothProperCurve_FiniteMapData_finite_H0_H1_lineBundle.AlgebraicGeometry  -- restored P2M scope (namespace registered above)
+open _root_.Opposite
+open _root_.NeronModelInfra
 
 namespace AlgebraicGeometry
 export _root_.AlgebraicGeometry (Spec Scheme IsAffineOpen SmoothProperCurve.FiniteMapData Scheme.TwoAffineOpenCover)
@@ -35,9 +39,9 @@ namespace Scheme
 export _root_.AlgebraicGeometry.Scheme (Γ basicOpen Opens basicOpen_le Cover TwoAffineOpenCover)
 namespace TwoAffineOpenCover
 export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (cover cover_ρ0_apply cover_ρ1_apply lineBundleSections)
-open AlgebraicGeometry.Scheme.TwoAffineOpenCover
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
 namespace ChartFiniteInstances
 
 variable {X : Scheme.{u}}
@@ -106,12 +110,12 @@ namespace SmoothProperCurve
 export _root_.AlgebraicGeometry.SmoothProperCurve (FiniteMapData)
 namespace FiniteMapData
 export _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData (twoAffineOpenCover finite_f U f m V isAffineOpen_U inf_eq_basicOpen_g isAffineOpen_V finite_g g inf_eq_basicOpen res_f_mul_res_g)
-open AlgebraicGeometry.SmoothProperCurve.FiniteMapData
-open AlgebraicGeometry.SmoothProperCurve
-open AlgebraicGeometry
-open AlgebraicGeometry.Scheme.TwoAffineOpenCover
--- Deferred synthetic P2M scope: root namespace remains open.
--- Deferred synthetic P2M scope: root namespace remains open.
+open _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData
+open _root_.AlgebraicGeometry.SmoothProperCurve
+open _root_.AlgebraicGeometry
+open _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover
+open _root_.P2MW.S_AlgebraicGeometry_SmoothProperCurve_FiniteMapData_finite_H0_H1_lineBundle.AlgebraicGeometry.Scheme.TwoAffineOpenCover  -- restored P2M scope (namespace registered above)
+open _root_.P2MW.S_AlgebraicGeometry_SmoothProperCurve_FiniteMapData_finite_H0_H1_lineBundle.AlgebraicGeometry.Scheme.TwoAffineOpenCover.ChartFiniteInstances  -- restored P2M scope (namespace registered above)
 
 variable {R : Type u} [CommRing R] {C : Scheme.{u}} {c : C ⟶ Spec (.of R)}
   {ε : SchemeHomOver (𝟙 (Spec (.of R))) c} (𝔉 : FiniteMapData c ε)

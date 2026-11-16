@@ -16,34 +16,40 @@ import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
 set_option backward.isDefEq.respectTransparency false
 
+-- register P2M local namespaces opened before declaration (p2m_open semantics)
+namespace P2MW.S_AlgebraicGeometry_Scheme_Opens_isAffineOpen_and_finite_aeval_of_twoChart_right.AlgebraicGeometry end P2MW.S_AlgebraicGeometry_Scheme_Opens_isAffineOpen_and_finite_aeval_of_twoChart_right.AlgebraicGeometry
 namespace P2MW.S_AlgebraicGeometry_Scheme_Opens_isAffineOpen_and_finite_aeval_of_twoChart_right
 
 set_option autoImplicit false
 
 universe u
-open CategoryTheory
-open CategoryTheory.Limits
-open AlgebraicGeometry
+open _root_.CategoryTheory
+open _root_.CategoryTheory.Limits
+open _root_.AlgebraicGeometry
 -- Deferred synthetic P2M scope: root namespace remains open.
-open Polynomial
-open AlgebraicGeometry.Polynomial
+open _root_.Polynomial
+open _root_.AlgebraicGeometry.Polynomial
 
 namespace AlgebraicGeometry
 export _root_.AlgebraicGeometry (Spec.map_comp Scheme.Hom.resLE_comp_ι IsLocallyNoetherian IsOpenImmersion.lift Scheme.Opens.topIso_inv Scheme.Opens.toScheme_presheaf_map HasAffineProperty SmoothOfRelativeDimension IsProper LocallyOfFiniteType.isLocallyNoetherian Scheme.Opens.range_ι Scheme.Hom Scheme.Hom.resLE_appLE GeometricallyIntegral Scheme.Hom.germ_stalkMap_apply Scheme.stalkClosedPointTo_comp IsProper.eq_valuativeCriterion Scheme.SpecMap_stalkSpecializes_fromSpecStalk LocallyQuasiFinite IsFinite isAffine_of_isAffineHom IsSeparated.of_comp QuasiCompact Scheme.Pullback.range_fst IsAffine LocallyOfFiniteType Spec IsIntegral Spec.map Scheme.toSpecΓ_naturality Scheme.Hom.map_appLE_assoc Scheme.ΓSpecIso_inv_naturality Scheme Spec.map_surjective Scheme.Hom.appTop Scheme.toSpecΓ_appTop Scheme.stalkClosedPointTo IsOpenImmersion Scheme.Opens.topIso_hom Spec.map_base Scheme.Opens.ι_app_self germ_injective_of_isIntegral ValuativeCriterion.iff HasAffineProperty.iff_of_isAffine LocallyQuasiFinite.of_finite_preimage_singleton Spec.map_injective IsSeparated.valuativeCriterion locallyOfFiniteType_of_comp IsSeparated IsFinite.iff_isProper_and_isAffineHom Scheme.Spec_stalkClosedPointTo_fromSpecStalk toSpecΓ_SpecMap_ΓSpecIso_inv IsFinite.SpecMap_iff IsProper.of_valuativeCriterion IsAffineOpen IsNoetherian Scheme.Opens ValuativeCriterion.Existence Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE ValuativeCriterion Scheme.ΓSpecIso_naturality IsAffineHom Scheme.Opens.ι_appTop IsOpenImmersion.lift_fac IsFinite.of_isProper_of_locallyQuasiFinite Scheme.germ_stalkClosedPointTo toSpecΓ Scheme.Hom.appLE geometrically Scheme.ΓSpecIso Scheme.Hom.appLE_eq_app Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap Scheme.TwoAffineOpenCover.algebraOfHom SmoothProperCurve.isIntegral_pullback_Spec_field Scheme.Opens.finite_preimage_singleton_toSpecPolynomial)
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry
 
 variable {k : Type u} [CommRing k] {C : Scheme.{u}} (c : C ⟶ Spec (CommRingCat.of k))
 
-namespace Scheme p2m_export "AlgebraicGeometry.Scheme" "Hom.resLE_comp_ι mem_basicOpen Opens.topIso_inv Opens.toScheme_presheaf_map germToFunctionField fromSpecStalk Opens.range_ι Hom Hom.resLE_appLE Γ Hom.germ_stalkMap_apply empty stalkClosedPointTo_comp topIso_hom SpecMap_stalkSpecializes_fromSpecStalk Pullback.range_fst topIso toSpecΓ_naturality Hom.map_appLE_assoc ΓSpecIso_inv_naturality Hom.appTop functionField toSpecΓ_appTop stalkClosedPointTo Opens.topIso_hom Opens.ι_app_self basicOpen Spec_stalkClosedPointTo_fromSpecStalk Opens Hom.appLE_map Hom.app_eq_appLE ΓSpecIso_naturality Opens.ι_appTop germ_stalkClosedPointTo Hom.appLE ΓSpecIso toSpecΓ Hom.appLE_eq_app TwoAffineOpenCover TwoAffineOpenCover.specMap TwoAffineOpenCover.algebraOfHom Opens.finite_preimage_singleton_toSpecPolynomial" namespace Opens p2m_export "AlgebraicGeometry.Scheme.Opens" "topIso_inv toScheme_presheaf_map toSpecΓ range_ι toSpecΓ_naturality toSpecΓ_appTop topIso_hom ι_app_self topIso ι ι_appTop ι_preimage_self finite_preimage_singleton_toSpecPolynomial" end Scheme.Opens
-open scoped AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.Opens in
+namespace Scheme
+export _root_.AlgebraicGeometry.Scheme (Hom.resLE_comp_ι mem_basicOpen Opens.topIso_inv Opens.toScheme_presheaf_map germToFunctionField fromSpecStalk Opens.range_ι Hom Hom.resLE_appLE Γ Hom.germ_stalkMap_apply empty stalkClosedPointTo_comp topIso_hom SpecMap_stalkSpecializes_fromSpecStalk Pullback.range_fst topIso toSpecΓ_naturality Hom.map_appLE_assoc ΓSpecIso_inv_naturality Hom.appTop functionField toSpecΓ_appTop stalkClosedPointTo Opens.topIso_hom Opens.ι_app_self basicOpen Spec_stalkClosedPointTo_fromSpecStalk Opens Hom.appLE_map Hom.app_eq_appLE ΓSpecIso_naturality Opens.ι_appTop germ_stalkClosedPointTo Hom.appLE ΓSpecIso toSpecΓ Hom.appLE_eq_app TwoAffineOpenCover TwoAffineOpenCover.specMap TwoAffineOpenCover.algebraOfHom Opens.finite_preimage_singleton_toSpecPolynomial)
+namespace Opens
+export _root_.AlgebraicGeometry.Scheme.Opens (topIso_inv toScheme_presheaf_map toSpecΓ range_ι toSpecΓ_naturality toSpecΓ_appTop topIso_hom ι_app_self topIso ι ι_appTop ι_preimage_self finite_preimage_singleton_toSpecPolynomial)
+end Scheme.Opens
+open scoped _root_.AlgebraicGeometry.Scheme _root_.AlgebraicGeometry.Scheme.Opens in
 noncomputable abbrev Scheme.Opens.baseRingHom (U : C.Opens) : k →+* Γ((U : Scheme.{u}), ⊤) :=
   (U.ι ≫ c).appTop.hom.comp (Scheme.ΓSpecIso (CommRingCat.of k)).inv.hom
-open scoped AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.Opens in
+open scoped _root_.AlgebraicGeometry.Scheme _root_.AlgebraicGeometry.Scheme.Opens in
 noncomputable abbrev Scheme.Opens.toSpecPolynomial (U : C.Opens) (s : Γ(C, U)) :
     (U : Scheme.{u}) ⟶ Spec (CommRingCat.of k[X]) :=
   (U : Scheme.{u}).toSpecΓ ≫ Spec.map (CommRingCat.ofHom
     (Polynomial.eval₂RingHom (Scheme.Opens.baseRingHom c U) (U.topIso.inv s)))
-open scoped AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.Opens in
+open scoped _root_.AlgebraicGeometry.Scheme _root_.AlgebraicGeometry.Scheme.Opens in
 theorem Scheme.Opens.toSpecPolynomial_comp_C (U : C.Opens) (s : Γ(C, U)) :
     Scheme.Opens.toSpecPolynomial c U s ≫ Spec.map (CommRingCat.ofHom (Polynomial.C : k →+* k[X])) =
       U.ι ≫ c := by
@@ -61,11 +67,13 @@ section general
 
 open IsLocalRing
 
-namespace Scheme p2m_export "AlgebraicGeometry.Scheme" "Hom.resLE_comp_ι mem_basicOpen Opens.topIso_inv Opens.toScheme_presheaf_map germToFunctionField fromSpecStalk Opens.range_ι Hom Hom.resLE_appLE Γ Hom.germ_stalkMap_apply empty stalkClosedPointTo_comp topIso_hom SpecMap_stalkSpecializes_fromSpecStalk Pullback.range_fst topIso toSpecΓ_naturality Hom.map_appLE_assoc ΓSpecIso_inv_naturality Hom.appTop functionField toSpecΓ_appTop stalkClosedPointTo Opens.topIso_hom Opens.ι_app_self basicOpen Spec_stalkClosedPointTo_fromSpecStalk Opens Hom.appLE_map Hom.app_eq_appLE ΓSpecIso_naturality Opens.ι_appTop germ_stalkClosedPointTo Hom.appLE ΓSpecIso toSpecΓ Hom.appLE_eq_app TwoAffineOpenCover TwoAffineOpenCover.specMap TwoAffineOpenCover.algebraOfHom Opens.finite_preimage_singleton_toSpecPolynomial" end Scheme
-open scoped AlgebraicGeometry.Scheme in
+namespace Scheme
+export _root_.AlgebraicGeometry.Scheme (Hom.resLE_comp_ι mem_basicOpen Opens.topIso_inv Opens.toScheme_presheaf_map germToFunctionField fromSpecStalk Opens.range_ι Hom Hom.resLE_appLE Γ Hom.germ_stalkMap_apply empty stalkClosedPointTo_comp topIso_hom SpecMap_stalkSpecializes_fromSpecStalk Pullback.range_fst topIso toSpecΓ_naturality Hom.map_appLE_assoc ΓSpecIso_inv_naturality Hom.appTop functionField toSpecΓ_appTop stalkClosedPointTo Opens.topIso_hom Opens.ι_app_self basicOpen Spec_stalkClosedPointTo_fromSpecStalk Opens Hom.appLE_map Hom.app_eq_appLE ΓSpecIso_naturality Opens.ι_appTop germ_stalkClosedPointTo Hom.appLE ΓSpecIso toSpecΓ Hom.appLE_eq_app TwoAffineOpenCover TwoAffineOpenCover.specMap TwoAffineOpenCover.algebraOfHom Opens.finite_preimage_singleton_toSpecPolynomial)
+end Scheme
+open scoped _root_.AlgebraicGeometry.Scheme in
 theorem Scheme.comp_appTop' {X Y Z : Scheme.{u}} (f : X ⟶ Y) (g : Y ⟶ Z) :
     (f ≫ g).appTop = g.appTop ≫ f.appTop := rfl
-open scoped AlgebraicGeometry.Scheme in
+open scoped _root_.AlgebraicGeometry.Scheme in
 theorem Scheme.stalkClosedPointTo_germ_top {Y : Scheme.{u}} {R : CommRingCat.{u}} [IsLocalRing R]
     (f : Spec R ⟶ Y) (t : Γ(Y, ⊤)) :
     (Scheme.stalkClosedPointTo f).hom (Y.presheaf.germ ⊤ (f.base (closedPoint R)) trivial t) =
@@ -74,7 +82,7 @@ theorem Scheme.stalkClosedPointTo_germ_top {Y : Scheme.{u}} {R : CommRingCat.{u}
   simp only [Iso.trans_hom, Functor.mapIso_hom, Iso.op_hom, eqToIso.hom,
     CommRingCat.comp_apply, TopologicalSpace.Opens.map_top, eqToHom_refl, op_id,
     CategoryTheory.Functor.map_id, CommRingCat.id_apply]
-open scoped AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.Opens in
+open scoped _root_.AlgebraicGeometry.Scheme _root_.AlgebraicGeometry.Scheme.Opens in
 theorem Scheme.Opens.ι_app_self_apply {X : Scheme.{u}} (U : X.Opens) (s : Γ(X, U)) :
     U.ι.app U s = (U : Scheme.{u}).presheaf.map (eqToHom U.ι_preimage_self).op (U.topIso.inv s) := by
   simp only [Scheme.Opens.ι_app_self, Scheme.Opens.topIso_inv, Scheme.Opens.toScheme_presheaf_map]
@@ -82,7 +90,7 @@ theorem Scheme.Opens.ι_app_self_apply {X : Scheme.{u}} (U : X.Opens) (s : Γ(X,
   rfl
 
 end general
-open scoped AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.Opens in
+open scoped _root_.AlgebraicGeometry.Scheme _root_.AlgebraicGeometry.Scheme.Opens in
 theorem Scheme.Opens.toSpecPolynomial_appTop_X (U : C.Opens) (s : Γ(C, U)) :
     (Scheme.Opens.toSpecPolynomial c U s).appTop
       ((Scheme.ΓSpecIso (CommRingCat.of k[X])).inv X) = U.topIso.inv s := by
@@ -94,7 +102,7 @@ theorem Scheme.Opens.toSpecPolynomial_appTop_X (U : C.Opens) (s : Γ(C, U)) :
     CommRingCat.comp_apply]
   erw [← h]
   exact CategoryTheory.Iso.inv_hom_id_apply (Scheme.ΓSpecIso Γ(U, ⊤)) _
-open scoped AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.Opens in
+open scoped _root_.AlgebraicGeometry.Scheme _root_.AlgebraicGeometry.Scheme.Opens in
 theorem Scheme.Opens.ΓSpecIso_appTop_topIso_inv_eq (U : C.Opens) (s : Γ(C, U))
     {R K : Type u} [CommRing R] [Field K] [Algebra R K]
     {i₁ : Spec (.of K) ⟶ (U : Scheme.{u})} {i₂ : Spec (.of R) ⟶ Spec (.of k[X])}
@@ -113,7 +121,7 @@ theorem Scheme.Opens.ΓSpecIso_appTop_topIso_inv_eq (U : C.Opens) (s : Γ(C, U))
   rw [h1, ← CommRingCat.comp_apply _ (Scheme.ΓSpecIso (.of K)).hom, Scheme.ΓSpecIso_naturality,
     CommRingCat.comp_apply]
   rfl
-open scoped AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.Opens in
+open scoped _root_.AlgebraicGeometry.Scheme _root_.AlgebraicGeometry.Scheme.Opens in
 set_option maxHeartbeats 1600000 in
 open IsLocalRing in
 
@@ -216,7 +224,7 @@ theorem Scheme.Opens.valuativeCriterion_existence_toSpecPolynomial_of_twoChart
   apply IsFractionRing.injective R K
   have := congrArg (fun g => g.hom p) key'
   simpa using this
-open scoped AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.Opens in
+open scoped _root_.AlgebraicGeometry.Scheme _root_.AlgebraicGeometry.Scheme.Opens in
 theorem Scheme.Opens.isProper_toSpecPolynomial_of_twoChart
     [IsProper c] (U V W : C.Opens) (hWU : W ≤ U) (hWV : W ≤ V) (hUVW : ∀ x : C, x ∈ U → x ∈ V → x ∈ W)
     (hU : IsAffineOpen U) (f : Γ(C, U)) (g : Γ(C, V))
@@ -236,7 +244,7 @@ theorem Scheme.Opens.isProper_toSpecPolynomial_of_twoChart
   refine IsProper.of_valuativeCriterion φ (ValuativeCriterion.iff.mpr ⟨?_, IsSeparated.valuativeCriterion φ⟩)
   exact Scheme.Opens.valuativeCriterion_existence_toSpecPolynomial_of_twoChart c U V W hWU hWV hUVW f g
     hcov hUV hfg
-open scoped AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.Opens in
+open scoped _root_.AlgebraicGeometry.Scheme _root_.AlgebraicGeometry.Scheme.Opens in
 theorem Scheme.Opens.finite_eval₂RingHom_of_twoChart
     [IsProper c] (U V W : C.Opens) (hWU : W ≤ U) (hWV : W ≤ V) (hUVW : ∀ x : C, x ∈ U → x ∈ V → x ∈ W)
     (hU : IsAffineOpen U) (f : Γ(C, U)) (g : Γ(C, V))
@@ -259,16 +267,16 @@ end AlgebraicGeometry
 
 namespace AlgebraicGeometry
 export _root_.AlgebraicGeometry (Spec.map_comp Scheme.Hom.resLE_comp_ι IsLocallyNoetherian IsOpenImmersion.lift Scheme.Opens.topIso_inv Scheme.Opens.toScheme_presheaf_map HasAffineProperty SmoothOfRelativeDimension IsProper LocallyOfFiniteType.isLocallyNoetherian Scheme.Opens.range_ι Scheme.Hom Scheme.Hom.resLE_appLE GeometricallyIntegral Scheme.Hom.germ_stalkMap_apply Scheme.stalkClosedPointTo_comp IsProper.eq_valuativeCriterion Scheme.SpecMap_stalkSpecializes_fromSpecStalk LocallyQuasiFinite IsFinite isAffine_of_isAffineHom IsSeparated.of_comp QuasiCompact Scheme.Pullback.range_fst IsAffine LocallyOfFiniteType Spec IsIntegral Spec.map Scheme.toSpecΓ_naturality Scheme.Hom.map_appLE_assoc Scheme.ΓSpecIso_inv_naturality Scheme Spec.map_surjective Scheme.Hom.appTop Scheme.toSpecΓ_appTop Scheme.stalkClosedPointTo IsOpenImmersion Scheme.Opens.topIso_hom Spec.map_base Scheme.Opens.ι_app_self germ_injective_of_isIntegral ValuativeCriterion.iff HasAffineProperty.iff_of_isAffine LocallyQuasiFinite.of_finite_preimage_singleton Spec.map_injective IsSeparated.valuativeCriterion locallyOfFiniteType_of_comp IsSeparated IsFinite.iff_isProper_and_isAffineHom Scheme.Spec_stalkClosedPointTo_fromSpecStalk toSpecΓ_SpecMap_ΓSpecIso_inv IsFinite.SpecMap_iff IsProper.of_valuativeCriterion IsAffineOpen IsNoetherian Scheme.Opens ValuativeCriterion.Existence Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE ValuativeCriterion Scheme.ΓSpecIso_naturality IsAffineHom Scheme.Opens.ι_appTop IsOpenImmersion.lift_fac IsFinite.of_isProper_of_locallyQuasiFinite Scheme.germ_stalkClosedPointTo toSpecΓ Scheme.Hom.appLE geometrically Scheme.ΓSpecIso Scheme.Hom.appLE_eq_app Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap Scheme.TwoAffineOpenCover.algebraOfHom SmoothProperCurve.isIntegral_pullback_Spec_field Scheme.Opens.finite_preimage_singleton_toSpecPolynomial)
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry
 
 variable {k : Type u} [CommRing k] {C : Scheme.{u}} (c : C ⟶ Spec (CommRingCat.of k))
-open scoped AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.Opens in
+open scoped _root_.AlgebraicGeometry.Scheme _root_.AlgebraicGeometry.Scheme.Opens in
 theorem Scheme.Opens.ι_appTop_comp_topIso_hom {X : Scheme.{u}} (U : X.Opens) :
     U.ι.appTop ≫ U.topIso.hom = X.presheaf.map (homOfLE le_top).op := by
   rw [Scheme.Opens.ι_appTop, Scheme.Opens.topIso_hom]
   erw [← Functor.map_comp]
   rfl
-open scoped AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.Opens in
+open scoped _root_.AlgebraicGeometry.Scheme _root_.AlgebraicGeometry.Scheme.Opens in
 theorem Scheme.Opens.topIso_hom_comp_baseRingHom (U : C.Opens) :
     U.topIso.hom.hom.comp (Scheme.Opens.baseRingHom c U) =
       (Scheme.TwoAffineOpenCover.algebraOfHom c U).algebraMap := by
@@ -278,7 +286,7 @@ theorem Scheme.Opens.topIso_hom_comp_baseRingHom (U : C.Opens) :
   rw [Scheme.comp_appTop', CommRingCat.comp_apply, ← CommRingCat.comp_apply _ U.topIso.hom,
     Scheme.Opens.ι_appTop_comp_topIso_hom, Scheme.Hom.appLE, CommRingCat.comp_apply]
   rfl
-open scoped AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.Opens in
+open scoped _root_.AlgebraicGeometry.Scheme _root_.AlgebraicGeometry.Scheme.Opens in
 theorem Scheme.Opens.finite_aeval_of_twoChart
     [IsProper c] (U V W : C.Opens) (hWU : W ≤ U) (hWV : W ≤ V) (hUVW : ∀ x : C, x ∈ U → x ∈ V → x ∈ W)
     (hU : IsAffineOpen U) (f : Γ(C, U)) (g : Γ(C, V))
@@ -307,10 +315,10 @@ end AlgebraicGeometry
 
 namespace AlgebraicGeometry
 export _root_.AlgebraicGeometry (Spec.map_comp Scheme.Hom.resLE_comp_ι IsLocallyNoetherian IsOpenImmersion.lift Scheme.Opens.topIso_inv Scheme.Opens.toScheme_presheaf_map HasAffineProperty SmoothOfRelativeDimension IsProper LocallyOfFiniteType.isLocallyNoetherian Scheme.Opens.range_ι Scheme.Hom Scheme.Hom.resLE_appLE GeometricallyIntegral Scheme.Hom.germ_stalkMap_apply Scheme.stalkClosedPointTo_comp IsProper.eq_valuativeCriterion Scheme.SpecMap_stalkSpecializes_fromSpecStalk LocallyQuasiFinite IsFinite isAffine_of_isAffineHom IsSeparated.of_comp QuasiCompact Scheme.Pullback.range_fst IsAffine LocallyOfFiniteType Spec IsIntegral Spec.map Scheme.toSpecΓ_naturality Scheme.Hom.map_appLE_assoc Scheme.ΓSpecIso_inv_naturality Scheme Spec.map_surjective Scheme.Hom.appTop Scheme.toSpecΓ_appTop Scheme.stalkClosedPointTo IsOpenImmersion Scheme.Opens.topIso_hom Spec.map_base Scheme.Opens.ι_app_self germ_injective_of_isIntegral ValuativeCriterion.iff HasAffineProperty.iff_of_isAffine LocallyQuasiFinite.of_finite_preimage_singleton Spec.map_injective IsSeparated.valuativeCriterion locallyOfFiniteType_of_comp IsSeparated IsFinite.iff_isProper_and_isAffineHom Scheme.Spec_stalkClosedPointTo_fromSpecStalk toSpecΓ_SpecMap_ΓSpecIso_inv IsFinite.SpecMap_iff IsProper.of_valuativeCriterion IsAffineOpen IsNoetherian Scheme.Opens ValuativeCriterion.Existence Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE ValuativeCriterion Scheme.ΓSpecIso_naturality IsAffineHom Scheme.Opens.ι_appTop IsOpenImmersion.lift_fac IsFinite.of_isProper_of_locallyQuasiFinite Scheme.germ_stalkClosedPointTo toSpecΓ Scheme.Hom.appLE geometrically Scheme.ΓSpecIso Scheme.Hom.appLE_eq_app Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap Scheme.TwoAffineOpenCover.algebraOfHom SmoothProperCurve.isIntegral_pullback_Spec_field Scheme.Opens.finite_preimage_singleton_toSpecPolynomial)
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry
 
 variable {k : Type u} [CommRing k] {C : Scheme.{u}} (c : C ⟶ Spec (CommRingCat.of k))
-open scoped AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.Opens in
+open scoped _root_.AlgebraicGeometry.Scheme _root_.AlgebraicGeometry.Scheme.Opens in
 theorem Scheme.Opens.isProper_toSpecPolynomial_of_twoChart' [IsNoetherianRing k]
     [IsProper c] (U V W : C.Opens) (hWU : W ≤ U) (hWV : W ≤ V) (hUVW : ∀ x : C, x ∈ U → x ∈ V → x ∈ W)
     (f : Γ(C, U)) (g : Γ(C, V))
@@ -342,12 +350,12 @@ theorem Scheme.Opens.isProper_toSpecPolynomial_of_twoChart' [IsNoetherianRing k]
 section BaseChangeSquare
 
 variable {k' : Type u} [CommRing k'] (ρ : k →+* k')
-open scoped AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.Opens in
+open scoped _root_.AlgebraicGeometry.Scheme _root_.AlgebraicGeometry.Scheme.Opens in
 noncomputable def Scheme.Opens.bcSection (U : C.Opens) (f : Γ(C, U)) :
     Γ(pullback c (Spec.map (CommRingCat.ofHom ρ)), (pullback.fst c (Spec.map (CommRingCat.ofHom ρ))) ⁻¹ᵁ U) :=
   ((pullback.fst c (Spec.map (CommRingCat.ofHom ρ))) ⁻¹ᵁ U).topIso.hom.hom
     (((pullback.fst c (Spec.map (CommRingCat.ofHom ρ))).resLE U _ le_rfl).appTop.hom (U.topIso.inv.hom f))
-open scoped AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.Opens in
+open scoped _root_.AlgebraicGeometry.Scheme _root_.AlgebraicGeometry.Scheme.Opens in
 theorem Scheme.Opens.resLE_toSpecPolynomial (U : C.Opens) (f : Γ(C, U)) :
     (pullback.fst c (Spec.map (CommRingCat.ofHom ρ))).resLE U _ le_rfl ≫
         Scheme.Opens.toSpecPolynomial c U f =
@@ -391,7 +399,7 @@ theorem Scheme.Opens.resLE_toSpecPolynomial (U : C.Opens) (f : Γ(C, U)) :
     change r.appTop.hom (U.topIso.inv.hom f) = (ι ⁻¹ᵁ U).topIso.inv.hom (Scheme.Opens.bcSection c ρ U f)
     rw [Scheme.Opens.bcSection, ← CommRingCat.comp_apply _ (ι ⁻¹ᵁ U).topIso.inv, Iso.hom_inv_id]
     rfl
-open scoped AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.Opens in
+open scoped _root_.AlgebraicGeometry.Scheme _root_.AlgebraicGeometry.Scheme.Opens in
 theorem Scheme.Opens.topIso_inv_resLE_appTop_topIso_hom {X Y : Scheme.{u}} (ι : X ⟶ Y) (U : Y.Opens) :
     U.topIso.inv ≫ (ι.resLE U (ι ⁻¹ᵁ U) le_rfl).appTop ≫ (ι ⁻¹ᵁ U).topIso.hom = ι.app U := by
   rw [Scheme.Opens.topIso_hom, Scheme.Opens.topIso_inv, Scheme.Hom.appTop, Scheme.Hom.app_eq_appLE,
@@ -399,12 +407,14 @@ theorem Scheme.Opens.topIso_inv_resLE_appTop_topIso_hom {X Y : Scheme.{u}} (ι :
   erw [Scheme.Hom.map_appLE_assoc]
   erw [Scheme.Hom.appLE_map]
   rw [Scheme.Hom.appLE_eq_app]
-open scoped AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.Opens in
+open scoped _root_.AlgebraicGeometry.Scheme _root_.AlgebraicGeometry.Scheme.Opens in
 theorem Scheme.Opens.bcSection_eq (U : C.Opens) (f : Γ(C, U)) :
     Scheme.Opens.bcSection c ρ U f = ((pullback.fst c (Spec.map (CommRingCat.ofHom ρ))).app U).hom f := by
   have := congrArg (fun φ => φ.hom f)
     (Scheme.Opens.topIso_inv_resLE_appTop_topIso_hom (pullback.fst c (Spec.map (CommRingCat.ofHom ρ))) U)
-  simpa [Scheme.Opens.bcSection] using this
+  -- Lean 4.35 adaptation: `simp` normalizes the unfolded goal and `this` differently; the two
+  -- sides agree definitionally (source: `simpa [Scheme.Opens.bcSection] using this`).
+  exact this
 
 end BaseChangeSquare
 
@@ -432,7 +442,7 @@ end AlgebraicGeometry
 
 namespace AlgebraicGeometry
 export _root_.AlgebraicGeometry (Spec.map_comp Scheme.Hom.resLE_comp_ι IsLocallyNoetherian IsOpenImmersion.lift Scheme.Opens.topIso_inv Scheme.Opens.toScheme_presheaf_map HasAffineProperty SmoothOfRelativeDimension IsProper LocallyOfFiniteType.isLocallyNoetherian Scheme.Opens.range_ι Scheme.Hom Scheme.Hom.resLE_appLE GeometricallyIntegral Scheme.Hom.germ_stalkMap_apply Scheme.stalkClosedPointTo_comp IsProper.eq_valuativeCriterion Scheme.SpecMap_stalkSpecializes_fromSpecStalk LocallyQuasiFinite IsFinite isAffine_of_isAffineHom IsSeparated.of_comp QuasiCompact Scheme.Pullback.range_fst IsAffine LocallyOfFiniteType Spec IsIntegral Spec.map Scheme.toSpecΓ_naturality Scheme.Hom.map_appLE_assoc Scheme.ΓSpecIso_inv_naturality Scheme Spec.map_surjective Scheme.Hom.appTop Scheme.toSpecΓ_appTop Scheme.stalkClosedPointTo IsOpenImmersion Scheme.Opens.topIso_hom Spec.map_base Scheme.Opens.ι_app_self germ_injective_of_isIntegral ValuativeCriterion.iff HasAffineProperty.iff_of_isAffine LocallyQuasiFinite.of_finite_preimage_singleton Spec.map_injective IsSeparated.valuativeCriterion locallyOfFiniteType_of_comp IsSeparated IsFinite.iff_isProper_and_isAffineHom Scheme.Spec_stalkClosedPointTo_fromSpecStalk toSpecΓ_SpecMap_ΓSpecIso_inv IsFinite.SpecMap_iff IsProper.of_valuativeCriterion IsAffineOpen IsNoetherian Scheme.Opens ValuativeCriterion.Existence Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE ValuativeCriterion Scheme.ΓSpecIso_naturality IsAffineHom Scheme.Opens.ι_appTop IsOpenImmersion.lift_fac IsFinite.of_isProper_of_locallyQuasiFinite Scheme.germ_stalkClosedPointTo toSpecΓ Scheme.Hom.appLE geometrically Scheme.ΓSpecIso Scheme.Hom.appLE_eq_app Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap Scheme.TwoAffineOpenCover.algebraOfHom SmoothProperCurve.isIntegral_pullback_Spec_field Scheme.Opens.finite_preimage_singleton_toSpecPolynomial)
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry
 
 open IsLocalRing
 
@@ -474,7 +484,7 @@ theorem transcendental_germToFunctionField_of_sections {K : Type u} [Field K] {X
   refine ⟨p, hp0, hθ ?_⟩
   rw [← Polynomial.aeval_algHom_apply θ s p, map_zero]
   exact hp
-open scoped AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.Opens in
+open scoped _root_.AlgebraicGeometry.Scheme _root_.AlgebraicGeometry.Scheme.Opens in
 theorem Scheme.Opens.isAffineOpen_and_finite_aeval_of_twoChart_of_le [IsNoetherianRing R]
     [IsProper c] [SmoothOfRelativeDimension 1 c] [GeometricallyIntegral c]
     (U V W : C.Opens) (hWU : W ≤ U) (hWV : W ≤ V) (hUVW : ∀ x : C, x ∈ U → x ∈ V → x ∈ W)
@@ -559,7 +569,7 @@ theorem Scheme.Opens.isAffineOpen_and_finite_aeval_of_twoChart_of_le [IsNoetheri
   haveI : IsFinite φ := IsFinite.of_isProper_of_locallyQuasiFinite φ
   have hUaff : IsAffine (U : Scheme.{u}) := isAffine_of_isAffineHom φ
   exact ⟨hUaff, Scheme.Opens.finite_aeval_of_twoChart c U V W hWU hWV hUVW hUaff f g hcov hUV hfg⟩
-open scoped AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.Opens in
+open scoped _root_.AlgebraicGeometry.Scheme _root_.AlgebraicGeometry.Scheme.Opens in
 theorem Scheme.Opens.isAffineOpen_and_finite_aeval_of_twoChart_impl [IsNoetherianRing R]
     [IsProper c] [SmoothOfRelativeDimension 1 c] [GeometricallyIntegral c]
     (U V : C.Opens) (f : Γ(C, U)) (g : Γ(C, V))
@@ -576,7 +586,7 @@ theorem Scheme.Opens.isAffineOpen_and_finite_aeval_of_twoChart_impl [IsNoetheria
        (Polynomial.aeval f : R[X] →ₐ[R] Γ(C, U)).toRingHom.Finite) :=
   Scheme.Opens.isAffineOpen_and_finite_aeval_of_twoChart_of_le c U V (U ⊓ V) inf_le_left inf_le_right
     (fun _ hu hv => ⟨hu, hv⟩) f g hcov hUV hfg hft
-open scoped AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.Opens in
+open scoped _root_.AlgebraicGeometry.Scheme _root_.AlgebraicGeometry.Scheme.Opens in
 theorem Scheme.Opens.isAffineOpen_and_finite_aeval_of_twoChart_right_impl [IsNoetherianRing R]
     [IsProper c] [SmoothOfRelativeDimension 1 c] [GeometricallyIntegral c]
     (U V : C.Opens) (f : Γ(C, U)) (g : Γ(C, V))

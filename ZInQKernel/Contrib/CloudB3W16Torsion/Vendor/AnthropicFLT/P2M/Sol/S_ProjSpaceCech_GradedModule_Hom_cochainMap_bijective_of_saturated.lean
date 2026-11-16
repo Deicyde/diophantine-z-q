@@ -38,7 +38,11 @@ section CochainSat
 
 variable {R : Type u} [CommRing R] {n : ℕ} {D₁ D₂ : GradedModule R n}
 
-namespace GradedModule p2m_export "ProjSpaceCech.GradedModule" "Hom Hom.secMap Hom.cochainMap xMul grade Hom.secMap_bijective_of_saturated" namespace Hom p2m_export "ProjSpaceCech.GradedModule.Hom" "secMap cochainMap toLinearMap secMap_bijective_of_saturated" end GradedModule.Hom
+namespace GradedModule
+export _root_.ProjSpaceCech.GradedModule (Hom Hom.secMap Hom.cochainMap xMul grade Hom.secMap_bijective_of_saturated)
+namespace Hom
+export _root_.ProjSpaceCech.GradedModule.Hom (secMap cochainMap toLinearMap secMap_bijective_of_saturated)
+end GradedModule.Hom
 open scoped ProjSpaceCech.GradedModule ProjSpaceCech.GradedModule.Hom in
 theorem GradedModule.Hom.cochainMap_bijective_of_saturated' (φ : GradedModule.Hom D₁ D₂)
     (hinj : Function.Injective φ.toLinearMap)
