@@ -104,13 +104,13 @@ open _root_.BigOperators
 end BigOperators
 namespace CategoryTheory
 
-export _root_.CategoryTheory (inclusion Quotient Injective exp Quotient.equiv comp_apply id_apply sum Quotient.mk)
+export _root_.CategoryTheory (inclusion Quotient Injective Quotient.equiv comp_apply id_apply sum Quotient.mk)
 
 open _root_.CategoryTheory
 end CategoryTheory
 namespace CategoryTheory
 
-export _root_.CategoryTheory (inclusion Quotient Injective exp Quotient.equiv comp_apply id_apply sum Quotient.mk)
+export _root_.CategoryTheory (inclusion Quotient Injective Quotient.equiv comp_apply id_apply sum Quotient.mk)
 
 namespace Limits
 
@@ -427,7 +427,7 @@ open _root_.Module
 end Module
 namespace MonoidWithZeroHom
 
-export _root_.MonoidWithZeroHom (id_apply id ext mk ValueGroup₀ coe_coe comp_apply ValueGroup₀.embedding ValueGroup₀.embedding_strictMono comp inr)
+export _root_.MonoidWithZeroHom (id_apply id ext mk ValueGroup₀ comp_apply ValueGroup₀.embedding ValueGroup₀.embedding_strictMono comp inr)
 
 open _root_.MonoidWithZeroHom
 end MonoidWithZeroHom
@@ -977,8 +977,10 @@ section Henselian
 variable {K F : Type*} [Field K] [Field F] [Algebra K F] (V : Place K F)
 
 scoped instance kw_ffgc_isAdicComplete_placeAdicCompletionIntegers :
-    IsAdicComplete (maximalIdeal V.adicCompletionIntegers) V.adicCompletionIntegers :=
-  inferInstance
+    IsAdicComplete (maximalIdeal V.adicCompletionIntegers) V.adicCompletionIntegers := by
+  change IsAdicComplete (V.heightOneSpectrum.completionIdeal F)
+    (V.heightOneSpectrum.adicCompletionIntegers F)
+  exact _root_.P2MW.S_AlgebraicCurve_tateAgreement.MazurTorsion.instIsAdicCompleteCompletionIdealAdicCompletionIntegers F V.heightOneSpectrum
 
 end Henselian
 

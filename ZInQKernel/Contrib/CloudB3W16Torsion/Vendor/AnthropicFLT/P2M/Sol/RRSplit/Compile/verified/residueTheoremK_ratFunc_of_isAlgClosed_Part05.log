@@ -1,0 +1,131 @@
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part05.lean:569:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part05.lean:632:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part05.lean:773:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part05.lean:876:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part05.lean:978:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part05.lean:993:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part05.lean:994:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part05.lean:1471:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part05.lean:1647:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part05.lean:1661:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part05.lean:1662:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part05.lean:2149:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part05.lean:2268:10: warning: `Polynomial.degree_sub_lt` has been deprecated: Use `Polynomial.degree_sub_lt_left` instead
+
+Hint: Replace the deprecated name:
+  P̵o̵l̵y̵n̵o̵m̵i̵a̵l̵.̵degree_sub_lt_̲l̲e̲f̲t̲
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part05.lean:2488:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+	Command being timed: "/home/jackmccarthy/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean -j 4 -M 16000 -o /home/jackmccarthy/cloud-b3/w16/h102-curve/.lake/build/lib/lean/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part05.olean /home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part05.lean"
+	User time (seconds): 247.08
+	System time (seconds): 1.84
+	Percent of CPU this job got: 105%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 3:56.41
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 7325688
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 6
+	Minor (reclaiming a frame) page faults: 197975
+	Voluntary context switches: 26351
+	Involuntary context switches: 5816
+	Swaps: 0
+	File system inputs: 968
+	File system outputs: 5064
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

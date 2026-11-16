@@ -1,0 +1,27 @@
+P2MW.S_AlgebraicCurve_tateAgreement.solution.{u_1, u_2} {K : Type u_1} {L : Type u_2} [Field K] [Field L] [Algebra K L]
+  [AlgebraicCurve.IsCurveOver K L] [PerfectField K] [∀ (u : AlgebraicCurve.Place K L), u.FiniteResidue]
+  (hfin : ModularCurve.KwF4gRRTate.KwF4gRRTateCommFinite K L) : ModularCurve.KwF4gRRTate.KwF4gRRTateAgreement K L hfin
+'P2MW.S_AlgebraicCurve_tateAgreement.solution' depends on axioms: [propext, Classical.choice, Quot.sound]
+	Command being timed: "/home/jackmccarthy/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean -j 4 -M 16000 /home/jackmccarthy/cloud-b3/w16/h102-curve/TateAgreementAxioms.lean"
+	User time (seconds): 2.03
+	System time (seconds): 1.57
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:03.64
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 7121988
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 172753
+	Voluntary context switches: 927
+	Involuntary context switches: 209
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 8
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

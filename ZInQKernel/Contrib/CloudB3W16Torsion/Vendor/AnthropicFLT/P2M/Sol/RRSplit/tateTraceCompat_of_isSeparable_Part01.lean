@@ -168,7 +168,7 @@ open _root_.Module
 end Module
 namespace MonoidWithZeroHom
 
-export _root_.MonoidWithZeroHom (id_apply id ext mk coe_coe coe_one comp_apply comp_assoc comp)
+export _root_.MonoidWithZeroHom (id_apply id ext mk coe_one comp_apply comp_assoc comp)
 
 open _root_.MonoidWithZeroHom
 end MonoidWithZeroHom
@@ -216,13 +216,13 @@ open _root_.Topology
 end Topology
 namespace Valuation
 
-export _root_.Valuation (norm_add_le map_add' valuationSubring ext mem_valuationSubring_iff map_sub map Integers.isIntegrallyClosed Integers IsRankOneDiscrete congr RankOne.hom restrict_le_iff coe_coe restrict norm_def comap restrict_eq_zero_iff mk map_sub_swap norm_nonneg RankOne isOpen_closedBall)
+export _root_.Valuation (norm_add_le map_add' valuationSubring ext mem_valuationSubring_iff map_sub map Integers.isIntegrallyClosed Integers IsRankOneDiscrete congr RankOne.hom restrict_le_iff restrict norm_def comap restrict_eq_zero_iff mk map_sub_swap norm_nonneg RankOne isOpen_closedBall)
 
 open _root_.Valuation
 end Valuation
 namespace Valuation
 
-export _root_.Valuation (norm_add_le map_add' valuationSubring ext mem_valuationSubring_iff map_sub map Integers.isIntegrallyClosed Integers IsRankOneDiscrete congr RankOne.hom restrict_le_iff coe_coe restrict norm_def comap restrict_eq_zero_iff mk map_sub_swap norm_nonneg RankOne isOpen_closedBall)
+export _root_.Valuation (norm_add_le map_add' valuationSubring ext mem_valuationSubring_iff map_sub map Integers.isIntegrallyClosed Integers IsRankOneDiscrete congr RankOne.hom restrict_le_iff restrict norm_def comap restrict_eq_zero_iff mk map_sub_swap norm_nonneg RankOne isOpen_closedBall)
 
 namespace IsRankOneDiscrete
 

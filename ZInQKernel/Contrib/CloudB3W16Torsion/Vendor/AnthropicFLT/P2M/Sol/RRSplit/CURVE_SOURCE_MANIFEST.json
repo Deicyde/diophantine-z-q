@@ -757,7 +757,16 @@
           "original_user_name": "AlgebraicCurve.Place.toKSubalgebra",
           "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.toKSubalgebra"
         }
-      ]
+      ],
+      "native_verification": {
+        "parts_and_facade_compiled": true,
+        "solution_axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "axiom_log": "Compile/verified/RATAxioms.log"
+      }
     },
     {
       "original_module": "P2M.Sol.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed",
@@ -1354,8 +1363,8 @@
             1,
             2457
           ],
-          "bytes": 107048,
-          "sha256": "9c4410f56a95a11e0011d8f6e4c7e801fe6cd287c47948bb4da7f5bc0e1c3065"
+          "bytes": 107276,
+          "sha256": "85ce592e40ccaae4460aefdcfa97af0ff1002cc2e02c6aedbdf23bd7968e9d6f"
         },
         {
           "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/tateAgreement_Part02.lean",
@@ -1419,8 +1428,18 @@
       ],
       "compatibility_edits": [
         "Restore source-private root field lookup with transparent private abbreviations of promoted helpers, repeated at import boundaries.",
-        "Use absolute root namespaces in all open scoped commands."
-      ]
+        "Use absolute root namespaces in all open scoped commands.",
+        "Drop confirmed absent optional CategoryTheory.exp and MonoidWithZeroHom.coe_coe exports; invoke the proved completion-ideal adic-completeness instance explicitly."
+      ],
+      "native_verification": {
+        "parts_and_facade_compiled": true,
+        "solution_axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "axiom_log": "Compile/verified/TateAgreementAxioms.log"
+      }
     },
     {
       "original_module": "P2M.Sol.S_AlgebraicCurve_tateTraceCompat_of_isSeparable",
@@ -1436,8 +1455,8 @@
             1,
             2340
           ],
-          "bytes": 111805,
-          "sha256": "6f64197c3451b65d49d8c29b8224bddf0ffe693af4db063217b2169e5ec94db2"
+          "bytes": 111781,
+          "sha256": "c5aa052212cc731c93f442b9e64b5439fca2a2e0e711d4b53e1d044c0a6937cf"
         },
         {
           "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/tateTraceCompat_of_isSeparable_Part02.lean",
@@ -1531,7 +1550,8 @@
       ],
       "compatibility_edits": [
         "Restore source-private root field lookup with transparent private abbreviations of promoted helpers, repeated at import boundaries.",
-        "Use absolute root namespaces in all open scoped commands."
+        "Use absolute root namespaces in all open scoped commands.",
+        "Drop confirmed absent optional MonoidWithZeroHom.coe_coe and Valuation.coe_coe export metadata."
       ]
     },
     {
