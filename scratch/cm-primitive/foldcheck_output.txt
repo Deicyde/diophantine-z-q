@@ -1,0 +1,2 @@
+'frozenTarget_cmPrimitive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'frozenTarget_cmQuad' depends on axioms: [propext, Classical.choice, Quot.sound]

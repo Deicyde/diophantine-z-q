@@ -1,0 +1,30 @@
+{
+ "name": "cm-primitive-fold-after-split2-quad",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.CMPrimitive"
+ ],
+ "discharges": [
+  {
+   "field": "qmReciprocityL3",
+   "proof": "_root_.CMPrimitive.qmReciprocityL3_of_polQuad {n}.mainTheoremCMPolQuad {n}.cmAbVarExists {t}.uniformizationLeafAll {t}.gagaMorphism",
+   "leaves": [
+    {
+     "name": "mainTheoremCMPolQuad",
+     "type": "_root_.CMPrimitive.MainTheoremCMPolQuad",
+     "doc": "cm-primitive: mtcm-polar's MainTheoremCMPol (O_E-ideal lattices with a Riemann form, sign of the Artin map existential: t = N(s)^eps) restricted to imaginary quadratic E (finrank_Q E = 2, CM elliptic curves). Implied by MainTheoremCMPolPrim (polQuad_of_polPrim) and MainTheoremCMPol. With CMAbVarExists and the textbook leaves it gives the main theorem at the induced type of E = K(sqrt 2) (mainTheoremCMEK_of_polQuad, proved reduction to (K, kappa)) and qmReciprocityL3 (qmReciprocityL3_of_polQuad).",
+     "kind": "published",
+     "flag": "",
+     "source": "Shimura, Introduction to the arithmetic theory of automorphic functions (1971) Thm 5.4 (elliptic curves) and Thm 5.15; Lang, Elliptic functions, Ch. 10 Thm 3; Silverman, Advanced topics in the arithmetic of elliptic curves, Thm II.8.2 (locators UNVERIFIED)"
+    },
+    {
+     "name": "cmAbVarExists",
+     "type": "_root_.MainCMPolar.CMAbVarExists",
+     "doc": "mtcm-polar: for a CM field E with CM type Phi, a fractional O_E-ideal b and zeta with zeta-bar = -zeta, Im phi_i(zeta) > 0 and Tr(zeta b bbar) in Z, there is an abelian variety B/C of dimension g with an analytic uniformization C^g/Phi(b) = B(C) (existence of a polarized abelian variety of type (E, Phi; b, zeta); the polarization and the action are dropped).",
+     "kind": "published",
+     "flag": "",
+     "source": "Shimura, Abelian varieties with complex multiplication and modular functions (1998) section 6.2 Thm 4; Shimura-Taniyama (1961) section 6.2 Thm 4; Mumford, Abelian varieties, section 3 (Riemann's theorem) (locators UNVERIFIED)"
+    }
+   ]
+  }
+ ]
+}

@@ -1,1 +1,75 @@
-scratch/cm-primitive/Discharges.lean:1:0: error: object file '/home/jackmccarthy/dzq-wt/cm-primitive/lean/.lake/build/lib/lean/ZInQ/RationalPositiveGuard.olean' of module ZInQ.RationalPositiveGuard does not exist
+DISCHARGES [hCM] by CMPrimitive.shimuraMainCM_of_arithPrim
+  still assumes: [CMPrimitive.MainTheoremCMSignPrim 1,
+ HcmPrinted.WeierstrassUniformization,
+ HcmPrinted.WeierstrassParam,
+ HcmPrinted.WeierstrassAbVar,
+ ZInQ.HomUnify.HomLatticeCorr]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [hCM] by CMPrimitive.shimuraMainCM_of_arithQuad
+  still assumes: [CMPrimitive.MainTheoremCMSignQuad 1,
+ HcmPrinted.WeierstrassUniformization,
+ HcmPrinted.WeierstrassParam,
+ HcmPrinted.WeierstrassAbVar,
+ ZInQ.HomUnify.HomLatticeCorr]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [hCM] by CMPrimitive.shimuraMainCM_of_polMaxPrim
+  still assumes: [CMPrimitive.MainTheoremCMPolMaxPrim,
+ MainCMPolar.CMAbVarExists,
+ HcmPrinted.WeierstrassUniformization,
+ HcmPrinted.WeierstrassParam,
+ HcmPrinted.WeierstrassAbVar,
+ BPAnalytic.Uniformization.UniformizationLeafAll,
+ ZInQ.HomLattice.GAGAMorphism]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [hCM] by CMPrimitive.shimuraMainCM_of_polMaxQuad
+  still assumes: [CMPrimitive.MainTheoremCMPolMaxQuad,
+ MainCMPolar.CMAbVarExists,
+ HcmPrinted.WeierstrassUniformization,
+ HcmPrinted.WeierstrassParam,
+ HcmPrinted.WeierstrassAbVar,
+ BPAnalytic.Uniformization.UniformizationLeafAll,
+ ZInQ.HomLattice.GAGAMorphism]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves23.gonzalezRotgerProp56X6] by GRCountX6.prop56X6_of_r5fpCount
+  still assumes: [LeafQM.AV.R5fpCount]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves23.neronBaseChangeStrictHenselization] by GapSHPair.neronBaseChangeStrictHenselization_of_unramified
+  still assumes: [ReductGlue.NeronBaseChangeUnramifiedDVR]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [hCM] by HcmPrinted.shimuraMainCM_of_printed
+  still assumes: [HcmPrinted.MainTheoremCMArith,
+ HcmPrinted.WeierstrassUniformization,
+ HcmPrinted.WeierstrassParam,
+ HcmPrinted.WeierstrassAbVar,
+ ZInQ.HomUnify.HomLatticeCorr]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [hCM] by HcmPrinted.shimuraMainCM_of_textbook
+  still assumes: [HcmPrinted.MainTheoremCMArith,
+ HcmPrinted.WeierstrassUniformization,
+ HcmPrinted.WeierstrassParam,
+ HcmPrinted.WeierstrassAbVar,
+ BPAnalytic.Uniformization.UniformizationLeafAll,
+ ZInQ.HomLattice.GAGAMorphism]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [hCM] by MainCMPolar.shimuraMainCM_of_polar
+  still assumes: [MainCMPolar.MainTheoremCMPolMax,
+ MainCMPolar.CMAbVarExists,
+ HcmPrinted.WeierstrassUniformization,
+ HcmPrinted.WeierstrassParam,
+ HcmPrinted.WeierstrassAbVar,
+ BPAnalytic.Uniformization.UniformizationLeafAll,
+ ZInQ.HomLattice.GAGAMorphism]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves23.r16CoreY] by R16Split.coreY_of_r16
+  still assumes: [LeafModCurves.R16_EichlerShimuraJ1']
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves23.sga7_IX_3_3_SH] by SGA7PersistsNF.sga7_IX_3_3_SH_of_field
+  still assumes: [CToPrinted.SGA7_IX_3_3]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves23.sga7_IX_3_5_ForwardGeom] by UnipotentForward.forwardGeom_of_forward
+  still assumes: [UnipotentForward.SGA7_IX_3_5_Forward, UnipotentForward.SemiAbelianDescendsSepClosed]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves23.mumfordGroupLaw] by ZInQ.Contrib.MumfordRigidity.mumfordGroupLaw_of_core
+  still assumes: [LeafQM.AV.R1UnivRigid.MumfordRigidityCore]
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 61 open hypotheses, 2712 theorems checked, 13 discharge one

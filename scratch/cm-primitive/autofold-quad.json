@@ -1,0 +1,54 @@
+{
+ "name": "cm-primitive-fold-quad",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.CMPrimitive"
+ ],
+ "discharges": [
+  {
+   "field": "hCM",
+   "proof": "_root_.CMPrimitive.shimuraMainCM_of_polMaxQuad {n}.mainTheoremCMPolMaxQuad {n}.cmAbVarExists {n}.weierstrassUniformization {n}.weierstrassParam {n}.weierstrassAbVar {t}.uniformizationLeafAll {t}.gagaMorphism",
+   "leaves": [
+    {
+     "name": "mainTheoremCMPolMaxQuad",
+     "type": "_root_.CMPrimitive.MainTheoremCMPolMaxQuad",
+     "doc": "cm-primitive: the main theorem of complex multiplication for CM ELLIPTIC CURVES (E imaginary quadratic, g = 1) with O_E-ideal lattices, Shimura's normalization (eps = 1): mtcm-polar's MainTheoremCMPolMax with the one added hypothesis finrank_Q E = 2. For sigma in Aut(C) and an idele s of E* = kappa(E) with sigma = [s, E*] (Tau Ceti's arithmetic Artin map), an elliptic curve A/C uniformized by C/kappa(a), a an O_E-ideal, of type (E, kappa): A^sigma is uniformized by C/kappa(N(s)^-1 a) with theta(kappa x)^sigma = theta'(kappa y) whenever N(s)y - x lies in a-hat. Implied by MainTheoremCMPolMaxPrim (polMaxQuad_of_polMaxPrim) and MainTheoremCMPolMax. With CMAbVarExists and the textbook leaves gives hCM (shimuraMainCM_of_polMaxQuad) and qmReciprocityL3 (through the proved reduction from the induced type of K(sqrt 2)).",
+     "kind": "published",
+     "flag": "pending reading: the normalization of Shimura's [s, K] (1971 section 5.2) against Tau Ceti's arithmetic Artin map (eps = 1), as for hcm-printed's MainTheoremCMArith",
+     "source": "Shimura, Introduction to the arithmetic theory of automorphic functions (1971) Thm 5.4 (elliptic curves) and Thm 5.15; Lang, Elliptic functions, Ch. 10 Thm 3; Silverman, Advanced topics in the arithmetic of elliptic curves, Thm II.8.2 (locators UNVERIFIED)"
+    },
+    {
+     "name": "cmAbVarExists",
+     "type": "_root_.MainCMPolar.CMAbVarExists",
+     "doc": "mtcm-polar: for a CM field E with CM type Phi, a fractional O_E-ideal b and zeta with zeta-bar = -zeta, Im phi_i(zeta) > 0 and Tr(zeta b bbar) in Z, there is an abelian variety B/C of dimension g with an analytic uniformization C^g/Phi(b) = B(C) (existence of a polarized abelian variety of type (E, Phi; b, zeta); the polarization and the action are dropped).",
+     "kind": "published",
+     "flag": "",
+     "source": "Shimura, Abelian varieties with complex multiplication and modular functions (1998) section 6.2 Thm 4; Shimura-Taniyama (1961) section 6.2 Thm 4; Mumford, Abelian varieties, section 3 (Riemann's theorem) (locators UNVERIFIED)"
+    },
+    {
+     "name": "weierstrassUniformization",
+     "type": "_root_.HcmPrinted.WeierstrassUniformization",
+     "doc": "hcm-printed (gz-weil's statement verbatim): for a, b in C with a^3 - 27 b^2 != 0 there is a lattice L with g2(L) = a, g3(L) = b.",
+     "kind": "published",
+     "flag": "",
+     "source": "Silverman, The Arithmetic of Elliptic Curves (GTM 106, 2nd ed.) Thm VI.5.1; Serre, A Course in Arithmetic VII section 3 (locators UNVERIFIED)"
+    },
+    {
+     "name": "weierstrassParam",
+     "type": "_root_.HcmPrinted.WeierstrassParam",
+     "doc": "hcm-printed: for every lattice, Delta != 0 and z -> (wp(z), wp'(z)/2) is a surjective group homomorphism C -> E(C) with kernel the lattice (Mathlib's Weierstrass curve y^2 = x^3 - (g2/4)x - g3/4 and its group law); the analytic clause of the print is dropped.",
+     "kind": "published",
+     "flag": "",
+     "source": "Silverman, The Arithmetic of Elliptic Curves (GTM 106, 2nd ed.) Prop. VI.3.6; Lang, Elliptic functions Ch. 1 section 3 (locators UNVERIFIED)"
+    },
+    {
+     "name": "weierstrassAbVar",
+     "type": "_root_.HcmPrinted.WeierstrassAbVar",
+     "doc": "hcm-printed: for every lattice L there are an abelian variety A/C of dimension 1, an analytic uniformization theta : C/L = A(C), and regular functions x, y on an open U with theta(z) in U iff z not in L, x(theta z) = wp(z), y(theta z) = wp'(z): the curve E_L with its affine Weierstrass coordinates and the map [wp, wp', 1].",
+     "kind": "published",
+     "flag": "pending reading: whether the abelian-variety presentation of E_L (existential A, Mathlib cannot construct the projective cubic as a group scheme) is accepted as the printed form of VI.3.6(b)",
+     "source": "Silverman, The Arithmetic of Elliptic Curves (GTM 106, 2nd ed.) Prop. VI.3.6(b) with III.3.1 and Prop. III.3.6 (locators UNVERIFIED)"
+    }
+   ]
+  }
+ ]
+}

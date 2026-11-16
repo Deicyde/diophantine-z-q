@@ -18,3 +18,16 @@ import ZInQKernel.Contrib.OneProof.CMPrimitive
 #print axioms CMPrimitive.shimuraMainCM_of_polMaxPrim
 #print axioms CMPrimitive.exists_unif_of_bc
 #print axioms CMPrimitive.exists_bcHom
+#print axioms CMPrimitive.mainTheoremCMSignOn_of_polar
+#print axioms CMPrimitive.mainTheoremCMSignQuad_of_polar
+#print axioms CMPrimitive.mainTheoremCMEK_of_quad
+#print axioms CMPrimitive.mainTheoremCMEK_of_polQuad
+#print axioms CMPrimitive.qmReciprocityL3_of_polQuad
+#print axioms CMPrimitive.rayClassCMAb_of_polQuad
+#print axioms CMPrimitive.shimuraMainCM_of_arithQuad
+#print axioms CMPrimitive.shimuraMainCM_of_polMaxQuad
+#print axioms CMPrimitive.polQuad_of_polPrim
+#print axioms CMPrimitive.polMaxQuad_of_polMaxPrim
+#print axioms CMPrimitive.signQuad_of_signPrim
+#print axioms CMPrimitive.exists_isogeny_EK
+#print axioms CMPrimitive.reflexNorm_rhoK_eq
