@@ -1,0 +1,24 @@
+{
+  "status": "PASS_FINITE_CHECKS_ONLY",
+  "record_program_sha256": "109b5061f360be5ab98e90e879a2b147a1bb627a7c1e20de62d95718d176af1d",
+  "ast_nodes": 1398,
+  "functions": 15,
+  "call_depth": 10,
+  "maximum_integer_literal": 600,
+  "finite_point_cases": 128,
+  "trace_examples": {
+    "all_(0,0)": 7,
+    "all_(d,0)": 13,
+    "all_(-d,0)": 1,
+    "all_R0": 9,
+    "all_P": "85/4"
+  },
+  "constant_coefficient_H0_digits": 458,
+  "H0_lt_149_pow_214": true,
+  "claimed_machine_state_bound": "<2^900, by the inherited explicit counter compiler and the proof in TRANSFER198.md",
+  "limits": [
+    "Does not execute the production record search, U, or BB.",
+    "Does not prove retained arithmetic premises.",
+    "Does not replace the mathematical no-translate, height, and compilation arguments."
+  ]
+}

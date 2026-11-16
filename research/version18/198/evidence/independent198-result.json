@@ -1,0 +1,123 @@
+{
+  "status": "PASS",
+  "archive_sha256": "33439f62ec243375b19f50c2801cad36500f21902285a82e5c08984a0c5568c4",
+  "authenticated_package_files": 90,
+  "python": "3.14.7 (tags/v3.14.7:823f032, Aug  5 2026, 10:51:32) [MSC v.1944 64 bit (AMD64)]",
+  "sympy": "1.14.0",
+  "statistics": {
+    "unbalanced": {
+      "variables_including_input": 198,
+      "existential_variables": 197,
+      "quadratic_rows": 184,
+      "degree": 4,
+      "integer_content_for_every_member": 1,
+      "coordinate_profiles": 2945,
+      "parameter_separated_terms": 2945,
+      "profile_types": {
+        "(0,)": 2942,
+        "(2,)": 1,
+        "(1,)": 2
+      },
+      "unit_coefficient_monomial": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "parameter": "A=149^(2N+1), N>=1",
+      "exact_height": "max(H0,A^2)",
+      "height_crossover_N": 53,
+      "coefficient_formula": "P0(x)-2*A*x104-44402*A*x104^2*x116+A^2*x104^2"
+    },
+    "balanced": {
+      "variables_including_input": 198,
+      "existential_variables": 197,
+      "quadratic_rows": 184,
+      "degree": 4,
+      "integer_content_for_every_member": 1,
+      "coordinate_profiles": 2945,
+      "parameter_separated_terms": 2959,
+      "profile_types": {
+        "(0,)": 1697,
+        "(2,)": 549,
+        "(1,)": 685,
+        "(0, 2)": 14
+      },
+      "unit_coefficient_monomial": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "parameter": "C=149^N, N>=1; A=149*C^2",
+      "exact_height": "max(H0,K0*C^2)",
+      "height_crossover_N": 57,
+      "opposite_sign_profiles": 2,
+      "support_fixed_for_every_allowed_N": true,
+      "linear_C_profiles": 685,
+      "not_polynomial_in_A_example": {
+        "monomial": [
+          6,
+          6,
+          87,
+          115
+        ],
+        "coefficient": "-2C"
+      }
+    }
+  },
+  "H0": "(5898050446009651968*31581660^28)^2",
+  "K0": "31581660^28",
+  "H0_decimal_digits": 458,
+  "balanced_opposite_sign_profiles": [
+    {
+      "monomial": [
+        11,
+        11
+      ],
+      "coefficients": {
+        "0": "-421263099243102381248783963486187108012296652831528678417899544267625343648641027816069109929887224097398969874572598845782303983116394439719764840282999208534076626501499579400722421586461252156129280000000000000000000000000000",
+        "2": "289"
+      }
+    },
+    {
+      "monomial": [
+        12,
+        12,
+        110,
+        110
+      ],
+      "coefficients": {
+        "2": "289",
+        "0": "-3791367893187921431239055671375683972110669875483758105761095898408628092837769250344621989368985016876590728871153389612040735848047549957477883562546992876806689638513496214606501794278151269405163520000000000000000000000000000"
+      }
+    }
+  ],
+  "specialized_nonprimitive_rows": [
+    {
+      "row_id": 54,
+      "name": "scalar.Bh.definition",
+      "content_for_every_N_ge_1": 149
+    }
+  ],
+  "row_checks": {
+    "204_to_affine200": 186,
+    "affine200_to_inverse198": 184,
+    "inverse198_to_balanced198": 184
+  },
+  "all_expanded_tables_checked": [
+    "affine200/polynomial.json",
+    "inverse198/polynomial.json",
+    "inverse198/balanced-polynomial.json"
+  ],
+  "files": {
+    "quadratic.json": "c55d7eefe41f62fee88b467e3ea8f6be8ba1e66f6a94b30eb74b39f6f6e7efad",
+    "polynomial.json": "652b5141aaa0d9f54ef89196ae9e442787335b2fd498e250c2772dc3af98a36c",
+    "balanced-quadratic.json": "e818e7cb659735ecdae722690f0e7a3c98854f0830a9562188b67ce175b8fc62",
+    "balanced-polynomial.json": "4150c823b1f137c75d35217585442b3965e710822cb94af5e8cb54028fcd7ac1",
+    "balancing-weights.json": "567fb88f32077560562b8172c2c8e53533f22ddf402a669d8b15415c245f88b3"
+  },
+  "checker_sha256": "f37970a4fc90052973a30c39c233cb1a0eceb2231d39c9a7a555484548160f57",
+  "assertions": 50684,
+  "scope": "Exact finite algebra and coefficient specification only. No audit of inherited infinite arithmetic or Busy Beaver theorems."
+}

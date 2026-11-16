@@ -1,0 +1,19 @@
+{
+  "scope": "Structural TeX and source-binding checks; not independent proof acceptance.",
+  "component_sha256": "662b29ce83cf98429d7c251d8b530d296954c4231c912ee80a0370bb4a392f54",
+  "lines": 1295,
+  "component_labels": 35,
+  "inherited_references": 24,
+  "inventory_items_covered": 23,
+  "environments_balanced": true,
+  "braces_balanced": true,
+  "references_resolve_in_both_receiving_sources": true,
+  "citations_resolve": true,
+  "BB_threshold_asserted": false,
+  "receiving_manuscript_edited": false,
+  "latex_undefined_references": false,
+  "latex_overfull_boxes": 0,
+  "latex_fatal_error": false,
+  "compiled_pages": 18,
+  "pdf_sha256": "ab08e8a57eb15ae41bfcf1c114e332ddeb3a5dfe46c57f8d195bdb4e3974fc65"
+}

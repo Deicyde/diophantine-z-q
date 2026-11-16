@@ -152,8 +152,9 @@ class Continuity(unittest.TestCase):
     def test_initial_diff_hunks_are_bound_without_explicit_reads(self):
         gh = FakeGH()
         gh.text = lambda path,ref: 'one\ntwo\nthree' if ref == BASE else 'one\nTWO\nthree'
-        reviewer = gate.Review(gh, gh.pr, [], [], {}, {}, 'instructions', 'astra', 'local mathematical')
-        binding = gate.make_reuse_binding(gh, gh.pr, [changed('p.tex','@@ -2 +2 @@\n-two\n+TWO')], reviewer)
+        files = [changed('p.tex','@@ -2 +2 @@\n-two\n+TWO')]
+        reviewer = gate.Review(gh, gh.pr, files, [], {}, {}, 'instructions', 'astra', 'local mathematical')
+        binding = gate.make_reuse_binding(gh, gh.pr, files, reviewer)
         self.assertEqual({p['revision'] for p in binding['passages']}, {'head','merge_base'})
         self.assertTrue(all(p['start']==2 and p['count']==1 for p in binding['passages']))
 
@@ -359,9 +360,10 @@ class Continuity(unittest.TestCase):
     def rebased(self):
         gh, app = FakeGH(), FakeApp()
         old_head = 'd' * 40
-        reviewer = gate.Review(gh, gh.pr, [], [], {}, {}, 'instructions', 'astra', 'local mathematical')
+        files = [changed('p.tex')]
+        reviewer = gate.Review(gh, gh.pr, files, [], {}, {}, 'instructions', 'astra', 'local mathematical')
         reviewer.reads = [{'path': 'p.tex', 'revision': HEAD, 'start': 1, 'count': 10}]
-        binding = gate.make_reuse_binding(gh, gh.pr, [changed('p.tex')], reviewer)
+        binding = gate.make_reuse_binding(gh, gh.pr, files, reviewer)
         pair = {f: accepting(f, head=old_head, reuse_binding=copy.deepcopy(binding)) for f in gate.MODELS}
         stored(app, gh, pair, head=old_head)
         return gh, app

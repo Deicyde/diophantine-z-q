@@ -1,0 +1,45 @@
+{
+  "schema": "record-manuscript-policy-review/v1",
+  "decision": "accepted_within_scope",
+  "reviewer": "Claude Fable 5.2, in Elliot Glazer's Claude Code session (local review, not the Protocol B gate reviewer)",
+  "author_of_policy_or_implementation": false,
+  "reviewed_at": "2026-11-16T00:55:00+00:00",
+  "reviewed_root": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\v18-release-final",
+  "request": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\v18-196-integration-20261115\\repair-round1\\BUILDER-REVIEW-REQUEST.json",
+  "supersedes": "relay/to-astra/20261115-1700-from-fable-pr120-builder-review.json, which was not valid JSON (unescaped backslashes) and miscounted the changed statements. The checks and the decision are otherwise the same; no file was re-reviewed for this copy.",
+  "files": [
+    {"path": "scripts/build_paper.py", "sha256": "f62e565f8543b7ff44a66d3cac6aa47189d1f8d7802e169ed4f9f3864bf4f86f", "bytes": 9646},
+    {"path": "scripts/check_current_manuscript.py", "sha256": "da533c8d5a480f152b9879bde10d944b035580d77d648e80afc4329c48099154", "bytes": 5527},
+    {"path": "docs/current-manuscript.json", "sha256": "2ea6e40e597b908b751910c74f4c2c9fa47cd170838bcf17bbc7f2b6c7552562", "bytes": 534},
+    {"path": "docs/audit-history/current.json", "sha256": "2b0dd7653076633f53c1e32b43dd4c11a664b5ace5b5685ff6afc30ed4b82ca4", "bytes": 372544},
+    {"path": "manuscripts/quartic_v18.tex", "sha256": "0cb9c70baed00d736c88636243c4da96c38ce4f96090d029d0020ce459435a29", "bytes": 2324626},
+    {"path": "manuscripts/quartic_v18.pdf", "sha256": "e6fb5b6a7c5d3340db2c3b1f14e78fbb9c357f11544584c6a96ae2abc2c0579d", "bytes": 4849204},
+    {"path": "research/version18/BUILD.json", "sha256": "a6ee35533cc17f1127bdde456e212347d999153031a766815b73621238d4dce2", "bytes": 210339},
+    {"path": "research/version18/build_pdf.py", "sha256": "5afbf7050dd8b5ea45546560fc5e4f20b415c5c66c580e128fa93f8a349edf41", "bytes": 17800},
+    {"path": "manuscripts/quartic_v16.tex", "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74", "bytes": 1926498},
+    {"path": "manuscripts/quartic_v16.pdf", "sha256": "5634295d85bdfd2aef476ad49827b160f119e94996e1f644c3b05a96eabf6315", "bytes": 2732163},
+    {"path": "manuscripts/quartic_v17.tex", "sha256": "f6bf186008d33270dadbba6bd490f22116c66168975c3f84ad5bc6f281726e12", "bytes": 2338864},
+    {"path": "manuscripts/quartic_v17.pdf", "sha256": "20ee7ebabdbba1e15406af72d31854206beaaa257e1c52fca2abd113243ea7ea", "bytes": 3916929}
+  ],
+  "scope": "Build selection and recorded source/PDF/build correspondence for this exact Version 18 candidate, and byte preservation of the four released Version 16 and Version 17 files in this checkout. No mathematical acceptance of Version 18 is given or implied by this record.",
+  "checks": [
+    "Hashed all twelve files in the reviewed root: every hash and byte count equals the request.",
+    "The three builder scripts are the same bytes as in my record 20261115-1705.",
+    "Ran scripts/check_current_manuscript.py in the reviewed root: it accepts the profile.",
+    "research/version18/BUILD.json: source_sha256 0cb9c70b..., pdf_sha256 e6fb5b6a..., builder_sha256 equal to build_pdf.py; three passes with return code 0; tex_errors 0; unresolved_references 0.",
+    "PDF, with pdfinfo and pdftotext: 701 pages, title 'Z is Diophantine in Q, Version 18'; the abstract sentence with 196 variables and 2 943 monomials occurs once; the extracted text contains no '??' and no occurrence of the word 'proposed'.",
+    "Released files: the four Version 16 and 17 files hash, as working-tree files, to the Git blobs at this checkout's HEAD (69fb876a) and at main a9381e74, and to the values above.",
+    "Source delta from 7004f12f... (PR120 head 69fb876a), the source of record 20261115-1705: git reports 60 insertions and 48 deletions, and the changed lines are exactly those of repair-round1/FINAL-SOURCE-DIFF.patch (33 hunks, which I read in full). Labels: the same 1,268. Display environments of the four types my script collects (bracket displays, equation, align, multline; whitespace removed): the same 3,380, none changed. Three theorem-type environments change wording: Theorem q214:theorem (title and the 'Subject to' clause), Proposition prop:box ('Assuming' replaced by references) and Corollary cor:ga-centered-primes ('proposed centering' to 'stated centering')."
+  ],
+  "observations": [
+    "Proposition prop:box now cites Theorem thm:height with the constant A_ht of Section sec:size. I checked that A_ht there is given by the same formula as H_6(S;R) in the definition before Theorem thm:height, and that Theorem hyp:o8-height states log_2 H_* < 4783227, which the edited cutoff paragraph now cites. I did not re-read the proofs of those theorems.",
+    "The patch edits a few sentences in the retained Part III, so the earlier byte-identity of that part with the Version 16 body no longer holds for those lines.",
+    "docs/current-manuscript.json and research/version18/BUILD.json must be committed byte for byte (both are -text)."
+  ],
+  "limitations": [
+    "I did not run pdfLaTeX or any build.",
+    "I did not check docs/audit-history/builder-binding.json or its self-test, nor research/version18/integration/PR120-REPAIR-OPERATIONS.json.",
+    "The candidate was not yet committed or pushed when reviewed; this record applies to these bytes only.",
+    "This is reviewer-authored evidence from a local session. It is not model authentication and not protected App acceptance."
+  ]
+}

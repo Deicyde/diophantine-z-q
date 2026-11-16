@@ -200,7 +200,9 @@ jobs:
         id: restore
         uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
         with:
-          path: .lake/build
+          path: |
+            .lake/build
+            .lake/packages/TauCeti/.lake/build
           key: kernel-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lean/lake-manifest.json') }}-${{ github.sha }}
           restore-keys: |
             kernel-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lean/lake-manifest.json') }}-
@@ -245,5 +247,7 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/main' && (steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false')
         uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830
         with:
-          path: .lake/build
+          path: |
+            .lake/build
+            .lake/packages/TauCeti/.lake/build
           key: ${{ steps.restore.outputs.cache-primary-key }}

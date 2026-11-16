@@ -1,0 +1,65 @@
+{
+  "status": "AUTHOR_COMPONENT_CHECKS_PASS_NOT_INDEPENDENT_ACCEPTANCE",
+  "pages": 18,
+  "unique_labels": 13,
+  "citations": [
+    "q198bb:VB",
+    "q198bb:Zhang",
+    "q198bb:BGS"
+  ],
+  "all_references_resolve": true,
+  "no_local_input_dependencies": true,
+  "embedded_programs_ast_identical": true,
+  "tex_log_warnings": 0,
+  "transfer_note_unchanged": true,
+  "files": {
+    "q198bb-proof.tex": {
+      "bytes": 51775,
+      "sha256": "b106b4addeab312d25b5097623ce6df3d79c01c0ba746bebd7d80399d27b8b24"
+    },
+    "q198bb-bibliography.tex": {
+      "bytes": 916,
+      "sha256": "c660c30a9927077f3eac58eb6e3fc97935e1226308226b66ea7af4859e704aff"
+    },
+    "q198bb-preview.tex": {
+      "bytes": 359,
+      "sha256": "3764ff67bb5eba016bf8696fa7a553215b2b0a4b242ad957a8ae7b374776afb0"
+    },
+    "q198bb-preview.pdf": {
+      "bytes": 307400,
+      "sha256": "bbe7d10e187646c9b9eaf9f758db6b6c1597c71564ea0dd2d82a8abcabefc687"
+    },
+    "record_machine198.py": {
+      "bytes": 5132,
+      "sha256": "109b5061f360be5ab98e90e879a2b147a1bb627a7c1e20de62d95718d176af1d"
+    },
+    "TRANSFER198.md": {
+      "bytes": 15955,
+      "sha256": "cace2233181835e58918c687e071cd304b4d12b1aad35798adfc38145979605f"
+    },
+    "WORDING.md": {
+      "bytes": 4766,
+      "sha256": "94436dc6158ecd63a0a5f140e59655c2ad8ffc9e9639fa57c6611b0ce2eedffd"
+    },
+    "assemble198bb.py": {
+      "bytes": 14580,
+      "sha256": "8b47a5f13887d701c0dbe64997bfcdc0d92cf4229da1b3136b516bc0e9bf26d0"
+    },
+    "check_record198.py": {
+      "bytes": 2693,
+      "sha256": "006802ece5fd62b83c32ac525d99011b691b1a811e4cf1099d040d89df2b6f21"
+    },
+    "check_tex_component.py": {
+      "bytes": 2485,
+      "sha256": "19d864a8fa8f536f8ec173554054f69d9e92e7a22c597ab3dc202f4b252cb82f"
+    },
+    "FINITE-CHECKS.json": {
+      "bytes": 823,
+      "sha256": "c22d516daeb513de4180f1f313c6d550b358cbf7fa969141ea6746f32b77c2dc"
+    },
+    "TEX-ASSEMBLY.json": {
+      "bytes": 536,
+      "sha256": "0e26903088fa89395a1154cdb8d560bfd9f1543d52f025f26f8bf9a52f3c9ee1"
+    }
+  }
+}

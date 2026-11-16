@@ -1,0 +1,2490 @@
+{
+  "status": "PASS",
+  "method": "Independent standard-library exact expansion; row monomial multipliers inferred rather than read from certificates; no producer or parent audit imports",
+  "source_commit": "5c35db3253a70b0875acec4b451cdaac4da3c8fd",
+  "row_count": 182,
+  "deleted_rows": [
+    58,
+    59
+  ],
+  "deleted_coordinates": [
+    80,
+    95
+  ],
+  "guards": [
+    {
+      "old_row": 1,
+      "new_row": 1,
+      "name": "inputSquare.definition",
+      "literally_unchanged": true
+    },
+    {
+      "old_row": 26,
+      "new_row": 26,
+      "name": "detector0.inverseWeight.definition",
+      "literally_unchanged": true
+    },
+    {
+      "old_row": 27,
+      "new_row": 27,
+      "name": "detector0.inverseWeightSquared.definition",
+      "literally_unchanged": true
+    },
+    {
+      "old_row": 39,
+      "new_row": 39,
+      "name": "detector1.inverseWeight.definition",
+      "literally_unchanged": true
+    },
+    {
+      "old_row": 40,
+      "new_row": 40,
+      "name": "detector1.inverseWeightSquared.definition",
+      "literally_unchanged": true
+    },
+    {
+      "old_row": 48,
+      "new_row": 48,
+      "name": "scalar.rPair1.definition",
+      "literally_unchanged": true
+    },
+    {
+      "old_row": 49,
+      "new_row": 49,
+      "name": "scalar.four_contact_product.definition",
+      "literally_unchanged": true
+    },
+    {
+      "old_row": 60,
+      "new_row": 58,
+      "name": "scalar.r_power_2.definition",
+      "literally_unchanged": true
+    },
+    {
+      "old_row": 63,
+      "new_row": 61,
+      "name": "scalar.forced_prime.definition",
+      "literally_unchanged": true
+    }
+  ],
+  "row_identities": [
+    {
+      "old_row": 1,
+      "new_row": 1,
+      "name": "inputSquare.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 2,
+      "new_row": 2,
+      "name": "affine.Lucas.C.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 3,
+      "new_row": 3,
+      "name": "affine.Lucas.C.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 4,
+      "new_row": 4,
+      "name": "affine.Lucas.AT.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 5,
+      "new_row": 5,
+      "name": "affine.Lucas.AT.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 6,
+      "new_row": 6,
+      "name": "affine.Lucas.F.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 7,
+      "new_row": 7,
+      "name": "affine.Lucas.F.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 8,
+      "new_row": 8,
+      "name": "testSquare.12.0.0.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 9,
+      "new_row": 9,
+      "name": "testSquare.12.0.1.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 10,
+      "new_row": 10,
+      "name": "testSquare.12.1.0.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 11,
+      "new_row": 11,
+      "name": "testSquare.12.1.1.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 12,
+      "new_row": 12,
+      "name": "testSquare.40.0.0.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 13,
+      "new_row": 13,
+      "name": "testSquare.40.0.1.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 14,
+      "new_row": 14,
+      "name": "testSquare.40.1.0.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 15,
+      "new_row": 15,
+      "name": "testSquare.40.1.1.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 16,
+      "new_row": 16,
+      "name": "v27.testSquare.40.2.0.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 17,
+      "new_row": 17,
+      "name": "v27.testSquare.40.2.1.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 18,
+      "new_row": 18,
+      "name": "v27.testSquare.40.3.0.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 19,
+      "new_row": 19,
+      "name": "v27.testSquare.40.3.1.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 20,
+      "new_row": 20,
+      "name": "testSquare.40.4.0.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 21,
+      "new_row": 21,
+      "name": "testSquare.40.4.1.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 22,
+      "new_row": 22,
+      "name": "additive.detector0.contactSquare",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 23,
+      "new_row": 23,
+      "name": "additive.detector0.contactFourthPower",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 24,
+      "new_row": 24,
+      "name": "additive.detector0.contactCombination",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 25,
+      "new_row": 25,
+      "name": "additive.detector0.contactRelation",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 26,
+      "new_row": 26,
+      "name": "detector0.inverseWeight.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": true
+    },
+    {
+      "old_row": 27,
+      "new_row": 27,
+      "name": "detector0.inverseWeightSquared.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": true
+    },
+    {
+      "old_row": 28,
+      "new_row": 28,
+      "name": "detector0.normOver2w0.definition",
+      "R_w0_w1_exponent": [
+        0,
+        -4,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 29,
+      "new_row": 29,
+      "name": "balanced.detector0.poleInput.definition",
+      "R_w0_w1_exponent": [
+        0,
+        -4,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 30,
+      "new_row": 30,
+      "name": "detector0.p2.definition",
+      "R_w0_w1_exponent": [
+        0,
+        2,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 31,
+      "new_row": 31,
+      "name": "detector0.firstConic",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 32,
+      "new_row": 32,
+      "name": "detector0.Bh.definition",
+      "R_w0_w1_exponent": [
+        0,
+        -2,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 33,
+      "new_row": 33,
+      "name": "detector0.q2.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 34,
+      "new_row": 34,
+      "name": "detector0.secondConic",
+      "R_w0_w1_exponent": [
+        0,
+        -2,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 35,
+      "new_row": 35,
+      "name": "additive.detector1.contactSquare",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 36,
+      "new_row": 36,
+      "name": "additive.detector1.contactFourthPower",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 37,
+      "new_row": 37,
+      "name": "additive.detector1.contactCombination",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 38,
+      "new_row": 38,
+      "name": "additive.detector1.contactRelation",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 39,
+      "new_row": 39,
+      "name": "detector1.inverseWeight.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": true
+    },
+    {
+      "old_row": 40,
+      "new_row": 40,
+      "name": "detector1.inverseWeightSquared.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": true
+    },
+    {
+      "old_row": 41,
+      "new_row": 41,
+      "name": "detector1.normOver2w0.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        -4
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 42,
+      "new_row": 42,
+      "name": "balanced.detector1.poleInput.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        -4
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 43,
+      "new_row": 43,
+      "name": "detector1.p2.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        2
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 44,
+      "new_row": 44,
+      "name": "detector1.firstConic",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 45,
+      "new_row": 45,
+      "name": "detector1.Bh.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        -2
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 46,
+      "new_row": 46,
+      "name": "detector1.q2.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 47,
+      "new_row": 47,
+      "name": "detector1.secondConic",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        -2
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 48,
+      "new_row": 48,
+      "name": "scalar.rPair1.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 49,
+      "new_row": 49,
+      "name": "scalar.four_contact_product.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 50,
+      "new_row": 50,
+      "name": "scalar.W2.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 51,
+      "new_row": 51,
+      "name": "scalar.b.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1/981949949521011646279509932288013517604094669913140033589964224332595426527668691070368153600000000000000",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 52,
+      "new_row": 52,
+      "name": "scalar.p2.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "6559460022816473064427431957397377114378321583881934439033037886520117807677801471184467109634922174526973579361857075453357674477590916881449625540738742001395656814037190682710210716744206348451840000000000000000000000000000",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 53,
+      "new_row": 53,
+      "name": "scalar.firstConic",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "2186486674272157688142477319132459038126107194627311479677679295506705935892600490394822369878307391508991193120619025151119224825863638960483208513579580667131885604679063560903403572248068782817280000000000000000000000000000",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 54,
+      "new_row": 54,
+      "name": "scalar.Bh.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "-80990493410131000784375977023646274345820490095244015289194989569855772668241364832628280392076492800000000000000",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 55,
+      "new_row": 55,
+      "name": "scalar.q2.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "6559460022816473064427431957397377114378321583881934439033037886520117807677801471184467109634922174526973579361857075453357674477590916881449625540738742001395656814037190682710210716744206348451840000000000000000000000000000",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 56,
+      "new_row": 56,
+      "name": "scalar.secondConic",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "6559460022816473064427431957397377114378321583881934439033037886520117807677801471184467109634922174526973579361857075453357674477590916881449625540738742001395656814037190682710210716744206348451840000000000000000000000000000",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 57,
+      "new_row": 57,
+      "name": "parity_scalar.reduced_scalar.root.power4",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 60,
+      "new_row": 58,
+      "name": "scalar.r_power_2.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": true
+    },
+    {
+      "old_row": 61,
+      "new_row": 59,
+      "name": "scalar.ratio1_unscaled_square.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 62,
+      "new_row": 60,
+      "name": "parity_scalar.scalar.ratio_node.consolidated_denominator.power4",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 63,
+      "new_row": 61,
+      "name": "scalar.forced_prime.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 64,
+      "new_row": 62,
+      "name": "amplified.C1.power4.0.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 65,
+      "new_row": 63,
+      "name": "amplified.C1.power4.1.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 66,
+      "new_row": 64,
+      "name": "residue.I.power4.0.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 67,
+      "new_row": 65,
+      "name": "residue.I.power4.1.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 68,
+      "new_row": 66,
+      "name": "residue.det0.factor0.0.reciprocal.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 69,
+      "new_row": 67,
+      "name": "residue.det0.factor0.1.reciprocal.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 70,
+      "new_row": 68,
+      "name": "residue.det0.factor1.0.reciprocal.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 71,
+      "new_row": 69,
+      "name": "residue.det0.factor1.1.reciprocal.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 72,
+      "new_row": 70,
+      "name": "residue.det0.factor2.0.reciprocal.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 73,
+      "new_row": 71,
+      "name": "residue.det0.factor2.1.reciprocal.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 74,
+      "new_row": 72,
+      "name": "residue.det0.factor3.0.reciprocal.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 75,
+      "new_row": 73,
+      "name": "residue.det0.factor3.1.reciprocal.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 76,
+      "new_row": 74,
+      "name": "residue.det0.factor4.0.reciprocal.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 77,
+      "new_row": 75,
+      "name": "residue.det0.factor4.1.reciprocal.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 78,
+      "new_row": 76,
+      "name": "amplified.det0.product1.0.definition",
+      "R_w0_w1_exponent": [
+        0,
+        -4,
+        0
+      ],
+      "constant": "-1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 79,
+      "new_row": 77,
+      "name": "amplified.det0.product1.1.definition",
+      "R_w0_w1_exponent": [
+        0,
+        -4,
+        0
+      ],
+      "constant": "-1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 80,
+      "new_row": 78,
+      "name": "amplified.det0.product2.0.definition",
+      "R_w0_w1_exponent": [
+        0,
+        -4,
+        0
+      ],
+      "constant": "-1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 81,
+      "new_row": 79,
+      "name": "amplified.det0.product2.1.definition",
+      "R_w0_w1_exponent": [
+        0,
+        -4,
+        0
+      ],
+      "constant": "-1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 82,
+      "new_row": 80,
+      "name": "amplified.det0.product3.0.definition",
+      "R_w0_w1_exponent": [
+        0,
+        -4,
+        0
+      ],
+      "constant": "-1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 83,
+      "new_row": 81,
+      "name": "amplified.det0.product3.1.definition",
+      "R_w0_w1_exponent": [
+        0,
+        -4,
+        0
+      ],
+      "constant": "-1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 84,
+      "new_row": 82,
+      "name": "amplified.det0.product4.0.definition",
+      "R_w0_w1_exponent": [
+        0,
+        -4,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 85,
+      "new_row": 83,
+      "name": "amplified.det0.product4.1.definition",
+      "R_w0_w1_exponent": [
+        0,
+        -4,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 86,
+      "new_row": 84,
+      "name": "residue.det1.factor0.0.reciprocal.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 87,
+      "new_row": 85,
+      "name": "residue.det1.factor0.1.reciprocal.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 88,
+      "new_row": 86,
+      "name": "residue.det1.factor1.0.reciprocal.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 89,
+      "new_row": 87,
+      "name": "residue.det1.factor1.1.reciprocal.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 90,
+      "new_row": 88,
+      "name": "residue.det1.factor2.0.reciprocal.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 91,
+      "new_row": 89,
+      "name": "residue.det1.factor2.1.reciprocal.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 92,
+      "new_row": 90,
+      "name": "residue.det1.factor3.0.reciprocal.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 93,
+      "new_row": 91,
+      "name": "residue.det1.factor3.1.reciprocal.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 94,
+      "new_row": 92,
+      "name": "residue.det1.factor4.0.reciprocal.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 95,
+      "new_row": 93,
+      "name": "residue.det1.factor4.1.reciprocal.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 96,
+      "new_row": 94,
+      "name": "amplified.det1.product1.0.definition",
+      "R_w0_w1_exponent": [
+        2,
+        0,
+        -4
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 97,
+      "new_row": 95,
+      "name": "amplified.det1.product1.1.definition",
+      "R_w0_w1_exponent": [
+        2,
+        0,
+        -4
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 98,
+      "new_row": 96,
+      "name": "amplified.det1.product2.0.definition",
+      "R_w0_w1_exponent": [
+        1,
+        0,
+        -4
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 99,
+      "new_row": 97,
+      "name": "amplified.det1.product2.1.definition",
+      "R_w0_w1_exponent": [
+        1,
+        0,
+        -4
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 100,
+      "new_row": 98,
+      "name": "amplified.det1.product3.0.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        -4
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 101,
+      "new_row": 99,
+      "name": "amplified.det1.product3.1.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        -4
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 102,
+      "new_row": 100,
+      "name": "amplified.det1.product4.0.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        -4
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 103,
+      "new_row": 101,
+      "name": "amplified.det1.product4.1.definition",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        -4
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 104,
+      "new_row": 102,
+      "name": "sharedT.reference.relation1.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 105,
+      "new_row": 103,
+      "name": "sharedT.reference.relation1.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 106,
+      "new_row": 104,
+      "name": "sharedT.reference.relation2.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 107,
+      "new_row": 105,
+      "name": "sharedT.reference.relation2.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 108,
+      "new_row": 106,
+      "name": "sharedT.reference.relation3.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 109,
+      "new_row": 107,
+      "name": "sharedT.reference.relation3.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 110,
+      "new_row": 108,
+      "name": "pair1.square.f.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 111,
+      "new_row": 109,
+      "name": "pair1.square.f.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 112,
+      "new_row": 110,
+      "name": "pair1.square.g.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 113,
+      "new_row": 111,
+      "name": "pair1.square.g.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 114,
+      "new_row": 112,
+      "name": "pair1.curve.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 115,
+      "new_row": 113,
+      "name": "pair1.curve.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 116,
+      "new_row": 114,
+      "name": "pair1.secant.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 117,
+      "new_row": 115,
+      "name": "pair1.secant.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 118,
+      "new_row": 116,
+      "name": "pair1.tangent.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 119,
+      "new_row": 117,
+      "name": "pair1.tangent.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 120,
+      "new_row": 118,
+      "name": "pair1.ratio.primary.raw.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 121,
+      "new_row": 119,
+      "name": "pair1.ratio.primary.raw.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 122,
+      "new_row": 120,
+      "name": "pair1.ratio.primary.regular.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 123,
+      "new_row": 121,
+      "name": "pair1.ratio.primary.regular.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 124,
+      "new_row": 122,
+      "name": "pair1.ratio.alternate.raw.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 125,
+      "new_row": 123,
+      "name": "pair1.ratio.alternate.raw.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 126,
+      "new_row": 124,
+      "name": "pair1.ratio.alternate.regular.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 127,
+      "new_row": 125,
+      "name": "pair1.ratio.alternate.regular.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 128,
+      "new_row": 126,
+      "name": "pair3.square.f.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 129,
+      "new_row": 127,
+      "name": "pair3.square.f.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 130,
+      "new_row": 128,
+      "name": "pair3.square.g.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 131,
+      "new_row": 129,
+      "name": "pair3.square.g.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 132,
+      "new_row": 130,
+      "name": "pair3.curve.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 133,
+      "new_row": 131,
+      "name": "pair3.curve.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 134,
+      "new_row": 132,
+      "name": "pair3.secant.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 135,
+      "new_row": 133,
+      "name": "pair3.secant.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 136,
+      "new_row": 134,
+      "name": "pair3.tangent.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 137,
+      "new_row": 135,
+      "name": "pair3.tangent.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 138,
+      "new_row": 136,
+      "name": "pair3.ratio.primary.raw.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 139,
+      "new_row": 137,
+      "name": "pair3.ratio.primary.raw.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 140,
+      "new_row": 138,
+      "name": "pair3.ratio.primary.regular.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 141,
+      "new_row": 139,
+      "name": "pair3.ratio.primary.regular.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 142,
+      "new_row": 140,
+      "name": "pair3.ratio.alternate.raw.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 143,
+      "new_row": 141,
+      "name": "pair3.ratio.alternate.raw.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 144,
+      "new_row": 142,
+      "name": "pair3.ratio.alternate.regular.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 145,
+      "new_row": 143,
+      "name": "pair3.ratio.alternate.regular.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 146,
+      "new_row": 144,
+      "name": "pair4.square.f.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 147,
+      "new_row": 145,
+      "name": "pair4.square.f.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 148,
+      "new_row": 146,
+      "name": "pair4.square.g.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 149,
+      "new_row": 147,
+      "name": "pair4.square.g.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 150,
+      "new_row": 148,
+      "name": "pair4.curve.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 151,
+      "new_row": 149,
+      "name": "pair4.curve.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 152,
+      "new_row": 150,
+      "name": "pair4.secant.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 153,
+      "new_row": 151,
+      "name": "pair4.secant.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 154,
+      "new_row": 152,
+      "name": "pair4.tangent.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 155,
+      "new_row": 153,
+      "name": "pair4.tangent.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 156,
+      "new_row": 154,
+      "name": "pair4.ratio.primary.raw.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 157,
+      "new_row": 155,
+      "name": "pair4.ratio.primary.raw.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 158,
+      "new_row": 156,
+      "name": "pair4.ratio.primary.regular.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 159,
+      "new_row": 157,
+      "name": "pair4.ratio.primary.regular.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 160,
+      "new_row": 158,
+      "name": "pair4.ratio.alternate.raw.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 161,
+      "new_row": 159,
+      "name": "pair4.ratio.alternate.raw.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 162,
+      "new_row": 160,
+      "name": "pair4.ratio.alternate.regular.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 163,
+      "new_row": 161,
+      "name": "pair4.ratio.alternate.regular.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 164,
+      "new_row": 162,
+      "name": "inverse_vieta.product.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 165,
+      "new_row": 163,
+      "name": "inverse_vieta.product.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 166,
+      "new_row": 164,
+      "name": "inverse_vieta.r.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 167,
+      "new_row": 165,
+      "name": "inverse_vieta.r.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 168,
+      "new_row": 166,
+      "name": "inverse_vieta.sum.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 169,
+      "new_row": 167,
+      "name": "inverse_vieta.sum.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 170,
+      "new_row": 168,
+      "name": "inverse_vieta.pair.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 171,
+      "new_row": 169,
+      "name": "inverse_vieta.pair.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 172,
+      "new_row": 170,
+      "name": "inverse_vieta.r2.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 173,
+      "new_row": 171,
+      "name": "inverse_vieta.r2.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 174,
+      "new_row": 172,
+      "name": "inverse_vieta.fusquare.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 175,
+      "new_row": 173,
+      "name": "inverse_vieta.fusquare.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 176,
+      "new_row": 174,
+      "name": "inverse_vieta.fvsquare.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 177,
+      "new_row": 175,
+      "name": "inverse_vieta.fvsquare.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 178,
+      "new_row": 176,
+      "name": "inverse_vieta.primary.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 179,
+      "new_row": 177,
+      "name": "inverse_vieta.primary.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 180,
+      "new_row": 178,
+      "name": "inverse_vieta.alternate.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 181,
+      "new_row": 179,
+      "name": "inverse_vieta.alternate.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 182,
+      "new_row": 180,
+      "name": "inverse_vieta.scalar.0",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 183,
+      "new_row": 181,
+      "name": "inverse_vieta.scalar.1",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    },
+    {
+      "old_row": 184,
+      "new_row": 182,
+      "name": "inverse_vieta.unweighted.aggregate",
+      "R_w0_w1_exponent": [
+        0,
+        0,
+        0
+      ],
+      "constant": "1",
+      "identity": true,
+      "zero_after_power_relations": false
+    }
+  ],
+  "r_guard_polynomial_in_u": {
+    "0": "51948354689656",
+    "1": "28892074377045",
+    "2": "1634130961866",
+    "3": "32365650141",
+    "4": "216486432"
+  },
+  "variables": 196,
+  "monomials": 2943,
+  "degree": 4,
+  "content": 1,
+  "parameter_profiles": [
+    {
+      "monomial_one_based": [
+        102
+      ],
+      "coefficients": {
+        "1": -2
+      }
+    },
+    {
+      "monomial_one_based": [
+        102,
+        102,
+        114
+      ],
+      "coefficients": {
+        "1": -44402
+      }
+    },
+    {
+      "monomial_one_based": [
+        102,
+        102
+      ],
+      "coefficients": {
+        "2": 1
+      }
+    }
+  ],
+  "constant_coefficient_maximum": "484991541504995159662206970923766531374664106904986910720",
+  "crossover_N": 7,
+  "bindings": {
+    "work\\jose196-audit-20261115\\source\\sources\\h10_quartic198\\circuits\\inverse198\\quadratic.json": "c55d7eefe41f62fee88b467e3ea8f6be8ba1e66f6a94b30eb74b39f6f6e7efad",
+    "work\\jose196-audit-20261115\\source\\computation\\quartic\\laurent_recovery_v38\\family196\\quadratic.json": "3b6ab20da25bced159559c35e512e2bb2e56959b734b4265c8f80a7bd9cdb1c1",
+    "work\\jose196-audit-20261115\\source\\computation\\quartic\\laurent_recovery_v38\\family196\\polynomial.json": "a8ab93d66fe83f4bdfd4b176d47c250c2e124f42535d7a6a133edff6a97389ad",
+    "work\\v18-196-integration-20261115\\elimination196.tex": "c7e72648ab6536967ddaa31b144cd2fe480ea6b7fb893e526a0f6bd285319f1d",
+    "work\\v18-196-integration-20261115\\theorem196.tex": "6e036231d4f6f2d11e2313f854eb818dc1cf43a671b237b2087906dd2f8a9eaf",
+    "work\\v18-196-integration-20261115\\bibliography196.tex": "e0fe5c201b52b2ba78533a4d44ec3ad39ec46bc4e7675a78fc50bce606b538e7",
+    "work\\v18-198-bb-integration-20261115\\height-bb\\q198bb-proof.tex": "b106b4addeab312d25b5097623ce6df3d79c01c0ba746bebd7d80399d27b8b24",
+    "work\\v18-198-bb-integration-20261115\\assembled-local\\quartic_v18.tex": "3a64fd4c2ed46fd0c55eefca8ffbf1e7cccad8b286b52b9159faaad8eb101837"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "python": "3.14.7 (tags/v3.14.7:823f032, Aug  5 2026, 10:51:32) [MSC v.1944 64 bit (AMD64)]",
+  "newline_adaptation": "Path.write_text forced LF only",
+  "scripts": [
+    {
+      "script": "build_affine200.py",
+      "script_sha256": "25eb28db9b7478834343a348ec20ed17a711dcf7d2f70f7a746a0df6aaabceaf",
+      "status": "PASS"
+    },
+    {
+      "script": "check_affine200.py",
+      "script_sha256": "2f30ede5da315815d1867eedffba40d03c1ba708c81fbc61dd799481e338e46d",
+      "status": "PASS"
+    },
+    {
+      "script": "build_inverse198.py",
+      "script_sha256": "794042892072ed70002da1c33252db4a1d4d05f68686084bfecaca89be2da069",
+      "status": "PASS"
+    },
+    {
+      "script": "check_inverse198.py",
+      "script_sha256": "abfff6308e7f81188115eb869f11bea78a8ee06620801da2b7f1e7276aa2be9e",
+      "status": "PASS"
+    },
+    {
+      "script": "balance_inverse198.py",
+      "script_sha256": "9cf35aaef4876c5eec846433e14221ab83d8f2105fea630df8cca65c1359f8d0",
+      "status": "PASS"
+    },
+    {
+      "script": "check_balanced198.py",
+      "script_sha256": "ccba72e0e84336ddb7a32d4ec6d4b3b027b2ac97be21fb81e3223b3f34571a0c",
+      "status": "PASS"
+    }
+  ],
+  "identical_rebuilt_artifacts": [
+    {
+      "path": "circuits\\affine200\\quadratic.json",
+      "sha256": "c64674ece62e299e119824fa3daaadb0b5baaf11456cc34441f05dc2ba8c2606"
+    },
+    {
+      "path": "circuits\\affine200\\polynomial.json",
+      "sha256": "d7d10aa4d7fff827afe8cf03def068f8c4958e3cddc841a24b2b643e54a08933"
+    },
+    {
+      "path": "circuits\\inverse198\\quadratic.json",
+      "sha256": "c55d7eefe41f62fee88b467e3ea8f6be8ba1e66f6a94b30eb74b39f6f6e7efad"
+    },
+    {
+      "path": "circuits\\inverse198\\polynomial.json",
+      "sha256": "652b5141aaa0d9f54ef89196ae9e442787335b2fd498e250c2772dc3af98a36c"
+    },
+    {
+      "path": "circuits\\inverse198\\balanced-quadratic.json",
+      "sha256": "e818e7cb659735ecdae722690f0e7a3c98854f0830a9562188b67ce175b8fc62"
+    },
+    {
+      "path": "circuits\\inverse198\\balanced-polynomial.json",
+      "sha256": "4150c823b1f137c75d35217585442b3965e710822cb94af5e8cb54028fcd7ac1"
+    }
+  ],
+  "status": "PASS"
+}
