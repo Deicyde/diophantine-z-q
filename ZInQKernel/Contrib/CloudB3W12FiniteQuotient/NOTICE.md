@@ -32,13 +32,20 @@ omitted:
   `leanOptions` are reproduced as file-level `set_option`s;
 * individual proof repairs for Mathlib changes are listed in the file concerned.
 
-The ported theorems (full names under the prefix above) are
-`AlgebraicGeometry.Scheme.exists_quotient_of_finite_of_forall_exists_isAffineOpen_invariant`
-(the quotient of a scheme by a finite group whose orbits lie in invariant affine opens),
-`AlgebraicGeometry.Scheme.forall_exists_isAffineOpen_invariant_of_isSeparated_of_finset`
-(invariant affine neighbourhoods on a separated scheme whose finite sets lie in affine opens) and
-`AlgebraicGeometry.Scheme.isSeparated_and_quasiCompact_of_isIntegralHom_of_surjective`; files
-added later list themselves here.
+The ported theorems (full names under the prefix above), each with its `P2MW.S_<file>.solution`:
+
+* quotients by a finite group: `AlgebraicGeometry.Scheme.exists_quotient_of_finite_of_forall_exists_isAffineOpen_invariant`
+  (the quotient of a scheme by a finite group whose orbits lie in invariant affine opens),
+  `AlgebraicGeometry.Scheme.forall_exists_isAffineOpen_invariant_of_isSeparated_of_finset`
+  (invariant affine neighbourhoods on a separated scheme whose finite sets lie in affine opens) and
+  `AlgebraicGeometry.Scheme.isSeparated_and_quasiCompact_of_isIntegralHom_of_surjective`;
+* quotients by a finite locally free equivalence relation:
+  `RingHom.isPushout_eqLocus_of_finiteLocallyFree_equivalenceRelation`,
+  `AlgebraicGeometry.Scheme.exists_affine_quotient_of_finiteLocallyFree_equivalenceRelation`,
+  `AlgebraicGeometry.Scheme.quotient_baseChange_of_finiteLocallyFree_of_isPullback`,
+  `AlgebraicGeometry.Scheme.exists_invariant_isAffineOpen_of_finiteLocallyFree_equivalenceRelation`,
+  `AlgebraicGeometry.Scheme.exists_quotient_of_forall_exists_quotient_restrict` and
+  `AlgebraicGeometry.Scheme.exists_quotient_of_finiteLocallyFree_equivalenceRelation`.
 
 This notice describes provenance and changes, not a verification claim; the build logs, axiom
 checks and `#discharges` output of the pull request that adds these files are the evidence.
