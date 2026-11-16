@@ -115,6 +115,12 @@ Use `finish_review` exactly once, alone, to give your complete report. Include:
   Missing proofs, doubtful hypotheses, unread manuscript arguments, missing
   history, interrupted work and exhausted review budgets are not access-only
   findings. Do not use this field to soften a mathematical objection.
+  If the same access-only finding continues from an earlier round, do not
+  add it again to new findings. Keep its full earlier ID as `unresolved`
+  in `prior_findings`, and use that same full ID in `access_limitations`.
+  Keep the exact source IDs for those passages. A peer source check does not
+  make your own source access successful. A different mathematical objection
+  still needs its own finding and cannot inherit access-only treatment.
 
 Read an interrupted review's preserved partial observations and check its
 objections. An HTTP error or interrupted transport is not itself a mathematical

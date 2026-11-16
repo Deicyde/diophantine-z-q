@@ -527,6 +527,13 @@ both reading the exact passage and checking its application without objection.
 The history tool exposes the earlier reports' structured source checks, so a
 reviewer can use the exact peer passage ID in a later round. No keyword matching
 guesses that an older untyped objection was access-only.
+When the same source remains unavailable in a later round, the reviewer keeps
+the original full finding ID in both `prior_findings` and `access_limitations`,
+and keeps the exact source IDs. It does not create another new finding for
+that same access failure. The original finding and the reviewer's actual
+decision remain visible. Each named passage still needs the other reviewer's
+verification; an unqualified older finding is not silently merged with a new
+one. A distinct mathematical objection is assessed separately.
 Missing arguments, mismatched hypotheses, missing review history, incomplete
 review and context exhaustion remain blocking. The original verdict and finding
 are retained; the check and artifact list the limitation and which reviewer
