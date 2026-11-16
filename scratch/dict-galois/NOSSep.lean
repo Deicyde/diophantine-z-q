@@ -100,7 +100,7 @@ theorem mem_maximalIdeal_of_comap (w : ValuationSubring Ω) (c : w.comap (algebr
     change (((c : E)⁻¹ : E) : Ω) ∈ w
     rw [← h2]
     exact (((u⁻¹ : wˣ) : w)).2
-  refine isUnit_of_mul_eq_one c ⟨(c : E)⁻¹, hinv⟩ ?_
+  refine isUnit_iff_exists_inv.mpr ⟨⟨(c : E)⁻¹, hinv⟩, ?_⟩
   apply Subtype.ext
   change (c : E) * (c : E)⁻¹ = 1
   exact mul_inv_cancel₀ h0
@@ -165,7 +165,7 @@ theorem isInertia_extend (w : ValuationSubring Ω) (τ : E ≃ₐ[K] E)
     IsLocalRing.residue_eq_zero_iff] at hz1
   have hm := mem_maximalIdeal_of_comap K w _ hz1
   have hqn : q ^ n ≠ 0 := pow_ne_zero _ (expChar_pos K q).ne'
-  refine (IsLocalRing.maximalIdeal w).IsPrime.mem_of_pow_mem (q ^ n) ?_
+  refine (IsLocalRing.maximalIdeal.isMaximal w).isPrime.mem_of_pow_mem (q ^ n) ?_
   convert hm using 1
   apply Subtype.ext
   change (σ (a : Ω) - (a : Ω)) ^ q ^ n = ((τ z : E) : Ω) - (z : Ω)
@@ -193,13 +193,15 @@ theorem inertiaTrivialOn_sep_iff (w : ValuationSubring Ω) (m : ℕ) (hm : (m : 
     let σ : Ω ≃ₐ[K] Ω := τ.liftNormal Ω
     have hres : ∀ y : E, σ (y : Ω) = ((τ y : E) : Ω) := fun y => AlgEquiv.liftNormal_commutes τ Ω y
     have hσ := NOSSepDict.isInertia_extend K w τ hτ σ hres
-    have hx' : x ^ m = 1 := hx
+    let x' : B.Pt E := x
+    have hx' : x' ^ m = 1 := hx
+    have hfix : B.galAct σ (extPt B κ x') = extPt B κ x' := by
+      refine h σ hσ (extPt B κ x') ?_
+      show (extPt B κ x') ^ m = 1
+      rw [← map_pow, hx', map_one]
+    show B.galAct τ x' = x'
     apply extPt_injective B κ
-    change extPt B κ (B.galAct τ x) = extPt B κ x
-    rw [extPt_galAct B κ τ σ (fun y => (hres y).symm) x]
-    refine h σ hσ (extPt B κ x) ?_
-    show (extPt B κ x) ^ m = 1
-    rw [← map_pow, hx', map_one]
+    rw [extPt_galAct B κ τ σ (fun y => (hres y).symm) x', hfix]
   · intro h σ hσ x hx
     obtain ⟨y, hy⟩ := UnipotentForward.torsion_from_sepClosure ZInQ.Contrib.OneProof.MulEtale.mulEtaleAbelianScheme_proof Ω B m hm x hx
     obtain ⟨σs, hσs, hres⟩ := UnipotentForward.inertiaRestrict' K Ω w σ hσ
@@ -234,7 +236,7 @@ theorem neronOggShafarevich_of_sep (h : NeronOggShafarevichSep) : PkgI2.NeronOgg
   · exact forall_congr' fun m => imp_congr_right fun _ => forall_congr' fun hu => (key m hu).symm
   · have hset : {m : ℕ | 0 < m ∧ IsUnit (m : O) ∧ InertiaTrivialOn A
         (w.comap (algebraMap (separableClosure K (AlgebraicClosure K)) (AlgebraicClosure K))) m} =
-        {m | 0 < m ∧ IsUnit (m : O) ∧ InertiaTrivialOn A w m} := by
+        {m : ℕ | 0 < m ∧ IsUnit (m : O) ∧ InertiaTrivialOn A w m} := by
       ext m
       simp only [Set.mem_setOf_eq]
       exact and_congr_right fun _ => and_congr_right fun hu => (key m hu).symm
