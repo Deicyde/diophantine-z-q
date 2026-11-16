@@ -34,7 +34,13 @@ port scope commands rewritten as ordinary Lean (`open _root_.…`, `open scoped 
 (…)`, `attribute [-instance]/[-simp] …`), reproducing their effect on open declarations, active scoped
 namespaces, aliases and erased attributes: r2nos_namespace_dual ×1. Mechanical, tool-generated (offline
 translator, see CloudB3W13/NORMALIZATION.md); no statement, hypothesis, definition or proof was changed. -/
-import ZInQKernel.Contrib.CloudB3W13Shared.TateCp.Vendor.AnthropicFLT.Definitions.Def_FLTPrelim_Ramification
+/- Import notice (W13 normalization, canonical-provider integration repair), 2026-11-16, Cloud Batch 3
+Worker 13 with Metamate/agentcloud assistance (modification under Apache-2.0 §4(b)): the import(s) of `Def_FLTPrelim_Ramification`
+from `ZInQKernel.Contrib.CloudB3W13Shared.TateCp.Vendor.AnthropicFLT.Definitions` now name main's canonical
+providers of the same name in `ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.Definitions`. Their code
+is token-identical apart from four file-local `set_option`s; the staged duplicate declared the same root names and
+collided with main's copy. No other change. -/
+import ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.Definitions.Def_FLTPrelim_Ramification
 import ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_EllipticCurve_FrobeniusTrace
 import Mathlib.Algebra.MvPolynomial.CommRing
 import Mathlib.Algebra.Module.Torsion.Basic

@@ -67,3 +67,12 @@ rules: `_root_`, `private`, `registerNamePrefixes`, structure/inductive auxiliar
 python3 scratch/w13-normalize/tools/pipeline.py --cone-json <modules.json> --write
 python3 scratch/w13-normalize/tools/compile.py --cone-json <modules.json> --jobs 1
 ```
+
+## Canonical-provider repair (2026-11-16)
+
+The staged copies `CloudB3W13Shared/TateCp/Vendor/AnthropicFLT/Definitions/Def_FLTPrelim_{FreyPackage,GaloisRep,Ramification}.lean`
+duplicated main's `CloudB2X0Transitive/Vendor/AnthropicFLT/Definitions/Def_FLTPrelim_*` (token-identical code, same root
+declarations) and collided with them when both were imported. Their 42 importing lines in 41 staged files now name main's
+providers (each file carries an import notice) and the duplicates were removed from this tree; their recovered bodies stay
+in the recovery overlay.
+

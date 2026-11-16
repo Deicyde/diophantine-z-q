@@ -44,6 +44,7 @@ def main():
     ap.add_argument('--jobs', type=int, default=2)
     ap.add_argument('--force', action='store_true')
     ap.add_argument('--summary', default=None)
+    ap.add_argument('--only', default=None, help='json list: rebuild exactly these; all other cone modules must be cached')
     args = ap.parse_args()
     os.makedirs(BUILD, exist_ok=True)
     g = graph()
@@ -59,7 +60,14 @@ def main():
     results = []
     lock = threading.Lock()
     summary = args.summary or os.path.join(WORK, 'build_summary_%s.json' % os.path.basename(args.cone_json).replace('.json', ''))
-    if not args.force:
+    if args.only:
+        only = set(json.load(open(args.only)))
+        for m in mods:
+            if m not in only:
+                if not os.path.exists(olean_path(m)):
+                    raise SystemExit('not cached: %s' % m)
+                status[m] = 'ok-cached'
+    elif not args.force:
         for m in mods:
             if os.path.exists(olean_path(m)) and os.path.getmtime(olean_path(m)) > os.path.getmtime(os.path.join(ROOT, path_of(m))):
                 status[m] = 'ok-cached'

@@ -1,0 +1,249 @@
+[
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+  "retargeted": [
+   "GaloisRep",
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/Definitions/Def_HeckeGalois_EichlerShimura.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/P2M/Sol/S_CerednikDrinfeld_QM_FakeEllipticCurve_WithFullLevel_exists_isPullback_algebraMap_of_isDiscreteValuationRing_of_finite_of_isAdicComplete.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/P2M/Sol/S_CerednikDrinfeld_QM_FakeEllipticCurve_WithFullLevel_exists_prime_dvd_forall_inertiaSubgroupIn_comp_eq_of_isTorsionPoint.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/P2M/Sol/S_CerednikDrinfeld_QM_FakeEllipticCurve_exists_intermediateField_forall_specMap_comp_eq_self_of_forall_exists_pos_pow_rep_eq_one.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/P2M/Sol/S_CerednikDrinfeld_QM_FakeEllipticCurve_exists_pos_pow_rep_tateModule_eq_one_of_forall_specMap_comp_eq_self_of_forall_mem.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/P2M/Sol/S_CerednikDrinfeld_QM_FakeEllipticCurve_exists_pos_pow_rep_tateModule_eq_one_of_mem_inertiaSubgroupIn.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/P2M/Sol/S_CerednikDrinfeld_QM_FakeEllipticCurve_exists_pos_pow_rep_tateModule_eq_one_of_mem_inertiaSubgroupIn_of_forall_isUnit_tensorProduct_padic.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/P2M/Sol/S_GoodReductionJacobian_RelativeGroupLaw_abelianSchemePropertyBundle_of_neronModelPropertyBundle_of_forall_specMap_comp_eq_self.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/P2M/Sol/S_GoodReductionJacobian_RelativeGroupLaw_exists_abelianSchemePropertyBundle_isPullback_of_forall_specMap_comp_eq_self_of_henselianLocalRing.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/P2M/Sol/S_GoodReductionJacobian_RelativeGroupLaw_exists_injective_isTorsionPoint_of_neronModelPropertyBundle_of_forall_specMap_comp_eq_self.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/P2M/Sol/S_GoodReductionJacobian_RelativeGroupLaw_specMap_comp_eq_self_of_mem_inertiaSubgroupIn_of_isTorsionPoint.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/P2M/Sol/S_QuaternionAlgebra_IsOrder_smul_eq_of_mem_inertiaSubgroupIn_of_mem_torsionBy_of_forall_isUnit_tensorProduct_padic_of_isDiscreteValuationRing.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/P2M/Sol/S_ValuationSubring_IsFrobeniusAt_conj_mul_pow_inv_mem_inertiaSubgroupIn_and_wild.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/P2M/Sol/S_ValuationSubring_conj_mem_inertiaSubgroupIn_of_mem_inertiaSubgroupIn_smul.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/P2M/Sol/S_ValuationSubring_exists_forall_pow_prime_pow_apply_eq_of_wild_of_normal.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/P2M/Sol/S_ValuationSubring_exists_intermediateField_le_isDiscreteValuationRing_henselianLocalRing_comap_of_finiteDimensional.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/P2M/Sol/S_ValuationSubring_exists_isFrobeniusAt_pow_forall_inertiaSubgroupIn_conj_mul_pow_inv_wild_of_isDiscreteValuationRing.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/P2M/Sol/S_ValuationSubring_exists_isFrobeniusAt_pow_of_isDiscreteValuationRing.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/P2M/Sol/S_ValuationSubring_exists_mem_inertiaSubgroupIn_and_forall_apply_algebraMap_eq.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/P2M/Sol/S_ValuationSubring_mem_inertiaSubgroupIn_of_valuation_sub_lt_one.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/P2M/Sol/S_ValuationSubring_valuation_sub_lt_one_of_mem_inertiaSubgroupIn.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/Theorems/Thm_CerednikDrinfeld_QM_FakeEllipticCurve_WithFullLevel_exists_prime_dvd_forall_inertiaSubgroupIn_comp_eq_of_isTorsionPoint.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/Theorems/Thm_CerednikDrinfeld_QM_FakeEllipticCurve_exists_intermediateField_forall_specMap_comp_eq_self_of_forall_exists_pos_pow_rep_eq_one.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/Theorems/Thm_CerednikDrinfeld_QM_FakeEllipticCurve_exists_pos_pow_rep_tateModule_eq_one_of_forall_specMap_comp_eq_self_of_forall_mem.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/Theorems/Thm_CerednikDrinfeld_QM_FakeEllipticCurve_exists_pos_pow_rep_tateModule_eq_one_of_mem_inertiaSubgroupIn.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/Theorems/Thm_CerednikDrinfeld_QM_FakeEllipticCurve_exists_pos_pow_rep_tateModule_eq_one_of_mem_inertiaSubgroupIn_of_forall_isUnit_tensorProduct_padic.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/Theorems/Thm_GoodReductionJacobian_RelativeGroupLaw_abelianSchemePropertyBundle_of_neronModelPropertyBundle_of_forall_specMap_comp_eq_self.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/Theorems/Thm_GoodReductionJacobian_RelativeGroupLaw_exists_abelianSchemePropertyBundle_isPullback_of_forall_specMap_comp_eq_self_of_henselianLocalRing.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/Theorems/Thm_GoodReductionJacobian_RelativeGroupLaw_exists_injective_isTorsionPoint_of_neronModelPropertyBundle_of_forall_specMap_comp_eq_self.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/Theorems/Thm_GoodReductionJacobian_RelativeGroupLaw_specMap_comp_eq_self_of_mem_inertiaSubgroupIn_of_isTorsionPoint.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/Theorems/Thm_QuaternionAlgebra_IsOrder_smul_eq_of_mem_inertiaSubgroupIn_of_mem_torsionBy_of_forall_isUnit_tensorProduct_padic_of_isDiscreteValuationRing.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/Theorems/Thm_ValuationSubring_IsFrobeniusAt_conj_mul_pow_inv_mem_inertiaSubgroupIn_and_wild.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/Theorems/Thm_ValuationSubring_conj_mem_inertiaSubgroupIn_of_mem_inertiaSubgroupIn_smul.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/Theorems/Thm_ValuationSubring_exists_forall_pow_prime_pow_apply_eq_of_wild_of_normal.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/Theorems/Thm_ValuationSubring_exists_intermediateField_le_isDiscreteValuationRing_henselianLocalRing_comap_of_finiteDimensional.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/Theorems/Thm_ValuationSubring_exists_isFrobeniusAt_pow_forall_inertiaSubgroupIn_conj_mul_pow_inv_wild_of_isDiscreteValuationRing.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/Theorems/Thm_ValuationSubring_exists_isFrobeniusAt_pow_of_isDiscreteValuationRing.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/Theorems/Thm_ValuationSubring_exists_mem_inertiaSubgroupIn_and_forall_apply_algebraMap_eq.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/Theorems/Thm_ValuationSubring_mem_inertiaSubgroupIn_of_valuation_sub_lt_one.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ },
+ {
+  "file": "ZInQKernel/Contrib/CloudB3W13/Source/Theorems/Thm_ValuationSubring_valuation_sub_lt_one_of_mem_inertiaSubgroupIn.lean",
+  "retargeted": [
+   "Ramification"
+  ]
+ }
+]

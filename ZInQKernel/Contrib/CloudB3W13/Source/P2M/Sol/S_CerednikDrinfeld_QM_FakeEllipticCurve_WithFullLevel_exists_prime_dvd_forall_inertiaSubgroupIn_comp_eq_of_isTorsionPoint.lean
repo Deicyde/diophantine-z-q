@@ -29,8 +29,14 @@ omitted unless listed under manual repairs:
   * whole file wrapped in `namespace ZInQ.Contrib.CloudW03NeronSurj.FLT … end ZInQ.Contrib.CloudW03NeronSurj.FLT`.
 -/
 
+/- Import notice (W13 normalization, canonical-provider integration repair), 2026-11-16, Cloud Batch 3
+Worker 13 with Metamate/agentcloud assistance (modification under Apache-2.0 §4(b)): the import(s) of `Def_FLTPrelim_Ramification`
+from `ZInQKernel.Contrib.CloudB3W13Shared.TateCp.Vendor.AnthropicFLT.Definitions` now name main's canonical
+providers of the same name in `ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.Definitions`. Their code
+is token-identical apart from four file-local `set_option`s; the staged duplicate declared the same root names and
+collided with main's copy. No other change. -/
 import ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_CerednikDrinfeld_QMFineModuli
-import ZInQKernel.Contrib.CloudB3W13Shared.TateCp.Vendor.AnthropicFLT.Definitions.Def_FLTPrelim_Ramification
+import ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.Definitions.Def_FLTPrelim_Ramification
 import ZInQKernel.Contrib.CloudB3W13Shared.R2NOS.Definitions.Def_GoodReductionJacobian_RelativeGroupLawKernel
 import ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_GoodReductionJacobian_RelativeGroupLawAlgPointsV2
 import ZInQKernel.Contrib.CloudB3W13.Source.Definitions.Def_EllipticCurve_TateModule

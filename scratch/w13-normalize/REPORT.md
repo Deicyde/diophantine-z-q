@@ -94,3 +94,17 @@ port command in the tree with no translation residual, and runs in ~3 minutes. I
 to close properly, items 5.2–5.3 a few hours. A green full H119 build is not close: it additionally needs the
 absent ports, the 96 late repairs, an unknown number of compile-driven fixes in files never compiled in this
 world, and a multi-hour full-world build.
+
+## 7. Integration repair: canonical providers instead of the TateCp duplicates (lead-approved, 2026-11-16)
+
+D5's import test found that combining this cone with main's `SGRSplit` closure collides on
+`WeierstrassCurve.Affine.Point.instSMulAlgEquiv`. The three staged
+`CloudB3W13Shared.TateCp.Vendor.AnthropicFLT.Definitions.Def_FLTPrelim_{FreyPackage,GaloisRep,Ramification}`
+files are token-identical (comments/imports aside; main's copies add four file-local `set_option`s) to main's
+`CloudB2X0Transitive.Vendor.AnthropicFLT.Definitions.Def_FLTPrelim_*` and declare the same root names.
+`tools/retarget_tatecp.py` retargeted exactly 42 import lines in the 41 listed files
+(`evidence/tatecp_retarget_files.txt`, per-file report `evidence/tatecp_retarget_report.json`) to main's
+providers, each with an import notice; the three TateCp copies were removed from the tree (their bodies remain
+in the recovery overlay). Main's providers were not edited. Rebuilt: the 29 affected core modules
+(`evidence/tatecp_retarget_rebuild_modules.json`): 29/29 rebuilt with plain `lean -j2`, one job, against the warm cache (rc 0, 0 errors; `evidence/build_tatecp_retarget_rebuild.json`); the core cone is now 72 modules, all built (72/72).
+
