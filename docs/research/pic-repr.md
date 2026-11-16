@@ -120,9 +120,18 @@ Kleiman 9.4.8 needs `A` projective, which is Mumford §6 App. 1. The vendored
 `GrpObj.exists_isImmersion_projectiveSpace_of_smooth_of_geometricallyIntegral` gives an immersion into projective
 space; Murre–Oort needs only properness. The leaf is never stronger than any of these prints.
 
-### 3.4 `#discharges`
+### 3.4 `#discharges` (VERIFIED; full output in `scratch/pic-repr/discharges.txt`)
 
-The output is recorded in `scratch/pic-repr/discharges.txt` (§6 gives the result).
+```
+DISCHARGES [OpenAddedLeaves17.picRepresentableAbVar] by PicRepr.picRepresentableAbVar_of_lft
+  still assumes: [PicRepr.PicRepresentableLFTAbVar]
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 56 open hypotheses, 2867 theorems checked, 8 discharge one
+```
+
+`PicRepr.PicLocFinType` is checked against pic-dict's `PicDict.PicLocFinType` (4e95795b, L2201) only as text: the
+two are identical, since pic-dict's `AbVar` is `PkgI3.AbVar` under its `open PkgI3`. pic-dict is not on main, so no
+`rfl` check was possible.
 
 ## 4. Consumers and narrowing (VERIFIED by reading; no field-read probe was run)
 
@@ -143,8 +152,11 @@ The output is recorded in `scratch/pic-repr/discharges.txt` (§6 gives the resul
 ## 5. Integrator notes
 
 * `scratch/pic-repr/autofold.json` discharges `picRepresentableAbVar` with the leaf `picRepresentableLFTAbVar`
-  (kind published, no flag, so autofold flags it "unread"). On main this exchanges one LEAF for another, 34/11 →
-  34/11; no dry run was made.
+  (kind published, no flag, so autofold flags it "unread"). On main this exchanges one LEAF for another. Dry run
+  (VERIFIED):
+  * `strict count: 34/11 on 45 -> 34/11 on 45; strictest 34/11 -> 34/11`;
+  * the generated module (`scratch/pic-repr/DryRunFold.lean`, the dry-run output without its first line) compiles;
+  * `sixContactMin_of_open36` has the standard axioms.
 * **When pic-dict / pic-smooth's reduction of `picZeroAbVar` is folded**, its new leaf `PicDict.PicLocFinType` is
   discharged by `PicRepr.picLocFinType_of_lft` from the same leaf: net −1. This requires:
   * a check that `PicRepr.PicLocFinType` is `PicDict.PicLocFinType` (verbatim copy; check by `rfl` once both are in
@@ -162,5 +174,7 @@ The output is recorded in `scratch/pic-repr/discharges.txt` (§6 gives the resul
 ## 6. Checks
 
 * Lean checks are listed in `scratch/pic-repr/log.md`, with compile outcomes.
-* `lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges +ZInQKernel.Contrib.OneProof.PicRepresentableAbVar`:
-  see `scratch/pic-repr/discharges.txt`.
+* `lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges +ZInQKernel.Contrib.OneProof.PicRepresentableAbVar`
+  completed (13699 jobs). `ZInQ.OneProof.frozenTarget` has the axioms `[propext, Classical.choice, Quot.sound]`
+  (VERIFIED).
+* Hash guard and OPEN.md regeneration were not run: no fold was applied to the tree.

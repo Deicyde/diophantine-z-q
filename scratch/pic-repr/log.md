@@ -37,3 +37,13 @@ picRepresentableAbVar → `T09Pic.t09SymmIsogenyExists_of_four` (TailZ24:807, on
 (a) `tatePairingZl_of_leaves4` → `detTate_of_leaves4` → `G0Galois.DetTate` (`[NumberField K]`) → `g12Det_of`, applied
 at `A.dim = 2` (`G12Det`, TailA:2078); (b) `t9_of_leaves5` → old T9 → `g8_g12` (`[NumberField K]`). Narrowing that
 suffices: number fields, abelian surfaces. Dimension 1 (the case proved) does not reach the consumer.
+
+## Build and fold checks
+- `lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges +ZInQKernel.Contrib.OneProof.PicRepresentableAbVar`:
+  Build completed successfully (13699 jobs); frozenTarget standard axioms (VERIFIED).
+- `#discharges` (`Discharges.lean` → `discharges.txt`): `DISCHARGES [OpenAddedLeaves17.picRepresentableAbVar] by
+  PicRepr.picRepresentableAbVar_of_lft, still assumes: [PicRepr.PicRepresentableLFTAbVar]`, standard axioms (VERIFIED).
+- `autofold.py autofold.json --dry-run`: strict 34/11 on 45 -> 34/11 on 45; strictest 34/11 -> 34/11 (0 on main).
+  `DryRunFold.lean` (dry-run output minus line 1) compiles; `sixContactMin_of_open36` standard axioms (VERIFIED).
+- `PicRepr.PicLocFinType` textually identical to `PicDict.PicLocFinType` (pic-dict 4e95795b L2201; `AbVar` = `PkgI3.AbVar`
+  under pic-dict's `open PkgI3`) (VERIFIED by diff; rfl not run, pic-dict not on main).
