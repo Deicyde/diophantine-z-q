@@ -444,4 +444,118 @@ theorem mainTheoremCMSignPrim_of_polar (ε : ℤˣ) (hP : MainTheoremCMPolPrimSi
 
 end Proof
 
+/-! ## §4 Conjugating homomorphisms; reduction to `A^σ = A ×_{ℂ,σ} ℂ` -/
+
+section Conj
+
+open MonObj HcmPrinted
+open AvSplit.HomLatticeAN3 (bcC projC ptE ptE_left)
+
+/-- **The conjugate `f^σ : B^σ → A'` of a homomorphism `f : B → A`**, for any `A'` presented as a pullback of `A`
+along `Spec σ` preserving the identity (mtcm-polar's `μ^σ`, for any `f`): a homomorphism (rigidity) with
+`f^σ(P) = σ(f(σ⁻¹P))`. -/
+theorem exists_liftHom (σ : ℂ ≃+* ℂ) {A A' B : PkgI3.AbVar ℂ} (h : A'.X.left ⟶ A.X.left)
+    (hpb : IsPullback h A'.X.hom A.X.hom (Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ))))
+    (hone : (1 : CPts A' (RingHom.id ℂ)).left ≫ h =
+      Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ)) ≫ (1 : CPts A (RingHom.id ℂ)).left)
+    (f : B.X ⟶ A.X) [IsMonHom f] :
+    ∃ F : (bcC B (σ : ℂ →+* ℂ)).X ⟶ A'.X, IsMonHom F ∧
+      ∀ P : CPts (bcC B (σ : ℂ →+* ℂ)) (RingHom.id ℂ),
+        pl (P ≫ F) ≫ h = sp (σ : ℂ →+* ℂ) ≫ pl (dd σ B P ≫ f) := by
+  have hsq : (projC B (σ : ℂ →+* ℂ) ≫ f.left) ≫ A.X.hom =
+      (bcC B (σ : ℂ →+* ℂ)).X.hom ≫ Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ)) := by
+    rw [Category.assoc, Over.w f]; exact (isPullback_bc σ B).w
+  let muL := hpb.lift (projC B (σ : ℂ →+* ℂ) ≫ f.left) (bcC B (σ : ℂ →+* ℂ)).X.hom hsq
+  have hmuL : muL ≫ h = projC B (σ : ℂ →+* ℂ) ≫ f.left := hpb.lift_fst _ _ _
+  let muO : (bcC B (σ : ℂ →+* ℂ)).X ⟶ A'.X := Over.homMk muL (hpb.lift_snd _ _ _)
+  have hηB : η[(bcC B (σ : ℂ →+* ℂ)).X].left ≫ projC B (σ : ℂ →+* ℂ) =
+      Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ)) ≫ η[B.X].left := by
+    have := one_left_bc σ B
+    simp only [pl, one_left] at this
+    exact this
+  have hηA : η[A'.X].left ≫ h = Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ)) ≫ η[A.X].left := by
+    have := hone
+    simp only [one_left] at this
+    exact this
+  have hμη : η[B.X].left ≫ f.left = η[A.X].left := by
+    rw [← Over.comp_left, IsMonHom.one_hom]
+  have hη : η[(bcC B (σ : ℂ →+* ℂ)).X] ≫ muO = η[A'.X] := by
+    apply Over.OverMorphism.ext
+    apply hpb.hom_ext
+    · calc (η[(bcC B (σ : ℂ →+* ℂ)).X] ≫ muO).left ≫ h
+            = η[(bcC B (σ : ℂ →+* ℂ)).X].left ≫ muL ≫ h := by
+              rw [Over.comp_left, Category.assoc]; rfl
+          _ = η[(bcC B (σ : ℂ →+* ℂ)).X].left ≫ projC B (σ : ℂ →+* ℂ) ≫ f.left := by rw [hmuL]
+          _ = Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ)) ≫ η[A.X].left := by
+              rw [← Category.assoc, hηB, Category.assoc, hμη]
+          _ = η[A'.X].left ≫ h := hηA.symm
+    · rw [Over.w, Over.w]
+  haveI : IsMonHom muO := MulRigidity.isMonHom_of_geometricallyIntegral _ _ muO hη
+  refine ⟨muO, inferInstance, fun P => ?_⟩
+  calc pl (P ≫ muO) ≫ h = (pl P ≫ muL) ≫ h := rfl
+    _ = pl P ≫ (muL ≫ h) := Category.assoc _ _ _
+    _ = pl P ≫ (projC B (σ : ℂ →+* ℂ) ≫ f.left) := by rw [hmuL]
+    _ = (pl P ≫ projC B (σ : ℂ →+* ℂ)) ≫ f.left := (Category.assoc _ _ _).symm
+    _ = (sp (σ : ℂ →+* ℂ) ≫ pl (dd σ B P)) ≫ f.left := by rw [dd_key σ B P]
+    _ = sp (σ : ℂ →+* ℂ) ≫ (pl (dd σ B P) ≫ f.left) := Category.assoc _ _ _
+
+/-- **Base change of a homomorphism**: `f^σ : B^σ → A^σ` with `σ⁻¹(f^σ(P)) = f(σ⁻¹(P))`. -/
+theorem exists_bcHom (σ : ℂ ≃+* ℂ) {A B : PkgI3.AbVar ℂ} (f : B.X ⟶ A.X) [IsMonHom f] :
+    ∃ F : (bcC B (σ : ℂ →+* ℂ)).X ⟶ (bcC A (σ : ℂ →+* ℂ)).X, IsMonHom F ∧
+      ∀ P : CPts (bcC B (σ : ℂ →+* ℂ)) (RingHom.id ℂ), dd σ A (P ≫ F) = dd σ B P ≫ f := by
+  obtain ⟨F, hF, hkey⟩ := exists_liftHom σ (projC A (σ : ℂ →+* ℂ)) (isPullback_bc σ A) (one_left_bc σ A) f
+  exact ⟨F, hF, fun P => dd_unique σ A (hkey P)⟩
+
+theorem sp_cancel (σ : ℂ ≃+* ℂ) {A : PkgI3.AbVar ℂ} {P Q : CPts A (RingHom.id ℂ)}
+    (hPQ : sp (σ : ℂ →+* ℂ) ≫ pl P = sp (σ : ℂ →+* ℂ) ≫ pl Q) : P = Q := by
+  apply pl_ext
+  have := congrArg (fun r => sp (σ.symm : ℂ →+* ℂ) ≫ r) hPQ
+  rwa [← Category.assoc, ← Category.assoc, sp_symm_comp, Category.id_comp, Category.id_comp] at this
+
+/-- **Reduction to `A^σ = bcC A σ`**: a uniformization `θ₀` of `A^σ` gives one of any `A'` presented as a pullback
+of `A` along `Spec σ` preserving the identity, with the same lattice, compatible with de-conjugation. -/
+theorem exists_unif_of_bc (σ : ℂ ≃+* ℂ) {A A' : PkgI3.AbVar ℂ} (h : A'.X.left ⟶ A.X.left)
+    (hpb : IsPullback h A'.X.hom A.X.hom (Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ))))
+    (hone : (1 : CPts A' (RingHom.id ℂ)).left ≫ h =
+      Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ)) ≫ (1 : CPts A (RingHom.id ℂ)).left)
+    {g : ℕ} {L : Submodule ℤ (Fin g → ℂ)}
+    {θ0 : (Fin g → ℂ) → CPts (bcC A (σ : ℂ →+* ℂ)) (RingHom.id ℂ)}
+    (hθ0 : IsUniformization (RingHom.id ℂ) L θ0) :
+    ∃ θ' : (Fin g → ℂ) → CPts A' (RingHom.id ℂ), IsUniformization (RingHom.id ℂ) L θ' ∧
+      ∀ z, pl (θ' z) ≫ h = sp (σ : ℂ →+* ℂ) ≫ pl (dd σ A (θ0 z)) := by
+  obtain ⟨F, hF, hkey⟩ := exists_liftHom σ h hpb hone (𝟙 A.X)
+  have hkey' : ∀ P, pl (P ≫ F) ≫ h = sp (σ : ℂ →+* ℂ) ≫ pl (dd σ A P) := fun P => by
+    rw [hkey, Category.comp_id]
+  have hone' : pl (1 : CPts A' (RingHom.id ℂ)) ≫ h = sp (σ : ℂ →+* ℂ) ≫ pl (1 : CPts A (RingHom.id ℂ)) :=
+    hone
+  refine ⟨fun z => θ0 z ≫ F, (isUniformization_iff _ _ _).2
+    ⟨isAnalyticHom_comp (isAnalyticHom_of_unif hθ0) F, fun z => ?_, ?_⟩, fun z => hkey' _⟩
+  · rw [← hθ0.2.1 z]
+    constructor
+    · intro hz
+      apply dd_injective σ A
+      rw [dd_one]
+      apply sp_cancel σ
+      rw [← hkey']
+      show pl (θ0 z ≫ F) ≫ h = _
+      rw [hz]; exact hone'
+    · intro hz
+      show θ0 z ≫ F = 1
+      rw [hz]; exact MonObj.one_comp F
+  · intro P
+    have hQ : (sp (σ.symm : ℂ →+* ℂ) ≫ pl P ≫ h) ≫ A.X.hom = sp (RingHom.id ℂ) := by
+      have hw : pl P ≫ A'.X.hom = sp (RingHom.id ℂ) := Over.w P
+      rw [Category.assoc, Category.assoc, hpb.w, ← Category.assoc (pl P), hw, sp_id, Category.id_comp,
+        sp_symm_comp]
+    let Q : CPts A (RingHom.id ℂ) := Over.homMk (sp (σ.symm : ℂ →+* ℂ) ≫ pl P ≫ h) hQ
+    obtain ⟨R, hR⟩ := dd_surjective σ A Q
+    obtain ⟨v, hv⟩ := hθ0.2.2.1 R
+    refine ⟨v, pt_ext hpb ?_⟩
+    show pl (θ0 v ≫ F) ≫ h = pl P ≫ h
+    rw [hkey', hv, hR]
+    show sp (σ : ℂ →+* ℂ) ≫ (sp (σ.symm : ℂ →+* ℂ) ≫ pl P ≫ h) = pl P ≫ h
+    rw [← Category.assoc, sp_comp_symm, Category.id_comp]
+
+end Conj
+
 end CMPrimitive
