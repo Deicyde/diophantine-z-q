@@ -392,7 +392,7 @@ theorem exists_sub_eq (s : Γ(N, P0 ⊓ P1)) :
       (fam_cov U P0 P1 hcov2)).Idx 2) := by
     refine ⟨fun τ => ?_⟩
     have hinj : Function.Injective (fun k : Fin 3 => (τ.1 k).down) := fun a b hab =>
-      τ.2.injective (ULift.ext _ _ hab)
+      τ.2.injective (ULift.ext hab)
     have := Fintype.card_le_of_injective _ hinj
     simp at this
   have hd : (F N U).d (cover U P (fam_le U P0 P1 h0U h1U) (fam_aff P0 P1 haff0 haff1) (fam_cov U P0 P1 hcov2)) 1
