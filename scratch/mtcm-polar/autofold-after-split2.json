@@ -1,0 +1,30 @@
+{
+ "name": "mtcm-polar-fold-after-split2",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.MainCMPolar"
+ ],
+ "discharges": [
+  {
+   "field": "qmReciprocityL3",
+   "proof": "_root_.QMRecPrinted.qmReciprocityL3_of_textbook (_root_.MainCMPolar.mainTheoremCM_of_polar {n}.mainTheoremCMPolMax {n}.cmAbVarExists {t}.uniformizationLeafAll {t}.gagaMorphism) {t}.uniformizationLeafAll {t}.gagaMorphism",
+   "leaves": [
+    {
+     "name": "mainTheoremCMPolMax",
+     "type": "_root_.MainCMPolar.MainTheoremCMPolMax",
+     "doc": "mtcm-polar: the main theorem of complex multiplication for polarized CM abelian varieties of type (E, Phi; a, zeta) with a a fractional O_E-ideal (Shimura's normalization, eps = 1): for a CM field E with CM type Phi, its reflex field E* and reflex norm N (det_E on a model of C^Phi over E*), sigma in Aut(C) and an idele s of E* with sigma = [s, E*] on E*^ab (Tau Ceti's arithmetic Artin map), an abelian variety A/C uniformized by C^g/Phi(a) of type (E, Phi), a an O_E-ideal lattice, with a Riemann form Tr(zeta x ybar) (zeta-bar = -zeta, Im phi_i(zeta) > 0, integral on a): A^sigma is uniformized by C^g/Phi(N(s)^-1 a) with theta(Phi(x))^sigma = theta'(Phi(y)) whenever N(s)y - x lies in a-hat. Implies hcm-printed's MainTheoremCMArith with CMAbVarExists and the textbook leaves (mainTheoremCMArith_of_polar).",
+     "kind": "published",
+     "flag": "pending reading: the normalization of Shimura's [s, K] (1971 section 5.2) against Tau Ceti's arithmetic Artin map (eps = 1), as for MainTheoremCMArith; and whether Thm 18.6 / 5.15 is printed for non-primitive CM types (used at E = K(sqrt 2))",
+     "source": "Shimura, Introduction to the arithmetic theory of automorphic functions (1971) Thm 5.15 with section 5.5; Shimura, Abelian varieties with complex multiplication and modular functions (1998) section 18, Thm 18.6; Shimura-Taniyama (1961) sections 13-14 (locators UNVERIFIED)"
+    },
+    {
+     "name": "cmAbVarExists",
+     "type": "_root_.MainCMPolar.CMAbVarExists",
+     "doc": "mtcm-polar: for a CM field E with CM type Phi, a fractional O_E-ideal b and zeta with zeta-bar = -zeta, Im phi_i(zeta) > 0 and Tr(zeta b bbar) in Z, there is an abelian variety B/C of dimension g with an analytic uniformization C^g/Phi(b) = B(C) (existence of a polarized abelian variety of type (E, Phi; b, zeta); the polarization and the action are dropped).",
+     "kind": "published",
+     "flag": "",
+     "source": "Shimura, Abelian varieties with complex multiplication and modular functions (1998) section 6.2 Thm 4; Shimura-Taniyama (1961) section 6.2 Thm 4; Mumford, Abelian varieties, section 3 (Riemann's theorem) (locators UNVERIFIED)"
+    }
+   ]
+  }
+ ]
+}
