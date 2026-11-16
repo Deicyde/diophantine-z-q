@@ -55,3 +55,4 @@ Base wip/nos-proof e9828e92, merged origin/main e41a7169 (STATUS.md only). Build
   RaynaudSemistableSH → MumfordTorsionAlgClosed → TorsionInjectsSpecialFibre → DimensionRelation →
   AbelianReductionGood → r7a`; `nosConverseNF_of_open` with N1. Contrib rebuilt; #discharges re-run (VERIFIED).
 - autofold dry run (final spec): "strict count: 34/11 on 45 -> 34/14 on 48; strictest 34/11 -> 34/14"; refused.
+- DimensionRelation weakened to dim B + r ≤ dim A (only ≤ used; assembly derives 2g ≤ r+2a from the count). Rebuilt, #discharges and dry run unchanged (34/11 -> 34/14).

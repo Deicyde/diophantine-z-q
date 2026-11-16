@@ -83,7 +83,7 @@ inertia is trivial on `A(K̄)[m]` for infinitely many `m` invertible in `O`.
 | 4a | `A(K̄)[m] ↪ 𝒩_{k̄}(k̄)[m]` | `TorsionInjectsSpecialFibre` | **open GLUE** |
 | 4b | `#𝒩_{k̄}(k̄)[m] ≤ c · #U(k̄)[m]` (`U` the semi-abelian identity component) | `ComponentIndexBound` (`componentIndexBound_proof`) | **proved here** |
 | 4c | `#U(k̄)[m] ≤ m^r · m^{2a}` | `semiAbelianTorsionBound_of`, from the field `mumfordTorsionAlgClosed` | **proved here** |
-| 4d | `a + r = g` | `DimensionRelation` | **open GLUE** |
+| 4d | `a + r ≤ g` | `DimensionRelation` | **open GLUE** |
 | 4e | `#A(K̄)[m] = m^{2g}` | `AvSplit.torsionStructure_of_mumford` (field `mumfordTorsionAlgClosed`) | proved (tree) |
 | 4f | the count forces `r = 0` | `torusRankZero_of_count` | **proved here** |
 | 4g | `r = 0` ⇒ `U ≅ B`, so `U` is proper | `rankZeroAbelian_proof` | **proved here** |
@@ -111,8 +111,8 @@ nos-proof proved (a) ⇒ (b) ⇒ (c); this file reuses them in `neronOggShafarev
 * **`ComponentIndexBound`** (GLUE, **proved**: `componentIndexBound_proof`): an open subgroup `U` of the geometric
   special fibre `G` of a Néron model has `#G(k̄)[m] ≤ c · #U(k̄)[m]` for a fixed `c`.
 * **`DimensionRelation`** (GLUE, open): for semi-abelian identity component data `(U, B, r)` on the geometric special
-  fibre, `dim B + r = dim A`, both finite. Proof route: `dim U = dim A` (fibre dimension of the smooth `𝒩` along
-  the identity section; field `groupSchemeEquidim`, infra-smooth-dim), and `dim U = dim B + r` (flat surjection
+  fibre, `dim B + r ≤ dim A` (equality holds; only `≤` is used), both finite. Proof route: `dim U = dim A`
+  (fibre dimension of the smooth `𝒩` along the identity section; field `groupSchemeEquidim`, infra-smooth-dim), and `dim U = dim B + r` (flat surjection
   with fibres `𝔾_m^r`). Missing from Lean: dimension of fibres of flat morphisms.
 * **`AbelianReductionGood`** (LEAF, open): if `𝒩` is a Néron model of `A` over the DVR `O` and the identity component
   of its geometric special fibre is an abelian variety, then `A` has good reduction (`PkgI2.HasGoodReduction`).
@@ -164,8 +164,8 @@ nos-proof proved (a) ⇒ (b) ⇒ (c); this file reuses them in `neronOggShafarev
   closed complement would contain a closed point (`IsClosed.exists_closed_singleton`). Finitely many suffice
   (compactness). Each coset meets `G(k)[m]` in at most `#U(k)[m]` points (translate by a point of the coset;
   commutativity).
-* **`torusRankZero_of_count`**: from 4a–4g, `m^{2g} ≤ c · m^r · m^{2a}` with `a + r = g`, so `m^r ≤ c` for
-  infinitely many `m`, hence `r = 0`.
+* **`torusRankZero_of_count`**: from 4a–4g, `m^{2g} ≤ c · m^{r+2a}` for infinitely many `m`, so `2g ≤ r + 2a`;
+  with `a + r ≤ g` this forces `r = 0`.
 
 ## 4. The consumer and the narrowing
 

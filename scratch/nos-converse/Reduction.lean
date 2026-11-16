@@ -487,9 +487,9 @@ def ComponentIndexBound : Prop :=
 
 /-- **GLUE `DimensionRelation`** (dimension of the special fibre). For a Néron model `𝒩` of an abelian variety `A`
 whose geometric special fibre has semi-abelian identity component `0 → 𝔾_m^r → U → B → 0`:
-`dim B + r = dim A`, both finite. (`dim U = dim A` since `𝒩` is smooth with fibres of constant dimension along the
-identity section, field `groupSchemeEquidim` and infra-smooth-dim; `dim U = dim B + r` for the flat surjection
-`U → B` with fibres `𝔾_m^r`.) -/
+`dim B + r ≤ dim A`, both finite (equality holds; only `≤` is used). (`dim U = dim A` since `𝒩` is smooth with
+fibres of constant dimension along the identity section, field `groupSchemeEquidim` and infra-smooth-dim;
+`dim U = dim B + r` for the flat surjection `U → B` with fibres `𝔾_m^r`.) -/
 def DimensionRelation : Prop :=
   ∀ (K : Type) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O]
     (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A] (𝒩 : GroupModelO (ObjBridge.ofGrp A) O),
@@ -497,7 +497,7 @@ def DimensionRelation : Prop :=
       ∀ (U : Over (Spec (CommRingCat.of (ResBarO O)))) [GrpObj U] (inc : U ⟶ geomSpecialFibre 𝒩)
         (B : PkgI3.AbVar (ResBarO O)) (π : U ⟶ B.X) (r : ℕ),
         SemiAbelianRank (geomSpecialFibre 𝒩) U inc B π r →
-        ∃ g a : ℕ, topologicalKrullDim A.X.left = g ∧ topologicalKrullDim B.X.left = a ∧ a + r = g
+        ∃ g a : ℕ, topologicalKrullDim A.X.left = g ∧ topologicalKrullDim B.X.left = a ∧ a + r ≤ g
 
 /-- **GLUE `NeronSpecialFibreComm`**: the `k̄`-points of the geometric special fibre of a Néron model of an abelian
 variety form a commutative group. (Provable from the Néron property: `μ` and `μ ∘ swap : 𝒩 ×_O 𝒩 → 𝒩` agree on
@@ -861,7 +861,8 @@ theorem torusRankZero_of_count (hInj : TorsionInjectsSpecialFibre) (hComp : Comp
       hComm K O A 𝒩 h𝒩]
   obtain ⟨g, a, hg, ha, hgar⟩ := hDim K O A 𝒩 h𝒩 U inc B π r hU
   obtain ⟨c, hc⟩ := hComp K O A 𝒩 h𝒩 U inc hU.1 hU.2.1
-  have hbound : ∀ m : ℕ, 0 < m → IsUnit (m : O) → InertiaTrivialOn A w m → m ^ r ≤ c := by
+  have hbound : ∀ m : ℕ, 0 < m → IsUnit (m : O) → InertiaTrivialOn A w m →
+      m ^ (2 * g) ≤ c * m ^ (r + 2 * a) := by
     intro m hm0 hmu hmt
     haveI : NeZero m := ⟨hm0.ne'⟩
     have hmK : (m : K) ≠ 0 := ReductSplit.natCast_ne_zero_of_isUnit O hmu
@@ -888,18 +889,19 @@ theorem torusRankZero_of_count (hInj : TorsionInjectsSpecialFibre) (hComp : Comp
         _ ≤ c * ((m ^ r * m ^ (2 * a) : ℕ) : ℕ∞) := by gcongr
         _ = ((c * (m ^ r * m ^ (2 * a)) : ℕ) : ℕ∞) := by push_cast; ring
     have h4 : m ^ (2 * g) ≤ c * (m ^ r * m ^ (2 * a)) := by exact_mod_cast h3
-    have hpos : 0 < m ^ r * m ^ (2 * a) := by positivity
-    have h5 : m ^ r * (m ^ r * m ^ (2 * a)) ≤ c * (m ^ r * m ^ (2 * a)) := by
-      calc m ^ r * (m ^ r * m ^ (2 * a)) = m ^ (2 * g) := by
-            rw [← hgar, ← pow_add, ← pow_add]; ring_nf
-        _ ≤ _ := h4
-    exact Nat.le_of_mul_le_mul_right h5 hpos
-  have hr : r = 0 := by
-    by_contra hr0
+    rwa [← pow_add] at h4
+  have h2g : 2 * g ≤ r + 2 * a := by
+    by_contra hlt
+    have hd : 1 ≤ 2 * g - (r + 2 * a) := by omega
     apply hinf
     refine (Set.finite_Iic c).subset ?_
     rintro m ⟨hm0, hmu, hmt⟩
-    exact (Nat.le_self_pow hr0 m).trans (hbound m hm0 hmu hmt)
+    have h5 : m ^ (2 * g - (r + 2 * a)) * m ^ (r + 2 * a) ≤ c * m ^ (r + 2 * a) := by
+      rw [← pow_add, show 2 * g - (r + 2 * a) + (r + 2 * a) = 2 * g by omega]
+      exact hbound m hm0 hmu hmt
+    have h6 := Nat.le_of_mul_le_mul_right h5 (by positivity)
+    exact (Nat.le_self_pow (by omega) m).trans h6
+  have hr : r = 0 := by omega
   subst hr
   have hlfp : LocallyOfFinitePresentation (geomSpecialFibre 𝒩).hom := by
     change LocallyOfFinitePresentation (pullback.snd 𝒩.G.hom _)
