@@ -42,3 +42,6 @@
 - autofold --dry-run: `autofold.json` (field hCM) and `autofold-after-split2.json` (field qmReciprocityL3) both refused
   "not a field of the current bundles" (hCM is a frozenTarget argument; qmReciprocityL3 enters only with shimura-split2's
   fold): manual fold, written in the report.
+- VERIFIED (diff): `MainTheoremCMPolSign ε` body = `HcmPrinted.MainTheoremCMSign ε` body + one line
+  `IsOLattice 𝔞 → (∃ ζ : E, IsRiemannDatum Φ 𝔞 ζ) →`.
+- Report drafted: docs/research/mtcm-polar.md.
