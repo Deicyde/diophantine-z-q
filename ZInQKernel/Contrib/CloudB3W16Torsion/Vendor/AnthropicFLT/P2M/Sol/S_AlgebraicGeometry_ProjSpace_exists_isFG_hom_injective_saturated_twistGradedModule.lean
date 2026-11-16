@@ -15,13 +15,15 @@ import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
 set_option backward.isDefEq.respectTransparency false
 
+-- register P2M local namespaces opened before declaration (p2m_open semantics)
+namespace P2MW.S_AlgebraicGeometry_ProjSpace_exists_isFG_hom_injective_saturated_twistGradedModule.AlgebraicGeometry end P2MW.S_AlgebraicGeometry_ProjSpace_exists_isFG_hom_injective_saturated_twistGradedModule.AlgebraicGeometry
 namespace P2MW.S_AlgebraicGeometry_ProjSpace_exists_isFG_hom_injective_saturated_twistGradedModule
 
 set_option autoImplicit false
 
 universe u
-open CategoryTheory
-open AlgebraicGeometry
+open _root_.CategoryTheory
+open _root_.AlgebraicGeometry
 -- Deferred synthetic P2M scope: root namespace remains open.
 
 attribute [local instance] MvPolynomial.gradedAlgebra
@@ -43,8 +45,8 @@ export _root_.AlgebraicGeometry (Spec.map_comp Scheme.mem_basicOpen Scheme.basic
 namespace ProjSpace
 export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one awayι_comp_π ratio val_algebraMap awayMk_monomial map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 namespace GMSec
-open AlgebraicGeometry.ProjSpace
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.ProjSpace
+open _root_.AlgebraicGeometry
 
 attribute [local instance] MvPolynomial.gradedAlgebra
 
@@ -112,8 +114,8 @@ export _root_.AlgebraicGeometry (Spec.map_comp Scheme.mem_basicOpen Scheme.basic
 namespace ProjSpace
 export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one awayι_comp_π ratio val_algebraMap awayMk_monomial map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 namespace GMSec
-open AlgebraicGeometry.ProjSpace
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.ProjSpace
+open _root_.AlgebraicGeometry
 
 attribute [local instance] MvPolynomial.gradedAlgebra
 
@@ -216,8 +218,8 @@ export _root_.AlgebraicGeometry (Spec.map_comp Scheme.mem_basicOpen Scheme.basic
 namespace ProjSpace
 export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one awayι_comp_π ratio val_algebraMap awayMk_monomial map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 namespace GMSec
-open AlgebraicGeometry.ProjSpace
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.ProjSpace
+open _root_.AlgebraicGeometry
 
 attribute [local instance] MvPolynomial.gradedAlgebra
 
@@ -276,8 +278,8 @@ export _root_.AlgebraicGeometry (Spec.map_comp Scheme.mem_basicOpen Scheme.basic
 namespace ProjSpace
 export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one awayι_comp_π ratio val_algebraMap awayMk_monomial map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 namespace GMSec
-open AlgebraicGeometry.ProjSpace
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.ProjSpace
+open _root_.AlgebraicGeometry
 
 attribute [local instance] MvPolynomial.gradedAlgebra
 
@@ -334,8 +336,8 @@ export _root_.AlgebraicGeometry (Spec.map_comp Scheme.mem_basicOpen Scheme.basic
 namespace ProjSpace
 export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one awayι_comp_π ratio val_algebraMap awayMk_monomial map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 namespace GMSec
-open AlgebraicGeometry.ProjSpace
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.ProjSpace
+open _root_.AlgebraicGeometry
 
 attribute [local instance] MvPolynomial.gradedAlgebra
 
@@ -439,8 +441,8 @@ export _root_.AlgebraicGeometry (Spec.map_comp Scheme.mem_basicOpen Scheme.basic
 namespace ProjSpace
 export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one awayι_comp_π ratio val_algebraMap awayMk_monomial map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 namespace GMSec
-open AlgebraicGeometry.ProjSpace
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.ProjSpace
+open _root_.AlgebraicGeometry
 
 attribute [local instance] MvPolynomial.gradedAlgebra
 
@@ -510,8 +512,8 @@ export _root_.AlgebraicGeometry (Spec.map_comp Scheme.mem_basicOpen Scheme.basic
 namespace ProjSpace
 export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one awayι_comp_π ratio val_algebraMap awayMk_monomial map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 namespace GMSec
-open AlgebraicGeometry.ProjSpace
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.ProjSpace
+open _root_.AlgebraicGeometry
 
 attribute [local instance] MvPolynomial.gradedAlgebra
 
@@ -573,8 +575,8 @@ export _root_.AlgebraicGeometry (Spec.map_comp Scheme.mem_basicOpen Scheme.basic
 namespace ProjSpace
 export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one awayι_comp_π ratio val_algebraMap awayMk_monomial map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 namespace GMSec
-open AlgebraicGeometry.ProjSpace
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.ProjSpace
+open _root_.AlgebraicGeometry
 
 attribute [local instance] MvPolynomial.gradedAlgebra
 
@@ -655,8 +657,8 @@ export _root_.AlgebraicGeometry (Spec.map_comp Scheme.mem_basicOpen Scheme.basic
 namespace ProjSpace
 export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one awayι_comp_π ratio val_algebraMap awayMk_monomial map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 namespace GMSec
-open AlgebraicGeometry.ProjSpace
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.ProjSpace
+open _root_.AlgebraicGeometry
 
 attribute [local instance] MvPolynomial.gradedAlgebra
 
@@ -736,8 +738,8 @@ export _root_.AlgebraicGeometry (Spec.map_comp Scheme.mem_basicOpen Scheme.basic
 namespace ProjSpace
 export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one awayι_comp_π ratio val_algebraMap awayMk_monomial map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 namespace GMSec
-open AlgebraicGeometry.ProjSpace
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.ProjSpace
+open _root_.AlgebraicGeometry
 
 attribute [local instance] MvPolynomial.gradedAlgebra
 
@@ -824,8 +826,8 @@ export _root_.AlgebraicGeometry (Spec.map_comp Scheme.mem_basicOpen Scheme.basic
 namespace ProjSpace
 export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one awayι_comp_π ratio val_algebraMap awayMk_monomial map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 namespace GMSec
-open AlgebraicGeometry.ProjSpace
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.ProjSpace
+open _root_.AlgebraicGeometry
 
 attribute [local instance] MvPolynomial.gradedAlgebra
 
@@ -911,8 +913,8 @@ export _root_.AlgebraicGeometry (Spec.map_comp Scheme.mem_basicOpen Scheme.basic
 namespace ProjSpace
 export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one awayι_comp_π ratio val_algebraMap awayMk_monomial map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 namespace GMSec
-open AlgebraicGeometry.ProjSpace
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.ProjSpace
+open _root_.AlgebraicGeometry
 
 attribute [local instance] MvPolynomial.gradedAlgebra
 
@@ -1020,8 +1022,8 @@ namespace ProjSpaceCech
 export _root_.ProjSpaceCech (GradedModule GradedModule.monMul GradedModule.monMul_zero GradedModule.monMul_add_apply GradedModule.monMul_single GradedModule.monMul_mem_grade GradedModule.Frac GradedModule.Frac.supp_add GradedModule.Frac.Rel GradedModule.sec GradedModule.sec.mk GradedModule.sec_mk_eq GradedModule.sec_mk_smul GradedModule.freeGrade GradedModule.freeGrade_of_nonneg GradedModule.pi GradedModule.quot GradedModule.FD GradedModule.Hom GradedModule.IsFG)
 namespace GradedModule
 export _root_.ProjSpaceCech.GradedModule (monMul monMul_zero monMul_add_apply monMul_single monMul_mem_grade Frac Frac.supp_add Frac.Rel sec sec.mk sec_mk_eq sec_mk_smul d freeGrade freeGrade_of_nonneg free shift pi quot FD sub Hom Presentation IsFG mk M xMul grade xMul_comm)
-open ProjSpaceCech.GradedModule
-open ProjSpaceCech
+open _root_.ProjSpaceCech.GradedModule
+open _root_.ProjSpaceCech
 
 variable {R : Type u} [CommRing R] {n : ℕ} (D : GradedModule R n)
 
@@ -1102,8 +1104,8 @@ export _root_.AlgebraicGeometry (Spec.map_comp Scheme.mem_basicOpen Scheme.basic
 namespace ProjSpace
 export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one awayι_comp_π ratio val_algebraMap awayMk_monomial map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 namespace GMSec
-open AlgebraicGeometry.ProjSpace
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.ProjSpace
+open _root_.AlgebraicGeometry
 
 attribute [local instance] MvPolynomial.gradedAlgebra
 
@@ -1153,8 +1155,8 @@ export _root_.AlgebraicGeometry (Spec.map_comp Scheme.mem_basicOpen Scheme.basic
 namespace ProjSpace
 export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one awayι_comp_π ratio val_algebraMap awayMk_monomial map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 namespace GMSec
-open AlgebraicGeometry.ProjSpace
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.ProjSpace
+open _root_.AlgebraicGeometry
 
 attribute [local instance] MvPolynomial.gradedAlgebra
 
@@ -1185,8 +1187,8 @@ export _root_.AlgebraicGeometry (Spec.map_comp Scheme.mem_basicOpen Scheme.basic
 namespace ProjSpace
 export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one awayι_comp_π ratio val_algebraMap awayMk_monomial map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 namespace GMSec
-open AlgebraicGeometry.ProjSpace
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.ProjSpace
+open _root_.AlgebraicGeometry
 
 attribute [local instance] MvPolynomial.gradedAlgebra
 
@@ -1246,8 +1248,8 @@ export _root_.AlgebraicGeometry (Spec.map_comp Scheme.mem_basicOpen Scheme.basic
 namespace ProjSpace
 export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one awayι_comp_π ratio val_algebraMap awayMk_monomial map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 namespace GMSec
-open AlgebraicGeometry.ProjSpace
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.ProjSpace
+open _root_.AlgebraicGeometry
 
 attribute [local instance] MvPolynomial.gradedAlgebra
 
@@ -1401,8 +1403,8 @@ export _root_.AlgebraicGeometry (Spec.map_comp Scheme.mem_basicOpen Scheme.basic
 namespace ProjSpace
 export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one awayι_comp_π ratio val_algebraMap awayMk_monomial map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 namespace GMSec
-open AlgebraicGeometry.ProjSpace
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.ProjSpace
+open _root_.AlgebraicGeometry
 
 attribute [local instance] MvPolynomial.gradedAlgebra
 
@@ -1456,7 +1458,7 @@ theorem awayMk_eq_sum_monomial (j : Fin (N + 1)) (k : ℕ) (p : MvPolynomial (Fi
     (hmono : ∀ c ∈ s, MvPolynomial.monomial c (1 : A) ∈ (MvPolynomial.homogeneousSubmodule (Fin (N + 1)) A) (k • 1)) :
     HomogeneousLocalization.Away.mk (MvPolynomial.homogeneousSubmodule (Fin (N + 1)) A) (X_mem_one A N j) k p hp
       = ∑ c ∈ s.attach, algebraMap A _ (p.coeff c)
-          * HomogeneousLocalization.Away.mk 𝒜 (X_mem_one A N j) k (MvPolynomial.monomial c (1 : A)) (hmono c c.2) := by
+          * HomogeneousLocalization.Away.mk (MvPolynomial.homogeneousSubmodule (Fin (N + 1)) A) (X_mem_one A N j) k (MvPolynomial.monomial c (1 : A)) (hmono c c.2) := by
   classical
   apply HomogeneousLocalization.val_injective
   have hval : (HomogeneousLocalization.val : Away (MvPolynomial.homogeneousSubmodule (Fin (N + 1)) A) (MvPolynomial.X j : MvPolynomial (Fin (N + 1)) A) → _)
@@ -1485,7 +1487,7 @@ theorem fracFun_eq_sum (j : Fin (N + 1)) (k : ℕ) (p : MvPolynomial (Fin (N + 1
       (p.coeff c) * ∏ l, frameUnit φ j l ^ c l)]
   refine Finset.sum_congr rfl fun c _ => ?_
   rw [map_mul, map_mul, app_awayToSection_algebraMap, prod_frameUnit_pow_eq φ j c k (hdeg c c.2) (hmono c c.2)]
-  rfl
+  -- Lean 4.35 adaptation: the preceding `rw` now closes the goal by `rfl`; source `rfl` dropped.
 
 end AlgebraicGeometry.ProjSpace.GMSec
 
@@ -1502,8 +1504,8 @@ export _root_.AlgebraicGeometry (Spec.map_comp Scheme.mem_basicOpen Scheme.basic
 namespace ProjSpace
 export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one awayι_comp_π ratio val_algebraMap awayMk_monomial map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 namespace GMSec
-open AlgebraicGeometry.ProjSpace
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.ProjSpace
+open _root_.AlgebraicGeometry
 
 attribute [local instance] MvPolynomial.gradedAlgebra
 
@@ -1577,7 +1579,9 @@ theorem good_add (j : Fin (N + 1)) {z w : ProjSpaceCech.GradedModule.sec ((twist
     apply (ProjSpaceCech.GradedModule.sec_mk_eq _ {j}).mpr
     refine ⟨0, fun _ _ => rfl, ?_⟩
     simp only [zero_add, map_add, monMul_shift_eq, (psi0 φ π).map_monMul]
-    exact (map_add _ _ _).symm
+    -- Lean 4.35 adaptation: `simp only [.., map_add, ..]` above already distributes the sum, leaving
+    -- both sides equal up to instances (source: `exact (map_add _ _ _).symm`).
+    rfl
 
 theorem good_smul_monMulFrac (t : Gens φ) (r : A) (c : Fin (N + 1) → ℕ) :
     Good φ π t.1 (r • ProjSpaceCech.GradedModule.sec.mk _ {t.1} (monMulFrac φ π 0 (mem_singleton_self' t.1) c (genFrac φ π t))) := by
@@ -1638,8 +1642,8 @@ export _root_.AlgebraicGeometry (Spec.map_comp Scheme.mem_basicOpen Scheme.basic
 namespace ProjSpace
 export _root_.AlgebraicGeometry.ProjSpace (π X_mem_one awayι_comp_π ratio val_algebraMap awayMk_monomial map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext)
 namespace GMSec
-open AlgebraicGeometry.ProjSpace
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.ProjSpace
+open _root_.AlgebraicGeometry
 
 attribute [local instance] MvPolynomial.gradedAlgebra
 
@@ -1755,7 +1759,7 @@ end AlgebraicGeometry.ProjSpace.GMSec
 end
 
 namespace AlgebraicGeometry p2m_export "AlgebraicGeometry" "Spec.map_comp Scheme.mem_basicOpen Scheme.basicOpen_res Surjective Scheme.Hom Proj.basicOpenIsoAway IsFinite Scheme.preimage_basicOpen Spec Spec.map Proj.basicOpenToSpec Scheme Scheme.Hom.appTop Proj.mem_basicOpen Scheme.Opens.topIso_hom Scheme.Hom.comp_appTop Proj IsFinite.finite_app Proj.stalkIso' Proj.basicOpenIsoSpec_inv_ι Proj.isAffineOpen_basicOpen Proj.basicOpen Proj.basicOpen_mul Scheme.basicOpen_mul IsAffineOpen Scheme.Opens IsAffineHom Scheme.Opens.ι_appTop Proj.awayToSection Proj.basicOpenToSpec_app_top Proj.basicOpenIsoSpec_hom Scheme.basicOpen_le ProjectiveSpectrum.Proj.awayToSection_germ Scheme.ΓSpecIso_inv_naturality_assoc Scheme.ΓSpecIso ProjSpace.π ProjSpace.X_mem_one ProjSpace.awayι_comp_π ProjSpace.val_algebraMap ProjSpace.awayMk_monomial Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom ProjSpace.twistGradedModule" namespace ProjSpace p2m_export "AlgebraicGeometry.ProjSpace" "π X_mem_one awayι_comp_π ratio val_algebraMap awayMk_monomial map pullbackChart frameUnit restrictFun TwistCompat restrictFun_restrictFun restrictFun_irrel restrictFun_refl restrictFun_algebraMap' twistObj twistObj.smul_val twistObj.algebraMap_smul twist pullbackOverlap pullbackOverlap_eq_inf frameUnit_cocycle frameUnit_self twistObj.add_val twistObj.zero_val twistFam twistGradedModule isAffineOpen_pullbackChart isAffineOpen_pullbackOverlap twistObj.ext" end AlgebraicGeometry.ProjSpace
-open scoped AlgebraicGeometry AlgebraicGeometry.ProjSpace in
+open scoped _root_.AlgebraicGeometry _root_.AlgebraicGeometry.ProjSpace in
 theorem AlgebraicGeometry.ProjSpace.exists_isFG_hom_injective_saturated_twistGradedModule'
     {A : Type u} [CommRing A] {N : ℕ} {X : Scheme.{u}}
     (φ : X ⟶ Proj (MvPolynomial.homogeneousSubmodule (Fin (N + 1)) A)) [IsFinite φ]

@@ -316,7 +316,9 @@ lemma exists_descent (h : Hyps f) (V : T.Opens) (hV : IsAffineOpen V) :
     (uliftYoneda.{u + 1}.map_comp_assoc _ _ _).trans (((congrArg (uliftYoneda.{u + 1}.map e.hom ≫ ·) this)).trans
       (by rw [hxA, ← uliftYoneda.{u + 1}.map_comp_assoc, e.hom_inv_id_assoc]))
   refine hom_ext_overTotal _ E hr ?_
-  rw [toFibre_map_comp _ (Spec_map_val_comp_algebraMap A₀) x₀ hx₀1 E, ← hg₀]
+  rw [toFibre_map_comp _ (Spec_map_val_comp_algebraMap A₀) x₀ hx₀1 E]
+  -- Lean 4.35 adaptation: `rw` no longer sees through the `specOver` abbreviation here.
+  erw [← hg₀]
   congr 1
   exact (Functor.OverTotal.toFibre_congr _ hx₀ hx₀1 rfl).trans (Functor.OverTotal.toFibre_ofFibre _ g₀)
 
@@ -431,7 +433,9 @@ lemma mem_chartOpen (h : Hyps f) {i : ι} {W : Scheme.{u}} (ψ : W ⟶ T) (φ' :
   refine ⟨ψV ⟨p, hpW₀⟩, ?_, ?_⟩
   · show π (ψV ⟨p, hpW₀⟩) ∈ U₀ i
     rw [hkτ, hτ, Scheme.Hom.comp_apply, Scheme.Hom.comp_apply] at hq
-    simpa using hq
+    -- Lean 4.35 adaptation: `simpa` no longer applies `Scheme.hom_inv_apply` to `e.inv (e.hom _)`
+    -- here (source: `simpa using hq`); rewrite it with `erw`.
+    erw [Scheme.hom_inv_apply] at hq; exact hq
   · rw [← Scheme.Hom.comp_apply, hψV_ι, Scheme.Hom.comp_apply, Scheme.Opens.ι_apply]
 
 lemma exists_mem_chartOpen (h : Hyps f) (p : T) : ∃ i, p ∈ chartOpen f x i := by

@@ -37,9 +37,10 @@ variable {R : Type u} [CommRing R] {V : Scheme.{u}} (π : V ⟶ Spec (.of R))
 section Topology
 
 include π in
-private theorem _root_.P2mFiltQ.isLocallyNoetherian [IsNoetherianRing R] [IsProper π] : IsLocallyNoetherian V :=
+private theorem isLocallyNoetherian [IsNoetherianRing R] [IsProper π] : IsLocallyNoetherian V :=
   LocallyOfFiniteType.isLocallyNoetherian π
-export _root_.P2mFiltQ (isLocallyNoetherian)
+-- [port] The private helper remains in the module-local P2mFiltQ namespace (source: private
+-- `_root_.P2mFiltQ.isLocallyNoetherian` re-exported by `p2m_export "P2mFiltQ"`).
 include π in
 theorem compactSpace [IsProper π] : CompactSpace V :=
   (HasAffineProperty.iff_of_isAffine (P := @QuasiCompact) (f := π)).mp inferInstance

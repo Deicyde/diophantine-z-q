@@ -29,17 +29,17 @@ export _root_.AlgebraicGeometry.Scheme (Modules.hom_ext Modules.Hom.app_smul Hom
 namespace Modules
 export _root_.AlgebraicGeometry.Scheme.Modules (hom_ext Hom.app_smul pushforward presheaf Hom.comp_app Hom restrictFunctorCongr restrictFunctor Hom.id_app Hom.app restrictAdjunction restrictFunctorComp restrict map_smul exists_fibreProduct_sections_bijective Hom.isIso_of_isIso_app_of_iSup_eq_top)
 namespace GlueHom
-open AlgebraicGeometry.Scheme.Modules
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
-open CategoryTheory
-open CategoryTheory.Limits
-open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_hom_restrict_eq_of_isOpenImmersion.AlgebraicGeometry
-open Opposite
-open TopologicalSpace
-open AlgebraicGeometry.Scheme.Modules
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_hom_restrict_eq_of_isOpenImmersion.AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
+open _root_.CategoryTheory
+open _root_.CategoryTheory.Limits
+open _root_.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_hom_restrict_eq_of_isOpenImmersion.AlgebraicGeometry
+open _root_.Opposite
+open _root_.TopologicalSpace
+open _root_.AlgebraicGeometry.Scheme.Modules
+open _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_hom_restrict_eq_of_isOpenImmersion.AlgebraicGeometry.Scheme.Modules
 
 section Generic
 
@@ -636,12 +636,12 @@ theorem restrict_φ₁ : (restrictFunctor f₁).map (φ f₀ f₁ g₀ g₁ hg h
 end Glue
 
 end AlgebraicGeometry.Scheme.Modules.GlueHom
-open CategoryTheory
-open CategoryTheory.Limits
-open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_hom_restrict_eq_of_isOpenImmersion.AlgebraicGeometry
-open Opposite
-open TopologicalSpace
+open _root_.CategoryTheory
+open _root_.CategoryTheory.Limits
+open _root_.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_hom_restrict_eq_of_isOpenImmersion.AlgebraicGeometry
+open _root_.Opposite
+open _root_.TopologicalSpace
 
 open AlgebraicGeometry.Scheme.Modules.GlueHom in
 theorem solution
