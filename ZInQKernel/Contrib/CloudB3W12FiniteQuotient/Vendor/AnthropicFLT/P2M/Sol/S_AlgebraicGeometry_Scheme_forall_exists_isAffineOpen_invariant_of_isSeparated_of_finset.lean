@@ -16,6 +16,8 @@ strengthened or omitted. Changes:
   * `import P2M.Util` removed (the file uses no port-utility command)
   * 18 occurrences of `(ρ g).hom` (for `ρ g : Aut X`) written `(ρ g).asIso.hom`, and `Aut.Aut_mul_def` written `Aut.mul_asIso` (2 uses): in Mathlib 56a `CategoryTheory.Aut X` is a structure with field `asIso`; same morphisms
   * file-level `set_option`s reproducing the source lakefile `leanOptions` (autoImplicit false, maxHeartbeats 4000000, synthInstance.maxHeartbeats 400000, backward.isDefEq.respectTransparency.types false), plus `backward.isDefEq.respectTransparency.instanceSearchTypes false` (a Lean 4.35 option absent from Lean 4.33.1; `false` restores the 4.33.1 behaviour); the source file's own `set_option`s are kept and take precedence where they repeat one
+  * an explicit `end P2MW.S_AlgebraicGeometry_Scheme_forall_exists_isAffineOpen_invariant_of_isSeparated_of_finset` added before the final `end` (the source leaves that namespace
+    open at the end of the file, which Lean closes implicitly; needed so the port namespace can be closed)
   * whole file wrapped in `namespace ZInQ.Contrib.CloudW03NeronSurj.FLT … end ZInQ.Contrib.CloudW03NeronSurj.FLT`, so every declaration of the source is isolated under that prefix (the convention of the existing port ZInQKernel/Contrib/CloudW03NeronSurj)
 -/
 

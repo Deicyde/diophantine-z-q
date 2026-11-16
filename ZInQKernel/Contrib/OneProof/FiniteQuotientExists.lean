@@ -34,8 +34,8 @@ namespace ZInQ.Contrib.CloudB3W12
 /-- **H-90 (mcr-glue L2), `HDec.MCRGlue.FiniteQuotientExists`, proved.** -/
 theorem finiteQuotientExists_proof : HDec.MCRGlue.FiniteQuotientExists := by
   intro p _ 𝒴 hprop hAF G hG hGS
-  haveI : Finite G := hG
-  haveI : IsProper 𝒴.hom := hprop
+  have : Finite G := hG
+  have : IsProper 𝒴.hom := hprop
   -- `G`-invariant affine neighbourhoods (the base `Spec ℤ_(p)` is affine and `𝒴` is separated)
   have hadm :=
     ZInQ.Contrib.CloudW03NeronSurj.FLT.AlgebraicGeometry.Scheme.forall_exists_isAffineOpen_invariant_of_isSeparated_of_finset
@@ -51,7 +51,7 @@ theorem finiteQuotientExists_proof : HDec.MCRGlue.FiniteQuotientExists := by
     refine ⟨fun g hg => hπ ⟨g, hg⟩, haff, fun W _ => ⟨hinj W, ?_⟩⟩
     rw [hrange W]
     ext s
-    simp only [Set.mem_setOf_eq]
+    simp only [Set.mem_ofPred_eq]
     exact ⟨fun h g hg => h ⟨g, hg⟩, fun h g => h g.1 g.2⟩
   -- `π` is finite: integral, and locally of finite type since `π ≫ f' = 𝒴.hom` is
   have hF : IsFinite π := by

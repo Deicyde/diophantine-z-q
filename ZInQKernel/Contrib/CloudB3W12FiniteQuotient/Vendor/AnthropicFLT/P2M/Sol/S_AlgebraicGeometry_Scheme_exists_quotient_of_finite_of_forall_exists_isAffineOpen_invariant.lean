@@ -21,6 +21,8 @@ strengthened or omitted. Changes:
   * 2 uses of the deprecated `Sigma.ι_desc` written `Sigma.ι_comp_desc` (its replacement, same statement)
   * in `exists_prime_comap_eq`, the side goal of `Ideal.exists_ideal_over_prime_of_isIntegral`, now stated with `Ideal.under`, is closed by unfolding `Ideal.under` and `Ideal.mem_bot` instead of `rw [Ideal.comap_bot_of_injective _ Subtype.val_injective]` (proof repair; same lemma, same statement)
   * file-level `set_option`s reproducing the source lakefile `leanOptions` (autoImplicit false, maxHeartbeats 4000000, synthInstance.maxHeartbeats 400000, backward.isDefEq.respectTransparency.types false), plus `backward.isDefEq.respectTransparency.instanceSearchTypes false` (a Lean 4.35 option absent from Lean 4.33.1; `false` restores the 4.33.1 behaviour); the source file's own `set_option`s are kept and take precedence where they repeat one
+  * an explicit `end P2MW.S_AlgebraicGeometry_Scheme_exists_quotient_of_finite_of_forall_exists_isAffineOpen_invariant` added before the final `end` (the source leaves that namespace
+    open at the end of the file, which Lean closes implicitly; needed so the port namespace can be closed)
   * whole file wrapped in `namespace ZInQ.Contrib.CloudW03NeronSurj.FLT … end ZInQ.Contrib.CloudW03NeronSurj.FLT`, so every declaration of the source is isolated under that prefix (the convention of the existing port ZInQKernel/Contrib/CloudW03NeronSurj)
 -/
 

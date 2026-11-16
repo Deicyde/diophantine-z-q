@@ -24,7 +24,7 @@ No statement, hypothesis or definition was altered, weakened or omitted. Changes
     declared directly in that enclosing namespace (`private theorem hom_ext`,
     `private noncomputable def charpoly`, i.e. under `…P2MW.S_….QuotFLF`, the name the alias had);
     the 2 `p2m_export` commands are removed. Nothing is declared at the root namespace.
-  * Mathlib rename (2 occurrences): `Ideal.isMaximal_under_of_isIntegral_of_isMaximal (R := C) I`
+  * Mathlib rename (2 occurrences): `Ideal.isMaximal_comap_of_isIntegral_of_isMaximal (R := C) I`
     (db584: algebra form) → `Ideal.isMaximal_under_of_isIntegral_of_isMaximal (R := C) I`
     (Mathlib 56a name of the same statement, with `I.under C`, reducibly `I.comap (algebraMap C A)`);
     in the second occurrence, inside a `rw [IsLocalRing.eq_maximalIdeal (…)]`, the implicit

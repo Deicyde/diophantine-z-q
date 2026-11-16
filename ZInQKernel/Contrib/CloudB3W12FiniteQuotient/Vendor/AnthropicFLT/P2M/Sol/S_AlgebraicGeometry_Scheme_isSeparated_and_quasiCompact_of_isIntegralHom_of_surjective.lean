@@ -15,6 +15,8 @@ db584cd6d46c92f209a44c0f1c829460d327499d). No hypothesis or conclusion was weake
 strengthened or omitted. Changes:
   * `import P2M.Util` removed (the file uses no port-utility command)
   * file-level `set_option`s reproducing the source lakefile `leanOptions` (autoImplicit false, maxHeartbeats 4000000, synthInstance.maxHeartbeats 400000, backward.isDefEq.respectTransparency.types false), plus `backward.isDefEq.respectTransparency.instanceSearchTypes false` (a Lean 4.35 option absent from Lean 4.33.1; `false` restores the 4.33.1 behaviour); the source file's own `set_option`s are kept and take precedence where they repeat one
+  * an explicit `end P2MW.S_AlgebraicGeometry_Scheme_isSeparated_and_quasiCompact_of_isIntegralHom_of_surjective` added before the final `end` (the source leaves that namespace
+    open at the end of the file, which Lean closes implicitly; needed so the port namespace can be closed)
   * whole file wrapped in `namespace ZInQ.Contrib.CloudW03NeronSurj.FLT … end ZInQ.Contrib.CloudW03NeronSurj.FLT`, so every declaration of the source is isolated under that prefix (the convention of the existing port ZInQKernel/Contrib/CloudW03NeronSurj)
 -/
 
