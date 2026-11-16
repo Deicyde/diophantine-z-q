@@ -990,8 +990,8 @@ jobs:
                       and (node.get('author') or {}).get('login') == comment['user']['login'])
 
 
-          def overridden_decision(latest, overrides, head):
-              """A repository admin, not a reviewer model, decides a covered deadlock."""
+          def override_findings(latest, head):
+              """Validate the trusted reports before classifying their findings."""
               if set(latest) != set(MODELS):
                   raise ValueError("Override needs complete reports from both approved reviewers on this head")
               unresolved = set()
@@ -1008,12 +1008,19 @@ jobs:
                   if value['decision'] != 'accept' and not here:
                       raise ValueError("Reviewer rejected without scoped findings; request a complete report")
                   unresolved.update(here)
-              missing = unresolved - set(overrides)
+              return unresolved
+
+
+          def overridden_decision(latest, overrides, head):
+              """A repository admin, not a reviewer model, decides a covered deadlock."""
+              unresolved = override_findings(latest, head)
+              relieved = {item['finding'] for item in qualified_access_findings(latest, include_overridden=True)}
+              missing = unresolved - relieved - set(overrides)
               if missing:
                   raise ValueError("Uncovered findings: " + ", ".join(sorted(missing)))
-              if not unresolved:
+              if not unresolved - relieved:
                   raise ValueError("No deadlock needs overriding; request an ordinary review")
-              return {key: overrides[key] for key in sorted(unresolved)}
+              return {key: overrides[key] for key in sorted(unresolved - relieved)}
 
 
           def same_policy(gh, previous, current):
@@ -1425,6 +1432,39 @@ jobs:
               return accepted, limits
 
 
+          def qualified_access_findings(envelopes, include_overridden=False):
+              """Relief needs peer evidence for every unresolved occurrence of an ID."""
+              if set(envelopes) != set(MODELS) or any(not e.get('complete') for e in envelopes.values()):
+                  return []
+              occurrences, qualified = {}, {}
+              for family, envelope in envelopes.items():
+                  review = envelope['review']
+                  unresolved = {finding_id(envelope, f['id']) for f in review['findings']}
+                  unresolved.update(f['id'] for f in review['prior_findings']
+                                    if f['resolution'] == 'unresolved' or
+                                    (include_overridden and f['resolution'] == 'overridden'))
+                  for ident in unresolved:
+                      occurrences.setdefault(ident, []).append((family, ident))
+                  if envelope.get('finished_early') or envelope.get('read_prerequisites_complete') is False:
+                      continue
+                  other = envelopes[next(f for f in MODELS if f != family)]
+                  verified = {s['check']['source_id'] for s in source_evidence(other)
+                              if s['check']['outcome'] == 'verified'}
+                  for entry in review.get('access_limitations', []):
+                      ident = entry['finding_id']
+                      if ident not in unresolved:
+                          ident = finding_id(envelope, ident)
+                      if ident not in unresolved or not entry['source_ids'] or not set(entry['source_ids']) <= verified:
+                          continue
+                      qualified[(family, ident)] = {
+                          'finding': ident, 'reviewer_unable_to_open': family,
+                          'reviewer_who_checked': other['reviewer'], 'source_ids': entry['source_ids'],
+                          'detail': entry['detail']}
+              return [qualified[key] for ident in sorted(occurrences)
+                      if all(key in qualified for key in occurrences[ident])
+                      for key in occurrences[ident]]
+
+
           def combined_decision(envelopes, prior=None, discussion=None):
               """Access-only findings remain recorded, with passage-specific peer evidence."""
               if set(envelopes) != set(MODELS) or any(not r.get('complete') for r in envelopes.values()):
@@ -1435,7 +1475,7 @@ jobs:
               addressed.update(finding_id(e, f['id']) for e in envelopes.values() for f in e['review']['findings'])
               if set(prior or {}) - addressed:
                   return False, []
-              limits = []
+              limits = qualified_access_findings(envelopes)
               for family, envelope in envelopes.items():
                   review = envelope['review']
                   if review['decision'] == 'accept':
@@ -1444,23 +1484,9 @@ jobs:
                   unresolved.update(f['id'] for f in review['prior_findings'] if f['resolution'] == 'unresolved')
                   if not unresolved or envelope.get('finished_early') or envelope.get('read_prerequisites_complete') is False:
                       return False, limits
-                  qualified = {}
-                  for entry in review.get('access_limitations', []):
-                      ident = entry['finding_id']
-                      if ident not in unresolved:
-                          ident = finding_id(envelope, ident)
-                      qualified[ident] = entry
-                  if set(qualified) != unresolved:
+                  covered = {item['finding'] for item in limits if item['reviewer_unable_to_open'] == family}
+                  if not unresolved <= covered:
                       return False, limits
-                  other = envelopes[next(f for f in MODELS if f != family)]
-                  verified = {s['check']['source_id'] for s in source_evidence(other) if s['check']['outcome'] == 'verified'}
-                  for ident in sorted(unresolved):
-                      entry = qualified[ident]
-                      if not entry['source_ids'] or not set(entry['source_ids']) <= verified:
-                          return False, limits
-                      limits.append({'finding': ident, 'reviewer_unable_to_open': family,
-                                     'reviewer_who_checked': other['reviewer'], 'source_ids': entry['source_ids'],
-                                     'detail': entry['detail']})
               return True, limits
 
 
@@ -1660,9 +1686,14 @@ jobs:
                               raise ValueError('Override reports used a different review policy')
                           if effective_head(envelope) != pr['head']['sha'] and not reusable_on_rebase(gh, pr, files, envelope):
                               raise ValueError('Override reports lack a valid current rebase binding')
+                      override_findings(envelopes, pr['head']['sha'])
+                      limits = qualified_access_findings(envelopes, include_overridden=True)
+                      state['source_access_limitations'] = limits
                       applied = overridden_decision(envelopes, overrides, pr['head']['sha'])
                       conclusion = 'success'
                       summary = 'Accepted by collaborator override, not by unanimous model acceptance. Affected claims are NOT outside reviewed.\n' + json.dumps(applied, indent=2)
+                      if limits:
+                          summary += '\nNonblocking source-access limitations:\n' + json.dumps(limits, indent=2)
                       state['overrides'] = applied
                       gh.call(f'/issues/{number}/comments', 'POST', {'body': summary + findings_summary(envelopes)})
                   elif change_class == "editorial" and not prior:

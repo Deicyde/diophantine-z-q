@@ -279,9 +279,9 @@ may decide a deadlock:
 Post one command per finding. A run checks current admin access and the
 exact head. It takes the latest completed pair of decisions from this App's
 check output, never from a bot comment claiming acceptance. If every new and
-unresolved finding is covered, it passes without asking either model to agree.
-If a model never completed, the head changed, or a finding remains uncovered,
-the override does not pass. The summary records collaborator names and reasons
+unresolved finding that is not a qualified source-access limitation is covered,
+it passes without asking either model to agree. If a model never completed,
+the head changed, or another finding remains uncovered, the override does not pass. The summary records collaborator names and reasons
 and states that affected claims are **not outside reviewed**.
 
 ## Testing before activation
@@ -511,7 +511,8 @@ An override remains bound to its original head and current authorization; a
 conditional acceptance does not carry that override across a rebase. Reuse-only
 runs do not consume or exceed the four-paid-automatic-round limit. The override
 consumer accepts an App-authenticated effective head after rechecking the rebase
-binding, but still requires authorization for every finding on the current head.
+binding, but still requires authorization for every finding on the current head
+except qualified source-access limitations.
 
 Each new report records a fixed-size digest of the complete discussion and
 interrupted-observation snapshot admitted to that review. The snapshot itself
@@ -598,3 +599,23 @@ and receives a short reply. The gate's ignored-override replies do not alter the
 reviewed discussion digest or trigger paid supplements. Write-access collaborators retain automatic review, `/protocol-b review`,
 and ordinary protected merge access. This change does not alter any review,
 computation, head-binding or merge requirement.
+
+### Source-access relief when other findings need a decision
+
+A source-access limitation qualified by the other reviewer's exact-passage
+verification does not need a second, explicit override when a separate
+substantive finding blocks the same round. The gate records that limitation
+even while the other finding remains blocking. It requires an override only
+for the remaining unresolved findings. Every active occurrence of an ID must
+qualify for source-access relief: a substantive objection by either reviewer
+cannot disappear because the other report calls the same ID access-only.
+Original reviewer decisions and source evidence remain in the record.
+
+When all unresolved findings are qualified access limitations, an override
+command does not grant acceptance. It directs the operator to an ordinary
+review, which checks discussion coverage, prior dispositions and computation
+status. A malformed, stale-head or unknown-ID command cannot replace that review.
+In a mixed case, an authenticated override of the remaining substantive findings
+uses the existing human-decision path without another model call, including
+when there is new discussion. Qualified limitations stay recorded if some other
+finding still lacks an override; the overall check remains blocked.
