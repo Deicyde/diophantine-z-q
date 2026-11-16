@@ -813,6 +813,19 @@ jobs:
                           replay_hash = hashlib.sha256(json.dumps(last_assistant, ensure_ascii=False).encode()).hexdigest()
                       output, served, usage, response_id, stop_reason = model_turn(
                           self.family, instructions, conversation, before_retry=check_computations)
+                      if served != MODELS[self.family]:
+                          self.identity_error = True
+                          raise RuntimeError(f"Requested {MODELS[self.family]}, API reported {served}; no silent substitution")
+                      # Capture a delivered verdict before diagnostics or notification can fail.
+                      delivered = [x for x in output if x.get('name') == 'finish_review'
+                                   and x.get('type') in {'function_call', 'tool_use'}]
+                      if delivered:
+                          try:
+                              raw_final = json.loads(delivered[0]['arguments']) if self.family == 'astra' else delivered[0]['input']
+                              self.invalid_finish = json.loads(json.dumps(raw_final))
+                              record(self.family+'-delivered-final.json', raw_final)
+                          except (ValueError, TypeError, KeyError) as error:
+                              record(self.family+'-final-decode-error.json', {'error': str(error)})
                       if self.family == 'fable':
                           if web_trace:
                               web_trace[-1]['next_request'] = {
@@ -823,25 +836,12 @@ jobs:
                           record('fable-web-results.json', web_trace)
                       previous = {**budget, 'usage': usage,
                                   'server_tools': any(x.get('type') == 'server_tool_use' for x in output)}
-                      if served != MODELS[self.family]:
-                          self.identity_error = True
-                          raise RuntimeError(f"Requested {MODELS[self.family]}, API reported {served}; no silent substitution")
                       # The exact provider conversation, including signed/encrypted reasoning,
                       # stays in memory. Retain inputs, source reads, visible report and usage.
                       visible = [{k: v for k, v in x.items() if k not in {"thinking", "signature", "encrypted_content"}}
                                  for x in output if x.get("type") not in {"thinking", "reasoning", "redacted_thinking"}]
                       turns.append({"response_id": response_id, "reported_model": served, "usage": usage, "context_budget": budget, "stop_reason": stop_reason, "visible_output": visible})
                       record(self.family + "-turns.json", turns)
-                      # Capture a delivered verdict before any notification can fail.
-                      delivered = [x for x in output if x.get('name') == 'finish_review'
-                                   and x.get('type') in {'function_call', 'tool_use'}]
-                      if delivered:
-                          try:
-                              raw_final = json.loads(delivered[0]['arguments']) if self.family == 'astra' else delivered[0]['input']
-                              self.invalid_finish = json.loads(json.dumps(raw_final))
-                              record(self.family+'-delivered-final.json', raw_final)
-                          except (ValueError, TypeError, KeyError) as error:
-                              record(self.family+'-final-decode-error.json', {'error': str(error)})
                       # Preserve prose objections before the next model request. These are
                       # discussion, never approval. A failed later turn cannot erase them.
                       prose = []
