@@ -1,5 +1,5 @@
 import ZInQKernel.Contrib.OneProof.PazukiCor13Upper
--- import ZInQKernel.Contrib.OneProof.UniformizationLeafAll
+import ZInQKernel.Contrib.OneProof.UniformizationLeafAll
 
 /-!
 # pazuki-alg: the analytic half of `AnalyticPPAlgebraic` from Riemann's theorem and GAGA for morphisms
@@ -179,8 +179,10 @@ theorem riemannTheta_add_mem_eq_zero_iff {Ω : Matrix (Fin 2) (Fin 2) ℂ} (hΩ 
 the algebraicity of a principally polarized complex torus with its theta divisor). For `Ω ∈ 𝔥₂` there are a complex
 abelian surface `B₀` (`PkgI3.AbVar ℂ`), a biholomorphic uniformization `φ₀ : ℂ² ⧸ (Ωℤ² + ℤ²) ≃ B₀(ℂ)`
 (bp-analytic's `IsUniformization`), a symmetric principal polarization `L₀` of `B₀` (`IsSymmPrincipal`: ample,
-symmetric, `h⁰ = 1`) and a section `s₀` of `L₀` whose divisor is, through `φ₀`, the zero set of Riemann's theta
-function `θ(·, Ω)`.
+symmetric, `h⁰ = 1`) and a section `s₀` of `L₀` whose divisor is, through `φ₀`, the zero set of a translate
+`θ(· + c, Ω)` of Riemann's theta function. The print has `c = 0` (`θ(·, Ω)` itself is the section of the symmetric
+bundle `L(H_Ω, χ₀)`); allowing any `c` only weakens the statement and makes it independent of the convention for the
+characteristic of the symmetric bundle.
 
 Sources (locators UNVERIFIED, no copy of the books on this host): Mumford, *Abelian varieties*, §§2-3 (the complex
 torus `X_Ω = ℂ^g ⧸ (Ωℤ^g + ℤ^g)` with the Riemann form `E_Ω` is an abelian variety; `θ(·, Ω)` is, up to a scalar,
@@ -196,9 +198,9 @@ def RiemannPPAV : Prop :=
       BPAnalytic.Uniformization.IsUniformization B₀ (periodLattice Ω) φ₀ ∧
       ∃ (L₀ : B₀.X.left.Pic)
         (s₀ : 𝟙_ B₀.X.left.Modules ⟶ (fromSkeleton B₀.X.left.Modules).obj L₀.val),
-        IsSymmPrincipal B₀ L₀ ∧
+        ∃ c : Fin 2 → ℂ, IsSymmPrincipal B₀ L₀ ∧
         ∀ v : Fin 2 → ℂ, OnZeroLocus s₀ (Additive.toMul (φ₀ (proj (periodLattice Ω) v))).left ↔
-          riemannTheta Ω v = 0
+          riemannTheta Ω (v + c) = 0
 
 /-- **GLUE (project; scheme functoriality): a symmetric principal polarization transports along an isomorphism of
 abelian varieties.** If `u : B → B₀` is an isomorphism of abelian varieties over `ℂ` commuting with the inverse maps
@@ -345,7 +347,7 @@ morphisms, applied to `φ₀ ∘ proj ∘ T` (source `B`) and to `φ ∘ proj �
 theorem thetaDivisorAlgebraicC_of_riemann (hR : RiemannPPAV) (hG : ZInQ.HomLattice.GAGAMorphism)
     (hT : SymmPrincipalTransport) : ThetaDivisorAlgebraicC := by
   intro B g Λ φ' hφ Ω hΩ T hTΛ
-  obtain ⟨B₀, φ₀', hφ₀, L₀, s₀, hL₀, hz₀⟩ := hR Ω hΩ
+  obtain ⟨B₀, φ₀', hφ₀, L₀, s₀, c₀, hL₀, hz₀⟩ := hR Ω hΩ
   let φ : Torus Λ ≃+ Additive (CPts B (RingHom.id ℂ)) := φ'
   let φ₀ : Torus (periodLattice Ω) ≃+ Additive (CPts B₀ (RingHom.id ℂ)) := φ₀'
   have hdisc₀ : DiscreteTopology (periodLattice Ω) := discreteTopology_periodLattice hΩ
@@ -410,13 +412,29 @@ theorem thetaDivisorAlgebraicC_of_riemann (hR : RiemannPPAV) (hG : ZInQ.HomLatti
         toMul_proj_neg φ₀ (T w)]
     rw [e1, e2]
   obtain ⟨L, s, hL, hs⟩ := hT B B₀ h hinv L₀ s₀ hL₀
-  refine ⟨L, s, 0, hL, fun w => ?_⟩
+  refine ⟨L, s, c₀, hL, fun w => ?_⟩
   have h1 := hs (Additive.toMul (φ (proj Λ w))).left
   have e2 : (Additive.toMul (φ (proj Λ w)) : CPts B (RingHom.id ℂ)).left ≫ h.left =
       (Additive.toMul (φ₀ (proj (periodLattice Ω) (T w))) : CPts B₀ (RingHom.id ℂ)).left := by
     rw [← Over.comp_left]
     exact congrArg CommaMorphism.left (hhw w)
-  rw [add_zero, ← hz₀ (T w)]
+  rw [← hz₀ (T w)]
   exact h1.trans (Iff.of_eq (congrArg (OnZeroLocus s₀) e2))
+
+/-! ## §4. Main theorems -/
+
+/-- **`AnalyticPPAlgebraic` from Riemann's theorem, GAGA for morphisms and the arithmetic half (proved).** -/
+theorem analyticPPAlgebraic_of_riemann (hR : RiemannPPAV) (hG : ZInQ.HomLattice.GAGAMorphism)
+    (hD : PazukiDict.SymmPrincipalDescends) : PazukiDict.AnalyticPPAlgebraic :=
+  PazukiDict.analyticPPAlgebraic_of_split (thetaDivisorAlgebraicC_of_riemann hR hG symmPrincipalTransport) hD
+
+/-- **Main theorem: the field `pazukiCor13Upper` from Pazuki's printed corollary for algebraic `(A, L)`
+(`PazukiCor13UpperPP`), Riemann's theorem for `Ω ∈ 𝔥₂` (`RiemannPPAV`), the existing field `GAGAMorphism` and the
+arithmetic half `SymmPrincipalDescends`.** The field `uniformizationLeafAll` is now a theorem
+(`uniformizationLeafAll_proof`, PR #35). -/
+theorem pazukiCor13Upper_of_riemann (hG : ZInQ.HomLattice.GAGAMorphism) (hP : PazukiDict.PazukiCor13UpperPP)
+    (hR : RiemannPPAV) (hD : PazukiDict.SymmPrincipalDescends) : ZInQ.HeightSplit.PazukiCor13Upper :=
+  PazukiDict.pazukiCor13Upper_of_printed uniformizationLeafAll_proof
+    (analyticPPAlgebraic_of_riemann hR hG hD) hP
 
 end PazukiAlg
