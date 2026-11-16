@@ -13,8 +13,10 @@ Future pull requests are reviewed under [Protocol B, edition 2](https://github.c
 ## How review runs
 
 The light profile gives outside contributors and qualifying small documentation
-changes one paid round with both approved reviewers. After that round, pushes
-do not start another paid review; a write collaborator can request one with
+changes one paid round with both approved reviewers. Outside contributors
+need a write collaborator's `/protocol-b review` before any model call, including
+that first round. After it, pushes do not start another paid review; a write
+collaborator can request one with
 `/protocol-b review`. A changed head still requires its own valid acceptance.
 Only an admin may override an item. See the setup guide for the exact scope.
 

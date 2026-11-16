@@ -311,16 +311,17 @@ jobs:
               """Limit automatic rounds without reducing either reviewer's required scope."""
               if not author_has_write:
                   return {'name': 'light', 'reason': 'outside contributor', 'automatic_paid_round_limit': 1}
-              sensitive = ('docs/research-review/', 'docs/audit-history/', 'docs/current-manuscript',
-                           'docs/release-policy', 'docs/lean-contributions')
+              # Other docs/ paths include proof inventories, review records and policy.
+              # Unlisted documentation retains the full profile until explicitly classified.
+              ordinary_docs = {'README.md', 'CREDITS.md', 'THIRD_PARTY_NOTICES.md',
+                               'docs/building.md', 'docs/research-guide.md'}
               focused = 0 < len(files) <= 5
               total = 0
               for item in files:
                   path = item.get('filename', '')
                   if (item.get('status') not in {'modified', 'added', 'removed'} or
                           item.get('previous_filename') or not path.endswith('.md') or
-                          not (path in {'README.md', 'CREDITS.md', 'THIRD_PARTY_NOTICES.md'} or path.startswith('docs/')) or
-                          path.startswith(sensitive) or '..' in pathlib.PurePosixPath(path).parts or
+                          path not in ordinary_docs or '..' in pathlib.PurePosixPath(path).parts or
                           not isinstance(item.get('patch'), str)):
                       focused = False
                       continue

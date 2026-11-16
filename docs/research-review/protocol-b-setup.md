@@ -64,7 +64,8 @@ for an outside author's PR. Permissions are checked through GitHub's API.
 Before review, and again before each model request, the gate reads required
 computation checks. A concluded failure blocks further model calls with "fix
 failing checks first". Pending checks can run in parallel with review. A PR
-gets at most four automatic rounds; further rounds require the collaborator
+ordinarily gets at most four automatic rounds; the [light profile](#light-profile)
+limits qualifying PRs to one paid round before another explicit collaborator
 command. Started automatic rounds count even if interrupted. Each start is
 saved in the App check, with a pointer on the PR so force-pushing does not lose
 the count. Earlier report records locate historical checks; only verified App
@@ -790,11 +791,14 @@ it cannot interrupt collection of the peer reviewer's verdict.
 The light profile limits automatic repetition; both approved reviewers still
 review the complete applicable scope. It applies to outside contributors and
 to complete documentation diffs of at most five files and 200 added/deleted
-lines. Eligible documentation is README.md, CREDITS.md, THIRD_PARTY_NOTICES.md
-or Markdown under docs/. Gate policy, audit-history policy, manuscript/release
-policy and Lean contribution policy are excluded from the focused-documents
-rule. Renames, incomplete patches, manuscript/record changes and mixed code
-changes do not qualify through that rule.
+lines. Its ordinary-documentation allowlist is README.md, CREDITS.md,
+THIRD_PARTY_NOTICES.md, docs/building.md and docs/research-guide.md.
+All other documentation retains the full profile, including unclassified new
+paths. This excludes gate policy, manuscript/release policy and research records
+such as docs/theorem-application-audit/ and docs/quartic-9625/verification/reviews/.
+Renames, incomplete patches, manuscript/record changes and mixed code changes
+do not qualify through the focused-documents rule. The separate outside-author
+rule still applies to every outside contributor without reducing review scope.
 
 Outside contributors still need a write collaborator's `/protocol-b review`
 before any model call. One paid round runs both missing reviewers and may pass
