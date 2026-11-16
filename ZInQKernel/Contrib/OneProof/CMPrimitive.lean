@@ -798,4 +798,281 @@ theorem crdHat_latHat (i : Fin 2) {𝔠 : AddSubgroup (EK K)} {𝔟 : AddSubgrou
 
 end Coord
 
+/-! ## §7 The induced type of `E = K(√2)` from the primitive type `(K, κ)` -/
+
+section EK
+
+open Polynomial MonObj HcmPrinted
+open AvSplit.HomLatticeAN3 (bcC projC ptE ptE_left)
+open ZInQ.HomLattice (isAnalyticHom_lin map_zero_of_hom)
+
+/-- **Glue target `MainTheoremCMEK ε`**: `HcmPrinted.MainTheoremCMSign ε` at the CM type `Φ = PhiE κ` of
+`E = K(√2)` induced from `(K, κ)` (`K` imaginary quadratic), its reflex field `(K, κ)` and the model `rhoK`: the only
+instance of `QMRecPrinted.MainTheoremCM` used by `QMRecPrinted.qmReciprocityL3_of_printed`. Implied by
+`MainTheoremCMSign ε` (`ek_of_sign`). -/
+def MainTheoremCMEK (ε : ℤˣ) : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] [IsTotallyComplex K], Module.finrank ℚ K = 2 →
+  ∀ [Fact (Irreducible (X ^ 2 - C (2 : K)))] (κ : K →+* ℂ) (σ : ℂ ≃+* ℂ) (s : IdeleGroup (𝓞 K) K),
+    ArtinCondC κ σ s →
+  ∀ (A : PkgI3.AbVar ℂ), A.dim = ((2 : ℕ) : WithBot ℕ∞) →
+  ∀ (𝔞 : AddSubgroup (EK K)) (θ : (Fin 2 → ℂ) → CPts A (RingHom.id ℂ)),
+    IsUniformization (RingHom.id ℂ) (cmLat (PhiE κ) 𝔞) θ → IsOfType (PhiE κ) 𝔞 θ →
+  ∀ (A' : PkgI3.AbVar ℂ) (h : A'.X.left ⟶ A.X.left),
+    IsPullback h A'.X.hom A.X.hom (Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ))) →
+    (1 : CPts A' (RingHom.id ℂ)).left ≫ h =
+      Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ)) ≫ (1 : CPts A (RingHom.id ℂ)).left →
+  ∃ θ' : (Fin 2 → ℂ) → CPts A' (RingHom.id ℂ),
+    IsUniformization (RingHom.id ℂ)
+      (cmLat (PhiE κ) (latAct ((reflexNorm rhoK (IdeleGroup.toFiniteIdele (𝓞 K) K s) ^ (ε : ℤ) :
+        (AQ ⊗[ℚ] EK K)ˣ) : AQ ⊗[ℚ] EK K) 𝔞)) θ' ∧
+    ∀ x y : EK K,
+      ((reflexNorm rhoK (IdeleGroup.toFiniteIdele (𝓞 K) K s) ^ (ε : ℤ) : (AQ ⊗[ℚ] EK K)ˣ) :
+          AQ ⊗[ℚ] EK K) * (1 ⊗ₜ y) - 1 ⊗ₜ x ∈ latHat 𝔞 →
+        (θ' (cmVec (PhiE κ) y)).left ≫ h =
+          Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ)) ≫ (θ (cmVec (PhiE κ) x)).left
+
+/-- `MainTheoremCMEK ε` is an instance of `MainTheoremCMSign ε`. -/
+theorem ek_of_sign {ε : ℤˣ} (h : HcmPrinted.MainTheoremCMSign ε) : MainTheoremCMEK ε := by
+  intro K _ _ _ hK _ κ σ s hs A hA 𝔞 θ hθ ht A' h' hpb hone
+  haveI := isCMField_EK hK
+  exact h (EK K) 2 (PhiE κ) (by rw [finrank_EK hK]) (type_inj κ) K κ (reflex_eq κ) 1 rhoK (jK κ) (model hK κ)
+    σ s hs A hA 𝔞 θ hθ ht A' h' hpb hone
+
+/-- **The reduction from the induced type of `E = K(√2)` to the primitive type `(K, κ)`.** The main theorem of CM
+for primitive types (every lattice), Shimura's existence theorem and the textbook leaves give the main theorem for
+`(E, PhiE κ)`. -/
+theorem mainTheoremCMEK_of_prim (ε : ℤˣ) (hP : MainTheoremCMSignPrim ε) (hX : CMAbVarExists)
+    (hUL : BPAnalytic.Uniformization.UniformizationLeafAll) (hG : ZInQ.HomLattice.GAGAMorphism) :
+    MainTheoremCMEK ε := by
+  intro K _ _ _ hK _ κ σ s hs A hdimA 𝔞 θ hθ htype A' h hpb hone
+  have hH : ZInQ.HomUnify.HomLatticeCorr := AvSplit.Final.h69 hUL hG
+  haveI : IsCMField K := isCMField_K hK
+  haveI : IsCMField (EK K) := isCMField_EK hK
+  set Φ := PhiE κ with hΦ
+  set Φ0 : Fin 1 → K →+* ℂ := fun _ => κ with hΦ0
+  set r : EK K := AdjoinRoot.root (X ^ 2 - C (2 : K)) with hr
+  set s' := IdeleGroup.toFiniteIdele (𝓞 K) K s with hs'
+  set t : AQ ⊗[ℚ] EK K := ((reflexNorm rhoK s' ^ (ε : ℤ) : (AQ ⊗[ℚ] EK K)ˣ) : AQ ⊗[ℚ] EK K) with ht
+  set tK : AQ ⊗[ℚ] K := ((reflexNorm rho1 s' ^ (ε : ℤ) : (AQ ⊗[ℚ] K)ˣ) : AQ ⊗[ℚ] K) with htK
+  have htt : t = inclA tK := by
+    rw [ht, htK, ← map_zpow (reflexNorm rhoK) s' (ε : ℤ), ← map_zpow (reflexNorm rho1) s' (ε : ℤ),
+      reflexNorm_rhoK, reflexNorm_rho1]
+  have hdeg : Module.finrank ℚ (EK K) = 2 * 2 := by rw [finrank_EK hK]
+  have hinj1 := type_inj1 κ
+  obtain ⟨⟨N, hN, hNa⟩, ⟨d, hd, hda⟩⟩ := lattice_of_unif hUL Φ two_pos hdeg hθ
+  -- the elliptic curve `B = ℂ/κ(N𝓞_K)`
+  let 𝔟 : AddSubgroup K := nO N
+  have hOL : IsOLattice 𝔟 := by
+    refine ⟨fun o x hx => ?_, ⟨N, hN, fun o => mem_nO.2 ⟨o, rfl⟩⟩, ⟨1, one_pos, fun x hx => ?_⟩⟩
+    · obtain ⟨o', rfl⟩ := mem_nO.1 hx
+      exact mem_nO.2 ⟨o * o', by push_cast; ring⟩
+    · obtain ⟨o, rfl⟩ := mem_nO.1 hx
+      have := coe_integral ((N : 𝓞 K) * o)
+      push_cast at this
+      rw [Nat.cast_one, _root_.one_mul]; exact this
+  obtain ⟨ζ0, hζc, hζi⟩ := exists_zeta Φ0 hinj1
+  obtain ⟨y, hy0, hy⟩ := exists_integral_multiples ℤ ℚ (L := K) {ζ0}
+  have hyζ := hy ζ0 (Finset.mem_singleton_self ζ0)
+  have hζint : IsIntegral ℤ ((y * y) • ζ0) := by
+    rw [mul_smul, zsmul_eq_mul]
+    exact (by simpa using (isIntegral_algebraMap (R := ℤ) (A := K) (x := y)) : IsIntegral ℤ (y : K)).mul hyζ
+  have hζ : IsRiemannDatum Φ0 𝔟 ((y * y) • ζ0) := by
+    refine ⟨by rw [map_zsmul, hζc, smul_neg], fun i => ?_, fun x hx x' hx' => ?_⟩
+    · rw [map_zsmul, zsmul_eq_mul, Complex.mul_im, Complex.intCast_re, Complex.intCast_im, zero_mul,
+        add_zero]
+      exact mul_pos (by exact_mod_cast mul_self_pos.2 hy0) (hζi i)
+    · obtain ⟨o, rfl⟩ := mem_nO.1 hx
+      obtain ⟨o', rfl⟩ := mem_nO.1 hx'
+      apply trace_int
+      have h1 : IsIntegral ℤ ((N : K) * (o : K)) := by
+        have := coe_integral ((N : 𝓞 K) * o); push_cast at this; exact this
+      have h2 : IsIntegral ℤ ((N : K) * (o' : K)) := by
+        have := coe_integral ((N : 𝓞 K) * o'); push_cast at this; exact this
+      exact (hζint.mul h1).mul (h2.map (IsCMField.complexConj K))
+  obtain ⟨B, θB, hdimB, hθB⟩ := hX K 1 Φ0 (by rw [hK]) hinj1 𝔟 hOL ⟨_, hζ⟩
+  have htypeB : IsOfType Φ0 𝔟 θB := by
+    intro e he
+    let Me : (Fin 1 → ℂ) →ₗ[ℂ] (Fin 1 → ℂ) :=
+      { toFun := fun w i => Φ0 i e * w i
+        map_add' := fun w w' => by funext i; simp [mul_add]
+        map_smul' := fun c w => by funext i; simp; ring }
+    obtain ⟨f, hf, -⟩ := hH.2 B B 1 1 (cmLat Φ0 𝔟) (cmLat Φ0 𝔟) θB θB hdimB hdimB hθB hθB Me
+      (fun z hz => by
+        obtain ⟨x, hx, rfl⟩ := mem_cmLat.1 hz
+        exact mem_cmLat.2 ⟨e * x, he x hx, by funext i; simp [Me, cmVec]⟩)
+    exact ⟨f, fun w => hf w⟩
+  -- the main theorem for the primitive type `(K, κ)`, applied to `B`
+  obtain ⟨θB', hθB', hrelB⟩ := hP K 1 Φ0 (by rw [hK]) hinj1 (isPrimitiveType_of_finrank_two Φ0 hK hinj1)
+    K κ (reflex1 κ) 1 rho1 (j1 κ) (model1 κ) σ s hs B hdimB 𝔟 θB hθB htypeB
+    (bcC B (σ : ℂ →+* ℂ)) (projC B (σ : ℂ →+* ℂ)) (isPullback_bc σ B) (one_left_bc σ B)
+  have hddB : ∀ x y : K, tK * (1 ⊗ₜ y) - 1 ⊗ₜ x ∈ latHat 𝔟 →
+      dd σ B (θB' (cmVec Φ0 y)) = θB (cmVec Φ0 x) := fun x y hxy => dd_unique σ B (hrelB x y hxy)
+  -- the homomorphisms `f₁, f₂ : B → A`, `θ(wΦ(α)) = f_α(θ_B(w))`
+  have hMlat : ∀ α : EK K, IsIntegral ℤ α → ∀ z ∈ cmLat Φ0 𝔟, Mv κ α z ∈ cmLat Φ 𝔞 := by
+    intro α hα z hz
+    obtain ⟨b, hb, rfl⟩ := mem_cmLat.1 hz
+    obtain ⟨o, rfl⟩ := mem_nO.1 hb
+    refine mem_cmLat.2 ⟨_, hNa ⟨algebraMap K (EK K) (o : K) * α,
+      ((coe_integral o).map (IsScalarTower.toAlgHom ℤ K (EK K))).mul hα⟩, ?_⟩
+    rw [Mv_cmVec]
+    congr 1
+    show (N : EK K) * (algebraMap K (EK K) (o : K) * α) = algebraMap K (EK K) ((N : K) * (o : K)) * α
+    rw [map_mul, map_natCast, _root_.mul_assoc]
+  obtain ⟨f1, hf1, -⟩ := hH.2 B A 1 2 (cmLat Φ0 𝔟) (cmLat Φ 𝔞) θB θ hdimB hdimA hθB hθ (Mv κ 1)
+    (hMlat 1 isIntegral_one)
+  obtain ⟨fr, hfr, -⟩ := hH.2 B A 1 2 (cmLat Φ0 𝔟) (cmLat Φ 𝔞) θB θ hdimB hdimA hθB hθ (Mv κ r)
+    (hMlat r isIntegral_root)
+  obtain ⟨F1, hF1, hF1dd⟩ := exists_bcHom σ f1.hom
+  obtain ⟨Fr, hFr, hFrdd⟩ := exists_bcHom σ fr.hom
+  -- `θ₀(z) = f₁^σ(θ'_B(ℓ₁ z)) · f₂^σ(θ'_B(ℓ₂ z))` on `A^σ = bcC A σ`
+  let θ0 : (Fin 2 → ℂ) → CPts (bcC A (σ : ℂ →+* ℂ)) (RingHom.id ℂ) :=
+    fun z => (θB' (ell0 z) ≫ F1) * (θB' (ell1 z) ≫ Fr)
+  have hdd0 : ∀ z, dd σ A (θ0 z) = dd σ B (θB' (ell0 z)) ≫ f1.hom * dd σ B (θB' (ell1 z)) ≫ fr.hom := by
+    intro z
+    show dd σ A ((θB' (ell0 z) ≫ F1) * (θB' (ell1 z) ≫ Fr)) = _
+    rw [dd_mul, hF1dd, hFrdd]
+  -- analyticity: `θ₀ = ψ ∘ (M₁ + M₂)` for a uniformization `ψ` of `A^σ`
+  obtain ⟨g', Λ', ψ, -, -, hψ⟩ := ZInQ.LeafPush2.exists_isUniformization_of_leaf hUL (bcC A (σ : ℂ →+* ℂ))
+  obtain ⟨M1, hM1⟩ := analyticHomLiftC_of_leaf hUL _ _ _ _ _ hψ _
+    (isAnalyticHom_comp (isAnalyticHom_lin (isAnalyticHom_of_unif hθB') ell0) F1)
+  obtain ⟨M2, hM2⟩ := analyticHomLiftC_of_leaf hUL _ _ _ _ _ hψ _
+    (isAnalyticHom_comp (isAnalyticHom_lin (isAnalyticHom_of_unif hθB') ell1) Fr)
+  have hθ0ψ : θ0 = fun z => ψ ((M1 + M2) z) := by
+    funext z
+    rw [LinearMap.add_apply, hψ.1, hM1, hM2]
+  have hθ0an : IsAnalyticHom (RingHom.id ℂ) θ0 := by
+    rw [hθ0ψ]; exact isAnalyticHom_lin (isAnalyticHom_of_unif hψ) (M1 + M2)
+  -- `m 𝔞 ⊆ 𝔠 = 𝔟 + 𝔟√2`
+  let 𝔠 : AddSubgroup (EK K) := 𝔟.comap (crd 0).toAddMonoidHom ⊓ 𝔟.comap (crd 1).toAddMonoidHom
+  have h𝔠 : ∀ i, ∀ e ∈ 𝔠, crd i e ∈ 𝔟 := by
+    intro i e he
+    fin_cases i
+    · exact he.1
+    · exact he.2
+  obtain ⟨D0, hD0, hD0'⟩ := exists_den_lin (crd 0 : EK K →ₗ[ℚ] K)
+  obtain ⟨D1, hD1, hD1'⟩ := exists_den_lin (crd 1 : EK K →ₗ[ℚ] K)
+  have hDint : ∀ i, ∀ o : 𝓞 (EK K), IsIntegral ℤ (((D0 * D1 : ℕ) : K) * crd i (o : EK K)) := by
+    intro i o
+    fin_cases i
+    · have := (hD0' o).mul (isIntegral_algebraMap (R := ℤ) (A := K) (x := (D1 : ℤ)))
+      convert this using 1; push_cast; ring
+    · have := (hD1' o).mul (isIntegral_algebraMap (R := ℤ) (A := K) (x := (D0 : ℤ)))
+      convert this using 1; push_cast; ring
+  set m : ℕ := N * (D0 * D1) * d with hmdef
+  have hmpos : 0 < m := Nat.mul_pos (Nat.mul_pos hN (Nat.mul_pos hD0 hD1)) hd
+  have hmcrd : ∀ i, ∀ x ∈ 𝔞, (m : K) * crd i x ∈ 𝔟 := by
+    intro i x hx
+    refine mem_nO.2 ⟨⟨_, hDint i ⟨(d : EK K) * x, hda x hx⟩⟩, ?_⟩
+    show (N : K) * (((D0 * D1 : ℕ) : K) * crd i ((d : EK K) * x)) = (m : K) * crd i x
+    rw [crd_natCast_mul, hmdef]; push_cast; ring
+  have hm : ∀ x ∈ 𝔞, (m : EK K) * x ∈ 𝔠 := by
+    intro x hx
+    refine ⟨?_, ?_⟩
+    · show crd 0 ((m : EK K) * x) ∈ 𝔟
+      rw [crd_natCast_mul]; exact hmcrd 0 x hx
+    · show crd 1 ((m : EK K) * x) ∈ 𝔟
+      rw [crd_natCast_mul]; exact hmcrd 1 x hx
+  -- the torsion relation for `θ₀`
+  have hrelA : ∀ x y : EK K, t * (1 ⊗ₜ y) - 1 ⊗ₜ x ∈ latHat 𝔞 →
+      dd σ A (θ0 (cmVec Φ y)) = θ (cmVec Φ x) := by
+    intro x y hxy
+    obtain ⟨a, ha, hrem⟩ := latHat_decomp hmpos hm hxy
+    have hrem' : t * (1 ⊗ₜ y) - 1 ⊗ₜ (x + a) ∈ latHat 𝔠 := by
+      have e : t * (1 ⊗ₜ[ℚ] y) - (1 : AQ) ⊗ₜ[ℚ] (x + a) = t * (1 ⊗ₜ y) - 1 ⊗ₜ x - 1 ⊗ₜ a := by
+        rw [TensorProduct.tmul_add]; abel
+      rw [e]; exact hrem
+    have hcomp : ∀ i, tK * (1 ⊗ₜ crd i y) - 1 ⊗ₜ crd i (x + a) ∈ latHat 𝔟 := by
+      intro i
+      have := crdHat_latHat i (h𝔠 i) hrem'
+      rwa [map_sub, htt, crdHat_inclA_mul, crdHat_tmul, crdHat_tmul] at this
+    rw [hdd0, ell0_cmVec, ell1_cmVec, hddB _ _ (hcomp 0), hddB _ _ (hcomp 1), ← hf1, ← hfr, ← hθ.1,
+      cmVec_decomp, map_add, hθ.1, (hθ.2.1 _).2 (mem_cmLat.2 ⟨a, ha, rfl⟩), _root_.mul_one]
+  -- every element of `E` has a multiple in `𝔞`
+  have hbdense : ∀ e : EK K, ∃ k : ℕ, 0 < k ∧ (k : EK K) * e ∈ 𝔞 := by
+    intro e
+    obtain ⟨y, hy0, hy⟩ := exists_integral_multiples ℤ ℚ (L := EK K) {e}
+    have hye := natAbs_mul_integral (hy e (Finset.mem_singleton_self e))
+    refine ⟨N * y.natAbs, Nat.mul_pos hN (Int.natAbs_pos.2 hy0), ?_⟩
+    have := hNa ⟨_, hye⟩
+    rw [show ((N * y.natAbs : ℕ) : EK K) * e = (N : EK K) * ((y.natAbs : EK K) * e) by push_cast; ring]
+    exact this
+  -- the kernel
+  have hlift : ∀ (u : Fin 1 → ℂ) (c : K), dd σ B (θB' u) = θB (cmVec Φ0 c) → (m : K) * c ∈ 𝔟 →
+      ∃ y : K, u = cmVec Φ0 y := by
+    intro u c huc hc
+    have hpow : θB' (m • u) = 1 := by
+      rw [map_nsmul_of_hom hθB'.1]
+      apply dd_injective σ B
+      change ddHom σ B _ = ddHom σ B 1
+      rw [map_pow, map_one]
+      change (dd σ B (θB' u)) ^ m = 1
+      rw [huc, ← map_nsmul_of_hom hθB.1, ← map_nsmul, nsmul_eq_mul]
+      exact (hθB.2.1 _).2 ((cmVec_mem_cmLat one_pos).2 hc)
+    obtain ⟨y1, -, hcy1⟩ := mem_cmLat.1 ((hθB'.2.1 _).1 hpow)
+    refine ⟨((m : ℕ) : ℚ)⁻¹ • y1, ?_⟩
+    have hk0 : ((m : ℕ) : ℝ) ≠ 0 := by exact_mod_cast hmpos.ne'
+    rw [cmVec_ratSmul, hcy1, ← Nat.cast_smul_eq_nsmul ℝ, smul_smul]
+    push_cast
+    rw [inv_mul_cancel₀ (by exact_mod_cast hk0), one_smul]
+  have hker : ∀ z, θ0 z = 1 ↔ z ∈ cmLat Φ (latAct t 𝔞) := by
+    intro z
+    constructor
+    · intro hz
+      have h1 : dd σ A (θ0 z) = 1 := by rw [hz, dd_one]
+      have h1' := h1
+      rw [hdd0] at h1
+      obtain ⟨v0, hv0⟩ := hθB.2.2.1 (dd σ B (θB' (ell0 z)))
+      obtain ⟨v1, hv1⟩ := hθB.2.2.1 (dd σ B (θB' (ell1 z)))
+      rw [← hv0, ← hv1, ← hf1, ← hfr, ← hθ.1] at h1
+      obtain ⟨e, he, hee⟩ := mem_cmLat.1 ((hθ.2.1 _).1 h1)
+      have hv0e : v0 = cmVec Φ0 (crd 0 e) := by
+        rw [← ell0_cmVec, hee, map_add, ell0_Mv1, ell0_Mvr, add_zero]
+      have hv1e : v1 = cmVec Φ0 (crd 1 e) := by
+        rw [← ell1_cmVec, hee, map_add, ell1_Mv1, ell1_Mvr, zero_add]
+      obtain ⟨y0, hy0⟩ := hlift (ell0 z) (crd 0 e) (by rw [← hv0, hv0e]) (hmcrd 0 e he)
+      obtain ⟨y1, hy1⟩ := hlift (ell1 z) (crd 1 e) (by rw [← hv1, hv1e]) (hmcrd 1 e he)
+      set yE : EK K := algebraMap K (EK K) y0 + algebraMap K (EK K) y1 * r with hyE
+      have hzy : cmVec Φ yE = z := by
+        rw [← cmVec_decomp, hyE, crd_mk0, crd_mk1, ← hy0, ← hy1, span_Mv]
+      obtain ⟨x, hx⟩ := exists_approx_latHat hbdense (t * (1 ⊗ₜ yE))
+      have h2 := hrelA x yE hx
+      rw [hzy, h1'] at h2
+      have hx𝔞 : x ∈ 𝔞 := (cmVec_mem_cmLat two_pos).1 ((hθ.2.1 _).1 h2.symm)
+      refine mem_cmLat.2 ⟨yE, ?_, hzy⟩
+      show t * (1 ⊗ₜ yE) ∈ latHat 𝔞
+      have e : t * (1 ⊗ₜ[ℚ] yE) = (t * (1 ⊗ₜ yE) - 1 ⊗ₜ x) + (1 : AQ) ⊗ₜ[ℚ] x := by abel
+      rw [e]
+      exact add_mem hx (one_tmul_mem_latHat hx𝔞)
+    · intro hz
+      obtain ⟨y, hy, rfl⟩ := mem_cmLat.1 hz
+      have hy' : t * (1 ⊗ₜ y) - 1 ⊗ₜ (0 : EK K) ∈ latHat 𝔞 := by
+        rw [TensorProduct.tmul_zero, sub_zero]; exact hy
+      apply dd_injective σ A
+      rw [dd_one, hrelA 0 y hy', map_zero]
+      exact map_zero_of_hom hθ.1
+  -- surjectivity
+  have hsurjB : ∀ Q : CPts B (RingHom.id ℂ), ∃ v, dd σ B (θB' v) = Q := by
+    intro Q
+    obtain ⟨R, hR⟩ := dd_surjective σ B Q
+    obtain ⟨v, hv⟩ := hθB'.2.2.1 R
+    exact ⟨v, by rw [hv, hR]⟩
+  have hsurj : Function.Surjective θ0 := by
+    intro P
+    obtain ⟨u, hu⟩ := hθ.2.2.1 (dd σ A P)
+    obtain ⟨v0, hv0⟩ := hsurjB (θB (ell0 u))
+    obtain ⟨v1, hv1⟩ := hsurjB (θB (ell1 u))
+    refine ⟨Mv κ 1 v0 + Mv κ r v1, dd_injective σ A ?_⟩
+    rw [hdd0, map_add, map_add, ell0_Mv1, ell0_Mvr, ell1_Mv1, ell1_Mvr, add_zero, zero_add, hv0, hv1,
+      ← hf1, ← hfr, ← hθ.1, span_Mv, hu]
+  have hθ0U : IsUniformization (RingHom.id ℂ) (cmLat Φ (latAct t 𝔞)) θ0 :=
+    (isUniformization_iff _ _ _).2 ⟨hθ0an, hker, hsurj⟩
+  -- transport to the given `A'`
+  obtain ⟨θ', hθ', hθ'rel⟩ := exists_unif_of_bc σ h hpb hone hθ0U
+  refine ⟨θ', hθ', fun x y hxy => ?_⟩
+  have := hθ'rel (cmVec Φ y)
+  rw [hrelA x y hxy] at this
+  exact this
+
+end EK
+
 end CMPrimitive
