@@ -34,11 +34,13 @@ DISCHARGES [OpenResearchLeaves22.sga7_IX_3_5_ForwardGeom] by UnipotentForward.fo
 DISCHARGES [OpenResearchLeaves22.mumfordGroupLaw] by ZInQ.Contrib.MumfordRigidity.mumfordGroupLaw_of_core
   still assumes: [LeafQM.AV.R1UnivRigid.MumfordRigidityCore]
   axioms: [propext, Classical.choice, Quot.sound]
-#discharges: 63 open hypotheses, 1882 theorems checked, 10 discharge one
+#discharges: 63 open hypotheses, 1884 theorems checked, 10 discharge one
 'UnifTopology.uniformizationLeafAll_of_analytic' depends on axioms: [propext, Classical.choice, Quot.sound]
 'UnifTopology.classicalTopology_eq_analyticTopology' depends on axioms: [propext, Classical.choice, Quot.sound]
 'UnifTopology.classicalTopology_eq_gluedTopology' depends on axioms: [propext, Classical.choice, Quot.sound]
 'UnifTopology.isEmbedding_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+'UnifTopology.range_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+'UnifTopology.exists_homeomorph_zeroLocus' depends on axioms: [propext, Classical.choice, Quot.sound]
 'UnifTopology.induced_classicalTopology_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
 'UnifTopology.smoothComplexManifoldAn_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
 'UnifTopology.properCompactAn_iff' depends on axioms: [propext, Classical.choice, Quot.sound]

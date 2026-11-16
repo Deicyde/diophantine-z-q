@@ -9,9 +9,10 @@ three statements of the analytic dictionary stated over `UnifPrinted.classicalTo
 coarsest topology on `X(ℂ)` in which every `U(ℂ)` is open and every regular function is continuous.
 The prints use the analytic (Euclidean) topology. This file proves that the two agree:
 
-* `induced_classicalTopology_eq`, `isEmbedding_coord`: for `U ⊆ X` affine and `f₁, …, f_k`
-  generating `Γ(X, U)` as a `ℂ`-algebra (`Generates`), the map `U(ℂ) → ℂ^k`, `P ↦ (fᵢ(P))ᵢ`, is
-  injective and the classical topology on `U(ℂ)` is the subspace topology of `ℂ^k`;
+* `induced_classicalTopology_eq`, `isEmbedding_coord`, `range_coord`, `exists_homeomorph_zeroLocus`:
+  for `U ⊆ X` affine and `f₁, …, f_k` generating `Γ(X, U)` as a `ℂ`-algebra (`Generates`), the map
+  `U(ℂ) → ℂ^k`, `P ↦ (fᵢ(P))ᵢ`, is a homeomorphism from `U(ℂ)` with the classical topology onto the
+  affine variety `V(I) ⊂ ℂ^k` (`I` the relations among the `fᵢ`) with the subspace topology;
 * `classicalTopology_eq_gluedTopology`: for any family of such affine charts whose `ℂ`-points cover
   `X(ℂ)`, the classical topology is the topology glued from the charts;
 * `classicalTopology_eq_analyticTopology`: for `X` locally of finite type over `ℂ`, the classical
@@ -312,6 +313,89 @@ theorem isEmbedding_coord {U : X.left.Opens} (hU : IsAffineOpen U) {k : ℕ}
     @Topology.IsEmbedding _ _ ((classicalTopology X).induced Subtype.val) _ (coord f) :=
   letI : TopologicalSpace (UPt X U) := (classicalTopology X).induced Subtype.val
   ⟨⟨induced_classicalTopology_eq hU f hf⟩, coord_injective hU f hf⟩
+
+/-! ## The image of `U(ℂ)` in `ℂ^k` is the zero locus of the relations -/
+
+/-- The zero locus in `ℂ^k` of the polynomial relations among `f₁, …, f_k` (the affine variety
+`V(I) ⊂ ℂ^k`, `I` the kernel of `ℂ[x₁, …, x_k] → Γ(X, U)`). -/
+def zeroLocus {U : X.left.Opens} {k : ℕ} (f : Fin k → Γ(X.left, U)) : Set (Fin k → ℂ) :=
+  {w | ∀ p : MvPolynomial (Fin k) ℂ, MvPolynomial.eval₂ (algC X U) f p = 0 →
+    MvPolynomial.eval w p = 0}
+
+/-- **`U(ℂ) = V(I) ⊂ ℂ^k`.** For `U` affine and `f` generating `Γ(X, U)`, the image of
+`U(ℂ) → ℂ^k` is the zero locus of the relations among the `fᵢ`. -/
+theorem range_coord {U : X.left.Opens} (hU : IsAffineOpen U) {k : ℕ}
+    (f : Fin k → Γ(X.left, U)) (hf : Generates U f) : Set.range (coord f) = zeroLocus f := by
+  ext w
+  constructor
+  · rintro ⟨P, rfl⟩ p hp
+    have h1 := evP_eval₂ P.1 U P.2 f p
+    rw [hp, map_zero] at h1
+    have h2 : coord f P = fun i => evP P.1 U P.2 (f i) :=
+      funext fun i => xevalAt_eq_evP P.2 _
+    rw [h2]
+    exact h1.symm
+  · intro hw
+    set φ := MvPolynomial.eval₂Hom (algC X U) f with hφdef
+    let ψ : Γ(X.left, U) →+* ℂ :=
+      (Ideal.Quotient.lift (RingHom.ker φ) (MvPolynomial.eval w) (fun p hp => hw p hp)).comp
+        (φ.quotientKerEquivOfSurjective hf).symm.toRingHom
+    have hψ : ∀ p, ψ (φ p) = MvPolynomial.eval w p := by
+      intro p
+      simp only [ψ, RingHom.comp_apply, RingEquiv.toRingHom_eq_coe, RingEquiv.coe_toRingHom]
+      rw [← RingHom.quotientKerEquivOfSurjective_apply_mk hf p, RingEquiv.symm_apply_apply]
+      rfl
+    have hψalg : ∀ c, ψ (algC X U c) = c := by
+      intro c
+      have := hψ (MvPolynomial.C c)
+      simpa [φ] using this
+    let Pl : Spec (CommRingCat.of ℂ) ⟶ X.left := Spec.map (CommRingCat.ofHom ψ) ≫ hU.fromSpec
+    have hle : U ≤ X.hom ⁻¹ᵁ ⊤ := by rw [Scheme.Hom.preimage_top]; exact le_top
+    have hPl : Pl ≫ X.hom = (PkgI3.AbVar.ptObj (K := ℂ) ℂ).hom := by
+      rw [ptObj_hom]
+      have e1 := IsAffineOpen.SpecMap_appLE_fromSpec X.hom (isAffineOpen_top _) hU hle
+      rw [IsAffineOpen.fromSpec_top, Scheme.isoSpec_Spec_inv] at e1
+      simp only [Pl, Category.assoc]
+      rw [← e1, ← Spec.map_comp, ← Spec.map_comp]
+      have e2 : ((Scheme.ΓSpecIso (CommRingCat.of ℂ)).inv ≫ X.hom.appLE ⊤ U hle) ≫
+          CommRingCat.ofHom ψ = 𝟙 _ := by
+        ext c
+        exact hψalg c
+      rw [e2, Spec.map_id]
+      rfl
+    let P : CPt X := Over.homMk Pl hPl
+    have hPU : XPtIn X P U := by
+      rw [xPtIn_iff]
+      show (Spec.map (CommRingCat.ofHom ψ) ≫ hU.fromSpec).base default ∈ U
+      have h3 : (Spec.map (CommRingCat.ofHom ψ) ≫ hU.fromSpec).base default ∈
+          Set.range hU.fromSpec := ⟨_, rfl⟩
+      rwa [hU.range_fromSpec] at h3
+    have hPU' : ⊤ ≤ Pl ⁻¹ᵁ U := hPU
+    -- the ring map of `P` on `Γ(X, U)` is `ψ`
+    have happ : Pl.appLE U ⊤ hPU' = CommRingCat.ofHom ψ ≫ (Scheme.ΓSpecIso (CommRingCat.of ℂ)).inv := by
+      have e3 := IsAffineOpen.SpecMap_appLE_fromSpec Pl hU (isAffineOpen_top _) hPU'
+      rw [IsAffineOpen.fromSpec_top, Scheme.isoSpec_Spec_inv] at e3
+      simp only [Pl] at e3
+      rw [← Category.assoc, ← Spec.map_comp] at e3
+      exact Spec.map_injective ((cancel_mono _).mp e3)
+    refine ⟨⟨P, hPU⟩, funext fun i => ?_⟩
+    rw [coord, xevalAt_eq_evP hPU]
+    show ((Pl.appLE U ⊤ hPU') ≫ (Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom).hom (f i) = w i
+    rw [happ, Category.assoc, Iso.inv_hom_id, Category.comp_id]
+    show ψ (f i) = w i
+    have h4 : φ (MvPolynomial.X i) = f i := by simp [φ]
+    rw [← h4, hψ, MvPolynomial.eval_X]
+
+/-- **Affine pieces, final form.** For `U` affine and `f₁, …, f_k` generating `Γ(X, U)`, the map
+`P ↦ (f₁(P), …, f_k(P))` is a homeomorphism from `U(ℂ)` (with the classical topology of `X(ℂ)`) onto the
+affine variety `V(I) ⊂ ℂ^k` with the subspace topology of `ℂ^k`. -/
+theorem exists_homeomorph_zeroLocus {U : X.left.Opens} (hU : IsAffineOpen U) {k : ℕ}
+    (f : Fin k → Γ(X.left, U)) (hf : Generates U f) :
+    letI : TopologicalSpace (UPt X U) := (classicalTopology X).induced Subtype.val
+    ∃ e : UPt X U ≃ₜ zeroLocus f, ∀ P, (e P : Fin k → ℂ) = coord f P := by
+  letI : TopologicalSpace (UPt X U) := (classicalTopology X).induced Subtype.val
+  have he : Topology.IsEmbedding (coord f) := isEmbedding_coord hU f hf
+  exact ⟨he.toHomeomorph.trans (Homeomorph.setCongr (range_coord hU f hf)), fun P => rfl⟩
 
 /-! ## Gluing along an affine cover -/
 
