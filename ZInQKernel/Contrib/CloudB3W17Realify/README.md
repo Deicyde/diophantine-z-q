@@ -1,68 +1,66 @@
-# W17 realification — partial foundations
+# W17: actual complex exponential and its real foundations
 
-Import `ZInQKernel.Contrib.CloudB3W17Realify.Realification`.
+Import `ZInQKernel.Contrib.CloudB3W17Realify.ComplexExp`.
 
-## Results
+## Main result
 
-All statements are universe-polymorphic and hold for every `n : ℕ∞ω`, including
-analytic `ω`. Existing topology, `ChartedSpace`, and group operations are retained.
-The real and complex scalar actions must be compatible (`IsScalarTower ℝ ℂ E`).
+`CloudB3W17Realify.exists_complexExp` constructs a global analytic
+additive-to-multiplicative exponential `E → G`, with value `1` and identity
+manifold derivative at zero, for a finite-dimensional commutative complex
+analytic self-model Lie group. Its real scalar action must be compatible with
+its complex action (`IsScalarTower ℝ ℂ E`).
 
-- `CloudB3W17Realify.isManifold_real`: `IsManifold 𝓘(ℂ,E) n M` implies
-  `IsManifold 𝓘(ℝ,E) n M`.
-- `CloudB3W17Realify.contMDiff_real`: complex `ContMDiff` implies real `ContMDiff`.
-- `CloudB3W17Realify.lieGroup_real` / `lieAddGroup_real`: complex Lie (additive)
-  group structure implies the corresponding real structure.
-- `ScalarRestriction.lean` also proves general normed-subfield versions,
-  `contMDiffWithinAt`/`At`/`On`, and `ContMDiffAdd`/`Mul` restriction. General
-  models must have equal underlying `PartialEquiv`s. This condition directly
-  covers product self-models, so multiplication is not smuggled through a
-  different charted-space structure.
+`exists_complexExpHom` gives the bundled `E →+ Additive G` form. Neither theorem
+assumes compactness, connectedness, a local exponential, or analytic dependence
+of ODE solutions on the velocity. There is no external Hausdorff hypothesis:
+`LieGroup` and the existing normed-space charts supply it.
 
-These theorems **do not construct an exponential map or prove uniformization or
-GAGA**. They remove the scalar-field obstruction to applying the real manifold
-ODE API on a complex analytic Lie group. No OneProof field closure is claimed.
+The construction uses two **fixed** canonical real flows for each complex basis
+vector: `Fᵥ(z) = γᵥ(re z) · γᵢᵥ(im z)`. A proved Cauchy–Riemann derivative makes
+this one-variable map holomorphic; the genuine one-variable Cauchy theorem in
+local target charts makes it analytic. A finite product along complex-linear
+basis coordinates then gives the global analytic exponential. Its derivative
+at zero is exactly the identity by `Basis.sum_repr`.
 
-## Source basis and proof
+This does **not** yet prove surjectivity, a full discrete kernel, a torus
+uniformization, analytification of scheme points, general compact-group
+commutativity, or either H103/H105 field. Those are separate interfaces.
 
-Base `0e70c94e4a2d26838f0766cd69b39bd02f48fb85`;
-Lean 4.35.0; Mathlib `56a005855ea17e0b0958f73ec801ae140b0a1679`.
+## Modules and reusable results
 
-Mathlib's `ContDiffWithinAt.restrict_scalars` explicitly supports `ω`.
-For the manifold assertion apply `isManifold_of_contDiffOn` to the unchanged
-atlas and restrict scalar fields on transition maps. For maps use
-`contMDiffWithinAt_iff`: extended charts are equal, continuity is unchanged,
-and the ordinary `ContDiffWithinAt` term restricts scalars. Lie structures
-follow from these map results and the transferred manifold structure.
+- `ScalarRestriction` and `Realification`: same-chart scalar restriction for
+  manifolds, maps and Lie groups, including `ℂ ω → ℝ ω`.
+- `GlobalFlow`: completeness and uniqueness of Mathlib's actual
+  `mulInvariantVectorField` on boundaryless real Banach `LieGroup I 3`, and its
+  unique real one-parameter subgroup. No compactness or supplied global flow.
+- `DerivRestriction`: complex/real manifold-derivative restriction in unchanged
+  charts, including the reverse direction for a complex-linear candidate.
+- `ComplexOneParameter`: canonical fixed-flow CR calculation and one-variable
+  holomorphic-to-analytic chart upgrade.
+- `ComplexExp`: finite-basis product, exact identity derivative, and bundled
+  exponential homomorphism.
 
-Note that Mathlib's `LieGroup` does inherit `IsManifold` transitively through
-`ContMDiffMul` (`Geometry/Manifold/Algebra/Monoid.lean`).
+There are 40 checked declarations across the six modules, all with exactly
+`[propext, Classical.choice, Quot.sound]`. Existing topology, charts and group
+operations are retained; scalar-tower compatibility is explicit.
 
-## Verification
+## Verification and source basis
 
-Both new modules were compiled to olean/ilean artifacts by sequential direct
-Lean invocations, one Lean process at a time:
+Lean 4.35.0, Mathlib `56a005855ea17e0b0958f73ec801ae140b0a1679`.
+Original base `0e70c94e4a2d26838f0766cd69b39bd02f48fb85`; the final author branch
+was rebased onto restored main `2dc949d688c407e32823c4e751679d66b2f40e65`, whose
+tree is identical. No transient main WIP was used as a proof source.
 
-```sh
-mkdir -p .lake/build/lib/lean/ZInQKernel/Contrib/CloudB3W17Realify
-lake env lean -M6144 -j4 \
-  -o .lake/build/lib/lean/ZInQKernel/Contrib/CloudB3W17Realify/ScalarRestriction.olean \
-  -i .lake/build/lib/lean/ZInQKernel/Contrib/CloudB3W17Realify/ScalarRestriction.ilean \
-  ZInQKernel/Contrib/CloudB3W17Realify/ScalarRestriction.lean
-lake env lean -M6144 -j4 \
-  -o .lake/build/lib/lean/ZInQKernel/Contrib/CloudB3W17Realify/Realification.olean \
-  -i .lake/build/lib/lean/ZInQKernel/Contrib/CloudB3W17Realify/Realification.ilean \
-  ZInQKernel/Contrib/CloudB3W17Realify/Realification.lean
-```
+The author independently compiled all six owned modules sequentially on the
+dedicated node with `lake env lean -M7500 -j4`, emitting owned olean/ilean files.
+All exit 0 without warnings; maximum RSS 3,305,124 KB. Exact bundled/unbundled
+interfaces, finite-dimensional `Fin 2 → ℂ` usage and all 40 axiom reports were
+checked. The PR supplies a fresh named build, full `#discharges`, and independent
+rebuilt-pushed-commit review; the author checks alone are not that review.
 
-Both exit 0 without warnings. Maximum peak RSS: 2,911,556 KB (under 3 GB).
-The scratch import/usage check proves generic `ω`, lowered `∞`/`1`, finite `3`,
-and concrete `Fin 2 → ℂ` usage. Its `#print axioms` on **all 16 declarations**
-reports exactly `[propext, Classical.choice, Quot.sound]`.
-Scratch evidence is in the W17 scout working directory:
-`RealifyCheck.lean` and `Realify-Axiom-Output.txt`.
-
-No full repository build was run. No OneProof.Main import, `sorry`, new axiom,
-`#eval`, `run_cmd`, initialization, new syntax/notation, macro, elaborator, or
-`native_decide` occurs in either delivered Lean module. Only new files were
-added. No public push or GitHub write was made.
+Reuse is through existing Mathlib scalar restriction, canonical Lie vector
+fields, local/global ODE existence and uniqueness, one-variable Cauchy analysis,
+complex linear maps and finite basis calculus. No new dependency, copied
+third-party library, target edit, `OneProof.Main` import in these modules,
+`sorry`, new axiom, `native_decide`, or build-time syntax/macro/elaborator code.
+AI-assisted original proofs, independently reviewed before PR readiness.
