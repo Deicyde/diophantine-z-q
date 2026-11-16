@@ -14,15 +14,17 @@ import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
 set_option backward.isDefEq.respectTransparency false
 
+-- register P2M local namespaces opened before declaration (p2m_open semantics)
+namespace P2MW.S_GoodReductionJacobian_RelativeGroupLaw_formallyUnramified_schemeNsmul_of_isUnit_of_isLocalRing.GoodReductionJacobian end P2MW.S_GoodReductionJacobian_RelativeGroupLaw_formallyUnramified_schemeNsmul_of_isUnit_of_isLocalRing.GoodReductionJacobian
 namespace P2MW.S_GoodReductionJacobian_RelativeGroupLaw_formallyUnramified_schemeNsmul_of_isUnit_of_isLocalRing
 
 set_option autoImplicit false
 set_option maxHeartbeats 3200000
-open CategoryTheory
-open AlgebraicGeometry
-open NeronModelInfra
-open GoodReductionJacobian
--- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
+open _root_.CategoryTheory
+open _root_.AlgebraicGeometry
+open _root_.NeronModelInfra
+open _root_.GoodReductionJacobian
+open _root_.P2MW.S_GoodReductionJacobian_RelativeGroupLaw_formallyUnramified_schemeNsmul_of_isUnit_of_isLocalRing.GoodReductionJacobian  -- restored P2M scope (namespace registered above)
 open scoped TensorProduct
 
 universe u
@@ -30,11 +32,11 @@ universe u
 noncomputable section
 
 namespace GoodReductionJacobian
-export GoodReductionJacobian (schemeHomOverComp schemeHomOverComp_coe RelativeGroupLaw RelativeGroupLaw.formallyUnramified_schemeNsmul_of_forall_sqZero)
-open GoodReductionJacobian
+export _root_.GoodReductionJacobian (schemeHomOverComp schemeHomOverComp_coe RelativeGroupLaw RelativeGroupLaw.formallyUnramified_schemeNsmul_of_forall_sqZero)
+open _root_.GoodReductionJacobian
 namespace RelativeGroupLaw
-export GoodReductionJacobian.RelativeGroupLaw (nsmul nsmul_zero nsmul_succ nsmul_natural idPoint schemeNsmul pointGroup one_natural mul_one one mul_natural mk inv one_mul mul formallyUnramified_schemeNsmul_of_forall_sqZero)
-open GoodReductionJacobian.RelativeGroupLaw
+export _root_.GoodReductionJacobian.RelativeGroupLaw (nsmul nsmul_zero nsmul_succ nsmul_natural idPoint schemeNsmul pointGroup one_natural mul_one one mul_natural mk inv one_mul mul formallyUnramified_schemeNsmul_of_forall_sqZero)
+open _root_.GoodReductionJacobian.RelativeGroupLaw
 
 variable {R : Type u} [CommRing R]
 variable {A : Scheme.{u}} {f : A ⟶ Spec (CommRingCat.of R)}
@@ -59,7 +61,7 @@ private theorem _root_.GoodReductionJacobian.RelativeGroupLaw.one_coe_eq_comp_on
   have h : schemeHomOverComp t (Category.comp_id t) (G.one (𝟙 _)) = G.one t :=
     G.one_natural (𝟙 _) t t (Category.comp_id t)
   exact (congrArg Subtype.val h).symm
-export GoodReductionJacobian.RelativeGroupLaw (one_coe_eq_comp_one)
+export _root_.GoodReductionJacobian.RelativeGroupLaw (one_coe_eq_comp_one)
 theorem kw_rglnfu_pow_eq_nsmul (G : RelativeGroupLaw R f) {T : Scheme.{u}}
     (t : T ⟶ Spec (CommRingCat.of R)) (n : ℕ) (x : SchemeHomOver t f) :
     (letI := G.pointGroup t; x ^ n) = G.nsmul t n x := by
@@ -86,12 +88,12 @@ end RelativeGroupLaw
 end GoodReductionJacobian
 
 namespace GoodReductionJacobian
-export GoodReductionJacobian (schemeHomOverComp schemeHomOverComp_coe RelativeGroupLaw RelativeGroupLaw.formallyUnramified_schemeNsmul_of_forall_sqZero)
-open GoodReductionJacobian
+export _root_.GoodReductionJacobian (schemeHomOverComp schemeHomOverComp_coe RelativeGroupLaw RelativeGroupLaw.formallyUnramified_schemeNsmul_of_forall_sqZero)
+open _root_.GoodReductionJacobian
 
 namespace RelativeGroupLaw
-export GoodReductionJacobian.RelativeGroupLaw (nsmul nsmul_zero nsmul_succ nsmul_natural idPoint schemeNsmul pointGroup one_natural mul_one one mul_natural mk inv one_mul mul formallyUnramified_schemeNsmul_of_forall_sqZero)
-open GoodReductionJacobian.RelativeGroupLaw
+export _root_.GoodReductionJacobian.RelativeGroupLaw (nsmul nsmul_zero nsmul_succ nsmul_natural idPoint schemeNsmul pointGroup one_natural mul_one one mul_natural mk inv one_mul mul formallyUnramified_schemeNsmul_of_forall_sqZero)
+open _root_.GoodReductionJacobian.RelativeGroupLaw
 
 variable {R : Type u} [CommRing R]
 variable {A : Scheme.{u}} {f : A ⟶ Spec (CommRingCat.of R)}
@@ -104,11 +106,11 @@ theorem kw_rglcktf_axiomAnchor : True := by
 
 private def _root_.GoodReductionJacobian.RelativeGroupLaw.kwUnitSection (G : RelativeGroupLaw R f) : Spec (CommRingCat.of R) ⟶ A :=
   (G.one (𝟙 (Spec (CommRingCat.of R)))).1
-export GoodReductionJacobian.RelativeGroupLaw (kwUnitSection)
+export _root_.GoodReductionJacobian.RelativeGroupLaw (kwUnitSection)
 private theorem _root_.GoodReductionJacobian.RelativeGroupLaw.kwUnitSection_comp (G : RelativeGroupLaw R f) :
     G.kwUnitSection ≫ f = 𝟙 (Spec (CommRingCat.of R)) :=
   (G.one (𝟙 (Spec (CommRingCat.of R)))).2
-export GoodReductionJacobian.RelativeGroupLaw (kwUnitSection_comp)
+export _root_.GoodReductionJacobian.RelativeGroupLaw (kwUnitSection_comp)
 theorem kw_rglcktf_specMap_base_surjective {R' S' : CommRingCat.{u}} (φ : R' ⟶ S')
     (hsurj : Function.Surjective φ) (hker : RingHom.ker φ.hom ^ 2 = ⊥) :
     Function.Surjective (Spec.map φ).base := by
@@ -201,7 +203,7 @@ abbrev kwPrSnd : SchemeHomOver (kwPairingMap (f := f)) f :=
 
 private def _root_.GoodReductionJacobian.RelativeGroupLaw.kwSchemeMul (G : RelativeGroupLaw R f) : Limits.pullback f f ⟶ A :=
   (G.mul kwPairingMap kwPrFst kwPrSnd).1
-export GoodReductionJacobian.RelativeGroupLaw (kwSchemeMul)
+export _root_.GoodReductionJacobian.RelativeGroupLaw (kwSchemeMul)
 theorem kwSchemeMul_over (G : RelativeGroupLaw R f) :
     G.kwSchemeMul ≫ f = kwPairingMap (f := f) :=
   (G.mul kwPairingMap kwPrFst kwPrSnd).2
@@ -233,12 +235,12 @@ end RelativeGroupLaw
 end GoodReductionJacobian
 
 namespace GoodReductionJacobian
-export GoodReductionJacobian (schemeHomOverComp schemeHomOverComp_coe RelativeGroupLaw RelativeGroupLaw.formallyUnramified_schemeNsmul_of_forall_sqZero)
-open GoodReductionJacobian
+export _root_.GoodReductionJacobian (schemeHomOverComp schemeHomOverComp_coe RelativeGroupLaw RelativeGroupLaw.formallyUnramified_schemeNsmul_of_forall_sqZero)
+open _root_.GoodReductionJacobian
 
 namespace RelativeGroupLaw
-export GoodReductionJacobian.RelativeGroupLaw (nsmul nsmul_zero nsmul_succ nsmul_natural idPoint schemeNsmul pointGroup one_natural mul_one one mul_natural mk inv one_mul mul formallyUnramified_schemeNsmul_of_forall_sqZero)
-open GoodReductionJacobian.RelativeGroupLaw
+export _root_.GoodReductionJacobian.RelativeGroupLaw (nsmul nsmul_zero nsmul_succ nsmul_natural idPoint schemeNsmul pointGroup one_natural mul_one one mul_natural mk inv one_mul mul formallyUnramified_schemeNsmul_of_forall_sqZero)
+open _root_.GoodReductionJacobian.RelativeGroupLaw
 
 variable {R : Type u} [CommRing R]
 variable {A : Scheme.{u}} {f : A ⟶ Spec (CommRingCat.of R)}
@@ -262,8 +264,9 @@ theorem kw_rglcktfm_fourTerm_tensorPair (ε₀ : B →ₐ[R] R) {J : Ideal C} (h
     kwTensorPair p q z - kwTensorPair p (kwTrivLift ε₀) z
       - kwTensorPair (kwTrivLift ε₀) q z
       + kwTensorPair (kwTrivLift ε₀) (kwTrivLift ε₀) z = 0 := by
+  -- Lean 4.35 Mathlib adaptation: `TensorProduct.inductionOn` (the induction eliminator) has no
+  -- `zero` case; the source's `| zero => simp` alternative is dropped.
   induction z with
-  | zero => simp
   | add x y hx hy => simp only [map_add]; linear_combination hx + hy
   | tmul b c =>
     simp only [kwTensorPair, Algebra.TensorProduct.lift_tmul]
@@ -286,8 +289,8 @@ theorem kw_rglcktfm_tensorPair_lifts_trivLift (ε₀ : B →ₐ[R] R) {S' : Type
     (z : B ⊗[R] B) :
     φ (kwTensorPair p q z)
       = φ (kwTrivLift (kwTensorPair ε₀ ε₀) z) := by
+  -- Lean 4.35 Mathlib adaptation: `TensorProduct.inductionOn` has no `zero` case (dropped).
   induction z with
-  | zero => simp
   | add x y hx hy => simp only [map_add, hx, hy]
   | tmul b c =>
     simp only [kwTensorPair, Algebra.TensorProduct.lift_tmul, kw_rglcktf_trivLift_apply,
@@ -685,12 +688,12 @@ section IsUnitDischarge
 open AlgebraicGeometry CategoryTheory CategoryTheory.Limits NeronModelInfra
 
 namespace GoodReductionJacobian
-export GoodReductionJacobian (schemeHomOverComp schemeHomOverComp_coe RelativeGroupLaw RelativeGroupLaw.formallyUnramified_schemeNsmul_of_forall_sqZero)
-open GoodReductionJacobian
+export _root_.GoodReductionJacobian (schemeHomOverComp schemeHomOverComp_coe RelativeGroupLaw RelativeGroupLaw.formallyUnramified_schemeNsmul_of_forall_sqZero)
+open _root_.GoodReductionJacobian
 
 namespace RelativeGroupLaw
-export GoodReductionJacobian.RelativeGroupLaw (nsmul nsmul_zero nsmul_succ nsmul_natural idPoint schemeNsmul pointGroup one_natural mul_one one mul_natural mk inv one_mul mul formallyUnramified_schemeNsmul_of_forall_sqZero)
-open GoodReductionJacobian.RelativeGroupLaw
+export _root_.GoodReductionJacobian.RelativeGroupLaw (nsmul nsmul_zero nsmul_succ nsmul_natural idPoint schemeNsmul pointGroup one_natural mul_one one mul_natural mk inv one_mul mul formallyUnramified_schemeNsmul_of_forall_sqZero)
+open _root_.GoodReductionJacobian.RelativeGroupLaw
 
 variable {R : Type u} [CommRing R] [IsLocalRing R]
 variable {A : Scheme.{u}} {f : A ⟶ Spec (CommRingCat.of R)}
@@ -747,7 +750,7 @@ end IsUnitDischarge
 end
 
 namespace GoodReductionJacobian p2m_export "GoodReductionJacobian" "schemeHomOverComp schemeHomOverComp_coe RelativeGroupLaw RelativeGroupLaw.formallyUnramified_schemeNsmul_of_forall_sqZero" namespace RelativeGroupLaw p2m_export "GoodReductionJacobian.RelativeGroupLaw" "nsmul nsmul_zero nsmul_succ nsmul_natural idPoint schemeNsmul pointGroup one_natural mul_one one mul_natural mk inv one_mul mul formallyUnramified_schemeNsmul_of_forall_sqZero" end GoodReductionJacobian.RelativeGroupLaw
-open scoped GoodReductionJacobian GoodReductionJacobian.RelativeGroupLaw in
+open scoped _root_.GoodReductionJacobian _root_.GoodReductionJacobian.RelativeGroupLaw in
 open CategoryTheory AlgebraicGeometry NeronModelInfra _root_.GoodReductionJacobian _root_.P2MW.S_GoodReductionJacobian_RelativeGroupLaw_formallyUnramified_schemeNsmul_of_isUnit_of_isLocalRing.GoodReductionJacobian in
 theorem GoodReductionJacobian.RelativeGroupLaw.eq_one_of_sqZero_of_nsmul_eq_one_of_isUnit_of_isLocalRing
     {R : Type u} [CommRing R] [IsLocalRing R] {A : Scheme.{u}} {f : A ⟶ Spec (CommRingCat.of R)}

@@ -15,6 +15,8 @@ import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
 set_option backward.isDefEq.respectTransparency false
 
+-- register P2M local namespaces opened before declaration (p2m_open semantics)
+namespace P2MW.S_AlgebraicGeometry_OModulePresheaf_isQuasicoherent_ker.AlgebraicGeometry end P2MW.S_AlgebraicGeometry_OModulePresheaf_isQuasicoherent_ker.AlgebraicGeometry
 namespace P2MW.S_AlgebraicGeometry_OModulePresheaf_isQuasicoherent_ker
 
 set_option maxHeartbeats 6400000
@@ -23,21 +25,21 @@ set_option linter.unusedSectionVars false
 set_option linter.unusedSimpArgs false
 set_option linter.unusedVariables false
 set_option autoImplicit false
-open AlgebraicGeometry
--- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
-open CategoryTheory
-open TopologicalSpace
-open Opposite
+open _root_.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_OModulePresheaf_isQuasicoherent_ker.AlgebraicGeometry  -- restored P2M scope (namespace registered above)
+open _root_.CategoryTheory
+open _root_.TopologicalSpace
+open _root_.Opposite
 
 noncomputable section
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Spec Scheme OModulePresheaf.ker OModulePresheaf.Hom OModulePresheaf OModulePresheaf.IsQuasicoherent)
+export _root_.AlgebraicGeometry (Spec Scheme OModulePresheaf.ker OModulePresheaf.Hom OModulePresheaf OModulePresheaf.IsQuasicoherent)
 namespace OModulePresheaf
-export AlgebraicGeometry.OModulePresheaf (ker Hom IsQuasicoherent res res_smul)
+export _root_.AlgebraicGeometry.OModulePresheaf (ker Hom IsQuasicoherent res res_smul)
 namespace G4T
-open AlgebraicGeometry.OModulePresheaf
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.OModulePresheaf
+open _root_.AlgebraicGeometry
 
 universe u
 

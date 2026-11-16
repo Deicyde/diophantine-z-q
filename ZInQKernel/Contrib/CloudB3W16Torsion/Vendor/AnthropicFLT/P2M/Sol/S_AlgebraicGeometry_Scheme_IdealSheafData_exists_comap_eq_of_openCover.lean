@@ -13,27 +13,29 @@ import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
 set_option backward.isDefEq.respectTransparency false
 
+-- register P2M local namespaces opened before declaration (p2m_open semantics)
+namespace P2MW.S_AlgebraicGeometry_Scheme_IdealSheafData_exists_comap_eq_of_openCover.AlgebraicGeometry end P2MW.S_AlgebraicGeometry_Scheme_IdealSheafData_exists_comap_eq_of_openCover.AlgebraicGeometry
 namespace P2MW.S_AlgebraicGeometry_Scheme_IdealSheafData_exists_comap_eq_of_openCover
 
 set_option autoImplicit false
 
 universe u
-open CategoryTheory
-open CategoryTheory.Limits
-open AlgebraicGeometry
--- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
-open TopologicalSpace
+open _root_.CategoryTheory
+open _root_.CategoryTheory.Limits
+open _root_.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_Scheme_IdealSheafData_exists_comap_eq_of_openCover.AlgebraicGeometry  -- restored P2M scope (namespace registered above)
+open _root_.TopologicalSpace
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Hom.appIso_inv_naturality Scheme.Hom.map_appLE IsOpenImmersion.lift Scheme.basicOpen_res Surjective IsOpenImmersion.of_comp Scheme.Hom Scheme.Hom.appIso_hom' Scheme.Opens.ι_appIso Scheme.Hom.image_le_image_iff Scheme.Hom.image_preimage_eq_opensRange_inf IsAffine Scheme.Hom.comp_image Scheme Scheme.Hom.comp_appIso IsOpenImmersion isAffineOpen_top IsAffineOpen Scheme.Opens Scheme.Hom.appLE_map Scheme.Opens.ι_image_top IsOpenImmersion.lift_fac Scheme.image_basicOpen Scheme.IdealSheafData)
+export _root_.AlgebraicGeometry (Scheme.Hom.appIso_inv_naturality Scheme.Hom.map_appLE IsOpenImmersion.lift Scheme.basicOpen_res Surjective IsOpenImmersion.of_comp Scheme.Hom Scheme.Hom.appIso_hom' Scheme.Opens.ι_appIso Scheme.Hom.image_le_image_iff Scheme.Hom.image_preimage_eq_opensRange_inf IsAffine Scheme.Hom.comp_image Scheme Scheme.Hom.comp_appIso IsOpenImmersion isAffineOpen_top IsAffineOpen Scheme.Opens Scheme.Hom.appLE_map Scheme.Opens.ι_image_top IsOpenImmersion.lift_fac Scheme.image_basicOpen Scheme.IdealSheafData)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Hom.appIso_inv_naturality Hom.map_appLE basicOpen_res Hom Γ Hom.appIso_hom' Opens.ι_appIso Hom.image_le_image_iff Hom.image_preimage_eq_opensRange_inf Hom.comp_image Hom.comp_appIso OpenCover affineBasicOpen affineOpens basicOpen isBasis_affineOpens Opens Hom.appLE_map Opens.ι_image_top IdealSheafData.ext basicOpen_le image_basicOpen IdealSheafData Cover)
+export _root_.AlgebraicGeometry.Scheme (Hom.appIso_inv_naturality Hom.map_appLE basicOpen_res Hom Γ Hom.appIso_hom' Opens.ι_appIso Hom.image_le_image_iff Hom.image_preimage_eq_opensRange_inf Hom.comp_image Hom.comp_appIso OpenCover affineBasicOpen affineOpens basicOpen isBasis_affineOpens Opens Hom.appLE_map Opens.ι_image_top IdealSheafData.ext basicOpen_le image_basicOpen IdealSheafData Cover)
 namespace IdealSheafData
-export AlgebraicGeometry.Scheme.IdealSheafData (map_top map map_id ideal map_ideal' map_comp comap map_ideal_basicOpen map_ideal ideal_comap_of_isOpenImmersion)
+export _root_.AlgebraicGeometry.Scheme.IdealSheafData (map_top map map_id ideal map_ideal' map_comp comap map_ideal_basicOpen map_ideal ideal_comap_of_isOpenImmersion)
 namespace Glue
-open AlgebraicGeometry.Scheme.IdealSheafData
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.Scheme.IdealSheafData
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
 
 lemma appIso_of_comp_eq {V U X : Scheme.{u}} (a : V ⟶ U) (f : U ⟶ X) (c : V ⟶ X)
     [IsOpenImmersion a] [IsOpenImmersion f] [IsOpenImmersion c] (hc : c = a ≫ f) (W : V.Opens)

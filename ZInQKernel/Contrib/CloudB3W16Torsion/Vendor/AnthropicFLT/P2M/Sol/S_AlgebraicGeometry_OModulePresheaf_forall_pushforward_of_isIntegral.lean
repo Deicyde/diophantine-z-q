@@ -14,26 +14,28 @@ import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
 set_option backward.isDefEq.respectTransparency false
 
+-- register P2M local namespaces opened before declaration (p2m_open semantics)
+namespace P2MW.S_AlgebraicGeometry_OModulePresheaf_forall_pushforward_of_isIntegral.AlgebraicGeometry end P2MW.S_AlgebraicGeometry_OModulePresheaf_forall_pushforward_of_isIntegral.AlgebraicGeometry
 namespace P2MW.S_AlgebraicGeometry_OModulePresheaf_forall_pushforward_of_isIntegral
 
 set_option autoImplicit false
 
 universe u
-open CategoryTheory
-open AlgebraicGeometry
--- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
-open TopologicalSpace
-open Opposite
+open _root_.CategoryTheory
+open _root_.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_OModulePresheaf_forall_pushforward_of_isIntegral.AlgebraicGeometry  -- restored P2M scope (namespace registered above)
+open _root_.TopologicalSpace
+open _root_.Opposite
 
 noncomputable section
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Hom.map_appLE IsLocallyNoetherian Scheme.basicOpen_res IsProper Scheme.IdealSheafData.coe_support_vanishingIdeal LocallyOfFiniteType.isLocallyNoetherian Scheme.Hom QuasiCompact Scheme.preimage_basicOpen LocallyOfFiniteType Spec IsIntegral Scheme.IdealSheafData.range_subschemeι Scheme Scheme.IdealSheafData.vanishingIdeal QuasiCompact.compactSpace_of_compactSpace IsClosedImmersion IsSeparated IsLocallyNoetherian.component_noetherian IsAffineOpen IsNoetherian Scheme.IdealSheafData Scheme.Hom.appLE_eq_app OModulePresheaf.ker OModulePresheaf.im OModulePresheaf.coker OModulePresheaf.kerImSES OModulePresheaf.imCokerSES OModulePresheaf.pushforward OModulePresheaf.pushforwardUnit Scheme.OrderedAffineCover.isAffineOpen_inf_of_isSeparated OModulePresheaf.Hom OModulePresheaf.AffSES Scheme.OrderedAffineCover OModulePresheaf OModulePresheaf.unit Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom OModulePresheaf.exists_basicOpen_sections_free_of_isIntegral)
+export _root_.AlgebraicGeometry (Scheme.Hom.map_appLE IsLocallyNoetherian Scheme.basicOpen_res IsProper Scheme.IdealSheafData.coe_support_vanishingIdeal LocallyOfFiniteType.isLocallyNoetherian Scheme.Hom QuasiCompact Scheme.preimage_basicOpen LocallyOfFiniteType Spec IsIntegral Scheme.IdealSheafData.range_subschemeι Scheme Scheme.IdealSheafData.vanishingIdeal QuasiCompact.compactSpace_of_compactSpace IsClosedImmersion IsSeparated IsLocallyNoetherian.component_noetherian IsAffineOpen IsNoetherian Scheme.IdealSheafData Scheme.Hom.appLE_eq_app OModulePresheaf.ker OModulePresheaf.im OModulePresheaf.coker OModulePresheaf.kerImSES OModulePresheaf.imCokerSES OModulePresheaf.pushforward OModulePresheaf.pushforwardUnit Scheme.OrderedAffineCover.isAffineOpen_inf_of_isSeparated OModulePresheaf.Hom OModulePresheaf.AffSES Scheme.OrderedAffineCover OModulePresheaf OModulePresheaf.unit Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom OModulePresheaf.exists_basicOpen_sections_free_of_isIntegral)
 namespace OModulePresheaf
-export AlgebraicGeometry.OModulePresheaf (prod fstHom sndHom pow zero restrOpen ker im coker kerImSES imCokerSES pushforward pushforwardUnit Hom AffSES res_refl_apply res_res CechFinite IsCoherent IsQuasicoherent SupportedIn unit res res_smul res_refl isScalarTower mk obj res_comp exists_basicOpen_sections_free_of_isIntegral)
+export _root_.AlgebraicGeometry.OModulePresheaf (prod fstHom sndHom pow zero restrOpen ker im coker kerImSES imCokerSES pushforward pushforwardUnit Hom AffSES res_refl_apply res_res CechFinite IsCoherent IsQuasicoherent SupportedIn unit res res_smul res_refl isScalarTower mk obj res_comp exists_basicOpen_sections_free_of_isIntegral)
 namespace PivotQAux
-open AlgebraicGeometry.OModulePresheaf
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.OModulePresheaf
+open _root_.AlgebraicGeometry
 
 variable {R : Type u} [CommRing R] {V : Scheme.{u}} {π : V ⟶ Spec (.of R)}
 

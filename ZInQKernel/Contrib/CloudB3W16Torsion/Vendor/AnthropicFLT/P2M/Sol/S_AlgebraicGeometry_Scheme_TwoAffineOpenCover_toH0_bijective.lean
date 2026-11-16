@@ -28,9 +28,9 @@ namespace Scheme
 export _root_.AlgebraicGeometry.Scheme (Γ Opens Cover TwoAffineOpenCover TwoAffineOpenCover.algebraOfHom)
 namespace TwoAffineOpenCover
 export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (algebraOfHom cover structureSheafSections toH0 toH0_apply_coe U1 U0 sup_eq_top)
-open AlgebraicGeometry.Scheme.TwoAffineOpenCover
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
 
 open CategoryTheory CategoryTheory.Limits Opposite TopologicalSpace
 

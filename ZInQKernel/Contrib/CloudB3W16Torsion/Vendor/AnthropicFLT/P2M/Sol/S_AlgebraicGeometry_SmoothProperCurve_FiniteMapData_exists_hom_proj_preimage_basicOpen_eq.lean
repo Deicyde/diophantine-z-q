@@ -14,29 +14,31 @@ import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
 set_option backward.isDefEq.respectTransparency false
 
+-- register P2M local namespaces opened before declaration (p2m_open semantics)
+namespace P2MW.S_AlgebraicGeometry_SmoothProperCurve_FiniteMapData_exists_hom_proj_preimage_basicOpen_eq.AlgebraicGeometry end P2MW.S_AlgebraicGeometry_SmoothProperCurve_FiniteMapData_exists_hom_proj_preimage_basicOpen_eq.AlgebraicGeometry
 namespace P2MW.S_AlgebraicGeometry_SmoothProperCurve_FiniteMapData_exists_hom_proj_preimage_basicOpen_eq
 
 set_option autoImplicit false
 
 universe u
-open CategoryTheory
-open CategoryTheory.Limits
-open AlgebraicGeometry
--- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
-open NeronModelInfra
+open _root_.CategoryTheory
+open _root_.CategoryTheory.Limits
+open _root_.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_SmoothProperCurve_FiniteMapData_exists_hom_proj_preimage_basicOpen_eq.AlgebraicGeometry  -- restored P2M scope (namespace registered above)
+open _root_.NeronModelInfra
 
 attribute [local instance] MvPolynomial.gradedAlgebra
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Spec.map_comp Scheme.Hom.resLE_comp_ι IsAffineOpen.isoSpec_inv_toSpecΓ_assoc Spec.map_comp_assoc Proj.opensRange_awayι Scheme.Hom Scheme.Hom.preimage_inf SpecMap_preimage_basicOpen IsAffineOpen.fromSpec_top Scheme.Opens.toSpecΓ_SpecMap_appLE_assoc IsAffineOpen.isoSpec_inv_ι isPullback_opens_inf IsAffineOpen.isoSpec_hom IsAffineOpen.SpecMap_appLE_fromSpec IsAffineOpen.fromSpec_preimage_self Spec Spec.map Proj.basicOpenToSpec Scheme Proj.awayι Scheme.Hom.preimage_opensRange Scheme.isoSpec_Spec_inv Proj Spec.map_injective Proj.awayι_preimage_basicOpen isAffineOpen_top Scheme.Cover.glueMorphisms Proj.basicOpenIsoSpec_inv_ι Proj.basicOpen Scheme.Opens.toSpecΓ_SpecMap_presheaf_map_assoc IsAffineOpen Scheme.Opens Scheme.Hom.appLE_map Scheme.Cover.hom_ext Proj.SpecMap_awayMap_awayι Scheme.Hom.comp_preimage Proj.awayToSection Proj.basicOpenIsoSpec_hom toSpecΓ Scheme.Cover Scheme.ΓSpecIso ProjSpace.grad0Equiv ProjSpace.π ProjSpace.awayι_comp_π ProjSpace.ratio ProjSpace.adjoin_range_ratio SmoothProperCurve.FiniteMapData Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom)
+export _root_.AlgebraicGeometry (Spec.map_comp Scheme.Hom.resLE_comp_ι IsAffineOpen.isoSpec_inv_toSpecΓ_assoc Spec.map_comp_assoc Proj.opensRange_awayι Scheme.Hom Scheme.Hom.preimage_inf SpecMap_preimage_basicOpen IsAffineOpen.fromSpec_top Scheme.Opens.toSpecΓ_SpecMap_appLE_assoc IsAffineOpen.isoSpec_inv_ι isPullback_opens_inf IsAffineOpen.isoSpec_hom IsAffineOpen.SpecMap_appLE_fromSpec IsAffineOpen.fromSpec_preimage_self Spec Spec.map Proj.basicOpenToSpec Scheme Proj.awayι Scheme.Hom.preimage_opensRange Scheme.isoSpec_Spec_inv Proj Spec.map_injective Proj.awayι_preimage_basicOpen isAffineOpen_top Scheme.Cover.glueMorphisms Proj.basicOpenIsoSpec_inv_ι Proj.basicOpen Scheme.Opens.toSpecΓ_SpecMap_presheaf_map_assoc IsAffineOpen Scheme.Opens Scheme.Hom.appLE_map Scheme.Cover.hom_ext Proj.SpecMap_awayMap_awayι Scheme.Hom.comp_preimage Proj.awayToSection Proj.basicOpenIsoSpec_hom toSpecΓ Scheme.Cover Scheme.ΓSpecIso ProjSpace.grad0Equiv ProjSpace.π ProjSpace.awayι_comp_π ProjSpace.ratio ProjSpace.adjoin_range_ratio SmoothProperCurve.FiniteMapData Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.algebraOfHom)
 namespace SmoothProperCurve
-export AlgebraicGeometry.SmoothProperCurve (FiniteMapData)
+export _root_.AlgebraicGeometry.SmoothProperCurve (FiniteMapData)
 namespace FiniteMapData
-export AlgebraicGeometry.SmoothProperCurve.FiniteMapData (mk U f sup_eq_top m V isAffineOpen_U inf_eq_basicOpen_g isAffineOpen_V g inf_eq_basicOpen levelSet_free res_f_mul_res_g)
+export _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData (mk U f sup_eq_top m V isAffineOpen_U inf_eq_basicOpen_g isAffineOpen_V g inf_eq_basicOpen levelSet_free res_f_mul_res_g)
 namespace HomProj
-open AlgebraicGeometry.SmoothProperCurve.FiniteMapData
-open AlgebraicGeometry.SmoothProperCurve
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData
+open _root_.AlgebraicGeometry.SmoothProperCurve
+open _root_.AlgebraicGeometry
 
 open HomogeneousLocalization
 

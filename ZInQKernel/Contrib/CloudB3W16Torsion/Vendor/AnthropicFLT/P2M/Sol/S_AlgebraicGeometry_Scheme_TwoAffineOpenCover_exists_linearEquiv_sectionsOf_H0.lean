@@ -13,27 +13,29 @@ import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
 set_option backward.isDefEq.respectTransparency false
 
+-- register P2M local namespaces opened before declaration (p2m_open semantics)
+namespace P2MW.S_AlgebraicGeometry_Scheme_TwoAffineOpenCover_exists_linearEquiv_sectionsOf_H0.AlgebraicGeometry end P2MW.S_AlgebraicGeometry_Scheme_TwoAffineOpenCover_exists_linearEquiv_sectionsOf_H0.AlgebraicGeometry
 namespace P2MW.S_AlgebraicGeometry_Scheme_TwoAffineOpenCover_exists_linearEquiv_sectionsOf_H0
 
 set_option autoImplicit false
 
 universe u
-open CategoryTheory
-open AlgebraicGeometry
--- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
-open TopologicalSpace
-open Opposite
+open _root_.CategoryTheory
+open _root_.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_Scheme_TwoAffineOpenCover_exists_linearEquiv_sectionsOf_H0.AlgebraicGeometry  -- restored P2M scope (namespace registered above)
+open _root_.TopologicalSpace
+open _root_.Opposite
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Surjective Spec Scheme Scheme.TwoAffineOpenCover.moduleSectionsOfHom Scheme.TwoAffineOpenCover)
+export _root_.AlgebraicGeometry (Surjective Spec Scheme Scheme.TwoAffineOpenCover.moduleSectionsOfHom Scheme.TwoAffineOpenCover)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Γ Modules Opens TwoAffineOpenCover.moduleSectionsOfHom TwoAffineOpenCover)
+export _root_.AlgebraicGeometry.Scheme (Γ Modules Opens TwoAffineOpenCover.moduleSectionsOfHom TwoAffineOpenCover)
 namespace TwoAffineOpenCover
-export AlgebraicGeometry.Scheme.TwoAffineOpenCover (moduleSectionsOfHom restrictSections sectionsOf restrict_mem_H0 U1 U0 sup_eq_top)
+export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (moduleSectionsOfHom restrictSections sectionsOf restrict_mem_H0 U1 U0 sup_eq_top)
 namespace ModH0
-open AlgebraicGeometry.Scheme.TwoAffineOpenCover
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
 
 variable {R : Type u} [CommRing R] {X : Scheme.{u}} (𝒱 : X.TwoAffineOpenCover) (c : X ⟶ Spec (.of R))
   (M : X.Modules)

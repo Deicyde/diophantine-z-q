@@ -12,30 +12,33 @@ import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
 set_option backward.isDefEq.respectTransparency false
 
+-- register P2M local namespaces opened before declaration (p2m_open semantics)
+namespace P2MW.S_AlgebraicGeometry_Scheme_Modules_toDescentData_essSurj_of_openCover.AlgebraicGeometry end P2MW.S_AlgebraicGeometry_Scheme_Modules_toDescentData_essSurj_of_openCover.AlgebraicGeometry
+namespace P2MW.S_AlgebraicGeometry_Scheme_Modules_toDescentData_essSurj_of_openCover.CategoryTheory end P2MW.S_AlgebraicGeometry_Scheme_Modules_toDescentData_essSurj_of_openCover.CategoryTheory
 namespace P2MW.S_AlgebraicGeometry_Scheme_Modules_toDescentData_essSurj_of_openCover
 
 set_option autoImplicit false
 set_option maxHeartbeats 1600000
 
 universe v v' u
-open CategoryTheory
--- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
-open CategoryTheory.Limits
-open AlgebraicGeometry
--- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
-open Opposite
-open TopologicalSpace
+open _root_.CategoryTheory
+open _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_toDescentData_essSurj_of_openCover.CategoryTheory  -- restored P2M scope (namespace registered above)
+open _root_.CategoryTheory.Limits
+open _root_.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_toDescentData_essSurj_of_openCover.AlgebraicGeometry  -- restored P2M scope (namespace registered above)
+open _root_.Opposite
+open _root_.TopologicalSpace
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.hom_ext Scheme.opensRange_homOfLE IsOpenImmersion.lift Scheme.Modules.pseudofunctor Surjective Scheme.Opens.range_ι Scheme.Hom Scheme.Modules.Hom.comp_app Scheme.Modules.Hom Scheme.Hom.image_preimage_eq_opensRange_inf Scheme.Hom.image_preimage_le Scheme Scheme.Modules.Hom.id_app Scheme.Modules.Hom.app IsOpenImmersion Scheme.homOfLE_homOfLE Scheme.Modules.pullbackCongr Scheme.Modules Scheme.Opens Scheme.homOfLE_ι Scheme.Opens.ι_preimage_self IsOpenImmersion.lift_fac Scheme.Modules.pullbackComp)
+export _root_.AlgebraicGeometry (Scheme.Modules.hom_ext Scheme.opensRange_homOfLE IsOpenImmersion.lift Scheme.Modules.pseudofunctor Surjective Scheme.Opens.range_ι Scheme.Hom Scheme.Modules.Hom.comp_app Scheme.Modules.Hom Scheme.Hom.image_preimage_eq_opensRange_inf Scheme.Hom.image_preimage_le Scheme Scheme.Modules.Hom.id_app Scheme.Modules.Hom.app IsOpenImmersion Scheme.homOfLE_homOfLE Scheme.Modules.pullbackCongr Scheme.Modules Scheme.Opens Scheme.homOfLE_ι Scheme.Opens.ι_preimage_self IsOpenImmersion.lift_fac Scheme.Modules.pullbackComp)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Modules.hom_ext opensRange_homOfLE forget Modules.pseudofunctor Hom.id_app Opens.range_ι Hom mk Γ Modules.Hom.comp_app Hom.app Modules.Hom Hom.image_preimage_eq_opensRange_inf Hom.image_preimage_le Modules.Hom.id_app Modules.Hom.app restrictFunctor homOfLE_homOfLE Hom.comp_app Modules.pullbackCongr Modules Opens homOfLE_ι Hom.opensFunctor grothendieckTopology Opens.ι_preimage_self restrict PresheafOfModules Modules.pullbackComp evaluation)
+export _root_.AlgebraicGeometry.Scheme (Modules.hom_ext opensRange_homOfLE forget Modules.pseudofunctor Hom.id_app Opens.range_ι Hom mk Γ Modules.Hom.comp_app Hom.app Modules.Hom Hom.image_preimage_eq_opensRange_inf Hom.image_preimage_le Modules.Hom.id_app Modules.Hom.app restrictFunctor homOfLE_homOfLE Hom.comp_app Modules.pullbackCongr Modules Opens homOfLE_ι Hom.opensFunctor grothendieckTopology Opens.ι_preimage_self restrict PresheafOfModules Modules.pullbackComp evaluation)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (hom_ext pushforwardCongr Hom.app_smul pseudofunctor pushforward pushforwardComp pullback presheaf restrictAdjunction_unit_app_app Hom.comp_app pushforwardComp_hom_app_app Hom pushforward_map_app restrictFunctorCongr restrictFunctor Hom.id_app Hom.app restrictFunctorIsoPullback restrictFunctorComp_hom_app_app restrict_map restrictFunctorComp_inv_app_app restrictAdjunction restrictFunctorCongr_hom_app_app pullbackCongr isSheaf Hom.isIso_iff_isIso_app pullbackPushforwardAdjunction restrictFunctorComp restrict conjugateEquiv_pullbackComp_inv map_smul pushforwardCongr_hom_app_app restrictAdjunction_counit_app_app pullbackComp)
+export _root_.AlgebraicGeometry.Scheme.Modules (hom_ext pushforwardCongr Hom.app_smul pseudofunctor pushforward pushforwardComp pullback presheaf restrictAdjunction_unit_app_app Hom.comp_app pushforwardComp_hom_app_app Hom pushforward_map_app restrictFunctorCongr restrictFunctor Hom.id_app Hom.app restrictFunctorIsoPullback restrictFunctorComp_hom_app_app restrict_map restrictFunctorComp_inv_app_app restrictAdjunction restrictFunctorCongr_hom_app_app pullbackCongr isSheaf Hom.isIso_iff_isIso_app pullbackPushforwardAdjunction restrictFunctorComp restrict conjugateEquiv_pullbackComp_inv map_smul pushforwardCongr_hom_app_app restrictAdjunction_counit_app_app pullbackComp)
 namespace HomZar
-open AlgebraicGeometry.Scheme.Modules
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
 
 theorem presheaf_map_eq {Y : Scheme.{u}} (M : Y.Modules) {A B : Y.Opens} (p q : op A ⟶ op B) :
     M.presheaf.map p = M.presheaf.map q := by
@@ -329,14 +332,15 @@ theorem toRestrict_pullHom {Y : Scheme.{u}} (L₁ L₂ : Y.Modules) {X₀ X₁ :
 end AlgebraicGeometry.Scheme.Modules.HomZar
 
 namespace CategoryTheory
-export CategoryTheory (Cat Category unit_conjugateEquiv Sieve.generate_le_iff eqToIso cancel_epi ConcreteCategory.congr_hom Category.comp_id Pseudofunctor.DescentData.exists_equivalence_of_sieve_eq isoMk Bicategory Iso.eq_comp_inv NatTrans inclusion Pseudofunctor.LocallyDiscreteOpToCat.pullHom Iso.hom_inv_id_app Functor.comp_obj hom_comp eqToIso.hom Pseudofunctor.DescentData.isoMk Injective Functor Pseudofunctor inv Functor.comp_map Functor.map_id Iso.app_inv Iso.inv eqToHom_trans_assoc Iso.app_hom over Presieve.ofArrows Presheaf.IsSheaf evaluation Sieve.ofArrows Functor.mapIso_hom Functor.map_comp Iso.trans_inv LocallyDiscrete Pseudofunctor.mapComp'_eq_mapComp isIso_iff_bijective IsIso eqToIso_refl Adjunction.homEquiv_unit eqToHom_app Sheaf Functor.essSurj_of_iso Functor.essSurj_comp Iso.hom_inv_id_app_assoc Iso.symm_hom Iso.ext Iso.inv_hom_id_app_assoc Iso.inv_hom_id_app isIso_of_reflects_iso Functor.id_obj Functor.mapIso_inv Category.id_comp Iso.trans_hom eqToHom_refl ConcreteCategory.comp_apply Functor.essSurj_of_comp_fully_faithful comp_apply NatTrans.id_app Bicategory.Adj Pseudofunctor.DescentData Sieve Adjunction.homEquiv_leftAdjointUniq_hom_app Presieve Bicategory.Adj.forget₁ Adjunction.comp_unit_app Adjunction.unit_leftAdjointUniq_hom_app cancel_mono ConcreteCategory homOfLE Iso Adjunction eqToHom Presieve.ofArrows.mk Iso.refl_hom forget Pseudofunctor.DescentData.iso_hom asIso Category.assoc)
+-- `over` is a keyword token in Lean 4.35 Mathlib; written `«over»` (p2m_export took it as a string).
+export _root_.CategoryTheory (Cat Category unit_conjugateEquiv Sieve.generate_le_iff eqToIso cancel_epi ConcreteCategory.congr_hom Category.comp_id Pseudofunctor.DescentData.exists_equivalence_of_sieve_eq isoMk Bicategory Iso.eq_comp_inv NatTrans inclusion Pseudofunctor.LocallyDiscreteOpToCat.pullHom Iso.hom_inv_id_app Functor.comp_obj hom_comp eqToIso.hom Pseudofunctor.DescentData.isoMk Injective Functor Pseudofunctor inv Functor.comp_map Functor.map_id Iso.app_inv Iso.inv eqToHom_trans_assoc Iso.app_hom «over» Presieve.ofArrows Presheaf.IsSheaf evaluation Sieve.ofArrows Functor.mapIso_hom Functor.map_comp Iso.trans_inv LocallyDiscrete Pseudofunctor.mapComp'_eq_mapComp isIso_iff_bijective IsIso eqToIso_refl Adjunction.homEquiv_unit eqToHom_app Sheaf Functor.essSurj_of_iso Functor.essSurj_comp Iso.hom_inv_id_app_assoc Iso.symm_hom Iso.ext Iso.inv_hom_id_app_assoc Iso.inv_hom_id_app isIso_of_reflects_iso Functor.id_obj Functor.mapIso_inv Category.id_comp Iso.trans_hom eqToHom_refl ConcreteCategory.comp_apply Functor.essSurj_of_comp_fully_faithful comp_apply NatTrans.id_app Bicategory.Adj Pseudofunctor.DescentData Sieve Adjunction.homEquiv_leftAdjointUniq_hom_app Presieve Bicategory.Adj.forget₁ Adjunction.comp_unit_app Adjunction.unit_leftAdjointUniq_hom_app cancel_mono ConcreteCategory homOfLE Iso Adjunction eqToHom Presieve.ofArrows.mk Iso.refl_hom forget Pseudofunctor.DescentData.iso_hom asIso Category.assoc)
 namespace Pseudofunctor
-export CategoryTheory.Pseudofunctor (DescentData.exists_equivalence_of_sieve_eq LocallyDiscreteOpToCat.pullHom DescentData.isoMk mapComp' id mapComp'_eq_mapComp mapComp comp mk DescentData toDescentData mapComp'_hom_naturality DescentData.iso_hom)
+export _root_.CategoryTheory.Pseudofunctor (DescentData.exists_equivalence_of_sieve_eq LocallyDiscreteOpToCat.pullHom DescentData.isoMk mapComp' id mapComp'_eq_mapComp mapComp comp mk DescentData toDescentData mapComp'_hom_naturality DescentData.iso_hom)
 namespace LocallyDiscreteOpToCat
-export CategoryTheory.Pseudofunctor.LocallyDiscreteOpToCat (pullHom)
-open CategoryTheory.Pseudofunctor.LocallyDiscreteOpToCat
-open CategoryTheory.Pseudofunctor
-open CategoryTheory
+export _root_.CategoryTheory.Pseudofunctor.LocallyDiscreteOpToCat (pullHom)
+open _root_.CategoryTheory.Pseudofunctor.LocallyDiscreteOpToCat
+open _root_.CategoryTheory.Pseudofunctor
+open _root_.CategoryTheory
 
 variable {C : Type*} [Category C] {F : Pseudofunctor (LocallyDiscrete Cᵒᵖ) Cat}
 
@@ -362,15 +366,15 @@ theorem map_map_eq_pullHom ⦃X Y : C⦄ (f : Y ⟶ X) ⦃M N : F.obj (.mk (op X
 end CategoryTheory.Pseudofunctor.LocallyDiscreteOpToCat
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.hom_ext Scheme.opensRange_homOfLE IsOpenImmersion.lift Scheme.Modules.pseudofunctor Surjective Scheme.Opens.range_ι Scheme.Hom Scheme.Modules.Hom.comp_app Scheme.Modules.Hom Scheme.Hom.image_preimage_eq_opensRange_inf Scheme.Hom.image_preimage_le Scheme Scheme.Modules.Hom.id_app Scheme.Modules.Hom.app IsOpenImmersion Scheme.homOfLE_homOfLE Scheme.Modules.pullbackCongr Scheme.Modules Scheme.Opens Scheme.homOfLE_ι Scheme.Opens.ι_preimage_self IsOpenImmersion.lift_fac Scheme.Modules.pullbackComp)
+export _root_.AlgebraicGeometry (Scheme.Modules.hom_ext Scheme.opensRange_homOfLE IsOpenImmersion.lift Scheme.Modules.pseudofunctor Surjective Scheme.Opens.range_ι Scheme.Hom Scheme.Modules.Hom.comp_app Scheme.Modules.Hom Scheme.Hom.image_preimage_eq_opensRange_inf Scheme.Hom.image_preimage_le Scheme Scheme.Modules.Hom.id_app Scheme.Modules.Hom.app IsOpenImmersion Scheme.homOfLE_homOfLE Scheme.Modules.pullbackCongr Scheme.Modules Scheme.Opens Scheme.homOfLE_ι Scheme.Opens.ι_preimage_self IsOpenImmersion.lift_fac Scheme.Modules.pullbackComp)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Modules.hom_ext opensRange_homOfLE forget Modules.pseudofunctor Hom.id_app Opens.range_ι Hom mk Γ Modules.Hom.comp_app Hom.app Modules.Hom Hom.image_preimage_eq_opensRange_inf Hom.image_preimage_le Modules.Hom.id_app Modules.Hom.app restrictFunctor homOfLE_homOfLE Hom.comp_app Modules.pullbackCongr Modules Opens homOfLE_ι Hom.opensFunctor grothendieckTopology Opens.ι_preimage_self restrict PresheafOfModules Modules.pullbackComp evaluation)
+export _root_.AlgebraicGeometry.Scheme (Modules.hom_ext opensRange_homOfLE forget Modules.pseudofunctor Hom.id_app Opens.range_ι Hom mk Γ Modules.Hom.comp_app Hom.app Modules.Hom Hom.image_preimage_eq_opensRange_inf Hom.image_preimage_le Modules.Hom.id_app Modules.Hom.app restrictFunctor homOfLE_homOfLE Hom.comp_app Modules.pullbackCongr Modules Opens homOfLE_ι Hom.opensFunctor grothendieckTopology Opens.ι_preimage_self restrict PresheafOfModules Modules.pullbackComp evaluation)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (hom_ext pushforwardCongr Hom.app_smul pseudofunctor pushforward pushforwardComp pullback presheaf restrictAdjunction_unit_app_app Hom.comp_app pushforwardComp_hom_app_app Hom pushforward_map_app restrictFunctorCongr restrictFunctor Hom.id_app Hom.app restrictFunctorIsoPullback restrictFunctorComp_hom_app_app restrict_map restrictFunctorComp_inv_app_app restrictAdjunction restrictFunctorCongr_hom_app_app pullbackCongr isSheaf Hom.isIso_iff_isIso_app pullbackPushforwardAdjunction restrictFunctorComp restrict conjugateEquiv_pullbackComp_inv map_smul pushforwardCongr_hom_app_app restrictAdjunction_counit_app_app pullbackComp)
+export _root_.AlgebraicGeometry.Scheme.Modules (hom_ext pushforwardCongr Hom.app_smul pseudofunctor pushforward pushforwardComp pullback presheaf restrictAdjunction_unit_app_app Hom.comp_app pushforwardComp_hom_app_app Hom pushforward_map_app restrictFunctorCongr restrictFunctor Hom.id_app Hom.app restrictFunctorIsoPullback restrictFunctorComp_hom_app_app restrict_map restrictFunctorComp_inv_app_app restrictAdjunction restrictFunctorCongr_hom_app_app pullbackCongr isSheaf Hom.isIso_iff_isIso_app pullbackPushforwardAdjunction restrictFunctorComp restrict conjugateEquiv_pullbackComp_inv map_smul pushforwardCongr_hom_app_app restrictAdjunction_counit_app_app pullbackComp)
 namespace ObjGlue
-open AlgebraicGeometry.Scheme.Modules
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
 
 noncomputable abbrev MOD : Pseudofunctor (LocallyDiscrete Scheme.{u}ᵒᵖ) Cat :=
   (Scheme.Modules.pseudofunctor.{u}).comp Bicategory.Adj.forget₁
@@ -502,7 +506,7 @@ theorem τ_comp (i j k : ι) (O : Y.Opens) (hi : O ≤ U i) (hj : O ≤ U j) (hk
     Category.assoc]
   erw [(restrictFunctorIsoPullback (incO U j O hj)).inv_hom_id_app_assoc (Dobj U D j)]
   erw [reassoc_of% h]
-  rfl
+  -- Lean 4.35 adaptation: the preceding `erw` now closes the goal by `rfl`; source `rfl` dropped.
 
 noncomputable abbrev P (i : ι) : Y.Modules := (pushforward (incl U i)).obj (Dobj U D i)
 noncomputable abbrev Q (i j : ι) : Y.Modules := (pushforward (U i ⊓ U j).ι).obj ((Dobj U D j).restrict (p₂ U i j))
@@ -1173,7 +1177,7 @@ theorem gluedIso_comm ⦃Z : Scheme.{u}⦄ (q : Z ⟶ Y) ⦃i j : ι⦄ (f₁ : 
   erw [Pseudofunctor.LocallyDiscreteOpToCat.map_map_eq_pullHom (F := MOD) (p₂ U i j) (gluedIso U D j).hom φ f₂ hφ₂]
   erw [← Pseudofunctor.LocallyDiscreteOpToCat.pullHom_comp', ← Pseudofunctor.LocallyDiscreteOpToCat.pullHom_comp',
     commZ₀ U D i j]
-  rfl
+  -- Lean 4.35 adaptation: the preceding `erw` now closes the goal by `rfl`; source `rfl` dropped.
 
 noncomputable def isoDescentData : (MOD.toDescentData (incl U)).obj (glued U D) ≅ D :=
   Pseudofunctor.DescentData.isoMk (fun k => gluedIso U D k) (fun Z q i j f₁ f₂ h₁ h₂ => gluedIso_comm U D q f₁ f₂ h₁ h₂)

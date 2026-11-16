@@ -12,27 +12,29 @@ import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
 set_option backward.isDefEq.respectTransparency false
 
+-- register P2M local namespaces opened before declaration (p2m_open semantics)
+namespace P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_forall_eq_mul_of_presentations.AlgebraicGeometry end P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_forall_eq_mul_of_presentations.AlgebraicGeometry
 namespace P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_forall_eq_mul_of_presentations
 
 set_option autoImplicit false
 
 universe u
-open CategoryTheory
-open AlgebraicGeometry
--- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
-open Opposite
-open TopologicalSpace
+open _root_.CategoryTheory
+open _root_.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_forall_eq_mul_of_presentations.AlgebraicGeometry  -- restored P2M scope (namespace registered above)
+open _root_.Opposite
+open _root_.TopologicalSpace
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (IsIntegral Scheme functionField_isFractionRing_of_isAffineOpen IsAffineOpen Scheme.Modules)
+export _root_.AlgebraicGeometry (IsIntegral Scheme functionField_isFractionRing_of_isAffineOpen IsAffineOpen Scheme.Modules)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Γ functionField isBasis_affineOpens Modules Opens)
+export _root_.AlgebraicGeometry.Scheme (Γ functionField isBasis_affineOpens Modules Opens)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (presheaf isSheaf)
+export _root_.AlgebraicGeometry.Scheme.Modules (presheaf isSheaf)
 namespace PresUniq
-open AlgebraicGeometry.Scheme.Modules
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
 open TopologicalSpace Opposite
 
 variable {X : Scheme.{u}} [IsIntegral X] (M : X.Modules)
@@ -143,7 +145,7 @@ theorem exists_eq_mul (U₀ : X.Opens) [Nonempty U₀] (m₀ : Γ(M, U₀)) (hm�
 end AlgebraicGeometry.Scheme.Modules.PresUniq
 
 namespace AlgebraicGeometry p2m_export "AlgebraicGeometry" "IsIntegral Scheme functionField_isFractionRing_of_isAffineOpen IsAffineOpen Scheme.Modules" namespace Scheme p2m_export "AlgebraicGeometry.Scheme" "Γ functionField isBasis_affineOpens Modules Opens" namespace Modules p2m_export "AlgebraicGeometry.Scheme.Modules" "presheaf isSheaf" end AlgebraicGeometry.Scheme.Modules
-open scoped AlgebraicGeometry AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.Modules in
+open scoped _root_.AlgebraicGeometry _root_.AlgebraicGeometry.Scheme _root_.AlgebraicGeometry.Scheme.Modules in
 open AlgebraicGeometry.Scheme.Modules.PresUniq in
 
 theorem AlgebraicGeometry.Scheme.Modules.exists_forall_eq_mul_of_presentations'

@@ -30,25 +30,25 @@ open Finset Function
 
 namespace ProjSpaceCech
 export _root_.ProjSpaceCech (Twist.MonExp Twist.negSupp Twist.Mon Twist.Mon.incl Twist.Mon.incl_injective Idx Idx.img Idx.card_img Idx.face Idx.img_face_subset Twist.faceRes Twist.cochain Twist.d Twist.d_apply Twist.H)
-open ProjSpaceCech
+open _root_.ProjSpaceCech
 
 section Homotopy
 
 variable {n : ℕ}
 
 namespace Twist p2m_export "ProjSpaceCech.Twist" "MonExp negSupp Mon Mon.incl Mon.incl_injective faceRes cochain d d_apply H" end Twist
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 theorem Twist.idx_canonical {i : ℕ} (s : Idx n i) :
     s.1 = (Idx.img n s).orderEmbOfFin (Idx.card_img n s) :=
   Finset.orderEmbOfFin_unique _ (fun k => Finset.mem_image_of_mem _ (Finset.mem_univ k)) s.2
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 theorem Twist.idx_eq_of_img {i : ℕ} {s t : Idx n i}
     (h : Idx.img n s = Idx.img n t) : s = t := by
   apply Subtype.ext
   rw [Twist.idx_canonical s]
   exact (Finset.orderEmbOfFin_unique (Idx.card_img n s)
     (fun k => h ▸ Finset.mem_image_of_mem _ (Finset.mem_univ k)) t.2).symm
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 theorem Twist.img_face {i : ℕ} (s : Idx n (i + 1))
     (j : Fin (i + 2)) :
     Idx.img n (Idx.face n s j)
@@ -62,52 +62,52 @@ theorem Twist.img_face {i : ℕ} (s : Idx n (i + 1))
   · rintro ⟨hne, k, rfl⟩
     obtain ⟨k', rfl⟩ := Fin.exists_succAbove_eq (fun h => hne (congrArg s.1 h))
     exact ⟨k', rfl⟩
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 def Twist.altOfFinset {i : ℕ} (T : Finset (Fin (n + 1))) (hT : T.card = i + 1) :
     Idx n i :=
   ⟨T.orderEmbOfFin hT, (T.orderEmbOfFin hT).strictMono⟩
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 theorem Twist.img_altOfFinset {i : ℕ} (T : Finset (Fin (n + 1)))
     (hT : T.card = i + 1) :
     Idx.img n (Twist.altOfFinset T hT) = T := by
   simp only [Idx.img, Twist.altOfFinset]
   exact Finset.image_orderEmbOfFin_univ T hT
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 def Twist.altPos {i : ℕ} (s : Idx n i) (j : Fin (n + 1))
     (hj : j ∈ Idx.img n s) : Fin (i + 1) :=
   ((Idx.img n s).orderIsoOfFin (Idx.card_img n s)).symm ⟨j, hj⟩
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 theorem Twist.idx_val_altPos {i : ℕ} (s : Idx n i)
     (j : Fin (n + 1)) (hj : j ∈ Idx.img n s) :
     s.1 (Twist.altPos s j hj) = j := by
   rw [Twist.idx_canonical s, ← Finset.coe_orderIsoOfFin_apply,
     Twist.altPos, OrderIso.apply_symm_apply]
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 theorem Twist.altPos_val {i : ℕ} (s : Idx n i) (p : Fin (i + 1)) :
     Twist.altPos s (s.1 p) (Finset.mem_image_of_mem _ (Finset.mem_univ p)) = p :=
   s.2.injective (Twist.idx_val_altPos s (s.1 p) _)
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 def Twist.altInsert {i : ℕ} (s : Idx n i) (j : Fin (n + 1))
     (hj : j ∉ Idx.img n s) : Idx n (i + 1) :=
   Twist.altOfFinset (insert j (Idx.img n s))
     (by rw [Finset.card_insert_of_notMem hj, Idx.card_img])
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 theorem Twist.img_altInsert {i : ℕ} (s : Idx n i)
     (j : Fin (n + 1)) (hj : j ∉ Idx.img n s) :
     Idx.img n (Twist.altInsert s j hj)
       = insert j (Idx.img n s) :=
   Twist.img_altOfFinset _ _
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 def Twist.insPos {i : ℕ} (s : Idx n i) (j : Fin (n + 1))
     (hj : j ∉ Idx.img n s) : Fin (i + 2) :=
   Twist.altPos (Twist.altInsert s j hj) j
     (by rw [Twist.img_altInsert]; exact Finset.mem_insert_self j _)
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 theorem Twist.altInsert_val_insPos {i : ℕ} (s : Idx n i)
     (j : Fin (n + 1)) (hj : j ∉ Idx.img n s) :
     (Twist.altInsert s j hj).1 (Twist.insPos s j hj) = j :=
   Twist.idx_val_altPos _ j _
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 theorem Twist.face_altInsert_insPos {i : ℕ} (s : Idx n i)
     (j : Fin (n + 1)) (hj : j ∉ Idx.img n s) :
     Idx.face n (Twist.altInsert s j hj)
@@ -115,7 +115,7 @@ theorem Twist.face_altInsert_insPos {i : ℕ} (s : Idx n i)
   apply Twist.idx_eq_of_img
   rw [Twist.img_face, Twist.altInsert_val_insPos,
     Twist.img_altInsert, Finset.erase_insert hj]
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 theorem Twist.img_face_altInsert_ne {i : ℕ} (s : Idx n i)
     (j : Fin (n + 1)) (hj : j ∉ Idx.img n s)
     (k : Fin (i + 2)) (hk : k ≠ Twist.insPos s j hj) :
@@ -140,42 +140,42 @@ theorem Twist.img_face_altInsert_ne {i : ℕ} (s : Idx n i)
     Finset.erase_insert_of_ne hmne.symm]
 
 variable (R : Type u) [CommRing R] (d : ℤ)
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 def Twist.coeff {i : ℕ} (f : Twist.cochain R n d i)
     (s : Idx n i) (a : Twist.MonExp n) : R :=
   if h : (∑ j, a j = d ∧ Twist.negSupp n a ⊆ Idx.img n s)
     then f s ⟨a, h⟩ else 0
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 theorem Twist.coeff_eq {i : ℕ} (f : Twist.cochain R n d i)
     (s : Idx n i) (a : Twist.Mon n d (Idx.img n s)) :
     Twist.coeff R d f s a.1 = f s a := by
   rcases a with ⟨a, ha⟩
   rw [Twist.coeff, dif_pos ha]
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 theorem Twist.coeff_of_not {i : ℕ} (f : Twist.cochain R n d i)
     (s : Idx n i) (a : Twist.MonExp n)
     (h : ¬ Twist.negSupp n a ⊆ Idx.img n s) :
     Twist.coeff R d f s a = 0 := by
   rw [Twist.coeff, dif_neg (fun h' => h h'.2)]
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 theorem Twist.coeff_add {i : ℕ} (f g : Twist.cochain R n d i)
     (s : Idx n i) (a : Twist.MonExp n) :
     Twist.coeff R d (f + g) s a
       = Twist.coeff R d f s a + Twist.coeff R d g s a := by
   unfold Twist.coeff; split_ifs <;> simp [Pi.add_apply, Finsupp.add_apply]
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 theorem Twist.coeff_smul {i : ℕ} (r : R) (f : Twist.cochain R n d i)
     (s : Idx n i) (a : Twist.MonExp n) :
     Twist.coeff R d (r • f) s a = r • Twist.coeff R d f s a := by
   unfold Twist.coeff; split_ifs <;> simp [Pi.smul_apply, Finsupp.smul_apply]
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 theorem Twist.ext_coeff {i : ℕ} {f g : Twist.cochain R n d i}
     (h : ∀ s a, Twist.coeff R d f s a = Twist.coeff R d g s a) :
     f = g := by
   funext s; ext a
   have := h s a.1
   rwa [Twist.coeff_eq, Twist.coeff_eq] at this
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 theorem Twist.coeff_d {i : ℕ} (f : Twist.cochain R n d i)
     (s : Idx n (i + 1)) (a : Twist.MonExp n) :
     Twist.coeff R d (Twist.d R n d i f) s a
@@ -191,7 +191,9 @@ theorem Twist.coeff_d {i : ℕ} (f : Twist.cochain R n d i)
       have key : (⟨a, hok⟩ : Twist.Mon n d (Idx.img n s))
           = Twist.Mon.incl n d (Idx.img_face_subset n s j)
               ⟨a, hok.1, hface⟩ := rfl
-      rw [key, Finsupp.mapDomain_apply (Twist.Mon.incl_injective n d _)]
+      -- Lean 4.35 Mathlib adaptation: the injective form of `Finsupp.mapDomain_apply` is now
+      -- `Finsupp.mapDomain_apply_of_injective` (source: `Finsupp.mapDomain_apply`).
+      rw [key, Finsupp.mapDomain_apply_of_injective (Twist.Mon.incl_injective n d _)]
     · rw [Twist.coeff_of_not _ _ _ _ _ hface, smul_zero,
         Finsupp.mapDomain_notin_range, smul_zero]
       rintro ⟨⟨b, hb1, hb2⟩, hb⟩
@@ -202,7 +204,7 @@ theorem Twist.coeff_d {i : ℕ} (f : Twist.cochain R n d i)
     refine (Finset.sum_eq_zero fun j _ => ?_).symm
     rw [Twist.coeff, dif_neg, smul_zero]
     exact fun h' => hok ⟨h'.1, h'.2.trans (Idx.img_face_subset n s j)⟩
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 theorem Twist.coeff_piSingle {i : ℕ} (s₀ : Idx n i)
     (b₀ : Twist.Mon n d (Idx.img n s₀)) (r : R)
     (s : Idx n i) (a : Twist.MonExp n) :
@@ -220,13 +222,13 @@ theorem Twist.coeff_piSingle {i : ℕ} (s₀ : Idx n i)
         exact hsa ⟨rfl, (Subtype.ext_iff.mp heq : b₀.1 = a).symm⟩
       · rw [Pi.single_eq_of_ne hs, Finsupp.zero_apply]
     · rfl
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 def Twist.posMin (a : Twist.MonExp n)
     (ha : Twist.negSupp n a ≠ univ) : Fin (n + 1) :=
   (univ \ Twist.negSupp n a).min'
     (by rwa [Finset.nonempty_iff_ne_empty, Ne, Finset.sdiff_eq_empty_iff_subset,
       Finset.univ_subset_iff])
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 theorem Twist.posMin_notMem_negSupp (a : Twist.MonExp n)
     (ha : Twist.negSupp n a ≠ univ) :
     Twist.posMin a ha ∉ Twist.negSupp n a := by
@@ -241,7 +243,7 @@ end Homotopy
 section Rank
 
 variable {n : ℕ}
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 theorem Twist.altPos_eq_card {i : ℕ} (s : Idx n i)
     (j : Fin (n + 1)) (hj : j ∈ Idx.img n s) :
     (Twist.altPos s j hj : ℕ) = #((Idx.img n s).filter (· < j)) := by
@@ -254,7 +256,7 @@ theorem Twist.altPos_eq_card {i : ℕ} (s : Idx n i)
     · rintro ⟨⟨k, rfl⟩, hlt⟩; exact ⟨k, s.2.lt_iff_lt.mp (hval ▸ hlt), rfl⟩
     · rintro ⟨k, hk, rfl⟩; exact ⟨⟨k, rfl⟩, hval ▸ s.2 hk⟩
   rw [key, Finset.card_image_of_injective _ s.2.injective, Fin.card_Iio]
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 theorem Twist.insPos_eq_card {i : ℕ} (s : Idx n i)
     (j : Fin (n + 1)) (hj : j ∉ Idx.img n s) :
     (Twist.insPos s j hj : ℕ) = #((Idx.img n s).filter (· < j)) := by
@@ -266,12 +268,12 @@ end Rank
 section Hj
 
 variable {n : ℕ} (R : Type u) [CommRing R] (d : ℤ)
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 theorem Twist.img_subset_altInsert {i : ℕ} (s : Idx n i)
     (j₁ : Fin (n + 1)) (hj : j₁ ∉ Idx.img n s) :
     Idx.img n s ⊆ Idx.img n (Twist.altInsert s j₁ hj) := by
   rw [Twist.img_altInsert]; exact Finset.subset_insert _ _
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 def Twist.hj (j₁ : Fin (n + 1)) (i : ℕ) :
     Twist.cochain R n d (i + 1) →ₗ[R] Twist.cochain R n d i :=
   LinearMap.pi fun s =>
@@ -282,14 +284,14 @@ def Twist.hj (j₁ : Fin (n + 1)) (i : ℕ) :
             (Twist.Mon.incl_injective n d _)).comp
           (LinearMap.proj (Twist.altInsert s j₁ hj)))
     else 0
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 theorem Twist.hj_apply_of_mem (j₁ : Fin (n + 1)) {i : ℕ}
     (f : Twist.cochain R n d (i + 1)) (s : Idx n i)
     (hmem : j₁ ∈ Idx.img n s) :
     Twist.hj R d j₁ i f s = 0 := by
   simp only [Twist.hj, LinearMap.pi_apply, dif_neg (not_not.mpr hmem),
     LinearMap.zero_apply]
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 theorem Twist.coeff_hj_of_mem (j₁ : Fin (n + 1)) {i : ℕ}
     (f : Twist.cochain R n d (i + 1)) (s : Idx n i)
     (a : Twist.MonExp n) (hmem : j₁ ∈ Idx.img n s) :
@@ -297,7 +299,7 @@ theorem Twist.coeff_hj_of_mem (j₁ : Fin (n + 1)) {i : ℕ}
   rw [Twist.coeff]; split_ifs with h
   · rw [Twist.hj_apply_of_mem R d j₁ f s hmem, Finsupp.zero_apply]
   · rfl
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 theorem Twist.coeff_hj (j₁ : Fin (n + 1)) {i : ℕ}
     (f : Twist.cochain R n d (i + 1)) (s : Idx n i)
     (a : Twist.MonExp n) (hjs : j₁ ∉ Idx.img n s)
@@ -316,7 +318,7 @@ theorem Twist.coeff_hj (j₁ : Fin (n + 1)) {i : ℕ}
     rfl
   · rw [Twist.coeff, dif_neg (fun h => hsum h.1), Twist.coeff,
       dif_neg (fun h => hsum h.1), smul_zero]
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 theorem Twist.coeff_zero {i : ℕ} (s : Idx n i)
     (a : Twist.MonExp n) :
     Twist.coeff R d (0 : Twist.cochain R n d i) s a = 0 := by
@@ -327,7 +329,7 @@ end Hj
 section DhHd
 
 variable {n : ℕ} (R : Type u) [CommRing R] (d : ℤ)
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 theorem Twist.dh_hd_coeff (j₁ : Fin (n + 1)) (i : ℕ)
     (s : Idx n (i + 1)) (a : Twist.MonExp n)
     (hsub : Twist.negSupp n a ⊆ Idx.img n s)
@@ -493,13 +495,13 @@ end DhHd
 section Homot
 
 variable {n : ℕ} (R : Type u) [CommRing R] (d : ℤ)
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 def Twist.coeffL {i : ℕ} (s : Idx n i)
     (a : Twist.MonExp n) : Twist.cochain R n d i →ₗ[R] R where
   toFun f := Twist.coeff R d f s a
   map_add' f g := Twist.coeff_add R d f g s a
   map_smul' r f := Twist.coeff_smul R d r f s a
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 def Twist.homot (i : ℕ) :
     Twist.cochain R n d (i + 1) →ₗ[R] Twist.cochain R n d i :=
   ∑ s' : Idx n (i + 1),
@@ -509,7 +511,7 @@ def Twist.homot (i : ℕ) :
           ((LinearMap.single R _ s').comp (Finsupp.lsingle b))
       else 0).comp
     (LinearMap.proj s')
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 theorem Twist.homot_basis {i : ℕ} (s₀ : Idx n (i + 1))
     (b₀ : Twist.Mon n d (Idx.img n s₀)) (r : R) :
     Twist.homot R d i (Pi.single s₀ (Finsupp.single b₀ r))
@@ -525,7 +527,7 @@ theorem Twist.homot_basis {i : ℕ} (s₀ : Idx n (i + 1))
   split_ifs with hb
   · simp only [LinearMap.comp_apply, Finsupp.lsingle_apply, LinearMap.single_apply]
   · rfl
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 theorem Twist.coeff_homot {i : ℕ} (t : Idx n i)
     (a : Twist.MonExp n) (hsub : Twist.negSupp n a ⊆ Idx.img n t)
     (hne : Twist.negSupp n a ≠ Finset.univ)
@@ -557,7 +559,7 @@ theorem Twist.coeff_homot {i : ℕ} (t : Idx n i)
       · rw [hvanish _ hab, hvanish _ hab]
       · rw [Twist.coeff_zero, hvanish _ hab]
   exact congrFun (congrArg DFunLike.coe hkey) f
-open scoped ProjSpaceCech.Twist in
+open scoped _root_.ProjSpaceCech.Twist in
 theorem Twist.subsingleton_cohomology_succ_of_le' {i : ℕ} (hi : i + 2 ≤ n) :
     Subsingleton (Twist.H R n d (i + 1)) := by
   dsimp only [Twist.H]

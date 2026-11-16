@@ -12,26 +12,28 @@ import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
 set_option backward.isDefEq.respectTransparency false
 
+-- register P2M local namespaces opened before declaration (p2m_open semantics)
+namespace P2MW.S_AlgebraicGeometry_Scheme_Modules_bijective_smul_unit_app_of_bijective_smul.AlgebraicGeometry end P2MW.S_AlgebraicGeometry_Scheme_Modules_bijective_smul_unit_app_of_bijective_smul.AlgebraicGeometry
 namespace P2MW.S_AlgebraicGeometry_Scheme_Modules_bijective_smul_unit_app_of_bijective_smul
 
 set_option autoImplicit false
 
 universe u
-open CategoryTheory
-open AlgebraicGeometry
--- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
+open _root_.CategoryTheory
+open _root_.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_bijective_smul_unit_app_of_bijective_smul.AlgebraicGeometry  -- restored P2M scope (namespace registered above)
 
 open Opposite TopologicalSpace
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (morphismRestrict_ι Scheme.Modules.pullback Scheme.Hom Scheme.Hom.image_preimage_eq_opensRange_inf Scheme Scheme.Modules.pullbackPushforwardAdjunction Scheme.Modules Scheme.Opens Scheme.Opens.opensRange_ι)
+export _root_.AlgebraicGeometry (morphismRestrict_ι Scheme.Modules.pullback Scheme.Hom Scheme.Hom.image_preimage_eq_opensRange_inf Scheme Scheme.Modules.pullbackPushforwardAdjunction Scheme.Modules Scheme.Opens Scheme.Opens.opensRange_ι)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Modules.hom_ext Modules.Hom.app_smul ringCatSheaf Modules.pushforward Modules.pullback Hom Γ Modules.Hom Hom.image_preimage_eq_opensRange_inf Modules.restrictFunctor Modules.restrictFunctorIsoPullback restrictFunctor Modules.pullbackCongr Modules.Hom.isIso_iff_isIso_app Modules.pullbackPushforwardAdjunction Modules Opens Modules.map_smul Opens.opensRange_ι PresheafOfModules Modules.pullbackComp)
+export _root_.AlgebraicGeometry.Scheme (Modules.hom_ext Modules.Hom.app_smul ringCatSheaf Modules.pushforward Modules.pullback Hom Γ Modules.Hom Hom.image_preimage_eq_opensRange_inf Modules.restrictFunctor Modules.restrictFunctorIsoPullback restrictFunctor Modules.pullbackCongr Modules.Hom.isIso_iff_isIso_app Modules.pullbackPushforwardAdjunction Modules Opens Modules.map_smul Opens.opensRange_ι PresheafOfModules Modules.pullbackComp)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (hom_ext Hom.app_smul pushforward pullback presheaf Hom mapPresheaf_app restrictFunctor restrictFunctorIsoPullback pullbackCongr Hom.isIso_iff_isIso_app pullbackPushforwardAdjunction map_smul pullbackComp)
-open AlgebraicGeometry.Scheme.Modules
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
+export _root_.AlgebraicGeometry.Scheme.Modules (hom_ext Hom.app_smul pushforward pullback presheaf Hom mapPresheaf_app restrictFunctor restrictFunctorIsoPullback pullbackCongr Hom.isIso_iff_isIso_app pullbackPushforwardAdjunction map_smul pullbackComp)
+open _root_.AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
 
 namespace FramePullback
 

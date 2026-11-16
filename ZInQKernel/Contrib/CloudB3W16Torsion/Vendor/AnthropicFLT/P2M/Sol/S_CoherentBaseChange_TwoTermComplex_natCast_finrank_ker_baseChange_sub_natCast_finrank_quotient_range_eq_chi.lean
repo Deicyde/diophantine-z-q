@@ -13,6 +13,8 @@ import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
 set_option backward.isDefEq.respectTransparency false
 
+-- register P2M local namespaces opened before declaration (p2m_open semantics)
+namespace P2MW.S_CoherentBaseChange_TwoTermComplex_natCast_finrank_ker_baseChange_sub_natCast_finrank_quotient_range_eq_chi.CoherentBaseChange end P2MW.S_CoherentBaseChange_TwoTermComplex_natCast_finrank_ker_baseChange_sub_natCast_finrank_quotient_range_eq_chi.CoherentBaseChange
 namespace P2MW.S_CoherentBaseChange_TwoTermComplex_natCast_finrank_ker_baseChange_sub_natCast_finrank_quotient_range_eq_chi
 
 set_option autoImplicit false
@@ -20,16 +22,16 @@ set_option autoImplicit false
 universe u v w
 
 open scoped TensorProduct
-open CoherentBaseChange
--- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
+open _root_.CoherentBaseChange
+open _root_.P2MW.S_CoherentBaseChange_TwoTermComplex_natCast_finrank_ker_baseChange_sub_natCast_finrank_quotient_range_eq_chi.CoherentBaseChange  -- restored P2M scope (namespace registered above)
 
 namespace CoherentBaseChange
-export CoherentBaseChange (TwoTermComplex)
+export _root_.CoherentBaseChange (TwoTermComplex)
 namespace TwoTermComplex
-export CoherentBaseChange.TwoTermComplex (chi C0 d C1)
+export _root_.CoherentBaseChange.TwoTermComplex (chi C0 d C1)
 namespace ChiFieldAux
-open CoherentBaseChange.TwoTermComplex
-open CoherentBaseChange
+open _root_.CoherentBaseChange.TwoTermComplex
+open _root_.CoherentBaseChange
 
 variable {R : Type u} [CommRing R] (G : CoherentBaseChange.TwoTermComplex.{u, v} R)
   (K : Type w) [Field K] [Algebra R K]

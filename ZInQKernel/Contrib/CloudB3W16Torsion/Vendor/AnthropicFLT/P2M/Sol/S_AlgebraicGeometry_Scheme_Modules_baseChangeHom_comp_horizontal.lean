@@ -14,24 +14,26 @@ import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
 set_option backward.isDefEq.respectTransparency false
 
+-- register P2M local namespaces opened before declaration (p2m_open semantics)
+namespace P2MW.S_AlgebraicGeometry_Scheme_Modules_baseChangeHom_comp_horizontal.AlgebraicGeometry end P2MW.S_AlgebraicGeometry_Scheme_Modules_baseChangeHom_comp_horizontal.AlgebraicGeometry
 namespace P2MW.S_AlgebraicGeometry_Scheme_Modules_baseChangeHom_comp_horizontal
 
 set_option autoImplicit false
 
 universe u
-open CategoryTheory
-open CategoryTheory.Limits
-open AlgebraicGeometry
--- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
+open _root_.CategoryTheory
+open _root_.CategoryTheory.Limits
+open _root_.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_baseChangeHom_comp_horizontal.AlgebraicGeometry  -- restored P2M scope (namespace registered above)
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.hom_ext Scheme.Modules.pushforward Scheme.Modules.pullback Scheme.Modules.Hom.comp_app Scheme.Modules.Hom Scheme Scheme.Modules.Hom.app Scheme.Modules Scheme.Modules.pullbackComp Scheme.Modules.baseChangeHom Scheme.Modules.unit_app_comp_pullbackComp_inv)
+export _root_.AlgebraicGeometry (Scheme.Modules.hom_ext Scheme.Modules.pushforward Scheme.Modules.pullback Scheme.Modules.Hom.comp_app Scheme.Modules.Hom Scheme Scheme.Modules.Hom.app Scheme.Modules Scheme.Modules.pullbackComp Scheme.Modules.baseChangeHom Scheme.Modules.unit_app_comp_pullbackComp_inv)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Modules.hom_ext Modules.pushforward Modules.pullback Hom Modules.Hom.comp_app Hom.app Modules.Hom Modules.Hom.app Hom.comp_app Modules Opens Modules.pullbackComp Modules.baseChangeHom Modules.unit_app_comp_pullbackComp_inv)
+export _root_.AlgebraicGeometry.Scheme (Modules.hom_ext Modules.pushforward Modules.pullback Hom Modules.Hom.comp_app Hom.app Modules.Hom Modules.Hom.app Hom.comp_app Modules Opens Modules.pullbackComp Modules.baseChangeHom Modules.unit_app_comp_pullbackComp_inv)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (hom_ext pushforward pullback presheaf Hom.comp_app Hom Hom.app pullbackPushforwardAdjunction pullbackComp baseChangeHom unit_app_app_comp_baseChangeHom_app unit_app_comp_pullbackComp_inv)
-open AlgebraicGeometry.Scheme.Modules
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
+export _root_.AlgebraicGeometry.Scheme.Modules (hom_ext pushforward pullback presheaf Hom.comp_app Hom Hom.app pullbackPushforwardAdjunction pullbackComp baseChangeHom unit_app_app_comp_baseChangeHom_app unit_app_comp_pullbackComp_inv)
+open _root_.AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
 
 theorem phE5_map_eqToHom_comp_app {Y : Scheme.{u}} {M N : Y.Modules} (φ : M ⟶ N) {U V : Y.Opens}
     (e : U = V) :
@@ -120,6 +122,6 @@ theorem _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_baseChangeHom_comp_horizo
     phE5_inv_app_map_eqToHom_hom_app ((pullbackComp g'' g').app F) (e₂.trans e₁g)
   show _ = ((pullbackPushforwardAdjunction (g'' ≫ g')).unit.app F).app (π ⁻¹ᵁ U) ≫ (((pullbackComp g'' g').inv.app F).app ((g'' ≫ g') ⁻¹ᵁ (π ⁻¹ᵁ U)) ≫ ((pullback g'').obj ((pullback g').obj F)).presheaf.map (eqToHom (e₂.trans e₁g)).op ≫ ((pullbackComp g'' g').hom.app F).app (π'' ⁻¹ᵁ ((ψ' ≫ ψ) ⁻¹ᵁ U)))
   erw [fin]
-  rfl
+  -- Lean 4.35 adaptation: the preceding `erw` now closes the goal by `rfl`; source `rfl` dropped.
 
 end AlgebraicGeometry.Scheme.Modules

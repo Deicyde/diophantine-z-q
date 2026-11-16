@@ -14,24 +14,26 @@ import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
 set_option backward.isDefEq.respectTransparency false
 
+-- register P2M local namespaces opened before declaration (p2m_open semantics)
+namespace P2MW.S_AlgebraicGeometry_Scheme_Modules_isLocallyFreeOfRank_one_iff_isInvertible.AlgebraicGeometry end P2MW.S_AlgebraicGeometry_Scheme_Modules_isLocallyFreeOfRank_one_iff_isInvertible.AlgebraicGeometry
 namespace P2MW.S_AlgebraicGeometry_Scheme_Modules_isLocallyFreeOfRank_one_iff_isInvertible
 
 set_option autoImplicit false
 
 universe u
-open CategoryTheory
-open AlgebraicGeometry
--- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
+open _root_.CategoryTheory
+open _root_.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_isLocallyFreeOfRank_one_iff_isInvertible.AlgebraicGeometry  -- restored P2M scope (namespace registered above)
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme Scheme.Modules Scheme.Modules.IsLocallyFreeOfRank Scheme.Modules.IsInvertible)
+export _root_.AlgebraicGeometry (Scheme Scheme.Modules Scheme.Modules.IsLocallyFreeOfRank Scheme.Modules.IsInvertible)
 namespace Scheme
-export AlgebraicGeometry.Scheme (ringCatSheaf Modules Modules.IsLocallyFreeOfRank Modules.IsInvertible)
+export _root_.AlgebraicGeometry.Scheme (ringCatSheaf Modules Modules.IsLocallyFreeOfRank Modules.IsInvertible)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (IsLocallyFreeOfRank IsInvertible)
-open AlgebraicGeometry.Scheme.Modules
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
+export _root_.AlgebraicGeometry.Scheme.Modules (IsLocallyFreeOfRank IsInvertible)
+open _root_.AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
 
 namespace RankOne
 

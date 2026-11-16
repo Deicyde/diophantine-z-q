@@ -14,33 +14,35 @@ import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
 set_option backward.isDefEq.respectTransparency false
 
+-- register P2M local namespaces opened before declaration (p2m_open semantics)
+namespace P2MW.S_AlgebraicGeometry_RelPicard_RigidifiedLineBundle_exists_iso_map_pullback_rigSection_comp_eq.AlgebraicGeometry end P2MW.S_AlgebraicGeometry_RelPicard_RigidifiedLineBundle_exists_iso_map_pullback_rigSection_comp_eq.AlgebraicGeometry
 namespace P2MW.S_AlgebraicGeometry_RelPicard_RigidifiedLineBundle_exists_iso_map_pullback_rigSection_comp_eq
 
 set_option autoImplicit false
 
 universe u
-open CategoryTheory
-open CategoryTheory.Limits
-open AlgebraicGeometry
--- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
-open Opposite
+open _root_.CategoryTheory
+open _root_.CategoryTheory.Limits
+open _root_.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_RelPicard_RigidifiedLineBundle_exists_iso_map_pullback_rigSection_comp_eq.AlgebraicGeometry  -- restored P2M scope (namespace registered above)
+open _root_.Opposite
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.pullback Scheme.Hom Spec Scheme Scheme.Hom.appTop Scheme.Hom.comp_appTop Scheme.Hom.naturality Scheme.Modules)
+export _root_.AlgebraicGeometry (Scheme.Modules.pullback Scheme.Hom Spec Scheme Scheme.Hom.appTop Scheme.Hom.comp_appTop Scheme.Hom.naturality Scheme.Modules)
 namespace Scheme
-export AlgebraicGeometry.Scheme (ringCatSheaf Modules.pullback Hom Γ Hom.appTop Hom.comp_appTop Hom.naturality Modules Opens Modules.map_smul PresheafOfModules)
+export _root_.AlgebraicGeometry.Scheme (ringCatSheaf Modules.pullback Hom Γ Hom.appTop Hom.comp_appTop Hom.naturality Modules Opens Modules.map_smul PresheafOfModules)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (Hom.app_smul pushforward pullback presheaf Hom mapPresheaf_app pullbackPushforwardAdjunction map_smul)
-open AlgebraicGeometry.Scheme.Modules
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
+export _root_.AlgebraicGeometry.Scheme.Modules (Hom.app_smul pushforward pullback presheaf Hom mapPresheaf_app pullbackPushforwardAdjunction map_smul)
+open _root_.AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
 
 variable {X Y : Scheme.{u}}
 
 noncomputable abbrev unitModule (X : Scheme.{u}) : X.Modules := SheafOfModules.unit X.ringCatSheaf
 
 namespace Hom p2m_export "AlgebraicGeometry.Scheme.Modules.Hom" "app_smul mapPresheaf app" end Hom
-open scoped AlgebraicGeometry.Scheme.Modules.Hom in
+open scoped _root_.AlgebraicGeometry.Scheme.Modules.Hom in
 lemma Hom.app_naturality {M N : X.Modules} (φ : M ⟶ N) {U V : X.Opens} (i : U ⟶ V) (x : Γ(M, V)) :
     φ.app U (M.presheaf.map i.op x) = N.presheaf.map i.op (φ.app V x) := by
   have h := φ.mapPresheaf.naturality i.op
@@ -177,12 +179,12 @@ lemma appTop_appTop_of_comp_eq_id {T P : Scheme.{u}} (e : T ⟶ P) (p : P ⟶ T)
   simp
 
 end AlgebraicGeometry.Scheme.Modules
-open CategoryTheory
-open CategoryTheory.Limits
-open AlgebraicGeometry
--- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
-open AlgebraicGeometry.RelPicard
-open NeronModelInfra
+open _root_.CategoryTheory
+open _root_.CategoryTheory.Limits
+open _root_.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_RelPicard_RigidifiedLineBundle_exists_iso_map_pullback_rigSection_comp_eq.AlgebraicGeometry  -- restored P2M scope (namespace registered above)
+open _root_.AlgebraicGeometry.RelPicard
+open _root_.NeronModelInfra
 open _root_.AlgebraicGeometry.Scheme.Modules _root_.P2MW.S_AlgebraicGeometry_RelPicard_RigidifiedLineBundle_exists_iso_map_pullback_rigSection_comp_eq.AlgebraicGeometry.Scheme.Modules in
 
 theorem solution

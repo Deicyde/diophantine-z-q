@@ -13,28 +13,30 @@ import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
 set_option backward.isDefEq.respectTransparency false
 
+-- register P2M local namespaces opened before declaration (p2m_open semantics)
+namespace P2MW.S_AlgebraicGeometry_Scheme_Modules_IsInvertible_isIso_of_locallySurjective.AlgebraicGeometry end P2MW.S_AlgebraicGeometry_Scheme_Modules_IsInvertible_isIso_of_locallySurjective.AlgebraicGeometry
 namespace P2MW.S_AlgebraicGeometry_Scheme_Modules_IsInvertible_isIso_of_locallySurjective
 
 set_option autoImplicit false
 
 universe u v
-open CategoryTheory
-open CategoryTheory.Limits
-open AlgebraicGeometry
--- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
-open Opposite
+open _root_.CategoryTheory
+open _root_.CategoryTheory.Limits
+open _root_.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_IsInvertible_isIso_of_locallySurjective.AlgebraicGeometry  -- restored P2M scope (namespace registered above)
+open _root_.Opposite
 
 noncomputable section
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.pullback Scheme.Hom Scheme.Modules.Hom Scheme.Hom.image_preimage_eq_opensRange_inf Scheme Scheme.Modules.restrictFunctor RingedSpace.isUnit_of_isUnit_germ Scheme.Modules.Hom.isIso_iff_isIso_app Scheme.Modules Scheme.Opens Scheme.Opens.opensRange_ι RingedSpace Scheme.Modules.IsInvertible Scheme.Modules.pullbackUnitIso)
+export _root_.AlgebraicGeometry (Scheme.Modules.pullback Scheme.Hom Scheme.Modules.Hom Scheme.Hom.image_preimage_eq_opensRange_inf Scheme Scheme.Modules.restrictFunctor RingedSpace.isUnit_of_isUnit_germ Scheme.Modules.Hom.isIso_iff_isIso_app Scheme.Modules Scheme.Opens Scheme.Opens.opensRange_ι RingedSpace Scheme.Modules.IsInvertible Scheme.Modules.pullbackUnitIso)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Modules.Hom.app_smul forget ringCatSheaf Modules.pullback Hom.id_app Hom Γ Hom.app Modules.Hom Hom.image_preimage_eq_opensRange_inf Modules.mapPresheaf_app Modules.restrictFunctor toLocallyRingedSpace restrictFunctor Hom.comp_app Modules.Hom.isIso_iff_isIso_app Modules Opens homOfLE_ι grothendieckTopology Opens.opensRange_ι restrict Modules.IsInvertible Modules.pullbackUnitIso)
+export _root_.AlgebraicGeometry.Scheme (Modules.Hom.app_smul forget ringCatSheaf Modules.pullback Hom.id_app Hom Γ Hom.app Modules.Hom Hom.image_preimage_eq_opensRange_inf Modules.mapPresheaf_app Modules.restrictFunctor toLocallyRingedSpace restrictFunctor Hom.comp_app Modules.Hom.isIso_iff_isIso_app Modules Opens homOfLE_ι grothendieckTopology Opens.opensRange_ι restrict Modules.IsInvertible Modules.pullbackUnitIso)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (Hom.app_smul pullback presheaf Hom.comp_app Hom restrictFunctorCongr mapPresheaf_app restrictFunctor Hom.id_app Hom.app restrictFunctorIsoPullback restrict_map isSheaf Hom.isIso_iff_isIso_app restrictFunctorComp restrict IsInvertible pullbackUnitIso)
-open AlgebraicGeometry.Scheme.Modules
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
+export _root_.AlgebraicGeometry.Scheme.Modules (Hom.app_smul pullback presheaf Hom.comp_app Hom restrictFunctorCongr mapPresheaf_app restrictFunctor Hom.id_app Hom.app restrictFunctorIsoPullback restrict_map isSheaf Hom.isIso_iff_isIso_app restrictFunctorComp restrict IsInvertible pullbackUnitIso)
+open _root_.AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
 
 variable {X : Scheme.{u}}
 
@@ -50,14 +52,14 @@ def lbF_restrictTrivOfLE {L : X.Modules} {U W : X.Opens} (h : W ≤ U)
 end AlgebraicGeometry.Scheme.Modules
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.pullback Scheme.Hom Scheme.Modules.Hom Scheme.Hom.image_preimage_eq_opensRange_inf Scheme Scheme.Modules.restrictFunctor RingedSpace.isUnit_of_isUnit_germ Scheme.Modules.Hom.isIso_iff_isIso_app Scheme.Modules Scheme.Opens Scheme.Opens.opensRange_ι RingedSpace Scheme.Modules.IsInvertible Scheme.Modules.pullbackUnitIso)
+export _root_.AlgebraicGeometry (Scheme.Modules.pullback Scheme.Hom Scheme.Modules.Hom Scheme.Hom.image_preimage_eq_opensRange_inf Scheme Scheme.Modules.restrictFunctor RingedSpace.isUnit_of_isUnit_germ Scheme.Modules.Hom.isIso_iff_isIso_app Scheme.Modules Scheme.Opens Scheme.Opens.opensRange_ι RingedSpace Scheme.Modules.IsInvertible Scheme.Modules.pullbackUnitIso)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Modules.Hom.app_smul forget ringCatSheaf Modules.pullback Hom.id_app Hom Γ Hom.app Modules.Hom Hom.image_preimage_eq_opensRange_inf Modules.mapPresheaf_app Modules.restrictFunctor toLocallyRingedSpace restrictFunctor Hom.comp_app Modules.Hom.isIso_iff_isIso_app Modules Opens homOfLE_ι grothendieckTopology Opens.opensRange_ι restrict Modules.IsInvertible Modules.pullbackUnitIso)
+export _root_.AlgebraicGeometry.Scheme (Modules.Hom.app_smul forget ringCatSheaf Modules.pullback Hom.id_app Hom Γ Hom.app Modules.Hom Hom.image_preimage_eq_opensRange_inf Modules.mapPresheaf_app Modules.restrictFunctor toLocallyRingedSpace restrictFunctor Hom.comp_app Modules.Hom.isIso_iff_isIso_app Modules Opens homOfLE_ι grothendieckTopology Opens.opensRange_ι restrict Modules.IsInvertible Modules.pullbackUnitIso)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (Hom.app_smul pullback presheaf Hom.comp_app Hom restrictFunctorCongr mapPresheaf_app restrictFunctor Hom.id_app Hom.app restrictFunctorIsoPullback restrict_map isSheaf Hom.isIso_iff_isIso_app restrictFunctorComp restrict IsInvertible pullbackUnitIso)
-open AlgebraicGeometry.Scheme.Modules
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
+export _root_.AlgebraicGeometry.Scheme.Modules (Hom.app_smul pullback presheaf Hom.comp_app Hom restrictFunctorCongr mapPresheaf_app restrictFunctor Hom.id_app Hom.app restrictFunctorIsoPullback restrict_map isSheaf Hom.isIso_iff_isIso_app restrictFunctorComp restrict IsInvertible pullbackUnitIso)
+open _root_.AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
 
 variable {W : Scheme.{u}}
 
@@ -139,14 +141,14 @@ end AlgebraicGeometry.Scheme.Modules
 
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.pullback Scheme.Hom Scheme.Modules.Hom Scheme.Hom.image_preimage_eq_opensRange_inf Scheme Scheme.Modules.restrictFunctor RingedSpace.isUnit_of_isUnit_germ Scheme.Modules.Hom.isIso_iff_isIso_app Scheme.Modules Scheme.Opens Scheme.Opens.opensRange_ι RingedSpace Scheme.Modules.IsInvertible Scheme.Modules.pullbackUnitIso)
+export _root_.AlgebraicGeometry (Scheme.Modules.pullback Scheme.Hom Scheme.Modules.Hom Scheme.Hom.image_preimage_eq_opensRange_inf Scheme Scheme.Modules.restrictFunctor RingedSpace.isUnit_of_isUnit_germ Scheme.Modules.Hom.isIso_iff_isIso_app Scheme.Modules Scheme.Opens Scheme.Opens.opensRange_ι RingedSpace Scheme.Modules.IsInvertible Scheme.Modules.pullbackUnitIso)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Modules.Hom.app_smul forget ringCatSheaf Modules.pullback Hom.id_app Hom Γ Hom.app Modules.Hom Hom.image_preimage_eq_opensRange_inf Modules.mapPresheaf_app Modules.restrictFunctor toLocallyRingedSpace restrictFunctor Hom.comp_app Modules.Hom.isIso_iff_isIso_app Modules Opens homOfLE_ι grothendieckTopology Opens.opensRange_ι restrict Modules.IsInvertible Modules.pullbackUnitIso)
+export _root_.AlgebraicGeometry.Scheme (Modules.Hom.app_smul forget ringCatSheaf Modules.pullback Hom.id_app Hom Γ Hom.app Modules.Hom Hom.image_preimage_eq_opensRange_inf Modules.mapPresheaf_app Modules.restrictFunctor toLocallyRingedSpace restrictFunctor Hom.comp_app Modules.Hom.isIso_iff_isIso_app Modules Opens homOfLE_ι grothendieckTopology Opens.opensRange_ι restrict Modules.IsInvertible Modules.pullbackUnitIso)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (Hom.app_smul pullback presheaf Hom.comp_app Hom restrictFunctorCongr mapPresheaf_app restrictFunctor Hom.id_app Hom.app restrictFunctorIsoPullback restrict_map isSheaf Hom.isIso_iff_isIso_app restrictFunctorComp restrict IsInvertible pullbackUnitIso)
-open AlgebraicGeometry.Scheme.Modules
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
+export _root_.AlgebraicGeometry.Scheme.Modules (Hom.app_smul pullback presheaf Hom.comp_app Hom restrictFunctorCongr mapPresheaf_app restrictFunctor Hom.id_app Hom.app restrictFunctorIsoPullback restrict_map isSheaf Hom.isIso_iff_isIso_app restrictFunctorComp restrict IsInvertible pullbackUnitIso)
+open _root_.AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
 
 variable {X : Scheme.{u}}
 
@@ -191,7 +193,7 @@ theorem lbF_isIso_of_isIso_app_of_iSup_eq_top {X : Scheme.{u}} {M N : X.Modules}
   exact this
 
 namespace IsInvertible p2m_export "AlgebraicGeometry.Scheme.Modules.IsInvertible" "pullback exists_trivialization" end IsInvertible
-open scoped AlgebraicGeometry.Scheme.Modules.IsInvertible in
+open scoped _root_.AlgebraicGeometry.Scheme.Modules.IsInvertible in
 theorem IsInvertible.isIso_of_locallySurjective' {L L' : X.Modules}
     (hL : Scheme.Modules.IsInvertible L) (hL' : Scheme.Modules.IsInvertible L') (φ : L ⟶ L')
     (hφ : ∀ (U : X.Opens) (s : Γ(L', U)), ∀ x ∈ U, ∃ (V : X.Opens) (i : V ≤ U),

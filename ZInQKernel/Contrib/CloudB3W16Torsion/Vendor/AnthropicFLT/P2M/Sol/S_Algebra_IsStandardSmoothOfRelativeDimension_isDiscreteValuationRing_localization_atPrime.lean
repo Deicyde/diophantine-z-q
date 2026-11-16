@@ -24,8 +24,8 @@ namespace Algebra
 export _root_.Algebra (commutes algebraMap mem_iInf FiniteType IsIntegral.of_finite Etale smul_def IsStandardSmoothOfRelativeDimension IsStandardSmoothOfRelativeDimension.exists_etale_mvPolynomial FiniteType.isNoetherianRing mem_bot isUnramifiedAt_iff_map_eq)
 namespace IsStandardSmoothOfRelativeDimension
 export _root_.Algebra.IsStandardSmoothOfRelativeDimension (out exists_etale_mvPolynomial trans)
-open Algebra.IsStandardSmoothOfRelativeDimension
-open Algebra
+open _root_.Algebra.IsStandardSmoothOfRelativeDimension
+open _root_.Algebra
 
 theorem isDomain_of_maximalIdeal_eq_span {L : Type*} [CommRing L] [IsLocalRing L]
     [IsNoetherianRing L] {ϖ : L} (hreg : IsSMulRegular L ϖ)
@@ -134,7 +134,8 @@ theorem atom_main
 
   haveI hdom : IsDomain L := isDomain_of_maximalIdeal_eq_span hreg hmaxL
   have hprinc : (maximalIdeal L).IsPrincipal := ⟨⟨algebraMap P L π, hmaxL⟩⟩
-  exact ⟨hdom, ((IsDiscreteValuationRing.TFAE L hnf).out 4 0).mp hprinc⟩
+  -- Lean 4.35 Mathlib adaptation: `List.TFAE.out` is 1-indexed (source: `.out 4 0`).
+  exact ⟨hdom, ((IsDiscreteValuationRing.TFAE L hnf).out 5 1).mp hprinc⟩
 
 end Algebra.IsStandardSmoothOfRelativeDimension
 

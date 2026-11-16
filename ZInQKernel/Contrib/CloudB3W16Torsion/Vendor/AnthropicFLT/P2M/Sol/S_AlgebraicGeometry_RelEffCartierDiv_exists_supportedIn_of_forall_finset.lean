@@ -14,22 +14,24 @@ import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
 set_option backward.isDefEq.respectTransparency false
 
+-- register P2M local namespaces opened before declaration (p2m_open semantics)
+namespace P2MW.S_AlgebraicGeometry_RelEffCartierDiv_exists_supportedIn_of_forall_finset.AlgebraicGeometry end P2MW.S_AlgebraicGeometry_RelEffCartierDiv_exists_supportedIn_of_forall_finset.AlgebraicGeometry
 namespace P2MW.S_AlgebraicGeometry_RelEffCartierDiv_exists_supportedIn_of_forall_finset
 
 set_option autoImplicit false
 
 universe u
-open CategoryTheory
-open CategoryTheory.Limits
-open AlgebraicGeometry
--- Source P2M scope referred to a not-yet-declared local namespace; root scope retained.
+open _root_.CategoryTheory
+open _root_.CategoryTheory.Limits
+open _root_.AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_RelEffCartierDiv_exists_supportedIn_of_forall_finset.AlgebraicGeometry  -- restored P2M scope (namespace registered above)
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Opens.range_ι Scheme.Hom Scheme IsAffineOpen Scheme.Opens Scheme.Hom.comp_apply RelEffCartierDiv)
+export _root_.AlgebraicGeometry (Scheme.Opens.range_ι Scheme.Hom Scheme IsAffineOpen Scheme.Opens Scheme.Hom.comp_apply RelEffCartierDiv)
 namespace RelEffCartierDiv
-export AlgebraicGeometry.RelEffCartierDiv (SupportedIn supportedInLocus mem_supportedInLocus_iff supportedIn_pullbackAlong_iff pullbackAlong I isFinite)
-open AlgebraicGeometry.RelEffCartierDiv
-open AlgebraicGeometry
+export _root_.AlgebraicGeometry.RelEffCartierDiv (SupportedIn supportedInLocus mem_supportedInLocus_iff supportedIn_pullbackAlong_iff pullbackAlong I isFinite)
+open _root_.AlgebraicGeometry.RelEffCartierDiv
+open _root_.AlgebraicGeometry
 
 set_option backward.isDefEq.respectTransparency false in
 theorem exists_supportedIn_of_forall_finset_aux
