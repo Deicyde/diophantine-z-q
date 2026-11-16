@@ -1,0 +1,38 @@
+DISCHARGES [OpenResearchLeaves26.dsThm965Weak] by DS965Weak.dsThm965Weak_of_dsThm965
+  still assumes: [ZInQ.Contrib.HodgeSplit.DSThm965]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves26.gonzalezRotgerProp56X6] by GRCountX6.prop56X6_of_r5fpCount
+  still assumes: [LeafQM.AV.R5fpCount]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves26.neronBaseChangeStrictHenselization] by GapSHPair.neronBaseChangeStrictHenselization_of_unramified
+  still assumes: [ReductGlue.NeronBaseChangeUnramifiedDVR]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves26.r16CoreY] by R16Split.coreY_of_r16
+  still assumes: [LeafModCurves.R16_EichlerShimuraJ1']
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves26.sga7_IX_3_3_SH] by SGA7PersistsNF.sga7_IX_3_3_SH_of_field
+  still assumes: [CToPrinted.SGA7_IX_3_3]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves26.sga7_IX_3_5_ForwardGeom] by UnipotentForward.forwardGeom_of_forward
+  still assumes: [UnipotentForward.SGA7_IX_3_5_Forward, UnipotentForward.SemiAbelianDescendsSepClosed]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves26.mumfordGroupLaw] by ZInQ.Contrib.MumfordRigidity.mumfordGroupLaw_of_core
+  still assumes: [LeafQM.AV.R1UnivRigid.MumfordRigidityCore]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenAddedLeaves17.picZeroAbVar] by ZInQ.Contrib.SmoothRegular.picZeroAbVar_of_nonsingular
+  still assumes: [ZInQ.Contrib.SmoothRegular.PicZeroAbVarNonsingular]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenTextbookLeaves11.regularSmoothPerfect] by ZInQ.Contrib.SmoothRegular.regularSmoothPerfect
+  still assumes: []
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 59 open hypotheses, 2888 theorems checked, 9 discharge one
+'ZInQ.Contrib.SmoothRegular.regularSmoothPerfect' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.SmoothRegular.picZeroAbVar_of_nonsingular' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.SmoothRegular.picZeroAbVarNonsingular_of_picZeroAbVar' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.SmoothRegular.smooth_tfae_perfect' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.SmoothRegular.smooth_iff_nonsingularAfter_algebraicClosure' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.SmoothRegular.isRegularLocalRing_of_smooth' depends on axioms: [propext, Classical.choice, Quot.sound]
