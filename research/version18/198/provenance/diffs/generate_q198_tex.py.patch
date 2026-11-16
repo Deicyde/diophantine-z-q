@@ -1,0 +1,18 @@
+--- original/generate_q198_tex.py
++++ checks/generate_q198_tex.py
+@@ -3,12 +3,11 @@
+ from collections import Counter
+ from hashlib import sha256
+ import json
++from portable_io import generator_paths
+ 
+-HERE=Path(__file__).resolve().parent
+-WORK=HERE.parents[2]
+-SOURCE=WORK/'v18-198-dependency-inventory-20261114/package/H10-quartic198/circuits/inverse198'
++SOURCE,HERE=generator_paths()
+ source=SOURCE/'quadratic.json';poly=SOURCE/'polynomial.json'
+-d=json.loads(source.read_text())
++d=json.loads(source.read_text(encoding='utf-8'))
+ assert sha256(source.read_bytes()).hexdigest()=='c55d7eefe41f62fee88b467e3ea8f6be8ba1e66f6a94b30eb74b39f6f6e7efad'
+ large=sorted({abs(int(t['coefficient'])) for r in d['residuals'] for t in r['terms'] if len(str(abs(int(t['coefficient']))))>8})
+ aliases={v:i+1 for i,v in enumerate(large)}

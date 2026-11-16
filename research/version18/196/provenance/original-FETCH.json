@@ -1,0 +1,150 @@
+{
+  "commit": "5c35db3253a70b0875acec4b451cdaac4da3c8fd",
+  "files": [
+    {
+      "path": "computation/quartic/laurent_recovery_v38/README.md",
+      "sha256": "c746510f3479584795a57faa24092d75160af744d9e01fcf714f7161b1f2da21",
+      "bytes": 891
+    },
+    {
+      "path": "computation/quartic/laurent_recovery_v38/algebra.py",
+      "sha256": "3c0a7618f95a41d42c186b6dae6afbf8d5702d5b6b94944387d774be58536060",
+      "bytes": 4679
+    },
+    {
+      "path": "computation/quartic/laurent_recovery_v38/balance258-weights.json",
+      "sha256": "3042649ba3da265f77ac13eb06ebbcaba1d70e9dbc5fa7d5de963c59bb8b7ad2",
+      "bytes": 2991
+    },
+    {
+      "path": "computation/quartic/laurent_recovery_v38/build.py",
+      "sha256": "db0e557a9e219f3b262ff169ca2144b4fb6b753610c402da96d0d1de5794d1af",
+      "bytes": 2673
+    },
+    {
+      "path": "computation/quartic/laurent_recovery_v38/build_explicit.py",
+      "sha256": "d3aacec4eb6ee18074f708166e49d831a77c0b91c5d22b2297616c7d131347f2",
+      "bytes": 2791
+    },
+    {
+      "path": "computation/quartic/laurent_recovery_v38/check.py",
+      "sha256": "6dc350e15453e59788a5dacc6d3c1dbce122d87105b97d50cce9207a75efd772",
+      "bytes": 10274
+    },
+    {
+      "path": "computation/quartic/laurent_recovery_v38/check_explicit.py",
+      "sha256": "8867d88ca19594dd5b17883bffd891849127a2124c9ee89c4d5030c1a92a2e38",
+      "bytes": 8761
+    },
+    {
+      "path": "computation/quartic/laurent_recovery_v38/config196.json",
+      "sha256": "801074e615529c34d376026a7f6c604f019070585facf1b07ff72d6c2491c3cb",
+      "bytes": 5010
+    },
+    {
+      "path": "computation/quartic/laurent_recovery_v38/config258.json",
+      "sha256": "562e60dabe3a704f097652376c8df74bdc3e7feab685f92601199c539704c46e",
+      "bytes": 2074
+    },
+    {
+      "path": "computation/quartic/laurent_recovery_v38/config259.json",
+      "sha256": "00733ffed9c1b4163ccf473cd12187cb3f085f7b9f9e4ce468787e0379c4e8f8",
+      "bytes": 1653
+    },
+    {
+      "path": "computation/quartic/laurent_recovery_v38/family196/balanced-polynomial.json",
+      "sha256": "30767c50b8b14108bb600136bc11431fab6ebb43b171c7d0a557adbb3b48bc4e",
+      "bytes": 446465
+    },
+    {
+      "path": "computation/quartic/laurent_recovery_v38/family196/balanced-quadratic.json",
+      "sha256": "5b86e26d395e60360ecd1210dd87819b3f57b60e3585db7ad7deff0d677a593c",
+      "bytes": 180354
+    },
+    {
+      "path": "computation/quartic/laurent_recovery_v38/family196/balancing.json",
+      "sha256": "0700615a7c66a5ee3ebe519b010676a398d6051c37e4b30255c69173b3328537",
+      "bytes": 19230
+    },
+    {
+      "path": "computation/quartic/laurent_recovery_v38/family196/certificate.json",
+      "sha256": "7d8e83561aafc768ee1a62d6275a62b9fdd81b1cf15dd78ed1868880e668ed57",
+      "bytes": 39489
+    },
+    {
+      "path": "computation/quartic/laurent_recovery_v38/family196/polynomial.json",
+      "sha256": "a8ab93d66fe83f4bdfd4b176d47c250c2e124f42535d7a6a133edff6a97389ad",
+      "bytes": 444690
+    },
+    {
+      "path": "computation/quartic/laurent_recovery_v38/family196/quadratic.json",
+      "sha256": "3b6ab20da25bced159559c35e512e2bb2e56959b734b4265c8f80a7bd9cdb1c1",
+      "bytes": 180374
+    },
+    {
+      "path": "computation/quartic/laurent_recovery_v38/family258/balanced-polynomial.json",
+      "sha256": "9300057e338db0064c32b2ad5ebf4c37118af37948f620aca36d1a7b0a6b3fb8",
+      "bytes": 567256
+    },
+    {
+      "path": "computation/quartic/laurent_recovery_v38/family258/balanced-quadratic.json",
+      "sha256": "ad8204d383210613590b3daa8031dc43113d50b0d26e84d067971cac5f37fe4c",
+      "bytes": 236142
+    },
+    {
+      "path": "computation/quartic/laurent_recovery_v38/family258/balancing.json",
+      "sha256": "ed43917252f3eeb579deeb71093e28432b0cd47678fb6b7a7df1ab7f11ee9976",
+      "bytes": 27114
+    },
+    {
+      "path": "computation/quartic/laurent_recovery_v38/family258/certificate.json",
+      "sha256": "ccae0e9249ebeaf814f81e0e8caebccdfb8cdbffb85414018f7ed85413e98836",
+      "bytes": 39409
+    },
+    {
+      "path": "computation/quartic/laurent_recovery_v38/family258/polynomial.json",
+      "sha256": "154ce825b8821dd76f2541ea77c5422bf824f8fe508d8ff72e18f824b205bd20",
+      "bytes": 572143
+    },
+    {
+      "path": "computation/quartic/laurent_recovery_v38/family258/quadratic.json",
+      "sha256": "97f980d6f970210c483fb8c65d0f91da86f2a41ee9c25e228c057b106c907ddd",
+      "bytes": 237355
+    },
+    {
+      "path": "computation/quartic/laurent_recovery_v38/family259/certificate.json",
+      "sha256": "f50dce4b5120fdaafdf41e268f69d16ece533184a1029330a2741c869fa55791",
+      "bytes": 39145
+    },
+    {
+      "path": "computation/quartic/laurent_recovery_v38/family259/polynomial.json",
+      "sha256": "415d7f8cda473a36134bf989f567c5998842a30f4ebdb203a51ae2ed38402c9f",
+      "bytes": 569736
+    },
+    {
+      "path": "computation/quartic/laurent_recovery_v38/family259/quadratic.json",
+      "sha256": "e058a226b26999b292dd0894a0e0ba673054acf926abbe6b05b3ac95a3a72eac",
+      "bytes": 237251
+    },
+    {
+      "path": "data/audits/laurent196_20261115_v38.json",
+      "sha256": "421e09b115765e533efd1215face63e0ec3b584c7d4b0a2f9b275f28d2339189",
+      "bytes": 1148
+    },
+    {
+      "path": "papers/quartic/laurent_elimination_20261115_v38.tex",
+      "sha256": "5ba965e483472b3ea6c74b31098b055525e0e86c8e317eff1ee42cfcfd8efdda",
+      "bytes": 19408
+    },
+    {
+      "path": "papers/quartic/laurent_weights_20261115_v38.tex",
+      "sha256": "62450927e59d3648f9988739eeee5cc7d2d94d9edf04c8a2f1922f4016b8929a",
+      "bytes": 3386
+    },
+    {
+      "path": "sources/h10_quartic198/circuits/inverse198/quadratic.json",
+      "sha256": "c55d7eefe41f62fee88b467e3ea8f6be8ba1e66f6a94b30eb74b39f6f6e7efad",
+      "bytes": 223391
+    }
+  ]
+}

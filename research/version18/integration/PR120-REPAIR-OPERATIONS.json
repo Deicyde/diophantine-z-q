@@ -1,0 +1,233 @@
+{
+  "base_head": "69fb876aac221f0cc1715351536a5294ce52b05c",
+  "candidate_source_sha256": "0cb9c70baed00d736c88636243c4da96c38ce4f96090d029d0020ce459435a29",
+  "purpose": "Original local edit records in order, followed by owner-authorized removal of conditional exposition. Earlier proposal status fields identify the earlier preparation state, not a gate verdict.",
+  "operations": [
+    {
+      "record": "SOURCE-REPAIR-F120-2.json",
+      "data": {
+        "before_sha256": "7004f12f00643ab83d9fad24d348009e31dfe56d48c162c58d702f9171f6a2c7",
+        "after_sha256": "6987191ca228d7fe13d672f190f2b45063fa79ca2476e5f8573f759bc89423ee",
+        "scope": "Two finite-certificate scope clarifications; no theorem, equation or count changed.",
+        "pdf_status": "Previous PDF remains evidence of the previous source; rebuild required before push."
+      }
+    },
+    {
+      "record": "SOURCE-STATUS-PROPOSAL.json",
+      "data": {
+        "before_sha256": "6987191ca228d7fe13d672f190f2b45063fa79ca2476e5f8573f759bc89423ee",
+        "after_sha256": "ca5bf03fff28d5c1da9e683e36e3623f876ef616cd14b7328d03fd9d545e3577",
+        "scope": "Local proposed reconciliation for F120-1, for review. Displayed statements, domains, polynomial and counts unchanged.",
+        "changes": [
+          {
+            "old": "\\begin{theorem}[The proposed $214$-variable family]\\label{q214:theorem}",
+            "new": "\\begin{theorem}[The $214$-variable family]\\label{q214:theorem}"
+          },
+          {
+            "old": "Subject to the exact source theorems and applications developed in this\nmanuscript, there exists one fixed integer",
+            "new": "There exists one fixed integer"
+          },
+          {
+            "old": "the full geometric/modular/height chain supplying it remains a separate prerequisite.",
+            "new": "the full geometric/modular/height chain supplying it is developed in Sections~\\ref{q214:height-supplier} and~\\ref{q214:height-averaging}, with the inherited interfaces stated there."
+          },
+          {
+            "old": "proving \\(P_{01}\\) relative to the explicitly retained interfaces.",
+            "new": "proving \\(P_{01}\\) using the retained interfaces identified above."
+          },
+          {
+            "old": "No numerical defining threshold or Busy Beaver coefficient replacement is provided. The unchanged restricted-converse, analytic and height foundations remain separate prerequisites.",
+            "new": "This retained 214-variable argument gives no numerical defining threshold. The Busy Beaver specialization of the new family is proved in Section~\\ref{q198bb:specialization}. The restricted-converse argument is in Section~\\ref{sec:rc}; the prime-pattern and height suppliers are Theorem~\\ref{thm:v5-simultaneous-primes} and Sections~\\ref{q214:height-supplier}--\\ref{q214:height-averaging}."
+          },
+          {
+            "old": "The separate \\href{https://github.com/elliotglazer/diophantine-z-q/blob/main/docs/research-review/version18-cleanup-status.md}{Version~18 source and incorporation record}\npreserves outstanding incorporation obligations and review limitations\nfor this edition.",
+            "new": "The separate \\href{https://github.com/elliotglazer/diophantine-z-q/blob/main/research/version18/dependencies/CURRENT-V18-INVENTORY.md}{current dependency inventory}\nidentifies the selected source chain. The\n\\href{https://github.com/elliotglazer/diophantine-z-q/blob/main/research/version18/dependencies/CURRENT-FOUNDATION-STATUS.md}{current source and incorporation record}\ndistinguishes its H170 and H201 dispositions from the retained historical\nreview limitations."
+          }
+        ],
+        "independent_acceptance": false,
+        "publication": "Not pushed; no override or gate-policy change."
+      }
+    },
+    {
+      "record": "F120-1-CONDITIONAL-REPAIRS.json",
+      "data": {
+        "owner_instruction": "F120-1: remove conditional release language; replace by proof references; preserve ineffectiveness and AI usage; stop for a missing proof",
+        "before_sha256": "ca5bf03fff28d5c1da9e683e36e3623f876ef616cd14b7328d03fd9d545e3577",
+        "after_sha256": "0cb9c70baed00d736c88636243c4da96c38ce4f96090d029d0020ce459435a29",
+        "operations": [
+          {
+            "old": "release of the proposed $214$ research manuscript.",
+            "new": "release of the $214$ research manuscript.",
+            "proof": "Historical version terminology; no mathematical premise."
+          },
+          {
+            "old": "This proves the asserted \\(\\exists N_{0}\\forall N\\ge N_{0}\\forall x\\) form relative to the exact retained source theorems and the applications proposed here.",
+            "new": "This proves the asserted \\(\\exists N_{0}\\forall N\\ge N_{0}\\forall x\\) form, using the inputs proved in Sections~\\ref{sec:model}, \\ref{v15:base248:sec:scalar}, \\ref{v15:dependencies} and~\\ref{q214:source-aggregate-bridge}, together with Theorem~\\ref{thm:v5-simultaneous-primes}.",
+            "proof": "Sections~\\ref{sec:model}, \\ref{v15:base248:sec:scalar}, \\ref{v15:dependencies} and~\\ref{q214:source-aggregate-bridge}, together with Theorem~\\ref{thm:v5-simultaneous-primes}"
+          },
+          {
+            "old": "This section is conditional on the retained elliptic, scalar, prime-selection, pole and aggregate-trace inputs of the frozen Version 15 source. Its defining threshold remains ineffective. The 214 conclusion additionally uses the newly proved quadratic supplier in the sibling height packet; that theorem's inherited assumptions remain explicit.",
+            "new": "The elliptic, scalar, prime-selection, pole and aggregate-trace inputs are proved in Sections~\\ref{sec:model}, \\ref{v15:base248:sec:scalar}, \\ref{v15:dependencies} and~\\ref{q214:source-aggregate-bridge}, together with Theorem~\\ref{thm:v5-simultaneous-primes}. The defining threshold remains ineffective. The quadratic height supplier and its product-averaging argument are proved in Sections~\\ref{q214:height-supplier} and~\\ref{q214:height-averaging}.",
+            "proof": "Sections~\\ref{sec:model}, \\ref{v15:base248:sec:scalar}, \\ref{v15:dependencies} and~\\ref{q214:source-aggregate-bridge}, together with Theorem~\\ref{thm:v5-simultaneous-primes}; q214:height-supplier; q214:height-averaging"
+          },
+          {
+            "old": "This is the conditional conclusion established here.",
+            "new": "The proof below uses the source recovery in Section~\\ref{q214:raw224-source} and the uniform soundness and completeness argument in Section~\\ref{q214:uniform-existence}.",
+            "proof": "q214:raw224-source; q214:uniform-existence"
+          },
+          {
+            "old": "Subject to the named full-family height and retained elliptic/rank interfaces below, the conclusion is",
+            "new": "The full-family height bound in Section~\\ref{q214:height-supplier}, the product argument in Section~\\ref{q214:height-averaging} and the elliptic results in Section~\\ref{sec:model} give the inputs to the following conclusion",
+            "proof": "q214:height-supplier; q214:height-averaging; sec:model"
+          },
+          {
+            "old": "Their internal restricted-converse and analytic foundations remain separate prerequisites.",
+            "new": "The restricted-converse foundation is proved in Section~\\ref{sec:rc}; the analytic foundation is proved in Section~\\ref{v15:gi-full} and Theorem~\\ref{thm:v5-simultaneous-primes}.",
+            "proof": "sec:rc; v15:gi-full; thm:v5-simultaneous-primes"
+          },
+          {
+            "old": "Their stated prerequisites remain required for the \\(S_{10}\\) application.",
+            "new": "The \\(S_{10}\\) application uses the proofs in Section~\\ref{sec:h5-full-three-construction}, the CM calculation in the proof of Theorem~\\ref{hyp:o8-height}, and the field and metric comparisons below.",
+            "proof": "sec:h5-full-three-construction; hyp:o8-height; q214:geometry-carry G2-G4"
+          },
+          {
+            "old": "The publicly retained \\(D_{210}\\) supplier has five source-prerequisite bundles. Those transitive prerequisites remain required; the index alone does not establish them.",
+            "new": "The five input groups of the \\(D_{210}\\) supplier are proved in Section~\\ref{sec:h5-full-three-construction} and the surrounding proof of Theorem~\\ref{hyp:o8-height}; Section~\\ref{q214:provider-scope-carry} identifies the individual published applications.",
+            "proof": "sec:h5-full-three-construction; hyp:o8-height; q214:provider-scope-carry"
+          },
+          {
+            "old": "H01's change of support introduces no additional mathematical hypothesis provided the retained \\(D_{210}\\) source statements hold at the scopes specified here. Their transitive source prerequisites remain required: neither the ten-determinant calculation nor the source index establishes those prerequisites or the full 214 argument.",
+            "new": "H01's change of support applies the \\(D_{210}\\) construction proved in Section~\\ref{sec:h5-full-three-construction} and the CM and metric estimates in the proof of Theorem~\\ref{hyp:o8-height}. The support and field comparisons above verify its use here; Section~\\ref{q214:uniform-existence} assembles the full 214 argument.",
+            "proof": "sec:h5-full-three-construction; hyp:o8-height; q214:uniform-existence"
+          },
+          {
+            "old": "The claims established below, conditional only on those exact geometric inputs and the source applications individually identified here, are:",
+            "new": "Using the geometric construction and source applications in Sections~\\ref{q214:geometry-carry} and~\\ref{q214:provider-scope-carry}, we prove:",
+            "proof": "q214:geometry-carry; q214:provider-scope-carry"
+          },
+          {
+            "old": "H3's R\\'emond inequality and the full 214 assembly are separate.",
+            "new": "The product-height argument is in Section~\\ref{q214:height-averaging}, and the full 214 assembly is in Section~\\ref{q214:uniform-existence}.",
+            "proof": "q214:height-averaging; q214:uniform-existence"
+          },
+          {
+            "old": "The conclusion proposed here is exactly the integral map",
+            "new": "We prove the integral map",
+            "proof": "q214:height-evaluation, subsections1-5"
+          },
+          {
+            "old": "The proposed conclusion is that Brox v17:274--328, 354--451 and 461--488 have the required different bounds, including at every imperfect-residue vertical generic DVR.",
+            "new": "We prove the different bounds used in Brox v17:274--328, 354--451 and 461--488, including at every imperfect-residue vertical generic DVR.",
+            "proof": "q214:height-different, subsections1-5"
+          },
+          {
+            "old": "It supplies only Brox \\(v_{17}\\) lines 62--78 and 210--251, conditional on the exact integral map and trace-lattice bound specified below. Those algebraic inputs and the remaining arguments for the full 214 and 256 constructions are separate prerequisites.",
+            "new": "This section proves the metric calculation used in Brox \\(v_{17}\\) lines 62--78 and 210--251. The integral map and trace-lattice bound are proved in Section~\\ref{q214:height-evaluation}, the different bound in Section~\\ref{q214:height-different}, and their modular-Jacobian application in Section~\\ref{q214:height-assembly}.",
+            "proof": "q214:height-evaluation; q214:height-different; q214:height-assembly"
+          },
+          {
+            "old": "The algebraic evaluation and different bounds remain separate inputs. The 214 existence and proposed 256 arguments use the same full-family height supplier;",
+            "new": "The algebraic evaluation and different bounds are proved in Sections~\\ref{q214:height-evaluation} and~\\ref{q214:height-different}. The 214 existence argument and the 256-variable comparison use the same full-family height supplier in Section~\\ref{q214:height-supplier};",
+            "proof": "q214:height-evaluation; q214:height-different; q214:height-supplier"
+          },
+          {
+            "old": "Argument A does not supply \\(H_{0}\\) geometry/CM bounds, normalized modularity and companion trace assembly, the entire analytic/restricted-converse chain, or every remaining final-publication/source qualification in the prior foundation map. In particular the final 2022 R\\'emond body comparison remains a separate item. Those source applications remain separate prerequisites.",
+            "new": "The \\(H_0\\) geometry and CM bounds are proved in Section~\\ref{q214:geometry-carry} and Theorem~\\ref{hyp:o8-height}; normalized modularity and the companion trace assembly are proved in Section~\\ref{q214:modularity}. The analytic and restricted-converse arguments are in Section~\\ref{v15:gi-full}, Theorem~\\ref{thm:v5-simultaneous-primes} and Section~\\ref{sec:rc}. Section~\\ref{q214:height-averaging} supplies the product-height argument from the published Gaudron--R\\'emond construction and distinguishes it from the superseded quotient argument.",
+            "proof": "Named sections; GR2023 Lemma16.2(1), not an assertion of a new inspection of Remond2022"
+          },
+          {
+            "old": "These identifications justify the L'-defined surfaces \\(C_{i}\\) in \\(H_{3}\\), conditional on its other inputs. The R\\'emond averaging inequality, modular-Jacobian height bound and normalized modularity are not proved by this supplement.",
+            "new": "These identifications justify the L'-defined surfaces \\(C_i\\) in the product-height proof of Section~\\ref{q214:height-averaging}. The modular-Jacobian bound and normalized modularity are proved in Sections~\\ref{q214:height-assembly} and~\\ref{q214:modularity}.",
+            "proof": "q214:height-averaging; q214:height-assembly; q214:modularity"
+          },
+          {
+            "old": "Rank and descent, modularity, prime patterns and pole realization remain separate prerequisites.",
+            "new": "Rank and descent are proved in Section~\\ref{sec:model}, modularity in Section~\\ref{q214:modularity}, prime patterns in Theorem~\\ref{thm:v5-simultaneous-primes}, and pole realization in Section~\\ref{v15:dependencies:sec:poles}.",
+            "proof": "sec:model; q214:modularity; thm:v5-simultaneous-primes; v15:dependencies:sec:poles"
+          },
+          {
+            "old": "Assuming these local test identities and the height estimate for\n$S_{\\rm mul}$ with constant $A_{\\rm ht}$, every false triple accepted",
+            "new": "By the local test identities proved above and the height estimate of\nTheorem~\\ref{thm:height}, with the constant $A_{\\rm ht}$ specified in\nSection~\\ref{sec:size} for $S_{\\rm mul}$, every false triple accepted",
+            "proof": "sec:mult local identities; thm:height; sec:size"
+          },
+          {
+            "old": "% This lemma is conditional on the separately audited field/ramification lemma.",
+            "new": "% The field and ramification bounds are proved above in the full-three construction.",
+            "proof": "sec:h5-full-three-construction; eq:h5-R"
+          },
+          {
+            "old": "The anchor gives $|n|\\ge3^{2^{23}-1}$. Conditional only on the separately\nstated original height bound $\\log_2H<4783227$, it follows that",
+            "new": "The anchor gives $|n|\\ge3^{2^{23}-1}$. Theorem~\\ref{hyp:o8-height}\nproves the bound $\\log_2H<4783227$, so",
+            "proof": "hyp:o8-height; numeric calculation at former20807-20817"
+          },
+          {
+            "old": "Thus the original $24$ squarings suffice whenever that exact height\ninput is established.",
+            "new": "Thus the original $24$ squarings suffice for the height constant in\nTheorem~\\ref{hyp:o8-height}.",
+            "proof": "hyp:o8-height"
+          },
+          {
+            "old": "statement, and Theorem~\\ref{thm:v5-source-projection} gives its conditional\narithmetic interpretation.",
+            "new": "statement, and Theorem~\\ref{thm:v5-source-projection} gives its\narithmetic interpretation.",
+            "proof": "thm:v5-source-projection and its proof"
+          },
+          {
+            "old": "The three proposed abscissas have",
+            "new": "The three reconstructed abscissas have",
+            "proof": "q198:inverse-vieta construction"
+          },
+          {
+            "old": "Mazur proposed this in 1992",
+            "new": "Mazur formulated this in 1992",
+            "proof": "Historical attribution unchanged"
+          },
+          {
+            "old": "a proposed drop to zero",
+            "new": "a putative drop to zero",
+            "proof": "Proof by contradiction, not an unresolved premise"
+          },
+          {
+            "old": "A proposed drop",
+            "new": "A putative drop",
+            "proof": "Proof by contradiction, not an unresolved premise"
+          },
+          {
+            "old": "including the\nproposed result,",
+            "new": "including the\nresult argument,",
+            "proof": "Circuit variable terminology, no proof qualification"
+          },
+          {
+            "old": "applies to the proposed centering",
+            "new": "applies to the stated centering",
+            "proof": "Centering formula is given"
+          },
+          {
+            "old": "every proposed positive-dimensional translate",
+            "new": "every positive-dimensional translate under consideration",
+            "proof": "Quantified translate in contradiction argument"
+          },
+          {
+            "old": "in any proposed\n",
+            "new": "in any putative\n",
+            "proof": "Quantified translate in contradiction argument"
+          },
+          {
+            "old": "Contact poles and their conditional domains",
+            "new": "Contact poles and their local domains",
+            "proof": "Local nonvanishing only; no change to the domain"
+          },
+          {
+            "old": "% Proposed additions only. No existing bibliography entry is replaced.",
+            "new": "% Additional bibliography entries; existing entries are retained.",
+            "proof": "Comment only"
+          },
+          {
+            "old": "This selected H0--H4 text supplies the full-family height input for the 214 construction. Its scope is a complete connecting argument \\textbf{relative to the inherited geometric, normalized modular-realization, modular-Jacobian height, root-height, scalar/anchor, rank and Lucas interfaces specified below}. The source qualifications of those inherited proofs remain required. Publication-version limitations are explicit in \\nolinkurl{SOURCES.json} and \\nolinkurl{FINDINGS.md}.",
+            "new": "This H0--H4 argument supplies the full-family height input for the 214 construction. The geometric input is proved in Section~\\ref{q214:geometry-carry}, normalized modular realization in Section~\\ref{q214:modularity}, and the modular-Jacobian bound in Section~\\ref{q214:height-assembly}. The elliptic rank and index-height results are proved in Section~\\ref{sec:model} and equation~\\eqref{eq:o8-indexheight}; the scalar, anchor and Lucas uses are derived in Section~\\ref{q214:uniform-existence}. The product-height argument in Section~\\ref{q214:height-averaging} supplies H3.1.",
+            "proof": "Named existing suppliers and the product replacement of H3.1"
+          }
+        ],
+        "scope": "Exposition and explicit existing proof locators. Actual hypotheses, proof-by-contradiction assumptions, conditional densities, and historical source titles retain their mathematical meaning. No new mathematical lemma or polynomial change."
+      }
+    }
+  ]
+}

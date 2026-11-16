@@ -16,9 +16,9 @@ The [historical follow-up](../../audit-history/issue2/README.md) distinguishes a
 | 8 | Add the Robinson, Poonen and Koenigsmann history. |
 | 9 | Explain why the no-seed congruence applies outside the coefficient filter. |
 
-[Detailed dispositions](responses.json), [source pins and access limitations](sources.json), and [new applications and conventions](new-applications.json) record the review. The Kato comparison includes the local maps and actual retained class, rather than citing a theorem in a different cohomology convention. The coefficient-filter calculation already existed in Appendix G; the revision makes its scope explicit at the consumer.
+[Detailed dispositions](responses.json), [source pins and access limitations](https://github.com/elliotglazer/diophantine-z-q/blob/005b17abfbefd8bee7b34f3bbe8f5aabf872eb1f/docs/manuscript-revisions/version10/sources.json), and [new applications and conventions](https://github.com/elliotglazer/diophantine-z-q/blob/005b17abfbefd8bee7b34f3bbe8f5aabf872eb1f/docs/manuscript-revisions/version10/new-applications.json) record the review. The Kato comparison includes the local maps and actual retained class, rather than citing a theorem in a different cohomology convention. The coefficient-filter calculation already existed in Appendix G; the revision makes its scope explicit at the consumer.
 
-The [revision manifest](revision.json) reconstructs Version 10 from Version 9 by exact ordered replacements. The current inventory records every citation and reference, rebinds the Version 9 application sites, and identifies changed sites and the relevant issue items. Earlier inventory files retain their historical meaning; a changed application is not labeled unchanged.
+The [revision manifest](https://github.com/elliotglazer/diophantine-z-q/blob/005b17abfbefd8bee7b34f3bbe8f5aabf872eb1f/docs/manuscript-revisions/version10/revision.json) reconstructs Version 10 from Version 9 by exact ordered replacements. The current inventory records every citation and reference, rebinds the Version 9 application sites, and identifies changed sites and the relevant issue items. Earlier inventory files retain their historical meaning; a changed application is not labeled unchanged.
 
 ```sh
 python -B docs/manuscript-revisions/version10/check.py

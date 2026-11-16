@@ -3,7 +3,7 @@
 Future pull requests are reviewed under [Protocol B, edition 2](https://github.com/elliotglazer/protocols/blob/main/Protocol_B.md).
 
 - The public policy requires the computation checks and `Protocol B / review` from the designated GitHub App on the current PR revision. Astra read back that configuration through Elliot Glazer's authorized GitHub session on November 13, 2026, 18:57 PST; the [dated evidence and limits](reviews/activation-2026-11-13/README.md) distinguish that observation from independent anonymous verification. See also the [public ruleset](https://github.com/elliotglazer/diophantine-z-q/rules/26781429). A same-name Actions check does not satisfy the App requirement. The private repository has no ruleset.
-- Mathematical and policy changes require both approved reviewers, Astra 6 and Fable 5.2, to finish and accept. A narrowly defined editorial path can pass without model calls; the [setup and test checklist](protocol-b-setup.md) gives its exact limits.
+- Mathematical and policy changes require both approved reviewers, Astra 6 and Fable 5.2, to finish and accept, except for the source-access limitation described below. A narrowly defined editorial path can pass without model calls; the [setup and test checklist](protocol-b-setup.md) gives its exact limits.
 - A current collaborator can explicitly override a completed-review deadlock, one recorded finding at a time. The summary names the collaborator and reason, and marks the affected claims **not outside reviewed**. An override does not repair the mathematics.
 - Passing CI shows that the recorded computations and builds reproduce. It does not establish that an argument is correct.
 - An official new record needs a complete updated manuscript in TeX and PDF and the next integer version; see the [release policy](../release-policy.md).
@@ -23,9 +23,21 @@ uses keys from the `protocol-b` Environment, whose `main`-only deployment rule
 was present in the dated operator readback. That snapshot does not prove key
 rotation, absence of copies elsewhere, or a live branch/tag access-denial test.
 The App is used by this repository's workflow; there is no separate controller.
-Unfinished reviews and unavailable required sources do not pass. The checklist
+Unfinished reviews do not pass. A finding that only reports inability to open
+a source is a recorded, nonblocking limitation if the other approved reviewer
+read the same passage and checked its application without objection. Substantive
+objections still block. This does not claim both reviewers read that source.
+
+The gate retains App-authenticated acceptances of an unchanged head across
+rounds and calls only the reviewer still needed. A rebased PR can reuse completed
+reviews when its complete diff, reviewed passages and discovery results are unchanged.
+PDFs and policy inputs retain whole-file checks.
+Disjoint PRs can therefore proceed concurrently; changes to a reviewed dependency
+require fresh review. New discussion receives a scoped supplement when neither
+retained review examined it. Original heads, runs, findings and reuse decisions stay
+recorded. The checklist
 documents override commands, context limits and the remaining test limitations.
-The [pre-activation review record](reviews/pre-activation-reviews.md) preserves
+The [pre-activation review record](https://github.com/elliotglazer/diophantine-z-q/blob/005b17abfbefd8bee7b34f3bbe8f5aabf872eb1f/docs/research-review/reviews/pre-activation-reviews.md) preserves
 the review requirement and records how it was addressed, including the
 owner-reported reviews and PR88's exceptional bootstrap merge.
 
@@ -45,3 +57,5 @@ The folder includes new same-family reader-agent checks of Version 17, not just 
 Erratum to the unchanged ledger: E32 and E43 incorrectly say Version 17 no longer contains the indices `4,6,2` sentence. It remains at line 5842 of `manuscripts/quartic_v17.tex`, in the height argument. E43 therefore concerns current text; its argument-level effect is unresolved here. Preserving the original files does not endorse this erroneous statement or close that objection.
 
 The archive tag preserves the repository corpus, not every external source used to compile the summaries. Part 1 of the ledger also relies on nine locally held Fable audit PDFs and a task brief. The tag contains `research/version16/audits/fable-5-2-audit-4.pdf`, but not all the other local PDFs or that brief. In particular, the original out-of-tree sources for E1–E7, E23–E24 and E27–E29 are not supplied by the tag; E30, E32 and E33 include provisional objector attribution from the brief. These are source and provenance qualifications, not a fresh audit of the claims.
+
+Historical preparation scripts and manual replay workflows are described in [Replaying historical review tools](archived-tools.md). Current computation checks and the manuscript build continue to use their retained inputs on the current branch.

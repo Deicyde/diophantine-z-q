@@ -1,0 +1,22 @@
+[
+  {
+    "Path": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\v18-198-bb-integration-20261115\\reconstruction\\tex\\q198-rows.tex",
+    "Hash": "A592E13B8D92FBD1602796A81B93CB035728DBDE8D96C1DE72DBF8C4E97E7CFC"
+  },
+  {
+    "Path": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\v18-198-bb-integration-20261115\\reconstruction\\tex\\generate_q198_tex.py",
+    "Hash": "9A127D20F46755619D7AE7A90FF39425E2147504E13F736D98EBEC131475E19E"
+  },
+  {
+    "Path": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\v18-198-bb-integration-20261115\\reconstruction\\tex\\verify_q198_tex.py",
+    "Hash": "7E87A730E99D53B03A6DC390CDA8108BF5D336C58D4B91F03FA1720439CC0E1A"
+  },
+  {
+    "Path": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\v18-198-bb-integration-20261115\\reconstruction\\tex\\ROUNDTRIP.json",
+    "Hash": "DCF0DA1A405C120F5FB72CF74A0E7A8BEBE81B6718BC16E4EF857BF1BB035031"
+  },
+  {
+    "Path": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\v18-198-bb-integration-20261115\\reconstruction\\tex\\TEX-REPORT.md",
+    "Hash": "807ACD64A33050770AC109CD2C859B68DD77EB00CB094389E969EE059A8E70C6"
+  }
+]

@@ -1,0 +1,23 @@
+\begin{theorem}[The fixed 196-variable quartic]\label{q196:fixed}
+Let $q_1^{[196]}(A),\ldots,q_{182}^{[196]}(A)$ be the integer
+quadratic residuals printed in Section~\ref{q196:rows}. Set
+\[
+ N_{\rm BB}=\BB(2^{1000}),\qquad
+ A_{\rm BB}=149^{2N_{\rm BB}+1},\qquad
+ P_{\rm BB}^{[196]}=\sum_{i=1}^{182}\bigl(q_i^{[196]}(A_{\rm BB})\bigr)^2.
+\]
+Then, for every $x\in\Q$,
+\[
+ x\in\Z\quad\Longleftrightarrow\quad
+ \exists(y_1,\ldots,y_{195})\in\Q^{195}:
+ P_{\rm BB}^{[196]}(x,y_1,\ldots,y_{195})=0.
+\]
+The polynomial has degree four, content one and exactly 2943 nonzero
+monomials. Its coefficients are integer polynomials of degree at most two
+in the fixed integer $A_{\rm BB}$, and its largest absolute coefficient is
+\[
+ H(P_{\rm BB}^{[196]})=149^{4\BB(2^{1000})+2}<\BB(2^{2000}).
+\]
+The parameter $A_{\rm BB}$ is not an additional variable. The variable
+count is an upper bound, not a minimum-variable claim.
+\end{theorem}

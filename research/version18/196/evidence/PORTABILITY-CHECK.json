@@ -1,0 +1,137 @@
+{
+  "status": "PASS",
+  "scope": "Portable replay of the existing independent exact 198-to-196 audit; no new mathematical or release acceptance",
+  "upstream_commit": "5c35db3253a70b0875acec4b451cdaac4da3c8fd",
+  "python_version": "3.14.7",
+  "runtime_dependencies": "Python standard library only",
+  "environment_keys": [
+    "PATH",
+    "PYTHONDONTWRITEBYTECODE",
+    "PYTHONIOENCODING",
+    "SystemRoot",
+    "TEMP",
+    "TMP",
+    "WINDIR"
+  ],
+  "relocated_directory_contains_spaces": true,
+  "unrelated_working_directory": true,
+  "source_files_authenticated": 29,
+  "original_mathematical_result_matches": true,
+  "independent_assertions": 48690,
+  "retained_row_identities": 182,
+  "variables": 196,
+  "rows": 182,
+  "monomials": 2943,
+  "unchanged_original_corruption_controls": [
+    "coefficient",
+    "division_shift",
+    "primitive_multiplier"
+  ],
+  "additional_io_controls_rejected": [
+    "optimized-python",
+    "protected-output",
+    "existing-output",
+    "altered-parent",
+    "altered-source"
+  ],
+  "original_stage_relocated_stage_and_parent_unchanged": true,
+  "upstream_code_imported_or_executed": false,
+  "checker_sha256": "d5b58958a1a606fe0bea9a2c97dec1fcdd62d275a5b0afad6d30968bc13bddbd",
+  "io_helper_sha256": "58d4d75c66043d9b2cfaa00539a53e9c018b16975e4f89cee26e5957e2d859af",
+  "source_pins_sha256": "e29aa9a32a69e8d2a6c36795b8f8e71bbdc9262817054e989018165c093eb63f",
+  "result_sha256": "2837a8f407c08fafda1e1b14670c940a10c4beca93abf326e5a5ebd078a47091",
+  "commands": [
+    {
+      "name": "positive",
+      "arguments": [
+        "-B",
+        "public checkout\\research\\version18\\196\\checks\\independent196.py",
+        "--source-root",
+        "public checkout\\research\\version18\\196\\upstream\\source",
+        "--parent-table",
+        "public checkout\\research\\version18\\198\\upstream\\H10-quartic198\\circuits\\inverse198\\quadratic.json",
+        "--output",
+        "outputs\\independent196-result.json"
+      ],
+      "exit_code": 0,
+      "expected_diagnostic": null
+    },
+    {
+      "name": "optimized-python",
+      "arguments": [
+        "-B",
+        "-O",
+        "public checkout\\research\\version18\\196\\checks\\independent196.py",
+        "--source-root",
+        "public checkout\\research\\version18\\196\\upstream\\source",
+        "--parent-table",
+        "public checkout\\research\\version18\\198\\upstream\\H10-quartic198\\circuits\\inverse198\\quadratic.json",
+        "--output",
+        "outputs\\optimized.json"
+      ],
+      "exit_code": 1,
+      "expected_diagnostic": "Run without -O"
+    },
+    {
+      "name": "protected-output",
+      "arguments": [
+        "-B",
+        "public checkout\\research\\version18\\196\\checks\\independent196.py",
+        "--source-root",
+        "public checkout\\research\\version18\\196\\upstream\\source",
+        "--parent-table",
+        "public checkout\\research\\version18\\198\\upstream\\H10-quartic198\\circuits\\inverse198\\quadratic.json",
+        "--output",
+        "public checkout\\research\\version18\\196\\upstream\\source\\should-not-exist.json"
+      ],
+      "exit_code": 1,
+      "expected_diagnostic": "Output must be outside"
+    },
+    {
+      "name": "existing-output",
+      "arguments": [
+        "-B",
+        "public checkout\\research\\version18\\196\\checks\\independent196.py",
+        "--source-root",
+        "public checkout\\research\\version18\\196\\upstream\\source",
+        "--parent-table",
+        "public checkout\\research\\version18\\198\\upstream\\H10-quartic198\\circuits\\inverse198\\quadratic.json",
+        "--output",
+        "outputs\\independent196-result.json"
+      ],
+      "exit_code": 1,
+      "expected_diagnostic": "Refusing to overwrite"
+    },
+    {
+      "name": "altered-parent",
+      "arguments": [
+        "-B",
+        "public checkout\\research\\version18\\196\\checks\\independent196.py",
+        "--source-root",
+        "public checkout\\research\\version18\\196\\upstream\\source",
+        "--parent-table",
+        "altered-parent.json",
+        "--output",
+        "outputs\\bad-parent.json"
+      ],
+      "exit_code": 1,
+      "expected_diagnostic": "parent digest mismatch"
+    },
+    {
+      "name": "altered-source",
+      "arguments": [
+        "-B",
+        "public checkout\\research\\version18\\196\\checks\\independent196.py",
+        "--source-root",
+        "altered source",
+        "--parent-table",
+        "public checkout\\research\\version18\\198\\upstream\\H10-quartic198\\circuits\\inverse198\\quadratic.json",
+        "--output",
+        "outputs\\bad-source.json"
+      ],
+      "exit_code": 1,
+      "expected_diagnostic": "Source digest mismatch"
+    }
+  ],
+  "final_manuscript_pdf_build_review_gate_bound": false
+}
