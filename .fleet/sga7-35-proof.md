@@ -21,7 +21,9 @@ Proved glue:
 * `e(σx - x, y) = 0` for invariant `y`;
 * the passage from `K^s` to `K̄`.
 
-`#discharges` and the autofold dry run: see docs/research/sga7-35-proof.md §7.
+`#discharges` (VERIFIED): the field is discharged by `sga7_IX_3_5_ForwardGeom_of_orth`, which still assumes
+exactly the new leaf and the three `T09Pic` fields, with standard axioms. Autofold dry run: refused, strict
+34/11 → 33/12 (a GLUE rise). With `--allow-rise` the printed fold compiles. The statement copy checks by `rfl`.
 
 **Rating, recommendation.** The new leaf is a **consequence**, not printed form: SGA 7 IX 2.4, plus the rank
 formulas, the finite-level passage and the comparison of the pairings. Consequences count GLUE, so the fold would
