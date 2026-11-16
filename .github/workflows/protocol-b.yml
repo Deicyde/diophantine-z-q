@@ -1149,6 +1149,22 @@ jobs:
               return scope
 
 
+          def obligation_event(envelope, kind, item, resolution=''):
+              origin = tuple(str(envelope.get(k, '')) for k in ('run', 'attempt', 'reviewer', 'head'))
+              return hashlib.sha256(json.dumps([origin, kind, resolution, item], sort_keys=True).encode()).hexdigest()
+
+
+          def obligation_sources(item):
+              return item.get('occurrences', [item])
+
+
+          def pack_obligation(items):
+              if len(items) == 1:
+                  return items[0]
+              return {**items[0], 'occurrences': items,
+                      'reason': '\n'.join(i['origin_reviewer']+': '+i['reason'] for i in items)}
+
+
           def historical_obligations(candidates, current=None):
               """Preserve App-authenticated findings across heads and empty later records."""
               states, applied = {}, set()
@@ -1156,49 +1172,60 @@ jobs:
               for pair in pairs:
                   for family, envelope in pair.items():
                       value = envelope.get('review', {})
-                      origin = tuple(str(envelope.get(k, '')) for k in ('run', 'attempt', 'reviewer', 'head'))
                       for ident, item in envelope.get('carried_findings', {}).items():
-                          states.setdefault((item['origin_reviewer'], ident), item)
+                          for source in obligation_sources(item):
+                              states.setdefault((source['origin_reviewer'], ident), source)
                       for f in blocking_findings(value):
-                          event = (origin, 'finding', json.dumps(f, sort_keys=True))
+                          event = obligation_event(envelope, 'finding', f)
                           if event in applied:
                               continue
                           applied.add(event)
                           ident = finding_id(envelope, f['id'])
                           states[family, ident] = {'origin_reviewer': family,
-                              'resolution': 'unresolved', 'reason': f.get('objection', '')}
+                              'resolution': 'unresolved', 'reason': f.get('objection', ''), 'observation': event}
                       for f in value.get('prior_findings', []):
                           # An incomplete execution cannot silently resolve old objections.
                           resolution = f['resolution'] if envelope.get('complete') and envelope.get('read_prerequisites_complete') is not False else 'unresolved'
-                          event = (origin, 'prior', resolution, json.dumps(f, sort_keys=True))
+                          event = obligation_event(envelope, 'prior', f, resolution)
                           if event in applied:
                               continue
                           # Reusing or copying an old report is not a new resolution.
                           # Its original disposition cannot erase a later reopening.
                           applied.add(event)
                           states[family, f['id']] = {'origin_reviewer': family,
-                              'resolution': resolution, 'reason': f.get('reason', '')}
+                              'resolution': resolution, 'reason': f.get('reason', ''), 'observation': event}
                           if resolution == 'resolved' and ('history', f['id']) in states:
                               states['history', f['id']] = {'origin_reviewer': 'history',
                                   'resolution': 'resolved', 'reason': f.get('reason', '')}
               active = {}
               for (_, ident), item in states.items():
                   if item['resolution'] != 'resolved':
-                      active[ident] = item
-              return active
+                      active.setdefault(ident, []).append(item)
+              return {ident: pack_obligation(items) for ident, items in active.items()}
 
 
           def carry_obligations(reports, candidates):
               obligations = historical_obligations(candidates, reports)
-              explicit = set()
+              explicit, explicit_ids = set(), set()
               for envelope in reports.values():
-                  explicit.update(finding_id(envelope, f['id']) for f in blocking_findings(envelope.get('review', {})))
-                  explicit.update(f['id'] for f in envelope.get('review', {}).get('prior_findings', []) if f['resolution'] != 'resolved')
+                  for f in blocking_findings(envelope.get('review', {})):
+                      explicit.add(obligation_event(envelope, 'finding', f))
+                      explicit_ids.add(finding_id(envelope, f['id']))
+                  for f in envelope.get('review', {}).get('prior_findings', []):
+                      if f['resolution'] != 'resolved':
+                          explicit.add(obligation_event(envelope, 'prior', f, f['resolution'] if envelope.get('complete') and envelope.get('read_prerequisites_complete') is not False else 'unresolved'))
+                          explicit_ids.add(f['id'])
                   envelope.pop('carried_findings', None)
               if reports:
                   # Preserve omitted objections even when all current reports completed.
                   target = next((e for e in reports.values() if review_scope_item(e)), next(iter(reports.values())))
-                  retained = {k: v for k, v in obligations.items() if k not in explicit}
+                  retained = {}
+                  for ident, item in obligations.items():
+                      missing = [source for source in obligation_sources(item)
+                                 if source.get('observation') not in explicit
+                                 and not (source['origin_reviewer'] == 'history' and ident in explicit_ids)]
+                      if missing:
+                          retained[ident] = pack_obligation(missing)
                   if retained:
                       target['carried_findings'] = retained
               return obligations
@@ -1852,6 +1879,7 @@ jobs:
               if set(envelopes) != set(MODELS) or any(not e.get('complete') for e in envelopes.values()):
                   return []
               occurrences, qualified = {}, {}
+              carried = {ident for e in envelopes.values() for ident in e.get('carried_findings', {})}
               for family, envelope in envelopes.items():
                   review = envelope['review']
                   unresolved = {finding_id(envelope, f['id']) for f in blocking_findings(review)}
@@ -1876,7 +1904,7 @@ jobs:
                           'reviewer_who_checked': other['reviewer'], 'source_ids': entry['source_ids'],
                           'detail': entry['detail']}
               return [qualified[key] for ident in sorted(occurrences)
-                      if all(key in qualified for key in occurrences[ident])
+                      if ident not in carried and all(key in qualified for key in occurrences[ident])
                       for key in occurrences[ident]]
 
 
@@ -2055,11 +2083,25 @@ jobs:
               run_url = f"https://github.com/{gh.repo}/actions/runs/{os.environ['GITHUB_RUN_ID']}"
               spend = review_spend_history(gh, app, pr, name, trusted_ref)
               automatic = 'pull_request' in event and not review_command and not override_command
+              stale_completed, cached_history_error = None, None
               if automatic and spend['completed_check']:
-                  record('review-reused.json', {'check': spend['completed_check']['id'], 'head': pr['head']['sha'],
-                                               'automatic_rounds': spend['automatic_rounds'], 'model_calls': 0})
-                  log('This head already has a completed review under the same policy; no model call.')
-                  return
+                  try:
+                      cached = json.loads(spend['completed_check']['output']['text'])['reports']
+                      pending = reconcile_obligations(gh, pr, cached, spend['candidates'])
+                      discussion, prior, _, _ = history(gh, pr, {
+                          ident: {'objection': item['reason'], **item} for ident, item in pending.items()})
+                      if (any(e.get('carried_findings') for e in cached.values()) or
+                              unaddressed_findings(cached, prior) or uncovered_history(cached, discussion)):
+                          stale_completed = cached
+                      else:
+                          record('review-reused.json', {'check': spend['completed_check']['id'], 'head': pr['head']['sha'],
+                                                       'automatic_rounds': spend['automatic_rounds'], 'model_calls': 0})
+                          log('This head already has a completed review under the same policy; no model call.')
+                          return
+                  except Exception as error:
+                      # A failed cache validation must replace, not leave effective,
+                      # the old green check. Publish the failure without a model call.
+                      cached_history_error = str(error)
               # Start blocked rather than leaving an indefinitely pending check if this
               # runner is cancelled, times out, or is lost. Finalization replaces this.
               check = app.call("/check-runs", "POST", {"name": name, "head_sha": pr["head"]["sha"],
@@ -2075,6 +2117,15 @@ jobs:
               record('decision.json', state)
               envelopes = {}
               try:
+                  if cached_history_error is not None:
+                      raise ValueError('Could not validate completed-review history: '+cached_history_error)
+                  if stale_completed is not None:
+                      # Reopen/ready/synchronize must not leave an old green check
+                      # effective after new objections, or silently spend on a repeat.
+                      state.update(conclusion='action_required', reports=stale_completed, summary=
+                          "Review blocked: new obligations or discussion after this head's completed review. A collaborator must comment /protocol-b review. No model was called.")
+                      record('decision.json', state)
+                      return
                   # Do not spend model credits on an outside contributor's automatic
                   # event or manual workflow dispatch. Each review needs a current
                   # collaborator's explicit command; an override never calls models.
@@ -2480,8 +2531,9 @@ jobs:
           def round_summary_body(state, repo, check_url):
               """Readable navigation; original reports and App decisions remain intact."""
               reports = state.get('reports', {})
+              carried = {ident for e in reports.values() for ident in e.get('carried_findings', {})}
               relieved = {(item['finding'], item['reviewer_unable_to_open']): item
-                          for item in state.get('source_access_limitations', [])}
+                          for item in state.get('source_access_limitations', []) if item['finding'] not in carried}
               overridden = state.get('overrides', {})
               blocking, nonblocking = {}, {}
               decisions = {}

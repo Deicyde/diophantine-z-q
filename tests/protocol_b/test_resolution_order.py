@@ -5,6 +5,7 @@ import unittest
 from unittest.mock import Mock, patch
 from test_gate import gate, FakeGH, FakeApp, HEAD, report, envelope, comment, run_pipeline
 from test_continuity import accepting, stored
+import test_comment_occurrences as comment_fixtures
 
 
 class ResolutionOrder(unittest.TestCase):
@@ -107,6 +108,54 @@ class ResolutionOrder(unittest.TestCase):
                     else:
                         self.assertIn(self.ident, state['summary'])
                         self.assertFalse(gh.merge_requests)
+
+    def test_automatic_cached_review_blocks_later_obligations_without_models(self):
+        for action in ('reopened', 'ready_for_review', 'synchronize'):
+            for source in ('app', 'comment', 'discussion'):
+                with self.subTest(action=action, source=source):
+                    if source == 'comment':
+                        gh, app, ident, _ = comment_fixtures.CommentOccurrences().setup_history(reusable=True)
+                    else:
+                        gh, app, _, _, _ = self.history(other_head=True)
+                        ident = self.ident
+                        if source == 'discussion':
+                            del app.checks[6]
+                            gh.comments.pop()  # Remove its pointer as well.
+                            gh.comments.append(comment('A new counterexample to this head is x=0.', 'contributor'))
+                    # This used to return without replacing the old head's green check.
+                    app.checks[5]['conclusion'] = 'success'
+                    provider = Mock(side_effect=AssertionError('No automatic paid repeat'))
+                    with patch.object(gate, 'model_turn', side_effect=AssertionError('No provider request')):
+                        gh, app, _, state = run_pipeline(gh, app, provider=provider,
+                            event={'pull_request': {'number': 1}, 'action': action})
+                    provider.assert_not_called()
+                    self.assertTrue(app.created)
+                    self.assertEqual(app.final['conclusion'], 'action_required' if source == 'discussion' else 'failure')
+                    self.assertIn('/protocol-b review', state['summary'])
+                    self.assertFalse(gh.merge_requests)
+                    if source != 'discussion':
+                        self.assertTrue(any(ident in e.get('carried_findings', {}) for e in state['reports'].values()))
+
+    def test_cached_history_read_failure_replaces_old_success_without_models(self):
+        gh, app, _, _, _ = self.history(other_head=True)
+        app.checks[5]['conclusion'] = 'success'
+        original = gate.reconcile_obligations
+        calls = []
+        def reconcile(*args, **kwargs):
+            calls.append(True)
+            if len(calls) == 1:
+                raise RuntimeError('History API temporarily unavailable')
+            return original(*args, **kwargs)
+        provider = Mock(side_effect=AssertionError('No paid review'))
+        with patch.object(gate, 'reconcile_obligations', side_effect=reconcile), \
+             patch.object(gate, 'model_turn', side_effect=AssertionError('No provider request')):
+            gh, app, _, state = run_pipeline(gh, app, provider=provider,
+                event={'pull_request': {'number': 1}, 'action': 'reopened'})
+        provider.assert_not_called()
+        self.assertTrue(app.created)
+        self.assertEqual(app.final['conclusion'], 'failure')
+        self.assertIn('Could not validate completed-review history', state['summary'])
+        self.assertFalse(gh.merge_requests)
 
 
 if __name__ == '__main__':

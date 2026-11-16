@@ -710,6 +710,19 @@ when its report comment was not delivered. Retained acceptances need a supplemen
 for these outstanding objections even if they previously resolved the same ID.
 Only a new completed disposition or an explicit admin decision covers them.
 
+An explicit finding ID in a selected report covers only that report's actual
+occurrence. Other unresolved occurrences retain their reviewer and observation
+identity, including when several reviewers disagree under one ID. A source-access
+limitation cannot excuse one of these retained substantive objections. A new
+review must resolve it, or an admin must explicitly decide that finding.
+
+Automatic reopen, ready-for-review and repeated synchronization events recheck
+the cached review against later obligations and discussion before skipping paid
+work. New material replaces the old green check with a blocked check and asks
+for a collaborator's `/protocol-b review`; no model is called automatically.
+A failed cache-history check also blocks. A current, unchanged completed review
+still consumes no additional review round.
+
 If posting a completed report fails, the completed verdict remains in the App
 record and original artifact. A final report with a form error returns feedback
 to the reviewer for correction. Every unsuccessful final submission remains in
