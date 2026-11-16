@@ -13,8 +13,8 @@ The group-law conversion is the canonical, already public H76 construction
 No group law, quaternion action, or level point is chosen anew.
 -/
 
-set_option backward.isDefEq.respectTransparency.types false
-set_option backward.isDefEq.respectTransparency.instanceSearchTypes false
+set_option backward.isDefEq.respectTransparency.types true
+set_option backward.isDefEq.respectTransparency.instanceSearchTypes true
 
 noncomputable section
 
@@ -93,9 +93,13 @@ theorem kernelPtObj_self : (AbVar.ptObj (K := K) K).hom = 𝟙 _ := by
 
 theorem kernelPt_mul (A : AbVar K) (x y : A.Pt K) :
     kernelPt A (x * y) = (kernelLaw A).mul (𝟙 _) (kernelPt A x) (kernelPt A y) := by
-  letI : GrpObj (Over.mk A.X.hom) := A.grp
+  rcases A with ⟨⟨X, ⟨⟨⟩⟩, f⟩, grp, hp, hs, hi⟩
   apply Subtype.ext
-  rfl
+  simp only [kernelPt, kernelLaw, relativeGroupLawOfGrpObj,
+    overHomToSchemeHomOver, schemeHomOverToOverHom, Hom.mul_def,
+    Over.comp_left, Over.lift_left, Over.homMk_left]
+  dsimp only [AbVar.ptObj, Over.mk_left] at x y ⊢
+  congr 1
 
 theorem kernelPt_one (A : AbVar K) : kernelPt A 1 = (kernelLaw A).one (𝟙 _) := by
   letI : GrpObj (Over.mk A.X.hom) := A.grp
@@ -103,6 +107,7 @@ theorem kernelPt_one (A : AbVar K) : kernelPt A 1 = (kernelLaw A).one (𝟙 _) :
   change (AbVar.ptObj (K := K) K).hom ≫ η[A.X].left =
     (𝟙 (Spec (CommRingCat.of K))) ≫ η[A.X].left
   rw [kernelPtObj_self]
+  dsimp only [AbVar.ptObj, Over.mk_left]
 
 /-- Identity section for the `N=1` subgroup; this is not a new point. -/
 def kernelIdentity (A : AbVar K) : Spec (CommRingCat.of K) ⟶ A.X.left :=
@@ -143,6 +148,8 @@ theorem kernelEnd_one (A : AbVar K) (phi : AbVar.End A) {T : Scheme}
 
 #print axioms kernelLaw_comm
 #print axioms kernel_bundle
+#print axioms kernelPt_mul
+#print axioms kernelPt_one
 #print axioms kernelIdentity_closed
 
 end ZInQ.Contrib.CloudB2Shimura.Dictionary.D5
