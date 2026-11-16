@@ -1,0 +1,2 @@
+strict count: 34/11 on 45 -> 33/12 on 45; strictest 34/11 -> 33/12
+autofold: a GLUE count (strict or strictest) rises; not folding (pass --allow-rise to override)

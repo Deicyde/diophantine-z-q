@@ -117,4 +117,27 @@ need its own published leaf, which is as deep. **No narrowing is proposed.**
 
 ## 7. Check outputs
 
-(filled in from the runs below)
+All VERIFIED on this host.
+
+* Build: `lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges +ZInQKernel.Contrib.OneProof.SGA7IX35Orth`
+  completed (13,699 jobs; `SGA7IX35Orth` 15 s). `frozenTarget` is still standard-axiom.
+* `#discharges` (`scratch/sga7-35-proof/Discharges.lean`; output in `discharges.txt`):
+
+  ```
+  DISCHARGES [OpenResearchLeaves26.sga7_IX_3_5_ForwardGeom] by SGA7Orth.sga7_IX_3_5_ForwardGeom_of_orth
+    still assumes: [SGA7Orth.GrothendieckOrthogonalitySS,
+   T09Pic.PicRepresentableAbVar,
+   T09Pic.PicZeroAbVar,
+   T09Pic.WeilPairingMumford]
+    axioms: [propext, Classical.choice, Quot.sound]
+  ```
+
+  The three `T09Pic` hypotheses are open fields of `OpenAddedLeaves17`, so the only new leaf is
+  `GrothendieckOrthogonalitySS`.
+* `Statements.lean`: the verbatim copy of the statement equals `UnipotentForward.SGA7_IX_3_5_ForwardGeom` by `rfl`.
+* Autofold, dry run on `autofold.json`:
+  * without `--allow-rise` it is refused: `strict count: 34/11 on 45 -> 33/12 on 45; strictest 34/11 -> 33/12`,
+    "a GLUE count (strict or strictest) rises; not folding" (`autofold-dryrun.txt`);
+  * with `--allow-rise`, the printed module `FoldDryRun.lean` (`TailZ43`, line 1 stripped) compiles, and
+    `HDec.HSyn.sixContactMin_of_open36` has the standard axioms. So the `{l}` references to the added bundle work.
+* The fold itself was not run: it would raise the GLUE count (the recommendation is §1).

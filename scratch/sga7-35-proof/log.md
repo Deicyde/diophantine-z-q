@@ -38,3 +38,9 @@ kinds.tsv row 25: research / published / LEAF / LEAF, unverified-locator).
   TailH uses wild σ on abelian surfaces. Both need unipotence in general; no narrowing avoids orthogonality.
 - Build: first `lake build +Main +Discharges +Contrib` started a cascade rebuild (my lean/.lake/build copy from
   weil-proof was in flux); stopped; copied .lake/build and lean/.lake/build from raynaud-proof (same Main.lean).
+- lake build +Main +Discharges +Contrib.OneProof.SGA7IX35Orth: success, 13699 jobs (VERIFIED).
+- #discharges: DISCHARGES [OpenResearchLeaves26.sga7_IX_3_5_ForwardGeom] by SGA7Orth.sga7_IX_3_5_ForwardGeom_of_orth,
+  still assumes [GrothendieckOrthogonalitySS, PicRepresentableAbVar, PicZeroAbVar, WeilPairingMumford], standard
+  axioms (VERIFIED, discharges.txt). Statements.lean rfl check passes (VERIFIED).
+- autofold dry run: refused, strict 34/11 → 33/12, strictest 34/11 → 33/12 (GLUE rises). With --allow-rise the
+  printed TailZ43 compiles, sixContactMin_of_open36 standard axioms (VERIFIED). Fold not run; not recommended.
