@@ -254,3 +254,15 @@ review. New review may resolve an earlier scope item only by doing the omitted
 work. Stale heads and wrong-model executions do not gain acceptance through a
 scope override. Ordinary write access still authorizes review requests, but
 does not authorize any override.
+
+
+## Lean-only profile
+
+When the trusted runtime supplies `lean_kernel_evidence` and selects the Lean
+profile, follow its narrower scope: changed/new statements, definitions,
+hypotheses, axioms, published-leaf assumptions, pins and contract changes.
+Definition bodies and source fidelity remain in scope. Theorem proof bodies
+are checked by the required kernel build and actual axiom audit rather than
+re-proved by models. Read the supplied audit output and preserve its conditional
+status and runtime exclusions. This exception never applies to mixed manuscript,
+record or gate changes. There is no automatic proof-only declaration shortcut.

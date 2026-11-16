@@ -642,7 +642,7 @@ reports and a `nonblocking-notes.json` artifact also retain them. If backlog
 delivery fails, the original PR report remains durable, the failure is recorded,
 and it does not change review acceptance or stop a protected merge.
 
-The Lean-specific review scope remains a separate reform.
+The Lean profile below uses the same one-round rule with a narrower model-review scope.
 
 
 ### Admin decisions on incomplete review
@@ -814,3 +814,37 @@ requested explicitly, across heads and force-pushes. Reusing a completed review
 does not consume another round. Current-head, dependency, history and policy
 checks still govern reuse. The artifact, App record and summary identify the
 profile and count. The full profile retains its four-automatic-round limit.
+
+
+## Lean profile
+
+PRs confined to `ZInQKernel.lean`, `ZInQKernel/**/*.lean`, `lean/ZInQ.lean`,
+`lean/ZInQ/**/*.lean`, `ThirdParty/GreenTao/**/*.lean`, their Lake manifests/toolchains and `KERNEL_CONTRACT.json` qualify. Mixed
+manuscript, record, audit-script or gate changes use full review. Lean files
+outside the existing audited module roots also use full review; this includes
+the frozen reference statement, which is compared but not replayed as a module. Both reviewers
+check changed/new statements, definitions, explicit and implicit hypotheses,
+axioms, published-leaf assumptions, dependency pins and contract changes. They
+check the source meaning and consumers, including surrounding declarations that
+affect that meaning. Theorem proof bodies are left to the required kernel build,
+no-sorry checks and axiom audit; definition bodies remain within model scope.
+
+Before exposing provider/App secrets, the workflow waits up to 75 minutes for
+the existing kernel CI run at the PR head. It starts no duplicate build. Failed,
+missing, ambiguous or unmatched evidence prevents model calls. The review then
+receives the actual `audit.json`, including used axioms, exact target statuses,
+the conditional headline type and runtime declarations not replayed. The artifact
+is authenticated by its successful run and digest; only bounded JSON is read,
+and no downloaded file is executed or extracted. A GitHub test-merge commit is
+accepted only when its complete diff from the PR head changes no kernel input.
+Changed Lean modules must appear in the audit. Audit implementation changes
+cannot use this profile.
+
+There is no regex-based proof-only fast path. Reviewers check declaration
+interfaces from the sources, even when the author says only proofs changed.
+Rebase reuse keeps the existing whole-diff and dependency checks; changing proof
+text does not gain statement-only reuse. A disjoint rebase may reuse the model
+review only under those existing rules, and its required kernel check must still
+pass. One paid round consumes the automatic allowance; further model calls need
+a write collaborator's `/protocol-b review`. Admin decisions remain explicit,
+exact-head overrides. No model review is treated as formal verification.

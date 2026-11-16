@@ -79,12 +79,16 @@ that supplies a theorem to a project's umbrella import.
 ## Acceptance
 
 Lean PRs follow the active [Protocol B contributor guide](research-review/README.md):
-both approved models review the exact revision, including statement fidelity,
-provenance, dependency use and audit objections. Both must accept unless a
-collaborator applies the documented finding-specific override, which does not
-make the affected claim outside reviewed. There is no mandatory second human
-or CODEOWNERS approval. A proof-only PR can have a narrow review scope, but
-compilation or queuing does not substitute for the required review.
+both approved models review the exact revision. Qualifying Lean-only changes use
+the [Lean profile](research-review/protocol-b-setup.md#lean-profile): models check
+statements, definitions, hypotheses, axioms, published-leaf assumptions, pins
+and contract changes, using the actual kernel audit output. They do not re-prove
+theorem proof bodies. Mixed manuscript, record or gate changes use full review.
+One paid round is followed by a maintainer decision; another review requires a
+write collaborator's `/protocol-b review`. Only a repository admin can override
+a finding or incomplete-scope item, with affected claims not outside reviewed.
+Editorial notes do not block. There is no mandatory second human or CODEOWNERS
+approval. Compilation or queuing alone does not replace the required review.
 
 The repository's default-branch workflow publishes `Protocol B / review` through
 the designated App; the former protected controller is retired. The

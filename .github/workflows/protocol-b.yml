@@ -38,26 +38,12 @@ jobs:
     environment: protocol-b
     timeout-minutes: 120
     steps:
-      - name: Mint check-only App token
-        id: app_start
-        uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349
-        with:
-          app-id: ${{ vars.PROTOCOL_B_APP_ID }}
-          private-key: ${{ secrets.PROTOCOL_B_APP_PRIVATE_KEY }}
-          permission-checks: write
-      - name: Review pinned sources using both approved models
-        id: review
+      - name: Prepare trusted review program and await Lean evidence
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
-          APP_TOKEN: ${{ steps.app_start.outputs.token }}
-          APP_ID: ${{ vars.PROTOCOL_B_APP_ID }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          MODE: ${{ vars.PROTOCOL_B_MODE }}
-          MANUSCRIPT_PROFILE: ${{ vars.PROTOCOL_B_MANUSCRIPT_PROFILE }}
-          TEST_PR: ${{ vars.PROTOCOL_B_TEST_PR }}
-          NOTES_ISSUE: ${{ vars.PROTOCOL_B_NOTES_ISSUE }}
+          MODE: ${{ vars.PROTOCOL_B_MODE || 'off' }}
+          TEST_PR: ${{ vars.PROTOCOL_B_TEST_PR || '0' }}
         run: |
           cat > "$RUNNER_TEMP/protocol-b.py" <<'PROTOCOL_B_PYTHON'
           """Embedded in the trusted default-branch workflow; never imports candidate code."""
@@ -309,6 +295,8 @@ jobs:
 
           def review_profile(files, author_has_write):
               """Limit automatic rounds without reducing either reviewer's required scope."""
+              if lean_profile_eligible(files):
+                  return {'name': 'lean', 'reason': 'Lean sources and build configuration only', 'automatic_paid_round_limit': 1}
               if not author_has_write:
                   return {'name': 'light', 'reason': 'outside contributor', 'automatic_paid_round_limit': 1}
               # Other docs/ paths include proof inventories, review records and policy.
@@ -335,6 +323,248 @@ jobs:
               if focused and total <= 200:
                   return {'name': 'light', 'reason': 'focused documentation change', 'automatic_paid_round_limit': 1}
               return {'name': 'full', 'reason': 'ordinary review scope', 'automatic_paid_round_limit': 4}
+
+
+          # Embedded into the trusted workflow by prepare_lean_profile.py.
+          LEAN_REVIEW_INSTRUCTION = (
+              'This PR qualifies for the Lean profile. Review all changed/new theorem '
+              'statements, definitions and their meanings, implicit and explicit hypotheses, '
+              'new axioms and published-leaf assumptions, dependency pins, and contract changes. '
+              'Check source fidelity against the manuscript/cited source and unchanged consumers. '
+              'Inspect surrounding namespaces, variables, notation, imports, instances and attributes '
+              'where they can change the meaning of an interface. Definition bodies are part of '
+              'the interface. Do not review or re-prove theorem proof bodies: the supplied exact-input '
+              'kernel audit and required CI cover their validity and axiom closure. Read the actual '
+              'lean_kernel_evidence in this packet, including allowed_axioms_used, target statuses, '
+              'headline_type, and runtime_declarations_not_replayed. Never call a conditional theorem '
+              'unconditional or an un-replayed runtime definition kernel-verified. No source file is '
+              'automatically classified as proof-only: establish any unchanged interface from source '
+              'reads. State which interfaces/definitions and assumptions you checked. Both approved '
+              'reviewers run once; naming, documentation and style notes do not block. Incomplete '
+              'necessary interface review remains an explicit scope item. Ordinary dependency and '
+              'history reuse rules apply; changed proof text is not ignored by rebase matching.'
+          )
+
+
+          LEAN_WORKFLOW = '.github/workflows/kernel-lean.yml'
+          LEAN_CHECK = 'Complete kernel build and exact-target audit'
+          LEAN_CONFIG = {'lakefile.toml', 'lake-manifest.json', 'lean-toolchain',
+                         'lean/lakefile.toml', 'lean/lake-manifest.json', 'lean/lean-toolchain',
+                         'KERNEL_CONTRACT.json'}
+
+
+          def lean_module(path):
+              # Match the existing trusted check_kernel_contract.py module roots.
+              if path.endswith('.lean'):
+                  if path == 'ZInQKernel.lean' or path.startswith('ZInQKernel/'):
+                      return path[:-5].replace('/', '.')
+                  if path == 'lean/ZInQ.lean' or path.startswith('lean/ZInQ/'):
+                      return path[5:-5].replace('/', '.')
+                  if path.startswith('ThirdParty/GreenTao/'):
+                      return path[len('ThirdParty/GreenTao/'):-5].replace('/', '.')
+              return None
+
+
+          def lean_profile_eligible(files):
+              """No proof-body classifier: every changed declaration interface is reviewed."""
+              if not files:
+                  return False
+              for item in files:
+                  paths = [item.get('filename', ''), item.get('previous_filename', '')]
+                  for path in filter(None, paths):
+                      if '..' in pathlib.PurePosixPath(path).parts:
+                          return False
+                      source = lean_module(path) is not None
+                      if not source and path not in LEAN_CONFIG:
+                          return False
+              return True
+
+
+          def action_pages(gh, path, key):
+              rows = []
+              for page in range(1, 101):
+                  data = gh.call(path + ('&' if '?' in path else '?') + f'per_page=100&page={page}')
+                  batch = data[key]
+                  rows.extend(batch)
+                  if len(batch) < 100:
+                      if len(rows) < data.get('total_count', 0):
+                          raise ValueError('Incomplete Actions listing')
+                      return rows
+              raise ValueError('Actions pagination exhausted')
+
+
+          def download_audit(gh, artifact):
+              """Read bounded JSON from an authenticated artifact; never extract or execute it."""
+              import io
+              import zipfile
+
+              class Redirect(urllib.request.HTTPRedirectHandler):
+                  def redirect_request(self, req, fp, code, msg, headers, newurl):
+                      if urllib.parse.urlsplit(newurl).scheme != 'https':
+                          raise ValueError('Non-HTTPS artifact redirect')
+                      result = super().redirect_request(req, fp, code, msg, headers, newurl)
+                      if result:
+                          result.remove_header('Authorization')
+                      return result
+
+              limit = 32 * 1024 * 1024
+              if not 0 < artifact.get('size_in_bytes', 0) <= limit:
+                  raise ValueError('Kernel artifact size is missing or exceeds 32 MiB')
+              url = f'https://api.github.com/repos/{gh.repo}/actions/artifacts/{int(artifact["id"])}/zip'
+              req = urllib.request.Request(url, headers=gh.headers)
+              with urllib.request.build_opener(Redirect()).open(req, timeout=120) as response:
+                  raw = response.read(limit + 1)
+              if len(raw) > limit:
+                  raise ValueError('Kernel artifact exceeds download limit')
+              digest = 'sha256:' + hashlib.sha256(raw).hexdigest()
+              if artifact.get('digest') != digest:
+                  raise ValueError('Kernel artifact digest mismatch or unavailable')
+              with zipfile.ZipFile(io.BytesIO(raw)) as archive:
+                  entries = [i for i in archive.infolist() if i.filename == 'audit.json']
+                  if len(entries) != 1 or entries[0].file_size > 1_000_000:
+                      raise ValueError('Missing, duplicate or oversized kernel audit.json')
+                  return json.loads(archive.read(entries[0]))
+
+
+          def validate_lean_audit(gh, pr, files, run, artifact, audit):
+              head, base = pr['head']['sha'], pr['base']['sha']
+              if (run.get('status') != 'completed' or run.get('conclusion') != 'success'
+                      or run.get('path', '').split('@')[0] != LEAN_WORKFLOW
+                      or run.get('repository', {}).get('full_name', '').lower() != gh.repo.lower()
+                      or run.get('head_sha') != head
+                      or run.get('event') not in {'pull_request', 'push', 'workflow_dispatch'}):
+                  raise ValueError('Kernel run does not bind this head and trusted workflow')
+              if (artifact.get('expired') or artifact.get('name') != 'kernel-audit'
+                      or artifact.get('workflow_run', {}).get('id') != run['id']
+                      or artifact['workflow_run'].get('head_sha') != head):
+                  raise ValueError('Kernel artifact does not bind the successful run')
+              # The profile excludes audit implementation edits. Read the actual source,
+              # not a PR assertion that its workflow/auditor remained unchanged.
+              trusted = [LEAN_WORKFLOW, 'scripts/check_kernel.py', 'scripts/check_kernel_contract.py',
+                         'scripts/audit_kernel.lean', 'scripts/check_target.py']
+              for path in trusted:
+                  if gh.text(path, head) != gh.text(path, base):
+                      raise ValueError('Kernel verification implementation changed; use full review')
+              contract_text = gh.text('KERNEL_CONTRACT.json', head)
+              contract_hash = hashlib.sha256(contract_text.encode()).hexdigest()
+              if (audit.get('schema') != 'kernel-audit/v1' or audit.get('status') != 'passed'
+                      or audit.get('contract_sha256') != contract_hash
+                      or not isinstance(audit.get('allowed_axioms_used'), list)
+                      or not isinstance(audit.get('runtime_declarations_not_replayed'), list)
+                      or not isinstance(audit.get('targets'), list) or not audit.get('headline_type')):
+                  raise ValueError('Kernel audit status, contract or coverage fields are missing/mismatched')
+              audited_head = audit.get('head_sha', '')
+              if not re.fullmatch(r'[0-9a-f]{40}', audited_head):
+                  raise ValueError('Kernel audited commit is missing')
+              if audited_head != head:
+                  comparison = gh.call(f'/compare/{head}...{audited_head}')
+                  # PR CI may audit GitHub's test-merge commit. Accept only when every
+                  # difference from the reviewed head is outside all kernel inputs.
+                  differences = comparison.get('files')
+                  if (comparison.get('behind_by') != 0 or not isinstance(differences, list)
+                          or len(differences) >= 300):
+                      raise ValueError('Cannot establish complete test-merge input equality')
+                  contract = json.loads(contract_text)
+                  pinned = set(contract['files'])
+                  for item in differences:
+                      for path in filter(None, [item.get('filename'), item.get('previous_filename')]):
+                          if (path in pinned or path in LEAN_CONFIG or path == '.gitattributes'
+                                  or path.startswith(('lean/', 'ZInQKernel/', 'ThirdParty/', 'scripts/', '.github/'))
+                                  or path.endswith('.lean')):
+                              raise ValueError('Test-merge commit differs in a kernel input')
+                  for path in trusted:
+                      if gh.text(path, audited_head) != gh.text(path, head):
+                          raise ValueError('Test-merge verification implementation differs')
+              modules = set(audit.get('modules', []))
+              for item in files:
+                  path = item['filename']
+                  if path.endswith('.lean') and item.get('status') != 'removed':
+                      module = lean_module(path)
+                      if not module or module not in modules:
+                          raise ValueError('Changed Lean file is not covered by the kernel audit: '+path)
+              # Full output, including conditional target types, skipped runtime declarations
+              # and actual axiom names. Never replace this with a green-check assertion.
+              return {'head': head, 'base': base, 'run': run['id'], 'attempt': run['run_attempt'],
+                      'run_url': run['html_url'], 'artifact': artifact['id'], 'artifact_digest': artifact['digest'],
+                      'audited_head': audited_head, 'audit': audit}
+
+
+          def lean_evidence(gh, pr, files):
+              runs = action_pages(gh, '/actions/workflows/kernel-lean.yml/runs?head_sha='+pr['head']['sha'], 'workflow_runs')
+              relevant = [r for r in runs if r.get('head_sha') == pr['head']['sha']
+                          and r.get('event') in {'pull_request', 'push', 'workflow_dispatch'}]
+              if not relevant:
+                  return None
+              run = max(relevant, key=lambda r: (r['id'], r.get('run_attempt', 1)))
+              if run['status'] != 'completed':
+                  return None
+              if run.get('conclusion') != 'success':
+                  raise ValueError('Kernel verification failed; fix failing checks first')
+              artifacts = action_pages(gh, f'/actions/runs/{run["id"]}/artifacts', 'artifacts')
+              matches = [a for a in artifacts if a.get('name') == 'kernel-audit' and not a.get('expired')]
+              if len(matches) != 1:
+                  raise ValueError('Successful kernel run lacks one unexpired kernel-audit artifact')
+              artifact = matches[0]
+              audit = download_audit(gh, artifact)
+              return validate_lean_audit(gh, pr, files, run, artifact, audit)
+
+
+          def wait_lean():
+              """Run before any App/provider secret is exposed or App token is minted."""
+              state = {'eligible': False, 'ready': False}
+              try:
+                  mode = os.environ.get('MODE', 'off')
+                  if mode not in {'live', 'test'}:
+                      return
+                  gh = GitHub(os.environ['GITHUB_REPOSITORY'], os.environ['GH_TOKEN'])
+                  default = gh.call('')['default_branch']
+                  if os.environ.get('GITHUB_REF') != 'refs/heads/'+default:
+                      raise ValueError('Lean preparation must run from the default branch')
+                  event = json.loads(pathlib.Path(os.environ['GITHUB_EVENT_PATH']).read_text())
+                  number = ((event.get('pull_request') or {}).get('number')
+                            or (event.get('issue') or {}).get('number')
+                            or (event.get('inputs') or {}).get('pull_request'))
+                  if not number:
+                      return
+                  if mode == 'test' and int(number) != int(os.environ.get('TEST_PR', '0')):
+                      return
+                  pr = gh.call('/pulls/'+str(int(number)))
+                  if pr.get('state') != 'open' or pr.get('draft'):
+                      return
+                  body = (event.get('comment') or {}).get('body', '').strip()
+                  if body.startswith('/protocol-b override '):
+                      return
+                  if 'comment' in event and (body != '/protocol-b review' or
+                          not collaborator(gh, event['comment']['user']) or
+                          event.get('sender', {}).get('login') != event['comment']['user']['login']):
+                      return
+                  command = body == '/protocol-b review' and collaborator(gh, event['comment']['user'])
+                  if not command and not collaborator(gh, pr['user']):
+                      return
+                  files = gh.pages(f'/pulls/{pr["number"]}/files')
+                  if len(files) != pr['changed_files']:
+                      raise ValueError('Incomplete changed-file list')
+                  if not lean_profile_eligible(files):
+                      return
+                  state.update(eligible=True, head=pr['head']['sha'], base=pr['base']['sha'])
+                  deadline = time.monotonic() + 75 * 60
+                  while True:
+                      current = gh.call('/pulls/'+str(pr['number']))
+                      if (current['state'] != 'open' or current['head']['sha'] != state['head']
+                              or current['base']['sha'] != state['base']):
+                          raise ValueError('PR head/base changed while awaiting kernel evidence')
+                      evidence = lean_evidence(gh, pr, files)
+                      if evidence:
+                          state.update(ready=True, evidence=evidence)
+                          return
+                      if time.monotonic() >= deadline:
+                          raise ValueError('Kernel evidence was not ready within 75 minutes; no paid review started')
+                      log('Lean profile: waiting for the existing kernel audit; no model call or new build dispatch')
+                      time.sleep(30)
+              except Exception as error:
+                  state['error'] = str(error)
+              finally:
+                  record('lean-preflight.json', state)
 
 
           SOURCE_CHECK_SCHEMA = {"type": "object", "additionalProperties": False,
@@ -2182,6 +2412,17 @@ jobs:
                   state['paid_rounds'] = spend['paid_rounds']
                   record('review-profile.json', state['review_profile'])
                   record('budget-profile.json', configure_budget(files))
+                  if state['review_profile']['name'] == 'lean' and not override_command:
+                      preparation = OUT / 'lean-preflight.json'
+                      evidence = json.loads(preparation.read_text(encoding='utf-8')) if preparation.is_file() else {}
+                      if (not evidence.get('ready') or evidence.get('head') != pr['head']['sha']
+                              or evidence.get('base') != pr['base']['sha']):
+                          state.update(conclusion='action_required', summary=
+                              'Lean review awaits exact-head kernel evidence. No model was called. '+evidence.get('error', 'No matching preparation record.'))
+                          record('decision.json', state)
+                          return
+                      state['lean_evidence'] = evidence['evidence']
+
                   # Even missing patches remain listed so both reviewers must fetch sources.
                   declaration = "No mathematical content changed." in (pr.get("body") or "")
                   change_class = classify(files, declaration)
@@ -2235,7 +2476,7 @@ jobs:
                           for family in selected:
                               supplements[family] = envelopes.pop(family)
                       missing = set(MODELS) - set(envelopes)
-                      if (missing and not review_command and state['review_profile']['name'] == 'light'
+                      if (missing and not review_command and state['review_profile']['name'] in {'light', 'lean'}
                               and spend['paid_rounds'] >= 1):
                           state.update(conclusion='action_required', summary=
                                        'This PR had its one automatic review. To have changes reviewed, ask a maintainer to post /protocol-b review. The one paid round allowance includes an explicitly requested first round; only an admin may override a recorded item. No model was called.')
@@ -2269,6 +2510,11 @@ jobs:
                       with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
                           reviewers = {family: Review(gh, pr, files, discussion, prior, overrides, instructions, family, change_class)
                                        for family in missing}
+                          if state['review_profile']['name'] == 'lean':
+                              for reviewer in reviewers.values():
+                                  reviewer.input['lean_kernel_evidence'] = state['lean_evidence']
+                                  reviewer.input['review_profile'] = state['review_profile']
+                                  reviewer.instructions += '\n\n' + LEAN_REVIEW_INSTRUCTION
                           for family, previous in supplements.items():
                               reviewers[family].input['retained_acceptance'] = previous
                               reviewers[family].input['review_task'] = ('The unchanged proof retains its earlier review. Assess only the new discussion, outstanding App-recorded findings and interrupted observations not covered by the retained reports, and any source passages needed to decide them. Preserve and disposition all findings. Do not repeat the unchanged proof audit.')
@@ -2788,8 +3034,8 @@ jobs:
               if state.get('scope_items'):
                   state['summary'] += '\nIncomplete-review items for an admin decision:\n'+json.dumps(state['scope_items'], indent=2)
               record('decision.json', state)
-              if state.get('review_profile', {}).get('name') == 'light':
-                  state['summary'] += f"\nLight profile: {state.get('paid_rounds', 0)} paid round(s) recorded. After one round, another model call requires a collaborator's explicit review command; item overrides require an admin."
+              if state.get('review_profile', {}).get('name') in {'light', 'lean'}:
+                  state['summary'] += f"\n{state['review_profile']['name'].capitalize()} profile: {state.get('paid_rounds', 0)} paid round(s) recorded. After one round, another model call requires a collaborator's explicit review command; item overrides require an admin."
               else:
                   state['summary'] += f"\nAutomatic review rounds: {state.get('automatic_rounds', 0)}/4."
               if len(text.encode()) > 60_000 or len(state['summary'].encode()) > 60_000:
@@ -2816,9 +3062,31 @@ jobs:
 
 
           if __name__ == "__main__":
-              publish() if len(sys.argv) > 1 and sys.argv[1] == 'publish' else main()
+              (wait_lean() if len(sys.argv) > 1 and sys.argv[1] == 'wait-lean' else
+               publish() if len(sys.argv) > 1 and sys.argv[1] == 'publish' else main())
           PROTOCOL_B_PYTHON
-          python3 "$RUNNER_TEMP/protocol-b.py" review
+          python3 "$RUNNER_TEMP/protocol-b.py" wait-lean
+      - name: Mint check-only App token
+        id: app_start
+        uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349
+        with:
+          app-id: ${{ vars.PROTOCOL_B_APP_ID }}
+          private-key: ${{ secrets.PROTOCOL_B_APP_PRIVATE_KEY }}
+          permission-checks: write
+      - name: Review pinned sources using both approved models
+        id: review
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          APP_TOKEN: ${{ steps.app_start.outputs.token }}
+          APP_ID: ${{ vars.PROTOCOL_B_APP_ID }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          MODE: ${{ vars.PROTOCOL_B_MODE }}
+          MANUSCRIPT_PROFILE: ${{ vars.PROTOCOL_B_MANUSCRIPT_PROFILE }}
+          TEST_PR: ${{ vars.PROTOCOL_B_TEST_PR }}
+          NOTES_ISSUE: ${{ vars.PROTOCOL_B_NOTES_ISSUE }}
+        run: python3 "$RUNNER_TEMP/protocol-b.py" review
       - name: Mint fresh token after the review
         if: always() && steps.app_start.outcome == 'success' && steps.review.outcome != 'skipped'
         id: app_finish
