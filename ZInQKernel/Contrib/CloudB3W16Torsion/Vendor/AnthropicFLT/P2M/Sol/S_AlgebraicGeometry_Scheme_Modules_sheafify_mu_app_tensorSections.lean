@@ -36,8 +36,8 @@ namespace Scheme
 export _root_.AlgebraicGeometry.Scheme (ringCatSheaf Γ Modules Opens PresheafOfModules Modules.sheafify Modules.tensorSections)
 namespace Modules
 export _root_.AlgebraicGeometry.Scheme.Modules (tensor sheafify tensorIsoSheafify tensorSections)
-open AlgebraicGeometry.Scheme.Modules
-open AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme
 open AlgebraicGeometry
 
 namespace SheafifyMu
@@ -103,7 +103,8 @@ theorem sheafify_μ_app_tensorSections (P Q : X.PresheafOfModules) {U : X.Opens}
       (x ⊗ₜ[Γ(X, U)] y)).trans
     (congrArg (((adj X).unit.app ((ι X).obj ((Modules.sheafify X).obj P) ⊗
         (ι X).obj ((Modules.sheafify X).obj Q))).app (op U))
-      (ModuleCat.MonoidalCategory.tensorHom_tmul (((adj X).unit.app P).app (op U))
+      -- Lean 4.35 port: state the commutative base ring explicitly (it is no longer inferred through `forget₂`).
+      (ModuleCat.MonoidalCategory.tensorHom_tmul (R := Γ(X, U)) (((adj X).unit.app P).app (op U))
         (((adj X).unit.app Q).app (op U)) x y))
   exact (congrArg (fun z => (Functor.LaxMonoidal.μ (Modules.sheafify X) P Q).val.app (op U)
     ((sheafifyTensorIso ((Modules.sheafify X).obj P) ((Modules.sheafify X).obj Q)).hom.val.app (op U) z))
