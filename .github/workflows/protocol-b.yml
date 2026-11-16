@@ -1940,7 +1940,8 @@ jobs:
           def round_summary_body(state, repo, check_url):
               """Readable navigation; original reports and App decisions remain intact."""
               reports = state.get('reports', {})
-              relieved = {item['finding']: item for item in state.get('source_access_limitations', [])}
+              relieved = {(item['finding'], item['reviewer_unable_to_open']): item
+                          for item in state.get('source_access_limitations', [])}
               overridden = state.get('overrides', {})
               blocking, nonblocking = {}, {}
               decisions = {}
@@ -1952,13 +1953,15 @@ jobs:
                   entries += [(item['id'], '', item.get('reason', ''), item['resolution'])
                               for item in review.get('prior_findings', []) if item['resolution'] != 'resolved']
                   for ident, location, detail, resolution in entries:
-                      if ident in relieved and relieved[ident]['reviewer_unable_to_open'] == family:
-                          item = relieved[ident]
-                          nonblocking[ident] = 'Source access: '+item['reviewer_who_checked']+' verified the named passage; '+item['reviewer_unable_to_open']+' could not open it.'
+                      if (ident, family) in relieved:
+                          item = relieved[ident, family]
+                          description = 'Source access: '+item['reviewer_who_checked']+' verified the named passage; '+item['reviewer_unable_to_open']+' could not open it.'
+                          nonblocking[ident] = ' '.join(sorted({description, nonblocking.get(ident, '')})).strip()
                       elif ident in overridden or resolution == 'overridden':
                           nonblocking[ident] = 'Accepted by a recorded maintainer override. The affected claim is not outside reviewed.'
                       else:
-                          blocking[ident] = (location+': ' if location else '')+detail
+                          description = (location+': ' if location else '')+detail
+                          blocking[ident] = ' '.join(sorted({description, blocking.get(ident, '')})).strip()
               # An unresolved objection in one report still counts if another report
               # individually called it overridden without an applied whole-round override.
               for ident in blocking:
@@ -2002,7 +2005,7 @@ jobs:
                           'reviewer_decisions': decisions, 'blocking_count': len(blocking),
                           'nonblocking_count': len(nonblocking)}
               rows += ['<details><summary>Summary metadata</summary>', '', '```json',
-                       json.dumps(metadata, ensure_ascii=False, indent=2), '```', '', '</details>']
+                       json.dumps(metadata, ensure_ascii=False, indent=2, sort_keys=True), '```', '', '</details>']
               return '\n'.join(rows)
 
 

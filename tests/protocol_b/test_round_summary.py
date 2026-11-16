@@ -61,6 +61,49 @@ class RoundSummary(unittest.TestCase):
                 self.assertNotIn('this alone is not a mathematical error', text)
                 self.assertEqual(state, original)
 
+    def test_two_valid_reviewer_specific_limitations_keep_both_descriptions(self):
+        ident = 'earlier-access-finding'
+        reports = {}
+        for family, missing, verified in [('astra', 'P', 'Q'), ('fable', 'Q', 'P')]:
+            value = report(decision='changes_requested', prior_findings=[{
+                'id': ident, 'resolution': 'unresolved', 'reason': 'I could not obtain passage '+missing}],
+                source_checks=[{'source_id': missing, 'location': 'Theorem '+missing,
+                                'outcome': 'unavailable', 'detail': 'This exact published passage could not be opened.'},
+                               {'source_id': verified, 'location': 'Theorem '+verified,
+                                'outcome': 'verified', 'detail': 'I read this exact passage and checked its application.'}],
+                access_limitations=[{'finding_id': ident, 'source_ids': [missing],
+                                     'detail': 'Only access to the named published passage remains unavailable.'}])
+            gate.validate_review(value, {ident}, {})
+            reports[family] = envelope(family, review=value)
+        rendered = []
+        for ordered in (reports, dict(reversed(list(reports.items())))):
+            accepted, limits = gate.combined_decision(ordered, {ident: {}})
+            self.assertTrue(accepted)
+            self.assertEqual(len(limits), 2)
+            state = self.state(reports=ordered, source_access_limitations=limits)
+            original = copy.deepcopy(state)
+            text = gate.round_summary_body(state, 'x/y', 'check')
+            self.assertIn('"blocking_count": 0', text)
+            self.assertIn('"nonblocking_count": 1', text)
+            self.assertIn('fable verified the named passage; astra could not open it.', text)
+            self.assertIn('astra verified the named passage; fable could not open it.', text)
+            self.assertEqual(state, original)
+            rendered.append(text)
+        self.assertEqual(rendered[0], rendered[1])
+
+    def test_shared_blocking_id_preserves_both_reviewers_reasons(self):
+        reports = {family: envelope(family, review=report(decision='changes_requested', prior_findings=[{
+            'id': 'prior-F1', 'resolution': 'unresolved', 'reason': reason}]))
+            for family, reason in [('astra', 'The first premise fails.'), ('fable', 'The second premise fails.')]}
+        rendered = []
+        for ordered in (reports, dict(reversed(list(reports.items())))):
+            text = gate.round_summary_body(self.state(conclusion='failure', reports=ordered), 'x/y', 'check')
+            self.assertIn('The first premise fails.', text)
+            self.assertIn('The second premise fails.', text)
+            self.assertIn('"blocking_count": 1', text)
+            rendered.append(text)
+        self.assertEqual(*rendered)
+
     def test_interruption_does_not_invent_mathematical_error(self):
         text = gate.round_summary_body(self.state(conclusion='failure', reports={'astra': envelope(complete=False)}), 'x/y', 'check')
         self.assertIn('Astra: did not complete', text)
