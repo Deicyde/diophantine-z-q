@@ -1,0 +1,981 @@
+⚠ [9045/9102] Replayed ZInQKernel.HDecomp.Objects
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.AlgebraicGeometry.Geometrically.Connected` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.AlgebraicGeometry.Group.Abelian` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.AlgebraicGeometry.Morphisms.Proper` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.AlgebraicGeometry.Morphisms.Smooth` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.AlgebraicGeometry.Pullbacks` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.Algebra.Quaternion` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.CategoryTheory.Monoidal.Cartesian.Grp` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.CategoryTheory.Monoidal.Cartesian.Over` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.Data.ZMod.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.FieldTheory.AbsoluteGaloisGroup` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.FieldTheory.IntermediateField.Adjoin.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.LinearAlgebra.Matrix.Charpoly.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.NumberTheory.NumberField.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.NumberTheory.Padics.RingHoms` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RepresentationTheory.Semisimple` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.AdjoinRoot` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.DiscreteValuationRing.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.Etale.Locus` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.Ideal.Height` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.IntegralClosure.IntegralRestrict` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.QuasiFinite.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.RamificationInertia.Ramification` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.RegularLocalRing.Defs` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.Unramified.Locus` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.Valuation.RamificationGroup` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.Topology.KrullDimension` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean:539:20: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+warning: ZInQKernel/HDecomp/Objects.lean:599:8: `simp` already closes the goal
+
+Hint: Use `simp` instead of `simpa`:
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: ZInQKernel/HDecomp/Objects.lean:602:22: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+warning: ZInQKernel/HDecomp/Objects.lean:623:15: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ZInQKernel/HDecomp/Objects.lean:628:15: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ZInQKernel/HDecomp/Objects.lean:669:22: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+warning: ZInQKernel/HDecomp/Objects.lean:701:8: `simp` already closes the goal
+
+Hint: Use `simp` instead of `simpa`:
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: ZInQKernel/HDecomp/Objects.lean:1299:58: Variable name `f` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _f
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [9046/9102] Replayed ZInQKernel.HDecomp.I3Linalg.TateBC
+warning: ZInQKernel/HDecomp/I3Linalg/TateBC.lean: imports `Mathlib.NumberTheory.Padics.RingHoms` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/TateBC.lean: imports `Mathlib.LinearAlgebra.Dimension.RankNullity` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/TateBC.lean: imports `Mathlib.LinearAlgebra.Dimension.Localization` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/TateBC.lean: imports `Mathlib.LinearAlgebra.Dimension.Finite` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9047/9102] Replayed ZInQKernel.Contrib.AbVarBC.Mul
+warning: ZInQKernel/Contrib/AbVarBC/Mul.lean: imports `Mathlib.AlgebraicGeometry.ZariskisMainTheorem` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/AbVarBC/Mul.lean: imports `Mathlib.AlgebraicGeometry.Morphisms.Etale` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/AbVarBC/Mul.lean: imports `Mathlib.AlgebraicGeometry.Morphisms.FormallyUnramified` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/AbVarBC/Mul.lean: imports `Mathlib.AlgebraicGeometry.Morphisms.UniversallyOpen` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/AbVarBC/Mul.lean: imports `Mathlib.RingTheory.Unramified.LocalStructure` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/AbVarBC/Mul.lean: imports `Mathlib.AlgebraicGeometry.Noetherian` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/AbVarBC/Mul.lean: imports `Mathlib.Topology.NoetherianSpace` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/AbVarBC/Mul.lean: imports `Mathlib.RingTheory.Ideal.Cotangent` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/AbVarBC/Mul.lean: imports `Mathlib.AlgebraicGeometry.Stalk` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9059/9102] Replayed ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.AlgebraicGeometry.Modules.Localization
+warning: ZInQKernel/Contrib/CloudW07JacobiansCurves/Jacobian/AlgebraicGeometry/Modules/Localization.lean: imports `Mathlib.AlgebraicGeometry.Modules.Tilde` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudW07JacobiansCurves/Jacobian/AlgebraicGeometry/Modules/Localization.lean: imports `Mathlib.RingTheory.Finiteness.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9060/9102] Replayed ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.AlgebraicGeometry.Modules.Field
+warning: ZInQKernel/Contrib/CloudW07JacobiansCurves/Jacobian/AlgebraicGeometry/Modules/Field.lean: imports `Mathlib.CategoryTheory.Preadditive.AdditiveFunctor` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9062/9105] Replayed ZInQKernel.Contrib.AVB1.Poincare
+warning: ZInQKernel/Contrib/AVB1/Poincare.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9063/9105] Replayed ZInQKernel.Contrib.AbVarBC.Dim
+warning: ZInQKernel/Contrib/AbVarBC/Dim.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9064/9105] Replayed ZInQKernel.Contrib.AbVarBC.Points
+warning: ZInQKernel/Contrib/AbVarBC/Points.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9065/9105] Replayed ZInQKernel.Contrib.G9.I3Layer
+warning: ZInQKernel/Contrib/G9/I3Layer.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/G9/I3Layer.lean:218:0: automatically included section variable(s) unused in theorem `ZInQ.Contrib.G9.GlueI3.finrank_commOf_le_of_equiv`:
+  [Monoid G]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Monoid G] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Contrib/G9/I3Layer.lean:324:22: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+      (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+        (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+warning: ZInQKernel/Contrib/G9/I3Layer.lean:351:22: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+      (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+        (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+warning: ZInQKernel/Contrib/G9/I3Layer.lean:383:24: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+      (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+        (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+warning: ZInQKernel/Contrib/G9/I3Layer.lean:422:22: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+      (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+        (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+warning: ZInQKernel/Contrib/G9/I3Layer.lean:461:20: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+      (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+        (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+warning: ZInQKernel/Contrib/G9/I3Layer.lean:996:20: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+warning: ZInQKernel/Contrib/G9/I3Layer.lean:1056:8: `simp` already closes the goal
+
+Hint: Use `simp` instead of `simpa`:
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: ZInQKernel/Contrib/G9/I3Layer.lean:1059:22: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+warning: ZInQKernel/Contrib/G9/I3Layer.lean:1080:15: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ZInQKernel/Contrib/G9/I3Layer.lean:1085:15: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ZInQKernel/Contrib/G9/I3Layer.lean:1126:22: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+warning: ZInQKernel/Contrib/G9/I3Layer.lean:1158:8: `simp` already closes the goal
+
+Hint: Use `simp` instead of `simpa`:
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: ZInQKernel/Contrib/G9/I3Layer.lean:1298:48: Variable name `b` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _b
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [9066/9105] Replayed ZInQKernel.Contrib.G9.I4Layer
+warning: ZInQKernel/Contrib/G9/I4Layer.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9067/9105] Replayed ZInQKernel.Contrib.G9.Speiser
+warning: ZInQKernel/Contrib/G9/Speiser.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9068/9105] Replayed ZInQKernel.Contrib.G9.HenselEmb
+warning: ZInQKernel/Contrib/G9/HenselEmb.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9070/9111] Replayed ZInQKernel.Contrib.G9.Statement
+warning: ZInQKernel/Contrib/G9/Statement.lean:51:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/G9/Statement.lean:52:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9076/9111] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.CategoryTheory.Sites.AbelianSheafificationExistence (9.3s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Sites/AbelianSheafificationExistence.lean: imports `Mathlib.Algebra.Category.Grp.Colimits` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Sites/AbelianSheafificationExistence.lean: imports `Mathlib.Algebra.Category.Grp.FilteredColimits` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Sites/AbelianSheafificationExistence.lean: imports `Mathlib.Algebra.Category.Grp.Limits` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Sites/AbelianSheafificationExistence.lean: imports `Mathlib.CategoryTheory.Sites.Equivalence` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Sites/AbelianSheafificationExistence.lean: imports `Mathlib.CategoryTheory.Sites.LeftExact` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9080/9120] Replayed ZInQKernel.Contrib.G9.LocalCore
+warning: ZInQKernel/Contrib/G9/LocalCore.lean:194:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9081/9120] Replayed ZInQKernel.Contrib.G9.CoefDescent
+warning: ZInQKernel/Contrib/G9/CoefDescent.lean:205:22: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+warning: ZInQKernel/Contrib/G9/CoefDescent.lean:232:22: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+⚠ [9082/9120] Replayed ZInQKernel.Contrib.G9.Reduction
+warning: ZInQKernel/Contrib/G9/Reduction.lean:106:2: `LinearEquiv.ofLinear` has been deprecated: Use `LinearEquiv.ofLinearMap` instead
+
+Hint: Replace the deprecated name:
+  LinearEquiv.ofLinearM̲a̲p̲
+warning: ZInQKernel/Contrib/G9/Reduction.lean:140:22: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+info: ZInQKernel/Contrib/G9/Reduction.lean:175:0: 'ZInQ.Contrib.G9.g9Glue_of_bridges' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/G9/Reduction.lean:176:0: 'ZInQ.Contrib.G9.g9Glue_of_fieldEmb' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/G9/Reduction.lean:177:0: 'ZInQ.Contrib.G9.core_ht' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/G9/Reduction.lean:178:0: 'ZInQ.Contrib.G9.core_dR' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/G9/Reduction.lean:179:0: 'ZInQ.Contrib.G9.coef_descent' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [9086/9120] Replayed ZInQKernel.Contrib.G9.Final
+info: ZInQKernel/Contrib/G9/Final.lean:35:0: 'ZInQ.Contrib.G9.fieldEmbBdR' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/G9/Final.lean:36:0: 'ZInQ.Contrib.G9.g9Glue_of_localModel' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [9087/9120] Replayed ZInQKernel.Contrib.G9.LocalModel
+warning: ZInQKernel/Contrib/G9/LocalModel.lean:55:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/G9/LocalModel.lean:57:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/G9/LocalModel.lean:65:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/G9/LocalModel.lean:66:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/G9/LocalModel.lean:139:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+info: ZInQKernel/Contrib/G9/LocalModel.lean:194:0: 'ZInQ.Contrib.G9.localModel_of_abVarBaseChange' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/G9/LocalModel.lean:195:0: 'ZInQ.Contrib.G9.g9Glue_of_abVarBaseChange' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [9089/9120] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.CategoryTheory.Sites.SmallSiteSheafification (9.4s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Sites/SmallSiteSheafification.lean: imports `Mathlib.Algebra.Category.Grp.AB` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Sites/SmallSiteSheafification.lean: imports `Mathlib.CategoryTheory.Sites.LocallyBijective` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9091/9120] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.Algebra.Category.ModuleCat.Sheaf.ToposPushforwardModules.HasSheafComposeForget (9.6s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/ToposPushforwardModules/HasSheafComposeForget.lean: imports `Mathlib.Algebra.Category.ModuleCat.Sheaf.Limits` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/ToposPushforwardModules/HasSheafComposeForget.lean: imports `Mathlib.Algebra.Category.ModuleCat.Presheaf.Monoidal` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/ToposPushforwardModules/HasSheafComposeForget.lean: imports `Mathlib.Algebra.Category.Ring.Adjunctions` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/ToposPushforwardModules/HasSheafComposeForget.lean: imports `Mathlib.Algebra.Category.Ring.Limits` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/ToposPushforwardModules/HasSheafComposeForget.lean: imports `Mathlib.CategoryTheory.Sites.Whiskering` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9092/9120] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.Topology.Sheaves.Functors.Module.RingedSpace (9.3s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Functors/Module/RingedSpace.lean: imports `Mathlib.Algebra.Category.ModuleCat.Sheaf.PullbackContinuous` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Functors/Module/RingedSpace.lean: imports `Mathlib.Algebra.Category.ModuleCat.Sheaf.PullbackFree` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Functors/Module/RingedSpace.lean: imports `Mathlib.Algebra.Category.Ring.Limits` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Functors/Module/RingedSpace.lean: imports `Mathlib.CategoryTheory.Adjunction.Additive` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Functors/Module/RingedSpace.lean: imports `Mathlib.CategoryTheory.Limits.Shapes.Countable` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Functors/Module/RingedSpace.lean: imports `Mathlib.Combinatorics.Quiver.ReflQuiver` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Functors/Module/RingedSpace.lean: imports `Mathlib.Geometry.RingedSpace.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9093/9120] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.AlgebraicGeometry.Smooth.SqZeroAlgebra (1.9s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/Smooth/SqZeroAlgebra.lean: imports `Mathlib.Algebra.TrivSqZeroExt.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9095/9124] Replayed ZInQKernel.OneProof.H.TailP
+warning: ZInQKernel/OneProof/H/TailP.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9096/9124] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.AlgebraicGeometry.RelativeDifferentialStalkMap.Kaehler (1.6s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/RelativeDifferentialStalkMap/Kaehler.lean: imports `Mathlib.RingTheory.Kaehler.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9097/9125] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.AlgebraicGeometry.Morphisms.Affine.Over (11s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/Morphisms/Affine/Over.lean: imports `Mathlib.AlgebraicGeometry.Morphisms.Affine` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/Morphisms/Affine/Over.lean: imports `Mathlib.AlgebraicGeometry.Pullbacks` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9098/9129] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.Algebra.Category.ModuleCat.Sheaf.DifferentialsPresheafFunctorial (12s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/DifferentialsPresheafFunctorial.lean: imports `Mathlib.Algebra.Category.ModuleCat.Differentials.Presheaf` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/DifferentialsPresheafFunctorial.lean: imports `Mathlib.Algebra.Category.ModuleCat.Presheaf.ChangeOfRings` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/DifferentialsPresheafFunctorial.lean: imports `Mathlib.CategoryTheory.Sites.Spaces` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/DifferentialsPresheafFunctorial.lean: imports `Mathlib.Combinatorics.Quiver.ReflQuiver` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9099/9130] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.Topology.Sheaves.Modules.Colimits (14s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Modules/Colimits.lean: imports `Mathlib.Algebra.Category.ModuleCat.Presheaf.Sheafification` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Modules/Colimits.lean: imports `Mathlib.Algebra.Category.ModuleCat.Sheaf.Colimits` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Modules/Colimits.lean: imports `Mathlib.Algebra.Category.ModuleCat.Stalk` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Modules/Colimits.lean: imports `Mathlib.CategoryTheory.Sites.Spaces` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Modules/Colimits.lean: imports `Mathlib.Topology.Sheaves.Skyscraper` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Modules/Colimits.lean: imports `Mathlib.Algebra.Category.ModuleCat.FilteredColimits` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Modules/Colimits.lean: imports `Mathlib.CategoryTheory.Limits.ConcreteCategory.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9100/9134] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.Algebra.Category.ModuleCat.Sheaf.DifferentialsRepresentable (3.1s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/DifferentialsRepresentable.lean: imports `Mathlib.Algebra.Category.Grp.FilteredColimits` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/DifferentialsRepresentable.lean: imports `Mathlib.Algebra.Category.ModuleCat.Differentials.Presheaf` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/DifferentialsRepresentable.lean: imports `Mathlib.Algebra.Category.ModuleCat.Presheaf.Sheafification` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/DifferentialsRepresentable.lean: imports `Mathlib.Algebra.Category.ModuleCat.Sheaf` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9101/9134] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.Topology.Sheaves.OpenImmersion.ExtensionByInitial (3.0s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/OpenImmersion/ExtensionByInitial.lean: imports `Mathlib.CategoryTheory.Adjunction.Triple` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/OpenImmersion/ExtensionByInitial.lean: imports `Mathlib.Topology.Sheaves.Functors` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/OpenImmersion/ExtensionByInitial.lean: imports `Mathlib.Topology.Sheaves.Sheafify` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9102/9135] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.CategoryTheory.Sites.Modules.Colimits (14s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Sites/Modules/Colimits.lean: imports `Mathlib.Algebra.Category.Grp.AB` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Sites/Modules/Colimits.lean: imports `Mathlib.Algebra.Category.Grp.EpiMono` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Sites/Modules/Colimits.lean: imports `Mathlib.Algebra.Category.ModuleCat.Sheaf.Colimits` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Sites/Modules/Colimits.lean: imports `Mathlib.Algebra.Category.ModuleCat.Sheaf.Limits` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Sites/Modules/Colimits.lean: imports `Mathlib.CategoryTheory.Abelian.GrothendieckAxioms.FunctorCategory` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Sites/Modules/Colimits.lean: imports `Mathlib.CategoryTheory.Abelian.GrothendieckAxioms.SheafOfModules` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Sites/Modules/Colimits.lean: imports `Mathlib.CategoryTheory.Adjunction.Additive` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Sites/Modules/Colimits.lean: imports `Mathlib.CategoryTheory.Limits.Types.Equalizers` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Sites/Modules/Colimits.lean: imports `Mathlib.CategoryTheory.Preadditive.LeftExact` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Sites/Modules/Colimits.lean: imports `Mathlib.CategoryTheory.Sites.Abelian` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9103/9135] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.RingTheory.Kaehler.Colimit (5.2s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/Colimit.lean: imports `Mathlib.Algebra.Colimit.Module` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/Colimit.lean: imports `Mathlib.Algebra.Colimit.Ring` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/Colimit.lean: imports `Mathlib.Algebra.Lie.OfAssociative` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/Colimit.lean: imports `Mathlib.RingTheory.Kaehler.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9104/9139] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.CategoryTheory.Abelian.Projective.ResolutionLift (2.6s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Abelian/Projective/ResolutionLift.lean: imports `Mathlib.Algebra.Homology.HomotopyCategory` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Abelian/Projective/ResolutionLift.lean: imports `Mathlib.CategoryTheory.Abelian.Projective.Resolution` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9105/9140] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.Algebra.Category.ModuleCat.Sheaf.StalkwiseExactness (2.8s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/StalkwiseExactness.lean: imports `Mathlib.Algebra.Homology.ShortComplex.ConcreteCategory` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/StalkwiseExactness.lean: imports `Mathlib.Algebra.Homology.ShortComplex.ModuleCat` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/StalkwiseExactness.lean: imports `Mathlib.Topology.Sheaves.Abelian` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/StalkwiseExactness.lean:217:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9106/9147] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.AlgebraicGeometry.SheafifyStalk.Basic (2.9s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/SheafifyStalk/Basic.lean: imports `Mathlib.AlgebraicGeometry.Modules.Sheaf` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9110/9147] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.CategoryTheory.Sites.Modules.Differentials (7.2s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Sites/Modules/Differentials.lean: imports `Mathlib.Algebra.Category.ModuleCat.Differentials.Presheaf` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Sites/Modules/Differentials.lean: imports `Mathlib.Algebra.Category.ModuleCat.Sheaf` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Sites/Modules/Differentials.lean: imports `Mathlib.Algebra.Category.ModuleCat.ChangeOfRings` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Sites/Modules/Differentials.lean: imports `Mathlib.Algebra.Category.ModuleCat.Ulift` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Sites/Modules/Differentials.lean: imports `Mathlib.Algebra.Category.ModuleCat.Sheaf.Abelian` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Sites/Modules/Differentials.lean: imports `Mathlib.Algebra.Category.ModuleCat.Sheaf.Colimits` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Sites/Modules/Differentials.lean: imports `Mathlib.Algebra.Category.Grp.AB` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Sites/Modules/Differentials.lean: imports `Mathlib.CategoryTheory.Yoneda` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Sites/Modules/Differentials.lean: imports `Mathlib.CategoryTheory.Preadditive.Yoneda.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Sites/Modules/Differentials.lean: imports `Mathlib.CategoryTheory.Sites.Equivalence` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Sites/Modules/Differentials.lean: imports `Mathlib.CategoryTheory.Sites.LeftExact` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9112/9147] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.Topology.Sheaves.Skyscraper.Modules (4.8s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Skyscraper/Modules.lean: imports `Mathlib.Algebra.Category.ModuleCat.Sheaf` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Skyscraper/Modules.lean: imports `Mathlib.Algebra.Category.ModuleCat.Stalk` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Skyscraper/Modules.lean: imports `Mathlib.Topology.Sheaves.CommRingCat` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Skyscraper/Modules.lean: imports `Mathlib.Topology.Sheaves.SheafCondition.UniqueGluing` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9113/9153] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.Topology.Sheaves.Sheafify.ModuleStalkTensor (7.7s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Sheafify/ModuleStalkTensor.lean: imports `Mathlib.Algebra.Category.ModuleCat.Presheaf.Sheafification` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Sheafify/ModuleStalkTensor.lean: imports `Mathlib.Algebra.Category.ModuleCat.Stalk` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Sheafify/ModuleStalkTensor.lean: imports `Mathlib.Algebra.Category.Ring.Limits` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Sheafify/ModuleStalkTensor.lean: imports `Mathlib.Algebra.Lie.OfAssociative` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Sheafify/ModuleStalkTensor.lean: imports `Mathlib.CategoryTheory.Limits.Shapes.Countable` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Sheafify/ModuleStalkTensor.lean: imports `Mathlib.Combinatorics.Quiver.ReflQuiver` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Sheafify/ModuleStalkTensor.lean: imports `Mathlib.Topology.Sheaves.Sheafify` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9114/9153] Replayed ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.RingTheory.RegularLocalRing.Domain
+warning: ZInQKernel/Contrib/CloudW07JacobiansCurves/Jacobian/RingTheory/RegularLocalRing/Domain.lean: imports `Mathlib.Algebra.Module.SpanRank` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudW07JacobiansCurves/Jacobian/RingTheory/RegularLocalRing/Domain.lean: imports `Mathlib.RingTheory.DiscreteValuationRing.TFAE` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudW07JacobiansCurves/Jacobian/RingTheory/RegularLocalRing/Domain.lean: imports `Mathlib.RingTheory.Ideal.KrullsHeightTheorem` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudW07JacobiansCurves/Jacobian/RingTheory/RegularLocalRing/Domain.lean: imports `Mathlib.RingTheory.KrullDimension.Regular` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudW07JacobiansCurves/Jacobian/RingTheory/RegularLocalRing/Domain.lean: imports `Mathlib.RingTheory.RegularLocalRing.Defs` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9115/9153] Replayed ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.RingTheory.KrullDimension.Quotient
+warning: ZInQKernel/Contrib/CloudW07JacobiansCurves/Jacobian/RingTheory/KrullDimension/Quotient.lean: imports `Mathlib.RingTheory.KrullDimension.NonZeroDivisors` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9116/9153] Replayed ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.RingTheory.RegularLocalRing.Generators
+warning: ZInQKernel/Contrib/CloudW07JacobiansCurves/Jacobian/RingTheory/RegularLocalRing/Generators.lean: imports `Mathlib.Algebra.Module.SpanRankOperations` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudW07JacobiansCurves/Jacobian/RingTheory/RegularLocalRing/Generators.lean: imports `Mathlib.RingTheory.Ideal.KrullsHeightTheorem` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9117/9153] Replayed ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.RingTheory.RegularLocalRing.Localization
+warning: ZInQKernel/Contrib/CloudW07JacobiansCurves/Jacobian/RingTheory/RegularLocalRing/Localization.lean: imports `Mathlib.RingTheory.RegularLocalRing.Defs` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudW07JacobiansCurves/Jacobian/RingTheory/RegularLocalRing/Localization.lean: imports `Mathlib.RingTheory.Localization.LocalizationLocalization` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9118/9153] Replayed ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.RingTheory.Smooth.RegularLocalRing
+warning: ZInQKernel/Contrib/CloudW07JacobiansCurves/Jacobian/RingTheory/Smooth/RegularLocalRing.lean: imports `Mathlib.FieldTheory.IsAlgClosed.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudW07JacobiansCurves/Jacobian/RingTheory/Smooth/RegularLocalRing.lean: imports `Mathlib.RingTheory.Jacobson.Ring` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudW07JacobiansCurves/Jacobian/RingTheory/Smooth/RegularLocalRing.lean: imports `Mathlib.RingTheory.LocalRing.ResidueField.Ideal` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudW07JacobiansCurves/Jacobian/RingTheory/Smooth/RegularLocalRing.lean: imports `Mathlib.RingTheory.RegularLocalRing.Polynomial` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudW07JacobiansCurves/Jacobian/RingTheory/Smooth/RegularLocalRing.lean: imports `Mathlib.RingTheory.Smooth.Field` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudW07JacobiansCurves/Jacobian/RingTheory/Smooth/RegularLocalRing.lean: imports `Mathlib.RingTheory.Smooth.Local` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudW07JacobiansCurves/Jacobian/RingTheory/Smooth/RegularLocalRing.lean: imports `Mathlib.RingTheory.Smooth.Locus` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudW07JacobiansCurves/Jacobian/RingTheory/Smooth/RegularLocalRing.lean:78:22: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+warning: ZInQKernel/Contrib/CloudW07JacobiansCurves/Jacobian/RingTheory/Smooth/RegularLocalRing.lean:172:8: `Localization.AtPrime.IsLiesOverAlgebra.algebraMap_eq` has been deprecated: Use `Localization.AtPrime.algebraMap_eq` instead
+
+Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.algebraMap_eq` to `Localization.AtPrime.algebraMap_eq x`).
+
+Hint: Replace the deprecated name:
+  L̵o̵c̵a̵l̵i̵z̵a̵t̵i̵o̵n̵.̵A̵t̵P̵r̵i̵m̵e̵.̵I̵s̵L̵i̵e̵s̵O̵v̵e̵r̵A̵l̵g̵e̵b̵r̵a̵.̵a̵l̵g̵e̵b̵r̵a̵M̵a̵p̵_̵e̵q̵L̲o̲c̲a̲l̲i̲z̲a̲t̲i̲o̲n̲.̲A̲t̲P̲r̲i̲m̲e̲.̲a̲l̲g̲e̲b̲r̲a̲M̲a̲p̲_̲e̲q̲
+⚠ [9119/9157] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.RingTheory.Kaehler.PushoutBaseChange (2.4s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/PushoutBaseChange.lean: imports `Mathlib.RingTheory.Etale.Kaehler` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/PushoutBaseChange.lean: imports `Mathlib.RingTheory.Kaehler.TensorProduct` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9120/9158] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.CategoryTheory.Abelian.Projective.Horseshoe (3.5s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Abelian/Projective/Horseshoe.lean: imports `Mathlib.Algebra.Homology.HomologicalComplexAbelian` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Abelian/Projective/Horseshoe.lean: imports `Mathlib.Algebra.Homology.HomologySequenceLemmas` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Abelian/Projective/Horseshoe.lean: imports `Mathlib.CategoryTheory.Abelian.LeftDerived` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9121/9158] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.Topology.Sheaves.Functors.Module.PullbackPresheaf (8.4s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Functors/Module/PullbackPresheaf.lean: imports `Mathlib.Algebra.Category.ModuleCat.Presheaf.ColimitFunctor` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Functors/Module/PullbackPresheaf.lean: imports `Mathlib.Algebra.Category.Ring.Colimits` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Functors/Module/PullbackPresheaf.lean: imports `Mathlib.CategoryTheory.Comma.LocallySmall` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Functors/Module/PullbackPresheaf.lean: imports `Mathlib.CategoryTheory.Limits.Filtered` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Functors/Module/PullbackPresheaf.lean: imports `Mathlib.Combinatorics.Quiver.ReflQuiver` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Functors/Module/PullbackPresheaf.lean: imports `Mathlib.Topology.Sheaves.SheafCondition.Sites` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9122/9160] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.AlgebraicGeometry.Perfect.BaseChangeStalkCartesian (3.8s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/Perfect/BaseChangeStalkCartesian.lean: imports `Mathlib.RingTheory.RingHom.Flat` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9123/9160] Built ZInQKernel.Contrib.CloudB3W16Cartier.CharZeroRegularity (3.9s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/CharZeroRegularity.lean: imports `Mathlib.RingTheory.KrullDimension.Regular` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/CharZeroRegularity.lean: imports `Mathlib.RingTheory.RegularLocalRing.Polynomial` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/CharZeroRegularity.lean: imports `Mathlib.RingTheory.Finiteness.ModuleFinitePresentation` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/CharZeroRegularity.lean: imports `Mathlib.FieldTheory.SeparablyGenerated` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/CharZeroRegularity.lean: imports `Mathlib.RingTheory.Smooth.Field` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/CharZeroRegularity.lean: imports `Mathlib.RingTheory.Smooth.Local` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/CharZeroRegularity.lean: imports `Mathlib.RingTheory.Kaehler.TensorProduct` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9125/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.AlgebraicGeometry.SheafifyStalk.StalkMap (6.3s)
+⚠ [9126/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.Algebra.Category.ModuleCat.Sheaf.RingedSpaceDifferentials (10s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/RingedSpaceDifferentials.lean: imports `Mathlib.Topology.Sheaves.Functors` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/RingedSpaceDifferentials.lean: imports `Mathlib.Algebra.Category.ModuleCat.Sheaf.Abelian` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/RingedSpaceDifferentials.lean: imports `Mathlib.Algebra.Homology.ShortComplex.Exact` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9127/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.Topology.Sheaves.Functors.Module.InverseImage (2.5s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Functors/Module/InverseImage.lean: imports `Mathlib.Algebra.Category.ModuleCat.Presheaf.Sheafify` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Functors/Module/InverseImage.lean: imports `Mathlib.Algebra.Category.Ring.Limits` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Functors/Module/InverseImage.lean: imports `Mathlib.Topology.Sheaves.Functors` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9128/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.AlgebraicGeometry.Modules.Stalk (1.7s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/Modules/Stalk.lean: imports `Mathlib.Algebra.Category.ModuleCat.Stalk` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/Modules/Stalk.lean: imports `Mathlib.AlgebraicGeometry.Modules.Sheaf` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9129/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.Topology.Sheaves.Modules.Differentials (8.0s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Modules/Differentials.lean: imports `Mathlib.Algebra.Category.ModuleCat.Differentials.Presheaf` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Modules/Differentials.lean: imports `Mathlib.Algebra.Category.ModuleCat.Sheaf` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Modules/Differentials.lean: imports `Mathlib.Algebra.Category.ModuleCat.Presheaf.ColimitFunctor` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Modules/Differentials.lean: imports `Mathlib.Algebra.Category.ModuleCat.Presheaf.Sheafification` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Modules/Differentials.lean: imports `Mathlib.CategoryTheory.Sites.Equivalence` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Modules/Differentials.lean: imports `Mathlib.Algebra.Category.Ring.Limits` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Modules/Differentials.lean: imports `Mathlib.Topology.Sheaves.Sheaf` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9130/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.Topology.Sheaves.Modules.LocallyFree (5.7s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Modules/LocallyFree.lean: imports `Mathlib.Algebra.Category.ModuleCat.Sheaf.LocallyFree` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9131/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.AlgebraicGeometry.Morphisms.Differentials.Relative (2.0s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/Morphisms/Differentials/Relative.lean: imports `Mathlib.AlgebraicGeometry.Modules.Sheaf` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/Morphisms/Differentials/Relative.lean: imports `Mathlib.AlgebraicGeometry.Restrict` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9132/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.Topology.Sheaves.Functors.Module.SemilinearStalk (2.9s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Functors/Module/SemilinearStalk.lean: imports `Mathlib.Algebra.Category.ModuleCat.Stalk` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Functors/Module/SemilinearStalk.lean: imports `Mathlib.Topology.Sheaves.Sheafify` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9133/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.Topology.Sheaves.Modules.SquareZeroExtension (3.0s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Modules/SquareZeroExtension.lean: imports `Mathlib.Topology.Sheaves.SheafCondition.UniqueGluing` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9134/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.Topology.Sheaves.Stalk.ValuedInCategory (9.5s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.CategoryTheory.Limits.Filtered` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.CategoryTheory.Limits.Preserves.Filtered` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.Topology.Category.TopCat.OpenNhds` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.Topology.Sheaves.Presheaf` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.Algebra.Order.Floor.Extended` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.Algebra.Order.Interval.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.Analysis.Complex.UpperHalfPlane.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.Analysis.SpecialFunctions.Bernstein` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.Analysis.SpecialFunctions.Gamma.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.Combinatorics.Enumerative.DyckWord` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.Combinatorics.SimpleGraph.Triangle.Removal` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.Data.NNRat.Floor` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.Data.Nat.Choose.Multinomial` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.Geometry.Euclidean.Altitude` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.NumberTheory.Chebyshev` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.NumberTheory.Height.NumberField` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.NumberTheory.Height.Projectivization` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.NumberTheory.LucasLehmer` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.NumberTheory.SelbergSieve` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.RingTheory.Radical.NatInt` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.Tactic.Echelon.Zsqrtd` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.Tactic.NormNum.Irrational` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.Tactic.NormNum.IsCoprime` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.Tactic.NormNum.IsSquare` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.Tactic.NormNum.LegendreSymbol` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.Tactic.NormNum.ModEq` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.Tactic.NormNum.NatFib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.Tactic.NormNum.NatLog` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.Tactic.NormNum.NatSqrt` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.Tactic.NormNum.Ordinal` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.Tactic.NormNum.Parity` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.Tactic.NormNum.Prime` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean: imports `Mathlib.Tactic.NormNum.RealSqrt` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9135/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.RingTheory.Kaehler.JacobiZariski (5.8s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/JacobiZariski.lean: imports `Mathlib.Algebra.Order.Floor.Extended` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/JacobiZariski.lean: imports `Mathlib.Algebra.Order.Interval.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/JacobiZariski.lean: imports `Mathlib.Analysis.Complex.UpperHalfPlane.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/JacobiZariski.lean: imports `Mathlib.Analysis.SpecialFunctions.Bernstein` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/JacobiZariski.lean: imports `Mathlib.Analysis.SpecialFunctions.Gamma.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/JacobiZariski.lean: imports `Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/JacobiZariski.lean: imports `Mathlib.Combinatorics.Enumerative.DyckWord` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/JacobiZariski.lean: imports `Mathlib.Combinatorics.SimpleGraph.Triangle.Removal` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/JacobiZariski.lean: imports `Mathlib.Data.NNRat.Floor` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/JacobiZariski.lean: imports `Mathlib.Data.Nat.Choose.Multinomial` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/JacobiZariski.lean: imports `Mathlib.Geometry.Euclidean.Altitude` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/JacobiZariski.lean: imports `Mathlib.NumberTheory.Chebyshev` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/JacobiZariski.lean: imports `Mathlib.NumberTheory.Height.NumberField` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/JacobiZariski.lean: imports `Mathlib.NumberTheory.Height.Projectivization` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/JacobiZariski.lean: imports `Mathlib.NumberTheory.LucasLehmer` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/JacobiZariski.lean: imports `Mathlib.NumberTheory.SelbergSieve` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/JacobiZariski.lean: imports `Mathlib.RingTheory.Radical.NatInt` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/JacobiZariski.lean: imports `Mathlib.Tactic.Echelon.Zsqrtd` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/JacobiZariski.lean: imports `Mathlib.Tactic.NormNum.Irrational` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/JacobiZariski.lean: imports `Mathlib.Tactic.NormNum.IsCoprime` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/JacobiZariski.lean: imports `Mathlib.Tactic.NormNum.IsSquare` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/JacobiZariski.lean: imports `Mathlib.Tactic.NormNum.LegendreSymbol` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/JacobiZariski.lean: imports `Mathlib.Tactic.NormNum.ModEq` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/JacobiZariski.lean: imports `Mathlib.Tactic.NormNum.NatFib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/JacobiZariski.lean: imports `Mathlib.Tactic.NormNum.NatLog` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/JacobiZariski.lean: imports `Mathlib.Tactic.NormNum.NatSqrt` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/JacobiZariski.lean: imports `Mathlib.Tactic.NormNum.Ordinal` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/JacobiZariski.lean: imports `Mathlib.Tactic.NormNum.Parity` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/JacobiZariski.lean: imports `Mathlib.Tactic.NormNum.Prime` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/JacobiZariski.lean: imports `Mathlib.Tactic.NormNum.RealSqrt` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/JacobiZariski.lean: imports `Mathlib.Topology.Sheaves.Init` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9136/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.AlgebraicGeometry.Modules.FiniteLocallyFree (4.3s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/Modules/FiniteLocallyFree.lean: imports `Mathlib.Algebra.Category.ModuleCat.Sheaf.LocallyFree` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/Modules/FiniteLocallyFree.lean: imports `Mathlib.AlgebraicGeometry.Modules.Sheaf` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/Modules/FiniteLocallyFree.lean: imports `Mathlib.RingTheory.Flat.LocallyFree` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/Modules/FiniteLocallyFree.lean: imports `Mathlib.RingTheory.Flat.Localization` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/Modules/FiniteLocallyFree.lean: imports `Mathlib.Tactic.TFAE` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9137/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.Topology.Sheaves.Modules.Differentials.Stalk (5.6s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Modules/Differentials/Stalk.lean: imports `Mathlib.Algebra.Category.ModuleCat.Stalk` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Modules/Differentials/Stalk.lean: imports `Mathlib.Algebra.Colimit.Module` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Modules/Differentials/Stalk.lean: imports `Mathlib.Algebra.Colimit.Ring` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Modules/Differentials/Stalk.lean: imports `Mathlib.Topology.Sheaves.Sheafify` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9138/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.RingTheory.Kaehler.BaseChange (2.3s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/BaseChange.lean: imports `Mathlib.RingTheory.Kaehler.TensorProduct` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/BaseChange.lean: imports `Mathlib.Algebra.Order.Floor.Extended` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/BaseChange.lean: imports `Mathlib.Algebra.Order.Interval.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/BaseChange.lean: imports `Mathlib.Analysis.Complex.UpperHalfPlane.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/BaseChange.lean: imports `Mathlib.Analysis.SpecialFunctions.Bernstein` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/BaseChange.lean: imports `Mathlib.Analysis.SpecialFunctions.Gamma.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/BaseChange.lean: imports `Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/BaseChange.lean: imports `Mathlib.Combinatorics.Enumerative.DyckWord` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/BaseChange.lean: imports `Mathlib.Combinatorics.SimpleGraph.Triangle.Removal` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/BaseChange.lean: imports `Mathlib.Data.NNRat.Floor` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/BaseChange.lean: imports `Mathlib.Data.Nat.Choose.Multinomial` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/BaseChange.lean: imports `Mathlib.Geometry.Euclidean.Altitude` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/BaseChange.lean: imports `Mathlib.NumberTheory.Chebyshev` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/BaseChange.lean: imports `Mathlib.NumberTheory.Height.NumberField` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/BaseChange.lean: imports `Mathlib.NumberTheory.Height.Projectivization` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/BaseChange.lean: imports `Mathlib.NumberTheory.LucasLehmer` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/BaseChange.lean: imports `Mathlib.NumberTheory.SelbergSieve` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/BaseChange.lean: imports `Mathlib.RingTheory.Radical.NatInt` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/BaseChange.lean: imports `Mathlib.Tactic.Echelon.Zsqrtd` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/BaseChange.lean: imports `Mathlib.Tactic.NormNum.Irrational` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/BaseChange.lean: imports `Mathlib.Tactic.NormNum.IsCoprime` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/BaseChange.lean: imports `Mathlib.Tactic.NormNum.IsSquare` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/BaseChange.lean: imports `Mathlib.Tactic.NormNum.LegendreSymbol` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/BaseChange.lean: imports `Mathlib.Tactic.NormNum.ModEq` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/BaseChange.lean: imports `Mathlib.Tactic.NormNum.NatFib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/BaseChange.lean: imports `Mathlib.Tactic.NormNum.NatLog` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/BaseChange.lean: imports `Mathlib.Tactic.NormNum.NatSqrt` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/BaseChange.lean: imports `Mathlib.Tactic.NormNum.Ordinal` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/BaseChange.lean: imports `Mathlib.Tactic.NormNum.Parity` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/BaseChange.lean: imports `Mathlib.Tactic.NormNum.Prime` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/BaseChange.lean: imports `Mathlib.Tactic.NormNum.RealSqrt` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/BaseChange.lean: imports `Mathlib.Topology.Sheaves.Init` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9139/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.Topology.Sheaves.Cohomology.KFlat.FlatModuleSheavesAndStalks.Basic (11s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Algebra.Category.ModuleCat.Biproducts` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Algebra.Category.ModuleCat.Presheaf.Pushforward` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Algebra.Category.ModuleCat.Presheaf.Monoidal` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Algebra.Category.ModuleCat.Presheaf.Sheafification` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Algebra.Category.ModuleCat.Projective` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Algebra.Category.ModuleCat.Stalk` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.CategoryTheory.Limits.Shapes.Countable` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.CategoryTheory.Monoidal.Mon` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.CategoryTheory.Monoidal.Tor` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Combinatorics.Quiver.ReflQuiver` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Topology.Sheaves.Skyscraper` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Geometry.RingedSpace.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Algebra.Category.Grp.Zero` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Algebra.Homology.HomologicalComplexAbelian` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Algebra.Homology.HomologySequence` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Algebra.Order.Floor.Extended` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Algebra.Order.Interval.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Analysis.Complex.UpperHalfPlane.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Analysis.SpecialFunctions.Bernstein` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Analysis.SpecialFunctions.Gamma.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.CategoryTheory.Abelian.DiagramLemmas.Four` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.CategoryTheory.EffectiveEpi.Comp` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.CategoryTheory.ExtremalEpi` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Combinatorics.Enumerative.DyckWord` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Combinatorics.SimpleGraph.Triangle.Removal` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Data.NNRat.Floor` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Data.Nat.Choose.Multinomial` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Geometry.Euclidean.Altitude` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.NumberTheory.Chebyshev` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.NumberTheory.Height.NumberField` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.NumberTheory.Height.Projectivization` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.NumberTheory.LucasLehmer` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.NumberTheory.SelbergSieve` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.RingTheory.Flat.CategoryTheory` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.RingTheory.Radical.NatInt` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.RingTheory.WittVector.IsPoly` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Tactic.ENatToNat` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Tactic.Echelon.Zsqrtd` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Tactic.NormNum.Irrational` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Tactic.NormNum.IsCoprime` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Tactic.NormNum.IsSquare` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Tactic.NormNum.LegendreSymbol` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Tactic.NormNum.ModEq` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Tactic.NormNum.NatFib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Tactic.NormNum.NatLog` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Tactic.NormNum.NatSqrt` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Tactic.NormNum.Ordinal` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Tactic.NormNum.Parity` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Tactic.NormNum.Prime` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Tactic.NormNum.RealSqrt` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean: imports `Mathlib.Tactic.ReduceModChar` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9140/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.AlgebraicGeometry.RelativeDifferentialStalk.Diagram (1.0s)
+⚠ [9141/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.Topology.Sheaves.Modules.Differentials.InverseImage (5.2s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Modules/Differentials/InverseImage.lean: imports `Mathlib.Algebra.Category.ModuleCat.Sheaf.PullbackContinuous` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Modules/Differentials/InverseImage.lean: imports `Mathlib.Algebra.Category.Ring.Colimits` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Modules/Differentials/InverseImage.lean: imports `Mathlib.Geometry.RingedSpace.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Modules/Differentials/InverseImage.lean: imports `Mathlib.Topology.Sheaves.Functors` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9142/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.Topology.Sheaves.RingedSpace.ModulePullbackStalk (6.0s)
+✔ [9143/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.AlgebraicGeometry.RelativeDifferentialStalk.Kaehler (2.8s)
+✔ [9144/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.Topology.Sheaves.Modules.Differentials.Functoriality (4.9s)
+⚠ [9145/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.Topology.Sheaves.Cohomology.KFlat.FlatModuleSheavesAndStalks.StalkTensor (6.0s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Algebra.Category.ModuleCat.Biproducts` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Algebra.Category.ModuleCat.Presheaf.Pushforward` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Algebra.Category.ModuleCat.Presheaf.Monoidal` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Algebra.Category.ModuleCat.Presheaf.Sheafification` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Algebra.Category.ModuleCat.Projective` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Algebra.Category.ModuleCat.Stalk` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.CategoryTheory.Limits.Shapes.Countable` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.CategoryTheory.Monoidal.Mon` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.CategoryTheory.Monoidal.Tor` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Combinatorics.Quiver.ReflQuiver` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Topology.Sheaves.Skyscraper` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Geometry.RingedSpace.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Algebra.Category.Grp.Zero` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Algebra.Homology.HomologicalComplexAbelian` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Algebra.Homology.HomologySequence` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Algebra.Order.Floor.Extended` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Algebra.Order.Interval.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Analysis.Complex.UpperHalfPlane.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Analysis.SpecialFunctions.Bernstein` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Analysis.SpecialFunctions.Gamma.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.CategoryTheory.Abelian.DiagramLemmas.Four` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.CategoryTheory.EffectiveEpi.Comp` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.CategoryTheory.ExtremalEpi` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Combinatorics.Enumerative.DyckWord` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Combinatorics.SimpleGraph.Triangle.Removal` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Data.NNRat.Floor` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Data.Nat.Choose.Multinomial` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Geometry.Euclidean.Altitude` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.NumberTheory.Chebyshev` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.NumberTheory.Height.NumberField` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.NumberTheory.Height.Projectivization` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.NumberTheory.LucasLehmer` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.NumberTheory.SelbergSieve` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.RingTheory.Flat.CategoryTheory` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.RingTheory.Radical.NatInt` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.RingTheory.WittVector.IsPoly` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Tactic.ENatToNat` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Tactic.Echelon.Zsqrtd` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Tactic.NormNum.Irrational` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Tactic.NormNum.IsCoprime` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Tactic.NormNum.IsSquare` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Tactic.NormNum.LegendreSymbol` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Tactic.NormNum.ModEq` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Tactic.NormNum.NatFib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Tactic.NormNum.NatLog` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Tactic.NormNum.NatSqrt` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Tactic.NormNum.Ordinal` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Tactic.NormNum.Parity` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Tactic.NormNum.Prime` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Tactic.NormNum.RealSqrt` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean: imports `Mathlib.Tactic.ReduceModChar` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9146/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.AlgebraicGeometry.RelativeDifferentialStalk.Colimit (3.4s)
+⚠ [9147/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.AlgebraicGeometry.Morphisms.Differentials.Functoriality (2.6s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/Morphisms/Differentials/Functoriality.lean: imports `Mathlib.AlgebraicGeometry.Modules.Sheaf` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9148/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.AlgebraicGeometry.RelativeDifferentialStalk.Stalk (2.5s)
+✔ [9149/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.AlgebraicGeometry.Morphisms.Differentials.DifferentialMap (1.9s)
+⚠ [9150/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.Topology.Sheaves.Cohomology.KFlat.FlatModuleSheavesAndStalks.TorOneAndSkyscraper (5.2s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Algebra.Category.ModuleCat.Biproducts` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Algebra.Category.ModuleCat.Presheaf.Pushforward` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Algebra.Category.ModuleCat.Presheaf.Monoidal` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Algebra.Category.ModuleCat.Presheaf.Sheafification` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Algebra.Category.ModuleCat.Projective` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Algebra.Category.ModuleCat.Stalk` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.CategoryTheory.Limits.Shapes.Countable` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.CategoryTheory.Monoidal.Mon` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.CategoryTheory.Monoidal.Tor` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Combinatorics.Quiver.ReflQuiver` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Topology.Sheaves.Skyscraper` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Geometry.RingedSpace.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Algebra.Category.Grp.Zero` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Algebra.Homology.HomologicalComplexAbelian` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Algebra.Homology.HomologySequence` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Algebra.Order.Floor.Extended` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Algebra.Order.Interval.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Analysis.Complex.UpperHalfPlane.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Analysis.SpecialFunctions.Bernstein` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Analysis.SpecialFunctions.Gamma.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.CategoryTheory.Abelian.DiagramLemmas.Four` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.CategoryTheory.EffectiveEpi.Comp` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.CategoryTheory.ExtremalEpi` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Combinatorics.Enumerative.DyckWord` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Combinatorics.SimpleGraph.Triangle.Removal` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Data.NNRat.Floor` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Data.Nat.Choose.Multinomial` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Geometry.Euclidean.Altitude` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.NumberTheory.Chebyshev` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.NumberTheory.Height.NumberField` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.NumberTheory.Height.Projectivization` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.NumberTheory.LucasLehmer` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.NumberTheory.SelbergSieve` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.RingTheory.Flat.CategoryTheory` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.RingTheory.Radical.NatInt` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.RingTheory.WittVector.IsPoly` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Tactic.ENatToNat` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Tactic.Echelon.Zsqrtd` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Tactic.NormNum.Irrational` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Tactic.NormNum.IsCoprime` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Tactic.NormNum.IsSquare` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Tactic.NormNum.LegendreSymbol` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Tactic.NormNum.ModEq` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Tactic.NormNum.NatFib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Tactic.NormNum.NatLog` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Tactic.NormNum.NatSqrt` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Tactic.NormNum.Ordinal` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Tactic.NormNum.Parity` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Tactic.NormNum.Prime` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Tactic.NormNum.RealSqrt` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean: imports `Mathlib.Tactic.ReduceModChar` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9151/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.AlgebraicGeometry.RelativeDifferentialStalk.Sheafify (3.2s)
+✔ [9152/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.AlgebraicGeometry.RelativeDifferentialStalk.Scheme (1.0s)
+⚠ [9153/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.Algebra.Category.ModuleCat.Sheaf.LocallyFreeRank (18s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/LocallyFreeRank.lean: imports `Mathlib.Topology.Sheaves.Skyscraper` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/LocallyFreeRank.lean: imports `Mathlib.RingTheory.WittVector.IsPoly` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/LocallyFreeRank.lean: imports `Mathlib.CategoryTheory.Sites.LocalSite` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/LocallyFreeRank.lean: imports `Mathlib.Combinatorics.Quiver.ReflQuiver` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/LocallyFreeRank.lean: imports `Mathlib.Algebra.Category.ModuleCat.Stalk` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/LocallyFreeRank.lean: imports `Mathlib.Algebra.Category.ModuleCat.Sheaf.PushforwardContinuous` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/LocallyFreeRank.lean: imports `Mathlib.Algebra.Category.ModuleCat.Sheaf.Free` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/LocallyFreeRank.lean: imports `Mathlib.Topology.Sheaves.Module` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9154/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.AlgebraicGeometry.RelativeDifferentialStalkMap.Scheme (2.2s)
+⚠ [9155/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.Topology.Sheaves.Cohomology.KFlat.FlatModuleSheavesAndStalks.FlatIffTorOne (5.4s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Algebra.Category.ModuleCat.Biproducts` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Algebra.Category.ModuleCat.Presheaf.Pushforward` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Algebra.Category.ModuleCat.Presheaf.Monoidal` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Algebra.Category.ModuleCat.Presheaf.Sheafification` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Algebra.Category.ModuleCat.Projective` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Algebra.Category.ModuleCat.Stalk` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.CategoryTheory.Limits.Shapes.Countable` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.CategoryTheory.Monoidal.Mon` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.CategoryTheory.Monoidal.Tor` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Combinatorics.Quiver.ReflQuiver` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Topology.Sheaves.Skyscraper` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Geometry.RingedSpace.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Algebra.Category.Grp.Zero` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Algebra.Homology.HomologicalComplexAbelian` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Algebra.Homology.HomologySequence` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Algebra.Order.Floor.Extended` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Algebra.Order.Interval.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Analysis.Complex.UpperHalfPlane.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Analysis.SpecialFunctions.Bernstein` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Analysis.SpecialFunctions.Gamma.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.CategoryTheory.Abelian.DiagramLemmas.Four` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.CategoryTheory.EffectiveEpi.Comp` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.CategoryTheory.ExtremalEpi` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Combinatorics.Enumerative.DyckWord` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Combinatorics.SimpleGraph.Triangle.Removal` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Data.NNRat.Floor` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Data.Nat.Choose.Multinomial` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Geometry.Euclidean.Altitude` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.NumberTheory.Chebyshev` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.NumberTheory.Height.NumberField` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.NumberTheory.Height.Projectivization` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.NumberTheory.LucasLehmer` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.NumberTheory.SelbergSieve` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.RingTheory.Flat.CategoryTheory` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.RingTheory.Radical.NatInt` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.RingTheory.WittVector.IsPoly` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Tactic.ENatToNat` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Tactic.Echelon.Zsqrtd` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Tactic.NormNum.Irrational` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Tactic.NormNum.IsCoprime` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Tactic.NormNum.IsSquare` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Tactic.NormNum.LegendreSymbol` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Tactic.NormNum.ModEq` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Tactic.NormNum.NatFib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Tactic.NormNum.NatLog` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Tactic.NormNum.NatSqrt` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Tactic.NormNum.Ordinal` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Tactic.NormNum.Parity` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Tactic.NormNum.Prime` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Tactic.NormNum.RealSqrt` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean: imports `Mathlib.Tactic.ReduceModChar` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9156/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.Topology.Sheaves.Cohomology.KFlat.FlatModuleSheavesAndStalks (2.1s)
+⚠ [9157/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.AlgebraicGeometry.StalkFreeBridge.Comparison (6.4s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/StalkFreeBridge/Comparison.lean: imports `Mathlib.Algebra.Category.ModuleCat.Sheaf.LocallyFree` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/StalkFreeBridge/Comparison.lean: imports `Mathlib.AlgebraicGeometry.Modules.Sheaf` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9158/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.Topology.Sheaves.RingedSpace.ModulePullbackStalkAdjunction (15s)
+✔ [9159/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.AlgebraicGeometry.StalkFreeBridge.StalkFree (14s)
+⚠ [9160/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.SmoothCriterion (3.9s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/SmoothCriterion.lean: imports `Mathlib.AlgebraicGeometry.Morphisms.Smooth` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/SmoothCriterion.lean: imports `Mathlib.AlgebraicGeometry.Noetherian` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9161/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.AlgebraicGeometry.Morphisms.Differentials.Stalk (8.2s)
+✔ [9162/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.Vendor.StacksFrontier.AlgebraicGeometry.Morphisms.Differentials.BaseChange (3.3s)
+⚠ [9163/9164] Built ZInQKernel.Contrib.CloudB3W16Cartier.GroupDifferentials (3.9s)
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/GroupDifferentials.lean: imports `Mathlib.AlgebraicGeometry.Modules.Tilde` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/GroupDifferentials.lean: imports `Mathlib.Algebra.Category.ModuleCat.Sheaf.PullbackFree` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/GroupDifferentials.lean: imports `Mathlib.CategoryTheory.Monoidal.Cartesian.Grp` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/GroupDifferentials.lean: imports `Mathlib.CategoryTheory.Monoidal.Cartesian.Over` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/GroupDifferentials.lean: imports `Mathlib.LinearAlgebra.Basis.VectorSpace` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/GroupDifferentials.lean:40:5: Ambiguous namespace `AlgebraicGeometry.Scheme.Hom`: it is interpreted as `_root_.ZInQ.Contrib.CloudB3W16Cartier.Vendor.AlgebraicGeometry.Scheme.Hom` because this `open` occurs inside `namespace ZInQ.Contrib.CloudB3W16Cartier.Vendor.AlgebraicGeometry.GroupSchemeDifferentials`, while `_root_.AlgebraicGeometry.Scheme.Hom` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.ZInQ.Contrib.CloudB3W16Cartier.Vendor.AlgebraicGeometry.Scheme.Hom`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+warning: ZInQKernel/Contrib/CloudB3W16Cartier/GroupDifferentials.lean:138:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9164/9164] Built ZInQKernel.Contrib.OneProof.CartierSmooth (32s)
+warning: ZInQKernel/Contrib/OneProof/CartierSmooth.lean:34:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/OneProof/CartierSmooth.lean:35:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+Build completed successfully (9164 jobs).
+
+real	2m3.704s
+user	5m55.241s
+sys	0m54.287s

@@ -1,0 +1,113 @@
+DISCHARGES [OpenResearchLeaves26.dsThm965Weak] by DS965Weak.dsThm965Weak_of_dsThm965
+  still assumes: [ZInQ.Contrib.HodgeSplit.DSThm965]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves26.gonzalezRotgerProp56X6] by GRCountX6.prop56X6_of_r5fpCount
+  still assumes: [LeafQM.AV.R5fpCount]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves26.neronBaseChangeStrictHenselization] by GapSHPair.neronBaseChangeStrictHenselization_of_unramified
+  still assumes: [ReductGlue.NeronBaseChangeUnramifiedDVR]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenAddedLeaves17.phiAmpleIsogeny] by PicDict.phiAmpleIsogeny_final
+  still assumes: [PicDict.MumfordKLFiniteAC, PicDict.MumfordPhiSurjectiveAC]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenAddedLeaves17.phiAmpleIsogeny] by PicDict.phiAmpleIsogeny_of_ac
+  still assumes: [PicDict.MumfordKLFiniteAC,
+ PicDict.MumfordPhiSurjectiveAC,
+ PicDict.AmpleBaseChangeAlgClosure,
+ PicDict.PicZeroPtsTranslInv]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenAddedLeaves17.phiAmpleIsogeny] by PicDict.phiAmpleIsogeny_of_leaves
+  still assumes: [PicDict.MumfordKLFiniteAC,
+ PicDict.MumfordPhiSurjectiveAC,
+ PicDict.AmpleBaseChangeAlgClosure,
+ PicDict.PushforwardUnitUniversal,
+ PicDict.GeomIntegralProd]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenAddedLeaves17.phiAmpleIsogeny] by PicDict.phiAmpleIsogeny_of_mumford
+  still assumes: [PicDict.MumfordKLFiniteAC,
+ PicDict.MumfordPhiSurjectiveAC,
+ PicDict.PushforwardUnitUniversal,
+ PicDict.GeomIntegralProd]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenAddedLeaves17.phiAmpleIsogeny] by PicDict.phiAmpleIsogeny_of_printed
+  still assumes: [PicDict.MumfordKLFinite,
+ PicDict.MumfordPhiSurjective,
+ PicDict.AmpleBaseChangeAlgClosure,
+ PicDict.PicZeroPtsTranslInv]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenAddedLeaves17.picZeroAbVar] by PicDict.picZeroAbVar_of_leaves
+  still assumes: [PicDict.PicLocFinType, PicDict.IdentityComponentLFT, PicDict.PicZeroSmooth, PicDict.PicZeroProper]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenAddedLeaves17.weilPairingMumford] by PicDict.weilPairingMumford_final
+  still assumes: [PicDict.MumfordSquareAC,
+ PicDict.MumfordMulNPicZeroAC,
+ PicDict.MumfordPhiSurjectiveAC,
+ PicDict.MumfordWeilPairingAC,
+ PicDict.MumfordWeilNondegAC,
+ PicDict.MumfordWeilAltAC,
+ PicDict.MumfordKLFiniteAC]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenAddedLeaves17.weilPairingMumford] by PicDict.weilPairingMumford_of_ac
+  still assumes: [PicDict.MumfordSquareAC,
+ PicDict.MumfordMulNPicZeroAC,
+ PicDict.MumfordPhiSurjectiveAC,
+ PicDict.AmpleBaseChangeAlgClosure,
+ PicDict.MumfordWeilPairingAC,
+ PicDict.MumfordWeilNondegAC,
+ PicDict.MumfordWeilAltAC,
+ T09Pic.PhiAmpleIsogeny]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenAddedLeaves17.weilPairingMumford] by PicDict.weilPairingMumford_of_mumford
+  still assumes: [PicDict.MumfordSquareAC,
+ PicDict.MumfordMulNPicZeroAC,
+ PicDict.MumfordPhiSurjectiveAC,
+ PicDict.MumfordWeilPairingAC,
+ PicDict.MumfordWeilNondegAC,
+ PicDict.MumfordWeilAltAC,
+ T09Pic.PhiAmpleIsogeny]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenAddedLeaves17.weilPairingMumford] by PicDict.weilPairingMumford_of_printed
+  still assumes: [PicDict.MumfordSquare,
+ PicDict.MumfordMulNPicZero,
+ PicDict.MumfordPhiSurjective,
+ PicDict.AmpleBaseChangeAlgClosure,
+ PicDict.MumfordWeilPairing,
+ PicDict.MumfordWeilNondeg,
+ PicDict.MumfordWeilAlt,
+ T09Pic.PhiAmpleIsogeny]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenAddedLeaves17.picZeroAbVar] by PicFix.picZeroAbVar_of_printed
+  still assumes: [PicDict.PicLocFinType,
+ PicDict.IdentityComponentLFT,
+ PicDict.PicZeroSmooth,
+ PicFix.KleimanPicZeroProper]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenAddedLeaves17.picZeroAbVar] by PicSmooth.picZeroAbVar_of_cartier
+  still assumes: [PicDict.PicLocFinType,
+ PicDict.IdentityComponentLFT,
+ AVGlue.CartierSmooth,
+ PicSmooth.PicZeroSmoothPosChar,
+ PicFix.KleimanPicZeroProper]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenAddedLeaves17.picZeroAbVar] by PicSmooth.picZeroAbVar_of_printed2
+  still assumes: [PicDict.PicLocFinType,
+ PicDict.IdentityComponentLFT,
+ PicSmooth.PicZeroSmoothPosChar,
+ PicFix.KleimanPicZeroProper]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves26.r16CoreY] by R16Split.coreY_of_r16
+  still assumes: [LeafModCurves.R16_EichlerShimuraJ1']
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves26.sga7_IX_3_3_SH] by SGA7PersistsNF.sga7_IX_3_3_SH_of_field
+  still assumes: [CToPrinted.SGA7_IX_3_3]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves26.sga7_IX_3_5_ForwardGeom] by UnipotentForward.forwardGeom_of_forward
+  still assumes: [UnipotentForward.SGA7_IX_3_5_Forward, UnipotentForward.SemiAbelianDescendsSepClosed]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves26.mumfordGroupLaw] by ZInQ.Contrib.MumfordRigidity.mumfordGroupLaw_of_core
+  still assumes: [LeafQM.AV.R1UnivRigid.MumfordRigidityCore]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenTextbookLeaves12.cartierSmooth] by ZInQ.Contrib.OneProof.CartierSmooth.cartierSmooth_proof
+  still assumes: []
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 56 open hypotheses, 3085 theorems checked, 21 discharge one
