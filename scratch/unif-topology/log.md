@@ -12,3 +12,20 @@
   to classicalTopology (localization at basic opens: g|D(s) = a/s^m).
 - `induced_classicalTopology_eq`: U affine, f generating ⇒ classicalTopology restricted to U(ℂ) =
   topology induced by coord f : U(ℂ) → ℂ^k.
+
+## Topo.lean additions — VERIFIED (compiles; #print axioms standard)
+- `eq_of_appLE_eq`, `coord_injective`, `isEmbedding_coord`: U(ℂ) → ℂ^k injective, embedding for classical topology.
+- `zeroLocus`, `range_coord`: image of U(ℂ) = V(I); `exists_homeomorph_zeroLocus`: U(ℂ) ≃ₜ V(I) (subspace topology).
+- `gluedTopology`, `classicalTopology_eq_gluedTopology`: any family of affine charts covering X(ℂ) gives classicalTopology.
+- `AffineChart`, `analyticTopology`, `exists_affineChart` (LocallyOfFiniteType), `classicalTopology_eq_analyticTopology`.
+- Leaves over analyticTopology: `SmoothComplexManifoldAn`, `ProperCompactAn`, `ConnectedConnectedAn`; `*_iff` with
+  unif-printed's (equivalent); `uniformizationLeafAll_of_analytic`.
+
+## Deliverable — VERIFIED
+- `lake build ZInQKernel.Contrib.OneProof.UniformizationTopology`: Build completed successfully (9052 jobs).
+- `lake build ZInQKernel.OneProof.Main ZInQKernel.OneProof.Discharges`: success (12994 jobs).
+- DischargesCheck.lean: `DISCHARGES [OpenTextbookLeaves11.uniformizationLeafAll] by
+  UnifTopology.uniformizationLeafAll_of_analytic`, still assumes MumfordComplexTorus, SmoothComplexManifoldAn,
+  ProperCompactAn, ConnectedConnectedAn; axioms standard; "63 open hypotheses, 1884 theorems checked, 10 discharge one".
+- autofold.json `--dry-run`: exit 0, "strict count: 46/10 on 56 -> 49/10 on 59; strictest 45/11 -> 48/11";
+  FoldDryRun.lean compiles, sixContactMin_of_open30 axioms standard.
