@@ -1034,6 +1034,8 @@ jobs:
                   return envelope['scope_coverage']
               value = envelope.get('review', {})
               reasons = []
+              if envelope.get('post_review_error'):
+                  reasons.append('Required review metadata was not completed: '+envelope['post_review_error'])
               if not envelope.get('complete'):
                   reasons.append('The review did not complete.')
               if value.get('scope_complete') is False:
@@ -1101,11 +1103,12 @@ jobs:
                   explicit.update(finding_id(envelope, f['id']) for f in blocking_findings(envelope.get('review', {})))
                   explicit.update(f['id'] for f in envelope.get('review', {}).get('prior_findings', []) if f['resolution'] != 'resolved')
                   envelope.pop('carried_findings', None)
-              for envelope in reports.values():
-                  if review_scope_item(envelope):
-                      # One runtime copy, separate from model verdicts and existing items.
-                      envelope['carried_findings'] = {k: v for k, v in obligations.items() if k not in explicit}
-                      break
+              if reports:
+                  # Preserve omitted objections even when all current reports completed.
+                  target = next((e for e in reports.values() if review_scope_item(e)), next(iter(reports.values())))
+                  retained = {k: v for k, v in obligations.items() if k not in explicit}
+                  if retained:
+                      target['carried_findings'] = retained
               return obligations
 
 
@@ -1157,6 +1160,43 @@ jobs:
                       'reason': 'Unverified report-comment claim, not authenticated model identity: '+str(finding.get('objection', '')),
                       'report_comment': finding.get('report_comment')}
                       for ident, finding in prior.items() if ident not in known and finding.get('report_comment')}
+
+
+          def reconcile_obligations(gh, pr, reports, candidates):
+              candidates = list(candidates)
+              unknown = unmatched_report_claims(gh, pr, candidates, reports)
+              if unknown:
+                  candidates.append((-1, {'history': {'review': {'findings': [], 'prior_findings': []}, 'carried_findings': unknown}}))
+              return carry_obligations(reports, candidates)
+
+
+          def unaddressed_findings(reports, prior):
+              addressed = {f['id'] for e in reports.values() for f in e['review'].get('prior_findings', [])}
+              addressed.update(finding_id(e, f['id']) for e in reports.values() for f in blocking_findings(e['review']))
+              return set(prior) - addressed
+
+
+          def deliver_review_report(gh, pr, envelope, retry=False):
+              """Retain the verdict; disclose delivery status and reconcile before retry."""
+              value = {k: v for k, v in envelope.items() if k != 'report_publication'}
+              url = f'https://github.com/{gh.repo}/actions/runs/{envelope["run"]}'
+              body = MARKER + '\n' + url + '\n```json\n' + json.dumps(value, ensure_ascii=False) + '\n```'
+              digest = hashlib.sha256(body.encode()).hexdigest()
+              try:
+                  if retry:
+                      attempted = envelope.get('report_publication', {}).get('sha256', digest)
+                      for c in gh.pages(f'/issues/{pr["number"]}/comments'):
+                          if own_comment(gh, c) and hashlib.sha256(c['body'].encode()).hexdigest() == attempted:
+                              envelope['report_publication'] = {'status': 'posted', 'comment': c['id'], 'sha256': attempted}
+                              return
+                  response = gh.call(f'/issues/{pr["number"]}/comments', 'POST', {'body': body})
+                  envelope['report_publication'] = {'status': 'posted', 'comment': response['id'], 'sha256': digest}
+              except Exception as error:
+                  envelope['report_publication'] = {'status': 'failed', 'error': str(error), 'sha256': digest,
+                      'original_report': url + '/attempts/' + str(envelope['attempt']),
+                      'artifact_file': envelope['reviewer']+'-report.json'}
+                  record(envelope['reviewer']+'-publication-error.json', envelope['report_publication'])
+                  log(envelope['reviewer']+': original verdict retained; report delivery failed: '+str(error))
 
 
           def administrator(gh, user):
@@ -1615,7 +1655,7 @@ jobs:
                       e['nonblocking_notes_omitted'] = {
                           'count': len(notes),
                           'sha256': hashlib.sha256(json.dumps(notes, sort_keys=True, ensure_ascii=False).encode()).hexdigest(),
-                          'location': 'Full original reviewer report on the PR and in its original run artifact.'}
+                          'location': ('Original run artifact; PR report delivery is unavailable.' if e.get('report_publication', {}).get('status') == 'failed' else 'Full original reviewer report on the PR and in its original run artifact.')}
                       e['review']['findings'] = blocking_findings(e['review'])
                   e['review'].pop('report', None)
                   e['review'].pop('sources_read', None)
@@ -1689,9 +1729,7 @@ jobs:
                   return False, []
               if discussion is not None and uncovered_history(envelopes, discussion):
                   return False, []
-              addressed = {f['id'] for e in envelopes.values() for f in e['review'].get('prior_findings', [])}
-              addressed.update(finding_id(e, f['id']) for e in envelopes.values() for f in blocking_findings(e['review']))
-              if set(prior or {}) - addressed:
+              if unaddressed_findings(envelopes, prior or {}) or any(e.get('carried_findings') for e in envelopes.values()):
                   return False, []
               limits = qualified_access_findings(envelopes)
               for family, envelope in envelopes.items():
@@ -1918,7 +1956,7 @@ jobs:
                               raise ValueError('Override reports used a different review policy')
                           if effective_head(envelope) != pr['head']['sha'] and not reusable_on_rebase(gh, pr, files, envelope):
                               raise ValueError('Override reports lack a valid current rebase binding')
-                      carry_obligations(envelopes, spend['candidates'])
+                      reconcile_obligations(gh, pr, envelopes, spend['candidates'])
                       override_findings(envelopes, pr['head']['sha'])
                       limits = qualified_access_findings(envelopes, include_overridden=True)
                       state['source_access_limitations'] = limits
@@ -1940,11 +1978,12 @@ jobs:
                       record('review-reuse.json', {f: {'original_head': e['head'], 'effective_head': pr['head']['sha'],
                               'check': e['reuse_check'], 'run': e['run'], 'attempt': e['attempt']} for f, e in envelopes.items()})
                       supplements = {}
-                      if set(envelopes) == set(MODELS) and uncovered_history(envelopes, discussion):
-                          # Keep the proof acceptance; ask one reviewer only about
-                          # observations that neither retained report examined.
-                          family = sorted(envelopes)[0]
-                          supplements[family] = envelopes.pop(family)
+                      if set(envelopes) == set(MODELS) and (uncovered_history(envelopes, discussion) or unaddressed_findings(envelopes, prior)):
+                          # Keep the proof acceptance. Both families disposition a newly
+                          # itemized objection; one can cover other new discussion.
+                          selected = sorted(envelopes) if unaddressed_findings(envelopes, prior) else [sorted(envelopes)[0]]
+                          for family in selected:
+                              supplements[family] = envelopes.pop(family)
                       missing = set(MODELS) - set(envelopes)
                       if missing and not review_command and spend['automatic_rounds'] >= 4:
                           state.update(conclusion='action_required', summary=
@@ -1975,7 +2014,7 @@ jobs:
                                        for family in missing}
                           for family, previous in supplements.items():
                               reviewers[family].input['retained_acceptance'] = previous
-                              reviewers[family].input['review_task'] = ('The unchanged proof retains its earlier review. Assess only the new discussion and interrupted observations not covered by the retained reports, and any source passages needed to decide them. Preserve and disposition all findings. Do not repeat the unchanged proof audit.')
+                              reviewers[family].input['review_task'] = ('The unchanged proof retains its earlier review. Assess only the new discussion, outstanding App-recorded findings and interrupted observations not covered by the retained reports, and any source passages needed to decide them. Preserve and disposition all findings. Do not repeat the unchanged proof audit.')
                           futures = {pool.submit(reviewer.run): family for family, reviewer in reviewers.items()}
                           for future in concurrent.futures.as_completed(futures):
                               family = futures[future]
@@ -1994,26 +2033,37 @@ jobs:
                                   record(family + "-report.json", envelope)
                                   state['reports'] = envelopes
                                   record('decision.json', state)
-                                  envelope["reuse_binding"] = optional_reuse_binding(gh, pr, files, reviewers[family])
                                   if family in supplements:
-                                      envelope["reuse_binding"] = inherit_reuse_binding(envelope["reuse_binding"], supplements[family])
-                                      envelope['retained_source_evidence'] = retained_sources(supplements[family], value)
+                                      # Supplement identity is mandatory, independent of optional caching.
                                       envelope["supplements_review"] = {k: supplements[family][k] for k in
                                                                         ('head', 'run', 'attempt', 'policy_ref', 'reuse_check')}
-                                  bounded_report(envelope)
+                                      envelope['retained_source_evidence'] = retained_sources(supplements[family], value)
+                                  try:
+                                      envelope["reuse_binding"] = optional_reuse_binding(gh, pr, files, reviewers[family])
+                                      if family in supplements:
+                                          envelope["reuse_binding"] = inherit_reuse_binding(envelope["reuse_binding"], supplements[family])
+                                      bounded_report(envelope)
+                                  except Exception as error:
+                                      envelope['reuse_binding'] = None
+                                      envelope['reuse_binding_omitted'] = 'Optional metadata unavailable: '+str(error)
+                                      record(family+'-metadata-error.json', {'error': str(error)})
                                   record(family + "-report.json", envelope)
                                   state['reports'] = envelopes
                                   record('decision.json', state)
                                   # Append, never edit away an objection. Each completed
                                   # review is saved even if the other reviewer fails.
-                                  body = MARKER + "\n" + run_url + "\n```json\n" + json.dumps(envelope, ensure_ascii=False) + "\n```"
-                                  gh.call(f"/issues/{number}/comments", "POST", {"body": body})
+                                  deliver_review_report(gh, pr, envelope)
+                                  record('decision.json', state)
                                   reviews[family] = value
                               except Exception as error:
                                   if envelopes.get(family, {}).get('complete'):
                                       # A notification/binding failure cannot erase the delivered verdict.
-                                      record(family+'-publication-error.json', {'error': str(error),
-                                          'report_retained': True, 'run': os.environ['GITHUB_RUN_ID']})
+                                      envelopes[family]['post_review_error'] = str(error)
+                                      # Retain the paid verdict, but this run cannot silently approve
+                                      # a supplement whose required metadata failed to assemble.
+                                      failures[family] = str(error)
+                                      deliver_review_report(gh, pr, envelopes[family])
+                                      record('decision.json', state)
                                       reviews[family] = envelopes[family]['review']
                                       log(f"{family}: completed verdict retained despite publication error: {error}")
                                       continue
@@ -2049,7 +2099,8 @@ jobs:
                                   gh.call(f"/issues/{number}/comments", "POST", {"body": MARKER + "\n```json\n" + json.dumps(problem, ensure_ascii=False, indent=2) + "\n```"})
                       if failures:
                           raise RuntimeError(json.dumps(failures))
-                      current_discussion, current_prior, _, _ = history(gh, pr)
+                      current_discussion, current_prior, _, _ = history(gh, pr, known)
+                      reconcile_obligations(gh, pr, envelopes, spend['candidates'])
                       accepted, limits = bounded_decision(state, envelopes, current_prior, current_discussion)
                       state['source_access_limitations'] = limits
                       if accepted:
@@ -2442,13 +2493,24 @@ jobs:
               state = json.loads(path.read_text(encoding='utf-8'))
               gh, app = start_clients()
               current = gh.call(f"/pulls/{state['number']}")
+              candidates = list(state.get('prior_candidates', []))
               if state['conclusion'] != 'success':
                   previous = trusted_reports(app, current, state['name'], state['check'])
-                  candidates = list(state.get('prior_candidates', []))
-                  unknown = unmatched_report_claims(gh, current, candidates, state['reports'])
-                  if unknown:
-                      candidates.append((-1, {'history': {'review': {'findings': [], 'prior_findings': []}, 'carried_findings': unknown}}))
                   ensure_scope_records(state, previous, candidates)
+              reconcile_obligations(gh, current, state['reports'], candidates)
+              carried = {ident for e in state['reports'].values() for ident in e.get('carried_findings', {})}
+              missing = carried - set(state.get('overrides', {}))
+              if missing:
+                  state.update(conclusion='failure', summary=state['summary']+'\nUnaddressed earlier objections: '+', '.join(sorted(missing)))
+              for envelope in state['reports'].values():
+                  if envelope.get('report_publication', {}).get('status') == 'failed':
+                      deliver_review_report(gh, current, envelope, retry=True)
+                  publication = envelope.get('report_publication', {})
+                  if publication.get('status') == 'failed':
+                      state.update(conclusion='failure', summary=state['summary']+'\nOriginal '+envelope['reviewer']+
+                          ' verdict retained, but report publication failed; no merge. See report_publication in the App record and the original run artifact.')
+                  if envelope.get('post_review_error') and review_scope_item(envelope)['id'] not in state.get('overrides', {}):
+                      state.update(conclusion='failure', summary=state['summary']+'\nIncomplete review metadata: '+envelope['post_review_error'])
               record('scope-items.json', state.get('scope_items', []))
               latest_ref = gh.call('/commits/' + state['default'])['sha']
               check = app.call(f"/check-runs/{state['check']}")

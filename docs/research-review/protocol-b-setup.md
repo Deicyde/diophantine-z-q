@@ -716,3 +716,20 @@ claim, with its original ID, comment location and hash. This does not authentica
 its asserted model identity or grant approval. It requires review or its own
 admin decision; overriding only missing-review scope does not erase it. App-only
 findings whose report comments failed can still receive exact-head admin decisions.
+
+
+Before either ordinary acceptance or an override, the gate reconciles outstanding
+App-recorded findings and report-comment claims, including an interrupted later
+round. Unmatched comments are unverified allegations, not model authentication.
+They need a disposition or their own explicit admin decision; accepting only
+missing scope cannot erase them. Retained acceptances receive a scoped supplement
+when they have not addressed a newly recorded objection. The final publication
+rechecks these obligations even after an otherwise successful decision.
+
+Report delivery is recorded separately from the reviewer's verdict. A failed
+delivery is retried at finalization after checking whether the exact original
+comment already arrived. If it still fails, the App record names the original
+run artifact and withholds merge; it does not claim the report is on the PR.
+Optional reuse-metadata failure does not suppress the report delivery attempt.
+A scoped supplement retains its original-review identity independently of that
+optional metadata. No paid verdict is replaced with an empty failure record.
