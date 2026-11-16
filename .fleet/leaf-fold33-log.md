@@ -60,3 +60,11 @@ Base: 6b7a45445 (lf32b: 37 H fields, strict 16 LEAF / 21 GLUE, top sixContactMin
 * Step (b), supplier PRs (first check): origin/pr/23 0eab413df, pr/25 7c9177bd9, pr/29 fefce8ef0, pr/31 d42bb38f4,
   pr/34 4fa17fc59, pr/35 37a970528, pr/36 47ca4df21, pr/38 a9bc2e35c are all ancestors of HEAD; nothing to merge.
   Rechecked before the final check.
+* Contribution build (rerun): `lake build` of PoincareComplement, NeronBaseChangeStrictHenselization, Fold33.NeronBLR,
+  PicZeroSmoothCartier, PicZeroAbVarCartier: RC=0, "Build completed successfully (12886 jobs)", no errors, no
+  "environment already contains".
+* Axioms (scratch/leaf-fold33/Axioms.lean): poincareComplement_of_open, Fold33.blr_7_2_1_proof,
+  NeronSH.neronBaseChangeUnramifiedDVR_proof, PicSmooth.picZeroAbVar_of_printed2, CartierSmooth.cartierSmooth_proof:
+  each [propext, Classical.choice, Quot.sound]. (PicFix.phiAmpleIsogeny_of_printed and milneIsogenyQuasiInverse_proof
+  are lf32b terms not imported by these modules; they are already in Main through TailZ44/45 and are checked by the
+  final frozenTarget axioms line.)
