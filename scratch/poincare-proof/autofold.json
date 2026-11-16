@@ -1,0 +1,6 @@
+{"name": "poincare-proof",
+ "imports": ["ZInQKernel.Contrib.OneProof.PoincareComplement"],
+ "discharges": [
+   {"field": "poincareComplement",
+    "proof": "_root_.ZInQ.Contrib.OneProof.PoincareComplement.poincareComplement_of_open {l}.picRepresentableAbVar {l}.picZeroAbVar {l}.phiAmpleIsogeny {l}.milneIsogenyQuasiInverse {n}.cartierSmooth",
+    "leaves": []}]}
