@@ -1,3 +1,18 @@
+# Public type and axiom output — labeled excerpts
+
+**This file is a selection, not a raw compiler transcript.** The type and axiom
+lines below are copied verbatim from the original successful combined check at
+frozen proof snapshot `42a9645da2ffe4390cfbc6053aeb3836a9d59515`. Command, timing,
+warning, diagnostic, and environment-specific lines are not included here.
+Complete original raw output remains unchanged in private archival storage;
+it has not been rewritten and represented as raw public evidence.
+
+These are recorded outputs, not new proof assumptions or a new verification run.
+Generic local reproduction instructions are in `../REPRODUCING.md`.
+
+## Six original solution types and complete axiom lists
+
+```text
 P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.solution.{u_1} (K : Type u_1) [Field K] [IsAlgClosed K]
   [DecidableEq (RatFunc K)] [AlgebraicCurve.HasCanonicalLocalResidueKStar K (RatFunc K)]
   [AlgebraicCurve.HasCanonicalDivisor] [∀ (v : AlgebraicCurve.Place K (RatFunc K)), v.DCoordGenerates] :
@@ -51,26 +66,15 @@ P2MW.S_AlgebraicCurve_tateChainRule.solution.{u_1, u_2, u_3} {K : Type u_1} {F :
   [∀ (w : AlgebraicCurve.Place K F), w.FiniteResidue] (hfinF : ModularCurve.KwF4gRRTate.KwF4gRRTateCommFinite K F) :
   ModularCurve.KwF4gRRTate.KwF4gRRTateChainRule K F E hfinF
 'P2MW.S_AlgebraicCurve_tateChainRule.solution' depends on axioms: [propext, Classical.choice, Quot.sound]
-	Command being timed: "/home/jackmccarthy/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean -j 4 -M 16000 /home/jackmccarthy/cloud-b3/w16/h102-curve/CurveProofCheck.lean"
-	User time (seconds): 2.16
-	System time (seconds): 1.61
-	Percent of CPU this job got: 100%
-	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:03.77
-	Average shared text size (kbytes): 0
-	Average unshared data size (kbytes): 0
-	Average stack size (kbytes): 0
-	Average total size (kbytes): 0
-	Maximum resident set size (kbytes): 7173120
-	Average resident set size (kbytes): 0
-	Major (requiring I/O) page faults: 0
-	Minor (reclaiming a frame) page faults: 173497
-	Voluntary context switches: 2134
-	Involuntary context switches: 202
-	Swaps: 0
-	File system inputs: 0
-	File system outputs: 16
-	Socket messages sent: 0
-	Socket messages received: 0
-	Signals delivered: 0
-	Page size (bytes): 4096
-	Exit status: 0
+```
+
+## Auxiliary cancellation lemma: selected axiom output
+
+```text
+'P2MW.CloudB3W16RRSplit.conj_symm_conj' depends on axioms: [propext, Quot.sound]
+```
+
+The residue input of the conditional RR theorem and the finiteness inputs of
+the Tate theorems remain visible above. The separate proved global residue
+theorem supplies the original residue input. This source-support evidence does
+not establish a final H102 `#discharges` result or geometric integration.

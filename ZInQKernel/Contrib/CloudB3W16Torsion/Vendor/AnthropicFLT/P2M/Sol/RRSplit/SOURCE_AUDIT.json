@@ -40,5 +40,10 @@
   "max_lean_file_bytes": 136967,
   "max_observed_compiler_rss_kib": 10853532,
   "compiled_module_logs_exit_zero": 30,
-  "scope": "Supporting source proofs only; not H102 discharge"
+  "scope": "Supporting source proofs only; not H102 discharge",
+  "public_evidence_policy": {
+    "recorded_proof_audit_unchanged": true,
+    "public_type_axiom_evidence": "Compile/PUBLIC_TYPE_AXIOM_EXCERPTS.md",
+    "raw_stdout_retained_unchanged_privately": true
+  }
 }

@@ -1,32 +1,26 @@
-# Initial native port attempts
+# Historical native port attempts — summary only
 
-All checks use stock Lean 4.35.0 on the dedicated private checkout. No source
-proof using an error placeholder is accepted. Historical logs below are failed
-or cancelled attempts, **not** successful compilation or axiom evidence.
+This file is a narrative summary, not compiler stdout. Complete original failed
+and cancelled logs are preserved unchanged privately and omitted from the public
+tree. No failed attempt is evidence of a successful proof or axiom check.
 
-## Attempt 00 — original factoring scaffold
+The initial factoring attempt exposed two namespace issues: promoted private
+root helpers lost dot-notation lookup across import boundaries, and a scoped
+polynomial open selected a local namesake. The affected chains were cancelled
+before applying a shared correction. Transparent private root abbreviations
+restored field lookup without assuming any mathematical statement, and scoped
+opens were made absolute.
 
-The rational-residue first part emitted invalid-field errors after private root
-helpers were promoted into `P2MW` namespaces. The first ordinary scoped
-`Polynomial` open also selected a local namesake, breaking `K[X]` notation.
-The failing chain was cancelled; the independent RR chain was cancelled before
-its terminal verdict to apply the same scaffold correction. Their partial raw
-logs are retained in `attempt00/`.
+Subsequent compatibility corrections selected tensor-product induction
+explicitly, pinned definition/equality expressions before unfolding or casts,
+and included attribute-prefixed private definitions in the bridge map while
+retaining their attributes and bodies. Later checks also removed confirmed
+absent optional export entries, made an existing adic-completeness proof explicit,
+proved inverse-conjugation cancellation, closed an implicit factoring scope, and
+updated TFAE indices to their 1-based convention.
 
-Correction: transparent private root abbreviations restore original field lookup
-in each factoring module, without assuming any mathematical statement. Ordinary
-scoped opens now explicitly name `_root_` namespaces.
-
-## Subsequent localized fixes
-
-* Select `TensorProduct.induction_on` explicitly rather than relying on the
-  version-dependent default induction eliminator.
-* Pin pole-correction definition/equality expressions before unfolding or casts;
-  the original equalities are proved, not assumed.
-* Include attribute-prefixed private data definitions in the promotion/bridge
-  map, preserving their original attributes and bodies.
-
-The first corrected RR parts 1–3 and rational-residue parts 1–2 compiled. The
-complete five-part conditional RR edge and its facade then compiled. Further
-edges and complete axiom reports remain tracked by the final verification report;
-this historical note does not claim a complete H102 discharge.
+The corrected 23 proof parts, six facades, and auxiliary helper then compiled.
+The final original solution signatures and standard axiom lists are selected
+verbatim in `PUBLIC_TYPE_AXIOM_EXCERPTS.md`. That file is labeled as excerpts,
+not a complete raw transcript. No H102 discharge or integration is claimed by
+this historical summary.

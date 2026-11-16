@@ -765,7 +765,7 @@
           "Classical.choice",
           "Quot.sound"
         ],
-        "axiom_log": "Compile/verified/CurveProofCheck.log"
+        "axiom_log": "Compile/PUBLIC_TYPE_AXIOM_EXCERPTS.md"
       }
     },
     {
@@ -985,7 +985,7 @@
           "Classical.choice",
           "Quot.sound"
         ],
-        "axiom_log": "Compile/verified/CurveProofCheck.log"
+        "axiom_log": "Compile/PUBLIC_TYPE_AXIOM_EXCERPTS.md"
       }
     },
     {
@@ -1356,7 +1356,7 @@
           "Classical.choice",
           "Quot.sound"
         ],
-        "axiom_log": "Compile/verified/CurveProofCheck.log"
+        "axiom_log": "Compile/PUBLIC_TYPE_AXIOM_EXCERPTS.md"
       }
     },
     {
@@ -1448,7 +1448,7 @@
           "Classical.choice",
           "Quot.sound"
         ],
-        "axiom_log": "Compile/verified/CurveProofCheck.log"
+        "axiom_log": "Compile/PUBLIC_TYPE_AXIOM_EXCERPTS.md"
       }
     },
     {
@@ -1571,7 +1571,7 @@
           "Classical.choice",
           "Quot.sound"
         ],
-        "axiom_log": "Compile/verified/CurveProofCheck.log"
+        "axiom_log": "Compile/PUBLIC_TYPE_AXIOM_EXCERPTS.md"
       }
     },
     {
@@ -1682,7 +1682,7 @@
           "Classical.choice",
           "Quot.sound"
         ],
-        "axiom_log": "Compile/verified/CurveProofCheck.log"
+        "axiom_log": "Compile/PUBLIC_TYPE_AXIOM_EXCERPTS.md"
       }
     }
   ],
@@ -1713,5 +1713,13 @@
     "exit_status": 0,
     "solution_count": 6,
     "standard_axioms_only": true
+  },
+  "public_evidence_policy": {
+    "frozen_proof_head": "42a9645da2ffe4390cfbc6053aeb3836a9d59515",
+    "type_axiom_evidence": "Compile/PUBLIC_TYPE_AXIOM_EXCERPTS.md",
+    "evidence_kind": "Labeled verbatim selections, not a raw transcript",
+    "raw_output_in_public_tree": false,
+    "original_raw_output_preserved_unchanged_privately": true,
+    "generic_reproduction": "REPRODUCING.md"
   }
 }
