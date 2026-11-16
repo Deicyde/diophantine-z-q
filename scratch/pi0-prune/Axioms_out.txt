@@ -1,0 +1,28 @@
+'HDec.LeafAdopt.R1R2fpRepW_of_rep' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LeafAdopt.R1R2fp_of_repW' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.r1rec_of_repW' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.r5fp_of_repW' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.QMSplit.Moduli.pairsLift_of_repW' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.QMSplit.Moduli.coarseX6OfFineW_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.QMSplit.Moduli.canonicalCoarseX6W_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.QMSplit.Moduli.geomConnX6W_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.QMSplit.Moduli.geomConnX6W_of_gr' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.QMSplit.Moduli.r1r2fpRep_of_printedW' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.QMSplit.Moduli.r1r2_of_publishedW' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.QMSplit.Moduli.x6ConicModel_of_publishedW' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.QMSplit.Moduli.x6Rows_of_leavesW' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.x6Rows_of_open14W' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_open4W' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_open11W' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_open17W' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_open29W' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.openAddedLeaves17P_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_open29P' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_open29_pruned' depends on axioms: [propext, Classical.choice, Quot.sound]
+HDec.HSyn.sixContactMin_of_open17W : HDec.HSyn.OpenResearchLeaves14 →
+  HDec.HSyn.OpenTextbookLeaves10 →
+    HDec.HSyn.OpenAddedLeaves12P → HDec.HSyn.OpenGlue7 → HDec.QMLattice.YuB6Alg → ZInQ.SixContactMin
+HDec.HSyn.sixContactMin_of_open11W : HDec.HSyn.OpenResearchLeaves9W →
+  HDec.HSyn.OpenTextbookLeaves10 →
+    HDec.HSyn.OpenAddedLeaves9 →
+      HDec.HSyn.OpenGlue7 → ZInQ.HeightSplit.FaltingsLemma5BCLower → HDec.QMLattice.YuB6Alg → ZInQ.SixContactMin

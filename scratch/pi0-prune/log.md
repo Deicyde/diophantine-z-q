@@ -35,3 +35,10 @@
   cm_point/stQM_of/cmDescends_of, cm_point's pattern without the dropped `-` (it already discarded R1pi0Props), and
   LeafQCheck.cmDescends_ofW; import Pi0Prune.Base instead of TailO. GapST.stQM_of, GapST.cmDescends_of axioms
   [propext, Classical.choice, Quot.sound]. st-qbar needs only conjuncts that R1R2fpRepW keeps.
+- FoldCheck.lean (VERIFIED, compiled): generation-style fold: structure OpenAddedLeaves18 (= OpenAddedLeaves17 minus
+  L128-134 of TailZ34), openAddedLeaves17P_of_OpenAddedLeaves18, sixContactMin_of_open30, frozenTarget_open30
+  (frozenTarget with l : OpenAddedLeaves18 and open30); axioms standard.
+- Axioms.lean: #print axioms of 21 exported constants, all [propext, Classical.choice, Quot.sound] (Axioms_out.txt).
+- Generator configs by name (cfg_*_n.py) reproduce Base/Old/Upper byte for byte (VERIFIED by diff).
+- Report docs/research/pi0-prune.md written (result, axioms, #discharges, fold options A/B, r6-nf and st-qbar
+  coordination, method).
