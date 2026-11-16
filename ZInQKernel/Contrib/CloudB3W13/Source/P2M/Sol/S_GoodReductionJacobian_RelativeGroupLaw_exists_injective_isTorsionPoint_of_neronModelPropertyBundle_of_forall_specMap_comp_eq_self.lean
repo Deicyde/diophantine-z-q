@@ -33,10 +33,16 @@ the W13 port manifest):
   * Mathlib 56a made `Ideal.under` an `abbrev` of `Ideal.comap (algebraMap A B) P` and states `Ideal.exists_ideal_over_maximal_of_isIntegral` with `Q.under R = P`; the `LiesOver` goal `maximalIdeal R = comap (algebraMap R S) P` therefore no longer contains `Ideal.under`, so the source's `rw [Ideal.under_def, hPover]` fails. The goal is closed by `hPover.symm`, the same equation (definitionally, through the reducible `Ideal.under`).
 -/
 
+/- Import notice (W13 normalization, canonical-provider integration repair), 2026-11-16, Cloud Batch 3
+Worker 13 with Metamate/agentcloud assistance (modification under Apache-2.0 §4(b)): the import(s) of `Def_FLTPrelim_Ramification`
+from `ZInQKernel.Contrib.CloudB3W13Shared.TateCp.Vendor.AnthropicFLT.Definitions` now name main's canonical
+providers of the same name in `ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.Definitions`. Their code
+is token-identical apart from four file-local `set_option`s; the staged duplicate declared the same root names and
+collided with main's copy. No other change. -/
 import Mathlib
 import ZInQKernel.Contrib.CloudW03NeronSurj.Vendor.Definitions.Def_JacJ1Iface
 import ZInQKernel.Contrib.CloudB3W13Shared.R2NOS.Definitions.Def_GoodReductionJacobian_RelativeGroupLawBaseChange
-import ZInQKernel.Contrib.CloudB3W13Shared.TateCp.Vendor.AnthropicFLT.Definitions.Def_FLTPrelim_Ramification
+import ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.Definitions.Def_FLTPrelim_Ramification
 import ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_GoodReductionJacobian_RelativeGroupLaw_natCard_isTorsionPoint_eq_pow_of_natCast_ne_zero
 import ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_GoodReductionJacobian_AbelianSchemePropertyBundle_baseChange_of_field
 import ZInQKernel.Contrib.CloudB3W13.Source.Theorems.Thm_GoodReductionJacobian_RelativeGroupLaw_exists_injective_specialize_isTorsionPoint_of_isUnramifiedAt
