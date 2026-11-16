@@ -30,7 +30,7 @@ open AlgebraicGeometry
 open P2MW.S_AlgebraicGeometry_RelEffCartierDiv_IsUniversal_exists_sumMap.AlgebraicGeometry
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Surjective Scheme.Hom.finrank_comp_left_of_isIso SmoothOfRelativeDimension Scheme.Hom IsFinite Scheme Smooth Flat IsSeparated LocallyOfFinitePresentation fibrePowOver fibrePowOver.proj fibrePowOver.toBase fibrePowOver.proj_comp prodKerGraph fibrePowOver.tautIdeal RelEffCartierDiv mapOnProdOver RelEffCartierDiv.I RelEffCartierDiv.IsUniversal RelEffCartierDiv.exists_split RelEffCartierDiv.exists_I_eq_prodKerGraph prodKerGraph_comap_mapOnProdOver)
+export _root_.AlgebraicGeometry (Surjective Scheme.Hom.finrank_comp_left_of_isIso SmoothOfRelativeDimension Scheme.Hom IsFinite Scheme Smooth Flat IsSeparated LocallyOfFinitePresentation fibrePowOver fibrePowOver.proj fibrePowOver.toBase fibrePowOver.proj_comp prodKerGraph fibrePowOver.tautIdeal RelEffCartierDiv mapOnProdOver RelEffCartierDiv.I RelEffCartierDiv.IsUniversal RelEffCartierDiv.exists_split RelEffCartierDiv.exists_I_eq_prodKerGraph prodKerGraph_comap_mapOnProdOver)
 open AlgebraicGeometry
 
 theorem prodKerGraph_congr {𝒞 S : Scheme.{u}} (f : 𝒞 ⟶ S) {r : ℕ} {T : Scheme.{u}} {g : T ⟶ S}
@@ -39,9 +39,9 @@ theorem prodKerGraph_congr {𝒞 S : Scheme.{u}} (f : 𝒞 ⟶ S) {r : ℕ} {T :
   subst h; rfl
 
 namespace RelEffCartierDiv
-export AlgebraicGeometry.RelEffCartierDiv (pullbackAlong pullbackAlong_comp I IsUniversal exists_split exists_I_eq_prodKerGraph)
+export _root_.AlgebraicGeometry.RelEffCartierDiv (pullbackAlong pullbackAlong_comp I IsUniversal exists_split exists_I_eq_prodKerGraph)
 namespace IsUniversal
-export AlgebraicGeometry.RelEffCartierDiv.IsUniversal (lift lift_comp pullsBackOver_lift hom_ext)
+export _root_.AlgebraicGeometry.RelEffCartierDiv.IsUniversal (lift lift_comp pullsBackOver_lift hom_ext)
 open AlgebraicGeometry.RelEffCartierDiv.IsUniversal
 open AlgebraicGeometry.RelEffCartierDiv
 
@@ -103,7 +103,7 @@ private theorem _root_.AlgebraicGeometry.RelEffCartierDiv.IsUniversal.exists_sum
   subst hup
   exact ⟨u ≫ p, hσ, hσI, inferInstance, inferInstance, inferInstance, inferInstance,
     fun x => by rw [Scheme.Hom.finrank_comp_left_of_isIso]; exact hrank x⟩
-export AlgebraicGeometry.RelEffCartierDiv.IsUniversal (exists_sumMap_aux)
+export _root_.AlgebraicGeometry.RelEffCartierDiv.IsUniversal (exists_sumMap_aux)
 end RelEffCartierDiv.IsUniversal
 
 end AlgebraicGeometry

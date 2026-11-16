@@ -31,11 +31,11 @@ set_option synthInstance.maxHeartbeats 1600000
 set_option maxHeartbeats 6400000
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme Scheme.Modules Scheme.Modules.projectionMorphism)
+export _root_.AlgebraicGeometry (Scheme Scheme.Modules Scheme.Modules.projectionMorphism)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Modules.pushforward Modules.pullback Modules Modules.projectionMorphism)
+export _root_.AlgebraicGeometry.Scheme (Modules.pushforward Modules.pullback Modules Modules.projectionMorphism)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (hom_ext pushforward pullback pullbackPushforwardAdjunction projectionMorphismMate projectionMorphism projectionMorphism_def projectionMorphismMate_def projectionMorphism_naturality)
+export _root_.AlgebraicGeometry.Scheme.Modules (hom_ext pushforward pullback pullbackPushforwardAdjunction projectionMorphismMate projectionMorphism projectionMorphism_def projectionMorphismMate_def projectionMorphism_naturality)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry

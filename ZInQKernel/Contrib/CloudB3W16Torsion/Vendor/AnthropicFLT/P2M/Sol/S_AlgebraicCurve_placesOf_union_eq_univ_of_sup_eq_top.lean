@@ -28,7 +28,7 @@ open CategoryTheory AlgebraicGeometry
 universe u
 
 namespace AlgebraicCurve
-export AlgebraicCurve (Place baseToFunctionField placesOf placesOf_sup exists_closedPoint_range_stalk_eq isClosed_singleton_of_ne_genericPoint exists_place_range_stalk_eq eq_of_range_stalk_eq)
+export _root_.AlgebraicCurve (Place baseToFunctionField placesOf placesOf_sup exists_closedPoint_range_stalk_eq isClosed_singleton_of_ne_genericPoint exists_place_range_stalk_eq eq_of_range_stalk_eq)
 open AlgebraicCurve
 open CategoryTheory AlgebraicGeometry TopologicalSpace
 

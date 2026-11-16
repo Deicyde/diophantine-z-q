@@ -40,9 +40,9 @@ open AlgebraicGeometry.SmoothProperCurve
 noncomputable section
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.pullback Spec Scheme Scheme.Modules.pullbackCongr Scheme.Modules Scheme.Modules.pullbackComp Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.exists_linearEquiv_sectionsOf_of_iso)
+export _root_.AlgebraicGeometry (Scheme.Modules.pullback Spec Scheme Scheme.Modules.pullbackCongr Scheme.Modules Scheme.Modules.pullbackComp Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.exists_linearEquiv_sectionsOf_of_iso)
 namespace RelPicard
-export AlgebraicGeometry.RelPicard (fibreAt fibreModule)
+export _root_.AlgebraicGeometry.RelPicard (fibreAt fibreModule)
 namespace TransportGen
 open AlgebraicGeometry.RelPicard
 open AlgebraicGeometry

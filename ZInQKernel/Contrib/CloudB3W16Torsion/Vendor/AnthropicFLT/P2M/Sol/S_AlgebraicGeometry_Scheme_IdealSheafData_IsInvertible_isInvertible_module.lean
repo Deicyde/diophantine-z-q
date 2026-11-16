@@ -33,11 +33,11 @@ open Opposite
 noncomputable section
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.pullback Scheme.Hom Scheme.Opens.ι_appIso Scheme.Hom.image_preimage_eq_opensRange_inf Scheme IsAffineOpen Scheme.Modules Scheme.Opens Scheme.Opens.opensRange_ι Scheme.IdealSheafData Scheme.Modules.IsInvertible Scheme.IdealSheafData.IsInvertible)
+export _root_.AlgebraicGeometry (Scheme.Modules.pullback Scheme.Hom Scheme.Opens.ι_appIso Scheme.Hom.image_preimage_eq_opensRange_inf Scheme IsAffineOpen Scheme.Modules Scheme.Opens Scheme.Opens.opensRange_ι Scheme.IdealSheafData Scheme.Modules.IsInvertible Scheme.IdealSheafData.IsInvertible)
 namespace Scheme
-export AlgebraicGeometry.Scheme (forget ringCatSheaf Modules.pullback Hom Γ Opens.ι_appIso Hom.image_preimage_eq_opensRange_inf Modules.restrictFunctor Modules.restrictFunctorIsoPullback restrictFunctor affineBasicOpen affineOpens basicOpen Modules IdealSheafData.map_ideal Opens grothendieckTopology Opens.opensRange_ι basicOpen_le restrict PresheafOfModules IdealSheafData Modules.IsInvertible IdealSheafData.IsInvertible)
+export _root_.AlgebraicGeometry.Scheme (forget ringCatSheaf Modules.pullback Hom Γ Opens.ι_appIso Hom.image_preimage_eq_opensRange_inf Modules.restrictFunctor Modules.restrictFunctorIsoPullback restrictFunctor affineBasicOpen affineOpens basicOpen Modules IdealSheafData.map_ideal Opens grothendieckTopology Opens.opensRange_ι basicOpen_le restrict PresheafOfModules IdealSheafData Modules.IsInvertible IdealSheafData.IsInvertible)
 namespace IdealSheafData
-export AlgebraicGeometry.Scheme.IdealSheafData (map subscheme map_id ideal map_comp inclusion subschemeι map_ideal ker_subschemeι_app module invModule IsInvertible)
+export _root_.AlgebraicGeometry.Scheme.IdealSheafData (map subscheme map_id ideal map_comp inclusion subschemeι map_ideal ker_subschemeι_app module invModule IsInvertible)
 open AlgebraicGeometry.Scheme.IdealSheafData
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry
@@ -46,13 +46,13 @@ variable {X : Scheme.{u}} (I : X.IdealSheafData)
 
 private def _root_.AlgebraicGeometry.Scheme.IdealSheafData.sectionsIdeal (U : X.Opens) : Ideal Γ(X, U) :=
   RingHom.ker (I.subschemeι.app U).hom
-export AlgebraicGeometry.Scheme.IdealSheafData (sectionsIdeal)
+export _root_.AlgebraicGeometry.Scheme.IdealSheafData (sectionsIdeal)
 private lemma _root_.AlgebraicGeometry.Scheme.IdealSheafData.mem_sectionsIdeal_iff {U : X.Opens} (s : Γ(X, U)) :
     s ∈ I.sectionsIdeal U ↔ I.subschemeι.app U s = 0 := RingHom.mem_ker
-export AlgebraicGeometry.Scheme.IdealSheafData (mem_sectionsIdeal_iff)
+export _root_.AlgebraicGeometry.Scheme.IdealSheafData (mem_sectionsIdeal_iff)
 private lemma _root_.AlgebraicGeometry.Scheme.IdealSheafData.sectionsIdeal_eq_ideal (U : X.affineOpens) : I.sectionsIdeal U = I.ideal U :=
   I.ker_subschemeι_app U
-export AlgebraicGeometry.Scheme.IdealSheafData (sectionsIdeal_eq_ideal)
+export _root_.AlgebraicGeometry.Scheme.IdealSheafData (sectionsIdeal_eq_ideal)
 private lemma _root_.AlgebraicGeometry.Scheme.IdealSheafData.map_mem_sectionsIdeal {U V : X.Opens} (i : V ⟶ U) {s : Γ(X, U)}
     (hs : s ∈ I.sectionsIdeal U) : X.presheaf.map i.op s ∈ I.sectionsIdeal V := by
   rw [mem_sectionsIdeal_iff] at hs ⊢
@@ -60,7 +60,7 @@ private lemma _root_.AlgebraicGeometry.Scheme.IdealSheafData.map_mem_sectionsIde
   simp only [CommRingCat.comp_apply] at this
 
   erw [this, hs, map_zero]
-export AlgebraicGeometry.Scheme.IdealSheafData (map_mem_sectionsIdeal)
+export _root_.AlgebraicGeometry.Scheme.IdealSheafData (map_mem_sectionsIdeal)
 def sectionsPresheaf : (X.Opens)ᵒᵖ ⥤ Ab.{u} where
   obj U := AddCommGrpCat.of (I.sectionsIdeal U.unop)
   map {U V} i := AddCommGrpCat.ofHom
@@ -155,7 +155,7 @@ lemma isSheaf_toPresheafOfModules :
 private def _root_.AlgebraicGeometry.Scheme.IdealSheafData.toModule : X.Modules where
   val := toPresheafOfModules I
   isSheaf := isSheaf_toPresheafOfModules I
-export AlgebraicGeometry.Scheme.IdealSheafData (toModule)
+export _root_.AlgebraicGeometry.Scheme.IdealSheafData (toModule)
 lemma toModule_sections (U : X.Opens) :
     ((toModule I).val.obj (op U) : Type u) = I.sectionsIdeal U := rfl
 
@@ -165,7 +165,7 @@ private def _root_.AlgebraicGeometry.Scheme.IdealSheafData.toModuleι : toModule
         map_add' := fun _ _ => rfl
         map_smul' := fun _ _ => rfl }
      naturality := fun i => by ext s; rfl }⟩
-export AlgebraicGeometry.Scheme.IdealSheafData (toModuleι)
+export _root_.AlgebraicGeometry.Scheme.IdealSheafData (toModuleι)
 example : (SheafOfModules.unit X.ringCatSheaf : X.Modules) = 𝟙_ X.Modules := rfl
 
 lemma toModuleι_app_apply (U : (X.Opens)ᵒᵖ) (s : (toModule I).val.obj U) :

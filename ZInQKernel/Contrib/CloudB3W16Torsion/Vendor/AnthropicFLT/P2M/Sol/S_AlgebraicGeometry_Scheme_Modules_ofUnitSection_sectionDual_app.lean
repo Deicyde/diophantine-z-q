@@ -28,11 +28,11 @@ open P2MW.S_AlgebraicGeometry_Scheme_Modules_ofUnitSection_sectionDual_app.Algeb
 noncomputable section
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme Scheme.Modules Scheme.Modules.ofUnitSection Scheme.Modules.coeff Scheme.Modules.sectionDual Scheme.Modules.dual Scheme.Modules.ihomSectionsEquiv Scheme.Modules.restrictUnitIso')
+export _root_.AlgebraicGeometry (Scheme Scheme.Modules Scheme.Modules.ofUnitSection Scheme.Modules.coeff Scheme.Modules.sectionDual Scheme.Modules.dual Scheme.Modules.ihomSectionsEquiv Scheme.Modules.restrictUnitIso')
 namespace Scheme
-export AlgebraicGeometry.Scheme (Γ Modules Opens evaluation Modules.ofUnitSection Modules.coeff Modules.sectionDual Modules.dual Modules.ihomSectionsEquiv Modules.restrictUnitIso')
+export _root_.AlgebraicGeometry.Scheme (Γ Modules Opens evaluation Modules.ofUnitSection Modules.coeff Modules.sectionDual Modules.dual Modules.ihomSectionsEquiv Modules.restrictUnitIso')
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (presheaf ofUnitSection restrictSection coeff sectionDual dual ihomEval map_ihomEval ihomEval_pre_app unitIsoSelf_hom_app ihomSectionsEquiv ihomSectionsEquiv_app_apply restrictUnitIso' restrictUnitIso_ι_hom_app_apply unitSection map_unitSection)
+export _root_.AlgebraicGeometry.Scheme.Modules (presheaf ofUnitSection restrictSection coeff sectionDual dual ihomEval map_ihomEval ihomEval_pre_app unitIsoSelf_hom_app ihomSectionsEquiv ihomSectionsEquiv_app_apply restrictUnitIso' restrictUnitIso_ι_hom_app_apply unitSection map_unitSection)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry

@@ -33,9 +33,9 @@ open AlgebraicGeometry
 open P2MW.S_AlgebraicGeometry_RelEffCartierDiv_exists_split.AlgebraicGeometry
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Surjective Scheme.Hom.le_ker_comp SmoothOfRelativeDimension Scheme.Hom Scheme.IdealSheafData.map_ker IsFinite Scheme Smooth Scheme.IdealSheafData.le_map_iff_comap_le Scheme.IdealSheafData.comap_top Flat IsClosedImmersion IsSeparated IsClosedImmersion.lift IsClosedImmersion.lift_fac Scheme.Hom.one_le_finrank_iff_surjective LocallyOfFinitePresentation Scheme.Hom.finrank_eq_one_of_isIso Scheme.IdealSheafData prodKerGraph prodKerGraph_zero prodKerGraph_succ RelEffCartierDiv.I_eq_top_of_degree_zero graphOver graphOver_fst RelEffCartierDiv.ofPoint graphOver_snd_assoc RelEffCartierDiv mapOnProdOver mapOnProdOver_fst mapOnProdOver_snd RelEffCartierDiv.pullbackAlong_comp RelEffCartierDiv.I RelEffCartierDiv.exists_I_eq_ker_graphOver_mul RelEffCartierDiv.isInvertible_I RelEffCartierDiv.pullbackAlong_ofPoint Scheme.IdealSheafData.comap_mul Scheme.Hom.finrank_comp_of_finrank_eq_const)
+export _root_.AlgebraicGeometry (Surjective Scheme.Hom.le_ker_comp SmoothOfRelativeDimension Scheme.Hom Scheme.IdealSheafData.map_ker IsFinite Scheme Smooth Scheme.IdealSheafData.le_map_iff_comap_le Scheme.IdealSheafData.comap_top Flat IsClosedImmersion IsSeparated IsClosedImmersion.lift IsClosedImmersion.lift_fac Scheme.Hom.one_le_finrank_iff_surjective LocallyOfFinitePresentation Scheme.Hom.finrank_eq_one_of_isIso Scheme.IdealSheafData prodKerGraph prodKerGraph_zero prodKerGraph_succ RelEffCartierDiv.I_eq_top_of_degree_zero graphOver graphOver_fst RelEffCartierDiv.ofPoint graphOver_snd_assoc RelEffCartierDiv mapOnProdOver mapOnProdOver_fst mapOnProdOver_snd RelEffCartierDiv.pullbackAlong_comp RelEffCartierDiv.I RelEffCartierDiv.exists_I_eq_ker_graphOver_mul RelEffCartierDiv.isInvertible_I RelEffCartierDiv.pullbackAlong_ofPoint Scheme.IdealSheafData.comap_mul Scheme.Hom.finrank_comp_of_finrank_eq_const)
 namespace RelEffCartierDiv
-export AlgebraicGeometry.RelEffCartierDiv (I_eq_top_of_degree_zero ofPoint pullbackAlong pullbackAlong_comp I flat isFinite finrank_eq locallyOfFinitePresentation exists_I_eq_ker_graphOver_mul isInvertible_I pullbackAlong_ofPoint)
+export _root_.AlgebraicGeometry.RelEffCartierDiv (I_eq_top_of_degree_zero ofPoint pullbackAlong pullbackAlong_comp I flat isFinite finrank_eq locallyOfFinitePresentation exists_I_eq_ker_graphOver_mul isInvertible_I pullbackAlong_ofPoint)
 open AlgebraicGeometry.RelEffCartierDiv
 open AlgebraicGeometry
 
@@ -66,12 +66,12 @@ private theorem _root_.AlgebraicGeometry.RelEffCartierDiv.pullbackAlong_I_le_ker
   · rintro ⟨s, hs⟩
     rw [← hs]
     exact D.I.ker_subschemeι.symm.trans_le (Scheme.Hom.le_ker_comp _ _)
-export AlgebraicGeometry.RelEffCartierDiv (pullbackAlong_I_le_ker_graphOver_iff)
+export _root_.AlgebraicGeometry.RelEffCartierDiv (pullbackAlong_I_le_ker_graphOver_iff)
 private noncomputable def _root_.AlgebraicGeometry.RelEffCartierDiv.liftOfLE (D : RelEffCartierDiv f r g) {T' : Scheme.{u}} {g' : T' ⟶ S}
     (q : T' ⟶ T) (hq : q ≫ g = g') (a : T' ⟶ 𝒞) (ha : a ≫ f = g')
     (h : (D.pullbackAlong q hq).I ≤ (graphOver f a ha).ker) : T' ⟶ D.I.subscheme :=
   ((D.pullbackAlong_I_le_ker_graphOver_iff q hq a ha).1 h).choose
-export AlgebraicGeometry.RelEffCartierDiv (liftOfLE)
+export _root_.AlgebraicGeometry.RelEffCartierDiv (liftOfLE)
 @[reassoc (attr := simp)]
 lemma liftOfLE_ι (D : RelEffCartierDiv f r g) {T' : Scheme.{u}} {g' : T' ⟶ S}
     (q : T' ⟶ T) (hq : q ≫ g = g') (a : T' ⟶ 𝒞) (ha : a ≫ f = g')
@@ -85,14 +85,14 @@ private lemma _root_.AlgebraicGeometry.RelEffCartierDiv.liftOfLE_ι_fst (D : Rel
     (h : (D.pullbackAlong q hq).I ≤ (graphOver f a ha).ker) :
     D.liftOfLE q hq a ha h ≫ D.I.subschemeι ≫ pullback.fst f g = a := by
   rw [liftOfLE_ι_assoc, pullback.lift_fst]
-export AlgebraicGeometry.RelEffCartierDiv (liftOfLE_ι_fst liftOfLE_ι_fst_assoc)
+export _root_.AlgebraicGeometry.RelEffCartierDiv (liftOfLE_ι_fst liftOfLE_ι_fst_assoc)
 @[reassoc (attr := simp)]
 private lemma _root_.AlgebraicGeometry.RelEffCartierDiv.liftOfLE_ι_snd (D : RelEffCartierDiv f r g) {T' : Scheme.{u}} {g' : T' ⟶ S}
     (q : T' ⟶ T) (hq : q ≫ g = g') (a : T' ⟶ 𝒞) (ha : a ≫ f = g')
     (h : (D.pullbackAlong q hq).I ≤ (graphOver f a ha).ker) :
     D.liftOfLE q hq a ha h ≫ D.I.subschemeι ≫ pullback.snd f g = q := by
   rw [liftOfLE_ι_assoc, pullback.lift_snd]
-export AlgebraicGeometry.RelEffCartierDiv (liftOfLE_ι_snd liftOfLE_ι_snd_assoc)
+export _root_.AlgebraicGeometry.RelEffCartierDiv (liftOfLE_ι_snd liftOfLE_ι_snd_assoc)
 private lemma _root_.AlgebraicGeometry.RelEffCartierDiv.hom_subscheme_ext (D : RelEffCartierDiv f r g) {T' : Scheme.{u}}
     {s s' : T' ⟶ D.I.subscheme}
     (h₁ : s ≫ D.I.subschemeι ≫ pullback.fst f g = s' ≫ D.I.subschemeι ≫ pullback.fst f g)
@@ -102,7 +102,7 @@ private lemma _root_.AlgebraicGeometry.RelEffCartierDiv.hom_subscheme_ext (D : R
   apply pullback.hom_ext
   · simpa only [Category.assoc] using h₁
   · simpa only [Category.assoc] using h₂
-export AlgebraicGeometry.RelEffCartierDiv (hom_subscheme_ext)
+export _root_.AlgebraicGeometry.RelEffCartierDiv (hom_subscheme_ext)
 private lemma _root_.AlgebraicGeometry.RelEffCartierDiv.pullbackAlong_I_le_ker_graphOver_taut (D : RelEffCartierDiv f r g) {gZ : D.I.subscheme ⟶ S}
     (hgZ : (D.I.subschemeι ≫ pullback.snd f g) ≫ g = gZ) :
     (D.pullbackAlong (D.I.subschemeι ≫ pullback.snd f g) hgZ).I ≤
@@ -113,13 +113,13 @@ private lemma _root_.AlgebraicGeometry.RelEffCartierDiv.pullbackAlong_I_le_ker_g
     apply pullback.hom_ext
     · exact (pullback.lift_fst _ _ _).symm
     · exact (pullback.lift_snd _ _ _).symm⟩
-export AlgebraicGeometry.RelEffCartierDiv (pullbackAlong_I_le_ker_graphOver_taut)
+export _root_.AlgebraicGeometry.RelEffCartierDiv (pullbackAlong_I_le_ker_graphOver_taut)
 end AlgebraicGeometry.RelEffCartierDiv
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Surjective Scheme.Hom.le_ker_comp SmoothOfRelativeDimension Scheme.Hom Scheme.IdealSheafData.map_ker IsFinite Scheme Smooth Scheme.IdealSheafData.le_map_iff_comap_le Scheme.IdealSheafData.comap_top Flat IsClosedImmersion IsSeparated IsClosedImmersion.lift IsClosedImmersion.lift_fac Scheme.Hom.one_le_finrank_iff_surjective LocallyOfFinitePresentation Scheme.Hom.finrank_eq_one_of_isIso Scheme.IdealSheafData prodKerGraph prodKerGraph_zero prodKerGraph_succ RelEffCartierDiv.I_eq_top_of_degree_zero graphOver graphOver_fst RelEffCartierDiv.ofPoint graphOver_snd_assoc RelEffCartierDiv mapOnProdOver mapOnProdOver_fst mapOnProdOver_snd RelEffCartierDiv.pullbackAlong_comp RelEffCartierDiv.I RelEffCartierDiv.exists_I_eq_ker_graphOver_mul RelEffCartierDiv.isInvertible_I RelEffCartierDiv.pullbackAlong_ofPoint Scheme.IdealSheafData.comap_mul Scheme.Hom.finrank_comp_of_finrank_eq_const)
+export _root_.AlgebraicGeometry (Surjective Scheme.Hom.le_ker_comp SmoothOfRelativeDimension Scheme.Hom Scheme.IdealSheafData.map_ker IsFinite Scheme Smooth Scheme.IdealSheafData.le_map_iff_comap_le Scheme.IdealSheafData.comap_top Flat IsClosedImmersion IsSeparated IsClosedImmersion.lift IsClosedImmersion.lift_fac Scheme.Hom.one_le_finrank_iff_surjective LocallyOfFinitePresentation Scheme.Hom.finrank_eq_one_of_isIso Scheme.IdealSheafData prodKerGraph prodKerGraph_zero prodKerGraph_succ RelEffCartierDiv.I_eq_top_of_degree_zero graphOver graphOver_fst RelEffCartierDiv.ofPoint graphOver_snd_assoc RelEffCartierDiv mapOnProdOver mapOnProdOver_fst mapOnProdOver_snd RelEffCartierDiv.pullbackAlong_comp RelEffCartierDiv.I RelEffCartierDiv.exists_I_eq_ker_graphOver_mul RelEffCartierDiv.isInvertible_I RelEffCartierDiv.pullbackAlong_ofPoint Scheme.IdealSheafData.comap_mul Scheme.Hom.finrank_comp_of_finrank_eq_const)
 namespace RelEffCartierDiv
-export AlgebraicGeometry.RelEffCartierDiv (I_eq_top_of_degree_zero ofPoint pullbackAlong pullbackAlong_comp I flat isFinite finrank_eq locallyOfFinitePresentation exists_I_eq_ker_graphOver_mul isInvertible_I pullbackAlong_ofPoint)
+export _root_.AlgebraicGeometry.RelEffCartierDiv (I_eq_top_of_degree_zero ofPoint pullbackAlong pullbackAlong_comp I flat isFinite finrank_eq locallyOfFinitePresentation exists_I_eq_ker_graphOver_mul isInvertible_I pullbackAlong_ofPoint)
 namespace SplitProof
 open AlgebraicGeometry.RelEffCartierDiv
 open AlgebraicGeometry

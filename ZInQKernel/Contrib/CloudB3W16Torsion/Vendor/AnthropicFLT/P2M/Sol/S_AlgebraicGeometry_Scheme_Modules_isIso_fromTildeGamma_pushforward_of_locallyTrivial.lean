@@ -27,11 +27,11 @@ open Opposite
 open TopologicalSpace
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.basicOpen_res Scheme.Modules.pushforward Scheme.Modules.pullback Spec RingedSpace.isUnit_res_basicOpen Scheme Scheme.Modules.fromTildeΓ modulesSpecToSheaf Scheme.preimage_basicOpen_top IsAffineOpen Scheme.Modules tilde Scheme.Modules.map_smul RingedSpace basicOpen_eq_of_affine Scheme.ΓSpecIso)
+export _root_.AlgebraicGeometry (Scheme.basicOpen_res Scheme.Modules.pushforward Scheme.Modules.pullback Spec RingedSpace.isUnit_res_basicOpen Scheme Scheme.Modules.fromTildeΓ modulesSpecToSheaf Scheme.preimage_basicOpen_top IsAffineOpen Scheme.Modules tilde Scheme.Modules.map_smul RingedSpace basicOpen_eq_of_affine Scheme.ΓSpecIso)
 namespace Scheme
-export AlgebraicGeometry.Scheme (basicOpen_res ringCatSheaf Modules.pushforward Modules.pullback Hom Γ toLocallyRingedSpace Modules.fromTildeΓ basicOpen preimage_basicOpen_top Modules Opens rec Modules.map_smul basicOpen_le ΓSpecIso TwoAffineOpenCover)
+export _root_.AlgebraicGeometry.Scheme (basicOpen_res ringCatSheaf Modules.pushforward Modules.pullback Hom Γ toLocallyRingedSpace Modules.fromTildeΓ basicOpen preimage_basicOpen_top Modules Opens rec Modules.map_smul basicOpen_le ΓSpecIso TwoAffineOpenCover)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (pushforward pullback presheaf Hom fromTildeΓ isSheaf map_smul isIso_fromTildeGamma_iff_isLocalizedModule isLocalization_basicOpen_of_locallyTrivial)
+export _root_.AlgebraicGeometry.Scheme.Modules (pushforward pullback presheaf Hom fromTildeΓ isSheaf map_smul isIso_fromTildeGamma_iff_isLocalizedModule isLocalization_basicOpen_of_locallyTrivial)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry

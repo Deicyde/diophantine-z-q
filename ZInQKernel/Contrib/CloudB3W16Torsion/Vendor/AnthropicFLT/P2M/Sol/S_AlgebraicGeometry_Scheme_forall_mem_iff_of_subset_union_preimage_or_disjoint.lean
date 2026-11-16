@@ -35,9 +35,9 @@ open scoped CategoryTheory.MonObj
 attribute [local instance] MvPolynomial.gradedAlgebra
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Surjective LocallyOfFiniteType Spec IsIntegral Scheme LocallyOfFiniteType.jacobsonSpace exists_over_hom_base_closedPoint_eq_of_isClosed_singleton)
+export _root_.AlgebraicGeometry (Surjective LocallyOfFiniteType Spec IsIntegral Scheme LocallyOfFiniteType.jacobsonSpace exists_over_hom_base_closedPoint_eq_of_isClosed_singleton)
 namespace Scheme
-export AlgebraicGeometry.Scheme (forget mk)
+export _root_.AlgebraicGeometry.Scheme (forget mk)
 namespace TranslateCore
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry

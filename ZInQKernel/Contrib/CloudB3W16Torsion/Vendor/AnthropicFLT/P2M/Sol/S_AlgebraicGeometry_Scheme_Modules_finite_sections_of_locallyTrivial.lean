@@ -29,11 +29,11 @@ open TopologicalSpace
 open Opposite
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.pullback Scheme.Hom Scheme.Modules.presheaf Scheme.Opens.ι_appIso Scheme.Hom.image_preimage_eq_opensRange_inf Scheme Scheme.Hom.appIso Scheme.Hom.preimage_mono IsAffineOpen Scheme.Modules Scheme.Opens Scheme.Hom.image_mono Scheme.Hom.opensFunctor Scheme.Opens.opensRange_ι AffineScheme)
+export _root_.AlgebraicGeometry (Scheme.Modules.pullback Scheme.Hom Scheme.Modules.presheaf Scheme.Opens.ι_appIso Scheme.Hom.image_preimage_eq_opensRange_inf Scheme Scheme.Hom.appIso Scheme.Hom.preimage_mono IsAffineOpen Scheme.Modules Scheme.Opens Scheme.Hom.image_mono Scheme.Hom.opensFunctor Scheme.Opens.opensRange_ι AffineScheme)
 namespace Scheme
-export AlgebraicGeometry.Scheme (ringCatSheaf Modules.pullback Hom.id_app Hom Modules.presheaf Γ Opens.ι_appIso Hom.image_preimage_eq_opensRange_inf Hom.appIso Hom.preimage_mono affineOpens Hom.comp_app basicOpen Modules Opens Hom.image_mono Hom.opensFunctor Opens.opensRange_ι basicOpen_le restrict)
+export _root_.AlgebraicGeometry.Scheme (ringCatSheaf Modules.pullback Hom.id_app Hom Modules.presheaf Γ Opens.ι_appIso Hom.image_preimage_eq_opensRange_inf Hom.appIso Hom.preimage_mono affineOpens Hom.comp_app basicOpen Modules Opens Hom.image_mono Hom.opensFunctor Opens.opensRange_ι basicOpen_le restrict)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (Hom.app_smul pullback presheaf Hom.comp_app Hom mapPresheaf_app Hom.id_app restrictFunctorIsoPullback restrict_map restrict map_smul isLocalization_basicOpen_of_locallyTrivial)
+export _root_.AlgebraicGeometry.Scheme.Modules (Hom.app_smul pullback presheaf Hom.comp_app Hom mapPresheaf_app Hom.id_app restrictFunctorIsoPullback restrict_map restrict map_smul isLocalization_basicOpen_of_locallyTrivial)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry

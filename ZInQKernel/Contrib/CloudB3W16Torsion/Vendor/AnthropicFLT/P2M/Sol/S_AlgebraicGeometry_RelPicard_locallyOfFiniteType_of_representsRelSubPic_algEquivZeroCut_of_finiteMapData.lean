@@ -38,9 +38,9 @@ open P2MW.S_AlgebraicGeometry_RelPicard_locallyOfFiniteType_of_representsRelSubP
 open Opposite
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (SmoothOfRelativeDimension IsProper GeometricallyIntegral LocallyOfFiniteType Spec Spec.map Scheme geometrically SmoothProperCurve.FiniteMapData)
+export _root_.AlgebraicGeometry (SmoothOfRelativeDimension IsProper GeometricallyIntegral LocallyOfFiniteType Spec Spec.map Scheme geometrically SmoothProperCurve.FiniteMapData)
 namespace AffineLimit
-export AlgebraicGeometry.AffineLimit (specOver specOverOfSubalgebra IsLFPSurj HomIsLFP locallyOfFiniteType_of_forall_exists_fg_factor)
+export _root_.AlgebraicGeometry.AffineLimit (specOver specOverOfSubalgebra IsLFPSurj HomIsLFP locallyOfFiniteType_of_forall_exists_fg_factor)
 open AlgebraicGeometry.AffineLimit
 open AlgebraicGeometry
 

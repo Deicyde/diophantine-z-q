@@ -51,9 +51,9 @@ open TensorProduct
 open nonZeroDivisors
 
 namespace Algebra
-export Algebra (TensorProduct.rid ofId IsPushout TensorProduct.includeRight algebraMap TensorProduct.lTensor_ker QuasiFinite IsPushout.equiv Smooth smul_def TensorProduct.includeLeft id TensorProduct.map)
+export _root_.Algebra (TensorProduct.rid ofId IsPushout TensorProduct.includeRight algebraMap TensorProduct.lTensor_ker QuasiFinite IsPushout.equiv Smooth smul_def TensorProduct.includeLeft id TensorProduct.map)
 namespace IsPushout
-export Algebra.IsPushout (equiv symm)
+export _root_.Algebra.IsPushout (equiv symm)
 open Algebra.IsPushout
 open Algebra
 
@@ -99,7 +99,7 @@ theorem ker_algebraMap_eq_map_ker
 end Algebra.IsPushout
 
 namespace CommRingCat
-export CommRingCat (hom_comp of hom_ext flat ofHom comp_apply Hom isPushout_iff_isPushout)
+export _root_.CommRingCat (hom_comp of hom_ext flat ofHom comp_apply Hom isPushout_iff_isPushout)
 open CommRingCat
 
 theorem ker_eq_map_ker_of_isPushout {R B C P : CommRingCat.{u}} {f : R ⟶ B} {g : R ⟶ C}
@@ -116,11 +116,11 @@ theorem ker_eq_map_ker_of_isPushout {R B C P : CommRingCat.{u}} {f : R ⟶ B} {g
 end CommRingCat
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Hom.resLE_comp_ι Scheme.Hom.map_appLE IsLocallyNoetherian SmoothOfRelativeDimension.smooth Scheme.Opens.topIso_inv Surjective Scheme.Hom.finrank_comp_left_of_isIso SmoothOfRelativeDimension IsProper Scheme.IdealSheafData.comapIso_inv_subschemeι Scheme.IdealSheafData.comap_comp isPushout_appTop_of_isPullback Scheme.Hom Scheme.Opens.ι_appIso LocallyQuasiFinite IsFinite isAffine_of_isAffineHom Scheme.Pullback.range_fst IsAffine Scheme.preimage_basicOpen Spec Spec.map Scheme Smooth Scheme.Hom.appTop Scheme.Opens.topIso_hom Scheme.Hom.comp_base Flat Scheme.Hom.finrank_of_isPullback isAffineOpen_top Scheme.fromSpecResidueField_apply Scheme.IdealSheafData.ideal_map_of_isAffineHom locallyQuasiFinite_iff_finite_preimage_singleton Scheme.Modules Scheme.Hom.ker_apply Scheme.Opens Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE LocallyOfFinitePresentation Scheme.Hom.resLE_app_top Scheme.Opens.ι_image_top IsAffineHom IsFinite.of_isProper_of_locallyQuasiFinite Scheme.Hom.comp_apply Scheme.Hom.appLE range_eq_univ Scheme.IdealSheafData Scheme.Modules.zeroSchemeIdeal RelEffCartierDiv mapOnProdOver mapOnProdOver_fst mapOnProdOver_snd Scheme.Modules.IsInvertible)
+export _root_.AlgebraicGeometry (Scheme.Hom.resLE_comp_ι Scheme.Hom.map_appLE IsLocallyNoetherian SmoothOfRelativeDimension.smooth Scheme.Opens.topIso_inv Surjective Scheme.Hom.finrank_comp_left_of_isIso SmoothOfRelativeDimension IsProper Scheme.IdealSheafData.comapIso_inv_subschemeι Scheme.IdealSheafData.comap_comp isPushout_appTop_of_isPullback Scheme.Hom Scheme.Opens.ι_appIso LocallyQuasiFinite IsFinite isAffine_of_isAffineHom Scheme.Pullback.range_fst IsAffine Scheme.preimage_basicOpen Spec Spec.map Scheme Smooth Scheme.Hom.appTop Scheme.Opens.topIso_hom Scheme.Hom.comp_base Flat Scheme.Hom.finrank_of_isPullback isAffineOpen_top Scheme.fromSpecResidueField_apply Scheme.IdealSheafData.ideal_map_of_isAffineHom locallyQuasiFinite_iff_finite_preimage_singleton Scheme.Modules Scheme.Hom.ker_apply Scheme.Opens Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE LocallyOfFinitePresentation Scheme.Hom.resLE_app_top Scheme.Opens.ι_image_top IsAffineHom IsFinite.of_isProper_of_locallyQuasiFinite Scheme.Hom.comp_apply Scheme.Hom.appLE range_eq_univ Scheme.IdealSheafData Scheme.Modules.zeroSchemeIdeal RelEffCartierDiv mapOnProdOver mapOnProdOver_fst mapOnProdOver_snd Scheme.Modules.IsInvertible)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Hom.resLE_comp_ι Hom.map_appLE fromSpecResidueField Opens.topIso_inv Hom.finrank_comp_left_of_isIso IdealSheafData.comapIso_inv_subschemeι IdealSheafData.comap_comp Hom Γ Opens.ι_appIso topIso_hom Pullback.range_fst preimage_basicOpen Hom.appTop Opens.topIso_hom Hom.comp_base residueField Hom.finrank_of_isPullback affineBasicOpen affineOpens basicOpen fromSpecResidueField_apply IdealSheafData.ideal_map_of_isAffineHom Modules Hom.ker_apply Opens Hom.appLE_map Hom.app_eq_appLE Hom.resLE_app_top Opens.ι_image_top restrict Hom.comp_apply Hom.appLE IdealSheafData Modules.zeroSchemeIdeal Modules.IsInvertible)
+export _root_.AlgebraicGeometry.Scheme (Hom.resLE_comp_ι Hom.map_appLE fromSpecResidueField Opens.topIso_inv Hom.finrank_comp_left_of_isIso IdealSheafData.comapIso_inv_subschemeι IdealSheafData.comap_comp Hom Γ Opens.ι_appIso topIso_hom Pullback.range_fst preimage_basicOpen Hom.appTop Opens.topIso_hom Hom.comp_base residueField Hom.finrank_of_isPullback affineBasicOpen affineOpens basicOpen fromSpecResidueField_apply IdealSheafData.ideal_map_of_isAffineHom Modules Hom.ker_apply Opens Hom.appLE_map Hom.app_eq_appLE Hom.resLE_app_top Opens.ι_image_top restrict Hom.comp_apply Hom.appLE IdealSheafData Modules.zeroSchemeIdeal Modules.IsInvertible)
 namespace IdealSheafData
-export AlgebraicGeometry.Scheme.IdealSheafData (comapIso_inv_subschemeι comap_comp comapIso map subscheme subschemeι_app_surjective ideal ideal_map_of_isAffineHom subschemeι comap ker_subschemeι_app ideal_comap_of_isOpenImmersion invModuleSection IsInvertible resLE)
+export _root_.AlgebraicGeometry.Scheme.IdealSheafData (comapIso_inv_subschemeι comap_comp comapIso map subscheme subschemeι_app_surjective ideal ideal_map_of_isAffineHom subschemeι comap ker_subschemeι_app ideal_comap_of_isOpenImmersion invModuleSection IsInvertible resLE)
 open AlgebraicGeometry.Scheme.IdealSheafData hiding ideal_comap_of_le
 open AlgebraicGeometry.Scheme hiding IdealSheafData.ideal_comap_of_le
 open AlgebraicGeometry hiding Scheme.IdealSheafData.ideal_comap_of_le

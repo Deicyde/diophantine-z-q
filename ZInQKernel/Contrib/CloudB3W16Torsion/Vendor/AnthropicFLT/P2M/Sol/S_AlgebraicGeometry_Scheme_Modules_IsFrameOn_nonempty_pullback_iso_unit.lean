@@ -31,11 +31,11 @@ set_option backward.isDefEq.respectTransparency false
 noncomputable section
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.pullback Scheme.Hom Scheme.Opens.ι_appIso Scheme.Hom.image_preimage_eq_opensRange_inf Scheme Scheme.Modules Scheme.Opens Scheme.Modules.map_smul Scheme.Opens.opensRange_ι Scheme.Modules.IsFrameOn)
+export _root_.AlgebraicGeometry (Scheme.Modules.pullback Scheme.Hom Scheme.Opens.ι_appIso Scheme.Hom.image_preimage_eq_opensRange_inf Scheme Scheme.Modules Scheme.Opens Scheme.Modules.map_smul Scheme.Opens.opensRange_ι Scheme.Modules.IsFrameOn)
 namespace Scheme
-export AlgebraicGeometry.Scheme (forget ringCatSheaf Modules.pullback Hom Γ Opens.ι_appIso Hom.image_preimage_eq_opensRange_inf Modules.restrictFunctor Modules.restrictFunctorIsoPullback restrictFunctor Modules Opens grothendieckTopology Modules.map_smul Opens.opensRange_ι restrict PresheafOfModules Modules.IsFrameOn)
+export _root_.AlgebraicGeometry.Scheme (forget ringCatSheaf Modules.pullback Hom Γ Opens.ι_appIso Hom.image_preimage_eq_opensRange_inf Modules.restrictFunctor Modules.restrictFunctorIsoPullback restrictFunctor Modules Opens grothendieckTopology Modules.map_smul Opens.opensRange_ι restrict PresheafOfModules Modules.IsFrameOn)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (hom_ext toPresheaf pushforward pullback presheaf Hom restrictFunctor restrictFunctorIsoPullback restrict map_smul IsFrameOn)
+export _root_.AlgebraicGeometry.Scheme.Modules (hom_ext toPresheaf pushforward pullback presheaf Hom restrictFunctor restrictFunctorIsoPullback restrict map_smul IsFrameOn)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry

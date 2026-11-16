@@ -42,11 +42,11 @@ open Opposite
 open TopologicalSpace
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (SmoothOfRelativeDimension IsProper IsAffine.of_isIso IsAffine Spec IsIntegral Scheme IsAffineOpen Scheme.Modules Scheme.Modules.exists_forall_eq_mul_of_presentations not_isAffine_of_isProper_of_smoothOfRelativeDimension_one)
+export _root_.AlgebraicGeometry (SmoothOfRelativeDimension IsProper IsAffine.of_isIso IsAffine Spec IsIntegral Scheme IsAffineOpen Scheme.Modules Scheme.Modules.exists_forall_eq_mul_of_presentations not_isAffine_of_isProper_of_smoothOfRelativeDimension_one)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Γ topIso functionField isBasis_affineOpens Modules Opens Modules.exists_forall_eq_mul_of_presentations)
+export _root_.AlgebraicGeometry.Scheme (Γ topIso functionField isBasis_affineOpens Modules Opens Modules.exists_forall_eq_mul_of_presentations)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (presheaf exists_forall_eq_mul_of_presentations)
+export _root_.AlgebraicGeometry.Scheme.Modules (presheaf exists_forall_eq_mul_of_presentations)
 namespace PresUniq
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme

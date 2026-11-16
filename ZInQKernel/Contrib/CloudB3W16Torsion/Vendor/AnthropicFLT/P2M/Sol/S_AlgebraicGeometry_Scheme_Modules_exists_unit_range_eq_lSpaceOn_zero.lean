@@ -30,11 +30,11 @@ open Opposite
 open TopologicalSpace
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.germToFunctionField SmoothOfRelativeDimension Scheme.Modules.presheaf Scheme.germToFunctionField_injective Spec IsIntegral Scheme IsAffineOpen Scheme.Modules)
+export _root_.AlgebraicGeometry (Scheme.germToFunctionField SmoothOfRelativeDimension Scheme.Modules.presheaf Scheme.germToFunctionField_injective Spec IsIntegral Scheme IsAffineOpen Scheme.Modules)
 namespace Scheme
-export AlgebraicGeometry.Scheme (germToFunctionField ringCatSheaf Modules.presheaf germToFunctionField_injective Γ empty functionField Modules Opens)
+export _root_.AlgebraicGeometry.Scheme (germToFunctionField ringCatSheaf Modules.presheaf germToFunctionField_injective Γ empty functionField Modules Opens)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (presheaf)
+export _root_.AlgebraicGeometry.Scheme.Modules (presheaf)
 namespace UnitFF
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme

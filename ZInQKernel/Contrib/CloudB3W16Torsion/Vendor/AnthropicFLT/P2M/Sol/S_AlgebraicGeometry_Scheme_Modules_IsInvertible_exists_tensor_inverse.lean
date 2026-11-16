@@ -31,7 +31,7 @@ open CategoryTheory.Limits
 open CategoryTheory.MonoidalCategory.Limits
 
 namespace PresheafOfModules
-export PresheafOfModules (sheafification sheafify presheaf sections pullback naturality_apply pushforward evaluation inverseImage_W_toPresheaf_eq_inverseImage_isomorphisms map map_comp_apply IsLocallyInjective Hom toPresheaf unit free restriction pullbackComp obj IsLocallySurjective InternalHom.map_id_apply InternalHom.naturality InternalHom.smul_app ihomObj uncurry' uncurry'_app_tmul isSheaf_ihomObj)
+export _root_.PresheafOfModules (sheafification sheafify presheaf sections pullback naturality_apply pushforward evaluation inverseImage_W_toPresheaf_eq_inverseImage_isomorphisms map map_comp_apply IsLocallyInjective Hom toPresheaf unit free restriction pullbackComp obj IsLocallySurjective InternalHom.map_id_apply InternalHom.naturality InternalHom.smul_app ihomObj uncurry' uncurry'_app_tmul isSheaf_ihomObj)
 open PresheafOfModules
 
 namespace InvertibleDual
@@ -183,11 +183,11 @@ end InvertibleDual
 end PresheafOfModules
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Hom Scheme.Opens.ι_appIso Scheme.Hom.image_preimage_eq_opensRange_inf Scheme Scheme.Modules Scheme.Opens Scheme.Opens.opensRange_ι Scheme.Modules.IsInvertible Scheme.Modules.pullbackUnitIso Scheme.Modules.tensorIsoSheafify)
+export _root_.AlgebraicGeometry (Scheme.Hom Scheme.Opens.ι_appIso Scheme.Hom.image_preimage_eq_opensRange_inf Scheme Scheme.Modules Scheme.Opens Scheme.Opens.opensRange_ι Scheme.Modules.IsInvertible Scheme.Modules.pullbackUnitIso Scheme.Modules.tensorIsoSheafify)
 namespace Scheme
-export AlgebraicGeometry.Scheme (ringCatSheaf Modules.pullback Hom Γ Opens.ι_appIso Hom.image_preimage_eq_opensRange_inf Modules.restrictFunctor restrictFunctor Modules.pullbackCongr Modules Opens homOfLE_ι grothendieckTopology Opens.opensRange_ι PresheafOfModules Modules.pullbackComp evaluation Modules.IsInvertible Modules.pullbackUnitIso Modules.sheafify Modules.tensorIsoSheafify)
+export _root_.AlgebraicGeometry.Scheme (ringCatSheaf Modules.pullback Hom Γ Opens.ι_appIso Hom.image_preimage_eq_opensRange_inf Modules.restrictFunctor restrictFunctor Modules.pullbackCongr Modules Opens homOfLE_ι grothendieckTopology Opens.opensRange_ι PresheafOfModules Modules.pullbackComp evaluation Modules.IsInvertible Modules.pullbackUnitIso Modules.sheafify Modules.tensorIsoSheafify)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (toPresheaf pushforward pullback presheaf Hom restrictFunctor restrictFunctorIsoPullback pullbackCongr isSheaf map_smul pullbackComp IsInvertible pullbackUnitIso tensor dual sheafify tensorIsoSheafify pullbackTensorUnitObjIso)
+export _root_.AlgebraicGeometry.Scheme.Modules (toPresheaf pushforward pullback presheaf Hom restrictFunctor restrictFunctorIsoPullback pullbackCongr isSheaf map_smul pullbackComp IsInvertible pullbackUnitIso tensor dual sheafify tensorIsoSheafify pullbackTensorUnitObjIso)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry

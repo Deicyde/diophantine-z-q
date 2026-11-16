@@ -23,9 +23,9 @@ open AlgebraicCurve
 open P2MW.S_AlgebraicCurve_Place_exists_not_mem_and_forall_ne_mem.AlgebraicCurve
 
 namespace AlgebraicCurve
-export AlgebraicCurve (Place Divisor Divisor.degree Divisor.degree_single IsCurveOver LSpace ell ConstantsAreBase ell_zero_eq_one_of_constantsAreBase stichtenothGenusExists_of_isCurveOver one_le_deg)
+export _root_.AlgebraicCurve (Place Divisor Divisor.degree Divisor.degree_single IsCurveOver LSpace ell ConstantsAreBase ell_zero_eq_one_of_constantsAreBase stichtenothGenusExists_of_isCurveOver one_le_deg)
 namespace Place
-export AlgebraicCurve.Place (deg heightOneSpectrum heightOneSpectrum_asIdeal adicValuation adicValuation_ne_zero adicValuation_coe toValuationSubring adicValuation_le_one_of_mem)
+export _root_.AlgebraicCurve.Place (deg heightOneSpectrum heightOneSpectrum_asIdeal adicValuation adicValuation_ne_zero adicValuation_coe toValuationSubring adicValuation_le_one_of_mem)
 open AlgebraicCurve.Place
 open AlgebraicCurve
 
@@ -60,7 +60,7 @@ private theorem _root_.AlgebraicCurve.Place.adicValuation_le_one_iff_mem (v : Pl
   have hpos : 0 < v.adicValuation f := zero_lt_iff.mpr (v.adicValuation_ne_zero hf0)
   have : 1 < v.adicValuation f := (inv_lt_one₀ hpos).mp hlt
   exact absurd h (not_le.mpr this)
-export AlgebraicCurve.Place (adicValuation_le_one_iff_mem)
+export _root_.AlgebraicCurve.Place (adicValuation_le_one_iff_mem)
 end AlgebraicCurve.Place
 open AlgebraicCurve
 open P2MW.S_AlgebraicCurve_Place_exists_not_mem_and_forall_ne_mem.AlgebraicCurve

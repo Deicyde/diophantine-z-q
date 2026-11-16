@@ -30,11 +30,11 @@ open Opposite
 open NeronModelInfra
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Spec Scheme IsAffineOpen SmoothProperCurve.FiniteMapData Scheme.TwoAffineOpenCover)
+export _root_.AlgebraicGeometry (Spec Scheme IsAffineOpen SmoothProperCurve.FiniteMapData Scheme.TwoAffineOpenCover)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Γ basicOpen Opens basicOpen_le Cover TwoAffineOpenCover)
+export _root_.AlgebraicGeometry.Scheme (Γ basicOpen Opens basicOpen_le Cover TwoAffineOpenCover)
 namespace TwoAffineOpenCover
-export AlgebraicGeometry.Scheme.TwoAffineOpenCover (cover cover_ρ0_apply cover_ρ1_apply lineBundleSections)
+export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (cover cover_ρ0_apply cover_ρ1_apply lineBundleSections)
 open AlgebraicGeometry.Scheme.TwoAffineOpenCover
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry
@@ -101,11 +101,11 @@ end ChartFiniteInstances
 end AlgebraicGeometry.Scheme.TwoAffineOpenCover
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Spec Scheme IsAffineOpen SmoothProperCurve.FiniteMapData Scheme.TwoAffineOpenCover)
+export _root_.AlgebraicGeometry (Spec Scheme IsAffineOpen SmoothProperCurve.FiniteMapData Scheme.TwoAffineOpenCover)
 namespace SmoothProperCurve
-export AlgebraicGeometry.SmoothProperCurve (FiniteMapData)
+export _root_.AlgebraicGeometry.SmoothProperCurve (FiniteMapData)
 namespace FiniteMapData
-export AlgebraicGeometry.SmoothProperCurve.FiniteMapData (twoAffineOpenCover finite_f U f m V isAffineOpen_U inf_eq_basicOpen_g isAffineOpen_V finite_g g inf_eq_basicOpen res_f_mul_res_g)
+export _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData (twoAffineOpenCover finite_f U f m V isAffineOpen_U inf_eq_basicOpen_g isAffineOpen_V finite_g g inf_eq_basicOpen res_f_mul_res_g)
 open AlgebraicGeometry.SmoothProperCurve.FiniteMapData
 open AlgebraicGeometry.SmoothProperCurve
 open AlgebraicGeometry
@@ -119,17 +119,17 @@ variable {R : Type u} [CommRing R] {C : Scheme.{u}} {c : C ⟶ Spec (.of R)}
 theorem VU_le_U : 𝔉.V ⊓ 𝔉.U ≤ 𝔉.U := inf_le_right
 theorem VU_le_V : 𝔉.V ⊓ 𝔉.U ≤ 𝔉.V := inf_le_left
 private theorem _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData.VU_eq_basicOpen_g : 𝔉.V ⊓ 𝔉.U = C.basicOpen 𝔉.g := by rw [inf_comm, 𝔉.inf_eq_basicOpen_g]
-export AlgebraicGeometry.SmoothProperCurve.FiniteMapData (VU_eq_basicOpen_g)
+export _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData (VU_eq_basicOpen_g)
 private theorem _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData.VU_eq_basicOpen_f : 𝔉.V ⊓ 𝔉.U = C.basicOpen 𝔉.f := by rw [inf_comm, 𝔉.inf_eq_basicOpen]
-export AlgebraicGeometry.SmoothProperCurve.FiniteMapData (VU_eq_basicOpen_f)
+export _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData (VU_eq_basicOpen_f)
 variable (c) in
 
 private abbrev _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData.gA0 : (𝔉.twoAffineOpenCover.cover c).A0 := 𝔉.g
-export AlgebraicGeometry.SmoothProperCurve.FiniteMapData (gA0)
+export _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData (gA0)
 variable (c) in
 
 private abbrev _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData.fA1 : (𝔉.twoAffineOpenCover.cover c).A1 := 𝔉.f
-export AlgebraicGeometry.SmoothProperCurve.FiniteMapData (fA1)
+export _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData (fA1)
 private theorem _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData.ρ0_g_mul_ρ1_f :
     (𝔉.twoAffineOpenCover.cover c).ρ0 (𝔉.gA0 c) * (𝔉.twoAffineOpenCover.cover c).ρ1 (𝔉.fA1 c) = 1 := by
   rw [cover_ρ0_apply, cover_ρ1_apply, mul_comm]
@@ -138,27 +138,27 @@ private theorem _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData.ρ0_g_m
   rw [← CategoryTheory.ConcreteCategory.comp_apply, ← Functor.map_comp,
     ← CategoryTheory.ConcreteCategory.comp_apply, ← Functor.map_comp] at h
   exact h
-export AlgebraicGeometry.SmoothProperCurve.FiniteMapData (ρ0_g_mul_ρ1_f)
+export _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData (ρ0_g_mul_ρ1_f)
 private theorem _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData.loc0 (m : (𝔉.twoAffineOpenCover.cover c).A01) :
     ∃ (x : (𝔉.twoAffineOpenCover.cover c).A0) (n : ℕ),
       (𝔉.twoAffineOpenCover.cover c).ρ0 (𝔉.gA0 c) ^ n * m = (𝔉.twoAffineOpenCover.cover c).ρ0 x := by
   obtain ⟨x, n, h⟩ := exists_pow_mul_eq_res 𝔉.isAffineOpen_V 𝔉.g 𝔉.VU_eq_basicOpen_g m
   exact ⟨x, n, h⟩
-export AlgebraicGeometry.SmoothProperCurve.FiniteMapData (loc0)
+export _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData (loc0)
 private theorem _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData.loc1 (m : (𝔉.twoAffineOpenCover.cover c).A01) :
     ∃ (y : (𝔉.twoAffineOpenCover.cover c).A1) (n : ℕ),
       (𝔉.twoAffineOpenCover.cover c).ρ1 (𝔉.fA1 c) ^ n * m = (𝔉.twoAffineOpenCover.cover c).ρ1 y := by
   obtain ⟨y, n, h⟩ := exists_pow_mul_eq_res 𝔉.isAffineOpen_U 𝔉.f 𝔉.VU_eq_basicOpen_f m
   exact ⟨y, n, h⟩
-export AlgebraicGeometry.SmoothProperCurve.FiniteMapData (loc1)
+export _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData (loc1)
 private theorem _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData.tors0 (x : (𝔉.twoAffineOpenCover.cover c).A0) (hx : (𝔉.twoAffineOpenCover.cover c).ρ0 x = 0) :
     ∃ n : ℕ, 𝔉.gA0 c ^ n * x = 0 :=
   exists_pow_mul_eq_zero 𝔉.isAffineOpen_V 𝔉.g 𝔉.VU_eq_basicOpen_g x hx
-export AlgebraicGeometry.SmoothProperCurve.FiniteMapData (tors0)
+export _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData (tors0)
 private theorem _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData.tors1 (y : (𝔉.twoAffineOpenCover.cover c).A1) (hy : (𝔉.twoAffineOpenCover.cover c).ρ1 y = 0) :
     ∃ n : ℕ, 𝔉.fA1 c ^ n * y = 0 :=
   exists_pow_mul_eq_zero 𝔉.isAffineOpen_U 𝔉.f 𝔉.VU_eq_basicOpen_f y hy
-export AlgebraicGeometry.SmoothProperCurve.FiniteMapData (tors1)
+export _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData (tors1)
 private theorem _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData.chartFinite_lineBundle (t : (𝔉.twoAffineOpenCover.cover c).A01ˣ) :
     let 𝒰 := 𝔉.twoAffineOpenCover.cover c
     let S := 𝔉.twoAffineOpenCover.lineBundleSections c t
@@ -189,7 +189,7 @@ private theorem _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData.chartFi
     rw [TwoChartCech.Cover.lineBundle_r1_apply] at hy
     obtain ⟨n, hn⟩ := 𝔉.tors1 y ((Units.mul_right_eq_zero t).mp hy)
     exact ⟨n, by rw [smul_eq_mul]; exact hn⟩
-export AlgebraicGeometry.SmoothProperCurve.FiniteMapData (chartFinite_lineBundle)
+export _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData (chartFinite_lineBundle)
 end AlgebraicGeometry.SmoothProperCurve.FiniteMapData
 
 theorem solution

@@ -34,7 +34,7 @@ open AlgebraicGeometry.RelPicard
 open NeronModelInfra
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (SmoothOfRelativeDimension Scheme.Modules.pullback Scheme.Hom Spec Scheme Scheme.IdealSheafData.comap_top IsSeparated smoothOfRelativeDimension_isStableUnderBaseChange Scheme.Modules Scheme.IdealSheafData RelPicard.baseChangeSnd RelPicard.rigSection RelPicard.sectionIdeal RelEffCartierDiv RelEffCartierDiv.I Scheme.IdealSheafData.IsInvertible RelEffCartierDiv.ofPoint RelEffCartierDiv.pullbackAlong_ofPoint Scheme.Hom.isInvertible_ker_of_comp_eq_id Scheme.IdealSheafData.comap_mul Scheme.IdealSheafData.IsInvertible.nonempty_pullback_invModule_iso)
+export _root_.AlgebraicGeometry (SmoothOfRelativeDimension Scheme.Modules.pullback Scheme.Hom Spec Scheme Scheme.IdealSheafData.comap_top IsSeparated smoothOfRelativeDimension_isStableUnderBaseChange Scheme.Modules Scheme.IdealSheafData RelPicard.baseChangeSnd RelPicard.rigSection RelPicard.sectionIdeal RelEffCartierDiv RelEffCartierDiv.I Scheme.IdealSheafData.IsInvertible RelEffCartierDiv.ofPoint RelEffCartierDiv.pullbackAlong_ofPoint Scheme.Hom.isInvertible_ker_of_comp_eq_id Scheme.IdealSheafData.comap_mul Scheme.IdealSheafData.IsInvertible.nonempty_pullback_invModule_iso)
 open AlgebraicGeometry
 
 theorem stwE5_comap_pow {X Y : Scheme.{u}} (I : Y.IdealSheafData) (f : X ⟶ Y) (n : ℕ) :

@@ -31,7 +31,7 @@ open CategoryTheory.Limits
 open CategoryTheory.MonoidalCategory.Limits
 
 namespace PresheafOfModules
-export PresheafOfModules (sheafification sheafify presheaf sections pullback naturality_apply pushforward evaluation inverseImage_W_toPresheaf_eq_inverseImage_isomorphisms map map_comp_apply IsLocallyInjective Hom toPresheaf unit free restriction pullbackComp obj IsLocallySurjective InternalHom.map_id_apply InternalHom.naturality InternalHom.smul_app ihomObj uncurry' uncurry'_app_tmul isSheaf_ihomObj InvertibleDual.TrivializationBelow.toPMod)
+export _root_.PresheafOfModules (sheafification sheafify presheaf sections pullback naturality_apply pushforward evaluation inverseImage_W_toPresheaf_eq_inverseImage_isomorphisms map map_comp_apply IsLocallyInjective Hom toPresheaf unit free restriction pullbackComp obj IsLocallySurjective InternalHom.map_id_apply InternalHom.naturality InternalHom.smul_app ihomObj uncurry' uncurry'_app_tmul isSheaf_ihomObj InvertibleDual.TrivializationBelow.toPMod)
 open PresheafOfModules
 
 namespace InvertibleDual
@@ -44,7 +44,7 @@ variable {C : Type u} [Category.{u} C] {R : Cᵒᵖ ⥤ CommRingCat.{u}}
 
 private noncomputable abbrev _root_.PresheafOfModules.InvertibleDual.dual : PresheafOfModules.{u} (R ⋙ forget₂ CommRingCat RingCat) :=
   ihomObj F (𝟙_ _)
-export PresheafOfModules.InvertibleDual (dual)
+export _root_.PresheafOfModules.InvertibleDual (dual)
 noncomputable abbrev ev : F ⊗ dual F ⟶ 𝟙_ _ := uncurry' F (𝟙 (dual F))
 
 structure TrivializationBelow (X₀ : Cᵒᵖ) where
@@ -183,11 +183,11 @@ end InvertibleDual
 end PresheafOfModules
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Hom Scheme.Opens.ι_appIso Scheme.Hom.image_preimage_eq_opensRange_inf Scheme Scheme.Modules Scheme.Opens Scheme.Opens.opensRange_ι Scheme.Modules.IsInvertible Scheme.Modules.pullbackUnitIso Scheme.Modules.dual Scheme.Modules.tensorIsoSheafify)
+export _root_.AlgebraicGeometry (Scheme.Hom Scheme.Opens.ι_appIso Scheme.Hom.image_preimage_eq_opensRange_inf Scheme Scheme.Modules Scheme.Opens Scheme.Opens.opensRange_ι Scheme.Modules.IsInvertible Scheme.Modules.pullbackUnitIso Scheme.Modules.dual Scheme.Modules.tensorIsoSheafify)
 namespace Scheme
-export AlgebraicGeometry.Scheme (ringCatSheaf Modules.pullback Hom Γ Opens.ι_appIso Hom.image_preimage_eq_opensRange_inf Modules.restrictFunctor restrictFunctor Modules.pullbackCongr Modules Opens homOfLE_ι grothendieckTopology Opens.opensRange_ι PresheafOfModules Modules.pullbackComp evaluation Modules.IsInvertible Modules.pullbackUnitIso Modules.dual Modules.sheafify Modules.tensorIsoSheafify)
+export _root_.AlgebraicGeometry.Scheme (ringCatSheaf Modules.pullback Hom Γ Opens.ι_appIso Hom.image_preimage_eq_opensRange_inf Modules.restrictFunctor restrictFunctor Modules.pullbackCongr Modules Opens homOfLE_ι grothendieckTopology Opens.opensRange_ι PresheafOfModules Modules.pullbackComp evaluation Modules.IsInvertible Modules.pullbackUnitIso Modules.dual Modules.sheafify Modules.tensorIsoSheafify)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (toPresheaf pushforward pullback presheaf Hom restrictFunctor restrictFunctorIsoPullback pullbackCongr isSheaf map_smul pullbackComp IsInvertible pullbackUnitIso dual sheafify tensorIsoSheafify pullbackTensorUnitObjIso)
+export _root_.AlgebraicGeometry.Scheme.Modules (toPresheaf pushforward pullback presheaf Hom restrictFunctor restrictFunctorIsoPullback pullbackCongr isSheaf map_smul pullbackComp IsInvertible pullbackUnitIso dual sheafify tensorIsoSheafify pullbackTensorUnitObjIso)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry
@@ -346,11 +346,11 @@ end AlgebraicGeometry.Scheme.Modules
 set_option maxHeartbeats 16000000
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Hom Scheme.Opens.ι_appIso Scheme.Hom.image_preimage_eq_opensRange_inf Scheme Scheme.Modules Scheme.Opens Scheme.Opens.opensRange_ι Scheme.Modules.IsInvertible Scheme.Modules.pullbackUnitIso Scheme.Modules.dual Scheme.Modules.tensorIsoSheafify)
+export _root_.AlgebraicGeometry (Scheme.Hom Scheme.Opens.ι_appIso Scheme.Hom.image_preimage_eq_opensRange_inf Scheme Scheme.Modules Scheme.Opens Scheme.Opens.opensRange_ι Scheme.Modules.IsInvertible Scheme.Modules.pullbackUnitIso Scheme.Modules.dual Scheme.Modules.tensorIsoSheafify)
 namespace Scheme
-export AlgebraicGeometry.Scheme (ringCatSheaf Modules.pullback Hom Γ Opens.ι_appIso Hom.image_preimage_eq_opensRange_inf Modules.restrictFunctor restrictFunctor Modules.pullbackCongr Modules Opens homOfLE_ι grothendieckTopology Opens.opensRange_ι PresheafOfModules Modules.pullbackComp evaluation Modules.IsInvertible Modules.pullbackUnitIso Modules.dual Modules.sheafify Modules.tensorIsoSheafify)
+export _root_.AlgebraicGeometry.Scheme (ringCatSheaf Modules.pullback Hom Γ Opens.ι_appIso Hom.image_preimage_eq_opensRange_inf Modules.restrictFunctor restrictFunctor Modules.pullbackCongr Modules Opens homOfLE_ι grothendieckTopology Opens.opensRange_ι PresheafOfModules Modules.pullbackComp evaluation Modules.IsInvertible Modules.pullbackUnitIso Modules.dual Modules.sheafify Modules.tensorIsoSheafify)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (toPresheaf pushforward pullback presheaf Hom restrictFunctor restrictFunctorIsoPullback pullbackCongr isSheaf map_smul pullbackComp IsInvertible pullbackUnitIso dual sheafify tensorIsoSheafify pullbackTensorUnitObjIso)
+export _root_.AlgebraicGeometry.Scheme.Modules (toPresheaf pushforward pullback presheaf Hom restrictFunctor restrictFunctorIsoPullback pullbackCongr isSheaf map_smul pullbackComp IsInvertible pullbackUnitIso dual sheafify tensorIsoSheafify pullbackTensorUnitObjIso)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry
@@ -363,7 +363,7 @@ variable (X) in
 
 private noncomputable abbrev _root_.AlgebraicGeometry.Scheme.Modules.toPMod : X.Modules ⥤ X.PresheafOfModules :=
   SheafOfModules.toPMod X.sheaf.obj X.ringCatSheaf.property
-export AlgebraicGeometry.Scheme.Modules (toPMod)
+export _root_.AlgebraicGeometry.Scheme.Modules (toPMod)
 noncomputable def dualModel (L : X.Modules) : X.Modules where
   val := PresheafOfModules.InvertibleDual.dual (R := X.sheaf.obj) ((toPMod X).obj L)
   isSheaf := PresheafOfModules.isSheaf_ihomObj _ _ (SheafOfModules.unit X.ringCatSheaf).isSheaf

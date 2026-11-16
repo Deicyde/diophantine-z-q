@@ -28,11 +28,11 @@ open CategoryTheory.MonoidalCategory
 open Opposite
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.Hom.app_smul Scheme.Opens.ι_appIso Scheme.Modules.Hom Scheme.Modules.mapPresheaf_app Scheme Scheme.Opens.topIso_hom Scheme.Modules Scheme.Opens Scheme.Opens.ι_image_top Scheme.Modules.map_smul Scheme.Modules.coeff Scheme.Modules.zeroSchemeIdeal Scheme.Modules.IsInvertible Scheme.Modules.IsInvertible.isFrameOn_app_of_disjoint_support_zeroSchemeIdeal)
+export _root_.AlgebraicGeometry (Scheme.Modules.Hom.app_smul Scheme.Opens.ι_appIso Scheme.Modules.Hom Scheme.Modules.mapPresheaf_app Scheme Scheme.Opens.topIso_hom Scheme.Modules Scheme.Opens Scheme.Opens.ι_image_top Scheme.Modules.map_smul Scheme.Modules.coeff Scheme.Modules.zeroSchemeIdeal Scheme.Modules.IsInvertible Scheme.Modules.IsInvertible.isFrameOn_app_of_disjoint_support_zeroSchemeIdeal)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Modules.Hom.app_smul Hom Γ Opens.ι_appIso topIso_hom Modules.Hom topIso Modules.mapPresheaf_app Opens.topIso_hom affineOpens Modules Opens Opens.ι_image_top Modules.map_smul restrict Modules.coeff Modules.zeroSchemeIdeal Modules.IsInvertible Modules.IsInvertible.isFrameOn_app_of_disjoint_support_zeroSchemeIdeal)
+export _root_.AlgebraicGeometry.Scheme (Modules.Hom.app_smul Hom Γ Opens.ι_appIso topIso_hom Modules.Hom topIso Modules.mapPresheaf_app Opens.topIso_hom affineOpens Modules Opens Opens.ι_image_top Modules.map_smul restrict Modules.coeff Modules.zeroSchemeIdeal Modules.IsInvertible Modules.IsInvertible.isFrameOn_app_of_disjoint_support_zeroSchemeIdeal)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (Hom.app_smul presheaf Hom mapPresheaf_app restrict map_smul toUnitSection ofUnitSection ofUnitSection_smul restrictSection coeff zeroSchemeIdeal IsInvertible IsInvertible.isFrameOn_app_of_disjoint_support_zeroSchemeIdeal)
+export _root_.AlgebraicGeometry.Scheme.Modules (Hom.app_smul presheaf Hom mapPresheaf_app restrict map_smul toUnitSection ofUnitSection ofUnitSection_smul restrictSection coeff zeroSchemeIdeal IsInvertible IsInvertible.isFrameOn_app_of_disjoint_support_zeroSchemeIdeal)
 namespace RATIO
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme

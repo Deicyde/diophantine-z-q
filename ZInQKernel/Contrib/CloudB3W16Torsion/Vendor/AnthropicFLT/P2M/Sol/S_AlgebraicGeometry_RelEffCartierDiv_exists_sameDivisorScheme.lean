@@ -31,7 +31,7 @@ open AlgebraicGeometry
 open P2MW.S_AlgebraicGeometry_RelEffCartierDiv_exists_sameDivisorScheme.AlgebraicGeometry
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Surjective Scheme.Hom.finrank_comp_left_of_isIso SmoothOfRelativeDimension Scheme.Hom IsFinite Scheme Smooth Flat IsClosedImmersion IsSeparated IsFinite.of_comp LocallyOfFinitePresentation IsClosedImmersion.iff_isFinite_and_mono fibrePowOver fibrePowOver.proj fibrePowOver.toBase fibrePowOver.proj_comp prodKerGraph SameDivisor RelEffCartierDiv mapOnProdOver RelEffCartierDiv.I RelEffCartierDiv.exists_split RelEffCartierDiv.exists_I_eq_prodKerGraph prodKerGraph_comap_mapOnProdOver)
+export _root_.AlgebraicGeometry (Surjective Scheme.Hom.finrank_comp_left_of_isIso SmoothOfRelativeDimension Scheme.Hom IsFinite Scheme Smooth Flat IsClosedImmersion IsSeparated IsFinite.of_comp LocallyOfFinitePresentation IsClosedImmersion.iff_isFinite_and_mono fibrePowOver fibrePowOver.proj fibrePowOver.toBase fibrePowOver.proj_comp prodKerGraph SameDivisor RelEffCartierDiv mapOnProdOver RelEffCartierDiv.I RelEffCartierDiv.exists_split RelEffCartierDiv.exists_I_eq_prodKerGraph prodKerGraph_comap_mapOnProdOver)
 open AlgebraicGeometry
 
 theorem prodKerGraph_congr' {𝒞 S : Scheme.{u}} (f : 𝒞 ⟶ S) {r : ℕ} {T : Scheme.{u}} {g : T ⟶ S}
@@ -40,7 +40,7 @@ theorem prodKerGraph_congr' {𝒞 S : Scheme.{u}} (f : 𝒞 ⟶ S) {r : ℕ} {T 
   subst h; rfl
 
 namespace RelEffCartierDiv
-export AlgebraicGeometry.RelEffCartierDiv (pullbackAlong pullbackAlong_comp I exists_split exists_I_eq_prodKerGraph)
+export _root_.AlgebraicGeometry.RelEffCartierDiv (pullbackAlong pullbackAlong_comp I exists_split exists_I_eq_prodKerGraph)
 namespace SameDivisorScheme
 open AlgebraicGeometry.RelEffCartierDiv
 

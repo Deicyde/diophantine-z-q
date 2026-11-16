@@ -34,11 +34,11 @@ open P2MW.S_AlgebraicGeometry_Scheme_Modules_IsInvertible_exists_dual_iso_module
 noncomputable section
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.Hom.app_smul Scheme.Modules.Hom Scheme Scheme.Modules Scheme.Modules.zeroSchemeIdeal Scheme.Modules.sectionDual Scheme.Modules.dual Scheme.Modules.IsInvertible)
+export _root_.AlgebraicGeometry (Scheme.Modules.Hom.app_smul Scheme.Modules.Hom Scheme Scheme.Modules Scheme.Modules.zeroSchemeIdeal Scheme.Modules.sectionDual Scheme.Modules.dual Scheme.Modules.IsInvertible)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Modules.Hom.app_smul ringCatSheaf Hom Γ Modules.Hom affineOpens Modules Opens IdealSheafData Modules.zeroSchemeIdeal Modules.sectionDual Modules.dual Modules.IsInvertible)
+export _root_.AlgebraicGeometry.Scheme (Modules.Hom.app_smul ringCatSheaf Hom Γ Modules.Hom affineOpens Modules Opens IdealSheafData Modules.zeroSchemeIdeal Modules.sectionDual Modules.dual Modules.IsInvertible)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (hom_ext Hom.app_smul pushforward presheaf Hom isSheaf ofUnitSection ofUnitSection_injective ofUnitSection_smul restrictSection coeff coeffIdeal coeff_mem_coeffIdeal zeroSchemeIdeal sectionDual dual IsInvertible ihomEval map_ihomEval ihomEval_pre_app unitIsoSelf_hom_app ihomSectionsEquiv ihomSectionsEquiv_app_apply restrictUnitIso' restrictUnitIso_ι_hom_app_apply unitSection map_unitSection IsInvertible.isIso_of_locallySurjective IsInvertible.dual)
+export _root_.AlgebraicGeometry.Scheme.Modules (hom_ext Hom.app_smul pushforward presheaf Hom isSheaf ofUnitSection ofUnitSection_injective ofUnitSection_smul restrictSection coeff coeffIdeal coeff_mem_coeffIdeal zeroSchemeIdeal sectionDual dual IsInvertible ihomEval map_ihomEval ihomEval_pre_app unitIsoSelf_hom_app ihomSectionsEquiv ihomSectionsEquiv_app_apply restrictUnitIso' restrictUnitIso_ι_hom_app_apply unitSection map_unitSection IsInvertible.isIso_of_locallySurjective IsInvertible.dual)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry

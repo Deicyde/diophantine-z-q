@@ -39,11 +39,11 @@ open NeronModelInfra
 open TensorProduct
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.Hom.app_smul Scheme.Modules.Hom.mapPresheaf Scheme.Modules.Hom.comp_app Scheme.Modules.Hom Spec Spec.map Scheme.Modules.mapPresheaf_app Scheme Scheme.Modules.Hom.id_app Scheme.Modules RelPicard.baseChangeSnd Scheme.TwoAffineOpenCover AffineLimit.IsLFPInj FGSubalgebra.tensorStage FGSubalgebra.tensorStageMap FGSubalgebra.tensorStageToColimit FGSubalgebra.tensorStageToColimit_comp FGSubalgebra.tensorStageToColimit_surj FGSubalgebra.tensorStageToColimit_zero FGSubalgebra RelPicard.LFP.stageHom Scheme.TwoAffineOpenCover.exists_stage_baseChangeIsos_structureSheaf Scheme.TwoAffineOpenCover.nonempty_iso_of_sectionsOf_linearEquiv_of_isInvertible)
+export _root_.AlgebraicGeometry (Scheme.Modules.Hom.app_smul Scheme.Modules.Hom.mapPresheaf Scheme.Modules.Hom.comp_app Scheme.Modules.Hom Spec Spec.map Scheme.Modules.mapPresheaf_app Scheme Scheme.Modules.Hom.id_app Scheme.Modules RelPicard.baseChangeSnd Scheme.TwoAffineOpenCover AffineLimit.IsLFPInj FGSubalgebra.tensorStage FGSubalgebra.tensorStageMap FGSubalgebra.tensorStageToColimit FGSubalgebra.tensorStageToColimit_comp FGSubalgebra.tensorStageToColimit_surj FGSubalgebra.tensorStageToColimit_zero FGSubalgebra RelPicard.LFP.stageHom Scheme.TwoAffineOpenCover.exists_stage_baseChangeIsos_structureSheaf Scheme.TwoAffineOpenCover.nonempty_iso_of_sectionsOf_linearEquiv_of_isInvertible)
 namespace RelPicard
-export AlgebraicGeometry.RelPicard (baseChangeSnd RigidifiedLineBundle RigidifiedLineBundle.setoid relPicardPresheaf LFP.stageHom)
+export _root_.AlgebraicGeometry.RelPicard (baseChangeSnd RigidifiedLineBundle RigidifiedLineBundle.setoid relPicardPresheaf LFP.stageHom)
 namespace LFP
-export AlgebraicGeometry.RelPicard.LFP (stageHom stageHom_val)
+export _root_.AlgebraicGeometry.RelPicard.LFP (stageHom stageHom_val)
 open AlgebraicGeometry.RelPicard.LFP
 open AlgebraicGeometry.RelPicard
 open AlgebraicGeometry
@@ -85,11 +85,11 @@ theorem exists_sectionsOf_linearEquiv_of_iso
 end AlgebraicGeometry.RelPicard.LFP
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.Hom.app_smul Scheme.Modules.Hom.mapPresheaf Scheme.Modules.Hom.comp_app Scheme.Modules.Hom Spec Spec.map Scheme.Modules.mapPresheaf_app Scheme Scheme.Modules.Hom.id_app Scheme.Modules RelPicard.baseChangeSnd Scheme.TwoAffineOpenCover AffineLimit.IsLFPInj FGSubalgebra.tensorStage FGSubalgebra.tensorStageMap FGSubalgebra.tensorStageToColimit FGSubalgebra.tensorStageToColimit_comp FGSubalgebra.tensorStageToColimit_surj FGSubalgebra.tensorStageToColimit_zero FGSubalgebra RelPicard.LFP.stageHom Scheme.TwoAffineOpenCover.exists_stage_baseChangeIsos_structureSheaf Scheme.TwoAffineOpenCover.nonempty_iso_of_sectionsOf_linearEquiv_of_isInvertible)
+export _root_.AlgebraicGeometry (Scheme.Modules.Hom.app_smul Scheme.Modules.Hom.mapPresheaf Scheme.Modules.Hom.comp_app Scheme.Modules.Hom Spec Spec.map Scheme.Modules.mapPresheaf_app Scheme Scheme.Modules.Hom.id_app Scheme.Modules RelPicard.baseChangeSnd Scheme.TwoAffineOpenCover AffineLimit.IsLFPInj FGSubalgebra.tensorStage FGSubalgebra.tensorStageMap FGSubalgebra.tensorStageToColimit FGSubalgebra.tensorStageToColimit_comp FGSubalgebra.tensorStageToColimit_surj FGSubalgebra.tensorStageToColimit_zero FGSubalgebra RelPicard.LFP.stageHom Scheme.TwoAffineOpenCover.exists_stage_baseChangeIsos_structureSheaf Scheme.TwoAffineOpenCover.nonempty_iso_of_sectionsOf_linearEquiv_of_isInvertible)
 namespace RelPicard
-export AlgebraicGeometry.RelPicard (baseChangeSnd RigidifiedLineBundle RigidifiedLineBundle.setoid relPicardPresheaf LFP.stageHom)
+export _root_.AlgebraicGeometry.RelPicard (baseChangeSnd RigidifiedLineBundle RigidifiedLineBundle.setoid relPicardPresheaf LFP.stageHom)
 namespace LFP
-export AlgebraicGeometry.RelPicard.LFP (stageHom stageHom_val)
+export _root_.AlgebraicGeometry.RelPicard.LFP (stageHom stageHom_val)
 open AlgebraicGeometry.RelPicard.LFP
 open AlgebraicGeometry.RelPicard
 open AlgebraicGeometry
@@ -223,7 +223,7 @@ private noncomputable def _root_.AlgebraicGeometry.RelPicard.LFP.push (h : A' �
     A'' ⊗[k] P →ₗ[A''] A'' ⊗[k] Q :=
   LinearMap.liftBaseChange A''
     ((h.toLinearMap.rTensor Q) ∘ₗ (f.restrictScalars k) ∘ₗ (TensorProduct.mk k A' P 1))
-export AlgebraicGeometry.RelPicard.LFP (push)
+export _root_.AlgebraicGeometry.RelPicard.LFP (push)
 @[scoped simp] theorem push_tmul (h : A' →ₐ[k] A'') (f : A' ⊗[k] P →ₗ[A'] A' ⊗[k] Q) (a : A'') (m : P) :
     push h f (a ⊗ₜ[k] m) = a • h.toLinearMap.rTensor Q (f ((1 : A') ⊗ₜ[k] m)) := by
   simp [push, LinearMap.liftBaseChange_tmul]
@@ -788,11 +788,11 @@ end AlgebraicGeometry.RelPicard.LFP
 
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.Hom.app_smul Scheme.Modules.Hom.mapPresheaf Scheme.Modules.Hom.comp_app Scheme.Modules.Hom Spec Spec.map Scheme.Modules.mapPresheaf_app Scheme Scheme.Modules.Hom.id_app Scheme.Modules RelPicard.baseChangeSnd Scheme.TwoAffineOpenCover AffineLimit.IsLFPInj FGSubalgebra.tensorStage FGSubalgebra.tensorStageMap FGSubalgebra.tensorStageToColimit FGSubalgebra.tensorStageToColimit_comp FGSubalgebra.tensorStageToColimit_surj FGSubalgebra.tensorStageToColimit_zero FGSubalgebra RelPicard.LFP.stageHom Scheme.TwoAffineOpenCover.exists_stage_baseChangeIsos_structureSheaf Scheme.TwoAffineOpenCover.nonempty_iso_of_sectionsOf_linearEquiv_of_isInvertible)
+export _root_.AlgebraicGeometry (Scheme.Modules.Hom.app_smul Scheme.Modules.Hom.mapPresheaf Scheme.Modules.Hom.comp_app Scheme.Modules.Hom Spec Spec.map Scheme.Modules.mapPresheaf_app Scheme Scheme.Modules.Hom.id_app Scheme.Modules RelPicard.baseChangeSnd Scheme.TwoAffineOpenCover AffineLimit.IsLFPInj FGSubalgebra.tensorStage FGSubalgebra.tensorStageMap FGSubalgebra.tensorStageToColimit FGSubalgebra.tensorStageToColimit_comp FGSubalgebra.tensorStageToColimit_surj FGSubalgebra.tensorStageToColimit_zero FGSubalgebra RelPicard.LFP.stageHom Scheme.TwoAffineOpenCover.exists_stage_baseChangeIsos_structureSheaf Scheme.TwoAffineOpenCover.nonempty_iso_of_sectionsOf_linearEquiv_of_isInvertible)
 namespace RelPicard
-export AlgebraicGeometry.RelPicard (baseChangeSnd RigidifiedLineBundle RigidifiedLineBundle.setoid relPicardPresheaf LFP.stageHom)
+export _root_.AlgebraicGeometry.RelPicard (baseChangeSnd RigidifiedLineBundle RigidifiedLineBundle.setoid relPicardPresheaf LFP.stageHom)
 namespace LFP
-export AlgebraicGeometry.RelPicard.LFP (stageHom stageHom_val)
+export _root_.AlgebraicGeometry.RelPicard.LFP (stageHom stageHom_val)
 open AlgebraicGeometry.RelPicard.LFP
 open AlgebraicGeometry.RelPicard
 open AlgebraicGeometry

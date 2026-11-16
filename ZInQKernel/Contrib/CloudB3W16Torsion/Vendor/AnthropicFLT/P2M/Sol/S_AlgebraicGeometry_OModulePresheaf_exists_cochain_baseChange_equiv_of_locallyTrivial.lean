@@ -30,9 +30,9 @@ open AlgebraicGeometry.Scheme.TwoAffineOpenCover
 noncomputable section
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.pullback Scheme.Hom Spec Scheme Scheme.Hom.preimage_mono IsSeparated isAffineOpen_top isAffineHom_diagonal_iff Scheme.Modules.pullbackPushforwardAdjunction IsAffineOpen Scheme.Modules IsAffineHom OModulePresheaf OModulePresheaf.res_res OModulePresheaf.d_apply Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap OModulePresheaf.ofModules Scheme.Modules.exists_linearEquiv_sections_baseChange_of_locallyTrivial)
+export _root_.AlgebraicGeometry (Scheme.Modules.pullback Scheme.Hom Spec Scheme Scheme.Hom.preimage_mono IsSeparated isAffineOpen_top isAffineHom_diagonal_iff Scheme.Modules.pullbackPushforwardAdjunction IsAffineOpen Scheme.Modules IsAffineHom OModulePresheaf OModulePresheaf.res_res OModulePresheaf.d_apply Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap OModulePresheaf.ofModules Scheme.Modules.exists_linearEquiv_sections_baseChange_of_locallyTrivial)
 namespace OModulePresheaf
-export AlgebraicGeometry.OModulePresheaf (res_res cochain d d_apply unit res res_refl obj res_comp ofModules)
+export _root_.AlgebraicGeometry.OModulePresheaf (res_res cochain d d_apply unit res res_refl obj res_comp ofModules)
 namespace CechBaseChange
 open AlgebraicGeometry.OModulePresheaf
 open AlgebraicGeometry

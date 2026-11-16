@@ -31,11 +31,11 @@ set_option backward.isDefEq.respectTransparency false
 noncomputable section
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme Scheme.Modules Scheme.Modules.tensorSections)
+export _root_.AlgebraicGeometry (Scheme Scheme.Modules Scheme.Modules.tensorSections)
 namespace Scheme
-export AlgebraicGeometry.Scheme (ringCatSheaf Γ Modules Opens PresheafOfModules Modules.sheafify Modules.tensorSections)
+export _root_.AlgebraicGeometry.Scheme (ringCatSheaf Γ Modules Opens PresheafOfModules Modules.sheafify Modules.tensorSections)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (sheafify tensorIsoSheafify tensorSections)
+export _root_.AlgebraicGeometry.Scheme.Modules (sheafify tensorIsoSheafify tensorSections)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry

@@ -31,11 +31,11 @@ open TopologicalSpace
 noncomputable section
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Hom Scheme.Hom.image_preimage_eq_opensRange_inf Scheme Scheme.Modules Scheme.Opens Scheme.Opens.ι_image_top Scheme.Modules.map_smul Scheme.Opens.opensRange_ι Scheme.Modules.tensorSections Scheme.Modules.IsFrameOn)
+export _root_.AlgebraicGeometry (Scheme.Hom Scheme.Hom.image_preimage_eq_opensRange_inf Scheme Scheme.Modules Scheme.Opens Scheme.Opens.ι_image_top Scheme.Modules.map_smul Scheme.Opens.opensRange_ι Scheme.Modules.tensorSections Scheme.Modules.IsFrameOn)
 namespace Scheme
-export AlgebraicGeometry.Scheme (forget ringCatSheaf Hom Γ Hom.image_preimage_eq_opensRange_inf Modules Opens Opens.ι_image_top grothendieckTopology Modules.map_smul Opens.opensRange_ι restrict PresheafOfModules Modules.tensorSections Modules.map_homOfLE_tensorSections Modules.IsFrameOn)
+export _root_.AlgebraicGeometry.Scheme (forget ringCatSheaf Hom Γ Hom.image_preimage_eq_opensRange_inf Modules Opens Opens.ι_image_top grothendieckTopology Modules.map_smul Opens.opensRange_ι restrict PresheafOfModules Modules.tensorSections Modules.map_homOfLE_tensorSections Modules.IsFrameOn)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (hom_ext toPresheaf pushforward presheaf Hom restrict map_smul tensor tensorSectionsHom tensorSections map_homOfLE_tensorSections IsFrameOn)
+export _root_.AlgebraicGeometry.Scheme.Modules (hom_ext toPresheaf pushforward presheaf Hom restrict map_smul tensor tensorSectionsHom tensorSections map_homOfLE_tensorSections IsFrameOn)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry

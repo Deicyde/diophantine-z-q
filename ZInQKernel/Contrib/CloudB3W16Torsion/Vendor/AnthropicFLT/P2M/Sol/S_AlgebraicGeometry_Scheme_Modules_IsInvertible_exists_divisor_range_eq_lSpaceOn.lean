@@ -33,11 +33,11 @@ open Opposite
 open TopologicalSpace
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.germToFunctionField SmoothOfRelativeDimension Scheme.Hom Scheme.germToFunctionField_injective Scheme.Opens.ι_appIso Scheme.Hom.image_preimage_eq_opensRange_inf QuasiCompact Spec IsIntegral Scheme Scheme.Modules.restrictFunctorIsoPullback Scheme.Hom.appIso Scheme.Hom.preimage_mono IsSeparated IsAffineOpen Scheme.Modules Scheme.Opens Scheme.Hom.image_mono Scheme.Hom.opensFunctor Scheme.Opens.opensRange_ι Scheme.Modules.IsInvertible)
+export _root_.AlgebraicGeometry (Scheme.germToFunctionField SmoothOfRelativeDimension Scheme.Hom Scheme.germToFunctionField_injective Scheme.Opens.ι_appIso Scheme.Hom.image_preimage_eq_opensRange_inf QuasiCompact Spec IsIntegral Scheme Scheme.Modules.restrictFunctorIsoPullback Scheme.Hom.appIso Scheme.Hom.preimage_mono IsSeparated IsAffineOpen Scheme.Modules Scheme.Opens Scheme.Hom.image_mono Scheme.Hom.opensFunctor Scheme.Opens.opensRange_ι Scheme.Modules.IsInvertible)
 namespace Scheme
-export AlgebraicGeometry.Scheme (germToFunctionField ringCatSheaf Hom.id_app Hom germToFunctionField_injective Γ Opens.ι_appIso Hom.image_preimage_eq_opensRange_inf Modules.restrictFunctorIsoPullback Hom.appIso functionField Hom.preimage_mono Hom.comp_app basicOpen isBasis_affineOpens Modules Opens Hom.image_mono Hom.opensFunctor Opens.opensRange_ι restrict Modules.IsInvertible)
+export _root_.AlgebraicGeometry.Scheme (germToFunctionField ringCatSheaf Hom.id_app Hom germToFunctionField_injective Γ Opens.ι_appIso Hom.image_preimage_eq_opensRange_inf Modules.restrictFunctorIsoPullback Hom.appIso functionField Hom.preimage_mono Hom.comp_app basicOpen isBasis_affineOpens Modules Opens Hom.image_mono Hom.opensFunctor Opens.opensRange_ι restrict Modules.IsInvertible)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (Hom.app_smul presheaf Hom.comp_app Hom mapPresheaf_app Hom.id_app restrictFunctorIsoPullback restrict_map isSheaf restrict map_smul IsInvertible)
+export _root_.AlgebraicGeometry.Scheme.Modules (Hom.app_smul presheaf Hom.comp_app Hom mapPresheaf_app Hom.id_app restrictFunctorIsoPullback restrict_map isSheaf restrict map_smul IsInvertible)
 namespace RatSec
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme

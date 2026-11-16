@@ -72,11 +72,11 @@ theorem toBidual_comp_pre_app_comp_unitIsoSelf_hom {M : C} (ι : M ⟶ 𝟙_ C) 
 end ZeroSchemeCanonMC
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.Hom.comp_app Scheme.Modules.Hom Scheme Scheme.Modules Scheme.IdealSheafData.le_def Scheme.IdealSheafData Scheme.Modules.zeroSchemeIdeal Scheme.Modules.dual Scheme.Modules.IsInvertible)
+export _root_.AlgebraicGeometry (Scheme.Modules.Hom.comp_app Scheme.Modules.Hom Scheme Scheme.Modules Scheme.IdealSheafData.le_def Scheme.IdealSheafData Scheme.Modules.zeroSchemeIdeal Scheme.Modules.dual Scheme.Modules.IsInvertible)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Hom Γ Modules.Hom.comp_app Modules.Hom Hom.comp_app Modules IdealSheafData.le_def IdealSheafData Modules.zeroSchemeIdeal Modules.dual Modules.IsInvertible)
+export _root_.AlgebraicGeometry.Scheme (Hom Γ Modules.Hom.comp_app Modules.Hom Hom.comp_app Modules IdealSheafData.le_def IdealSheafData Modules.zeroSchemeIdeal Modules.dual Modules.IsInvertible)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (Hom.comp_app Hom ofUnitSection coeff coeffIdeal coeff_mem_coeffIdeal zeroSchemeIdeal zeroSchemeIdeal_le sectionDual dual IsInvertible ihomSectionsEquiv restrictUnitIso' IsInvertible.isIso_ev_app_and_isIso_curry_braiding_ev ofUnitSection_sectionDual_app)
+export _root_.AlgebraicGeometry.Scheme.Modules (Hom.comp_app Hom ofUnitSection coeff coeffIdeal coeff_mem_coeffIdeal zeroSchemeIdeal zeroSchemeIdeal_le sectionDual dual IsInvertible ihomSectionsEquiv restrictUnitIso' IsInvertible.isIso_ev_app_and_isIso_curry_braiding_ev ofUnitSection_sectionDual_app)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry

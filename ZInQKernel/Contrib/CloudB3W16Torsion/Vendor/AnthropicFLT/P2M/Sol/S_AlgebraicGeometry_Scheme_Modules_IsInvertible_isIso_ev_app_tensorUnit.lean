@@ -32,11 +32,11 @@ open P2MW.S_AlgebraicGeometry_Scheme_Modules_IsInvertible_isIso_ev_app_tensorUni
 noncomputable section
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.pullback Scheme Scheme.Modules Scheme.Modules.IsInvertible Scheme.Modules.dual Scheme.Modules.pullbackSection Scheme.Modules.pullbackSection_def)
+export _root_.AlgebraicGeometry (Scheme.Modules.pullback Scheme Scheme.Modules Scheme.Modules.IsInvertible Scheme.Modules.dual Scheme.Modules.pullbackSection Scheme.Modules.pullbackSection_def)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Modules.pullback mk Modules evaluation Modules.IsInvertible Modules.dual Modules.pullbackSection Modules.pullbackSection_def)
+export _root_.AlgebraicGeometry.Scheme (Modules.pullback mk Modules evaluation Modules.IsInvertible Modules.dual Modules.pullbackSection Modules.pullbackSection_def)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (pullback IsInvertible dual pullbackSection pullbackSection_def IsInvertible.dual)
+export _root_.AlgebraicGeometry.Scheme.Modules (pullback IsInvertible dual pullbackSection pullbackSection_def IsInvertible.dual)
 namespace CoevAux
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme

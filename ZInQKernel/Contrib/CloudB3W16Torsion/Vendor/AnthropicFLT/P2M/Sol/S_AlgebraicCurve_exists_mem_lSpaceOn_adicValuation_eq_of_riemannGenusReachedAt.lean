@@ -24,7 +24,7 @@ namespace P2MW.S_AlgebraicCurve_exists_mem_lSpaceOn_adicValuation_eq_of_riemannG
 set_option autoImplicit false
 
 namespace AlgebraicCurve
-export AlgebraicCurve (Place Divisor IsCurveOver LSpace RiemannGenusReachedAt lSpaceOn exists_forall_adicValuation_sub_le_of_riemannGenusReachedAt Place.exists_forall_adicValuation_sub_eq)
+export _root_.AlgebraicCurve (Place Divisor IsCurveOver LSpace RiemannGenusReachedAt lSpaceOn exists_forall_adicValuation_sub_le_of_riemannGenusReachedAt Place.exists_forall_adicValuation_sub_eq)
 open AlgebraicCurve
 open WithZero
 

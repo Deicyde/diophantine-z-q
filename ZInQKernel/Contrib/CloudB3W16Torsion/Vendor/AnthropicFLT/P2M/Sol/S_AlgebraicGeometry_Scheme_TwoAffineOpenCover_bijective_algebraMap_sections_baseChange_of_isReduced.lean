@@ -37,11 +37,11 @@ universe u
 open CategoryTheory CategoryTheory.Limits Opposite TensorProduct
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Spec.map_comp Surjective IsAffineOpen.fromSpec_top IsAffineOpen.SpecMap_appLE_fromSpec Spec Spec.map Scheme Scheme.isoSpec_Spec_inv Flat IsReduced HasRingHomProperty.Spec_iff isAffineOpen_top IsAffineOpen HasRingHomProperty geometrically Scheme.ΓSpecIso Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap Scheme.TwoAffineOpenCover.algebraOfHom)
+export _root_.AlgebraicGeometry (Spec.map_comp Surjective IsAffineOpen.fromSpec_top IsAffineOpen.SpecMap_appLE_fromSpec Spec Spec.map Scheme Scheme.isoSpec_Spec_inv Flat IsReduced HasRingHomProperty.Spec_iff isAffineOpen_top IsAffineOpen HasRingHomProperty geometrically Scheme.ΓSpecIso Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap Scheme.TwoAffineOpenCover.algebraOfHom)
 namespace Scheme
-export AlgebraicGeometry.Scheme (mk Γ isoSpec_Spec_inv Opens ΓSpecIso TwoAffineOpenCover TwoAffineOpenCover.specMap TwoAffineOpenCover.algebraOfHom)
+export _root_.AlgebraicGeometry.Scheme (mk Γ isoSpec_Spec_inv Opens ΓSpecIso TwoAffineOpenCover TwoAffineOpenCover.specMap TwoAffineOpenCover.algebraOfHom)
 namespace TwoAffineOpenCover
-export AlgebraicGeometry.Scheme.TwoAffineOpenCover (specMap algebraOfHom restrictAlgHom cover structureSheafSections toH0 toH0_apply_coe pullback isAffineOpen_U0 isAffineOpen_inf U1 U0 mk isAffineOpen_U1 toH0_bijective exists_baseChangeIsos_structureSheaf)
+export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (specMap algebraOfHom restrictAlgHom cover structureSheafSections toH0 toH0_apply_coe pullback isAffineOpen_U0 isAffineOpen_inf U1 U0 mk isAffineOpen_U1 toH0_bijective exists_baseChangeIsos_structureSheaf)
 open AlgebraicGeometry.Scheme.TwoAffineOpenCover
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry

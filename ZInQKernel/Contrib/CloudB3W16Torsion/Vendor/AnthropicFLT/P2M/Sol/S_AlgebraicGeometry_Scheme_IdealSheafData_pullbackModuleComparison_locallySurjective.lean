@@ -29,9 +29,9 @@ open CategoryTheory CategoryTheory.Limits
 open scoped TensorProduct
 
 namespace Algebra
-export Algebra (TensorProduct.rid ofId IsPushout TensorProduct.includeRight algebraMap TensorProduct.lTensor_ker IsPushout.equiv smul_def TensorProduct.includeLeft id TensorProduct.map)
+export _root_.Algebra (TensorProduct.rid ofId IsPushout TensorProduct.includeRight algebraMap TensorProduct.lTensor_ker IsPushout.equiv smul_def TensorProduct.includeLeft id TensorProduct.map)
 namespace IsPushout
-export Algebra.IsPushout (equiv symm)
+export _root_.Algebra.IsPushout (equiv symm)
 open Algebra.IsPushout
 open Algebra
 
@@ -78,7 +78,7 @@ theorem lbE_ker_algebraMap_eq_map_ker
 end Algebra.IsPushout
 
 namespace CommRingCat
-export CommRingCat (hom_comp of carrier Hom adj isPushout_iff_isPushout)
+export _root_.CommRingCat (hom_comp of carrier Hom adj isPushout_iff_isPushout)
 open CommRingCat
 
 theorem lbE_ker_eq_map_ker_of_isPushout {R B C P : CommRingCat.{u}} {f : R ⟶ B} {g : R ⟶ C}
@@ -95,11 +95,11 @@ theorem lbE_ker_eq_map_ker_of_isPushout {R B C P : CommRingCat.{u}} {f : R ⟶ B
 end CommRingCat
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Hom.resLE_comp_ι Scheme.Hom.map_appLE Scheme.Opens.topIso_inv Surjective Scheme.Modules.pushforward Scheme.Modules.pullback isPushout_appTop_of_isPullback Scheme.Hom Scheme.Opens.ι_appIso isAffine_of_isAffineHom IsAffine Scheme Scheme.Hom.appTop Scheme.Opens.topIso_hom isAffineOpen_top Scheme.Modules Scheme.Hom.ker_apply Scheme.Opens Scheme.Hom.appLE_map Scheme.Hom.resLE_app_top Scheme.Opens.ι_image_top Scheme.IdealSheafData)
+export _root_.AlgebraicGeometry (Scheme.Hom.resLE_comp_ι Scheme.Hom.map_appLE Scheme.Opens.topIso_inv Surjective Scheme.Modules.pushforward Scheme.Modules.pullback isPushout_appTop_of_isPullback Scheme.Hom Scheme.Opens.ι_appIso isAffine_of_isAffineHom IsAffine Scheme Scheme.Hom.appTop Scheme.Opens.topIso_hom isAffineOpen_top Scheme.Modules Scheme.Hom.ker_apply Scheme.Opens Scheme.Hom.appLE_map Scheme.Hom.resLE_app_top Scheme.Opens.ι_image_top Scheme.IdealSheafData)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Hom.resLE_comp_ι Hom.map_appLE Modules.Hom.app_smul Opens.topIso_inv ringCatSheaf Modules.pushforward Modules.pullback Hom Γ Opens.ι_appIso topIso_hom Modules.Hom Hom.appTop Opens.topIso_hom affineOpens isBasis_affineOpens Modules Hom.ker_apply Opens Hom.appLE_map Hom.resLE_app_top Opens.ι_image_top restrict IdealSheafData)
+export _root_.AlgebraicGeometry.Scheme (Hom.resLE_comp_ι Hom.map_appLE Modules.Hom.app_smul Opens.topIso_inv ringCatSheaf Modules.pushforward Modules.pullback Hom Γ Opens.ι_appIso topIso_hom Modules.Hom Hom.appTop Opens.topIso_hom affineOpens isBasis_affineOpens Modules Hom.ker_apply Opens Hom.appLE_map Hom.resLE_app_top Opens.ι_image_top restrict IdealSheafData)
 namespace IdealSheafData
-export AlgebraicGeometry.Scheme.IdealSheafData (comap_comp map subscheme subschemeι_app_surjective ideal inclusion subschemeι comap ker_subschemeι_app ideal_comap_of_isOpenImmersion moduleToPushforwardComapModule pullbackModuleComparison module moduleι range_moduleIota_app_and_injective)
+export _root_.AlgebraicGeometry.Scheme.IdealSheafData (comap_comp map subscheme subschemeι_app_surjective ideal inclusion subschemeι comap ker_subschemeι_app ideal_comap_of_isOpenImmersion moduleToPushforwardComapModule pullbackModuleComparison module moduleι range_moduleIota_app_and_injective)
 open AlgebraicGeometry.Scheme.IdealSheafData
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry
@@ -150,11 +150,11 @@ theorem lbE_ideal_comap_of_le (I : X.IdealSheafData) (f : Y ⟶ X) (U : X.affine
 end AlgebraicGeometry.Scheme.IdealSheafData
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Hom.resLE_comp_ι Scheme.Hom.map_appLE Scheme.Opens.topIso_inv Surjective Scheme.Modules.pushforward Scheme.Modules.pullback isPushout_appTop_of_isPullback Scheme.Hom Scheme.Opens.ι_appIso isAffine_of_isAffineHom IsAffine Scheme Scheme.Hom.appTop Scheme.Opens.topIso_hom isAffineOpen_top Scheme.Modules Scheme.Hom.ker_apply Scheme.Opens Scheme.Hom.appLE_map Scheme.Hom.resLE_app_top Scheme.Opens.ι_image_top Scheme.IdealSheafData)
+export _root_.AlgebraicGeometry (Scheme.Hom.resLE_comp_ι Scheme.Hom.map_appLE Scheme.Opens.topIso_inv Surjective Scheme.Modules.pushforward Scheme.Modules.pullback isPushout_appTop_of_isPullback Scheme.Hom Scheme.Opens.ι_appIso isAffine_of_isAffineHom IsAffine Scheme Scheme.Hom.appTop Scheme.Opens.topIso_hom isAffineOpen_top Scheme.Modules Scheme.Hom.ker_apply Scheme.Opens Scheme.Hom.appLE_map Scheme.Hom.resLE_app_top Scheme.Opens.ι_image_top Scheme.IdealSheafData)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Hom.resLE_comp_ι Hom.map_appLE Modules.Hom.app_smul Opens.topIso_inv ringCatSheaf Modules.pushforward Modules.pullback Hom Γ Opens.ι_appIso topIso_hom Modules.Hom Hom.appTop Opens.topIso_hom affineOpens isBasis_affineOpens Modules Hom.ker_apply Opens Hom.appLE_map Hom.resLE_app_top Opens.ι_image_top restrict IdealSheafData)
+export _root_.AlgebraicGeometry.Scheme (Hom.resLE_comp_ι Hom.map_appLE Modules.Hom.app_smul Opens.topIso_inv ringCatSheaf Modules.pushforward Modules.pullback Hom Γ Opens.ι_appIso topIso_hom Modules.Hom Hom.appTop Opens.topIso_hom affineOpens isBasis_affineOpens Modules Hom.ker_apply Opens Hom.appLE_map Hom.resLE_app_top Opens.ι_image_top restrict IdealSheafData)
 namespace IdealSheafData
-export AlgebraicGeometry.Scheme.IdealSheafData (comap_comp map subscheme subschemeι_app_surjective ideal inclusion subschemeι comap ker_subschemeι_app ideal_comap_of_isOpenImmersion moduleToPushforwardComapModule pullbackModuleComparison module moduleι range_moduleIota_app_and_injective)
+export _root_.AlgebraicGeometry.Scheme.IdealSheafData (comap_comp map subscheme subschemeι_app_surjective ideal inclusion subschemeι comap ker_subschemeι_app ideal_comap_of_isOpenImmersion moduleToPushforwardComapModule pullbackModuleComparison module moduleι range_moduleIota_app_and_injective)
 open AlgebraicGeometry.Scheme.IdealSheafData
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry
@@ -172,7 +172,7 @@ private lemma _root_.AlgebraicGeometry.Scheme.IdealSheafData.moduleToPushforward
     ((I.comap f).subschemeι.unitToPushforwardUnit)]
   exact kernel.lift_ι ((SheafOfModules.pushforward f.toRingCatSheafHom).map
     ((I.comap f).subschemeι.unitToPushforwardUnit)) _ _
-export AlgebraicGeometry.Scheme.IdealSheafData (moduleToPushforwardComapModule_comp_map_moduleι)
+export _root_.AlgebraicGeometry.Scheme.IdealSheafData (moduleToPushforwardComapModule_comp_map_moduleι)
 private lemma _root_.AlgebraicGeometry.Scheme.IdealSheafData.unit_comp_map_pullbackModuleComparison {X X' : Scheme.{u}} (f : X' ⟶ X)
     (I : X.IdealSheafData) :
     (SheafOfModules.pullbackPushforwardAdjunction f.toRingCatSheafHom).unit.app
@@ -184,7 +184,7 @@ private lemma _root_.AlgebraicGeometry.Scheme.IdealSheafData.unit_comp_map_pullb
     Equiv.apply_symm_apply _ _
   exact (Adjunction.homEquiv_unit (adj := SheafOfModules.pullbackPushforwardAdjunction
     f.toRingCatSheafHom) (f := I.pullbackModuleComparison f)).symm.trans h
-export AlgebraicGeometry.Scheme.IdealSheafData (unit_comp_map_pullbackModuleComparison)
+export _root_.AlgebraicGeometry.Scheme.IdealSheafData (unit_comp_map_pullbackModuleComparison)
 theorem lbE_pullbackModuleComparison_locallySurjective {X X' : Scheme.{u}} (f : X' ⟶ X)
     (I : X.IdealSheafData) :
     ∀ (U : X'.Opens) (s : Γ((I.comap f).module, U)), ∀ x ∈ U,

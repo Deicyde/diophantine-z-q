@@ -47,11 +47,11 @@ open CategoryTheory.Functor.OplaxMonoidal
 noncomputable section
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.Hom.app_smul Scheme.Modules.pushforward morphismRestrict_ι Scheme.Modules.pullback Scheme.Hom Scheme.Modules.Hom.comp_app Scheme.Modules.Hom isPullback_morphismRestrict Scheme Scheme.Modules.Hom.id_app Scheme.Modules.Hom.app Scheme.Modules.pullbackPushforwardAdjunction Scheme.Modules Scheme.Hom.comp_preimage Scheme.Modules.map_smul Scheme.Modules.projectionMorphism)
+export _root_.AlgebraicGeometry (Scheme.Modules.Hom.app_smul Scheme.Modules.pushforward morphismRestrict_ι Scheme.Modules.pullback Scheme.Hom Scheme.Modules.Hom.comp_app Scheme.Modules.Hom isPullback_morphismRestrict Scheme Scheme.Modules.Hom.id_app Scheme.Modules.Hom.app Scheme.Modules.pullbackPushforwardAdjunction Scheme.Modules Scheme.Hom.comp_preimage Scheme.Modules.map_smul Scheme.Modules.projectionMorphism)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Modules.Hom.app_smul ringCatSheaf Modules.pushforward Modules.pullback Hom.id_app Hom Γ Modules.Hom.comp_app Hom.app Modules.Hom Modules.Hom.id_app Modules.Hom.app Hom.comp_app Modules.pullbackPushforwardAdjunction Modules Opens Hom.comp_preimage grothendieckTopology Modules.map_smul PresheafOfModules Modules.sheafify Modules.tensorSections Modules.unitSection Modules.sheafify_mu_app_tensorSections Modules.tensorHom_app_tensorSections Modules.projectionMorphism)
+export _root_.AlgebraicGeometry.Scheme (Modules.Hom.app_smul ringCatSheaf Modules.pushforward Modules.pullback Hom.id_app Hom Γ Modules.Hom.comp_app Hom.app Modules.Hom Modules.Hom.id_app Modules.Hom.app Hom.comp_app Modules.pullbackPushforwardAdjunction Modules Opens Hom.comp_preimage grothendieckTopology Modules.map_smul PresheafOfModules Modules.sheafify Modules.tensorSections Modules.unitSection Modules.sheafify_mu_app_tensorSections Modules.tensorHom_app_tensorSections Modules.projectionMorphism)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (Hom.app_smul pushforward pullback presheaf Hom.comp_app Hom Hom.id_app Hom.app pullbackCongr pullbackPushforwardAdjunction map_smul pullbackComp tensor sheafify tensorIsoSheafify pullback₀ pullbackTensorObjIso pullbackTensorUnitObjIso tensorSections unitSection pullbackLocalSection pullbackLocalSection_smul pullbackLocalSection_app app_pullbackLocalSection counit_app_pullbackLocalSection pullback_hom_ext sheafify_mu_app_tensorSections tensorHom_app_tensorSections projectionMorphismMate projectionMorphism projectionMorphism_def projectionMorphismMate_def baseChangeHom conjugateEquiv_pullbackComp_hom unit_app_app_comp_baseChangeHom_app toPMod tensor_hom_ext isIso_baseChangeHom_of_isOpenImmersion whiskerRight_app_tensorSections leftUnitor_hom_app_tensorSections)
+export _root_.AlgebraicGeometry.Scheme.Modules (Hom.app_smul pushforward pullback presheaf Hom.comp_app Hom Hom.id_app Hom.app pullbackCongr pullbackPushforwardAdjunction map_smul pullbackComp tensor sheafify tensorIsoSheafify pullback₀ pullbackTensorObjIso pullbackTensorUnitObjIso tensorSections unitSection pullbackLocalSection pullbackLocalSection_smul pullbackLocalSection_app app_pullbackLocalSection counit_app_pullbackLocalSection pullback_hom_ext sheafify_mu_app_tensorSections tensorHom_app_tensorSections projectionMorphismMate projectionMorphism projectionMorphism_def projectionMorphismMate_def baseChangeHom conjugateEquiv_pullbackComp_hom unit_app_app_comp_baseChangeHom_app toPMod tensor_hom_ext isIso_baseChangeHom_of_isOpenImmersion whiskerRight_app_tensorSections leftUnitor_hom_app_tensorSections)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry
@@ -61,12 +61,12 @@ namespace PullbackTensorSections
 variable {X Y : Scheme.{u}} (f : X ⟶ Y)
 
 private abbrev _root_.AlgebraicGeometry.Scheme.Modules.PullbackTensorSections.adj (Z : Scheme.{u}) := SheafOfModules.sheafifyAdj Z.sheaf.obj Z.ringCatSheaf.property
-export AlgebraicGeometry.Scheme.Modules.PullbackTensorSections (adj)
+export _root_.AlgebraicGeometry.Scheme.Modules.PullbackTensorSections (adj)
 private abbrev _root_.AlgebraicGeometry.Scheme.Modules.PullbackTensorSections.ι (Z : Scheme.{u}) := SheafOfModules.toPMod Z.sheaf.obj Z.ringCatSheaf.property
-export AlgebraicGeometry.Scheme.Modules.PullbackTensorSections (ι)
+export _root_.AlgebraicGeometry.Scheme.Modules.PullbackTensorSections (ι)
 private abbrev _root_.AlgebraicGeometry.Scheme.Modules.PullbackTensorSections.pf := PresheafOfModules.PullbackMonoidal.pf (TopologicalSpace.Opens.map f.base)
   (R := X.sheaf.obj) (S := Y.sheaf.obj) f.c
-export AlgebraicGeometry.Scheme.Modules.PullbackTensorSections (pf)
+export _root_.AlgebraicGeometry.Scheme.Modules.PullbackTensorSections (pf)
 abbrev adj₀ := PresheafOfModules.PullbackMonoidal.adj (TopologicalSpace.Opens.map f.base)
   (R := X.sheaf.obj) (S := Y.sheaf.obj) f.c
 

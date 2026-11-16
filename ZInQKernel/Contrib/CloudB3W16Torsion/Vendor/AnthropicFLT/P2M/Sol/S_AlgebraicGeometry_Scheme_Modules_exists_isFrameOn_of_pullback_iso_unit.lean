@@ -32,7 +32,7 @@ open CategoryTheory.MonoidalCategory.Limits
 noncomputable section
 
 namespace PresheafOfModules
-export PresheafOfModules (presheaf sections pullback naturality_apply pushforward map map_comp_apply Hom unit free restriction obj InternalHom.map_id_apply)
+export _root_.PresheafOfModules (presheaf sections pullback naturality_apply pushforward map map_comp_apply Hom unit free restriction obj InternalHom.map_id_apply)
 open PresheafOfModules
 
 namespace FrameBridge
@@ -53,11 +53,11 @@ end FrameBridge
 end PresheafOfModules
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.pullback Scheme.Hom Scheme.Opens.ι_appIso Scheme.Hom.image_preimage_eq_opensRange_inf Scheme Scheme.Modules Scheme.Opens Scheme.Opens.opensRange_ι Scheme.Modules.IsFrameOn)
+export _root_.AlgebraicGeometry (Scheme.Modules.pullback Scheme.Hom Scheme.Opens.ι_appIso Scheme.Hom.image_preimage_eq_opensRange_inf Scheme Scheme.Modules Scheme.Opens Scheme.Opens.opensRange_ι Scheme.Modules.IsFrameOn)
 namespace Scheme
-export AlgebraicGeometry.Scheme (ringCatSheaf Modules.pullback Hom Γ Opens.ι_appIso Hom.image_preimage_eq_opensRange_inf Modules.restrictFunctor restrictFunctor Modules Opens grothendieckTopology Opens.opensRange_ι PresheafOfModules Modules.IsFrameOn)
+export _root_.AlgebraicGeometry.Scheme (ringCatSheaf Modules.pullback Hom Γ Opens.ι_appIso Hom.image_preimage_eq_opensRange_inf Modules.restrictFunctor restrictFunctor Modules Opens grothendieckTopology Opens.opensRange_ι PresheafOfModules Modules.IsFrameOn)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (pushforward pullback presheaf Hom restrictFunctor restrictFunctorIsoPullback map_smul IsInvertible IsFrameOn)
+export _root_.AlgebraicGeometry.Scheme.Modules (pushforward pullback presheaf Hom restrictFunctor restrictFunctorIsoPullback map_smul IsInvertible IsFrameOn)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry

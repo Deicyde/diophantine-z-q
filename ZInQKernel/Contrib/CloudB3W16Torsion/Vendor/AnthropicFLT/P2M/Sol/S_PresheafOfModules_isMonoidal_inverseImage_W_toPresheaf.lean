@@ -27,7 +27,7 @@ open CategoryTheory.MonoidalCategory.Limits
 noncomputable section
 
 namespace PresheafOfModules
-export PresheafOfModules (sheafification presheaf sheafificationAdjunction inverseImage_W_toPresheaf_eq_inverseImage_isomorphisms map restrictScalars IsLocallyInjective toPresheaf unit toPresheaf_map_sheafificationAdjunction_unit_app obj IsLocallySurjective isSheaf_ihomObj)
+export _root_.PresheafOfModules (sheafification presheaf sheafificationAdjunction inverseImage_W_toPresheaf_eq_inverseImage_isomorphisms map restrictScalars IsLocallyInjective toPresheaf unit toPresheaf_map_sheafificationAdjunction_unit_app obj IsLocallySurjective isSheaf_ihomObj)
 namespace IsMonoidalW
 open PresheafOfModules
 
@@ -42,7 +42,7 @@ abbrev PMod := PresheafOfModules.{u} (𝒪 ⋙ forget₂ CommRingCat RingCat)
 private abbrev _root_.PresheafOfModules.IsMonoidalW.W : MorphismProperty (PMod 𝒪) :=
   (J.W (A := AddCommGrpCat.{u})).inverseImage
     (PresheafOfModules.toPresheaf (𝒪 ⋙ forget₂ CommRingCat RingCat))
-export PresheafOfModules.IsMonoidalW (W)
+export _root_.PresheafOfModules.IsMonoidalW (W)
 abbrev shf : PMod 𝒪 ⥤ SheafOfModules.{u} R := PresheafOfModules.sheafification α
 
 abbrev inc : SheafOfModules.{u} R ⥤ PMod 𝒪 :=

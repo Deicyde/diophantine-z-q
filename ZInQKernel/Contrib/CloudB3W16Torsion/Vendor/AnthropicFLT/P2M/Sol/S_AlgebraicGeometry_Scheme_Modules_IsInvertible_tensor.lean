@@ -29,11 +29,11 @@ open AlgebraicGeometry
 open P2MW.S_AlgebraicGeometry_Scheme_Modules_IsInvertible_tensor.AlgebraicGeometry
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme Scheme.Modules Scheme.Modules.IsInvertible Scheme.Modules.pullbackUnitIso)
+export _root_.AlgebraicGeometry (Scheme Scheme.Modules Scheme.Modules.IsInvertible Scheme.Modules.pullbackUnitIso)
 namespace Scheme
-export AlgebraicGeometry.Scheme (ringCatSheaf Modules.pullback Modules.pullbackCongr Modules Opens homOfLE_ι restrict Modules.pullbackComp Modules.IsInvertible Modules.pullbackUnitIso)
+export _root_.AlgebraicGeometry.Scheme (ringCatSheaf Modules.pullback Modules.pullbackCongr Modules Opens homOfLE_ι restrict Modules.pullbackComp Modules.IsInvertible Modules.pullbackUnitIso)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (pullback pullbackCongr restrict pullbackComp IsInvertible pullbackUnitIso tensor pullbackTensorObjIso)
+export _root_.AlgebraicGeometry.Scheme.Modules (pullback pullbackCongr restrict pullbackComp IsInvertible pullbackUnitIso tensor pullbackTensorObjIso)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry

@@ -35,7 +35,7 @@ open CategoryTheory AlgebraicGeometry
 universe u
 
 namespace AlgebraicCurve
-export AlgebraicCurve (Divisor H1 genusFF IsCurveOver LSpace ell RiemannGenusReachedAt baseToFunctionField nonempty_linearEquiv_cechH0_and_cechH1 placesOf_union_eq_univ_of_sup_eq_top cechRiemannRoch_of_genusReached indexOfSpecialty_eq_finrank_H1)
+export _root_.AlgebraicCurve (Divisor H1 genusFF IsCurveOver LSpace ell RiemannGenusReachedAt baseToFunctionField nonempty_linearEquiv_cechH0_and_cechH1 placesOf_union_eq_univ_of_sup_eq_top cechRiemannRoch_of_genusReached indexOfSpecialty_eq_finrank_H1)
 open AlgebraicCurve
 open CategoryTheory AlgebraicGeometry TopologicalSpace
 

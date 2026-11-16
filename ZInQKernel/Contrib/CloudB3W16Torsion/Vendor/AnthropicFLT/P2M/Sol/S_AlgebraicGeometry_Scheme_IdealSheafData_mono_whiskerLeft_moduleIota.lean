@@ -34,11 +34,11 @@ set_option synthInstance.maxHeartbeats 1600000
 set_option maxHeartbeats 6400000
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.pullback Scheme.Hom Scheme.Modules.Hom Scheme.Hom.image_preimage_eq_opensRange_inf Scheme.Modules.mapPresheaf_app Scheme Scheme.Modules.restrictFunctor Scheme.Modules.restrictFunctorIsoPullback Scheme.Modules Scheme.Opens Scheme.Opens.opensRange_ι Scheme.IdealSheafData Scheme.Modules.IsLocallyFreeOfRank Scheme.Modules.Hom.mono_iff_injective)
+export _root_.AlgebraicGeometry (Scheme.Modules.pullback Scheme.Hom Scheme.Modules.Hom Scheme.Hom.image_preimage_eq_opensRange_inf Scheme.Modules.mapPresheaf_app Scheme Scheme.Modules.restrictFunctor Scheme.Modules.restrictFunctorIsoPullback Scheme.Modules Scheme.Opens Scheme.Opens.opensRange_ι Scheme.IdealSheafData Scheme.Modules.IsLocallyFreeOfRank Scheme.Modules.Hom.mono_iff_injective)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Modules.pullback Hom Γ Modules.Hom Hom.image_preimage_eq_opensRange_inf Modules.mapPresheaf_app Modules.restrictFunctor Modules.restrictFunctorIsoPullback restrictFunctor Modules Opens Opens.opensRange_ι IdealSheafData Modules.IsLocallyFreeOfRank Modules.Hom.mono_iff_injective)
+export _root_.AlgebraicGeometry.Scheme (Modules.pullback Hom Γ Modules.Hom Hom.image_preimage_eq_opensRange_inf Modules.mapPresheaf_app Modules.restrictFunctor Modules.restrictFunctorIsoPullback restrictFunctor Modules Opens Opens.opensRange_ι IdealSheafData Modules.IsLocallyFreeOfRank Modules.Hom.mono_iff_injective)
 namespace IdealSheafData
-export AlgebraicGeometry.Scheme.IdealSheafData (map subscheme map_mono inclusion subschemeι module moduleι)
+export _root_.AlgebraicGeometry.Scheme.IdealSheafData (map subscheme map_mono inclusion subschemeι module moduleι)
 open AlgebraicGeometry.Scheme.IdealSheafData
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry

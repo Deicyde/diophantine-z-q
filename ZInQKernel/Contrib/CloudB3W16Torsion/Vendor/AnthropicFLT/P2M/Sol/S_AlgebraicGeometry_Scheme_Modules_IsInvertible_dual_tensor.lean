@@ -27,11 +27,11 @@ open CategoryTheory
 open CategoryTheory.MonoidalCategory
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme Scheme.Modules Scheme.Modules.IsInvertible Scheme.Modules.dual Scheme.Modules.IsInvertible.dual)
+export _root_.AlgebraicGeometry (Scheme Scheme.Modules Scheme.Modules.IsInvertible Scheme.Modules.dual Scheme.Modules.IsInvertible.dual)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Modules Modules.IsInvertible Modules.dual Modules.IsInvertible.dual)
+export _root_.AlgebraicGeometry.Scheme (Modules Modules.IsInvertible Modules.dual Modules.IsInvertible.dual)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (IsInvertible tensor dual IsInvertible.dual)
+export _root_.AlgebraicGeometry.Scheme.Modules (IsInvertible tensor dual IsInvertible.dual)
 namespace InverseUnique
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme

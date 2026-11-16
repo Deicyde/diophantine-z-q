@@ -46,11 +46,11 @@ open NeronModelInfra
 open TensorProduct
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Hom.map_appLE Scheme.Modules.pullback Scheme.Hom Scheme.Hom.appLE_comp_appLE Spec Scheme Scheme.Hom.naturality Scheme.Modules Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE RelPicard.baseChangeSnd Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap FGSubalgebra RelPicard.LFP.stageHom)
+export _root_.AlgebraicGeometry (Scheme.Hom.map_appLE Scheme.Modules.pullback Scheme.Hom Scheme.Hom.appLE_comp_appLE Spec Scheme Scheme.Hom.naturality Scheme.Modules Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE RelPicard.baseChangeSnd Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap FGSubalgebra RelPicard.LFP.stageHom)
 namespace RelPicard
-export AlgebraicGeometry.RelPicard (baseChangeSnd RigidifiedLineBundle LFP.stageHom RigidifiedLineBundle.ofInvertible RigidifiedLineBundle.nonempty_ofInvertible_iso_of_iso RigidifiedLineBundle.nonempty_ofInvertible_iso_of_rigidified RigidifiedLineBundle.nonempty_ofInvertible_pullbackAlong_iso)
+export _root_.AlgebraicGeometry.RelPicard (baseChangeSnd RigidifiedLineBundle LFP.stageHom RigidifiedLineBundle.ofInvertible RigidifiedLineBundle.nonempty_ofInvertible_iso_of_iso RigidifiedLineBundle.nonempty_ofInvertible_iso_of_rigidified RigidifiedLineBundle.nonempty_ofInvertible_pullbackAlong_iso)
 namespace LFP
-export AlgebraicGeometry.RelPicard.LFP (stageHom)
+export _root_.AlgebraicGeometry.RelPicard.LFP (stageHom)
 open AlgebraicGeometry.RelPicard.LFP
 open AlgebraicGeometry.RelPicard
 open AlgebraicGeometry
@@ -184,7 +184,7 @@ private noncomputable def _root_.AlgebraicGeometry.RelPicard.LFP.push (h : A' �
     A'' ⊗[k] P →ₗ[A''] A'' ⊗[k] Q :=
   LinearMap.liftBaseChange A''
     ((h.toLinearMap.rTensor Q) ∘ₗ (f.restrictScalars k) ∘ₗ (TensorProduct.mk k A' P 1))
-export AlgebraicGeometry.RelPicard.LFP (push)
+export _root_.AlgebraicGeometry.RelPicard.LFP (push)
 @[scoped simp] theorem push_tmul (h : A' →ₐ[k] A'') (f : A' ⊗[k] P →ₗ[A'] A' ⊗[k] Q) (a : A'') (m : P) :
     push h f (a ⊗ₜ[k] m) = a • h.toLinearMap.rTensor Q (f ((1 : A') ⊗ₜ[k] m)) := by
   simp [push, LinearMap.liftBaseChange_tmul]
@@ -635,11 +635,11 @@ end AlgebraicGeometry.RelPicard.LFP
 
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Hom.map_appLE Scheme.Modules.pullback Scheme.Hom Scheme.Hom.appLE_comp_appLE Spec Scheme Scheme.Hom.naturality Scheme.Modules Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE RelPicard.baseChangeSnd Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap FGSubalgebra RelPicard.LFP.stageHom)
+export _root_.AlgebraicGeometry (Scheme.Hom.map_appLE Scheme.Modules.pullback Scheme.Hom Scheme.Hom.appLE_comp_appLE Spec Scheme Scheme.Hom.naturality Scheme.Modules Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE RelPicard.baseChangeSnd Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap FGSubalgebra RelPicard.LFP.stageHom)
 namespace RelPicard
-export AlgebraicGeometry.RelPicard (baseChangeSnd RigidifiedLineBundle LFP.stageHom RigidifiedLineBundle.ofInvertible RigidifiedLineBundle.nonempty_ofInvertible_iso_of_iso RigidifiedLineBundle.nonempty_ofInvertible_iso_of_rigidified RigidifiedLineBundle.nonempty_ofInvertible_pullbackAlong_iso)
+export _root_.AlgebraicGeometry.RelPicard (baseChangeSnd RigidifiedLineBundle LFP.stageHom RigidifiedLineBundle.ofInvertible RigidifiedLineBundle.nonempty_ofInvertible_iso_of_iso RigidifiedLineBundle.nonempty_ofInvertible_iso_of_rigidified RigidifiedLineBundle.nonempty_ofInvertible_pullbackAlong_iso)
 namespace LFP
-export AlgebraicGeometry.RelPicard.LFP (stageHom)
+export _root_.AlgebraicGeometry.RelPicard.LFP (stageHom)
 open AlgebraicGeometry.RelPicard.LFP
 open AlgebraicGeometry.RelPicard
 open AlgebraicGeometry
@@ -687,7 +687,7 @@ end AlgebraicGeometry.RelPicard.LFP
 
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Hom.map_appLE Scheme.Modules.pullback Scheme.Hom Scheme.Hom.appLE_comp_appLE Spec Scheme Scheme.Hom.naturality Scheme.Modules Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE RelPicard.baseChangeSnd Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap FGSubalgebra RelPicard.LFP.stageHom)
+export _root_.AlgebraicGeometry (Scheme.Hom.map_appLE Scheme.Modules.pullback Scheme.Hom Scheme.Hom.appLE_comp_appLE Spec Scheme Scheme.Hom.naturality Scheme.Modules Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE RelPicard.baseChangeSnd Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap FGSubalgebra RelPicard.LFP.stageHom)
 open AlgebraicGeometry
 
 open CategoryTheory Opposite
@@ -716,11 +716,11 @@ theorem Scheme.Hom.app_apply_map {X Y : Scheme.{u}} (f : X ⟶ Y) {U U' : Y.Open
 end AlgebraicGeometry
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Hom.map_appLE Scheme.Modules.pullback Scheme.Hom Scheme.Hom.appLE_comp_appLE Spec Scheme Scheme.Hom.naturality Scheme.Modules Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE RelPicard.baseChangeSnd Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap FGSubalgebra RelPicard.LFP.stageHom)
+export _root_.AlgebraicGeometry (Scheme.Hom.map_appLE Scheme.Modules.pullback Scheme.Hom Scheme.Hom.appLE_comp_appLE Spec Scheme Scheme.Hom.naturality Scheme.Modules Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE RelPicard.baseChangeSnd Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap FGSubalgebra RelPicard.LFP.stageHom)
 namespace RelPicard
-export AlgebraicGeometry.RelPicard (baseChangeSnd RigidifiedLineBundle LFP.stageHom RigidifiedLineBundle.ofInvertible RigidifiedLineBundle.nonempty_ofInvertible_iso_of_iso RigidifiedLineBundle.nonempty_ofInvertible_iso_of_rigidified RigidifiedLineBundle.nonempty_ofInvertible_pullbackAlong_iso)
+export _root_.AlgebraicGeometry.RelPicard (baseChangeSnd RigidifiedLineBundle LFP.stageHom RigidifiedLineBundle.ofInvertible RigidifiedLineBundle.nonempty_ofInvertible_iso_of_iso RigidifiedLineBundle.nonempty_ofInvertible_iso_of_rigidified RigidifiedLineBundle.nonempty_ofInvertible_pullbackAlong_iso)
 namespace LFP
-export AlgebraicGeometry.RelPicard.LFP (stageHom)
+export _root_.AlgebraicGeometry.RelPicard.LFP (stageHom)
 open AlgebraicGeometry.RelPicard.LFP
 open AlgebraicGeometry.RelPicard
 open AlgebraicGeometry

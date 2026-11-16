@@ -30,11 +30,11 @@ open Opposite
 noncomputable section
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.hom_ext Spec_zeroLocus Scheme.IdealSheafData.support_comap Spec Scheme Scheme.zeroLocus_span isAffineOpen_top Scheme.Modules Scheme.Opens Scheme.Opens.ι_image_top Scheme.IdealSheafData.mem_support_iff_of_mem Scheme.IdealSheafData Scheme.ΓSpecIso Scheme.Modules.zeroSchemeIdeal Scheme.Modules.pullbackSection Scheme.Modules.IsInvertible)
+export _root_.AlgebraicGeometry (Scheme.Modules.hom_ext Spec_zeroLocus Scheme.IdealSheafData.support_comap Spec Scheme Scheme.zeroLocus_span isAffineOpen_top Scheme.Modules Scheme.Opens Scheme.Opens.ι_image_top Scheme.IdealSheafData.mem_support_iff_of_mem Scheme.IdealSheafData Scheme.ΓSpecIso Scheme.Modules.zeroSchemeIdeal Scheme.Modules.pullbackSection Scheme.Modules.IsInvertible)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Modules.hom_ext IdealSheafData.support_comap Hom.id_app Hom Γ topIso zeroLocus zeroLocus_span Modules Opens Opens.ι_image_top IdealSheafData.mem_support_iff_of_mem restrict IdealSheafData ΓSpecIso Modules.zeroSchemeIdeal Modules.pullbackSection Modules.IsInvertible)
+export _root_.AlgebraicGeometry.Scheme (Modules.hom_ext IdealSheafData.support_comap Hom.id_app Hom Γ topIso zeroLocus zeroLocus_span Modules Opens Opens.ι_image_top IdealSheafData.mem_support_iff_of_mem restrict IdealSheafData ΓSpecIso Modules.zeroSchemeIdeal Modules.pullbackSection Modules.IsInvertible)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (hom_ext Hom.app_smul Hom.zero_app pullback presheaf Hom Hom.id_app restrict toUnitSection ofUnitSection restrictSection coeff zeroSchemeIdeal pullbackSection IsInvertible)
+export _root_.AlgebraicGeometry.Scheme.Modules (hom_ext Hom.app_smul Hom.zero_app pullback presheaf Hom Hom.id_app restrict toUnitSection ofUnitSection restrictSection coeff zeroSchemeIdeal pullbackSection IsInvertible)
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
 open AlgebraicGeometry

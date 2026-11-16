@@ -46,7 +46,7 @@ open CategoryTheory.MonoidalCategory
 open Opposite
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.basicOpen_res Scheme.IdealSheafData.support_pow SmoothOfRelativeDimension IsProper IsClosedImmersion.of_comp Scheme.Hom GeometricallyIntegral Scheme.Hom.support_ker Spec RingedSpace.isUnit_res_basicOpen Scheme Scheme.zeroLocus_span IsClosedImmersion Scheme.basicOpen_mul Scheme.zeroLocus_singleton Scheme.Modules Scheme.IdealSheafData.mem_support_iff_of_mem RingedSpace Scheme.IdealSheafData Scheme.Modules.zeroSchemeIdeal Scheme.Hom.isInvertible_ker_of_comp_eq_id)
+export _root_.AlgebraicGeometry (Scheme.basicOpen_res Scheme.IdealSheafData.support_pow SmoothOfRelativeDimension IsProper IsClosedImmersion.of_comp Scheme.Hom GeometricallyIntegral Scheme.Hom.support_ker Spec RingedSpace.isUnit_res_basicOpen Scheme Scheme.zeroLocus_span IsClosedImmersion Scheme.basicOpen_mul Scheme.zeroLocus_singleton Scheme.Modules Scheme.IdealSheafData.mem_support_iff_of_mem RingedSpace Scheme.IdealSheafData Scheme.Modules.zeroSchemeIdeal Scheme.Hom.isInvertible_ker_of_comp_eq_id)
 namespace SmoothProperCurve
 namespace ORDERCHART
 open AlgebraicGeometry.SmoothProperCurve

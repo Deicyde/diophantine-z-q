@@ -78,7 +78,7 @@ theorem cokerMap_bijective_of_bijective (dK : K0 →ₗ[R] K1) (d : C0 →ₗ[R]
 end TwoChartCech
 
 namespace AlgebraicCurve
-export AlgebraicCurve (Place Divisor H1 baseToFunctionField lSpaceOn mem_lSpaceOn_iff cechDiff coe_cechDiff_apply cechH0 cechH1 placesOf placesOf_mono eq_of_range_stalk_eq Place.mem_iff_adicValuation_le_one range_algebraMap_functionField_eq_iInf_of_isAffineOpen)
+export _root_.AlgebraicCurve (Place Divisor H1 baseToFunctionField lSpaceOn mem_lSpaceOn_iff cechDiff coe_cechDiff_apply cechH0 cechH1 placesOf placesOf_mono eq_of_range_stalk_eq Place.mem_iff_adicValuation_le_one range_algebraMap_functionField_eq_iInf_of_isAffineOpen)
 open AlgebraicCurve
 open CategoryTheory AlgebraicGeometry Opposite TopologicalSpace
 

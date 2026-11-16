@@ -27,7 +27,7 @@ open CategoryTheory CategoryTheory.Limits AlgebraicGeometry TensorProduct
 noncomputable section
 
 namespace LinearMap
-export LinearMap (mem_range range snd exact_map_mkQ_range codRestrict zero_apply exact_subtype_ker_map fst ker_comp coe_coe ext comp baseChange ker mem_ker comp_apply baseChange_comp mem_range_self lTensor_surjective)
+export _root_.LinearMap (mem_range range snd exact_map_mkQ_range codRestrict zero_apply exact_subtype_ker_map fst ker_comp coe_coe ext comp baseChange ker mem_ker comp_apply baseChange_comp mem_range_self lTensor_surjective)
 namespace HomologyTransport
 open LinearMap
 
@@ -80,7 +80,7 @@ theorem map_kerEquiv_comap_range :
 end LinearMap.HomologyTransport
 
 namespace LinearMap
-export LinearMap (mem_range range snd exact_map_mkQ_range codRestrict zero_apply exact_subtype_ker_map fst ker_comp coe_coe ext comp baseChange ker mem_ker comp_apply baseChange_comp mem_range_self lTensor_surjective)
+export _root_.LinearMap (mem_range range snd exact_map_mkQ_range codRestrict zero_apply exact_subtype_ker_map fst ker_comp coe_coe ext comp baseChange ker mem_ker comp_apply baseChange_comp mem_range_self lTensor_surjective)
 namespace FlatKerBC
 open LinearMap
 

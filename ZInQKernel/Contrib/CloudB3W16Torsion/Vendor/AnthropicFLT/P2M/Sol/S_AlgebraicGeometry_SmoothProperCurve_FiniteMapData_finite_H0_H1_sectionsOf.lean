@@ -33,11 +33,11 @@ open Opposite
 open NeronModelInfra
 
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme.Modules.pullback Spec Scheme IsAffineOpen Scheme.Modules SmoothProperCurve.FiniteMapData Scheme.TwoAffineOpenCover Scheme.Modules.isLocalization_basicOpen_of_locallyTrivial Scheme.Modules.finite_sections_of_locallyTrivial)
+export _root_.AlgebraicGeometry (Scheme.Modules.pullback Spec Scheme IsAffineOpen Scheme.Modules SmoothProperCurve.FiniteMapData Scheme.TwoAffineOpenCover Scheme.Modules.isLocalization_basicOpen_of_locallyTrivial Scheme.Modules.finite_sections_of_locallyTrivial)
 namespace SmoothProperCurve
-export AlgebraicGeometry.SmoothProperCurve (FiniteMapData)
+export _root_.AlgebraicGeometry.SmoothProperCurve (FiniteMapData)
 namespace FiniteMapData
-export AlgebraicGeometry.SmoothProperCurve.FiniteMapData (twoAffineOpenCover finite_f U f m V isAffineOpen_U inf_eq_basicOpen_g isAffineOpen_V finite_g g inf_eq_basicOpen res_f_mul_res_g)
+export _root_.AlgebraicGeometry.SmoothProperCurve.FiniteMapData (twoAffineOpenCover finite_f U f m V isAffineOpen_U inf_eq_basicOpen_g isAffineOpen_V finite_g g inf_eq_basicOpen res_f_mul_res_g)
 open AlgebraicGeometry.SmoothProperCurve.FiniteMapData
 open AlgebraicGeometry.SmoothProperCurve
 open AlgebraicGeometry

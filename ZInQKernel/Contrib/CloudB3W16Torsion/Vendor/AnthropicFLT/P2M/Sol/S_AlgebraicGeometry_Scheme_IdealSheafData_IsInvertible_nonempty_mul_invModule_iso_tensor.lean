@@ -31,11 +31,11 @@ universe u
 open CategoryTheory
 open CategoryTheory.MonoidalCategory
 namespace AlgebraicGeometry
-export AlgebraicGeometry (Scheme Scheme.Modules Scheme.IdealSheafData Scheme.Modules.dual Scheme.Modules.IsInvertible Scheme.IdealSheafData.IsInvertible Scheme.Modules.IsInvertible.dual Scheme.Modules.IsInvertible.dual_tensor)
+export _root_.AlgebraicGeometry (Scheme Scheme.Modules Scheme.IdealSheafData Scheme.Modules.dual Scheme.Modules.IsInvertible Scheme.IdealSheafData.IsInvertible Scheme.Modules.IsInvertible.dual Scheme.Modules.IsInvertible.dual_tensor)
 namespace Scheme
-export AlgebraicGeometry.Scheme (Modules IdealSheafData Modules.dual Modules.IsInvertible IdealSheafData.IsInvertible Modules.IsInvertible.dual Modules.IsInvertible.dual_tensor)
+export _root_.AlgebraicGeometry.Scheme (Modules IdealSheafData Modules.dual Modules.IsInvertible IdealSheafData.IsInvertible Modules.IsInvertible.dual Modules.IsInvertible.dual_tensor)
 namespace Modules
-export AlgebraicGeometry.Scheme.Modules (tensor dual IsInvertible IsInvertible.tensor IsInvertible.dual IsInvertible.dual_tensor)
+export _root_.AlgebraicGeometry.Scheme.Modules (tensor dual IsInvertible IsInvertible.tensor IsInvertible.dual IsInvertible.dual_tensor)
 namespace InverseUnique
 open AlgebraicGeometry.Scheme.Modules
 open AlgebraicGeometry.Scheme
