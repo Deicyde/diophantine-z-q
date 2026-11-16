@@ -1,0 +1,7 @@
+'MainCMPolar.mainTheoremCMArith_of_polar' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MainCMPolar.mainTheoremCM_of_polar' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MainCMPolar.rayClassCMAb_of_polar' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MainCMPolar.shimuraMainCM_of_polar' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MainCMPolar.mainTheoremCMPolMax_of_arith' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MainCMPolar.exists_zeta' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MainCMPolar.lattice_of_unif' depends on axioms: [propext, Classical.choice, Quot.sound]

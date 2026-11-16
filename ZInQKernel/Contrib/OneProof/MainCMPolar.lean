@@ -792,4 +792,32 @@ theorem mainTheoremCMArith_of_polar (hP : MainTheoremCMPolMax) (hX : CMAbVarExis
 
 end Proof
 
+/-! ## §6 Consequences: qmrec-printed's and hcm-printed's targets from the polarized print -/
+
+section Consequences
+
+/-- **qmrec-printed's `MainTheoremCM`** (existential sign) from the polarized, maximal-order print. -/
+theorem mainTheoremCM_of_polar (hP : MainTheoremCMPolMax) (hX : CMAbVarExists)
+    (hUL : BPAnalytic.Uniformization.UniformizationLeafAll) (hG : ZInQ.HomLattice.GAGAMorphism) :
+    QMRecPrinted.MainTheoremCM :=
+  HcmPrinted.mainTheoremCM_of_arith (mainTheoremCMArith_of_polar hP hX hUL hG)
+
+/-- **The field `rayClassCMAb`** (qmrec-printed's `rayClassCMAb_of_mainCM`) with `MainTheoremCM` derived from the
+polarized, maximal-order print. -/
+theorem rayClassCMAb_of_polar (hR : ShimuraGlue.DeligneComponentsX6PrintedAb) (hP : MainTheoremCMPolMax)
+    (hX : CMAbVarExists) (hUL : BPAnalytic.Uniformization.UniformizationLeafAll)
+    (hG : ZInQ.HomLattice.GAGAMorphism) (hMum : AvSplit.MumfordTorsionAlgClosed) :
+    ShimuraGlue.Ray.RayClassCMAb :=
+  QMRecPrinted.rayClassCMAb_of_mainCM hR (mainTheoremCM_of_polar hP hX hUL hG) hUL hG hMum
+
+/-- **`hCM = T5Glue.ShimuraMainCM`** (hcm-printed's `shimuraMainCM_of_textbook`) with `MainTheoremCMArith` derived
+from the polarized, maximal-order print. -/
+theorem shimuraMainCM_of_polar (hP : MainTheoremCMPolMax) (hX : CMAbVarExists)
+    (hWU : HcmPrinted.WeierstrassUniformization) (hWP : HcmPrinted.WeierstrassParam)
+    (hWA : HcmPrinted.WeierstrassAbVar) (hUL : BPAnalytic.Uniformization.UniformizationLeafAll)
+    (hG : ZInQ.HomLattice.GAGAMorphism) : T5Glue.ShimuraMainCM :=
+  HcmPrinted.shimuraMainCM_of_textbook (mainTheoremCMArith_of_polar hP hX hUL hG) hWU hWP hWA hUL hG
+
+end Consequences
+
 end MainCMPolar
