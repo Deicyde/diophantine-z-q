@@ -235,4 +235,166 @@ theorem induced_classicalTopology_eq {U : X.left.Opens} (hU : IsAffineOpen U) {k
       (continuous_pi fun i => continuous_xevalAt_restrict U (f i))
   · exact continuous_iff_le_induced.mp (continuous_val_coord hU f hf)
 
+/-! ## Gluing along an affine cover -/
+
+/-- The topology on `X(ℂ)` glued from affine charts: `S` is open iff for every `j`, `S ∩ U_j(ℂ)` is
+open in `U_j(ℂ) ⊂ ℂ^{k_j}` (the topology induced by `coord (f j)`). -/
+def gluedTopology {ι : Type*} (U : ι → X.left.Opens) (k : ι → ℕ)
+    (f : ∀ j, Fin (k j) → Γ(X.left, U j)) : TopologicalSpace (CPt X) :=
+  ⨆ j, TopologicalSpace.coinduced (Subtype.val : UPt X (U j) → CPt X)
+    ((inferInstance : TopologicalSpace (Fin (k j) → ℂ)).induced (coord (f j)))
+
+/-- **Gluing.** For any family of affine opens `U_j` with `ℂ`-algebra generators `f_j` of
+`Γ(X, U_j)` whose `ℂ`-points cover `X(ℂ)`, the classical topology is the glued topology. -/
+theorem classicalTopology_eq_gluedTopology {ι : Type*} (U : ι → X.left.Opens)
+    (hU : ∀ j, IsAffineOpen (U j)) (k : ι → ℕ) (f : ∀ j, Fin (k j) → Γ(X.left, U j))
+    (hf : ∀ j, Generates (U j) (f j)) (hcov : ∀ P : CPt X, ∃ j, XPtIn X P (U j)) :
+    classicalTopology X = gluedTopology U k f := by
+  have hA := fun j => induced_classicalTopology_eq (hU j) (f j) (hf j)
+  apply le_antisymm
+  · rw [TopologicalSpace.le_def]
+    intro S (hS : @IsOpen _ (gluedTopology U k f) S)
+    letI := classicalTopology X
+    rw [gluedTopology, isOpen_iSup_iff] at hS
+    simp only [isOpen_coinduced] at hS
+    have hS' : ∀ j, ∃ O, IsOpen[classicalTopology X] O ∧
+        (Subtype.val : UPt X (U j) → CPt X) ⁻¹' O = Subtype.val ⁻¹' S := by
+      intro j
+      have := hS j
+      rw [← hA j] at this
+      exact isOpen_induced_iff.mp this
+    choose O hO hOS using hS'
+    have hSeq : S = ⋃ j, O j ∩ {P | XPtIn X P (U j)} := by
+      ext P
+      simp only [mem_iUnion, mem_inter_iff, mem_ofPred_eq]
+      constructor
+      · intro hP
+        obtain ⟨j, hj⟩ := hcov P
+        refine ⟨j, ?_, hj⟩
+        have : (⟨P, hj⟩ : UPt X (U j)) ∈ Subtype.val ⁻¹' S := hP
+        rw [← hOS j] at this
+        exact this
+      · rintro ⟨j, hPO, hj⟩
+        have : (⟨P, hj⟩ : UPt X (U j)) ∈ Subtype.val ⁻¹' O j := hPO
+        rw [hOS j] at this
+        exact this
+    rw [hSeq]
+    exact @isOpen_iUnion _ _ (classicalTopology X) _ fun j =>
+      @IsOpen.inter _ (classicalTopology X) _ _ (hO j) (isOpen_ptIn (U j))
+  · refine iSup_le fun j => ?_
+    rw [coinduced_le_iff_le_induced, ← hA j]
+
+/-! ## The analytic topology -/
+
+/-- An affine chart of the `ℂ`-scheme `X`: an affine open `U` with `ℂ`-algebra generators
+`f₁, …, f_k` of `Γ(X, U)`, i.e. a closed embedding `U ↪ 𝔸^k_ℂ`, `P ↦ (f₁(P), …, f_k(P))`. -/
+structure AffineChart (X : Over (Spec (CommRingCat.of ℂ))) where
+  /-- the affine open -/
+  U : X.left.Opens
+  isAffine : IsAffineOpen U
+  /-- the number of generators -/
+  k : ℕ
+  /-- the generators -/
+  f : Fin k → Γ(X.left, U)
+  generates : Generates U f
+
+/-- **The analytic (Euclidean) topology on `X(ℂ)`** (Serre, GAGA §2; SGA 1, XII §1; Mumford, *Red
+book* I §10; Hartshorne, App. B): `X(ℂ)` is covered by the sets `U(ℂ)`, `U` affine; through a closed
+embedding `U ↪ 𝔸^k` (given by `ℂ`-algebra generators `f₁, …, f_k` of `Γ(X, U)`) `U(ℂ)` is a subset
+of `ℂ^k` and carries the subspace topology; `S ⊆ X(ℂ)` is open iff every `S ∩ U(ℂ)` is open in
+`U(ℂ)`. (Here over all affine charts at once; `classicalTopology_eq_gluedTopology` shows that any
+covering family of charts gives the same topology.) -/
+def analyticTopology (X : Over (Spec (CommRingCat.of ℂ))) : TopologicalSpace (CPt X) :=
+  gluedTopology (fun c : AffineChart X => c.U) (fun c => c.k) (fun c => c.f)
+
+/-- For `X` locally of finite type over `ℂ`, every `ℂ`-point lies in an affine chart. -/
+theorem exists_affineChart [LocallyOfFiniteType X.hom] (P : CPt X) :
+    ∃ c : AffineChart X, XPtIn X P c.U := by
+  obtain ⟨_, ⟨V, hV, rfl⟩, hxV, -⟩ := X.left.isBasis_affineOpens.exists_subset_of_mem_open
+    (show P.left.base default ∈ (⊤ : X.left.Opens) from trivial) (⊤ : X.left.Opens).2
+  have hft := HasRingHomProperty.appLE @LocallyOfFiniteType X.hom (inferInstance)
+    ⟨⊤, isAffineOpen_top _⟩ ⟨V, hV⟩ (by rw [Scheme.Hom.preimage_top]; exact le_top)
+  have hsurj : Function.Surjective (Scheme.ΓSpecIso (CommRingCat.of ℂ)).inv.hom := by
+    intro y
+    refine ⟨(Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom.hom y, ?_⟩
+    change ((Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom ≫ (Scheme.ΓSpecIso _).inv).hom y = y
+    rw [Iso.hom_inv_id]; rfl
+  have hft' : (algC X V).FiniteType :=
+    RingHom.FiniteType.comp hft (RingHom.FiniteType.of_surjective _ hsurj)
+  letI := (algC X V).toAlgebra
+  obtain ⟨n, φ, hφ⟩ := Algebra.FiniteType.iff_quotient_mvPolynomial''.mp hft'
+  refine ⟨⟨V, hV, n, fun i => φ (MvPolynomial.X i), fun y => ?_⟩, (xPtIn_iff _ _).mpr hxV⟩
+  obtain ⟨p, hp⟩ := hφ y
+  refine ⟨p, ?_⟩
+  rw [← hp]
+  conv_rhs => rw [MvPolynomial.aeval_unique φ]
+  rfl
+
+/-- **The classical topology is the analytic topology** (for `X` locally of finite type over `ℂ`). -/
+theorem classicalTopology_eq_analyticTopology [LocallyOfFiniteType X.hom] :
+    classicalTopology X = analyticTopology X :=
+  classicalTopology_eq_gluedTopology _ (fun c => c.isAffine) _ _ (fun c => c.generates)
+    exists_affineChart
+
+/-! ## The printed leaves over the analytic topology -/
+
+/-- **LEAF (printed form): the complex manifold `X(ℂ)` of a smooth variety.** For `X` smooth, proper
+and irreducible over `ℂ`, the set `X(ℂ)` with its analytic topology is a complex (analytic) manifold,
+regular functions are holomorphic on `U(ℂ)`, and at every point some regular functions (local
+parameters) are local holomorphic coordinates. Shafarevich, *Basic algebraic geometry 2*, 2nd ed.
+(1994), Ch. VII §1.1; Serre, GAGA (1956) §2; SGA 1, Exp. XII, 1.1 and 3.1; locators UNVERIFIED.
+Same statement as `UnifPrinted.SmoothComplexManifold` with `analyticTopology` in place of
+`classicalTopology` (equivalent: `smoothComplexManifoldAn_iff`). -/
+def SmoothComplexManifoldAn : Prop :=
+  ∀ (X : Over (Spec (CommRingCat.of ℂ))), Smooth X.hom → IsProper X.hom → IrreducibleSpace X.left →
+    letI := analyticTopology X
+    ∃ (n : ℕ) (_ : ChartedSpace (Fin n → ℂ) (CPt X)),
+      IsManifold 𝓘(ℂ, Fin n → ℂ) ω (CPt X) ∧
+      (∀ (U : X.left.Opens) (f : Γ(X.left, U)),
+        ContMDiffOn 𝓘(ℂ, Fin n → ℂ) 𝓘(ℂ, ℂ) ω (XevalAt X U f) {P | XPtIn X P U}) ∧
+      (∀ P : CPt X, ∃ (U : X.left.Opens) (f : Fin n → Γ(X.left, U)), XPtIn X P U ∧
+        IsLocalDiffeomorphAt 𝓘(ℂ, Fin n → ℂ) 𝓘(ℂ, Fin n → ℂ) ω
+          (fun Q i => XevalAt X U (f i) Q) P)
+
+/-- **LEAF (printed form): proper implies compact.** For `X` proper over `ℂ`, `X(ℂ)` is compact in the
+analytic topology. Serre, GAGA (1956), §2, Prop. 6; SGA 1, Exp. XII, Prop. 3.2; locators UNVERIFIED. -/
+def ProperCompactAn : Prop :=
+  ∀ (X : Over (Spec (CommRingCat.of ℂ))), IsProper X.hom →
+    @CompactSpace (CPt X) (analyticTopology X)
+
+/-- **LEAF (printed form): irreducible implies connected.** For `X` irreducible and proper over `ℂ`,
+`X(ℂ)` is connected in the analytic topology. Shafarevich, *Basic algebraic geometry 2*, Ch. VII §2.1,
+Thm. 1; SGA 1, Exp. XII, Prop. 2.4; locators UNVERIFIED. -/
+def ConnectedConnectedAn : Prop :=
+  ∀ (X : Over (Spec (CommRingCat.of ℂ))), IsProper X.hom → IrreducibleSpace X.left →
+    @ConnectedSpace (CPt X) (analyticTopology X)
+
+theorem smoothComplexManifoldAn_iff : SmoothComplexManifoldAn ↔ SmoothComplexManifold := by
+  refine forall_congr' fun X => imp_congr_right fun _ => imp_congr_right fun hP =>
+    imp_congr_right fun _ => ?_
+  haveI := hP
+  rw [classicalTopology_eq_analyticTopology]
+
+theorem properCompactAn_iff : ProperCompactAn ↔ ProperCompact := by
+  refine forall_congr' fun X => imp_congr_right fun hP => ?_
+  haveI := hP
+  rw [classicalTopology_eq_analyticTopology]
+
+theorem connectedConnectedAn_iff : ConnectedConnectedAn ↔ ConnectedConnected := by
+  refine forall_congr' fun X => imp_congr_right fun hP => imp_congr_right fun _ => ?_
+  haveI := hP
+  rw [classicalTopology_eq_analyticTopology]
+
+/-- **Main theorem.** `UniformizationLeafAll` from Mumford's theorem and the three dictionary
+statements over the analytic topology of `X(ℂ)`. -/
+theorem uniformizationLeafAll_of_analytic (hM : MumfordComplexTorus)
+    (hMan : SmoothComplexManifoldAn) (hPC : ProperCompactAn) (hCC : ConnectedConnectedAn) :
+    BPAnalytic.Uniformization.UniformizationLeafAll :=
+  uniformizationLeafAll_of_printed hM (smoothComplexManifoldAn_iff.mp hMan)
+    (properCompactAn_iff.mp hPC) (connectedConnectedAn_iff.mp hCC)
+
 end UnifTopology
+
+#print axioms UnifTopology.classicalTopology_eq_analyticTopology
+#print axioms UnifTopology.classicalTopology_eq_gluedTopology
+#print axioms UnifTopology.uniformizationLeafAll_of_analytic
