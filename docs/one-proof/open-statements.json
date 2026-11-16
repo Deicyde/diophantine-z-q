@@ -209,12 +209,6 @@
    "docstring":
    "**`NeronSchemeExtensionExists` (LEAF; published, strictly weaker than\n`NeronSchemeModelExists`).** As `NeronSchemeModelExists`, but only the *existence* of the extension\n`Y → N` of an `L`-morphism `Y_L → A_L` is asked for; its uniqueness is automatic\n(`pullback_map_injective`: `Y` is flat over `𝓞_L`, `Spec L → Spec 𝓞_L` is scheme-theoretically\ndominant and `N` is separated). Source: as for `NeronSchemeModelExists` (BLR §1.4 Thm. 3 with §1.2\nDef. 1; locators UNVERIFIED). ",
    "bundle": "OpenTextbookLeaves12"},
-  {"type": "HDec.HSyn.G0Split.ThetaPt.ThetaRatiosAlgebraic",
-   "statement": "HDec.HSyn.G0Split.ThetaPt.ThetaRatiosAlgebraic",
-   "field": "thetaRatiosAlgebraic",
-   "docstring":
-   "**LEAF candidate (theta-constant ratios are algebraic numbers).** For an abelian variety `A`\nover a number field `K`, a uniformization `Φ : ℂ² → A(ℂ)_σ` with kernel `Λ` and any period matrix\n`Ω ∈ 𝔥₂` of `Λ`: some theta constant `θ_{m₀}(0, Ω)` is nonzero and every ratio\n`θ_m(0, Ω)/θ_{m₀}(0, Ω)` is an algebraic number. This is the form in which the literature states\nit (values of Siegel modular functions with algebraic Fourier coefficients at a point whose\nprincipally polarized abelian variety is defined over `ℚ̄` are algebraic: Shimura, Duke 43 (1976);\nfor genus 2 also Thomae's formula, Mumford, *Tata Lectures on Theta II*, IIIa §8; with\n`NS(A_ℚ̄) = NS(A_ℂ)` for the polarization defined by `Ω`; all locators UNVERIFIED). Nonvanishing:\nat most one of the ten even `θ_m(0, Ω)` vanishes in genus 2 (it vanishes exactly on products of\nelliptic curves; UNVERIFIED locator: Igusa 1962/1967). `ThetaNullAlgebraic` follows\n(`thetaNullAlgebraic_of_ratios`, proved). ",
-   "bundle": "OpenAddedLeaves17"},
   {"type": "ZInQ.Contrib.HodgeSplit.TateTwistInvariants",
    "statement": "ZInQ.Contrib.HodgeSplit.TateTwistInvariants",
    "field": "tateTwistInvariants",
@@ -263,12 +257,6 @@
    "docstring":
    "t09-pic, L4, printed form (single leaf): there is a pairing `A[n] × Pic⁰[n] → μ_n`, `n` invertible in `K`, with\nthe values of Mumford's `ē_n` (`weilScalar`), perfect, Galois-equivariant, compatible in `n`, adjoint for the\ngenuine dual `f^∨`, and trivial on `(x, λ_L x)` for ample `L` (Mumford §20 and §23; Milne 1986 §16; locators\nUNVERIFIED). ",
    "bundle": "OpenAddedLeaves17"},
-  {"type": "SGRDirect.NVLocalInertia",
-   "statement": "SGRDirect.NVLocalInertia",
-   "field": "nvLocalInertia",
-   "docstring":
-   "sgr-direct, GLUE (h-b1 §3 Lemma NV step 3; consequence of Abhyankar's lemma and Zariski–Nagata purity): for\n`E/ℚ(X)` finite Galois of degree `< p` with branch data in `S ∪ {∞}`, `S` `p`-integral and distinct mod `p`, and\n`b ∈ S` whose residue fields are unramified at `p`, every vertical inertia element at `p` has a conjugate in an\ninertia group over `X − b`. ",
-   "bundle": "OpenGlue8"},
   {"type": "ZInQ.Contrib.TYZDecomp.TYZThm11Integral",
    "statement": "ZInQ.Contrib.TYZDecomp.TYZThm11Integral",
    "field": "h11",
@@ -335,4 +323,4 @@
    "docstring":
    "**(L3) Gross–Zagier with Gross's conjugation relation, in the form that can be stated today.**\nLet `E/ℚ` be an elliptic curve whose L-series is that of a weight-2 newform `f` of level `N` and\ntrivial nebentypus (`aₙ(f) = aₙ(E)` for all `n ≥ 1`). Let `D < −4` be an odd fundamental\ndiscriminant with the Heegner hypothesis for `N`, and suppose `L(f, s)` has a simple zero at\n`s = 1` while `L(f ⊗ χ_D, 1) ≠ 0` (so `L'(E/K, 1) = L'(f, 1) L(f ⊗ χ_D, 1) ≠ 0`). Then for every\nfield `K ≅ ℚ(√D)` the group `E(K)` has a point `y` of infinite order (the Heegner point `y_K`)\nwith `σ y − y` torsion for every `σ ∈ Aut(K/ℚ)` (`ȳ_K = −ε y_K` up to torsion, `ε = −1`).\n\nLiterature: B. Gross, D. Zagier, Invent. Math. 84 (1986), 225-320, Theorem I.6.3 and its\ncorollaries in Ch. V (UNVERIFIED numbers): `L'(E/K, 1) = c ĥ(y_K)` with `c ≠ 0`; B. Gross,\n*Heegner points on X₀(N)*, Modular forms (Durham 1983), 1984, for `ȳ_K = −ε y_K` mod torsion\n(UNVERIFIED). Folded in, because the modular curve `X₀(N)`, the parametrization and the Heegner\npoint cannot be stated in Lean today: the modular parametrization `X₀(N) → E` (Eichler–Shimura\nconstruction of the strong Weil curve `E_f`, Shimura 1971, Thm 7.14-7.15, UNVERIFIED, plus\nFaltings 1983 Korollar 2 (`L(E) = L(E_f)` ⇒ `E ∼ E_f`), or for CM curves Shimura, Nagoya Math. J.\n43 (1971)); and nondegeneracy of `ĥ` on `E(K)` (proved in Tau Ceti:\n`Affine.Point.canonicalHeight_eq_zero_iff_isOfFinAddOrder`). ",
    "bundle": "frozenTarget"}],
- "count": 56}
+ "count": 54}

@@ -11,14 +11,14 @@ Each hypothesis is a Lean `Prop`; proving one in Lean, or reducing it to stateme
 removes it. See
 [CONTRIBUTING.md](CONTRIBUTING.md) for how to contribute and check a proof.
 
-**45 hypotheses of the H part** (in the bundles `OpenAddedLeaves17`, `OpenGlue8`, `OpenResearchLeaves26`, `OpenTextbookLeaves12`), plus 11 hypotheses of the Tian–Yuan–Zhang and Gross–Zagier parts listed at the end.
+**43 hypotheses of the H part** (in the bundles `OpenAddedLeaves17`, `OpenResearchLeaves26`, `OpenTextbookLeaves12`), plus 11 hypotheses of the Tian–Yuan–Zhang and Gross–Zagier parts listed at the end.
 
-* **Strict count: 34 published / 11 glue** (the strictest flagged reading; no hypothesis carries a strictest-reading flag).
+* **Strict count: 33 published / 10 glue** (the strictest flagged reading; no hypothesis carries a strictest-reading flag).
 * LEAF means a published, refereed theorem stated over genuine definitions in its printed form, or a direct
   instance of it (a special case that needs no argument). GLUE is everything else: a consequence of one theorem,
   a composite of several, project glue, or a leaf whose published form is still pending a reading (`kinds.tsv`,
   column `flag`).
-* By kind: composite 4, consequence 6, project glue 1, published 34.
+* By kind: composite 3, consequence 7, published 33.
 
 ## How to help
 
@@ -62,13 +62,11 @@ ping, and is released if there is no reply within 7 days of the ping.
 | [`uniformizationLeafAll`](#uniformizationleafall) | the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/82#issuecomment-6887799149)) | 2026-11-15 |
 | [`gagaMorphism`](#gagamorphism) | the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/82#issuecomment-6887799149)) | 2026-11-15 |
 | [`neronSchemeExtensionExists`](#neronschemeextensionexists) | the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/85#issuecomment-6885321289)) | 2026-11-14 |
-| [`thetaRatiosAlgebraic`](#thetaratiosalgebraic) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/igusa-alg)) | 2026-11-16 |
 | [`tateTwistInvariants`](#tatetwistinvariants) | the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/84#issuecomment-6887798335)) | 2026-11-15 |
 | [`axSenTate`](#axsentate) | the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/84#issuecomment-6887798335)) | 2026-11-15 |
 | [`milneIsogenyQuasiInverse`](#milneisogenyquasiinverse) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/issues/14#issuecomment-6893816394)) | 2026-11-15 |
 | [`egaIV_8_10_5_xii`](#egaiv_8_10_5_xii) | the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/80#issuecomment-6885320942)) | 2026-11-14 |
 | [`weilPairingMumford`](#weilpairingmumford) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/weil-used)) | 2026-11-15 |
-| [`nvLocalInertia`](#nvlocalinertia) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/nv-local)) | 2026-11-16 |
 | [`h11`](#h11) | the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/74#issuecomment-6885321859)) | 2026-11-14 |
 | [`hCM`](#hcm) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/cm-primitive)) | 2026-11-16 |
 | [`hFH`](#hfh) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/fh-printed)) | 2026-11-15 |
@@ -144,7 +142,7 @@ p-adic Hodge theory and modular Galois representations. Claim it on [Deicyde #14
 
 Picard scheme and Weil pairing. Claim it on [Deicyde #14](https://github.com/Deicyde/diophantine-z-q/issues/14).
 
-* [`picRepresentableAbVar`](#picrepresentableabvar) (LEAF; pending-review): Murre 1964, Oort 1962; FGA Exp. 232 Thm 3.1; Kleiman, The Picard scheme, Thm 9.4.8 with 9.2.5 (section 0): the relative Picard fppf sheaf of an abelian variety over a field is representable (locators UNVERIFIED)
+* [`picRepresentableAbVar`](#picrepresentableabvar) (LEAF; pending-review): Murre 1964, Oort 1962 (BLR Neron Models 8.2 Thm 3, number UNVERIFIED: Pic_{X/k} representable for X proper over a field, Pic as the fppf sheafification); dictionary pass 11-16: Murre-Oort is the print; the Kleiman 9.4.8 route would need projectivity and 9.2.5 (a consequence), so Murre-Oort is cited first. Earlier source text: Murre 1964, Oort 1962; FGA Exp. 232 Thm 3.1; Kleiman, The Picard scheme, Thm 9.4.8 with 9.2.5 (section 0): the relative Picard fppf sheaf of an abelian variety over a field is representable (locators UNVERIFIED)
 * [`picZeroAbVar`](#piczeroabvar) (GLUE; unverified-locator): Mumford, Abelian varieties, 13; Kleiman, The Picard scheme, Prop. 9.5.1 and 9.5.3; Milne 1986, 9-10: the identity component of Pic_{A/K} is an abelian variety (locators UNVERIFIED)
 * [`phiAmpleIsogeny`](#phiampleisogeny) (GLUE; unverified-locator): Mumford, Abelian varieties, 6 Application 1 and 8 Thm 1: for ample L, phi_L : A -> Pic0 is an isogeny (locators UNVERIFIED)
 * [`weilPairingMumford`](#weilpairingmumford) (GLUE; unverified-locator): Mumford, Abelian varieties, 20 and 23; Milne 1986, Lemma 16.2(c) and 16: Mumford's pairing e_n : A[n] x Pic0[n] -> mu_n (locators UNVERIFIED)
@@ -155,14 +153,13 @@ Picard scheme and Weil pairing. Claim it on [Deicyde #14](https://github.com/Dei
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | [`phiAmpleIsogeny`](#phiampleisogeny) | added | consequence | GLUE | note, unverified-locator |  |  | [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81) | 0 | project interest, free to claim |
 | [`picZeroAbVar`](#piczeroabvar) | added | consequence | GLUE | note, unverified-locator |  |  | [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81) | 0 | project interest, free to claim |
-| [`thetaRatiosAlgebraic`](#thetaratiosalgebraic) | added | composite | GLUE |  |  | T2 | [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/igusa-alg)) |
 | [`weilPairingMumford`](#weilpairingmumford) | added | consequence | GLUE | note, unverified-locator |  |  | [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/weil-used)) |
-| [`nvLocalInertia`](#nvlocalinertia) | glue | project glue | GLUE |  |  |  | [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/nv-local)) |
 | [`eigenformHTNew`](#eigenformhtnew) | research | consequence | GLUE |  | long-pole | T4 | [elliotglazer #84](https://github.com/elliotglazer/diophantine-z-q/issues/84) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/ht-bypass)) |
 | [`r11r12`](#r11r12) | research | composite | GLUE |  | long-pole | T4 | [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/pb-bypass)) |
 | [`r16CoreY`](#r16corey) | research | composite | GLUE |  |  |  | [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/r16-used)) |
 | [`r17`](#r17) | research | consequence | GLUE |  | long-pole | T4 | [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/r17-bypass)) |
 | [`shimuraMainThmIDeligneY3AbU`](#shimuramainthmideligney3abu) | research | composite | GLUE |  |  |  | [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86) | 0 | open |
+| [`gagaMorphism`](#gagamorphism) | textbook | consequence | GLUE | note, unverified-locator |  | T3-T4 | [elliotglazer #82](https://github.com/elliotglazer/diophantine-z-q/issues/82) | 0 | held by the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/82#issuecomment-6887799149)) |
 | [`uniformizationLeafAll`](#uniformizationleafall) | textbook | consequence | GLUE | note |  | T4 | [elliotglazer #82](https://github.com/elliotglazer/diophantine-z-q/issues/82) | 0 | held by the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/82#issuecomment-6887799149)) |
 | [`axSenTate`](#axsentate) | added | published | LEAF |  |  | T2 | [elliotglazer #84](https://github.com/elliotglazer/diophantine-z-q/issues/84) | 0 | held by the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/84#issuecomment-6887798335)) |
 | [`egaIV_8_10_5_xii`](#egaiv_8_10_5_xii) | added | published | LEAF |  |  | T2 | [elliotglazer #80](https://github.com/elliotglazer/diophantine-z-q/issues/80) | 0 | held by the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/80#issuecomment-6885320942)) |
@@ -191,7 +188,6 @@ Picard scheme and Weil pairing. Claim it on [Deicyde #14](https://github.com/Dei
 | [`sga7_IX_3_5_ForwardGeom`](#sga7_ix_3_5_forwardgeom) | research | published | LEAF | unverified-locator |  |  | [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85) | 0 | open |
 | [`cartierSmooth`](#cartiersmooth) | textbook | published | LEAF |  |  | T2 | [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81) | 0 | held by the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/81#issuecomment-6887798791)) |
 | [`charPolyIndepOfEllAlgClosed`](#charpolyindepofellalgclosed) | textbook | published | LEAF |  |  | T3 | [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81) | 0 | held by the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/81#issuecomment-6885321564)) |
-| [`gagaMorphism`](#gagamorphism) | textbook | published | LEAF |  |  | T3-T4 | [elliotglazer #82](https://github.com/elliotglazer/diophantine-z-q/issues/82) | 0 | held by the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/82#issuecomment-6887799149)) |
 | [`geomConnOfRationalPoint`](#geomconnofrationalpoint) | textbook | published | LEAF |  |  | T2 | [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81) | 0 | held by the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/81#issuecomment-6887798791)) |
 | [`groupSchemeEquidim`](#groupschemeequidim) | textbook | published | LEAF |  |  | T2 | [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81) | 0 | held by the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/81#issuecomment-6887798791)) |
 | [`homFreeFiniteAlgClosed`](#homfreefinitealgclosed) | textbook | published | LEAF |  |  | T3 | [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81) | 0 | held by the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/81#issuecomment-6885321564)) |
@@ -243,30 +239,6 @@ T09Pic.PicZeroAbVar
 > group law is an abelian variety (`IsPicZero`; Mumford §13, Kleiman 9.5.1 and 9.5.3, SGA 3 VI_A 2.4; locators
 > UNVERIFIED).
 
-### thetaRatiosAlgebraic
-
-* Bundle field `HDec.HSyn.OpenAddedLeaves17.thetaRatiosAlgebraic`; kind **composite**, strict **GLUE**.
-* Source: Shimura 1976; Mumford Tata II IIIa 8; Igusa (qm-split: ThetaNullNonvanishing + glue, not folded)
-* tier T2 (model triage, unreviewed); discussion: [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86).
-* Human readings recorded: none.
-* Status: held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/igusa-alg)).
-
-```lean
-HDec.HSyn.G0Split.ThetaPt.ThetaRatiosAlgebraic
-```
-
-> **LEAF candidate (theta-constant ratios are algebraic numbers).** For an abelian variety `A`
-> over a number field `K`, a uniformization `Φ : ℂ² → A(ℂ)_σ` with kernel `Λ` and any period matrix
-> `Ω ∈ 𝔥₂` of `Λ`: some theta constant `θ_{m₀}(0, Ω)` is nonzero and every ratio
-> `θ_m(0, Ω)/θ_{m₀}(0, Ω)` is an algebraic number. This is the form in which the literature states
-> it (values of Siegel modular functions with algebraic Fourier coefficients at a point whose
-> principally polarized abelian variety is defined over `ℚ̄` are algebraic: Shimura, Duke 43 (1976);
-> for genus 2 also Thomae's formula, Mumford, *Tata Lectures on Theta II*, IIIa §8; with
-> `NS(A_ℚ̄) = NS(A_ℂ)` for the polarization defined by `Ω`; all locators UNVERIFIED). Nonvanishing:
-> at most one of the ten even `θ_m(0, Ω)` vanishes in genus 2 (it vanishes exactly on products of
-> elliptic curves; UNVERIFIED locator: Igusa 1962/1967). `ThetaNullAlgebraic` follows
-> (`thetaNullAlgebraic_of_ratios`, proved).
-
 ### weilPairingMumford
 
 * Bundle field `HDec.HSyn.OpenAddedLeaves17.weilPairingMumford`; kind **consequence**, strict **GLUE**; flag: re-rated 11-16 under the dictionary ruling (Pic dictionary): the weilScalar pin reads Mumford's e_n on the Lean Pic0 only through Kleiman 9.2.5, Mumford 8 (iv) and 8 Thm 1 / 13, with base change to Kbar; also a composite (Mumford 20 and 23, Milne 1986 16); sign convention immaterial; locators UNVERIFIED.
@@ -283,23 +255,6 @@ T09Pic.WeilPairingMumford
 > the values of Mumford's `ē_n` (`weilScalar`), perfect, Galois-equivariant, compatible in `n`, adjoint for the
 > genuine dual `f^∨`, and trivial on `(x, λ_L x)` for ample `L` (Mumford §20 and §23; Milne 1986 §16; locators
 > UNVERIFIED).
-
-### nvLocalInertia
-
-* Bundle field `HDec.HSyn.OpenGlue8.nvLocalInertia`; kind **project glue**, strict **GLUE**.
-* Source: h-b1 section 3 Lemma NV step 3 (local inertia of tame covers of P^1_{Z_(p)}: unramified residue fields over a rational branch point force each vertical inertia element into a conjugate of an inertia group over it); a consequence of Abhyankar's lemma (SGA 1 XIII 5.3) and Zariski-Nagata purity (SGA 1 X 3.1; purity in dimension 2 proved in the chain, PropTSGlue.PurityGlobalDim2), locators UNVERIFIED; no published statement of this form
-* discussion: [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37).
-* Human readings recorded: none.
-* Status: held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/nv-local)).
-
-```lean
-SGRDirect.NVLocalInertia
-```
-
-> sgr-direct, GLUE (h-b1 §3 Lemma NV step 3; consequence of Abhyankar's lemma and Zariski–Nagata purity): for
-> `E/ℚ(X)` finite Galois of degree `< p` with branch data in `S ∪ {∞}`, `S` `p`-integral and distinct mod `p`, and
-> `b ∈ S` whose residue fields are unramified at `p`, every vertical inertia element at `p` has a conjugate in an
-> inertia group over `X − b`.
 
 ### eigenformHTNew
 
@@ -383,6 +338,24 @@ RayClassCFT.ShimuraMainThmIDeligneY3AbU
 
 > gt-rayclass (shimura-cft, rayclass-cft), composite of printed theorems: Shimura's Main Theorem I for the level-3 group K3 of B = (2,-3|Q) in Deligne's adelic form on the fine moduli scheme Y3 of QM abelian surfaces (R1fpPropsAb): the uniformization B^x_+ \ (H x (B (x) A_f)^x) / K3 = Y3(C), holomorphy in tau, the moduli clause at every u in O-hat^x (the object at Psi(tau,u) is C^2/iota(O)(tau,1)^T) and Shimura's reciprocity law at CM points. Replaces rayClassCMAb and shimuraFamilyAb.
 
+### gagaMorphism
+
+* Bundle field `HDec.HSyn.OpenTextbookLeaves12.gagaMorphism`; kind **consequence**, strict **GLUE**; flag: re-rated 11-16 under the dictionary ruling: GAGA's hypothesis (a holomorphic map A^an -> B^an) is reached from IsStrongUnif and IsAnalyticHom only through the holomorphic inverse function theorem (phi^-1 holomorphic), the same hypothesis-direction step as ShimuraThm54; also a use form shaped by homLatticeCorr_of_strong_gaga; print SGA 1 XII 4.4 for proper X (Serre's GAGA is for projective varieties); locator UNVERIFIED (numbers).
+* Source: Serre, GAGA (1956), for homomorphisms of complex abelian varieties (homlattice 3.2)
+* tier T3-T4 (model triage, unreviewed); discussion: [elliotglazer #82](https://github.com/elliotglazer/diophantine-z-q/issues/82).
+* Human readings recorded: none.
+* Status: held by the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/82#issuecomment-6887799149)).
+
+```lean
+ZInQ.HomLattice.GAGAMorphism
+```
+
+> **GAGA for maps of complex abelian varieties (textbook leaf candidate; Serre, GAGA (1956);
+> SGA 1 XII 4.4: `Hom(X, Y) → Hom(X^an, Y^an)` is bijective for `X` proper over `ℂ`; locators
+> UNVERIFIED).** Let `φ : ℂ^g ⧸ Λ ≃ A(ℂ)` be a strong uniformization (so `φ` presents `A^an`), and
+> `ψ : ℂ^g → B(ℂ)` an analytic homomorphism killing `Λ` (= a holomorphic homomorphism
+> `A^an → B^an`). Then `ψ` comes from an algebraic morphism `f : A → B`.
+
 ### uniformizationLeafAll
 
 * Bundle field `HDec.HSyn.OpenTextbookLeaves12.uniformizationLeafAll`; kind **consequence**, strict **GLUE**; flag: re-rated 11-15 under the dictionary ruling: coordinate form of Mumford 1 reached through analytification and GAGA.
@@ -458,7 +431,7 @@ AvSplit.MilneIsogenyQuasiInverse
 ### picRepresentableAbVar
 
 * Bundle field `HDec.HSyn.OpenAddedLeaves17.picRepresentableAbVar`; kind **published**, strict **LEAF**; flag: pending review (one model review, no errors).
-* Source: Murre 1964, Oort 1962; FGA Exp. 232 Thm 3.1; Kleiman, The Picard scheme, Thm 9.4.8 with 9.2.5 (section 0): the relative Picard fppf sheaf of an abelian variety over a field is representable (locators UNVERIFIED)
+* Source: Murre 1964, Oort 1962 (BLR Neron Models 8.2 Thm 3, number UNVERIFIED: Pic_{X/k} representable for X proper over a field, Pic as the fppf sheafification); dictionary pass 11-16: Murre-Oort is the print; the Kleiman 9.4.8 route would need projectivity and 9.2.5 (a consequence), so Murre-Oort is cited first. Earlier source text: Murre 1964, Oort 1962; FGA Exp. 232 Thm 3.1; Kleiman, The Picard scheme, Thm 9.4.8 with 9.2.5 (section 0): the relative Picard fppf sheaf of an abelian variety over a field is representable (locators UNVERIFIED)
 * packet [R10](#packet-r10); discussion: [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81).
 * Human readings recorded: none.
 * Status: project interest, free to claim.
@@ -848,24 +821,6 @@ ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed
 > the characteristic polynomial of `T_ℓ(φ)` for every `ℓ ≠ char k`. This is
 > `PkgI3.CharPolyIndepOfEll` with `[IsAlgClosed k]` added (it drops `deg P = 2g` and
 > `P(n) = deg(n - φ)`).
-
-### gagaMorphism
-
-* Bundle field `HDec.HSyn.OpenTextbookLeaves12.gagaMorphism`; kind **published**, strict **LEAF**.
-* Source: Serre, GAGA (1956), for homomorphisms of complex abelian varieties (homlattice 3.2)
-* tier T3-T4 (model triage, unreviewed); discussion: [elliotglazer #82](https://github.com/elliotglazer/diophantine-z-q/issues/82).
-* Human readings recorded: none.
-* Status: held by the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/82#issuecomment-6887799149)).
-
-```lean
-ZInQ.HomLattice.GAGAMorphism
-```
-
-> **GAGA for maps of complex abelian varieties (textbook leaf candidate; Serre, GAGA (1956);
-> SGA 1 XII 4.4: `Hom(X, Y) → Hom(X^an, Y^an)` is bijective for `X` proper over `ℂ`; locators
-> UNVERIFIED).** Let `φ : ℂ^g ⧸ Λ ≃ A(ℂ)` be a strong uniformization (so `φ` presents `A^an`), and
-> `ψ : ℂ^g → B(ℂ)` an analytic homomorphism killing `Λ` (= a holomorphic homomorphism
-> `A^an → B^an`). Then `ψ` comes from an algebraic morphism `f : A → B`.
 
 ### geomConnOfRationalPoint
 

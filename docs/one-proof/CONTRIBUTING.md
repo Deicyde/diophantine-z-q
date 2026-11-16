@@ -164,13 +164,10 @@ DISCHARGES [OpenResearchLeaves26.sga7_IX_3_5_ForwardGeom] by UnipotentForward.fo
 DISCHARGES [OpenResearchLeaves26.mumfordGroupLaw] by ZInQ.Contrib.MumfordRigidity.mumfordGroupLaw_of_core
   still assumes: [LeafQM.AV.R1UnivRigid.MumfordRigidityCore]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenGlue8.nvLocalInertia] by t1
-  still assumes: [SGRDirect.NVLocalInertia]
-  axioms: [propext, Classical.choice, Quot.sound]
 DISCHARGES [OpenTextbookLeaves12.cartierSmooth] by t3 (uses sorry: not a proof)
   still assumes: []
   axioms: [propext, sorryAx, Classical.choice, Quot.sound]
-#discharges: 56 open hypotheses, 2865 theorems checked, 9 discharge one
+#discharges: 54 open hypotheses, 3670 theorems checked, 8 discharge one
 ```
 <!-- worked-example:end -->
 
