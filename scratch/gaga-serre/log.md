@@ -18,3 +18,13 @@
 - `sga1_XII_4_4_of_serre : SerreGAGAMorphism → SGA1_XII_4_4`; `gagaMorphism_of_serre hM hL hPC hC hS`.
 - `anFunAt_eventually` (AnFunAt is an open condition), `isAnMorphism_iff_germ` (IsAnMorphism ↔ continuous and
   pulls back germs of holomorphic functions at each point: Serre's definition of a holomorphic map).
+
+## S2.lean (stage 2) — VERIFIED compiles, standard axioms (all four #print axioms)
+- `exists_affineChart_le`: P ∈ U(ℂ) ⇒ an AffineChart c (affine open, ℂ-algebra generators) with P ∈ c.U ⊆ U.
+- `SerreHolAt X F P` := ∃ c : AffineChart X, P ∈ c.U(ℂ) ∧ ∃ H analytic at (c.f i P)ᵢ with F = H ∘ (c.f i ·)ᵢ near P
+  (Serre's sheaf of holomorphic functions of X^h: locally the restriction of a holomorphic function of the
+  coordinates of an affine piece U ↪ 𝔸^k).
+- `anFunAt_iff_serreHolAt [LocallyOfFiniteType X.hom]`: AnFunAt X F P ↔ SerreHolAt X F P.
+- `isAnMorphism_iff_serre`: IsAnMorphism X Y F ↔ continuous ∧ pulls back SerreHolAt germs at every point.
+- Fix noted: `AnalyticOnNhd.eval_continuousLinearMap (ContinuousLinearMap.id ..)` timed out (isDefEq); used
+  `AnalyticAt.aeval_mvPolynomial` with `f := id` + `simpa [coe_aeval_eq_eval]` instead.
