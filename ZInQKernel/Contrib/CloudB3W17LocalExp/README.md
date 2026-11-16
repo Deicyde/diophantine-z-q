@@ -1,73 +1,84 @@
-# CloudB3W17LocalExp — globalizing a local analytic homomorphism
+# CloudB3W17LocalExp — from a local or global analytic homomorphism to the complex torus
 
-`Globalization.lean` proves a **conditional** theorem. It supplies no exponential map, no analytification,
-no commutativity of a general compact complex Lie group, and discharges no open hypothesis of the project.
+Four files, all **new**, no existing module changed. Lean 4.35.0, Mathlib
+`56a005855ea17e0b0958f73ec801ae140b0a1679`, base `2dc949d68` (restored main). Every declaration has
+axioms `propext`, `Classical.choice`, `Quot.sound`; no `sorry`, no `axiom`, no `#eval`/`run_cmd`/
+`initialize`/`syntax`/`notation`/macro/elaborator.
 
-Base `2dc949d68` (restored main), Lean 4.35.0, Mathlib `56a005855ea17e0b0958f73ec801ae140b0a1679`.
-All 26 declarations have axioms `propext`, `Classical.choice`, `Quot.sound`. No `sorry`, no `axiom`, no
-`#eval`/`run_cmd`/`initialize`/`syntax`/`notation`/macro/elaborator.
+| file | content |
+| --- | --- |
+| `Globalization.lean` | a *local* analytic homomorphism `L` on `ball 0 r` extends to a global one (`glob r L v = L (v/n)^n`), uniquely; analyticity, openness, surjectivity, discrete full-lattice kernel, `Torus Λ ≃ₘ^ω G` |
+| `GlobalHom.lean` | the same conclusion for a **given global** homomorphism with `LocalInverseData` (an analytic local section at `1` plus injectivity near `0`), with the kernel named: `torus_diffeo_of_globalHom` |
+| `ManifoldIFT.lean` | the **analytic inverse function theorem with vector-space source and manifold target**, missing from Mathlib |
+| `UnconditionalTorus.lean` | the unconditional theorem: a compact connected commutative complex Lie group is a complex torus |
 
-## The theorem
+## The inverse function theorem (new, general)
 
 ```lean
-theorem CloudB3W17LocalExp.exists_torus_diffeo_of_localExp
+theorem CloudB3W17LocalExp.isLocalDiffeomorphAt_of_hasMFDerivAt
+    {𝕜 : Type*} [RCLike 𝕜] {F : Type*} [NormedAddCommGroup F] [NormedSpace 𝕜 F]
+    {M : Type*} [TopologicalSpace M] [ChartedSpace F M] [IsManifold 𝓘(𝕜, F) ω M]
+    {E : Type*} [NormedAddCommGroup E] [NormedSpace 𝕜 E] [CompleteSpace E] [CompleteSpace F]
+    {f : E → M} {a : E} {e : E ≃L[𝕜] F}
+    (hf : ContMDiffAt 𝓘(𝕜, E) 𝓘(𝕜, F) ω f a)
+    (hd : HasMFDerivAt 𝓘(𝕜, E) 𝓘(𝕜, F) f a (e : E →L[𝕜] F)) :
+    IsLocalDiffeomorphAt 𝓘(𝕜, E) 𝓘(𝕜, F) ω f a
+```
+
+Mathlib has the normed-space inverse function theorem (`ContDiffAt.toOpenPartialHomeomorph`,
+`ContDiffAt.to_localInverse`) and the forward manifold direction
+(`IsLocalDiffeomorphAt.isInvertible_mfderiv`), but not this converse. Proof: in the chart `c` at
+`f a`, `ψ = c ∘ f` is analytic at `a` and `mfderiv c (f a) ∘ e` is invertible (a chart of an analytic
+manifold is a `PartialDiffeomorph`, `chartPartialDiffeo`); Mathlib's theorem gives a partial
+homeomorphism at `a` with analytic inverse at `ψ a`; restricting its `PartialEquiv` to the open set
+where `ψ` is analytic, its inverse is analytic, and `f` lands in the chart turns it into a
+`PartialDiffeomorph`, and composing with the chart's inverse gives one for `f`. Stated for any
+`RCLike` field, so it serves the real case too.
+
+## The unconditional theorem
+
+```lean
+theorem CloudB3W17LocalExp.exists_torus_diffeo
     {E : Type*} [NormedAddCommGroup E] [NormedSpace ℂ E] [FiniteDimensional ℂ E]
-    {G : Type*} [TopologicalSpace G] [ChartedSpace E G] [CommGroup G]
-    [LieGroup 𝓘(ℂ, E) ω G] [CompactSpace G] [ConnectedSpace G]
-    {r : ℝ} {L : E → G}
-    (hr : 0 < r) (hL : IsLocalHom r L)
-    (hLsm : ContMDiffOn 𝓘(ℂ, E) 𝓘(ℂ, E) ω L (Metric.ball 0 r))
-    (hLloc : IsLocalDiffeomorphAt 𝓘(ℂ, E) 𝓘(ℂ, E) ω L 0) :
+    {G : Type*} [TopologicalSpace G] [ChartedSpace E G] [CommGroup G] [LieGroup 𝓘(ℂ, E) ω G]
+    [CompactSpace G] [ConnectedSpace G] :
     ∃ (Λ : Submodule ℤ E) (_ : DiscreteTopology Λ) (_ : IsZLattice ℝ Λ)
       (e : BPAnalytic.Torus Λ ≃ₘ^ω⟮𝓘(ℂ, E), 𝓘(ℂ, E)⟯ G), ∀ a b, e (a + b) = e a * e b
 ```
 
-`IsLocalHom r L` is the two-field structure `L 0 = 1` and `L (x + y) = L x * L y` for `x`, `y`, `x + y` all in
-`ball 0 r`. **Nothing is assumed about `L` outside that ball**: `glob r L` is built from the restriction, and
-junk values of `L` elsewhere are never used (`glob_eq_of` picks its own denominator).
+`exists_exp_torus_diffeo` is the full form (the exponential itself, its surjectivity, the kernel
+description `v ∈ Λ ↔ exp v = 1`, and `e (proj Λ v) = exp v`), and
 
-With `E := Fin g → ℂ` the conclusion is literally the conclusion of `UnifPrinted.MumfordComplexTorus` (the
-unif-printed leaf) in the commutative case. What remains open is only its hypothesis: the existence of `L`,
-i.e. the exponential map.
+```lean
+theorem CloudB3W17LocalExp.mumfordComplexTorus_comm (g : ℕ) (X : Type) [TopologicalSpace X]
+    [ChartedSpace (Fin g → ℂ) X] [CommGroup X]
+    (hman : IsManifold 𝓘(ℂ, Fin g → ℂ) ω X) (hlie : LieGroup 𝓘(ℂ, Fin g → ℂ) ω X)
+    (hcpt : CompactSpace X) (hconn : ConnectedSpace X) :
+    ∃ (Λ : Submodule ℤ (Fin g → ℂ)) (_ : DiscreteTopology Λ) (_ : IsZLattice ℝ Λ)
+      (e : BPAnalytic.Torus Λ ≃ₘ^ω⟮𝓘(ℂ, Fin g → ℂ), 𝓘(ℂ, Fin g → ℂ)⟯ X), ∀ a b, e (a + b) = e a * e b
+```
 
-## Intermediate results (all proved)
+is the conclusion of the H103 printed leaf `UnifPrinted.MumfordComplexTorus` in the commutative case,
+with `T2Space` dropped (not needed). It is **not** a discharge of that leaf: the leaf quantifies over
+all `Group` structures, and commutativity of a general compact connected complex Lie group is not
+proved here. For abelian varieties it is not needed — `A.Pt ℂ` is commutative
+(`ZInQKernel/HDecomp/Objects.lean:177`).
 
-| name | content |
-| --- | --- |
-| `glob r L v = L (v / n) ^ n` | the globalization, `n = nOf r v` |
-| `glob_eq_of` | any admissible denominator computes it (`n`-independence, by the `L (k • w) = L w ^ k` law inside the ball) |
-| `glob_eq_self` | `glob = L` on `ball 0 r`; `glob_zero` |
-| `glob_add` | `glob` is a homomorphism on all of `E` — commutativity of `G` enters here (`mul_pow`) |
-| `glob_unique` | any homomorphism `E → G` agreeing with `L` on the ball equals `glob` |
-| `glob_contMDiff` | `glob` is analytic: near `v₀` it is `(L ∘ (· / n)) ^ n` with `n` fixed |
-| `sect`, `one_mem_sect`, `glob_sect` | the local analytic section `Ψ⁻¹` of `glob` on an open neighbourhood of `1` |
-| `glob_isOpenMap` | open at `1` by the section, everywhere by translation |
-| `glob_surjective` | the range is an open, hence closed, subgroup of a connected group |
-| `glob_injOn` | `glob` is injective on `Ψ.source ∩ ball 0 r` |
+## Inputs
 
-## What the proof reuses
+* the exponential: `CloudB3W17Realify.exists_complexExp` (realifier branch
+  `cloud-b3/w17-complex-exp` at `066ffb3e5`, merged here read-only) — a global analytic homomorphism
+  with identity derivative at `0`, built from complexified real flows, assuming no compactness or
+  connectedness;
+* the lattice: `CloudB3W17Lattice.isZLattice_of_exp` (branch `cloud-b3/w17-lattice-compact`), which
+  rests on `isZLattice_of_compactSpace_quotient` (discrete + compact quotient ⇒ full lattice, also
+  missing from Mathlib);
+* the torus's analytic structure: `BPAnalytic.Torus` (`ZInQKernel/HDecomp/Analytic/Torus.lean`),
+  not re-proved here.
 
-* Lattice half — **not** re-proved here: `CloudB3W17Lattice.isZLattice_of_exp` (discrete kernel, full lattice,
-  `Torus Λ ≃ₜ+ Additive G`), which rests on `CloudB3W17Lattice.isZLattice_of_compactSpace_quotient`.
-* Torus side — **not** re-proved here: `BPAnalytic.Torus`, `contMDiff_proj`, `contMDiff_of_comp_proj`,
-  `isManifold_torus` (`ZInQKernel/HDecomp/Analytic/Torus.lean`).
-* Mathlib: `contMDiff_pow`, `contMDiff_mul_left`, `topologicalGroup_of_lieGroup`, `isOpenMap_mul_left`,
-  `Subgroup.isOpen_of_mem_nhds`, `Subgroup.isClosed_of_isOpen`, `IsClopen.eq_univ`,
-  `ContinuousOn.isOpen_inter_preimage`, `PartialDiffeomorph`, `contMDiff_iff_contDiff`.
+## Not done
 
-The analytic inverse is built by hand from the local section (`F⁻¹ g = proj (v₀ + Ψ⁻¹ (g₀⁻¹ g))` near `g₀`),
-so no local-diffeomorphism-of-`proj` lemma is duplicated from the host's unif-printed module (which is not on
-`main` and is not imported).
-
-## Hypothesis shape, and the honest blocker
-
-* `IsLocalDiffeomorphAt … L 0` is used rather than "`HasMFDerivAt` with invertible derivative" because Mathlib
-  (pin `56a0058`) has no inverse function theorem *for manifolds*: `IsLocalDiffeomorphAt.isInvertible_mfderiv`
-  goes one way only. A printed exponential supplies the local-biholomorphism form directly, so this costs
-  nothing against the literature while keeping the file free of an unproved IFT step.
-* `T2Space G` is **not** needed anywhere.
-* The missing input is the local analytic homomorphism itself. Mathlib has no Lie-group exponential, and the
-  ODE API cannot produce one: `Mathlib/Analysis/ODE/PicardLindelof.lean` gives Lipschitz — not differentiable —
-  dependence on initial conditions, and its `C^n` statements are in time, with the comment
-  "TODO: Extend to the analytic `n = ⊤` case". Constructing `L` is therefore out of scope here, and no printed
-  `Prop` for it is introduced in this file (that would need an exact source reading first).
+* No in-tree instance of the hypotheses is exhibited (the natural witness,
+  `Multiplicative (BPAnalytic.Torus Λ)`, needs `ChartedSpace`/`LieGroup` instances transported along
+  the `Multiplicative` type synonym, which Mathlib does not provide).
+* Commutativity of a general compact connected complex Lie group (Mumford §1's first half).
