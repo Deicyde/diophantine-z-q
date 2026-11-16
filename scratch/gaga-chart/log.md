@@ -64,3 +64,9 @@
 - added `GAGAChartSome` (GAGA for some IsAnStr charts) and `gagaChart_of_some : GAGAChartSome → GAGAChart`
   (the ∀ over charts in the leaf adds nothing). Module rebuilt; #discharges rerun: same gagaMorphism rows,
   "63 open hypotheses, 1952 theorems checked, 15 discharge one"; all listed axioms standard. VERIFIED.
+
+## Report (11-16 05:40)
+- docs/research/gaga-chart.md written. FoldDryRun.lean recompiled after the GAGAChartSome addition: OK, standard axioms. VERIFIED.
+- Rating: GAGAChart printed form, special case (abelian varieties, uniqueness dropped); locators UNVERIFIED.
+- ShimuraThm54: not settled by this restatement (Mathlib Weierstrass points carry no analytic structure; no
+  derivative clause in IsAnalyticIso). Suggested correction recorded as SPECULATIVE.
