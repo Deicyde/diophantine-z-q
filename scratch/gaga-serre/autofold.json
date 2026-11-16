@@ -1,0 +1,60 @@
+{
+ "name": "gaga-serre",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.SerreGAGA"
+ ],
+ "discharges": [
+  {
+   "field": "uniformizationLeafAll",
+   "proof": "_root_.SGA1Printed.uniformizationLeafAll_of_printed {n}.mumfordComplexTorus {n}.sga1_XII_3_3a {n}.properCompactAn {n}.sga1_XII_2_4",
+   "leaves": [
+    {
+     "name": "mumfordComplexTorus",
+     "type": "_root_.UnifPrinted.MumfordComplexTorus",
+     "doc": "unif-printed: Mumford, Abelian varieties, section 1 (printed form over Mathlib's complex Lie groups): a compact connected complex Lie group of dimension g is biholomorphic and isomorphic to C^g / Lambda for a lattice Lambda (locator UNVERIFIED)",
+     "kind": "published",
+     "flag": "unread: new printed leaf, no reading recorded; locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties (1970/1974), section 1, theorem on compact connected complex Lie groups; Birkenhake-Lange, Complex abelian varieties, 1.1 (locators UNVERIFIED)"
+    },
+    {
+     "name": "sga1_XII_3_3a",
+     "type": "_root_.SGA1Printed.SGA1_XII_3_3a",
+     "doc": "sga1-fix: SGA 1 XII Remarque 3.3(a) (f etale implies f^an a local isomorphism), topological part, special case f : U -> A^n with U an affine open of X locally of finite type over C: Q -> (f_i(Q)) is a homeomorphism from an open neighbourhood of each P in U(C) (analytic topology) onto an open subset of C^n (printed form, special case and consequence; the regular-functions half is proved in Lean; locator UNVERIFIED)",
+     "kind": "published",
+     "flag": "unread: new printed leaf, no reading recorded; locator UNVERIFIED",
+     "source": "SGA 1 (Grothendieck, LNM 224, 1971), Exp. XII, Remarque 3.3(a), p. 325 (page per the 11-16 review), with the analytic space of XII 1.1 (locators UNVERIFIED)"
+    },
+    {
+     "name": "properCompactAn",
+     "type": "_root_.UnifTopology.ProperCompactAn",
+     "doc": "unif-topology: X proper over C implies X(C) compact in the analytic topology (printed form; SGA 1 XII 3.2 for proper C-schemes locally of finite type, the leaf's generality; Serre, GAGA 2 Prop. 6 for varieties; locators UNVERIFIED)",
+     "kind": "published",
+     "flag": "unread: new printed leaf, no reading recorded; locator UNVERIFIED",
+     "source": "SGA 1 (Grothendieck, LNM 224, 1971), Exp. XII, Prop. 3.2 (f proper iff f^an proper; with Y = Spec C: X proper iff X^an compact); Serre, GAGA (1956), 2, Prop. 6 (for varieties) (locators UNVERIFIED)"
+    },
+    {
+     "name": "sga1_XII_2_4",
+     "type": "_root_.SGA1Printed.SGA1_XII_2_4",
+     "doc": "sga1-fix: SGA 1 XII 2.4, only-if direction: X locally of finite type over C and connected implies X^an connected, with connected = Mathlib PreconnectedSpace on both sides (X(C) with the analytic topology) (printed form; locator UNVERIFIED)",
+     "kind": "published",
+     "flag": "unread: new printed leaf, no reading recorded; locator UNVERIFIED",
+     "source": "SGA 1 (Grothendieck, LNM 224, 1971), Exp. XII, Prop. 2.4 (locator UNVERIFIED)"
+    }
+   ]
+  },
+  {
+   "field": "gagaMorphism",
+   "proof": "_root_.SerreGAGA.gagaMorphism_of_serre {n}.mumfordComplexTorus {n}.sga1_XII_3_3a {n}.properCompactAn {n}.sga1_XII_2_4 {n}.serreGAGAMorphism",
+   "leaves": [
+    {
+     "name": "serreGAGAMorphism",
+     "type": "_root_.SerreGAGA.SerreGAGAMorphism",
+     "doc": "gaga-serre: Serre's GAGA for holomorphic maps of projective varieties: for X, Y reduced closed subschemes of P^N_C (IsProjVar), every holomorphic map X^h -> Y^h in Serre's sense (IsSerreHolMap: continuous for the analytic topology glued from affine pieces, pulls back germs of SerreHolAt, the local restrictions of holomorphic functions of affine coordinates) is P -> P >> f for a morphism of C-schemes f : X -> Y (printed form; Serre's X^h is reduced by construction, and AnFunAt/IsAnMorphism are proved equal to Serre's objects; locator UNVERIFIED)",
+     "kind": "published",
+     "flag": "unread: new printed leaf, no reading recorded; locator UNVERIFIED; the check should confirm that GAGA section 4 prints the holomorphic-map statement itself (not only Chow's theorem, Prop. 13) and with no irreducibility hypothesis",
+     "source": "J.-P. Serre, Geometrie algebrique et geometrie analytique, Ann. Inst. Fourier 6 (1956), 1-42, section 4, the proposition on holomorphic maps of projective varieties (proved from Prop. 13, Chow, through the graph) (section, number and wording UNVERIFIED)"
+    }
+   ]
+  }
+ ]
+}

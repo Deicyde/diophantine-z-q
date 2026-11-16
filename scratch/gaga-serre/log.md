@@ -38,3 +38,11 @@
 - Glue: `isAnMorphism_iff_isSerreHolMap` (LOFT X, Y), `locallyOfFiniteType_of_isProjVar`, `isProjVar`,
   `sga1_XII_4_4_of_serre`, `gagaMorphism_of_serre hM hL hPC hC hS`.
 - axioms (scratch/gaga-serre/axioms.txt): all seven declarations [propext, Classical.choice, Quot.sound].
+
+## Autofold spec scratch/gaga-serre/autofold.json — VERIFIED dry run (python, no Lean)
+- Same as sga1-fix's for uniformizationLeafAll (properCompactAn now cited SGA 1 XII 3.2 first); gagaMorphism :=
+  SerreGAGA.gagaMorphism_of_serre ... {n}.serreGAGAMorphism with ONE new leaf serreGAGAMorphism (sga1_XII_4_4 dropped).
+- `autofold.py --dry-run` at the merged base (main: gagaMorphism LEAF, uniformizationLeafAll GLUE): exit 0,
+  "34/11 on 45 -> 38/10 on 48; strictest 34/11 -> 38/10" (autofold-dryrun.txt).
+- With kinds.tsv's gagaMorphism row temporarily set to consequence/GLUE/GLUE as on origin/wip/leaf-fold32 (11-16
+  re-rating; file restored after): "33/12 on 45 -> 38/10 on 48; strictest 33/12 -> 38/10" = −2 GLUE in both columns.

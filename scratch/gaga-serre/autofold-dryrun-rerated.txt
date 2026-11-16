@@ -1,0 +1,1 @@
+strict count: 33/12 on 45 -> 38/10 on 48; strictest 33/12 -> 38/10
