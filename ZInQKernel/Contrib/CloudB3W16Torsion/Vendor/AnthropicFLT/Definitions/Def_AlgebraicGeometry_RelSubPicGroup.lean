@@ -201,7 +201,6 @@ theorem RepresentsRelSubPic.homEquiv_mul {P : SubPicGroupCondition c ε} {D : Re
       (relSubPicPresheaf c ε P.toSubPicCondition).map _ (h.representableBy.homEquiv _) = _
   rw [← h.representableBy.homEquiv_comp, ← h.representableBy.homEquiv_comp,
     CartesianMonoidalCategory.lift_fst, CartesianMonoidalCategory.lift_snd]
-  rfl
 
 theorem RepresentsRelSubPic.homEquiv_one {P : SubPicGroupCondition c ε} {D : RelativePic0Designation R c}
     (h : RepresentsRelSubPic c ε P.toSubPicCondition D) (T : Over (Spec (CommRingCat.of R))) :

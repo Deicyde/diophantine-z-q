@@ -84,12 +84,12 @@ theorem solution
     ⟨RingHom.ext φ1.apply_symm_apply, RingHom.ext φ1.symm_apply_apply⟩
   haveI : RingHomInvPair (RingEquiv.toRingHom φ1) (RingEquiv.toRingHom φ1.symm) :=
     ⟨RingHom.ext φ1.symm_apply_apply, RingHom.ext φ1.apply_symm_apply⟩
-  haveI : Module.Projective (A0B ⧸ J0) P0 := Module.Projective.of_ringEquiv
+  haveI : Module.Projective (A0B ⧸ J0) P0 := Module.Projective.of_equiv
     ({ __ := AddEquiv.refl P0
        map_smul' := fun r p => by
          change r • p = φ0 (φ0.symm r) • p; rw [φ0.apply_symm_apply] } :
      P0 ≃ₛₗ[RingEquiv.toRingHom φ0.symm] P0)
-  haveI : Module.Projective (A1B ⧸ J1) P1 := Module.Projective.of_ringEquiv
+  haveI : Module.Projective (A1B ⧸ J1) P1 := Module.Projective.of_equiv
     ({ __ := AddEquiv.refl P1
        map_smul' := fun r p => by
          change r • p = φ1 (φ1.symm r) • p; rw [φ1.apply_symm_apply] } :
