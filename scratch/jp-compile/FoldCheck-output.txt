@@ -1,0 +1,14 @@
+'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.OneProof.frozenTarget : HDec.HSyn.OpenResearchLeaves26 →
+  HDec.HSyn.OpenTextbookLeaves12 →
+    HDec.HSyn.OpenAddedLeaves17 →
+      HDec.HSyn.OpenGlue8 →
+        ZInQ.Contrib.TYZDecomp.TYZThm11Integral →
+          ZInQ.Contrib.TYZDecomp.H29Split.LegendreThreeSquares →
+            ZInQ.Contrib.TYZDecomp.H29Split.TYZTestVectorExists →
+              ZInQ.Contrib.TYZDecomp.H29Split.TYZLemma29PrintedNe3 →
+                ZInQ.Contrib.TYZDecomp.H29Split.TYZThm21At31 →
+                  ZInQ.Contrib.TYZDecomp.H29Split.TYZProp23Printed →
+                    T5Glue.ShimuraMainCM →
+                      ZInQ.Contrib.TYZGenus.TYZSplit.TYZThm33 →
+                        ZInQ.GZFH.FriedbergHoffsteinB_FE → ZInQ.GZDecomp.GrossZagierHeegner → ZInQ.FrozenTarget

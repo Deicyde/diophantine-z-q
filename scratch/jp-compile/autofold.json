@@ -1,0 +1,4 @@
+{"name": "jp-compile",
+ "imports": ["ZInQKernel.Contrib.OneProof.JonesPall"],
+ "discharges": [
+   {"field": "hJP", "proof": "_root_.ZInQ.Contrib.OneProof.JonesPall.jonesPall_proof"}]}

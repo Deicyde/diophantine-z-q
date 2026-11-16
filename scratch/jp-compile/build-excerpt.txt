@@ -1,0 +1,17 @@
+# excerpt of: lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges +ZInQKernel.Contrib.OneProof.JonesPall (2026-11-16, olean tree copied from a worktree with identical Main.lean; lake re-checked traces)
+58371:ℹ [13697/13704] Replayed ZInQKernel.OneProof.Main
+58372:info: ZInQKernel/OneProof/Main.lean:88:0: 'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+58373:✔ [13699/13704] Built ZInQKernel.Contrib.OneProof.LegendreThreeSquares.Atlas (18s)
+58374:⚠ [13700/13704] Built ZInQKernel.Contrib.OneProof.JonesPall.Quaternion (20s)
+58375:warning: ZInQKernel/Contrib/OneProof/JonesPall/Quaternion.lean: imports `Mathlib.Algebra.Quaternion` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+58376:warning: ZInQKernel/Contrib/OneProof/JonesPall/Quaternion.lean: imports `Mathlib.NumberTheory.SumFourSquares` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+58377:warning: ZInQKernel/Contrib/OneProof/JonesPall/Quaternion.lean: imports `Mathlib.Tactic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+58378:✔ [13701/13704] Built ZInQKernel.Contrib.OneProof.JonesPall.Descent (4.6s)
+58379:✔ [13702/13704] Built ZInQKernel.Contrib.OneProof.JonesPall.Parity (6.7s)
+58380:⚠ [13703/13704] Built ZInQKernel.Contrib.OneProof.JonesPall.Representation (12s)
+58381:warning: ZInQKernel/Contrib/OneProof/JonesPall/Representation.lean: imports `Mathlib.NumberTheory.SumTwoSquares` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+58382:✔ [13704/13704] Built ZInQKernel.Contrib.OneProof.JonesPall (36s)
+58383:Build completed successfully (13704 jobs).
+58385:real	1m33.866s
+58386:user	0m47.665s
+58387:sys	0m15.184s
