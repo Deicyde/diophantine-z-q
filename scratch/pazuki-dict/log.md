@@ -19,3 +19,9 @@ Task: make `pazukiCor13Upper : ZInQ.HeightSplit.PazukiCor13Upper` printed (base 
 
 ## Build
 - 11-16 05:05 copied ~/dzq-wt/pic-dict/.lake/build (+ lean/.lake/build); `lake build TailY TailQ TailZ24`.
+
+## Contrib file (11-16 05:30)
+- `ZInQKernel/Contrib/OneProof/PazukiCor13Upper.lean` drafted. Test copy `scratch/pazuki-dict/Test.lean` = same file
+  without the TailZ24 import and with `T09Pic.IsAmple B.X.left L ∧` removed from `IsSymmPrincipal` (TailZ24 chain
+  not yet rebuilt): compiles, no errors; `#print axioms pazukiCor13Upper_of_printed`, `analyticPPAlgebraic_of_split`:
+  [propext, Classical.choice, Quot.sound] (VERIFIED, compiled 05:31).

@@ -1,6 +1,20 @@
 import ZInQKernel.OneProof.H.TailY
 import ZInQKernel.OneProof.H.TailQ
 import ZInQKernel.OneProof.H.TailZ24
+import ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.AlgebraicGeometry.Picard.RepresentableGroup
+import ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.AlgebraicGeometry.Picard.Field
+import ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.AlgebraicGeometry.Group.QuasiProjective
+import ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.AlgebraicGeometry.ProjectiveSpace.Twist
+import ZInQKernel.Contrib.FrobChain.Rigidity
+import ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.AlgebraicGeometry.ProjectiveSpace.Invertible
+import ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.AlgebraicGeometry.ProjectiveSpace.CoordinateCover
+import ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.AlgebraicGeometry.ProjectiveSpace.Embedding
+import ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.AlgebraicGeometry.ProjectiveSpace.Relative
+import ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.AlgebraicGeometry.Modules.ClearDenominators
+import ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.AlgebraicGeometry.Modules.GlobalSection
+import ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.AlgebraicGeometry.Morphisms.ImmersionAffine
+import ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.AlgebraicGeometry.Picard.Group
+import ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.AlgebraicGeometry.Modules.ZeroLocusFunctorial
 
 /-!
 # pazuki-dict: `pazukiCor13Upper` from Pazuki's corollary for algebraic `(A, L)`
@@ -32,7 +46,7 @@ noncomputable section
 
 namespace PazukiDict
 
-open CategoryTheory AlgebraicGeometry Limits MonoidalCategory
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory MonObj
 open ZInQ.LeafPush2 (CPts IsSiegel IsPeriodMatrix Char2 thetaConst pazukiC2)
 open ZInQ.HeightSplit (IsStableFaltingsHeight absLogHeightL2)
 open AvSplit.HomLatticeAN3 (bcC ptE)
@@ -162,6 +176,52 @@ def AnalyticPPAlgebraic : Prop :=
       (hσ : σ'.comp (algebraMap K K') = σ) (L : (A.baseChange K').X.left.Pic),
       IsSymmPrincipal (A.baseChange K') L ∧ IsThetaPeriodMatrix A σ σ' hσ L Λ φ Ω
 
+/-! ### The two halves of `AnalyticPPAlgebraic` (an optional finer split)
+
+`AnalyticPPAlgebraic` is the conjunction, through `ℂ`, of an analytic statement over `ℂ` (`ThetaDivisorAlgebraicC`)
+and an arithmetic one (`SymmPrincipalDescends`); `analyticPPAlgebraic_of_split` (below) proves it from the two. -/
+
+/-- **GLUE (composite; the analytic half): the theta divisor of an analytic principal polarization of a complex
+abelian variety is the divisor of a symmetric principal polarization.** For `B` over `ℂ` with biholomorphic
+uniformization `φ : ℂ^g ⧸ Λ ≃ B(ℂ)` and `T : ℂ^g ≃ ℂ²` carrying `Λ` onto `Ωℤ² + ℤ²` (`Ω ∈ 𝔥₂`), there are a symmetric
+principal `L` on `B`, a section `s` and `c ∈ ℂ²` with `φ(w) ∈ Z(s) ⟺ θ(T w + c, Ω) = 0`. Sources (UNVERIFIED
+locators): Appell–Humbert and Frobenius' theorem (Mumford, *Abelian varieties*, §§2-3; Birkenhake–Lange §§2.2, 3.2,
+8.5: `θ(·, Ω)` spans the sections of the line bundle `L(H_Ω, χ₀)`, symmetric with `h⁰ = 1`); GAGA (Serre 1956):
+the analytic line bundle and its section on `B^an` are algebraic; ampleness: Mumford §6, Application 1. -/
+def ThetaDivisorAlgebraicC : Prop :=
+  ∀ (B : PkgI3.AbVar ℂ) (g : ℕ) (Λ : Submodule ℤ (Fin g → ℂ)) (φ : Torus Λ ≃+ Additive (B.Pt ℂ)),
+    BPAnalytic.Uniformization.IsUniformization B Λ φ →
+    ∀ Ω : Matrix (Fin 2) (Fin 2) ℂ, IsSiegel Ω → ∀ T : (Fin g → ℂ) ≃ₗ[ℂ] (Fin 2 → ℂ),
+      (∀ w, w ∈ Λ ↔ ∃ m n : Fin 2 → ℤ, T w = Ω.mulVec (fun i => (m i : ℂ)) + fun i => (n i : ℂ)) →
+    ∃ (L : B.X.left.Pic) (s : 𝟙_ B.X.left.Modules ⟶ (fromSkeleton B.X.left.Modules).obj L.val)
+      (c : Fin 2 → ℂ), IsSymmPrincipal B L ∧
+      ∀ w : Fin g → ℂ, OnZeroLocus s (Additive.toMul (φ (proj Λ w))).left ↔ riemannTheta Ω (T w + c) = 0
+
+/-- **GLUE (composite; the arithmetic half): a symmetric principal polarization of `A_ℂ`, `A` over a number field,
+is defined over a number field, with the same divisor.** For `A` over a number field `K`, `σ : K → ℂ` and a symmetric
+principal `L` on `A_ℂ = A ×_{K,σ} ℂ` with a section `s`, there are a number field `K'`, `σ' : K' → ℂ` over `σ`, a
+symmetric principal `L'` on `A_{K'}` and a section `s'` with the same divisor on complex points. Sources (UNVERIFIED
+locators): `NS(A_ℚ̄) = NS(A_ℂ)` (invariance of the Néron–Severi group under extension of algebraically closed fields;
+e.g. Maulik–Poonen, *Néron–Severi groups under specialization*, Prop. 3.1); symmetric line bundles in one class differ
+by `Pic⁰[2]`, a finite group of `ℚ̄`-points (Mumford §8); flat base change of `H⁰`, descent of ampleness. -/
+def SymmPrincipalDescends : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (L : (bcC A σ).X.left.Pic)
+    (s : 𝟙_ (bcC A σ).X.left.Modules ⟶ (fromSkeleton (bcC A σ).X.left.Modules).obj L.val),
+    IsSymmPrincipal (bcC A σ) L →
+    ∃ (K' : Type) (_ : Field K') (_ : NumberField K') (_ : Algebra K K') (σ' : K' →+* ℂ)
+      (hσ : σ'.comp (algebraMap K K') = σ) (L' : (A.baseChange K').X.left.Pic)
+      (s' : 𝟙_ (A.baseChange K').X.left.Modules ⟶ (fromSkeleton (A.baseChange K').X.left.Modules).obj L'.val),
+      IsSymmPrincipal (A.baseChange K') L' ∧
+      ∀ p : CPts (bcC A σ) (RingHom.id ℂ), OnZeroLocus s' (liftPt A σ σ' hσ (ptE A σ p)) ↔ OnZeroLocus s p.left
+
+/-- `AnalyticPPAlgebraic` from its two halves (proved). -/
+theorem analyticPPAlgebraic_of_split (h1 : ThetaDivisorAlgebraicC) (h2 : SymmPrincipalDescends) :
+    AnalyticPPAlgebraic := by
+  intro K _ _ A σ g Λ φ hφ Ω hΩ T hT
+  obtain ⟨L, s, c, hL, hθ⟩ := h1 (bcC A σ) g Λ φ hφ Ω hΩ T hT
+  obtain ⟨K', iF, iN, iA, σ', hσ, L', s', hL', hs'⟩ := h2 K A σ L s hL
+  exact ⟨K', iF, iN, iA, σ', hσ, L', hL', T, c, s', hT, fun w => (hs' _).trans (hθ w)⟩
+
 /-! ## §3. Glue (proved): weak uniformization → biholomorphic one, and the main theorem -/
 
 /-- If every complex multiple of `v` lies in a lattice `Λ` with `T(Λ) = Ωℤ² + ℤ²` (`T` a `ℂ`-linear isomorphism),
@@ -175,17 +235,17 @@ theorem eq_zero_of_smul_mem {Λ : Submodule ℤ (Fin 2 → ℂ)} {Ω : Matrix (F
   apply not_countable_complex
   set S : Set (Fin 2 → ℂ) := Set.range (fun p : (Fin 2 → ℤ) × (Fin 2 → ℤ) =>
     Ω.mulVec (fun i => (p.1 i : ℂ)) + fun i => (p.2 i : ℂ)) with hSdef
-  have hS : S.Countable := Set.countable_range _
-  have hinj : Function.Injective (fun t : ℂ => t • T v) := smul_left_injective ℂ hTv
-  have hsub : (Set.univ : Set ℂ) ⊆ (fun t : ℂ => t • T v) ⁻¹' S := by
-    intro t _
+  have : Countable S := (Set.countable_range _).to_subtype
+  have hmem : ∀ t : ℂ, t • T v ∈ S := by
+    intro t
     obtain ⟨m, n, hmn⟩ := (hT _).1 (hv t)
     refine ⟨(m, n), ?_⟩
     simp only [map_smul] at hmn
     exact hmn.symm
-  exact Set.countable_univ_iff.mp ((hS.preimage hinj).mono hsub)
+  have hinj : ∀ a b : ℂ, a • T v = b • T v → a = b := fun a b h => smul_left_injective ℂ hTv h
+  exact Set.countable_univ_iff.mpr (Function.Injective.countable
+    (f := fun t : ℂ => (⟨t • T v, hmem t⟩ : S)) (fun a b h => hinj a b (congrArg Subtype.val h)))
 
-variable {K : Type} [Field K]
 
 /-- `toMul (φ (proj Λ w)) = 1 ↔ w ∈ Λ` for a group isomorphism `φ` out of `ℂ^g ⧸ Λ`. -/
 theorem toMul_proj_eq_one_iff {G : Type*} [Group G] {g : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)}
@@ -211,18 +271,18 @@ theorem exists_strong_of_weak (hU : BPAnalytic.Uniformization.UniformizationLeaf
         (∀ v, ptE A σ (Additive.toMul (φ (proj ΛB (D v)))) = Φ v) ∧
         ∀ w, w ∈ ΛB ↔ D.symm w ∈ Λ := by
   obtain ⟨g, ΛB, hd, -, φ, hφ⟩ := hU (bcC A σ)
-  haveI := hd
+  have := hd
   have hψ : ZInQ.HomLattice.IsAnalyticHom (RingHom.id ℂ) (fun v => (ptE A σ).symm (Φ v)) :=
     AvSplit.HomLatticeAN3.isAnalyticHom_ptE_symm A σ (ZInQ.HomLattice.isAnalyticHom_of_unif hΦ)
   obtain ⟨D, hD⟩ := ZInQ.HomLattice.exists_complexLinear_of_analytic hφ hψ
-  have hD' : ∀ v, ptE A σ (Additive.toMul (φ (proj ΛB (D v)))) = Φ v := by
-    intro v; rw [hD v]; exact (ptE A σ).apply_symm_apply _
+  have hD' : ∀ v, ptE A σ (Additive.toMul (φ (proj ΛB (D v)))) = Φ v := fun v =>
+    (congrArg (ptE A σ) (hD v)).trans ((ptE A σ).apply_symm_apply _)
   have hker : ∀ v, D v ∈ ΛB ↔ v ∈ Λ := by
     intro v
-    rw [← toMul_proj_eq_one_iff φ, ← hΦ.2.1 v, ← hD' v]
+    refine (toMul_proj_eq_one_iff φ (D v)).symm.trans (Iff.trans ?_ (hΦ.2.1 v))
     constructor
-    · intro h; rw [h, map_one]
-    · intro h; exact (ptE A σ).injective (h.trans (map_one _).symm)
+    · intro h; exact (hD' v).symm.trans ((congrArg (ptE A σ) h).trans (map_one _))
+    · intro h; exact (ptE A σ).injective ((hD' v).trans (h.trans (map_one _).symm))
   have hinj : Function.Injective D := by
     intro a b hab
     have h0 : a - b = 0 := by
@@ -236,8 +296,7 @@ theorem exists_strong_of_weak (hU : BPAnalytic.Uniformization.UniformizationLeaf
         intro t
         obtain ⟨v, hv⟩ := hΦ.2.2.1 (ptE A σ (Additive.toMul (φ t)))
         refine ⟨v, φ.injective (Additive.toMul.injective ((ptE A σ).injective ?_))⟩
-        simp only [ContinuousLinearMap.coe_coe]
-        rw [hD' v, hv])
+        exact (hD' v).trans hv)
     simpa using this
   let De : (Fin 2 → ℂ) ≃ₗ[ℂ] (Fin g → ℂ) :=
     LinearEquiv.ofBijective (D : (Fin 2 → ℂ) →ₗ[ℂ] (Fin g → ℂ)) ⟨hinj, hsurj⟩
@@ -261,7 +320,7 @@ theorem pazukiCor13Upper_of_printed (hU : BPAnalytic.Uniformization.Uniformizati
     intro w
     rw [hΛB w, hT]
     rfl
-  obtain ⟨K', _, _, _, σ', hσ, L, hL, hθ⟩ := hA K A σ g ΛB φ hφ Ω hΩ (D.symm.trans T) hTB
+  obtain ⟨K', iF, iN, iA, σ', hσ, L, hL, hθ⟩ := hA K A σ g ΛB φ hφ Ω hΩ (D.symm.trans T) hTB
   exact hP K A hA2 x hx σ g ΛB φ hφ K' σ' hσ L hL Ω hΩ hθ F emb z c hc hz
 
 end PazukiDict
