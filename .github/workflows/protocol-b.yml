@@ -955,14 +955,43 @@ jobs:
                   match = pattern.fullmatch(comment["body"].strip())
                   if match and match[1] == pr["head"]["sha"] and match[2] in prior:
                       login = comment["user"]["login"]
-                      permission = gh.call("/collaborators/" + urllib.parse.quote(login, safe="") + "/permission")
-                      if permission["permission"] in {"write", "maintain", "admin"} and comment["user"].get("type") == "User":
+                      if administrator(gh, comment["user"]) and unedited_override_comment(gh, comment):
                           overrides[match[2]] = {"collaborator": login, "reason": match[3], "url": comment["html_url"]}
               return discussion, prior, overrides, latest
 
 
+          def administrator(gh, user):
+              if user.get('type') != 'User' or not user.get('login'):
+                  return False
+              try:
+                  permission = gh.call('/collaborators/'+urllib.parse.quote(user['login'], safe='')+'/permission')
+              except RequestError as error:
+                  if error.status == 404:
+                      return False
+                  raise
+              return permission['permission'] == 'admin'
+
+
+          def unedited_override_comment(gh, comment):
+              """An original author is not authority for a body another writer edited."""
+              if (not comment.get('node_id') or not comment.get('created_at')
+                      or comment.get('updated_at') != comment['created_at']):
+                  return False
+              result = gh.api('/graphql', 'POST', {
+                  'query': 'query($id:ID!){node(id:$id){__typename ... on IssueComment{id body author{login} lastEditedAt editor{login}}}}',
+                  'variables': {'id': comment['node_id']}})
+              if result.get('errors'):
+                  return False
+              node = (result.get('data') or {}).get('node') or {}
+              return (node.get('__typename') == 'IssueComment' and node.get('id') == comment['node_id']
+                      and 'lastEditedAt' in node and node['lastEditedAt'] is None
+                      and 'editor' in node and node['editor'] is None
+                      and node.get('body') == comment['body']
+                      and (node.get('author') or {}).get('login') == comment['user']['login'])
+
+
           def overridden_decision(latest, overrides, head):
-              """A collaborator, not a reviewer model, decides a covered deadlock."""
+              """A repository admin, not a reviewer model, decides a covered deadlock."""
               if set(latest) != set(MODELS):
                   raise ValueError("Override needs complete reports from both approved reviewers on this head")
               unresolved = set()
@@ -1328,7 +1357,8 @@ jobs:
                           r'/protocol-b override [0-9a-f]{40} [A-Za-z0-9_-]+\s+.+', body.strip(), re.S):
                       continue  # Authorization commands are revalidated separately.
                   if item.get('author') == 'github-actions[bot]' and body.startswith((ROUND_MARKER, SUMMARY_MARKER,
-                          'Accepted by collaborator override, not by unanimous model acceptance.')):
+                          'Accepted by collaborator override, not by unanimous model acceptance.',
+                          'This override was ignored.')):
                       continue
                   if 'incomplete_review' in item:
                       value = item['incomplete_review']
@@ -1558,6 +1588,14 @@ jobs:
                   if event['comment']['user']['login'] != login or not collaborator(gh, event['comment']['user']):
                       return
                   override_command = command.startswith('/protocol-b override ')
+                  if override_command and not administrator(gh, event['comment']['user']):
+                      gh.call(f'/issues/{number}/comments', 'POST', {'body':
+                          'This override was ignored. Only a repository admin may override a review item.'})
+                      return
+                  if override_command and not unedited_override_comment(gh, event['comment']):
+                      gh.call(f'/issues/{number}/comments', 'POST', {'body':
+                          'This override was ignored. Overrides must be new, unedited admin comments. Post a new comment instead of editing one.'})
+                      return
                   review_command = command == '/protocol-b review'
               pr = gh.call(f"/pulls/{number}")
               if pr["state"] != "open" or pr["draft"] or pr["base"]["ref"] != default:
