@@ -254,7 +254,7 @@ section
 namespace IsLocalRing
 export _root_.IsLocalRing (ResidueField maximalIdeal maximalIdeal.isMaximal of_injective)
 end IsLocalRing
-open scoped IsLocalRing in
+open scoped _root_.IsLocalRing in
 theorem IsLocalRing.maximalIdeal_le {R : Type*} [CommSemiring R] [IsLocalRing R] {J : Ideal R}
     (hJ : J ≠ ⊤) (h : IsLocalRing.maximalIdeal R ≤ J) :
     J.IsMaximal :=
@@ -376,7 +376,7 @@ export _root_.AlgebraicCurve.Place (ext ResidueField FiniteResidue heightOneSpec
 
 open _root_.AlgebraicCurve.Place
 
-open scoped Pointwise P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.Pointwise
+open scoped _root_.Pointwise _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.Pointwise
 
 variable {K F}
 variable (σ : F ≃ₐ[K] F)
@@ -391,7 +391,7 @@ export _root_.AlgebraicCurve.Divisor (smul_def smul_apply)
 
 open _root_.AlgebraicCurve.Divisor
 
-open scoped Pointwise P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.Pointwise
+open scoped _root_.Pointwise _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.Pointwise
 
 variable {K F}
 
@@ -403,7 +403,7 @@ export _root_.AlgebraicCurve.Pic0 (mk mk_surjective)
 
 open _root_.AlgebraicCurve.Pic0
 
-open scoped Pointwise P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.Pointwise
+open scoped _root_.Pointwise _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.Pointwise
 
 variable {K F}
 
@@ -473,6 +473,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCur
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.ord_nonneg_of_mem :=
+  @_root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCurve.Place.ord_nonneg_of_mem
 theorem _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCurve.Place.mem_of_ord_nonneg {f : F} (hf : f ≠ 0) (h : 0 ≤ v.ord f) :
     f ∈ v.toValuationSubring := by
   obtain ⟨π, hπ⟩ := IsDiscreteValuationRing.exists_irreducible v.toValuationSubring
@@ -484,6 +487,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCur
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.mem_of_ord_nonneg :=
+  @_root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCurve.Place.mem_of_ord_nonneg
 theorem _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCurve.Place.mem_iff_ord_nonneg {f : F} (hf : f ≠ 0) :
     f ∈ v.toValuationSubring ↔ 0 ≤ v.ord f :=
   ⟨v.ord_nonneg_of_mem, v.mem_of_ord_nonneg hf⟩
@@ -491,6 +497,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCur
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.mem_iff_ord_nonneg :=
+  @_root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCurve.Place.mem_iff_ord_nonneg
 theorem exists_ord_pos : ∃ f : F, f ≠ 0 ∧ 0 < v.ord f := by
   obtain ⟨π, hπ⟩ := IsDiscreteValuationRing.exists_irreducible v.toValuationSubring
   refine ⟨(π : F), ?_, ?_⟩
@@ -531,6 +540,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCur
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.comap_algebraMap_ne_top :=
+  @_root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCurve.Place.comap_algebraMap_ne_top
 variable {w} in
 
 theorem mem_comap_iff_ord_nonneg {f : F} (hf : f ≠ 0) :
@@ -583,6 +595,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCur
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.exists_ord_algebraMap_pos :=
+  @_root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCurve.Place.exists_ord_algebraMap_pos
 variable [Algebra.IsIntegral F F']
 
 theorem ramificationIndex_set_nonempty :
@@ -662,7 +677,7 @@ variable {F : Type*} [Field F]
 namespace ValuationSubring
 export _root_.ValuationSubring (comap subtype mem_comap subtype_apply toSubring algebraMap_apply ext zero_mem mk mem_top mul_mem algebraMap_injective add_mem eq_top_iff valuation inclusion)
 end ValuationSubring
-open scoped ValuationSubring in
+open scoped _root_.ValuationSubring in
 theorem ValuationSubring.valued_eq_one_of_isUnit {K : Type*} [Field K] {Γ₀ : Type*}
     [LinearOrderedCommGroupWithZero Γ₀] [hv : Valued K Γ₀] (x : hv.v.valuationSubring)
     (hx : IsUnit x) : Valued.v x.val = 1 := by
@@ -673,7 +688,7 @@ theorem ValuationSubring.valued_eq_one_of_isUnit {K : Type*} [Field K] {Γ₀ : 
   nth_rw 2 [← mul_one (Valued.v x.val)]
   exact mul_le_mul_right ((hv.v.mem_valuationSubring_iff _).1 (u⁻¹.val.property)) _
 
-open scoped ValuationSubring in
+open scoped _root_.ValuationSubring in
 theorem ValuationSubring.isUnit_of_valued_eq_one {K : Type*} [Field K] {Γ₀ : Type*}
     [LinearOrderedCommGroupWithZero Γ₀] [hv : Valued K Γ₀] (x : hv.v.valuationSubring)
     (hx : Valued.v x.val = 1) : IsUnit x := by
@@ -684,7 +699,7 @@ theorem ValuationSubring.isUnit_of_valued_eq_one {K : Type*} [Field K] {Γ₀ : 
   rw [isUnit_iff_exists]
   exact ⟨⟨u⁻¹.val, hu_inv_le⟩,  ⟨by aesop, by aesop⟩⟩
 
-open scoped ValuationSubring in
+open scoped _root_.ValuationSubring in
 theorem ValuationSubring.isUnit_iff_valued_eq_one {K : Type*} [Field K] {Γ₀ : Type*}
     [LinearOrderedCommGroupWithZero Γ₀] [hv : Valued K Γ₀] (x : hv.v.valuationSubring) :
     IsUnit x ↔ Valued.v x.val = 1 :=
@@ -936,7 +951,7 @@ end IrreducibleValuation
 
 section SpectralSetup
 
-open scoped Valued P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.Valued NNReal P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.NNReal WithZero P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.WithZero
+open scoped _root_.Valued _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.Valued _root_.NNReal _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.NNReal _root_.WithZero _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.WithZero
 
 open _root_.WithZeroMulInt
 open _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.WithZeroMulInt
@@ -958,7 +973,7 @@ end SpectralSetup
 
 section AbsoluteValue
 
-open scoped Valued P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.Valued NNReal P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.NNReal WithZero P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.WithZero
+open scoped _root_.Valued _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.Valued _root_.NNReal _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.NNReal _root_.WithZero _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.WithZero
 
 open _root_.WithZeroMulInt
 open _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.WithZeroMulInt
@@ -988,7 +1003,7 @@ end AbsoluteValue
 
 section IntegralClosure
 
-open scoped Valued P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.Valued NNReal P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.NNReal WithZero P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.WithZero
+open scoped _root_.Valued _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.Valued _root_.NNReal _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.NNReal _root_.WithZero _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.WithZero
 
 variable {K F F' : Type*} [Field K] [Field F] [Field F'] [Algebra K F] [Algebra K F']
 variable (F)
@@ -1066,7 +1081,7 @@ end IntegralClosure
 
 section ClosedAdjoin
 
-open scoped Valued P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.Valued NNReal P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.NNReal WithZero P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.WithZero
+open scoped _root_.Valued _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.Valued _root_.NNReal _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.NNReal _root_.WithZero _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.WithZero
 
 variable {K F F' : Type*} [Field K] [Field F] [Field F'] [Algebra K F] [Algebra K F']
 variable (F)
@@ -1111,7 +1126,7 @@ open _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.IsLocalRing
 open _root_.WithZero
 open _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.WithZero
 
-open scoped Valued P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.Valued WithZero P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.WithZero
+open scoped _root_.Valued _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.Valued _root_.WithZero _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.WithZero
 
 namespace AlgebraicCurve
 
@@ -1289,12 +1304,18 @@ def _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCurve.P
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.uniformizerSubring :=
+  @_root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCurve.Place.uniformizerSubring
 theorem _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCurve.Place.uniformizer_mem : v.uniformizer ∈ v.toValuationSubring :=
   v.uniformizerSubring.2
 
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.uniformizer_mem :=
+  @_root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCurve.Place.uniformizer_mem
 end Place
 
 
@@ -1630,7 +1651,7 @@ section
 set_option maxHeartbeats 3200000
 set_option synthInstance.maxHeartbeats 1600000
 
-open scoped WithZero P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.WithZero Multiplicative P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.Multiplicative Topology P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.Topology
+open scoped _root_.WithZero _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.WithZero _root_.Multiplicative _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.Multiplicative _root_.Topology _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.Topology
 open _root_.Filter
 open _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.Filter
 

@@ -23,6 +23,157 @@ set_option maxHeartbeats 12800000
 
 namespace P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed
 
+-- RRSplit attribute-prefixed source-private field bridge.
+private noncomputable abbrev _root_.AlgebraicCurve.Place.polynomialAlgebra :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.polynomialAlgebra
+-- RRSplit attribute-prefixed source-private field bridge.
+private noncomputable abbrev _root_.AlgebraicCurve.Place.polynomialIsScalarTower :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.polynomialIsScalarTower
+
+
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.ord_add_eq_min :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.ord_add_eq_min
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.ord_nonneg_of_mem :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.ord_nonneg_of_mem
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.mem_of_ord_nonneg :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.mem_of_ord_nonneg
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.mem_iff_ord_nonneg :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.mem_iff_ord_nonneg
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.algebraMap_ne_zero :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.algebraMap_ne_zero
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.comap_algebraMap_ne_top :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.comap_algebraMap_ne_top
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.exists_ord_algebraMap_pos :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.exists_ord_algebraMap_pos
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.ord_add_eq_left :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.ord_add_eq_left
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.uniformizerSubring' :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.uniformizerSubring'
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.kaehlerMap_subring_D_uniformizer :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.kaehlerMap_subring_D_uniformizer
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.uniformizerSubring :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.uniformizerSubring
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.coe_uniformizerSubring :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.coe_uniformizerSubring
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.irreducible_uniformizerSubring :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.irreducible_uniformizerSubring
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.uniformizerSubring_mem_maximalIdeal :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.uniformizerSubring_mem_maximalIdeal
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.uniformizer_mem :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.uniformizer_mem
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.simplePoleSubmodule :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.simplePoleSubmodule
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.mem_simplePoleSubmodule_of_mem :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.mem_simplePoleSubmodule_of_mem
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.simplePoleMulUniformizer :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.simplePoleMulUniformizer
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.simplePoleResidueAux :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.simplePoleResidueAux
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.simplePoleResidueAux_eq_zero_of_mem :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.simplePoleResidueAux_eq_zero_of_mem
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.localResidueExtend :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.localResidueExtend
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.localResidueExtend_apply_of_mem :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.localResidueExtend_apply_of_mem
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.localResidueDataOfExtend :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.localResidueDataOfExtend
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.ModularCurve.MilneAvAg9bRd14CubeRowCartierSliceStart.ag9b14c_res_uniformizer_zpow_eq_zero_of_ne_neg_one :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.ModularCurve.MilneAvAg9bRd14CubeRowCartierSliceStart.ag9b14c_res_uniformizer_zpow_eq_zero_of_ne_neg_one
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.aeval_mem :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.aeval_mem
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.exists_coeff_ord_ne_zero :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.exists_coeff_ord_ne_zero
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.uniformizerSubring'' :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.uniformizerSubring''
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.polynomialAlgebra_algebraMap_X :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.polynomialAlgebra_algebraMap_X
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.range_mapBaseChange_le_span_D_uniformizer :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.range_mapBaseChange_le_span_D_uniformizer
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.range_mapBaseChange_eq_top_of_subsingleton :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.range_mapBaseChange_eq_top_of_subsingleton
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.span_D_uniformizer_eq_top_of_subsingleton :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.span_D_uniformizer_eq_top_of_subsingleton
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.poleSubmodule :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.poleSubmodule
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.mem_poleSubmodule :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.mem_poleSubmodule
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.uniformizer_pow_ne_zero :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.uniformizer_pow_ne_zero
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.ord_uniformizer_pow :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.ord_uniformizer_pow
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.coe_poleSubmodule_zero :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.coe_poleSubmodule_zero
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.poleSubmodule_one :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.poleSubmodule_one
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.mem_poleSubmodule_iff_ord :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.mem_poleSubmodule_iff_ord
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.poleSubmodule_mono :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.poleSubmodule_mono
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.poleMulUniformizerPow :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.poleMulUniformizerPow
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.laurentTailCoeff :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.laurentTailCoeff
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.laurentTail_remainder_mem_poleSubmodule :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.laurentTail_remainder_mem_poleSubmodule
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.localResidueData_res_eq_simplePoleResidueAux :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.localResidueData_res_eq_simplePoleResidueAux
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.isUnit_algebraMap :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.isUnit_algebraMap
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.adicValuation_algebraMap :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.adicValuation_algebraMap
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.ord_algebraMap :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.ord_algebraMap
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.ord_eq_neg_log_of_valuationSubring_eq :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.ord_eq_neg_log_of_valuationSubring_eq
+
+
 section
 section
 
@@ -438,7 +589,7 @@ open _root_.Polynomial
 open _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Polynomial
 open _root_.IsLocalRing
 open _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.IsLocalRing
-open scoped TensorProduct P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.TensorProduct
+open scoped _root_.TensorProduct _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.TensorProduct
 
 namespace AlgebraicCurve
 
@@ -462,12 +613,18 @@ noncomputable def _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgC
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.uniformizerSubring''' :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.uniformizerSubring'''
 theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.irreducible_uniformizerSubring''' : Irreducible v.uniformizerSubring''' :=
   (IsDiscreteValuationRing.exists_irreducible v.toValuationSubring).choose_spec
 
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.irreducible_uniformizerSubring''' :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.irreducible_uniformizerSubring'''
 theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.maximalIdeal_eq_span_uniformizer :
     IsLocalRing.maximalIdeal v.toValuationSubring = Ideal.span {v.uniformizerSubring'''} :=
   (IsDiscreteValuationRing.irreducible_iff_uniformizer _).mp v.irreducible_uniformizerSubring'''
@@ -475,6 +632,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Alge
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.maximalIdeal_eq_span_uniformizer :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.maximalIdeal_eq_span_uniformizer
 theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.D_polynomialAlgebra_uniformizer :
     letI := v.polynomialAlgebra
     KaehlerDifferential.D K[X] v.toValuationSubring v.uniformizerSubring''' = 0 := by
@@ -486,6 +646,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Alge
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.D_polynomialAlgebra_uniformizer :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.D_polynomialAlgebra_uniformizer
 theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.ker_algebraMap_residueField_eq_span :
     RingHom.ker (algebraMap v.toValuationSubring v.ResidueField)
       = Ideal.span {v.uniformizerSubring'''} := by
@@ -495,6 +658,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Alge
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.ker_algebraMap_residueField_eq_span :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.ker_algebraMap_residueField_eq_span
 theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.formallyUnramified_polynomial_residueField_of_isSeparable
     [Algebra.IsSeparable K (IsLocalRing.ResidueField v.toValuationSubring)] :
     letI := v.polynomialAlgebra
@@ -508,6 +674,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Alge
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.formallyUnramified_polynomial_residueField_of_isSeparable :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.formallyUnramified_polynomial_residueField_of_isSeparable
 theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.subsingleton_residueKaehler_of_isSeparable
     [Algebra.IsSeparable K (IsLocalRing.ResidueField v.toValuationSubring)] :
     letI := v.polynomialAlgebra
@@ -519,6 +688,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Alge
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.subsingleton_residueKaehler_of_isSeparable :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.subsingleton_residueKaehler_of_isSeparable
 theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.subsingleton_residueTensor_polynomialKaehler_of_isSeparable
     [Algebra.IsSeparable K (IsLocalRing.ResidueField v.toValuationSubring)] :
     letI := v.polynomialAlgebra
@@ -557,6 +729,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Alge
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.subsingleton_residueTensor_polynomialKaehler_of_isSeparable :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.subsingleton_residueTensor_polynomialKaehler_of_isSeparable
 theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.finite_polynomialKaehler_of_finite_kaehler
     [Module.Finite v.toValuationSubring Ω[v.toValuationSubring⁄K]] :
     letI := v.polynomialAlgebra
@@ -570,6 +745,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Alge
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.finite_polynomialKaehler_of_finite_kaehler :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.finite_polynomialKaehler_of_finite_kaehler
 theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.subsingleton_polynomialKaehler_of_isSeparable_of_finite
     [Algebra.IsSeparable K (IsLocalRing.ResidueField v.toValuationSubring)]
     [Module.Finite v.toValuationSubring Ω[v.toValuationSubring⁄K]] :
@@ -583,6 +761,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Alge
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.subsingleton_polynomialKaehler_of_isSeparable_of_finite :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.subsingleton_polynomialKaehler_of_isSeparable_of_finite
 theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.isSeparable_residueField_of_charZero_of_finiteResidue
     [CharZero K] [v.FiniteResidue] :
     Algebra.IsSeparable K (IsLocalRing.ResidueField v.toValuationSubring) := by
@@ -594,6 +775,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Alge
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.isSeparable_residueField_of_charZero_of_finiteResidue :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.isSeparable_residueField_of_charZero_of_finiteResidue
 theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.subsingleton_polynomialKaehler_of_charZero_of_finite
     [CharZero K] [v.FiniteResidue]
     [Module.Finite v.toValuationSubring Ω[v.toValuationSubring⁄K]] :
@@ -605,6 +789,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Alge
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.subsingleton_polynomialKaehler_of_charZero_of_finite :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.subsingleton_polynomialKaehler_of_charZero_of_finite
 end ResidueEngine
 
 
@@ -711,6 +898,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Alge
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.exists_mem_poleSubmodule :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.exists_mem_poleSubmodule
 end Place
 
 
@@ -780,6 +970,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Alge
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.uniformizer_pow_inv_mem_poleSubmodule_self :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.uniformizer_pow_inv_mem_poleSubmodule_self
 theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.higherPoleMonomial_sum_mem_poleSubmodule {s : Finset ℕ} {N : ℕ}
     (hs : ∀ m ∈ s, m < N) (c : ℕ → K) :
     ∑ m ∈ s, c m • (v.uniformizer ^ (m + 2))⁻¹ ∈ v.poleSubmodule (N + 1) :=
@@ -791,6 +984,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Alge
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.higherPoleMonomial_sum_mem_poleSubmodule :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.higherPoleMonomial_sum_mem_poleSubmodule
 theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.higherPoleMonomial_coeff_eq_zero_of_mem (s : Finset ℕ) (c : ℕ → K)
     (hmem : ∑ m ∈ s, c m • (v.uniformizer ^ (m + 2))⁻¹ ∈ v.poleSubmodule 1) :
     ∀ m ∈ s, c m = 0 := by
@@ -824,6 +1020,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Alge
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.higherPoleMonomial_coeff_eq_zero_of_mem :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.higherPoleMonomial_coeff_eq_zero_of_mem
 theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.linearIndependent_higherPoleMonomial_mkQ :
     LinearIndependent K
       (fun m : ℕ => (v.poleSubmodule 1).mkQ ((v.uniformizer ^ (m + 2))⁻¹)) := by
@@ -837,6 +1036,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Alge
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.linearIndependent_higherPoleMonomial_mkQ :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.linearIndependent_higherPoleMonomial_mkQ
 def _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.higherPoleCorrectionAux :
     Submodule.span K
         (Set.range fun m : ℕ => (v.poleSubmodule 1).mkQ ((v.uniformizer ^ (m + 2))⁻¹))
@@ -847,21 +1049,31 @@ def _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Algebrai
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.higherPoleCorrectionAux :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.higherPoleCorrectionAux
 def _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.higherPoleCorrection : F →ₗ[K] v.ResidueField :=
   v.higherPoleCorrectionAux.exists_extend.choose ∘ₗ (v.poleSubmodule 1).mkQ
 
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.higherPoleCorrection :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.higherPoleCorrection
 theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.higherPoleCorrection_apply_of_mem {f : F} (hf : f ∈ v.poleSubmodule 1) :
     v.higherPoleCorrection f = 0 := by
-  unfold higherPoleCorrection
+  change (_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.higherPoleCorrection v) f = 0
+  unfold _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.higherPoleCorrection
   rw [LinearMap.comp_apply, Submodule.mkQ_apply, (Submodule.Quotient.mk_eq_zero _).mpr hf,
     _root_.map_zero]
 
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.higherPoleCorrection_apply_of_mem :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.higherPoleCorrection_apply_of_mem
 theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.higherPoleCorrection_uniformizer_pow_inv (m : ℕ) :
     v.higherPoleCorrection ((v.uniformizer ^ (m + 2))⁻¹)
       = v.localResidueExtend ((v.uniformizer ^ (m + 2))⁻¹) := by
@@ -875,7 +1087,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Alge
 
   refine hext.trans ?_
 
-  unfold higherPoleCorrectionAux
+  change (_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.higherPoleCorrectionAux v)
+    ⟨(v.poleSubmodule 1).mkQ ((v.uniformizer ^ (m + 2))⁻¹), hmem⟩ = _
+  unfold _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.higherPoleCorrectionAux
   have hb := (Basis.span v.linearIndependent_higherPoleMonomial_mkQ).constr_basis K
     (fun m => v.localResidueExtend ((v.uniformizer ^ (m + 2))⁻¹)) m
   rwa [Basis.span_apply] at hb
@@ -883,16 +1097,21 @@ theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Alge
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.higherPoleCorrection_uniformizer_pow_inv :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.higherPoleCorrection_uniformizer_pow_inv
 def _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.canonicalLocalResidueDataKOfExtend : v.CanonicalLocalResidueDataK where
   res := v.localResidueExtend - v.higherPoleCorrection
   res_of_mem f hf := by
+    have hEq : v.poleSubmodule 1 = v.simplePoleSubmodule := v.poleSubmodule_one
     have h1 : f ∈ v.poleSubmodule 1 :=
-      v.poleSubmodule_one ▸ v.mem_simplePoleSubmodule_of_mem hf
+      hEq ▸ v.mem_simplePoleSubmodule_of_mem hf
     rw [LinearMap.sub_apply, v.higherPoleCorrection_apply_of_mem h1, sub_zero,
       v.localResidueExtend_apply_of_mem (v.mem_simplePoleSubmodule_of_mem hf),
       v.simplePoleResidueAux_eq_zero_of_mem hf]
   res_simplePole f hf := by
-    have h1 : f ∈ v.poleSubmodule 1 := v.poleSubmodule_one ▸ hf
+    have hEq : v.poleSubmodule 1 = v.simplePoleSubmodule := v.poleSubmodule_one
+    have h1 : f ∈ v.poleSubmodule 1 := hEq ▸ hf
     rw [LinearMap.sub_apply, v.higherPoleCorrection_apply_of_mem h1, sub_zero,
       v.localResidueExtend_apply_of_mem hf, simplePoleResidueAux_apply]
   res_higherPoleMonomial n hn := by
@@ -903,6 +1122,9 @@ def _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Algebrai
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.canonicalLocalResidueDataKOfExtend :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.canonicalLocalResidueDataKOfExtend
 end Place
 
 
@@ -980,7 +1202,7 @@ namespace CanonicalLocalResidueDataK
 export _root_.AlgebraicCurve.Place.CanonicalLocalResidueDataK (toLocalResidueData res_higherPoleMonomial rec mk.injEq mk)
 end CanonicalLocalResidueDataK
 namespace CanonicalLocalResidueDataK
-open scoped AlgebraicCurve.Place.CanonicalLocalResidueDataK in
+open scoped _root_.AlgebraicCurve.Place.CanonicalLocalResidueDataK in
 theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.CanonicalLocalResidueDataK.res_algebraMap_mul_uniformizer_pow_inv
     (R : v.CanonicalLocalResidueDataK) {n : ℕ} (hn : 1 ≤ n) (c : K) :
     R.res ((algebraMap K F c) * (v.uniformizer ^ (n + 1))⁻¹) = 0 := by
@@ -988,6 +1210,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Alge
       = c • (v.uniformizer ^ (n + 1))⁻¹ := (Algebra.smul_def c _).symm
   rw [h, map_smul, R.res_higherPoleMonomial n hn, smul_zero]
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.CanonicalLocalResidueDataK.res_algebraMap_mul_uniformizer_pow_inv :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.CanonicalLocalResidueDataK.res_algebraMap_mul_uniformizer_pow_inv
 end CanonicalLocalResidueDataK
 
 
@@ -1047,7 +1272,7 @@ open _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Rationa
 open _root_.AlgebraicCurve.RationalFunctionField
 open _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.RationalFunctionField
 
-open scoped Polynomial P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Polynomial
+open scoped _root_.Polynomial _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Polynomial
 
 theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.ModularCurve.MilneAvAg9bRd15UnitNormalFormLaurentSeed.ag9b15u_eq_zero_or_one_le_ord_of_residue_eq_zero
     {K F : Type*} [Field K] [Field F] [Algebra K F] (v : Place K F)
@@ -1072,6 +1297,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Modu
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.ModularCurve.MilneAvAg9bRd15UnitNormalFormLaurentSeed.ag9b15u_eq_zero_or_one_le_ord_of_residue_eq_zero :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.ModularCurve.MilneAvAg9bRd15UnitNormalFormLaurentSeed.ag9b15u_eq_zero_or_one_le_ord_of_residue_eq_zero
 theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.ModularCurve.MilneAvAg9bRd15UnitNormalFormLaurentSeed.ag9b15u_exists_unit_normal_form_of_surj
     {K F : Type*} [Field K] [Field F] [Algebra K F] (v : Place K F)
     (hsurj : Function.Surjective (algebraMap K v.ResidueField))
@@ -1123,6 +1351,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Modu
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.ModularCurve.MilneAvAg9bRd15UnitNormalFormLaurentSeed.ag9b15u_exists_unit_normal_form_of_surj :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.ModularCurve.MilneAvAg9bRd15UnitNormalFormLaurentSeed.ag9b15u_exists_unit_normal_form_of_surj
 theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.ModularCurve.MilneAvAg9bRd15UnitNormalFormLaurentSeed.ag9b15u_exists_K_truncation_of_mem_poleSubmodule
     {K F : Type*} [Field K] [Field F] [Algebra K F] (v : Place K F)
     (hsurj : Function.Surjective (algebraMap K v.ResidueField))
@@ -1166,6 +1397,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Modu
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.ModularCurve.MilneAvAg9bRd15UnitNormalFormLaurentSeed.ag9b15u_exists_K_truncation_of_mem_poleSubmodule :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.ModularCurve.MilneAvAg9bRd15UnitNormalFormLaurentSeed.ag9b15u_exists_K_truncation_of_mem_poleSubmodule
 theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.ModularCurve.MilneAvAg9bRd15UnitNormalFormLaurentSeed.ag9b15u_differentialCoeff_D_unit_mul_uniformizer
     {K F : Type*} [Field K] [Field F] [Algebra K F]
     (v : Place K F) [v.DCoordGenerates] [Nontrivial Ω[F⁄K]] (w : F) :
@@ -1187,6 +1421,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Modu
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.ModularCurve.MilneAvAg9bRd15UnitNormalFormLaurentSeed.ag9b15u_differentialCoeff_D_unit_mul_uniformizer :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.ModularCurve.MilneAvAg9bRd15UnitNormalFormLaurentSeed.ag9b15u_differentialCoeff_D_unit_mul_uniformizer
 end MilneAvAg9bRd15UnitNormalFormLaurentSeed
 
 
@@ -1251,7 +1488,7 @@ open _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.IsLocal
 open _root_.Polynomial
 open _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Polynomial
 
-open scoped Polynomial P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Polynomial
+open scoped _root_.Polynomial _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Polynomial
 
 namespace Mp72a103T2
 
@@ -1420,7 +1657,7 @@ export _root_.AlgebraicCurve (Place Place.ext Place.deg Place.FiniteResidue Divi
 
 open _root_.AlgebraicCurve
 
-open scoped Polynomial P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Polynomial
+open scoped _root_.Polynomial _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Polynomial
 
 open _root_.AlgebraicCurve.RationalFunctionField
 open _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.RationalFunctionField
@@ -1736,7 +1973,7 @@ export _root_.AlgebraicCurve (Place Place.ext Place.deg Place.FiniteResidue Divi
 
 open _root_.AlgebraicCurve
 
-open scoped Polynomial P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Polynomial
+open scoped _root_.Polynomial _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Polynomial
 
 open _root_.AlgebraicCurve.RationalFunctionField
 open _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.RationalFunctionField
@@ -1884,7 +2121,7 @@ variable {K F}
 namespace IsCurveOver
 export _root_.AlgebraicCurve.IsCurveOver (instFiniteResidue mk finiteResidue kaehler_free_rank_one rec)
 end IsCurveOver
-open scoped AlgebraicCurve.IsCurveOver in
+open scoped _root_.AlgebraicCurve.IsCurveOver in
 theorem IsCurveOver.of_finiteResidue_of_kaehlerRankOne
     [HasPrincipalDivisors K F] [∀ v : Place K F, v.FiniteResidue]
     (hΩ : KaehlerRankOne K F) : IsCurveOver K F where
@@ -2034,6 +2271,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Alge
       ih fun j hj => hg j (Finset.mem_cons_of_mem hj)]
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.ord_prod :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.ord_prod
 variable [FiniteDimensional F F']
 
 theorem sum_smul_apply_eq_ord_prod {f : F'} (hf : f ≠ 0)

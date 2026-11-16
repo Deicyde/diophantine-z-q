@@ -196,7 +196,7 @@ export _root_.AlgebraicCurve.Place (ext coe_algebraMap ResidueField deg FiniteRe
 
 open _root_.AlgebraicCurve.Place
 
-open scoped Pointwise P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.Pointwise
+open scoped _root_.Pointwise _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.Pointwise
 
 variable {K F}
 variable (σ : F ≃ₐ[K] F)
@@ -211,7 +211,7 @@ export _root_.AlgebraicCurve.Divisor (degree degree_single principal smul_def sm
 
 open _root_.AlgebraicCurve.Divisor
 
-open scoped Pointwise P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.Pointwise
+open scoped _root_.Pointwise _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.Pointwise
 
 variable {K F}
 
@@ -223,7 +223,7 @@ export _root_.AlgebraicCurve.Pic0 (mk mk_surjective)
 
 open _root_.AlgebraicCurve.Pic0
 
-open scoped Pointwise P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.Pointwise
+open scoped _root_.Pointwise _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.Pointwise
 
 variable {K F}
 
@@ -494,6 +494,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.ord_nonneg_of_mem :=
+  @_root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.ord_nonneg_of_mem
 theorem _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.mem_of_ord_nonneg {f : F} (hf : f ≠ 0) (h : 0 ≤ v.ord f) :
     f ∈ v.toValuationSubring := by
   obtain ⟨π, hπ⟩ := IsDiscreteValuationRing.exists_irreducible v.toValuationSubring
@@ -505,6 +508,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.mem_of_ord_nonneg :=
+  @_root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.mem_of_ord_nonneg
 theorem _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.mem_iff_ord_nonneg {f : F} (hf : f ≠ 0) :
     f ∈ v.toValuationSubring ↔ 0 ≤ v.ord f :=
   ⟨v.ord_nonneg_of_mem, v.mem_of_ord_nonneg hf⟩
@@ -512,6 +518,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.mem_iff_ord_nonneg :=
+  @_root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.mem_iff_ord_nonneg
 theorem exists_ord_pos : ∃ f : F, f ≠ 0 ∧ 0 < v.ord f := by
   obtain ⟨π, hπ⟩ := IsDiscreteValuationRing.exists_irreducible v.toValuationSubring
   refine ⟨(π : F), ?_, ?_⟩
@@ -552,6 +561,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.comap_algebraMap_ne_top :=
+  @_root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.comap_algebraMap_ne_top
 variable {w} in
 
 theorem mem_comap_iff_ord_nonneg {f : F} (hf : f ≠ 0) :
@@ -604,6 +616,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.exists_ord_algebraMap_pos :=
+  @_root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.exists_ord_algebraMap_pos
 variable [Algebra.IsIntegral F F']
 
 theorem ramificationIndex_set_nonempty :
@@ -716,7 +731,7 @@ open _root_.WithZero
 open _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.WithZero
 open _root_.IsLocalRing
 open _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.IsLocalRing
-open scoped Polynomial P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.Polynomial
+open scoped _root_.Polynomial _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.Polynomial
 
 namespace AlgebraicCurve
 
@@ -936,18 +951,27 @@ def _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.uniformizerSubring :=
+  @_root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.uniformizerSubring
 @[scoped simp]
 theorem _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.coe_uniformizerSubring : (v.uniformizerSubring : F) = v.uniformizer := rfl
 
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.coe_uniformizerSubring :=
+  @_root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.coe_uniformizerSubring
 theorem _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.irreducible_uniformizerSubring : Irreducible v.uniformizerSubring :=
   (IsDiscreteValuationRing.exists_irreducible v.toValuationSubring).choose_spec
 
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.irreducible_uniformizerSubring :=
+  @_root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.irreducible_uniformizerSubring
 theorem _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.uniformizerSubring_mem_maximalIdeal :
     v.uniformizerSubring ∈ IsLocalRing.maximalIdeal v.toValuationSubring :=
   (IsLocalRing.mem_maximalIdeal _).mpr v.irreducible_uniformizerSubring.not_isUnit
@@ -955,12 +979,18 @@ theorem _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.uniformizerSubring_mem_maximalIdeal :=
+  @_root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.uniformizerSubring_mem_maximalIdeal
 theorem _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.uniformizer_mem : v.uniformizer ∈ v.toValuationSubring :=
   v.uniformizerSubring.2
 
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.uniformizer_mem :=
+  @_root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.uniformizer_mem
 def _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.simplePoleSubmodule : Submodule K F where
   carrier := {f | v.uniformizer * f ∈ v.toValuationSubring}
   add_mem' {f g} hf hg := by
@@ -974,6 +1004,9 @@ def _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.simplePoleSubmodule :=
+  @_root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.simplePoleSubmodule
 @[scoped simp]
 theorem mem_simplePoleSubmodule {f : F} :
     f ∈ v.simplePoleSubmodule ↔ v.uniformizer * f ∈ v.toValuationSubring := Iff.rfl
@@ -985,6 +1018,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.mem_simplePoleSubmodule_of_mem :=
+  @_root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.mem_simplePoleSubmodule_of_mem
 def _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.simplePoleMulUniformizer : v.simplePoleSubmodule →ₗ[K] v.toValuationSubring where
   toFun f := ⟨v.uniformizer * f.1, f.2⟩
   map_add' f g := Subtype.ext (mul_add _ _ _)
@@ -997,6 +1033,9 @@ def _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.simplePoleMulUniformizer :=
+  @_root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.simplePoleMulUniformizer
 def _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.simplePoleResidueAux : v.simplePoleSubmodule →ₗ[K] v.ResidueField :=
   (Ideal.Quotient.mkₐ K (IsLocalRing.maximalIdeal v.toValuationSubring)).toLinearMap
     ∘ₗ v.simplePoleMulUniformizer
@@ -1004,6 +1043,9 @@ def _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.simplePoleResidueAux :=
+  @_root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.simplePoleResidueAux
 theorem simplePoleResidueAux_apply (f : v.simplePoleSubmodule) :
     v.simplePoleResidueAux f = IsLocalRing.residue _ ⟨v.uniformizer * f.1, f.2⟩ := rfl
 
@@ -1019,12 +1061,18 @@ theorem _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.simplePoleResidueAux_eq_zero_of_mem :=
+  @_root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.simplePoleResidueAux_eq_zero_of_mem
 def _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.localResidueExtend : F →ₗ[K] v.ResidueField :=
   v.simplePoleResidueAux.exists_extend.choose
 
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.localResidueExtend :=
+  @_root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.localResidueExtend
 theorem _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.localResidueExtend_apply_of_mem {f : F} (hf : f ∈ v.simplePoleSubmodule) :
     v.localResidueExtend f = v.simplePoleResidueAux ⟨f, hf⟩ :=
   congrArg (fun φ => φ (⟨f, hf⟩ : v.simplePoleSubmodule))
@@ -1033,6 +1081,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.localResidueExtend_apply_of_mem :=
+  @_root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.localResidueExtend_apply_of_mem
 end Place
 
 
@@ -1084,7 +1135,7 @@ open _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of
 open ModularCurve.Lg37 ModularCurve.Ldgr37Ch
 open Mp72a101T2
 
-open scoped Polynomial P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.Polynomial
+open scoped _root_.Polynomial _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.Polynomial
 
 attribute [local instance 2000] RatFunc.instAlgebraOfPolynomial
 
@@ -1242,7 +1293,7 @@ open _root_.AlgebraicCurve.RationalFunctionField
 open _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.RationalFunctionField
 open ModularCurve.Lg37 ModularCurve.Ldgr39Hf ModularCurve.Ldgr35Cs
 open Mp72a101T2
-open scoped Polynomial P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.Polynomial
+open scoped _root_.Polynomial _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.Polynomial
 section ResidueCalculus
 variable {K F : Type*} [Field K] [Field F] [Algebra K F]
 
@@ -1285,7 +1336,7 @@ open _root_.AlgebraicCurve.RationalFunctionField
 open _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.RationalFunctionField
 open ModularCurve.Lg37 ModularCurve.Ldgr39Hf ModularCurve.Ldgr35Cs
 open Mp72a101T2
-open scoped Polynomial P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.Polynomial
+open scoped _root_.Polynomial _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.Polynomial
 section ResidueCalculus
 variable {K F : Type*} [Field K] [Field F] [Algebra K F]
 
@@ -1448,6 +1499,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.isUnit_mk_of_ord_eq_zero :=
+  @_root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.isUnit_mk_of_ord_eq_zero
 theorem _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.residue_ne_zero_of_ord_eq_zero {f : F} (hf : f ≠ 0) (h : v.ord f = 0) :
     residue v.toValuationSubring (⟨f, v.mem_of_ord_nonneg hf h.ge⟩ : v.toValuationSubring)
       ≠ 0 :=
@@ -1456,17 +1510,26 @@ theorem _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.residue_ne_zero_of_ord_eq_zero :=
+  @_root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.residue_ne_zero_of_ord_eq_zero
 def _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.IsRational : Prop := Function.Surjective (algebraMap K v.ResidueField)
 
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.IsRational :=
+  @_root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.IsRational
 def _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.residueInv : v.ResidueField → K :=
   Function.invFun (algebraMap K v.ResidueField)
 
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.residueInv :=
+  @_root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.residueInv
 theorem _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.algebraMap_residueInv (hv : v.IsRational) (x : v.ResidueField) :
     algebraMap K v.ResidueField (v.residueInv x) = x :=
   Function.invFun_eq (hv x)
@@ -1474,6 +1537,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.algebraMap_residueInv :=
+  @_root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.algebraMap_residueInv
 open _root_.Classical _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.Classical in
 
 def _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.evalAt (f : F) : K :=
@@ -1484,6 +1550,9 @@ def _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.evalAt :=
+  @_root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.evalAt
 theorem _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.evalAt_of_mem {f : F} (hf : f ∈ v.toValuationSubring) :
     v.evalAt f = v.residueInv (residue v.toValuationSubring ⟨f, hf⟩) :=
   dif_pos hf
@@ -1491,6 +1560,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.evalAt_of_mem :=
+  @_root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.evalAt_of_mem
 theorem _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.algebraMap_evalAt (hv : v.IsRational) {f : F} (hf : f ∈ v.toValuationSubring) :
     algebraMap K v.ResidueField (v.evalAt f)
       = residue v.toValuationSubring (⟨f, hf⟩ : v.toValuationSubring) := by
@@ -1500,6 +1572,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.algebraMap_evalAt :=
+  @_root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.algebraMap_evalAt
 theorem _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.evalAt_ne_zero (hv : v.IsRational) {f : F} (hf : f ≠ 0) (h : v.ord f = 0) :
     v.evalAt f ≠ 0 := by
   intro h0
@@ -1510,6 +1585,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.evalAt_ne_zero :=
+  @_root_.P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.evalAt_ne_zero
 end Place
 
 
@@ -1559,7 +1637,7 @@ variable {D E : Divisor K F}
 namespace Divisor
 export _root_.AlgebraicCurve.Divisor (degree degree_single principal smul_def smul_apply pullback pullback_apply degree_pullback)
 end Divisor
-open scoped AlgebraicCurve.Divisor in
+open scoped _root_.AlgebraicCurve.Divisor in
 theorem Divisor.degree_nonneg_of_nonneg [IsCurveOver K F]
     {D : Divisor K F} (hD : ∀ v, 0 ≤ D v) : 0 ≤ Divisor.degree D := by
   rw [Divisor.degree_eq_sum_support]

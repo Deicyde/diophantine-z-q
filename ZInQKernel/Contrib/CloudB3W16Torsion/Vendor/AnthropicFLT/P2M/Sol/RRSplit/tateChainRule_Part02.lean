@@ -28,6 +28,23 @@ set_option maxHeartbeats 12800000
 
 namespace P2MW.S_AlgebraicCurve_tateChainRule
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.ord_nonneg_of_mem :=
+  @_root_.P2MW.S_AlgebraicCurve_tateChainRule.AlgebraicCurve.Place.ord_nonneg_of_mem
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.mem_of_ord_nonneg :=
+  @_root_.P2MW.S_AlgebraicCurve_tateChainRule.AlgebraicCurve.Place.mem_of_ord_nonneg
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.mem_iff_ord_nonneg :=
+  @_root_.P2MW.S_AlgebraicCurve_tateChainRule.AlgebraicCurve.Place.mem_iff_ord_nonneg
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.comap_algebraMap_ne_top :=
+  @_root_.P2MW.S_AlgebraicCurve_tateChainRule.AlgebraicCurve.Place.comap_algebraMap_ne_top
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.exists_ord_algebraMap_pos :=
+  @_root_.P2MW.S_AlgebraicCurve_tateChainRule.AlgebraicCurve.Place.exists_ord_algebraMap_pos
+
+
 section
 section
 

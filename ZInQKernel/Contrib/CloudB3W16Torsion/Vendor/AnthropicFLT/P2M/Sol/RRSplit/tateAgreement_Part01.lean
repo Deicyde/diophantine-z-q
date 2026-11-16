@@ -48,7 +48,7 @@ section
 namespace IsLocalRing
 export _root_.IsLocalRing (ResidueField maximalIdeal residue_eq_zero_iff maximalIdeal.isMaximal residue_surjective of_injective residue)
 end IsLocalRing
-open scoped IsLocalRing in
+open scoped _root_.IsLocalRing in
 theorem IsLocalRing.maximalIdeal_le {R : Type*} [CommSemiring R] [IsLocalRing R] {J : Ideal R}
     (hJ : J ≠ ⊤) (h : IsLocalRing.maximalIdeal R ≤ J) :
     J.IsMaximal :=
@@ -612,7 +612,7 @@ export _root_.AlgebraicCurve.Place (ext ResidueField FiniteResidue heightOneSpec
 
 open _root_.AlgebraicCurve.Place
 
-open scoped Pointwise P2MW.S_AlgebraicCurve_tateAgreement.Pointwise
+open scoped _root_.Pointwise _root_.P2MW.S_AlgebraicCurve_tateAgreement.Pointwise
 
 variable {K F}
 variable (σ : F ≃ₐ[K] F)
@@ -627,7 +627,7 @@ export _root_.AlgebraicCurve.Divisor (smul_def)
 
 open _root_.AlgebraicCurve.Divisor
 
-open scoped Pointwise P2MW.S_AlgebraicCurve_tateAgreement.Pointwise
+open scoped _root_.Pointwise _root_.P2MW.S_AlgebraicCurve_tateAgreement.Pointwise
 
 variable {K F}
 
@@ -639,7 +639,7 @@ export _root_.AlgebraicCurve.Pic0 (mk mk_surjective)
 
 open _root_.AlgebraicCurve.Pic0
 
-open scoped Pointwise P2MW.S_AlgebraicCurve_tateAgreement.Pointwise
+open scoped _root_.Pointwise _root_.P2MW.S_AlgebraicCurve_tateAgreement.Pointwise
 
 variable {K F}
 
@@ -709,6 +709,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_tateAgreement.AlgebraicCurve.Place.ord_nonn
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.ord_nonneg_of_mem :=
+  @_root_.P2MW.S_AlgebraicCurve_tateAgreement.AlgebraicCurve.Place.ord_nonneg_of_mem
 theorem _root_.P2MW.S_AlgebraicCurve_tateAgreement.AlgebraicCurve.Place.mem_of_ord_nonneg {f : F} (hf : f ≠ 0) (h : 0 ≤ v.ord f) :
     f ∈ v.toValuationSubring := by
   obtain ⟨π, hπ⟩ := IsDiscreteValuationRing.exists_irreducible v.toValuationSubring
@@ -720,6 +723,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_tateAgreement.AlgebraicCurve.Place.mem_of_o
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.mem_of_ord_nonneg :=
+  @_root_.P2MW.S_AlgebraicCurve_tateAgreement.AlgebraicCurve.Place.mem_of_ord_nonneg
 theorem _root_.P2MW.S_AlgebraicCurve_tateAgreement.AlgebraicCurve.Place.mem_iff_ord_nonneg {f : F} (hf : f ≠ 0) :
     f ∈ v.toValuationSubring ↔ 0 ≤ v.ord f :=
   ⟨v.ord_nonneg_of_mem, v.mem_of_ord_nonneg hf⟩
@@ -727,6 +733,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_tateAgreement.AlgebraicCurve.Place.mem_iff_
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.mem_iff_ord_nonneg :=
+  @_root_.P2MW.S_AlgebraicCurve_tateAgreement.AlgebraicCurve.Place.mem_iff_ord_nonneg
 end SinglePlace
 
 section Restrict
@@ -758,7 +767,7 @@ end
 section
 section
 
-open scoped Multiplicative P2MW.S_AlgebraicCurve_tateAgreement.Multiplicative WithZero P2MW.S_AlgebraicCurve_tateAgreement.WithZero
+open scoped _root_.Multiplicative _root_.P2MW.S_AlgebraicCurve_tateAgreement.Multiplicative _root_.WithZero _root_.P2MW.S_AlgebraicCurve_tateAgreement.WithZero
 
 open _root_.IsDedekindDomain
 open _root_.P2MW.S_AlgebraicCurve_tateAgreement.IsDedekindDomain
@@ -1119,7 +1128,7 @@ open _root_.P2MW.S_AlgebraicCurve_tateAgreement.IsLocalRing
 open _root_.Polynomial
 open _root_.P2MW.S_AlgebraicCurve_tateAgreement.Polynomial
 
-open scoped Polynomial P2MW.S_AlgebraicCurve_tateAgreement.Polynomial
+open scoped _root_.Polynomial _root_.P2MW.S_AlgebraicCurve_tateAgreement.Polynomial
 
 namespace Mp72a103T2
 
@@ -1561,7 +1570,7 @@ section
 set_option maxHeartbeats 3200000
 set_option synthInstance.maxHeartbeats 1600000
 
-open scoped WithZero P2MW.S_AlgebraicCurve_tateAgreement.WithZero Multiplicative P2MW.S_AlgebraicCurve_tateAgreement.Multiplicative Topology P2MW.S_AlgebraicCurve_tateAgreement.Topology
+open scoped _root_.WithZero _root_.P2MW.S_AlgebraicCurve_tateAgreement.WithZero _root_.Multiplicative _root_.P2MW.S_AlgebraicCurve_tateAgreement.Multiplicative _root_.Topology _root_.P2MW.S_AlgebraicCurve_tateAgreement.Topology
 open _root_.Filter
 open _root_.P2MW.S_AlgebraicCurve_tateAgreement.Filter
 

@@ -23,8 +23,8 @@ name needs to change.
 Factoring cuts lie between complete source sections with balanced namespace and
 section scopes, never within a proof. Exact source line ranges, original hashes,
 new-file hashes, notation expansions, and private-helper renamings are recorded
-in `CURVE_SOURCE_MANIFEST.json`. The initial source draft has 23 helper modules,
-all at most 110,555 bytes, plus six small original-path facades.
+in `CURVE_SOURCE_MANIFEST.json`. The current source draft has 23 helper modules,
+all at most 136,967 bytes, plus six small original-path facades.
 
 * `residueTheoremK_ratFunc_of_isAlgClosed`: seven parts.
 * `residueTheoremK_of_isAlgClosed`: five parts.
@@ -43,6 +43,11 @@ all at most 110,555 bytes, plus six small original-path facades.
 * Promote source-private helpers into the original file's own `P2MW` namespace
   for access across factoring boundaries. Source-private `_root_` declarations
   acquire that same per-file prefix rather than introducing public root collisions.
+  Transparent private root abbreviations restore original dot-notation lookup;
+  these are repeated at import boundaries and introduce no assumptions.
+* Make ordinary scoped opens absolute, retaining P2M's root-namespace meaning.
+* Use explicit tensor-product induction and pin definition/equality expressions
+  where Lean 4.35 or factoring otherwise changes elaborator resolution.
 * Preserve mathematical proof bodies and all public `solution` signatures.
 * Use fixed Lean 4.35.0 and its documented backward elaboration option. Dependency
   pins, existing modules, targets, and project configuration are unchanged.
@@ -54,10 +59,11 @@ this patch and no new metaprogramming implementation is introduced.
 
 ## Verification boundary
 
-Compilation and `#print axioms` remain pending. Once prerequisites and the
-approved dedicated host are ready, Lean invocations must take
-`flock -x /home/jackmccarthy/cloud-b3/w16/lake-build.lock`, use at most four threads,
-and respect the parent-authorized memory lane. The final exact geometric bridges
+Compilation of the six complete edges and their `#print axioms` remain pending.
+Actual proof-part compilation is underway on the parent-granted dedicated host.
+Dedicated invocations use this lane's private slot locks, at most two Lean
+processes with `-j 4 -M 16000`, and the parent-approved aggregate memory budget;
+the shared original host retains its global lock and 48 GiB limit. The final exact geometric bridges
 and H102 `#discharges` check belong to the primary author, not to this support
 patch. Failed and successful compiler logs will be retained separately.
 

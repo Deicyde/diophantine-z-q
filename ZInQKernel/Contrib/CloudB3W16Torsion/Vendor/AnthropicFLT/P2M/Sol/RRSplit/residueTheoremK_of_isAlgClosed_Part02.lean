@@ -25,6 +25,41 @@ set_option maxHeartbeats 12800000
 
 namespace P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.ord_nonneg_of_mem :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.ord_nonneg_of_mem
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.mem_of_ord_nonneg :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.mem_of_ord_nonneg
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.mem_iff_ord_nonneg :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.mem_iff_ord_nonneg
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.exists_ord_pos :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.exists_ord_pos
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.aeval_mem :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.aeval_mem
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.exists_coeff_ord_ne_zero :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.exists_coeff_ord_ne_zero
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.isUnit_algebraMap :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.isUnit_algebraMap
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.adicValuation_algebraMap :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.adicValuation_algebraMap
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.ord_algebraMap :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.ord_algebraMap
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.ord_eq_neg_log_of_valuationSubring_eq :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.ord_eq_neg_log_of_valuationSubring_eq
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.ord_prod :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.ord_prod
+
+
 section
 section
 
@@ -177,7 +212,7 @@ open _root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.Polynomial
 open _root_.IsDedekindDomain
 open _root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.IsDedekindDomain
 
-open scoped Polynomial.Bivariate P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.Polynomial.Bivariate
+open scoped _root_.Polynomial.Bivariate _root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.Polynomial.Bivariate
 
 namespace AlgebraicCurve
 
@@ -223,6 +258,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCur
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.ord_add_eq_min :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.ord_add_eq_min
 end AlgebraicCurve.Place
 
 
@@ -443,7 +481,7 @@ open _root_.WithZero
 open _root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.WithZero
 open _root_.IsLocalRing
 open _root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.IsLocalRing
-open scoped Polynomial P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.Polynomial
+open scoped _root_.Polynomial _root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.Polynomial
 
 namespace AlgebraicCurve
 
@@ -579,7 +617,7 @@ end IrreducibleValuation
 
 section SpectralSetup
 
-open scoped Valued P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.Valued NNReal P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.NNReal WithZero P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.WithZero
+open scoped _root_.Valued _root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.Valued _root_.NNReal _root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.NNReal _root_.WithZero _root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.WithZero
 
 open _root_.WithZeroMulInt
 open _root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.WithZeroMulInt
@@ -602,7 +640,7 @@ end SpectralSetup
 
 section AbsoluteValue
 
-open scoped Valued P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.Valued NNReal P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.NNReal WithZero P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.WithZero
+open scoped _root_.Valued _root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.Valued _root_.NNReal _root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.NNReal _root_.WithZero _root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.WithZero
 
 open _root_.WithZeroMulInt
 open _root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.WithZeroMulInt
@@ -633,7 +671,7 @@ end AbsoluteValue
 
 section IntegralClosure
 
-open scoped Valued P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.Valued NNReal P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.NNReal WithZero P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.WithZero
+open scoped _root_.Valued _root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.Valued _root_.NNReal _root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.NNReal _root_.WithZero _root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.WithZero
 
 variable {K F F' : Type*} [Field K] [Field F] [Field F'] [Algebra K F] [Algebra K F']
 variable (F)
@@ -712,7 +750,7 @@ end IntegralClosure
 
 section ClosedAdjoin
 
-open scoped Valued P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.Valued NNReal P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.NNReal WithZero P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.WithZero
+open scoped _root_.Valued _root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.Valued _root_.NNReal _root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.NNReal _root_.WithZero _root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.WithZero
 
 variable {K F F' : Type*} [Field K] [Field F] [Field F'] [Algebra K F] [Algebra K F']
 variable (F)
@@ -759,7 +797,7 @@ open _root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.IsLocalRing
 open _root_.WithZero
 open _root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.WithZero
 
-open scoped Valued P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.Valued WithZero P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.WithZero
+open scoped _root_.Valued _root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.Valued _root_.WithZero _root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.WithZero
 
 namespace AlgebraicCurve
 
@@ -960,6 +998,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCur
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.ord_add_eq_left :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.ord_add_eq_left
 end Ultrametric
 
 
@@ -1089,6 +1130,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCur
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.subsingleton_canonicalLocalResidueDataK_of_surj :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.subsingleton_canonicalLocalResidueDataK_of_surj
 end Place
 
 
@@ -1433,7 +1477,7 @@ variable {K F}
 namespace IsCurveOver
 export _root_.AlgebraicCurve.IsCurveOver (instFiniteResidue mk finiteResidue kaehler_free_rank_one)
 end IsCurveOver
-open scoped AlgebraicCurve.IsCurveOver in
+open scoped _root_.AlgebraicCurve.IsCurveOver in
 theorem IsCurveOver.of_finiteResidue_of_kaehlerRankOne
     [HasPrincipalDivisors K F] [∀ v : Place K F, v.FiniteResidue]
     (hΩ : KaehlerRankOne K F) : IsCurveOver K F where
@@ -1647,6 +1691,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCur
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.mem_regularSubmodule :=
+  @_root_.P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.mem_regularSubmodule
 end Place
 
 

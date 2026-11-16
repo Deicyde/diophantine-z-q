@@ -195,7 +195,7 @@ section
 namespace IsLocalRing
 export _root_.IsLocalRing (ResidueField maximalIdeal maximalIdeal.isMaximal of_injective)
 end IsLocalRing
-open scoped IsLocalRing in
+open scoped _root_.IsLocalRing in
 theorem IsLocalRing.maximalIdeal_le {R : Type*} [CommSemiring R] [IsLocalRing R] {J : Ideal R}
     (hJ : J ≠ ⊤) (h : IsLocalRing.maximalIdeal R ≤ J) :
     J.IsMaximal :=
@@ -317,7 +317,7 @@ export _root_.AlgebraicCurve.Place (ext ResidueField FiniteResidue heightOneSpec
 
 open _root_.AlgebraicCurve.Place
 
-open scoped Pointwise P2MW.S_AlgebraicCurve_tateChainRule.Pointwise
+open scoped _root_.Pointwise _root_.P2MW.S_AlgebraicCurve_tateChainRule.Pointwise
 
 variable {K F}
 variable (σ : F ≃ₐ[K] F)
@@ -332,7 +332,7 @@ export _root_.AlgebraicCurve.Divisor (smul_def smul_apply)
 
 open _root_.AlgebraicCurve.Divisor
 
-open scoped Pointwise P2MW.S_AlgebraicCurve_tateChainRule.Pointwise
+open scoped _root_.Pointwise _root_.P2MW.S_AlgebraicCurve_tateChainRule.Pointwise
 
 variable {K F}
 
@@ -344,7 +344,7 @@ export _root_.AlgebraicCurve.Pic0 (mk mk_surjective)
 
 open _root_.AlgebraicCurve.Pic0
 
-open scoped Pointwise P2MW.S_AlgebraicCurve_tateChainRule.Pointwise
+open scoped _root_.Pointwise _root_.P2MW.S_AlgebraicCurve_tateChainRule.Pointwise
 
 variable {K F}
 
@@ -414,6 +414,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_tateChainRule.AlgebraicCurve.Place.ord_nonn
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.ord_nonneg_of_mem :=
+  @_root_.P2MW.S_AlgebraicCurve_tateChainRule.AlgebraicCurve.Place.ord_nonneg_of_mem
 theorem _root_.P2MW.S_AlgebraicCurve_tateChainRule.AlgebraicCurve.Place.mem_of_ord_nonneg {f : F} (hf : f ≠ 0) (h : 0 ≤ v.ord f) :
     f ∈ v.toValuationSubring := by
   obtain ⟨π, hπ⟩ := IsDiscreteValuationRing.exists_irreducible v.toValuationSubring
@@ -425,6 +428,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_tateChainRule.AlgebraicCurve.Place.mem_of_o
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.mem_of_ord_nonneg :=
+  @_root_.P2MW.S_AlgebraicCurve_tateChainRule.AlgebraicCurve.Place.mem_of_ord_nonneg
 theorem _root_.P2MW.S_AlgebraicCurve_tateChainRule.AlgebraicCurve.Place.mem_iff_ord_nonneg {f : F} (hf : f ≠ 0) :
     f ∈ v.toValuationSubring ↔ 0 ≤ v.ord f :=
   ⟨v.ord_nonneg_of_mem, v.mem_of_ord_nonneg hf⟩
@@ -432,6 +438,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_tateChainRule.AlgebraicCurve.Place.mem_iff_
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.mem_iff_ord_nonneg :=
+  @_root_.P2MW.S_AlgebraicCurve_tateChainRule.AlgebraicCurve.Place.mem_iff_ord_nonneg
 theorem exists_ord_pos : ∃ f : F, f ≠ 0 ∧ 0 < v.ord f := by
   obtain ⟨π, hπ⟩ := IsDiscreteValuationRing.exists_irreducible v.toValuationSubring
   refine ⟨(π : F), ?_, ?_⟩
@@ -472,6 +481,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_tateChainRule.AlgebraicCurve.Place.comap_al
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.comap_algebraMap_ne_top :=
+  @_root_.P2MW.S_AlgebraicCurve_tateChainRule.AlgebraicCurve.Place.comap_algebraMap_ne_top
 variable {w} in
 
 theorem mem_comap_iff_ord_nonneg {f : F} (hf : f ≠ 0) :
@@ -524,6 +536,9 @@ theorem _root_.P2MW.S_AlgebraicCurve_tateChainRule.AlgebraicCurve.Place.exists_o
 
 
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.exists_ord_algebraMap_pos :=
+  @_root_.P2MW.S_AlgebraicCurve_tateChainRule.AlgebraicCurve.Place.exists_ord_algebraMap_pos
 variable [Algebra.IsIntegral F F']
 
 theorem ramificationIndex_set_nonempty :
@@ -603,7 +618,7 @@ variable {F : Type*} [Field F]
 namespace ValuationSubring
 export _root_.ValuationSubring (comap subtype mem_comap toSubring algebraMap_apply ext zero_mem mk mem_top mul_mem add_mem valuation inclusion)
 end ValuationSubring
-open scoped ValuationSubring in
+open scoped _root_.ValuationSubring in
 theorem ValuationSubring.valued_eq_one_of_isUnit {K : Type*} [Field K] {Γ₀ : Type*}
     [LinearOrderedCommGroupWithZero Γ₀] [hv : Valued K Γ₀] (x : hv.v.valuationSubring)
     (hx : IsUnit x) : Valued.v x.val = 1 := by
@@ -614,7 +629,7 @@ theorem ValuationSubring.valued_eq_one_of_isUnit {K : Type*} [Field K] {Γ₀ : 
   nth_rw 2 [← mul_one (Valued.v x.val)]
   exact mul_le_mul_right ((hv.v.mem_valuationSubring_iff _).1 (u⁻¹.val.property)) _
 
-open scoped ValuationSubring in
+open scoped _root_.ValuationSubring in
 theorem ValuationSubring.isUnit_of_valued_eq_one {K : Type*} [Field K] {Γ₀ : Type*}
     [LinearOrderedCommGroupWithZero Γ₀] [hv : Valued K Γ₀] (x : hv.v.valuationSubring)
     (hx : Valued.v x.val = 1) : IsUnit x := by
@@ -625,7 +640,7 @@ theorem ValuationSubring.isUnit_of_valued_eq_one {K : Type*} [Field K] {Γ₀ : 
   rw [isUnit_iff_exists]
   exact ⟨⟨u⁻¹.val, hu_inv_le⟩,  ⟨by aesop, by aesop⟩⟩
 
-open scoped ValuationSubring in
+open scoped _root_.ValuationSubring in
 theorem ValuationSubring.isUnit_iff_valued_eq_one {K : Type*} [Field K] {Γ₀ : Type*}
     [LinearOrderedCommGroupWithZero Γ₀] [hv : Valued K Γ₀] (x : hv.v.valuationSubring) :
     IsUnit x ↔ Valued.v x.val = 1 :=
@@ -1152,7 +1167,7 @@ section
 set_option maxHeartbeats 3200000
 set_option synthInstance.maxHeartbeats 1600000
 
-open scoped WithZero P2MW.S_AlgebraicCurve_tateChainRule.WithZero Multiplicative P2MW.S_AlgebraicCurve_tateChainRule.Multiplicative Topology P2MW.S_AlgebraicCurve_tateChainRule.Topology
+open scoped _root_.WithZero _root_.P2MW.S_AlgebraicCurve_tateChainRule.WithZero _root_.Multiplicative _root_.P2MW.S_AlgebraicCurve_tateChainRule.Multiplicative _root_.Topology _root_.P2MW.S_AlgebraicCurve_tateChainRule.Topology
 open _root_.Filter
 open _root_.P2MW.S_AlgebraicCurve_tateChainRule.Filter
 

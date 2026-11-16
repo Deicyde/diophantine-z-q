@@ -1,0 +1,115 @@
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part01.lean:316:12: warning: Ambiguous namespace `Pointwise`: it is interpreted as `_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Pointwise` because this `open` occurs inside `namespace P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place`, while `_root_.Pointwise` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Pointwise`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part01.lean:331:12: warning: Ambiguous namespace `Pointwise`: it is interpreted as `_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Pointwise` because this `open` occurs inside `namespace P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Divisor`, while `_root_.Pointwise` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Pointwise`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part01.lean:343:12: warning: Ambiguous namespace `Pointwise`: it is interpreted as `_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Pointwise` because this `open` occurs inside `namespace P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Pic0`, while `_root_.Pointwise` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Pointwise`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part01.lean:407:11: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part01.lean:418:11: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part01.lean:426:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part01.lean:439:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part01.lean:578:12: warning: Ambiguous namespace `Polynomial.Bivariate`: it is interpreted as `_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Polynomial.Bivariate` because this `open` occurs inside `namespace P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed`, while `_root_.Polynomial.Bivariate` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Polynomial.Bivariate`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part01.lean:797:5: error(lean.invalidField): Invalid field `ord_nonneg_of_mem`: The environment does not contain `AlgebraicCurve.Place.ord_nonneg_of_mem`, so it is not possible to project the field `ord_nonneg_of_mem` from an expression
+  v
+of type `Place K F`
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part01.lean:797:26: error(lean.invalidField): Invalid field `mem_of_ord_nonneg`: The environment does not contain `AlgebraicCurve.Place.mem_of_ord_nonneg`, so it is not possible to project the field `mem_of_ord_nonneg` from an expression
+  v
+of type `Place K F`
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part01.lean:833:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part01.lean:835:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part01.lean:851:10: error(lean.invalidField): Invalid field `mem_iff_ord_nonneg`: The environment does not contain `AlgebraicCurve.Place.mem_iff_ord_nonneg`, so it is not possible to project the field `mem_iff_ord_nonneg` from an expression
+  w
+of type `Place K F'`
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part01.lean:882:14: error(lean.invalidField): Invalid field `comap_algebraMap_ne_top`: The environment does not contain `AlgebraicCurve.Place.comap_algebraMap_ne_top`, so it is not possible to project the field `comap_algebraMap_ne_top` from an expression
+  w
+of type `Place K F'`
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part01.lean:881:54: error: unsolved goals
+K : Type u_1
+F : Type u_2
+F' : Type u_3
+inst✝⁵ : Field K
+inst✝⁴ : Field F
+inst✝³ : Field F'
+inst✝² : Algebra K F'
+inst✝¹ : Algebra F F'
+w : Place K F'
+inst✝ : Algebra.IsIntegral F F'
+⊢ ∃ f, f ≠ 0 ∧ 0 < w.ord ((algebraMap F F') f)
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part01.lean:901:27: error(lean.invalidField): Invalid field `exists_ord_algebraMap_pos`: The environment does not contain `AlgebraicCurve.Place.exists_ord_algebraMap_pos`, so it is not possible to project the field `exists_ord_algebraMap_pos` from an expression
+  w
+of type `Place K F'`
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part01.lean:901:9: error: Tactic `rcases` failed: `x✝ : ?m.32` is not an inductive datatype
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part01.lean:1078:12: warning: Ambiguous namespace `Polynomial`: it is interpreted as `_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Polynomial` because this `open` occurs inside `namespace P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed`, while `_root_.Polynomial` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Polynomial`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part01.lean:1111:43: error(lean.unknownIdentifier): Unknown identifier `X`
+
+Note: It is not possible to treat `X` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part01.lean:1111:75: error(lean.unknownIdentifier): Unknown identifier `X`
+
+Note: It is not possible to treat `X` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part01.lean:1112:41: error(lean.unknownIdentifier): Unknown identifier `X`
+
+Note: It is not possible to treat `X` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part01.lean:1111:41: error: failed to prove index is valid, possible solutions:
+  - Use `have`-expressions to prove the index is valid
+  - Use `a[i]!` notation instead, runtime check is performed, and 'Panic' error message is produced if index is not valid
+  - Use `a[i]?` notation instead, result is an `Option` type
+  - Use `a[i]'h` notation instead, where `h` is a proof that index is valid
+K : Type u_1
+inst✝ : Field K
+⊢ ?m.43 K sorry
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part01.lean:1111:73: error: failed to prove index is valid, possible solutions:
+  - Use `have`-expressions to prove the index is valid
+  - Use `a[i]!` notation instead, runtime check is performed, and 'Panic' error message is produced if index is not valid
+  - Use `a[i]?` notation instead, result is an `Option` type
+  - Use `a[i]'h` notation instead, where `h` is a proof that index is valid
+K : Type u_1
+inst✝ : Field K
+p : K[sorry]
+hp : Irreducible p
+⊢ ?m.43 K sorry
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part01.lean:1112:39: error: failed to prove index is valid, possible solutions:
+  - Use `have`-expressions to prove the index is valid
+  - Use `a[i]!` notation instead, runtime check is performed, and 'Panic' error message is produced if index is not valid
+  - Use `a[i]?` notation instead, result is an `Option` type
+  - Use `a[i]'h` no

@@ -25,6 +25,17 @@ set_option maxHeartbeats 12800000
 
 namespace P2MW.S_AlgebraicCurve_tateAgreement
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.ord_nonneg_of_mem :=
+  @_root_.P2MW.S_AlgebraicCurve_tateAgreement.AlgebraicCurve.Place.ord_nonneg_of_mem
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.mem_of_ord_nonneg :=
+  @_root_.P2MW.S_AlgebraicCurve_tateAgreement.AlgebraicCurve.Place.mem_of_ord_nonneg
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.mem_iff_ord_nonneg :=
+  @_root_.P2MW.S_AlgebraicCurve_tateAgreement.AlgebraicCurve.Place.mem_iff_ord_nonneg
+
+
 section
 section
 
@@ -1417,7 +1428,7 @@ end
 section
 section
 
-open scoped PadicInt P2MW.S_AlgebraicCurve_tateAgreement.PadicInt AlgebraicGeometry P2MW.S_AlgebraicCurve_tateAgreement.AlgebraicGeometry
+open scoped _root_.PadicInt _root_.P2MW.S_AlgebraicCurve_tateAgreement.PadicInt _root_.AlgebraicGeometry _root_.P2MW.S_AlgebraicCurve_tateAgreement.AlgebraicGeometry
 open _root_.BigOperators
 open _root_.P2MW.S_AlgebraicCurve_tateAgreement.BigOperators
 open _root_.CategoryTheory
@@ -1450,7 +1461,7 @@ open NeronOggShafarevich
 open AlgebraicGeometry.KwSmoothIrredRelDimConstantEngine
 open _root_.AlgebraicCurve.RationalFunctionField
 open _root_.P2MW.S_AlgebraicCurve_tateAgreement.AlgebraicCurve.RationalFunctionField
-open scoped TensorProduct P2MW.S_AlgebraicCurve_tateAgreement.TensorProduct
+open scoped _root_.TensorProduct _root_.P2MW.S_AlgebraicCurve_tateAgreement.TensorProduct
 open _root_.IntermediateField
 open _root_.P2MW.S_AlgebraicCurve_tateAgreement.IntermediateField
 open _root_.AlgebraicCurve.RationalFunctionField
@@ -1493,7 +1504,7 @@ open _root_.P2MW.S_AlgebraicCurve_tateAgreement.ModularCurve.KwNo6Section
 open _root_.IsLocalRing
 open _root_.P2MW.S_AlgebraicCurve_tateAgreement.IsLocalRing
 open _root_.Module.IsLocalRing
-open scoped Polynomial P2MW.S_AlgebraicCurve_tateAgreement.Polynomial AlgebraicGeometry.Polynomial
+open scoped _root_.Polynomial _root_.P2MW.S_AlgebraicCurve_tateAgreement.Polynomial _root_.AlgebraicGeometry.Polynomial
 
 noncomputable section
 
@@ -1596,7 +1607,7 @@ end
 section
 section
 
-open scoped PadicInt P2MW.S_AlgebraicCurve_tateAgreement.PadicInt AlgebraicGeometry P2MW.S_AlgebraicCurve_tateAgreement.AlgebraicGeometry
+open scoped _root_.PadicInt _root_.P2MW.S_AlgebraicCurve_tateAgreement.PadicInt _root_.AlgebraicGeometry _root_.P2MW.S_AlgebraicCurve_tateAgreement.AlgebraicGeometry
 open _root_.BigOperators
 open _root_.P2MW.S_AlgebraicCurve_tateAgreement.BigOperators
 open _root_.CategoryTheory
@@ -1629,7 +1640,7 @@ open NeronOggShafarevich
 open AlgebraicGeometry.KwSmoothIrredRelDimConstantEngine
 open _root_.AlgebraicCurve.RationalFunctionField
 open _root_.P2MW.S_AlgebraicCurve_tateAgreement.AlgebraicCurve.RationalFunctionField
-open scoped TensorProduct P2MW.S_AlgebraicCurve_tateAgreement.TensorProduct
+open scoped _root_.TensorProduct _root_.P2MW.S_AlgebraicCurve_tateAgreement.TensorProduct
 open _root_.IntermediateField
 open _root_.P2MW.S_AlgebraicCurve_tateAgreement.IntermediateField
 open _root_.AlgebraicCurve.RationalFunctionField
@@ -1672,7 +1683,7 @@ open _root_.P2MW.S_AlgebraicCurve_tateAgreement.ModularCurve.KwNo6Section
 open _root_.IsLocalRing
 open _root_.P2MW.S_AlgebraicCurve_tateAgreement.IsLocalRing
 open _root_.Module.IsLocalRing
-open scoped Polynomial P2MW.S_AlgebraicCurve_tateAgreement.Polynomial AlgebraicGeometry.Polynomial
+open scoped _root_.Polynomial _root_.P2MW.S_AlgebraicCurve_tateAgreement.Polynomial _root_.AlgebraicGeometry.Polynomial
 
 noncomputable section
 

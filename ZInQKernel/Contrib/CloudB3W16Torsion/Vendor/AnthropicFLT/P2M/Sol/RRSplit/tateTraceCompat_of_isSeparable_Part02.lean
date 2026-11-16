@@ -28,6 +28,29 @@ set_option maxHeartbeats 12800000
 
 namespace P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable
 
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.ord_nonneg_of_mem :=
+  @_root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCurve.Place.ord_nonneg_of_mem
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.mem_of_ord_nonneg :=
+  @_root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCurve.Place.mem_of_ord_nonneg
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.mem_iff_ord_nonneg :=
+  @_root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCurve.Place.mem_iff_ord_nonneg
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.comap_algebraMap_ne_top :=
+  @_root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCurve.Place.comap_algebraMap_ne_top
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.exists_ord_algebraMap_pos :=
+  @_root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCurve.Place.exists_ord_algebraMap_pos
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.uniformizerSubring :=
+  @_root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCurve.Place.uniformizerSubring
+-- RRSplit source-private field lookup bridge (transparent).
+private noncomputable abbrev _root_.AlgebraicCurve.Place.uniformizer_mem :=
+  @_root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCurve.Place.uniformizer_mem
+
+
 section
 section
 
@@ -2013,7 +2036,7 @@ open _root_.TensorProduct
 open _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.TensorProduct
 open _root_.IsLocalRing
 open _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.IsLocalRing
-open scoped AlgebraicCurve.Place P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCurve.Place Valued P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.Valued NNReal P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.NNReal WithZero P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.WithZero
+open scoped _root_.AlgebraicCurve.Place _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCurve.Place _root_.Valued _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.Valued _root_.NNReal _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.NNReal _root_.WithZero _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.WithZero
 
 noncomputable section
 
@@ -2097,7 +2120,7 @@ end IsSeparableLift
 
 section DistinctKernels
 
-open scoped Valued P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.Valued NNReal P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.NNReal WithZero P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.WithZero
+open scoped _root_.Valued _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.Valued _root_.NNReal _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.NNReal _root_.WithZero _root_.P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.WithZero
 
 variable {K F : Type*} [Field K] [Field F] [Algebra K F]
 variable {E : Type*} [Field E] [Algebra K E] [Algebra E F] [IsScalarTower K E F]

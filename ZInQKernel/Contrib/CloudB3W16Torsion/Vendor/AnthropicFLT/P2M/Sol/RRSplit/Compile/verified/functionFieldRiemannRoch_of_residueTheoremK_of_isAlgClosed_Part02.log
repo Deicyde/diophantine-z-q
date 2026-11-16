@@ -1,0 +1,73 @@
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed_Part02.lean:395:16: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed_Part02.lean:396:30: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed_Part02.lean:526:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed_Part02.lean:1030:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed_Part02.lean:1350:10: warning: `Ideal.ramificationIdx_spec` has been deprecated: Use `Ideal.ramificationIdx'_spec` instead
+
+Hint: Replace the deprecated name:
+  Ideal.ramificationIdx'̲_spec
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed_Part02.lean:1409:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed_Part02.lean:1475:54: warning: `Ideal.inertiaDeg'` has been deprecated: Use `Ideal.inertiaDeg` instead.
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed_Part02.lean:1477:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed_Part02.lean:1478:6: warning: `Ideal.inertiaDeg_algebraMap` has been deprecated: Use `Ideal.inertiaDeg'_algebraMap` instead
+
+Hint: Replace the deprecated name:
+  Ideal.inertiaDeg'̲_algebraMap
+/home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed_Part02.lean:1522:15: warning: `Ideal.sum_ramification_inertia` has been deprecated: Use results of RingTheory.RamificationInertia.Basic
+	Command being timed: "/home/jackmccarthy/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean -j 4 -M 16000 -o /home/jackmccarthy/cloud-b3/w16/h102-curve/.lake/build/lib/lean/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed_Part02.olean /home/jackmccarthy/cloud-b3/w16/h102-curve/ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed_Part02.lean"
+	User time (seconds): 17.32
+	System time (seconds): 1.68
+	Percent of CPU this job got: 218%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:08.70
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 7275488
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 179689
+	Voluntary context switches: 18788
+	Involuntary context switches: 338
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 5888
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

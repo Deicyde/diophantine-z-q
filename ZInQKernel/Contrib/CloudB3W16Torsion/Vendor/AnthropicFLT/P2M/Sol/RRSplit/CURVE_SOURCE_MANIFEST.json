@@ -4,7 +4,7 @@
   "initial_base": "0e70c94e4a2d26838f0766cd69b39bd02f48fb85",
   "target_base": "2dc949d688c407e32823c4e751679d66b2f40e65",
   "lean": "4.35.0",
-  "status": "factored source draft; not compiled or axiom-checked",
+  "status": "partial native proof-part compilation; full six solutions and axiom checks pending",
   "modules": [
     {
       "original_module": "P2M.Sol.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed",
@@ -20,8 +20,8 @@
             1,
             1889
           ],
-          "bytes": 110555,
-          "sha256": "13f2cf904edb823fa324e7c174d62d75ff5149e1e93ef96847c08ee7587e5bae"
+          "bytes": 117059,
+          "sha256": "35f5d8d9b9902c6fcd4bf6d27a20bdc54a8b0966b08166632e9c34f81a784bb2"
         },
         {
           "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part02.lean",
@@ -30,8 +30,8 @@
             1890,
             3722
           ],
-          "bytes": 96311,
-          "sha256": "e22287f5a232728a1282cb3f2cf6cb92eb818d319fbf6ad4bee2fa1ad66cac04"
+          "bytes": 109397,
+          "sha256": "0bdc855b5f38591ae72d27b6e70b1b97718c756212934adec72120f9d1b64f4e"
         },
         {
           "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part03.lean",
@@ -40,8 +40,8 @@
             3723,
             5658
           ],
-          "bytes": 103663,
-          "sha256": "6521eeb4bfc53fc57b99df817dbb84c410cdf03055915cb2ca451d420a5abec9"
+          "bytes": 125838,
+          "sha256": "d5e4369b5b18997f633a8c0f69d7ab712103522c0001013e99214139534019c2"
         },
         {
           "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part04.lean",
@@ -50,8 +50,8 @@
             5659,
             7758
           ],
-          "bytes": 106908,
-          "sha256": "ebf4fe2627d7d1216b55c594ec471a08fd628ec32200f3c2d07d310070124f8b"
+          "bytes": 131082,
+          "sha256": "aa68829b0d95eb7d4454ea638b74b7f0d1b1a68dca82ed5a4fb07286a7de8bc8"
         },
         {
           "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part05.lean",
@@ -60,8 +60,8 @@
             7759,
             9808
           ],
-          "bytes": 106689,
-          "sha256": "dfcff6bc870a5f635eca5f7e1dda16b0960fe3e23bd5a63f5c3464cfd91fdfc3"
+          "bytes": 136967,
+          "sha256": "d879d0d63f4c33e88f767ee27ad5eb662f6e63f55e78683a52ee725437e11c8b"
         },
         {
           "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part06.lean",
@@ -70,8 +70,8 @@
             9809,
             11709
           ],
-          "bytes": 94559,
-          "sha256": "bf5491a6e83424af081e8ff1a959a5f01b61640326ed336d6c3999b3973468eb"
+          "bytes": 125868,
+          "sha256": "41ce974e077878c536a3c8539d3962a4e82e8a3fdefe61ebe94c8baf15edbe03"
         },
         {
           "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part07.lean",
@@ -80,8 +80,8 @@
             11710,
             13170
           ],
-          "bytes": 73486,
-          "sha256": "484dda459200f62ce83dd4324d27adeed80acac6b9b1eb4ff2cd5b7567e4f829"
+          "bytes": 104690,
+          "sha256": "439652d2838639ab6d473e6ad6a289953ee1af68b3a1c47b0446abdf41944295"
         }
       ],
       "promoted_private_helpers": [
@@ -707,6 +707,56 @@
         "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part06.lean",
         "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part07.lean",
         "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.lean"
+      ],
+      "compatibility_edits": [
+        "Restore source-private root field lookup with transparent private abbreviations of promoted helpers, repeated at import boundaries.",
+        "Use absolute root namespaces in all open scoped commands.",
+        "Select TensorProduct.induction_on explicitly for Lean4.35 tensor induction.",
+        "Promote attribute-prefixed private data declarations too, preserving attributes and source-private field bridges."
+      ],
+      "attribute_prefixed_private_promotions": [
+        {
+          "part_index": 1,
+          "part_line_before_edit": 807,
+          "original_user_name": "AlgebraicCurve.Place.polynomialAlgebra",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.polynomialAlgebra"
+        },
+        {
+          "part_index": 1,
+          "part_line_before_edit": 824,
+          "original_user_name": "AlgebraicCurve.Place.polynomialIsScalarTower",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.polynomialIsScalarTower"
+        },
+        {
+          "part_index": 3,
+          "part_line_before_edit": 1912,
+          "original_user_name": "AlgebraicCurve.Place.modelInclusion",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.modelInclusion"
+        },
+        {
+          "part_index": 3,
+          "part_line_before_edit": 1921,
+          "original_user_name": "AlgebraicCurve.Place.modelAlgebra",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.modelAlgebra"
+        },
+        {
+          "part_index": 3,
+          "part_line_before_edit": 1927,
+          "original_user_name": "AlgebraicCurve.Place.centerIdeal",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.centerIdeal"
+        },
+        {
+          "part_index": 4,
+          "part_line_before_edit": 497,
+          "original_user_name": "AlgebraicCurve.Place.centerLocalizationSubalgebra",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.centerLocalizationSubalgebra"
+        },
+        {
+          "part_index": 4,
+          "part_line_before_edit": 1061,
+          "original_user_name": "AlgebraicCurve.Place.toKSubalgebra",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.toKSubalgebra"
+        }
       ]
     },
     {
@@ -723,8 +773,8 @@
             1,
             1734
           ],
-          "bytes": 106905,
-          "sha256": "cfa7b9c1a91060fe7013ba264e40949fb445a5c80f0ae26459f433be289c9665"
+          "bytes": 109657,
+          "sha256": "8f6bdc68c2fac4e38b9c895e04f1bc5fadef955ba231ed76229c587f4556bb62"
         },
         {
           "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_of_isAlgClosed_Part02.lean",
@@ -733,8 +783,8 @@
             1735,
             3202
           ],
-          "bytes": 105777,
-          "sha256": "5b2b78c3f1204440a5ecfd2f6e022c12f82214bc11ab83b4b5fdf526882b6130"
+          "bytes": 109705,
+          "sha256": "6a4d39ca91e1f186edb4d9d0e3d17feb6e2789c5e4d377c63264af3629697209"
         },
         {
           "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_of_isAlgClosed_Part03.lean",
@@ -743,8 +793,8 @@
             3203,
             5269
           ],
-          "bytes": 104616,
-          "sha256": "4c9db939a0a13114e40751264dea5feb4c080288ba31c3c477e86f668d24c0ec"
+          "bytes": 109766,
+          "sha256": "8a5d7610fd7386502e9b908164237cfc9d133afdba67b6437949d1e2e07bf06c"
         },
         {
           "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_of_isAlgClosed_Part04.lean",
@@ -753,8 +803,8 @@
             5270,
             7508
           ],
-          "bytes": 101957,
-          "sha256": "6c73c186101e184f02bc17de93871223ddbfe2b479345259946378d30f27a199"
+          "bytes": 107795,
+          "sha256": "2b2a0725114b976156e34be117fd6b328c256cdc944502973d7c8cc821e0fa8e"
         },
         {
           "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_of_isAlgClosed_Part05.lean",
@@ -763,8 +813,8 @@
             7509,
             8121
           ],
-          "bytes": 30983,
-          "sha256": "e18dd9d21e3e046da4a2cb7490bfcc8018a62cff18b01bbfe1dee595750e5dd1"
+          "bytes": 36772,
+          "sha256": "017fe5ff8592514d251379d8ebdab23994a1129bde781ec9b89794c8a6b5ae2b"
         }
       ],
       "promoted_private_helpers": [
@@ -913,6 +963,10 @@
         "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_of_isAlgClosed_Part04.lean",
         "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_of_isAlgClosed_Part05.lean",
         "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.lean"
+      ],
+      "compatibility_edits": [
+        "Restore source-private root field lookup with transparent private abbreviations of promoted helpers, repeated at import boundaries.",
+        "Use absolute root namespaces in all open scoped commands."
       ]
     },
     {
@@ -929,8 +983,8 @@
             1,
             1352
           ],
-          "bytes": 98448,
-          "sha256": "3640fa0232ec498bcd1268d631b2ccd7b1711a88e1cebebf7fda63ce2ea4f2af"
+          "bytes": 105747,
+          "sha256": "1151d6ea12083d60b19813fab2243b937204a640559189e80891b23f20461c91"
         },
         {
           "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed_Part02.lean",
@@ -939,8 +993,8 @@
             1353,
             2812
           ],
-          "bytes": 99881,
-          "sha256": "55696e66258f52ea3bca717e4f1f38cf77ca1f1a79cbc817a7f76240a6421bb5"
+          "bytes": 109622,
+          "sha256": "a36e7596967a6bf65fe7607c0be2439ef6b0e5f70a8348cc5440edd74522c5e6"
         },
         {
           "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed_Part03.lean",
@@ -949,8 +1003,8 @@
             2813,
             4221
           ],
-          "bytes": 89368,
-          "sha256": "aabe74f2568e96248d1c79344843d06efb6735cf4f5ec7d2be2d60e0059afde6"
+          "bytes": 102784,
+          "sha256": "f8437415fd7bdc7d4d9052d54e87b4783c9767cdf1c6e2f938741e4e39345be7"
         },
         {
           "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed_Part04.lean",
@@ -959,8 +1013,8 @@
             4222,
             5756
           ],
-          "bytes": 95206,
-          "sha256": "5820867cfe4cc321ebcc37d0015ee2c4371a36051b1238ab9f651f364d6b95a8"
+          "bytes": 109383,
+          "sha256": "42bb8dda887dcc8eadb19e405feeee634411f280ce1e05b0cc16bc1ba5f4600f"
         },
         {
           "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed_Part05.lean",
@@ -969,8 +1023,8 @@
             5757,
             6257
           ],
-          "bytes": 34764,
-          "sha256": "1e9f96c1f46e748bc1e26a3e5b882c2effcdf1b177e3042db3c92de55524de43"
+          "bytes": 48920,
+          "sha256": "126d76d048cca36e72a6d24da5253bf7e1703d74bded85923852b8703b9f4021"
         }
       ],
       "promoted_private_helpers": [
@@ -1269,7 +1323,22 @@
         "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed_Part04.lean",
         "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed_Part05.lean",
         "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.lean"
-      ]
+      ],
+      "compatibility_edits": [
+        "Restore source-private root field lookup with transparent private abbreviations of promoted helpers, repeated at import boundaries.",
+        "Use absolute root namespaces in all open scoped commands.",
+        "Pin correction definition and pole-space equality targets to retain original definitional proof after private-name factoring."
+      ],
+      "native_verification": {
+        "parts_and_facade_compiled": true,
+        "solution_axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "axiom_log": "Compile/verified/RRAxioms.log",
+        "remaining_input": "Original hRTK: ResidueTheoremK K F; unchanged source signature"
+      }
     },
     {
       "original_module": "P2M.Sol.S_AlgebraicCurve_tateAgreement",
@@ -1285,8 +1354,8 @@
             1,
             2457
           ],
-          "bytes": 106241,
-          "sha256": "dee4bbe1073d822642ed39e7a89a3730dbef61356be9a8ce2fe48eac8b2981cd"
+          "bytes": 107048,
+          "sha256": "9c4410f56a95a11e0011d8f6e4c7e801fe6cd287c47948bb4da7f5bc0e1c3065"
         },
         {
           "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/tateAgreement_Part02.lean",
@@ -1295,8 +1364,8 @@
             2458,
             4816
           ],
-          "bytes": 103683,
-          "sha256": "38aba450e4a9ebd7a1a223927fbab391f2f8962a28b3cb5960f02775c6aad051"
+          "bytes": 104485,
+          "sha256": "8ad9ab3138e1db55f6c54faba2d8ff814fda2c994fb348eb9d7a23540958b47d"
         }
       ],
       "promoted_private_helpers": [
@@ -1347,6 +1416,10 @@
         "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/tateAgreement_Part01.lean",
         "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/tateAgreement_Part02.lean",
         "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_tateAgreement.lean"
+      ],
+      "compatibility_edits": [
+        "Restore source-private root field lookup with transparent private abbreviations of promoted helpers, repeated at import boundaries.",
+        "Use absolute root namespaces in all open scoped commands."
       ]
     },
     {
@@ -1363,8 +1436,8 @@
             1,
             2340
           ],
-          "bytes": 109782,
-          "sha256": "ba940b574eedc83bb75290c24522770e4327245f4e6f9a8bda82bf495a602591"
+          "bytes": 111805,
+          "sha256": "6f64197c3451b65d49d8c29b8224bddf0ffe693af4db063217b2169e5ec94db2"
         },
         {
           "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/tateTraceCompat_of_isSeparable_Part02.lean",
@@ -1373,8 +1446,8 @@
             2341,
             4418
           ],
-          "bytes": 92297,
-          "sha256": "0dadcb8aa9c4ebccc8222d52799ee774fe1a976798ef9cf7f51e3efd2c745627"
+          "bytes": 94112,
+          "sha256": "67a806700f8c4660a650952d05f28de190319a7a7c6ef516d5da06c9fed94f31"
         }
       ],
       "promoted_private_helpers": [
@@ -1455,6 +1528,10 @@
         "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/tateTraceCompat_of_isSeparable_Part01.lean",
         "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/tateTraceCompat_of_isSeparable_Part02.lean",
         "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_tateTraceCompat_of_isSeparable.lean"
+      ],
+      "compatibility_edits": [
+        "Restore source-private root field lookup with transparent private abbreviations of promoted helpers, repeated at import boundaries.",
+        "Use absolute root namespaces in all open scoped commands."
       ]
     },
     {
@@ -1471,8 +1548,8 @@
             1,
             2530
           ],
-          "bytes": 107792,
-          "sha256": "16d5b5cf677fb684f63deac4a1ac5710ee9df8e87cd08f6751e80183114228fb"
+          "bytes": 109054,
+          "sha256": "117311adcf30bcdcd8fe81491bfff32dfa1bcfa2281ac33d02af28ca8567c6b3"
         },
         {
           "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/tateChainRule_Part02.lean",
@@ -1481,8 +1558,8 @@
             2531,
             2832
           ],
-          "bytes": 16319,
-          "sha256": "861bac6b56f75953da728d1fedc5068da6d6db5b69784855d2669bab1925db3d"
+          "bytes": 17471,
+          "sha256": "3caebe7d30d1b44fe8790fcf9abd3509bf781fceb68ff4764308d507cbb9d228"
         }
       ],
       "promoted_private_helpers": [
@@ -1553,6 +1630,10 @@
         "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/tateChainRule_Part01.lean",
         "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/tateChainRule_Part02.lean",
         "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_tateChainRule.lean"
+      ],
+      "compatibility_edits": [
+        "Restore source-private root field lookup with transparent private abbreviations of promoted helpers, repeated at import boundaries.",
+        "Use absolute root namespaces in all open scoped commands."
       ]
     }
   ]

@@ -1,0 +1,37 @@
+P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.solution.{u_1, u_2} {K : Type u_1}
+  {F : Type u_2} [Field K] [IsAlgClosed K] [DecidableEq (RatFunc K)] [Field F] [Algebra K F]
+  [AlgebraicCurve.HasCanonicalDivisor] [∀ (w : AlgebraicCurve.Place K F), w.DCoordGenerates] [Algebra (RatFunc K) F]
+  [IsScalarTower K (RatFunc K) F] [Algebra.IsIntegral (RatFunc K) F] [Module.Finite (RatFunc K) F]
+  [AlgebraicCurve.HasLocalResidue K F] [∀ (w : AlgebraicCurve.Place K F), w.FiniteResidue] [Nontrivial Ω[F⁄K]]
+  [AlgebraicCurve.IsCurveOver K F] [AlgebraicCurve.IsCurveOver K (RatFunc K)]
+  [∀ (u : AlgebraicCurve.Place K (RatFunc K)), u.FiniteResidue] [AlgebraicCurve.HasCanonicalLocalResidueKStar K F]
+  [AlgebraicCurve.HasPrincipalDivisors K F] [Algebra.IsSeparable (RatFunc K) F] [Nontrivial Ω[RatFunc K⁄K]]
+  [∀ (v : AlgebraicCurve.Place K (RatFunc K)), v.DCoordGenerates] [FiniteDimensional (RatFunc K) F]
+  [AlgebraicCurve.HasSeparableResidue K F] (hRTK : AlgebraicCurve.ResidueTheoremK K F) :
+  AlgebraicCurve.FunctionFieldRiemannRoch K F
+'P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.solution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+	Command being timed: "/home/jackmccarthy/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean -j 4 -M 16000 /home/jackmccarthy/cloud-b3/w16/h102-curve/RRAxioms.lean"
+	User time (seconds): 2.09
+	System time (seconds): 1.66
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:03.79
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 7101800
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 228261
+	Voluntary context switches: 1113
+	Involuntary context switches: 227
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 8
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
