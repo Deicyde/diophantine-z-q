@@ -32,10 +32,11 @@ verbatim beside it; neither file ported here is listed in `ATTRIBUTION.md`). Pro
 changes in a NOTICE OF MODIFICATION at its head: imports retargeted, the file wrapped in
 `namespace ZInQ.Contrib.CloudW03NeronSurj.FLT … end …` (the isolation prefix of the existing FLT port
 `ZInQKernel/Contrib/CloudW03NeronSurj/`), the source's port-utility commands replaced by plain Lean (no syntax,
-notation, macro, elaborator or other build-time code is defined), the source lakefile's options reproduced as
-`set_option`s, and in the `isSeparable_residueField` solution file
-`set_option backward.isDefEq.respectTransparency false` (a Lean 4.35 instance-search change). No hypothesis or
-conclusion was weakened, strengthened or omitted.
+notation, macro, elaborator or other build-time code is defined), the source file's own
+`set_option autoImplicit false` kept, and, in the `isSeparable_residueField` solution file only,
+`set_option backward.isDefEq.respectTransparency false in` before `theorem solution` (a Lean 4.35 instance-search
+change); the source lakefile's other `leanOptions` (heartbeat limits, `backward.isDefEq.respectTransparency.types`)
+are not needed and not set. No hypothesis or conclusion was weakened, strengthened or omitted.
 
 This notice describes provenance and changes, not a verification claim; the build logs, axiom checks and
 `#discharges` output of the pull request that adds these files are the evidence.
