@@ -1,5 +1,10 @@
-import ZInQKernel.OneProof.H.TailQ
-import ZInQKernel.Contrib.OneProof.MulEtale
+import ZInQKernel.HDecomp.Objects
+import ZInQKernel.Contrib.MulEtale.Direct.AllBase
+import Mathlib.AlgebraicGeometry.AlgClosed.Basic
+import Mathlib.AlgebraicGeometry.ZariskisMainTheorem
+import Mathlib.Algebra.Module.Torsion.Basic
+import Mathlib.RingTheory.Unramified.LocalStructure
+import Mathlib.Tactic.Algebraize
 
 /-!
 # Native bridges for prime-to-characteristic torsion
@@ -46,9 +51,14 @@ without a characteristic-zero restriction. -/
 theorem multiplication_etale (n : ℕ) (hnk : (n : k) ≠ 0) :
     Etale ((𝟙 A.X ^ n : A.X ⟶ A.X).left) := by
   haveI := PkgI2.IsAbelianVariety.geomIntegral (A := A)
+  haveI : GeometricallyConnected A.X.hom := by
+    refine ⟨geometrically_iff_of_isClosedUnderIsomorphisms.mpr (fun K _ s => ?_)⟩
+    haveI : IsIntegral (pullback A.X.hom s) :=
+      GeometricallyIntegral.geometrically_isIntegral _ _ _ (.of_hasPullback _ _)
+    infer_instance
   haveI : PkgI2.IsAbelianScheme A :=
     ⟨PkgI2.IsAbelianVariety.proper, PkgI2.IsAbelianVariety.smooth, inferInstance⟩
-  exact ZInQ.Contrib.OneProof.MulEtale.mulEtaleAbelianScheme_proof k A n
+  exact H101DirectFieldRoute.multiplication_etale k A n
     (isUnit_iff_ne_zero.mpr hnk)
 
 /-- Multiplication prime to the characteristic is finite: properness and étaleness imply
@@ -57,10 +67,17 @@ theorem multiplication_finite (n : ℕ) (hnk : (n : k) ≠ 0) :
     IsFinite ((𝟙 A.X ^ n : A.X ⟶ A.X).left) := by
   haveI := PkgI2.IsAbelianVariety.proper (A := A)
   haveI := multiplication_etale A n hnk
-  haveI : IsProper ((𝟙 A.X ^ n : A.X ⟶ A.X).left) := by
-    apply IsProper.of_comp _ A.X.hom
+  haveI : IsProper ((𝟙 A.X ^ n : A.X ⟶ A.X).left ≫ A.X.hom) := by
     rw [Over.w]
     infer_instance
+  haveI : IsProper ((𝟙 A.X ^ n : A.X ⟶ A.X).left) := IsProper.of_comp _ A.X.hom
+  haveI : LocallyQuasiFinite ((𝟙 A.X ^ n : A.X ⟶ A.X).left) := by
+    constructor
+    intro U hU V hV e
+    have h := ((𝟙 A.X ^ n : A.X ⟶ A.X).left).etale_appLE hU hV e
+    algebraize [(((𝟙 A.X ^ n : A.X ⟶ A.X).left).appLE U V e).hom]
+    haveI : Algebra.Etale Γ(A.X.left, U) Γ(A.X.left, V) := h
+    exact inferInstance
   exact IsFinite.of_isProper_of_locallyQuasiFinite _
 
 /-- Over an algebraically closed field, the original `n`-torsion set is finite.
@@ -74,18 +91,17 @@ theorem finite_torsion [IsAlgClosed k] (n : ℕ) (hnk : (n : k) ≠ 0) :
   let e := (η[A.X]).left s
   haveI := (Scheme.Hom.finite_preimage_singleton
     ((𝟙 A.X ^ n : A.X ⟶ A.X).left) e).to_subtype
-  apply Finite.of_injective (β := ((𝟙 A.X ^ n : A.X ⟶ A.X).left) ⁻¹' {e})
-    (fun p => ⟨p.1.left s, ?_⟩)
-  · change ((𝟙 A.X ^ n : A.X ⟶ A.X).left) (p.1.left s) = e
-    have hp : p.1 ≫ (𝟙 A.X ^ n : A.X ⟶ A.X) = 1 := by
-      rw [MonObj.comp_pow, Category.comp_id]
-      exact p.2
-    have hp' := congrArg (fun f : PkgI2.Pts A k => f.left s) hp
-    simpa [Hom.one_def, PkgI2.specOver, e] using hp'
-  · intro p q hpq
-    apply Subtype.ext
-    apply Over.OverMorphism.ext
-    exact ext_of_apply_closedPoint_eq A.X.hom (Over.w p.1) (Over.w q.1)
-      (congrArg Subtype.val hpq)
+  let F : PkgI2.torsion A k n → ((𝟙 A.X ^ n : A.X ⟶ A.X).left) ⁻¹' {e} := fun p =>
+    ⟨p.1.left s, by
+      change ((𝟙 A.X ^ n : A.X ⟶ A.X).left) (p.1.left s) = e
+      have hp : p.1 ≫ (𝟙 A.X ^ n : A.X ⟶ A.X) = 1 := by
+        rw [MonObj.comp_pow, Category.comp_id]
+        exact p.2
+      have hp' := congrArg (fun f : PkgI2.Pts A k => f.left s) hp
+      simpa [Hom.one_def, PkgI2.specOver, e] using hp'⟩
+  exact Finite.of_injective F (fun p q hpq =>
+    Subtype.ext (Over.OverMorphism.ext
+      (ext_of_apply_closedPoint_eq A.X.hom (Over.w p.1) (Over.w q.1)
+        (congrArg Subtype.val hpq))))
 
 end ZInQ.Contrib.CloudB3W16Torsion
