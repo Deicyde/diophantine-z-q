@@ -65,7 +65,7 @@ lemma isIso_unit_app_of_isSheaf (N : PMod 𝒪) (hN : Presheaf.IsSheaf J N.presh
 
 lemma isIso_shf_map_unit_whiskerRight (d d' : PMod 𝒪) :
     IsIso ((shf 𝒪 R α).map (((adj 𝒪 R α).unit.app d) ▷ d')) := by
-  have h := (Monoidal.Reflective.isIso_tfae (adj 𝒪 R α)).out 0 2
+  have h := (Monoidal.Reflective.isIso_tfae (adj 𝒪 R α)).out 1 3
   refine (h.mp ?_) d d'
   intro c d
   apply isIso_unit_app_of_isSheaf

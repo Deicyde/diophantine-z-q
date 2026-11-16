@@ -10,7 +10,8 @@ Full original notices/credits: NOTICE.upstream, ATTRIBUTION.upstream.md, LICENSE
 import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_AlgebraicCurve_CurveModelConstruction
 import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
-set_option backward.isDefEq.respectTransparency false
+set_option backward.isDefEq.respectTransparency true
+set_option backward.isDefEq.respectTransparency.types false
 
 namespace P2MW.S_AlgebraicCurve_CurveModel_isProper_smooth_places_affineCover_glued
 
@@ -273,9 +274,7 @@ namespace S7A8SM
 open CategoryTheory
 open AlgebraicGeometry
 open Polynomial
-open AlgebraicGeometry.Polynomial
 open Algebra
-open CategoryTheory.Algebra
 open IntermediateField
 open AlgebraicCurve.CurveModel
 open scoped AlgebraicCurve.CurveModel
@@ -415,7 +414,7 @@ private theorem rank_kaehler_chartRing_localization_away_eq_one' (hs : Transcend
     IsLocalization.localization_isScalarTower_of_submonoid_le (Localization.Away t) L
       (Submonoid.powers t) (nonZeroDivisors _) htnzd
   haveI : IsScalarTower K (Localization.Away t) L :=
-    IsScalarTower.of_algebraMap_eq fun a => by
+    IsScalarTower.of_algebraMap_eq (R := K) (S := Localization.Away t) (A := L) fun a => by
       rw [IsScalarTower.algebraMap_apply K (↥(chartRing K ({s} : Set L))) L,
         IsScalarTower.algebraMap_apply (↥(chartRing K ({s} : Set L))) (Localization.Away t) L,
         ← IsScalarTower.algebraMap_apply K (↥(chartRing K ({s} : Set L))) (Localization.Away t)]

@@ -177,7 +177,7 @@ theorem solution
     exact φ01.injective (h.trans (map_zero φ01).symm)
   let ψ0 : A0B ⧸ J0 →+* A01B ⧸ J01 :=
     Ideal.Quotient.lift J0 ((Ideal.Quotient.mk J01).comp (𝒱B.cover cB).ρ0.toRingHom) (by
-      intro a ha; simp only [RingHom.comp_apply]; exact hker0 a ha)
+      intro a ha; exact hker0 a ha)
 
   have hψ0 : ∀ x, φ01 (ψ0 x) = (𝒱BI.cover cBI).ρ0 (φ0 x) := by
     intro x; obtain ⟨a, rfl⟩ := Ideal.Quotient.mk_surjective x
@@ -212,7 +212,7 @@ theorem solution
     exact φ01.injective (h.trans (map_zero φ01).symm)
   let ψ1 : A1B ⧸ J1 →+* A01B ⧸ J01 :=
     Ideal.Quotient.lift J1 ((Ideal.Quotient.mk J01).comp (𝒱B.cover cB).ρ1.toRingHom) (by
-      intro a ha; simp only [RingHom.comp_apply]; exact hker1 a ha)
+      intro a ha; exact hker1 a ha)
   have hψ1 : ∀ x, φ01 (ψ1 x) = (𝒱BI.cover cBI).ρ1 (φ1 x) := by
     intro x; obtain ⟨a, rfl⟩ := Ideal.Quotient.mk_surjective x; exact hφρ1 a
   letI algψ1 : Algebra (A1B ⧸ J1) (A01B ⧸ J01) := ψ1.toAlgebra

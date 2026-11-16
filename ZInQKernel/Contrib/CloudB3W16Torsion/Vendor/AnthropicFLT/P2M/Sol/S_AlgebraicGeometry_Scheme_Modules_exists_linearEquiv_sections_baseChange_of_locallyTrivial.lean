@@ -30,7 +30,7 @@ noncomputable section
 
 universe u
 
-open CategoryTheory CategoryTheory.Limits Opposite TensorProduct
+open _root_.CategoryTheory _root_.CategoryTheory.Limits _root_.Opposite _root_.TensorProduct
 
 namespace AlgebraicGeometry
 export _root_.AlgebraicGeometry (Spec.map_comp Scheme.Hom.map_appLE Scheme.Modules.Hom.app_smul Scheme.Opens.topIso_inv pullbackSpecIso_inv_snd morphismRestrict_ι Scheme.Modules.pullback Scheme.Opens.range_ι Scheme.Hom Scheme.Hom.appLE_comp_appLE Scheme.Γ IsAffineOpen.opensRange_fromSpec IsAffineOpen.fromSpec_top Scheme.Modules.Hom Scheme.Hom.image_preimage_eq_opensRange_inf moduleSpecΓFunctor IsAffineOpen.SpecMap_appLE_fromSpec IsAffineOpen.fromSpec_preimage_self Spec Spec.map Scheme.ΓSpecIso_inv_naturality Scheme IsAffineOpen.fromSpec_app_self pullbackSpecIso Scheme.isoSpec_Spec_inv IsAffineOpen.isoSpec_hom_appTop pullbackRestrictIsoRestrict_inv_fst_assoc IsOpenImmersion Scheme.Opens.topIso_hom Scheme.Hom.comp_appTop pullbackSpecIso_inv_fst Scheme.Modules.pullbackCongr isAffineOpen_top Scheme.Modules.pullbackPushforwardAdjunction StructureSheaf.globalSectionsIso IsAffineOpen Scheme.Modules pullbackRestrictIsoRestrict Scheme.Opens Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE tilde Scheme.Opens.ι_appTop Scheme.Modules.map_smul Scheme.Hom.appLE morphismRestrict_appLE Scheme.Modules.pullbackComp Scheme.ΓSpecIso Scheme.TwoAffineOpenCover.moduleSectionsOfHom Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap Scheme.Modules.pushforwardSpecCompΓIso Scheme.Modules.isIso_fromTildeGamma_of_locallyTrivial Scheme.Modules.isIso_baseChange_sections_of_isIso_fromTildeGamma)
@@ -38,9 +38,9 @@ namespace Scheme
 export _root_.AlgebraicGeometry.Scheme (Hom.map_appLE Modules.Hom.app_smul Opens.topIso_inv ringCatSheaf Modules.pullback Hom.id_app Opens.range_ι Hom mk Hom.appLE_comp_appLE Γ Hom.app topIso_hom Modules.Hom Hom.image_preimage_eq_opensRange_inf topIso ΓSpecIso_inv_naturality isoSpec_Spec_inv Opens.topIso_hom Hom.comp_appTop isoSpec Hom.comp_app Modules.pullbackCongr Modules.pullbackPushforwardAdjunction Modules Opens Hom.appLE_map Hom.app_eq_appLE Opens.ι_appTop Modules.map_smul restrict Hom.appLE Modules.pullbackComp ΓSpecIso TwoAffineOpenCover.moduleSectionsOfHom TwoAffineOpenCover TwoAffineOpenCover.specMap Modules.pushforwardSpecCompΓIso Modules.isIso_fromTildeGamma_of_locallyTrivial Modules.isIso_baseChange_sections_of_isIso_fromTildeGamma)
 namespace TwoAffineOpenCover
 export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (moduleSectionsOfHom isScalarTower_sections specMap algebraOfHom algebraMap_algebraOfHom pullback mk)
-open AlgebraicGeometry.Scheme.TwoAffineOpenCover
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
 
 namespace AffineBaseChange
 
@@ -191,13 +191,13 @@ export _root_.AlgebraicGeometry.Scheme (Hom.map_appLE Modules.Hom.app_smul Opens
 namespace Modules
 export _root_.AlgebraicGeometry.Scheme.Modules (Hom.app_smul pullback presheaf Hom.comp_app pushforwardComp_hom_app_app Hom pushforward_map_app Hom.id_app Hom.app restrictAdjunction fromTildeΓ pullbackCongr pullbackPushforwardAdjunction restrict conjugateEquiv_pullbackComp_inv map_smul pullbackComp pushforwardSpecCompΓIso isIso_fromTildeGamma_of_locallyTrivial isIso_baseChange_sections_of_isIso_fromTildeGamma)
 namespace SectionsBC
-open AlgebraicGeometry.Scheme.Modules
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
-open AlgebraicGeometry.Scheme.TwoAffineOpenCover
+open _root_.AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
+open _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover
 open P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_linearEquiv_sections_baseChange_of_locallyTrivial.AlgebraicGeometry.Scheme.TwoAffineOpenCover
 open P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_linearEquiv_sections_baseChange_of_locallyTrivial.AlgebraicGeometry.Scheme.TwoAffineOpenCover.AffineBaseChange
-open AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme.Modules
 open P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_linearEquiv_sections_baseChange_of_locallyTrivial.AlgebraicGeometry.Scheme.Modules
 
 variable {R : Type u} [CommRing R] {X : Scheme.{u}} (c : X ⟶ Spec (.of R))
@@ -264,9 +264,9 @@ namespace Scheme
 export _root_.AlgebraicGeometry.Scheme (Hom.map_appLE Modules.Hom.app_smul Opens.topIso_inv ringCatSheaf Modules.pullback Hom.id_app Opens.range_ι Hom mk Hom.appLE_comp_appLE Γ Hom.app topIso_hom Modules.Hom Hom.image_preimage_eq_opensRange_inf topIso ΓSpecIso_inv_naturality isoSpec_Spec_inv Opens.topIso_hom Hom.comp_appTop isoSpec Hom.comp_app Modules.pullbackCongr Modules.pullbackPushforwardAdjunction Modules Opens Hom.appLE_map Hom.app_eq_appLE Opens.ι_appTop Modules.map_smul restrict Hom.appLE Modules.pullbackComp ΓSpecIso TwoAffineOpenCover.moduleSectionsOfHom TwoAffineOpenCover TwoAffineOpenCover.specMap Modules.pushforwardSpecCompΓIso Modules.isIso_fromTildeGamma_of_locallyTrivial Modules.isIso_baseChange_sections_of_isIso_fromTildeGamma)
 namespace Modules
 export _root_.AlgebraicGeometry.Scheme.Modules (Hom.app_smul pullback presheaf Hom.comp_app pushforwardComp_hom_app_app Hom pushforward_map_app Hom.id_app Hom.app restrictAdjunction fromTildeΓ pullbackCongr pullbackPushforwardAdjunction restrict conjugateEquiv_pullbackComp_inv map_smul pullbackComp pushforwardSpecCompΓIso isIso_fromTildeGamma_of_locallyTrivial isIso_baseChange_sections_of_isIso_fromTildeGamma)
-open AlgebraicGeometry.Scheme.Modules
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
 
 namespace UnitCalculus
 
@@ -329,13 +329,13 @@ export _root_.AlgebraicGeometry.Scheme (Hom.map_appLE Modules.Hom.app_smul Opens
 namespace Modules
 export _root_.AlgebraicGeometry.Scheme.Modules (Hom.app_smul pullback presheaf Hom.comp_app pushforwardComp_hom_app_app Hom pushforward_map_app Hom.id_app Hom.app restrictAdjunction fromTildeΓ pullbackCongr pullbackPushforwardAdjunction restrict conjugateEquiv_pullbackComp_inv map_smul pullbackComp pushforwardSpecCompΓIso isIso_fromTildeGamma_of_locallyTrivial isIso_baseChange_sections_of_isIso_fromTildeGamma)
 namespace SectionsBC
-open AlgebraicGeometry.Scheme.Modules
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
-open AlgebraicGeometry.Scheme.TwoAffineOpenCover
+open _root_.AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
+open _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover
 open P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_linearEquiv_sections_baseChange_of_locallyTrivial.AlgebraicGeometry.Scheme.TwoAffineOpenCover
 open P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_linearEquiv_sections_baseChange_of_locallyTrivial.AlgebraicGeometry.Scheme.TwoAffineOpenCover.AffineBaseChange
-open AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme.Modules
 open P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_linearEquiv_sections_baseChange_of_locallyTrivial.AlgebraicGeometry.Scheme.Modules
 
 variable {R : Type u} [CommRing R] {X : Scheme.{u}} (c : X ⟶ Spec (.of R))
@@ -475,13 +475,13 @@ export _root_.AlgebraicGeometry.Scheme (Hom.map_appLE Modules.Hom.app_smul Opens
 namespace Modules
 export _root_.AlgebraicGeometry.Scheme.Modules (Hom.app_smul pullback presheaf Hom.comp_app pushforwardComp_hom_app_app Hom pushforward_map_app Hom.id_app Hom.app restrictAdjunction fromTildeΓ pullbackCongr pullbackPushforwardAdjunction restrict conjugateEquiv_pullbackComp_inv map_smul pullbackComp pushforwardSpecCompΓIso isIso_fromTildeGamma_of_locallyTrivial isIso_baseChange_sections_of_isIso_fromTildeGamma)
 namespace SectionsBC
-open AlgebraicGeometry.Scheme.Modules
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
-open AlgebraicGeometry.Scheme.TwoAffineOpenCover
+open _root_.AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
+open _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover
 open P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_linearEquiv_sections_baseChange_of_locallyTrivial.AlgebraicGeometry.Scheme.TwoAffineOpenCover
 open P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_linearEquiv_sections_baseChange_of_locallyTrivial.AlgebraicGeometry.Scheme.TwoAffineOpenCover.AffineBaseChange
-open AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme.Modules
 open P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_linearEquiv_sections_baseChange_of_locallyTrivial.AlgebraicGeometry.Scheme.Modules
 
 variable {R : Type u} [CommRing R] {X : Scheme.{u}} (c : X ⟶ Spec (.of R))
@@ -593,13 +593,13 @@ export _root_.AlgebraicGeometry.Scheme (Hom.map_appLE Modules.Hom.app_smul Opens
 namespace Modules
 export _root_.AlgebraicGeometry.Scheme.Modules (Hom.app_smul pullback presheaf Hom.comp_app pushforwardComp_hom_app_app Hom pushforward_map_app Hom.id_app Hom.app restrictAdjunction fromTildeΓ pullbackCongr pullbackPushforwardAdjunction restrict conjugateEquiv_pullbackComp_inv map_smul pullbackComp pushforwardSpecCompΓIso isIso_fromTildeGamma_of_locallyTrivial isIso_baseChange_sections_of_isIso_fromTildeGamma)
 namespace SectionsBC
-open AlgebraicGeometry.Scheme.Modules
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
-open AlgebraicGeometry.Scheme.TwoAffineOpenCover
+open _root_.AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
+open _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover
 open P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_linearEquiv_sections_baseChange_of_locallyTrivial.AlgebraicGeometry.Scheme.TwoAffineOpenCover
 open P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_linearEquiv_sections_baseChange_of_locallyTrivial.AlgebraicGeometry.Scheme.TwoAffineOpenCover.AffineBaseChange
-open AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme.Modules
 open P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_linearEquiv_sections_baseChange_of_locallyTrivial.AlgebraicGeometry.Scheme.Modules
 
 variable {R : Type u} [CommRing R] {X : Scheme.{u}} (c : X ⟶ Spec (.of R))
@@ -809,13 +809,13 @@ export _root_.AlgebraicGeometry.Scheme (Hom.map_appLE Modules.Hom.app_smul Opens
 namespace Modules
 export _root_.AlgebraicGeometry.Scheme.Modules (Hom.app_smul pullback presheaf Hom.comp_app pushforwardComp_hom_app_app Hom pushforward_map_app Hom.id_app Hom.app restrictAdjunction fromTildeΓ pullbackCongr pullbackPushforwardAdjunction restrict conjugateEquiv_pullbackComp_inv map_smul pullbackComp pushforwardSpecCompΓIso isIso_fromTildeGamma_of_locallyTrivial isIso_baseChange_sections_of_isIso_fromTildeGamma)
 namespace SectionsBC
-open AlgebraicGeometry.Scheme.Modules
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
-open AlgebraicGeometry.Scheme.TwoAffineOpenCover
+open _root_.AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
+open _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover
 open P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_linearEquiv_sections_baseChange_of_locallyTrivial.AlgebraicGeometry.Scheme.TwoAffineOpenCover
 open P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_linearEquiv_sections_baseChange_of_locallyTrivial.AlgebraicGeometry.Scheme.TwoAffineOpenCover.AffineBaseChange
-open AlgebraicGeometry.Scheme.Modules
+open _root_.AlgebraicGeometry.Scheme.Modules
 open P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_linearEquiv_sections_baseChange_of_locallyTrivial.AlgebraicGeometry.Scheme.Modules
 
 variable {R : Type u} [CommRing R] {X : Scheme.{u}} (c : X ⟶ Spec (.of R))
@@ -969,10 +969,8 @@ theorem θ_e₀ (z : letI := moduleSectionsOfHom c M U; A ⊗[R] Γ(M, U)) :
   induction z using TensorProduct.induction_on with
   | zero =>
     simp only [map_zero]
-    first | rfl | exact (map_zero _).symm
   | add x y hx hy =>
     simp only [map_add, hx, hy]
-    first | rfl | exact (map_add _ _ _).symm
   | tmul a m =>
     rw [e₀_tmul, κ_tmul, β_tmul, Q_smul_def, σ_smul, chase]
 

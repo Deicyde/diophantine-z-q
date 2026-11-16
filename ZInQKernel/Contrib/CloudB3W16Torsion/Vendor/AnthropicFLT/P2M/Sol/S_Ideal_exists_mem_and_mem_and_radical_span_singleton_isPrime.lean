@@ -12,7 +12,7 @@ import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_Int
 import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_Ideal_exists_ne_zero_and_forall_isMaximal_radical_map_isPrime
 import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
-set_option backward.isDefEq.respectTransparency false
+set_option backward.isDefEq.respectTransparency true
 
 namespace P2MW.S_Ideal_exists_mem_and_mem_and_radical_span_singleton_isPrime
 
@@ -226,8 +226,8 @@ theorem ringKrullDim_le_of_isIntegral {R S : Type*} [CommRing R] [CommRing S]
 
 theorem ringKrullDim_mvPolynomial_fin (k : Type u) [Field k] (s : ℕ) :
     ringKrullDim (MvPolynomial (Fin s) k) = s := by
-  rw [MvPolynomial.ringKrullDim_of_isNoetherianRing, ringKrullDim_eq_zero_of_field, zero_add,
-    Nat.card_eq_fintype_card, Fintype.card_fin]
+  rw [MvPolynomial.ringKrullDim_of_isNoetherianRing, ringKrullDim_eq_zero_of_field, zero_add]
+  simp
 
 theorem exists_noether_two_le (k : Type u) [Field k] {A : Type v} [CommRing A] [IsDomain A]
     [Algebra k A] [Algebra.FiniteType k A] (hA : 2 ≤ ringKrullDim A) :

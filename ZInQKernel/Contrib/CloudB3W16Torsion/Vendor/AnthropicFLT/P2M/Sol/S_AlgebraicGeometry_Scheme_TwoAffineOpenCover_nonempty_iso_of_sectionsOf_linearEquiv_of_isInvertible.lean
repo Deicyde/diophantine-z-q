@@ -35,17 +35,17 @@ export _root_.AlgebraicGeometry.Scheme (Modules.Hom.app_smul ringCatSheaf Module
 namespace TwoAffineOpenCover
 export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (cover pullback isAffineOpen_U0 isAffineOpen_inf U1 U0 sup_eq_top isAffineOpen_U1 sectionsOf exists_sectionsOf_overlap_linearEquiv_baseChange_of_isInvertible)
 namespace GlueIso
-open AlgebraicGeometry.Scheme.TwoAffineOpenCover
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
-open CategoryTheory
-open CategoryTheory.Limits
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
+open _root_.CategoryTheory
+open _root_.CategoryTheory.Limits
+open _root_.AlgebraicGeometry
 open P2MW.S_AlgebraicGeometry_Scheme_TwoAffineOpenCover_nonempty_iso_of_sectionsOf_linearEquiv_of_isInvertible.AlgebraicGeometry
-open Opposite
-open TopologicalSpace
-open TensorProduct
-open AlgebraicGeometry.Scheme.Modules
+open _root_.Opposite
+open _root_.TopologicalSpace
+open _root_.TensorProduct
+open _root_.AlgebraicGeometry.Scheme.Modules
 
 section Generic
 
@@ -249,17 +249,17 @@ export _root_.AlgebraicGeometry.Scheme (Modules.Hom.app_smul ringCatSheaf Module
 namespace TwoAffineOpenCover
 export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (cover pullback isAffineOpen_U0 isAffineOpen_inf U1 U0 sup_eq_top isAffineOpen_U1 sectionsOf exists_sectionsOf_overlap_linearEquiv_baseChange_of_isInvertible)
 namespace GlueIso
-open AlgebraicGeometry.Scheme.TwoAffineOpenCover
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
-open CategoryTheory
-open CategoryTheory.Limits
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
+open _root_.CategoryTheory
+open _root_.CategoryTheory.Limits
+open _root_.AlgebraicGeometry
 open P2MW.S_AlgebraicGeometry_Scheme_TwoAffineOpenCover_nonempty_iso_of_sectionsOf_linearEquiv_of_isInvertible.AlgebraicGeometry
-open Opposite
-open TopologicalSpace
-open TensorProduct
-open AlgebraicGeometry.Scheme.Modules
+open _root_.Opposite
+open _root_.TopologicalSpace
+open _root_.TensorProduct
+open _root_.AlgebraicGeometry.Scheme.Modules
 
 section ChartHom
 
@@ -341,17 +341,17 @@ export _root_.AlgebraicGeometry.Scheme (Modules.Hom.app_smul ringCatSheaf Module
 namespace TwoAffineOpenCover
 export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (cover pullback isAffineOpen_U0 isAffineOpen_inf U1 U0 sup_eq_top isAffineOpen_U1 sectionsOf exists_sectionsOf_overlap_linearEquiv_baseChange_of_isInvertible)
 namespace GlueIso
-open AlgebraicGeometry.Scheme.TwoAffineOpenCover
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
-open CategoryTheory
-open CategoryTheory.Limits
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
+open _root_.CategoryTheory
+open _root_.CategoryTheory.Limits
+open _root_.AlgebraicGeometry
 open P2MW.S_AlgebraicGeometry_Scheme_TwoAffineOpenCover_nonempty_iso_of_sectionsOf_linearEquiv_of_isInvertible.AlgebraicGeometry
-open Opposite
-open TopologicalSpace
-open TensorProduct
-open AlgebraicGeometry.Scheme.Modules
+open _root_.Opposite
+open _root_.TopologicalSpace
+open _root_.TensorProduct
+open _root_.AlgebraicGeometry.Scheme.Modules
 
 section MoreGeneric
 
@@ -609,17 +609,17 @@ export _root_.AlgebraicGeometry.Scheme (Modules.Hom.app_smul ringCatSheaf Module
 namespace TwoAffineOpenCover
 export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (cover pullback isAffineOpen_U0 isAffineOpen_inf U1 U0 sup_eq_top isAffineOpen_U1 sectionsOf exists_sectionsOf_overlap_linearEquiv_baseChange_of_isInvertible)
 namespace GlueIso
-open AlgebraicGeometry.Scheme.TwoAffineOpenCover
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
-open CategoryTheory
-open CategoryTheory.Limits
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
+open _root_.CategoryTheory
+open _root_.CategoryTheory.Limits
+open _root_.AlgebraicGeometry
 open P2MW.S_AlgebraicGeometry_Scheme_TwoAffineOpenCover_nonempty_iso_of_sectionsOf_linearEquiv_of_isInvertible.AlgebraicGeometry
-open Opposite
-open TopologicalSpace
-open TensorProduct
-open AlgebraicGeometry.Scheme.Modules
+open _root_.Opposite
+open _root_.TopologicalSpace
+open _root_.TensorProduct
+open _root_.AlgebraicGeometry.Scheme.Modules
 
 section Main
 
@@ -705,11 +705,11 @@ export _root_.AlgebraicGeometry.Scheme (Modules.Hom.app_smul ringCatSheaf Module
 namespace TwoAffineOpenCover
 export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (cover pullback isAffineOpen_U0 isAffineOpen_inf U1 U0 sup_eq_top isAffineOpen_U1 sectionsOf exists_sectionsOf_overlap_linearEquiv_baseChange_of_isInvertible)
 namespace GlueIso
-open AlgebraicGeometry.Scheme.TwoAffineOpenCover
-open AlgebraicGeometry.Scheme
-open AlgebraicGeometry
+open _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover
+open _root_.AlgebraicGeometry.Scheme
+open _root_.AlgebraicGeometry
 
-open TensorProduct in
+open _root_.TensorProduct in
 
 theorem span_eq_top_of_baseChange {A B : Type*} [CommRing A] [CommRing B] [Algebra A B] {M : Type*}
     [AddCommGroup M] [Module A M] {N : Type*} [AddCommGroup N] [Module B N]
@@ -731,7 +731,7 @@ end AlgebraicGeometry.Scheme.TwoAffineOpenCover.GlueIso
 
 
 
-open CategoryTheory CategoryTheory.Limits _root_.AlgebraicGeometry _root_.P2MW.S_AlgebraicGeometry_Scheme_TwoAffineOpenCover_nonempty_iso_of_sectionsOf_linearEquiv_of_isInvertible.AlgebraicGeometry TensorProduct Opposite AlgebraicGeometry.Scheme.TwoAffineOpenCover.GlueIso in
+open _root_.CategoryTheory _root_.CategoryTheory.Limits _root_.AlgebraicGeometry _root_.P2MW.S_AlgebraicGeometry_Scheme_TwoAffineOpenCover_nonempty_iso_of_sectionsOf_linearEquiv_of_isInvertible.AlgebraicGeometry _root_.TensorProduct _root_.Opposite _root_.P2MW.S_AlgebraicGeometry_Scheme_TwoAffineOpenCover_nonempty_iso_of_sectionsOf_linearEquiv_of_isInvertible.AlgebraicGeometry.Scheme.TwoAffineOpenCover.GlueIso in
 
 theorem solution
     {R : Type u} [CommRing R] {X : Scheme.{u}} (𝒱 : X.TwoAffineOpenCover) (c : X ⟶ Spec (.of R))
