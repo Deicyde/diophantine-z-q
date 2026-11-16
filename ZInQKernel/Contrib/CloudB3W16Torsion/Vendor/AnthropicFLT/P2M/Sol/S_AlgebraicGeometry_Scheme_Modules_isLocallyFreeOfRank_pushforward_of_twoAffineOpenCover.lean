@@ -30,13 +30,13 @@ universe u
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_isLocallyFreeOfRank_pushforward_of_twoAffineOpenCover.AlgebraicGeometry
+-- Source-local namespace open deferred until its declaration.
 open Opposite
 open TopologicalSpace
 open TensorProduct
 
 namespace TwoChartCech
-export TwoChartCech (Sections Sections.cechDiff_apply Mumford.projective_ker_of_fibre_surjective)
+export _root_.TwoChartCech (Sections Sections.cechDiff_apply Mumford.projective_ker_of_fibre_surjective)
 open TwoChartCech
 
 theorem surjective_baseChange_and_finrank_ker_of_comm
@@ -64,6 +64,7 @@ theorem surjective_baseChange_and_finrank_ker_of_comm
 end TwoChartCech
 
 namespace AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_isLocallyFreeOfRank_pushforward_of_twoAffineOpenCover.AlgebraicGeometry
 export _root_.AlgebraicGeometry (Surjective Scheme.Modules.pushforward Scheme.Modules.pullback Scheme.Hom Spec Scheme.Modules.mapPresheaf_app Scheme Scheme.Modules.fromTildeΓ Flat modulesSpecToSheaf Scheme.Modules.pullbackPushforwardAdjunction IsAffineOpen Scheme.Modules tilde Scheme.ΓSpecIso Scheme.Hom.appLE_eq_app Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap Scheme.Modules.IsLocallyFreeOfRank)
 namespace Scheme
 export _root_.AlgebraicGeometry.Scheme (ringCatSheaf Modules.pushforward Modules.pullback Hom Γ Modules.mapPresheaf_app Modules.fromTildeΓ Modules.pullbackPushforwardAdjunction Modules Opens ΓSpecIso Hom.appLE_eq_app TwoAffineOpenCover TwoAffineOpenCover.specMap Modules.IsLocallyFreeOfRank)

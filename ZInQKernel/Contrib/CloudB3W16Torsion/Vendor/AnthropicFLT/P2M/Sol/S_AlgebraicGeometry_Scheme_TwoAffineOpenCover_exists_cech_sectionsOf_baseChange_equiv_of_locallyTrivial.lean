@@ -26,9 +26,9 @@ universe u
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry TensorProduct
 
 namespace TwoChartCech
-export TwoChartCech (Cover Sections Sections.cechDiff_apply)
+export _root_.TwoChartCech (Cover Sections Sections.cechDiff_apply)
 namespace Sections
-export TwoChartCech.Sections (cechDiff cechDiff_apply H0 H1 mk.injEq r1 r0 M1 mk M01 M0)
+export _root_.TwoChartCech.Sections (cechDiff cechDiff_apply H0 H1 mk.injEq r1 r0 M1 mk M01 M0)
 namespace BC
 open TwoChartCech.Sections
 open TwoChartCech

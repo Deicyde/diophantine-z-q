@@ -32,13 +32,14 @@ open CategoryTheory
 open CategoryTheory.Limits
 open Opposite
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_RelPicard_isLFPInj_relPicardPresheaf.AlgebraicGeometry
+-- Source-local namespace open deferred until its declaration.
 open AlgebraicGeometry.RelPicard
 open P2MW.S_AlgebraicGeometry_RelPicard_isLFPInj_relPicardPresheaf.AlgebraicGeometry.RelPicard
 open NeronModelInfra
 open TensorProduct
 
 namespace AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_RelPicard_isLFPInj_relPicardPresheaf.AlgebraicGeometry
 export _root_.AlgebraicGeometry (Scheme.Modules.Hom.app_smul Scheme.Modules.Hom.mapPresheaf Scheme.Modules.Hom.comp_app Scheme.Modules.Hom Spec Spec.map Scheme.Modules.mapPresheaf_app Scheme Scheme.Modules.Hom.id_app Scheme.Modules RelPicard.baseChangeSnd Scheme.TwoAffineOpenCover AffineLimit.IsLFPInj FGSubalgebra.tensorStage FGSubalgebra.tensorStageMap FGSubalgebra.tensorStageToColimit FGSubalgebra.tensorStageToColimit_comp FGSubalgebra.tensorStageToColimit_surj FGSubalgebra.tensorStageToColimit_zero FGSubalgebra RelPicard.LFP.stageHom Scheme.TwoAffineOpenCover.exists_stage_baseChangeIsos_structureSheaf Scheme.TwoAffineOpenCover.nonempty_iso_of_sectionsOf_linearEquiv_of_isInvertible)
 namespace RelPicard
 export _root_.AlgebraicGeometry.RelPicard (baseChangeSnd RigidifiedLineBundle RigidifiedLineBundle.setoid relPicardPresheaf LFP.stageHom)

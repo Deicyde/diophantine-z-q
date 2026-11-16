@@ -23,9 +23,10 @@ universe u
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_RelEffCartierDiv_exists_I_eq_prodKerGraph.AlgebraicGeometry
+-- Source-local namespace open deferred until its declaration.
 
 namespace AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_RelEffCartierDiv_exists_I_eq_prodKerGraph.AlgebraicGeometry
 export _root_.AlgebraicGeometry (SmoothOfRelativeDimension Scheme Smooth IsSeparated prodKerGraph prodKerGraph_zero prodKerGraph_succ RelEffCartierDiv.empty RelEffCartierDiv.empty_I RelEffCartierDiv.ofPoint RelEffCartierDiv.ofPoint_I RelEffCartierDiv RelEffCartierDiv.exists_I_eq_mul)
 namespace RelEffCartierDiv
 export _root_.AlgebraicGeometry.RelEffCartierDiv (empty empty_I ofPoint ofPoint_I I exists_I_eq_mul)

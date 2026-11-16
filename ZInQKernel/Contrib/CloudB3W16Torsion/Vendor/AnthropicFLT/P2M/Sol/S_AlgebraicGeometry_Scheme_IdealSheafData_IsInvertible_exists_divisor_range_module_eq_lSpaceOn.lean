@@ -37,11 +37,12 @@ set_option maxHeartbeats 1600000
 set_option autoImplicit false
 open CategoryTheory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_IdealSheafData_IsInvertible_exists_divisor_range_module_eq_lSpaceOn.AlgebraicGeometry
+-- Source-local namespace open deferred until its declaration.
 open Opposite
 open TopologicalSpace
 
 namespace AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_Scheme_IdealSheafData_IsInvertible_exists_divisor_range_module_eq_lSpaceOn.AlgebraicGeometry
 export _root_.AlgebraicGeometry (Scheme.Modules.Hom.app_smul Scheme.germToFunctionField SmoothOfRelativeDimension Scheme.Hom Scheme.germToFunctionField_injective Scheme.Opens.ι_appIso Scheme.Modules.Hom Scheme.Hom.image_preimage_eq_opensRange_inf QuasiCompact Spec IsIntegral Scheme.Modules.mapPresheaf_app Scheme Scheme.Modules.restrictFunctorIsoPullback Scheme.Hom.appIso Scheme.Hom.preimage_mono IsSeparated IsAffineOpen Scheme.Modules Scheme.Opens Scheme.Hom.image_mono Scheme.Hom.opensFunctor Scheme.Opens.opensRange_ι Scheme.IdealSheafData Scheme.Modules.IsInvertible Scheme.Modules.ofUnitSection Scheme.IdealSheafData.IsInvertible Scheme.Modules.IsInvertible.exists_divisor_range_eq_lSpaceOn Scheme.Modules.exists_forall_eq_mul_of_presentations)
 namespace Scheme
 export _root_.AlgebraicGeometry.Scheme (Modules.Hom.app_smul germToFunctionField ringCatSheaf Hom.id_app Hom germToFunctionField_injective Γ Opens.ι_appIso Modules.Hom Hom.image_preimage_eq_opensRange_inf Modules.mapPresheaf_app Modules.restrictFunctorIsoPullback Hom.appIso functionField Hom.preimage_mono affineOpens Hom.comp_app isBasis_affineOpens Modules Opens Hom.image_mono Hom.opensFunctor Opens.opensRange_ι restrict IdealSheafData Modules.IsInvertible Modules.ofUnitSection IdealSheafData.IsInvertible Modules.IsInvertible.exists_divisor_range_eq_lSpaceOn Modules.exists_forall_eq_mul_of_presentations)
@@ -591,7 +592,7 @@ theorem AlgebraicGeometry.Scheme.IdealSheafData.IsInvertible.exists_divisor_rang
     change D v + -WithZero.log (v.adicValuation c) + -WithZero.log (v.adicValuation (alg U g)) = 0
     omega
 
-open _root_.AlgebraicGeometry _root_.P2MW.S_AlgebraicGeometry_Scheme_IdealSheafData_IsInvertible_exists_divisor_range_module_eq_lSpaceOn.AlgebraicGeometry _root_.CategoryTheory.MonoidalCategory in
+open _root_.AlgebraicGeometry _root_.CategoryTheory.MonoidalCategory in
 theorem solution
     {K : Type u} [Field K] {X : Scheme.{u}} (x : X ⟶ Spec (CommRingCat.of K))
     [IsIntegral X] [IsSeparated x] [QuasiCompact x] [SmoothOfRelativeDimension 1 x]

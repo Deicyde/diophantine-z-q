@@ -24,7 +24,7 @@ universe u
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_RelEffCartierDiv_exists_I_eq_prodKerGraph_of_isAlgClosed.AlgebraicGeometry
+-- Source-local namespace open deferred until its declaration.
 
 namespace AlgebraicGeometry p2m_export "AlgebraicGeometry" "SmoothOfRelativeDimension pointOfClosedPoint LocallyOfFiniteType Spec Scheme LocallyOfFiniteType.jacobsonSpace pointOfClosedPoint_comp IsSeparated RelEffCartierDiv mapOnProdOver RelEffCartierDiv.pullbackAlong_comp prodKerGraph RelEffCartierDiv.exists_split prodKerGraph_comap_mapOnProdOver" namespace SumPtsAux end AlgebraicGeometry.SumPtsAux
 open scoped AlgebraicGeometry in

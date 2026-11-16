@@ -27,11 +27,12 @@ open CategoryTheory
 open CategoryTheory.Limits
 open CategoryTheory.MonoidalCategory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_IsInvertible_isIso_ev_app_tensorUnit.AlgebraicGeometry
+-- Source-local namespace open deferred until its declaration.
 
 noncomputable section
 
 namespace AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_IsInvertible_isIso_ev_app_tensorUnit.AlgebraicGeometry
 export _root_.AlgebraicGeometry (Scheme.Modules.pullback Scheme Scheme.Modules Scheme.Modules.IsInvertible Scheme.Modules.dual Scheme.Modules.pullbackSection Scheme.Modules.pullbackSection_def)
 namespace Scheme
 export _root_.AlgebraicGeometry.Scheme (Modules.pullback mk Modules evaluation Modules.IsInvertible Modules.dual Modules.pullbackSection Modules.pullbackSection_def)
@@ -127,7 +128,7 @@ theorem pullbackSection_transposeSection_eq_zero_iff' {Y' : Scheme.{u}} (g : Y' 
 
 end AlgebraicGeometry.Scheme.Modules.CoevAux
 
-open CategoryTheory CategoryTheory.Limits _root_.CategoryTheory.MonoidalCategory _root_.AlgebraicGeometry _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_IsInvertible_isIso_ev_app_tensorUnit.AlgebraicGeometry in
+open CategoryTheory CategoryTheory.Limits _root_.CategoryTheory.MonoidalCategory _root_.AlgebraicGeometry in
 theorem solution
     {Y : Scheme.{u}} {X : Y.Modules} (hX : Scheme.Modules.IsInvertible X) :
     IsIso ((ihom.ev X).app (𝟙_ Y.Modules)) :=

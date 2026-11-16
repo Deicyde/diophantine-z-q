@@ -28,9 +28,10 @@ open CategoryTheory
 open CategoryTheory.Limits
 open CategoryTheory.MonoidalCategory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Hom_nonempty_pullback_ker_pow_invModule_iso_of_isIso.AlgebraicGeometry
+-- Source-local namespace open deferred until its declaration.
 
 namespace AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_Scheme_Hom_nonempty_pullback_ker_pow_invModule_iso_of_isIso.AlgebraicGeometry
 export _root_.AlgebraicGeometry (Scheme.IdealSheafData.one_eq_top Scheme.IdealSheafData.le_map_comap Scheme.Modules.pullback Scheme.Hom Scheme.IdealSheafData.map_ker Scheme.IdealSheafData.map_id Scheme Scheme.IdealSheafData.comap_top IsClosedImmersion Scheme.IdealSheafData.map_comp Scheme.IdealSheafData.map_mono Scheme.Modules Scheme.IdealSheafData.comap_map_le Scheme.IdealSheafData Scheme.IdealSheafData.module Scheme.IdealSheafData.invModule Scheme.IdealSheafData.IsInvertible Scheme.IdealSheafData.comap_mul Scheme.IdealSheafData.IsInvertible.nonempty_pullback_invModule_iso Scheme.IdealSheafData.IsInvertible.isIso_pullbackModuleComparison)
 namespace BCKerGlue
 open AlgebraicGeometry

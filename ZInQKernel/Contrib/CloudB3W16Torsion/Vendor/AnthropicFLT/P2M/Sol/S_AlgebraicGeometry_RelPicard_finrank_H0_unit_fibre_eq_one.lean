@@ -31,13 +31,14 @@ open CategoryTheory
 open CategoryTheory.Limits
 open CategoryTheory.MonoidalCategory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_RelPicard_finrank_H0_unit_fibre_eq_one.AlgebraicGeometry
+-- Source-local namespace open deferred until its declaration.
 open AlgebraicGeometry.RelPicard
 open P2MW.S_AlgebraicGeometry_RelPicard_finrank_H0_unit_fibre_eq_one.AlgebraicGeometry.RelPicard
 
 noncomputable section
 
 namespace AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_RelPicard_finrank_H0_unit_fibre_eq_one.AlgebraicGeometry
 export _root_.AlgebraicGeometry (SmoothOfRelativeDimension IsProper GeometricallyIntegral.geometrically_isIntegral GeometricallyIntegral Spec IsIntegral Scheme geometrically Scheme.TwoAffineOpenCover SmoothProperCurve.exists_genus_forall_geometricFibre_riemannRoch_imp_eq_of_twoAffineOpenCover Scheme.TwoAffineOpenCover.finrank_H1_sectionsOf_unit_eq_and_finrank_H0_eq_one)
 namespace RelPicard
 export _root_.AlgebraicGeometry.RelPicard (toProdSpec toProdSpec_fst fst_toProdSpec)
@@ -68,7 +69,7 @@ theorem finrank_H0_unit_fibre_eq_one'
 
 end AlgebraicGeometry.RelPicard.H0UnitAux
 
-open CategoryTheory CategoryTheory.Limits _root_.CategoryTheory.MonoidalCategory _root_.AlgebraicGeometry _root_.P2MW.S_AlgebraicGeometry_RelPicard_finrank_H0_unit_fibre_eq_one.AlgebraicGeometry in
+open CategoryTheory CategoryTheory.Limits _root_.CategoryTheory.MonoidalCategory _root_.AlgebraicGeometry in
 theorem solution
     {R : Type u} [CommRing R] {C : Scheme.{u}} (c : C ⟶ Spec (CommRingCat.of R))
     [IsProper c] [SmoothOfRelativeDimension 1 c] [GeometricallyIntegral c]
@@ -77,7 +78,7 @@ theorem solution
     Module.finrank k (𝒱.sectionsOf (pullback.snd c s) (𝟙_ (pullback c s).Modules)).H0 = 1 :=
   AlgebraicGeometry.RelPicard.H0UnitAux.finrank_H0_unit_fibre_eq_one' c k s 𝒱
 
-open CategoryTheory CategoryTheory.Limits _root_.CategoryTheory.MonoidalCategory _root_.AlgebraicGeometry _root_.P2MW.S_AlgebraicGeometry_RelPicard_finrank_H0_unit_fibre_eq_one.AlgebraicGeometry in
+open CategoryTheory CategoryTheory.Limits _root_.CategoryTheory.MonoidalCategory _root_.AlgebraicGeometry in
 example {R : Type u} [CommRing R] {C : Scheme.{u}} (c : C ⟶ Spec (CommRingCat.of R))
     [IsProper c] [SmoothOfRelativeDimension 1 c] [GeometricallyIntegral c]
     (k : Type u) [Field k] [IsAlgClosed k] {T : Scheme.{u}} (t : T ⟶ Spec (CommRingCat.of R))

@@ -33,12 +33,13 @@ universe u
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_isIso_baseChangeHom_of_twoAffineOpenCover.AlgebraicGeometry
+-- Source-local namespace open deferred until its declaration.
 open Opposite
 open TopologicalSpace
 open TensorProduct
 
 namespace AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_isIso_baseChangeHom_of_twoAffineOpenCover.AlgebraicGeometry
 export _root_.AlgebraicGeometry (Surjective Scheme.Modules.pushforward Scheme.Modules.pullback tilde.adjunction Scheme.Hom moduleSpecΓFunctor Spec Spec.map isIso_fromTildeΓ_iff Scheme.Modules.mapPresheaf_app Scheme pullbackSpecIso Scheme.Modules.fromTildeΓ Flat modulesSpecToSheaf Scheme.Modules.pullbackPushforwardAdjunction tilde.functor IsAffineOpen Scheme.Modules tilde Scheme.ΓSpecIso Scheme.Hom.appLE_eq_app Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap Scheme.Modules.baseChangeHom tilde.pullbackSpecIso Scheme.Modules.IsInvertible Scheme.Modules.isIso_baseChangeHom_iff_of_isPullback)
 namespace Scheme
 export _root_.AlgebraicGeometry.Scheme (ringCatSheaf Modules.pushforward Modules.pullback Hom Γ Modules.mapPresheaf_app Modules.fromTildeΓ Modules.pullbackPushforwardAdjunction Modules Opens ΓSpecIso Hom.appLE_eq_app TwoAffineOpenCover TwoAffineOpenCover.specMap Modules.baseChangeHom Modules.IsInvertible Modules.isIso_baseChangeHom_iff_of_isPullback)

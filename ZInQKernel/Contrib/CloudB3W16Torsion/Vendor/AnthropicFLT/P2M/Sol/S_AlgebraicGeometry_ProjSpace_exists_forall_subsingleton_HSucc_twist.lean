@@ -29,7 +29,7 @@ set_option linter.unusedSectionVars false
 universe u
 open CategoryTheory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_ProjSpace_exists_forall_subsingleton_HSucc_twist.AlgebraicGeometry
+-- Source-local namespace open deferred until its declaration.
 
 attribute [local instance] MvPolynomial.gradedAlgebra
 
@@ -40,6 +40,7 @@ noncomputable section
 open CategoryTheory Opposite MvPolynomial HomogeneousLocalization TopologicalSpace
 
 namespace AlgebraicGeometry
+open _root_.P2MW.S_AlgebraicGeometry_ProjSpace_exists_forall_subsingleton_HSucc_twist.AlgebraicGeometry
 export _root_.AlgebraicGeometry (IsFinite Spec Scheme Proj IsAffineHom ProjSpace.stdCoverPullback ProjSpace.π OModulePresheaf OModulePresheaf.d_apply ProjSpace.pullbackChart ProjSpace.restrictFun ProjSpace.restrictFun_restrictFun ProjSpace.restrictFun_refl ProjSpace.twistObj ProjSpace.twistRes ProjSpace.twist ProjSpace.twistGradedModule ProjSpace.twistObj.ext ProjSpace.exists_sec_shift_twistGradedModule_equiv ProjSpace.exists_isFG_hom_injective_saturated_twistGradedModule)
 namespace ProjSpace
 export _root_.AlgebraicGeometry.ProjSpace (stdCoverPullback π map pullbackChart restrictFun restrictFun_restrictFun restrictFun_refl twistObj twistRes twistRes_val twist twistGradedModule twistObj.ext exists_sec_shift_twistGradedModule_equiv exists_isFG_hom_injective_saturated_twistGradedModule)

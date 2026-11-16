@@ -22,7 +22,7 @@ set_option autoImplicit false
 universe u
 open CategoryTheory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_nonempty_pullback_tensorPow_iso.AlgebraicGeometry
+-- Source-local namespace open deferred until its declaration.
 open CategoryTheory.MonoidalCategory
 
 namespace AlgebraicGeometry p2m_export "AlgebraicGeometry" "Scheme.Modules.pullback Scheme Scheme.Modules Scheme.Modules.pullbackTensorObjIso Scheme.Modules.pullbackTensorUnitObjIso" namespace Scheme p2m_export "AlgebraicGeometry.Scheme" "Modules.pullback Modules Modules.pullbackTensorObjIso Modules.pullbackTensorUnitObjIso" namespace Modules p2m_export "AlgebraicGeometry.Scheme.Modules" "pullback tensorPow pullbackTensorObjIso pullbackTensorUnitObjIso" end AlgebraicGeometry.Scheme.Modules
