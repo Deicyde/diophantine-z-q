@@ -1,0 +1,22 @@
+# sga33-shpre results log
+
+Base: wip/sga33-shpre at 5e235a40 (= origin/wip/integrate-w82 = origin/main merge state; both merges "Already up to date").
+
+## Statement and consumers (VERIFIED, read in files)
+
+- Field: `HDec.HSyn.OpenResearchLeaves28.sga7_IX_3_3_SHpre : DictModels.SGA7Pre.SGA7_IX_3_3_SHpre`
+  (ZInQKernel/Contrib/OneProof/SGA7IX33SHPre.lean:47). kinds.tsv row 25: published, strict GLUE, strictest GLUE,
+  flag "pending reading: locator UNVERIFIED: SGA 7 IX 3.3 may assume an algebraically closed residue field".
+- Consumers of the field in the chain (grep of `.sga7_IX_3_3_SHpre`, `.sga7_IX_3_3_SH`, `.sga7_IX_3_3`):
+  1. TailZ45:90 `sga7_IX_3_3_SH := sga7_IX_3_3_SH_of_pre ...` (pass-through to R27).
+  2. TailZ41:88 `semistablePersistsSHcp := GapPersists.semistablePersistsSHcp_of_SH ... n.sga7_IX_3_3_SH ...`
+     (target `ReductB.SemistablePersistsSHcp`: CharZero K, PerfectField κ(O), O strictly henselian).
+  3. TailZ33:104 `sga7_IX_3_3 := SGA7PersistsNF.sga7_IX_3_3_of_SH n.sga7_IX_3_3_SH ...`, whose only reader is
+     TailZ23:776 `semistableNeronBaseChange := CToPrinted.semistableNeronBaseChange_of_printed_full ... r.sga7_IX_3_3 ...`
+     (in `researchLeaves9_of_open14`); at its use K = L a number field (SGA7PersistsNF docstring; the cp reroute
+     `semistableNeronBaseChange_of_printed_cp` / `_of_SHcp` already exists in SGA7PersistsNF.lean).
+  TailZ34/35/37/38 only pass `sga7_IX_3_3_SH` through.
+- So every use is at characteristic 0 with perfect (hence, strictly henselian: algebraically closed) residue field.
+
+## Plan
+(c): new leaf `SGA7_IX_3_3_SHpreAC` = field + `[IsAlgClosed κ(O)]`, `[IsAlgClosed κ(O')]`; prove both consumers from it.
