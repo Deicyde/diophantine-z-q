@@ -1,0 +1,1558 @@
+{
+  "source_repository": "https://github.com/anthropics/fermats-last-theorem",
+  "source_pin": "6e837e75355538c7f80bab5b956861e86c4eacc2",
+  "target_base": "0e70c94e4a2d26838f0766cd69b39bd02f48fb85",
+  "lean": "4.35.0",
+  "status": "factored source draft; not compiled or axiom-checked",
+  "modules": [
+    {
+      "original_module": "P2M.Sol.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed",
+      "source_sha256": "1c377c1e001a307df3c4c7632aa6a22a3acb6c4cd6a0b907dcb74ba658d11755",
+      "source_bytes": 862703,
+      "facade": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.lean",
+      "solution": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.solution",
+      "parts": [
+        {
+          "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part01.lean",
+          "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.RRSplit.residueTheoremK_ratFunc_of_isAlgClosed_Part01",
+          "source_lines": [
+            1,
+            1889
+          ],
+          "bytes": 110555,
+          "sha256": "13f2cf904edb823fa324e7c174d62d75ff5149e1e93ef96847c08ee7587e5bae"
+        },
+        {
+          "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part02.lean",
+          "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.RRSplit.residueTheoremK_ratFunc_of_isAlgClosed_Part02",
+          "source_lines": [
+            1890,
+            3722
+          ],
+          "bytes": 96311,
+          "sha256": "e22287f5a232728a1282cb3f2cf6cb92eb818d319fbf6ad4bee2fa1ad66cac04"
+        },
+        {
+          "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part03.lean",
+          "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.RRSplit.residueTheoremK_ratFunc_of_isAlgClosed_Part03",
+          "source_lines": [
+            3723,
+            5658
+          ],
+          "bytes": 103663,
+          "sha256": "6521eeb4bfc53fc57b99df817dbb84c410cdf03055915cb2ca451d420a5abec9"
+        },
+        {
+          "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part04.lean",
+          "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.RRSplit.residueTheoremK_ratFunc_of_isAlgClosed_Part04",
+          "source_lines": [
+            5659,
+            7758
+          ],
+          "bytes": 106908,
+          "sha256": "ebf4fe2627d7d1216b55c594ec471a08fd628ec32200f3c2d07d310070124f8b"
+        },
+        {
+          "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part05.lean",
+          "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.RRSplit.residueTheoremK_ratFunc_of_isAlgClosed_Part05",
+          "source_lines": [
+            7759,
+            9808
+          ],
+          "bytes": 106689,
+          "sha256": "dfcff6bc870a5f635eca5f7e1dda16b0960fe3e23bd5a63f5c3464cfd91fdfc3"
+        },
+        {
+          "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part06.lean",
+          "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.RRSplit.residueTheoremK_ratFunc_of_isAlgClosed_Part06",
+          "source_lines": [
+            9809,
+            11709
+          ],
+          "bytes": 94559,
+          "sha256": "bf5491a6e83424af081e8ff1a959a5f01b61640326ed336d6c3999b3973468eb"
+        },
+        {
+          "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part07.lean",
+          "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.RRSplit.residueTheoremK_ratFunc_of_isAlgClosed_Part07",
+          "source_lines": [
+            11710,
+            13170
+          ],
+          "bytes": 73486,
+          "sha256": "484dda459200f62ce83dd4324d27adeed80acac6b9b1eb4ff2cd5b7567e4f829"
+        }
+      ],
+      "promoted_private_helpers": [
+        {
+          "line": 471,
+          "original_user_name": "AlgebraicCurve.Place.ord_add_eq_min",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.ord_add_eq_min"
+        },
+        {
+          "line": 617,
+          "original_user_name": "AlgebraicCurve.Place.ord_nonneg_of_mem",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.ord_nonneg_of_mem"
+        },
+        {
+          "line": 633,
+          "original_user_name": "AlgebraicCurve.Place.mem_of_ord_nonneg",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.mem_of_ord_nonneg"
+        },
+        {
+          "line": 642,
+          "original_user_name": "AlgebraicCurve.Place.mem_iff_ord_nonneg",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.mem_iff_ord_nonneg"
+        },
+        {
+          "line": 661,
+          "original_user_name": "AlgebraicCurve.Place.algebraMap_ne_zero",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.algebraMap_ne_zero"
+        },
+        {
+          "line": 667,
+          "original_user_name": "AlgebraicCurve.Place.comap_algebraMap_ne_top",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.comap_algebraMap_ne_top"
+        },
+        {
+          "line": 721,
+          "original_user_name": "AlgebraicCurve.Place.exists_ord_algebraMap_pos",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.exists_ord_algebraMap_pos"
+        },
+        {
+          "line": 738,
+          "original_user_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.ramificationIndex_set_nonempty",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.ramificationIndex_set_nonempty"
+        },
+        {
+          "line": 822,
+          "original_user_name": "AlgebraicCurve.Place.ord_add_eq_left",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.ord_add_eq_left"
+        },
+        {
+          "line": 1216,
+          "original_user_name": "AlgebraicCurve.Place.uniformizerSubring'",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.uniformizerSubring'"
+        },
+        {
+          "line": 1220,
+          "original_user_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.instSMulCommClass_subring",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.instSMulCommClass_subring"
+        },
+        {
+          "line": 1223,
+          "original_user_name": "AlgebraicCurve.Place.kaehlerMap_subring_D_uniformizer",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.kaehlerMap_subring_D_uniformizer"
+        },
+        {
+          "line": 1720,
+          "original_user_name": "AlgebraicCurve.Place.uniformizerSubring",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.uniformizerSubring"
+        },
+        {
+          "line": 1725,
+          "original_user_name": "AlgebraicCurve.Place.coe_uniformizerSubring",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.coe_uniformizerSubring"
+        },
+        {
+          "line": 1728,
+          "original_user_name": "AlgebraicCurve.Place.irreducible_uniformizerSubring",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.irreducible_uniformizerSubring"
+        },
+        {
+          "line": 1732,
+          "original_user_name": "AlgebraicCurve.Place.uniformizerSubring_mem_maximalIdeal",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.uniformizerSubring_mem_maximalIdeal"
+        },
+        {
+          "line": 1737,
+          "original_user_name": "AlgebraicCurve.Place.uniformizer_mem",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.uniformizer_mem"
+        },
+        {
+          "line": 1741,
+          "original_user_name": "AlgebraicCurve.Place.simplePoleSubmodule",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.simplePoleSubmodule"
+        },
+        {
+          "line": 1756,
+          "original_user_name": "AlgebraicCurve.Place.mem_simplePoleSubmodule_of_mem",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.mem_simplePoleSubmodule_of_mem"
+        },
+        {
+          "line": 1761,
+          "original_user_name": "AlgebraicCurve.Place.simplePoleMulUniformizer",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.simplePoleMulUniformizer"
+        },
+        {
+          "line": 1771,
+          "original_user_name": "AlgebraicCurve.Place.simplePoleResidueAux",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.simplePoleResidueAux"
+        },
+        {
+          "line": 1779,
+          "original_user_name": "AlgebraicCurve.Place.simplePoleResidueAux_eq_zero_of_mem",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.simplePoleResidueAux_eq_zero_of_mem"
+        },
+        {
+          "line": 1789,
+          "original_user_name": "AlgebraicCurve.Place.localResidueExtend",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.localResidueExtend"
+        },
+        {
+          "line": 1793,
+          "original_user_name": "AlgebraicCurve.Place.localResidueExtend_apply_of_mem",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.localResidueExtend_apply_of_mem"
+        },
+        {
+          "line": 1799,
+          "original_user_name": "AlgebraicCurve.Place.localResidueDataOfExtend",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.localResidueDataOfExtend"
+        },
+        {
+          "line": 1862,
+          "original_user_name": "ModularCurve.MilneAvAg9bRd14CubeRowCartierSliceStart.ag9b14c_res_uniformizer_zpow_eq_zero_of_ne_neg_one",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.ModularCurve.MilneAvAg9bRd14CubeRowCartierSliceStart.ag9b14c_res_uniformizer_zpow_eq_zero_of_ne_neg_one"
+        },
+        {
+          "line": 2359,
+          "original_user_name": "AlgebraicCurve.Place.aeval_mem",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.aeval_mem"
+        },
+        {
+          "line": 2367,
+          "original_user_name": "AlgebraicCurve.Place.exists_coeff_ord_ne_zero",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.exists_coeff_ord_ne_zero"
+        },
+        {
+          "line": 2424,
+          "original_user_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.chartHom",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.chartHom"
+        },
+        {
+          "line": 2430,
+          "original_user_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.inv_algebraMap_mem",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.inv_algebraMap_mem"
+        },
+        {
+          "line": 2515,
+          "original_user_name": "AlgebraicCurve.Place.uniformizerSubring''",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.uniformizerSubring''"
+        },
+        {
+          "line": 2523,
+          "original_user_name": "AlgebraicCurve.Place.polynomialAlgebra_algebraMap_X",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.polynomialAlgebra_algebraMap_X"
+        },
+        {
+          "line": 2538,
+          "original_user_name": "AlgebraicCurve.Place.range_mapBaseChange_le_span_D_uniformizer",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.range_mapBaseChange_le_span_D_uniformizer"
+        },
+        {
+          "line": 2562,
+          "original_user_name": "AlgebraicCurve.Place.range_mapBaseChange_eq_top_of_subsingleton",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.range_mapBaseChange_eq_top_of_subsingleton"
+        },
+        {
+          "line": 2575,
+          "original_user_name": "AlgebraicCurve.Place.span_D_uniformizer_eq_top_of_subsingleton",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.span_D_uniformizer_eq_top_of_subsingleton"
+        },
+        {
+          "line": 2851,
+          "original_user_name": "AlgebraicCurve.Place.poleSubmodule",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.poleSubmodule"
+        },
+        {
+          "line": 2863,
+          "original_user_name": "AlgebraicCurve.Place.mem_poleSubmodule",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.mem_poleSubmodule"
+        },
+        {
+          "line": 2867,
+          "original_user_name": "AlgebraicCurve.Place.uniformizer_pow_ne_zero",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.uniformizer_pow_ne_zero"
+        },
+        {
+          "line": 2871,
+          "original_user_name": "AlgebraicCurve.Place.ord_uniformizer_pow",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.ord_uniformizer_pow"
+        },
+        {
+          "line": 2876,
+          "original_user_name": "AlgebraicCurve.Place.coe_poleSubmodule_zero",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.coe_poleSubmodule_zero"
+        },
+        {
+          "line": 2882,
+          "original_user_name": "AlgebraicCurve.Place.poleSubmodule_one",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.poleSubmodule_one"
+        },
+        {
+          "line": 2886,
+          "original_user_name": "AlgebraicCurve.Place.mem_poleSubmodule_iff_ord",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.mem_poleSubmodule_iff_ord"
+        },
+        {
+          "line": 2893,
+          "original_user_name": "AlgebraicCurve.Place.poleSubmodule_mono",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.poleSubmodule_mono"
+        },
+        {
+          "line": 2902,
+          "original_user_name": "AlgebraicCurve.Place.poleMulUniformizerPow",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.poleMulUniformizerPow"
+        },
+        {
+          "line": 2912,
+          "original_user_name": "AlgebraicCurve.Place.laurentTailCoeff",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.laurentTailCoeff"
+        },
+        {
+          "line": 2920,
+          "original_user_name": "AlgebraicCurve.Place.laurentTail_remainder_mem_poleSubmodule",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.laurentTail_remainder_mem_poleSubmodule"
+        },
+        {
+          "line": 2948,
+          "original_user_name": "AlgebraicCurve.Place.localResidueData_res_eq_simplePoleResidueAux",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.localResidueData_res_eq_simplePoleResidueAux"
+        },
+        {
+          "line": 3338,
+          "original_user_name": "AlgebraicCurve.Place.isUnit_algebraMap",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.isUnit_algebraMap"
+        },
+        {
+          "line": 3343,
+          "original_user_name": "AlgebraicCurve.Place.adicValuation_algebraMap",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.adicValuation_algebraMap"
+        },
+        {
+          "line": 3349,
+          "original_user_name": "AlgebraicCurve.Place.ord_algebraMap",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.ord_algebraMap"
+        },
+        {
+          "line": 3355,
+          "original_user_name": "AlgebraicCurve.Place.ord_eq_neg_log_of_valuationSubring_eq",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.ord_eq_neg_log_of_valuationSubring_eq"
+        },
+        {
+          "line": 4136,
+          "original_user_name": "AlgebraicCurve.Place.uniformizerSubring'''",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.uniformizerSubring'''"
+        },
+        {
+          "line": 4140,
+          "original_user_name": "AlgebraicCurve.Place.irreducible_uniformizerSubring'''",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.irreducible_uniformizerSubring'''"
+        },
+        {
+          "line": 4144,
+          "original_user_name": "AlgebraicCurve.Place.maximalIdeal_eq_span_uniformizer",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.maximalIdeal_eq_span_uniformizer"
+        },
+        {
+          "line": 4149,
+          "original_user_name": "AlgebraicCurve.Place.D_polynomialAlgebra_uniformizer",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.D_polynomialAlgebra_uniformizer"
+        },
+        {
+          "line": 4158,
+          "original_user_name": "AlgebraicCurve.Place.ker_algebraMap_residueField_eq_span",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.ker_algebraMap_residueField_eq_span"
+        },
+        {
+          "line": 4165,
+          "original_user_name": "AlgebraicCurve.Place.formallyUnramified_polynomial_residueField_of_isSeparable",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.formallyUnramified_polynomial_residueField_of_isSeparable"
+        },
+        {
+          "line": 4176,
+          "original_user_name": "AlgebraicCurve.Place.subsingleton_residueKaehler_of_isSeparable",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.subsingleton_residueKaehler_of_isSeparable"
+        },
+        {
+          "line": 4185,
+          "original_user_name": "AlgebraicCurve.Place.subsingleton_residueTensor_polynomialKaehler_of_isSeparable",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.subsingleton_residueTensor_polynomialKaehler_of_isSeparable"
+        },
+        {
+          "line": 4221,
+          "original_user_name": "AlgebraicCurve.Place.finite_polynomialKaehler_of_finite_kaehler",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.finite_polynomialKaehler_of_finite_kaehler"
+        },
+        {
+          "line": 4232,
+          "original_user_name": "AlgebraicCurve.Place.subsingleton_polynomialKaehler_of_isSeparable_of_finite",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.subsingleton_polynomialKaehler_of_isSeparable_of_finite"
+        },
+        {
+          "line": 4243,
+          "original_user_name": "AlgebraicCurve.Place.isSeparable_residueField_of_charZero_of_finiteResidue",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.isSeparable_residueField_of_charZero_of_finiteResidue"
+        },
+        {
+          "line": 4252,
+          "original_user_name": "AlgebraicCurve.Place.subsingleton_polynomialKaehler_of_charZero_of_finite",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.subsingleton_polynomialKaehler_of_charZero_of_finite"
+        },
+        {
+          "line": 4340,
+          "original_user_name": "AlgebraicCurve.Place.exists_mem_poleSubmodule",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.exists_mem_poleSubmodule"
+        },
+        {
+          "line": 4397,
+          "original_user_name": "AlgebraicCurve.Place.uniformizer_pow_inv_mem_poleSubmodule_self",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.uniformizer_pow_inv_mem_poleSubmodule_self"
+        },
+        {
+          "line": 4402,
+          "original_user_name": "AlgebraicCurve.Place.higherPoleMonomial_sum_mem_poleSubmodule",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.higherPoleMonomial_sum_mem_poleSubmodule"
+        },
+        {
+          "line": 4411,
+          "original_user_name": "AlgebraicCurve.Place.higherPoleMonomial_coeff_eq_zero_of_mem",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.higherPoleMonomial_coeff_eq_zero_of_mem"
+        },
+        {
+          "line": 4442,
+          "original_user_name": "AlgebraicCurve.Place.linearIndependent_higherPoleMonomial_mkQ",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.linearIndependent_higherPoleMonomial_mkQ"
+        },
+        {
+          "line": 4453,
+          "original_user_name": "AlgebraicCurve.Place.higherPoleCorrectionAux",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.higherPoleCorrectionAux"
+        },
+        {
+          "line": 4461,
+          "original_user_name": "AlgebraicCurve.Place.higherPoleCorrection",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.higherPoleCorrection"
+        },
+        {
+          "line": 4465,
+          "original_user_name": "AlgebraicCurve.Place.higherPoleCorrection_apply_of_mem",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.higherPoleCorrection_apply_of_mem"
+        },
+        {
+          "line": 4472,
+          "original_user_name": "AlgebraicCurve.Place.higherPoleCorrection_uniformizer_pow_inv",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.higherPoleCorrection_uniformizer_pow_inv"
+        },
+        {
+          "line": 4491,
+          "original_user_name": "AlgebraicCurve.Place.canonicalLocalResidueDataKOfExtend",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.canonicalLocalResidueDataKOfExtend"
+        },
+        {
+          "line": 4569,
+          "original_user_name": "AlgebraicCurve.Place.CanonicalLocalResidueDataK.res_algebraMap_mul_uniformizer_pow_inv",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.CanonicalLocalResidueDataK.res_algebraMap_mul_uniformizer_pow_inv"
+        },
+        {
+          "line": 4619,
+          "original_user_name": "ModularCurve.MilneAvAg9bRd15UnitNormalFormLaurentSeed.ag9b15u_eq_zero_or_one_le_ord_of_residue_eq_zero",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.ModularCurve.MilneAvAg9bRd15UnitNormalFormLaurentSeed.ag9b15u_eq_zero_or_one_le_ord_of_residue_eq_zero"
+        },
+        {
+          "line": 4640,
+          "original_user_name": "ModularCurve.MilneAvAg9bRd15UnitNormalFormLaurentSeed.ag9b15u_exists_unit_normal_form_of_surj",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.ModularCurve.MilneAvAg9bRd15UnitNormalFormLaurentSeed.ag9b15u_exists_unit_normal_form_of_surj"
+        },
+        {
+          "line": 4689,
+          "original_user_name": "ModularCurve.MilneAvAg9bRd15UnitNormalFormLaurentSeed.ag9b15u_exists_K_truncation_of_mem_poleSubmodule",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.ModularCurve.MilneAvAg9bRd15UnitNormalFormLaurentSeed.ag9b15u_exists_K_truncation_of_mem_poleSubmodule"
+        },
+        {
+          "line": 4730,
+          "original_user_name": "ModularCurve.MilneAvAg9bRd15UnitNormalFormLaurentSeed.ag9b15u_differentialCoeff_D_unit_mul_uniformizer",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.ModularCurve.MilneAvAg9bRd15UnitNormalFormLaurentSeed.ag9b15u_differentialCoeff_D_unit_mul_uniformizer"
+        },
+        {
+          "line": 5074,
+          "original_user_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.uniformizer_ne_zero'",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.uniformizer_ne_zero'"
+        },
+        {
+          "line": 5532,
+          "original_user_name": "AlgebraicCurve.Place.ord_prod",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.ord_prod"
+        },
+        {
+          "line": 5813,
+          "original_user_name": "AlgebraicCurve.Place.finite_kaehler_of_essFiniteType",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.finite_kaehler_of_essFiniteType"
+        },
+        {
+          "line": 7162,
+          "original_user_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.ValuationSubring.ofPrime_congr",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.ValuationSubring.ofPrime_congr"
+        },
+        {
+          "line": 7223,
+          "original_user_name": "AlgebraicCurve.Place.isUnit_modelInclusion_of_not_mem_centerIdeal",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.isUnit_modelInclusion_of_not_mem_centerIdeal"
+        },
+        {
+          "line": 7233,
+          "original_user_name": "AlgebraicCurve.Place.isUnit_modelInclusion_of_mem_primeCompl",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.isUnit_modelInclusion_of_mem_primeCompl"
+        },
+        {
+          "line": 7238,
+          "original_user_name": "AlgebraicCurve.Place.modelAlgebra_isScalarTower",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.modelAlgebra_isScalarTower"
+        },
+        {
+          "line": 7248,
+          "original_user_name": "AlgebraicCurve.Place.essFiniteType_of_finiteType_isLocalization_centerIdeal",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.essFiniteType_of_finiteType_isLocalization_centerIdeal"
+        },
+        {
+          "line": 7919,
+          "original_user_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.inv_mem_of_not_mem_centerIdeal",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.inv_mem_of_not_mem_centerIdeal"
+        },
+        {
+          "line": 7933,
+          "original_user_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.div_mem_of_not_mem_centerIdeal",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.div_mem_of_not_mem_centerIdeal"
+        },
+        {
+          "line": 7940,
+          "original_user_name": "AlgebraicCurve.Place.centerIdeal_ne_bot_of_isFractionRing",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.centerIdeal_ne_bot_of_isFractionRing"
+        },
+        {
+          "line": 7981,
+          "original_user_name": "AlgebraicCurve.Place.centerLocalizationSubalgebra_isDiscreteValuationRing",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.centerLocalizationSubalgebra_isDiscreteValuationRing"
+        },
+        {
+          "line": 7992,
+          "original_user_name": "AlgebraicCurve.Place.centerLocalizationSubalgebra_subset",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.centerLocalizationSubalgebra_subset"
+        },
+        {
+          "line": 8003,
+          "original_user_name": "AlgebraicCurve.Place.centerLocalizationValuationSubring",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.centerLocalizationValuationSubring"
+        },
+        {
+          "line": 8023,
+          "original_user_name": "AlgebraicCurve.Place.centerLocalizationValuationSubring_le",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.centerLocalizationValuationSubring_le"
+        },
+        {
+          "line": 8028,
+          "original_user_name": "AlgebraicCurve.Place.centerLocalizationValuationSubring_eq",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.centerLocalizationValuationSubring_eq"
+        },
+        {
+          "line": 8040,
+          "original_user_name": "AlgebraicCurve.Place.mem_centerLocalizationSubalgebra_of_mem",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.mem_centerLocalizationSubalgebra_of_mem"
+        },
+        {
+          "line": 8046,
+          "original_user_name": "AlgebraicCurve.Place.isLocalization_centerIdeal_of_isDedekindDomain",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.isLocalization_centerIdeal_of_isDedekindDomain"
+        },
+        {
+          "line": 8341,
+          "original_user_name": "AlgebraicCurve.Place.isIntegrallyClosed_toValuationSubring",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.isIntegrallyClosed_toValuationSubring"
+        },
+        {
+          "line": 8345,
+          "original_user_name": "AlgebraicCurve.Place.mem_valuationSubring_of_isIntegral",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.mem_valuationSubring_of_isIntegral"
+        },
+        {
+          "line": 8356,
+          "original_user_name": "AlgebraicCurve.Place.modelAlgebra_isScalarTower_top",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.modelAlgebra_isScalarTower_top"
+        },
+        {
+          "line": 8366,
+          "original_user_name": "AlgebraicCurve.Place.mem_valuationSubring_of_isIntegral_subalgebra",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.mem_valuationSubring_of_isIntegral_subalgebra"
+        },
+        {
+          "line": 8376,
+          "original_user_name": "AlgebraicCurve.Place.integralClosure_subset_valuationSubring",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.integralClosure_subset_valuationSubring"
+        },
+        {
+          "line": 8450,
+          "original_user_name": "AlgebraicCurve.Place.coe_toKSubalgebra",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.coe_toKSubalgebra"
+        },
+        {
+          "line": 8503,
+          "original_user_name": "AlgebraicCurve.Place.simplePoleResidueAux_mul_of_mem",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.simplePoleResidueAux_mul_of_mem"
+        },
+        {
+          "line": 8512,
+          "original_user_name": "AlgebraicCurve.Place.mul_mem_simplePoleSubmodule_of_mem",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.mul_mem_simplePoleSubmodule_of_mem"
+        },
+        {
+          "line": 8556,
+          "original_user_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.differentialCoeff_add'",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.differentialCoeff_add'"
+        },
+        {
+          "line": 8851,
+          "original_user_name": "Transcendental.isPrincipalIdealRing_adjoin",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Transcendental.isPrincipalIdealRing_adjoin"
+        },
+        {
+          "line": 8858,
+          "original_user_name": "Transcendental.isDedekindDomain_adjoin",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Transcendental.isDedekindDomain_adjoin"
+        },
+        {
+          "line": 8864,
+          "original_user_name": "Transcendental.isIntegrallyClosed_adjoin",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Transcendental.isIntegrallyClosed_adjoin"
+        },
+        {
+          "line": 8870,
+          "original_user_name": "Transcendental.isNoetherianRing_adjoin",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Transcendental.isNoetherianRing_adjoin"
+        },
+        {
+          "line": 8876,
+          "original_user_name": "Algebra.FiniteType.adjoin_singleton",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Algebra.FiniteType.adjoin_singleton"
+        },
+        {
+          "line": 8881,
+          "original_user_name": "Transcendental.inv",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.Transcendental.inv"
+        },
+        {
+          "line": 10406,
+          "original_user_name": "AlgebraicCurve.Place.differentialCoeff_add''",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.differentialCoeff_add''"
+        },
+        {
+          "line": 10412,
+          "original_user_name": "AlgebraicCurve.Place.differentialCoeff_D_uniformizer_pow_inv",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.Place.differentialCoeff_D_uniformizer_pow_inv"
+        },
+        {
+          "line": 11051,
+          "original_user_name": "ModularCurve.MilneAvAg9bRd13T2CoordIndepChar3.ag9b13t_res_differentialCoeff_D_mul_pow_inv_of_surj_of_natCast_ne_zero",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.ModularCurve.MilneAvAg9bRd13T2CoordIndepChar3.ag9b13t_res_differentialCoeff_D_mul_pow_inv_of_surj_of_natCast_ne_zero"
+        },
+        {
+          "line": 11256,
+          "original_user_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.ag9b12c_aeval_root_eq_sum_range",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.ag9b12c_aeval_root_eq_sum_range"
+        },
+        {
+          "line": 11295,
+          "original_user_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.ag9b12c_differentialCoeff_add",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.AlgebraicCurve.ag9b12c_differentialCoeff_add"
+        }
+      ],
+      "expanded_notations": [
+        {
+          "line": 5072,
+          "token": "v",
+          "expansion": "Place.ofHeightOneSpectrum (K := K) (F := RatFunc K) w"
+        },
+        {
+          "line": 5159,
+          "token": "v",
+          "expansion": "Place.ofHeightOneSpectrum (K := K) (F := RatFunc K) w"
+        },
+        {
+          "line": 6350,
+          "token": "v",
+          "expansion": "Place.ofHeightOneSpectrum (K := K) (F := RatFunc K) w"
+        },
+        {
+          "line": 10445,
+          "token": "vw",
+          "expansion": "Place.ofHeightOneSpectrum (K := K) (F := RatFunc K) w"
+        },
+        {
+          "line": 12245,
+          "token": "Qbar",
+          "expansion": "AlgebraicClosure \u211a"
+        },
+        {
+          "line": 13147,
+          "token": "Qbar",
+          "expansion": "AlgebraicClosure \u211a"
+        }
+      ],
+      "files": [
+        "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part01.lean",
+        "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part02.lean",
+        "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part03.lean",
+        "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part04.lean",
+        "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part05.lean",
+        "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part06.lean",
+        "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_ratFunc_of_isAlgClosed_Part07.lean",
+        "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.lean"
+      ]
+    },
+    {
+      "original_module": "P2M.Sol.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed",
+      "source_sha256": "89e923cb52655f5b7bdab81d59f64b9f5e6ded96ee364ca5add324266a4f03ca",
+      "source_bytes": 583299,
+      "facade": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.lean",
+      "solution": "P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.solution",
+      "parts": [
+        {
+          "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_of_isAlgClosed_Part01.lean",
+          "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.RRSplit.residueTheoremK_of_isAlgClosed_Part01",
+          "source_lines": [
+            1,
+            1734
+          ],
+          "bytes": 106905,
+          "sha256": "cfa7b9c1a91060fe7013ba264e40949fb445a5c80f0ae26459f433be289c9665"
+        },
+        {
+          "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_of_isAlgClosed_Part02.lean",
+          "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.RRSplit.residueTheoremK_of_isAlgClosed_Part02",
+          "source_lines": [
+            1735,
+            3202
+          ],
+          "bytes": 105777,
+          "sha256": "5b2b78c3f1204440a5ecfd2f6e022c12f82214bc11ab83b4b5fdf526882b6130"
+        },
+        {
+          "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_of_isAlgClosed_Part03.lean",
+          "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.RRSplit.residueTheoremK_of_isAlgClosed_Part03",
+          "source_lines": [
+            3203,
+            5269
+          ],
+          "bytes": 104616,
+          "sha256": "4c9db939a0a13114e40751264dea5feb4c080288ba31c3c477e86f668d24c0ec"
+        },
+        {
+          "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_of_isAlgClosed_Part04.lean",
+          "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.RRSplit.residueTheoremK_of_isAlgClosed_Part04",
+          "source_lines": [
+            5270,
+            7508
+          ],
+          "bytes": 101957,
+          "sha256": "6c73c186101e184f02bc17de93871223ddbfe2b479345259946378d30f27a199"
+        },
+        {
+          "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_of_isAlgClosed_Part05.lean",
+          "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.RRSplit.residueTheoremK_of_isAlgClosed_Part05",
+          "source_lines": [
+            7509,
+            8121
+          ],
+          "bytes": 30983,
+          "sha256": "e18dd9d21e3e046da4a2cb7490bfcc8018a62cff18b01bbfe1dee595750e5dd1"
+        }
+      ],
+      "promoted_private_helpers": [
+        {
+          "line": 345,
+          "original_user_name": "AlgebraicCurve.Place.ord_nonneg_of_mem",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.ord_nonneg_of_mem"
+        },
+        {
+          "line": 361,
+          "original_user_name": "AlgebraicCurve.Place.mem_of_ord_nonneg",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.mem_of_ord_nonneg"
+        },
+        {
+          "line": 370,
+          "original_user_name": "AlgebraicCurve.Place.mem_iff_ord_nonneg",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.mem_iff_ord_nonneg"
+        },
+        {
+          "line": 375,
+          "original_user_name": "AlgebraicCurve.Place.exists_ord_pos",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.exists_ord_pos"
+        },
+        {
+          "line": 682,
+          "original_user_name": "AlgebraicCurve.Place.aeval_mem",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.aeval_mem"
+        },
+        {
+          "line": 690,
+          "original_user_name": "AlgebraicCurve.Place.exists_coeff_ord_ne_zero",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.exists_coeff_ord_ne_zero"
+        },
+        {
+          "line": 1261,
+          "original_user_name": "AlgebraicCurve.Place.isUnit_algebraMap",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.isUnit_algebraMap"
+        },
+        {
+          "line": 1266,
+          "original_user_name": "AlgebraicCurve.Place.adicValuation_algebraMap",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.adicValuation_algebraMap"
+        },
+        {
+          "line": 1272,
+          "original_user_name": "AlgebraicCurve.Place.ord_algebraMap",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.ord_algebraMap"
+        },
+        {
+          "line": 1278,
+          "original_user_name": "AlgebraicCurve.Place.ord_eq_neg_log_of_valuationSubring_eq",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.ord_eq_neg_log_of_valuationSubring_eq"
+        },
+        {
+          "line": 1608,
+          "original_user_name": "AlgebraicCurve.Place.ord_prod",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.ord_prod"
+        },
+        {
+          "line": 1885,
+          "original_user_name": "AlgebraicCurve.Place.ord_add_eq_min",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.ord_add_eq_min"
+        },
+        {
+          "line": 2526,
+          "original_user_name": "AlgebraicCurve.Place.ord_add_eq_left",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.ord_add_eq_left"
+        },
+        {
+          "line": 2640,
+          "original_user_name": "AlgebraicCurve.Place.subsingleton_canonicalLocalResidueDataK_of_surj",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.subsingleton_canonicalLocalResidueDataK_of_surj"
+        },
+        {
+          "line": 3132,
+          "original_user_name": "AlgebraicCurve.Place.mem_regularSubmodule",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.mem_regularSubmodule"
+        },
+        {
+          "line": 3222,
+          "original_user_name": "AlgebraicCurve.Place.regularPoleSubmodule",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.regularPoleSubmodule"
+        },
+        {
+          "line": 3227,
+          "original_user_name": "AlgebraicCurve.Place.mem_regularPoleSubmodule",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.mem_regularPoleSubmodule"
+        },
+        {
+          "line": 3237,
+          "original_user_name": "AlgebraicCurve.Place.regularPoleSubmodule_mono",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.regularPoleSubmodule_mono"
+        },
+        {
+          "line": 3242,
+          "original_user_name": "AlgebraicCurve.Place.iSup_regularPoleSubmodule_eq_top",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.iSup_regularPoleSubmodule_eq_top"
+        },
+        {
+          "line": 3253,
+          "original_user_name": "AlgebraicCurve.Place.exists_mem_regularPoleSubmodule",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.exists_mem_regularPoleSubmodule"
+        },
+        {
+          "line": 3695,
+          "original_user_name": "P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.uniformizer_ne_zero'",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.uniformizer_ne_zero'"
+        },
+        {
+          "line": 6405,
+          "original_user_name": "AlgebraicCurve.Place.surjective_algebraMap_residueField_of_isAlgClosed_of_finiteResidue",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.surjective_algebraMap_residueField_of_isAlgClosed_of_finiteResidue"
+        },
+        {
+          "line": 6417,
+          "original_user_name": "AlgebraicCurve.Place.subsingleton_canonicalLocalResidueDataK_of_isAlgClosed_of_finiteResidue",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.subsingleton_canonicalLocalResidueDataK_of_isAlgClosed_of_finiteResidue"
+        }
+      ],
+      "expanded_notations": [
+        {
+          "line": 3693,
+          "token": "v",
+          "expansion": "Place.ofHeightOneSpectrum (K := K) (F := RatFunc K) w"
+        },
+        {
+          "line": 3780,
+          "token": "v",
+          "expansion": "Place.ofHeightOneSpectrum (K := K) (F := RatFunc K) w"
+        },
+        {
+          "line": 3923,
+          "token": "v",
+          "expansion": "Place.ofHeightOneSpectrum (K := K) (F := RatFunc K) w"
+        },
+        {
+          "line": 5712,
+          "token": "Qbar",
+          "expansion": "AlgebraicClosure \u211a"
+        }
+      ],
+      "files": [
+        "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_of_isAlgClosed_Part01.lean",
+        "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_of_isAlgClosed_Part02.lean",
+        "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_of_isAlgClosed_Part03.lean",
+        "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_of_isAlgClosed_Part04.lean",
+        "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/residueTheoremK_of_isAlgClosed_Part05.lean",
+        "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.lean"
+      ]
+    },
+    {
+      "original_module": "P2M.Sol.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed",
+      "source_sha256": "fcb7782a038145f3463733188e01f7c0180c8cc4babc554104c292c737fa1750",
+      "source_bytes": 502212,
+      "facade": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.lean",
+      "solution": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.solution",
+      "parts": [
+        {
+          "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed_Part01.lean",
+          "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.RRSplit.functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed_Part01",
+          "source_lines": [
+            1,
+            1352
+          ],
+          "bytes": 98448,
+          "sha256": "3640fa0232ec498bcd1268d631b2ccd7b1711a88e1cebebf7fda63ce2ea4f2af"
+        },
+        {
+          "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed_Part02.lean",
+          "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.RRSplit.functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed_Part02",
+          "source_lines": [
+            1353,
+            2812
+          ],
+          "bytes": 99881,
+          "sha256": "55696e66258f52ea3bca717e4f1f38cf77ca1f1a79cbc817a7f76240a6421bb5"
+        },
+        {
+          "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed_Part03.lean",
+          "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.RRSplit.functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed_Part03",
+          "source_lines": [
+            2813,
+            4221
+          ],
+          "bytes": 89368,
+          "sha256": "aabe74f2568e96248d1c79344843d06efb6735cf4f5ec7d2be2d60e0059afde6"
+        },
+        {
+          "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed_Part04.lean",
+          "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.RRSplit.functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed_Part04",
+          "source_lines": [
+            4222,
+            5756
+          ],
+          "bytes": 95206,
+          "sha256": "5820867cfe4cc321ebcc37d0015ee2c4371a36051b1238ab9f651f364d6b95a8"
+        },
+        {
+          "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed_Part05.lean",
+          "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.RRSplit.functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed_Part05",
+          "source_lines": [
+            5757,
+            6257
+          ],
+          "bytes": 34764,
+          "sha256": "1e9f96c1f46e748bc1e26a3e5b882c2effcdf1b177e3042db3c92de55524de43"
+        }
+      ],
+      "promoted_private_helpers": [
+        {
+          "line": 363,
+          "original_user_name": "AlgebraicCurve.Place.ord_nonneg_of_mem",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.ord_nonneg_of_mem"
+        },
+        {
+          "line": 379,
+          "original_user_name": "AlgebraicCurve.Place.mem_of_ord_nonneg",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.mem_of_ord_nonneg"
+        },
+        {
+          "line": 388,
+          "original_user_name": "AlgebraicCurve.Place.mem_iff_ord_nonneg",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.mem_iff_ord_nonneg"
+        },
+        {
+          "line": 407,
+          "original_user_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.algebraMap_ne_zero",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.algebraMap_ne_zero"
+        },
+        {
+          "line": 412,
+          "original_user_name": "AlgebraicCurve.Place.comap_algebraMap_ne_top",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.comap_algebraMap_ne_top"
+        },
+        {
+          "line": 466,
+          "original_user_name": "AlgebraicCurve.Place.exists_ord_algebraMap_pos",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.exists_ord_algebraMap_pos"
+        },
+        {
+          "line": 483,
+          "original_user_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.ramificationIndex_set_nonempty",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.ramificationIndex_set_nonempty"
+        },
+        {
+          "line": 780,
+          "original_user_name": "AlgebraicCurve.Place.uniformizerSubring",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.uniformizerSubring"
+        },
+        {
+          "line": 785,
+          "original_user_name": "AlgebraicCurve.Place.coe_uniformizerSubring",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.coe_uniformizerSubring"
+        },
+        {
+          "line": 788,
+          "original_user_name": "AlgebraicCurve.Place.irreducible_uniformizerSubring",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.irreducible_uniformizerSubring"
+        },
+        {
+          "line": 792,
+          "original_user_name": "AlgebraicCurve.Place.uniformizerSubring_mem_maximalIdeal",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.uniformizerSubring_mem_maximalIdeal"
+        },
+        {
+          "line": 797,
+          "original_user_name": "AlgebraicCurve.Place.uniformizer_mem",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.uniformizer_mem"
+        },
+        {
+          "line": 801,
+          "original_user_name": "AlgebraicCurve.Place.simplePoleSubmodule",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.simplePoleSubmodule"
+        },
+        {
+          "line": 816,
+          "original_user_name": "AlgebraicCurve.Place.mem_simplePoleSubmodule_of_mem",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.mem_simplePoleSubmodule_of_mem"
+        },
+        {
+          "line": 821,
+          "original_user_name": "AlgebraicCurve.Place.simplePoleMulUniformizer",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.simplePoleMulUniformizer"
+        },
+        {
+          "line": 831,
+          "original_user_name": "AlgebraicCurve.Place.simplePoleResidueAux",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.simplePoleResidueAux"
+        },
+        {
+          "line": 839,
+          "original_user_name": "AlgebraicCurve.Place.simplePoleResidueAux_eq_zero_of_mem",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.simplePoleResidueAux_eq_zero_of_mem"
+        },
+        {
+          "line": 849,
+          "original_user_name": "AlgebraicCurve.Place.localResidueExtend",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.localResidueExtend"
+        },
+        {
+          "line": 853,
+          "original_user_name": "AlgebraicCurve.Place.localResidueExtend_apply_of_mem",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.localResidueExtend_apply_of_mem"
+        },
+        {
+          "line": 1197,
+          "original_user_name": "AlgebraicCurve.Place.isUnit_mk_of_ord_eq_zero",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.isUnit_mk_of_ord_eq_zero"
+        },
+        {
+          "line": 1208,
+          "original_user_name": "AlgebraicCurve.Place.residue_ne_zero_of_ord_eq_zero",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.residue_ne_zero_of_ord_eq_zero"
+        },
+        {
+          "line": 1214,
+          "original_user_name": "AlgebraicCurve.Place.IsRational",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.IsRational"
+        },
+        {
+          "line": 1217,
+          "original_user_name": "AlgebraicCurve.Place.residueInv",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.residueInv"
+        },
+        {
+          "line": 1221,
+          "original_user_name": "AlgebraicCurve.Place.algebraMap_residueInv",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.algebraMap_residueInv"
+        },
+        {
+          "line": 1228,
+          "original_user_name": "AlgebraicCurve.Place.evalAt",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.evalAt"
+        },
+        {
+          "line": 1234,
+          "original_user_name": "AlgebraicCurve.Place.evalAt_of_mem",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.evalAt_of_mem"
+        },
+        {
+          "line": 1239,
+          "original_user_name": "AlgebraicCurve.Place.algebraMap_evalAt",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.algebraMap_evalAt"
+        },
+        {
+          "line": 1246,
+          "original_user_name": "AlgebraicCurve.Place.evalAt_ne_zero",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.evalAt_ne_zero"
+        },
+        {
+          "line": 1509,
+          "original_user_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.chartHom",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.chartHom"
+        },
+        {
+          "line": 1536,
+          "original_user_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.inv_algebraMap_mem",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.inv_algebraMap_mem"
+        },
+        {
+          "line": 1582,
+          "original_user_name": "AlgebraicCurve.Place.poleSubmodule",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.poleSubmodule"
+        },
+        {
+          "line": 1597,
+          "original_user_name": "AlgebraicCurve.Place.uniformizer_pow_ne_zero",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.uniformizer_pow_ne_zero"
+        },
+        {
+          "line": 1601,
+          "original_user_name": "AlgebraicCurve.Place.ord_uniformizer_pow",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.ord_uniformizer_pow"
+        },
+        {
+          "line": 1607,
+          "original_user_name": "AlgebraicCurve.Place.poleSubmodule_one",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.poleSubmodule_one"
+        },
+        {
+          "line": 1611,
+          "original_user_name": "AlgebraicCurve.Place.mem_poleSubmodule_iff_ord",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.mem_poleSubmodule_iff_ord"
+        },
+        {
+          "line": 1618,
+          "original_user_name": "AlgebraicCurve.Place.poleSubmodule_mono",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.poleSubmodule_mono"
+        },
+        {
+          "line": 1973,
+          "original_user_name": "AlgebraicCurve.Place.ord_sub_evalAt_pos",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.ord_sub_evalAt_pos"
+        },
+        {
+          "line": 2026,
+          "original_user_name": "AlgebraicCurve.Place.isRational_of_deg_eq_one",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.isRational_of_deg_eq_one"
+        },
+        {
+          "line": 2062,
+          "original_user_name": "AlgebraicCurve.Place.mk_mem_maximalIdeal_iff",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.mk_mem_maximalIdeal_iff"
+        },
+        {
+          "line": 3504,
+          "original_user_name": "AlgebraicCurve.RiemannGenusReachedAt.eq_of_ge",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.RiemannGenusReachedAt.eq_of_ge"
+        },
+        {
+          "line": 4083,
+          "original_user_name": "AlgebraicCurve.Place.uniformizer_pow_inv_mem_poleSubmodule_self",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.uniformizer_pow_inv_mem_poleSubmodule_self"
+        },
+        {
+          "line": 4088,
+          "original_user_name": "AlgebraicCurve.Place.higherPoleMonomial_sum_mem_poleSubmodule",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.higherPoleMonomial_sum_mem_poleSubmodule"
+        },
+        {
+          "line": 4097,
+          "original_user_name": "AlgebraicCurve.Place.higherPoleMonomial_coeff_eq_zero_of_mem",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.higherPoleMonomial_coeff_eq_zero_of_mem"
+        },
+        {
+          "line": 4128,
+          "original_user_name": "AlgebraicCurve.Place.linearIndependent_higherPoleMonomial_mkQ",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.linearIndependent_higherPoleMonomial_mkQ"
+        },
+        {
+          "line": 4139,
+          "original_user_name": "AlgebraicCurve.Place.higherPoleCorrectionAux",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.higherPoleCorrectionAux"
+        },
+        {
+          "line": 4147,
+          "original_user_name": "AlgebraicCurve.Place.higherPoleCorrection",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.higherPoleCorrection"
+        },
+        {
+          "line": 4151,
+          "original_user_name": "AlgebraicCurve.Place.higherPoleCorrection_apply_of_mem",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.higherPoleCorrection_apply_of_mem"
+        },
+        {
+          "line": 4158,
+          "original_user_name": "AlgebraicCurve.Place.higherPoleCorrection_uniformizer_pow_inv",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.higherPoleCorrection_uniformizer_pow_inv"
+        },
+        {
+          "line": 4177,
+          "original_user_name": "AlgebraicCurve.Place.canonicalLocalResidueDataKOfExtend",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.canonicalLocalResidueDataKOfExtend"
+        },
+        {
+          "line": 4863,
+          "original_user_name": "AlgebraicCurve.Place.exists_trace_residue_ne_zero",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.exists_trace_residue_ne_zero"
+        },
+        {
+          "line": 5469,
+          "original_user_name": "AlgebraicCurve.Place.mem_of_isIntegral",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.mem_of_isIntegral"
+        },
+        {
+          "line": 5475,
+          "original_user_name": "AlgebraicCurve.Place.mem_of_isIntegral_of_algebraMap_mem",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.mem_of_isIntegral_of_algebraMap_mem"
+        },
+        {
+          "line": 5497,
+          "original_user_name": "AlgebraicCurve.Place.mem_of_isIntegral_of_restrict",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.mem_of_isIntegral_of_restrict"
+        },
+        {
+          "line": 5510,
+          "original_user_name": "AlgebraicCurve.Place.ord_nonneg_of_isIntegral_of_restrict",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.Place.ord_nonneg_of_isIntegral_of_restrict"
+        },
+        {
+          "line": 5779,
+          "original_user_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.RationalFunctionField.not_isField_integralClosureAt'",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.AlgebraicCurve.RationalFunctionField.not_isField_integralClosureAt'"
+        }
+      ],
+      "expanded_notations": [
+        {
+          "line": 5922,
+          "token": "Qbar",
+          "expansion": "AlgebraicClosure \u211a"
+        },
+        {
+          "line": 5963,
+          "token": "Qbar",
+          "expansion": "AlgebraicClosure \u211a"
+        }
+      ],
+      "files": [
+        "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed_Part01.lean",
+        "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed_Part02.lean",
+        "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed_Part03.lean",
+        "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed_Part04.lean",
+        "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed_Part05.lean",
+        "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.lean"
+      ]
+    },
+    {
+      "original_module": "P2M.Sol.S_AlgebraicCurve_tateAgreement",
+      "source_sha256": "8809f943c95cc04c0a7eb0bf06b23037594130bd9ee332ad6b989c03f567ff90",
+      "source_bytes": 264229,
+      "facade": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_tateAgreement.lean",
+      "solution": "P2MW.S_AlgebraicCurve_tateAgreement.solution",
+      "parts": [
+        {
+          "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/tateAgreement_Part01.lean",
+          "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.RRSplit.tateAgreement_Part01",
+          "source_lines": [
+            1,
+            2457
+          ],
+          "bytes": 106241,
+          "sha256": "dee4bbe1073d822642ed39e7a89a3730dbef61356be9a8ce2fe48eac8b2981cd"
+        },
+        {
+          "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/tateAgreement_Part02.lean",
+          "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.RRSplit.tateAgreement_Part02",
+          "source_lines": [
+            2458,
+            4816
+          ],
+          "bytes": 103683,
+          "sha256": "38aba450e4a9ebd7a1a223927fbab391f2f8962a28b3cb5960f02775c6aad051"
+        }
+      ],
+      "promoted_private_helpers": [
+        {
+          "line": 494,
+          "original_user_name": "AlgebraicCurve.Place.ord_nonneg_of_mem",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_tateAgreement.AlgebraicCurve.Place.ord_nonneg_of_mem"
+        },
+        {
+          "line": 510,
+          "original_user_name": "AlgebraicCurve.Place.mem_of_ord_nonneg",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_tateAgreement.AlgebraicCurve.Place.mem_of_ord_nonneg"
+        },
+        {
+          "line": 519,
+          "original_user_name": "AlgebraicCurve.Place.mem_iff_ord_nonneg",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_tateAgreement.AlgebraicCurve.Place.mem_iff_ord_nonneg"
+        }
+      ],
+      "expanded_notations": [
+        {
+          "line": 1284,
+          "token": "vK",
+          "expansion": "(Valued.v : Valuation (v.adicCompletion K) \u2124\u1d50\u2070)"
+        },
+        {
+          "line": 1368,
+          "token": "O_w",
+          "expansion": "w.toValuationSubring"
+        },
+        {
+          "line": 1369,
+          "token": "\ud835\udd2a_w",
+          "expansion": "IsLocalRing.maximalIdeal w.toValuationSubring"
+        },
+        {
+          "line": 1370,
+          "token": "O_W",
+          "expansion": "w.adicCompletionIntegers"
+        },
+        {
+          "line": 1371,
+          "token": "\ud835\udd2a_W",
+          "expansion": "w.heightOneSpectrum.completionIdeal F"
+        }
+      ],
+      "files": [
+        "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/tateAgreement_Part01.lean",
+        "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/tateAgreement_Part02.lean",
+        "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_tateAgreement.lean"
+      ]
+    },
+    {
+      "original_module": "P2M.Sol.S_AlgebraicCurve_tateTraceCompat_of_isSeparable",
+      "source_sha256": "e9a8501605056a5aad7b73b25724b0e612ea30e07e8344ef1eee0af4bd11caa1",
+      "source_bytes": 261383,
+      "facade": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_tateTraceCompat_of_isSeparable.lean",
+      "solution": "P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.solution",
+      "parts": [
+        {
+          "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/tateTraceCompat_of_isSeparable_Part01.lean",
+          "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.RRSplit.tateTraceCompat_of_isSeparable_Part01",
+          "source_lines": [
+            1,
+            2340
+          ],
+          "bytes": 109782,
+          "sha256": "ba940b574eedc83bb75290c24522770e4327245f4e6f9a8bda82bf495a602591"
+        },
+        {
+          "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/tateTraceCompat_of_isSeparable_Part02.lean",
+          "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.RRSplit.tateTraceCompat_of_isSeparable_Part02",
+          "source_lines": [
+            2341,
+            4418
+          ],
+          "bytes": 92297,
+          "sha256": "0dadcb8aa9c4ebccc8222d52799ee774fe1a976798ef9cf7f51e3efd2c745627"
+        }
+      ],
+      "promoted_private_helpers": [
+        {
+          "line": 324,
+          "original_user_name": "AlgebraicCurve.Place.ord_nonneg_of_mem",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCurve.Place.ord_nonneg_of_mem"
+        },
+        {
+          "line": 340,
+          "original_user_name": "AlgebraicCurve.Place.mem_of_ord_nonneg",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCurve.Place.mem_of_ord_nonneg"
+        },
+        {
+          "line": 349,
+          "original_user_name": "AlgebraicCurve.Place.mem_iff_ord_nonneg",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCurve.Place.mem_iff_ord_nonneg"
+        },
+        {
+          "line": 368,
+          "original_user_name": "P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCurve.Place.algebraMap_ne_zero",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCurve.Place.algebraMap_ne_zero"
+        },
+        {
+          "line": 373,
+          "original_user_name": "AlgebraicCurve.Place.comap_algebraMap_ne_top",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCurve.Place.comap_algebraMap_ne_top"
+        },
+        {
+          "line": 427,
+          "original_user_name": "AlgebraicCurve.Place.exists_ord_algebraMap_pos",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCurve.Place.exists_ord_algebraMap_pos"
+        },
+        {
+          "line": 444,
+          "original_user_name": "P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCurve.Place.ramificationIndex_set_nonempty",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCurve.Place.ramificationIndex_set_nonempty"
+        },
+        {
+          "line": 1049,
+          "original_user_name": "AlgebraicCurve.Place.uniformizerSubring",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCurve.Place.uniformizerSubring"
+        },
+        {
+          "line": 1053,
+          "original_user_name": "AlgebraicCurve.Place.uniformizer_mem",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.AlgebraicCurve.Place.uniformizer_mem"
+        }
+      ],
+      "expanded_notations": [
+        {
+          "line": 1369,
+          "token": "vK",
+          "expansion": "(Valued.v : Valuation (v.adicCompletion K) \u2124\u1d50\u2070)"
+        },
+        {
+          "line": 1442,
+          "token": "O_w",
+          "expansion": "w.toValuationSubring"
+        },
+        {
+          "line": 1443,
+          "token": "\ud835\udd2a_w",
+          "expansion": "IsLocalRing.maximalIdeal w.toValuationSubring"
+        },
+        {
+          "line": 1444,
+          "token": "O_W",
+          "expansion": "w.adicCompletionIntegers"
+        },
+        {
+          "line": 1445,
+          "token": "\ud835\udd2a_W",
+          "expansion": "w.heightOneSpectrum.completionIdeal F"
+        }
+      ],
+      "files": [
+        "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/tateTraceCompat_of_isSeparable_Part01.lean",
+        "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/tateTraceCompat_of_isSeparable_Part02.lean",
+        "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_tateTraceCompat_of_isSeparable.lean"
+      ]
+    },
+    {
+      "original_module": "P2M.Sol.S_AlgebraicCurve_tateChainRule",
+      "source_sha256": "56bc9677fa64e2308bf3ee59531fa1fd8267e66ba9e72dc6fe173420cbcff90d",
+      "source_bytes": 140837,
+      "facade": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_tateChainRule.lean",
+      "solution": "P2MW.S_AlgebraicCurve_tateChainRule.solution",
+      "parts": [
+        {
+          "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/tateChainRule_Part01.lean",
+          "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.RRSplit.tateChainRule_Part01",
+          "source_lines": [
+            1,
+            2530
+          ],
+          "bytes": 107792,
+          "sha256": "16d5b5cf677fb684f63deac4a1ac5710ee9df8e87cd08f6751e80183114228fb"
+        },
+        {
+          "path": "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/tateChainRule_Part02.lean",
+          "module": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.RRSplit.tateChainRule_Part02",
+          "source_lines": [
+            2531,
+            2832
+          ],
+          "bytes": 16319,
+          "sha256": "861bac6b56f75953da728d1fedc5068da6d6db5b69784855d2669bab1925db3d"
+        }
+      ],
+      "promoted_private_helpers": [
+        {
+          "line": 284,
+          "original_user_name": "AlgebraicCurve.Place.ord_nonneg_of_mem",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_tateChainRule.AlgebraicCurve.Place.ord_nonneg_of_mem"
+        },
+        {
+          "line": 300,
+          "original_user_name": "AlgebraicCurve.Place.mem_of_ord_nonneg",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_tateChainRule.AlgebraicCurve.Place.mem_of_ord_nonneg"
+        },
+        {
+          "line": 309,
+          "original_user_name": "AlgebraicCurve.Place.mem_iff_ord_nonneg",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_tateChainRule.AlgebraicCurve.Place.mem_iff_ord_nonneg"
+        },
+        {
+          "line": 328,
+          "original_user_name": "P2MW.S_AlgebraicCurve_tateChainRule.AlgebraicCurve.Place.algebraMap_ne_zero",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_tateChainRule.AlgebraicCurve.Place.algebraMap_ne_zero"
+        },
+        {
+          "line": 333,
+          "original_user_name": "AlgebraicCurve.Place.comap_algebraMap_ne_top",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_tateChainRule.AlgebraicCurve.Place.comap_algebraMap_ne_top"
+        },
+        {
+          "line": 387,
+          "original_user_name": "AlgebraicCurve.Place.exists_ord_algebraMap_pos",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_tateChainRule.AlgebraicCurve.Place.exists_ord_algebraMap_pos"
+        },
+        {
+          "line": 404,
+          "original_user_name": "P2MW.S_AlgebraicCurve_tateChainRule.AlgebraicCurve.Place.ramificationIndex_set_nonempty",
+          "new_public_helper_name": "P2MW.S_AlgebraicCurve_tateChainRule.AlgebraicCurve.Place.ramificationIndex_set_nonempty"
+        }
+      ],
+      "expanded_notations": [
+        {
+          "line": 968,
+          "token": "vK",
+          "expansion": "(Valued.v : Valuation (v.adicCompletion K) \u2124\u1d50\u2070)"
+        },
+        {
+          "line": 1041,
+          "token": "O_w",
+          "expansion": "w.toValuationSubring"
+        },
+        {
+          "line": 1042,
+          "token": "\ud835\udd2a_w",
+          "expansion": "IsLocalRing.maximalIdeal w.toValuationSubring"
+        },
+        {
+          "line": 1043,
+          "token": "O_W",
+          "expansion": "w.adicCompletionIntegers"
+        },
+        {
+          "line": 1044,
+          "token": "\ud835\udd2a_W",
+          "expansion": "w.heightOneSpectrum.completionIdeal F"
+        }
+      ],
+      "files": [
+        "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/tateChainRule_Part01.lean",
+        "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/RRSplit/tateChainRule_Part02.lean",
+        "ZInQKernel/Contrib/CloudB3W16Torsion/Vendor/AnthropicFLT/P2M/Sol/S_AlgebraicCurve_tateChainRule.lean"
+      ]
+    }
+  ]
+}
