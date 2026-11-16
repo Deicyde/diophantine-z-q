@@ -42,3 +42,5 @@ candidate), and −1 if `SymmPrincipalDescends` is also proved.
 - pazuki-dict's Def. 2.6 reading risk.
 
 Report: `docs/research/pazuki-alg.md`. Log: `scratch/pazuki-alg/log.md`.
+
+(Build logs in scratch/pazuki-alg/build*.txt are trimmed to their final summary lines.)
