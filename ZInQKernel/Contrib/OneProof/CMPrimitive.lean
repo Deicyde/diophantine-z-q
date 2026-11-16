@@ -1073,6 +1073,46 @@ theorem mainTheoremCMEK_of_prim (ε : ℤˣ) (hP : MainTheoremCMSignPrim ε) (hX
   rw [hrelA x y hxy] at this
   exact this
 
+/-- **Sanity check: the induced type of `K(√2)` is not primitive** (it is induced from `K`), so the primitive leaf
+does not apply to it directly and the reduction `mainTheoremCMEK_of_prim` is needed. -/
+theorem not_isPrimitiveType_PhiE {K : Type} [Field K] [NumberField K] [Fact (Irreducible (X ^ 2 - C (2 : K)))]
+    (κ : K →+* ℂ) : ¬ IsPrimitiveType (PhiE κ) := by
+  intro hprim
+  have hF := hprim (algebraMap K (EK K)).fieldRange (fun i ψ hψ => by
+    have hψK : ∀ k : K, ψ (algebraMap K (EK K) k) = κ k := fun k => by
+      rw [hψ _ ⟨k, rfl⟩, phiE_of]
+    have hr : ψ (AdjoinRoot.root _) ^ 2 = ((√2 : ℝ) : ℂ) ^ 2 := by
+      rw [← map_pow, root_sq, map_ofNat, QMRecPrinted.sqrt2_sq]
+    have hval : ∀ c : ℂ, ψ (AdjoinRoot.root _) = c → ∀ e : EK K,
+        ψ e = κ (bK.repr e 0) + κ (bK.repr e 1) * c := fun c hc e => by
+      conv_lhs => rw [decomp e]
+      rw [map_add, map_mul, hψK, hψK, hc]
+    rcases sq_eq_sq_iff_eq_or_eq_neg.1 hr with h0 | h1
+    · exact ⟨0, RingHom.ext fun e => by rw [hval _ h0 e, phi0_apply]⟩
+    · exact ⟨1, RingHom.ext fun e => by rw [hval _ h1 e, phi1_apply]⟩)
+  have hr : AdjoinRoot.root (X ^ 2 - C (2 : K)) ∈ (algebraMap K (EK K)).fieldRange := by
+    rw [hF]; trivial
+  obtain ⟨k, hk⟩ := hr
+  have h1 := crd_mk1 (K := K) k 0
+  have h2 := crd_mk1 (K := K) 0 1
+  rw [map_zero, zero_mul, add_zero, hk] at h1
+  rw [map_zero, map_one, _root_.one_mul, zero_add] at h2
+  exact one_ne_zero (h2.symm.trans h1)
+
+/-- **The main theorem of CM for primitive types** (every lattice, existential sign) from the primitive print. -/
+theorem mainTheoremCMPrim_of_polPrim (hP : MainTheoremCMPolPrim) (hX : CMAbVarExists)
+    (hUL : BPAnalytic.Uniformization.UniformizationLeafAll) (hG : ZInQ.HomLattice.GAGAMorphism) :
+    ∃ ε : ℤˣ, MainTheoremCMSignPrim ε := by
+  obtain ⟨ε, h⟩ := hP
+  exact ⟨ε, mainTheoremCMSignPrim_of_polar ε h hX hUL hG⟩
+
+/-- **The main theorem of CM at the induced type of `K(√2)`** (existential sign) from the primitive print. -/
+theorem mainTheoremCMEK_of_polPrim (hP : MainTheoremCMPolPrim) (hX : CMAbVarExists)
+    (hUL : BPAnalytic.Uniformization.UniformizationLeafAll) (hG : ZInQ.HomLattice.GAGAMorphism) :
+    ∃ ε : ℤˣ, MainTheoremCMEK ε := by
+  obtain ⟨ε, h⟩ := hP
+  exact ⟨ε, mainTheoremCMEK_of_prim ε (mainTheoremCMSignPrim_of_polar ε h hX hUL hG) hX hUL hG⟩
+
 end EK
 
 /-! ## §8 The consumers
