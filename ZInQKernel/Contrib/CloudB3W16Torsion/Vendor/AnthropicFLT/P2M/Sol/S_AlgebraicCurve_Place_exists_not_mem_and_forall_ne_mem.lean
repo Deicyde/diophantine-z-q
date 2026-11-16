@@ -20,7 +20,7 @@ set_option backward.isDefEq.respectTransparency false
 
 namespace P2MW.S_AlgebraicCurve_Place_exists_not_mem_and_forall_ne_mem
 open AlgebraicCurve
-open P2MW.S_AlgebraicCurve_Place_exists_not_mem_and_forall_ne_mem.AlgebraicCurve
+-- Deferred synthetic P2M scope: root namespace remains open.
 
 namespace AlgebraicCurve
 export _root_.AlgebraicCurve (Place Divisor Divisor.degree Divisor.degree_single IsCurveOver LSpace ell ConstantsAreBase ell_zero_eq_one_of_constantsAreBase stichtenothGenusExists_of_isCurveOver one_le_deg)
@@ -63,9 +63,9 @@ private theorem _root_.AlgebraicCurve.Place.adicValuation_le_one_iff_mem (v : Pl
 export _root_.AlgebraicCurve.Place (adicValuation_le_one_iff_mem)
 end AlgebraicCurve.Place
 open AlgebraicCurve
-open P2MW.S_AlgebraicCurve_Place_exists_not_mem_and_forall_ne_mem.AlgebraicCurve
+-- Deferred synthetic P2M scope: root namespace remains open.
 open AlgebraicCurve.Place
-open P2MW.S_AlgebraicCurve_Place_exists_not_mem_and_forall_ne_mem.AlgebraicCurve.Place
+-- Deferred synthetic P2M scope: root namespace remains open.
 
 theorem solution
     {K F : Type*} [Field K] [PerfectField K] [Field F] [Algebra K F]

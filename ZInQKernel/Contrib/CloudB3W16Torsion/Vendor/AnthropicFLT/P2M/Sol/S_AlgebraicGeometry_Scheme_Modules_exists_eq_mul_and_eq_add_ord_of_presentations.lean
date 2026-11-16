@@ -37,7 +37,7 @@ set_option autoImplicit false
 universe u
 open CategoryTheory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_eq_mul_and_eq_add_ord_of_presentations.AlgebraicGeometry
+-- Deferred synthetic P2M scope: root namespace remains open.
 open Opposite
 open TopologicalSpace
 

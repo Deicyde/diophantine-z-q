@@ -22,7 +22,7 @@ set_option autoImplicit false
 universe u
 open CategoryTheory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_isIso_fromTildeGamma_pushforward_of_locallyTrivial.AlgebraicGeometry
+-- Deferred synthetic P2M scope: root namespace remains open.
 open Opposite
 open TopologicalSpace
 

@@ -27,7 +27,7 @@ universe u
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_RelEffCartierDiv_isInvertible_I.AlgebraicGeometry
+-- Deferred synthetic P2M scope: root namespace remains open.
 
 namespace AlgebraicGeometry
 export _root_.AlgebraicGeometry (Surjective Scheme.Hom.le_ker_comp SmoothOfRelativeDimension Scheme.Hom IsFinite Scheme Smooth Scheme.ker_eq_top_of_isEmpty Scheme.IdealSheafData.ker_fst_of_isClosedImmersion Scheme.IdealSheafData.ker_subschemeι Scheme.Hom.one_le_finrank_map Flat IsSeparated smoothOfRelativeDimension_isStableUnderBaseChange Scheme.Hom.ker Scheme.Hom.one_le_finrank_iff_surjective Scheme.IdealSheafData graphOver graphOver_fst graphOver_snd graphOver_snd_assoc RelEffCartierDiv mapOnProdOver mapOnProdOver_fst mapOnProdOver_snd isPullback_mapOnProdOver Scheme.IdealSheafData.isInvertible_top Scheme.Hom.isInvertible_ker_of_comp_eq_id RelEffCartierDiv.exists_I_eq_ker_graphOver_mul Scheme.IdealSheafData.isInvertible_of_isInvertible_comap)

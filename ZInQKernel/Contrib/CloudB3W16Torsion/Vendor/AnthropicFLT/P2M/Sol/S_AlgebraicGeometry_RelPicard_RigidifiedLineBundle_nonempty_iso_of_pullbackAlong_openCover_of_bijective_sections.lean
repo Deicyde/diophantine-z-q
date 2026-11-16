@@ -28,7 +28,7 @@ universe u v
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_RelPicard_RigidifiedLineBundle_nonempty_iso_of_pullbackAlong_openCover_of_bijective_sections.AlgebraicGeometry
+-- Deferred synthetic P2M scope: root namespace remains open.
 
 namespace AlgebraicGeometry
 export _root_.AlgebraicGeometry (Scheme.Modules.pseudofunctor Scheme.Modules.pullback Scheme.Pullback.range_fst Spec Scheme IsOpenImmersion Scheme.Modules.pullbackCongr Scheme.Modules Scheme.Modules.pullbackComp Scheme.Modules.IsInvertible Scheme.Modules.pullbackUnitIso RelPicard.RigidifiedLineBundle Scheme.TwoAffineOpenCover Scheme.TwoAffineOpenCover.specMap Scheme.TwoAffineOpenCover.algebraOfHom RelPicard.RigidifiedLineBundle.exists_iso_map_pullback_rigSection_comp_eq RelPicard.RigidifiedLineBundle.iso_eq_of_map_pullback_rigSection_comp_eq Scheme.Modules.toDescentData_map_bijective_of_openCover Scheme.Modules.pullbackComp_pullbackCongr_pasteSquares_app)
@@ -300,7 +300,7 @@ open AlgebraicGeometry.RelPicard
 open AlgebraicGeometry
 open NeronModelInfra
 open AlgebraicGeometry.Scheme.Modules
-open P2MW.S_AlgebraicGeometry_RelPicard_RigidifiedLineBundle_nonempty_iso_of_pullbackAlong_openCover_of_bijective_sections.AlgebraicGeometry.Scheme.Modules
+-- Deferred synthetic P2M scope: root namespace remains open.
 
 variable {R : Type u} [CommRing R] {C : Scheme.{u}} (c : C ⟶ Spec (CommRingCat.of R))
   (ε : SchemeHomOver (𝟙 (Spec (CommRingCat.of R))) c)
@@ -804,9 +804,9 @@ end
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_RelPicard_RigidifiedLineBundle_nonempty_iso_of_pullbackAlong_openCover_of_bijective_sections.AlgebraicGeometry
+-- Deferred synthetic P2M scope: root namespace remains open.
 open AlgebraicGeometry.RelPicard
-open P2MW.S_AlgebraicGeometry_RelPicard_RigidifiedLineBundle_nonempty_iso_of_pullbackAlong_openCover_of_bijective_sections.AlgebraicGeometry.RelPicard
+-- Deferred synthetic P2M scope: root namespace remains open.
 open NeronModelInfra
 
 theorem solution

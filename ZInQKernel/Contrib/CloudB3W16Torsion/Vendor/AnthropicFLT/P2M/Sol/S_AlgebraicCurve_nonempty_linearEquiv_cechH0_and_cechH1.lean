@@ -31,7 +31,7 @@ open CategoryTheory AlgebraicGeometry
 universe u
 
 namespace TwoChartCech
-export TwoChartCech (Cover Sections Sections.cechDiff_apply Cover.lineBundle_r0_apply Cover.lineBundle_r1_apply kerMap cokerMap)
+export _root_.TwoChartCech (Cover Sections Sections.cechDiff_apply Cover.lineBundle_r0_apply Cover.lineBundle_r1_apply kerMap cokerMap)
 open TwoChartCech
 
 universe uR uK uC

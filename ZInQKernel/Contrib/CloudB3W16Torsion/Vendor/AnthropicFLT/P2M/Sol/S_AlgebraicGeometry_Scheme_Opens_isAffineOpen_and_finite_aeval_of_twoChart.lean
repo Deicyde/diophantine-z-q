@@ -24,7 +24,7 @@ universe u
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Opens_isAffineOpen_and_finite_aeval_of_twoChart.AlgebraicGeometry
+-- Deferred synthetic P2M scope: root namespace remains open.
 open Polynomial
 open AlgebraicGeometry.Polynomial
 

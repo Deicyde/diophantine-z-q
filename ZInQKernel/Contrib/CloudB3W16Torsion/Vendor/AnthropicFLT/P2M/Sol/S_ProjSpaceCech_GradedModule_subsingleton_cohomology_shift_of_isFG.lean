@@ -36,7 +36,7 @@ noncomputable section
 open Finset Function MvPolynomial
 
 namespace ProjSpaceCech
-export ProjSpaceCech (GradedModule GradedModule.sec GradedModule.H GradedModule.subsingleton_cohomology_of_lt GradedModule.freeGrade GradedModule.shift GradedModule.pi GradedModule.FD GradedModule.Hom GradedModule.Hom.secMap GradedModule.Hom.cochainMap GradedModule.Presentation GradedModule.IsFG GradedModule.Presentation.F GradedModule.Presentation.ker Twist.subsingleton_cohomology_of_neg_le GradedModule.HMap_bijective_of_cochainMap_bijective GradedModule.nonempty_HEquiv_FD GradedModule.nonempty_HEquiv_pi GradedModule.Presentation.subsingleton_H_of_ses GradedModule.Presentation.ker_isFG)
+export _root_.ProjSpaceCech (GradedModule GradedModule.sec GradedModule.H GradedModule.subsingleton_cohomology_of_lt GradedModule.freeGrade GradedModule.shift GradedModule.pi GradedModule.FD GradedModule.Hom GradedModule.Hom.secMap GradedModule.Hom.cochainMap GradedModule.Presentation GradedModule.IsFG GradedModule.Presentation.F GradedModule.Presentation.ker Twist.subsingleton_cohomology_of_neg_le GradedModule.HMap_bijective_of_cochainMap_bijective GradedModule.nonempty_HEquiv_FD GradedModule.nonempty_HEquiv_pi GradedModule.Presentation.subsingleton_H_of_ses GradedModule.Presentation.ker_isFG)
 open ProjSpaceCech
 
 section SerreVanishing
@@ -84,7 +84,7 @@ private def _root_.ProjSpaceCech.GradedModule.Presentation.shiftP (σ : GradedMo
     rwa [show c + (σ.d₀ k + d) = c + d + σ.d₀ k by ring]
 
 end GradedModule.Presentation
-export ProjSpaceCech (GradedModule.Presentation.shiftP)
+export _root_.ProjSpaceCech (GradedModule.Presentation.shiftP)
 namespace GradedModule.Presentation
 open scoped ProjSpaceCech.GradedModule ProjSpaceCech.GradedModule.Presentation in
 private def _root_.ProjSpaceCech.GradedModule.Presentation.kerToShift (σ : GradedModule.Presentation M) (d : ℤ) :
@@ -99,7 +99,7 @@ private def _root_.ProjSpaceCech.GradedModule.Presentation.kerToShift (σ : Grad
   xMul_comm := fun _ => rfl
 
 end GradedModule.Presentation
-export ProjSpaceCech (GradedModule.Presentation.kerToShift)
+export _root_.ProjSpaceCech (GradedModule.Presentation.kerToShift)
 namespace GradedModule.Presentation
 open scoped ProjSpaceCech.GradedModule ProjSpaceCech.GradedModule.Presentation in
 private def _root_.ProjSpaceCech.GradedModule.Presentation.shiftToKer (σ : GradedModule.Presentation M) (d : ℤ) :
@@ -114,7 +114,7 @@ private def _root_.ProjSpaceCech.GradedModule.Presentation.shiftToKer (σ : Grad
   xMul_comm := fun _ => rfl
 
 end GradedModule.Presentation
-export ProjSpaceCech (GradedModule.Presentation.shiftToKer)
+export _root_.ProjSpaceCech (GradedModule.Presentation.shiftToKer)
 open scoped ProjSpaceCech.GradedModule ProjSpaceCech.GradedModule.Presentation in
 theorem GradedModule.Presentation.secMap_shiftToKer_kerToShift (σ : GradedModule.Presentation M) (d : ℤ)
     (I : Finset (Fin (n + 1))) (q : GradedModule.sec (GradedModule.Presentation.ker (σ.shiftP d)) I) :

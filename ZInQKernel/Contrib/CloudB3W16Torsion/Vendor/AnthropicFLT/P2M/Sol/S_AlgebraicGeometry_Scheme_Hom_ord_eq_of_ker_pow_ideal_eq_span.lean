@@ -23,7 +23,7 @@ set_option autoImplicit false
 universe u
 open CategoryTheory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Hom_ord_eq_of_ker_pow_ideal_eq_span.AlgebraicGeometry
+-- Deferred synthetic P2M scope: root namespace remains open.
 open Opposite
 open TopologicalSpace
 

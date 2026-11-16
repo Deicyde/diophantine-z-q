@@ -25,7 +25,7 @@ noncomputable section
 universe u
 open CategoryTheory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_SmoothProperCurve_FiniteMapData_finite_H0_H1_lineBundle.AlgebraicGeometry
+-- Deferred synthetic P2M scope: root namespace remains open.
 open Opposite
 open NeronModelInfra
 
@@ -110,8 +110,8 @@ open AlgebraicGeometry.SmoothProperCurve.FiniteMapData
 open AlgebraicGeometry.SmoothProperCurve
 open AlgebraicGeometry
 open AlgebraicGeometry.Scheme.TwoAffineOpenCover
-open P2MW.S_AlgebraicGeometry_SmoothProperCurve_FiniteMapData_finite_H0_H1_lineBundle.AlgebraicGeometry.Scheme.TwoAffineOpenCover
-open P2MW.S_AlgebraicGeometry_SmoothProperCurve_FiniteMapData_finite_H0_H1_lineBundle.AlgebraicGeometry.Scheme.TwoAffineOpenCover.ChartFiniteInstances
+-- Deferred synthetic P2M scope: root namespace remains open.
+-- Deferred synthetic P2M scope: root namespace remains open.
 
 variable {R : Type u} [CommRing R] {C : Scheme.{u}} {c : C ⟶ Spec (.of R)}
   {ε : SchemeHomOver (𝟙 (Spec (.of R))) c} (𝔉 : FiniteMapData c ε)

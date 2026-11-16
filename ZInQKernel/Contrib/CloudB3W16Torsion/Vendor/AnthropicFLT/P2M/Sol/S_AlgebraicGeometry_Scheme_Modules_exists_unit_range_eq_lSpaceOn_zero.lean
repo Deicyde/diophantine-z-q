@@ -25,7 +25,7 @@ set_option autoImplicit false
 universe u
 open CategoryTheory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_unit_range_eq_lSpaceOn_zero.AlgebraicGeometry
+-- Deferred synthetic P2M scope: root namespace remains open.
 open Opposite
 open TopologicalSpace
 
@@ -57,7 +57,7 @@ theorem map_eq {U V : X.Opens} (h : V ≤ U) (m : Γ(OU X, U)) :
   rfl
 
 noncomputable def φ (U : X.Opens) : Γ(OU X, U) →+ (X.functionField : Type u) :=
-  open Classical in
+open Classical in
   if h : Nonempty U then
     { toFun := fun m => (X.germToFunctionField U).hom (show Γ(X, U) from m)
       map_zero' := map_zero (X.germToFunctionField U).hom

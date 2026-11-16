@@ -28,7 +28,7 @@ universe u
 open CategoryTheory
 open CategoryTheory.Limits
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_TwoAffineOpenCover_exists_ideal_pullback_cover_ringEquiv_quotient_appLE_of_squareZero.AlgebraicGeometry
+-- Deferred synthetic P2M scope: root namespace remains open.
 open TensorProduct
 
 namespace AlgebraicGeometry
