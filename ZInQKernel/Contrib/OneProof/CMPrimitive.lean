@@ -558,4 +558,244 @@ theorem exists_unif_of_bc (σ : ℂ ≃+* ℂ) {A A' : PkgI3.AbVar ℂ} (h : A'.
 
 end Conj
 
+/-! ## §5 The CM type `(K, κ)` of an imaginary quadratic field, its reflex field and reflex norm -/
+
+section ModelK
+
+open scoped FiniteAdeleExtension
+
+variable {K : Type} [Field K] [NumberField K]
+
+/-- An imaginary quadratic field is a CM field. -/
+theorem isCMField_K [IsTotallyComplex K] (hK : Module.finrank ℚ K = 2) : IsCMField K := by
+  haveI : Algebra.IsQuadraticExtension ℚ K := ⟨hK⟩
+  exact IsCMField.ofCMExtension ℚ K
+
+/-- `{κ}` is a CM type of `K`. -/
+theorem type_inj1 [IsTotallyComplex K] (κ : K →+* ℂ) :
+    Function.Injective (Sum.elim (fun _ : Fin 1 => κ) fun i => (starRingEnd ℂ).comp ((fun _ : Fin 1 => κ) i)) := by
+  obtain ⟨x0, hx0⟩ := exists_not_real κ
+  intro a b hab
+  rcases a with a | a <;> rcases b with b | b
+  · rw [Subsingleton.elim a b]
+  · exfalso
+    have := RingHom.congr_fun hab x0
+    simp only [Sum.elim_inl, Sum.elim_inr, RingHom.coe_comp, Function.comp_apply] at this
+    exact hx0 this.symm
+  · exfalso
+    have := RingHom.congr_fun hab x0
+    simp only [Sum.elim_inl, Sum.elim_inr, RingHom.coe_comp, Function.comp_apply] at this
+    exact hx0 this
+  · rw [Subsingleton.elim a b]
+
+/-- The reflex field of `(K, {κ})` is `κ(K)`. -/
+theorem reflex1 (κ : K →+* ℂ) :
+    κ.fieldRange = Subfield.closure (Set.range fun e : K => ∑ i : Fin 1, (fun _ : Fin 1 => κ) i e) := by
+  simp only [Finset.univ_unique, Fin.default_eq_zero, Finset.sum_singleton]
+  rw [← RingHom.coe_fieldRange, Subfield.closure_eq]
+
+/-- `ρ(a)` = multiplication by `a` on `V = K`. -/
+def rho1 : K →ₐ[ℚ] Matrix (Fin 1) (Fin 1) K :=
+  (Algebra.ofId K (Matrix (Fin 1) (Fin 1) K)).restrictScalars ℚ
+
+/-- `j(v) = κ(v₀)`. -/
+def j1 (κ : K →+* ℂ) : (Fin 1 → K) →+ (Fin 1 → ℂ) :=
+  (cmVec (fun _ : Fin 1 => κ)).comp (Pi.evalAddMonoidHom (fun _ => K) 0)
+
+theorem j1_apply (κ : K →+* ℂ) (v : Fin 1 → K) (i : Fin 1) : j1 κ v i = κ (v 0) := rfl
+
+theorem rho1_mulVec (a : K) (v : Fin 1 → K) : (rho1 a).mulVec v = fun i => a * v i := by
+  funext i
+  simp [rho1, Matrix.algebraMap_eq_diagonal, Matrix.mulVec_diagonal]
+
+/-- `V = K` is a model of `ℂ^{κ}` over the reflex field `K`. -/
+theorem model1 (κ : K →+* ℂ) : IsReflexModel (fun _ : Fin 1 => κ) κ rho1 (j1 κ) := by
+  refine ⟨fun e v => ?_, fun a v => ?_, ?_, rfl⟩
+  · funext i; simp [j1_apply, map_mul]
+  · funext i; simp [j1_apply, rho1_mulVec, map_mul]
+  · rw [eq_top_iff]
+    intro w _
+    have hw : w = (w 0) • j1 κ (fun _ => (1 : K)) := by
+      funext i; rw [Subsingleton.elim i 0]; simp [j1_apply]
+    rw [hw]
+    exact Submodule.smul_mem _ _ (Submodule.subset_span ⟨_, rfl⟩)
+
+theorem rhoA_rho1 (w : AQ ⊗[ℚ] K) : rhoA rho1 w 0 0 = w := by
+  induction w using TensorProduct.induction_on with
+  | zero => simp
+  | tmul a k =>
+    rw [rhoA, AlgHom.liftEquiv_tmul]
+    simp [rho1, Matrix.algebraMap_eq_diagonal, Algebra.TensorProduct.includeRight_apply,
+      TensorProduct.smul_tmul']
+  | add x y hx hy => rw [map_add, Matrix.add_apply, hx, hy]
+
+/-- **The reflex norm of `(K, {κ})` is `𝔸_{K,f} ≅ 𝔸_f ⊗ K`.** -/
+theorem reflexNorm_rho1 (u : (FiniteAdeleRing (𝓞 K) K)ˣ) :
+    (reflexNorm rho1 u : AQ ⊗[ℚ] K) = (finiteAdeleBaseChangeAlgEquiv ℚ K).symm u := by
+  simp only [reflexNorm, Units.coe_map, MonoidHom.coe_comp, Function.comp_apply,
+    Matrix.coe_detMonoidHom, Matrix.det_unique]
+  exact rhoA_rho1 _
+
+end ModelK
+
+/-! ## §6 `E = K(√2)` over `K`: coordinates, the two maps `ℂ → ℂ²`, and `𝔸_f ⊗ E = (𝔸_f ⊗ K)²` -/
+
+section Coord
+
+open Polynomial
+
+variable {K : Type} [Field K] [NumberField K] [Fact (Irreducible (X ^ 2 - C (2 : K)))]
+
+/-- Denominators of a `ℚ`-linear map between number fields on integers. -/
+theorem exists_den_lin {F L : Type} [Field F] [NumberField F] [Field L] [NumberField L] (ℓ : F →ₗ[ℚ] L) :
+    ∃ D : ℕ, 0 < D ∧ ∀ o : 𝓞 F, IsIntegral ℤ ((D : L) * ℓ (o : F)) := by
+  classical
+  let b := RingOfIntegers.basis F
+  obtain ⟨y, hy0, hy⟩ := exists_integral_multiples ℤ ℚ (L := L) (Finset.univ.image fun i => ℓ (b i : F))
+  refine ⟨y.natAbs, Int.natAbs_pos.2 hy0, fun o => ?_⟩
+  have ho : (o : F) = ∑ i, (b.repr o i) • (b i : F) := by
+    conv_lhs => rw [← b.sum_repr o]
+    push_cast
+    rfl
+  rw [ho, map_sum, Finset.mul_sum]
+  refine IsIntegral.sum _ fun i _ => ?_
+  rw [map_zsmul, mul_smul_comm, zsmul_eq_mul]
+  exact (by simpa using (isIntegral_algebraMap (R := ℤ) (A := L) (x := b.repr o i)) :
+    IsIntegral ℤ ((b.repr o i : ℤ) : L)).mul
+    (natAbs_mul_integral (hy _ (Finset.mem_image_of_mem _ (Finset.mem_univ i))))
+
+theorem crd_algebraMap_mul (i : Fin 2) (k : K) (e : EK K) :
+    crd i (algebraMap K (EK K) k * e) = k * crd i e := by
+  rw [crd_apply, crd_apply, ← Algebra.smul_def, map_smul]; rfl
+
+theorem crd_natCast_mul (i : Fin 2) (m : ℕ) (e : EK K) : crd i ((m : EK K) * e) = (m : K) * crd i e := by
+  rw [← map_natCast (algebraMap K (EK K)) m, crd_algebraMap_mul]
+
+theorem crd_mk0 (a b : K) : crd 0 (algebraMap K (EK K) a + algebraMap K (EK K) b * AdjoinRoot.root _) = a := by
+  rw [crd_apply, ← Algebra.smul_def, Algebra.algebraMap_eq_smul_one]
+  have h1 : (1 : EK K) = bK 0 := by rw [bK_apply]; simp
+  have h2 : AdjoinRoot.root (X ^ 2 - C (2 : K)) = bK 1 := by rw [bK_apply]; simp
+  rw [h1, h2, map_add, map_smul, map_smul, bK.repr_self, bK.repr_self]
+  simp
+
+theorem crd_mk1 (a b : K) : crd 1 (algebraMap K (EK K) a + algebraMap K (EK K) b * AdjoinRoot.root _) = b := by
+  rw [crd_apply, ← Algebra.smul_def, Algebra.algebraMap_eq_smul_one]
+  have h1 : (1 : EK K) = bK 0 := by rw [bK_apply]; simp
+  have h2 : AdjoinRoot.root (X ^ 2 - C (2 : K)) = bK 1 := by rw [bK_apply]; simp
+  rw [h1, h2, map_add, map_smul, map_smul, bK.repr_self, bK.repr_self]
+  simp
+
+theorem root_sq : (AdjoinRoot.root (X ^ 2 - C (2 : K))) ^ 2 = 2 := by
+  have h := AdjoinRoot.eval₂_root (X ^ 2 - C (2 : K))
+  simp only [eval₂_sub, eval₂_X_pow, eval₂_C] at h
+  rw [sub_eq_zero] at h
+  exact h.trans (map_ofNat _ 2)
+
+theorem isIntegral_root : IsIntegral ℤ (AdjoinRoot.root (X ^ 2 - C (2 : K))) := by
+  refine IsIntegral.of_pow two_pos ?_
+  rw [root_sq]
+  simpa using (isIntegral_algebraMap (R := ℤ) (A := EK K) (x := 2))
+
+variable (κ : K →+* ℂ)
+
+/-- `w ↦ w Φ(α)`, `ℂ → ℂ²`. -/
+def Mv (α : EK K) : (Fin 1 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ) :=
+  (LinearMap.proj (R := ℂ) (φ := fun _ : Fin 1 => ℂ) 0).smulRight (cmVec (PhiE κ) α)
+
+theorem Mv_apply (α : EK K) (w : Fin 1 → ℂ) : Mv κ α w = w 0 • cmVec (PhiE κ) α := rfl
+
+/-- The first coordinate in the basis `Φ(1), Φ(√2)` of `ℂ²`. -/
+def ell0 : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 1 → ℂ) where
+  toFun w _ := (w 0 + w 1) / 2
+  map_add' w w' := by funext; simp only [Pi.add_apply]; ring
+  map_smul' c w := by funext; simp only [Pi.smul_apply, smul_eq_mul, RingHom.id_apply]; ring
+
+/-- The second coordinate in the basis `Φ(1), Φ(√2)` of `ℂ²`. -/
+def ell1 : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 1 → ℂ) where
+  toFun w _ := (w 0 - w 1) / (2 * ((√2 : ℝ) : ℂ))
+  map_add' w w' := by funext; simp only [Pi.add_apply]; ring
+  map_smul' c w := by funext; simp only [Pi.smul_apply, smul_eq_mul, RingHom.id_apply]; ring
+
+theorem cmVec_one : cmVec (PhiE κ) (1 : EK K) = ![1, 1] := by
+  funext i; fin_cases i <;> simp [cmVec]
+
+theorem cmVec_root : cmVec (PhiE κ) (AdjoinRoot.root _) = ![((√2 : ℝ) : ℂ), -((√2 : ℝ) : ℂ)] := by
+  funext i; fin_cases i <;> simp [cmVec, phiE0_root, phiE1_root]
+
+theorem span_Mv (w : Fin 2 → ℂ) : Mv κ 1 (ell0 w) + Mv κ (AdjoinRoot.root _) (ell1 w) = w := by
+  rw [Mv_apply, Mv_apply]
+  exact (span_two κ w).symm
+
+theorem ell0_Mv1 (v : Fin 1 → ℂ) : ell0 (Mv κ 1 v) = v := by
+  funext i; rw [Subsingleton.elim i 0]
+  simp [ell0, Mv_apply, cmVec_one]
+
+theorem ell1_Mv1 (v : Fin 1 → ℂ) : ell1 (Mv κ 1 v) = 0 := by
+  funext i
+  simp [ell1, Mv_apply, cmVec_one]
+
+theorem ell0_Mvr (v : Fin 1 → ℂ) : ell0 (Mv κ (AdjoinRoot.root _) v) = 0 := by
+  funext i
+  simp [ell0, Mv_apply, cmVec_root]
+
+theorem ell1_Mvr (v : Fin 1 → ℂ) : ell1 (Mv κ (AdjoinRoot.root _) v) = v := by
+  funext i; rw [Subsingleton.elim i 0]
+  simp [ell1, Mv_apply, cmVec_root]
+  field_simp [sqrt2_ne_zero]
+  ring
+
+theorem ell0_cmVec (e : EK K) : ell0 (cmVec (PhiE κ) e) = cmVec (fun _ : Fin 1 => κ) (crd 0 e) := by
+  funext i
+  show (PhiE κ 0 e + PhiE κ 1 e) / 2 = κ (crd 0 e)
+  rw [phi0_apply, phi1_apply, crd_apply]; ring
+
+theorem ell1_cmVec (e : EK K) : ell1 (cmVec (PhiE κ) e) = cmVec (fun _ : Fin 1 => κ) (crd 1 e) := by
+  funext i
+  show (PhiE κ 0 e - PhiE κ 1 e) / (2 * ((√2 : ℝ) : ℂ)) = κ (crd 1 e)
+  rw [phi0_apply, phi1_apply, crd_apply]
+  field_simp [sqrt2_ne_zero]
+  ring
+
+theorem cmVec_decomp (e : EK K) :
+    Mv κ 1 (cmVec (fun _ : Fin 1 => κ) (crd 0 e)) +
+      Mv κ (AdjoinRoot.root _) (cmVec (fun _ : Fin 1 => κ) (crd 1 e)) = cmVec (PhiE κ) e := by
+  rw [← ell0_cmVec, ← ell1_cmVec, span_Mv]
+
+theorem Mv_cmVec (α : EK K) (b : K) :
+    Mv κ α (cmVec (fun _ : Fin 1 => κ) b) = cmVec (PhiE κ) (algebraMap K (EK K) b * α) := by
+  funext i
+  simp [Mv_apply, cmVec, map_mul, phiE_of]
+
+/-- `𝔸_f ⊗ E → 𝔸_f ⊗ K`, the base change of a coordinate. -/
+def crdHat (i : Fin 2) : AQ ⊗[ℚ] EK K →ₗ[AQ] AQ ⊗[ℚ] K := (crd i).baseChange AQ
+
+theorem crdHat_tmul (i : Fin 2) (a : AQ) (e : EK K) : crdHat i (a ⊗ₜ e) = a ⊗ₜ crd i e :=
+  LinearMap.baseChange_tmul _ _ _
+
+theorem crdHat_inclA_mul (i : Fin 2) (w : AQ ⊗[ℚ] K) (v : AQ ⊗[ℚ] EK K) :
+    crdHat i (inclA w * v) = w * crdHat i v := by
+  induction w using TensorProduct.induction_on with
+  | zero => simp
+  | add w w' hw hw' => rw [map_add, add_mul, map_add, hw, hw', add_mul]
+  | tmul a k =>
+    induction v using TensorProduct.induction_on with
+    | zero => simp
+    | add v v' hv hv' => rw [mul_add, map_add, hv, hv', map_add, mul_add]
+    | tmul b e =>
+      rw [inclA_tmul, Algebra.TensorProduct.tmul_mul_tmul, crdHat_tmul, crdHat_tmul,
+        Algebra.TensorProduct.tmul_mul_tmul, crd_algebraMap_mul]
+
+theorem crdHat_latHat (i : Fin 2) {𝔠 : AddSubgroup (EK K)} {𝔟 : AddSubgroup K}
+    (h : ∀ e ∈ 𝔠, crd i e ∈ 𝔟) {w : AQ ⊗[ℚ] EK K} (hw : w ∈ latHat 𝔠) : crdHat i w ∈ latHat 𝔟 := by
+  induction hw using AddSubgroup.closure_induction with
+  | mem w hw =>
+    obtain ⟨c, hc, x, hx, rfl⟩ := hw
+    rw [crdHat_tmul]
+    exact AddSubgroup.subset_closure ⟨c, hc, _, h x hx, rfl⟩
+  | zero => rw [map_zero]; exact zero_mem _
+  | add u v _ _ hu hv => rw [map_add]; exact add_mem hu hv
+  | neg u _ hu => rw [map_neg]; exact neg_mem hu
+
+end Coord
+
 end CMPrimitive
