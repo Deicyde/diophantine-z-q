@@ -32,3 +32,22 @@
   addedLeaves8_of_open9, OpenAddedLeaves9, sixContactMin_of_open28 and Main's module doc updated.
   kinds.tsv and claims.tsv rows of deligneComponentsY3PrintedAb deleted (removed-rows.txt).
 - 23:52 build after step 2: OK (13686 jobs); frozenTarget axioms standard.
+- 23:55 PruneScan after (prunescan-after-out.txt): OpenResearchLeaves24 26, OpenTextbookLeaves11 11, OpenAddedLeaves17 12,
+  OpenGlue7 1 = 50 fields, 0 unused, prune set empty.
+- DumpCompact after: 17037 constants (hashes_after.txt); frozenTarget's pp.all type identical to the base
+  (frozenTarget_before.txt vs frozenTarget_after.txt). cmp_hashes_out.txt: removed 9 (the 9 pruned projections), new 111
+  (all ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used, now in Main's closure via TailZ34), changed 106: bundle
+  auxiliaries of OpenAddedLeaves9-17 (mk, mk._flat_ctor, rec, recOn, casesOn: type; projections after the deleted field:
+  value), conversions (value: addedLeaves9_of_open10/_open14, addedLeaves10_of_open11, addedLeaves11_of_open12,
+  addedLeaves12_of_open13, openAddedLeaves13..16_of_..; type: addedLeaves8_of_open9, the binder), sixContactMin_of_open11-27
+  (type, the binder), sixContactMin_of_open28 (value). open29-31 and frozenTarget: unchanged hashes.
+- DischargesTest: same 8 discharges and controls (t1, t3 as before); 61 open hypotheses (base 62). The saved output
+  was stale (OpenResearchLeaves23); now OpenResearchLeaves24.
+- Docs: OpenStatements.lean wrote open-statements.json, 61 open hypotheses. **render_open.py FAILS on this base,
+  independently of this task**: kinds.tsv keys the six h29-ne3 frozenTarget rows by leaf name (tyzLemma29PrintedNe3,
+  tyzThm21At31, tyzProp23Printed, tyzTestVectorExists, legendreThreeSquares, jonesPallX2Y2Z16), while Main.lean's
+  binders are hL29, hT21, hP23, hfx, hL3s, hJP (leaf-fold29 3b2562f1). Fixing those rows is outside this task's allowed
+  edits, so OPEN.md, pages-wanted.md, CONTRIBUTING.md, STATUS.md are NOT regenerated in the repository. Verification in
+  a temporary copy with the six keys renamed to the binder names: render_open.py "50 H hypotheses, strictest 39/11,
+  11 others"; --check "ok: 61 open hypotheses, all classified; 4 generated files up to date".
+  (The committed generated docs were already stale at the base: STATUS.md said 55 H hypotheses, OpenResearchLeaves23.)

@@ -1,0 +1,236 @@
+base 16935  after 17037  removed 9  new 111  changed 106
+
+## removed
+  HDec.HSyn.OpenAddedLeaves10.deligneComponentsY3PrintedAb ZInQKernel.OneProof.H.TailZ17
+  HDec.HSyn.OpenAddedLeaves11.deligneComponentsY3PrintedAb ZInQKernel.OneProof.H.TailZ18
+  HDec.HSyn.OpenAddedLeaves12.deligneComponentsY3PrintedAb ZInQKernel.OneProof.H.TailZ22
+  HDec.HSyn.OpenAddedLeaves13.deligneComponentsY3PrintedAb ZInQKernel.OneProof.H.TailZ24
+  HDec.HSyn.OpenAddedLeaves14.deligneComponentsY3PrintedAb ZInQKernel.OneProof.H.TailZ26
+  HDec.HSyn.OpenAddedLeaves15.deligneComponentsY3PrintedAb ZInQKernel.OneProof.H.TailZ30
+  HDec.HSyn.OpenAddedLeaves16.deligneComponentsY3PrintedAb ZInQKernel.OneProof.H.TailZ31
+  HDec.HSyn.OpenAddedLeaves17.deligneComponentsY3PrintedAb ZInQKernel.OneProof.H.TailZ34
+  HDec.HSyn.OpenAddedLeaves9.deligneComponentsY3Printed ZInQKernel.OneProof.H.TailZ13
+
+## new, by module
+  ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used: 111
+
+## new
+  DCY3Used.K4 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.L36 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.L36_norm ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.N4_mul ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.Y3ConnectedAb ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.approx3 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.b4 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.b4.eq_1 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.b4_mem ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.bEmb_ofInt_eq ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.bEmb_smul ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.beta ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.beta.eq_1 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.beta_sq ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.c4 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.c4.eq_1 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.c4_ne ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.cc ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.conjC ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.conjC._proof_1 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.connected_of_body ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.connected_of_delignePi0 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.const_of_inv ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.coords_of_three_mul ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.decomp3 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.decomp3._abel_1_1 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.decomp3._abel_1_2 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.decomp3._abel_1_3 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.decomp3._abel_1_4 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.exists_C_point ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.exists_sigma_artinCondC ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.h4_eq ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.h4_inv ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.h4_mem ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.h4_val ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.heig0 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.hl0 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.inO_beta ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.inO_of_three_mul ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.instIsTotallyComplexK4 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.isCMPoint0 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.isCM_delta ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.kappa0 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.kappa0._proof_1 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.kappa0.eq_1 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.lift3 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.mulCoordR_cast ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.nrd_ofInt ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.ofInt_add ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.ofInt_e1 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.ofInt_injective ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.ofInt_mul ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.ofInt_mul_star ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.ofInt_three_smul ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.ofQ_smul3 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.ptC_galPt ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.q4 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.q4._proof_1 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.q4.eq_1 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.q4_c4 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.q4_integral ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.red3 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.red3.eq_1 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.red3_cc ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.red3_e1 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.red3_eta ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.s4 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.s4.eq_1 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.star_ofInt' ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.table3 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.tau0 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.tau0._proof_1 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.tau0._proof_2 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.tau0.eq_1 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.two_not_mem ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.u4 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.u4' ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.u4'._proof_1 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.u4'_mul ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.u4._proof_1 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.u4U ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.u4_eq ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.u4_mul ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.uf ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.uf' ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.uf'_mem ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.uf._proof_1 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.uf._proof_2 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.uf._proof_3 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.uf_mem ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.unit3 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.unit3._abel_1_1 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.unit3._abel_1_2 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.unit3._abel_1_3 ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.v_c4_eq ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.v_c4_le ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.v_eq ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.v_int_le ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.v_nat_eq_one ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.y3ConnectedAb_of_U ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.y3ConnectedAb_of_field ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.y3ConnectedAb_of_mainThmI ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.y3Connected_of_ab_gl ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.y3Connected_of_leaves ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.y4O ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.y4O_alg ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.y4O_coe ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.y4_integral ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.y4_ne ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.y4_sq ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+  DCY3Used.yh_mem ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used
+
+## changed (T = type hash changed, V = value only)
+  T HDec.HSyn.OpenAddedLeaves10.casesOn ZInQKernel.OneProof.H.TailZ17
+  T HDec.HSyn.OpenAddedLeaves10.mk ZInQKernel.OneProof.H.TailZ17
+  T HDec.HSyn.OpenAddedLeaves10.mk._flat_ctor ZInQKernel.OneProof.H.TailZ17
+  T HDec.HSyn.OpenAddedLeaves10.rec ZInQKernel.OneProof.H.TailZ17
+  T HDec.HSyn.OpenAddedLeaves10.recOn ZInQKernel.OneProof.H.TailZ17
+  T HDec.HSyn.OpenAddedLeaves11.casesOn ZInQKernel.OneProof.H.TailZ18
+  T HDec.HSyn.OpenAddedLeaves11.mk ZInQKernel.OneProof.H.TailZ18
+  T HDec.HSyn.OpenAddedLeaves11.mk._flat_ctor ZInQKernel.OneProof.H.TailZ18
+  T HDec.HSyn.OpenAddedLeaves11.rec ZInQKernel.OneProof.H.TailZ18
+  T HDec.HSyn.OpenAddedLeaves11.recOn ZInQKernel.OneProof.H.TailZ18
+  T HDec.HSyn.OpenAddedLeaves12.casesOn ZInQKernel.OneProof.H.TailZ22
+  V HDec.HSyn.OpenAddedLeaves12.deligneComponentsX6PrintedAb ZInQKernel.OneProof.H.TailZ22
+  V HDec.HSyn.OpenAddedLeaves12.geomConnOfAlgClosure ZInQKernel.OneProof.H.TailZ22
+  T HDec.HSyn.OpenAddedLeaves12.mk ZInQKernel.OneProof.H.TailZ22
+  T HDec.HSyn.OpenAddedLeaves12.mk._flat_ctor ZInQKernel.OneProof.H.TailZ22
+  T HDec.HSyn.OpenAddedLeaves12.rec ZInQKernel.OneProof.H.TailZ22
+  T HDec.HSyn.OpenAddedLeaves12.recOn ZInQKernel.OneProof.H.TailZ22
+  T HDec.HSyn.OpenAddedLeaves13.casesOn ZInQKernel.OneProof.H.TailZ24
+  V HDec.HSyn.OpenAddedLeaves13.deligneComponentsX6PrintedAb ZInQKernel.OneProof.H.TailZ24
+  V HDec.HSyn.OpenAddedLeaves13.geomConnOfAlgClosure ZInQKernel.OneProof.H.TailZ24
+  T HDec.HSyn.OpenAddedLeaves13.mk ZInQKernel.OneProof.H.TailZ24
+  T HDec.HSyn.OpenAddedLeaves13.mk._flat_ctor ZInQKernel.OneProof.H.TailZ24
+  V HDec.HSyn.OpenAddedLeaves13.phiAmpleIsogeny ZInQKernel.OneProof.H.TailZ24
+  V HDec.HSyn.OpenAddedLeaves13.picRepresentableAbVar ZInQKernel.OneProof.H.TailZ24
+  V HDec.HSyn.OpenAddedLeaves13.picZeroAbVar ZInQKernel.OneProof.H.TailZ24
+  T HDec.HSyn.OpenAddedLeaves13.rec ZInQKernel.OneProof.H.TailZ24
+  T HDec.HSyn.OpenAddedLeaves13.recOn ZInQKernel.OneProof.H.TailZ24
+  V HDec.HSyn.OpenAddedLeaves13.weilPairingMumford ZInQKernel.OneProof.H.TailZ24
+  T HDec.HSyn.OpenAddedLeaves14.casesOn ZInQKernel.OneProof.H.TailZ26
+  V HDec.HSyn.OpenAddedLeaves14.deligneComponentsX6PrintedAb ZInQKernel.OneProof.H.TailZ26
+  V HDec.HSyn.OpenAddedLeaves14.geomConnOfAlgClosure ZInQKernel.OneProof.H.TailZ26
+  T HDec.HSyn.OpenAddedLeaves14.mk ZInQKernel.OneProof.H.TailZ26
+  T HDec.HSyn.OpenAddedLeaves14.mk._flat_ctor ZInQKernel.OneProof.H.TailZ26
+  V HDec.HSyn.OpenAddedLeaves14.phiAmpleIsogeny ZInQKernel.OneProof.H.TailZ26
+  V HDec.HSyn.OpenAddedLeaves14.picRepresentableAbVar ZInQKernel.OneProof.H.TailZ26
+  V HDec.HSyn.OpenAddedLeaves14.picZeroAbVar ZInQKernel.OneProof.H.TailZ26
+  T HDec.HSyn.OpenAddedLeaves14.rec ZInQKernel.OneProof.H.TailZ26
+  T HDec.HSyn.OpenAddedLeaves14.recOn ZInQKernel.OneProof.H.TailZ26
+  V HDec.HSyn.OpenAddedLeaves14.weilPairingMumford ZInQKernel.OneProof.H.TailZ26
+  T HDec.HSyn.OpenAddedLeaves15.casesOn ZInQKernel.OneProof.H.TailZ30
+  V HDec.HSyn.OpenAddedLeaves15.deligneComponentsX6PrintedAb ZInQKernel.OneProof.H.TailZ30
+  V HDec.HSyn.OpenAddedLeaves15.geomConnOfAlgClosure ZInQKernel.OneProof.H.TailZ30
+  T HDec.HSyn.OpenAddedLeaves15.mk ZInQKernel.OneProof.H.TailZ30
+  T HDec.HSyn.OpenAddedLeaves15.mk._flat_ctor ZInQKernel.OneProof.H.TailZ30
+  V HDec.HSyn.OpenAddedLeaves15.phiAmpleIsogeny ZInQKernel.OneProof.H.TailZ30
+  V HDec.HSyn.OpenAddedLeaves15.picRepresentableAbVar ZInQKernel.OneProof.H.TailZ30
+  V HDec.HSyn.OpenAddedLeaves15.picZeroAbVar ZInQKernel.OneProof.H.TailZ30
+  T HDec.HSyn.OpenAddedLeaves15.rec ZInQKernel.OneProof.H.TailZ30
+  T HDec.HSyn.OpenAddedLeaves15.recOn ZInQKernel.OneProof.H.TailZ30
+  V HDec.HSyn.OpenAddedLeaves15.weilPairingMumford ZInQKernel.OneProof.H.TailZ30
+  T HDec.HSyn.OpenAddedLeaves16.casesOn ZInQKernel.OneProof.H.TailZ31
+  V HDec.HSyn.OpenAddedLeaves16.deligneComponentsX6PrintedAb ZInQKernel.OneProof.H.TailZ31
+  V HDec.HSyn.OpenAddedLeaves16.geomConnOfAlgClosure ZInQKernel.OneProof.H.TailZ31
+  T HDec.HSyn.OpenAddedLeaves16.mk ZInQKernel.OneProof.H.TailZ31
+  T HDec.HSyn.OpenAddedLeaves16.mk._flat_ctor ZInQKernel.OneProof.H.TailZ31
+  V HDec.HSyn.OpenAddedLeaves16.phiAmpleIsogeny ZInQKernel.OneProof.H.TailZ31
+  V HDec.HSyn.OpenAddedLeaves16.picRepresentableAbVar ZInQKernel.OneProof.H.TailZ31
+  V HDec.HSyn.OpenAddedLeaves16.picZeroAbVar ZInQKernel.OneProof.H.TailZ31
+  T HDec.HSyn.OpenAddedLeaves16.rec ZInQKernel.OneProof.H.TailZ31
+  T HDec.HSyn.OpenAddedLeaves16.recOn ZInQKernel.OneProof.H.TailZ31
+  V HDec.HSyn.OpenAddedLeaves16.weilPairingMumford ZInQKernel.OneProof.H.TailZ31
+  T HDec.HSyn.OpenAddedLeaves17.casesOn ZInQKernel.OneProof.H.TailZ34
+  V HDec.HSyn.OpenAddedLeaves17.deligneComponentsX6PrintedAb ZInQKernel.OneProof.H.TailZ34
+  V HDec.HSyn.OpenAddedLeaves17.geomConnOfAlgClosure ZInQKernel.OneProof.H.TailZ34
+  T HDec.HSyn.OpenAddedLeaves17.mk ZInQKernel.OneProof.H.TailZ34
+  T HDec.HSyn.OpenAddedLeaves17.mk._flat_ctor ZInQKernel.OneProof.H.TailZ34
+  V HDec.HSyn.OpenAddedLeaves17.phiAmpleIsogeny ZInQKernel.OneProof.H.TailZ34
+  V HDec.HSyn.OpenAddedLeaves17.picRepresentableAbVar ZInQKernel.OneProof.H.TailZ34
+  V HDec.HSyn.OpenAddedLeaves17.picZeroAbVar ZInQKernel.OneProof.H.TailZ34
+  T HDec.HSyn.OpenAddedLeaves17.rec ZInQKernel.OneProof.H.TailZ34
+  T HDec.HSyn.OpenAddedLeaves17.recOn ZInQKernel.OneProof.H.TailZ34
+  V HDec.HSyn.OpenAddedLeaves17.shimuraIntegralModelRep ZInQKernel.OneProof.H.TailZ34
+  V HDec.HSyn.OpenAddedLeaves17.weilPairingMumford ZInQKernel.OneProof.H.TailZ34
+  T HDec.HSyn.OpenAddedLeaves9.casesOn ZInQKernel.OneProof.H.TailZ13
+  T HDec.HSyn.OpenAddedLeaves9.mk ZInQKernel.OneProof.H.TailZ13
+  T HDec.HSyn.OpenAddedLeaves9.mk._flat_ctor ZInQKernel.OneProof.H.TailZ13
+  T HDec.HSyn.OpenAddedLeaves9.rec ZInQKernel.OneProof.H.TailZ13
+  T HDec.HSyn.OpenAddedLeaves9.recOn ZInQKernel.OneProof.H.TailZ13
+  V HDec.HSyn.addedLeaves10_of_open11 ZInQKernel.OneProof.H.TailZ18
+  V HDec.HSyn.addedLeaves11_of_open12 ZInQKernel.OneProof.H.TailZ22
+  V HDec.HSyn.addedLeaves12_of_open13 ZInQKernel.OneProof.H.TailZ24
+  T HDec.HSyn.addedLeaves8_of_open9 ZInQKernel.OneProof.H.TailZ13
+  V HDec.HSyn.addedLeaves9_of_open10 ZInQKernel.OneProof.H.TailZ17
+  V HDec.HSyn.addedLeaves9_of_open14 ZInQKernel.OneProof.H.TailZ23
+  V HDec.HSyn.openAddedLeaves13_of_OpenAddedLeaves14 ZInQKernel.OneProof.H.TailZ26
+  V HDec.HSyn.openAddedLeaves14_of_OpenAddedLeaves15 ZInQKernel.OneProof.H.TailZ30
+  V HDec.HSyn.openAddedLeaves15_of_OpenAddedLeaves16 ZInQKernel.OneProof.H.TailZ31
+  V HDec.HSyn.openAddedLeaves16_of_OpenAddedLeaves17 ZInQKernel.OneProof.H.TailZ34
+  T HDec.HSyn.sixContactMin_of_open11 ZInQKernel.OneProof.H.TailZ13
+  T HDec.HSyn.sixContactMin_of_open12 ZInQKernel.OneProof.H.TailZ15
+  T HDec.HSyn.sixContactMin_of_open13 ZInQKernel.OneProof.H.TailZ17
+  T HDec.HSyn.sixContactMin_of_open14 ZInQKernel.OneProof.H.TailZ18
+  T HDec.HSyn.sixContactMin_of_open15 ZInQKernel.OneProof.H.TailZ19
+  T HDec.HSyn.sixContactMin_of_open16 ZInQKernel.OneProof.H.TailZ22
+  T HDec.HSyn.sixContactMin_of_open17 ZInQKernel.OneProof.H.TailZ23
+  T HDec.HSyn.sixContactMin_of_open18 ZInQKernel.OneProof.H.TailZ24
+  T HDec.HSyn.sixContactMin_of_open19 ZInQKernel.OneProof.H.TailZ25
+  T HDec.HSyn.sixContactMin_of_open20 ZInQKernel.OneProof.H.TailZ26
+  T HDec.HSyn.sixContactMin_of_open21 ZInQKernel.OneProof.H.TailZ27
+  T HDec.HSyn.sixContactMin_of_open22 ZInQKernel.OneProof.H.TailZ28
+  T HDec.HSyn.sixContactMin_of_open23 ZInQKernel.OneProof.H.TailZ29
+  T HDec.HSyn.sixContactMin_of_open24 ZInQKernel.OneProof.H.TailZ30
+  T HDec.HSyn.sixContactMin_of_open25 ZInQKernel.OneProof.H.TailZ31
+  T HDec.HSyn.sixContactMin_of_open26 ZInQKernel.OneProof.H.TailZ32
+  T HDec.HSyn.sixContactMin_of_open27 ZInQKernel.OneProof.H.TailZ33
+  V HDec.HSyn.sixContactMin_of_open28 ZInQKernel.OneProof.H.TailZ34
