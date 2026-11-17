@@ -1,0 +1,26 @@
+OpenTextbookLeaves15: no field charPolyIndepOfEllAlgClosed; field homFreeFiniteAlgClosedCharP present
+blueprint target HDec.HSyn.OpenTextbookLeaves13.charPolyIndepOfEllAlgClosed still exists
+closure size 270888; banned constants in the closure: []; T7-named constants: []
+present in the closure: [ZInQ.Contrib.OneProof.CharpolyHF.HomFreeFiniteAlgClosedCharP, ZInQ.Contrib.OneProof.CharpolyHF.MinpolyIndepOfEllCharP, HDec.HSyn.G0AssembleMod.linkedTateData_of_local_minpolyCharP, R16Split.r16_of_printedC]
+structure HDec.HSyn.OpenTextbookLeaves15 : Prop
+number of parameters: 0
+fields:
+  HDec.HSyn.OpenTextbookLeaves15.mumfordTorsionAlgClosed : AvSplit.MumfordTorsionAlgClosed
+  HDec.HSyn.OpenTextbookLeaves15.homFreeFiniteAlgClosedCharP : ZInQ.Contrib.OneProof.CharpolyHF.HomFreeFiniteAlgClosedCharP
+  HDec.HSyn.OpenTextbookLeaves15.gagaMorphism : ZInQ.HomLattice.GAGAMorphism
+  HDec.HSyn.OpenTextbookLeaves15.neronSchemeExtensionExists : ZInQ.Contrib.NeronC.NeronSchemeExtensionExists
+constructor:
+  HDec.HSyn.OpenTextbookLeaves15.mk (mumfordTorsionAlgClosed : AvSplit.MumfordTorsionAlgClosed)
+    (homFreeFiniteAlgClosedCharP : ZInQ.Contrib.OneProof.CharpolyHF.HomFreeFiniteAlgClosedCharP)
+    (gagaMorphism : ZInQ.HomLattice.GAGAMorphism)
+    (neronSchemeExtensionExists : ZInQ.Contrib.NeronC.NeronSchemeExtensionExists) : HDec.HSyn.OpenTextbookLeaves15
+ZInQ.OneProof.frozenTarget : HDec.HSyn.OpenResearchLeaves29 →
+  HDec.HSyn.OpenTextbookLeaves15 →
+    HDec.HSyn.OpenAddedLeaves20 →
+      ZInQ.Contrib.TYZDecomp.TYZThm11Integral →
+        ZInQ.Contrib.TYZDecomp.H29Split.TYZLemma29PrintedNe3 →
+          ZInQ.Contrib.TYZDecomp.H29Split.TYZProp23Printed →
+            T5Glue.ShimuraMainCM →
+              ZInQ.Contrib.TYZGenus.TYZSplit.TYZThm33 →
+                ZInQ.BFHPrinted.BFHClauseIIGamma0 → ZInQ.GZAlg.GrossZagierAlgOptCd → ZInQ.FrozenTarget
+'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
