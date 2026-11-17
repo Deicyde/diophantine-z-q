@@ -19,7 +19,7 @@ D = 'docs/one-proof/'
 OUT = D + 'frontier-crosswalk.tsv'
 # frontier.md revisions whose IDs appear in public claims and issues: the 11-13 refresh, r2, r3, r4, r5, r6, r7, r8, r9
 REVS = ['249195fd0', 'f6df5fa32', 'cba8157f7', '5fd81e870', '085a7a53a', 'f18bcb904', '3691994d4', 'f96b7323d',
-        '8342c2eb7']
+        '8342c2eb7', 'a6405dffb']
 ROW = re.compile(r'^\|\s*([HTZ]-\d+)\s*\|([^|]*)\|(.*)$')
 FIELD_ROW = re.compile(r'^\|\s*`([A-Za-z_][A-Za-z0-9_\']*)`\s*\(([^)]*)\)\s*\|')
 ID = re.compile(r'\b([HTZ]-\d+)\b')

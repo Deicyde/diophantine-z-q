@@ -3,11 +3,11 @@ H-1		LeafAdopt.R1R2fpRep	249195fd0,f6df5fa32,cba8157f7	no
 H-2		PkgI1.ThetaModularity	249195fd0,f6df5fa32,cba8157f7	no
 H-3		LeafQM.AV.R5fpCount	249195fd0,f6df5fa32,cba8157f7	no
 H-4		PkgI2.RaynaudCriterion	249195fd0,f6df5fa32,cba8157f7,5fd81e870	no
-H-5		PkgI2.NeronOggShafarevich	249195fd0,f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
-H-6	r9a	PkgI3.FaltingsSemisimple	249195fd0,f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
-H-7	r9b	PkgI3.FaltingsTate	249195fd0,f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
+H-5		PkgI2.NeronOggShafarevich	249195fd0,f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	no
+H-6	r9a	PkgI3.FaltingsSemisimple	249195fd0,f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7,a6405dffb	yes
+H-7	r9b	PkgI3.FaltingsTate	249195fd0,f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7,a6405dffb	yes
 H-8		ZInQ.Contrib.R10.DeRhamComparisonHT	249195fd0,f6df5fa32,cba8157f7	no
-H-9	r11r12	PkgI4.PanBerger	249195fd0,f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
+H-9	r11r12	PkgI4.PanBerger	249195fd0,f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7,a6405dffb	yes
 H-10		PkgI4.EigenformHT	249195fd0,f6df5fa32,cba8157f7	no
 H-12		DeligneSerreConseq	249195fd0,f6df5fa32,cba8157f7,5fd81e870	no
 H-13		LeafModCurves.R16_EichlerShimuraJ1'	249195fd0,f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d	no
@@ -56,18 +56,18 @@ H-61		QMAutCard	249195fd0,f6df5fa32,cba8157f7	no
 H-62		SerreRigidity3	249195fd0	no
 H-63		ALFixedPoints	249195fd0,f6df5fa32,cba8157f7	no
 H-64		ZInQ.Contrib.SpreadOut.EGAIV_8_8_2_ii	249195fd0,f6df5fa32,cba8157f7	no
-H-65		ZInQ.Contrib.SpreadOut.EGAIV_8_10_5_xii	249195fd0,f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
+H-65		ZInQ.Contrib.SpreadOut.EGAIV_8_10_5_xii	249195fd0,f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	no
 H-66		ZInQ.Contrib.SpreadOut.EGAIV_17_7_8_ii	249195fd0,f6df5fa32,cba8157f7	no
 H-67		ZariskiConn.ZariskiConnectedness	249195fd0,f6df5fa32,cba8157f7	no
 H-69		HomUnify.HomLatticeCorr	249195fd0,f6df5fa32,cba8157f7	no
-H-70		ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed	f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
-H-71	charPolyIndepOfEllAlgClosed	ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed	f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
-H-72		ZInQ.Contrib.AVB1.PoincareComplement	f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
+H-70		ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed	f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	no
+H-71	charPolyIndepOfEllAlgClosed	ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed	f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7,a6405dffb	yes
+H-72		ZInQ.Contrib.AVB1.PoincareComplement	f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	no
 H-73		ZInQ.Contrib.AVB1.ImageFactorization	f6df5fa32,cba8157f7	no
 H-74		ZInQ.Contrib.AVB1.SimpleSurjIsogeny	f6df5fa32,cba8157f7	no
 H-75		AVB2.T11bExists	f6df5fa32,cba8157f7	no
 H-76		ZInQ.Contrib.NeronC.NeronMappingAbelianSchemeSurj	f6df5fa32,cba8157f7	no
-H-77		ZInQ.Contrib.NeronC.NeronSchemeExtensionExists	f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
+H-77		ZInQ.Contrib.NeronC.NeronSchemeExtensionExists	f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	no
 H-78		ZInQ.Contrib.CurvesG.DimJacobianEqGenus	f6df5fa32,cba8157f7,5fd81e870	no
 H-79		ZInQ.Contrib.CurvesG.GenusX1Field	f6df5fa32,cba8157f7,5fd81e870,085a7a53a	no
 H-80		ZInQ.Contrib.CurvesG.NormalModelOfFunctionFieldQ	f6df5fa32,cba8157f7	no
@@ -79,44 +79,44 @@ H-85		ModelGlue.CurveBijIso	f6df5fa32,cba8157f7	no
 H-86		STQM	cba8157f7	no
 H-87		ValenceFormulaGammaStar	cba8157f7	no
 H-88		QMHauptmodulBase3	cba8157f7	no
-H-89		MCRGlue.ProperCurveAF	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
-H-90		MCRGlue.FiniteQuotientExists	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
-H-91		MCRGlue.TameQuotientSmooth	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
-H-92		MCRGlue.SmoothModelOfP1	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
-H-93		MCRGlue.TameFixedPointsDisjoint	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
-H-94		MCRGlue.TameInertiaCyclic	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
-H-95		HDec.PropTSRed.CoverModelOfHeckeN	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
-H-96		MCRQuot.P1SchemeQ	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
-H-97		MCRQuot.CMStabObj	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
-H-98		AVGlue.CartierSmooth	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
-H-99		AVGlue.GeomConnOfRationalPoint	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
-H-100		AVGlue.GroupSchemeEquidim	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
+H-89		MCRGlue.ProperCurveAF	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	no
+H-90		MCRGlue.FiniteQuotientExists	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	no
+H-91		MCRGlue.TameQuotientSmooth	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	no
+H-92		MCRGlue.SmoothModelOfP1	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	no
+H-93		MCRGlue.TameFixedPointsDisjoint	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	no
+H-94		MCRGlue.TameInertiaCyclic	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	no
+H-95		HDec.PropTSRed.CoverModelOfHeckeN	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	no
+H-96		MCRQuot.P1SchemeQ	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	no
+H-97		MCRQuot.CMStabObj	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	no
+H-98		AVGlue.CartierSmooth	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	no
+H-99		AVGlue.GeomConnOfRationalPoint	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	no
+H-100		AVGlue.GroupSchemeEquidim	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	no
 H-101		AvSplit.T4.MulEtaleAbelianScheme	5fd81e870,085a7a53a,f18bcb904,3691994d4	no
-H-102	mumfordTorsionAlgClosed	AvSplit.MumfordTorsionAlgClosed	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
-H-103		BPAnalytic.Uniformization.UniformizationLeafAll	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
-H-104		AvSplit.MilneIsogenyQuasiInverse	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
-H-105	gagaMorphism	ZInQ.HomLattice.GAGAMorphism	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
+H-102	mumfordTorsionAlgClosed	AvSplit.MumfordTorsionAlgClosed	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7,a6405dffb	yes
+H-103		BPAnalytic.Uniformization.UniformizationLeafAll	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	no
+H-104		AvSplit.MilneIsogenyQuasiInverse	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	no
+H-105	gagaMorphism	ZInQ.HomLattice.GAGAMorphism	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7,a6405dffb	yes
 H-106		ZInQ.HeightSplit.SemistableReductionThm	5fd81e870	no
 H-107		ZInQ.HeightSplit.SemistableNeronBaseChange	5fd81e870	no
 H-108		ZInQ.HeightSplit.SemistablePersists	5fd81e870	no
-H-109	javanpeykarBound	ZInQ.HeightSplit.JavanpeykarBound	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
-H-110	gaudronRemondThm14	ZInQ.HeightSplit.GaudronRemondThm14	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
+H-109	javanpeykarBound	ZInQ.HeightSplit.JavanpeykarBound	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7,a6405dffb	yes
+H-110	gaudronRemondThm14	ZInQ.HeightSplit.GaudronRemondThm14	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7,a6405dffb	yes
 H-111		ZInQ.HeightSplit.FaltingsLemma5BC	5fd81e870	no
-H-112	bostLowerBound	ZInQ.HeightSplit.BostLowerBound	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
-H-113	pazukiCor13Upper	ZInQ.HeightSplit.PazukiCor13Upper	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
+H-112	bostLowerBound	ZInQ.HeightSplit.BostLowerBound	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7,a6405dffb	yes
+H-113	pazukiCor13Upper	ZInQ.HeightSplit.PazukiCor13Upper	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7,a6405dffb	yes
 H-114		ZInQ.HeightSplit.R5.EichlerOptimalEmbeddingCount	5fd81e870	no
 H-115		ZInQ.HeightGlue.QM.CMDescent	5fd81e870	no
 H-116		ZInQ.HeightGlue.QM.QMUniformizationC	5fd81e870	no
 H-117		ZInQ.RLeaf.IgusaGL2	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d	no
-H-118		CurveSplit.RegularSmoothPerfect	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
+H-118		CurveSplit.RegularSmoothPerfect	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	no
 H-119		CurveSplit.ShimuraGoodReductionNoGuard	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d	no
-H-120		ZInQ.Contrib.HodgeSplit.TateTwistInvariants	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
-H-121		ZInQ.Contrib.HodgeSplit.AxSenTate	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
-H-122	hodgeTateDecompAbVar	ZInQ.Contrib.HodgeSplit.HodgeTateDecompAbVar	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
-H-123	deRhamH1AbVarT	ZInQ.Contrib.HodgeSplit.DeRhamH1AbVarT	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
+H-120		ZInQ.Contrib.HodgeSplit.TateTwistInvariants	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	no
+H-121		ZInQ.Contrib.HodgeSplit.AxSenTate	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	no
+H-122	hodgeTateDecompAbVar	ZInQ.Contrib.HodgeSplit.HodgeTateDecompAbVar	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7,a6405dffb	yes
+H-123	deRhamH1AbVarT	ZInQ.Contrib.HodgeSplit.DeRhamH1AbVarT	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7,a6405dffb	yes
 H-124		ZInQ.Contrib.HodgeSplit.BdRInvariants	5fd81e870,085a7a53a,f18bcb904,3691994d4	no
-H-125		ZInQ.Contrib.HodgeSplit.DSThm965	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
-H-126		ZInQ.Contrib.HodgeSplit.DSThm966	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
+H-125		ZInQ.Contrib.HodgeSplit.DSThm965	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	no
+H-126		ZInQ.Contrib.HodgeSplit.DSThm966	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	no
 H-127	eigenformHTNew	ZInQ.Contrib.HodgeSplit.EigenformHTNew	5fd81e870	no
 H-128		HDec.QMSplit.Yu.YuThm11	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d	no
 H-129		HDec.QMSplit.Aut.QMCentralizerCMC	5fd81e870,085a7a53a,f18bcb904,3691994d4	no
@@ -140,14 +140,14 @@ H-146		ReductSplit.SemistableReductionDVR	085a7a53a	no
 H-147		ReductSplit.SemistableUnipotent	085a7a53a	no
 H-148		ReductSplit.NeronSchemeModelExistsDVR	085a7a53a,f18bcb904,3691994d4,f96b7323d	no
 H-149		HDec.QMSplit.Moduli.DeligneComponentsX6	085a7a53a	no
-H-150		HDec.QMSplit.Moduli.GeomConnOfAlgClosure	085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
+H-150		HDec.QMSplit.Moduli.GeomConnOfAlgClosure	085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	no
 H-151		HDec.QMSplit.Moduli.BabaGranathX6'	085a7a53a	no
 H-152		HDec.QMSplit.Moduli.ReciprocityCanonical	085a7a53a	no
 H-153		HDec.QMSplit.Moduli.ElkiesConicX6	085a7a53a	no
 H-154		HDec.QMSplit.Moduli.ShimuraHolFamily	085a7a53a,f18bcb904,3691994d4,f96b7323d	no
 H-155		ShimuraSplit.DeligneComponentsY3	085a7a53a	no
 H-156		ModularSplit.DimJac.H0DifferentialsEqHolo	085a7a53a	no
-H-157		ModularSplit.R17.CarayolRealization	085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
+H-157		ModularSplit.R17.CarayolRealization	085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7,a6405dffb	yes
 H-158	eigenformHTNew	ModularSplit.EigenHT.KatoRealizationCoh	085a7a53a	no
 H-159	eigenformHTNew	ModularSplit.EigenHT.HTDual	085a7a53a	no
 H-160		ReductSplit.RaynaudSemistable	085a7a53a	no
@@ -164,15 +164,15 @@ H-170		LeafQM.AV.R1UnivRigid.MumfordRigidityCore	f18bcb904,3691994d4,f96b7323d	n
 H-171		CToPrinted.BLR_1_2_4	f18bcb904,3691994d4	no
 H-172		CToPrinted.FaltingsLemma5Printed	f18bcb904,3691994d4,f96b7323d	no
 H-173		CToPrinted.RaynaudKernelBound	f18bcb904,3691994d4	no
-H-174		CToPrinted.SGA3_VIB_3_10	f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
+H-174		CToPrinted.SGA3_VIB_3_10	f18bcb904,3691994d4,f96b7323d,8342c2eb7	no
 H-175		CToPrinted.SGA7_IX_3_3	f18bcb904,3691994d4,f96b7323d	no
 H-176		CToPrinted.EGAIV_8_10_5_openImm	f18bcb904,3691994d4	no
 H-177		ShimuraGlue.DeligneComponentsX6Printed	f18bcb904	no
 H-178		HDec.QMSplit.Moduli.BabaGranathRational	f18bcb904	no
 H-179		ShimuraGlue.Ray.RayClassCM	f18bcb904	no
 H-180		HDec.QMSplit.Moduli.ElkiesEquationsX6	f18bcb904	no
-H-181		CToPrinted2.KatoRealizationCohSS	f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
-H-182		ReductGlue.RaynaudSemistableSH	f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
+H-181		CToPrinted2.KatoRealizationCohSS	f18bcb904,3691994d4,f96b7323d,8342c2eb7,a6405dffb	yes
+H-182		ReductGlue.RaynaudSemistableSH	f18bcb904,3691994d4,f96b7323d,8342c2eb7	no
 H-183		ReductGlue.SemistableReductionSH	f18bcb904	no
 H-184		ReductGlue.SemistableUnipotentSH	f18bcb904	no
 H-185		ReductGlue.SemistablePersistsSH	f18bcb904,3691994d4	no
@@ -180,31 +180,39 @@ H-186		ReductGlue.StrictHenselizationNeron	f18bcb904	no
 H-187		ReductGlue.StrictHenselizationPair	f18bcb904,3691994d4	no
 H-188		ReductGlue.StrictHenselizationInside	f18bcb904,3691994d4,f96b7323d	no
 H-189		ReductGlue.ReductionFromSH	f18bcb904	no
-H-190		HDec.HSyn.G0Split.ThetaPt.ThetaGlue.LinYangThetaCurve	f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
+H-190		HDec.HSyn.G0Split.ThetaPt.ThetaGlue.LinYangThetaCurve	f18bcb904,3691994d4,f96b7323d,8342c2eb7	no
 H-191		HDec.HSyn.G0Split.ThetaPt.ThetaGlue.IgusaAlg	f18bcb904	no
-H-192		ShimuraGlue.DeligneComponentsX6PrintedAb	3691994d4,f96b7323d,8342c2eb7	yes
+H-192		ShimuraGlue.DeligneComponentsX6PrintedAb	3691994d4,f96b7323d,8342c2eb7	no
 H-193		HDec.QMSplit.Moduli.BabaGranathRationalAb	3691994d4,f96b7323d	no
-H-194	gonzalezRotgerX6Ab	HDec.QMSplit.Moduli.GonzalezRotgerX6Ab	3691994d4,f96b7323d,8342c2eb7	yes
+H-194	gonzalezRotgerX6Ab	HDec.QMSplit.Moduli.GonzalezRotgerX6Ab	3691994d4,f96b7323d,8342c2eb7,a6405dffb	yes
 H-195		HDec.QMSplit.Moduli.ElkiesEquationsX6Ab	3691994d4	no
 H-196		ShimuraGlue.Ray.RayClassCMAb	3691994d4,f96b7323d	no
 H-197		UnipotentB.SemistableUnipotentPrintedGen	3691994d4,f96b7323d	no
 H-198		UnipotentB.SemiAbelianDescendsSepClosed	3691994d4,f96b7323d	no
-H-199	picRepresentableAbVar	T09Pic.PicRepresentableAbVar	3691994d4,f96b7323d,8342c2eb7	yes
-H-200		T09Pic.PicZeroAbVar	3691994d4,f96b7323d,8342c2eb7	yes
-H-201		T09Pic.PhiAmpleIsogeny	3691994d4,f96b7323d,8342c2eb7	yes
-H-202		T09Pic.WeilPairingMumford	3691994d4,f96b7323d,8342c2eb7	yes
-H-203		ReductB.SemistablePersistsSHcp	f96b7323d,8342c2eb7	yes
-H-204	gonzalezRotgerProp56X6	GRCountX6.GonzalezRotgerProp56X6	f96b7323d,8342c2eb7	yes
-H-205		GapSHPair.NeronBaseChangeStrictHenselization	f96b7323d,8342c2eb7	yes
+H-199	picRepresentableAbVar	T09Pic.PicRepresentableAbVar	3691994d4,f96b7323d,8342c2eb7,a6405dffb	yes
+H-200		T09Pic.PicZeroAbVar	3691994d4,f96b7323d,8342c2eb7	no
+H-201		T09Pic.PhiAmpleIsogeny	3691994d4,f96b7323d,8342c2eb7	no
+H-202		T09Pic.WeilPairingMumford	3691994d4,f96b7323d,8342c2eb7	no
+H-203		ReductB.SemistablePersistsSHcp	f96b7323d,8342c2eb7	no
+H-204	gonzalezRotgerProp56X6	GRCountX6.GonzalezRotgerProp56X6	f96b7323d,8342c2eb7,a6405dffb	yes
+H-205		GapSHPair.NeronBaseChangeStrictHenselization	f96b7323d,8342c2eb7	no
 H-206		HDec.QMSplit.Moduli.ElkiesX6Star.ElkiesX6StarPrinted	f96b7323d	no
-H-207		SGA7PersistsNF.SGA7_IX_3_3_SH	8342c2eb7	yes
-H-208	sga7_IX_3_5_ForwardGeom	UnipotentForward.SGA7_IX_3_5_ForwardGeom	8342c2eb7	yes
-H-209	shimuraMainThmIDeligneY3AbU	RayClassCFT.ShimuraMainThmIDeligneY3AbU	8342c2eb7	yes
-H-210		SGRSplit.ShimuraIntegralModelRep	8342c2eb7	yes
-H-211		ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw	8342c2eb7	yes
-H-212	r16CoreY	R16Split.R16CoreY	8342c2eb7	yes
-H-213	elkiesX6StarFunctionField	HDec.QMSplit.Moduli.ElkiesCoord.ElkiesX6StarFunctionField	8342c2eb7	yes
-T-1	h11	ZInQ.Contrib.TYZDecomp.TYZThm11Integral	249195fd0,f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
+H-207		SGA7PersistsNF.SGA7_IX_3_3_SH	8342c2eb7	no
+H-208	sga7_IX_3_5_ForwardGeom	UnipotentForward.SGA7_IX_3_5_ForwardGeom	8342c2eb7,a6405dffb	yes
+H-209	shimuraMainThmIDeligneY3AbU	RayClassCFT.ShimuraMainThmIDeligneY3AbU	8342c2eb7,a6405dffb	yes
+H-210		SGRSplit.ShimuraIntegralModelRep	8342c2eb7	no
+H-211		ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw	8342c2eb7	no
+H-212	r16CoreY	R16Split.R16CoreY	8342c2eb7,a6405dffb	yes
+H-213	elkiesX6StarFunctionField	HDec.QMSplit.Moduli.ElkiesCoord.ElkiesX6StarFunctionField	8342c2eb7,a6405dffb	yes
+H-214	dsThm965Printed	DSCoeffExt.DSThm965Printed	a6405dffb	yes
+H-215	eigenformCoeffFieldFinite	DSCoeffExt.EigenformCoeffFieldFinite	a6405dffb	yes
+H-216	dsThm966Printed	DSThm966EV.DSThm966Printed	a6405dffb	yes
+H-217	raynaudSemistableSHOr	DictModels.RaynaudOr.RaynaudSemistableSHOr	a6405dffb	yes
+H-218	sga7_IX_3_3_SHpre	DictModels.SGA7Pre.SGA7_IX_3_3_SHpre	a6405dffb	yes
+H-219	neronOggShafarevichSep	NOSSepDict.NeronOggShafarevichSep	a6405dffb	yes
+H-220	neronSchemeExtensionDedekind	ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind	a6405dffb	yes
+H-221	kleimanPicZeroProper	PicFix.KleimanPicZeroProper	a6405dffb	yes
+T-1	h11	ZInQ.Contrib.TYZDecomp.TYZThm11Integral	249195fd0,f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7,a6405dffb	yes
 T-2		ZInQ.Contrib.TYZDecomp.TYZLcalOne	249195fd0	no
 T-3		ZInQ.Contrib.TYZDecomp.TYZLemma29Mod2	249195fd0,f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d	no
 T-4		ZInQ.Contrib.TYZGenus.Package.Lemma318Literal	249195fd0,f6df5fa32	no
@@ -212,22 +220,25 @@ T-5		ZInQ.Contrib.TYZGenus.Shimura.ShimuraReciprocityModFn	249195fd0,f6df5fa32,c
 T-6		ZInQ.Contrib.TYZGenus.Package.Thm35First	249195fd0	no
 T-7		ZInQ.Contrib.TYZGenus.CMBridge.Lemma321Five	249195fd0	no
 T-11		ZInQ.Contrib.TYZGenus.TYZ35.TYZThm33Pinned	f6df5fa32,cba8157f7	no
-T-12	h33	ZInQ.Contrib.TYZGenus.TYZSplit.TYZThm33	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
+T-12	h33	ZInQ.Contrib.TYZGenus.TYZSplit.TYZThm33	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7,a6405dffb	yes
 T-13		ZInQ.Contrib.TYZGenus.TYZSplitT5.CMModuli	5fd81e870,085a7a53a	no
 T-14		ZInQ.Contrib.TYZGenus.TYZSplitT5.X0RatStructure	5fd81e870,085a7a53a	no
-T-15		T5Glue.ShimuraMainCM	f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
+T-15		T5Glue.ShimuraMainCM	f18bcb904,3691994d4,f96b7323d,8342c2eb7	no
 T-16		T5Glue.X0ModuliGalois	f18bcb904,3691994d4,f96b7323d	no
 T-17		T5Glue.RingClassLattice	f18bcb904,3691994d4	no
-T-18		ZInQ.Contrib.TYZDecomp.H29Split.LegendreThreeSquares	8342c2eb7	yes
-T-19		ZInQ.Contrib.TYZDecomp.H29Split.JonesPallX2Y2Z16	8342c2eb7	yes
-T-20		ZInQ.Contrib.TYZDecomp.H29Split.TYZTestVectorExists	8342c2eb7	yes
-T-21	hL29	ZInQ.Contrib.TYZDecomp.H29Split.TYZLemma29PrintedNe3	8342c2eb7	yes
-T-22		ZInQ.Contrib.TYZDecomp.H29Split.TYZThm21At31	8342c2eb7	yes
-T-23		ZInQ.Contrib.TYZDecomp.H29Split.TYZProp23Printed	8342c2eb7	yes
+T-18		ZInQ.Contrib.TYZDecomp.H29Split.LegendreThreeSquares	8342c2eb7	no
+T-19		ZInQ.Contrib.TYZDecomp.H29Split.JonesPallX2Y2Z16	8342c2eb7	no
+T-20		ZInQ.Contrib.TYZDecomp.H29Split.TYZTestVectorExists	8342c2eb7	no
+T-21	hL29	ZInQ.Contrib.TYZDecomp.H29Split.TYZLemma29PrintedNe3	8342c2eb7,a6405dffb	yes
+T-22		ZInQ.Contrib.TYZDecomp.H29Split.TYZThm21At31	8342c2eb7	no
+T-23		ZInQ.Contrib.TYZDecomp.H29Split.TYZProp23Printed	8342c2eb7	no
+T-24	hCM	ZInQ.Contrib.HCMDict.ShimuraThm54	a6405dffb	yes
 Z-1		ZInQ.GZDecomp.FHNonvanishing	249195fd0,f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d	no
 Z-2		ZInQ.GZDecomp.GrossZagierHeegner	249195fd0,f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d	no
-Z-3		ZInQ.GZFH.FriedbergHoffsteinB_FE	8342c2eb7	yes
-Z-4		ZInQ.GZHL3.WeierstrassUniformization	8342c2eb7	yes
-Z-5		ZInQ.GZHL3.GrossZagierFormulaCd	8342c2eb7	yes
-Z-6		ZInQ.GZHL3.GrossConjugationCd	8342c2eb7	yes
-Z-7		ZInQ.GZHeegner.X0ModuliGaloisMero	8342c2eb7	yes
+Z-3		ZInQ.GZFH.FriedbergHoffsteinB_FE	8342c2eb7	no
+Z-4		ZInQ.GZHL3.WeierstrassUniformization	8342c2eb7	no
+Z-5		ZInQ.GZHL3.GrossZagierFormulaCd	8342c2eb7	no
+Z-6		ZInQ.GZHL3.GrossConjugationCd	8342c2eb7	no
+Z-7		ZInQ.GZHeegner.X0ModuliGaloisMero	8342c2eb7	no
+Z-8	hBFH	ZInQ.BFHPrinted.BFHClauseIIGamma0	a6405dffb	yes
+Z-9	hGZ	ZInQ.GZAlg.GrossZagierAlgOptCd	a6405dffb	yes
