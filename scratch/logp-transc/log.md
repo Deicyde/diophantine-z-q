@@ -21,3 +21,8 @@ Base: fork main 5500325f + merge origin/wip/htmult-model (36bbcafa) = 5074f66b.
   Compile pitfalls: IsField.toField instance ops are not reducible-defeq to BdR's ring ops (NoZeroDivisors /
   IsSimpleRing synth fail); use IsDomain via isField.isDomain and explicit inverses from IsField.mul_inv_cancel.
   Sub on (↥B)[X] for a Subalgebra B times out in typeclass search: write P + C (-c) instead of P - C c.
+- build2: lake build ZInQKernel.Contrib.OneProof.BdRInvariants EXIT 0; lake build ZInQKernel.Contrib.OneProof.LogPTranscendence OK.
+- LogPTranscendenceBdR.lean: VERIFIED compiles (scratch copy and ZInQKernel/Contrib/OneProof/LogPTranscendenceBdR.lean),
+  no sorry; 5 theorems, all [propext, Classical.choice, Quot.sound]. Result: LogPTildeTranscendental <->
+  (forall p, log[p~] not in Frac(B_max)) (logPTildeTranscendental_iff_notInFrac), using the tree's B_dR^{G_Qp} = Q_p
+  (bdr_invariant_eq_algebraMap, element form from BdRInv.bdRInvariantsPrinted_proof at F = Q_p).

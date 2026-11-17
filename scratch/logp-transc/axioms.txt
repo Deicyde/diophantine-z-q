@@ -27,3 +27,8 @@
 'HDec.PkgI4.LogPTransc.bstFOf_eq_adjoin' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.PkgI4.LogPTransc.bcrisPolyEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.PkgI4.LogPTransc.bcrisPolyEquiv_X' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.LogPTransc.bdr_invariant_eq_algebraMap' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.LogPTransc.logCore_iff_notInFrac' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.LogPTransc.logPTildeTranscendental_of_notInFrac' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.LogPTransc.logPTildeTranscendental_iff_notInFrac' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.LogPTransc.transcendental_bcris_of_notInFrac' depends on axioms: [propext, Classical.choice, Quot.sound]
