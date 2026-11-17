@@ -86,9 +86,13 @@ So the FLT library already covers `R^sh → R^h` (finite étale steps plus AF). 
 
 ### 3.2 The descent `R^h → R` cannot be made finite (VERIFIED reasoning)
 
-* Every finite extension `R'` of a non-henselian DVR is non-henselian: if `R'` were henselian, then so would be `R`,
-  since henselianity descends along finite local extensions of DVRs (STANDARD; EGA IV 18.5.10, UNVERIFIED number).
-  So no finite cover of `R` carries a Néron model from FLT.
+* For `R = (𝓞_L)_v`, every finite local extension `R'` of `R` is a localization of the ring of integers of a number
+  field `M` at a finite place. Such an `R'` is never henselian (VERIFIED reasoning). The henselization of `M` at a
+  finite place is `M̂ ∩ M̄`, which is infinite over `M`: for `n` prime to `p` and prime, `x^n = 1 + p` has a root in
+  `ℚ_p` but `x^n − (1+p)` is irreducible over `ℚ`. So no finite cover of `R` carries a Néron model from FLT. For a
+  general DVR the same holds by the descent of henselianity along finite extensions whose fraction field is not
+  separably closed (STANDARD; Engler–Prestel, *Valued fields*, §4.4, UNVERIFIED number); the chain needs only number
+  fields.
 * `R^h` is a filtered colimit of étale *neighbourhoods* `(B', q)`, essentially étale with `k(q) = k`. These are not
   finite over `R`.
 * A Néron model over `R^h` is of finite presentation. By spreading out (EGA IV 8.8.2, in the tree as
