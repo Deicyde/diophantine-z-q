@@ -273,6 +273,44 @@ theorem goodReduction_of_QM_rational3_of_alg_nil [NumberField K] (hNOS : NeronOg
     refine ⟨by positivity, ?_, key (k + 1) (by omega)⟩
     rw [Nat.cast_pow]; exact h3'.pow _
 
+/-- `goodReduction_of_QM_rational3` from the nilpotent r6 (universe 0). -/
+theorem goodReduction_of_QM_rational3_nl [NumberField K] (hNOS : NeronOggShafarevich.{0})
+    (hRay : SGA735Nil.RaynaudCriterionNFNil) (hTors : TorsionStructure.{0})
+    (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    (w : ValuationSubring (AlgebraicClosure K))
+    (hw : w.comap (algebraMap K (AlgebraicClosure K)) = O)
+    (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A]
+    (hdim : topologicalKrullDim A.X.left = ((2 : ℕ) : WithBot ℕ∞))
+    (I J : A ⟶ A)
+    (hI : ∀ x : Pts A (AlgebraicClosure K), (x ≫ I.hom.hom) ≫ I.hom.hom = x ^ 2)
+    (hJ : ∀ x : Pts A (AlgebraicClosure K), (x ≫ J.hom.hom) ≫ J.hom.hom * x ^ 3 = 1)
+    (hIJ : ∀ x : Pts A (AlgebraicClosure K),
+      (x ≫ I.hom.hom) ≫ J.hom.hom * (x ≫ J.hom.hom) ≫ I.hom.hom = 1)
+    (h3 : IsUnit (3 : O))
+    (hrat : ∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K,
+      ∀ x ∈ torsion A (AlgebraicClosure K) 3, galAct A σ x = x) :
+    HasGoodReduction A O :=
+  goodReduction_of_QM_rational3_of_alg_nil hNOS hRay hTors quatUnipotentTrivial O w hw A hdim I J
+    hI hJ hIJ h3 hrat
+
+/-- `goodReduction_of_QM_rational3'` from the nilpotent r6 (universe 0). -/
+theorem goodReduction_of_QM_rational3'_nl [NumberField K] (hNOS : NeronOggShafarevich.{0})
+    (hRay : SGA735Nil.RaynaudCriterionNFNil) (hTors : TorsionStructure.{0})
+    (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A]
+    (hdim : topologicalKrullDim A.X.left = ((2 : ℕ) : WithBot ℕ∞))
+    (I J : A ⟶ A)
+    (hI : ∀ x : Pts A (AlgebraicClosure K), (x ≫ I.hom.hom) ≫ I.hom.hom = x ^ 2)
+    (hJ : ∀ x : Pts A (AlgebraicClosure K), (x ≫ J.hom.hom) ≫ J.hom.hom * x ^ 3 = 1)
+    (hIJ : ∀ x : Pts A (AlgebraicClosure K),
+      (x ≫ I.hom.hom) ≫ J.hom.hom * (x ≫ J.hom.hom) ≫ I.hom.hom = 1)
+    (h3 : IsUnit (3 : O))
+    (hrat : ∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K,
+      ∀ x ∈ torsion A (AlgebraicClosure K) 3, galAct A σ x = x) :
+    HasGoodReduction A O := by
+  obtain ⟨w, hw⟩ := GlueA6Alg.Alg.exists_valuationSubring_comap_eq (L := AlgebraicClosure K) O
+  exact goodReduction_of_QM_rational3_nl hNOS hRay hTors O w hw A hdim I J hI hJ hIJ h3 hrat
+
 end PkgI2
 
 end HDec
@@ -282,3 +320,4 @@ end
 #print axioms SGA735Nil.nilQuat_trivial
 #print axioms HDec.G15Ram.raynaudPlace_of_R6Nil
 #print axioms HDec.PkgI2.goodReduction_of_QM_rational3_of_alg_nil
+#print axioms HDec.PkgI2.goodReduction_of_QM_rational3'_nl
