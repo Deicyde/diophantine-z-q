@@ -38,7 +38,7 @@ def IsModular (E : WeierstrassCurve ℚ) : Prop :=
     ∀ n : ℕ, 0 < n → (UpperHalfPlane.qExpansion 1 f).coeff n = (E.LFunction n : ℂ)
 
 /-- **Breuil–Conrad–Diamond–Taylor, Theorem A** (printed leaf; J. Amer. Math. Soc. 14 (2001)
-843–939; the manuscript cites the author manuscript, `\cite[Theorem A]{bcdt}`, tex L1099):
+843–939; the manuscript cites the author manuscript, `\cite[Theorem A]{bcdt}`, tex L1092):
 every elliptic curve over `ℚ` is modular. The print gives a newform of level the conductor;
 `IsModular` keeps only the cusp form and the equality of `L`-series, a consequence. Locator
 UNVERIFIED (not read for this task). -/
@@ -47,7 +47,7 @@ def BCDTThmA : Prop :=
 
 /-- **Kolyvagin, Theorem 1, the case `r = 1`** (printed leaf as cited: "On the Mordell–Weil group
 and the Shafarevich–Tate group of modular elliptic curves", MPIM preprint MPI/90-69 (1990),
-Theorems 1–5, pp. 4–5; tex L1100, `\cite[Theorem 1, pp. 4–5]{kolyvagin}`; UNVERIFIED, not read):
+Theorems 1–5, pp. 4–5; tex L1093, `\cite[Theorem 1, pp. 4–5]{kolyvagin}`; UNVERIFIED, not read):
 a modular elliptic curve `E/ℚ` with `ord_{s=1} L(E, s) = 1` has `rank E(ℚ) = 1` and finite
 `Ш(E/ℚ)`. `Ш` is `SelmerTwoPower.sha` (Tau Ceti's Shafarevich–Tate group, local triviality at every
 place). The print is a preprint, not a refereed paper (Known issue, round 1); its `r = 0` case is
@@ -57,7 +57,7 @@ def KolyvaginThm1 : Prop :=
     Module.rank ℤ E.toAffine.Point = 1 ∧ Finite (sha E)
 
 /-- **Lemma 5.5 (`lem:forward-rank`), the rank half at `r = 1`, from the two prints.**
-ON THE SPOT (correction (c)): only `rank = 1` is used downstream. Tex L1107–1109 uses "rank one
+ON THE SPOT (correction (c)): only `rank = 1` is used downstream. Tex L1111–1113 uses "rank one
 and finite Ш, hence Ш[2] = 0"; here, with `#E_ℓ(ℚ)[2] = 4`, Mordell–Weil and `#SelM ℓ = 8`, the
 Kummer map is onto by counting (`descentGlueM`), which re-derives `r + dim Ш[2] = 1` without the
 finiteness of Ш. -/
@@ -70,12 +70,12 @@ theorem kolyvaginRankOne_of_printed (hB : BCDTThmA) (hK : KolyvaginThm1) : Kolyv
 def FullTwoTorsion (E : WeierstrassCurve ℚ) : Prop :=
   Nat.card (nsmulAddMonoidHom 2 : E.toAffine.Point →+ _).ker = 4
 
-/-- **Lemma 5.4 (`lem:corank`, tex L1076–1093), printed form over genuine definitions.** For an
+/-- **Lemma 5.4 (`lem:corank`, tex L1072–1084), printed form over genuine definitions.** For an
 elliptic curve `E/ℚ` with full rational two-torsion, `dim_{𝔽₂} Sel₂(E/ℚ) = 3` (`#Sel₂ = 8`, with
 `Sel₂ = selmerAt E 1`, Tau Ceti's 2-Selmer group with the conditions at every place) implies
 `corank_{ℤ₂} Sel_{2^∞}(E/ℚ) = 1` (`SelmerTwoPower.SelmerCorankOne`). Provenance (b): the manuscript
 proves it from the Kummer sequence and the Cassels–Tate pairing, citing Poonen–Stoll, Ann. of
-Math. 150 (1999) 1109–1149 (`\cite{poonenstoll}`, tex L1088). A cited leaf here; not proved. -/
+Math. 150 (1999) 1109–1149 (`\cite{poonenstoll}`, tex L1080). A cited leaf here; not proved. -/
 def Lemma54 : Prop :=
   ∀ E : WeierstrassCurve ℚ, E.IsElliptic → FullTwoTorsion E →
     Nat.card (selmerAt E 1) = 8 → SelmerCorankOne E

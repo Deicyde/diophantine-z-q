@@ -40,11 +40,11 @@ theorem poleCompleteness_of_restrictedConverseGenuine_local (hRC : RestrictedCon
     (lemma54At_of_printed h54 hKum) (kolyvaginRankOne_of_printed hB hK) hMW matrixRealization
     hTwo hThree hBad hGood
 
-/-- **The dimension-three count** (tex L1061–1074), proved: S12's `par:descent` with every local
+/-- **The dimension-three count** (tex L1058–1070), proved: S12's `par:descent` with every local
 condition in Lean. -/
 theorem dimThreeCount : DimThreeCount := dimThreeCount_S12 localGoodUnram
 
-/-- **The simultaneous construction** (tex L1033–1074), proved (S12's `par:simultaneous-matrices`
+/-- **The simultaneous construction** (tex L1033–1070), proved (S12's `par:simultaneous-matrices`
 and `par:descent`). -/
 theorem simultaneousConstruction : SimultaneousConstruction :=
   simultaneousConstruction_of matrixRealization dimThreeCount
@@ -56,7 +56,7 @@ form. Proved in Lean: the bookkeeping, the rescaling, the complete 2-descent, `M
 `Lemma54`, `BCDTThmA`, `KolyvaginThm1`, `MordellWeil`, and the GLUE statement `KummerSelmerM`
 (the Kummer identification `#Sel₂(E_ℓ/ℚ) = #SelM ℓ`, Silverman X.1.4).
 ON THE SPOT (correction (c)): of `KolyvaginThm1` only the rank is used; finiteness of Ш
-(tex L1107–1109) is replaced by the counting argument of `descentGlueM`. -/
+(tex L1111–1113) is replaced by the counting argument of `descentGlueM`. -/
 theorem poleCompleteness_of_restrictedConverseGenuine (hRC : RestrictedConverseGenuine)
     (h54 : Lemma54) (hKum : KummerSelmerM) (hB : BCDTThmA) (hK : KolyvaginThm1)
     (hMW : MordellWeil) : Manuscript.PoleCompleteness :=

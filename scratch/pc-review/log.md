@@ -9,3 +9,8 @@
     fork main deleted with Route K (c575ab5ec). FIX: verbatim copy of that file at f13d7a5ad as
     `ZInQKernel/Contrib/PoleRC/MWImage.lean` (same namespace `ZInQ.RouteK.Rank`, header note added), import redirected.
 - After F1, F2: `lake build ...Core2 ...Genuine` -> Build completed successfully (9502 jobs). VERIFIED.
+
+## Step 2 (grep part)
+- `grep -nwE "sorry|admit|axiom|sorryAx|native_decide|implemented_by|extern|unsafe"` over the 13 cloud files, MWImage,
+  PoleCompletenessFromRCGenuine, PoleS12/*.lean, PoleS12/GoodF/*.lean (28 files), and over all of Contrib/PoleRC,
+  PoleCompletenessFromRC*.lean, SelmerTwoPower.lean: no hits. VERIFIED.
