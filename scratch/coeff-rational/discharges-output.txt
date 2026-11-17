@@ -1,0 +1,16 @@
+DISCHARGES [OpenResearchLeaves28.eigenformCoeffFieldFinite] by CoeffFieldFinite.eigenformCoeffFieldFinite_of
+  still assumes: [CoeffFieldFinite.CharSpaceRationalSpan]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves28.eigenformCoeffFieldFinite] by CoeffFieldFinite.eigenformCoeffFieldFinite_of_gamma1
+  still assumes: [CoeffFieldFinite.Gamma1IntegralSpan, CoeffFieldFinite.DiamondIntegralToRational]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves28.eigenformCoeffFieldFinite] by CoeffFieldFinite.eigenformCoeffFieldFinite_of_numberField
+  still assumes: [CoeffFieldFinite.CharSpaceNumberFieldSpan]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves28.eigenformCoeffFieldFinite] by CoeffRational.eigenformCoeffFieldFinite_of_heckePrime
+  still assumes: [CoeffFieldFinite.Gamma1IntegralSpan, CoeffRational.HeckePrimeIntegralToRational]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves28.eigenformCoeffFieldFinite] by CoeffRational.eigenformCoeffFieldFinite_of_rationalHeckeSpan
+  still assumes: [CoeffRational.RationalHeckeSpan]
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 45 open hypotheses, 6751 theorems checked, 18 discharge one

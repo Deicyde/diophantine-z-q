@@ -1,0 +1,63 @@
+HDec.HSyn.OpenResearchLeaves27.mumfordGroupLaw : HDec.HSyn.OpenResearchLeaves27 →
+  ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR
+HDec.HSyn.sixContactMin_of_open38 : HDec.HSyn.OpenResearchLeaves28 →
+  HDec.HSyn.OpenTextbookLeaves13 → HDec.HSyn.OpenAddedLeaves19 → ZInQ.SixContactMin
+structure HDec.HSyn.OpenResearchLeaves28 : Prop
+number of parameters: 0
+fields:
+  HDec.HSyn.OpenResearchLeaves28.r9a : PkgI3.FaltingsSemisimple
+  HDec.HSyn.OpenResearchLeaves28.r9b : PkgI3.FaltingsTate
+  HDec.HSyn.OpenResearchLeaves28.hodgeTateDecompAbVar : ZInQ.Contrib.HodgeSplit.HodgeTateDecompAbVar
+  HDec.HSyn.OpenResearchLeaves28.deRhamH1AbVarT : ZInQ.Contrib.HodgeSplit.DeRhamH1AbVarT
+  HDec.HSyn.OpenResearchLeaves28.r11r12 : HDec.PkgI4.PanBerger
+  HDec.HSyn.OpenResearchLeaves28.eigenformHTNew : ZInQ.Contrib.HodgeSplit.EigenformHTNew
+  HDec.HSyn.OpenResearchLeaves28.r17 : LadicCond.CarayolR17'
+  HDec.HSyn.OpenResearchLeaves28.bostLowerBound : ZInQ.HeightSplit.BostLowerBound
+  HDec.HSyn.OpenResearchLeaves28.javanpeykarBound : ZInQ.HeightSplit.JavanpeykarBound
+  HDec.HSyn.OpenResearchLeaves28.pazukiCor13Upper : ZInQ.HeightSplit.PazukiCor13Upper
+  HDec.HSyn.OpenResearchLeaves28.gaudronRemondThm14 : ZInQ.HeightSplit.GaudronRemondThm14
+  HDec.HSyn.OpenResearchLeaves28.gonzalezRotgerX6Ab : HDec.QMSplit.Moduli.GonzalezRotgerX6Ab
+  HDec.HSyn.OpenResearchLeaves28.gonzalezRotgerProp56X6 : GRCountX6.GonzalezRotgerProp56X6
+  HDec.HSyn.OpenResearchLeaves28.sga7_IX_3_5_ForwardGeom : UnipotentForward.SGA7_IX_3_5_ForwardGeom
+  HDec.HSyn.OpenResearchLeaves28.shimuraMainThmIDeligneY3AbU : RayClassCFT.ShimuraMainThmIDeligneY3AbU
+  HDec.HSyn.OpenResearchLeaves28.r16CoreY : R16Split.R16CoreY
+  HDec.HSyn.OpenResearchLeaves28.elkiesX6StarFunctionField : HDec.QMSplit.Moduli.ElkiesCoord.ElkiesX6StarFunctionField
+  HDec.HSyn.OpenResearchLeaves28.sga3_VIB_3_10_Nbhd : SGA3IdComp.SGA3_VIB_3_10_Nbhd
+  HDec.HSyn.OpenResearchLeaves28.sga7_IX_3_3_SHpre : DictModels.SGA7Pre.SGA7_IX_3_3_SHpre
+  HDec.HSyn.OpenResearchLeaves28.raynaudSemistableSHOr : DictModels.RaynaudOr.RaynaudSemistableSHOr
+  HDec.HSyn.OpenResearchLeaves28.neronGoodModelIso : ZInQ.Contrib.GroupLawNeron.NeronGoodModelIso
+  HDec.HSyn.OpenResearchLeaves28.neronSchemeExtensionDedekind : ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind
+  HDec.HSyn.OpenResearchLeaves28.blr_7_2_1 : DictModels.NeronBLR72.BLR_7_2_1
+  HDec.HSyn.OpenResearchLeaves28.neronOggShafarevichSep : NOSSepDict.NeronOggShafarevichSep
+  HDec.HSyn.OpenResearchLeaves28.dsThm965Printed : DSCoeffExt.DSThm965Printed
+  HDec.HSyn.OpenResearchLeaves28.eigenformCoeffFieldFinite : DSCoeffExt.EigenformCoeffFieldFinite
+  HDec.HSyn.OpenResearchLeaves28.dsThm966Printed : DSThm966EV.DSThm966Printed
+constructor:
+  HDec.HSyn.OpenResearchLeaves28.mk (r9a : PkgI3.FaltingsSemisimple) (r9b : PkgI3.FaltingsTate)
+    (hodgeTateDecompAbVar : ZInQ.Contrib.HodgeSplit.HodgeTateDecompAbVar)
+    (deRhamH1AbVarT : ZInQ.Contrib.HodgeSplit.DeRhamH1AbVarT) (r11r12 : HDec.PkgI4.PanBerger)
+    (eigenformHTNew : ZInQ.Contrib.HodgeSplit.EigenformHTNew) (r17 : LadicCond.CarayolR17')
+    (bostLowerBound : ZInQ.HeightSplit.BostLowerBound) (javanpeykarBound : ZInQ.HeightSplit.JavanpeykarBound)
+    (pazukiCor13Upper : ZInQ.HeightSplit.PazukiCor13Upper) (gaudronRemondThm14 : ZInQ.HeightSplit.GaudronRemondThm14)
+    (gonzalezRotgerX6Ab : HDec.QMSplit.Moduli.GonzalezRotgerX6Ab)
+    (gonzalezRotgerProp56X6 : GRCountX6.GonzalezRotgerProp56X6)
+    (sga7_IX_3_5_ForwardGeom : UnipotentForward.SGA7_IX_3_5_ForwardGeom)
+    (shimuraMainThmIDeligneY3AbU : RayClassCFT.ShimuraMainThmIDeligneY3AbU) (r16CoreY : R16Split.R16CoreY)
+    (elkiesX6StarFunctionField : HDec.QMSplit.Moduli.ElkiesCoord.ElkiesX6StarFunctionField)
+    (sga3_VIB_3_10_Nbhd : SGA3IdComp.SGA3_VIB_3_10_Nbhd) (sga7_IX_3_3_SHpre : DictModels.SGA7Pre.SGA7_IX_3_3_SHpre)
+    (raynaudSemistableSHOr : DictModels.RaynaudOr.RaynaudSemistableSHOr)
+    (neronGoodModelIso : ZInQ.Contrib.GroupLawNeron.NeronGoodModelIso)
+    (neronSchemeExtensionDedekind : ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind)
+    (blr_7_2_1 : DictModels.NeronBLR72.BLR_7_2_1) (neronOggShafarevichSep : NOSSepDict.NeronOggShafarevichSep)
+    (dsThm965Printed : DSCoeffExt.DSThm965Printed) (eigenformCoeffFieldFinite : DSCoeffExt.EigenformCoeffFieldFinite)
+    (dsThm966Printed : DSThm966EV.DSThm966Printed) : HDec.HSyn.OpenResearchLeaves28
+'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+DictModels.MumfordConn.MumfordGroupLawConn: not in closure
+DictModels.MumfordConn.mumfordGroupLaw_of_conn: not in closure
+ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw: not in closure
+LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_groupLaw: not in closure
+ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR: IN closure
+LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_dvr: IN closure
+ZInQ.Contrib.GroupLawNeron.NeronGoodModelIso: IN closure
+ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind: IN closure
+ZInQ.Contrib.GroupLawNeron.mumfordGroupLawDVR_of_neron: IN closure

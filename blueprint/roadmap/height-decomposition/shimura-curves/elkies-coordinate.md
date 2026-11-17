@@ -3,7 +3,7 @@ article_id: af_382f20c5e39c23b06cd884b7
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves28.elkiesX6StarFunctionField
+lean: HDec.HSyn.OpenResearchLeaves31.elkiesX6StarFunctionField
 ---
 
 # Elkies' coordinate on X₆/W

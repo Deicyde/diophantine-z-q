@@ -1,0 +1,74 @@
+GR56.gonzalezRotgerProp56X6_of_main : GRCountX6.EichlerOptEmbCount6 →
+  RayClassCFT.ShimuraMainThmIDeligneY3AbU →
+    HDec.HSyn.G0Split.FibreQM.PeriodMapH.QMSplitSTQM.ShimuraTaniyamaQbar →
+      BPAnalytic.Uniformization.UniformizationLeafAll →
+        ZInQ.HomLattice.GAGAMorphism → AvSplit.MumfordTorsionAlgClosed → GRCountX6.GonzalezRotgerProp56X6
+GR56.gonzalezRotgerProp56X6_of_st : GRCountX6.EichlerOptEmbCount6 →
+  GR56.QMTorusAbelian →
+    HDec.HSyn.G0Split.FibreQM.PeriodMapH.QMSplitSTQM.ShimuraTaniyamaQbar →
+      BPAnalytic.Uniformization.UniformizationLeafAll →
+        ZInQ.HomLattice.GAGAMorphism → AvSplit.MumfordTorsionAlgClosed → GRCountX6.GonzalezRotgerProp56X6
+GR56.gonzalezRotgerProp56X6_of_leaves : GRCountX6.EichlerOptEmbCount6 →
+  GR56.QMTorusAbelian →
+    GR56.CMPairDescendsQbar →
+      BPAnalytic.Uniformization.UniformizationLeafAll →
+        ZInQ.HomLattice.GAGAMorphism → AvSplit.MumfordTorsionAlgClosed → GRCountX6.GonzalezRotgerProp56X6
+GR56.cmPointsOptEmb6_of_main : RayClassCFT.ShimuraMainThmIDeligneY3AbU →
+  HDec.HSyn.G0Split.FibreQM.PeriodMapH.QMSplitSTQM.ShimuraTaniyamaQbar →
+    BPAnalytic.Uniformization.UniformizationLeafAll →
+      ZInQ.HomLattice.GAGAMorphism → AvSplit.MumfordTorsionAlgClosed → GRCountX6.CMPointsOptEmb6
+GR56.cmPointsOptEmb6_of : GR56.QMTorusAbelian →
+  GR56.CMPairDescendsQbar →
+    BPAnalytic.Uniformization.UniformizationLeafAll →
+      ZInQ.HomLattice.GAGAMorphism → AvSplit.MumfordTorsionAlgClosed → GRCountX6.CMPointsOptEmb6
+GR56.cmMap_injective : ∀ (hU : BPAnalytic.Uniformization.UniformizationLeafAll) (hG : ZInQ.HomLattice.GAGAMorphism)
+  (hM : AvSplit.MumfordTorsionAlgClosed) {k : Type} [inst : Field k] [inst_1 : NumberField k]
+  (hk : Module.finrank ℚ k = 2) {R : Subring k} (hR : R ≤ (integralClosure ℤ k).toSubring)
+  (hc : (LeafQM.AV.conductor R).Coprime 6), Function.Injective (GR56.cmMap hU hG hM hk hR hc)
+GR56.cmMap_surjective : ∀ (hU : BPAnalytic.Uniformization.UniformizationLeafAll) (hG : ZInQ.HomLattice.GAGAMorphism)
+  (hM : AvSplit.MumfordTorsionAlgClosed) {k : Type} [inst : Field k] [inst_1 : NumberField k]
+  (hk : Module.finrank ℚ k = 2) {R : Subring k} (hR : R ≤ (integralClosure ℤ k).toSubring)
+  (hc : (LeafQM.AV.conductor R).Coprime 6) [NumberField.IsTotallyComplex k],
+  GR56.QMTorusAbelian → GR56.CMPairDescendsQbar → Function.Surjective (GR56.cmMap hU hG hM hk hR hc)
+GR56.exists_injective_optEmb : BPAnalytic.Uniformization.UniformizationLeafAll →
+  ZInQ.HomLattice.GAGAMorphism →
+    AvSplit.MumfordTorsionAlgClosed →
+      ∀ (k : Type) [inst : Field k] [inst_1 : NumberField k],
+        Module.finrank ℚ k = 2 →
+          ∀ R ≤ (integralClosure ℤ k).toSubring, (LeafQM.AV.conductor R).Coprime 6 → ∃ F, Function.Injective F
+GR56.card_cmSet_le : BPAnalytic.Uniformization.UniformizationLeafAll →
+  ZInQ.HomLattice.GAGAMorphism →
+    AvSplit.MumfordTorsionAlgClosed →
+      ∀ (k : Type) [inst : Field k] [inst_1 : NumberField k],
+        Module.finrank ℚ k = 2 →
+          ∀ R ≤ (integralClosure ℤ k).toSubring,
+            (LeafQM.AV.conductor R).Coprime 6 →
+              Finite (Quot (GRCountX6.ConjRel R)) →
+                Finite (GR56.CMSet R) ∧ Nat.card (GR56.CMSet R) ≤ Nat.card (Quot (GRCountX6.ConjRel R))
+GR56.qmTorusAbelian_of_main : RayClassCFT.ShimuraMainThmIDeligneY3AbU → GR56.QMTorusAbelian
+GR56.cmPairDescendsQbar_of_st : HDec.HSyn.G0Split.FibreQM.PeriodMapH.QMSplitSTQM.ShimuraTaniyamaQbar →
+  GR56.CMPairDescendsQbar
+GR56.r5fpCountLe_of_eichler : GRCountX6.EichlerOptEmbCount6 →
+  BPAnalytic.Uniformization.UniformizationLeafAll →
+    ZInQ.HomLattice.GAGAMorphism → AvSplit.MumfordTorsionAlgClosed → GR56.R5fpCountLe
+GR56.r5fpCountLe_of_r5fpCount : LeafQM.AV.R5fpCount → GR56.R5fpCountLe
+HDec.FS5NoCM.fibreComTrivialFull_of_leaves''_le : HDec.FS5NoCM.R1R2fpFull →
+  LeafQM.AV.Pin.MobiusGlue →
+    HDec.QMLattice.YuB6Alg →
+      PkgI3.HomFreeFinite →
+        HDec.FS5NoCM.CMOptimalEmbedding →
+          HDec.FS5NoCM.X6KummerFibre → GR56.R5fpCountLe → HDec.FS5NoCM.FibreComTrivialFull
+'GR56.gonzalezRotgerProp56X6_of_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GR56.gonzalezRotgerProp56X6_of_st' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GR56.gonzalezRotgerProp56X6_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GR56.cmPointsOptEmb6_of_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GR56.cmPointsOptEmb6_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GR56.cmMap_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GR56.cmMap_surjective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GR56.exists_injective_optEmb' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GR56.card_cmSet_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GR56.qmTorusAbelian_of_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GR56.cmPairDescendsQbar_of_st' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GR56.r5fpCountLe_of_eichler' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GR56.r5fpCountLe_of_r5fpCount' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.FS5NoCM.fibreComTrivialFull_of_leaves''_le' depends on axioms: [propext, Classical.choice, Quot.sound]

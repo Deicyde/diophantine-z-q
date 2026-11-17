@@ -1,0 +1,2 @@
+'PhiAmple.phiAmpleIsogeny_of_phiSurjective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PhiAmple.finite_ker_pts' depends on axioms: [propext, Classical.choice, Quot.sound]

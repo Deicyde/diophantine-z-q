@@ -1,0 +1,4 @@
+{"name": "gz-conj",
+ "imports": ["ZInQKernel.Contrib.OneProof.GrossConjugationCd"],
+ "discharges": [
+   {"field": "grossConjugationCd", "proof": "_root_.ZInQ.GZConj.grossConjugationCd"}]}

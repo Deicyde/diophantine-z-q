@@ -1,0 +1,15 @@
+import ZInQKernel.Contrib.OneProof.CdOptimal
+#check @ZInQ.CdOpt.lattice_eq_of_periods
+#check @ZInQ.GZWeil.scalePP
+#check @ZInQ.GZWeil.g₂_scalePP
+#check @ZInQ.GZWeil.mem_scalePP
+#check @ZInQ.GZWeil.isPeriodLattice_cd_iff
+#check @ZInQ.GZOptimal.weierPt_add'
+#check @ZInQ.GZOptimal.weierPt_eq_zero_iff
+#check @ZInQ.GZOptimal.isOfFinAddOrder_iff
+#check @ZInQ.GZOptimal.exists_pos_of_torsion_iff
+#check @ZInQ.GZOptimal.weierstrassCurve_eq
+#check @ZInQ.GZHL3.GrossZagierFormulaAt
+#print ZInQ.GZHL3.GrossZagierFormulaCd
+#check @shortCurve_cd_isElliptic
+#check @ZInQ.GZHeegner.ParamSetting

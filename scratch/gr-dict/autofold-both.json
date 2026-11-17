@@ -1,0 +1,36 @@
+{
+ "name": "gr-dict-both",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.GRDict"
+ ],
+ "discharges": [
+  {
+   "field": "gonzalezRotgerX6Ab",
+   "proof": "_root_.GRDict.gonzalezRotgerX6Ab_of_printed {n}.gonzalezRotgerThm512X6 {n}.elkiesX6StarFunctionField {t}.uniformizationLeafAll {t}.gagaMorphism {t}.mumfordTorsionAlgClosed",
+   "leaves": [
+    {
+     "name": "gonzalezRotgerThm512X6",
+     "type": "_root_.GRDict.GonzalezRotgerThm512X6",
+     "doc": "gr-dict, printed form (degree-and-embedding consequence): Gonzalez-Rotger, J. Math. Soc. Japan 58 (2006), Thm 5.12, p. 946 (read by the locator audit), at (D,N) = (6,1), over CM points as Gonzalez-Rotger define them (GRDict.IsGRCMPoint: the torus C^2/iota(O)(z,1)^T at z in H fixed by an optimal embedding of R), on every witness of the moduli description (no existence claim): [Q(x):Q] = 2h(R) with k in Q(x) if some p | 6 is inert in k, h(R) otherwise. Replaces gonzalezRotgerX6Ab: the witness comes from elkiesX6StarFunctionField and the CM-point dictionary is proved from the textbook fields (GRDict.isGRCMPoint_of_com).",
+     "kind": "published",
+     "flag": "",
+     "source": "Gonzalez-Rotger, J. Math. Soc. Japan 58 (2006) Thm 5.12, p. 946 (read by the locator audit: Q(P) = H_R if D(R)N*(R) != 1, else the specified index-two subfield) at (D,N) = (6,1); degree and k-embedding clauses, over GR's CM(R) transported to Qbar-points of every coarse witness of X0(6,1)"
+    }
+   ]
+  },
+  {
+   "field": "gonzalezRotgerProp56X6",
+   "proof": "_root_.GRDict.gonzalezRotgerProp56X6_of_cm {n}.gonzalezRotgerProp56X6CM {t}.uniformizationLeafAll {t}.gagaMorphism {t}.mumfordTorsionAlgClosed",
+   "leaves": [
+    {
+     "name": "gonzalezRotgerProp56X6CM",
+     "type": "_root_.GRDict.GonzalezRotgerProp56X6CM",
+     "doc": "gr-dict, consequence of two printed statements of one paper: Gonzalez-Rotger, J. Math. Soc. Japan 58 (2006), Prop. 5.6, p. 943 (read by the locator audit), #CM(R) = 2^{#p|D(R)} h(R) at (D,N) = (6,1), over CM points as Gonzalez-Rotger define them (GRDict.IsGRCMPoint), counted on Qbar-points of every witness of the moduli description; the count over Qbar equals the printed count over C because CM points are defined over H_R (Thm 5.12 of the same paper). Replaces gonzalezRotgerProp56X6: the CM-point dictionary is proved from the textbook fields (GRDict.isGRCMPoint_iff).",
+     "kind": "published",
+     "flag": "pending reading: Prop. 5.6 counts points of X0(D,N)(C); the Qbar count also uses Thm 5.12 (CM points algebraic)",
+     "source": "Gonzalez-Rotger, J. Math. Soc. Japan 58 (2006) Prop. 5.6, p. 943, with Thm 5.12, p. 946 (both read by the locator audit), at (D,N) = (6,1), over GR's CM(R) transported to Qbar-points of every coarse witness of X0(6,1)"
+    }
+   ]
+  }
+ ]
+}

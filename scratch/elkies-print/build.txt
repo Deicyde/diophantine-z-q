@@ -1,0 +1,8 @@
+⚠ [14101/14102] Built ZInQKernel.Contrib.OneProof.ThetaWeierstrass8 (7.8s)
+ℹ [14102/14102] Built ZInQKernel.OneProof.Main (5.1s)
+info: ZInQKernel/OneProof/Main.lean:91:0: 'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (14102 jobs).
+EXIT 0
+info: ZInQKernel/OneProof/Main.lean:91:0: 'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (14102 jobs).
+EXIT 0

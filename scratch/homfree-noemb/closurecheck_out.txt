@@ -1,0 +1,7 @@
+HDec.HSyn.sixContactMin_of_open38_hf: closure 241494
+  contains ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed: false
+  contains PkgI3.HomFreeFinite: false
+  contains ZInQ.Contrib.OneProof.HomFreeC.HomFreeFiniteAlgClosedNoEmb: false
+  contains sorryAx: false
+  contains HDec.HSyn.t6_of_algClosed5: false
+  contains HomFreeFiniteC: true

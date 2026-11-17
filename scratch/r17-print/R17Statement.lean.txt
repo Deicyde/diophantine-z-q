@@ -1,0 +1,13 @@
+    ∀ L : Fld p, IsAdapted L (ρ.restrictLocal p) →
+      condAt L (ρ.restrictLocal p) = (N.factorization p : ℚ)
+
+/-- **R17, published form**, with the canonical `condExp` (choice of level inside): Carayol,
+Théorème (A), coverage as above (every `ℓ`, including 2; every `p ≠ ℓ`, including `p ∣ N`; read by
+the locator audit, adopted 2026-11-12 by loc-fix). `condExp` is the Serre–Tate conductor, which
+does not change under duals, so the Tate normalization of `AttachedTo` is harmless. -/
+def CarayolR17' : Prop :=
+  ∀ (ℓ : ℕ) [Fact ℓ.Prime] (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ)
+    (N : ℕ) (χ : DirichletCharacter ℂ N) (f : CF N 2) (ρ : GaloisRep ℓ 2) (p : ℕ) [Fact p.Prime],
+    0 < N → IsNewform f χ → ρ.IsSemisimple → ρ.AttachedTo ιC ιL f → p ≠ ℓ →
+      condExp (ρ.restrictLocal p) = (N.factorization p : ℚ)
+

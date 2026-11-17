@@ -3,7 +3,7 @@ article_id: af_400734b4cba4cc2f08427383
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenAddedLeaves19.picRepresentableAbVar
+lean: HDec.HSyn.OpenAddedLeaves25.picRepresentableAbVar
 ---
 
 # The Picard scheme of an abelian variety

@@ -3,7 +3,7 @@ article_id: af_7e432b9262db4dfd0cf66150
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves28.gaudronRemondThm14
+lean: HDec.HSyn.OpenResearchLeaves31.gaudronRemondThm14
 ---
 
 # The isogeny theorem of Gaudron and Rémond

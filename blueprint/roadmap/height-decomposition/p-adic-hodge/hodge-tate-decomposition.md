@@ -3,7 +3,7 @@ article_id: af_fa507498f724129acce4d644
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves28.hodgeTateDecompAbVar
+lean: HDec.HSyn.OpenResearchLeaves31.hodgeTateDecompAbVar
 ---
 
 # The Hodge–Tate decomposition of an abelian variety

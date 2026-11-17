@@ -1,0 +1,3 @@
+'JavanpeykarDict.javanpeykarBound_of_printed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'JavanpeykarDict.isStableFaltingsHeight_of_iso' depends on axioms: [propext, Classical.choice, Quot.sound]
+'JavanpeykarDict.dim_eq_genusK' depends on axioms: [propext, Classical.choice, Quot.sound]

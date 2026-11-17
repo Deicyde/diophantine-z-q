@@ -3,7 +3,7 @@ article_id: af_3df91ffa07e9d70f6aed8946
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves28.r9a
+lean: HDec.HSyn.OpenResearchLeaves31.r9a
 ---
 
 # Faltings' semisimplicity theorem

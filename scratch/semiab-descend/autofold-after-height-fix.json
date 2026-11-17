@@ -1,0 +1,22 @@
+{
+ "name": "semiab-descend",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.SemiAbelianDescendsPerfect"
+ ],
+ "discharges": [
+  {
+   "field": "semiAbelianDescendsPerfect",
+   "proof": "_root_.ZInQ.SemiAbDescend.semiAbelianDescendsPerfect_of_chevalley {n}.chevalleyPerfect",
+   "leaves": [
+    {
+     "name": "chevalleyPerfect",
+     "type": "_root_.ZInQ.SemiAbDescend.ChevalleyPerfect",
+     "doc": "semiab-descend, printed form: Chevalley's structure theorem over a perfect field (Conrad, J. Ramanujan Math. Soc. 17 (2002) Thm 1.1; Milne, Algebraic Groups (2017) Thm 8.27; numbers UNVERIFIED): a smooth connected group scheme G of finite type over a perfect field k has a unique normal smooth connected affine subgroup H with G/H an abelian variety. Lean form: existence of a faithfully flat homomorphism pi : G -> B onto an abelian variety (PkgI3.AbVar) whose scheme-theoretic kernel G x_B Spec k is smooth, connected and affine, and uniqueness of that kernel on T-points; G/H read as the target of a faithfully flat homomorphism with kernel H (the definition of a quotient, Milne AG section 5.c). Replaces the glue semiAbelianDescendsPerfect (ZInQ.SemiAbDescend.semiAbelianDescendsPerfect_of_chevalley proves it for every perfect field).",
+     "kind": "published",
+     "flag": "locator UNVERIFIED (see the source)",
+     "source": "Conrad, A modern proof of Chevalley's theorem on algebraic groups, J. Ramanujan Math. Soc. 17 (2002) 1-18, Thm 1.1; Milne, Algebraic Groups (CUP 2017) Thm 8.27 (numbers UNVERIFIED); semiab-descend"
+    }
+   ]
+  }
+ ]
+}

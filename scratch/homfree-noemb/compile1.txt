@@ -1,0 +1,626 @@
+scratch/homfree-noemb/HomFreeReroute.lean:81:22: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+scratch/homfree-noemb/HomFreeReroute.lean:113:8: warning: `simp` already closes the goal
+
+Hint: Use `simp` instead of `simpa`:
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+scratch/homfree-noemb/HomFreeReroute.lean:295:35: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec.G0FibreSimple`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:295:45: warning: Ambiguous namespace `ZInQ.DefFaltings`: it is interpreted as `_root_.HDec.ZInQ.DefFaltings` because this `open` occurs inside `namespace HDec.G0FibreSimple`, while `_root_.ZInQ.DefFaltings` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.ZInQ.DefFaltings`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:317:35: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec.G0FibreSimple`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:317:45: warning: Ambiguous namespace `ZInQ.DefFaltings`: it is interpreted as `_root_.HDec.ZInQ.DefFaltings` because this `open` occurs inside `namespace HDec.G0FibreSimple`, while `_root_.ZInQ.DefFaltings` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.ZInQ.DefFaltings`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:342:35: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec.G0FibreSimple`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:342:45: warning: Ambiguous namespace `ZInQ.DefFaltings`: it is interpreted as `_root_.HDec.ZInQ.DefFaltings` because this `open` occurs inside `namespace HDec.G0FibreSimple`, while `_root_.ZInQ.DefFaltings` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.ZInQ.DefFaltings`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:377:35: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec.G0FibreSimple`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:377:45: warning: Ambiguous namespace `ZInQ.DefFaltings`: it is interpreted as `_root_.HDec.ZInQ.DefFaltings` because this `open` occurs inside `namespace HDec.G0FibreSimple`, while `_root_.ZInQ.DefFaltings` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.ZInQ.DefFaltings`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:462:35: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec.G0FibreSimple`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:462:45: warning: Ambiguous namespace `ZInQ.DefFaltings`: it is interpreted as `_root_.HDec.ZInQ.DefFaltings` because this `open` occurs inside `namespace HDec.G0FibreSimple`, while `_root_.ZInQ.DefFaltings` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.ZInQ.DefFaltings`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:480:35: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec.G0FibreSimple`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:480:45: warning: Ambiguous namespace `ZInQ.DefFaltings`: it is interpreted as `_root_.HDec.ZInQ.DefFaltings` because this `open` occurs inside `namespace HDec.G0FibreSimple`, while `_root_.ZInQ.DefFaltings` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.ZInQ.DefFaltings`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:540:35: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec.G0FibreSimple`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:540:45: warning: Ambiguous namespace `ZInQ.DefFaltings`: it is interpreted as `_root_.HDec.ZInQ.DefFaltings` because this `open` occurs inside `namespace HDec.G0FibreSimple`, while `_root_.ZInQ.DefFaltings` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.ZInQ.DefFaltings`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:558:35: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec.G0FibreSimple`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:558:45: warning: Ambiguous namespace `ZInQ.DefFaltings`: it is interpreted as `_root_.HDec.ZInQ.DefFaltings` because this `open` occurs inside `namespace HDec.G0FibreSimple`, while `_root_.ZInQ.DefFaltings` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.ZInQ.DefFaltings`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:614:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/homfree-noemb/HomFreeReroute.lean:615:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/homfree-noemb/HomFreeReroute.lean:624:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/homfree-noemb/HomFreeReroute.lean:629:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/homfree-noemb/HomFreeReroute.lean:630:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/homfree-noemb/HomFreeReroute.lean:626:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/homfree-noemb/HomFreeReroute.lean:733:19: error(lean.invalidField): Invalid field `leafSqrtCrit`: The environment does not contain `HDec.HSyn.TextbookLeavesHF.leafSqrtCrit`, so it is not possible to project the field `leafSqrtCrit` from an expression
+  t
+of type `TextbookLeavesHF`
+scratch/homfree-noemb/HomFreeReroute.lean:745:5: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec.FS5NoCM`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:745:15: warning: Ambiguous namespace `LeafQM.AV.Pin`: it is interpreted as `_root_.HDec.LeafQM.AV.Pin` because this `open` occurs inside `namespace HDec.FS5NoCM`, while `_root_.LeafQM.AV.Pin` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV.Pin`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:745:29: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.FS5NoCM`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:835:5: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec.FS5NoCM`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:835:15: warning: Ambiguous namespace `LeafQM.AV.Pin`: it is interpreted as `_root_.HDec.LeafQM.AV.Pin` because this `open` occurs inside `namespace HDec.FS5NoCM`, while `_root_.LeafQM.AV.Pin` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV.Pin`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:835:29: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.FS5NoCM`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:858:5: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec.FS5NoCM`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:858:15: warning: Ambiguous namespace `LeafQM.AV.Pin`: it is interpreted as `_root_.HDec.LeafQM.AV.Pin` because this `open` occurs inside `namespace HDec.FS5NoCM`, while `_root_.LeafQM.AV.Pin` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV.Pin`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:858:29: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.FS5NoCM`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:870:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/homfree-noemb/HomFreeReroute.lean:1014:5: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec.FS5NoCM`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1014:15: warning: Ambiguous namespace `LeafQM.AV.Pin`: it is interpreted as `_root_.HDec.LeafQM.AV.Pin` because this `open` occurs inside `namespace HDec.FS5NoCM`, while `_root_.LeafQM.AV.Pin` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV.Pin`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1014:29: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.FS5NoCM`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1033:5: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec.FS5NoCM`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1033:15: warning: Ambiguous namespace `LeafQM.AV.Pin`: it is interpreted as `_root_.HDec.LeafQM.AV.Pin` because this `open` occurs inside `namespace HDec.FS5NoCM`, while `_root_.LeafQM.AV.Pin` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV.Pin`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1033:29: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.FS5NoCM`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1053:5: warning: Ambiguous namespace `LeafQM`: it is interpreted as `_root_.HDec.LeafQM` because this `open` occurs inside `namespace HDec.FS5NoCM`, while `_root_.LeafQM` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1071:5: warning: Ambiguous namespace `GlueB3Unram`: it is interpreted as `_root_.HDec.GlueB3Unram` because this `open` occurs inside `namespace HDec.G4WeilRes`, while `_root_.GlueB3Unram` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueB3Unram`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1072:5: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec.G4WeilRes`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1075:5: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.G4WeilRes`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1075:11: warning: Ambiguous namespace `PkgI3.AbVar`: it is interpreted as `_root_.HDec.PkgI3.AbVar` because this `open` occurs inside `namespace HDec.G4WeilRes`, while `_root_.PkgI3.AbVar` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3.AbVar`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1082:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/homfree-noemb/HomFreeReroute.lean:1084:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/homfree-noemb/HomFreeReroute.lean:1106:5: warning: Ambiguous namespace `GlueB3Unram`: it is interpreted as `_root_.HDec.GlueB3Unram` because this `open` occurs inside `namespace HDec.G4WeilRes`, while `_root_.GlueB3Unram` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueB3Unram`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1107:5: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec.G4WeilRes`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1110:5: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.G4WeilRes`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1110:11: warning: Ambiguous namespace `PkgI3.AbVar`: it is interpreted as `_root_.HDec.PkgI3.AbVar` because this `open` occurs inside `namespace HDec.G4WeilRes`, while `_root_.PkgI3.AbVar` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3.AbVar`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1119:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/homfree-noemb/HomFreeReroute.lean:1155:5: warning: Ambiguous namespace `GlueB3Unram`: it is interpreted as `_root_.HDec.GlueB3Unram` because this `open` occurs inside `namespace HDec.G4WeilRes`, while `_root_.GlueB3Unram` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueB3Unram`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1155:64: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.G4WeilRes`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1155:70: warning: Ambiguous namespace `PkgI3.AbVar`: it is interpreted as `_root_.HDec.PkgI3.AbVar` because this `open` occurs inside `namespace HDec.G4WeilRes`, while `_root_.PkgI3.AbVar` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3.AbVar`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1240:5: warning: Ambiguous namespace `GlueB3Unram`: it is interpreted as `_root_.HDec.GlueB3Unram` because this `open` occurs inside `namespace HDec.G4WeilRes`, while `_root_.GlueB3Unram` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueB3Unram`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1240:64: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.G4WeilRes`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1240:70: warning: Ambiguous namespace `PkgI3.AbVar`: it is interpreted as `_root_.HDec.PkgI3.AbVar` because this `open` occurs inside `namespace HDec.G4WeilRes`, while `_root_.PkgI3.AbVar` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3.AbVar`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1258:5: warning: Ambiguous namespace `GlueB3Unram`: it is interpreted as `_root_.HDec.GlueB3Unram` because this `open` occurs inside `namespace HDec`, while `_root_.GlueB3Unram` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueB3Unram`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1259:5: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1259:33: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1259:39: warning: Ambiguous namespace `PkgI3.AbVar`: it is interpreted as `_root_.HDec.PkgI3.AbVar` because this `open` occurs inside `namespace HDec`, while `_root_.PkgI3.AbVar` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3.AbVar`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1303:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1303:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1303:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1303:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1303:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1305:5: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.G0ModField.KernelField`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1322:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/homfree-noemb/HomFreeReroute.lean:1336:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1336:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1336:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1336:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1336:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1338:5: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.G0ModField.KernelField`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1356:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1356:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1356:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1356:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1356:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1358:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1358:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1358:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1358:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1358:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1360:5: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.G0ModField.KernelField`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1379:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1379:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1379:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1379:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1379:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1381:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1381:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1381:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1381:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1381:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1383:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1383:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1383:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1383:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1383:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1385:5: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.G0ModField.KernelField`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1403:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1403:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1403:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1403:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1403:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1405:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1405:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1405:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1405:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1405:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1407:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1407:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1407:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1407:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1407:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1409:5: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.G0ModField.KernelField`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1427:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1427:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1427:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1427:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1427:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1429:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1429:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1429:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1429:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1429:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1431:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1431:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1431:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1431:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1431:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1451:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/homfree-noemb/HomFreeReroute.lean:1453:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/homfree-noemb/HomFreeReroute.lean:1461:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/homfree-noemb/HomFreeReroute.lean:1536:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1536:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1536:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1536:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1536:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1538:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1538:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1538:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1538:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1538:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1540:22: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1540:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1540:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1540:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1540:75: warning: Ambiguous namespace `GlueDescent.B3Q`: it is interpreted as `_root_.HDec.GlueDescent.B3Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B3Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B3Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1578:33: error(lean.invalidField): Invalid field `frobeniusDense`: The environment does not contain `HDec.HSyn.TextbookLeavesHF.frobeniusDense`, so it is not possible to project the field `frobeniusDense` from an expression
+  t
+of type `HSyn.TextbookLeavesHF`
+scratch/homfree-noemb/HomFreeReroute.lean:1579:67: error(lean.invalidField): Invalid field `frobeniusDense`: The environment does not contain `HDec.HSyn.TextbookLeavesHF.frobeniusDense`, so it is not possible to project the field `frobeniusDense` from an expression
+  t
+of type `HSyn.TextbookLeavesHF`
+scratch/homfree-noemb/HomFreeReroute.lean:1593:5: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.HSyn.G0AssembleMod`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1597:63: error(lean.invalidField): Invalid field `frobeniusDense`: The environment does not contain `HDec.HSyn.TextbookLeavesHF.frobeniusDense`, so it is not possible to project the field `frobeniusDense` from an expression
+  t
+of type `TextbookLeavesHF`
+scratch/homfree-noemb/HomFreeReroute.lean:1611:5: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.HSyn.G0AssembleMod`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1620:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/homfree-noemb/HomFreeReroute.lean:1635:83: error(lean.invalidField): Invalid field `x1ModelExists`: The environment does not contain `HDec.HSyn.TextbookLeavesHF.x1ModelExists`, so it is not possible to project the field `x1ModelExists` from an expression
+  t
+of type `TextbookLeavesHF`
+scratch/homfree-noemb/HomFreeReroute.lean:1651:35: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec.HSyn.G0Split`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1651:45: warning: Ambiguous namespace `ZInQ.DefFaltings`: it is interpreted as `_root_.HDec.ZInQ.DefFaltings` because this `open` occurs inside `namespace HDec.HSyn.G0Split`, while `_root_.ZInQ.DefFaltings` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.ZInQ.DefFaltings`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1673:62: error(lean.invalidField): Invalid field `belyiX1`: The environment does not contain `HDec.HSyn.TextbookLeavesHF.belyiX1`, so it is not possible to project the field `belyiX1` from an expression
+  t
+of type `TextbookLeavesHF`
+scratch/homfree-noemb/HomFreeReroute.lean:1854:5: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.LTGoodRed.QM`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1854:16: warning: Ambiguous namespace `LeafQM`: it is interpreted as `_root_.HDec.LeafQM` because this `open` occurs inside `namespace HDec.LTGoodRed.QM`, while `_root_.LeafQM` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1881:5: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.LTGoodRed.QM`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1881:16: warning: Ambiguous namespace `LeafQM`: it is interpreted as `_root_.HDec.LeafQM` because this `open` occurs inside `namespace HDec.LTGoodRed.QM`, while `_root_.LeafQM` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1908:5: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.LTGoodRed.QM`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1908:16: warning: Ambiguous namespace `LeafQM`: it is interpreted as `_root_.HDec.LeafQM` because this `open` occurs inside `namespace HDec.LTGoodRed.QM`, while `_root_.LeafQM` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1931:5: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.LTGoodRed.QM`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1931:16: warning: Ambiguous namespace `LeafQM`: it is interpreted as `_root_.HDec.LeafQM` because this `open` occurs inside `namespace HDec.LTGoodRed.QM`, while `_root_.LeafQM` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1965:5: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.LTGoodRed.QM`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:1965:16: warning: Ambiguous namespace `LeafQM`: it is interpreted as `_root_.HDec.LeafQM` because this `open` occurs inside `namespace HDec.LTGoodRed.QM`, while `_root_.LeafQM` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:2020:5: warning: Ambiguous namespace `LeafQM`: it is interpreted as `_root_.HDec.LeafQM` because this `open` occurs inside `namespace HDec.LTGoodRed.QM`, while `_root_.LeafQM` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/homfree-noemb/HomFreeReroute.lean:2029:2: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+scratch/homfree-noemb/HomFreeReroute.lean:2057:24: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+scratch/homfree-noemb/HomFreeReroute.lean:2117:5: warning: Ambiguous namespace `LeafQM`: it is interpreted as `_root_.HDec.LeafQM` because this `open` occurs inside `namespace HDec.LTGoodRed.QM`, while `_root_.LeafQM` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`

@@ -3,7 +3,7 @@ article_id: af_580f0ab4e4cc68550684a47e
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves28.gonzalezRotgerProp56X6
+lean: HDec.HSyn.OpenResearchLeaves31.gonzalezRotgerProp56X6
 ---
 
 # González–Rotger: the number of CM points on X₆

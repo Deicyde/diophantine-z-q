@@ -1,0 +1,8 @@
+'HDec.QMSplit.Moduli.ElkiesPrint.elkiesX6StarFunctionField_of_every' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.QMSplit.Moduli.ElkiesPrint.elkiesX6StarFunctionField_of_every_gr' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.QMSplit.Moduli.ElkiesPrint.every_of_functionField' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.QMSplit.Moduli.ElkiesPrint.every_iff_functionField' depends on axioms: [propext, Classical.choice, Quot.sound]

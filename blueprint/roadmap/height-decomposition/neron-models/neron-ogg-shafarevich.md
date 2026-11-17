@@ -3,7 +3,7 @@ article_id: af_c72c56021e8ddfca52b56023
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves28.neronOggShafarevichSep
+lean: HDec.HSyn.OpenResearchLeaves31.neronOggShafarevichSep
 ---
 
 # The criterion of Néron–Ogg–Shafarevich

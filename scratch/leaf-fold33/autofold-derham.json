@@ -1,0 +1,30 @@
+{
+ "name": "derham-print",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.DeRhamPrint"
+ ],
+ "discharges": [
+  {
+   "field": "deRhamH1AbVarT",
+   "proof": "_root_.DeRhamPrint.deRhamH1AbVarT_of_leaves {n}.deRhamVpAbVarPrinted {n}.bdRInvariantsPrinted {t}.mumfordTorsionAlgClosed",
+   "leaves": [
+    {
+     "name": "deRhamVpAbVarPrinted",
+     "type": "_root_.DeRhamPrint.DeRhamVpAbVarPrinted",
+     "doc": "Fontaine: the Tate module V_p(A) of an abelian variety over a finite extension of Q_p is de Rham, D_dR(V) = (B_dR (x) V)^{G_F} (printed form; Berger 2004 I.3 records it, wording read by h-leaves; Fontaine Ann. of Math. 115 (1982) / LNM 1016 (1983) numbers UNVERIFIED); Berger's B_dR = B_dR^+[1/t] matched by DeRhamPrint.TDict.bdREquivAwayT",
+     "kind": "published",
+     "flag": "pending review (Addendum 1: new printed leaf, GLUE until a reviewer rates it); unread: new printed leaf; locator UNVERIFIED",
+     "source": "V_p(A) de Rham, printed D_dR (Berger 2004 I.3, attributing it to Fontaine; Faltings 1989 / Tsuji 1999 give it for H^1_et = V_p(A)^dual); B_dR^+[1/t] = kernel B_dR proved (derham-print)"
+    },
+    {
+     "name": "bdRInvariantsPrinted",
+     "type": "_root_.DeRhamPrint.BdRInvariantsPrinted",
+     "doc": "Fontaine: B_dR^{G_K} = K (Asterisque 223 (1994) Exp. II; Brinon-Conrad CMI notes 4.3-4.4), read as dim_{Q_p} B_dR^{G_F} = [F:Q_p] (printed form, dimension; locator UNVERIFIED)",
+     "kind": "published",
+     "flag": "pending review (Addendum 1: new printed leaf, GLUE until a reviewer rates it); unread: new printed leaf; locator UNVERIFIED",
+     "source": "B_dR^{G_K} = K, Q_p-dimension form (Fontaine, Asterisque 223 (1994) Exp. II; Brinon-Conrad CMI notes 4.3-4.4)"
+    }
+   ]
+  }
+ ]
+}

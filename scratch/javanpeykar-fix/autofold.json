@@ -1,0 +1,31 @@
+{
+ "name": "javanpeykar-fix",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.JavanpeykarFix"
+ ],
+ "discharges": [
+  {
+   "field": "javanpeykarBound",
+   "proof": "_root_.JavanpeykarFix.javanpeykarBound_of_printed_fix {n}.javanpeykarPrintedMap {n}.constantFieldExtensionUnramifiedFull {t}.uniformizationLeafAll {t}.mumfordTorsionAlgClosed",
+   "leaves": [
+    {
+     "name": "javanpeykarPrintedMap",
+     "type": "_root_.JavanpeykarFix.JavanpeykarPrintedMap",
+     "doc": "javanpeykar-fix: Javanpeykar, Algebra Number Theory 8 (2014) Thm 1.1.1 in printed form, for X = X0 x_K Qbar (X0 a smooth proper geometrically connected curve over a number field K, Qbar = AlgebraicClosure K): X projective (closed immersion into a projective space over Qbar, hypothesis), Jac(X) = W an abelian variety over Qbar representing Pic^0_{X/Qbar} with the tensor group law (vendored Jacobian-Challenge picardFunctorDegree, PicardTensorCompatible), V a model of W over K (V_Qbar = W), g = dim H^1(X, O_X) (genusBar), beta : X -> P^1_Qbar = Proj Qbar[X0,X1] a Belyi map of degree d (IsBelyiMap: over Qbar, finite, ramification index 1 at every closed point over P^1 minus {0,1,infinity} = D+(X0 X1 (X0-X1)), d = [Qbar(X) : Qbar(P^1)] via the stalk map at the generic point), h = height-dict's printed stable height IsPrintedStableHeight of V: h <= 13*10^6 * g * d^5. Replaces javanpeykarBound with constantFieldExtensionUnramifiedFull; proved glue: JavanpeykarDict Jacobian/genus steps, height-dict isPrintedStableHeight_of (with T35 from uniformizationLeafAll, mumfordTorsionAlgClosed), JavanpeykarFix.belyiMapOfFunction_proof (Belyi function -> finite Belyi map), exists_closedImmersion_projectiveSpace (proper smooth curves are projective), exists_jacBar (V_Qbar = Jac X).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Javanpeykar 2014 Thm 1.1.1 at X = X0 x_K Qbar); stable height of an abelian variety over Qbar read on a model over a number field (V over K with V_Qbar = Jac X)",
+     "source": "Javanpeykar, Polynomial bounds for Arakelov invariants of Belyi curves, Algebra Number Theory 8 (2014), Thm 1.1.1, p. 90 (arXiv:1403.6404v1 p. 1); height identification p. 98 (arXiv section 2.3 p. 9); read by the locator audit (docs/research/locators.md row R18)"
+    },
+    {
+     "name": "constantFieldExtensionUnramifiedFull",
+     "type": "_root_.JavanpeykarFix.ConstantFieldExtensionUnramifiedFull",
+     "doc": "javanpeykar-fix: Stichtenoth, Algebraic Function Fields and Codes (2nd ed., GTM 254), Thm 3.6.3(a), with Stichtenoth's standing hypothesis that K is the full constant field of F (every element of F algebraic over K lies in K): an algebraic constant field extension F' = FK' of an algebraic function field F/K (char 0) is unramified, e(P'|P) = 1. Stated with F (x)_K L -> FL bijective (L/K algebraic, F/K(t) finite for a transcendental t), places as valuation subrings of FL containing L, e = 1 as: a generator of the maximal ideal of P = P' cap F generates that of P'. The full-constant-field hypothesis is proved at the consumer (JavanpeykarFix.fullConstantField_of_bijective, from K(X) (x)_K Kbar = Kbar(X_Kbar), X geometrically integral).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Stichtenoth Thm 3.6.3(a) with full constant field); locator UNVERIFIED (theorem number from memory, not read)",
+     "source": "Stichtenoth, Algebraic Function Fields and Codes, 2nd ed., Springer GTM 254 (2009), section 3.6, Thm 3.6.3(a); number UNVERIFIED"
+    }
+   ]
+  }
+ ],
+ "note": "javanpeykar-fix: report docs/research/javanpeykar-fix.md. Supersedes the javanpeykar-dict spec (whose JavanpeykarPrinted was rated GLUE). javanpeykarBound (rated GLUE in the re-rated base) is replaced by two printed leaves; uniformizationLeafAll and mumfordTorsionAlgClosed are existing textbook fields (read only)."
+}

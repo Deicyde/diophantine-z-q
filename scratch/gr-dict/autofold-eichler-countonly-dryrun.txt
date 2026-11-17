@@ -1,0 +1,1 @@
+strict count: 34/11 on 45 -> 34/11 on 45; strictest 34/11 -> 34/11

@@ -3,7 +3,7 @@ article_id: af_dbb2a752982f71a9ff428f73
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenTextbookLeaves13.gagaMorphism
+lean: HDec.HSyn.OpenTextbookLeaves16.gagaMorphism
 ---
 
 # GAGA for homomorphisms of complex abelian varieties

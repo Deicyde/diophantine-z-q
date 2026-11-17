@@ -1,0 +1,10 @@
+def ConstantFieldExtensionUnramified : Prop :=
+  ∀ (K F L FL : Type) [Field K] [Field F] [Field L] [Field FL] [Algebra K F] [Algebra K L]
+    [Algebra L FL] [Algebra K FL] [IsScalarTower K L FL] [CharZero K] [Algebra.IsAlgebraic K L]
+    (ι : F →ₐ[K] FL),
+    (∃ t : F, Transcendental K t ∧ FiniteDimensional (IntermediateField.adjoin K {t}) F) →
+    Function.Bijective (Algebra.TensorProduct.productMap ι (IsScalarTower.toAlgHom K L FL)) →
+    ∀ w : ValuationSubring FL, (∀ c : L, algebraMap L FL c ∈ w) → ∀ π : F,
+      π ∈ (w.comap (ι : F →+* FL)).nonunits →
+      (∀ x ∈ (w.comap (ι : F →+* FL)).nonunits, ∃ y ∈ w.comap (ι : F →+* FL), x = π * y) →
+      ∀ x ∈ w.nonunits, ∃ y ∈ w, x = ι π * y

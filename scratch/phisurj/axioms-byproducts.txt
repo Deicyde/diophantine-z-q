@@ -1,0 +1,3 @@
+'PhiSurj.mumfordSquareAC_of_open' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PhiSurj.mumfordMulNPicZeroAC_of_open' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PhiSurj.mumfordBundle_eq_one_of_isTI' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -3,7 +3,7 @@ article_id: af_b184071dea638b3476f739d5
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves28.deRhamH1AbVarT
+lean: HDec.HSyn.OpenResearchLeaves31.deRhamH1AbVarT
 ---
 
 # The de Rham comparison for an abelian variety

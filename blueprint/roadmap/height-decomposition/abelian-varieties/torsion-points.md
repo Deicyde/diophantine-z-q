@@ -3,7 +3,7 @@ article_id: af_fcdf60e92e80fd1e9a6b0cd5
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenTextbookLeaves13.mumfordTorsionAlgClosed
+lean: HDec.HSyn.OpenTextbookLeaves16.mumfordTorsionAlgClosed
 ---
 
 # Torsion points over an algebraically closed field

@@ -3,7 +3,7 @@ article_id: af_31d43031b0df878483ebd899
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves28.r11r12
+lean: HDec.HSyn.OpenResearchLeaves31.r11r12
 ---
 
 # Pan's Fontaine–Mazur theorem, with Berger's theorem

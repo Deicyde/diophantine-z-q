@@ -1,0 +1,30 @@
+ZInQKernel/Contrib/OneProof/PicZeroAbVarCharZeroReroute.lean:80:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+ZInQKernel/Contrib/OneProof/PicZeroAbVarCharZeroReroute.lean:129:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+ZInQKernel/Contrib/OneProof/PicZeroAbVarCharZeroReroute.lean:228:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+ZInQKernel/Contrib/OneProof/PicZeroAbVarCharZeroReroute.lean:3034:0: error: (deterministic) timeout at `isDefEq`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+ZInQKernel/Contrib/OneProof/PicZeroAbVarCharZeroReroute.lean:3073:8: error: (kernel) unknown constant 'HDec.HSyn.openTextbookLeaves13_of_OpenTextbookLeaves14_hf_pz'

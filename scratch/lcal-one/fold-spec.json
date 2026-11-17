@@ -1,0 +1,12 @@
+{
+  "name": "lcal-one",
+  "note": "Manual fold (h11 and hL29 are top-level arguments of frozenTarget; autofold.py folds bundle fields only). Variant B of tyz-genus with TYZLcalOne proved (ZInQ.Contrib.LcalOne.tyzLcalOne_proof). Checked in scratch/lcal-one/FoldCheck.lean (standard axioms; output FoldCheck-output.txt).",
+  "imports": ["ZInQKernel.Contrib.OneProof.TYZLcalOne"],
+  "replace_binders": {"(h11 : TYZThm11Integral)\n    (hL29 : H29Split.TYZLemma29PrintedNe3)": "(h21C : ZInQ.Contrib.TYZGenusFold.TYZThm21PairsC)"},
+  "replace_args": {"h11": "(ZInQ.Contrib.LcalOne.tyzThm11Integral_of_thm21C_only h21C)",
+                   "hL29": "(ZInQ.Contrib.TYZGenusFold.tyzLemma29PrintedNe3_of_thm21C h21C)"},
+  "kinds_remove": ["frozenTarget\th11", "frozenTarget\thL29"],
+  "kinds_add": "scratch/lcal-one/kinds-rows.tsv (row h21C)",
+  "check": "ZInQ.Contrib.TYZChain.frozenTarget_lcalOne (new body), ZInQ.Contrib.TYZChain.frozenTarget_lcalOne' (through the current frozenTarget)",
+  "count": "TYZ hypotheses of frozenTarget 2 -> 1 (open hypotheses 35 -> 34); no new leaf beyond tyz-genus's TYZThm21PairsC"
+}

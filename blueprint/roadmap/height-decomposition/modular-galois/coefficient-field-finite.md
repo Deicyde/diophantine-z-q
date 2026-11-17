@@ -3,7 +3,7 @@ article_id: af_792fa2b0adeb6cbb2a5ec727
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves28.eigenformCoeffFieldFinite
+lean: HDec.HSyn.OpenResearchLeaves31.eigenformCoeffFieldFinite
 ---
 
 # The coefficients of an eigenform generate a number field

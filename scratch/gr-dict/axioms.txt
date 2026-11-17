@@ -1,0 +1,26 @@
+GRDict.gonzalezRotgerX6Ab_of_printed : GRDict.GonzalezRotgerThm512X6 →
+  HDec.QMSplit.Moduli.ElkiesCoord.ElkiesX6StarFunctionField →
+    BPAnalytic.Uniformization.UniformizationLeafAll →
+      ZInQ.HomLattice.GAGAMorphism → AvSplit.MumfordTorsionAlgClosed → HDec.QMSplit.Moduli.GonzalezRotgerX6Ab
+GRDict.gonzalezRotgerProp56X6_of_cm : GRDict.GonzalezRotgerProp56X6CM →
+  BPAnalytic.Uniformization.UniformizationLeafAll →
+    ZInQ.HomLattice.GAGAMorphism → AvSplit.MumfordTorsionAlgClosed → GRCountX6.GonzalezRotgerProp56X6
+GRDict.isGRCMPoint_iff : BPAnalytic.Uniformization.UniformizationLeafAll →
+  ZInQ.HomLattice.GAGAMorphism →
+    AvSplit.MumfordTorsionAlgClosed →
+      ∀ {k : Type} [inst : Field k] [inst_1 : NumberField k],
+        Module.finrank ℚ k = 2 →
+          ∀ {R : Subring k},
+            R ≤ (integralClosure ℤ k).toSubring →
+              (LeafQM.AV.conductor R).Coprime 6 →
+                ∀ {X : CategoryTheory.Over (AlgebraicGeometry.Spec ↧ℚ)}
+                  (Ψ : (LeafQM.AV.fieldPt LeafQM.AV.Qbar ⟶ X) ≃ Quotient (LeafQM.AV.pairSetoid LeafQM.AV.Qbar))
+                  (x : LeafQM.AV.fieldPt LeafQM.AV.Qbar ⟶ X),
+                  GRDict.IsGRCMPoint Ψ R x ↔ ∃ P, Ψ x = ⟦P⟧ ∧ Nonempty (↥(LeafQM.AV.com P.q) ≃+* ↥R)
+'GRDict.gonzalezRotgerX6Ab_of_printed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GRDict.gonzalezRotgerProp56X6_of_cm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GRDict.isGRCMPoint_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GRDict.r5ptProps_of_thm512' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GRDict.gonzalezRotgerX6Ab_of_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GRDict.x6ModuliWitness_of_elkies' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GRDict.x6ModuliWitness_of_gonzalezRotgerX6Ab' depends on axioms: [propext, Classical.choice, Quot.sound]

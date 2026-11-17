@@ -1,0 +1,12 @@
+def JavanpeykarPrinted : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (X : Over (Spec (CommRingCat.of K))) [IsCurve X]
+    (V : AbelianVariety K) (rep : (picardFunctorDegree X.hom 0).obj.RepresentableBy V.group.X),
+    PicardTensorCompatible X.hom V.group rep →
+    1 ≤ genusBar X →
+    ∀ [IsIntegral (baseChangeCurve X (AlgebraicClosure K)).left]
+      (t : (baseChangeCurve X (AlgebraicClosure K)).left.functionField),
+      letI := ffAlgebra (baseChangeCurve X (AlgebraicClosure K))
+      IsBelyiFunction (AlgebraicClosure K) (baseChangeCurve X (AlgebraicClosure K)).left.functionField t →
+      ∀ d : ℕ, Module.finrank (IntermediateField.adjoin (AlgebraicClosure K) {t})
+        (baseChangeCurve X (AlgebraicClosure K)).left.functionField = d → 0 < d →
+      ∀ x : ℝ, IsStableFaltingsHeight (ofVendored V) x → x ≤ javanpeykarBound (genusBar X) d

@@ -1,0 +1,22 @@
+{
+ "name": "gr56-fold",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.GR56Lattice"
+ ],
+ "discharges": [
+  {
+   "field": "gonzalezRotgerProp56X6",
+   "proof": "_root_.GR56.gonzalezRotgerProp56X6_of_main {n}.eichlerOptEmbCount6 {n}.shimuraMainThmIDeligneY3AbU {l}.shimuraTaniyamaQbar {t}.uniformizationLeafAll {t}.gagaMorphism {t}.mumfordTorsionAlgClosed",
+   "leaves": [
+    {
+     "name": "eichlerOptEmbCount6",
+     "type": "_root_.GRCountX6.EichlerOptEmbCount6",
+     "doc": "gr56-prove, printed form (pure algebra): Eichler's theorem on optimal embeddings for the maximal order O of the quaternion algebra (2,-3) of discriminant 6 (class number one): for an order R of conductor prime to 6 in an imaginary quadratic k, the O^x-classes of optimal embeddings R -> O are finite in number, h(R) * prod_{p|6} (1 - (k/p)). Replaces gonzalezRotgerProp56X6: with the bundle fields shimuraMainThmIDeligneY3AbU, shimuraTaniyamaQbar and the textbook fields the CM-point map is a bijection (GR56.cmPointsOptEmb6_of_main).",
+     "kind": "published",
+     "flag": "locator UNVERIFIED (theorem numbers from memory)",
+     "source": "Eichler, J. reine angew. Math. 195 (1955); Vigneras, Arithmetique des algebres de quaternions, LNM 800 (1980), Ch. III Thm 5.11, Cor. 5.12; Voight, Quaternion Algebras (2021), Thm 30.7.3 (numbers UNVERIFIED); at the maximal order of (2,-3) (class number one), counted modulo O^x"
+    }
+   ]
+  }
+ ]
+}

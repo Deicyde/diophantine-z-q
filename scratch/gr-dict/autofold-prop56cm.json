@@ -1,0 +1,22 @@
+{
+ "name": "gr-dict-p56cm",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.GRDict"
+ ],
+ "discharges": [
+  {
+   "field": "gonzalezRotgerProp56X6",
+   "proof": "_root_.GRDict.gonzalezRotgerProp56X6_of_cm {n}.gonzalezRotgerProp56X6CM {t}.uniformizationLeafAll {t}.gagaMorphism {t}.mumfordTorsionAlgClosed",
+   "leaves": [
+    {
+     "name": "gonzalezRotgerProp56X6CM",
+     "type": "_root_.GRDict.GonzalezRotgerProp56X6CM",
+     "doc": "gr-dict, consequence of two printed statements of one paper: Gonzalez-Rotger, J. Math. Soc. Japan 58 (2006), Prop. 5.6, p. 943 (read by the locator audit), #CM(R) = 2^{#p|D(R)} h(R) at (D,N) = (6,1), over CM points as Gonzalez-Rotger define them (GRDict.IsGRCMPoint), counted on Qbar-points of every witness of the moduli description; the count over Qbar equals the printed count over C because CM points are defined over H_R (Thm 5.12 of the same paper). Replaces gonzalezRotgerProp56X6: the CM-point dictionary is proved from the textbook fields (GRDict.isGRCMPoint_iff).",
+     "kind": "published",
+     "flag": "pending reading: Prop. 5.6 counts points of X0(D,N)(C); the Qbar count also uses Thm 5.12 (CM points algebraic)",
+     "source": "Gonzalez-Rotger, J. Math. Soc. Japan 58 (2006) Prop. 5.6, p. 943, with Thm 5.12, p. 946 (both read by the locator audit), at (D,N) = (6,1), over GR's CM(R) transported to Qbar-points of every coarse witness of X0(6,1)"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,31 @@
+-- Verbatim copy of ZInQ.HeightSplit.JavanpeykarBound, ZInQKernel/OneProof/H/TailY.lean (base 2880fef1), lines 505-534; for reference only (the proof imports the original).
+section R18Sec
+
+open LeafModCurves (IsCurve IsJacobian IsBelyiFunction)
+open LeafPush2 (ffAlgebra javanpeykarBound)
+
+/-- **Leaf R18-Javanpeykar** (A. Javanpeykar, *Polynomial bounds for Arakelov invariants of Belyi
+curves*, Algebra Number Theory 8 (2014), Thm 1.1.1, p. 90; arXiv:1403.6404v1 p. 1; height
+identification p. 98 / arXiv §2.3 p. 9; read by the locator audit, docs/research/locators.md).
+Printed: for a smooth projective connected curve `X/ℚ̄` of genus `g ≥ 1`,
+`h_Fal(X) ≤ 13·10⁶ · g · deg_B(X)⁵`, `h_Fal(X)` the stable Faltings height of `Jac X`.
+
+Specialization stated: `X` defined over a number field `K` (smooth proper geometrically connected
+integral, a `K`-point `P₀`), `J` its Jacobian over `K` (the kernel's Albanese predicate), `g = dim J`
+(= genus), a Belyi function `t ∈ K(X)` with `d = [K(X) : K(t)]` (so `deg_B(X_ℚ̄) ≤ d`), and `x` the
+published stable height of `J` (`IsStableFaltingsHeight`: computed on a Néron model over a field of
+semistable reduction; it is that of `J_ℚ̄ = Jac(X_ℚ̄)`, the stable height being invariant under field
+extension). Faltings' normalization: the weaker reading if the paper used Deligne's (`h_D ≥ h_F`). -/
+def JavanpeykarBound : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (X : Over (Spec (CommRingCat.of K))) [IsCurve X]
+    [IsIntegral X.left] (P₀ : 𝟙_ (Over (Spec (CommRingCat.of K))) ⟶ X) (J : PkgI3.AbVar K)
+    (aj : X ⟶ J.X), IsJacobian X P₀ J aj →
+    ∀ g : ℕ, J.dim = (g : WithBot ℕ∞) → 1 ≤ g →
+    ∀ t : X.left.functionField,
+      letI := ffAlgebra X
+      IsBelyiFunction K X.left.functionField t →
+      ∀ d : ℕ, Module.finrank (IntermediateField.adjoin K {t}) X.left.functionField = d → 0 < d →
+      ∀ x : ℝ, IsStableFaltingsHeight J x → x ≤ javanpeykarBound g d
+
+/-- **H-14: R18 from Javanpeykar's printed bound**, N1, SS1, SS2 (identification) and the `≠ ⊤`
+half of H-19 (glue `NeronMetrizable`). -/

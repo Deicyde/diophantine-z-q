@@ -1,0 +1,6 @@
+✔ [14194/14196] Built ZInQKernel.OneProof.H.GoodModelIsoCopy (11s)
+ℹ [14195/14196] Built ZInQKernel.OneProof.H.TailZ50 (5.2s)
+info: ZInQKernel/OneProof/H/TailZ50.lean:122:0: 'HDec.HSyn.sixContactMin_of_open43' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [14196/14196] Built ZInQKernel.OneProof.Main (5.7s)
+info: ZInQKernel/OneProof/Main.lean:123:0: 'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (14196 jobs).

@@ -1,0 +1,31 @@
+{
+ "name": "javanpeykar-dict",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.JavanpeykarDict"
+ ],
+ "discharges": [
+  {
+   "field": "javanpeykarBound",
+   "proof": "_root_.JavanpeykarDict.javanpeykarBound_of_printed_stichtenoth {n}.javanpeykarPrinted {n}.constantFieldExtensionUnramified",
+   "leaves": [
+    {
+     "name": "javanpeykarPrinted",
+     "type": "_root_.JavanpeykarDict.JavanpeykarPrinted",
+     "doc": "javanpeykar-dict: Javanpeykar, Algebra Number Theory 8 (2014) Thm 1.1.1 in printed form, for X = X0 x_K Qbar with X0 a smooth proper geometrically connected curve over a number field K (Qbar = AlgebraicClosure K): Jac(X) as the degree-zero Picard scheme (V over K representing Pic^0_{X0/K} with the tensor group law, vendored Jacobian-Challenge library; V_Qbar = Jac(X)), g = dim H^1(X, O_X) the genus of X (genusBar), a Belyi map of X of degree d in function-field form (t in Qbar(X) with ramification index 1 at every place over a in A^1(Qbar) minus {0,1}, d = [Qbar(X) : Qbar(t)]), h = the published stable height of V: h <= 13*10^6 * g * d^5. Replaces javanpeykarBound together with constantFieldExtensionUnramified; the Jacobian step (kernel IsJacobian = Pic^0, Milne 6.1 via the vendored Albanese property) and the genus step (dim J = genus of X_Qbar) are proved (JavanpeykarDict.abVarIso_picZero_of_isJacobian, isStableFaltingsHeight_of_iso, dim_eq_genusK, genusBar_eq); the Belyi step (a K-rational Belyi function stays a Belyi function of X_Qbar, same degree: JavanpeykarDict.BelyiBaseChange) is proved from constantFieldExtensionUnramified (belyiBaseChange_of_unramified, with the function field of X_Qbar = K(X) (x)_K Qbar proved in functionField_baseChange).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Javanpeykar 2014 Thm 1.1.1 at X = X0 x_K Qbar); Belyi map read in function-field form (curves over Qbar and their function fields); Jac(X) = Pic^0 representative over K (its base change represents Pic^0 of X); stable height of an abelian variety over Qbar read on a model over a number field",
+     "source": "Javanpeykar, Polynomial bounds for Arakelov invariants of Belyi curves, Algebra Number Theory 8 (2014), Thm 1.1.1, p. 90 (arXiv:1403.6404v1 p. 1); height identification p. 98 (arXiv section 2.3 p. 9); read by the locator audit (docs/research/locators.md row R18)"
+    },
+    {
+     "name": "constantFieldExtensionUnramified",
+     "type": "_root_.JavanpeykarDict.ConstantFieldExtensionUnramified",
+     "doc": "javanpeykar-dict: Stichtenoth, Algebraic Function Fields and Codes (2nd ed., GTM 254), Thm 3.6.3(a): an algebraic constant field extension F' = FK' of an algebraic function field F/K (char 0) is unramified, e(P'|P) = 1. Stated with F' = FL, F (x)_K L -> FL bijective (L/K algebraic, F/K(t) finite for a transcendental t), places as valuation subrings of FL containing L, and e = 1 as: a generator of the maximal ideal of P = P' cap F generates the maximal ideal of P'. Used for the Belyi step of javanpeykarBound (JavanpeykarDict.belyiBaseChange_of_unramified).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Stichtenoth Thm 3.6.3(a), constant field extensions are unramified; e = 1 stated in valuation-subring form); locator UNVERIFIED (theorem number from memory, not read)",
+     "source": "Stichtenoth, Algebraic Function Fields and Codes, 2nd ed., Springer GTM 254 (2009), section 3.6, Thm 3.6.3(a); number UNVERIFIED"
+    }
+   ]
+  }
+ ],
+ "note": "javanpeykar-dict: report docs/research/javanpeykar-dict.md. Strict GLUE count unchanged (one LEAF field replaced by two printed leaves). Alternative without Stichtenoth: proof _root_.JavanpeykarDict.javanpeykarBound_of_printed {n}.javanpeykarPrinted {n}.belyiBaseChange with belyiBaseChange project glue (raises GLUE by one)."
+}

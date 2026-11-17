@@ -1,0 +1,163 @@
+DISCHARGES [OpenResearchLeaves28.dsThm965Printed] by DSCoeffExt.dsThm965Printed_of_charpoly
+  still assumes: [∀ (N : ℕ) [inst : NeZero N] (k : ℤ) (χ : DirichletCharacter ℂ N) (f : ZInQ.Contrib.G9.PkgI4.CF N k),
+   2 ≤ k →
+     DSCoeffExt.IsNormalizedEigenformDS f χ →
+       ∀ [inst : NumberField ↥(DSCoeffExt.coeffField f)] (ℓ : ℕ) [Fact (Nat.Prime ℓ)]
+         (lam : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers ↥(DSCoeffExt.coeffField f))),
+         ↑ℓ ∈ lam.asIdeal →
+           ∃ ρ,
+             Continuous ⇑ρ ∧
+               ∀ (p : ℕ),
+                 Nat.Prime p →
+                   ¬p ∣ N * ℓ →
+                     (∀ (v : ValuationSubring ZInQ.Contrib.G9.PkgI4.Qbar),
+                         ZInQ.Contrib.G9.PkgI4.LiesOver v p → ∀ σ ∈ ValuationSubring.inertiaSubgroup ℚ v, ρ ↑σ = 1) ∧
+                       ∀ (b : ↥(DSCoeffExt.coeffField f)),
+                         ↑b = χ ↑p * ↑p ^ (k - 1) →
+                           ∀ (v : ValuationSubring ZInQ.Contrib.G9.PkgI4.Qbar) (σ : ZInQ.Contrib.G9.PkgI4.GQ),
+                             ZInQ.Contrib.G9.PkgI4.LiesOver v p →
+                               ZInQ.Contrib.G9.PkgI4.IsArithFrob σ v p →
+                                 (↑(ρ σ)).charpoly =
+                                   Polynomial.X ^ 2 -
+                                       Polynomial.C
+                                           ((algebraMap (↥(DSCoeffExt.coeffField f))
+                                               (IsDedekindDomain.HeightOneSpectrum.adicCompletion
+                                                 (↥(DSCoeffExt.coeffField f)) lam))
+                                             ⟨ZInQ.Contrib.G9.PkgI4.coeff f p, ⋯⟩) *
+                                         Polynomial.X +
+                                     Polynomial.C
+                                       ((algebraMap (↥(DSCoeffExt.coeffField f))
+                                           (IsDedekindDomain.HeightOneSpectrum.adicCompletion
+                                             (↥(DSCoeffExt.coeffField f)) lam))
+                                         b)]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves28.mumfordGroupLawConn] by DictModels.MumfordConn.conn_of_field
+  still assumes: [ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves28.raynaudSemistableSHOr] by DictModels.RaynaudOr.or_of_field
+  still assumes: [ReductGlue.RaynaudSemistableSH]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves28.sga7_IX_3_3_SHpre] by DictModels.SGA7Pre.pre_of_SH
+  still assumes: [SGA7PersistsNF.SGA7_IX_3_3_SH, CToPrinted.SGA3_VIB_3_10, AVGlue.GeomConnOfRationalPoint]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves28.gonzalezRotgerProp56X6] by GR56.gonzalezRotgerProp56X6_of_leaves
+  still assumes: [GRCountX6.EichlerOptEmbCount6,
+ GR56.QMTorusAbelian,
+ GR56.CMPairDescendsQbar,
+ BPAnalytic.Uniformization.UniformizationLeafAll,
+ ZInQ.HomLattice.GAGAMorphism,
+ AvSplit.MumfordTorsionAlgClosed]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves28.gonzalezRotgerProp56X6] by GR56.gonzalezRotgerProp56X6_of_main
+  still assumes: [GRCountX6.EichlerOptEmbCount6,
+ RayClassCFT.ShimuraMainThmIDeligneY3AbU,
+ HDec.HSyn.G0Split.FibreQM.PeriodMapH.QMSplitSTQM.ShimuraTaniyamaQbar,
+ BPAnalytic.Uniformization.UniformizationLeafAll,
+ ZInQ.HomLattice.GAGAMorphism,
+ AvSplit.MumfordTorsionAlgClosed]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves28.gonzalezRotgerProp56X6] by GR56.gonzalezRotgerProp56X6_of_st
+  still assumes: [GRCountX6.EichlerOptEmbCount6,
+ GR56.QMTorusAbelian,
+ HDec.HSyn.G0Split.FibreQM.PeriodMapH.QMSplitSTQM.ShimuraTaniyamaQbar,
+ BPAnalytic.Uniformization.UniformizationLeafAll,
+ ZInQ.HomLattice.GAGAMorphism,
+ AvSplit.MumfordTorsionAlgClosed]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves28.gonzalezRotgerProp56X6] by GRCountX6.prop56X6_of_r5fpCount
+  still assumes: [LeafQM.AV.R5fpCount]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves28.gonzalezRotgerProp56X6] by GRDict.gonzalezRotgerProp56X6_of_cm
+  still assumes: [GRDict.GonzalezRotgerProp56X6CM,
+ BPAnalytic.Uniformization.UniformizationLeafAll,
+ ZInQ.HomLattice.GAGAMorphism,
+ AvSplit.MumfordTorsionAlgClosed]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves28.gonzalezRotgerX6Ab] by GRDict.gonzalezRotgerX6Ab_of_printed
+  still assumes: [GRDict.GonzalezRotgerThm512X6,
+ HDec.QMSplit.Moduli.ElkiesCoord.ElkiesX6StarFunctionField,
+ BPAnalytic.Uniformization.UniformizationLeafAll,
+ ZInQ.HomLattice.GAGAMorphism,
+ AvSplit.MumfordTorsionAlgClosed]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves28.gonzalezRotgerX6Ab] by GRDict.gonzalezRotgerX6Ab_of_witness
+  still assumes: [GRDict.GonzalezRotgerThm512X6,
+ GRDict.X6ModuliWitness,
+ BPAnalytic.Uniformization.UniformizationLeafAll,
+ ZInQ.HomLattice.GAGAMorphism,
+ AvSplit.MumfordTorsionAlgClosed]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves28.gonzalezRotgerX6Ab] by GRX6AbPrint.gonzalezRotgerX6Ab_of_coarse
+  still assumes: [GRDict.GonzalezRotgerThm512X6,
+ RayClassCFT.ShimuraMainThmIDeligneY3AbU,
+ GRX6AbPrint.X6CoarseModuli,
+ BPAnalytic.Uniformization.UniformizationLeafAll,
+ ZInQ.HomLattice.GAGAMorphism,
+ AvSplit.MumfordTorsionAlgClosed]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves28.gonzalezRotgerX6Ab] by GRX6AbPrint.gonzalezRotgerX6Ab_of_print
+  still assumes: [GRDict.GonzalezRotgerThm512X6,
+ RayClassCFT.ShimuraMainThmIDeligneY3AbU,
+ GRX6AbPrint.X6CoarseModuli,
+ ZInQ.HomLattice.GAGAMorphism,
+ AvSplit.MumfordTorsionAlgClosed]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenAddedLeaves19.picZeroAbVar] by PicDict.picZeroAbVar_of_leaves
+  still assumes: [PicDict.PicLocFinType, PicDict.IdentityComponentLFT, PicDict.PicZeroSmooth, PicDict.PicZeroProper]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenAddedLeaves19.weilPairingMumford] by PicDict.weilPairingMumford_final
+  still assumes: [PicDict.MumfordSquareAC,
+ PicDict.MumfordMulNPicZeroAC,
+ PicDict.MumfordPhiSurjectiveAC,
+ PicDict.MumfordWeilPairingAC,
+ PicDict.MumfordWeilNondegAC,
+ PicDict.MumfordWeilAltAC,
+ PicDict.MumfordKLFiniteAC]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenAddedLeaves19.weilPairingMumford] by PicDict.weilPairingMumford_of_ac
+  still assumes: [PicDict.MumfordSquareAC,
+ PicDict.MumfordMulNPicZeroAC,
+ PicDict.MumfordPhiSurjectiveAC,
+ PicDict.AmpleBaseChangeAlgClosure,
+ PicDict.MumfordWeilPairingAC,
+ PicDict.MumfordWeilNondegAC,
+ PicDict.MumfordWeilAltAC,
+ T09Pic.PhiAmpleIsogeny]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenAddedLeaves19.weilPairingMumford] by PicDict.weilPairingMumford_of_mumford
+  still assumes: [PicDict.MumfordSquareAC,
+ PicDict.MumfordMulNPicZeroAC,
+ PicDict.MumfordPhiSurjectiveAC,
+ PicDict.MumfordWeilPairingAC,
+ PicDict.MumfordWeilNondegAC,
+ PicDict.MumfordWeilAltAC,
+ T09Pic.PhiAmpleIsogeny]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenAddedLeaves19.weilPairingMumford] by PicDict.weilPairingMumford_of_printed
+  still assumes: [PicDict.MumfordSquare,
+ PicDict.MumfordMulNPicZero,
+ PicDict.MumfordPhiSurjective,
+ PicDict.AmpleBaseChangeAlgClosure,
+ PicDict.MumfordWeilPairing,
+ PicDict.MumfordWeilNondeg,
+ PicDict.MumfordWeilAlt,
+ T09Pic.PhiAmpleIsogeny]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves28.r16CoreY] by R16Split.coreY_of_r16
+  still assumes: [LeafModCurves.R16_EichlerShimuraJ1']
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves28.sga7_IX_3_5_ForwardGeom] by UnipotentForward.forwardGeom_of_forward
+  still assumes: [UnipotentForward.SGA7_IX_3_5_Forward, UnipotentForward.SemiAbelianDescendsSepClosed]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [hBFH] by ZInQ.BFHPrinted.bfhClauseIIGamma0_of_bfhClauseIIKronecker
+  still assumes: [ZInQ.BFHPrinted.BFHClauseIIKronecker]
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 45 open hypotheses, 6871 theorems checked, 21 discharge one
+'GRX6AbPrint.x6ModuliWitness_of_coarse' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GRX6AbPrint.x6CoarseModuli_of_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GRX6AbPrint.gonzalezRotgerX6Ab_of_coarse' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GRX6AbPrint.gonzalezRotgerX6Ab_of_print' depends on axioms: [propext, Classical.choice, Quot.sound]
+GRX6AbPrint.gonzalezRotgerX6Ab_of_print : GRDict.GonzalezRotgerThm512X6 →
+  RayClassCFT.ShimuraMainThmIDeligneY3AbU →
+    GRX6AbPrint.X6CoarseModuli →
+      ZInQ.HomLattice.GAGAMorphism → AvSplit.MumfordTorsionAlgClosed → HDec.QMSplit.Moduli.GonzalezRotgerX6Ab

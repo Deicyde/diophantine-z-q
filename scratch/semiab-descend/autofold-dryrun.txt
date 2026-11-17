@@ -1,0 +1,1 @@
+strict count: 16/21 on 37 -> 19/19 on 38; strictest 16/21 -> 19/19

@@ -1,0 +1,45 @@
+{
+ "name": "grx6ab-elkies-combined",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.GRX6AbPrint",
+  "ZInQKernel.Contrib.OneProof.ElkiesX6StarEvery"
+ ],
+ "discharges": [
+  {
+   "field": "gonzalezRotgerX6Ab",
+   "proof": "_root_.GRX6AbPrint.gonzalezRotgerX6Ab_of_print {n}.gonzalezRotgerThm512X6 {n}.shimuraMainThmIDeligneY3AbU {n}.x6CoarseModuli {t}.gagaMorphism {t}.mumfordTorsionAlgClosed",
+   "leaves": [
+    {
+     "name": "gonzalezRotgerThm512X6",
+     "type": "_root_.GRDict.GonzalezRotgerThm512X6",
+     "doc": "gr-dict / grx6ab-print, printed form (degree-and-embedding consequence): Gonzalez-Rotger, J. Math. Soc. Japan 58 (2006), Thm 5.12, p. 946 (arXiv math/0612732 v1/v2 pp. 18-19; read by the locator audit), at (D,N) = (6,1), over CM points as Gonzalez-Rotger define them (GRDict.IsGRCMPoint), on every witness of the moduli description (no existence claim): [Q(x):Q] = 2h(R) with k in Q(x) if some p | 6 is inert in k, h(R) otherwise. With x6CoarseModuli replaces gonzalezRotgerX6Ab.",
+     "kind": "published",
+     "flag": "",
+     "source": "Gonzalez-Rotger, J. Math. Soc. Japan 58 (2006) Thm 5.12, p. 946 (read by the locator audit: Q(P) = H_R if D(R)N*(R) != 1, else the specified index-two subfield) at (D,N) = (6,1); degree and k-embedding clauses, over GR's CM(R) transported to Qbar-points of every coarse witness of X0(6,1)"
+    },
+    {
+     "name": "x6CoarseModuli",
+     "type": "_root_.GRX6AbPrint.X6CoarseModuli",
+     "doc": "grx6ab-print, printed form (the coarse-moduli theorem for X0(6,1), one object): the canonical model X6 = X0(6,1) over Q is a proper smooth curve and a coarse moduli scheme for abelian surfaces with QM by O: a Galois-equivariant bijection on Qbar-points with QM pairs up to isomorphism, Aut(O)-twists induced by automorphisms of X (the Atkin-Lehner group), and the classifying map of a level-3 QM abelian scheme over a proper smooth curve (a specialization of the natural transformation). Locators UNVERIFIED (Shimura 1967; Deligne, Sem. Bourbaki 389; Buzzard, Duke 87 (1997) section 1). With shimuraMainThmIDeligneY3AbU it gives the moduli witness (the forgetful map Y3 -> X6 is proved: GRX6AbPrint.x6ModuliWitness_of_coarse).",
+     "kind": "published",
+     "flag": "locator UNVERIFIED; reading risk: the Atkin-Lehner clause is read in twist form (w_m acts by (A, iota) -> (A, iota o Ad mu_m), principal I_m at D = 6), and Galois equivariance as naturality of the coarse map on Spec of fields",
+     "source": "Shimura, Ann. of Math. 85 (1967) sections 2-3, Main Theorem I (canonical model of X0(D,N)); Deligne, Sem. Bourbaki 389 (1971) sections 4-5 (moduli interpretation); Buzzard, Duke Math. J. 87 (1997) section 1 (X0(D,N) as a coarse moduli space of QM abelian surfaces); Mumford GIT Def. 5.6 (coarse moduli scheme); locators UNVERIFIED"
+    }
+   ]
+  },
+  {
+   "field": "elkiesX6StarFunctionField",
+   "proof": "_root_.HDec.QMSplit.Moduli.ElkiesPrint.elkiesX6StarFunctionField_of_every {n}.elkiesX6StarEvery (_root_.GRX6AbPrint.x6ModuliWitness_of_coarse {n}.shimuraMainThmIDeligneY3AbU {n}.x6CoarseModuli)",
+   "leaves": [
+    {
+     "name": "elkiesX6StarEvery",
+     "type": "_root_.HDec.QMSplit.Moduli.ElkiesPrint.ElkiesX6StarEvery",
+     "doc": "elkies-print: Elkies, Shimura curve computations (ANTS-III 1998) section 3 on X*(6) = X6/W, for every witness of the moduli description of X0(6,1) (R1fpPropsAb, X6Props), with no existence claim: some t : X6 -> P1 with Q(X6)^W = Q(t) (whenever X6 is integral and t regular at its generic point, both proved from the charts), t = 0, 1, infinity at the CM points of discriminant -24, -4, -3, and the charts s^2 = -t, r^2 = 3(t-1) (section, display and 0/infinity orientation UNVERIFIED). The witness comes from shimuraMainThmIDeligneY3AbU and x6CoarseModuli (GRX6AbPrint.x6ModuliWitness_of_coarse). Replaces elkiesX6StarFunctionField; equivalent to it given a witness and T5 (every_iff_functionField).",
+     "kind": "published",
+     "flag": "locator UNVERIFIED (section, display, 0/infinity orientation)",
+     "source": "Elkies 1998 (ANTS-III, LNCS 1423) section 3, X*(6) = X6/W with coordinate t (function-field form Q(X6)^W = Q(t)), CM values and equations of X6 over the t-line, on every witness of the moduli description of X0(6,1), no existence claim (section, display and 0/infinity orientation UNVERIFIED)"
+    }
+   ]
+  }
+ ]
+}

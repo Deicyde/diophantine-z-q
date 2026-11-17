@@ -1,0 +1,15 @@
+PARI stack size set to 1000000000 bytes, maximum size set to 14000001024
+  ***   Warning: increasing stack size to 2000000000.
+  ***   Warning: increasing stack size to 4000000000.
+  ***   Warning: increasing stack size to 8000000000.
+21 N = 14112 smith = [[1, 1], [2, 1], [2, 1], [2, 1]] C_d optimal: True a4,a6 of optimal: [(-441, 0)]
+29 N = 26912 smith = [[1, 1], [2, 1], [2, 1], [2, 1]] C_d optimal: True a4,a6 of optimal: [(-841, 0)]
+  ***   Warning: increasing stack size to 14000001024.
+Traceback (most recent call last):
+  File "scratch/gz-optimal/py/optimal_cd.py", line 12, in <module>
+    vE, vS = pari.ellweilcurve(E)
+             ^^^^^^^^^^^^^^^^^^^^
+  File "cypari2/auto_instance.pxi", line 11524, in cypari2.pari_instance.Pari_auto.ellweilcurve
+  File "cypari2/handle_error.pyx", line 211, in cypari2.handle_error._pari_err_handle
+cypari2.handle_error.PariError: the PARI stack overflows (current size: 14000001024; maximum size: 14000001024)
+You can use pari.allocatemem() to change the stack size and try again

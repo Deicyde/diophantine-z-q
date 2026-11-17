@@ -1,0 +1,45 @@
+{
+ "name": "fold34-semiab",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.SemiAbelianDescendsPerfect",
+  "ZInQKernel.Contrib.OneProof.UniformizationLeafAll"
+ ],
+ "discharges": [
+  {
+   "field": "bostLowerBound",
+   "proof": "_root_.ZInQ.SemiAbDescend.bostLowerBound_of_printed_chevalley {n}.bostLowerBoundPrinted _root_.uniformizationLeafAll_proof {t}.mumfordTorsionAlgClosed {n}.chevalleyPerfect",
+   "leaves": [
+    {
+     "name": "bostLowerBoundPrinted",
+     "type": "_root_.ZInQ.HeightFix.BostLowerBoundPrinted",
+     "doc": "height-fix, printed form: Bost, Sem. Bourbaki 795 (Asterisque 237, 1996), h_D(A) >= -(g/2) log 2pi (display UNVERIFIED), over the printed stable height ZInQ.HeightFix.IsPrintedStableHeight: Neron model over a field where A has semistable reduction in the sense of SGA 7 IX Def. 2.2/3.2 read over the residue fields k(p) (IsSemistableRes), omega = wedge^g Gamma(S, e*Omega^1), and the archimedean metric (i/2)^g int_{A(C)} eta wedge eta-bar as the total mass of the measure defined chart by chart (density |tau l|^2 in translated algebraic coordinates at every point), which must exist (IsPrintedMetricSq). Replaces bostLowerBound (ZInQ.HeightFix.bostLowerBound_of_printed, with uniformizationLeafAll and mumfordTorsionAlgClosed for T35 and the leaf chevalleyPerfect (semiab-descend)).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Bost 1996 lower bound restated verbatim over the printed stable height IsPrintedStableHeight, height-fix; display UNVERIFIED); locator UNVERIFIED",
+     "source": "Bost, Sem. Bourbaki 795 (Asterisque 237, 1996): h_D(A) >= -(g/2) log 2pi, Deligne normalization (display UNVERIFIED), over the printed stable height (height-fix)"
+    },
+    {
+     "name": "chevalleyPerfect",
+     "type": "_root_.ZInQ.SemiAbDescend.ChevalleyPerfect",
+     "doc": "semiab-descend, printed form: Chevalley's structure theorem over a perfect field (Conrad, J. Ramanujan Math. Soc. 17 (2002) Thm 1.1; Milne, Algebraic Groups (2017) Thm 8.27; numbers UNVERIFIED): a smooth connected group scheme G of finite type over a perfect field k has a unique normal smooth connected affine subgroup H with G/H an abelian variety. Lean form: existence of a faithfully flat homomorphism pi : G -> B onto an abelian variety (PkgI3.AbVar) whose scheme-theoretic kernel G x_B Spec k is smooth, connected and affine, and uniqueness of that kernel on T-points; G/H read as the target of a faithfully flat homomorphism with kernel H (the definition of a quotient, Milne AG section 5.c). Replaces the glue semiAbelianDescendsPerfect (ZInQ.SemiAbDescend.semiAbelianDescendsPerfect_of_chevalley proves it for every perfect field).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Chevalley's theorem over a perfect field, existence and uniqueness, Conrad 2002 Thm 1.1 / Milne AG Thm 8.27, numbers from memory; G/H read as the target of a faithfully flat homomorphism with smooth connected affine kernel, semiab-descend); locator UNVERIFIED",
+     "source": "Conrad, A modern proof of Chevalley's theorem on algebraic groups, J. Ramanujan Math. Soc. 17 (2002) 1-18, Thm 1.1; Milne, Algebraic Groups (CUP 2017) Thm 8.27 (numbers UNVERIFIED); semiab-descend"
+    }
+   ]
+  },
+  {
+   "field": "gaudronRemondThm14",
+   "proof": "_root_.ZInQ.SemiAbDescend.gaudronRemondThm14_of_printed_chevalley {n}.gaudronRemondThm14Printed _root_.uniformizationLeafAll_proof {t}.mumfordTorsionAlgClosed {n}.chevalleyPerfect",
+   "leaves": [
+    {
+     "name": "gaudronRemondThm14Printed",
+     "type": "_root_.ZInQ.HeightFix.GaudronRemondThm14Printed",
+     "doc": "height-fix, printed form: Gaudron-Remond, Duke Math. J. 163 (2014) Thm 1.4 (read by the locator audit), over the printed stable height ZInQ.HeightFix.IsPrintedStableHeight (Faltings' original normalization (i/2)^g; semistability over k(p) as SGA 7 IX 2.2/3.2 print it; the metric defined chart by chart and required to exist). Replaces gaudronRemondThm14 (ZInQ.HeightFix.gaudronRemondThm14_of_printed, with uniformizationLeafAll and mumfordTorsionAlgClosed for T35 and the leaf chevalleyPerfect (semiab-descend)).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Gaudron-Remond 2014 Thm 1.4 restated verbatim over the printed stable height IsPrintedStableHeight, height-fix); locator UNVERIFIED",
+     "source": "Gaudron-Remond, Duke Math. J. 163 (2014) Thm 1.4 (read by the audit), over the printed stable height (height-fix)"
+    }
+   ]
+  }
+ ]
+}

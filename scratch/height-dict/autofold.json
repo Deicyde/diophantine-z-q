@@ -1,0 +1,15 @@
+{"name": "height-dict",
+ "imports": ["ZInQKernel.Contrib.OneProof.HeightDictionary"],
+ "discharges": [
+   {"field": "bostLowerBound",
+    "proof": "_root_.ZInQ.HeightDict.bostLowerBound_of_printed {n}.bostLowerBoundPrinted {t}.uniformizationLeafAll {t}.mumfordTorsionAlgClosed",
+    "leaves": [{"name": "bostLowerBoundPrinted", "type": "_root_.ZInQ.HeightDict.BostLowerBoundPrinted",
+                "doc": "height-dict, printed form: Bost, Sem. Bourbaki 795 (Asterisque 237, 1996), h_D(A) >= -(g/2) log 2pi (display UNVERIFIED), over the printed stable height IsPrintedStableHeight (Neron model over a semistable field, omega = wedge^g e*Omega^1, archimedean metric (i/2)^g int_{A(C)} eta wedge eta-bar as the total mass of the invariant measure normalized at the identity in algebraic coordinates; no uniformization in the definition). Replaces bostLowerBound (ZInQ.HeightDict.bostLowerBound_of_printed, with uniformizationLeafAll and mumfordTorsionAlgClosed for T35).",
+                "kind": "published", "flag": "locator UNVERIFIED (see the source)",
+                "source": "Bost, Sem. Bourbaki 795 (Asterisque 237, 1996): h_D(A) >= -(g/2) log 2pi, Deligne normalization (display UNVERIFIED), over the printed stable height (height-dict)"}]},
+   {"field": "gaudronRemondThm14",
+    "proof": "_root_.ZInQ.HeightDict.gaudronRemondThm14_of_printed {n}.gaudronRemondThm14Printed {t}.uniformizationLeafAll {t}.mumfordTorsionAlgClosed",
+    "leaves": [{"name": "gaudronRemondThm14Printed", "type": "_root_.ZInQ.HeightDict.GaudronRemondThm14Printed",
+                "doc": "height-dict, printed form: Gaudron-Remond, Duke Math. J. 163 (2014) Thm 1.4 (read by the locator audit), over the printed stable height IsPrintedStableHeight (Faltings' original normalization; archimedean metric (i/2)^g int_{A(C)} eta wedge eta-bar built without a uniformization). Replaces gaudronRemondThm14 (ZInQ.HeightDict.gaudronRemondThm14_of_printed, with uniformizationLeafAll and mumfordTorsionAlgClosed for T35).",
+                "kind": "published", "flag": "",
+                "source": "Gaudron-Remond, Duke Math. J. 163 (2014) Thm 1.4 (read by the audit), over the printed stable height (height-dict)"}]}]}

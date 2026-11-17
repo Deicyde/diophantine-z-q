@@ -3,7 +3,7 @@ article_id: af_51dfcd18479cbca8bce85948
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves28.dsThm965Printed
+lean: HDec.HSyn.OpenResearchLeaves31.dsThm965Printed
 ---
 
 # Deligne's Galois representations of eigenforms

@@ -1,0 +1,3 @@
+'ZInQ.Contrib.TYZDecomp.H11Reduce.tyzThm11Integral_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZDecomp.H11Reduce.tyzLemma29Mod2_of_tunnellR' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZDecomp.H11Reduce.tyzLemma29PrintedNe3_of_R' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -8,7 +8,8 @@ Task gz-weil (2026-11-15). Report: `docs/research/gz-weil.md`; scratch and log: 
 `X0.EtaModelDifferential` (`x'(τ) = 4πi f₁(τ) y(τ)` on the eta-quotient model of `X₀(32)`, the only
 input of `WeilParam.lean` not proved in the kernel) is proved here from one classical printed
 identity, Jacobi's derivative formula for the modular function `λ = θ₂⁴/θ₃⁴`:
-`dλ/dt = πi λ θ₄⁴` (`JacobiLambdaDeriv`, stated over Mathlib's `jacobiTheta₂`). The glue:
+`dλ/dt = πi λ θ₄⁴` (`JacobiLambdaDeriv`, stated over Mathlib's `jacobiTheta₂`; proved in
+`WeilJacobi.lean`). The glue:
 
 * `x = 2θ₃(16τ)/θ₂(16τ)`, `y = −θ₂(4τ)²/θ₂(16τ)²` (tyz-cm's `xC_theta`, `yC_theta`);
 * `x' = −4πi x θ₄(16τ)⁴` from the leaf (chain rule, `θ₂, θ₃ ≠ 0` from the triple product);
@@ -16,7 +17,8 @@ identity, Jacobi's derivative formula for the modular function `λ = θ₂⁴/θ
   tyz-cm's product forms and Euler's identity), which turns `−x θ₄(16τ)⁴` into `f₁ y`.
 
 Main results: `etaModelDifferential_of_jacobiLambdaDeriv`, `shimuraCMParamCd_of_jacobiLambdaDeriv`,
-`grossZagierHeegnerCd_of_printed`. No `sorry`, no `axiom`.
+`grossZagierHeegnerCd_of_printed`. The formula itself is proved in `WeilJacobi.lean`.
+No `sorry`, no `axiom`.
 -/
 
 noncomputable section
@@ -40,7 +42,8 @@ def thetaThree (t : ℂ) : ℂ := jacobiTheta₂ 0 t
 /-- `θ₄(t) = Σ_{n ∈ ℤ} (−1)ⁿ e^{πin² t}`. -/
 def thetaFour (t : ℂ) : ℂ := jacobiTheta₂ (1 / 2) t
 
-/-- **(LEAF, printed form) Jacobi's derivative formula for the modular function `λ`.** With
+/-- **Jacobi's derivative formula for the modular function `λ`** (proved in `WeilJacobi.lean`:
+`jacobiLambdaDeriv`; stated here as a `Prop` so that the reduction below is independent). With
 `θ₂(t) = Σ e^{πi(n+1/2)²t}`, `θ₃(t) = Σ e^{πin²t}`, `θ₄(t) = Σ (−1)ⁿ e^{πin²t}` (`Im t > 0`) and
 `λ = θ₂⁴/θ₃⁴`: `dλ/dt = πi λ θ₄⁴`; equivalently `d/dt log(θ₂/θ₃) = (πi/4) θ₄⁴`.
 

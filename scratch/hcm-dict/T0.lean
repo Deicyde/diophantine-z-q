@@ -1,0 +1,12 @@
+import ZInQKernel.Contrib.OneProof.RingClassLattice
+import ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.Theorems.Thm_PeriodPair_isUniformization_toPoint
+import ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.Theorems.Thm_PeriodPair_discriminant_ne_zero
+import ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.Theorems.Thm_PeriodPair_exists_variableChange_smul_weierstrassCurve_eq
+
+#check @PeriodPair.isUniformization_toPoint
+#check @PeriodPair.discriminant_ne_zero
+#check @PeriodPair.exists_variableChange_smul_weierstrassCurve_eq
+#check @T5Glue.ShimuraMainCM
+#check @IsOpen.is_const_of_deriv_eq_zero
+#check @AnalyticAt.analyticAt_localInverse
+#check @WeierstrassCurve.Affine.Point.add_self_of_Y_eq

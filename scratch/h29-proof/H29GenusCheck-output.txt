@@ -1,0 +1,7 @@
+'hL29_of_genus' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZDecomp.H29Genus.tyzLemma29Printed_of_genus' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZDecomp.H29Genus.tyzThm21At31_of_thm21Pairs' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZDecomp.H29Genus.tyzLemma29Mod2_of_genusLeaves' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.TYZDecomp.H29Genus.torsionOrder_qNeg_eq_two' depends on axioms: [propext, Classical.choice, Quot.sound]

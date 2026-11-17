@@ -1,4 +1,4 @@
-"""Prose for blueprint/roadmap/height-decomposition/ (the combined fold 03f2467d, leaf-fold32).
+"""Prose for blueprint/roadmap/height-decomposition/ (fork main c0f3d085, leaf-fold33).
 
 One entry per field of the H bundles. `gen.py` refuses to run when a field has no entry here, and
 reports entries whose field is gone.
@@ -27,9 +27,10 @@ $\iota(\mathcal O)$; the pair has *CM by an order* $R$ of an imaginary quadratic
 is isomorphic to $R$.
 """),
     dict(dir='abelian-varieties', title='Abelian varieties', intro=r"""
-Statements about abelian varieties: over an algebraically closed field, from Mumford's book; over a
-general field, the Picard scheme and the Weil pairing, from which the proof builds a symmetric isogeny
-to the dual; over $\mathbb C$; and in families.
+Statements about abelian varieties and Picard schemes: over an algebraically closed field, from
+Mumford's book; over a general field, the existence of the Picard scheme and the properness of its
+identity component, from which the proof builds a symmetric isogeny to the dual; and over
+$\mathbb C$, GAGA for homomorphisms.
 """),
     dict(dir='neron-models', title='Néron models, semistable reduction and monodromy', intro=r"""
 Let $\mathcal O$ be a discrete valuation ring with fraction field $K$ and $A$ an abelian variety over
@@ -40,9 +41,6 @@ its Néron model is an extension of an abelian variety by a torus. These stateme
 of Néron models and their behaviour under base change, the criterion of Néron–Ogg–Shafarevich,
 Raynaud's criterion for semistable reduction, and two results of SGA 7, Exposé IX, on semistable
 reduction over a strictly henselian base.
-"""),
-    dict(dir='group-schemes', title='Schemes and group schemes over a field', intro=r"""
-General facts about group schemes over a base.
 """),
     dict(dir='heights', title='Faltings 1983 and Faltings heights', intro=r"""
 Faltings' theorems of 1983 on Tate modules, and four bounds for the stable Faltings height of an
@@ -173,6 +171,22 @@ to Shimura varieties*, sections 12–14; with the fine moduli of QM abelian surf
 structure. Locators unverified.
 """),
     # ----- abelian-varieties -----
+    'kleimanPicZeroProper': dict(
+        group='abelian-varieties', slug='picard-identity-component-proper',
+        title='The identity component of the Picard scheme is proper',
+        anchor='Kleiman Picard proper',
+        statement=r"""
+The *properness statement* is the following assertion. Let $X$ be a proper scheme over a field $K$
+that is geometrically normal. Then for every scheme representing the relative Picard functor of $X$
+over $K$, as an fppf sheaf, its identity component $\operatorname{Pic}^0_{X/K}$ is proper over $K$.
+""",
+        caveat=r"""
+The statement has not been read against the source.
+""",
+        src=r"""
+S. Kleiman, *The Picard scheme*, in *Fundamental Algebraic Geometry: Grothendieck's FGA Explained*,
+Theorem 9.5.4. Locator unverified.
+"""),
     'mumfordTorsionAlgClosed': dict(
         group='abelian-varieties', slug='torsion-points',
         title='Torsion points over an algebraically closed field',
@@ -185,22 +199,6 @@ points $x\in X(k)$ with $nx=0$ is isomorphic to $(\mathbb Z/n\mathbb Z)^{2g}$.
         caveat='',
         src=r"""
 D. Mumford, *Abelian varieties* (1970; 2nd ed. 1974), §4, Application 2 (iv). Locator unverified.
-"""),
-    'homFreeFiniteAlgClosed': dict(
-        group='abelian-varieties', slug='homomorphisms-and-tate-modules',
-        title='Homomorphisms of abelian varieties and Tate modules',
-        anchor='Mumford homomorphisms',
-        statement=r"""
-The *homomorphism statement* is the following assertion. Let $X$ and $Y$ be abelian varieties over an
-algebraically closed field $k$. Then $\operatorname{Hom}(X,Y)$ is a free $\mathbb Z$-module of finite
-rank at most $4\dim X\dim Y$, and for every prime $\ell\ne\operatorname{char}k$ the natural map
-$\mathbb Z_\ell\otimes\operatorname{Hom}(X,Y)\to\operatorname{Hom}_{\mathbb Z_\ell}(T_\ell X,T_\ell Y)$
-is injective.
-""",
-        caveat='',
-        src=r"""
-D. Mumford, *Abelian varieties* (1970), §19, Theorem 3 (the ground field is algebraically closed
-throughout the book). Locator unverified.
 """),
     'charPolyIndepOfEllAlgClosed': dict(
         group='abelian-varieties', slug='characteristic-polynomial',
@@ -218,25 +216,6 @@ $P(n)=\deg(n-\varphi)$ for every integer $n$.
 """,
         src=r"""
 D. Mumford, *Abelian varieties* (1970), §19, Theorem 4, specialized. Locator unverified.
-"""),
-    'poincareComplement': dict(
-        group='abelian-varieties', slug='poincare-complement',
-        title="Poincaré's complete reducibility",
-        anchor='Poincare complete reducibility',
-        statement=r"""
-The *Poincaré statement* is the following assertion. Let $J$ be an abelian variety over a field of
-characteristic $0$ and $i:B\to J$ a homomorphism of abelian varieties that is a closed immersion. Then
-there are an abelian variety $Z$ and a homomorphism $j:Z\to J$ such that $B\times Z\to J$,
-$(b,z)\mapsto i(b)+j(z)$, is an isogeny.
-""",
-        caveat=r"""
-It is weaker than the published statement: the characteristic is $0$, and it does not assert that
-$j$ is a closed immersion.
-""",
-        src=r"""
-J. S. Milne, *Abelian varieties*, in Cornell–Silverman (eds.), *Arithmetic Geometry* (1986),
-Proposition 12.1, over any field; over an algebraically closed field D. Mumford, *Abelian varieties*
-(1970), §19, Theorem 1. Locators unverified.
 """),
     'gagaMorphism': dict(
         group='abelian-varieties', slug='gaga-for-homomorphisms',
@@ -276,118 +255,25 @@ A statement review of this form is pending; one model review found no errors.
 J. P. Murre (1964) and F. Oort (1962); A. Grothendieck, FGA, Exposé 232, Theorem 3.1; S. Kleiman,
 *The Picard scheme*, Theorem 9.4.8 with 9.2.5. Locators unverified.
 """),
-    'picZeroAbVar': dict(
-        group='abelian-varieties', slug='identity-component-of-picard',
-        title='The identity component of the Picard scheme is an abelian variety',
-        anchor='Identity component of the Picard scheme',
-        statement=r"""
-The *dual statement* is the following assertion. Let $A$ be an abelian variety over a field $K$. For
-every scheme representing the relative Picard functor of $A$, its identity component, with the
-induced group law, is an abelian variety $\operatorname{Pic}^0_{A/K}$.
-""",
-        caveat=r"""
-Mumford builds the dual abelian variety over an algebraic closure of $K$; identifying it with the
-identity component of $\operatorname{Pic}_{A/K}$ and descending to $K$ are theorem steps (Kleiman
-9.5.1; SGA 3, Exposé VI_A, 2.4). One printed statement over an arbitrary field in this form would make
-it a published statement (candidates: Bosch–Lütkebohmert–Raynaud 8.4; *FGA Explained* 9.5; Milne 1986,
-§10).
-""",
-        src=r"""
-D. Mumford, *Abelian varieties*, §13; S. Kleiman, *The Picard scheme*, Propositions 9.5.1 and 9.5.3;
-J. S. Milne (1986), §§9–10. Locators unverified.
-"""),
-    'weilPairingMumford': dict(
-        group='abelian-varieties', slug='weil-pairing',
-        title='The Weil pairing',
-        anchor='Weil pairing',
-        statement=r"""
-The *Weil-pairing statement* is the following assertion. Let $A$ be an abelian variety over a field
-$K$. Then there is a family of pairings $e_n:A[n]\times\operatorname{Pic}^0_{A/K}[n]\to\mu_n$, one for
-each $n\ge1$, such that for every $n$ invertible in $K$: $e_n$ takes the values of Mumford's pairing
-$\bar e_n$ and is perfect and Galois-equivariant, it is adjoint for the dual $f^\vee$ of every
-endomorphism $f$ of $A$, and it is trivial on the pairs $(x,\lambda_L(x))$ for every ample line bundle
-$L$, where $\lambda_L(x)$ is the class of $t_x^*L\otimes L^{-1}$; and the family is compatible in $n$.
-""",
-        caveat=r"""
-The printed pairing is on Mumford's dual; reading it on $\operatorname{Pic}^0_{A/K}$ passes through
-Kleiman 9.2.5 and Mumford §8 (iv), §8 Theorem 1 and §13, with base change to an algebraic closure,
-and the statement also combines several sources (Mumford §§20 and 23, Milne 1986 §16). The sign
-convention does not matter.
-""",
-        src=r"""
-D. Mumford, *Abelian varieties*, §§20 and 23; J. S. Milne (1986), Lemma 16.2(c) and §16. Locators
-unverified.
-"""),
-    'mumfordGroupLawConn': dict(
-        group='abelian-varieties', slug='mumford-group-law',
-        title="Mumford's theorem: families of abelian varieties are abelian schemes",
-        anchor='Mumford GIT Theorem 6.14',
-        statement=r"""
-The *group-law statement* is the following assertion. Let $S$ be a connected locally noetherian scheme
-and $F\to S$ a proper smooth morphism with geometrically connected fibres and a section $e$, such that
-for every field $K$ and every $K$-point $s$ of $S$ the fibre of $F$ over $s$ is an abelian variety over
-$K$ with identity $e(s)$. Then $F$ is a group scheme over $S$ with identity $e$.
-""",
-        caveat=r"""
-Mumford asks only one fibre to be an abelian variety and concludes that $F$ is an abelian scheme; the
-statement assumes more and concludes less.
-""",
-        src=r"""
-D. Mumford, J. Fogarty and F. Kirwan, *Geometric Invariant Theory*, Theorem 6.14 ($S$ connected and
-locally noetherian, $F\to S$ smooth and proper with a section $e$, a fibre an abelian variety: $F$ is
-an abelian scheme with identity $e$). Numbers unverified.
-"""),
-    'mumfordKLFiniteSectionAC': dict(
-        group='abelian-varieties', slug='ample-kernel-finite',
-        title='The kernel of an ample line bundle is finite',
-        anchor='Mumford K(L) finite',
-        statement=r"""
-The *finiteness statement* is the following assertion. Let $X$ be an abelian variety over an
-algebraically closed field $k$ and $L$ an ample line bundle on $X$ with a nonzero global section. Then
-the group $K(L)=\{x\in X(k):t_x^*L\cong L\}$ is finite.
-""",
-        caveat=r"""
-Mumford states it for $L=\mathcal O_X(D)$ with $D$ effective; the zero locus of a nonzero section is
-such a $D$. The statement has not been read against the book.
-""",
-        src=r"""
-D. Mumford, *Abelian varieties*, §6, Application 1, (iv) ⇒ (ii). Locator unverified.
-"""),
-    'mumfordPhiSurjectiveAC': dict(
-        group='abelian-varieties', slug='phi-onto-pic-zero',
-        title='Translation-invariant line bundles come from an ample one',
-        anchor='Mumford phi_L surjective',
-        statement=r"""
-The *surjectivity statement* is the following assertion. Let $X$ be an abelian variety over an
-algebraically closed field $k$ and $L$ an ample line bundle on $X$. Then every class of line bundles
-on $X$ that is invariant under all translations $t_x$, $x\in X(k)$, is the class of
-$t_x^*L\otimes L^{-1}$ for some $x\in X(k)$.
-""",
-        caveat=r"""
-That is, $\varphi_L:X(k)\to\operatorname{Pic}^0(X)$ is surjective, where $\operatorname{Pic}^0(X)$ is the
-group of translation-invariant classes, as in Mumford. The statement has not been read against the book.
-""",
-        src=r"""
-D. Mumford, *Abelian varieties*, §8, Theorem 1. Locator unverified.
-"""),
     # ----- neron-models -----
-    'neronSchemeExtensionExists': dict(
+    'neronSchemeExtensionDedekind': dict(
         group='neron-models', slug='neron-models-exist',
-        title='Néron models over rings of integers',
+        title='Néron models over Dedekind domains',
         anchor='Neron models exist',
         statement=r"""
-The *Néron existence statement* is the following assertion. Let $A$ be an abelian variety over a field
-$K$ and $L$ a number field containing $K$, with ring of integers $\mathcal O_L$. Then there is a smooth,
-separated, quasi-compact scheme $N$ over $\mathcal O_L$ with generic fibre $A_L$ such that, for every
-smooth $\mathcal O_L$-scheme $Y$, every morphism $Y_L\to A_L$ extends to a morphism $Y\to N$.
+The *Néron existence statement* is the following assertion. Let $D$ be a Dedekind domain with fraction
+field $L$ and $A$ an abelian variety over $L$. Then there is a smooth, separated, quasi-compact scheme
+$N$ over $D$ with generic fibre $A$ such that, for every smooth $D$-scheme $Y$, every morphism
+$Y_L\to A$ extends to a morphism $Y\to N$.
 """,
         caveat=r"""
-It asks only for the existence of the extension, which is unique since $Y$ is flat over $\mathcal O_L$
-and $N$ is separated, so it is weaker than the existence of Néron models.
+It asks only for the existence of the extension, which is unique since $Y$ is flat over $D$ and $N$ is
+separated, and it is stated over an affine base; the group structure of the Néron model is not asked
+for.
 """,
         src=r"""
-S. Bosch, W. Lütkebohmert and M. Raynaud, *Néron Models*, §1.4, Theorem 3, with §1.2, Definition 1.
-Locators unverified.
+S. Bosch, W. Lütkebohmert and M. Raynaud, *Néron Models* (1990), §1.4, Theorem 3, with §1.2,
+Definition 1, the existence half over an affine Dedekind base. Numbers unverified.
 """),
     'sga7_IX_3_5_ForwardGeom': dict(
         group='neron-models', slug='semistable-unipotent-inertia',
@@ -433,29 +319,6 @@ has not been read against the paper.
 J.-P. Serre and J. Tate, *Good reduction of abelian varieties*, Ann. of Math. 88 (1968), 492–517, §1,
 Theorem 1, over a separable closure, as printed. Numbering from memory, unverified.
 """),
-    'blr_7_2_1': dict(
-        group='neron-models', slug='neron-models-and-unramified-base-change',
-        title='Néron models commute with unramified base change',
-        anchor='BLR 7.2 Theorem 1',
-        statement=r"""
-The *base-change statement for Néron models* is the following assertion. Let $\mathcal O\subset K$ and
-$\mathcal O'\subset K'$ be discrete valuation rings with $\mathcal O'\cap K=\mathcal O$, such that
-$K'/K$ is separable algebraic, a uniformizer of $\mathcal O$ is a uniformizer of $\mathcal O'$, and
-the residue field of $\mathcal O'$ is separable over that of $\mathcal O$. Let $A$ be an abelian
-variety over $K$ with a Néron model $N$ over $\mathcal O$. Then $N\times_{\mathcal O}\mathcal O'$ is a
-Néron model of $A_{K'}$.
-""",
-        caveat=r"""
-The print is stated for every smooth group scheme of finite type and, as recalled, for any extension
-$K'/K$; this is a specialization. If the print covers only étale extensions, strict henselization and
-completion, this form exceeds it; the restricted form would then come from strict henselization and
-EGA IV₄ 18.8.8. The reading is pending.
-""",
-        src=r"""
-S. Bosch, W. Lütkebohmert and M. Raynaud, *Néron Models*, §7.2, Theorem 1 (Néron models commute with
-base change of ramification index $1$ with separable residue extension). Locator unverified; the
-reading risk is recorded in the project note reduct-glue, §5.
-"""),
     'raynaudSemistableSHOr': dict(
         group='neron-models', slug='raynaud-criterion',
         title="Raynaud's criterion for semistable reduction",
@@ -497,23 +360,6 @@ this statement to such rings.
         src=r"""
 SGA 7 I, Exposé IX, Proposition 3.3, second assertion ($N^0\times_SS'\cong N'^0$ for semistable
 reduction), over strictly henselian traits. Number unverified.
-"""),
-    # ----- group-schemes -----
-    'sga3_VIB_3_10_Nbhd': dict(
-        group='group-schemes', slug='identity-component-neighbourhood',
-        title='The identity component of a smooth group scheme contains a neighbourhood of the identity',
-        anchor='SGA 3 VI_B 3.10, neighbourhood form',
-        statement=r"""
-The *identity-component statement* is the following assertion. Let $G$ be a smooth group scheme over a
-scheme $S$, with identity section $e$, and $s\in S$. Then the union $G^0$ of the identity components of
-the fibres of $G$ contains an open neighbourhood of $e(s)$ in $G$.
-""",
-        caveat=r"""
-It is weaker than the printed theorem, which says that $G^0$ is open. It has not been read against the
-source.
-""",
-        src=r"""
-SGA 3 I, Exposé VI_B, Theorem 3.10; EGA IV₃ 15.6.5. Numbers unverified.
 """),
     # ----- heights -----
     'r9a': dict(

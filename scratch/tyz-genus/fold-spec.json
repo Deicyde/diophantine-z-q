@@ -1,0 +1,33 @@
+{
+  "name": "tyz-genus",
+  "note": "Manual folds (h11 and hL29 are top-level arguments of frozenTarget; autofold.py does not fold them). Checked in scratch/tyz-genus/FoldCheck.lean (standard axioms). Variant A and B are count-neutral; variant C is -1 but its leaf is pending a reading of TYZ Theorem 2.1 at n = 1 (counts as glue until cleared).",
+  "variants": [
+    {
+      "id": "A",
+      "imports": ["ZInQKernel.Contrib.OneProof.TYZLemma28Sym"],
+      "replace_binders": {"(hL29 : H29Split.TYZLemma29PrintedNe3)": "(h21 : ZInQ.Contrib.TYZDecomp.H29Genus.TYZThm21Pairs)"},
+      "replace_args": {"hL29": "(ZInQ.Contrib.TYZGenusFold.tyzLemma29PrintedNe3_of_thm21Pairs h21)"},
+      "check": "ZInQ.Contrib.TYZChain.frozenTarget_thm21",
+      "count": "TYZ printed hypotheses 2 -> 2"
+    },
+    {
+      "id": "B",
+      "imports": ["ZInQKernel.Contrib.OneProof.TYZThm11Genus"],
+      "replace_binders": {"(h11 : TYZThm11Integral)": "(h21C : ZInQ.Contrib.TYZGenusFold.TYZThm21PairsC)",
+                          "(hL29 : H29Split.TYZLemma29PrintedNe3)": "(hL1 : TYZLcalOne)"},
+      "replace_args": {"h11": "(ZInQ.Contrib.TYZGenusFold.tyzThm11Integral_of_thm21C h21C hL1)",
+                       "hL29": "(ZInQ.Contrib.TYZGenusFold.tyzLemma29PrintedNe3_of_thm21C h21C)"},
+      "check": "ZInQ.Contrib.TYZChain.frozenTarget_thm21C",
+      "count": "2 -> 2"
+    },
+    {
+      "id": "C",
+      "imports": ["ZInQKernel.Contrib.OneProof.TYZThm21PairsOne"],
+      "replace_binders": {"(h11 : TYZThm11Integral) (hL29 : H29Split.TYZLemma29PrintedNe3)": "(h21 : ZInQ.Contrib.TYZGenusFold.TYZThm21PairsC1)"},
+      "replace_args": {"h11": "(ZInQ.Contrib.TYZGenusFold.tyzThm11Integral_of_C1 h21)",
+                       "hL29": "(ZInQ.Contrib.TYZGenusFold.tyzLemma29PrintedNe3_of_C1 h21)"},
+      "check": "ZInQ.Contrib.TYZChain.frozenTarget_thm21One",
+      "count": "2 -> 1 (pending reading of n = 1)"
+    }
+  ]
+}

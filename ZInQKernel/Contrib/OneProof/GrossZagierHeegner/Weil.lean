@@ -27,7 +27,9 @@ level-32 statement `ModularParamC1` (`shimuraCMParamCd_of_modularParamC1`):
 * §8 `ModularParamC1` follows from gz-hl3's leaves (`modularParamC1_of_leaves`), so it is no stronger.
 
 `ModularParamC1` itself is proved from x0-32's eta-quotient identity `X0.EtaModelDifferential` in
-`GrossZagierHeegner/WeilParam.lean`. No `sorry`, no `axiom`.
+`GrossZagierHeegner/WeilParam.lean`, that identity from Jacobi's derivative formula in
+`WeilTheta.lean`, and the formula in `WeilJacobi.lean`; so `ShimuraCMParamCd` is a theorem
+(`WeilJacobi.lean`: `shimuraCMParamCd_proved`). No `sorry`, no `axiom`.
 -/
 
 noncomputable section
@@ -473,8 +475,8 @@ theorem isPeriodLattice_cd_iff (d : ℕ) (L : PeriodPair) :
 abbrev curveC1 : WeierstrassCurve ℚ := shortCurve (-((1 : ℕ) : ℚ) ^ 2)
 
 /-- **The modular parametrization of `C₁ : y² = x³ − x` by `X₀(32)`, in analytic form, with
-rational Manin constant** (a level-32 statement; proved from x0-32's eta-quotient identity
-`X0.EtaModelDifferential` in `WeilParam.lean`, `modularParamC1_of_etaModelDifferential`). Let
+rational Manin constant** (a level-32 statement; proved: `WeilJacobi.lean`, `modularParamC1`,
+through x0-32's eta-quotient identity, `WeilParam.lean`). Let
 `Φ₁(τ) = Σ_{n ≥ 1} aₙ/n qⁿ` be the Eichler integral of the weight-2 newform
 `f₁ = Σ aₙ qⁿ = η(4τ)²η(8τ)²` of level 32 (`aₙ = heckeCoeff 1 n`, the coefficients of the Hecke
 character of `ℚ(i)` attached to `C₁`; `aₙ = aₙ(C₁)` is Deuring's theorem, proved in the kernel).

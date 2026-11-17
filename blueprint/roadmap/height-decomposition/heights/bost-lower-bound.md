@@ -3,7 +3,7 @@ article_id: af_c8b49eabbe55128e11c3f65c
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves28.bostLowerBound
+lean: HDec.HSyn.OpenResearchLeaves31.bostLowerBound
 ---
 
 # Bost's lower bound for the Faltings height

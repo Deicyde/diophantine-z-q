@@ -1,0 +1,39 @@
+{
+ "name": "javanpeykar-rebase",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.JavanpeykarRebase"
+ ],
+ "discharges": [
+  {
+   "field": "javanpeykarBound",
+   "proof": "_root_.JavanpeykarRebase.javanpeykarBound_of_printed_rebase_final {n}.javanpeykarPrintedMapHF {n}.constantFieldExtensionUnramifiedFinite {t}.mumfordTorsionAlgClosed {n}.semiAbelianDescendsPerfect",
+   "leaves": [
+    {
+     "name": "javanpeykarPrintedMapHF",
+     "type": "_root_.JavanpeykarRebase.JavanpeykarPrintedMap",
+     "doc": "javanpeykar-rebase: Javanpeykar, Algebra Number Theory 8 (2014) Thm 1.1.1 in printed form at X = X0 x_K Qbar (X0 a smooth proper geometrically connected curve over a number field K, Qbar = AlgebraicClosure K): X projective (closed immersion into a projective space over Qbar), Jac(X) = W an abelian variety over Qbar representing Pic^0_{X/Qbar} with the tensor group law, V a model of W over K (V_Qbar = W), g = genusBar X = dim H^1(X, O_X), beta : X -> P^1_Qbar = Proj Qbar[X0,X1] a Belyi map of degree d (IsBelyiMap), h = height-fix's printed stable height ZInQ.HeightFix.IsPrintedStableHeight of V (sound archimedean metric defined chart by chart; Neron model semistable over the residue fields k(p)): h <= 13*10^6 * g * d^5. javanpeykar-fix's JavanpeykarPrintedMap verbatim over height-fix's height (JavanpeykarRebase.javanpeykarPrintedMap_of_fix: implied by it given T35 and Stacks 04KV). Replaces javanpeykarBound (JavanpeykarRebase.javanpeykarBound_of_printed_rebase, with constantFieldExtensionUnramifiedFinite, mumfordTorsionAlgClosed and uniformizationLeafAll_proof for T35, and height-fix's glue semiAbelianDescendsPerfect).",
+     "kind": "consequence",
+     "flag": "pending reading: Javanpeykar 2014 Thm 1.1.1 read at X = X0 x_K Qbar with deg_B replaced by the degree of a given Belyi map and h_Fal(Jac X) by the printed stable height of a model V over K; no statement check recorded, so kind consequence (GLUE) until a reading says LEAF",
+     "source": "Javanpeykar, Polynomial bounds for Arakelov invariants of Belyi curves, Algebra Number Theory 8 (2014), Thm 1.1.1, p. 90 (arXiv:1403.6404v1 p. 1); height identification p. 98 (arXiv section 2.3 p. 9); locators recorded by the locator audit (docs/research/locators.md row R18); over height-fix's printed stable height (javanpeykar-rebase)"
+    },
+    {
+     "name": "constantFieldExtensionUnramifiedFinite",
+     "type": "_root_.JavanpeykarRebase.ConstantFieldExtensionUnramifiedFinite",
+     "doc": "javanpeykar-rebase: Stichtenoth, Algebraic Function Fields and Codes (2nd ed., GTM 254), Thm 3.6.3(a), for a FINITE constant field extension, with Stichtenoth's standing hypothesis that K is the full constant field of F: for F/K an algebraic function field (char 0) and L/K finite with F (x)_K L = FL (bijective productMap), every place of FL/L (valuation subring w containing L) is unramified over its restriction to F: a generator of the maximal ideal of w cap F generates that of w. The algebraic case used by the consumer (L = Kbar) is proved from it (JavanpeykarRebase.full_of_finite); finite_of_full gives the converse.",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Stichtenoth Thm 3.6.3(a), finite K'/K, full constant field); locator UNVERIFIED (theorem number from memory, not read)",
+     "source": "Stichtenoth, Algebraic Function Fields and Codes, 2nd ed., Springer GTM 254 (2009), section 3.6, Thm 3.6.3(a), finite constant field extensions; number UNVERIFIED"
+    },
+    {
+     "name": "semiAbelianDescendsPerfect",
+     "type": "_root_.ZInQ.HeightFix.SemiAbelianDescendsPerfect",
+     "doc": "height-fix, GLUE (shared with height-fix's bostLowerBound and gaudronRemondThm14 discharges; drop this leaf entry if height-fix's fold has already added the field to the research bundle): for a group scheme G of finite type over a perfect field k, if the identity component of G_kbar is an extension of an abelian variety by a split torus, then the identity component of G is an extension of an abelian variety over k by a torus (Stacks 04KV and Chevalley's theorem over a perfect field, Conrad 2002 Thm 1.1; locators UNVERIFIED). Used only in the direction kernel height => printed height.",
+     "kind": "project glue",
+     "flag": "",
+     "source": "height-fix: descent of semi-abelian identity components from kbar to a perfect field (Chevalley over perfect fields, Conrad 2002 Thm 1.1, UNVERIFIED)"
+    }
+   ]
+  }
+ ],
+ "note": "javanpeykar-rebase: report docs/research/javanpeykar-rebase.md. Supersedes the javanpeykar-fix spec. If height-fix's fold lands first, remove the semiAbelianDescendsPerfect leaf entry (the proof then reads the existing field {n}.semiAbelianDescendsPerfect). scratch/javanpeykar-rebase/autofold-with-height-fix.json is the combined fold."
+}

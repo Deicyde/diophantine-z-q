@@ -1,0 +1,12 @@
+DISCHARGES [OpenResearchLeaves26.dsThm965Weak] by CoeffFieldFinite.dsThm965Weak_of_printed
+  still assumes: [DSCoeffExt.DSThm965Printed,
+ CoeffFieldFinite.Gamma1IntegralSpan,
+ CoeffFieldFinite.DiamondIntegralToRational]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves26.dsThm965Weak] by CoeffFieldFinite.dsThm965Weak_of_printed_charSpace
+  still assumes: [DSCoeffExt.DSThm965Printed, CoeffFieldFinite.CharSpaceRationalSpan]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves26.dsThm965Weak] by CoeffFieldFinite.dsThm965Weak_of_printed_numberField
+  still assumes: [DSCoeffExt.DSThm965Printed, CoeffFieldFinite.CharSpaceNumberFieldSpan]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves26.dsThm965Weak] by DS965Weak.dsThm965Weak_of_dsThm965

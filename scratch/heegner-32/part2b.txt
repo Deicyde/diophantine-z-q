@@ -1,0 +1,103 @@
+
+/-! ## §5. Galois conjugation of the maps `S_μ` -/
+
+theorem sMap_congr {d : ℕ} [NeZero d] {μ μ' : ℂ} (h : μ = μ') (hμ : 4 * μ ^ 4 = -(d : ℂ) ^ 2)
+    (hμ' : 4 * μ' ^ 4 = -(d : ℂ) ^ 2) : sMap d μ hμ = sMap d μ' hμ' := by
+  subst h; rfl
+
+theorem sigma_hmu {d : ℕ} [NeZero d] (σ : ℂ ≃+* ℂ) {μ : ℂ} (hμ : 4 * μ ^ 4 = -(d : ℂ) ^ 2) :
+    4 * (σ μ) ^ 4 = -(d : ℂ) ^ 2 := by
+  have h := congrArg σ hμ
+  simpa [map_mul, map_pow, map_neg, map_natCast, map_ofNat] using h
+
+/-- `σ ∘ S_μ = S_{σμ} ∘ σ`. -/
+theorem map_sMap {d : ℕ} [NeZero d] (σ : ℂ ≃+* ℂ) {μ : ℂ} (hμ : 4 * μ ^ 4 = -(d : ℂ) ^ 2)
+    (P : X0.PtAC) :
+    Affine.Point.map (ZInQ.GZHeegner.sigA σ) (sMap d μ hμ P) =
+      sMap d (σ μ) (sigma_hmu σ hμ) (Affine.Point.map (ZInQ.GZHeegner.sigA σ) P) := by
+  rcases P with _ | ⟨x, y, h⟩
+  · rfl
+  · simp only [sMap, Affine.Point.map_some, Affine.Point.some.injEq]
+    simp [ZInQ.GZHeegner.sigA, map_mul, map_pow]
+
+/-- `S_{−μ} = S_μ ∘ (−1)`. -/
+theorem sMap_neg {d : ℕ} [NeZero d] {μ : ℂ} (hμ : 4 * μ ^ 4 = -(d : ℂ) ^ 2)
+    (hμ' : 4 * (-μ) ^ 4 = -(d : ℂ) ^ 2) (P : X0.PtAC) :
+    sMap d (-μ) hμ' P = sMap d μ hμ (-P) := by
+  rcases P with _ | ⟨x, y, h⟩
+  · rfl
+  · rw [Affine.Point.neg_some]
+    simp only [sMap, Affine.Point.some.injEq]
+    simp only [Affine.negY, curveA, shortCurve, WeierstrassCurve.baseChange, WeierstrassCurve.map,
+      map_zero, zero_mul, sub_zero]
+    constructor <;> ring
+
+/-- `Ψ(P) = S_{λg}(P) + S_{λ̄g}(P)`. -/
+def psiMap (d : ℕ) [NeZero d] (hd4 : d % 4 = 1) (hsq : Squarefree d) (P : X0.PtAC) :
+    ((shortCurve (-(d : ℚ) ^ 2))⁄ℂ).toAffine.Point :=
+  sMap d (lam * gaussD d) (mu_pow hd4 hsq lam_pow_four) P +
+    sMap d (lamb * gaussD d) (mu_pow hd4 hsq lamb_pow_four) P
+
+theorem sigma_I (σ : ℂ ≃+* ℂ) : σ Complex.I = Complex.I ∨ σ Complex.I = -Complex.I := by
+  have h : (σ Complex.I - Complex.I) * (σ Complex.I + Complex.I) = 0 := by
+    have : σ Complex.I ^ 2 = -1 := by rw [← map_pow, Complex.I_sq, map_neg, map_one]
+    linear_combination this - Complex.I_sq
+  rcases mul_eq_zero.mp h with h | h
+  · left; linear_combination h
+  · right; linear_combination h
+
+theorem sigma_gauss {d : ℕ} [NeZero d] (hd4 : d % 4 = 1) (hsq : Squarefree d) (σ : ℂ ≃+* ℂ) :
+    σ (gaussD d) = gaussD d ∨ σ (gaussD d) = -gaussD d := by
+  have hg2 := ZInQ.GZWeil.gaussD_sq hd4 hsq
+  have h : (σ (gaussD d) - gaussD d) * (σ (gaussD d) + gaussD d) = 0 := by
+    have : σ (gaussD d) ^ 2 = gaussD d ^ 2 := by rw [← map_pow, hg2, map_natCast]
+    linear_combination this
+  rcases mul_eq_zero.mp h with h | h
+  · left; linear_combination h
+  · right; linear_combination h
+
+theorem sigma_lam (σ : ℂ ≃+* ℂ) (h : σ Complex.I = Complex.I) : σ lam = lam ∧ σ lamb = lamb := by
+  unfold lam lamb
+  constructor <;> simp [map_div₀, map_add, map_sub, h]
+
+theorem sigma_lam' (σ : ℂ ≃+* ℂ) (h : σ Complex.I = -Complex.I) : σ lam = lamb ∧ σ lamb = lam := by
+  unfold lam lamb
+  constructor <;> simp [map_div₀, map_add, map_sub, h, sub_eq_add_neg]
+
+/-- **`σ ∘ Ψ = Ψ ∘ (±σ)`**, the sign being `σ(g)/g`. -/
+theorem map_psiMap {d : ℕ} [NeZero d] (hd4 : d % 4 = 1) (hsq : Squarefree d) (σ : ℂ ≃+* ℂ)
+    (P : X0.PtAC) :
+    Affine.Point.map (ZInQ.GZHeegner.sigA σ) (psiMap d hd4 hsq P) =
+      psiMap d hd4 hsq (if σ (gaussD d) = gaussD d then
+        Affine.Point.map (ZInQ.GZHeegner.sigA σ) P else -Affine.Point.map (ZInQ.GZHeegner.sigA σ) P) := by
+  unfold psiMap
+  rw [map_add, map_sMap, map_sMap]
+  set Pσ := Affine.Point.map (ZInQ.GZHeegner.sigA σ) P
+  have hg0 := ZInQ.GZWeil.gaussD_ne_zero hd4 hsq
+  rcases sigma_gauss hd4 hsq σ with hg | hg
+  · rw [if_pos hg]
+    rcases sigma_I σ with hI | hI
+    · obtain ⟨h1, h2⟩ := sigma_lam σ hI
+      rw [sMap_congr (by rw [map_mul, h1, hg]) _ (mu_pow hd4 hsq lam_pow_four),
+        sMap_congr (by rw [map_mul, h2, hg]) _ (mu_pow hd4 hsq lamb_pow_four)]
+    · obtain ⟨h1, h2⟩ := sigma_lam' σ hI
+      rw [sMap_congr (by rw [map_mul, h1, hg]) _ (mu_pow hd4 hsq lamb_pow_four),
+        sMap_congr (by rw [map_mul, h2, hg]) _ (mu_pow hd4 hsq lam_pow_four), add_comm]
+  · have hne : σ (gaussD d) ≠ gaussD d := by
+      rw [hg]; intro h; exact hg0 (by linear_combination -h / 2)
+    rw [if_neg hne]
+    have hn1 : 4 * (-(lam * gaussD d)) ^ 4 = -(d : ℂ) ^ 2 := by
+      rw [neg_pow, show ((-1 : ℂ)) ^ 4 = 1 by norm_num, one_mul]; exact mu_pow hd4 hsq lam_pow_four
+    have hn2 : 4 * (-(lamb * gaussD d)) ^ 4 = -(d : ℂ) ^ 2 := by
+      rw [neg_pow, show ((-1 : ℂ)) ^ 4 = 1 by norm_num, one_mul]; exact mu_pow hd4 hsq lamb_pow_four
+    rcases sigma_I σ with hI | hI
+    · obtain ⟨h1, h2⟩ := sigma_lam σ hI
+      rw [sMap_congr (by rw [map_mul, h1, hg]; ring) _ hn1,
+        sMap_congr (by rw [map_mul, h2, hg]; ring) _ hn2,
+        sMap_neg (mu_pow hd4 hsq lam_pow_four), sMap_neg (mu_pow hd4 hsq lamb_pow_four)]
+    · obtain ⟨h1, h2⟩ := sigma_lam' σ hI
+      rw [sMap_congr (by rw [map_mul, h1, hg]; ring) _ hn2,
+        sMap_congr (by rw [map_mul, h2, hg]; ring) _ hn1,
+        sMap_neg (mu_pow hd4 hsq lam_pow_four), sMap_neg (mu_pow hd4 hsq lamb_pow_four), add_comm]
+
+end ZInQ.Heegner32

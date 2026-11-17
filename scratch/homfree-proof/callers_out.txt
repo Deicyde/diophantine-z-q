@@ -1,0 +1,263 @@
+CALLER HDec.G0ModField.KernelField.kernelFieldExists_of_leaves_FS5 USES [HDec.G0ModField.KernelField.kernelFieldExists_of_leaves]
+CALLER HDec.G0ModField.KernelField.kernelFieldExists_of_split' USES [HDec.G0ModField.KernelField.kernelFieldExists_of_split]
+CALLER HDec.HSyn.openTextbookLeaves10_of_OpenTextbookLeaves11 USES [HDec.HSyn.OpenTextbookLeaves10.mk, HDec.HSyn.OpenTextbookLeaves11.homFreeFiniteAlgClosed]
+CALLER HDec.HSyn.textbookLeaves2_of_open3 USES [HDec.HSyn.OpenTextbookLeaves2.mk, HDec.HSyn.OpenTextbookLeaves3.t6]
+CALLER HDec.G0Galois.g8_g12 USES [HDec.G0Galois.g8_g11]
+CALLER HDec.HSyn.textbookLeaves4_of_open6 USES [HDec.HSyn.OpenTextbookLeaves4.mk, HDec.HSyn.OpenTextbookLeaves6.homFreeFiniteAlgClosed, HDec.HSyn.t6_of_algClosed5]
+CALLER HDec.HSyn.textbookLeaves_of_open2 USES [HDec.HSyn.OpenTextbookLeaves2.t6, HDec.HSyn.TextbookLeaves.mk]
+CALLER HDec.G0ModField.KernelField.kernelFieldExists_of_split USES [HDec.G0ModField.KernelField.kernelFieldExists_of_leaves_FS5]
+CALLER HDec.FS5NoCM.comIntOrQuadOrder_of_leaves USES [HDec.FS5NoCM.comIntOrQuadOrder_of, HDec.FS5NoCM.comOfMatrixEnd0_of_homFree]
+CALLER HDec.HSyn.t6_of_algClosed5 USES [ZInQ.Contrib.AVB1.homFreeFinite_of_algClosed]
+CALLER HDec.G0Galois.g8 USES [PkgI3.C2_absolutelyIrreducible]
+CALLER HDec.HSyn.G0AssembleMod.afterG7_of3 USES [HDec.G0Galois.g8_g11, HDec.HSyn.TextbookLeaves.t6]
+CALLER HDec.HSyn.linkedTateLocal_of_leaves3 USES [HDec.HSyn.qmEndRank_of_leaves3]
+CALLER HDec.G0Galois.g8_g12_of_leaves3 USES [HDec.G0Galois.g8_g12, HDec.HSyn.TextbookLeaves.t6]
+CALLER HDec.G0FibreSimple.fibreSimple_of_leaves USES [HDec.G0FibreSimple.fibreSimple_of_pieces'', HDec.HSyn.TextbookLeaves.t6]
+CALLER HDec.LTGoodRed.QM.qmEndRank_of_leaves USES [HDec.LTGoodRed.QM.qmEndRank_of, HDec.LTGoodRed.QM.qmSplitCaseRank]
+CALLER HDec.G4WeilRes.inertiaFixesHomsMon USES [HDec.G4WeilRes.tateHom_injective]
+CALLER HDec.HSyn.qmEndRank_of_leaves3 USES [HDec.LTGoodRed.QM.qmEndRank_of_leaves]
+CALLER HDec.G0ModField.KernelField.kernelField_of_model USES [HDec.G4WeilRes.homLattice_free, HDec.G4WeilRes.inertiaFixesHomsMon_of_leaves]
+CALLER HDec.G0FibreSimple.fibreSimple_of_pieces' USES [HDec.G0FibreSimple.centralizerOfMatrixEnd0_of_homFree]
+CALLER HDec.HSyn.textbookLeaves6_of_open7 USES [HDec.HSyn.OpenTextbookLeaves6.mk, HDec.HSyn.OpenTextbookLeaves7.homFreeFiniteAlgClosed]
+CALLER HDec.HSyn.textbookLeaves7_of_open8 USES [HDec.HSyn.OpenTextbookLeaves7.mk, HDec.HSyn.OpenTextbookLeaves8.homFreeFiniteAlgClosed]
+CALLER HDec.FS5NoCM.comIntOrQuadOrder_of USES [HDec.FS5NoCM.com_int_of_end0_quat]
+CALLER HDec.FS5NoCM.fibreComTrivialFull_of_leaves'' USES [HDec.FS5NoCM.fibreComTrivialFull_of_leaves']
+CALLER HDec.HSyn.textbookLeaves8_of_open9 USES [HDec.HSyn.OpenTextbookLeaves8.mk, HDec.HSyn.OpenTextbookLeaves9.homFreeFiniteAlgClosed]
+CALLER HDec.G0ModField.KernelField.endEqOFibre_of USES [HDec.G0FibreSimple.centralizerOfMatrixEnd0_of_homFree]
+CALLER PkgI3.C2_absolutelyIrreducible USES [PkgI3.finrank_equivEnd]
+CALLER HDec.HSyn.openTextbookLeaves11_of_OpenTextbookLeaves12 USES [HDec.HSyn.OpenTextbookLeaves11.mk, HDec.HSyn.OpenTextbookLeaves12.homFreeFiniteAlgClosed]
+CALLER HDec.G0ModField.KernelField.kernelFieldExists_of_split'' USES [HDec.G0ModField.KernelField.endEqOFibre_of, HDec.G0ModField.KernelField.kernelFieldExists_of_split']
+CALLER HDec.G0FibreSimple.fibreSimple_of_pieces'' USES [HDec.G0FibreSimple.end0Division_of_homFree, HDec.G0FibreSimple.fibreSimple_of_pieces']
+CALLER HDec.HSyn.textbookLeaves9_of_open10 USES [HDec.HSyn.OpenTextbookLeaves10.homFreeFiniteAlgClosed, HDec.HSyn.OpenTextbookLeaves9.mk]
+CALLER HDec.LTGoodRed.QM.qmSplitCaseRank USES [HDec.LTGoodRed.QM.finrank_end0]
+CALLER HDec.G0ModField.KernelField.kernelFieldExists_of_pieces USES [HDec.G0ModField.KernelField.kernelField_of_model]
+CALLER HDec.HSyn.gluePieces_of_open4 USES [HDec.FS5NoCM.fibreComTrivialFull_of_leaves'', HDec.G0ModField.KernelField.kernelFieldExists_of_split'', HDec.HSyn.OpenTextbookLeaves4.t6, HDec.HSyn.linkedTateLocal_of_leaves3]
+CALLER HDec.FS5NoCM.fibreComTrivialFull_of_leaves' USES [HDec.FS5NoCM.comIntOrQuadOrder_of_leaves]
+CALLER HDec.HSyn.textbookLeaves3_of_open4 USES [HDec.HSyn.OpenTextbookLeaves3.mk, HDec.HSyn.OpenTextbookLeaves4.t6]
+CALLER HDec.G0Galois.g8_g11 USES [HDec.G0Galois.g8]
+CALLER HDec.G0ModField.KernelField.kernelFieldExists_of_leaves USES [HDec.G0ModField.KernelField.kernelFieldExists_of_pieces]
+CALLER HDec.LTGoodRed.QM.qmEndRank_of USES [HDec.LTGoodRed.QM.finrank_end0, HDec.LTGoodRed.QM.finrank_le_baseChange, HDec.LTGoodRed.QM.four_le_finrank]
+CALLER HDec.G4WeilRes.inertiaFixesHomsMon_of_leaves USES [HDec.G4WeilRes.inertiaFixesHomsMon]
+HDec.FS5NoCM.comIntOrQuadOrder_of : HDec.QMLattice.YuB6Alg →
+  PkgI3.HomFreeFinite → HDec.FS5NoCM.ComOfMatrixEnd0 → HDec.FS5NoCM.ComIntOrQuadOrder
+HDec.FS5NoCM.comIntOrQuadOrder_of_leaves : HDec.QMLattice.YuB6Alg → PkgI3.HomFreeFinite → HDec.FS5NoCM.ComIntOrQuadOrder
+HDec.FS5NoCM.comOfMatrixEnd0_of_homFree : PkgI3.HomFreeFinite → HDec.FS5NoCM.ComOfMatrixEnd0
+HDec.FS5NoCM.com_int_of_end0_quat : PkgI3.HomFreeFinite →
+  ∀ {k : Type} [inst : Field k] {A : PkgI3.AbVar k} (q : LeafQM.AV.QMStr A)
+    (e : A.End0 ≃ₐ[ℚ] QuaternionAlgebra ℚ 2 0 (-3)), ∀ φ ∈ LeafQM.AV.com q, ∃ n, φ = ↑n
+HDec.FS5NoCM.fibreComTrivialFull_of_leaves' : HDec.FS5NoCM.R1R2fpFull →
+  LeafQM.AV.Pin.MobiusGlue →
+    HDec.QMLattice.YuB6Alg →
+      PkgI3.HomFreeFinite →
+        HDec.FS5NoCM.CMConductorCoprime6 →
+          HDec.FS5NoCM.X6KummerFibre → LeafQM.AV.R5fpCount → HDec.FS5NoCM.FibreComTrivialFull
+HDec.FS5NoCM.fibreComTrivialFull_of_leaves'' : HDec.FS5NoCM.R1R2fpFull →
+  LeafQM.AV.Pin.MobiusGlue →
+    HDec.QMLattice.YuB6Alg →
+      PkgI3.HomFreeFinite →
+        HDec.FS5NoCM.CMOptimalEmbedding →
+          HDec.FS5NoCM.X6KummerFibre → LeafQM.AV.R5fpCount → HDec.FS5NoCM.FibreComTrivialFull
+HDec.G0FibreSimple.centralizerOfMatrixEnd0_of_homFree : PkgI3.HomFreeFinite → HDec.G0FibreSimple.CentralizerOfMatrixEnd0
+HDec.G0FibreSimple.end0Division_of_homFree : PkgI3.HomFreeFinite →
+  HDec.G0FibreSimple.MulIsogeny → HDec.G0FibreSimple.EndDivisionOfEnd0Division
+HDec.G0FibreSimple.fibreSimple_of_pieces' : PkgI3.HomFreeFinite →
+  HDec.QMLattice.YuB6Alg →
+    HDec.G0FibreSimple.EndDivisionDescent →
+      HDec.G0FibreSimple.EndDivisionOfSchemeIso →
+        HDec.G0FibreSimple.EndDivisionOfEnd0Division →
+          HDec.G0FibreSimple.FibreComTrivial → HDec.HSyn.G0Split.FibreSimple
+HDec.G0FibreSimple.fibreSimple_of_pieces'' : PkgI3.HomFreeFinite →
+  HDec.QMLattice.YuB6Alg →
+    HDec.G0FibreSimple.MulIsogeny →
+      HDec.G0FibreSimple.EndDivisionDescent →
+        HDec.G0FibreSimple.EndDivisionOfSchemeIso → HDec.G0FibreSimple.FibreComTrivial → HDec.HSyn.G0Split.FibreSimple
+HDec.G0Galois.g8 : PkgI3.FaltingsSemisimple →
+  PkgI3.FaltingsTate →
+    PkgI3.TateModuleFree →
+      PkgI3.HomFreeFinite →
+        GlueI3.SemisimpleBaseChange →
+          HDec.G0Galois.G8Matrix →
+            ∀ {K : Type} [inst : Field K] [inst_1 : NumberField K] (A : PkgI3.AbVar K) (ℓ : ℕ)
+              [inst_2 : Fact (Nat.Prime ℓ)] (Tm : PkgI4.GQ → Module.End (PadicAlgCl ℓ) (HDec.G0Galois.Vb A ℓ))
+              (c ε : PkgI4.GQ → PkgI4.GQ → PadicAlgCl ℓ) (a β : PkgI4.GQ → PadicAlgCl ℓ)
+              (u : GlueDescent.MatrixUnits2 (PadicAlgCl ℓ) (HDec.G0Galois.Vb A ℓ)),
+              HDec.G0Galois.G7Out A ℓ Tm c ε a β u → ∃ r, HDec.G0Galois.G8Out A ℓ (GlueDescent.rho Tm a β) r
+HDec.G0Galois.g8_g11 : PkgI3.FaltingsSemisimple →
+  PkgI3.FaltingsTate →
+    PkgI3.TateModuleFree →
+      PkgI3.HomFreeFinite →
+        GlueI3.SemisimpleBaseChange →
+          HDec.PkgI4.DeRhamComparison →
+            ZInQ.LeafPush2.T11a_RiemannEnd →
+              ZInQ.LeafPush2.T11b_Rigidity →
+                HDec.G0Galois.G8Matrix →
+                  HDec.G0Galois.G9GlueNoT23 →
+                    HDec.G0Galois.G10Glue →
+                      ∀ {K : Type} [inst : Field K] [inst_1 : NumberField K] [IsGalois ℚ K] (A : PkgI3.AbVar K)
+                        (T : Finset ℕ),
+                        HDec.G0Galois.G2Out K T →
+                          HDec.G0Galois.G6Out A →
+                            ∀ (ℓ : ℕ) [inst_3 : Fact (Nat.Prime ℓ)],
+                              HDec.G0Galois.G3Out A ℓ T →
+                                ∀ (Tm : PkgI4.GQ → Module.End (PadicAlgCl ℓ) (HDec.G0Galois.Vb A ℓ))
+                                  (c ε : PkgI4.GQ → PkgI4.GQ → PadicAlgCl ℓ) (a β : PkgI4.GQ → PadicAlgCl ℓ)
+                                  (u : GlueDescent.MatrixUnits2 (PadicAlgCl ℓ) (HDec.G0Galois.Vb A ℓ)),
+                                  HDec.G0Galois.G7Out A ℓ Tm c ε a β u →
+                                    ∃ r,
+                                      HDec.G0Galois.G8Out A ℓ (GlueDescent.rho Tm a β) r ∧
+                                        HDec.G0Galois.G9Out r ∧ HDec.G0Galois.G10Out r ∧ HDec.G0Galois.G11Out T r
+HDec.G0Galois.g8_g12 : PkgI3.FaltingsSemisimple →
+  PkgI3.FaltingsTate →
+    PkgI3.TateModuleFree →
+      PkgI3.HomFreeFinite →
+        GlueI3.SemisimpleBaseChange →
+          HDec.PkgI4.DeRhamComparison →
+            ZInQ.LeafPush2.T11a_RiemannEnd →
+              ZInQ.LeafPush2.T11b_Rigidity →
+                HDec.PkgI4.PanBerger →
+                  HDec.HSyn.EigenformRepExists →
+                    HDec.PkgI4.EigenformHT →
+                      HDec.HSyn.DeligneSerreConseq →
+                        HDec.HSyn.FrobeniusDense →
+                          HDec.HSyn.BrauerNesbitt →
+                            HDec.LeafPush.T09_WeilPairing →
+                              HDec.G0Galois.G8Matrix →
+                                HDec.G0Galois.G9GlueNoT23 →
+                                  HDec.G0Galois.G10Glue →
+                                    HDec.G0Galois.G12Weight →
+                                      HDec.G0Galois.G12Det →
+                                        ∀ {K : Type} [inst : Field K] [inst_1 : NumberField K] [IsGalois ℚ K]
+                                          (A : PkgI3.AbVar K) (T : Finset ℕ),
+                                          HDec.G0Galois.G2Out K T →
+                                            HDec.G0Galois.G6Out A →
+                                              HDec.G0Galois.G3Out A 5 T →
+                                                ∀ (Tm : PkgI4.GQ → Module.End (PadicAlgCl 5) (HDec.G0Galois.Vb A 5))
+                                                  (c ε : PkgI4.GQ → PkgI4.GQ → PadicAlgCl 5)
+                                                  (a β : PkgI4.GQ → PadicAlgCl 5)
+                                                  (u : GlueDescent.MatrixUnits2 (PadicAlgCl 5) (HDec.G0Galois.Vb A 5)),
+                                                  HDec.G0Galois.G7Out A 5 Tm c ε a β u →
+                                                    ∃ r,
+                                                      HDec.G0Galois.G8Out A 5 (GlueDescent.rho Tm a β) r ∧
+                                                        HDec.G0Galois.G9Out r ∧
+                                                          HDec.G0Galois.G10Out r ∧
+                                                            HDec.G0Galois.G11Out T r ∧ HDec.G0Galois.G12Out r
+HDec.G0ModField.KernelField.endEqOFibre_of : HDec.QMLattice.YuB6Alg →
+  PkgI3.HomFreeFinite → HDec.G0ModField.KernelField.OMaximal → HDec.G0ModField.KernelField.EndEqOFibre
+HDec.G0ModField.KernelField.kernelFieldExists_of_leaves : PkgI3.HomFreeFinite →
+  PkgI2.NeronOggShafarevich →
+    HDec.PkgI2.RaynaudCriterionNF →
+      PkgI2.TorsionStructure → HDec.G0ModField.KernelField.ConjMapsOnHomField → G0ModField.KernelFieldExists
+HDec.G0ModField.KernelField.kernelFieldExists_of_leaves_FS5 : PkgI3.HomFreeFinite →
+  PkgI2.NeronOggShafarevich →
+    HDec.PkgI2.RaynaudCriterionNF →
+      PkgI2.TorsionStructure →
+        HDec.G0FibreSimple.FibreComTrivial → HDec.G0ModField.KernelField.ConjMapsNoCM → G0ModField.KernelFieldExists
+HDec.G0ModField.KernelField.kernelFieldExists_of_pieces : PkgI3.HomFreeFinite →
+  PkgI2.NeronOggShafarevich →
+    HDec.PkgI2.RaynaudCriterionNF →
+      PkgI2.TorsionStructure →
+        HDec.G0ModField.KernelField.TorsionCountPts →
+          HDec.G0ModField.KernelField.ConjMapsOnHomField → G0ModField.KernelFieldExists
+HDec.G0ModField.KernelField.kernelFieldExists_of_split : PkgI3.HomFreeFinite →
+  PkgI2.NeronOggShafarevich →
+    HDec.PkgI2.RaynaudCriterionNF →
+      PkgI2.TorsionStructure →
+        HDec.G0FibreSimple.FibreComTrivial →
+          HDec.G0ModField.KernelField.ConjIsogMaps →
+            HDec.G0ModField.KernelField.EndEqOOnHomField → G0ModField.KernelFieldExists
+HDec.G0ModField.KernelField.kernelFieldExists_of_split' : PkgI3.HomFreeFinite →
+  PkgI2.NeronOggShafarevich →
+    HDec.PkgI2.RaynaudCriterionNF →
+      PkgI2.TorsionStructure →
+        HDec.G0FibreSimple.FibreComTrivial →
+          HDec.G0ModField.KernelField.ConjIsogMaps →
+            HDec.G0ModField.KernelField.EndEqOFibre →
+              HDec.G0ModField.KernelField.EndTransport → G0ModField.KernelFieldExists
+HDec.G0ModField.KernelField.kernelFieldExists_of_split'' : PkgI3.HomFreeFinite →
+  PkgI2.NeronOggShafarevich →
+    HDec.PkgI2.RaynaudCriterionNF →
+      PkgI2.TorsionStructure →
+        HDec.QMLattice.YuB6Alg →
+          HDec.G0FibreSimple.FibreComTrivial →
+            HDec.G0ModField.KernelField.OMaximal →
+              HDec.G0ModField.KernelField.EndTransport →
+                HDec.G0ModField.KernelField.ConjIsogMaps → G0ModField.KernelFieldExists
+HDec.G0ModField.KernelField.kernelField_of_model : PkgI3.HomFreeFinite →
+  PkgI2.NeronOggShafarevich →
+    ∀ (K : IntermediateField ℚ HDec.GlueB3Unram.Qbar) [FiniteDimensional ℚ ↥K] [IsGalois ℚ ↥K],
+      Module.finrank ℚ ↥K ≤ ZInQ.heightF0 →
+        ∀ (A : PkgI3.AbVar ↥K),
+          (∀ (e : ↥K →ₐ[ℚ] HDec.GlueB3Unram.Qbar), ((HDec.G4WeilRes.conjData K A).A e).dim = 2) →
+            ∀ (T : Finset ℕ),
+              GlueB3Unram.GalUnramifiedOutside K T →
+                (∀ (p : ℕ),
+                    Nat.Prime p →
+                      p ∉ T →
+                        ∀ (w : ValuationSubring HDec.GlueB3Unram.Qbar),
+                          GlueB3Unram.LiesOver w p →
+                            ∀ (e : ↥K →ₐ[ℚ] HDec.GlueB3Unram.Qbar),
+                              PkgI2.HasGoodReduction (ObjBridge.toGrp A) (w.comap ↑e)) →
+                  ∃ r ≤ 16 * ZInQ.heightF0 ^ 2,
+                    ∃ G,
+                      ∃ (_ : Finite ↥G),
+                        ∃ E,
+                          ∃ (_ : FiniteDimensional ℚ ↥E) (_ : IsGalois ℚ ↥E),
+                            Module.finrank ℚ ↥E = Nat.card ↥G ∧
+                              (∀ (p : Nat.Primes), ↑p ∉ T → GlueDescent.B2Q.UnramifiedAt E ↑p) ∧
+                                ∀ σ ∈ (E ⊔ K).fixingSubgroup, (HDec.G4WeilRes.conjAction K A) σ = 1
+HDec.G4WeilRes.homLattice_free : PkgI3.HomFreeFinite →
+  ∀ {Idx : Type} [inst : Fintype Idx] (A : Idx → PkgI3.AbVar HDec.GlueB3Unram.Qbar),
+    (∀ (i : Idx), (A i).dim = 2) →
+      Module.Free ℤ (HDec.G4WeilRes.HomLattice A) ∧
+        Module.Finite ℤ (HDec.G4WeilRes.HomLattice A) ∧
+          Module.finrank ℤ (HDec.G4WeilRes.HomLattice A) ≤ 16 * Fintype.card Idx ^ 2
+HDec.G4WeilRes.inertiaFixesHomsMon : PkgI2.NeronOggShafarevich →
+  PkgI3.HomFreeFinite → HDec.G4WeilRes.ComapDVR → HDec.G4WeilRes.InertiaFixesHomsMon
+HDec.G4WeilRes.inertiaFixesHomsMon_of_leaves : PkgI2.NeronOggShafarevich →
+  PkgI3.HomFreeFinite → HDec.G4WeilRes.InertiaFixesHomsMon
+HDec.G4WeilRes.tateHom_injective : PkgI3.HomFreeFinite →
+  ∀ {k : Type} [inst : Field k] (A B : PkgI3.AbVar k) (ℓ : ℕ) [inst_1 : Fact (Nat.Prime ℓ)],
+    ↑ℓ ≠ 0 → Function.Injective ⇑(PkgI3.AbVar.tateHom ℓ A B)
+HDec.HSyn.linkedTateLocal_of_leaves3 : HDec.PkgI2.RaynaudCriterionNF →
+  PkgI2.TorsionStructure →
+    PkgI3.TateModuleFree →
+      FrobPiecesNeron.AbVarSpreadsOut →
+        FrobPiecesNeron.ProperSmoothGenConnected →
+          PkgI2.ReductionTorsionBijective →
+            PkgI2.NeronMappingAbelianScheme →
+              HDec.HSyn.G0Split.FibreSimple →
+                PkgI3.HomFreeFinite → HDec.QMLattice.YuB6Alg → HDec.HSyn.G0AssembleMod.LinkedTateLocal
+HDec.HSyn.qmEndRank_of_leaves3 : PkgI3.HomFreeFinite → HDec.QMLattice.YuB6Alg → HDec.HSyn.LinkedTate.QMEndRank
+HDec.HSyn.t6_of_algClosed5 : ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed → PkgI3.HomFreeFinite
+HDec.LTGoodRed.QM.finrank_end0 : PkgI3.HomFreeFinite →
+  ∀ {k : Type} [inst : Field k] (A : PkgI3.AbVar k), Module.finrank ℚ A.End0 = Module.finrank ℤ A.End
+HDec.LTGoodRed.QM.finrank_le_baseChange : PkgI3.HomFreeFinite →
+  ∀ {k : Type} [inst : Field k] (A : PkgI3.AbVar k) (Ω : Type) [inst_1 : Field Ω] [inst_2 : Algebra k Ω],
+    Module.finrank ℤ A.End ≤ Module.finrank ℤ (A.baseChange Ω).End
+HDec.LTGoodRed.QM.four_le_finrank : PkgI3.HomFreeFinite →
+  ∀ {k : Type} [inst : Field k] (A : PkgI3.AbVar k) (φ : ↥LeafQM.O →+* A.End),
+    Function.Injective ⇑φ → 4 ≤ Module.finrank ℤ A.End
+HDec.LTGoodRed.QM.qmEndRank_of : PkgI3.HomFreeFinite →
+  HDec.QMLattice.YuB6Alg → HDec.LTGoodRed.QM.QMSplitCaseRank → HDec.HSyn.LinkedTate.QMEndRank
+HDec.LTGoodRed.QM.qmEndRank_of_leaves : PkgI3.HomFreeFinite → HDec.QMLattice.YuB6Alg → HDec.HSyn.LinkedTate.QMEndRank
+HDec.LTGoodRed.QM.qmSplitCaseRank : PkgI3.HomFreeFinite → HDec.LTGoodRed.QM.QMSplitCaseRank
+PkgI3.C2_absolutelyIrreducible : PkgI3.FaltingsSemisimple →
+  PkgI3.FaltingsTate →
+    PkgI3.TateModuleFree →
+      PkgI3.HomFreeFinite →
+        GlueI3.SemisimpleBaseChange →
+          ∀ {K : Type} [inst : Field K] [NumberField K] (A : PkgI3.AbVar K) (ℓ : ℕ) [inst_2 : Fact (Nat.Prime ℓ)],
+            Module.finrank ℤ A.End = 4 →
+              ∀ (E : Type) [inst_3 : Field E] [CharZero E] [inst_5 : Algebra ℚ_[ℓ] E] {U : Type}
+                [inst_6 : AddCommGroup U] [inst_7 : _root_.Module E U] [FiniteDimensional E U] [Nontrivial U]
+                (r : Representation E (Field.absoluteGaloisGroup K) U)
+                (e : TensorProduct ℚ_[ℓ] E (PkgI3.AbVar.V ℓ A) ≃ₗ[E] U × U),
+                (∀ (σ : Field.absoluteGaloisGroup K) (v : TensorProduct ℚ_[ℓ] E (PkgI3.AbVar.V ℓ A)),
+                    e (((GlueI3.repBaseChange E (PkgI3.AbVar.galRep ℓ A)) σ) v) = ((r σ).prodMap (r σ)) (e v)) →
+                  ∀ (F : Type) [inst_10 : Field F] [inst_11 : Algebra E F], (GlueI3.repBaseChange F r).IsIrreducible
+PkgI3.finrank_equivEnd : PkgI3.FaltingsTate →
+  PkgI3.TateModuleFree →
+    PkgI3.HomFreeFinite →
+      ∀ {K : Type} [inst : Field K] [NumberField K] (A : PkgI3.AbVar K) (ℓ : ℕ) [inst_2 : Fact (Nat.Prime ℓ)],
+        Module.finrank ℚ_[ℓ] ↥(PkgI3.equivEnd A ℓ) = Module.finrank ℤ A.End
+ZInQ.Contrib.AVB1.homFreeFinite_of_algClosed : ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed → PkgI3.HomFreeFinite

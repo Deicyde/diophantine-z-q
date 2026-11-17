@@ -3,7 +3,7 @@ article_id: af_025382b51005b64f6e96d27c
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves28.raynaudSemistableSHOr
+lean: HDec.HSyn.OpenResearchLeaves31.raynaudSemistableSHOr
 ---
 
 # Raynaud's criterion for semistable reduction

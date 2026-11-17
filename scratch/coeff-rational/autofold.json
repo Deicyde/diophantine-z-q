@@ -1,0 +1,31 @@
+{
+ "name": "coeff-rational",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.CoeffRational"
+ ],
+ "discharges": [
+  {
+   "field": "eigenformCoeffFieldFinite",
+   "proof": "_root_.CoeffRational.eigenformCoeffFieldFinite_of_heckePrime {n}.gamma1IntegralSpan {n}.heckePrimeIntegralToRational",
+   "leaves": [
+    {
+     "name": "gamma1IntegralSpan",
+     "type": "_root_.CoeffFieldFinite.Gamma1IntegralSpan",
+     "doc": "Shimura, Introduction to the arithmetic theory of automorphic functions (1971), Thm 3.52 (number UNVERIFIED; also Diamond-Im 1995 section 12.3, Diamond-Shurman section 6.5 for k = 2): S_k(Gamma_1(N)) has a basis of cusp forms whose Fourier coefficients at infinity are rational integers. Consequence taken: for k >= 2, S_k(Gamma_1(N)) (Mathlib CuspForm on Gamma1 N) is spanned over C by forms with integral q-expansion (period 1). With heckePrimeIntegralToRational it gives K_f a number field (coeff-field, coeff-rational; all glue proved).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Shimura 1971 Thm 3.52, integral basis of S_k(Gamma_1(N)), basis => span, k >= 2); locator UNVERIFIED",
+     "source": "Shimura 1971, Introduction to the arithmetic theory of automorphic functions, Thm 3.52: S_k(Gamma_1(N)) has a basis with rational integral Fourier coefficients"
+    },
+    {
+     "name": "heckePrimeIntegralToRational",
+     "type": "_root_.CoeffRational.HeckePrimeIntegralToRational",
+     "doc": "The Hecke operators T_p preserve the integral structure, weakest form: for k >= 2 and a prime p not dividing N, Tau Ceti's T_p (the double coset Gamma_1(N) diag(1,p) Gamma_1(N), heckeSlashGamma1CuspFormEnd k (diagCosetGamma1 N p); Diamond-Shurman normalization a_m(T_p g) = a_{pm}(g) + p^(k-1) a_{m/p}(<p> g)) maps a cusp form on Gamma_1(N) with integral q-expansion to one with rational q-expansion. Source: the Hecke operators T_n preserve S_k(Gamma_1(N), Z) (Shimura 1971 section 3.5 with Thm 3.52; Diamond-Im 1995 sections 12.3-12.4; Diamond-Shurman section 6.5 for k = 2; locators UNVERIFIED). Consequence taken: p prime to N, integral input, rational output; T_p lies in the Hecke algebra in every convention, so no diamond-operator reading is needed (the diamond operators are derived: Dirichlet + Tau Ceti's recurrence, coeff-rational).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (the T_p part of 'the Hecke operators T_n preserve S_k(Gamma_1(N), Z)', p prime to N, integral input, rational output); locator UNVERIFIED",
+     "source": "Shimura 1971 section 3.5 with Thm 3.52; Diamond-Im 1995, Modular forms and modular curves, sections 12.3-12.4 (Diamond-Shurman section 6.5 for k = 2): the Hecke operators T_n preserve S_k(Gamma_1(N), Z)"
+    }
+   ]
+  }
+ ],
+ "note": "Supersedes coeff-field's route on main's field eigenformCoeffFieldFinite (OpenResearchLeaves28): the diamond-operator leaf DiamondIntegralToRational is replaced by the T_p leaf HeckePrimeIntegralToRational (it implies the diamond leaf: CoeffRational.diamondIntegralToRational_of_heckePrime). One-leaf alternative (count unchanged, leaf composite unless one print states both the integral basis and its T_n-stability): proof _root_.CoeffRational.eigenformCoeffFieldFinite_of_rationalHeckeSpan {n}.rationalHeckeSpan with leaf _root_.CoeffRational.RationalHeckeSpan (S_k(Gamma_1(N)) spanned by forms g with g and every T_p g, p prime to N, rational). Proofs: ZInQKernel/Contrib/OneProof/CoeffRational.lean (#discharges: scratch/coeff-rational/discharges-output.txt). Report docs/research/coeff-rational.md."
+}

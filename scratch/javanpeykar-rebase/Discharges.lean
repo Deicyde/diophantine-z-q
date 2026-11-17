@@ -1,0 +1,11 @@
+import ZInQKernel.OneProof.Main
+import ZInQKernel.OneProof.Discharges
+import ZInQKernel.Contrib.OneProof.JavanpeykarRebase
+
+#discharges
+
+#print axioms JavanpeykarRebase.javanpeykarBound_of_printed_rebase
+#print axioms JavanpeykarRebase.full_of_finite
+#print axioms JavanpeykarRebase.finite_of_full
+#print axioms JavanpeykarRebase.javanpeykarPrintedMap_of_fix
+#print axioms JavanpeykarRebase.javanpeykarBound_of_printed_rebase_final

@@ -1,0 +1,9 @@
+import ZInQKernel.OneProof.Main
+import ZInQKernel.OneProof.Discharges
+import ZInQKernel.Contrib.OneProof.SemiAbelianDescendsPerfect
+
+#discharges
+
+#print axioms ZInQ.SemiAbDescend.semiAbelianDescendsPerfect_of_chevalley
+#print axioms ZInQ.SemiAbDescend.bostLowerBound_of_printed_chevalley
+#print axioms ZInQ.SemiAbDescend.gaudronRemondThm14_of_printed_chevalley

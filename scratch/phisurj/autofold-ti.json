@@ -1,0 +1,10 @@
+{"name": "phisurj-ti",
+ "imports": ["ZInQKernel.Contrib.OneProof.PhiAmpleIsogenyWeil"],
+ "discharges": [
+   {"field": "mumfordPhiSurjectiveAC",
+    "proof": "_root_.PhiSurj.mumfordPhiSurjectiveAC_of_ti {n}.tiClassesInPicZeroAC {n}.picRepresentableAbVar {n}.picZeroAbVar {n}.weilPairingMumford {t}.mumfordTorsionAlgClosed",
+    "leaves": [{"name": "tiClassesInPicZeroAC", "type": "_root_.PhiSurj.TIClassesInPicZeroAC",
+                "doc": "phisurj: over k = kbar every translation-invariant class (Mumford's Pic0) is a k-point of the identity component of the Picard scheme (Mumford section 8 Thm 1 with section 13; Kleiman, The Picard scheme, section 9.5; locators UNVERIFIED). A consequence of the replaced leaf (tiClassesInPicZeroAC_of_phiSurjective).",
+                "kind": "published",
+                "flag": "pending reading: Mumford defines Pic0 as the translation-invariant classes; that they are the points of the identity component of the fppf Picard scheme is section 8 Thm 1 with section 13 and Kleiman 9.5, not one print",
+                "source": "Mumford, Abelian varieties, section 8 Thm 1 and section 13; Kleiman, The Picard scheme, section 9.5"}]}]}

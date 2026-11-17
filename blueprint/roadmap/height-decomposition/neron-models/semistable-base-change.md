@@ -3,7 +3,7 @@ article_id: af_19b200bc799d22788a74f95f
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves28.sga7_IX_3_3_SHpre
+lean: HDec.HSyn.OpenResearchLeaves31.sga7_IX_3_3_SHpre
 ---
 
 # Semistable reduction persists under base change

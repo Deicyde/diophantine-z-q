@@ -1,0 +1,23 @@
+{
+ "name": "coeff-rational-oneleaf",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.CoeffRational"
+ ],
+ "discharges": [
+  {
+   "field": "eigenformCoeffFieldFinite",
+   "proof": "_root_.CoeffRational.eigenformCoeffFieldFinite_of_rationalHeckeSpan {n}.rationalHeckeSpan",
+   "leaves": [
+    {
+     "name": "rationalHeckeSpan",
+     "type": "_root_.CoeffRational.RationalHeckeSpan",
+     "doc": "For k >= 2, S_k(Gamma_1(N)) is spanned over C by cusp forms g such that g and T_p g (Tau Ceti's double coset operator Gamma_1(N) diag(1,p) Gamma_1(N)) have rational q-expansions for every prime p not dividing N. Consequence of: S_k(Gamma_1(N)) has a basis in S_k(Gamma_1(N), Z), and S_k(Gamma_1(N), Z) is stable under the T_n (Shimura 1971 Thm 3.52 with section 3.5; Diamond-Im 1995 sections 12.3-12.4; Diamond-Shurman section 6.5 for k = 2; locators UNVERIFIED). Follows in Lean from gamma1IntegralSpan with heckePrimeIntegralToRational or diamondIntegralToRational (coeff-rational).",
+     "kind": "composite",
+     "flag": "pending reading: composite (integral basis of S_k(Gamma_1(N)), Shimura 1971 Thm 3.52, with the T_n-stability of S_k(Gamma_1(N), Z)); printed form if one statement prints both; locator UNVERIFIED",
+     "source": "Shimura 1971 Thm 3.52 with section 3.5; Diamond-Im 1995 sections 12.3-12.4: S_k(Gamma_1(N)) = C (x) S_k(Gamma_1(N), Z), stable under T_n"
+    }
+   ]
+  }
+ ],
+ "note": "One-leaf alternative to scratch/coeff-rational/autofold.json (count unchanged)."
+}

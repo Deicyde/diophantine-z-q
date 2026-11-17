@@ -10,7 +10,7 @@ web access (`docs/research/locators.md`) read some of them, as marked; the other
 
 ## The decomposition
 
-The minimal height hypothesis is proved from the thirty-seven statements of the chapter in the
+The minimal height hypothesis is proved from the twenty-nine statements of the chapter in the
 project's assembly of the proof of the manuscript's Theorem 4.1; the trust assessment of that proof
 is the project-authored note `docs/research/h-trust.md`.
 
@@ -111,10 +111,6 @@ with coordinate $t$: the function-field form $\mathbb Q(X_6)^W=\mathbb Q(t)$, th
 equations of $X_6$ over the $t$-line. Section, display and the orientation of $0$ and $\infty$
 unverified.
 
-## SGA 3 VI_B 3.10, neighbourhood form
-
-SGA 3 I, Exposé VI_B, Theorem 3.10; EGA IV₃ 15.6.5. Numbers unverified.
-
 ## SGA 7 IX 3.3
 
 SGA 7 I, Exposé IX, Proposition 3.3, second assertion ($N^0\times_SS'\cong N'^0$ for semistable
@@ -126,17 +122,10 @@ SGA 7 I, Exposé IX, Proposition 4.7 (Raynaud's criterion), over a strictly hens
 valuation ring, with semistability read over the residue field or over its algebraic closure. Number
 unverified.
 
-## Mumford GIT Theorem 6.14
+## Neron models exist
 
-D. Mumford, J. Fogarty and F. Kirwan, *Geometric Invariant Theory*, Theorem 6.14 ($S$ connected and
-locally noetherian, $F\to S$ smooth and proper with a section $e$, a fibre an abelian variety: $F$
-is an abelian scheme with identity $e$). Numbers unverified.
-
-## BLR 7.2 Theorem 1
-
-S. Bosch, W. Lütkebohmert and M. Raynaud, *Néron Models*, §7.2, Theorem 1 (Néron models commute with
-base change of ramification index $1$ with separable residue extension). Locator unverified; the
-reading risk is recorded in the project note reduct-glue, §5.
+S. Bosch, W. Lütkebohmert and M. Raynaud, *Néron Models* (1990), §1.4, Theorem 3, with §1.2,
+Definition 1, the existence half over an affine Dedekind base. Numbers unverified.
 
 ## Neron-Ogg-Shafarevich
 
@@ -164,20 +153,9 @@ with display (4.1.1), p. 514; Diamond–Shurman, Theorem 9.6.6. Locator unverifi
 
 D. Mumford, *Abelian varieties* (1970; 2nd ed. 1974), §4, Application 2 (iv). Locator unverified.
 
-## Mumford homomorphisms
-
-D. Mumford, *Abelian varieties* (1970), §19, Theorem 3 (the ground field is algebraically closed
-throughout the book). Locator unverified.
-
 ## Mumford characteristic polynomial
 
 D. Mumford, *Abelian varieties* (1970), §19, Theorem 4, specialized. Locator unverified.
-
-## Poincare complete reducibility
-
-J. S. Milne, *Abelian varieties*, in Cornell–Silverman (eds.), *Arithmetic Geometry* (1986),
-Proposition 12.1, over any field; over an algebraically closed field D. Mumford, *Abelian varieties*
-(1970), §19, Theorem 1. Locators unverified.
 
 ## GAGA for homomorphisms
 
@@ -185,30 +163,12 @@ J.-P. Serre, *Géométrie algébrique et géométrie analytique* (1956); SGA 1 X
 ($\operatorname{Hom}(X,Y)\to\operatorname{Hom}(X^{\rm an},Y^{\rm an})$ is bijective for $X$ proper
 over $\mathbb C$). Locators unverified.
 
-## Neron models exist
-
-S. Bosch, W. Lütkebohmert and M. Raynaud, *Néron Models*, §1.4, Theorem 3, with §1.2, Definition 1.
-Locators unverified.
-
 ## Picard scheme
 
 J. P. Murre (1964) and F. Oort (1962); A. Grothendieck, FGA, Exposé 232, Theorem 3.1; S. Kleiman,
 *The Picard scheme*, Theorem 9.4.8 with 9.2.5. Locators unverified.
 
-## Identity component of the Picard scheme
+## Kleiman Picard proper
 
-D. Mumford, *Abelian varieties*, §13; S. Kleiman, *The Picard scheme*, Propositions 9.5.1 and 9.5.3;
-J. S. Milne (1986), §§9–10. Locators unverified.
-
-## Weil pairing
-
-D. Mumford, *Abelian varieties*, §§20 and 23; J. S. Milne (1986), Lemma 16.2(c) and §16. Locators
-unverified.
-
-## Mumford K(L) finite
-
-D. Mumford, *Abelian varieties*, §6, Application 1, (iv) ⇒ (ii). Locator unverified.
-
-## Mumford phi_L surjective
-
-D. Mumford, *Abelian varieties*, §8, Theorem 1. Locator unverified.
+S. Kleiman, *The Picard scheme*, in *Fundamental Algebraic Geometry: Grothendieck's FGA Explained*,
+Theorem 9.5.4. Locator unverified.

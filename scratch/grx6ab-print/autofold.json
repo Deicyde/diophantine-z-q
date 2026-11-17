@@ -1,0 +1,30 @@
+{
+ "name": "grx6ab-print",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.GRX6AbPrint"
+ ],
+ "discharges": [
+  {
+   "field": "gonzalezRotgerX6Ab",
+   "proof": "_root_.GRX6AbPrint.gonzalezRotgerX6Ab_of_print {n}.gonzalezRotgerThm512X6 {n}.shimuraMainThmIDeligneY3AbU {n}.x6CoarseModuli {t}.gagaMorphism {t}.mumfordTorsionAlgClosed",
+   "leaves": [
+    {
+     "name": "gonzalezRotgerThm512X6",
+     "type": "_root_.GRDict.GonzalezRotgerThm512X6",
+     "doc": "gr-dict / grx6ab-print, printed form (degree-and-embedding consequence): Gonzalez-Rotger, J. Math. Soc. Japan 58 (2006), Thm 5.12, p. 946 (arXiv math/0612732 v1/v2 pp. 18-19; read by the locator audit), at (D,N) = (6,1), over CM points as Gonzalez-Rotger define them (GRDict.IsGRCMPoint), on every witness of the moduli description (no existence claim): [Q(x):Q] = 2h(R) with k in Q(x) if some p | 6 is inert in k, h(R) otherwise. With x6CoarseModuli replaces gonzalezRotgerX6Ab.",
+     "kind": "published",
+     "flag": "",
+     "source": "Gonzalez-Rotger, J. Math. Soc. Japan 58 (2006) Thm 5.12, p. 946 (read by the locator audit: Q(P) = H_R if D(R)N*(R) != 1, else the specified index-two subfield) at (D,N) = (6,1); degree and k-embedding clauses, over GR's CM(R) transported to Qbar-points of every coarse witness of X0(6,1)"
+    },
+    {
+     "name": "x6CoarseModuli",
+     "type": "_root_.GRX6AbPrint.X6CoarseModuli",
+     "doc": "grx6ab-print, printed form (the coarse-moduli theorem for X0(6,1), one object): the canonical model X6 = X0(6,1) over Q is a proper smooth curve and a coarse moduli scheme for abelian surfaces with QM by O: a Galois-equivariant bijection on Qbar-points with QM pairs up to isomorphism, Aut(O)-twists induced by automorphisms of X (the Atkin-Lehner group), and the classifying map of a level-3 QM abelian scheme over a proper smooth curve (a specialization of the natural transformation). Locators UNVERIFIED (Shimura 1967; Deligne, Sem. Bourbaki 389; Buzzard, Duke 87 (1997) section 1). With shimuraMainThmIDeligneY3AbU it gives the moduli witness (the forgetful map Y3 -> X6 is proved: GRX6AbPrint.x6ModuliWitness_of_coarse).",
+     "kind": "published",
+     "flag": "locator UNVERIFIED; reading risk: the Atkin-Lehner clause is read in twist form (w_m acts by (A, iota) -> (A, iota o Ad mu_m), principal I_m at D = 6), and Galois equivariance as naturality of the coarse map on Spec of fields",
+     "source": "Shimura, Ann. of Math. 85 (1967) sections 2-3, Main Theorem I (canonical model of X0(D,N)); Deligne, Sem. Bourbaki 389 (1971) sections 4-5 (moduli interpretation); Buzzard, Duke Math. J. 87 (1997) section 1 (X0(D,N) as a coarse moduli space of QM abelian surfaces); Mumford GIT Def. 5.6 (coarse moduli scheme); locators UNVERIFIED"
+    }
+   ]
+  }
+ ]
+}

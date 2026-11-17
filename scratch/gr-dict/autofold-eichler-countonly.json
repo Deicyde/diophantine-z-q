@@ -1,0 +1,22 @@
+{
+ "name": "gr-dict-eichler-countonly",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.GR56Lattice"
+ ],
+ "discharges": [
+  {
+   "field": "gonzalezRotgerProp56X6",
+   "proof": "COUNT_ONLY_not_a_proof_see_BypassFold",
+   "leaves": [
+    {
+     "name": "eichlerOptEmbCount6",
+     "type": "_root_.GRCountX6.EichlerOptEmbCount6",
+     "doc": "gr-dict (bypass fold; count-only spec), printed form (pure algebra): Eichler's theorem on optimal embeddings for the maximal order O of the quaternion algebra (2,-3) of discriminant 6 (class number one): for an order R of conductor prime to 6 in an imaginary quadratic k, the O^x-classes of optimal embeddings R -> O are finite in number, h(R) * prod_{p|6} (1 - (k/p)). Replaces gonzalezRotgerProp56X6 by the bypass fold scratch/gr-dict/BypassFold.lean: the chain reads only the bound #CM(R) <= 2^b h(R) (GR56.r5fpCountLe_of_eichler with the textbook fields).",
+     "kind": "published",
+     "flag": "locator UNVERIFIED (theorem numbers from memory)",
+     "source": "Eichler, J. reine angew. Math. 195 (1955); Vigneras, Arithmetique des algebres de quaternions, LNM 800 (1980), Ch. III Thm 5.11, Cor. 5.12; Voight, Quaternion Algebras (2021), Thm 30.7.3 (numbers UNVERIFIED); at the maximal order of (2,-3) (class number one), counted modulo O^x"
+    }
+   ]
+  }
+ ]
+}

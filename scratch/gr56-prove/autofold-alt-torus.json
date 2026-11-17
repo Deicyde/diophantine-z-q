@@ -1,0 +1,30 @@
+{
+ "name": "gr56-fold",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.GR56Lattice"
+ ],
+ "discharges": [
+  {
+   "field": "gonzalezRotgerProp56X6",
+   "proof": "_root_.GR56.gonzalezRotgerProp56X6_of_st {n}.eichlerOptEmbCount6 {n}.qmTorusAbelian {l}.shimuraTaniyamaQbar {t}.uniformizationLeafAll {t}.gagaMorphism {t}.mumfordTorsionAlgClosed",
+   "leaves": [
+    {
+     "name": "eichlerOptEmbCount6",
+     "type": "_root_.GRCountX6.EichlerOptEmbCount6",
+     "doc": "gr56-prove, printed form (pure algebra): Eichler's theorem on optimal embeddings for the maximal order O of the quaternion algebra (2,-3) of discriminant 6 (class number one): for an order R of conductor prime to 6 in an imaginary quadratic k, the O^x-classes of optimal embeddings R -> O are finite in number, h(R) * prod_{p|6} (1 - (k/p)). Replaces gonzalezRotgerProp56X6 with qmTorusAbelian and the added-bundle LEAF shimuraTaniyamaQbar (the CM-point map is a bijection, GR56.cmPointsOptEmb6_of_st).",
+     "kind": "published",
+     "flag": "locator UNVERIFIED (theorem numbers from memory)",
+     "source": "Eichler, J. reine angew. Math. 195 (1955); Vigneras, Arithmetique des algebres de quaternions, LNM 800 (1980), Ch. III Thm 5.11, Cor. 5.12; Voight, Quaternion Algebras (2021), Thm 30.7.3 (numbers UNVERIFIED); at the maximal order of (2,-3) (class number one), counted modulo O^x"
+    },
+    {
+     "name": "qmTorusAbelian",
+     "type": "_root_.GR56.QMTorusAbelian",
+     "doc": "gr56-prove, printed form: for tau in the upper half plane the QM torus C^2/iota(O)(tau,1) is the analytic space of an abelian surface with QM by O (analytic uniformization with kernel qmLattice tau, iota-compatible).",
+     "kind": "published",
+     "flag": "locator UNVERIFIED (Shimura 1963 sections 2-4; algebraization by Riemann/Chow/GAGA)",
+     "source": "Shimura, Ann. of Math. 78 (1963), sections 2-4 (QM tori by a maximal order of an indefinite quaternion algebra are abelian varieties); Birkenhake-Lange, Complex abelian varieties (2004), Ch. 9; algebraization: Riemann's theorem with GAGA (Serre 1956) (numbers UNVERIFIED)"
+    }
+   ]
+  }
+ ]
+}

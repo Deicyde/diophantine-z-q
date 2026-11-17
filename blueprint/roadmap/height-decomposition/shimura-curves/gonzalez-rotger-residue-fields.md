@@ -3,7 +3,7 @@ article_id: af_36b24ab2bbf968a50ca43e8f
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves28.gonzalezRotgerX6Ab
+lean: HDec.HSyn.OpenResearchLeaves31.gonzalezRotgerX6Ab
 ---
 
 # González–Rotger: residue fields of CM points on X₆

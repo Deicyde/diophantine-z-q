@@ -25,7 +25,8 @@ eta quotients, x0-32's `X0.EtaModelDifferential`: on the eta-quotient model
 * C8 the lattices `((1 ± i)/2) L` of `32a1`, for `L` a lattice of `C₁`, give `2 Λ_{f₁} ⊆ L`.
 
 The curve equation `y² = x³ + 4x` (tyz-cm's `etaModelEquation`) and the invariance are proved in
-the kernel; the only input not proved is `X0.EtaModelDifferential`. No `sorry`, no `axiom`.
+the kernel; the only input here is `X0.EtaModelDifferential`, which `WeilTheta.lean` and
+`WeilJacobi.lean` prove. No `sorry`, no `axiom`.
 -/
 
 noncomputable section

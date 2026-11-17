@@ -1,0 +1,9 @@
+{"name": "hodgetate-from-dr",
+ "imports": ["ZInQKernel.Contrib.OneProof.HodgeTatePairing"],
+ "discharges": [
+  {"field": "hodgeTateDecompAbVar",
+   "proof": "_root_.ZInQ.Contrib.HodgeTateFromPairing.hodgeTateDecompAbVar_of_printed {n}.hodgeTateDecompExists {t}.mumfordTorsionAlgClosed {l}.picRepresentableAbVar {l}.picZeroAbVar {l}.mumfordKLFiniteSectionAC {l}.mumfordPhiSurjectiveAC {l}.weilPairingMumford",
+   "leaves": [{"name": "hodgeTateDecompExists", "type": "_root_.ZInQ.Contrib.HodgeTateFromPairing.HodgeTateDecompExists",
+     "doc": "Fontaine, Invent. Math. 65 (1982), Theoreme principal: C_p (x) V_p(A) = (C_p(1) (x)_F t_A) + (C_p (x)_F t*_{A'}), G_F-equivariant; bases of the two finite-dimensional F-spaces chosen, both dimensions left unnamed (C_p(1)^a + C_p^b for some a, b); locator UNVERIFIED",
+     "kind": "published", "flag": "",
+     "source": "C_p (x) V_p(A) = C_p(1)^a + C_p^b, G_F-equivariant, some a, b (Fontaine, Invent. Math. 65 (1982); Tate 1967 4; Faltings 1988), bases of t_A and t*_{A'} chosen, no dimension used; a = b = g proved from the Weil pairing (T9 leaves) and T26 (hodgetate-from-dr)"}]}]}

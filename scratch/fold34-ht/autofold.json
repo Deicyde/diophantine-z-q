@@ -1,0 +1,22 @@
+{
+ "name": "fold34-ht",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.HodgeTatePairingCharZero"
+ ],
+ "discharges": [
+  {
+   "field": "hodgeTateDecompAbVar",
+   "proof": "_root_.ZInQ.Contrib.HodgeTateFromPairing.hodgeTateDecompAbVar_of_open {n}.hodgeTateDecompExists {t}.mumfordTorsionAlgClosed {l}.picRepresentableAbVar {l}.kleimanPicZeroProper",
+   "leaves": [
+    {
+     "name": "hodgeTateDecompExists",
+     "type": "_root_.ZInQ.Contrib.HodgeTateFromPairing.HodgeTateDecompExists",
+     "doc": "Fontaine, Invent. Math. 65 (1982), Theoreme principal: C_p (x) V_p(A) = (C_p(1) (x)_F t_A) + (C_p (x)_F t*_{A'}), G_F-equivariant; bases of the two finite-dimensional F-spaces chosen, both dimensions left unnamed (C_p(1)^a + C_p^b for some a, b); locator UNVERIFIED",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Fontaine 1982 Theoreme principal with bases chosen, both exponents unnamed; a = b = g proved from the Weil pairing and T26, hodgetate-from-dr); locator UNVERIFIED",
+     "source": "C_p (x) V_p(A) = C_p(1)^a + C_p^b, G_F-equivariant, some a, b (Fontaine, Invent. Math. 65 (1982); Tate 1967 4; Faltings 1988), bases of t_A and t*_{A'} chosen, no dimension used; a = b = g proved from the Weil pairing (T9 in characteristic 0: picRepresentableAbVar, kleimanPicZeroProper, T5) and T26 (hodgetate-from-dr; fold34-ht)"
+    }
+   ]
+  }
+ ]
+}
