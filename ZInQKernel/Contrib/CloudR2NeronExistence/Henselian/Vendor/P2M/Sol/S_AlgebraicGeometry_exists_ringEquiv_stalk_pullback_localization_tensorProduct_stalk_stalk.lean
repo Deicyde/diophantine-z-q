@@ -230,6 +230,304 @@ lemma exists_j_eq (p : ↥(pullback z f)) (hpU : (pullback.fst z f).base p ∈ U
   rw [Iso.inv_hom_id_assoc]
   exact hq'
 
+/-
+DEFAULT-LIMIT SIBLING RE-PROOF (2026-11-17).
+The original affine chart and imported germ-snd theorem are retained. Heavy
+stalk calculations use atomic schemes/maps and fixed rings in separate
+commands. The original R-algebras are preserved by their actual halg rows;
+no new cast, alias, field, model, localization or coherence premise is added.
+-/
+section DefaultProofBlocks
+omit hφU
+
+private theorem canonical_stalk_scalar_row
+    {X0 : Scheme.{u}} (f0 : X0 ⟶ Spec (CommRingCat.of R)) (x0 x1 : X0)
+    (hxx : x0 = x1) [Algebra R (X0.presheaf.stalk x0)]
+    (halg : X0.fromSpecStalk x0 ≫ f0 =
+      Spec.map (CommRingCat.ofHom (algebraMap R (X0.presheaf.stalk x0)))) :
+    letI : Algebra R (X0.presheaf.stalk x1) :=
+      ((X0.presheaf.germ ⊤ x1 trivial).hom.comp
+        (f0.appTop.hom.comp (Scheme.ΓSpecIso (CommRingCat.of R)).inv.hom)).toAlgebra
+    ∀ r : R, (X0.presheaf.stalkCongr (.of_eq hxx)).hom
+      (algebraMap R (X0.presheaf.stalk x0) r) =
+        algebraMap R (X0.presheaf.stalk x1) r := by
+  letI : Algebra R (X0.presheaf.stalk x1) :=
+    ((X0.presheaf.germ ⊤ x1 trivial).hom.comp
+      (f0.appTop.hom.comp (Scheme.ΓSpecIso (CommRingCat.of R)).inv.hom)).toAlgebra
+  intro r
+  rw [algebraMap_stalk_eq f0 x0 halg r]
+  change (X0.presheaf.germ ⊤ x0 trivial ≫
+    X0.presheaf.stalkSpecializes (specializes_of_eq hxx.symm))
+      (f0.appTop ((Scheme.ΓSpecIso (CommRingCat.of R)).inv r)) = _
+  rw [TopCat.Presheaf.germ_stalkSpecializes]
+  rfl
+private theorem chart_stalk_naturality
+    (Y V X0 : Scheme.{u}) (j0 : V ⟶ Y) (τ : Y ⟶ X0) (π : V ⟶ X0)
+    (hτ : j0 ≫ τ = π) (q : V) :
+    ∀ t : X0.presheaf.stalk (τ.base (j0.base q)),
+      j0.stalkMap q ((τ.stalkMap (j0.base q)).hom t) =
+        (π.stalkMap q).hom ((X0.presheaf.stalkCongr (.of_eq
+          (congrArg (fun m : V ⟶ X0 => m.base q) hτ))).hom t) := by
+  intro t
+  have h := Scheme.Hom.stalkMap_congr_hom (j0 ≫ τ) π hτ q
+  rw [Scheme.Hom.stalkMap_comp] at h
+  exact CategoryTheory.ConcreteCategory.congr_hom h t
+
+private theorem affine_chart_germ
+    (Z0 Y V : Scheme.{u}) (U0 : Z0.Opens) (hU0 : IsAffineOpen U0)
+    (ρ : Y ⟶ Z0) (σ : V ⟶ Spec Γ(Z0, U0)) (j0 : V ⟶ Y) (q : V)
+    (hpU : ρ.base (j0.base q) ∈ U0)
+    (hρ : j0 ≫ ρ = σ ≫ hU0.fromSpec) :
+    ∀ a : Γ(Z0, U0), (j0.stalkMap q).hom
+      ((ρ.stalkMap (j0.base q)).hom ((Z0.presheaf.germ U0 _ hpU).hom a)) =
+        V.presheaf.germ ⊤ q trivial
+          (σ.appTop ((Scheme.ΓSpecIso (CommRingCat.of Γ(Z0, U0))).inv a)) := by
+  intro a
+  have E2 : j0.stalkMap q (Y.presheaf.germ (ρ ⁻¹ᵁ U0)
+      (j0.base q) hpU (ρ.app U0 a)) =
+      V.presheaf.germ ⊤ q trivial
+        (σ.appTop ((Scheme.ΓSpecIso (CommRingCat.of Γ(Z0, U0))).inv a)) := by
+    rw [Scheme.Hom.germ_stalkMap_apply]
+    have t := CategoryTheory.ConcreteCategory.congr_hom (Scheme.Hom.congr_app hρ U0) a
+    rw [Scheme.Hom.comp_app] at t
+    erw [CommRingCat.comp_apply, CommRingCat.comp_apply] at t
+    erw [t, TopCat.Presheaf.germ_res_apply]
+    rw [Scheme.Hom.comp_app, IsAffineOpen.fromSpec_app_self]
+    erw [CommRingCat.comp_apply, CommRingCat.comp_apply]
+    have n := CategoryTheory.ConcreteCategory.congr_hom
+      (σ.naturality (eqToHom hU0.fromSpec_preimage_self).op)
+      ((Scheme.ΓSpecIso Γ(Z0, U0)).inv a)
+    erw [CommRingCat.comp_apply, CommRingCat.comp_apply] at n
+    erw [n, TopCat.Presheaf.germ_res_apply]
+    rfl
+  have g1 := CategoryTheory.ConcreteCategory.congr_hom
+    (Scheme.Hom.germ_stalkMap ρ U0 (j0.base q) hpU) a
+  exact (congrArg (fun y => (j0.stalkMap q).hom y) g1).trans E2
+
+private theorem affine_germ_scalar_tower
+    {Z0 : Scheme.{u}} (z0 : Z0 ⟶ Spec (CommRingCat.of R))
+    (U0 : Z0.Opens) (ζ : Z0) (hζ : ζ ∈ U0)
+    [Algebra R Γ(Z0, U0)] [Algebra R (Z0.presheaf.stalk ζ)]
+    (halgZ : Z0.fromSpecStalk ζ ≫ z0 =
+      Spec.map (CommRingCat.ofHom (algebraMap R (Z0.presheaf.stalk ζ))))
+    (halgU : ∀ r : R, algebraMap R Γ(Z0, U0) r =
+      (z0.appLE ⊤ U0 le_top) ((Scheme.ΓSpecIso (CommRingCat.of R)).inv r)) :
+    letI : Algebra Γ(Z0, U0) (Z0.presheaf.stalk ζ) :=
+      (Z0.presheaf.germ U0 ζ hζ).hom.toAlgebra
+    IsScalarTower R Γ(Z0, U0) (Z0.presheaf.stalk ζ) := by
+  letI : Algebra Γ(Z0, U0) (Z0.presheaf.stalk ζ) :=
+    (Z0.presheaf.germ U0 ζ hζ).hom.toAlgebra
+  refine IsScalarTower.of_algebraMap_eq fun r => ?_
+  rw [algebraMap_stalk_eq z0 ζ halgZ r, halgU r]
+  change _ = Z0.presheaf.germ U0 ζ hζ
+    ((z0.app ⊤ ≫ Z0.presheaf.map (homOfLE le_top).op)
+      ((Scheme.ΓSpecIso (CommRingCat.of R)).inv r))
+  rw [CommRingCat.comp_apply]
+  erw [TopCat.Presheaf.germ_res_apply]
+  rfl
+
+private theorem composed_units_iff
+    {L0 V0 W0 Q0 : Type u} [CommRing L0] [CommRing V0] [CommRing W0] [CommRing Q0]
+    [IsLocalRing L0] [IsLocalRing V0] [IsLocalRing W0]
+    (a : L0 →+* V0) [IsLocalHom a] (b : V0 →+* W0) [IsLocalHom b]
+    (e : W0 ≃+* Q0) :
+    ∀ l : L0, IsUnit (e (b (a l))) ↔ IsUnit l := by
+  intro l
+  have he : ∀ w : W0, IsUnit (e w) ↔ IsUnit w := fun w =>
+    ⟨fun h => by simpa using h.map e.symm, fun h => h.map e⟩
+  exact (he _).trans ((isUnit_map_iff b _).trans (isUnit_map_iff a l))
+
+private theorem right_prime_comap
+    {A0 B0 S0 L0 : Type u} [CommRing A0] [CommRing B0] [CommRing S0] [CommRing L0]
+    [Algebra A0 B0] [Algebra A0 S0] [Algebra A0 L0] [Algebra B0 L0]
+    [IsScalarTower A0 B0 L0] (P : Ideal B0) [P.IsPrime] [IsLocalization.AtPrime L0 P]
+    (Q : Ideal (S0 ⊗[A0] B0)) [Q.IsPrime] (φL : L0 →+* Localization.AtPrime Q)
+    (hφL : ∀ a : B0, φL (algebraMap B0 L0 a) =
+      algebraMap (S0 ⊗[A0] B0) (Localization.AtPrime Q) ((1 : S0) ⊗ₜ[A0] a))
+    (hUnits : ∀ l : L0, IsUnit (φL l) ↔ IsUnit l) :
+    Q.comap (Algebra.TensorProduct.includeRight
+      (R := A0) (A := S0) (B := B0)).toRingHom = P := by
+  ext a
+  rw [Ideal.mem_comap]
+  change ((1 : S0) ⊗ₜ[A0] a ∈ Q) ↔ a ∈ P
+  have h1 : ((1 : S0) ⊗ₜ[A0] a ∈ Q) ↔
+      ¬ IsUnit (algebraMap (S0 ⊗[A0] B0) (Localization.AtPrime Q) ((1 : S0) ⊗ₜ[A0] a)) := by
+    rw [IsLocalization.AtPrime.isUnit_to_map_iff (Localization.AtPrime Q) Q]
+    exact not_not.symm
+  have h2 : a ∈ P ↔ ¬ IsUnit (algebraMap B0 L0 a) := by
+    rw [IsLocalization.AtPrime.isUnit_to_map_iff L0 P]
+    exact not_not.symm
+  rw [h1, h2, ← hφL a, not_iff_not]
+  exact hUnits _
+
+private theorem exists_tensor_flip
+    {A0 L0 T0 S0 : Type u} [CommRing A0] [CommRing L0] [CommRing T0] [CommRing S0]
+    [Algebra A0 L0] [Algebra A0 T0] [Algebra A0 S0] (cA : T0 ≃ₐ[A0] S0) :
+    ∃ ψ : (L0 ⊗[A0] T0) ≃ₐ[A0] (S0 ⊗[A0] L0),
+      ∀ l t, ψ (l ⊗ₜ[A0] t) = cA t ⊗ₜ[A0] l := by
+  refine ⟨(Algebra.TensorProduct.congr (AlgEquiv.refl : L0 ≃ₐ[A0] L0) cA).trans
+    (Algebra.TensorProduct.comm A0 L0 S0), ?_⟩
+  intro l t
+  simp [Algebra.TensorProduct.congr_apply, Algebra.TensorProduct.comm_tmul]
+
+private theorem exists_prime_localization_equiv
+    {B0 C0 : Type u} [CommRing B0] [CommRing C0]
+    (ψ : B0 ≃+* C0) (Q : Ideal C0) [Q.IsPrime] :
+    ∃ (P : Ideal B0) (_ : P.IsPrime)
+      (ℓ : Localization.AtPrime P ≃+* Localization.AtPrime Q),
+      ∀ w : B0, ℓ (algebraMap B0 (Localization.AtPrime P) w) =
+        algebraMap C0 (Localization.AtPrime Q) (ψ w) := by
+  let P : Ideal B0 := Q.comap ψ.toRingHom
+  haveI : P.IsPrime := Ideal.comap_isPrime _ _
+  have H : P.primeCompl.map ψ.toMonoidHom = Q.primeCompl := by
+    ext y
+    constructor
+    · rintro ⟨x, hx, rfl⟩
+      exact hx
+    · intro hy
+      refine ⟨ψ.symm y, ?_, ψ.apply_symm_apply y⟩
+      change ψ (ψ.symm y) ∉ Q
+      rw [ψ.apply_symm_apply]
+      exact hy
+  exact ⟨P, inferInstance,
+    IsLocalization.ringEquivOfRingEquiv (M := P.primeCompl) (T := Q.primeCompl)
+      (Localization.AtPrime P) (Localization.AtPrime Q) ψ H,
+    fun w => IsLocalization.ringEquivOfRingEquiv_eq H w⟩
+
+private theorem assemble_two_stalk_maps
+    {A0 L0 T0 S0 B0 V0 W0 : Type u}
+    [CommRing A0] [CommRing L0] [CommRing T0] [CommRing S0] [CommRing B0]
+    [CommRing V0] [CommRing W0]
+    [Algebra A0 L0] [Algebra A0 T0] [Algebra A0 S0] [Algebra A0 B0]
+    (cA : T0 ≃ₐ[A0] S0) (J : V0 ≃+* W0)
+    (Q0 : Ideal (S0 ⊗[A0] B0)) [Q0.IsPrime]
+    (Q1 : Ideal (S0 ⊗[A0] L0)) [Q1.IsPrime]
+    (e0 : W0 ≃+* Localization.AtPrime Q0)
+    (e1 : Localization.AtPrime Q0 ≃+* Localization.AtPrime Q1)
+    (a : L0 →+* V0) (b : T0 →+* V0)
+    (hL : ∀ l : L0, e1 (e0 (J (a l))) =
+      algebraMap (S0 ⊗[A0] L0) (Localization.AtPrime Q1) ((1 : S0) ⊗ₜ[A0] l))
+    (hT : ∀ t : T0, e1 (e0 (J (b t))) =
+      algebraMap (S0 ⊗[A0] L0) (Localization.AtPrime Q1) (cA t ⊗ₜ[A0] (1 : L0))) :
+    ∃ (P : Ideal (L0 ⊗[A0] T0)) (_ : P.IsPrime)
+      (e : V0 ≃+* Localization.AtPrime P),
+      (∀ l : L0, e (a l) =
+        algebraMap (L0 ⊗[A0] T0) (Localization.AtPrime P) (l ⊗ₜ[A0] (1 : T0))) ∧
+      (∀ t : T0, e (b t) =
+        algebraMap (L0 ⊗[A0] T0) (Localization.AtPrime P) ((1 : L0) ⊗ₜ[A0] t)) := by
+  obtain ⟨ψ, hψ⟩ := exists_tensor_flip (A0 := A0) (L0 := L0) (T0 := T0) (S0 := S0) cA
+  obtain ⟨P, hP, ℓ, hℓ⟩ := exists_prime_localization_equiv ψ.toRingEquiv Q1
+  have hψR : ∀ (l : L0) (t : T0), ψ.toRingEquiv (l ⊗ₜ[A0] t) = cA t ⊗ₜ[A0] l := fun l t => hψ l t
+  refine ⟨P, hP, ((J.trans e0).trans e1).trans ℓ.symm, ?_, ?_⟩
+  · intro l
+    change ℓ.symm (e1 (e0 (J (a l)))) = _
+    rw [RingEquiv.symm_apply_eq, hL l, hℓ, hψR, map_one]
+  · intro t
+    change ℓ.symm (e1 (e0 (J (b t)))) = _
+    rw [RingEquiv.symm_apply_eq, hT t, hℓ, hψR]
+private theorem atomic_chart_comparison
+    {X0 Z0 : Scheme.{u}} (f0 : X0 ⟶ Spec (CommRingCat.of R))
+    (z0 : Z0 ⟶ Spec (CommRingCat.of R)) (U0 : Z0.Opens) (hU0 : IsAffineOpen U0)
+    [Algebra R Γ(Z0, U0)]
+    (halgU : ∀ r : R, algebraMap R Γ(Z0, U0) r =
+      (z0.appLE ⊤ U0 le_top) ((Scheme.ΓSpecIso (CommRingCat.of R)).inv r))
+    (Y V : Scheme.{u}) (ρ : Y ⟶ Z0) (τ : Y ⟶ X0)
+    (π : V ⟶ X0) (σ : V ⟶ Spec Γ(Z0, U0)) (j0 : V ⟶ Y)
+    [IsOpenImmersion j0] (q : V) (hτ : j0 ≫ τ = π)
+    (hρ : j0 ≫ ρ = σ ≫ hU0.fromSpec) (hpU : ρ.base (j0.base q) ∈ U0)
+    [Algebra R (Z0.presheaf.stalk (ρ.base (j0.base q)))]
+    (halgZ : Z0.fromSpecStalk (ρ.base (j0.base q)) ≫ z0 =
+      Spec.map (CommRingCat.ofHom (algebraMap R (Z0.presheaf.stalk (ρ.base (j0.base q))))))
+    [Algebra R (X0.presheaf.stalk (τ.base (j0.base q)))]
+    (halgX : X0.fromSpecStalk (τ.base (j0.base q)) ≫ f0 =
+      Spec.map (CommRingCat.ofHom (algebraMap R (X0.presheaf.stalk (τ.base (j0.base q)))))) :
+    letI : Algebra R (X0.presheaf.stalk (π.base q)) :=
+      ((X0.presheaf.germ ⊤ (π.base q) trivial).hom.comp
+        (f0.appTop.hom.comp (Scheme.ΓSpecIso (CommRingCat.of R)).inv.hom)).toAlgebra
+    ∀ (Q0 : Ideal ((X0.presheaf.stalk (π.base q)) ⊗[R] Γ(Z0, U0))) [Q0.IsPrime]
+      (e0 : V.presheaf.stalk q ≃+* Localization.AtPrime Q0),
+      (∀ s : X0.presheaf.stalk (π.base q), e0 ((π.stalkMap q).hom s) =
+        algebraMap ((X0.presheaf.stalk (π.base q)) ⊗[R] Γ(Z0, U0))
+          (Localization.AtPrime Q0) (s ⊗ₜ[R] (1 : Γ(Z0, U0)))) →
+      (∀ a : Γ(Z0, U0), e0 (V.presheaf.germ ⊤ q trivial
+        (σ.appTop ((Scheme.ΓSpecIso (CommRingCat.of Γ(Z0, U0))).inv a))) =
+        algebraMap ((X0.presheaf.stalk (π.base q)) ⊗[R] Γ(Z0, U0))
+          (Localization.AtPrime Q0) ((1 : X0.presheaf.stalk (π.base q)) ⊗ₜ[R] a)) →
+      ∃ (P : Ideal ((Z0.presheaf.stalk (ρ.base (j0.base q))) ⊗[R]
+          (X0.presheaf.stalk (τ.base (j0.base q))))) (_ : P.IsPrime)
+        (e : Y.presheaf.stalk (j0.base q) ≃+* Localization.AtPrime P),
+        (∀ s : Z0.presheaf.stalk (ρ.base (j0.base q)), e ((ρ.stalkMap (j0.base q)).hom s) =
+          algebraMap ((Z0.presheaf.stalk (ρ.base (j0.base q))) ⊗[R]
+            (X0.presheaf.stalk (τ.base (j0.base q)))) (Localization.AtPrime P)
+              (s ⊗ₜ[R] (1 : X0.presheaf.stalk (τ.base (j0.base q))))) ∧
+        (∀ t : X0.presheaf.stalk (τ.base (j0.base q)), e ((τ.stalkMap (j0.base q)).hom t) =
+          algebraMap ((Z0.presheaf.stalk (ρ.base (j0.base q))) ⊗[R]
+            (X0.presheaf.stalk (τ.base (j0.base q)))) (Localization.AtPrime P)
+              ((1 : Z0.presheaf.stalk (ρ.base (j0.base q))) ⊗ₜ[R] t)) := by
+  let S : CommRingCat.{u} := X0.presheaf.stalk (π.base q)
+  let L : CommRingCat.{u} := Z0.presheaf.stalk (ρ.base (j0.base q))
+  let T : CommRingCat.{u} := X0.presheaf.stalk (τ.base (j0.base q))
+  letI aB' : Algebra R S :=
+    ((X0.presheaf.germ ⊤ (π.base q) trivial).hom.comp
+      (f0.appTop.hom.comp (Scheme.ΓSpecIso (CommRingCat.of R)).inv.hom)).toAlgebra
+  intro Q0 hQ0 e0 he0S he0B
+  have hxx : τ.base (j0.base q) = π.base q :=
+    congrArg (fun m : V ⟶ X0 => m.base q) hτ
+  let c : T ≅ S := X0.presheaf.stalkCongr (.of_eq hxx)
+  have hc_alg : ∀ r : R, c.hom (algebraMap R T r) = algebraMap R S r :=
+    canonical_stalk_scalar_row f0 _ _ hxx halgX
+  let cA : T ≃ₐ[R] S := AlgEquiv.ofRingEquiv (f := c.commRingCatIsoToRingEquiv) hc_alg
+  have E1 : ∀ t : T, (j0.stalkMap q).hom ((τ.stalkMap (j0.base q)).hom t) =
+      (π.stalkMap q).hom (c.hom t) :=
+    chart_stalk_naturality Y V X0 j0 τ π hτ q
+  have E2 : ∀ a : Γ(Z0, U0), (j0.stalkMap q).hom
+      ((ρ.stalkMap (j0.base q)).hom ((Z0.presheaf.germ U0 _ hpU).hom a)) =
+        V.presheaf.germ ⊤ q trivial
+          (σ.appTop ((Scheme.ΓSpecIso (CommRingCat.of Γ(Z0, U0))).inv a)) :=
+    affine_chart_germ Z0 Y V U0 hU0 ρ σ j0 q hpU hρ
+  let ζU : ↥U0 := ⟨ρ.base (j0.base q), hpU⟩
+  letI aZ : Algebra Γ(Z0, U0) L := (Z0.presheaf.germ U0 _ hpU).hom.toAlgebra
+  haveI hlocZ : IsLocalization.AtPrime (L : Type u) (hU0.primeIdealOf ζU).asIdeal :=
+    hU0.isLocalization_stalk ζU
+  haveI : IsScalarTower R Γ(Z0, U0) L :=
+    affine_germ_scalar_tower z0 U0 _ hpU halgZ halgU
+  let φL : L →+* Localization.AtPrime Q0 :=
+    e0.toRingHom.comp ((j0.stalkMap q).hom.comp (ρ.stalkMap (j0.base q)).hom)
+  have hφL : ∀ a : Γ(Z0, U0), φL (algebraMap Γ(Z0, U0) L a) =
+      algebraMap (S ⊗[R] Γ(Z0, U0)) (Localization.AtPrime Q0) ((1 : S) ⊗ₜ[R] a) := by
+    intro a
+    exact (congrArg e0 (E2 a)).trans (he0B a)
+  have hφLu : ∀ l : L, IsUnit (φL l) ↔ IsUnit l :=
+    composed_units_iff (ρ.stalkMap (j0.base q)).hom (j0.stalkMap q).hom e0
+  have hQp : Q0.comap (Algebra.TensorProduct.includeRight
+      (R := R) (A := (S : Type u)) (B := Γ(Z0, U0))).toRingHom =
+        (hU0.primeIdealOf ζU).asIdeal :=
+    right_prime_comap (hU0.primeIdealOf ζU).asIdeal Q0 φL hφL hφLu
+  obtain ⟨Q1, hQ1, e1, he1S, he1L⟩ :=
+    FibreStalkBCRight.core (A := R) (S := (S : Type u)) (R := Γ(Z0, U0))
+      (L := (L : Type u)) (hU0.primeIdealOf ζU).asIdeal Q0 hQp
+      (Localization.AtPrime Q0) φL hφL
+  haveI : Q1.IsPrime := hQ1
+  haveI : IsIso (j0.stalkMap q) :=
+    (IsOpenImmersion.iff_isIso_stalkMap.mp (inferInstance : IsOpenImmersion j0)).2 q
+  let J : Y.presheaf.stalk (j0.base q) ≃+* V.presheaf.stalk q :=
+    (asIso (j0.stalkMap q)).commRingCatIsoToRingEquiv
+  have hL : ∀ l : L, e1 (e0 (J ((ρ.stalkMap (j0.base q)).hom l))) =
+      algebraMap (S ⊗[R] L) (Localization.AtPrime Q1) ((1 : S) ⊗ₜ[R] l) := by
+    intro l
+    change e1 (φL l) = _
+    exact he1L l
+  have hT : ∀ t : T, e1 (e0 (J ((τ.stalkMap (j0.base q)).hom t))) =
+      algebraMap (S ⊗[R] L) (Localization.AtPrime Q1) (cA t ⊗ₜ[R] (1 : L)) := by
+    intro t
+    change e1 (e0 ((j0.stalkMap q).hom ((τ.stalkMap (j0.base q)).hom t))) = _
+    rw [E1 t, he0S (c.hom t)]
+    exact he1S (cA t)
+  exact assemble_two_stalk_maps cA J Q0 Q1 e0 e1
+    (ρ.stalkMap (j0.base q)).hom (τ.stalkMap (j0.base q)).hom hL hT
+
+end DefaultProofBlocks
+
 include hU in
 
 theorem main
@@ -255,159 +553,25 @@ theorem main
             (Localization.AtPrime 𝔔) ((1 : Z.presheaf.stalk ((pullback.fst z f).base p)) ⊗ₜ[R] t)) := by
   classical
   obtain ⟨q, rfl⟩ := exists_j_eq z f U hU hφU p hpU
-
-  have hxx' : (pullback.snd z f).base ((j z f U hU hφU).base q) = (pullback.fst f (φ (R := R) U)).base q := by
-    change ((j z f U hU hφU) ≫ pullback.snd z f).base q = _
-    rw [j_snd z f U hU hφU]
-
-  letI aB' : Algebra R (X.presheaf.stalk ((pullback.fst f (φ (R := R) U)).base q)) :=
-    ((X.presheaf.germ ⊤ ((pullback.fst f (φ (R := R) U)).base q) trivial).hom.comp (f.appTop.hom.comp (Scheme.ΓSpecIso (CommRingCat.of R)).inv.hom)).toAlgebra
-  let c : X.presheaf.stalk ((pullback.snd z f).base ((j z f U hU hφU).base q)) ≅ X.presheaf.stalk ((pullback.fst f (φ (R := R) U)).base q) := X.presheaf.stalkCongr (.of_eq hxx')
-  have hc_germ : ∀ (W : X.Opens) (hW : (pullback.snd z f).base ((j z f U hU hφU).base q) ∈ W) (s : Γ(X, W)),
-      c.hom (X.presheaf.germ W _ hW s) = X.presheaf.germ W ((pullback.fst f (φ (R := R) U)).base q) (hxx' ▸ hW) s := by
-    intro W hW s
-    change (X.presheaf.germ W _ hW ≫ X.presheaf.stalkSpecializes (specializes_of_eq hxx'.symm)) s = _
-    rw [TopCat.Presheaf.germ_stalkSpecializes]
-  have hc_alg : ∀ r : R, c.hom (algebraMap R (X.presheaf.stalk ((pullback.snd z f).base ((j z f U hU hφU).base q))) r) = algebraMap R (X.presheaf.stalk ((pullback.fst f (φ (R := R) U)).base q)) r := by
-    intro r
-    rw [algebraMap_stalk_eq f _ halgX r, hc_germ]
-    rfl
-  let cA : X.presheaf.stalk ((pullback.snd z f).base ((j z f U hU hφU).base q)) ≃ₐ[R] X.presheaf.stalk ((pullback.fst f (φ (R := R) U)).base q) := AlgEquiv.ofRingEquiv (f := c.commRingCatIsoToRingEquiv) hc_alg
-
-  have E1 : ∀ t : X.presheaf.stalk ((pullback.snd z f).base ((j z f U hU hφU).base q)), (j z f U hU hφU).stalkMap q (((pullback.snd z f).stalkMap ((j z f U hU hφU).base q)).hom t) =
-      ((pullback.fst f (φ (R := R) U)).stalkMap q).hom (c.hom t) := by
-    intro t
-    have h := Scheme.Hom.stalkMap_congr_hom ((j z f U hU hφU) ≫ pullback.snd z f) (pullback.fst f (φ (R := R) U)) (j_snd z f U hU hφU) q
-    rw [Scheme.Hom.stalkMap_comp] at h
-    exact CategoryTheory.ConcreteCategory.congr_hom h t
-
-  have hjf : (j z f U hU hφU) ≫ pullback.fst z f = pullback.snd f (φ (R := R) U) ≫ hU.fromSpec := by
+  let Y : Scheme.{u} := pullback z f
+  let V : Scheme.{u} := pullback f (φ (R := R) U)
+  let ρ : Y ⟶ Z := pullback.fst z f
+  let τ : Y ⟶ X := pullback.snd z f
+  let π : V ⟶ X := pullback.fst f (φ (R := R) U)
+  let σ : V ⟶ Spec Γ(Z, U) := pullback.snd f (φ (R := R) U)
+  let j0 : V ⟶ Y := j z f U hU hφU
+  have hτ : j0 ≫ τ = π := j_snd z f U hU hφU
+  have hρ : j0 ≫ ρ = σ ≫ hU.fromSpec := by
     rw [j_fst, IsAffineOpen.isoSpec_inv_ι]
-  have E2 : ∀ a : Γ(Z, U), (j z f U hU hφU).stalkMap q ((pullback z f).presheaf.germ ((pullback.fst z f) ⁻¹ᵁ U)
-      ((j z f U hU hφU).base q) hpU ((pullback.fst z f).app U a)) =
-      (pullback f (φ (R := R) U)).presheaf.germ ⊤ q trivial
-        ((pullback.snd f (φ (R := R) U)).appTop ((Scheme.ΓSpecIso (CommRingCat.of Γ(Z, U))).inv a)) := by
-    intro a
-    rw [Scheme.Hom.germ_stalkMap_apply]
-    have t := CategoryTheory.ConcreteCategory.congr_hom (Scheme.Hom.congr_app hjf U) a
-    rw [Scheme.Hom.comp_app] at t
-    erw [CommRingCat.comp_apply, CommRingCat.comp_apply] at t
-    erw [t, TopCat.Presheaf.germ_res_apply]
-    rw [Scheme.Hom.comp_app, IsAffineOpen.fromSpec_app_self]
-    erw [CommRingCat.comp_apply, CommRingCat.comp_apply]
-    have n := CategoryTheory.ConcreteCategory.congr_hom
-      ((pullback.snd f (φ (R := R) U)).naturality (eqToHom hU.fromSpec_preimage_self).op)
-      ((Scheme.ΓSpecIso Γ(Z, U)).inv a)
-    erw [CommRingCat.comp_apply, CommRingCat.comp_apply] at n
-    erw [n, TopCat.Presheaf.germ_res_apply]
-    rfl
-
-  have E1' : ∀ t, ((j z f U hU hφU).stalkMap q).hom (((pullback.snd z f).stalkMap ((j z f U hU hφU).base q)).hom t) =
-      ((pullback.fst f (φ (R := R) U)).stalkMap q).hom (c.hom t) := fun t => E1 t
-  have E2' : ∀ a : Γ(Z, U), ((j z f U hU hφU).stalkMap q).hom (((pullback.fst z f).stalkMap ((j z f U hU hφU).base q)).hom
-      ((Z.presheaf.germ U _ hpU).hom a)) =
-      (pullback f (φ (R := R) U)).presheaf.germ ⊤ q trivial
-        ((pullback.snd f (φ (R := R) U)).appTop ((Scheme.ΓSpecIso (CommRingCat.of Γ(Z, U))).inv a)) := by
-    intro a
-    have g1 := CategoryTheory.ConcreteCategory.congr_hom
-      (Scheme.Hom.germ_stalkMap (pullback.fst z f) U ((j z f U hU hφU).base q) hpU) a
-    exact (congrArg (fun y => ((j z f U hU hφU).stalkMap q).hom y) g1).trans (E2 a)
-
-  have few := fe_wrapper (R := R) f Γ(Z, U) (φ (R := R) U) rfl q (inst := aB') rfl
-  obtain ⟨𝔮₀, h𝔮₀, e₀, he₀X, he₀A⟩ := few
-  haveI : 𝔮₀.IsPrime := h𝔮₀
-
-  let ζU : ↥U := ⟨(pullback.fst z f).base ((j z f U hU hφU).base q), hpU⟩
-  letI aZ : Algebra Γ(Z, U) (Z.presheaf.stalk ((pullback.fst z f).base ((j z f U hU hφU).base q))) :=
-    (Z.presheaf.germ U _ hpU).hom.toAlgebra
-  haveI hlocZ : IsLocalization.AtPrime (Z.presheaf.stalk ((pullback.fst z f).base ((j z f U hU hφU).base q)))
-      (hU.primeIdealOf ζU).asIdeal := hU.isLocalization_stalk ζU
-  haveI : IsScalarTower R Γ(Z, U) (Z.presheaf.stalk ((pullback.fst z f).base ((j z f U hU hφU).base q))) := by
-    refine IsScalarTower.of_algebraMap_eq fun r => ?_
-    rw [algebraMap_stalk_eq z _ halgZ r, halgU r]
-    change _ = Z.presheaf.germ U _ hpU ((z.app ⊤ ≫ Z.presheaf.map (homOfLE le_top).op)
-      ((Scheme.ΓSpecIso (CommRingCat.of R)).inv r))
-    rw [CommRingCat.comp_apply]
-    erw [TopCat.Presheaf.germ_res_apply]
-    rfl
-
-  let φL : Z.presheaf.stalk ((pullback.fst z f).base ((j z f U hU hφU).base q)) →+* Localization.AtPrime 𝔮₀ :=
-    e₀.toRingHom.comp (((j z f U hU hφU).stalkMap q).hom.comp ((pullback.fst z f).stalkMap ((j z f U hU hφU).base q)).hom)
-  have hφL : ∀ a : Γ(Z, U), φL (algebraMap Γ(Z, U) _ a) =
-      algebraMap _ (Localization.AtPrime 𝔮₀)
-        ((1 : X.presheaf.stalk ((pullback.fst f (φ (R := R) U)).base q)) ⊗ₜ[R] a) := by
-    intro a
-    exact (congrArg e₀ (E2' a)).trans (he₀A a)
-  have hφLu : ∀ y, IsUnit (φL y) ↔ IsUnit y := by
-    intro y
-    have he : ∀ w, IsUnit (e₀ w) ↔ IsUnit w := fun w =>
-      ⟨fun h => by simpa using h.map e₀.symm, fun h => h.map e₀⟩
-    exact (he _).trans ((isUnit_map_iff ((j z f U hU hφU).stalkMap q).hom _).trans
-      (isUnit_map_iff ((pullback.fst z f).stalkMap ((j z f U hU hφU).base q)).hom y))
-
-  have hQp : 𝔮₀.comap (Algebra.TensorProduct.includeRight (R := R)
-      (A := X.presheaf.stalk ((pullback.fst f (φ (R := R) U)).base q)) (B := Γ(Z, U))).toRingHom = (hU.primeIdealOf ζU).asIdeal := by
-    ext a
-    rw [Ideal.mem_comap]
-    change ((1 : X.presheaf.stalk ((pullback.fst f (φ (R := R) U)).base q)) ⊗ₜ[R] a ∈ 𝔮₀) ↔ a ∈ (hU.primeIdealOf ζU).asIdeal
-    have h1 : ((1 : X.presheaf.stalk ((pullback.fst f (φ (R := R) U)).base q)) ⊗ₜ[R] a ∈ 𝔮₀) ↔
-        ¬ IsUnit (algebraMap _ (Localization.AtPrime 𝔮₀) ((1 : X.presheaf.stalk ((pullback.fst f (φ (R := R) U)).base q)) ⊗ₜ[R] a)) := by
-      rw [IsLocalization.AtPrime.isUnit_to_map_iff (Localization.AtPrime 𝔮₀) 𝔮₀]
-      exact not_not.symm
-    have h2 : a ∈ (hU.primeIdealOf ζU).asIdeal ↔
-        ¬ IsUnit (algebraMap Γ(Z, U) (Z.presheaf.stalk ((pullback.fst z f).base ((j z f U hU hφU).base q))) a) := by
-      rw [IsLocalization.AtPrime.isUnit_to_map_iff _ (hU.primeIdealOf ζU).asIdeal]
-      exact not_not.symm
-    rw [h1, h2, ← hφL a, not_iff_not]
-    exact hφLu _
-
-  have cr := FibreStalkBCRight.core (A := R)
-    (S := X.presheaf.stalk ((pullback.fst f (φ (R := R) U)).base q)) (R := Γ(Z, U))
-    (L := Z.presheaf.stalk ((pullback.fst z f).base ((j z f U hU hφU).base q)))
-    (hU.primeIdealOf ζU).asIdeal 𝔮₀ hQp (Localization.AtPrime 𝔮₀) φL hφL
-  obtain ⟨𝔮₁, h𝔮₁, e₁, he₁S, he₁L⟩ := cr
-  haveI : 𝔮₁.IsPrime := h𝔮₁
-
-  have hψx : ∃ ψ : (Z.presheaf.stalk ((pullback.fst z f).base ((j z f U hU hφU).base q)) ⊗[R]
-      X.presheaf.stalk ((pullback.snd z f).base ((j z f U hU hφU).base q))) ≃ₐ[R]
-      (X.presheaf.stalk ((pullback.fst f (φ (R := R) U)).base q) ⊗[R]
-        Z.presheaf.stalk ((pullback.fst z f).base ((j z f U hU hφU).base q))),
-      ∀ l t, ψ (l ⊗ₜ t) = c.hom t ⊗ₜ l :=
-    ⟨(Algebra.TensorProduct.congr AlgEquiv.refl cA).trans (Algebra.TensorProduct.comm R _ _), fun l t => by
-      simp [cA, Algebra.TensorProduct.congr_apply, Algebra.TensorProduct.comm_tmul]
-      rfl⟩
-  obtain ⟨ψ, hψ⟩ := hψx
-  let 𝔔 : Ideal ((Z.presheaf.stalk ((pullback.fst z f).base ((j z f U hU hφU).base q)) ⊗[R]
-      X.presheaf.stalk ((pullback.snd z f).base ((j z f U hU hφU).base q)))) := 𝔮₁.comap ψ.toRingEquiv.toRingHom
-  haveI h𝔔 : 𝔔.IsPrime := Ideal.comap_isPrime _ _
-  have H : 𝔔.primeCompl.map ψ.toRingEquiv.toMonoidHom = 𝔮₁.primeCompl := by
-    ext y
-    constructor
-    · rintro ⟨x, hx, rfl⟩; exact hx
-    · intro hy
-      refine ⟨ψ.toRingEquiv.symm y, ?_, ψ.toRingEquiv.apply_symm_apply y⟩
-      change ψ.toRingEquiv (ψ.toRingEquiv.symm y) ∉ 𝔮₁
-      rw [ψ.toRingEquiv.apply_symm_apply]; exact hy
-  have hℓx : ∃ ℓ : Localization.AtPrime 𝔔 ≃+* Localization.AtPrime 𝔮₁,
-      ∀ w, ℓ (algebraMap _ (Localization.AtPrime 𝔔) w) = algebraMap _ (Localization.AtPrime 𝔮₁) (ψ w) :=
-    ⟨IsLocalization.ringEquivOfRingEquiv (M := 𝔔.primeCompl) (T := 𝔮₁.primeCompl)
-      (Localization.AtPrime 𝔔) (Localization.AtPrime 𝔮₁) ψ.toRingEquiv H,
-      fun w => IsLocalization.ringEquivOfRingEquiv_eq H w⟩
-  obtain ⟨ℓ, hℓ⟩ := hℓx
-  clear_value 𝔔
-
-  have hφL_def : ∀ s, φL s = e₀ (((j z f U hU hφU).stalkMap q).hom
-      (((pullback.fst z f).stalkMap ((j z f U hU hφU).base q)).hom s)) := fun s => rfl
-  clear_value φL
-  haveI : IsIso ((j z f U hU hφU).stalkMap q) := (IsOpenImmersion.iff_isIso_stalkMap.mp inferInstance).2 q
-  refine ⟨𝔔, h𝔔, ((((asIso ((j z f U hU hφU).stalkMap q)).commRingCatIsoToRingEquiv).trans e₀).trans e₁).trans ℓ.symm,
-    fun s => ?_, fun t => ?_⟩
-  · show ℓ.symm (e₁ (e₀ (((j z f U hU hφU).stalkMap q).hom
-      (((pullback.fst z f).stalkMap ((j z f U hU hφU).base q)).hom s)))) = _
-    rw [RingEquiv.symm_apply_eq, ← hφL_def, he₁L s, hℓ, hψ, map_one]
-  · show ℓ.symm (e₁ (e₀ (((j z f U hU hφU).stalkMap q).hom
-      (((pullback.snd z f).stalkMap ((j z f U hU hφU).base q)).hom t)))) = _
-    rw [RingEquiv.symm_apply_eq, E1' t, he₀X (c.hom t), he₁S, hℓ, hψ]
+  haveI : IsOpenImmersion j0 := inferInstance
+  letI aB' : Algebra R (X.presheaf.stalk (π.base q)) :=
+    ((X.presheaf.germ ⊤ (π.base q) trivial).hom.comp
+      (f.appTop.hom.comp (Scheme.ΓSpecIso (CommRingCat.of R)).inv.hom)).toAlgebra
+  obtain ⟨Q0, hQ0, e0, he0X, he0A⟩ :=
+    fe_wrapper (R := R) f Γ(Z, U) (φ (R := R) U) rfl q (inst := aB') rfl
+  haveI : Q0.IsPrime := hQ0
+  exact atomic_chart_comparison f z U hU halgU Y V ρ τ π σ j0 q
+    hτ hρ hpU halgZ halgX Q0 e0 he0X he0A
 
 end StalkPB
 h77_reactivate "P2MW.S_AlgebraicGeometry_exists_ringEquiv_stalk_pullback_localization_tensorProduct_stalk_stalk.StalkPB"

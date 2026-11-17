@@ -13,9 +13,9 @@ supporting source definitions shared with the `neronOggShafarevichSep` work.
 
 ## Native build status (Lean default proof limits; no raised numeric options)
 
-* 202 of these files compile in our native build on top of main's own modules.
-* One default-limit re-proof (a double-stalk ring-isomorphism lemma) is still being written; it and its 3
-  dependents are not yet compiled.
+* 206 of these 445 files compile in our native build on top of main's own modules: every module of this snapshot whose
+  imports are present now compiles (277 of 277, including main's own copies).
+* The double-stalk ring-isomorphism lemma's default-limit re-proof and its 3 dependents now compile.
 * 239 further modules wait on 30 supporting source modules that are not yet
   part of this snapshot.
 * The arbitrary-Dedekind adapter and the all-test atlas needed for the open leaf are still being written.
