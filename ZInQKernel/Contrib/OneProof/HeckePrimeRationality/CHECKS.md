@@ -343,3 +343,85 @@ remain ordinary pinned compilation and separate complete source review with
 warm imports, not independent cold replay or original all-level completion.
 The unconditional original Hecke contract is still proved here only for
 N ≤ 6, with its level bound visible.
+
+## Analytic-producer and exact-reduction checkpoint: 49 modules
+
+The next additive checkpoint preserves every previously published mathematical
+source. It adds the actual global theta zero set and simple origin zero,
+all-positive-degree multiplication, the two-division raw and zero-extended
+distribution identities, the actual Weierstrass normalization, and direct
+completed-theta Frobenius–Stickelberger addition.
+
+The actual finite-product diamond descent and guarded prime-Hecke consequence
+are also proved, with their representation hypothesis explicit.
+`UnrestrictedReduction.lean` binds this to the exact original
+`CoeffRational.HeckePrimeIntegralToRational`, including arbitrary integer
+weights and all levels, **conditional on the unproved
+`PrincipalProductSpanning` property**. Naming and auditing this predicate's
+definition do not prove it; no original assembly hypothesis is discharged.
+
+All 49 mathematical modules co-import successfully. `AnalyticAudit.lean`
+audits every one of their 660 named public proofs/instances and 40 selected
+definitions. All 700 records have at most `propext`, `Classical.choice`,
+`Quot.sound`, with no `sorryAx`. Definition audits include auxiliary
+predicates; they are code-binding checks, not proofs that those predicates
+hold. The earlier 34-module `Audit.lean` and its history are retained.
+
+Each added module was compiled at the pinned toolchain and received complete
+independent source review. Component literal checks preserve the actual
+Jacobi-theta functions, actual Mathlib `PeriodPair.weierstrassP`, actual
+cusp forms/operators, and the original unrestricted leaf's quantifiers.
+The only repairs to two parent audit scripts corrected a namespace and
+literal-expression whitespace; mathematical sources were unchanged. The
+new cusp-form helper's initial rewrite was specialized to its unit and
+coefficient before applying the same coercion lemma; its hypotheses and
+conclusion were unchanged. Earlier failed logs are retained.
+
+To reproduce the complete added checkpoint audit:
+
+```sh
+lake --no-cache env lean ZInQKernel/Contrib/OneProof/HeckePrimeRationality/AnalyticAudit.lean
+```
+
+Exact audit source SHA256:
+`70b06cc03699d77889678ea4e867e6987b8ab815a0f026b24bd642b13d73d7d3`.
+
+Exact added mathematical source editions:
+
+- `KnownFieldCoefficientCoordinates.lean`:
+  `d17f5248ef1b4c70ed0055079706771d712975359770f326d1bb645317b78f10`
+- `DiamondProductFrames.lean`:
+  `7f025477b81e6a6472e19e6bee0f77207f245a68ee5f74d0aa6620b8e03ae618`
+- `AllLevelDiamondFromProducts.lean`:
+  `3ddd3ca49008b242c180ed87f6e18d73b8872fd18afdaad0b96a016e95c25911`
+- `AllLevelThetaZeroSet.lean`:
+  `09f41030a9e671fcb479ba2a2f80f1c8ad8a1dbcaedd0b9b016b83a0f7f672bf`
+- `QuasiThetaMultiplicationTwo.lean`:
+  `d20fc400beaf610513db7516298f517dace95ddb391e7ee7ec1c97b472117f12`
+- `AllLevelThetaMultiplicationTwo.lean`:
+  `ac3e99876bd469e406b1897322fe99857f20dede45d53c3840171d3c962350bb`
+- `AllLevelHeckeFromProducts.lean`:
+  `f8aea7a17252666b23386673b75092728b2566bfb9048e9ea5238b7f2d384ecb`
+- `UnrestrictedReduction.lean`:
+  `db378bbe0b442ff377f432331940831072336d022c72e88c530a24b693411970`
+- `AllLevelTorsionDistributionTwo.lean`:
+  `770cc9de53281f47d75c30d1c90d18a1ffdd0f32902063dfac8d7952e145a98c`
+- `AllLevelTorsionDistributionTwoRegular.lean`:
+  `6d1a963081030febb9c89e6a95e780328943559ee1d48f4fa89c64f1a9873a18`
+- `AllLevelThetaWeierstrass.lean`:
+  `9798fdb2a87a96686c221e3b22934ce4bc6811e1c80d58b082c616cb02d7c903`
+- `QuasiThetaMultiplicationNat.lean`:
+  `f9effec81c2aa027bb28d6aca00731341319d8500bb952c8ad5a079ac28b1427`
+- `AllLevelThetaMultiplicationNat.lean`:
+  `07129e1ab95051af3e53d26004605b5c3754bbc1db2bd7a03fc811dc4574505d`
+- `AllLevelThetaAdditionLocal.lean`:
+  `974b5d49790a5dde33c8965e7b2a8b98192b6caed657694e21c88ae27b735ab1`
+- `AllLevelThetaAddition.lean`:
+  `bafc6b7fc7615821fd70938c2a4d8753ee535c681ff0fedd537560ca7989b901`
+
+This checkpoint still does not prove principal Eisenstein-product spanning,
+full torsion Fourier duality, the genuine Eisenstein identification of the
+quadratic defect, low-weight trace closure, or the unrestricted Hecke leaf.
+Warm imports and separate source review are not an independent cold replay
+or full-project acceptance. N ≤ 6 remains the unconditional original-contract
+extent; the all-level result is a conditional reduction, not completion.
