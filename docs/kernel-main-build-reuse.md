@@ -40,6 +40,15 @@ build. The selector does not download or restore the artifact. Its JSON client
 does not follow redirects or run candidate code. Workflow integration must run
 the reviewed selector with a step-scoped read token before candidate execution.
 
+`scripts/kernel_build_download.py` follows the artifact API's signed redirect
+using a new request without the API token. It accepts only HTTPS GitHub Actions
+or Azure artifact-storage hosts, enforces byte and time limits, and checks the
+downloaded archive digest before returning its unique local path. A bad or
+interrupted download removes only that partial file. Tests cover credentials
+on both redirect stages, unknown hosts, bad digests and resource limits. A
+read-only probe downloaded an actual main-run measurement artifact and verified
+its digest; that old-format artifact was not restored or accepted for reuse.
+
 `scripts/kernel_build_restore.py` stages only the selected modules after full
 archive validation. It checks each staged file again, keeps its timestamp old
 so Lake must check inputs, and then installs into absent project build roots.
@@ -54,7 +63,7 @@ The caller must not start candidate build processes during this operation.
    identity and source-resolution checks on the full baseline. A regex import
    approximation is insufficient. Keep candidate code away from the API lookup
    credential.
-2. Integrate the metadata selector and a bounded artifact download, preserving
+2. Integrate the metadata selector and bounded artifact downloader, preserving
    the separation between trusted API credentials and candidate execution.
    Verify the complete archive against the independently obtained digest.
    Never take a candidate-supplied run ID as authority.
