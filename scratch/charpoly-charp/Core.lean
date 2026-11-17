@@ -280,6 +280,178 @@ theorem linIndep_coords (A : AbVar k) [Module.Free ℤ A.End] [Module.Finite ℤ
     (fun h => absurd (Finset.mem_univ i) h)] at this
   simpa using this
 
+/-- **ℤ_ℓ-independence of `T_ℓ(α^i)`** below the degree of the minimal polynomial (homFree). -/
+theorem homT_pow_indep (A : AbVar k) [Module.Free ℤ A.End] [Module.Finite ℤ A.End] (α : A.End)
+    (ℓ : ℕ) [Fact ℓ.Prime] (hinj : Function.Injective (AbVar.tateHomZl ℓ A A))
+    (c : Fin (minpoly ℚ ((1 : ℚ) ⊗ₜ[ℤ] α : A.End0)).natDegree → ℤ_[ℓ])
+    (hc : ∑ i, c i • AbVar.homT (ℓ := ℓ) (α ^ (i : ℕ)) = 0) : c = 0 := by
+  classical
+  set b := Module.Free.chooseBasis ℤ A.End
+  have h0 : (∑ i, c i ⊗ₜ[ℤ] (α ^ (i : ℕ)) : TensorProduct ℤ ℤ_[ℓ] A.End) = 0 := by
+    apply (map_eq_zero_iff _ hinj).mp
+    rw [map_sum]
+    exact hc
+  have h1 : ∀ j, ∑ i, c i * (((b.repr (α ^ (i : ℕ)) j : ℤ) : ℤ_[ℓ])) = 0 := by
+    intro j
+    have := congrArg (fun t => (Algebra.TensorProduct.basis ℤ_[ℓ] b).repr t j) h0
+    simpa [Algebra.TensorProduct.basis_repr_tmul, Finsupp.coe_finsetSum, Finset.sum_apply,
+      algebraMap_int_eq] using this
+  have hq := Fintype.linearIndependent_iff.mp
+    (linIndep_map (K := ℚ) (E := ℚ_[ℓ]) (linIndep_coords A α))
+  funext i
+  have h2 := hq (fun i => (c i : ℚ_[ℓ])) (by
+    funext j
+    have := congrArg (fun z : ℤ_[ℓ] => (z : ℚ_[ℓ])) (h1 j)
+    simp only [PadicInt.coe_sum, PadicInt.coe_mul, PadicInt.coe_intCast, PadicInt.coe_zero] at this
+    simpa [Finset.sum_apply, mul_comm] using this) i
+  simpa using h2
+
+/-- **ℚ_ℓ-independence of the matrices of `T_ℓ(α^i)`** (clearing denominators). -/
+theorem matrix_pow_indep (A : AbVar k) [Module.Free ℤ A.End] [Module.Finite ℤ A.End] (α : A.End)
+    (ℓ : ℕ) [Fact ℓ.Prime] (hinj : Function.Injective (AbVar.tateHomZl ℓ A A))
+    {Ix : Type} [Fintype Ix] [DecidableEq Ix] (gb : Module.Basis Ix ℤ_[ℓ] (A.T ℓ)) :
+    LinearIndependent ℚ_[ℓ] (fun (i : Fin (minpoly ℚ ((1 : ℚ) ⊗ₜ[ℤ] α : A.End0)).natDegree)
+      (p : Ix × Ix) => ((LinearMap.toMatrix gb gb (AbVar.homT (ℓ := ℓ) (α ^ (i : ℕ))) p.1 p.2 : ℤ_[ℓ]) :
+        ℚ_[ℓ])) := by
+  classical
+  refine Fintype.linearIndependent_iff.mpr fun c hc => ?_
+  obtain ⟨⟨bb, hbb⟩, hb⟩ := IsLocalization.exist_integer_multiples_of_finite (nonZeroDivisors ℤ_[ℓ]) c
+  choose c' hc' using hb
+  -- hc' i : algebraMap ℤ_[ℓ] ℚ_[ℓ] (c' i) = bb • c i
+  have hc'' : ∀ i, ((c' i : ℤ_[ℓ]) : ℚ_[ℓ]) = (bb : ℚ_[ℓ]) * c i := by
+    intro i
+    have := hc' i
+    simpa [Algebra.smul_def] using this
+  have hsum : ∑ i, c' i • AbVar.homT (ℓ := ℓ) (α ^ (i : ℕ)) = 0 := by
+    apply (LinearMap.toMatrix gb gb).injective
+    rw [map_zero, map_sum]
+    apply Matrix.ext
+    intro a a'
+    have := congrFun hc (a, a')
+    simp only [Finset.sum_apply, Pi.smul_apply, smul_eq_mul, Pi.zero_apply] at this
+    simp only [map_smul, Matrix.sum_apply, Matrix.smul_apply, smul_eq_mul, Matrix.zero_apply]
+    apply Subtype.ext
+    simp only [PadicInt.coe_sum, PadicInt.coe_mul, PadicInt.coe_zero, hc'']
+    simp only [_root_.mul_assoc, ← Finset.mul_sum, this, mul_zero]
+  have h0 := homT_pow_indep A α ℓ hinj c' hsum
+  intro i
+  have h1 := hc' i
+  rw [h0, Pi.zero_apply, map_zero, Algebra.smul_def] at h1
+  have hbne : algebraMap ℤ_[ℓ] ℚ_[ℓ] bb ≠ 0 :=
+    IsFractionRing.to_map_ne_zero_of_mem_nonZeroDivisors hbb
+  exact (mul_eq_zero.mp h1.symm).resolve_left hbne
+
+/-- **The minimal polynomial of `endE α` is one `m ∈ ℚ[X]` for every `ℓ ≠ char k`** (Mumford §19
+Thm 3 and I3.M0 only). -/
+theorem exists_minpoly_endE (hH : PkgI3.HomFreeFinite) (hT : PkgI3.TateModuleFree)
+    (A : AbVar k) (α : A.End) :
+    ∃ m : ℚ[X], m.Monic ∧ ∀ (ℓ : ℕ) [Fact ℓ.Prime], (ℓ : k) ≠ 0 →
+      ∀ (E : Type) [Field E] [CharZero E] [Algebra ℚ_[ℓ] E] (G : E[X]),
+        aeval (GlueC10Link.endE α ℓ E) G = 0 ↔ m.map (Rat.castHom E) ∣ G := by
+  classical
+  obtain ⟨hfree, hfin, -, hinj⟩ := hH k A A
+  have hint : IsIntegral ℚ ((1 : ℚ) ⊗ₜ[ℤ] α : A.End0) := IsIntegral.of_finite ℚ _
+  refine ⟨minpoly ℚ ((1 : ℚ) ⊗ₜ[ℤ] α : A.End0), minpoly.monic hint,
+    fun ℓ _ hℓ E _ _ _ G => ?_⟩
+  set x : A.End0 := (1 : ℚ) ⊗ₜ[ℤ] α with hx
+  set m := minpoly ℚ x with hm
+  set b := Module.Free.chooseBasis ℤ A.End
+  have hmon : m.Monic := minpoly.monic hint
+  -- injectivity of `End → End⁰`
+  have hinc : ∀ y : A.End, (1 : ℚ) ⊗ₜ[ℤ] y = 0 → y = 0 := by
+    intro y hy
+    have := congrArg (Algebra.TensorProduct.basis ℚ b).repr hy
+    rw [Algebra.TensorProduct.basis_repr_tmul, one_smul, map_zero] at this
+    apply b.repr.injective
+    rw [map_zero]
+    ext j
+    have hj := congrArg (fun f => f j) this
+    simpa [algebraMap_int_eq] using hj
+  have hev : ∀ Z : ℤ[X], aeval x (Z.map (Int.castRingHom ℚ)) = (1 : ℚ) ⊗ₜ[ℤ] aeval α Z := by
+    intro Z
+    simp only [aeval_def, eval₂_map]
+    change _ = (Algebra.TensorProduct.includeRight.toRingHom : A.End →+* A.End0)
+      (eval₂ (algebraMap ℤ A.End) α Z)
+    rw [Polynomial.hom_eval₂]
+    congr 1
+    exact RingHom.ext_int _ _
+  -- (⇐): `m` kills `endE α`
+  have hkill : aeval (GlueC10Link.endE α ℓ E) (m.map (Rat.castHom E)) = 0 := by
+    obtain ⟨c, hc, hZ⟩ := IsLocalization.integerNormalization_spec (nonZeroDivisors ℤ) m
+    set Z := IsLocalization.integerNormalization (nonZeroDivisors ℤ) m
+    have hZ' : Z.map (Int.castRingHom ℚ) = C (c : ℚ) * m := by
+      rw [← algebraMap_int_eq, hZ, ← algebraMap_smul ℚ c m, Polynomial.smul_eq_C_mul]
+      rfl
+    have hZx : aeval α Z = 0 := by
+      apply hinc
+      rw [← hev, hZ', map_mul, minpoly.aeval, mul_zero]
+    have h2 := aeval_endE_int A ℓ E α Z
+    rw [hZx] at h2
+    have h3 : Z.map (Int.castRingHom E) = C (c : E) * m.map (Rat.castHom E) := by
+      have := congrArg (Polynomial.map (Rat.castHom E)) hZ'
+      rw [Polynomial.map_map, Polynomial.map_mul, Polynomial.map_C] at this
+      rw [show (Rat.castHom E).comp (Int.castRingHom ℚ) = Int.castRingHom E from
+        RingHom.ext_int _ _] at this
+      rw [this]
+      congr 2
+      simp
+    have h0 : GlueC10Link.endE (0 : A.End) ℓ E = 0 := map_zero (endEHom A ℓ E)
+    rw [h0, h3, map_mul, aeval_C] at h2
+    have hc0 : (c : E) ≠ 0 := by exact_mod_cast nonZeroDivisors.ne_zero hc
+    rw [← Algebra.smul_def] at h2
+    rw [← inv_smul_smul₀ hc0 (aeval (GlueC10Link.endE α ℓ E) (m.map (Rat.castHom E))), h2,
+      smul_zero]
+  -- (⇒): independence of the powers of `endE α` below `deg m`
+  obtain ⟨hTf, hTfin, -⟩ := hT k A ℓ hℓ
+  set gb := Module.Free.chooseBasis ℤ_[ℓ] (A.T ℓ)
+  set βQ := Algebra.TensorProduct.basis ℚ_[ℓ] gb
+  set βE := Algebra.TensorProduct.basis E βQ
+  have hLI := Fintype.linearIndependent_iff.mp
+    (linIndep_map (K := ℚ_[ℓ]) (E := E) (matrix_pow_indep A α ℓ (hinj ℓ hℓ) gb))
+  have hpow : ∀ i : ℕ, (GlueC10Link.endE α ℓ E) ^ i = GlueC10Link.endE (α ^ i) ℓ E :=
+    fun i => (map_pow (endEHom A ℓ E) α i).symm
+  have hmat : ∀ (φ : A.End) (p : Module.Free.ChooseBasisIndex ℤ_[ℓ] (A.T ℓ) ×
+      Module.Free.ChooseBasisIndex ℤ_[ℓ] (A.T ℓ)),
+      LinearMap.toMatrix βE βE (GlueC10Link.endE φ ℓ E) p.1 p.2 =
+        algebraMap ℚ_[ℓ] E ((LinearMap.toMatrix gb gb (AbVar.homT (ℓ := ℓ) φ) p.1 p.2 : ℤ_[ℓ]) :
+          ℚ_[ℓ]) := by
+    intro φ p
+    change LinearMap.toMatrix βE βE (((AbVar.homT (ℓ := ℓ) φ).baseChange ℚ_[ℓ]).baseChange E)
+      p.1 p.2 = _
+    rw [LinearMap.toMatrix_baseChange, Matrix.map_apply, LinearMap.toMatrix_baseChange,
+      Matrix.map_apply]
+    rfl
+  constructor
+  · intro hG
+    by_cases h1 : m.map (Rat.castHom E) = 1
+    · rw [h1]; exact one_dvd _
+    rw [← modByMonic_eq_zero_iff_dvd (hmon.map _)]
+    set R := G %ₘ m.map (Rat.castHom E) with hRdef
+    have hRdeg : R.natDegree < m.natDegree := by
+      have := natDegree_modByMonic_lt G (hmon.map (Rat.castHom E)) h1
+      rwa [natDegree_map_eq_of_injective (Rat.castHom E).injective] at this
+    have hR : aeval (GlueC10Link.endE α ℓ E) R = 0 := by
+      have h2 := congrArg (aeval (GlueC10Link.endE α ℓ E))
+        (modByMonic_add_div G (m.map (Rat.castHom E)))
+      rw [map_add, map_mul, hkill, zero_mul, add_zero, hG] at h2
+      exact h2
+    rw [aeval_eq_sum_range' hRdeg, Finset.sum_range] at hR
+    simp only [hpow] at hR
+    have hcoef : ∀ i : Fin m.natDegree, R.coeff i = 0 := by
+      apply hLI (fun i => R.coeff i)
+      funext p
+      have := congrArg (fun f => LinearMap.toMatrix βE βE f p.1 p.2) hR
+      simp only [map_sum, map_smul, Matrix.sum_apply, Matrix.smul_apply, smul_eq_mul, hmat,
+        map_zero, Matrix.zero_apply] at this
+      simp only [Finset.sum_apply, Pi.smul_apply, smul_eq_mul, Pi.zero_apply]
+      exact this
+    ext i
+    by_cases hi : i < m.natDegree
+    · exact hcoef ⟨i, hi⟩
+    · rw [coeff_eq_zero_of_natDegree_lt (by omega), coeff_zero]
+  · rintro ⟨q, rfl⟩
+    rw [map_mul, hkill, zero_mul]
+
 end AV
 
 end CharpolyCharp
