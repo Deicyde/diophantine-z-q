@@ -38,32 +38,37 @@ Environment variables. The job's start condition needs them before GitHub loads
 the Environment. They are settings, not secrets.
 
 The workflow uses the official, commit-pinned `actions/create-github-app-token`
-action twice. One token creates the initially blocked check; a fresh token
+action. One token creates the initially blocked review check; a fresh token
 finalizes it after the potentially long model review. The action revokes its
 tokens at job cleanup. The ordinary workflow token reads sources, posts comments
 and requests protected merges and post-merge workflow dispatches. Only the App
-token writes the review check.
+token writes the review check. Outside admission uses a separate short-lived
+App token to record the spending reservation. The non-secret App ID is passed
+from admission to the kernel preparation job; that job has no Environment.
 The Actions job is named `Run reviewers and publish App check`. It is distinct
 from the App-issued `Protocol B / review` check, or `Protocol B / test review`
 in test mode. A green Actions job alone is not App acceptance.
 
 ## Review behavior
 
-The job runs trusted default-branch code and instructions. It never checks out
+The review and admission jobs run trusted default-branch code and instructions. Neither checks out
 or executes the candidate PR. Both approved models receive pinned source reads
 and web tools. Reports record actual returned model IDs, source reads and usage.
 There is no fallback model. Unfinished reviews and changed
 heads do not pass.
 
-Automatic reviews run only for PR authors whose current GitHub permission is
-write, maintain, or admin. Other authors get an App check saying "awaiting a
-collaborator's /protocol-b review". A current collaborator must post that exact
-command to start each review; a manual workflow dispatch is not a substitute
-for an outside author's PR. Permissions are checked through GitHub's API.
+Authors with current write, maintain or admin access keep their existing
+automatic review. Outside authors receive the bounded admission process below.
+A current write collaborator may still post `/protocol-b review` to request a
+round that admission refused. That command permits review and, for qualifying
+Lean changes, exact-head kernel preparation; it does not approve a merge.
+Permissions are checked through GitHub's API, not author-association text.
 
 Before review, and again before each model request, the gate reads required
 computation checks. A concluded failure blocks further model calls with "fix
-failing checks first". Pending checks can run in parallel with review. A PR
+failing checks first". Pending checks can run in parallel with a collaborator's
+review. An unattended outside review requires every required computation check
+to have passed, both before triage and before each full-review model request. A PR
 ordinarily gets at most four automatic rounds; the [light profile](#light-profile)
 limits qualifying PRs to one paid round before another explicit collaborator
 command. Started automatic rounds count even if interrupted. Each start is
@@ -84,13 +89,76 @@ The initially completed `action_required` check says that review has not been
 accepted. Finalization replaces that result. Cancellation or a lost runner
 therefore leaves a blocked check rather than an indefinitely running one.
 
-A complete diff and the exact declaration `No mathematical content changed.`
+A collaborator's complete diff and the exact declaration `No mathematical content changed.`
 permit the editorial path. It accepts trailing-whitespace-only Markdown changes
 outside policy paths and text-only corrections in the actual root files
 `README.md` and `CREDITS.md` when no mathematical or policy terms
 trigger escalation. Other changes receive both reviews. This is a conservative
 classification rule, not a proof that arbitrary natural language is harmless.
 Do not use the declaration to misclassify a change.
+
+### Unattended outside reviews
+
+The mechanical stage makes no model call. It requires a complete textual diff,
+at most 20 files and 2,000 changed lines, and completed template sections for
+Change and scope, Validation and limits, and AI use. It refuses workflow,
+script, test, kernel-contract, Lake/toolchain, manuscript, release, policy and
+review-record changes. Both sides of a rename are checked. Versioned research
+release trees remain protected; a new improvement note belongs elsewhere under
+`research/`. A refusal identifies its reason and allows a collaborator to
+request review explicitly.
+
+For Lean, at most three changed modules qualify. The whole changed source is
+read, not only added lines. Kernel/elaboration options beyond `autoImplicit
+false`, unsafe or external code, macros, elaborators, initialization, instances,
+notation and file/process operations require individual maintainer inspection.
+This is a conservative lexical screen, not a proof of safety. All existing
+kernel and source-review checks remain in force.
+
+The allowance is one unattended attempt per PR, three per author in seven
+days, five per UTC day and forty per UTC calendar month across the project.
+An attempt reserves its allowance before triage; rejection, interruption or
+provider failure does not refund it. Stable GitHub account IDs identify authors.
+A short admission job serializes the quota scan and reservation across PRs.
+The reservation consists of an original bot intent comment plus a matching
+record from the dedicated App. Incomplete or ambiguous records stop new
+spending until reconciled. Time passing never proves that a request had no
+effect, and uncertain triage requests are not retried automatically.
+
+Triage makes one request to the pinned Astra model, with no tools, at most
+32,000 bytes of supplied PR material and 1,500 output tokens. Oversized input is
+refused rather than truncated. It returns a category and `pass`, `reject` or
+`needs_maintainer`. A valid `pass` or `needs_maintainer` proceeds to the existing
+two-reviewer round; valid uncertainty requires a collaborator's merge decision.
+A malformed, missing or unconfirmed result stops before full review. Triage
+cannot accept mathematics or override a finding. Outside editorial changes
+also receive both full reviewers. Later rounds require `/protocol-b review`.
+
+After both reviews accept and all merge checks pass, only eligible Markdown
+documentation under `docs/` or `README.md`, and improvement notes/data under
+`research/`, can merge automatically on an authenticated triage `pass`.
+The code checks actual paths again; a model's category cannot widen them.
+Other changes, including credit files and all Lean contributions, need an
+unedited `/protocol-b merge <full head SHA>` comment from a current write
+collaborator. The command uses existing current-head App acceptance without a
+model call, and keeps the same required-check, up-to-date and ruleset checks.
+Lean helper merges remain manual until a compatible independent type-theory
+checker is established. A reviewer scope item still blocks unless an admin
+explicitly overrides it. No release authority is granted by this process.
+
+Research or Kernel workflow completion and the hourly maintenance event can
+reconsider an unstarted outside PR after its computations pass. Only protected
+default-branch code runs, and all facts are fetched afresh; no triggering
+workflow artifact is executed. The hourly pass also recovers pending admission
+jobs replaced by GitHub's concurrency queue. Already reserved attempts are not
+replayed. GitHub's held first-time-contributor CI runs still need a maintainer
+to approve them; this change does not alter that repository setting.
+
+Admission records retain the stage, reason, quota and original triage usage.
+The final App record and run artifact retain full-review usage. Reported token
+counters can overlap; they are not an invoice or an all-in cost total. The
+run artifact preserves complete mechanical diagnostics when the App summary
+shows only the reason. No second controller or local work journal is involved.
 
 Each finalized round also posts a readable summary before its compact JSON
 metadata. It shows both reviewer decisions, blocking findings, qualified
@@ -867,8 +935,9 @@ reference used by the pinned workflow. A workflow change needs a separately
 reviewed pin update; it cannot silently broaden this producer.
 
 On an outside author's Lean PR, a current collaborator's `/protocol-b review`
-command is the approval to create that branch in this repository and run the
-outside code there. The build uses the pinned workflow's read-only token and
+command, or a verified unattended admission under the limits above, permits
+creating that branch in this repository and running the outside code there.
+The build uses the pinned workflow's read-only token and
 receives no environment or secrets. It does not wait for the separate
 first-time-contributor approval used by fork `pull_request` runs. The reserved
 branch remains visible until the PR closes and its runs are confirmed terminal.

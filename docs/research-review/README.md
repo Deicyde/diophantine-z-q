@@ -12,13 +12,26 @@ Future pull requests are reviewed under [Protocol B, edition 2](https://github.c
 
 ## How review runs
 
-The light profile gives outside contributors and qualifying small documentation
-changes one paid round with both approved reviewers. Outside contributors
-need a write collaborator's `/protocol-b review` before any model call, including
-that first round. After it, pushes do not start another paid review; a write
-collaborator can request one with
+Outside contributors can receive one unattended review attempt after the
+[mechanical screen and bounded triage](protocol-b-setup.md#unattended-outside-reviews).
+Complete the PR template, including AI use, and wait for the required computation
+checks to pass. The limits are 20 files, 2,000 changed lines, three attempts per
+author in seven days, five per day and forty per month across the project.
+Protected paths and Lean lexical flags need a collaborator's explicit review
+command. A first-time contributor's CI may also need GitHub approval from a
+maintainer. Rejection or interruption still uses an admitted attempt.
+
+Both approved reviewers assess an admitted PR; triage is not acceptance.
+After the first round, a write collaborator must request another with
 `/protocol-b review`. A changed head still requires its own valid acceptance.
-Only an admin may override an item. See the setup guide for the exact scope.
+The light profile also limits qualifying small documentation changes to one
+paid round. Only an admin may override an item.
+
+Eligible documentation and improvement notes under `research/` may merge
+automatically after acceptance. All Lean and other outside contributions need
+a current write collaborator's `/protocol-b merge <full head SHA>` comment.
+That command uses an existing successful App check and all required merge
+checks without calling a model. A review command alone does not approve merging.
 
 Opening or updating a ready PR triggers the default-branch workflow. Contributors
 do not need access to the API keys or a local review runner. Both models read the
