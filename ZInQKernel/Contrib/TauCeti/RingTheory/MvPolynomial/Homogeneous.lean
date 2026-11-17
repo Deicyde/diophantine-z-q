@@ -4,9 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Tau Ceti contributors
 -/
 -- Vendored from Tau Ceti (https://github.com/TauCetiProject/TauCeti, commit 5a01f5fe3621, module TauCeti.RingTheory.MvPolynomial.Homogeneous), Apache-2.0.
--- Modified for the Z-in-Q kernel: `MvPolynomial.IsHomogeneous.eval₂_const_mul` made private, as its
--- name clashes with the lemma of the same name (arguments in another order) in
--- CloudW07JacobiansCurves/Jacobian/RingTheory/MvPolynomial/HomogeneousCharts.lean.
+-- Modified for the Z-in-Q kernel: `MvPolynomial.IsHomogeneous.eval₂_const_mul` made private: a declaration
+-- of the same name is loaded with ZInQKernel.OneProof.Main (from
+-- ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.RingTheory.MvPolynomial.HomogeneousCharts), so the two
+-- modules could not be imported together.
 module
 
 public import Mathlib.Algebra.Polynomial.Degree.Operations

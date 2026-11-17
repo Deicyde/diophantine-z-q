@@ -15,11 +15,11 @@ in `ZInQKernel/Contrib/OneProof/EigenformCoeffFieldFiniteProof.lean`. `#print ax
 `S_k(Γ₁(N))` is a finite `ℤ`-module in weight at least two (`TauCeti.heckeTCuspPrimeAlgebra_finite`,
 `NumberTheory/ModularForms/HeckeSlash/Finite.lean`, from the finite module of integral modular symbols
 and the injective period map), and that the Fourier coefficients of a normalised full eigenform are
-algebraic integers (`Newforms/NumberField.lean`). Neither was vendored. This task vendors, unmodified,
-the 37 modules of the closure of `TauCeti.NumberTheory.ModularForms.Newforms.NumberField` that were
-missing (commit 5a01f5fe, the commit of the other vendored modules; list in
-`scratch/coeff-field-tc/vendor-new.txt`; `ThirdParty/TauCeti/NOTICE` updated). They compile against
-the pinned Mathlib as they are.
+algebraic integers (`Newforms/NumberField.lean`). Neither was vendored. This task vendors the 37 modules of the closure of
+`TauCeti.NumberTheory.ModularForms.Newforms.NumberField` that were missing (commit 5a01f5fe, the commit of the other
+vendored modules; list in `scratch/coeff-field-tc/vendor-new.txt`; `ThirdParty/TauCeti/NOTICE` updated). They compile
+against the pinned Mathlib as they are; one of them, `RingTheory/MvPolynomial/Homogeneous.lean`, has one compatibility
+change (a lemma made `private`, see "Name clash" below).
 
 **Proof.** `EigenformCoeffFieldFiniteProof.finiteDimensional_adjoin_qExpansion_coeff` is Tau Ceti's
 `TauCeti.numberField_CoefficientField` (stated for newforms) generalised to every normalised full
@@ -44,9 +44,10 @@ error, no `sorry`); `#print axioms eigenformCoeffFieldFinite_proof` as above. `l
 axioms `[propext, Classical.choice, Quot.sound]`.
 
 **Name clash.** The first `#discharges` run failed to import the contribution next to `Main`: the vendored
-`RingTheory/MvPolynomial/Homogeneous.lean` declares `MvPolynomial.IsHomogeneous.eval₂_const_mul`, which
-`CloudW07JacobiansCurves/Jacobian/RingTheory/MvPolynomial/HomogeneousCharts.lean` also declares (same statement,
-arguments in another order). A check of all 572 declarations of the 37 new modules against the environment of
+`RingTheory/MvPolynomial/Homogeneous.lean` declares `MvPolynomial.IsHomogeneous.eval₂_const_mul`, and the environment
+of `Main` already contains a declaration of that name (from
+`ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.RingTheory.MvPolynomial.HomogeneousCharts`, as the import error
+says). A check of all 572 declarations of the 37 new modules against the environment of
 `Main` + `Discharges` found no other clash. The vendored copy now makes that lemma `private` (its only uses are in the
 same file), with a "Modified for the Z-in-Q kernel" line and a NOTICE entry.
 
