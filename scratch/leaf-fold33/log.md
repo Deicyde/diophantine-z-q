@@ -225,3 +225,13 @@ Base: fork main after w82 (leaf-fold32b 03f2467d + STATUS.md wording, 5e235a40).
     check_target.py; among existing OneProof modules only Main.lean changed (Contrib MumfordGroupLawNeron.lean changed
     by the reviewer fix, as intended); OpenStatements 39; DischargesTest rerun; render_open --check ok (34 H,
     strictest 16/18, 5 others); crosswalk --check ok; autoform check ok.
+26. gonzalezRotgerProp56X6 (consequence, GLUE) removed by eichler-bound's bypass, integrated by fold34-eichler: merged
+    wip/fold34-eichler up to its Contrib commit b6645db0 (R5fpCountLeHF; merges wip/eichler-bound 09896d1f, hygiene
+    included), its scratch tools from fd1377d8, then scratch/fold34-eichler/replay.sh on this head: copy
+    OneProof/H/EichlerBoundCopy.lean (gen.py from the taint run of this head) + TailZ63 (OpenResearchLeaves39,
+    `sixContactMin_of_open56`), Main patched, kinds row dropped (claims row already dropped by inbox 1). No new leaf:
+    39 open -> 38 open; H 16/18 on 34 -> 16/17 on 33. Checks (VERIFIED): build +Main +Discharges + copy + TailZ63
+    (14288 jobs); frozenTarget standard axioms; check_target.py; among existing OneProof modules only Main.lean
+    changed; closure check (bundle without the field, count Props supplied by EichlerBound.r5fpCountLe_of_two);
+    OpenStatements 38; DischargesTest rerun (the 5 gonzalezRotgerProp56X6 lines gone); render_open --check ok (33 H,
+    strictest 16/17, 5 others); crosswalk --check ok; autoform check ok.

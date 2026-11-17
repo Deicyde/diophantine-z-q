@@ -55,7 +55,7 @@ structure OpenResearchLeaves22 : Prop where
   this form is stronger than the print for imperfect residue fields. Replaces, with `strictHenselizationPair`,
   `raynaudSemistable` and (by K1) `semistableReductionDVR`. -/
   raynaudSemistableSH : _root_.ReductGlue.RaynaudSemistableSH
-  /-- reduct-b, printed form, restricted: SGA 7 I Exp. IX Prop. 3.3, first assertion (number UNVERIFIED), over a
+  /-- reduct-b, printed form, restricted: SGA 7 I Exp. IX Cor. 3.3, first assertion (number UNVERIFIED), over a
   strictly henselian DVR of a field of characteristic `0` with perfect, hence algebraically closed, residue field
   (a specialization of every reading of the print). With `strictHenselizationPair` replaces `semistablePersistsDVR`
   at its two uses, SS1 and SS3, which are over number fields. -/
@@ -66,7 +66,7 @@ structure OpenResearchLeaves22 : Prop where
   neronBaseChangeStrictHenselization : _root_.GapSHPair.NeronBaseChangeStrictHenselization
   /-- gt-elkies: Elkies, Shimura curve computations (ANTS-III 1998) section 3 on X*(6) = X6/W, printed form on the canonical witness: t is a coordinate on X6/W (fibres on Qbar-points = orbits of W = {1,w2,w3,w6}, defined by their moduli action), t = 0, 1, infinity at the CM points of discriminant -24, -4, -3, and the charts s^2 = -t, r^2 = 3(t-1) (section, display and 0/infinity orientation UNVERIFIED). Replaces elkiesEquationsX6Ab (the moduli step orbit_iff_twist is proved). -/
   elkiesX6StarPrinted : _root_.HDec.QMSplit.Moduli.ElkiesX6Star.ElkiesX6StarPrinted
-  /-- gt-sga7, printed form: SGA 7 I, Exp. IX, Prop. 3.3, second assertion (N0 x_S S' = N'0 for semistable reduction) over strictly henselian traits (number UNVERIFIED). With neronBaseChangeStrictHenselization, sga3_VIB_3_10 and geomConnOfRationalPoint replaces sga7_IX_3_3 (SGA7PersistsNF.sga7_IX_3_3_of_SH). -/
+  /-- gt-sga7, printed form: SGA 7 I, Exp. IX, Cor. 3.3, second assertion (N0 x_S S' = N'0 for semistable reduction) over strictly henselian traits (number UNVERIFIED). With neronBaseChangeStrictHenselization, sga3_VIB_3_10 and geomConnOfRationalPoint replaces sga7_IX_3_3 (SGA7PersistsNF.sga7_IX_3_3_of_SH). -/
   sga7_IX_3_3_SH : _root_.SGA7PersistsNF.SGA7_IX_3_3_SH
   /-- gt-unip, printed form, strictly henselian base: SGA 7 I Exp. IX Prop. 3.5, direction semistable => (sigma-1)^2 = 0 on T_l = lim A(K^s)[l^n] for sigma in inertia, one sigma at a time (the print gives (sigma-1)(tau-1) = 0 and the converse); number UNVERIFIED. Semistability read on the geometric special fibre; reading risk: if the print reads it over k(s), this form exceeds the print by UnipotentForward.SemiAbelianDescendsSepClosed for imperfect residue fields only (the reading-robust variant is UnipotentForward.semistableUnipotent_of_forward). Replaces semistableUnipotent; StrictHenselizationInside and the K^s axis are proved. -/
   sga7_IX_3_5_ForwardGeom : _root_.UnipotentForward.SGA7_IX_3_5_ForwardGeom

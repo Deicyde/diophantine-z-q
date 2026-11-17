@@ -20,7 +20,7 @@ both fields from them.
   theorem); Haar uniqueness identifies the mass with the kernel's `|c_τ η|² covol(Λ_τ)`
   (`isPrintedMetricSq_iff`); and the measure exists for every group model, every `τ` and every `η ≠ 0`
   (`existsUnique_isPrintedMetricSq`, from T35).
-* **Semistability over `k(𝔭)`** (§5): `IsSemistableRes` is SGA 7 IX Déf. 2.2/3.2 read over the residue
+* **Semistability over `k(𝔭)`** (§5): `IsSemistableRes` is SGA 7 IX Déf. 3.4 read over the residue
   field (dict-models' `HasSemiAbelianIdCompTorus`, general torus). The ascent to the kernel's geometric
   form is proved (`isSemistable_of_res`, Stacks 04KV); the descent is the glue
   `SemiAbelianDescendsPerfect` (residue fields of number rings are perfect).
@@ -549,7 +549,7 @@ theorem exists_isFormMeasure (hT35 : ZInQ.LeafPush2.UniformizationExists)
 
 end Existence
 
-/-! ## §5. Semistable reduction over `k(𝔭)` (SGA 7 IX Déf. 2.2/3.2 as printed) -/
+/-! ## §5. Semistable reduction over `k(𝔭)` (SGA 7 IX Déf. 3.4 as printed) -/
 
 section Semistable
 
@@ -571,7 +571,7 @@ noncomputable instance (𝒢 : GroupModel A L) (𝔭 : Ideal (𝓞 L)) [𝔭.IsP
     GrpObj (resFibre 𝒢 𝔭) :=
   Functor.grpObjObj
 
-/-- **Semistable reduction everywhere, as SGA 7 IX Déf. 2.2/3.2 print it** (over the residue field
+/-- **Semistable reduction everywhere, as SGA 7 IX Déf. 3.4 print it** (over the residue field
 `k(𝔭)`; locators UNVERIFIED): at every maximal ideal `𝔭` of `𝓞_L`, the identity component of the
 special fibre `𝒩 ×_{𝓞_L} k(𝔭)` is an extension of an abelian variety over `k(𝔭)` by a torus
 (a group with `T_{k̄} ≅ 𝔾_m^r`): `HasSemiAbelianIdCompTorus` (dict-models). -/
@@ -650,7 +650,7 @@ open DictModels.RaynaudOr
 
 /-- **Faltings' stable height, as the print builds it** (Faltings 1983 §1; Deligne, Sém. Bourbaki 616
 §1; locators UNVERIFIED): `x = deg(ω̄_𝒩)/[L:ℚ]` for the Néron model `𝒩` of `A_L` over a number field
-`L ⊇ K` over which `A` has semistable reduction everywhere in the sense of SGA 7 IX Déf. 2.2/3.2
+`L ⊇ K` over which `A` has semistable reduction everywhere in the sense of SGA 7 IX Déf. 3.4
 (`IsSemistableRes`, over the residue fields `k(𝔭)`), `g = dim A`, `ω_𝒩 = ⋀^g Γ(S, e*Ω¹)`
 (`printedDetLattice`), computed with any nonzero section `η`:
 `deg = log #(ω_𝒩/𝓞_L η) − ½ ∑_{τ : L → ℂ} log ‖η‖²_τ`, where `‖η‖²_τ = (i/2)^g ∫_{A_τ(ℂ)} η ∧ η̄` is the
