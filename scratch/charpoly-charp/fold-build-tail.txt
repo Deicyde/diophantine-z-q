@@ -1,0 +1,6 @@
+info: ZInQKernel/Contrib/OneProof/X0ModuliUsed.lean:395:0: 'X0ModuliUsed.frozenTarget_of_used' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/X0ModuliUsed.lean:399:0: 'X0ModuliUsed.frozenTarget_of_eta' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/X0ModuliUsed.lean:402:0: 'X0ModuliUsed.frozenTarget_of_theta' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/Main.lean:91:0: 'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (14103 jobs).
+EXIT 0

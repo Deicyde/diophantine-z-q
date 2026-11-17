@@ -1,0 +1,16 @@
+OpenTextbookLeaves13 has no field charPolyIndepOfEllAlgClosed
+closure size 268676; T7 / field constants in the closure: []
+structure HDec.HSyn.OpenTextbookLeaves13 : Prop
+number of parameters: 0
+fields:
+  HDec.HSyn.OpenTextbookLeaves13.mumfordTorsionAlgClosed : AvSplit.MumfordTorsionAlgClosed
+  HDec.HSyn.OpenTextbookLeaves13.homFreeFiniteAlgClosed : ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed
+  HDec.HSyn.OpenTextbookLeaves13.poincareComplement : ZInQ.Contrib.AVB1.PoincareComplement
+  HDec.HSyn.OpenTextbookLeaves13.gagaMorphism : ZInQ.HomLattice.GAGAMorphism
+  HDec.HSyn.OpenTextbookLeaves13.neronSchemeExtensionExists : ZInQ.Contrib.NeronC.NeronSchemeExtensionExists
+constructor:
+  HDec.HSyn.OpenTextbookLeaves13.mk (mumfordTorsionAlgClosed : AvSplit.MumfordTorsionAlgClosed)
+    (homFreeFiniteAlgClosed : ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed)
+    (poincareComplement : ZInQ.Contrib.AVB1.PoincareComplement) (gagaMorphism : ZInQ.HomLattice.GAGAMorphism)
+    (neronSchemeExtensionExists : ZInQ.Contrib.NeronC.NeronSchemeExtensionExists) : HDec.HSyn.OpenTextbookLeaves13
+'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]

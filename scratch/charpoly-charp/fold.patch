@@ -1,0 +1,277 @@
+--- a/ZInQKernel/OneProof/H/LPrefix.lean
++++ b/ZInQKernel/OneProof/H/LPrefix.lean
+@@ -11675,7 +11675,6 @@
+   -- leaf-fold2: field `t4` deleted (no proof on the route uses it; g0-assemble2 §7)
+   t5 : PkgI2.TorsionStructure.{0}
+   t6 : PkgI3.HomFreeFinite
+-  t7 : PkgI3.CharPolyIndepOfEll
+   t8 : PkgI3.PoincareReducibility
+   t9 : LeafPush.T09_WeilPairing.{0}
+   /-- T11(a), Riemann/GAGA for endomorphisms (leaf-push2). -/
+@@ -13694,7 +13693,6 @@
+   t4 : PkgI2.ReductionTorsionBijective.{0}
+   t5 : PkgI2.TorsionStructure.{0}
+   t6 : PkgI3.HomFreeFinite
+-  t7 : PkgI3.CharPolyIndepOfEll
+   t8 : PkgI3.PoincareReducibility
+   t9 : LeafPush.T09_WeilPairing.{0}
+   t10 : T10Etale.T10_TateDuality
+@@ -13747,7 +13745,6 @@
+ theorem textbookLeaves_of_open (t : OpenTextbookLeaves) : TextbookLeaves where
+   t5 := t.t5
+   t6 := t.t6
+-  t7 := t.t7
+   t8 := t.t8
+   t9 := t.t9
+   t11a := t.t11a
+--- a/ZInQKernel/OneProof/H/TailE.lean
++++ b/ZInQKernel/OneProof/H/TailE.lean
+@@ -6495,7 +6495,6 @@
+ structure OpenTextbookLeaves2 : Prop where
+   t5 : PkgI2.TorsionStructure.{0}
+   t6 : PkgI3.HomFreeFinite
+-  t7 : PkgI3.CharPolyIndepOfEll
+   t8 : PkgI3.PoincareReducibility
+   t9 : LeafPush.T09_WeilPairing.{0}
+   t11a : ZInQ.LeafPush2.T11a_RiemannEnd
+@@ -6597,7 +6596,6 @@
+ theorem textbookLeaves_of_open2 (t : OpenTextbookLeaves2) : TextbookLeaves where
+   t5 := t.t5
+   t6 := t.t6
+-  t7 := t.t7
+   t8 := t.t8
+   t9 := t.t9
+   t11a := t.t11a
+--- a/ZInQKernel/OneProof/H/TailI.lean
++++ b/ZInQKernel/OneProof/H/TailI.lean
+@@ -127,7 +127,6 @@
+   t4 : PkgI2.ReductionTorsionBijective.{0}
+   t5 : PkgI2.TorsionStructure.{0}
+   t6 : PkgI3.HomFreeFinite
+-  t7 : PkgI3.CharPolyIndepOfEll
+   t8 : PkgI3.PoincareReducibility
+   t9 : LeafPush.T09_WeilPairing.{0}
+   /-- hom-unify: the analytic representation `Hom(A, B) → {M : MΛ_A ⊆ Λ_B}` (lifting for every
+@@ -202,7 +201,6 @@
+ theorem textbookLeaves2_of_open3 (t : OpenTextbookLeaves3) : OpenTextbookLeaves2 where
+   t5 := t.t5
+   t6 := t.t6
+-  t7 := t.t7
+   t8 := t.t8
+   t9 := t.t9
+   t11a := HomUnify.t11a_riemannEnd_of_corr t.homLatticeCorr
+--- a/ZInQKernel/OneProof/H/TailK.lean
++++ b/ZInQKernel/OneProof/H/TailK.lean
+@@ -1,4 +1,5 @@
+ import ZInQKernel.OneProof.H.TailJ
++import ZInQKernel.Contrib.OneProof.CommonTraceHomFree
+ import ZInQKernel.Contrib.ZariskiConn.Basic
+ import ZInQKernel.Contrib.SpreadOut.NumberField
+ import ZInQKernel.Contrib.RLeaf.T40
+@@ -161,7 +162,6 @@
+   t4 : PkgI2.ReductionTorsionBijective.{0}
+   t5 : PkgI2.TorsionStructure.{0}
+   t6 : PkgI3.HomFreeFinite
+-  t7 : PkgI3.CharPolyIndepOfEll
+   t8 : PkgI3.PoincareReducibility
+   t9 : LeafPush.T09_WeilPairing.{0}
+   /-- hom-unify: analytic representation of homomorphisms (replaces T11(a) and `HomLinearLift`). -/
+@@ -228,7 +228,6 @@
+   t4 := t.t4
+   t5 := t.t5
+   t6 := t.t6
+-  t7 := t.t7
+   t8 := t.t8
+   t9 := t.t9
+   homLatticeCorr := t.homLatticeCorr
+@@ -405,7 +404,7 @@
+         Swan.swanIndependent_proved Swan.swanIntegral_proved
+         Swan.adaptedExists_proved
+         (modelG3G6_of_leaves3 hFS r.r7a r.r6 t.t5)
+-        (G0AssembleMod.linkedTateData_of_local t.t7
++        (G0AssembleMod.linkedTateData_of_local_homFree t.t6 (tateModuleFree_of_t5' t.t5)
+           (linkedTateLocal_of_leaves3 r.r6 t.t5 (tateModuleFree_of_t5' t.t5)
+             (abVarSpreadsOut_of_ega4 l.egaIV_8_8_2_ii l.egaIV_8_10_5_xii l.egaIV_17_7_8_ii)
+             (properSmoothGenConnected_of_zariski4 l.zariskiConnectedness)
+--- a/ZInQKernel/OneProof/H/TailN.lean
++++ b/ZInQKernel/OneProof/H/TailN.lean
+@@ -139,8 +139,6 @@
+   t5 : _root_.PkgI2.TorsionStructure.{0}
+   /-- av-b1, LEAF: Mumford §19 Thm 3 over an algebraically closed field. -/
+   homFreeFiniteAlgClosed : _root_.ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed
+-  /-- av-b1, LEAF: Mumford §19 Thm 4 (consequence) over an algebraically closed field. -/
+-  charPolyIndepOfEllAlgClosed : _root_.ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed
+   /-- av-b1, LEAF: Poincaré's complement theorem (Milne 1986 Prop. 12.1; Mumford §19 Thm 1), weakened. -/
+   poincareComplement : _root_.ZInQ.Contrib.AVB1.PoincareComplement
+   t10 : _root_.T10Etale.T10_TateDuality
+@@ -212,7 +210,6 @@
+   t4 := reductionTorsionBijective_ofK5 t.t4
+   t5 := torsionStructure_ofK5 t.t5
+   t6 := t6_of_algClosed5 t.homFreeFiniteAlgClosed
+-  t7 := t7_of_algClosed5 t.charPolyIndepOfEllAlgClosed
+   t8 := t8_of_simpleImage5 t.poincareComplement g.simpleImageIsogeny
+   t9 := t9_of_leaves5 l.t09SymmIsogenyExists l.isogenyQuasiInverse
+   homLatticeCorr := homLatticeCorr_ofK5 t.homLatticeCorr
+--- a/ZInQKernel/OneProof/H/TailO.lean
++++ b/ZInQKernel/OneProof/H/TailO.lean
+@@ -2792,8 +2792,6 @@
+   t5 : _root_.PkgI2.TorsionStructure.{0}
+   /-- av-b1, LEAF: Mumford §19 Thm 3 over an algebraically closed field. -/
+   homFreeFiniteAlgClosed : _root_.ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed
+-  /-- av-b1, LEAF: Mumford §19 Thm 4 (consequence) over an algebraically closed field. -/
+-  charPolyIndepOfEllAlgClosed : _root_.ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed
+   /-- T8 (I3.M3), Poincaré complete reducibility in the form used at E1, the kernel's Prop. -/
+   t8 : _root_.PkgI3.PoincareReducibility
+   homLatticeCorr : _root_.ZInQ.HomUnify.HomLatticeCorr
+@@ -2861,7 +2859,6 @@
+   t4 := reductionTorsionBijective_ofK5 t.t4
+   t5 := torsionStructure_ofK5 t.t5
+   t6 := t6_of_algClosed5 t.homFreeFiniteAlgClosed
+-  t7 := t7_of_algClosed5 t.charPolyIndepOfEllAlgClosed
+   t8 := t8_ofK6 t.t8
+   t9 := t9_of_leaves5 l.t09SymmIsogenyExists l.isogenyQuasiInverse
+   homLatticeCorr := homLatticeCorr_ofK5 t.homLatticeCorr
+--- a/ZInQKernel/OneProof/H/TailX.lean
++++ b/ZInQKernel/OneProof/H/TailX.lean
+@@ -120,7 +120,6 @@
+   /-- av-split, H-25: `A(k)[n] ≅ (ℤ/n)^{2g}` over an algebraically closed `k`, `char k ∤ n` (replaces `t5`). -/
+   mumfordTorsionAlgClosed : _root_.AvSplit.MumfordTorsionAlgClosed
+   homFreeFiniteAlgClosed : _root_.ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed
+-  charPolyIndepOfEllAlgClosed : _root_.ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed
+   /-- av-b1, H-72: Poincaré's complete reducibility, complement form (with the next three, replaces `t8`). -/
+   poincareComplement : _root_.ZInQ.Contrib.AVB1.PoincareComplement
+   /-- av-glue: Cartier's theorem (a group scheme locally of finite type over a field of characteristic 0 is
+@@ -213,7 +212,6 @@
+   t4 := _root_.AvSplit.Final.h24 t.mulEtaleAbelianScheme
+   t5 := _root_.AvSplit.Final.h25 t.mumfordTorsionAlgClosed
+   homFreeFiniteAlgClosed := t.homFreeFiniteAlgClosed
+-  charPolyIndepOfEllAlgClosed := t.charPolyIndepOfEllAlgClosed
+   t8 := _root_.AVGlue.poincareReducibility_of_published' t.cartierSmooth t.poincareComplement
+     (isogenyQuasiInverseAG_lf7 l.milneIsogenyQuasiInverse) t.geomConnOfRationalPoint t.groupSchemeEquidim
+   homLatticeCorr := _root_.AvSplit.Final.h69 t.uniformizationLeafAll t.gagaMorphism
+--- a/ZInQKernel/OneProof/H/TailZ4.lean
++++ b/ZInQKernel/OneProof/H/TailZ4.lean
+@@ -106,7 +106,6 @@
+   mulEtaleAbelianScheme : _root_.AvSplit.T4.MulEtaleAbelianScheme
+   mumfordTorsionAlgClosed : _root_.AvSplit.MumfordTorsionAlgClosed
+   homFreeFiniteAlgClosed : _root_.ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed
+-  charPolyIndepOfEllAlgClosed : _root_.ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed
+   poincareComplement : _root_.ZInQ.Contrib.AVB1.PoincareComplement
+   cartierSmooth : _root_.AVGlue.CartierSmooth
+   geomConnOfRationalPoint : _root_.AVGlue.GeomConnOfRationalPoint
+@@ -206,7 +205,6 @@
+   mulEtaleAbelianScheme := t.mulEtaleAbelianScheme
+   mumfordTorsionAlgClosed := t.mumfordTorsionAlgClosed
+   homFreeFiniteAlgClosed := t.homFreeFiniteAlgClosed
+-  charPolyIndepOfEllAlgClosed := t.charPolyIndepOfEllAlgClosed
+   poincareComplement := t.poincareComplement
+   cartierSmooth := t.cartierSmooth
+   geomConnOfRationalPoint := t.geomConnOfRationalPoint
+--- a/ZInQKernel/OneProof/H/TailZ9.lean
++++ b/ZInQKernel/OneProof/H/TailZ9.lean
+@@ -64,7 +64,6 @@
+   mulEtaleAbelianScheme : _root_.AvSplit.T4.MulEtaleAbelianScheme
+   mumfordTorsionAlgClosed : _root_.AvSplit.MumfordTorsionAlgClosed
+   homFreeFiniteAlgClosed : _root_.ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed
+-  charPolyIndepOfEllAlgClosed : _root_.ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed
+   poincareComplement : _root_.ZInQ.Contrib.AVB1.PoincareComplement
+   cartierSmooth : _root_.AVGlue.CartierSmooth
+   geomConnOfRationalPoint : _root_.AVGlue.GeomConnOfRationalPoint
+@@ -112,7 +111,6 @@
+   mulEtaleAbelianScheme := t.mulEtaleAbelianScheme
+   mumfordTorsionAlgClosed := t.mumfordTorsionAlgClosed
+   homFreeFiniteAlgClosed := t.homFreeFiniteAlgClosed
+-  charPolyIndepOfEllAlgClosed := t.charPolyIndepOfEllAlgClosed
+   poincareComplement := t.poincareComplement
+   cartierSmooth := t.cartierSmooth
+   geomConnOfRationalPoint := t.geomConnOfRationalPoint
+--- a/ZInQKernel/OneProof/H/TailZ11.lean
++++ b/ZInQKernel/OneProof/H/TailZ11.lean
+@@ -18,7 +18,6 @@
+   mulEtaleAbelianScheme : _root_.AvSplit.T4.MulEtaleAbelianScheme
+   mumfordTorsionAlgClosed : _root_.AvSplit.MumfordTorsionAlgClosed
+   homFreeFiniteAlgClosed : _root_.ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed
+-  charPolyIndepOfEllAlgClosed : _root_.ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed
+   poincareComplement : _root_.ZInQ.Contrib.AVB1.PoincareComplement
+   cartierSmooth : _root_.AVGlue.CartierSmooth
+   geomConnOfRationalPoint : _root_.AVGlue.GeomConnOfRationalPoint
+@@ -35,7 +34,6 @@
+   mulEtaleAbelianScheme := t.mulEtaleAbelianScheme
+   mumfordTorsionAlgClosed := t.mumfordTorsionAlgClosed
+   homFreeFiniteAlgClosed := t.homFreeFiniteAlgClosed
+-  charPolyIndepOfEllAlgClosed := t.charPolyIndepOfEllAlgClosed
+   poincareComplement := t.poincareComplement
+   cartierSmooth := t.cartierSmooth
+   geomConnOfRationalPoint := t.geomConnOfRationalPoint
+--- a/ZInQKernel/OneProof/H/TailZ32.lean
++++ b/ZInQKernel/OneProof/H/TailZ32.lean
+@@ -14,7 +14,6 @@
+ structure OpenTextbookLeaves11 : Prop where
+   mumfordTorsionAlgClosed : _root_.AvSplit.MumfordTorsionAlgClosed
+   homFreeFiniteAlgClosed : _root_.ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed
+-  charPolyIndepOfEllAlgClosed : _root_.ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed
+   poincareComplement : _root_.ZInQ.Contrib.AVB1.PoincareComplement
+   cartierSmooth : _root_.AVGlue.CartierSmooth
+   geomConnOfRationalPoint : _root_.AVGlue.GeomConnOfRationalPoint
+@@ -29,7 +28,6 @@
+   mulEtaleAbelianScheme := _root_.ZInQ.Contrib.OneProof.MulEtale.mulEtaleAbelianScheme_proof
+   mumfordTorsionAlgClosed := n.mumfordTorsionAlgClosed
+   homFreeFiniteAlgClosed := n.homFreeFiniteAlgClosed
+-  charPolyIndepOfEllAlgClosed := n.charPolyIndepOfEllAlgClosed
+   poincareComplement := n.poincareComplement
+   cartierSmooth := n.cartierSmooth
+   geomConnOfRationalPoint := n.geomConnOfRationalPoint
+--- a/ZInQKernel/OneProof/H/TailZ35.lean
++++ b/ZInQKernel/OneProof/H/TailZ35.lean
+@@ -1,5 +1,6 @@
+ import ZInQKernel.OneProof.H.TailZ34
+ import ZInQKernel.Contrib.OneProof.R16Split
++import ZInQKernel.Contrib.OneProof.R16PrintedC
+ 
+ /-! # OneProof H, r16-split: `sixContactMin_of_open29` (generated by scripts/one_proof/autofold.py)
+ 
+@@ -86,7 +87,7 @@
+   eigenformHTNew := n.eigenformHTNew
+   dsThm965 := n.dsThm965
+   dsThm966 := n.dsThm966
+-  r16 := _root_.R16Split.r16_of_printed n.r16CoreY t.mumfordTorsionAlgClosed t.charPolyIndepOfEllAlgClosed
++  r16 := _root_.R16Split.r16_of_printedC n.r16CoreY t.uniformizationLeafAll t.mumfordTorsionAlgClosed
+   r17 := n.r17
+   bostLowerBound := n.bostLowerBound
+   javanpeykarBound := n.javanpeykarBound
+--- a/ZInQKernel/OneProof/H/TailZ42.lean
++++ b/ZInQKernel/OneProof/H/TailZ42.lean
+@@ -14,7 +14,6 @@
+ structure OpenTextbookLeaves12 : Prop where
+   mumfordTorsionAlgClosed : _root_.AvSplit.MumfordTorsionAlgClosed
+   homFreeFiniteAlgClosed : _root_.ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed
+-  charPolyIndepOfEllAlgClosed : _root_.ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed
+   poincareComplement : _root_.ZInQ.Contrib.AVB1.PoincareComplement
+   cartierSmooth : _root_.AVGlue.CartierSmooth
+   geomConnOfRationalPoint : _root_.AVGlue.GeomConnOfRationalPoint
+@@ -27,7 +26,6 @@
+ theorem openTextbookLeaves11_of_OpenTextbookLeaves12 (n : OpenTextbookLeaves12) : OpenTextbookLeaves11 where
+   mumfordTorsionAlgClosed := n.mumfordTorsionAlgClosed
+   homFreeFiniteAlgClosed := n.homFreeFiniteAlgClosed
+-  charPolyIndepOfEllAlgClosed := n.charPolyIndepOfEllAlgClosed
+   poincareComplement := n.poincareComplement
+   cartierSmooth := n.cartierSmooth
+   geomConnOfRationalPoint := n.geomConnOfRationalPoint
+--- a/ZInQKernel/OneProof/H/TailZ44.lean
++++ b/ZInQKernel/OneProof/H/TailZ44.lean
+@@ -104,7 +104,6 @@
+ structure OpenTextbookLeaves13 : Prop where
+   mumfordTorsionAlgClosed : _root_.AvSplit.MumfordTorsionAlgClosed
+   homFreeFiniteAlgClosed : _root_.ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed
+-  charPolyIndepOfEllAlgClosed : _root_.ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed
+   poincareComplement : _root_.ZInQ.Contrib.AVB1.PoincareComplement
+   gagaMorphism : _root_.ZInQ.HomLattice.GAGAMorphism
+   neronSchemeExtensionExists : _root_.ZInQ.Contrib.NeronC.NeronSchemeExtensionExists
+@@ -113,7 +112,6 @@
+ theorem openTextbookLeaves12_of_OpenTextbookLeaves13 (n : OpenTextbookLeaves13) : OpenTextbookLeaves12 where
+   mumfordTorsionAlgClosed := n.mumfordTorsionAlgClosed
+   homFreeFiniteAlgClosed := n.homFreeFiniteAlgClosed
+-  charPolyIndepOfEllAlgClosed := n.charPolyIndepOfEllAlgClosed
+   poincareComplement := n.poincareComplement
+   cartierSmooth := _root_.ZInQ.Contrib.OneProof.CartierSmooth.cartierSmooth_proof
+   geomConnOfRationalPoint := _root_.geomConnOfRationalPoint_proof
