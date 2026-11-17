@@ -1,0 +1,13 @@
+{
+ "name": "eichler-rebase-countonly",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.R5fpCountLe"
+ ],
+ "discharges": [
+  {
+   "field": "gonzalezRotgerProp56X6",
+   "proof": "COUNT_ONLY_not_a_proof_see_scratch_eichler_rebase_BypassFold",
+   "leaves": []
+  }
+ ]
+}

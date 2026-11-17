@@ -63,13 +63,21 @@ cl = [l for l in tl if l.startswith("carriers ")][0]
 carriers_full = re.findall(r"[\w.]+", cl[len("carriers "):])
 cnames = sorted({c.split(".")[-1] for c in carriers_full})
 items = []
+NOREN = set()
 for l in tl:
     m = re.match(r"^([TS]) (\S+) (\S+)$", l)
     if not m: continue
     kind, mod, name = m.groups()
     parts = name.split(".")
     if mod == "ZInQKernel.OneProof.Main": continue
-    if len(parts) > 1 and parts[-2] in cnames: continue   # projections, mk
+    if len(parts) > 1 and parts[-2] in cnames:
+        # projections and mk are regenerated; a helper declared in a carrier's namespace is copied, renamed
+        # through the carrier's name
+        dn = parts[-2] + "." + parts[-1]
+        if os.path.exists(mod2file(mod)) and len(find_decl(mod2file(mod), dn)) == 1:
+            items.append((mod2file(mod), dn, None))
+            NOREN.add(dn)
+        continue
     if any(p.startswith("_") or p in ("match_1", "proof_1") or re.match(r"^(match|proof|eq)_\d+$", p) for p in parts[1:]):
         continue                                          # auxiliary
     if FIELDS and parts[-1] in FIELDS: continue          # projections of non-carrier namespaces
@@ -84,7 +92,7 @@ def cfile(c):
 for c in cnames:
     items.append((cfile(c), c, ("structure",)))
 
-ren = {s: newname(s) for (_, s, _) in items}
+ren = {s: newname(s) for (_, s, _) in items if s not in NOREN}
 uniq = {}
 for f, s, k in items:
     key = (f, s)
