@@ -81,3 +81,10 @@
   flagged "OTHER" are all inside `-- [port]` blocks (the file-local CommRing instance definitions and one `rfl⟩`).
   No statement of a vendored declaration changed except the `_nflt` renames. VERIFIED (script).
 - A doubled `-- [port]` comment (fix.py run twice over its own comment) removed; fix.py now skips comment lines.
+
+## 2026-11-16 17:50 group-law-dvr's DVR leaf, report
+- `ZInQKernel/Contrib/OneProof/NeronSchemeExtensionDVRSH.lean`: verbatim copy of group-law-dvr's
+  `NeronSchemeExtensionDVR` and `genMap` (textually identical to origin/wip/group-law-dvr, `diff`), proved from
+  `NeronDescentSH` (`NeronFLT.GLD.neronSchemeExtensionDVR_of_descentSH`, standard axioms, dvrcheck.txt). VERIFIED.
+- build9: both contributor files build from the final sources; #discharges re-run, unchanged. VERIFIED.
+- Report docs/research/neron-flt.md; fleet note .fleet/neron-flt.md.
