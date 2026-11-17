@@ -63,8 +63,8 @@ class ManifestTests(unittest.TestCase):
     def test_both_root_and_local_package_outputs_are_verified(self):
         self.assertEqual(self.verify(self.archive()), self.manifest)
 
-    def test_main_push_and_exact_attempt_job_success_are_mandatory(self):
-        for key, value in [('event', 'pull_request'), ('event', 'workflow_dispatch'),
+    def test_main_identity_and_exact_attempt_job_success_are_mandatory(self):
+        for key, value in [('event', 'pull_request'), ('event', 'pull_request_target'),
                            ('head_branch', 'codex/protocol-b-kernel/12/reserved'),
                            ('head_branch', 'Main'), ('head_sha', 'f' * 40),
                            ('conclusion', 'failure'), ('status', 'in_progress'),
@@ -79,6 +79,15 @@ class ManifestTests(unittest.TestCase):
                            ('name', 'lookalike job'), ('head_sha', 'd' * 40)]:
             with self.subTest(key=key, value=value), self.assertRaises(ValueError):
                 kb.authenticated_producer(self.run, {**self.job, key: value}, self.artifact, **self.args)
+
+    def test_exact_main_dispatch_is_eligible_but_a_reserved_ref_is_not(self):
+        dispatched = {**self.run, 'event': 'workflow_dispatch'}
+        receipt = kb.authenticated_producer(dispatched, self.job, self.artifact, **self.args)
+        self.assertEqual(receipt['event'], 'workflow_dispatch')
+        self.assertEqual(receipt['ref'], 'refs/heads/main')
+        with self.assertRaisesRegex(ValueError, 'exact-main'):
+            kb.authenticated_producer({**dispatched, 'head_branch': 'codex/protocol-b-kernel/12/reserved'},
+                                      self.job, self.artifact, **self.args)
 
     def test_workflow_pin_and_immutable_artifact_binding_are_mandatory(self):
         for key, value in [('expired', True), ('id', True), ('name', 'kernel-main-build-12-1'),

@@ -8,9 +8,13 @@ main compilation outputs in PR builds. It does not change the required audit.
 producer/run/attempt identity from independently obtained GitHub API records,
 compares the approved workflow digest, and verifies the complete downloaded
 archive digest before reading its manifest. The artifact's own claims cannot
-replace any of those independent inputs. A successful main-push run and its
-successful exact-attempt kernel job are mandatory. Branch, fork, dispatch,
-failed and interrupted producers are not eligible.
+replace any of those independent inputs. A successful exact-main run and its
+successful exact-attempt kernel job are mandatory. Non-main branches, forks,
+failed and interrupted producers are not eligible. Both main pushes and main
+dispatches are supported:
+the gate's own token merges start post-merge checks by dispatch. The source
+commit must be an authenticated main ancestor, with the same approved workflow
+digest. The independent API facts and the bundle bind the event and exact ref.
 
 Every output is checked against its SHA-256 and byte length. The archive must
 contain exactly the manifest and declared regular files. Unsafe paths, links,
@@ -33,7 +37,7 @@ from the pinned compiler/Lake, including its import flags and resolved sources.
    approximation is insufficient. Keep candidate code away from the API lookup
    credential.
 2. Add the trusted API selector and ancestor check. Select only a successful
-   main-push run of the reviewed workflow and an immutable artifact belonging
+   main run of the reviewed workflow and an immutable artifact belonging
    to its exact attempt. Never take a candidate-supplied run ID as authority.
 3. Produce the manifest and outputs only after a complete successful build and
    full audit. The first producer must be cold with the legacy project cache

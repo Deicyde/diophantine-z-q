@@ -75,7 +75,7 @@ def authenticated_producer(run, job, artifact, *, repository, approved_workflow_
     require(positive_int(run.get('id')) and positive_int(run.get('run_attempt'))
             and nested(run, 'repository').get('full_name') == repository
             and nested(run, 'head_repository').get('full_name') == repository
-            and run.get('event') == 'push' and run.get('head_branch') == 'main'
+            and run.get('event') in ('push', 'workflow_dispatch') and run.get('head_branch') == 'main'
             and run.get('head_sha') == main_commit and run.get('path') == WORKFLOW
             and run.get('status') == 'completed' and run.get('conclusion') == 'success',
             'Run is not a successful exact-main producer')
@@ -96,6 +96,7 @@ def authenticated_producer(run, job, artifact, *, repository, approved_workflow_
     # This expected record comes from API facts. No bundle field can supply it.
     return {'repository': repository, 'head_sha': main_commit,
             'run_id': run['id'], 'run_attempt': run['run_attempt'],
+            'event': run['event'], 'ref': 'refs/heads/main',
             'workflow_sha256': approved_workflow_sha256}
 
 
