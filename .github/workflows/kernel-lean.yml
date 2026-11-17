@@ -197,6 +197,7 @@ jobs:
         if: steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false'
         run: |
           python -B scripts/test_kernel_diagnostics.py
+          python -B scripts/test_kernel_phases.py
           python -B scripts/test_kernel_pr_scope.py
           python -B scripts/test_kernel_contract.py
           python -B scripts/test_kernel_cache.py
@@ -229,15 +230,31 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          swap_file=''
+          allocation='existing'
+          record_swap_on_exit() {
+            original_status=$?
+            trap - EXIT
+            set +e
+            args=(--record-swap build/kernel-ci/swap-status.json --disk-path "$RUNNER_TEMP" --allocation "$allocation")
+            if [[ -n "$swap_file" ]]; then args+=(--added-path "$swap_file"); fi
+            python -B scripts/kernel_diagnostics.py "${args[@]}"
+            record_status=$?
+            if (( original_status != 0 )); then exit "$original_status"; fi
+            exit "$record_status"
+          }
+          trap record_swap_on_exit EXIT
           free -m
           df -h "$RUNNER_TEMP"
           swapon --show
           available=$(df -B1 --output=avail "$RUNNER_TEMP" | tail -n 1)
           if (( available < 12 * 1024 * 1024 * 1024 )); then
+            allocation='skipped-low-disk'
             echo '::warning::Less than 12 GiB free; continuing the full kernel audit without additional swap.'
             echo 'Additional audit swap skipped: insufficient disk space. All audit checks still run.' >> "$GITHUB_STEP_SUMMARY"
           else
             swap_file=$(mktemp "$RUNNER_TEMP/kernel-audit-swap.XXXXXX")
+            allocation='added'
             sudo fallocate -l 8G "$swap_file"
             sudo chmod 600 "$swap_file"
             sudo mkswap "$swap_file"
@@ -245,9 +262,34 @@ jobs:
           fi
           free -m
           swapon --show
-      - name: Build all modules and replay kernel proofs
+      - name: Preserve verified swap configuration
+        if: always() && (steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false')
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: kernel-swap-${{ github.run_attempt }}
+          path: build/kernel-ci/swap-status.json
+          if-no-files-found: warn
+      - name: Build all kernel modules
         if: steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false'
-        run: python -B scripts/check_kernel.py --base-report build/kernel-ci/base-audit.json
+        run: python -B scripts/check_kernel.py --phase build
+      - name: Preserve completed build and resource samples
+        if: always() && (steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false')
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: kernel-build-${{ github.run_attempt }}
+          path: |
+            build/kernel-ci/build-complete.json
+            build/kernel-ci/swap-status.json
+            build/kernel-ci/*-memory.jsonl
+            build/kernel-ci/*-timing.json
+            build/kernel-ci/*-resource-usage.txt
+          if-no-files-found: warn
+      - name: Replay all kernel proofs and exact targets
+        if: steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false'
+        env:
+          # Lower only the audit worker count; every replay and target check remains.
+          LEAN_NUM_THREADS: '1'
+        run: python -B scripts/check_kernel.py --phase audit --base-report build/kernel-ci/base-audit.json
       - name: Upload proof-status evidence
         if: always() && (steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false')
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
