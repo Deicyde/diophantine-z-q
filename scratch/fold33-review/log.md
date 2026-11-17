@@ -58,3 +58,12 @@ ones except neronSchemeExtensionDedekind (new) and hCM (retyped).
 GZDecomp.chiD D n = jacobiSym n |D| equals the Kronecker symbol (D/n) on 30 random (D, n), D odd negative squarefree
 ≡ 1 mod 4: 0 mismatches (VERIFIED, computed); by hand: Jacobi reciprocity with |D| ≡ 3 mod 4, and (2/|D|) = (D/2).
 PARI/cypari2 is not installed on this host (~/pyenv absent), so no PARI check was run.
+
+## 5. Report
+
+docs/research/fold33-review.md: hCM (ShimuraThm54) LEAF pending locator reading; neronSchemeExtensionDedekind LEAF
+pending locator reading; hGZ LEAF in printed form through three unproved dictionary steps D1 (function field
+embedding = morphism), D2 (value at Heegner points through q-expansions; provable from hasQExp_j/jN + identity
+theorem, not done), D3 (IsOptimalParam = strong Weil; needs GZ V §2 hypotheses on φ), needs-reading. Correction
+made while writing: ShimuraThm54 is not proved equivalent to ShimuraMainCM (only →); it additionally asserts that
+κ(s⁻¹𝔞) is a lattice (true, consequence of the print).

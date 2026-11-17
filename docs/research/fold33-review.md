@@ -73,9 +73,12 @@ all hypotheses at once, using only standard axioms:
 chain derives from it non-trivial facts, for example the algebraicity of the moduli coordinates of CM points (Step A in
 `RingClassLattice.lean`), which Mathlib does not prove.
 
-**Equivalence with the old binder.** `ShimuraThm54 → ShimuraMainCM` is proved. The two say the same thing, because
-`eq_scaled_of_isAnalyticUnif` turns every IsAnalyticUnif map into Weierstrass form. So the retyping cannot hide a
-convention change: the Artin direction and the representative convention are those of `ShimuraMainCM`, which an
+**Relation to the old binder.** Lean proves `ShimuraThm54 → ShimuraMainCM`. The converse is not proved. It would also
+need that `s⁻¹𝔞` is a lattice: `ShimuraMainCM` takes a period pair `P'` with lattice `κ(s⁻¹𝔞)` as a hypothesis,
+whereas `ShimuraThm54` asserts that `κ(s⁻¹𝔞)` is the kernel of ξ′. That is a true adelic fact (Shimura §5.2,
+UNVERIFIED) and a consequence of the print, so the new leaf is slightly stronger than the old binder as a Lean
+statement, but still not stronger than the print. The retyping does not change any convention: the Artin direction,
+`sInvLat`, `latHat` and the representative convention are the definitions of `ShimuraMainCM`, unchanged, which an
 earlier review found faithful (hcm-dict.md §2 item 4).
 
 ## 2. `neronSchemeExtensionDedekind` (BLR §1.4 Thm 3, existence of Néron models over a Dedekind base)
