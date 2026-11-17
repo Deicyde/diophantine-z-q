@@ -1,0 +1,4 @@
+modules: 6284
+cgroup memory.current at start: 10847997952
+exit 0
+cgroup memory.current peak (2 s samples): 11979980800

@@ -1,0 +1,12 @@
+{
+ "name": "fold-ds966",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.DSThm966PrintedProof"
+ ],
+ "discharges": [
+  {
+   "field": "dsThm966Printed",
+   "proof": "_root_.ZInQ.Contrib.CloudB3SC5DeligneSerre.dsThm966Printed"
+  }
+ ]
+}
