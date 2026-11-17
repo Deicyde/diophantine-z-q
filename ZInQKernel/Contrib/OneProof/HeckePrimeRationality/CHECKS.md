@@ -716,3 +716,74 @@ principal spanning are not proved here. The unrestricted original Hecke
 leaf, its assembly hypothesis and full Z-in-Q remain unchanged and unproved;
 N ≤ 6 remains the unconditional original-contract extent. Warm imported
 proof closures and complete source review are not a cold replay certificate.
+
+## Original-level rows and upward level maps: 78 modules
+
+Five additive mathematical modules preserve all earlier 73 source editions
+and six complete audits. The actual row producer gives finite original-M
+products with integer determinant ±n, both congruences modulo n and
+uncollected coefficients ±n. Both h-factors pull back by exact signed integer
+quotients. The error is an explicit finite list of actual D-correction
+records, never defined as C minus the product sum. Each record has a positive
+level and genuine divisibility data. Its level divides (n−1)!M; for M=nℓ
+that common bound is n!ℓ. Individual correction levels need not equal it.
+The literal slope is natural, with n>0, M>0 and n∣M.
+
+The level-map modules prove actual linear restriction along N∣M, injectivity,
+exact series-generator images at labels (M/N)a, upward inclusion, composition
+and finite weighted sums. Factorial inclusions are proved. The normalized
+trace uses the actual finite relative index with nonvanishing proved, not a
+normalization assumption. It is a left inverse on upward images and descends
+scaled-generator combinations. The finite quotient orbit proves preservation
+of the upper series span after restriction, not arbitrary lower-span closure.
+
+All five parent mathematical builds and every final literal/axiom audit
+exited 0. Complete source review covered all 388 row lines and all 395 level,
+trace, orbit and factorial lines, with exact callees and the primary-paper
+comparison. The earlier 385-line level-map total was a counting slip.
+No mathematical source was edited to repair it.
+
+`RowsAndLevelMapsAudit.lean` co-imports all 78 mathematical modules. It audits
+1078 named public source proofs/instances, 138 selected source definitions,
+structures or type aliases, and one additional ordinary capture of the
+derived row decision instance: all 1217 records use at most `propext`,
+`Classical.choice`, `Quot.sound`, with no `sorryAx`. The new five-file source
+inventory is 49 proof bodies and 21 definitions/structures/aliases; the
+derived instance is audited separately, not counted as 50 new public proofs.
+The unsupported private `#print prefix` name probe was retained as a failed
+diagnostic; it did not affect any mathematical build or source. No evaluation
+or custom loader was used.
+
+```sh
+lake --no-cache --no-ansi build +ZInQKernel.Contrib.OneProof.HeckePrimeRationality.AllLevelTorsionCorrelationRows:olean
+lake --no-cache --no-ansi build +ZInQKernel.Contrib.OneProof.HeckePrimeRationality.DivisionEisensteinTraceOrbit:olean
+lake --no-cache --no-ansi build +ZInQKernel.Contrib.OneProof.HeckePrimeRationality.DivisionEisensteinFactorialLevels:olean
+lake --no-cache env lean ZInQKernel/Contrib/OneProof/HeckePrimeRationality/RowsAndLevelMapsAudit.lean
+```
+
+Exact added source editions:
+
+- `AllLevelTorsionCorrelationRows.lean`:
+  `c38e80db728977e24ddaffd9a6b1ab074afc750f7321d14ad1e5e278d99ab05f`
+- `DivisionEisensteinLevelMaps.lean`:
+  `60436850b64543e1daea72d8f5ec7fc5de4a4ea3b0995bb6ffcab1dcf0523ed9`
+- `DivisionEisensteinFactorialLevels.lean`:
+  `ec5dfde1a8818a65f2e455f23c94d417cdb00d03472121b3da8a9177052798be`
+- `DivisionEisensteinTracePartial.lean`:
+  `0c1d34073f3d6d3588301d6dfcb59428ed08a99b4f6cbe2a0188f41bc48e8b1f`
+- `DivisionEisensteinTraceOrbit.lean`:
+  `5f6f6f8a3d9bee62281f75e4ce211a997428e033780ed246fa8241196b691ef8`
+
+Exact complete audit SHA256:
+`9c463f89a05283580df062a104aa815dacd5057a398da0238b1ab62083cb8a26`.
+
+Still separate: assembling the described finite corrections into one actual
+series-span form at the canonical factorial level, signed-slope extension,
+and arbitrary lower-level series-generator trace closure. Upward injectivity
+and upper-span preservation do not establish that missing downward lemma.
+No whole-space spanning or Petersson-subspace identification is claimed.
+`PrincipalProductSpanning`, the unrestricted original Hecke leaf and the full
+Z-in-Q theorem remain unproved by this work. The original-contract extent
+remains nonzero N ≤ 6; no assembly hypothesis, pin or published proof edition
+has been changed. These are pinned warm-import compilations and source
+reviews, not a full cold/native acceptance certificate.

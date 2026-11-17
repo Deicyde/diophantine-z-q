@@ -116,6 +116,17 @@ are proved in the reduction, not hidden premises.
   remain at their stated ambient level. Zero/opposite cases retain negative
   squares, and the three-μ formula is restricted to three Good classes.
   No Petersson-subspace, level-descent or whole-space statement follows.
+- The correlation now has constructive finite original-level row products,
+  with determinant ±n, both slope congruences, and uncollected coefficients
+  ±n. Signed quotient transport pulls both actual factors back to the
+  original level. Each explicit D-correction level divides (n−1)!M, exactly
+  the common n!ℓ bound when M=nℓ. The slope is natural; no arbitrary-field
+  or integer-slope statement is silently substituted.
+- Positive divisible levels have actual injective linear restriction maps
+  on the independent series spans, with exact scaled-label images and
+  factorial-level inclusions. The actual normalized trace descends upward
+  images and scaled-generator combinations and preserves the upper span
+  after restriction. Arbitrary lower-level series-span closure is not proved.
 
 Raw excluded labels are not representative-independent: the zero-label
 control proves values 1/2 and 3/2 and refutes naive raw distribution. The
@@ -136,20 +147,21 @@ quadratic generator inclusion do not substitute for the spanning proof.
 The μ-forms, every quadratic label case and the normalized raw correlation
 defect now have proved membership in the independent convergent series span,
 by explicit equalities and finite combinations. This is not identification
-with a classical Petersson-Eisenstein subspace. Original-level row constraints,
-Eisenstein level descent, low-weight trace closure and the full spanning
-argument remain separate obligations.
+with a classical Petersson-Eisenstein subspace. Original-level row constraints
+are proved for natural slopes. Binding their finite corrections to one form
+at the canonical factorial level, signed-slope extension, general lower-level
+series-span trace closure and the full spanning argument remain separate.
 The Γ₁ `(0,b)` family alone cannot replace the principal family.
 
-The current 73-module audit checks 1029 named public proofs/instances and
-117 selected definitions, constructions or type aliases with at most
+The current 78-module audit checks 1078 named public source proofs/instances,
+138 selected definitions, structures or type aliases and one additional
+capture of the derived row decision instance. All 1217 records have at most
 `propext`, `Classical.choice`, `Quot.sound`, and no `sorryAx`. **Auditing a
 predicate's definition does not prove that predicate**:
 `PrincipalProductSpanning` is still an input.
-See `CHECKS.md` and `SeriesMembershipAudit.lean` for exact editions and commands.
-The earlier `Audit.lean`, `AnalyticAudit.lean`, `WeightTwoAudit.lean`,
-`ThetaConstantAudit.lean` and `FourierCorrelationAudit.lean` preserve the
-34-, 49-, 56-, 59- and 71-module checkpoints.
+See `CHECKS.md` and `RowsAndLevelMapsAudit.lean` for exact editions and commands.
+The six earlier audit editions preserve the 34-, 49-, 56-, 59-, 71- and
+73-module checkpoints.
 
 These are ordinary pinned compilations plus complete separate source reviews
 with warm imports, not independent cold replay of all imported constants or
