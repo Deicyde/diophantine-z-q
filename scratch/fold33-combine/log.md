@@ -130,3 +130,13 @@ already an ancestor of the base (no merge of main needed).
      (`HDec.HSyn.OpenResearchLeaves28.sga3_VIB_3_10_Nbhd`). `autoform render --require-declarations` will report them
      until the blueprint retargets or drops them (the other `\lean`/`lean:` targets checked by grep still exist:
      `OpenTextbookLeaves13.neronSchemeExtensionExists`, `.charPolyIndepOfEllAlgClosed`, `.poincareComplement`).
+4. Tools on the final tree (VERIFIED): `python3 scripts/one_proof/autofold.py SPEC --dry-run` with a test spec
+   (discharging `gagaMorphism` and `neronSchemeExtensionDedekind` by `sorry`, not written) parses Main and TailZ49 and
+   generates TailZ50 with `OpenResearchLeaves30`, `OpenTextbookLeaves17`, `sixContactMin_of_open43` over
+   `sixContactMin_of_open42` ("strict count: 11/20 on 31 -> 10/19 on 29"); OpenStatements.lean and `#discharges`
+   (DischargesTest) run (steps 2, 3). Regenerating the homfree reroute after a later in-place edit:
+   `lake build ZInQKernel.OneProof.H.TailZ47; lake env lean scratch/fold33-combine/hf/Taint.lean > T.txt;
+   python3 scratch/fold33-combine/hf/gen/gen.py <Consumers.lean> <HomFreeFiniteAlgClosedReroute.lean> T.txt TailZ47`.
+
+Counts: base 33 H, strictest 13/20 → step 2: 32, 12/20 → step 3: 31, 11/20 (render_open; 10 others throughout;
+open hypotheses 43 → 42 → 41).
