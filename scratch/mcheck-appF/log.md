@@ -6,3 +6,4 @@
 - First pass: no false step found. Plan: s1 (local/constant checks), s2 (Weil index, Hilbert symbols, operator relations),
   s3 (global weighted toy theta on B_{3,inf}: recurrence + (O.7) analog), s4 (root-number sign bookkeeping behind alpha(-1)=1).
 - s1_local.py: 48/48 PASS (12 negative controls fail as they should). First version's neighbour brute force at p^3 was too slow; reduced to y mod p^2 (sufficient). One trivial negative control replaced by a real one (AL conjugation of diag(1,-1)).
+- s2_weil.py: 20/20 PASS (6 negative controls fail). Weil index computed as Gauss-integral phase with psi_p = exp(-2 pi i {t}_p); product formula holds in this convention and fails in the opposite one.
