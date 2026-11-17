@@ -1,26 +1,34 @@
 import ZInQKernel.Contrib.OneProof.PanBergerPst
 
 /-!
-Copyright: this file is part of the fork Deicyde/diophantine-z-q (task pb-p1, 2026-11-17). Report
-`docs/research/pb-p1.md`; generated from `scratch/pb-p1/FontaineSt.lean.txt` by `scratch/pb-p1/mkcontrib.py`.
+Copyright: this file is part of the fork Deicyde/diophantine-z-q (task pb-p1, 2026-11-17; restated in place by task
+pb-dimform, 2026-11-17). Reports `docs/research/pb-p1.md` and `docs/research/pb-dimform.md`; first generated from
+`scratch/pb-p1/FontaineSt.lean.txt` by `scratch/pb-p1/mkcontrib.py`, then edited in place by pb-dimform.
 
-# pb-p1: Fontaine's `B_st = B_cris[log [p̃]]` as printed in Berger's survey, and the two leaves of `r11r12` over it
+# pb-p1 / pb-dimform: Fontaine's `B_st = B_cris[log [p̃]]`, and the two leaves of `r11r12` over it
 
-Fontaine's rings, as Berger prints them in *An introduction to the theory of p-adic representations*
-(arXiv:math/0210184v1, II.2.2 p. 11, II.2.3 p. 12, II.3.1 p. 13, II.3.3 p. 14-15), inside Mathlib's `B_dR`:
+Fontaine's rings inside Mathlib's `B_dR`, at definition level as in Brinon-Conrad, *CMI summer school notes on p-adic
+Hodge theory* (preliminary version June 24, 2009; cited in the manuscript as `brinon-conrad`), with the same objects in
+Berger's survey *An introduction to the theory of p-adic representations* (arXiv:math/0210184v1, II.2.2 p. 11, II.2.3
+p. 12, II.3.1 p. 13, II.3.3 pp. 14-15; not in the manuscript's bibliography):
 
-* `A_cris = {Σ a_n ω^n/n! : a_n ∈ A_inf, a_n → 0}` (`AcrisOf w`, for a generator `w` of `ker θ`), and
-  `B_cris^+` the `ℚ_p`-algebra it generates (`BcrisPlusOf`);
-* `B_cris = B_cris^+[1/t]`, `t = log [ε]` (`BcrisOf`);
-* `B_st = B_cris[log [p̃]]` with `log [p̃] = log_p(p) − Σ (1 − [p̃]/p)^n/n`, `log_p(p) = 0` (`BstFOf`), which is
-  bst-construct's `logPTilde`.
+* `A_cris = {Σ a_n ω^n/n! : a_n ∈ A_inf, a_n → 0 p-adically}` (Brinon-Conrad p. 129; `AcrisOf w`, for a generator `w`
+  of `ker θ`), and `B_cris^+` the `ℚ_p`-algebra it generates (`BcrisPlusOf`);
+* `B_cris = B_cris^+[1/t]`, `t = log [ε]` (Brinon-Conrad Def. 9.1.4 p. 131; `BcrisOf`);
+* `B_st = B_cris[log [p̃]]` with `log [p̃] = log_dR([p̃]/p) = −Σ (1 − [p̃]/p)^n/n`, `log(p) = 0` (Brinon-Conrad
+  Def. 9.2.3 p. 138, p. 142, Thm 9.2.10 p. 143; `BstFOf`), which is bst-construct's `logPTilde`;
+* admissibility in Fontaine's dimension form (Brinon-Conrad §5.2 pp. 67-68; bst-construct's `IsAdmissible`) and
+  potential semistability (Brinon-Conrad Thm 9.3.5 p. 148; `IsPstF`, pb-dimform).
 
 Proved: `A_cris` is a ring and `B_cris^+` is exactly the printed set `{Σ x_n ω^n/n! : x_n ∈ B̃^+, x_n → 0}`
-(`acrisOf_mul`, `bcrisPlusOf_eq_set`), `B_st` is `G_{ℚ_p}`-stable (`bstF_stable`), `A_cris ⊆ A_max` (`acrisOf_le_amaxOf`, from `p^n/n! ∈ ℤ_p`), `A_cris` does not depend on the generator
-(`acrisOf_le`, `acrisOf_eq`), `B_st^{Fontaine} ⊆ B_st^{tree}` (`bstFOf_le`), and the basis form of admissibility
-passes from a subring to a larger one (`isAdmissibleT_mono`). Hence Berger's theorem over Fontaine's ring gives the
-current field `bergerPrintedV` (`bergerPrintedV_of_survey`), and Pan's theorem and Berger's theorem over Fontaine's
-ring give `r11r12 : PanBerger` directly (`panBerger_of_F`), with no comparison of rings.
+(`acrisOf_mul`, `bcrisPlusOf_eq_set`), `B_st` is `G_{ℚ_p}`-stable (`bstF_stable`), `A_cris ⊆ A_max` (`acrisOf_le_amaxOf`,
+from `p^n/n! ∈ ℤ_p`), `A_cris` does not depend on the generator (`acrisOf_le`, `acrisOf_eq`, `bstFOf_eq_xi`),
+`B_st^{Fontaine} ⊆ B_st^{tree}` (`bstFOf_le`), the basis form of admissibility passes from a subring to a larger one
+(`isAdmissibleT_mono`) and implies the dimension form (`isPstF_of_basis`). Pan's theorem and Berger's theorem, both
+with Fontaine's pst in the dimension form, give `r11r12 : PanBerger` directly (`panBerger_of_F`: the predicate is passed
+from Berger's conclusion to Pan's hypothesis, with no comparison of rings and no dimension-to-basis step).
+pb-p1's basis-form leaves are kept as `BergerSurveyFBasis` and `PanPrintedFBasis` (`bergerSurveyF_of_basis`,
+`panPrintedFBasis_of_F` compare them with the new ones).
 -/
 
 noncomputable section
@@ -87,7 +95,7 @@ theorem inv_factorial_eq (n : ℕ) :
     exact pow_ne_zero _ hp' h1.symm
   rw [inv_pow, ← h1, mul_inv, ← mul_assoc, mul_inv_cancel₀ he, one_mul]
 
-/-! ## §2. `A_cris`, `B_cris^+`, `B_cris`, `B_st` (Berger 2004, II.3.1 and II.3.3) -/
+/-! ## §2. `A_cris`, `B_cris^+`, `B_cris`, `B_st` (Brinon-Conrad pp. 128-143; Berger 2004, II.3.1 and II.3.3) -/
 
 theorem algebraMap_mem_ith {w : Ainf p} (hw : WittVector.fontaineTheta 𝓞_ℂ_[p] p w = 0) :
     algebraMap (Ainf p) (AinfP p) w ∈ Ith p := by
@@ -105,25 +113,31 @@ def dpSeries (f : (Ainf p)⟦X⟧) : (AinfP p)⟦X⟧ :=
   PowerSeries.mk fun n => algebraMap (Ainf p) (AinfP p) (PowerSeries.coeff n f) *
     qpToLoc p (((n.factorial : ℕ) : ℚ_[p]))⁻¹
 
-/-- **`A_cris`** (Berger, *An introduction to the theory of p-adic representations*, arXiv:math/0210184v1,
-II.3.1 p. 13, with `ω` any generator of `ker θ`; Fontaine's `A_cris`): the elements `Σ a_n ω^n/n!` of `B_dR^+`,
-`a_n ∈ A_inf = W(𝓞_ℂ_p♭)` tending to `0` `p`-adically, the series evaluated `ker θ`-adically. -/
+/-- **`A_cris`** (Brinon-Conrad, CMI notes, preliminary version June 24, 2009, p. 129, with p. 128: generated by the
+divided powers of any generator of `ker θ`; also Berger's survey arXiv:math/0210184v1 II.3.1 p. 13, which does not name
+the topology): the elements `Σ a_n ω^n/n!` of `B_dR^+`, `ω` a generator of `ker θ`, `a_n ∈ A_inf = W(𝓞_ℂ_p♭)` tending
+to `0` for the `p`-adic topology (as on Brinon-Conrad p. 129), the series evaluated `ker θ`-adically. -/
 def AcrisOf (w : Ainf p) (hw : WittVector.fontaineTheta 𝓞_ℂ_[p] p w = 0) : Set (BDeRhamPlus 𝓞_ℂ_[p] p) :=
   {x | ∃ f ∈ restricted p, x = evalB p (algebraMap_mem_ith p hw) (dpSeries p f)}
 
-/-- **`B_cris^+ = A_cris[1/p]`**: the `ℚ_p`-algebra generated by `A_cris` in `B_dR` (Berger 2004 II.3.1: the
-`Σ x_n ω^n/n!` with `x_n ∈ B̃^+ = A_inf[1/p]`, `x_n → 0`). -/
+/-- **`B_cris^+ = A_cris[1/p]`** (Brinon-Conrad Def. 9.1.4 p. 131): the `ℚ_p`-algebra generated by `A_cris` in
+`B_dR`; it is exactly the set `{Σ x_n ω^n/n! : x_n ∈ B̃^+ = A_inf[1/p], x_n → 0}` printed in Berger's survey II.3.1
+(`bcrisPlusOf_eq_set` with `p^{−k} A_cris`, and pb-dimform's `bcrisPlusOf_eq_printed` with the literal set). -/
 def BcrisPlusOf (w : Ainf p) (hw : WittVector.fontaineTheta 𝓞_ℂ_[p] p w = 0) : Subalgebra ℚ_[p] (BdR p) :=
   Algebra.adjoin ℚ_[p] (toBdR p '' AcrisOf p w hw)
 
-/-- **`B_cris = B_cris^+[1/t]`**, `t = log [ε₀]` (Berger 2004 II.3.1, II.2.3). -/
+/-- **`B_cris = B_cris^+[1/t] = A_cris[1/t]` inside `B_dR`**, `t = log [ε₀]` (Brinon-Conrad Def. 9.1.4 p. 131; also
+Berger's survey II.3.1, II.2.3). -/
 def BcrisOf {ε₀ : PreTilt 𝓞_ℂ_[p] p} (h : IsGenEps p ε₀) (w : Ainf p)
     (hw : WittVector.fontaineTheta 𝓞_ℂ_[p] p w = 0) : Subalgebra ℚ_[p] (BdR p) :=
   Algebra.adjoin ℚ_[p] (toBdR p '' AcrisOf p w hw ∪ {Ring.inverse (tOf p h)})
 
-/-- **Fontaine's `B_st = B_cris[log [p̃]] ⊆ B_dR`** (Berger 2004 II.3.3 p. 14-15: `B_st = B_cris[Y]` embedded in
-`B_dR` by `Y ↦ log [p̃] = log_p(p) − Σ_{n ≥ 1} (1 − [p̃]/p)^n/n`, `p̃^(0) = p`, `log_p(p) = 0`; the tree's
-`logPTilde`). -/
+/-- **Fontaine's `B_st = B_cris[log [p̃]] ⊆ B_dR`** (Brinon-Conrad Def. 9.2.3 p. 138, `B_st = B_cris[X]` abstractly,
+embedded in `B_dR` on p. 142 by `X ↦ log([q]) = log_dR([q]/q) + log_K(q)`, canonical once `log_K(p)` is fixed (p. 143),
+injective by Thm 9.2.10 p. 143; here `q = p`, `q̃ = p̃ = (p, p^{1/p}, …)`, `log(p) = 0`, so the image is
+`B_cris[log_dR([p̃]/p)]` with `log_dR([p̃]/p) = −Σ_{n ≥ 1} (1 − [p̃]/p)^n/n`, the tree's `logPTilde`). Berger's survey
+II.3.3 pp. 14-15 prints the same embedding with two misprints (the series with exponent `n − 1` for `n`, and
+`φ(Y) = Y^p` for `pY`; neither affects this definition, which has exponent `n` and no Frobenius). -/
 def BstFOf {ε₀ : PreTilt 𝓞_ℂ_[p] p} (h : IsGenEps p ε₀) (w : Ainf p)
     (hw : WittVector.fontaineTheta 𝓞_ℂ_[p] p w = 0) : Subalgebra ℚ_[p] (BdR p) :=
   Algebra.adjoin ℚ_[p] (toBdR p '' AcrisOf p w hw ∪ {Ring.inverse (tOf p h)} ∪ {toBdR p (logPTilde p)})
@@ -384,21 +398,38 @@ theorem isAdmissibleT_mono {B B' : Subalgebra ℚ_[p] (BdR p)} (hBB' : B ≤ B')
 
 end Mono
 
-/-! ## §5. Potential semistability in Fontaine's sense -/
+/-! ## §5. Potential semistability in Fontaine's sense
+
+pb-dimform: `IsPstF` is now Fontaine's **dimension form** (Brinon-Conrad §5.2 pp. 67-68 and Thm 9.3.5 p. 148:
+`dim_{B_st^{G_K}} (B_st ⊗_{ℚ_p} V)^{G_K} = dim_{ℚ_p} V`, bst-construct's `IsAdmissible`); pb-p1's basis form is kept as
+`IsPstFBasis` (it implies `IsPstF`, `isPstF_of_basis`; the converse needs the `G_K`-regularity of `B_st`, not proved in
+the tree). -/
 
 section Pst
 
 variable {E : Type*} [Field E] [Algebra ℚ_[p] E] {n : ℕ}
 
-/-- **`V` is potentially semistable in Fontaine's sense** (Berger 2004 II.5.2 with II.3.3 and I.2.3): for some
-finite `K/ℚ_p` inside `ℚ̄_p`, `V|_{G_K}` is `B_st`-admissible, `B_st = B_cris[log [p̃]]` (`BstFOf`), in the form
-`B_st ⊗_{ℚ_p} V ≃ B_st^d` as `B_st[G_K]`-modules (a `B_st`-basis of `G_K`-invariant vectors). -/
+/-- **`V` is potentially semistable in Fontaine's sense** (Brinon-Conrad, *CMI summer school notes on p-adic Hodge
+theory*, preliminary version June 24, 2009, Thm 9.3.5 p. 148, where the definition is printed inside the statement:
+`V|_{G_K}` is semistable for some finite `K/ℚ_p`; semistable = `B_st`-admissible, §5.2 p. 68): for some finite `K/ℚ_p`
+inside `ℚ̄_p`, `V|_{G_K}` is `B_st`-admissible in the **dimension form** of §5.2 pp. 67-68,
+`dim_{B_st^{G_K}} (B_st ⊗_{ℚ_p} V)^{G_K} = dim_{ℚ_p} V` (`IsAdmissible`), with `B_st = B_cris[log [p̃]] ⊆ B_dR`
+(`BstFOf`). (pb-dimform; pb-p1's basis form is `IsPstFBasis`.) -/
 def IsPstF {ε₀ : PreTilt 𝓞_ℂ_[p] p} (h : IsGenEps p ε₀) (w : Ainf p)
+    (hw : WittVector.fontaineTheta 𝓞_ℂ_[p] p w = 0) (ρ : GQp p →* GL (Fin n) E) : Prop :=
+  ∃ K : IntermediateField ℚ_[p] (PadicAlgCl p), FiniteDimensional ℚ_[p] K ∧
+    IsAdmissible p (BstFOf p h w hw) K.fixingSubgroup ρ
+
+/-- pb-p1's `IsPstF` (kept for comparison): potential semistability over `BstFOf` in the **basis form**
+`B_st ⊗_{ℚ_p} V ≃ B_st^d` as `B_st[G_K]`-modules (a `B_st`-basis of `G_K`-invariant vectors). Implies `IsPstF`
+(`isPstF_of_basis`). -/
+def IsPstFBasis {ε₀ : PreTilt 𝓞_ℂ_[p] p} (h : IsGenEps p ε₀) (w : Ainf p)
     (hw : WittVector.fontaineTheta 𝓞_ℂ_[p] p w = 0) (ρ : GQp p →* GL (Fin n) E) : Prop :=
   ∃ K : IntermediateField ℚ_[p] (PadicAlgCl p), FiniteDimensional ℚ_[p] K ∧
     IsAdmissibleT p (BstFOf p h w hw) K.fixingSubgroup ρ
 
-/-- A `ℚ̄_p`-valued `ρ` is potentially semistable in Fontaine's sense: on a model `V = E^n`. -/
+/-- A `ℚ̄_p`-valued `ρ` is potentially semistable in Fontaine's sense (dimension form): on a model `V = E^n`.
+That the choice of model does not matter is `localIsPstF_iff_forall` (pb-dimform, `PstModel.lean`). -/
 def LocalIsPstF {ε₀ : PreTilt 𝓞_ℂ_[p] p} (h : IsGenEps p ε₀) (w : Ainf p)
     (hw : WittVector.fontaineTheta 𝓞_ℂ_[p] p w = 0) (n : ℕ)
     (ρ : GQp p →* GL (Fin n) (PadicAlgCl p)) : Prop :=
@@ -407,11 +438,20 @@ def LocalIsPstF {ε₀ : PreTilt 𝓞_ℂ_[p] p} (h : IsGenEps p ε₀) (w : Ain
     (∀ σ, Matrix.GeneralLinearGroup.map (algebraMap E (PadicAlgCl p)) (ρE σ) = ρ σ) ∧
     IsPstF p h w hw ρE
 
-/-- Fontaine's pst implies pst over the tree's `B_st` (basis form). -/
-theorem isPstT_of_F {ε₀ : PreTilt 𝓞_ℂ_[p] p} (h : IsGenEps p ε₀) {w : Ainf p}
+/-- pb-p1's `LocalIsPstF` (basis form on a model), kept for comparison. -/
+def LocalIsPstFBasis {ε₀ : PreTilt 𝓞_ℂ_[p] p} (h : IsGenEps p ε₀) (w : Ainf p)
+    (hw : WittVector.fontaineTheta 𝓞_ℂ_[p] p w = 0) (n : ℕ)
+    (ρ : GQp p →* GL (Fin n) (PadicAlgCl p)) : Prop :=
+  ∃ (E : IntermediateField ℚ_[p] (PadicAlgCl p)) (_ : FiniteDimensional ℚ_[p] E)
+    (ρE : GQp p →* GL (Fin n) E),
+    (∀ σ, Matrix.GeneralLinearGroup.map (algebraMap E (PadicAlgCl p)) (ρE σ) = ρ σ) ∧
+    IsPstFBasis p h w hw ρE
+
+/-- Fontaine's pst in the basis form implies pst over the tree's `B_st` (basis form). -/
+theorem isPstT_of_FBasis {ε₀ : PreTilt 𝓞_ℂ_[p] p} (h : IsGenEps p ε₀) {w : Ainf p}
     (hw : WittVector.fontaineTheta 𝓞_ℂ_[p] p w = 0)
     (hgen : RingHom.ker (WittVector.fontaineTheta 𝓞_ℂ_[p] p) = Ideal.span {w})
-    (ρ : GQp p →* GL (Fin n) E) (hF : IsPstF p h w hw ρ) : IsPstT p h ρ := by
+    (ρ : GQp p →* GL (Fin n) E) (hF : IsPstFBasis p h w hw ρ) : IsPstT p h ρ := by
   obtain ⟨K, hK, hadm⟩ := hF
   exact ⟨K, hK, isAdmissibleT_mono p (bstFOf_le p h hw hgen) _ ρ hadm⟩
 
@@ -562,13 +602,42 @@ theorem bstF_stable {ε₀ : PreTilt 𝓞_ℂ_[p] p} (h : IsGenEps p ε₀) (σ 
         ⟨_, logTeich_mem_acris p hu1, rfl⟩))) (Algebra.subset_adjoin (Or.inr rfl))
   exact hle hx
 
-/-- In Pan's leaf the basis form is asked: it implies Fontaine's dimension form `dim_{B_st^{G_K}} D_st = dim V`
-(`isAdmissible_of_T`, `B_st` being `G_{ℚ_p}`-stable), so the hypothesis is at least as strong as the print's. -/
+/-- The basis form implies Fontaine's dimension form `dim_{B_st^{G_K}} D_st = dim V` (`isAdmissible_of_T`, `B_st`
+being `G_{ℚ_p}`-stable). Since pb-dimform the leaves use the dimension form directly. -/
 theorem isAdmissible_of_pstF {E' : Type*} [Field E'] [Algebra ℚ_[p] E'] [FiniteDimensional ℚ_[p] E'] {n : ℕ}
     {ε₀ : PreTilt 𝓞_ℂ_[p] p} (h : IsGenEps p ε₀) (H : Subgroup (GQp p)) (ρ : GQp p →* GL (Fin n) E')
     (hT : IsAdmissibleT p (BstFOf p h (ZInQ.Contrib.G9.BdrKer.Cp.xi p) (theta_xi' p)) H ρ) :
     IsAdmissible p (BstFOf p h (ZInQ.Contrib.G9.BdrKer.Cp.xi p) (theta_xi' p)) H ρ :=
   isAdmissible_of_T p _ (bstF_stable p h) H ρ hT
+
+/-- `B_st^{Fontaine}` does not depend on the generator `w` of `ker θ` (`acrisOf_eq`). -/
+theorem bstFOf_eq_xi {ε₀ : PreTilt 𝓞_ℂ_[p] p} (h : IsGenEps p ε₀) {w : Ainf p}
+    (hw : WittVector.fontaineTheta 𝓞_ℂ_[p] p w = 0)
+    (hgen : RingHom.ker (WittVector.fontaineTheta 𝓞_ℂ_[p] p) = Ideal.span {w}) :
+    BstFOf p h w hw = BstFOf p h (ZInQ.Contrib.G9.BdrKer.Cp.xi p) (theta_xi' p) := by
+  unfold BstFOf
+  rw [acrisOf_eq p hw (theta_xi' p) hgen (ZInQ.Contrib.G9.BdrKer.Cp.ker_fontaineTheta_Cp p)]
+
+/-- **pb-p1's basis form implies the dimension form** `IsPstF` (`isAdmissible_of_T`, `B_st` being
+`G_{ℚ_p}`-stable). The converse would need the `G_K`-regularity of `B_st`, which the tree does not prove. -/
+theorem isPstF_of_basis {E' : Type*} [Field E'] [Algebra ℚ_[p] E'] [FiniteDimensional ℚ_[p] E'] {n : ℕ}
+    {ε₀ : PreTilt 𝓞_ℂ_[p] p} (h : IsGenEps p ε₀) {w : Ainf p}
+    (hw : WittVector.fontaineTheta 𝓞_ℂ_[p] p w = 0)
+    (hgen : RingHom.ker (WittVector.fontaineTheta 𝓞_ℂ_[p] p) = Ideal.span {w})
+    (ρ : GQp p →* GL (Fin n) E') (hT : IsPstFBasis p h w hw ρ) : IsPstF p h w hw ρ := by
+  obtain ⟨K, hK, hadm⟩ := hT
+  refine ⟨K, hK, ?_⟩
+  rw [bstFOf_eq_xi p h hw hgen] at hadm ⊢
+  exact isAdmissible_of_pstF p h _ ρ hadm
+
+/-- On a model: the basis form implies the dimension form. -/
+theorem localIsPstF_of_basis {ε₀ : PreTilt 𝓞_ℂ_[p] p} (h : IsGenEps p ε₀) {w : Ainf p}
+    (hw : WittVector.fontaineTheta 𝓞_ℂ_[p] p w = 0)
+    (hgen : RingHom.ker (WittVector.fontaineTheta 𝓞_ℂ_[p] p) = Ideal.span {w}) (n : ℕ)
+    (ρ : GQp p →* GL (Fin n) (PadicAlgCl p)) (hT : LocalIsPstFBasis p h w hw n ρ) :
+    LocalIsPstF p h w hw n ρ := by
+  obtain ⟨E, hE, ρE, hmod, hpst⟩ := hT
+  exact ⟨E, hE, ρE, hmod, isPstF_of_basis p h hw hgen ρE hpst⟩
 
 end Stable
 
@@ -625,25 +694,26 @@ namespace PanDict
 
 open BmaxOne BergerBst PanBergerSplit FontaineSt
 
-/-- **R11. Berger's theorem in the printed form of Berger's survey**: every de Rham representation is potentially
-semistable, with Fontaine's `B_st` (L. Berger, *An introduction to the theory of p-adic representations*, in
-*Geometric aspects of Dwork theory* (de Gruyter 2004; volume data UNVERIFIED), arXiv:math/0210184v1, IV.5.1 p. 30
-(statement: "every de Rham representation is potentially semi-stable. We shall now give a proof of that
-statement") and IV.5.3 p. 31 (proof), citing Berger, Invent. Math. 148 (2002), whose Théorème 0.6
-(= Théorème 5.19 of arXiv:math/0102179v3) is the same theorem (Théorème 0.7 there is Sen's theorem): §1.2 p. 11 of
-arXiv:math/0102179v3 prints that Berger's `B_st` gives Fontaine's functor `D_st`, and §1
-p. 8 defines `B`-admissible as `B ⊗_{ℚ_p} V ≃ B^d` as `G`-modules, the basis form used here), at
-`K = ℚ_p`, for a `p`-adic representation `V = E^n` (`E/ℚ_p` finite inside `ℚ̄_p`, `ρ_E : G_{ℚ_p} → GL_n(E)`
-continuous):
+/-- **R11. Berger's theorem, with Fontaine's `B_st` and Fontaine's (dimension) form of admissibility**: every de
+Rham representation is potentially semistable (L. Berger, *Représentations p-adiques et équations différentielles*,
+Invent. Math. 148 (2002), cited in the manuscript at L739; Thm 0.6 = Thm 5.19 (arXiv v3, arXiv:math/0102179v3); the
+statement is read in Berger's survey *An introduction to the theory of p-adic representations*, arXiv:math/0210184v1,
+IV.5.1 p. 30, as the same theorem; the survey is not in the manuscript's bibliography), at `K = ℚ_p`, for a `p`-adic
+representation `V = E^n` (`E/ℚ_p` finite inside `ℚ̄_p`, `ρ_E : G_{ℚ_p} → GL_n(E)` continuous):
 
-* de Rham (II.2.3 p. 12): `dim_{ℚ_p} (B_dR ⊗_{ℚ_p} V)^{G_{ℚ_p}} = dim_{ℚ_p} V` (`IsDeRhamU`);
-* potentially semistable (II.5.2 p. 19): for some finite `K/ℚ_p`, `V|_{G_K}` is `B_st`-admissible (I.2.3 p. 6: "which
-  is equivalent to having `B ⊗_{ℚ_p} V ≃ B^d` as `B[G_K]`-modules"), with `B_st = B_cris[log [p̃]]` (II.3.3),
-  `B_cris = B_cris^+[1/t]` (II.3.1), `t = log [ε₀]` (II.2.3), `B_cris^+ = A_cris[1/p]`,
-  `A_cris = {Σ a_n ω^n/n!}` (II.3.1), `log [p̃] = −Σ (1 − [p̃]/p)^n/n` (`log_p(p) = 0`, II.3.3).
+* de Rham: `dim_{ℚ_p} (B_dR ⊗_{ℚ_p} V)^{G_{ℚ_p}} = dim_{ℚ_p} V` (`IsDeRhamU`; survey II.2.3 p. 12, Brinon-Conrad §5.2
+  with `B = B_dR`);
+* potentially semistable in Fontaine's sense (`IsPstF`): for some finite `K/ℚ_p`,
+  `dim_{B_st^{G_K}} (B_st ⊗_{ℚ_p} V)^{G_K} = dim_{ℚ_p} V`, the definitions at definition level in Brinon-Conrad
+  (preliminary version June 24, 2009; cited in the manuscript as `brinon-conrad`): admissibility §5.2 pp. 67-68
+  (dimension form), potentially semistable Thm 9.3.5 p. 148, `B_st` Def. 9.2.3 p. 138 embedded in `B_dR` p. 142 and
+  Thm 9.2.10 p. 143 (`BstFOf`, with `q̃ = p̃`, `log p = 0`), `B_cris = A_cris[1/t]` Def. 9.1.4 p. 131 (`BcrisOf`),
+  `A_cris` p. 129 (`AcrisOf`, `p`-adic topology). The survey's I.2.3 p. 6 defines admissibility by the same dimension
+  equality, so the conclusion is the printed one with no dimension-to-basis step.
 
-Stated for every generator `ε₀` of `ℤ_p(1)` and every generator `w` of `ker θ` (Berger's `ω` is one, II.2.2;
-`A_cris` does not depend on it, `acrisOf_eq`). -/
+Stated for every generator `ε₀` of `ℤ_p(1)` and every generator `w` of `ker θ` (`A_cris` does not depend on it,
+`acrisOf_eq`). (pb-dimform: restated from pb-p1's basis form, kept as `BergerSurveyFBasis`; `BergerSurveyFBasis`
+implies `BergerSurveyF`, `bergerSurveyF_of_basis`.) -/
 def BergerSurveyF : Prop :=
   ∀ (p : ℕ) [Fact p.Prime] (ε₀ : PreTilt 𝓞_ℂ_[p] p) (h : IsGenEps p ε₀) (w : Ainf p)
     (hw : WittVector.fontaineTheta 𝓞_ℂ_[p] p w = 0),
@@ -652,25 +722,44 @@ def BergerSurveyF : Prop :=
       (ρE : GQp p →* GL (Fin n) E),
       Continuous ρE → IsDeRhamU p ρE → IsPstF p h w hw ρE
 
-/-- pb-pst's `BergerPrintedVT` (the tree's `B_st`, basis form) from Berger's theorem over Fontaine's `B_st`
-(`B_st^{Fontaine} ⊆ B_st^{tree}`, `isPstT_of_F`; `ξ` generates `ker θ`). -/
-theorem bergerPrintedVT_of_survey (hB : BergerSurveyF) : BergerPrintedVT := by
+/-- pb-p1's `BergerSurveyF` (basis form of admissibility in the conclusion), kept for comparison: not used by the
+fold. -/
+def BergerSurveyFBasis : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (ε₀ : PreTilt 𝓞_ℂ_[p] p) (h : IsGenEps p ε₀) (w : Ainf p)
+    (hw : WittVector.fontaineTheta 𝓞_ℂ_[p] p w = 0),
+    RingHom.ker (WittVector.fontaineTheta 𝓞_ℂ_[p] p) = Ideal.span {w} →
+    ∀ (n : ℕ) (E : IntermediateField ℚ_[p] (PadicAlgCl p)) [FiniteDimensional ℚ_[p] E]
+      (ρE : GQp p →* GL (Fin n) E),
+      Continuous ρE → IsDeRhamU p ρE → IsPstFBasis p h w hw ρE
+
+/-- **The new (dimension-form) Berger leaf is a consequence of pb-p1's (basis-form) one.** -/
+theorem bergerSurveyF_of_basis (hB : BergerSurveyFBasis) : BergerSurveyF := by
+  intro p _ ε₀ h w hw hgen n E _ ρE hc hdr
+  exact isPstF_of_basis p h hw hgen ρE (hB p ε₀ h w hw hgen n E ρE hc hdr)
+
+/-- pb-pst's `BergerPrintedVT` (the tree's `B_st`, basis form) from pb-p1's basis-form Berger leaf
+(`B_st^{Fontaine} ⊆ B_st^{tree}`, `isPstT_of_FBasis`; `ξ` generates `ker θ`). Not available from the dimension-form
+`BergerSurveyF` without the regularity of `B_st`; not used by the fold. -/
+theorem bergerPrintedVT_of_surveyBasis (hB : BergerSurveyFBasis) : BergerPrintedVT := by
   intro p _ ε₀ h n E _ ρE hc hdr
-  exact isPstT_of_F p h (theta_xi' p) (ZInQ.Contrib.G9.BdrKer.Cp.ker_fontaineTheta_Cp p) ρE
+  exact isPstT_of_FBasis p h (theta_xi' p) (ZInQ.Contrib.G9.BdrKer.Cp.ker_fontaineTheta_Cp p) ρE
     (hB p ε₀ h _ (theta_xi' p) (ZInQ.Contrib.G9.BdrKer.Cp.ker_fontaineTheta_Cp p) n E ρE hc hdr)
 
-/-- **The current field `bergerPrintedV` from Berger's theorem over Fontaine's `B_st`.** -/
-theorem bergerPrintedV_of_survey (hB : BergerSurveyF) : BergerPrintedV :=
-  bergerPrintedV_of_T (bergerPrintedVT_of_survey hB)
+/-- The field `bergerPrintedV` from pb-p1's basis-form Berger leaf (not used by the fold). -/
+theorem bergerPrintedV_of_surveyBasis (hB : BergerSurveyFBasis) : BergerPrintedV :=
+  bergerPrintedV_of_T (bergerPrintedVT_of_surveyBasis hB)
 
 /-- **R12. Pan, Theorem 1.0.4, with potential semistability in the sense of Fontaine** (L. Pan, *The
-Fontaine–Mazur conjecture in the residually reducible case*, J. Amer. Math. Soc. 35 (2022), 1031-1169, Theorem
-1.0.4 = arXiv:1901.07166v2 Theorem 1.0.4 p. 5 with Conjecture 1.0.1 p. 2: "the restriction of ρ at the
-decomposition group at p is potentially semi-stable in the sense of Fontaine"; JAMS numbering UNVERIFIED), `p ≥ 5`:
-as pb-fix3's `PanPrintedP`, with "potentially semistable" over Fontaine's `B_st = B_cris[log [p̃]]` (Berger 2004
-II.3.3, `BstFOf`) on a model `V = E^n`, in the basis form (`B_st ⊗ V ≃ B_st^d` equivariantly, which implies Fontaine's
-dimension form `dim_{B_st^{G_K}} D_st = dim V`, `isAdmissible_of_pstF`, `B_st` being `G_{ℚ_p}`-stable, `bstF_stable`), for every generator `ε₀` of `ℤ_p(1)` and every
-generator `w` of `ker θ`. -/
+Fontaine–Mazur conjecture in the residually reducible case*, J. Amer. Math. Soc. 35 (2022), 1031-1169; cited in the
+manuscript at L756-757 as Theorem 1.0.4 of arXiv:1901.07166v2, "the version used here": Thm 1.0.4 p. 5 with
+Conjecture 1.0.1 p. 2, "the restriction of ρ at the decomposition group at p is potentially semi-stable in the sense of
+Fontaine"; JAMS numbering UNVERIFIED), `p ≥ 5`: as pb-fix3's `PanPrintedP`, with "potentially semistable in the sense
+of Fontaine" read at definition level in Brinon-Conrad (Thm 9.3.5 p. 148, admissibility in the dimension form §5.2
+pp. 67-68, `B_st` Def. 9.2.3 p. 138 inside `B_dR` p. 142 / Thm 9.2.10 p. 143, i.e. `BstFOf`): `LocalIsPstF`, on a
+model `V = E^n`, `dim_{B_st^{G_K}} (B_st ⊗ V)^{G_K} = dim V` for some finite `K/ℚ_p`; for every generator `ε₀` of
+`ℤ_p(1)` and every generator `w` of `ker θ`. The model clause is harmless: pst on one finite model is pst on every
+model (`localIsPstF_iff_forall`, pb-dimform `PstModel.lean`). (pb-dimform: restated from pb-p1's basis form, kept as
+`PanPrintedFBasis`; `PanPrintedF` implies `PanPrintedFBasis`, `panPrintedFBasis_of_F`.) -/
 def PanPrintedF : Prop :=
   ∀ (p : ℕ) [Fact p.Prime], 5 ≤ p → ∀ (ε₀ : PreTilt 𝓞_ℂ_[p] p) (h : IsGenEps p ε₀) (w : Ainf p)
     (hw : WittVector.fontaineTheta 𝓞_ℂ_[p] p w = 0),
@@ -681,6 +770,24 @@ def PanPrintedF : Prop :=
     ∃ (N : ℕ) (_ : NeZero N) (k : ℤ) (g : HeckeRing.GL2.EigenformAwayFromLevel N k)
       (ρg : GaloisRep p 2) (ψ : GaloisChar p),
       IsAttachedVia p ιp g ρg ∧ IsTwistOf p ρ ρg ψ
+
+/-- pb-p1's `PanPrintedF` (basis form of admissibility in the hypothesis), kept for comparison: not used by the
+fold. -/
+def PanPrintedFBasis : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime], 5 ≤ p → ∀ (ε₀ : PreTilt 𝓞_ℂ_[p] p) (h : IsGenEps p ε₀) (w : Ainf p)
+    (hw : WittVector.fontaineTheta 𝓞_ℂ_[p] p w = 0),
+    RingHom.ker (WittVector.fontaineTheta 𝓞_ℂ_[p] p) = Ideal.span {w} →
+    ∀ (ιp : PadicAlgCl p ≃+* ℂ) (ρ : GaloisRep p 2),
+    IsIrreducibleP ρ → ρ.FinitelyRamified → LocalIsPstFBasis p h w hw 2 (ρ.restrictLocal p) → ρ.IsOdd →
+    LocalDistinctHTP p (ρ.restrictLocal p) →
+    ∃ (N : ℕ) (_ : NeZero N) (k : ℤ) (g : HeckeRing.GL2.EigenformAwayFromLevel N k)
+      (ρg : GaloisRep p 2) (ψ : GaloisChar p),
+      IsAttachedVia p ιp g ρg ∧ IsTwistOf p ρ ρg ψ
+
+/-- **The new (dimension-form) Pan leaf implies pb-p1's (basis-form) one** (its hypothesis is weaker). -/
+theorem panPrintedFBasis_of_F (hP : PanPrintedF) : PanPrintedFBasis := by
+  intro p _ hp ε₀ h w hw hgen ιp ρ hirr hfr hpst hodd hht
+  exact hP p hp ε₀ h w hw hgen ιp ρ hirr hfr (localIsPstF_of_basis p h hw hgen 2 _ hpst) hodd hht
 
 /-- `PanPrintedB` (bst-construct's form, kernel eigenform conclusion) with Fontaine's pst at `ε₀`, `ξ`:
 `panPrintedB_of_printedP` verbatim with the potential-semistability hypothesis passed through. -/
@@ -761,12 +868,12 @@ theorem panBerger_of_F (hP : PanPrintedF) (hB : BergerSurveyF)
   rfl
 
 /-- **Not a leaf, and not used by the fold**: the comparison that would give the old field `panPrintedP` from
-`PanPrintedF`, namely that potential semistability over the tree's `B_st = B_max[log [p̃]]` in bst-construct's
-dimension form implies it over Fontaine's `B_cris[log [p̃]]` (basis form). It holds (Fontaine's `D_st` is computed by
-either ring: `φ(B_max^+) ⊆ B_cris^+ ⊆ B_max^+` and the regularity of `B_st`), but no print read here states it for
+`PanPrintedF`, namely that potential semistability over the tree's `B_st = B_max[log [p̃]]` (bst-construct's
+dimension form) implies it over Fontaine's `B_cris[log [p̃]]` (dimension form, pb-dimform). It holds (Fontaine's `D_st`
+is computed by either ring: `φ(B_max^+) ⊆ B_cris^+ ⊆ B_max^+`), but no print read here states it for
 `B_max[log [p̃]]`: Berger 2002 §1.2 p. 11 states it for his `B_max[log [π̄]]`, and Berger 2004 II.3.5 p. 16 for
-crystalline periods. Its proof needs Frobenius on `A_max` and `A_cris` and the regularity of `B_st`, which the
-tree lacks. Recorded so that the gap is explicit. -/
+crystalline periods. Its proof needs Frobenius on `A_max` and `A_cris`, which the tree lacks. Recorded so that the gap
+is explicit. -/
 def BmaxStToFontaine : Prop :=
   ∀ (p : ℕ) [Fact p.Prime] (ε₀ : PreTilt 𝓞_ℂ_[p] p) (h : IsGenEps p ε₀) (w : Ainf p)
     (hw : WittVector.fontaineTheta 𝓞_ℂ_[p] p w = 0),
