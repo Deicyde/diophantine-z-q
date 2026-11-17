@@ -1,0 +1,56 @@
+PkgI2.UnipSq in closure: true
+PkgI2.fixed_of_unipSq_of_iterate in closure: false
+PkgI2.D2_fixed_of_raynaud in closure: false
+HDec.PkgI2.quatUnipotentTrivial in closure: true
+HDec.PkgI2.QuatUnipotentTrivial in closure: true
+PkgI2.RaynaudCriterion in closure: false
+HDec.PkgI2.RaynaudCriterionNF in closure: true
+GapNeron.RaynaudCriterionNF in closure: true
+PkgI2.quatUnipotentTrivial in closure: false
+USER HDec.PkgI2.goodReduction_of_QM_rational3
+TYPE HDec.G0ModField.KernelField.kernelFieldExists_of_split_hf
+TYPE HDec.HSyn.OpenResearchLeaves2.mk
+TYPE HDec.HSyn.OpenResearchLeaves2.r6
+TYPE GapNeron.raynaudCriterion_leavesNF
+TYPE HDec.HSyn.raynaudCriterion_ofK5
+TYPE HDec.LTLocal.linkedTateLocalD_of_tateBridge35'
+TYPE HDec.G15Ram.raynaudPlace_of_R6
+TYPE HDec.LTLocal.linkedTateLocal_of_tateBridge35
+TYPE HDec.HSyn.OpenResearchLeaves9.mk
+TYPE HDec.HSyn.OpenResearchLeaves5.mk
+TYPE HDec.PkgI2.goodReduction_of_QM_rational3
+TYPE HDec.HSyn.sixContactMin_of_open18_hf
+TYPE HDec.PkgI2.goodReduction_of_QM_rational3_of_alg
+TYPE HDec.G15Ram.tateWildKE_of_descent
+TYPE HDec.HSyn.modelG3G6_of_leaves3
+TYPE HDec.HSyn.OpenResearchLeaves8.mk
+TYPE HDec.HSyn.sixContactMin_of_open17_hf
+TYPE HDec.HSyn.researchLeaves9_of_open14_hf
+TYPE HDec.G15Ram.torsFix_of_descent
+TYPE HDec.G0ModField.KernelField.kernelFieldExists_of_leaves_FS5_hf
+TYPE HDec.HSyn.OpenResearchLeaves7.r6
+TYPE HDec.G0ModField.KernelField.kernelFieldExists_of_split_hf'
+TYPE HDec.PkgI2.goodReduction_of_QM_rational3'
+TYPE HDec.LTLocal.localGlue_at
+TYPE HDec.HSyn.ResearchLeaves3.mk
+TYPE HDec.HSyn.raynaudCriterionNF_of14_hf
+TYPE GapNeron.raynaudCriterion_of_leavesNF
+TYPE HDec.G15Ram.torsFixWildE_of_twist
+TYPE HDec.HSyn.LinkedTate.qmModelG3_of
+TYPE HDec.G15Ram.localGlue_of_leaves
+TYPE HDec.LeafQM.AV.QML3.goodReduction
+TYPE HDec.G0ModField.KernelField.kernelFieldExists_of_pieces_hf
+TYPE HDec.HSyn.sixContactMin_of_open19_hf
+TYPE HDec.G15Ram.tateWildK_of_R6
+TYPE HDec.HSyn.OpenResearchLeaves9.r6
+TYPE HDec.G15Ram.torsFixWildOdd_of_descent
+TYPE HDec.HSyn.OpenResearchLeaves7.mk
+TYPE HDec.G0ModField.KernelField.kernelFieldExists_of_leaves_hf
+TYPE HDec.HSyn.linkedTateLocal_of_leaves3_hf
+TYPE HDec.G15Ram.localGlue_of_descent
+TYPE HDec.HSyn.OpenResearchLeaves8.r6
+TYPE HDec.LTLocal.linkedTateLocalD_of_tateBridge35
+TYPE HDec.G0ModField.KernelField.good_of_QML3
+TYPE HDec.HSyn.OpenResearchLeaves5.r6
+TYPE HDec.G0ModField.KernelField.kernelFieldExists_of_split_hf''
+constants whose type mentions UnipSq/RaynaudCriterionNF: 45
