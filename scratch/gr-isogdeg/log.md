@@ -14,3 +14,4 @@ Base: wip/gr-isogdeg at 73ac1620 (= wip/r3-residual), merged origin/main (ff558b
 - Ring.lean: `card_ringHom_le_rankAtStalk` (R domain, S finite, ψ₀ injective, p = ⊥): compiles (VERIFIED).
 - T0.lean: `Scheme.Hom.finrank` unfolds by `rfl` from a non-module file (body visible) (VERIFIED, after fixing
   the test statement).
+- Sch.lean: `card_points_le_finrank` (f finite, Y integral, y₀ : Spec Ω → Y onto the generic point: Ω-points of X over y₀ are finite, at most `f.finrank (genericPoint Y)`; ring lemma as hypothesis): compiles (VERIFIED).
