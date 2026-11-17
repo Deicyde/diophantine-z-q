@@ -1,0 +1,11 @@
+lake build ZInQKernel.Contrib.OneProof.PstModel (summary: built-module lines and final status; linter warnings of upstream files dropped)
+✔ [10663/10670] Built ZInQKernel.Contrib.OneProof.PanBerger (22s)
+✔ [10664/10670] Built ZInQKernel.Contrib.OneProof.PanBergerFix (6.7s)
+✔ [10665/10670] Built ZInQKernel.Contrib.OneProof.PanBergerPrinted (12s)
+✔ [10666/10670] Built ZInQKernel.Contrib.OneProof.BergerBst (51s)
+✔ [10667/10670] Built ZInQKernel.Contrib.OneProof.PanBergerDict (6.0s)
+✔ [10668/10670] Built ZInQKernel.Contrib.OneProof.PanBergerPst (17s)
+⚠ [10669/10670] Built ZInQKernel.Contrib.OneProof.PanBergerFontaine (13s)
+⚠ [10670/10670] Built ZInQKernel.Contrib.OneProof.PstModel (24s)
+Build completed successfully (10670 jobs).
+EXIT 0
