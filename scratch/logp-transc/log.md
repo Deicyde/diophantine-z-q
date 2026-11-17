@@ -14,3 +14,10 @@ Base: fork main 5500325f + merge origin/wip/htmult-model (36bbcafa) = 5074f66b.
 
 ## Lean
 - build1: lake build ZInQKernel.Contrib.OneProof.PanBergerFontaine (needed: oleans of the merged files absent).
+- build1: EXIT 0 (10669 jobs).
+- LogPTranscendence.lean: VERIFIED compiles (`lake env lean`, both the scratch copy and
+  ZInQKernel/Contrib/OneProof/LogPTranscendence.lean), no sorry, no warnings; 29 declarations, all
+  [propext, Classical.choice, Quot.sound] (scratch/logp-transc/axioms.txt, from LogPTranscendenceAxioms.lean).
+  Compile pitfalls: IsField.toField instance ops are not reducible-defeq to BdR's ring ops (NoZeroDivisors /
+  IsSimpleRing synth fail); use IsDomain via isField.isDomain and explicit inverses from IsField.mul_inv_cancel.
+  Sub on (↥B)[X] for a Subalgebra B times out in typeclass search: write P + C (-c) instead of P - C c.

@@ -28,6 +28,7 @@ The core `LogCore (B_max) (log [p̃])` itself is not proved: every proof known h
 noncomputable section
 
 set_option maxHeartbeats 1000000
+set_option linter.style.haveILetI false
 
 namespace HDec
 namespace PkgI4
@@ -106,8 +107,16 @@ theorem sigB_coe (B : Subalgebra ℚ_[p] (BdR p)) (hB : GStable p B) (σ : GQp p
     ((sigB p B hB σ x : B) : BdR p) = bdrAct p σ x := rfl
 
 theorem bdrAct_injective (σ : GQp p) : Function.Injective (bdrAct p σ) := by
-  letI : Field (BdR p) := (ZInQ.Contrib.G9.BdrKer.Cp.isField_BDeRham p).toField
-  exact (bdrAct p σ).injective
+  have hF := ZInQ.Contrib.G9.BdrKer.Cp.isField_BDeRham p
+  intro x y hxy
+  by_contra hne
+  obtain ⟨z, hz⟩ := hF.mul_inv_cancel (sub_ne_zero.mpr hne)
+  have hz' : (x - y) * (show BdR p from z) = 1 := hz
+  have h01 := congrArg (bdrAct p σ) hz'
+  rw [map_mul, map_sub, hxy, sub_self, zero_mul, map_one] at h01
+  have h0 : ∀ c : BdR p, c = 0 := fun c => by rw [← mul_one c, ← h01, mul_zero]
+  obtain ⟨a, b, hab⟩ := hF.exists_pair_ne
+  exact hab ((h0 a).trans (h0 b).symm)
 
 theorem sigB_injective (B : Subalgebra ℚ_[p] (BdR p)) (hB : GStable p B) (σ : GQp p) :
     Function.Injective (sigB p B hB σ) := by
@@ -144,12 +153,12 @@ theorem top_coeff_relation (B : Subalgebra ℚ_[p] (BdR p)) (hB : GStable p B) (
   have hmapd : (P.map s).natDegree = d := by
     rw [natDegree_map_eq_of_injective (sigB_injective p B hB σ)]
     exact hPd
-  set Q := C (s (P.coeff d)) * P - C (P.coeff d) * Pσ with hQ
+  set Q := C (s (P.coeff d)) * P + C (-P.coeff d) * Pσ with hQ
   have hQu : aeval u Q = 0 := by
-    rw [hQ, map_sub, map_mul, map_mul, hPu, hPσu, mul_zero, mul_zero, sub_zero]
+    rw [hQ, map_add, map_mul, map_mul, hPu, hPσu, mul_zero, mul_zero, add_zero]
   have hQd : ∀ N, d - 1 < N → Q.coeff N = 0 := by
     intro N hN
-    rw [hQ, coeff_sub, coeff_C_mul, coeff_C_mul]
+    rw [hQ, coeff_add, coeff_C_mul, coeff_C_mul]
     rcases (show N = d ∨ d < N by omega) with rfl | hN'
     · have h1 := coeff_taylor_natDegree (r := δ) (f := P.map s)
       rw [hmapd] at h1
@@ -165,9 +174,9 @@ theorem top_coeff_relation (B : Subalgebra ℚ_[p] (BdR p)) (hB : GStable p B) (
     have h2 : Q.natDegree ≤ d - 1 := natDegree_le_iff_coeff_eq_zero.mpr hQd
     omega
   have hc := congrArg (fun R => R.coeff (d - 1)) hQ0
-  simp only [hQ, coeff_sub, coeff_C_mul, coeff_zero] at hc
+  simp only [hQ, coeff_add, coeff_C_mul, coeff_zero] at hc
   rw [hPσ, coeff_taylor_pred (P.map s) δ hmapd hd0, coeff_map, coeff_map] at hc
-  exact sub_eq_zero.mp hc
+  linear_combination hc
 
 /-- **The Galois reduction.** If `B ⊆ B_dR` is `G_{ℚ_p}`-stable, `σ(u) − u ∈ B` for every `σ`, and
 `u ∉ Frac(B) + B_dR^{G_{ℚ_p}}` (`LogCore`), then `u` is transcendental over `B`.
@@ -182,7 +191,7 @@ theorem transcendental_of_logCore (B : Subalgebra ℚ_[p] (BdR p)) (hB : GStable
     (hu : ∀ σ : GQp p, ∃ δ : B, bdrAct p σ u = u + δ) (hcore : LogCore p B u) :
     Transcendental B u := by
   classical
-  letI : Field (BdR p) := (ZInQ.Contrib.G9.BdrKer.Cp.isField_BDeRham p).toField
+  haveI : IsDomain (BdR p) := (ZInQ.Contrib.G9.BdrKer.Cp.isField_BDeRham p).isDomain
   rintro ⟨P0, hP00, hP0u⟩
   have hex : ∃ d : ℕ, ∃ P : B[X], P ≠ 0 ∧ P.natDegree = d ∧ aeval u P = 0 :=
     ⟨_, P0, hP00, rfl, hP0u⟩
@@ -203,26 +212,32 @@ theorem transcendental_of_logCore (B : Subalgebra ℚ_[p] (BdR p)) (hB : GStable
   have haB : ((P.coeff d : B) : BdR p) ≠ 0 := fun h => ha0 (Subtype.ext h)
   have hdB : ((d : ℕ) : BdR p) ≠ 0 := by
     rw [← map_natCast (algebraMap ℚ_[p] (BdR p))]
-    exact (map_ne_zero _).mpr (Nat.cast_ne_zero.mpr hd0)
+    exact (_root_.map_ne_zero _).mpr (Nat.cast_ne_zero.mpr hd0)
   set a : BdR p := ((P.coeff d : B) : BdR p) with ha_def
   set b : BdR p := ((P.coeff (d - 1) : B) : BdR p) with hb_def
-  set y : BdR p := u + b / ((d : BdR p) * a) with hy_def
+  have hda : (d : BdR p) * a ≠ 0 := mul_ne_zero hdB haB
+  have hinv : ∃ e : BdR p, (d : BdR p) * a * e = 1 :=
+    (ZInQ.Contrib.G9.BdrKer.Cp.isField_BDeRham p).mul_inv_cancel hda
+  obtain ⟨e, he'⟩ := hinv
+  set y : BdR p := u + b * e with hy_def
   have hy : ∀ σ : GQp p, bdrAct p σ y = y := by
     intro σ
     obtain ⟨δ, hδ⟩ := hu σ
     have hr := congrArg (fun z : B => (z : BdR p))
       (top_coeff_relation p B hB u P hPd hd0 hPu hmin σ δ hδ)
-    simp only [Subalgebra.coe_mul, Subalgebra.coe_add, sigB_coe, Subalgebra.coe_natCast] at hr
-    have hsa : bdrAct p σ a ≠ 0 := (map_ne_zero _).mpr haB
-    rw [hy_def, map_add, map_div₀, map_mul, map_natCast, hδ]
-    rw [← ha_def, ← hb_def] at hr
-    field_simp
-    linear_combination (d : BdR p) * a * hr
+    simp only [Subalgebra.coe_mul, Subalgebra.coe_add, sigB_coe, SubringClass.coe_natCast] at hr
+    have hX := congrArg (bdrAct p σ) he'
+    rw [map_mul, map_mul, map_natCast, map_one] at hX
+    rw [hy_def, map_add, map_mul, hδ]
+    linear_combination (b * e - (δ : BdR p) * ((d : BdR p) * a) * e) * hX +
+      (-(δ : BdR p) - bdrAct p σ b * bdrAct p σ e) * he' +
+      (-(d : BdR p) * bdrAct p σ e * e) * hr
+  have hq : algebraMap ℚ_[p] (BdR p) ((d : ℚ_[p])⁻¹) * (d : BdR p) = 1 := by
+    rw [← map_natCast (algebraMap ℚ_[p] (BdR p)), ← map_mul,
+      inv_mul_cancel₀ (Nat.cast_ne_zero.mpr hd0), map_one]
   refine hcore (P.coeff d) (-(algebraMap ℚ_[p] B ((d : ℚ_[p])⁻¹) * P.coeff (d - 1))) ha0 y hy ?_
-  rw [Subalgebra.coe_neg, Subalgebra.coe_mul, Subalgebra.coe_algebraMap, ← hb_def, ← ha_def,
-    hy_def, map_inv₀, map_natCast]
-  field_simp
-  ring
+  show a * (u - (u + b * e)) = -(algebraMap ℚ_[p] (BdR p) ((d : ℚ_[p])⁻¹) * b)
+  linear_combination (-(algebraMap ℚ_[p] (BdR p) ((d : ℚ_[p])⁻¹)) * b) * he' + (a * b * e) * hq
 
 /-- **Converse.** If `B_dR^{G_{ℚ_p}} ⊆ B` and `u` is transcendental over `B`, then `LogCore B u`. -/
 theorem logCore_of_transcendental (B : Subalgebra ℚ_[p] (BdR p)) (u : BdR p)
@@ -230,15 +245,31 @@ theorem logCore_of_transcendental (B : Subalgebra ℚ_[p] (BdR p)) (u : BdR p)
     LogCore p B u := by
   intro a b ha y hy he
   apply ht
-  refine ⟨C a * X - C (b + a * ⟨y, hinv y hy⟩), ?_, ?_⟩
+  refine ⟨C a * X + C (-(b + a * ⟨y, hinv y hy⟩)), ?_, ?_⟩
   · intro h0
-    have := congrArg (fun R => R.coeff 1) h0
-    simp at this
-    exact ha this
-  · simp only [map_sub, map_mul, aeval_C, aeval_X, map_add]
-    change (a : BdR p) * u - ((b : BdR p) + a * y) = 0
+    have h1 := congrArg (fun R => R.coeff 1) h0
+    simp only [coeff_add, coeff_C_mul, coeff_X_one, mul_one, coeff_C, one_ne_zero, ite_false,
+      add_zero, coeff_zero] at h1
+    exact ha h1
+  · rw [map_add, map_mul, aeval_C, aeval_X, aeval_C]
+    change (a : BdR p) * u + -((b : BdR p) + a * y) = 0
     rw [← he]
     ring
+
+/-- **The core in its sharp form: `u ∉ Frac(B)`.** -/
+def NotInFrac (B : Subalgebra ℚ_[p] (BdR p)) (u : BdR p) : Prop :=
+  ∀ a b : B, a ≠ 0 → (a : BdR p) * u ≠ b
+
+/-- With `B_dR^{G_{ℚ_p}} = ℚ_p` (element form; Fontaine, proved in dimension form in the tree as
+`BdRInv.bdRInvariantsPrinted_proof`), `u ∉ Frac(B)` is the core. -/
+theorem logCore_of_notInFrac (B : Subalgebra ℚ_[p] (BdR p)) (u : BdR p)
+    (hinv : ∀ y : BdR p, (∀ σ : GQp p, bdrAct p σ y = y) → ∃ c : ℚ_[p], y = algebraMap ℚ_[p] (BdR p) c)
+    (h : NotInFrac p B u) : LogCore p B u := by
+  intro a b ha y hy he
+  obtain ⟨c, rfl⟩ := hinv y hy
+  apply h a (b + algebraMap ℚ_[p] B c * a) ha
+  rw [Subalgebra.coe_add, Subalgebra.coe_mul, Subalgebra.coe_algebraMap, ← he]
+  ring
 
 /-! ## §4. `log [p̃]`: the reduction over `B_max` and over `B_cris` -/
 
@@ -269,7 +300,7 @@ theorem logPTildeTranscendental_of_core
 theorem logCore_mono {B B' : Subalgebra ℚ_[p] (BdR p)} (hBB' : B ≤ B') {u : BdR p}
     (h : LogCore p B' u) : LogCore p B u := by
   intro a b ha y hy he
-  exact h ⟨a, hBB' a.2⟩ ⟨b, hBB' b.2⟩ (fun h0 => ha (Subtype.ext (congrArg Subtype.val h0))) y hy he
+  exact h ⟨a, hBB' a.2⟩ ⟨b, hBB' b.2⟩ (by intro h0; apply ha; rw [Subtype.ext_iff] at h0 ⊢; exact h0) y hy he
 
 /-- `B_cris` (at the generator `ξ`) is `G_{ℚ_p}`-stable. -/
 theorem bcris_gStable {ε₀ : PreTilt 𝓞_ℂ_[p] p} (h : IsGenEps p ε₀) :
