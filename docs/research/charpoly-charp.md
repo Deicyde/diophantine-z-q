@@ -37,7 +37,10 @@ unchecked. No network: every theorem number recalled from memory is UNVERIFIED.
    `t6`, `mumfordTorsionAlgClosed` through `t5`/`TateModuleFree`, `uniformizationLeafAll`, which TailZ44 already
    discharges by `uniformizationLeafAll_proof`). autofold cannot express it (the field is not proved; its readers are
    rerouted), so it is a manual fold: `scratch/charpoly-charp/fold_edit.py` (14 files under `OneProof/H/`, §4).
-   FOLD CHECK: see §5.
+   The fold compiles end to end (§5): `ZInQ.OneProof.frozenTarget` builds with `OpenTextbookLeaves13` lacking the
+   field, its closure (268,676 constants) contains no constant named `CharPolyIndepOfEll` or
+   `CharPolyIndepOfEllAlgClosed`, and its axioms are the standard three. Count: 37 → 36 H hypotheses, strict
+   16/21 → 15/21.
 
 So the task's step (1) succeeds; steps (2)–(3) are not needed and no new leaf is stated.
 
@@ -99,6 +102,26 @@ Also needed in the tree: degpoly-proof's `ZInQKernel/Contrib/OneProof/CharPolyLa
 `R16PrintedC`). Docs: remove the field's rows (kinds/claims, OPEN.md via render_open); Main's docstring is unchanged.
 Theorems that become unused (`t7_of_algClosed5`, `linkedTateData_of_local`, `r16_of_printed`) can stay.
 
-## 5. Fold check
+## 5. Fold check (VERIFIED)
 
-(filled in below after the compile)
+* Tree: a reflink copy of this worktree (`~/cc-foldtree`, outside the repository) with
+  `fold_edit.py --tree ~/cc-foldtree` applied; the resulting diff is `scratch/charpoly-charp/fold.patch` (14 files).
+* `lake build ZInQKernel.OneProof.Main` there: `Build completed successfully (14103 jobs)`; Main's own check prints
+  `'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]`
+  (`scratch/charpoly-charp/fold-build-tail.txt`).
+* `scratch/charpoly-charp/FoldCheck.lean` run in that tree (`foldcheck-output.txt`): "OpenTextbookLeaves13 has no
+  field charPolyIndepOfEllAlgClosed"; "closure size 268676; T7 / field constants in the closure: []"; the printed
+  structure has five fields (`mumfordTorsionAlgClosed`, `homFreeFiniteAlgClosed`, `poincareComplement`,
+  `gagaMorphism`, `neronSchemeExtensionExists`); axioms standard. FoldCheck is written for the folded tree: against
+  the unfolded tree its `run_cmd` fails by design.
+* `#discharges` on this branch (`scratch/charpoly-charp/discharges-output.txt`, with both new modules imported): 45
+  open hypotheses, 6730 theorems checked; the new modules discharge no field directly (expected: the field is
+  removed by rerouting its readers, not by a proof of its statement), and nothing in them uses `sorry`.
+* Not run: the repository's hash guard, `render_open`, docs/kinds/claims updates (integrator steps).
+
+## 6. Leaves
+
+No new leaf. The inputs of the reroute are the open fields `homFreeFiniteAlgClosed` (Mumford §19 Thm 3, already
+a field, through `t6_of_algClosed5`), `mumfordTorsionAlgClosed` (through `TateModuleFree`) and the proved
+`uniformizationLeafAll_proof`. degpoly-proof's count-neutral discharges (`CharPolyIndepOfEllAlgClosedNoEmb`,
+`DegHomogPolyNoEmb`) are superseded: with this fold neither the field nor any narrowing of it is needed.
