@@ -240,4 +240,114 @@ theorem tyzThm33AdelicSome_of_curveSome (h : H33D1.TYZThm33CurveSome) : TYZThm33
 theorem tyzThm33AdelicSome_iff : TYZThm33AdelicSome ↔ H33D1.TYZThm33CurveSome :=
   ⟨tyzThm33CurveSome_of_adelic, tyzThm33AdelicSome_of_curveSome⟩
 
+/-! ## §4. G7: TYZ's model `2y² = x³ + x` and the kernel's `y² = x³ + 4x` -/
+
+/-- **TYZ's `A : 2y² = x³ + x`** (Period7.tex L1172), its points over `ℚ̄`: the point `O` at infinity
+or an affine solution. -/
+inductive TYZPt where
+  | zero : TYZPt
+  | some (x y : Qbar) (h : 2 * y ^ 2 = x ^ 3 + x) : TYZPt
+
+theorem curveAbar_Δ : curveAbar.Δ = -4096 := by
+  simp only [WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄, WeierstrassCurve.b₆,
+    WeierstrassCurve.b₈, curveAbar_a₁, curveAbar_a₂, curveAbar_a₃, curveAbar_a₄, curveAbar_a₆]
+  norm_num
+
+theorem curveAbar_nonsingular_iff {X Y : Qbar} :
+    curveAbar.toAffine.Nonsingular X Y ↔ Y ^ 2 = X ^ 3 + 4 * X := by
+  rw [← WeierstrassCurve.Affine.equation_iff_nonsingular_of_Δ_ne_zero
+    (by rw [curveAbar_Δ]; norm_num), WeierstrassCurve.Affine.equation_iff']
+  simp only [curveAbar_a₁, curveAbar_a₂, curveAbar_a₃, curveAbar_a₄, curveAbar_a₆]
+  constructor <;> intro h <;> linear_combination h
+
+theorem tyz_nonsingular {x y : Qbar} (h : 2 * y ^ 2 = x ^ 3 + x) :
+    curveAbar.toAffine.Nonsingular (2 * x) (4 * y) :=
+  curveAbar_nonsingular_iff.mpr (by linear_combination 8 * h)
+
+theorem tyz_of_nonsingular {X Y : Qbar} (h : curveAbar.toAffine.Nonsingular X Y) :
+    2 * (Y / 4) ^ 2 = (X / 2) ^ 3 + X / 2 := by
+  have := curveAbar_nonsingular_iff.mp h
+  linear_combination (1 / 8 : Qbar) * this
+
+/-- **G7: the model change `(x, y) ↦ (2x, 4y)`, `O ↦ O`**, from TYZ's `2y² = x³ + x` to the kernel's
+`A : y² = x³ + 4x` (`8(2y² − x³ − x) = (4y)² − (2x)³ − 4·2x`). -/
+def tyzToA : TYZPt → PtA
+  | .zero => .zero
+  | .some x y h => .some (2 * x) (4 * y) (tyz_nonsingular h)
+
+/-- The inverse `(X, Y) ↦ (X/2, Y/4)`. -/
+def aToTyz : PtA → TYZPt
+  | .zero => .zero
+  | .some X Y h => .some (X / 2) (Y / 4) (tyz_of_nonsingular h)
+
+/-- **The model change is a bijection `A_TYZ(ℚ̄) ≃ A(ℚ̄)`.** -/
+def tyzEquiv : TYZPt ≃ PtA where
+  toFun := tyzToA
+  invFun := aToTyz
+  left_inv P := by
+    cases P with
+    | zero => rfl
+    | some x y h =>
+      show TYZPt.some (2 * x / 2) (4 * y / 4) _ = TYZPt.some x y h
+      congr 1 <;> ring
+  right_inv P := by
+    cases P with
+    | zero => rfl
+    | some X Y h =>
+      show WeierstrassCurve.Affine.Point.some (2 * (X / 2)) (4 * (Y / 4)) _ = .some X Y h
+      congr 1 <;> ring
+
+/-- TYZ's `[i] : (x, y) ↦ (−x, iy)` on `2y² = x³ + x` (the same `i = iQ` as the kernel's `iPt`). -/
+def iTYZ : TYZPt → TYZPt
+  | .zero => .zero
+  | .some x y h => .some (-x) (iQ * y) (by linear_combination y ^ 2 * 2 * iQ_sq - h)
+
+/-- **The model change commutes with `[i]`.** -/
+theorem tyzToA_iTYZ (P : TYZPt) : tyzToA (iTYZ P) = iPt (tyzToA P) := by
+  cases P with
+  | zero => rfl
+  | some x y h =>
+    show WeierstrassCurve.Affine.Point.some (2 * -x) (4 * (iQ * y)) _ =
+      .some (-(2 * x)) (iQ * (4 * y)) _
+    congr 1 <;> ring
+
+/-- TYZ's `−(x, y) = (x, −y)`. -/
+def negTYZ : TYZPt → TYZPt
+  | .zero => .zero
+  | .some x y h => .some x (-y) (by linear_combination h)
+
+/-- **The model change commutes with negation.** -/
+theorem tyzToA_neg (P : TYZPt) : tyzToA (negTYZ P) = -tyzToA P := by
+  cases P with
+  | zero => rfl
+  | some x y h =>
+    show WeierstrassCurve.Affine.Point.some (2 * x) (4 * -y) _ = -(.some (2 * x) (4 * y) _)
+    rw [WeierstrassCurve.Affine.Point.neg_some]
+    congr 1
+    have h1 : curveAbar.a₁ = 0 := curveAbar_a₁
+    have h3 : curveAbar.a₃ = 0 := curveAbar_a₃
+    simp only [WeierstrassCurve.Affine.negY]
+    simp only [curveAbar, WeierstrassCurve.baseChange, WeierstrassCurve.map_a₁,
+      WeierstrassCurve.map_a₃] at h1 h3 ⊢
+    rw [h1, h3]; ring
+
+/-- **The model change maps lines to lines** (so the chord-and-tangent laws with origin `O`
+correspond): three affine points are collinear iff their images are. -/
+theorem collinear_tyzToA (x₁ y₁ x₂ y₂ x₃ y₃ : Qbar) :
+    (2 * x₂ - 2 * x₁) * (4 * y₃ - 4 * y₁) = (2 * x₃ - 2 * x₁) * (4 * y₂ - 4 * y₁) ↔
+      (x₂ - x₁) * (y₃ - y₁) = (x₃ - x₁) * (y₂ - y₁) := by
+  constructor
+  · intro h
+    have h8 : (8 : Qbar) * ((x₂ - x₁) * (y₃ - y₁) - (x₃ - x₁) * (y₂ - y₁)) = 0 := by
+      linear_combination h
+    have := (mul_eq_zero.mp h8).resolve_left (by norm_num)
+    linear_combination this
+  · intro h; linear_combination 8 * h
+
+/-- Vertical lines (the lines through `O`) correspond. -/
+theorem vertical_tyzToA (x₁ x₂ : Qbar) : 2 * x₁ = 2 * x₂ ↔ x₁ = x₂ := by
+  constructor
+  · intro h; have := congrArg (· / 2) h; simpa using this
+  · intro h; rw [h]
+
 end ZInQ.H33G5

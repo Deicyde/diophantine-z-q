@@ -10,3 +10,4 @@
 - Gamma0QExp: `jf_smul` (SL2(Z)-invariance of j), `jN_smul_of_mem` (Gamma0(N)-invariance of j(N.)) (VERIFIED, read).
 - 03:40 VERIFIED (compiled): AdelicX0/StrongApprox.lean: det_U0, sl2_reduction_surjective, lattice_basis(_pos), exists_GLpos_mul_GLZhat, exists_SL2Z_mul, strong_approx (GL2(A_f) = GL2(Q)^+ U0(N), N≠0).
 - 03:55 VERIFIED (compiled): Sh U (quotient type), shMap, toSh_eq_toSh_iff, toSh_surjective, gamma0OrbitsEquiv (bijection Γ0(N)\H ≃ GL2(Q)+\(H×GL2(A_f)/U0(N))).
+- 05:00 VERIFIED (compiled): CMPoints (UTYZ subgroup, fixed_tyzEmb5_iff/7, tyzP5_eq/7, f0_tyzP5/7), TYZThm33Adelic (TYZThm33AdelicSome, tyzThm33CurveSome_of_adelic, tyzThm33_of_adelic, isPointAt_smul_iff, isShPointAt_toSh_iff, isShPointAt_iff_exists, tyzThm33AdelicSome_iff). Docstring TYZThm33Alg.lean:65 constant 16 -> 8 (task-authorized edit).
