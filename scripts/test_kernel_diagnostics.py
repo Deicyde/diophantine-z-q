@@ -10,7 +10,7 @@ import time
 import unittest
 
 from check_kernel import run
-from kernel_diagnostics import AuditDiagnostics, snapshot
+from kernel_diagnostics import AuditDiagnostics, snapshot, swap_record, record_swap
 
 
 class DiagnosticsTests(unittest.TestCase):
@@ -68,6 +68,56 @@ class DiagnosticsTests(unittest.TestCase):
             run([sys.executable, "-c", "print('done')"], output, "kernel-audit",
                 cwd=output, audit_metrics=True)
             self.assertEqual(json.loads((output / "kernel-audit-timing.json").read_text())["exit_code"], 0)
+
+    def test_build_phases_have_separate_resource_files(self):
+        with tempfile.TemporaryDirectory() as tmp, redirect_stdout(io.StringIO()) as captured:
+            output = Path(tmp)
+            for name in ("root-build", "modules-0"):
+                with AuditDiagnostics(os.getpid(), output, name=name):
+                    pass
+                samples = [json.loads(line) for line in (output / (name + "-memory.jsonl")).read_text().splitlines()]
+                self.assertTrue(samples[-1]["final"])
+                self.assertIn(f"[{name} resources]", captured.getvalue())
+            self.assertFalse((output / "kernel-audit-memory.jsonl").exists())
+
+    def test_swap_capacity_and_additional_file_are_verified(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            proc = Path(tmp)
+            (proc / "swaps").write_text("Filename Type Size Used Priority\n/new file 8388604 0 -2\n")
+            result = swap_record(proc, "/new", allocation="added", page_size=4096)
+            self.assertTrue(result["verified"])
+            self.assertTrue(result["additional_verified"])
+            self.assertEqual(result["active_total_bytes"], 8 * 1024**3 - 4096)
+            self.assertFalse(swap_record(proc, "/missing", page_size=4096)["verified"])
+            (proc / "swaps").write_text("Filename Type Size Used Priority\n/new file 100 0 -2\n")
+            self.assertFalse(swap_record(proc, "/new", page_size=4096)["verified"])
+
+    def test_low_disk_retains_and_reports_existing_swap(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            proc = Path(tmp)
+            (proc / "swaps").write_text("Filename Type Size Used Priority\n/old file 3145728 20 -2\n")
+            result = swap_record(proc, allocation="skipped-low-disk")
+            self.assertTrue(result["verified"])
+            self.assertFalse(result["additional_verified"])
+            self.assertEqual(result["active_total_bytes"], 3 * 1024**3)
+            self.assertEqual(result["allocation"], "skipped-low-disk")
+
+    def test_missing_swap_fails_after_record_is_written(self):
+        with tempfile.TemporaryDirectory() as tmp, redirect_stdout(io.StringIO()):
+            proc = Path(tmp)
+            (proc / "swaps").write_text("Filename Type Size Used Priority\n")
+            output = proc / "result.json"
+            with self.assertRaisesRegex(RuntimeError, "No active swap"):
+                record_swap(output, proc, proc=proc)
+            self.assertFalse(json.loads(output.read_text())["verified"])
+
+    def test_unreadable_swap_fails_with_a_record(self):
+        with tempfile.TemporaryDirectory() as tmp, redirect_stdout(io.StringIO()):
+            proc = Path(tmp)
+            output = proc / "result.json"
+            with self.assertRaises(RuntimeError):
+                record_swap(output, proc, proc=proc)
+            self.assertFalse(json.loads(output.read_text())["verified"])
 
 
 if __name__ == "__main__":
