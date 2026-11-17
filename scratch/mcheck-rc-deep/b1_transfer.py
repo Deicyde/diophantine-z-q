@@ -1,4 +1,4 @@
-"""mcheck-rc-deep, block 1: the twisted Shapiro/transfer cochain map (H21) and its degree-n form (tex L3220-3240).
+"""mcheck-rc-deep, block 1: the twisted Shapiro/transfer cochain map (H21) and its degree-n form (tex L3219-3250).
 
 Finite model: G = GL2(Z/8), N = SL2(Z/8) (normal, G/N = (Z/8)^x abelian, playing Delta_f),
 M = (Z/8)^2 with the natural action rho, theta = det : G -> (Z/8)^x (a character trivial on N),

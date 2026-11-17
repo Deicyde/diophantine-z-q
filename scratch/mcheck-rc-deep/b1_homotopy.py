@@ -1,5 +1,5 @@
 """mcheck-rc-deep, block 1: the transferred-homotopy identities in "The local diagrams underlying the
-coefficient push" (tex L3326-3345) and the witness transport in paragraph 8 (L3395-3399).
+coefficient push" (tex L3337-3358, identity at L3354) and the witness transport in paragraph 8 (L3393-3400).
 
 Random model over F_p (p = 10007): four complexes X_0..X_3, each U_k (+) contractible part, conjugated by a
 random graded automorphism, with contraction (i_k, p_k, h_k): p i = 1, 1 - i p = d h + h d.
