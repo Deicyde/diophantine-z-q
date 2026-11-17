@@ -1,0 +1,36 @@
+{
+  "source": "Gemini 4 Carbon package 20261117-0035, explicit247",
+  "credit": "Gemini 4 Carbon and José Brox; retained 195 construction by José Brox from the Conant parent.",
+  "files": [
+    {
+      "path": "inputs/carbon/certificates/v20-normalization244-certificate.json",
+      "bytes": 27903,
+      "sha256": "b4aa976f3c17b726a2cc68cea2d9d8d41da20d883357c34ae3aaf8b0049d4743"
+    },
+    {
+      "path": "inputs/carbon/tables/family244/unbalanced244-quadratic.json",
+      "bytes": 220139,
+      "sha256": "dad70be3864cbfb52d5c1fb7239cecb17296c65ebd80735218c5db94b9e3e6f7"
+    },
+    {
+      "path": "inputs/carbon/tables/family244/normalized244-quadratic.json",
+      "bytes": 223151,
+      "sha256": "8b8365da31da359c5a7bd73e724345dc51419181514a3592dac21ae528ce9925"
+    },
+    {
+      "path": "inputs/carbon/tables/explicit247/explicit247-quadratic.json",
+      "bytes": 236161,
+      "sha256": "1a2189e8692a00e9dbd3eb021ac3b95c7cc8df658dec8cb626a8672810c36281"
+    },
+    {
+      "path": "inputs/carbon/tables/explicit247/quartic247-decimal.json",
+      "bytes": 515246,
+      "sha256": "acfdc39c8536fff8b728a9843d4beb2e60a867945c8ad7a276d3589f8cd5c200"
+    },
+    {
+      "path": "inputs/carbon/tables/explicit247/quartic247-decimal.txt",
+      "bytes": 96712,
+      "sha256": "455afb0b7143654119db3a68a85fec2fde566cf7fbdf3f7c84bd5d75b32719b9"
+    }
+  ]
+}

@@ -1,11 +1,14 @@
 # Manuscripts
 
-The current manuscript is **Version 19**, dated November 16, 2026:
+The current manuscript is **Version 20**, dated November 17, 2026:
 
-- [PDF: quartic_v19.pdf](quartic_v19.pdf)
-- [TeX: quartic_v19.tex](quartic_v19.tex)
-- [Source inventory and review scope](../research/version19/README.md)
-- [Cumulative research handoff](../research/version19/CUMULATIVE-HANDOFF.md)
+- [PDF: quartic_v20.pdf](quartic_v20.pdf)
+- [TeX: quartic_v20.tex](quartic_v20.tex)
+- [Source inventory and review scope](../research/version20/README.md)
+- [Cumulative research handoff](../research/version20/CUMULATIVE-HANDOFF.md)
+
+The [Version 19 PDF](quartic_v19.pdf), [TeX](quartic_v19.tex) and
+[research guide](../research/version19/README.md) remain unchanged.
 
 The [Version 18 PDF](quartic_v18.pdf), [TeX](quartic_v18.tex) and
 [research guide](../research/version18/README.md) remain unchanged.

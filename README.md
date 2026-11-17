@@ -4,31 +4,40 @@ New here? [Start here: status and how to contribute](https://github.com/elliotgl
 
 ## Contributors and citation
 
-This project uses the collective agentic notes from Stefan Baranczuk, Jose Brox, Gabe Conant, Sohail Farhangi, Cameron Freer, James Freitag, Elliot Glazer, Jennifer Park, and Caroline Terry.
+This project uses the collective agentic notes from Stefan Baranczuk, Jose Brox, Gabe Conant, Sohail Farhangi, Cameron Freer, James Freitag, Elliot Glazer, and Caroline Terry.
 
 See also [Jose Brox's repository](https://github.com/JoseBrox/diophantine-z-q_improvements) for updated results and related work.
 
 Cite this work as "ℤℚ Diophantine Project contributors. ℤ _is Diophantine in_ ℚ. 2026. https://github.com/elliotglazer/diophantine-z-q"  
 
-## Version 19
+## Version 20
 
-[Read the manuscript](manuscripts/quartic_v19.pdf) or [open the TeX source](manuscripts/quartic_v19.tex).
-This edition gives José Brox's 195-variable quartic family and Gemini Carbon's
-explicit 250-variable quartic, built from Brox's construction. Their full
-arithmetic arguments, coordinate transformations and quadratic tables are in
-the manuscript. Counts include the input.
+[Read the manuscript](manuscripts/quartic_v20.pdf) or [open the TeX source](manuscripts/quartic_v20.tex).
+Version 20 gives Gemini 4 Carbon's explicit 247-variable quartic, built on
+José Brox's construction. It retains the 195-variable quartic with Busy Beaver
+coefficients. Both counts include the rational input.
 
-The 195-variable polynomial has 2,956 nonzero monomials and coefficients
-specified as integer polynomials in `C = 149^BB(2^1000)`, all below
-`BB(2^2000)` in absolute value under the stated machine convention.
-The explicit 250-variable polynomial has 3,362 nonzero monomials and
-coefficients below `2^6483`. Written in [plain algebraic notation](research/version19/construction/plain-text/quartic250-decimal.txt)
-with every coefficient in decimal, it occupies 85,737 bytes.
+The explicit polynomial has 3,385 nonzero monomials and coefficients below
+`2^73780`. Written in [plain algebraic notation](research/version20/construction/inputs/carbon/tables/explicit247/quartic247-decimal.txt)
+with every coefficient in decimal, it occupies 96,712 bytes. The 195-variable
+polynomial has 2,956 nonzero monomials and coefficients presented in terms of
+`C = 149^BB(2^1000)`, all below `BB(2^2000)` in absolute value under the
+manuscript's stated machine convention.
 
-See the [release guide](research/version19/README.md),
-[artifact index](research/version19/ARTIFACT-INDEX.md),
-[source and consumer map](research/version19/DEPENDENCIES.md), and
-[cumulative handoff](research/version19/CUMULATIVE-HANDOFF.md).
+See the [release guide](research/version20/README.md),
+[artifact index](research/version20/ARTIFACT-INDEX.md),
+[source and consumer map](research/version20/DEPENDENCIES.md),
+[Version 19 corrections](research/version20/CORRECTIONS.md), and
+[cumulative handoff](research/version20/CUMULATIVE-HANDOFF.md).
+
+## Version 19 history
+
+[Version 19](manuscripts/quartic_v19.pdf) contains the same 195-variable
+polynomial and the explicit 250-variable construction, whose smaller
+coefficients are below `2^6483` and whose plain expression is 85,737 bytes.
+The 250 remains in Version 20 as an intermediate result. The
+[Version 19 release and Known corrections](https://github.com/elliotglazer/diophantine-z-q/releases/tag/quartic-195-version-19)
+remain available; its released files are unchanged.
 
 ## Version 18 history
 

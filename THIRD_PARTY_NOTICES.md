@@ -9,6 +9,15 @@ Project licensing applies only to original project material. It does not relicen
 - Jonas Bayer, Marco David, Benedikt Stock, Abhik Pal, Yuri Matiyasevich, and Dierk Schleicher, [*Diophantine Equations and the DPRM Theorem*](https://isa-afp.org/entries/DPRM_Theorem.html), Archive of Formal Proofs, June 6, 2022. The entry is distributed under the BSD license linked on its page. The alpha-sequence and exponentiation constructions are credited in the relevant project sources. The curated construction directory does not vendor the Isabelle development.
 - Other mathematical sources for [Version 3](manuscripts/archive/quartic_9625.pdf) are identified in its bibliography and [dependency evidence](docs/quartic-9625/README.md). The October 11 manuscript has its own bibliography. Historical review reports preserve their particular citations and scope.
 
+## Version 20 construction sources
+
+Gemini 4 Carbon supplied the explicit247 data and normalization certificate,
+building on José Brox's construction. The [selected input inventory](research/version20/construction/INPUTS.json)
+preserves their original bytes. The unbalanced 244-coordinate input is identical
+to the retained Version 19 input; its upstream provenance and notices remain
+in that release. See the [Version 20 construction notice](research/version20/construction/NOTICE.md)
+for the distinction between supplied data and independently written checkers.
+
 ## Version 19 construction sources
 
 The selected Brox sources are preserved at commit
@@ -17,7 +26,7 @@ The selected Brox sources are preserved at commit
 Their [input inventory](research/version19/construction/INPUTS.json) records the
 original bytes. The [pinned upstream license](research/version19/construction/inputs/jose/LICENSE)
 is Creative Commons Attribution 4.0 International. The explicit 250-coordinate
-data were supplied by Gemini Carbon, building on Brox's construction. See the
+data were supplied by Gemini 4 Carbon, building on Brox's construction. See the
 [construction notices](research/version19/construction/NOTICE.md) for attribution
 and the distinction between upstream data and the independent checkers.
 

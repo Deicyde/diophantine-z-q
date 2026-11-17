@@ -9,7 +9,7 @@ python -B scripts/check_current_manuscript.py
 python -B scripts/build_paper.py
 ```
 
-The current profile selects Version 19. Its committed PDF was built by the recorded serial pdfLaTeX procedure in `research/version18/build_pdf.py`; [BUILD.json](../research/version19/BUILD.json) records its actual engine, consumed inputs, source and PDF hashes. The pinned Tectonic run below is an additional rebuild with a different engine, not a claim of identical PDF bytes.
+The current profile selects Version 20. Its committed PDF was built by the recorded serial pdfLaTeX procedure in `research/version18/build_pdf.py`; [BUILD.json](../research/version20/BUILD.json) records its actual engine, consumed inputs, source and PDF hashes. The pinned Tectonic run below is an additional rebuild with a different engine, not a claim of identical PDF bytes.
 
 The first command checks the required files and their bindings. The second validates the profile and rebuilds its current TeX with the pinned Tectonic engine and bundle, writing the generated PDF, logs and report under `build/paper/current/`. It does not replace the committed PDF or silently build a historical edition.
 
