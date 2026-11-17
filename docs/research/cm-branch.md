@@ -225,10 +225,12 @@ All the files compiled (`lake env lean`) and built (`lake build`) on the base wi
 TailZ79 (`scratch/cm-branch/build4.log`; first on TailZ74, `build2.log`). Axioms (`scratch/cm-branch/Axioms.lean`,
 `Axioms2.lean`, `FieldUse2.lean`): `propext`, `Classical.choice`, `Quot.sound` for every main theorem,
 including `sixContactMin_of_open72_cm` and `sixContactMin_of_open72_cm_no5`. The fold dry runs are `Top.lean` and `No5E.lean` (the autofold script cannot
-express a re-route: no field is discharged by these theorems). `#discharges` (with `Main`, `Discharges`,
-`CMBranch` and `CMBranch.Top` imported; `scratch/cm-branch/discharges.txt`): "36 open hypotheses, 15863
-theorems checked, 19 discharge one", none of them a cm-branch theorem — as expected, since this
-contribution re-routes and proves no top field. The top-field scan of §1 is the relevant check.
+express a re-route: no field is discharged by these theorems). `#discharges` (merged base, with `Main`, `Discharges`, `CMBranch`,
+`CMBranch.Top` and `CMBranch.No5E` imported; `scratch/cm-branch/discharges.txt`): "34 open hypotheses, 17111
+theorems checked, 139 discharge one". 19 are the base's own entries (none a cm-branch theorem); the other
+120 are projections of the copied bundle structures `…_no5` ("still assumes: [the copied bundle]"), which is
+noise from copied structures, not a discharge. As expected: this contribution re-routes and proves no top
+field. The top-field scan of §1 is the relevant check.
 
 ## 8. Known issues
 
