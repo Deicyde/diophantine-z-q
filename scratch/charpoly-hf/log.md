@@ -66,3 +66,8 @@
   (constants referenced by name).
 - Blueprint targets (BlueprintNames.lean, bp_names.txt = 2531 `lean:` names): 117 not in Main's environment in
   both trees, outputs identical (bpnames_base.txt = bpnames_fold.txt): the fold deletes no blueprint target.
+- Composition with fold33-combine (origin/wip/fold33-combine 0e516baa, not yet in leaf-fold33b), VERIFIED:
+  reflink copy ~/chf-combinetree of ~/dzq-wt/fold33-combine (without .git) + the four new Contrib modules +
+  `fold_edit.py` (renames the field also in its TailZ49 / OpenTextbookLeaves16): `lake build ZInQKernel.OneProof.Main`
+  OK (14178 jobs), frozenTarget standard axioms; FoldCheck (foldcheck_combine_out.txt): closure 270,455, no banned
+  constant. Text-level dry run of fold_edit.py on that branch's files: OK.

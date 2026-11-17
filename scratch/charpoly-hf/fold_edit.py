@@ -19,6 +19,8 @@ Edits (every match is asserted):
   - openResearchLeaves21_of_OpenResearchLeaves22_hf: `r16_of_printed n.r16CoreY t.mumfordTorsionAlgClosed
     t.charPolyIndepOfEllAlgClosed` -> `r16_of_printedC n.r16CoreY uniformizationLeafAll_proof t.mumfordTorsionAlgClosed`.
 * ZInQKernel/OneProof/H/TailZ48.lean: OpenTextbookLeaves15's field and its pass-through renamed/retyped the same way.
+* Optional: a later generation `TailZ*.lean` above TailZ48 (mentions `OpenTextbookLeaves15`) carrying the field, e.g.
+  fold33-combine's TailZ49 (`OpenTextbookLeaves16`): the field and its pass-through renamed the same way.
 
 The original OpenTextbookLeaves13 (named by the blueprint) and every other existing declaration name are kept.
 Usage: python3 fold_edit.py --tree <repo root>
@@ -94,4 +96,20 @@ s = sub(s, '/-- `OpenTextbookLeaves14` without `homFreeFiniteAlgClosed` (leaf-fo
         'in characteristic `p`; charpoly-hf). -/\n', 1)
 assert 'charPolyIndepOfEllAlgClosed :' not in s
 p.write_text(s)
+
+# --- optional: a later generation on top of TailZ48 (fold33-combine's TailZ49, OpenTextbookLeaves16) --------------
+for p in sorted((root / 'ZInQKernel/OneProof/H').glob('TailZ*.lean')):
+    if p.name in ('TailZ48.lean',):
+        continue
+    s = p.read_text()
+    if 'charPolyIndepOfEllAlgClosed : _root_.ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed' not in s:
+        continue
+    if 'OpenTextbookLeaves15' not in s:  # generations below TailZ48 are off the route: left unchanged
+        continue
+    s = sub(s, '  charPolyIndepOfEllAlgClosed : _root_.ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed\n',
+            f'  homFreeFiniteAlgClosedCharP : {NEWT}\n', 1)
+    s = sub(s, '  charPolyIndepOfEllAlgClosed := n.charPolyIndepOfEllAlgClosed\n',
+            '  homFreeFiniteAlgClosedCharP := n.homFreeFiniteAlgClosedCharP\n', 1)
+    p.write_text(s)
+    print(f'fold_edit: also renamed the field in {p.name}')
 print('fold_edit: OK')

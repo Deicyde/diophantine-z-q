@@ -1,0 +1,8 @@
+OpenTextbookLeaves15: no field charPolyIndepOfEllAlgClosed; field homFreeFiniteAlgClosedCharP present
+blueprint target HDec.HSyn.OpenTextbookLeaves13.charPolyIndepOfEllAlgClosed still exists
+closure size 270455; banned constants in the closure: []; T7-named constants: []
+present in the closure: [ZInQ.Contrib.OneProof.CharpolyHF.HomFreeFiniteAlgClosedCharP, ZInQ.Contrib.OneProof.CharpolyHF.MinpolyIndepOfEllCharP, HDec.HSyn.G0AssembleMod.linkedTateData_of_local_minpolyCharP, R16Split.r16_of_printedC]
+structure HDec.HSyn.OpenTextbookLeaves15 : Prop
+number of parameters: 0
+fields:
+  HDec.HSyn.OpenTextbookLeaves15.mumfordTorsionAlgClosed : AvSplit.MumfordTorsionAlgClosed
