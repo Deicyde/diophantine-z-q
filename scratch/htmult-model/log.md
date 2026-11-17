@@ -11,7 +11,7 @@ Base: fork main 06660f4a + `git merge origin/wip/pb-dimform` (3d69c488), merge c
 - `HTModel.localDistinctHTP_iff_of_model`, `HTModel.localDistinctHTP_iff_forall`, `HTModel.localDistinctHTU_iff_of_model`.
 
 ## Compile outcomes
-- `lake build ZInQKernel.Contrib.OneProof.PstModel`: success (scratch/htmult-model/build0.txt). VERIFIED.
+- `lake build ZInQKernel.Contrib.OneProof.PstModel`: success (scratch/htmult-model/build0.summary.txt). VERIFIED.
 - compile1–3 (scratch/htmult-model/compile{1,2,3}.txt): errors fixed (`zero` alternative not accepted by `TensorProduct.inductionOn`; `include b in` must precede the docstring; local `Module.Free E L` needed for `Module.finBasis`).
 - compile4: `lake env lean scratch/htmult-model/HTModelAx.lean` EXIT 0, no sorry, one linter warning (`letI` kept as in PstModel.lean). All 11 new declarations: `[propext, Classical.choice, Quot.sound]`. VERIFIED.
 - compile5: `lake env lean ZInQKernel/Contrib/OneProof/HTModel.lean` EXIT 0, 0 errors. VERIFIED.

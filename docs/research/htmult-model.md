@@ -10,7 +10,19 @@ cites).
 
 ## 1. Main result
 
-__RESULT__
+**The Hodge–Tate multiplicities do not depend on the finite coefficient model** (VERIFIED: compiled, no
+`sorry`, axioms `[propext, Classical.choice, Quot.sound]`; new file `ZInQKernel/Contrib/OneProof/HTModel.lean`).
+
+* Let `E ⊆ L` with `d = [L : E]`, and let `ρ_L = ρ_E ⊗_E L`. pb-dimform's `ℚ_p[G]`-isomorphism
+  `L^n ≅ (E^n)^d` gives `(ℂ_p(w) ⊗ L^n)^{G_{ℚ_p}} ≅ ((ℂ_p(w) ⊗ E^n)^{G_{ℚ_p}})^d` over `ℚ_p`. Hence
+  `htMultE p ρL w = htMultE p ρE w` for every `w ∈ ℤ` (`htMultE_eq_of_basis`; inside `ℚ̄_p`,
+  `htMultE_eq_of_le`).
+* Two finite models `ρ_E`, `ρ_{E'}` of the same `ρ : G_{ℚ_p} → GL_n(ℚ̄_p)` have the same multiplicities: compare
+  both with the model over the compositum `E ⊔ E'` (`htMultE_model_eq`).
+* Pan's hypothesis `LocalDistinctHTP ρ`, read on *some* finite model, is equivalent to the same statement on any
+  one given model (`localDistinctHTP_iff_of_model`). It is also equivalent to the same pair of distinct weights on
+  *every* finite model, given that some model exists (`localDistinctHTP_iff_forall`, the analogue of pb-dimform's
+  `localIsPstF_iff_forall`). `localDistinctHTU_iff_of_model` is the same statement for pb-fix2's finrank form.
 
 This was a proof-only task. No bundle field, statement or kinds row changed, nothing was folded, and no leaf was
 added. The only file added under `ZInQKernel/` is `ZInQKernel/Contrib/OneProof/HTModel.lean`. It imports
@@ -121,7 +133,26 @@ The two models are compared through the compositum `E ⊔ E'`, which is finite o
 
 ## 3. Axioms
 
-__AXIOMS__
+`lake env lean scratch/htmult-model/HTModelAx.lean` (the file plus `#print axioms` lines; output in
+`scratch/htmult-model/compile4.txt`). `lake env lean ZInQKernel/Contrib/OneProof/HTModel.lean` also succeeds
+(`compile5-tree.txt`). VERIFIED.
+
+| declaration | axioms |
+|---|---|
+| `HTModel.psi_map` | `[propext, Classical.choice, Quot.sound]` |
+| `HTModel.mem_tensorInv_iff` | `[propext, Classical.choice, Quot.sound]` |
+| `HTModel.tensorInvEquiv` | `[propext, Classical.choice, Quot.sound]` |
+| `HTModel.finrank_tensorInv` | `[propext, Classical.choice, Quot.sound]` |
+| `HTModel.htMultU_eq_of_basis` | `[propext, Classical.choice, Quot.sound]` |
+| `HTModel.htMultE_eq_of_basis` | `[propext, Classical.choice, Quot.sound]` |
+| `HTModel.htMultE_eq_of_le` | `[propext, Classical.choice, Quot.sound]` |
+| `HTModel.htMultE_model_eq` | `[propext, Classical.choice, Quot.sound]` |
+| `HTModel.localDistinctHTP_iff_of_model` | `[propext, Classical.choice, Quot.sound]` |
+| `HTModel.localDistinctHTP_iff_forall` | `[propext, Classical.choice, Quot.sound]` |
+| `HTModel.localDistinctHTU_iff_of_model` | `[propext, Classical.choice, Quot.sound]` |
+
+The only compiler output besides these lines is one style-linter suggestion, `letI` → `let`. `letI` is kept, as in
+`PstModel.lean`.
 
 ## 4. Known issues
 
@@ -144,7 +175,34 @@ __AXIOMS__
 
 ## 5. Manuscript check
 
-__MSCHECK__
+One line per step of `diophantine_zq.tex` that this work formalizes or relies on.
+
+* **L719–723** (choose a number field `C`, embed it in `ℚ̄_ℓ`, "extend scalars on `V_ℓ(A)` to a finite extension
+  containing its image"). **Gap filled.** The finite coefficient field is an arbitrary choice. The print does not
+  say that the Hodge–Tate weights it later reads off are independent of that choice. `htMultE_model_eq` proves
+  that they are.
+* **L735–739** (Lemma `lem:de-rham-descent`: `r_ℓ` is de Rham and "its two Hodge–Tate weights are `0,−1` in the
+  Tate convention"). **Gap filled** for the model clause: the weights `0 ≠ −1` are computed on one model, and
+  `localDistinctHTP_iff_forall` carries them to every finite model, which is the form Pan's hypothesis needs.
+  The computation of the weights themselves is not formalized here (unverified in Lean). The convention matches
+  `htMultE`: the weight `w` is where `(V ⊗ ℂ_p(w))^G ≠ 0`, so `ℚ_p(1)` has weight `−1`.
+* **L755–756** ("Use the Tate convention in which the cyclotomic character has Hodge–Tate weight `−1`"). **OK.**
+  This is the convention of `htMultE` (`PanBergerDict.lean:76–78`). Pan's hypothesis is "distinct Hodge–Tate
+  weights", which is unchanged when every weight changes sign, so the convention cannot affect the application.
+* **L756–757** ("Apply [Theorem 1.0.4]{pan2022} at `ℓ = 5`; there is no residual-image proviso at this prime").
+  **Unverified** (no network: Pan's hypotheses, including the bound on `p` that `PanPrintedF` encodes as `5 ≤ p`,
+  were not re-read here). What this task relies on is the Hodge–Tate hypothesis of that theorem, which is
+  model-free in the print. The Lean form "on some finite model" is now proved equivalent to "on every finite
+  model" (`localDistinctHTP_iff_forall`): **gap filled** for that clause.
+* **L10948–10950** (lemma statement: "At every coefficient embedding its Hodge–Tate weights are `0,−1`").
+  **Unverified.** This is the embedding-indexed notion. It agrees with `htMultE` because `G_{ℚ_p}` permutes the
+  embeddings transitively (from memory, standard). That link is neither formalized nor used here (Known issue 2).
+* **L10976–10978** ("Extension of the coefficient field is, on underlying `ℚ_ℓ`-representations, a finite direct
+  sum"). **OK.** This is pb-dimform's `PstModel.phiE`/`phiE_equivariant` (`L^n ≅ (E^n)^{[L:E]}`). It is reused
+  here for the `ℂ_p(w)`-invariants (`tensorInvEquiv`), whereas the print uses it for the de Rham property.
+* **L10996–11000** (Hodge numbers `2,2`, so the Tate module has weights `0,0,−1,−1`, so each of the two isomorphic
+  summands has weights `0,−1`, preserved by descent). **Unverified** (not formalized here). The "two isomorphic
+  summands" step is the same direct-sum count as `finrank_tensorInv`, with two copies instead of `[L:E]`.
 
 ## 6. Reproduction
 
