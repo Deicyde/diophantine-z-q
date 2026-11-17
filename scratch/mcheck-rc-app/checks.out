@@ -1,0 +1,16 @@
+PASS (K6) v2 s_F = 2e 
+PASS L7445-7458 negative conjugates of 1+zeta+zeta^-1: odd, = printed formula (m=3..15) 
+PASS L7197-7201 q*E_q(chi_h)(0) = #E^h(F_q) 
+PASS (E.12)/(O.6) closed form a(D p^{2r}) = eta(p)^r A_{p,r}(D) 
+PASS L10444-10470 a(p^2), a(p^4), B[p], B[p^3], H[p^3] = eta^2 (a_p-1)(a_p-p-1)/4 
+PASS L10411-10416 H[p^2 p'] = eta(p)(a_p-1)a(pp')/4 
+PASS (O.10) shell parities and d_s == a_p - kappa - 1 mod 4 
+PASS c_0 = |GL_4(F_3)| = 24261120, v2 = 9 24261120
+PASS abs(R_z^x) in {2,4,6,8,12,24} divide c_0 
+PASS prod_{p|m} (-1/p) = -1 for squarefree m == 3 mod 4 
+PASS (O.12) and tr A tr B = tr AB + det B tr AB^-1 
+PASS (O.6) follows from the H-recurrence with eta = s chi, psi = s (m/p) 
+PASS network matrices over F_2 (b=2..6): singular T_J invertible on proper J, ker H = <sum u_i>; varying entry (T_J^-1)_{b1}=1 iff J full 
+PASS v2 #E_l(F_p) = 2 for p == 1 mod 4, (l/p) = -1 (1028 pairs)
+PASS w(E^{h k0}) = (-1)(-1) = +1 
+15/15 PASS
