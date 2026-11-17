@@ -397,3 +397,91 @@ class ReviewRoundOneRegressions(unittest.TestCase):
 
 if __name__=='__main__':
     unittest.main()
+
+
+class ReviewRoundTwoRegressions(unittest.TestCase):
+    ident = '1-1-astra-F1'
+    other = '1-1-astra-W'
+
+    def returning_head(self):
+        from test_continuity import stored
+        gh, app = FakeGH(), FakeApp()
+        gh.permission = 'admin'
+        old = {'astra': envelope(read_prerequisites_complete=True, review=report(
+                   decision='changes_requested', findings=[
+                       {'id': 'F1', 'objection': 'The proof at H has a counterexample.'},
+                       {'id': 'W', 'objection': 'A separate objection remains.'}])),
+               'fable': envelope('fable', read_prerequisites_complete=True)}
+        repaired = {'astra': envelope(head='c'*40, run='2', read_prerequisites_complete=True,
+                       review=report(decision='changes_requested', prior_findings=[
+                           {'id': self.ident, 'resolution': 'resolved', 'reason': 'H2 repairs the proof.'},
+                           {'id': self.other, 'resolution': 'unresolved', 'reason': 'Still open.'}])),
+                    'fable': envelope('fable', head='c'*40, run='2', read_prerequisites_complete=True)}
+        stored(app, gh, old, ident=5)
+        stored(app, gh, repaired, ident=6, head='c'*40)
+        gh.comments += [report_comment(e) for pair in (old, repaired) for e in pair.values()]
+        command = comment('/protocol-b override '+HEAD+' '+self.other+' Explicit owner decision', 'collaborator')
+        gh.comments.append(command)
+        event = {'issue': {'number': 1}, 'comment': command, 'sender': {'login': 'collaborator'}}
+        return gh, app, event, old, repaired
+
+    def test_return_to_earlier_head_requires_its_original_objection(self):
+        gh, app, event, old, repaired = self.returning_head()
+        provider = Mock(side_effect=AssertionError('Overrides call no reviewer'))
+        with patch.object(gate, 'model_turn', side_effect=AssertionError('No provider request')):
+            _, app, errors, state = run_pipeline(gh, app, event=event, provider=provider)
+        provider.assert_not_called()
+        self.assertTrue(errors)
+        self.assertIn('Uncovered findings: '+self.ident, state['summary'])
+        self.assertNotEqual(app.final['conclusion'], 'success')
+
+    def test_returned_head_summary_does_not_claim_h2_resolved_h(self):
+        gh, app, event, old, repaired = self.returning_head()
+        current = copy.deepcopy(old)
+        gate.carry_obligations(current, [(5, old), (6, repaired)])
+        self.assertIn(self.ident, gate.override_findings(current, HEAD))
+        body = gate.round_summary_body({'head': HEAD, 'check': 20, 'reports': current,
+            'conclusion': 'failure', 'overrides': {self.other: {'collaborator': 'owner', 'reason': 'test', 'url': 'https://example.com'}}},
+            'x/y', 'https://example.com/check')
+        self.assertIn(self.ident, body)
+        self.assertNotIn('Resolved by its originating reviewer', body)
+
+    def test_same_head_closure_never_masks_a_fresh_finding_or_genuine_disposition(self):
+        record = {'reviewer': 'astra', 'run': '2', 'attempt': '1', 'head': HEAD, 'reason': 'Earlier resolution.'}
+        for kind in ('fresh', 'prior', 'completed-marked-prior'):
+            with self.subTest(kind=kind):
+                value = report(decision='changes_requested')
+                if kind == 'fresh':
+                    value['findings'] = report(findings=[{'id': 'F1', 'objection': 'Actual objection.'}])['findings']
+                else:
+                    value['prior_findings'] = [{'id': self.ident, 'resolution': 'unresolved', 'reason': 'Actual objection.'}]
+                current = {'astra': envelope(review=value, closed_by_origin={self.ident: record}),
+                           'fable': envelope('fable')}
+                if kind == 'completed-marked-prior':
+                    current['astra']['runtime_retained_prior_indices'] = [0]
+                self.assertIn(self.ident, gate.override_findings(current, HEAD))
+                body = gate.round_summary_body({'head': HEAD, 'check': 20, 'reports': current, 'conclusion': 'failure'},
+                    'x/y', 'https://example.com/check')
+                self.assertNotIn('Resolved by its originating reviewer', body)
+
+    def test_runtime_copy_closure_is_bound_to_the_resolution_head(self):
+        old, current = OriginReviewerClosure().fixture()
+        gate.ensure_scope_records({'head': HEAD, 'reports': current}, previous=old, candidates=[(5, old)])
+        self.assertNotIn(self.ident, gate.override_findings(current, HEAD))
+        for env in current.values():
+            env['closed_by_origin'][self.ident]['head'] = 'c'*40
+        self.assertIn(self.ident, gate.override_findings(current, HEAD))
+
+    def test_returned_head_admin_can_explicitly_cover_both_actual_objections(self):
+        gh, app, event, old, repaired = self.returning_head()
+        previous = event['comment']
+        command = comment('/protocol-b override '+HEAD+' '+self.ident+','+self.other+' Explicit owner decision', 'collaborator')
+        gh.comments = [c for c in gh.comments if c is not previous] + [command]
+        event['comment'] = command
+        provider = Mock(side_effect=AssertionError('Overrides call no reviewer'))
+        with patch.object(gate, 'model_turn', side_effect=AssertionError('No provider request')):
+            _, app, errors, state = run_pipeline(gh, app, event=event, provider=provider)
+        provider.assert_not_called()
+        self.assertEqual(errors, [])
+        self.assertEqual(app.final['conclusion'], 'success')
+        self.assertEqual(set(state['overrides']), {self.ident, self.other})

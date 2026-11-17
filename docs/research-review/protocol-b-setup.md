@@ -886,6 +886,13 @@ the comment and those IDs so the admin can post a correction. The summary lists 
 items actually applied from the authenticated App record. The command makes
 no model call.
 
+Scope IDs are recognized from the authenticated App record when processing an
+override command or rechecking a merge. The ordinary review-history path does
+not yet seed that scope set. A later review on the same head therefore ignores
+a stored multi-item command containing a scope ID, including its other items.
+This fails closed; the admin must post a fresh command against the resulting
+App record. A scope-shaped ID in a report comment alone is never sufficient.
+
 Only repository admins may override reviewer findings. The gate checks current
 admin permission when receiving a command and again when reading stored override
 comments. Edited comments are not accepted, including edits made by an admin;
@@ -932,6 +939,12 @@ therefore stays outstanding, including across a return to an earlier head and
 when its report comment was not delivered. Retained acceptances need a supplement
 for these outstanding objections even if they previously resolved the same ID.
 Only a new completed disposition or an explicit admin decision covers them.
+
+An origin closure applies only on the head recorded with that resolution.
+It can relieve an automatic retained copy, but never hides a selected envelope's
+own fresh finding or genuine unresolved disposition, even at that same head.
+The override accounting and displayed summary use the same rule. Returning to
+an older commit does not import a resolution established only on a newer commit.
 
 An explicit finding ID in a selected report covers only that report's actual
 occurrence. Other unresolved occurrences retain their reviewer and observation

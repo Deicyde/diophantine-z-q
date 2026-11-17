@@ -3338,6 +3338,20 @@ jobs:
                       and (node.get('author') or {}).get('login') == comment['user']['login'])
 
 
+          def applicable_origin_closures(envelope):
+              """A historical resolution cannot hide a current reviewer objection."""
+              value = envelope.get('review', {})
+              protected = {finding_id(envelope, f['id']) for f in blocking_findings(value)}
+              runtime = set(envelope.get('runtime_retained_prior_indices', [])) if not envelope.get('complete') else set()
+              protected.update(f['id'] for index, f in enumerate(value.get('prior_findings', []))
+                               if f['resolution'] != 'resolved' and index not in runtime)
+              scope = review_scope_item(envelope)
+              if scope:
+                  protected.add(scope['id'])
+              return {ident: record for ident, record in envelope.get('closed_by_origin', {}).items()
+                      if record.get('head') == effective_head(envelope) and ident not in protected}
+
+
           def override_findings(latest, head):
               """Validate the trusted reports before classifying their findings."""
               if set(latest) != set(MODELS):
@@ -3354,7 +3368,7 @@ jobs:
                   scope = review_scope_item(envelope)
                   if scope:
                       here.add(scope['id'])
-                  unresolved.update(here - set(envelope.get('closed_by_origin', {})))
+                  unresolved.update(here - set(applicable_origin_closures(envelope)))
               return unresolved
 
 
@@ -4590,10 +4604,11 @@ jobs:
                               for ident, item in envelope.get('carried_findings', {}).items()]
                   entries += [(item['id'], '', item.get('reason', ''), item['resolution'])
                               for item in review.get('prior_findings', []) if item['resolution'] != 'resolved']
-                  for ident, record in envelope.get('closed_by_origin', {}).items():
+                  closures = applicable_origin_closures(envelope)
+                  for ident, record in closures.items():
                       nonblocking[ident] = 'Resolved by its originating reviewer '+record['reviewer']+': '+record['reason']
                   for ident, location, detail, resolution in entries:
-                      if ident in envelope.get('closed_by_origin', {}):
+                      if ident in closures:
                           continue
                       if (ident, family) in relieved:
                           item = relieved[ident, family]
