@@ -194,6 +194,73 @@ theorem gen_inv {T : Scheme.{0}} (a : T ⟶ ((Over.pullback p).obj F).left) (τ 
     rw [g₁_fst, ← Category.assoc (ι[(AE A E).X].left), AE_inv_left_fst]
     simp only [Category.assoc]
 
+include hη₁ hsq hA in
+/-- **The multiplication of `F₁` at a pair of points over the generic point `η₁`** is computed by the
+multiplication of `A` over `K`. -/
+theorem gen_mul {T : Scheme.{0}} (a : T ⟶ ((Over.pullback p).obj (F ⊗ F)).left)
+    (τ : T ⟶ Spec (CommRingCat.of E)) (ha : a ≫ ((Over.pullback p).obj (F ⊗ F)).hom = τ ≫ η₁) :
+    ∃ w : T ⟶ (A.X ⊗ A.X).left,
+      w ≫ (fst A.X A.X).left ≫ g = a ≫ pullback.fst (F ⊗ F).hom p ≫ (fst F F).left ∧
+      w ≫ (snd A.X A.X).left ≫ g = a ≫ pullback.fst (F ⊗ F).hom p ≫ (snd F F).left ∧
+      w ≫ (A.X ⊗ A.X).hom = τ ≫ κm K E ∧
+      a ≫ (Functor.OplaxMonoidal.δ (Over.pullback p) F F ≫ μ[(Over.pullback p).obj F]).left ≫
+        pullback.fst F.hom p = w ≫ μ[A.X].left ≫ g := by
+  have hF := isAbVarFibre₁ p F e he ηS η₁ hsq A g hA
+  rw [← hη₁] at hF
+  have : IsProper ((Over.pullback p).obj F).hom := by dsimp; infer_instance
+  have : Smooth ((Over.pullback p).obj F).hom := by dsimp; infer_instance
+  obtain ⟨φ, hφ1, hφ2, hφ3⟩ := isGrpFibre_of_rigidity _ η₁ (AE A E) _ hF
+  have hpbE := hF.1
+  let P := Over.pullback p
+  set u1 := a ≫ (P.map (fst F F)).left with hu1
+  set u2 := a ≫ (P.map (snd F F)).left with hu2
+  have hu1' : u1 ≫ (P.obj F).hom = τ ≫ η₁ := by
+    rw [hu1, Category.assoc, Over.w (P.map (fst F F)), ha]
+  have hu2' : u2 ≫ (P.obj F).hom = τ ≫ η₁ := by
+    rw [hu2, Category.assoc, Over.w (P.map (snd F F)), ha]
+  obtain ⟨v1, hv11, hv12⟩ : ∃ v : T ⟶ pullback A.X.hom (κm K E),
+      v ≫ g₁ p F e ηS η₁ hsq A g hA = u1 ∧ v ≫ pullback.snd A.X.hom (κm K E) = τ :=
+    ⟨hpbE.lift u1 τ hu1', hpbE.lift_fst _ _ _, hpbE.lift_snd _ _ _⟩
+  obtain ⟨v2, hv21, hv22⟩ : ∃ v : T ⟶ pullback A.X.hom (κm K E),
+      v ≫ g₁ p F e ηS η₁ hsq A g hA = u2 ∧ v ≫ pullback.snd A.X.hom (κm K E) = τ :=
+    ⟨hpbE.lift u2 τ hu2', hpbE.lift_fst _ _ _, hpbE.lift_snd _ _ _⟩
+  let v : T ⟶ ((AE A E).X ⊗ (AE A E).X).left :=
+    pullback.lift (f := (AE A E).X.hom) (g := (AE A E).X.hom) v1 v2 (by
+      change v1 ≫ pullback.snd A.X.hom (κm K E) = v2 ≫ pullback.snd A.X.hom (κm K E)
+      rw [hv12, hv22])
+  have hvf : v ≫ (fst (AE A E).X (AE A E).X).left = v1 := pullback.lift_fst _ _ _
+  have hvs : v ≫ (snd (AE A E).X (AE A E).X).left = v2 := pullback.lift_snd _ _ _
+  have key : v ≫ φ = a ≫ (Functor.OplaxMonoidal.δ P F F).left := by
+    apply pullback.hom_ext
+    · change v ≫ φ ≫ (fst (P.obj F) (P.obj F)).left = a ≫ (Functor.OplaxMonoidal.δ P F F).left ≫
+        (fst (P.obj F) (P.obj F)).left
+      rw [hφ1, ← Category.assoc, hvf, hv11, ← Over.comp_left, Functor.OplaxMonoidal.δ_fst]
+    · change v ≫ φ ≫ (snd (P.obj F) (P.obj F)).left = a ≫ (Functor.OplaxMonoidal.δ P F F).left ≫
+        (snd (P.obj F) (P.obj F)).left
+      rw [hφ2, ← Category.assoc, hvs, hv21, ← Over.comp_left, Functor.OplaxMonoidal.δ_snd]
+  let μκ := Functor.LaxMonoidal.μ (Over.pullback (κm K E)) A.X A.X
+  refine ⟨v ≫ μκ.left ≫ pullback.fst (A.X ⊗ A.X).hom (κm K E), ?_, ?_, ?_, ?_⟩
+  · change (v ≫ μκ.left ≫ pullback.fst (A.X ⊗ A.X).hom (κm K E)) ≫ pullback.fst A.X.hom A.X.hom ≫ g = _
+    simp only [Category.assoc]
+    rw [reassoc_of% (Over.μ_pullback_left_fst_fst (f := κm K E) A.X A.X)]
+    change v ≫ (fst (AE A E).X (AE A E).X).left ≫ pullback.fst A.X.hom (κm K E) ≫ g = _
+    rw [reassoc_of% hvf, ← g₁_fst p F e ηS η₁ hsq A g hA, reassoc_of% hv11, hu1, Category.assoc]
+    simp only [P, Over.pullback_map_left, pullback.lift_fst]
+  · change (v ≫ μκ.left ≫ pullback.fst (A.X ⊗ A.X).hom (κm K E)) ≫ pullback.snd A.X.hom A.X.hom ≫ g = _
+    simp only [Category.assoc]
+    rw [reassoc_of% (Over.μ_pullback_left_fst_snd (f := κm K E) A.X A.X)]
+    change v ≫ (snd (AE A E).X (AE A E).X).left ≫ pullback.fst A.X.hom (κm K E) ≫ g = _
+    rw [reassoc_of% hvs, ← g₁_fst p F e ηS η₁ hsq A g hA, reassoc_of% hv21, hu2, Category.assoc]
+    simp only [P, Over.pullback_map_left, pullback.lift_fst]
+  · simp only [Category.assoc]
+    rw [pullback.condition, reassoc_of% (Over.μ_pullback_left_snd (f := κm K E) A.X A.X)]
+    change v ≫ (snd (AE A E).X (AE A E).X).left ≫ pullback.snd A.X.hom (κm K E) ≫ κm K E = _
+    rw [reassoc_of% hvs, reassoc_of% hv22]
+  · rw [Over.comp_left, Category.assoc, ← reassoc_of% key, ← reassoc_of% hφ3]
+    erw [g₁_fst]
+    change v ≫ (μκ ≫ (Over.pullback (κm K E)).map μ[A.X]).left ≫ pullback.fst A.X.hom (κm K E) ≫ g = _
+    simp
+
 end Generic
 
 end DedekindFree
