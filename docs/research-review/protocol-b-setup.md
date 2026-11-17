@@ -97,6 +97,35 @@ trigger escalation. Other changes receive both reviews. This is a conservative
 classification rule, not a proof that arbitrary natural language is harmless.
 Do not use the declaration to misclassify a change.
 
+### Live admission write test
+
+The `outside_admission` job grants the workflow token `pull-requests: write`
+for the intent comment on a pull request, alongside `issues: write`. A live
+[restricted-permission probe](https://github.com/elliotglazer/diophantine-z-q/actions/runs/44126443347)
+on November 17, 2026 returned HTTP 403 with only `issues: write` and
+`pull-requests: read`; it created no comment.
+
+After this workflow is on main, manually dispatch `protocol-b-admission-test.yml`
+on `main`. It runs the production `outside_reserve` function in test mode,
+posts a real intent comment to closed, unmerged test PR69, creates a neutral
+reservation with the dedicated App, and reads both back. It records the source
+commit, workflow hash, exact write responses and readbacks in the
+`protocol-b-live-admission-test-<run>-<attempt>` artifact. Each write is attempted
+once. If a response is uncertain, inspect that run and its records before
+starting another test.
+
+The test has its own intent marker and check name, excluded from live quota
+accounting and review acceptance. It receives no provider keys, makes no model
+calls and cannot merge. It validates the real reservation writes and identity
+binding, not outside eligibility, triage or the complete review flow. The
+protected environment permits it only from main; no repository mode change
+is needed.
+A repeat dispatch creates a fresh test intent and neutral reservation on the
+same PR; it does not reuse or consume a live slot. Reconcile any uncertain
+previous write first. Authorized collaborators may dispatch this main-only
+test using the same App trust as the gate, but its distinct test check name
+can never satisfy the ruleset's required `Protocol B / review` check.
+
 ### Unattended outside reviews
 
 The mechanical stage makes no model call. It requires a complete textual diff,
@@ -252,13 +281,14 @@ The gate checks GitHub's edit metadata and the exact current body, so changing
 someone else's admin-authored comment cannot create an admin decision. Preserve substantive objections in the
 project's findings record as well as the PR discussion.
 
-Both reviewers default to a preflight context budget of 400,000 estimated tokens.
-The repository variable `PROTOCOL_B_MANUSCRIPT_PROFILE` defaults to `standard`
-when unset or empty. An owner can set it to `expanded` when the provider accounts
-allow the larger spending profile. Only then, if the complete GitHub diff changes
-a path under `manuscripts/`, including a rename out of that directory, both
-receive 900,000. Other PRs retain the standard profile. Unknown variable values
-stop before model calls. The expanded profile fits the published
+Both reviewers receive a preflight context budget of 900,000 estimated tokens
+when the complete GitHub diff changes a path under `manuscripts/`, `research/`
+or `data/`, or `docs/current-manuscript.json`. Both sides of renames and deleted
+paths count. Research paths are selected conservatively because they hold the
+manuscript's tables, certificates and verifiers. Other PRs receive 400,000.
+This selection is automatic; the former `PROTOCOL_B_MANUSCRIPT_PROFILE` variable
+is no longer read. It changes no authorization to start a paid review, spending
+guard, or acceptance rule. The expanded profile fits the published
 windows of [Astra 6](https://developers.openai.com/api/docs/models/gpt-6-astra)
 (1,050,000) and [Fable 5.2](https://platform.claude.com/docs/en/models/fable-5-2/overview)
 (1,000,000), checked November 14, 2026. Both budgets are totals,
@@ -270,6 +300,48 @@ for the standard profile or 50,000 for the expanded manuscript profile
 for fetched text, 16,000 for a search result block, and 128,000 for a binary
 fetch result. These estimates do not change the actual conversation sent to
 the provider. Unknown block types and repository text receive no discount.
+
+`read_pdf` reads the actual committed PDF through GitHub's file/blob API and
+extracts 1-10 physical pages at a time. The result includes the commit, SHA256
+and page numbers, so the raw URL's `application/octet-stream` type does not
+prevent reading it. Ubuntu Poppler runs in a separate Bubblewrap namespace
+without network or host home access and with no inherited credentials. Only
+system libraries, the single input PDF and one writable output file are mounted;
+memory, CPU, output size and wall time are bounded. Installation comes from
+Ubuntu repositories, never from a candidate file. The privileged timeout kills
+the isolated process group after 35 seconds; the caller does not try to kill
+root-owned sudo. Tool versions are logged. Installation failure leaves the PDF
+reader unavailable and does not prevent unrelated reviews. Isolation or extraction
+failure returns a tool error, not a successful read, with no unisolated retry.
+Scanned pages, images and layout are not verified by text extraction. Relevant
+unread visual content remains an incomplete-scope item. Successful page reads
+use the existing context allowance and whole-file reuse binding.
+
+A reviewer may count a passing finite CI check as coverage of a printed table
+after inspecting its complete workflow, checker and necessary dependencies,
+and verifying that the executed check relates the actual printed table to the
+committed data. `read_ci_job` obtains the actual job, attempt, successful steps
+and execution commit. It accepts only direct `push` or `workflow_dispatch`
+executions of the exact reviewed head in this repository, on the run's latest
+attempt. Test-merge and fork runs are refused because their API head does not
+establish the executed tree. A branch without an eligible direct run has no CI
+table-coverage evidence through these tools. For workflow dispatch, the reviewer
+must verify the actual inputs and any resulting skip or narrowing; unverifiable
+inputs cannot support the claimed coverage. `record_table_coverage` requires complete admitted
+checker/workflow reads and at least one admitted read of the table source or PDF,
+a successful step and equal blob identities for the workflow, checkers, data
+and table at the reviewed and executed commits. The reviewer records the exact
+claim and limits, including checkout selection, generated inputs, caches and
+ignored failures. Mechanical identity checks do not establish that the command
+actually tests the table or that the checker proves what is needed; those remain
+the reviewer's responsibility. The reviewer report and run artifact retain this
+scoped CI reliance. The App stores a bounded summary with job/attempt/event/step,
+blob identities and claim digests; the full records remain in the original run
+artifact and reviewer report. The reviewer must actually inspect the relevant
+table passages; one admitted read does not mechanically prove full table coverage.
+This reliance cannot turn an error, missing argument or other incomplete
+review into acceptance. Such a review is not reused across a changed head without
+fresh CI inspection. Same-head retention still preserves its original evidence.
 
 Before the first request, if its estimate would exhaust the output and recovery
 reserves, the gate defers inline patches from that unsent packet. Every changed

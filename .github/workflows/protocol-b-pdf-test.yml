@@ -1,0 +1,43 @@
+name: Protocol B gate and PDF tests
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/protocol-b.yml'
+      - '.github/workflows/protocol-b-pdf-test.yml'
+      - '.github/workflows/protocol-b-admission-test.yml'
+      - '.github/scripts/test_protocol_b_admission.py'
+      - 'tests/protocol_b/**'
+  workflow_dispatch:
+  schedule:
+    - cron: '29 6 * * 1'
+permissions:
+  contents: read
+jobs:
+  pdf_reader:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Install isolated PDF tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends poppler-utils bubblewrap
+          dpkg-query -W poppler-utils bubblewrap coreutils
+      - name: Run gate regressions and real PDF extraction without secrets
+        env:
+          PROTOCOL_B_TEST_PDF_ISOLATION: '1'
+        run: |
+          python3 -B - <<'PY'
+          import os
+          import unittest
+          # Each offline test supplies its own simulated GitHub identity.
+          # Do not let the hosting job's metadata replace those fixtures.
+          for key in list(os.environ):
+              if key.startswith('GITHUB_'):
+                  del os.environ[key]
+          suite = unittest.defaultTestLoader.discover('tests/protocol_b')
+          result = unittest.TextTestRunner(verbosity=2).run(suite)
+          raise SystemExit(not result.wasSuccessful())
+          PY
