@@ -17,18 +17,18 @@ theorem isLocalDiffeomorph_comp_mul {M : Type*} [TopologicalSpace M] [ChartedSpa
     contMDiff_iff_contDiff.mpr (contDiff_const.mul contDiff_id)
   have hdiv : ContMDiff 𝓘(ℂ) 𝓘(ℂ) ω (fun z : ℂ => z / γ) :=
     contMDiff_iff_contDiff.mpr (contDiff_id.div_const γ)
-  refine ⟨{ toFun := fun z => Φ (γ * z)
-            invFun := fun Q => Φ.symm Q / γ
+  refine ⟨{ toFun := fun z => Φ.toPartialEquiv (γ * z)
+            invFun := fun Q => Φ.toPartialEquiv.symm Q / γ
             source := (fun z => γ * z) ⁻¹' Φ.source
             target := Φ.target
-            map_source' := fun w hw => Φ.map_source hw
+            map_source' := fun w hw => Φ.toPartialEquiv.map_source hw
             map_target' := fun Q hQ => by
-              simp only [mem_preimage, mul_div_cancel₀ _ hγ]; exact Φ.map_target hQ
+              simp only [mem_preimage, mul_div_cancel₀ _ hγ]; exact Φ.toPartialEquiv.map_target hQ
             left_inv' := fun w hw => by
               simp only [mem_preimage] at hw
-              simp only [Φ.left_inv hw, mul_div_cancel_left₀ _ hγ]
+              simp only [Φ.toPartialEquiv.left_inv hw, mul_div_cancel_left₀ _ hγ]
             right_inv' := fun Q hQ => by
-              simp only [mul_div_cancel₀ _ hγ, Φ.right_inv hQ]
+              simp only [mul_div_cancel₀ _ hγ, Φ.toPartialEquiv.right_inv hQ]
             open_source := Φ.open_source.preimage (continuous_const.mul continuous_id)
             open_target := Φ.open_target
             contMDiffOn_toFun := Φ.contMDiffOn_toFun.comp hmul.contMDiffOn (fun w hw => hw)
