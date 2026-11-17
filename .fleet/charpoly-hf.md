@@ -1,4 +1,4 @@
-# charpoly-hf (2026-11-16)
+# charpoly-hf (2026-11-16, final)
 
 **Verdict: −1 with no new leaf is not reachable. The deliverable is a verified count-neutral swap.**
 
@@ -14,7 +14,7 @@
 - **The input as a leaf.** `MinpolyIndepOfEllCharP` is not printed form; it is a consequence of Mumford §19 Thm 3.
   The implication from `HomFreeFiniteAlgClosedCharP` (Thm 3 printed form, `k` algebraically closed of
   characteristic `p`) plus I3.M0 is compiled.
-- **The fold** (`scratch/charpoly-hf/fold_edit.py`, `fold.patch`, `fold-docs.patch`; to be applied by the lead).
+- **The fold** (`scratch/charpoly-hf/fold_edit.py`, `fold.patch`, and `fold-docs.patch`, which covers OPEN.md, open-statements, kinds, claims, crosswalk, the CONTRIBUTING example and the DischargesTest output; to be applied by the lead).
   It replaces `charPolyIndepOfEllAlgClosed` (Thm 4) by `homFreeFiniteAlgClosedCharP` (Thm 3, characteristic `p`),
   and R16 uses the characteristic-0 proof. Count unchanged: 40 open hypotheses, 33 H, strictest 13/20.
 - **Checks run on a copy of the tree, all passing:** Main builds, `frozenTarget` uses only the standard axioms,
