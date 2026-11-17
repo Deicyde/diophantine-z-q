@@ -107,8 +107,8 @@ Repository: https://github.com/TauCetiProject/TauCeti
   GroupTheory/QuotientGroup/Basic; list in scratch/t40-tate/extras-list.txt) the
   Backport/ file of the same path holds the declarations of the commit-4d91513e
   version that the commit-5a01f5fe version lacks.
-- Commit 5a01f5fe (as above): the 37 further modules vendored unmodified by the Z-in-Q
-  task coeff-field-tc (the closure of NumberTheory.ModularForms.Newforms.NumberField: the
+- Commit 5a01f5fe (as above): the 37 further modules vendored by the Z-in-Q task
+  coeff-field-tc, all unmodified except RingTheory/MvPolynomial/Homogeneous.lean (see below) (the closure of NumberTheory.ModularForms.Newforms.NumberField: the
   finiteness over Z of the cusp-form Hecke algebra in weight at least two, from modular
   symbols and the injective period map (HeckeSlash/Finite), and the integrality of the
   Fourier coefficients of a normalised eigenform; list in
@@ -223,6 +223,8 @@ are (paths relative to ZInQKernel/Contrib/TauCeti/):
 - RepresentationTheory/Homological/ContCohomology/Corestriction/Mackey/Pullback.lean
 - RepresentationTheory/Homological/GroupCohomology/PrimeIndex.lean
 - RepresentationTheory/Homological/TateCohomology/TrivialityCriterion.lean
+- RingTheory/MvPolynomial/Homogeneous.lean (task coeff-field-tc: `MvPolynomial.IsHomogeneous.eval₂_const_mul`
+  made private, as it clashes with the lemma of that name in CloudW07JacobiansCurves)
 - RingTheory/Polynomial/Cyclotomic/PrimePow.lean
 - Topology/Algebra/Group/Profinite/Generation.lean
 - Topology/Algebra/Group/Profinite/Sylow/Basic.lean

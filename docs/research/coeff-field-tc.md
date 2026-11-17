@@ -37,8 +37,18 @@ neither: the integrality comes from Tau Ceti's modular symbols.
 
 **Checks.** On a fresh checkout of main at 222c98bf (Lean v4.35.0, Mathlib 56a00585):
 `lake build ZInQKernel.Contrib.OneProof.EigenformCoeffFieldFiniteProof` succeeded (9644 jobs, no
-error, no `sorry`); `#print axioms eigenformCoeffFieldFinite_proof` as above. The `#discharges` run
-(CONTRIBUTING) is reported separately.
+error, no `sorry`); `#print axioms eigenformCoeffFieldFinite_proof` as above. `lake build +ZInQKernel.OneProof.Main
++ZInQKernel.OneProof.Discharges +ZInQKernel.Contrib.OneProof.EigenformCoeffFieldFiniteProof` succeeded (14265 jobs).
+`#discharges` (`scratch/coeff-field-tc/discharges-output.txt`) reports
+`DISCHARGES [OpenResearchLeaves31.eigenformCoeffFieldFinite] by eigenformCoeffFieldFinite_proof`, `still assumes: []`,
+axioms `[propext, Classical.choice, Quot.sound]`.
+
+**Name clash.** The first `#discharges` run failed to import the contribution next to `Main`: the vendored
+`RingTheory/MvPolynomial/Homogeneous.lean` declares `MvPolynomial.IsHomogeneous.eval₂_const_mul`, which
+`CloudW07JacobiansCurves/Jacobian/RingTheory/MvPolynomial/HomogeneousCharts.lean` also declares (same statement,
+arguments in another order). A check of all 572 declarations of the 37 new modules against the environment of
+`Main` + `Discharges` found no other clash. The vendored copy now makes that lemma `private` (its only uses are in the
+same file), with a "Modified for the Z-in-Q kernel" line and a NOTICE entry.
 
 **Not done.** The fold that removes the field from `OpenResearchLeaves31` (integrator), and the
 regeneration of OPEN.md and claims.tsv.
