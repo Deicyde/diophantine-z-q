@@ -1,4 +1,5 @@
 import ZInQKernel.Hypotheses.PoleManuscript
+import ZInQKernel.Contrib.OneProof.CofinitePrimary
 import ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.GaloisCohomology.Selmer
 import ZInQKernel.Contrib.TauCeti.Algebra.GroupAction.QuotientAddGroup
 import ZInQKernel.Contrib.TauCeti.Topology.Algebra.GroupAction.QuotientAddGroup
@@ -286,6 +287,16 @@ abbrev Q2Z2 : Type := ℚ_[2] ⧸ (PadicInt.subring 2).toAddSubgroup
 of copies of `ℚ_p/ℤ_p`). -/
 def Z2Corank (M : Type*) [AddCommGroup M] (r : ℕ) : Prop :=
   ∃ (F : Type) (_ : AddCommGroup F) (_ : Finite F), Nonempty (M ≃+ (Fin r → Q2Z2) × F)
+
+/-- `ℚ₂/ℤ₂` is `ZInQ.Cofinite.Qp 2`. -/
+theorem q2z2_eq : Q2Z2 = ZInQ.Cofinite.Qp 2 := rfl
+
+/-- **Every `2`-primary abelian group with finite `2`-torsion has a `ℤ₂`-corank** (the structure
+theorem `ZInQ.Cofinite.exists_addEquiv_of_isPPrimary` at `p = 2`). -/
+theorem exists_z2Corank (M : Type) [AddCommGroup M] (hM : ZInQ.Cofinite.IsPPrimary 2 M)
+    (hfin : Finite (ZInQ.Cofinite.tors M 2)) : ∃ r, Z2Corank M r := by
+  obtain ⟨t, F, _, hF, ⟨e⟩⟩ := ZInQ.Cofinite.exists_addEquiv_of_isPPrimary (p := 2) M hM hfin
+  exact ⟨t, F, inferInstance, hF, ⟨e⟩⟩
 
 /-- **`corank_{ℤ₂} Sel_{2^∞}(E/ℚ) = 1`**, the hypothesis of Theorem 5.3. -/
 def SelmerCorankOne : Prop :=
