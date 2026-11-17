@@ -88,8 +88,8 @@ So the FLT library already covers `R^sh → R^h` (finite étale steps plus AF). 
 
 * For `R = (𝓞_L)_v`, every finite local extension `R'` of `R` is a localization of the ring of integers of a number
   field `M` at a finite place. Such an `R'` is never henselian (VERIFIED reasoning). The henselization of `M` at a
-  finite place is `M̂ ∩ M̄`, which is infinite over `M`: for `n` prime to `p` and prime, `x^n = 1 + p` has a root in
-  `ℚ_p` but `x^n − (1+p)` is irreducible over `ℚ`. So no finite cover of `R` carries a Néron model from FLT. For a
+  finite place is `M̂ ∩ M̄`, which is infinite over `M`: for primes `n ∤ p` with `2^n > 1 + p`, `x^n = 1 + p` has a root in
+  `ℚ_p` (Hensel, at `x = 1`) but `x^n − (1+p)` is irreducible over `ℚ`; these roots have unbounded degree over `M`. So no finite cover of `R` carries a Néron model from FLT. For a
   general DVR the same holds by the descent of henselianity along finite extensions whose fraction field is not
   separably closed (STANDARD; Engler–Prestel, *Valued fields*, §4.4, UNVERIFIED number); the chain needs only number
   fields.
