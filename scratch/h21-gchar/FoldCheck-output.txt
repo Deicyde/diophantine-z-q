@@ -22,15 +22,6 @@ scratch/h21-gchar/FoldCheck.lean:84:29: warning: `if_true` has been deprecated: 
 
 Hint: Replace the deprecated name:
   i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
-scratch/h21-gchar/FoldCheck.lean:84:69: warning: this tactic is never executed
-
-Note: This linter can be disabled with `set_option linter.unreachableTactic false`
-scratch/h21-gchar/FoldCheck.lean:84:65: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
-
-Note: This linter can be disabled with `set_option linter.unusedTactic false`
-scratch/h21-gchar/FoldCheck.lean:84:69: warning: Unused tactic linter: `ring` does nothing.
-
-Note: This linter can be disabled with `set_option linter.unusedTactic false`
 scratch/h21-gchar/FoldCheck.lean:90:15: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
@@ -39,21 +30,15 @@ scratch/h21-gchar/FoldCheck.lean:91:15: warning: `if_neg` has been deprecated: U
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/h21-gchar/FoldCheck.lean:126:0: warning: automatically included section variable(s) unused in theorem `ZInQ.Contrib.H21GChar.odd_of_dvd_odd`:
-  [NeZero n]
-consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
-  omit [NeZero n] in theorem ...
-
-Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-scratch/h21-gchar/FoldCheck.lean:302:51: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/h21-gchar/FoldCheck.lean:303:51: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/h21-gchar/FoldCheck.lean:309:50: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/h21-gchar/FoldCheck.lean:310:50: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/h21-gchar/FoldCheck.lean:405:33: warning: Variable name `hcl` is not explicitly referenced.
+scratch/h21-gchar/FoldCheck.lean:406:33: warning: Variable name `hcl` is not explicitly referenced.
 
 Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
   [apply] _hcl

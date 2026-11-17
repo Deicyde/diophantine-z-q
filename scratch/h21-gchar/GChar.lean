@@ -72,7 +72,7 @@ theorem dstar_mul {d₁ d₂ : ℕ} (h1 : d₁ % 2 = 1) (h2 : d₂ % 2 = 1) : ds
   have h1' : d₁ % 4 = 1 ∨ d₁ % 4 = 3 := by omega
   have h2' : d₂ % 4 = 1 ∨ d₂ % 4 = 3 := by omega
   rcases h1' with h1' | h1' <;> rcases h2' with h2' | h2' <;> rw [h1', h2'] at hm <;> norm_num at hm <;>
-    simp only [h1', h2', hm, if_true, Nat.cast_mul] <;> norm_num <;> ring
+    simp only [h1', h2', hm, if_true, Nat.cast_mul] <;> norm_num
 
 /-- **Jacobi reciprocity with `d*`**: `(d*/m) = (m/d)` for odd `d`, `m`. -/
 theorem jacobiSym_dstar {d m : ℕ} (hd : Odd d) (hm : Odd m) : jacobiSym (dstar d) m = jacobiSym m d := by
@@ -114,6 +114,7 @@ variable (n) in
 TYZ sum against in `P(d₁, d₂) = Σ_{t ∈ Cl_n} χ_{d₁,d₂}(t) f_n(t)` (L551–552, UNVERIFIED). -/
 def tyzChiCl (d₂ : ℕ) (t : ClassGroup (𝓞 (QNeg n))) : ℤ := ((tyzChi n d₂ (art n t) : ℤˣ) : ℤ)
 
+omit [NeZero n] in
 theorem odd_of_dvd_odd {d : ℕ} (hn : Odd n) (hd : d ∣ n) : d % 2 = 1 :=
   Nat.odd_iff.1 (Odd.of_dvd_nat hn hd)
 
