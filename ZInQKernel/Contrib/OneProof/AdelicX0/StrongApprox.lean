@@ -537,4 +537,160 @@ theorem strong_approx (N : ℕ) (hN : N ≠ 0) (g : GL (Fin 2) Af) :
   obtain ⟨σ, u, hu, rfl⟩ := exists_SL2Z_mul N hN hk
   exact ⟨γ * sigQ σ, mul_mem hγ (sigQ_mem σ), u, hu, by rw [map_mul, mapQ_sigQ, mul_assoc]⟩
 
+/-! ## §7. The double coset space `GL₂(ℚ)⁺ \ (ℍ × GL₂(𝔸_f)/U)` and `Γ₀(N) \ ℍ` -/
+
+open UpperHalfPlane
+
+/-- `GL₂(ℚ) → GL₂(ℝ)`, acting on `ℍ` by Möbius transformations (Mathlib's action). -/
+abbrev toGLR : GL (Fin 2) ℚ →* GL (Fin 2) ℝ := Matrix.GeneralLinearGroup.map (algebraMap ℚ ℝ)
+
+/-- The relation `(z, g) ~ (γ z, γ g u)` for `γ ∈ GL₂(ℚ)⁺`, `u ∈ U`. -/
+def shSetoid (U : Subgroup (GL (Fin 2) Af)) : Setoid (ℍ × GL (Fin 2) Af) where
+  r p q := ∃ γ ∈ Matrix.GLPos (Fin 2) ℚ, ∃ u ∈ U, q.1 = toGLR γ • p.1 ∧ q.2 = mapQ γ * p.2 * u
+  iseqv := {
+    refl := fun p => ⟨1, one_mem _, 1, one_mem _, by simp, by simp⟩
+    symm := by
+      rintro p q ⟨γ, hγ, u, hu, h1, h2⟩
+      refine ⟨γ⁻¹, inv_mem hγ, u⁻¹, inv_mem hu, ?_, ?_⟩
+      · rw [h1, map_inv, inv_smul_smul]
+      · rw [h2, map_inv]; group
+    trans := by
+      rintro p q w ⟨γ, hγ, u, hu, h1, h2⟩ ⟨γ', hγ', u', hu', h1', h2'⟩
+      refine ⟨γ' * γ, mul_mem hγ' hγ, u * u', mul_mem hu hu', ?_, ?_⟩
+      · rw [h1', h1, map_mul, mul_smul]
+      · rw [h2', h2, map_mul]; group }
+
+/-- **The double coset space `GL₂(ℚ)⁺ \ (ℍ × GL₂(𝔸_f)/U)`**: TYZ's complex uniformization of the
+adelic modular curve `X_U` without its cusps (Period7.tex L1518–1520, there with `ℍ ∪ ℙ¹(ℚ)`). -/
+def Sh (U : Subgroup (GL (Fin 2) Af)) : Type := Quotient (shSetoid U)
+
+/-- The point `[z, g]`. -/
+def shMk (U : Subgroup (GL (Fin 2) Af)) (z : ℍ) (g : GL (Fin 2) Af) : Sh U :=
+  Quotient.mk (shSetoid U) (z, g)
+
+/-- `τ ↦ [τ, 1]`. -/
+def toSh (U : Subgroup (GL (Fin 2) Af)) (τ : ℍ) : Sh U := shMk U τ 1
+
+/-- The natural projection `X_V(ℂ) → X_U(ℂ)` for `V ≤ U` (TYZ's `f₀ : X_U → X₀(32)`, L1187). -/
+def shMap {V U : Subgroup (GL (Fin 2) Af)} (h : V ≤ U) : Sh V → Sh U :=
+  Quotient.map id fun _ _ ⟨γ, hγ, u, hu, h1, h2⟩ => ⟨γ, hγ, u, h hu, h1, h2⟩
+
+theorem shMap_shMk {V U : Subgroup (GL (Fin 2) Af)} (h : V ≤ U) (z : ℍ) (g : GL (Fin 2) Af) :
+    shMap h (shMk V z g) = shMk U z g := rfl
+
+theorem shMap_toSh {V U : Subgroup (GL (Fin 2) Af)} (h : V ≤ U) (τ : ℍ) :
+    shMap h (toSh V τ) = toSh U τ := rfl
+
+/-- The `SL₂(ℤ)`-action on `ℍ` is the `GL₂(ℚ)`-action through `SL₂(ℤ) → GL₂(ℚ)`. -/
+theorem sl_smul_eq (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (τ : ℍ) :
+    σ • τ = toGLR (sigQ σ) • τ := by
+  rw [ModularGroup.sl_moeb]
+  congr 1
+  apply Units.ext
+  ext i j
+  simp [sigQ]
+
+/-- **`GL₂(ℚ)⁺ ∩ U₀(N) = Γ₀(N)`.** -/
+theorem exists_gamma0_of_mapQ_mem {N : ℕ} (hN : N ≠ 0) {γ : GL (Fin 2) ℚ}
+    (hγ : γ ∈ Matrix.GLPos (Fin 2) ℚ) (h : mapQ γ ∈ U0 N) :
+    ∃ σ ∈ CongruenceSubgroup.Gamma0 N, sigQ σ = γ := by
+  obtain ⟨hZ, hZ', c, hc, hdv⟩ := h
+  have hent : ∀ i j, ∃ z : ℤ, (γ : M2 ℚ) i j = z := fun i j => exists_int_of_mem (hZ i j)
+  have hent' : ∀ i j, ∃ z : ℤ, ((γ⁻¹ : GL (Fin 2) ℚ) : M2 ℚ) i j = z := fun i j => by
+    have := hZ' i j
+    rw [← map_inv, mapQ_val, Matrix.map_apply] at this
+    exact exists_int_of_mem this
+  choose a ha using hent
+  choose b hb using hent'
+  have hγa : (γ : M2 ℚ) = (Matrix.of a).map (Int.castRingHom ℚ) := by
+    ext i j; simp [ha]
+  have hγb : ((γ⁻¹ : GL (Fin 2) ℚ) : M2 ℚ) = (Matrix.of b).map (Int.castRingHom ℚ) := by
+    ext i j; simp [hb]
+  have hdet1 : (Matrix.of a).det * (Matrix.of b).det = 1 := by
+    have h1 := congrArg Matrix.det (congrArg Units.val (mul_inv_cancel γ))
+    rw [Units.val_mul, Matrix.det_mul, hγa, hγb, Units.val_one, Matrix.det_one,
+      ← RingHom.mapMatrix_apply, ← RingHom.map_det, ← RingHom.mapMatrix_apply,
+      ← RingHom.map_det, ← map_mul] at h1
+    have h2 : (((Matrix.of a).det * (Matrix.of b).det : ℤ) : ℚ) = 1 := h1
+    exact_mod_cast h2
+  have hpos : 0 < (Matrix.of a).det := by
+    have := (Matrix.mem_glpos γ).mp hγ
+    rw [Matrix.GeneralLinearGroup.val_det_apply, hγa, ← RingHom.mapMatrix_apply,
+      ← RingHom.map_det] at this
+    have h2 : (0 : ℚ) < (((Matrix.of a).det : ℤ) : ℚ) := this
+    exact_mod_cast h2
+  have hdeta : (Matrix.of a).det = 1 := by
+    rcases Int.eq_one_or_neg_one_of_mul_eq_one hdet1 with h | h
+    · exact h
+    · omega
+  let σ : Matrix.SpecialLinearGroup (Fin 2) ℤ := ⟨Matrix.of a, hdeta⟩
+  refine ⟨σ, ?_, ?_⟩
+  · rw [CongruenceSubgroup.Gamma0_mem, ZMod.intCast_zmod_eq_zero_iff_dvd]
+    apply int_dvd_of_dvdZ (by exact_mod_cast hN)
+    refine ⟨c, hc, ?_⟩
+    rw [mapQ_val, Matrix.map_apply, ha 1 0, algebraMap_int] at hdv
+    exact hdv
+  · apply Units.ext
+    ext i j
+    simp [sigQ, σ, ha]
+    rfl
+
+/-- **`[τ, 1] = [τ', 1]` in `GL₂(ℚ)⁺ \ (ℍ × GL₂(𝔸_f)/U₀(N))` iff `τ' ∈ Γ₀(N) τ`.** -/
+theorem toSh_eq_toSh_iff {N : ℕ} (hN : N ≠ 0) (τ τ' : ℍ) :
+    toSh (U0 N) τ = toSh (U0 N) τ' ↔ ∃ σ ∈ CongruenceSubgroup.Gamma0 N, τ' = σ • τ := by
+  constructor
+  · intro h
+    obtain ⟨γ, hγ, u, hu, h1, h2⟩ := Quotient.exact h
+    have hγU : mapQ γ ∈ U0 N := by
+      have : mapQ γ = u⁻¹ := by
+        simp only [mul_one] at h2
+        exact eq_inv_of_mul_eq_one_left h2.symm
+      rw [this]; exact inv_mem hu
+    obtain ⟨σ, hσ, rfl⟩ := exists_gamma0_of_mapQ_mem hN hγ hγU
+    exact ⟨σ, hσ, by rw [sl_smul_eq]; exact h1⟩
+  · rintro ⟨σ, hσ, rfl⟩
+    refine Quotient.sound ⟨sigQ σ, sigQ_mem σ, (mapZ σ)⁻¹, inv_mem (mapZ_mem hσ), ?_, ?_⟩
+    · exact sl_smul_eq σ τ
+    · show (1 : GL (Fin 2) Af) = mapQ (sigQ σ) * 1 * (mapZ σ)⁻¹
+      rw [mapQ_sigQ, mul_one, mul_inv_cancel]
+
+/-- **Every point of `GL₂(ℚ)⁺ \ (ℍ × GL₂(𝔸_f)/U₀(N))` is `[τ, 1]`** (strong approximation). -/
+theorem toSh_surjective {N : ℕ} (hN : N ≠ 0) : Function.Surjective (toSh (U0 N)) := by
+  intro P
+  induction P using Quotient.inductionOn with
+  | h p =>
+    obtain ⟨z, g⟩ := p
+    obtain ⟨γ, hγ, u, hu, rfl⟩ := strong_approx N hN g
+    refine ⟨toGLR γ⁻¹ • z, Quotient.sound ⟨γ, hγ, u, hu, ?_, ?_⟩⟩
+    · show z = toGLR γ • toGLR γ⁻¹ • z
+      rw [smul_smul, ← map_mul, mul_inv_cancel, map_one, one_smul]
+    · show mapQ γ * u = mapQ γ * 1 * u
+      rw [mul_one]
+
+/-- **The bijection `Γ₀(N) \ ℍ ≃ GL₂(ℚ)⁺ \ (ℍ × GL₂(𝔸_f)/U₀(N))`, `Γ₀(N) τ ↦ [τ, 1]`.** -/
+def gamma0OrbitsEquiv (N : ℕ) (hN : N ≠ 0) :
+    MulAction.orbitRel.Quotient (CongruenceSubgroup.Gamma0 N) ℍ ≃ Sh (U0 N) :=
+  Equiv.ofBijective
+    (Quotient.lift (toSh (U0 N)) fun a b hab => by
+      obtain ⟨g, hg⟩ := hab
+      refine ((toSh_eq_toSh_iff hN b a).mpr ⟨g, g.2, ?_⟩).symm
+      rw [← hg]; rfl)
+    ⟨by
+      intro P Q hPQ
+      induction P using Quotient.inductionOn with
+      | h a =>
+      induction Q using Quotient.inductionOn with
+      | h b =>
+        obtain ⟨σ, hσ, hb⟩ := (toSh_eq_toSh_iff hN a b).mp hPQ
+        apply Quotient.sound
+        refine ⟨⟨σ, hσ⟩⁻¹, ?_⟩
+        show (⟨σ, hσ⟩⁻¹ : CongruenceSubgroup.Gamma0 N) • b = a
+        rw [hb, Subgroup.smul_def, Subgroup.coe_inv, inv_smul_smul],
+    fun P => by
+      obtain ⟨τ, rfl⟩ := toSh_surjective hN P
+      exact ⟨Quotient.mk _ τ, rfl⟩⟩
+
+theorem gamma0OrbitsEquiv_mk (N : ℕ) (hN : N ≠ 0) (τ : ℍ) :
+    gamma0OrbitsEquiv N hN (Quotient.mk _ τ) = toSh (U0 N) τ := rfl
+
 end ZInQ.AdelicX0

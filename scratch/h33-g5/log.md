@@ -8,3 +8,4 @@
   Tau Ceti `IsDedekindDomain.FiniteAdeleRing.{integralAdeles, algebraMap_mem_integralAdeles_iff,
   mul_nonZeroDivisor_mem_integralAdeles, closure_range_algebraMap}` (VERIFIED, read).
 - Gamma0QExp: `jf_smul` (SL2(Z)-invariance of j), `jN_smul_of_mem` (Gamma0(N)-invariance of j(N.)) (VERIFIED, read).
+- 03:40 VERIFIED (compiled): AdelicX0/StrongApprox.lean: det_U0, sl2_reduction_surjective, lattice_basis(_pos), exists_GLpos_mul_GLZhat, exists_SL2Z_mul, strong_approx (GL2(A_f) = GL2(Q)^+ U0(N), N≠0).
