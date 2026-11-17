@@ -51,3 +51,13 @@ F5. Consumer reroute: T41 needs global models over O_L for every L (the stable h
 ## Verdict
 Field not removable with no new leaf by the tools on this host; dedekind-free's count-neutral narrowing to
 `NeronExt.NeronDVRLocal` stands as the best available fold.
+
+## Compile log
+C1 (00:45-00:48). `NeronDescent.lean` against oleans copied from ~/dzq-wt/dedekind-free: all `#check`s and the
+   reductions elaborate; `copy_iff := Iff.rfl` FAILS. Cause (VERIFIED by `#print` with pp.explicit): the copied
+   olean of `NeronSchemeExtensionDedekind` is the c0f3d085 version, *without* the hypothesis `¬ IsField D` that
+   fork main added in 00f923e24 (reviewer fix). The copy matches the current source; the oleans were stale.
+F6. Integration bug (VERIFIED by reading; build C2 below): dedekind-free's
+   `GroupLawDescent.neronDVRLocal_of_dedekind` (MumfordGroupLawDescent.lean L844) applies the field as
+   `h Rv L (A.baseChange L)` with no `¬ IsField Rv` argument, so it does not typecheck against the current statement.
+   One-line fix: `h Rv L (A.baseChange L) (IsDiscreteValuationRing.not_isField Rv)`.
