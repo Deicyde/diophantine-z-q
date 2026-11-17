@@ -1,7 +1,7 @@
 /-
 NEW EDITION 2: Lane2 world004 explicit projection flatness, 2026-11-17.
 Probe base SHA3a84900e83f2a16ce4b5538f1f6662877443b086061dab74ebb6699e15be11ff.
-Edition 1 and its h5w4p1 failure log remain unchanged.
+Edition 1 and its a parent compile probe failure log remain unchanged.
 The only proof change explicitly derives Flat q from the original field
 spectrum and Flat p from the SAME literal base-change projection. No new
 hypothesis, carrier, module, ideal, namespace, public statement or option.

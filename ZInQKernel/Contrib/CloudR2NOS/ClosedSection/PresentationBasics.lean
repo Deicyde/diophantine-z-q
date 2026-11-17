@@ -26,14 +26,14 @@ Apache-2.0, read-only clone of the upstream FLT repository:
 No upstream option overrides were present; only `autoImplicit false` here.
 No wholesale port, no compile of the FLT closure, default limits. FLT definitions are the
 lead-bound historical port names (namespace `ZInQ.Contrib.CloudW03NeronSurj.FLT`).
-EDITION 2 (2026-11-17, rqprobe7 run b64001ed, first compile of this file). Statements unchanged:
+EDITION 2 (2026-11-17, a parent compile probe run b64001ed, first compile of this file). Statements unchanged:
   * 465:41 parse: `𝟙_` is `scoped notation` in CategoryTheory.MonoidalCategory (Mathlib Monoidal/Category.lean l.130)
   * 214:19/215:24/225:12: `(SheafOfModules.pushforward p.toRingCatSheafHom).IsRightAdjoint` supplied from the Mathlib adjunction (local instance)
   * 307:6: `Ideal.primeCompl` needs the IsPrime instance; supplied from the ProjectiveSpectrum field `isPrime`
   * 424:9: the `change` pattern's `_` holes left the HSMul instance problem stuck; all opens/arguments are now explicit (same term: `(j ≫ T).app U = T.app U ≫ j.app (T ⁻¹ᵁ U)` by rfl)
   The 228/235 heartbeat errors in `unitIso_hom_comp_frameHom` are expected to be cascades of the
   missing adjunction instance (re-probe). Supersedes beb3097f (kept frozen).
-EDITION 3 (2026-11-17, rqprobe8 run b64001ed). Statements unchanged:
+EDITION 3 (2026-11-17, a parent compile probe run b64001ed). Statements unchanged:
   * 225/231: ed2's local IsRightAdjoint theorem (universe mismatch) removed; unitIso now follows W07's compiled pullbackObjUnitIso pattern (Final instance + universe-pinned asIso)
   * 261: `rw [unitToPushforwardObjUnit_val_app_apply]` dropped — the lemma is `rfl` (PullbackFree.lean l.68–69) and the following `change` performs the same conversion by defeq
   * 348: `mapId` (an abbrev for `map (.id _) h`, HomogeneousLocalization.lean l.694–696) is unfolded before `map_mk` (l.698–700)

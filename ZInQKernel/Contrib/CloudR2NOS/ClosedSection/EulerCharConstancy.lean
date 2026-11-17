@@ -34,15 +34,15 @@ the two W07 facts (Jacobian/Algebra/Category/ModuleCat/Sheaf/LocallyFree.lean l.
 `IsInvertible.isFiniteLocallyFree`, l.151–152 `IsFiniteLocallyFree.isFinitePresentation`) are now
 applied explicitly as `haveI` in the two theorems that consume the W07 Euler-characteristic API
 (as W07 itself does, Modules/Flat.lean l.62). Statements unchanged. Supersedes 8b994970 (kept frozen).
-EDITION 3 (h5w4p1 run bddc708c l.79:5 `failed to synthesize SheafOfModules.IsQuasicoherent`): the W07 Euler API
+EDITION 3 (a parent compile probe run bddc708c l.79:5 `failed to synthesize SheafOfModules.IsQuasicoherent`): the W07 Euler API
 also needs quasi-coherence; `haveI := SheafOfModules.IsInvertible.isQuasicoherent.{u, u, u} F` (the pattern that
 compiled in C3's I1BaseChange) is added beside the two finiteness `haveI`s. Supersedes 05f39043 (kept frozen).
-EDITION 4 (p7o1 run bddc708c l.65:65/81:65): W07 `SheafOfModules.IsInvertible.isQuasicoherent` takes the
+EDITION 4 (a parent compile probe run bddc708c l.65:65/81:65): W07 `SheafOfModules.IsInvertible.isQuasicoherent` takes the
 INVERTIBILITY PROOF explicitly ({moduleSheaf} (invertible : moduleSheaf.IsInvertible), W07 Jacobian/Algebra/Category/
 ModuleCat/Sheaf/Quasicoherent.lean l.83–84), not the module: now `… := SheafOfModules.IsInvertible.isQuasicoherent
 ‹F.IsInvertible›` with the stated type `F.IsQuasicoherent` (the 62:52/78:65 unsolved goals were the error-recovery
 consequence). Supersedes d2f5d2ca (kept frozen).
-EDITION 5 (p7o2 l.70:31/86:31: the lemma's universes defaulted to 0 when applied to `‹F.IsInvertible›`): now
+EDITION 5 (a parent compile probe l.70:31/86:31: the lemma's universes defaulted to 0 when applied to `‹F.IsInvertible›`): now
 dot notation on the instance, `(inferInstance : F.IsInvertible).isQuasicoherent`, so the universes are taken from
 F's type. Supersedes 00da9454 (kept frozen).
 -/

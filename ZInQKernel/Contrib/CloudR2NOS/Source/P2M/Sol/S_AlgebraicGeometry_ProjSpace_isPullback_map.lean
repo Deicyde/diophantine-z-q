@@ -38,7 +38,7 @@ Mechanical changes; no statement, hypothesis, definition or proof term was weake
       - `(fun d => coeff d p), if_pos hd₀] at hcoef` → `(fun d => p.coeff d), if_pos hd₀] at hcoef` (×1); Mathlib 56a0058 Algebra/MvPolynomial/Basic.lean l.80–81 (`ab… (full citation in the ledger)
       - `exact hcoef.trans (MvPolynomial.coeff_zero _).symm` → `exact hcoef.trans (by rw [AddMonoidAlgebra.coeff_zero, Finsupp.zero_apply])` (×1); Mathlib 56a0058 Algebra/MvPolynomial/Basic.lean l.543–544 (`… (full citation in the ledger)
       - `· exact (MvPolynomial.notMem_support_iff.mp hd₀).trans (MvPolynomial.coeff_zero _).symm` → `· exact (MvPolynomial.notMem_support_iff.mp hd₀).trans (by rw [AddMonoidAlgebra.coeff_zero, Finsupp.zero_apply` (×1); Mathlib 56a0058 Algebra/MvPolynomial/Basic.lean l.543–544 (`… (full citation in the ledger)
-  * DRIFT RULES v1 (tools/drift_rules_v1.py) applied on top of drift edition 2: R9×1 (R9: Mathlib 56a0058 Data/Finsupp/Basic.lean l.269–272, `Finsupp.mapDomain_apply hf` → `Finsupp.mapDomain_apply_of_injective hf`; compile evidence: rqprobe2 run 63f4be19 l.181).
+  * DRIFT RULES v1 (tools/drift_rules_v1.py) applied on top of drift edition 2: R9×1 (R9: Mathlib 56a0058 Data/Finsupp/Basic.lean l.269–272, `Finsupp.mapDomain_apply hf` → `Finsupp.mapDomain_apply_of_injective hf`; compile evidence: a parent compile probe run 63f4be19 l.181).
 -/
 
 import ZInQKernel.Contrib.CloudR2NOS.Source.Definitions.Def_AlgebraicGeometry_ProjSpace

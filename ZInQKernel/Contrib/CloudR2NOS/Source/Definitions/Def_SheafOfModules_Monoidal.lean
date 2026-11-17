@@ -1,7 +1,7 @@
 /-
 NEW H5 FIX EDITION 2 — 2026-11-17, explicit generic target dictionary.
 The previous d5545bb501af39b4981267e34a8c27bf5747806e29a1cec6b4b900785c6c53d8
-edition remains frozen history. Parent's sheafmono-probe-001 elaborated all three
+edition remains frozen history. Parent's a parent compile probe-001 elaborated all three
 Scheme.Modules Source dictionary specializations; only the generic target lookup
 in the scheme sheafification Monoidal instance failed (old line168).
 

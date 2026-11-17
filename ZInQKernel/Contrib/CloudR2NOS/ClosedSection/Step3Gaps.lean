@@ -19,12 +19,12 @@ namespace `ZInQ.Contrib.CloudW03NeronSurj.FLT` (same text as upstream
 `Definitions/Def_AlgebraicGeometry_ModulesProjPresentation.lean`, sha256 322c614e…33c9, up to the
 namespace wrap). Its port options (maxHeartbeats/synthInstance) are a separate later rebinding.
 All module powers here are NATIVE W07 `tensorPow`; there is no Source/W07 power alias.
-EDITION 2 (2026-11-17, rqprobe2 run 98c75ff5 l.130:6 "Invalid argument name `R` for function
+EDITION 2 (2026-11-17, a parent compile probe run 98c75ff5 l.130:6 "Invalid argument name `R` for function
 …Scheme.Modules.ProjPresentation"; the hint lists only `M`, `f`, `N`): in Lean 4.35 the
 section-variable parameters `{R} [CommRing R] {X}` of the STRUCTURE `ProjPresentation` (port
 Def_AlgebraicGeometry_ModulesProjPresentation l.54–56) are not addressable as named arguments, so
 `Pres … (R := κ) …` is replaced by the explicit form `@<full name> κ _ _ M' f' N` (same binder
-order: R, CommRing R, X, M, f, N). EDITION 3 (rqprobe4 run 98c75ff5 l.136:10 "unexpected syntax"):
+order: R, CommRing R, X, M, f, N). EDITION 3 (a parent compile probe run 98c75ff5 l.136:10 "unexpected syntax"):
 `@` needs an identifier, not the `Pres` local notation, so the full constant name
 `ZInQ.Contrib.CloudW03NeronSurj.FLT.AlgebraicGeometry.Scheme.Modules.ProjPresentation` is spelled out. No other change; statement unchanged. The constant is the H5 port's
 (no W03 module declares `ProjPresentation`; W03 tree searched). Supersedes cf900663 and 30a970fe (both kept frozen).

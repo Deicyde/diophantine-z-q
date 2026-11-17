@@ -26,7 +26,7 @@ Mechanical changes; no statement, hypothesis, definition or proof term was weake
   * file-level `set_option`s inserted after the port namespace: autoImplicit false; backward.isDefEq.respectTransparency.types false; backward.isDefEq.respectTransparency.instanceSearchTypes false (non-numeric, as in the located C5 conformance copies). NO maxHeartbeats/synthInstance option (numeric options omitted).
   * `import ZInQKernel.Contrib.CloudR2NOS.Source.PortUtilExt` added (port commands) and `open ZInQ.Contrib.CloudW03NeronSurj.FLT` inserted so the source's generalized field notation resolves the isolated declarations exactly as in the unprefixed original.
   * whole file wrapped in `namespace ZInQ.Contrib.CloudW03NeronSurj.FLT … end ZInQ.Contrib.CloudW03NeronSurj.FLT`.
-  * EDITION 2 (2026-11-17, rqprobe2 run 63eb59ac: "environment already contains
+  * EDITION 2 (2026-11-17, a parent compile probe run 63eb59ac: "environment already contains
     'ZInQ.Contrib.CloudW03NeronSurj.FLT.GoodReductionJacobian.relativeGroupLawOfGrpObj' from
     ZInQKernel.Contrib.CloudW03NeronSurj.Basic"). DISCLOSED DEVIATION: the definition
     `GoodReductionJacobian.relativeGroupLawOfGrpObj` (source l.100–129 of edition 1) is NOT re-declared;
