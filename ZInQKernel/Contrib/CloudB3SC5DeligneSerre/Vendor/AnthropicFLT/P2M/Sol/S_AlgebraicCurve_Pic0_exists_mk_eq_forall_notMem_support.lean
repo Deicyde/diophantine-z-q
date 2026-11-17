@@ -5,7 +5,7 @@ Ported to Lean 4.35 / Mathlib 56a0058; changes from upstream are marked `-- [por
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
 -/
-import ZInQKernel.Contrib.CloudB3SC5DeligneSerre.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicCurve_Place_exists_forall_ord_eq_finset
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicCurve_Place_exists_forall_ord_eq_finset
 
 set_option maxHeartbeats 4000000
 set_option synthInstance.maxHeartbeats 400000
