@@ -873,8 +873,11 @@ computation, head-binding or merge requirement.
 
 Repeated final submissions with exactly the same finding content share one
 item, even if a correction shortens an overlong ID. The runtime preserves the
-original submissions and records the ID aliases. Different objections,
-locations or attempted resolutions are not combined by a similarity guess.
+original submissions and records the ID aliases. Different objections or
+locations are not combined by a similarity guess. Filling in the attempted
+argument for the same objection does not create another finding; all original
+attempts remain in the delivery record. Reusing an ID for a different objection
+creates a separate item, and the earlier objection still needs a disposition.
 
 An originating reviewer's validated resolution closes its own finding even
 when the other review did not complete. Automatic carry-forward copies do not

@@ -127,6 +127,49 @@ class DuplicateDeliveries(unittest.TestCase):
         self.assertEqual([f['id'] for f in value['findings']],['F1','F2'])
 
 
+    def test_reused_id_with_changed_objection_cannot_erase_the_first(self):
+        first=report(report='Short',decision='changes_requested',findings=[{
+            'id':'F1','location':'p:1','objection':'The denominator can vanish.'}])
+        second=report(decision='changes_requested',findings=[{
+            'id':'F1','location':'p:2','objection':'The endpoint case is omitted.'}])
+        (_,app,_,state),_,_,_=delivery_fixtures.DeliveredClosure().fixture('astra',
+            response('astra',[first],'one'),[response('astra',[second],'two')])
+        value=state['reports']['astra']
+        self.assertFalse(value['complete'])
+        self.assertEqual(len(value['review']['findings']),2)
+        self.assertIn('denominator can vanish',str(value['review']))
+        self.assertIn('endpoint case is omitted',str(value['review']))
+        self.assertEqual(app.final['conclusion'],'failure')
+
+    def test_reused_id_can_finish_after_explicit_disposition(self):
+        first=report(report='Short',decision='changes_requested',findings=[{
+            'id':'F1','location':'p:1','objection':'The denominator can vanish.'}])
+        second=report(decision='changes_requested',findings=[{
+            'id':'F1','location':'p:2','objection':'The endpoint case is omitted.'}])
+        third=copy.deepcopy(second)
+        third['findings'][0]['id']='F2'
+        third['prior_findings']=[{'id':'7-1-astra-F1','resolution':'unresolved',
+                                 'reason':'The denominator objection still needs its own repair.'}]
+        (_,app,_,state),_,count,_=delivery_fixtures.DeliveredClosure().fixture('astra',
+            response('astra',[first],'one'),[response('astra',[second],'two'),response('astra',[third],'three')])
+        value=state['reports']['astra']
+        self.assertTrue(value['complete'])
+        self.assertEqual(count,3)
+        self.assertEqual(value['review']['prior_findings'][0]['id'],'7-1-astra-F1')
+        self.assertEqual(value['review']['findings'][0]['id'],'F2')
+        self.assertEqual(app.final['conclusion'],'failure')
+
+    def test_content_generated_id_cannot_collide_with_a_reused_explicit_id(self):
+        identity={'run':'7','attempt':'1','reviewer':'astra'}
+        second=report(findings=[{'id':'F1','objection':'Second objection.'}])
+        fallback='unvalidated-'+gate.delivered_content_key(second['findings'][0])[:24]
+        first=report(findings=[{'id':fallback,'objection':'First objection.'}])
+        third=report(findings=[{'id':'F1','objection':'Third objection.'}])
+        value=gate.delivered_obligations([first,third,second],identity,{})
+        self.assertEqual(len(value['findings']),3)
+        self.assertEqual(len({f['id'] for f in value['findings']}),3)
+
+
 class OriginReviewerClosure(unittest.TestCase):
     ident='1-1-astra-F1'
 

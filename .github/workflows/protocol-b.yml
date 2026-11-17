@@ -2361,8 +2361,16 @@ jobs:
               return render()
 
 
+          def delivered_content_key(finding):
+              # Supplying the required attempted argument enriches the same objection.
+              # Keep every original attempt in the delivery record, without a new ID.
+              content = json.dumps({k: v for k, v in finding.items() if k not in {'id', 'attempted_resolution'}},
+                                   sort_keys=True, ensure_ascii=False)
+              return hashlib.sha256(content.encode()).hexdigest()
+
+
           def delivered_finding_aliases(payloads, identity):
-              """Deduplicate exact content within this execution, never infer semantic equivalence."""
+              """Match the same objection within this execution, without inferring equivalence."""
               groups = {}
               prefix = finding_id(identity, '')
               for value in payloads:
@@ -2373,23 +2381,27 @@ jobs:
                           continue
                       raw_id = str(finding.get('id', ''))
                       local_id = raw_id[len(prefix):] if raw_id.startswith(prefix) else raw_id
-                      content = json.dumps({k: v for k, v in finding.items() if k != 'id'}, sort_keys=True, ensure_ascii=False)
-                      fallback = 'unvalidated-' + hashlib.sha256(content.encode()).hexdigest()[:24]
-                      group = groups.setdefault(content, {'ids': [], 'fallback': fallback})
+                      key = delivered_content_key(finding)
+                      group = groups.setdefault(key, {'ids': [], 'fallback': 'unvalidated-' + key[:24]})
                       group['ids'].append((raw_id, local_id))
-              aliases = {}
-              for group in groups.values():
-                  valid = [local for _, local in group['ids'] if re.fullmatch(r'[A-Za-z0-9_-]{1,40}', local)]
+              by_id, by_content, used = {}, {}, set()
+              for key, group in groups.items():
+                  valid = [local for _, local in group['ids']
+                           if re.fullmatch(r'[A-Za-z0-9_-]{1,40}', local) and local not in used]
                   canonical = valid[0] if valid else group['fallback']
-                  aliases[group['fallback']] = canonical
-                  for raw, local in group['ids']:
+                  salt = 0
+                  while canonical in used:
+                      salt += 1
+                      canonical = 'unvalidated-' + hashlib.sha256((key+':'+str(salt)).encode()).hexdigest()[:24]
+                  used.add(canonical)
+                  by_content[key] = canonical
+                  for ident in [group['fallback']] + [i for pair in group['ids'] for i in pair]:
                       # A reused raw ID with different content is not an alias.
-                      for key in (raw, local):
-                          if key in aliases and aliases[key] != canonical:
-                              aliases[key] = key
-                          else:
-                              aliases[key] = canonical
-              return aliases
+                      if ident in by_id and by_id[ident] != canonical:
+                          by_id[ident] = ident
+                      else:
+                          by_id[ident] = canonical
+              return {'by_id': by_id, 'by_content': by_content}
 
 
           def normalize_delivered_finding_ids(value, aliases, identity):
@@ -2402,7 +2414,8 @@ jobs:
                   for finding in findings:
                       if isinstance(finding, dict):
                           ident = str(finding.get('id', ''))
-                          finding['id'] = aliases.get(ident, ident)
+                          finding['id'] = aliases['by_content'].get(delivered_content_key(finding),
+                              aliases['by_id'].get(ident, ident))
                       encoded = json.dumps(finding, sort_keys=True, ensure_ascii=False)
                       if encoded not in seen:
                           normalized.append(finding)
@@ -2413,7 +2426,7 @@ jobs:
                   for item in value['prior_findings']:
                       if isinstance(item, dict) and isinstance(item.get('id'), str) and item['id'].startswith(prefix):
                           old = item['id'][len(prefix):]
-                          item['id'] = prefix + aliases.get(old, old)
+                          item['id'] = prefix + aliases['by_id'].get(old, old)
               return value
 
           def delivered_obligations(payloads, identity, known_prior):
@@ -2494,7 +2507,7 @@ jobs:
                   aliases = delivered_finding_aliases(self.pending_payloads(), identity)
                   for old in list(self.pending_fresh_ids):
                       local = old[len(finding_id(identity, '')):]
-                      new = finding_id(identity, aliases.get(local, local))
+                      new = finding_id(identity, aliases['by_id'].get(local, local))
                       if old != new and old not in self.original_prior_ids:
                           self.prior.pop(old, None)
                           self.pending_fresh_ids.discard(old)
