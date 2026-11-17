@@ -7,7 +7,8 @@ Authors: The Tau Ceti contributors
 -- Modified for the Z-in-Q kernel: `MvPolynomial.IsHomogeneous.eval₂_const_mul` made private: a declaration
 -- of the same name is loaded with ZInQKernel.OneProof.Main (from
 -- ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.RingTheory.MvPolynomial.HomogeneousCharts), so the two
--- modules could not be imported together.
+-- modules could not be imported together. The lemma is now internal to this file (the docstring's
+-- `hp.eval₂_const_mul` works only here); `aeval_smul` and `eval_smul` stay public.
 module
 
 public import Mathlib.Algebra.Polynomial.Degree.Operations
