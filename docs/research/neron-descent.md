@@ -174,26 +174,40 @@ and gluing infrastructure of §3.3, which is also absent.
 
 ## 5. What compiles (VERIFIED)
 
-`scratch/neron-descent/NeronDescent.lean` (`lake env lean`, on oleans copied from the dedekind-free worktree) checks:
-* `NeronDescent.NeronSchemeExtensionDedekind`, the target Prop copied verbatim, with
-  `copy_iff : NeronDescent.NeronSchemeExtensionDedekind ↔ ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind := Iff.rfl`;
-* the reductions on this branch:
-  * `mumfordGroupLawDVR_proof : MumfordGroupLawDVR`;
-  * field → `NeronDVRLocal`;
-  * `NeronDVRLocal` → `NeronSchemeExtensionExists` → `H5Neron.NeronModelExists` (T41) and
-    `GapNeron.NeronSchemeModelExistsDVRNF` (r6, SS1, SS3);
+* **`scratch/neron-descent/NeronDescent.lean`** compiles with no errors (`lake env lean`; output in
+  `NeronDescent.out.txt`). It contains:
+  * `NeronDescent.NeronSchemeExtensionDedekind`, the target Prop copied verbatim, with
+    `copy_iff : NeronDescent.NeronSchemeExtensionDedekind ↔ ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind := Iff.rfl`;
+  * `NeronDescent.neronDVRLocal_of_dedekind`: dedekind-free's proof, with the argument `¬ IsField Rv` supplied;
+  * `neronSchemeExtensionExists_of_dvrLocal`;
+  * the readers `H5Neron.NeronModelExists` (T41) and `GapNeron.NeronSchemeModelExistsDVRNF` (r6, SS1, SS3) from
+    `NeronDVRLocal`;
   * `NeronDescentSH → NeronDVRLocal`;
-* the descent tools of §3.1, by `#check`.
+  * `#check`s of the descent tools of §3.1.
 
-Compile outcome: see `scratch/neron-descent/log.md` (§ compile).
+  All axiom lists are `[propext, Classical.choice, Quot.sound]`.
+* **Integration bug in dedekind-free's contribution.** `ZInQKernel/Contrib/OneProof/MumfordGroupLawDescent.lean`
+  (merged from dedekind-free) **does not build on fork main d879bb73**:
+  * `lake build` gives one error, at L855 (`scratch/neron-descent/build_MumfordGroupLawDescent.err.txt`);
+  * `neronDVRLocal_of_dedekind` applies the field without the hypothesis `¬ IsField D` that 00f923e24 (reviewer
+    fix) added to `NeronSchemeExtensionDedekind`. dedekind-free was built on c0f3d085, before that fix;
+  * the fix is one line:
+    `obtain ⟨N, hS, hSep, hQC, ε, hext⟩ := h Rv L (A.baseChange L) (IsDiscreteValuationRing.not_isField Rv)`.
+  * `scratch/neron-descent/GroupLawDescentFixed.lean` is the whole file with that fix. It compiles with no errors,
+    and `mumfordGroupLawDVR_proof`, `neronDVRLocal_of_dedekind` and `neronSchemeExtensionExists_of_dvrLocal` have
+    standard axioms (`GroupLawDescentFixed.out.txt`). So dedekind-free's result holds on fork main once fixed.
+  * Files under `ZInQKernel/` are not edited by this task.
 
 ## 6. Recommendation for the integrator
 
-* Fold dedekind-free's narrowing (`scratch/dedekind-free/fold/`, `OpenResearchLeaves32` with `neronDVRLocal`). It is
-  count-neutral, the new leaf is strictly weaker, and it was checked by dedekind-free.
-* For the announcement, `NeronDVRLocal` should be listed as a literature leaf: BLR 1.4 Thm 3 at the DVR
-  `(𝓞_L)_v`, locator UNVERIFIED. Formalization path:
+* **Apply the one-line fix of §5** to `MumfordGroupLawDescent.lean` when integrating dedekind-free.
+* **Rebase dedekind-free's fold** (`scratch/dedekind-free/fold/`) before integrating it. It is written over
+  `OpenResearchLeaves31` and `sixContactMin_of_open37_hf_gm_pz`, while fork main's bundle is now
+  `OpenResearchLeaves38` (TailZ62/TailZ63). The fold is count-neutral and its new leaf `neronDVRLocal` is strictly
+  weaker. It also drops `NeronGoodModelIso` and the DVR reading from the closure.
+* **For the announcement**, list `NeronDVRLocal` as a literature leaf: BLR 1.4 Thm 3 at the DVR `(𝓞_L)_v`, locator
+  UNVERIFIED. Formalization path:
   1. the henselian case is proved (FLT, neron-flt);
   2. contributors need Raynaud's quasi-projectivity (BLR 6.4/1) plus descent of quasi-projective schemes along
      `R → R^h`. Equivalently, they can prove (SA) of §3.3 together with affine patching along `R → R^h`.
-* This task changes no file under `ZInQKernel/`.
+* No new Prop is introduced; no statement is changed.
