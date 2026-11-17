@@ -2,6 +2,9 @@ import copy
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
+import json
+from types import SimpleNamespace
 
 import kernel_build_inventory as inventory
 
@@ -33,6 +36,23 @@ class InventoryTests(unittest.TestCase):
         self.assertEqual(result['A']['inputs']['project_imports'], ['B'])
         self.assertEqual(result['B']['inputs']['builtin_imports'], self.builtins)
         self.assertEqual(result['A']['inputs']['source_sha256'], inventory.read_source(self.root, 'A.lean'))
+
+    def test_header_parser_does_not_evaluate_lake_or_elaborate_candidate_sources(self):
+        payload = {'imports': [{'errors': [], 'result': header('Init', 'B')},
+                               {'errors': [], 'result': header('Init')}]}
+        with patch.object(inventory.subprocess, 'run', return_value=SimpleNamespace(
+                returncode=0, stdout=json.dumps(payload).encode())) as run:
+            result = inventory.query_headers(self.root, self.paths, lean='/trusted/bin/lean')
+        self.assertEqual(run.call_args.args[0], ['/trusted/bin/lean', '--deps-json', 'A.lean', 'B.lean'])
+        self.assertEqual(result['A']['imports'], ['B', 'Init'])
+        self.assertEqual(result['A']['source'], 'A.lean')
+
+    def test_header_errors_or_truncated_output_do_not_supply_an_inventory(self):
+        for payload in ({'imports': []}, {'imports': [{'errors': ['parse error'], 'result': header()}]}):
+            with self.subTest(payload=payload), patch.object(inventory.subprocess, 'run', return_value=SimpleNamespace(
+                    returncode=0, stdout=json.dumps(payload).encode())):
+                with self.assertRaises(ValueError):
+                    inventory.query_headers(self.root, {'A': 'A.lean'})
 
     def test_wrong_source_resolution_is_not_accepted_as_the_contract_module(self):
         self.rows['A']['source'] = str(self.root/'B.lean')

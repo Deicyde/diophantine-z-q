@@ -25,25 +25,38 @@ def read_source(root, relative):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def query_headers(root, names, *, lake='lake'):
-    """Run only Lake's source/header facets, with automatic artifact reuse off.
+def query_headers(root, module_paths, *, lean='lean'):
+    """Use Lean's header-only parser; do not evaluate a candidate Lake config.
 
-    Evaluating a Lake configuration can itself run code. Consequently callers
-    must use a credential-free build job and persist-credentials:false checkout;
-    removing a token from this environment alone is not an execution sandbox.
+    Lean 4.35's --deps-json parses the source headers without importing or
+    elaborating the files. Module-to-source resolution must be checked by the
+    caller against the approved build layout; a supplied path is not proof of
+    that resolution. The separate environment collector binds those roots.
     """
     require(not any(os.environ.get(key) for key in FORBIDDEN_ENV),
             'Source collection must run without API or artifact credentials')
-    targets = [f'+{name}:{facet}' for name in names for facet in ('lean', 'imports', 'header')]
-    env = dict(os.environ, LAKE_NO_CACHE='true', LAKE_ARTIFACT_CACHE='false', LAKE_CACHE_DIR='')
-    result = subprocess.run([lake, '-J', 'query', *targets], cwd=root, env=env,
+    require(isinstance(module_paths, dict) and bool(module_paths), 'Missing source paths for header parser')
+    names = list(module_paths)
+    require(all(regular_path(path) and path.endswith('.lean') for path in module_paths.values()),
+            'Unsafe header parser source path')
+    result = subprocess.run([lean, '--deps-json', *module_paths.values()], cwd=root,
                             capture_output=True, timeout=120, check=False)
     require(result.returncode == 0, 'Compiler source/header query failed')
     require(len(result.stdout) <= 16 * 1024 * 1024, 'Compiler source inventory is too large')
-    rows = [unique_json(line) for line in result.stdout.splitlines() if line.strip()]
-    require(len(rows) == 3 * len(names), 'Compiler source inventory is incomplete')
-    return {name: {'source': rows[3*i], 'imports': rows[3*i+1], 'header': rows[3*i+2]}
-            for i, name in enumerate(names)}
+    value = unique_json(result.stdout)
+    rows = value.get('imports') if isinstance(value, dict) else None
+    require(isinstance(rows, list) and len(rows) == len(names), 'Compiler source inventory is incomplete')
+    records = {}
+    for name, row in zip(names, rows):
+        require(isinstance(row, dict) and row.get('errors') == [] and isinstance(row.get('result'), dict),
+                'Compiler reported an invalid source header')
+        header = row['result']
+        imports = header.get('imports')
+        require(isinstance(imports, list) and all(isinstance(i, dict) and isinstance(i.get('module'), str)
+                                                for i in imports), 'Malformed compiler header imports')
+        records[name] = {'source': module_paths[name], 'header': header,
+                         'imports': sorted({i['module'] for i in imports})}
+    return records
 
 
 def collect(root, module_paths, external_modules, builtin_modules, *, query=query_headers):
@@ -82,7 +95,7 @@ def collect(root, module_paths, external_modules, builtin_modules, *, query=quer
     records = {}
     for offset in range(0, len(names), 64):
         batch = names[offset:offset+64]
-        rows = query(root, batch)
+        rows = query(root, {name: module_paths[name] for name in batch})
         require(isinstance(rows, dict) and set(rows) == set(batch),
                 'Compiler did not return the exact requested inventory')
         for name in batch:
@@ -104,7 +117,8 @@ def collect(root, module_paths, external_modules, builtin_modules, *, query=quer
                     and isinstance(item.get('module'), str) for item in header_imports),
                     'Malformed compiler import header')
             header_names = {item['module'] for item in header_imports}
-            # Lake's imports facet omits builtins supplied by the toolchain.
+            # Earlier inventories omitted toolchain imports in their import
+            # list; the complete header must still account for every import.
             require(imports <= header_names and header_names - imports <= set(builtin_modules),
                     'Compiler import facets disagree')
             require(header_names <= set(module_paths) | set(external_modules) | set(builtin_modules),
