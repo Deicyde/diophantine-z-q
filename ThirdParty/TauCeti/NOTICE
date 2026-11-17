@@ -107,6 +107,14 @@ Repository: https://github.com/TauCetiProject/TauCeti
   GroupTheory/QuotientGroup/Basic; list in scratch/t40-tate/extras-list.txt) the
   Backport/ file of the same path holds the declarations of the commit-4d91513e
   version that the commit-5a01f5fe version lacks.
+- Commit 5a01f5fe (as above): the 37 further modules vendored unmodified by the Z-in-Q
+  task coeff-field-tc (the closure of NumberTheory.ModularForms.Newforms.NumberField: the
+  finiteness over Z of the cusp-form Hecke algebra in weight at least two, from modular
+  symbols and the injective period map (HeckeSlash/Finite), and the integrality of the
+  Fourier coefficients of a normalised eigenform; list in
+  scratch/coeff-field-tc/vendor-new.txt): ModularSymbols/ (Basic, Hecke/{Basic,Composition,
+  Diamond}, Period/{Hecke,Injective,Integral,Map,Pairing}), EichlerIntegral/, GeodesicIntegral/,
+  HeckeSlash/Finite, Newforms/{Fields,NumberField}, and their remaining dependencies.
 
 Location in this repository
 ---------------------------
