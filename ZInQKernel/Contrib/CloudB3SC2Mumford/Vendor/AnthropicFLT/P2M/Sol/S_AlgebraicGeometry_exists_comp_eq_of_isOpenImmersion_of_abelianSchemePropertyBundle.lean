@@ -74,7 +74,8 @@ theorem valuationRing_stalk_of_ringKrullDim_le_one (k : Type u) [Field k] {X : S
   obtain ⟨-, hic⟩ := AlgebraicGeometry.Smooth.isDomain_and_isIntegrallyClosed_stalk g x
   haveI : IsNoetherianRing (X.presheaf.stalk x) := inferInstance
   haveI : Ring.KrullDimLE 1 (X.presheaf.stalk x) := Ring.krullDimLE_iff.mpr hx
-  have key := (tfae_of_isNoetherianRing_of_isLocalRing_of_isDomain (X.presheaf.stalk x)).out 3 1
+  -- [port] Mathlib v4.35: `List.TFAE.out` indices are 1-based
+  have key := (tfae_of_isNoetherianRing_of_isLocalRing_of_isDomain (X.presheaf.stalk x)).out 4 2
   exact key.mp ⟨hic, fun P hP hP' => IsLocalRing.eq_maximalIdeal (hP'.isMaximal_of_ne_bot hP)⟩
 
 theorem main

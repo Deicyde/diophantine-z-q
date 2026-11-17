@@ -55,9 +55,10 @@ theorem abelianBundle_geometric_pullback {S : Scheme.{0}} (F : Over S)
   have he : E.inv ≫ A.X.hom = pullback.snd (pullback.snd F.hom a) s := by
     simp only [E, Iso.trans_inv, Iso.symm_inv, Category.assoc,
       hA.isoPullback_inv_snd, sq.isoPullback_hom_snd]
-  exact (abelianBundle_of_abVar A).of_isPullback
-    (ι := 𝟙 (Spec (CommRingCat.of k)))
-    (IsPullback.of_horiz_isIso ⟨by simpa using he⟩)
+  have hsq : IsPullback E.inv (pullback.snd (pullback.snd F.hom a) s)
+      A.X.hom (𝟙 (Spec (CommRingCat.of k))) :=
+    IsPullback.of_horiz_isIso ⟨by simpa using he⟩
+  exact (abelianBundle_of_abVar A).of_isPullback hsq
 
 /-- Pull back the prescribed identity section to an affine base. -/
 def affineSection {S : Scheme.{0}} (F : Over S) (e : S ⟶ F.left)

@@ -313,7 +313,8 @@ open scoped IsMulCommutative in
 
 def polyEnd (hθ : YComm G θ) : MvPolynomial (Fin s) A →ₐ[A] Module.End A (FamilyFrames ι G) :=
   haveI := Algebra.isMulCommutative_adjoin A (s := Set.range (yEnd ι G θ))
-    (by rintro _ ⟨m, rfl⟩ _ ⟨m', rfl⟩; exact yEnd_mul_comm hθ m m')
+    -- [port] Mathlib v4.35: the hypothesis of `Algebra.isMulCommutative_adjoin` is `s.Pairwise Commute` (extra `x ≠ y` binder)
+    (by rintro _ ⟨m, rfl⟩ _ ⟨m', rfl⟩ -; exact yEnd_mul_comm hθ m m')
   (Algebra.adjoin A (Set.range (yEnd ι G θ))).val.comp
     (MvPolynomial.aeval fun m =>
       (⟨yEnd ι G θ m, Algebra.subset_adjoin ⟨m, rfl⟩⟩ : Algebra.adjoin A (Set.range (yEnd ι G θ))))

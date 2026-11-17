@@ -7,6 +7,7 @@ is the copy published under CloudW02Connectedness) and the upstream lakefile opt
 `set_option` lines after the imports; any other change is marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+[port] name clash with a declaration already in the repository: renamed `Module.depth` → `Module.depth_c2m`, `Module.depth_le_ringKrullDim_quotient_of_mem_associatedPrimes` → `Module.depth_le_ringKrullDim_quotient_of_mem_associatedPrimes_c2m`.
 -/
 import Mathlib
 import ZInQKernel.Contrib.CloudB3SC2Mumford.Vendor.AnthropicFLT.Definitions.Def_Patching_SystemTypes
@@ -19,8 +20,8 @@ set_option backward.isDefEq.respectTransparency.types false
 set_option autoImplicit false
 
 open IsLocalRing RingTheory
-theorem Module.depth_le_ringKrullDim_quotient_of_mem_associatedPrimes
+theorem Module.depth_le_ringKrullDim_quotient_of_mem_associatedPrimes_c2m
     {R : Type*} [CommRing R] [IsLocalRing R] [IsNoetherianRing R]
     (M : Type*) [AddCommGroup M] [Module R M] [Module.Finite R M]
     {p : Ideal R} (hp : p ∈ associatedPrimes R M) :
-    (Module.depth R M : WithBot ℕ∞) ≤ ringKrullDim (R ⧸ p) := by p2m_exact_reverting @_root_.P2MW.S_Module_depth_le_ringKrullDim_quotient_of_mem_associatedPrimes.solution
+    (Module.depth_c2m R M : WithBot ℕ∞) ≤ ringKrullDim (R ⧸ p) := by p2m_exact_reverting @_root_.P2MW.S_Module_depth_le_ringKrullDim_quotient_of_mem_associatedPrimes.solution

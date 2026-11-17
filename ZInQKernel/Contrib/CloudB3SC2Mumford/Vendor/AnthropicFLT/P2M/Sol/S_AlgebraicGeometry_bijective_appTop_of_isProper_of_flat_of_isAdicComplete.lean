@@ -137,11 +137,11 @@ abbrev ι (I : Ideal A) : XI p I ⟶ X := pullback.fst _ _
 
 abbrev pI (I : Ideal A) : XI p I ⟶ Spec (.of (A ⧸ I)) := pullback.snd _ _
 
-private noncomputable def _root_.SolH0T2.alg (U : X.Opens) : A →+* Γ(X, U) :=
+private noncomputable def alg (U : X.Opens) : A →+* Γ(X, U) :=
   (p.appLE ⊤ U le_top).hom.comp (Scheme.ΓSpecIso A).inv.hom
 
 -- [port] was: p2m_export "SolH0T2" "alg"
-export _root_.SolH0T2 (alg)
+-- [port] the alias above is no longer needed: the private declaration is declared directly in this namespace
 
 noncomputable def φ (I : Ideal A) : A ⧸ I →+* Γ(XI p I, ⊤) :=
   ((pI p I).appTop).hom.comp (Scheme.ΓSpecIso (.of (A ⧸ I))).inv.hom

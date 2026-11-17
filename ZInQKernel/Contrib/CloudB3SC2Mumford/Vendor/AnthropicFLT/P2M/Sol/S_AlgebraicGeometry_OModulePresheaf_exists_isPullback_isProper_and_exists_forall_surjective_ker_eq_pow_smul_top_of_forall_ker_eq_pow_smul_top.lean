@@ -265,8 +265,7 @@ private theorem _root_.K73W2A.induction_on {P : D ⊗[R] L → Prop} (h0 : P 0)
     | add w₁ w₂ h₁ h₂ => rw [map_add, TensorProduct.add_tmul]; exact hadd _ _ h₁ h₂
   | add y z hy hz => exact hadd y z hy hz
 
--- [port] was: p2m_export "K73W2A" "induction_on"
-export _root_.K73W2A (induction_on)
+-- [port] was: p2m_export "K73W2A" "induction_on" (an alias of the private `_root_.K73W2A.induction_on`); its two uses below name it directly
 theorem baseChange_apply_eq_lTensor (z : C ⊗[B] L) : pr.baseChange C z = pr.lTensor C z := by
   induction z using TensorProduct.induction_on with
   | zero => rw [map_zero, map_zero]
@@ -344,7 +343,7 @@ theorem theta_naturality
     (hρN_β : ∀ m : M, ρN (β ((1 : C) ⊗ₜ[B] m)) = β₁ ((1 : C₁) ⊗ₜ[B] m)) (y : D ⊗[R] L) :
     ρN (theta B C R D L M N pr β y) =
       theta B C₁ R D₁ L M N₁ pr β₁ (ρD.toLinearMap.rTensor L y) := by
-  induction y using induction_on B C R D L with
+  induction y using _root_.K73W2A.induction_on B C R D L with -- [port]
   | h0 => simp only [map_zero]
   | htmul c r x =>
     rw [theta_tmul, hρN_smul, hρN_β, LinearMap.rTensor_tmul, AlgHom.toLinearMap_apply, map_mul, hρ,
@@ -358,7 +357,7 @@ theorem theta_level
     (φN : N →+ N₀) (hφN_smul : ∀ (c : C) (z : N), φN (c • z) = c • φN z)
     (hφN_β : ∀ m : M, φN (β ((1 : C) ⊗ₜ[B] m)) = β₀ ((1 : C) ⊗ₜ[B] φM m)) (y : D ⊗[R] L) :
     φN (theta B C R D L M N pr β y) = theta B C R D L M₀ N₀ pr₀ β₀ y := by
-  induction y using induction_on B C R D L with
+  induction y using _root_.K73W2A.induction_on B C R D L with -- [port]
   | h0 => simp only [map_zero]
   | htmul c r x => rw [theta_tmul, hφN_smul, hφN_β, hφM, theta_tmul]
   | hadd y z hy hz => simp only [map_add, hy, hz]

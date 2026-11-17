@@ -358,7 +358,8 @@ theorem IsTangentOfPair.const (ϑ : pairRing I C →+* thickening T' V C) (hϑ :
 
 namespace IsTangentOfPair
 
-private theorem _root_.P2mWs2I1b.IsTangentOfPair.comp {u v : Spec (CommRingCat.of C) ⟶ A}
+-- [port] declared in this namespace (the full name of the former alias `IsTangentOfPair.comp`)
+private theorem comp {u v : Spec (CommRingCat.of C) ⟶ A}
     {w : Spec (CommRingCat.of (thickening T' V C)) ⟶ A} (h : IsTangentOfPair I V ι C u v w)
     {A' : Scheme.{u}} (g : A ⟶ A') : IsTangentOfPair I V ι C (u ≫ g) (v ≫ g) (w ≫ g) := by
   obtain ⟨ϑ, hϑ, φ, hu, hv, rfl⟩ := h
@@ -367,7 +368,7 @@ private theorem _root_.P2mWs2I1b.IsTangentOfPair.comp {u v : Spec (CommRingCat.o
 
 end IsTangentOfPair
 -- [port] was: p2m_export "P2mWs2I1b" "IsTangentOfPair.comp"
-export _root_.P2mWs2I1b (IsTangentOfPair.comp)
+-- [port] the alias above is no longer needed: the private declaration is declared directly in this namespace
 end PairFacts
 
 end P2mWs2I1b

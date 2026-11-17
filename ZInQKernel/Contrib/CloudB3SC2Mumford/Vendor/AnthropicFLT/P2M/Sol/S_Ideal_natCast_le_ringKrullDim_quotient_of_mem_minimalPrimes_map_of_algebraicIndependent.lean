@@ -104,8 +104,9 @@ theorem exists_ringKrullDim_eq_natCast (A : Type*) [CommRing A]
       ((PrimeSpectrum.asIdeal_le_asIdeal _ _).mpr hlt.le) ⟨hy2, hy1⟩
       (Algebra.IsIntegral.isIntegral y)
   have h2 : ringKrullDim (MvPolynomial (Fin s) k) = s := by
+    -- [port] Mathlib v4.35 states `MvPolynomial.ringKrullDim_of_isNoetherianRing` with `ENat.card`
     rw [MvPolynomial.ringKrullDim_of_isNoetherianRing, ringKrullDim_eq_zero_of_field, zero_add,
-      Nat.card_eq_fintype_card, Fintype.card_fin]
+      ENat.card_eq_coe_fintype_card, Fintype.card_fin] <;> rfl
   rw [h2] at h1
   exact exists_nat_eq (ringKrullDim_nonneg_of_nontrivial) h1
 
@@ -265,7 +266,8 @@ theorem ringKrullDim_localization_add_le
     ringKrullDim_localization_le (Submonoid.powers (algebraMap R C r))
   have h3 : ringKrullDim (MvPolynomial (Fin d) (Localization.Away r)) =
       ringKrullDim (Localization.Away r) + d := by
-    rw [MvPolynomial.ringKrullDim_of_isNoetherianRing, Nat.card_eq_fintype_card, Fintype.card_fin]
+    -- [port] Mathlib v4.35 states `MvPolynomial.ringKrullDim_of_isNoetherianRing` with `ENat.card`
+    rw [MvPolynomial.ringKrullDim_of_isNoetherianRing, ENat.card_eq_coe_fintype_card, Fintype.card_fin] <;> rfl
   calc ringKrullDim (Localization.Away r) + d
       = ringKrullDim (MvPolynomial (Fin d) (Localization.Away r)) := h3.symm
     _ ≤ ringKrullDim (Localization.Away (algebraMap R C r)) := h1

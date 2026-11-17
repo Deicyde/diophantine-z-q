@@ -51,11 +51,11 @@ lemma cover_f (U : Y.AffineZariskiSite) :
 def specMap : (relativeGluingData H₁).functor ⟶ (relativeGluingData H₂).functor :=
   Functor.whiskerRight β.rightOp Scheme.Spec
 
-private def _root_.FormalGAGAFiniteRelSpecMapAux.map : (relativeGluingData H₁).glued ⟶ (relativeGluingData H₂).glued :=
+private def map : (relativeGluingData H₁).glued ⟶ (relativeGluingData H₂).glued :=
   colimMap (specMap H₁ H₂ β)
 
 -- [port] was: p2m_export "FormalGAGAFiniteRelSpecMapAux" "map"
-export _root_.FormalGAGAFiniteRelSpecMapAux (map)
+-- [port] the alias above is no longer needed: the private declaration is declared directly in this namespace
 @[reassoc]
 lemma ι_map (U : Y.AffineZariskiSite) :
     (relativeGluingData H₁).cover.f U ≫ map H₁ H₂ β =

@@ -99,8 +99,9 @@ theorem height_eq_height_under_of_hasGoingDown {R S : Type*} [CommRing R] [CommR
 
 theorem ringKrullDim_mvPolynomial_fin (k : Type u) [Field k] (s : ℕ) :
     ringKrullDim (MvPolynomial (Fin s) k) = s := by
-  rw [MvPolynomial.ringKrullDim_of_isNoetherianRing, ringKrullDim_eq_zero_of_field, zero_add,
-    Nat.card_eq_fintype_card, Fintype.card_fin]
+  rw [MvPolynomial.ringKrullDim_of_isNoetherianRing, ringKrullDim_eq_zero_of_field, zero_add]
+  -- [port] Mathlib v4.35 states `MvPolynomial.ringKrullDim_of_isNoetherianRing` with `ENat.card`
+  simp [ENat.card_eq_coe_fintype_card]
 
 theorem height_eq_of_isMaximal_mvPolynomial (k : Type u) [Field k] :
     ∀ (n : ℕ) (M : Ideal (MvPolynomial (Fin n) k)), M.IsMaximal → M.height = n := by

@@ -76,8 +76,9 @@ theorem ringKrullDim_eq_of_isIntegral_of_injective {R S : Type*} [CommRing R] [C
 
 theorem ringKrullDim_mvPolynomial_fin (k : Type u) [Field k] (s : ℕ) :
     ringKrullDim (MvPolynomial (Fin s) k) = s := by
+  -- [port] Mathlib v4.35 states `MvPolynomial.ringKrullDim_of_isNoetherianRing` with `ENat.card`
   rw [MvPolynomial.ringKrullDim_of_isNoetherianRing, ringKrullDim_eq_zero_of_field, zero_add,
-    Nat.card_eq_fintype_card, Fintype.card_fin]
+    ENat.card_eq_coe_fintype_card, Fintype.card_fin] <;> rfl
 
 theorem height_eq_of_isMaximal_mvPolynomial (k : Type u) [Field k] :
     ∀ (n : ℕ) (M : Ideal (MvPolynomial (Fin n) k)), M.IsMaximal → M.height = n := by

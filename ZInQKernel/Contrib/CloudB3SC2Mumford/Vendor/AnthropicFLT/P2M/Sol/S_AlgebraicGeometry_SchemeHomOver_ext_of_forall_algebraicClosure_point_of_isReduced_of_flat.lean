@@ -34,7 +34,8 @@ variable {R L : Type u} [CommRing R] [IsDomain R] [Field L] [IsAlgClosed L] [Alg
 -- [port] local notation `bL` removed (build-time syntax); its uses below are expanded to `(Spec.map (CommRingCat.ofHom (algebraMap R L)))`
 
 theorem range_specMap_eq (hinj : Function.Injective (algebraMap R L)) :
-    Set.range ((Spec.map (CommRingCat.ofHom (algebraMap R L)))).base = {(⟨⊥, Ideal.bot_prime⟩ : PrimeSpectrum R)} := by
+    -- [port] Mathlib v4.35: `Ideal.bot_prime` is `Ideal.isPrime_bot`
+    Set.range ((Spec.map (CommRingCat.ofHom (algebraMap R L)))).base = {(⟨⊥, Ideal.isPrime_bot⟩ : PrimeSpectrum R)} := by
   ext p
   simp only [Set.mem_range, Set.mem_singleton_iff]
   constructor
@@ -47,7 +48,8 @@ theorem range_specMap_eq (hinj : Function.Injective (algebraMap R L)) :
       exact Ideal.eq_bot_of_prime q.asIdeal
     rw [hq, Ideal.comap_bot_of_injective _ hinj]
   · rintro rfl
-    refine ⟨⟨⊥, Ideal.bot_prime⟩, ?_⟩
+    -- [port] Mathlib v4.35: `Ideal.bot_prime` is `Ideal.isPrime_bot`
+    refine ⟨⟨⊥, Ideal.isPrime_bot⟩, ?_⟩
     rw [Spec.map_base]
     apply PrimeSpectrum.ext
     change Ideal.comap (algebraMap R L) ⊥ = ⊥
@@ -56,13 +58,16 @@ theorem range_specMap_eq (hinj : Function.Injective (algebraMap R L)) :
 omit [IsAlgClosed L] [Algebra R L] in
 
 theorem dense_preimage_genericPoint {D : Scheme.{u}} (t : D ⟶ Spec (CommRingCat.of R)) [Flat t] :
-    Dense (t.base ⁻¹' {(⟨⊥, Ideal.bot_prime⟩ : PrimeSpectrum R)}) := by
+    -- [port] Mathlib v4.35: `Ideal.bot_prime` is `Ideal.isPrime_bot`
+    Dense (t.base ⁻¹' {(⟨⊥, Ideal.isPrime_bot⟩ : PrimeSpectrum R)}) := by
   intro p
-  have hgen : (⟨⊥, Ideal.bot_prime⟩ : PrimeSpectrum R) ⤳ t.base p := by
+  -- [port] Mathlib v4.35: `Ideal.bot_prime` is `Ideal.isPrime_bot`
+  have hgen : (⟨⊥, Ideal.isPrime_bot⟩ : PrimeSpectrum R) ⤳ t.base p := by
     rw [← PrimeSpectrum.le_iff_specializes]
     exact bot_le
   obtain ⟨q, hq, htq⟩ := Flat.generalizingMap t hgen
-  have hqmem : q ∈ t.base ⁻¹' {(⟨⊥, Ideal.bot_prime⟩ : PrimeSpectrum R)} := htq
+  -- [port] Mathlib v4.35: `Ideal.bot_prime` is `Ideal.isPrime_bot`
+  have hqmem : q ∈ t.base ⁻¹' {(⟨⊥, Ideal.isPrime_bot⟩ : PrimeSpectrum R)} := htq
   apply closure_mono (Set.singleton_subset_iff.mpr hqmem)
   exact hq.mem_closure
 
@@ -91,13 +96,16 @@ theorem dense_range_of_points (hinj : Function.Injective (algebraMap R L))
     have := JacobsonSpace.closure_inter_closedPoints_eq_closure (X := P) isOpen_univ.isLocallyClosed
     rw [Set.univ_inter, closure_univ] at this
     exact this
-  have hrange : Set.range (pullback.fst t (Spec.map (CommRingCat.ofHom (algebraMap R L)))).base = t.base ⁻¹' {(⟨⊥, Ideal.bot_prime⟩ : PrimeSpectrum R)} := by
+  -- [port] Mathlib v4.35: `Ideal.bot_prime` is `Ideal.isPrime_bot`
+  have hrange : Set.range (pullback.fst t (Spec.map (CommRingCat.ofHom (algebraMap R L)))).base = t.base ⁻¹' {(⟨⊥, Ideal.isPrime_bot⟩ : PrimeSpectrum R)} := by
     rw [Scheme.Pullback.range_fst, range_specMap_eq hinj]
   rw [dense_iff_closure_eq, Set.eq_univ_iff_forall]
   intro d
-  have h1 : d ∈ closure (t.base ⁻¹' {(⟨⊥, Ideal.bot_prime⟩ : PrimeSpectrum R)}) :=
+  -- [port] Mathlib v4.35: `Ideal.bot_prime` is `Ideal.isPrime_bot`
+  have h1 : d ∈ closure (t.base ⁻¹' {(⟨⊥, Ideal.isPrime_bot⟩ : PrimeSpectrum R)}) :=
     dense_preimage_genericPoint t d
-  have h2 : t.base ⁻¹' {(⟨⊥, Ideal.bot_prime⟩ : PrimeSpectrum R)} ⊆
+  -- [port] Mathlib v4.35: `Ideal.bot_prime` is `Ideal.isPrime_bot`
+  have h2 : t.base ⁻¹' {(⟨⊥, Ideal.isPrime_bot⟩ : PrimeSpectrum R)} ⊆
       closure ((pullback.fst t (Spec.map (CommRingCat.ofHom (algebraMap R L)))).base '' closedPoints P) := by
     rw [← hrange]
     rintro _ ⟨p, rfl⟩

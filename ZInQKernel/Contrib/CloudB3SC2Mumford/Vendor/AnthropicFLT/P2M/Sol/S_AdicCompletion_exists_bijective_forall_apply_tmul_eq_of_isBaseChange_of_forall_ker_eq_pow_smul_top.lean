@@ -272,7 +272,7 @@ theorem solution
     have h0 : ∀ m : M 0, ∃ y ∈ LinearMap.range e, pr 0 y = m := by
       intro m
       induction m using (hκ 0).inductionOn with
-      | zero => exact ⟨0, Submodule.zero_mem _, LinearMap.map_zero _⟩
+      -- [port] Mathlib v4.35: `IsBaseChange.inductionOn` has no `zero` case
       | tmul m₀ =>
         obtain ⟨x₀, rfl⟩ := hpr₀s 0 m₀
         exact ⟨e ((1 : AdicCompletion (I₀.map (algebraMap B₀ B)) B) ⊗ₜ x₀), ⟨_, rfl⟩, by rw [he1, hΛ]⟩

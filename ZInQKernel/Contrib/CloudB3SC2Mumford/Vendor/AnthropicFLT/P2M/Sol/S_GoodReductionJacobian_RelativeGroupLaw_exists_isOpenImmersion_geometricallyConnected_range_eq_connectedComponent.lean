@@ -7,6 +7,7 @@ is the copy published under CloudW02Connectedness) and the upstream lakefile opt
 `set_option` lines after the imports; any other change is marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+[port] name clash with a declaration already in the repository: renamed `AlgebraicGeometry.GeometricallyIrreducible.geometricallyConnected` → `AlgebraicGeometry.GeometricallyIrreducible.geometricallyConnected_c2m`.
 -/
 import Mathlib
 import ZInQKernel.Contrib.CloudB3SC2Mumford.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_RelativeGroupLaw
@@ -219,14 +220,14 @@ theorem ePt_mem_idC : ePt L ∈ idC L := mem_connectedComponent
 
 include L in
 
-private theorem _root_.P2mIdCompField.finite_irreducibleComponents : (irreducibleComponents G).Finite := by
+private theorem finite_irreducibleComponents : (irreducibleComponents G).Finite := by
   haveI : CompactSpace G := QuasiCompact.compactSpace_of_compactSpace f
   haveI : IsLocallyNoetherian G := LocallyOfFiniteType.isLocallyNoetherian f
   haveI : IsNoetherian G := ⟨⟩
   exact TopologicalSpace.NoetherianSpace.finite_irreducibleComponents
 
 -- [port] was: p2m_export "P2mIdCompField" "finite_irreducibleComponents"
-export _root_.P2mIdCompField (finite_irreducibleComponents)
+-- [port] the alias above is no longer needed: the private declaration is declared directly in this namespace
 
 theorem isOpen_idC : IsOpen (idC L) :=
   isOpen_connectedComponent_of_finite_irreducibleComponents (finite_irreducibleComponents L) _
@@ -517,7 +518,7 @@ scoped instance geometricallyIrreducible_f₀ : GeometricallyIrreducible (f₀ L
   geometricallyIrreducible_of_snd (f₀ L) (tb k (AlgebraicClosure k))
 
 scoped instance geometricallyConnected_f₀ : GeometricallyConnected (f₀ L) :=
-  AlgebraicGeometry.GeometricallyIrreducible.geometricallyConnected (f₀ L)
+  AlgebraicGeometry.GeometricallyIrreducible.geometricallyConnected_c2m (f₀ L)
 
 scoped instance irreducibleSpace_G₀ : IrreducibleSpace (G₀ L) :=
   GeometricallyIrreducible.irreducibleSpace_of_subsingleton (f₀ L)

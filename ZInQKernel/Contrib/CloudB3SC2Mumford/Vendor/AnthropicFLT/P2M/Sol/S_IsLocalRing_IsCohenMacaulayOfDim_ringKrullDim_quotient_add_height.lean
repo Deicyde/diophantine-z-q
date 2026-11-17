@@ -7,6 +7,7 @@ is the copy published under CloudW02Connectedness) and the upstream lakefile opt
 `set_option` lines after the imports; any other change is marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+[port] name clash with a declaration already in the repository: renamed `Module.depth` → `Module.depth_c2m`, `Module.depth_le_ringKrullDim_quotient_of_mem_associatedPrimes` → `Module.depth_le_ringKrullDim_quotient_of_mem_associatedPrimes_c2m`.
 -/
 import Mathlib
 import ZInQKernel.Contrib.CloudB3SC2Mumford.Vendor.AnthropicFLT.Definitions.Def_Patching_CohenMacaulayOfDim
@@ -49,8 +50,8 @@ theorem ringKrullDim_quotient_add_height_le {R : Type u} [CommRing R] (p : Ideal
 
 theorem depth_eq_of_linearEquiv {R : Type u} [CommRing R] [IsLocalRing R] {M N : Type u}
     [AddCommGroup M] [Module R M] [AddCommGroup N] [Module R N] (e : M ≃ₗ[R] N) :
-    Module.depth R M = Module.depth R N := by
-  simp only [Module.depth, e.isWeaklyRegular_congr]
+    Module.depth_c2m R M = Module.depth_c2m R N := by
+  simp only [Module.depth_c2m, e.isWeaklyRegular_congr]
 
 theorem enat_eq_of_add_one_eq {a : ℕ∞} {d : ℕ} (h : a + 1 = (d + 1 : ℕ)) : a = d := by
   have h' : a + 1 = (d : ℕ∞) + 1 := by rw [h]; push_cast; rfl
@@ -78,7 +79,7 @@ theorem le_ringKrullDim_quotient_add (n : ℕ) :
     have hass : p ∈ associatedPrimes R R := by
       apply Module.associatedPrimes.minimalPrimes_annihilator_subset_associatedPrimes
       rwa [Module.annihilator_eq_bot.mpr inferInstance]
-    have h1 := Module.depth_le_ringKrullDim_quotient_of_mem_associatedPrimes R hass
+    have h1 := Module.depth_le_ringKrullDim_quotient_of_mem_associatedPrimes_c2m R hass
     rw [h.2] at h1
     simpa using h1
   | succ n ih =>
@@ -87,7 +88,7 @@ theorem le_ringKrullDim_quotient_add (n : ℕ) :
     have hAss0 : ∀ q ∈ associatedPrimes R R, q.height = 0 := by
       intro q hq
       haveI : q.IsPrime := hq.1
-      have h1 := Module.depth_le_ringKrullDim_quotient_of_mem_associatedPrimes R hq
+      have h1 := Module.depth_le_ringKrullDim_quotient_of_mem_associatedPrimes_c2m R hq
       have h2 := ringKrullDim_quotient_add_height_le q
       rw [h.2] at h1
       rw [h.1] at h2
@@ -147,7 +148,7 @@ theorem le_ringKrullDim_quotient_add (n : ℕ) :
       exact withBot_eq_of_add_one_eq this
     have hsmul : (x • ⊤ : Submodule R R) = J := by
       rw [hJ, ← Submodule.set_smul_top_eq_span, Submodule.singleton_set_smul]
-    have hdepth' : Module.depth (R ⧸ J) (R ⧸ J) = d' := by
+    have hdepth' : Module.depth_c2m (R ⧸ J) (R ⧸ J) = d' := by
       rw [Module.depth_quotient_eq_depth J (R ⧸ J)]
       have e : QuotSMulTop x R ≃ₗ[R] R ⧸ J := Submodule.quotEquivOfEq _ _ hsmul
       rw [← depth_eq_of_linearEquiv e]

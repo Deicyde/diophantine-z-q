@@ -7,6 +7,8 @@ is the copy published under CloudW02Connectedness) and the upstream lakefile opt
 `set_option` lines after the imports; any other change is marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+[port] name clash with a declaration already in the repository: renamed `AlgebraicGeometry.Smooth.isRegularLocalRing_stalk` → `AlgebraicGeometry.Smooth.isRegularLocalRing_stalk_c2m`.
+[port] name clash with a declaration already in the repository: renamed `Module.depth` → `Module.depth_c2m`.
 -/
 import Mathlib
 import ZInQKernel.Contrib.CloudB3SC2Mumford.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_NeronModelPropertyBundleCarrier
@@ -167,7 +169,8 @@ theorem exists_isPrime_map_le_height_le_one
   have hKle : K ≤ maximalIdeal B := by
     rw [hK, Ideal.map_le_iff_le_comap]
     exact (le_maximalIdeal hpP.ne_top).trans
-      (((IsLocalRing.local_hom_TFAE φ).out 0 3).mp ‹IsLocalHom φ›)
+      -- [port] Mathlib v4.35: `List.TFAE.out` indices are 1-based
+      (((IsLocalRing.local_hom_TFAE φ).out 1 4).mp ‹IsLocalHom φ›)
   have hKne : K ≠ ⊤ := fun h => (maximalIdeal.isMaximal B).ne_top (top_le_iff.mp (h ▸ hKle))
   haveI : Nontrivial (B ⧸ K) := ⟨⟨0, 1, fun h => hKne (Ideal.Quotient.zero_eq_one_iff.mp h)⟩⟩
   obtain ⟨dBK, hdBK⟩ : ∃ d : ℕ, ringKrullDim (B ⧸ K) = d :=
@@ -771,7 +774,7 @@ theorem isCohenMacaulayOfDim_of_isRegularLocalRing (A : Type u) [CommRing A] [Is
   refine ⟨hA, ?_⟩
   have h := IsRegularLocalRing.depth_self_eq_ringKrullDim A
   rw [hA] at h
-  have h' : ((Module.depth A A : ℕ∞) : WithBot ℕ∞) = ((n : ℕ∞) : WithBot ℕ∞) := by
+  have h' : ((Module.depth_c2m A A : ℕ∞) : WithBot ℕ∞) = ((n : ℕ∞) : WithBot ℕ∞) := by
     rw [h, WithBot.coe_natCast]
   exact WithBot.coe_injective h'
 
@@ -793,9 +796,9 @@ theorem krull_transfer_inputs
           + ringKrullDim (T.presheaf.stalk y)
         = ringKrullDim ((pullback t t).presheaf.stalk ((pullback.diagonal t).base y)) := by
   haveI hregP : IsRegularLocalRing ((pullback t t).presheaf.stalk ((pullback.diagonal t).base y)) :=
-    AlgebraicGeometry.Smooth.isRegularLocalRing_stalk (f := pullback.fst t t ≫ t) _
+    AlgebraicGeometry.Smooth.isRegularLocalRing_stalk_c2m (f := pullback.fst t t ≫ t) _
   haveI hregT : IsRegularLocalRing (T.presheaf.stalk y) :=
-    AlgebraicGeometry.Smooth.isRegularLocalRing_stalk (f := t) y
+    AlgebraicGeometry.Smooth.isRegularLocalRing_stalk_c2m (f := t) y
   obtain ⟨nA, hA⟩ := exists_nat_ringKrullDim_eq_of_isRegularLocalRing
     ((pullback t t).presheaf.stalk ((pullback.diagonal t).base y))
   refine ⟨nA, hA, ringKrullDim_quotient_add_height_of_isRegularLocalRing _ nA hA, ?_⟩

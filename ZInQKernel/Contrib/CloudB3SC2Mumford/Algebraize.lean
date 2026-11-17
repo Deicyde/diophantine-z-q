@@ -35,8 +35,12 @@ private theorem transition_isPullback {R : Type u} [CommRing R] (I : Ideal R)
       (adicThickeningToBase f I (n + 1)) (baseTransition I n) := by
   refine IsPullback.of_right ?_ (adicThickeningTransition_toBase f I n)
     (IsPullback.of_hasPullback f (adicThickeningBase I (n + 1)))
-  simpa only [adicThickeningTransition_ι, baseTransition, adicThickeningBase_succ_comp]
-    using IsPullback.of_hasPullback f (adicThickeningBase I n)
+  change IsPullback
+    (adicThickeningTransition f I n ≫ adicThickeningι f I (n + 1))
+    (adicThickeningToBase f I n) f
+    (baseTransition I n ≫ adicThickeningBase I (n + 1))
+  rw [adicThickeningTransition_ι, adicThickeningBase_succ_comp]
+  exact IsPullback.of_hasPullback f (adicThickeningBase I n)
 
 section Graph
 
@@ -104,22 +108,40 @@ private def formalProjection (n : ℕ) :
       rw [Category.assoc]
       exact adicThickeningι_comp (productToBase f g) I n)
 
+private theorem formalProjection_ι (n : ℕ) :
+    formalProjection I f g n ≫ adicThickeningι f I n =
+      adicThickeningι (productToBase f g) I n ≫ pullback.fst f g :=
+  pullback.lift_fst _ _ _
+
+private theorem formalProjection_toBase (n : ℕ) :
+    formalProjection I f g n ≫ adicThickeningToBase f I n =
+      adicThickeningToBase (productToBase f g) I n :=
+  pullback.lift_snd _ _ _
+
 private theorem formalGraph_projection (n : ℕ)
     (φ : adicThickening f I n ⟶ adicThickening g I n)
     (hφ : φ ≫ adicThickeningToBase g I n = adicThickeningToBase f I n) :
     formalGraph I f g n φ hφ ≫ formalProjection I f g n = 𝟙 _ := by
   apply pullback.hom_ext
-  · simp only [formalProjection, Category.assoc, pullback.lift_fst, Category.id_comp]
+  · change (formalGraph I f g n φ hφ ≫ formalProjection I f g n) ≫
+      adicThickeningι f I n = 𝟙 _ ≫ adicThickeningι f I n
+    rw [Category.assoc, formalProjection_ι, Category.id_comp]
     exact formalGraph_ι_fst I f g n φ hφ
-  · simp only [formalProjection, Category.assoc, pullback.lift_snd, Category.id_comp]
+  · change (formalGraph I f g n φ hφ ≫ formalProjection I f g n) ≫
+      adicThickeningToBase f I n = 𝟙 _ ≫ adicThickeningToBase f I n
+    rw [Category.assoc, formalProjection_toBase, Category.id_comp]
     exact formalGraph_toBase I f g n φ hφ
 
 private theorem formalGraph_isClosedImmersion [IsProper f] [IsProper g] (n : ℕ)
     (φ : adicThickening f I n ⟶ adicThickening g I n)
     (hφ : φ ≫ adicThickeningToBase g I n = adicThickeningToBase f I n) :
     IsClosedImmersion (formalGraph I f g n φ hφ) := by
+  haveI : IsProper (productToBase f g) := by
+    dsimp [productToBase]
+    infer_instance
   haveI : IsSeparated (formalProjection I f g n ≫ adicThickeningToBase f I n) := by
-    simp only [formalProjection, adicThickeningToBase, pullback.lift_snd]
+    rw [formalProjection_toBase]
+    change IsSeparated (pullback.snd (productToBase f g) (adicThickeningBase I n))
     infer_instance
   haveI : IsSeparated (formalProjection I f g n) :=
     IsSeparated.of_comp _ (adicThickeningToBase f I n)
@@ -160,24 +182,45 @@ end Graph
 
 /-- Compatible morphisms on all adic thickenings of proper schemes algebraize uniquely. -/
 theorem properAlgebraization : ProperAlgebraization.{u} := by
-  intro R _ _ I _ X Y f g hf hg φ hφ hφt
+  intro R _ _ I _ X Y f g hf hg φ₀ hφ₀ hφt₀
+  let φ : ∀ n : ℕ, pullback f (adicThickeningBase I n) ⟶
+      pullback g (adicThickeningBase I n) := fun n => φ₀ n
+  have hφ : ∀ n : ℕ, φ n ≫ adicThickeningToBase g I n =
+      adicThickeningToBase f I n := fun n => hφ₀ n
+  have hφt : ∀ n : ℕ, adicThickeningTransition f I n ≫ φ (n + 1) =
+      φ n ≫ adicThickeningTransition g I n := fun n => hφt₀ n
   letI : IsProper f := hf
   letI : IsProper g := hg
   let p : pullback f g ⟶ Spec (CommRingCat.of R) := productToBase f g
   haveI : IsProper p := by dsimp [p, productToBase]; infer_instance
-  let γ := fun n : ℕ => formalGraph I f g n (φ n) (hφ n)
+  let γ : ∀ n : ℕ, pullback f (adicThickeningBase I n) ⟶
+      pullback p (adicThickeningBase I n) :=
+    fun n => formalGraph I f g n (φ n) (hφ n)
+  have hγFst (n : ℕ) : γ n ≫ pullback.fst p (adicThickeningBase I n) ≫
+      pullback.fst f g = pullback.fst f (adicThickeningBase I n) := by
+    simpa only [adicThickening_def, adicThickeningι_def] using formalGraph_ι_fst I f g n (φ n) (hφ n)
+  have hγSnd (n : ℕ) : γ n ≫ pullback.fst p (adicThickeningBase I n) ≫
+      pullback.snd f g = φ n ≫ pullback.fst g (adicThickeningBase I n) := by
+    simpa only [adicThickening_def, adicThickeningι_def] using formalGraph_ι_snd I f g n (φ n) (hφ n)
+  have hγBase (n : ℕ) : γ n ≫ pullback.snd p (adicThickeningBase I n) =
+      pullback.snd f (adicThickeningBase I n) := by
+    simpa only [adicThickening_def, adicThickeningToBase_def] using formalGraph_toBase I f g n (φ n) (hφ n)
   haveI : ∀ n : ℕ, IsClosedImmersion (γ n) := fun n =>
     formalGraph_isClosedImmersion I f g n (φ n) (hφ n)
-  haveI : ∀ n : ℕ, IsFinite (γ n) := fun n => inferInstance
+  have hγFinite : ∀ n : ℕ, IsFinite (γ n) := fun n => by
+    letI : IsClosedImmersion (γ n) :=
+      formalGraph_isClosedImmersion I f g n (φ n) (hφ n)
+    infer_instance
   obtain ⟨Γ, G, hG, e, he, _⟩ :=
-    AlgebraicGeometry.exists_isFinite_of_forall_isFinite_isPullback_of_isProper_of_isAdicComplete
-      R I (pullback f g) p (fun n => adicThickeningBase I n)
+    @AlgebraicGeometry.exists_isFinite_of_forall_isFinite_isPullback_of_isProper_of_isAdicComplete
+      R _ _ I _ (pullback f g) p inferInstance (fun n => adicThickeningBase I n)
       (fun n => by rw [Ideal.Quotient.algebraMap_eq])
       (fun n => baseTransition I n) (fun n => adicThickeningBase_succ_comp I n)
       (fun n => adicThickeningTransition p I n)
       (fun n => adicThickeningTransition_ι p I n)
       (fun n => adicThickeningTransition_toBase p I n)
-      (fun n => adicThickening f I n) γ (fun n => adicThickeningTransition f I n)
+      (fun n => pullback f (adicThickeningBase I n)) γ hγFinite
+      (fun n => adicThickeningTransition f I n)
       (fun n => formalGraph_transition_isPullback I f g φ hφ hφt n)
   letI : IsFinite G := hG
   haveI : IsClosedImmersion G :=
@@ -185,31 +228,34 @@ theorem properAlgebraization : ProperAlgebraization.{u} := by
       R I p G (fun n => adicThickeningBase I n)
       (fun n => by rw [Ideal.Quotient.algebraMap_eq]) (fun n => by
         rw [← he n]
+        letI : IsIso (e n).hom := Iso.isIso_hom (e n)
+        letI : IsClosedImmersion (γ n) := formalGraph_isClosedImmersion I f g n (φ n) (hφ n)
         infer_instance)
   let h : Γ ⟶ X := G ≫ pullback.fst f g
   haveI : IsProper h := by dsimp [h]; infer_instance
   have hc (n : ℕ) :
-      pullback.fst G (adicThickeningι p I n) ≫ h = (e n).hom ≫ adicThickeningι f I n := by
+      pullback.fst G (pullback.fst p (adicThickeningBase I n)) ≫ h =
+        (e n).hom ≫ pullback.fst f (adicThickeningBase I n) := by
     calc
-      pullback.fst G (adicThickeningι p I n) ≫ h =
-          (pullback.fst G (adicThickeningι p I n) ≫ G) ≫ pullback.fst f g := by
+      pullback.fst G (pullback.fst p (adicThickeningBase I n)) ≫ h =
+          (pullback.fst G (pullback.fst p (adicThickeningBase I n)) ≫ G) ≫ pullback.fst f g := by
         simp only [h, Category.assoc]
-      _ = (pullback.snd G (adicThickeningι p I n) ≫ adicThickeningι p I n) ≫
+      _ = (pullback.snd G (pullback.fst p (adicThickeningBase I n)) ≫ pullback.fst p (adicThickeningBase I n)) ≫
           pullback.fst f g := by rw [pullback.condition]
-      _ = (e n).hom ≫ γ n ≫ adicThickeningι p I n ≫ pullback.fst f g := by
+      _ = (e n).hom ≫ γ n ≫ pullback.fst p (adicThickeningBase I n) ≫ pullback.fst f g := by
         rw [← he n]
         simp only [Category.assoc]
-      _ = (e n).hom ≫ adicThickeningι f I n := by
-        exact congrArg ((e n).hom ≫ ·) (formalGraph_ι_fst I f g n (φ n) (hφ n))
+      _ = (e n).hom ≫ pullback.fst f (adicThickeningBase I n) := by
+        exact congrArg ((e n).hom ≫ ·) (hγFst n)
   have hp (n : ℕ) :
-      IsPullback (pullback.fst G (adicThickeningι p I n)) ((e n).hom) h
-        (adicThickeningι f I n) := by
-    have hout := (IsPullback.of_hasPullback G (adicThickeningι p I n)).paste_vert
+      IsPullback (pullback.fst G (pullback.fst p (adicThickeningBase I n))) ((e n).hom) h
+        (pullback.fst f (adicThickeningBase I n)) := by
+    have hout := (IsPullback.of_hasPullback G (pullback.fst p (adicThickeningBase I n))).paste_vert
       (IsPullback.of_hasPullback p (adicThickeningBase I n))
-    have hb : pullback.snd G (adicThickeningι p I n) ≫ adicThickeningToBase p I n =
-        (e n).hom ≫ adicThickeningToBase f I n := by
+    have hb : pullback.snd G (pullback.fst p (adicThickeningBase I n)) ≫ pullback.snd p (adicThickeningBase I n) =
+        (e n).hom ≫ pullback.snd f (adicThickeningBase I n) := by
       rw [← he n, Category.assoc]
-      exact congrArg ((e n).hom ≫ ·) (formalGraph_toBase I f g n (φ n) (hφ n))
+      exact congrArg ((e n).hom ≫ ·) (hγBase n)
     have hs : G ≫ p = h ≫ f := by simp only [h, p, productToBase, Category.assoc]
     rw [hb, hs] at hout
     exact IsPullback.of_bot hout (hc n)
@@ -219,9 +265,11 @@ theorem properAlgebraization : ProperAlgebraization.{u} := by
       R I f h (fun n => adicThickeningBase I n)
       (fun n => by rw [Ideal.Quotient.algebraMap_eq]) (fun n => by
         let a := (hp n).isoPullback
-        haveI : IsIso (a.hom ≫ pullback.snd h (adicThickeningι f I n)) := by
+        letI : IsIso (e n).hom := Iso.isIso_hom (e n)
+        letI : IsIso a.hom := Iso.isIso_hom a
+        haveI : IsIso (a.hom ≫ pullback.snd h (pullback.fst f (adicThickeningBase I n))) := by
           rw [(hp n).isoPullback_hom_snd]
-          infer_instance
+          exact Iso.isIso_hom (e n)
         exact IsIso.of_isIso_comp_left a.hom _)
   let ψ : X ⟶ Y := inv h ≫ G ≫ pullback.snd f g
   have hψ : ψ ≫ g = f := by
@@ -230,25 +278,33 @@ theorem properAlgebraization : ProperAlgebraization.{u} := by
         simp only [ψ, Category.assoc, ← pullback.condition]
       _ = f := by change inv h ≫ h ≫ f = f; simp
   have hψn (n : ℕ) : adicThickeningι f I n ≫ ψ = φ n ≫ adicThickeningι g I n := by
-    have hl : adicThickeningι f I n ≫ inv h =
-        (e n).inv ≫ pullback.fst G (adicThickeningι p I n) := by
+    change pullback.fst f (adicThickeningBase I n) ≫ ψ =
+      φ n ≫ pullback.fst g (adicThickeningBase I n)
+    have hl : pullback.fst f (adicThickeningBase I n) ≫ inv h =
+        (e n).inv ≫ pullback.fst G (pullback.fst p (adicThickeningBase I n)) := by
       apply (cancel_mono h).mp
-      simp only [Category.assoc, IsIso.inv_hom_id, Category.comp_id]
-      rw [hc n, ← Category.assoc, Iso.inv_hom_id, Category.id_comp]
+      calc
+        (pullback.fst f (adicThickeningBase I n) ≫ inv h) ≫ h =
+            pullback.fst f (adicThickeningBase I n) := by
+          simp only [Category.assoc, IsIso.inv_hom_id, Category.comp_id]
+        _ = (e n).inv ≫ (e n).hom ≫ pullback.fst f (adicThickeningBase I n) := by
+          simp only [← Category.assoc, Iso.inv_hom_id, Category.id_comp]
+        _ = ((e n).inv ≫ pullback.fst G (pullback.fst p (adicThickeningBase I n))) ≫ h := by
+          rw [Category.assoc, hc n]
     calc
-      adicThickeningι f I n ≫ ψ =
-          (adicThickeningι f I n ≫ inv h) ≫ G ≫ pullback.snd f g := by
+      pullback.fst f (adicThickeningBase I n) ≫ ψ =
+          (pullback.fst f (adicThickeningBase I n) ≫ inv h) ≫ G ≫ pullback.snd f g := by
         simp only [ψ, Category.assoc]
-      _ = (e n).inv ≫ pullback.fst G (adicThickeningι p I n) ≫ G ≫ pullback.snd f g := by
+      _ = (e n).inv ≫ pullback.fst G (pullback.fst p (adicThickeningBase I n)) ≫ G ≫ pullback.snd f g := by
         rw [hl, Category.assoc]
-      _ = (e n).inv ≫ (pullback.fst G (adicThickeningι p I n) ≫ G) ≫
+      _ = (e n).inv ≫ (pullback.fst G (pullback.fst p (adicThickeningBase I n)) ≫ G) ≫
           pullback.snd f g := by simp only [Category.assoc]
-      _ = (e n).inv ≫ (pullback.snd G (adicThickeningι p I n) ≫
-          adicThickeningι p I n) ≫ pullback.snd f g := by rw [pullback.condition]
-      _ = γ n ≫ adicThickeningι p I n ≫ pullback.snd f g := by
+      _ = (e n).inv ≫ (pullback.snd G (pullback.fst p (adicThickeningBase I n)) ≫
+          pullback.fst p (adicThickeningBase I n)) ≫ pullback.snd f g := by rw [pullback.condition]
+      _ = γ n ≫ pullback.fst p (adicThickeningBase I n) ≫ pullback.snd f g := by
         rw [← he n]
         simp only [← Category.assoc, Iso.inv_hom_id, Category.id_comp]
-      _ = φ n ≫ adicThickeningι g I n := formalGraph_ι_snd I f g n (φ n) (hφ n)
+      _ = φ n ≫ pullback.fst g (adicThickeningBase I n) := hγSnd n
   refine ⟨ψ, ⟨hψ, hψn⟩, ?_⟩
   intro ψ' hψ'
   exact eq_of_forall_adicThickening_comp_eq_of_isProper I f g hψ'.1 hψ

@@ -410,13 +410,14 @@ theorem smul_eq_zero_chart (J : Ideal A) (U : P.affineOpens) (W : V'.affineOpens
     (j : A) (hj : j ∈ J) (w : G'₂.obj W.1) : j • w = 0 := by
   letI := Scheme.TwoAffineOpenCover.algebraOfHom (p ≫ q) W.1
   have key := chart_ext G₂ G'₂ η₂ U W h (hβ₂ U W h) (RingHom.id _)
-    (DistribMulAction.toAddMonoidHom (G'₂.obj W.1) j) 0
-    (fun b z => by simp only [DistribMulAction.toAddMonoidHom_apply, RingHom.id_apply]; exact (smul_algebra_smul_comm j b z).symm)
+    -- [port] Mathlib v4.35: `DistribMulAction.toAddMonoidHom` is `DistribSMul.toAddMonoidHom` (also in the next lines)
+    (DistribSMul.toAddMonoidHom (G'₂.obj W.1) j) 0
+    (fun b z => by simp only [DistribSMul.toAddMonoidHom_apply, RingHom.id_apply]; exact (smul_algebra_smul_comm j b z).symm)
     (fun b z => by simp)
     (fun y => by
       obtain ⟨x, rfl⟩ := hsU y
       have hx : j • x ∈ LinearMap.ker (ψ.app U) := by rw [hkU]; exact Submodule.smul_mem_smul hj trivial
-      simp only [DistribMulAction.toAddMonoidHom_apply, AddMonoidHom.zero_apply]
+      simp only [DistribSMul.toAddMonoidHom_apply, AddMonoidHom.zero_apply]
       rw [← map_smul, ← map_smul, LinearMap.mem_ker.mp hx, map_zero])
   exact congrArg (fun φ => φ w) (congrArg DFunLike.coe key)
 
@@ -480,11 +481,11 @@ theorem exists_num (J : Ideal A) (V : V'.affineOpens) (g : Γ(V', V.1)) (y : G'�
 
 include hη₁V hη₂V hη₁U hη₂U hq'₂
 
-private def _root_.P2Sol.app (V : V'.affineOpens) : G'₁.obj V.1 → G'₂.obj V.1 :=
+private def app (V : V'.affineOpens) : G'₁.obj V.1 → G'₂.obj V.1 :=
   (exists_app G₁ G₂ G'₁ η₁ hη₁V hη₁U hβ₁ G'₂ hq'₂ η₂ hη₂V hη₂U hβ₂ ψ V).choose
 
 -- [port] was: p2m_export "P2Sol" "app"
-export _root_.P2Sol (app)
+-- [port] the alias above is no longer needed: the private declaration is declared directly in this namespace
 theorem app_spec (V : V'.affineOpens) (U : P.affineOpens) (W : V'.affineOpens) (hWV : W.1 ≤ V.1) (hW : W.1 ≤ p ⁻¹ᵁ U.1)
     (z : G'₁.obj V.1) :
     G'₂.res hWV (app G₁ G₂ G'₁ η₁ hη₁V hη₁U hβ₁ G'₂ hq'₂ η₂ hη₂V hη₂U hβ₂ ψ V z) =
@@ -507,7 +508,7 @@ theorem app_smulA (V : V'.affineOpens) (a : A) (z : G'₁.obj V.1) :
   intro U W hWV hW
   rw [map_smul, app_spec (U := U) (hWV := hWV) (hW := hW), app_spec (U := U) (hWV := hWV) (hW := hW), map_smul, θ_smulA]
 
-private theorem _root_.P2Sol.app_smul (V : V'.affineOpens) (b : Γ(V', V.1)) (z : G'₁.obj V.1) :
+private theorem app_smul (V : V'.affineOpens) (b : Γ(V', V.1)) (z : G'₁.obj V.1) :
     app G₁ G₂ G'₁ η₁ hη₁V hη₁U hβ₁ G'₂ hq'₂ η₂ hη₂V hη₂U hβ₂ ψ V (b • z) =
       b • app G₁ G₂ G'₁ η₁ hη₁V hη₁U hβ₁ G'₂ hq'₂ η₂ hη₂V hη₂U hβ₂ ψ V z := by
   apply eq_of_forall_chart G'₂ hq'₂ V
@@ -516,7 +517,7 @@ private theorem _root_.P2Sol.app_smul (V : V'.affineOpens) (b : Γ(V', V.1)) (z 
     map_smul]
 
 -- [port] was: p2m_export "P2Sol" "app_smul"
-export _root_.P2Sol (app_smul)
+-- [port] the alias above is no longer needed: the private declaration is declared directly in this namespace
 
 def appLin (V : V'.affineOpens) : G'₁.obj V.1 →ₗ[A] G'₂.obj V.1 :=
   { toFun := app G₁ G₂ G'₁ η₁ hη₁V hη₁U hβ₁ G'₂ hq'₂ η₂ hη₂V hη₂U hβ₂ ψ V

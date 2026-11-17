@@ -101,7 +101,7 @@ theorem solution
     have key : ∀ (n₀ : N₀) (γ : Γ₀), Φ ((1 : R) ⊗ₜ (γ • n₀)) = ψ γ • Φ ((1 : R) ⊗ₜ n₀) := by
       intro n₀
       induction n₀ using hf₀.inductionOn with
-      | zero => intro γ; rw [smul_zero, TensorProduct.tmul_zero, map_zero, smul_zero]
+      -- [port] Mathlib v4.35: `IsBaseChange.inductionOn` has no `zero` case
       | tmul x₀ =>
         intro γ
         have h1 := hΦ 1 γ x₀
@@ -120,7 +120,7 @@ theorem solution
     have key : ∀ (n₀ : N₀) (r : R) (γ : Γ₀), g (r ⊗ₜ (γ • n₀)) = g' (r ⊗ₜ (γ • n₀)) := by
       intro n₀
       induction n₀ using hf₀.inductionOn with
-      | zero => intro r γ; rw [smul_zero, TensorProduct.tmul_zero, map_zero, map_zero]
+      -- [port] Mathlib v4.35: `IsBaseChange.inductionOn` has no `zero` case
       | tmul x₀ => intro r γ; exact hgg' r γ x₀
       | smul s n hn => intro r γ; rw [smul_smul]; exact hn r (γ * s)
       | add n₁ n₂ h₁ h₂ => intro r γ; rw [smul_add, TensorProduct.tmul_add, map_add, map_add, h₁, h₂]

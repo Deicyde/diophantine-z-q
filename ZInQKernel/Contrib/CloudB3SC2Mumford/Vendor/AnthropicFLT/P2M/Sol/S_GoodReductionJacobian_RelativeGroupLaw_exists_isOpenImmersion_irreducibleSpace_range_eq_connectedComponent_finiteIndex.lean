@@ -357,14 +357,14 @@ variable [QuasiCompact f]
 
 include L in
 
-private theorem _root_.P2mIdentityComponent.finite_irreducibleComponents : (irreducibleComponents G).Finite := by
+private theorem finite_irreducibleComponents : (irreducibleComponents G).Finite := by
   haveI : CompactSpace G := QuasiCompact.compactSpace_of_compactSpace f
   haveI : IsLocallyNoetherian G := LocallyOfFiniteType.isLocallyNoetherian f
   haveI : IsNoetherian G := ⟨⟩
   exact TopologicalSpace.NoetherianSpace.finite_irreducibleComponents
 
 -- [port] was: p2m_export "P2mIdentityComponent" "finite_irreducibleComponents"
-export _root_.P2mIdentityComponent (finite_irreducibleComponents)
+-- [port] the alias above is no longer needed: the private declaration is declared directly in this namespace
 
 theorem compl_idComp_eq :
     (idComp L : Set G)ᶜ = ⋃ Z ∈ {Z ∈ irreducibleComponents G | Z ≠ idComp L}, Z := by

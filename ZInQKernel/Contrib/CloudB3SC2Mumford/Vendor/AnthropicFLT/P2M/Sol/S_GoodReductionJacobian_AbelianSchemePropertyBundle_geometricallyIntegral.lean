@@ -7,6 +7,7 @@ is the copy published under CloudW02Connectedness) and the upstream lakefile opt
 `set_option` lines after the imports; any other change is marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+[port] name clash with a declaration already in the repository: renamed `AlgebraicGeometry.GeometricallyIrreducible.geometricallyConnected` → `AlgebraicGeometry.GeometricallyIrreducible.geometricallyConnected_c2m`, `AlgebraicGeometry.Smooth.isRegularLocalRing_stalk` → `AlgebraicGeometry.Smooth.isRegularLocalRing_stalk_c2m`, `IsRegularLocalRing.isDomain` → `IsRegularLocalRing.isDomain_c2m`.
 -/
 import Mathlib
 import ZInQKernel.Contrib.CloudB3SC2Mumford.Vendor.AnthropicFLT.Definitions.Def_JacJ1Iface
@@ -40,8 +41,8 @@ theorem isIntegral_of_smooth_of_connectedSpace {K : Type u} [Field K] {X : Schem
   haveI : IsLocallyNoetherian X := LocallyOfFiniteType.isLocallyNoetherian t
   exact AlgebraicGeometry.isIntegral_of_isLocallyNoetherian_of_connectedSpace_of_forall_isDomain_stalk
     X fun x => by
-      haveI := AlgebraicGeometry.Smooth.isRegularLocalRing_stalk (f := t) x
-      exact IsRegularLocalRing.isDomain _
+      haveI := AlgebraicGeometry.Smooth.isRegularLocalRing_stalk_c2m (f := t) x
+      exact IsRegularLocalRing.isDomain_c2m _
 
 scoped instance subsingleton_spec_field (K : Type u) [Field K] :
     Subsingleton ↥(Spec (CommRingCat.of K)) :=
@@ -164,7 +165,7 @@ theorem solution
   haveI : GeometricallyIntegral (pullback.snd f (bc k K)) :=
     AlgebraicGeometry.geometricallyIntegral_of_isAlgClosed _
   haveI : GeometricallyConnected (pullback.snd f (bc k K)) :=
-    AlgebraicGeometry.GeometricallyIrreducible.geometricallyConnected _
+    AlgebraicGeometry.GeometricallyIrreducible.geometricallyConnected_c2m _
   haveI : MorphismProperty.DescendsAlong (@GeometricallyConnected : MorphismProperty Scheme.{u})
       @Surjective :=
     AlgebraicGeometry.GeometricallyConnected.descendsAlong_surjective

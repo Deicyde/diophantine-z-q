@@ -10,6 +10,12 @@ import ZInQKernel.Contrib.CloudB3SC2Mumford.Vendor.AnthropicFLT.Definitions.Def_
 import ZInQKernel.Contrib.CloudB3SC2Mumford.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_NeronModelEndomorphismExtension
 import ZInQKernel.Contrib.CloudB3SC2Mumford.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_AdicThickening
 import ZInQKernel.Contrib.CloudB3SC2Mumford.Pipeline.Uniqueness
+
+-- [port] the upstream lakefile options, as for the vendored files
+set_option maxHeartbeats 4000000
+set_option synthInstance.maxHeartbeats 400000
+set_option backward.isDefEq.respectTransparency.types false
+set_option autoImplicit false
 namespace ZInQ.Contrib.CloudB3SC2Mumford.Pipeline.LiftMul
 
 set_option autoImplicit false

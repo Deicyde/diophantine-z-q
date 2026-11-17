@@ -196,7 +196,7 @@ theorem mem_span_of_isBaseChange {R S : Type*} [CommRing R] [CommRing S] [Algebr
     [Module S N] [IsScalarTower R S N] {f : M →ₗ[R] N} (hf : IsBaseChange S f) (y : N) :
     y ∈ Submodule.span S (Set.range f) := by
   induction y using hf.inductionOn with
-  | zero => exact Submodule.zero_mem _
+  -- [port] Mathlib v4.35: `IsBaseChange.inductionOn` has no `zero` case
   | tmul m => exact Submodule.subset_span ⟨m, rfl⟩
   | smul s n hn => exact Submodule.smul_mem _ s hn
   | add n₁ n₂ h₁ h₂ => exact Submodule.add_mem _ h₁ h₂

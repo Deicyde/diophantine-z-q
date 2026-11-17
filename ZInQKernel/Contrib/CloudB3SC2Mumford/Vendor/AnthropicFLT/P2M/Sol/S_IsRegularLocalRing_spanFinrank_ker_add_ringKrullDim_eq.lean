@@ -7,6 +7,7 @@ is the copy published under CloudW02Connectedness) and the upstream lakefile opt
 `set_option` lines after the imports; any other change is marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+[port] name clash with a declaration already in the repository: renamed `IsRegularLocalRing.isDomain` → `IsRegularLocalRing.isDomain_c2m`.
 -/
 import Mathlib
 import ZInQKernel.Contrib.CloudB3SC2Mumford.Vendor.AnthropicFLT.Theorems.Thm_IsRegularLocalRing_isDomain
@@ -384,7 +385,7 @@ theorem main {A B : Type*} [CommRing A] [CommRing B] [IsRegularLocalRing A] [IsR
   have hdimJ : ringKrullDim (A ⧸ J) = b := (ringKrullDim_eq_natCast_iff b).mpr hhJ
   haveI : IsRegularLocalRing (A ⧸ J) :=
     IsRegularLocalRing.of_spanFinrank_maximalIdeal_le _ (by rw [hμJ, hdimJ])
-  haveI : IsDomain (A ⧸ J) := IsRegularLocalRing.isDomain _
+  haveI : IsDomain (A ⧸ J) := IsRegularLocalRing.isDomain_c2m _
 
   let gbar : A ⧸ J →+* B := Ideal.Quotient.lift J f (fun y hy => hJI hy)
   have hgbar_mk : ∀ y : A, gbar (Ideal.Quotient.mk J y) = f y := fun y => Ideal.Quotient.lift_mk _ _ _

@@ -549,7 +549,7 @@ theorem resΓ_def [IsLocallyNoetherian P] (H : OModulePresheaf q) (hHc : H.IsCoh
        EP3Alg.rho (mu H h) (mu_isBaseChange H hHq h) (mu K h) (mu_isBaseChange K hKq h)
         (pres H hHc W) (pres_surjective H hHc W) (pres H hHc W') (pres_surjective H hHc W')) := rfl
 
-private noncomputable def _root_.EP3Geo.res [IsLocallyNoetherian P] (H : OModulePresheaf q) (hHc : H.IsCoherent) (hHq : H.IsQuasicoherent)
+private noncomputable def res [IsLocallyNoetherian P] (H : OModulePresheaf q) (hHc : H.IsCoherent) (hHq : H.IsQuasicoherent)
     (K : OModulePresheaf q) (hKq : K.IsQuasicoherent) {W W' : P.affineOpens} (h : W'.1 ≤ W.1) :
     letI := modA H hHc K W; letI := modA H hHc K W'
     E H hHc K W →ₗ[A] E H hHc K W' :=
@@ -565,7 +565,7 @@ private noncomputable def _root_.EP3Geo.res [IsLocallyNoetherian P] (H : OModule
       rfl }
 
 -- [port] was: p2m_export "EP3Geo" "res"
-export _root_.EP3Geo (res)
+-- [port] the alias above is no longer needed: the private declaration is declared directly in this namespace
 theorem res_apply [IsLocallyNoetherian P] (H : OModulePresheaf q) (hHc : H.IsCoherent) (hHq : H.IsQuasicoherent)
     (K : OModulePresheaf q) (hKq : K.IsQuasicoherent) {W W' : P.affineOpens} (h : W'.1 ≤ W.1) (x : E H hHc K W) :
     letI := modA H hHc K W; letI := modA H hHc K W'

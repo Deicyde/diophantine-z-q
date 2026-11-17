@@ -117,7 +117,7 @@ theorem idealAnnihilates_ker_subschemeι {A : Type u} [CommRing A] {P : Scheme.{
   rw [Scheme.IdealSheafData.ker_subschemeι] at ha
   exact hS k U a (by rwa [pow_one]) x
 
-private theorem _root_.GEDriver.nonempty_orderedAffineCover_of_compactSpace_univ (X : Scheme.{u}) [CompactSpace X] :
+private theorem nonempty_orderedAffineCover_of_compactSpace_univ (X : Scheme.{u}) [CompactSpace X] :
     Nonempty X.OrderedAffineCover := by
   classical
   obtain ⟨t, ht⟩ := isCompact_univ.elim_finite_subcover (fun U : X.affineOpens => (U.1 : Set X))
@@ -135,7 +135,7 @@ private theorem _root_.GEDriver.nonempty_orderedAffineCover_of_compactSpace_univ
   exact Opens.mem_iSup.2 ⟨⟨U, hUt⟩, hxU⟩
 
 -- [port] was: p2m_export "GEDriver" "nonempty_orderedAffineCover_of_compactSpace_univ"
-export _root_.GEDriver (nonempty_orderedAffineCover_of_compactSpace_univ)
+-- [port] the alias above is no longer needed: the private declaration is declared directly in this namespace
 
 theorem exists_closeds_lt_sup_eq {X : Type*} [TopologicalSpace X] (T : Closeds X) (hne : (T : Set X).Nonempty)
     (hT : ¬ IsIrreducible (T : Set X)) : ∃ T₁ T₂ : Closeds X, T₁ < T ∧ T₂ < T ∧ T = T₁ ⊔ T₂ := by

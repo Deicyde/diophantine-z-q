@@ -22,7 +22,7 @@ are then transported to the original objects and hypotheses.
 All ported proof sources will retain their applicable licenses and attribution.
 Existing repository modules and dependency pins are not changed. New supporting
 modules belong in this directory, and the eventual exact closing theorem will
-belong in `ZInQKernel/Contrib/OneProof/MumfordGroupLawProof.lean`.
+belong in `ZInQKernel/Contrib/OneProof/MumfordGroupLawConnProof.lean`.
 
 ## Acceptance checks still required
 

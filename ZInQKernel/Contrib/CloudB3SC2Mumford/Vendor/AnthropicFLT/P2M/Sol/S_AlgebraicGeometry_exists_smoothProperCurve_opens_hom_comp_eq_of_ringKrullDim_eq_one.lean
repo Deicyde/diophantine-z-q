@@ -136,7 +136,8 @@ theorem valuationRing_localization_atPrime {R B : Type*} [CommRing R] [CommRing 
   haveI : IsNoetherianRing (Localization.AtPrime q) :=
     IsLocalization.isNoetherianRing q.primeCompl _ inferInstance
   exact ((tfae_of_isNoetherianRing_of_isLocalRing_of_isDomain
-    (Localization.AtPrime q)).out 4 1).mp hprinc
+    -- [port] Mathlib v4.35: `List.TFAE.out` indices are 1-based
+    (Localization.AtPrime q)).out 5 2).mp hprinc
 
 theorem isPrincipalIdealRing_mvPolynomial_fin_one (K : Type*) [Field K] :
     IsPrincipalIdealRing (MvPolynomial (Fin 1) K) :=
@@ -295,8 +296,9 @@ theorem ringKrullDim_eq_of_ringHom_isIntegral_of_injective {R S : Type*} [CommRi
 
 theorem ringKrullDim_mvPolynomial_fin (k : Type u) [Field k] (s : ℕ) :
     ringKrullDim (MvPolynomial (Fin s) k) = s := by
+  -- [port] Mathlib v4.35 states `MvPolynomial.ringKrullDim_of_isNoetherianRing` with `ENat.card`
   rw [MvPolynomial.ringKrullDim_of_isNoetherianRing, ringKrullDim_eq_zero_of_field, zero_add,
-    Nat.card_eq_fintype_card, Fintype.card_fin]
+    ENat.card_eq_coe_fintype_card, Fintype.card_fin] <;> rfl
 
 theorem exists_transcendental_finiteDimensional (k : Type u) (A : Type v) [Field k] [CommRing A]
     [IsDomain A] [Algebra k A] [Algebra.FiniteType k A] (hA : ringKrullDim A = 1) :
@@ -488,7 +490,8 @@ theorem exists_place_le_and_subset_nonunits (M : CurveModel k L) (A : Type u) [C
     RingEquiv.ofBijective (θ.hom : C.presheaf.stalk (l (IsLocalRing.closedPoint V)) →+* V) hθbij
   haveI : IsNoetherianRing V := isNoetherianRing_of_ringEquiv _ eθ
   have hPIR : IsPrincipalIdealRing V :=
-    ((tfae_of_isNoetherianRing_of_isLocalRing_of_isDomain V).out 1 0).mp (show ValuationRing V from inferInstance)
+    -- [port] Mathlib v4.35: `List.TFAE.out` indices are 1-based
+    ((tfae_of_isNoetherianRing_of_isLocalRing_of_isDomain V).out 2 1).mp (show ValuationRing V from inferInstance)
   exact ⟨⟨V, hkV, hVtop, hPIR⟩, hAmem, hmnon⟩
 
 end Centre

@@ -7,6 +7,7 @@ is the copy published under CloudW02Connectedness) and the upstream lakefile opt
 `set_option` lines after the imports; any other change is marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+[port] name clash with a declaration already in the repository: renamed `AlgebraicGeometry.Smooth.isRegularLocalRing_stalk` → `AlgebraicGeometry.Smooth.isRegularLocalRing_stalk_c2m`, `IsRegularLocalRing.isDomain` → `IsRegularLocalRing.isDomain_c2m`.
 -/
 import Mathlib
 import ZInQKernel.Contrib.CloudB3SC2Mumford.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_Smooth_isRegularLocalRing_stalk
@@ -37,5 +38,5 @@ theorem solution
   haveI : ConnectedSpace X := { toPreconnectedSpace := inferInstance, toNonempty := inferInstance }
   exact AlgebraicGeometry.isIntegral_of_isLocallyNoetherian_of_connectedSpace_of_forall_isDomain_stalk X
     fun x => by
-      haveI := AlgebraicGeometry.Smooth.isRegularLocalRing_stalk (f := f) x
-      exact IsRegularLocalRing.isDomain _
+      haveI := AlgebraicGeometry.Smooth.isRegularLocalRing_stalk_c2m (f := f) x
+      exact IsRegularLocalRing.isDomain_c2m _

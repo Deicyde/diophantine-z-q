@@ -7,6 +7,7 @@ is the copy published under CloudW02Connectedness) and the upstream lakefile opt
 `set_option` lines after the imports; any other change is marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+[port] name clash with a declaration already in the repository: renamed `IsRegularLocalRing.isDomain` → `IsRegularLocalRing.isDomain_c2m`.
 -/
 import Mathlib
 import ZInQKernel.Contrib.CloudB3SC2Mumford.Vendor.AnthropicFLT.Definitions.Def_Mathlib_RingTheory_RegularLocalRingQuotientRegular
@@ -122,7 +123,7 @@ theorem exists_isWeaklyRegular_ofList_eq_maximalIdeal_aux :
         rw [Ideal.ofList_cons]
         exact hcomap
 
-    haveI : IsDomain R := IsRegularLocalRing.isDomain R
+    haveI : IsDomain R := IsRegularLocalRing.isDomain_c2m R
     have hx0 : x ≠ 0 := fun h => hx2 (h ▸ Submodule.zero_mem _)
     have hxreg : IsSMulRegular R x :=
       Module.Flat.isSMulRegular_of_nonZeroDivisors (mem_nonZeroDivisors_of_ne_zero hx0)
@@ -252,7 +253,7 @@ theorem not_forall_ascent_dropping_flat :
 
   haveI := hSreg
   haveI : IsDomain (ℤ_[2] ⧸ Ideal.span {((2 : ℕ) : ℤ_[2]) ^ 2}) :=
-    IsRegularLocalRing.isDomain _
+    IsRegularLocalRing.isDomain_c2m _
   have hmk0 : (Ideal.Quotient.mk (Ideal.span {((2 : ℕ) : ℤ_[2]) ^ 2}) ((2 : ℕ) : ℤ_[2])) ^ 2
       = 0 := by
     rw [← map_pow, Ideal.Quotient.eq_zero_iff_mem]

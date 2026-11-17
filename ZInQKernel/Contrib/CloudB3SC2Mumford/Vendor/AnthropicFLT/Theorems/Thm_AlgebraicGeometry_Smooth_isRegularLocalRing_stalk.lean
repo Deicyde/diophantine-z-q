@@ -7,6 +7,7 @@ is the copy published under CloudW02Connectedness) and the upstream lakefile opt
 `set_option` lines after the imports; any other change is marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+[port] name clash with a declaration already in the repository: renamed `AlgebraicGeometry.Smooth.isRegularLocalRing_stalk` → `AlgebraicGeometry.Smooth.isRegularLocalRing_stalk_c2m`.
 -/
 import Mathlib
 import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
@@ -25,7 +26,7 @@ universe u
 
 open CategoryTheory AlgebraicGeometry
 
-theorem AlgebraicGeometry.Smooth.isRegularLocalRing_stalk
+theorem AlgebraicGeometry.Smooth.isRegularLocalRing_stalk_c2m
     {k : Type u} [Field k] {X : Scheme.{u}} {f : X ⟶ Spec (CommRingCat.of k)}
     [Smooth f] (x : X) :
     IsRegularLocalRing (X.presheaf.stalk x) := by p2m_exact_reverting @_root_.P2MW.S_AlgebraicGeometry_Smooth_isRegularLocalRing_stalk.solution

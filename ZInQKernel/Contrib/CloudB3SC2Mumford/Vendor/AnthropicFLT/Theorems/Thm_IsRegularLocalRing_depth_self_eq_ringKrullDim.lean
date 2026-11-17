@@ -7,6 +7,7 @@ is the copy published under CloudW02Connectedness) and the upstream lakefile opt
 `set_option` lines after the imports; any other change is marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+[port] name clash with a declaration already in the repository: renamed `Module.depth` → `Module.depth_c2m`.
 -/
 import Mathlib
 import ZInQKernel.Contrib.CloudB3SC2Mumford.Vendor.AnthropicFLT.Definitions.Def_Patching_SystemTypes
@@ -24,4 +25,4 @@ open IsLocalRing RingTheory
 
 theorem IsRegularLocalRing.depth_self_eq_ringKrullDim
     (R : Type*) [CommRing R] [IsNoetherianRing R] [IsRegularLocalRing R] :
-    (Module.depth R R : WithBot ℕ∞) = ringKrullDim R := by p2m_exact_reverting @_root_.P2MW.S_IsRegularLocalRing_depth_self_eq_ringKrullDim.solution
+    (Module.depth_c2m R R : WithBot ℕ∞) = ringKrullDim R := by p2m_exact_reverting @_root_.P2MW.S_IsRegularLocalRing_depth_self_eq_ringKrullDim.solution

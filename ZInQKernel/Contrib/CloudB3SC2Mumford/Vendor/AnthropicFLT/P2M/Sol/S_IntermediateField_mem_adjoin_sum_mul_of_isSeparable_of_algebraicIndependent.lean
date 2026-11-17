@@ -484,8 +484,11 @@ theorem linearIndependent_powerBasis_over_adjoin {ι : Type*} {x : ι → E}
 
   have hcoeff : ∀ m : ι →₀ ℕ, ∑ j ∈ u, (P j).coeff m • pb.basis j = 0 := by
     intro m
-    have := congrArg (MvPolynomial.coeff m) hQzero
-    rw [hQ, MvPolynomial.coeff_sum, MvPolynomial.coeff_zero] at this
+    -- [port] Mathlib v4.35: `MvPolynomial.coeff m p` is now `p.coeff m`
+    have := congrArg (fun p : MvPolynomial ι _ => p.coeff m) hQzero
+    -- [port] Mathlib v4.35: `MvPolynomial.coeff_zero` is now `(0 : MvPolynomial σ R).coeff = 0`
+    rw [hQ, MvPolynomial.coeff_sum] at this
+    simp only [MvPolynomial.coeff_zero, Finsupp.coe_zero, Finsupp.zero_apply, Pi.zero_apply] at this
     rw [← this]
     apply Finset.sum_congr rfl
     intro j _

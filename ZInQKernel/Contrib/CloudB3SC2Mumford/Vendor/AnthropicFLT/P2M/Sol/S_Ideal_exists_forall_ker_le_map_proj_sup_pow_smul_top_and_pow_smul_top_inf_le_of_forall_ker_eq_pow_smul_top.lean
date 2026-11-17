@@ -36,10 +36,10 @@ variable {F : ℕ → Type v} [∀ n, AddCommGroup (F n)] [∀ n, Module B (F n)
   (hφk : ∀ n, LinearMap.ker (φ n) = J ^ (n + 1) • (⊤ : Submodule B (F (n + 1))))
 
 include hφs in
-private theorem _root_.ArPkg29.range_eq_top (n : ℕ) : LinearMap.range (φ n) = ⊤ := LinearMap.range_eq_top.mpr (hφs n)
+private theorem range_eq_top (n : ℕ) : LinearMap.range (φ n) = ⊤ := LinearMap.range_eq_top.mpr (hφs n)
 
 -- [port] was: p2m_export "ArPkg29" "range_eq_top"
-export _root_.ArPkg29 (range_eq_top)
+-- [port] the alias above is no longer needed: the private declaration is declared directly in this namespace
 include hφs in
 theorem map_pow_smul_top (i n : ℕ) :
     (J ^ i • (⊤ : Submodule B (F (n + 1)))).map (φ n) = J ^ i • ⊤ := by

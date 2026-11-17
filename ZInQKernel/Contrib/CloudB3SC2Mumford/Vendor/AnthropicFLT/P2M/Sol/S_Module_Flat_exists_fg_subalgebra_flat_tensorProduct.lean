@@ -35,11 +35,11 @@ variable {R₀ E E' B₀ : Type*} [CommRing R₀] [CommRing E] [CommRing E'] [Co
 
 variable (R₀ E E' B₀) in
 
-private noncomputable def _root_.FlatDescentGlobal.trans : E ⊗[R₀] B₀ →ₐ[R₀] E' ⊗[R₀] B₀ :=
+private noncomputable def trans : E ⊗[R₀] B₀ →ₐ[R₀] E' ⊗[R₀] B₀ :=
   Algebra.TensorProduct.map (IsScalarTower.toAlgHom R₀ E E') (AlgHom.id R₀ B₀)
 
 -- [port] was: p2m_export "FlatDescentGlobal" "trans"
-export _root_.FlatDescentGlobal (trans)
+-- [port] the alias above is no longer needed: the private declaration is declared directly in this namespace
 @[scoped simp] lemma trans_tmul (e : E) (b : B₀) :
     trans R₀ E E' B₀ (e ⊗ₜ b) = algebraMap E E' e ⊗ₜ b := by
   simp [trans]

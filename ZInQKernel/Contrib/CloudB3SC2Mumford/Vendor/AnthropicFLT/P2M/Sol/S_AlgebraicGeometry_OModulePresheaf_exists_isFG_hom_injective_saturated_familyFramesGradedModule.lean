@@ -281,7 +281,7 @@ theorem single_zero' (e : ℤ) : FamilyFrames.single ι G e k (fun _ => 0) = 0 :
 theorem single_congr {e e' : ℤ} (he : e = e') {g g' : ∀ j : Fin (r + 1), (G k).obj (pullbackChart ι j)} (hg : g = g') :
     FamilyFrames.single ι G e k g = FamilyFrames.single ι G e' k g' := by subst he hg; rfl
 
-private theorem _root_.P2mFamFG.monMul_single (cc : Fin (r + 1) → ℕ) (e : ℤ) (g : ∀ j : Fin (r + 1), (G k).obj (pullbackChart ι j)) :
+private theorem monMul_single (cc : Fin (r + 1) → ℕ) (e : ℤ) (g : ∀ j : Fin (r + 1), (G k).obj (pullbackChart ι j)) :
     GradedModule.monMul (Mf ι hθ) cc (FamilyFrames.single ι G e k g)
       = FamilyFrames.single ι G (e + ∑ l, (cc l : ℤ)) k (fun j => uprod ι j cc • g j) := by
   refine FamilyFrames.ext fun e' k' j => ?_
@@ -298,7 +298,7 @@ private theorem _root_.P2mFamFG.monMul_single (cc : Fin (r + 1) → ℕ) (e : �
       Pi.zero_apply, smul_zero]
 
 -- [port] was: p2m_export "P2mFamFG" "monMul_single"
-export _root_.P2mFamFG (monMul_single)
+-- [port] the alias above is no longer needed: the private declaration is declared directly in this namespace
 
 theorem xMul_pow_single (l : Fin (r + 1)) (n : ℕ) (e : ℤ) (g : ∀ j : Fin (r + 1), (G k).obj (pullbackChart ι j)) :
     ((Mf ι hθ).xMul l ^ n) (FamilyFrames.single ι G e k g)
@@ -339,18 +339,19 @@ theorem single_mem_grade_iff (n : ℕ) (g : ∀ j : Fin (r + 1), (G k).obj (pull
 open scoped IsMulCommutative in
 variable (ι hθ) in
 
-private def _root_.P2mFamFG.xAlg : MvPolynomial (Fin (r + 1)) (MvPolynomial (Fin ny) A) →ₐ[MvPolynomial (Fin ny) A]
+private def xAlg : MvPolynomial (Fin (r + 1)) (MvPolynomial (Fin ny) A) →ₐ[MvPolynomial (Fin ny) A]
     Module.End (MvPolynomial (Fin ny) A) (Mf ι hθ).M :=
   haveI := Algebra.isMulCommutative_adjoin (MvPolynomial (Fin ny) A) (s := Set.range (Mf ι hθ).xMul)
     (by
-      rintro _ ⟨l, rfl⟩ _ ⟨l', rfl⟩
+      -- [port] Mathlib v4.35: the hypothesis of `Algebra.isMulCommutative_adjoin` is `s.Pairwise Commute` (extra `x ≠ y` binder)
+      rintro _ ⟨l, rfl⟩ _ ⟨l', rfl⟩ -
       exact (Mf ι hθ).xMul_comm l l')
   (Algebra.adjoin (MvPolynomial (Fin ny) A) (Set.range (Mf ι hθ).xMul)).val.comp
     (MvPolynomial.aeval fun l =>
       (⟨(Mf ι hθ).xMul l, Algebra.subset_adjoin ⟨l, rfl⟩⟩ : Algebra.adjoin (MvPolynomial (Fin ny) A) (Set.range (Mf ι hθ).xMul)))
 
 -- [port] was: p2m_export "P2mFamFG" "xAlg"
-export _root_.P2mFamFG (xAlg)
+-- [port] the alias above is no longer needed: the private declaration is declared directly in this namespace
 theorem xAlg_X (l : Fin (r + 1)) : xAlg ι hθ (MvPolynomial.X l) = (Mf ι hθ).xMul l := by
   simp only [xAlg, AlgHom.comp_apply, MvPolynomial.aeval_X, Subalgebra.coe_val]
 

@@ -7,6 +7,7 @@ is the copy published under CloudW02Connectedness) and the upstream lakefile opt
 `set_option` lines after the imports; any other change is marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+[port] name clash with a declaration already in the repository: renamed `Module.depth` → `Module.depth_c2m`.
 -/
 import Mathlib.Topology.Algebra.Nonarchimedean.AdicTopology
 import Mathlib.RingTheory.LocalRing.MaximalIdeal.Basic
@@ -46,7 +47,7 @@ instance (priority := 100) {R S : Type*} [CommRing R] [Ring S] [Algebra R S]
 
 open RingTheory in
 
-noncomputable def Module.depth (R M : Type*) [CommRing R] [IsLocalRing R]
+noncomputable def Module.depth_c2m (R M : Type*) [CommRing R] [IsLocalRing R]
     [AddCommGroup M] [Module R M] : ℕ∞ :=
   sSup { List.length s | (s : List R)
     (_ : Sequence.IsWeaklyRegular M s)

@@ -7,6 +7,7 @@ is the copy published under CloudW02Connectedness) and the upstream lakefile opt
 `set_option` lines after the imports; any other change is marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+[port] name clash with a declaration already in the repository: renamed `Module.depth` → `Module.depth_c2m`, `Module.depth_le_ringKrullDim_quotient_of_mem_associatedPrimes` → `Module.depth_le_ringKrullDim_quotient_of_mem_associatedPrimes_c2m`.
 -/
 import Mathlib
 import ZInQKernel.Contrib.CloudB3SC2Mumford.Vendor.AnthropicFLT.Definitions.Def_Patching_SystemTypes
@@ -36,12 +37,12 @@ scoped instance instSubsingletonQuotientOfSubsingleton [Subsingleton M] (N : Sub
 
 lemma Module.length_le_depth (s : List R)
     (hs : Sequence.IsWeaklyRegular M s) (hs' : ∀ r ∈ s, r ∈ maximalIdeal R) :
-    s.length ≤ Module.depth R M :=
+    s.length ≤ Module.depth_c2m R M :=
   le_sSup ⟨s, hs, hs', rfl⟩
 
 lemma Module.depth_of_subsingleton [Subsingleton M] :
-    Module.depth R M = ⊤ := by
-  rw [Module.depth, sSup_eq_top]
+    Module.depth_c2m R M = ⊤ := by
+  rw [Module.depth_c2m, sSup_eq_top]
   rintro b hb
   obtain ⟨b, rfl⟩ := ENat.ne_top_iff_exists.mp hb.ne
   simp only [Set.mem_setOf_eq, exists_prop, ↓existsAndEq, and_true, Nat.cast_lt]
@@ -52,7 +53,7 @@ lemma Module.depth_of_subsingleton [Subsingleton M] :
   · simp
 
 lemma Module.depth_of_isScalarTower :
-    Module.depth R M ≤ Module.depth S M := by
+    Module.depth_c2m R M ≤ Module.depth_c2m S M := by
   refine sSup_le_sSup ?_
   rintro _ ⟨s, hs₁, hs₂, rfl⟩
   rw [← Sequence.isWeaklyRegular_map_algebraMap_iff S M s] at hs₁
@@ -60,7 +61,7 @@ lemma Module.depth_of_isScalarTower :
 
 @[stacks 00LK]
 lemma Module.depth_le_krullDim_support [Nontrivial M] [Module.Finite R M] :
-    .some (Module.depth R M) ≤ Order.krullDim (Module.support R M) := by
+    .some (Module.depth_c2m R M) ≤ Order.krullDim (Module.support R M) := by
   have : Nonempty (Module.support R M) := by
     rwa [Set.nonempty_coe_sort, Set.nonempty_iff_ne_empty,
       ne_eq, support_eq_empty_iff, not_subsingleton_iff_nontrivial]
@@ -74,7 +75,8 @@ lemma Module.depth_le_krullDim_support [Nontrivial M] [Module.Finite R M] :
   simp only [WithBot.coe_le_coe, ge_iff_le]
   induction n using Nat.strong_induction_on generalizing M with
   | h n IH =>
-    rw [depth, sSup_le_iff]
+    -- [port] Lean 4.35 `rw` does not unfold the unqualified `depth` here; the same definition, named in full
+    rw [Module.depth_c2m, sSup_le_iff]
     rintro _ ⟨l, hl, hl', rfl⟩
     apply WithTop.coe_le_coe.mpr ?_
     cases l with
@@ -141,12 +143,12 @@ lemma Module.depth_le_krullDim_support [Nontrivial M] [Module.Finite R M] :
 
 lemma Module.depth_le_dim_annihilator
     [Nontrivial M] [Module.Finite R M] :
-    .some (Module.depth R M) ≤ ringKrullDim (R ⧸ Module.annihilator R M) := by
+    .some (Module.depth_c2m R M) ≤ ringKrullDim (R ⧸ Module.annihilator R M) := by
   rw [ringKrullDim_quotient, ← Module.support_eq_zeroLocus]
   exact Module.depth_le_krullDim_support _ _
 
 lemma Module.depth_le_dim [Nontrivial M] [Module.Finite R M] :
-    .some (Module.depth R M) ≤ ringKrullDim R :=
+    .some (Module.depth_c2m R M) ≤ ringKrullDim R :=
   (depth_le_dim_annihilator R M).trans (ringKrullDim_quotient_le _)
 
 lemma isSMulRegular_iff_of_free {R M : Type*} [CommRing R] [AddCommGroup M] [Module R M]
@@ -205,7 +207,7 @@ lemma RingTheory.Sequence.isWeaklyRegular_of_free
   have : Nontrivial R := Module.nontrivial R M
   rw [b.repr.isWeaklyRegular_congr, isWeaklyRegular_of_free_aux]
 
-lemma Module.depth_le_of_free [Module.Free R M] : Module.depth R R ≤ Module.depth R M := by
+lemma Module.depth_le_of_free [Module.Free R M] : Module.depth_c2m R R ≤ Module.depth_c2m R M := by
   cases subsingleton_or_nontrivial M
   · simp [Module.depth_of_subsingleton]
   apply sSup_le_sSup
@@ -213,14 +215,14 @@ lemma Module.depth_le_of_free [Module.Free R M] : Module.depth R R ≤ Module.de
   refine ⟨s, Ws14Port.RingTheory.Sequence.isWeaklyRegular_of_free.mpr hs, hs', rfl⟩
 
 lemma Module.faithfulSMul_of_depth_eq_ringKrullDim [IsDomain R] [Nontrivial M] [Module.Finite R M]
-    (H : ringKrullDim R < ⊤) (H' : .some (Module.depth R M) = ringKrullDim R) :
+    (H : ringKrullDim R < ⊤) (H' : .some (Module.depth_c2m R M) = ringKrullDim R) :
     FaithfulSMul R M := by
   have : Nontrivial (R ⧸ annihilator R M) := Ideal.Quotient.nontrivial_iff.2
     (by rw [ne_eq, ← Submodule.annihilator_top, Submodule.annihilator_eq_top_iff]
         exact top_ne_bot)
   rw [← Module.annihilator_eq_bot]
   by_contra H''
-  apply (le_refl ((.some (Module.depth R M)) : WithBot ℕ∞)).not_gt
+  apply (le_refl ((.some (Module.depth_c2m R M)) : WithBot ℕ∞)).not_gt
   calc
     _ ≤ ringKrullDim (R ⧸ annihilator R M) := Module.depth_le_dim_annihilator _ _
     _ < ringKrullDim R := by
@@ -244,7 +246,7 @@ lemma Module.faithfulSMul_of_depth_eq_ringKrullDim [IsDomain R] [Nontrivial M] [
         apply WithBot.coe_lt_coe.mp
         rw [← Order.krullDim_eq_iSup_length, ← ringKrullDim]
         refine (ringKrullDim_quotient_le _).trans_lt H
-    _ = .some (Module.depth R M) := H'.symm
+    _ = .some (Module.depth_c2m R M) := H'.symm
 
 end
 
@@ -343,7 +345,7 @@ variable (R) [IsLocalRing R]
 
 lemma le_depth_of_isWeaklyRegular {s : List R} (hs : Sequence.IsWeaklyRegular R s)
     (hs' : ∀ r ∈ s, r ∈ maximalIdeal R) :
-    (s.length : ℕ∞) + 1 ≤ Module.depth R⟦X⟧ R⟦X⟧ := by
+    (s.length : ℕ∞) + 1 ≤ Module.depth_c2m R⟦X⟧ R⟦X⟧ := by
   have key := Module.length_le_depth R⟦X⟧ R⟦X⟧ ((X : R⟦X⟧) :: s.map C)
     (isWeaklyRegular_X_cons_map_C hs) ?_
   · simpa [add_comm] using key
@@ -353,16 +355,16 @@ lemma le_depth_of_isWeaklyRegular {s : List R} (hs : Sequence.IsWeaklyRegular R 
     · obtain ⟨a, ha, rfl⟩ := List.mem_map.mp hr
       exact C_mem_maximalIdeal (hs' a ha)
 
-lemma natCast_succ_le_depth {d : ℕ} (hd : (d : ℕ∞) ≤ Module.depth R R) :
-    ((d + 1 : ℕ) : ℕ∞) ≤ Module.depth R⟦X⟧ R⟦X⟧ := by
+lemma natCast_succ_le_depth {d : ℕ} (hd : (d : ℕ∞) ≤ Module.depth_c2m R R) :
+    ((d + 1 : ℕ) : ℕ∞) ≤ Module.depth_c2m R⟦X⟧ R⟦X⟧ := by
   obtain ⟨s, hs, hs', hlen⟩ : ∃ s : List R, Sequence.IsWeaklyRegular R s ∧
       (∀ r ∈ s, r ∈ maximalIdeal R) ∧ d ≤ s.length := by
     rcases Nat.eq_zero_or_pos d with rfl | hd0
     · exact ⟨[], (Sequence.isWeaklyRegular_iff_Fin _ _).mpr (fun i ↦ i.elim0),
         by simp, Nat.zero_le _⟩
-    · have hlt : ((d - 1 : ℕ) : ℕ∞) < Module.depth R R :=
+    · have hlt : ((d - 1 : ℕ) : ℕ∞) < Module.depth_c2m R R :=
         lt_of_lt_of_le (Nat.cast_lt.mpr (Nat.sub_lt hd0 one_pos)) hd
-      rw [Module.depth, lt_sSup_iff] at hlt
+      rw [Module.depth_c2m, lt_sSup_iff] at hlt
       obtain ⟨b, ⟨s, hs, hs', rfl⟩, hb⟩ := hlt
       refine ⟨s, hs, hs', ?_⟩
       have hlen' : (d - 1 : ℕ) < s.length := Nat.cast_lt.mp hb
@@ -398,7 +400,7 @@ open _root_.Module.IsLocalRing
 variable (R : Type*) [CommRing R] [IsLocalRing R]
 
 def IsCohenMacaulayOfDim (d : ℕ) : Prop :=
-  ringKrullDim R = d ∧ Module.depth R R = d
+  ringKrullDim R = d ∧ Module.depth_c2m R R = d
 
 namespace IsCohenMacaulayOfDim
 open IsCohenMacaulayOfDim
@@ -407,7 +409,7 @@ variable {R} {d : ℕ}
 
 lemma ringKrullDim_eq (h : IsCohenMacaulayOfDim R d) : ringKrullDim R = d := h.1
 
-lemma depth_eq (h : IsCohenMacaulayOfDim R d) : Module.depth R R = d := h.2
+lemma depth_eq (h : IsCohenMacaulayOfDim R d) : Module.depth_c2m R R = d := h.2
 
 lemma ringKrullDim_lt_top [IsNoetherianRing R] (_ : IsCohenMacaulayOfDim R d) :
     ringKrullDim R < ⊤ :=
@@ -416,14 +418,14 @@ lemma ringKrullDim_lt_top [IsNoetherianRing R] (_ : IsCohenMacaulayOfDim R d) :
 lemma patching_hypotheses {Λ Rₒₒ : Type*} [CommRing Λ] [IsLocalRing Λ] [CommRing Rₒₒ]
     [IsLocalRing Rₒₒ] [IsNoetherianRing Rₒₒ]
     (hΛ : IsCohenMacaulayOfDim Λ d) (hR : IsCohenMacaulayOfDim Rₒₒ d) :
-    ringKrullDim Rₒₒ < ⊤ ∧ .some (Module.depth Λ Λ) = ringKrullDim Rₒₒ := by
+    ringKrullDim Rₒₒ < ⊤ ∧ .some (Module.depth_c2m Λ Λ) = ringKrullDim Rₒₒ := by
   refine ⟨hR.ringKrullDim_lt_top, ?_⟩
   rw [hR.ringKrullDim_eq, hΛ.depth_eq]
   rfl
 
 private lemma _root_.Module.depth_le_depth_of_ringEquiv {R S : Type*} [CommRing R] [CommRing S]
     [IsLocalRing R] [IsLocalRing S] (e : R ≃+* S) :
-    Module.depth R R ≤ Module.depth S S := by
+    Module.depth_c2m R R ≤ Module.depth_c2m S S := by
   refine sSup_le_sSup ?_
   rintro _ ⟨s, hs, hs', rfl⟩
   refine ⟨s.map e, ?_, ?_, by simp⟩
@@ -522,7 +524,7 @@ section DepthCharacterization
 variable (R : Type*) [CommRing R] [IsLocalRing R]
 variable (M : Type*) [AddCommGroup M] [Module R M]
 
-lemma Module.exists_isSMulRegular_of_depth_pos (h : 0 < Module.depth R M) :
+lemma Module.exists_isSMulRegular_of_depth_pos (h : 0 < Module.depth_c2m R M) :
     ∃ x ∈ maximalIdeal R, IsSMulRegular M x := by
   obtain ⟨b, hb, hpos⟩ := lt_sSup_iff.mp h
   obtain ⟨s, hreg, hmem, rfl⟩ := hb
@@ -533,18 +535,18 @@ lemma Module.exists_isSMulRegular_of_depth_pos (h : 0 < Module.depth R M) :
       exact ⟨x, hmem x (by simp), hreg.1⟩
 
 lemma Module.depth_pos_of_isSMulRegular {x : R} (hx : x ∈ maximalIdeal R)
-    (hreg : IsSMulRegular M x) : 0 < Module.depth R M := by
-  have h1 : (1 : ℕ∞) ≤ Module.depth R M := by
+    (hreg : IsSMulRegular M x) : 0 < Module.depth_c2m R M := by
+  have h1 : (1 : ℕ∞) ≤ Module.depth_c2m R M := by
     simpa using Module.length_le_depth R M [x]
       ((Sequence.isWeaklyRegular_singleton_iff M x).mpr hreg) (by simpa using hx)
   exact zero_lt_one.trans_le h1
 
 lemma Module.depth_pos_iff_exists_isSMulRegular :
-    0 < Module.depth R M ↔ ∃ x ∈ maximalIdeal R, IsSMulRegular M x :=
+    0 < Module.depth_c2m R M ↔ ∃ x ∈ maximalIdeal R, IsSMulRegular M x :=
   ⟨Module.exists_isSMulRegular_of_depth_pos R M, fun ⟨_, hx, hreg⟩ =>
     Module.depth_pos_of_isSMulRegular R M hx hreg⟩
 
-lemma Module.maximalIdeal_ne_bot_of_depth_pos [Nontrivial M] (h : 0 < Module.depth R M) :
+lemma Module.maximalIdeal_ne_bot_of_depth_pos [Nontrivial M] (h : 0 < Module.depth_c2m R M) :
     maximalIdeal R ≠ ⊥ := by
   obtain ⟨x, hxm, hreg⟩ := Module.exists_isSMulRegular_of_depth_pos R M h
   intro hbot
@@ -561,7 +563,7 @@ lemma IsLocalRing.maximalIdeal_ne_bot_of_ringKrullDim_pos (hdim : 0 < ringKrullD
   exact hdim.false
 
 lemma Module.maximalIdeal_notMem_associatedPrimes_of_depth_pos [IsNoetherianRing R]
-    (h : 0 < Module.depth R M) : maximalIdeal R ∉ associatedPrimes R M := by
+    (h : 0 < Module.depth_c2m R M) : maximalIdeal R ∉ associatedPrimes R M := by
   intro hmem
   obtain ⟨x, hxm, hreg⟩ := Module.exists_isSMulRegular_of_depth_pos R M h
   have hx_in : x ∈ ⋃ p ∈ associatedPrimes R M, (p : Set R) := Set.mem_biUnion hmem hxm
@@ -647,7 +649,7 @@ open scoped _root_.P2MW.S_Module_depth_quotSMulTop_succ_eq.Ws14Port.PowerSeries
 theorem Module.exists_isSMulRegular_and_isSMulRegular_of_depth_pos
     (R : Type*) [CommRing R] [IsLocalRing R] [IsNoetherianRing R]
     (M : Type*) [AddCommGroup M] [Module R M] [Module.Finite R M]
-    (hR : 0 < Module.depth R R) (hM : 0 < Module.depth R M) :
+    (hR : 0 < Module.depth_c2m R R) (hM : 0 < Module.depth_c2m R M) :
     ∃ x ∈ maximalIdeal R,
       x ∉ (maximalIdeal R) ^ 2 ∧ IsSMulRegular R x ∧ IsSMulRegular M x :=
   IsLocalRing.exists_isSMulRegular_and_isSMulRegular_of_notMem_associatedPrimes R M
@@ -658,7 +660,7 @@ theorem Module.exists_isSMulRegular_and_isSMulRegular_of_depth_pos
 theorem Module.exists_isSMulRegular_and_isSMulRegular_of_depth_pos'
     (R : Type*) [CommRing R] [IsLocalRing R] [IsNoetherianRing R]
     (M : Type*) [AddCommGroup M] [Module R M] [Module.Finite R M]
-    (hR : 0 < Module.depth R R) (hM : 0 < Module.depth R M)
+    (hR : 0 < Module.depth_c2m R R) (hM : 0 < Module.depth_c2m R M)
     (_hdim : 0 < ringKrullDim R) :
     ∃ x ∈ maximalIdeal R,
       x ∉ (maximalIdeal R) ^ 2 ∧ IsSMulRegular R x ∧ IsSMulRegular M x :=
@@ -668,7 +670,7 @@ theorem IsLocalRing.IsCohenMacaulayOfDim.exists_isSMulRegular_and_isSMulRegular
     {R : Type*} [CommRing R] [IsLocalRing R] [IsNoetherianRing R] {d : ℕ}
     (hCM : IsCohenMacaulayOfDim R d)
     (M : Type*) [AddCommGroup M] [Module R M] [Module.Finite R M]
-    (hd : 0 < d) (hM : 0 < Module.depth R M) :
+    (hd : 0 < d) (hM : 0 < Module.depth_c2m R M) :
     ∃ x ∈ maximalIdeal R,
       x ∉ (maximalIdeal R) ^ 2 ∧ IsSMulRegular R x ∧ IsSMulRegular M x := by
   refine Module.exists_isSMulRegular_and_isSMulRegular_of_depth_pos R M ?_ hM
@@ -678,7 +680,7 @@ theorem IsLocalRing.IsCohenMacaulayOfDim.exists_isSMulRegular_and_isSMulRegular
 theorem Module.exists_isSMulRegular_and_isSMulRegular_of_depth_pos_of_isDomain
     (R : Type*) [CommRing R] [IsLocalRing R] [IsNoetherianRing R] [IsDomain R]
     (M : Type*) [AddCommGroup M] [Module R M] [Module.Finite R M]
-    (hM : 0 < Module.depth R M) (hdim : 0 < ringKrullDim R) :
+    (hM : 0 < Module.depth_c2m R M) (hdim : 0 < ringKrullDim R) :
     ∃ x ∈ maximalIdeal R,
       x ∉ (maximalIdeal R) ^ 2 ∧ IsSMulRegular R x ∧ IsSMulRegular M x := by
   refine Module.exists_isSMulRegular_and_isSMulRegular_of_depth_pos R M ?_ hM
@@ -692,7 +694,7 @@ theorem Module.exists_isSMulRegular_and_isSMulRegular_of_depth_pos_of_isDomain
 theorem IsLocalRing.exists_isSMulRegular_and_isSMulRegular_of_isDiscreteValuationRing
     (𝓞 : Type*) [CommRing 𝓞] [IsDomain 𝓞] [IsDiscreteValuationRing 𝓞]
     (M : Type*) [AddCommGroup M] [Module 𝓞 M] [Module.Finite 𝓞 M]
-    (hM : 0 < Module.depth 𝓞 M) :
+    (hM : 0 < Module.depth_c2m 𝓞 M) :
     ∃ x ∈ maximalIdeal 𝓞,
       x ∉ (maximalIdeal 𝓞) ^ 2 ∧ IsSMulRegular 𝓞 x ∧ IsSMulRegular M x :=
   (IsCohenMacaulayOfDim.of_isDiscreteValuationRing 𝓞).exists_isSMulRegular_and_isSMulRegular
@@ -725,8 +727,8 @@ section Transport
 
 variable {M N : Type*} [AddCommGroup M] [Module R M] [AddCommGroup N] [Module R N]
 
-lemma depth_eq_of_linearEquiv (e : M ≃ₗ[R] N) : Module.depth R M = Module.depth R N := by
-  rw [Module.depth, Module.depth]
+lemma depth_eq_of_linearEquiv (e : M ≃ₗ[R] N) : Module.depth_c2m R M = Module.depth_c2m R N := by
+  rw [Module.depth_c2m, Module.depth_c2m]
   congr 1
   ext k
   constructor
@@ -736,14 +738,14 @@ lemma depth_eq_of_linearEquiv (e : M ≃ₗ[R] N) : Module.depth R M = Module.de
     exact ⟨s, (e.isWeaklyRegular_congr s).mpr hs, hs', rfl⟩
 
 lemma exists_isWeaklyRegular_of_le_depth (M : Type*) [AddCommGroup M] [Module R M]
-    (n : ℕ) (hn : (n : ℕ∞) ≤ Module.depth R M) :
+    (n : ℕ) (hn : (n : ℕ∞) ≤ Module.depth_c2m R M) :
     ∃ s : List R, Sequence.IsWeaklyRegular M s ∧ (∀ r ∈ s, r ∈ maximalIdeal R) ∧
       s.length = n := by
   rcases Nat.eq_zero_or_pos n with rfl | hpos
   · exact ⟨[], Sequence.IsWeaklyRegular.nil R M, by simp, rfl⟩
-  · have hlt : ((n - 1 : ℕ) : ℕ∞) < Module.depth R M :=
+  · have hlt : ((n - 1 : ℕ) : ℕ∞) < Module.depth_c2m R M :=
       lt_of_lt_of_le (Nat.cast_lt.mpr (by omega)) hn
-    rw [Module.depth, lt_sSup_iff] at hlt
+    rw [Module.depth_c2m, lt_sSup_iff] at hlt
     obtain ⟨b, ⟨s, hs, hs', rfl⟩, hb⟩ := hlt
     have hlen : n ≤ s.length := by
       have := Nat.cast_lt.mp hb
@@ -757,7 +759,7 @@ lemma exists_isWeaklyRegular_of_le_depth (M : Type*) [AddCommGroup M] [Module R 
 variable (M) in
 
 lemma depth_lt_top [IsNoetherianRing R] [Module.Finite R M] [Nontrivial M] :
-    Module.depth R M < ⊤ := by
+    Module.depth_c2m R M < ⊤ := by
   rw [lt_top_iff_ne_top]
   intro h
   have hle := Module.depth_le_dim R M
@@ -854,7 +856,7 @@ lemma not_isAssociatedPrime_maximalIdeal_of_isSMulRegular {x : R}
 variable (M) in
 
 lemma not_isAssociatedPrime_maximalIdeal_quotSMulTop {x : R} (hxreg : IsSMulRegular M x)
-    (hdepth : (2 : ℕ∞) ≤ Module.depth R M) :
+    (hdepth : (2 : ℕ∞) ≤ Module.depth_c2m R M) :
     ¬ IsAssociatedPrime (maximalIdeal R) (QuotSMulTop x M) := by
 
   obtain ⟨pr, hpr, hpr', hprlen⟩ :=
@@ -928,13 +930,13 @@ variable [IsNoetherianRing R]
 
 lemma depth_quotSMulTop_succ_le (M : Type*) [AddCommGroup M] [Module R M] [Module.Finite R M]
     {x : R} (hx : x ∈ maximalIdeal R) (hxreg : IsSMulRegular M x) :
-    Module.depth R (QuotSMulTop x M) + 1 ≤ Module.depth R M := by
+    Module.depth_c2m R (QuotSMulTop x M) + 1 ≤ Module.depth_c2m R M := by
   rcases subsingleton_or_nontrivial M with hM | hM
   · rw [Module.depth_of_subsingleton R (QuotSMulTop x M), Module.depth_of_subsingleton R M,
       top_add]
   · have hQ : Nontrivial (QuotSMulTop x M) := nontrivial_quotSMulTop_of_mem_maximalIdeal M hx
-    have hlt : Module.depth R (QuotSMulTop x M) < ⊤ := depth_lt_top (QuotSMulTop x M)
-    cases hd : Module.depth R (QuotSMulTop x M) with
+    have hlt : Module.depth_c2m R (QuotSMulTop x M) < ⊤ := depth_lt_top (QuotSMulTop x M)
+    cases hd : Module.depth_c2m R (QuotSMulTop x M) with
     | top => exact absurd hd hlt.ne
     | coe n =>
       obtain ⟨s, hs, hs', hlen⟩ :=
@@ -953,8 +955,8 @@ lemma depth_quotSMulTop_succ_le (M : Type*) [AddCommGroup M] [Module R M] [Modul
 lemma le_depth_quotSMulTop_of_succ_le_depth
     (M : Type u) [AddCommGroup M] [Module R M] [Module.Finite R M]
     {x : R} (hx : x ∈ maximalIdeal R) (n : ℕ) (hxreg : IsSMulRegular M x)
-    (hd : ((n + 1 : ℕ) : ℕ∞) ≤ Module.depth R M) :
-    (n : ℕ∞) ≤ Module.depth R (QuotSMulTop x M) := by
+    (hd : ((n + 1 : ℕ) : ℕ∞) ≤ Module.depth_c2m R M) :
+    (n : ℕ∞) ≤ Module.depth_c2m R (QuotSMulTop x M) := by
   induction n generalizing M with
   | zero => simp
   | succ n IH =>
@@ -1004,7 +1006,7 @@ lemma le_depth_quotSMulTop_of_succ_le_depth
 
       have hs'Mz : Sequence.IsWeaklyRegular (QuotSMulTop z M) s' :=
         ((Sequence.isWeaklyRegular_cons_iff M z s').mp hzs').2
-      have hdMz : ((n + 1 : ℕ) : ℕ∞) ≤ Module.depth R (QuotSMulTop z M) := by
+      have hdMz : ((n + 1 : ℕ) : ℕ∞) ≤ Module.depth_c2m R (QuotSMulTop z M) := by
         have hle := Module.length_le_depth R (QuotSMulTop z M) s' hs'Mz hs'mem
         rwa [hs'len] at hle
 
@@ -1023,7 +1025,7 @@ lemma le_depth_quotSMulTop_of_succ_le_depth
         (Sequence.isWeaklyRegular_singleton_iff _ x).mp
           ((Sequence.isWeaklyRegular_cons_iff M z [x]).mp hzx).2
 
-      have hIH : (n : ℕ∞) ≤ Module.depth R (QuotSMulTop x (QuotSMulTop z M)) :=
+      have hIH : (n : ℕ∞) ≤ Module.depth_c2m R (QuotSMulTop x (QuotSMulTop z M)) :=
         IH (QuotSMulTop z M) hxregMz hdMz
       rw [depth_eq_of_linearEquiv (quotSMulTopQuotSMulTopComm M x z)] at hIH
 
@@ -1044,13 +1046,13 @@ variable (M : Type*) [AddCommGroup M] [Module R M] [Module.Finite R M]
 
 theorem depth_quotSMulTop_succ_eq {x : R} (hx : x ∈ maximalIdeal R)
     (hxreg : IsSMulRegular M x) :
-    Module.depth R (QuotSMulTop x M) + 1 = Module.depth R M := by
+    Module.depth_c2m R (QuotSMulTop x M) + 1 = Module.depth_c2m R M := by
   rcases subsingleton_or_nontrivial M with hM | hM
   · rw [Module.depth_of_subsingleton R (QuotSMulTop x M), Module.depth_of_subsingleton R M,
       top_add]
   · refine le_antisymm (depth_quotSMulTop_succ_le M hx hxreg) ?_
-    have hMlt : Module.depth R M < ⊤ := depth_lt_top M
-    cases hdM : Module.depth R M with
+    have hMlt : Module.depth_c2m R M < ⊤ := depth_lt_top M
+    cases hdM : Module.depth_c2m R M with
     | top => exact absurd hdM hMlt.ne
     | coe d =>
 
@@ -1065,7 +1067,7 @@ theorem depth_quotSMulTop_succ_eq {x : R} (hx : x ∈ maximalIdeal R)
         rw [hdM] at hle
         exact_mod_cast hle
 
-      have hd2 : ((d - 1 + 1 : ℕ) : ℕ∞) ≤ Module.depth R M := by
+      have hd2 : ((d - 1 + 1 : ℕ) : ℕ∞) ≤ Module.depth_c2m R M := by
         rw [hdM]
         exact Nat.cast_le.mpr (by omega : d - 1 + 1 ≤ d)
       have hhard := le_depth_quotSMulTop_of_succ_le_depth M hx (d - 1) hxreg hd2
@@ -1073,11 +1075,11 @@ theorem depth_quotSMulTop_succ_eq {x : R} (hx : x ∈ maximalIdeal R)
             rw [show ((d - 1 : ℕ) : ℕ∞) + 1 = ((d - 1 + 1 : ℕ) : ℕ∞) by push_cast; ring]
             congr 1
             omega
-        _ ≤ Module.depth R (QuotSMulTop x M) + 1 := add_le_add hhard le_rfl
+        _ ≤ Module.depth_c2m R (QuotSMulTop x M) + 1 := add_le_add hhard le_rfl
 
 theorem depth_quotSMulTop_eq_sub_one {x : R} (hx : x ∈ maximalIdeal R)
     (hxreg : IsSMulRegular M x) :
-    Module.depth R (QuotSMulTop x M) = Module.depth R M - 1 := by
+    Module.depth_c2m R (QuotSMulTop x M) = Module.depth_c2m R M - 1 := by
   rw [← depth_quotSMulTop_succ_eq M hx hxreg]
   exact ((ENat.addLECancellable_of_ne_top ENat.one_ne_top).add_tsub_cancel_right).symm
 
@@ -1097,7 +1099,7 @@ lemma exists_mem_maximalIdeal_mk_eq {I : Ideal R} [IsLocalRing (R ⧸ I)]
 
 theorem depth_quotient_eq_depth (I : Ideal R) [IsLocalRing (R ⧸ I)]
     (N : Type*) [AddCommGroup N] [Module R N] [Module (R ⧸ I) N] [IsScalarTower R (R ⧸ I) N] :
-    Module.depth (R ⧸ I) N = Module.depth R N := by
+    Module.depth_c2m (R ⧸ I) N = Module.depth_c2m R N := by
   have hloc : IsLocalHom (Ideal.Quotient.mk I) :=
     IsLocalHom.of_surjective _ Ideal.Quotient.mk_surjective
 
@@ -1154,19 +1156,19 @@ variable (M : Type*) [AddCommGroup M] [Module R M] [Module.Finite R M]
 
 theorem depth_quotient_quotSMulTop_succ_eq {x : R} [IsLocalRing (R ⧸ Ideal.span {x})]
     (hx : x ∈ maximalIdeal R) (hxreg : IsSMulRegular M x) :
-    Module.depth (R ⧸ Ideal.span {x}) (QuotSMulTop x M) + 1 = Module.depth R M := by
+    Module.depth_c2m (R ⧸ Ideal.span {x}) (QuotSMulTop x M) + 1 = Module.depth_c2m R M := by
   rw [depth_quotient_eq_depth (Ideal.span {x}) (QuotSMulTop x M)]
   exact depth_quotSMulTop_succ_eq M hx hxreg
 
 theorem depth_quotient_quotSMulTop_eq_sub_one {x : R} [IsLocalRing (R ⧸ Ideal.span {x})]
     (hx : x ∈ maximalIdeal R) (hxreg : IsSMulRegular M x) :
-    Module.depth (R ⧸ Ideal.span {x}) (QuotSMulTop x M) = Module.depth R M - 1 := by
+    Module.depth_c2m (R ⧸ Ideal.span {x}) (QuotSMulTop x M) = Module.depth_c2m R M - 1 := by
   rw [← depth_quotient_quotSMulTop_succ_eq M hx hxreg]
   exact ((ENat.addLECancellable_of_ne_top ENat.one_ne_top).add_tsub_cancel_right).symm
 
 theorem depth_quotient_self_succ_eq {x : R} [IsLocalRing (R ⧸ Ideal.span {x})]
     (hx : x ∈ maximalIdeal R) (hxreg : IsSMulRegular R x) :
-    Module.depth (R ⧸ Ideal.span {x}) (QuotSMulTop x R) + 1 = Module.depth R R :=
+    Module.depth_c2m (R ⧸ Ideal.span {x}) (QuotSMulTop x R) + 1 = Module.depth_c2m R R :=
   depth_quotient_quotSMulTop_succ_eq R hx hxreg
 
 end QuotientCurrency
@@ -1237,8 +1239,8 @@ section SATGates
 
 variable (K : Type) [Field K]
 
-example : Module.depth (PowerSeries K) (QuotSMulTop (PowerSeries.X : PowerSeries K)
-      (PowerSeries K)) + 1 = Module.depth (PowerSeries K) (PowerSeries K) :=
+example : Module.depth_c2m (PowerSeries K) (QuotSMulTop (PowerSeries.X : PowerSeries K)
+      (PowerSeries K)) + 1 = Module.depth_c2m (PowerSeries K) (PowerSeries K) :=
   Module.depth_quotSMulTop_succ_eq (PowerSeries K)
     PowerSeries.X_mem_maximalIdeal PowerSeries.isSMulRegular_X
 
@@ -1250,9 +1252,9 @@ example : ringKrullDim ((PowerSeries K) ⧸ Ideal.span {(PowerSeries.X : PowerSe
 local instance : IsLocalRing ((PowerSeries K) ⧸ Ideal.span {(PowerSeries.X : PowerSeries K)}) :=
   Module.isLocalRing_quotient_span_singleton (PowerSeries.X_mem_maximalIdeal (R := K))
 
-example : Module.depth ((PowerSeries K) ⧸ Ideal.span {(PowerSeries.X : PowerSeries K)})
+example : Module.depth_c2m ((PowerSeries K) ⧸ Ideal.span {(PowerSeries.X : PowerSeries K)})
       (QuotSMulTop (PowerSeries.X : PowerSeries K) (PowerSeries K)) + 1 =
-      Module.depth (PowerSeries K) (PowerSeries K) :=
+      Module.depth_c2m (PowerSeries K) (PowerSeries K) :=
   Module.depth_quotient_quotSMulTop_succ_eq (PowerSeries K)
     PowerSeries.X_mem_maximalIdeal PowerSeries.isSMulRegular_X
 
@@ -1284,17 +1286,17 @@ lemma Module.exists_isSMulRegular_of_notMem_associatedPrimes
   exact ⟨z, hz, hreg⟩
 
 lemma Module.depth_pos_of_maximalIdeal_notMem_associatedPrimes
-    (h : maximalIdeal R ∉ associatedPrimes R M) : 0 < Module.depth R M := by
+    (h : maximalIdeal R ∉ associatedPrimes R M) : 0 < Module.depth_c2m R M := by
   obtain ⟨x, hx, hreg⟩ := Module.exists_isSMulRegular_of_notMem_associatedPrimes R M h
   exact Module.depth_pos_of_isSMulRegular R M hx hreg
 
 theorem Module.depth_pos_iff_maximalIdeal_notMem_associatedPrimes :
-    0 < Module.depth R M ↔ maximalIdeal R ∉ associatedPrimes R M :=
+    0 < Module.depth_c2m R M ↔ maximalIdeal R ∉ associatedPrimes R M :=
   ⟨Module.maximalIdeal_notMem_associatedPrimes_of_depth_pos R M,
    Module.depth_pos_of_maximalIdeal_notMem_associatedPrimes R M⟩
 
 theorem Module.depth_eq_zero_iff_maximalIdeal_mem_associatedPrimes :
-    Module.depth R M = 0 ↔ maximalIdeal R ∈ associatedPrimes R M := by
+    Module.depth_c2m R M = 0 ↔ maximalIdeal R ∈ associatedPrimes R M := by
   constructor
   · intro h0
     by_contra hnot
@@ -1302,12 +1304,12 @@ theorem Module.depth_eq_zero_iff_maximalIdeal_mem_associatedPrimes :
       (Module.depth_pos_of_maximalIdeal_notMem_associatedPrimes R M hnot).ne'
   · intro hmem
     by_contra hne
-    have hpos : 0 < Module.depth R M :=
+    have hpos : 0 < Module.depth_c2m R M :=
       zero_lt_one.trans_le (ENat.one_le_iff_ne_zero.mpr hne)
     exact Module.maximalIdeal_notMem_associatedPrimes_of_depth_pos R M hpos hmem
 
 theorem Module.depth_pos_iff_not_isAssociatedPrime_maximalIdeal :
-    0 < Module.depth R M ↔ ¬ IsAssociatedPrime (maximalIdeal R) M := by
+    0 < Module.depth_c2m R M ↔ ¬ IsAssociatedPrime (maximalIdeal R) M := by
   constructor
   · intro h hip
     exact (Module.depth_pos_iff_maximalIdeal_notMem_associatedPrimes R M).mp h
@@ -1317,7 +1319,7 @@ theorem Module.depth_pos_iff_not_isAssociatedPrime_maximalIdeal :
       fun hmem => h (AssociatedPrimes.mem_iff.mp hmem)
 
 theorem Module.depth_eq_zero_iff_isAssociatedPrime_maximalIdeal :
-    Module.depth R M = 0 ↔ IsAssociatedPrime (maximalIdeal R) M := by
+    Module.depth_c2m R M = 0 ↔ IsAssociatedPrime (maximalIdeal R) M := by
   constructor
   · intro h0
     exact AssociatedPrimes.mem_iff.mp
@@ -1336,12 +1338,12 @@ variable (R : Type*) [CommRing R] [IsLocalRing R]
 variable (M : Type*) [AddCommGroup M] [Module R M]
 
 theorem Module.depth_eq_top_and_associatedPrimes_eq_empty_of_subsingleton [Subsingleton M] :
-    Module.depth R M = ⊤ ∧ associatedPrimes R M = ∅ :=
+    Module.depth_c2m R M = ⊤ ∧ associatedPrimes R M = ∅ :=
   ⟨Module.depth_of_subsingleton R M, associatedPrimes.eq_empty_of_subsingleton⟩
 
 theorem Module.depth_pos_and_maximalIdeal_notMem_associatedPrimes_of_subsingleton
     [Subsingleton M] :
-    0 < Module.depth R M ∧ maximalIdeal R ∉ associatedPrimes R M := by
+    0 < Module.depth_c2m R M ∧ maximalIdeal R ∉ associatedPrimes R M := by
   constructor
   · rw [Module.depth_of_subsingleton R M]
     exact zero_lt_one.trans_le le_top
@@ -1371,12 +1373,12 @@ theorem gate_dvr_maximalIdeal_notMem_associatedPrimes
 
 theorem gate_dvr_depth_pos
     (𝓞 : Type*) [CommRing 𝓞] [IsDomain 𝓞] [IsDiscreteValuationRing 𝓞] :
-    0 < Module.depth 𝓞 𝓞 :=
+    0 < Module.depth_c2m 𝓞 𝓞 :=
   (Module.depth_pos_iff_maximalIdeal_notMem_associatedPrimes 𝓞 𝓞).mpr
     (gate_dvr_maximalIdeal_notMem_associatedPrimes 𝓞)
 
 example (𝓞 : Type*) [CommRing 𝓞] [IsDomain 𝓞] [IsDiscreteValuationRing 𝓞] :
-    Module.depth 𝓞 𝓞 = 1 := by
+    Module.depth_c2m 𝓞 𝓞 = 1 := by
   exact_mod_cast (IsLocalRing.IsCohenMacaulayOfDim.of_isDiscreteValuationRing 𝓞).depth_eq
 
 theorem gate_field_maximalIdeal_mem_associatedPrimes (K : Type*) [Field K] :
@@ -1386,11 +1388,11 @@ theorem gate_field_maximalIdeal_mem_associatedPrimes (K : Type*) [Field K] :
   ext r
   rw [Submodule.mem_colon_singleton, smul_eq_mul, mul_one]
 
-theorem gate_field_depth_eq_zero (K : Type*) [Field K] : Module.depth K K = 0 :=
+theorem gate_field_depth_eq_zero (K : Type*) [Field K] : Module.depth_c2m K K = 0 :=
   (Module.depth_eq_zero_iff_maximalIdeal_mem_associatedPrimes K K).mpr
     (gate_field_maximalIdeal_mem_associatedPrimes K)
 
-example (K : Type*) [Field K] : Module.depth K K = 0 := by
+example (K : Type*) [Field K] : Module.depth_c2m K K = 0 := by
   exact_mod_cast (IsLocalRing.IsCohenMacaulayOfDim.of_field K).depth_eq
 
 theorem gate_field_maximalIdeal_mem_associatedPrimes_via_depth (K : Type*) [Field K] :
@@ -1399,7 +1401,7 @@ theorem gate_field_maximalIdeal_mem_associatedPrimes_via_depth (K : Type*) [Fiel
     (by exact_mod_cast (IsLocalRing.IsCohenMacaulayOfDim.of_field K).depth_eq)
 
 theorem gate_rat_depth_eq_zero_and_mem :
-    Module.depth ℚ ℚ = 0 ∧ maximalIdeal ℚ ∈ associatedPrimes ℚ ℚ :=
+    Module.depth_c2m ℚ ℚ = 0 ∧ maximalIdeal ℚ ∈ associatedPrimes ℚ ℚ :=
   ⟨gate_field_depth_eq_zero ℚ, gate_field_maximalIdeal_mem_associatedPrimes ℚ⟩
 
 end DepthZeroAssociatedPrime
@@ -1548,7 +1550,7 @@ variable {R : Type u} [CommRing R] [IsLocalRing R] [IsNoetherianRing R]
 
 private lemma depth_le_ringKrullDim_quotient_aux (n : ℕ) :
     ∀ (M : Type v) [AddCommGroup M] [Module R M] [Module.Finite R M] (p : Ideal R),
-      IsAssociatedPrime p M → (n : ℕ∞) ≤ Module.depth R M →
+      IsAssociatedPrime p M → (n : ℕ∞) ≤ Module.depth_c2m R M →
       ((n : ℕ) : WithBot ℕ∞) ≤ ringKrullDim (R ⧸ p) := by
   induction n with
   | zero =>
@@ -1560,7 +1562,7 @@ private lemma depth_le_ringKrullDim_quotient_aux (n : ℕ) :
     intro M _ _ _ p hp hn
     have hprime : p.IsPrime := hp.isPrime
 
-    have hpos : 0 < Module.depth R M := by
+    have hpos : 0 < Module.depth_c2m R M := by
       refine lt_of_lt_of_le ?_ hn
       exact_mod_cast Nat.succ_pos n
     obtain ⟨x, hx, hxreg⟩ := Module.exists_isSMulRegular_of_depth_pos R M hpos
@@ -1575,7 +1577,7 @@ private lemma depth_le_ringKrullDim_quotient_aux (n : ℕ) :
 
     obtain ⟨q, hq, hpq, hxq⟩ := (Ws14Port.IsAssociatedPrime.exists_isAssociatedPrime_quotSMulTop_le hp) hx hxreg
 
-    have hdrop : (n : ℕ∞) ≤ Module.depth R (QuotSMulTop x M) :=
+    have hdrop : (n : ℕ∞) ≤ Module.depth_c2m R (QuotSMulTop x M) :=
       Module.le_depth_quotSMulTop_of_succ_le_depth M hx n hxreg (by exact_mod_cast hn)
 
     have hIH : ((n : ℕ) : WithBot ℕ∞) ≤ ringKrullDim (R ⧸ q) :=
@@ -1593,14 +1595,14 @@ private lemma depth_le_ringKrullDim_quotient_aux (n : ℕ) :
 lemma Module.natCast_le_ringKrullDim_quotient_of_le_depth (n : ℕ)
     (M : Type v) [AddCommGroup M] [Module R M] [Module.Finite R M]
     {p : Ideal R} (hp : p ∈ associatedPrimes R M)
-    (hn : (n : ℕ∞) ≤ Module.depth R M) :
+    (hn : (n : ℕ∞) ≤ Module.depth_c2m R M) :
     ((n : ℕ) : WithBot ℕ∞) ≤ ringKrullDim (R ⧸ p) :=
   depth_le_ringKrullDim_quotient_aux n M p hp hn
 
-theorem Module.depth_le_ringKrullDim_quotient_of_mem_associatedPrimes
+theorem Module.depth_le_ringKrullDim_quotient_of_mem_associatedPrimes_c2m
     (M : Type v) [AddCommGroup M] [Module R M] [Module.Finite R M]
     {p : Ideal R} (hp : p ∈ associatedPrimes R M) :
-    .some (Module.depth R M) ≤ ringKrullDim (R ⧸ p) := by
+    .some (Module.depth_c2m R M) ≤ ringKrullDim (R ⧸ p) := by
   have hp' : IsAssociatedPrime p M := hp
 
   have hM : Nontrivial M := by
@@ -1608,8 +1610,8 @@ theorem Module.depth_le_ringKrullDim_quotient_of_mem_associatedPrimes
     · exact absurd hp' not_isAssociatedPrime_of_subsingleton
     · exact hnt
 
-  have hlt : Module.depth R M < ⊤ := Module.depth_lt_top M
-  cases hd : Module.depth R M with
+  have hlt : Module.depth_c2m R M < ⊤ := Module.depth_lt_top M
+  cases hd : Module.depth_c2m R M with
   | top => exact absurd hd hlt.ne
   | coe d =>
 
@@ -1618,8 +1620,8 @@ theorem Module.depth_le_ringKrullDim_quotient_of_mem_associatedPrimes
 theorem Module.depth_le_ringKrullDim_quotient_of_isAssociatedPrime
     (M : Type v) [AddCommGroup M] [Module R M] [Module.Finite R M]
     {p : Ideal R} (hp : IsAssociatedPrime p M) :
-    .some (Module.depth R M) ≤ ringKrullDim (R ⧸ p) :=
-  Module.depth_le_ringKrullDim_quotient_of_mem_associatedPrimes M hp
+    .some (Module.depth_c2m R M) ≤ ringKrullDim (R ⧸ p) :=
+  Module.depth_le_ringKrullDim_quotient_of_mem_associatedPrimes_c2m M hp
 
 end MainTheorem
 -- [port] was: p2m_reactivate "P2MW.S_Module_depth_quotSMulTop_succ_eq.Ws14Port.PowerSeries"
@@ -1642,7 +1644,7 @@ theorem ringKrullDim_quotient_eq_of_mem_associatedPrimes {d : ℕ}
     (hp : p ∈ associatedPrimes R R) :
     ringKrullDim (R ⧸ p) = ringKrullDim R := by
   refine le_antisymm (ringKrullDim_quotient_le p) ?_
-  have h1 := Module.depth_le_ringKrullDim_quotient_of_mem_associatedPrimes R hp
+  have h1 := Module.depth_le_ringKrullDim_quotient_of_mem_associatedPrimes_c2m R hp
   rw [hCM.depth_eq] at h1
   rw [hCM.ringKrullDim_eq]
   exact h1
@@ -1674,10 +1676,10 @@ end IsCohenMacaulayOfDim
 open scoped _root_.P2MW.S_Module_depth_quotSMulTop_succ_eq.Ws14Port.PowerSeries
 
 lemma isCohenMacaulayOfDim_of_depth_eq_ringKrullDim
-    (h : .some (Module.depth R R) = ringKrullDim R) :
+    (h : .some (Module.depth_c2m R R) = ringKrullDim R) :
     ∃ d : ℕ, IsCohenMacaulayOfDim R d := by
-  have hlt : Module.depth R R < ⊤ := Module.depth_lt_top R
-  cases hd : Module.depth R R with
+  have hlt : Module.depth_c2m R R < ⊤ := Module.depth_lt_top R
+  cases hd : Module.depth_c2m R R with
   | top => exact absurd hd hlt.ne
   | coe d =>
     refine ⟨d, ?_, ?_⟩
@@ -1686,7 +1688,7 @@ lemma isCohenMacaulayOfDim_of_depth_eq_ringKrullDim
     · exact_mod_cast hd
 
 theorem mem_minimalPrimes_of_mem_associatedPrimes_of_depth_eq_ringKrullDim
-    (h : .some (Module.depth R R) = ringKrullDim R)
+    (h : .some (Module.depth_c2m R R) = ringKrullDim R)
     {p : Ideal R} (hp : p ∈ associatedPrimes R R) :
     p ∈ minimalPrimes R := by
   obtain ⟨d, hCM⟩ := isCohenMacaulayOfDim_of_depth_eq_ringKrullDim h
@@ -1706,7 +1708,7 @@ variable (K : Type) [Field K]
 
 example :
     (⊥ : Ideal K) ∈ associatedPrimes K K ∧
-      .some (Module.depth K K) ≤ ringKrullDim (K ⧸ (⊥ : Ideal K)) ∧
+      .some (Module.depth_c2m K K) ≤ ringKrullDim (K ⧸ (⊥ : Ideal K)) ∧
       (⊥ : Ideal K) ∈ minimalPrimes K := by
   have hbot : (⊥ : Ideal K) ∈ associatedPrimes K K := by
     rw [AssociatedPrimes.mem_iff, isAssociatedPrime_iff]
@@ -1714,17 +1716,17 @@ example :
     ext r
     rw [Submodule.mem_colon_singleton, smul_eq_mul, mul_one]
   refine ⟨hbot, ?_, ?_⟩
-  · exact Module.depth_le_ringKrullDim_quotient_of_mem_associatedPrimes K hbot
+  · exact Module.depth_le_ringKrullDim_quotient_of_mem_associatedPrimes_c2m K hbot
   · exact (IsLocalRing.IsCohenMacaulayOfDim.of_field K).mem_minimalPrimes_of_mem_associatedPrimes
       hbot
 
 example :
     ∃ p ∈ associatedPrimes (PowerSeries K) (PowerSeries K),
-      .some (Module.depth (PowerSeries K) (PowerSeries K)) ≤
+      .some (Module.depth_c2m (PowerSeries K) (PowerSeries K)) ≤
         ringKrullDim (PowerSeries K ⧸ p) := by
   obtain ⟨p, hp⟩ := associatedPrimes.nonempty (PowerSeries K) (PowerSeries K)
   exact ⟨p, hp,
-    Module.depth_le_ringKrullDim_quotient_of_mem_associatedPrimes (PowerSeries K) hp⟩
+    Module.depth_le_ringKrullDim_quotient_of_mem_associatedPrimes_c2m (PowerSeries K) hp⟩
 
 example {p : Ideal (PowerSeries K)}
     (hp : p ∈ associatedPrimes (PowerSeries K) (PowerSeries K)) :
@@ -1748,5 +1750,5 @@ theorem solution
     {R : Type*} [CommRing R] [IsLocalRing R] [IsNoetherianRing R]
     (M : Type*) [AddCommGroup M] [Module R M] [Module.Finite R M]
     {x : R} (hx : x ∈ maximalIdeal R) (hxreg : IsSMulRegular M x) :
-    Module.depth R (QuotSMulTop x M) + 1 = Module.depth R M :=
+    Module.depth_c2m R (QuotSMulTop x M) + 1 = Module.depth_c2m R M :=
   Ws14Port.Module.depth_quotSMulTop_succ_eq M hx hxreg

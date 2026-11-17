@@ -14,6 +14,12 @@ import ZInQKernel.Contrib.CloudB3SC2Mumford.Vendor.AnthropicFLT.Theorems.Thm_Goo
 import ZInQKernel.Contrib.CloudB3SC2Mumford.Vendor.AnthropicFLT.Theorems.Thm_GoodReductionJacobian_RelativeGroupLaw_eq_of_one_eq_of_abelianSchemePropertyBundle
 import ZInQKernel.Contrib.CloudB3SC2Mumford.Vendor.AnthropicFLT.Theorems.Thm_GoodReductionJacobian_AbelianSchemePropertyBundle_isCommutative
 import ZInQKernel.Contrib.CloudB3SC2Mumford.Vendor.AnthropicFLT.Theorems.Thm_GoodReductionJacobian_RelativeGroupLaw_exists_one_eq_of_abelianSchemePropertyBundle_of_isPullback_of_faithfullyFlat
+
+-- [port] the upstream lakefile options, as for the vendored files
+set_option maxHeartbeats 4000000
+set_option synthInstance.maxHeartbeats 400000
+set_option backward.isDefEq.respectTransparency.types false
+set_option autoImplicit false
 namespace ZInQ.Contrib.CloudB3SC2Mumford.Pipeline.AdicThickening
 attribute [-instance] AlgebraicGeometry.OModulePresheaf.isScalarTower AlgebraicGeometry.Scheme.OrderedAffineCover.instLinearOrder AlgebraicGeometry.OModulePresheaf.module AlgebraicGeometry.Scheme.OrderedAffineCover.instFintype AlgebraicGeometry.Scheme.OrderedAffineCover.instFintypeIdx AlgebraicGeometry.OModulePresheaf.addCommGroup AlgebraicGeometry.Scheme.OrderedAffineCover.instDecidableEqIdx AlgebraicGeometry.OModulePresheaf.moduleSections TwoChartCech.Sections.M0_moduleA TwoChartCech.Sections.M1_module TwoChartCech.Cover.A01_algebra TwoChartCech.Cover.A0_algebra TwoChartCech.Cover.A1_commRing TwoChartCech.Cover.A1_algebra TwoChartCech.Sections.M01_module TwoChartCech.Sections.M0_addCommGroup TwoChartCech.Sections.M0_tower TwoChartCech.Sections.M01_addCommGroup TwoChartCech.Cover.A0_commRing TwoChartCech.Sections.M1_tower TwoChartCech.Sections.M01_moduleA TwoChartCech.Sections.M0_module TwoChartCech.Sections.M1_moduleA TwoChartCech.Sections.M1_addCommGroup TwoChartCech.Cover.A01_commRing TwoChartCech.Sections.M01_tower CoherentBaseChange.TwoTermComplex.C0_module CoherentBaseChange.TwoTermComplex.C0_addCommGroup CoherentBaseChange.TwoTermComplex.C1_module CoherentBaseChange.TwoTermComplex.C1_addCommGroup CoherentBaseChange.TwoTermComplex.C0_free CoherentBaseChange.TwoTermComplex.C1_finite CoherentBaseChange.TwoTermComplex.C0_finite CoherentBaseChange.TwoTermComplex.C1_free AlgebraicGeometry.SquareZero.isLocalRing' AlgebraicGeometry.SquareZero.isLocalRing AlgebraicGeometry.Scheme.Hom.opensMapFinal AlgebraicGeometry.RelPicard.RigidifiedLineBundle.setoid AlgebraicGeometry.RelPicard.RigidifiedLineBundle.instInhabited AlgebraicGeometry.OModulePresheaf.Leray.relAltC_scalarTower
 attribute [-instance] AlgebraicGeometry.OModulePresheaf.Leray.ker_relAltd_modΓ AlgebraicGeometry.OModulePresheaf.Leray.relAltC_modΓ AlgebraicGeometry.OModulePresheaf.Leray.biC_abGrp AlgebraicGeometry.OModulePresheaf.Leray.relAltH_modΓ AlgebraicGeometry.OModulePresheaf.Leray.ker_relAltd_smul AlgebraicGeometry.OModulePresheaf.Leray.relAltH_scalarTower AlgebraicGeometry.OModulePresheaf.Leray.relAltH_smul AlgebraicGeometry.OModulePresheaf.Leray.biC_module AlgebraicGeometry.Scheme.OrderedAffineCoverOf.instDecidableEqIdx AlgebraicGeometry.Scheme.OrderedAffineCoverOf.instFintype AlgebraicGeometry.Scheme.OrderedAffineCoverOf.instLinearOrder AlgebraicGeometry.Scheme.OrderedAffineCoverOf.instFintypeIdx DoubleComplex.instModuleE₂I DoubleComplex.Bounded.modR DoubleComplex.instModuleE₂II DoubleComplex.instAddCommGroupE₂II DoubleComplex.Bounded.abGrp DoubleComplex.instAddCommGroupE₂I AlgebraicGeometry.OModulePresheaf.instSubsingletonObjZero ProjSpaceCech.GradedModule.H.module ProjSpaceCech.GradedModule.H.addCommGroup ProjSpaceCech.GradedModule.sec.instAdd ProjSpaceCech.GradedModule.sec.instNeg ProjSpaceCech.GradedModule.acg ProjSpaceCech.GradedModule.Frac.setoid ProjSpaceCech.GradedModule.modR ProjSpaceCech.GradedModule.sec.instModule ProjSpaceCech.GradedModule.sec.instAddCommGroup ProjSpaceCech.GradedModule.sec.instZero ProjSpaceCech.GradedModule.Presentation.fJ ProjSpaceCech.GradedModule.sec.instSMul ProjSpaceCech.Twist.H.module ProjSpaceCech.Idx.instFintype ProjSpaceCech.Twist.H.addCommGroup ProjSpaceCech.Idx.instDecidableEq ProjSpaceCech.Twist.Mon.instDecidableEq ProjSpaceCech.Twist.cochain.instAddCommGroup ProjSpaceCech.Twist.cochain.instModule instTopologicallyFGOfFiniteType AlgebraicCurve.CurveModel.isProper
@@ -41,6 +47,8 @@ attribute [local instance] MvPolynomial.gradedAlgebra
 noncomputable section
 
 namespace GRJLocal
+-- [port] the upstream `p2m_export` of these names into the file-local namespace, as an ordinary `export`
+export _root_.GoodReductionJacobian (AbelianSchemePropertyBundle schemeHomOverComp schemeHomOverComp_coe RelativeGroupLaw RelativeGroupLaw.exists_isCommutative_comp_eq_mul_of_isPullback_of_isNilpotent_ker_of_isLocalRing RelativeGroupLaw.exists_one_eq_of_section RelativeGroupLaw.eq_of_one_eq_of_abelianSchemePropertyBundle AbelianSchemePropertyBundle.isCommutative RelativeGroupLaw.exists_one_eq_of_abelianSchemePropertyBundle_of_isPullback_of_faithfullyFlat)
 namespace TowerLaw
 
 section Restrict
@@ -272,11 +280,19 @@ theorem eq_transition (n : ℕ) :
 
 include hs in
 theorem smooth_fq (n : ℕ) : Smooth ((adicThickeningToBase (pullback.snd f (Spec.map (CommRingCat.ofHom φ))) (IsLocalRing.maximalIdeal O') n)) :=
-  MorphismProperty.pullback_snd (P := @Smooth) _ _ (MorphismProperty.pullback_snd (P := @Smooth) _ _ hs)
+  -- [port] Mathlib v4.35: `MorphismProperty.pullback_snd` needs an `IsStableUnderBaseChangeAlong` instance; use the `Smooth` instances
+  by
+    haveI := hs
+    haveI : Smooth (pullback.snd f (Spec.map (CommRingCat.ofHom φ))) := inferInstance
+    exact (inferInstance : Smooth (pullback.snd (pullback.snd f (Spec.map (CommRingCat.ofHom φ))) _))
 
 include hp in
 theorem isProper_fq (n : ℕ) : IsProper ((adicThickeningToBase (pullback.snd f (Spec.map (CommRingCat.ofHom φ))) (IsLocalRing.maximalIdeal O') n)) :=
-  MorphismProperty.pullback_snd (P := @IsProper) _ _ (MorphismProperty.pullback_snd (P := @IsProper) _ _ hp)
+  -- [port] Mathlib v4.35: `MorphismProperty.pullback_snd` needs an `IsStableUnderBaseChangeAlong` instance; use the `IsProper` instances
+  by
+    haveI := hp
+    haveI : IsProper (pullback.snd f (Spec.map (CommRingCat.ofHom φ))) := inferInstance
+    exact (inferInstance : IsProper (pullback.snd (pullback.snd f (Spec.map (CommRingCat.ofHom φ))) _))
 
 theorem adicThickeningBase_apply (n : ℕ) (y : Spec (CommRingCat.of ((O' ⧸ IsLocalRing.maximalIdeal O' ^ (n + 1))))) :
     (adicThickeningBase (IsLocalRing.maximalIdeal O') n).base y = IsLocalRing.closedPoint O' := by

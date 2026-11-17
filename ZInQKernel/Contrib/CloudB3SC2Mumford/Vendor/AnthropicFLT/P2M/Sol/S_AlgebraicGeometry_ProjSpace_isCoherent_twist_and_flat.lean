@@ -106,10 +106,9 @@ private theorem _root_.P2mTwistCohFlat.flat [IsSeparated π] [IsAffineHom φ] : 
   obtain ⟨j, hj⟩ := g.2
   exact flat_local π φ m U hj
 
--- [port] was: p2m_export "P2mTwistCohFlat" "flat"
-export _root_.P2mTwistCohFlat (flat)
+-- [port] was: p2m_export "P2mTwistCohFlat" "flat" (an alias of the private `_root_.P2mTwistCohFlat.flat`); its use below names it directly
 theorem main [IsSeparated π] [IsAffineHom φ] : (twist π φ m).IsCoherent ∧ ∀ U : X.affineOpens, Module.Flat Γ(X, U.1) ((twist π φ m).obj U.1) :=
-  ⟨fun U => finite π φ m U, fun U => flat π φ m U⟩
+  ⟨fun U => finite π φ m U, fun U => _root_.P2mTwistCohFlat.flat π φ m U⟩ -- [port]
 
 end P2mTwistCohFlat
 -- [port] was: p2m_reactivate "P2MW.S_AlgebraicGeometry_ProjSpace_isCoherent_twist_and_flat.P2mTwistCohFlat"

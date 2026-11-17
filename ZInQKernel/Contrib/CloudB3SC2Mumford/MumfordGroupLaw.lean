@@ -4,7 +4,7 @@ import ZInQKernel.Contrib.CloudB3SC2Mumford.Pipeline.Affine
 import ZInQKernel.Contrib.CloudB3SC2Mumford.Glue
 
 /-!
-# `MumfordGroupLaw`, proved
+# `MumfordRigidity.MumfordGroupLaw`, proved (support for `MumfordGroupLawConn`)
 
 `ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw` (Mumford, *Geometric Invariant Theory*, Thm. 6.14 over a
 locally noetherian base): a proper smooth geometrically connected family `F → S` with a section `e`, all of
@@ -27,7 +27,7 @@ No projectivity or other assumption is added.
 
 namespace ZInQ.Contrib.CloudB3SC2Mumford
 
-theorem mumfordGroupLaw_proof : ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw :=
+theorem mumfordGroupLaw_unconditional : ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw :=
   mumfordGroupLaw_of_affine (affineGroupLaw_of_algebraization properAlgebraization)
 
 end ZInQ.Contrib.CloudB3SC2Mumford

@@ -105,7 +105,8 @@ lemma Phi_surjective : Function.Surjective (Phi I f hf) := by
   choose P hPmem hPev using hP
 
   let g : MvPowerSeries (Fin n) R :=
-    fun x => ∑ j ∈ Finset.range (Finsupp.degree x + 1), MvPolynomial.coeff x (P j)
+    -- [port] Mathlib v4.35: `MvPolynomial.coeff m p` is now `p.coeff m`
+    fun x => ∑ j ∈ Finset.range (Finsupp.degree x + 1), (P j).coeff x
   refine ⟨g + MvPowerSeries.C (a.val 0), ?_⟩
   apply AdicCompletion.ext_evalₐ
   intro k
@@ -116,7 +117,8 @@ lemma Phi_surjective : Function.Surjective (Phi I f hf) := by
     rw [MvPolynomial.mem_pow_idealOfVars_iff']
     intro x hx
     rw [MvPolynomial.coeff_sub, coeff_truncTotal _ hx, MvPolynomial.coeff_sum, sub_eq_zero]
-    change (∑ j ∈ Finset.range (Finsupp.degree x + 1), MvPolynomial.coeff x (P j)) = _
+    -- [port] Mathlib v4.35: `MvPolynomial.coeff m p` is now `p.coeff m`
+    change (∑ j ∈ Finset.range (Finsupp.degree x + 1), (P j).coeff x) = _
     apply Finset.sum_subset (Finset.range_subset_range.mpr (by omega))
     intro j hj hj'
     simp only [Finset.mem_range, not_lt] at hj hj'

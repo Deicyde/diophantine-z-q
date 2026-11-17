@@ -131,8 +131,10 @@ theorem solution
 
   haveI : Subsingleton ↥(Spec (CommRingCat.of k)) := by show Subsingleton (PrimeSpectrum k); infer_instance
   haveI : Subsingleton ↥(Spec (CommRingCat.of K)) := by show Subsingleton (PrimeSpectrum K); infer_instance
-  let ptK : Spec (CommRingCat.of K) := ⟨⊥, Ideal.bot_prime⟩
-  let ptk : Spec (CommRingCat.of k) := ⟨⊥, Ideal.bot_prime⟩
+  -- [port] Mathlib v4.35: `Ideal.bot_prime` is `Ideal.isPrime_bot`
+  let ptK : Spec (CommRingCat.of K) := ⟨⊥, Ideal.isPrime_bot⟩
+  -- [port] Mathlib v4.35: `Ideal.bot_prime` is `Ideal.isPrime_bot`
+  let ptk : Spec (CommRingCat.of k) := ⟨⊥, Ideal.isPrime_bot⟩
   set z₀ : ↥(pullback fk κ) := zK ptK with hz₀
 
   haveI : IsIntegralHom κ := by

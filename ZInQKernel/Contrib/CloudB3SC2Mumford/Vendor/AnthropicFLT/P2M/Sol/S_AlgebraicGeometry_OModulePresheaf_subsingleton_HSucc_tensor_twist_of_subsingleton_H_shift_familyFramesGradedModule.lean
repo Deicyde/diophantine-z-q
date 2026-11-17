@@ -125,7 +125,8 @@ def c {i : ℕ} (s : (𝔘 ι).Idx i) (v : Fin (i + 1)) : Fin (r + 1) := (s.1 v)
 theorem c_injective {i : ℕ} (s : (𝔘 ι).Idx i) : Function.Injective (c s) := fun a b h => by
   have h' : s.1 a = s.1 b := by
     have : (s.1 a).down = (s.1 b).down := h
-    exact ULift.ext _ _ this
+    -- [port] Mathlib v4.35: `ULift.ext` takes its two points implicitly
+    exact ULift.ext this
   exact s.2.injective h'
 
 def ch {i : ℕ} (s : (𝔘 ι).Idx i) : Fin (r + 1) := c s 0

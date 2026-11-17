@@ -7,6 +7,7 @@ is the copy published under CloudW02Connectedness) and the upstream lakefile opt
 `set_option` lines after the imports; any other change is marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+[port] name clash with a declaration already in the repository: renamed `Module.depth` → `Module.depth_c2m`.
 -/
 import Mathlib
 import ZInQKernel.Contrib.CloudB3SC2Mumford.Vendor.AnthropicFLT.Definitions.Def_Patching_SystemTypes
@@ -23,7 +24,7 @@ namespace IsLocalRing
 variable (R : Type*) [CommRing R] [IsLocalRing R]
 
 def IsCohenMacaulayOfDim (d : ℕ) : Prop :=
-  ringKrullDim R = d ∧ Module.depth R R = d
+  ringKrullDim R = d ∧ Module.depth_c2m R R = d
 
 namespace IsCohenMacaulayOfDim
 
@@ -31,7 +32,7 @@ variable {R} {d : ℕ}
 
 lemma ringKrullDim_eq (h : IsCohenMacaulayOfDim R d) : ringKrullDim R = d := h.1
 
-lemma depth_eq (h : IsCohenMacaulayOfDim R d) : Module.depth R R = d := h.2
+lemma depth_eq (h : IsCohenMacaulayOfDim R d) : Module.depth_c2m R R = d := h.2
 
 end IsCohenMacaulayOfDim
 

@@ -35,12 +35,12 @@ namespace UnionModel
 
 variable {A : Type u} [CommRing A]
 
-private noncomputable abbrev _root_.UnionModel.ι (A B : Type u) [CommRing A] [CommRing B] [Algebra B A] :
+private noncomputable abbrev ι (A B : Type u) [CommRing A] [CommRing B] [Algebra B A] :
     Spec (CommRingCat.of A) ⟶ Spec (CommRingCat.of B) :=
   Spec.map (CommRingCat.ofHom (algebraMap B A))
 
 -- [port] was: p2m_export "UnionModel" "ι"
-export _root_.UnionModel (ι)
+-- [port] the alias above is no longer needed: the private declaration is declared directly in this namespace
 omit [CommRing A] in
 theorem ι_comp (A : Type u) [CommRing A] (B : Type u) [CommRing B] [Algebra B A] (B' : Type u) [CommRing B'] [Algebra B' A]
     (φ : B →+* B') (hφ : (algebraMap B' A).comp φ = algebraMap B A) :

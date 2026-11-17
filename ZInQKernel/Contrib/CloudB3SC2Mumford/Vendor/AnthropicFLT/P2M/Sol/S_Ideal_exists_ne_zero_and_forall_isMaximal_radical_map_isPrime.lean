@@ -176,7 +176,8 @@ variable (k : Type u) [Field k] {R : Type v} {C : Type w} [CommRing R] [IsDomain
     [Algebra.FiniteType k R] [CommRing C] [IsDomain C] [Algebra k C] [Algebra R C]
     [IsScalarTower k R C] [Algebra.FiniteType R C] [FaithfulSMul R C]
 
-set_option backward.isDefEq.respectTransparency false in
+-- [port] the upstream `set_option backward.isDefEq.respectTransparency false in` is dropped for this theorem:
+-- under Lean 4.35 it makes the `Module ℚ≥0 (MvPolynomial …)` instance search time out; the proof is unchanged
 set_option maxHeartbeats 12800000 in
 set_option synthInstance.maxHeartbeats 1600000 in
 theorem main
@@ -403,8 +404,9 @@ theorem main
 
     have hDF := Ideal.height_add_ringKrullDim_quotient_eq_ringKrullDim_of_finiteType n.ResidueField (RingHom.ker ψb)
     have hdimB : ringKrullDim (MvPolynomial (Fin d) n.ResidueField) = d := by
+      -- [port] Mathlib v4.35 states `MvPolynomial.ringKrullDim_of_isNoetherianRing` with `ENat.card`
       rw [MvPolynomial.ringKrullDim_of_isNoetherianRing, ringKrullDim_eq_zero_of_field, zero_add,
-        Nat.card_eq_fintype_card, Fintype.card_fin]
+        ENat.card_eq_coe_fintype_card, Fintype.card_fin] <;> rfl
     rw [hdimB] at hDF
     have hht0 : (RingHom.ker ψb).height = 0 := by
       obtain ⟨hq, hhq⟩ : ∃ hq : ℕ, (RingHom.ker ψb).height = hq :=
@@ -436,7 +438,8 @@ theorem main
   have hgb : ∀ Qb ∈ minimalPrimes (C ⧸ n.map (algebraMap R C)), gb ∉ Qb := by
     intro Qb hQb hmem
     have h1 : MvPolynomial.map φ g = 0 := hinjQ Qb hQb _ (Ideal.Quotient.eq_zero_iff_mem.mpr hmem)
-    have h2 : (MvPolynomial.map φ g).coeff μ = 0 := by rw [h1, MvPolynomial.coeff_zero]
+    -- [port] Mathlib v4.35: `MvPolynomial.coeff_zero` is function-valued; `Finsupp.zero_apply` evaluates it
+    have h2 : (MvPolynomial.map φ g).coeff μ = 0 := by rw [h1, MvPolynomial.coeff_zero, Finsupp.zero_apply]
     rw [MvPolynomial.coeff_map] at h2
     exact hγn ((hφ0 _).mp h2)
 

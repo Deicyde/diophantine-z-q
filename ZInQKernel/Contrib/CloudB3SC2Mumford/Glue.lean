@@ -10,6 +10,7 @@ with nilpotents. Representability then gives the group object on the original fa
 -/
 
 set_option autoImplicit false
+set_option backward.isDefEq.respectTransparency.types false
 
 noncomputable section
 
@@ -234,7 +235,17 @@ instance ring_noetherian (U : S.affineOpens) : IsNoetherianRing Γ(S, U.1) :=
   affineOpen_noetherian U
 
 /-- The locally directed cover on an arbitrary test scheme. -/
-def cover (T : Over S) : T.left.OpenCover := S.directedAffineCover.pullback₁ T.hom
+abbrev cover (T : Over S) : T.left.OpenCover where
+  I₀ := S.affineOpens
+  X U := pullback T.hom U.1.ι
+  f U := pullback.fst T.hom U.1.ι
+  mem₀ := (S.directedAffineCover.pullback₁ T.hom).mem₀
+
+instance cover_preorder (T : Over S) : Preorder (cover T).I₀ :=
+  inferInstanceAs (Preorder S.affineOpens)
+
+instance cover_directed (T : Over S) : Scheme.Cover.LocallyDirected (cover T) :=
+  inferInstanceAs (Scheme.Cover.LocallyDirected (S.directedAffineCover.pullback₁ T.hom))
 
 /-- The structural map of a cover piece to the affine coordinate spectrum. -/
 def tau (T : Over S) (U : S.affineOpens) : (cover T).X U ⟶ Spec Γ(S, U.1) :=
@@ -242,8 +253,10 @@ def tau (T : Over S) (U : S.affineOpens) : (cover T).X U ⟶ Spec Γ(S, U.1) :=
 
 theorem tau_base (T : Over S) (U : S.affineOpens) :
     tau T U ≫ base U = (cover T).f U ≫ T.hom := by
-  simp only [tau, base, Category.assoc, Iso.hom_inv_id_assoc]
-  exact pullback.condition.symm
+  change (pullback.snd T.hom U.1.ι ≫ U.2.isoSpec.hom) ≫
+      (U.2.isoSpec.inv ≫ U.1.ι) = pullback.fst T.hom U.1.ι ≫ T.hom
+  rw [Category.assoc, Iso.hom_inv_id_assoc]
+  exact (pullback.condition (f := T.hom) (g := U.1.ι)).symm
 
 /-- The affine transition map associated with an inclusion. -/
 def rho {U V : S.affineOpens} (hUV : U ≤ V) : Spec Γ(S, U.1) ⟶ Spec Γ(S, V.1) :=
@@ -283,15 +296,15 @@ theorem point_ext {T : Over S} {x y : T ⟶ F}
   apply (cover T).hom_ext
   intro U
   have h' := congrArg (toGlobal F (base U)) (h U)
-  simpa only [point_global] using h'
+  exact (point_global x U).symm.trans (h'.trans (point_global y U))
 
 /-- Restrictions of global morphisms coincide with affine transition of their local points. -/
 theorem point_up {T : Over S} (x : T ⟶ F) {U V : S.affineOpens} (hUV : U ≤ V) :
     up F (base U) (base V) (rho hUV) (rho_base hUV) (tau T U) (point x U) =
       schemeHomOverComp ((cover T).trans (homOfLE hUV)) (tau_trans T hUV) (point x V) := by
   apply toGlobal_injective F (base V) (tau T U ≫ rho hUV)
-  simp only [toGlobal_up, point_global, toGlobal_comp, ← Category.assoc,
-    Scheme.Cover.trans_map]
+  simp only [toGlobal_up, point_global, toGlobal_comp, ← Category.assoc]
+  exact congrArg (· ≫ x.left) ((cover T).trans_map (homOfLE hUV)).symm
 
 /-- Local multiplication, projected back into the original family. -/
 def mulLocal {T : Over S} (x y : T ⟶ F) (U : S.affineOpens) : (cover T).X U ⟶ F.left :=
@@ -300,7 +313,7 @@ def mulLocal {T : Over S} (x y : T ⟶ F) (U : S.affineOpens) : (cover T).X U �
 /-- Uniqueness with the prescribed unit supplies multiplication compatibility on inclusions. -/
 theorem mulLocal_compat {T : Over S} (x y : T ⟶ F) {U V : S.affineOpens} (hUV : U ≤ V) :
     (cover T).trans (homOfLE hUV) ≫ mulLocal D x y V = mulLocal D x y U := by
-  rw [mulLocal, mulLocal, D.law_rebase (base U) (base V) (rho hUV) (rho_base hUV)]
+  rw [mulLocal, mulLocal, law_rebase D (base U) (base V) (rho hUV) (rho_base hUV)]
   change _ = toGlobal F (base U) (down F (base U) (base V) (rho hUV)
     (rho_base hUV) (tau T U) _)
   rw [toGlobal_down, point_up, point_up]
@@ -312,13 +325,18 @@ theorem mulLocal_compat {T : Over S} (x y : T ⟶ F) {U V : S.affineOpens} (hUV 
 def mul {T : Over S} (x y : T ⟶ F) : T ⟶ F :=
   (cover T).glueMorphismsOverOfLocallyDirected (mulLocal D x y)
     (fun hij => mulLocal_compat D x y (leOfHom hij))
-    (fun U => by rw [mulLocal, toGlobal_over, tau_base])
+    (fun U => (toGlobal_over F (base U)
+      ((D.law (base U)).mul (tau T U) (point x U) (point y U))).trans (tau_base T U))
 
 @[simp] theorem point_mul {T : Over S} (x y : T ⟶ F) (U : S.affineOpens) :
     point (mul D x y) U = (D.law (base U)).mul (tau T U) (point x U) (point y U) := by
   apply toGlobal_injective F (base U) (tau T U)
   rw [point_global]
-  exact (cover T).map_glueMorphismsOverOfLocallyDirected_left _ _ _ U
+  change (cover T).f U ≫ (mul D x y).left = mulLocal D x y U
+  exact (cover T).map_glueMorphismsOverOfLocallyDirected_left (mulLocal D x y)
+    (fun hij => mulLocal_compat D x y (leOfHom hij))
+    (fun V => (toGlobal_over F (base V)
+      ((D.law (base V)).mul (tau T V) (point x V) (point y V))).trans (tau_base T V)) U
 
 /-- Local inverse. -/
 def invLocal {T : Over S} (x : T ⟶ F) (U : S.affineOpens) : (cover T).X U ⟶ F.left :=
@@ -326,7 +344,7 @@ def invLocal {T : Over S} (x : T ⟶ F) (U : S.affineOpens) : (cover T).X U ⟶ 
 
 theorem invLocal_compat {T : Over S} (x : T ⟶ F) {U V : S.affineOpens} (hUV : U ≤ V) :
     (cover T).trans (homOfLE hUV) ≫ invLocal D x V = invLocal D x U := by
-  rw [invLocal, invLocal, D.law_rebase (base U) (base V) (rho hUV) (rho_base hUV)]
+  rw [invLocal, invLocal, law_rebase D (base U) (base V) (rho hUV) (rho_base hUV)]
   change _ = toGlobal F (base U) (down F (base U) (base V) (rho hUV)
     (rho_base hUV) (tau T U) _)
   rw [toGlobal_down, point_up]
@@ -338,13 +356,18 @@ theorem invLocal_compat {T : Over S} (x : T ⟶ F) {U V : S.affineOpens} (hUV : 
 def inv {T : Over S} (x : T ⟶ F) : T ⟶ F :=
   (cover T).glueMorphismsOverOfLocallyDirected (invLocal D x)
     (fun hij => invLocal_compat D x (leOfHom hij))
-    (fun U => by rw [invLocal, toGlobal_over, tau_base])
+    (fun U => (toGlobal_over F (base U)
+      ((D.law (base U)).inv (tau T U) (point x U))).trans (tau_base T U))
 
 @[simp] theorem point_inv {T : Over S} (x : T ⟶ F) (U : S.affineOpens) :
     point (inv D x) U = (D.law (base U)).inv (tau T U) (point x U) := by
   apply toGlobal_injective F (base U) (tau T U)
   rw [point_global]
-  exact (cover T).map_glueMorphismsOverOfLocallyDirected_left _ _ _ U
+  change (cover T).f U ≫ (inv D x).left = invLocal D x U
+  exact (cover T).map_glueMorphismsOverOfLocallyDirected_left (invLocal D x)
+    (fun hij => invLocal_compat D x (leOfHom hij))
+    (fun V => (toGlobal_over F (base V)
+      ((D.law (base V)).inv (tau T V) (point x V))).trans (tau_base T V)) U
 
 /-- The global unit is the original section. -/
 def one (T : Over S) : T ⟶ F := Over.homMk (T.hom ≫ e) (by
@@ -354,32 +377,37 @@ def one (T : Over S) : T ⟶ F := Over.homMk (T.hom ≫ e) (by
     point (one T (e := e) (he := he)) U = (D.law (base U)).one (tau T U) := by
   apply toGlobal_injective F (base U) (tau T U)
   rw [point_global, toGlobal_one F (base U) e he _ (D.unit (base U))]
-  simp only [one, Over.homMk_left, Category.assoc, tau_base]
+  simpa only [one, Over.homMk_left, ← Category.assoc] using
+    congrArg (· ≫ e) (tau_base T U).symm
 
 /-- The local affine laws make all global morphism sets into groups. -/
-def pointGroup (T : Over S) : Group (T ⟶ F) where
+@[reducible] def pointGroup (T : Over S) : Group (T ⟶ F) where
   mul := mul D
   one := one T
   inv := inv D
   mul_assoc x y z := by
+    change mul D (mul D x y) z = mul D x (mul D y z)
     apply point_ext
     intro U
-    simp only [point_mul]
+    rw [point_mul, point_mul, point_mul, point_mul]
     exact (D.law (base U)).mul_assoc _ _ _ _
   one_mul x := by
+    change mul D (one T) x = x
     apply point_ext
     intro U
-    simp only [point_mul, point_one]
+    rw [point_mul, point_one]
     exact (D.law (base U)).one_mul _ _
   mul_one x := by
+    change mul D x (one T) = x
     apply point_ext
     intro U
-    simp only [point_mul, point_one]
+    rw [point_mul, point_one]
     exact (D.law (base U)).mul_one _ _
   inv_mul_cancel x := by
+    change mul D (inv D x) x = one T
     apply point_ext
     intro U
-    simp only [point_mul, point_inv, point_one]
+    rw [point_mul, point_inv, point_one]
     exact (D.law (base U)).inv_mul_cancel _ _
 
 /-- The induced morphism of affine cover pieces for a morphism of test schemes. -/
@@ -390,7 +418,10 @@ def pieceMap {T T' : Over S} (ψ : T' ⟶ T) (U : S.affineOpens) :
 
 @[simp] theorem pieceMap_f {T T' : Over S} (ψ : T' ⟶ T) (U : S.affineOpens) :
     pieceMap ψ U ≫ (cover T).f U = (cover T').f U ≫ ψ.left := by
-  simp only [pieceMap, cover, Scheme.directedAffineCover_f, pullback.lift_fst]
+  change pullback.map T'.hom U.1.ι T.hom U.1.ι ψ.left (𝟙 _) (𝟙 _)
+      (by simp) (by simp) ≫ pullback.fst T.hom U.1.ι =
+        pullback.fst T'.hom U.1.ι ≫ ψ.left
+  simp only [pullback.map, pullback.lift_fst]
 
 theorem pieceMap_tau {T T' : Over S} (ψ : T' ⟶ T) (U : S.affineOpens) :
     pieceMap ψ U ≫ tau T U = tau T' U := by
@@ -402,7 +433,8 @@ theorem pieceMap_tau {T T' : Over S} (ψ : T' ⟶ T) (U : S.affineOpens) :
 theorem point_precomp {T T' : Over S} (ψ : T' ⟶ T) (x : T ⟶ F) (U : S.affineOpens) :
     point (ψ ≫ x) U = schemeHomOverComp (pieceMap ψ U) (pieceMap_tau ψ U) (point x U) := by
   apply toGlobal_injective F (base U) (tau T' U)
-  simp only [point_global, Over.comp_left, toGlobal_comp, ← Category.assoc, pieceMap_f]
+  simp only [point_global, Over.comp_left, toGlobal_comp, ← Category.assoc]
+  exact congrArg (· ≫ x.left) (pieceMap_f ψ U).symm
 
 /-- Global multiplication is natural on ALL scheme-valued points. -/
 theorem mul_natural {T T' : Over S} (ψ : T' ⟶ T) (x y : T ⟶ F) :
@@ -421,8 +453,10 @@ def groupPresheaf : (Over S)ᵒᵖ ⥤ GrpCat.{0} where
     GrpCat.ofHom
       { toFun := fun x => ψ.unop ≫ x
         map_one' := by
+          change ψ.unop ≫ one T.unop = one T'.unop
           apply Over.OverMorphism.ext
-          simp only [one, Over.comp_left, Over.homMk_left, Category.assoc, Over.w]
+          change ψ.unop.left ≫ (T.unop.hom ≫ e) = T'.unop.hom ≫ e
+          rw [← Category.assoc, Over.w]
         map_mul' := mul_natural D ψ.unop }
   map_id T := by
     letI := pointGroup D T.unop
@@ -430,11 +464,15 @@ def groupPresheaf : (Over S)ᵒᵖ ⥤ GrpCat.{0} where
     apply MonoidHom.ext
     intro x
     exact Category.id_comp x
-  map_comp ψ ψ' := by
+  map_comp {T T' T''} ψ ψ' := by
+    letI := pointGroup D T.unop
+    letI := pointGroup D T'.unop
+    letI := pointGroup D T''.unop
     apply GrpCat.hom_ext
     apply MonoidHom.ext
     intro x
-    exact (Category.assoc _ _ _).symm
+    change (ψ'.unop ≫ ψ.unop) ≫ x = ψ'.unop ≫ (ψ.unop ≫ x)
+    exact Category.assoc _ _ _
 
 /-- The forgetful presheaf is represented by the ORIGINAL object F. -/
 def represents : (groupPresheaf D ⋙ forget GrpCat).RepresentableBy F where
@@ -442,9 +480,13 @@ def represents : (groupPresheaf D ⋙ forget GrpCat).RepresentableBy F where
   homEquiv_comp _ _ := rfl
 
 /-- Scheme-level gluing followed by Yoneda supplies a group object, with the given section. -/
-theorem exists_grpObj : ∃ _G : GrpObj F, η[F].left = e := by
+theorem exists_grpObj (D : LawSystem F e he) : ∃ _G : GrpObj F, η[F].left = e := by
   letI G : GrpObj F := GrpObj.ofRepresentableBy F (groupPresheaf D) (represents D)
   refine ⟨G, ?_⟩
+  have q : (1 : 𝟙_ (Over S) ⟶ F) = one (𝟙_ (Over S)) :=
+    ((yonedaGrpObjIsoOfRepresentableBy F (groupPresheaf D) (represents D)).hom.app
+      (Opposite.op (𝟙_ (Over S)))).hom.map_one
+  rw [MonObj.one_eq_one, q]
   change (𝟙 S ≫ e) = e
   exact Category.id_comp e
 

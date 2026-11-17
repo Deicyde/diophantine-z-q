@@ -120,7 +120,8 @@ lemma factor_of_forall_mem_sysIdeal {E : Type w} [CommRing E]
   refine ⟨?_, ?_, ?_⟩
   · have h0 : map ψ (genRel d F) = 0 := by
       ext m
-      rw [coeff_map, coeff_zero]
+      -- [port] Mathlib v4.35: `MvPolynomial.coeff_zero` is protected and function-valued
+      rw [coeff_map, MvPolynomial.coeff_zero, Finsupp.zero_apply]
       exact hψ _ (Ideal.mem_sup_left (Ideal.subset_span ⟨m, rfl⟩))
     rw [map_genRel] at h0
     exact sub_eq_zero.mp h0
@@ -174,7 +175,8 @@ lemma exists_hom_of_factor {E : Type w} [CommRing E] (φ : R →+* E) (F : MvPol
   constructor
   · rintro _ ⟨m, rfl⟩
     rw [SetLike.mem_coe, RingHom.mem_ker, ← coeff_map, map_genRel, hG, hH, eval₂Hom_comp_C, hgh,
-      sub_self, coeff_zero]
+      -- [port] Mathlib v4.35: `MvPolynomial.coeff_zero` is protected and function-valued
+      sub_self, MvPolynomial.coeff_zero, Finsupp.zero_apply]
   · intro p hp
     simp only [Set.mem_insert_iff, Set.mem_singleton_iff] at hp
     rw [SetLike.mem_coe, RingHom.mem_ker]
@@ -188,8 +190,8 @@ lemma exists_hom_of_factor {E : Type w} [CommRing E] (φ : R →+* E) (F : MvPol
 
 end System
 
-set_option backward.isDefEq.respectTransparency false in
-
+-- [port] the upstream `set_option backward.isDefEq.respectTransparency false in` is dropped for this theorem:
+-- under Lean 4.35 it makes instance search for `IsAlgClosed.lift` diverge (heartbeat timeout); the proof is unchanged
 theorem exists_C_mem_of_forall_exists_aeval_ne_zero
     {R : Type u} [CommRing R] [IsDomain R] {ι : Type v} [Finite ι]
     (J : Ideal (MvPolynomial ι R))
@@ -271,8 +273,10 @@ lemma exists_coeff_ne_zero_of_not_isUnit {E : Type w} [Field E] {p : MvPolynomia
     apply hp0
     ext m
     by_cases hm : m = 0
-    · rw [hm, h0, coeff_zero]
-    · rw [hcon m hm, coeff_zero]
+    -- [port] Mathlib v4.35: `MvPolynomial.coeff_zero` is protected and function-valued
+    · rw [hm, h0, MvPolynomial.coeff_zero, Finsupp.zero_apply]
+    -- [port] Mathlib v4.35: `MvPolynomial.coeff_zero` is protected and function-valued
+    · rw [hcon m hm, MvPolynomial.coeff_zero, Finsupp.zero_apply]
   · ext m
     rw [coeff_C]
     by_cases hm : m = 0
@@ -367,7 +371,8 @@ theorem bertiniNoether {R : Type u} [CommRing R] [IsDomain R] [Finite σ]
   have hφ₁ : φ (F.coeff m₁) ≠ 0 := left_ne_zero_of_mul hφ
   have hφ₂ : ∀ a b : BddExp σ F.totalDegree, φ (cf a b) ≠ 0 := fun a b =>
     (Finset.prod_ne_zero_iff.mp (right_ne_zero_of_mul hφ)) (a, b) (Finset.mem_univ _)
-  have hφF0 : map φ F ≠ 0 := fun h => hφ₁ (by rw [← coeff_map, h, coeff_zero])
+  -- [port] Mathlib v4.35: `MvPolynomial.coeff_zero` is protected and function-valued
+  have hφF0 : map φ F ≠ 0 := fun h => hφ₁ (by rw [← coeff_map, h, MvPolynomial.coeff_zero, Finsupp.zero_apply])
   refine irreducible_iff.mpr ⟨not_isUnit_of_coeff_ne_zero hm₁ (by rwa [coeff_map]), ?_⟩
   intro g h hgh
   by_contra hu

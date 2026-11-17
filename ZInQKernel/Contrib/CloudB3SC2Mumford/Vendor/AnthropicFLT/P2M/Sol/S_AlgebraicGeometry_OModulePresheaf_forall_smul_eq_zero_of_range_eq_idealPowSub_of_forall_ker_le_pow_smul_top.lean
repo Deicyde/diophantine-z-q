@@ -30,12 +30,12 @@ namespace PG1Body
 variable {A : Type u} [CommRing A] {P : Scheme.{u}} {q : P ⟶ Spec (CommRingCat.of A)}
   (K : ℕ → OModulePresheaf q) (κ : ∀ k, OModulePresheaf.AffHom (K (k + 1)) (K k)) (U : P.affineOpens)
 
-private noncomputable def _root_.PG1Body.trans (k : ℕ) : (m : ℕ) → ((K (k + m)).obj U.1 →ₗ[A] (K k).obj U.1)
+private noncomputable def trans (k : ℕ) : (m : ℕ) → ((K (k + m)).obj U.1 →ₗ[A] (K k).obj U.1)
   | 0 => LinearMap.id
   | m + 1 => trans k m ∘ₗ (κ (k + m)).app U
 
 -- [port] was: p2m_export "PG1Body" "trans"
-export _root_.PG1Body (trans)
+-- [port] the alias above is no longer needed: the private declaration is declared directly in this namespace
 theorem trans_succ_apply (k m : ℕ) (z : (K (k + (m + 1))).obj U.1) :
     trans K κ U k (m + 1) z = trans K κ U k m ((κ (k + m)).app U z) := rfl
 
