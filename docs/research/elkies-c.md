@@ -11,8 +11,6 @@ Marks: **VERIFIED** = compiled, computed, or read in a file. **STANDARD** = publ
 
 ## 1. Main result
 
-(STATUS: see §6; this section is final only when §6 says compiled.)
-
 **Step (c) of the Elkies row and the reviewer's `HasCM` step are proved glue.** The CM clause of
 `X6ALIdeal.ElkiesX6StarEveryIdeal` (x6-coarse) and of the bundle field `ElkiesPrint.ElkiesX6StarEvery` says: at
 **every** `ℚ̄`-point `x` whose QM pair has `HasCM24` (resp. `HasCM4`, `HasCM3`), `t(x) = 0` (resp. `1`, `∞`). Elkies
@@ -95,7 +93,21 @@ All for `K24 = ℚ(s6)` (`ShimuraGlue.Ray.K24`, `s6 = √−6` in `ℚ(ζ₂₄)
 
 ## 4. Discharges and fold
 
-(filled in §6 when run.)
+* `#discharges` (`scratch/elkies-c/Discharges.lean`, output `scratch/elkies-c/discharges.txt`): DISCHARGES_PLACEHOLDER
+* **Autofold spec** `scratch/elkies-c/autofold.json` (against the current main, top `TailZ65`): field
+  `elkiesX6StarEvery` → leaf `elkiesX6StarOneIdeal` (kind `consequence`, flag "pending review ...; consequence step
+  left: `ℚ(X/W) = ℚ(X)^W`"), proof
+  `_root_.ElkiesC.elkiesX6StarEvery_of_one_twist {n}.elkiesX6StarOneIdeal {n}.x6CoarseModuli
+  {n}.shimuraMainThmIDeligneY3AbU _root_.uniformizationLeafAll_proof
+  _root_.ZInQ.Contrib.OneProof.GAGAMorphism.gagaMorphism_proof
+  _root_.ZInQ.Contrib.CloudB3W16Torsion.mumfordTorsionAlgClosed_proof` (the three textbook fields are proved in
+  the tree, so the fold adds no hypothesis besides the leaf). It uses the bundle's current twist-form
+  `x6CoarseModuli`; if x6-coarse's spec is folded first (field `x6CoarseModuliIdeal`), use
+  `_root_.ElkiesC.elkiesX6StarEvery_of_one` with `{n}.x6CoarseModuliIdeal` in its place.
+  Dry run (VERIFIED): `strict count: 15/16 on 31 -> 15/16 on 31; strictest 15/16 -> 15/16`. Count-neutral: the new
+  leaf replaces a GLUE row by a GLUE row (consequence, pending review), since step (a) remains. What changes is the
+  content of the row: of the three consequence steps x6-coarse listed (a), (b), (c), only (a) is left.
+  FOLDCHECK_PLACEHOLDER
 
 ## 5. Leaf and glue table, with ratings
 
@@ -106,4 +118,24 @@ All for `K24 = ℚ(s6)` (`ShimuraGlue.Ray.K24`, `s6 = √−6` in `ℚ(ζ₂₄)
 
 ## 6. Status of the checks
 
-(to be filled)
+* `ElkiesC/ClassNumber24.lean` and `ElkiesX6StarCM.lean` compile (`lake build ZInQKernel.Contrib.OneProof.ElkiesX6StarCM`,
+  13037 jobs, success). VERIFIED.
+* `#print axioms` on all 89 declarations of the two files: `[propext, Classical.choice, Quot.sound]`
+  (`scratch/elkies-c/Axioms.lean`, `axioms.txt`). VERIFIED.
+* The reviewer's queue10 note itself was not found in the repository (the verdict commit b230944d only records the
+  re-kinding); its deciding step is taken as quoted in the task: "`HasCM` containment read as Elkies' CM points needs
+  the structure of CM points on `ℚ̄`-points". What it names is proved: `hasCM*_iff_com` (exactness) and
+  `hasCM*_iff_isGRCMPoint` (the `HasCM_D` points are exactly González–Rotger's CM points by `R_D`).
+
+## 7. Proposed `docs/research/locators.md` row (shared file, not edited)
+
+| leaf | locator | verdict |
+|---|---|---|
+| `ElkiesX6StarOneIdeal` | Elkies, *Shimura curve computations*, ANTS-III, LNCS 1423 (1998), arXiv math/0005160: §3, `Σ = {2,3}`; p. 10 (`X*(1) = X(1)/W`, `w_p : A ↦ A/ker I_p`); p. 17 (`X*(1) ≅ P¹_t`, elliptic points of orders 2, 4, 6 at `t = 0, 1, ∞`, function field `ℚ(t)(√(−t), √(3(t−1)))`); Table 1 p. 26 and pp. 22–23 (discriminants `−24, −4, −3` at `t = 0, 1, ∞`) | CONSEQUENCE: step (a) `ℚ(X/W) = ℚ(X)^W` remains; the CM clause is the printed value at one CM point per discriminant (the AI audit of 2026-11-17 recorded the orientation as the leaf has it). Locators as read by the lead; not re-read here (no network). |
+
+## 8. What remains
+
+* Step (a) of the Elkies row (`ℚ(X/W) = ℚ(X)^W`), with another worker; when it is done, `ElkiesX6StarOneIdeal`
+  could be rated printed form.
+* A reviewer rating for `ElkiesX6StarOneIdeal` (pending review; consequence until (a) is done).
+* Not needed and not done: `h(ℚ(√−6)) = 2` exactly (only `≤ 2` is proved), and the stabilizer route.
