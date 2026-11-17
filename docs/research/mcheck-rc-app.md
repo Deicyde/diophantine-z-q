@@ -1,6 +1,135 @@
-# mcheck-rc-app: Appendices E-G of the manuscript mapped; conclusion on Theorem 5.3 (hyp:RC) updated
+# mcheck-rc-app: Appendices E-G of the manuscript mapped; updated conclusion on Theorem 5.3 (hyp:RC)
 
-(Status: IN PROGRESS. The conclusion will be written after the map is complete.)
+Scope. This report covers Appendices E (app:even-source, tex L6825-8205), F (app:odd-source,
+L8206-9980) and G (app:endpoints, L9981-10935) of `diophantine_zq.tex`. I read them once in full, in
+order. They extend the map of sections 7-9 in `docs/research/mcheck-rc-map.md`, whose rows are not
+repeated here. No network was available. Print locators are quoted as the manuscript gives them, and
+anything I say from memory about a print is marked UNVERIFIED. Arithmetic spot checks are in
+`scratch/mcheck-rc-app/checks.py`, with output in `checks.out` (15/15 PASS).
+
+## Conclusion (updated)
+
+**With the appendices mapped, Theorem 5.3 follows, as far as the map shows, from the cited prints plus
+Elliot's own steps. I reached no "error" verdict, so `.fleet/mcheck-rc-app-verdict.md` was not
+written.** Every statement that sections 7-9 take from Appendices E-G is proved there by an argument
+whose inputs are either earlier results of the manuscript or cited prints. The order of choices
+(L9981-9994, L10151-10256, L10813-10861) is not circular:
+
+- the even source (App E) and the rough companion come first;
+- then the genus lower bound (F.4);
+- then the odd minimum delta_o (F.5)-(F.7);
+- only after that the odd coefficient rules, the address constructions and the final family (3.9).
+
+This is a statement about the logical structure and about the algebra I could check. Elliot's large own
+constructions in the appendices were read once for structure, not verified line by line. These are the
+Weil-representation calculus (L8623-8960), the homological-perturbation models (L7386-7425), the
+Kummer-duality length bookkeeping (L7631-7787) and the network degree count (G.1a).
+
+### How the appendices feed the skeleton of mcheck-rc-map
+
+1. **(3.2) and (3.3)**, the even side. App E builds one retained-smoothed Kato class Z_F for the whole
+   family ((K1)-(K3)). The positive-complex scalar u^ev comes from it ((E.3)-(E.5)). Its central
+   calibration (E.8) is v2 u_h^ev(0) = v2 L_*(h) - 2 omega(h) - s(h) + O(1). The -2 omega(h) is exactly
+   the length-2 inertia invariants E[2] at each active prime, the BSD-shaped count. This gives the
+   lower bound (E.9). Waldspurger's Cor 2 turns this into the weight-3/2 even form with
+   a(D)^2 proportional to L_*(sigma D) ((E.10)-(E.11)), which has a finite minimum of v2 a(D) - omega(D).
+   App G then gives the upper transfer (F.1)-(F.3) through the one-symbol address cube and the
+   Boolean comparison of section 9.
+2. **(3.8) and (O.8)**, the odd side. App F builds a fixed witness D_w and Chebotarev stages (O.2). It
+   builds the actual ternary theta form g_M ((O.4)-(O.6)) on the definite algebra ramified at l_0 and
+   infinity. Via Cornut-Jetchev's reduction map with S = {l_0}, it proves the exact unaveraged
+   comparison (O.7): H_M(mD) = c_0 2^{omega(N)} zeta lambda_M(L P_D) mod 2^M, with v2 c_0 = 9 and
+   2^{omega(N)+1} orientation tuples each contributing c_0/2. Visibility (O.8) follows. The
+   arithmetic coefficient rules (O.9)-(O.12) realize the omission, contraction and isolation rules of
+   ex:sec7-coefficient-rules.
+3. **Odd minimum and the final family.** (3.4)+(3.5)+(F.3) give (F.4), hence (F.5). The ultrafilter
+   minimum delta_o is attained ((F.6)), so a unit gives (F.7). App G's nonempty-seed proposition then
+   gives the even K-split seed through an explicit mod-8 computation (H[p^3] = eta^2 (a_p - 1)(a_p - p
+   - 1)/4, checked). That computation is specific to E_l (2-primary part of E_l(F_p) of order exactly 4).
+   It also isolates branch 1: an odd unit at the empty configuration gives RC directly. The network
+   construction (G.1a) produces the binary family (3.9) at one actual theta stage. L10862-10935
+   restates the final contradiction of section 9, with the same constants as L5666-5735.
+
+### Cited prints used by the appendices (locators as the manuscript gives them; all UNVERIFIED)
+
+| print | statement used | where |
+|---|---|---|
+| Kato, Asterisque 295: (8.1.3) p.180, §8.2 pp.180-181, §§8.9, 8.11, (4.2.4) p.143, Thm 6.6 p.163, Prop 8.12 p.186, Thm 9.7 p.189, (12.2.1)-(12.2.3) p.220, §13.1 pp.224-225, Thm 13.4(1),(2), Thm 13.5(2), §§13.6-13.7 p.227 | retained-smoothed zeta classes; norm relations; explicit reciprocity (dual exponential = L-value with smoothing factor); finiteness of zero L-values; Euler-system divisibility at height-one primes (rational hypotheses only; part (3) not used) | L6890-7245 |
+| Stacks Project Tags 03Q9, 03QA | higher direct image stalks, Leray: integral j_* condition | L6962 |
+| Nekovar, Selmer complexes: Cor 4.1.3 p.96; 5.7.1.4-5.7.1.7 | lim^1 vanishing; orthogonal-Kummer Poitou-Tate sequence | L7079, L7696 |
+| Waldspurger, JMPA 60: Prop 2 (§I.2 p.377), §I.3 pp.377-378, Prop 18 and proof pp.466-467, Cor 2 pp.483-484; Waldspurger, ICM 1983: Thm 1, Prop 1 | nonzero D_0-Whittaker member of the packet; unramified coefficient 1; the squarefree coefficient-square identity for a same-2-adic-squareclass pair, without (H2) | L7832-8010 |
+| Ramsey, Ann. Inst. Fourier 56: Def 3.1, Thm 4.2, Rem 4.4 | algebraic section model for weight 3/2, used only over fields | L8042, L8064 |
+| Dokchitser-Dokchitser, Crelle 658, Thm 1.8 | 2-parity: w(E) = -1 | L8249 |
+| Bump-Friedberg-Hoffstein, Invent. 102, clauses (i), (ii) pp.543-544 | h_* < 0 with L(E^{h_*},1) != 0; D_w > 0 with L'(E^{D_w},1) != 0 | L8251-8260 |
+| **Cai-Shu-Tian, ANT 8, Thm 1.1** | conductor-one unaveraged height formula: P_{D_w} nontorsion (L8269-8276); odd-sign D not a simple zero gives a torsion genus point, and a visible coefficient gives a simple zero ((O.8), L9437-9444) | L8269-8276, L9407-9445 |
+| Serre, Invent. 15 | non-CM open image (central scalar, irreducibility; condition (v) of Kato 13.4) | L8319 (and, uncited, Kato condition (v) at L7228-7232) |
+| Voight, *Quaternion algebras*: Main Thm 14.6.1, Prop 14.6.7 | existence of B ramified at l_0, infinity; F embeds in B | L8462, L9154 |
+| Jetchev-Kane, arXiv:0908.3905, §§1.1-1.2, 2.5 | supersingular-pair and adelic descriptions | L8474 |
+| Weil, Acta 111: I.13-I.14, II.25-II.30 (Prop 4, Prop 5), III Thm 6 (III.41) | Weil representation operators, Weil index, rational theta invariance | L8626-9008 |
+| Cornut-Jetchev, 2010 preprint: §§3.1-3.3, 3.6, Thm 3.1, Cor 3.2, Lemma 2.1(ii), §§4.9-4.10 | equivariant bijection of the Pic(O_F)-torsor of CM points onto supersingular points with one sign fiber at S = {l_0}; identification with geometric reduction | L9197-9266 |
+| Carayol, Ann. ENS 19: §§0.3-0.7, Thm A pp.409-411 | local-global compatibility at a conductor-one prime (normalization of rho_f) | L9778 |
+| Casselman, Math. Ann. 201: Thm 1 pp.302-306, Cor p.306, Thm 4 p.313 | conductor-one representations are principal series with one ramified character; newvector line | L9803, L9860 |
+| Hoffstein-Luo, MRL 4, p.436 | central nonvanishing with at most four prime factors and an arbitrary finite splitting set | L9995-10053 |
+| lem:forward-rank (Kolyvagin Thm 1; Kato Cor 14.3), as in mcheck-rc-map | analytic rank 0 or 1 gives rank and finite Sha | L7624-7627, L7781-7783, L8272, L10111, L10279 |
+
+### Elliot's largest own steps in the appendices
+
+1. **Odd theta forms and the unaveraged comparison** (App F, L8408-9405, about 1,000 lines).
+   - The weighted ternary theta series on the definite algebra, its exact transformation law
+     (Weil-index calculus including p = 2, extraction by Q_B/m) and the all-index Brandt recurrence
+     (O.6).
+   - The orientation count giving c_0 2^{omega(N)} in (O.7).
+   - Hard. Checked: (O.6) from the H-recurrence, c_0 and v2 c_0 = 9, the alpha(-1) = 1 sign
+     bookkeeping, and the count 2^{omega(N)+1} times c_0/2. The Weil-index identities are standard but
+     were not re-derived.
+2. **Kato-system construction with uniform constants** (App E, L6846-7356, about 510 lines).
+   - One class for the whole family; smoothing c = d_s = 1 + 2^e 3 N_odd F with v2 s_F = 2e (checked).
+   - An integral j_* condition that survives ramified corestriction (Mackey).
+   - The central normalization (K14), which has no phi(D) or 2^{omega} factor.
+   - The height-one divisibility (K2), with the full-H^2 correction (K16).
+   - Hard. This is the even analogue of K3 (no omega-dependent factor), and the text argues it
+     explicitly (L7150-7170, L7350-7356).
+3. **Coefficient rules** (App F, L9446-9976, about 530 lines).
+   - Integer divisions (O.9)-(O.11) (shell parities checked).
+   - A closed integral trace module.
+   - The local identity (O.12) at a conductor-one prime (matrix identity checked).
+   - The omission, isolation and graph-dependence rules.
+   - Medium to hard.
+4. **Positive complex and central calibration** (App E, L7367-7787, about 420 lines).
+   - (E.3) uses the triviality of the 2-class group of Q(zeta_{2^n})^+ and a unit of norm -1. The
+     odd count of negative conjugates was checked for m <= 15.
+   - The length bookkeeping (E.6)-(E.8).
+   - Medium to hard.
+5. **Address constructions** (App G, L10554-10790, about 240 lines). Grounded-Laplacian network
+   operators over F_2, and a combinatorial-nullstellensatz-type degree count for two symbols at once.
+   The F_2 linear algebra of the singular and varying networks was checked for b <= 6. The degree count
+   was read but not re-derived. Medium.
+6. **Nonempty seed** (App G, L10274-10500, about 230 lines). Transport of the even source to E^k, plus
+   the mod-8 contradiction. All displayed coefficient formulas were checked, and so was the order-4
+   claim (1,028 pairs (l,p)). Medium.
+7. **Ultrafilter odd minimum and table stabilization** (App G, L10151-10256, L10508-10552). Bookkeeping
+   that avoids circularity. Medium.
+
+### Every GZ/TYZ contact point (whole proof, now including the appendices)
+
+There is no TYZ argument and no TYZ citation in sections 7-9 or in Appendices E-G. A grep for tyz,
+Tian-Yuan-Zhang and Tian finds only the CST bibliography entry. GZ enters only through printed
+statements. Contacts G1-G6 are as in mcheck-rc-map. The appendices add no new kind of contact; they
+locate G2 and G3 precisely:
+
+| # | tex | contact | kind |
+|---|---|---|---|
+| G1 | L2427-2439 (3.4); used again in (F.4) L10173-10178 and at L10870-10874 | CST Thm 1.1 applied twice (genus point and ring-class point), with a ratio of the two outputs | cites a print, plus about 10 lines of Elliot's own comparison. Quantitative: needs the exact c-dependence (item K3 below) |
+| G2 | L8269-8276 (ex:app-detector) | CST Thm 1.1 at conductor one: L'(E^{(D_w)},1) L(E^{(h_*)},1) != 0, so P_{D_w} is nontorsion | cites a print; qualitative only |
+| G3 | L9437-9444 ((O.8), "the height formula"); used at L2593-2599 (branch 1), (F.5)-(F.7), L10845-10850 | CST Thm 1.1 at conductor one: an odd-sign D that is not a simple zero has a torsion genus point; a nontorsion point gives L'(E^D,1) != 0 | cites a print; qualitative only |
+| G4 | L4337-4339 (ex:arith-base-zero) | "conductor-one height formula": L'(E/K,1) = 0 makes the Heegner point torsion | cites a print; qualitative only |
+| G5 | lem:forward-rank; in the appendices at L7624-7627, L7781-7783, L8272, L10111, L10279 | Kolyvagin Thm 1 / Kato Cor 14.3 | cites a print |
+| G6 | sec 8-9 (L2834-3393, L4747-5205) | Kolyvagin-style derivative classes and switches | Elliot's own argument, not a GZ formula |
+| (G7) | L9197-9266 | Cornut-Jetchev reduction map: CM points to supersingular points | cites a print. It is a Gross-type "special points" bijection, not a height formula; no GZ or TYZ argument is involved |
+
+No step was found that needs a GZ or TYZ argument beyond a print. G2-G4 use only the qualitative
+direction (height zero if and only if the derivative vanishes) and are insensitive to the constants.
+G1 is the only quantitative use; K3 below sets out exactly what it needs.
 
 ## Appendix map
 
@@ -85,3 +214,134 @@ against a print (no network).
 | 10792-10812 | ex:app-final-family (statement) | in the nonempty-seed case, for large b, one actual theta stage and primes Q split in K realize h_x = prod (q^*)^{lambda_q(x)} with (3.9): ord L(E^{h_x},s) = 1, L_*(h_x k) != 0, j_gen(h_x) <= omega(h_x) + C_o, v2 L_*(h_x k) <= 2 omega(h_x) + C_e; constants before b | own | 21 | ex:app-simultaneous-address, (F.7), (O.8), even transport | uses (O.8) (CST 1.1, G3) | ex:sec7-final-family (L2695-2715), (3.9) |
 | 10813-10861 | (proof) | finite budget W_b; stage in the finite intersection of ultrafilter sets; units give v2 a_M(h_x) = delta_o + omega(h_x) < M, (O.8) gives the simple zero and j_gen bound; even unit gives the L_* bound | own | 49 | (F.6), (F.7), (O.8) | via (O.8) | (3.9) |
 | 10862-10935 | (final contradiction, (F.8)) | (3.4), (F.7) give 2 j_rc(h_x,k) <= 4 omega(h_x) + C_J; integral correction eta; (F.8) calibration; upper bound B at x != 0; fixed-field clearing f_x u~_x = d_x with c <= c_det, L_T(M) = 16(d_K+5)M; choose M > B + 2 c_det, b > (L_T(M)+2)(2^M - 1); x != 0 with v2(u~_x(0) - u~_0(0)) >= M - 2c > B contradicts base zero; Rankin factorization and L(E^k,1) != 0 give the simple zero of E | own (restates sec 9 L5666-5735) | 74 | (3.4), (4.6), (4.7), (5.9), (5.11), ex:arith-base-zero | via (3.4) (G1) and base-zero (G4) | end of proof of Theorem 5.3 |
+
+## K3: exactly what (3.4) needs from CST Theorem 1.1
+
+**Where.** ex:sec7-genus-lower, L2403-2458. The objects are defined at L2403-2415, the citation and
+(3.4) are at L2427-2439, and the uses of (3.4) are (3.6) at L2440-2452, (F.4) at L10173-10178,
+L2695-2705 (ex:sec7-final-family) and L10870-10874. This item records what the text needs. It does not
+reconstruct CST. The bibliography entry is L11181-11183: Cai, Shu, Tian, *Explicit Gross-Zagier and
+Waldspurger formulae*, ANT 8 (2014).
+
+**The two applications.** h is positive, odd, squarefree, h == 1 mod 8, with w(E^h) = -1. h_* is a
+negative odd fundamental discriminant with L(E^{h_*},1) != 0 and abs(h_*) > 4. k' is a negative odd
+fundamental discriminant prime to 2Nh, square at every prime of 2Nh, with L(E^{hk'},1) != 0.
+
+| | field K, disc K | conductor c | character chi | Rankin product L(E/K, chi, s) | point (L2411-2414) |
+|---|---|---|---|---|---|
+| genus | Q(sqrt(h h_*)), disc = h h_* (odd) | 1 | genus character for (h, h_*) | L(E^{(h)},s) L(E^{(h_*)},s) | P_h^gen = sum_{[a] in Pic(O_K)} chi(a) pi(x^[a]), as (O.1) |
+| ring class | Q(sqrt k'), disc = k' (odd) | abs(h) (odd, prime to N and to k') | chi_h o N_{K/Q}, a ring-class character of conductor abs(h) | L(E^{(h)},s) L(E^{(hk')},s) | P_{h,k'}^rc = sum over Pic(O_c), weighted by chi_h |
+
+In both cases the derivative at s=1 is L'(E^{(h)},1) times the nonzero central value of the other
+factor. That is why "the two Rankin products have the common factor L(E^{(h)},s)" (L2432).
+
+**The form of CST 1.1 that (3.4) needs, factor by factor.** Write the theorem as
+ĥ(P_chi) = Phi(E, f) * F(K, c) * L'(E/K, chi, 1). The text's claims about each factor are:
+
+| factor | what (3.4) needs | text that asserts it |
+|---|---|---|
+| (a) the point P_chi | the **unaveraged** sum over all of Pic(O_c), with no 1/#Pic(O_c), no 1/#genus classes and no 1/u | "its sum is unaveraged" (L2431); "unaveraged" (L2411, L2413) |
+| (b) the parametrization | the same f = pi = phi o AJ with pi(inf) = 0 in both applications, so Phi(E, f) (Petersson norm, deg f, 8 pi^2, and so on) cancels exactly in the ratio | "the parametrization is the same" (L2430); pi set up at L1787-1789 |
+| (c) the conductor/discriminant factor | F(K, c) = (fixed constant) x c x sqrt(abs(disc K)) x u^2 x 2^{mu(N, disc K)}, and **no other dependence on c or K**. Here u = [O_c^x : Z^x] = 1 (extra-unit fields excluded) and 2^{mu} = 1 because every prime of N splits | "Its conductor factor is c sqrt(abs(disc K))" (L2430-2431); "All level primes split, conductors are prime to N, extra-unit fields are excluded" (L2428-2430) |
+| (d) the height normalization | ĥ is the absolute Néron-Tate height (or a fixed multiple of it, such as [K:Q] = 2), not a height normalized over the ring class field H_c. A normalization over H_c would bring in [H_c : K] = #Pic(O_c), whose 2-adic valuation grows with omega(c) | implicit; the text compares heights of points of the same rank-one group E^{(h)}(Q) |
+| (e) hypotheses | Heegner hypothesis (every prime of N splits in K), (c, N) = 1, chi a ring-class character of exact conductor c, u = 1 | L2428-2430 |
+
+**Why this gives (3.4).** Take the ratio of the two outputs, using (b) and (c):
+
+ĥ(P^rc)/ĥ(P^gen) = [abs(h) sqrt(abs(k')) L(E^{(hk')},1)] / [sqrt(abs(h h_*)) L(E^{(h_*)},1)]
+= L_*(hk') / L_*(h_*).
+
+This uses L_*(d) = sqrt(abs(d)) L(E^d,1)/abs(Omega^-) (L7176), and both hk' and h_* are negative, so
+the same period Omega^- appears. Both points are multiples of a generator of E^{(h)}(Q)/tors, and
+each rational line has index 1 or 2 in its native lattice (L2433-2435). Taking v2 therefore gives
+2 j_rc - 2 j_gen = v2 L_*(hk') - v2 L_*(h_*) + epsilon, where epsilon = 2(v2 n_rc - v2 n_gen) is in
+{-2, 0, 2}, so abs(epsilon) <= 2.
+
+**What would break it, and what would not.** Every quantity here is odd except the factors under
+test: c = abs(h) is odd, and so are disc K = k' and h h_*. So **odd factors are harmless**. A power
+c^a or abs(disc K)^b with a different exponent would leave the 2-adic statement unchanged. What would
+break the 4 omega(h) balance in (3.5)-(3.6) and (3.9) is any factor whose 2-adic valuation grows with
+omega(c) = omega(h):
+
+- 2^{omega(c)};
+- prod_{p | c}(p + 1), prod_{p | c}(p - 1), or phi(c)/c;
+- #Pic(O_c)/#Pic(O_K) = (c/[O_K^x : O_c^x]) prod_{p | c}(1 - (d_K/p)/p);
+- an average over Pic(O_c) (item (a));
+- a height over H_c (item (d)).
+
+Each of these changes (3.4) by a term of size about omega(h), and (3.4) is used in **both directions**:
+as a lower bound in (3.6)/(F.4), and as an upper bound for j_rc at L10870-10874.
+
+**For the reader holding CST.** My recollection (UNVERIFIED) is that CST Theorem 1.1 states
+L'(1, E, chi) = 2^{-mu(N,D)} * 8 pi^2 (phi, phi)_{Gamma_0(N)} / (u^2 sqrt(abs(D c^2))) * ĥ_K(P_chi(f)) / deg f,
+with P_chi(f) = sum over t in Gal(H_c/K) of chi(t) f(t). That would satisfy (a)-(e). Settling K3
+needs four checks against the print:
+
+1. the denominator u^2 sqrt(abs(D c^2)) and the factor 2^{-mu(N,D)}, with nothing else depending on
+   c or D;
+2. that P_chi(f) is the plain sum over Gal(H_c/K), unaveraged;
+3. the normalization of ĥ_K (relative to K, not H_c);
+4. that the hypotheses allow c > 1 with (c, N) = 1 and every prime of N split.
+
+G2, G3 and G4 use only "height zero if and only if the derivative vanishes" and need none of this.
+
+## Leftover editorial tex comments (sections 7-9 and Appendices E-G)
+
+All are `%` comments. None is typeset. They record how the file was assembled from an earlier
+"baseline" text. The ones that read as notes on the state of a proof are marked **(flag)**. The
+`% Begin/End <file>.tex` markers are assembly markers only.
+
+| tex line | comment | note |
+|---|---|---|
+| 2832 | `% Source reconstruction of the finite arithmetic input I08/I09.` | **(flag)** precedes ex:arith-finite-heegner |
+| 2833 | `% This is a proof fragment, not an assertion about completion of RC.` | **(flag)** reads as a disclaimer on ex:arith-finite-heegner (L2834-3393); worth showing to Elliot |
+| 3923 | `% Insert after baseline line 1583, before the ordinary compact Kummer complex.` | **(flag)** baseline-line note inside ex:arith-central-specialization |
+| 4975 | `% Replace baseline lines 4112--4138.` | **(flag)** baseline-line note inside ex:limits-uniform-lower-bound |
+| 7428 | `% Replace baseline lines 3310--3335; retains equation tag (E.3).` | **(flag)** baseline-line note in ex:app-even-scalar |
+| 7789 | `% Replaces baseline manuscript.tex lines 3416--3510 inclusive.` | **(flag)** baseline-line note before ex:app-even-phase |
+| 7790 | `% Baseline SHA256 525c8c05...b5197.` | **(flag)** baseline hash |
+| 8222 | `% Replace immutable baseline lines 3532--3591 inclusive.` | **(flag)** baseline-line note before ex:app-detector |
+| 8223 | `% Keeps (O.2). This expands the existing non-CM argument.` | **(flag)** edit note |
+| 8407 | `% Completion audit replacement for baseline lines 3593--3748.` | **(flag)** before ex:app-theta-form |
+| 2714, 2717, 4378, 4381, 5741, 5744, 6824, 8202, 8205, 9977, 9980, 10933 | `% Begin/End 03-...tex` to `09-...tex` | file-assembly markers |
+
+No typeset text in L1760-10935 contains "baseline", "fragment", "audit" or "reconstruct". The only
+typeset "audit" hits are file names in the source table at L6624-6643, which is outside this scope.
+
+## Known issues
+
+- **K1 (locators, UNVERIFIED).** None of the appendix locators in the prints table could be checked
+  offline. As far as I recall, the content used in each case is available in the literature. The ones
+  that carry the most weight are:
+  - Waldspurger Cor 2 (pp.483-484), in particular that its proof removes (H2) for a pair in one
+    2-adic squareclass;
+  - Cornut-Jetchev Thm 3.1 with S = {l_0} and the sign fiber of §3.6. This is a 2010 preprint, cited
+    by URL;
+  - Kato 13.4(2) under rational hypotheses at p = 2 (the text says part (3) is not used);
+  - Carayol Thm A, and Casselman Thm 1 / Thm 4;
+  - Weil Acta 111 II.25-II.30.
+- **K2 (read once, not certified).** About 4,100 lines of appendices were read once, in order. The map
+  shows that each appendix statement used in sections 7-9 is proved from earlier statements and
+  prints. It does not certify the large own constructions line by line. The highest-value next reads
+  are:
+  - the transformation law and orientation count of App F (L8623-9405), where (O.7) has no
+    class-number loss;
+  - the Kato-system normalization (K14), where there is no phi(D) or 2^{omega} factor, the even
+    analogue of K3;
+  - the network degree count (G.1a).
+- **K3 (GZ contact G1).** See the section above. It is open until checked against the CST print; only
+  (a)-(e) matter. The even-side analogue (K14) is Elliot's own normalization of Kato's Thm 6.6, and
+  the text addresses it explicitly (L7155-7169).
+- **K4 (presentation).** ex:app-coefficient-rules (L9446-9470) is stated "on all tested nonempty
+  configurations". The odd symbol only exists as an ultrafilter limit of finite-stage tables
+  (ex:app-odd-stabilization). The order of choices (budget, then stage, then primes) is stated
+  carefully at L10813-10861 and is consistent. A reader should not read the coefficient rules as
+  holding at one fixed stage for all weights; the text explicitly disclaims that.
+- **K5 (presentation).** In ex:app-theta-comparison, P_1 (the case D = 1) is the trace of the
+  conductor-one Heegner point to Q(sqrt h_*). Its use in branch 1 (L2593-2599) needs (O.8) at D = 1,
+  where the Rankin product is L(E,s) L(E^{(h_*)},s). The text covers D = 1 explicitly (L8263-8266,
+  L9189-9190), so this is fine.
+- **K6 (text artefacts).** These are the flagged comments above. They are editorial, but L2833 ("proof
+  fragment") is worth showing to Elliot.
+- **K7 (inherited).** K4 and K5 of mcheck-rc-map (the outline omits branch 1; the harmless
+  "sum t_p <= 2A") still stand. The appendices resolve its K2 only to the extent of the map.
