@@ -58,6 +58,15 @@ def affects_kernel(path, locked):
         return False
     if path.startswith(('.github/', 'tests/', 'build/')):
         return True
+    # Versioned polynomial data/verifiers are consumed by Research checks, not
+    # by Lake or the kernel audit. The locked/Lean/config rules above win first.
+    if re.fullmatch(r'research/version[1-9][0-9]*/.+', path):
+        if (PurePosixPath(path).suffix.lower() in {'.json', '.py', '.txt', '.csv', '.tsv'}
+                or name in {'LICENSE', 'NOTICE'}):
+            return False
+    # These two release records feed manuscript/Research checks only.
+    if path in {'docs/current-manuscript.json', 'docs/audit-history/builder-binding.json'}:
+        return False
     # Only ordinary documentation formats qualify for the remaining skip path.
     # Data, archives, executables and any unrecognized extension run the build.
     return PurePosixPath(path).suffix.lower() not in {'.md', '.tex', '.bib', '.pdf'}
@@ -103,7 +112,7 @@ def decide(event_name, event, repo):
     affected = sorted(p for p in paths if affects_kernel(p, locked))
     if affected:
         return True, 'Kernel inputs or unclassified files changed: ' + ', '.join(affected[:10]), sorted(paths)
-    return False, 'Only documentation or independent Protocol B files changed; no kernel build or audit input changed.', sorted(paths)
+    return False, 'Only documentation, versioned research data/verifiers, release records or independent Protocol B files changed; no kernel build or audit input changed.', sorted(paths)
 
 
 def main():
