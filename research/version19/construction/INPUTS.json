@@ -1,0 +1,143 @@
+{
+  "schema": "version19-construction-inputs/v1",
+  "files": [
+    {
+      "path": "inputs/jose/computation/quartic/affine_laurent195_v45/quadratic-family.json",
+      "bytes": 186004,
+      "sha256": "304f94843c1a4ac94fcd5f1295fee8b532e7f0424e638314d892c556e2fbfdf9",
+      "provenance": "JoseBrox/diophantine-z-q_improvements@cd474ee67104586c9d71885a7c95e8a21f12ca0c"
+    },
+    {
+      "path": "inputs/jose/computation/quartic/primitive_basis196_v40/transform.json",
+      "bytes": 2397,
+      "sha256": "680f3e346dc168de563d82e60ed5b858b1100c7e44719e46eaf7c24966e022ac",
+      "provenance": "JoseBrox/diophantine-z-q_improvements@cd474ee67104586c9d71885a7c95e8a21f12ca0c"
+    },
+    {
+      "path": "inputs/jose/computation/quartic/affine_laurent195_v45/transformation.json",
+      "bytes": 64892,
+      "sha256": "5ac9fdcb6becd504d5e698373f52a5bddc99afe9c93614705b07efd3ff4f4e2f",
+      "provenance": "JoseBrox/diophantine-z-q_improvements@cd474ee67104586c9d71885a7c95e8a21f12ca0c"
+    },
+    {
+      "path": "inputs/jose/computation/quartic/laurent_recovery_v38/family196/quadratic.json",
+      "bytes": 180374,
+      "sha256": "3b6ab20da25bced159559c35e512e2bb2e56959b734b4265c8f80a7bd9cdb1c1",
+      "provenance": "JoseBrox/diophantine-z-q_improvements@cd474ee67104586c9d71885a7c95e8a21f12ca0c"
+    },
+    {
+      "path": "inputs/jose/computation/quartic/laurent_recovery_v38/family196/balanced-quadratic.json",
+      "bytes": 180354,
+      "sha256": "5b86e26d395e60360ecd1210dd87819b3f57b60e3585db7ad7deff0d677a593c",
+      "provenance": "JoseBrox/diophantine-z-q_improvements@cd474ee67104586c9d71885a7c95e8a21f12ca0c"
+    },
+    {
+      "path": "inputs/jose/computation/quartic/laurent_recovery_v38/family196/balancing.json",
+      "bytes": 19230,
+      "sha256": "0700615a7c66a5ee3ebe519b010676a398d6051c37e4b30255c69173b3328537",
+      "provenance": "JoseBrox/diophantine-z-q_improvements@cd474ee67104586c9d71885a7c95e8a21f12ca0c"
+    },
+    {
+      "path": "inputs/jose/computation/quartic/paired_redundancy196_v40/balanced-quadratic.json",
+      "bytes": 178157,
+      "sha256": "36dc9ae7dcc7cadd81bdfcd2145e0366f7acd4a0a14b2e9d7173c05e228fe4ab",
+      "provenance": "JoseBrox/diophantine-z-q_improvements@cd474ee67104586c9d71885a7c95e8a21f12ca0c"
+    },
+    {
+      "path": "inputs/jose/computation/quartic/primitive_basis196_v40/quadratic.json",
+      "bytes": 187352,
+      "sha256": "381ea54e77505a8d9b452b2afab42bd052beb0fb4dbd0804f63f2f609efbb275",
+      "provenance": "JoseBrox/diophantine-z-q_improvements@cd474ee67104586c9d71885a7c95e8a21f12ca0c"
+    },
+    {
+      "path": "inputs/jose/computation/quartic/primitive_basis196_v40/normalizations.json",
+      "bytes": 1235,
+      "sha256": "f3b6c4c789ae7d6d9c3164b74eebb21a8eb11171630b959d847fd8e2b24c1c51",
+      "provenance": "JoseBrox/diophantine-z-q_improvements@cd474ee67104586c9d71885a7c95e8a21f12ca0c"
+    },
+    {
+      "path": "inputs/jose/computation/quartic/affine_laurent195_v45/polynomial-family.json",
+      "bytes": 455626,
+      "sha256": "99d3844d334a16502053bef55e4f6e0a4e3e08daa786737f22aa09c619069084",
+      "provenance": "JoseBrox/diophantine-z-q_improvements@cd474ee67104586c9d71885a7c95e8a21f12ca0c"
+    },
+    {
+      "path": "inputs/jose/papers/quartic/quartic195_20261116_v45.tex",
+      "bytes": 10093,
+      "sha256": "ced8683918d265d6fd4d3bb9157b1178013a6beab6a90f5c2f848076d05fa2c7",
+      "provenance": "JoseBrox/diophantine-z-q_improvements@cd474ee67104586c9d71885a7c95e8a21f12ca0c"
+    },
+    {
+      "path": "inputs/jose/papers/quartic/primitive_quadratic_bases_20261115_v40.tex",
+      "bytes": 13138,
+      "sha256": "52d4afde0ecfb798a80d772d3b4029f309c544a91c812567c76f4891071f6f9a",
+      "provenance": "JoseBrox/diophantine-z-q_improvements@cd474ee67104586c9d71885a7c95e8a21f12ca0c"
+    },
+    {
+      "path": "inputs/jose/papers/quartic/quartic196_redundancy_20261115_v40.tex",
+      "bytes": 7914,
+      "sha256": "475c3b28e24938f2aa59e3fa1ff517be21985947ad9ff8433d4317ab53eecf98",
+      "provenance": "JoseBrox/diophantine-z-q_improvements@cd474ee67104586c9d71885a7c95e8a21f12ca0c"
+    },
+    {
+      "path": "inputs/jose/download-manifest.json",
+      "bytes": 6147,
+      "sha256": "304383e702fc614e801ba8686565d6a004ccffe9fcd1c35bc702586dabad8801",
+      "provenance": "Original source download inventory"
+    },
+    {
+      "path": "inputs/jose/computation/quartic/balanced214_v24/source/quadratic214.json",
+      "bytes": 170870,
+      "sha256": "49cf4066bf1e35e02e2156bf4bd24a21bb4c5e794f7374e056413d8306fb73c5",
+      "provenance": "Selected original Carbon package or pinned Jose parent; retained byte for byte"
+    },
+    {
+      "path": "inputs/jose/computation/quartic/additive212_v25/unbalanced-quadratic.json",
+      "bytes": 199972,
+      "sha256": "b2f32d64ef1fb2591d37cfd41aadf8869ce691c39ed92e0e597ec10aaa53fc75",
+      "provenance": "Selected original Carbon package or pinned Jose parent; retained byte for byte"
+    },
+    {
+      "path": "inputs/carbon/family244/family247-intermediate-quadratic.json",
+      "bytes": 229305,
+      "sha256": "c25cf39405fced582502f95e703963187bfa907d2dc502c85558044fb100ecfe",
+      "provenance": "Selected original Carbon package or pinned Jose parent; retained byte for byte"
+    },
+    {
+      "path": "inputs/carbon/family244/unbalanced244-quadratic.json",
+      "bytes": 220139,
+      "sha256": "dad70be3864cbfb52d5c1fb7239cecb17296c65ebd80735218c5db94b9e3e6f7",
+      "provenance": "Selected original Carbon package or pinned Jose parent; retained byte for byte"
+    },
+    {
+      "path": "inputs/carbon/explicit250/explicit250-quadratic.json",
+      "bytes": 219736,
+      "sha256": "dd9df99d376dad2861eb0d2f25f85612fdc7a8f47796fe37d6e3d31aa12cb324",
+      "provenance": "Selected original Carbon package or pinned Jose parent; retained byte for byte"
+    },
+    {
+      "path": "inputs/carbon/family244/laurent244-certificate.json",
+      "bytes": 54239,
+      "sha256": "fc5cd1162aa6dcb6b0f06626975c96dea7ff40b0c66c14c49364d8a6e48da174",
+      "provenance": "Selected original Carbon package or pinned Jose parent; retained byte for byte"
+    },
+    {
+      "path": "coefficients/quartic250-decimal.json",
+      "bytes": 437921,
+      "sha256": "d5373b246be965e56c54764c142fded807ce6f82c095d90584a1909e804f718c",
+      "provenance": "Selected original Carbon package or pinned Jose parent; retained byte for byte"
+    },
+    {
+      "path": "plain-text/quartic250-decimal.txt",
+      "bytes": 85737,
+      "sha256": "71cb153fdeb7ba6084850ecb5fab596249379c270bc97add9de64c82e7150f8f",
+      "provenance": "Independent plain-algebra serialization"
+    },
+    {
+      "path": "inputs/jose/LICENSE",
+      "bytes": 17024,
+      "sha256": "7f38c38147b1b5e3fc5788e34104c965873b60bbf639c52392a85297810ebcbe",
+      "provenance": "Pinned Jose source license at cd474ee67104586c9d71885a7c95e8a21f12ca0c"
+    }
+  ]
+}
