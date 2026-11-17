@@ -23,3 +23,9 @@ Base c7fbc273 (wip/leaf-fold33b); `git merge origin/main`: already up to date. B
 - NoHighWeightTwist5 (def, GLUE, not printed form), G12WeightNoR13 (def),
   g12Weight_of_noR13, g12WeightNoR13_of (from SenTwist, FiniteImageHT, NoHighWeightTwist5 + proved glue),
   g12Weight_of_noHighWeight, noHighWeightTwist5_of_g12Weight (implied by the r13 route).
+
+## Checks
+- lake build +Main +Discharges +Contrib.OneProof.HTNewDet: OK (14226 jobs).
+- #discharges: 36 open, 9806 theorems checked, 33 discharge one; HTNewDet discharges none. Axioms standard.
+- G12WeightCopy.lean: verbatim G12Weight copy = chain constant (rfl); OK.
+- Verdict: does not close (ψ twist arbitrary; data invariant under θ^m shift). No fold (autofold.json).
