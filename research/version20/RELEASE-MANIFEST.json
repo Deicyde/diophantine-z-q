@@ -1,0 +1,90 @@
+{
+  "schema": "version20-release-preparation/v1",
+  "version": 20,
+  "status": "Candidate source/PDF pair. Independent acceptance and publication are not asserted here.",
+  "preparation_base_commit": "3d2c9e568cbd781e5d2cf8b9beecbcd1017b163f",
+  "source": {
+    "path": "manuscripts/quartic_v20.tex",
+    "sha256": "95044840af8c3872c6298ea7c5eb4055fbbcd9d91be338ee33b97ba20c503c32"
+  },
+  "pdf": {
+    "path": "manuscripts/quartic_v20.pdf",
+    "sha256": "061c435337b27e280535544b2d50caef920d8d2d4b33051f575d967b748e59fe"
+  },
+  "build_record": {
+    "path": "research/version20/BUILD.json",
+    "sha256": "8ea3d9fce441ff44872d0bd585ec6b1b982f9af85742c404c9cbef30fd200d9e"
+  },
+  "required_tex_inputs": [],
+  "claims": {
+    "busy_beaver": {
+      "variables_including_input": 195,
+      "quadratic_rows": 175,
+      "degree": 4,
+      "coordinate_monomials": 2956,
+      "parameter": "C = 149^BB(2^1000)",
+      "exact_height": "149^(2*BB(2^1000)+2)",
+      "strict_bound": "BB(2^2000)",
+      "unchanged_from_version": 19
+    },
+    "explicit": {
+      "variables_including_input": 247,
+      "quadratic_rows": 219,
+      "degree": 4,
+      "coordinate_monomials": 3385,
+      "N": 10220,
+      "exact_height": "149^10220 + 298442980098761875927809873",
+      "strict_bound": "2^73780",
+      "plain_expression_bytes": 96712,
+      "plain_expression": {
+        "path": "research/version20/construction/inputs/carbon/tables/explicit247/quartic247-decimal.txt",
+        "sha256": "455afb0b7143654119db3a68a85fec2fde566cf7fbdf3f7c84bd5d75b32719b9"
+      }
+    },
+    "retained_intermediate": {
+      "variables": 250,
+      "strict_bound": "2^6483",
+      "reason": "Smaller coefficients; arithmetic source of the 244-coordinate system."
+    }
+  },
+  "dependency_map": {
+    "path": "research/version20/DEPENDENCIES.md",
+    "sha256": "253ce790def52d91d641881a23fc359bfa95320281c1218084472fae16bdb650"
+  },
+  "corrections": {
+    "path": "research/version20/CORRECTIONS.md",
+    "sha256": "8badef0a769e316f2e2771cc538e5b196191c0749de4eb44dd2e6b61e67491f3"
+  },
+  "construction_inputs": {
+    "path": "research/version20/construction/INPUTS.json",
+    "sha256": "ff7f385cbb14d8448656d2540aedfda72b179c2034efaadba74c3d0f877ffe15"
+  },
+  "finite_check_command": "python -B research/version20/construction/check.py",
+  "ci_scope": "Existing workflows unchanged. Current paper rebuilt in CI; new finite checks run separately and supplied for review.",
+  "review": {
+    "accepted_head": null,
+    "app_check": null,
+    "reviewer_records": [],
+    "owner_overrides": []
+  },
+  "preservation": "Earlier released files remain byte-identical. Current documentation and pointers identify Version 20 only after this PR lands.",
+  "local_reviews": [
+    {
+      "path": "research/version20/reviews/fable-final-wording-acknowledgment.md",
+      "sha256": "b8e8087e574b781b4126bd60f21430f186273c705a129ce3f45398ef22446427"
+    },
+    {
+      "path": "research/version20/reviews/fable-table-review-original.md",
+      "sha256": "59709f9bdffb110033a5a736627e2821be2c9ea4142e37a1985f18269403115b"
+    },
+    {
+      "path": "research/version20/reviews/fable-text-review-original.md",
+      "sha256": "62c73736d6680f9462e91190c38b40c765a8164237fd8fc51491c289ef120228"
+    },
+    {
+      "path": "research/version20/reviews/v20-builder-review.json",
+      "sha256": "f1068ea2e4b0c0da8545ace9bee4ec005ce66ed8090933a3e4b11bb053e1f9f3"
+    }
+  ],
+  "local_review_scope": "Original local Fable text and table reviews concern source fa1e3eb4; the final wording acknowledgment and builder record cover the current 95044840 source and 061c4353 PDF. These do not replace the protected gate. No Carbon review of this manuscript draft is asserted."
+}
