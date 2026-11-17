@@ -149,13 +149,7 @@
    "field": "charPolyIndepOfEllAlgClosed",
    "docstring":
    "**T7 in Mumford's setting** (consequence of a published theorem). D. Mumford, *Abelian\nvarieties* (1970), §19, Theorem 4 (UNVERIFIED locator; `k` algebraically closed): for\n`φ ∈ End(X)` the polynomial `P_φ(n) = deg(n - φ)` lies in `ℤ[X]`, is monic of degree `2g`, and is\nthe characteristic polynomial of `T_ℓ(φ)` for every `ℓ ≠ char k`. This is\n`PkgI3.CharPolyIndepOfEll` with `[IsAlgClosed k]` added (it drops `deg P = 2g` and\n`P(n) = deg(n - φ)`). ",
-   "bundle": "OpenTextbookLeaves17"},
-  {"type": "ZInQ.HomLattice.GAGAMorphism",
-   "statement": "ZInQ.HomLattice.GAGAMorphism",
-   "field": "gagaMorphism",
-   "docstring":
-   "**GAGA for maps of complex abelian varieties (textbook leaf candidate; Serre, GAGA (1956);\nSGA 1 XII 4.4: `Hom(X, Y) → Hom(X^an, Y^an)` is bijective for `X` proper over `ℂ`; locators\nUNVERIFIED).** Let `φ : ℂ^g ⧸ Λ ≃ A(ℂ)` be a strong uniformization (so `φ` presents `A^an`), and\n`ψ : ℂ^g → B(ℂ)` an analytic homomorphism killing `Λ` (= a holomorphic homomorphism\n`A^an → B^an`). Then `ψ` comes from an algebraic morphism `f : A → B`. ",
-   "bundle": "OpenTextbookLeaves17"},
+   "bundle": "OpenTextbookLeaves18"},
   {"type": "T09Pic.PicRepresentableAbVar",
    "statement": "T09Pic.PicRepresentableAbVar",
    "field": "picRepresentableAbVar",
@@ -204,4 +198,4 @@
    "docstring":
    "**The leaf of the `C_d` route, algebraic form**: `GrossZagierAlgOptAt E'` for every short model\n`E'` in the isogeny class of `C_d : y² = x³ − d²x` (`aₙ(E') = aₙ(C_d)`), `d ≡ 5 (mod 8)` squarefree.\nA restriction of `GrossZagierAlgOpt`. ",
    "bundle": "frozenTarget"}],
- "count": 34}
+ "count": 33}

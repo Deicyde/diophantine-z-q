@@ -75,3 +75,28 @@ render_open count at base: 35 open (29 H, strictest 11/18, 6 others).
   exactly `ZInQ.HomLattice.GAGAMorphism`. The file imports Main and the provider together, so there is no
   declaration clash between the two libraries and Main's environment. The provider's `local instance`s
   (classical topology and charts on A(ℂ)) do not enter its type, which is the closed constant.
+
+## Step 4. Autofold gagaMorphism (textbook bundle) — render_open: 34 -> 33 open (28 -> 27 H)
+- `python3 scripts/one_proof/autofold.py scratch/fold34-pr/autofold-gaga.json`: "strict count: 10/18 on 28 ->
+  10/17 on 27; strictest 10/18 -> 10/17"; wrote ZInQKernel/OneProof/H/TailZ57.lean (OpenTextbookLeaves18 = only
+  charPolyIndepOfEllAlgClosed; `openTextbookLeaves17_of_OpenTextbookLeaves18` fills gagaMorphism with
+  `ZInQ.Contrib.OneProof.GAGAMorphism.gagaMorphism_proof`; `sixContactMin_of_open50`), switched Main.lean, dropped
+  the kinds row (textbook, consequence, GLUE/GLUE) and the claims row (cloud batch 2, issue #82). No new leaf;
+  strict GLUE -1.
+- `lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges ZInQKernel.OneProof.H.TailZ57`: success
+  (15978 jobs); sixContactMin_of_open50 and ZInQ.OneProof.frozenTarget depend on [propext, Classical.choice,
+  Quot.sound] (VERIFIED).
+- Hash guard (VERIFIED): step 2 -> 4: 15761 -> 15770, only after 9 (all in TailZ57), changed 1 (frozenTarget);
+  base -> 4 (hashdiff_base_to_2.txt): 15751 -> 15770, only before 0, only after 19 (TailZ56, TailZ57), changed only
+  ZInQ.OneProof.frozenTarget.
+- Closure check (closure_2_gaga.txt) (VERIFIED): closure 298138 constants; sorryAx absent; both removed Props occur
+  only as the providers' types; no field of OpenResearchLeaves31 (24), OpenTextbookLeaves18 (1), OpenAddedLeaves25
+  (2) has a checked type; earlier removed Props absent.
+- OpenStatements regenerated; render_open.py: "27 H hypotheses, strictest 10/17, 6 others"; --check: "ok: 33 open
+  hypotheses, all classified; 4 generated files up to date"; frontier_crosswalk.py then --check ok (232 IDs, 24
+  matched); DischargesTest rerun; `autoform check blueprint --lean-root .`: "OK: 781 articles, 2343 dependencies", rc 0.
+
+## Totals
+base 35 open (29 H, strict 11/18) -> 33 open (27 H, strict and strictest 10/17, 6 others). kinds rows dropped:
+mumfordTorsionAlgClosed (LEAF), gagaMorphism (GLUE); claims rows dropped: the same two (issues #81, #82). No row added.
+Not edited: credits.tsv / fold-queue.tsv (outside this task's allowed files; suggested credits rows in the report).

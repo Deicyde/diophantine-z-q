@@ -95,7 +95,7 @@ H-101		AvSplit.T4.MulEtaleAbelianScheme	5fd81e870,085a7a53a,f18bcb904,3691994d4	
 H-102		AvSplit.MumfordTorsionAlgClosed	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
 H-103		BPAnalytic.Uniformization.UniformizationLeafAll	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
 H-104		AvSplit.MilneIsogenyQuasiInverse	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
-H-105	gagaMorphism	ZInQ.HomLattice.GAGAMorphism	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
+H-105		ZInQ.HomLattice.GAGAMorphism	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
 H-106		ZInQ.HeightSplit.SemistableReductionThm	5fd81e870	no
 H-107		ZInQ.HeightSplit.SemistableNeronBaseChange	5fd81e870	no
 H-108		ZInQ.HeightSplit.SemistablePersists	5fd81e870	no

@@ -11,14 +11,14 @@ Each hypothesis is a Lean `Prop`; proving one in Lean, or reducing it to stateme
 removes it. See
 [CONTRIBUTING.md](CONTRIBUTING.md) for how to contribute and check a proof.
 
-**28 hypotheses of the H part** (in the bundles `OpenAddedLeaves25`, `OpenResearchLeaves31`, `OpenTextbookLeaves17`), plus 6 hypotheses of the Tian–Yuan–Zhang and Gross–Zagier parts listed at the end.
+**27 hypotheses of the H part** (in the bundles `OpenAddedLeaves25`, `OpenResearchLeaves31`, `OpenTextbookLeaves18`), plus 6 hypotheses of the Tian–Yuan–Zhang and Gross–Zagier parts listed at the end.
 
-* **Strict count: 10 published / 18 glue** (the strictest flagged reading; no hypothesis carries a strictest-reading flag).
+* **Strict count: 10 published / 17 glue** (the strictest flagged reading; no hypothesis carries a strictest-reading flag).
 * LEAF means a published, refereed theorem stated over genuine definitions in its printed form, or a direct
   instance of it (a special case that needs no argument). GLUE is everything else: a consequence of one theorem,
   a composite of several, project glue, or a leaf whose published form is still pending a reading (`kinds.tsv`,
   column `flag`).
-* By kind: composite 5, consequence 11, published 12.
+* By kind: composite 5, consequence 10, published 12.
 
 ## Kernel-wide readings
 
@@ -75,7 +75,6 @@ ping, and is released if there is no reply within 7 days of the ping.
 | [`raynaudSemistableSHOr`](#raynaudsemistableshor) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/raynaud-proof)) | 2026-11-16 |
 | [`neronOggShafarevichSep`](#neronoggshafarevichsep) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/nos-proof)) | 2026-11-16 |
 | [`charPolyIndepOfEllAlgClosed`](#charpolyindepofellalgclosed) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/deg-det)) | 2026-11-16 |
-| [`gagaMorphism`](#gagamorphism) | the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/82#issuecomment-6887799149)) | 2026-11-15 |
 | [`picRepresentableAbVar`](#picrepresentableabvar) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/pic-repr)) | 2026-11-16 |
 | [`h11`](#h11) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/h11-reduce)) | 2026-11-16 |
 | [`hL29`](#hl29) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/h29-proof)) | 2026-11-16 |
@@ -167,7 +166,6 @@ Picard scheme and Weil pairing. Claim it on [Deicyde #14](https://github.com/Dei
 | [`sga7_IX_3_3_SHpre`](#sga7_ix_3_3_shpre) | research | published | GLUE | pending-reading, unverified-locator |  |  | [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85) | 0 | open |
 | [`sga7_IX_3_5_ForwardGeom`](#sga7_ix_3_5_forwardgeom) | research | published | GLUE | pending-reading, unverified-locator |  |  | [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/sga7-35-proof)) |
 | [`shimuraMainThmIDeligneY3AbU`](#shimuramainthmideligney3abu) | research | composite | GLUE |  |  |  | [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86) | 0 | open |
-| [`gagaMorphism`](#gagamorphism) | textbook | consequence | GLUE | note, unverified-locator |  | T3-T4 | [elliotglazer #82](https://github.com/elliotglazer/diophantine-z-q/issues/82) | 0 | held by the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/82#issuecomment-6887799149)) |
 | [`kleimanPicZeroProper`](#kleimanpiczeroproper) | added | published | LEAF | unread, unverified-locator |  |  | [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81) | 0 | open |
 | [`picRepresentableAbVar`](#picrepresentableabvar) | added | published | LEAF | pending-review |  |  | [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/pic-repr)) |
 | [`dsThm965Printed`](#dsthm965printed) | research | published | LEAF | unread, unverified-locator | long-pole | T4 | [elliotglazer #84](https://github.com/elliotglazer/diophantine-z-q/issues/84) | 0 | open |
@@ -453,24 +451,6 @@ RayClassCFT.ShimuraMainThmIDeligneY3AbU
 
 > gt-rayclass (shimura-cft, rayclass-cft), composite of printed theorems: Shimura's Main Theorem I for the level-3 group K3 of B = (2,-3|Q) in Deligne's adelic form on the fine moduli scheme Y3 of QM abelian surfaces (R1fpPropsAb): the uniformization B^x_+ \ (H x (B (x) A_f)^x) / K3 = Y3(C), holomorphy in tau, the moduli clause at every u in O-hat^x (the object at Psi(tau,u) is C^2/iota(O)(tau,1)^T) and Shimura's reciprocity law at CM points. Replaces rayClassCMAb and shimuraFamilyAb.
 
-### gagaMorphism
-
-* Bundle field `HDec.HSyn.OpenTextbookLeaves17.gagaMorphism`; kind **consequence**, strict **GLUE**; flag: re-rated 11-16 under the dictionary ruling: GAGA's hypothesis (a holomorphic map A^an -> B^an) is reached from IsStrongUnif and IsAnalyticHom only through the holomorphic inverse function theorem (phi^-1 holomorphic), the same hypothesis-direction step as ShimuraThm54; also a use form shaped by homLatticeCorr_of_strong_gaga; print SGA 1 XII 4.4 for proper X (Serre's GAGA is for projective varieties); locator UNVERIFIED (numbers).
-* Source: Serre, GAGA (1956), for homomorphisms of complex abelian varieties (homlattice 3.2)
-* tier T3-T4 (model triage, unreviewed); discussion: [elliotglazer #82](https://github.com/elliotglazer/diophantine-z-q/issues/82).
-* Human readings recorded: none.
-* Status: held by the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/82#issuecomment-6887799149)).
-
-```lean
-ZInQ.HomLattice.GAGAMorphism
-```
-
-> **GAGA for maps of complex abelian varieties (textbook leaf candidate; Serre, GAGA (1956);
-> SGA 1 XII 4.4: `Hom(X, Y) → Hom(X^an, Y^an)` is bijective for `X` proper over `ℂ`; locators
-> UNVERIFIED).** Let `φ : ℂ^g ⧸ Λ ≃ A(ℂ)` be a strong uniformization (so `φ` presents `A^an`), and
-> `ψ : ℂ^g → B(ℂ)` an analytic homomorphism killing `Λ` (= a holomorphic homomorphism
-> `A^an → B^an`). Then `ψ` comes from an algebraic morphism `f : A → B`.
-
 ### kleimanPicZeroProper
 
 * Bundle field `HDec.HSyn.OpenAddedLeaves25.kleimanPicZeroProper`; kind **published**, strict **LEAF**; flag: unread: new printed leaf (Kleiman 9.5.4, X proper and geometrically normal over a field, every representing object); locator UNVERIFIED.
@@ -605,7 +585,7 @@ DictModels.RaynaudOr.RaynaudSemistableSHOr
 
 ### charPolyIndepOfEllAlgClosed
 
-* Bundle field `HDec.HSyn.OpenTextbookLeaves17.charPolyIndepOfEllAlgClosed`; kind **published**, strict **LEAF**.
+* Bundle field `HDec.HSyn.OpenTextbookLeaves18.charPolyIndepOfEllAlgClosed`; kind **published**, strict **LEAF**.
 * Source: Mumford 19 Thm 4 (specialization)
 * tier T3 (model triage, unreviewed); discussion: [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81).
 * Human readings recorded: none.
