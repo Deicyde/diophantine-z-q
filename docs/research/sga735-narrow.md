@@ -148,7 +148,7 @@ the row becomes LEAF/LEAF.
    prime to `ℓ`, the second factor is invertible on `ℓ`-power torsion.
 3. Re-prove `quatUnipotentTrivial` with `c⁴ = 0` at torsion level `3^{4k}`. This needs a new valuation lemma
    generalizing `quat_sq_dvd`: `v_Π(3) = 2` in the maximal order at 3.
-4. Thread the re-typed r6 through its 31 or so consumer theorems. Most of them only transport `UnipSq` along
+4. Thread the re-typed r6 through its consumers. `scratch/sga735-narrow/UseProbe.lean` (VERIFIED, computed; output `useprobe_out.txt`) finds 45 constants in the closure of `sixContactMin_of_open41` whose type mentions `UnipSq` or `RaynaudCriterionNF`, including the r6 projections of research generations 2–9. It also confirms that `HDec.PkgI2.quatUnipotentTrivial` is live, used by `HDec.PkgI2.goodReduction_of_QM_rational3`. `PkgI2.fixed_of_unipSq_of_iterate` and `PkgI2.D2_fixed_of_raynaud` are not in the closure. Most of them only transport `UnipSq` along
    isomorphisms.
 
 This is several days of work with one Lean process, which is why it was not attempted. It adds no leaf.

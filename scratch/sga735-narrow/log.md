@@ -49,3 +49,10 @@ standard axioms (VERIFIED):
 * Statement.lean: rfl check OK. Discharges.lean: 48 lines, none from the new file (expected: weaker leaf).
 * Counts: 33 fields, strict 13/20 -> 13/20 (proposed row, pending reading on (b)); 14/19 if the 3.5 display is
   read and contains the echelon clause.
+
+## Use probe (VERIFIED, computed; UseProbe.lean, useprobe_out.txt)
+
+* In the closure of sixContactMin_of_open41: HDec.PkgI2.quatUnipotentTrivial (used by
+  HDec.PkgI2.goodReduction_of_QM_rational3), UnipSq, both RaynaudCriterionNF. NOT in closure:
+  PkgI2.fixed_of_unipSq_of_iterate, PkgI2.D2_fixed_of_raynaud, PkgI2.RaynaudCriterion.
+* 45 closure constants have UnipSq / RaynaudCriterionNF in their type (cost of narrowing r6 to a nilpotent form).
