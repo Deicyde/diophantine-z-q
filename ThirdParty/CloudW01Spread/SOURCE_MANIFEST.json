@@ -1,0 +1,210 @@
+{
+  "repository": "https://github.com/AxiomMath/Stacks",
+  "revision": "c496df0d9beea9deaeabcea8492605f9a0a2313b",
+  "license": "Apache-2.0",
+  "mathlib_revision": "56a005855ea17e0b0958f73ec801ae140b0a1679",
+  "lean_toolchain": "leanprover/lean4:v4.35.0",
+  "files": [
+    {
+      "module": "StacksCore.Tactic.EgaSgaAttribute",
+      "source_path": "StacksCore/Tactic/EgaSgaAttribute.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksCore/Tactic/EgaSgaAttribute.lean",
+      "source_sha256": "4a6bc26a770f086b204b9be63bbfc166ec8ba262facc7a3dfd9e5fd99f9368d9",
+      "source_bytes": 9878,
+      "destination": "ZInQKernel/Contrib/CloudW01Spread/StacksCore/Tactic/EgaSgaAttribute.lean"
+    },
+    {
+      "module": "StacksCore.Tactic.StacksAttribute",
+      "source_path": "StacksCore/Tactic/StacksAttribute.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksCore/Tactic/StacksAttribute.lean",
+      "source_sha256": "12d2f68a0fd94dd869328b15cc9d23c9f0422a0c77e5ed1ddef00e37522c4e46",
+      "source_bytes": 3387,
+      "destination": "ZInQKernel/Contrib/CloudW01Spread/StacksCore/Tactic/StacksAttribute.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.LimitDescentGlueing.Affine",
+      "source_path": "StacksFrontier/AlgebraicGeometry/LimitDescentGlueing/Affine.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/LimitDescentGlueing/Affine.lean",
+      "source_sha256": "fd67bbb53e9847cb05b9177fa530025c9b97871641b2aeb3e2cf1994bab7a836",
+      "source_bytes": 10761,
+      "destination": "ZInQKernel/Contrib/CloudW01Spread/StacksFrontier/AlgebraicGeometry/LimitDescentGlueing/Affine.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.LimitDescentGlueing.Glueing",
+      "source_path": "StacksFrontier/AlgebraicGeometry/LimitDescentGlueing/Glueing.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/LimitDescentGlueing/Glueing.lean",
+      "source_sha256": "c2a2e9f791a02a3aa824c1b74e955e771dda23af033f3cec26a0c824f7244f26",
+      "source_bytes": 41670,
+      "destination": "ZInQKernel/Contrib/CloudW01Spread/StacksFrontier/AlgebraicGeometry/LimitDescentGlueing/Glueing.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.LimitDescentGlueing.GlueingAux1",
+      "source_path": "StacksFrontier/AlgebraicGeometry/LimitDescentGlueing/GlueingAux1.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/LimitDescentGlueing/GlueingAux1.lean",
+      "source_sha256": "0606ba1660c8b00d6ae3770473794ea50585debd0ee41b428c1a0370566c8e25",
+      "source_bytes": 3993,
+      "destination": "ZInQKernel/Contrib/CloudW01Spread/StacksFrontier/AlgebraicGeometry/LimitDescentGlueing/GlueingAux1.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.LimitDescentGlueing.GlueingAux2",
+      "source_path": "StacksFrontier/AlgebraicGeometry/LimitDescentGlueing/GlueingAux2.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/LimitDescentGlueing/GlueingAux2.lean",
+      "source_sha256": "8aec568d457d4182926c11cda1ca6cbdfff575f384c22679417889b90d3bac30",
+      "source_bytes": 14629,
+      "destination": "ZInQKernel/Contrib/CloudW01Spread/StacksFrontier/AlgebraicGeometry/LimitDescentGlueing/GlueingAux2.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.LimitDescentGlueing.GlueingAux3",
+      "source_path": "StacksFrontier/AlgebraicGeometry/LimitDescentGlueing/GlueingAux3.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/LimitDescentGlueing/GlueingAux3.lean",
+      "source_sha256": "d68a04af981c22cd519f34332342bd33747ce6152e2b8ab3ba3ddb31852c2d50",
+      "source_bytes": 12293,
+      "destination": "ZInQKernel/Contrib/CloudW01Spread/StacksFrontier/AlgebraicGeometry/LimitDescentGlueing/GlueingAux3.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.LimitDescentGlueing.GlueingAux4",
+      "source_path": "StacksFrontier/AlgebraicGeometry/LimitDescentGlueing/GlueingAux4.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/LimitDescentGlueing/GlueingAux4.lean",
+      "source_sha256": "3ad8a8fc99579b68afb1b29881e993831b17c13f6621256e892b4b5a54d63746",
+      "source_bytes": 4605,
+      "destination": "ZInQKernel/Contrib/CloudW01Spread/StacksFrontier/AlgebraicGeometry/LimitDescentGlueing/GlueingAux4.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.LimitDescentGlueing.Pieces",
+      "source_path": "StacksFrontier/AlgebraicGeometry/LimitDescentGlueing/Pieces.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/LimitDescentGlueing/Pieces.lean",
+      "source_sha256": "3b036308ae3de7e6984a2e49eedcb90d00181d87580547a5f2d8ef0b7e945325",
+      "source_bytes": 22213,
+      "destination": "ZInQKernel/Contrib/CloudW01Spread/StacksFrontier/AlgebraicGeometry/LimitDescentGlueing/Pieces.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.LimitUniverse.AffineTransitionLimit",
+      "source_path": "StacksFrontier/AlgebraicGeometry/LimitUniverse/AffineTransitionLimit.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/LimitUniverse/AffineTransitionLimit.lean",
+      "source_sha256": "505c3d92e63ceb3420cf76c98c0a76cdc61f75736167a7cf8aaf052e4521872b",
+      "source_bytes": 28810,
+      "destination": "ZInQKernel/Contrib/CloudW01Spread/StacksFrontier/AlgebraicGeometry/LimitUniverse/AffineTransitionLimit.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.Affine",
+      "source_path": "StacksFrontier/AlgebraicGeometry/Limits/DescendingMorphisms/Affine.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/Limits/DescendingMorphisms/Affine.lean",
+      "source_sha256": "c516920611d30a2b5cac5292fb41447d931f89ef1addde5484e267131161ea59",
+      "source_bytes": 18699,
+      "destination": "ZInQKernel/Contrib/CloudW01Spread/StacksFrontier/AlgebraicGeometry/Limits/DescendingMorphisms/Affine.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.BaseChange",
+      "source_path": "StacksFrontier/AlgebraicGeometry/Limits/DescendingMorphisms/BaseChange.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/Limits/DescendingMorphisms/BaseChange.lean",
+      "source_sha256": "1b8865f137e0a354d0c5c38ff7589e273455c7be6fd84d44f7c9c993c32a955c",
+      "source_bytes": 32663,
+      "destination": "ZInQKernel/Contrib/CloudW01Spread/StacksFrontier/AlgebraicGeometry/Limits/DescendingMorphisms/BaseChange.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.ClosedImmersion",
+      "source_path": "StacksFrontier/AlgebraicGeometry/Limits/DescendingMorphisms/ClosedImmersion.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/Limits/DescendingMorphisms/ClosedImmersion.lean",
+      "source_sha256": "d705ae4ace852fa753998f6e9a11a9119118748e2f85e2d91f83d692f57f965e",
+      "source_bytes": 24452,
+      "destination": "ZInQKernel/Contrib/CloudW01Spread/StacksFrontier/AlgebraicGeometry/Limits/DescendingMorphisms/ClosedImmersion.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.Isomorphism",
+      "source_path": "StacksFrontier/AlgebraicGeometry/Limits/DescendingMorphisms/Isomorphism.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/Limits/DescendingMorphisms/Isomorphism.lean",
+      "source_sha256": "767ddd889da51ec2f913aa2f2e3519e286dbd5cda5d867ac41c6a5ede3823479",
+      "source_bytes": 11738,
+      "destination": "ZInQKernel/Contrib/CloudW01Spread/StacksFrontier/AlgebraicGeometry/Limits/DescendingMorphisms/Isomorphism.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.Relative",
+      "source_path": "StacksFrontier/AlgebraicGeometry/Limits/DescendingMorphisms/Relative.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/Limits/DescendingMorphisms/Relative.lean",
+      "source_sha256": "eba0d32fc7e91d479d3c143e7f2a9d88508c1ec5fff711bbe67efe56afa4cbba",
+      "source_bytes": 18867,
+      "destination": "ZInQKernel/Contrib/CloudW01Spread/StacksFrontier/AlgebraicGeometry/Limits/DescendingMorphisms/Relative.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.Smooth",
+      "source_path": "StacksFrontier/AlgebraicGeometry/Limits/DescendingMorphisms/Smooth.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/Limits/DescendingMorphisms/Smooth.lean",
+      "source_sha256": "1e73880c007146bb15b553664944066f43fd8453de59aa08f41ef233a2020520",
+      "source_bytes": 23172,
+      "destination": "ZInQKernel/Contrib/CloudW01Spread/StacksFrontier/AlgebraicGeometry/Limits/DescendingMorphisms/Smooth.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.Morphisms.FinitePresentation.Basic",
+      "source_path": "StacksFrontier/AlgebraicGeometry/Morphisms/FinitePresentation/Basic.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/Morphisms/FinitePresentation/Basic.lean",
+      "source_sha256": "0ffb11ca69734d5502802812e6b7aed22b3a3753bb728d392851a8e26e5910f7",
+      "source_bytes": 4425,
+      "destination": "ZInQKernel/Contrib/CloudW01Spread/StacksFrontier/AlgebraicGeometry/Morphisms/FinitePresentation/Basic.lean"
+    },
+    {
+      "module": "StacksFrontier.AlgebraicGeometry.Morphisms.FinitePresentationPoint",
+      "source_path": "StacksFrontier/AlgebraicGeometry/Morphisms/FinitePresentationPoint.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/AlgebraicGeometry/Morphisms/FinitePresentationPoint.lean",
+      "source_sha256": "889f1fdcd77df114c16f785079326b6d6c33f7fb4675729964f556e8407dd2b1",
+      "source_bytes": 4411,
+      "destination": "ZInQKernel/Contrib/CloudW01Spread/StacksFrontier/AlgebraicGeometry/Morphisms/FinitePresentationPoint.lean"
+    },
+    {
+      "module": "StacksFrontier.RingTheory.Algebra.DirectLimit.Descent",
+      "source_path": "StacksFrontier/RingTheory/Algebra/DirectLimit/Descent.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/RingTheory/Algebra/DirectLimit/Descent.lean",
+      "source_sha256": "8c450db779ed05b44d73f96b1d881249a4d7e458dafd5f75fe89ab401825b1c6",
+      "source_bytes": 319,
+      "destination": "ZInQKernel/Contrib/CloudW01Spread/StacksFrontier/RingTheory/Algebra/DirectLimit/Descent.lean"
+    },
+    {
+      "module": "StacksFrontier.RingTheory.Algebra.DirectLimit.Descent.Bijective",
+      "source_path": "StacksFrontier/RingTheory/Algebra/DirectLimit/Descent/Bijective.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/RingTheory/Algebra/DirectLimit/Descent/Bijective.lean",
+      "source_sha256": "fbeb44d4a40c376f74105dd06996b05c6422ee8228b4f5f917186af67bd1db8c",
+      "source_bytes": 45628,
+      "destination": "ZInQKernel/Contrib/CloudW01Spread/StacksFrontier/RingTheory/Algebra/DirectLimit/Descent/Bijective.lean"
+    },
+    {
+      "module": "StacksFrontier.RingTheory.Algebra.DirectLimit.Descent.Finite",
+      "source_path": "StacksFrontier/RingTheory/Algebra/DirectLimit/Descent/Finite.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/RingTheory/Algebra/DirectLimit/Descent/Finite.lean",
+      "source_sha256": "e871d2feffe9e1a4f9148aae5b0a7c8c3cb677497f4749172d66ed405952f130",
+      "source_bytes": 29319,
+      "destination": "ZInQKernel/Contrib/CloudW01Spread/StacksFrontier/RingTheory/Algebra/DirectLimit/Descent/Finite.lean"
+    },
+    {
+      "module": "StacksFrontier.RingTheory.Algebra.DirectLimit.Descent.Surjective",
+      "source_path": "StacksFrontier/RingTheory/Algebra/DirectLimit/Descent/Surjective.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/RingTheory/Algebra/DirectLimit/Descent/Surjective.lean",
+      "source_sha256": "008102339860f2fc89609d8bc4b34928f7d7f50610a5286117bb94ba2a5a2f95",
+      "source_bytes": 16623,
+      "destination": "ZInQKernel/Contrib/CloudW01Spread/StacksFrontier/RingTheory/Algebra/DirectLimit/Descent/Surjective.lean"
+    },
+    {
+      "module": "StacksFrontier.RingTheory.Algebra.DirectLimit.Descent.Unramified",
+      "source_path": "StacksFrontier/RingTheory/Algebra/DirectLimit/Descent/Unramified.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/RingTheory/Algebra/DirectLimit/Descent/Unramified.lean",
+      "source_sha256": "cb01c51cf33d4a96e9b3c2f5bc953c11b8dd92b7ece5688a0f3215617fdfdfb0",
+      "source_bytes": 31010,
+      "destination": "ZInQKernel/Contrib/CloudW01Spread/StacksFrontier/RingTheory/Algebra/DirectLimit/Descent/Unramified.lean"
+    },
+    {
+      "module": "StacksFrontier.RingTheory.ColimitPresentation.FinitePresentation",
+      "source_path": "StacksFrontier/RingTheory/ColimitPresentation/FinitePresentation.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/RingTheory/ColimitPresentation/FinitePresentation.lean",
+      "source_sha256": "70986e1dc803f3e418d86050c21fdaa515bfcb00c2a1aff602a6b440c174c0e8",
+      "source_bytes": 48540,
+      "destination": "ZInQKernel/Contrib/CloudW01Spread/StacksFrontier/RingTheory/ColimitPresentation/FinitePresentation.lean"
+    },
+    {
+      "module": "StacksFrontier.RingTheory.SpreadingOut.Smooth",
+      "source_path": "StacksFrontier/RingTheory/SpreadingOut/Smooth.lean",
+      "source_url": "https://raw.githubusercontent.com/AxiomMath/Stacks/c496df0d9beea9deaeabcea8492605f9a0a2313b/StacksFrontier/RingTheory/SpreadingOut/Smooth.lean",
+      "source_sha256": "0138fdc78ff009b636de4ef3c4d0ac997cadb6466ce21ef00856be5c2d037fec",
+      "source_bytes": 81613,
+      "destination": "ZInQKernel/Contrib/CloudW01Spread/StacksFrontier/RingTheory/SpreadingOut/Smooth.lean"
+    }
+  ],
+  "additional_adapted_source": "StacksFrontier/AlgebraicGeometry/Limits/ProperImageSystemModels.lean:101-109"
+}

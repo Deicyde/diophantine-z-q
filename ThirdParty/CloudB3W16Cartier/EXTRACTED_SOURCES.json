@@ -1,0 +1,12 @@
+{
+  "repository": "https://github.com/AxiomMath/Stacks",
+  "revision": "c496df0d9beea9deaeabcea8492605f9a0a2313b",
+  "extractions": [
+    {"source": "StacksFrontier/RingTheory/Smooth/RegularLocalRing/CharZeroRegularity.lean", "sha256": "2ea401af814ca2c9942aa83aadb6f1d0f73e2c2f44a82b80dd8118cfd3308ee2", "lines": [[106,456]], "destination": "CharZeroRegularity.lean"},
+    {"source": "StacksFrontier/RingTheory/Smooth/Conormal.lean", "sha256": "ce31d0dc2848a5b53fff0e57170cce6a48943dc30bc596803004dec0c6643840", "lines": [[1110,1120],[1311,1317]], "destination": "CharZeroRegularity.lean"},
+    {"source": "StacksFrontier/AlgebraicGeometry/GroupScheme/Differentials.lean", "sha256": "7687483fd1cb00109bc3ea84ef14386ca89c1ffaa7bc7da28d6ce08d9faaa460", "lines": [[57,160],[217,245]], "destination": "GroupDifferentials.lean"},
+    {"source": "StacksFrontier/AlgebraicGeometry/Flatness/Devissage/Complete/Transport.lean", "sha256": "75aa568511041e3f0a8fd6c6df0921ccb013640cde81dae2603fab826a0da176", "lines": [[199,205]], "destination": "GroupDifferentials.lean"},
+    {"source": "StacksFrontier/AlgebraicGeometry/Variety/SmoothOverField/LocallyFreeDifferentials.lean", "sha256": "ef384b01ccb62660e40ec6ddde792e5f6485784fb59661f05dfd794a6867df29", "lines": [[51,140]], "destination": "SmoothCriterion.lean"},
+    {"source": "StacksFrontier/AlgebraicGeometry/GroupScheme/OverField/SmoothCharacteristicZero.lean", "sha256": "e79e621792beb9053112b6d7be3085e9851e333f6f0f7100973cc8cbabb27521", "lines": [[92,124]], "destination": "../OneProof/CartierSmooth.lean"}
+  ]
+}

@@ -1,0 +1,309 @@
+{
+  "repository": "https://github.com/AxiomMath/Stacks",
+  "revision": "c496df0d9beea9deaeabcea8492605f9a0a2313b",
+  "files": [
+    {
+      "source": "StacksFrontier/CategoryTheory/Sites/Modules/Colimits.lean",
+      "sha256": "466aeff38026d8eb013cf5eabb87639a29e93eaee8bc90a1ea5b495ee112367f",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Sites/Modules/Colimits.lean"
+    },
+    {
+      "source": "StacksFrontier/Topology/Sheaves/Modules/Colimits.lean",
+      "sha256": "63f13428c362af4d75c189a36634b2ef314e0024c63aba8523cb63294101c53d",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Modules/Colimits.lean"
+    },
+    {
+      "source": "StacksFrontier/Algebra/Category/ModuleCat/Sheaf/StalkwiseExactness.lean",
+      "sha256": "27089256086a34f191bf25997b60d9bfed044c07b4e20c823c89e6ec6f5dfba6",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/StalkwiseExactness.lean"
+    },
+    {
+      "source": "StacksFrontier/AlgebraicGeometry/Morphisms/Affine/Over.lean",
+      "sha256": "c9dd2161bfc12fb093a11c86b6c45499ca39a8f492aff8efd465987c55746089",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/Morphisms/Affine/Over.lean"
+    },
+    {
+      "source": "StacksFrontier/CategoryTheory/Sites/AbelianSheafificationExistence.lean",
+      "sha256": "b21c8cb5f299411e305416657b9eb341ec140bd2d1270f89dd578111953bfc1e",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Sites/AbelianSheafificationExistence.lean"
+    },
+    {
+      "source": "StacksFrontier/CategoryTheory/Sites/SmallSiteSheafification.lean",
+      "sha256": "0fa36674d266548b3b946e7aae14d9fc0f3c96916b7ede1a32127edec55ae302",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Sites/SmallSiteSheafification.lean"
+    },
+    {
+      "source": "StacksFrontier/Algebra/Category/ModuleCat/Sheaf/ToposPushforwardModules/HasSheafComposeForget.lean",
+      "sha256": "f29d8b35d77bbb22f9add9b88fa190471911f75c941496f49d6c8f7ceec9c47c",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/ToposPushforwardModules/HasSheafComposeForget.lean"
+    },
+    {
+      "source": "StacksFrontier/CategoryTheory/Sites/Modules/Differentials.lean",
+      "sha256": "c1555d41cfa4d9bc85b2563c377b5e4f802e02d64a403867a8bc377fbde0a100",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Sites/Modules/Differentials.lean"
+    },
+    {
+      "source": "StacksFrontier/Topology/Sheaves/Modules/Differentials.lean",
+      "sha256": "76774852e3d0d9c279659bc4127109f6850284b492c93a299f326a7d294d26ec",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Modules/Differentials.lean"
+    },
+    {
+      "source": "StacksFrontier/AlgebraicGeometry/Morphisms/Differentials/Relative.lean",
+      "sha256": "1f0b8a73d87b3af817b3608897c109e50450df40d65879a9150b0df702b3d0a6",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/Morphisms/Differentials/Relative.lean"
+    },
+    {
+      "source": "StacksFrontier/Algebra/Category/ModuleCat/Sheaf/DifferentialsPresheafFunctorial.lean",
+      "sha256": "c88f3c4c2cb12356dcad3e49a69ce8d3d4c3cb1197c930f91e876ed44e7d3ffd",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/DifferentialsPresheafFunctorial.lean"
+    },
+    {
+      "source": "StacksFrontier/Algebra/Category/ModuleCat/Sheaf/DifferentialsRepresentable.lean",
+      "sha256": "928bc4253ab60c4774b0bb4f194bc9b00394273410a619ab56adee9dfbbfb158",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/DifferentialsRepresentable.lean"
+    },
+    {
+      "source": "StacksFrontier/Topology/Sheaves/Functors/Module/RingedSpace.lean",
+      "sha256": "3c0e50133069b310f0f3fde72b1cc2bb0a4f8db2b95c2b922edfdce931013fb2",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Functors/Module/RingedSpace.lean"
+    },
+    {
+      "source": "StacksFrontier/Algebra/Category/ModuleCat/Sheaf/RingedSpaceDifferentials.lean",
+      "sha256": "88a1ff0c841a0e63b585c01e270aadb67d28a5e8ccc695d6f77a2c71f901a625",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/RingedSpaceDifferentials.lean"
+    },
+    {
+      "source": "StacksFrontier/AlgebraicGeometry/Smooth/SqZeroAlgebra.lean",
+      "sha256": "e605f0aefa3f77c6de81d6637633e875026763a9a96f9224ac2c291087f7387a",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/Smooth/SqZeroAlgebra.lean"
+    },
+    {
+      "source": "StacksFrontier/Topology/Sheaves/Modules/SquareZeroExtension.lean",
+      "sha256": "d970105e6fcd8e0afa5bf22b6571121a883025a707253324762cb4b8a9443c4a",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Modules/SquareZeroExtension.lean"
+    },
+    {
+      "source": "StacksFrontier/Topology/Sheaves/Modules/Differentials/InverseImage.lean",
+      "sha256": "6db17882cced5bab195061376322e5ccc788ee9348d13d739ed01caa2dbade88",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Modules/Differentials/InverseImage.lean"
+    },
+    {
+      "source": "StacksFrontier/Topology/Sheaves/Modules/Differentials/Functoriality.lean",
+      "sha256": "b5fed9c28d159db3c87fdc34e3324eadbe34eeca9b570bfa3425f59fbbd87fba",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Modules/Differentials/Functoriality.lean"
+    },
+    {
+      "source": "StacksFrontier/AlgebraicGeometry/Morphisms/Differentials/Functoriality.lean",
+      "sha256": "e2413c9fe579830e1eb31dee5b2aa912c6867400510eafae4e93e014f9cee177",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/Morphisms/Differentials/Functoriality.lean"
+    },
+    {
+      "source": "StacksFrontier/AlgebraicGeometry/Morphisms/Differentials/DifferentialMap.lean",
+      "sha256": "f4ada299e69c4358ade18166fe9425cb2e09e141fa8f52b1e004359930560123",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/Morphisms/Differentials/DifferentialMap.lean"
+    },
+    {
+      "source": "StacksFrontier/RingTheory/Kaehler/Colimit.lean",
+      "sha256": "2c3a2f4d53473b7218115e0929dda218a3b3464aa9d24dab1c7e9ecf8504cc76",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/Colimit.lean"
+    },
+    {
+      "source": "StacksFrontier/Topology/Sheaves/Modules/Differentials/Stalk.lean",
+      "sha256": "ef5170937e14390337fbc13c972d28f9f50d5584fff92b9d33e33adfbc1ffc18",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Modules/Differentials/Stalk.lean"
+    },
+    {
+      "source": "StacksFrontier/AlgebraicGeometry/RelativeDifferentialStalk/Diagram.lean",
+      "sha256": "5b58505a6bd62cb0f65435c82d6e8daa51810876cd0a1db47661a20c32461664",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/RelativeDifferentialStalk/Diagram.lean"
+    },
+    {
+      "source": "StacksFrontier/AlgebraicGeometry/RelativeDifferentialStalk/Kaehler.lean",
+      "sha256": "2dab4dae1b6f0f723f8a9b4e59ef54194bb190779685ee93c95ec183f6964f81",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/RelativeDifferentialStalk/Kaehler.lean"
+    },
+    {
+      "source": "StacksFrontier/AlgebraicGeometry/RelativeDifferentialStalk/Colimit.lean",
+      "sha256": "2b170e8476b7f408358cbe612f136e4cadf0accefce07ab9f23fb73a89749ae1",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/RelativeDifferentialStalk/Colimit.lean"
+    },
+    {
+      "source": "StacksFrontier/AlgebraicGeometry/RelativeDifferentialStalk/Stalk.lean",
+      "sha256": "a98a721a36a550486c03882054ad6be78fc61b78b1edf9307e293bbde5b1fd2f",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/RelativeDifferentialStalk/Stalk.lean"
+    },
+    {
+      "source": "StacksFrontier/AlgebraicGeometry/RelativeDifferentialStalk/Sheafify.lean",
+      "sha256": "16280f7d2cb6d4931fc3f92a8f1b0f49dacf79d6fe57e9acf7dc8cb09088464b",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/RelativeDifferentialStalk/Sheafify.lean"
+    },
+    {
+      "source": "StacksFrontier/AlgebraicGeometry/RelativeDifferentialStalk/Scheme.lean",
+      "sha256": "230150484a69f610d6b125ffd350f40a607fe1564d7d152c92cdc7b37e9fc47b",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/RelativeDifferentialStalk/Scheme.lean"
+    },
+    {
+      "source": "StacksFrontier/AlgebraicGeometry/RelativeDifferentialStalkMap/Kaehler.lean",
+      "sha256": "fac9a43acddc3e6e99763d9836ecbd87cd375a19222a675fe245e25aeb299422",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/RelativeDifferentialStalkMap/Kaehler.lean"
+    },
+    {
+      "source": "StacksFrontier/Topology/Sheaves/OpenImmersion/ExtensionByInitial.lean",
+      "sha256": "5873ce37b74f06354ae5f11700e7f1fa36728c2eed0d58f1e27e26c0d35a951e",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/OpenImmersion/ExtensionByInitial.lean"
+    },
+    {
+      "source": "StacksFrontier/AlgebraicGeometry/SheafifyStalk/Basic.lean",
+      "sha256": "eea43b8be1b5c4957ef7a92c75ff7d87dbbb8ad9d3789ba662c0ea31fec2465a",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/SheafifyStalk/Basic.lean"
+    },
+    {
+      "source": "StacksFrontier/AlgebraicGeometry/SheafifyStalk/StalkMap.lean",
+      "sha256": "cd32560a5e341208a9cec13e2cc30224fd75ccd395c736f25c06456e3cb46a7c",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/SheafifyStalk/StalkMap.lean"
+    },
+    {
+      "source": "StacksFrontier/AlgebraicGeometry/RelativeDifferentialStalkMap/Scheme.lean",
+      "sha256": "bbbb430671ac52d1f3a141c06945ac464f491e3fa46dceaab21d861d16e9ea1b",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/RelativeDifferentialStalkMap/Scheme.lean"
+    },
+    {
+      "source": "StacksFrontier/Topology/Sheaves/Sheafify/ModuleStalkTensor.lean",
+      "sha256": "1e6a9dc48d259dbe33e80907c1b96500234c9befa0237b65eb39c96df8a696c5",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Sheafify/ModuleStalkTensor.lean"
+    },
+    {
+      "source": "StacksFrontier/Topology/Sheaves/Functors/Module/PullbackPresheaf.lean",
+      "sha256": "55bdd9aee0e10cb930711f64f1cc2fd2b2332c8f5befb93001a308b334d7da06",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Functors/Module/PullbackPresheaf.lean"
+    },
+    {
+      "source": "StacksFrontier/Topology/Sheaves/Functors/Module/InverseImage.lean",
+      "sha256": "c7d7415515302b0fd805debfb193533437eb04a0d47cf5ec0b4ad3f3a2d5bc4c",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Functors/Module/InverseImage.lean"
+    },
+    {
+      "source": "StacksFrontier/Topology/Sheaves/Functors/Module/SemilinearStalk.lean",
+      "sha256": "a3a1ba58507faa54bde0abd5767aa1839a1ad3dd3dc7d51c25d6c923185c170a",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Functors/Module/SemilinearStalk.lean"
+    },
+    {
+      "source": "StacksFrontier/Topology/Sheaves/RingedSpace/ModulePullbackStalk.lean",
+      "sha256": "a3e642f34308dac86b307cbe88f6fe2085d4e81b22c55b272883b5c6ff8ed18f",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/RingedSpace/ModulePullbackStalk.lean"
+    },
+    {
+      "source": "StacksFrontier/Topology/Sheaves/Skyscraper/Modules.lean",
+      "sha256": "549d0d44ae9cc9a9164f2c1a57a141215d4941615031634a9bf04d3aaf55275c",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Skyscraper/Modules.lean"
+    },
+    {
+      "source": "StacksFrontier/CategoryTheory/Abelian/Projective/ResolutionLift.lean",
+      "sha256": "134fe6294c53eff7e9b391e033ac36f9171ddbd76f58ace08dc877826bb8ff9d",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Abelian/Projective/ResolutionLift.lean"
+    },
+    {
+      "source": "StacksFrontier/CategoryTheory/Abelian/Projective/Horseshoe.lean",
+      "sha256": "de938da952cd2ebb8764f52451e3cb524a8d70a4aa188a218df3241edf1642f6",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/CategoryTheory/Abelian/Projective/Horseshoe.lean"
+    },
+    {
+      "source": "StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean",
+      "sha256": "75284709c53d800d83ffc0dc1b680aa084c0ed58d97dab29ee99c0507b3cbcb0",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/Basic.lean"
+    },
+    {
+      "source": "StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean",
+      "sha256": "4dcb45445c290ef49dc2bd6e3ccddd1999215ff25cd8025dd6549494a1c5f4e6",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/StalkTensor.lean"
+    },
+    {
+      "source": "StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean",
+      "sha256": "d85b94993723fd43f51ceff1b89523d6c84bc7326d86ad6e798351d3870f8759",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/TorOneAndSkyscraper.lean"
+    },
+    {
+      "source": "StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean",
+      "sha256": "9a8a2a4c3bf400b1386a5cc096f1a904fac6bf0a3002bea19493b7f3cfb41512",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks/FlatIffTorOne.lean"
+    },
+    {
+      "source": "StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks.lean",
+      "sha256": "e58e72e1c6018b12e37654dc062301580dfe6035c6c4910aa0daf33fb994bfb2",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Cohomology/KFlat/FlatModuleSheavesAndStalks.lean"
+    },
+    {
+      "source": "StacksFrontier/Topology/Sheaves/RingedSpace/ModulePullbackStalkAdjunction.lean",
+      "sha256": "bb86b13ec3443e9b3bd637f6380b475b4465bda9dd489aeb1e3c32e6b0c02b47",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/RingedSpace/ModulePullbackStalkAdjunction.lean"
+    },
+    {
+      "source": "StacksFrontier/AlgebraicGeometry/Morphisms/Differentials/Stalk.lean",
+      "sha256": "03690dd08b25c29cadf22f817230c182ced3ebc3c3eb5bd91045c27aee69b18b",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/Morphisms/Differentials/Stalk.lean"
+    },
+    {
+      "source": "StacksFrontier/AlgebraicGeometry/Perfect/BaseChangeStalkCartesian.lean",
+      "sha256": "6266e8071d1ace87883f9f8be095a536f4f192efa06598d268be99c066b10a7a",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/Perfect/BaseChangeStalkCartesian.lean"
+    },
+    {
+      "source": "StacksFrontier/RingTheory/Kaehler/PushoutBaseChange.lean",
+      "sha256": "99aa5a7044e90be0a750a8b21c19dc91c857a112f141f0d010484f9ac01e3fd2",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/PushoutBaseChange.lean"
+    },
+    {
+      "source": "StacksFrontier/AlgebraicGeometry/Morphisms/Differentials/BaseChange.lean",
+      "sha256": "31a2295135cdc08c60026552b7fa3d8055d5350255bfa1021552be4d59bd35aa",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/Morphisms/Differentials/BaseChange.lean"
+    },
+    {
+      "source": "StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean",
+      "sha256": "da934650d03bca2ff9c1b3f071c203e99c9764bc904f4251576e44fe4ae2c8e4",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Stalk/ValuedInCategory.lean"
+    },
+    {
+      "source": "StacksFrontier/Algebra/Category/ModuleCat/Sheaf/LocallyFreeRank.lean",
+      "sha256": "5d3bcc93f410578b3df2f833dd814b304977b4875b74ec1a4c1e62b1beab4617",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Algebra/Category/ModuleCat/Sheaf/LocallyFreeRank.lean"
+    },
+    {
+      "source": "StacksFrontier/AlgebraicGeometry/StalkFreeBridge/Comparison.lean",
+      "sha256": "577089068cd281fc9cfa9ae1ad572abe39910e21eb875e22bdbfc5f89eefc7a6",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/StalkFreeBridge/Comparison.lean"
+    },
+    {
+      "source": "StacksFrontier/Topology/Sheaves/Modules/LocallyFree.lean",
+      "sha256": "cf79adfc55130ad8f4ad49a88b719ae2e7383e9470353dde5f029e128b9cb5fe",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/Topology/Sheaves/Modules/LocallyFree.lean"
+    },
+    {
+      "source": "StacksFrontier/AlgebraicGeometry/Modules/FiniteLocallyFree.lean",
+      "sha256": "bab09192589b7024bf69847c276fa7b6ae39762525b29a18be2afef310de54df",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/Modules/FiniteLocallyFree.lean"
+    },
+    {
+      "source": "StacksFrontier/AlgebraicGeometry/Modules/Stalk.lean",
+      "sha256": "ca91409a9fd093b7811daa0fed8b260e1ae3f20534f9653b19ddf81756c20927",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/Modules/Stalk.lean"
+    },
+    {
+      "source": "StacksFrontier/AlgebraicGeometry/StalkFreeBridge/StalkFree.lean",
+      "sha256": "87e8767c50d738a09b35182f2769477e3ff5dc5dd0c7c688cce2846ed5caf07f",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/AlgebraicGeometry/StalkFreeBridge/StalkFree.lean"
+    },
+    {
+      "source": "StacksFrontier/RingTheory/Kaehler/JacobiZariski.lean",
+      "sha256": "d6edb2ba9f5c16f3e06c138a08f29d5d8e1efd6df2f7d81411730616378ab392",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/JacobiZariski.lean"
+    },
+    {
+      "source": "StacksFrontier/RingTheory/Kaehler/BaseChange.lean",
+      "sha256": "77343ae3b40ba28bfb94ef56d67083ce795e74d50d3905945dbfffa15d1c2362",
+      "destination": "ZInQKernel/Contrib/CloudB3W16Cartier/Vendor/StacksFrontier/RingTheory/Kaehler/BaseChange.lean"
+    }
+  ],
+  "reuse": {
+    "StacksFrontier.AlgebraicGeometry.Perfect.BaseChangeStalk": "ZInQKernel.Contrib.MulEtale.Direct.Shared.StacksFrontier.AlgebraicGeometry.Perfect.BaseChangeStalk"
+  }
+}
