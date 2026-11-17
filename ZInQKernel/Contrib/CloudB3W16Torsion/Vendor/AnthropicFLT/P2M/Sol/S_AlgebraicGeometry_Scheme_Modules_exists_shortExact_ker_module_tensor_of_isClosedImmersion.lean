@@ -29,7 +29,7 @@ open CategoryTheory
 open CategoryTheory.Limits
 open CategoryTheory.MonoidalCategory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_shortExact_ker_module_tensor_of_isClosedImmersion.AlgebraicGeometry
+-- [port] Source-local namespace is declared below; existing root namespace remains open.
 open Opposite
 open TopologicalSpace
 
@@ -42,7 +42,7 @@ private noncomputable def _root_.AlgebraicGeometry.Scheme.IdealSheafData.uMod {X
   I.subschemeι.unitToPushforwardUnit
 
 end AlgebraicGeometry.Scheme.IdealSheafData
-export  (AlgebraicGeometry.Scheme.IdealSheafData.uMod)
+-- [port] No export is needed for the private helper: uMod)
 namespace AlgebraicGeometry.Scheme.IdealSheafData
 open scoped AlgebraicGeometry AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.IdealSheafData in
 private theorem _root_.AlgebraicGeometry.Scheme.IdealSheafData.moduleι_comp_uMod {X : Scheme.{u}} (I : X.IdealSheafData) :
@@ -50,7 +50,7 @@ private theorem _root_.AlgebraicGeometry.Scheme.IdealSheafData.moduleι_comp_uMo
   kernel.condition I.subschemeι.unitToPushforwardUnit
 
 end AlgebraicGeometry.Scheme.IdealSheafData
-export  (AlgebraicGeometry.Scheme.IdealSheafData.moduleι_comp_uMod)
+-- [port] No export is needed for the private helper: moduleι_comp_uMod)
 namespace AlgebraicGeometry.Scheme.IdealSheafData
 open scoped AlgebraicGeometry AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.IdealSheafData in
 private theorem _root_.AlgebraicGeometry.Scheme.IdealSheafData.mono_moduleι' {X : Scheme.{u}} (I : X.IdealSheafData) :
@@ -58,7 +58,7 @@ private theorem _root_.AlgebraicGeometry.Scheme.IdealSheafData.mono_moduleι' {X
   ⟨fun g g' w => (cancel_mono (kernel.ι I.subschemeι.unitToPushforwardUnit)).mp w⟩
 
 end AlgebraicGeometry.Scheme.IdealSheafData
-export  (AlgebraicGeometry.Scheme.IdealSheafData.mono_moduleι')
+-- [port] No export is needed for the private helper: mono_moduleι')
 namespace AlgebraicGeometry.Scheme.IdealSheafData
 open scoped AlgebraicGeometry AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.IdealSheafData in
 private theorem _root_.AlgebraicGeometry.Scheme.IdealSheafData.epi_uMod
@@ -73,7 +73,7 @@ private theorem _root_.AlgebraicGeometry.Scheme.IdealSheafData.epi_uMod
   exact ⟨a, ha⟩
 
 end AlgebraicGeometry.Scheme.IdealSheafData
-export  (AlgebraicGeometry.Scheme.IdealSheafData.epi_uMod)
+-- [port] No export is needed for the private helper: epi_uMod)
 namespace AlgebraicGeometry.Scheme.IdealSheafData
 open scoped AlgebraicGeometry AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.IdealSheafData in
 private noncomputable def _root_.AlgebraicGeometry.Scheme.IdealSheafData.unitSeq {X : Scheme.{u}} (I : X.IdealSheafData) :
@@ -81,7 +81,7 @@ private noncomputable def _root_.AlgebraicGeometry.Scheme.IdealSheafData.unitSeq
   ShortComplex.mk I.moduleι I.uMod I.moduleι_comp_uMod
 
 end AlgebraicGeometry.Scheme.IdealSheafData
-export  (AlgebraicGeometry.Scheme.IdealSheafData.unitSeq)
+-- [port] No export is needed for the private helper: unitSeq)
 namespace AlgebraicGeometry.Scheme.IdealSheafData
 open scoped AlgebraicGeometry AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.IdealSheafData in
 private theorem _root_.AlgebraicGeometry.Scheme.IdealSheafData.shortExact_unitSeq
@@ -92,7 +92,7 @@ private theorem _root_.AlgebraicGeometry.Scheme.IdealSheafData.shortExact_unitSe
   exact ShortComplex.exact_of_f_is_kernel _ (kernelIsKernel I.subschemeι.unitToPushforwardUnit)
 
 end AlgebraicGeometry.Scheme.IdealSheafData
-export  (AlgebraicGeometry.Scheme.IdealSheafData.shortExact_unitSeq)
+-- [port] No export is needed for the private helper: shortExact_unitSeq)
 namespace AlgebraicGeometry.Scheme.IdealSheafData
 open scoped AlgebraicGeometry AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.IdealSheafData in
 private noncomputable def _root_.AlgebraicGeometry.Scheme.IdealSheafData.tensorSeq {X : Scheme.{u}} (I : X.IdealSheafData)
@@ -104,7 +104,7 @@ private noncomputable def _root_.AlgebraicGeometry.Scheme.IdealSheafData.tensorS
       exact Functor.map_zero _ _ _)
 
 end AlgebraicGeometry.Scheme.IdealSheafData
-export  (AlgebraicGeometry.Scheme.IdealSheafData.tensorSeq)
+-- [port] No export is needed for the private helper: tensorSeq)
 namespace AlgebraicGeometry.Scheme.IdealSheafData
 open scoped AlgebraicGeometry AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.IdealSheafData in
 private theorem _root_.AlgebraicGeometry.Scheme.IdealSheafData.shortExact_tensorSeq {X : Scheme.{u}} (I : X.IdealSheafData)
@@ -125,7 +125,7 @@ private theorem _root_.AlgebraicGeometry.Scheme.IdealSheafData.shortExact_tensor
   · change Epi ((tensorLeft F).map I.uMod); infer_instance
 
 end AlgebraicGeometry.Scheme.IdealSheafData
-export  (AlgebraicGeometry.Scheme.IdealSheafData.shortExact_tensorSeq)
+-- [port] No export is needed for the private helper: shortExact_tensorSeq)
 namespace AlgebraicGeometry
 export _root_.AlgebraicGeometry (Scheme.Modules.pushforwardCongr Scheme.Modules.pushforward Scheme.Modules.pushforwardComp Scheme.Modules.pullback Scheme.Modules.presheaf Scheme.Modules.pushforwardId Scheme.Modules.Hom Scheme Scheme.IdealSheafData.ker_subschemeι IsClosedImmersion Scheme.Modules.pullbackCongr IsClosedImmersion.lift IsClosedImmersion.lift_fac Scheme.Modules.pullbackPushforwardAdjunction Scheme.isBasis_affineOpens isClosedImmersion_iff_isAffineHom Scheme.Modules Scheme.IdealSheafData Scheme.Modules.pullbackComp Scheme.Modules.IsLocallyFreeOfRank Scheme.Modules.Hom.epi_iff_locallySurjective Scheme.Modules.nonempty_pushforward_unit_tensor_iso_pushforward_pullback_of_isClosedImmersion)
 namespace Scheme
@@ -180,4 +180,4 @@ theorem solution {Z X : Scheme.{u}} (i : Z ⟶ X) [IsClosedImmersion i] {n : ℕ
 
   obtain ⟨epf⟩ := Scheme.Modules.nonempty_pushforward_unit_tensor_iso_pushforward_pullback_of_isClosedImmersion
     i.ker.subschemeι F hF
-  exact ⟨β_ _ _ ≪≫ epf ≪≫ (Scheme.Modules.pushforwardPullbackObjIsoOfFac i i.ker.subschemeι e fac F).symm⟩
+  exact ⟨β_ _ _ ≪≫ epf ≪≫ (P2MW.S_AlgebraicGeometry_Scheme_Modules_exists_shortExact_ker_module_tensor_of_isClosedImmersion.AlgebraicGeometry.Scheme.Modules.pushforwardPullbackObjIsoOfFac i i.ker.subschemeι e fac F).symm⟩

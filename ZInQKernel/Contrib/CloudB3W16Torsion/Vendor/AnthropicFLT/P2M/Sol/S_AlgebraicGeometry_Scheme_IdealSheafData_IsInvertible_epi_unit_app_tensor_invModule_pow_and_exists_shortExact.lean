@@ -45,7 +45,7 @@ open CategoryTheory
 open CategoryTheory.Limits
 open CategoryTheory.MonoidalCategory
 open AlgebraicGeometry
-open P2MW.S_AlgebraicGeometry_Scheme_IdealSheafData_IsInvertible_epi_unit_app_tensor_invModule_pow_and_exists_shortExact.AlgebraicGeometry
+-- [port] Source-local namespace is declared below; existing root namespace remains open.
 open Opposite
 open TopologicalSpace
 open CategoryTheory.Functor.LaxMonoidal
@@ -62,7 +62,7 @@ private noncomputable def _root_.AlgebraicGeometry.Scheme.IdealSheafData.uMod {X
   I.subschemeι.unitToPushforwardUnit
 
 end AlgebraicGeometry.Scheme.IdealSheafData
-export  (AlgebraicGeometry.Scheme.IdealSheafData.uMod)
+-- [port] No export is needed for the private helper: uMod)
 namespace AlgebraicGeometry.Scheme.IdealSheafData
 open scoped AlgebraicGeometry AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.IdealSheafData in
 private theorem _root_.AlgebraicGeometry.Scheme.IdealSheafData.moduleι_comp_uMod {X : Scheme.{u}} (I : X.IdealSheafData) :
@@ -70,7 +70,7 @@ private theorem _root_.AlgebraicGeometry.Scheme.IdealSheafData.moduleι_comp_uMo
   kernel.condition I.subschemeι.unitToPushforwardUnit
 
 end AlgebraicGeometry.Scheme.IdealSheafData
-export  (AlgebraicGeometry.Scheme.IdealSheafData.moduleι_comp_uMod)
+-- [port] No export is needed for the private helper: moduleι_comp_uMod)
 namespace AlgebraicGeometry.Scheme.IdealSheafData
 open scoped AlgebraicGeometry AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.IdealSheafData in
 private theorem _root_.AlgebraicGeometry.Scheme.IdealSheafData.mono_moduleι' {X : Scheme.{u}} (I : X.IdealSheafData) :
@@ -78,7 +78,7 @@ private theorem _root_.AlgebraicGeometry.Scheme.IdealSheafData.mono_moduleι' {X
   ⟨fun g g' w => (cancel_mono (kernel.ι I.subschemeι.unitToPushforwardUnit)).mp w⟩
 
 end AlgebraicGeometry.Scheme.IdealSheafData
-export  (AlgebraicGeometry.Scheme.IdealSheafData.mono_moduleι')
+-- [port] No export is needed for the private helper: mono_moduleι')
 namespace AlgebraicGeometry.Scheme.IdealSheafData
 open scoped AlgebraicGeometry AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.IdealSheafData in
 private theorem _root_.AlgebraicGeometry.Scheme.IdealSheafData.epi_uMod
@@ -93,7 +93,7 @@ private theorem _root_.AlgebraicGeometry.Scheme.IdealSheafData.epi_uMod
   exact ⟨a, ha⟩
 
 end AlgebraicGeometry.Scheme.IdealSheafData
-export  (AlgebraicGeometry.Scheme.IdealSheafData.epi_uMod)
+-- [port] No export is needed for the private helper: epi_uMod)
 namespace AlgebraicGeometry.Scheme.IdealSheafData
 open scoped AlgebraicGeometry AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.IdealSheafData in
 private noncomputable def _root_.AlgebraicGeometry.Scheme.IdealSheafData.unitSeq {X : Scheme.{u}} (I : X.IdealSheafData) :
@@ -101,7 +101,7 @@ private noncomputable def _root_.AlgebraicGeometry.Scheme.IdealSheafData.unitSeq
   ShortComplex.mk I.moduleι I.uMod I.moduleι_comp_uMod
 
 end AlgebraicGeometry.Scheme.IdealSheafData
-export  (AlgebraicGeometry.Scheme.IdealSheafData.unitSeq)
+-- [port] No export is needed for the private helper: unitSeq)
 namespace AlgebraicGeometry.Scheme.IdealSheafData
 open scoped AlgebraicGeometry AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.IdealSheafData in
 private theorem _root_.AlgebraicGeometry.Scheme.IdealSheafData.shortExact_unitSeq
@@ -112,7 +112,7 @@ private theorem _root_.AlgebraicGeometry.Scheme.IdealSheafData.shortExact_unitSe
   exact ShortComplex.exact_of_f_is_kernel _ (kernelIsKernel I.subschemeι.unitToPushforwardUnit)
 
 end AlgebraicGeometry.Scheme.IdealSheafData
-export  (AlgebraicGeometry.Scheme.IdealSheafData.shortExact_unitSeq)
+-- [port] No export is needed for the private helper: shortExact_unitSeq)
 namespace AlgebraicGeometry.Scheme.IdealSheafData
 open scoped AlgebraicGeometry AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.IdealSheafData in
 private noncomputable def _root_.AlgebraicGeometry.Scheme.IdealSheafData.tensorSeq {X : Scheme.{u}} (I : X.IdealSheafData)
@@ -124,7 +124,7 @@ private noncomputable def _root_.AlgebraicGeometry.Scheme.IdealSheafData.tensorS
       exact Functor.map_zero _ _ _)
 
 end AlgebraicGeometry.Scheme.IdealSheafData
-export  (AlgebraicGeometry.Scheme.IdealSheafData.tensorSeq)
+-- [port] No export is needed for the private helper: tensorSeq)
 namespace AlgebraicGeometry.Scheme.IdealSheafData
 open scoped AlgebraicGeometry AlgebraicGeometry.Scheme AlgebraicGeometry.Scheme.IdealSheafData in
 private theorem _root_.AlgebraicGeometry.Scheme.IdealSheafData.shortExact_tensorSeq {X : Scheme.{u}} (I : X.IdealSheafData)
@@ -145,7 +145,7 @@ private theorem _root_.AlgebraicGeometry.Scheme.IdealSheafData.shortExact_tensor
   · change Epi ((tensorLeft F).map I.uMod); infer_instance
 
 end AlgebraicGeometry.Scheme.IdealSheafData
-export  (AlgebraicGeometry.Scheme.IdealSheafData.shortExact_tensorSeq)
+-- [port] No export is needed for the private helper: shortExact_tensorSeq)
 namespace Ws31IdealSES
 
 variable {Z X : Scheme.{u}}
