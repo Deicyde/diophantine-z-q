@@ -1,0 +1,8 @@
+⚠ [5212/5273] Replayed ZInQKernel.Contrib.TauCeti.Backport.Mathlib.Polynomial
+warning: ZInQKernel/Contrib/TauCeti/Backport/Mathlib/Polynomial.lean:22:6: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+✔ [5645/5645] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.EichlerIntegral.Basic (3.3s)
+Build completed successfully (5645 jobs).
+EXIT 0
