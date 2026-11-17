@@ -317,4 +317,224 @@ theorem lattice_basis_pos (m : M2 ℤ) (D : ℤ) (hD : D ≠ 0) :
     · rw [Matrix.mul_assoc, ← Matrix.mul_assoc J J, hJ, Matrix.one_mul]; exact h3
   · exact ⟨γ, P, Q, R, S, hpos, h1, h2, h3⟩
 
+/-! ## §5. `GL₂(𝔸_f) = GL₂(ℚ)⁺ · GL₂(ℤ̂)` -/
+
+/-- `GL₂(ℚ) → GL₂(𝔸_f)`. -/
+abbrev mapQ : GL (Fin 2) ℚ →* GL (Fin 2) Af := Matrix.GeneralLinearGroup.map (algebraMap ℚ Af)
+
+theorem mapQ_val (γ : GL (Fin 2) ℚ) : (mapQ γ : M2 Af) = (γ : M2 ℚ).map (algebraMap ℚ Af) := rfl
+
+/-- A finite adele has an integer denominator (Tau Ceti). -/
+theorem exists_den (a : Af) : ∃ M : ℤ, M ≠ 0 ∧ (M : Af) * a ∈ Zhat := by
+  obtain ⟨b, hb0, hb⟩ := FiniteAdeleRing.mul_nonZeroDivisor_mem_integralAdeles (R := ℤ) (K := ℚ) a
+  refine ⟨b, nonZeroDivisors.ne_zero hb0, ?_⟩
+  simpa [algebraMap_int_eq, mul_comm] using hb
+
+theorem exists_den_mat (A : M2 Af) : ∃ M : ℤ, M ≠ 0 ∧ IsZ ((M : Af) • A) := by
+  classical
+  choose M hM0 hM using fun i j => exists_den (A i j)
+  refine ⟨∏ p : Fin 2 × Fin 2, M p.1 p.2, Finset.prod_ne_zero_iff.mpr fun p _ => hM0 _ _, ?_⟩
+  intro i j
+  rw [Matrix.smul_apply, smul_eq_mul]
+  have : ((∏ p : Fin 2 × Fin 2, M p.1 p.2 : ℤ) : Af) * A i j =
+      ((M i j : Af) * A i j) * ((∏ p ∈ Finset.univ.erase (i, j), M p.1 p.2 : ℤ) : Af) := by
+    rw [← Finset.mul_prod_erase Finset.univ (fun p : Fin 2 × Fin 2 => M p.1 p.2)
+      (Finset.mem_univ (i, j))]
+    push_cast; ring
+  rw [this]; exact mul_mem (hM i j) (intCast_mem _)
+
+theorem isUnit_intCast {z : ℤ} (hz : z ≠ 0) : IsUnit (z : Af) := by
+  rw [← algebraMap_int]
+  exact (IsUnit.mk0 _ (by exact_mod_cast hz : (z : ℚ) ≠ 0)).map _
+
+/-- **`GL₂(𝔸_f) = GL₂(ℚ)⁺ · GL₂(ℤ̂)`** (`U0 1 = GL₂(ℤ̂)`). -/
+theorem exists_GLpos_mul_GLZhat (g : GL (Fin 2) Af) :
+    ∃ γ ∈ Matrix.GLPos (Fin 2) ℚ, ∃ k ∈ U0 1, g = mapQ γ * k := by
+  classical
+  obtain ⟨M1, hM1, hA⟩ := exists_den_mat (g : M2 Af)
+  obtain ⟨M2', hM2, hB⟩ := exists_den_mat ((g⁻¹ : GL (Fin 2) Af) : M2 Af)
+  set A := (M1 : Af) • (g : M2 Af) with hAdef
+  set B := (M2' : Af) • ((g⁻¹ : GL (Fin 2) Af) : M2 Af) with hBdef
+  set D : ℤ := M1 * M2' with hDdef
+  have hD : D ≠ 0 := mul_ne_zero hM1 hM2
+  have hAB : A * B = (D : Af) • (1 : M2 Af) := by
+    rw [hAdef, hBdef, Matrix.smul_mul, Matrix.mul_smul, Units.mul_inv, smul_smul, hDdef,
+      Int.cast_mul]
+  choose r c hc hrc using fun i j => exists_int_sub_dvdZ D hD (hA i j)
+  set m : M2 ℤ := Matrix.of r with hm
+  set X : M2 Af := Matrix.of c with hX
+  have hXZ : IsZ X := fun i j => hc i j
+  have hAmX : A = toAf m + (D : Af) • X := by
+    refine Matrix.ext fun i j => ?_
+    have := hrc i j
+    simp only [toAf, hm, hX, Matrix.add_apply, Matrix.map_apply, Matrix.of_apply,
+      Matrix.smul_apply, smul_eq_mul, Int.coe_castRingHom]
+    linear_combination this
+  obtain ⟨γ, P, Q, R, S, hdet, h1, h2, h3⟩ := lattice_basis_pos m D hD
+  have e1 : toAf γ = toAf m * toAf P + (D : Af) • toAf Q := by
+    rw [h1, toAf_add, toAf_mul, toAf_smul]
+  have e2 : toAf m = toAf γ * toAf R := by rw [← toAf_mul, ← h2]
+  have e3 : (D : Af) • (1 : M2 Af) = toAf γ * toAf S := by
+    rw [← toAf_mul, ← h3, toAf_smul, toAf_one]
+  set k := toAf R + toAf S * X with hkdef
+  set k' := toAf P - B * X * toAf P + B * toAf Q with hk'def
+  have hk : toAf γ * k = A := by
+    rw [hkdef, Matrix.mul_add, ← Matrix.mul_assoc, ← e2, ← e3, Matrix.smul_mul, Matrix.one_mul,
+      hAmX]
+  have hΓ : IsUnit (toAf γ).det := by rw [toAf_det]; exact isUnit_intCast hdet.ne'
+  have hkk' : k * k' = 1 := by
+    have h0 : toAf γ * (k * k') = toAf γ * 1 := by
+      rw [← Matrix.mul_assoc, hk, Matrix.mul_one, hk'def]
+      simp only [Matrix.mul_add, Matrix.mul_sub, ← Matrix.mul_assoc, hAB]
+      rw [e1, hAmX]
+      simp only [Matrix.add_mul, Matrix.smul_mul, Matrix.one_mul]
+      abel
+    have := congrArg (fun Y => (toAf γ)⁻¹ * Y) h0
+    simpa only [← Matrix.mul_assoc, Matrix.nonsing_inv_mul _ hΓ, Matrix.one_mul] using this
+  let kU : GL (Fin 2) Af := ⟨k, k', hkk', mul_eq_one_comm.mp hkk'⟩
+  have hkU : kU ∈ U0 1 := by
+    refine ⟨(isZ_toAf R).add ((isZ_toAf S).mul hXZ),
+      ((isZ_toAf P).sub ((hB.mul hXZ).mul (isZ_toAf P))).add (hB.mul (isZ_toAf Q)),
+      k 1 0, ?_, by simp [kU]⟩
+    exact (isZ_toAf R).add ((isZ_toAf S).mul hXZ) 1 0
+  have hM1q : (M1 : ℚ) ≠ 0 := by exact_mod_cast hM1
+  have hγdet : ((M1 : ℚ)⁻¹ • (γ.map (Int.castRingHom ℚ))).det ≠ 0 := by
+    rw [Matrix.det_smul, ← RingHom.mapMatrix_apply, ← RingHom.map_det]
+    simp [hM1q, hdet.ne']
+  let γq : GL (Fin 2) ℚ := Matrix.GeneralLinearGroup.mkOfDetNeZero _ hγdet
+  refine ⟨γq, ?_, kU, hkU, ?_⟩
+  · rw [Matrix.mem_glpos]
+    show 0 < ((M1 : ℚ)⁻¹ • (γ.map (Int.castRingHom ℚ))).det
+    rw [Matrix.det_smul, ← RingHom.mapMatrix_apply, ← RingHom.map_det]
+    have : (0 : ℚ) < γ.det := by exact_mod_cast hdet
+    simp only [Fintype.card_fin, eq_intCast]
+    positivity
+  · apply Units.ext
+    show (g : M2 Af) = ((M1 : ℚ)⁻¹ • (γ.map (Int.castRingHom ℚ))).map (algebraMap ℚ Af) * k
+    have hmap : ((M1 : ℚ)⁻¹ • (γ.map (Int.castRingHom ℚ))).map (algebraMap ℚ Af) =
+        algebraMap ℚ Af ((M1 : ℚ)⁻¹) • toAf γ := by
+      refine Matrix.ext fun i j => ?_; simp [toAf]
+    rw [hmap, Matrix.smul_mul, hk, hAdef, smul_smul, ← algebraMap_int,
+      ← map_mul, inv_mul_cancel₀ hM1q, map_one, one_smul]
+
+/-! ## §6. `GL₂(ℤ̂) = SL₂(ℤ) · U₀(N)` and strong approximation -/
+
+/-- `SL₂(ℤ) → GL₂(𝔸_f)`. -/
+def mapZ (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ) : GL (Fin 2) Af where
+  val := toAf σ
+  inv := toAf ↑σ⁻¹
+  val_inv := by
+    rw [← toAf_mul, ← Matrix.SpecialLinearGroup.coe_mul, mul_inv_cancel,
+      Matrix.SpecialLinearGroup.coe_one, toAf_one]
+  inv_val := by
+    rw [← toAf_mul, ← Matrix.SpecialLinearGroup.coe_mul, inv_mul_cancel,
+      Matrix.SpecialLinearGroup.coe_one, toAf_one]
+
+/-- `SL₂(ℤ) → GL₂(ℚ)⁺`. -/
+def sigQ (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ) : GL (Fin 2) ℚ :=
+  Matrix.SpecialLinearGroup.toGL (Matrix.SpecialLinearGroup.map (Int.castRingHom ℚ) σ)
+
+theorem sigQ_mem (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ) : sigQ σ ∈ Matrix.GLPos (Fin 2) ℚ := by
+  rw [Matrix.mem_glpos]
+  simp [sigQ]
+
+theorem mapQ_sigQ (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ) : mapQ (sigQ σ) = mapZ σ := by
+  apply Units.ext
+  ext i j
+  simp [sigQ, mapZ, toAf]
+
+theorem mapZ_mem {N : ℕ} {σ : Matrix.SpecialLinearGroup (Fin 2) ℤ}
+    (hσ : σ ∈ CongruenceSubgroup.Gamma0 N) : mapZ σ ∈ U0 N := by
+  rw [CongruenceSubgroup.Gamma0_mem, ZMod.intCast_zmod_eq_zero_iff_dvd] at hσ
+  obtain ⟨t, ht⟩ := hσ
+  refine ⟨isZ_toAf _, isZ_toAf _, t, intCast_mem t, ?_⟩
+  show toAf σ 1 0 = _
+  simp [toAf, ht]
+
+theorem exists_SL2Z_mul (N : ℕ) (hN : N ≠ 0) {k : GL (Fin 2) Af} (hk : k ∈ U0 1) :
+    ∃ σ : Matrix.SpecialLinearGroup (Fin 2) ℤ, ∃ u ∈ U0 N, k = mapZ σ * u := by
+  classical
+  have hN' : (N : ℤ) ≠ 0 := by exact_mod_cast hN
+  set d := Matrix.GeneralLinearGroup.det k with hddef
+  have hd : d ∈ ZhatU := by rw [← det_U0 1]; exact ⟨k, hk, rfl⟩
+  set k1 := k * diagU d⁻¹ with hk1def
+  have hk1det : (k1 : M2 Af).det = 1 := by
+    have := congrArg Units.val (map_mul Matrix.GeneralLinearGroup.det k (diagU d⁻¹))
+    rw [det_diagU, ← hddef, mul_inv_cancel, Units.val_one] at this
+    rw [← this]; rfl
+  have hk1 : k1 ∈ U0 1 := mul_mem hk (diagU_mem (inv_mem hd))
+  obtain ⟨hk1Z, hk1'Z, -⟩ := hk1
+  choose r c hc hrc using fun i j => exists_int_sub_dvdZ N hN' (hk1Z i j)
+  set m : M2 ℤ := Matrix.of r with hm
+  set Y : M2 Af := Matrix.of c with hY
+  have hYZ : IsZ Y := fun i j => hc i j
+  have hk1m : ∀ i j, (k1 : M2 Af) i j = (m i j : Af) + N * Y i j := fun i j => by
+    have := hrc i j; push_cast at this; simp only [hm, hY, Matrix.of_apply]
+    linear_combination this
+  have hdetm : DvdZ N ((m.det - 1 : ℤ) : Af) := by
+    set K := (k1 : M2 Af)
+    refine ⟨-(K 0 0 * Y 1 1 + Y 0 0 * K 1 1 - K 0 1 * Y 1 0 - Y 0 1 * K 1 0) +
+      N * (Y 0 0 * Y 1 1 - Y 0 1 * Y 1 0), ?_, ?_⟩
+    · have hK := hk1Z
+      exact add_mem (neg_mem (sub_mem (sub_mem (add_mem (mul_mem (hK 0 0) (hYZ 1 1))
+        (mul_mem (hYZ 0 0) (hK 1 1))) (mul_mem (hK 0 1) (hYZ 1 0)))
+        (mul_mem (hYZ 0 1) (hK 1 0)))) (mul_mem (intCast_mem N)
+        (sub_mem (mul_mem (hYZ 0 0) (hYZ 1 1)) (mul_mem (hYZ 0 1) (hYZ 1 0))))
+    · have hdK : K 0 0 * K 1 1 - K 0 1 * K 1 0 = 1 := by rw [← Matrix.det_fin_two]; exact hk1det
+      rw [Int.cast_sub, Int.cast_one, Matrix.det_fin_two m]
+      push_cast
+      have e : ∀ i j, (m i j : Af) = K i j - N * Y i j := fun i j => by
+        rw [hk1m i j]; ring
+      rw [e 0 0, e 0 1, e 1 0, e 1 1]
+      linear_combination hdK
+  have hNd : (N : ℤ) ∣ m.det - 1 := int_dvd_of_dvdZ hN' hdetm
+  let mbar : Matrix.SpecialLinearGroup (Fin 2) (ZMod N) :=
+    ⟨m.map (Int.castRingHom (ZMod N)), by
+      rw [← RingHom.mapMatrix_apply, ← RingHom.map_det]
+      have := (ZMod.intCast_zmod_eq_zero_iff_dvd (m.det - 1) N).mpr hNd
+      rw [Int.cast_sub, Int.cast_one, sub_eq_zero] at this
+      exact this⟩
+  obtain ⟨σ, hσ⟩ := sl2_reduction_surjective N mbar
+  have hσm : ∀ i j, (N : ℤ) ∣ σ i j - m i j := by
+    intro i j
+    have := congrArg (fun s : Matrix.SpecialLinearGroup (Fin 2) (ZMod N) =>
+      (s : Matrix (Fin 2) (Fin 2) (ZMod N)) i j) hσ
+    simp only [mbar, Matrix.SpecialLinearGroup.map_apply_coe, RingHom.mapMatrix_apply,
+      Matrix.map_apply, Int.coe_castRingHom] at this
+    exact (ZMod.intCast_eq_intCast_iff_dvd_sub _ _ _).mp this.symm
+  choose t ht using hσm
+  set Y' : M2 Af := Y - (Matrix.of fun i j => (t i j : Af)) with hY'
+  have hY'Z : IsZ Y' := hYZ.sub fun i j => intCast_mem _
+  have hk1σ : (k1 : M2 Af) = toAf σ + (N : Af) • Y' := by
+    refine Matrix.ext fun i j => ?_
+    have e := ht i j
+    have e' : ((σ i j : ℤ) : Af) = (m i j : Af) + N * t i j := by
+      have : σ i j = m i j + N * t i j := by linarith
+      rw [this]; push_cast; ring
+    simp only [Matrix.add_apply, Matrix.smul_apply, smul_eq_mul, hY', Matrix.sub_apply,
+      Matrix.of_apply, toAf, Matrix.map_apply, Int.coe_castRingHom, hk1m i j, e']
+    ring
+  set u := (mapZ σ)⁻¹ * k1 with hudef
+  have hu : u ∈ U0 N := by
+    refine ⟨?_, ?_, ?_⟩
+    · show IsZ (toAf ↑σ⁻¹ * (k1 : M2 Af))
+      exact (isZ_toAf _).mul hk1Z
+    · rw [hudef, _root_.mul_inv_rev, inv_inv, Units.val_mul]
+      exact hk1'Z.mul (isZ_toAf _)
+    · refine ⟨(toAf ↑σ⁻¹ * Y') 1 0, ((isZ_toAf _).mul hY'Z) 1 0, ?_⟩
+      show (toAf ↑σ⁻¹ * (k1 : M2 Af)) 1 0 = _
+      have hinv : toAf ↑σ⁻¹ * toAf σ = 1 := (mapZ σ).inv_val
+      rw [hk1σ, Matrix.mul_add, hinv, Matrix.mul_smul, Matrix.add_apply, Matrix.smul_apply,
+        Matrix.one_apply_ne (by decide), smul_eq_mul, zero_add]
+      push_cast; ring
+  refine ⟨σ, u * (diagU d⁻¹)⁻¹, mul_mem hu (inv_mem (diagU_mem (inv_mem hd))), ?_⟩
+  rw [hudef, hk1def]; group
+
+/-- **Strong approximation for `GL₂` (the form TYZ use): `GL₂(𝔸_f) = GL₂(ℚ)⁺ · U₀(N)`.** -/
+theorem strong_approx (N : ℕ) (hN : N ≠ 0) (g : GL (Fin 2) Af) :
+    ∃ γ ∈ Matrix.GLPos (Fin 2) ℚ, ∃ u ∈ U0 N, g = mapQ γ * u := by
+  obtain ⟨γ, hγ, k, hk, rfl⟩ := exists_GLpos_mul_GLZhat g
+  obtain ⟨σ, u, hu, rfl⟩ := exists_SL2Z_mul N hN hk
+  exact ⟨γ * sigQ σ, mul_mem hγ (sigQ_mem σ), u, hu, by rw [map_mul, mapQ_sigQ, mul_assoc]⟩
+
 end ZInQ.AdelicX0
