@@ -2,7 +2,7 @@
 
 This **candidate** is a locally reproducible mathematical/evidence package for the `elliotglazer/diophantine-z-q` review process; it is not a claim of official upstream release or Protocol B acceptance.
 
-Read [REVIEW_RESPONSE.md](REVIEW_RESPONSE.md) for the current response to Fable's F1–F3 and Astra's incomplete-review scope. Read [REVIEW_NOTE.md](REVIEW_NOTE.md) for the statement, a proof of the input-preserving rational coordinate equivalence, source dependencies, verified scope, limitations and attribution. The complete arithmetic text is [paper.tex](paper.tex); [source_paper.tex](source_paper.tex) is the previous 229-variable arithmetic argument for comparison.
+For the second review's remaining verification scope see [DEPENDENCY_INDEX.md](DEPENDENCY_INDEX.md) and [check_source_bridge.py](check_source_bridge.py). Read [REVIEW_RESPONSE.md](REVIEW_RESPONSE.md) for the current response to Fable's F1–F3 and Astra's incomplete-review scope. Read [REVIEW_NOTE.md](REVIEW_NOTE.md) for the statement, a proof of the input-preserving rational coordinate equivalence, source dependencies, verified scope, limitations and attribution. The complete arithmetic text is [paper.tex](paper.tex); [source_paper.tex](source_paper.tex) is the previous 229-variable arithmetic argument for comparison.
 
 The final literal polynomial is [quartic229-N15.txt](quartic229-N15.txt): 229 total variables including input, degree 4, 3,312 monomials, maximum coefficient `149^30`, canonical text **74,007 bytes**, SHA-256 `45bdea1ea7876bf6ec10b5427f9403cf1f94c144fab35817aa545bcb2cea1975`.
 
@@ -12,6 +12,8 @@ The final literal polynomial is [quartic229-N15.txt](quartic229-N15.txt): 229 to
 - `source/quadratic195.json`: the byte-identical 175-row parent table from Elliot's Version 19 research archive.
 - `source/transformation195.json`: pinned source coordinate-change table for the 195-coordinate construction.
 - `graft.json` and `contact-change.json`: all 34 coordinate copies, 31 row copies, all contact changes and aggregate identities.
+- `check_source_bridge.py`: new standard-library verification of the nine isolated contact helper coordinates, all three complete secant field pairs, x193's imaginary inverse-Vieta product, both inverse-Vieta r components and source hashes.
+- `DEPENDENCY_INDEX.md`: pinned Version 20 theorem labels and line ranges for source/consumer review, including the simultaneous prime theorem and prepared pole realization.
 - `check_graft.py`: separate standard-library verifier for all retained/copied rows, physical contacts, source point recovery, scalar guards and source coefficient profiles.
 - `suppliers/effective_torsion_sums_20261117_v62.tex`: full proof of the effective height inequality with torsion and zero indices, including the sharp 40/2285 numerical corollary.
 - `check_arithmetic.py` and `arithmetic_certificate.json`: exact rational inequalities and finite-prime checks for the N=15 proof.
@@ -29,6 +31,7 @@ From this directory:
 ```sh
 python -B build.py
 python -B check_graft.py
+python -B check_source_bridge.py
 python -B check_arithmetic.py --output arithmetic_certificate_replay.json
 python -B check.py
 python -B upstream/measure_plain_text.py polynomial.json --verify-text quartic229-N15.txt

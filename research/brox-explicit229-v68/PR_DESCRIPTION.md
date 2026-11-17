@@ -22,22 +22,23 @@ The source system is pinned to `JoseBrox/diophantine-z-q_improvements@7501669160
 
 ## Independent computations and reproduction
 
-The repaired package additionally includes the original 195-coordinate parent table, 34-coordinate/31-row graft certificates, the full torsion-height proof, explicit cutoff-free local extraction and arithmetic support checks. The package includes all 207 transformed quadrics, every one of the 3,312 expanded coefficients, the literal expression, diagonal exponents, source tables, independent checker scripts and reference measuring program. Run within `research/brox-explicit229-v68/`:
+A second-round audit supplement is supplied in `DEPENDENCY_INDEX.md`: it pins exact line ranges for the simultaneous-prime theorem, avoidance/progression lemmas, elliptic generator input and zero-preparation pole realization, and includes a small source-table checker `check_source_bridge.py`. The repaired package additionally includes the original 195-coordinate parent table, 34-coordinate/31-row graft certificates, the full torsion-height proof, explicit cutoff-free local extraction and arithmetic support checks. The package includes all 207 transformed quadrics, every one of the 3,312 expanded coefficients, the literal expression, diagonal exponents, source tables, independent checker scripts and reference measuring program. Run within `research/brox-explicit229-v68/`:
 
 ```sh
 python -B build.py
 python -B check_graft.py
+python -B check_source_bridge.py
 python -B check_arithmetic.py --output arithmetic_certificate_replay.json
 python -B check.py
 python -B upstream/measure_plain_text.py polynomial.json --verify-text quartic229-N15.txt
 python -B check_independent.py --package . --repo . --manuscript paper.tex --output independent_certificate_replay.json
 ```
 
-The first three commands require Python's standard library; the fourth additionally requires SymPy. Source v68 certificates record PASS. A separate GPT-6 exact-BigInt reconstruction checked all **1,132 source terms**, all **207 transformed rows**, **3,312 quartic coefficients**, content 1, all 229 occurring variables, the input-preserving substitution, height `149^30`, and equality to the canonical **74,007-byte** ASCII literal. The pinned reference measurer reports `within_limit=true`. Literal SHA-256: `45bdea1ea7876bf6ec10b5427f9403cf1f94c144fab35817aa545bcb2cea1975`.
+All commands above except the final SymPy checker require only Python's standard library; the final command requires SymPy. Source v68 certificates record PASS. A separate GPT-6 exact-BigInt reconstruction checked all **1,132 source terms**, all **207 transformed rows**, **3,312 quartic coefficients**, content 1, all 229 occurring variables, the input-preserving substitution, height `149^30`, and equality to the canonical **74,007-byte** ASCII literal. The pinned reference measurer reports `within_limit=true`. Literal SHA-256: `45bdea1ea7876bf6ec10b5427f9403cf1f94c144fab35817aa545bcb2cea1975`.
 
 ## Review, integration and limits
 
-The original standard-library and SymPy certificates and the additional BigInt computation concern **finite algebra and representation**; they are not an authorized Protocol B outside review. The new source-input proofs require fresh independent evaluation. Fable's review of the preceding head identified F1 (height supplier missing), F2 (graft binding missing), and F3 (small-prime local extraction not justified), while Astra and Fable both reported incomplete review coverage. This revision supplies the missing materials and new proof, without claiming that reviewers have accepted them. The inherited mathematical theorem and all external arithmetic applications require the project's review standard. No fresh hosted CI result or unrecorded human review is claimed.
+The original standard-library and SymPy certificates and the additional BigInt computation concern **finite algebra and representation**; they are not an authorized Protocol B outside review. The second-round Astra and Fable reports found no new blocking mathematical error and regarded F1/F3 as resolved, but both review scopes remain incomplete, primarily at the source-data joins. The new source-input proofs and finite artifacts require complete independent evaluation. Fable's review of the preceding head identified F1 (height supplier missing), F2 (graft binding missing), and F3 (small-prime local extraction not justified), while Astra and Fable both reported incomplete review coverage. This revision supplies the missing materials and new proof, without claiming that reviewers have accepted them. The inherited mathematical theorem and all external arithmetic applications require the project's review standard. No fresh hosted CI result or unrecorded human review is claimed.
 
 A **complete updated current TeX project and matching PDF**, their hashes, next ordinary integer manuscript version, independent whole-argument acceptance and separate release approval are **not included** at this candidate-note stage. Maintainers must integrate accepted work and review the current TeX/PDF pair before announcing an official record. This proposal leaves the published Version 20 intact. `scripts/check_audit_history.py --self-test` was not rerun in this upstream tree, as no audit-history or current-manuscript file was changed.
 

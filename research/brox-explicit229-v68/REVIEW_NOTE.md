@@ -18,7 +18,7 @@ P_hat(new_y) = sum_{j=1}^{207} R_j(new_y)^2.
 
 Here `a_1=0`, and every scaling factor is a nonzero rational number. The diagonal map is an automorphism of rational affine 229-space fixing the input. Each transformed quadratic row is an integer polynomial with content one (all 1,132 source terms were checked). Since rational sums of squares are zero exactly when every term is zero, the projection of `P_hat=0` onto the distinguished input is **exactly the same** as the projection of the source 207-row system. This transfers soundness and integer completeness from the **newly proved source N=15 theorem**, subject to its stated global arithmetic inputs. Only the diagonal change itself introduces no new arithmetic condition. Upstream Version 20 does not prove this effective N=15 theorem.
 
-The full arithmetic exposition and diagonal exponent tables appear in `paper.tex`. The original arithmetic body matches the preceding `source_paper.tex` apart from the theorem-label replacement; a new final source-input-audit section proves the cutoff-free local comparison and identifies the height and graft suppliers. The standalone four-point height proof is included under `suppliers/`.
+A pinned source/consumer index for the fresh N=15 route is provided in `DEPENDENCY_INDEX.md` and a focused source-table script is `check_source_bridge.py`. The full arithmetic exposition and diagonal exponent tables appear in `paper.tex`. The original arithmetic body matches the preceding `source_paper.tex` apart from the theorem-label replacement; a new final source-input-audit section proves the cutoff-free local comparison and identifies the height and graft suppliers. The standalone four-point height proof is included under `suppliers/`.
 
 ## Independent exact computation
 
@@ -36,6 +36,7 @@ Reproduce from this directory:
 ```sh
 python -B build.py
 python -B check_graft.py
+python -B check_source_bridge.py
 python -B check_arithmetic.py --output arithmetic_certificate_replay.json
 python -B check.py
 python -B upstream/measure_plain_text.py polynomial.json --verify-text quartic229-N15.txt

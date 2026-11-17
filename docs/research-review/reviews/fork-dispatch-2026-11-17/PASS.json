@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "verified_at": "2026-11-17T03:24:06.572359+00:00",
+  "pr": 144,
+  "head": "f13c114ae1ed42f9f9863aa0118cc30e14082a1a",
+  "base": "5c7ad7973b911ebc0ee1532cc8fcf5dbf70b52f4",
+  "kernel_run": 43999602932,
+  "gate_run": 44004656292,
+  "artifact": 14295483026,
+  "artifact_sha256": "87bb930351e49c28a6099304f66288077fef5cef8bd8200758339ce36f502973",
+  "workflow_sha256": "a340919517c59da2c446ab3f7119377d9b4aa2cdc7760159cf93d5165cd7d745",
+  "contract_sha256": "87028f6f342e173412914a32451584c86b02416e5061b837cb9df62bfb5392ac",
+  "modules": 944,
+  "declarations": 37708,
+  "project_cache_restore": "skipped",
+  "project_cache_save": "skipped",
+  "token_permissions": "GITHUB_TOKEN Permissions\n2026-11-17T01:59:09.8367397Z Actions: read\n2026-11-17T01:59:09.8368180Z Contents: read\n2026-11-17T01:59:09.8368823Z Metadata: read\n2026-11-17T01:59:09.8369440Z PullRequests: read\n2026-11-17T01:59:09.8370437Z ",
+  "review_provider_calls": 0,
+  "provider_call_basis": "PR stayed draft before reviewer stage; no provider reports in gate artifacts; ready preflight was still retained.",
+  "limits": [
+    "A controlled fork owned by an authenticated admin; not a test of outsider authorization.",
+    "Checks execution provenance and the unchanged kernel audit, not completion of all open Lean targets."
+  ],
+  "cleanup": {
+    "pr_state": "closed",
+    "merged": false,
+    "run": 44009975893,
+    "job": 133794383202,
+    "conclusion": "success",
+    "reserved_refs_remaining": 0,
+    "observed_at": "2026-11-17T03:27:59.226364+00:00"
+  }
+}
