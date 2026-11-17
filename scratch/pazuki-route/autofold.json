@@ -1,0 +1,55 @@
+{
+ "name": "pazuki-route",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.PazukiRoute"
+ ],
+ "discharges": [
+  {
+   "field": "pazukiCor13Upper",
+   "proof": "_root_.PazukiRoute.pazukiCor13Upper_of_route {t}.gagaMorphism {n}.pazukiCor13UpperPP {n}.riemannPPAV {l}.picRepresentableAbVar {n}.ampleDescendsFieldExt {n}.symmetricClassesCountable {n}.countablePointsDefinedOver",
+   "leaves": [
+    {
+     "name": "pazukiCor13UpperPP",
+     "type": "_root_.PazukiDict.PazukiCor13UpperPP",
+     "doc": "Pazuki, Theta height and Faltings height, Bull. SMF 140 (2012), Cor. 1.3(2) (g = r = 2), upper half, for an algebraic principally polarized abelian surface (A_K', L) (L ample, symmetric, h0 = 1) with the biholomorphic uniformization and the period matrix of (A_sigma, L) given by the theta divisor; printed form (pazuki-dict).",
+     "kind": "published",
+     "flag": "reading risk: Pazuki Def. 2.6 level-2 theta coordinates identified with the classical theta[a;b](0, Omega) (UNVERIFIED; locators.md item 5, leaf-review-b premise 3; if they are theta[a;0](0, 2 Omega) the leaf overstates the print by about log 4); locator UNVERIFIED",
+     "source": "Pazuki, Bull. SMF 140 (2012), Cor. 1.3(2), pp. 21-22 (arXiv:0907.1458v2 Cor. 1.3(2) p. 3; Def. 2.1 pp. 6-7; Def. 2.6 p. 9), upper half, algebraic (A, L) as printed"
+    },
+    {
+     "name": "riemannPPAV",
+     "type": "_root_.PazukiAlg.RiemannPPAV",
+     "doc": "Riemann's theorem for Omega in the Siegel space H_2 (pazuki-alg): there are a complex abelian surface B0 with a biholomorphic uniformization C^2/(Omega Z^2 + Z^2) = B0(C), a symmetric principal polarization L0 of B0 (ample, symmetric, h0 = 1) and a section of L0 whose divisor is the zero set of theta(. + c, Omega) for some c (the print has c = 0). Printed in the analytic category (Mumford AV 2-3, Birkenhake-Lange 8.1 and 8.5); read for schemes through Chow/GAGA, hence rated a composite.",
+     "kind": "composite",
+     "flag": "composite: Appell-Humbert and Frobenius (theta spans H0 of the symmetric bundle L(H_Omega, chi_0)), Lefschetz/Chow (X_Omega projective), GAGA (the line bundle and its section are algebraic); would clear with a print of the scheme form (an abelian variety over C with an ample symmetric L of h0 = 1 whose section is theta); locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, sections 2-3 (Appell-Humbert, Frobenius, algebraizability); Mumford, Tata Lectures on Theta I, Ch. II sections 1 and 3; Birkenhake-Lange, Complex abelian varieties, 8.1 and 8.5; Serre, GAGA (1956) (locators UNVERIFIED)"
+    },
+    {
+     "name": "ampleDescendsFieldExt",
+     "type": "_root_.PazukiRoute.AmpleDescendsFieldExt",
+     "doc": "Descent of ampleness along a field extension: for f : X -> Spec k proper, tau : k -> k' and L in Pic(X), if the pullback of L to X x_k k' is ample (Stacks 01PS, T09Pic.IsAmple) then L is ample. EGA IV 2.7.2 (descent of f-ampleness along the fpqc base change Spec k' -> Spec k) with EGA II 4.6.6 (f-ample over an affine base = ample); restricted to proper f.",
+     "kind": "published",
+     "flag": "locator UNVERIFIED (EGA IV 2.7.2, EGA II 4.6.6 recalled, not read); printed for quasi-compact f relative to S, read absolutely over the affine base Spec k (EGA II 4.6.6)",
+     "source": "EGA IV_2, Cor. 2.7.2; EGA II, Prop. 4.6.6 (locators UNVERIFIED)"
+    },
+    {
+     "name": "symmetricClassesCountable",
+     "type": "_root_.PazukiRoute.SymmetricClassesCountable",
+     "doc": "For an abelian variety A over a number field K and sigma : K -> C, the classes L in Pic(A_C) with [-1]^*L = L are countably many (pazuki-route). Why true: L -> phi_L into Hom(A_C, Pic0), free of finite rank (Mumford 19 Thm 3, homFreeFiniteC in the tree), kernel Pic0 (Mumford 8); symmetric classes in Pic0 are 2-torsion ([-1]^* = inverse on Pic0, Mumford 8 (iv)); Pic0[2] finite (Mumford 4).",
+     "kind": "composite",
+     "flag": "composite: Neron-Severi (phi_L into Hom(A, Pic0), Hom free of finite rank), [-1]^* is inversion on Pic0, Pic0[2] finite; every input is in the tree (homFreeFiniteC, mu_pic_of_isTI0, card_isDT_le0) but the assembly is not proved; locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, sections 4, 8 (iv), 19 Thm 3 (locators UNVERIFIED)"
+    },
+    {
+     "name": "countablePointsDefinedOver",
+     "type": "_root_.PazukiRoute.CountablePointsDefinedOver",
+     "doc": "A scheme Z locally of finite type over a number field K with countably many C-points over sigma : K -> C has every such point defined over a number field K' (x = Spec sigma' composed with y : Spec K' -> Z). Pure algebraic geometry and field theory: residue fields of Z are finitely generated over K; a non-algebraic one has uncountably many K-embeddings into C over sigma, giving uncountably many C-points (pazuki-route).",
+     "kind": "glue",
+     "flag": "project glue (no literature input): finitely generated residue fields, transcendence degree of C over a countable subfield, factorization of Spec C -> Z through Spec kappa(z)",
+     "source": "pazuki-route (standard: Zariski's lemma; uncountable transcendence degree of C over Q)"
+    }
+   ]
+  }
+ ],
+ "note": "pazuki-route (docs/research/pazuki-route.md): pazuki-inputs' composite core SymmPrincipalDefinedOver is proved (PazukiRoute.symmPrincipalDefinedOver_of_route) from the existing LEAF field picRepresentableAbVar, the new LEAF ampleDescendsFieldExt (EGA IV 2.7.2), the composite symmetricClassesCountable and the glue lemma countablePointsDefinedOver; h0 descends by flat base change (proved), the symmetric locus of the Picard scheme is locally of finite type (picLocFinType_proof) and its C-points are the symmetric classes (Kleiman 9.2.5, pushforwardUnitUniversal). Against kinds.tsv (pazukiCor13Upper GLUE) the strict GLUE count rises by two (needs --allow-rise): one more than pazuki-inputs. Not recommended for folding before symmetricClassesCountable and countablePointsDefinedOver are proved; then the fold is neutral (RiemannPPAV the only GLUE)."
+}
