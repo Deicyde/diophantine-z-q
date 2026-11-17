@@ -1,20 +1,26 @@
-"""Rename the 24 FLT declarations whose names clash with Tau Ceti (task flt-cqj2).
-Token-based: the last name component t becomes t_aflt in every new vendored file
-(new_files.txt).  A wrong rename cannot change meaning silently: the new names are
-fresh, so a token that referred to something else fails to elaborate."""
-import re
-toks="XYIdeal_isMaximal XYIdeal_ne_bot genericPoint genericX genericY infinite_point Coeff addXYZ_smulEval cusp dblXYZ_smulEval invar map_invar map_specialize map_ψc preΨ₄_add_Ψ₂Sq_sq preΨ₄_add_ψ₂_pow_four smulEval specialize φ_mul_ψ ψc ψc_neg normEDS_mul_complEDS normEDS_mul_complEDS_div universalNormEDS_ne_zero".split()
-IC=r"[\w'!?₀-₉ₐ-ₜᵢ-ᵪⱼ]"
-rx=re.compile(r"(?<!"+IC+")("+"|".join(sorted(map(re.escape,toks),key=len,reverse=True))+r")(?!"+IC+")")
-files=[l.strip() for l in open('scratch/flt-cqj2/new_files.txt') if l.strip()]
-changed=0
+"""Rename the vendored FLT declarations whose names clash with declarations already in the kernel's closure
+(task neron-flt; adapted from flt-cqj2's rename_clash.py). Token-based: each listed last name component t becomes
+t_nflt in every vendored file under ZInQKernel/Contrib/OneProof/NeronFLT/Vendor (import lines untouched). A wrong
+rename cannot change meaning silently: the new names are fresh, so a token that referred to something else fails
+to elaborate.  usage: python3 -I rename_clash.py TOKENS_FILE"""
+import re, sys, glob
+toks = [l.strip() for l in open(sys.argv[1]) if l.strip()]
+IC = r"[\w'!?₀-₉ₐ-ₜᵢ-ᵪⱼ]"
+rx = re.compile(r"(?<!" + IC + ")(" + "|".join(sorted(map(re.escape, toks), key=len, reverse=True)) + r")(?!" + IC + ")")
+files = glob.glob('ZInQKernel/Contrib/OneProof/NeronFLT/Vendor/**/*.lean', recursive=True)
+changed = 0
 for f in files:
-    s=open(f).read()
-    head,sep,body=s.partition('\n-/\n')   # keep the vendoring header comment intact
-    if not sep: raise SystemExit('no header '+f)
-    found=sorted(set(rx.findall(body)))
+    s = open(f, encoding='utf-8').read()
+    head, sep, body = s.partition('\n-/\n')
+    if not sep: raise SystemExit('no header ' + f)
+    lines = body.split('\n'); found = set(); out = []
+    for l in lines:
+        if l.startswith('import '): out.append(l); continue
+        fs = rx.findall(l)
+        if fs: found |= set(fs); l = rx.sub(lambda m: m.group(1) + '_nflt', l)
+        out.append(l)
     if not found: continue
-    body=rx.sub(lambda m:m.group(1)+'_aflt',body)
-    head+='\n[port] Tau Ceti name clash: renamed '+', '.join(f'`{t}` → `{t}_aflt`' for t in found)+'.'
-    open(f,'w').write(head+sep+body); changed+=1
-print('files changed',changed)
+    head += '\n[port] name clash with declarations already in the kernel: renamed ' + ', '.join(
+        f'`{t}` → `{t}_nflt`' for t in sorted(found)) + '.'
+    open(f, 'w', encoding='utf-8').write(head + sep + '\n'.join(out)); changed += 1
+print('files changed', changed)

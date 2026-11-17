@@ -6,6 +6,7 @@ Modified for the Z-in-Q kernel (2026-11-16, task neron-flt): local import paths 
 as `set_option` lines after the imports; any other change is marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+[port] name clash with declarations already in the kernel: renamed `pullback_hom_ext` → `pullback_hom_ext_nflt`.
 -/
 import Mathlib
 
@@ -104,7 +105,7 @@ lemma counit_app_pullbackLocalSection {N : X.Modules} {U : Y.Opens} (n : Γ((Mod
     CategoryTheory.comp_apply, CategoryTheory.id_apply] at h
   exact h
 
-theorem pullback_hom_ext {L : Y.Modules} {N : X.Modules} {g₁ g₂ : (Modules.pullback φ).obj L ⟶ N}
+theorem pullback_hom_ext_nflt {L : Y.Modules} {N : X.Modules} {g₁ g₂ : (Modules.pullback φ).obj L ⟶ N}
     (h : ∀ (U : Y.Opens) (s : Γ(L, U)),
       g₁.app (φ ⁻¹ᵁ U) (pullbackLocalSection φ s) = g₂.app (φ ⁻¹ᵁ U) (pullbackLocalSection φ s)) :
     g₁ = g₂ := by

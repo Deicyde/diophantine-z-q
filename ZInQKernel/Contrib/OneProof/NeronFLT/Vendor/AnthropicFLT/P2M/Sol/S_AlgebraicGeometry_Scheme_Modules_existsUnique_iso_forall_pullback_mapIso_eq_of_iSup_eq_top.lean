@@ -6,6 +6,7 @@ Modified for the Z-in-Q kernel (2026-11-16, task neron-flt): local import paths 
 as `set_option` lines after the imports; any other change is marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+[port] name clash with declarations already in the kernel: renamed `pullback_hom_ext` → `pullback_hom_ext_nflt`.
 -/
 import Mathlib
 import ZInQKernel.Contrib.OneProof.NeronFLT.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_ModulesPullbackLocalSection
@@ -28,11 +29,11 @@ universe u v
 noncomputable section
 
 namespace AlgebraicGeometry
-p2m_export "AlgebraicGeometry" "Scheme.Modules.Hom.app_smul Scheme.Modules.pullback Scheme.Hom Scheme.Hom.preimage_inf Scheme.Modules.Hom.comp_app Scheme.Modules.Hom Scheme Scheme.Modules.Hom.id_app Scheme.Modules.Hom.app IsOpenImmersion Scheme.Modules.pullbackCongr Scheme.Modules Scheme.Opens Scheme.Opens.ι_preimage_self Scheme.Opens.opensRange_ι Scheme.Modules.pullbackComp Scheme.Modules.map_homOfLE_pullbackLocalSection Scheme.Modules.pullbackLocalSection_app Scheme.Modules.pullback_hom_ext Scheme.Modules.existsUnique_hom_app_eq_of_iSup_eq_top"
+p2m_export "AlgebraicGeometry" "Scheme.Modules.Hom.app_smul Scheme.Modules.pullback Scheme.Hom Scheme.Hom.preimage_inf Scheme.Modules.Hom.comp_app Scheme.Modules.Hom Scheme Scheme.Modules.Hom.id_app Scheme.Modules.Hom.app IsOpenImmersion Scheme.Modules.pullbackCongr Scheme.Modules Scheme.Opens Scheme.Opens.ι_preimage_self Scheme.Opens.opensRange_ι Scheme.Modules.pullbackComp Scheme.Modules.map_homOfLE_pullbackLocalSection Scheme.Modules.pullbackLocalSection_app Scheme.Modules.pullback_hom_ext_nflt Scheme.Modules.existsUnique_hom_app_eq_of_iSup_eq_top"
 namespace Scheme
-p2m_export "AlgebraicGeometry.Scheme" "Modules.Hom.app_smul Modules.pullback Hom.id_app Hom Γ Hom.preimage_inf Modules.Hom.comp_app Hom.app Modules.Hom Modules.Hom.id_app Modules.Hom.app Hom.comp_app Modules.pullbackCongr Modules Opens homOfLE_ι Opens.ι_preimage_self Opens.opensRange_ι Modules.pullbackComp Modules.map_homOfLE_pullbackLocalSection Modules.pullbackLocalSection_app Modules.pullback_hom_ext Modules.existsUnique_hom_app_eq_of_iSup_eq_top"
+p2m_export "AlgebraicGeometry.Scheme" "Modules.Hom.app_smul Modules.pullback Hom.id_app Hom Γ Hom.preimage_inf Modules.Hom.comp_app Hom.app Modules.Hom Modules.Hom.id_app Modules.Hom.app Hom.comp_app Modules.pullbackCongr Modules Opens homOfLE_ι Opens.ι_preimage_self Opens.opensRange_ι Modules.pullbackComp Modules.map_homOfLE_pullbackLocalSection Modules.pullbackLocalSection_app Modules.pullback_hom_ext_nflt Modules.existsUnique_hom_app_eq_of_iSup_eq_top"
 namespace Modules
-p2m_export "AlgebraicGeometry.Scheme.Modules" "Hom.app_smul pullback presheaf Hom.comp_app Hom Hom.id_app Hom.app restrictAdjunction pullbackCongr isSheaf pullbackPushforwardAdjunction conjugateEquiv_pullbackComp_inv pullbackComp pullbackLocalSection pullbackLocalSection_def pullbackLocalSection_add pullbackLocalSection_smul map_homOfLE_pullbackLocalSection pullbackLocalSection_app pullback_hom_ext existsUnique_hom_app_eq_of_iSup_eq_top"
+p2m_export "AlgebraicGeometry.Scheme.Modules" "Hom.app_smul pullback presheaf Hom.comp_app Hom Hom.id_app Hom.app restrictAdjunction pullbackCongr isSheaf pullbackPushforwardAdjunction conjugateEquiv_pullbackComp_inv pullbackComp pullbackLocalSection pullbackLocalSection_def pullbackLocalSection_add pullbackLocalSection_smul map_homOfLE_pullbackLocalSection pullbackLocalSection_app pullback_hom_ext_nflt existsUnique_hom_app_eq_of_iSup_eq_top"
 namespace IsoGlueAux
 p2m_open "AlgebraicGeometry.Scheme.Modules AlgebraicGeometry.Scheme AlgebraicGeometry"
 
@@ -339,7 +340,7 @@ theorem solution
     intro i
     apply Iso.ext
     show (Scheme.Modules.pullback (U i).ι).map F = (e i).hom
-    apply Scheme.Modules.pullback_hom_ext
+    apply Scheme.Modules.pullback_hom_ext_nflt
     intro W s
     rw [← Scheme.Modules.pullbackLocalSection_app]
     have hle : W ⊓ U i ≤ W := inf_le_left

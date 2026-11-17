@@ -6,6 +6,7 @@ Modified for the Z-in-Q kernel (2026-11-16, task neron-flt): local import paths 
 as `set_option` lines after the imports; any other change is marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+[port] name clash with declarations already in the kernel: renamed `IsRegularLocalRing.isDomain` → `IsRegularLocalRing.isDomain_nflt`.
 -/
 import Mathlib
 import ZInQKernel.Contrib.OneProof.NeronFLT.Vendor.AnthropicFLT.Theorems.Thm_IsRegularLocalRing_isDomain
@@ -383,7 +384,7 @@ theorem main {A B : Type*} [CommRing A] [CommRing B] [IsRegularLocalRing A] [IsR
   have hdimJ : ringKrullDim (A ⧸ J) = b := (ringKrullDim_eq_natCast_iff b).mpr hhJ
   haveI : IsRegularLocalRing (A ⧸ J) :=
     IsRegularLocalRing.of_spanFinrank_maximalIdeal_le _ (by rw [hμJ, hdimJ])
-  haveI : IsDomain (A ⧸ J) := IsRegularLocalRing.isDomain _
+  haveI : IsDomain (A ⧸ J) := IsRegularLocalRing.isDomain_nflt _
 
   let gbar : A ⧸ J →+* B := Ideal.Quotient.lift J f (fun y hy => hJI hy)
   have hgbar_mk : ∀ y : A, gbar (Ideal.Quotient.mk J y) = f y := fun y => Ideal.Quotient.lift_mk _ _ _

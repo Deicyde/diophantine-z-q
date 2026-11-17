@@ -6,6 +6,7 @@ Modified for the Z-in-Q kernel (2026-11-16, task neron-flt): local import paths 
 as `set_option` lines after the imports; any other change is marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+[port] name clash with declarations already in the kernel: renamed `IsRegularLocalRing.isDomain` → `IsRegularLocalRing.isDomain_nflt`.
 -/
 import Mathlib
 import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
@@ -17,5 +18,5 @@ set_option backward.isDefEq.respectTransparency.types false
 set_option autoImplicit false
 
 open IsLocalRing
-theorem IsRegularLocalRing.isDomain (R : Type*) [CommRing R] [IsRegularLocalRing R] :
+theorem IsRegularLocalRing.isDomain_nflt (R : Type*) [CommRing R] [IsRegularLocalRing R] :
     IsDomain R := by p2m_exact_reverting @_root_.P2MW.S_IsRegularLocalRing_isDomain.solution

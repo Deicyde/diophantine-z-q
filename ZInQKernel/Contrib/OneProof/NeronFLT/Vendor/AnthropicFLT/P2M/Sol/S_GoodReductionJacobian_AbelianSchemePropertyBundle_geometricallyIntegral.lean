@@ -6,6 +6,8 @@ Modified for the Z-in-Q kernel (2026-11-16, task neron-flt): local import paths 
 as `set_option` lines after the imports; any other change is marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+[port] name clash with declarations already in the kernel: renamed `geometricallyConnected` → `geometricallyConnected_nflt`, `isRegularLocalRing_stalk` → `isRegularLocalRing_stalk_nflt`.
+[port] name clash with declarations already in the kernel: renamed `IsRegularLocalRing.isDomain` → `IsRegularLocalRing.isDomain_nflt`.
 -/
 import Mathlib
 import ZInQKernel.Contrib.OneProof.NeronFLT.Vendor.AnthropicFLT.Definitions.Def_JacJ1Iface
@@ -39,8 +41,8 @@ theorem isIntegral_of_smooth_of_connectedSpace {K : Type u} [Field K] {X : Schem
   haveI : IsLocallyNoetherian X := LocallyOfFiniteType.isLocallyNoetherian t
   exact AlgebraicGeometry.isIntegral_of_isLocallyNoetherian_of_connectedSpace_of_forall_isDomain_stalk
     X fun x => by
-      haveI := AlgebraicGeometry.Smooth.isRegularLocalRing_stalk (f := t) x
-      exact IsRegularLocalRing.isDomain _
+      haveI := AlgebraicGeometry.Smooth.isRegularLocalRing_stalk_nflt (f := t) x
+      exact IsRegularLocalRing.isDomain_nflt _
 
 scoped instance subsingleton_spec_field (K : Type u) [Field K] :
     Subsingleton ↥(Spec (CommRingCat.of K)) :=
@@ -162,7 +164,7 @@ theorem solution
   haveI : GeometricallyIntegral (pullback.snd f (bc k K)) :=
     AlgebraicGeometry.geometricallyIntegral_of_isAlgClosed _
   haveI : GeometricallyConnected (pullback.snd f (bc k K)) :=
-    AlgebraicGeometry.GeometricallyIrreducible.geometricallyConnected _
+    AlgebraicGeometry.GeometricallyIrreducible.geometricallyConnected_nflt _
   haveI : MorphismProperty.DescendsAlong (@GeometricallyConnected : MorphismProperty Scheme.{u})
       @Surjective :=
     AlgebraicGeometry.GeometricallyConnected.descendsAlong_surjective

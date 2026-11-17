@@ -6,6 +6,7 @@ Modified for the Z-in-Q kernel (2026-11-16, task neron-flt): local import paths 
 as `set_option` lines after the imports; any other change is marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+[port] name clash with declarations already in the kernel: renamed `tensorPow` → `tensorPow_nflt`, `tensorPow_succ` → `tensorPow_succ_nflt`, `tensorPow_zero` → `tensorPow_zero_nflt`.
 -/
 import Mathlib
 import ZInQKernel.Contrib.OneProof.NeronFLT.Vendor.AnthropicFLT.Definitions.Def_SheafOfModules_MonoidalV2
@@ -27,15 +28,15 @@ namespace AlgebraicGeometry.Scheme.Modules
 
 variable {X : Scheme.{u}}
 
-def tensorPow (L : X.Modules) : ℕ → X.Modules
+def tensorPow_nflt (L : X.Modules) : ℕ → X.Modules
   | 0 => 𝟙_ X.Modules
-  | n + 1 => tensorPow L n ⊗ L
+  | n + 1 => tensorPow_nflt L n ⊗ L
 
-@[simp] theorem tensorPow_zero (L : X.Modules) : L.tensorPow 0 = 𝟙_ X.Modules := rfl
+@[simp] theorem tensorPow_zero_nflt (L : X.Modules) : L.tensorPow_nflt 0 = 𝟙_ X.Modules := rfl
 
-@[simp] theorem tensorPow_succ (L : X.Modules) (n : ℕ) : L.tensorPow (n + 1) = L.tensorPow n ⊗ L := rfl
+@[simp] theorem tensorPow_succ_nflt (L : X.Modules) (n : ℕ) : L.tensorPow_nflt (n + 1) = L.tensorPow_nflt n ⊗ L := rfl
 
-def tensorPowOneIso (L : X.Modules) : L.tensorPow 1 ≅ L := λ_ L
+def tensorPowOneIso (L : X.Modules) : L.tensorPow_nflt 1 ≅ L := λ_ L
 
 end AlgebraicGeometry.Scheme.Modules
 

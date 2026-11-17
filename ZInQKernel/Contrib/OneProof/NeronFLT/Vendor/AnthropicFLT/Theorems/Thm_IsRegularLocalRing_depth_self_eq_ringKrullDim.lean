@@ -6,6 +6,7 @@ Modified for the Z-in-Q kernel (2026-11-16, task neron-flt): local import paths 
 as `set_option` lines after the imports; any other change is marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+[port] name clash with declarations already in the kernel: renamed `depth` → `depth_nflt`.
 -/
 import Mathlib
 import ZInQKernel.Contrib.OneProof.NeronFLT.Vendor.AnthropicFLT.Definitions.Def_Patching_SystemTypes
@@ -23,4 +24,4 @@ open IsLocalRing RingTheory
 
 theorem IsRegularLocalRing.depth_self_eq_ringKrullDim
     (R : Type*) [CommRing R] [IsNoetherianRing R] [IsRegularLocalRing R] :
-    (Module.depth R R : WithBot ℕ∞) = ringKrullDim R := by p2m_exact_reverting @_root_.P2MW.S_IsRegularLocalRing_depth_self_eq_ringKrullDim.solution
+    (Module.depth_nflt R R : WithBot ℕ∞) = ringKrullDim R := by p2m_exact_reverting @_root_.P2MW.S_IsRegularLocalRing_depth_self_eq_ringKrullDim.solution

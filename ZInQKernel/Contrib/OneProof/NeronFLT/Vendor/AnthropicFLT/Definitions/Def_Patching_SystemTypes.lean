@@ -6,6 +6,7 @@ Modified for the Z-in-Q kernel (2026-11-16, task neron-flt): local import paths 
 as `set_option` lines after the imports; any other change is marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+[port] name clash with declarations already in the kernel: renamed `depth` → `depth_nflt`.
 -/
 import Mathlib.Topology.Algebra.Nonarchimedean.AdicTopology
 import Mathlib.RingTheory.LocalRing.MaximalIdeal.Basic
@@ -45,7 +46,7 @@ instance (priority := 100) {R S : Type*} [CommRing R] [Ring S] [Algebra R S]
 
 open RingTheory in
 
-noncomputable def Module.depth (R M : Type*) [CommRing R] [IsLocalRing R]
+noncomputable def Module.depth_nflt (R M : Type*) [CommRing R] [IsLocalRing R]
     [AddCommGroup M] [Module R M] : ℕ∞ :=
   sSup { List.length s | (s : List R)
     (_ : Sequence.IsWeaklyRegular M s)

@@ -6,6 +6,7 @@ Modified for the Z-in-Q kernel (2026-11-16, task neron-flt): local import paths 
 as `set_option` lines after the imports; any other change is marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+[port] name clash with declarations already in the kernel: renamed `preservesBinaryProducts_opensMap` → `preservesBinaryProducts_opensMap_nflt`, `preservesTerminal_opensMap` → `preservesTerminal_opensMap_nflt`, `pullbackTensorObjIso` → `pullbackTensorObjIso_nflt`.
 -/
 import Mathlib
 import ZInQKernel.Contrib.OneProof.NeronFLT.Vendor.AnthropicFLT.Definitions.Def_PresheafOfModules_InternalHom
@@ -31,7 +32,7 @@ namespace AlgebraicGeometry.Scheme.Modules
 
 variable {X Y : Scheme.{u}} (f : X ⟶ Y)
 
-instance preservesBinaryProducts_opensMap :
+instance preservesBinaryProducts_opensMap_nflt :
     PreservesLimitsOfShape (Discrete WalkingPair) (Opens.map f.base) where
   preservesLimit {K} := ⟨fun {c} hc => ⟨
     { lift := fun s => homOfLE (by
@@ -46,7 +47,7 @@ instance preservesBinaryProducts_opensMap :
       fac := fun s j => Subsingleton.elim _ _
       uniq := fun s m _ => Subsingleton.elim _ _ }⟩⟩
 
-instance preservesTerminal_opensMap :
+instance preservesTerminal_opensMap_nflt :
     PreservesLimitsOfShape (Discrete PEmpty.{1}) (Opens.map f.base) where
   preservesLimit {K} := ⟨fun {c} hc => ⟨
     { lift := fun s => homOfLE (by
@@ -85,7 +86,7 @@ instance pullback_monoidal : (Modules.pullback f).Monoidal :=
     (SheafOfModules.presheafW (Opens.grothendieckTopology Y) Y.sheaf.obj)
     (Modules.pullback f) (pullback₀ f ⋙ Modules.sheafify X)
 
-def pullbackTensorObjIso (L M : Y.Modules) :
+def pullbackTensorObjIso_nflt (L M : Y.Modules) :
     (Modules.pullback f).obj (L ⊗ M) ≅ (Modules.pullback f).obj L ⊗ (Modules.pullback f).obj M :=
   (Functor.Monoidal.μIso (Modules.pullback f) L M).symm
 

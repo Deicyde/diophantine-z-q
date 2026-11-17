@@ -6,6 +6,7 @@ Modified for the Z-in-Q kernel (2026-11-16, task neron-flt): local import paths 
 as `set_option` lines after the imports; any other change is marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+[port] name clash with declarations already in the kernel: renamed `isInvertible_unit` → `isInvertible_unit_nflt`.
 -/
 import Mathlib
 import ZInQKernel.Contrib.OneProof.NeronFLT.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_NeronModelPropertyBundleCarrier
@@ -41,7 +42,7 @@ def Scheme.Modules.pullbackUnitIso {X Y : Scheme.{u}} (f : X ⟶ Y) :
   haveI h : IsIso (SheafOfModules.pullbackObjUnitToUnit f.toRingCatSheafHom) := inferInstance
   exact @asIso _ _ _ _ _ h
 
-theorem Scheme.Modules.isInvertible_unit (X : Scheme.{u}) :
+theorem Scheme.Modules.isInvertible_unit_nflt (X : Scheme.{u}) :
     Scheme.Modules.IsInvertible (SheafOfModules.unit X.ringCatSheaf) :=
   ⟨fun _ => ⟨⊤, trivial, ⟨Scheme.Modules.pullbackUnitIso _⟩⟩⟩
 
@@ -120,7 +121,7 @@ variable {C : Scheme.{u}} {c : C ⟶ Spec (CommRingCat.of R)}
 
 def unit {T : Scheme.{u}} (t : T ⟶ Spec (CommRingCat.of R)) : RigidifiedLineBundle c ε t where
   L := SheafOfModules.unit (pullback c t).ringCatSheaf
-  isInvertible := Scheme.Modules.isInvertible_unit _
+  isInvertible := Scheme.Modules.isInvertible_unit_nflt _
   rigidified := ⟨Scheme.Modules.pullbackUnitIso _⟩
 
 instance {T : Scheme.{u}} (t : T ⟶ Spec (CommRingCat.of R)) :

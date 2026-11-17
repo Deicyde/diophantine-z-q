@@ -6,6 +6,7 @@ Modified for the Z-in-Q kernel (2026-11-16, task neron-flt): local import paths 
 as `set_option` lines after the imports; any other change is marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+[port] name clash with declarations already in the kernel: renamed `isRegularLocalRing_stalk` → `isRegularLocalRing_stalk_nflt`.
 -/
 import Mathlib
 import ZInQKernel.Contrib.OneProof.NeronFLT.Vendor.AnthropicFLT.Definitions.Def_NeronModelInfra_WeakNeronModel
@@ -43,7 +44,7 @@ theorem isRegularLocalRing_localization_of_smooth [Algebra.Smooth k B] (q : Idea
     rw [RingHom.Smooth]
     convert (inferInstance : Algebra.Smooth k B)
     exact Algebra.algebra_ext _ _ fun _ => rfl
-  have h := AlgebraicGeometry.Smooth.isRegularLocalRing_stalk
+  have h := AlgebraicGeometry.Smooth.isRegularLocalRing_stalk_nflt
     (f := Spec.map (CommRingCat.ofHom (algebraMap k B))) (⟨q, hq⟩ : PrimeSpectrum B)
   exact @IsRegularLocalRing.of_ringEquiv _ _ h _ _
     (AlgebraicGeometry.StructureSheaf.stalkIso B (⟨q, hq⟩ : PrimeSpectrum B)).toRingEquiv.symm

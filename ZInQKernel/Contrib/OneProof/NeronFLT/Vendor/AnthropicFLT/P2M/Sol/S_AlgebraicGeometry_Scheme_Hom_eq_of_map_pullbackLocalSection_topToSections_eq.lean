@@ -6,6 +6,7 @@ Modified for the Z-in-Q kernel (2026-11-16, task neron-flt): local import paths 
 as `set_option` lines after the imports; any other change is marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+[port] name clash with declarations already in the kernel: renamed `pullback_hom_ext` → `pullback_hom_ext_nflt`.
 -/
 import Mathlib
 import ZInQKernel.Contrib.OneProof.NeronFLT.Vendor.AnthropicFLT.Definitions.Def_PresheafOfModules_ExteriorPower
@@ -116,7 +117,7 @@ theorem solution
         IsScalarTower.of_algebraMap_eq' (RingHom.ext fun a => BenchOB3.algebraMap_comm gY gX φ hφ U W hWU a)
       exact (hθ U hU W hW hWU η).trans (hθ' U hU W hW hWU η).symm
 
-  apply Scheme.Modules.pullback_hom_ext
+  apply Scheme.Modules.pullback_hom_ext_nflt
   intro U s
   refine BenchOB3.sec_ext (gX.topDifferentials d)
     (fun i : {U' : Y.affineOpens // (U' : Y.Opens) ≤ U} => φ ⁻¹ᵁ (i.1 : Y.Opens)) (φ ⁻¹ᵁ U)

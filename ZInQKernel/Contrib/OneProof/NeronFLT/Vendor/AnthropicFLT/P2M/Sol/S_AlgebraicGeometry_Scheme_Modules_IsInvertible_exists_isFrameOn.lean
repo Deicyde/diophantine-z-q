@@ -6,6 +6,7 @@ Modified for the Z-in-Q kernel (2026-11-16, task neron-flt): local import paths 
 as `set_option` lines after the imports; any other change is marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+[port] name clash with declarations already in the kernel: renamed `dual` → `dual_nflt`.
 -/
 import Mathlib
 import ZInQKernel.Contrib.OneProof.NeronFLT.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_RelativePicardFunctor
@@ -75,7 +76,7 @@ p2m_export "AlgebraicGeometry" "Scheme.Hom Scheme.Opens.ι_appIso Scheme.Hom.ima
 namespace Scheme
 p2m_export "AlgebraicGeometry.Scheme" "ringCatSheaf Modules.pullback Hom Γ Opens.ι_appIso Hom.image_preimage_eq_opensRange_inf Modules.restrictFunctor restrictFunctor Modules Opens grothendieckTopology Opens.opensRange_ι PresheafOfModules Modules.IsInvertible Modules.IsFrameOn"
 namespace Modules
-p2m_export "AlgebraicGeometry.Scheme.Modules" "pushforward pullback presheaf Hom restrictFunctor restrictFunctorIsoPullback map_smul IsInvertible dual IsFrameOn"
+p2m_export "AlgebraicGeometry.Scheme.Modules" "pushforward pullback presheaf Hom restrictFunctor restrictFunctorIsoPullback map_smul IsInvertible dual_nflt IsFrameOn"
 p2m_open "AlgebraicGeometry.Scheme.Modules AlgebraicGeometry.Scheme AlgebraicGeometry"
 
 namespace FrameBridge

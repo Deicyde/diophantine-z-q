@@ -6,6 +6,7 @@ Modified for the Z-in-Q kernel (2026-11-16, task neron-flt): local import paths 
 as `set_option` lines after the imports; any other change is marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+[port] name clash with declarations already in the kernel: renamed `depth` → `depth_nflt`, `depth_le_ringKrullDim_quotient_of_mem_associatedPrimes` → `depth_le_ringKrullDim_quotient_of_mem_associatedPrimes_nflt`.
 -/
 import Mathlib
 import ZInQKernel.Contrib.OneProof.NeronFLT.Vendor.AnthropicFLT.Definitions.Def_Patching_SystemTypes
@@ -18,8 +19,8 @@ set_option backward.isDefEq.respectTransparency.types false
 set_option autoImplicit false
 
 open IsLocalRing RingTheory
-theorem Module.depth_le_ringKrullDim_quotient_of_mem_associatedPrimes
+theorem Module.depth_le_ringKrullDim_quotient_of_mem_associatedPrimes_nflt
     {R : Type*} [CommRing R] [IsLocalRing R] [IsNoetherianRing R]
     (M : Type*) [AddCommGroup M] [Module R M] [Module.Finite R M]
     {p : Ideal R} (hp : p ∈ associatedPrimes R M) :
-    (Module.depth R M : WithBot ℕ∞) ≤ ringKrullDim (R ⧸ p) := by p2m_exact_reverting @_root_.P2MW.S_Module_depth_le_ringKrullDim_quotient_of_mem_associatedPrimes.solution
+    (Module.depth_nflt R M : WithBot ℕ∞) ≤ ringKrullDim (R ⧸ p) := by p2m_exact_reverting @_root_.P2MW.S_Module_depth_le_ringKrullDim_quotient_of_mem_associatedPrimes.solution

@@ -6,6 +6,7 @@ Modified for the Z-in-Q kernel (2026-11-16, task neron-flt): local import paths 
 as `set_option` lines after the imports; any other change is marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+[port] name clash with declarations already in the kernel: renamed `tensorPow` → `tensorPow_nflt`, `tensorPowSection` → `tensorPowSection_nflt`, `tensorPowSection_succ` → `tensorPowSection_succ_nflt`, `tensorPowSection_zero` → `tensorPowSection_zero_nflt`.
 -/
 import Mathlib
 import ZInQKernel.Contrib.OneProof.NeronFLT.Vendor.AnthropicFLT.Definitions.Def_PresheafOfModules_InternalHom
@@ -159,26 +160,26 @@ lemma smul_unitSection_bijective : Function.Bijective fun g : Γ(X, U) => g • 
   · exact mul_one g
   · exact mul_one (show Γ(X, U) from x)
 
-def tensorPowSection (s : Γ(L, U)) : (n : ℕ) → Γ(L.tensorPow n, U)
+def tensorPowSection_nflt (s : Γ(L, U)) : (n : ℕ) → Γ(L.tensorPow_nflt n, U)
   | 0 => unitSection U
-  | n + 1 => tensorSections (L := L.tensorPow n) (M := L) (tensorPowSection s n) s
+  | n + 1 => tensorSections (L := L.tensorPow_nflt n) (M := L) (tensorPowSection_nflt s n) s
 
-@[simp] lemma tensorPowSection_zero (s : Γ(L, U)) : tensorPowSection s 0 = unitSection U := rfl
+@[simp] lemma tensorPowSection_zero_nflt (s : Γ(L, U)) : tensorPowSection_nflt s 0 = unitSection U := rfl
 
-lemma tensorPowSection_succ (s : Γ(L, U)) (n : ℕ) :
-    tensorPowSection s (n + 1) = tensorSections (L := L.tensorPow n) (M := L) (tensorPowSection s n) s := rfl
+lemma tensorPowSection_succ_nflt (s : Γ(L, U)) (n : ℕ) :
+    tensorPowSection_nflt s (n + 1) = tensorSections (L := L.tensorPow_nflt n) (M := L) (tensorPowSection_nflt s n) s := rfl
 
 lemma tensorPowSection_one (s : Γ(L, U)) :
-    tensorPowSection s 1 = tensorSections (L := 𝟙_ X.Modules) (M := L) (unitSection U) s := rfl
+    tensorPowSection_nflt s 1 = tensorSections (L := 𝟙_ X.Modules) (M := L) (unitSection U) s := rfl
 
 lemma map_tensorPowSection {V : X.Opens} (i : V ⟶ U) (s : Γ(L, U)) (n : ℕ) :
-    (L.tensorPow n).presheaf.map i.op (tensorPowSection s n) =
-      tensorPowSection (L.presheaf.map i.op s) n := by
+    (L.tensorPow_nflt n).presheaf.map i.op (tensorPowSection_nflt s n) =
+      tensorPowSection_nflt (L.presheaf.map i.op s) n := by
   induction n with
   | zero => exact map_unitSection i
   | succ n ih =>
-    rw [tensorPowSection_succ, tensorPowSection_succ, ← ih]
-    exact map_tensorSections (L := L.tensorPow n) (M := L) i _ s
+    rw [tensorPowSection_succ_nflt, tensorPowSection_succ_nflt, ← ih]
+    exact map_tensorSections (L := L.tensorPow_nflt n) (M := L) i _ s
 
 end Pow
 

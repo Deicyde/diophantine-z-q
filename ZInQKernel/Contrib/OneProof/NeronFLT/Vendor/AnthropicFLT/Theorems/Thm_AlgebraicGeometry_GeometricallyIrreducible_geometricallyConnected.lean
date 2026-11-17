@@ -6,6 +6,7 @@ Modified for the Z-in-Q kernel (2026-11-16, task neron-flt): local import paths 
 as `set_option` lines after the imports; any other change is marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+[port] name clash with declarations already in the kernel: renamed `geometricallyConnected` → `geometricallyConnected_nflt`.
 -/
 import Mathlib
 import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
@@ -19,5 +20,5 @@ set_option autoImplicit false
 universe u
 
 open CategoryTheory AlgebraicGeometry
-theorem AlgebraicGeometry.GeometricallyIrreducible.geometricallyConnected {X Y : Scheme.{u}} (f : X ⟶ Y)
+theorem AlgebraicGeometry.GeometricallyIrreducible.geometricallyConnected_nflt {X Y : Scheme.{u}} (f : X ⟶ Y)
     [GeometricallyIrreducible f] : GeometricallyConnected f := by p2m_exact_reverting @_root_.P2MW.S_AlgebraicGeometry_GeometricallyIrreducible_geometricallyConnected.solution

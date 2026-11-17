@@ -6,6 +6,7 @@ Modified for the Z-in-Q kernel (2026-11-16, task neron-flt): local import paths 
 as `set_option` lines after the imports; any other change is marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+[port] name clash with declarations already in the kernel: renamed `depth` → `depth_nflt`.
 -/
 import Mathlib
 import ZInQKernel.Contrib.OneProof.NeronFLT.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_NeronModelPropertyBundleCarrier
@@ -669,7 +670,7 @@ theorem isCohenMacaulayOfDim_of_isRegularLocalRing (A : Type u) [CommRing A] [Is
   refine ⟨hA, ?_⟩
   have h := IsRegularLocalRing.depth_self_eq_ringKrullDim A
   rw [hA] at h
-  have h' : ((Module.depth A A : ℕ∞) : WithBot ℕ∞) = ((n : ℕ∞) : WithBot ℕ∞) := by
+  have h' : ((Module.depth_nflt A A : ℕ∞) : WithBot ℕ∞) = ((n : ℕ∞) : WithBot ℕ∞) := by
     rw [h, WithBot.coe_natCast]
   exact WithBot.coe_injective h'
 

@@ -6,6 +6,7 @@ Modified for the Z-in-Q kernel (2026-11-16, task neron-flt): local import paths 
 as `set_option` lines after the imports; any other change is marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+[port] name clash with declarations already in the kernel: renamed `depth` → `depth_nflt`.
 -/
 import Mathlib
 import ZInQKernel.Contrib.OneProof.NeronFLT.Vendor.AnthropicFLT.Definitions.Def_Patching_SystemTypes
@@ -22,4 +23,4 @@ theorem Module.depth_quotSMulTop_succ_eq
     {R : Type*} [CommRing R] [IsLocalRing R] [IsNoetherianRing R]
     (M : Type*) [AddCommGroup M] [Module R M] [Module.Finite R M]
     {x : R} (hx : x ∈ maximalIdeal R) (hxreg : IsSMulRegular M x) :
-    Module.depth R (QuotSMulTop x M) + 1 = Module.depth R M := by p2m_exact_reverting @_root_.P2MW.S_Module_depth_quotSMulTop_succ_eq.solution
+    Module.depth_nflt R (QuotSMulTop x M) + 1 = Module.depth_nflt R M := by p2m_exact_reverting @_root_.P2MW.S_Module_depth_quotSMulTop_succ_eq.solution

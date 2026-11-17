@@ -6,6 +6,7 @@ Modified for the Z-in-Q kernel (2026-11-16, task neron-flt): local import paths 
 as `set_option` lines after the imports; any other change is marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+[port] name clash with declarations already in the kernel: renamed `dual` → `dual_nflt`, `monoidalCategory` → `monoidalCategory_nflt`, `symmetricCategory` → `symmetricCategory_nflt`.
 -/
 import Mathlib
 import ZInQKernel.Contrib.OneProof.NeronFLT.Vendor.AnthropicFLT.Definitions.Def_PresheafOfModules_InternalHom
@@ -72,12 +73,12 @@ def sheafifyUnitIso : (sheafifyFunctor 𝒪 h𝒪).obj (𝟙_ (PMod 𝒪)) ≅
     (unit (ringSheaf 𝒪 h𝒪) : SheafOfModules.{u} (ringSheaf 𝒪 h𝒪)) :=
   sheafifyCounitIso 𝒪 h𝒪 (unit (ringSheaf 𝒪 h𝒪))
 
-instance monoidalCategory : MonoidalCategory (SheafOfModules.{u} (ringSheaf 𝒪 h𝒪)) :=
+instance monoidalCategory_nflt : MonoidalCategory (SheafOfModules.{u} (ringSheaf 𝒪 h𝒪)) :=
   letI := presheafW_isMonoidal 𝒪 h𝒪
   inferInstanceAs (MonoidalCategory
     (LocalizedMonoidal (L := sheafifyFunctor 𝒪 h𝒪) (W := presheafW J 𝒪) (sheafifyUnitIso 𝒪 h𝒪)))
 
-instance symmetricCategory : SymmetricCategory (SheafOfModules.{u} (ringSheaf 𝒪 h𝒪)) :=
+instance symmetricCategory_nflt : SymmetricCategory (SheafOfModules.{u} (ringSheaf 𝒪 h𝒪)) :=
   letI := presheafW_isMonoidal 𝒪 h𝒪
   inferInstanceAs (SymmetricCategory
     (LocalizedMonoidal (L := sheafifyFunctor 𝒪 h𝒪) (W := presheafW J 𝒪) (sheafifyUnitIso 𝒪 h𝒪)))
@@ -103,17 +104,17 @@ namespace AlgebraicGeometry
 
 variable (X : Scheme.{u})
 
-instance Scheme.PresheafOfModules.monoidalCategory : MonoidalCategory X.PresheafOfModules :=
+instance Scheme.PresheafOfModules.monoidalCategory_nflt : MonoidalCategory X.PresheafOfModules :=
   inferInstanceAs (MonoidalCategory (_root_.PresheafOfModules.{u} (X.sheaf.obj ⋙ forget₂ CommRingCat RingCat)))
-instance Scheme.PresheafOfModules.symmetricCategory : SymmetricCategory X.PresheafOfModules :=
+instance Scheme.PresheafOfModules.symmetricCategory_nflt : SymmetricCategory X.PresheafOfModules :=
   inferInstanceAs (SymmetricCategory (_root_.PresheafOfModules.{u} (X.sheaf.obj ⋙ forget₂ CommRingCat RingCat)))
 instance Scheme.PresheafOfModules.monoidalClosed : MonoidalClosed X.PresheafOfModules :=
   inferInstanceAs (MonoidalClosed (_root_.PresheafOfModules.{u} (X.sheaf.obj ⋙ forget₂ CommRingCat RingCat)))
 
-instance Scheme.Modules.monoidalCategory : MonoidalCategory X.Modules :=
+instance Scheme.Modules.monoidalCategory_nflt : MonoidalCategory X.Modules :=
   inferInstanceAs (MonoidalCategory
     (SheafOfModules.{u} (SheafOfModules.ringSheaf X.sheaf.obj X.ringCatSheaf.property)))
-instance Scheme.Modules.symmetricCategory : SymmetricCategory X.Modules :=
+instance Scheme.Modules.symmetricCategory_nflt : SymmetricCategory X.Modules :=
   inferInstanceAs (SymmetricCategory
     (SheafOfModules.{u} (SheafOfModules.ringSheaf X.sheaf.obj X.ringCatSheaf.property)))
 instance Scheme.Modules.monoidalClosed : MonoidalClosed X.Modules :=
@@ -124,7 +125,7 @@ variable {X}
 
 abbrev Scheme.Modules.tensor (L M : X.Modules) : X.Modules := L ⊗ M
 
-abbrev Scheme.Modules.dual (L : X.Modules) : X.Modules := (ihom L).obj (𝟙_ X.Modules)
+abbrev Scheme.Modules.dual_nflt (L : X.Modules) : X.Modules := (ihom L).obj (𝟙_ X.Modules)
 
 @[simp] theorem Scheme.Modules.tensorUnit_eq :
     𝟙_ X.Modules = SheafOfModules.unit X.ringCatSheaf := rfl
