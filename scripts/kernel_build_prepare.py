@@ -38,16 +38,18 @@ def prepare_candidate(workspace, prefix, module_paths, build_commands, *, select
     # All optional-cache rejection occurs before any project outputs are installed.
     try:
         manifest = verify_archive(archive, archive_sha256, producer)
-    except (ValueError, OSError):
+    except (ValueError, OSError) as error:
         return {'status': 'cold', 'reason': 'Downloaded bundle failed verification',
+                'detail': str(error)[:240] if isinstance(error, ValueError) else type(error).__name__,
                 'audit_required': True}, None, None
     try:
         context, detail = capture_context(workspace, prefix, module_paths, build_commands,
             driver_paths=driver_paths, system_drivers=system_drivers, controls=controls,
             environ=environment, expected_environment=manifest['environment'],
             git_executable=git_executable, progress=progress)
-    except (ValueError, OSError):
+    except (ValueError, OSError) as error:
         return {'status': 'cold', 'reason': 'Installed build inputs are ineligible or differ from the producer',
+                'detail': str(error)[:240] if isinstance(error, ValueError) else type(error).__name__,
                 'audit_required': True}, None, None
     restored = install(archive, archive_sha256, producer, context['modules'],
                        context['environment'], workspace)

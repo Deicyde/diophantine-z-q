@@ -3,8 +3,9 @@
   "baseline_commit": "9c7b60ef504a22a68137b46c86dd46efd54c6738",
   "scope": "Conditional original existential polynomial; no claim of a formalized explicit quartic or proved premises.",
   "files": {
-    ".gitattributes": "db5534cc18727d19f41849ff47337beb4491f9da0de61dd4607bd52ecbf848a8",
+    ".gitattributes": "f13fc3c2a2713aa59b982575269ebba17b83111ff4a2cc6dcb7b89ad38f33c63",
     ".github/workflows/kernel-lean.yml": "e2c65bf8a6ff13ed46b091751b5528b5a5a6d410ec785ae1001296f3a8020181",
+    ".github/workflows/kernel-reuse-validation.yml": "93b6c6ade1123bcc2e4bee745be4b7d86acc04cb295fbd9f612bbe49e488b613",
     "ThirdParty/GreenTao/ChallengeDeps.lean": "996bfc179f93078686a6a805adfc072727bbad1b7dbb59a87b2a0adafdb9fafe",
     "ThirdParty/GreenTao/Submission.lean": "6c01d0d42973f587d95e1731860910584ddaba17b92c9a170c3d22ea882724df",
     "ThirdParty/GreenTao/Submission/ArithmeticProgression/Basic.lean": "9e3ac01ce10d186a1fbbb25202f8ce66fb8a0518563c09d91f5d4ddb719985b2",
@@ -951,7 +952,7 @@
     "scripts/kernel_build_layout.py": "bebeadc823b8b497651004309ee336d01994920b3f1f6c40098df4897ac9af85",
     "scripts/kernel_build_manifest.py": "3afe1d255dbbaf8cb07c6b287cc787201bb4cadbf268971ac8ccbb32aa8b18d3",
     "scripts/kernel_build_packages.py": "b0bb8179d31031b420f4abba6ddb85a9f5fe06d26b8cdd65eaf36cac6fdf6e9d",
-    "scripts/kernel_build_prepare.py": "7243726628d5c69c5c6b0e3d42405d25ded4298d790b3fd016d821cce0d42705",
+    "scripts/kernel_build_prepare.py": "7a920e06587a0fc305c063d5569b752dd32b9ec583576e891b4edc439a107b3d",
     "scripts/kernel_build_producer.py": "5689736bfd5e94d2dddee07f3edbab46994b5361355c87dc4ac64f93d5b41003",
     "scripts/kernel_build_resolution.py": "b87e839ac2f572d1233427b019b349d1b1e0487733547086cb441b109592199f",
     "scripts/kernel_build_restore.py": "24343298811d064b21f1785d59c50073ab4730fcebd043231431fbe5b47f0b1c",
@@ -970,6 +971,7 @@
     "scripts/test_kernel_build_environment.py": "6d5e4438a0bbfeefefe64edd3af2dd973d3481b8e500ce28ab9fdf1d20971b36",
     "scripts/test_kernel_build_inventory.py": "ca7267fefaad4dcc70f8ed7b82aee3571e4c46db690f6939a4a39a7b3ce41fa8",
     "scripts/test_kernel_build_layout.py": "6c6376af8e12010c4ecbdfc74cd36ebea4122b6c524699ab554a3e98bbffa0ab",
+    "scripts/test_kernel_build_live_validation.py": "b8a2d39b4137105f6035459a96262ff672d29a0f59565e2fe1dee790538bac4b",
     "scripts/test_kernel_build_manifest.py": "ddaeb4ea4344ad983d40acc16f56cd527016a58f0760ecd9493c92d93d71fd99",
     "scripts/test_kernel_build_packages.py": "1d282a331b919ab6c198883ee4bef63274c66e3f7fd7d82ac2f8b86344ca255d",
     "scripts/test_kernel_build_prepare.py": "c859f2ca49647f05614a54bea88a9653a8aef334edc17ab143d40e34ca3dc779",
@@ -983,7 +985,8 @@
     "scripts/test_kernel_contract.py": "c678d0204deb42b716097eb6fb3f08d682035061d74c75154ca1f12491371888",
     "scripts/test_kernel_diagnostics.py": "eba53120942f60a2da99a672c9ef596d400e185e6202e9d4c20a33236d909815",
     "scripts/test_kernel_phases.py": "42cb9d4c145e4e48c9060f9f91e8bdeea89f72bae25393c95c4f92fad7c74db5",
-    "scripts/test_kernel_pr_scope.py": "5d4dbdf17c5cd497fe9df924cf0a739cbad02d4bae7678c1c034002ae6c5b00a"
+    "scripts/test_kernel_pr_scope.py": "5d4dbdf17c5cd497fe9df924cf0a739cbad02d4bae7678c1c034002ae6c5b00a",
+    "scripts/validate_kernel_reuse_linux.py": "2521b365f698c56b3b7a519bce837902aa8fcfbfcb22623da766b287d3f6bb8c"
   },
   "targets": [
     {

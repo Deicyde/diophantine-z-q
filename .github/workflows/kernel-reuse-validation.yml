@@ -1,0 +1,55 @@
+name: Kernel reuse Linux validation
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/kernel_build_*.py'
+      - 'scripts/test_kernel_build_*.py'
+      - 'scripts/validate_kernel_reuse_linux.py'
+      - 'scripts/audit_kernel.lean'
+      - '.github/workflows/kernel-reuse-validation.yml'
+      - '.github/workflows/kernel-lean.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  linux_fixture:
+    name: Cold, reused and changed-closure full audits
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12.14'
+      - name: Install pinned Lean toolchain
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir "$RUNNER_TEMP/fixture-elan"
+          cd "$RUNNER_TEMP/fixture-elan"
+          curl --fail --location --retry 3 -o elan.tar.gz https://github.com/leanprover/elan/releases/download/v4.2.4/elan-x86_64-unknown-linux-gnu.tar.gz
+          echo '42b94d4244e8353142c456ec0e4ca6528fd898a6c604d4059f494e706e431f63  elan.tar.gz' | sha256sum --check -
+          tar -xzf elan.tar.gz
+          ./elan-init -y --default-toolchain none
+          "$HOME/.elan/bin/elan" toolchain install leanprover/lean4:v4.35.0
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Run the real Linux comparison without credentials
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build
+          prefix=$(lean --print-prefix)
+          env -u GH_TOKEN -u GITHUB_TOKEN -u OPENAI_API_KEY -u ANTHROPIC_API_KEY -u ACTIONS_RUNTIME_TOKEN -u ACTIONS_ID_TOKEN_REQUEST_TOKEN -u LAKE_CACHE_KEY python -B scripts/validate_kernel_reuse_linux.py --prefix "$prefix" --output build/kernel-reuse-live
+      - name: Preserve complete validation evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: kernel-reuse-linux-${{ github.run_attempt }}
+          path: build/kernel-reuse-live/
+          include-hidden-files: true
+          if-no-files-found: warn
