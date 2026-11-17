@@ -34,7 +34,7 @@ class KernelAuditTests(unittest.TestCase):
                     "headline": {"declaration": "Fixture.headline",
                                  "type_declaration": "Fixture.expected"}}
             (d / "spec.json").write_text(json.dumps(spec), encoding="utf-8")
-            result = subprocess.run([LEAN, "--run", str(AUDITOR), "spec.json", "report.json"],
+            result = subprocess.run([LEAN, "-j", "1", "--run", str(AUDITOR), "spec.json", "report.json"],
                                     cwd=d, env=env, text=True, capture_output=True)
             self.assertEqual(result.returncode == 0, ok, result.stdout + result.stderr)
             if message:
@@ -69,7 +69,7 @@ class KernelAuditTests(unittest.TestCase):
                     "headline": {"declaration": "Fixture.headline",
                                  "type_declaration": "Fixture.expected"}}
             (d / "spec.json").write_text(json.dumps(spec), encoding="utf-8")
-            result = subprocess.run([LEAN, "--run", str(AUDITOR), "spec.json", "report.json"],
+            result = subprocess.run([LEAN, "-j", "1", "--run", str(AUDITOR), "spec.json", "report.json"],
                                     cwd=d, env=env, text=True, capture_output=True)
             self.assertEqual(result.returncode == 0, ok, result.stdout + result.stderr)
             if message:

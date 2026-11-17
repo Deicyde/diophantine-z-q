@@ -107,7 +107,7 @@ class PhaseTests(unittest.TestCase):
         self.audit()
         self.assertEqual([name for _, name, _ in self.commands], ["frozen-target", "kernel-audit"])
         command = self.commands[-1][0]
-        self.assertEqual(command[:5], ["lake", "env", "lean", "--run", "scripts/audit_kernel.lean"])
+        self.assertEqual(command[:7], ["lake", "env", "lean", "-j", "1", "--run", "scripts/audit_kernel.lean"])
         spec = json.loads((self.output / "spec.json").read_text())
         self.assertEqual(spec["modules"], sorted(self.contract["modules"]))
         self.assertEqual(json.loads((self.output / "audit.json").read_text())["head_sha"], HEAD)

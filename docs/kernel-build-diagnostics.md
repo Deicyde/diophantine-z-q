@@ -37,7 +37,9 @@ unreadable verification record fails the step. Allocation command failures stay
 failures even if recording succeeds.
 
 Compilation retains four Lean workers. The audit alone uses one worker to
-reduce concurrent import/runtime memory demand. The kernel replay was already
+reduce concurrent import/runtime memory demand. Its command passes `lean -j 1`
+explicitly: the Lean 4.35 CLI does not take this limit from `LEAN_NUM_THREADS`.
+The adversarial audit tests use the same explicit worker limit. The kernel replay was already
 serial; this does not change what is replayed and is not a measured guarantee
 of a lower peak. The hosted run must establish its actual memory use and runtime.
 No proof statement, accepted axiom, memory capacity, cache policy or job timeout

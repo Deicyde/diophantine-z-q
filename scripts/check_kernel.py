@@ -129,7 +129,8 @@ def audit_modules(contract, version, output, base_report=None, require_build=Tru
     spec["modules"] = sorted(contract["modules"])
     spec_path = output / "spec.json"
     spec_path.write_text(json.dumps(spec, indent=2), encoding="utf-8")
-    run(["lake", "env", "lean", "--run", "scripts/audit_kernel.lean", str(spec_path),
+    # The Lean CLI takes its worker limit from -j, not LEAN_NUM_THREADS.
+    run(["lake", "env", "lean", "-j", "1", "--run", "scripts/audit_kernel.lean", str(spec_path),
          str(output / "audit.json")], output, "kernel-audit", audit_metrics=True)
     report = json.loads((output / "audit.json").read_bytes())
     if validate() != contract or build_identity(contract, version) != identity:
