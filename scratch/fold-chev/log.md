@@ -40,3 +40,11 @@ Base wip/leaf-fold33b 1a3bab4a (H top `HDec.HSyn.sixContactMin_of_open64`, TailZ
    `--check` ok.
    `#discharges` does not list `chevalleyPerfect` as discharged: no proof of `ChevalleyPerfect` exists, the fold is a
    bypass; the field is gone from frozenTarget's hypotheses instead (closure check, OpenStatements).
+9. `uvx --offline --from git+https://github.com/facebookresearch/autoform-bot.git@46b46d6d... autoform check blueprint
+   --lean-root .`: exit 0, "OK: 772 articles, 2333 dependencies; 697 fully proved; 2523 declaration name(s) resolved"
+   (`autoform-check.txt`).
+10. Replay test (text only, no Lean): temporary worktree at the base 1a3bab4a, autofold with a fake spec removing
+    `gamma1IntegralBasis` (proof using `{t}`) -> TailZ72 / `OpenResearchLeaves46` / `sixContactMin_of_open65`; then
+    `gen_bypass.py` on that head -> TailZ73 / `OpenResearchLeaves47` / `sixContactMin_of_open66`, chain one step longer,
+    same stop bundle 36EB and the same three readers rerouted; the fake field's proof (with `t`) inlined correctly.
+    Count 9/24 on 33 -> 9/23 on 32. Worktree removed.
