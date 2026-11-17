@@ -987,3 +987,126 @@ unrestricted original Hecke leaf remain unproved, and the original
 unconditional extent remains nonzero N≤6. The full Z-in-Q theorem, original
 assembly premises and pins are unchanged. Warm-import ordinary compilation
 and separate source reviews are not independent cold/native acceptance.
+
+## Lower signed correlation product closure: 98-module stage
+
+Three additive sources prove the actual signed correlation of embedded
+lower-level A,B to be a genuine weight-two modular form on Γ(ℓ), for every
+positive n and ℓ, with every modular-form field supplied. All-label raw
+covariance, the complete n-torsion permutation, fixed embedded lower points
+and arithmetic common-cusp bounds are proved, not caller hypotheses.
+
+For ℓ≥3, original lower row products and the descended independent-series
+correction give actual Good degree-two product-span membership. Both row
+factors pull back by the additive level map. The correction is the actual
+normalized trace of the previously constructed finite upper error; its
+lower series membership is supplied by the proved general trace theorem.
+The temporary lower modular difference is used to prove invariance, not to
+manufacture error-space membership. No principal-product trace theorem is
+assumed or concluded here.
+
+All parent builds, 45 proof/15 definition audits and literal actual lower
+correlation/group/product-span contracts exited 0. Complete independent
+source review covered all 610 lines and the full lower-series supplier.
+`LowerCorrelationAudit.lean` preserves the 98-module stage: 1288 named
+source proofs/instances, 180 selected definitions/structures/aliases and one
+derived-instance capture, 1469 standard-axiom records without `sorryAx`.
+The earlier intermediate c826 source is not claimed to have the same ABI or
+bytes as the final 419f edition; published historical sources are unchanged.
+
+- `AllLevelTorsionCorrelationLower.lean`:
+  `419f484f440ca564029e1373d60cf2feae94486f1f4674a3fe020f26043209f0`
+- `AllLevelTorsionCorrelationLowerProducts.lean`:
+  `71cf18bb8148e3380c240d988f8dae492f8415812d8fa56ce4bc729ac4f4a3c9`
+- `AllLevelTorsionCorrelationLowerClosure.lean`:
+  `6aee6ffd10cf5faa3d7f7bd6e6b3fb23bbab5fcf6e13531e6310ba0b44b9f366`
+- `LowerCorrelationAudit.lean`:
+  `8e22db087e403a31f763d3762d2060f6361a9dadea23c2abe61fb1b7258f8122`
+
+## Repeated-prime degree-two product trace: 99-module stage
+
+For p prime, p∣ℓ and ℓ≥3, the actual normalized trace of every Good degree-two
+principal product from pℓ to ℓ lies in the genuine lower product span. The
+trace is Mathlib's actual modular-form trace divided by its nonzero relative
+index. No rank/basis, orbit, multiplicity, desired trace preservation or
+whole-space spanning assumption appears.
+
+Rank zero scales to an actual lower product. Rank one uses constructed
+trace-zero principal-group moves and a genuine finite p² average. The signed
+row congruences make both row combinations p-divisible; actual level scaling
+pulls them to ℓ. The independently constructed series correction descends
+through its proved invariance before the lower trace is taken. Rank two has
+an explicit one-parameter move fixing the first row; actual Fourier duality
+and a finite geometric sum leave only dependent second rows. All ranks,
+nonprimitive rows and p=2 are covered. The coprime-prime case is not a
+conclusion of this file.
+
+Parent build, all 36 theorem/seven definition audits and general/p=2 literal
+contracts exited 0. Complete source review read all 814 lines and exact
+callees. The author's nine selected main-axiom records and a review's initial
+30-theorem count are not the complete inventory; the parent enumerates all
+36 theorem bodies and seven definitions. `RepeatedPrimeAudit.lean` retains
+99 modules and 1512 standard-axiom records: 1324 named source proofs/instances,
+187 selected definitions/structures/aliases and one derived-instance capture.
+
+- `RepeatedPrimeProductTrace.lean`:
+  `e0827cdf59f576bb494c6f6a9eafb8e00133f74ef717baa9e56344644a05294d`
+- `RepeatedPrimeAudit.lean`:
+  `fcdac9e216bddffe696822afff5983c69901d1c6a89538a53f8d088922231538`
+
+## All-weight, all-label congruence-grid generator inclusion: 103 modules
+
+Four sources give actual principal congruence-grid inverse-power forms for
+N≥3 and every Nat weight k≥3, at every integer label. Their values are
+N^k times the actual unrestricted `eisSummand` congruence sum. Every form
+belongs to the genuine same-level Good length-k product span. No series is
+replaced by a polynomial proxy and no generation or modularity is assumed.
+
+The weighted expression recurrence has scalars only in degree zero. Formal
+DX=Y and DY=6X²−g₂/2 are bound to actual ordinary WP derivatives, including
+critical Y=0 points. The actual Taylor coefficient gives the exact
+(−1)^r/(r+1)! normalization at k=r+2. Good torsion evaluation is off the
+actual lattice. Bad even rows are actual G_k, not zero; absolute Euclidean
+residue-grid decomposition and finite averaging give the N^k−1 denominator.
+All positivity, negative-quotient and zero-row conventions are explicit.
+Odd bad rows vanish by actual lattice negation.
+
+This is the unrestricted congruence grid, not an identification with
+Mathlib's separate primitive gcd=1 `eisensteinSeriesMF`, a Petersson subspace
+or all modular forms. No primitive filter is silently introduced.
+
+All four parent source builds, all 34 proof/nine definition/one inductive-type
+audits and actual all-weight/all-label/root-group/bad-even contracts exited 0.
+Complete independent source review covered all 603 lines, actual WP/calculus,
+absolute summability, grade and product-span callees. `AllWeightEisensteinAudit.lean`
+co-imports all 103 mathematical modules: 1358 named public source proofs/instances,
+197 selected definitions/structures/aliases/inductive types and one derived
+instance capture, all 1556 records within `propext`, `Classical.choice`,
+`Quot.sound`, and no `sorryAx`.
+
+```sh
+lake --no-cache --no-ansi build +ZInQKernel.Contrib.OneProof.HeckePrimeRationality.AllLevelTorsionCorrelationLowerClosure:olean
+lake --no-cache --no-ansi build +ZInQKernel.Contrib.OneProof.HeckePrimeRationality.RepeatedPrimeProductTrace:olean
+lake --no-cache --no-ansi build +ZInQKernel.Contrib.OneProof.HeckePrimeRationality.AllWeightPrincipalEisensteinForms:olean
+lake --no-cache env lean ZInQKernel/Contrib/OneProof/HeckePrimeRationality/AllWeightEisensteinAudit.lean
+```
+
+- `AllWeightWeierstrassDifferentialExpressions.lean`:
+  `a7cd113cc41f073159b3a66cbea173760d6553e9e29ccc89c67def51d3a8b111`
+- `AllWeightGoodPrincipalEisenstein.lean`:
+  `8681eb3c40d1b0e4ae37cb6712f47d6985bdc99fc6bf6eb8c58a3a75f1ed89d0`
+- `AllWeightLatticePrincipalEisenstein.lean`:
+  `7ded3bf2f5a1faa51ab4ffaf8df230490e56729cfd501553b7b5be0ba30478f5`
+- `AllWeightPrincipalEisensteinForms.lean`:
+  `aeada9f1a9be2fd1c2d8f4ebd313e0031ec239ee31a06cfb093d1fdf9ada3988`
+- `AllWeightEisensteinAudit.lean`:
+  `c6308d58e34e3d00666fb889278c6913e7752d3a418af0117422141664e26846`
+
+The coprime-prime product trace, mixed weight-three trace, primitive-series
+binding and full principal modular-form spanning remain separate from this
+edition. No pending source is a premise. `PrincipalProductSpanning` and the
+unrestricted original Hecke leaf are still unproved; the unconditional extent
+remains nonzero N≤6. No original assembly premise, pin or earlier published
+proof edition is changed. These are ordinary pinned compilations and complete
+source reviews with warm imports, not independent cold/native acceptance or
+full Z-in-Q completion.

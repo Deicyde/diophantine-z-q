@@ -145,6 +145,21 @@ are proved in the reduction, not hidden premises.
   product spans for N ≥ 3. The true N²−1 count, critical WP′ zeros, excluded
   N=1 denominator and normalizations g₂=60G₄, g₃=140G₆ are proved. These are
   not the quasimodular weight-two G₂ or a whole-space generation statement.
+- Embedded lower-level signed torsion correlations are actual weight-two
+  forms on Γ(ℓ) for every positive n, integer slope and lower-level labels.
+  For ℓ ≥ 3 they belong to the genuine Good degree-two product span. Their
+  lower series correction is constructed through the proved trace descent,
+  with all fields and both original-level row-factor pullbacks supplied.
+- For p prime with p∣ℓ and ℓ ≥ 3, actual normalized trace of every Good
+  degree-two product from pℓ to ℓ belongs to the lower product span. All
+  ranks and p=2 are covered. This is the repeated-prime case only; it does
+  not give the coprime-prime case or all-weight product-trace closure.
+- For N ≥ 3 and every Nat weight k ≥ 3, the actual scaled unrestricted
+  congruence-grid inverse-power series has a genuine weight-k form in the
+  same-level Good length-k product span, for every integer label. Good
+  rows use actual WP derivative expressions; bad even rows retain actual
+  G_k by absolute residue-grid averaging. This is not an identification
+  with the separate primitive gcd=1 Eisenstein series or whole-space span.
 
 Raw excluded labels are not representative-independent: the zero-label
 control proves values 1/2 and 3/2 and refutes naive raw distribution. The
@@ -166,20 +181,21 @@ The μ-forms, every quadratic label case and the normalized raw correlation
 defect have proved membership in the independent convergent series span,
 by explicit equalities and finite combinations. Their integer-slope canonical
 correction and general lower-series-span trace closure are proved. This is
-not identification with a classical Petersson-Eisenstein subspace, trace
-closure of every principal product, or full modular-form spanning. Those
-principal-product trace and full spanning arguments remain separate.
+not identification with a classical Petersson-Eisenstein subspace or full
+modular-form spanning. Repeated-prime degree-two product trace and all-weight
+congruence-grid generator inclusion are proved. The coprime-prime and mixed
+weight-three product-trace cases, primitive-series binding and full principal
+spanning remain separate from these results.
 The Γ₁ `(0,b)` family alone cannot replace the principal family.
 
-The current 95-module audit checks 1243 named public source proofs/instances,
-165 selected definitions, structures or type aliases and one additional
-capture of the derived row decision instance. All 1409 records have at most
-`propext`, `Classical.choice`, `Quot.sound`, and no `sorryAx`. **Auditing a
-predicate's definition does not prove that predicate**:
+The current 103-module audit checks 1358 named public source proofs/instances,
+197 selected definitions, structures, aliases or inductive types and one
+additional capture of the derived row decision instance. All 1556 records
+have at most `propext`, `Classical.choice`, `Quot.sound`, and no `sorryAx`.
+**Auditing a predicate's definition does not prove that predicate**:
 `PrincipalProductSpanning` is still an input.
-See `CHECKS.md` and `TorsionInvariantAudit.lean` for exact editions and commands.
-Earlier audit editions preserve the previous verified checkpoints, including
-the integer-slope and general lower-trace stages.
+See `CHECKS.md` and `AllWeightEisensteinAudit.lean` for exact editions and
+commands. Earlier audit editions preserve the previous verified checkpoints.
 
 These are ordinary pinned compilations plus complete separate source reviews
 with warm imports, not independent cold replay of all imported constants or
