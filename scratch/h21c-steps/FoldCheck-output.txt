@@ -1,0 +1,2 @@
+'ZInQ.Contrib.TYZChain.frozenTarget_h21S' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZChain.frozenTarget_h21S'' depends on axioms: [propext, Classical.choice, Quot.sound]
