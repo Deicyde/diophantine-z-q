@@ -98,7 +98,7 @@ generator produced `TailZ73` with `OpenResearchLeaves47` and `sixContactMin_of_o
 and it reached the same stop bundle and the same three readers.
 
 On the lead's head:
-- The commits that land the Contrib file are `c0761608` (merge plus move) and `c72c936a` (generator).
+- The commits that land the Contrib file are `36808d3e` (merge of chevalley-free), `c0761608` (move to Contrib) and `c72c936a` (generator).
 - The fold itself is commit `ba5f6df5e` (`bypass fold TailZ72`); if the head moved, regenerate it rather than cherry-picking it.
 
 ## 4. Hygiene
