@@ -11,7 +11,7 @@ Vendored, unmodified in substance, from the Fermat's Last Theorem Lean developme
   Source revision: 6e837e75355538c7f80bab5b956861e86c4eacc2
   Source file    : Theorems/Thm_AlgebraicGeometry_Scheme_Modules_ProjPresentation_exists_baseChange_of_isPullback.lean
   Source sha256  : ff07e87a484ba60e1d1caa3c5308a83a7ea01965fbafab9e15b0256f49afe7eb
-  Retrieved      : pinned read-only clone ~/flt-src (6e837e75), byte-for-byte
+  Retrieved      : pinned read-only clone the upstream FLT repository (6e837e75), byte-for-byte
   Copyright      : 2026 Anthropic, PBC (see ATTRIBUTION.md of the source for third-party credits)
   Licence        : Apache License, Version 2.0 (see Contrib/CloudW03NeronSurj/LICENSE and NOTICE)
 

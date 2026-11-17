@@ -11,7 +11,7 @@ Vendored, unmodified in substance, from the Fermat's Last Theorem Lean developme
   Source revision: 6e837e75355538c7f80bab5b956861e86c4eacc2
   Source file    : Theorems/Thm_AlgebraicGeometry_Scheme_Modules_pullbackTensorUnitObjIso_hom_app_pullbackLocalSection_unitSection.lean
   Source sha256  : 61d8fe60e6132ce53ccf07de12184e0ad9e7ca05c88d9b4727a7aff08fc74f0d
-  Retrieved      : pinned read-only clone ~/flt-src (6e837e75), byte-for-byte
+  Retrieved      : pinned read-only clone the upstream FLT repository (6e837e75), byte-for-byte
   Copyright      : 2026 Anthropic, PBC (see ATTRIBUTION.md of the source for third-party credits)
   Licence        : Apache License, Version 2.0 (see Contrib/CloudW03NeronSurj/LICENSE and NOTICE)
 

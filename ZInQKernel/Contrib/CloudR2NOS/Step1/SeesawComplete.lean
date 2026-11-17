@@ -4,7 +4,7 @@ restriction. GM1 is thereby COMPLETE modulo compile, from H72 single producers o
 New file. SOURCE-ONLY, UNCOMPILED. Universe u, any field.
 
 Producer (single, exact path/SHA): `ZInQ.Contrib.CloudR2Poincare.L2.fibrePicardClass_open_baseChange_iff`,
-in swarm/h72/src/ZInQKernel/Contrib/CloudR2Poincare/L2/FibreRestriction.lean, sha256
+in ZInQKernel/Contrib/CloudR2Poincare/L2/FibreRestriction.lean, sha256
 75cc638b2c46298e5a8ef779ccd3c90900827ac81dec2b4c1ca133f9724137bb.
 * Hypotheses: `IsPullback fst snd f g` with `[IsOpenImmersion g]`.
 * Conclusion: the base-changed residue-fibre class is trivial at `u` iff the original one is

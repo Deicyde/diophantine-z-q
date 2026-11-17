@@ -11,7 +11,7 @@ Vendored, unmodified in substance, from the Fermat's Last Theorem Lean developme
   Source revision: 6e837e75355538c7f80bab5b956861e86c4eacc2
   Source file    : P2M/Sol/S_UniqueFactorizationMonoid_exists_forall_mul_eq_of_cocycle_of_injective.lean
   Source sha256  : 8fec6010d75e2b936bdc39683dcba30af5b1ce01727172fb7c1960261b043c97
-  Retrieved      : pinned read-only clone ~/flt-src (6e837e75), byte-for-byte
+  Retrieved      : pinned read-only clone the upstream FLT repository (6e837e75), byte-for-byte
   Copyright      : 2026 Anthropic, PBC (see ATTRIBUTION.md of the source for third-party credits)
   Licence        : Apache License, Version 2.0 (see Contrib/CloudW03NeronSurj/LICENSE and NOTICE)
 

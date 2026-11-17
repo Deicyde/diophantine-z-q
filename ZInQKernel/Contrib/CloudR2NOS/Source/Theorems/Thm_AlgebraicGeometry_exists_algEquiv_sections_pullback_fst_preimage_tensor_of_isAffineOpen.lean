@@ -11,7 +11,7 @@ Vendored, unmodified in substance, from the Fermat's Last Theorem Lean developme
   Source revision: 6e837e75355538c7f80bab5b956861e86c4eacc2
   Source file    : Theorems/Thm_AlgebraicGeometry_exists_algEquiv_sections_pullback_fst_preimage_tensor_of_isAffineOpen.lean
   Source sha256  : a167ecbe84ca5a6dd4c8171458d9ef60074ecea1a55fd2b01b67e99d3775c914
-  Retrieved      : pinned read-only clone ~/flt-src (6e837e75), byte-for-byte
+  Retrieved      : pinned read-only clone the upstream FLT repository (6e837e75), byte-for-byte
   Copyright      : 2026 Anthropic, PBC (see ATTRIBUTION.md of the source for third-party credits)
   Licence        : Apache License, Version 2.0 (see Contrib/CloudW03NeronSurj/LICENSE and NOTICE)
 

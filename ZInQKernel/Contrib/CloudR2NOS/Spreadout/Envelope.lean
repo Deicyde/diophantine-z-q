@@ -5,7 +5,7 @@ New glue (no vendored source in this file).  It discharges `ProperDescendsFor D 
 cofiltered system `I : Type u`, `[Category.{u} I]`, of quasi-compact quasi-separated schemes with
 affine transition maps and limit cone `c`, with no Noetherian, separatedness or properness
 hypothesis on the stages, from the H65 round-2 full-universe theorems (read-only source
-`r2/recovery/h65-full-u-current/source`, Apache-2.0, adapted from AxiomMath/Stacks
+(H65 round-2 recovery), Apache-2.0, adapted from AxiomMath/Stacks
 c496df0d9beea9deaeabcea8492605f9a0a2313b; see `CloudW01Spread/LICENSE` and the H65 notices):
 
 * `ZInQ.Contrib.CloudW01Spread.R2AltChow.hasProperEnvelope_of_finitePresentation`

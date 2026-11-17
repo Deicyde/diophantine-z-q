@@ -11,7 +11,7 @@ Vendored, unmodified in substance, from the Fermat's Last Theorem Lean developme
   Source revision: 6e837e75355538c7f80bab5b956861e86c4eacc2
   Source file    : Theorems/Thm_AlgebraicGeometry_ProjSpace_exists_algHom_away_apply_ratio_eq.lean
   Source sha256  : f80b9e6140fe3637127483106364bc37d8001e2e8261799f8ac5fa03cf2948d4
-  Retrieved      : pinned read-only clone ~/flt-src (6e837e75), byte-for-byte
+  Retrieved      : pinned read-only clone the upstream FLT repository (6e837e75), byte-for-byte
   Copyright      : 2026 Anthropic, PBC (see ATTRIBUTION.md of the source for third-party credits)
   Licence        : Apache License, Version 2.0 (see Contrib/CloudW03NeronSurj/LICENSE and NOTICE)
 

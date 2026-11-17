@@ -16,7 +16,7 @@ Proved here (no sub-gap):
 
 Portions ADAPTED (namespaces, P2M macros removed, ported FLT names substituted; mathematics and
 proof structure unchanged) from anthropics/fermats-last-theorem @ 6e837e75355538c7f80bab5b956861e86c4eacc2,
-Apache-2.0, read-only clone `~/flt-src`:
+Apache-2.0, read-only clone of the upstream FLT repository:
 * `P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_ProjPresentation_exists_of_iso.lean` (`PresIso`;
   upstream sha256 5c1554e3d58298620b3a75b25066d5df56a99b6863b438514f217b35b935ed3d);
 * `P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_bijective_smul_unit_app_of_bijective_smul.lean`

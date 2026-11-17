@@ -1,29 +1,19 @@
 /-
-NEW EDITION: p7o1 paired-section composition API repair, 2026-11-17.
-Base SHA68b32c9e2d1c4b69c273605c65343dc81f27c2d33bed9a4b924084bffdc0240c.
-The frozen base and Parent's failed full-closure log remain unchanged.
-Only qualify comp_one as the exact pinned CategoryTheory.MonObj.comp_one
-from Cartesian/Mon436–437. No MonoidHom substitution, alternate identity,
-new hypothesis, namespace, public statement, tensor recursion or option.
-NEW Source only; Parent probes it. No lane compile/parser/AST/helper run.
--/
-/-
-H5 original-input Step2 / GM8: actual native translated-pair section data.
-Copyright (c) 2026 H5 lane2 contributors. Apache-2.0.
-SOURCE ONLY / UNCOMPILED. This constructs the literal section of the SAME
-native N.tensorPow 2 from the SAME theta and an ACTUAL square-output iso.
-It does not prove that square iso, basepoint freeness, finite presentation,
-I1/I2, ampleness, or NOS. No square Fact or new section/model factory.
+Copyright (c) 2026 H5 contributors. Apache-2.0.
 
-Named pending earlier supplier is I5a from the genuine H71 cube3b509d68 and
-its real native context maps; the iso argument is fixed-object producer
-DATA, never an extra hypothesis of NOS. All translations are the SAME
-terminal-point right action, and all unit/pullback/tensor/power operations
-are native W07. The actual recursion tensorPow 2 = N tensor (N tensor unit)
-is respected by the explicit right unitor, not a Source/W07 power alias.
+# Translated sections of the native tensor square
 
-All symbolic u and any field characteristic/dimension. Source-write gate
-c3e58087/d1346f11/86d27970 read; no Native/parser/helper/GET/root/budget action.
+For a line N and its given section theta, an actual square isomorphism
+constructs the translated-pair section of the same native tensor power.
+Translations use the original group law and terminal-point carrier.
+The recursion tensorPow N 2 = N tensor (N tensor unit) is respected by
+explicit unitors, not identified with a differently defined power.
+
+The unit-translation calculation uses CategoryTheory.MonObj.comp_one.
+The isomorphism argument is fixed-object data; this construction alone
+does not assert the square theorem, nonvanishing, ampleness, finiteness
+or the reduction criterion. All field characteristics and universes remain
+as in the statements below.
 -/
 import NativeDivisorKernel
 import ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.AlgebraicGeometry.Modules.TensorPower

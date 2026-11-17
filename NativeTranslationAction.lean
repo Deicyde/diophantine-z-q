@@ -1,25 +1,17 @@
 /-
-NEW EDITION: p7o1 translation API repair, 2026-11-17.
-Base SHA7fc6436943bed12ec75fc3b2135188fa44c6e91ea1738afeb7d339773af4a3d3.
-The frozen base and Parent's failed full-closure log remain unchanged.
-Pinned Mathlib Cartesian/Mon defines CategoryTheory.MonObj.comp_one and
-CategoryTheory.MonObj.comp_mul; open scoped enables Hom operations, not
-unqualified lemma resolution. Qualify those exact categorical lemmas.
-The point equalities now use explicit underlying scheme compositions and
-pinned Scheme.Hom.comp_apply / CategoryTheory.Hom.inv_def, including the
-two point/coercion diagnostics in the same log. No public statement,
-group law, field, point carrier, namespace, universe or option changes.
-NEW Source only; Parent probes it. No lane compile, parser/AST/helper run.
--/
-/-
-H5 original-input Step2 / GM8: the actual right-translation isos and point actions.
-Copyright (c) 2026 H5 lane2 contributors. Apache-2.0.
-SOURCE ONLY / UNCOMPILED. Symbolic u, any field characteristic or dimension.
+Copyright (c) 2026 H5 contributors. Apache-2.0.
 
-The group action is the SAME original Grp object, not an independent law.
-These ordinary morphism calculations supply the actual invertible maps used
-in the translated-divisor open-set argument. They do not prove the square,
-basepoint freeness, finiteness, I0/I1/I2 or NOS. No Source/W07 alias or Fact.
+# Right translations and their action on field-valued points
+
+The categorical precomposition identities are qualified as
+CategoryTheory.MonObj.comp_one and CategoryTheory.MonObj.comp_mul.
+Point identities use the underlying scheme compositions, the same group
+inversion and the original field-valued points.
+
+The group law, field, terminal-point carrier, public statements and
+universe parameters are unchanged. These elementary morphism calculations
+supply translation isomorphisms; they do not assert the theorem of the
+square, ampleness, finiteness or the reduction criterion.
 -/
 import NativeDivisorKernel
 

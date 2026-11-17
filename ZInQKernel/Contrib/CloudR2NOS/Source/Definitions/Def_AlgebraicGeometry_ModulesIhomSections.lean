@@ -1,5 +1,5 @@
 /-
-NOS-CORE PROBE STAGING COPY (nos-core-probe-001, lane4 , 2026-11-17). NOT an H5 edition:
+NOS-CORE PROBE STAGING COPY (lane4, 2026-11-17). NOT an H5 edition:
 probe world only; it enters H5 only by the lead binding plus C6 review. No recorded port
 SHA exists for this module (lead 2026-11-17T06:06Z). Generated deterministically from the pinned
 upstream file by the documented lane4 port transform, as reproduced by the located C5 conformance
@@ -12,7 +12,7 @@ Vendored, unmodified in substance, from the Fermat's Last Theorem Lean developme
   Source revision: 6e837e75355538c7f80bab5b956861e86c4eacc2
   Source file    : Definitions/Def_AlgebraicGeometry_ModulesIhomSections.lean
   Source sha256  : c7fb20bb387ce1f3fa8bb2d22faa7ddcf88ffa404dac15654281c96762f06409
-  Retrieved      : pinned read-only clone ~/flt-src (6e837e75), byte-for-byte
+  Retrieved      : pinned read-only clone the upstream FLT repository (6e837e75), byte-for-byte
   Copyright      : 2026 Anthropic, PBC (see ATTRIBUTION.md of the source for third-party credits)
   Licence        : Apache License, Version 2.0 (see Contrib/CloudW03NeronSurj/LICENSE and NOTICE)
 

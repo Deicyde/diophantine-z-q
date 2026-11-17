@@ -8,7 +8,7 @@ Native HELD. No kernel/ABI/admission grade is claimed.
 Each `def … : Prop` below is ONE precisely stated, genuinely missing mathematical sub-result.
 None is installed as an axiom, instance or Fact; they appear only as explicit hypotheses of
 the Step-3 assembly (`Step3Assembly.lean`) and are to be PROVED in later batches.
-Blueprints are named where the read-only FLT clone `~/flt-src` (anthropics/fermats-last-theorem
+Blueprints are named where the read-only FLT clone the upstream FLT repository (anthropics/fermats-last-theorem
 @ 6e837e75355538c7f80bab5b956861e86c4eacc2, Apache-2.0) has a statement/proof to adapt;
 adapted text must keep that attribution. No FLT body is ported wholesale here.
 

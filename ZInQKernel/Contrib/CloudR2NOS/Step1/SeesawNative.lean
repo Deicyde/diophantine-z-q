@@ -5,7 +5,7 @@ UNCOMPILED. Universe u, any characteristic.
 
 Single producer, by exact path/SHA:
 * Lemma: `ZInQ.Contrib.CloudR2Poincare.L1.normalizedPicardClass_eq_one_of_residueFibres_reduced`,
-  in swarm/h72/src/ZInQKernel/Contrib/CloudR2Poincare/L1/ReducedGlobalSeesaw.lean, sha256
+  in ZInQKernel/Contrib/CloudR2Poincare/L1/ReducedGlobalSeesaw.lean, sha256
   4ac58f79e1cc113ef1db1e28b5911e8bf5606763ff033e7198e341de6f2245a8.
 * Hypotheses: `{k} [Field k]` (any field, no CharZero, no dimension restriction); `π` proper and
   geometrically integral with a section; `T` locally Noetherian and reduced; the class normalized
