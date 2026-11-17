@@ -51,3 +51,13 @@ deg-det Contrib files); `lake build ZInQKernel.OneProof.H.TailC` up to date (VER
 * scratch/charpoly-charp/fold_edit.py: 14 files under OneProof/H (`--check` passes on this tree).
 * Fold tree: ~/cc-foldtree = reflink copy of this worktree (no .git) + fold_edit.py; `lake build
   ZInQKernel.OneProof.Main` started 11-16 ~17:45 (LPrefix edit ⇒ whole H chain rebuilds).
+
+## Fold check (VERIFIED)
+
+* ~/cc-foldtree: `lake build ZInQKernel.OneProof.Main` → Build completed successfully (14103 jobs); frozenTarget
+  axioms [propext, Classical.choice, Quot.sound] (fold-build-tail.txt).
+* FoldCheck.lean there (foldcheck-output.txt): field absent; closure 268,676 constants, no CharPolyIndepOfEll /
+  CharPolyIndepOfEllAlgClosed; OpenTextbookLeaves13 has 5 fields.
+* Discharges.lean on this branch (discharges-output.txt): 45 open, 6730 theorems, no direct discharge by the new
+  modules (reroute).
+* Count: H 37 → 36 hypotheses; strict 16/21 → 15/21. No new leaf.
