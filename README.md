@@ -8,7 +8,27 @@ See also [Jose Brox's repository](https://github.com/JoseBrox/diophantine-z-q_im
 
 Cite this work as "ℤℚ Diophantine Project contributors. ℤ _is Diophantine in_ ℚ. 2026. https://github.com/elliotglazer/diophantine-z-q"  
 
-## Version 18
+## Version 19
+
+[Read the manuscript](manuscripts/quartic_v19.pdf) or [open the TeX source](manuscripts/quartic_v19.tex).
+This edition gives José Brox's 195-variable quartic family and Gemini Carbon's
+explicit 250-variable quartic, built from Brox's construction. Their full
+arithmetic arguments, coordinate transformations and quadratic tables are in
+the manuscript. Counts include the input.
+
+The 195-variable polynomial has 2,956 nonzero monomials and coefficients
+specified as integer polynomials in `C = 149^BB(2^1000)`, all below
+`BB(2^2000)` in absolute value under the stated machine convention.
+The explicit 250-variable polynomial has 3,362 nonzero monomials and
+coefficients below `2^6483`. Written in [plain algebraic notation](research/version19/construction/plain-text/quartic250-decimal.txt)
+with every coefficient in decimal, it occupies 85,737 bytes.
+
+See the [release guide](research/version19/README.md),
+[artifact index](research/version19/ARTIFACT-INDEX.md),
+[source and consumer map](research/version19/DEPENDENCIES.md), and
+[cumulative handoff](research/version19/CUMULATIVE-HANDOFF.md).
+
+## Version 18 history
 
 [Read the manuscript](manuscripts/quartic_v18.pdf) or [open the TeX source](manuscripts/quartic_v18.tex). This edition presents Jose Brox's 196-variable quartic, built on Gabriel Conant's 198-variable construction. Its 182 quadratic residuals give a quartic with 2,943 nonzero coordinate monomials. The complete arithmetic proof, elimination lemma and coefficient table are included in the manuscript.
 
@@ -50,7 +70,7 @@ This repository also preserves *Z is Diophantine in Q*, Version 14, dated Novemb
 | Inspect the nine earlier review corrections | [Version 10 response and inventory](docs/manuscript-revisions/version10/README.md) |
 | Inspect theorem applications and conventions | [Version 18 source and review index](research/version18/ARTIFACT-INDEX.md), [Version 16 source-use inventory](research/version16/protocol/DOSSIER.json), [Version 16 corrections](research/version16/APPLICATIONS.json), [Version 9 extension](docs/quartic-523-540/README.md), [inherited proof inventory](docs/quartic-962/README.md) |
 | Build the manuscript or run the checks | [Current manuscript build](docs/current-manuscript-build.md), [historical construction checks](docs/building.md) |
-| Download the current research handoff | [Version 18 cumulative handoff and reconstruction](research/version18/CUMULATIVE-HANDOFF.md), [Version 17 historical handoff](research/version17/CUMULATIVE-HANDOFF.md), [Version 16 cumulative ZIP](https://github.com/elliotglazer/diophantine-z-q/releases/download/quartic-222-version-16/z-in-q-version16-cumulative.zip), [reconstruction and checksum](research/version16/CUMULATIVE-HANDOFF.md), [Version 15 cumulative ZIP](https://github.com/elliotglazer/diophantine-z-q/releases/download/quartic-222-version-15/z-in-q-version15-cumulative.zip), [contents and verification](research/version15/CUMULATIVE-HANDOFF.md), [Version 14 archive](research/version14/CUMULATIVE-HANDOFF.md) |
+| Download the current research handoff | [Version 19 cumulative handoff](research/version19/CUMULATIVE-HANDOFF.md), [Version 18 cumulative handoff and reconstruction](research/version18/CUMULATIVE-HANDOFF.md), [Version 17 historical handoff](research/version17/CUMULATIVE-HANDOFF.md), [Version 16 cumulative ZIP](https://github.com/elliotglazer/diophantine-z-q/releases/download/quartic-222-version-16/z-in-q-version16-cumulative.zip), [reconstruction and checksum](research/version16/CUMULATIVE-HANDOFF.md), [Version 15 cumulative ZIP](https://github.com/elliotglazer/diophantine-z-q/releases/download/quartic-222-version-15/z-in-q-version15-cumulative.zip), [contents and verification](research/version15/CUMULATIVE-HANDOFF.md), [Version 14 archive](research/version14/CUMULATIVE-HANDOFF.md) |
 | Download the Version 7 research handoffs | [Full handoff](https://github.com/elliotglazer/diophantine-z-q/releases/download/quartic-962-version-7/z-in-q-version7-full-handoff.zip), [current-only handoff](https://github.com/elliotglazer/diophantine-z-q/releases/download/quartic-962-version-7/z-in-q-version7-current-handoff.zip), [contents and verification](handoff/README.md) |
 | Read collaborator notes and the height replacement | [Research update](research/2026-11-06-collaborator-notes/README.md) |
 | Read the October 11 manuscript | [Manuscript and provenance](October%2011%20Manuscript/README.md) |
@@ -75,6 +95,8 @@ $$
 
 | Construction | Total variables, including input | Degree | Nonzero monomials | Coefficient magnitude |
 | --- | ---: | ---: | ---: | --- |
+| Version 19, fixed Busy Beaver specification | 195 | 4 | 2,956 | `149^(2*BB(2^1000)+2) < BB(2^2000)` |
+| Version 19, explicit decimal polynomial | 250 | 4 | 3,362 | Less than `2^6483` |
 | Version 18, fixed Busy Beaver specification | 196 | 4 | 2,943 | `A^2 = 149^(4*BB(2^1000)+2) < BB(2^2000)` |
 | Version 17, selected family | 214 | 4 | 2,919 | $149^{4N+2}+1$ for $N\ge53$; defining threshold ineffective |
 | Version 15, selected family | 222 | 4 | 2,277 | $A_N^2+1$ for $N\ge53$, where $A_N=149^{2N+1}$ |

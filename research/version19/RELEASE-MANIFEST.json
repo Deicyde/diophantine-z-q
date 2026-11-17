@@ -1,0 +1,65 @@
+{
+  "schema": "version19-release-preparation/v1",
+  "version": 19,
+  "status": "Complete candidate source/PDF pair; final protected acceptance and publication are recorded in the release assets.",
+  "preparation_base_commit": "5c7ad7973b911ebc0ee1532cc8fcf5dbf70b52f4",
+  "source": {
+    "path": "manuscripts/quartic_v19.tex",
+    "sha256": "1f0e4db9e978115bb7f605f4bfcd84426a715b8cb6adaee3566107b33d61ad03"
+  },
+  "pdf": {
+    "path": "manuscripts/quartic_v19.pdf",
+    "sha256": "cc1adfb0107661e001593cbfeae57e0221d6cfb8bc8f48a5e0be213144844172"
+  },
+  "build_record": {
+    "path": "research/version19/BUILD.json",
+    "sha256": "08ef0de65548bdb230f6a995e1894f918bf6c36d4c116e50d2df57d9a9de2e35"
+  },
+  "required_tex_inputs": [],
+  "claims": {
+    "family": {
+      "variables_including_input": 195,
+      "quadratic_rows": 175,
+      "degree": 4,
+      "coordinate_monomials": 2956,
+      "parameter": "C = 149^BB(2^1000)",
+      "exact_height": "149^(2*BB(2^1000)+2)",
+      "strict_bound": "BB(2^2000)"
+    },
+    "explicit": {
+      "variables_including_input": 250,
+      "quadratic_rows": 222,
+      "degree": 4,
+      "coordinate_monomials": 3362,
+      "N": 10220,
+      "exact_height": "149^898 + 1747145497790223592810060471184416344603224790540808983",
+      "strict_bound": "2^6483",
+      "plain_expression_bytes": 85737,
+      "plain_expression": {
+        "path": "research/version19/construction/plain-text/quartic250-decimal.txt",
+        "sha256": "71cb153fdeb7ba6084850ecb5fab596249379c270bc97add9de64c82e7150f8f"
+      }
+    }
+  },
+  "dependency_map": {
+    "path": "research/version19/DEPENDENCIES.md",
+    "sha256": "65b0c0703af397d48766d2cc6276c8aef03fad423e97ab3c4c14c9d82e37ee6d"
+  },
+  "construction_inputs": {
+    "path": "research/version19/construction/INPUTS.json",
+    "sha256": "281eb5647ebaa023cf738337a1cb2ba7224e5c5a2fc3a2328658171ecddec091"
+  },
+  "finite_check_command": "python -B research/version19/construction/check.py",
+  "review": {
+    "accepted_head": null,
+    "app_check": null,
+    "reviewer_records": [],
+    "owner_overrides": []
+  },
+  "handoff": {
+    "archive": "z-in-q-version19-cumulative.zip",
+    "bytes": null,
+    "sha256": null
+  },
+  "preservation": "All earlier released manuscript files retain their original paths and bytes."
+}

@@ -1,0 +1,41 @@
+{
+  "scope": "Original local component reports, unchanged; not protected acceptance of the final release.",
+  "files": [
+    {
+      "file": "fable-sections34.md",
+      "original_filename": "fable-review-v19-250-sections34.md",
+      "bytes": 7819,
+      "sha256": "fcc9e92dcc6d6ddfdb40614d08424aab5117ba3ab55acf66a9fc91bb257ebe9c"
+    },
+    {
+      "file": "fable-tables.md",
+      "original_filename": "fable-review-v19-250-tables.md",
+      "bytes": 5847,
+      "sha256": "3943ee89d148f5fc61ae139397efae6b0b2ef22aad0773fdadaa54d122bb1b65"
+    },
+    {
+      "file": "fable-construction-audit.md",
+      "original_filename": "brox-quartic200-check.md",
+      "bytes": 37701,
+      "sha256": "7e0779676165322e41e9b8c29eebba884c7d8c09675e81e035e6d6339255ce94"
+    },
+    {
+      "file": "astra-195-component.md",
+      "original_filename": "REVIEW.md",
+      "bytes": 13202,
+      "sha256": "49158d020dbf219e168ae36eb9f913899fc821209efdd53e1f9687f408fe861e"
+    },
+    {
+      "file": "v19-builder-review.json",
+      "original_filename": "20261117-0345-from-fable-v19-builder-review.json",
+      "bytes": 6911,
+      "sha256": "e318d66e299bec926728a9f0dbee1fc558975e9264a79675bf3b1706bf160dd7"
+    },
+    {
+      "file": "astra-195-weight-supplement.md",
+      "original_filename": "WEIGHT-COUNT-SUPPLEMENT.md",
+      "bytes": 2123,
+      "sha256": "0ec2b7fe5947badb30f7a280e591340c7273cae4afaffcbda69e6c178746380e"
+    }
+  ]
+}
