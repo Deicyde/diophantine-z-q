@@ -295,7 +295,10 @@ committed data. `read_ci_job` obtains the actual job, attempt, successful steps
 and execution commit. It accepts only direct `push` or `workflow_dispatch`
 executions of the exact reviewed head in this repository, on the run's latest
 attempt. Test-merge and fork runs are refused because their API head does not
-establish the executed tree. `record_table_coverage` requires complete admitted
+establish the executed tree. A branch without an eligible direct run has no CI
+table-coverage evidence through these tools. For workflow dispatch, the reviewer
+must verify the actual inputs and any resulting skip or narrowing; unverifiable
+inputs cannot support the claimed coverage. `record_table_coverage` requires complete admitted
 checker/workflow reads and at least one admitted read of the table source or PDF,
 a successful step and equal blob identities for the workflow, checkers, data
 and table at the reviewed and executed commits. The reviewer records the exact

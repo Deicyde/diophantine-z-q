@@ -81,6 +81,10 @@ theorems. A model review is not formal verification or a guarantee of correctnes
    a separate data file. Inspect checkout/ref selection, any generation or
    replacement of inputs, cache use and whether a check can be skipped or have
    its failure ignored. A green job alone does not establish this connection.
+   For `workflow_dispatch` evidence, establish the actual input values and show
+   that they did not skip or narrow the claimed check. If the inputs cannot be
+   verified, do not claim that coverage. Fork runs and PR test-merge runs cannot
+   supply this tool's coverage; neither can a branch with no eligible direct run.
    Use `record_table_coverage` with the successful step number, table location,
    all relevant checker/data paths, and your precise claim and its limits. The
    gate checks admitted source reads, successful job/step status and matching

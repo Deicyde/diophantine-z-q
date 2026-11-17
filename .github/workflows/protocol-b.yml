@@ -1485,6 +1485,7 @@ jobs:
               for claim in claims:
                   row = {k: claim[k] for k in ('job_id', 'run_id', 'run_attempt', 'event',
                          'executed_sha', 'reviewed_head', 'step_number', 'workflow', 'table_path', 'blobs')}
+                  # record_table validated this successful step before admitting the claim.
                   row['step_name'] = next(s['name'] for s in claim['steps'] if s['number'] == claim['step_number'])
                   row['claim_sha256'] = hashlib.sha256(claim['claim_and_limits'].encode()).hexdigest()
                   row['record_sha256'] = hashlib.sha256(json.dumps(claim, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
