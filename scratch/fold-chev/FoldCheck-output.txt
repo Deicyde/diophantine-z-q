@@ -1,0 +1,14 @@
+'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_open65' depends on axioms: [propext, Classical.choice, Quot.sound]
+HDec.HSyn.sixContactMin_of_open65 : HDec.HSyn.OpenResearchLeaves46 →
+  HDec.HSyn.OpenTextbookLeaves17 → HDec.HSyn.OpenAddedLeaves26 → ZInQ.SixContactMin
+ZInQ.OneProof.frozenTarget: closure 302580
+  contains ZInQ.SemiAbDescend.ChevalleyPerfect: false
+  contains ZInQ.SemiAbDescend.semiAbelianDescendsPerfect_of_chevalley: false
+  contains ZInQ.SemiAbDescend.bostLowerBound_of_printed_chevalley: false
+  contains ZInQ.SemiAbDescend.gaudronRemondThm14_of_printed_chevalley: false
+  contains sorryAx: false
+  contains HDec.HSyn.OpenResearchLeaves45: false
+  contains HDec.HSyn.sixContactMin_of_open64: false
+  contains ZInQ.HeightFix.SemiAbelianDescendsPerfect: true
+  contains ZInQ.ChevFree.semiAbelianDescendsPerfect_proof: true

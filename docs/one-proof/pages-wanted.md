@@ -5,10 +5,6 @@
 Printed statements that a reader with the book or paper can check against the Lean statement in
 [OPEN.md](OPEN.md). How to do it, and what makes a reading count: [STATEMENT-CHECKS.md](STATEMENT-CHECKS.md).
 
-## pending-reading
-
-* [`chevalleyPerfect`](OPEN.md#chevalleyperfect) (packet R5): Conrad, A modern proof of Chevalley's theorem on algebraic groups, J. Ramanujan Math. Soc. 17 (2002) 1-18, Thm 1.1; Milne, Algebraic Groups (CUP 2017) Thm 8.27 (numbers UNVERIFIED); semiab-descend. Flag: pending reading (reviewer verdict queue10 (11-17, rater + skeptic; notes crowd-kit/ckpt/leaf-review/queue10-verdict.md): GLUE/GLUE until read); earlier: unread: new printed leaf (Chevalley's theorem over a perfect field, existence and uniqueness, Conrad 2002 Thm 1.1 / Milne AG Thm 8.27, numbers from memory; G/H read as the target of a faithfully flat homomorphism with smooth connected affine kernel, semiab-descend); locator UNVERIFIED
-
 ## reading-risk
 
 * [`neronOggShafarevichSep`](OPEN.md#neronoggshafarevichsep) (packet R1): Serre-Tate 1968 Thm 1 over IsSepClosure K Ks (the print assumes a perfect residue field, the leaf does not); the Kbar form proved in Lean from MulEtaleAbelianScheme (dict-galois). Flag: unread: new printed leaf, no reading recorded; reading risk: stronger than the cited theorem (AI audit 2026-11-17, Deicyde/diophantine-z-q#63): Serre-Tate section 1 assume a perfect residue field (recalled, and so described in Milne's survey arXiv:1210.7459 section 2.7; the paper itself not read), while the leaf quantifies over every discrete valuation ring; BLR 7.4 Thm 5 gives the T_l form over any discrete valuation ring, and the m-torsion clauses over an imperfect residue field need a counting argument; consumers use number fields only; counts GLUE until a reading settles it

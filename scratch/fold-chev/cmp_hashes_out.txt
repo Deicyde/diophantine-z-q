@@ -1,0 +1,46 @@
+before 17348  after 17386  only before 0  only after 38  changed 1
+  HDec.HSyn.OpenResearchLeaves46 None | ZInQKernel.OneProof.H.TailZ72 [] 3944470172 0
+
+  HDec.HSyn.OpenResearchLeaves46.afCharpolyDS965 None | ZInQKernel.OneProof.H.TailZ72 [] 2713851052 1123755733
+
+  HDec.HSyn.OpenResearchLeaves46.afShimura None | ZInQKernel.OneProof.H.TailZ72 [] 3151559925 844153596
+
+  HDec.HSyn.OpenResearchLeaves46.bergerPrintedV None | ZInQKernel.OneProof.H.TailZ72 [] 461133512 1142999999
+
+  HDec.HSyn.OpenResearchLeaves46.bostLowerBoundAn None | ZInQKernel.OneProof.H.TailZ72 [] 3889874088 3346044061
+
+  HDec.HSyn.OpenResearchLeaves46.carayolThmAIrr None | ZInQKernel.OneProof.H.TailZ72 [] 2572791341 719832832
+
+  HDec.HSyn.OpenResearchLeaves46.casesOn None | ZInQKernel.OneProof.H.TailZ72 [u] 578316016 1667757009
+
+  HDec.HSyn.OpenResearchLeaves46.deRhamVpAbVarDirect None | ZInQKernel.OneProof.H.TailZ72 [] 898080038 2022366068
+
+  HDec.HSyn.OpenResearchLeaves46.deligneCanonicalModelY3EveryH None | ZInQKernel.OneProof.H.TailZ72 [] 1725427871 2480763662
+
+  HDec.HSyn.OpenResearchLeaves46.dsThm965Printed None | ZInQKernel.OneProof.H.TailZ72 [] 1052905733 495293489
+
+  HDec.HSyn.OpenResearchLeaves46.dsThm966Printed None | ZInQKernel.OneProof.H.TailZ72 [] 4186306690 3412704716
+
+  HDec.HSyn.OpenResearchLeaves46.elkiesX6StarEveryIdeal None | ZInQKernel.OneProof.H.TailZ72 [] 2214734180 3616604780
+
+  HDec.HSyn.OpenResearchLeaves46.gamma1IntegralBasis None | ZInQKernel.OneProof.H.TailZ72 [] 3562698931 581960692
+
+  HDec.HSyn.OpenResearchLeaves46.gaudronRemondThm14An None | ZInQKernel.OneProof.H.TailZ72 [] 85166590 2078761225
+
+  HDec.HSyn.OpenResearchLeaves46.gonzalezRotgerThm512X6 None | ZInQKernel.OneProof.H.TailZ72 [] 11478924 2803425864
+
+  HDec.HSyn.OpenResearchLeaves46.heckeJ1DS None | ZInQKernel.OneProof.H.TailZ72 [] 3818872438 292167202
+
+  HDec.HSyn.OpenResearchLeaves46.heckePrimeIntegralToRational None | ZInQKernel.OneProof.H.TailZ72 [] 651442709 2483340370
+
+  HDec.HSyn.OpenResearchLeaves46.hodgeTateDecompOr None | ZInQKernel.OneProof.H.TailZ72 [] 1133770855 2556033330
+
+  HDec.HSyn.OpenResearchLeaves46.igusaGL2DS None | ZInQKernel.OneProof.H.TailZ72 [] 3828475133 405595163
+
+  HDec.HSyn.OpenResearchLeaves46.javanpeykarThm111 None | ZInQKernel.OneProof.H.TailZ72 [] 2421217755 3308810528
+
+  HDec.HSyn.OpenResearchLeaves46.mk None | ZInQKernel.OneProof.H.TailZ72 [] 4104735285 0
+
+  HDec.HSyn.OpenResearchLeaves46.mk._flat_ctor None | ZInQKernel.OneProof.H.TailZ72 [] 4104735285 3474456541
+
+  HDec.HSyn.OpenResearchLeaves46.modularHTPrinted 

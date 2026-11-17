@@ -1,0 +1,36 @@
+warning: ZInQKernel/Contrib/OneProof/ChevalleyFree.lean: imports `Mathlib.AlgebraicGeometry.Sites.Fpqc` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/OneProof/ChevalleyFree.lean: imports `Mathlib.AlgebraicGeometry.Morphisms.LocalFlatDescent` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/OneProof/ChevalleyFree.lean: imports `Mathlib.AlgebraicGeometry.AffineTransitionLimit` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/OneProof/ChevalleyFree.lean:595:10: `if_pos` has been deprecated: Use `ite_eq_left` instead
+warning: ZInQKernel/Contrib/OneProof/ChevalleyFree.lean:596:10: `if_neg` has been deprecated: Use `ite_eq_right` instead
+warning: ZInQKernel/Contrib/OneProof/ChevalleyFree.lean:621:21: This simp argument is unused:
+warning: ZInQKernel/Contrib/OneProof/ChevalleyFree.lean:785:37: `simp` already closes the goal
+warning: ZInQKernel/Contrib/OneProof/ChevalleyFree.lean:1736:31: This simp argument is unused:
+warning: ZInQKernel/Contrib/OneProof/ChevalleyFree.lean:1758:26: This simp argument is unused:
+warning: ZInQKernel/Contrib/OneProof/ChevalleyFree.lean:1781:12: This simp argument is unused:
+info: ZInQKernel/Contrib/OneProof/ChevalleyFree.lean:2039:0: 'ZInQ.ChevFree.rig_raw' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/ChevalleyFree.lean:2040:0: 'ZInQ.ChevFree.torus_kernel_transfer' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/ChevalleyFree.lean:2041:0: 'ZInQ.ChevFree.kbar_KI' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/ChevalleyFree.lean:2042:0: 'ZInQ.ChevFree.algclosed_KI' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/ChevalleyFree.lean:2043:0: 'ZInQ.ChevFree.KI_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/ChevalleyFree.lean:2044:0: 'ZInQ.ChevFree.cong_of_faithful' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/ChevalleyFree.lean:2045:0: 'ZInQ.ChevFree.finite_affine_of_grp' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/ChevalleyFree.lean:2046:0: 'ZInQ.ChevFree.Ecomp_left_rr' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/ChevalleyFree.lean:2047:0: 'ZInQ.ChevFree.isMonHom_Ecomp' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/ChevalleyFree.lean:2048:0: 'ZInQ.ChevFree.isPullback_π'' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/ChevalleyFree.lean:2049:0: 'ZInQ.ChevFree.fsd' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/ChevalleyFree.lean:2050:0: 'ZInQ.ChevFree.spread' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/ChevalleyFree.lean:2051:0: 'ZInQ.ChevFree.semiAbelianDescendsPerfect_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/ChevalleyFree.lean:2052:0: 'ZInQ.ChevFree.bostLowerBound_of_printed_free' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/ChevalleyFree.lean:2053:0: 'ZInQ.ChevFree.gaudronRemondThm14_of_printed_free' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/ChevalleyFree.lean:2054:0: 'ZInQ.ChevFree.torus1_const' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/ChevalleyFree.lean:2055:0: 'ZInQ.ChevFree.torusR_const' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/ChevalleyFree.lean:2056:0: 'ZInQ.ChevFree.exists_descent' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/ChevalleyFree.lean:2057:0: 'ZInQ.ChevFree.exists_grpObj' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/ChevalleyFree.lean:2058:0: 'ZInQ.ChevFree.quotientDescendsPerfect_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/ChevalleyFree.lean:2059:0: 'ZInQ.ChevFree.javanpeykarBound_of_printed_free' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/ChevalleyFree.lean:2060:0: 'ZInQ.ChevFree.pazukiCor13Upper_of_printed_free' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [16094/16095] Built ZInQKernel.OneProof.H.TailZ72 (5.4s)
+info: ZInQKernel/OneProof/H/TailZ72.lean:123:0: 'HDec.HSyn.sixContactMin_of_open65' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/Main.lean:187:0: 'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (16095 jobs).
