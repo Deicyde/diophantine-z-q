@@ -99,7 +99,7 @@ DISCHARGES [OpenResearchLeaves28.shimuraMainThmIDeligneY3AbU] by Y3ABUStrict.shi
 DISCHARGES [hBFH] by ZInQ.BFHPrinted.bfhClauseIIGamma0_of_bfhClauseIIKronecker
   still assumes: [ZInQ.BFHPrinted.BFHClauseIIKronecker]
   axioms: [propext, Classical.choice, Quot.sound]
-#discharges: 45 open hypotheses, 6699 theorems checked, 15 discharge one
+#discharges: 45 open hypotheses, 6742 theorems checked, 15 discharge one
 'Y3ABUStrict.shimuraMainThmIDeligneY3AbU_of_strict' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Y3ABUStrict.deligneCanonicalModelY3Every_of_split' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Y3ABUStrict.deligneModuliY3Every_of_one' depends on axioms: [propext, Classical.choice, Quot.sound]

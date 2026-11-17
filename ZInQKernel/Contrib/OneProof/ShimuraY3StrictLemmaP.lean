@@ -7,6 +7,8 @@ rv-qm-polar compiled the pieces (`eq_smul_E0`, `eq_pm_E0_of_principal`, `riemann
 not "the identification of `E0R` with `E₀ ⊗ ℝ`", "the combination with `eq_smul_E0`" nor "the transport to
 `Λ = 𝒪v`". These are done here for the QM tori `ℂ²/Λ_τ`, `Λ_τ = ι(𝒪)(τ, 1)ᵀ`, of the kernel (`qmLattice`):
 `realExt_eq`, `lemmaP_lattice_unique`, the complex structure `j_τ` (`iotaC_mul_jτ`), and `lemmaP_qmTorus`.
+Also `eq_smul_E0K`: over every field of characteristic 0 (e.g. `ℚ_ℓ`), every alternating form with adjoint `†`
+is a multiple of `E₀`, so an `𝒪`-linear level structure automatically respects the pairings up to a scalar.
 
 What is **not** here (and cannot be stated today): the passage from Riemann forms on `H₁(A, ℤ)` to polarizations
 `λ : A → A^∨` of the abelian variety (Riemann's theorem; no dual abelian variety in Mathlib), and anything over a
@@ -167,5 +169,69 @@ theorem lemmaP_qmTorus_eq (τ : UpperHalfPlane) (E : LinearMap.BilinForm ℚ B) 
     ext r s; simp [E0bil_apply, E0_gram]
   exact ((lemmaP_qmTorus τ).2.unique ⟨halt, hros, hdet, hpos⟩
     ⟨fun x => E0_alt x, fun a x y => E0_rosati a x y, by rw [hgram, gram_det], hE0⟩)
+
+
+/-! ## Level compatibility (the PEL condition on level structures is automatic) -/
+
+section LevelCompat
+
+variable {K : Type} [Field K] [CharZero K]
+
+/-- `B ⊗ K` for `B = (2, −3 | ℚ)` (Mathlib's `QuaternionAlgebra K 2 0 (−3)`). -/
+abbrev BK (K : Type) [Field K] := QuaternionAlgebra K 2 0 (-3)
+
+/-- `μ = 2j + k` and `μ⁻¹ = −μ/6` in `B ⊗ K`. -/
+def muK : BK K := ⟨0, 0, 2, 1⟩
+def muInvK : BK K := ⟨0, 0, -1/3, -1/6⟩
+
+/-- The Rosati involution of type `μ`, `x† = μ⁻¹ x̄ μ`, on `B ⊗ K`. -/
+def dagK (x : BK K) : BK K := muInvK * star x * muK
+
+/-- `E₀ ⊗ K = trd(μ⁻¹ x ȳ)` on `B ⊗ K` (the PEL datum's symplectic form `ψ`). -/
+def E0K (x y : BK K) : K := 2 * (muInvK * x * star y).re
+
+theorem decompK (z : BK K) :
+    z = z.re • (1 : BK K) + z.imI • (⟨0, 1, 0, 0⟩ : BK K) + z.imJ • (⟨0, 0, 1, 0⟩ : BK K) +
+      z.imK • (⟨0, 0, 0, 1⟩ : BK K) := by
+  ext <;> simp
+
+/-- **Level compatibility is automatic (over any field `K` of characteristic 0, e.g. `ℚ_ℓ`).** Every alternating
+`K`-bilinear form on `B ⊗ K` for which `B ⊗ K` acts with adjoint `†` (type `μ`) is a scalar multiple of
+`ψ = E₀ ⊗ K`. Applied to `η^* e^λ` for an `𝒪`-linear level structure `η : B ⊗ ℚ_ℓ ≅ V_ℓ(A)` (the Weil pairing
+of the type-`μ` polarization has adjoint `†` on `ι(B)`): every `𝒪`-linear level structure respects the pairings
+up to a scalar, which is the PEL condition. (rv-qm-polar's `eq_smul_E0` over `ℚ`, generalized; same proof.) -/
+theorem eq_smul_E0K (E : LinearMap.BilinForm K (BK K)) (halt : ∀ x, E x x = 0)
+    (hros : ∀ a x y, E (a * x) y = E x (dagK a * y)) :
+    ∃ c : K, ∀ x y, E x y = c * E0K x y := by
+  set f : BK K →ₗ[K] K := E 1 with hf
+  have hE : ∀ x y, E x y = f (dagK x * y) := by
+    intro x y; rw [hf, ← hros x 1 y, mul_one]
+  have hf0 : ∀ x, f (dagK x * x) = 0 := fun x => by rw [← hE]; exact halt x
+  have d1 : dagK (1 : BK K) * 1 = 1 := by
+    simp only [dagK, muInvK, muK]; ext <;> simp <;> norm_num
+  have r1 : f 1 = 0 := by simpa [d1] using hf0 1
+  have e2 : dagK (⟨1, 1, 0, 0⟩ : BK K) * ⟨1, 1, 0, 0⟩ = (3 : K) • (1 : BK K) + (2 : K) • ⟨0, 1, 0, 0⟩ := by
+    simp only [dagK, muInvK, muK]; ext <;> simp <;> norm_num
+  have e3 : dagK (⟨1, 0, 1, 0⟩ : BK K) * ⟨1, 0, 1, 0⟩ = (10 : K) • (1 : BK K) + (6 : K) • ⟨0, 1, 0, 0⟩
+      + (-2 : K) • (⟨0, 0, 1, 0⟩ + ⟨0, 0, 0, 1⟩) := by
+    simp only [dagK, muInvK, muK]; ext <;> simp <;> norm_num
+  have r2 : f ⟨0, 1, 0, 0⟩ = 0 := by
+    have := hf0 ⟨1, 1, 0, 0⟩
+    rw [e2, map_add, map_smul, map_smul, r1] at this
+    simp at this
+    exact this
+  have r3 : f ⟨0, 0, 0, 1⟩ = - f ⟨0, 0, 1, 0⟩ := by
+    have := hf0 ⟨1, 0, 1, 0⟩
+    rw [e3, map_add, map_add, map_smul, map_smul, map_smul, map_add, r1, r2] at this
+    simp at this
+    linear_combination this
+  refine ⟨-(f ⟨0, 0, 1, 0⟩) / 2, fun x y => ?_⟩
+  rw [hE, decompK (dagK x * y)]
+  simp only [map_add, map_smul, r1, r2, r3, smul_eq_mul]
+  simp only [E0K, dagK, muInvK, muK]
+  simp
+  ring
+
+end LevelCompat
 
 end Y3ABUStrict.LemmaP

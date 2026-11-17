@@ -2,3 +2,4 @@
 'Y3ABUStrict.LemmaP.lemmaP_qmTorus' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Y3ABUStrict.LemmaP.lemmaP_qmTorus_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Y3ABUStrict.LemmaP.iotaC_mul_jτ' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Y3ABUStrict.LemmaP.eq_smul_E0K' depends on axioms: [propext, Classical.choice, Quot.sound]

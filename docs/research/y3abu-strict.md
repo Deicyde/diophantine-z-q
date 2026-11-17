@@ -180,6 +180,12 @@ combination with `eq_smul_E0`, and the transport to `Λ = 𝒪v`. All three are 
   * `jτ_imJ_pos`: `imJ(j_τ) = (3+|τ|²)/(6 Im τ) > 0`.
 * `lemmaP_qmTorus τ`: the two statements above for `ℂ²/Λ_τ`. `lemmaP_qmTorus_eq`: the unique form is `E₀` for every
   `τ ∈ ℍ`.
+* `eq_smul_E0K` is the level compatibility. Over every field `K` of characteristic 0 (for example `ℚ_ℓ`), every
+  alternating `K`-bilinear form on `B ⊗ K` with adjoint `†` is `c · E₀`. This is rv-qm-polar's `eq_smul_E0`
+  generalized from `ℚ`. Apply it to `η^* e^λ` for an `𝒪`-linear `η : B ⊗ ℚ_ℓ ≅ V_ℓ A`: the PEL condition "η respects
+  the pairings up to a scalar" holds automatically for every `𝒪`-linear level structure, which is the R1
+  qualification "polarization-compatible level structure". This is the algebra only; the Weil pairing itself cannot
+  be stated.
 
 This is Lemma P for the QM tori `ℂ²/Λ_τ`, stated with Riemann forms on `H₁(ℂ²/Λ_τ, ℚ) = ℚΛ_τ`. It is everything in
 Lemma P over `ℂ` except two facts:
@@ -199,8 +205,8 @@ Lean form: `∃ Y Φ, R1fpPropsAb Y Φ`. The kernel's objects are polarization-f
 * **From a PEL print.** Milne 1979, Boutot–Carayol in PEL form, Deligne Ex. 5.8 and Kottwitz all have general neat
   `K`, which covers `K₃`. Going from such a print to `R1fpPropsAb` needs three things:
   1. Lemma P over every field `K ⊇ ℚ`, for `Φ` to be a bijection onto polarization-free classes.
-  2. The level comparison: every `𝒪`-linear level structure respects the pairings up to a scalar. This is
-     `eq_smul_E0` over `𝔸_f` and mod 3, as algebra.
+  2. The level comparison: every `𝒪`-linear level structure respects the pairings up to a scalar. The algebra is
+     proved here over every field of characteristic 0 (`eq_smul_E0K`, §4). The integral mod-3 form is not in Lean.
   3. **The relative Lemma P over every proper smooth curve `S/ℚ`.** `R1univAbProps` needs a classifying map for
      polarization-free families. The argument: Lemma P at the generic point, extension of homomorphisms of abelian
      schemes over a normal base (Faltings–Chai I.2.7, UNVERIFIED), and local constancy of the polarization type.
@@ -265,14 +271,14 @@ Lean form: `∃ Y Φ, R1fpPropsAb Y Φ`. The kernel's objects are polarization-f
 ## 6. Checks (VERIFIED)
 
 * `lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges +ZInQKernel.Contrib.OneProof.ShimuraY3Strict`
-  succeeds (14103 jobs). `frozenTarget` uses the standard axioms.
+  succeeds, together with `GRX6AbPrint` and `ElkiesX6StarEvery` (14108 jobs, `build-summary.txt`). `frozenTarget` uses the standard axioms.
 * `#discharges` (`scratch/y3abu-strict/discharges.txt`):
 
   ```
   DISCHARGES [OpenResearchLeaves28.shimuraMainThmIDeligneY3AbU] by Y3ABUStrict.shimuraMainThmIDeligneY3AbU_of_strict
     still assumes: [Y3ABUPrint.Y3FineModuliAb, Y3ABUStrict.DeligneModuliY3Every, Y3ABUStrict.DeligneReciprocityY3Every]
     axioms: [propext, Classical.choice, Quot.sound]
-  #discharges: 45 open hypotheses, 6699 theorems checked, 15 discharge one
+  #discharges: 45 open hypotheses, 6742 theorems checked, 15 discharge one
   ```
 
 * The new theorems use `[propext, Classical.choice, Quot.sound]` (`discharges.txt`, `axioms-lemmap.txt`).
@@ -302,6 +308,7 @@ Lean form: `∃ Y Φ, R1fpPropsAb Y Φ`. The kernel's objects are polarization-f
 * Compiled (VERIFIED):
   * the split, the discharge and the every-witness reductions;
   * Lemma P for the QM tori `ℂ²/Λ_τ` in Riemann-form language;
+  * the level compatibility over fields of characteristic 0;
   * `#discharges`;
   * both fold checks.
 * Not possible today (reported, not attempted further):
@@ -312,5 +319,5 @@ Lean form: `∃ Y Φ, R1fpPropsAb Y Φ`. The kernel's objects are polarization-f
   The tree has no polarization over a base and no dual abelian variety.
 * Not done:
   * the locator readings, which need a network;
-  * the mod-3 / `𝔸_f` level-compatibility lemma (`eq_smul_E0` over a `ℚ`-algebra), which would close the
-    "polarization-compatible level structure" qualification of row R1 at the algebra level.
+  * the integral (mod 3) form of the level compatibility. The form over fields of characteristic 0 is compiled
+    (`eq_smul_E0K`).
