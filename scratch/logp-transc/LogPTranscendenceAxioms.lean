@@ -21,6 +21,10 @@ Report: `docs/research/logp-transc.md`. This file proves:
 * **Converse** (`logCore_of_transcendental`): the transcendence over `B` gives `LogCore B` whenever
   `B_dR^{G_{ℚ_p}} ⊆ B`; so `LogCore` is exactly the remaining content.
 
+* **Units** (§6, `unit_log_mem_amax`): for every unit `v ∈ ℤ_p^×`, `log([ν]/v) ∈ A_max` (`ν♯ = v`) with
+  `σ(log([ν]/v)) = log([ν]/v) + log [u_σ]`, the Galois shape of `log [p̃]`; so the core cannot follow from that shape.
+  By-products: `logOne_mem_amax` (`log z ∈ A_max` whenever `θ(z) = 1`), `untilt_flatOf` (`♯` is onto `𝓞_ℂ_p`).
+
 The core `LogCore (B_max) (log [p̃])` itself is not proved: every proof known here uses the Frobenius of
 `B_max` (see the report, §4).
 -/

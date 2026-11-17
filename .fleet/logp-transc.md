@@ -40,3 +40,5 @@ which is reduced here and not proved. BC is cited in the bibitem only at Thm 5.2
 definitions are provenance (b).
 
 **Proof only:** no field, statement, kinds row or fold changed.
+
+Status: final for this run (2026-11-17); all files above compiled on the final commit's content.
