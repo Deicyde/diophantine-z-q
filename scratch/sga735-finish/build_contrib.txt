@@ -1,0 +1,9 @@
+info: ZInQKernel/Contrib/OneProof/SGA7IX35Unip.lean:398:0: 'SGA735Nil.forwardUnipAC_of_forwardGeom' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/SGA7IX35Unip.lean:399:0: 'SGA735Nil.semistableUnipotentNilCP_of_forwardUnipAC' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/SGA7IX35Unip.lean:400:0: 'SGA735Nil.raynaudCriterionNFNil_of_forwardUnipAC' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/SGA7IX35Unip.lean:401:0: 'SGA735Nil.fixed_of_nil_of_iterate' depends on axioms: [propext, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/SGA7IX35UnipReaders.lean:320:0: 'SGA735Nil.nilQuat_trivial' depends on axioms: [propext, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/SGA7IX35UnipReaders.lean:321:0: 'HDec.G15Ram.raynaudPlace_of_R6Nil' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/SGA7IX35UnipReaders.lean:322:0: 'HDec.PkgI2.goodReduction_of_QM_rational3_of_alg_nil' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/OneProof/SGA7IX35UnipReaders.lean:323:0: 'HDec.PkgI2.goodReduction_of_QM_rational3'_nl' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (12817 jobs).

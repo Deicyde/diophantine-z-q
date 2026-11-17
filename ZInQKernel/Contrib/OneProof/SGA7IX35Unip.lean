@@ -394,3 +394,8 @@ theorem raynaudCriterionNFNil_of_forwardUnipAC (hR : RaynaudSemistable) (hP : SG
 end SGA735Nil
 
 end
+
+#print axioms SGA735Nil.forwardUnipAC_of_forwardGeom
+#print axioms SGA735Nil.semistableUnipotentNilCP_of_forwardUnipAC
+#print axioms SGA735Nil.raynaudCriterionNFNil_of_forwardUnipAC
+#print axioms SGA735Nil.fixed_of_nil_of_iterate
