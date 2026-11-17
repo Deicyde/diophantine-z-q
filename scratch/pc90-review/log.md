@@ -1,3 +1,11 @@
 # pc90-review log
 - VERIFIED: HEAD 517e05cce; merge-base(HEAD,5f1fac79)=67950e82 (5f1fac79 not ancestor). merge-tree HEAD 5f1fac79: clean.
 - VERIFIED: HEAD tracks scratch/upstream/parity-frozen-4eaee875.tex (32153 B, S12); added in 4b2595108 (msg claims untrack). ERROR -> .fleet/pc90-review-verdict.md
+- VERIFIED: committed S12 md5 5b8d6f645f240603135c536001dd4756 = ~/dzq-wt/pc-from-rc copy (full supplement in PR).
+- VERIFIED: no PR .lean file is in scratch/upstream/baseline-lean-files.txt (no pinned file edited).
+- VERIFIED: grep sorry|admit|axiom|native_decide|implemented_by|extern|unsafe over 50 PR .lean files: none. set_option maxRecDepth only (Bookkeeping).
+- VERIFIED: tex has no Mazur/Rubin citation (grep -i: only Mazur's conjecture L47,L84,L6470ff, Fontaine-Mazur L11041). lem:corank L1072-1084 cites only poonenstoll (L1081). => Mazur-Rubin route (SelmerTwoPowerLemma54.lean, 30567231a) is a ROUTE DEPARTURE; not on frozenTarget's path (frozenTarget takes Lemma54 directly).
+- VERIFIED: tex L1092 bcdt, L1093 kolyvagin, L1081 poonenstoll; PoleS12/Leaves.lean docstrings cite L1099/L1100/L1088 and lem:corank as L1076-1093 (stale line numbers).
+- VERIFIED: S12 L586-587 a = entries 1 at q0, b*; L638 [q0/qb] prescription; L677-688 toggle/Boolean cube. pc-s12 report cites L581-583 for a (off by ~5).
+- VERIFIED: frozenTarget path: PoleS12.simultaneousConstruction = PoleRC.simultaneousConstruction_of PoleS12.matrixRealization (dimThreeCount_S12 localGoodUnram); CRM via PoleRC.crm_of_restrictedConverse_proved (mordellWeilM + descentGlueM). Cloud's PoleRC.matrixRealization, PoleRC.dimThreeCount (local four) NOT on path.
+- VERIFIED: merge-tree HEAD vs 5f1fac79 clean.
