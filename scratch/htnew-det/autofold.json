@@ -1,0 +1,6 @@
+{
+  "task": "htnew-det",
+  "field": "eigenformHTNew",
+  "fold": null,
+  "reason": "No fold: the determinant argument does not prove G12Weight's k >= 3 case (the Pan-Berger twist psi is an arbitrary continuous character; every determinant/trace/Frobenius identity the chain states is invariant under (k, psi, a_q) -> (k+2m, psi*chi^-m, q^m a_q), Lean: ZInQ.Contrib.HTNewDet.det_data_weight_shift, frobPoly_weight_shift, traceTwist_weight_shift, twist_shift_not_finite). The exact consumer need is ZInQ.Contrib.HTNewDet.NoHighWeightTwist5 (GLUE, not printed form); replacing the field by it would not change the GLUE count, so no reroute is proposed."
+}
