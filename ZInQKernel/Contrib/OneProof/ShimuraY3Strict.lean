@@ -1,4 +1,5 @@
 import ZInQKernel.Contrib.OneProof.ShimuraY3Print
+import ZInQKernel.Contrib.OneProof.ShimuraY3StrictLemmaP
 
 /-! # y3abu-strict: Deligne's leaf split into the moduli interpretation and the canonical-model property
 
