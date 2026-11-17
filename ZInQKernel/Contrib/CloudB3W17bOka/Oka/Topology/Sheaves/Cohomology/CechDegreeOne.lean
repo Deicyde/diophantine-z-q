@@ -107,6 +107,7 @@ lemma cechRefine_cechCochainMap {Q : (Opens X)ᵒᵖ ⥤ AddCommGrpCat.{u}} (φ 
   simp only [cechRefine_apply, cechCochainMap, AddMonoidHom.coe_mk, ZeroHom.coe_mk]
   rw [← ConcreteCategory.comp_apply, ← ConcreteCategory.comp_apply, φ.naturality]
 
+set_option backward.isDefEq.respectTransparency false in
 /-- The refinement map as a morphism of Čech complexes `Č•(U, P) ⟶ Č•(V, P)`. -/
 def cechRefineHom : cloudB3W17bOka_cechComplex U P ⟶ cloudB3W17bOka_cechComplex V P where
   f n := AddCommGrpCat.ofHom (cechRefine U hτ P n)
@@ -222,6 +223,7 @@ lemma exists_isCechLift (hU : ⨆ i, U i = ⊤) (hC : (cloudB3W17bOka_cechComple
   obtain ⟨s, hs⟩ := exists_cechAugment_eq U (fun _ => le_top) S.X₃ hU.ge _ hgt
   exact ⟨t, s, ht, hs.symm⟩
 
+set_option backward.isDefEq.respectTransparency false in
 /-- The morphism from a short exact sequence `S` to `0 → G → I(G) → I(G)/G → 0` extending a
 morphism `S.X₁ ⟶ G`. -/
 noncomputable def homToInjSES (hS : S.ShortExact) {G : AbSheaf X} (φ : S.X₁ ⟶ G) :
@@ -380,6 +382,7 @@ theorem cechToH_surjective (F : AbSheaf X)
   rw [cechToH_eq_of_injSES hU F hdz ⟨hz'.symm, ht'⟩, ← hw, H.δSections_apply]
   exact congrArg (H.δ hS 0 1 rfl) ((H.equiv₀ S.X₃).symm_apply_apply w)
 
+set_option backward.isDefEq.respectTransparency false in
 /-- **The class of a Čech cocycle is compatible with refinement**: for a cover `V` with
 `V k ≤ U (τ k)`, a cocycle for `U` and its refinement for `V` have the same class. -/
 theorem cechToH_cechRefine {κ : Type u} {V : κ → Opens X} (hV : ⨆ k, V k = ⊤) {τ : κ → ι}
@@ -415,6 +418,7 @@ lemma cechCyclesToH_apply (F : AbSheaf X) (c : (cloudB3W17bOka_cechComplex U F.o
     cechCyclesToH hU F c =
       cechToH hU F ((cloudB3W17bOka_cechComplex U F.obj).iCycles 1 c) (cechD_iCycles U F.obj c) := rfl
 
+set_option backward.isDefEq.respectTransparency false in
 /-- `d b ∈ Z¹` maps to zero. -/
 lemma toCycles_comp_cechCyclesToH (F : AbSheaf X) :
     (cloudB3W17bOka_cechComplex U F.obj).toCycles 0 1 ≫ cechCyclesToH hU F = 0 := by
@@ -455,6 +459,7 @@ lemma exists_iCycles_eq {P : (Opens X)ᵒᵖ ⥤ AddCommGrpCat.{u}} {z : CloudB3
   funext τ
   exact (cloudB3W17bOka_cechComplex_d_apply U P 1 z τ).trans (congrFun hz τ)
 
+set_option backward.isDefEq.respectTransparency false in
 /-- The comparison map `H¹(U, F) → H¹(X, F)` is injective. -/
 theorem cechHomologyToH_injective (F : AbSheaf X) : Function.Injective (cechHomologyToH hU F) := by
   let K := cloudB3W17bOka_cechComplex U F.obj
@@ -496,6 +501,7 @@ lemma cechH1Equiv_apply (F : AbSheaf X) (hH : ∀ i, ∀ x : H ((restrictOpen (U
     (x : (cloudB3W17bOka_cechComplex U F.obj).homology 1) : cechH1Equiv hU F hH x = cechHomologyToH hU F x :=
   rfl
 
+set_option backward.isDefEq.respectTransparency false in
 /-- The comparison map `H¹(U, F) → H¹(X, F)` is natural in `F`. -/
 theorem cechHomologyToH_naturality {F G : AbSheaf X} (φ : F ⟶ G)
     (x : (cloudB3W17bOka_cechComplex U F.obj).homology 1) :
@@ -509,6 +515,7 @@ theorem cechHomologyToH_naturality {F G : AbSheaf X} (φ : F ⟶ G)
   rw [← ConcreteCategory.comp_apply, HomologicalComplex.cyclesMap_i, ConcreteCategory.comp_apply]
   rfl
 
+set_option backward.isDefEq.respectTransparency false in
 /-- The comparison map `H¹(U, F) → H¹(X, F)` is compatible with refinement: for a cover `V`
 with `V k ≤ U (τ k)`, the refinement map `H¹(U, F) → H¹(V, F)` commutes with the comparison
 maps. -/

@@ -47,6 +47,7 @@ section Cochains
 
 variable {X : TopCat.{u}} {ι : Type u} (U : ι → Opens X)
 
+set_option backward.isDefEq.respectTransparency false in
 lemma cechD_cechD (P : (Opens X)ᵒᵖ ⥤ AddCommGrpCat.{u}) (n : ℕ) (c : CloudB3W17bOkaCechCochain U P n) :
     cechD U P (n + 1) (cechD U P n c) = 0 := by
   have h := ConcreteCategory.congr_hom ((cloudB3W17bOka_cechComplex U P).d_comp_d n (n + 1) (n + 2)) c

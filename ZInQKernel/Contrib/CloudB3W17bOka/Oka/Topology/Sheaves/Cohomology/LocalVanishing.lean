@@ -127,6 +127,7 @@ lemma exists_H'res_eq_zero_one {U : Opens X} (c : CategoryTheory.Sheaf.H'.{u} F 
   rw [← Ext.comp_assoc_of_second_deg_zero, Ext.mk₀_comp_mk₀, key, ← Ext.mk₀_comp_mk₀,
     Ext.comp_assoc_of_second_deg_zero, hS.comp_extClass, Ext.comp_zero]
 
+set_option backward.isDefEq.respectTransparency false in
 /-- **Cohomology classes vanish locally.** For `q ≥ 1`, a class `c ∈ H'ᵠ(U, F)` restricts to zero
 on some open neighbourhood `V ≤ U` of any given point `x ∈ U`. -/
 theorem exists_H'res_eq_zero (q : ℕ) {U : Opens X}

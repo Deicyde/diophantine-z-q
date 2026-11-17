@@ -35,6 +35,7 @@ noncomputable def freeYonedaImageUnit :
     freeYoneda U ⟶ (restrictAb hf).obj (freeYoneda (hf.isOpenMap.functor.obj U)) :=
   (freeYonedaHomEquiv U _).symm (freeYonedaHomEquiv (hf.isOpenMap.functor.obj U) _ (𝟙 _))
 
+set_option backward.isDefEq.respectTransparency false in
 lemma freeYonedaImageUnit_comp_bijective (B : AbSheaf X) :
     Function.Bijective (fun x : freeYoneda (hf.isOpenMap.functor.obj U) ⟶ B =>
       freeYonedaImageUnit hf U ≫ (restrictAb hf).map x) := by

@@ -253,6 +253,7 @@ theorem sum_cauchySides_of_notMem (hre : a.re ≤ b.re) (him : a.im ≤ b.im) {z
 
 end Sides
 
+set_option backward.isDefEq.respectTransparency false in
 /-- The four sides of a rectangle. -/
 inductive RectSide
   | bottom | right | top | left

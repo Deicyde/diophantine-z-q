@@ -187,7 +187,6 @@ namespace TheoremB
 
 variable {ι : Type u}
 
-set_option hygiene false in
 /- The space `ℂ^ι` as an object of `TopCat`. -/
 
 

@@ -93,6 +93,7 @@ def cosimplicial : CosimplicialObject (ModuleCat.{max u v} ℤ) where
   map_id _ := rfl
   map_comp _ _ := rfl
 
+set_option backward.isDefEq.respectTransparency false in
 variable (ι M) in
 lemma d_eq_objD (p : ℕ) (x : Cochain ι M p) :
     d p x = (AlgebraicTopology.AlternatingCofaceMapComplex.objD
@@ -100,7 +101,7 @@ lemma d_eq_objD (p : ℕ) (x : Cochain ι M p) :
   ext i
   simp only [d_apply, AlgebraicTopology.AlternatingCofaceMapComplex.objD, CosimplicialObject.δ,
     ModuleCat.hom_sum, ModuleCat.hom_zsmul, LinearMap.coe_sum, Finset.sum_apply]
-  erw [LinearMap.sum_apply, Finset.sum_apply]
+  erw [Finset.sum_apply]
   simp only [LinearMap.smul_apply]
   rfl
 

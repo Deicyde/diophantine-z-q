@@ -77,7 +77,7 @@ theorem differentiableOn_of_tendstoLocallyUniformlyOn {ι : Type*} {l : Filter �
   have hKle : ∀ θ, ‖∏ i, (torusMap (0 : Fin m → ℂ) (fun _ ↦ ρ) θ i - y i)⁻¹‖ ≤ Cy := by
     intro θ
     rw [norm_prod]
-    refine Finset.prod_le_prod (fun i _ ↦ norm_nonneg _) fun i _ ↦ ?_
+    refine Finset.prod_le_prod₀ (fun i _ ↦ norm_nonneg _) fun i _ ↦ ?_
     rw [norm_inv]
     have h2 := norm_sub_norm_le (torusMap (0 : Fin m → ℂ) (fun _ ↦ ρ) θ i) (y i)
     rw [hnorm] at h2

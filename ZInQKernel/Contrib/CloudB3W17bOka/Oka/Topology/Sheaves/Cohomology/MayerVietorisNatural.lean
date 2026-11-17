@@ -74,11 +74,13 @@ lemma res_apply (h : V ≤ U) (x : CategoryTheory.Sheaf.H'.{u} F q U) :
     res F q h x = (Ext.mk₀ (incl h)).comp (x : Ext (freeYoneda U) F q) (zero_add q) :=
   rfl
 
+set_option backward.isDefEq.respectTransparency false in
 /-- Restriction from `U` to `U` is the identity. -/
 @[simp]
 lemma res_id (x : CategoryTheory.Sheaf.H'.{u} F q U) : res F q (le_refl U) x = x := by
   rw [res_apply, incl_self, Ext.mk₀_id_comp]
 
+set_option backward.isDefEq.respectTransparency false in
 /-- Restriction maps compose. -/
 @[simp]
 lemma res_comp (hVU : V ≤ U) (hWV : W ≤ V) (x : CategoryTheory.Sheaf.H'.{u} F q U) :
@@ -92,13 +94,14 @@ section Zero
 
 variable {U V : Opens X}
 
+set_option backward.isDefEq.respectTransparency false in
 /-- Under `(ℤ[U] ⟶ B) ≃ B(U)`, precomposition with `ℤ[V] ⟶ ℤ[U]` is restriction of sections. -/
 lemma freeYonedaHomEquiv_incl_comp (h : V ≤ U) {B : AbSheaf X} (s : freeYoneda U ⟶ B) :
     freeYonedaHomEquiv V B (incl h ≫ s) =
       B.obj.map (homOfLE h).op (freeYonedaHomEquiv U B s) := by
   simp only [freeYonedaHomEquiv, incl, Equiv.trans_apply]
   erw [Adjunction.homEquiv_naturality_left]
-  erw [Equiv.trans_apply, Equiv.trans_apply, Adjunction.homEquiv_naturality_left]
+  erw [Adjunction.homEquiv_naturality_left]
   exact (yonedaEquiv_naturality _ _).symm
 
 /-- `(ℤ[U] ⟶ B) ≃ B(U)` is evaluation at the canonical section of `ℤ[U]` over `U`. -/
@@ -126,6 +129,7 @@ variable {U V : Opens X} {F : AbSheaf X}
 lemma zeroAddEquiv_apply (x : CategoryTheory.Sheaf.H'.{u} F 0 U) :
     zeroAddEquiv F U x = freeYonedaHomEquiv U F (Ext.addEquiv₀ x) := rfl
 
+set_option backward.isDefEq.respectTransparency false in
 /-- In degree zero, restriction of cohomology classes is restriction of sections. -/
 lemma zeroAddEquiv_res (h : V ≤ U) (x : CategoryTheory.Sheaf.H'.{u} F 0 U) :
     zeroAddEquiv F V (res F 0 h x) = F.obj.map (homOfLE h).op (zeroAddEquiv F U x) := by
@@ -223,6 +227,7 @@ private noncomputable abbrev biprodEquiv (A B : Opens X) (F : AbSheaf X) (q : �
   (AddCommGrpCat.biprodIsoProd (CategoryTheory.Sheaf.H'.{u} F q A)
     (CategoryTheory.Sheaf.H'.{u} F q B)).addCommGroupIsoToAddEquiv
 
+set_option backward.isDefEq.respectTransparency false in
 private lemma toProd_eq_comp :
     ⇑(toProd A B F q) =
       biprodEquiv A B F q ∘ ((Opens.mayerVietorisSquare A B).toBiprod F q).hom := by
@@ -264,6 +269,7 @@ section Naturality
 
 variable {A B A' B' : Opens X} (hA : A' ≤ A) (hB : B' ≤ B)
 
+set_option backward.isDefEq.respectTransparency false in
 /-- The morphism from the short exact sequence `0 → ℤ[A'⊓B'] → ℤ[A'] ⊞ ℤ[B'] → ℤ[A'⊔B'] → 0`
 to the one for `(A, B)`, induced by `A' ≤ A` and `B' ≤ B`. -/
 noncomputable def shortComplexMap :

@@ -213,7 +213,7 @@ lemma SummableAt.of_le {a b : Coeff n} {w w' : Fin (n + 1) → ℂ} (h : Summabl
   by_cases hk : a k = 0
   · simp only [hk, norm_zero, zero_mul]
     exact mul_nonneg (norm_nonneg _) (Finset.prod_nonneg fun i _ ↦ zpow_nonneg (norm_nonneg _) _)
-  · exact mul_le_mul (hab k hk).1 (Finset.prod_le_prod
+  · exact mul_le_mul (hab k hk).1 (Finset.prod_le_prod₀
       (fun i _ ↦ zpow_nonneg (norm_nonneg _) _) fun i _ ↦ (hab k hk).2 i)
       (Finset.prod_nonneg fun i _ ↦ zpow_nonneg (norm_nonneg _) _) (norm_nonneg _)
 

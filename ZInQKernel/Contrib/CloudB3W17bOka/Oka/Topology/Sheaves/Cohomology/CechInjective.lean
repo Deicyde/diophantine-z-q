@@ -235,6 +235,7 @@ lemma cechKCochain_cechKHom {n : ℕ} (c : CloudB3W17bOkaCechCochain U P n) :
   rw [P.map_id]
   rfl
 
+set_option backward.isDefEq.respectTransparency false in
 lemma cechKHom_cechKCochain {n : ℕ} (φ : cechK U n ⟶ P) :
     cechKHom U P (cechKCochain U P φ) = φ := by
   refine NatTrans.ext (funext fun V => cechK_hom_ext U fun τ => ?_)
@@ -242,6 +243,7 @@ lemma cechKHom_cechKCochain {n : ℕ} (φ : cechK U n ⟶ P) :
     ConcreteCategory.comp_apply, cechK_map_of]
   rfl
 
+set_option backward.isDefEq.respectTransparency false in
 lemma cechKHom_cechD {n : ℕ} (c : CloudB3W17bOkaCechCochain U P n) :
     cechKHom U P (cechD U P n c) = cechKd U n ≫ cechKHom U P c := by
   refine NatTrans.ext (funext fun V => cechK_hom_ext U fun τ => ?_)
@@ -257,6 +259,7 @@ lemma cechKHom_zero {n : ℕ} : cechKHom U P (0 : CloudB3W17bOkaCechCochain U P 
     rw [cechKHom_app_of]
     exact map_zero _)
 
+set_option backward.isDefEq.respectTransparency false in
 /-- The Čech complex of an injective presheaf is exact in positive degrees, for every family
 of opens. -/
 theorem isCechAcyclic_of_injective [Injective P] : IsCechAcyclic U P := by
