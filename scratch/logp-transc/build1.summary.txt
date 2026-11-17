@@ -1,0 +1,5 @@
+modules built in this run: 15
+lines containing "error": 0
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+Build completed successfully (10669 jobs).
+EXIT 0

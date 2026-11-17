@@ -386,6 +386,6 @@ Deliverables:
 
 * `ZInQKernel/Contrib/OneProof/LogPTranscendence.lean` and `ZInQKernel/Contrib/OneProof/LogPTranscendenceBdR.lean`
   (new; no edits elsewhere under `ZInQKernel/`; neither imports `ZInQKernel.OneProof.Main`);
-* `scratch/logp-transc/` (scratch copies, axiom files, build logs `build1.txt` and `build2.txt`, results log
+* `scratch/logp-transc/` (scratch copies, axiom files, build summaries `build1.summary.txt` and `build2.summary.txt`, results log
   `log.md`);
 * this report, and `.fleet/logp-transc.md`.

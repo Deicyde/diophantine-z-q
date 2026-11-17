@@ -1,0 +1,5 @@
+modules built in this run: 2
+lines containing "error": 0
+✔ [9446/9446] Built ZInQKernel.Contrib.OneProof.BdRInvariants (8.1s)
+Build completed successfully (9446 jobs).
+EXIT 0
