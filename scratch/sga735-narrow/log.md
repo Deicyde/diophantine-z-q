@@ -30,3 +30,22 @@ standard axioms (VERIFIED):
   `semistableUnipotentCP_of_forwardGeomAC hP hE hN`;
 * `raynaudCriterion_leavesNF_cp` (r6 at number fields from SemistableUnipotentCP),
   `raynaudCriterionNF_of_forwardGeomAC`.
+
+## Step 2b: echelon clause (findings)
+
+* The conclusion (sigma-1)^2 = 0 IS read: `HDec.PkgI2.quatUnipotentTrivial` (LPrefix.lean L702-773) needs the
+  square-zero hypothesis on G[3^{2k}] (VERIFIED, read); it feeds goodReduction_of_QM_rational3 (A6 route) through r6.
+  The D2 consumer `fixed_of_unipSq_of_iterate` (Objects.lean L1102) would accept any nilpotence index.
+* So no narrowing; cannot prove (needs IX 2.4 + IX §2 ranks, sga7-35-proof); an IX 2.4 split leaf would be a
+  consequence (GLUE). Reading (b) stays: new row flagged pending reading -> GLUE.
+
+## Step 3: fold (VERIFIED)
+
+* gen/gen.py (homfree-noemb copylib, taint-driven): FoldCheck.lean, 65 blocks (16 carriers, 41 tainted, 8 typed).
+* Compile 1: missing olean (module not built) -> `lake build ZInQKernel.Contrib.OneProof.SGA7IX35ForwardAC` OK.
+* Compile 2: heartbeat timeouts in 5 `_hf` maps; compile 3 (maxHeartbeats 1000000): 2 remain.
+* Cause: top-level `open` from each block's context leaked into later blocks. Fix: wrap each block in section/end.
+* Compile 4: no errors, 75 s; `sixContactMin_of_open42` axioms [propext, Classical.choice, Quot.sound].
+* Statement.lean: rfl check OK. Discharges.lean: 48 lines, none from the new file (expected: weaker leaf).
+* Counts: 33 fields, strict 13/20 -> 13/20 (proposed row, pending reading on (b)); 14/19 if the 3.5 display is
+  read and contains the echelon clause.

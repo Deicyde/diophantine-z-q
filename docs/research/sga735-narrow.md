@@ -97,7 +97,7 @@ homfree-noemb's `copylib.py` and reads the taint list. It writes `scratch/sga735
 * The top theorem is `HDec.HSyn.sixContactMin_of_open42 (r : OpenResearchLeaves30) (t : OpenTextbookLeaves15)
   (l : OpenAddedLeaves20) : ZInQ.SixContactMin`. The fold adds constants only.
 
-Compile outcome: §7.
+The fold compiles (§7).
 
 The integrator's steps:
 1. Copy FoldCheck.lean to `ZInQKernel/OneProof/H/TailZ49.lean`, or regenerate it with gen.py on the integration
@@ -153,6 +153,38 @@ the row becomes LEAF/LEAF.
 
 This is several days of work with one Lean process, which is why it was not attempted. It adds no leaf.
 
-## 7. Check outputs
+## 7. Check outputs (all VERIFIED on this host)
 
-(filled in below)
+* `lake build ZInQKernel.Contrib.OneProof.SGA7IX35ForwardAC` completed (12,815 jobs, on the build tree of
+  leaf-fold33b at the same commit). `#print axioms` gives `[propext, Classical.choice, Quot.sound]` for
+  `forwardGeomAC_of_forwardGeom`, `forwardGeomAC_of_forwardRes`, `semistableUnipotentCP_of_forwardGeomAC` and
+  `raynaudCriterionNF_of_forwardGeomAC`.
+* `lake env lean scratch/sga735-narrow/FoldCheck.lean`: no errors in 75 s
+  (`foldcheck_out.txt`). `'HDec.HSyn.sixContactMin_of_open42' depends on axioms: [propext, Classical.choice,
+  Quot.sound]`.
+  * Two generator pitfalls came up along the way. First, copylib emits each block's scope commands at top level, so
+    later blocks inherited `open … MonObj` / `open NumberField` (scoped instances). Two `_hf` maps then hit
+    `isDefEq` heartbeat timeouts, even at 1,000,000. The fix is to wrap each block in `section … end`.
+  * Second, the file-level `set_option maxHeartbeats 1000000` that was added before that fix is kept, and is
+    harmless.
+* `Statement.lean`: compiles with no output. It contains the verbatim copy `= UnipotentForward.SGA7_IX_3_5_ForwardGeom`
+  by `rfl`, and the two derivations of the new leaf.
+* `#discharges` (`Discharges.lean`, output `discharges.txt`, 48 DISCHARGES lines): **none comes from the new
+  file**, as expected. The new leaf is weaker than the field, so no theorem has the field's type. The only line on
+  the field is gt-unip's existing `UnipotentForward.forwardGeom_of_forward`, which still assumes
+  `SGA7_IX_3_5_Forward` and `SemiAbelianDescendsSepClosed`.
+* Counts on kinds.tsv (python, the counting of `autofold.py`): before, 33 fields, strict 13/20, strictest 13/20.
+  * After, with `kinds-row-proposed.tsv`: 33 fields, strict 13/20, strictest 13/20. Both proposed rows pass
+    `render_open.kinds_row_problems`.
+  * After, with `kinds-row-if-echelon-read.tsv`: strict 14/19, strictest 14/19.
+
+## 8. Files
+
+* `ZInQKernel/Contrib/OneProof/SGA7IX35ForwardAC.lean`: the contribution.
+* `scratch/sga735-narrow/`:
+  * `Taint.lean`, `taint_out.txt`: the chain uses.
+  * `gen/gen.py`, `gen/copylib.py` (homfree-noemb's), `gen/header.lean`: the generator.
+  * `FoldCheck.lean`, `foldcheck_out.txt`: the fold.
+  * `fold-spec.json`: the manual fold spec in autofold's format, with a BYPASS proof.
+  * `kinds-row-proposed.tsv`, `kinds-row-if-echelon-read.tsv`.
+  * `Statement.lean`, `Discharges.lean`, `discharges.txt`, `log.md`.
