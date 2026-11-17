@@ -30,22 +30,41 @@ recursion limit. A missing input or cyclic inventory is rejected; it is not
 silently treated as an external dependency. The input records must be obtained
 from the pinned compiler/Lake, including its import flags and resolved sources.
 
+`scripts/kernel_build_source.py` now selects a producer using authenticated
+GitHub metadata. It reads main's current tip, proves the producer's ancestry,
+reads the producer workflow bytes, and checks the exact job and artifact.
+Jobs and artifacts are fully paginated. A fresh run read rejects a retry that
+starts during selection. The search examines at most ten recent successful
+runs by default; an older eligible run omitted by this limit means a cold
+build. The selector does not download or restore the artifact. Its JSON client
+does not follow redirects or run candidate code. Workflow integration must run
+the reviewed selector with a step-scoped read token before candidate execution.
+
+`scripts/kernel_build_restore.py` stages only the selected modules after full
+archive validation. It checks each staged file again, keeps its timestamp old
+so Lake must check inputs, and then installs into absent project build roots.
+Existing build roots, linked parents and missing local packages are refused.
+If installing a second root fails, the first root is moved back before the
+failure is returned. Dependency packages are never cleaned or overwritten.
+The caller must not start candidate build processes during this operation.
+
 ## Work still required before a PR or deployment
 
 1. Implement and validate the compiler-derived source inventory, package/config
    identity and source-resolution checks on the full baseline. A regex import
    approximation is insufficient. Keep candidate code away from the API lookup
    credential.
-2. Add the trusted API selector and ancestor check. Select only a successful
-   main run of the reviewed workflow and an immutable artifact belonging
-   to its exact attempt. Never take a candidate-supplied run ID as authority.
+2. Integrate the metadata selector and a bounded artifact download, preserving
+   the separation between trusted API credentials and candidate execution.
+   Verify the complete archive against the independently obtained digest.
+   Never take a candidate-supplied run ID as authority.
 3. Produce the manifest and outputs only after a complete successful build and
    full audit. The first producer must be cold with the legacy project cache
    disabled. Only main publishes reusable artifacts.
-4. Stage only selected, verified outputs through safe paths. Disable automatic
-   Lake artifact-cache restoration and force content checks; do not let newly
-   extracted timestamps grant an mtime-only shortcut. Failed validation takes
-   the cold build path without leaving partially trusted outputs installed.
+4. Integrate verified staging with a clean checkout. Disable automatic Lake
+   artifact-cache restoration and force content checks. An invalid bundle
+   selects a cold build; an install/rollback failure stops the job rather than
+   compiling with uncertain output state.
 5. Integrate the workflow, contract pins, gate workflow pin, diagnostics and
    regression tests. Continue to replay every declaration, compare every exact
    target type and compute the full axiom closure on each run.
@@ -61,4 +80,4 @@ separately addresses chained jobs and the likely need for a lower-memory audit
 reader/replay. Neither is implemented here.
 
 Run the current isolated tests with
-`python -B scripts/test_kernel_build_manifest.py -v`.
+`python -B -m unittest discover -s scripts -p 'test_kernel_build_*.py' -v`.
