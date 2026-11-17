@@ -259,3 +259,19 @@ tail = ("\nnamespace HDec\n\nnamespace HSyn\n\n" + "\n".join(top) + "\nend HSyn\
         f"#print axioms HDec.HSyn.{NEWTOP}\n#print axioms ZInQ.Contrib.TYZChain.frozenTarget_E\n")
 open(OUT, "w").write(hdr + "\n" + "\n".join(blocks) + tail)
 print("top", TOPN, "->", NEWTOP, "research", TOPR, "->", NEWR, file=sys.stderr)
+
+# ---- optional: the two modules for the integrator (copy module + next TailZ), as fold33-pic's layout ----
+if len(sys.argv) > 3:
+    D = sys.argv[3]
+    os.makedirs(D, exist_ok=True)
+    nxt = int(TOPMOD.rsplit("TailZ", 1)[1]) + 1
+    copy_hdr = hdr.replace("\n".join(MAIN_IMPORTS), "import " + TOPMOD, 1)
+    open(os.path.join(D, "EichlerBoundCopy.lean.txt"), "w").write(copy_hdr + "\n" + "\n".join(blocks))
+    top_mod = (f"import {TOPMOD}\nimport ZInQKernel.OneProof.H.EichlerBoundCopy\n\n"
+               f"/-! # OneProof H, eichler-rebase: `{NEWTOP}` (bypass fold; `gonzalezRotgerProp56X6` removed, no new leaf)\n\n"
+               "Fields removed: `gonzalezRotgerProp56X6` (the chain reads only the bound `GR56.R5fpCountLe`, proved by\n"
+               "`EichlerBound.r5fpCountLe_proof`). Fields added: none. Copies in `EichlerBoundCopy.lean`. -/\n"
+               "\nnamespace HDec\n\nnamespace HSyn\n\n" + "\n".join(top) + "\nend HSyn\n\nend HDec\n\n"
+               f"#print axioms HDec.HSyn.{NEWTOP}\n")
+    open(os.path.join(D, f"TailZ{nxt}.lean.txt"), "w").write(top_mod)
+    print("split written to", D, file=sys.stderr)
