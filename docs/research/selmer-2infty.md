@@ -47,6 +47,16 @@ Contrib module coexists in one environment). The first attempt failed only on th
   ≤ #E(ℚ)[2^∞]` (through `δ⁰`); `Sel_{2ⁿ}` finite; `#Sel_{2ⁿ} = #(E(ℚ)/2ⁿ) · #Sha[2ⁿ]`; the corank by
   comparing growth in `n`, with `r + t' = 1` from `#Sel₂ = 8`.
 
+**The curves `E_ℓ`, and the manuscript's lines 1107–1110 (compiled, standard axioms).**
+`ZInQKernel/Contrib/OneProof/SelmerKummer.lean`: `isElliptic_curve` and `fullTwoTorsion_curve` (for
+`ℓ ≠ 0`, `E_ℓ` is elliptic and `#E_ℓ(ℚ)[2] = 4`: the points `O, (0,0), (ℓ,0), (-3ℓ,0)`);
+`kummerSelmerMap_surjective_of_rank_one` (full two-torsion, `#Sel₂ = 8`, `rank E(ℚ) = 1`: the Kummer map
+`E(ℚ)/2E(ℚ) → Sel₂` is onto, both having 8 elements); `KolyvaginRankOne` (the rank half of Lemma 5.5, a
+printed input); `kummerSelmerMap_surjective_of_restrictedConverse`: for positive squarefree `ℓ ≡ 11 (mod 12)`
+with `#Sel₂(E_ℓ/ℚ) = 8`, Theorem 5.3 over the genuine Selmer condition, Lemma 5.4 and the printed inputs
+(Mordell–Weil, Cassels–Tate, Kolyvagin) make every class of `Sel₂(E_ℓ/ℚ)` a Kummer class of a rational
+point — the step "the Kummer class is then represented by actual rational points".
+
 **Next (not done).**
 1. Connect `ZInQ.Manuscript.PoleRC.SelM` (explicit `2`-Selmer system, `wip/pc-from-rc`) with `selmerAt E 1`
    (Tau Ceti's `EtaleTwoDescent`, Silverman X.1.4): then that lane's `Lemma54At SelmerCorankOne` follows
