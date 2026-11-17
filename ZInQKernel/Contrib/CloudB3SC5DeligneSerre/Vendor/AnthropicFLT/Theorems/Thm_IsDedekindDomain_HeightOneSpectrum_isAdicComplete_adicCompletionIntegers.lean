@@ -16,7 +16,9 @@ set_option autoImplicit false
 set_option autoImplicit false
 universe u v
 open IsDedekindDomain
-theorem IsDedekindDomain.HeightOneSpectrum.isAdicComplete_adicCompletionIntegers
+-- [port] renamed with suffix `_aflt`: the kernel already declares this name (TauCeti) with a different signature;
+-- references in this vendored tree are renamed accordingly.
+theorem IsDedekindDomain.HeightOneSpectrum.isAdicComplete_adicCompletionIntegers_aflt
     {R : Type u} [CommRing R] [IsDedekindDomain R] (K : Type v) [Field K] [Algebra R K] [IsFractionRing R K]
     (v : HeightOneSpectrum R) :
     IsAdicComplete (IsLocalRing.maximalIdeal (v.adicCompletionIntegers K)) (v.adicCompletionIntegers K) := by

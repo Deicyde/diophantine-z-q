@@ -15,7 +15,9 @@ set_option autoImplicit false
 
 open IsDedekindDomain
 
-theorem IsDedekindDomain.FiniteAdeleRing.exists_forall_sub_algebraMap_mem_adicCompletionIntegers
+-- [port] renamed with suffix `_aflt`: the kernel already declares this name (TauCeti) with a different signature;
+-- references in this vendored tree are renamed accordingly.
+theorem IsDedekindDomain.FiniteAdeleRing.exists_forall_sub_algebraMap_mem_adicCompletionIntegers_aflt
     {A : Type*} (K : Type*) [CommRing A] [IsDedekindDomain A] [Field K] [Algebra A K] [IsFractionRing A K]
     (a : IsDedekindDomain.FiniteAdeleRing A K) :
     ∃ x : K, ∀ v : IsDedekindDomain.HeightOneSpectrum A,

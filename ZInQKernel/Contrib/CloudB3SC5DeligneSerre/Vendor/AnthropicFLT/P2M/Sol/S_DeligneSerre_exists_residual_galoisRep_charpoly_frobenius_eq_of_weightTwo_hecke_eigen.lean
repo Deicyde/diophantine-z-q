@@ -102,10 +102,10 @@ theorem exists_coefficientRing (K : Type) [Field K] [NumberField K] {A : Type} [
   haveI : Finite (𝓞 K ⧸ Q) := Ideal.finiteQuotientOfFreeOfNeBot Q hQne
   let O : Type := v.adicCompletionIntegers K
   haveI : IsAdicComplete (IsLocalRing.maximalIdeal O) O :=
-    HeightOneSpectrum.isAdicComplete_adicCompletionIntegers K v
+    HeightOneSpectrum.isAdicComplete_adicCompletionIntegers_aflt K v
   haveI : Finite (𝓞 K ⧸ v.asIdeal) := ‹Finite (𝓞 K ⧸ Q)›
   haveI : Finite (IsLocalRing.ResidueField O) :=
-    HeightOneSpectrum.finite_residueField_adicCompletionIntegers K v
+    HeightOneSpectrum.finite_residueField_adicCompletionIntegers_aflt K v
   haveI : CharZero (v.adicCompletion K) :=
     charZero_of_injective_algebraMap (algebraMap K (v.adicCompletion K)).injective
   haveI : CharZero O := inferInstance

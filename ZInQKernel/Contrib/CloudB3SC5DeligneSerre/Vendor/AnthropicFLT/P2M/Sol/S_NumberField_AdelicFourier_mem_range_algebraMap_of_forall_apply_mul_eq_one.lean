@@ -549,7 +549,7 @@ theorem hdens_of_board : ∀ a : (FiniteAdeleRing (RingOfIntegers F) F), ∃ x :
     (a - algebraMap F (FiniteAdeleRing (RingOfIntegers F) F) x) v ∈ v.adicCompletionIntegers F := by
   intro a
   obtain ⟨x, hx⟩ :=
-    IsDedekindDomain.FiniteAdeleRing.exists_forall_sub_algebraMap_mem_adicCompletionIntegers
+    IsDedekindDomain.FiniteAdeleRing.exists_forall_sub_algebraMap_mem_adicCompletionIntegers_aflt -- [port] renamed (see the Thm file)
       F a
   refine ⟨x, fun v => ?_⟩
   have : (a - algebraMap F (FiniteAdeleRing (RingOfIntegers F) F) x) v = a v - algebraMap F (v.adicCompletion F) x := rfl

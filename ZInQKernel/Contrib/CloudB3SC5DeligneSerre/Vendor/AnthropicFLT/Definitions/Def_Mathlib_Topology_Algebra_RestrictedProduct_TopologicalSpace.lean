@@ -234,7 +234,9 @@ def Submonoid.unitsContinuousMulEquivUnitsType {M : Type*} [TopologicalSpace M] 
       exact ⟨f ⁻¹' V, hf.isOpen_preimage V hV, rfl⟩
   }
 
-def ContinuousMulEquiv.restrictedProductUnits {ι : Type*}
+-- [port] renamed with suffix `_aflt`: the kernel already declares this name (TauCeti) with a different signature;
+-- references in this vendored tree are renamed accordingly.
+def ContinuousMulEquiv.restrictedProductUnits_aflt {ι : Type*}
     {M : ι → Type*} [(i : ι) → Monoid (M i)] [(i : ι) → TopologicalSpace (M i)]
     [(i : ι) → ContinuousMul (M i)]
     {S : ι → Type*} [∀ i, SetLike (S i) (M i)] [∀ i, SubmonoidClass (S i) (M i)]
@@ -307,7 +309,7 @@ def ContinuousMulEquiv.restrictedProductMatrixUnits {ι : Type*}
     (Matrix n n (Πʳ i, [A i, C i]))ˣ ≃ₜ*
       Πʳ i, [(Matrix n n (A i))ˣ, ((C i).matrix.units : Subgroup (Matrix n n (A i))ˣ)] :=
   (ContinuousMulEquiv.restrictedProductMatrix hCopen).units_map.trans
-    (ContinuousMulEquiv.restrictedProductUnits (fun i => (C i).matrix) (fun i => (hCopen i).matrix))
+    (ContinuousMulEquiv.restrictedProductUnits_aflt (fun i => (C i).matrix) (fun i => (hCopen i).matrix))
 
 end pi
 
