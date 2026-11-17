@@ -1,0 +1,2 @@
+'HDec.HSyn.G0AssembleMod.afterG7_of3_levelLe' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CarayolLevel.carayolR17'_of_newformRepConductor' depends on axioms: [propext, Classical.choice, Quot.sound]

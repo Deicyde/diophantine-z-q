@@ -1,0 +1,22 @@
+{
+ "name": "r17-print",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.CarayolPrinted"
+ ],
+ "discharges": [
+  {
+   "field": "r17",
+   "proof": "_root_.CarayolPrinted.carayolR17'_of_printed {n}.carayolThmA {n}.eigenformCoeffFieldFinite",
+   "leaves": [
+    {
+     "name": "carayolThmA",
+     "type": "_root_.CarayolPrinted.CarayolThmA",
+     "doc": "Carayol 1986, Theoreme (A), at F = Q, weight 2, packaged printed form over K_{f,lambda} (r17-print): for a printed newform f (Tau Ceti Newform N 2) with number field K_f and a place lambda | l of K_f, there is a continuous, absolutely irreducible (Burnside form) rho : G_Q -> GL_2(K_{f,lambda}) (Mathlib adicCompletion), unramified at p not dividing N l with arithmetic-Frobenius trace a_p(f), whose Serre-Tate conductor exponent at every prime p != l is v_p(N). The passage to r17 (IsNewform = printed newform, extension of scalars to Qbar_l, absolute irreducibility gives semisimplicity, conductor invariance under scalar extension and isomorphism, Brauer-Nesbitt with Chebotarev) is proved in Lean. Replaces r17.",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Carayol 1986 Theoreme (A) for F = Q, weight 2, in the packaging 'rho_{f,lambda} is irreducible, has Frobenius traces a_p and conductor N away from l', as quoted e.g. in Darmon-Diamond-Taylor 1997 Thm 3.1, with irreducibility from Ribet 1977 Thm 2.3); reading risk: Carayol's own Theoreme (A) is local-global compatibility through pi_p, from which the conductor clause follows with Casselman 1973, so the check should confirm that the conductor packaging and absolute irreducibility are printed for rho_{f,lambda}; locators UNVERIFIED",
+     "source": "Carayol, Ann. Sci. ENS (4) 19 (1986) 409-468, Theoreme (A), pp. 409-411 and section 0.8 p. 411 (coverage read by the locator audit); Casselman, Math. Ann. 201 (1973) (a(pi_p) = v_p(N)); Ribet, LNM 601 (1977) Thm 2.3 (irreducibility); Darmon-Diamond-Taylor, Fermat's Last Theorem (1997) Thm 3.1 (packaging); locators UNVERIFIED"
+    }
+   ]
+  }
+ ]
+}

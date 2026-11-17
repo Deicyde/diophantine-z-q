@@ -1,0 +1,55 @@
+{
+ "name": "newform-dict",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.NewformDict"
+ ],
+ "discharges": [
+  {
+   "field": "r17",
+   "proof": "_root_.NewformDict.carayolR17'_of_newform {n}.r17Newform",
+   "leaves": [
+    {
+     "name": "r17Newform",
+     "type": "_root_.NewformDict.CarayolR17Newform",
+     "doc": "R17 over the printed newform (newform-dict): LadicCond.CarayolR17' with IsNewform f chi replaced by a Tau Ceti newform f : Newform N 2 (Atkin-Lehner / Li / Diamond-Shurman Def. 5.8.1: normalized good-Hecke eigenform in the Petersson orthogonal complement of the old space) with f.chi = toUnitHom chi. Equivalent to r17 (NewformDict.carayolR17'_iff_newform; the dictionary IsNewform <-> Newform, i.e. strong multiplicity one, is proved in Lean: NewformDict.isNewform_iff). Carayol 1986 Theoreme (A) (read by the audit).",
+     "kind": "consequence",
+     "flag": "",
+     "source": "Carayol 1986 Theoreme (A) (read by the audit); over Tau Ceti's Newform (newform-dict)",
+     "label": "long-pole",
+     "tier": "T4"
+    }
+   ]
+  },
+  {
+   "field": "r16CoreY",
+   "proof": "_root_.NewformDict.r16CoreY_of_newform {n}.r16CoreYNewform",
+   "leaves": [
+    {
+     "name": "r16CoreYNewform",
+     "type": "_root_.NewformDict.R16CoreYNewform",
+     "doc": "R16 core (no rank-two clause) over the printed newform (newform-dict): R16Split.R16CoreY with IsNewform f chi replaced by a Tau Ceti newform f : Newform N 2 with f.chi = toUnitHom chi. Equivalent to r16CoreY (NewformDict.r16CoreY_iff_newform; the dictionary is proved in Lean: NewformDict.isNewform_iff). Shimura 1973 Thm 1, unconditional clauses; Diamond-Shurman Thm 9.5.4 / Shimura 1971 Thm 7.11 (numbers UNVERIFIED).",
+     "kind": "composite",
+     "flag": "",
+     "source": "Shimura 1973 Thm 1, unconditional clauses (A_f, K_f-action, dim A_f = [K_f:Q]; audit row R16); Diamond-Shurman Thm 9.5.4 / Shimura 1971 Thm 7.11; numbers UNVERIFIED; over Tau Ceti's Newform (newform-dict)"
+    }
+   ]
+  },
+  {
+   "field": "eigenformHTNew",
+   "proof": "_root_.NewformDict.eigenformHTNew_of_newform {n}.eigenformHTNewNewform",
+   "leaves": [
+    {
+     "name": "eigenformHTNewNewform",
+     "type": "_root_.NewformDict.EigenformHTNewNewform",
+     "doc": "The newform case of R13 over the printed newform (newform-dict): ZInQ.Contrib.HodgeSplit.EigenformHTNew with IsNewform f chi replaced by a Tau Ceti newform f : Newform N k with f.chi = toUnitHom chi. Equivalent to eigenformHTNew (NewformDict.eigenformHTNew_iff_newform; the dictionary is proved in Lean: NewformDict.g9_isNewform_iff). Kato 2004 9.2-9.4, transported to any semisimple attached rho and dualized.",
+     "kind": "consequence",
+     "flag": "",
+     "source": "Kato 2004 9.2-9.4 for newforms, transported to any semisimple attached rho and dualized (Kato's V_f not definable in Mathlib); over Tau Ceti's Newform (newform-dict)",
+     "packet": "R7",
+     "label": "long-pole",
+     "tier": "T4"
+    }
+   ]
+  }
+ ]
+}
