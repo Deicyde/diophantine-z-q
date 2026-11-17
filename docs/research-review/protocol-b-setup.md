@@ -120,6 +120,11 @@ calls and cannot merge. It validates the real reservation writes and identity
 binding, not outside eligibility, triage or the complete review flow. The
 protected environment permits it only from main; no repository mode change
 is needed.
+A repeat dispatch creates a fresh test intent and neutral reservation on the
+same PR; it does not reuse or consume a live slot. Reconcile any uncertain
+previous write first. Authorized collaborators may dispatch this main-only
+test using the same App trust as the gate, but its distinct test check name
+can never satisfy the ruleset's required `Protocol B / review` check.
 
 ### Unattended outside reviews
 
