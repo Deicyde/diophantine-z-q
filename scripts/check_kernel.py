@@ -2,6 +2,7 @@
 """Build the complete kernel project and check its exact proof contracts."""
 import argparse
 from contextlib import nullcontext
+from datetime import datetime, timezone
 import json
 import os
 from pathlib import Path
@@ -26,7 +27,7 @@ def run(command, output, name, cwd=ROOT, audit_metrics=False):
         log.flush()
         proc = subprocess.Popen(command, cwd=cwd, stdout=subprocess.PIPE,
                                 stderr=subprocess.STDOUT, text=True, errors="replace")
-        with proc.stdout, (AuditDiagnostics(proc.pid, output) if audit_metrics else nullcontext()):
+        with proc.stdout, (AuditDiagnostics(proc.pid, output, name=name) if audit_metrics else nullcontext()):
             for line in proc.stdout:
                 print(line, end="", flush=True)
                 log.write(line)
@@ -36,7 +37,9 @@ def run(command, output, name, cwd=ROOT, audit_metrics=False):
     if audit_metrics and usage_path.is_file():
         print(usage_path.read_text(encoding="utf-8", errors="replace"), flush=True)
     (output / (name + "-timing.json")).write_text(json.dumps({
-        "seconds": round(time.monotonic() - start, 3), "exit_code": code}), encoding="utf-8")
+        "seconds": round(time.monotonic() - start, 3), "exit_code": code,
+        "lean_num_threads": os.environ.get("LEAN_NUM_THREADS"),
+        "command": command}), encoding="utf-8")
     if code:
         raise RuntimeError(f"{name} failed ({code}); see {output / (name + '.log')}")
 
@@ -75,28 +78,52 @@ def progress(report, output, base_report=None):
             summary.write(text)
 
 
-def main():
-    p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--output", type=Path, default=ROOT / "build/kernel-ci")
-    p.add_argument("--base-report", type=Path)
-    p.add_argument("--skip-build", action="store_true", help="Local audit only; not used by required CI")
-    args = p.parse_args()
-    output = args.output.resolve()
-    output.mkdir(parents=True, exist_ok=True)
-    contract = validate()
+def build_identity(contract, version):
+    return {"head_sha": git(ROOT, "rev-parse", "HEAD").decode().strip(),
+            "contract_sha256": contract["manifest_sha256"],
+            "compiler": version.strip(), "modules": sorted(contract["modules"])}
+
+
+def build_modules(contract, version, output):
+    # Never let a failed new build leave an earlier success marker/report usable.
+    for name in ("build-complete.json", "audit.json", "progress.md"):
+        (output / name).unlink(missing_ok=True)
+    identity = build_identity(contract, version)
+    phases = ["root-build"]
+    run(["lake", "build", "ZInQKernel", "GreenTaoVendor"], output,
+        "root-build", audit_metrics=True)
+    # Explicit targets also build new Contrib files not imported by a root.
+    names = sorted(contract["modules"])
+    for i in range(0, len(names), 100):
+        name = f"modules-{i//100}"
+        run(["lake", "build", *["+" + n for n in names[i:i+100]]], output,
+            name, audit_metrics=True)
+        phases.append(name)
+    run(["python", "-B", "scripts/check_target.py"], output, "frozen-target-build")
+    if validate() != contract or build_identity(contract, version) != identity:
+        raise RuntimeError("Source contract or revision changed during compilation")
     check_dependencies()
-    version = subprocess.check_output(["lean", "--version"], cwd=ROOT, text=True)
-    if not re.search(r"\bversion 4\.35\.0\b", version):
-        raise RuntimeError("Wrong Lean compiler: " + version)
-    if not args.skip_build:
-        run(["lake", "build", "ZInQKernel", "GreenTaoVendor"], output, "root-build")
-        # Explicit targets also build new Contrib files not imported by a root.
-        names = sorted(contract["modules"])
-        for i in range(0, len(names), 100):
-            run(["lake", "build", *["+" + n for n in names[i:i+100]]], output, f"modules-{i//100}")
+    marker = {"schema": "kernel-build-complete/v1", "status": "complete",
+              "identity": identity, "phases": phases,
+              "completed_at": datetime.now(timezone.utc).isoformat(),
+              "acceptance": False}
+    (output / "build-complete.json").write_text(json.dumps(marker, indent=2) + "\n", encoding="utf-8")
+
+
+def audit_modules(contract, version, output, base_report=None, require_build=True):
+    identity = build_identity(contract, version)
+    for name in ("audit.json", "progress.md"):
+        (output / name).unlink(missing_ok=True)
+    if require_build:
+        marker = json.loads((output / "build-complete.json").read_bytes())
+        if (marker.get("schema") != "kernel-build-complete/v1"
+                or marker.get("status") != "complete"
+                or marker.get("identity") != identity):
+            raise RuntimeError("Missing or stale completed-build identity")
+    # Recheck after the artifact upload separating the two required CI steps.
     run(["python", "-B", "scripts/check_target.py"], output, "frozen-target")
     if validate() != contract:
-        raise RuntimeError("Source contract changed during compilation")
+        raise RuntimeError("Source contract changed before the audit")
     check_dependencies()
     spec = dict(contract)
     spec["modules"] = sorted(contract["modules"])
@@ -105,14 +132,37 @@ def main():
     run(["lake", "env", "lean", "--run", "scripts/audit_kernel.lean", str(spec_path),
          str(output / "audit.json")], output, "kernel-audit", audit_metrics=True)
     report = json.loads((output / "audit.json").read_bytes())
-    if validate() != contract:
+    if validate() != contract or build_identity(contract, version) != identity:
         raise RuntimeError("Source contract changed during the audit")
     check_dependencies()
     report["head_sha"] = git(ROOT, "rev-parse", "HEAD").decode().strip()
     report["contract_sha256"] = contract["manifest_sha256"]
     report["compiler"] = version.strip()
     (output / "audit.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
-    progress(report, output, args.base_report)
+    progress(report, output, base_report)
+
+
+def main(argv=None):
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument("--output", type=Path, default=ROOT / "build/kernel-ci")
+    p.add_argument("--base-report", type=Path)
+    p.add_argument("--phase", choices=("all", "build", "audit"), default="all",
+                   help="Required CI runs build, preserves its evidence, then runs audit")
+    p.add_argument("--skip-build", action="store_true", help="Local audit only; not used by required CI")
+    args = p.parse_args(argv)
+    if args.skip_build and args.phase != "all":
+        p.error("--skip-build cannot be combined with --phase")
+    output = args.output.resolve()
+    output.mkdir(parents=True, exist_ok=True)
+    contract = validate()
+    check_dependencies()
+    version = subprocess.check_output(["lean", "--version"], cwd=ROOT, text=True)
+    if not re.search(r"\bversion 4\.35\.0\b", version):
+        raise RuntimeError("Wrong Lean compiler: " + version)
+    if args.phase in ("all", "build") and not args.skip_build:
+        build_modules(contract, version, output)
+    if args.phase in ("all", "audit"):
+        audit_modules(contract, version, output, args.base_report, require_build=not args.skip_build)
 
 
 if __name__ == "__main__":
