@@ -1,0 +1,6 @@
+{
+  "task": "h33-from-hgz",
+  "discharged": [],
+  "note": "No fold: GrossZagierAlgOptCd does not imply TYZSplit.TYZThm33 (docs/research/h33-from-hgz.md). h33 stays; h33-dict's printed-form replacement H33Dict.TYZThm33Printed (origin/wip/h33-dict) is the recommended form of the binder.",
+  "new_leaves": []
+}
