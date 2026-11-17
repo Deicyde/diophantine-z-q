@@ -1588,3 +1588,11 @@ theorem openResearchLeaves35_of_OpenResearchLeaves36_eb_k954_cf_no5 (n : OpenRes
 
 end HSyn
 end HDec
+-- ==== end ZInQKernel.OneProof.H.TailZ74 ====
+
+-- ==== from ZInQKernel.OneProof.H.TailZ79 ====
+namespace HDec
+namespace HSyn
+
+end HSyn
+end HDec

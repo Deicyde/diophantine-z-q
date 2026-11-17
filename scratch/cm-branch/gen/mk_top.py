@@ -11,7 +11,10 @@ def get(name):
             return '\n'.join(out).rstrip()
     raise Exception(name)
 chain=[]
-cur='sixContactMin_of_open67'
+import sys
+TOP=sys.argv[1] if len(sys.argv)>1 else 'sixContactMin_of_open72'
+TOPMOD=sys.argv[2] if len(sys.argv)>2 else 'TailZ79'
+cur=TOP
 while cur!='sixContactMin_of_open4_hf_pz_eb':
     t=get(cur)
     body=t.split(':=',1)[1]
@@ -27,12 +30,12 @@ for name,t,callee in reversed(chain):
     assert body.count(callee)==1,(name,callee)
     body=body.replace(callee,callee+'_cm (c := c)')
     out.append(f'/-- `{name}` with the base switched to `sixContactMin_of_open4_cm` (cm-branch). -/\n'+sig+body)
-hdr='''import ZInQKernel.OneProof.H.TailZ74
+hdr='''import ZInQKernel.OneProof.H.'''+TOPMOD+'''
 import ZInQKernel.Contrib.OneProof.CMBranch.Open4
 
 /-! # cm-branch: the fold dry run — the top theorem with the manuscript's CM branch
 
-`sixContactMin_of_open67_cm` is the chain's top theorem `HDec.HSyn.sixContactMin_of_open67` (TailZ74)
+`'''+TOP+'''_cm` is the chain's top theorem `HDec.HSyn.'''+TOP+'''` ('''+TOPMOD+''')
 with one extra hypothesis `c : CMBranch.CMInputs` (the CM-branch leaves and glue), and with the base of
 the chain, `sixContactMin_of_open4_hf_pz_eb` (which builds FS5 from González–Rotger, the `X₆` Kummer
 fibre and `cmOptimalEmbedding`), replaced by `sixContactMin_of_open4_cm`. Every intermediate theorem

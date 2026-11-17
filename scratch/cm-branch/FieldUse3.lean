@@ -1,8 +1,8 @@
-import ZInQKernel.Contrib.OneProof.CMBranch.No5F
+import ZInQKernel.Contrib.OneProof.CMBranch.No5E
 open Lean Meta in
 #eval show MetaM Unit from do
   let env ← getEnv
-  let roots := #[`HDec.HSyn.sixContactMin_of_open67_cm_no5, `HDec.HSyn.sixContactMin_of_open67]
+  let roots := #[`HDec.HSyn.sixContactMin_of_open72_cm_no5, `HDec.HSyn.sixContactMin_of_open72]
   let mut res : Array (Array Name) := #[]
   for root in roots do
     let mut seen : Std.HashSet Name := {}
@@ -30,5 +30,5 @@ open Lean Meta in
     IO.println s!"{root}: closure {seen.size}, hits {hits.size}"
     res := res.push hits
   IO.println s!"hits in new: {res[0]!.toList}"
-#print axioms HDec.HSyn.sixContactMin_of_open67_cm_no5
-#check @HDec.HSyn.sixContactMin_of_open67_cm_no5
+#print axioms HDec.HSyn.sixContactMin_of_open72_cm_no5
+#check @HDec.HSyn.sixContactMin_of_open72_cm_no5

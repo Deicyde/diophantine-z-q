@@ -2,7 +2,7 @@ import ZInQKernel.Contrib.OneProof.CMBranch.Top
 open Lean Meta in
 #eval show MetaM Unit from do
   let env ← getEnv
-  let root := `HDec.HSyn.sixContactMin_of_open67_cm
+  let root := `HDec.HSyn.sixContactMin_of_open72_cm
   let rows : List Name := [`LeafQM.AV.R1R2fp, `HDec.LeafAdopt.R1R2fpRepW, `HDec.LeafAdopt.R1R2fpRep, `LeafQM.AV.R5ptProps, `HDec.FS5NoCM.R1R2fpFull]
   let mut seen : Std.HashSet Name := {}
   let mut stack : Array Name := #[root]

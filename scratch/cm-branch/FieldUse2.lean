@@ -2,7 +2,7 @@ import ZInQKernel.Contrib.OneProof.CMBranch.Top
 open Lean Meta in
 #eval show MetaM Unit from do
   let env ← getEnv
-  let roots := #[`HDec.HSyn.sixContactMin_of_open67_cm, `HDec.HSyn.sixContactMin_of_open67]
+  let roots := #[`HDec.HSyn.sixContactMin_of_open72_cm, `HDec.HSyn.sixContactMin_of_open72]
   let mut res : Array (Array Name) := #[]
   for root in roots do
     let mut seen : Std.HashSet Name := {}
@@ -32,4 +32,4 @@ open Lean Meta in
   let b := res[1]!
   IO.println s!"only in old (removed by cm-branch): {(b.filter (fun n => !a.contains n)).toList}"
   IO.println s!"only in new: {(a.filter (fun n => !b.contains n)).toList}"
-#print axioms HDec.HSyn.sixContactMin_of_open67_cm
+#print axioms HDec.HSyn.sixContactMin_of_open72_cm

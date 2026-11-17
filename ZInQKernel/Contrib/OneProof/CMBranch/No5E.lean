@@ -11,586 +11,481 @@ verbatim from its module with the module's scope commands, every copied name `c`
 -/
 namespace HDec
 namespace HSyn
-/-- `OpenResearchLeaves37EB` without `gamma1IntegralSpan`/`gamma1IntegralBasis` and `heckePrimeIntegralToRational` (coeff-field-tc: `eigenformCoeffFieldFinite` is proved outright). -/
-structure OpenResearchLeaves37EBCF_no5 : Prop where
-  r9a : _root_.PkgI3.FaltingsSemisimple
-  r9b : _root_.PkgI3.FaltingsTate
-  r11r12 : PkgI4.PanBerger
-  eigenformHTNew : _root_.ZInQ.Contrib.HodgeSplit.EigenformHTNew
-  /-- height-split, H-14: Javanpeykar 2014 Thm 1.1.1 for curves over `K` with a `K`-rational Belyi function,
-  replaces `r18`. -/
-  javanpeykarBound : _root_.ZInQ.HeightSplit.JavanpeykarBound
-  /-- height-split, H-18: the upper half of Pazuki 2012 Cor. 1.3(2), replaces `r22`. -/
-  pazukiCor13Upper : _root_.ZInQ.HeightSplit.PazukiCor13Upper
-  /-- fold34-eichler (eichler-bound): the upper bound `#CM(R) ≤ 2^{b(R)} h(R)` (`GR56.R5fpCountLe`), the only
-  half of González–Rotger's count that the chain reads (`FS5NoCM.nocm_on_witness_le`); replaces this generation's
-  count field of the same name. -/
-  gonzalezRotgerProp56X6 : _root_.GR56.R5fpCountLe
-  /-- gt-unip, printed form, strictly henselian base: SGA 7 I Exp. IX Prop. 3.5, direction semistable => (sigma-1)^2 = 0 on T_l = lim A(K^s)[l^n] for sigma in inertia, one sigma at a time (the print gives (sigma-1)(tau-1) = 0 and the converse); number UNVERIFIED. Semistability read on the geometric special fibre; reading risk: if the print reads it over k(s), this form exceeds the print by UnipotentForward.SemiAbelianDescendsSepClosed for imperfect residue fields only (the reading-robust variant is UnipotentForward.semistableUnipotent_of_forward). Replaces semistableUnipotent; StrictHenselizationInside and the K^s axis are proved. -/
-  sga7_IX_3_5_ForwardGeom : _root_.UnipotentForward.SGA7_IX_3_5_ForwardGeom
-  /-- gt-rayclass (shimura-cft, rayclass-cft), composite of printed theorems: Shimura's Main Theorem I for the level-3 group K3 of B = (2,-3|Q) in Deligne's adelic form on the fine moduli scheme Y3 of QM abelian surfaces (R1fpPropsAb): the uniformization B^x_+ \ (H x (B (x) A_f)^x) / K3 = Y3(C), holomorphy in tau, the moduli clause at every u in O-hat^x (the object at Psi(tau,u) is C^2/iota(O)(tau,1)^T) and Shimura's reciprocity law at CM points. Replaces rayClassCMAb and shimuraFamilyAb. -/
-  shimuraMainThmIDeligneY3AbU : _root_.RayClassCFT.ShimuraMainThmIDeligneY3AbU
-  /-- r16-split: R16_EichlerShimuraJ1' with its rank-two clause deleted (a consequence of r16; R16Split.coreY_of_r16). For a newform f in S_2(Gamma_1(N)) with nebentypus chi and J = J_1(N): [K_f:Q] < infinity, and one Q-quotient pi : J ->> A with theta : K_f -> End^0(A), dim A = [K_f:Q], and arithmetic Frobenius at p not dividing N*l acting on every iota-component of V_l(A) with trace iota(a_p) and determinant iota(chi(p)) p. The rank-two clause is proved from dim A = [K_f:Q], mumfordTorsionAlgClosed and charPolyIndepOfEllAlgClosed (Mumford 19 Thm 4): R16Split.r16_of_printed. Still a composite of two printed theorems about Shimura's A_f, which has no Lean definition (no Hecke correspondences on X_1(N), no S_2 <-> H^0(X_1(N), Omega^1) comparison). -/
-  r16CoreY : _root_.R16Split.R16CoreY
-  /-- dict-models, printed form: SGA 7 I, Exp. IX, Cor. 3.3, second assertion, over strictly henselian traits, with U the print's N0 x_S S' (the preimage of N0 under the projection N x_O O' -> N), not the identity component of N x_O O' (number UNVERIFIED). With geomConnOfRationalPoint replaces sga7_IX_3_3_SH (fold33-copy: by sga3-nbhd's SGA3Nbhd.Pre.sga7_IX_3_3_SH_of_pre', a pointwise SGA 3 VI_B 3.3 without SGA 3 VI_B 3.10). -/
-  sga7_IX_3_3_SHpre : _root_.DictModels.SGA7Pre.SGA7_IX_3_3_SHpre
-  /-- dict-models, printed form under either reading of 'semistable': Raynaud's criterion, SGA 7 I Exp. IX Prop. 4.7 (number UNVERIFIED) over a strictly henselian DVR, with the conclusion the disjunction of semistability over k(s) (general torus) and on the geometric special fibre. With geomConnOfRationalPoint (the k(s) -> kbar ascent is proved) replaces raynaudSemistableSH. -/
-  raynaudSemistableSHOr : _root_.DictModels.RaynaudOr.RaynaudSemistableSHOr
-  /-- group-law-dvr + goodmodel-iso, printed form: Bosch-Lutkebohmert-Raynaud, Neron models, 1.4 Thm 3 over an affine Dedekind scheme (existence half; numbers UNVERIFIED). Gives GIT 6.14 over a DVR (GoodModelIso.mumfordGroupLawDVR_of_dedekind, with the comparison glue NeronGoodModelIso proved) and the textbook field neronSchemeExtensionExists (its case D = O_L, neronSchemeExtensionExists_of_dedekind). Replaces mumfordGroupLawConn. -/
-  neronSchemeExtensionDedekind : _root_.ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind
-  /-- Serre-Tate, Ann. of Math. 88 (1968), Thm 1 (Neron-Ogg-Shafarevich criterion) over a separable closure K_s, inertia of a valuation ring of K_s acting on A(K_s)[m] (numbering UNVERIFIED) -/
-  neronOggShafarevichSep : _root_.NOSSepDict.NeronOggShafarevichSep
-  /-- Diamond-Shurman, GTM 228 (2005), Thm 9.6.5 (k >= 2; Deligne 1971; Shimura 1971 Thm 7.14 for k = 2; numbering UNVERIFIED), printed form: for a normalized eigenform f in S_k(N, chi) (DS Def 5.8.1) with number field K_f and a prime lambda of O_{K_f} over l, a continuous rho_{f,lambda} : G_Q -> GL_2(K_{f,lambda}) (Mathlib's adicCompletion), unramified outside lN, with rho(Frob_p) having characteristic polynomial (or satisfying) x^2 - a_p x + chi(p) p^(k-1) over K_f. Either printed wording gives it by or-introduction; no coefficient dictionary (coeff-ext). -/
-  dsThm965Printed : _root_.DSCoeffExt.DSThm965Printed
-  /-- Deligne-Serre, Formes modulaires de poids 1, Ann. Sci. ENS (4) 7 (1974), Thm 4.1 with (4.1.1), p. 514, as printed: for f != 0 a (cusp) form of type (1, eps) with eps(-1) = -1 that is an eigenvector of the T_p, p not dividing N, with eigenvalues a_p (Tau Ceti EigenformAwayFromLevel N 1, no normalization a_1 = 1), a continuous rho : G_Q -> GL_2(C) with finite image, unramified outside N, with tr rho(Frob_p) = a_p (the T_p-eigenvalue F.eigenvalue p) and det rho(Frob_p) = eps(p). The coefficient form a_p = coeff g p (from a_1 = 1) and eps(-1) = -1 (parity lemma, TauCeti Parity.lean:113) are glue in DSThm966EV.dsThm966_of_printed (coeff-fix). -/
-  dsThm966Printed : _root_.DSThm966EV.DSThm966Printed
-  /-- Carayol 1986, Theoreme (A), at F = Q, weight 2, packaged printed form over K_{f,lambda} (r17-print): for a printed newform f (Tau Ceti Newform N 2) with number field K_f and a place lambda | l of K_f, there is a continuous, absolutely irreducible (Burnside form) rho : G_Q -> GL_2(K_{f,lambda}) (Mathlib adicCompletion), unramified at p not dividing N l with arithmetic-Frobenius trace a_p(f), whose Serre-Tate conductor exponent at every prime p != l is v_p(N). The passage to r17 (IsNewform = printed newform, extension of scalars to Qbar_l, absolute irreducibility gives semisimplicity, conductor invariance under scalar extension and isomorphism, Brauer-Nesbitt with Chebotarev) is proved in Lean. Replaces r17. -/
-  carayolThmA : _root_.CarayolPrinted.CarayolThmA
-  /-- Fontaine: the Tate module V_p(A) of an abelian variety over a finite extension of Q_p is de Rham, D_dR(V) = (B_dR (x) V)^{G_F} (printed form; Berger 2004 I.3 records it, wording read by h-leaves; Fontaine Ann. of Math. 115 (1982) / LNM 1016 (1983) numbers UNVERIFIED); Berger's B_dR = B_dR^+[1/t] matched by DeRhamPrint.TDict.bdREquivAwayT -/
-  deRhamVpAbVarPrinted : _root_.DeRhamPrint.DeRhamVpAbVarPrinted
-  /-- Fontaine: B_dR^{G_K} = K (Asterisque 223 (1994) Exp. II; Brinon-Conrad CMI notes 4.3-4.4), read as dim_{Q_p} B_dR^{G_F} = [F:Q_p] (printed form, dimension; locator UNVERIFIED) -/
-  bdRInvariantsPrinted : _root_.DeRhamPrint.BdRInvariantsPrinted
-  /-- grx6ab-print, printed form (the coarse-moduli theorem for X0(6,1), one object): the canonical model X6 = X0(6,1) over Q is a proper smooth curve and a coarse moduli scheme for abelian surfaces with QM by O: a Galois-equivariant bijection on Qbar-points with QM pairs up to isomorphism, Aut(O)-twists induced by automorphisms of X (the Atkin-Lehner group), and the classifying map of a level-3 QM abelian scheme over a proper smooth curve (a specialization of the natural transformation). Locators UNVERIFIED (Shimura 1967; Deligne, Sem. Bourbaki 389; Buzzard, Duke 87 (1997) section 1). With shimuraMainThmIDeligneY3AbU it gives the moduli witness (the forgetful map Y3 -> X6 is proved: GRX6AbPrint.x6ModuliWitness_of_coarse). -/
-  x6CoarseModuli : _root_.GRX6AbPrint.X6CoarseModuli
-  /-- elkies-print: Elkies, Shimura curve computations (ANTS-III 1998) section 3 on X*(6) = X6/W, for every witness of the moduli description of X0(6,1) (R1fpPropsAb, X6Props), with no existence claim: some t : X6 -> P1 with Q(X6)^W = Q(t) (whenever X6 is integral and t regular at its generic point, both proved from the charts), t = 0, 1, infinity at the CM points of discriminant -24, -4, -3, and the charts s^2 = -t, r^2 = 3(t-1) (section, display and 0/infinity orientation UNVERIFIED). The witness comes from shimuraMainThmIDeligneY3AbU and x6CoarseModuli (GRX6AbPrint.x6ModuliWitness_of_coarse). Replaces elkiesX6StarFunctionField; equivalent to it given a witness and T5 (every_iff_functionField). -/
-  elkiesX6StarEvery : _root_.HDec.QMSplit.Moduli.ElkiesPrint.ElkiesX6StarEvery
-  /-- Fontaine, Invent. Math. 65 (1982), Theoreme principal: C_p (x) V_p(A) = (C_p(1) (x)_F t_A) + (C_p (x)_F t*_{A'}), G_F-equivariant; bases of the two finite-dimensional F-spaces chosen, both dimensions left unnamed (C_p(1)^a + C_p^b for some a, b); locator UNVERIFIED -/
-  hodgeTateDecompExists : _root_.ZInQ.Contrib.HodgeTateFromPairing.HodgeTateDecompExists
-  /-- height-fix, printed form: Bost, Sem. Bourbaki 795 (Asterisque 237, 1996), h_D(A) >= -(g/2) log 2pi (display UNVERIFIED), over the printed stable height ZInQ.HeightFix.IsPrintedStableHeight: Neron model over a field where A has semistable reduction in the sense of SGA 7 IX Def. 3.4 read over the residue fields k(p) (IsSemistableRes), omega = wedge^g Gamma(S, e*Omega^1), and the archimedean metric (i/2)^g int_{A(C)} eta wedge eta-bar as the total mass of the measure defined chart by chart (density |tau l|^2 in translated algebraic coordinates at every point), which must exist (IsPrintedMetricSq). Replaces bostLowerBound (ZInQ.HeightFix.bostLowerBound_of_printed, with uniformizationLeafAll and mumfordTorsionAlgClosed for T35 and the leaf chevalleyPerfect (semiab-descend)). -/
-  bostLowerBoundPrinted : _root_.ZInQ.HeightFix.BostLowerBoundPrinted
-  /-- semiab-descend, printed form: Chevalley's structure theorem over a perfect field (Conrad, J. Ramanujan Math. Soc. 17 (2002) Thm 1.1; Milne, Algebraic Groups (2017) Thm 8.27; numbers UNVERIFIED): a smooth connected group scheme G of finite type over a perfect field k has a unique normal smooth connected affine subgroup H with G/H an abelian variety. Lean form: existence of a faithfully flat homomorphism pi : G -> B onto an abelian variety (PkgI3.AbVar) whose scheme-theoretic kernel G x_B Spec k is smooth, connected and affine, and uniqueness of that kernel on T-points; G/H read as the target of a faithfully flat homomorphism with kernel H (the definition of a quotient, Milne AG section 5.c). Replaces the glue semiAbelianDescendsPerfect (ZInQ.SemiAbDescend.semiAbelianDescendsPerfect_of_chevalley proves it for every perfect field). -/
-  chevalleyPerfect : _root_.ZInQ.SemiAbDescend.ChevalleyPerfect
-  /-- height-fix, printed form: Gaudron-Remond, Duke Math. J. 163 (2014) Thm 1.4 (read by the locator audit), over the printed stable height ZInQ.HeightFix.IsPrintedStableHeight (Faltings' original normalization (i/2)^g; semistability over k(p) as SGA 7 IX Def. 3.4 print it; the metric defined chart by chart and required to exist). Replaces gaudronRemondThm14 (ZInQ.HeightFix.gaudronRemondThm14_of_printed, with uniformizationLeafAll and mumfordTorsionAlgClosed for T35 and the leaf chevalleyPerfect (semiab-descend)). -/
-  gaudronRemondThm14Printed : _root_.ZInQ.HeightFix.GaudronRemondThm14Printed
-
-/-- `openResearchLeaves36_of_OpenResearchLeaves37_eb`, copied from `EichlerBoundCopy` with the coeff-field-tc edits. -/
-theorem openResearchLeaves36_of_OpenResearchLeaves37_eb_cf_no5 (n : OpenResearchLeaves37EBCF_no5) (t : OpenTextbookLeaves16) : OpenResearchLeaves36EBCF_no5 where
+/-- `OpenResearchLeaves36EBCF_no5` from `OpenResearchLeaves53`: the conversions `openResearchLeaves51_of_OpenResearchLeaves52`, `sixContactMin_of_open70`, `openResearchLeaves36EBCF_of_OpenResearchLeaves51` composed, with
+`AfTateLam.r16CoreY_of_ds965_x0` (no Igusa argument) where they read `igusaGL2DSGalSome`. -/
+theorem openResearchLeaves36EBCF_of_OpenResearchLeaves53_no5 (n : OpenResearchLeaves53) (t : OpenTextbookLeaves18) : OpenResearchLeaves36EBCF_no5 where
   r9a := n.r9a
   r9b := n.r9b
-  r11r12 := n.r11r12
-  eigenformHTNew := n.eigenformHTNew
-  bostLowerBound := _root_.ZInQ.SemiAbDescend.bostLowerBound_of_printed_chevalley n.bostLowerBoundPrinted _root_.uniformizationLeafAll_proof t.mumfordTorsionAlgClosed n.chevalleyPerfect
-  javanpeykarBound := n.javanpeykarBound
+  r11r12 := (_root_.HDec.PkgI4.PanDict.panBerger_of_F n.panPrintedF n.bergerSurveyF n.dsThm965Printed (_root_.eigenformCoeffFieldFinite_proof) n.dsThm966Printed)
+  eigenformHTNew := (_root_.EigenformHTPrinted.eigenformHTNew_of_printed (_root_.HTNewAssembly.modularHTPrinted_of_coeff n.modularHTCoeff) (_root_.eigenformCoeffFieldFinite_proof))
+  bostLowerBound := _root_.ZInQ.ChevFree.bostLowerBound_of_printed_free (_root_.ZInQ.R3Residual.bostLowerBoundPrinted_of_an (_root_.ZInQ.SemistabAssembly.bostLowerBoundAn_of_ss n.bostLowerBoundAnSS) _root_.ZInQ.Contrib.CloudB3W16Torsion.mumfordTorsionAlgClosed_proof) _root_.uniformizationLeafAll_proof (openTextbookLeaves16_of_OpenTextbookLeaves17 (openTextbookLeaves17_of_OpenTextbookLeaves18 t)).mumfordTorsionAlgClosed
+  javanpeykarBound := (_root_.JavanpeykarRebase.javanpeykarBound_of_printed_rebase_final (_root_.JavanpeykarDirect.javanpeykarPrintedMap_of_thm111 (_root_.JavanpeykarAnRetype.javanpeykarThm111_of_an n.javanpeykarThm111An _root_.ZInQ.Contrib.CloudB3W16Torsion.mumfordTorsionAlgClosed_proof)) _root_.CFExtProof.constantFieldExtensionUnramifiedFinite_proof (openTextbookLeaves16_of_OpenTextbookLeaves17 (openTextbookLeaves17_of_OpenTextbookLeaves18 t)).mumfordTorsionAlgClosed _root_.ZInQ.ChevFree.semiAbelianDescendsPerfect_proof)
   pazukiCor13Upper := n.pazukiCor13Upper
-  gaudronRemondThm14 := _root_.ZInQ.SemiAbDescend.gaudronRemondThm14_of_printed_chevalley n.gaudronRemondThm14Printed _root_.uniformizationLeafAll_proof t.mumfordTorsionAlgClosed n.chevalleyPerfect
-  gonzalezRotgerProp56X6 := n.gonzalezRotgerProp56X6
-  sga7_IX_3_5_ForwardGeom := n.sga7_IX_3_5_ForwardGeom
-  shimuraMainThmIDeligneY3AbU := n.shimuraMainThmIDeligneY3AbU
-  r16CoreY := n.r16CoreY
-  sga7_IX_3_3_SHpre := n.sga7_IX_3_3_SHpre
+  gaudronRemondThm14 := _root_.ZInQ.ChevFree.gaudronRemondThm14_of_printed_free (_root_.ZInQ.R3Residual.gaudronRemondThm14Printed_of_an (_root_.ZInQ.SemistabAssembly.gaudronRemondThm14An_of_ss n.gaudronRemondThm14AnSS) _root_.ZInQ.Contrib.CloudB3W16Torsion.mumfordTorsionAlgClosed_proof) _root_.uniformizationLeafAll_proof (openTextbookLeaves16_of_OpenTextbookLeaves17 (openTextbookLeaves17_of_OpenTextbookLeaves18 t)).mumfordTorsionAlgClosed
+  gonzalezRotgerProp56X6 := (_root_.EichlerBound.r5fpCountLe_of_two (openTextbookLeaves16_of_OpenTextbookLeaves17 (openTextbookLeaves17_of_OpenTextbookLeaves18 t)).gagaMorphism (openTextbookLeaves16_of_OpenTextbookLeaves17 (openTextbookLeaves17_of_OpenTextbookLeaves18 t)).mumfordTorsionAlgClosed)
+  sga7_IX_3_5_ForwardGeom := (_root_.GaRigidity.SGA7.sga7_IX_3_5_ForwardGeom_of_def34 n.sga7_IX_3_5_ForwardGeom_Def34)
+  shimuraMainThmIDeligneY3AbU := (_root_.Y3Fix.shimuraMainThmIDeligneY3AbU_of_print _root_.ZInQ.Contrib.CloudB3W16Torsion.mumfordTorsionAlgClosed_proof n.y3FineModuliAbP (_root_.Y3Hodge.deligneH_of_print n.deligneCanonicalModelY3EveryPrint))
+  r16CoreY := (_root_.AfTateLam.r16CoreY_of_ds965_x0 n.heckeJ1DS n.afShimura n.afCharpolyDS965 _root_.ZInQ.Contrib.CloudB3W16Torsion.mumfordTorsionAlgClosed_proof)
+  sga7_IX_3_3_SHpre := (_root_.SGA33Steps.shpre_of_cor33 (_root_.GaRigidity.SGA7.sga7_IX_Cor3_3_of_def34 n.sga7_IX_Cor3_3_Def34))
   raynaudSemistableSHOr := n.raynaudSemistableSHOr
   neronSchemeExtensionDedekind := n.neronSchemeExtensionDedekind
   neronOggShafarevichSep := n.neronOggShafarevichSep
   dsThm965Printed := n.dsThm965Printed
   dsThm966Printed := n.dsThm966Printed
-  carayolThmA := n.carayolThmA
-  deRhamVpAbVarPrinted := n.deRhamVpAbVarPrinted
-  bdRInvariantsPrinted := n.bdRInvariantsPrinted
-  x6CoarseModuli := n.x6CoarseModuli
-  elkiesX6StarEvery := n.elkiesX6StarEvery
-  hodgeTateDecompExists := n.hodgeTateDecompExists
-
-/-- `OpenResearchLeaves38EB` without `gamma1IntegralSpan`/`gamma1IntegralBasis` and `heckePrimeIntegralToRational` (coeff-field-tc: `eigenformCoeffFieldFinite` is proved outright). -/
-structure OpenResearchLeaves38EBCF_no5 : Prop where
-  r9a : _root_.PkgI3.FaltingsSemisimple
-  r9b : _root_.PkgI3.FaltingsTate
-  r11r12 : PkgI4.PanBerger
-  eigenformHTNew : _root_.ZInQ.Contrib.HodgeSplit.EigenformHTNew
-  /-- height-split, H-18: the upper half of Pazuki 2012 Cor. 1.3(2), replaces `r22`. -/
-  pazukiCor13Upper : _root_.ZInQ.HeightSplit.PazukiCor13Upper
-  /-- fold34-eichler (eichler-bound): the upper bound `#CM(R) ≤ 2^{b(R)} h(R)` (`GR56.R5fpCountLe`), the only
-  half of González–Rotger's count that the chain reads (`FS5NoCM.nocm_on_witness_le`); replaces this generation's
-  count field of the same name. -/
-  gonzalezRotgerProp56X6 : _root_.GR56.R5fpCountLe
-  /-- gt-unip, printed form, strictly henselian base: SGA 7 I Exp. IX Prop. 3.5, direction semistable => (sigma-1)^2 = 0 on T_l = lim A(K^s)[l^n] for sigma in inertia, one sigma at a time (the print gives (sigma-1)(tau-1) = 0 and the converse); number UNVERIFIED. Semistability read on the geometric special fibre; reading risk: if the print reads it over k(s), this form exceeds the print by UnipotentForward.SemiAbelianDescendsSepClosed for imperfect residue fields only (the reading-robust variant is UnipotentForward.semistableUnipotent_of_forward). Replaces semistableUnipotent; StrictHenselizationInside and the K^s axis are proved. -/
-  sga7_IX_3_5_ForwardGeom : _root_.UnipotentForward.SGA7_IX_3_5_ForwardGeom
-  /-- gt-rayclass (shimura-cft, rayclass-cft), composite of printed theorems: Shimura's Main Theorem I for the level-3 group K3 of B = (2,-3|Q) in Deligne's adelic form on the fine moduli scheme Y3 of QM abelian surfaces (R1fpPropsAb): the uniformization B^x_+ \ (H x (B (x) A_f)^x) / K3 = Y3(C), holomorphy in tau, the moduli clause at every u in O-hat^x (the object at Psi(tau,u) is C^2/iota(O)(tau,1)^T) and Shimura's reciprocity law at CM points. Replaces rayClassCMAb and shimuraFamilyAb. -/
-  shimuraMainThmIDeligneY3AbU : _root_.RayClassCFT.ShimuraMainThmIDeligneY3AbU
-  /-- r16-split: R16_EichlerShimuraJ1' with its rank-two clause deleted (a consequence of r16; R16Split.coreY_of_r16). For a newform f in S_2(Gamma_1(N)) with nebentypus chi and J = J_1(N): [K_f:Q] < infinity, and one Q-quotient pi : J ->> A with theta : K_f -> End^0(A), dim A = [K_f:Q], and arithmetic Frobenius at p not dividing N*l acting on every iota-component of V_l(A) with trace iota(a_p) and determinant iota(chi(p)) p. The rank-two clause is proved from dim A = [K_f:Q], mumfordTorsionAlgClosed and charPolyIndepOfEllAlgClosed (Mumford 19 Thm 4): R16Split.r16_of_printed. Still a composite of two printed theorems about Shimura's A_f, which has no Lean definition (no Hecke correspondences on X_1(N), no S_2 <-> H^0(X_1(N), Omega^1) comparison). -/
-  r16CoreY : _root_.R16Split.R16CoreY
-  /-- dict-models, printed form: SGA 7 I, Exp. IX, Cor. 3.3, second assertion, over strictly henselian traits, with U the print's N0 x_S S' (the preimage of N0 under the projection N x_O O' -> N), not the identity component of N x_O O' (number UNVERIFIED). With geomConnOfRationalPoint replaces sga7_IX_3_3_SH (fold33-copy: by sga3-nbhd's SGA3Nbhd.Pre.sga7_IX_3_3_SH_of_pre', a pointwise SGA 3 VI_B 3.3 without SGA 3 VI_B 3.10). -/
-  sga7_IX_3_3_SHpre : _root_.DictModels.SGA7Pre.SGA7_IX_3_3_SHpre
-  /-- dict-models, printed form under either reading of 'semistable': Raynaud's criterion, SGA 7 I Exp. IX Prop. 4.7 (number UNVERIFIED) over a strictly henselian DVR, with the conclusion the disjunction of semistability over k(s) (general torus) and on the geometric special fibre. With geomConnOfRationalPoint (the k(s) -> kbar ascent is proved) replaces raynaudSemistableSH. -/
-  raynaudSemistableSHOr : _root_.DictModels.RaynaudOr.RaynaudSemistableSHOr
-  /-- group-law-dvr + goodmodel-iso, printed form: Bosch-Lutkebohmert-Raynaud, Neron models, 1.4 Thm 3 over an affine Dedekind scheme (existence half; numbers UNVERIFIED). Gives GIT 6.14 over a DVR (GoodModelIso.mumfordGroupLawDVR_of_dedekind, with the comparison glue NeronGoodModelIso proved) and the textbook field neronSchemeExtensionExists (its case D = O_L, neronSchemeExtensionExists_of_dedekind). Replaces mumfordGroupLawConn. -/
-  neronSchemeExtensionDedekind : _root_.ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind
-  /-- Serre-Tate, Ann. of Math. 88 (1968), Thm 1 (Neron-Ogg-Shafarevich criterion) over a separable closure K_s, inertia of a valuation ring of K_s acting on A(K_s)[m] (numbering UNVERIFIED) -/
-  neronOggShafarevichSep : _root_.NOSSepDict.NeronOggShafarevichSep
-  /-- Diamond-Shurman, GTM 228 (2005), Thm 9.6.5 (k >= 2; Deligne 1971; Shimura 1971 Thm 7.14 for k = 2; numbering UNVERIFIED), printed form: for a normalized eigenform f in S_k(N, chi) (DS Def 5.8.1) with number field K_f and a prime lambda of O_{K_f} over l, a continuous rho_{f,lambda} : G_Q -> GL_2(K_{f,lambda}) (Mathlib's adicCompletion), unramified outside lN, with rho(Frob_p) having characteristic polynomial (or satisfying) x^2 - a_p x + chi(p) p^(k-1) over K_f. Either printed wording gives it by or-introduction; no coefficient dictionary (coeff-ext). -/
-  dsThm965Printed : _root_.DSCoeffExt.DSThm965Printed
-  /-- Deligne-Serre, Formes modulaires de poids 1, Ann. Sci. ENS (4) 7 (1974), Thm 4.1 with (4.1.1), p. 514, as printed: for f != 0 a (cusp) form of type (1, eps) with eps(-1) = -1 that is an eigenvector of the T_p, p not dividing N, with eigenvalues a_p (Tau Ceti EigenformAwayFromLevel N 1, no normalization a_1 = 1), a continuous rho : G_Q -> GL_2(C) with finite image, unramified outside N, with tr rho(Frob_p) = a_p (the T_p-eigenvalue F.eigenvalue p) and det rho(Frob_p) = eps(p). The coefficient form a_p = coeff g p (from a_1 = 1) and eps(-1) = -1 (parity lemma, TauCeti Parity.lean:113) are glue in DSThm966EV.dsThm966_of_printed (coeff-fix). -/
-  dsThm966Printed : _root_.DSThm966EV.DSThm966Printed
-  /-- Carayol 1986, Theoreme (A), at F = Q, weight 2, packaged printed form over K_{f,lambda} (r17-print): for a printed newform f (Tau Ceti Newform N 2) with number field K_f and a place lambda | l of K_f, there is a continuous, absolutely irreducible (Burnside form) rho : G_Q -> GL_2(K_{f,lambda}) (Mathlib adicCompletion), unramified at p not dividing N l with arithmetic-Frobenius trace a_p(f), whose Serre-Tate conductor exponent at every prime p != l is v_p(N). The passage to r17 (IsNewform = printed newform, extension of scalars to Qbar_l, absolute irreducibility gives semisimplicity, conductor invariance under scalar extension and isomorphism, Brauer-Nesbitt with Chebotarev) is proved in Lean. Replaces r17. -/
-  carayolThmA : _root_.CarayolPrinted.CarayolThmA
-  /-- Fontaine: the Tate module V_p(A) of an abelian variety over a finite extension of Q_p is de Rham, D_dR(V) = (B_dR (x) V)^{G_F} (printed form; Berger 2004 I.3 records it, wording read by h-leaves; Fontaine Ann. of Math. 115 (1982) / LNM 1016 (1983) numbers UNVERIFIED); Berger's B_dR = B_dR^+[1/t] matched by DeRhamPrint.TDict.bdREquivAwayT -/
-  deRhamVpAbVarPrinted : _root_.DeRhamPrint.DeRhamVpAbVarPrinted
-  /-- Fontaine: B_dR^{G_K} = K (Asterisque 223 (1994) Exp. II; Brinon-Conrad CMI notes 4.3-4.4), read as dim_{Q_p} B_dR^{G_F} = [F:Q_p] (printed form, dimension; locator UNVERIFIED) -/
-  bdRInvariantsPrinted : _root_.DeRhamPrint.BdRInvariantsPrinted
-  /-- grx6ab-print, printed form (the coarse-moduli theorem for X0(6,1), one object): the canonical model X6 = X0(6,1) over Q is a proper smooth curve and a coarse moduli scheme for abelian surfaces with QM by O: a Galois-equivariant bijection on Qbar-points with QM pairs up to isomorphism, Aut(O)-twists induced by automorphisms of X (the Atkin-Lehner group), and the classifying map of a level-3 QM abelian scheme over a proper smooth curve (a specialization of the natural transformation). Locators UNVERIFIED (Shimura 1967; Deligne, Sem. Bourbaki 389; Buzzard, Duke 87 (1997) section 1). With shimuraMainThmIDeligneY3AbU it gives the moduli witness (the forgetful map Y3 -> X6 is proved: GRX6AbPrint.x6ModuliWitness_of_coarse). -/
-  x6CoarseModuli : _root_.GRX6AbPrint.X6CoarseModuli
-  /-- elkies-print: Elkies, Shimura curve computations (ANTS-III 1998) section 3 on X*(6) = X6/W, for every witness of the moduli description of X0(6,1) (R1fpPropsAb, X6Props), with no existence claim: some t : X6 -> P1 with Q(X6)^W = Q(t) (whenever X6 is integral and t regular at its generic point, both proved from the charts), t = 0, 1, infinity at the CM points of discriminant -24, -4, -3, and the charts s^2 = -t, r^2 = 3(t-1) (section, display and 0/infinity orientation UNVERIFIED). The witness comes from shimuraMainThmIDeligneY3AbU and x6CoarseModuli (GRX6AbPrint.x6ModuliWitness_of_coarse). Replaces elkiesX6StarFunctionField; equivalent to it given a witness and T5 (every_iff_functionField). -/
-  elkiesX6StarEvery : _root_.HDec.QMSplit.Moduli.ElkiesPrint.ElkiesX6StarEvery
-  /-- Fontaine, Invent. Math. 65 (1982), Theoreme principal: C_p (x) V_p(A) = (C_p(1) (x)_F t_A) + (C_p (x)_F t*_{A'}), G_F-equivariant; bases of the two finite-dimensional F-spaces chosen, both dimensions left unnamed (C_p(1)^a + C_p^b for some a, b); locator UNVERIFIED -/
-  hodgeTateDecompExists : _root_.ZInQ.Contrib.HodgeTateFromPairing.HodgeTateDecompExists
-  /-- height-fix, printed form: Bost, Sem. Bourbaki 795 (Asterisque 237, 1996), h_D(A) >= -(g/2) log 2pi (display UNVERIFIED), over the printed stable height ZInQ.HeightFix.IsPrintedStableHeight: Neron model over a field where A has semistable reduction in the sense of SGA 7 IX Def. 3.4 read over the residue fields k(p) (IsSemistableRes), omega = wedge^g Gamma(S, e*Omega^1), and the archimedean metric (i/2)^g int_{A(C)} eta wedge eta-bar as the total mass of the measure defined chart by chart (density |tau l|^2 in translated algebraic coordinates at every point), which must exist (IsPrintedMetricSq). Replaces bostLowerBound (ZInQ.HeightFix.bostLowerBound_of_printed, with uniformizationLeafAll and mumfordTorsionAlgClosed for T35 and the leaf chevalleyPerfect (semiab-descend)). -/
-  bostLowerBoundPrinted : _root_.ZInQ.HeightFix.BostLowerBoundPrinted
-  /-- semiab-descend, printed form: Chevalley's structure theorem over a perfect field (Conrad, J. Ramanujan Math. Soc. 17 (2002) Thm 1.1; Milne, Algebraic Groups (2017) Thm 8.27; numbers UNVERIFIED): a smooth connected group scheme G of finite type over a perfect field k has a unique normal smooth connected affine subgroup H with G/H an abelian variety. Lean form: existence of a faithfully flat homomorphism pi : G -> B onto an abelian variety (PkgI3.AbVar) whose scheme-theoretic kernel G x_B Spec k is smooth, connected and affine, and uniqueness of that kernel on T-points; G/H read as the target of a faithfully flat homomorphism with kernel H (the definition of a quotient, Milne AG section 5.c). Replaces the glue semiAbelianDescendsPerfect (ZInQ.SemiAbDescend.semiAbelianDescendsPerfect_of_chevalley proves it for every perfect field). -/
-  chevalleyPerfect : _root_.ZInQ.SemiAbDescend.ChevalleyPerfect
-  /-- height-fix, printed form: Gaudron-Remond, Duke Math. J. 163 (2014) Thm 1.4 (read by the locator audit), over the printed stable height ZInQ.HeightFix.IsPrintedStableHeight (Faltings' original normalization (i/2)^g; semistability over k(p) as SGA 7 IX Def. 3.4 print it; the metric defined chart by chart and required to exist). Replaces gaudronRemondThm14 (ZInQ.HeightFix.gaudronRemondThm14_of_printed, with uniformizationLeafAll and mumfordTorsionAlgClosed for T35 and the leaf chevalleyPerfect (semiab-descend)). -/
-  gaudronRemondThm14Printed : _root_.ZInQ.HeightFix.GaudronRemondThm14Printed
-  /-- javanpeykar-rebase: Javanpeykar, Algebra Number Theory 8 (2014) Thm 1.1.1 in printed form at X = X0 x_K Qbar (X0 a smooth proper geometrically connected curve over a number field K, Qbar = AlgebraicClosure K): X projective (closed immersion into a projective space over Qbar), Jac(X) = W an abelian variety over Qbar representing Pic^0_{X/Qbar} with the tensor group law, V a model of W over K (V_Qbar = W), g = genusBar X = dim H^1(X, O_X), beta : X -> P^1_Qbar = Proj Qbar[X0,X1] a Belyi map of degree d (IsBelyiMap), h = height-fix's printed stable height ZInQ.HeightFix.IsPrintedStableHeight of V (sound archimedean metric defined chart by chart; Neron model semistable over the residue fields k(p)): h <= 13*10^6 * g * d^5. javanpeykar-fix's JavanpeykarPrintedMap verbatim over height-fix's height (JavanpeykarRebase.javanpeykarPrintedMap_of_fix: implied by it given T35 and Stacks 04KV). Replaces javanpeykarBound (JavanpeykarRebase.javanpeykarBound_of_printed_rebase, with constantFieldExtensionUnramifiedFinite, mumfordTorsionAlgClosed and uniformizationLeafAll_proof for T35, and height-fix's glue semiAbelianDescendsPerfect). -/
-  javanpeykarPrintedMapHF : _root_.JavanpeykarRebase.JavanpeykarPrintedMap
-  /-- javanpeykar-rebase: Stichtenoth, Algebraic Function Fields and Codes (2nd ed., GTM 254), Thm 3.6.3(a), for a FINITE constant field extension, with Stichtenoth's standing hypothesis that K is the full constant field of F: for F/K an algebraic function field (char 0) and L/K finite with F (x)_K L = FL (bijective productMap), every place of FL/L (valuation subring w containing L) is unramified over its restriction to F: a generator of the maximal ideal of w cap F generates that of w. The algebraic case used by the consumer (L = Kbar) is proved from it (JavanpeykarRebase.full_of_finite); finite_of_full gives the converse. -/
-  constantFieldExtensionUnramifiedFinite : _root_.JavanpeykarRebase.ConstantFieldExtensionUnramifiedFinite
-
-/-- `openResearchLeaves37_of_OpenResearchLeaves38_eb`, copied from `EichlerBoundCopy` with the coeff-field-tc edits. -/
-theorem openResearchLeaves37_of_OpenResearchLeaves38_eb_cf_no5 (n : OpenResearchLeaves38EBCF_no5) (t : OpenTextbookLeaves16) : OpenResearchLeaves37EBCF_no5 where
-  r9a := n.r9a
-  r9b := n.r9b
-  r11r12 := n.r11r12
-  eigenformHTNew := n.eigenformHTNew
-  javanpeykarBound := _root_.JavanpeykarRebase.javanpeykarBound_of_printed_rebase_final n.javanpeykarPrintedMapHF n.constantFieldExtensionUnramifiedFinite t.mumfordTorsionAlgClosed (_root_.ZInQ.SemiAbDescend.semiAbelianDescendsPerfect_of_chevalley n.chevalleyPerfect)
-  pazukiCor13Upper := n.pazukiCor13Upper
-  gonzalezRotgerProp56X6 := n.gonzalezRotgerProp56X6
-  sga7_IX_3_5_ForwardGeom := n.sga7_IX_3_5_ForwardGeom
-  shimuraMainThmIDeligneY3AbU := n.shimuraMainThmIDeligneY3AbU
-  r16CoreY := n.r16CoreY
-  sga7_IX_3_3_SHpre := n.sga7_IX_3_3_SHpre
-  raynaudSemistableSHOr := n.raynaudSemistableSHOr
-  neronSchemeExtensionDedekind := n.neronSchemeExtensionDedekind
-  neronOggShafarevichSep := n.neronOggShafarevichSep
-  dsThm965Printed := n.dsThm965Printed
-  dsThm966Printed := n.dsThm966Printed
-  carayolThmA := n.carayolThmA
-  deRhamVpAbVarPrinted := n.deRhamVpAbVarPrinted
-  bdRInvariantsPrinted := n.bdRInvariantsPrinted
-  x6CoarseModuli := n.x6CoarseModuli
-  elkiesX6StarEvery := n.elkiesX6StarEvery
-  hodgeTateDecompExists := n.hodgeTateDecompExists
-  bostLowerBoundPrinted := n.bostLowerBoundPrinted
-  chevalleyPerfect := n.chevalleyPerfect
-  gaudronRemondThm14Printed := n.gaudronRemondThm14Printed
-
-/-- `OpenResearchLeaves39` without `gamma1IntegralSpan`/`gamma1IntegralBasis` and `heckePrimeIntegralToRational` (coeff-field-tc: `eigenformCoeffFieldFinite` is proved outright). -/
-structure OpenResearchLeaves39CF_no5 : Prop where
-  r9a : _root_.PkgI3.FaltingsSemisimple
-  r9b : _root_.PkgI3.FaltingsTate
-  r11r12 : PkgI4.PanBerger
-  eigenformHTNew : _root_.ZInQ.Contrib.HodgeSplit.EigenformHTNew
-  /-- height-split, H-18: the upper half of Pazuki 2012 Cor. 1.3(2), replaces `r22`. -/
-  pazukiCor13Upper : _root_.ZInQ.HeightSplit.PazukiCor13Upper
-  /-- gt-unip, printed form, strictly henselian base: SGA 7 I Exp. IX Prop. 3.5, direction semistable => (sigma-1)^2 = 0 on T_l = lim A(K^s)[l^n] for sigma in inertia, one sigma at a time (the print gives (sigma-1)(tau-1) = 0 and the converse); number UNVERIFIED. Semistability read on the geometric special fibre; reading risk: if the print reads it over k(s), this form exceeds the print by UnipotentForward.SemiAbelianDescendsSepClosed for imperfect residue fields only (the reading-robust variant is UnipotentForward.semistableUnipotent_of_forward). Replaces semistableUnipotent; StrictHenselizationInside and the K^s axis are proved. -/
-  sga7_IX_3_5_ForwardGeom : _root_.UnipotentForward.SGA7_IX_3_5_ForwardGeom
-  /-- gt-rayclass (shimura-cft, rayclass-cft), composite of printed theorems: Shimura's Main Theorem I for the level-3 group K3 of B = (2,-3|Q) in Deligne's adelic form on the fine moduli scheme Y3 of QM abelian surfaces (R1fpPropsAb): the uniformization B^x_+ \ (H x (B (x) A_f)^x) / K3 = Y3(C), holomorphy in tau, the moduli clause at every u in O-hat^x (the object at Psi(tau,u) is C^2/iota(O)(tau,1)^T) and Shimura's reciprocity law at CM points. Replaces rayClassCMAb and shimuraFamilyAb. -/
-  shimuraMainThmIDeligneY3AbU : _root_.RayClassCFT.ShimuraMainThmIDeligneY3AbU
-  /-- r16-split: R16_EichlerShimuraJ1' with its rank-two clause deleted (a consequence of r16; R16Split.coreY_of_r16). For a newform f in S_2(Gamma_1(N)) with nebentypus chi and J = J_1(N): [K_f:Q] < infinity, and one Q-quotient pi : J ->> A with theta : K_f -> End^0(A), dim A = [K_f:Q], and arithmetic Frobenius at p not dividing N*l acting on every iota-component of V_l(A) with trace iota(a_p) and determinant iota(chi(p)) p. The rank-two clause is proved from dim A = [K_f:Q], mumfordTorsionAlgClosed and charPolyIndepOfEllAlgClosed (Mumford 19 Thm 4): R16Split.r16_of_printed. Still a composite of two printed theorems about Shimura's A_f, which has no Lean definition (no Hecke correspondences on X_1(N), no S_2 <-> H^0(X_1(N), Omega^1) comparison). -/
-  r16CoreY : _root_.R16Split.R16CoreY
-  /-- dict-models, printed form: SGA 7 I, Exp. IX, Cor. 3.3, second assertion, over strictly henselian traits, with U the print's N0 x_S S' (the preimage of N0 under the projection N x_O O' -> N), not the identity component of N x_O O' (number UNVERIFIED). With geomConnOfRationalPoint replaces sga7_IX_3_3_SH (fold33-copy: by sga3-nbhd's SGA3Nbhd.Pre.sga7_IX_3_3_SH_of_pre', a pointwise SGA 3 VI_B 3.3 without SGA 3 VI_B 3.10). -/
-  sga7_IX_3_3_SHpre : _root_.DictModels.SGA7Pre.SGA7_IX_3_3_SHpre
-  /-- dict-models, printed form under either reading of 'semistable': Raynaud's criterion, SGA 7 I Exp. IX Prop. 4.7 (number UNVERIFIED) over a strictly henselian DVR, with the conclusion the disjunction of semistability over k(s) (general torus) and on the geometric special fibre. With geomConnOfRationalPoint (the k(s) -> kbar ascent is proved) replaces raynaudSemistableSH. -/
-  raynaudSemistableSHOr : _root_.DictModels.RaynaudOr.RaynaudSemistableSHOr
-  /-- group-law-dvr + goodmodel-iso, printed form: Bosch-Lutkebohmert-Raynaud, Neron models, 1.4 Thm 3 over an affine Dedekind scheme (existence half; numbers UNVERIFIED). Gives GIT 6.14 over a DVR (GoodModelIso.mumfordGroupLawDVR_of_dedekind, with the comparison glue NeronGoodModelIso proved) and the textbook field neronSchemeExtensionExists (its case D = O_L, neronSchemeExtensionExists_of_dedekind). Replaces mumfordGroupLawConn. -/
-  neronSchemeExtensionDedekind : _root_.ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind
-  /-- Serre-Tate, Ann. of Math. 88 (1968), Thm 1 (Neron-Ogg-Shafarevich criterion) over a separable closure K_s, inertia of a valuation ring of K_s acting on A(K_s)[m] (numbering UNVERIFIED) -/
-  neronOggShafarevichSep : _root_.NOSSepDict.NeronOggShafarevichSep
-  /-- Diamond-Shurman, GTM 228 (2005), Thm 9.6.5 (k >= 2; Deligne 1971; Shimura 1971 Thm 7.14 for k = 2; numbering UNVERIFIED), printed form: for a normalized eigenform f in S_k(N, chi) (DS Def 5.8.1) with number field K_f and a prime lambda of O_{K_f} over l, a continuous rho_{f,lambda} : G_Q -> GL_2(K_{f,lambda}) (Mathlib's adicCompletion), unramified outside lN, with rho(Frob_p) having characteristic polynomial (or satisfying) x^2 - a_p x + chi(p) p^(k-1) over K_f. Either printed wording gives it by or-introduction; no coefficient dictionary (coeff-ext). -/
-  dsThm965Printed : _root_.DSCoeffExt.DSThm965Printed
-  /-- Deligne-Serre, Formes modulaires de poids 1, Ann. Sci. ENS (4) 7 (1974), Thm 4.1 with (4.1.1), p. 514, as printed: for f != 0 a (cusp) form of type (1, eps) with eps(-1) = -1 that is an eigenvector of the T_p, p not dividing N, with eigenvalues a_p (Tau Ceti EigenformAwayFromLevel N 1, no normalization a_1 = 1), a continuous rho : G_Q -> GL_2(C) with finite image, unramified outside N, with tr rho(Frob_p) = a_p (the T_p-eigenvalue F.eigenvalue p) and det rho(Frob_p) = eps(p). The coefficient form a_p = coeff g p (from a_1 = 1) and eps(-1) = -1 (parity lemma, TauCeti Parity.lean:113) are glue in DSThm966EV.dsThm966_of_printed (coeff-fix). -/
-  dsThm966Printed : _root_.DSThm966EV.DSThm966Printed
-  /-- Carayol 1986, Theoreme (A), at F = Q, weight 2, packaged printed form over K_{f,lambda} (r17-print): for a printed newform f (Tau Ceti Newform N 2) with number field K_f and a place lambda | l of K_f, there is a continuous, absolutely irreducible (Burnside form) rho : G_Q -> GL_2(K_{f,lambda}) (Mathlib adicCompletion), unramified at p not dividing N l with arithmetic-Frobenius trace a_p(f), whose Serre-Tate conductor exponent at every prime p != l is v_p(N). The passage to r17 (IsNewform = printed newform, extension of scalars to Qbar_l, absolute irreducibility gives semisimplicity, conductor invariance under scalar extension and isomorphism, Brauer-Nesbitt with Chebotarev) is proved in Lean. Replaces r17. -/
-  carayolThmA : _root_.CarayolPrinted.CarayolThmA
-  /-- Fontaine: the Tate module V_p(A) of an abelian variety over a finite extension of Q_p is de Rham, D_dR(V) = (B_dR (x) V)^{G_F} (printed form; Berger 2004 I.3 records it, wording read by h-leaves; Fontaine Ann. of Math. 115 (1982) / LNM 1016 (1983) numbers UNVERIFIED); Berger's B_dR = B_dR^+[1/t] matched by DeRhamPrint.TDict.bdREquivAwayT -/
-  deRhamVpAbVarPrinted : _root_.DeRhamPrint.DeRhamVpAbVarPrinted
-  /-- Fontaine: B_dR^{G_K} = K (Asterisque 223 (1994) Exp. II; Brinon-Conrad CMI notes 4.3-4.4), read as dim_{Q_p} B_dR^{G_F} = [F:Q_p] (printed form, dimension; locator UNVERIFIED) -/
-  bdRInvariantsPrinted : _root_.DeRhamPrint.BdRInvariantsPrinted
-  /-- grx6ab-print, printed form (the coarse-moduli theorem for X0(6,1), one object): the canonical model X6 = X0(6,1) over Q is a proper smooth curve and a coarse moduli scheme for abelian surfaces with QM by O: a Galois-equivariant bijection on Qbar-points with QM pairs up to isomorphism, Aut(O)-twists induced by automorphisms of X (the Atkin-Lehner group), and the classifying map of a level-3 QM abelian scheme over a proper smooth curve (a specialization of the natural transformation). Locators UNVERIFIED (Shimura 1967; Deligne, Sem. Bourbaki 389; Buzzard, Duke 87 (1997) section 1). With shimuraMainThmIDeligneY3AbU it gives the moduli witness (the forgetful map Y3 -> X6 is proved: GRX6AbPrint.x6ModuliWitness_of_coarse). -/
-  x6CoarseModuli : _root_.GRX6AbPrint.X6CoarseModuli
-  /-- elkies-print: Elkies, Shimura curve computations (ANTS-III 1998) section 3 on X*(6) = X6/W, for every witness of the moduli description of X0(6,1) (R1fpPropsAb, X6Props), with no existence claim: some t : X6 -> P1 with Q(X6)^W = Q(t) (whenever X6 is integral and t regular at its generic point, both proved from the charts), t = 0, 1, infinity at the CM points of discriminant -24, -4, -3, and the charts s^2 = -t, r^2 = 3(t-1) (section, display and 0/infinity orientation UNVERIFIED). The witness comes from shimuraMainThmIDeligneY3AbU and x6CoarseModuli (GRX6AbPrint.x6ModuliWitness_of_coarse). Replaces elkiesX6StarFunctionField; equivalent to it given a witness and T5 (every_iff_functionField). -/
-  elkiesX6StarEvery : _root_.HDec.QMSplit.Moduli.ElkiesPrint.ElkiesX6StarEvery
-  /-- Fontaine, Invent. Math. 65 (1982), Theoreme principal: C_p (x) V_p(A) = (C_p(1) (x)_F t_A) + (C_p (x)_F t*_{A'}), G_F-equivariant; bases of the two finite-dimensional F-spaces chosen, both dimensions left unnamed (C_p(1)^a + C_p^b for some a, b); locator UNVERIFIED -/
-  hodgeTateDecompExists : _root_.ZInQ.Contrib.HodgeTateFromPairing.HodgeTateDecompExists
-  /-- height-fix, printed form: Bost, Sem. Bourbaki 795 (Asterisque 237, 1996), h_D(A) >= -(g/2) log 2pi (display UNVERIFIED), over the printed stable height ZInQ.HeightFix.IsPrintedStableHeight: Neron model over a field where A has semistable reduction in the sense of SGA 7 IX Def. 3.4 read over the residue fields k(p) (IsSemistableRes), omega = wedge^g Gamma(S, e*Omega^1), and the archimedean metric (i/2)^g int_{A(C)} eta wedge eta-bar as the total mass of the measure defined chart by chart (density |tau l|^2 in translated algebraic coordinates at every point), which must exist (IsPrintedMetricSq). Replaces bostLowerBound (ZInQ.HeightFix.bostLowerBound_of_printed, with uniformizationLeafAll and mumfordTorsionAlgClosed for T35 and the leaf chevalleyPerfect (semiab-descend)). -/
-  bostLowerBoundPrinted : _root_.ZInQ.HeightFix.BostLowerBoundPrinted
-  /-- semiab-descend, printed form: Chevalley's structure theorem over a perfect field (Conrad, J. Ramanujan Math. Soc. 17 (2002) Thm 1.1; Milne, Algebraic Groups (2017) Thm 8.27; numbers UNVERIFIED): a smooth connected group scheme G of finite type over a perfect field k has a unique normal smooth connected affine subgroup H with G/H an abelian variety. Lean form: existence of a faithfully flat homomorphism pi : G -> B onto an abelian variety (PkgI3.AbVar) whose scheme-theoretic kernel G x_B Spec k is smooth, connected and affine, and uniqueness of that kernel on T-points; G/H read as the target of a faithfully flat homomorphism with kernel H (the definition of a quotient, Milne AG section 5.c). Replaces the glue semiAbelianDescendsPerfect (ZInQ.SemiAbDescend.semiAbelianDescendsPerfect_of_chevalley proves it for every perfect field). -/
-  chevalleyPerfect : _root_.ZInQ.SemiAbDescend.ChevalleyPerfect
-  /-- height-fix, printed form: Gaudron-Remond, Duke Math. J. 163 (2014) Thm 1.4 (read by the locator audit), over the printed stable height ZInQ.HeightFix.IsPrintedStableHeight (Faltings' original normalization (i/2)^g; semistability over k(p) as SGA 7 IX Def. 3.4 print it; the metric defined chart by chart and required to exist). Replaces gaudronRemondThm14 (ZInQ.HeightFix.gaudronRemondThm14_of_printed, with uniformizationLeafAll and mumfordTorsionAlgClosed for T35 and the leaf chevalleyPerfect (semiab-descend)). -/
-  gaudronRemondThm14Printed : _root_.ZInQ.HeightFix.GaudronRemondThm14Printed
-  /-- javanpeykar-rebase: Javanpeykar, Algebra Number Theory 8 (2014) Thm 1.1.1 in printed form at X = X0 x_K Qbar (X0 a smooth proper geometrically connected curve over a number field K, Qbar = AlgebraicClosure K): X projective (closed immersion into a projective space over Qbar), Jac(X) = W an abelian variety over Qbar representing Pic^0_{X/Qbar} with the tensor group law, V a model of W over K (V_Qbar = W), g = genusBar X = dim H^1(X, O_X), beta : X -> P^1_Qbar = Proj Qbar[X0,X1] a Belyi map of degree d (IsBelyiMap), h = height-fix's printed stable height ZInQ.HeightFix.IsPrintedStableHeight of V (sound archimedean metric defined chart by chart; Neron model semistable over the residue fields k(p)): h <= 13*10^6 * g * d^5. javanpeykar-fix's JavanpeykarPrintedMap verbatim over height-fix's height (JavanpeykarRebase.javanpeykarPrintedMap_of_fix: implied by it given T35 and Stacks 04KV). Replaces javanpeykarBound (JavanpeykarRebase.javanpeykarBound_of_printed_rebase, with constantFieldExtensionUnramifiedFinite, mumfordTorsionAlgClosed and uniformizationLeafAll_proof for T35, and height-fix's glue semiAbelianDescendsPerfect). -/
-  javanpeykarPrintedMapHF : _root_.JavanpeykarRebase.JavanpeykarPrintedMap
-  /-- javanpeykar-rebase: Stichtenoth, Algebraic Function Fields and Codes (2nd ed., GTM 254), Thm 3.6.3(a), for a FINITE constant field extension, with Stichtenoth's standing hypothesis that K is the full constant field of F: for F/K an algebraic function field (char 0) and L/K finite with F (x)_K L = FL (bijective productMap), every place of FL/L (valuation subring w containing L) is unramified over its restriction to F: a generator of the maximal ideal of w cap F generates that of w. The algebraic case used by the consumer (L = Kbar) is proved from it (JavanpeykarRebase.full_of_finite); finite_of_full gives the converse. -/
-  constantFieldExtensionUnramifiedFinite : _root_.JavanpeykarRebase.ConstantFieldExtensionUnramifiedFinite
-
-/-- `openResearchLeaves38EB_of_OpenResearchLeaves39`, copied from `TailZ63` with the coeff-field-tc edits. -/
-theorem openResearchLeaves38EB_of_OpenResearchLeaves39_cf_no5 (n : OpenResearchLeaves39CF_no5) (t : OpenTextbookLeaves16) : OpenResearchLeaves38EBCF_no5 where
-  r9a := n.r9a
-  r9b := n.r9b
-  r11r12 := n.r11r12
-  eigenformHTNew := n.eigenformHTNew
-  pazukiCor13Upper := n.pazukiCor13Upper
-  gonzalezRotgerProp56X6 := _root_.EichlerBound.r5fpCountLe_of_two t.gagaMorphism t.mumfordTorsionAlgClosed
-  sga7_IX_3_5_ForwardGeom := n.sga7_IX_3_5_ForwardGeom
-  shimuraMainThmIDeligneY3AbU := n.shimuraMainThmIDeligneY3AbU
-  r16CoreY := n.r16CoreY
-  sga7_IX_3_3_SHpre := n.sga7_IX_3_3_SHpre
-  raynaudSemistableSHOr := n.raynaudSemistableSHOr
-  neronSchemeExtensionDedekind := n.neronSchemeExtensionDedekind
-  neronOggShafarevichSep := n.neronOggShafarevichSep
-  dsThm965Printed := n.dsThm965Printed
-  dsThm966Printed := n.dsThm966Printed
-  carayolThmA := n.carayolThmA
-  deRhamVpAbVarPrinted := n.deRhamVpAbVarPrinted
-  bdRInvariantsPrinted := n.bdRInvariantsPrinted
-  x6CoarseModuli := n.x6CoarseModuli
-  elkiesX6StarEvery := n.elkiesX6StarEvery
-  hodgeTateDecompExists := n.hodgeTateDecompExists
-  bostLowerBoundPrinted := n.bostLowerBoundPrinted
-  chevalleyPerfect := n.chevalleyPerfect
-  gaudronRemondThm14Printed := n.gaudronRemondThm14Printed
-  javanpeykarPrintedMapHF := n.javanpeykarPrintedMapHF
-  constantFieldExtensionUnramifiedFinite := n.constantFieldExtensionUnramifiedFinite
-
-/-- `OpenResearchLeaves40` without `gamma1IntegralSpan`/`gamma1IntegralBasis` and `heckePrimeIntegralToRational` (coeff-field-tc: `eigenformCoeffFieldFinite` is proved outright). -/
-structure OpenResearchLeaves40CF_no5 : Prop where
-  r9a : _root_.PkgI3.FaltingsSemisimple
-  r9b : _root_.PkgI3.FaltingsTate
-  /-- height-split, H-18: the upper half of Pazuki 2012 Cor. 1.3(2), replaces `r22`. -/
-  pazukiCor13Upper : _root_.ZInQ.HeightSplit.PazukiCor13Upper
-  /-- gt-unip, printed form, strictly henselian base: SGA 7 I Exp. IX Prop. 3.5, direction semistable => (sigma-1)^2 = 0 on T_l = lim A(K^s)[l^n] for sigma in inertia, one sigma at a time (the print gives (sigma-1)(tau-1) = 0 and the converse); number UNVERIFIED. Semistability read on the geometric special fibre; reading risk: if the print reads it over k(s), this form exceeds the print by UnipotentForward.SemiAbelianDescendsSepClosed for imperfect residue fields only (the reading-robust variant is UnipotentForward.semistableUnipotent_of_forward). Replaces semistableUnipotent; StrictHenselizationInside and the K^s axis are proved. -/
-  sga7_IX_3_5_ForwardGeom : _root_.UnipotentForward.SGA7_IX_3_5_ForwardGeom
-  /-- gt-rayclass (shimura-cft, rayclass-cft), composite of printed theorems: Shimura's Main Theorem I for the level-3 group K3 of B = (2,-3|Q) in Deligne's adelic form on the fine moduli scheme Y3 of QM abelian surfaces (R1fpPropsAb): the uniformization B^x_+ \ (H x (B (x) A_f)^x) / K3 = Y3(C), holomorphy in tau, the moduli clause at every u in O-hat^x (the object at Psi(tau,u) is C^2/iota(O)(tau,1)^T) and Shimura's reciprocity law at CM points. Replaces rayClassCMAb and shimuraFamilyAb. -/
-  shimuraMainThmIDeligneY3AbU : _root_.RayClassCFT.ShimuraMainThmIDeligneY3AbU
-  /-- r16-split: R16_EichlerShimuraJ1' with its rank-two clause deleted (a consequence of r16; R16Split.coreY_of_r16). For a newform f in S_2(Gamma_1(N)) with nebentypus chi and J = J_1(N): [K_f:Q] < infinity, and one Q-quotient pi : J ->> A with theta : K_f -> End^0(A), dim A = [K_f:Q], and arithmetic Frobenius at p not dividing N*l acting on every iota-component of V_l(A) with trace iota(a_p) and determinant iota(chi(p)) p. The rank-two clause is proved from dim A = [K_f:Q], mumfordTorsionAlgClosed and charPolyIndepOfEllAlgClosed (Mumford 19 Thm 4): R16Split.r16_of_printed. Still a composite of two printed theorems about Shimura's A_f, which has no Lean definition (no Hecke correspondences on X_1(N), no S_2 <-> H^0(X_1(N), Omega^1) comparison). -/
-  r16CoreY : _root_.R16Split.R16CoreY
-  /-- dict-models, printed form: SGA 7 I, Exp. IX, Cor. 3.3, second assertion, over strictly henselian traits, with U the print's N0 x_S S' (the preimage of N0 under the projection N x_O O' -> N), not the identity component of N x_O O' (number UNVERIFIED). With geomConnOfRationalPoint replaces sga7_IX_3_3_SH (fold33-copy: by sga3-nbhd's SGA3Nbhd.Pre.sga7_IX_3_3_SH_of_pre', a pointwise SGA 3 VI_B 3.3 without SGA 3 VI_B 3.10). -/
-  sga7_IX_3_3_SHpre : _root_.DictModels.SGA7Pre.SGA7_IX_3_3_SHpre
-  /-- dict-models, printed form under either reading of 'semistable': Raynaud's criterion, SGA 7 I Exp. IX Prop. 4.7 (number UNVERIFIED) over a strictly henselian DVR, with the conclusion the disjunction of semistability over k(s) (general torus) and on the geometric special fibre. With geomConnOfRationalPoint (the k(s) -> kbar ascent is proved) replaces raynaudSemistableSH. -/
-  raynaudSemistableSHOr : _root_.DictModels.RaynaudOr.RaynaudSemistableSHOr
-  /-- group-law-dvr + goodmodel-iso, printed form: Bosch-Lutkebohmert-Raynaud, Neron models, 1.4 Thm 3 over an affine Dedekind scheme (existence half; numbers UNVERIFIED). Gives GIT 6.14 over a DVR (GoodModelIso.mumfordGroupLawDVR_of_dedekind, with the comparison glue NeronGoodModelIso proved) and the textbook field neronSchemeExtensionExists (its case D = O_L, neronSchemeExtensionExists_of_dedekind). Replaces mumfordGroupLawConn. -/
-  neronSchemeExtensionDedekind : _root_.ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind
-  /-- Serre-Tate, Ann. of Math. 88 (1968), Thm 1 (Neron-Ogg-Shafarevich criterion) over a separable closure K_s, inertia of a valuation ring of K_s acting on A(K_s)[m] (numbering UNVERIFIED); the print assumes a perfect residue field and this statement is for every discrete valuation ring, so it exceeds the print (AI audit 2026-11-17; the chain uses it over number fields only) -/
-  neronOggShafarevichSep : _root_.NOSSepDict.NeronOggShafarevichSep
-  /-- Diamond-Shurman, GTM 228 (2005), Thm 9.6.5 (k >= 2; Deligne 1971; Shimura 1971 Thm 7.14 for k = 2; numbering UNVERIFIED), printed form: for a normalized eigenform f in S_k(N, chi) (DS Def 5.8.1) with number field K_f and a prime lambda of O_{K_f} over l, a continuous rho_{f,lambda} : G_Q -> GL_2(K_{f,lambda}) (Mathlib's adicCompletion), unramified outside lN, with rho(Frob_p) having characteristic polynomial (or satisfying) x^2 - a_p x + chi(p) p^(k-1) over K_f. Either printed wording gives it by or-introduction; no coefficient dictionary (coeff-ext). -/
-  dsThm965Printed : _root_.DSCoeffExt.DSThm965Printed
-  /-- Deligne-Serre, Formes modulaires de poids 1, Ann. Sci. ENS (4) 7 (1974), Thm 4.1 with (4.1.1), p. 514, as printed: for f != 0 a (cusp) form of type (1, eps) with eps(-1) = -1 that is an eigenvector of the T_p, p not dividing N, with eigenvalues a_p (Tau Ceti EigenformAwayFromLevel N 1, no normalization a_1 = 1), a continuous rho : G_Q -> GL_2(C) with finite image, unramified outside N, with tr rho(Frob_p) = a_p (the T_p-eigenvalue F.eigenvalue p) and det rho(Frob_p) = eps(p). The coefficient form a_p = coeff g p (from a_1 = 1) and eps(-1) = -1 (parity lemma, TauCeti Parity.lean:113) are glue in DSThm966EV.dsThm966_of_printed (coeff-fix). -/
-  dsThm966Printed : _root_.DSThm966EV.DSThm966Printed
-  /-- Fontaine: the Tate module V_p(A) of an abelian variety over a finite extension of Q_p is de Rham, D_dR(V) = (B_dR (x) V)^{G_F} (printed form; Berger 2004 I.3 records it, wording read by h-leaves; Fontaine Ann. of Math. 115 (1982) / LNM 1016 (1983) numbers UNVERIFIED); Berger's B_dR = B_dR^+[1/t] matched by DeRhamPrint.TDict.bdREquivAwayT -/
-  deRhamVpAbVarPrinted : _root_.DeRhamPrint.DeRhamVpAbVarPrinted
-  /-- Fontaine: B_dR^{G_K} = K (Asterisque 223 (1994) Exp. II; Brinon-Conrad CMI notes 4.3-4.4), read as dim_{Q_p} B_dR^{G_F} = [F:Q_p] (printed form, dimension; locator UNVERIFIED) -/
-  bdRInvariantsPrinted : _root_.DeRhamPrint.BdRInvariantsPrinted
-  /-- grx6ab-print, printed form (the coarse-moduli theorem for X0(6,1), one object): the canonical model X6 = X0(6,1) over Q is a proper smooth curve and a coarse moduli scheme for abelian surfaces with QM by O: a Galois-equivariant bijection on Qbar-points with QM pairs up to isomorphism, Aut(O)-twists induced by automorphisms of X (the Atkin-Lehner group), and the classifying map of a level-3 QM abelian scheme over a proper smooth curve (a specialization of the natural transformation). Locators UNVERIFIED (Shimura 1967; Deligne, Sem. Bourbaki 389; Buzzard, Duke 87 (1997) section 1). With shimuraMainThmIDeligneY3AbU it gives the moduli witness (the forgetful map Y3 -> X6 is proved: GRX6AbPrint.x6ModuliWitness_of_coarse). -/
-  x6CoarseModuli : _root_.GRX6AbPrint.X6CoarseModuli
-  /-- elkies-print: Elkies, Shimura curve computations (ANTS-III 1998) section 3 on X*(6) = X6/W, for every witness of the moduli description of X0(6,1) (R1fpPropsAb, X6Props), with no existence claim: some t : X6 -> P1 with Q(X6)^W = Q(t) (whenever X6 is integral and t regular at its generic point, both proved from the charts), t = 0, 1, infinity at the CM points of discriminant -24, -4, -3, and the charts s^2 = -t, r^2 = 3(t-1) (section, display and 0/infinity orientation UNVERIFIED). The witness comes from shimuraMainThmIDeligneY3AbU and x6CoarseModuli (GRX6AbPrint.x6ModuliWitness_of_coarse). Replaces elkiesX6StarFunctionField; equivalent to it given a witness and T5 (every_iff_functionField). -/
-  elkiesX6StarEvery : _root_.HDec.QMSplit.Moduli.ElkiesPrint.ElkiesX6StarEvery
-  /-- Fontaine, Invent. Math. 65 (1982), Theoreme principal: C_p (x) V_p(A) = (C_p(1) (x)_F t_A) + (C_p (x)_F t*_{A'}), G_F-equivariant; bases of the two finite-dimensional F-spaces chosen, both dimensions left unnamed (C_p(1)^a + C_p^b for some a, b); locator UNVERIFIED -/
-  hodgeTateDecompExists : _root_.ZInQ.Contrib.HodgeTateFromPairing.HodgeTateDecompExists
-  /-- height-fix, printed form: Bost, Sem. Bourbaki 795 (Asterisque 237, 1996), h_D(A) >= -(g/2) log 2pi (display UNVERIFIED), over the printed stable height ZInQ.HeightFix.IsPrintedStableHeight: Neron model over a field where A has semistable reduction in the sense of SGA 7 IX Def. 3.4 read over the residue fields k(p) (IsSemistableRes), omega = wedge^g Gamma(S, e*Omega^1), and the archimedean metric (i/2)^g int_{A(C)} eta wedge eta-bar as the total mass of the measure defined chart by chart (density |tau l|^2 in translated algebraic coordinates at every point), which must exist (IsPrintedMetricSq). Replaces bostLowerBound (ZInQ.HeightFix.bostLowerBound_of_printed, with uniformizationLeafAll and mumfordTorsionAlgClosed for T35 and the leaf chevalleyPerfect (semiab-descend)). -/
-  bostLowerBoundPrinted : _root_.ZInQ.HeightFix.BostLowerBoundPrinted
-  /-- semiab-descend, printed form: Chevalley's structure theorem over a perfect field (Conrad, J. Ramanujan Math. Soc. 17 (2002) Thm 1.1; Milne, Algebraic Groups (2017) Thm 8.27; numbers UNVERIFIED): a smooth connected group scheme G of finite type over a perfect field k has a unique normal smooth connected affine subgroup H with G/H an abelian variety. Lean form: existence of a faithfully flat homomorphism pi : G -> B onto an abelian variety (PkgI3.AbVar) whose scheme-theoretic kernel G x_B Spec k is smooth, connected and affine, and uniqueness of that kernel on T-points; G/H read as the target of a faithfully flat homomorphism with kernel H (the definition of a quotient, Milne AG section 5.c). Replaces the glue semiAbelianDescendsPerfect (ZInQ.SemiAbDescend.semiAbelianDescendsPerfect_of_chevalley proves it for every perfect field). -/
-  chevalleyPerfect : _root_.ZInQ.SemiAbDescend.ChevalleyPerfect
-  /-- height-fix, printed form: Gaudron-Remond, Duke Math. J. 163 (2014) Thm 1.4 (read by the locator audit), over the printed stable height ZInQ.HeightFix.IsPrintedStableHeight (Faltings' original normalization (i/2)^g; semistability over k(p) as SGA 7 IX Def. 3.4 print it; the metric defined chart by chart and required to exist). Replaces gaudronRemondThm14 (ZInQ.HeightFix.gaudronRemondThm14_of_printed, with uniformizationLeafAll and mumfordTorsionAlgClosed for T35 and the leaf chevalleyPerfect (semiab-descend)). -/
-  gaudronRemondThm14Printed : _root_.ZInQ.HeightFix.GaudronRemondThm14Printed
-  /-- javanpeykar-rebase: Javanpeykar, Algebra Number Theory 8 (2014) Thm 1.1.1 in printed form at X = X0 x_K Qbar (X0 a smooth proper geometrically connected curve over a number field K, Qbar = AlgebraicClosure K): X projective (closed immersion into a projective space over Qbar), Jac(X) = W an abelian variety over Qbar representing Pic^0_{X/Qbar} with the tensor group law, V a model of W over K (V_Qbar = W), g = genusBar X = dim H^1(X, O_X), beta : X -> P^1_Qbar = Proj Qbar[X0,X1] a Belyi map of degree d (IsBelyiMap), h = height-fix's printed stable height ZInQ.HeightFix.IsPrintedStableHeight of V (sound archimedean metric defined chart by chart; Neron model semistable over the residue fields k(p)): h <= 13*10^6 * g * d^5. javanpeykar-fix's JavanpeykarPrintedMap verbatim over height-fix's height (JavanpeykarRebase.javanpeykarPrintedMap_of_fix: implied by it given T35 and Stacks 04KV). Replaces javanpeykarBound (JavanpeykarRebase.javanpeykarBound_of_printed_rebase, with constantFieldExtensionUnramifiedFinite, mumfordTorsionAlgClosed and uniformizationLeafAll_proof for T35, and height-fix's glue semiAbelianDescendsPerfect). -/
-  javanpeykarPrintedMapHF : _root_.JavanpeykarRebase.JavanpeykarPrintedMap
-  /-- Carayol 1986, Theoreme (A), at F = Q, weight 2, packaged printed form over K_{f,lambda}, with Ribet's irreducibility and oddness (r17-print, r17-rebase): for a printed newform f (Tau Ceti Newform N 2) with number field K_f and a place lambda | l of K_f, there is a continuous rho : G_Q -> GL_2(K_{f,lambda}) (Mathlib adicCompletion), irreducible (no stable subspace other than 0 and K_{f,lambda}^2), odd (some involution c in G_Q has det rho(c) = -1), unramified at p not dividing N l with arithmetic-Frobenius trace a_p(f), whose Serre-Tate conductor exponent at every prime p != l is v_p(N). The passage to r17 (Burnside's form from irreducible + odd; IsNewform = printed newform; extension of scalars to Qbar_l; absolute irreducibility gives semisimplicity; conductor invariance under scalar extension and isomorphism; Brauer-Nesbitt with Chebotarev) is proved in Lean. Replaces r17-print's carayolThmA (CarayolPrinted.carayolThmA_of_irr), which replaced r17. -/
-  carayolThmAIrr : _root_.CarayolPrinted.CarayolThmAIrr
-  /-- R13, printed existence form, reading-robust (htnew-print): for a prime l, embeddings iota_C, iota_L and a Tau Ceti newform f of weight k >= 2 and level N (every level, l | N included), there is a continuous rho : G_Q -> GL_2(Qbar_l), unramified outside N l, with either (arithmetic Frobenius trace a_p and Hodge-Tate weights {0, 1-k}) or (geometric Frobenius trace a_p and Hodge-Tate weights {0, k-1}) (kernel convention: cyclotomic weight -1). No semisimplicity asked; the trace clause is 'if iota_C(alpha) = a_p then tr = iota_L(alpha)'. Replaces eigenformHTNew: semisimplification preserves HT weights, the dual, the newform dictionary and the Chebotarev/Brauer-Nesbitt transport are proved in Lean (EigenformHTPrinted.lean). -/
-  modularHTPrinted : _root_.EigenformHTPrinted.ModularHTPrinted
-  /-- R12. Pan, J. Amer. Math. Soc. 35 (2022), 1031-1169, Theorem 1.0.4 (= arXiv:1901.07166v2 Thm 1.0.4 with Conj. 1.0.1, pp. 5 and 2; JAMS number and page UNVERIFIED), p >= 5, for each iota_p : Qbar_p = C, printed form for one continuous rho : G_Q -> GL_2(Qbar_p): rho irreducible (no stable subspace but 0 and Qbar_p^2), unramified outside finitely many primes, odd, rho|G_Qp potentially semistable (Fontaine admissibility over Berger's B_st = B_max[log p~] inside B_dR, on a model V = E^n) and with distinct Hodge-Tate weights (multiplicity of w = dim_E (V (x)_Qp C_p(w))^{G_Qp}, cyclotomic weight -1) => rho comes from a cuspidal eigenform up to twist: a cuspidal eigenform g (Tau Ceti EigenformAwayFromLevel N k), rho_g attached to g through iota_p (tr rho_g(Frob_q^geom) = iota_p^-1(lambda_q(g)) and unramified, almost all q), a continuous character psi and P in GL_2(Qbar_p) with rho(s) = psi(s) P rho_g(s) P^-1 -/
-  panPrintedP : _root_.HDec.PkgI4.PanDict.PanPrintedP
-  /-- R11. Berger, Invent. Math. 148 (2002), Theoreme 0.7 = Cor. 5.22 of the published version (author copy pp. 6, 52) = Thm 0.6 = Thm 5.19 of arXiv:math/0102179v3, K = Q_p, for one p-adic representation V = E^n (E/Q_p finite inside Qbar_p, rho_E : G_Qp -> GL_n(E) continuous): dim_Qp (B_dR (x) V)^{G_Qp} = dim V => exists finite K/Q_p with dim over B_st^{G_K} of (B_st (x) V)^{G_K} = dim V, Berger's B_st = B_max[log p~] inside Mathlib's B_dR, B_max = A_max[1/p][1/t], A_max = {sum a_n (omega/p)^n : a_n in A_inf -> 0} -/
-  bergerPrintedV : _root_.HDec.PkgI4.PanDict.BergerPrintedV
-
-/-- `openResearchLeaves39_of_OpenResearchLeaves40`, copied from `TailZ65` with the coeff-field-tc edits. -/
-theorem openResearchLeaves39_of_OpenResearchLeaves40_cf_no5 (n : OpenResearchLeaves40CF_no5) : OpenResearchLeaves39CF_no5 where
-  r9a := n.r9a
-  r9b := n.r9b
-  r11r12 := _root_.HDec.PkgI4.PanDict.panBerger_of_printedPV n.panPrintedP n.bergerPrintedV n.dsThm965Printed (_root_.eigenformCoeffFieldFinite_proof) n.dsThm966Printed
-  eigenformHTNew := _root_.EigenformHTPrinted.eigenformHTNew_of_printed n.modularHTPrinted (_root_.eigenformCoeffFieldFinite_proof)
-  pazukiCor13Upper := n.pazukiCor13Upper
-  sga7_IX_3_5_ForwardGeom := n.sga7_IX_3_5_ForwardGeom
-  shimuraMainThmIDeligneY3AbU := n.shimuraMainThmIDeligneY3AbU
-  r16CoreY := n.r16CoreY
-  sga7_IX_3_3_SHpre := n.sga7_IX_3_3_SHpre
-  raynaudSemistableSHOr := n.raynaudSemistableSHOr
-  neronSchemeExtensionDedekind := n.neronSchemeExtensionDedekind
-  neronOggShafarevichSep := n.neronOggShafarevichSep
-  dsThm965Printed := n.dsThm965Printed
-  dsThm966Printed := n.dsThm966Printed
-  carayolThmA := _root_.CarayolPrinted.carayolThmA_of_irr n.carayolThmAIrr
-  deRhamVpAbVarPrinted := n.deRhamVpAbVarPrinted
-  bdRInvariantsPrinted := n.bdRInvariantsPrinted
-  x6CoarseModuli := n.x6CoarseModuli
-  elkiesX6StarEvery := n.elkiesX6StarEvery
-  hodgeTateDecompExists := n.hodgeTateDecompExists
-  bostLowerBoundPrinted := n.bostLowerBoundPrinted
-  chevalleyPerfect := n.chevalleyPerfect
-  gaudronRemondThm14Printed := n.gaudronRemondThm14Printed
-  javanpeykarPrintedMapHF := n.javanpeykarPrintedMapHF
-  constantFieldExtensionUnramifiedFinite := _root_.CFExtProof.constantFieldExtensionUnramifiedFinite_proof
-
-/-- `OpenResearchLeaves41` without `gamma1IntegralSpan`/`gamma1IntegralBasis` and `heckePrimeIntegralToRational` (coeff-field-tc: `eigenformCoeffFieldFinite` is proved outright). -/
-structure OpenResearchLeaves41CF_no5 : Prop where
-  r9a : _root_.PkgI3.FaltingsSemisimple
-  r9b : _root_.PkgI3.FaltingsTate
-  /-- height-split, H-18: the upper half of Pazuki 2012 Cor. 1.3(2), replaces `r22`. -/
-  pazukiCor13Upper : _root_.ZInQ.HeightSplit.PazukiCor13Upper
-  /-- gt-unip, printed form, strictly henselian base: SGA 7 I Exp. IX Prop. 3.5, direction semistable => (sigma-1)^2 = 0 on T_l = lim A(K^s)[l^n] for sigma in inertia, one sigma at a time (the print gives (sigma-1)(tau-1) = 0 and the converse); number UNVERIFIED. Semistability read on the geometric special fibre; reading risk: if the print reads it over k(s), this form exceeds the print by UnipotentForward.SemiAbelianDescendsSepClosed for imperfect residue fields only (the reading-robust variant is UnipotentForward.semistableUnipotent_of_forward). Replaces semistableUnipotent; StrictHenselizationInside and the K^s axis are proved. -/
-  sga7_IX_3_5_ForwardGeom : _root_.UnipotentForward.SGA7_IX_3_5_ForwardGeom
-  /-- dict-models, printed form under either reading of 'semistable': Raynaud's criterion, SGA 7 I Exp. IX Prop. 4.7 (number UNVERIFIED) over a strictly henselian DVR, with the conclusion the disjunction of semistability over k(s) (general torus) and on the geometric special fibre. With geomConnOfRationalPoint (the k(s) -> kbar ascent is proved) replaces raynaudSemistableSH. -/
-  raynaudSemistableSHOr : _root_.DictModels.RaynaudOr.RaynaudSemistableSHOr
-  /-- group-law-dvr + goodmodel-iso, printed form: Bosch-Lutkebohmert-Raynaud, Neron models, 1.4 Thm 3 over an affine Dedekind scheme (existence half; numbers UNVERIFIED). Gives GIT 6.14 over a DVR (GoodModelIso.mumfordGroupLawDVR_of_dedekind, with the comparison glue NeronGoodModelIso proved) and the textbook field neronSchemeExtensionExists (its case D = O_L, neronSchemeExtensionExists_of_dedekind). Replaces mumfordGroupLawConn. -/
-  neronSchemeExtensionDedekind : _root_.ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind
-  /-- Serre-Tate, Ann. of Math. 88 (1968), Thm 1 (Neron-Ogg-Shafarevich criterion) over a separable closure K_s, inertia of a valuation ring of K_s acting on A(K_s)[m] (numbering UNVERIFIED) -/
-  neronOggShafarevichSep : _root_.NOSSepDict.NeronOggShafarevichSep
-  /-- Diamond-Shurman, GTM 228 (2005), Thm 9.6.5 (k >= 2; Deligne 1971; Shimura 1971 Thm 7.14 for k = 2; numbering UNVERIFIED), printed form: for a normalized eigenform f in S_k(N, chi) (DS Def 5.8.1) with number field K_f and a prime lambda of O_{K_f} over l, a continuous rho_{f,lambda} : G_Q -> GL_2(K_{f,lambda}) (Mathlib's adicCompletion), unramified outside lN, with rho(Frob_p) having characteristic polynomial (or satisfying) x^2 - a_p x + chi(p) p^(k-1) over K_f. Either printed wording gives it by or-introduction; no coefficient dictionary (coeff-ext). -/
-  dsThm965Printed : _root_.DSCoeffExt.DSThm965Printed
-  /-- Deligne-Serre, Formes modulaires de poids 1, Ann. Sci. ENS (4) 7 (1974), Thm 4.1 with (4.1.1), p. 514, as printed: for f != 0 a (cusp) form of type (1, eps) with eps(-1) = -1 that is an eigenvector of the T_p, p not dividing N, with eigenvalues a_p (Tau Ceti EigenformAwayFromLevel N 1, no normalization a_1 = 1), a continuous rho : G_Q -> GL_2(C) with finite image, unramified outside N, with tr rho(Frob_p) = a_p (the T_p-eigenvalue F.eigenvalue p) and det rho(Frob_p) = eps(p). The coefficient form a_p = coeff g p (from a_1 = 1) and eps(-1) = -1 (parity lemma, TauCeti Parity.lean:113) are glue in DSThm966EV.dsThm966_of_printed (coeff-fix). -/
-  dsThm966Printed : _root_.DSThm966EV.DSThm966Printed
-  /-- Fontaine: the Tate module V_p(A) of an abelian variety over a finite extension of Q_p is de Rham, D_dR(V) = (B_dR (x) V)^{G_F} (printed form; Berger 2004 I.3 records it, wording read by h-leaves; Fontaine Ann. of Math. 115 (1982) / LNM 1016 (1983) numbers UNVERIFIED); Berger's B_dR = B_dR^+[1/t] matched by DeRhamPrint.TDict.bdREquivAwayT -/
-  deRhamVpAbVarPrinted : _root_.DeRhamPrint.DeRhamVpAbVarPrinted
-  /-- Fontaine: B_dR^{G_K} = K (Asterisque 223 (1994) Exp. II; Brinon-Conrad CMI notes 4.3-4.4), read as dim_{Q_p} B_dR^{G_F} = [F:Q_p] (printed form, dimension; locator UNVERIFIED) -/
-  bdRInvariantsPrinted : _root_.DeRhamPrint.BdRInvariantsPrinted
-  /-- grx6ab-print, printed form (the coarse-moduli theorem for X0(6,1), one object): the canonical model X6 = X0(6,1) over Q is a proper smooth curve and a coarse moduli scheme for abelian surfaces with QM by O: a Galois-equivariant bijection on Qbar-points with QM pairs up to isomorphism, Aut(O)-twists induced by automorphisms of X (the Atkin-Lehner group), and the classifying map of a level-3 QM abelian scheme over a proper smooth curve (a specialization of the natural transformation). Locators UNVERIFIED (Shimura 1967; Deligne, Sem. Bourbaki 389; Buzzard, Duke 87 (1997) section 1). With shimuraMainThmIDeligneY3AbU it gives the moduli witness (the forgetful map Y3 -> X6 is proved: GRX6AbPrint.x6ModuliWitness_of_coarse). -/
-  x6CoarseModuli : _root_.GRX6AbPrint.X6CoarseModuli
-  /-- elkies-print: Elkies, Shimura curve computations (ANTS-III 1998) section 3 on X*(6) = X6/W, for every witness of the moduli description of X0(6,1) (R1fpPropsAb, X6Props), with no existence claim: some t : X6 -> P1 with Q(X6)^W = Q(t) (whenever X6 is integral and t regular at its generic point, both proved from the charts), t = 0, 1, infinity at the CM points of discriminant -24, -4, -3, and the charts s^2 = -t, r^2 = 3(t-1) (section, display and 0/infinity orientation UNVERIFIED). The witness comes from shimuraMainThmIDeligneY3AbU and x6CoarseModuli (GRX6AbPrint.x6ModuliWitness_of_coarse). Replaces elkiesX6StarFunctionField; equivalent to it given a witness and T5 (every_iff_functionField). -/
-  elkiesX6StarEvery : _root_.HDec.QMSplit.Moduli.ElkiesPrint.ElkiesX6StarEvery
-  /-- Fontaine, Invent. Math. 65 (1982), Theoreme principal: C_p (x) V_p(A) = (C_p(1) (x)_F t_A) + (C_p (x)_F t*_{A'}), G_F-equivariant; bases of the two finite-dimensional F-spaces chosen, both dimensions left unnamed (C_p(1)^a + C_p^b for some a, b); locator UNVERIFIED -/
-  hodgeTateDecompExists : _root_.ZInQ.Contrib.HodgeTateFromPairing.HodgeTateDecompExists
-  /-- height-fix, printed form: Bost, Sem. Bourbaki 795 (Asterisque 237, 1996), h_D(A) >= -(g/2) log 2pi (display UNVERIFIED), over the printed stable height ZInQ.HeightFix.IsPrintedStableHeight: Neron model over a field where A has semistable reduction in the sense of SGA 7 IX Def. 3.4 read over the residue fields k(p) (IsSemistableRes), omega = wedge^g Gamma(S, e*Omega^1), and the archimedean metric (i/2)^g int_{A(C)} eta wedge eta-bar as the total mass of the measure defined chart by chart (density |tau l|^2 in translated algebraic coordinates at every point), which must exist (IsPrintedMetricSq). Replaces bostLowerBound (ZInQ.HeightFix.bostLowerBound_of_printed, with uniformizationLeafAll and mumfordTorsionAlgClosed for T35 and the leaf chevalleyPerfect (semiab-descend)). -/
-  bostLowerBoundPrinted : _root_.ZInQ.HeightFix.BostLowerBoundPrinted
-  /-- semiab-descend, printed form: Chevalley's structure theorem over a perfect field (Conrad, J. Ramanujan Math. Soc. 17 (2002) Thm 1.1; Milne, Algebraic Groups (2017) Thm 8.27; numbers UNVERIFIED): a smooth connected group scheme G of finite type over a perfect field k has a unique normal smooth connected affine subgroup H with G/H an abelian variety. Lean form: existence of a faithfully flat homomorphism pi : G -> B onto an abelian variety (PkgI3.AbVar) whose scheme-theoretic kernel G x_B Spec k is smooth, connected and affine, and uniqueness of that kernel on T-points; G/H read as the target of a faithfully flat homomorphism with kernel H (the definition of a quotient, Milne AG section 5.c). Replaces the glue semiAbelianDescendsPerfect (ZInQ.SemiAbDescend.semiAbelianDescendsPerfect_of_chevalley proves it for every perfect field). -/
-  chevalleyPerfect : _root_.ZInQ.SemiAbDescend.ChevalleyPerfect
-  /-- height-fix, printed form: Gaudron-Remond, Duke Math. J. 163 (2014) Thm 1.4 (read by the locator audit), over the printed stable height ZInQ.HeightFix.IsPrintedStableHeight (Faltings' original normalization (i/2)^g; semistability over k(p) as SGA 7 IX Def. 3.4 print it; the metric defined chart by chart and required to exist). Replaces gaudronRemondThm14 (ZInQ.HeightFix.gaudronRemondThm14_of_printed, with uniformizationLeafAll and mumfordTorsionAlgClosed for T35 and the leaf chevalleyPerfect (semiab-descend)). -/
-  gaudronRemondThm14Printed : _root_.ZInQ.HeightFix.GaudronRemondThm14Printed
-  /-- javanpeykar-rebase: Javanpeykar, Algebra Number Theory 8 (2014) Thm 1.1.1 in printed form at X = X0 x_K Qbar (X0 a smooth proper geometrically connected curve over a number field K, Qbar = AlgebraicClosure K): X projective (closed immersion into a projective space over Qbar), Jac(X) = W an abelian variety over Qbar representing Pic^0_{X/Qbar} with the tensor group law, V a model of W over K (V_Qbar = W), g = genusBar X = dim H^1(X, O_X), beta : X -> P^1_Qbar = Proj Qbar[X0,X1] a Belyi map of degree d (IsBelyiMap), h = height-fix's printed stable height ZInQ.HeightFix.IsPrintedStableHeight of V (sound archimedean metric defined chart by chart; Neron model semistable over the residue fields k(p)): h <= 13*10^6 * g * d^5. javanpeykar-fix's JavanpeykarPrintedMap verbatim over height-fix's height (JavanpeykarRebase.javanpeykarPrintedMap_of_fix: implied by it given T35 and Stacks 04KV). Replaces javanpeykarBound (JavanpeykarRebase.javanpeykarBound_of_printed_rebase, with constantFieldExtensionUnramifiedFinite, mumfordTorsionAlgClosed and uniformizationLeafAll_proof for T35, and height-fix's glue semiAbelianDescendsPerfect). -/
-  javanpeykarPrintedMapHF : _root_.JavanpeykarRebase.JavanpeykarPrintedMap
-  /-- Carayol 1986, Theoreme (A), at F = Q, weight 2, packaged printed form over K_{f,lambda}, with Ribet's irreducibility and oddness (r17-print, r17-rebase): for a printed newform f (Tau Ceti Newform N 2) with number field K_f and a place lambda | l of K_f, there is a continuous rho : G_Q -> GL_2(K_{f,lambda}) (Mathlib adicCompletion), irreducible (no stable subspace other than 0 and K_{f,lambda}^2), odd (some involution c in G_Q has det rho(c) = -1), unramified at p not dividing N l with arithmetic-Frobenius trace a_p(f), whose Serre-Tate conductor exponent at every prime p != l is v_p(N). The passage to r17 (Burnside's form from irreducible + odd; IsNewform = printed newform; extension of scalars to Qbar_l; absolute irreducibility gives semisimplicity; conductor invariance under scalar extension and isomorphism; Brauer-Nesbitt with Chebotarev) is proved in Lean. Replaces r17-print's carayolThmA (CarayolPrinted.carayolThmA_of_irr), which replaced r17. -/
-  carayolThmAIrr : _root_.CarayolPrinted.CarayolThmAIrr
-  /-- R13, printed existence form, reading-robust (htnew-print): for a prime l, embeddings iota_C, iota_L and a Tau Ceti newform f of weight k >= 2 and level N (every level, l | N included), there is a continuous rho : G_Q -> GL_2(Qbar_l), unramified outside N l, with either (arithmetic Frobenius trace a_p and Hodge-Tate weights {0, 1-k}) or (geometric Frobenius trace a_p and Hodge-Tate weights {0, k-1}) (kernel convention: cyclotomic weight -1). No semisimplicity asked; the trace clause is 'if iota_C(alpha) = a_p then tr = iota_L(alpha)'. Replaces eigenformHTNew: semisimplification preserves HT weights, the dual, the newform dictionary and the Chebotarev/Brauer-Nesbitt transport are proved in Lean (EigenformHTPrinted.lean). -/
-  modularHTPrinted : _root_.EigenformHTPrinted.ModularHTPrinted
-  /-- R12. Pan, J. Amer. Math. Soc. 35 (2022), 1031-1169, Theorem 1.0.4 (= arXiv:1901.07166v2 Thm 1.0.4 with Conj. 1.0.1, pp. 5 and 2; JAMS number and page UNVERIFIED), p >= 5, for each iota_p : Qbar_p = C, printed form for one continuous rho : G_Q -> GL_2(Qbar_p): rho irreducible (no stable subspace but 0 and Qbar_p^2), unramified outside finitely many primes, odd, rho|G_Qp potentially semistable (Fontaine admissibility over Berger's B_st = B_max[log p~] inside B_dR, on a model V = E^n) and with distinct Hodge-Tate weights (multiplicity of w = dim_E (V (x)_Qp C_p(w))^{G_Qp}, cyclotomic weight -1) => rho comes from a cuspidal eigenform up to twist: a cuspidal eigenform g (Tau Ceti EigenformAwayFromLevel N k), rho_g attached to g through iota_p (tr rho_g(Frob_q^geom) = iota_p^-1(lambda_q(g)) and unramified, almost all q), a continuous character psi and P in GL_2(Qbar_p) with rho(s) = psi(s) P rho_g(s) P^-1 -/
-  panPrintedP : _root_.HDec.PkgI4.PanDict.PanPrintedP
-  /-- R11. Berger, Invent. Math. 148 (2002), Theoreme 0.7 = Cor. 5.22 of the published version (author copy pp. 6, 52) = Thm 0.6 = Thm 5.19 of arXiv:math/0102179v3, K = Q_p, for one p-adic representation V = E^n (E/Q_p finite inside Qbar_p, rho_E : G_Qp -> GL_n(E) continuous): dim_Qp (B_dR (x) V)^{G_Qp} = dim V => exists finite K/Q_p with dim over B_st^{G_K} of (B_st (x) V)^{G_K} = dim V, Berger's B_st = B_max[log p~] inside Mathlib's B_dR, B_max = A_max[1/p][1/t], A_max = {sum a_n (omega/p)^n : a_n in A_inf -> 0} -/
-  bergerPrintedV : _root_.HDec.PkgI4.PanDict.BergerPrintedV
-  /-- aftate-fix2 (r16-det fold): the Hecke operators on J_1(N) over Q. For N >= 2, every model X of Diamond-Shurman's X_1(N)_alg with chosen generators (j_X, t_X) of K(X) = Q(j, f_1) (IsX1Gen: the integer relations of (j_X, t_X) are those of (j(tau), f_1(tau)), f_1 = T5Glue.weber <1,tau> (1/N)), every rational point P0 and every Jacobian (J, aj) (Albanese property): there are endomorphisms T_p (every prime p) and <d> (d in (Z/N)^*) of J over Q acting on degree-0 divisor classes of the points x_tau (AtTau: the complex point where every g in K(X) whose meromorphic function on H has a limit c at tau is regular with value c) by DS's double-coset formulas: T_p[x_tau] = sum_{j<p} [x_{(tau+j)/p}] + [x_{g(p tau)}] (last term for p not dividing N; g in SL_2(Z), N | c, d = p mod N), <d>[x_tau] = [x_{g tau}]. -/
-  heckeJ1DS : _root_.AfTateLam.HeckeJ1DS
-  /-- aftate-fix2 (r16-det fold): Shimura's A_f over Q. For a newform f in S_2(Gamma_1(N)) with nebentypus chi, N >= 2, X, (j_X, t_X), P0, (J, aj) as in heckeJ1DS and any T_p, <d> with DS's divisor action: K_f is a number field, and there are A, pi : J -> A and theta : K_f -> End^0(A) with IsAfQuotient (pi surjective, kills I_f J, universal among homomorphisms to abelian varieties killing I_f J; I_f = image of the kernel of T_p -> a_p(f), <d> -> chi(d) on the free algebra) and IsAfAction (theta(a_p) is the endomorphism induced by T_p, theta(chi(d)) the one induced by <d>). -/
-  afShimura : _root_.AfTateLam.AfShimura
-  /-- r16-det: Diamond-Shurman Thm 9.6.5 at k = 2 for the Section 9.5 realization on A_f, over K_{f,lambda}, universal over A_f. For every (A, pi, theta) that is DS's A_f (afShimura's characterization, for any X, generators, P0, Jacobian and Hecke operators as in heckeJ1DS), every prime l and every place lambda | l of K_f: for p not dividing N l every arithmetic Frobenius sigma at p acting on V_lambda = K_lambda (x)_{Q_l (x) K_f} V_l(A) (rho_{f,lambda}, DS Exercise 9.5.2(a)) has characteristic polynomial X^2 - a_p X + chi(p) p over K_lambda. Statement = aftate-fix2's AfTateLam.AfTateDSLambda verbatim (AfTateLam.afCharpolyDS965_iff, Iff.rfl); it implies r16-close's glue AfDetLambda (AfTateLam.afDetLambda_of_ds965). -/
-  afCharpolyDS965 : _root_.AfTateLam.AfCharpolyDS965
-  /-- x1-igusa: Igusa's theorem in its printed form, Gal(Q(j, E_j[N])/Q(j)) = GL_2(Z/N) for Diamond-Shurman's E_j : y^2 = 4x^3 - g x - g, g = 27j/(j-1728), j transcendental. For N >= 1, every basis e : (Z/N)^2 = E_j[N] over an algebraic closure of Q(j) and every g in GL_2(Z/N), some sigma in Aut(Q(j)bar/Q(j)) acts on E_j[N] as g in the basis e. Used through X1Igusa.x1PointsConjugate_of_igusaGL2DS (the dictionary IsX1Model -> IsX1AlgDS, aftate-or). -/
-  igusaGL2DS : _root_.X1Igusa.IgusaGL2DS
-  /-- y3-fix, printed form (representability, one object: the fine moduli scheme Y3 with its universal family): the moduli problem of abelian surfaces with an action of the maximal order O of B = (2,-3|Q) and full level-3 structure in Mumford's form (GIT Def. 7.1, O-linear: at every geometric point s the sections eta(a), a in O/3O, are exactly the points of A_s(k)[3]) is represented over Q by a proper smooth curve (some (Y, Phi) satisfies R1fpPropsAbP; no Qbar-point clause). Buzzard, Duke Math. J. 87 (1997) section 1; Boutot-Carayol, Asterisque 196-197 (1991) ch. III; Milne 1979; Mumford GIT Def. 7.1, Thm 7.9; locators UNVERIFIED. Consequence form: universal property used on proper smooth curve bases and read on field points; base Q. Equivalent to the kernel's level form over Q-schemes (Y3Fix.toKer, Y3Fix.ofKer from mumfordTorsionAlgClosed). -/
-  y3FineModuliAbP : _root_.Y3Fix.Y3FineModuliAbP
-  /-- y3-fix, printed form (one object: Y3 = Sh_K3(B^x, H^+-) with its moduli interpretation and canonical-model property): for every witness (Y, Phi) of R1fpPropsAbP there is Psi : H x (B tensor A_f)^x -> Y(C), onto with fibres the B^x_+ \ . / K3 classes, holomorphic in tau, with the moduli interpretation at g in O-hat^x in the print's H_1 / Hodge form (IsHodgeH1: for an analytic uniformization A(C) = Lie A / H_1(A,Z), an O-linear beta : B_R = H_1(A,R) with beta(O) = H_1(A,Z) and beta(M J_tau) = i beta(M), J_tau = h_tau(i)) and Shimura's reciprocity law at CM points (conventions existential). Deligne, Sem. Bourbaki 389 (1971) section 4 (moduli interpretation by (H_1(A,Q), h_A) = (B, h)) and section 5 (Cor. 5.7 / Ex. 5.8 per locators.md R1); Milne, Introduction to Shimura varieties sections 8 and 14; locators UNVERIFIED. The passage to the kernel's lattice form is proved (Y3Fix.lattice_of_hodge). -/
-  deligneCanonicalModelY3EveryH : _root_.Y3Fix.DeligneCanonicalModelY3EveryH
-  /-- sga33-steps, printed form (specialized to traits): SGA 7 I, Exp. IX, Cor. 3.3, p. 348 (semistable reduction: Def. 3.4, p. 349; locator from the 11-16 reading in the task brief): for an extension of DVRs O in O' (O' meet K = O, any K'/K, no henselian condition), Neron models N, N' with N semistable, the canonical u : N x_O O' -> N' (generic fibre the identification, bcDVR) induces an isomorphism N0 x_O O' = N'0 (an iso of open subschemes over N'). Replaces sga7_IX_3_3_SHpre: steps 1-3 (specialization; dictionary and Neron uniqueness; c = u . alpha with alpha an automorphism of N' fixing the unit) proved in SGA33Steps.shpre_of_cor33. -/
-  sga7_IX_Cor3_3 : _root_.SGA33Steps.SGA7_IX_Cor3_3
-
-/-- `openResearchLeaves40_of_OpenResearchLeaves41`, copied from `TailZ66` with the coeff-field-tc edits. -/
-theorem openResearchLeaves40_of_OpenResearchLeaves41_cf_no5 (n : OpenResearchLeaves41CF_no5) : OpenResearchLeaves40CF_no5 where
-  r9a := n.r9a
-  r9b := n.r9b
-  pazukiCor13Upper := n.pazukiCor13Upper
-  sga7_IX_3_5_ForwardGeom := n.sga7_IX_3_5_ForwardGeom
-  shimuraMainThmIDeligneY3AbU := _root_.Y3Fix.shimuraMainThmIDeligneY3AbU_of_print _root_.ZInQ.Contrib.CloudB3W16Torsion.mumfordTorsionAlgClosed_proof n.y3FineModuliAbP n.deligneCanonicalModelY3EveryH
-  r16CoreY := _root_.AfTateLam.r16CoreY_of_ds965 n.heckeJ1DS n.afShimura n.afCharpolyDS965 n.igusaGL2DS _root_.ZInQ.Contrib.CloudB3W16Torsion.mumfordTorsionAlgClosed_proof
-  sga7_IX_3_3_SHpre := _root_.SGA33Steps.shpre_of_cor33 n.sga7_IX_Cor3_3
-  raynaudSemistableSHOr := n.raynaudSemistableSHOr
-  neronSchemeExtensionDedekind := n.neronSchemeExtensionDedekind
-  neronOggShafarevichSep := n.neronOggShafarevichSep
-  dsThm965Printed := n.dsThm965Printed
-  dsThm966Printed := n.dsThm966Printed
-  deRhamVpAbVarPrinted := n.deRhamVpAbVarPrinted
-  bdRInvariantsPrinted := n.bdRInvariantsPrinted
-  x6CoarseModuli := n.x6CoarseModuli
-  elkiesX6StarEvery := n.elkiesX6StarEvery
-  hodgeTateDecompExists := n.hodgeTateDecompExists
-  bostLowerBoundPrinted := n.bostLowerBoundPrinted
-  chevalleyPerfect := n.chevalleyPerfect
-  gaudronRemondThm14Printed := n.gaudronRemondThm14Printed
-  javanpeykarPrintedMapHF := n.javanpeykarPrintedMapHF
-  carayolThmAIrr := n.carayolThmAIrr
-  modularHTPrinted := n.modularHTPrinted
-  panPrintedP := n.panPrintedP
-  bergerPrintedV := n.bergerPrintedV
-
-/-- `OpenResearchLeaves42` without `gamma1IntegralSpan`/`gamma1IntegralBasis` and `heckePrimeIntegralToRational` (coeff-field-tc: `eigenformCoeffFieldFinite` is proved outright). -/
-structure OpenResearchLeaves42CF_no5 : Prop where
-  r9a : _root_.PkgI3.FaltingsSemisimple
-  r9b : _root_.PkgI3.FaltingsTate
-  /-- height-split, H-18: the upper half of Pazuki 2012 Cor. 1.3(2), replaces `r22`. -/
-  pazukiCor13Upper : _root_.ZInQ.HeightSplit.PazukiCor13Upper
-  /-- gt-unip, printed form, strictly henselian base: SGA 7 I Exp. IX Prop. 3.5, direction semistable => (sigma-1)^2 = 0 on T_l = lim A(K^s)[l^n] for sigma in inertia, one sigma at a time (the print gives (sigma-1)(tau-1) = 0 and the converse); number UNVERIFIED. Semistability read on the geometric special fibre; reading risk: if the print reads it over k(s), this form exceeds the print by UnipotentForward.SemiAbelianDescendsSepClosed for imperfect residue fields only (the reading-robust variant is UnipotentForward.semistableUnipotent_of_forward). Replaces semistableUnipotent; StrictHenselizationInside and the K^s axis are proved. -/
-  sga7_IX_3_5_ForwardGeom : _root_.UnipotentForward.SGA7_IX_3_5_ForwardGeom
-  /-- dict-models, printed form under either reading of 'semistable': Raynaud's criterion, SGA 7 I Exp. IX Prop. 4.7 (number UNVERIFIED) over a strictly henselian DVR, with the conclusion the disjunction of semistability over k(s) (general torus) and on the geometric special fibre. With geomConnOfRationalPoint (the k(s) -> kbar ascent is proved) replaces raynaudSemistableSH. -/
-  raynaudSemistableSHOr : _root_.DictModels.RaynaudOr.RaynaudSemistableSHOr
-  /-- group-law-dvr + goodmodel-iso, printed form: Bosch-Lutkebohmert-Raynaud, Neron models, 1.4 Thm 3 over an affine Dedekind scheme (existence half; numbers UNVERIFIED). Gives GIT 6.14 over a DVR (GoodModelIso.mumfordGroupLawDVR_of_dedekind, with the comparison glue NeronGoodModelIso proved) and the textbook field neronSchemeExtensionExists (its case D = O_L, neronSchemeExtensionExists_of_dedekind). Replaces mumfordGroupLawConn. -/
-  neronSchemeExtensionDedekind : _root_.ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind
-  /-- Serre-Tate, Ann. of Math. 88 (1968), Thm 1 (Neron-Ogg-Shafarevich criterion) over a separable closure K_s, inertia of a valuation ring of K_s acting on A(K_s)[m] (numbering UNVERIFIED) -/
-  neronOggShafarevichSep : _root_.NOSSepDict.NeronOggShafarevichSep
-  /-- Diamond-Shurman, GTM 228 (2005), Thm 9.6.5 (k >= 2; Deligne 1971; Shimura 1971 Thm 7.14 for k = 2; numbering UNVERIFIED), printed form: for a normalized eigenform f in S_k(N, chi) (DS Def 5.8.1) with number field K_f and a prime lambda of O_{K_f} over l, a continuous rho_{f,lambda} : G_Q -> GL_2(K_{f,lambda}) (Mathlib's adicCompletion), unramified outside lN, with rho(Frob_p) having characteristic polynomial (or satisfying) x^2 - a_p x + chi(p) p^(k-1) over K_f. Either printed wording gives it by or-introduction; no coefficient dictionary (coeff-ext). -/
-  dsThm965Printed : _root_.DSCoeffExt.DSThm965Printed
-  /-- Deligne-Serre, Formes modulaires de poids 1, Ann. Sci. ENS (4) 7 (1974), Thm 4.1 with (4.1.1), p. 514, as printed: for f != 0 a (cusp) form of type (1, eps) with eps(-1) = -1 that is an eigenvector of the T_p, p not dividing N, with eigenvalues a_p (Tau Ceti EigenformAwayFromLevel N 1, no normalization a_1 = 1), a continuous rho : G_Q -> GL_2(C) with finite image, unramified outside N, with tr rho(Frob_p) = a_p (the T_p-eigenvalue F.eigenvalue p) and det rho(Frob_p) = eps(p). The coefficient form a_p = coeff g p (from a_1 = 1) and eps(-1) = -1 (parity lemma, TauCeti Parity.lean:113) are glue in DSThm966EV.dsThm966_of_printed (coeff-fix). -/
-  dsThm966Printed : _root_.DSThm966EV.DSThm966Printed
-  /-- grx6ab-print, printed form (the coarse-moduli theorem for X0(6,1), one object): the canonical model X6 = X0(6,1) over Q is a proper smooth curve and a coarse moduli scheme for abelian surfaces with QM by O: a Galois-equivariant bijection on Qbar-points with QM pairs up to isomorphism, Aut(O)-twists induced by automorphisms of X (the Atkin-Lehner group), and the classifying map of a level-3 QM abelian scheme over a proper smooth curve (a specialization of the natural transformation). Locators UNVERIFIED (Shimura 1967; Deligne, Sem. Bourbaki 389; Buzzard, Duke 87 (1997) section 1). With shimuraMainThmIDeligneY3AbU it gives the moduli witness (the forgetful map Y3 -> X6 is proved: GRX6AbPrint.x6ModuliWitness_of_coarse). -/
-  x6CoarseModuli : _root_.GRX6AbPrint.X6CoarseModuli
-  /-- elkies-print: Elkies, Shimura curve computations (ANTS-III 1998) section 3 on X*(6) = X6/W, for every witness of the moduli description of X0(6,1) (R1fpPropsAb, X6Props), with no existence claim: some t : X6 -> P1 with Q(X6)^W = Q(t) (whenever X6 is integral and t regular at its generic point, both proved from the charts), t = 0, 1, infinity at the CM points of discriminant -24, -4, -3, and the charts s^2 = -t, r^2 = 3(t-1) (section, display and 0/infinity orientation UNVERIFIED). The witness comes from shimuraMainThmIDeligneY3AbU and x6CoarseModuli (GRX6AbPrint.x6ModuliWitness_of_coarse). Replaces elkiesX6StarFunctionField; equivalent to it given a witness and T5 (every_iff_functionField). -/
-  elkiesX6StarEvery : _root_.HDec.QMSplit.Moduli.ElkiesPrint.ElkiesX6StarEvery
-  /-- Fontaine, Invent. Math. 65 (1982), Theoreme principal: C_p (x) V_p(A) = (C_p(1) (x)_F t_A) + (C_p (x)_F t*_{A'}), G_F-equivariant; bases of the two finite-dimensional F-spaces chosen, both dimensions left unnamed (C_p(1)^a + C_p^b for some a, b); locator UNVERIFIED -/
-  hodgeTateDecompExists : _root_.ZInQ.Contrib.HodgeTateFromPairing.HodgeTateDecompExists
-  /-- height-fix, printed form: Bost, Sem. Bourbaki 795 (Asterisque 237, 1996), h_D(A) >= -(g/2) log 2pi (display UNVERIFIED), over the printed stable height ZInQ.HeightFix.IsPrintedStableHeight: Neron model over a field where A has semistable reduction in the sense of SGA 7 IX Def. 3.4 read over the residue fields k(p) (IsSemistableRes), omega = wedge^g Gamma(S, e*Omega^1), and the archimedean metric (i/2)^g int_{A(C)} eta wedge eta-bar as the total mass of the measure defined chart by chart (density |tau l|^2 in translated algebraic coordinates at every point), which must exist (IsPrintedMetricSq). Replaces bostLowerBound (ZInQ.HeightFix.bostLowerBound_of_printed, with uniformizationLeafAll and mumfordTorsionAlgClosed for T35 and the leaf chevalleyPerfect (semiab-descend)). -/
-  bostLowerBoundPrinted : _root_.ZInQ.HeightFix.BostLowerBoundPrinted
-  /-- semiab-descend, printed form: Chevalley's structure theorem over a perfect field (Conrad, J. Ramanujan Math. Soc. 17 (2002) Thm 1.1; Milne, Algebraic Groups (2017) Thm 8.27; numbers UNVERIFIED): a smooth connected group scheme G of finite type over a perfect field k has a unique normal smooth connected affine subgroup H with G/H an abelian variety. Lean form: existence of a faithfully flat homomorphism pi : G -> B onto an abelian variety (PkgI3.AbVar) whose scheme-theoretic kernel G x_B Spec k is smooth, connected and affine, and uniqueness of that kernel on T-points; G/H read as the target of a faithfully flat homomorphism with kernel H (the definition of a quotient, Milne AG section 5.c). Replaces the glue semiAbelianDescendsPerfect (ZInQ.SemiAbDescend.semiAbelianDescendsPerfect_of_chevalley proves it for every perfect field). -/
-  chevalleyPerfect : _root_.ZInQ.SemiAbDescend.ChevalleyPerfect
-  /-- height-fix, printed form: Gaudron-Remond, Duke Math. J. 163 (2014) Thm 1.4 (read by the locator audit), over the printed stable height ZInQ.HeightFix.IsPrintedStableHeight (Faltings' original normalization (i/2)^g; semistability over k(p) as SGA 7 IX Def. 3.4 print it; the metric defined chart by chart and required to exist). Replaces gaudronRemondThm14 (ZInQ.HeightFix.gaudronRemondThm14_of_printed, with uniformizationLeafAll and mumfordTorsionAlgClosed for T35 and the leaf chevalleyPerfect (semiab-descend)). -/
-  gaudronRemondThm14Printed : _root_.ZInQ.HeightFix.GaudronRemondThm14Printed
-  /-- Carayol 1986, Theoreme (A), at F = Q, weight 2, packaged printed form over K_{f,lambda}, with Ribet's irreducibility and oddness (r17-print, r17-rebase): for a printed newform f (Tau Ceti Newform N 2) with number field K_f and a place lambda | l of K_f, there is a continuous rho : G_Q -> GL_2(K_{f,lambda}) (Mathlib adicCompletion), irreducible (no stable subspace other than 0 and K_{f,lambda}^2), odd (some involution c in G_Q has det rho(c) = -1), unramified at p not dividing N l with arithmetic-Frobenius trace a_p(f), whose Serre-Tate conductor exponent at every prime p != l is v_p(N). The passage to r17 (Burnside's form from irreducible + odd; IsNewform = printed newform; extension of scalars to Qbar_l; absolute irreducibility gives semisimplicity; conductor invariance under scalar extension and isomorphism; Brauer-Nesbitt with Chebotarev) is proved in Lean. Replaces r17-print's carayolThmA (CarayolPrinted.carayolThmA_of_irr), which replaced r17. -/
-  carayolThmAIrr : _root_.CarayolPrinted.CarayolThmAIrr
-  /-- R13, printed existence form, reading-robust (htnew-print): for a prime l, embeddings iota_C, iota_L and a Tau Ceti newform f of weight k >= 2 and level N (every level, l | N included), there is a continuous rho : G_Q -> GL_2(Qbar_l), unramified outside N l, with either (arithmetic Frobenius trace a_p and Hodge-Tate weights {0, 1-k}) or (geometric Frobenius trace a_p and Hodge-Tate weights {0, k-1}) (kernel convention: cyclotomic weight -1). No semisimplicity asked; the trace clause is 'if iota_C(alpha) = a_p then tr = iota_L(alpha)'. Replaces eigenformHTNew: semisimplification preserves HT weights, the dual, the newform dictionary and the Chebotarev/Brauer-Nesbitt transport are proved in Lean (EigenformHTPrinted.lean). -/
-  modularHTPrinted : _root_.EigenformHTPrinted.ModularHTPrinted
-  /-- R12. Pan, J. Amer. Math. Soc. 35 (2022), 1031-1169, Theorem 1.0.4 (= arXiv:1901.07166v2 Thm 1.0.4 with Conj. 1.0.1, pp. 5 and 2; JAMS number and page UNVERIFIED), p >= 5, for each iota_p : Qbar_p = C, printed form for one continuous rho : G_Q -> GL_2(Qbar_p): rho irreducible (no stable subspace but 0 and Qbar_p^2), unramified outside finitely many primes, odd, rho|G_Qp potentially semistable (Fontaine admissibility over Berger's B_st = B_max[log p~] inside B_dR, on a model V = E^n) and with distinct Hodge-Tate weights (multiplicity of w = dim_E (V (x)_Qp C_p(w))^{G_Qp}, cyclotomic weight -1) => rho comes from a cuspidal eigenform up to twist: a cuspidal eigenform g (Tau Ceti EigenformAwayFromLevel N k), rho_g attached to g through iota_p (tr rho_g(Frob_q^geom) = iota_p^-1(lambda_q(g)) and unramified, almost all q), a continuous character psi and P in GL_2(Qbar_p) with rho(s) = psi(s) P rho_g(s) P^-1 -/
-  panPrintedP : _root_.HDec.PkgI4.PanDict.PanPrintedP
-  /-- R11. Berger, Invent. Math. 148 (2002), Theoreme 0.7 = Cor. 5.22 of the published version (author copy pp. 6, 52) = Thm 0.6 = Thm 5.19 of arXiv:math/0102179v3, K = Q_p, for one p-adic representation V = E^n (E/Q_p finite inside Qbar_p, rho_E : G_Qp -> GL_n(E) continuous): dim_Qp (B_dR (x) V)^{G_Qp} = dim V => exists finite K/Q_p with dim over B_st^{G_K} of (B_st (x) V)^{G_K} = dim V, Berger's B_st = B_max[log p~] inside Mathlib's B_dR, B_max = A_max[1/p][1/t], A_max = {sum a_n (omega/p)^n : a_n in A_inf -> 0} -/
-  bergerPrintedV : _root_.HDec.PkgI4.PanDict.BergerPrintedV
-  /-- aftate-fix2 (r16-det fold): the Hecke operators on J_1(N) over Q. For N >= 2, every model X of Diamond-Shurman's X_1(N)_alg with chosen generators (j_X, t_X) of K(X) = Q(j, f_1) (IsX1Gen: the integer relations of (j_X, t_X) are those of (j(tau), f_1(tau)), f_1 = T5Glue.weber <1,tau> (1/N)), every rational point P0 and every Jacobian (J, aj) (Albanese property): there are endomorphisms T_p (every prime p) and <d> (d in (Z/N)^*) of J over Q acting on degree-0 divisor classes of the points x_tau (AtTau: the complex point where every g in K(X) whose meromorphic function on H has a limit c at tau is regular with value c) by DS's double-coset formulas: T_p[x_tau] = sum_{j<p} [x_{(tau+j)/p}] + [x_{g(p tau)}] (last term for p not dividing N; g in SL_2(Z), N | c, d = p mod N), <d>[x_tau] = [x_{g tau}]. -/
-  heckeJ1DS : _root_.AfTateLam.HeckeJ1DS
-  /-- aftate-fix2 (r16-det fold): Shimura's A_f over Q. For a newform f in S_2(Gamma_1(N)) with nebentypus chi, N >= 2, X, (j_X, t_X), P0, (J, aj) as in heckeJ1DS and any T_p, <d> with DS's divisor action: K_f is a number field, and there are A, pi : J -> A and theta : K_f -> End^0(A) with IsAfQuotient (pi surjective, kills I_f J, universal among homomorphisms to abelian varieties killing I_f J; I_f = image of the kernel of T_p -> a_p(f), <d> -> chi(d) on the free algebra) and IsAfAction (theta(a_p) is the endomorphism induced by T_p, theta(chi(d)) the one induced by <d>). -/
-  afShimura : _root_.AfTateLam.AfShimura
-  /-- r16-det: Diamond-Shurman Thm 9.6.5 at k = 2 for the Section 9.5 realization on A_f, over K_{f,lambda}, universal over A_f. For every (A, pi, theta) that is DS's A_f (afShimura's characterization, for any X, generators, P0, Jacobian and Hecke operators as in heckeJ1DS), every prime l and every place lambda | l of K_f: for p not dividing N l every arithmetic Frobenius sigma at p acting on V_lambda = K_lambda (x)_{Q_l (x) K_f} V_l(A) (rho_{f,lambda}, DS Exercise 9.5.2(a)) has characteristic polynomial X^2 - a_p X + chi(p) p over K_lambda. Statement = aftate-fix2's AfTateLam.AfTateDSLambda verbatim (AfTateLam.afCharpolyDS965_iff, Iff.rfl); it implies r16-close's glue AfDetLambda (AfTateLam.afDetLambda_of_ds965). -/
-  afCharpolyDS965 : _root_.AfTateLam.AfCharpolyDS965
-  /-- x1-igusa: Igusa's theorem in its printed form, Gal(Q(j, E_j[N])/Q(j)) = GL_2(Z/N) for Diamond-Shurman's E_j : y^2 = 4x^3 - g x - g, g = 27j/(j-1728), j transcendental. For N >= 1, every basis e : (Z/N)^2 = E_j[N] over an algebraic closure of Q(j) and every g in GL_2(Z/N), some sigma in Aut(Q(j)bar/Q(j)) acts on E_j[N] as g in the basis e. Used through X1Igusa.x1PointsConjugate_of_igusaGL2DS (the dictionary IsX1Model -> IsX1AlgDS, aftate-or). -/
-  igusaGL2DS : _root_.X1Igusa.IgusaGL2DS
-  /-- y3-fix, printed form (representability, one object: the fine moduli scheme Y3 with its universal family): the moduli problem of abelian surfaces with an action of the maximal order O of B = (2,-3|Q) and full level-3 structure in Mumford's form (GIT Def. 7.1, O-linear: at every geometric point s the sections eta(a), a in O/3O, are exactly the points of A_s(k)[3]) is represented over Q by a proper smooth curve (some (Y, Phi) satisfies R1fpPropsAbP; no Qbar-point clause). Buzzard, Duke Math. J. 87 (1997) section 1; Boutot-Carayol, Asterisque 196-197 (1991) ch. III; Milne 1979; Mumford GIT Def. 7.1, Thm 7.9; locators UNVERIFIED. Consequence form: universal property used on proper smooth curve bases and read on field points; base Q. Equivalent to the kernel's level form over Q-schemes (Y3Fix.toKer, Y3Fix.ofKer from mumfordTorsionAlgClosed). -/
-  y3FineModuliAbP : _root_.Y3Fix.Y3FineModuliAbP
-  /-- y3-fix, printed form (one object: Y3 = Sh_K3(B^x, H^+-) with its moduli interpretation and canonical-model property): for every witness (Y, Phi) of R1fpPropsAbP there is Psi : H x (B tensor A_f)^x -> Y(C), onto with fibres the B^x_+ \ . / K3 classes, holomorphic in tau, with the moduli interpretation at g in O-hat^x in the print's H_1 / Hodge form (IsHodgeH1: for an analytic uniformization A(C) = Lie A / H_1(A,Z), an O-linear beta : B_R = H_1(A,R) with beta(O) = H_1(A,Z) and beta(M J_tau) = i beta(M), J_tau = h_tau(i)) and Shimura's reciprocity law at CM points (conventions existential). Deligne, Sem. Bourbaki 389 (1971) section 4 (moduli interpretation by (H_1(A,Q), h_A) = (B, h)) and section 5 (Cor. 5.7 / Ex. 5.8 per locators.md R1); Milne, Introduction to Shimura varieties sections 8 and 14; locators UNVERIFIED. The passage to the kernel's lattice form is proved (Y3Fix.lattice_of_hodge). -/
-  deligneCanonicalModelY3EveryH : _root_.Y3Fix.DeligneCanonicalModelY3EveryH
-  /-- sga33-steps, printed form (specialized to traits): SGA 7 I, Exp. IX, Cor. 3.3, p. 348 (semistable reduction: Def. 3.4, p. 349; locator from the 11-16 reading in the task brief): for an extension of DVRs O in O' (O' meet K = O, any K'/K, no henselian condition), Neron models N, N' with N semistable, the canonical u : N x_O O' -> N' (generic fibre the identification, bcDVR) induces an isomorphism N0 x_O O' = N'0 (an iso of open subschemes over N'). Replaces sga7_IX_3_3_SHpre: steps 1-3 (specialization; dictionary and Neron uniqueness; c = u . alpha with alpha an automorphism of N' fixing the unit) proved in SGA33Steps.shpre_of_cor33. -/
-  sga7_IX_Cor3_3 : _root_.SGA33Steps.SGA7_IX_Cor3_3
-  /-- Fontaine, as printed by Berger, An introduction to the theory of p-adic representations (Geometric aspects of Dwork theory, de Gruyter 2004; arXiv math/0210184v1) section II.5.1, p. 19: the Tate modules of abelian varieties are de Rham, i.e. dim_K D_dR(V_p(A)) = dim_{Q_p} V_p(A) with D_dR(V) = (B_dR (x)_{Q_p} V)^{G_K} a K-space through K -> Kbar -> B_dR^+. Lean form: A over a finite F/Q_p, G_F acting through gfToGqp (image G_{F'}, F' the image of F in Qbar_p, so the print's K is F'), D_dR = DeRhamPrint.Direct.ddrF an F'-space through iotaF : F' -> Qbar_p -> B_dR^+ -> B_dR, the unique theta-compatible lift (iotaPlusF_unique), G_F-invariant (bdrAct_iotaF). Equivalent to the old field deRhamVpAbVarPrinted by the tower law (deRhamVpAbVarPrinted_of_direct and its converse, proved). Berger's B_dR = B_dR^+[1/t] matched by DeRhamPrint.TDict.bdREquivAwayT -/
-  deRhamVpAbVarDirect : _root_.DeRhamPrint.Direct.DeRhamVpAbVarDirect
-  /-- javanpeykar-direct: Javanpeykar, Algebra Number Theory 8 (2014), Thm 1.1.1, over the print's objects: for Kbar any algebraic closure of Q and X a smooth proper connected integral curve over Kbar (IsCurve), projective (closed immersion into P(n; Spec Kbar)), of genus g = genusK X = dim H^1(X, O_X) >= 1, W an abelian variety over Kbar representing Pic^0_{X/Kbar} with the tensor group law (Jac X), h_Fal(Jac X) = any x with IsStableHeightBar W x (x is height-fix's printed stable height IsPrintedStableHeight of a model of W over some number field L inside Kbar), and deg_B(X) = belyiDegree X hB = Nat.find of the existence of a Belyi map of positive degree (hB: X has a Belyi map, javanpeykar-fix's IsBelyiMap; Belyi's theorem is not used): x <= 13*10^6 * g * deg_B(X)^5. javanpeykarPrintedMapHF follows in Lean (JavanpeykarDirect.javanpeykarPrintedMap_of_thm111: specialization Kbar = AlgebraicClosure K, X = X0 x_K Kbar; deg_B(X) <= d for the given Belyi map and the bound increasing in deg_B; L = K for the model V). -/
-  javanpeykarThm111 : _root_.JavanpeykarDirect.JavanpeykarThm111
-
-/-- `openResearchLeaves41_of_OpenResearchLeaves42`, copied from `TailZ67` with the coeff-field-tc edits. -/
-theorem openResearchLeaves41_of_OpenResearchLeaves42_cf_no5 (n : OpenResearchLeaves42CF_no5) : OpenResearchLeaves41CF_no5 where
-  r9a := n.r9a
-  r9b := n.r9b
-  pazukiCor13Upper := n.pazukiCor13Upper
-  sga7_IX_3_5_ForwardGeom := n.sga7_IX_3_5_ForwardGeom
-  raynaudSemistableSHOr := n.raynaudSemistableSHOr
-  neronSchemeExtensionDedekind := n.neronSchemeExtensionDedekind
-  neronOggShafarevichSep := n.neronOggShafarevichSep
-  dsThm965Printed := n.dsThm965Printed
-  dsThm966Printed := n.dsThm966Printed
-  deRhamVpAbVarPrinted := _root_.DeRhamPrint.Direct.deRhamVpAbVarPrinted_of_direct n.deRhamVpAbVarDirect
+  carayolThmA := (_root_.CarayolPrinted.carayolThmA_of_irr n.carayolThmAIrr)
+  deRhamVpAbVarPrinted := (_root_.DeRhamPrint.Direct.deRhamVpAbVarPrinted_of_direct n.deRhamVpAbVarDirect)
   bdRInvariantsPrinted := _root_.BdRInv.bdRInvariantsPrinted_proof
-  x6CoarseModuli := n.x6CoarseModuli
-  elkiesX6StarEvery := n.elkiesX6StarEvery
-  hodgeTateDecompExists := n.hodgeTateDecompExists
-  bostLowerBoundPrinted := n.bostLowerBoundPrinted
-  chevalleyPerfect := n.chevalleyPerfect
-  gaudronRemondThm14Printed := n.gaudronRemondThm14Printed
-  javanpeykarPrintedMapHF := _root_.JavanpeykarDirect.javanpeykarPrintedMap_of_thm111 n.javanpeykarThm111
-  carayolThmAIrr := n.carayolThmAIrr
-  modularHTPrinted := n.modularHTPrinted
-  panPrintedP := n.panPrintedP
-  bergerPrintedV := n.bergerPrintedV
-  heckeJ1DS := n.heckeJ1DS
-  afShimura := n.afShimura
-  afCharpolyDS965 := n.afCharpolyDS965
-  igusaGL2DS := n.igusaGL2DS
-  y3FineModuliAbP := n.y3FineModuliAbP
-  deligneCanonicalModelY3EveryH := n.deligneCanonicalModelY3EveryH
-  sga7_IX_Cor3_3 := n.sga7_IX_Cor3_3
-
-/-- `OpenResearchLeaves43` without `gamma1IntegralSpan`/`gamma1IntegralBasis` and `heckePrimeIntegralToRational` (coeff-field-tc: `eigenformCoeffFieldFinite` is proved outright). -/
-structure OpenResearchLeaves43CF_no5 : Prop where
-  r9a : _root_.PkgI3.FaltingsSemisimple
-  r9b : _root_.PkgI3.FaltingsTate
-  /-- height-split, H-18: the upper half of Pazuki 2012 Cor. 1.3(2), replaces `r22`. -/
-  pazukiCor13Upper : _root_.ZInQ.HeightSplit.PazukiCor13Upper
-  /-- gt-unip, printed form, strictly henselian base: SGA 7 I Exp. IX Prop. 3.5, direction semistable => (sigma-1)^2 = 0 on T_l = lim A(K^s)[l^n] for sigma in inertia, one sigma at a time (the print gives (sigma-1)(tau-1) = 0 and the converse); number UNVERIFIED. Semistability read on the geometric special fibre; reading risk: if the print reads it over k(s), this form exceeds the print by UnipotentForward.SemiAbelianDescendsSepClosed for imperfect residue fields only (the reading-robust variant is UnipotentForward.semistableUnipotent_of_forward). Replaces semistableUnipotent; StrictHenselizationInside and the K^s axis are proved. -/
-  sga7_IX_3_5_ForwardGeom : _root_.UnipotentForward.SGA7_IX_3_5_ForwardGeom
-  /-- dict-models, printed form under either reading of 'semistable': Raynaud's criterion, SGA 7 I Exp. IX Prop. 4.7 (number UNVERIFIED) over a strictly henselian DVR, with the conclusion the disjunction of semistability over k(s) (general torus) and on the geometric special fibre. With geomConnOfRationalPoint (the k(s) -> kbar ascent is proved) replaces raynaudSemistableSH. -/
-  raynaudSemistableSHOr : _root_.DictModels.RaynaudOr.RaynaudSemistableSHOr
-  /-- group-law-dvr + goodmodel-iso, printed form: Bosch-Lutkebohmert-Raynaud, Neron models, 1.4 Thm 3 over an affine Dedekind scheme (existence half; numbers UNVERIFIED). Gives GIT 6.14 over a DVR (GoodModelIso.mumfordGroupLawDVR_of_dedekind, with the comparison glue NeronGoodModelIso proved) and the textbook field neronSchemeExtensionExists (its case D = O_L, neronSchemeExtensionExists_of_dedekind). Replaces mumfordGroupLawConn. -/
-  neronSchemeExtensionDedekind : _root_.ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind
-  /-- Serre-Tate, Ann. of Math. 88 (1968), Thm 1 (Neron-Ogg-Shafarevich criterion) over a separable closure K_s, inertia of a valuation ring of K_s acting on A(K_s)[m] (numbering UNVERIFIED) -/
-  neronOggShafarevichSep : _root_.NOSSepDict.NeronOggShafarevichSep
-  /-- Diamond-Shurman, GTM 228 (2005), Thm 9.6.5 (k >= 2; Deligne 1971; Shimura 1971 Thm 7.14 for k = 2; numbering UNVERIFIED), printed form: for a normalized eigenform f in S_k(N, chi) (DS Def 5.8.1) with number field K_f and a prime lambda of O_{K_f} over l, a continuous rho_{f,lambda} : G_Q -> GL_2(K_{f,lambda}) (Mathlib's adicCompletion), unramified outside lN, with rho(Frob_p) having characteristic polynomial (or satisfying) x^2 - a_p x + chi(p) p^(k-1) over K_f. Either printed wording gives it by or-introduction; no coefficient dictionary (coeff-ext). -/
-  dsThm965Printed : _root_.DSCoeffExt.DSThm965Printed
-  /-- Deligne-Serre, Formes modulaires de poids 1, Ann. Sci. ENS (4) 7 (1974), Thm 4.1 with (4.1.1), p. 514, as printed: for f != 0 a (cusp) form of type (1, eps) with eps(-1) = -1 that is an eigenvector of the T_p, p not dividing N, with eigenvalues a_p (Tau Ceti EigenformAwayFromLevel N 1, no normalization a_1 = 1), a continuous rho : G_Q -> GL_2(C) with finite image, unramified outside N, with tr rho(Frob_p) = a_p (the T_p-eigenvalue F.eigenvalue p) and det rho(Frob_p) = eps(p). The coefficient form a_p = coeff g p (from a_1 = 1) and eps(-1) = -1 (parity lemma, TauCeti Parity.lean:113) are glue in DSThm966EV.dsThm966_of_printed (coeff-fix). -/
-  dsThm966Printed : _root_.DSThm966EV.DSThm966Printed
-  /-- grx6ab-print, printed form (the coarse-moduli theorem for X0(6,1), one object): the canonical model X6 = X0(6,1) over Q is a proper smooth curve and a coarse moduli scheme for abelian surfaces with QM by O: a Galois-equivariant bijection on Qbar-points with QM pairs up to isomorphism, Aut(O)-twists induced by automorphisms of X (the Atkin-Lehner group), and the classifying map of a level-3 QM abelian scheme over a proper smooth curve (a specialization of the natural transformation). Locators UNVERIFIED (Shimura 1967; Deligne, Sem. Bourbaki 389; Buzzard, Duke 87 (1997) section 1). With shimuraMainThmIDeligneY3AbU it gives the moduli witness (the forgetful map Y3 -> X6 is proved: GRX6AbPrint.x6ModuliWitness_of_coarse). -/
-  x6CoarseModuli : _root_.GRX6AbPrint.X6CoarseModuli
-  /-- elkies-print: Elkies, Shimura curve computations (ANTS-III 1998) section 3 on X*(6) = X6/W, for every witness of the moduli description of X0(6,1) (R1fpPropsAb, X6Props), with no existence claim: some t : X6 -> P1 with Q(X6)^W = Q(t) (whenever X6 is integral and t regular at its generic point, both proved from the charts), t = 0, 1, infinity at the CM points of discriminant -24, -4, -3, and the charts s^2 = -t, r^2 = 3(t-1) (section, display and 0/infinity orientation UNVERIFIED). The witness comes from shimuraMainThmIDeligneY3AbU and x6CoarseModuli (GRX6AbPrint.x6ModuliWitness_of_coarse). Replaces elkiesX6StarFunctionField; equivalent to it given a witness and T5 (every_iff_functionField). -/
-  elkiesX6StarEvery : _root_.HDec.QMSplit.Moduli.ElkiesPrint.ElkiesX6StarEvery
-  /-- Fontaine, Invent. Math. 65 (1982), Theoreme principal: C_p (x) V_p(A) = (C_p(1) (x)_F t_A) + (C_p (x)_F t*_{A'}), G_F-equivariant; bases of the two finite-dimensional F-spaces chosen, both dimensions left unnamed (C_p(1)^a + C_p^b for some a, b); locator UNVERIFIED -/
-  hodgeTateDecompExists : _root_.ZInQ.Contrib.HodgeTateFromPairing.HodgeTateDecompExists
-  /-- semiab-descend, printed form: Chevalley's structure theorem over a perfect field (Conrad, J. Ramanujan Math. Soc. 17 (2002) Thm 1.1; Milne, Algebraic Groups (2017) Thm 8.27; numbers UNVERIFIED): a smooth connected group scheme G of finite type over a perfect field k has a unique normal smooth connected affine subgroup H with G/H an abelian variety. Lean form: existence of a faithfully flat homomorphism pi : G -> B onto an abelian variety (PkgI3.AbVar) whose scheme-theoretic kernel G x_B Spec k is smooth, connected and affine, and uniqueness of that kernel on T-points; G/H read as the target of a faithfully flat homomorphism with kernel H (the definition of a quotient, Milne AG section 5.c). Replaces the glue semiAbelianDescendsPerfect (ZInQ.SemiAbDescend.semiAbelianDescendsPerfect_of_chevalley proves it for every perfect field). -/
-  chevalleyPerfect : _root_.ZInQ.SemiAbDescend.ChevalleyPerfect
-  /-- Carayol 1986, Theoreme (A), at F = Q, weight 2, packaged printed form over K_{f,lambda}, with Ribet's irreducibility and oddness (r17-print, r17-rebase): for a printed newform f (Tau Ceti Newform N 2) with number field K_f and a place lambda | l of K_f, there is a continuous rho : G_Q -> GL_2(K_{f,lambda}) (Mathlib adicCompletion), irreducible (no stable subspace other than 0 and K_{f,lambda}^2), odd (some involution c in G_Q has det rho(c) = -1), unramified at p not dividing N l with arithmetic-Frobenius trace a_p(f), whose Serre-Tate conductor exponent at every prime p != l is v_p(N). The passage to r17 (Burnside's form from irreducible + odd; IsNewform = printed newform; extension of scalars to Qbar_l; absolute irreducibility gives semisimplicity; conductor invariance under scalar extension and isomorphism; Brauer-Nesbitt with Chebotarev) is proved in Lean. Replaces r17-print's carayolThmA (CarayolPrinted.carayolThmA_of_irr), which replaced r17. -/
-  carayolThmAIrr : _root_.CarayolPrinted.CarayolThmAIrr
-  /-- R13, printed existence form, reading-robust (htnew-print): for a prime l, embeddings iota_C, iota_L and a Tau Ceti newform f of weight k >= 2 and level N (every level, l | N included), there is a continuous rho : G_Q -> GL_2(Qbar_l), unramified outside N l, with either (arithmetic Frobenius trace a_p and Hodge-Tate weights {0, 1-k}) or (geometric Frobenius trace a_p and Hodge-Tate weights {0, k-1}) (kernel convention: cyclotomic weight -1). No semisimplicity asked; the trace clause is 'if iota_C(alpha) = a_p then tr = iota_L(alpha)'. Replaces eigenformHTNew: semisimplification preserves HT weights, the dual, the newform dictionary and the Chebotarev/Brauer-Nesbitt transport are proved in Lean (EigenformHTPrinted.lean). -/
-  modularHTPrinted : _root_.EigenformHTPrinted.ModularHTPrinted
-  /-- R12. Pan, J. Amer. Math. Soc. 35 (2022), 1031-1169, Theorem 1.0.4 (= arXiv:1901.07166v2 Thm 1.0.4 with Conj. 1.0.1, pp. 5 and 2; JAMS number and page UNVERIFIED), p >= 5, for each iota_p : Qbar_p = C, printed form for one continuous rho : G_Q -> GL_2(Qbar_p): rho irreducible (no stable subspace but 0 and Qbar_p^2), unramified outside finitely many primes, odd, rho|G_Qp potentially semistable (Fontaine admissibility over Berger's B_st = B_max[log p~] inside B_dR, on a model V = E^n) and with distinct Hodge-Tate weights (multiplicity of w = dim_E (V (x)_Qp C_p(w))^{G_Qp}, cyclotomic weight -1) => rho comes from a cuspidal eigenform up to twist: a cuspidal eigenform g (Tau Ceti EigenformAwayFromLevel N k), rho_g attached to g through iota_p (tr rho_g(Frob_q^geom) = iota_p^-1(lambda_q(g)) and unramified, almost all q), a continuous character psi and P in GL_2(Qbar_p) with rho(s) = psi(s) P rho_g(s) P^-1 -/
-  panPrintedP : _root_.HDec.PkgI4.PanDict.PanPrintedP
-  /-- R11. Berger, Invent. Math. 148 (2002), Theoreme 0.7 = Cor. 5.22 of the published version (author copy pp. 6, 52) = Thm 0.6 = Thm 5.19 of arXiv:math/0102179v3, K = Q_p, for one p-adic representation V = E^n (E/Q_p finite inside Qbar_p, rho_E : G_Qp -> GL_n(E) continuous): dim_Qp (B_dR (x) V)^{G_Qp} = dim V => exists finite K/Q_p with dim over B_st^{G_K} of (B_st (x) V)^{G_K} = dim V, Berger's B_st = B_max[log p~] inside Mathlib's B_dR, B_max = A_max[1/p][1/t], A_max = {sum a_n (omega/p)^n : a_n in A_inf -> 0} -/
-  bergerPrintedV : _root_.HDec.PkgI4.PanDict.BergerPrintedV
-  /-- aftate-fix2 (r16-det fold): the Hecke operators on J_1(N) over Q. For N >= 2, every model X of Diamond-Shurman's X_1(N)_alg with chosen generators (j_X, t_X) of K(X) = Q(j, f_1) (IsX1Gen: the integer relations of (j_X, t_X) are those of (j(tau), f_1(tau)), f_1 = T5Glue.weber <1,tau> (1/N)), every rational point P0 and every Jacobian (J, aj) (Albanese property): there are endomorphisms T_p (every prime p) and <d> (d in (Z/N)^*) of J over Q acting on degree-0 divisor classes of the points x_tau (AtTau: the complex point where every g in K(X) whose meromorphic function on H has a limit c at tau is regular with value c) by DS's double-coset formulas: T_p[x_tau] = sum_{j<p} [x_{(tau+j)/p}] + [x_{g(p tau)}] (last term for p not dividing N; g in SL_2(Z), N | c, d = p mod N), <d>[x_tau] = [x_{g tau}]. -/
-  heckeJ1DS : _root_.AfTateLam.HeckeJ1DS
-  /-- aftate-fix2 (r16-det fold): Shimura's A_f over Q. For a newform f in S_2(Gamma_1(N)) with nebentypus chi, N >= 2, X, (j_X, t_X), P0, (J, aj) as in heckeJ1DS and any T_p, <d> with DS's divisor action: K_f is a number field, and there are A, pi : J -> A and theta : K_f -> End^0(A) with IsAfQuotient (pi surjective, kills I_f J, universal among homomorphisms to abelian varieties killing I_f J; I_f = image of the kernel of T_p -> a_p(f), <d> -> chi(d) on the free algebra) and IsAfAction (theta(a_p) is the endomorphism induced by T_p, theta(chi(d)) the one induced by <d>). -/
-  afShimura : _root_.AfTateLam.AfShimura
-  /-- r16-det: Diamond-Shurman Thm 9.6.5 at k = 2 for the Section 9.5 realization on A_f, over K_{f,lambda}, universal over A_f. For every (A, pi, theta) that is DS's A_f (afShimura's characterization, for any X, generators, P0, Jacobian and Hecke operators as in heckeJ1DS), every prime l and every place lambda | l of K_f: for p not dividing N l every arithmetic Frobenius sigma at p acting on V_lambda = K_lambda (x)_{Q_l (x) K_f} V_l(A) (rho_{f,lambda}, DS Exercise 9.5.2(a)) has characteristic polynomial X^2 - a_p X + chi(p) p over K_lambda. Statement = aftate-fix2's AfTateLam.AfTateDSLambda verbatim (AfTateLam.afCharpolyDS965_iff, Iff.rfl); it implies r16-close's glue AfDetLambda (AfTateLam.afDetLambda_of_ds965). -/
-  afCharpolyDS965 : _root_.AfTateLam.AfCharpolyDS965
-  /-- x1-igusa: Igusa's theorem in its printed form, Gal(Q(j, E_j[N])/Q(j)) = GL_2(Z/N) for Diamond-Shurman's E_j : y^2 = 4x^3 - g x - g, g = 27j/(j-1728), j transcendental. For N >= 1, every basis e : (Z/N)^2 = E_j[N] over an algebraic closure of Q(j) and every g in GL_2(Z/N), some sigma in Aut(Q(j)bar/Q(j)) acts on E_j[N] as g in the basis e. Used through X1Igusa.x1PointsConjugate_of_igusaGL2DS (the dictionary IsX1Model -> IsX1AlgDS, aftate-or). -/
-  igusaGL2DS : _root_.X1Igusa.IgusaGL2DS
-  /-- y3-fix, printed form (representability, one object: the fine moduli scheme Y3 with its universal family): the moduli problem of abelian surfaces with an action of the maximal order O of B = (2,-3|Q) and full level-3 structure in Mumford's form (GIT Def. 7.1, O-linear: at every geometric point s the sections eta(a), a in O/3O, are exactly the points of A_s(k)[3]) is represented over Q by a proper smooth curve (some (Y, Phi) satisfies R1fpPropsAbP; no Qbar-point clause). Buzzard, Duke Math. J. 87 (1997) section 1; Boutot-Carayol, Asterisque 196-197 (1991) ch. III; Milne 1979; Mumford GIT Def. 7.1, Thm 7.9; locators UNVERIFIED. Consequence form: universal property used on proper smooth curve bases and read on field points; base Q. Equivalent to the kernel's level form over Q-schemes (Y3Fix.toKer, Y3Fix.ofKer from mumfordTorsionAlgClosed). -/
-  y3FineModuliAbP : _root_.Y3Fix.Y3FineModuliAbP
-  /-- y3-fix, printed form (one object: Y3 = Sh_K3(B^x, H^+-) with its moduli interpretation and canonical-model property): for every witness (Y, Phi) of R1fpPropsAbP there is Psi : H x (B tensor A_f)^x -> Y(C), onto with fibres the B^x_+ \ . / K3 classes, holomorphic in tau, with the moduli interpretation at g in O-hat^x in the print's H_1 / Hodge form (IsHodgeH1: for an analytic uniformization A(C) = Lie A / H_1(A,Z), an O-linear beta : B_R = H_1(A,R) with beta(O) = H_1(A,Z) and beta(M J_tau) = i beta(M), J_tau = h_tau(i)) and Shimura's reciprocity law at CM points (conventions existential). Deligne, Sem. Bourbaki 389 (1971) section 4 (moduli interpretation by (H_1(A,Q), h_A) = (B, h)) and section 5 (Cor. 5.7 / Ex. 5.8 per locators.md R1); Milne, Introduction to Shimura varieties sections 8 and 14; locators UNVERIFIED. The passage to the kernel's lattice form is proved (Y3Fix.lattice_of_hodge). -/
-  deligneCanonicalModelY3EveryH : _root_.Y3Fix.DeligneCanonicalModelY3EveryH
-  /-- sga33-steps, printed form (specialized to traits): SGA 7 I, Exp. IX, Cor. 3.3, p. 348 (semistable reduction: Def. 3.4, p. 349; locator from the 11-16 reading in the task brief): for an extension of DVRs O in O' (O' meet K = O, any K'/K, no henselian condition), Neron models N, N' with N semistable, the canonical u : N x_O O' -> N' (generic fibre the identification, bcDVR) induces an isomorphism N0 x_O O' = N'0 (an iso of open subschemes over N'). Replaces sga7_IX_3_3_SHpre: steps 1-3 (specialization; dictionary and Neron uniqueness; c = u . alpha with alpha an automorphism of N' fixing the unit) proved in SGA33Steps.shpre_of_cor33. -/
-  sga7_IX_Cor3_3 : _root_.SGA33Steps.SGA7_IX_Cor3_3
-  /-- Fontaine, as printed by Berger, An introduction to the theory of p-adic representations (Geometric aspects of Dwork theory, de Gruyter 2004; arXiv math/0210184v1) section II.5.1, p. 19: the Tate modules of abelian varieties are de Rham, i.e. dim_K D_dR(V_p(A)) = dim_{Q_p} V_p(A) with D_dR(V) = (B_dR (x)_{Q_p} V)^{G_K} a K-space through K -> Kbar -> B_dR^+. Lean form: A over a finite F/Q_p, G_F acting through gfToGqp (image G_{F'}, F' the image of F in Qbar_p, so the print's K is F'), D_dR = DeRhamPrint.Direct.ddrF an F'-space through iotaF : F' -> Qbar_p -> B_dR^+ -> B_dR, the unique theta-compatible lift (iotaPlusF_unique), G_F-invariant (bdrAct_iotaF). Equivalent to the old field deRhamVpAbVarPrinted by the tower law (deRhamVpAbVarPrinted_of_direct and its converse, proved). Berger's B_dR = B_dR^+[1/t] matched by DeRhamPrint.TDict.bdREquivAwayT -/
-  deRhamVpAbVarDirect : _root_.DeRhamPrint.Direct.DeRhamVpAbVarDirect
-  /-- javanpeykar-direct: Javanpeykar, Algebra Number Theory 8 (2014), Thm 1.1.1, over the print's objects: for Kbar any algebraic closure of Q and X a smooth proper connected integral curve over Kbar (IsCurve), projective (closed immersion into P(n; Spec Kbar)), of genus g = genusK X = dim H^1(X, O_X) >= 1, W an abelian variety over Kbar representing Pic^0_{X/Kbar} with the tensor group law (Jac X), h_Fal(Jac X) = any x with IsStableHeightBar W x (x is height-fix's printed stable height IsPrintedStableHeight of a model of W over some number field L inside Kbar), and deg_B(X) = belyiDegree X hB = Nat.find of the existence of a Belyi map of positive degree (hB: X has a Belyi map, javanpeykar-fix's IsBelyiMap; Belyi's theorem is not used): x <= 13*10^6 * g * deg_B(X)^5. javanpeykarPrintedMapHF follows in Lean (JavanpeykarDirect.javanpeykarPrintedMap_of_thm111: specialization Kbar = AlgebraicClosure K, X = X0 x_K Kbar; deg_B(X) <= d for the given Belyi map and the bound increasing in deg_B; L = K for the model V). -/
-  javanpeykarThm111 : _root_.JavanpeykarDirect.JavanpeykarThm111
-  /-- r3-residual, printed form: Bost, Sem. Bourbaki 795 (Asterisque 237, 1996), h_D(A) >= -(g/2) log 2pi (display UNVERIFIED; Deligne normalization h_D = h_F + (g/2) log pi), over ZInQ.R3Residual.IsAnStableHeight: height-fix's printed stable height with the archimedean metric (i/2)^g int eta~ wedge eta~-bar integrated over the complex manifold A_tau(C)^an, i.e. with the density of the invariant form read in every holomorphic chart (IsHolChart: biholomorphic to the algebraic coordinates at every point; proved to form a complex atlas, Phi-free). Replaces bostLowerBoundPrinted (ZInQ.R3Residual.bostLowerBoundPrinted_of_an, with mumfordTorsionAlgClosed and uniformizationLeafAll_proof for T35; isAnStableHeight_iff proves the two heights equal, so the step R3 'clauses to biholomorphic' is a proved theorem). -/
-  bostLowerBoundAn : _root_.ZInQ.R3Residual.BostLowerBoundAn
-  /-- r3-residual, printed form: Gaudron-Remond, Duke Math. J. 163 (2014) Thm 1.4 (read by the locator audit), over ZInQ.R3Residual.IsAnStableHeight (Faltings' normalization (i/2)^g; the archimedean metric integrated over the complex manifold A_tau(C)^an, densities in every holomorphic chart). Replaces gaudronRemondThm14Printed (ZInQ.R3Residual.gaudronRemondThm14Printed_of_an, with mumfordTorsionAlgClosed and uniformizationLeafAll_proof for T35). -/
-  gaudronRemondThm14An : _root_.ZInQ.R3Residual.GaudronRemondThm14An
-
-/-- `openResearchLeaves42_of_OpenResearchLeaves43`, copied from `TailZ68` with the coeff-field-tc edits. -/
-theorem openResearchLeaves42_of_OpenResearchLeaves43_cf_no5 (n : OpenResearchLeaves43CF_no5) : OpenResearchLeaves42CF_no5 where
-  r9a := n.r9a
-  r9b := n.r9b
-  pazukiCor13Upper := n.pazukiCor13Upper
-  sga7_IX_3_5_ForwardGeom := n.sga7_IX_3_5_ForwardGeom
-  raynaudSemistableSHOr := n.raynaudSemistableSHOr
-  neronSchemeExtensionDedekind := n.neronSchemeExtensionDedekind
-  neronOggShafarevichSep := n.neronOggShafarevichSep
-  dsThm965Printed := n.dsThm965Printed
-  dsThm966Printed := n.dsThm966Printed
-  x6CoarseModuli := n.x6CoarseModuli
-  elkiesX6StarEvery := n.elkiesX6StarEvery
-  hodgeTateDecompExists := n.hodgeTateDecompExists
-  bostLowerBoundPrinted := _root_.ZInQ.R3Residual.bostLowerBoundPrinted_of_an n.bostLowerBoundAn _root_.ZInQ.Contrib.CloudB3W16Torsion.mumfordTorsionAlgClosed_proof
-  chevalleyPerfect := n.chevalleyPerfect
-  gaudronRemondThm14Printed := _root_.ZInQ.R3Residual.gaudronRemondThm14Printed_of_an n.gaudronRemondThm14An _root_.ZInQ.Contrib.CloudB3W16Torsion.mumfordTorsionAlgClosed_proof
-  carayolThmAIrr := n.carayolThmAIrr
-  modularHTPrinted := n.modularHTPrinted
-  panPrintedP := n.panPrintedP
-  bergerPrintedV := n.bergerPrintedV
-  heckeJ1DS := n.heckeJ1DS
-  afShimura := n.afShimura
-  afCharpolyDS965 := n.afCharpolyDS965
-  igusaGL2DS := n.igusaGL2DS
-  y3FineModuliAbP := n.y3FineModuliAbP
-  deligneCanonicalModelY3EveryH := n.deligneCanonicalModelY3EveryH
-  sga7_IX_Cor3_3 := n.sga7_IX_Cor3_3
-  deRhamVpAbVarDirect := n.deRhamVpAbVarDirect
-  javanpeykarThm111 := n.javanpeykarThm111
+  x6CoarseModuli := (_root_.X6ALIdeal.x6CoarseModuli_of_ideal n.x6CoarseModuliIdeal)
+  elkiesX6StarEvery := (_root_.X6ALIdeal.elkiesX6StarEvery_of_ideal' n.elkiesX6StarEveryIdeal n.x6CoarseModuliIdeal (_root_.Y3Fix.shimuraMainThmIDeligneY3AbU_of_print _root_.ZInQ.Contrib.CloudB3W16Torsion.mumfordTorsionAlgClosed_proof n.y3FineModuliAbP (_root_.Y3Hodge.deligneH_of_print n.deligneCanonicalModelY3EveryPrint)) _root_.ZInQ.Contrib.CloudB3W16Torsion.mumfordTorsionAlgClosed_proof)
+  hodgeTateDecompExists := (_root_.ZInQ.Contrib.HodgeTateOr.hodgeTateDecompExists_of_or n.hodgeTateDecompOr)
 
 end HSyn
 end HDec
+-- ==== end ZInQKernel.OneProof.H.TailZ79 ====
+
+-- ==== from ZInQKernel.Contrib.OneProof.CMBranch.NonCM ====
+namespace HDec
+set_option maxHeartbeats 1000000
+noncomputable section
+namespace CMBranch
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open _root_.ZInQ ZInQ ZInQ.JHeight HDec.LeafQM.AV HDec.ZInQ.DefFaltings
+open HSyn HSyn.G0Split
+open scoped Quaternion TensorProduct
+/-- **The non-CM branch** from the chain's leaves and glue pieces, with `FibreSimpleNC` and
+`ModularConstituentNC` (`HSyn.glueOutputs_of_leaves3_hf_pz_eb`, verbatim, restricted to `NoCMAt u`). -/
+theorem nonCMBranch_of_no5 (r : HSyn.ResearchLeaves3EB_no5) (t : HSyn.TextbookLeavesHFPZ)
+    (hDimF : DimFinite) (hDim : DimBaseChange) (hPMH : ZInQ.H5Neron.ProductModelHeight)
+    (hBC : StableHeightBaseChange) (hProdE : ProductExists) (hRev : ReverseIsogeny)
+    (hThetaPt : ThetaPointOfFibre) (hCopies : HSyn.HeightCopiesAgree)
+    (hSimp : FibreSimpleNC) (hMod : ModularConstituentNC) (h20 : R20Lower) : NonCMBranch := by
+  have hBelyi : X1BelyiOnModel := x1BelyiOnModel_of_belyiX1 t.belyiX1
+  have hAdd : HeightAdditivity := heightAdditivity_of_h5neron t.t41 r.h5_no5.2 hPMH
+  have hR18 : R18_JavanpeykarConcrete := r18Concrete_of r.r18 hCopies
+  have hR22 : R22_PazukiConcrete := r22Concrete_of r.r22 hCopies
+  intro Y Φ π h1 h2 hfib u hu hNC
+  obtain ⟨y, P, hP, hy⟩ := hfib (OnePoint.some (algebraMap ℚ LeafQM.AV.Qbar (ZInQ.JHeight.Jmap u)))
+  obtain ⟨L, emb, A, N, J, hiso, hN0, hJ1, hNQ, hdQ, hCC⟩ := hMod Y Φ π h1 h2 u hu hNC y P hP hy
+  have hFib : FibreOver Y Φ π u L A := ⟨emb, y, P, hP, hy, hiso⟩
+  have hA2 : A.dim = 2 := model_dim hDim emb A P.A hiso P.surface
+  have hfin := r.h5_no5.1
+  have hx : ZInQ.DefFaltings.stableFaltingsHeight A = ZInQ.DefFaltings.faltingsHeight A :=
+    (ZInQ.DefFaltings.faltingsHeight_coe hfin A).symm
+  obtain ⟨K', z, hF1, hPaz⟩ := thetaPazuki hR22 hThetaPt Y Φ π h1 h2 u hu L A hFib hA2 _ hx
+  refine ⟨K', z, ZInQ.DefFaltings.faltingsHeight A, hF1, hPaz, ?_⟩
+  obtain ⟨f, hf⟩ := hom_of_common3_hf_pz_eb_no5 r t _ _ hCC
+  obtain ⟨Z, g, hisoZ⟩ := t.t8 L.K _ _ (hSimp Y Φ π h1 h2 u hu hNC L A hFib) f hf
+  obtain ⟨Pr, φ, hφ, hPprod, hdims⟩ :=
+    isogenousProduct hDimF hProdE hRev L.K _ _ _ f g hisoZ
+  obtain ⟨gJ, hgJ, hgN⟩ := dim_J1_le_of5 t34Le N hN0 J hJ1
+  have hJLd : (((LeafAdopt.abVarEquiv ℚ).symm J).baseChange L.K).dim = (gJ : WithBot ℕ∞) :=
+    (hDim ℚ L.K ((LeafAdopt.abVarEquiv ℚ).symm J)).trans hgJ
+  have hALd : A.dim = ((2 : ℕ) : WithBot ℕ∞) := by rw [hA2]; rfl
+  obtain ⟨gZ, hZd, hsum⟩ := hdims 2 gJ hALd hJLd
+  have hxJ : ZInQ.DefFaltings.stableFaltingsHeight
+      (((LeafAdopt.abVarEquiv ℚ).symm J).baseChange L.K) =
+      ZInQ.DefFaltings.faltingsHeight ((LeafAdopt.abVarEquiv ℚ).symm J) := by
+    rw [hBC ℚ L.K ((LeafAdopt.abVarEquiv ℚ).symm J)]
+    exact (ZInQ.DefFaltings.faltingsHeight_coe hfin _).symm
+  have hyP := (ZInQ.DefFaltings.faltingsHeight_coe hfin Pr).symm
+  have hzZ := (ZInQ.DefFaltings.faltingsHeight_coe hfin ((LeafAdopt.abVarEquiv L.K).symm Z)).symm
+  have hadd := hAdd L.K Pr A ((LeafAdopt.abVarEquiv L.K).symm Z) hPprod _ _ _ hx hzZ hyP
+  have hJb := javanpeykarJ1_of_le hR18 hBelyi t34Le N hN0 J hJ1 gJ hgJ (by omega) _
+    (ZInQ.DefFaltings.faltingsHeight_coe hfin _).symm
+  have hN1 : (1 : ℝ) ≤ N := by exact_mod_cast hN0
+  have hgN' : (gJ : ℝ) ≤ (N : ℝ) ^ 2 := by exact_mod_cast hgN
+  exact transfer_core r.r19 h20 r.r21 (((LeafAdopt.abVarEquiv ℚ).symm J).baseChange L.K) Pr A
+    ((LeafAdopt.abVarEquiv L.K).symm Z) gJ gZ hJLd hZd (by omega) (by omega) φ hφ _ _ _ _ hxJ hyP
+    hzZ hadd hN1 hNQ hJb hgN' hdQ
+
+end CMBranch
+end
+end HDec
+-- ==== end ZInQKernel.Contrib.OneProof.CMBranch.NonCM ====
+
+-- ==== from ZInQKernel.Contrib.OneProof.CMBranch.Localize ====
+namespace HDec
+set_option maxHeartbeats 1000000
+noncomputable section
+namespace CMBranch
+open CategoryTheory AlgebraicGeometry
+end CMBranch
+section KF
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open _root_.ZInQ ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+namespace G0ModField.KernelField
+open G0ModField
+end G0ModField.KernelField
+end KF
+section MG
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open G0ModField
+namespace HSyn.G0AssembleMod
+end HSyn.G0AssembleMod
+namespace HSyn.LinkedTate
+end HSyn.LinkedTate
+namespace HSyn
+end HSyn
+end MG
+section LT
+open CategoryTheory.MonObj
+open GlueDescent GlueC10 PkgI3
+open scoped TensorProduct
+namespace LTLocal
+open CategoryTheory AlgebraicGeometry
+open G0ModField
+end LTLocal
+end LT
+section LT2
+noncomputable section
+namespace HSyn.G0AssembleMod
+open CategoryTheory AlgebraicGeometry
+open G0ModField
+end HSyn.G0AssembleMod
+end
+end LT2
+section AGdef
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open _root_.ZInQ ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+namespace HSyn.G0AssembleMod
+open G0ModField
+end HSyn.G0AssembleMod
+end AGdef
+section LT3
+open CategoryTheory.MonObj
+open GlueDescent GlueC10 PkgI3
+open scoped TensorProduct
+namespace LTLocal
+open CategoryTheory AlgebraicGeometry
+open G0ModField
+end LTLocal
+namespace HSyn
+open CategoryTheory AlgebraicGeometry G0Split
+end HSyn
+end LT3
+section AG
+namespace HSyn.G0AssembleMod
+open CategoryTheory AlgebraicGeometry
+open G0ModField
+/-- `afterG7_of3_hf_pz_eb`, localized. -/
+theorem afterG7NC_of3_hf_pz_eb_no5 (r : ResearchLeaves3EB_no5) (t : TextbookLeavesHFPZ) (m : G0Galois.GaloisPieces)
+    (h9 : G0Galois.G9GlueNoT23)
+    (hDF : G0ModNewform.DirichletOfFinite) (hCar : LadicCond.CarayolR17')
+    (hSw : ∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p))
+    (hL8 : LadicCond.SwanIntegral)
+    (hAd : ∀ (p : ℕ) [Fact p.Prime], LadicCond.AdaptedExists (p := p))
+    (hG36 : ModelG3G6NC) (hLink : LinkedTateDataNC) : AfterG7NC := by
+  intro Y Φ π u P hctx L _ _ A ε N _ χ β L' _ _ hLL' hdata
+  letI : NumberField L' := numberField_of_fd L'
+  obtain ⟨h6, h3₅, h3₃⟩ := hG36 Y Φ π u P hctx L A ε N χ β L' hLL' hdata
+  obtain ⟨Tm₅, c₅, ε₅, a₅, β₅, u₅, Tm₃, c₃, ε₃, a₃, β₃, u₃, h7₅, h7₃, hlink⟩ :=
+    hLink Y Φ π u P hctx L A ε N χ β L' hLL' hdata
+  have h2 : G0Galois.G2Out L' (T u) :=
+    galoisG2Out_of_g7Data resQRange u P L A ε N χ β L' hLL' hdata
+  obtain ⟨r₅, h8₅, -, -, h11₅, h12⟩ :=
+    G0Galois.g8_g12_of_leaves3_hf_pz_eb_no5 r t m h9 _ (T u) h2 h6 h3₅ Tm₅ c₅ ε₅ a₅ β₅ u₅ h7₅
+  obtain ⟨r₃, h8₃, -, -, h11₃⟩ :=
+    G0Galois.g8_g11_hf r.r9a r.r9b t.t26 t.t6 HSyn.G0Split.semisimpleBaseChange r.r10 t.t11a
+      t.t11b (G0Galois.g8Matrix_of_burnside m.burnside) h9 m.odd _ (T u) h2 h6 3 h3₃
+      Tm₃ c₃ ε₃ a₃ β₃ u₃ h7₃
+  obtain ⟨i, ιC, ι5, hspec⟩ := G0ModNewform.g12Spec_of_galois hDF _ _ _ r₅ r₃ h8₅ h8₃ h12
+  obtain ⟨ι3, h14, h15⟩ := hlink r₅ r₃ h8₅ h8₃ i ιC ι5
+  obtain ⟨M, J, hM, hJ, hMle, hCC⟩ :=
+    G0ModNewform.modularConstituent_tail_G (newformLeaves_of3_hf_pz_eb_no5 r t hCar) t.t33 t.x1ModelExists
+      hSw hL8 hAd _ u ⟨_, hspec ι3, h14, g15RamG_of_wild _ u h15 h11₅ h11₃⟩
+  exact ⟨M, J, hM, hJ, hMle, (commonConstituent_copy' _ _).1 hCC⟩
+
+end HSyn.G0AssembleMod
+end AG
+section MC
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open _root_.ZInQ ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+namespace G0ModField
+end G0ModField
+end MC
+section MC2
+namespace HSyn
+open CategoryTheory AlgebraicGeometry G0Split
+end HSyn
+end MC2
+end
+end HDec
+-- ==== end ZInQKernel.Contrib.OneProof.CMBranch.Localize ====
+
+-- ==== from ZInQKernel.Contrib.OneProof.CMBranch.Open4 ====
+namespace HDec
+set_option maxHeartbeats 1000000
+noncomputable section
+namespace HSyn
+open CategoryTheory AlgebraicGeometry G0Split
+/-- **`SixContactMin` from leaf-fold4's open statements with the manuscript's CM branch** (no FS5). -/
+theorem sixContactMin_of_open4_cm_no5 (r : OpenResearchLeaves2EB_no5) (t : OpenTextbookLeaves4HFPZ)
+    (l : OpenAddedLeaves4PZ_no5) (g : OpenGlue4) (h20 : G0Split.R20Lower) (hYu : QMLattice.YuB6Alg)
+    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM)
+    (hS : CMBranch.CMHomFieldSplit) (hF : CMBranch.FowlerProp27) (hJ : CMBranch.CMjDegree)
+    (hPG : CMBranch.CMPotentialGood) (h62 : CMBranch.CMHeight62) (hRP : CMBranch.ReducedCMPeriod)
+    (hAddU : CMBranch.HeightAdditivityUpper) : ZInQ.SixContactMin :=
+  let t2 := textbookLeaves2_of_open3_hf_pz (textbookLeaves3_of_open4_hf_pz t)
+  let r3 := researchLeaves3_of_open2_eb_no5 r
+  let t3 := textbookLeaves_of_open2_hf_pz t2
+  have hMob : LeafQM.AV.Pin.MobiusGlue := mobiusGlue_of_t5' t.t5
+  have hCover : G0ModField.FibreCoverExists := (G0ModField.fibreCoverExists_of_propTSAll' t.t5
+        (propTSAll_of_pieces3_no5 r.r1r2 t.t5 l.y3Connected l.qmAutCard l.serreRigidity3 l.alFixedPoints
+          chartProper_proved4 chartQuasiFinite_proved4 g.heckeVertWitness) unramifiedConjugates_proved)
+  have hSplit : CMBranch.CMFibreSplit :=
+    CMBranch.cmFibreSplit_of hCover t.t6 r.r7a r.r6 t.t5 hS
+  have hFSNC : CMBranch.FibreSimpleNC :=
+    CMBranch.fibreSimpleNC_of_pieces_hf hYu
+      (G0FibreSimple.endDivisionDescent_of G0FibreSimple.baseChangeFaithful_proof
+        (G0FibreSimple.isogenyDescends_of G0FibreSimple.finiteDescends_proof))
+      (G0FibreSimple.endDivisionOfSchemeIso_of_rigidity G0FibreSimple.rigidityHom)
+      (G0FibreSimple.end0Division_of_homFree_hf t3.t6 mulIsogeny_proved)
+      (G0FibreSimple.centralizerOfMatrixEnd0_of_homFree_hf t3.t6)
+  have hModNC : CMBranch.ModularConstituentNC :=
+    HSyn.modularConstituentNC_of_field_hf_pz t3
+      (G0ModField.fibreCoverExists_of_propTSAll' t.t5
+        (propTSAll_of_pieces3_no5 r.r1r2 t.t5 l.y3Connected l.qmAutCard l.serreRigidity3 l.alFixedPoints
+          chartProper_proved4 chartQuasiFinite_proved4 g.heckeVertWitness) unramifiedConjugates_proved)
+      (G0ModField.KernelField.kernelFieldExistsNC_of_split_hf t.t6 r.r7a r.r6 t.t5 hYu
+        G0ModField.KernelField.oMaximal endTransport_proved conjIsogMaps_proved3)
+      UnramTate.unramifiedSup_mf
+      (G0AssembleMod.afterG7NC_of3_hf_pz_eb_no5 r3 t3
+        ⟨burnsideAbsIrred_proved3, r.r14,
+          g9Glue_of_deRhamComparisonHT r.r10,
+          G0Galois.g10Glue_of_conjTwist
+            (G0Galois.conjTwistNontrivial_of_leaves t.t5 (tateModuleFree_of_t5' t.t5) t.t35
+              (HomUnify.homLinearLift_of_corr t.homLatticeCorr)),
+          G0Galois.g12Weight_of_senTwist l.senTwist l.finiteImageHT,
+          detTate_of_leaves4_pz l.t09SymmIsogenyExists l.isogenyQuasiInverse t.t5
+            (tateModuleFree_of_t5' t.t5),
+          G0AssembleMod.resQFiniteIndex⟩
+        (g9GlueNoT23_of_deRhamComparisonHT r.r10)
+        (G0ModNewform.dirichletOfFinite_of_t17 t17_proved) r.r17
+        Swan.swanIndependent_proved Swan.swanIntegral_proved
+        Swan.adaptedExists_proved
+        (HSyn.modelG3G6NC_of_leaves3 hFSNC r.r7a r.r6 t.t5)
+        (G0AssembleMod.linkedTateDataNC_of_local t.t7
+          (HSyn.linkedTateLocalNC_of_leaves3_hf r.r6 t.t5 (tateModuleFree_of_t5' t.t5)
+            (abVarSpreadsOut_of_ega4 l.egaIV_8_8_2_ii l.egaIV_8_10_5_xii l.egaIV_17_7_8_ii)
+            (properSmoothGenConnected_of_zariski4 l.zariskiConnectedness)
+            t.t4 t.t3 hFSNC t.t6 hYu)))
+  have hDimF : DimFinite := G0Split.dimFinite
+  have hDim : DimBaseChange := G0Split.dimBaseChange
+  have hPMH : ZInQ.H5Neron.ProductModelHeight := ZInQ.ProductHeight.productModelHeight_of_splits productUnifSplits_proved
+      (ZInQ.UnifDims.productMetrizationOfProductUnif_of_tangentDim t.t35 tangentDimAtOrigin_proved3)
+  have hBC : StableHeightBaseChange := G0StableBC.stableHeightBaseChange_of_hodgeLine
+      (ZInQ.HeightBC.g0_hodgeLine_iff.mpr (ZInQ.HeightBC.hodgeLineBaseChange_of_glue4
+        hodgeBCInjective_proved3 cotangentSpanBC_proved omegaBaseChange_proved3
+        uniformizationLiftAnalytic_proved))
+  have hProdE : ProductExists := G0Product.productExists
+  have hRev : ReverseIsogeny := G0RevIsog.reverseIsogeny_of_leaves3_eb_no5 r3 G0Split.dimFinite
+  have hThetaPt : ThetaPointOfFibre := G0Split.ThetaPt.ThetaSplit.thetaPointOfFibre_of_qm_atQM
+      (G0Split.FibreQM.fibreQMPeriod_main_rep_no5 r.r1r2 hMob l.qmHauptmodul
+        t.t35 t2.t11a l.qmClassNumberOne (r.r1b r.r1r2) (periodMapGlue_of_leaves4_no5 r.r1r2 t.t5 t.homLatticeCorr l.cmDescends)
+        hauptmodulUnique_proved4
+        (qmDenZeroCM3_of_leaves4 r.r4 l.gammaStarGen l.valenceBoundGammaStar) cPtsTransport_proved3)
+      (hθ l.qmHauptmodul)
+  have hCopies : HeightCopiesAgree := G0HeightCopies.heightCopiesAgree
+  CMBranch.sixContactMin_of_branches (LeafQM.AV.exists_fibre_object_no5 (LeafAdopt.R1R2fp_of_rep_no5 r3.r1r2))
+    (CMBranch.nonCMBranch_of_no5 r3 t3 hDimF hDim hPMH hBC hProdE hRev hThetaPt hCopies hFSNC hModNC h20)
+    (CMBranch.cmBranchOut_of r3.h5_no5.1 hDim (thetaPazuki (r22Concrete_of r3.r22 hCopies) hThetaPt)
+      hSplit hF hJ hPG h62 hRP hAddU r3.r19 h20)
+
+end HSyn
+end
+end HDec
+-- ==== end ZInQKernel.Contrib.OneProof.CMBranch.Open4 ====
+
+-- ==== from ZInQKernel.Contrib.OneProof.CMBranch.Top ====
+namespace HDec
+set_option maxHeartbeats 1000000
+noncomputable section
+namespace CMBranch
+end CMBranch
+namespace HSyn
+open CategoryTheory AlgebraicGeometry G0Split
+/-- The base: `sixContactMin_of_open4_cm_no5` with the inputs bundled. -/
+theorem sixContactMin_of_open4_hf_pz_eb_cm_no5 (r : OpenResearchLeaves2EB_no5) (t : OpenTextbookLeaves4HFPZ)
+    (l : OpenAddedLeaves4PZ_no5) (g : OpenGlue4) (h20 : G0Split.R20Lower) (hYu : QMLattice.YuB6Alg)
+    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) (c : CMBranch.CMInputs) :
+    ZInQ.SixContactMin :=
+  sixContactMin_of_open4_cm_no5 r t l g h20 hYu hθ c.cmHomFieldSplit c.fowlerProp27 c.cmjDegree
+    c.cmPotentialGood c.cmHeight62 c.reducedCMPeriod c.heightAdditivityUpper
+
+/-- `sixContactMin_of_open6_hf_pz_eb` with the base switched to `sixContactMin_of_open4_cm_no5` (cm-branch). -/
+theorem sixContactMin_of_open6_hf_pz_eb_cm_no5 (r : OpenResearchLeaves5EB_no5) (t : OpenTextbookLeaves6HF)
+    (l : OpenAddedLeaves6PZ_no5) (g : OpenGlue6) (h20 : G0Split.R20Lower) (hYu : QMLattice.YuB6Alg)
+    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) (c : CMBranch.CMInputs) : ZInQ.SixContactMin :=
+  sixContactMin_of_open4_hf_pz_eb_cm_no5 (c := c) (researchLeaves2_of_open5_eb_no5 r) (textbookLeaves4_of_open6_hf_pz_no5 t l) (addedLeaves4_of_open6_hf_pz_eb_no5 r t l)
+    (glue4_of_open6_hf_pz_eb_no5 r t l g) h20 hYu hθ
+
+/-- `sixContactMin_of_open7_hf_pz_eb` with the base switched to `sixContactMin_of_open4_cm_no5` (cm-branch). -/
+theorem sixContactMin_of_open7_hf_pz_eb_cm_no5 (r : OpenResearchLeaves7EB_no5) (t : OpenTextbookLeaves7HF) (l : OpenAddedLeaves7PZ_no5)
+    (g : OpenGlue7) (h20 : G0Split.R20Lower) (hYu : QMLattice.YuB6Alg)
+    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) (c : CMBranch.CMInputs) : ZInQ.SixContactMin :=
+  sixContactMin_of_open6_hf_pz_eb_cm_no5 (c := c) (researchLeaves5_of_open7_pz_eb_no5 r l) (textbookLeaves6_of_open7_hf_pz_no5 t l) (addedLeaves6_of_open7_hf_pz_eb_no5 r t l)
+    (glue6_of_open7 g) h20 hYu hθ
+
+/-- `sixContactMin_of_open8_hf_pz_eb` with the base switched to `sixContactMin_of_open4_cm_no5` (cm-branch). -/
+theorem sixContactMin_of_open8_hf_pz_eb_cm_no5 (r : OpenResearchLeaves8EB_no5) (t : OpenTextbookLeaves8HF) (l : OpenAddedLeaves8PZ_no5)
+    (g : OpenGlue7) (hF5 : _root_.ZInQ.HeightSplit.FaltingsLemma5BCLower) (hYu : QMLattice.YuB6Alg)
+    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) (c : CMBranch.CMInputs) : ZInQ.SixContactMin :=
+  sixContactMin_of_open7_hf_pz_eb_cm_no5 (c := c) (researchLeaves7_of_open8_hf_eb_no5 r t) (textbookLeaves7_of_open8_hf t) (addedLeaves7_of_open8_pz_eb_no5 r l) g
+    (r20Lower_of8_hf_eb_no5 r t hF5) hYu hθ
+
+/-- `sixContactMin_of_open9_hf_pz_eb` with the base switched to `sixContactMin_of_open4_cm_no5` (cm-branch). -/
+theorem sixContactMin_of_open9_hf_pz_eb_cm_no5 (r : OpenResearchLeaves9EB_no5) (t : OpenTextbookLeaves9HF) (l : OpenAddedLeaves8PZ_no5)
+    (g : OpenGlue7) (hF5 : _root_.ZInQ.HeightSplit.FaltingsLemma5BCLower) (hYu : QMLattice.YuB6Alg)
+    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) (c : CMBranch.CMInputs) : ZInQ.SixContactMin :=
+  sixContactMin_of_open8_hf_pz_eb_cm_no5 (c := c) (researchLeaves8_of_open9_hf_eb_no5 r t) (textbookLeaves8_of_open9_hf t) l g hF5 hYu hθ
+
+/-- `sixContactMin_of_open10_hf_pz_eb` with the base switched to `sixContactMin_of_open4_cm_no5` (cm-branch). -/
+theorem sixContactMin_of_open10_hf_pz_eb_cm_no5 (r : OpenResearchLeaves9EB_no5) (t : OpenTextbookLeaves10HF) (l : OpenAddedLeaves8PZ_no5)
+    (g : OpenGlue7) (hF5 : _root_.ZInQ.HeightSplit.FaltingsLemma5BCLower) (hYu : QMLattice.YuB6Alg)
+    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) (c : CMBranch.CMInputs) : ZInQ.SixContactMin :=
+  sixContactMin_of_open9_hf_pz_eb_cm_no5 (c := c) r (textbookLeaves9_of_open10_hf t) l g hF5 hYu hθ
+
+/-- `sixContactMin_of_open11_hf_pz_eb` with the base switched to `sixContactMin_of_open4_cm_no5` (cm-branch). -/
+theorem sixContactMin_of_open11_hf_pz_eb_cm_no5 (r : OpenResearchLeaves9EB_no5) (t : OpenTextbookLeaves10HF) (l : OpenAddedLeaves9PZ_no5)
+    (g : OpenGlue7) (hF5 : _root_.ZInQ.HeightSplit.FaltingsLemma5BCLower) (hYu : QMLattice.YuB6Alg)
+    (hY3 : TSHecke.Y3Connected)
+    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) (c : CMBranch.CMInputs) : ZInQ.SixContactMin :=
+  sixContactMin_of_open10_hf_pz_eb_cm_no5 (c := c) r t (addedLeaves8_of_open9_pz_no5 l hY3) g hF5 hYu hθ
+
+/-- `sixContactMin_of_open17_hf_gm_pz_eb` with the base switched to `sixContactMin_of_open4_cm_no5` (cm-branch). -/
+theorem sixContactMin_of_open17_hf_gm_pz_eb_cm_no5 (r : OpenResearchLeaves14GMEB_no5) (t : OpenTextbookLeaves10HF) (l : OpenAddedLeaves12PZ)
+    (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) (h6 : PkgI2.RaynaudCriterionNF.{0})
+    (hSS : _root_.ZInQ.HeightSplit.SemistableReductionThm ∧ _root_.ZInQ.HeightSplit.SemistablePersists)
+    (hY3 : TSHecke.Y3Connected)
+    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) (c : CMBranch.CMInputs) : ZInQ.SixContactMin :=
+  sixContactMin_of_open11_hf_pz_eb_cm_no5 (c := c) (researchLeaves9_of_open14_hf_gm_pz_eb_no5 r t l h6 hSS) t (addedLeaves9_of_open14_hf_gm_pz_eb_no5 r t l) g
+    (_root_.ReductSplit.faltingsLemma5BCLower_final _root_.GapHeight.faltingsLemma5Lower) hYu hY3 hθ
+
+/-- `sixContactMin_of_open18_hf_gm_pz_eb` with the base switched to `sixContactMin_of_open4_cm_no5` (cm-branch). -/
+theorem sixContactMin_of_open18_hf_gm_pz_eb_cm_no5 (r : OpenResearchLeaves14GMEB_no5) (t : OpenTextbookLeaves10HF) (l : OpenAddedLeaves13PZ)
+    (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) (h6 : PkgI2.RaynaudCriterionNF.{0})
+    (hSS : _root_.ZInQ.HeightSplit.SemistableReductionThm ∧ _root_.ZInQ.HeightSplit.SemistablePersists)
+    (hY3 : TSHecke.Y3Connected)
+    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) (c : CMBranch.CMInputs) : ZInQ.SixContactMin :=
+  sixContactMin_of_open17_hf_gm_pz_eb_cm_no5 (c := c) r t (addedLeaves12_of_open13_pz l) g hYu h6 hSS hY3 hθ
+
+/-- `sixContactMin_of_open19_hf_gm_pz_eb` with the base switched to `sixContactMin_of_open4_cm_no5` (cm-branch). -/
+theorem sixContactMin_of_open19_hf_gm_pz_eb_cm_no5 (r : OpenResearchLeaves15GMEB_no5) (t : OpenTextbookLeaves10HF) (l : OpenAddedLeaves13PZ) (g : OpenGlue7) (hYu : QMLattice.YuB6Alg)
+    (h6 : PkgI2.RaynaudCriterionNF.{0})
+    (hSS : _root_.ZInQ.HeightSplit.SemistableReductionThm ∧ _root_.ZInQ.HeightSplit.SemistablePersists)
+    (hY3 : TSHecke.Y3Connected) (c : CMBranch.CMInputs) : ZInQ.SixContactMin :=
+  sixContactMin_of_open18_hf_gm_pz_eb_cm_no5 (c := c) (openResearchLeaves14_of_OpenResearchLeaves15_gm_eb_no5 r) t l g hYu h6 hSS hY3
+    HDec.ThetaDirect.thetaRatiosAtQM_of_qmHauptmodul
+
+/-- `sixContactMin_of_open20_hf_gm_pz_eb` with the base switched to `sixContactMin_of_open4_cm_no5` (cm-branch). -/
+theorem sixContactMin_of_open20_hf_gm_pz_eb_cm_no5 (r : OpenResearchLeaves16GMEB_no5) (t : OpenTextbookLeaves10HF) (l : OpenAddedLeaves14PZ) (g : OpenGlue7) (hYu : QMLattice.YuB6Alg)
+    (hY3 : TSHecke.Y3Connected) (c : CMBranch.CMInputs) : ZInQ.SixContactMin :=
+  sixContactMin_of_open19_hf_gm_pz_eb_cm_no5 (c := c) (openResearchLeaves15_of_OpenResearchLeaves16_gm_eb_no5 r) t (openAddedLeaves13_of_OpenAddedLeaves14_pz l) g hYu
+    (raynaudCriterionNF_of14_hf_gm_eb_no5
+      (openResearchLeaves14_of_OpenResearchLeaves15_gm_eb_no5 (openResearchLeaves15_of_OpenResearchLeaves16_gm_eb_no5 r)) t)
+    (ss1_ss3_of14NF_hf_gm_pz_eb_no5 (openResearchLeaves14_of_OpenResearchLeaves15_gm_eb_no5 (openResearchLeaves15_of_OpenResearchLeaves16_gm_eb_no5 r)) t
+      (addedLeaves12_of_open13_pz (openAddedLeaves13_of_OpenAddedLeaves14_pz l))) hY3
+
+/-- `sixContactMin_of_open21_hf_gm_pz_eb` with the base switched to `sixContactMin_of_open4_cm_no5` (cm-branch). -/
+theorem sixContactMin_of_open21_hf_gm_pz_eb_cm_no5 (r : OpenResearchLeaves17GMEB_no5) (t : OpenTextbookLeaves10HF) (l : OpenAddedLeaves14PZ) (g : OpenGlue7) (hYu : QMLattice.YuB6Alg)
+    (hY3 : TSHecke.Y3Connected) (c : CMBranch.CMInputs) : ZInQ.SixContactMin :=
+  sixContactMin_of_open20_hf_gm_pz_eb_cm_no5 (c := c) (openResearchLeaves16_of_OpenResearchLeaves17_gm_eb_no5 r) t l g hYu hY3
+
+/-- `sixContactMin_of_open22_hf_gm_pz_eb` with the base switched to `sixContactMin_of_open4_cm_no5` (cm-branch). -/
+theorem sixContactMin_of_open22_hf_gm_pz_eb_cm_no5 (r : OpenResearchLeaves18GMEB_no5) (t : OpenTextbookLeaves10HF) (l : OpenAddedLeaves14PZ) (g : OpenGlue7) (hYu : QMLattice.YuB6Alg)
+    (hY3 : TSHecke.Y3Connected) (c : CMBranch.CMInputs) : ZInQ.SixContactMin :=
+  sixContactMin_of_open21_hf_gm_pz_eb_cm_no5 (c := c) (openResearchLeaves17_of_OpenResearchLeaves18_gm_eb_no5 r) t l g hYu hY3
+
+/-- `sixContactMin_of_open23_hf_gm_pz_eb` with the base switched to `sixContactMin_of_open4_cm_no5` (cm-branch). -/
+theorem sixContactMin_of_open23_hf_gm_pz_eb_cm_no5 (r : OpenResearchLeaves19GMEB_no5) (t : OpenTextbookLeaves10HF) (l : OpenAddedLeaves14PZ) (g : OpenGlue7) (hYu : QMLattice.YuB6Alg)
+    (hY3 : TSHecke.Y3Connected) (c : CMBranch.CMInputs) : ZInQ.SixContactMin :=
+  sixContactMin_of_open22_hf_gm_pz_eb_cm_no5 (c := c) (openResearchLeaves18_of_OpenResearchLeaves19_gm_eb_no5 r) t l g hYu hY3
+
+/-- `sixContactMin_of_open24_hf_gm_pz_eb` with the base switched to `sixContactMin_of_open4_cm_no5` (cm-branch). -/
+theorem sixContactMin_of_open24_hf_gm_pz_eb_cm_no5 (r : OpenResearchLeaves19GMEB_no5) (t : OpenTextbookLeaves10HF) (l : OpenAddedLeaves15PZ) (g : OpenGlue7)
+    (hY3 : TSHecke.Y3Connected) (c : CMBranch.CMInputs) : ZInQ.SixContactMin :=
+  sixContactMin_of_open23_hf_gm_pz_eb_cm_no5 (c := c) r t (openAddedLeaves14_of_OpenAddedLeaves15_hf_pz l t) g
+    (QMLattice.yuB6Alg_of' t.uniformizationLeafAll t.gagaMorphism t.mumfordTorsionAlgClosed) hY3
+
+/-- `sixContactMin_of_open25_hf_gm_pz_eb` with the base switched to `sixContactMin_of_open4_cm_no5` (cm-branch). -/
+theorem sixContactMin_of_open25_hf_gm_pz_eb_cm_no5 (r : OpenResearchLeaves19GMEB_no5) (t : OpenTextbookLeaves10HF) (l : OpenAddedLeaves16PZ) (g : OpenGlue7)
+    (hY3 : TSHecke.Y3Connected) (c : CMBranch.CMInputs) : ZInQ.SixContactMin :=
+  sixContactMin_of_open24_hf_gm_pz_eb_cm_no5 (c := c) r t (openAddedLeaves15_of_OpenAddedLeaves16_pz l) g hY3
+
+/-- `sixContactMin_of_open26_hf_gm_pz_eb` with the base switched to `sixContactMin_of_open4_cm_no5` (cm-branch). -/
+theorem sixContactMin_of_open26_hf_gm_pz_eb_cm_no5 (r : OpenResearchLeaves19GMEB_no5) (t : OpenTextbookLeaves11HF) (l : OpenAddedLeaves16PZ) (g : OpenGlue7)
+    (hY3 : TSHecke.Y3Connected) (c : CMBranch.CMInputs) : ZInQ.SixContactMin :=
+  sixContactMin_of_open25_hf_gm_pz_eb_cm_no5 (c := c) r (openTextbookLeaves10_of_OpenTextbookLeaves11_hf t) l g hY3
+
+/-- `sixContactMin_of_open27_hf_gm_pz_eb` with the base switched to `sixContactMin_of_open4_cm_no5` (cm-branch). -/
+theorem sixContactMin_of_open27_hf_gm_pz_eb_cm_no5 (r : OpenResearchLeaves20GMEB_no5) (t : OpenTextbookLeaves11HF) (l : OpenAddedLeaves16PZ) (g : OpenGlue7)
+    (hY3 : TSHecke.Y3Connected) (c : CMBranch.CMInputs) : ZInQ.SixContactMin :=
+  sixContactMin_of_open26_hf_gm_pz_eb_cm_no5 (c := c) (openResearchLeaves19_of_OpenResearchLeaves20_hf_gm_eb_no5 r t) t l g hY3
+
+/-- `sixContactMin_of_open28_hf_gm_pz_eb` with the base switched to `sixContactMin_of_open4_cm_no5` (cm-branch). -/
+theorem sixContactMin_of_open28_hf_gm_pz_eb_cm_no5 (r : OpenResearchLeaves21GMEB_no5) (t : OpenTextbookLeaves11HF) (l : OpenAddedLeaves17PZ) (g : OpenGlue7) (c : CMBranch.CMInputs) : ZInQ.SixContactMin :=
+  sixContactMin_of_open27_hf_gm_pz_eb_cm_no5 (c := c) (openResearchLeaves20_of_OpenResearchLeaves21_hf_gm_eb_no5 r t) t (openAddedLeaves16_of_OpenAddedLeaves17_pz l) g
+    (_root_.DCY3Used.y3Connected_of_ab_gl (_root_.LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_dvr r.mumfordGroupLaw)
+      (_root_.DCY3Used.y3ConnectedAb_of_U r.shimuraMainThmIDeligneY3AbU))
+
+/-- `sixContactMin_of_open29_hf_gm_pz_eb` with the base switched to `sixContactMin_of_open4_cm_no5` (cm-branch). -/
+theorem sixContactMin_of_open29_hf_gm_pz_eb_cm_no5 (r : OpenResearchLeaves22GMEB_no5) (t : OpenTextbookLeaves11HF) (l : OpenAddedLeaves17PZ) (g : OpenGlue7) (c : CMBranch.CMInputs) : ZInQ.SixContactMin :=
+  sixContactMin_of_open28_hf_gm_pz_eb_cm_no5 (c := c) (openResearchLeaves21_of_OpenResearchLeaves22_hf_gm_eb_no5 r t) t l g
+
+/-- `sixContactMin_of_open30_hf_gm_pz_eb` with the base switched to `sixContactMin_of_open4_cm_no5` (cm-branch). -/
+theorem sixContactMin_of_open30_hf_gm_pz_eb_cm_no5 (r : OpenResearchLeaves23GMEB_no5) (t : OpenTextbookLeaves11HF) (l : OpenAddedLeaves17PZ) (g : OpenGlue7) (c : CMBranch.CMInputs) : ZInQ.SixContactMin :=
+  sixContactMin_of_open29_hf_gm_pz_eb_cm_no5 (c := c) (openResearchLeaves22_of_OpenResearchLeaves23_gm_eb_no5 r) t l g
+
+/-- `sixContactMin_of_open31_hf_gm_pz_eb` with the base switched to `sixContactMin_of_open4_cm_no5` (cm-branch). -/
+theorem sixContactMin_of_open31_hf_gm_pz_eb_cm_no5 (r : OpenResearchLeaves24GMEB_no5) (t : OpenTextbookLeaves11HF) (l : OpenAddedLeaves17PZ) (g : OpenGlue7) (c : CMBranch.CMInputs) : ZInQ.SixContactMin :=
+  sixContactMin_of_open30_hf_gm_pz_eb_cm_no5 (c := c) (openResearchLeaves23_of_OpenResearchLeaves24_hf_gm_eb_no5 r t) t l g
+
+/-- `sixContactMin_of_open32_hf_gm_pz_eb` with the base switched to `sixContactMin_of_open4_cm_no5` (cm-branch). -/
+theorem sixContactMin_of_open32_hf_gm_pz_eb_cm_no5 (r : OpenResearchLeaves25GMEB_no5) (t : OpenTextbookLeaves11HF) (l : OpenAddedLeaves17PZ) (g : OpenGlue7) (c : CMBranch.CMInputs) : ZInQ.SixContactMin :=
+  sixContactMin_of_open31_hf_gm_pz_eb_cm_no5 (c := c) (openResearchLeaves24_of_OpenResearchLeaves25_gm_eb_no5 r) t l g
+
+/-- `sixContactMin_of_open33_hf_gm_pz_eb` with the base switched to `sixContactMin_of_open4_cm_no5` (cm-branch). -/
+theorem sixContactMin_of_open33_hf_gm_pz_eb_cm_no5 (r : OpenResearchLeaves25GMEB_no5) (t : OpenTextbookLeaves11HF) (l : OpenAddedLeaves17PZ)
+    (g : OpenGlue8) (c : CMBranch.CMInputs) : ZInQ.SixContactMin :=
+  sixContactMin_of_open32_hf_gm_pz_eb_cm_no5 (c := c) r t l (openGlue7_of_OpenGlue8_hf_gm_pz_eb_no5 r t l g)
+
+/-- `sixContactMin_of_open34_hf_gm_pz_eb` with the base switched to `sixContactMin_of_open4_cm_no5` (cm-branch). -/
+theorem sixContactMin_of_open34_hf_gm_pz_eb_cm_no5 (r : OpenResearchLeaves26GMEB_no5) (t : OpenTextbookLeaves11HF) (l : OpenAddedLeaves17PZ) (g : OpenGlue8) (c : CMBranch.CMInputs) : ZInQ.SixContactMin :=
+  sixContactMin_of_open33_hf_gm_pz_eb_cm_no5 (c := c) (openResearchLeaves25_of_OpenResearchLeaves26_hf_gm_eb_no5 r t) t l g
+
+/-- `sixContactMin_of_open35_hf_gm_pz_eb` with the base switched to `sixContactMin_of_open4_cm_no5` (cm-branch). -/
+theorem sixContactMin_of_open35_hf_gm_pz_eb_cm_no5 (r : OpenResearchLeaves26GMEB_no5) (t : OpenTextbookLeaves12HF) (l : OpenAddedLeaves17PZ) (g : OpenGlue8) (c : CMBranch.CMInputs) : ZInQ.SixContactMin :=
+  sixContactMin_of_open34_hf_gm_pz_eb_cm_no5 (c := c) r (openTextbookLeaves11_of_OpenTextbookLeaves12_hf t) l g
+
+/-- `sixContactMin_of_open36_hf_gm_pz_eb` with the base switched to `sixContactMin_of_open4_cm_no5` (cm-branch). -/
+theorem sixContactMin_of_open36_hf_gm_pz_eb_cm_no5 (r : OpenResearchLeaves26GMEB_no5) (t : OpenTextbookLeaves12HF) (l : OpenAddedLeaves17PZ) (c : CMBranch.CMInputs) : ZInQ.SixContactMin :=
+  sixContactMin_of_open35_hf_gm_pz_eb_cm_no5 (c := c) r t l openGlue8_proof
+
+/-- `sixContactMin_of_open37_hf_gm_pz_eb` with the base switched to `sixContactMin_of_open4_cm_no5` (cm-branch). -/
+theorem sixContactMin_of_open37_hf_gm_pz_eb_cm_no5 (r : OpenResearchLeaves27GMEB_no5) (t : OpenTextbookLeaves13HF) (l : OpenAddedLeaves18PZ) (c : CMBranch.CMInputs) : ZInQ.SixContactMin :=
+  sixContactMin_of_open36_hf_gm_pz_eb_cm_no5 (c := c) (openResearchLeaves26_of_OpenResearchLeaves27_gm_eb_no5 r) (openTextbookLeaves12_of_OpenTextbookLeaves13_hf t) (openAddedLeaves17_of_OpenAddedLeaves18_pz l)
+
+/-- `sixContactMin_of_open45_pz_eb` with the base switched to `sixContactMin_of_open4_cm_no5` (cm-branch). -/
+theorem sixContactMin_of_open45_pz_eb_cm_no5 (r : OpenResearchLeaves31EB_no5) (t : OpenTextbookLeaves16) (l : OpenAddedLeaves22PZ) (c : CMBranch.CMInputs) :
+    ZInQ.SixContactMin :=
+  sixContactMin_of_open37_hf_gm_pz_eb_cm_no5 (c := c)
+    (openResearchLeaves27_of_OpenResearchLeaves28_gm_eb_no5
+      (openResearchLeaves28_of_OpenResearchLeaves29_gm_eb_no5 (openResearchLeaves29GM_of_OpenResearchLeaves31_eb_no5 r)))
+    (openTextbookLeaves13HF_of_open16_22_pz t r.neronSchemeExtensionDedekind l)
+    (openAddedLeaves18_of_OpenAddedLeaves22_pz t l)
+
+/-- `sixContactMin_of_open48_eb_k954` with the base switched to `sixContactMin_of_open4_cm_no5` (cm-branch). -/
+theorem sixContactMin_of_open48_eb_k954_cm_no5 (r : OpenResearchLeaves31EB_no5) (t : OpenTextbookLeaves16) (l : OpenAddedLeaves26) (c : CMBranch.CMInputs) : ZInQ.SixContactMin :=
+  sixContactMin_of_open45_pz_eb_cm_no5 (c := c) r t (openAddedLeaves22PZ_of_OpenAddedLeaves26 l)
+
+/-- `sixContactMin_of_open72` with the base switched to `sixContactMin_of_open4_cm_no5` (cm-branch). -/
+theorem sixContactMin_of_open72_cm_no5 (r : OpenResearchLeaves53) (t : OpenTextbookLeaves18) (l : OpenAddedLeaves27) (c : CMBranch.CMInputs) : ZInQ.SixContactMin :=
+  let t16 := openTextbookLeaves16_of_OpenTextbookLeaves17 (openTextbookLeaves17_of_OpenTextbookLeaves18 t)
+  let l26 := openAddedLeaves26_of_OpenAddedLeaves27 l
+  sixContactMin_of_open48_eb_k954_cm_no5 (c := c) (openResearchLeaves31_of_OpenResearchLeaves32_eb_cf_no5 (openResearchLeaves32_of_OpenResearchLeaves33_eb_cf_no5 (openResearchLeaves33_of_OpenResearchLeaves34_eb_cf_no5 (openResearchLeaves34_of_OpenResearchLeaves35_eb_cf_no5 (openResearchLeaves35_of_OpenResearchLeaves36_eb_k954_cf_no5 (openResearchLeaves36EBCF_of_OpenResearchLeaves53_no5 r t) t16 l26) t16) t16))) t16 l26
+
+end HSyn
+end
+end HDec
+-- ==== end ZInQKernel.Contrib.OneProof.CMBranch.Top ====
+

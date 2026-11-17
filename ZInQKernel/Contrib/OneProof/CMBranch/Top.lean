@@ -1,9 +1,9 @@
-import ZInQKernel.OneProof.H.TailZ74
+import ZInQKernel.OneProof.H.TailZ79
 import ZInQKernel.Contrib.OneProof.CMBranch.Open4
 
 /-! # cm-branch: the fold dry run — the top theorem with the manuscript's CM branch
 
-`sixContactMin_of_open67_cm` is the chain's top theorem `HDec.HSyn.sixContactMin_of_open67` (TailZ74)
+`sixContactMin_of_open72_cm` is the chain's top theorem `HDec.HSyn.sixContactMin_of_open72` (TailZ79)
 with one extra hypothesis `c : CMBranch.CMInputs` (the CM-branch leaves and glue), and with the base of
 the chain, `sixContactMin_of_open4_hf_pz_eb` (which builds FS5 from González–Rotger, the `X₆` Kummer
 fibre and `cmOptimalEmbedding`), replaced by `sixContactMin_of_open4_cm`. Every intermediate theorem
@@ -207,11 +207,11 @@ theorem sixContactMin_of_open45_pz_eb_cm (r : OpenResearchLeaves31EB) (t : OpenT
 theorem sixContactMin_of_open48_eb_k954_cm (r : OpenResearchLeaves31EB) (t : OpenTextbookLeaves16) (l : OpenAddedLeaves26) (c : CMBranch.CMInputs) : ZInQ.SixContactMin :=
   sixContactMin_of_open45_pz_eb_cm (c := c) r t (openAddedLeaves22PZ_of_OpenAddedLeaves26 l)
 
-/-- `sixContactMin_of_open67` with the base switched to `sixContactMin_of_open4_cm` (cm-branch). -/
-theorem sixContactMin_of_open67_cm (r : OpenResearchLeaves48) (t : OpenTextbookLeaves18) (l : OpenAddedLeaves27) (c : CMBranch.CMInputs) : ZInQ.SixContactMin :=
+/-- `sixContactMin_of_open72` with the base switched to `sixContactMin_of_open4_cm` (cm-branch). -/
+theorem sixContactMin_of_open72_cm (r : OpenResearchLeaves53) (t : OpenTextbookLeaves18) (l : OpenAddedLeaves27) (c : CMBranch.CMInputs) : ZInQ.SixContactMin :=
   let t16 := openTextbookLeaves16_of_OpenTextbookLeaves17 (openTextbookLeaves17_of_OpenTextbookLeaves18 t)
   let l26 := openAddedLeaves26_of_OpenAddedLeaves27 l
-  sixContactMin_of_open48_eb_k954_cm (c := c) (openResearchLeaves31_of_OpenResearchLeaves32_eb_cf (openResearchLeaves32_of_OpenResearchLeaves33_eb_cf (openResearchLeaves33_of_OpenResearchLeaves34_eb_cf (openResearchLeaves34_of_OpenResearchLeaves35_eb_cf (openResearchLeaves35_of_OpenResearchLeaves36_eb_k954_cf (openResearchLeaves36_of_OpenResearchLeaves37_eb_cf (openResearchLeaves37_of_OpenResearchLeaves38_eb_cf (openResearchLeaves38EB_of_OpenResearchLeaves39_cf (openResearchLeaves39_of_OpenResearchLeaves40_cf (openResearchLeaves40_of_OpenResearchLeaves41_cf (openResearchLeaves41_of_OpenResearchLeaves42_cf (openResearchLeaves42_of_OpenResearchLeaves43_cf (openResearchLeaves43_of_OpenResearchLeaves44_cf (openResearchLeaves44_of_OpenResearchLeaves45_cf (openResearchLeaves45_of_OpenResearchLeaves46_cf (openResearchLeaves46_of_OpenResearchLeaves47_cf r)))))))) t16) t16) t16) t16 l26) t16) t16))) t16 l26
+  sixContactMin_of_open48_eb_k954_cm (c := c) (openResearchLeaves31_of_OpenResearchLeaves32_eb_cf (openResearchLeaves32_of_OpenResearchLeaves33_eb_cf (openResearchLeaves33_of_OpenResearchLeaves34_eb_cf (openResearchLeaves34_of_OpenResearchLeaves35_eb_cf (openResearchLeaves35_of_OpenResearchLeaves36_eb_k954_cf (openResearchLeaves36EBCF_of_OpenResearchLeaves53 r t) t16 l26) t16) t16))) t16 l26
 
 end HSyn
 end
