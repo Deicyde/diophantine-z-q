@@ -1,0 +1,9 @@
+{"name": "gr-isogdeg",
+ "imports": ["ZInQKernel.Contrib.OneProof.GaudronRemondIsogDeg"],
+ "discharges": [
+   {"field": "gaudronRemondThm14An",
+    "proof": "_root_.ZInQ.GRIsogDeg.gaudronRemondThm14An_of_deg {n}.gaudronRemondThm14AnDeg",
+    "leaves": [{"name": "gaudronRemondThm14AnDeg", "type": "_root_.ZInQ.GRIsogDeg.GaudronRemondThm14AnDeg",
+                "doc": "gr-isogdeg, printed form: Gaudron-Remond, Duke Math. J. 163 (2014) Thm 1.4 (p. 2060; kappa and alpha(g) = 1024 g^3 p. 2058; read by the locator audit), over ZInQ.R3Residual.IsAnStableHeight, with the degree of the isogeny as a finite morphism: ZInQ.GRIsogDeg.finDeg phi = Mathlib's Scheme.Hom.finrank of phi at the generic point of the target (= [K(A):K(B)]). Replaces gaudronRemondThm14An (r3-residual's leaf, which bounds isogDeg = #ker(Kbar)) via ZInQ.GRIsogDeg.gaudronRemondThm14An_of_deg and isogDeg_le_finDeg (#ker(phi)(Kbar) <= finDeg phi for every isogeny over any field).",
+                "kind": "published", "flag": "unread: new printed leaf (Gaudron-Remond 2014 Thm 1.4 restated verbatim over IsAnStableHeight with the printed isogeny degree [K(A):K(B)] = Scheme.Hom.finrank at the generic point, gr-isogdeg); locator UNVERIFIED",
+                "source": "Gaudron-Remond, Duke Math. J. 163 (2014) Thm 1.4 (read by the audit), over the stable height with the metric on A_tau(C)^an (r3-residual), degree of the isogeny as a finite morphism (gr-isogdeg)"}]}]}
