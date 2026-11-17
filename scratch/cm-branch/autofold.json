@@ -6,7 +6,7 @@
  ],
  "replaces": {
   "at": "HDec.HSyn.sixContactMin_of_open67 r t l",
-  "by": "HDec.HSyn.sixContactMin_of_open67_cm r t l ⟨{n}.cmFibreSplit, {n}.fowlerProp27, {n}.cmjDegree, {n}.cmPotentialGood, {n}.cmHeight62, {n}.reducedCMPeriod, {n}.heightAdditivityUpper⟩"
+  "by": "HDec.HSyn.sixContactMin_of_open67_cm r t l ⟨{n}.cmHomFieldSplit, {n}.fowlerProp27, {n}.cmjDegree, {n}.cmPotentialGood, {n}.cmHeight62, {n}.reducedCMPeriod, {n}.heightAdditivityUpper⟩"
  },
  "removed_after_steps_5_6": [
   {
@@ -64,9 +64,9 @@
  ],
  "glue": [
   {
-   "name": "cmFibreSplit",
-   "type": "_root_.HDec.CMBranch.CMFibreSplit",
-   "doc": "A8 (L520-562) for a CM fibre and the matrix units (L583-586): model A/L with [L:Q] <= D, E/L CM by an order R, E^2 = E x E, an L-isogeny E^2 -> A"
+   "name": "cmHomFieldSplit",
+   "type": "_root_.HDec.CMBranch.CMHomFieldSplit",
+   "doc": "L582-586: on A8's Hom-field model (PK.A)_L of a CM fibre, an elliptic curve E/L with End(E_Lbar) an order of an imaginary quadratic field, E^2 = E x E, and an L-isogeny E^2 -> (PK.A)_L (A8 itself is proved: CMBranch/A8.lean homFieldModel_of)"
   },
   {
    "name": "reducedCMPeriod",
@@ -77,11 +77,6 @@
    "name": "heightAdditivityUpper",
    "type": "_root_.HDec.CMBranch.HeightAdditivityUpper",
    "doc": "L621 additivity, upper half: h_F(A x Z) <= h_F(A) + h_F(Z)"
-  },
-  {
-   "name": "modularConstituentNC",
-   "type": "_root_.HDec.CMBranch.ModularConstituentNC",
-   "doc": "G2, G4, G7-G16 at fibres without CM: the chain's proof of ModularConstituent with FS5/FibreSimple localized (cm-branch section 5); to be proved, not a new assumption"
   }
  ]
 }

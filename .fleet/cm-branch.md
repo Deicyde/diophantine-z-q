@@ -18,7 +18,7 @@ q-series bound, summand ≤ πy/6+1, ≤ B_cm), `CMBranch.lean` (leaves, glue, `
 
 **New statements.** Leaves: `FowlerProp27` (printed, Fowler 2026 Prop. 2.7), `CMHeight62` (consequence of
 BCCGM 2017 Eq. (6.2)), `CMjDegree`, `CMPotentialGood` (classical; uncited in the manuscript — Known issue).
-Glue: `CMFibreSplit` (A8 for a CM fibre + matrix units), `ReducedCMPeriod` (on-the-spot),
+Glue: `CMHomFieldSplit` (matrix units on A8's model; A8 itself proved without NoCM), `ReducedCMPeriod` (on-the-spot),
 `HeightAdditivityUpper`. Reused: `R19_GaudronRemond`, `R20Lower`.
 
 **Remains.** (1) Run the hand fold (raises GLUE by 3, needs `--allow-rise`); (2) prune `R5ptProps` from
