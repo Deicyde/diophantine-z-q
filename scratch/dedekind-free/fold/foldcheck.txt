@@ -1,0 +1,36 @@
+'HDec.HSyn.sixContactMin_of_open49' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.OneProof.frozenTarget_df' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.OneProof.frozenTarget: closure 271552
+  contains ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind: true
+  contains ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDVR: true
+  contains ZInQ.Contrib.GroupLawNeron.NeronGoodModelIso: true
+  contains ZInQ.Contrib.GoodModelIso.mumfordGroupLawDVR_of_dedekind: true
+  contains ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR: true
+  contains ZInQ.Contrib.GroupLawDescent.mumfordGroupLawDVR_proof: false
+  contains NeronFLT.exists_neron_of_henselian: false
+  contains NeronExt.NeronDVRLocal: false
+  contains ZInQ.Contrib.NeronC.NeronSchemeExtensionExists: true
+  contains DictModels.MumfordConn.MumfordGroupLawConn: false
+  contains sorryAx: false
+  bundle HDec.HSyn.OpenResearchLeaves31: 24 fields
+    field neronSchemeExtensionDedekind : [ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind]
+  bundle HDec.HSyn.OpenTextbookLeaves16: 3 fields
+  bundle HDec.HSyn.OpenAddedLeaves25: 2 fields
+  bundle fields total: 29
+ZInQ.OneProof.frozenTarget_df: closure 278921
+  contains ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind: false
+  contains ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDVR: false
+  contains ZInQ.Contrib.GroupLawNeron.NeronGoodModelIso: false
+  contains ZInQ.Contrib.GoodModelIso.mumfordGroupLawDVR_of_dedekind: false
+  contains ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR: true
+  contains ZInQ.Contrib.GroupLawDescent.mumfordGroupLawDVR_proof: true
+  contains NeronFLT.exists_neron_of_henselian: true
+  contains NeronExt.NeronDVRLocal: true
+  contains ZInQ.Contrib.NeronC.NeronSchemeExtensionExists: true
+  contains DictModels.MumfordConn.MumfordGroupLawConn: false
+  contains sorryAx: false
+  bundle HDec.HSyn.OpenResearchLeaves32: 24 fields
+    field neronDVRLocal : [NeronExt.NeronDVRLocal]
+  bundle HDec.HSyn.OpenTextbookLeaves16: 3 fields
+  bundle HDec.HSyn.OpenAddedLeaves25: 2 fields
+  bundle fields total: 29
