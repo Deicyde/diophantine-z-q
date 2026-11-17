@@ -22,3 +22,13 @@
   (r <= 1), ForwardRank, KummerCorank (GLUE), ForwardCorank, bridges.
 - Kolyvagin.lean: lake env lean, no errors, no warnings (1m20s). VERIFIED compile.
 - CaiShuTian.lean: compiles (lake env lean, no errors/warnings, after fixes: Λ token -> Lat; open Classical for decidability). VERIFIED compile.
+- CaiShuTian.lean revision (heightK factored out; deriv_ne_zero_iff_heightK_ne_zero, conductor_factor_ratio added):
+  lake env lean, no errors/warnings. lake build of both KolyvCST modules: success. VERIFIED compile.
+- scratch/kolyv-cst-printed/Axioms.lean: 33 declarations, all [propext, Classical.choice, Quot.sound]
+  or a subset (IsHeegnerForm: [propext]); output in axioms-out.txt. No sorry. VERIFIED.
+- Height normalization (VERIFIED, read in source): Tau Ceti canonicalHeight = lim h_x(2^n P)/4^n with
+  h_x = Mathlib logHeight of xRep over the field (relative: infinite places with multiplicity,
+  FinitePlace normalized absolute values); neronTatePairing = associated' (⟨P,P⟩ = canonicalHeight P).
+  So heightK is relative to K, in the h_x ("2ĥ") convention; constant factors absorbed by ∃ C.
+- Manuscript fixes E non-CM (VERIFIED: tex L1013, L1807, L2836, L6835): CSTThm11Split's non-CM
+  restriction costs nothing for the manuscript's uses.

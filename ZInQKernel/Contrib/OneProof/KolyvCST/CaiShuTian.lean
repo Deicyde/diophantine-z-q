@@ -252,6 +252,25 @@ def ntPairing (P Q : (E.baseChange H).toAffine.Point) : ℝ :=
 end Height
 
 open Classical in
+/-- **`ĥ_K(P_χ)`** for `P_χ = Σ_{t ∈ Pic(O_c)} χ(t) ⊗ σ_t(y) ∈ E(H_c) ⊗ ℂ`, where `σ_t` is the
+Artin image of `t` (`ringClassArtinEquiv`): the hermitian extension
+`[H_c : K]⁻¹ Σ_{t,t'} χ(t) conj χ(t') ⟨σ_t y, σ_{t'} y⟩_{H_c}` of the Néron–Tate height relative
+to `K` (`ĥ_K = ĥ_{H_c}/[H_c : K]`; Tau Ceti's pairing over `H_c` is relative to `H_c`). The sum
+runs over `Gal(H_c/K)`, in bijection with `Pic(O_c)`. -/
+def heightK (E : WeierstrassCurve ℚ) [E.IsElliptic] (K : Type) [Field K] [NumberField K]
+    (c : ℕ) [NeZero c] (χ : Pic (conductorOrder K c) →* ℂˣ)
+    (y : (E.baseChange (ringClassField (conductorOrder K c))).toAffine.Point) : ℂ :=
+  (((Module.finrank K (ringClassField (conductorOrder K c)) : ℝ)⁻¹ : ℝ) : ℂ) *
+    ∑ σ : ringClassField (conductorOrder K c) ≃ₐ[K] ringClassField (conductorOrder K c),
+    ∑ σ' : ringClassField (conductorOrder K c) ≃ₐ[K] ringClassField (conductorOrder K c),
+      ((χ ((ringClassArtinEquiv (conductorOrder K c)).symm σ) : ℂˣ) : ℂ) *
+        (starRingEnd ℂ) ((χ ((ringClassArtinEquiv (conductorOrder K c)).symm σ') : ℂˣ) : ℂ) *
+        ((ntPairing E
+          (WeierstrassCurve.Affine.Point.map (W' := E.toAffine) (σ.toAlgHom.restrictScalars ℚ) y)
+          (WeierstrassCurve.Affine.Point.map (W' := E.toAffine) (σ'.toAlgHom.restrictScalars ℚ)
+            y) : ℝ) : ℂ)
+
+open Classical in
 /-- **Cai–Shu–Tian, Theorem 1.1, split case (stated, not proved).** See the module docstring for
 the objects. For every non-CM elliptic curve `E/ℚ` with newform `f` of level `N`, period lattice
 `Lat` and analytic parametrization scale `κ`, there is `C > 0` such that for every imaginary quadratic
@@ -285,18 +304,33 @@ def CSTThm11Split : Prop :=
         ∀ F : ℂ → ℂ, Differentiable ℂ F →
           (∀ s : ℂ, 3 / 2 < s.re →
             F s = LSeries (twistedLFunction E (chiAt (conductorOrder K c) χ)) s) →
-          deriv F 1 =
-            ((C / ((c : ℝ) * Real.sqrt |(discr K : ℝ)|) : ℝ) : ℂ) *
-              (((Module.finrank K (ringClassField (conductorOrder K c)) : ℝ)⁻¹ : ℝ) : ℂ) *
-              ∑ σ : ringClassField (conductorOrder K c) ≃ₐ[K] ringClassField (conductorOrder K c),
-              ∑ σ' : ringClassField (conductorOrder K c) ≃ₐ[K] ringClassField (conductorOrder K c),
-                ((χ ((ringClassArtinEquiv (conductorOrder K c)).symm σ) : ℂˣ) : ℂ) *
-                  (starRingEnd ℂ) ((χ ((ringClassArtinEquiv (conductorOrder K c)).symm σ') :
-                    ℂˣ) : ℂ) *
-                  ((ntPairing E
-                    (WeierstrassCurve.Affine.Point.map (W' := E.toAffine)
-                      (σ.toAlgHom.restrictScalars ℚ) y)
-                    (WeierstrassCurve.Affine.Point.map (W' := E.toAffine)
-                      (σ'.toAlgHom.restrictScalars ℚ) y) : ℝ) : ℂ)
+          deriv F 1 = ((C / ((c : ℝ) * Real.sqrt |(discr K : ℝ)|) : ℝ) : ℂ) * heightK E K c χ y
+
+/-- How the manuscript uses the formula (L8269–8270, L9439–9440): with `C > 0`, `L'(1, E, χ) ≠ 0`
+if and only if `ĥ_K(P_χ) ≠ 0`. -/
+theorem deriv_ne_zero_iff_heightK_ne_zero {C : ℝ} (hC : 0 < C) {c : ℕ} (hc : 0 < c) {D : ℤ}
+    (hD : D ≠ 0) {x y : ℂ}
+    (h : x = ((C / ((c : ℝ) * Real.sqrt |(D : ℝ)|) : ℝ) : ℂ) * y) : x ≠ 0 ↔ y ≠ 0 := by
+  have hpos : 0 < C / ((c : ℝ) * Real.sqrt |(D : ℝ)|) := by
+    apply div_pos hC
+    apply mul_pos (by exact_mod_cast hc)
+    apply Real.sqrt_pos.mpr
+    exact abs_pos.mpr (by exact_mod_cast hD)
+  have hne : (((C / ((c : ℝ) * Real.sqrt |(D : ℝ)|) : ℝ) : ℂ)) ≠ 0 := by
+    exact_mod_cast hpos.ne'
+  subst h
+  exact ⟨fun h hy => h (by rw [hy, mul_zero]), fun hy => mul_ne_zero hne hy⟩
+
+/-- How the manuscript uses two instances with the same parametrization (L2428–2440, (3.4)):
+the constant `C` cancels, and the heights compare as the derivatives times the conductor factors
+`a = c √|D|`: `a₁ x₁ y₂ = a₂ x₂ y₁` for `xᵢ = L'(1, E, χᵢ)` and `yᵢ = ĥ_{Kᵢ}(P_{χᵢ})`. -/
+theorem conductor_factor_ratio {C a₁ a₂ : ℝ} (h₁ : 0 < a₁) (h₂ : 0 < a₂) {x₁ x₂ y₁ y₂ : ℂ}
+    (e₁ : x₁ = ((C / a₁ : ℝ) : ℂ) * y₁) (e₂ : x₂ = ((C / a₂ : ℝ) : ℂ) * y₂) :
+    (a₁ : ℂ) * x₁ * y₂ = (a₂ : ℂ) * x₂ * y₁ := by
+  have h₁' : (a₁ : ℂ) ≠ 0 := by exact_mod_cast h₁.ne'
+  have h₂' : (a₂ : ℂ) ≠ 0 := by exact_mod_cast h₂.ne'
+  subst e₁ e₂
+  push_cast
+  field_simp
 
 end ZInQ.Manuscript.KolyvCST.CST
