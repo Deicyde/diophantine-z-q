@@ -97,6 +97,30 @@ trigger escalation. Other changes receive both reviews. This is a conservative
 classification rule, not a proof that arbitrary natural language is harmless.
 Do not use the declaration to misclassify a change.
 
+### Live admission write test
+
+The `outside_admission` job grants the workflow token `pull-requests: write`
+for the intent comment on a pull request, alongside `issues: write`. A live
+[restricted-permission probe](https://github.com/elliotglazer/diophantine-z-q/actions/runs/44126443347)
+on November 17, 2026 returned HTTP 403 with only `issues: write` and
+`pull-requests: read`; it created no comment.
+
+After this workflow is on main, manually dispatch `protocol-b-admission-test.yml`
+on `main`. It runs the production `outside_reserve` function in test mode,
+posts a real intent comment to closed, unmerged test PR69, creates a neutral
+reservation with the dedicated App, and reads both back. It records the source
+commit, workflow hash, exact write responses and readbacks in the
+`protocol-b-live-admission-test-<run>-<attempt>` artifact. Each write is attempted
+once. If a response is uncertain, inspect that run and its records before
+starting another test.
+
+The test has its own intent marker and check name, excluded from live quota
+accounting and review acceptance. It receives no provider keys, makes no model
+calls and cannot merge. It validates the real reservation writes and identity
+binding, not outside eligibility, triage or the complete review flow. The
+protected environment permits it only from main; no repository mode change
+is needed.
+
 ### Unattended outside reviews
 
 The mechanical stage makes no model call. It requires a complete textual diff,
