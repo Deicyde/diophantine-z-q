@@ -10,50 +10,168 @@ Marks: **VERIFIED** (compiled here, or read in a source available here), **STAND
 
 ## 1. Verdict
 
-**Scoped stop on both co-steps, with the finishable parts proved.** Neither `BergerBst.LogPTildeTranscendental` nor the
-image-of-`A_cris` statement is proved. Both need theories that are missing and large (§4, §5), and the stop rule applies:
-nothing was built in their place and no leaf was added.
+**Scoped stop on both co-steps. Everything around the two missing theories is proved.** Neither
+`BergerBst.LogPTildeTranscendental` nor the image-of-`A_cris` statement is proved. Each needs a theory that is
+missing and large (§4, §5), so the stop rule applies: nothing was built in their place and no leaf was added.
 
-What is proved (VERIFIED: compiled with `lake env lean`, no `sorry`, axioms `[propext, Classical.choice, Quot.sound]`,
-new file `ZInQKernel/Contrib/OneProof/LogPTranscendence.lean`, scratch copy `scratch/logp-transc/LogPTranscendence.lean`):
+**Main result** (VERIFIED: compiled with `lake env lean`, no `sorry`, axioms `[propext, Classical.choice, Quot.sound]`):
 
-1. **`B_cris ⊆ B_max`** in `B_dR`, for every `w ∈ ker θ` used to write `A_cris` (`bcrisOf_le_bmax`), with
+```lean
+theorem logPTildeTranscendental_iff_notInFrac :
+    LogPTildeTranscendental ↔
+      ∀ (p : ℕ) [Fact p.Prime], NotInFrac p (Bmax p) (toBdR p (logPTilde p))
+```
+
+Here `NotInFrac p B u` says there are no `a ≠ 0` and `b` in `B` with `a · u = b`, i.e. `u ∉ Frac(B)`. So Fontaine's
+transcendence of `log [p̃]` over `B_max` is equivalent to its degree-one case, `log [p̃] ∉ Frac(B_max)`. The proof
+is the Galois half of the standard argument (the minimal-polynomial argument with
+`σ(log [p̃]) = log [p̃] + log [u_σ]`), together with the tree's `B_dR^{G_{ℚ_p}} = ℚ_p`.
+
+The other proved results:
+
+1. **`B_cris ⊆ B_max`** in `B_dR`, for every `w ∈ ker θ` used to write `A_cris` (`bcrisOf_le_bmax`). Also
    `B_cris^+ ⊆ B_max^+` and `BstFOf ⊆ Bst`. The tree had `A_cris ⊆ A_max` only for generators `w` of `ker θ`.
-2. **The Galois half of the transcendence, in Lean.** For any `G_{ℚ_p}`-stable `ℚ_p`-subalgebra `B ⊆ B_dR` and any `u`
-   with `σ(u) − u ∈ B`, `u` is transcendental over `B` as soon as `u ∉ Frac(B) + B_dR^{G_{ℚ_p}}`
-   (`transcendental_of_logCore`). Conversely the transcendence gives that condition when `B_dR^{G_{ℚ_p}} ⊆ B`
-   (`logCore_of_transcendental`). So the condition `LogCore` is exactly what remains.
-3. Applied to `u = log [p̃]`:
-   * `logPTildeTranscendental_of_core`: `LogCore (B_max) (log [p̃])` for every `p` implies
-     `BergerBst.LogPTildeTranscendental`;
-   * `transcendental_bcris_of_core`: the weaker `LogCore (B_cris) (log [p̃])` implies the transcendence over `B_cris`;
-   * `logCore_of_notInFrac`: given `B_dR^{G_{ℚ_p}} = ℚ_p` in element form (proved in the tree in dimension form,
-     `BdRInv.bdRInvariantsPrinted_proof`), the core is the sharp statement `log [p̃] ∉ Frac(B)`.
-4. **Transfer to Brinon-Conrad's form.** `LogPTildeTranscendental` gives the injectivity of `B_cris[X] → B_dR`,
-   `X ↦ log [p̃]` (`transcendental_bcrisOf`, Thm 9.2.10 at `K = ℚ_p`), for every `w`, and the identification
-   `BstFOf ≅ B_cris[X]` of Brinon-Conrad's abstract `B_st` (Def. 9.2.3) with its image (`bcrisPolyEquiv`,
-   `bstFOf_eq_adjoin`).
+2. **Brinon-Conrad Thm 9.2.10 at `K = ℚ_p`, given the transcendence.** `LogPTildeTranscendental` gives:
+   * the injectivity of `B_cris[X] → B_dR`, `X ↦ log [p̃]`, for every `w` (`transcendental_bcrisOf`);
+   * `BstFOf ≅ B_cris[X]` (`bcrisPolyEquiv`, `bstFOf_eq_adjoin`). This identifies BC's abstract `B_st`
+     (Def. 9.2.3) with its image in `B_dR`.
+3. **The same reduction over `B_cris`.** The weaker `log [p̃] ∉ Frac(B_cris)` already gives the transcendence over
+   `B_cris` (`transcendental_bcris_of_notInFrac`).
+4. **The reduction works for any ring.** For any `G_{ℚ_p}`-stable `ℚ_p`-subalgebra `B ⊆ B_dR` and any `u` with
+   `σ(u) − u ∈ B`, `u` is transcendental over `B` as soon as `u ∉ Frac(B) + B_dR^{G_{ℚ_p}}`
+   (`transcendental_of_logCore`). This step does not use `B_dR^{G} = ℚ_p`.
 
-**The one missing statement for co-step (i)** is the degree-one case `log [p̃] ∉ Frac(B_max)` (or the weaker
-`log [p̃] ∉ Frac(B_cris)`). Every proof known here uses the Frobenius `φ` of `B_max` (or `B_cris`), which the tree does
-not have and cannot get cheaply, because the tree's `A_max` is a subring of `B_dR^+` and `φ` does not act on `B_dR^+`
-(§4).
+**The one missing statement for co-step (i)** is `log [p̃] ∉ Frac(B_max)` (or `∉ Frac(B_cris)`).
 
-**Co-step (ii)** needs Brinon-Conrad's abstract `A_cris` (the `p`-adic completion of the divided-power envelope of
-`A_inf` along `ker θ`). Mathlib v4.35 has divided-power structures but no divided-power envelope (VERIFIED, §5). §5
-states the smallest faithful statement.
+* The Galois action alone cannot give it. For units `v`, the elements `log([ṽ]/v)` lie in `B_max` and have the same
+  kind of Galois behaviour (§4.2).
+* Every proof known here uses the Frobenius `φ` of `B_max`, and also an arithmetic input that separates `p` from the
+  units (§4.3).
+* The tree has no `φ` on `B_max`, and cannot get one cheaply. Its `A_max` is a subring of `B_dR^+`, and `φ` does not
+  act on `B_dR^+`.
 
-**Ratings.** No re-rating follows: `panPrintedF` and `bergerSurveyF` still depend on co-steps (i) and (ii) as before.
-What changed is the size of co-step (i): it is now the single Prop `LogCore (B_max) (log [p̃])` (or its `B_cris`
-form), with everything between it and Thm 9.2.10's injectivity proved.
+**Co-step (ii)** needs BC's abstract `A_cris`, the `p`-adic completion of the divided-power envelope of `A_inf` along
+`ker θ`. Mathlib v4.35 has divided-power structures but no divided-power envelope (VERIFIED). §5 gives the smallest
+faithful statement and what is needed for it.
 
-This was a proof-only task: no bundle field, statement or kinds row changed, nothing was folded. The only file added
-under `ZInQKernel/` is `ZInQKernel/Contrib/OneProof/LogPTranscendence.lean`. It imports
-`ZInQKernel.Contrib.OneProof.PanBergerFontaine`, does not import `ZInQKernel.OneProof.Main`, and nothing imports it.
+**Ratings.** Nothing is re-rated: `panPrintedF` and `bergerSurveyF` still depend on co-steps (i) and (ii). Co-step (i)
+is now one Prop, `∀ p, log [p̃] ∉ Frac(B_max)`. Everything between that Prop and the identification of BC's `B_st`
+with `BstFOf` is proved.
+
+**Manuscript.** No error was found. §7 has the line-by-line check.
+
+This was a proof-only task. No bundle field, statement or kinds row changed, and nothing was folded. Two files were
+added under `ZInQKernel/`, and nothing imports them:
+
+* `ZInQKernel/Contrib/OneProof/LogPTranscendence.lean`, which imports `ZInQKernel.Contrib.OneProof.PanBergerFontaine`;
+* `ZInQKernel/Contrib/OneProof/LogPTranscendenceBdR.lean`, which imports that file and
+  `ZInQKernel.Contrib.OneProof.BdRInvariants`.
+
+Neither imports `ZInQKernel.OneProof.Main`. Their scratch copies are in `scratch/logp-transc/`.
 
 ## 2. The new theorems (namespace `HDec.PkgI4.LogPTransc`)
 
-PLACEHOLDER
+Notation: `u = toBdR p (logPTilde p)` is `log [p̃] = log([p̃]/p) ∈ B_dR^+ ⊆ B_dR`, `p̃ = (p, p^{1/p}, …)`. `Bmax`, `Bst`
+are bst-construct's (`BergerBst`); `AcrisOf`, `BcrisOf`, `BstFOf` are pb-p1's (`FontaineSt`), at an arbitrary
+`w ∈ ker θ` unless `ξ` is written.
+
+### 2.1 `B_cris ⊆ B_max` (`LogPTranscendence.lean` §1)
+
+```lean
+theorem acrisOf_le_amax_any {w : Ainf p} (hw : WittVector.fontaineTheta 𝓞_ℂ_[p] p w = 0) :
+    AcrisOf p w hw ⊆ (Amax p : Set (BDeRhamPlus 𝓞_ℂ_[p] p))
+theorem bcrisPlusOf_le_bmaxPlus (hw) : BcrisPlusOf p w hw ≤ BmaxPlus p
+theorem bcrisOf_le_bmax {ε₀} (h : IsGenEps p ε₀) (hw) : BcrisOf p h w hw ≤ Bmax p
+theorem bstFOf_le_bst {ε₀} (h : IsGenEps p ε₀) (hw) : BstFOf p h w hw ≤ Bst p
+```
+
+Proof: `w = ξ c` (bdr-kertheta's `ker θ = (ξ)`), so `A_cris(w) ⊆ A_cris(ξ)` (`acrisOf_le`) `⊆ A_max`
+(`acrisOf_le_amax`, i.e. `ω^n/n! = (p^n/n!) (ω/p)^n`, `p^n/n! ∈ ℤ_p`); `1/t` is in both (`bmaxOf_eq`, `bstOf_eq`).
+
+### 2.2 The Galois reduction (`LogPTranscendence.lean` §2-§3)
+
+```lean
+def GStable (B : Subalgebra ℚ_[p] (BdR p)) : Prop := ∀ (σ : GQp p), ∀ x ∈ B, bdrAct p σ x ∈ B
+def LogCore (B : Subalgebra ℚ_[p] (BdR p)) (u : BdR p) : Prop :=
+  ∀ a b : B, a ≠ 0 → ∀ y : BdR p, (∀ σ : GQp p, bdrAct p σ y = y) → (a : BdR p) * (u - y) ≠ b
+def NotInFrac (B : Subalgebra ℚ_[p] (BdR p)) (u : BdR p) : Prop :=
+  ∀ a b : B, a ≠ 0 → (a : BdR p) * u ≠ b
+
+theorem transcendental_of_logCore (B : Subalgebra ℚ_[p] (BdR p)) (hB : GStable p B) (u : BdR p)
+    (hu : ∀ σ : GQp p, ∃ δ : B, bdrAct p σ u = u + δ) (hcore : LogCore p B u) :
+    Transcendental B u
+theorem logCore_of_transcendental (B : Subalgebra ℚ_[p] (BdR p)) (u : BdR p)
+    (hinv : ∀ y : BdR p, (∀ σ : GQp p, bdrAct p σ y = y) → y ∈ B) (ht : Transcendental B u) :
+    LogCore p B u
+theorem logCore_of_notInFrac (B) (u)
+    (hinv : ∀ y : BdR p, (∀ σ, bdrAct p σ y = y) → ∃ c : ℚ_[p], y = algebraMap ℚ_[p] (BdR p) c)
+    (h : NotInFrac p B u) : LogCore p B u
+theorem logCore_mono {B B'} (hBB' : B ≤ B') {u} (h : LogCore p B' u) : LogCore p B u
+```
+
+Proof of `transcendental_of_logCore` (on-the-spot write-up of the standard argument; BC's sketch at p. 143 not read
+here):
+
+1. Let `P ∈ B[X]` be nonzero of least degree `d` with `P(u) = 0` (`Nat.find`). Then `d ≥ 1`, because `B → B_dR` is
+   injective.
+2. For `σ`, with `σ(u) = u + δ` and `δ ∈ B`, set `P_σ := taylor δ (P^σ)`, i.e. `P_σ(X) = P^σ(X + δ)`. Then
+   `P_σ(u) = σ(P(u)) = 0` (`aeval_map_sigB`), and `P_σ` has degree `d` with leading coefficient `σ(a_d)`.
+3. `Q := σ(a_d)·P − a_d·P_σ` kills `u` and has degree `< d`, so `Q = 0` by minimality. Its `X^{d−1}` coefficient
+   (`coeff_taylor_pred`: the `X^{d−1}` coefficient of `f(X + r)` is `f_{d−1} + d r f_d`) gives
+   `σ(a_d) a_{d−1} = a_d (σ(a_{d−1}) + d δ σ(a_d))` (`top_coeff_relation`).
+4. With `e = (d a_d)^{−1}` in the field `B_dR`, `y := u + a_{d−1} e` is `G_{ℚ_p}`-invariant, and
+   `a_d (u − y) = −a_{d−1}/d ∈ B`. This contradicts `LogCore`.
+
+### 2.3 `log [p̃]` (`LogPTranscendence.lean` §4-§5)
+
+```lean
+theorem bmax_gStable : GStable p (Bmax p)
+theorem bcris_gStable {ε₀} (h : IsGenEps p ε₀) : GStable p (BcrisOf p h ξ (theta_xi' p))
+theorem logPTilde_shift (B)
+    (hB : ∀ (ε : PreTilt 𝓞_ℂ_[p] p) (h : PreTilt.untilt ε = 1), toBdR p (logTeich p h) ∈ B) (σ : GQp p) :
+    ∃ δ : B, bdrAct p σ (toBdR p (logPTilde p)) = toBdR p (logPTilde p) + δ
+theorem logPTildeTranscendental_of_core
+    (hcore : ∀ (p : ℕ) [Fact p.Prime], LogCore p (Bmax p) (toBdR p (logPTilde p))) :
+    LogPTildeTranscendental
+theorem transcendental_bcris_of_core {ε₀} (h : IsGenEps p ε₀)
+    (hcore : LogCore p (BcrisOf p h ξ (theta_xi' p)) (toBdR p (logPTilde p))) :
+    Transcendental (BcrisOf p h ξ (theta_xi' p)) (toBdR p (logPTilde p))
+theorem transcendental_of_le {B B'} (hBB' : B ≤ B') {u} (h : Transcendental B' u) : Transcendental B u
+theorem transcendental_bcrisOf (ht : LogPTildeTranscendental) {ε₀} (h : IsGenEps p ε₀) {w}
+    (hw : WittVector.fontaineTheta 𝓞_ℂ_[p] p w = 0) :
+    Function.Injective (aeval (R := BcrisOf p h w hw) (toBdR p (logPTilde p)))
+theorem bstFOf_eq_adjoin (h) (hw) :
+    BstFOf p h w hw = (Algebra.adjoin (BcrisOf p h w hw) {toBdR p (logPTilde p)}).restrictScalars ℚ_[p]
+def bcrisPolyEquiv (ht : LogPTildeTranscendental) (h) (hw) :
+    Polynomial (BcrisOf p h w hw) ≃ₐ[BcrisOf p h w hw] Algebra.adjoin (BcrisOf p h w hw) {toBdR p (logPTilde p)}
+theorem bcrisPolyEquiv_X (ht) (h) (hw) : (bcrisPolyEquiv p ht h hw X : BdR p) = toBdR p (logPTilde p)
+```
+
+### 2.4 With `B_dR^{G_{ℚ_p}} = ℚ_p` (`LogPTranscendenceBdR.lean`)
+
+```lean
+theorem bdr_invariant_eq_algebraMap (y : BdR p) (hy : ∀ σ : GQp p, bdrAct p σ y = y) :
+    ∃ c : ℚ_[p], y = algebraMap ℚ_[p] (BdR p) c
+theorem logCore_iff_notInFrac (B : Subalgebra ℚ_[p] (BdR p)) (u : BdR p) :
+    LogCore p B u ↔ NotInFrac p B u
+theorem logPTildeTranscendental_of_notInFrac
+    (h : ∀ (p : ℕ) [Fact p.Prime], NotInFrac p (Bmax p) (toBdR p (logPTilde p))) : LogPTildeTranscendental
+theorem logPTildeTranscendental_iff_notInFrac :
+    LogPTildeTranscendental ↔ ∀ (p : ℕ) [Fact p.Prime], NotInFrac p (Bmax p) (toBdR p (logPTilde p))
+theorem transcendental_bcris_of_notInFrac {ε₀} (h : IsGenEps p ε₀)
+    (hc : NotInFrac p (BcrisOf p h ξ (theta_xi' p)) (toBdR p (logPTilde p))) :
+    Transcendental (BcrisOf p h ξ (theta_xi' p)) (toBdR p (logPTilde p))
+```
+
+`bdr_invariant_eq_algebraMap` turns bdr-inv's `dim_{ℚ_p} B_dR^{G_F} = [F : ℚ_p]` at `F = ℚ_p` into the element form:
+`B_dR^{G} ∋ 1` and has dimension 1 (`finrank_eq_one_iff_of_nonzero'`).
+
+### 2.5 What this proves of the two co-steps
+
+* **(i)** Proved: everything except the degree-one statement `log [p̃] ∉ Frac(B_max)`. That statement is equivalent
+  to `LogPTildeTranscendental` and implies BC Thm 9.2.10's injectivity at `K = ℚ_p` and `BstFOf ≅ B_cris[X]`. Also
+  proved: `B_cris ⊆ B_max`, which the lead's request asked for.
+* **(ii)** Nothing new is proved. The abstract `A_cris` cannot be expressed in the tree (§5).
 
 ## 3. Which properties of `B_max` / `B_cris` the proofs use
 
@@ -70,10 +188,11 @@ The Galois reduction (`transcendental_of_logCore`) uses only these properties, a
 | `A_cris ⊆ A_max` | `FontaineSt.acrisOf_le_amax` (generators), new `acrisOf_le_amax_any` (any `w ∈ ker θ`) |
 | `1/t ∈ B_max` | `BmaxOne.bmaxOf_eq` |
 
-Note that `log [u_σ] = c(σ)·t` with `c` the Kummer cocycle of `p` is not needed in this form: the proof only uses
-`σ(u) − u ∈ B`. The sharp form `logCore_of_notInFrac` adds `B_dR^{G_{ℚ_p}} = ℚ_p` (element form), proved in the tree
-in dimension form (`BdRInv.bdRInvariantsPrinted_proof`, `ZInQKernel/Contrib/OneProof/BdRInvariants.lean`); the step
-from dimension form to element form and the import were not done (the import pulls `ZInQKernel.OneProof.H.TailS`).
+Note that `log [u_σ] = c(σ)·t`, with `c` the Kummer cocycle of `p`, is not needed in this form: the proof only uses
+`σ(u) − u ∈ B`. The sharp form (`LogPTranscendenceBdR.lean`) adds `B_dR^{G_{ℚ_p}} = ℚ_p`. The tree proves that in
+dimension form (`BdRInv.bdRInvariantsPrinted_proof`, `ZInQKernel/Contrib/OneProof/BdRInvariants.lean`), and
+`bdr_invariant_eq_algebraMap` turns it into the element form. The import pulls in `ZInQKernel.OneProof.H.TailS` but
+not `ZInQKernel.OneProof.Main`.
 
 The core `LogCore` would need properties the tree does not have (§4): the Frobenius `φ` of `B_max`, and an arithmetic
 input that separates the Kummer class of `p` from those of units.
@@ -92,7 +211,7 @@ It has two halves:
 
 1. **Galois half (proved here in Lean).** If `log [p̃]` is algebraic over `B`, the minimal-degree relation and the
    Galois action `σ(log [p̃]) = log [p̃] + c(σ) t` force `log [p̃] ∈ Frac(B) + B_dR^{G}` (§2, `transcendental_of_logCore`).
-   With `B_dR^{G_{ℚ_p}} = ℚ_p` (in the tree) this is `log [p̃] ∈ Frac(B)`.
+   With `B_dR^{G_{ℚ_p}} = ℚ_p` (in the tree; element form `bdr_invariant_eq_algebraMap`) this is `log [p̃] ∈ Frac(B)`.
 2. **Arithmetic half (missing).** `log [p̃] ∉ Frac(B)`, for `B = B_max` or `B_cris`.
 
 ### 4.2 Why the Galois action alone cannot give the arithmetic half (on-the-spot, standard)
@@ -136,11 +255,21 @@ is larger.
 
 ### 4.4 What follows if the core were present
 
-`LogCore (B_max) (log [p̃])` for every `p` gives, by compiled proofs: `BergerBst.LogPTildeTranscendental`
-(`logPTildeTranscendental_of_core`), hence `B_st ≅ B_max[X]` (`BergerBst.bstEquivPolynomial`), the injectivity of
-`B_cris[X] → B_dR` for every `w ∈ ker θ` (`transcendental_bcrisOf`) and `BstFOf ≅ B_cris[X]` (`bcrisPolyEquiv`), i.e.
-co-step (i). The weaker `LogCore (B_cris) (log [p̃])` gives the `B_cris` statements directly
-(`transcendental_bcris_of_core`).
+The compiled proofs show that `∀ p, log [p̃] ∉ Frac(B_max)` gives:
+
+* `BergerBst.LogPTildeTranscendental` (`logPTildeTranscendental_of_notInFrac`; the two are equivalent);
+* `B_st ≅ B_max[X]` (`BergerBst.bstEquivPolynomial`);
+* the injectivity of `B_cris[X] → B_dR` for every `w ∈ ker θ` (`transcendental_bcrisOf`);
+* `BstFOf ≅ B_cris[X]` (`bcrisPolyEquiv`).
+
+Together these are co-step (i). The weaker `log [p̃] ∉ Frac(B_cris)` gives the `B_cris` statements directly
+(`transcendental_bcris_of_notInFrac`).
+
+A faithful Lean statement of the missing Prop is the one in the main theorem, `NotInFrac p (Bmax p) (toBdR p
+(logPTilde p))`. It is stated over genuine definitions: `Bmax ⊆ B_dR` and `log [p̃]` are concrete. With `BcrisOf` in
+place of `Bmax`, it is the degree-one case of Fontaine's transcendence of `log [p̃]` over `Frac(B_cris)`. For `B_max`
+it is the degree-one case of the `B_max` version (Colmez). Both locators are UNVERIFIED. As the lead instructed, it is
+**not** added as a leaf.
 
 ## 5. Co-step (ii): `A_cris`
 
@@ -187,12 +316,76 @@ BC's `B_cris` and, with co-step (i), BC's `B_st`; the reviewer's co-step (ii) on
 
 ## 6. Known issues
 
-PLACEHOLDER
+(i) **Brinon-Conrad Thm 9.2.10, p. 143: the proof is a sketch** (reading desk, `scratch/pb-dimform/bc-reading.md`).
+  * The Galois half is written out and compiled here (§2.2), as an on-the-spot fill.
+  * Whether BC's sketch contains the arithmetic half (`log [p̃] ∉ Frac(B_cris)`), proves it, or cites Fontaine for
+    it could not be checked: this host has no copy of BC (UNVERIFIED).
+  * The reading desk notes that the full proof is in Fontaine, Astérisque 223, which the manuscript does not cite.
+    The reading desk places it in §4.3. `BergerBst.LogPTildeTranscendental`'s docstring places it in Exp. II §3.
+    Both locators are UNVERIFIED and may refer to different numbering schemes. The lead or the reading desk should
+    fix one locator.
+
+(ii) **BC p. 128: the injectivity of `j : A_cris → B_dR^+` is omitted** (the reviewer). The p. 129 sentence describes
+  the image. `AcrisOf` is that description, and co-step (ii) stays open (§5).
+
+(iii) **The core cannot come from the Galois action alone** (§4.2; a structural remark, sketched and not compiled).
+  The units' `log([ṽ]/v)` lie in `A_max` and have the same shape of Galois action as `log [p̃]`. So any proof of the
+  core must use `v_p(p) = 1` through `φ` or through the analytic structure of `B_max`. The cited sources state this
+  step as a separate input, and it is the expensive part.
+
+(iv) **Normalization `log(p) = 0`.** BC's embedding (p. 142) sends `X ↦ log [q] = log_dR([q]/q) + log_K(q)`, which is
+  canonical once `log_K(p)` is fixed (p. 143). The tree uses `q = p`, `q̃ = p̃` and `log(p) = 0`, so `X ↦ log_dR([p̃]/p)`
+  (`BstFOf`'s docstring). Another choice of `log_K(p) ∈ ℚ_p` shifts `X` by a constant, and transcendence is invariant
+  under such shifts. No issue.
+
+(v) **The manuscript cites BC at other locators.** The bibitem (L11019-11022) lists only Thm 5.2.1 and Props 6.3.3
+  and 6.3.8, which are cited at L10975 and L10994 for de Rham closure and descent. The definitions of `A_cris`,
+  `B_cris` and `B_st` (pp. 128-143) are in the same cited notes but at locators the manuscript does not name. This
+  places them in provenance (b) (inside a cited source), not (a).
+
+(vi) **Lean (no source issue):** `IsField.toField` on `B_dR` does not give instances that agree reducibly with
+  `B_dR`'s ring operations: `NoZeroDivisors` and `IsSimpleRing` synthesis fails. The proofs use `IsDomain` and
+  explicit inverses instead. Subtraction in `(↥B)[X]`, for a `Subalgebra B`, times out in instance search, so the
+  proofs write `P + C (−c)`. Recorded in `scratch/logp-transc/log.md`.
+
+No error was found in the manuscript or in the sources' statements used here.
+
 
 ## 7. Manuscript check
 
-PLACEHOLDER
+One line per step of `diophantine_zq.tex` that this work formalizes or relies on.
+
+* **L738-741** (Berger's `p`-adic monodromy theorem makes the de Rham representation potentially semistable, as
+  Pan's theorem requires): **unverified.** The text is right as written (Berger 2002, cited). Its implicit definition
+  of "potentially semistable" is Fontaine's, over `B_st ⊆ B_dR`. Identifying BC's abstract `B_st` (Def. 9.2.3) with
+  the tree's `BstFOf` needs BC Thm 9.2.10's injectivity, and that is open. This task reduces it to the one Prop
+  `log [p̃] ∉ Frac(B_max)` (`logPTildeTranscendental_iff_notInFrac`, `transcendental_bcrisOf`), which is not proved.
+* **L755-758** (Pan Thm 1.0.4 at `ℓ = 5`, Tate convention, no residual-image proviso): **unverified.** The text is
+  right as written. Pan's hypothesis "potentially semistable" rests on the same `B_st` identification as L738-741,
+  which is reduced here and not proved. Co-step (ii) (BC p. 128-129, abstract `A_cris` versus `AcrisOf`) also stays
+  open for both lines.
+* **L10972-10975 and L11019-11022** (BC cited for Thm 5.2.1 and Prop 6.3.3; the bibitem): **OK.** This work does not
+  use those statements. It uses BC's §9 definitions (pp. 128-143) from the same notes, at locators the bibitem does not
+  list (Known issue (v)).
+
 
 ## 8. Checks and deliverables
 
-PLACEHOLDER
+VERIFIED (this host, Lean 4.35.0, Mathlib v4.35.0):
+
+* `lake build ZInQKernel.Contrib.OneProof.PanBergerFontaine`: built (10669 jobs; the merged files had no oleans).
+* `lake build ZInQKernel.Contrib.OneProof.BdRInvariants`: built.
+* `lake build ZInQKernel.Contrib.OneProof.LogPTranscendence`: built.
+* `lake env lean` on each of: `ZInQKernel/Contrib/OneProof/LogPTranscendence.lean`,
+  `ZInQKernel/Contrib/OneProof/LogPTranscendenceBdR.lean`, and their scratch copies. No errors, no warnings, no `sorry`.
+* `#print axioms` of all 34 new declarations (29 + 5) gives `[propext, Classical.choice, Quot.sound]`. The output is
+  in `scratch/logp-transc/axioms.txt`, produced by `scratch/logp-transc/LogPTranscendenceAxioms.lean` and
+  `LogPTranscendenceBdRAxioms.lean`, which are the files plus `#print axioms` lines.
+
+Deliverables:
+
+* `ZInQKernel/Contrib/OneProof/LogPTranscendence.lean` and `ZInQKernel/Contrib/OneProof/LogPTranscendenceBdR.lean`
+  (new; no edits elsewhere under `ZInQKernel/`; neither imports `ZInQKernel.OneProof.Main`);
+* `scratch/logp-transc/` (scratch copies, axiom files, build logs `build1.txt` and `build2.txt`, results log
+  `log.md`);
+* this report, and `.fleet/logp-transc.md`.
