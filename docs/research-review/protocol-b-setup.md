@@ -38,32 +38,37 @@ Environment variables. The job's start condition needs them before GitHub loads
 the Environment. They are settings, not secrets.
 
 The workflow uses the official, commit-pinned `actions/create-github-app-token`
-action twice. One token creates the initially blocked check; a fresh token
+action. One token creates the initially blocked review check; a fresh token
 finalizes it after the potentially long model review. The action revokes its
 tokens at job cleanup. The ordinary workflow token reads sources, posts comments
 and requests protected merges and post-merge workflow dispatches. Only the App
-token writes the review check.
+token writes the review check. Outside admission uses a separate short-lived
+App token to record the spending reservation. The non-secret App ID is passed
+from admission to the kernel preparation job; that job has no Environment.
 The Actions job is named `Run reviewers and publish App check`. It is distinct
 from the App-issued `Protocol B / review` check, or `Protocol B / test review`
 in test mode. A green Actions job alone is not App acceptance.
 
 ## Review behavior
 
-The job runs trusted default-branch code and instructions. It never checks out
+The review and admission jobs run trusted default-branch code and instructions. Neither checks out
 or executes the candidate PR. Both approved models receive pinned source reads
 and web tools. Reports record actual returned model IDs, source reads and usage.
 There is no fallback model. Unfinished reviews and changed
 heads do not pass.
 
-Automatic reviews run only for PR authors whose current GitHub permission is
-write, maintain, or admin. Other authors get an App check saying "awaiting a
-collaborator's /protocol-b review". A current collaborator must post that exact
-command to start each review; a manual workflow dispatch is not a substitute
-for an outside author's PR. Permissions are checked through GitHub's API.
+Authors with current write, maintain or admin access keep their existing
+automatic review. Outside authors receive the bounded admission process below.
+A current write collaborator may still post `/protocol-b review` to request a
+round that admission refused. That command permits review and, for qualifying
+Lean changes, exact-head kernel preparation; it does not approve a merge.
+Permissions are checked through GitHub's API, not author-association text.
 
 Before review, and again before each model request, the gate reads required
 computation checks. A concluded failure blocks further model calls with "fix
-failing checks first". Pending checks can run in parallel with review. A PR
+failing checks first". Pending checks can run in parallel with a collaborator's
+review. An unattended outside review requires every required computation check
+to have passed, both before triage and before each full-review model request. A PR
 ordinarily gets at most four automatic rounds; the [light profile](#light-profile)
 limits qualifying PRs to one paid round before another explicit collaborator
 command. Started automatic rounds count even if interrupted. Each start is
@@ -84,13 +89,126 @@ The initially completed `action_required` check says that review has not been
 accepted. Finalization replaces that result. Cancellation or a lost runner
 therefore leaves a blocked check rather than an indefinitely running one.
 
-A complete diff and the exact declaration `No mathematical content changed.`
+A collaborator's complete diff and the exact declaration `No mathematical content changed.`
 permit the editorial path. It accepts trailing-whitespace-only Markdown changes
 outside policy paths and text-only corrections in the actual root files
 `README.md` and `CREDITS.md` when no mathematical or policy terms
 trigger escalation. Other changes receive both reviews. This is a conservative
 classification rule, not a proof that arbitrary natural language is harmless.
 Do not use the declaration to misclassify a change.
+
+### Unattended outside reviews
+
+The mechanical stage makes no model call. It requires a complete textual diff,
+at most 20 files and 2,000 changed lines, and completed template sections for
+Change and scope, Validation and limits, and AI use. It refuses workflow,
+script, test, kernel-contract, Lake/toolchain, manuscript, release, policy and
+review-record changes. Both sides of a rename are checked. Versioned research
+release trees remain protected. New notes eligible for an automatic merge go
+under `research/contributions/`. Existing research files require a collaborator's
+merge decision. Git entry modes are read at the pinned revision; links,
+submodules, missing entries and incomplete trees do not qualify. A refusal identifies its reason and allows a collaborator to
+request review explicitly.
+
+For Lean, at most three changed modules qualify. The whole changed source is
+read, not only added lines. Kernel/elaboration options beyond `autoImplicit
+false`, unsafe or external code, macros, elaborators, initialization, instances,
+notation and file/process operations require individual maintainer inspection.
+This is a conservative lexical screen, not a proof of safety. All existing
+kernel and source-review checks remain in force.
+
+The allowance is one unattended attempt per PR, three per author in seven
+days, five per UTC day and forty per UTC calendar month across the project.
+An attempt reserves its allowance before triage; rejection, interruption or
+provider failure does not refund it. Stable GitHub account IDs identify authors.
+A short admission job serializes the quota scan and reservation across PRs.
+The scan includes open and closed PRs in immutable creation order; duplicate
+or out-of-order results stop admission. A second, per-PR lock covers the
+entire review and publication job for every event route. A queued round
+reads the preceding round's findings after acquiring that lock.
+The reservation consists of an original bot intent comment plus a matching
+record from the dedicated App. Incomplete or ambiguous records stop new
+spending until reconciled. Time passing never proves that a request had no
+effect, and uncertain triage requests are not retried automatically.
+
+Triage makes one request to the pinned Astra model, with no tools, at most
+32,000 bytes of supplied PR material and 1,500 output tokens. Oversized input is
+refused rather than truncated, before scanning the reservation history. Other
+PRs' titles and descriptions are not included in this allowance or the prompt.
+Triage can flag a duplicate only when this PR's own material establishes it. It returns a category and `pass`, `reject` or
+`needs_maintainer`. A valid `pass` or `needs_maintainer` proceeds to the existing
+two-reviewer round; valid uncertainty requires a collaborator's merge decision.
+A malformed, missing or unconfirmed result stops before full review. Triage
+cannot accept mathematics or override a finding. Outside editorial changes
+also receive both full reviewers. Later rounds require `/protocol-b review`.
+
+After both reviews accept and all merge checks pass, an authenticated triage
+`pass` can support automatic merging in only two cases:
+
+- Modifications to `docs/building.md` only.
+- Newly added note/data files under `research/contributions/`, with suffix
+  `.md`, `.tex`, `.json`, `.csv`, `.tsv` or `.txt`.
+
+Deletions, renames and changes to existing research files do not qualify.
+Review, acceptance and verification filenames are excluded case-insensitively.
+The code rechecks the complete file list and Git entry modes before merging;
+a model's category cannot widen these sets. `README.md`, credits, release and
+policy documents, other documentation and all Lean contributions need an
+unedited `/protocol-b merge <full head SHA>` comment from a current write
+collaborator. The command uses existing current-head App acceptance without a
+model call, and keeps the same required-check, up-to-date and ruleset checks.
+It rereads current discussion and App-backed obligations before merging.
+A newer objection or interrupted review blocks the old acceptance; the
+merge command itself is authorization, not a disposition of a finding.
+Existing admin scope overrides remain usable only when current admin
+authorization and the discussion covered by that acceptance are unchanged.
+Lean helper merges remain manual until a compatible independent type-theory
+checker is established. A reviewer scope item still blocks unless an admin
+explicitly overrides it. No release authority is granted by this process.
+
+Research or Kernel workflow completion and the hourly maintenance event can
+reconsider an unstarted outside PR after its computations pass. Each wake reads
+at most ten pages of the open-PR list and examines a rotating window of eight
+PRs. The offset advances by eight per UTC hour, so a refused old PR cannot
+continually displace younger PRs. A full tenth page requires maintainer
+attention; an incomplete list is not used. All reads, including pagination,
+share a 120-call budget per wake. Admission shares a separate 240-call budget
+between the repository and App readers. These count API reads; GitHub reads are not automatically retried.
+Budget exhaustion stops admission.
+
+The App records admission start and every refusal against the exact head.
+Refused heads are skipped. Failed or pending computations become eligible for
+reconsideration after 15 minutes; author/project quota refusals after 24 hours.
+These are new mechanical checks, not replays of an admitted attempt. Permanent
+refusals and uncertain effects require a collaborator. An active explicit
+review command pauses unattended admission across the repository, including
+while that command waits for kernel evidence. Jobs that prepare evidence or
+call reviewers do not start after the run is cancelled.
+
+Only protected default-branch code runs; no triggering workflow artifact is
+executed. The hourly pass also recovers pending admission jobs replaced by
+GitHub's concurrency queue. Already reserved attempts are not replayed.
+GitHub's held first-time-contributor CI runs still need a maintainer to approve
+them; this change does not alter that repository setting.
+
+Main can advance between admission and acceptance. The same-base and up-to-date
+checks can then prevent merging, and a new head does not receive a second
+unattended attempt. A collaborator must integrate and request review again.
+
+For an uncertain intent, a maintainer reads the original run/attempt, original
+bot comment, matching App checks and retained artifact before taking action.
+Do not edit or delete the intent, refund its quota, or infer that a timed-out
+request had no effect. Confirm any surviving run is terminal. If its matching
+App record is missing or malformed, the lane stays closed until a separately
+reviewed repair preserves the original identity and counts that slot. There
+is no automatic reset or reconciliation command in this release. A collaborator
+can explicitly request another review without erasing the earlier evidence.
+
+Admission records retain the stage, reason, quota and original triage usage.
+The final App record and run artifact retain full-review usage. Reported token
+counters can overlap; they are not an invoice or an all-in cost total. The
+run artifact preserves complete mechanical diagnostics when the App summary
+shows only the reason. No second controller or local work journal is involved.
 
 Each finalized round also posts a readable summary before its compact JSON
 metadata. It shows both reviewer decisions, blocking findings, qualified
@@ -800,8 +918,10 @@ Renames, incomplete patches, manuscript/record changes and mixed code changes
 do not qualify through the focused-documents rule. The separate outside-author
 rule still applies to every outside contributor without reducing review scope.
 
-Outside contributors still need a write collaborator's `/protocol-b review`
-before any model call. One paid round runs both missing reviewers and may pass
+An outside contributor's first attempt may use the bounded unattended admission
+path described above. A refused or already-consumed attempt needs a write
+collaborator's `/protocol-b review` before further model calls. One paid round
+runs both missing reviewers and may pass
 normally if the review requirement is met. Otherwise the author can repair the
 change, and a maintainer chooses what happens next. Automatic pushes do not
 start a second paid round. A write collaborator may deliberately request another
@@ -840,13 +960,19 @@ not process isolation or a claim that a successful build authenticates itself.
 
 ### Direct kernel execution and secret separation
 
-Rollout restriction: do not use the Lean profile on outside pull requests
-until both the cache-provenance follow-up to PR133 has merged and the
-controlled live fork-dispatch test has passed with recorded evidence.
-The owner's PR133 overrides permit the infrastructure merge; they do not
-authorize outside-PR use. Before those two conditions are met, maintainers
-must not start production reviews of outside Lean PRs through this profile.
-The specifically authorized controlled fork test is the only test exception.
+The initial rollout prerequisites were satisfied on November 17, 2026:
+[PR137](https://github.com/elliotglazer/diophantine-z-q/pull/137), the
+cache-provenance follow-up to PR133, merged as
+`5c7ad7973b911ebc0ee1532cc8fcf5dbf70b52f4`, and the controlled fork-dispatch
+test passed. The [test record](reviews/fork-dispatch-2026-11-17/README.md)
+links the successful exact-head kernel run, the gate's authenticated preflight
+receipt and the original public report. The owner had authorized outside-PR
+use after those two prerequisites passed; the PR133 overrides alone did not
+authorize it. This was a controlled execution/provenance test on an
+admin-operated fork, not a test of unaffiliated-contributor authorization or
+of the new unattended admission path. Each outside PR still needs a current
+collaborator's review command or the separately verified unattended admission
+described above, and must pass all remaining source and evidence checks.
 
 A separate preparation job, without an environment or provider/App keys, waits
 up to 180 minutes for direct kernel execution at the exact reviewed head. Its
@@ -867,8 +993,9 @@ reference used by the pinned workflow. A workflow change needs a separately
 reviewed pin update; it cannot silently broaden this producer.
 
 On an outside author's Lean PR, a current collaborator's `/protocol-b review`
-command is the approval to create that branch in this repository and run the
-outside code there. The build uses the pinned workflow's read-only token and
+command, or a verified unattended admission under the limits above, permits
+creating that branch in this repository and running the outside code there.
+The build uses the pinned workflow's read-only token and
 receives no environment or secrets. It does not wait for the separate
 first-time-contributor approval used by fork `pull_request` runs. The reserved
 branch remains visible until the PR closes and its runs are confirmed terminal.
