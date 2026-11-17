@@ -23,7 +23,7 @@ open G0ModField
 /-- **A8's output for one fibre** (N5 L520-562): a finite Galois `L ⊆ ℚ̄` with `[L:ℚ] ≤ D`, a rational
 fibre `PK/K` with `K ≤ L` (a model of `P`'s surface), and `G_L` fixing every homomorphism between the
 conjugates of `PK.A` (`G4WeilRes.conjAction`: `L` is a Hom field). -/
-def HomFieldModel (u : ℚ) (P : QML3 Qbar) : Prop :=
+def HomFieldModel (_u : ℚ) (P : QML3 Qbar) : Prop :=
   ∃ (L : IF) (_ : FiniteDimensional ℚ L) (_ : IsGalois ℚ L), Module.finrank ℚ L ≤ heightD ∧
     ∃ (K : IF) (_ : FiniteDimensional ℚ K) (_ : IsGalois ℚ K) (hKL : K ≤ L) (PK : QML3 K),
       IsModelOver K PK.A P ∧ ∀ σ ∈ L.fixingSubgroup, G4WeilRes.conjAction K PK.A σ = 1

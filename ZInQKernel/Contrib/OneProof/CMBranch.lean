@@ -77,7 +77,10 @@ Faltings metric, `Δ(τ) = (2π)¹² η(τ)²⁴`; the general elliptic discrimi
 Silverman, Prop. 1.1). For an elliptic curve `E/K` with good reduction everywhere over `L ⊇ K` (an
 abelian-scheme group model `𝒢` of `E_L` over `𝓞_L`) the finite term vanishes and the stable height is
 the average over `σ : L → ℂ` of `−(1/12) log(|Δ(τ_σ)| (Im τ_σ)⁶)`, `τ_σ` a period of `E` at `σ`.
-Stated as the inequality `≤` (the half the manuscript uses, L594-613). -/
+Stated as the inequality `≤` (the half the manuscript uses, L594-613). Like R19, R20 and H5 it is read over
+the tree's `stableFaltingsHeight` (the infimum of model heights with the metric `(i/2)∫ω∧ω̄`, Faltings'
+original normalization); only `stableFaltingsHeight ≤ model height` (true by definition) and the model
+height of the abelian-scheme model being the printed `h(E/L)` are used in passing from (6.2) to this form. -/
 def CMHeight62 : Prop :=
   ∀ (K : Type) [Field K] [NumberField K] (L : Type) [Field L] [NumberField L] [Algebra K L]
     (E : ZInQ.DefFaltings.AbVar K), E.dim = 1 →
