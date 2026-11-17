@@ -63082,3 +63082,6 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [14295/14295] Built ZInQKernel.Contrib.OneProof.TYZThm33Adelic (7.1s)
+Build completed successfully (14295 jobs).
+EXIT 0
