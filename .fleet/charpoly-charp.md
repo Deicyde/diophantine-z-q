@@ -17,3 +17,4 @@ Manual fold `scratch/charpoly-charp/fold_edit.py` (= `fold.patch`, 14 H files): 
 
 **Remains (integrator).** Apply fold_edit.py on main (bring CharPolyLattice.lean along), full build, hash guard,
 render_open, drop the field's kinds/claims rows. Report: docs/research/charpoly-charp.md.
+Final: see docs/research/charpoly-charp.md.
