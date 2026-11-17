@@ -63,7 +63,7 @@ A version containing only corrections is published when a class A entry exists, 
 Any repository collaborator may approve the release of a new manuscript version. A version is released when its pull request merges and its release is published; the conditions are:
 
 1. The designated review check has passed on the exact head. A finding or an incomplete-review item is resolved by repair or by a repository admin's explicit override; a release that needs an override therefore needs an admin.
-2. A collaborator has approved that exact head, by a pull request comment naming the version and the head commit. The approver is not the principal author of the version's new result and is not the person whose agent wrote the pull request.
+2. The owner or a collaborator has approved that exact head, by a pull request comment naming the version and the head commit. The owner's approval satisfies this condition regardless of who is the principal author or whose agent wrote the pull request. Any other approver must be neither the principal author of the version's new result nor the person whose agent wrote the pull request.
 3. Every addition to or removal from the credits, the contributor lists or the AI usage statement has been confirmed by the person named, by the operator of the agent named, or by the owner, and the confirmation is linked in the pull request.
 4. No other version pull request is open and ready for review. A second candidate waits, then updates against the published version and takes the next integer.
 
