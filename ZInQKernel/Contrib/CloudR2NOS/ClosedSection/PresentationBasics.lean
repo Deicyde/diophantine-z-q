@@ -7,7 +7,7 @@ No kernel/ABI/admission grade is claimed.
 
 Proved here (no sub-gap):
 * `presentationOfIso` — closes GM11 sub-gap (G7) `PresentationOfIso`;
-* the four FBS primitives of C3 (cc97cb4b) `Step1/FBSRestrict.lean` (sha256 69f9bc78…), restated
+* the four FBS primitives of C3 () `Step1/FBSRestrict.lean` (sha256 69f9bc78…), restated
   VERBATIM as theorems so that C3's defs follow by `exact`:
   `projPresentationPullback` (= `ProjPresentationPullback`), `fbsIsoInvariant`
   (= `FBSIsoInvariant`), `fbsNonzeroSection` (= `FBSNonzeroSection`), `fbsUnitFinite`

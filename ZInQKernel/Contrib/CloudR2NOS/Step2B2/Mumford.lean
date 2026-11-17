@@ -1,5 +1,5 @@
 /-
-H5 FIX EDITION STEP-F1 (NEW edition, 2026-11-17, H5 lane3 cc97cb4b). SOURCE ONLY, UNCOMPILED by lane3.
+H5 FIX EDITION STEP-F1 (NEW edition, 2026-11-17, H5 lane3 ). SOURCE ONLY, UNCOMPILED by lane3.
 Base file: step2-b/src/ZInQKernel/Contrib/CloudR2NOS/Step2B2/Mumford.lean (sha256 1cc1b27a7e9f0141729ef488a8996c6ad646e15ca0d7e3d47d37dec259a1569e).
 Body changes relative to the base: ONLY P1 (record step-fix1/FIX_RECORD_STEP_F1.json). The base header below describes the BASE edition.
 -/

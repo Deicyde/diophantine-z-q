@@ -2,7 +2,7 @@
 Copyright (c) 2026 H5/NOS Round-2 lane4 contributors.
 Released under Apache 2.0 license as described in the project LICENSE.
 
-H5 closed-section plan GM10 / interface I4 in the EXACT consumer form fixed by C3 (cc97cb4b),
+H5 closed-section plan GM10 / interface I4 in the EXACT consumer form fixed by C3 (),
 `EulerCharTwistInvariant`. SOURCE ONLY, UNCOMPILED. Native HELD. No admission grade.
 
 Proof: the twist family `E := p₁^*M ⊗ (m^*N ⊗ p₁^*Nᵛ)` on `A ×_K A` over the SECOND factor

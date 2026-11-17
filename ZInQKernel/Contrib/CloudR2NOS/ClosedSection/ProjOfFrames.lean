@@ -3,7 +3,7 @@ Copyright (c) 2026 H5/NOS Round-2 lane4 contributors.
 Released under Apache 2.0 license as described in the project LICENSE.
 
 H5 closed-section GM11 sub-gap (G5) `PresentationOfFramesNear`, PROVED (shared with C2 Step 2).
-NEW EDITION (lane4 a940f2af, 2026-11-17; G5 fix, lead 2026-11-17T06:11Z). SOURCE ONLY, UNCOMPILED.
+NEW EDITION (lane4 , 2026-11-17; G5 fix, lead 2026-11-17T06:11Z). SOURCE ONLY, UNCOMPILED.
 
 The FLT construction (charts from frame coefficients, glued along the frame loci) now comes from the
 route-(E) NEW edition `ZInQKernel.Contrib.CloudR2NOS.Source.Theorems.Thm_AlgebraicGeometry_Scheme_Modules_exists_projPresentation_of_iSup_eq_top`

@@ -1,5 +1,5 @@
 /-
-H5 FIX EDITION STEP-F2 (NEW edition, 2026-11-17, H5 lane3 cc97cb4b). SOURCE ONLY, UNCOMPILED by lane3.
+H5 FIX EDITION STEP-F2 (NEW edition, 2026-11-17, H5 lane3 ). SOURCE ONLY, UNCOMPILED by lane3.
 Base file: step1-i1/src/ZInQKernel/Contrib/CloudR2NOS/Step1/I1Assembly.lean (sha256 25a34b357035f2e0c7a3318315963e922323be487cc30e2af70692ef45e3f2fb).
 Body change relative to the base: ONLY P4, the line `open scoped CategoryTheory.MonObj` inserted before `namespace` (record step-fix2/FIX_RECORD_STEP_F2.json). Any header below describes the BASE edition.
 -/

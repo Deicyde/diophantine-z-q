@@ -1,5 +1,5 @@
 /-
-H5 FIX EDITION STEP-F2 (NEW edition, 2026-11-17, H5 lane3 cc97cb4b). SOURCE ONLY, UNCOMPILED by lane3.
+H5 FIX EDITION STEP-F2 (NEW edition, 2026-11-17, H5 lane3 ). SOURCE ONLY, UNCOMPILED by lane3.
 Base file: step1-i1/src/ZInQKernel/Contrib/CloudR2NOS/Step1/ConstructorAssembly.lean (sha256 fd046b3948d3dc6a103c3693c72fd61eb7bbd4afee2e1eecb67fa89c48786711).
 Body change relative to the base: ONLY P5, the line `open CategoryTheory.CartesianMonoidalCategory` inserted before `namespace` (record step-fix2/FIX_RECORD_STEP_F2.json). Any header below describes the BASE edition.
 -/

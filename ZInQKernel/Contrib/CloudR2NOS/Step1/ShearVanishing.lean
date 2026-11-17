@@ -1,5 +1,5 @@
 /-
-H5 FIX EDITION STEP-F1 (NEW edition, 2026-11-17, H5 lane3 cc97cb4b). SOURCE ONLY, UNCOMPILED by lane3.
+H5 FIX EDITION STEP-F1 (NEW edition, 2026-11-17, H5 lane3 ). SOURCE ONLY, UNCOMPILED by lane3.
 Base file: step1-i1/src/ZInQKernel/Contrib/CloudR2NOS/Step1/ShearVanishing.lean (sha256 25a5d3e770b774511c30a32baa883d9f03a7302e1266fb2d0774f0a7febdf04d).
 Body changes relative to the base: ONLY P3 (record step-fix1/FIX_RECORD_STEP_F1.json). The base header below describes the BASE edition.
 -/

@@ -1,5 +1,5 @@
 /-
-NOS-CORE PROBE STAGING COPY (nos-core-probe-001, lane4 a940f2af, 2026-11-17). NOT an H5 edition:
+NOS-CORE PROBE STAGING COPY (nos-core-probe-001, lane4 , 2026-11-17). NOT an H5 edition:
 probe world only; it enters H5 only by the lead binding plus C6 review. No recorded port
 SHA exists for this module (lead 2026-11-17T06:06Z). Generated deterministically from the pinned
 upstream file by the documented lane4 port transform, as reproduced by the located C5 conformance

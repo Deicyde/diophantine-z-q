@@ -1,5 +1,5 @@
 /-
-NEW EDITION CANDIDATE 002 (H5 lane4 a940f2af, 2026-11-17, lead request 07:23Z). NOT a recovery: no recorded port
+NEW EDITION CANDIDATE 002 (H5 lane4 , 2026-11-17, lead request 07:23Z). NOT a recovery: no recorded port
 SHA exists for this module (lead 2026-11-17T06:06Z). Generated deterministically from the pinned
 upstream file by the documented lane4 port transform, as reproduced by the located C5 conformance
 pair (Thm/S_AlgebraicGeometry_Scheme_Modules_ProjPresentation_exists_of_iso), numeric options

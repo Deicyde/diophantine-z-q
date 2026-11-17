@@ -34,7 +34,9 @@ still blocked by the open items below.
 
 ## Provenance notes
 
-* Five files had a tooling name removed from a comment header only (no code change).
+* Comment-only normalization: internal tooling and work-session reference tokens were removed from comment
+  headers in later commits on this branch (no code change). Two superseded helper-authored files were removed;
+  the original modules they stood in for will be added once recovered.
 * Files compile individually with Lean's default limits; any non-numeric local switch carried over from an
   upstream source is disclosed in that file's header.
 

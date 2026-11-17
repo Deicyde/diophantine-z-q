@@ -2,7 +2,7 @@
 Copyright (c) 2026 H5/NOS Round-2 lane4 contributors.
 Released under Apache 2.0 license as described in the project LICENSE.
 
-H5 closed-section plan GM10 / interface I4 (consumer: C3 Step 1, session cc97cb4b).
+H5 closed-section plan GM10 / interface I4 (consumer: C3 Step 1, ).
 SOURCE ONLY, UNCOMPILED. Native HELD. No kernel/ABI/admission grade is claimed.
 
 Constancy of the native (W07) fibre Euler characteristic of an invertible sheaf in a

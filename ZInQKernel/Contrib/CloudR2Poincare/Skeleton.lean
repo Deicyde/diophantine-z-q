@@ -3,7 +3,7 @@ import ZInQKernel.Contrib.AVB1.Poincare
 /-!
 # H-72 (`ZInQ.Contrib.AVB1.PoincareComplement`): the lead's decomposition into three obligations
 
-Round 2, lead session c96b9ca0 (task cloud-r2-h72), 2026-11-14. Fixed statement:
+Round 2, lead  (task cloud-r2-h72), 2026-11-14. Fixed statement:
 `ZInQ.Contrib.AVB1.PoincareComplement` (`ZInQKernel/Contrib/AVB1/Poincare.lean` line 42 at fork `main`
 `cba8157f7d5d09a4a3c8462aba2f3245494a870e`, unchanged at the round-2 base `df98652a`).
 

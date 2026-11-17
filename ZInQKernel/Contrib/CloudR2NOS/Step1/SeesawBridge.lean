@@ -1,5 +1,5 @@
 /-
-H5 FIX EDITION STEP-F1 (NEW edition, 2026-11-17, H5 lane3 cc97cb4b). SOURCE ONLY, UNCOMPILED by lane3.
+H5 FIX EDITION STEP-F1 (NEW edition, 2026-11-17, H5 lane3 ). SOURCE ONLY, UNCOMPILED by lane3.
 Base file: step1-i1/src/ZInQKernel/Contrib/CloudR2NOS/Step1/SeesawBridge.lean (sha256 87559420572fa156a471d0b55304c433f86f72d9b1a6676d9653f9bfde2e02d7).
 Body changes relative to the base: ONLY P1 (record step-fix1/FIX_RECORD_STEP_F1.json). The base header below describes the BASE edition.
 -/

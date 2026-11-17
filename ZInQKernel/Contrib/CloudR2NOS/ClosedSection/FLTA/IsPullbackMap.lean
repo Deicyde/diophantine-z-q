@@ -2,7 +2,7 @@
 Copyright (c) 2026 H5/NOS Round-2 lane4 contributors.
 Released under Apache 2.0 license as described in the project LICENSE.
 
-NEW EDITION (lane4 a940f2af, 2026-11-17; G6 fix, lead 2026-11-17T06:11Z). The FLTA name
+NEW EDITION (lane4 , 2026-11-17; G6 fix, lead 2026-11-17T06:11Z). The FLTA name
 `ZInQ.Contrib.CloudR2NOS.ClosedSection.FLTA.AlgebraicGeometry.ProjSpace.isPullback_map` is now an `alias` of the lane4-port constant `ZInQ.Contrib.CloudW03NeronSurj.FLT.AlgebraicGeometry.ProjSpace.isPullback_map`, proved in the
 route-(E) NEW edition `ZInQKernel.Contrib.CloudR2NOS.Source.Theorems.Thm_AlgebraicGeometry_ProjSpace_isPullback_map` (documented lane4
 port transform with the published W03 / lane4 dual shims; upstream FLT@6e837e75

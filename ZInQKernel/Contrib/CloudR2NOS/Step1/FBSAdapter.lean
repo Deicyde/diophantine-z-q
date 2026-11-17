@@ -5,7 +5,7 @@ FBSUnitFiniteV2 (0f585ad3).
 plus G6 and FBS restriction with those primitives filled in. 2026-11-17. New file. SOURCE-ONLY,
 UNCOMPILED.
 
-Producer: C4 (a940f2af), `ZInQ.Contrib.CloudR2NOS.ClosedSection.PresentationBasics` in
+Producer: C4 (), `ZInQ.Contrib.CloudR2NOS.ClosedSection.PresentationBasics` in
 lane4-suppliedmodel-converse/patches/ZInQKernel/Contrib/CloudR2NOS/ClosedSection/PresentationBasics.lean,
 sha256 a03eb73c…. Its four statements are verbatim the four Props of FBSRestrict.lean; its local
 notations `Pres` and `FBS'` are the same FLT names as `ProjPresentation` and `FBS`.

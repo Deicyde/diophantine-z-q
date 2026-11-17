@@ -1,11 +1,11 @@
 /-
-H5 FIX EDITION STEP-F4 (NEW edition, 2026-11-17, H5 lane3 cc97cb4b). SOURCE ONLY, UNCOMPILED by lane3.
+H5 FIX EDITION STEP-F4 (NEW edition, 2026-11-17, H5 lane3 ). SOURCE ONLY, UNCOMPILED by lane3.
 Base file: step-fix3/ZInQKernel/Contrib/CloudR2NOS/Step1/Interfaces.lean (sha256 20f9b1bef0d9e4b765f9c0290cbafad5032c3ed8887542a66905b2708b7123dc).
 Body change relative to the base: ONLY P7, four explicit `haveI` instances on the twist inserted before
 `have h0 := eulerChar_eq_zero_of_shear …` (record step-fix4/FIX_RECORD_STEP_F4.json). Headers below describe the bases.
 -/
 /-
-H5 FIX EDITION STEP-F3 (NEW edition, 2026-11-17, H5 lane3 cc97cb4b). SOURCE ONLY, UNCOMPILED by lane3.
+H5 FIX EDITION STEP-F3 (NEW edition, 2026-11-17, H5 lane3 ). SOURCE ONLY, UNCOMPILED by lane3.
 Base file: step1-i1/src/ZInQKernel/Contrib/CloudR2NOS/Step1/Interfaces.lean (sha256 2c3fb3623ba4a17b23e34409edcacb8500a32fbd0b461686c60f72bd0df0f44c).
 Body change relative to the base: ONLY P6, a local `(Msbar Hs Ms).IsInvertible` instance (explicit W07 `Scheme.Modules.isInvertible_pullback`) after each of the 1 `intro k _ Hs _ Ms _ hinf` lines (record step-fix3/FIX_RECORD_STEP_F3.json). Any header below describes the BASE edition.
 -/
@@ -21,10 +21,10 @@ UNCOMPILED. Universe u, any characteristic or dimension. No Facts: every hypothe
 Consumer interfaces fixed with their producers. Each is stated for ANY abelian variety over an
 algebraically closed field, with the agreed conventions: points are morphisms `𝟙_ ⟶ A.X`, `transl`
 is RIGHT translation, `⊗`/`ᵛ` are W07 native, and pullback is `Scheme.Modules.pullback`.
-* I5a `TheoremOfSquare` (C2, 33aec63a). Accepted 02:31Z; it comes from the H71 cube, which is pending.
+* I5a `TheoremOfSquare` (C2, ). Accepted 02:31Z; it comes from the H71 cube, which is pending.
 * I5b `InversionTranslationInvariant` (C2). Accepted; C2 derives it from my GM1 `SeesawPulledBack`.
 * I0 `ExistsFBSLine` (C2). Accepted; it uses the prefixed FLT/Source `FiniteBySections`.
-* I4 `EulerCharTwistInvariant` (C4, a940f2af). Form sent 02:29Z; confirmation pending.
+* I4 `EulerCharTwistInvariant` (C4, ). Form sent 02:29Z; confirmation pending.
 
 Producer contract owned by this lane:
 * GM1 `SeesawPulledBack`: a line on `X ×_K T` that is trivial on all `K`-slices `X × {t}` is

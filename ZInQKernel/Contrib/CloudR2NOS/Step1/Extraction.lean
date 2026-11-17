@@ -1,5 +1,5 @@
 /-
-H5 FIX EDITION STEP-F3 (NEW edition, 2026-11-17, H5 lane3 cc97cb4b). SOURCE ONLY, UNCOMPILED by lane3.
+H5 FIX EDITION STEP-F3 (NEW edition, 2026-11-17, H5 lane3 ). SOURCE ONLY, UNCOMPILED by lane3.
 Base file: step1-i1/src/ZInQKernel/Contrib/CloudR2NOS/Step1/Extraction.lean (sha256 98b8e3339abe00f347959aaeab23709ffb824bf6b1b69a0e3b8c3b1dcb33a740).
 Body change relative to the base: ONLY P6, a local `(Msbar Hs Ms).IsInvertible` instance (explicit W07 `Scheme.Modules.isInvertible_pullback`) after each of the 1 `intro k _ Hs _ Ms _ hinf` lines (record step-fix3/FIX_RECORD_STEP_F3.json). Any header below describes the BASE edition.
 -/
