@@ -45,8 +45,8 @@ theorem centralValueZeroNode_proof : CentralValueZeroNode := by
   rw [Complex.Gamma_one, mul_one] at h0
   rcases mul_eq_zero.mp h0 with h | h
   · rcases mul_eq_zero.mp h with h | h
-    · exact absurd h (by simpa [Complex.cpow_eq_zero_iff] using hN')
-    · exact absurd h (by simpa [Complex.cpow_eq_zero_iff] using hpi)
+    · exact absurd h (by simp [Complex.cpow_eq_zero_iff, hN'])
+    · exact absurd h (by simp [Complex.cpow_eq_zero_iff, hpi])
   · exact h
 
 /-- **The final deduction** (tex L5736–5741). -/
@@ -83,8 +83,9 @@ theorem restrictedConverseGenuine_of_nodes (P : Prints) (hBr : BranchPackageNode
     (hMA : MissingAddressNode) : RestrictedConverseGenuine := by
   intro ℓ hℓ hsf hmod hSel
   have hadm : Adm ℓ := ⟨hℓ, hsf, hmod⟩
-  rcases hBr ℓ hadm hSel with h | ⟨pkg⟩
+  rcases hBr ℓ hadm hSel with h | hpkg
   · exact h
+  obtain ⟨pkg⟩ := hpkg
   by_contra hnot
   have hRN := rootNumberNode_proof P ℓ hadm hSel
   have hP : ProductOrderGeTwo (Ecurve ℓ) pkg.k := by
