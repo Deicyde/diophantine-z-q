@@ -1,4 +1,9 @@
 /-
+H5 lane C3 NOS-F1 edition (2026-11-17), Source only. In `isInertia_comap_of_comm` the bound variable `ι` is
+renamed to `j`: `ι` is notation once `MonObj` is opened, so it cannot be a binder name. Statements are unchanged up to
+the name of a bound variable; there is no other change.
+-/
+/-
 H5 lane3: NOSConverseSep GLUE LEMMAS (Parent target change, lead 07:41Z). 2026-11-17. New file.
 SOURCE-ONLY, UNCOMPILED. Universe 0, matching `NOSProof.NOSConverseSep`.
 
@@ -15,7 +20,7 @@ They are imported, never copied. The final theorem `nosConverseSep_of_converse` 
 Contents:
 * `isInertia_comap_of_comm`: inertia pulls back along a K-embedding of fields compatible with the
   automorphisms. The proof follows main's `UnipotentForward.inertiaRestrict'` (which compiles), with
-  the inclusion `K^s → Ω` replaced by an arbitrary `ι`.
+  the inclusion `K^s → Ω` replaced by an arbitrary `j`.
 * `inertiaTrivialOn_comap_equiv`: inertia-triviality transports along a K-isomorphism `e : L₁ ≃ L₂`,
   with `w ↦ w.comap e.symm`. The proof follows main's `NOSSepDict.inertiaTrivialOn_sep_iff`.
 * `exists_extension_sepClosure`: every valuation subring of `K^s = separableClosure K K̄` extends to
@@ -44,15 +49,15 @@ namespace ZInQ.Contrib.CloudR2NOS.NOSSepGlue
 
 /-! ## 1. Inertia pulls back along a compatible embedding -/
 
-/-- If `ι : L₁ → L₂` is a K-embedding with `ι ∘ τ = σ ∘ ι` and `σ` lies in the inertia group of
-`w ⊆ L₂`, then `τ` lies in the inertia group of `w.comap ι`. -/
+/-- If `j : L₁ → L₂` is a K-embedding with `j ∘ τ = σ ∘ j` and `σ` lies in the inertia group of
+`w ⊆ L₂`, then `τ` lies in the inertia group of `w.comap j`. -/
 theorem isInertia_comap_of_comm {K L₁ L₂ : Type} [Field K] [Field L₁] [Field L₂] [Algebra K L₁]
-    [Algebra K L₂] (ι : L₁ →ₐ[K] L₂) (w : ValuationSubring L₂) (σ : L₂ ≃ₐ[K] L₂)
-    (hσ : PkgI2.IsInertia w σ) (τ : L₁ ≃ₐ[K] L₁) (hcomm : ∀ x, ι (τ x) = σ (ι x)) :
-    PkgI2.IsInertia (w.comap (ι : L₁ →+* L₂)) τ := by
+    [Algebra K L₂] (j : L₁ →ₐ[K] L₂) (w : ValuationSubring L₂) (σ : L₂ ≃ₐ[K] L₂)
+    (hσ : PkgI2.IsInertia w σ) (τ : L₁ ≃ₐ[K] L₁) (hcomm : ∀ x, j (τ x) = σ (j x)) :
+    PkgI2.IsInertia (w.comap (j : L₁ →+* L₂)) τ := by
   obtain ⟨hd, hi⟩ := hσ
   have hs : σ • w = w := hd
-  set w' := w.comap (ι : L₁ →+* L₂)
+  set w' := w.comap (j : L₁ →+* L₂)
   have hd' : τ ∈ w'.decompositionSubgroup K := by
     show τ • w' = w'
     ext y
@@ -60,28 +65,28 @@ theorem isInertia_comap_of_comm {K L₁ L₂ : Type} [Field K] [Field L₁] [Fie
       AlgEquiv.smul_def]
     constructor
     · rintro ⟨z, hz, rfl⟩
-      show ι (τ z) ∈ w
+      show j (τ z) ∈ w
       rw [hcomm, ← hs]
-      exact ⟨ι z, hz, rfl⟩
+      exact ⟨j z, hz, rfl⟩
     · intro hy
       refine ⟨τ.symm y, ?_, τ.apply_symm_apply y⟩
-      have hy' : ι y ∈ σ • w := by rw [hs]; exact hy
-      have hy'' : ι y ∈ σ • (w : Set L₂) := by
+      have hy' : j y ∈ σ • w := by rw [hs]; exact hy
+      have hy'' : j y ∈ σ • (w : Set L₂) := by
         rw [← ValuationSubring.coe_pointwise_smul]; exact hy'
       obtain ⟨u, hu, hu'⟩ := Set.mem_smul_set.mp hy''
       rw [AlgEquiv.smul_def] at hu'
-      have : ι (τ.symm y) = u := by
+      have : j (τ.symm y) = u := by
         apply σ.injective
         rw [← hcomm, τ.apply_symm_apply]
         exact hu'.symm
-      show ι (τ.symm y) ∈ w
+      show j (τ.symm y) ∈ w
       rw [this]; exact hu
   refine ⟨hd', ?_⟩
   rw [ValuationSubring.inertiaSubgroup, MonoidHom.mem_ker] at hi ⊢
   refine RingEquiv.ext fun r => ?_
   obtain ⟨a, rfl⟩ := IsLocalRing.residue_surjective r
   -- the image of `a` in `w`
-  let b : w := ⟨ι (a : L₁), a.2⟩
+  let b : w := ⟨j (a : L₁), a.2⟩
   have h1 := RingEquiv.congr_fun hi (IsLocalRing.residue w b)
   change (⟨σ, hd⟩ : w.decompositionSubgroup K) • IsLocalRing.residue w b =
     IsLocalRing.residue w b at h1
@@ -90,15 +95,15 @@ theorem isInertia_comap_of_comm {K L₁ L₂ : Type} [Field K] [Field L₁] [Fie
   rw [← IsLocalRing.ResidueField.residue_smul] at h1 ⊢
   rw [← sub_eq_zero, ← map_sub, IsLocalRing.residue_eq_zero_iff] at h1 ⊢
   let f : w' →+* w :=
-    { toFun := fun x => ⟨ι (x : L₁), x.2⟩
-      map_one' := Subtype.ext (map_one ι)
-      map_mul' := fun x y => Subtype.ext (map_mul ι (x : L₁) (y : L₁))
-      map_zero' := Subtype.ext (map_zero ι)
-      map_add' := fun x y => Subtype.ext (map_add ι (x : L₁) (y : L₁)) }
+    { toFun := fun x => ⟨j (x : L₁), x.2⟩
+      map_one' := Subtype.ext (map_one j)
+      map_mul' := fun x y => Subtype.ext (map_mul j (x : L₁) (y : L₁))
+      map_zero' := Subtype.ext (map_zero j)
+      map_add' := fun x y => Subtype.ext (map_add j (x : L₁) (y : L₁)) }
   have hfc : f ((⟨τ, hd'⟩ : w'.decompositionSubgroup K) • a - a) =
       (⟨σ, hd⟩ : w.decompositionSubgroup K) • b - b := by
     apply Subtype.ext
-    change ι (τ (a : L₁) - (a : L₁)) = σ (ι (a : L₁)) - ι (a : L₁)
+    change j (τ (a : L₁) - (a : L₁)) = σ (j (a : L₁)) - j (a : L₁)
     rw [map_sub, hcomm]
   intro hu
   exact h1 (by rw [← hfc]; exact hu.map f)

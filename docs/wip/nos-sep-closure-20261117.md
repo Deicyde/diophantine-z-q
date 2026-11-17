@@ -21,9 +21,26 @@ Toolchain: the repository's pinned Lean 4.35.0 / Mathlib.
 `MainLeafConditional` proves the open leaf **assuming** the converse statement; `MainLeaf` (unconditional) is
 still blocked by the open items below.
 
+## Milestone (2026-11-17): final shape checked against main's real definitions
+
+`ZInQ.Contrib.CloudR2NOS.NOSSepGlue.neronOggShafarevichSep_of_converse` compiles at Lean's default limits, on top of
+main's own compiled modules and the owner's `NeronOggShafarevich.lean`. Its conclusion is main's
+`NOSSepDict.NeronOggShafarevichSep` exactly, and `#print axioms` reports only `propext`, `Classical.choice` and
+`Quot.sound`. It takes as a **hypothesis** the converse over the algebraic closure:
+
+```
+∀ (K : Type) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O]
+  (w : ValuationSubring (AlgebraicClosure K)), w.comap (algebraMap K (AlgebraicClosure K)) = O →
+  ∀ (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A],
+    {m : ℕ | 0 < m ∧ IsUnit (m : O) ∧ InertiaTrivialOn A w m}.Infinite → HasGoodReduction A O
+```
+
+So the open leaf reduces, by compiled proof, to this converse statement. **The converse itself is not yet proved**;
+it is what the rest of this branch is building toward (`MainLeaf`, unconditional, is still blocked).
+
 ## Native build status (Lean default proof limits; no raised numeric options)
 
-* 421 of the 610 new modules have compiled so far in our native build, on top of main's own
+* 424 of the 608 new modules on this branch have compiled so far in our native build, on top of main's own
   compiled modules; the rest are queued or blocked.
 * Open blockers on the path to `MainLeaf`:
   * the special-fibre torsion results (two FLT-derived solution modules; the supporting FLT port is being
