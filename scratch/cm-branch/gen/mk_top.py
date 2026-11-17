@@ -47,10 +47,10 @@ noncomputable section
 
 namespace CMBranch
 /-- **The CM-branch inputs** (docs/research/cm-branch.md §4): the leaves `FowlerProp27`, `CMHeight62`,
-`CMjDegree`, `CMPotentialGood` and the glue `CMFibreSplit`, `ReducedCMPeriod`,
+`CMjDegree`, `CMPotentialGood` and the glue `CMHomFieldSplit` (matrix units on A8's model; A8 itself is proved, `CMBranch/A8.lean`), `ReducedCMPeriod`,
 `HeightAdditivityUpper`. -/
 structure CMInputs : Prop where
-  cmFibreSplit : CMFibreSplit
+  cmHomFieldSplit : CMHomFieldSplit
   fowlerProp27 : FowlerProp27
   cmjDegree : CMjDegree
   cmPotentialGood : CMPotentialGood
@@ -67,7 +67,7 @@ theorem sixContactMin_of_open4_hf_pz_eb_cm (r : OpenResearchLeaves2EB) (t : Open
     (l : OpenAddedLeaves4PZ) (g : OpenGlue4) (h20 : G0Split.R20Lower) (hYu : QMLattice.YuB6Alg)
     (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) (c : CMBranch.CMInputs) :
     ZInQ.SixContactMin :=
-  sixContactMin_of_open4_cm r t l g h20 hYu hθ c.cmFibreSplit c.fowlerProp27 c.cmjDegree
+  sixContactMin_of_open4_cm r t l g h20 hYu hθ c.cmHomFieldSplit c.fowlerProp27 c.cmjDegree
     c.cmPotentialGood c.cmHeight62 c.reducedCMPeriod c.heightAdditivityUpper
 
 '''

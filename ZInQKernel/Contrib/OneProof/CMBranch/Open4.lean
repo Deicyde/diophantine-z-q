@@ -1,4 +1,4 @@
-import ZInQKernel.Contrib.OneProof.CMBranch.Localize
+import ZInQKernel.Contrib.OneProof.CMBranch.A8
 
 /-! # cm-branch: `SixContactMin` at the generation of `sixContactMin_of_open4_hf_pz_eb`, with the manuscript's CM branch
 
@@ -21,13 +21,18 @@ open CategoryTheory AlgebraicGeometry G0Split
 theorem sixContactMin_of_open4_cm (r : OpenResearchLeaves2EB) (t : OpenTextbookLeaves4HFPZ)
     (l : OpenAddedLeaves4PZ) (g : OpenGlue4) (h20 : G0Split.R20Lower) (hYu : QMLattice.YuB6Alg)
     (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM)
-    (hSplit : CMBranch.CMFibreSplit) (hF : CMBranch.FowlerProp27) (hJ : CMBranch.CMjDegree)
+    (hS : CMBranch.CMHomFieldSplit) (hF : CMBranch.FowlerProp27) (hJ : CMBranch.CMjDegree)
     (hPG : CMBranch.CMPotentialGood) (h62 : CMBranch.CMHeight62) (hRP : CMBranch.ReducedCMPeriod)
     (hAddU : CMBranch.HeightAdditivityUpper) : ZInQ.SixContactMin :=
   let t2 := textbookLeaves2_of_open3_hf_pz (textbookLeaves3_of_open4_hf_pz t)
   let r3 := researchLeaves3_of_open2_eb r
   let t3 := textbookLeaves_of_open2_hf_pz t2
   have hMob : LeafQM.AV.Pin.MobiusGlue := mobiusGlue_of_t5' t.t5
+  have hCover : G0ModField.FibreCoverExists := (G0ModField.fibreCoverExists_of_propTSAll' t.t5
+        (propTSAll_of_pieces3 r.r1r2 t.t5 l.y3Connected l.qmAutCard l.serreRigidity3 l.alFixedPoints
+          chartProper_proved4 chartQuasiFinite_proved4 g.heckeVertWitness) unramifiedConjugates_proved)
+  have hSplit : CMBranch.CMFibreSplit :=
+    CMBranch.cmFibreSplit_of hCover t.t6 r.r7a r.r6 t.t5 hS
   have hFSNC : CMBranch.FibreSimpleNC :=
     CMBranch.fibreSimpleNC_of_pieces_hf hYu
       (G0FibreSimple.endDivisionDescent_of G0FibreSimple.baseChangeFaithful_proof
