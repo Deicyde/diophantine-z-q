@@ -425,3 +425,89 @@ quadratic defect, low-weight trace closure, or the unrestricted Hecke leaf.
 Warm imports and separate source review are not an independent cold replay
 or full-project acceptance. N ≤ 6 remains the unconditional original-contract
 extent; the all-level result is a conditional reduction, not completion.
+
+## Actual distribution, Fourier and quadratic checkpoint: 56 modules
+
+Seven further modules provide the actual torsion Fourier kernel and global
+comparison, general-degree raw and zero-extended distribution, a shared
+actual Weierstrass torsion-value convention, all-degree x-distribution, and
+the concrete torsion quadratic-addition relation. All previously published
+49 mathematical source editions and both historical audits are preserved.
+
+The full `WeightTwoAudit.lean` co-imports all 56 mathematical modules. It
+checks all 769 named public proofs/instances and 56 selected definitions or
+constructions. All 825 records contain at most `propext`, `Classical.choice`,
+`Quot.sound`, with no `sorryAx`. A definition audit is not proof of the defined
+predicate or its mathematical identification: `PrincipalProductSpanning`
+remains explicitly unproved, and the quadratic value's Eisenstein membership
+is not established by defining it.
+
+Every new mathematical module was compiled and independently source-reviewed
+in full. Literal component audits check:
+
+- actual zero-extended Fourier duality for every positive N and every integer
+  label, with factor −1/N and pairing exponent `br−as`;
+- raw distribution at admissible images and zero-extended distribution at
+  arbitrary images, for every positive degree and level;
+- actual Mathlib Weierstrass x-distribution at every integer label, with n²
+  scaling and the zero convention; and the vanishing sum over nonzero
+  n-torsion, without any individual-value vanishing claim;
+- actual torsion Frobenius–Stickelberger and the equivalent quadratic-addition
+  relation at three admissible labels. The first-coordinate completions and
+  the proven identical finite-part constants are explicitly connected.
+
+The Fourier proof uses a genuine derivative-defined removable quotient and
+an independently proved common entire numerator. Residues cancel at every
+candidate pole through finite character orthogonality; constancy and its
+zero value are proved, not assumed. It contains no conditional infinite-sum
+interchange or Fourier-defined torsion family.
+
+The x-distribution differentiates on a common zero-free neighborhood. Its
+bad-image case comes from cancellation of the actual Weierstrass double
+poles and normalized finite parts, not from treating an even function as
+odd. The quadratic relation is an algebraic restatement of the genuine
+analytic addition theorem; it does not assert that the resulting defect is
+Eisenstein. All three admissibility hypotheses are essential and visible.
+
+Commands at the same pinned toolchain include:
+
+```sh
+lake --no-cache --no-ansi build +ZInQKernel.Contrib.OneProof.HeckePrimeRationality.AllLevelTorsionFourierComparison:olean
+lake --no-cache --no-ansi build +ZInQKernel.Contrib.OneProof.HeckePrimeRationality.AllLevelTorsionDistributionNatRegular:olean
+lake --no-cache --no-ansi build +ZInQKernel.Contrib.OneProof.HeckePrimeRationality.AllLevelWeierstrassDistributionNat:olean
+lake --no-cache --no-ansi build +ZInQKernel.Contrib.OneProof.HeckePrimeRationality.TorsionQuadraticAddition:olean
+lake --no-cache env lean ZInQKernel/Contrib/OneProof/HeckePrimeRationality/WeightTwoAudit.lean
+```
+
+All final builds and audits exited 0. Exact complete audit SHA256:
+`d0762aaf5623b43286295935ae57eb1b91584395defb132d6b30d94b8b0106a0`.
+
+Exact new source editions:
+
+- `AllLevelTorsionFourierKernel.lean`:
+  `469560fbd136fd4de025b5e5f5d5e4347d63ff49a45d1dbb49a9d8c881e50ba0`
+- `AllLevelTorsionFourierComparison.lean`:
+  `eaa8729e3b4a621491f2c35e86a5e2955df6adc098bdc304be22ba9c393b0a1f`
+- `AllLevelTorsionDistributionNat.lean`:
+  `e91830e4baa8affdd41c43abb02c8164575cab021bef8e4b8746fac0785fb92d`
+- `AllLevelTorsionDistributionNatRegular.lean`:
+  `c7219a6e35b250eb96cc47e5bca6e08d525c135950cd114fdcd937b9346d8ced`
+- `TorsionWeierstrassData.lean`:
+  `4561ad592f0f466df3e610d0dde8aa0383fdc0478463b2e073e42091e1ea30de`
+- `AllLevelWeierstrassDistributionNat.lean`:
+  `fc4fef9595b749b0701c68692f1f6dfd144eaaf31836dff1a69af6cd839de3ec`
+- `TorsionQuadraticAddition.lean`:
+  `6f3587fe8511d9be8a58a12230f36bd975befb8ddcd4f8001947eab84cfaba06`
+
+The concrete values are functions of the actual completed theta and
+Weierstrass constructions with explicit zero conventions. Naming the
+quadratic value μ does not itself identify it with a genuine Eisenstein
+series. The μ/x Fourier identities, that Eisenstein identification,
+low-weight trace closure and principal product spanning remain unproved
+in this checkpoint. Thus the original unrestricted Hecke leaf remains OPEN;
+N ≤ 6 remains the unconditional original-contract extent. No original
+hypothesis, dependency pin, assembly or public proof history is altered.
+
+These are ordinary pinned compilations with disclosed warm imports and
+complete independent source reviews, not independent cold replay of every
+imported proof or a full-project acceptance certificate.

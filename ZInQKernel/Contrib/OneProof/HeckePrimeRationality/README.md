@@ -55,15 +55,26 @@ are proved in the reduction, not hidden premises.
 - The actual completed odd theta H has proved holomorphy, quasi-periods,
   global lattice zero set and simple origin zero. Its multiplication identity
   is proved for every positive division degree, including degree one and zeros.
-- Two-division torsion distribution follows from that actual identity.
-  The raw statement requires an admissible image; a separately defined zero
-  extension gives the statement for every integer label. It is n=2 only.
+- Torsion distribution follows from that actual identity in every positive
+  degree. The raw statement requires an admissible image; the established
+  zero extension gives the statement for every integer label. Only the full
+  sum is asserted to vanish over a zero-class fiber, not each individual term.
+- The intrinsic theta kernel gives actual torsion Fourier duality at every
+  positive level: the normalizing factor is −1/N and the tau-first pairing
+  exponent is `br−as`. Its poles are analytically cancelled; no Fourier or
+  extension identity is assumed.
 - Mathlib's actual `(1,τ)` Weierstrass function is identified off its lattice
   with `−(H'/H)' + H'''(0)/(3H'(0))`. The poles are analytically cancelled
   and the finite-part normalization is proved, not assumed.
 - Direct completed-theta Frobenius–Stickelberger addition is proved on its
   nonzero-denominator domain, with the actual derivative-defined finite part.
-  It does not establish Eisenstein membership of the quadratic defect.
+  Its concrete torsion consequence is also proved:
+  `λP λQ − λP λS − λQ λS = −μP − μQ − μS` for three admissible labels
+  `S = P + Q`. This does not establish Eisenstein membership of the defect.
+- Actual Weierstrass torsion values satisfy distribution in every positive
+  degree, with factor n² and the explicit zero convention for bad labels.
+  The full sum over nonzero n-torsion vanishes; no individual-value vanishing
+  claim is made.
 
 Raw excluded labels are not representative-independent: the zero-label
 control proves values 1/2 and 3/2 and refutes naive raw distribution. The
@@ -80,16 +91,17 @@ The actual principal Eisenstein-product spanning theorem remains missing.
 The classical source is Khuri-Makdisi, arXiv:0903.1439v6, Theorem 5.1 and its
 generator theorem: same principal level N ≥ 3, weight ≥ 2, base field C.
 The analytic constructions above do not substitute for its proof. Genuine
-Eisenstein identification, torsion Fourier duality, low-weight trace closure
+Eisenstein identification, the μ/x Fourier identities, low-weight trace closure
 and the spanning argument must still be bound to the actual forms.
 The Γ₁ `(0,b)` family alone cannot replace the principal family.
 
-The current 49-module audit checks 660 named public proofs/instances and
-40 selected definitions with at most `propext`, `Classical.choice`,
+The current 56-module audit checks 769 named public proofs/instances and
+56 selected definitions or constructions with at most `propext`, `Classical.choice`,
 `Quot.sound`, and no `sorryAx`. **Auditing a predicate's definition does not
 prove that predicate**: `PrincipalProductSpanning` is still an input.
-See `CHECKS.md` and `AnalyticAudit.lean` for exact editions and commands.
-The earlier `Audit.lean` preserves the 34-module checkpoint.
+See `CHECKS.md` and `WeightTwoAudit.lean` for exact editions and commands.
+The earlier `Audit.lean` and `AnalyticAudit.lean` preserve the 34- and 49-module
+checkpoints.
 
 These are ordinary pinned compilations plus complete separate source reviews
 with warm imports, not independent cold replay of all imported constants or
