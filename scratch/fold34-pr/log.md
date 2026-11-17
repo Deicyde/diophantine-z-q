@@ -20,7 +20,7 @@ render_open count at base: 35 open (29 H, strictest 11/18, 6 others).
   unsafe, implemented_by, extern, run_cmd/run_tac/run_elab, addDecl, skipKernelTC, reduceBool, csimp, macro/elab/
   syntax, initialize, #eval, debug.* (VERIFIED).
 - Build (VERIFIED): `lake build ZInQKernel.Contrib.OneProof.MumfordTorsionAlgClosed` succeeded, 10693 jobs, 1343
-  modules built, 23 min wall, no error (scratch/fold34-pr/build54.txt, untracked: *.txt build logs kept locally;
+  modules built, 23 min wall, no error (summary scratch/fold34-pr/build54-summary.txt;
   only warnings: linters). Lake's default target builds only ZInQKernel.lean's import closure, so the 8 PR modules
   the provider does not reach are not built by `lake build ZInQKernel` either.
 - `#discharges` (scratch/fold34-pr/Discharges54.lean, output discharges54-output.txt) (VERIFIED):
