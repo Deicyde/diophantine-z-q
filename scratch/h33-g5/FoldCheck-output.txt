@@ -12,3 +12,6 @@
 'ZInQ.AdelicX0.gamma0OrbitsEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.AdelicX0.f0_tyzP5' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.AdelicX0.f0_tyzP7' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.H33G5.x0Field_eq_adjoin_ratFnSh' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.H33G5.isRatModFnMero_j' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.H33G5.isRatModFnMero_jN' depends on axioms: [propext, Classical.choice, Quot.sound]

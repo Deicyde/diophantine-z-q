@@ -82,3 +82,6 @@ end ZInQ.Contrib.TYZChain
 #print axioms ZInQ.AdelicX0.gamma0OrbitsEquiv
 #print axioms ZInQ.AdelicX0.f0_tyzP5
 #print axioms ZInQ.AdelicX0.f0_tyzP7
+#print axioms ZInQ.H33G5.x0Field_eq_adjoin_ratFnSh
+#print axioms ZInQ.H33G5.isRatModFnMero_j
+#print axioms ZInQ.H33G5.isRatModFnMero_jN
