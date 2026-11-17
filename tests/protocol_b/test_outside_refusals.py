@@ -174,6 +174,8 @@ class Categories(unittest.TestCase):
                     self.assertFalse(gate.outside_merge_category(category,[{**file(path),'status':status}]),(path,status,category))
 
     def test_only_added_notes_and_modified_allowlisted_docs_are_eligible(self):
+        for path in ('docs/Building.md', 'Docs/building.md', 'DOCS/BUILDING.MD'):
+            self.assertFalse(gate.outside_merge_category('docs', [file(path)]))
         for status in ('added','modified','removed','renamed','copied',None):
             self.assertEqual(gate.outside_merge_category('docs',[{**file(),'status':status}]),status=='modified')
             self.assertEqual(gate.outside_merge_category('improvement_note',[
