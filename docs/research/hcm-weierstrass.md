@@ -39,8 +39,18 @@ adds no hypotheses. Everything below is VERIFIED: it compiles, and `#print axiom
    ```
    `ShimuraThm54Biholo` is Shimura's theorem with "analytic isomorphism" meaning `IsAnalyticIso` (section 3).
 
-`#discharges`: see section 5. In the fold, `hCM` is replaced by `ShimuraThm54Biholo`
-(`scratch/hcm-weierstrass/FoldCheck.lean`, `autofold.json`). The fold is manual, since `hCM` is a top-level hypothesis.
+`#discharges` (VERIFIED, `scratch/hcm-weierstrass/Discharges-output.txt`):
+```
+DISCHARGES [hCM] by ZInQ.Contrib.HCMWeierstrass.shimuraThm54_of_biholo
+  still assumes: [ZInQ.Contrib.HCMWeierstrass.ShimuraThm54Biholo]
+  axioms: [propext, Classical.choice, Quot.sound]
+```
+In the fold, `hCM` is replaced by `ShimuraThm54Biholo`. The fold is manual, since `hCM` is a top-level hypothesis
+(`scratch/hcm-weierstrass/FoldCheck.lean`, standard axioms; `autofold.json`).
+
+A second, stronger fold candidate is in `scratch/hcm-weierstrass/Combined.lean` (section 7). Its leaf
+`ShimuraThm54LocalBiholo` combines this file's analytic isomorphisms with hcm-lattice's `p`-component `s⁻¹𝔞`, so it
+removes G1 and R2 together.
 
 With this, the rating of `hCM` depends only on two things: R2 (Shimura's §5.2 definition of `s⁻¹𝔞` through
 localizations, against the Lean `sInvLat` defined through the closure in the finite adeles), and the reading of the
@@ -185,8 +195,14 @@ Why `ShimuraThm54Biholo → ShimuraThm54` holds (`shimuraThm54_of_biholo`):
 
 * `lake build ZInQKernel.Contrib.OneProof.ShimuraThm54Biholo`: Build completed successfully, 37 s for the file.
 * Axioms: `scratch/hcm-weierstrass/Axioms-output.txt`.
-* `#discharges`: `scratch/hcm-weierstrass/Discharges-output.txt` (see the log for the outcome).
-* Fold: `scratch/hcm-weierstrass/FoldCheck.lean` (output `FoldCheck-output.txt`).
+* `lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges`: Build completed successfully (16047 jobs).
+* `#discharges`: `DISCHARGES [hCM] by ZInQ.Contrib.HCMWeierstrass.shimuraThm54_of_biholo`. It still assumes
+  `[ShimuraThm54Biholo]`, and the axioms are standard (`scratch/hcm-weierstrass/Discharges-output.txt`).
+* Fold: `scratch/hcm-weierstrass/FoldCheck.lean` (output `FoldCheck-output.txt`). Both theorems use only the standard
+  axioms:
+  * `frozenTarget_hCMBiholo`, which is `frozenTarget` with `hCM` filled;
+  * `frozenTarget_hCMBiholo'`, the folded `Main.lean` body.
+* Combined leaf: `scratch/hcm-weierstrass/Combined.lean` (output `Combined-output.txt`), standard axioms.
 * The file has no `sorry`, no `axiom`, and no `#eval`, `run_cmd`, `initialize`, `syntax`, `notation` or macros.
   All instances are `scoped`, except the Prop instance `isShortNF_map`.
 
@@ -209,3 +225,22 @@ Why `ShimuraThm54Biholo → ShimuraThm54` holds (`shimuraThm54_of_biholo`):
 * **This file** builds the complex manifold `E(ℂ)` with Mathlib's `ChartedSpace` and `IsManifold`, and proves that the
   Weierstrass map is a local biholomorphism (Mathlib's `IsLocalDiffeomorph`) with the right fibres. That is the
   printed notion itself.
+
+**Bridge and combined leaf** (VERIFIED, `scratch/hcm-weierstrass/Combined.lean`). The file has two parts:
+* hcm-lattice's `HCMLattice.lean` (origin/wip/hcm-lattice `b3d51684`), copied verbatim except for the import;
+* about 90 new lines, which prove:
+  * `hcmLattice_isAnalyticIso_iff`: with `ξ(0) = O`, hcm-lattice's `IsAnalyticIso` (holomorphic into `ℙ²`, immersion,
+    bijective on `ℂ/L`) is equivalent to this file's `IsAnalyticIso`. The route goes through `IsAnalyticUnif`:
+    hcm-lattice's `isAnalyticUnif_of_holo` and `isAnalyticIso_of_unif`, then `isAnalyticUnif_iff_isAnalyticIso_zero`.
+    So hcm-lattice's docstring claim "this is a biholomorphism" is now a theorem.
+  * `ShimuraThm54LocalBiholo` and `shimuraThm54_of_localBiholo : ShimuraThm54LocalBiholo → ShimuraThm54`. The leaf
+    uses the print's analytic isomorphisms (this file's `IsAnalyticIso`, with `ξ(0) = O` and no group law asked of
+    `ξ'`) and the print's `s⁻¹𝔞` and `s⁻¹u` through `p`-components (hcm-lattice's `locLat`, `ideleComp`, `diagP`).
+
+  The proof combines hcm-lattice's `locLat_sInvLat`, `exists_periodPair_sInvLat` and `rep_local_of_global` with this
+  file's dictionary.
+
+**Recommendation for the fold.** If hcm-lattice's file enters `ZInQKernel/Contrib/OneProof/`, the new part of
+`Combined.lean` becomes a short Contrib file importing both. `hCM` is then replaced by `ShimuraThm54LocalBiholo`,
+proposed published / LEAF / LEAF, which leaves only the reading of the theorem number and wording. Otherwise, fold
+`ShimuraThm54Biholo` as in section 6.
