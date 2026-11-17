@@ -127,6 +127,12 @@ are proved in the reduction, not hidden premises.
   factorial-level inclusions. The actual normalized trace descends upward
   images and scaled-generator combinations and preserves the upper span
   after restriction. Arbitrary lower-level series-span closure is not proved.
+- The actual Weierstrass derivative y=℘′ has an absolutely convergent
+  weight-three inverse-cube series and a derived ordinary third kernel jet.
+  Finite cubic inversion gives actual weight-three modular forms for every
+  positive level and all integer labels, including the zero convention.
+  At N ≥ 3 they belong to the genuine Good degree-three product span at
+  the same level. No whole weight-three space is asserted to be spanned.
 
 Raw excluded labels are not representative-independent: the zero-label
 control proves values 1/2 and 3/2 and refutes naive raw distribution. The
@@ -153,15 +159,15 @@ at the canonical factorial level, signed-slope extension, general lower-level
 series-span trace closure and the full spanning argument remain separate.
 The Γ₁ `(0,b)` family alone cannot replace the principal family.
 
-The current 78-module audit checks 1078 named public source proofs/instances,
-138 selected definitions, structures or type aliases and one additional
-capture of the derived row decision instance. All 1217 records have at most
+The current 81-module audit checks 1129 named public source proofs/instances,
+146 selected definitions, structures or type aliases and one additional
+capture of the derived row decision instance. All 1276 records have at most
 `propext`, `Classical.choice`, `Quot.sound`, and no `sorryAx`. **Auditing a
 predicate's definition does not prove that predicate**:
 `PrincipalProductSpanning` is still an input.
-See `CHECKS.md` and `RowsAndLevelMapsAudit.lean` for exact editions and commands.
-The six earlier audit editions preserve the 34-, 49-, 56-, 59-, 71- and
-73-module checkpoints.
+See `CHECKS.md` and `WeightThreeAudit.lean` for exact editions and commands.
+The seven earlier audit editions preserve the 34-, 49-, 56-, 59-, 71-, 73-
+and 78-module checkpoints.
 
 These are ordinary pinned compilations plus complete separate source reviews
 with warm imports, not independent cold replay of all imported constants or

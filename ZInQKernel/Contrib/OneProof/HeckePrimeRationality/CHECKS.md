@@ -787,3 +787,63 @@ Z-in-Q theorem remain unproved by this work. The original-contract extent
 remains nonzero N ≤ 6; no assembly hypothesis, pin or published proof edition
 has been changed. These are pinned warm-import compilations and source
 reviews, not a full cold/native acceptance certificate.
+
+## Actual weight-three derivative, kernel and generators: 81 modules
+
+Three additive mathematical sources preserve all previous 78 mathematical
+editions and seven complete audits. y is the actual Mathlib Weierstrass
+derivative at the actual torsion point, with a proved bad-class zero value,
+not a Fourier-defined replacement. Its shifted inverse-cube lattice sum is
+absolutely convergent, and the congruence-class equality has the exact factor
+−2N³. Every reindexing is therefore applied to a convergent weight-three sum.
+
+The actual kernel unit has ordinary analytic logarithmic jets. Differentiation
+of a zero-free neighbourhood gives E‴(0)=N²(A+y), where A=λ³−3λx. The finite
+character comparison is differentiated only after an ordinary germ equality;
+it yields F(A+y)=−(3/N)y. The zero row follows from actual oddness and finite
+reindexing, without assigning a residue to the zero kernel. Finite inversion
+uses F²=N² id, giving y=(3N F(A)−N⁴A)/(N⁴−9). The denominator is proved nonzero
+for every positive integer N, and negative labels use nonnegative Euclidean
+remainders before conversion to naturals.
+
+The actual yForm is a weight-three modular form on Γ(N), with evaluation to
+Mathlib WP′ for all positive levels and integer labels. Bad labels and N=1
+give the genuine zero form. For N≥3, actual multiplication and span induction
+put yForm in the span of genuine Good degree-three principal torsion products
+at the same level. The scale is absorbed over complex scalars only; no
+coefficient-field rationality or whole-space spanning follows.
+
+All three parent source builds, all 59 new-declaration audits and literal
+actual derivative/series/third jet/negative and zero labels/generator checks
+exited 0. Complete independent source review read every one of the 930 added
+lines and the exact load-bearing callees. `WeightThreeAudit.lean` co-imports
+all 81 mathematical modules: 1129 named public source proofs/instances,
+146 selected definitions/structures/aliases and one derived row-instance
+capture, all 1276 records within `propext`, `Classical.choice`, `Quot.sound`,
+with no `sorryAx`.
+
+```sh
+lake --no-cache --no-ansi build +ZInQKernel.Contrib.OneProof.HeckePrimeRationality.AllLevelTorsionWeightThreeForms:olean
+lake --no-cache env lean ZInQKernel/Contrib/OneProof/HeckePrimeRationality/WeightThreeAudit.lean
+```
+
+Exact added source editions:
+
+- `AllLevelTorsionWeightThree.lean`:
+  `73915c752499ff7ad8f5123bbaa47f6dddf6b480b516c7f0c4aca5634ba5c456`
+- `AllLevelTorsionWeightThreeFourier.lean`:
+  `3bbcb8f603ec51a73fb28ab2a7503b845894338a22709a0b67d56dea2d80729b`
+- `AllLevelTorsionWeightThreeForms.lean`:
+  `74dd4e08cac2220e7eddf453213a7248b3a58aa8a2f1ee12eee78461550fb063`
+
+Exact complete audit SHA256:
+`f401b6597749b7fa4e75d6e07397da10a2bb42aca8a834d722832ae8c2838563`.
+
+This is same-level generator inclusion, not a span of the entire weight-three
+space, a Petersson-subspace identification, trace closure or principal product
+spanning. The canonical correction-form binding, signed-slope extension,
+general lower-level trace closure and full principal spanning remain separate
+obligations. No pending result is assumed. The original Hecke leaf remains
+unproved beyond the visible N≤6 extent; its assembly/pins and full Z-in-Q
+obligations are unchanged. These are ordinary compilations and complete source
+reviews with warm imports, not independent cold replay or native acceptance.
