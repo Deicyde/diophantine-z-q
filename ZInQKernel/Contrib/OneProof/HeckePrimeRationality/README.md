@@ -116,23 +116,35 @@ are proved in the reduction, not hidden premises.
   remain at their stated ambient level. Zero/opposite cases retain negative
   squares, and the three-μ formula is restricted to three Good classes.
   No Petersson-subspace, level-descent or whole-space statement follows.
-- The correlation now has constructive finite original-level row products,
+- The correlation has constructive finite original-level row products,
   with determinant ±n, both slope congruences, and uncollected coefficients
-  ±n. Signed quotient transport pulls both actual factors back to the
-  original level. Each explicit D-correction level divides (n−1)!M, exactly
-  the common n!ℓ bound when M=nℓ. The slope is natural; no arbitrary-field
-  or integer-slope statement is silently substituted.
+  ±n. Exact signed quotient transport pulls both actual factors back to the
+  original level. The explicit finite defect list is assembled into one
+  actual weight-two correction form at (n−1)!M, with proved independent
+  series-span membership. Every integer slope is covered by guarded integer
+  residues; the rows and correction are fixed before the quantifier over τ.
+  At M=nℓ the correction form has exactly level n!ℓ.
 - Positive divisible levels have actual injective linear restriction maps
   on the independent series spans, with exact scaled-label images and
-  factorial-level inclusions. The actual normalized trace descends upward
-  images and scaled-generator combinations and preserves the upper span
-  after restriction. Arbitrary lower-level series-span closure is not proved.
+  factorial-level inclusions. The earlier normalized-trace partial alone
+  does not give general lower-span closure.
+- General lower-series-span trace closure is now proved for every positive
+  N∣M and arbitrary upper labels. Genuine principal-group matrix moves,
+  complete-fiber distribution and the unique coprime-prime zero point handle
+  both repeated and coprime prime extensions. Invariant descent constructs
+  an actual lower series-span form before using restriction injectivity.
+  This is not trace closure of the whole principal-product ring.
 - The actual Weierstrass derivative y=℘′ has an absolutely convergent
   weight-three inverse-cube series and a derived ordinary third kernel jet.
   Finite cubic inversion gives actual weight-three modular forms for every
   positive level and all integer labels, including the zero convention.
   At N ≥ 3 they belong to the genuine Good degree-three product span at
   the same level. No whole weight-three space is asserted to be spanned.
+- Actual lattice invariants g₂ and g₃ are finite nonzero-torsion polynomials
+  for N ≥ 2. Their modular forms lie in the same-level Good degree-four/six
+  product spans for N ≥ 3. The true N²−1 count, critical WP′ zeros, excluded
+  N=1 denominator and normalizations g₂=60G₄, g₃=140G₆ are proved. These are
+  not the quasimodular weight-two G₂ or a whole-space generation statement.
 
 Raw excluded labels are not representative-independent: the zero-label
 control proves values 1/2 and 3/2 and refutes naive raw distribution. The
@@ -151,23 +163,23 @@ generator theorem: same principal level N ≥ 3, weight ≥ 2, base field C.
 The proved x-series identification, μ/x Fourier dualities and same-level
 quadratic generator inclusion do not substitute for the spanning proof.
 The μ-forms, every quadratic label case and the normalized raw correlation
-defect now have proved membership in the independent convergent series span,
-by explicit equalities and finite combinations. This is not identification
-with a classical Petersson-Eisenstein subspace. Original-level row constraints
-are proved for natural slopes. Binding their finite corrections to one form
-at the canonical factorial level, signed-slope extension, general lower-level
-series-span trace closure and the full spanning argument remain separate.
+defect have proved membership in the independent convergent series span,
+by explicit equalities and finite combinations. Their integer-slope canonical
+correction and general lower-series-span trace closure are proved. This is
+not identification with a classical Petersson-Eisenstein subspace, trace
+closure of every principal product, or full modular-form spanning. Those
+principal-product trace and full spanning arguments remain separate.
 The Γ₁ `(0,b)` family alone cannot replace the principal family.
 
-The current 81-module audit checks 1129 named public source proofs/instances,
-146 selected definitions, structures or type aliases and one additional
-capture of the derived row decision instance. All 1276 records have at most
+The current 95-module audit checks 1243 named public source proofs/instances,
+165 selected definitions, structures or type aliases and one additional
+capture of the derived row decision instance. All 1409 records have at most
 `propext`, `Classical.choice`, `Quot.sound`, and no `sorryAx`. **Auditing a
 predicate's definition does not prove that predicate**:
 `PrincipalProductSpanning` is still an input.
-See `CHECKS.md` and `WeightThreeAudit.lean` for exact editions and commands.
-The seven earlier audit editions preserve the 34-, 49-, 56-, 59-, 71-, 73-
-and 78-module checkpoints.
+See `CHECKS.md` and `TorsionInvariantAudit.lean` for exact editions and commands.
+Earlier audit editions preserve the previous verified checkpoints, including
+the integer-slope and general lower-trace stages.
 
 These are ordinary pinned compilations plus complete separate source reviews
 with warm imports, not independent cold replay of all imported constants or
