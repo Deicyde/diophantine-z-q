@@ -1,0 +1,305 @@
+{
+ "component": "finite-image complex lift / conjugacy / rational-eigenvalue support (C5 DS provider port, SUPPORT ONLY)",
+ "files": {
+  "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/Definitions/Def_Deformations_MatrixRepresentation.lean": {
+   "current_build": "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/Definitions/Def_Deformations_MatrixRepresentation.lean rc=0 secs=4",
+   "edits": [],
+   "local_sha256": "8fa6381ac3b7874acc103bdd0d193f3abcf9095b5ee0ae8e16ce3a2b03f8c7d4",
+   "role": "external frontier (frozen source)",
+   "upstream_git_blob_sha": "12e189352f7040108f0fe3c3a0fd391a06500508",
+   "upstream_path": "Definitions/Def_Deformations_MatrixRepresentation.lean",
+   "upstream_sha256": "4756b21737d1fdaeef31995474f4a42313167a6d736ec76234fb3c02ad71155b"
+  },
+  "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/Definitions/Def_ModularCurve_SL2Elementary.lean": {
+   "current_build": "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/Definitions/Def_ModularCurve_SL2Elementary.lean rc=0 secs=2",
+   "edits": [],
+   "local_sha256": "75de6645a0a19c020e4e2cc462c3618813daed27c142116486490f46f6913bc5",
+   "role": "reviewed core component",
+   "upstream_git_blob_sha": "e40b7dabd038906b9041974aba1e52567c517332",
+   "upstream_path": "Definitions/Def_ModularCurve_SL2Elementary.lean",
+   "upstream_sha256": "32a4d842842abefeff0db7ed0888ca62295a3b9ddf5e19b8e850f020fe9537b0"
+  },
+  "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/Definitions/Def_RepTheory_BrauerNesbitt_TraceCharZero.lean": {
+   "current_build": "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/Definitions/Def_RepTheory_BrauerNesbitt_TraceCharZero.lean rc=0 secs=6",
+   "edits": [],
+   "local_sha256": "00533a2b95f6748aaf8d8b522e8eb05d0d851e07201b5fec9342d0e6be6e63b9",
+   "role": "reviewed core component",
+   "upstream_git_blob_sha": "8651f2b427a8e0b21a131fd3093cf591b6d48bb1",
+   "upstream_path": "Definitions/Def_RepTheory_BrauerNesbitt_TraceCharZero.lean",
+   "upstream_sha256": "00efd71cb303442a1506bb93e32d34f7f7b8a803f03752c445a01e9652050039"
+  },
+  "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/P2M/Sol/S_Matrix_GeneralLinearGroup_exists_natCard_le_of_isSemisimpleRepresentation_of_card_image_charpoly_le.lean": {
+   "current_build": "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/P2M/Sol/S_Matrix_GeneralLinearGroup_exists_natCard_le_of_isSemisimpleRepresentation_of_card_image_charpoly_le.lean rc=0 secs=13",
+   "edits": [
+    "dropped import P2M.Util (wrapper commands replaced by ordinary Lean)",
+    "wrapper exports of same-file private lemmas written as `alias` declarations in the current namespace",
+    "0 wrapper alias command(s) written as ordinary `alias` declarations (Batteries `alias`)",
+    "P2M wrapper commands replaced by ordinary `open`/`open scoped`/`export` with absolute `_root_` names, as the wrapper resolved them; the namespaces they name are registered once at the top of the file"
+   ],
+   "local_sha256": "349ee4b2c79f9a2a3688c01e4cae72c4ff17ed0b7f9585c718ab45c3b270bda8",
+   "role": "reviewed core component",
+   "upstream_git_blob_sha": "d78bfc61f6ba04cf27cd65f5525abb26d042b5e1",
+   "upstream_path": "P2M/Sol/S_Matrix_GeneralLinearGroup_exists_natCard_le_of_isSemisimpleRepresentation_of_card_image_charpoly_le.lean",
+   "upstream_sha256": "304ea55882d4bcf5309156e77bf3d2ee89fb92ccb7dc7bd7a0886777b27e301a"
+  },
+  "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_SerreImage_contains_SL2.lean": {
+   "current_build": "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_SerreImage_contains_SL2.lean rc=0 secs=3",
+   "edits": [
+    "dropped import P2M.Util (wrapper commands replaced by ordinary Lean)",
+    "expanded local notation `local notation \"𝕄\" => Matrix (Fin 2) (Fin 2) (ZMod p)` (64 uses)",
+    "P2M wrapper commands replaced by ordinary `open`/`open scoped`/`export` with absolute `_root_` names, as the wrapper resolved them; the namespaces they name are registered once at the top of the file"
+   ],
+   "local_sha256": "d5d54adcf24dd737f05142164bf33ec296456296ed2788e73de68bf3f570259d",
+   "role": "reviewed core component",
+   "upstream_git_blob_sha": "35c22a34fa32a3788f1f59991fd3107daa63f963",
+   "upstream_path": "P2M/Sol/S_ModularCurve_SerreImage_contains_SL2.lean",
+   "upstream_sha256": "b9d0e67244f51640869687241ed8af1c11441b6f734d45f91402cb89a90db1ba"
+  },
+  "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_closure_elemSet_eq_top.lean": {
+   "current_build": "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_closure_elemSet_eq_top.lean rc=0 secs=1",
+   "edits": [
+    "dropped import P2M.Util (wrapper commands replaced by ordinary Lean)"
+   ],
+   "local_sha256": "c625c4d0e1aa40f0a9f33618ca968d3829372cc00dafae169f2e0af383a219af",
+   "role": "reviewed core component",
+   "upstream_git_blob_sha": "bedcf52776baecd1d5512a65a814c578baa1d88f",
+   "upstream_path": "P2M/Sol/S_ModularCurve_closure_elemSet_eq_top.lean",
+   "upstream_sha256": "c4fa97700bf4ae4d4673d20dfa3fe03752f67b267e817cb53b08207a47249d81"
+  },
+  "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_surjective_specialLinearGroup_map_zmod.lean": {
+   "current_build": "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_surjective_specialLinearGroup_map_zmod.lean rc=0 secs=3",
+   "edits": [
+    "dropped import P2M.Util (wrapper commands replaced by ordinary Lean)"
+   ],
+   "local_sha256": "5b4b2a4c4f8474122e085ccf6c7a59ca797c5d610decf12ac6303d03f5b7fa17",
+   "role": "external frontier (frozen source)",
+   "upstream_git_blob_sha": "5af66c0ab1935c93630e005e0bf318905a20f26f",
+   "upstream_path": "P2M/Sol/S_ModularCurve_surjective_specialLinearGroup_map_zmod.lean",
+   "upstream_sha256": "3c8efd4f31c2348dc71fab5a192fa85a35f340f16d8e00d69413a9e654d09b9c"
+  },
+  "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/P2M/Sol/S_Module_Basis_exists_forall_apply_eq_ringHom_smul_of_repr_mem_range_ratCast.lean": {
+   "current_build": "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/P2M/Sol/S_Module_Basis_exists_forall_apply_eq_ringHom_smul_of_repr_mem_range_ratCast.lean rc=0 secs=5",
+   "edits": [
+    "dropped import P2M.Util (wrapper commands replaced by ordinary Lean)"
+   ],
+   "local_sha256": "f4c11ca26524f823ec5f7e561892eba36be04c96010b230160aecba8246190ed",
+   "role": "reviewed core component",
+   "upstream_git_blob_sha": "c8b93881f657b0637d16d894437fcbf9d11d13dd",
+   "upstream_path": "P2M/Sol/S_Module_Basis_exists_forall_apply_eq_ringHom_smul_of_repr_mem_range_ratCast.lean",
+   "upstream_sha256": "a1232a9e73d5d8802ee422b36a137bf4a3fb75c2aef1f8eee58d3d83d998ded5"
+  },
+  "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/P2M/Sol/S_Module_Basis_repr_mem_range_ratCast_of_forall_dual.lean": {
+   "current_build": "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/P2M/Sol/S_Module_Basis_repr_mem_range_ratCast_of_forall_dual.lean rc=0 secs=4",
+   "edits": [
+    "dropped import P2M.Util (wrapper commands replaced by ordinary Lean)"
+   ],
+   "local_sha256": "85d377344a63d5de022e457b96843fc9e184a1a1a8c0ea25dd4d50fa0a246ecf",
+   "role": "reviewed core component",
+   "upstream_git_blob_sha": "ad092b6a0c0e48c331d9f2c777ac2e14b468ad65",
+   "upstream_path": "P2M/Sol/S_Module_Basis_repr_mem_range_ratCast_of_forall_dual.lean",
+   "upstream_sha256": "4674e86cde22d73648911d5be2041d0e85b1538a53c92d2d8970bba14b996355"
+  },
+  "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/P2M/Sol/S_Representation_exists_conj_eq_of_charpoly_eq_of_finite_range.lean": {
+   "current_build": "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/P2M/Sol/S_Representation_exists_conj_eq_of_charpoly_eq_of_finite_range.lean rc=0 secs=5",
+   "edits": [
+    "dropped import P2M.Util (wrapper commands replaced by ordinary Lean)",
+    "P2M wrapper commands replaced by ordinary `open`/`open scoped`/`export` with absolute `_root_` names, as the wrapper resolved them; the namespaces they name are registered once at the top of the file"
+   ],
+   "local_sha256": "ebb9a54e0a56f72078b50a38a098606bb15ede5c1d5af4be01d89c1e7f7dc4bf",
+   "role": "reviewed core component",
+   "upstream_git_blob_sha": "da8ce7efe03b60a0f6f5a64b1a6e3caaed4eddea",
+   "upstream_path": "P2M/Sol/S_Representation_exists_conj_eq_of_charpoly_eq_of_finite_range.lean",
+   "upstream_sha256": "f088f45ecef3d771d03773ef6eca9580f83e9590541049fa103ec5a3ec844f5c"
+  },
+  "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/P2M/Sol/S_Representation_exists_monoidHom_complex_charpoly_map_eq_of_not_dvd_natCard.lean": {
+   "current_build": "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/P2M/Sol/S_Representation_exists_monoidHom_complex_charpoly_map_eq_of_not_dvd_natCard.lean rc=0 secs=9",
+   "edits": [
+    "dropped import P2M.Util (wrapper commands replaced by ordinary Lean)",
+    "expanded local notation `local notation \"𝕎\" => WittVector p` (18 uses)",
+    "wrapper exports of same-file private lemmas written as `alias` declarations in the current namespace",
+    "0 wrapper alias command(s) written as ordinary `alias` declarations (Batteries `alias`)",
+    "P2M wrapper commands replaced by ordinary `open`/`open scoped`/`export` with absolute `_root_` names, as the wrapper resolved them; the namespaces they name are registered once at the top of the file"
+   ],
+   "local_sha256": "22835bf6c1913b717bcdef35e87d98db25095a54f0a79b21a171ae99496e1037",
+   "role": "reviewed core component",
+   "upstream_git_blob_sha": "b33e6708958eb9a23f8ba214e019f35bcce1d09f",
+   "upstream_path": "P2M/Sol/S_Representation_exists_monoidHom_complex_charpoly_map_eq_of_not_dvd_natCard.lean",
+   "upstream_sha256": "7cf5cc0580f80b0c5636de3596f1abc003a70d826a1220b0284e1cca3466e750"
+  },
+  "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/P2M/Sol/S_RingHom_exists_comp_algebraMap_eq_of_isIntegral_of_isAlgClosed.lean": {
+   "current_build": "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/P2M/Sol/S_RingHom_exists_comp_algebraMap_eq_of_isIntegral_of_isAlgClosed.lean rc=0 secs=2",
+   "edits": [
+    "dropped import P2M.Util (wrapper commands replaced by ordinary Lean)",
+    "[port] Mathlib 4.35: rewrite `comap` back to `Ideal.under` before using the `under` equation"
+   ],
+   "local_sha256": "52f6c00e8b1639d1ba7e266cc1b2b15b4c9ec5ae4bfb45db1c3cda69537c04da",
+   "role": "external frontier (frozen source)",
+   "upstream_git_blob_sha": "f89fcabd8da288aa85a3ac94c896c5293aa576c3",
+   "upstream_path": "P2M/Sol/S_RingHom_exists_comp_algebraMap_eq_of_isIntegral_of_isAlgClosed.lean",
+   "upstream_sha256": "d384bf428f3cc49f6b55ee45ab7072a86b8fad7eb2c772e7ac1f784f7502f4c7"
+  },
+  "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/P2M/Sol/S_Submodule_moduleFinite_adjoin_eigenvalues_of_map_le_of_span_eq_top.lean": {
+   "current_build": "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/P2M/Sol/S_Submodule_moduleFinite_adjoin_eigenvalues_of_map_le_of_span_eq_top.lean rc=0 secs=5",
+   "edits": [
+    "dropped import P2M.Util (wrapper commands replaced by ordinary Lean)",
+    "[port] Mathlib 4.35 IsAddTorsionFree cancellation includes an AddCommute premise; the ambient submodule is commutative and the same proof ignores it",
+    "[port] Derive the actual integer-module torsion-freeness from inclusion in the complex vector space; Mathlib 4.35 no longer infers it from the weaker IsAddTorsionFree class"
+   ],
+   "local_sha256": "69b46385f11a790c4eaa98bdc2a95903d0029681cd46ba161b9b3c3a02911d70",
+   "role": "reviewed core component",
+   "upstream_git_blob_sha": "6da61ac131cc9763f83d7d94646b7f8b50b5b3ce",
+   "upstream_path": "P2M/Sol/S_Submodule_moduleFinite_adjoin_eigenvalues_of_map_le_of_span_eq_top.lean",
+   "upstream_sha256": "39fc39681ae1832378be4fee598b6682c9f569b47dee3e7f50820ad26fce90c4"
+  },
+  "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/P2M/Sol/S_integralClosure_exists_complex_ringEquiv_apply_eq.lean": {
+   "current_build": "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/P2M/Sol/S_integralClosure_exists_complex_ringEquiv_apply_eq.lean rc=0 secs=7",
+   "edits": [
+    "dropped import P2M.Util (wrapper commands replaced by ordinary Lean)",
+    "P2M wrapper commands replaced by ordinary `open`/`open scoped`/`export` with absolute `_root_` names, as the wrapper resolved them; the namespaces they name are registered once at the top of the file",
+    "[port] Lean 4.35 convert closes the algebraic-closure instance goal; removed two trailing rfl commands with no remaining goal"
+   ],
+   "local_sha256": "5e60efa0aa5ff4a54531f0aaae92499513199677b0cd611ad1d7178ad3c50912",
+   "role": "reviewed core component",
+   "upstream_git_blob_sha": "ea880dda1100925e59d339ef449cd065be85221f",
+   "upstream_path": "P2M/Sol/S_integralClosure_exists_complex_ringEquiv_apply_eq.lean",
+   "upstream_sha256": "cf5a228033573fea72db4e4ae12235b968757cb130e1557768bc75fed94f12b0"
+  },
+  "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/Theorems/Thm_Matrix_GeneralLinearGroup_exists_natCard_le_of_isSemisimpleRepresentation_of_card_image_charpoly_le.lean": {
+   "current_build": "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/Theorems/Thm_Matrix_GeneralLinearGroup_exists_natCard_le_of_isSemisimpleRepresentation_of_card_image_charpoly_le.lean rc=0 secs=3",
+   "edits": [
+    "dropped import P2M.Util (wrapper commands replaced by ordinary Lean)",
+    "removed 1 generated blanket attribute [-instance]/[-simp] lines",
+    "replaced 1 proof-wrapper tactic call(s) by `revert` + `exact` of the paired Sol proof"
+   ],
+   "local_sha256": "a85122bd3a36dba91263970090f0e67dee562f324d150314a07ecce47fecb4ad",
+   "role": "reviewed core component",
+   "upstream_git_blob_sha": "4f8ec1a50663179478ef6d918646d07ef7c1fbfc",
+   "upstream_path": "Theorems/Thm_Matrix_GeneralLinearGroup_exists_natCard_le_of_isSemisimpleRepresentation_of_card_image_charpoly_le.lean",
+   "upstream_sha256": "fc2589e6bc5d6c7d70e22258728733cfe86714554c089132e50a9e0e667ae849"
+  },
+  "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_SerreImage_contains_SL2.lean": {
+   "current_build": "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_SerreImage_contains_SL2.lean rc=0 secs=2",
+   "edits": [
+    "dropped import P2M.Util (wrapper commands replaced by ordinary Lean)",
+    "replaced 1 proof-wrapper tactic call(s) by `revert` + `exact` of the paired Sol proof"
+   ],
+   "local_sha256": "2efa71f401b643179685ebc949d8ae253f3d963dea56888f6c39daaf9544150f",
+   "role": "reviewed core component",
+   "upstream_git_blob_sha": "1e88ec17042236aa81493164c357914482b74ad4",
+   "upstream_path": "Theorems/Thm_ModularCurve_SerreImage_contains_SL2.lean",
+   "upstream_sha256": "494526aeca7674eeb1942a68a3785a6dd2a992eacd3c48f7c5f83308c866606f"
+  },
+  "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_closure_elemSet_eq_top.lean": {
+   "current_build": "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_closure_elemSet_eq_top.lean rc=0 secs=2",
+   "edits": [
+    "dropped import P2M.Util (wrapper commands replaced by ordinary Lean)",
+    "replaced 1 proof-wrapper tactic call(s) by `revert` + `exact` of the paired Sol proof"
+   ],
+   "local_sha256": "f85036ed1af922c7ce65a5f56ab1c40a6b00f7f7fd9f892b7ccba16dfaa0bfa1",
+   "role": "reviewed core component",
+   "upstream_git_blob_sha": "d719b19594f40a3c4f0476b32fdbc9821b95422b",
+   "upstream_path": "Theorems/Thm_ModularCurve_closure_elemSet_eq_top.lean",
+   "upstream_sha256": "440a786e54074a8c357de23876db77b76d80d38d864e875094cdd1b4d908585c"
+  },
+  "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_surjective_specialLinearGroup_map_zmod.lean": {
+   "current_build": "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/Theorems/Thm_ModularCurve_surjective_specialLinearGroup_map_zmod.lean rc=0 secs=1",
+   "edits": [
+    "dropped import P2M.Util (wrapper commands replaced by ordinary Lean)",
+    "replaced 1 proof-wrapper tactic call(s) by `revert` + `exact` of the paired Sol proof"
+   ],
+   "local_sha256": "b35d58511d75375412103427d3f5f3a25f3a15aedb06222ea89bc41d9edf6be0",
+   "role": "external frontier (frozen source)",
+   "upstream_git_blob_sha": "011c1a5e150e2e900687bd91d7c226919af7c770",
+   "upstream_path": "Theorems/Thm_ModularCurve_surjective_specialLinearGroup_map_zmod.lean",
+   "upstream_sha256": "52bbca58d62b1b03c19224d24a44b141fb87fa661e06ea9778e9f78725f15b2c"
+  },
+  "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/Theorems/Thm_Module_Basis_exists_forall_apply_eq_ringHom_smul_of_repr_mem_range_ratCast.lean": {
+   "current_build": "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/Theorems/Thm_Module_Basis_exists_forall_apply_eq_ringHom_smul_of_repr_mem_range_ratCast.lean rc=0 secs=3",
+   "edits": [
+    "dropped import P2M.Util (wrapper commands replaced by ordinary Lean)",
+    "replaced 1 proof-wrapper tactic call(s) by `revert` + `exact` of the paired Sol proof"
+   ],
+   "local_sha256": "07778fbb7ac5d41ed69e2e9bd75a6a580b18679eefe4034f52fbf8af7208bac6",
+   "role": "reviewed core component",
+   "upstream_git_blob_sha": "3b2fef6cf8f7c69502546b2aeed6166a99dc350e",
+   "upstream_path": "Theorems/Thm_Module_Basis_exists_forall_apply_eq_ringHom_smul_of_repr_mem_range_ratCast.lean",
+   "upstream_sha256": "fd938acce629a503add8d91a50c44ba4b5a26fcb59e1cc4cfa5bccf1d7bcdee0"
+  },
+  "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/Theorems/Thm_Module_Basis_repr_mem_range_ratCast_of_forall_dual.lean": {
+   "current_build": "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/Theorems/Thm_Module_Basis_repr_mem_range_ratCast_of_forall_dual.lean rc=0 secs=3",
+   "edits": [
+    "dropped import P2M.Util (wrapper commands replaced by ordinary Lean)",
+    "replaced 1 proof-wrapper tactic call(s) by `revert` + `exact` of the paired Sol proof"
+   ],
+   "local_sha256": "44fc37313670b41d3719b4d8082514b83c8718f83eb5613c4ddcd2601a0f6a75",
+   "role": "reviewed core component",
+   "upstream_git_blob_sha": "89c1a5a0763c2ab3ba490c5054138ab0c02df1c9",
+   "upstream_path": "Theorems/Thm_Module_Basis_repr_mem_range_ratCast_of_forall_dual.lean",
+   "upstream_sha256": "6af8a6086754c99c372cb9132ec52675c1d0d8a66d1955aafc85c52ee7b9775f"
+  },
+  "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/Theorems/Thm_Representation_exists_conj_eq_of_charpoly_eq_of_finite_range.lean": {
+   "current_build": "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/Theorems/Thm_Representation_exists_conj_eq_of_charpoly_eq_of_finite_range.lean rc=0 secs=4",
+   "edits": [
+    "dropped import P2M.Util (wrapper commands replaced by ordinary Lean)",
+    "removed 1 generated blanket attribute [-instance]/[-simp] lines",
+    "replaced 1 proof-wrapper tactic call(s) by `revert` + `exact` of the paired Sol proof"
+   ],
+   "local_sha256": "bf08195c737957a398e4954ac55f0b0e0e948b8b7665fb34a38431132b3ea1b9",
+   "role": "reviewed core component",
+   "upstream_git_blob_sha": "39d76e01ef3307a28acf4b2b59274ba68e5af588",
+   "upstream_path": "Theorems/Thm_Representation_exists_conj_eq_of_charpoly_eq_of_finite_range.lean",
+   "upstream_sha256": "45e4b472f639f45592a6c0afbdd49af91a239877e7824611c95e43400d3fe11f"
+  },
+  "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/Theorems/Thm_Representation_exists_monoidHom_complex_charpoly_map_eq_of_not_dvd_natCard.lean": {
+   "current_build": "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/Theorems/Thm_Representation_exists_monoidHom_complex_charpoly_map_eq_of_not_dvd_natCard.lean rc=0 secs=4",
+   "edits": [
+    "dropped import P2M.Util (wrapper commands replaced by ordinary Lean)",
+    "replaced 1 proof-wrapper tactic call(s) by `revert` + `exact` of the paired Sol proof"
+   ],
+   "local_sha256": "6064f7fc9d228841f3d35cbc546a13b3ae3a13e479f5efa456eca584279de361",
+   "role": "reviewed core component",
+   "upstream_git_blob_sha": "473ce2e4846dd3a2eea4a9c1738f8591156fbd00",
+   "upstream_path": "Theorems/Thm_Representation_exists_monoidHom_complex_charpoly_map_eq_of_not_dvd_natCard.lean",
+   "upstream_sha256": "cb89638ea9d30d4d717c2d208c4772e8c12f0db40608097cf6600356934d340c"
+  },
+  "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/Theorems/Thm_RingHom_exists_comp_algebraMap_eq_of_isIntegral_of_isAlgClosed.lean": {
+   "current_build": "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/Theorems/Thm_RingHom_exists_comp_algebraMap_eq_of_isIntegral_of_isAlgClosed.lean rc=0 secs=2",
+   "edits": [
+    "dropped import P2M.Util (wrapper commands replaced by ordinary Lean)",
+    "replaced 1 proof-wrapper tactic call(s) by `revert` + `exact` of the paired Sol proof"
+   ],
+   "local_sha256": "060124ea8f84cc3d35d431ff80abb62387aa6a52241b6afed46a4eef990defee",
+   "role": "external frontier (frozen source)",
+   "upstream_git_blob_sha": "3c53a14f919405db36972a374bb20618317caca9",
+   "upstream_path": "Theorems/Thm_RingHom_exists_comp_algebraMap_eq_of_isIntegral_of_isAlgClosed.lean",
+   "upstream_sha256": "985b86050f148319260e93ab23e5c861d62d9d16fd54c23a4e323eb4a256f391"
+  },
+  "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/Theorems/Thm_Submodule_moduleFinite_adjoin_eigenvalues_of_map_le_of_span_eq_top.lean": {
+   "current_build": "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/Theorems/Thm_Submodule_moduleFinite_adjoin_eigenvalues_of_map_le_of_span_eq_top.lean rc=0 secs=4",
+   "edits": [
+    "dropped import P2M.Util (wrapper commands replaced by ordinary Lean)",
+    "replaced 1 proof-wrapper tactic call(s) by `revert` + `exact` of the paired Sol proof"
+   ],
+   "local_sha256": "14e50e3a2397c055a596e0d2a78aa73b6d535395cc70f7d9c9f7ebfae1a71804",
+   "role": "reviewed core component",
+   "upstream_git_blob_sha": "4c961ace99be91d8ae01890ab96fbc558d837831",
+   "upstream_path": "Theorems/Thm_Submodule_moduleFinite_adjoin_eigenvalues_of_map_le_of_span_eq_top.lean",
+   "upstream_sha256": "4721866ac015901552d715acea6032e67a3b10b867f436cd7be0cf6a1f27e4c0"
+  },
+  "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/Theorems/Thm_integralClosure_exists_complex_ringEquiv_apply_eq.lean": {
+   "current_build": "ZInQKernel/Contrib/CloudB3SC5DeligneSerre/Vendor/AnthropicFLT/Theorems/Thm_integralClosure_exists_complex_ringEquiv_apply_eq.lean rc=0 secs=4",
+   "edits": [
+    "dropped import P2M.Util (wrapper commands replaced by ordinary Lean)",
+    "replaced 1 proof-wrapper tactic call(s) by `revert` + `exact` of the paired Sol proof"
+   ],
+   "local_sha256": "e8e9eafe2e221e2a23ceecbb7a73b4761988a66fd2d06b3539306cd7348e530c",
+   "role": "reviewed core component",
+   "upstream_git_blob_sha": "4338f938ec36cf6651f74708b927a8028f3154f2",
+   "upstream_path": "Theorems/Thm_integralClosure_exists_complex_ringEquiv_apply_eq.lean",
+   "upstream_sha256": "cdddeeb568b296643b32d2312820ee058cbac9510ad6a6f1d328addbe647b01b"
+  }
+ },
+ "local_import_closure_complete": true,
+ "missing": [],
+ "upstream": "anthropics/fermats-last-theorem@6e837e75355538c7f80bab5b956861e86c4eacc2"
+}
