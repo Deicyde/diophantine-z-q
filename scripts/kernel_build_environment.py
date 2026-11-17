@@ -12,7 +12,7 @@ from pathlib import Path
 import platform
 import stat
 
-from kernel_build_manifest import regular_path, require
+from kernel_build_manifest import digest, regular_path, require
 from kernel_build_packages import file_record, package_environment
 from kernel_build_restore import no_links
 
@@ -149,7 +149,8 @@ def dependency_inputs(root, packages):
 
 
 def collect_environment(root, prefix, build_commands, source_resolution, *,
-                        driver_paths, git_executable='git', environ=None, controls=None):
+                        driver_paths, git_executable='git', environ=None, controls=None,
+                        runtime_identity=None):
     """Collect portable facts; caller binds resolution to actual compiler lookup.
 
     Keep the detailed records in an artifact. Only their complete hashes enter
@@ -189,5 +190,14 @@ def collect_environment(root, prefix, build_commands, source_resolution, *,
     }
     if controls_record is not None:
         environment['lake_controls'] = controls_record
+    if runtime_identity is not None:
+        require(isinstance(runtime_identity, dict)
+                and runtime_identity.get('schema') == 'kernel-linux-runtime/v1'
+                and runtime_identity.get('system') == 'Linux'
+                and digest(runtime_identity.get('sha256'))
+                and type(runtime_identity.get('elf_files')) is int
+                and runtime_identity['elf_files'] > 0,
+                'Missing captured Linux runtime identity')
+        environment['runtime'] = dict(runtime_identity)
     return environment, {'toolchain_files': compiler['files'], 'builtins': compiler['builtins'],
                          'dependency_files': dependency_files}

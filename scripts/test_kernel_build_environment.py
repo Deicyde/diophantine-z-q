@@ -132,6 +132,22 @@ class EnvironmentTests(unittest.TestCase):
                 env.collect_environment(*args, driver_paths=['driver.py'],
                                          environ=second_env, controls=second_dir)
 
+    def test_changed_runtime_identity_invalidates_the_reuse_environment(self):
+        project = self.root/'project'; project.mkdir()
+        (project/'driver.py').write_text('print(1)')
+        args = (project, self.prefix, [['lake', 'build', 'Project']], {'Project': 'Project.lean'})
+        runtime = {'schema': 'kernel-linux-runtime/v1', 'system': 'Linux',
+                   'sha256': 'a'*64, 'elf_files': 2}
+        with patch.object(env, 'package_environment', return_value={'configuration': {}, 'packages': {}}):
+            first, _ = env.collect_environment(*args, driver_paths=['driver.py'],
+                                               environ={}, runtime_identity=runtime)
+            second, _ = env.collect_environment(*args, driver_paths=['driver.py'],
+                    environ={}, runtime_identity={**runtime, 'sha256': 'b'*64})
+            self.assertNotEqual(first, second)
+            with self.assertRaisesRegex(ValueError, 'runtime identity'):
+                env.collect_environment(*args, driver_paths=['driver.py'],
+                                        environ={}, runtime_identity={'version': '3.12'})
+
 
 if __name__ == '__main__':
     unittest.main()
