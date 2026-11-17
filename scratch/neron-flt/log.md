@@ -76,3 +76,8 @@
   UNVERIFIED). `autofold.py --dry-run`: `strict count: 16/21 on 37 -> 16/21 on 37; strictest 16/21 -> 16/21`
   (count-neutral). Its module with line 1 stripped (AutofoldDry.lean) compiles; `sixContactMin_of_open39` axioms
   standard. VERIFIED.
+- audit (tools/audit_diff.py → audit.txt): differences from upstream are 1965 import lines, 2282 set_option lines,
+  855 `_nflt` rename lines, 105 lines in `-- [port]` blocks, 9 files with CloudW03NeronSurj bodies; the 14 lines
+  flagged "OTHER" are all inside `-- [port]` blocks (the file-local CommRing instance definitions and one `rfl⟩`).
+  No statement of a vendored declaration changed except the `_nflt` renames. VERIFIED (script).
+- A doubled `-- [port]` comment (fix.py run twice over its own comment) removed; fix.py now skips comment lines.

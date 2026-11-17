@@ -20,6 +20,7 @@ for p in sys.argv[1:]:
     lines = open(p, encoding='utf-8').read().split('\n'); out = []; n = 0
     for l in lines:
         new = l; why = []
+        if l.lstrip().startswith('--'): out.append(l); continue
         for pat, rep, msg in RULES:
             if re.search(pat, new): new = re.sub(pat, rep, new); why.append(msg)
         if new != l:
