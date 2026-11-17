@@ -350,4 +350,46 @@ theorem vertical_tyzToA (x₁ x₂ : Qbar) : 2 * x₁ = 2 * x₂ ↔ x₁ = x₂
   · intro h; have := congrArg (· / 2) h; simpa using this
   · intro h; rw [h]
 
+/-! ## §5. G2 read through the bijection: functions on `X_{U₀(N)}(ℂ)°` and `ℚ(j, j_N)` -/
+
+/-- **Functions on `X_{U₀(N)}(ℂ)° = GL₂(ℚ)⁺ \ (ℍ × GL₂(𝔸_f)/U₀(N))` are the `Γ₀(N)`-invariant
+functions on `ℍ`**, by pull-back along `τ ↦ [τ, 1]` (the bijection `gamma0OrbitsEquiv`). -/
+def shFunEquiv (N : ℕ) [NeZero N] :
+    (Sh (U0 N) → ℂ) ≃ {g : ℍ → ℂ // ∀ σ ∈ CongruenceSubgroup.Gamma0 N, ∀ τ : ℍ, g (σ • τ) = g τ} where
+  toFun F := ⟨F ∘ toSh (U0 N), fun σ hσ τ =>
+    congrArg F ((toSh_eq_toSh_iff (NeZero.ne N) τ (σ • τ)).mpr ⟨σ, hσ, rfl⟩).symm⟩
+  invFun g S := g.1 (Function.surjInv (toSh_surjective (NeZero.ne N)) S)
+  left_inv F := by
+    funext S
+    exact congrArg F (Function.surjInv_eq (toSh_surjective (NeZero.ne N)) S)
+  right_inv g := by
+    apply Subtype.ext
+    funext τ
+    set t := Function.surjInv (toSh_surjective (NeZero.ne N)) (toSh (U0 N) τ)
+    have h : toSh (U0 N) t = toSh (U0 N) τ :=
+      Function.surjInv_eq (toSh_surjective (NeZero.ne N)) (toSh (U0 N) τ)
+    obtain ⟨σ, hσ, hτ⟩ := (toSh_eq_toSh_iff (NeZero.ne N) t τ).mp h
+    show g.1 t = g.1 τ
+    rw [hτ, g.2 σ hσ t]
+
+theorem shFunEquiv_apply (N : ℕ) [NeZero N] (F : Sh (U0 N) → ℂ) (τ : ℍ) :
+    (shFunEquiv N F).1 τ = F (toSh (U0 N) τ) := rfl
+
+/-- **Every element `P(j, j_N)/Q(j, j_N)` of `ℚ(j, j_N)` is a function on `X_{U₀(N)}(ℂ)°`**
+(`Γ₀(N)`-invariance of `j(τ)` and `j(Nτ)`). -/
+theorem exists_shFn (N : ℕ) [NeZero N] (P Q : MvPolynomial (Fin 2) ℚ) :
+    ∃ F : Sh (U0 N) → ℂ, ∀ τ : ℍ, F (toSh (U0 N) τ) = ratFn N P Q τ :=
+  ⟨(shFunEquiv N).symm ⟨ratFn N P Q, fun _ hσ τ => ratFn_smul hσ P Q τ⟩, fun τ => by
+    have := congrArg (fun g => g.1 τ)
+      ((shFunEquiv N).apply_symm_apply ⟨ratFn N P Q, fun _ hσ τ => ratFn_smul hσ P Q τ⟩)
+    exact this⟩
+
+/-- **The `q`-expansion at `∞` of a meromorphic function on `X_{U₀(N)}(ℂ)°` with rational
+coefficients lies in `ℚ(j, j_N) ⊂ ℚ((q))`** (the proved `q`-expansion principle
+`Gamma0QExp.gamma0QExpansion_proof`, read through `τ ↦ [τ, 1]`). -/
+theorem qExp_mem_X0Field (N : ℕ) [NeZero N] (F : Sh (U0 N) → ℂ)
+    (hF : ZInQ.GZHeegner.IsRatModFnMero N (F ∘ toSh (U0 N))) (x : LaurentSeries ℚ)
+    (hx : HasQExp (F ∘ toSh (U0 N)) x) : x ∈ X0Field N :=
+  ZInQ.Contrib.Gamma0QExp.gamma0QExpansion_proof N _ hF x hx
+
 end ZInQ.H33G5
