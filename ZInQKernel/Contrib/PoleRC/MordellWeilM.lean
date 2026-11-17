@@ -1,5 +1,5 @@
 import ZInQKernel.Contrib.PoleRC.DescentM
-import ZInQKernel.RouteK.RankMW.Image
+import ZInQKernel.Contrib.PoleRC.MWImage
 
 /-!
 # Mordell's theorem for `E_ℓ : y² = x(x − ℓ)(x + 3ℓ)`

@@ -43,7 +43,7 @@ theorem polePoly_eq_zero_of (B : ℚ) (b : Fin 6 → ℚ) (e z r₁ r₂ w : ℚ
   obtain ⟨h1, h2, h3⟩ := hA _ _ rfl rfl
   have hb' : ∀ i, (b i ^ 2 - b i) ^ 2 = 0 := fun i => by
     rcases hb i with h | h <;> rw [h] <;> ring
-  simp only [polePoly]
+  simp only [polePoly, ZInQ.polePoly]
   rw [h1, h2, h3]
   simp [hb']
 
