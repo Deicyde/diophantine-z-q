@@ -39,3 +39,7 @@
 - Computed (VERIFIED, scratch/y3-x6/pullback_check.py -> pullback_check.txt): G^6 - 97200 F^2 = H^2 (L515-516);
   27 G^6 (J + 16/27) = 16 H^2, so the pullback orders over 0, oo, -16/27 are 2, 6, 2 (L517); prime support of the
   pairwise resultants/discriminants/leading coefficients of F's six roots, G, H's three quadratics: {2,3,5,7,11,13} (L518).
+- #discharges (VERIFIED, scratch/y3-x6/discharges.txt; lake build Main + Discharges OK): "30 open hypotheses, 12597
+  theorems checked, 147 discharge one" against main's OpenResearchLeaves57; 15 pre-existing reductions, 132 projections of
+  the copied y3 structures (noise); no y3-x6 theorem discharges a field (re-route, as expected); no sorry.
+- Report docs/research/y3-x6.md written; fleet note .fleet/y3-x6.md.
