@@ -1,0 +1,28 @@
+frozenTarget: closure 301921
+  contains PicFix.KleimanPicZeroProper: false
+  contains PicZeroChar0.picZeroAbVar0_of_leaves: false
+  contains ZInQ.Contrib.HodgeTateFromPairing.hodgeTateDecompAbVar_of_open: false
+  contains ZInQ.Contrib.HodgeTateFromPairing.t09SymmIsogenyExists0_of_open: false
+  contains HDec.HSyn.OpenAddedLeaves25: false
+  contains HDec.HSyn.OpenAddedLeaves24: false
+  contains HDec.HSyn.OpenAddedLeaves23: false
+  contains HDec.HSyn.sixContactMin_of_open60: false
+  contains HDec.HSyn.sixContactMin_of_open48_eb: false
+  contains KleimanSection2.KleimanPicZeroProper954: true
+  contains KleimanSection2.picZeroAbVar0_of_954: true
+  contains HDec.HSyn.OpenAddedLeaves26: true
+  contains HDec.HSyn.sixContactMin_of_open61: true
+  contains HDec.HSyn.OpenAddedLeaves22PZ: true
+  contains PicDict.MumfordPhiSurjectiveAC: false
+  contains T09Pic.PicZeroAbVar: false
+  contains PicDict.PicZeroSmooth: false
+  contains CToPrinted.SGA3_VIB_3_10: false
+  contains SGA3IdComp.SGA3_VIB_3_10_Nbhd: false
+  contains DictModels.MumfordConn.MumfordGroupLawConn: false
+  contains ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed: false
+  contains PkgI3.HomFreeFinite: false
+  contains sorryAx: false
+  bundle HDec.HSyn.OpenResearchLeaves42: 31 fields
+  bundle HDec.HSyn.OpenTextbookLeaves17: 1 fields
+  bundle HDec.HSyn.OpenAddedLeaves26: 2 fields
+    field kleimanPicZeroProper954 has a checked type: [KleimanSection2.KleimanPicZeroProper954]

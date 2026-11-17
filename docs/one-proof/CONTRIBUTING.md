@@ -261,7 +261,7 @@ DISCHARGES [OpenResearchLeaves42.pazukiCor13Upper] by ZInQ.SemiAbDescend.pazukiC
  AvSplit.MumfordTorsionAlgClosed,
  ZInQ.SemiAbDescend.ChevalleyPerfect]
   axioms: [propext, Classical.choice, Quot.sound]
-#discharges: 39 open hypotheses, 13364 theorems checked, 25 discharge one
+#discharges: 39 open hypotheses, 13374 theorems checked, 25 discharge one
 ```
 <!-- worked-example:end -->
 

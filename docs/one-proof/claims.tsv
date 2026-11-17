@@ -1,4 +1,3 @@
 field	task	status	since	issue	holder_kind	public_holder	claim_url	hold
-kleimanPicZeroProper	kleiman-section	host task kleiman-section running	2026-11-16		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/kleiman-section	held
 sga7_IX_3_5_ForwardGeom	sga735-finish	host task sga735-finish running	2026-11-16		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/sga735-finish	held
 pazukiCor13Upper	pazuki-inputs	host task pazuki-inputs running	2026-11-16		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/pazuki-inputs	held

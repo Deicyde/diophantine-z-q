@@ -1,0 +1,27 @@
++ HDec.HSyn.OpenAddedLeaves26 ZInQKernel.OneProof.H.TailZ68
++ HDec.HSyn.OpenAddedLeaves26.casesOn ZInQKernel.OneProof.H.TailZ68
++ HDec.HSyn.OpenAddedLeaves26.kleimanPicZeroProper954 ZInQKernel.OneProof.H.TailZ68
++ HDec.HSyn.OpenAddedLeaves26.mk ZInQKernel.OneProof.H.TailZ68
++ HDec.HSyn.OpenAddedLeaves26.mk._flat_ctor ZInQKernel.OneProof.H.TailZ68
++ HDec.HSyn.OpenAddedLeaves26.picRepresentableAbVar ZInQKernel.OneProof.H.TailZ68
++ HDec.HSyn.OpenAddedLeaves26.rec ZInQKernel.OneProof.H.TailZ68
++ HDec.HSyn.OpenAddedLeaves26.recOn ZInQKernel.OneProof.H.TailZ68
++ HDec.HSyn.hodgeTateDecompAbVar_of_open_k954 ZInQKernel.OneProof.H.TailZ68
++ HDec.HSyn.openAddedLeaves22PZ_of_OpenAddedLeaves26 ZInQKernel.OneProof.H.TailZ68
++ HDec.HSyn.openResearchLeaves35_of_OpenResearchLeaves36_eb_k954 ZInQKernel.OneProof.H.TailZ68
++ HDec.HSyn.sixContactMin_of_open48_eb_k954 ZInQKernel.OneProof.H.TailZ68
++ HDec.HSyn.sixContactMin_of_open49_eb_k954 ZInQKernel.OneProof.H.TailZ68
++ HDec.HSyn.sixContactMin_of_open50_eb_k954 ZInQKernel.OneProof.H.TailZ68
++ HDec.HSyn.sixContactMin_of_open51_eb_k954 ZInQKernel.OneProof.H.TailZ68
++ HDec.HSyn.sixContactMin_of_open52_eb_k954 ZInQKernel.OneProof.H.TailZ68
++ HDec.HSyn.sixContactMin_of_open53_eb_k954 ZInQKernel.OneProof.H.TailZ68
++ HDec.HSyn.sixContactMin_of_open54_eb_k954 ZInQKernel.OneProof.H.TailZ68
++ HDec.HSyn.sixContactMin_of_open55_eb_k954 ZInQKernel.OneProof.H.TailZ68
++ HDec.HSyn.sixContactMin_of_open56_k954 ZInQKernel.OneProof.H.TailZ68
++ HDec.HSyn.sixContactMin_of_open57_k954 ZInQKernel.OneProof.H.TailZ68
++ HDec.HSyn.sixContactMin_of_open58_k954 ZInQKernel.OneProof.H.TailZ68
++ HDec.HSyn.sixContactMin_of_open59_k954 ZInQKernel.OneProof.H.TailZ68
++ HDec.HSyn.sixContactMin_of_open60_k954 ZInQKernel.OneProof.H.TailZ68
++ HDec.HSyn.sixContactMin_of_open61 ZInQKernel.OneProof.H.TailZ68
++ HDec.HSyn.t09SymmIsogenyExists0_of_open_k954 ZInQKernel.OneProof.H.TailZ68
+~ ZInQ.OneProof.frozenTarget ZInQKernel.OneProof.Main type+value

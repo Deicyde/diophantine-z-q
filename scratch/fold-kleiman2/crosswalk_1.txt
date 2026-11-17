@@ -1,0 +1,3 @@
+wrote docs/one-proof/frontier-crosswalk.tsv: 232 IDs, 6 matched to an open hypothesis
+open hypotheses with no frontier ID: afCharpolyDS965, afShimura, bergerPrintedV, bostLowerBoundPrinted, carayolThmAIrr, chevalleyPerfect, deRhamVpAbVarDirect, deligneCanonicalModelY3EveryH, dsThm965Printed, dsThm966Printed, elkiesX6StarEvery, gamma1IntegralSpan, gaudronRemondThm14Printed, gonzalezRotgerThm512X6, h21C, h33a, hBFH, hCM, hGZ, heckeJ1DS, heckePrimeIntegralToRational, hodgeTateDecompExists, igusaGL2DS, javanpeykarThm111, kleimanPicZeroProper954, modularHTPrinted, neronOggShafarevichSep, neronSchemeExtensionDedekind, panPrintedP, raynaudSemistableSHOr, sga7_IX_Cor3_3, x6CoarseModuli, y3FineModuliAbP
+ok: docs/one-proof/frontier-crosswalk.tsv is up to date (232 IDs, 6 matched)
