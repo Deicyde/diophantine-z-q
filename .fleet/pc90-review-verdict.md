@@ -12,3 +12,6 @@ PR #90 head 517e05cce is NOT clean to land as is.
    `git merge-tree` of HEAD with 5f1fac79 is conflict-free, so this is a note, not a blocker.
 
 Review continues; full report in docs/research/pc90-review.md.
+
+Update (end of review): builds and axioms are clean (16114 / 16166 jobs; standard axioms everywhere); no
+mathematical error. Item 1 above is the only blocker.
