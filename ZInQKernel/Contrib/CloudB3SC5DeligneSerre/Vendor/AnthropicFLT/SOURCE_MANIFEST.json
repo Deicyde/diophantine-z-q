@@ -1202,7 +1202,7 @@
   },
   "Definitions/Def_Mathlib_Topology_Algebra_RestrictedProduct_TopologicalSpace.lean": {
    "git_blob_sha": "4bf9a3180b97dd5210455d5025458b03e0569110",
-   "local_sha256": "f72944fec3f99b337c65b03f4bc66744ce475869ef5392fdd448e0c16e59260a",
+   "local_sha256": "2eeb5fe9e478394f11a6313386469aea6bd943357322b1c398603a94586ce7b8",
    "sha256": "1d7c05eca3efb03e53a6b757c8323525a673914d7c30191605a205b3b0f34f74",
    "upstream_module": "Definitions.Def_Mathlib_Topology_Algebra_RestrictedProduct_TopologicalSpace"
   },
@@ -8132,7 +8132,7 @@
   },
   "P2M/Sol/S_DeligneSerre_exists_residual_galoisRep_charpoly_frobenius_eq_of_weightTwo_hecke_eigen.lean": {
    "git_blob_sha": "10842a454395c8ab3ff6c19f38d646ab4368d34a",
-   "local_sha256": "7ea53b4278703ecec1962fa3b7246a83f9c116e4c80aeae91274e9b53411eea9",
+   "local_sha256": "e4d8ccea054a03c617e34a9c2a5b867daf9d2f2a72689efc0d10dd2ff6e1df78",
    "sha256": "02b3a34a5375ddb4b880c1be4bf23b048cb417d4801970ff22f1a61591aa69c1",
    "upstream_module": "P2M.Sol.S_DeligneSerre_exists_residual_galoisRep_charpoly_frobenius_eq_of_weightTwo_hecke_eigen"
   },
@@ -12422,7 +12422,7 @@
   },
   "P2M/Sol/S_NumberField_AdelicFourier_mem_range_algebraMap_of_forall_apply_mul_eq_one.lean": {
    "git_blob_sha": "60ec4f76eb7a45042f6f01765d3575d889b1b96b",
-   "local_sha256": "e19c8befd02578010a6a37f945c34a2094d0bbc573d7688da0a14768a557143b",
+   "local_sha256": "eef50ed306cfa97431c97b5e6ef6bf11dc026421b8c8de9e226b10885befa902",
    "sha256": "cf527f5d0ea5163158833e8bdeb7a34b7faa37fba8f706dd0f352b1f3e517c49",
    "upstream_module": "P2M.Sol.S_NumberField_AdelicFourier_mem_range_algebraMap_of_forall_apply_mul_eq_one"
   },
@@ -20900,7 +20900,7 @@
   },
   "Theorems/Thm_IsDedekindDomain_FiniteAdeleRing_exists_forall_sub_algebraMap_mem_adicCompletionIntegers.lean": {
    "git_blob_sha": "44e48eed7a04e5f9bdbc4a1fbe6b47b9ffe27bf6",
-   "local_sha256": "6b17494bf2060a28dcc48a3d4a06c3b456398b5bdaabdbac62ff95ab59772553",
+   "local_sha256": "354ebd48b521747d829a0fdb5bc6c28f167624533632030bfc5abaa61f60331b",
    "sha256": "1d3cf17997fe6c987fee522745ae07b1a6aa49ed78f1f76bc091869717abf05a",
    "upstream_module": "Theorems.Thm_IsDedekindDomain_FiniteAdeleRing_exists_forall_sub_algebraMap_mem_adicCompletionIntegers"
   },
@@ -20924,13 +20924,13 @@
   },
   "Theorems/Thm_IsDedekindDomain_HeightOneSpectrum_finite_residueField_adicCompletionIntegers.lean": {
    "git_blob_sha": "90992dc6af6758351018f575de3b5137628f065d",
-   "local_sha256": "3a12c3022b05e1b35522722d2d2d6b90f3d8df783f114facc0af332046ae44a0",
+   "local_sha256": "617d2d41dce8caabc6374bc9c8e2090337b4fc20e5e9679b28e98926a30f1ac5",
    "sha256": "c54678648b98fea1750145696c71dc307a48e29e8fa8bae2700ffe0d2ab6ea83",
    "upstream_module": "Theorems.Thm_IsDedekindDomain_HeightOneSpectrum_finite_residueField_adicCompletionIntegers"
   },
   "Theorems/Thm_IsDedekindDomain_HeightOneSpectrum_isAdicComplete_adicCompletionIntegers.lean": {
    "git_blob_sha": "d56d9e869a0aace9d9003dbedcf300e17b5173e6",
-   "local_sha256": "97df9c6206019309c21d0fa7d411816c4c863ced32c5df8469d4f90edb1b962f",
+   "local_sha256": "ce07e12a826dec13ae6e9859fa65c2e1dca68e5e23e21416ba864af95edeeabb",
    "sha256": "9b4a65d57516b7203c9a1c2ca4e30722c4210530f1cb84561ccb09e10a48359d",
    "upstream_module": "Theorems.Thm_IsDedekindDomain_HeightOneSpectrum_isAdicComplete_adicCompletionIntegers"
   },
