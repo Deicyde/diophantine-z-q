@@ -153,7 +153,29 @@ separate development; together they are far beyond one task. The core is therefo
 
 ## 5. Checks
 
-(Filled in below from the recorded outputs; see `scratch/pazuki-inputs/log.md`.)
+All VERIFIED (outputs in `scratch/pazuki-inputs/`).
+
+- **Contrib file.** `lake env lean ZInQKernel/Contrib/OneProof/PazukiInputs.lean`: no errors, no warnings. The file
+  has no `sorry`, `axiom`, instance, notation, macro, `#eval`, `run_cmd` or `#print`; it imports
+  `ZInQKernel.Contrib.OneProof.PazukiAlg`, never `ZInQKernel.OneProof.Main`.
+- **Build.** `lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges
+  +ZInQKernel.Contrib.OneProof.PazukiInputs` ends with `Build completed successfully (14230 jobs)` (`build.txt`).
+- **`#discharges`** (`Discharges.lean`; `discharges-output.txt`):
+
+  ```
+  DISCHARGES [OpenResearchLeaves31.pazukiCor13Upper] by PazukiInputs.pazukiCor13Upper_of_definedOver
+    still assumes: [ZInQ.HomLattice.GAGAMorphism,
+   PazukiDict.PazukiCor13UpperPP,
+   PazukiAlg.RiemannPPAV,
+   PazukiInputs.SymmPrincipalDefinedOver]
+    axioms: [propext, Classical.choice, Quot.sound]
+  #discharges: 35 open hypotheses, 9866 theorems checked, 36 discharge one
+  ```
+
+- **Autofold dry run** (`autofold.json`). Without `--allow-rise` it is refused:
+  `strict count: 11/18 on 29 -> 12/19 on 31; strictest 11/18 -> 12/19`. With `--allow-rise` the generated module
+  (`autofold-dryrun.txt`, line 1 stripped: `FoldCheck.lean`) compiles, and
+  `HDec.HSyn.sixContactMin_of_open49` depends on `[propext, Classical.choice, Quot.sound]` (`foldcheck-output.txt`).
 
 ## 6. Fold count
 
