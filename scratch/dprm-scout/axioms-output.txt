@@ -1,0 +1,11 @@
+not_computable_intCodeSolvable_of_dprm : DPRMNat → ¬ComputablePred ZInQ.Contrib.H10Reduction.IntCodeSolvable
+'ZInQ.Contrib.IntegerH10.not_computable_intCodeSolvable_of_dprm' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.IntegerH10.not_computable_intCodeSolvable_of_dprmDioph' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.IntegerH10.rational_not_computable_of_frozenTarget_dprm' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.IntegerH10.dprmNat_of_dprmDioph' depends on axioms: [propext, Classical.choice, Quot.sound]

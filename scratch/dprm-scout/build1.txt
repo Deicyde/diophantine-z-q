@@ -3325,3 +3325,143 @@ Note: This linter can be disabled with `set_option linter.unusedVariables false`
 ✔ [9796/9847] Built ZInQKernel.Compiler.Translation.Rational (32s)
 ✔ [9797/9847] Built ZInQKernel.Syntax.Recipes.Accounting (38s)
 ✔ [9798/9847] Built ZInQKernel.Syntax.Recipes.Polynomial (5.1s)
+⚠ [9799/9847] Built ZInQKernel.Assembly.Values.Outer (5.8s)
+warning: ZInQKernel/Assembly/Values/Outer.lean:220:162: This simp argument is unused:
+  List.map_cons
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [forall_fin_getD_iff _ _
+        (show (List.ofFn N ++ (List.ofFn K ++ [t])).length = (closeRecipe w).parameterCount by simp; rfl),
+    ofFn_eleven (show (closeRecipe w).parameterCount = 11 from rfl), ofFn_append_eq_iff, List.cons.injEq, and_true,
+    List.map_nil]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Assembly/Values/Outer.lean:221:4: This simp argument is unused:
+  List.map_nil
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [forall_fin_getD_iff _ _
+        (show (List.ofFn N ++ (List.ofFn K ++ [t])).length = (closeRecipe w).parameterCount by simp; rfl),
+    ofFn_eleven (show (closeRecipe w).parameterCount = 11 from rfl), ofFn_append_eq_iff, List.cons.injEq, and_true,
+    List.map_cons]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Assembly/Values/Outer.lean:274:51: This simp argument is unused:
+  List.map_cons
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [forall_fin_getD_iff _ _
+        (show (List.ofFn N ++ [t]).length = (mainRecipe w).parameterCount by simp; rfl),
+    ofFn_six (show (mainRecipe w).parameterCount = 6 from rfl), ofFn_append_eq_iff, List.cons.injEq, and_true,
+    List.map_nil]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Assembly/Values/Outer.lean:274:66: This simp argument is unused:
+  List.map_nil
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [forall_fin_getD_iff _ _
+        (show (List.ofFn N ++ [t]).length = (mainRecipe w).parameterCount by simp; rfl),
+    ofFn_six (show (mainRecipe w).parameterCount = 6 from rfl), ofFn_append_eq_iff, List.cons.injEq, and_true,
+    List.map_cons]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Assembly/Values/Outer.lean:322:51: This simp argument is unused:
+  List.map_cons
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [forall_fin_getD_iff _ _
+        (show (List.ofFn N ++ [t]).length = (valueUnionRecipe w).parameterCount by simp; rfl),
+    ofFn_six (show (valueUnionRecipe w).parameterCount = 6 from rfl), ofFn_append_eq_iff, List.cons.injEq, and_true,
+    List.map_nil]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Assembly/Values/Outer.lean:322:66: This simp argument is unused:
+  List.map_nil
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [forall_fin_getD_iff _ _
+        (show (List.ofFn N ++ [t]).length = (valueUnionRecipe w).parameterCount by simp; rfl),
+    ofFn_six (show (valueUnionRecipe w).parameterCount = 6 from rfl), ofFn_append_eq_iff, List.cons.injEq, and_true,
+    List.map_cons]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Assembly/Values/Outer.lean:358:51: This simp argument is unused:
+  List.map_cons
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [forall_fin_getD_iff _ _
+        (show (List.ofFn N ++ [t]).length = (valueRecipe w).parameterCount by simp; rfl),
+    ofFn_six (show (valueRecipe w).parameterCount = 6 from rfl), ofFn_append_eq_iff, List.cons.injEq, and_true,
+    List.map_nil]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Assembly/Values/Outer.lean:358:66: This simp argument is unused:
+  List.map_nil
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [forall_fin_getD_iff _ _
+        (show (List.ofFn N ++ [t]).length = (valueRecipe w).parameterCount by simp; rfl),
+    ofFn_six (show (valueRecipe w).parameterCount = 6 from rfl), ofFn_append_eq_iff, List.cons.injEq, and_true,
+    List.map_cons]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+✔ [9800/9847] Built ZInQKernel.Multiplication.Certificate.Spec (4.2s)
+✔ [9801/9847] Built ZInQKernel.Syntax.Recipes.Literal (4.4s)
+✔ [9802/9847] Built ZInQKernel.Assembly.Values (4.1s)
+✔ [9803/9847] Built ZInQKernel.Multiplication.Certificate (4.1s)
+✔ [9804/9847] Built ZInQKernel.Syntax.Recipes (3.0s)
+✔ [9805/9847] Built ZInQKernel.Assembly.Close.Relation (5.1s)
+✔ [9806/9847] Built ZInQKernel.Size.Majorants.RecipeHeights (5.0s)
+✔ [9807/9847] Built ZInQKernel.Multiplication.Soundness.CommonGroup (5.4s)
+✔ [9808/9847] Built ZInQKernel.Assembly.Top.Spec (4.2s)
+⚠ [9809/9847] Built ZInQKernel.Assembly.Close.Soundness (4.5s)
+warning: ZInQKernel/Assembly/Close/Soundness.lean: imports `Mathlib.Analysis.Complex.ExponentialBounds` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9810/9847] Built ZInQKernel.Assembly.Close.Completeness (5.9s)
+✔ [9811/9847] Built ZInQKernel.Size.Majorants.Cutoff (4.4s)
+✔ [9812/9847] Built ZInQKernel.Multiplication.Soundness.TestsToCongruence (5.4s)
+✔ [9813/9847] Built ZInQKernel.Assembly.Close (4.1s)
+✔ [9814/9847] Built ZInQKernel.Size.Majorants.Bound (4.2s)
+✔ [9815/9847] Built ZInQKernel.Multiplication.Soundness.LocalCongruence (4.1s)
+✔ [9816/9847] Built ZInQKernel.Multiplication.Completeness.PoleValuationsAux (4.5s)
+✔ [9817/9847] Built ZInQKernel.Multiplication.Soundness.ContactSupport (4.1s)
+✔ [9818/9847] Built ZInQKernel.Multiplication.Completeness.TestsLocal (4.5s)
+✔ [9819/9847] Built ZInQKernel.Multiplication.Completeness.TwoSlope (5.8s)
+✔ [9820/9847] Built ZInQKernel.Multiplication.Completeness.SelectedReduction (4.4s)
+✔ [9821/9847] Built ZInQKernel.Multiplication.Completeness.SbIntegrality (4.8s)
+✔ [9822/9847] Built ZInQKernel.Multiplication.Completeness.PoleValuations (10s)
+✔ [9823/9847] Built ZInQKernel.Multiplication.Soundness.FiniteBox (6.6s)
+✔ [9824/9847] Built ZInQKernel.Multiplication.Completeness.AP.LemmaP (5.2s)
+✔ [9825/9847] Built ZInQKernel.Multiplication.Soundness.MultiplySound (4.2s)
+✔ [9826/9847] Built ZInQKernel.Multiplication.Completeness.AP.GoodSlope (4.3s)
+✔ [9827/9847] Built ZInQKernel.Multiplication.Completeness.SelectedPrecision (6.7s)
+✔ [9828/9847] Built ZInQKernel.Multiplication.Completeness.SlopeCompleteness (5.7s)
+✔ [9829/9847] Built ZInQKernel.Multiplication.Completeness.AP.PoleValuations (8.1s)
+✔ [9830/9847] Built ZInQKernel.Multiplication.Completeness.Core (4.1s)
+✔ [9831/9847] Built ZInQKernel.Multiplication.Completeness.AP.SlopeCompleteness (6.2s)
+✔ [9832/9847] Built ZInQKernel.Multiplication.Completeness.Template (5.2s)
+✔ [9833/9847] Built ZInQKernel.Multiplication.Top.Exact (4.2s)
+✔ [9834/9847] Built ZInQKernel.Multiplication.Top (4.3s)
+✔ [9835/9847] Built ZInQKernel.Assembly.Top.ValueRelation (4.5s)
+✔ [9836/9847] Built ZInQKernel.Assembly.Top.Assembly (4.8s)
+✔ [9837/9847] Built ZInQKernel.Assembly.Top (4.1s)
+✔ [9838/9847] Built ZInQKernel.Multiplication.Completeness.AP.Completeness (4.9s)
+✔ [9839/9847] Built ZInQKernel.Multiplication.Completeness.AP.PropAP (5.3s)
+✔ [9840/9847] Built ZInQKernel.Multiplication.Completeness.AP (4.0s)
+✔ [9841/9847] Built ZInQKernel.Main (4.3s)
+✔ [9842/9847] Built ZInQKernel.RouteK.Rank5b (4.2s)
+✔ [9843/9847] Built ZInQKernel.MainGreenTao (5.1s)
+✔ [9844/9847] Built ZInQKernel.RouteK.Rank5bSec3 (4.2s)
+✔ [9845/9847] Built ZInQKernel.RouteK.RankVariants (4.2s)
+✔ [9846/9847] Built ZInQKernel.MainLiterature (4.2s)
+⚠ [9847/9847] Built ZInQKernel.Contrib.H10Reduction (5.1s)
+warning: ZInQKernel/Contrib/H10Reduction.lean: imports `Mathlib.Computability.Reduce` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/H10Reduction.lean: imports `Mathlib.Algebra.MvPolynomial.Rename` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/H10Reduction.lean: imports `Mathlib.Algebra.Order.BigOperators.Ring.Finset` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/H10Reduction.lean: imports `Mathlib.Algebra.BigOperators.Fin` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/H10Reduction.lean: imports `Mathlib.Data.Rat.Cast.Order` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/H10Reduction.lean: imports `Mathlib.Logic.Equiv.Fin.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/H10Reduction.lean: imports `Mathlib.Computability.Primrec.List` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/H10Reduction.lean: imports `Mathlib.Computability.Partrec` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+Build completed successfully (9847 jobs).
+EXIT 0

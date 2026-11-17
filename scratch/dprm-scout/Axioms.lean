@@ -1,0 +1,7 @@
+import ZInQKernel.Contrib.OneProof.IntegerH10
+open ZInQ.Contrib.IntegerH10
+#check @not_computable_intCodeSolvable_of_dprm
+#print axioms not_computable_intCodeSolvable_of_dprm
+#print axioms not_computable_intCodeSolvable_of_dprmDioph
+#print axioms rational_not_computable_of_frozenTarget_dprm
+#print axioms dprmNat_of_dprmDioph

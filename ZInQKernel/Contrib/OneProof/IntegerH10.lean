@@ -71,26 +71,29 @@ theorem four_squares_iff {n : ℕ} (Q : MvPolynomial (Fin (n + 1)) ℤ) (x : ℕ
   · rintro ⟨z, hz0, hz⟩
     refine ⟨fun i => (∑ j : Fin 4, z (Fin.succ (finProdFinEquiv (i, j))) ^ 2).toNat, ?_⟩
     rw [eval_bind₁_eq] at hz
-    convert hz using 2
+    refine Eq.trans (congrArg (fun w => eval w Q) ?_) hz
     funext k
-    refine Fin.cases ?_ (fun i => ?_) k
-    · simp [sq4, hz0]
-    · simp only [Fin.cons_succ, sq4, map_sum, map_pow, eval_X]
+    induction k using Fin.cases with
+    | zero => simp [sq4, hz0]
+    | succ i =>
+      simp only [Fin.cons_succ, sq4, map_sum, map_pow, eval_X]
       rw [Int.toNat_of_nonneg (Finset.sum_nonneg fun j _ => sq_nonneg _)]
   · rintro ⟨y, hy⟩
     choose a b c d h using fun i => Nat.sum_four_squares (y i)
     let w : Fin n × Fin 4 → ℕ := fun ij => ![a ij.1, b ij.1, c ij.1, d ij.1] ij.2
     let z : Fin (n * 4 + 1) → ℤ := Fin.cons (x : ℤ) (fun k => (w (finProdFinEquiv.symm k) : ℤ))
+    have hz : ∀ i j, z (Fin.succ (finProdFinEquiv (i, j))) = (w (i, j) : ℤ) := fun i j => by
+      simp only [z, Fin.cons_succ, Equiv.symm_apply_apply]
     refine ⟨z, by simp [z], ?_⟩
     rw [eval_bind₁_eq]
-    convert hy using 2
+    refine Eq.trans (congrArg (fun w => eval w Q) ?_) hy
     funext k
-    refine Fin.cases ?_ (fun i => ?_) k
-    · simp [sq4, z]
-    · simp only [Fin.cons_succ, sq4, map_sum, map_pow, eval_X, z, Fin.cons_succ,
-        Equiv.symm_apply_apply, w, Fin.sum_univ_four]
-      rw [← h i]
-      simp
+    induction k using Fin.cases with
+    | zero => simp [sq4, z]
+    | succ i =>
+      simp only [Fin.cons_succ, sq4, Fin.sum_univ_four, map_add, map_pow, eval_X]
+      rw [hz i 0, hz i 1, hz i 2, hz i 3, ← h i]
+      simp [w]
 
 /-! ## Pinning variable `0` to the parameter -/
 
@@ -104,6 +107,7 @@ def tailCode (x : ℕ) : PolynomialCode := [((0, 2 * x), [0]), ((x * x, 0), [])]
 theorem eval_decode_tail (N : ℕ) (z : Fin (N + 1) → ℤ) (x : ℕ) :
     eval z (decodePolynomial (N + 1) (tailCode x)) = -2 * x * z 0 + (x : ℤ) * x := by
   simp [tailCode, decodePolynomial, codeVariable]
+  try ring
 
 theorem tailCode_primrec : Primrec tailCode := by
   unfold tailCode
@@ -138,9 +142,10 @@ theorem manyOne_of_poly {n : ℕ} (Q : MvPolynomial (Fin (n + 1)) ℤ) (p : ℕ 
       have h1 : eval z (bind₁ (sq4 n) Q) ^ 2 + (z 0 - x) ^ 2 = 0 := by linear_combination hz
       have ha := sq_nonneg (eval z (bind₁ (sq4 n) Q))
       have hb := sq_nonneg (z 0 - (x : ℤ))
-      refine ⟨z, ?_, ?_⟩
-      · nlinarith
-      · nlinarith
+      have h2 : (z 0 - x) ^ 2 = 0 := by linarith
+      have h3 : eval z (bind₁ (sq4 n) Q) ^ 2 = 0 := by linarith
+      exact ⟨z, sub_eq_zero.mp ((pow_eq_zero_iff two_ne_zero).mp h2),
+        (pow_eq_zero_iff two_ne_zero).mp h3⟩
 
 /-- **Integer H10 for `H10Reduction`'s coding, from DPRM.** No algorithm decides, from a raw code
 `(n, c)`, whether the decoded integer polynomial has an integer zero. -/
@@ -187,25 +192,25 @@ theorem dprmNat_of_dprmDioph (h : DPRMDioph) : DPRMNat := by
   let g : Fin n → Fin (n + 1) := fun i => Sum.elim (fun _ => 0) (fun _ => i.succ) (f i)
   refine ⟨n, rename g R, fun x => ?_⟩
   have hx := hq (fun _ => x)
-  simp only [Set.mem_setOf_eq] at hx
+  simp only [Set.mem_ofPred_eq] at hx
   rw [hx]
   simp only [hP, eval_rename]
   constructor
   · rintro ⟨t, ht⟩
     refine ⟨fun i => Sum.elim (fun _ => x) t (f i), ?_⟩
-    convert ht using 2
+    refine Eq.trans (congrArg (fun w => eval w R) ?_) ht
     funext i
     simp only [Function.comp_apply, g]
-    rcases f i with a | b <;> simp
+    rcases hfi : f i with a | b <;> simp [hfi]
   · rintro ⟨y, hy⟩
     refine ⟨Function.extend f y 0 ∘ Sum.inr, ?_⟩
-    convert hy using 2
+    refine Eq.trans (congrArg (fun w => eval w R) ?_) hy
     funext i
     simp only [Function.comp_apply, g]
-    have he := hf.extend_apply y 0 i
     rcases hfi : f i with a | b
     · simp
-    · rw [hfi] at he
+    · have he := hf.extend_apply y 0 i
+      rw [hfi] at he
       simp [he]
 
 /-- Integer H10 for `H10Reduction`'s coding from DPRM in Mathlib's `Dioph` form. -/

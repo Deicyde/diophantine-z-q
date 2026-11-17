@@ -1,0 +1,11 @@
+{"name": "dprm-scout-integerH10",
+ "note": "hZ is a plain premise of ZInQ.OneProof.rationalH10 (ZInQKernel/OneProof/RationalH10.lean), not a field of a frozenTarget bundle, so autofold.py (bundle fields only) does not apply as is. The integrator's fold: in rationalH10 replace (hZ : ¬ ComputablePred ZInQ.Contrib.H10Reduction.IntCodeSolvable) by (hD : ZInQ.Contrib.IntegerH10.DPRMNat) and pass (ZInQ.Contrib.IntegerH10.not_computable_intCodeSolvable_of_dprm hD).",
+ "imports": ["ZInQKernel.Contrib.OneProof.IntegerH10"],
+ "discharges": [
+   {"field": "hZ",
+    "proof": "_root_.ZInQ.Contrib.IntegerH10.not_computable_intCodeSolvable_of_dprm {n}.dprmNat",
+    "leaves": [{"name": "dprmNat", "type": "_root_.ZInQ.Contrib.IntegerH10.DPRMNat",
+                "doc": "DPRM theorem for subsets of N: Matiyasevich, Dokl. Akad. Nauk SSSR 191 (1970); Davis, Amer. Math. Monthly 80 (1973) 233-269, main theorem (printed form; locator UNVERIFIED)",
+                "kind": "published",
+                "flag": "unread: new printed leaf, no reading recorded",
+                "source": "Matiyasevich 1970; M. Davis, Hilbert's tenth problem is unsolvable, Amer. Math. Monthly 80 (1973), main theorem (r.e. = Diophantine); case of subsets of N, unknowns in N"}]}]}
