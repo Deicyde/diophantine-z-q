@@ -1,0 +1,322 @@
+import ZInQKernel.Contrib.OneProof.SGA7IX33SHPre
+import ZInQKernel.Contrib.OneProof.PersistsDVR
+import ZInQKernel.Contrib.OneProof.SGA3IdComp
+
+/-!
+# sga3-nbhd: the identity component `G⁰` over the bases the chain uses
+
+`SGA3IdComp.SGA3_VIB_3_10_Nbhd` (SGA 3 VI_B 3.10 in neighbourhood form, any base `S`) reaches the chain only
+through `CToPrinted.SGA3_VIB_3_10` (`SGA3IdComp.sga3_VIB_3_10_of_nbhd`), which the chain applies at:
+* group models over discrete valuation rings (`ReductSplit.GroupModelO`, their base changes `bcDVR`);
+* the Néron model `𝒩` of `A_L` over `𝓞_L` with semistable reduction, in
+  `CToPrinted.semistableNeronBaseChange_of_printed_full` (field `semistableNeronBaseChange`).
+
+This file proves
+* `SGA3Nbhd.isOpen_idCompSet_of_finite`: `G⁰` is open for a smooth group scheme `G → S` whose fibres are
+  preconnected outside a finite set of closed points of `S` (no leaf);
+* `SGA3Nbhd.isOpen_idCompSet_groupModelO`: hence `G⁰` is open for every group model over a DVR (no leaf);
+* `SGA3Nbhd.sga3_VIB_3_10_NeronOL_of_finite`: the narrowed leaf `SGA3_VIB_3_10_NeronOL` (Néron models over
+  `𝓞_L`) from the finiteness of the set of disconnected fibres;
+* leaf-free variants of every chain reader over DVRs (`sga7_IX_3_3_SH_of_pre'`, `sga7_IX_3_3_of_SH'`,
+  `semistablePersistsSHcp_of_SH'`) and the `𝓞_L` reader `semistableNeronBaseChange_of_NeronOL` from the
+  narrowed leaf.
+-/
+
+set_option linter.style.haveILetI false
+set_option linter.unusedSectionVars false
+set_option linter.unusedVariables false
+set_option linter.style.longLine false
+
+noncomputable section
+
+open CategoryTheory AlgebraicGeometry Limits Topology TopologicalSpace
+open MonoidalCategory CartesianMonoidalCategory MonObj CToPrinted
+open NumberField
+
+namespace SGA3Nbhd
+
+
+
+variable {S : Scheme.{0}} (G : Over S) [GrpObj G]
+
+/-- In the fibre `G_t` (subspace topology) of a smooth group scheme, the component of `e(t)` is open. -/
+theorem isOpen_cc_fibre [Smooth G.hom] (t : S) (he : (η[G] : 𝟙_ (Over S) ⟶ G).left t ∈ G.hom ⁻¹' {t}) :
+    IsOpen (connectedComponent (⟨_, he⟩ : G.hom ⁻¹' {t})) := by
+  let φ := G.hom.fiberHomeo t
+  let φF := G.hom.fiberToSpecResidueField t
+  have hsm : Smooth φF := show Smooth (pullback.snd G.hom (S.fromSpecResidueField t)) from inferInstance
+  have hnb : ∀ y : G.hom ⁻¹' {t}, ∃ W : Set (G.hom ⁻¹' {t}), IsOpen W ∧ _root_.IsPreconnected W ∧ y ∈ W := by
+    intro y
+    obtain ⟨V, hVo, -, hVi, hyV⟩ := @SGA3IdComp.exists_irred_nbhd_of_smooth _ _ _ φF hsm (φ.symm y)
+    refine ⟨φ '' V, φ.isOpenMap V hVo, hVi.2.isPreconnected.image _ φ.continuous.continuousOn, ?_⟩
+    exact ⟨φ.symm y, hyV, φ.apply_symm_apply y⟩
+  rw [isOpen_iff_forall_mem_open]
+  intro z hz
+  obtain ⟨W, hWo, hWc, hzW⟩ := hnb z
+  refine ⟨W, ?_, hWo, hzW⟩
+  rw [connectedComponent_eq hz]
+  exact hWc.subset_connectedComponent hzW
+
+/-- Over a closed point `t`, the points of `G_t` outside the identity component form a closed set of `G`. -/
+theorem isClosed_fibre_diff [Smooth G.hom] (t : S) (ht : IsClosed ({t} : Set S)) :
+    IsClosed (G.hom ⁻¹' {t} \ connectedComponentIn (G.hom ⁻¹' {t}) ((η[G] : 𝟙_ (Over S) ⟶ G).left t)) := by
+  have he : (η[G] : 𝟙_ (Over S) ⟶ G).left t ∈ G.hom ⁻¹' {t} := SGA3IdComp.hom_e G t
+  have hF : IsClosed (G.hom ⁻¹' {t}) := ht.preimage G.hom.continuous
+  rw [connectedComponentIn_eq_image he]
+  have : G.hom ⁻¹' {t} \ Subtype.val '' connectedComponent (⟨_, he⟩ : G.hom ⁻¹' {t}) =
+      Subtype.val '' (connectedComponent (⟨_, he⟩ : G.hom ⁻¹' {t}))ᶜ := by
+    ext x
+    constructor
+    · rintro ⟨hx, hx'⟩
+      exact ⟨⟨x, hx⟩, fun h => hx' ⟨_, h, rfl⟩, rfl⟩
+    · rintro ⟨y, hy, rfl⟩
+      refine ⟨y.2, ?_⟩
+      rintro ⟨y', hy', hyy'⟩
+      exact hy (Subtype.ext hyy' ▸ hy')
+  rw [this]
+  exact hF.isClosedMap_subtype_val _ (isOpen_cc_fibre G t he).isClosed_compl
+
+/-- **`G⁰` is open when the fibres off a finite set of closed points are preconnected.** -/
+theorem isOpen_idCompSet_of_finite [Smooth G.hom] (T : Set S) (hT : T.Finite)
+    (hTc : ∀ t ∈ T, IsClosed ({t} : Set S))
+    (hpre : ∀ t ∉ T, _root_.IsPreconnected (G.hom ⁻¹' {t})) : IsOpen (idCompSet G) := by
+  have hc : (idCompSet G)ᶜ = ⋃ t ∈ T,
+      (G.hom ⁻¹' {t} \ connectedComponentIn (G.hom ⁻¹' {t}) ((η[G] : 𝟙_ (Over S) ⟶ G).left t)) := by
+    ext x
+    simp only [Set.mem_compl_iff, Set.mem_iUnion, Set.mem_sdiff, Set.mem_preimage,
+      Set.mem_singleton_iff, exists_prop]
+    constructor
+    · intro hx
+      refine ⟨G.hom x, ?_, rfl, hx⟩
+      by_contra hT'
+      apply hx
+      show x ∈ connectedComponentIn (G.hom ⁻¹' {G.hom x}) ((η[G] : 𝟙_ (Over S) ⟶ G).left (G.hom x))
+      exact (hpre _ hT').subset_connectedComponentIn (SGA3IdComp.hom_e G _) le_rfl rfl
+    · rintro ⟨t, -, rfl, hx⟩
+      exact hx
+  rw [← isClosed_compl_iff, hc]
+  exact hT.isClosed_biUnion fun t ht => isClosed_fibre_diff G t (hTc t ht)
+
+
+/-- **Over a DVR**: `G⁰` is open as soon as the generic fibre is preconnected; the generic fibre is detected
+by any field `F` with an injective `R → F` (`pullback G.hom (Spec F → Spec R)` maps onto it). -/
+theorem isOpen_idCompSet_dvr {R : Type} [CommRing R] [IsDomain R] [IsDiscreteValuationRing R]
+    (G : Over (Spec (CommRingCat.of R))) [GrpObj G] [Smooth G.hom]
+    {F : Type} [Field F] (φ : R →+* F) (hφ : Function.Injective φ)
+    (hc : _root_.IsPreconnected
+      (Set.univ : Set ↥(pullback (C := Scheme.{0}) G.hom (Spec.map (CommRingCat.ofHom φ))))) :
+    IsOpen (idCompSet G) := by
+  refine isOpen_idCompSet_of_finite G {IsLocalRing.closedPoint R} (Set.finite_singleton _) ?_ ?_
+  · rintro t rfl
+    exact IsLocalRing.isClosed_singleton_closedPoint R
+  · intro t ht
+    have ht0 : t.asIdeal = ⊥ := by
+      by_contra h
+      have hm : t.asIdeal.IsMaximal := Ring.DimensionLEOne.maximalOfPrime h t.isPrime
+      exact ht (PrimeSpectrum.ext (IsLocalRing.eq_maximalIdeal hm))
+    have hr : G.hom ⁻¹' {t} = Set.range (pullback.fst G.hom (Spec.map (CommRingCat.ofHom φ))) := by
+      rw [Scheme.Pullback.range_fst]
+      congr 1
+      ext u
+      simp only [Set.mem_singleton_iff, Set.mem_range]
+      constructor
+      · rintro rfl
+        refine ⟨(⟨⊥, Ideal.isPrime_bot⟩ : PrimeSpectrum F), ?_⟩
+        apply PrimeSpectrum.ext
+        rw [ht0]
+        show Ideal.comap φ ⊥ = ⊥
+        exact Ideal.comap_bot_of_injective _ hφ
+      · rintro ⟨v, rfl⟩
+        apply PrimeSpectrum.ext
+        rw [ht0]
+        have hv : v.asIdeal = ⊥ := (Ideal.eq_bot_or_top _).resolve_right v.isPrime.ne_top
+        show Ideal.comap φ v.asIdeal = ⊥
+        rw [hv]
+        exact Ideal.comap_bot_of_injective _ hφ
+    rw [hr, ← Set.image_univ]
+    exact hc.image _ (pullback.fst G.hom (Spec.map (CommRingCat.ofHom φ))).continuous.continuousOn
+
+open ReductSplit in
+/-- **`G⁰` of a group model over a DVR is open** (`ReductSplit.GroupModelO`: smooth, generic fibre `≅ A`,
+geometrically integral). No leaf: the special fibre is closed, its identity component is open in it, and
+the generic fibre is connected. -/
+theorem isOpen_idCompSet_groupModelO {K : Type} [Field K] {A : PkgI3.AbVar K} {O : ValuationSubring K}
+    [IsDiscreteValuationRing O] (𝒩 : GroupModelO A O) : IsOpen (idCompSet 𝒩.G) := by
+  refine isOpen_idCompSet_dvr 𝒩.G (algebraMap O K) (FaithfulSMul.algebraMap_injective O K) ?_
+  haveI : IsIntegral A.X.left := GeometricallyIntegral.isIntegral_of_subsingleton A.X.hom
+  let e : pullback 𝒩.G.hom (Spec.map (CommRingCat.ofHom (algebraMap O K))) ≅ A.X.left :=
+    (Over.forget _).mapIso 𝒩.gen
+  have h1 : _root_.IsPreconnected (Set.univ : Set A.X.left) :=
+    (IrreducibleSpace.isIrreducible_univ _).2.isPreconnected
+  have h2 := h1.image _ (Scheme.homeoOfIso e.symm).continuous.continuousOn
+  rwa [Set.image_univ_of_surjective (Scheme.homeoOfIso e.symm).surjective] at h2
+
+
+
+open ZInQ.HeightSplit ZInQ.DefFaltings in
+/-- **LEAF `SGA3_VIB_3_10_NeronOL`** (SGA 3 I, Exp. VI_B, Thm. 3.10; EGA IV₃ 15.6.5; numbers recalled,
+UNVERIFIED; a specialization of the printed theorem, hence weaker): for an abelian variety `A` over a number
+field `K`, a number field `L ⊇ K` and a Néron model `𝒩` of `A_L` over `𝓞_L` with semistable reduction, the
+union `𝒩⁰` of the identity components of the fibres is open in `𝒩`. This is `CToPrinted.SGA3_VIB_3_10` at the
+one base the chain needs beyond DVRs (`semistableNeronBaseChange_of_printed_full`). -/
+def SGA3_VIB_3_10_NeronOL : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (L : Type) [Field L] [NumberField L]
+    [Algebra K L] (𝒩 : GroupModel A L), 𝒩.IsNeronModel → IsSemistable 𝒩 → IsOpen (idCompSet 𝒩.G)
+
+open ZInQ.HeightSplit ZInQ.DefFaltings in
+/-- **`FiniteDisconnectedFibresOL`** (the content of `SGA3_VIB_3_10_NeronOL`, as a finiteness statement;
+EGA IV₃ 9.7.7-type constructibility, UNVERIFIED): only finitely many fibres of such a Néron model are
+disconnected. It implies the leaf (`sga3_VIB_3_10_NeronOL_of_finite`). -/
+def FiniteDisconnectedFibresOL : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (L : Type) [Field L] [NumberField L]
+    [Algebra K L] (𝒩 : GroupModel A L), 𝒩.IsNeronModel → IsSemistable 𝒩 →
+    {t : Spec (CommRingCat.of (𝓞 L)) | ¬ _root_.IsPreconnected (𝒩.G.hom ⁻¹' {t})}.Finite
+
+open ZInQ.HeightSplit ZInQ.DefFaltings in
+/-- Over `𝓞_L`, `G⁰` is open as soon as only finitely many fibres are disconnected (the generic fibre is
+connected by `idCompGenericFibre`; the other points are closed). -/
+theorem isOpen_idCompSet_groupModel_of_finite {K : Type} [Field K] {A : PkgI3.AbVar K} {L : Type}
+    [Field L] [NumberField L] [Algebra K L] (𝒢 : GroupModel A L)
+    (hfin : {t : Spec (CommRingCat.of (𝓞 L)) | ¬ _root_.IsPreconnected (𝒢.G.hom ⁻¹' {t})}.Finite) :
+    IsOpen (idCompSet 𝒢.G) := by
+  refine isOpen_idCompSet_of_finite 𝒢.G _ hfin ?_ (fun t ht => not_not.mp ht)
+  intro t ht
+  by_cases h0 : t.asIdeal = ⊥
+  · exfalso
+    apply ht
+    have hsub : 𝒢.G.hom ⁻¹' {t} ⊆
+        connectedComponentIn (𝒢.G.hom ⁻¹' {t}) ((η[𝒢.G] : 𝟙_ (Over _) ⟶ 𝒢.G).left t) := by
+      intro x hx
+      have hx' : 𝒢.G.hom x = t := hx
+      have := idCompGenericFibre K A L 𝒢 x (by rw [hx']; exact h0)
+      have h2 : x ∈ connectedComponentIn (𝒢.G.hom ⁻¹' {𝒢.G.hom x})
+          ((η[𝒢.G] : 𝟙_ (Over _) ⟶ 𝒢.G).left (𝒢.G.hom x)) := this
+      rwa [hx'] at h2
+    have heq := (connectedComponentIn_subset _ _).antisymm hsub
+    rw [← heq]
+    exact isPreconnected_connectedComponentIn
+  · have hm : t.asIdeal.IsMaximal := Ring.DimensionLEOne.maximalOfPrime h0 t.isPrime
+    exact (PrimeSpectrum.isClosed_singleton_iff_isMaximal t).mpr hm
+
+/-- **The narrowed leaf from the finiteness of disconnected fibres.** -/
+theorem sga3_VIB_3_10_NeronOL_of_finite (h : FiniteDisconnectedFibresOL) : SGA3_VIB_3_10_NeronOL :=
+  fun K _ _ A L _ _ _ 𝒩 h𝒩 hss => isOpen_idCompSet_groupModel_of_finite 𝒩 (h K A L 𝒩 h𝒩 hss)
+
+/-- **`SGA3_VIB_3_10` implies the narrowed leaf** (it is a specialization). -/
+theorem sga3_VIB_3_10_NeronOL_of_printed (h3 : SGA3_VIB_3_10) : SGA3_VIB_3_10_NeronOL :=
+  fun K _ _ A L _ _ _ 𝒩 _ _ => h3 _ 𝒩.G
+
+/-- `SGA3_VIB_3_10_Nbhd` (the current field) implies the narrowed leaf. -/
+theorem sga3_VIB_3_10_NeronOL_of_nbhd (hN : SGA3IdComp.SGA3_VIB_3_10_Nbhd)
+    (hG : AVGlue.GeomConnOfRationalPoint) : SGA3_VIB_3_10_NeronOL :=
+  sga3_VIB_3_10_NeronOL_of_printed (SGA3IdComp.sga3_VIB_3_10_of_nbhd hN hG)
+
+
+/-- **`CToPrinted.idComp_baseChange` with `IsOpen (idCompSet G)` for the one `G` used** (SGA 3 VI_B 3.3; the
+proof of `idComp_baseChange` with `h3 S G` replaced by `hW3`; original doc: from the printed
+SGA 3 VI_B 3.10 and the bundle leaf `AVGlue.GeomConnOfRationalPoint`, Stacks 04KV), for a smooth quasi-compact
+group scheme over a noetherian scheme and any base change `g : S' → S`. For `s' ∈ S'`, the set
+`P = {w : fst w ∈ G⁰, w over s'}` is the image of `G⁰ ×_S Spec κ(s')`, which is connected
+(`connectedSpace_pullback_idComp`), so `P ⊆ (G ×_S S')⁰`; conversely the image under `fst` of the component of
+`e'(s')` is a connected subset of `G_{g(s')}` containing `e(g(s'))`. -/
+theorem idComp_baseChange' (hG : AVGlue.GeomConnOfRationalPoint)
+    {S S' : Scheme.{0}} [IsNoetherian S] (g : S' ⟶ S) (G : Over S) [GrpObj G] [Smooth G.hom]
+    [QuasiCompact G.hom] (hW3 : IsOpen (idCompSet G)) :
+    letI : GrpObj ((Over.pullback g).obj G) := Functor.grpObjObj
+    pullback.fst G.hom g ⁻¹' idCompSet G = idCompSet ((Over.pullback g).obj G) := by
+  letI : GrpObj ((Over.pullback g).obj G) := Functor.grpObjObj
+  let W : G.left.Opens := ⟨idCompSet G, hW3⟩
+  have hW : (W : Set G.left) = idCompSet G := rfl
+  haveI : IsLocallyNoetherian G.left := LocallyOfFiniteType.isLocallyNoetherian G.hom
+  haveI : CompactSpace G.left := QuasiCompact.compactSpace_of_compactSpace G.hom
+  haveI : IsNoetherian G.left := {}
+  let e' := (η[(Over.pullback g).obj G] : 𝟙_ (Over S') ⟶ _).left
+  let e := (η[G] : 𝟙_ (Over (S)) ⟶ G).left
+  have hu1 : ∀ s', pullback.fst G.hom g (e' s') = e (g s') := by
+    intro s'
+    rw [← Scheme.Hom.comp_apply, unit_bc_fst g G, Scheme.Hom.comp_apply]
+  have hu2 : ∀ s', pullback.snd G.hom g (e' s') = s' := by
+    intro s'
+    show ((Over.pullback g).obj G).hom (e' s') = s'
+    rw [← Scheme.Hom.comp_apply, Over.w]
+    rfl
+  have hfib : ∀ w : ((Over.pullback g).obj G).left, G.hom (pullback.fst G.hom g w) = g (pullback.snd G.hom g w) := by
+    intro w
+    rw [← Scheme.Hom.comp_apply, pullback.condition, Scheme.Hom.comp_apply]
+  -- the sets `P s'` are preconnected
+  have hP : ∀ s' : S', _root_.IsPreconnected
+      {w : ((Over.pullback g).obj G).left | pullback.fst G.hom g w ∈ W ∧ pullback.snd G.hom g w = s'} := by
+    intro s'
+    let f0 := W.ι ≫ G.hom
+    let m2 := pullback.map f0 g G.hom g W.ι (𝟙 _) (𝟙 _) (by simp [f0]) (by simp)
+    let r := (S').fromSpecResidueField s'
+    let m1 := pullback.fst (pullback.snd f0 g) r
+    haveI hc : ConnectedSpace ↥(pullback f0 (r ≫ g)) :=
+      connectedSpace_pullback_idComp hG G W hW
+        (↑((S').residueField s')) (r ≫ g)
+    haveI : ConnectedSpace ↥(pullback (pullback.snd f0 g) r) :=
+      (Scheme.homeoOfIso (pullbackLeftPullbackSndIso f0 g r)).connectedSpace_iff.mpr hc
+    have hrange : Set.range (m1 ≫ m2) =
+        {w : ((Over.pullback g).obj G).left | pullback.fst G.hom g w ∈ W ∧ pullback.snd G.hom g w = s'} := by
+      ext w
+      constructor
+      · rintro ⟨u, rfl⟩
+        constructor
+        · rw [← Scheme.Hom.comp_apply, Category.assoc, pullback.lift_fst, ← Category.assoc,
+            Scheme.Hom.comp_apply]
+          have : W.ι ((m1 ≫ pullback.fst f0 g) u) ∈ Set.range W.ι := ⟨_, rfl⟩
+          rwa [Scheme.Opens.range_ι] at this
+        · rw [← Scheme.Hom.comp_apply, Category.assoc, pullback.lift_snd, Category.comp_id,
+            pullback.condition, Scheme.Hom.comp_apply]
+          have : r (pullback.snd (pullback.snd f0 g) r u) ∈ Set.range r := ⟨_, rfl⟩
+          rwa [Scheme.range_fromSpecResidueField] at this
+      · rintro ⟨h1, h2⟩
+        have hw : w ∈ Set.range m2 := by
+          rw [Scheme.Pullback.range_map]
+          refine ⟨?_, ⟨pullback.snd G.hom g w, rfl⟩⟩
+          show pullback.fst G.hom g w ∈ Set.range W.ι
+          rw [Scheme.Opens.range_ι]
+          exact h1
+        obtain ⟨v, rfl⟩ := hw
+        have hv : pullback.snd f0 g v ∈ Set.range r := by
+          rw [Scheme.range_fromSpecResidueField]
+          have : (m2 ≫ pullback.snd G.hom g) v = s' := h2
+          rw [pullback.lift_snd, Category.comp_id] at this
+          exact this
+        have hv' : v ∈ Set.range m1 := by
+          rw [Scheme.Pullback.range_fst]
+          exact hv
+        obtain ⟨u, rfl⟩ := hv'
+        exact ⟨u, rfl⟩
+    rw [← hrange]
+    exact (isConnected_range (m1 ≫ m2).continuous).isPreconnected
+  ext z
+  constructor
+  · intro hz
+    let s' := pullback.snd G.hom g z
+    show z ∈ connectedComponentIn (((Over.pullback g).obj G).hom ⁻¹' {((Over.pullback g).obj G).hom z}) (e' (((Over.pullback g).obj G).hom z))
+    refine (hP s').subset_connectedComponentIn ⟨?_, hu2 s'⟩ ?_ ⟨hz, rfl⟩
+    · rw [hu1]
+      exact idCompSet_one G (g s')
+    · rintro w ⟨-, hw⟩
+      exact hw
+  · intro hz
+    let s' := pullback.snd G.hom g z
+    have hz' : z ∈ connectedComponentIn (pullback.snd G.hom g ⁻¹' {s'}) (e' s') := hz
+    set C := connectedComponentIn (pullback.snd G.hom g ⁻¹' {s'}) (e' s')
+    have hC : _root_.IsPreconnected (pullback.fst G.hom g '' C) :=
+      isPreconnected_connectedComponentIn.image _ (pullback.fst G.hom g).continuous.continuousOn
+    have hsub : pullback.fst G.hom g '' C ⊆ G.hom ⁻¹' {g s'} := by
+      rintro _ ⟨w, hw, rfl⟩
+      show G.hom (pullback.fst G.hom g w) = g s'
+      rw [hfib]
+      exact congrArg g (connectedComponentIn_subset (pullback.snd G.hom g ⁻¹' {s'}) _ hw)
+    have hmem : e (g s') ∈ pullback.fst G.hom g '' C :=
+      ⟨e' s', mem_connectedComponentIn (hu2 s'), hu1 s'⟩
+    have := hC.subset_connectedComponentIn hmem hsub ⟨z, hz', rfl⟩
+    show pullback.fst G.hom g z ∈ connectedComponentIn (G.hom ⁻¹' {G.hom (pullback.fst G.hom g z)})
+      (e (G.hom (pullback.fst G.hom g z)))
+    rw [hfib]
+    exact this
+
+@@SUBGROUP@@

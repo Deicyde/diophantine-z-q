@@ -1,0 +1,7 @@
+'ZInQ.GZConj.grossConjugationCd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZConj.conj_clause' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZConj.rootNumber_cd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZConj.lattice_eq_of_g' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZConj.grossZagierHeegnerCd_of_printed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZChain.frozenTarget_gzconj' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZChain.frozenTarget_gzconj_printed' depends on axioms: [propext, Classical.choice, Quot.sound]

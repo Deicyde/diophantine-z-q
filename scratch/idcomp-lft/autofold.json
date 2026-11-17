@@ -1,0 +1,12 @@
+{
+ "name": "idcomp-lft",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.IdentityComponentLFT"
+ ],
+ "discharges": [
+  {
+   "field": "identityComponentLFT",
+   "proof": "_root_.IdCompLFT.identityComponentLFT_proof"
+  }
+ ]
+}

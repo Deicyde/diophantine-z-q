@@ -1,0 +1,4 @@
+'ZInQ.GZAlg.ker_evJ' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZAlg.nonempty_ringEquiv_fractionRing' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZAlg.hasQExp_j' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZAlg.hasQExp_jN' depends on axioms: [propext, Classical.choice, Quot.sound]

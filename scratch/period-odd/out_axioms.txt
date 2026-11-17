@@ -1,0 +1,6 @@
+'ZInQ.PeriodOdd.grossZagierFormulaCd_of_etaW32' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.PeriodOdd.cd_or_ePrime_optimal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.PeriodOdd.periodLattice_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.PeriodOdd.LFunction_ePrime_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.PeriodOdd.weierPt_ePrime_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.PeriodOdd.lattice_cases' depends on axioms: [propext, Classical.choice, Quot.sound]

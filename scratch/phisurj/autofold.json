@@ -1,0 +1,18 @@
+{
+ "name": "phisurj",
+ "_comment": "Not autofoldable: autofold fills a field with a proof of the field's type, and PicDict.MumfordPhiSurjectiveAC is not proved (it contains 'every translation-invariant class lies in Pic0', see docs/research/phisurj.md section 2). The field is removed by rerouting its three readers, which only read T09Pic.PhiAmpleIsogeny, now PhiSurj.phiAmpleIsogeny_of_open {l}.picRepresentableAbVar {l}.picZeroAbVar {t}.mumfordTorsionAlgClosed. Hand fold: scratch/phisurj/FoldTailZ49.lean (new bundle OpenAddedLeaves21 = OpenAddedLeaves20 without the field; sixContactMin_of_open42). No new leaves.",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.PhiAmpleIsogenyOpen"
+ ],
+ "discharges": [],
+ "reroute": {
+  "field": "mumfordPhiSurjectiveAC",
+  "readers": [
+   "ZInQKernel/OneProof/H/TailZ45.lean:123",
+   "ZInQKernel/OneProof/H/TailZ46.lean:104",
+   "ZInQKernel/Contrib/OneProof/HomFreeFiniteAlgClosedReroute.lean:2082"
+  ],
+  "replacement": "_root_.PhiSurj.phiAmpleIsogeny_of_open {l}.picRepresentableAbVar {l}.picZeroAbVar {t}.mumfordTorsionAlgClosed",
+  "leaves": []
+ }
+}

@@ -60,14 +60,14 @@ H-65		ZInQ.Contrib.SpreadOut.EGAIV_8_10_5_xii	249195fd0,f6df5fa32,cba8157f7,5fd8
 H-66		ZInQ.Contrib.SpreadOut.EGAIV_17_7_8_ii	249195fd0,f6df5fa32,cba8157f7	no
 H-67		ZariskiConn.ZariskiConnectedness	249195fd0,f6df5fa32,cba8157f7	no
 H-69		HomUnify.HomLatticeCorr	249195fd0,f6df5fa32,cba8157f7	no
-H-70	homFreeFiniteAlgClosed	ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed	f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
+H-70		ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed	f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
 H-71	charPolyIndepOfEllAlgClosed	ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed	f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
-H-72	poincareComplement	ZInQ.Contrib.AVB1.PoincareComplement	f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
+H-72		ZInQ.Contrib.AVB1.PoincareComplement	f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
 H-73		ZInQ.Contrib.AVB1.ImageFactorization	f6df5fa32,cba8157f7	no
 H-74		ZInQ.Contrib.AVB1.SimpleSurjIsogeny	f6df5fa32,cba8157f7	no
 H-75		AVB2.T11bExists	f6df5fa32,cba8157f7	no
 H-76		ZInQ.Contrib.NeronC.NeronMappingAbelianSchemeSurj	f6df5fa32,cba8157f7	no
-H-77	neronSchemeExtensionExists	ZInQ.Contrib.NeronC.NeronSchemeExtensionExists	f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
+H-77		ZInQ.Contrib.NeronC.NeronSchemeExtensionExists	f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
 H-78		ZInQ.Contrib.CurvesG.DimJacobianEqGenus	f6df5fa32,cba8157f7,5fd81e870	no
 H-79		ZInQ.Contrib.CurvesG.GenusX1Field	f6df5fa32,cba8157f7,5fd81e870,085a7a53a	no
 H-80		ZInQ.Contrib.CurvesG.NormalModelOfFunctionFieldQ	f6df5fa32,cba8157f7	no
@@ -190,9 +190,9 @@ H-196		ShimuraGlue.Ray.RayClassCMAb	3691994d4,f96b7323d	no
 H-197		UnipotentB.SemistableUnipotentPrintedGen	3691994d4,f96b7323d	no
 H-198		UnipotentB.SemiAbelianDescendsSepClosed	3691994d4,f96b7323d	no
 H-199	picRepresentableAbVar	T09Pic.PicRepresentableAbVar	3691994d4,f96b7323d,8342c2eb7	yes
-H-200	picZeroAbVar	T09Pic.PicZeroAbVar	3691994d4,f96b7323d,8342c2eb7	yes
+H-200		T09Pic.PicZeroAbVar	3691994d4,f96b7323d,8342c2eb7	yes
 H-201		T09Pic.PhiAmpleIsogeny	3691994d4,f96b7323d,8342c2eb7	yes
-H-202	weilPairingMumford	T09Pic.WeilPairingMumford	3691994d4,f96b7323d,8342c2eb7	yes
+H-202		T09Pic.WeilPairingMumford	3691994d4,f96b7323d,8342c2eb7	yes
 H-203		ReductB.SemistablePersistsSHcp	f96b7323d,8342c2eb7	yes
 H-204	gonzalezRotgerProp56X6	GRCountX6.GonzalezRotgerProp56X6	f96b7323d,8342c2eb7	yes
 H-205		GapSHPair.NeronBaseChangeStrictHenselization	f96b7323d,8342c2eb7	yes
@@ -215,17 +215,17 @@ T-11		ZInQ.Contrib.TYZGenus.TYZ35.TYZThm33Pinned	f6df5fa32,cba8157f7	no
 T-12	h33	ZInQ.Contrib.TYZGenus.TYZSplit.TYZThm33	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
 T-13		ZInQ.Contrib.TYZGenus.TYZSplitT5.CMModuli	5fd81e870,085a7a53a	no
 T-14		ZInQ.Contrib.TYZGenus.TYZSplitT5.X0RatStructure	5fd81e870,085a7a53a	no
-T-15	hCM	T5Glue.ShimuraMainCM	f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
+T-15		T5Glue.ShimuraMainCM	f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
 T-16		T5Glue.X0ModuliGalois	f18bcb904,3691994d4,f96b7323d	no
 T-17		T5Glue.RingClassLattice	f18bcb904,3691994d4	no
 T-18		ZInQ.Contrib.TYZDecomp.H29Split.LegendreThreeSquares	8342c2eb7	yes
 T-19		ZInQ.Contrib.TYZDecomp.H29Split.JonesPallX2Y2Z16	8342c2eb7	yes
-T-20	hfx	ZInQ.Contrib.TYZDecomp.H29Split.TYZTestVectorExists	8342c2eb7	yes
+T-20		ZInQ.Contrib.TYZDecomp.H29Split.TYZTestVectorExists	8342c2eb7	yes
 T-21	hL29	ZInQ.Contrib.TYZDecomp.H29Split.TYZLemma29PrintedNe3	8342c2eb7	yes
 T-22		ZInQ.Contrib.TYZDecomp.H29Split.TYZThm21At31	8342c2eb7	yes
-T-23	hP23	ZInQ.Contrib.TYZDecomp.H29Split.TYZProp23Printed	8342c2eb7	yes
+T-23		ZInQ.Contrib.TYZDecomp.H29Split.TYZProp23Printed	8342c2eb7	yes
 Z-1		ZInQ.GZDecomp.FHNonvanishing	249195fd0,f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d	no
-Z-2	hL3	ZInQ.GZDecomp.GrossZagierHeegner	249195fd0,f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d	no
+Z-2		ZInQ.GZDecomp.GrossZagierHeegner	249195fd0,f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d	no
 Z-3		ZInQ.GZFH.FriedbergHoffsteinB_FE	8342c2eb7	yes
 Z-4		ZInQ.GZHL3.WeierstrassUniformization	8342c2eb7	yes
 Z-5		ZInQ.GZHL3.GrossZagierFormulaCd	8342c2eb7	yes

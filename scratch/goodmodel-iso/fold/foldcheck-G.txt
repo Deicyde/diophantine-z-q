@@ -1,0 +1,181 @@
+ZInQ.OneProof.frozenTarget : HDec.HSyn.OpenResearchLeaves28 →
+  HDec.HSyn.OpenTextbookLeaves14 →
+    HDec.HSyn.OpenAddedLeaves19 →
+      ZInQ.Contrib.TYZDecomp.TYZThm11Integral →
+        ZInQ.Contrib.TYZDecomp.H29Split.TYZTestVectorExists →
+          ZInQ.Contrib.TYZDecomp.H29Split.TYZLemma29PrintedNe3 →
+            ZInQ.Contrib.TYZDecomp.H29Split.TYZProp23Printed →
+              T5Glue.ShimuraMainCM →
+                ZInQ.Contrib.TYZGenus.TYZSplit.TYZThm33 →
+                  ZInQ.BFHPrinted.BFHClauseIIGamma0 → ZInQ.GZDecomp.GrossZagierHeegner → ZInQ.FrozenTarget
+HDec.HSyn.sixContactMin_of_open39 : HDec.HSyn.OpenResearchLeaves28 →
+  HDec.HSyn.OpenTextbookLeaves14 → HDec.HSyn.OpenAddedLeaves19 → ZInQ.SixContactMin
+structure HDec.HSyn.OpenResearchLeaves28 : Prop
+number of parameters: 0
+fields:
+  HDec.HSyn.OpenResearchLeaves28.r9a : PkgI3.FaltingsSemisimple
+  HDec.HSyn.OpenResearchLeaves28.r9b : PkgI3.FaltingsTate
+  HDec.HSyn.OpenResearchLeaves28.hodgeTateDecompAbVar : ZInQ.Contrib.HodgeSplit.HodgeTateDecompAbVar
+  HDec.HSyn.OpenResearchLeaves28.deRhamH1AbVarT : ZInQ.Contrib.HodgeSplit.DeRhamH1AbVarT
+  HDec.HSyn.OpenResearchLeaves28.r11r12 : HDec.PkgI4.PanBerger
+  HDec.HSyn.OpenResearchLeaves28.eigenformHTNew : ZInQ.Contrib.HodgeSplit.EigenformHTNew
+  HDec.HSyn.OpenResearchLeaves28.r17 : LadicCond.CarayolR17'
+  HDec.HSyn.OpenResearchLeaves28.bostLowerBound : ZInQ.HeightSplit.BostLowerBound
+  HDec.HSyn.OpenResearchLeaves28.javanpeykarBound : ZInQ.HeightSplit.JavanpeykarBound
+  HDec.HSyn.OpenResearchLeaves28.pazukiCor13Upper : ZInQ.HeightSplit.PazukiCor13Upper
+  HDec.HSyn.OpenResearchLeaves28.gaudronRemondThm14 : ZInQ.HeightSplit.GaudronRemondThm14
+  HDec.HSyn.OpenResearchLeaves28.gonzalezRotgerX6Ab : HDec.QMSplit.Moduli.GonzalezRotgerX6Ab
+  HDec.HSyn.OpenResearchLeaves28.gonzalezRotgerProp56X6 : GRCountX6.GonzalezRotgerProp56X6
+  HDec.HSyn.OpenResearchLeaves28.sga7_IX_3_5_ForwardGeom : UnipotentForward.SGA7_IX_3_5_ForwardGeom
+  HDec.HSyn.OpenResearchLeaves28.shimuraMainThmIDeligneY3AbU : RayClassCFT.ShimuraMainThmIDeligneY3AbU
+  HDec.HSyn.OpenResearchLeaves28.r16CoreY : R16Split.R16CoreY
+  HDec.HSyn.OpenResearchLeaves28.elkiesX6StarFunctionField : HDec.QMSplit.Moduli.ElkiesCoord.ElkiesX6StarFunctionField
+  HDec.HSyn.OpenResearchLeaves28.sga3_VIB_3_10_Nbhd : SGA3IdComp.SGA3_VIB_3_10_Nbhd
+  HDec.HSyn.OpenResearchLeaves28.sga7_IX_3_3_SHpre : DictModels.SGA7Pre.SGA7_IX_3_3_SHpre
+  HDec.HSyn.OpenResearchLeaves28.raynaudSemistableSHOr : DictModels.RaynaudOr.RaynaudSemistableSHOr
+  HDec.HSyn.OpenResearchLeaves28.neronSchemeExtensionDedekind : ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind
+  HDec.HSyn.OpenResearchLeaves28.blr_7_2_1 : DictModels.NeronBLR72.BLR_7_2_1
+  HDec.HSyn.OpenResearchLeaves28.neronOggShafarevichSep : NOSSepDict.NeronOggShafarevichSep
+  HDec.HSyn.OpenResearchLeaves28.dsThm965Printed : DSCoeffExt.DSThm965Printed
+  HDec.HSyn.OpenResearchLeaves28.eigenformCoeffFieldFinite : DSCoeffExt.EigenformCoeffFieldFinite
+  HDec.HSyn.OpenResearchLeaves28.dsThm966Printed : DSThm966EV.DSThm966Printed
+constructor:
+  HDec.HSyn.OpenResearchLeaves28.mk (r9a : PkgI3.FaltingsSemisimple) (r9b : PkgI3.FaltingsTate)
+    (hodgeTateDecompAbVar : ZInQ.Contrib.HodgeSplit.HodgeTateDecompAbVar)
+    (deRhamH1AbVarT : ZInQ.Contrib.HodgeSplit.DeRhamH1AbVarT) (r11r12 : HDec.PkgI4.PanBerger)
+    (eigenformHTNew : ZInQ.Contrib.HodgeSplit.EigenformHTNew) (r17 : LadicCond.CarayolR17')
+    (bostLowerBound : ZInQ.HeightSplit.BostLowerBound) (javanpeykarBound : ZInQ.HeightSplit.JavanpeykarBound)
+    (pazukiCor13Upper : ZInQ.HeightSplit.PazukiCor13Upper) (gaudronRemondThm14 : ZInQ.HeightSplit.GaudronRemondThm14)
+    (gonzalezRotgerX6Ab : HDec.QMSplit.Moduli.GonzalezRotgerX6Ab)
+    (gonzalezRotgerProp56X6 : GRCountX6.GonzalezRotgerProp56X6)
+    (sga7_IX_3_5_ForwardGeom : UnipotentForward.SGA7_IX_3_5_ForwardGeom)
+    (shimuraMainThmIDeligneY3AbU : RayClassCFT.ShimuraMainThmIDeligneY3AbU) (r16CoreY : R16Split.R16CoreY)
+    (elkiesX6StarFunctionField : HDec.QMSplit.Moduli.ElkiesCoord.ElkiesX6StarFunctionField)
+    (sga3_VIB_3_10_Nbhd : SGA3IdComp.SGA3_VIB_3_10_Nbhd) (sga7_IX_3_3_SHpre : DictModels.SGA7Pre.SGA7_IX_3_3_SHpre)
+    (raynaudSemistableSHOr : DictModels.RaynaudOr.RaynaudSemistableSHOr)
+    (neronSchemeExtensionDedekind : ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind)
+    (blr_7_2_1 : DictModels.NeronBLR72.BLR_7_2_1) (neronOggShafarevichSep : NOSSepDict.NeronOggShafarevichSep)
+    (dsThm965Printed : DSCoeffExt.DSThm965Printed) (eigenformCoeffFieldFinite : DSCoeffExt.EigenformCoeffFieldFinite)
+    (dsThm966Printed : DSThm966EV.DSThm966Printed) : HDec.HSyn.OpenResearchLeaves28
+structure HDec.HSyn.OpenTextbookLeaves14 : Prop
+number of parameters: 0
+fields:
+  HDec.HSyn.OpenTextbookLeaves14.mumfordTorsionAlgClosed : AvSplit.MumfordTorsionAlgClosed
+  HDec.HSyn.OpenTextbookLeaves14.homFreeFiniteAlgClosed : ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed
+  HDec.HSyn.OpenTextbookLeaves14.charPolyIndepOfEllAlgClosed : ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed
+  HDec.HSyn.OpenTextbookLeaves14.poincareComplement : ZInQ.Contrib.AVB1.PoincareComplement
+  HDec.HSyn.OpenTextbookLeaves14.gagaMorphism : ZInQ.HomLattice.GAGAMorphism
+constructor:
+  HDec.HSyn.OpenTextbookLeaves14.mk (mumfordTorsionAlgClosed : AvSplit.MumfordTorsionAlgClosed)
+    (homFreeFiniteAlgClosed : ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed)
+    (charPolyIndepOfEllAlgClosed : ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed)
+    (poincareComplement : ZInQ.Contrib.AVB1.PoincareComplement) (gagaMorphism : ZInQ.HomLattice.GAGAMorphism) :
+    HDec.HSyn.OpenTextbookLeaves14
+'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_open39' depends on axioms: [propext, Classical.choice, Quot.sound]
+DictModels.MumfordConn.MumfordGroupLawConn: not in closure
+DictModels.MumfordConn.mumfordGroupLaw_of_conn: not in closure
+ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw: not in closure
+LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_groupLaw: not in closure
+ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR: IN closure
+LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_dvr: IN closure
+ZInQ.Contrib.GroupLawNeron.NeronGoodModelIso: IN closure
+ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind: IN closure
+ZInQ.Contrib.GroupLawNeron.mumfordGroupLawDVR_of_neron: IN closure
+ZInQ.Contrib.GoodModelIso.mumfordGroupLawDVR_of_dedekind: IN closure
+ZInQ.Contrib.GoodModelIso.neronGoodModelIso_of_dvr: IN closure
+ZInQ.Contrib.NeronC.NeronSchemeExtensionExists: IN closure
+ZInQ.Contrib.GroupLawNeron.neronSchemeExtensionExists_of_dedekind: IN closure
+DISCHARGES [OpenResearchLeaves28.dsThm965Printed] by DSCoeffExt.dsThm965Printed_of_charpoly
+  still assumes: [∀ (N : ℕ) [inst : NeZero N] (k : ℤ) (χ : DirichletCharacter ℂ N) (f : ZInQ.Contrib.G9.PkgI4.CF N k),
+   2 ≤ k →
+     DSCoeffExt.IsNormalizedEigenformDS f χ →
+       ∀ [inst : NumberField ↥(DSCoeffExt.coeffField f)] (ℓ : ℕ) [Fact (Nat.Prime ℓ)]
+         (lam : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers ↥(DSCoeffExt.coeffField f))),
+         ↑ℓ ∈ lam.asIdeal →
+           ∃ ρ,
+             Continuous ⇑ρ ∧
+               ∀ (p : ℕ),
+                 Nat.Prime p →
+                   ¬p ∣ N * ℓ →
+                     (∀ (v : ValuationSubring ZInQ.Contrib.G9.PkgI4.Qbar),
+                         ZInQ.Contrib.G9.PkgI4.LiesOver v p → ∀ σ ∈ ValuationSubring.inertiaSubgroup ℚ v, ρ ↑σ = 1) ∧
+                       ∀ (b : ↥(DSCoeffExt.coeffField f)),
+                         ↑b = χ ↑p * ↑p ^ (k - 1) →
+                           ∀ (v : ValuationSubring ZInQ.Contrib.G9.PkgI4.Qbar) (σ : ZInQ.Contrib.G9.PkgI4.GQ),
+                             ZInQ.Contrib.G9.PkgI4.LiesOver v p →
+                               ZInQ.Contrib.G9.PkgI4.IsArithFrob σ v p →
+                                 (↑(ρ σ)).charpoly =
+                                   Polynomial.X ^ 2 -
+                                       Polynomial.C
+                                           ((algebraMap (↥(DSCoeffExt.coeffField f))
+                                               (IsDedekindDomain.HeightOneSpectrum.adicCompletion
+                                                 (↥(DSCoeffExt.coeffField f)) lam))
+                                             ⟨ZInQ.Contrib.G9.PkgI4.coeff f p, ⋯⟩) *
+                                         Polynomial.X +
+                                     Polynomial.C
+                                       ((algebraMap (↥(DSCoeffExt.coeffField f))
+                                           (IsDedekindDomain.HeightOneSpectrum.adicCompletion
+                                             (↥(DSCoeffExt.coeffField f)) lam))
+                                         b)]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves28.raynaudSemistableSHOr] by DictModels.RaynaudOr.or_of_field
+  still assumes: [ReductGlue.RaynaudSemistableSH]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves28.sga7_IX_3_3_SHpre] by DictModels.SGA7Pre.pre_of_SH
+  still assumes: [SGA7PersistsNF.SGA7_IX_3_3_SH, CToPrinted.SGA3_VIB_3_10, AVGlue.GeomConnOfRationalPoint]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves28.gonzalezRotgerProp56X6] by GRCountX6.prop56X6_of_r5fpCount
+  still assumes: [LeafQM.AV.R5fpCount]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenAddedLeaves19.picZeroAbVar] by PicDict.picZeroAbVar_of_leaves
+  still assumes: [PicDict.PicLocFinType, PicDict.IdentityComponentLFT, PicDict.PicZeroSmooth, PicDict.PicZeroProper]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenAddedLeaves19.weilPairingMumford] by PicDict.weilPairingMumford_final
+  still assumes: [PicDict.MumfordSquareAC,
+ PicDict.MumfordMulNPicZeroAC,
+ PicDict.MumfordPhiSurjectiveAC,
+ PicDict.MumfordWeilPairingAC,
+ PicDict.MumfordWeilNondegAC,
+ PicDict.MumfordWeilAltAC,
+ PicDict.MumfordKLFiniteAC]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenAddedLeaves19.weilPairingMumford] by PicDict.weilPairingMumford_of_ac
+  still assumes: [PicDict.MumfordSquareAC,
+ PicDict.MumfordMulNPicZeroAC,
+ PicDict.MumfordPhiSurjectiveAC,
+ PicDict.AmpleBaseChangeAlgClosure,
+ PicDict.MumfordWeilPairingAC,
+ PicDict.MumfordWeilNondegAC,
+ PicDict.MumfordWeilAltAC,
+ T09Pic.PhiAmpleIsogeny]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenAddedLeaves19.weilPairingMumford] by PicDict.weilPairingMumford_of_mumford
+  still assumes: [PicDict.MumfordSquareAC,
+ PicDict.MumfordMulNPicZeroAC,
+ PicDict.MumfordPhiSurjectiveAC,
+ PicDict.MumfordWeilPairingAC,
+ PicDict.MumfordWeilNondegAC,
+ PicDict.MumfordWeilAltAC,
+ T09Pic.PhiAmpleIsogeny]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenAddedLeaves19.weilPairingMumford] by PicDict.weilPairingMumford_of_printed
+  still assumes: [PicDict.MumfordSquare,
+ PicDict.MumfordMulNPicZero,
+ PicDict.MumfordPhiSurjective,
+ PicDict.AmpleBaseChangeAlgClosure,
+ PicDict.MumfordWeilPairing,
+ PicDict.MumfordWeilNondeg,
+ PicDict.MumfordWeilAlt,
+ T09Pic.PhiAmpleIsogeny]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves28.r16CoreY] by R16Split.coreY_of_r16
+  still assumes: [LeafModCurves.R16_EichlerShimuraJ1']
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves28.sga7_IX_3_5_ForwardGeom] by UnipotentForward.forwardGeom_of_forward
+  still assumes: [UnipotentForward.SGA7_IX_3_5_Forward, UnipotentForward.SemiAbelianDescendsSepClosed]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [hBFH] by ZInQ.BFHPrinted.bfhClauseIIGamma0_of_bfhClauseIIKronecker
+  still assumes: [ZInQ.BFHPrinted.BFHClauseIIKronecker]
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 44 open hypotheses, 6849 theorems checked, 12 discharge one

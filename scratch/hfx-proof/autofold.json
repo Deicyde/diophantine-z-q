@@ -1,0 +1,4 @@
+{"name": "hfx-proof",
+ "imports": ["ZInQKernel.Contrib.OneProof.TYZTestVectorExists"],
+ "discharges": [
+   {"field": "hfx", "proof": "_root_.ZInQ.Contrib.HfxProof.tyzTestVectorExists", "leaves": []}]}

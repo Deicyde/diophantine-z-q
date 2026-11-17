@@ -1,0 +1,12 @@
+⚠ [13616/13703] Replayed ZInQKernel.Contrib.OneProof.GrossZagierModuli
+warning: ZInQKernel/Contrib/OneProof/GrossZagierModuli.lean:362:41: Variable name `hN` is not explicitly referenced.
+warning: ZInQKernel/Contrib/OneProof/GrossZagierModuli.lean:489:38: Unused tactic linter: `push_cast` does nothing.
+warning: ZInQKernel/Contrib/OneProof/GrossZagierModuli.lean:649:0: automatically included section variable(s) unused in theorem `ZInQ.GZModuli.frequently_zPar_notMem`:
+warning: ZInQKernel/Contrib/OneProof/GrossZagierModuli.lean:696:2: Try this: 
+warning: ZInQKernel/Contrib/OneProof/GrossZagierModuli.lean:712:8: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+warning: ZInQKernel/Contrib/OneProof/GrossZagierModuli.lean:727:8: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+warning: ZInQKernel/Contrib/OneProof/GrossZagierModuli.lean:734:0: automatically included section variable(s) unused in theorem `ZInQ.GZModuli.tendsto_norm_xPar`:
+✔ [13641/13703] Built ZInQKernel.Contrib.OneProof.GrossZagierModuli.NonVacuous (6.8s)
+info: ZInQKernel/OneProof/Main.lean:76:0: 'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (13703 jobs).
+exit 0

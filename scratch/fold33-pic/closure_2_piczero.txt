@@ -1,0 +1,35 @@
+frozenTarget: closure 271480
+  contains PicDict.MumfordPhiSurjectiveAC: false
+  contains PicFix.phiAmpleIsogeny_of_printed: false
+  contains T09Pic.WeilPairingMumford: false
+  contains PhiSurj.phiAmpleIsogeny_of_open: false
+  contains PhiSurj.weilPairingMumford_of_open: false
+  contains T09Pic.PicZeroAbVar: false
+  contains PicDict.PicZeroSmooth: false
+  contains CToPrinted.SGA3_VIB_3_10: false
+  contains SGA3IdComp.SGA3_VIB_3_10_Nbhd: false
+  contains DictModels.MumfordConn.MumfordGroupLawConn: false
+  contains ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw: false
+  contains ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed: false
+  contains PkgI3.HomFreeFinite: false
+  contains sorryAx: false
+  contains HDec.HSyn.OpenAddedLeaves19: false
+  contains HDec.HSyn.OpenAddedLeaves20: false
+  contains HDec.HSyn.OpenAddedLeaves18: false
+  contains HDec.HSyn.sixContactMin_of_open43: false
+  contains HDec.HSyn.sixContactMin_of_open37_hf_gm: false
+  contains PicZeroChar0.PicZeroAbVar0: true
+  contains T09Pic.WeilPairingMumford0: true
+  contains PicZeroChar0.PhiAmpleIsogeny0: true
+  contains T09Pic.PhiAmpleIsogeny: false
+  contains HDec.WeilPairing.T09_SymmIsogenyExists: false
+  contains HDec.LeafPush.T09_WeilPairing: false
+  contains LeafPush.T09_WeilPairing: false
+  contains PicZeroChar0.T09_SymmIsogenyExists0: true
+  contains HDec.G0Galois.G12Det: false
+  contains HDec.HSyn.OpenAddedLeaves22: false
+  contains HDec.HSyn.sixContactMin_of_open45: false
+  contains HDec.HSyn.sixContactMin_of_open45_pz: true
+  bundle HDec.HSyn.OpenResearchLeaves31: 24 fields
+  bundle HDec.HSyn.OpenTextbookLeaves16: 3 fields
+  bundle HDec.HSyn.OpenAddedLeaves23: 4 fields

@@ -1,0 +1,46 @@
+{
+ "name": "weil-proof",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.WeilFormulaTheta"
+ ],
+ "discharges": [
+  {
+   "field": "weilPairingMumford",
+   "proof": "_root_.WeilProof.Theta.weilPairingMumford_final {n}.mumfordSquareAC {n}.mumfordMulNPicZeroAC {n}.mumfordPhiSurjectiveAC {n}.mumfordWeilNondegAC {n}.phiAmpleIsogeny",
+   "leaves": [
+    {
+     "name": "mumfordSquareAC",
+     "type": "_root_.PicDict.MumfordSquareAC",
+     "doc": "pic-dict: theorem of the square over an algebraically closed field (Mumford, Abelian varieties, section 6 Cor. 4; locator UNVERIFIED).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Mumford's statement over an algebraically closed field, Pic0 = translation-invariant classes); locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, 6 Cor. 4: t_{x+y}^*L (x) L = t_x^*L (x) t_y^*L"
+    },
+    {
+     "name": "mumfordMulNPicZeroAC",
+     "type": "_root_.PicDict.MumfordMulNPicZeroAC",
+     "doc": "pic-dict: n_X^*L = L^n for L in Pic0(X), k algebraically closed (Mumford section 8 (iv); locator UNVERIFIED).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Mumford's statement over an algebraically closed field, Pic0 = translation-invariant classes); locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, 8 (iv): n_X^*L = L^n for L in Pic0"
+    },
+    {
+     "name": "mumfordPhiSurjectiveAC",
+     "type": "_root_.PicDict.MumfordPhiSurjectiveAC",
+     "doc": "pic-dict: for L ample every L' in Pic0(X) is t_x^*L (x) L^-1 (Mumford section 8 Thm 1; locator UNVERIFIED).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Mumford's statement over an algebraically closed field, Pic0 = translation-invariant classes); locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, 8 Thm 1"
+    },
+    {
+     "name": "mumfordWeilNondegAC",
+     "type": "_root_.PicDict.MumfordWeilNondegAC",
+     "doc": "pic-dict: e_n nondegenerate for n prime to char (Mumford section 20; locator UNVERIFIED).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Mumford's statement over an algebraically closed field for the formula e_n(x,M) = t_x^*psi o psi^-1; a reader must confirm section 20 states this formula); locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, 20: e_n nondegenerate"
+    }
+   ]
+  }
+ ]
+}

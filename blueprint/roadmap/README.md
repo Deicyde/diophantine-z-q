@@ -68,3 +68,4 @@ proved, with every finite computation checked by the Lean kernel.
 - [The row-5b determinant](rank-5b/README.md)
 - [Rédei's formula for the 4-rank of class groups](redei/README.md)
 - [The rank hypothesis as positive rank](rank/README.md)
+- [The minimal height hypothesis from the literature](height-decomposition/README.md)

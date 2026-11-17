@@ -1,0 +1,45 @@
+ZInQ.Contrib.NeronC.NeronSchemeExtensionExists: 17 reachable constants mention it
+GapNeron.neronSchemeModelExistsNF [ZInQKernel.Contrib.OneProof.NeronDVR] type:true value:true
+HDec.HSyn.OpenTextbookLeaves10.mk [ZInQKernel.OneProof.H.TailZ11] type:true value:false
+HDec.HSyn.OpenTextbookLeaves10.neronSchemeExtensionExists [ZInQKernel.OneProof.H.TailZ11] type:true value:false
+HDec.HSyn.OpenTextbookLeaves11.mk [ZInQKernel.OneProof.H.TailZ32] type:true value:false
+HDec.HSyn.OpenTextbookLeaves11.neronSchemeExtensionExists [ZInQKernel.OneProof.H.TailZ32] type:true value:false
+HDec.HSyn.OpenTextbookLeaves12.neronSchemeExtensionExists [ZInQKernel.OneProof.H.TailZ42] type:true value:false
+HDec.HSyn.OpenTextbookLeaves6.mk [ZInQKernel.OneProof.H.TailO] type:true value:false
+HDec.HSyn.OpenTextbookLeaves6.neronSchemeExtensionExists [ZInQKernel.OneProof.H.TailO] type:true value:false
+HDec.HSyn.OpenTextbookLeaves7.mk [ZInQKernel.OneProof.H.TailX] type:true value:false
+HDec.HSyn.OpenTextbookLeaves7.neronSchemeExtensionExists [ZInQKernel.OneProof.H.TailX] type:true value:false
+HDec.HSyn.OpenTextbookLeaves8.mk [ZInQKernel.OneProof.H.TailZ4] type:true value:false
+HDec.HSyn.OpenTextbookLeaves8.neronSchemeExtensionExists [ZInQKernel.OneProof.H.TailZ4] type:true value:false
+HDec.HSyn.OpenTextbookLeaves9.mk [ZInQKernel.OneProof.H.TailZ9] type:true value:false
+HDec.HSyn.OpenTextbookLeaves9.neronSchemeExtensionExists [ZInQKernel.OneProof.H.TailZ9] type:true value:false
+HDec.HSyn.t41_of_extension5 [ZInQKernel.OneProof.H.TailM] type:true value:true
+ZInQ.Contrib.NeronC.neronModelExists_of_extension [ZInQKernel.Contrib.NeronC.NeronGroup] type:true value:true
+ZInQ.Contrib.NeronC.neronSchemeModelExists_of_extension [ZInQKernel.Contrib.NeronC.NeronGroup] type:true value:true
+ZInQ.Contrib.NeronC.neronModelExists_of_extension: 4 reachable constants mention it
+GapNeron.neronSchemeModelExistsNF [ZInQKernel.Contrib.OneProof.NeronDVR] type:false value:true
+HDec.HSyn.heightRowsNo20_of8 [ZInQKernel.OneProof.H.TailZ4] type:false value:true
+HDec.HSyn.r20Lower_of8 [ZInQKernel.OneProof.H.TailZ4] type:false value:true
+HDec.HSyn.t41_of_extension5 [ZInQKernel.OneProof.H.TailM] type:false value:true
+GapNeron.neronSchemeModelExistsNF: 2 reachable constants mention it
+HDec.HSyn.raynaudCriterionNF_of14 [ZInQKernel.OneProof.H.TailZ26] type:false value:true
+HDec.HSyn.ss1_ss3_of14NF [ZInQKernel.OneProof.H.TailZ26] type:false value:true
+GapNeron.NeronSchemeModelExistsDVRNF: 10 reachable constants mention it
+GapNeron.exists_neron_groupModelNF [ZInQKernel.Contrib.OneProof.NeronDVR] type:true value:true
+GapNeron.hasSemistableReduction_ofNF [ZInQKernel.Contrib.OneProof.NeronDVR] type:true value:true
+GapNeron.neronSchemeModelExistsNF [ZInQKernel.Contrib.OneProof.NeronDVR] type:true value:false
+GapNeron.raynaudCriterion_leavesNF [ZInQKernel.Contrib.OneProof.NeronDVR] type:true value:true
+GapNeron.raynaudCriterion_of_leavesNF [ZInQKernel.Contrib.OneProof.NeronDVR] type:true value:true
+GapNeron.semistablePersists_final_nfNF [ZInQKernel.Contrib.OneProof.NeronDVR] type:true value:true
+GapNeron.semistablePersists_of_leaves_nfNF [ZInQKernel.Contrib.OneProof.NeronDVR] type:true value:true
+GapNeron.semistableReductionThm_final_nfNF [ZInQKernel.Contrib.OneProof.NeronDVR] type:true value:true
+GapNeron.semistableReductionThm_of_leaves_nfNF [ZInQKernel.Contrib.OneProof.NeronDVR] type:true value:true
+GapNeron.ss1_ss3_of_cpNF [ZInQKernel.Contrib.OneProof.NeronDVR] type:true value:true
+ZInQ.H5Neron.NeronModelExists: 30 reachable constants mention it
+HDec.HSyn.G0Split.heightAdditivity_of_h5neron [ZInQKernel.OneProof.H.LPrefix] type:true value:true
+HDec.HSyn.OpenTextbookLeaves2.mk [ZInQKernel.OneProof.H.TailE] type:true value:false
+HDec.HSyn.OpenTextbookLeaves2.t41 [ZInQKernel.OneProof.H.TailE] type:true value:false
+HDec.HSyn.OpenTextbookLeaves3.mk [ZInQKernel.OneProof.H.TailI] type:true value:false
+HDec.HSyn.OpenTextbookLeaves3.t41 [ZInQKernel.OneProof.H.TailI] type:true value:false
+HDec.HSyn.OpenTextbookLeaves4.mk [ZInQKernel.OneProof.H.TailK] type:true value:false
+HDec.HSyn.OpenTextbookLeaves4.t

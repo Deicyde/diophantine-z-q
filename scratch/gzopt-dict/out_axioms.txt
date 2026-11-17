@@ -1,0 +1,8 @@
+'ZInQ.GZAlg.grossZagierModuliOptAt_of_alg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZAlg.grossZagierModuliOptCd_of_alg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZAlg.grossZagierFormulaCd_of_alg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZAlg.wEq_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZAlg.order_neg_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZAlg.phiOf_genX' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZAlg.aeval_ne_zero_of_order_neg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZChain.frozenTarget_gzoptdict' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -1,0 +1,31 @@
+{
+ "name": "gz-optimal",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.GrossZagierOptimal"
+ ],
+ "discharges": [
+  {
+   "field": "grossZagierFormulaCd",
+   "proof": "_root_.ZInQ.GZOptimal.grossZagierFormulaCd_of_selfOptimal {n}.grossZagierModuliOptCd {n}.cdOptimal",
+   "leaves": [
+    {
+     "name": "grossZagierModuliOptCd",
+     "type": "_root_.ZInQ.GZOptimal.GrossZagierModuliOptCd",
+     "doc": "Gross-Zagier, Invent. Math. 84 (1986), Thm I.6.3 and Ch. V Thm 2.1, moduli form, for the strong Weil (optimal) parametrization only (phi_* onto H_1(E(C),Z), i.e. J0(N) -> E with connected kernel), on the short models in the isogeny class of C_d; y = n y_K (n != 0); positive constant forgotten (printed under either reading of the hypothesis on phi; locators UNVERIFIED)",
+     "kind": "published",
+     "flag": "",
+     "source": "Gross-Zagier, Heegner points and derivatives of L-series, Invent. Math. 84 (1986), 225-320, Thm I.6.3 (p.230 per locators.md) and Ch. V Thm 2.1 (V section 2, p.312 per locators.md); strong Weil case"
+    },
+    {
+     "name": "cdOptimal",
+     "type": "_root_.ZInQ.GZOptimal.CdOptimal",
+     "doc": "C_d (d = 5 mod 8 squarefree) is its own strong Weil curve: L(C_d) = c0 Lambda_f, c0 in Q (a period computation; numerically L = Lambda_f for 18 values of d up to 165, scratch/gz-optimal/py/periods_cd.gp; PARI ellweilcurve for d = 5, 13)",
+     "kind": "project glue",
+     "flag": "",
+     "source": "computation (gz-optimal): periods of the twisted newform f_d against the lattice of C_d; gz-weil proved 2 Lambda_f in L"
+    }
+   ]
+  }
+ ],
+ "note": "Replaces gz-moduli's spec for the field grossZagierFormulaCd (use one or the other). The field exists only after hL3 is split into its C_d chain (heegner-32 + gz-conj: hL3 -> GrossZagierFormulaCd with hCM); until then the fold is the Main edit scratch/gz-optimal/MainEdit.lean (frozenTarget_gzoptimal). GLUE count: field (consequence, GLUE) -> 1 LEAF + 1 project glue: neutral now, -1 once CdOptimal is proved in Lean. Route B (no computation, two composite textbook leaves, +1 GLUE) is scratch/gz-optimal/autofold-routeB.json."
+}

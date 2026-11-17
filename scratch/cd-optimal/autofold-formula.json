@@ -1,0 +1,39 @@
+{
+ "name": "cd-optimal-formula",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.CdOptimal"
+ ],
+ "discharges": [
+  {
+   "field": "grossZagierFormulaCd",
+   "proof": "_root_.ZInQ.CdOpt.grossZagierFormulaCd_of_cdLeaves {n}.grossZagierModuliOptCd {n}.etaW32Character {n}.cdTwistedPeriodOdd",
+   "leaves": [
+    {
+     "name": "grossZagierModuliOptCd",
+     "type": "_root_.ZInQ.GZOptimal.GrossZagierModuliOptCd",
+     "doc": "Gross-Zagier, Invent. Math. 84 (1986), Thm I.6.3 and Ch. V Thm 2.1, moduli form, for the strong Weil (optimal) parametrization only, on the short models in the isogeny class of C_d; y = n y_K (n != 0); positive constant forgotten (gz-optimal's leaf, unchanged)",
+     "kind": "published",
+     "flag": "",
+     "source": "Gross-Zagier, Heegner points and derivatives of L-series, Invent. Math. 84 (1986), 225-320, Thm I.6.3 (p.230 per locators.md) and Ch. V Thm 2.1 (V section 2, p.312 per locators.md); strong Weil case"
+    },
+    {
+     "name": "etaW32Character",
+     "type": "_root_.ZInQ.CdOpt.EtaW32Character",
+     "doc": "Transformation law of the eta quotient v = eta(8t) eta(32t)^2 / eta(16t)^3 on Gamma0(32): v(gamma t) = (2/d) v(t) (k = 0, sum delta r = 24, sum (32/delta) r = 0, s = prod delta^r = 2); an instance of the Newman / Gordon-Hughes theorem (Ono, Web of modularity, Thm 1.64; locator UNVERIFIED); numerically checked for 602 matrices (scratch/cd-optimal/py/wchar.gp)",
+     "kind": "published",
+     "flag": "",
+     "source": "M. Newman, Construction and application of a class of modular functions (I, II), Proc. LMS 1957/1959; B. Gordon, K. Hughes, Multiplicative properties of eta-products II (1981); K. Ono, The web of modularity (CBMS 102, 2004), Thm 1.64 (all UNVERIFIED locators)"
+    },
+    {
+     "name": "cdTwistedPeriodOdd",
+     "type": "_root_.ZInQ.CdOpt.CdTwistedPeriodOdd",
+     "doc": "For d = 5 mod 8 squarefree and every period lattice L of C_d : y^2 = x^3 - d^2 x, some period Phi_d(gamma tau) - Phi_d(tau), gamma in Gamma0(32 d^2), of the Eichler integral Phi_d = sum a_n(C_d)/n q^n is not in (1+i)L (given Lambda_d in L, proved from the eta leaf, this separates C_d optimal from the 2-isogenous y^2 = x^3 + 4d^2 x being optimal); numerically true (Lambda_d = L) for the 18 values d <= 165 of gz-optimal",
+     "kind": "project glue",
+     "flag": "",
+     "source": "computation (cd-optimal): non-congruence part of the period computation; not known to be printed (SPECULATIVE); see docs/research/cd-optimal.md section 4"
+    }
+   ]
+  }
+ ],
+ "note": "Alternative to gz-optimal's autofold.json for the field grossZagierFormulaCd (exists only after hL3 is split into its C_d chain: heegner-32 + gz-conj). Use one or the other."
+}

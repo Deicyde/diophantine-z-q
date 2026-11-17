@@ -1,0 +1,2 @@
+'ZInQ.OneProof.frozenTarget_etaW32' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.OneProof.frozenTarget_etaW32'' depends on axioms: [propext, Classical.choice, Quot.sound]

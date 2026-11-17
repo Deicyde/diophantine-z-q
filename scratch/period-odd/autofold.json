@@ -1,0 +1,31 @@
+{
+ "name": "period-odd",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.PeriodOdd"
+ ],
+ "discharges": [
+  {
+   "field": "grossZagierFormulaCd",
+   "proof": "_root_.ZInQ.PeriodOdd.grossZagierFormulaCd_of_etaW32 {n}.grossZagierModuliOptCd {n}.etaW32Character",
+   "leaves": [
+    {
+     "name": "grossZagierModuliOptCd",
+     "type": "_root_.ZInQ.GZOptimal.GrossZagierModuliOptCd",
+     "doc": "Gross-Zagier, Invent. Math. 84 (1986), Thm I.6.3 and Ch. V Thm 2.1, moduli form, for the strong Weil (optimal) parametrization only, on the short models in the isogeny class of C_d; y = n y_K (n != 0); positive constant forgotten (gz-optimal's leaf, unchanged)",
+     "kind": "published",
+     "flag": "",
+     "source": "Gross-Zagier, Heegner points and derivatives of L-series, Invent. Math. 84 (1986), 225-320, Thm I.6.3 (p.230 per locators.md) and Ch. V Thm 2.1 (V section 2, p.312 per locators.md); strong Weil case"
+    },
+    {
+     "name": "etaW32Character",
+     "type": "_root_.ZInQ.CdOpt.EtaW32Character",
+     "doc": "Transformation law of the eta quotient v = eta(8t) eta(32t)^2 / eta(16t)^3 on Gamma0(32): v(gamma t) = (2/d) v(t) (k = 0, sum delta r = 24, sum (32/delta) r = 0, s = prod delta^r = 2); an instance of the Newman / Gordon-Hughes theorem (Ono, Web of modularity, Thm 1.64; locator UNVERIFIED); numerically checked for 602 matrices (scratch/cd-optimal/py/wchar.gp)",
+     "kind": "published",
+     "flag": "",
+     "source": "M. Newman, Construction and application of a class of modular functions (I, II), Proc. LMS 1957/1959; B. Gordon, K. Hughes, Multiplicative properties of eta-products II (1981); K. Ono, The web of modularity (CBMS 102, 2004), Thm 1.64 (all UNVERIFIED locators)"
+    }
+   ]
+  }
+ ],
+ "note": "Replaces cd-optimal's autofold-formula.json for the field grossZagierFormulaCd (exists only after hL3 is split into its C_d chain: heegner-32 + gz-conj; see scratch/period-odd/MainEdit.lean, frozenTarget_periododd, standard axioms). Same field, one leaf fewer: cdTwistedPeriodOdd (project glue) is gone. Both remaining leaves are published (grossZagierModuliOptCd: gz-optimal's leaf, unchanged; etaW32Character: cd-optimal's printed instance of the Newman / Gordon-Hughes eta-quotient law). The case C_d not optimal is handled by the 2-isogenous curve y^2 = x^3 + 4d^2 x, which gz-optimal's leaf already covers (every short model with the L-function of C_d). GLUE count: grossZagierFormulaCd (glue) -> two published leaves; no glue added. If cd-optimal's autofold-formula.json was folded already, its field cdTwistedPeriodOdd cannot be discharged by this file alone (it is a different, stronger statement, still open); refold grossZagierFormulaCd with this spec instead. cd-optimal's autofold.json (field cdOptimal) is not discharged: CdOptimal is not proved here and is not needed."
+}

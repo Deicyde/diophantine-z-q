@@ -1,0 +1,2 @@
+'ZInQ.Contrib.TYZChain.frozenTarget_gzoptimal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZChain.frozenTarget_gzoptimal_transfer' depends on axioms: [propext, Classical.choice, Quot.sound]

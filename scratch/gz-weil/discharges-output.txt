@@ -21,4 +21,4 @@ DISCHARGES [hL3] by ZInQ.GZHL3.grossZagierHeegner_of_leaves
  ZInQ.GZHL3.GrossZagierFormula,
  ZInQ.GZHL3.GrossConjugation]
   axioms: [propext, Classical.choice, Quot.sound]
-#discharges: 65 open hypotheses, 1434 theorems checked, 6 discharge one
+#discharges: 65 open hypotheses, 1618 theorems checked, 6 discharge one
