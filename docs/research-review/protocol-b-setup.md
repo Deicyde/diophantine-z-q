@@ -840,6 +840,14 @@ not process isolation or a claim that a successful build authenticates itself.
 
 ### Direct kernel execution and secret separation
 
+Rollout restriction: do not use the Lean profile on outside pull requests
+until both the cache-provenance follow-up to PR133 has merged and the
+controlled live fork-dispatch test has passed with recorded evidence.
+The owner's PR133 overrides permit the infrastructure merge; they do not
+authorize outside-PR use. Before those two conditions are met, maintainers
+must not start production reviews of outside Lean PRs through this profile.
+The specifically authorized controlled fork test is the only test exception.
+
 A separate preparation job, without an environment or provider/App keys, waits
 up to 180 minutes for direct kernel execution at the exact reviewed head. Its
 time is separate from the 120-minute model-review job. Only successful `push`
@@ -866,8 +874,18 @@ first-time-contributor approval used by fork `pull_request` runs. The reserved
 branch remains visible until the PR closes and its runs are confirmed terminal.
 
 That pinned kernel workflow uses GitHub-hosted runners, SHA-pinned actions,
-read-only permissions, no environments and no secrets. Its explicit cache-save
-step runs only on pushes to `main`, never on these dispatches. The reserved
+read-only permissions, no environments and no secrets. Project build-cache
+restore runs only on the exact, case-sensitive `refs/heads/main` ref.
+A pre-checkout shell step performs this comparison because Actions string
+equality ignores case; branches named `Main` or `MAIN` do not qualify.
+Ordinary pull-request merge refs also build without the project cache. Every non-main execution skips the
+restore action completely, including exact-key and fallback-key lookup on an
+ordinary branch or a predictable reserved ref with caches from an earlier run.
+An accepted non-main direct run therefore cannot inherit those earlier project
+build outputs. This also applies when the gate reuses an existing direct run:
+the head must contain the exact pinned workflow with this restriction. The
+separate pinned Mathlib cache fetch is unchanged. The explicit project-cache
+save runs only on pushes to `main`, never on these dispatches. The reserved
 branch namespace must never be used as a PR base or as the starting point for
 another branch. GitHub scopes any candidate-created caches to that branch;
 main and sibling branches must not restore them. Option A inspection must also
