@@ -44,7 +44,7 @@ The other proved results:
 **The one missing statement for co-step (i)** is `log [p̃] ∉ Frac(B_max)` (or `∉ Frac(B_cris)`).
 
 * The Galois action alone cannot give it. For units `v`, the elements `log([ṽ]/v)` lie in `B_max` and have the same
-  kind of Galois behaviour (§4.2).
+  kind of Galois behaviour (§4.2, compiled as `unit_log_mem_amax`).
 * Every proof known here uses the Frobenius `φ` of `B_max`, and also an arithmetic input that separates `p` from the
   units (§4.3).
 * The tree has no `φ` on `B_max`, and cannot get one cheaply. Its `A_max` is a subring of `B_dR^+`, and `φ` does not
@@ -166,6 +166,17 @@ theorem transcendental_bcris_of_notInFrac {ε₀} (h : IsGenEps p ε₀)
 `bdr_invariant_eq_algebraMap` turns bdr-inv's `dim_{ℚ_p} B_dR^{G_F} = [F : ℚ_p]` at `F = ℚ_p` into the element form:
 `B_dR^{G} ∋ 1` and has dimension 1 (`finrank_eq_one_iff_of_nonzero'`).
 
+### 2.4b Units (`LogPTranscendence.lean` §6)
+
+These are stated in §4.2. The by-products, of independent use:
+* `logOne_mem_amax`: `log z ∈ A_max` for every `z ∈ A_inf` with `θ(z) = 1`. This generalizes
+  `BergerBst.logTeich_mem_amax`.
+* `logOne_mul`: `log(z z') = log z + log z'`.
+* `bdrAct_logOne`: `σ(log z) = log σ(z)`.
+* `untilt_flatOf`: `♯ : 𝓞_ℂ_p♭ → 𝓞_ℂ_p` is onto, via `flatOf x = (x, x^{1/p}, …)`, bdr-kertheta's `pFlat`
+  construction for any `x`.
+* `isUnit_of_isUnit_untilt`: `ν^♯` a unit implies `ν` a unit.
+
 ### 2.5 What this proves of the two co-steps
 
 * **(i)** Proved: everything except the degree-one statement `log [p̃] ∉ Frac(B_max)`. That statement is equivalent
@@ -214,15 +225,45 @@ It has two halves:
    With `B_dR^{G_{ℚ_p}} = ℚ_p` (in the tree; element form `bdr_invariant_eq_algebraMap`) this is `log [p̃] ∈ Frac(B)`.
 2. **Arithmetic half (missing).** `log [p̃] ∉ Frac(B)`, for `B = B_max` or `B_cris`.
 
-### 4.2 Why the Galois action alone cannot give the arithmetic half (on-the-spot, standard)
+### 4.2 Why the Galois action alone cannot give the arithmetic half (compiled: `unit_log_mem_amax`)
 
-For a unit `v ∈ ℤ_p^×`, take `ṽ = (v, v^{1/p}, …) ∈ 𝓞_ℂ_p^♭`. Then `[ṽ]/v − 1 ∈ ker θ ⊆ ξ A_inf[1/p]`, and the same
-estimate as `logTeich_mem_amax` (`([ṽ]/v − 1)^n/n = (p^n/n) c^n (ξ/p)^n` with `p^n/n ∈ ℤ_p → 0`) puts
-`log([ṽ]/v)` in `A_max`. It satisfies `σ(log([ṽ]/v)) = log([ṽ]/v) + c_v(σ) t` with `c_v` the Kummer cocycle of `v`.
-So the element `log [p̃]` and the elements `log([ṽ]/v) ∈ B_max` have the same kind of Galois behaviour. Any proof of
-`log [p̃] ∉ Frac(B_max)` must use that `p` is not a unit: through the Frobenius `φ` (`φ(log [p̃]) = p·log [p̃]`
-versus `φ(log([ṽ]/v)) = p·log([ṽ]/v) + (p − 1) log_p v`) or through the analytic structure of `B_max`. (This
-paragraph is a proof sketch, not compiled.)
+VERIFIED (compiled, `LogPTranscendence.lean` §6):
+
+```lean
+theorem logOne_mem_amax {z : Ainf p} (hz : theta p z = 1) : logOne p hz ∈ Amax p
+theorem untilt_flatOf (x : 𝓞_ℂ_[p]) : (flatOf p x).untilt = x
+theorem isUnit_of_isUnit_untilt {x : PreTilt 𝓞_ℂ_[p] p} (h : IsUnit (PreTilt.untilt x)) : IsUnit x
+theorem bdrAct_logUnit (σ : GQp p) {v : ℤ_[p]ˣ} {ν u : PreTilt 𝓞_ℂ_[p] p}
+    (hν : PreTilt.untilt ν = theta p (zpToW p v)) (hσ : flatAct p σ ν = ν * u)
+    (hu : PreTilt.untilt u = 1) :
+    bdrAct p σ (toBdR p (logOne p (theta_unit p hν))) =
+      toBdR p (logOne p (theta_unit p hν)) + toBdR p (logTeich p hu)
+theorem unit_log_mem_amax (v : ℤ_[p]ˣ) :
+    ∃ (ν : PreTilt 𝓞_ℂ_[p] p) (hν : PreTilt.untilt ν = theta p (zpToW p v)),
+      logOne p (theta_unit p hν) ∈ Amax p ∧
+      ∀ σ : GQp p, ∃ (u : PreTilt 𝓞_ℂ_[p] p) (hu : PreTilt.untilt u = 1),
+        bdrAct p σ (toBdR p (logOne p (theta_unit p hν))) =
+          toBdR p (logOne p (theta_unit p hν)) + toBdR p (logTeich p hu)
+```
+
+Here `logOne p hz = log(1 + (z − 1))` for `z ∈ A_inf` with `θ(z) = 1`, `theta_unit` gives `θ([ν]·v⁻¹) = 1`, and
+`flatOf p x = (x, x^{1/p}, …)`. In words:
+
+* For every unit `v ∈ ℤ_p^×`, take `ν = (v, v^{1/p}, …)`. Then `w_v := log([ν]/v)` lies in `A_max ⊆ B_max`.
+* For every `σ`, `σ(w_v) = w_v + log [u_σ]` with `u_σ^♯ = 1`. This is exactly the shape of
+  `σ(log [p̃]) = log [p̃] + log [u_σ]` (`BergerBst.bdrAct_logPTilde`).
+
+The proof is `logTeich_mem_amax`'s estimate for any `z` with `θ(z) = 1`: `z − 1 = ξ c`, and
+`(z − 1)^n/n = (p^n/n) c^n (ξ/p)^n` with `p^n/n ∈ ℤ_p → 0`. It also needs that `♯` is onto `𝓞_ℂ_p`, and that `ν` is a
+unit of `𝓞_ℂ_p♭` because `ν^♯` is a unit.
+
+So any argument that uses only "`B` is `G`-stable, `σ(u) − u = log [u_σ] ∈ B`" would also prove `w_v ∉ Frac(B_max)`,
+which is false. Not compiled, but STANDARD: for `v` not a root of unity, e.g. `v = 1 + p`, the cocycle `u_σ` is
+nontrivial (Kummer theory), so `w_v` is not trivially excluded either.
+
+A proof of `log [p̃] ∉ Frac(B_max)` must use that `p` is not a unit. It can do so through the Frobenius `φ`:
+`φ(log [p̃]) = p·log [p̃]`, whereas `φ(log([ν]/v)) = p·log([ν]/v) + (p − 1) log_p v` (standard, not compiled). It can
+also do so through the analytic structure of `B_max`.
 
 ### 4.3 What a proof needs (SPECULATIVE as to the shortest route; the ingredients are STANDARD)
 
@@ -328,8 +369,8 @@ BC's `B_cris` and, with co-step (i), BC's `B_st`; the reviewer's co-step (ii) on
 (ii) **BC p. 128: the injectivity of `j : A_cris → B_dR^+` is omitted** (the reviewer). The p. 129 sentence describes
   the image. `AcrisOf` is that description, and co-step (ii) stays open (§5).
 
-(iii) **The core cannot come from the Galois action alone** (§4.2; a structural remark, sketched and not compiled).
-  The units' `log([ṽ]/v)` lie in `A_max` and have the same shape of Galois action as `log [p̃]`. So any proof of the
+(iii) **The core cannot come from the Galois action alone** (§4.2; compiled as `unit_log_mem_amax`, except the
+  nontriviality of the units' cocycles, which is STANDARD Kummer theory). The units' `log([ν]/v)` lie in `A_max` and have the same shape of Galois action as `log [p̃]`. So any proof of the
   core must use `v_p(p) = 1` through `φ` or through the analytic structure of `B_max`. The cited sources state this
   step as a separate input, and it is the expensive part.
 
@@ -378,7 +419,7 @@ VERIFIED (this host, Lean 4.35.0, Mathlib v4.35.0):
 * `lake build ZInQKernel.Contrib.OneProof.LogPTranscendence`: built.
 * `lake env lean` on each of: `ZInQKernel/Contrib/OneProof/LogPTranscendence.lean`,
   `ZInQKernel/Contrib/OneProof/LogPTranscendenceBdR.lean`, and their scratch copies. No errors, no warnings, no `sorry`.
-* `#print axioms` of all 34 new declarations (29 + 5) gives `[propext, Classical.choice, Quot.sound]`. The output is
+* `#print axioms` of all 53 new declarations (48 + 5) gives `[propext, Classical.choice, Quot.sound]`. The output is
   in `scratch/logp-transc/axioms.txt`, produced by `scratch/logp-transc/LogPTranscendenceAxioms.lean` and
   `LogPTranscendenceBdRAxioms.lean`, which are the files plus `#print axioms` lines.
 

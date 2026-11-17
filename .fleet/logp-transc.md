@@ -15,15 +15,16 @@ Also proved:
   (`transcendental_bcrisOf`) and `BstFOf ≅ B_cris[X]` (`bcrisPolyEquiv`).
 * The `B_cris` version: the weaker `log [p̃] ∉ Frac(B_cris)` already gives the transcendence over `B_cris`.
 
-**What compiles:** two new files, checked with `lake env lean`. 34 declarations, all
+**What compiles:** two new files, checked with `lake env lean`. 53 declarations, all
 `[propext, Classical.choice, Quot.sound]`. Neither file imports `ZInQKernel.OneProof.Main`, and nothing imports them.
-* `ZInQKernel/Contrib/OneProof/LogPTranscendence.lean`, which imports `PanBergerFontaine`;
+* `ZInQKernel/Contrib/OneProof/LogPTranscendence.lean`, which imports `PanBergerFontaine` (§6 also proves the units analogue, `logOne_mem_amax`, and that `♯` is onto `𝓞_ℂ_p`);
 * `ZInQKernel/Contrib/OneProof/LogPTranscendenceBdR.lean`, which also imports `BdRInvariants`.
 
 **What remains:**
 * **(i)** The single Prop `log [p̃] ∉ Frac(B_max)` (or `∉ Frac(B_cris)`). The Galois action alone cannot give it:
-  for units `v`, the elements `log([ṽ]/v)` lie in `A_max` and have the same Galois shape. The known proofs need
-  three things the tree lacks, which together are a large missing theory:
+  `unit_log_mem_amax` (compiled) shows that for every unit `v`, `log([ν]/v)` lies in `A_max` with the same Galois
+  shape as `log [p̃]`. The known proofs need three things the tree lacks, which together are a large missing
+  theory:
   * an abstract `A_max` injecting into `B_dR^+`, the `A_max` analogue of co-step (ii);
   * the Frobenius on `B_max`;
   * an arithmetic separation of `p` from the units (the fundamental exact sequence plus Kummer theory, or
