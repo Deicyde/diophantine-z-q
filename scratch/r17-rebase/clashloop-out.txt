@@ -1,0 +1,4 @@
+ITER 1 CLASH: scratch/r17-rebase/AllContrib2.lean:1:0: error: import ZInQKernel.HDecomp.Textbook.Different failed, environment already contains 'PkgI6.TraceContainsRamificationIdx' from ZInQKernel.Contrib.Different.Local
+  tops containing ZInQKernel.Contrib.Different.Local: ZInQKernel.Contrib.AllContrib 
+ITER 2 RESULT:
+'CarayolPrinted.carayolR17'_of_printedIrr' depends on axioms: [propext, Classical.choice, Quot.sound]

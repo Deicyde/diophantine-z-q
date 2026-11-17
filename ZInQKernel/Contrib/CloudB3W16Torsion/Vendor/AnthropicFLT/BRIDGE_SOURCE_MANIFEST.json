@@ -1,0 +1,122 @@
+[
+  {
+    "original": "Definitions.Def_GoodReductionJacobian_RelativeGroupLawKernel",
+    "local": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_GoodReductionJacobian_RelativeGroupLawKernel",
+    "sha256_original": "a8ca7019cb3820d6a53ecb1c1af79674ece902f4a1ed251758fcdf43b24fe041"
+  },
+  {
+    "original": "Definitions.Def_AlgebraicGeometry_RelativeGroupLaw",
+    "local": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_RelativeGroupLaw",
+    "sha256_original": "983cdb408d5599de74629f79292e5e046be3d6aea1f1e55b6b1a8fc1d7234d1b"
+  },
+  {
+    "original": "Definitions.Def_AlgebraicGeometry_NeronModelPropertyBundleCarrier",
+    "local": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_NeronModelPropertyBundleCarrier",
+    "sha256_original": "b1b2fd03512dfa6958117a5978d3838b2c443c5cc34e252600c7d13191528810"
+  },
+  {
+    "original": "Definitions.Def_JacJ1Iface",
+    "local": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_JacJ1Iface",
+    "sha256_original": "b4368a5b601c1141befb3e95d257a5050bc3042ce2e173cdc6f79296cb253d8f"
+  },
+  {
+    "original": "Theorems.Thm_GoodReductionJacobian_RelativeGroupLaw_smoothOfRelativeDimension_of_forall_topologicalKrullDim_eq",
+    "local": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_GoodReductionJacobian_RelativeGroupLaw_smoothOfRelativeDimension_of_forall_topologicalKrullDim_eq",
+    "sha256_original": "f4ef6a6e7264abf9f90d57f96e1f916687fe38136256f52df8666845603a91e0"
+  },
+  {
+    "original": "P2M.Sol.S_GoodReductionJacobian_RelativeGroupLaw_smoothOfRelativeDimension_of_forall_topologicalKrullDim_eq",
+    "local": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.S_GoodReductionJacobian_RelativeGroupLaw_smoothOfRelativeDimension_of_forall_topologicalKrullDim_eq",
+    "sha256_original": "be331b63842f95953f3107a19ceb4d0e3127ab157acb741fc68b2b672bbc6151"
+  },
+  {
+    "original": "Theorems.Thm_AlgebraicGeometry_SmoothOfRelativeDimension_topologicalKrullDim_preimage_singleton_eq",
+    "local": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_SmoothOfRelativeDimension_topologicalKrullDim_preimage_singleton_eq",
+    "sha256_original": "9bcc4e193282fe67a4565b502f10fbe0fb796fdbf15f0ca8fb58d88a8317e4e7"
+  },
+  {
+    "original": "P2M.Sol.S_AlgebraicGeometry_SmoothOfRelativeDimension_topologicalKrullDim_preimage_singleton_eq",
+    "local": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_SmoothOfRelativeDimension_topologicalKrullDim_preimage_singleton_eq",
+    "sha256_original": "efeb061dd2a04acfd05dee6689a183eb5a77e7bfe31646a8ea31500f739d4575"
+  },
+  {
+    "original": "Theorems.Thm_AlgebraicGeometry_SmoothOfRelativeDimension_topologicalKrullDim_le",
+    "local": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_SmoothOfRelativeDimension_topologicalKrullDim_le",
+    "sha256_original": "38d6496aa15f6d51c770235f00a7774a194781d0520a64fa8fcec446134fc4a5"
+  },
+  {
+    "original": "P2M.Sol.S_AlgebraicGeometry_SmoothOfRelativeDimension_topologicalKrullDim_le",
+    "local": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_SmoothOfRelativeDimension_topologicalKrullDim_le",
+    "sha256_original": "314dd5fdb1d68ffbd0d623355b028fe3bcbfb179a9260b5abab80d537f2517a4"
+  },
+  {
+    "original": "Theorems.Thm_AlgebraicGeometry_SmoothOfRelativeDimension_le_topologicalKrullDim",
+    "local": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_SmoothOfRelativeDimension_le_topologicalKrullDim",
+    "sha256_original": "7c2b8b7683c6cbc1f58a411c33ff104feb040e6971d2a6bef9e237b5ec83ae3f"
+  },
+  {
+    "original": "P2M.Sol.S_AlgebraicGeometry_SmoothOfRelativeDimension_le_topologicalKrullDim",
+    "local": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_SmoothOfRelativeDimension_le_topologicalKrullDim",
+    "sha256_original": "6002ab7be98e6db0b5493901e73199d56efbc7d7b72fc523c75a5d81bda08423"
+  },
+  {
+    "original": "Theorems.Thm_Ideal_height_add_ringKrullDim_quotient_eq_ringKrullDim_of_finiteType",
+    "local": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_Ideal_height_add_ringKrullDim_quotient_eq_ringKrullDim_of_finiteType",
+    "sha256_original": "d4bcb5af960bcf7e2460c1f4eddc0b4d5f7eca0a900872f6cede4864f00c6da5"
+  },
+  {
+    "original": "P2M.Sol.S_Ideal_height_add_ringKrullDim_quotient_eq_ringKrullDim_of_finiteType",
+    "local": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.S_Ideal_height_add_ringKrullDim_quotient_eq_ringKrullDim_of_finiteType",
+    "sha256_original": "a828f002c0c0f832601f0d9f71594a3c5d5f3c36fc3244077940da3d436b8f5e"
+  },
+  {
+    "original": "Theorems.Thm_GoodReductionJacobian_RelativeGroupLaw_exists_smoothOfRelativeDimension_of_smooth_of_isLocalRing",
+    "local": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_GoodReductionJacobian_RelativeGroupLaw_exists_smoothOfRelativeDimension_of_smooth_of_isLocalRing",
+    "sha256_original": "fed9a0abaeac9561a32d7b544097c8e555de55e0feef592a1a8f42a46cf3fc60"
+  },
+  {
+    "original": "P2M.Sol.S_GoodReductionJacobian_RelativeGroupLaw_exists_smoothOfRelativeDimension_of_smooth_of_isLocalRing",
+    "local": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.S_GoodReductionJacobian_RelativeGroupLaw_exists_smoothOfRelativeDimension_of_smooth_of_isLocalRing",
+    "sha256_original": "9accf8a9e517645de4d7ba686e7f519a68d333688a9297098f194402b13c0af4"
+  },
+  {
+    "original": "Theorems.Thm_AlgebraicGeometry_smoothOfRelativeDimension_of_smooth_of_forall_fiber",
+    "local": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_smoothOfRelativeDimension_of_smooth_of_forall_fiber",
+    "sha256_original": "982a69939c33b7649515eca0ab4acb4ed89a9b56922ec095d10979749c346f4c"
+  },
+  {
+    "original": "P2M.Sol.S_AlgebraicGeometry_smoothOfRelativeDimension_of_smooth_of_forall_fiber",
+    "local": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_smoothOfRelativeDimension_of_smooth_of_forall_fiber",
+    "sha256_original": "9111be7e33f856840e67fd5c27aee4db53235414de0815648298caaca7ad3a21"
+  },
+  {
+    "original": "Theorems.Thm_AlgebraicGeometry_exists_isStandardSmoothOfRelativeDimension_appLE_fiberToSpecResidueField",
+    "local": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_exists_isStandardSmoothOfRelativeDimension_appLE_fiberToSpecResidueField",
+    "sha256_original": "77107c30808ab5f17b03f6b224ee99fb22199852809114454e59adc7c5ee45f0"
+  },
+  {
+    "original": "P2M.Sol.S_AlgebraicGeometry_exists_isStandardSmoothOfRelativeDimension_appLE_fiberToSpecResidueField",
+    "local": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_exists_isStandardSmoothOfRelativeDimension_appLE_fiberToSpecResidueField",
+    "sha256_original": "df318a7300e7949df9eda19f3f1b1f2286d873ea77fd4ced416d4a40aeacffa4"
+  },
+  {
+    "original": "Theorems.Thm_AlgebraicGeometry_eq_of_isStandardSmoothOfRelativeDimension_appLE_of_smoothOfRelativeDimension",
+    "local": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_eq_of_isStandardSmoothOfRelativeDimension_appLE_of_smoothOfRelativeDimension",
+    "sha256_original": "f6d9fc832f2d1104176a8bc16ea49e8bb9b8d154bac1016fbf28fc9cbfb82334"
+  },
+  {
+    "original": "P2M.Sol.S_AlgebraicGeometry_eq_of_isStandardSmoothOfRelativeDimension_appLE_of_smoothOfRelativeDimension",
+    "local": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_eq_of_isStandardSmoothOfRelativeDimension_appLE_of_smoothOfRelativeDimension",
+    "sha256_original": "c2ba8049b9f60a4b51e4bb172ee69ad413268a000042a460910c6788bc5b61ba"
+  },
+  {
+    "original": "Definitions.Def_GoodReductionJacobian_RelativeGroupLawFibre",
+    "local": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_GoodReductionJacobian_RelativeGroupLawFibre",
+    "sha256_original": "12f292db2440608d9a490079ad13029a16f60d0ec559e64aa0c4f4e013beb694"
+  },
+  {
+    "original": "Definitions.Def_AlgebraicGeometry_RelativeGroupLawGrpObj",
+    "local": "ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_RelativeGroupLawGrpObj",
+    "sha256_original": "a6558ba495ed46ea4a28dd86f33967025e5f89b20665a14915429d4de2746757"
+  }
+]

@@ -1,0 +1,20 @@
++ HDec.HSyn.OpenTextbookLeaves17 ZInQKernel.OneProof.H.TailZ56
++ HDec.HSyn.OpenTextbookLeaves17.casesOn ZInQKernel.OneProof.H.TailZ56
++ HDec.HSyn.OpenTextbookLeaves17.charPolyIndepOfEllAlgClosed ZInQKernel.OneProof.H.TailZ56
++ HDec.HSyn.OpenTextbookLeaves17.gagaMorphism ZInQKernel.OneProof.H.TailZ56
++ HDec.HSyn.OpenTextbookLeaves17.mk ZInQKernel.OneProof.H.TailZ56
++ HDec.HSyn.OpenTextbookLeaves17.mk._flat_ctor ZInQKernel.OneProof.H.TailZ56
++ HDec.HSyn.OpenTextbookLeaves17.rec ZInQKernel.OneProof.H.TailZ56
++ HDec.HSyn.OpenTextbookLeaves17.recOn ZInQKernel.OneProof.H.TailZ56
++ HDec.HSyn.OpenTextbookLeaves18 ZInQKernel.OneProof.H.TailZ57
++ HDec.HSyn.OpenTextbookLeaves18.casesOn ZInQKernel.OneProof.H.TailZ57
++ HDec.HSyn.OpenTextbookLeaves18.charPolyIndepOfEllAlgClosed ZInQKernel.OneProof.H.TailZ57
++ HDec.HSyn.OpenTextbookLeaves18.mk ZInQKernel.OneProof.H.TailZ57
++ HDec.HSyn.OpenTextbookLeaves18.mk._flat_ctor ZInQKernel.OneProof.H.TailZ57
++ HDec.HSyn.OpenTextbookLeaves18.rec ZInQKernel.OneProof.H.TailZ57
++ HDec.HSyn.OpenTextbookLeaves18.recOn ZInQKernel.OneProof.H.TailZ57
++ HDec.HSyn.openTextbookLeaves16_of_OpenTextbookLeaves17 ZInQKernel.OneProof.H.TailZ56
++ HDec.HSyn.openTextbookLeaves17_of_OpenTextbookLeaves18 ZInQKernel.OneProof.H.TailZ57
++ HDec.HSyn.sixContactMin_of_open49 ZInQKernel.OneProof.H.TailZ56
++ HDec.HSyn.sixContactMin_of_open50 ZInQKernel.OneProof.H.TailZ57
+~ ZInQ.OneProof.frozenTarget ZInQKernel.OneProof.Main type+value

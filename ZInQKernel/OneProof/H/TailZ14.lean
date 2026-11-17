@@ -1118,7 +1118,7 @@ def SemistableReductionSH : Prop :=
       ∀ O' : ValuationSubring K', IsDiscreteValuationRing O' →
         O'.comap (algebraMap K K') = O → SemistableNeronModels (A.baseChange K') O'
 
-/-- **LEAF (printed base) `SemistablePersistsSH`** (SGA 7 I, Exp. IX, Prop. 3.3, first assertion,
+/-- **LEAF (printed base) `SemistablePersistsSH`** (SGA 7 I, Exp. IX, Cor. 3.3, first assertion,
 over a strictly henselian base trait; UNVERIFIED). Other open readings (UNVERIFIED): SGA 7 may
 define semistability over `k(s)` rather than on the geometric special fibre, as
 `HasSemistableReduction` does (this matters for imperfect `k`), and may require `S'` finite over
@@ -1130,7 +1130,7 @@ def SemistablePersistsSH : Prop :=
     [IsDiscreteValuationRing O'], O'.comap (algebraMap K K') = O →
     ∀ A : PkgI3.AbVar K, HasSemistableReduction A O → SemistableNeronModels (A.baseChange K') O'
 
-/-- **LEAF (printed base) `IdentityComponentBaseChangeSH`** (SGA 7 I, Exp. IX, Prop. 3.3, second
+/-- **LEAF (printed base) `IdentityComponentBaseChangeSH`** (SGA 7 I, Exp. IX, Cor. 3.3, second
 assertion, over a strictly henselian base trait; UNVERIFIED). Other open readings (UNVERIFIED):
 SGA 7 may define semistability over `k(s)` rather than on the geometric special fibre, as
 `HasSemistableReduction` does (this matters for imperfect `k`), and may require `S'` finite over

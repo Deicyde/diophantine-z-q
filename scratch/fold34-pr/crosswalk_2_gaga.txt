@@ -1,0 +1,2 @@
+wrote docs/one-proof/frontier-crosswalk.tsv: 232 IDs, 24 matched to an open hypothesis
+open hypotheses with no frontier ID: dsThm965Printed, dsThm966Printed, eigenformCoeffFieldFinite, hBFH, hCM, hGZ, kleimanPicZeroProper, neronOggShafarevichSep, neronSchemeExtensionDedekind, raynaudSemistableSHOr, sga7_IX_3_3_SHpre

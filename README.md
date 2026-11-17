@@ -5,19 +5,19 @@ This fork formalizes in Lean 4 the main theorem of the manuscript
 integer coefficients such that a rational number `q` is an integer exactly when `P(q, w) = 0` for some
 `w ∈ ℚ^292,890,231,904`. Lean states it as `ZInQ.FrozenTarget` ([`ZInQKernel/Target.lean`](ZInQKernel/Target.lean)).
 
-## Status (fork `main` at `0be76f13`, 2026-11-17)
+## Status (fork `main` at `da9f973f`, 2026-11-17)
 
 - **One theorem, [`ZInQ.OneProof.frozenTarget`](ZInQKernel/OneProof/Main.lean), proves `ZInQ.FrozenTarget` from
-  39 open hypotheses, statements not yet proved in Lean.** Lean's kernel checks it with no `sorry` and only the
+  36 open hypotheses, statements not yet proved in Lean.** Lean's kernel checks it with no `sorry` and only the
   standard axioms `propext`, `Classical.choice` and `Quot.sound`. Everything else, including every finite
   computation, is proved in Lean.
-- **The hypotheses are premises, not axioms:** Lean proves "if they all hold, then ℤ is Diophantine in ℚ". 34 belong
+- **The hypotheses are premises, not axioms:** Lean proves "if they all hold, then ℤ is Diophantine in ℚ". 31 belong
   to the six-contact height estimate (the manuscript's Theorem 4.1) and 5 to the positive-rank part
-  (Tian–Yuan–Zhang and Gross–Zagier). Each is a published theorem (27), a consequence of one (9) or a combination of
-  several (3). Under the project's strict count, 17 are published theorems in their printed form; the other 22 still
+  (Tian–Yuan–Zhang and Gross–Zagier). Each is a published theorem (28), a consequence of one (6) or a combination of
+  several (2). Under the project's strict count, 17 are published theorems in their printed form; the other 19 still
   need an argument or a reading. The live list, with each statement's source, rating and holder, is
   [`docs/one-proof/OPEN.md`](docs/one-proof/OPEN.md).
-- **Progress:** 65 open hypotheses on 2026-11-15, 39 on 2026-11-17.
+- **Progress:** 65 open hypotheses on 2026-11-15, 36 on 2026-11-17.
 - **AI caveat.** The manuscript was written with AI models and audited by an AI model, and the project's Lean was
   written by AI coding agents. Published hypotheses have been compared with their printed sources only by AI readers,
   and the newest (flagged `unread` on OPEN.md) not at all; no person has confirmed one yet.

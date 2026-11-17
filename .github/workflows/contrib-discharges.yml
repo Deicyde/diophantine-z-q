@@ -15,6 +15,8 @@ on:
 
 permissions:
   contents: read
+  # Only to list this pull request's own caches in the step that refuses them.
+  actions: read
 
 concurrency:
   group: discharge-check-${{ github.event.pull_request.number || github.run_id }}
@@ -107,6 +109,38 @@ jobs:
 
       - name: Fetch the Mathlib build cache
         run: lake exe cache get
+
+      # The newest build of main that main-build-cache.yml saved, so the build below compiles only what the pull
+      # request adds. GitHub searches the pull request's own scope (refs/pull/N/merge) before main's, and an earlier
+      # run of the same pull request could have saved a forged build there; the next step refuses that case. This
+      # workflow saves no cache. With no cache yet, the build starts cold, as before.
+      - name: Restore main's build
+        if: github.event_name == 'pull_request'
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            .lake/build
+            lean/.lake/build
+          key: zinq-build-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml', 'lean/lakefile.toml') }}-${{ github.event.pull_request.base.sha }}
+          restore-keys: |
+            zinq-build-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml', 'lean/lakefile.toml') }}-
+
+      # Neither this workflow nor main-build-cache.yml saves under a pull request's ref, so any zinq-build- entry
+      # there was planted by an earlier run of this pull request. A fork's token cannot delete caches, so an entry
+      # the restore above used is still listed here.
+      - name: Refuse a build cache saved by this pull request
+        if: github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_REF: refs/pull/${{ github.event.pull_request.number }}/merge
+        run: |
+          set -euo pipefail
+          planted="$(gh api -X GET "repos/$GITHUB_REPOSITORY/actions/caches" -f ref="$PR_REF" -f key=zinq-build- --jq .total_count)"
+          if [ "$planted" != 0 ]; then
+            rm -rf .lake/build lean/.lake/build
+            echo "::error::Runs of this pull request saved $planted build cache(s); the check uses only main's, so it stops here."
+            exit 1
+          fi
 
       - name: Measure the cold build of the OneProof target
         if: github.event_name == 'workflow_dispatch'

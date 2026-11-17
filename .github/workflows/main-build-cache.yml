@@ -1,0 +1,114 @@
+# Builds +ZInQKernel.OneProof.Main and +ZInQKernel.OneProof.Discharges after a push to main that changes Lean or
+# the Lake configuration, and saves the build to the Actions cache. The discharge check of a pull request
+# (contrib-discharges.yml) restores it, so it builds only the files the pull request adds instead of the whole
+# project. Pull request runs can read this cache but never write to it: GitHub scopes the caches a pull request
+# run saves to that pull request's own ref. This workflow builds only commits on main.
+
+name: main build cache
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**.lean'
+      - 'lakefile.toml'
+      - 'lake-manifest.json'
+      - 'lean-toolchain'
+      - 'lean/lakefile.toml'
+      - '.github/workflows/main-build-cache.yml'
+      # scratch/ is outside every build target.
+      - '!scratch/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# One build at a time; a newer push waits and then builds on the cache the earlier run saved.
+concurrency:
+  group: main-build-cache
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: build and save
+    runs-on: ubuntu-latest
+    # Inside the 360-minute hosted limit. The build step stops at 320 minutes so the save step still runs, and
+    # a cold first build that does not finish saves its progress for the next run (or a re-run).
+    timeout-minutes: 355
+    steps:
+      - name: Check out main
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Free disk space and add swap
+        run: |
+          set -euo pipefail
+          df -h / /mnt || true
+          free -h
+          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /usr/local/.ghcup \
+            /opt/hostedtoolcache/CodeQL
+          sudo swapoff -a
+          sudo rm -f /swapfile /mnt/swapfile
+          if mountpoint -q /mnt; then dir=/mnt; keep=2; else dir=; keep=30; fi
+          avail="$(df --output=avail -BG "${dir:-/}" | tail -n 1 | tr -dc '0-9')"
+          size=$((avail - keep))
+          if [ "$size" -ge 1 ]; then
+            sudo fallocate -l "${size}G" "$dir/swapfile"
+            sudo chmod 600 "$dir/swapfile"
+            sudo mkswap "$dir/swapfile"
+            sudo swapon "$dir/swapfile"
+          fi
+          free -h
+          df -h / /mnt || true
+
+      - name: Install elan
+        run: |
+          set -euo pipefail
+          curl -sSfL \
+            https://github.com/leanprover/elan/releases/download/v4.2.3/elan-x86_64-unknown-linux-gnu.tar.gz \
+            -o elan.tar.gz
+          echo "df0b2b3a439961ffcbb3985214365ffe40f49bc871df04dff268c7d8e21ca8b2  elan.tar.gz" \
+            | sha256sum --check --strict
+          tar xzf elan.tar.gz
+          ./elan-init -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Fetch the Mathlib build cache
+        run: lake exe cache get
+
+      # The newest earlier build of main for the same toolchain and Lake configuration, if any.
+      - name: Restore the previous build of main
+        id: restore
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            .lake/build
+            lean/.lake/build
+          key: zinq-build-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml', 'lean/lakefile.toml') }}-${{ github.sha }}
+          restore-keys: |
+            zinq-build-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml', 'lean/lakefile.toml') }}-
+
+      - name: Build the OneProof targets
+        id: build
+        timeout-minutes: 320
+        continue-on-error: true
+        run: lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges
+
+      # One entry per run, so a re-run of an unfinished build also saves its progress. The discharge check's
+      # restore matches by prefix and takes the newest.
+      - name: Save the build of this commit
+        if: ${{ !cancelled() }}
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            .lake/build
+            lean/.lake/build
+          key: zinq-build-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml', 'lean/lakefile.toml') }}-${{ github.sha }}-${{ github.run_id }}-${{ github.run_attempt }}
+
+      # Saved even when the build stopped, so the next run continues from here; the job still reports the stop.
+      - name: Report an unfinished build
+        if: ${{ steps.build.outcome != 'success' }}
+        run: |
+          echo "::error::The build did not finish (outcome: ${{ steps.build.outcome }}); its progress was saved for the next run."
+          exit 1
