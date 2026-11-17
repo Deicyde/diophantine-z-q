@@ -23,6 +23,11 @@ Deligne, *Travaux de Shimura*, §4) and the **canonical-model property** of the 
 3. The glue, proved: `deligneCanonicalModelY3Every_of_split` (the two leaves give y3abu-print's leaf) and the
    discharge `shimuraMainThmIDeligneY3AbU_of_strict` from `Y3FineModuliAb` and the two new leaves.
 
+Lemma P (risk (a) of y3abu-print) cannot be stated over a base (no polarization or dual abelian scheme over a base in
+Mathlib or the tree); its Riemann-form version for the QM tori `ℂ²/Λ_τ` and the level compatibility over fields of
+characteristic 0 are proved in the helper `ShimuraY3StrictLemmaP.lean` (`Y3ABUStrict.LemmaP.lemmaP_qmTorus`,
+`lemmaP_qmTorus_eq`, `eq_smul_E0K`).
+
 No `sorry`; standard axioms only.
 -/
 
