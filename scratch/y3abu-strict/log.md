@@ -14,3 +14,16 @@ Build tree: reflink copy of ~/dzq-wt/y3abu-print/.lake/build and lean/.lake/buil
     (∀ fine witness, ∀ Ψ, ModuliInterpAt → ReciprocityAt).
   - glue: one_mem_OhatU, moduliAtUnits_of_level, body_of_split, deligneCanonicalModelY3Every_of_split,
     shimuraMainThmIDeligneY3AbU_of_strict (discharge from Y3FineModuliAb + the two leaves).
+
+## 17:45 build, #discharges, autofold (VERIFIED)
+- `lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges +ZInQKernel.Contrib.OneProof.ShimuraY3Strict`:
+  success (14103 jobs); frozenTarget standard axioms.
+- discharges.txt: `DISCHARGES [OpenResearchLeaves28.shimuraMainThmIDeligneY3AbU] by Y3ABUStrict.shimuraMainThmIDeligneY3AbU_of_strict
+  still assumes: [Y3ABUPrint.Y3FineModuliAb, Y3ABUStrict.DeligneModuliY3Every, Y3ABUStrict.DeligneReciprocityY3Every]`,
+  standard axioms; `#discharges: 45 open hypotheses, 6699 theorems checked, 15 discharge one`.
+- autofold.json (3 leaves, all kind published, flags "locator UNVERIFIED: ...") --dry-run:
+  strict 16/21 on 37 -> 19/20 on 39; strictest same (-1 GLUE). FoldCheck.lean compiles,
+  sixContactMin_of_open39 standard axioms (foldcheck.txt).
+- autofold-combined.json (with grx6ab-print, elkies-print; their argument
+  (Y3ABUPrint.shimuraMainThmIDeligneY3AbU_of_print ...) replaced by (Y3ABUStrict.shimuraMainThmIDeligneY3AbU_of_strict ...)):
+  16/21 on 37 -> 22/18 on 40 (-3 GLUE). FoldCheckCombined.lean compiles, standard axioms (foldcheck-combined.txt).
