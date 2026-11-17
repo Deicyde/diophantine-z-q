@@ -2,11 +2,11 @@
 article_id: af_a71ce55b25a4b0705492e713
 declaration: def
 origin: bridged
-statement: formalized
-lean: ZInQ.RouteK.Rank.CertifiedRankTYZClInf
 ---
 
 # The class-number hypothesis in infinitely-many-points form
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 The hypothesis CR₃^TYZ_Cl,Inf is the following assertion. Let $d$ be a squarefree positive integer
 with $d\equiv5\pmod8$ whose genus sum of class numbers

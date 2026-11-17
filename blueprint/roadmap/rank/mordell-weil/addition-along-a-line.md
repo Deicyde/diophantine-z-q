@@ -2,12 +2,11 @@
 article_id: af_0a08a40bf92dd1abcec8a308
 declaration: lemma
 origin: background
-statement: formalized
-proof: formalized
-lean: ZInQ.RouteK.Rank.mwAdd_of_line, ZInQ.RouteK.Rank.mwDouble_of_line
 ---
 
 # Addition along a line on $E_c$
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 Let $K$ be a field and $c,L,N\in K$, and let $E_c:Y^2=X^3+cX$, with the chord-and-tangent
 addition on its nonsingular points. Let $(X_1,Y_1)$ and $(X_3,Y_3)$ be nonsingular points of

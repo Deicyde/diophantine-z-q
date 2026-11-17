@@ -1,0 +1,11 @@
+{"name": "sz-raynaud",
+ "imports": ["ZInQKernel.Contrib.OneProof.SZRaynaud"],
+ "discharges": [
+  {"field": "raynaudSemistableSHOr",
+   "proof": "_root_.SZRaynaud.raynaudSemistableSHOr_of_sz35 {n}.silverbergZarhinThm35",
+   "leaves": [
+    {"name": "silverbergZarhinThm35", "type": "_root_.SZRaynaud.SilverbergZarhinThm35",
+     "doc": "Silverberg-Zarhin, Semistable reduction and torsion subgroups of abelian varieties, Ann. Inst. Fourier 45 (1995), 403-420, Theorem 3.5, p. 406 (Raynaud's criterion as diophantine_zq.tex L816 cites it; the manuscript's bibliography L11077): over any field with a discrete valuation, n >= 3 not divisible by the residue characteristic, the n-torsion defined over the field itself (the print allows an unramified extension), then semistable reduction in Silverberg-Zarhin's sense (section 3, p. 405): the identity component of the special fibre over the residue field of every Neron model is an extension of an abelian variety by a torus, not necessarily split (DictModels.RaynaudOr.IsSemistableResT). Replaces raynaudSemistableSHOr (SGA 7 IX 4.7, not in the manuscript's bibliography): its specialization to strictly henselian DVRs, left disjunct (SZRaynaud.raynaudSemistableSHOr_of_sz35). The step to the kernel's semistability (geometric fibre, split torus) is SZRaynaud.isSemistable_of_sz (Stacks 04KV, proved)",
+     "kind": "published",
+     "flag": "reading 11-17 (the fleet's print reader, page image of Ann. Inst. Fourier 45 (1995) p. 406, relayed by the lead; notes scratch/sz-raynaud/sz-thm35-reading.md): the hypothesis line is n >= 3 (numdam's OCR shows '>'); any field with a discrete valuation; semistable as on p. 405 (torus not necessarily split); the n = 3 flag of locators R6 cleared",
+     "source": "Silverberg-Zarhin, Ann. Inst. Fourier 45 (1995), Theorem 3.5, p. 406 (proof: SGA 7 IX Prop. 4.7), semistable reduction section 3, p. 405; cited by diophantine_zq.tex L816; sz-raynaud"}]}]}

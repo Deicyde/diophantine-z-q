@@ -2,12 +2,11 @@
 article_id: af_2cc79d9028cbb9af7f183a15
 declaration: theorem
 origin: background
-statement: formalized
-proof: formalized
-lean: ZInQ.Contrib.PSide.cdCoeff_prime_eq_neg_jac, ZInQ.Contrib.PSide.cdCoeff_prime_sq_le, ZInQ.Contrib.PSide.LFunction_cd_prime_sq_le
 ---
 
 # Hasse's bound for $C_d$
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 Let $c_d(n)$ be the numbers of [the standard Euler product](l-series.md), $a_n(C_d)$ the
 coefficients of $L(C_d,s)$ as in [the coefficients at prime powers](prime-power-coefficients.md),

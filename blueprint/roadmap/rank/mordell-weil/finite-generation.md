@@ -2,12 +2,11 @@
 article_id: af_73996e7fa0da3a35d8aff0b9
 declaration: theorem
 origin: bridged
-statement: formalized
-proof: formalized
-lean: ZInQ.RouteK.Rank.fg_points, ZInQ.RouteK.Rank.fg_points_all
 ---
 
 # Mordell–Weil for the congruent number curves
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 Let $n$ be a positive integer. The group $C_n(\mathbb Q)$ of rational points of
 $C_n:y^2=x^3-n^2x$ is finitely generated.

@@ -1,0 +1,5 @@
+179119 constants hashed to /home/jackmccarthy/l74b-hashes-f558.txt
+
+real	0m9.894s
+user	0m5.492s
+sys	0m3.086s

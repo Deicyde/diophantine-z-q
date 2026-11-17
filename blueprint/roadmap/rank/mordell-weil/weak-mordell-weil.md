@@ -2,12 +2,11 @@
 article_id: af_1264d0c7b6b5c43ed275aece
 declaration: theorem
 origin: background
-statement: formalized
-proof: formalized
-lean: ZInQ.RouteK.Rank.finiteIndex_two_points
 ---
 
 # The weak Mordell–Weil theorem for $C_n$
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 Let $n$ be a positive integer. Then $2C_n(\mathbb Q)$ has finite index in $C_n(\mathbb Q)$.
 

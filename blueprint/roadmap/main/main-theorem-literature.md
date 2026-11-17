@@ -2,12 +2,11 @@
 article_id: af_c1f83ed4f7b6db36e1c2f853
 declaration: theorem
 origin: bridged
-statement: formalized
-proof: formalized
-lean: ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_tyzRow5b_functionalEquation5_grossZagier, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_jHeightBound_certifiedRankTYZClRk, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_jHeightBound_tyzRow5b_functionalEquation5_grossZagier
 ---
 
 # The main theorem from the $j$-form and the L-series statements
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 The target statement holds under each of the following three sets of hypotheses:
 

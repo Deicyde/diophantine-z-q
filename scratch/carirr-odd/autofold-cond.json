@@ -1,0 +1,22 @@
+{
+ "name": "carirr-odd-cond",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.CarayolDDTOdd"
+ ],
+ "discharges": [
+  {
+   "field": "carayolThmA",
+   "proof": "_root_.CarayolDDT.carayolThmA_of_DDT31Cond {n}.carayolDDT31Cond",
+   "leaves": [
+    {
+     "name": "carayolDDT31Cond",
+     "type": "_root_.CarayolDDT.CarayolDDT31Cond",
+     "doc": "Darmon-Diamond-Taylor 1997 Thm 3.1 at F = Q, weight 2, transcribed clause by clause: for a printed newform f (Tau Ceti Newform N 2, nebentypus psi = f.chi) with number field K_f = Q(a_n) and a place lambda | l of K_f, there is a continuous rho : G_Q -> GL_2(K_{f,lambda}) (Mathlib adicCompletion) that is absolutely irreducible (no stable subspace of Kbar_{f,lambda}^2 other than 0 and the whole space, Kbar = AlgebraicClosure), has det rho = psi(sigma mod N) chi_l(sigma) (Mathlib's modularCyclotomicCharacter and l-adic cyclotomicCharacter of Gal(Qbar/Q), Z_l -> K_{f,lambda} the continuous embedding, at every sigma with psi(sigma mod N) in K_f), is unramified at p not dividing N l with arithmetic-Frobenius trace a_p(f), and has Serre-Tate conductor exponent condExp = v_p(N) at every prime p != l (DDT's integral form is equivalent by Herbrand's theorem, CarayolDDT.carayolDDT31_iff_cond). Oddness (chi_l(c) = -1 for complex conjugation, psi(-1) = 1 in weight 2) and irreducibility over K_{f,lambda} are proved in Lean (carirr-odd, CarayolDDTOdd.lean), Burnside's form from irreducible + odd (r17-rebase). Replaces carayolThmA.",
+     "kind": "published",
+     "flag": "unread: new printed leaf (DDT 1997 Thm 3.1, weight 2; reviewer verdict queue10 carIrr found every clause printed in 3.1 (a)-(d), absolutely irreducible as 3.1(c)); oddness and plain irreducibility are no longer leaf clauses (proved); statement check: det rho = psi chi_l^{k-1} with the arithmetic-Frobenius normalization (trace a_p, det psi(p) p), the conductor clause in Serre-Tate form (equivalent to DDT's integral, proved); locators UNVERIFIED",
+     "source": "Darmon-Diamond-Taylor, Fermat's Last Theorem, Current Developments in Mathematics 1995 (International Press, 1997), Thm 3.1 (a)-(d) and section 2 (conductor); originals Shimura 1971 Thm 7.14, Deligne 1971, Ribet LNM 601 (1977), Carayol 1986 Theoreme (A) with Casselman 1973; locators UNVERIFIED"
+    }
+   ]
+  }
+ ]
+}

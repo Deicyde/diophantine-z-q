@@ -2,12 +2,11 @@
 article_id: af_8485116fcdbc8ca1a16ac14f
 declaration: theorem
 origin: background
-statement: formalized
-proof: formalized
-lean: ZInQ.Contrib.PSide.cdLocalSeries, ZInQ.Contrib.PSide.cdCoeff_zero, ZInQ.Contrib.PSide.cdCoeff_one, ZInQ.Contrib.PSide.cdArith, ZInQ.Contrib.PSide.cdCoeff_mul, ZInQ.Contrib.PSide.isMultiplicative_cdArith, ZInQ.Contrib.PSide.cdCoeff_prime_pow, ZInQ.Contrib.PSide.cdCoeff_prime, ZInQ.Contrib.PSide.cdCoeff_prime_pow_of_dvd, ZInQ.Contrib.PSide.cdCoeff_eq_zero_of_dvd, ZInQ.Contrib.PSide.cdCoeff_eq_zero_of_even, ZInQ.Contrib.PSide.LFunction_cd_eq_cdCoeff
 ---
 
 # The coefficients $c_d(n)$ for every $d$
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 Let $d$ be a natural number and $c_d(n)$ the numbers of
 [the standard Euler product](l-series.md). For a prime $p$ let $Q_{d,p}(T)=P_{d,p}(T)^{-1}$ be the

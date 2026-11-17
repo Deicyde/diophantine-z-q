@@ -4,10 +4,12 @@ declaration: theorem
 origin: bridged
 statement: formalized
 proof: formalized
-lean: ZInQ.RouteK.Rank.certifiedRank_of_certifiedRankRk', ZInQ.RouteK.Rank.certifiedRank_of_certifiedRankRk
+lean: ZInQ.RouteK.Rank.certifiedRank_of_certifiedRankRk
 ---
 
 # CR₃ from CR₃^Rk
+
+> **Partly removed from the Lean development.** Some Lean declarations of this page were removed with Route K (fork issue #77; they are at the tag `route-k-final`): `ZInQ.RouteK.Rank.certifiedRank_of_certifiedRankRk'`. The page is kept until the blueprint rewrite (#81).
 
 The hypothesis CR₃^Rk implies the certified rank hypothesis CR₃.
 

@@ -4,10 +4,12 @@ declaration: theorem
 origin: bridged
 statement: formalized
 proof: formalized
-lean: ZInQ.RouteK.Rank.certifiedRankTYZCl_of_certifiedRankTYZClRk', ZInQ.RouteK.Rank.certifiedRankTYZCl_of_certifiedRankTYZClRk
+lean: ZInQ.RouteK.Rank.certifiedRankTYZCl_of_certifiedRankTYZClRk
 ---
 
 # CR₃^TYZ_Cl from CR₃^TYZ_Cl,Rk
+
+> **Partly removed from the Lean development.** Some Lean declarations of this page were removed with Route K (fork issue #77; they are at the tag `route-k-final`): `ZInQ.RouteK.Rank.certifiedRankTYZCl_of_certifiedRankTYZClRk'`. The page is kept until the blueprint rewrite (#81).
 
 The hypothesis CR₃^TYZ_Cl,Rk implies the class-number form CR₃^TYZ_Cl of the certified rank
 hypothesis.

@@ -115,6 +115,14 @@ Repository: https://github.com/TauCetiProject/TauCeti
   scratch/coeff-field-tc/vendor-new.txt): ModularSymbols/ (Basic, Hecke/{Basic,Composition,
   Diamond}, Period/{Hecke,Injective,Integral,Map,Pairing}), EichlerIntegral/, GeodesicIntegral/,
   HeckeSlash/Finite, Newforms/{Fields,NumberField}, and their remaining dependencies.
+- Commit 5a01f5fe (as above): the 152 further modules vendored by the Z-in-Q task
+  selmer-2infty (the closure of AlgebraicGeometry.EllipticCurve.GaloisCohomology.{Selmer,
+  EtaleTwoDescent, Finiteness}: the Galois cohomology of elliptic curves, the m-Selmer and
+  Shafarevich-Tate groups, the m-descent sequence and the finiteness of the m-Selmer group when
+  E[m] is rational; list in scratch/selmer-2infty/vendor-new.txt), all unmodified except
+  AlgebraicGeometry/EllipticCurve/MordellWeil/XSubT.lean (see below). The commit-5a01f5fe module
+  Algebra.Group.MapMulMulEqOne of that closure is not vendored: the Backport/ copy of the
+  commit-4d91513e version (task t40-tate) is used instead.
 
 Location in this repository
 ---------------------------
@@ -167,6 +175,8 @@ Each such file carries, directly under its provenance line, a line
 modifications are distributed under the same license. At the time of writing these
 are (paths relative to ZInQKernel/Contrib/TauCeti/):
 
+- AlgebraicGeometry/EllipticCurve/MordellWeil/XSubT.lean (task selmer-2infty: imports the Backport/
+  copy of Algebra.Group.MapMulMulEqOne)
 - AlgebraicGeometry/EllipticCurve/Projective/Prime.lean
 - Backport/Algebra/Group/Units/Basic.lean (task t40-clash: three declarations whose names
   clash with GroupWithZero/Units/Basic.lean removed, that module imported instead)

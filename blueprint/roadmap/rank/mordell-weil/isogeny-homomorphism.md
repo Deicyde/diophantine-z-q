@@ -2,12 +2,11 @@
 article_id: af_7933aa91c2e06acea8d9522f
 declaration: theorem
 origin: background
-statement: formalized
-proof: formalized
-lean: ZInQ.RouteK.Rank.mwPhi_add, ZInQ.RouteK.Rank.mwPhiHom, ZInQ.RouteK.Rank.mwPhiHom_apply, ZInQ.RouteK.Rank.mwPhi_neg, ZInQ.RouteK.Rank.mwAdd_tZero_some, ZInQ.RouteK.Rank.mwTZero_add_tZero, ZInQ.RouteK.Rank.mwNeg_tZero, ZInQ.RouteK.Rank.mwPhi_tZero, ZInQ.RouteK.Rank.mwPhi_add_tZero
 ---
 
 # The two-isogeny is a homomorphism
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 Let $K$ be a field of characteristic different from $2$ and $b\in K^\times$. The two-isogeny
 $\varphi_b:E_b(K)\to E_{-4b}(K)$ is a group homomorphism:

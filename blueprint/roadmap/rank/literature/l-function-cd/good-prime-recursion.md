@@ -2,12 +2,11 @@
 article_id: af_09c5b3eb093213f55ba89e5b
 declaration: theorem
 origin: background
-statement: formalized
-proof: formalized
-lean: ZInQ.Contrib.PSide.cdEulerPoly_of_not_dvd, ZInQ.Contrib.PSide.cdCoeff_prime_pow_succ_succ, ZInQ.Contrib.PSide.LFunction_cd_prime_pow_succ_succ
 ---
 
 # The recursion for the coefficients at a good prime
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 Let $d$ be a natural number, $p$ a prime with $p\nmid2d$, and $c_d(n)$ the numbers of
 [the standard Euler product](l-series.md).

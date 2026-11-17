@@ -2,12 +2,11 @@
 article_id: af_b041d5b5a815ad7572cd070e
 declaration: theorem
 origin: bridged
-statement: formalized
-proof: formalized
-lean: ZInQ.RouteK.Rank.sel_of_selmerCertified
 ---
 
 # The 2-Selmer group of a certified curve
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 Let $d$ be a squarefree natural number with $d\equiv5\pmod8$, and let $a$ be a squarefree integer
 dividing $d$ such that $(d,a)$ carries a Selmer certificate: the system $\Sigma(\mathcal C_d)$ has

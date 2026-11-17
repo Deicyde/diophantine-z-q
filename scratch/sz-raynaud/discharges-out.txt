@@ -1,0 +1,139 @@
+DISCHARGES [OpenResearchLeaves42.carayolThmAIrr] by CarayolPrinted.carayolThmAIrr_of_split
+  still assumes: [CarayolPrinted.CarayolExistence, CarayolPrinted.CarayolConductor]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves42.dsThm965Printed] by DSCoeffExt.dsThm965Printed_of_charpoly
+  still assumes: [∀ (N : ℕ) [inst : NeZero N] (k : ℤ) (χ : DirichletCharacter ℂ N) (f : ZInQ.Contrib.G9.PkgI4.CF N k),
+   2 ≤ k →
+     DSCoeffExt.IsNormalizedEigenformDS f χ →
+       ∀ [inst : NumberField ↥(DSCoeffExt.coeffField f)] (ℓ : ℕ) [Fact (Nat.Prime ℓ)]
+         (lam : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers ↥(DSCoeffExt.coeffField f))),
+         ↑ℓ ∈ lam.asIdeal →
+           ∃ ρ,
+             Continuous ⇑ρ ∧
+               ∀ (p : ℕ),
+                 Nat.Prime p →
+                   ¬p ∣ N * ℓ →
+                     (∀ (v : ValuationSubring ZInQ.Contrib.G9.PkgI4.Qbar),
+                         ZInQ.Contrib.G9.PkgI4.LiesOver v p → ∀ σ ∈ ValuationSubring.inertiaSubgroup ℚ v, ρ ↑σ = 1) ∧
+                       ∀ (b : ↥(DSCoeffExt.coeffField f)),
+                         ↑b = χ ↑p * ↑p ^ (k - 1) →
+                           ∀ (v : ValuationSubring ZInQ.Contrib.G9.PkgI4.Qbar) (σ : ZInQ.Contrib.G9.PkgI4.GQ),
+                             ZInQ.Contrib.G9.PkgI4.LiesOver v p →
+                               ZInQ.Contrib.G9.PkgI4.IsArithFrob σ v p →
+                                 (↑(ρ σ)).charpoly =
+                                   Polynomial.X ^ 2 -
+                                       Polynomial.C
+                                           ((algebraMap (↥(DSCoeffExt.coeffField f))
+                                               (IsDedekindDomain.HeightOneSpectrum.adicCompletion
+                                                 (↥(DSCoeffExt.coeffField f)) lam))
+                                             ⟨ZInQ.Contrib.G9.PkgI4.coeff f p, ⋯⟩) *
+                                         Polynomial.X +
+                                     Polynomial.C
+                                       ((algebraMap (↥(DSCoeffExt.coeffField f))
+                                           (IsDedekindDomain.HeightOneSpectrum.adicCompletion
+                                             (↥(DSCoeffExt.coeffField f)) lam))
+                                         b)]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves42.deRhamVpAbVarDirect] by DeRhamPrint.Direct.direct_of_deRhamVpAbVarPrinted
+  still assumes: [DeRhamPrint.DeRhamVpAbVarPrinted]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves42.raynaudSemistableSHOr] by DictModels.RaynaudOr.or_of_field
+  still assumes: [ReductGlue.RaynaudSemistableSH]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves42.modularHTPrinted] by EigenformHTPrinted.printed_of_eigenformHTNew
+  still assumes: [DSCoeffExt.DSThm965Printed,
+ DSCoeffExt.EigenformCoeffFieldFinite,
+ DSCoeffExt.DSThm966Printed,
+ ZInQ.Contrib.HodgeSplit.EigenformHTNew]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves42.x6CoarseModuli] by GRX6AbPrint.x6CoarseModuli_of_witness
+  still assumes: [GRDict.X6ModuliWitness]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves42.sga7_IX_3_5_ForwardGeom] by GaRigidity.SGA7.sga7_IX_3_5_ForwardGeom_of_def34
+  still assumes: [GaRigidity.SGA7.SGA7_IX_3_5_ForwardGeom_Def34]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves42.sga7_IX_Cor3_3] by GaRigidity.SGA7.sga7_IX_Cor3_3_of_def34
+  still assumes: [GaRigidity.SGA7.SGA7_IX_Cor3_3_Def34]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenTextbookLeaves17.charPolyIndepOfEllAlgClosed] by HDec.HSyn.OpenTextbookLeaves10HF.charPolyIndepOfEllAlgClosed
+  still assumes: [HDec.HSyn.OpenTextbookLeaves10HF]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenTextbookLeaves17.charPolyIndepOfEllAlgClosed] by HDec.HSyn.OpenTextbookLeaves11HF.charPolyIndepOfEllAlgClosed
+  still assumes: [HDec.HSyn.OpenTextbookLeaves11HF]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenTextbookLeaves17.charPolyIndepOfEllAlgClosed] by HDec.HSyn.OpenTextbookLeaves12HF.charPolyIndepOfEllAlgClosed
+  still assumes: [HDec.HSyn.OpenTextbookLeaves12HF]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenTextbookLeaves17.charPolyIndepOfEllAlgClosed] by HDec.HSyn.OpenTextbookLeaves13HF.charPolyIndepOfEllAlgClosed
+  still assumes: [HDec.HSyn.OpenTextbookLeaves13HF]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenTextbookLeaves17.charPolyIndepOfEllAlgClosed] by HDec.HSyn.OpenTextbookLeaves14HF.charPolyIndepOfEllAlgClosed
+  still assumes: [HDec.HSyn.OpenTextbookLeaves14HF]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenTextbookLeaves17.charPolyIndepOfEllAlgClosed] by HDec.HSyn.OpenTextbookLeaves6HF.charPolyIndepOfEllAlgClosed
+  still assumes: [HDec.HSyn.OpenTextbookLeaves6HF]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenTextbookLeaves17.charPolyIndepOfEllAlgClosed] by HDec.HSyn.OpenTextbookLeaves7HF.charPolyIndepOfEllAlgClosed
+  still assumes: [HDec.HSyn.OpenTextbookLeaves7HF]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenTextbookLeaves17.charPolyIndepOfEllAlgClosed] by HDec.HSyn.OpenTextbookLeaves8HF.charPolyIndepOfEllAlgClosed
+  still assumes: [HDec.HSyn.OpenTextbookLeaves8HF]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenTextbookLeaves17.charPolyIndepOfEllAlgClosed] by HDec.HSyn.OpenTextbookLeaves9HF.charPolyIndepOfEllAlgClosed
+  still assumes: [HDec.HSyn.OpenTextbookLeaves9HF]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves42.elkiesX6StarEvery] by HDec.QMSplit.Moduli.ElkiesPrint.every_of_functionField
+  still assumes: [HDec.QMSplit.Moduli.ElkiesCoord.ElkiesX6StarFunctionField, ObjBridge.TorsionStructure]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves42.raynaudSemistableSHOr] by SZRaynaud.raynaudSemistableSHOr_of_sz35
+  still assumes: [SZRaynaud.SilverbergZarhinThm35]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves42.sga7_IX_3_5_ForwardGeom] by UnipotentForward.forwardGeom_of_forward
+  still assumes: [UnipotentForward.SGA7_IX_3_5_Forward, UnipotentForward.SemiAbelianDescendsSepClosed]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves42.y3FineModuliAbP] by Y3Fix.y3FineModuliAbP_of_field
+  still assumes: [ObjBridge.TorsionStructure, RayClassCFT.ShimuraMainThmIDeligneY3AbU]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [hBFH] by ZInQ.BFHPrinted.bfhClauseIIGamma0_of_bfhClauseIIKronecker
+  still assumes: [ZInQ.BFHPrinted.BFHClauseIIKronecker]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves42.hodgeTateDecompExists] by ZInQ.Contrib.HodgeTateFromPairing.hodgeTateDecompExists_of_field
+  still assumes: [ZInQ.Contrib.HodgeSplit.HodgeTateDecompAbVar]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves42.pazukiCor13Upper] by ZInQ.HeightDict.pazukiCor13Upper_of_printed
+  still assumes: [ZInQ.HeightDict.PazukiCor13UpperPrinted,
+ BPAnalytic.Uniformization.UniformizationLeafAll,
+ AvSplit.MumfordTorsionAlgClosed]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves42.bostLowerBoundPrinted] by ZInQ.HeightFix.bostLowerBoundPrinted_of_kernel
+  still assumes: [ZInQ.HeightSplit.BostLowerBound, ZInQ.LeafPush2.UniformizationExists, AVGlue.GeomConnOfRationalPoint]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves42.gaudronRemondThm14Printed] by ZInQ.HeightFix.gaudronRemondThm14Printed_of_kernel
+  still assumes: [ZInQ.HeightSplit.GaudronRemondThm14,
+ ZInQ.LeafPush2.UniformizationExists,
+ AVGlue.GeomConnOfRationalPoint]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves42.pazukiCor13Upper] by ZInQ.HeightFix.pazukiCor13Upper_of_printed
+  still assumes: [ZInQ.HeightFix.PazukiCor13UpperPrinted,
+ BPAnalytic.Uniformization.UniformizationLeafAll,
+ AvSplit.MumfordTorsionAlgClosed,
+ ZInQ.HeightFix.SemiAbelianDescendsPerfect]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves42.pazukiCor13Upper] by ZInQ.SemiAbDescend.pazukiCor13Upper_of_printed_chevalley
+  still assumes: [ZInQ.HeightFix.PazukiCor13UpperPrinted,
+ BPAnalytic.Uniformization.UniformizationLeafAll,
+ AvSplit.MumfordTorsionAlgClosed,
+ ZInQ.SemiAbDescend.ChevalleyPerfect]
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 39 open hypotheses, 13473 theorems checked, 28 discharge one
+'SZRaynaud.isSemistable_of_sz' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SZRaynaud.hasSemistableReduction_of_sz' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SZRaynaud.raynaudSemistable_of_sz35' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SZRaynaud.raynaudSemistableSHOr_of_sz35' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SZRaynaud.fix_of_tate' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SZRaynaud.raynaudWildNF_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SZRaynaud.pow_smul_tate' depends on axioms: [propext, Quot.sound]
+'SZRaynaud.elliot_of_semistableUnipotent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SZRaynaud.isSemistableDef34_of_sz' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SZRaynaud.hasSemistableReductionDef34_of_sz' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SZRaynaud.def34_of_sz35' depends on axioms: [propext, Classical.choice, Quot.sound]

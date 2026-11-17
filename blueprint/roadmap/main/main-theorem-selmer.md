@@ -2,12 +2,11 @@
 article_id: af_9ce1e3b54e131b088182fed5
 declaration: theorem
 origin: bridged
-statement: formalized
-proof: formalized
-lean: ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankSel, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRank5b, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_certifiedRankSel_goodPrimeDensity, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_certifiedRankSel_greenTaoDense, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_certifiedRankSel, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_certifiedRank5b
 ---
 
 # The main theorem from the Selmer form of the rank hypothesis
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 Assume the minimal height hypothesis and the Selmer form CR₃^Sel of the certified rank
 hypothesis. Then the target statement holds.

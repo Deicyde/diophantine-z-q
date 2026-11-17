@@ -2,12 +2,11 @@
 article_id: af_224e746ae9bc67ee0a7c8e67
 declaration: theorem
 origin: bridged
-statement: formalized
-proof: formalized
-lean: ZInQ.RouteK.poleSoluble_of_points, ZInQ.RouteK.exists_multiplier_bits
 ---
 
 # Points on two congruent number curves give pole solubility
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 Let $B$ be a nonzero rational, $m\ne B$ a signed divisor of $2730$, $\beta=\mathrm{sqf}(mB)$,
 $\theta=\mathrm{sqf}(m(m-B))$, and $N$ a nonzero rational. Suppose that

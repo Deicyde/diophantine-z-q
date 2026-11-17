@@ -2,12 +2,11 @@
 article_id: af_9528cea159957c45e59e375c
 declaration: theorem
 origin: bridged
-statement: formalized
-proof: formalized
-lean: ZInQ.RouteK.Rank5b.Sec3.det_M1G_eq_class3, ZInQ.RouteK.Rank5b.Sec3.det_M1G_eq_zero, ZInQ.RouteK.Rank5b.Sec3.det_Pmat_eq_class3, ZInQ.RouteK.Rank5b.Sec3.sum_class3_eq_forest, ZInQ.RouteK.Rank5b.Sec3.blockH_restrict, ZInQ.RouteK.Rank5b.Sec3.prod_blockH_restrict, ZInQ.RouteK.Rank5b.Sec3.sum_prod_uniform
 ---
 
 # $\det M_1$ as a sum over partitions into class-3 blocks (Proposition 3.3)
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 Let $a,y,z$ be bits on a finite set $V$ that satisfy reciprocity. Then
 $$\det P(z,y)=\sum_{\pi}\prod_{B\in\pi}g(B)=\sum_f z^R\,\mathrm{wt}(f)\prod_{\rho\in R}y(T_\rho),$$

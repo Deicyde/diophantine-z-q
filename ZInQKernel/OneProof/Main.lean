@@ -1,36 +1,16 @@
-import ZInQKernel.OneProof.H.TailZ74
-import ZInQKernel.OneProof.TYZSplit
-import ZInQKernel.OneProof.TopChain
-import ZInQKernel.Contrib.TYZChain.Main
-import ZInQKernel.Contrib.OneProof.RingClassLattice
-import ZInQKernel.Contrib.OneProof.TYZLemma29Mod2
-import ZInQKernel.Contrib.OneProof.FHNonvanishing
-import ZInQKernel.Contrib.OneProof.BFHGamma0
-import ZInQKernel.Contrib.OneProof.LegendreThreeSquares
-import ZInQKernel.Contrib.OneProof.TYZThm21At31
-import ZInQKernel.Contrib.OneProof.JonesPall
-import ZInQKernel.Contrib.OneProof.ThetaWeierstrass8
-import ZInQKernel.Contrib.OneProof.HeegnerPointRationalCd
-import ZInQKernel.Contrib.OneProof.GrossConjugationCd
-import ZInQKernel.Contrib.OneProof.GrossZagierAlgebraic
-import ZInQKernel.Contrib.OneProof.GrossZagierScheme
-import ZInQKernel.Contrib.OneProof.EtaW32Character
-import ZInQKernel.Contrib.OneProof.TYZTestVectorExists
-import ZInQKernel.Contrib.OneProof.Gamma0QExpansion
-import ZInQKernel.Contrib.OneProof.TYZProp23Printed
-import ZInQKernel.Contrib.OneProof.ShimuraMainCM
-import ZInQKernel.Contrib.OneProof.HCMLattice
-import ZInQKernel.Contrib.OneProof.TYZLcalOne
-import ZInQKernel.Contrib.OneProof.TYZThm33Alg
-import ZInQKernel.Contrib.OneProof.TYZThm33Curve
-import ZInQKernel.Contrib.OneProof.GrossZagierSplitUnique
-import ZInQKernel.Contrib.OneProof.TYZThm21Span
+import ZInQKernel.OneProof.H.TailZ83
+import ZInQKernel.MainGreenTao
+import ZInQKernel.Contrib.OneProof.DeRhamRange
 
 /-!
 # The whole proof in one theorem
 
 `ZInQ.OneProof.frozenTarget` derives the frozen target `ZInQ.FrozenTarget` from every statement that is still open on
-the development fork, and from nothing else. It composes three compiled chains:
+the development fork, and from nothing else: the open bundles of the H chain and pole completeness PC
+(`ZInQ.PoleCompleteness`, Theorem 5.2 of the 11/5 manuscript, `diophantine_zq.tex` lines 1001–1004, for the manuscript's pole polynomial).
+It composes the compiled H chain with the headline
+`ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness`
+(`ZInQKernel/MainGreenTao.lean`: the assembly with route AP, Green–Tao in its dense form and Proposition D proved).
 
 * H: `HDec.HSyn.sixContactMin_of_open18` (`OneProof/H/`) proves `ZInQ.SixContactMin` from the open research leaves
   (`OpenResearchLeaves14`), textbook leaves (`OpenTextbookLeaves10`), added leaves (`OpenAddedLeaves13`) and glue
@@ -65,26 +45,11 @@ the development fork, and from nothing else. It composes three compiled chains:
   the row `LeafAdopt.R1R2fpRep`, which no consumer reads, so the chain carries the weak row `LeafAdopt.R1R2fpRepW`, whose
   base witness comes from González–Rotger's `GonzalezRotgerX6` (`QMSplit.Moduli.x6Rows_of_leavesW`, TailZ21;
   docs/research/pi0-fold.md).
-* TYZ: `ZInQ.Contrib.TYZChain.tyzThm35ReadingA_of_leaves` proves reading A of Tian–Yuan–Zhang from four leaves; the
-  fourth, tyz-35's pinned form of TYZ Theorem 3.3, is derived from TYZ Theorem 3.3 in its printed form
-  (`ZInQ.Contrib.TYZGenus.TYZSplit.tyzThm33Pinned_of_tyzThm33`, `OneProof/TYZSplit.lean`, task tyz-split), and the
-  third, Shimura reciprocity for modular functions, from `T5Glue.ShimuraMainCM` alone: every use is at level 32 for
-  the coordinates x, y of the eta-quotient model of X0(N), where the eta route with the proved identity
-  `ThetaWeierstrass8` replaces the canonical-model hypothesis on X0(N) (`ThetaWP8.tyzThm35ReadingA_noHX`,
-  `Contrib/OneProof/ThetaWeierstrass8.lean`, tasks hx-used and theta-wp8).
-* GZ and assembly: `ZInQ.GZDecomp.frozenTarget_of_sixContactMin_tyzThm35ReadingA_gzLeaves` proves `ZInQ.FrozenTarget`
-  from H, reading A and the two open Gross–Zagier statements, with `HeckeThetaNewform` proved
-  (`OneProof/TopChain.lean`) and Hecke's continuation and the functional equation proved
-  (`ZInQ.Contrib.heckeContinuation`, `ZInQ.Contrib.functionalEquation5`). Gross–Zagier enters only for the curves
-  `C_d` (route A, leaf-fold33): `ZInQ.GZStatements.frozenTarget_of_sixContactMin_tyzThm35ReadingA_fhNonvanishingCd_grossZagierHeegnerCd`
-  with heegner-32's `grossZagierHeegnerCd_of_printed` (from `T5Glue.ShimuraMainCM`, which hcm-dict's
-  `HCMDict.shimuraMainCM_of_printed` derives from Shimura 1971 Thm 5.4 as printed, the binder `hCM`), gz-conj's proved conjugation relation, and
-  `GZAlg.grossZagierFormulaCd_of_alg` (gzopt-dict, through period-odd and cd-optimal) from Gross–Zagier for a
-  modular parametrization π : X₀(N) → E, a morphism of ℚ-schemes (`hGZ`, hgz-steps' `GZSch.GrossZagierCurveCd`, bridged by
-  `grossZagierAlgOptCd_of_curve`), the `q`-expansion principle for `Γ₀(N)` (proved: gamma0-qexp,
-  `Gamma0QExp.gamma0QExpansion_proof`) and the eta-quotient law at level 32 (proved: etaw32-proof,
-  `EtaW32Character.etaW32Character_proof`). TYZ's test vector `hfx` is proved (hfx-proof, `HfxProof.tyzTestVectorExists`), and so is TYZ Proposition 2.3
-  `hP23` (hp23-proof, `HP23Proof.tyzProp23Printed`).
+
+PC replaces the Route K inputs (lane74, fork issues #77 and #78): the Tian–Yuan–Zhang hypotheses (`h21S`, `h33c`),
+Shimura's Theorem 5.4 (`hCM`), Bump–Friedberg–Hoffstein (`hBFH`) and Gross–Zagier (`hGZss`) are no longer hypotheses,
+and the files that proved PC for the Route K polynomial from them were removed (they stay reachable at the tag
+`route-k-final`). The manuscript proves Theorem 5.2 from its restricted converse Theorem 5.3.
 
 The textbook bundle `OpenTextbookLeaves15` (`TailZ48`) is `OpenTextbookLeaves14` without `homFreeFiniteAlgClosed`: homfree-noemb's
 reroute (`Contrib/OneProof/HomFreeFiniteAlgClosedReroute.lean`, generated by `scratch/homfree-noemb/gen/gen.py`) copies
@@ -121,63 +86,54 @@ its characteristic-`0` form `PicZeroChar0.PicZeroAbVar0`, proved by `PicZeroChar
 theorem, `cartierSmooth_proof`; `Contrib/OneProof/PicZeroAbVarCharZero.lean`), and phisurj's theorems in
 characteristic `0` (`Contrib/OneProof/PhiSurjCharZero.lean`). The originals are unchanged.
 
-lcal-one replaced the two Tian-Yuan-Zhang hypotheses `h11` (`TYZThm11Integral`) and `hL29`
-(`H29Split.TYZLemma29PrintedNe3`) by the one printed statement `h21C` (`ZInQ.Contrib.TYZGenusFold.TYZThm21PairsC`,
-TYZ Theorem 2.1 for pairs, tyz-genus's variant B): `hL29` is `TYZGenusFold.tyzLemma29PrintedNe3_of_thm21C` and `h11` is
-`LcalOne.tyzThm11Integral_of_thm21C_only`, which uses `TYZLcalOne` (`L(y^2 = x^3 - x, 1)` in TYZ's normalization), now
-proved (`LcalOne.tyzLcalOne_proof`, `Contrib/OneProof/TYZLcalOne.lean`).
-
-fold34-eichler (eichler-bound) then removed the research field `gonzalezRotgerProp56X6` (GLUE) with no new leaf: the
-chain reads González–Rotger's count only as the bound `GR56.R5fpCountLe`, proved by `EichlerBound.r5fpCountLe_proof`
-(from `uniformizationLeafAll`, `gagaMorphism`, `mumfordTorsionAlgClosed`). `OpenResearchLeaves39` (`TailZ63`) is `OpenResearchLeaves38` without it,
-and `HDec.HSyn.sixContactMin_of_open56` goes through `sixContactMin_of_open55_eb` (`OneProof/H/EichlerBoundCopy.lean`, generated by
-`scratch/fold34-eichler/gen/gen.py`), a copy of every declaration that reads a count field or takes a bundle carrying
-one, with the count fields typed `GR56.R5fpCountLe`. The originals are unchanged.
-
 coeff-field-tc (landed on main by the integrator, regenerated here on TailZ73 with fold-b100's generator, `TailZ74`):
 `eigenformCoeffFieldFinite_proof` proves `DSCoeffExt.EigenformCoeffFieldFinite` outright, so `heckePrimeIntegralToRational` and
 `gamma1IntegralBasis` leave the research bundle (copy reroute of the live path, originals unchanged).
 
-h33-d1 replaced `h33a` by `h33c` (`ZInQ.H33D1.TYZThm33CurveSome`: D1 both ways, `ESch` normal at `O`, G4(b) proved;
-`H33D1.tyzThm33_of_curveSome`) and `hGZ` by `hGZss` (`ZInQ.GZSplitUnique.GrossZagierCurveCdSplitSome`: model uniqueness
-`CurveModel.exists_iso_of_functionField` and the `ε_D` splitting proved; `GZSplitUnique.grossZagierAlgOptCd_of_splitSome`).
+fold-b105 (fold-chev regenerated, chevalley-free) removed the research field `chevalleyPerfect` (Chevalley over a perfect
+field) with no new leaf: the chain read it only through `SemiAbDescend.semiAbelianDescendsPerfect_of_chevalley`,
+and `ZInQ.HeightFix.SemiAbelianDescendsPerfect` is proved (`ZInQ.ChevFree.semiAbelianDescendsPerfect_proof`,
+`Contrib/OneProof/ChevalleyFree.lean`). `OpenResearchLeaves49` (`TailZ75`) is `OpenResearchLeaves48` without it, and
+`HDec.HSyn.sixContactMin_of_open68` enters the coeff-field-tc copy chain at `OpenResearchLeaves36EBCF` through the composite
+conversion `openResearchLeaves36EBCF_of_OpenResearchLeaves49` (bypass, generated by `scratch/fold-b105/gen_chev_bypass.py`); no
+declaration is copied or changed.
 
-hcm-lattice replaced `hCM` (`HCMDict.ShimuraThm54`) by `ZInQ.Contrib.HCMLattice.ShimuraThm54Local` (Shimura 1971 Thm 5.4 with the
-print's analytic isomorphism and `p`-component lattices; `HCMLattice.shimuraMainCM_of_local`).
+fold-b105 (pb-p1) replaced the research fields `panPrintedP` and `bergerPrintedVT` by `panPrintedF` (Pan,
+arXiv:1901.07166v2 Thm 1.0.4) and `bergerSurveyF` (Berger's survey IV.5.1), both over Fontaine's `B_st` as
+printed (`Contrib/OneProof/PanBergerFontaine.lean`); `r11r12` follows by `HDec.PkgI4.PanDict.panBerger_of_F`.
+`OpenResearchLeaves51` (`TailZ77`) enters the chain at `OpenResearchLeaves36EBCF` through the composite conversion `openResearchLeaves36EBCF_of_OpenResearchLeaves51`
+(bypass, generated by `scratch/fold-b105/gen_pbp1_bypass.py`); no declaration is copied or changed.
 
-h21c-steps replaced `h21C` by `h21S` (`ZInQ.Contrib.H21CSteps.TYZThm21Span`, TYZ Thm 2.1 with `π_ℤ^{U_n}` read through
-Thm 2.4(1) as the span of the six `f_δ`; `H21CSteps.tyzThm21PairsC_of_span`).
+igusa-drop removed the research field `igusaGL2DSGalSome` (Diamond-Shurman Thm 7.6.3, printed form) with no new
+leaf: the chain read it only through `AfTateLam.r16CoreY_of_ds965`, which uses it as `X1PointsConjugate`,
+proved from `X0Transitive` (`AfTateLam.r16CoreY_of_ds965_x0`, `Contrib/OneProof/IgusaDrop.lean`).
+`OpenResearchLeaves53` (`TailZ79`) is `OpenResearchLeaves52` without it, and `HDec.HSyn.sixContactMin_of_open72` enters the
+chain at `OpenResearchLeaves36EBCF` through the composite conversion `openResearchLeaves36EBCF_of_OpenResearchLeaves53` (bypass, generated by
+`scratch/igusa-drop/gen_igusa_drop.py`); no declaration is copied or changed.
 
-h33-fix replaced `h33` (`TYZSplit.TYZThm33`) by `h33a` (`ZInQ.H33Fix.TYZThm33Alg`, TYZ Thm 3.3 for TYZ's algebraic
-identification `i₀` given by its pull-back on function fields; `H33Fix.tyzThm33_of_alg`, with `isX0IsoAlg_eta` proved).
+bost-gr9 (folded by fold-b112) replaced the research field `bostLowerBoundAnSS` (Bost's bound, not cited by the manuscript and
+strictly stronger than its citation) by `gaudronRemondSec9LowerAnSS` (Gaudron-Remond, Duke 2014, section 9, `h_F >= -(3/2) dim`, the
+manuscript's citation at L894-895, over the printed semistability; `Contrib/OneProof/GaudronRemondSection9.lean`
+and `GaudronRemondSection9SS.lean`). `OpenResearchLeaves54` (`TailZ80`) is `OpenResearchLeaves53` with the field replaced, and
+`HDec.HSyn.sixContactMin_of_open73` goes through a copy of the 89 declarations of the chain that carry
+the field (namespace `HDec.HSyn.GR9`, weaker-leaf bypass, generated by `scratch/fold-b112/gen_gr9_fold.py`); no
+existing declaration is changed.
 
 The hypotheses of `frozenTarget` are therefore exactly the open statements. Discharging one means replacing a field or
 hypothesis by its proof; the theorem's statement then loses that hypothesis.
 -/
 
-namespace ZInQ.Contrib.TYZChain
+namespace ZInQ.OneProof
 
-open ZInQ.Contrib.TYZDecomp ZInQ.Contrib.TYZGenus
-
-/-- **Theorem 1.1, from every statement still open.** -/
+/-- **Theorem 1.1, from every statement still open:** the open H bundles and pole completeness PC
+(the manuscript's Theorem 5.2). -/
 theorem _root_.ZInQ.OneProof.frozenTarget
-    (r : HDec.HSyn.OpenResearchLeaves48) (t : HDec.HSyn.OpenTextbookLeaves18) (l : HDec.HSyn.OpenAddedLeaves27)
-    (h21S : ZInQ.Contrib.H21CSteps.TYZThm21Span)
-    (hCM : ZInQ.Contrib.HCMLattice.ShimuraThm54Local)
-    (h33c : ZInQ.H33D1.TYZThm33CurveSome)
-    (hBFH : ZInQ.BFHPrinted.BFHClauseIIGamma0)
-    (hGZss : ZInQ.GZSplitUnique.GrossZagierCurveCdSplitSome) :
+    (r : HDec.HSyn.OpenResearchLeaves57) (t : HDec.HSyn.OpenTextbookLeaves18) (l : HDec.HSyn.OpenAddedLeaves27)
+    (hPC : ZInQ.PoleCompleteness) :
     ZInQ.FrozenTarget :=
-  ZInQ.GZStatements.frozenTarget_of_sixContactMin_tyzThm35ReadingA_fhNonvanishingCd_grossZagierHeegnerCd
-    (HDec.HSyn.sixContactMin_of_open67 r t l)
-    (ThetaWP8.tyzThm35ReadingA_noHX (ZInQ.Contrib.LcalOne.tyzThm11Integral_of_thm21C_only (ZInQ.Contrib.H21CSteps.tyzThm21PairsC_of_span h21S)) (H29Split.tyzLemma29Mod2_of_sixLeaves ZInQ.Contrib.OneProof.LegendreThreeSquares.legendreThreeSquares_proof
-      ZInQ.Contrib.OneProof.JonesPall.jonesPall_proof ZInQ.Contrib.HfxProof.tyzTestVectorExists (ZInQ.Contrib.TYZGenusFold.tyzLemma29PrintedNe3_of_thm21C (ZInQ.Contrib.H21CSteps.tyzThm21PairsC_of_span h21S)) ZInQ.Contrib.T21Proof.tyzThm21At31
-      ZInQ.Contrib.HP23Proof.tyzProp23Printed) (ZInQ.Contrib.HCMLattice.shimuraMainCM_of_local hCM) (ZInQ.H33D1.tyzThm33_of_curveSome (ZInQ.Contrib.HCMLattice.shimuraMainCM_of_local hCM) h33c))
-    (ZInQ.GZStatements.fhNonvanishingCd_of_fhNonvanishing (ZInQ.BFHPrinted.fhNonvanishing_of_bfhClauseIIGamma0 hBFH))
-    (ZInQ.Heegner32.grossZagierHeegnerCd_of_printed (ZInQ.Contrib.HCMLattice.shimuraMainCM_of_local hCM) (ZInQ.GZAlg.grossZagierFormulaCd_of_alg (ZInQ.GZSplitUnique.grossZagierAlgOptCd_of_splitSome hGZss) ZInQ.Contrib.Gamma0QExp.gamma0QExpansion_proof
-      ZInQ.Contrib.OneProof.EtaW32Character.etaW32Character_proof)
-      ZInQ.GZConj.grossConjugationCd)
+  ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness
+    (HDec.HSyn.sixContactMin_of_open76 r t l) hPC
 
-end ZInQ.Contrib.TYZChain
+end ZInQ.OneProof
 
 #print axioms ZInQ.OneProof.frozenTarget

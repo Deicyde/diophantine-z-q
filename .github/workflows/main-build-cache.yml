@@ -27,6 +27,8 @@ on:
 
 permissions:
   contents: read
+  # Only to confirm that the save step kept this run's build.
+  actions: read
 
 # One build at a time; a newer push waits and then builds on the cache the earlier run saved.
 concurrency:
@@ -37,8 +39,9 @@ jobs:
   build:
     name: build and save
     runs-on: ubuntu-latest
-    # Inside the 360-minute hosted limit. The build step stops at 320 minutes so the save step still runs, and
-    # a cold first build that does not finish saves its progress for the next run (or a re-run).
+    # Inside the 360-minute hosted limit. The build step stops itself at 310 minutes (its 320-minute limit is a
+    # backstop) so the save step still runs, and a cold first build that does not finish saves its progress for
+    # the next run (or a re-run).
     timeout-minutes: 355
     steps:
       - name: Check out main
@@ -51,13 +54,29 @@ jobs:
           set -euo pipefail
           df -h / /mnt || true
           free -h
-          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /usr/local/.ghcup \
-            /opt/hostedtoolcache/CodeQL
+          # Preinstalled software this job does not use. A full build of the OneProof targets is about 41 GB
+          # (34 GB for this repository, 7 GB for Mathlib), and the cache archive needs room as well.
+          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /usr/local/.ghcup /opt/hostedtoolcache \
+            /usr/local/share/boost /usr/share/swift /usr/lib/jvm /usr/local/julia* /usr/local/share/chromium \
+            /usr/local/share/powershell /usr/local/lib/node_modules /opt/microsoft /opt/google /opt/az \
+            /usr/share/miniconda /usr/local/aws-cli /usr/local/aws-sam-cli /opt/pipx
           sudo swapoff -a
           sudo rm -f /swapfile /mnt/swapfile
-          if mountpoint -q /mnt; then dir=/mnt; keep=2; else dir=; keep=30; fi
-          avail="$(df --output=avail -BG "${dir:-/}" | tail -n 1 | tr -dc '0-9')"
-          size=$((avail - keep))
+          # Swap goes on the separate temporary disk when the runner has one. Otherwise it is a swap file on /,
+          # sized to leave about 75 GB of / for the toolchain and Mathlib (12 GB), the build (34 GB), a cache
+          # archive of up to 10 GB, and a margin. The run of 2026-11-17 used an 82 GB swap file, filled / and
+          # stopped without saving.
+          if mountpoint -q /mnt; then
+            dir=/mnt
+            avail="$(df --output=avail -BG /mnt | tail -n 1 | tr -dc '0-9')"
+            size=$((avail - 2))
+          else
+            dir=
+            avail="$(df --output=avail -BG / | tail -n 1 | tr -dc '0-9')"
+            size=$((avail - 75))
+            if [ "$size" -lt 8 ]; then size=8; fi
+          fi
+          if [ "$size" -gt 48 ]; then size=48; fi
           if [ "$size" -ge 1 ]; then
             sudo fallocate -l "${size}G" "$dir/swapfile"
             sudo chmod 600 "$dir/swapfile"
@@ -94,11 +113,54 @@ jobs:
           restore-keys: |
             zinq-build-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml', 'lean/lakefile.toml') }}-
 
+      # The build stops itself at 310 minutes, before the step's time limit, so that the save step keeps an
+      # unfinished build and the next run continues from it. It also stops if / falls below 15 GB, to keep room
+      # for the save step's archive. It runs in its own process group so that stopping it also stops the Lean
+      # processes it started.
       - name: Build the OneProof targets
         id: build
         timeout-minutes: 320
         continue-on-error: true
-        run: lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges
+        run: |
+          # GitHub runs steps with bash -e. Errexit is off here so that a failed or stopped build still reaches
+          # the measurements and the exit status below.
+          set +e -uo pipefail
+          deadline=$(($(date +%s) + 310 * 60))
+          setsid lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges &
+          pid=$!
+          stopped=
+          peak_mem=0
+          peak_swap=0
+          while kill -0 "$pid" 2> /dev/null; do
+            avail="$(df --output=avail -BG / | tail -n 1 | tr -dc '0-9')"
+            read -r mem swap <<< "$(free -m | awk '/^Mem:/ {m = $3} /^Swap:/ {s = $3} END {print m + 0, s + 0}')"
+            if [ "$mem" -gt "$peak_mem" ]; then peak_mem=$mem; fi
+            if [ "$swap" -gt "$peak_swap" ]; then peak_swap=$swap; fi
+            if [ "$avail" -lt 15 ]; then
+              stopped="only ${avail} GB free on /"
+            elif [ "$(date +%s)" -ge "$deadline" ]; then
+              stopped="310 minutes reached"
+            fi
+            if [ -n "$stopped" ]; then
+              echo "::warning::Stopping the build ($stopped) so that its progress can be saved."
+              kill -TERM -- "-$pid" 2> /dev/null
+              for _ in $(seq 60); do kill -0 "$pid" 2> /dev/null || break; sleep 1; done
+              kill -KILL -- "-$pid" 2> /dev/null
+              break
+            fi
+            sleep 30
+          done
+          wait "$pid"
+          status=$?
+          echo "::notice::Peak use, sampled every 30 s: ${peak_mem} MB of memory and ${peak_swap} MB of swap."
+          if sudo dmesg | grep -i -E 'oom-kill|out of memory'; then
+            echo "::warning::The kernel killed a process for lack of memory during the build."
+          fi
+          df -h / /mnt
+          du -sh .lake/build lean/.lake/build .lake/packages/mathlib/.lake/build 2> /dev/null
+          # A build that finished just as the stop fired counts as finished.
+          if [ -n "$stopped" ] && [ "$status" -ne 0 ]; then exit 1; fi
+          exit "$status"
 
       # One entry per run, so a re-run of an unfinished build also saves its progress. The discharge check's
       # restore matches by prefix and takes the newest.
@@ -133,9 +195,39 @@ jobs:
           path: .lake/build/lib/lean/**/*.ilean
           include-hidden-files: true
 
-      # Saved even when the build stopped, so the next run continues from here; the job still reports the stop.
+      # actions/cache/save only warns when it keeps nothing (an archive over 10 GB, for one), so ask the cache API
+      # whether this run's entry exists. A missing entry is a warning, not a failure: the site still deploys a
+      # commit whose build and axiom check passed.
+      - name: Confirm that the build was saved
+        id: saved
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          KEY: zinq-build-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml', 'lean/lakefile.toml') }}-${{ github.sha }}-${{ github.run_id }}-${{ github.run_attempt }}
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3; do
+            n="$(gh api -X GET "repos/$GITHUB_REPOSITORY/actions/caches" -f key="$KEY" --jq .total_count)"
+            if [ "$n" != 0 ]; then break; fi
+            sleep 10
+          done
+          if [ "$n" = 0 ]; then
+            echo "saved=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::The build was not saved to the Actions cache; the save step's warning says why."
+          else
+            echo "saved=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      # The job fails when the build did not finish, and says whether the next run can continue from it.
       - name: Report an unfinished build
         if: ${{ steps.build.outcome != 'success' }}
+        env:
+          SAVED: ${{ steps.saved.outputs.saved }}
         run: |
-          echo "::error::The build did not finish (outcome: ${{ steps.build.outcome }}); its progress was saved for the next run."
+          if [ "$SAVED" = true ]; then
+            echo "::error::The build did not finish (outcome: ${{ steps.build.outcome }}); its progress was saved for the next run."
+          else
+            echo "::error::The build did not finish (outcome: ${{ steps.build.outcome }}), and its save could not be confirmed."
+          fi
           exit 1

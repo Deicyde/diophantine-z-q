@@ -2,12 +2,11 @@
 article_id: af_4f94fd6ebf1dd6ec9805e722
 declaration: theorem
 origin: bridged
-statement: formalized
-proof: formalized
-lean: ZInQ.RouteK.Rank5b.Sec3.sum_class1_eq_sum_class3, ZInQ.RouteK.Rank5b.Sec3.sum_class1_eq_forest
 ---
 
 # From class-1 blocks to class-3 blocks (Proposition 3.5)
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 Let $a,y,z$ be bits on a finite set $V$ that satisfy reciprocity and $y(V)=0$. Then
 $$\sum_{\pi\text{ into blocks of class }1}\ \prod_{B\in\pi}g(B)\;=\;\sum_{\pi\text{ into blocks of class }3}\ \prod_{B\in\pi}g(B),$$

@@ -2,11 +2,11 @@
 article_id: af_af05baaa2ef3ca186d19504a
 declaration: def
 origin: bridged
-statement: formalized
-lean: ZInQ.RouteK.Rank.CertifiedRankDLAdmRk
 ---
 
 # The positive-rank hypothesis at the inputs of admissible numbers
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 The hypothesis CR₃^DL,Adm,Rk is the following assertion. For every admissible $B$ there are:
 

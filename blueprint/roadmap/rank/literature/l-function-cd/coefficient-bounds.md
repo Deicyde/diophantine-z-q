@@ -2,12 +2,11 @@
 article_id: af_933d8aa9fa848334c1d63c21
 declaration: theorem
 origin: background
-statement: formalized
-proof: formalized
-lean: ZInQ.Contrib.PSide.recurrence_bound, ZInQ.Contrib.PSide.cdCoeff_prime_pow_sq_le, ZInQ.Contrib.PSide.cdCoeff_sq_le
 ---
 
 # Bounds for the coefficients $c_d(n)$
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 Let $c_d(n)$ be the numbers of [the standard Euler product](l-series.md), and $\sigma_0(n)$ the
 number of divisors of $n$, with $\sigma_0(0)=0$.

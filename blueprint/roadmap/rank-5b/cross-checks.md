@@ -2,12 +2,11 @@
 article_id: af_0266aad120a8752a17676e84
 declaration: theorem
 origin: bridged
-statement: formalized
-proof: formalized
-lean: ZInQ.RouteK.Rank5b.det_M5b_21, ZInQ.RouteK.Rank5b.det_M5b_5, ZInQ.RouteK.Rank5b.Config.M5bc_of_iso, ZInQ.RouteK.Rank5b.Config.det_M5bc_of_iso, ZInQ.RouteK.Rank5b.primeFactors_21, ZInQ.RouteK.Rank5b.legBit_3_7, ZInQ.RouteK.Rank5b.legBit_7_3, ZInQ.RouteK.Rank5b.enum21, ZInQ.RouteK.Rank5b.enum21_inj, ZInQ.RouteK.Rank5b.enum21_prime, ZInQ.RouteK.Rank5b.enum21_mem, ZInQ.RouteK.Rank5b.equiv21, ZInQ.RouteK.Rank5b.idx5, ZInQ.RouteK.Rank5b.M5bc_primeCfg_21, ZInQ.RouteK.Rank5b.primeFactors_5
 ---
 
 # Two values of the row-5b determinant
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 For $n=21=3\cdot7$, $\det M_{5b}=1$; for $n=5$, $\det M_{5b}=0$.
 

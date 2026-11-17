@@ -1,0 +1,22 @@
+{
+ "name": "pb-p1",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.PanBergerFontaine"
+ ],
+ "discharges": [
+  {
+   "field": "bergerPrintedV",
+   "proof": "_root_.HDec.PkgI4.PanDict.bergerPrintedV_of_survey {n}.bergerSurveyF",
+   "leaves": [
+    {
+     "name": "bergerSurveyF",
+     "type": "_root_.HDec.PkgI4.PanDict.BergerSurveyF",
+     "doc": "R11 (pb-p1). Berger's theorem (Invent. Math. 148 (2002), Theoreme 0.6 = Thm 5.19 (arXiv:math/0102179v3)) in the printed form of Berger, An introduction to the theory of p-adic representations (Geometric aspects of Dwork theory, de Gruyter 2004; arXiv:math/0210184v1 IV.5.1 p. 30 statement, IV.5.3 p. 31 proof), K = Q_p, for a p-adic representation V = E^n (E/Q_p finite inside Qbar_p, rho_E continuous): dim_Qp (B_dR (x) V)^{G_Qp} = dim V (II.2.3) => for some finite K/Q_p, B_st (x)_Qp V has a B_st-basis of G_K-invariant vectors (I.2.3: B-admissible, equivalently B (x) V = B^d as B[G_K]-modules; II.5.2: potentially semistable), with Fontaine's B_st = B_cris[log p~] inside Mathlib's B_dR as Berger prints it (II.3.3: log p~ = -sum (1 - [p~]/p)^n/n, log_p(p) = 0; II.3.1: B_cris = B_cris^+[1/t], B_cris^+ = A_cris[1/p], A_cris = {sum a_n omega^n/n! : a_n in A_inf -> 0}; t = log [eps0]), for every generator eps0 of Z_p(1) and every generator omega of ker theta",
+     "kind": "published",
+     "flag": "unread: new printed leaf (pb-p1); Berger 2004 survey read on arXiv:math/0210184v1 (pages are the arXiv pages; de Gruyter pagination UNVERIFIED); readings: a_n -> 0 in B~^+ read p-adically with coefficients in A_inf and B_cris^+ the Q_p-algebra they generate (as bst-construct reads A_max); admissibility in its basis form, which the survey prints as equivalent to the dimension form (I.2.3, p. 6); Berger 2002 Thm 0.7 is the same theorem, its section 1.2 (p. 11) printing that Berger's B_st gives Fontaine's D_st",
+     "source": "Berger, An introduction to the theory of p-adic representations (2004), arXiv:math/0210184v1, IV.5.1 and IV.5.3, with II.2.3, II.3.1, II.3.3, II.5.2, I.2.3; = Berger, Invent. Math. 148 (2002), Theoreme 0.7; B_st (Fontaine) as BstFOf, admissibility (basis form) as IsAdmissibleT in Contrib/OneProof/PanBergerFontaine.lean and PanBergerPst.lean; de Rham as pb-fix2's IsDeRhamU"
+    }
+   ]
+  }
+ ]
+}

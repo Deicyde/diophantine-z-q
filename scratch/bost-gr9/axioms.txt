@@ -1,0 +1,6 @@
+'ZInQ.BostGR9.r21_of_sec9An' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.BostGR9.gaudronRemondSec9LowerAn_of_bostLowerBoundAn' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.BostGR9.bostAn_iff_faltings' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.BostGR9.deligne_heightFormula_shift' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.BostGR9.sec9_bound_lt_bost' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.BostGR9.sec9An_of_printed' depends on axioms: [propext, Classical.choice, Quot.sound]

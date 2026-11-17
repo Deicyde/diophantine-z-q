@@ -63,8 +63,14 @@ def die(msg):
     sys.exit(1)
 
 
-def main_state():
-    s = open(MAIN).read()
+def main_state(s=None):
+    """Parse Main.lean (or the text `s`): its frozenTarget signature must read
+    `theorem _root_.ZInQ.OneProof.frozenTarget` + newline + binders + `) :` + newline + `ZInQ.FrozenTarget`, with the H
+    bundles as `(v : HDec.HSyn.Bundle)` binders, the call `(HDec.HSyn.sixContactMin_of_openN v ...)` and one import
+    `ZInQKernel.OneProof.H.TailZk` (binder comments belong in the docstring). Other imports and binders (`hPC`) are kept
+    as they are."""
+    if s is None:
+        s = open(MAIN).read()
     m = re.search(r'theorem _root_\.ZInQ\.OneProof\.frozenTarget\s*\n(.*?)\)\s*:\s*\n\s*ZInQ\.FrozenTarget', s, re.S)
     if not m:
         die('cannot find frozenTarget in Main.lean')
@@ -278,9 +284,19 @@ def main():
     for old, nn in newname.items():
         ms = ms.replace(f'HDec.HSyn.{old})', f'HDec.HSyn.{nn})')
     ms = ms.replace(f'HDec.HSyn.{top} ', f'HDec.HSyn.sixContactMin_of_open{N + 1} ', 1)
+    # the switched Main.lean must parse again, at the new top theorem and module, with the same other imports
+    _, binders2, top2, _, mod2, _ = main_state(ms)
+    other = lambda t: sorted(l for l in t.split(NL) if l.startswith('import ') and '.OneProof.H.TailZ' not in l)
+    if (top2 != f'sixContactMin_of_open{N + 1}' or mod2 != new_mod or other(ms) != other(main_src)
+            or [v for v, _ in binders2] != [v for v, _ in binders]
+            or [s for _, s in binders2] != [newname.get(s, s) for _, s in binders]):
+        die(f'switching {MAIN} failed (top {top2}, module {mod2}, bundles {binders2})')
 
     if '--dry-run' in sys.argv:
         print(NL.join(out))
+        # the switched Main.lean on stderr, so stdout stays "count line + module"
+        print(f'--- {MAIN} after the fold:', file=sys.stderr)
+        print(ms, file=sys.stderr)
         return
     open(H + new_mod + '.lean', 'w').write(NL.join(out))
     open(MAIN, 'w').write(ms)

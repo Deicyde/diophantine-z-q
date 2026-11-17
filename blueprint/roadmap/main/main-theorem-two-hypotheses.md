@@ -2,12 +2,11 @@
 article_id: af_9b19767b2c5b68b78591a8d2
 declaration: theorem
 origin: bridged
-statement: formalized
-proof: formalized
-lean: ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRank, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_goodPrimeDensity, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_greenTaoDense, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_goodPrimeAP
 ---
 
 # The main theorem from two hypotheses
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 Assume the minimal height hypothesis and the certified rank hypothesis CR₃. Then the target
 statement holds: some integer polynomial in $292{,}890{,}231{,}905$ variables, of degree below

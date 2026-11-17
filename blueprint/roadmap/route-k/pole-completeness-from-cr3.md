@@ -2,12 +2,11 @@
 article_id: af_6426f4c23d00c0054e4b3557
 declaration: theorem
 origin: bridged
-statement: formalized
-proof: formalized
-lean: ZInQ.poleCompleteness_of_certifiedRank
 ---
 
 # Pole completeness from the certified rank hypothesis
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 Assume the certified rank hypothesis CR₃. Then pole completeness holds: every admissible $B$
 satisfies $\Phi(B)$, for the pole polynomial with the congruent number curves

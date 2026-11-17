@@ -76,16 +76,29 @@ jobs:
           set -euo pipefail
           df -h / /mnt || true
           free -h
-          # Large preinstalled toolchains this job does not use.
-          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /usr/local/.ghcup \
-            /opt/hostedtoolcache/CodeQL
+          # Preinstalled software this job does not use. A full build of the OneProof targets is about 41 GB
+          # (34 GB for this repository, 7 GB for Mathlib), and the cache archive needs room as well.
+          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /usr/local/.ghcup /opt/hostedtoolcache \
+            /usr/local/share/boost /usr/share/swift /usr/lib/jvm /usr/local/julia* /usr/local/share/chromium \
+            /usr/local/share/powershell /usr/local/lib/node_modules /opt/microsoft /opt/google /opt/az \
+            /usr/share/miniconda /usr/local/aws-cli /usr/local/aws-sam-cli /opt/pipx
           sudo swapoff -a
           sudo rm -f /swapfile /mnt/swapfile
-          # Swap as large as the disk allows: on /mnt when the runner has a separate temporary disk,
-          # otherwise on / with 30 GB kept free for Mathlib and the build.
-          if mountpoint -q /mnt; then dir=/mnt; keep=2; else dir=; keep=30; fi
-          avail="$(df --output=avail -BG "${dir:-/}" | tail -n 1 | tr -dc '0-9')"
-          size=$((avail - keep))
+          # Swap goes on the separate temporary disk when the runner has one. Otherwise it is a swap file on /,
+          # sized to leave about 75 GB of / for the toolchain and Mathlib (12 GB), the build (34 GB), a cache
+          # archive of up to 10 GB, and a margin. The build cache run of 2026-11-17 used an 82 GB swap file,
+          # filled / and stopped without saving.
+          if mountpoint -q /mnt; then
+            dir=/mnt
+            avail="$(df --output=avail -BG /mnt | tail -n 1 | tr -dc '0-9')"
+            size=$((avail - 2))
+          else
+            dir=
+            avail="$(df --output=avail -BG / | tail -n 1 | tr -dc '0-9')"
+            size=$((avail - 75))
+            if [ "$size" -lt 8 ]; then size=8; fi
+          fi
+          if [ "$size" -gt 48 ]; then size=48; fi
           if [ "$size" -ge 1 ]; then
             sudo fallocate -l "${size}G" "$dir/swapfile"
             sudo chmod 600 "$dir/swapfile"

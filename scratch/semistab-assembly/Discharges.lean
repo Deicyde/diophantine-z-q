@@ -1,0 +1,11 @@
+import ZInQKernel.OneProof.Main
+import ZInQKernel.OneProof.Discharges
+import ZInQKernel.Contrib.OneProof.SemistablePrintedReadings
+
+#discharges
+
+#print axioms ZInQ.SemistabAssembly.isClosed_range_openSubgroup_field
+#print axioms ZInQ.SemistabAssembly.isSemistableGeomPrinted_of_res
+#print axioms ZInQ.SemistabAssembly.isSemistableResPrinted_of_res
+#print axioms ZInQ.SemistabAssembly.bostLowerBoundAn_of_ss
+#print axioms ZInQ.SemistabAssembly.gaudronRemondThm14An_of_ss

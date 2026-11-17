@@ -1,0 +1,22 @@
+'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.OneProof.frozenTarget : HDec.HSyn.OpenResearchLeaves54 →
+  HDec.HSyn.OpenTextbookLeaves18 → HDec.HSyn.OpenAddedLeaves27 → ZInQ.PoleCompleteness → ZInQ.FrozenTarget
+ZInQ.OneProof.frozenTarget: closure 292940
+  contains sorryAx: false
+  contains ZInQ.SemistabAssembly.BostLowerBoundAnSS: false
+  contains ZInQ.R3Residual.BostLowerBoundAn: false
+  contains ZInQ.HeightFix.BostLowerBoundPrinted: false
+  contains ZInQ.HeightSplit.BostLowerBound: false
+  contains ZInQ.SemistabAssembly.bostLowerBoundAn_of_ss: false
+  contains ZInQ.ChevFree.bostLowerBound_of_printed_free: false
+  contains HDec.HSyn.OpenResearchLeaves53: false
+  contains HDec.HSyn.sixContactMin_of_open72: false
+  contains ZInQ.BostGR9.GaudronRemondSec9LowerAnSS: true
+  contains ZInQ.BostGR9.gaudronRemondSec9LowerAn_of_ss: true
+  contains ZInQ.BostGR9.sec9Printed_of_an: true
+  contains ZInQ.BostGR9.grBostBound_of_sec9Printed: true
+  contains ZInQ.BostGR9.r21_of_grBost': true
+  contains ZInQ.HeightSplit.GRBostBound: true
+  contains HDec.HSyn.OpenResearchLeaves54: true
+  contains HDec.HSyn.sixContactMin_of_open73: true
+field check: HDec.HSyn.OpenResearchLeaves53 27 fields, HDec.HSyn.OpenResearchLeaves54 27 fields; only in old: [bostLowerBoundAnSS]; only in new: [gaudronRemondSec9LowerAnSS]

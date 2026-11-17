@@ -1,0 +1,27 @@
+'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.OneProof.frozenTarget : HDec.HSyn.OpenResearchLeaves51 →
+  HDec.HSyn.OpenTextbookLeaves18 →
+    HDec.HSyn.OpenAddedLeaves27 →
+      ZInQ.Contrib.H21CSteps.TYZThm21Span →
+        ZInQ.Contrib.HCMLattice.ShimuraThm54Local →
+          ZInQ.H33D1.TYZThm33CurveSome →
+            ZInQ.BFHPrinted.BFHClauseIIGamma0 → ZInQ.GZSplitUnique.GrossZagierCurveCdSplitSome → ZInQ.FrozenTarget
+ZInQ.OneProof.frozenTarget: closure 304575
+  contains sorryAx: false
+  contains ZInQ.SemiAbDescend.ChevalleyPerfect: false
+  contains ZInQ.SemiAbDescend.semiAbelianDescendsPerfect_of_chevalley: false
+  contains ZInQ.SemiAbDescend.bostLowerBound_of_printed_chevalley: false
+  contains ZInQ.SemiAbDescend.gaudronRemondThm14_of_printed_chevalley: false
+  contains HDec.HSyn.OpenResearchLeaves48: false
+  contains HDec.HSyn.sixContactMin_of_open67: false
+  contains ZInQ.ChevFree.semiAbelianDescendsPerfect_proof: true
+  contains ZInQ.SemistabAssembly.BostLowerBoundAnSS: true
+  contains ZInQ.SemistabAssembly.GaudronRemondThm14AnSS: true
+  contains ZInQ.SemistabAssembly.bostLowerBoundAn_of_ss: true
+  contains ZInQ.SemistabAssembly.gaudronRemondThm14An_of_ss: true
+  contains HDec.PkgI4.PanDict.PanPrintedP: false
+  contains HDec.PkgI4.PanDict.BergerPrintedVT: false
+  contains HDec.PkgI4.PanDict.BergerPrintedV: false
+  contains HDec.PkgI4.PanDict.PanPrintedF: true
+  contains HDec.PkgI4.PanDict.BergerSurveyF: true
+  contains HDec.PkgI4.PanDict.panBerger_of_F: true

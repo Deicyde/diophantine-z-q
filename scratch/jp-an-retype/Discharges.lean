@@ -1,0 +1,11 @@
+import ZInQKernel.OneProof.Main
+import ZInQKernel.OneProof.Discharges
+import ZInQKernel.Contrib.OneProof.JavanpeykarAnRetype
+
+#discharges
+
+#print axioms JavanpeykarAnRetype.isSemistableRes_of_printed
+#print axioms JavanpeykarAnRetype.isAnStableHeightSS_iff
+#print axioms JavanpeykarAnRetype.isStableHeightBarAn_iff
+#print axioms JavanpeykarAnRetype.javanpeykarThm111_of_an
+#print axioms JavanpeykarAnRetype.javanpeykarThm111An_of_thm111

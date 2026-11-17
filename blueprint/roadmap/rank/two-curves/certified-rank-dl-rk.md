@@ -2,11 +2,11 @@
 article_id: af_76d92f1e4aa64d92cf26c8ca
 declaration: def
 origin: bridged
-statement: formalized
-lean: ZInQ.RouteK.Rank.CertifiedRankDLRk
 ---
 
 # The positive-rank hypothesis on the two curves of a slot choice
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 The hypothesis CR₃^DL,Rk is the following assertion. Let $\beta,\theta$ be integers and $p_0$ a
 natural number such that:

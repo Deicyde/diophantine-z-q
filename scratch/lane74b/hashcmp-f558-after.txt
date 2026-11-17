@@ -1,0 +1,19 @@
+before 179119  after 179119  only before 0  only after 0  changed 0
+
+## changed (name: module | before type,value hash -> after)
+
+## only before: 0 constants in 0 modules
+
+### file absent after: 0 constants in 0 modules
+
+### file present, module not in the other environment: 0 constants in 0 modules
+
+### module in both environments: 0 constants in 0 modules
+
+## only after: 0 constants in 0 modules
+
+### file absent after: 0 constants in 0 modules
+
+### file present, module not in the other environment: 0 constants in 0 modules
+
+### module in both environments: 0 constants in 0 modules

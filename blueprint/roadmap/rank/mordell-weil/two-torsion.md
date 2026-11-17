@@ -2,12 +2,11 @@
 article_id: af_08a348003cc74e605918f7bc
 declaration: theorem
 origin: background
-statement: formalized
-proof: formalized
-lean: ZInQ.RouteK.Rank.twoTorsion_card, ZInQ.RouteK.Rank.mwTwoTorsion_iff, ZInQ.RouteK.Rank.mwIsElliptic, ZInQ.RouteK.Rank.mwTwoTorsion_nonsingular, ZInQ.RouteK.Rank.mwTwoTorsionPt
 ---
 
 # The two-torsion of $C_n(\mathbb Q)$
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 Let $n$ be a positive integer and $C_n:y^2=x^3-n^2x$ over $\mathbb Q$. Then $C_n$ is an elliptic
 curve, and for each $e\in\{0,n,-n\}$ the point $(e,0)$ is a nonsingular point of $C_n$. A point

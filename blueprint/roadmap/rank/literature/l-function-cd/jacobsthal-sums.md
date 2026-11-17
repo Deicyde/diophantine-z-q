@@ -2,12 +2,11 @@
 article_id: af_88aafa62ac7a4d791a590032
 declaration: theorem
 origin: background
-statement: formalized
-proof: formalized
-lean: ZInQ.Contrib.PSide.jac, ZInQ.Contrib.PSide.jac_mul_sq, ZInQ.Contrib.PSide.jac_sq_mul_sq, ZInQ.Contrib.PSide.sum_char_mul_add, ZInQ.Contrib.PSide.sum_jac_sq, ZInQ.Contrib.PSide.sum_sq_le_two_mul, ZInQ.Contrib.PSide.jac_sq_le_four_mul
 ---
 
 # Jacobsthal sums over a finite field and their bound
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 Let $F$ be a finite field with $q$ elements and $\chi$ its quadratic character, as in
 [point counts by the quadratic character](quadratic-character-counts.md). For $a\in F$ the

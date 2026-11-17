@@ -2,12 +2,11 @@
 article_id: af_3b33332d150b8886572d009a
 declaration: theorem
 origin: bridged
-statement: formalized
-proof: formalized
-lean: ZInQ.RouteK.Rank.exists_point_of_selmerCertified_of_infinite_order
 ---
 
 # A point of infinite order on a certified curve
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 Let $d$ be a squarefree natural number with $d\equiv5\pmod8$, and let $a$ be a squarefree integer
 dividing $d$ with $|a|\equiv7\pmod8$ such that $(d,a)$ carries a Selmer certificate. If

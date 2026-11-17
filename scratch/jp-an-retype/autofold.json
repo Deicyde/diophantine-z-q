@@ -1,0 +1,13 @@
+{"name": "jp-an-retype",
+ "imports": ["ZInQKernel.Contrib.OneProof.JavanpeykarAnRetype"],
+ "discharges": [
+   {"field": "javanpeykarThm111",
+    "proof": "_root_.JavanpeykarAnRetype.javanpeykarThm111_of_an {n}.javanpeykarThm111An {t}.mumfordTorsionAlgClosed",
+    "leaves": [{"name": "javanpeykarThm111An",
+                "type": "_root_.JavanpeykarAnRetype.JavanpeykarThm111An",
+                "doc": "jp-an-retype: Javanpeykar, Algebra Number Theory 8 (2014), Thm 1.1.1 (h_Fal(X) <= 13*10^6 * g * deg_B(X)^5 for a smooth projective connected curve X/Qbar of genus g >= 1) composed with Section 2.3 (h_Fal(X) = stable Faltings height of Jac X), as the manuscript cites it at diophantine_zq.tex L870 (applied to J = J_1(N)). JavanpeykarDirect.JavanpeykarThm111 verbatim with IsStableHeightBar replaced by IsStableHeightBarAn: the stable height of a model over a number field L of the Jacobian W, read as IsAnStableHeightSS (archimedean metric (i/2)^g int eta~ wedge eta~-bar on the complex manifold A_tau(C)^an, densities in every holomorphic chart, r3-residual; semistable reduction as printed, semistab-assembly). Replaces javanpeykarThm111 (JavanpeykarAnRetype.javanpeykarThm111_of_an, with mumfordTorsionAlgClosed and uniformizationLeafAll_proof for T35); the converse javanpeykarThm111An_of_thm111 holds given T35, so the leaf is not stronger than the row it replaces.",
+                "kind": "consequence",
+                "flag": "reading risk: R3' (the IsHolChart atlas is the complex structure of A(C)^an) is the one step left inside the height predicate, the same step as bostLowerBoundAnSS and gaudronRemondThm14AnSS; the leaf is the composite of Thm 1.1.1 with the Section 2.3 identification h_Fal(X) = h_Fal(Jac X), stated with the Jacobian's height since h_Fal(X) of a curve is not defined in Lean (lead's ruling wanted on the composite); semistability clause as printed (equivalent to IsSemistableRes, jp-an-retype)",
+                "flag_class": "reading-risk",
+                "source": "Javanpeykar, Polynomial bounds for Arakelov invariants of Belyi curves, Algebra Number Theory 8 (2014), Thm 1.1.1, p. 90 (arXiv:1403.6404v1 Thm 1.1.1, p. 1) and section 2.3, p. 98 (arXiv p. 9); locators recorded by the locator audit (docs/research/locators.md row R18); cited at diophantine_zq.tex L870; over the stable height with the metric on A_tau(C)^an (r3-residual), semistability as printed (semistab-assembly)"}]}],
+ "note": "Count-neutral: the GLUE row javanpeykarThm111 (consequence) is replaced by the GLUE row javanpeykarThm111An (consequence) whose only remaining step is R3', shared with bostLowerBoundAnSS and gaudronRemondThm14AnSS. Report docs/research/jp-an-retype.md."}

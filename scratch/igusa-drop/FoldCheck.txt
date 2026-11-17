@@ -1,0 +1,24 @@
+'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.OneProof.frozenTarget : HDec.HSyn.OpenResearchLeaves53 →
+  HDec.HSyn.OpenTextbookLeaves18 →
+    HDec.HSyn.OpenAddedLeaves27 →
+      ZInQ.Contrib.H21CSteps.TYZThm21Span →
+        ZInQ.Contrib.HCMLattice.ShimuraThm54Local →
+          ZInQ.H33D1.TYZThm33CurveSome →
+            ZInQ.BFHPrinted.BFHClauseIIGamma0 → ZInQ.GZSplitUnique.GrossZagierCurveCdSplitSome → ZInQ.FrozenTarget
+ZInQ.OneProof.frozenTarget: closure 304529
+  contains sorryAx: false
+  contains X1Igusa.IgusaGL2DSGalSome: false
+  contains X1Igusa.igusaGL2DS_of_igusaGL2DSGalSome: false
+  contains X1Igusa.IgusaGL2DS: false
+  contains X1Igusa.x1PointsConjugate_of_igusaGL2DS: false
+  contains AfTateLam.r16CoreY_of_ds965: false
+  contains AfTateLam.r16CoreY_of_printed: false
+  contains HDec.HSyn.OpenResearchLeaves52: false
+  contains HDec.HSyn.sixContactMin_of_open71: false
+  contains AfTateLam.r16CoreY_of_ds965_x0: true
+  contains AfTateLam.x1PointsConjugate_proof: true
+  contains FltCqj2.x0Transitive_proof: true
+  contains ZInQ.RLeaf.igusaTransitive_iff_x0Transitive: true
+  contains HDec.HSyn.OpenResearchLeaves53: true
+  contains HDec.HSyn.sixContactMin_of_open72: true

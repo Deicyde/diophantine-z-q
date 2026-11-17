@@ -2,12 +2,11 @@
 article_id: af_d5c26ede4ff40c0a1afabc9e
 declaration: lemma
 origin: background
-statement: formalized
-proof: formalized
-lean: ZInQ.RouteK.Rank.mwPhi_line, ZInQ.RouteK.Rank.mwPhi_sum_sq, ZInQ.RouteK.Rank.mwPhi_tangent
 ---
 
 # The two-isogeny maps a chord to a chord
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 Let $K$ be a field and $b,\ell,\nu\in K$ with $\nu\ne0$. Put
 $$L=\frac b\nu-\ell,\qquad N=-\nu-\frac{b\ell^2}{\nu}.$$

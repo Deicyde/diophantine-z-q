@@ -1,0 +1,173 @@
+/-
+Copyright (c) 2026 The Tau Ceti contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: The Tau Ceti contributors
+-/
+-- Vendored from Tau Ceti (https://github.com/TauCetiProject/TauCeti, commit 5a01f5fe3621, module TauCeti.FieldTheory.SquareClassGroup.Basic), Apache-2.0.
+module
+
+public import Mathlib.Algebra.Group.Subgroup.Even
+public import Mathlib.Algebra.Module.ZMod
+public import Mathlib.LinearAlgebra.LinearIndependent.Defs
+
+/-!
+# The square-class group `Kˣ ⧸ (Kˣ)²`
+
+For a field `K`, the **square-class group** is the quotient of `Kˣ` by its squares. Every element
+has order dividing `2`, so the quotient is an `𝔽₂ = ZMod 2`-vector space (Mathlib's
+`QuotientAddGroup.zmodModule`, written additively on `Additive Kˣ`).
+
+A `ZMod 2`-linear combination of the classes of a finite family of units is, up to the `{0, 1}`
+coefficients, exactly a subset product, and it vanishes precisely when that subset product is a
+square. So linear independence of the classes is the **Finset form** of square-class independence
+(no nonempty subset product is a square), one subset at a time.
+
+## Main definitions and results
+
+* `TauCeti.SquareClassGroup`: the square-class group `Kˣ ⧸ (Kˣ)²`, an `𝔽₂`-vector space.
+* `TauCeti.squareClass`, `TauCeti.squareClassHom`: the class of a unit, as a function and a
+  multiplicative homomorphism, with `squareClass_eq_zero_iff` characterising the trivial class as
+  the squares, `ker_squareClassHom` identifying the kernel of the quotient map with the subgroup
+  of squares, and `squareClass_mul`, `squareClass_prod`, `squareClass_pow`, `squareClass_zpow`
+  computing it on products and powers.
+* `TauCeti.squareClass_eq_iff_isSquare_mul`: equality of square classes read as a square product.
+* `TauCeti.SquareClassGroup.two_nsmul_eq_zero`: the square-class group is killed by two.
+* `TauCeti.linearIndependent_squareClass_iff`: the classes of `d : ι → Kˣ` are `ZMod 2`-linearly
+  independent iff no nonempty subset product is a square.
+-/
+
+public section
+
+namespace TauCeti
+
+variable {K : Type*} [Field K]
+
+/-- **The square-class group** `Kˣ ⧸ (Kˣ)²`, written additively on `Additive Kˣ`. -/
+abbrev SquareClassGroup (K : Type*) [Field K] : Type _ :=
+  Additive Kˣ ⧸ (Subgroup.square Kˣ).toAddSubgroup
+
+/-- The square-class group is a `ZMod 2`-module: every element has order dividing two, since the
+double of any unit class is the class of a square. -/
+instance : Module (ZMod 2) (SquareClassGroup K) :=
+  QuotientAddGroup.zmodModule fun x => by
+    rw [Additive.mem_toAddSubgroup, Subgroup.mem_square, toMul_nsmul]
+    exact ⟨Additive.toMul x, pow_two _⟩
+
+/-- The square class of a unit. -/
+def squareClass (u : Kˣ) : SquareClassGroup K :=
+  QuotientAddGroup.mk (Additive.ofMul u)
+
+/-- The square class of a unit is its image under the additive quotient map. -/
+theorem squareClass_def (u : Kˣ) :
+    squareClass u = QuotientAddGroup.mk (Additive.ofMul u) :=
+  (rfl)
+
+/-- The unit underlying a quotient representative has the original square class. -/
+@[simp]
+theorem squareClass_toMul_out (x : SquareClassGroup K) :
+    squareClass (Additive.toMul (Quotient.out x)) = x := by
+  rw [squareClass_def, ofMul_toMul]
+  exact Quotient.out_eq x
+
+/-- The square-class quotient map, written multiplicatively between the unit group and the
+multiplicative form of the additive square-class group. -/
+def squareClassHom : Kˣ →* Multiplicative (SquareClassGroup K) :=
+  (QuotientAddGroup.mk' (Subgroup.square Kˣ).toAddSubgroup).toMultiplicativeRight
+
+@[simp]
+theorem squareClassHom_apply (u : Kˣ) :
+    squareClassHom u = Multiplicative.ofAdd (squareClass u) := (rfl)
+
+/-- A unit has trivial square class iff it is a square. -/
+@[simp] theorem squareClass_eq_zero_iff (u : Kˣ) : squareClass u = 0 ↔ IsSquare u := by
+  rw [squareClass, QuotientAddGroup.eq_zero_iff, Additive.mem_toAddSubgroup, Subgroup.mem_square]
+  simp
+
+/-- The kernel of the square-class quotient map is the subgroup of squares. -/
+@[simp]
+theorem ker_squareClassHom : squareClassHom.ker = Subgroup.square Kˣ := by
+  ext
+  simp [squareClassHom_apply]
+
+/-- The unit `1` has trivial square class. -/
+@[simp]
+theorem squareClass_one : squareClass (1 : Kˣ) = 0 := by
+  rw [squareClass_def, ofMul_one, QuotientAddGroup.mk_zero]
+
+/-- The square class of a product of two units is the sum of their square classes. -/
+@[simp]
+theorem squareClass_mul (u v : Kˣ) : squareClass (u * v) = squareClass u + squareClass v := by
+  simp only [squareClass_def, ofMul_mul, QuotientAddGroup.mk_add]
+
+/-- The square class of a product is the sum of the square classes. -/
+theorem squareClass_prod {ι : Type*} (S : Finset ι) (d : ι → Kˣ) :
+    squareClass (∏ i ∈ S, d i) = ∑ i ∈ S, squareClass (d i) := by
+  simp only [squareClass, ofMul_prod]
+  rw [← QuotientAddGroup.mk'_apply, map_sum]
+  simp only [QuotientAddGroup.mk'_apply]
+
+/-- **Two units have the same square class exactly when their product is a square.** This is the
+quotient-free reading of equality in the square-class group. -/
+theorem squareClass_eq_iff_isSquare_mul (u v : Kˣ) :
+    squareClass u = squareClass v ↔ IsSquare (u * v) := by
+  rw [← squareClass_eq_zero_iff, squareClass_mul, add_eq_zero_iff_eq_neg,
+    ← neg_one_smul (ZMod 2) (squareClass v), show (-1 : ZMod 2) = 1 by decide, one_smul]
+
+/-- The square class of an integer power is the corresponding multiple of the square class. -/
+@[simp]
+theorem squareClass_zpow (u : Kˣ) (n : ℤ) : squareClass (u ^ n) = n • squareClass u := by
+  rw [← toAdd_ofAdd (squareClass _), ← squareClassHom_apply, map_zpow, squareClassHom_apply,
+    toAdd_zpow, toAdd_ofAdd]
+
+/-- The square class of a power is the corresponding multiple of the square class. -/
+@[simp]
+theorem squareClass_pow (u : Kˣ) (n : ℕ) : squareClass (u ^ n) = n • squareClass u := by
+  simpa using squareClass_zpow (u := u) (n := (n : ℤ))
+
+private theorem zmod_two_eq_zero_or_one : ∀ t : ZMod 2, t = 0 ∨ t = 1 := by decide
+
+/-- A `ZMod 2`-linear combination of square classes is the class of the corresponding subset
+product (the subset where the coefficient is `1`). -/
+private theorem sum_smul_squareClass {ι : Type*} (S : Finset ι)
+    (d : ι → Kˣ) (g : ι → ZMod 2) :
+    ∑ i ∈ S, g i • squareClass (d i) = squareClass (∏ i ∈ S with g i = 1, d i) := by
+  rw [squareClass_prod, Finset.sum_filter]
+  refine Finset.sum_congr rfl fun i _ => ?_
+  rcases zmod_two_eq_zero_or_one (g i) with h | h
+  · rw [h, zero_smul]; exact (ite_eq_right (by decide)).symm
+  · rw [h, one_smul]; exact (ite_eq_left rfl).symm
+
+/-- **Square-class independence is `ZMod 2`-linear independence.** For any family of units
+`d : ι → Kˣ`, the square classes `squareClass (d i)` are `ZMod 2`-linearly independent in the
+square-class group iff no nonempty subset product `∏_{i ∈ S} d i` is a square. The right-hand side
+is the Finset form of square-class independence that the multiquadratic degree theorem consumes. -/
+theorem linearIndependent_squareClass_iff {ι : Type*} (d : ι → Kˣ) :
+    LinearIndependent (ZMod 2) (fun i => squareClass (d i)) ↔
+      ∀ S : Finset ι, S.Nonempty → ¬ IsSquare (∏ i ∈ S, d i) := by
+  classical
+  rw [linearIndependent_iff']
+  contrapose
+  push Not
+  constructor
+  · -- A linear dependence singles out a nonempty square subset product.
+    intro ⟨T, g, _, i, hi, hgi⟩
+    set S : Finset _ := T.filter (fun i ↦ g i = 1) with hS
+    use S
+    constructor
+    · use i
+      rw [hS, Finset.mem_filter]
+      exact ⟨hi, (zmod_two_eq_zero_or_one (g i)).resolve_left hgi⟩
+    · rwa [← squareClass_eq_zero_iff, ← sum_smul_squareClass]
+  · -- A nonempty square subset product would give a nontrivial linear dependence.
+    intro ⟨S, ⟨_, _⟩, _⟩
+    let g i : ZMod 2 := if i ∈ S then 1 else 0
+    use S, g
+    constructor
+    · have hS : S.filter (fun i ↦ g i = 1) = S := by
+        ext i
+        rw [Finset.mem_filter]
+        simp [g]
+      rwa [sum_smul_squareClass, hS, squareClass_eq_zero_iff]
+    · grind only
+
+end TauCeti
