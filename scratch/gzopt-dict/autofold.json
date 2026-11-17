@@ -1,0 +1,31 @@
+{
+ "name": "gzopt-dict",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.GrossZagierAlgebraic"
+ ],
+ "discharges": [
+  {
+   "field": "grossZagierModuliOptCd",
+   "proof": "_root_.ZInQ.GZAlg.grossZagierModuliOptCd_of_alg {n}.gamma0QExpansion {n}.grossZagierAlgOptCd",
+   "leaves": [
+    {
+     "name": "grossZagierAlgOptCd",
+     "type": "_root_.ZInQ.GZAlg.GrossZagierAlgOptCd",
+     "doc": "Gross-Zagier, Invent. Math. 84 (1986), Thm I.6.3 and Ch. V Thm 2.1, strong Weil (optimal) parametrization, with phi a morphism over Q of the algebraic curve X0(N): phi^* : Q(E) ->_Q Q(X0(N)) = Q(j, j_N) (q-expansions, FLT's modularFunctionField), phi(infty) = O as ord_q phi^*(x) < 0, complex points through the uniformization (X, Y the meromorphic functions with q-expansions phi^*(x), phi^*(y)); short models in the isogeny class of C_d; y = n y_K (n != 0); positive constant forgotten (gzopt-dict)",
+     "kind": "published",
+     "flag": "",
+     "source": "Gross-Zagier, Heegner points and derivatives of L-series, Invent. Math. 84 (1986), 225-320, Thm I.6.3 (p.230 per locators.md) and Ch. V Thm 2.1 (V section 2, p.312 per locators.md); strong Weil case"
+    },
+    {
+     "name": "gamma0QExpansion",
+     "type": "_root_.ZInQ.GZAlg.Gamma0QExpansion",
+     "doc": "q-expansion principle for Gamma0(N): a meromorphic modular function for Gamma0(N) (IsRatModFnMero: invariant, meromorphic on H and at the cusps) with rational q-expansion x at infinity has x in Q(jq, jq(q^N)) = Q(j, j_N) (printed form read through q-expansions; gzopt-dict)",
+     "kind": "published",
+     "flag": "locator UNVERIFIED: Shimura 1971 Prop. 6.9 with Thm 6.6; Diamond-Shurman 7.5-7.6",
+     "source": "G. Shimura, Introduction to the arithmetic theory of automorphic functions (1971), Prop. 6.9 and Thm 6.6; F. Diamond, J. Shurman, A first course in modular forms (GTM 228), sections 7.5-7.6 (all UNVERIFIED locators)"
+    }
+   ]
+  }
+ ],
+ "note": "For the fold after period-odd's spec (scratch/period-odd/autofold.json), which makes grossZagierModuliOptCd a field (rated GLUE: analytic phi). Discharges it from two printed leaves: the algebraic Gross-Zagier leaf GrossZagierAlgOptCd and the q-expansion principle Gamma0QExpansion. GLUE -1, no glue added. If period-odd's spec is not folded yet, use autofold-formula.json (field grossZagierFormulaCd, three leaves)."
+}

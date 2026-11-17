@@ -227,7 +227,6 @@ theorem textbookLeaves4_of_open5 (t : OpenTextbookLeaves5) (l : OpenAddedLeaves5
 /-- leaf-fold4's added-leaves bundle from leaf-fold5's (`serreRigidity3` from T35 and `HomLatticeCorr`). -/
 theorem addedLeaves4_of_open5 (t : OpenTextbookLeaves5) (l : OpenAddedLeaves5) : OpenAddedLeaves4 where
   cmOptimalEmbedding := l.cmOptimalEmbedding
-  thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
   qmHauptmodul := l.qmHauptmodul
   qmClassNumberOne := l.qmClassNumberOne
   senTwist := l.senTwist

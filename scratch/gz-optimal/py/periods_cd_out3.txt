@@ -1,0 +1,2 @@
+PARI stack size set to 2000000000 bytes, maximum size set to 2000003072
+d=165 N=871200 terms=11325700 max|coord-round|=8.27 e-19 index[L:span]=1 sample=[[0; 0], [0; 4], [8; 0], [0; 0]]

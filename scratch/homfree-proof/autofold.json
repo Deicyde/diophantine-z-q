@@ -1,0 +1,11 @@
+{"name": "homfree-proof",
+ "imports": ["ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosed"],
+ "discharges": [
+   {"field": "homFreeFiniteAlgClosed",
+    "proof": "_root_.ZInQ.Contrib.OneProof.HomFreeC.homFreeFiniteAlgClosed_of_noEmb {n}.uniformizationLeafAll {n}.mumfordTorsionAlgClosed {n}.homFreeFiniteAlgClosedNoEmb",
+    "leaves": [{"name": "homFreeFiniteAlgClosedNoEmb",
+                "type": "_root_.ZInQ.Contrib.OneProof.HomFreeC.HomFreeFiniteAlgClosedNoEmb",
+                "doc": "Mumford, Abelian varieties (1970), 19 Thm 3, specialized to algebraically closed fields with no ring homomorphism to C (characteristic p, or characteristic 0 of transcendence degree above the continuum); over fields that embed into C the statement is proved (homfree-proof). Locator UNVERIFIED.",
+                "kind": "published",
+                "flag": "specialization (forall-instance) of the printed theorem to fields with no embedding into C; no consumer of T6 uses such a field (homfree-proof section 4)",
+                "source": "Mumford 19 Thm 3 (fields with no embedding into C)"}]}]}

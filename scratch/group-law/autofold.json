@@ -1,0 +1,13 @@
+{"name": "group-law",
+ "_manual": "NOT runnable by scripts/one_proof/autofold.py: no theorem proves the field's type MumfordGroupLaw from the new leaf. The swap narrows the field type in place (docs/research/group-law.md section 5): every OpenResearchLeaves<k>.mumfordGroupLaw (k = 14..26) gets type _root_.ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR; TailZ23 imports ZInQKernel.Contrib.OneProof.MumfordGroupLawRed and uses _root_.LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_dvr r.mumfordGroupLaw at its 3 sites; TailZ34 sixContactMin_of_open28 uses _root_.DCY3Used.y3Connected_of_ab_gl (_root_.LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_dvr r.mumfordGroupLaw) (_root_.DCY3Used.y3ConnectedAb_of_U r.shimuraMainThmIDeligneY3AbU). Count: 0 (one LEAF replaced by a strictly weaker LEAF, dvr_of_field).",
+ "imports": ["ZInQKernel.Contrib.OneProof.MumfordGroupLawRed"],
+ "narrows": [
+   {"field": "mumfordGroupLaw",
+    "new_type": "_root_.ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR",
+    "consumer_proof": "_root_.LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_dvr {n}.mumfordGroupLaw",
+    "weaker_than_old": "_root_.ZInQ.Contrib.GroupLaw.dvr_of_field",
+    "leaves": [{"name": "mumfordGroupLaw", "type": "_root_.ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR",
+                "doc": "group-law, printed form: Mumford-Fogarty-Kirwan, Geometric Invariant Theory, Thm 6.14 with S = Spec R, R a discrete valuation ring (numbers UNVERIFIED): a proper smooth family over a DVR with a section and every field fibre an abelian variety is an abelian scheme (group object with identity e). The chain's QMFamilyGroupLaw follows (qmFamilyGroupLaw_of_dvr: field local rings outright, local laws spread out and glued by field-level rigidity). Strictly weaker than the old field (dvr_of_field).",
+                "kind": "published",
+                "flag": "locator UNVERIFIED (GIT Thm 6.14 at S = Spec of a DVR)",
+                "source": "Mumford-Fogarty-Kirwan, Geometric Invariant Theory, Thm 6.14 (S connected locally noetherian, F -> S smooth proper with a section e, a fibre an abelian variety: F is an abelian scheme with identity e) at S = Spec R, R a DVR; numbers UNVERIFIED; group-law"}]}]}

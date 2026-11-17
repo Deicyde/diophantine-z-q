@@ -1,0 +1,15 @@
+{"name": "heegner-32",
+ "note": "hL3 is a top-level hypothesis of ZInQ.OneProof.frozenTarget, not a bundle field, so autofold.py cannot fold it (as for gz-heegner and gz-weil). The fold is the Main.lean edit checked in scratch/heegner-32/MainEdit.lean (frozenTarget_heegner32): add `import ZInQKernel.Contrib.OneProof.HeegnerPointRationalCd`, replace the binder `(hL3 : ZInQ.GZDecomp.GrossZagierHeegner)` by `(hGZ : ZInQ.GZHL3.GrossZagierFormulaCd) (hGC : ZInQ.GZHL3.GrossConjugationCd)`, and close with `ZInQ.GZStatements.frozenTarget_of_sixContactMin_tyzThm35ReadingA_fhNonvanishingCd_grossZagierHeegnerCd ... (ZInQ.Heegner32.grossZagierHeegnerCd_of_printed hCM hGZ hGC)`. The entries below are in autofold's spec format for the kinds.tsv rows.",
+ "imports": ["ZInQKernel.Contrib.OneProof.HeegnerPointRationalCd"],
+ "discharges": [
+   {"field": "hL3",
+    "proof": "_root_.ZInQ.Heegner32.grossZagierHeegnerCd_of_printed hCM {n}.grossZagierFormulaCd {n}.grossConjugationCd (C_d form: frozenTarget switches to GZStatements.GrossZagierHeegnerCd)",
+    "leaves": [
+      {"name": "grossZagierFormulaCd", "type": "_root_.ZInQ.GZHL3.GrossZagierFormulaCd",
+       "doc": "Gross-Zagier, Invent. Math. 84 (1986), Thm I.6.3 and Ch. V Thm 2.1, for C_d : y^2 = x^3 - d^2 x, positive constant forgotten (gz-hl3)",
+       "kind": "published", "flag": "unread: new printed leaf, no reading recorded; statement review rated it consequence (analytic Heegner point sum versus the moduli Heegner point) - see the sibling tasks of this group",
+       "source": "Gross-Zagier, Invent. Math. 84 (1986), Thm I.6.3 and Ch. V Thm 2.1 (locators UNVERIFIED)"},
+      {"name": "grossConjugationCd", "type": "_root_.ZInQ.GZHL3.GrossConjugationCd",
+       "doc": "Gross, Heegner points on X0(N) (1984), section 5: complex conjugation acts on y_K by -w_N up to torsion, for C_d (gz-hl3)",
+       "kind": "published", "flag": "unread: new printed leaf, no reading recorded; statement review rated it consequence (analytic Heegner point sum) - see the sibling tasks of this group",
+       "source": "Gross, Heegner points on X0(N), in Modular forms (Durham 1983), 1984, section 5 (locators UNVERIFIED)"}]}]}

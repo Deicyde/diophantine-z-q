@@ -4,7 +4,7 @@ Task: make gz-hl3's split of `hL3` net negative by turning `StrongWeilCurve` and
 (Eichler–Shimura + Faltings, analytic form) into printed form or theorems, restricted to what the proof uses.
 
 ## Setup (2026-11-15 04:40 PST)
-- base c118e9d2 (wip/gz-hl3). Build tree copied (reflink) from ~/dzq-wt/gz-hl3 (same ZInQKernel tree, built 11-15 04:12).
+- base c118e9d2 (wip/gz-hl3). Build tree copied (reflink) from the gz-hl3 worktree (same ZInQKernel tree, built 11-15 04:12).
 
 ## Uses (VERIFIED, read)
 - `StrongWeilCurve`, `IsogenyLattice` are used only in `eichlerShimuraParamAt_of_leaves`
@@ -67,3 +67,38 @@ Task: make gz-hl3's split of `hL3` net negative by turning `StrongWeilCurve` and
 - MainEdit: `frozenTarget_gzweil` (hL3 → WU, JacobiLambdaDeriv, HPR_Cd, GZF_Cd, GC_Cd) and
   `frozenTarget_gzweil'` (with EtaModelDifferential): both compile, standard axioms.
 - #discharges rerun (with WeilTheta): 65 open, 1434 theorems checked, 6 discharge one (unchanged; expected).
+
+## Step 5: Jacobi's derivative formula PROVED (VERIFIED, compiled, 05:25 PST)
+- dev file `scratch/gz-weil/JacobiProof.lean` → `ZInQKernel/Contrib/OneProof/GrossZagierHeegner/WeilJacobi.lean`.
+- J1 theta T-laws (termwise), squared S-laws from Mathlib `jacobiTheta₂_functional_equation`;
+  J2 nonvanishing (triple product; θ₂ via S-law), log-derivative S-laws (`log_deriv_S`, derivative of the
+  squared identity, no cpow derivative);
+  J3 E₁,E₂,E₃ laws: S: E₁↦t²E₂, E₂↦t²E₁, E₃↦−t²E₃; T: E₁↦−E₃, E₂↦−E₂, E₃↦−E₁; P = ΣEᵢ², R = ΣEᵢ²Eⱼ²;
+  J4 slash invariance via Mathlib `slash_action_generators_SL2Z`;
+  J5 analyticity; J6 limits at i∞ (`norm_uTheta_sub_two_le`: ‖θ(t/2;t) − 2‖ ≤ 2r/(1−r); Cauchy estimate
+  `tendsto_deriv_zero`); J7 `PForm : CuspForm 𝒮ℒ 4`, `RForm : CuspForm 𝒮ℒ 8` ⇒ 0
+  (`CuspForm.rank_eq_zero_of_weight_lt_twelve`); J8 E₁² = ω^{±1}E₂² (identity theorem) and S ⇒ E₁ = 0.
+- Numerical sanity check of the S/T laws of θ₂'/θ₂, θ₃'/θ₃, θ₄'/θ₄ and of E₁=E₂=E₃=0
+  (`scratch/gz-weil/abc_check.py`): agreement to 1e-10 (VERIFIED).
+- `jacobiLambdaDeriv`, `etaModelDifferential`, `modularParamC1`, `shimuraCMParamCd_proved`,
+  `grossZagierHeegnerCd_of_heegnerLeaves`: all [propext, Classical.choice, Quot.sound].
+- `lake build …WeilJacobi` success (11342 jobs); out_check.txt 26 theorems standard axioms;
+  MainEdit `frozenTarget_gzweil_final` (hL3 → WU, HPR_Cd, GZF_Cd, GC_Cd) standard axioms;
+  #discharges: 65 open, 1606 theorems checked, 6 discharge one (unchanged).
+
+## Step 6: WeierstrassUniformization removed on the C_d route (VERIFIED, compiled, 05:40 PST)
+- `ZInQKernel/Contrib/OneProof/GrossZagierHeegner/WeilLattice.lean` (dev `scratch/gz-weil/Lattice.lean`):
+  `squarePP` (ℤ+ℤi), `g₃_squarePP` (i-stability via `G_congr`, `g₃_scalePP`), `g₂_ne_zero_of_g₃_eq_zero`
+  (℘ onto ⇒ zero z₁; ℘'² = 4℘³ ⇒ 2(n−1) = 3n contradiction; ℘ ≢ 0 by `weierstrassP_not_const`),
+  `exists_isPeriodLattice_cd` (fourth-root rescaling), `heegner_at_of_lattice` (gz-hl3's proof, lattice given),
+  `grossZagierHeegnerCd_of_threeLeaves (hHP hGZ hGC) : GZStatements.GrossZagierHeegnerCd`.
+- `lake build …WeilLattice` success (11343 jobs); out_check.txt 31 theorems standard axioms;
+  MainEdit `frozenTarget_gzweil_three` (hL3 → HeegnerPointRationalCd, GrossZagierFormulaCd, GrossConjugationCd)
+  standard axioms; #discharges 65 open, 1618 checked, 6 discharge one.
+
+## Final state (05:50 PST 2026-11-15)
+- Contributor files: GrossZagierHeegner/{Weil, WeilParam, WeilTheta, WeilJacobi, WeilLattice}.lean, all built.
+- hL3 (C_d form, gz-statements' GrossZagierHeegnerCd) ⇐ HeegnerPointRationalCd, GrossZagierFormulaCd,
+  GrossConjugationCd (gz-hl3's leaves); StrongWeilCurve, IsogenyLattice, WeierstrassUniformization not needed on
+  this route (parametrization `shimuraCMParamCd_proved`, lattice `exists_isPeriodLattice_cd`).
+- Report docs/research/gz-weil.md; fleet .fleet/gz-weil.md.

@@ -1,0 +1,5 @@
+{"name": "neron-sh-proof",
+ "imports": ["ZInQKernel.Contrib.OneProof.NeronBaseChangeStrictHenselization"],
+ "discharges": [
+   {"field": "neronBaseChangeStrictHenselization",
+    "proof": "_root_.NeronSH.neronBaseChangeStrictHenselization_proof"}]}

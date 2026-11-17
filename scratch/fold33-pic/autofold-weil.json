@@ -1,0 +1,6 @@
+{"name": "fold33-pic (phisurj)",
+ "imports": ["ZInQKernel.Contrib.OneProof.WeilPairingMumfordOpen"],
+ "discharges": [
+   {"field": "weilPairingMumford",
+    "proof": "_root_.PhiSurj.weilPairingMumford_of_open {n}.picRepresentableAbVar {n}.picZeroAbVar {t}.mumfordTorsionAlgClosed",
+    "leaves": []}]}

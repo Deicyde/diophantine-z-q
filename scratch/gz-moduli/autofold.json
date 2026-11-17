@@ -1,0 +1,10 @@
+{"name": "gz-moduli",
+ "imports": ["ZInQKernel.Contrib.OneProof.GrossZagierModuli"],
+ "discharges": [
+   {"field": "grossZagierFormulaCd",
+    "proof": "_root_.ZInQ.GZModuli.grossZagierFormulaCd_of_moduli {n}.grossZagierModuliCd",
+    "leaves": [{"name": "grossZagierModuliCd", "type": "_root_.ZInQ.GZModuli.GrossZagierModuliCd",
+                "doc": "Gross-Zagier, Invent. Math. 84 (1986), Thm I.6.3 and Ch. V Thm 2.1, moduli form (Heegner points as cyclic N-isogenies with End = O_D in the lattice model; phi : X0(N) -> E over Q as a point of E(Q(X0(N)))), restricted to C_d; positive constant forgotten (printed form, locators UNVERIFIED)",
+                "kind": "published", "flag": "",
+                "source": "Gross-Zagier, Heegner points and derivatives of L-series, Invent. Math. 84 (1986), 225-320, Thm I.6.3 and Ch. V Thm 2.1 (locators UNVERIFIED)"}]}],
+ "note": "Discharges gz-hl3's C_d leaf ZInQ.GZHL3.GrossZagierFormulaCd (rated consequence: analytic Heegner point) by its moduli form ZInQ.GZModuli.GrossZagierModuliCd. At 60a3fac7 that leaf is not a bundle field (hL3 is a frozenTarget argument stated for all E); apply this spec after the C_d split of hL3 (gz-weil, scratch/gz-weil/MainEdit.lean) is folded with the field name grossZagierFormulaCd. Before that, scratch/gz-moduli/MainEdit.lean (frozenTarget_gzmoduli) shows frozenTarget with hL3 replaced by X0ModuliGaloisMero, GrossZagierModuliCd and GrossConjugationCd. The all-E form is grossZagierFormula_of_moduli : GrossZagierModuli -> GZHL3.GrossZagierFormula."}

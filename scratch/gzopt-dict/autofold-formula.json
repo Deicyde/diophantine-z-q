@@ -1,0 +1,39 @@
+{
+ "name": "gzopt-dict-formula",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.GrossZagierAlgebraic"
+ ],
+ "discharges": [
+  {
+   "field": "grossZagierFormulaCd",
+   "proof": "_root_.ZInQ.GZAlg.grossZagierFormulaCd_of_alg {n}.grossZagierAlgOptCd {n}.gamma0QExpansion {n}.etaW32Character",
+   "leaves": [
+    {
+     "name": "grossZagierAlgOptCd",
+     "type": "_root_.ZInQ.GZAlg.GrossZagierAlgOptCd",
+     "doc": "Gross-Zagier, Invent. Math. 84 (1986), Thm I.6.3 and Ch. V Thm 2.1, strong Weil (optimal) parametrization, with phi a morphism over Q of the algebraic curve X0(N): phi^* : Q(E) ->_Q Q(X0(N)) = Q(j, j_N) (q-expansions, FLT's modularFunctionField), phi(infty) = O as ord_q phi^*(x) < 0, complex points through the uniformization (X, Y the meromorphic functions with q-expansions phi^*(x), phi^*(y)); short models in the isogeny class of C_d; y = n y_K (n != 0); positive constant forgotten (gzopt-dict)",
+     "kind": "published",
+     "flag": "",
+     "source": "Gross-Zagier, Heegner points and derivatives of L-series, Invent. Math. 84 (1986), 225-320, Thm I.6.3 (p.230 per locators.md) and Ch. V Thm 2.1 (V section 2, p.312 per locators.md); strong Weil case"
+    },
+    {
+     "name": "gamma0QExpansion",
+     "type": "_root_.ZInQ.GZAlg.Gamma0QExpansion",
+     "doc": "q-expansion principle for Gamma0(N): a meromorphic modular function for Gamma0(N) (IsRatModFnMero: invariant, meromorphic on H and at the cusps) with rational q-expansion x at infinity has x in Q(jq, jq(q^N)) = Q(j, j_N) (printed form read through q-expansions; gzopt-dict)",
+     "kind": "published",
+     "flag": "locator UNVERIFIED: Shimura 1971 Prop. 6.9 with Thm 6.6; Diamond-Shurman 7.5-7.6",
+     "source": "G. Shimura, Introduction to the arithmetic theory of automorphic functions (1971), Prop. 6.9 and Thm 6.6; F. Diamond, J. Shurman, A first course in modular forms (GTM 228), sections 7.5-7.6 (all UNVERIFIED locators)"
+    },
+    {
+     "name": "etaW32Character",
+     "type": "_root_.ZInQ.CdOpt.EtaW32Character",
+     "doc": "Transformation law of the eta quotient v = eta(8t) eta(32t)^2 / eta(16t)^3 on Gamma0(32): v(gamma t) = (2/d) v(t) (k = 0, sum delta r = 24, sum (32/delta) r = 0, s = prod delta^r = 2); an instance of the Newman / Gordon-Hughes theorem (Ono, Web of modularity, Thm 1.64; locator UNVERIFIED); numerically checked for 602 matrices (scratch/cd-optimal/py/wchar.gp)",
+     "kind": "published",
+     "flag": "",
+     "source": "M. Newman, Construction and application of a class of modular functions (I, II), Proc. LMS 1957/1959; B. Gordon, K. Hughes, Multiplicative properties of eta-products II (1981); K. Ono, The web of modularity (CBMS 102, 2004), Thm 1.64 (all UNVERIFIED locators)"
+    }
+   ]
+  }
+ ],
+ "note": "Replaces period-odd's autofold.json for the field grossZagierFormulaCd (exists only after hL3 is split into its C_d chain; see scratch/gzopt-dict/MainEdit.lean, frozenTarget_gzoptdict). gz-optimal's leaf grossZagierModuliOptCd (glue: analytic phi) is replaced by GrossZagierAlgOptCd + Gamma0QExpansion; etaW32Character unchanged."
+}

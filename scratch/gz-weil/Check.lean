@@ -1,4 +1,4 @@
-import ZInQKernel.Contrib.OneProof.GrossZagierHeegner.WeilTheta
+import ZInQKernel.Contrib.OneProof.GrossZagierHeegner.WeilLattice
 
 #print axioms ZInQ.GZWeil.twist_formula
 #print axioms ZInQ.GZWeil.period_identity
@@ -21,3 +21,13 @@ import ZInQKernel.Contrib.OneProof.GrossZagierHeegner.WeilTheta
 #print axioms ZInQ.GZWeil.modularParamC1_of_jacobiLambdaDeriv
 #print axioms ZInQ.GZWeil.shimuraCMParamCd_of_jacobiLambdaDeriv
 #print axioms ZInQ.GZWeil.grossZagierHeegnerCd_of_printed
+#print axioms ZInQ.GZWeil.jacobiLambdaDeriv
+#print axioms ZInQ.GZWeil.etaModelDifferential
+#print axioms ZInQ.GZWeil.modularParamC1
+#print axioms ZInQ.GZWeil.shimuraCMParamCd_proved
+#print axioms ZInQ.GZWeil.grossZagierHeegnerCd_of_heegnerLeaves
+#print axioms ZInQ.GZWeil.g₃_squarePP
+#print axioms ZInQ.GZWeil.g₂_ne_zero_of_g₃_eq_zero
+#print axioms ZInQ.GZWeil.exists_isPeriodLattice_cd
+#print axioms ZInQ.GZWeil.heegner_at_of_lattice
+#print axioms ZInQ.GZWeil.grossZagierHeegnerCd_of_threeLeaves

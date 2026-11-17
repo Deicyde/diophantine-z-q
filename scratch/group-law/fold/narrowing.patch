@@ -1,0 +1,186 @@
+--- ZInQKernel/OneProof/H/TailZ23.lean	2026-11-16 12:25:34.527984715 -0800
++++ ZInQKernel/OneProof/H/TailZ23.lean	2026-11-16 13:31:19.679992061 -0800
+@@ -1,4 +1,5 @@
+ import ZInQKernel.OneProof.H.TailZ22
++import ZInQKernel.Contrib.OneProof.MumfordGroupLawRed
+ import ZInQKernel.OneProof.H.TailZ40
+ import ZInQKernel.Contrib.OneProof.FaltingsLemma5Lower
+ 
+@@ -650,7 +651,7 @@
+   `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
+   identity `e`. Replaces `mumfordRigidityCore`, which also asked Cor. 6.4 (not needed: rigid-prune proves that each
+   `ι(a)` is a homomorphism from the field points). -/
+-  mumfordGroupLaw : _root_.ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw
++  mumfordGroupLaw : _root_.ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR
+   /-- c-to-printed, printed form: Bosch–Lütkebohmert–Raynaud, *Néron models*, §1.2 Prop. 4 (over a Dedekind
+   domain, a smooth separated model of finite type is a Néron model iff its localizations at the closed points are;
+   locator UNVERIFIED). Replaces `neronLocalizesDVR`. -/
+@@ -707,7 +708,7 @@
+ `deligneComponentsX6PrintedAb` and `geomConnOfAlgClosure` are no longer read. -/
+ theorem x6Rows_of_open14 (r : OpenResearchLeaves14) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves12) :
+     LeafAdopt.R1R2fpRepW ∧ X6Kummer.X6ConicModel :=
+-  have hR := _root_.LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_groupLaw r.mumfordGroupLaw
++  have hR := _root_.LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_dvr r.mumfordGroupLaw
+   QMSplit.Moduli.x6Rows_of_leavesW
+     { t5 := _root_.AvSplit.torsionStructure_of_mumford t.mumfordTorsionAlgClosed
+       babaGranathR := (_root_.LeafQM.AV.R1UnivRigid.babaGranathRational_iff_ab_gl hR).mpr r.babaGranathRationalAb
+@@ -756,7 +757,7 @@
+     OpenResearchLeaves9 where
+   r1r2 := (x6Rows_of_open14 r t l).1
+   shimuraFamily := (_root_.LeafQM.AV.R1UnivRigid.shimuraFamily_iff_ab_gl
+-      (_root_.LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_groupLaw r.mumfordGroupLaw)).mpr
++      (_root_.LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_dvr r.mumfordGroupLaw)).mpr
+     r.shimuraFamilyAb
+   igusaPsi4 := r.igusaPsi4
+   igusaChi10 := r.igusaChi10
+@@ -782,7 +783,7 @@
+   gaudronRemondThm14 := r.gaudronRemondThm14
+   gonzalezRotgerCountX6 :=
+     (_root_.LeafQM.AV.R1UnivRigid.gonzalezRotgerCountX6_iff_ab_gl
+-      (_root_.LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_groupLaw r.mumfordGroupLaw)).mpr
++      (_root_.LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_dvr r.mumfordGroupLaw)).mpr
+       r.gonzalezRotgerCountX6Ab
+ 
+ /-- **G0 with only the open leaves and the open glue** (leaf-fold14, reduct fold; no `sorry`, standard axioms).
+--- ZInQKernel/OneProof/H/TailZ25.lean	2026-11-16 12:25:34.528984721 -0800
++++ ZInQKernel/OneProof/H/TailZ25.lean	2026-11-16 13:31:19.680274197 -0800
+@@ -48,7 +48,7 @@
+   `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
+   identity `e`. Replaces `mumfordRigidityCore`, which also asked Cor. 6.4 (not needed: rigid-prune proves that each
+   `ι(a)` is a homomorphism from the field points). -/
+-  mumfordGroupLaw : _root_.ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw
++  mumfordGroupLaw : _root_.ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR
+   /-- c-to-printed, printed form: Bosch–Lütkebohmert–Raynaud, *Néron models*, §1.2 Prop. 4 (over a Dedekind
+   domain, a smooth separated model of finite type is a Néron model iff its localizations at the closed points are;
+   locator UNVERIFIED). Replaces `neronLocalizesDVR`. -/
+--- ZInQKernel/OneProof/H/TailZ26.lean	2026-11-16 12:25:34.528984721 -0800
++++ ZInQKernel/OneProof/H/TailZ26.lean	2026-11-16 13:31:19.680952769 -0800
+@@ -49,7 +49,7 @@
+   `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
+   identity `e`. Replaces `mumfordRigidityCore`, which also asked Cor. 6.4 (not needed: rigid-prune proves that each
+   `ι(a)` is a homomorphism from the field points). -/
+-  mumfordGroupLaw : _root_.ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw
++  mumfordGroupLaw : _root_.ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR
+   /-- c-to-printed, printed form: SGA 3 VI_B 3.10 (the identity component `G⁰` of a smooth group scheme is open;
+   number UNVERIFIED). With the next two and `geomConnOfRationalPoint` replaces `semistableNeronBaseChange`. -/
+   sga3_VIB_3_10 : _root_.CToPrinted.SGA3_VIB_3_10
+--- ZInQKernel/OneProof/H/TailZ27.lean	2026-11-16 12:25:34.531984742 -0800
++++ ZInQKernel/OneProof/H/TailZ27.lean	2026-11-16 13:31:19.681045509 -0800
+@@ -42,7 +42,7 @@
+   `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
+   identity `e`. Replaces `mumfordRigidityCore`, which also asked Cor. 6.4 (not needed: rigid-prune proves that each
+   `ι(a)` is a homomorphism from the field points). -/
+-  mumfordGroupLaw : _root_.ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw
++  mumfordGroupLaw : _root_.ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR
+   /-- c-to-printed, printed form: SGA 3 VI_B 3.10 (the identity component `G⁰` of a smooth group scheme is open;
+   number UNVERIFIED). With the next two and `geomConnOfRationalPoint` replaces `semistableNeronBaseChange`. -/
+   sga3_VIB_3_10 : _root_.CToPrinted.SGA3_VIB_3_10
+--- ZInQKernel/OneProof/H/TailZ28.lean	2026-11-16 12:25:34.532984749 -0800
++++ ZInQKernel/OneProof/H/TailZ28.lean	2026-11-16 13:31:19.681123707 -0800
+@@ -42,7 +42,7 @@
+   `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
+   identity `e`. Replaces `mumfordRigidityCore`, which also asked Cor. 6.4 (not needed: rigid-prune proves that each
+   `ι(a)` is a homomorphism from the field points). -/
+-  mumfordGroupLaw : _root_.ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw
++  mumfordGroupLaw : _root_.ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR
+   /-- c-to-printed, printed form: SGA 3 VI_B 3.10 (the identity component `G⁰` of a smooth group scheme is open;
+   number UNVERIFIED). With the next two and `geomConnOfRationalPoint` replaces `semistableNeronBaseChange`. -/
+   sga3_VIB_3_10 : _root_.CToPrinted.SGA3_VIB_3_10
+--- ZInQKernel/OneProof/H/TailZ29.lean	2026-11-16 12:25:34.536984775 -0800
++++ ZInQKernel/OneProof/H/TailZ29.lean	2026-11-16 13:31:19.681197659 -0800
+@@ -42,7 +42,7 @@
+   `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
+   identity `e`. Replaces `mumfordRigidityCore`, which also asked Cor. 6.4 (not needed: rigid-prune proves that each
+   `ι(a)` is a homomorphism from the field points). -/
+-  mumfordGroupLaw : _root_.ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw
++  mumfordGroupLaw : _root_.ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR
+   /-- c-to-printed, printed form: SGA 3 VI_B 3.10 (the identity component `G⁰` of a smooth group scheme is open;
+   number UNVERIFIED). With the next two and `geomConnOfRationalPoint` replaces `semistableNeronBaseChange`. -/
+   sga3_VIB_3_10 : _root_.CToPrinted.SGA3_VIB_3_10
+--- ZInQKernel/OneProof/H/TailZ33.lean	2026-11-16 12:25:34.539984796 -0800
++++ ZInQKernel/OneProof/H/TailZ33.lean	2026-11-16 13:31:19.681681518 -0800
+@@ -41,7 +41,7 @@
+   `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
+   identity `e`. Replaces `mumfordRigidityCore`, which also asked Cor. 6.4 (not needed: rigid-prune proves that each
+   `ι(a)` is a homomorphism from the field points). -/
+-  mumfordGroupLaw : _root_.ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw
++  mumfordGroupLaw : _root_.ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR
+   /-- c-to-printed, printed form: SGA 3 VI_B 3.10 (the identity component `G⁰` of a smooth group scheme is open;
+   number UNVERIFIED). With the next two and `geomConnOfRationalPoint` replaces `semistableNeronBaseChange`. -/
+   sga3_VIB_3_10 : _root_.CToPrinted.SGA3_VIB_3_10
+--- ZInQKernel/OneProof/H/TailZ34.lean	2026-11-16 12:25:34.539984796 -0800
++++ ZInQKernel/OneProof/H/TailZ34.lean	2026-11-16 13:31:19.681784694 -0800
+@@ -39,7 +39,7 @@
+   `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
+   identity `e`. Replaces `mumfordRigidityCore`, which also asked Cor. 6.4 (not needed: rigid-prune proves that each
+   `ι(a)` is a homomorphism from the field points). -/
+-  mumfordGroupLaw : _root_.ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw
++  mumfordGroupLaw : _root_.ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR
+   /-- c-to-printed, printed form: SGA 3 VI_B 3.10 (the identity component `G⁰` of a smooth group scheme is open;
+   number UNVERIFIED). With the next two and `geomConnOfRationalPoint` replaces `semistableNeronBaseChange`. -/
+   sga3_VIB_3_10 : _root_.CToPrinted.SGA3_VIB_3_10
+@@ -147,7 +147,8 @@
+ (threaded down to `addedLeaves8_of_open9`) by `DCY3Used.y3Connected_of_leaves` from two research fields. -/
+ theorem sixContactMin_of_open28 (r : OpenResearchLeaves21) (t : OpenTextbookLeaves11) (l : OpenAddedLeaves17) (g : OpenGlue7) : ZInQ.SixContactMin :=
+   sixContactMin_of_open27 (openResearchLeaves20_of_OpenResearchLeaves21 r t) t (openAddedLeaves16_of_OpenAddedLeaves17 l) g
+-    (_root_.DCY3Used.y3Connected_of_leaves r.mumfordGroupLaw r.shimuraMainThmIDeligneY3AbU)
++    (_root_.DCY3Used.y3Connected_of_ab_gl (_root_.LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_dvr r.mumfordGroupLaw)
++      (_root_.DCY3Used.y3ConnectedAb_of_U r.shimuraMainThmIDeligneY3AbU))
+ 
+ end HSyn
+ 
+--- ZInQKernel/OneProof/H/TailZ35.lean	2026-11-16 12:25:34.551984877 -0800
++++ ZInQKernel/OneProof/H/TailZ35.lean	2026-11-16 13:31:19.681877293 -0800
+@@ -36,7 +36,7 @@
+   `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
+   identity `e`. Replaces `mumfordRigidityCore`, which also asked Cor. 6.4 (not needed: rigid-prune proves that each
+   `ι(a)` is a homomorphism from the field points). -/
+-  mumfordGroupLaw : _root_.ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw
++  mumfordGroupLaw : _root_.ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR
+   /-- c-to-printed, printed form: SGA 3 VI_B 3.10 (the identity component `G⁰` of a smooth group scheme is open;
+   number UNVERIFIED). With the next two and `geomConnOfRationalPoint` replaces `semistableNeronBaseChange`. -/
+   sga3_VIB_3_10 : _root_.CToPrinted.SGA3_VIB_3_10
+--- ZInQKernel/OneProof/H/TailZ36.lean	2026-11-16 12:25:34.551984877 -0800
++++ ZInQKernel/OneProof/H/TailZ36.lean	2026-11-16 13:31:19.681962892 -0800
+@@ -36,7 +36,7 @@
+   `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
+   identity `e`. Replaces `mumfordRigidityCore`, which also asked Cor. 6.4 (not needed: rigid-prune proves that each
+   `ι(a)` is a homomorphism from the field points). -/
+-  mumfordGroupLaw : _root_.ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw
++  mumfordGroupLaw : _root_.ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR
+   /-- c-to-printed, printed form: SGA 3 VI_B 3.10 (the identity component `G⁰` of a smooth group scheme is open;
+   number UNVERIFIED). With the next two and `geomConnOfRationalPoint` replaces `semistableNeronBaseChange`. -/
+   sga3_VIB_3_10 : _root_.CToPrinted.SGA3_VIB_3_10
+--- ZInQKernel/OneProof/H/TailZ37.lean	2026-11-16 12:25:34.551984877 -0800
++++ ZInQKernel/OneProof/H/TailZ37.lean	2026-11-16 13:31:19.682089473 -0800
+@@ -36,7 +36,7 @@
+   `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
+   identity `e`. Replaces `mumfordRigidityCore`, which also asked Cor. 6.4 (not needed: rigid-prune proves that each
+   `ι(a)` is a homomorphism from the field points). -/
+-  mumfordGroupLaw : _root_.ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw
++  mumfordGroupLaw : _root_.ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR
+   /-- c-to-printed, printed form: SGA 3 VI_B 3.10 (the identity component `G⁰` of a smooth group scheme is open;
+   number UNVERIFIED). With the next two and `geomConnOfRationalPoint` replaces `semistableNeronBaseChange`. -/
+   sga3_VIB_3_10 : _root_.CToPrinted.SGA3_VIB_3_10
+--- ZInQKernel/OneProof/H/TailZ38.lean	2026-11-16 12:25:34.551984877 -0800
++++ ZInQKernel/OneProof/H/TailZ38.lean	2026-11-16 13:31:19.682166920 -0800
+@@ -35,7 +35,7 @@
+   `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
+   identity `e`. Replaces `mumfordRigidityCore`, which also asked Cor. 6.4 (not needed: rigid-prune proves that each
+   `ι(a)` is a homomorphism from the field points). -/
+-  mumfordGroupLaw : _root_.ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw
++  mumfordGroupLaw : _root_.ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR
+   /-- c-to-printed, printed form: SGA 3 VI_B 3.10 (the identity component `G⁰` of a smooth group scheme is open;
+   number UNVERIFIED). With the next two and `geomConnOfRationalPoint` replaces `semistableNeronBaseChange`. -/
+   sga3_VIB_3_10 : _root_.CToPrinted.SGA3_VIB_3_10
+--- ZInQKernel/OneProof/H/TailZ41.lean	2026-11-16 12:25:34.555984904 -0800
++++ ZInQKernel/OneProof/H/TailZ41.lean	2026-11-16 13:31:19.682325058 -0800
+@@ -35,7 +35,7 @@
+   `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
+   identity `e`. Replaces `mumfordRigidityCore`, which also asked Cor. 6.4 (not needed: rigid-prune proves that each
+   `ι(a)` is a homomorphism from the field points). -/
+-  mumfordGroupLaw : _root_.ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw
++  mumfordGroupLaw : _root_.ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR
+   /-- c-to-printed, printed form: SGA 3 VI_B 3.10 (the identity component `G⁰` of a smooth group scheme is open;
+   number UNVERIFIED). With the next two and `geomConnOfRationalPoint` replaces `semistableNeronBaseChange`. -/
+   sga3_VIB_3_10 : _root_.CToPrinted.SGA3_VIB_3_10

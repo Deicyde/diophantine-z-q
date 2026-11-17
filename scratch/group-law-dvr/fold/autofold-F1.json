@@ -1,0 +1,25 @@
+{
+ "name": "group-law-dvr-F1",
+ "_manual": "NOT runnable by scripts/one_proof/autofold.py: no theorem proves the old field type MumfordGroupLawConn (GIT 6.14 over connected, possibly non-reduced bases) from the new fields. Manual in-place fold (docs/research/group-law-dvr.md section 5; patch scratch/group-law-dvr/fold/F1-narrowing.patch; generator scratch/group-law-dvr/fold/make_patch.py F1): every OpenResearchLeaves<k>.mumfordGroupLaw (k = 14..27; TailZ23, 25-29, 33-38, 41, 44) gets type _root_.ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR; TailZ23 imports ZInQKernel.Contrib.OneProof.MumfordGroupLawRed and uses _root_.LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_dvr r.mumfordGroupLaw at its 3 sites; TailZ34 sixContactMin_of_open28 uses _root_.DCY3Used.y3Connected_of_ab_gl (_root_.LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_dvr r.mumfordGroupLaw) (_root_.DCY3Used.y3ConnectedAb_of_U r.shimuraMainThmIDeligneY3AbU); TailZ45: OpenResearchLeaves28.mumfordGroupLawConn replaced by mumfordGroupLawDVR : MumfordGroupLawDVR, and openResearchLeaves27_of_OpenResearchLeaves28 sets mumfordGroupLaw := n.mumfordGroupLawDVR. Count 0: one LEAF replaced by a strictly weaker LEAF (ZInQ.Contrib.GroupLawNeron.dvr_of_conn).",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.MumfordGroupLawRed"
+ ],
+ "narrows": [
+  {
+   "field": "mumfordGroupLawConn",
+   "new_field": "mumfordGroupLawDVR",
+   "new_type": "_root_.ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR",
+   "consumer_proof": "_root_.LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_dvr {n}.mumfordGroupLaw",
+   "weaker_than_old": "_root_.ZInQ.Contrib.GroupLawNeron.dvr_of_conn",
+   "leaves": [
+    {
+     "name": "mumfordGroupLawDVR",
+     "type": "_root_.ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR",
+     "kind": "published",
+     "flag": "locator UNVERIFIED (GIT Thm 6.14 at S = Spec of a DVR)",
+     "source": "Mumford-Fogarty-Kirwan, Geometric Invariant Theory, Thm 6.14 at S = Spec R, R a DVR (numbers UNVERIFIED); group-law, group-law-dvr"
+    }
+   ]
+  }
+ ]
+}

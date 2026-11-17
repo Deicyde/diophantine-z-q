@@ -1,0 +1,12 @@
+{
+ "name": "piclft",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.PicLocFinType"
+ ],
+ "discharges": [
+  {
+   "field": "picLocFinType",
+   "proof": "_root_.PicLFT.picLocFinType_proof"
+  }
+ ]
+}

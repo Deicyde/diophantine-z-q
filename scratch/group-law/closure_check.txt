@@ -1,0 +1,57 @@
+ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw: IN closure
+LeafQM.AV.R1UnivRigid.QMFamilyGroupLaw: IN closure
+LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_groupLaw: IN closure
+LeafQM.AV.R1UnivRigid.r1fpProps_eq_ab_gl: IN closure
+LeafQM.AV.R1UnivRigid.r1univProps_of_ab_gl: IN closure
+LeafQM.AV.R1UnivRigid.exists_qmAbScheme_gl: IN closure
+HDec.ModelGlue.exists_genFib_to_Y: not in closure
+MCRGlue.QuotientP1Coordinate: not in closure
+MCRGlue.modelCoordinateResidue_of_quotient': not in closure
+HDec.ModelGlue.heckeVertWitness_of_curveBijIso: not in closure
+USER HDec.HSyn.OpenResearchLeaves25.mumfordGroupLaw uses [ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw]
+USER LeafQM.AV.R1UnivRigid.shimuraFamily_iff_ab_gl uses [LeafQM.AV.R1UnivRigid.QMFamilyGroupLaw,
+ LeafQM.AV.R1UnivRigid.r1fpProps_eq_ab_gl]
+USER LeafQM.AV.R1UnivRigid.gonzalezRotgerX6_iff_ab_gl uses [LeafQM.AV.R1UnivRigid.QMFamilyGroupLaw,
+ LeafQM.AV.R1UnivRigid.r1fpProps_eq_ab_gl]
+USER HDec.HSyn.OpenResearchLeaves21.mk uses [ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw]
+USER HDec.HSyn.OpenResearchLeaves18.mk uses [ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw]
+USER HDec.HSyn.OpenResearchLeaves24.mumfordGroupLaw uses [ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw]
+USER LeafQM.AV.R1UnivRigid.gonzalezRotgerCountX6_iff_ab_gl uses [LeafQM.AV.R1UnivRigid.QMFamilyGroupLaw,
+ LeafQM.AV.R1UnivRigid.r1fpProps_eq_ab_gl]
+USER HDec.HSyn.OpenResearchLeaves17.mk uses [ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw]
+USER HDec.HSyn.OpenResearchLeaves17.mumfordGroupLaw uses [ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw]
+USER HDec.HSyn.OpenResearchLeaves23.mk uses [ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw]
+USER HDec.HSyn.x6Rows_of_open14 uses [LeafQM.AV.R1UnivRigid.QMFamilyGroupLaw,
+ LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_groupLaw]
+USER LeafQM.AV.R1UnivRigid.r1fpProps_iff_ab_gl uses [LeafQM.AV.R1UnivRigid.QMFamilyGroupLaw,
+ LeafQM.AV.R1UnivRigid.r1univProps_of_ab_gl]
+USER HDec.HSyn.OpenResearchLeaves18.mumfordGroupLaw uses [ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw]
+USER HDec.HSyn.OpenResearchLeaves23.mumfordGroupLaw uses [ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw]
+USER HDec.HSyn.OpenResearchLeaves24.mk uses [ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw]
+USER HDec.HSyn.OpenResearchLeaves19.mumfordGroupLaw uses [ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw]
+USER HDec.HSyn.OpenResearchLeaves22.mumfordGroupLaw uses [ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw]
+USER LeafQM.AV.R1UnivRigid.elkiesEquationsX6_iff_ab_gl uses [LeafQM.AV.R1UnivRigid.QMFamilyGroupLaw,
+ LeafQM.AV.R1UnivRigid.r1fpProps_eq_ab_gl]
+USER HDec.HSyn.OpenResearchLeaves14.mk uses [ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw]
+USER DCY3Used.y3Connected_of_ab_gl uses [LeafQM.AV.R1UnivRigid.QMFamilyGroupLaw,
+ LeafQM.AV.R1UnivRigid.r1fpProps_eq_ab_gl]
+USER LeafQM.AV.R1UnivRigid.babaGranathRational_iff_ab_gl uses [LeafQM.AV.R1UnivRigid.QMFamilyGroupLaw,
+ LeafQM.AV.R1UnivRigid.r1fpProps_eq_ab_gl]
+USER HDec.HSyn.researchLeaves9_of_open14 uses [LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_groupLaw]
+USER DCY3Used.y3Connected_of_leaves uses [ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw,
+ LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_groupLaw]
+USER HDec.HSyn.OpenResearchLeaves22.mk uses [ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw]
+USER HDec.HSyn.OpenResearchLeaves25.mk uses [ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw]
+USER HDec.HSyn.OpenResearchLeaves21.mumfordGroupLaw uses [ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw]
+USER HDec.HSyn.OpenResearchLeaves16.mk uses [ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw]
+USER HDec.HSyn.OpenResearchLeaves20.mumfordGroupLaw uses [ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw]
+USER HDec.HSyn.OpenResearchLeaves15.mk uses [ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw]
+USER HDec.HSyn.OpenResearchLeaves15.mumfordGroupLaw uses [ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw]
+USER HDec.HSyn.OpenResearchLeaves14.mumfordGroupLaw uses [ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw]
+USER HDec.HSyn.OpenResearchLeaves20.mk uses [ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw]
+USER HDec.HSyn.OpenResearchLeaves19.mk uses [ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw]
+USER LeafQM.AV.R1UnivRigid.r1famAbProps_of_r1famProps_gl uses [LeafQM.AV.R1UnivRigid.QMFamilyGroupLaw]
+USER LeafQM.AV.R1UnivRigid.rayClassCM_iff_ab_gl uses [LeafQM.AV.R1UnivRigid.QMFamilyGroupLaw,
+ LeafQM.AV.R1UnivRigid.r1fpProps_eq_ab_gl]
+USER HDec.HSyn.OpenResearchLeaves16.mumfordGroupLaw uses [ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw]
+USER HDec.HSyn.OpenResearchLeaves26.mumfordGroupLaw uses [ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw]

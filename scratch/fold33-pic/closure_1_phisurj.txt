@@ -1,0 +1,24 @@
+frozenTarget: closure 271467
+  contains PicDict.MumfordPhiSurjectiveAC: false
+  contains PicFix.phiAmpleIsogeny_of_printed: false
+  contains T09Pic.WeilPairingMumford: true
+  contains PhiSurj.phiAmpleIsogeny_of_open: true
+  contains PhiSurj.weilPairingMumford_of_open: true
+  contains T09Pic.PicZeroAbVar: true
+  contains PicDict.PicZeroSmooth: false
+  contains CToPrinted.SGA3_VIB_3_10: false
+  contains SGA3IdComp.SGA3_VIB_3_10_Nbhd: false
+  contains DictModels.MumfordConn.MumfordGroupLawConn: false
+  contains ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw: false
+  contains ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed: false
+  contains PkgI3.HomFreeFinite: false
+  contains sorryAx: false
+  contains HDec.HSyn.OpenAddedLeaves19: false
+  contains HDec.HSyn.OpenAddedLeaves20: false
+  contains HDec.HSyn.OpenAddedLeaves18: true
+  contains HDec.HSyn.sixContactMin_of_open43: false
+  contains HDec.HSyn.sixContactMin_of_open37_hf_gm: true
+  bundle HDec.HSyn.OpenResearchLeaves31: 24 fields
+  bundle HDec.HSyn.OpenTextbookLeaves16: 3 fields
+  bundle HDec.HSyn.OpenAddedLeaves22: 2 fields
+    field picZeroAbVar has a checked type: [T09Pic.PicZeroAbVar]

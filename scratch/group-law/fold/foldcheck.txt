@@ -1,0 +1,8 @@
+HDec.HSyn.OpenResearchLeaves26.mumfordGroupLaw : HDec.HSyn.OpenResearchLeaves26 →
+  ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR
+'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw: not in closure
+ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR: IN closure
+LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_groupLaw: not in closure
+LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_dvr: IN closure
+ZInQ.Contrib.GroupLaw.MumfordGroupLawLocal: not in closure

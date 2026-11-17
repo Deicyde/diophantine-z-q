@@ -1,0 +1,68 @@
+-- Verbatim copy (task fh-printed) of the statement discharged, from ZInQKernel/Contrib/OneProof/FHNonvanishing/FE.lean
+-- and the definitions it depends on (main 43513d87). Not compiled from here (scratch files cannot import each other).
+
+-- ZInQKernel/Contrib/OneProof/FHNonvanishing/Basic.lean
+/-! ## Definitions -/
+
+/-- `D` is an odd fundamental discriminant other than `1`: `D ≡ 1 (mod 4)`, squarefree, `D ≠ 1`.
+These are exactly the discriminants of the quadratic fields in which `2` is unramified; for them
+`chiD D = (· / |D|)` is the Kronecker character `χ_D` of `ℚ(√D)` (`GZStatements.chiD_prime`,
+`chiD_two` for `D < 0`; quadratic reciprocity in general). -/
+def IsOddFundDisc (D : ℤ) : Prop := D ≠ 1 ∧ D % 4 = 1 ∧ Squarefree D
+
+-- ZInQKernel/Contrib/GZDecomp/Decomp.lean
+
+/-- The `n`-th Fourier coefficient `aₙ(f)` of a newform (expansion at `∞` in `q = e^{2πiτ}`). -/
+noncomputable def coeff {N : ℕ} [NeZero N] {k : ℤ} (f : Newform N k) (n : ℕ) : ℂ :=
+  (qExpansion 1 f.toCuspForm).coeff n
+
+/-- `G` is an entire continuation of the Dirichlet series `∑ aₙ n^{−s}` from `Re s > σ`. -/
+def IsEntireCont (a : ℕ → ℂ) (σ : ℝ) (G : ℂ → ℂ) : Prop :=
+  Differentiable ℂ G ∧ ∀ s : ℂ, σ < s.re → G s = LSeries a s
+
+
+/-- The quadratic character `n ↦ (n / |D|)`; for a fundamental discriminant `D ≡ 1 (mod 4)` it is
+the Kronecker character `χ_D` of `ℚ(√D)`. -/
+noncomputable def chiD (D : ℤ) (n : ℕ) : ℂ := (jacobiSym (n : ℤ) D.natAbs : ℂ)
+
+/-- `D` is an odd negative fundamental discriminant: `D < 0`, `D ≡ 1 (mod 4)`, squarefree. -/
+def IsOddImagFundDisc (D : ℤ) : Prop := D < 0 ∧ D % 4 = 1 ∧ Squarefree D
+
+/-- **Heegner hypothesis**: every prime `p ∣ N` splits in `ℚ(√D)`, i.e. `χ_D(p) = 1`. -/
+def HeegnerHyp (N : ℕ) (D : ℤ) : Prop :=
+  ∀ p : ℕ, p.Prime → p ∣ N → jacobiSym (p : ℤ) D.natAbs = 1
+
+/-- The coefficient sequence of the twist `f ⊗ χ_D`. -/
+noncomputable def twistCoeff {N : ℕ} [NeZero N] {k : ℤ} (f : Newform N k) (D : ℤ) (n : ℕ) : ℂ :=
+  coeff f n * chiD D n
+
+-- ZInQKernel/Hypotheses/CR3Literature.lean
+
+/-- The completed L-function `Λ(s) = N^{s/2} (2π)^{−s} Γ(s) F(s)` for conductor `N`. -/
+noncomputable def completedL (N : ℕ) (F : ℂ → ℂ) (s : ℂ) : ℂ :=
+  (N : ℂ) ^ (s / 2) * (2 * Real.pi : ℂ) ^ (-s) * Complex.Gamma s * F s
+
+-- ZInQKernel/Contrib/OneProof/FHNonvanishing/FE.lean
+/-- **Friedberg–Hoffstein, Theorem B, with `ε(½, π ⊗ χ₀) = 1` written as the functional equation of
+`Λ(f ⊗ χ_{D₀}, s)` with sign `+1`.** As `FriedbergHoffsteinB`, except that the compatibility
+hypothesis reads: the entire continuation `G` of `L(f ⊗ χ_{D₀}, s) = ∑ aₙ(f) χ_{D₀}(n) n^{−s}`
+satisfies `Λ(2 − s) = Λ(s)` on `0 < Re s < 2`, where
+`Λ(s) = (N D₀²)^{s/2} (2π)^{−s} Γ(s) G(s)` (`ZInQ.Literature.completedL`). For `(D₀, N) = 1`
+(forced by `p ∤ D₀` for `p ∈ S ⊇ {p ∣ N}`) the conductor of `π_f ⊗ χ₀` is `N D₀²`, its completed
+L-function satisfies `Λ(2 − s) = ε(½, π ⊗ χ₀) Λ(s)`, and `Λ ≢ 0` on the strip (since `G ≢ 0`, as
+`a₁ = 1`), so the hypothesis says exactly `ε(½, π ⊗ χ₀) = 1`. The strip avoids the junk values of
+Mathlib's `Complex.Gamma` at the poles (as in `ZInQ.Literature.FunctionalEquation5`).
+
+Source: Friedberg–Hoffstein, Ann. of Math. (2) 142 (1995) 385–423, Theorem B (UNVERIFIED; see
+`FriedbergHoffsteinB` for the dictionary and the open checks). -/
+def FriedbergHoffsteinB_FE : Prop :=
+  ∀ (N : ℕ) [NeZero N] (f : Newform N 2), f.χ = 1 →
+  ∀ S : Finset ℕ, (∀ p : ℕ, p.Prime → p ∣ 2 * N → p ∈ S) →
+  ∀ D₀ : ℤ, IsOddFundDisc D₀ → (∀ p ∈ S, ¬ (p : ℤ) ∣ D₀) →
+    (∃ G : ℂ → ℂ, IsEntireCont (twistCoeff f D₀) 2 G ∧
+      ∀ s : ℂ, 0 < s.re → s.re < 2 →
+        ZInQ.Literature.completedL (N * D₀.natAbs ^ 2) G (2 - s) =
+          ZInQ.Literature.completedL (N * D₀.natAbs ^ 2) G s) →
+    ∀ B : ℕ, ∃ D : ℤ, B < D.natAbs ∧ IsOddFundDisc D ∧ 0 < D * D₀ ∧
+      (∀ (p : ℕ) [Fact p.Prime], p ∈ S → IsSquare ((D : ℚ_[p]) / (D₀ : ℚ_[p]))) ∧
+      ∀ G : ℂ → ℂ, IsEntireCont (twistCoeff f D) 2 G → G 1 ≠ 0

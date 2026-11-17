@@ -1,0 +1,16 @@
+PARI stack size set to 2000000000 bytes, maximum size set to 2000003072
+d=5 N=800 terms=5300 max|coord-round|=8.63 e-20 index[L:span]=1 sample=[[0; 0], [0; 0], [1; 0], [0; 0]]
+d=13 N=5408 terms=35252 max|coord-round|=2.28 e-19 index[L:span]=1 sample=[[0; 0], [0; 0], [0; 3], [0; 2]]
+d=21 N=14112 terms=91828 max|coord-round|=3.14 e-19 index[L:span]=1 sample=[[0; 0], [4; 2], [0; 0], [2; 3]]
+d=29 N=26912 terms=175028 max|coord-round|=4.34 e-19 index[L:span]=1 sample=[[0; 0], [0; 0], [0; -2], [0; 4]]
+d=37 N=43808 terms=284852 max|coord-round|=6.60 e-19 index[L:span]=1 sample=[[0; 0], [0; 0], [4; 5], [3; -2]]
+d=53 N=89888 terms=584372 max|coord-round|=7.04 e-19 index[L:span]=1 sample=[[0; 0], [0; 0], [0; 7], [0; -4]]
+d=61 N=119072 terms=774068 max|coord-round|=4.25 e-19 index[L:span]=1 sample=[[0; 0], [0; 0], [4; 0], [15; 0]]
+d=69 N=152352 terms=990388 max|coord-round|=7.96 e-19 index[L:span]=1 sample=[[0; 0], [4; -2], [3; 6], [4; 4]]
+d=77 N=189728 terms=1233332 max|coord-round|=4.11 e-19 index[L:span]=2 sample=[[0; 0], [0; 0], [4; 8], [0; 0]]
+d=85 N=231200 terms=1502900 max|coord-round|=5.79 e-19 index[L:span]=1 sample=[[0; 0], [0; 0], [5; 10], [0; 0]]
+d=93 N=276768 terms=1799092 max|coord-round|=6.70 e-19 index[L:span]=1 sample=[[0; 0], [0; 8], [3; -6], [5; -5]]
+d=101 N=326432 terms=2121908 max|coord-round|=9.45 e-19 index[L:span]=1 sample=[[0; 0], [0; 0], [0; 0], [0; 10]]
+d=109 N=380192 terms=2471348 max|coord-round|=8.08 e-19 index[L:span]=1 sample=[[0; 0], [0; 0], [4; 10], [0; 12]]
+PARI stack size set to 2000000000 bytes, maximum size set to 2000003072
+d=77 N=189728 terms=2466564 max|coord-round|=9.80 e-19 index[L:span]=1 sample=[[0; 0], [0; 0], [4; 8], [0; 0]]

@@ -1,0 +1,6 @@
+{"name": "phi-ample",
+ "imports": ["ZInQKernel.Contrib.OneProof.MumfordKLFinite"],
+ "discharges": [
+   {"field": "mumfordKLFiniteSectionAC",
+    "proof": "_root_.PhiAmple.mumfordKLFiniteSectionAC_of_open {n}.picRepresentableAbVar {n}.picZeroAbVar",
+    "leaves": []}]}

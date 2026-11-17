@@ -1,0 +1,30 @@
+frozenTarget: closure 270696
+  contains CToPrinted.SGA3_VIB_3_10: false
+  contains SGA3IdComp.SGA3_VIB_3_10_Nbhd: false
+  contains SGA3IdComp.sga3_VIB_3_10_of_nbhd: false
+  contains CToPrinted.idComp_baseChange: false
+  contains CToPrinted.semistableNeronBaseChange_of_printed_full: false
+  contains SGA3Nbhd.semistableNeronBaseChange_noSGA3: true
+  contains DictModels.MumfordConn.MumfordGroupLawConn: true
+  contains DictModels.MumfordConn.mumfordGroupLaw_of_conn: true
+  contains ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw: true
+  contains LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_groupLaw: true
+  contains ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind: false
+  contains ZInQ.Contrib.GoodModelIso.mumfordGroupLawDVR_of_dedekind: false
+  contains ZInQ.Contrib.GroupLawNeron.neronSchemeExtensionExists_of_dedekind: false
+  contains ZInQ.Contrib.NeronC.NeronSchemeExtensionExists: true
+  contains ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed: false
+  contains PkgI3.HomFreeFinite: false
+  contains sorryAx: false
+  contains HDec.HSyn.OpenResearchLeaves14: false
+  contains HDec.HSyn.OpenResearchLeaves29: false
+  contains HDec.HSyn.sixContactMin_of_open41: false
+  contains HDec.HSyn.OpenResearchLeaves29NS: true
+  contains HDec.HSyn.sixContactMin_of_open42: true
+  contains HDec.HSyn.OpenResearchLeaves29GM: false
+  contains HDec.HSyn.sixContactMin_of_open43: false
+  bundle HDec.HSyn.OpenResearchLeaves30: 24 fields
+    field mumfordGroupLawConn has a checked type: [DictModels.MumfordConn.MumfordGroupLawConn]
+  bundle HDec.HSyn.OpenTextbookLeaves15: 4 fields
+    field neronSchemeExtensionExists has a checked type: [ZInQ.Contrib.NeronC.NeronSchemeExtensionExists]
+  bundle HDec.HSyn.OpenAddedLeaves20: 4 fields

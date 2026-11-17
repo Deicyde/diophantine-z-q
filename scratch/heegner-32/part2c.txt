@@ -1,0 +1,116 @@
+
+/-! ## §6. The Galois statement on `X₀(32)` and the even-`c` Heegner point -/
+
+open ZInQ.GZDecomp (IsOddImagFundDisc HeegnerHyp)
+open ZInQ.Contrib.TYZGenus.CM (HeegnerForm)
+open ZInQ.Contrib.TYZGenus.RingClass ZInQ.RouteK.Rank5b ZInQ.Contrib.TYZGenus.Shimura
+  ZInQ.Contrib.TYZDecomp.CurveA
+
+/-- **(GLUE: Shimura reciprocity on `X₀(32)` at conductor-`d` Heegner points, twisted by `(·/d)`.)**
+For `d ≡ 5 (mod 8)` squarefree, `K = ℚ(√−m)` (`m ≡ 3 (mod 4)` squarefree, `m > 4`) satisfying the Heegner
+hypothesis for `32 d²`, a complete set `S` of Heegner representatives of level `32 d²`, discriminant `−m` and
+residue `β`, and `σ ∈ Aut(ℂ/K)`: there is a permutation `π` of `S` with
+`σ(Z(τ_Q)) = ε_σ · Z(τ_{π Q})`, `ε_σ = σ(g)/g ∈ {±1}`, `g = gaussD d` (`g² = d`), where
+`Z(τ) = Σ_{a mod d} (a/d) · (x(τ + a/d), y(τ + a/d))` (`zTw`, x0-32's eta-quotient parametrization `X0.phiC`).
+
+Why it holds (not proved here). For `Q = [A, B, C] ∈ S` and `(a, d) = 1`, `τ_Q + a/d` is the Heegner point of
+the form `[Ad, (B − 2Aa/d)d, ·]` of level `32` and discriminant `−m d²` (conductor `d`), and the
+`φ(d)` such points are the conductor-`d` sublattices of `⟨1/d, τ_Q⟩` other than `⟨1, τ_Q⟩`, `⟨1/d, dτ_Q⟩`.
+By `X0ModuliUsed`'s eta route (`shimuraReciprocityPic` from `hCM` and `ThetaWeierstrass8`, both proved),
+`σ` moves `(x, y)(τ_Q + a/d)` to `(x, y)` at the image lattice pair under `Art⁻¹`; the image of the family of
+`Q` is the family of the Dirichlet composite `π Q`, with `a ↦ a'`, `(a'/d) = χ_gen(σ)(a/d)`, where `χ_gen` is
+the genus character of `K(√d)/K` (`d ≡ 1 mod 4`, every `p ∣ d` split in `K`); and `σ(g)/g = χ_gen(σ)`.
+These three steps (conductor-`d` composition, the genus character, Chebotarev in the ring class field of
+conductor `d`) are elementary algebraic number theory; no canonical model of `X₀(32 d²)` is used. -/
+def TwistTransportCd : Prop :=
+  ∀ (d : ℕ) [NeZero d], d % 8 = 5 → Squarefree d →
+  ∀ (m : ℕ) [NeZero m], Squarefree m → m % 4 = 3 → 4 < m → HeegnerHyp (32 * d ^ 2) (-(m : ℤ)) →
+  ∀ (β : ℤ) (S : Finset (HeegnerForm (32 * d ^ 2) (-(m : ℤ)))),
+    ZInQ.GZHL3.IsHeegnerReps (32 * d ^ 2) (-(m : ℤ)) β S →
+  ∀ σ : ℂ ≃+* ℂ, (∀ k : QNeg m, σ (kappa m k) = kappa m k) →
+  ∃ π : HeegnerForm (32 * d ^ 2) (-(m : ℤ)) → HeegnerForm (32 * d ^ 2) (-(m : ℤ)),
+    Set.MapsTo π S S ∧ Set.InjOn π S ∧
+    ∀ Q ∈ S, Affine.Point.map (ZInQ.GZHeegner.sigA σ) (zTw d Q.tauH) =
+      (if σ (gaussD d) = gaussD d then zTw d (π Q).tauH else -zTw d (π Q).tauH)
+
+/-- **`HeegnerPointRationalAt` restricted to even `c`** (`c ∈ 2ℤ`). -/
+def HeegnerPointRationalAtEven (E : WeierstrassCurve ℚ) : Prop :=
+  ∀ (N : ℕ) [NeZero N] (f : HeckeRing.GL2.Newform N 2), f.χ = 1 →
+    (∀ n : ℕ, n ≠ 0 → ZInQ.GZDecomp.coeff f n = (E.LFunction n : ℂ)) →
+    ∀ D β : ℤ, IsOddImagFundDisc D → D < -4 → HeegnerHyp N D → (4 * N : ℤ) ∣ D - β ^ 2 →
+    ∀ S : Finset (HeegnerForm N D), ZInQ.GZHL3.IsHeegnerReps N D β S →
+    ∀ (L : PeriodPair) (c : ℚ), ZInQ.GZHL3.IsPeriodLattice E L → c ≠ 0 → (∃ k : ℤ, c = 2 * k) →
+      ZInQ.GZHL3.PeriodsIn f c L →
+    ∀ (K : Type) [Field K] [NumberField K] [DecidableEq K], Module.finrank ℚ K = 2 →
+    ∀ δ : K, δ ^ 2 = (D : K) →
+    ∀ ι : K →ₐ[ℚ] ℂ, ι δ = Complex.I * (Real.sqrt (-(D : ℝ)) : ℂ) →
+      ∃ y : (E⁄K).toAffine.Point, Affine.Point.map ι y = ZInQ.GZHL3.heegnerC E L f c S
+
+/-- **The corrected (even-`c`) form of `GZHL3.HeegnerPointRationalCd`.** -/
+def HeegnerPointRationalCdEven : Prop :=
+  ∀ d : ℕ, d % 8 = 5 → Squarefree d → HeegnerPointRationalAtEven (shortCurve (-(d : ℚ) ^ 2))
+
+theorem heegnerPointRationalCdEven_of (h : ZInQ.GZHL3.HeegnerPointRationalCd) :
+    HeegnerPointRationalCdEven := by
+  intro d hd hsq N _ f hχ hf D β hD hD4 hH hβ S hS L c hL hc _ hP K _ _ _ hK δ hδ ι hι
+  exact h d hd hsq N f hχ hf D β hD hD4 hH hβ S hS L c hL hc hP K hK δ hδ ι hι
+
+/-- **The even-`c` Heegner point of `C_d` from the Galois statement on `X₀(32)`.** -/
+theorem heegnerPointRationalCdEven_of_twist (hT : TwistTransportCd) : HeegnerPointRationalCdEven := by
+  intro d hd hsq N _ f hχ hcoeff D β hDf hD4 hHH hβ S hS L c hL hc hc2 hPer K _ _ _ hK2 δ hδ ι hι
+  obtain ⟨k, hk⟩ := hc2
+  have : NeZero d := ⟨by omega⟩
+  have hd4 : d % 4 = 1 := by omega
+  have hd1 : d ≠ 1 := by omega
+  have hN := ZInQ.GZStatements.level_eq_of_coeff_cd hd4 hsq f hχ hcoeff
+  subst hN
+  obtain ⟨hD0, hD1, hDsq⟩ := hDf
+  obtain ⟨m, rfl⟩ : ∃ m : ℕ, D = -(m : ℤ) := ⟨D.natAbs, by omega⟩
+  have : NeZero m := ⟨by omega⟩
+  have hmsq : Squarefree m := Int.squarefree_natCast.1 (ZInQ.GZHeegner.squarefree_neg_iff.1 hDsq)
+  have hm3 : m % 4 = 3 := by omega
+  have hm4 : 4 < m := by omega
+  have hHC : ZInQ.GZHL3.heegnerC (shortCurve (-(d : ℚ) ^ 2)) L f c S =
+      ∑ Q ∈ S, k • psiMap d hd4 hsq (zTw d Q.tauH) := by
+    unfold ZInQ.GZHL3.heegnerC
+    refine Finset.sum_congr rfl fun Q _ => ?_
+    rw [ZInQ.GZWeil.eichler_eq_eichlerCd hd4 hsq f hcoeff, hk]
+    have e : ((2 * k : ℤ) : ℚ) = (2 * (k : ℚ)) := by push_cast; ring
+    have e2 : (((2 * (k : ℚ)) : ℚ) : ℂ) * eichlerCd d (Q.tauH : ℂ) = k • (2 * eichlerCd d (Q.tauH : ℂ)) := by
+      rw [zsmul_eq_mul]; push_cast; ring
+    rw [show ((2 * (k : ℚ) : ℚ) : ℂ) = (((2 * (k : ℚ)) : ℚ) : ℂ) from rfl, e2, ← weierHom_apply hL,
+      map_zsmul, weierHom_apply, weierPt_two_eichlerCd hd4 hsq hd1 hL]
+    rfl
+  have hfix : ∀ σ : ℂ ≃+* ℂ, (∀ q : QNeg m, σ (kappa m q) = kappa m q) →
+      Affine.Point.map (ZInQ.GZHeegner.sigA σ) (ZInQ.GZHL3.heegnerC (shortCurve (-(d : ℚ) ^ 2)) L f c S) =
+        ZInQ.GZHL3.heegnerC (shortCurve (-(d : ℚ) ^ 2)) L f c S := by
+    intro σ hσ
+    obtain ⟨π, hπS, hπinj, hπZ⟩ := hT d hd hsq m hmsq hm3 hm4 hHH β S hS σ hσ
+    rw [hHC, map_sum]
+    have key : ∀ Q ∈ S, Affine.Point.map (ZInQ.GZHeegner.sigA σ) (k • psiMap d hd4 hsq (zTw d Q.tauH)) =
+        k • psiMap d hd4 hsq (zTw d (π Q).tauH) := by
+      intro Q hQ
+      rw [map_zsmul, map_psiMap, hπZ Q hQ]
+      split_ifs <;> simp
+    rw [Finset.sum_congr rfl key]
+    refine Finset.sum_nbij π hπS hπinj ?_ (fun _ _ => rfl)
+    intro R hR
+    obtain ⟨Q, hQ, h⟩ := Finset.surj_on_of_inj_on_of_card_le (fun Q _ => π Q) (fun Q hQ => hπS hQ)
+      (fun a₁ a₂ ha₁ ha₂ h => hπinj ha₁ ha₂ h) le_rfl R hR
+    exact ⟨Q, hQ, h.symm⟩
+  exact exists_point_of_fixed _ _ hfix K δ hδ ι hι
+
+/-! ## §7. The even form suffices for the chain -/
+
+/-- From any `c` with `c Λ_f ⊆ L`, the even integer `2·num(c)` has the same property. -/
+theorem periodsIn_two_num {N : ℕ} [NeZero N] {f : HeckeRing.GL2.Newform N 2} {c : ℚ} {L : PeriodPair}
+    (h : ZInQ.GZHL3.PeriodsIn f c L) : ZInQ.GZHL3.PeriodsIn f ((2 * c.num : ℤ) : ℚ) L := by
+  intro γ hγ τ
+  have h1 := h γ hγ τ
+  have e : (((2 * c.num : ℤ) : ℚ) : ℂ) = ((2 * c.den : ℕ) : ℂ) * (c : ℂ) := by
+    have : ((2 * c.num : ℤ) : ℚ) = (2 * c.den : ℕ) * c := by
+      push_cast; rw [mul_assoc, Rat.den_mul_eq_num]
+    rw [this]; push_cast; ring
+  rw [e, mul_assoc]
+  have := Submodule.smul_mem L.lattice (2 * c.den : ℕ) h1
+  rwa [nsmul_eq_mul] at this

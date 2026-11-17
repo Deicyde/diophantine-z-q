@@ -1,0 +1,23 @@
++ HDec.HSyn.OpenAddedLeaves21 ZInQKernel.OneProof.H.TailZ51
++ HDec.HSyn.OpenAddedLeaves21.casesOn ZInQKernel.OneProof.H.TailZ51
++ HDec.HSyn.OpenAddedLeaves21.mk ZInQKernel.OneProof.H.TailZ51
++ HDec.HSyn.OpenAddedLeaves21.mk._flat_ctor ZInQKernel.OneProof.H.TailZ51
++ HDec.HSyn.OpenAddedLeaves21.mumfordPhiSurjectiveAC ZInQKernel.OneProof.H.TailZ51
++ HDec.HSyn.OpenAddedLeaves21.picRepresentableAbVar ZInQKernel.OneProof.H.TailZ51
++ HDec.HSyn.OpenAddedLeaves21.picZeroAbVar ZInQKernel.OneProof.H.TailZ51
++ HDec.HSyn.OpenAddedLeaves21.rec ZInQKernel.OneProof.H.TailZ51
++ HDec.HSyn.OpenAddedLeaves21.recOn ZInQKernel.OneProof.H.TailZ51
++ HDec.HSyn.OpenAddedLeaves22 ZInQKernel.OneProof.H.TailZ52
++ HDec.HSyn.OpenAddedLeaves22.casesOn ZInQKernel.OneProof.H.TailZ52
++ HDec.HSyn.OpenAddedLeaves22.mk ZInQKernel.OneProof.H.TailZ52
++ HDec.HSyn.OpenAddedLeaves22.mk._flat_ctor ZInQKernel.OneProof.H.TailZ52
++ HDec.HSyn.OpenAddedLeaves22.picRepresentableAbVar ZInQKernel.OneProof.H.TailZ52
++ HDec.HSyn.OpenAddedLeaves22.picZeroAbVar ZInQKernel.OneProof.H.TailZ52
++ HDec.HSyn.OpenAddedLeaves22.rec ZInQKernel.OneProof.H.TailZ52
++ HDec.HSyn.OpenAddedLeaves22.recOn ZInQKernel.OneProof.H.TailZ52
++ HDec.HSyn.openAddedLeaves18_of_OpenAddedLeaves22 ZInQKernel.OneProof.H.TailZ52
++ HDec.HSyn.openAddedLeaves20_of_OpenAddedLeaves21 ZInQKernel.OneProof.H.TailZ51
++ HDec.HSyn.openTextbookLeaves13HF_of_open16_22 ZInQKernel.OneProof.H.TailZ52
++ HDec.HSyn.sixContactMin_of_open44 ZInQKernel.OneProof.H.TailZ51
++ HDec.HSyn.sixContactMin_of_open45 ZInQKernel.OneProof.H.TailZ52
+~ ZInQ.OneProof.frozenTarget ZInQKernel.OneProof.Main type+value
