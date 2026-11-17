@@ -34,3 +34,27 @@
     longer sees `CommRing ((T ⋙ forget₂ CommRingCat RingCat).obj X)`: `instanceSearchTypes false` flag (as Mathlib's
     own Presheaf/Monoidal.lean) and a file-local instance (tools/patch_pm.py). Two proof lines adjusted (`-- [port]`).
     The three files compile alone (lake env lean). VERIFIED.
+- build2..5: remaining Lean 4.35 repairs (all `-- [port]`): TFAE `.out` 1-indexed (tools/tfae.py),
+  `isMaximal_comap_of_isIntegral_of_isMaximal` → `isMaximal_under_...`, `isMaximal_of_isIntegral_of_isMaximal_comap`
+  → `..._under`, `Ideal.bot_prime` → `Ideal.isPrime_bot`, `ULift.ext` implicit points, `MvPolynomial.coeff` is a
+  projection, `PresheafOfModules.DifferentialsConstruction` → `PresheafOfModulesOfCommRing.…`, three trailing
+  `rfl` removed (goal closed by `rw`), one `try simp only`, backward-compatibility flags
+  (`backward.isDefEq.respectTransparency false`, `backward.defeqAttrib.useBackward true`, `…instanceSearchTypes false`)
+  in the files that needed them, file-local `CommRing ((T ⋙ forget₂ CommRingCat RingCat).obj X)` instances.
+- build5: `Build completed successfully (9623 jobs)` for the FLT target theorem's module. VERIFIED. No `sorry`
+  in any vendored source (grep), none reported by build4/5.
+- NOTICE (upstream NOTICE + modification paragraph), NOTICE.upstream, ATTRIBUTION.upstream.md, LICENSE and
+  SOURCE_MANIFEST.neron-flt.json (576 modules with upstream sha256) added under Vendor/AnthropicFLT/.
+
+## 2026-11-16 17:05 clash scan
+- Main/Discharges rebuilt after the origin/main merge (build-main.log, `Build completed successfully (14106 jobs)`,
+  frozenTarget axioms standard). VERIFIED.
+- clash/DumpFLT.lean (9714 constants of the vendored modules), clash/DumpMain.lean (197382 non-library constants of
+  Main + Discharges + NeronSchemeExtensionExists + StrictHenselizationPair): 58 common names (clash/clashes.txt).
+  7 are realized equation/congr lemmas (`.eq_1`, `.congr_simp`), which do not block imports (flt-cqj2). The others
+  clash with CloudW07JacobiansCurves (Scheme.Modules monoidal/tensor-power API, SheafOfModules monoidal instances,
+  GeometricallyIrreducible.geometricallyConnected, Smooth.isRegularLocalRing_stalk, IsRegularLocalRing.isDomain) and
+  CloudB3W16Dimension's Stacks depth (Module.depth, Module.depth_le_ringKrullDim_quotient_of_mem_associatedPrimes).
+  VERIFIED.
+- tools/rename_clash.py: token rename `t` → `t_nflt` of 18 last components in 44 vendored files, plus the qualified
+  `IsRegularLocalRing.isDomain` → `..._nflt` (5 files); each file's header records it.
