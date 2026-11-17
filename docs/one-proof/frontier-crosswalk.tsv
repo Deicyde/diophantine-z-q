@@ -67,7 +67,7 @@ H-73		ZInQ.Contrib.AVB1.ImageFactorization	f6df5fa32,cba8157f7	no
 H-74		ZInQ.Contrib.AVB1.SimpleSurjIsogeny	f6df5fa32,cba8157f7	no
 H-75		AVB2.T11bExists	f6df5fa32,cba8157f7	no
 H-76		ZInQ.Contrib.NeronC.NeronMappingAbelianSchemeSurj	f6df5fa32,cba8157f7	no
-H-77	neronSchemeExtensionExists	ZInQ.Contrib.NeronC.NeronSchemeExtensionExists	f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
+H-77		ZInQ.Contrib.NeronC.NeronSchemeExtensionExists	f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
 H-78		ZInQ.Contrib.CurvesG.DimJacobianEqGenus	f6df5fa32,cba8157f7,5fd81e870	no
 H-79		ZInQ.Contrib.CurvesG.GenusX1Field	f6df5fa32,cba8157f7,5fd81e870,085a7a53a	no
 H-80		ZInQ.Contrib.CurvesG.NormalModelOfFunctionFieldQ	f6df5fa32,cba8157f7	no

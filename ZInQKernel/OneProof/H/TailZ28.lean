@@ -42,7 +42,9 @@ structure OpenResearchLeaves18 : Prop where
   `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
   identity `e`. Replaces `mumfordRigidityCore`, which also asked Cor. 6.4 (not needed: rigid-prune proves that each
   `ι(a)` is a homomorphism from the field points). -/
-  mumfordGroupLaw : _root_.ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw
+  -- fold33-combine (goodmodel-iso): narrowed to `MumfordGroupLawDVR` (GIT 6.14 over a DVR), which
+  -- `GoodModelIso.mumfordGroupLawDVR_of_dedekind` proves from `neronSchemeExtensionDedekind`
+  mumfordGroupLaw : _root_.ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR
   -- fold33-combine (sga3-nbhd): field `sga3_VIB_3_10` deleted (its readers no longer need SGA 3 VI_B 3.10)
   /-- c-to-printed, printed form: SGA 7 IX 3.3 (`N⁰ ⊗ R' ≅ N'⁰` for semistable reduction; locator UNVERIFIED). -/
   sga7_IX_3_3 : _root_.CToPrinted.SGA7_IX_3_3

@@ -60,7 +60,9 @@ structure OpenResearchLeaves15 : Prop where
   `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
   identity `e`. Replaces `mumfordRigidityCore`, which also asked Cor. 6.4 (not needed: rigid-prune proves that each
   `ι(a)` is a homomorphism from the field points). -/
-  mumfordGroupLaw : _root_.ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw
+  -- fold33-combine (goodmodel-iso): narrowed to `MumfordGroupLawDVR` (GIT 6.14 over a DVR), which
+  -- `GoodModelIso.mumfordGroupLawDVR_of_dedekind` proves from `neronSchemeExtensionDedekind`
+  mumfordGroupLaw : _root_.ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR
   /-- c-to-printed, printed form: Bosch–Lütkebohmert–Raynaud, *Néron models*, §1.2 Prop. 4 (over a Dedekind
   domain, a smooth separated model of finite type is a Néron model iff its localizations at the closed points are;
   locator UNVERIFIED). Replaces `neronLocalizesDVR`. -/

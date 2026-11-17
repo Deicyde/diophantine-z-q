@@ -3,6 +3,7 @@ import ZInQKernel.Contrib.OneProof.SGA7IX33SHPre
 import ZInQKernel.Contrib.OneProof.SGA3NbhdDVR
 import ZInQKernel.Contrib.OneProof.RaynaudSemistableOr
 import ZInQKernel.Contrib.OneProof.MumfordGroupLawConn
+import ZInQKernel.Contrib.OneProof.NeronGoodModelIso
 import ZInQKernel.Contrib.OneProof.NeronBaseChangeBLR72
 import ZInQKernel.Contrib.OneProof.NeronOggShafarevichSep
 import ZInQKernel.Contrib.OneProof.PhiAmpleIsogeny
@@ -54,8 +55,8 @@ structure OpenResearchLeaves28 : Prop where
   sga7_IX_3_3_SHpre : _root_.DictModels.SGA7Pre.SGA7_IX_3_3_SHpre
   /-- dict-models, printed form under either reading of 'semistable': Raynaud's criterion, SGA 7 I Exp. IX Prop. 4.7 (number UNVERIFIED) over a strictly henselian DVR, with the conclusion the disjunction of semistability over k(s) (general torus) and on the geometric special fibre. With geomConnOfRationalPoint (the k(s) -> kbar ascent is proved) replaces raynaudSemistableSH. -/
   raynaudSemistableSHOr : _root_.DictModels.RaynaudOr.RaynaudSemistableSHOr
-  /-- dict-models, printed form: Mumford-Fogarty-Kirwan, GIT, Thm 6.14 over a connected locally noetherian base (numbers UNVERIFIED): the group law on a proper smooth family with a section all of whose fibres are abelian varieties. The gluing over connected components is proved (mumfordGroupLaw_of_conn). Replaces mumfordGroupLaw. -/
-  mumfordGroupLawConn : _root_.DictModels.MumfordConn.MumfordGroupLawConn
+  /-- group-law-dvr + goodmodel-iso, printed form: Bosch-Lutkebohmert-Raynaud, Neron models, 1.4 Thm 3 over an affine Dedekind scheme (existence half; numbers UNVERIFIED). Gives GIT 6.14 over a DVR (GoodModelIso.mumfordGroupLawDVR_of_dedekind, with the comparison glue NeronGoodModelIso proved) and the textbook field neronSchemeExtensionExists (its case D = O_L, neronSchemeExtensionExists_of_dedekind). Replaces mumfordGroupLawConn. -/
+  neronSchemeExtensionDedekind : _root_.ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind
   /-- dict-models, printed form: Bosch-Lutkebohmert-Raynaud, Neron models, 7.2 Thm 1 (numbers and hypotheses UNVERIFIED): Neron models commute with base change along an extension of DVRs of ramification index 1 with separable residue extension (here K'/K separable algebraic, A an abelian variety: specializations). The specialization to strictly henselian O1 is the old field, with no pinning of O^sh (EGA IV 18.8.8 not needed). Replaces neronBaseChangeStrictHenselization. -/
   blr_7_2_1 : _root_.DictModels.NeronBLR72.BLR_7_2_1
   /-- Serre-Tate, Ann. of Math. 88 (1968), Thm 1 (Neron-Ogg-Shafarevich criterion) over a separable closure K_s, inertia of a valuation ring of K_s acting on A(K_s)[m] (numbering UNVERIFIED) -/
@@ -82,7 +83,7 @@ theorem openResearchLeaves27_of_OpenResearchLeaves28 (n : OpenResearchLeaves28) 
   javanpeykarBound := n.javanpeykarBound
   pazukiCor13Upper := n.pazukiCor13Upper
   gaudronRemondThm14 := n.gaudronRemondThm14
-  mumfordGroupLaw := _root_.DictModels.MumfordConn.mumfordGroupLaw_of_conn n.mumfordGroupLawConn
+  mumfordGroupLaw := _root_.ZInQ.Contrib.GoodModelIso.mumfordGroupLawDVR_of_dedekind n.neronSchemeExtensionDedekind
   gonzalezRotgerX6Ab := n.gonzalezRotgerX6Ab
   raynaudSemistableSH := _root_.DictModels.RaynaudOr.raynaudSemistableSH_of_or n.raynaudSemistableSHOr _root_.geomConnOfRationalPoint_proof
   gonzalezRotgerProp56X6 := n.gonzalezRotgerProp56X6

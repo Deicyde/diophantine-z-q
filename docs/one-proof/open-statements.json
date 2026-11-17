@@ -114,11 +114,11 @@
    "docstring":
    "dict-models, printed form under either reading of 'semistable': Raynaud's criterion, SGA 7 I Exp. IX Prop. 4.7 (number UNVERIFIED) over a strictly henselian DVR, with the conclusion the disjunction of semistability over k(s) (general torus) and on the geometric special fibre. With geomConnOfRationalPoint (the k(s) -> kbar ascent is proved) replaces raynaudSemistableSH. ",
    "bundle": "OpenResearchLeaves29"},
-  {"type": "DictModels.MumfordConn.MumfordGroupLawConn",
-   "statement": "DictModels.MumfordConn.MumfordGroupLawConn",
-   "field": "mumfordGroupLawConn",
+  {"type": "ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind",
+   "statement": "ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind",
+   "field": "neronSchemeExtensionDedekind",
    "docstring":
-   "dict-models, printed form: Mumford-Fogarty-Kirwan, GIT, Thm 6.14 over a connected locally noetherian base (numbers UNVERIFIED): the group law on a proper smooth family with a section all of whose fibres are abelian varieties. The gluing over connected components is proved (mumfordGroupLaw_of_conn). Replaces mumfordGroupLaw. ",
+   "group-law-dvr + goodmodel-iso, printed form: Bosch-Lutkebohmert-Raynaud, Neron models, 1.4 Thm 3 over an affine Dedekind scheme (existence half; numbers UNVERIFIED). Gives GIT 6.14 over a DVR (GoodModelIso.mumfordGroupLawDVR_of_dedekind, with the comparison glue NeronGoodModelIso proved) and the textbook field neronSchemeExtensionExists (its case D = O_L, neronSchemeExtensionExists_of_dedekind). Replaces mumfordGroupLawConn. ",
    "bundle": "OpenResearchLeaves29"},
   {"type": "NOSSepDict.NeronOggShafarevichSep",
    "statement": "NOSSepDict.NeronOggShafarevichSep",
@@ -149,25 +149,19 @@
    "field": "mumfordTorsionAlgClosed",
    "docstring":
    "**LEAF (H-25; published form).** Mumford, *Abelian varieties* (1970; 2nd ed. 1974), §4,\nApplication 2, (iv) (UNVERIFIED locator): for an abelian variety `X` of dimension `g` over an\nalgebraically closed field `k` and an integer `n` with `char k ∤ n`, the group\n`X_n = {x ∈ X : nx = 0}` of `n`-torsion points is isomorphic to `(ℤ/nℤ)^{2g}`. Mumford's points\nare the closed points, i.e. the `k`-points (`Pts A k`); `dim` is the topological Krull dimension\nof the underlying space; \"`char k ∤ n`\" with `n ≥ 1` is `(n : k) ≠ 0`; the group isomorphism is a\nbijection `e` with `e(x + y) = e x + e y` (written multiplicatively on points). ",
-   "bundle": "OpenTextbookLeaves15"},
+   "bundle": "OpenTextbookLeaves16"},
   {"type": "ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed",
    "statement": "ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed",
    "field": "charPolyIndepOfEllAlgClosed",
    "docstring":
    "**T7 in Mumford's setting** (consequence of a published theorem). D. Mumford, *Abelian\nvarieties* (1970), §19, Theorem 4 (UNVERIFIED locator; `k` algebraically closed): for\n`φ ∈ End(X)` the polynomial `P_φ(n) = deg(n - φ)` lies in `ℤ[X]`, is monic of degree `2g`, and is\nthe characteristic polynomial of `T_ℓ(φ)` for every `ℓ ≠ char k`. This is\n`PkgI3.CharPolyIndepOfEll` with `[IsAlgClosed k]` added (it drops `deg P = 2g` and\n`P(n) = deg(n - φ)`). ",
-   "bundle": "OpenTextbookLeaves15"},
+   "bundle": "OpenTextbookLeaves16"},
   {"type": "ZInQ.HomLattice.GAGAMorphism",
    "statement": "ZInQ.HomLattice.GAGAMorphism",
    "field": "gagaMorphism",
    "docstring":
    "**GAGA for maps of complex abelian varieties (textbook leaf candidate; Serre, GAGA (1956);\nSGA 1 XII 4.4: `Hom(X, Y) → Hom(X^an, Y^an)` is bijective for `X` proper over `ℂ`; locators\nUNVERIFIED).** Let `φ : ℂ^g ⧸ Λ ≃ A(ℂ)` be a strong uniformization (so `φ` presents `A^an`), and\n`ψ : ℂ^g → B(ℂ)` an analytic homomorphism killing `Λ` (= a holomorphic homomorphism\n`A^an → B^an`). Then `ψ` comes from an algebraic morphism `f : A → B`. ",
-   "bundle": "OpenTextbookLeaves15"},
-  {"type": "ZInQ.Contrib.NeronC.NeronSchemeExtensionExists",
-   "statement": "ZInQ.Contrib.NeronC.NeronSchemeExtensionExists",
-   "field": "neronSchemeExtensionExists",
-   "docstring":
-   "**`NeronSchemeExtensionExists` (LEAF; published, strictly weaker than\n`NeronSchemeModelExists`).** As `NeronSchemeModelExists`, but only the *existence* of the extension\n`Y → N` of an `L`-morphism `Y_L → A_L` is asked for; its uniqueness is automatic\n(`pullback_map_injective`: `Y` is flat over `𝓞_L`, `Spec L → Spec 𝓞_L` is scheme-theoretically\ndominant and `N` is separated). Source: as for `NeronSchemeModelExists` (BLR §1.4 Thm. 3 with §1.2\nDef. 1; locators UNVERIFIED). ",
-   "bundle": "OpenTextbookLeaves15"},
+   "bundle": "OpenTextbookLeaves16"},
   {"type": "T09Pic.PicRepresentableAbVar",
    "statement": "T09Pic.PicRepresentableAbVar",
    "field": "picRepresentableAbVar",
@@ -252,4 +246,4 @@
    "docstring":
    "**The transformation law of the eta quotient `v = η(8τ)η(32τ)²/η(16τ)³` on `Γ₀(32)`**\n(printed leaf; Newman, Gordon–Hughes): `v(γτ) = (2/d) v(τ)` for `γ = [a, b; c, d] ∈ Γ₀(32)`.\n\nThe theorem of Newman (1957, 1959) and Gordon–Hughes (1981), as stated in K. Ono, *The web of\nmodularity* (CBMS 102, 2004), Thm 1.64 (UNVERIFIED locator): if `f = ∏_{δ ∣ N} η(δτ)^{r_δ}` with\n`k = ½ Σ r_δ ∈ ℤ`, `Σ δ r_δ ≡ 0 (mod 24)` and `Σ (N/δ) r_δ ≡ 0 (mod 24)`, then\n`f(γτ) = χ(d) (cτ + d)^k f(τ)` for every `γ ∈ Γ₀(N)`, with `χ(d) = ((−1)^k s / d)`,\n`s = ∏ δ^{r_δ}`. Here `N = 32`, `r₈ = 1`, `r₁₆ = −3`, `r₃₂ = 2`: `k = 0`, `Σ δ r_δ = 24`,\n`Σ (32/δ) r_δ = 0`, `s = 8 · 32² / 16³ = 2`, so `χ(d) = (2/d)`. Stated with Mathlib's `χ₈ = (2/·)`\non `ℤ/8` (the Kronecker symbol `(2/d)` for odd `d`, even in `d`, so `−γ` and `γ` agree). A\nconsequence of the print (one instance). Checked numerically for 602 matrices\n(`scratch/cd-optimal/py/wchar.gp`, for `w = 1/v`). ",
    "bundle": "frozenTarget"}],
- "count": 42}
+ "count": 41}

@@ -1,0 +1,22 @@
+frozenTarget: closure 270400
+  contains CToPrinted.SGA3_VIB_3_10: false
+  contains SGA3IdComp.SGA3_VIB_3_10_Nbhd: false
+  contains SGA3IdComp.sga3_VIB_3_10_of_nbhd: false
+  contains CToPrinted.idComp_baseChange: false
+  contains CToPrinted.semistableNeronBaseChange_of_printed_full: false
+  contains SGA3Nbhd.semistableNeronBaseChange_noSGA3: true
+  contains DictModels.MumfordConn.MumfordGroupLawConn: false
+  contains DictModels.MumfordConn.mumfordGroupLaw_of_conn: false
+  contains ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw: false
+  contains LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_groupLaw: false
+  contains ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind: true
+  contains ZInQ.Contrib.GoodModelIso.mumfordGroupLawDVR_of_dedekind: true
+  contains ZInQ.Contrib.GroupLawNeron.neronSchemeExtensionExists_of_dedekind: true
+  contains ZInQ.Contrib.NeronC.NeronSchemeExtensionExists: true
+  contains ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed: false
+  contains PkgI3.HomFreeFinite: false
+  contains sorryAx: false
+  bundle HDec.HSyn.OpenResearchLeaves29: 24 fields
+    field neronSchemeExtensionDedekind has a checked type: [ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind]
+  bundle HDec.HSyn.OpenTextbookLeaves16: 3 fields
+  bundle HDec.HSyn.OpenAddedLeaves20: 4 fields

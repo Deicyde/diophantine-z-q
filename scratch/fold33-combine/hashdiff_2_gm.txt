@@ -1,0 +1,115 @@
+- HDec.HSyn.OpenResearchLeaves28.mumfordGroupLawConn ZInQKernel.OneProof.H.TailZ45
+- HDec.HSyn.OpenResearchLeaves29.mumfordGroupLawConn ZInQKernel.OneProof.H.TailZ46
++ HDec.HSyn.OpenResearchLeaves28.neronSchemeExtensionDedekind ZInQKernel.OneProof.H.TailZ45
++ HDec.HSyn.OpenResearchLeaves29.neronSchemeExtensionDedekind ZInQKernel.OneProof.H.TailZ46
++ HDec.HSyn.OpenTextbookLeaves16 ZInQKernel.OneProof.H.TailZ49
++ HDec.HSyn.OpenTextbookLeaves16.casesOn ZInQKernel.OneProof.H.TailZ49
++ HDec.HSyn.OpenTextbookLeaves16.charPolyIndepOfEllAlgClosed ZInQKernel.OneProof.H.TailZ49
++ HDec.HSyn.OpenTextbookLeaves16.gagaMorphism ZInQKernel.OneProof.H.TailZ49
++ HDec.HSyn.OpenTextbookLeaves16.mk ZInQKernel.OneProof.H.TailZ49
++ HDec.HSyn.OpenTextbookLeaves16.mk._flat_ctor ZInQKernel.OneProof.H.TailZ49
++ HDec.HSyn.OpenTextbookLeaves16.mumfordTorsionAlgClosed ZInQKernel.OneProof.H.TailZ49
++ HDec.HSyn.OpenTextbookLeaves16.rec ZInQKernel.OneProof.H.TailZ49
++ HDec.HSyn.OpenTextbookLeaves16.recOn ZInQKernel.OneProof.H.TailZ49
++ HDec.HSyn.openTextbookLeaves15_of_OpenTextbookLeaves16 ZInQKernel.OneProof.H.TailZ49
++ HDec.HSyn.sixContactMin_of_open42 ZInQKernel.OneProof.H.TailZ49
+~ HDec.HSyn.OpenResearchLeaves14.casesOn ZInQKernel.OneProof.H.TailZ23 type+value
+~ HDec.HSyn.OpenResearchLeaves14.mk ZInQKernel.OneProof.H.TailZ23 type
+~ HDec.HSyn.OpenResearchLeaves14.mk._flat_ctor ZInQKernel.OneProof.H.TailZ23 type+value
+~ HDec.HSyn.OpenResearchLeaves14.mumfordGroupLaw ZInQKernel.OneProof.H.TailZ23 type
+~ HDec.HSyn.OpenResearchLeaves14.rec ZInQKernel.OneProof.H.TailZ23 type
+~ HDec.HSyn.OpenResearchLeaves14.recOn ZInQKernel.OneProof.H.TailZ23 type
+~ HDec.HSyn.OpenResearchLeaves15.casesOn ZInQKernel.OneProof.H.TailZ25 type+value
+~ HDec.HSyn.OpenResearchLeaves15.mk ZInQKernel.OneProof.H.TailZ25 type
+~ HDec.HSyn.OpenResearchLeaves15.mk._flat_ctor ZInQKernel.OneProof.H.TailZ25 type+value
+~ HDec.HSyn.OpenResearchLeaves15.mumfordGroupLaw ZInQKernel.OneProof.H.TailZ25 type
+~ HDec.HSyn.OpenResearchLeaves15.rec ZInQKernel.OneProof.H.TailZ25 type
+~ HDec.HSyn.OpenResearchLeaves15.recOn ZInQKernel.OneProof.H.TailZ25 type
+~ HDec.HSyn.OpenResearchLeaves16.casesOn ZInQKernel.OneProof.H.TailZ26 type+value
+~ HDec.HSyn.OpenResearchLeaves16.mk ZInQKernel.OneProof.H.TailZ26 type
+~ HDec.HSyn.OpenResearchLeaves16.mk._flat_ctor ZInQKernel.OneProof.H.TailZ26 type+value
+~ HDec.HSyn.OpenResearchLeaves16.mumfordGroupLaw ZInQKernel.OneProof.H.TailZ26 type
+~ HDec.HSyn.OpenResearchLeaves16.rec ZInQKernel.OneProof.H.TailZ26 type
+~ HDec.HSyn.OpenResearchLeaves16.recOn ZInQKernel.OneProof.H.TailZ26 type
+~ HDec.HSyn.OpenResearchLeaves17.casesOn ZInQKernel.OneProof.H.TailZ27 type+value
+~ HDec.HSyn.OpenResearchLeaves17.mk ZInQKernel.OneProof.H.TailZ27 type
+~ HDec.HSyn.OpenResearchLeaves17.mk._flat_ctor ZInQKernel.OneProof.H.TailZ27 type+value
+~ HDec.HSyn.OpenResearchLeaves17.mumfordGroupLaw ZInQKernel.OneProof.H.TailZ27 type
+~ HDec.HSyn.OpenResearchLeaves17.rec ZInQKernel.OneProof.H.TailZ27 type
+~ HDec.HSyn.OpenResearchLeaves17.recOn ZInQKernel.OneProof.H.TailZ27 type
+~ HDec.HSyn.OpenResearchLeaves18.casesOn ZInQKernel.OneProof.H.TailZ28 type+value
+~ HDec.HSyn.OpenResearchLeaves18.mk ZInQKernel.OneProof.H.TailZ28 type
+~ HDec.HSyn.OpenResearchLeaves18.mk._flat_ctor ZInQKernel.OneProof.H.TailZ28 type+value
+~ HDec.HSyn.OpenResearchLeaves18.mumfordGroupLaw ZInQKernel.OneProof.H.TailZ28 type
+~ HDec.HSyn.OpenResearchLeaves18.rec ZInQKernel.OneProof.H.TailZ28 type
+~ HDec.HSyn.OpenResearchLeaves18.recOn ZInQKernel.OneProof.H.TailZ28 type
+~ HDec.HSyn.OpenResearchLeaves19.casesOn ZInQKernel.OneProof.H.TailZ29 type+value
+~ HDec.HSyn.OpenResearchLeaves19.mk ZInQKernel.OneProof.H.TailZ29 type
+~ HDec.HSyn.OpenResearchLeaves19.mk._flat_ctor ZInQKernel.OneProof.H.TailZ29 type+value
+~ HDec.HSyn.OpenResearchLeaves19.mumfordGroupLaw ZInQKernel.OneProof.H.TailZ29 type
+~ HDec.HSyn.OpenResearchLeaves19.rec ZInQKernel.OneProof.H.TailZ29 type
+~ HDec.HSyn.OpenResearchLeaves19.recOn ZInQKernel.OneProof.H.TailZ29 type
+~ HDec.HSyn.OpenResearchLeaves20.casesOn ZInQKernel.OneProof.H.TailZ33 type+value
+~ HDec.HSyn.OpenResearchLeaves20.mk ZInQKernel.OneProof.H.TailZ33 type
+~ HDec.HSyn.OpenResearchLeaves20.mk._flat_ctor ZInQKernel.OneProof.H.TailZ33 type+value
+~ HDec.HSyn.OpenResearchLeaves20.mumfordGroupLaw ZInQKernel.OneProof.H.TailZ33 type
+~ HDec.HSyn.OpenResearchLeaves20.rec ZInQKernel.OneProof.H.TailZ33 type
+~ HDec.HSyn.OpenResearchLeaves20.recOn ZInQKernel.OneProof.H.TailZ33 type
+~ HDec.HSyn.OpenResearchLeaves21.casesOn ZInQKernel.OneProof.H.TailZ34 type+value
+~ HDec.HSyn.OpenResearchLeaves21.mk ZInQKernel.OneProof.H.TailZ34 type
+~ HDec.HSyn.OpenResearchLeaves21.mk._flat_ctor ZInQKernel.OneProof.H.TailZ34 type+value
+~ HDec.HSyn.OpenResearchLeaves21.mumfordGroupLaw ZInQKernel.OneProof.H.TailZ34 type
+~ HDec.HSyn.OpenResearchLeaves21.rec ZInQKernel.OneProof.H.TailZ34 type
+~ HDec.HSyn.OpenResearchLeaves21.recOn ZInQKernel.OneProof.H.TailZ34 type
+~ HDec.HSyn.OpenResearchLeaves22.casesOn ZInQKernel.OneProof.H.TailZ35 type+value
+~ HDec.HSyn.OpenResearchLeaves22.mk ZInQKernel.OneProof.H.TailZ35 type
+~ HDec.HSyn.OpenResearchLeaves22.mk._flat_ctor ZInQKernel.OneProof.H.TailZ35 type+value
+~ HDec.HSyn.OpenResearchLeaves22.mumfordGroupLaw ZInQKernel.OneProof.H.TailZ35 type
+~ HDec.HSyn.OpenResearchLeaves22.rec ZInQKernel.OneProof.H.TailZ35 type
+~ HDec.HSyn.OpenResearchLeaves22.recOn ZInQKernel.OneProof.H.TailZ35 type
+~ HDec.HSyn.OpenResearchLeaves23.casesOn ZInQKernel.OneProof.H.TailZ36 type+value
+~ HDec.HSyn.OpenResearchLeaves23.mk ZInQKernel.OneProof.H.TailZ36 type
+~ HDec.HSyn.OpenResearchLeaves23.mk._flat_ctor ZInQKernel.OneProof.H.TailZ36 type+value
+~ HDec.HSyn.OpenResearchLeaves23.mumfordGroupLaw ZInQKernel.OneProof.H.TailZ36 type
+~ HDec.HSyn.OpenResearchLeaves23.rec ZInQKernel.OneProof.H.TailZ36 type
+~ HDec.HSyn.OpenResearchLeaves23.recOn ZInQKernel.OneProof.H.TailZ36 type
+~ HDec.HSyn.OpenResearchLeaves24.casesOn ZInQKernel.OneProof.H.TailZ37 type+value
+~ HDec.HSyn.OpenResearchLeaves24.mk ZInQKernel.OneProof.H.TailZ37 type
+~ HDec.HSyn.OpenResearchLeaves24.mk._flat_ctor ZInQKernel.OneProof.H.TailZ37 type+value
+~ HDec.HSyn.OpenResearchLeaves24.mumfordGroupLaw ZInQKernel.OneProof.H.TailZ37 type
+~ HDec.HSyn.OpenResearchLeaves24.rec ZInQKernel.OneProof.H.TailZ37 type
+~ HDec.HSyn.OpenResearchLeaves24.recOn ZInQKernel.OneProof.H.TailZ37 type
+~ HDec.HSyn.OpenResearchLeaves25.casesOn ZInQKernel.OneProof.H.TailZ38 type+value
+~ HDec.HSyn.OpenResearchLeaves25.mk ZInQKernel.OneProof.H.TailZ38 type
+~ HDec.HSyn.OpenResearchLeaves25.mk._flat_ctor ZInQKernel.OneProof.H.TailZ38 type+value
+~ HDec.HSyn.OpenResearchLeaves25.mumfordGroupLaw ZInQKernel.OneProof.H.TailZ38 type
+~ HDec.HSyn.OpenResearchLeaves25.rec ZInQKernel.OneProof.H.TailZ38 type
+~ HDec.HSyn.OpenResearchLeaves25.recOn ZInQKernel.OneProof.H.TailZ38 type
+~ HDec.HSyn.OpenResearchLeaves26.casesOn ZInQKernel.OneProof.H.TailZ41 type+value
+~ HDec.HSyn.OpenResearchLeaves26.mk ZInQKernel.OneProof.H.TailZ41 type
+~ HDec.HSyn.OpenResearchLeaves26.mk._flat_ctor ZInQKernel.OneProof.H.TailZ41 type+value
+~ HDec.HSyn.OpenResearchLeaves26.mumfordGroupLaw ZInQKernel.OneProof.H.TailZ41 type
+~ HDec.HSyn.OpenResearchLeaves26.rec ZInQKernel.OneProof.H.TailZ41 type
+~ HDec.HSyn.OpenResearchLeaves26.recOn ZInQKernel.OneProof.H.TailZ41 type
+~ HDec.HSyn.OpenResearchLeaves27.casesOn ZInQKernel.OneProof.H.TailZ44 type+value
+~ HDec.HSyn.OpenResearchLeaves27.mk ZInQKernel.OneProof.H.TailZ44 type
+~ HDec.HSyn.OpenResearchLeaves27.mk._flat_ctor ZInQKernel.OneProof.H.TailZ44 type+value
+~ HDec.HSyn.OpenResearchLeaves27.mumfordGroupLaw ZInQKernel.OneProof.H.TailZ44 type
+~ HDec.HSyn.OpenResearchLeaves27.rec ZInQKernel.OneProof.H.TailZ44 type
+~ HDec.HSyn.OpenResearchLeaves27.recOn ZInQKernel.OneProof.H.TailZ44 type
+~ HDec.HSyn.OpenResearchLeaves28.casesOn ZInQKernel.OneProof.H.TailZ45 type+value
+~ HDec.HSyn.OpenResearchLeaves28.mk ZInQKernel.OneProof.H.TailZ45 type
+~ HDec.HSyn.OpenResearchLeaves28.mk._flat_ctor ZInQKernel.OneProof.H.TailZ45 type+value
+~ HDec.HSyn.OpenResearchLeaves28.rec ZInQKernel.OneProof.H.TailZ45 type
+~ HDec.HSyn.OpenResearchLeaves28.recOn ZInQKernel.OneProof.H.TailZ45 type
+~ HDec.HSyn.OpenResearchLeaves29.casesOn ZInQKernel.OneProof.H.TailZ46 type+value
+~ HDec.HSyn.OpenResearchLeaves29.mk ZInQKernel.OneProof.H.TailZ46 type
+~ HDec.HSyn.OpenResearchLeaves29.mk._flat_ctor ZInQKernel.OneProof.H.TailZ46 type+value
+~ HDec.HSyn.OpenResearchLeaves29.rec ZInQKernel.OneProof.H.TailZ46 type
+~ HDec.HSyn.OpenResearchLeaves29.recOn ZInQKernel.OneProof.H.TailZ46 type
+~ HDec.HSyn.openResearchLeaves27_of_OpenResearchLeaves28 ZInQKernel.OneProof.H.TailZ45 value
+~ HDec.HSyn.openResearchLeaves28_of_OpenResearchLeaves29 ZInQKernel.OneProof.H.TailZ46 value
+~ HDec.HSyn.researchLeaves9_of_open14 ZInQKernel.OneProof.H.TailZ23 value
+~ HDec.HSyn.sixContactMin_of_open28 ZInQKernel.OneProof.H.TailZ34 value
+~ HDec.HSyn.x6Rows_of_open14 ZInQKernel.OneProof.H.TailZ23 value
+~ ZInQ.OneProof.frozenTarget ZInQKernel.OneProof.Main type+value

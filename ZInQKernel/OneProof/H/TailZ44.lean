@@ -43,7 +43,9 @@ structure OpenResearchLeaves27 : Prop where
   `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
   identity `e`. Replaces `mumfordRigidityCore`, which also asked Cor. 6.4 (not needed: rigid-prune proves that each
   `ι(a)` is a homomorphism from the field points). -/
-  mumfordGroupLaw : _root_.ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw
+  -- fold33-combine (goodmodel-iso): narrowed to `MumfordGroupLawDVR` (GIT 6.14 over a DVR), which
+  -- `GoodModelIso.mumfordGroupLawDVR_of_dedekind` proves from `neronSchemeExtensionDedekind`
+  mumfordGroupLaw : _root_.ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR
   /-- x6-glue, printed form (on abelian schemes): González–Rotger, J. Math. Soc. Japan 58 (2006), Thm 5.12 (read by
   the locator audit), residue fields of CM points, on one canonical coarse witness `X₆`. -/
   gonzalezRotgerX6Ab : QMSplit.Moduli.GonzalezRotgerX6Ab

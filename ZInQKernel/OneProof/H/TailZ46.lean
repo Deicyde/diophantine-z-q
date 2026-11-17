@@ -47,8 +47,8 @@ structure OpenResearchLeaves29 : Prop where
   sga7_IX_3_3_SHpre : _root_.DictModels.SGA7Pre.SGA7_IX_3_3_SHpre
   /-- dict-models, printed form under either reading of 'semistable': Raynaud's criterion, SGA 7 I Exp. IX Prop. 4.7 (number UNVERIFIED) over a strictly henselian DVR, with the conclusion the disjunction of semistability over k(s) (general torus) and on the geometric special fibre. With geomConnOfRationalPoint (the k(s) -> kbar ascent is proved) replaces raynaudSemistableSH. -/
   raynaudSemistableSHOr : _root_.DictModels.RaynaudOr.RaynaudSemistableSHOr
-  /-- dict-models, printed form: Mumford-Fogarty-Kirwan, GIT, Thm 6.14 over a connected locally noetherian base (numbers UNVERIFIED): the group law on a proper smooth family with a section all of whose fibres are abelian varieties. The gluing over connected components is proved (mumfordGroupLaw_of_conn). Replaces mumfordGroupLaw. -/
-  mumfordGroupLawConn : _root_.DictModels.MumfordConn.MumfordGroupLawConn
+  /-- group-law-dvr + goodmodel-iso, printed form: Bosch-Lutkebohmert-Raynaud, Neron models, 1.4 Thm 3 over an affine Dedekind scheme (existence half; numbers UNVERIFIED). Gives GIT 6.14 over a DVR (GoodModelIso.mumfordGroupLawDVR_of_dedekind, with the comparison glue NeronGoodModelIso proved) and the textbook field neronSchemeExtensionExists (its case D = O_L, neronSchemeExtensionExists_of_dedekind). Replaces mumfordGroupLawConn. -/
+  neronSchemeExtensionDedekind : _root_.ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind
   /-- Serre-Tate, Ann. of Math. 88 (1968), Thm 1 (Neron-Ogg-Shafarevich criterion) over a separable closure K_s, inertia of a valuation ring of K_s acting on A(K_s)[m] (numbering UNVERIFIED) -/
   neronOggShafarevichSep : _root_.NOSSepDict.NeronOggShafarevichSep
   /-- Diamond-Shurman, GTM 228 (2005), Thm 9.6.5 (k >= 2; Deligne 1971; Shimura 1971 Thm 7.14 for k = 2; numbering UNVERIFIED), printed form: for a normalized eigenform f in S_k(N, chi) (DS Def 5.8.1) with number field K_f and a prime lambda of O_{K_f} over l, a continuous rho_{f,lambda} : G_Q -> GL_2(K_{f,lambda}) (Mathlib's adicCompletion), unramified outside lN, with rho(Frob_p) having characteristic polynomial (or satisfying) x^2 - a_p x + chi(p) p^(k-1) over K_f. Either printed wording gives it by or-introduction; no coefficient dictionary (coeff-ext). -/
@@ -79,7 +79,7 @@ theorem openResearchLeaves28_of_OpenResearchLeaves29 (n : OpenResearchLeaves29) 
   elkiesX6StarFunctionField := n.elkiesX6StarFunctionField
   sga7_IX_3_3_SHpre := n.sga7_IX_3_3_SHpre
   raynaudSemistableSHOr := n.raynaudSemistableSHOr
-  mumfordGroupLawConn := n.mumfordGroupLawConn
+  neronSchemeExtensionDedekind := n.neronSchemeExtensionDedekind
   blr_7_2_1 := _root_.NeronSH.neronBaseChangeUnramifiedDVR_proof
   neronOggShafarevichSep := n.neronOggShafarevichSep
   dsThm965Printed := n.dsThm965Printed

@@ -11,14 +11,14 @@ Each hypothesis is a Lean `Prop`; proving one in Lean, or reducing it to stateme
 removes it. See
 [CONTRIBUTING.md](CONTRIBUTING.md) for how to contribute and check a proof.
 
-**32 hypotheses of the H part** (in the bundles `OpenAddedLeaves20`, `OpenResearchLeaves29`, `OpenTextbookLeaves15`), plus 10 hypotheses of the Tian–Yuan–Zhang and Gross–Zagier parts listed at the end.
+**31 hypotheses of the H part** (in the bundles `OpenAddedLeaves20`, `OpenResearchLeaves29`, `OpenTextbookLeaves16`), plus 10 hypotheses of the Tian–Yuan–Zhang and Gross–Zagier parts listed at the end.
 
-* **Strict count: 12 published / 20 glue** (the strictest flagged reading; no hypothesis carries a strictest-reading flag).
+* **Strict count: 11 published / 20 glue** (the strictest flagged reading; no hypothesis carries a strictest-reading flag).
 * LEAF means a published, refereed theorem stated over genuine definitions in its printed form, or a direct
   instance of it (a special case that needs no argument). GLUE is everything else: a consequence of one theorem,
   a composite of several, project glue, or a leaf whose published form is still pending a reading (`kinds.tsv`,
   column `flag`).
-* By kind: composite 5, consequence 13, published 14.
+* By kind: composite 5, consequence 13, published 13.
 
 ## Kernel-wide readings
 
@@ -73,12 +73,10 @@ ping, and is released if there is no reply within 7 days of the ping.
 | [`sga7_IX_3_5_ForwardGeom`](#sga7_ix_3_5_forwardgeom) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/sga7-35-proof)) | 2026-11-16 |
 | [`r16CoreY`](#r16corey) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/r16-used)) | 2026-11-15 |
 | [`raynaudSemistableSHOr`](#raynaudsemistableshor) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/raynaud-proof)) | 2026-11-16 |
-| [`mumfordGroupLawConn`](#mumfordgrouplawconn) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/group-law)) | 2026-11-16 |
 | [`neronOggShafarevichSep`](#neronoggshafarevichsep) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/nos-proof)) | 2026-11-16 |
 | [`mumfordTorsionAlgClosed`](#mumfordtorsionalgclosed) | the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/81#issuecomment-6887798791)) | 2026-11-15 |
 | [`charPolyIndepOfEllAlgClosed`](#charpolyindepofellalgclosed) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/deg-det)) | 2026-11-16 |
 | [`gagaMorphism`](#gagamorphism) | the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/82#issuecomment-6887799149)) | 2026-11-15 |
-| [`neronSchemeExtensionExists`](#neronschemeextensionexists) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/neron-ext)) | 2026-11-16 |
 | [`picRepresentableAbVar`](#picrepresentableabvar) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/pic-repr)) | 2026-11-16 |
 | [`weilPairingMumford`](#weilpairingmumford) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/weil-proof)) | 2026-11-16 |
 | [`h11`](#h11) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/h11-reduce)) | 2026-11-16 |
@@ -102,8 +100,7 @@ Reduction block: SGA 7 I Exp. IX, BLR 1.2 Prop. 4, Serre-Tate 1968. Claim it on 
 
 Unread locators: SGA 3, EGA IV, Faltings 1983 Lemma 5, GIT, BLR 1.4, 7.2, 7.3. Claim it on [Deicyde #14](https://github.com/Deicyde/diophantine-z-q/issues/14).
 
-* [`mumfordGroupLawConn`](#mumfordgrouplawconn) (LEAF; unverified-locator): Mumford-Fogarty-Kirwan, Geometric Invariant Theory, Thm 6.14 (S connected locally noetherian, F -> S smooth proper with a section e, a fibre an abelian variety: F is an abelian scheme with identity e); numbers UNVERIFIED; dict-models
-* [`neronSchemeExtensionExists`](#neronschemeextensionexists) (LEAF): BLR 1.4 Thm 3
+* [`neronSchemeExtensionDedekind`](#neronschemeextensiondedekind) (LEAF; unverified-locator): Bosch-Lutkebohmert-Raynaud, Neron models (1990), 1.4 Thm 3 with 1.2 Def 1: an abelian variety over the fraction field of a Dedekind domain D has a Neron model over Spec D (existence half; smooth, separated, quasi-compact, extension property for smooth D-schemes); numbers UNVERIFIED; group-law-dvr, goodmodel-iso. Replaces mumfordGroupLawConn (GIT 6.14 over a DVR follows: GoodModelIso.mumfordGroupLawDVR_of_dedekind) and the textbook field neronSchemeExtensionExists (its case D = O_L)
 
 ### Packet R3
 
@@ -186,14 +183,13 @@ Picard scheme and Weil pairing. Claim it on [Deicyde #14](https://github.com/Dei
 | [`picRepresentableAbVar`](#picrepresentableabvar) | added | published | LEAF | pending-review |  |  | [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/pic-repr)) |
 | [`dsThm965Printed`](#dsthm965printed) | research | published | LEAF | unread, unverified-locator | long-pole | T4 | [elliotglazer #84](https://github.com/elliotglazer/diophantine-z-q/issues/84) | 0 | open |
 | [`dsThm966Printed`](#dsthm966printed) | research | published | LEAF | note | reading-hold | T4 | [elliotglazer #84](https://github.com/elliotglazer/diophantine-z-q/issues/84) | 0 | not offered: waits on a ruling about a reading |
-| [`mumfordGroupLawConn`](#mumfordgrouplawconn) | research | published | LEAF | unverified-locator | bigger | T3 | [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/group-law)) |
 | [`neronOggShafarevichSep`](#neronoggshafarevichsep) | research | published | LEAF | unread |  | T4 | [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/nos-proof)) |
+| [`neronSchemeExtensionDedekind`](#neronschemeextensiondedekind) | research | published | LEAF | unverified-locator |  | T4 | [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85) | 0 | open |
 | [`r9a`](#r9a) | research | published | LEAF |  | long-pole | T4 | [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/faltings-cm)) |
 | [`r9b`](#r9b) | research | published | LEAF |  | long-pole | T4 | [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/faltings-cm)) |
 | [`raynaudSemistableSHOr`](#raynaudsemistableshor) | research | published | LEAF | reading-risk |  |  | [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/raynaud-proof)) |
 | [`charPolyIndepOfEllAlgClosed`](#charpolyindepofellalgclosed) | textbook | published | LEAF |  |  | T3 | [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/deg-det)) |
 | [`mumfordTorsionAlgClosed`](#mumfordtorsionalgclosed) | textbook | published | LEAF |  |  | T2-T3 | [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81) | 0 | held by the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/81#issuecomment-6887798791)) |
-| [`neronSchemeExtensionExists`](#neronschemeextensionexists) | textbook | published | LEAF |  |  | T4 | [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/neron-ext)) |
 | [`h11`](#h11) | frozenTarget | published | LEAF | unverified-locator, note |  | T4 | [elliotglazer #74](https://github.com/elliotglazer/diophantine-z-q/issues/74) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/h11-reduce)) |
 | [`hfx`](#hfx) | frozenTarget | published | LEAF | restricted, unread |  | T4 | [elliotglazer #74](https://github.com/elliotglazer/diophantine-z-q/issues/74) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/hfx-proof)) |
 | [`hL29`](#hl29) | frozenTarget | published | LEAF | restricted, unread |  | T4 | [elliotglazer #74](https://github.com/elliotglazer/diophantine-z-q/issues/74) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/h29-proof)) |
@@ -508,7 +504,7 @@ RayClassCFT.ShimuraMainThmIDeligneY3AbU
 
 ### gagaMorphism
 
-* Bundle field `HDec.HSyn.OpenTextbookLeaves15.gagaMorphism`; kind **consequence**, strict **GLUE**; flag: re-rated 11-16 under the dictionary ruling: GAGA's hypothesis (a holomorphic map A^an -> B^an) is reached from IsStrongUnif and IsAnalyticHom only through the holomorphic inverse function theorem (phi^-1 holomorphic), the same hypothesis-direction step as ShimuraThm54; also a use form shaped by homLatticeCorr_of_strong_gaga; print SGA 1 XII 4.4 for proper X (Serre's GAGA is for projective varieties); locator UNVERIFIED (numbers).
+* Bundle field `HDec.HSyn.OpenTextbookLeaves16.gagaMorphism`; kind **consequence**, strict **GLUE**; flag: re-rated 11-16 under the dictionary ruling: GAGA's hypothesis (a holomorphic map A^an -> B^an) is reached from IsStrongUnif and IsAnalyticHom only through the holomorphic inverse function theorem (phi^-1 holomorphic), the same hypothesis-direction step as ShimuraThm54; also a use form shaped by homLatticeCorr_of_strong_gaga; print SGA 1 XII 4.4 for proper X (Serre's GAGA is for projective varieties); locator UNVERIFIED (numbers).
 * Source: Serre, GAGA (1956), for homomorphisms of complex abelian varieties (homlattice 3.2)
 * tier T3-T4 (model triage, unreviewed); discussion: [elliotglazer #82](https://github.com/elliotglazer/diophantine-z-q/issues/82).
 * Human readings recorded: none.
@@ -582,20 +578,6 @@ DSThm966EV.DSThm966Printed
 
 > Deligne-Serre, Formes modulaires de poids 1, Ann. Sci. ENS (4) 7 (1974), Thm 4.1 with (4.1.1), p. 514, as printed: for f != 0 a (cusp) form of type (1, eps) with eps(-1) = -1 that is an eigenvector of the T_p, p not dividing N, with eigenvalues a_p (Tau Ceti EigenformAwayFromLevel N 1, no normalization a_1 = 1), a continuous rho : G_Q -> GL_2(C) with finite image, unramified outside N, with tr rho(Frob_p) = a_p (the T_p-eigenvalue F.eigenvalue p) and det rho(Frob_p) = eps(p). The coefficient form a_p = coeff g p (from a_1 = 1) and eps(-1) = -1 (parity lemma, TauCeti Parity.lean:113) are glue in DSThm966EV.dsThm966_of_printed (coeff-fix).
 
-### mumfordGroupLawConn
-
-* Bundle field `HDec.HSyn.OpenResearchLeaves29.mumfordGroupLawConn`; kind **published**, strict **LEAF**; flag: locator UNVERIFIED (GIT Thm 6.14, S connected).
-* Source: Mumford-Fogarty-Kirwan, Geometric Invariant Theory, Thm 6.14 (S connected locally noetherian, F -> S smooth proper with a section e, a fibre an abelian variety: F is an abelian scheme with identity e); numbers UNVERIFIED; dict-models
-* packet [R2](#packet-r2); label bigger (a bigger investment); tier T3 (model triage, unreviewed); discussion: [elliotglazer #86](https://github.com/elliotglazer/diophantine-z-q/issues/86).
-* Human readings recorded: none.
-* Status: held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/group-law)).
-
-```lean
-DictModels.MumfordConn.MumfordGroupLawConn
-```
-
-> dict-models, printed form: Mumford-Fogarty-Kirwan, GIT, Thm 6.14 over a connected locally noetherian base (numbers UNVERIFIED): the group law on a proper smooth family with a section all of whose fibres are abelian varieties. The gluing over connected components is proved (mumfordGroupLaw_of_conn). Replaces mumfordGroupLaw.
-
 ### neronOggShafarevichSep
 
 * Bundle field `HDec.HSyn.OpenResearchLeaves29.neronOggShafarevichSep`; kind **published**, strict **LEAF**; flag: unread: new printed leaf, no reading recorded.
@@ -609,6 +591,20 @@ NOSSepDict.NeronOggShafarevichSep
 ```
 
 > Serre-Tate, Ann. of Math. 88 (1968), Thm 1 (Neron-Ogg-Shafarevich criterion) over a separable closure K_s, inertia of a valuation ring of K_s acting on A(K_s)[m] (numbering UNVERIFIED)
+
+### neronSchemeExtensionDedekind
+
+* Bundle field `HDec.HSyn.OpenResearchLeaves29.neronSchemeExtensionDedekind`; kind **published**, strict **LEAF**; flag: locator UNVERIFIED (BLR, Neron models, 1.4 Thm 3 with 1.2 Def 1, existence half, affine Dedekind base).
+* Source: Bosch-Lutkebohmert-Raynaud, Neron models (1990), 1.4 Thm 3 with 1.2 Def 1: an abelian variety over the fraction field of a Dedekind domain D has a Neron model over Spec D (existence half; smooth, separated, quasi-compact, extension property for smooth D-schemes); numbers UNVERIFIED; group-law-dvr, goodmodel-iso. Replaces mumfordGroupLawConn (GIT 6.14 over a DVR follows: GoodModelIso.mumfordGroupLawDVR_of_dedekind) and the textbook field neronSchemeExtensionExists (its case D = O_L)
+* packet [R2](#packet-r2); tier T4 (model triage, unreviewed); discussion: [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85).
+* Human readings recorded: none.
+* Status: open.
+
+```lean
+ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind
+```
+
+> group-law-dvr + goodmodel-iso, printed form: Bosch-Lutkebohmert-Raynaud, Neron models, 1.4 Thm 3 over an affine Dedekind scheme (existence half; numbers UNVERIFIED). Gives GIT 6.14 over a DVR (GoodModelIso.mumfordGroupLawDVR_of_dedekind, with the comparison glue NeronGoodModelIso proved) and the textbook field neronSchemeExtensionExists (its case D = O_L, neronSchemeExtensionExists_of_dedekind). Replaces mumfordGroupLawConn.
 
 ### r9a
 
@@ -657,7 +653,7 @@ DictModels.RaynaudOr.RaynaudSemistableSHOr
 
 ### charPolyIndepOfEllAlgClosed
 
-* Bundle field `HDec.HSyn.OpenTextbookLeaves15.charPolyIndepOfEllAlgClosed`; kind **published**, strict **LEAF**.
+* Bundle field `HDec.HSyn.OpenTextbookLeaves16.charPolyIndepOfEllAlgClosed`; kind **published**, strict **LEAF**.
 * Source: Mumford 19 Thm 4 (specialization)
 * tier T3 (model triage, unreviewed); discussion: [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81).
 * Human readings recorded: none.
@@ -676,7 +672,7 @@ ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed
 
 ### mumfordTorsionAlgClosed
 
-* Bundle field `HDec.HSyn.OpenTextbookLeaves15.mumfordTorsionAlgClosed`; kind **published**, strict **LEAF**.
+* Bundle field `HDec.HSyn.OpenTextbookLeaves16.mumfordTorsionAlgClosed`; kind **published**, strict **LEAF**.
 * Source: A(k)[n] = (Z/n)^{2g} over k algebraically closed, char k not dividing n: Mumford, Abelian varieties 4, Application 2 (iv)
 * tier T2-T3 (model triage, unreviewed); discussion: [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81).
 * Human readings recorded: none.
@@ -693,25 +689,6 @@ AvSplit.MumfordTorsionAlgClosed
 > are the closed points, i.e. the `k`-points (`Pts A k`); `dim` is the topological Krull dimension
 > of the underlying space; "`char k ∤ n`" with `n ≥ 1` is `(n : k) ≠ 0`; the group isomorphism is a
 > bijection `e` with `e(x + y) = e x + e y` (written multiplicatively on points).
-
-### neronSchemeExtensionExists
-
-* Bundle field `HDec.HSyn.OpenTextbookLeaves15.neronSchemeExtensionExists`; kind **published**, strict **LEAF**.
-* Source: BLR 1.4 Thm 3
-* packet [R2](#packet-r2); tier T4 (model triage, unreviewed); discussion: [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85).
-* Human readings recorded: none.
-* Status: held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/neron-ext)).
-
-```lean
-ZInQ.Contrib.NeronC.NeronSchemeExtensionExists
-```
-
-> **`NeronSchemeExtensionExists` (LEAF; published, strictly weaker than
-> `NeronSchemeModelExists`).** As `NeronSchemeModelExists`, but only the *existence* of the extension
-> `Y → N` of an `L`-morphism `Y_L → A_L` is asked for; its uniqueness is automatic
-> (`pullback_map_injective`: `Y` is flat over `𝓞_L`, `Spec L → Spec 𝓞_L` is scheme-theoretically
-> dominant and `N` is separated). Source: as for `NeronSchemeModelExists` (BLR §1.4 Thm. 3 with §1.2
-> Def. 1; locators UNVERIFIED).
 
 ## Tian–Yuan–Zhang and Gross–Zagier hypotheses
 

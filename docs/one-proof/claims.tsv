@@ -2,7 +2,6 @@ field	task	status	since	issue	holder_kind	public_holder	claim_url	hold
 mumfordTorsionAlgClosed	cloud batch 2	claimed on the issue 2026-11-15 02:14Z, in progress	2026-11-15	elliotglazer/diophantine-z-q#81	project	project	https://github.com/elliotglazer/diophantine-z-q/issues/81#issuecomment-6887798791	held
 gagaMorphism	cloud batch 2	claimed on the issue 2026-11-15 02:14Z, in progress	2026-11-15	elliotglazer/diophantine-z-q#82	project	project	https://github.com/elliotglazer/diophantine-z-q/issues/82#issuecomment-6887799149	held
 charPolyIndepOfEllAlgClosed	deg-det	host task deg-det running	2026-11-16	elliotglazer/diophantine-z-q#81	project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/deg-det	held
-neronSchemeExtensionExists	neron-ext	host task neron-ext running	2026-11-16	elliotglazer/diophantine-z-q#85	project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/neron-ext	held
 h11	h11-reduce	host task h11-reduce running	2026-11-16	elliotglazer/diophantine-z-q#74	project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/h11-reduce	held
 picRepresentableAbVar	pic-repr	host task pic-repr running	2026-11-16	elliotglazer/diophantine-z-q#81	project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/pic-repr	held
 picZeroAbVar	cloud batch 3	briefed 2026-11-15, not yet claimed on the issue	2026-11-15	elliotglazer/diophantine-z-q#81	project	project		interest
@@ -16,7 +15,6 @@ r9b	faltings-cm	host task faltings-cm running: whether every live instance is CM
 gonzalezRotgerProp56X6	gr56-prove	host task gr56-prove running: Prop. 5.6 at D = 6 from the lattice model and cm-stab	2026-11-15		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/gr56-prove	held
 r16CoreY	r16-used	r16-used done (AfTateCharPoly, rated consequence); parked	2026-11-15		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/r16-used	held
 hCM	cm-primitive	host task cm-primitive running (reading risk of mtcm-polar MainTheoremCMPol)	2026-11-16		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/cm-primitive	held
-mumfordGroupLawConn	group-law	host task group-law running: proves mumfordGroupLaw, which this leaf replaces	2026-11-16		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/group-law	held
 neronOggShafarevichSep	nos-proof	host task nos-proof running: proves r7a, which this leaf replaces	2026-11-16		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/nos-proof	held
 hfx	hfx-proof	host task hfx-proof running	2026-11-16		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/hfx-proof	held
 sga7_IX_3_5_ForwardGeom	sga7-35-proof	host task sga7-35-proof running	2026-11-16		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/sga7-35-proof	held

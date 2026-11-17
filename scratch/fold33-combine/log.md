@@ -74,3 +74,59 @@ already an ancestor of the base (no merge of main needed).
      10 others (33, 13/20 before).
    - `frontier_crosswalk.py` regenerated (tsv unchanged: the field had no frontier ID), `--check` ok.
    - `scratch/contrib-kit/DischargesTest.lean` rerun into its output file.
+3. goodmodel-iso (894fb85b, fold G: `mumfordGroupLawConn` and `neronSchemeExtensionExists` → `neronSchemeExtensionDedekind`):
+   applied by `scratch/fold33-combine/gm_fold.py` (asserts every edit), on top of step 2.
+   - Research side, in place (G.patch's edits): `mumfordGroupLaw : MumfordRigidity.MumfordGroupLaw` narrowed to
+     `GroupLaw.MumfordGroupLawDVR` in `OpenResearchLeaves14`–`27` (14 structures; a two-line comment before each);
+     TailZ23 imports `MumfordGroupLawRed`, its three `qmFamilyGroupLaw_of_groupLaw r.mumfordGroupLaw` become
+     `qmFamilyGroupLaw_of_dvr r.mumfordGroupLaw`; TailZ34's `y3Connected_of_leaves r.mumfordGroupLaw …` becomes
+     `y3Connected_of_ab_gl (qmFamilyGroupLaw_of_dvr r.mumfordGroupLaw) (y3ConnectedAb_of_U …)`; TailZ45 imports
+     `NeronGoodModelIso`, `OpenResearchLeaves28`'s field `mumfordGroupLawConn` becomes `neronSchemeExtensionDedekind`
+     (G's docstring) and `mumfordGroupLaw := GoodModelIso.mumfordGroupLawDVR_of_dedekind n.neronSchemeExtensionDedekind`.
+     On this base the same swap is also needed in `OpenResearchLeaves29` (TailZ46, leaf-fold33's autofold generation,
+     which did not exist on c1e4ed1b): field and pass-through line.
+   - Textbook side, not in place: G's new `OpenTextbookLeaves14` (on c1e4ed1b) is re-expressed as a new top module
+     `OneProof/H/TailZ49.lean` over leaf-fold33b's TailZ48 (autofold's shape, written by the script):
+     `OpenTextbookLeaves16` = `OpenTextbookLeaves15` without `neronSchemeExtensionExists`;
+     `openTextbookLeaves15_of_OpenTextbookLeaves16 (n) (h : NeronSchemeExtensionDedekind)` with
+     `neronSchemeExtensionExists := neronSchemeExtensionExists_of_dedekind h`;
+     `sixContactMin_of_open42 (r : OpenResearchLeaves29) (t : OpenTextbookLeaves16) (l : OpenAddedLeaves20)` :=
+     `sixContactMin_of_open41 r (openTextbookLeaves15_of_OpenTextbookLeaves16 t r.neronSchemeExtensionDedekind) l`.
+     Main imports TailZ49 and calls `sixContactMin_of_open42 r t l` with `t : OpenTextbookLeaves16`; Main's module
+     docstring has a fold33-combine paragraph. The homfree copies of the textbook chain are untouched by this side.
+   - homfree reroute regenerated (taint output identical to step 2's except the closure size; 39 + 96 blocks): the
+     copies `x6Rows_of_open14_hf`, `researchLeaves9_of_open14_hf` and `sixContactMin_of_open28_hf` take the new readers.
+   - kinds.tsv: rows `mumfordGroupLawConn` and `neronSchemeExtensionExists` dropped, row `neronSchemeExtensionDedekind`
+     added (research, published, LEAF/LEAF, flag from goodmodel-iso's fold/autofold-G.json "locator UNVERIFIED (BLR,
+     Neron models, 1.4 Thm 3 with 1.2 Def 1, existence half, affine Dedekind base)", flag class unverified-locator,
+     packet R2 and area issue #85 as the textbook row it absorbs, tier T4, rated_by "goodmodel-iso spec; fold33-combine;
+     pending review"). claims.tsv: the two held project rows (group-law, neron-ext) dropped.
+   Checks (VERIFIED):
+   - `lake build +Main +Discharges ZInQKernel` and every `ZInQKernel/Contrib/OneProof/*.lean` module (includes
+     NeronGoodModelIso, MumfordGroupLawNeron, MumfordGroupLawRed): 14269 jobs, 0 errors.
+   - `#print axioms ZInQ.OneProof.frozenTarget` and `HDec.HSyn.sixContactMin_of_open42`: [propext, Classical.choice, Quot.sound].
+   - Closure (closure_2_gm.txt): 270400 constants; no `DictModels.MumfordConn.MumfordGroupLawConn`,
+     `mumfordGroupLaw_of_conn`, `MumfordRigidity.MumfordGroupLaw`, `qmFamilyGroupLaw_of_groupLaw` (and none of step 2's
+     SGA 3 names, no HomFree, no sorryAx); `NeronSchemeExtensionDedekind`, `mumfordGroupLawDVR_of_dedekind`,
+     `neronSchemeExtensionExists_of_dedekind` are in it. `NeronC.NeronSchemeExtensionExists` stays in the closure as a
+     proved intermediate statement (its consumers take it as an argument), as goodmodel-iso's §5 says; no bundle field
+     of frozenTarget has it as type (textbook bundle `OpenTextbookLeaves16`: 3 fields).
+   - Hash guard (hashes_1_sga3.txt → hashes_2_gm.txt, hashdiff_2_gm.txt): before 14091, after 14102; only before 2
+     (`OpenResearchLeaves28/29.mumfordGroupLawConn`); only after 13 (`OpenResearchLeaves28/29.neronSchemeExtensionDedekind`
+     and TailZ49's 11 constants); changed 100, all explained: the 16 structures `OpenResearchLeaves14`–`29` change a
+     field type, so `mk`, `mk._flat_ctor`, `rec`, `casesOn`, `recOn` change (80); the projection `mumfordGroupLaw` of
+     `OpenResearchLeaves14`–`27` changes type (14); `openResearchLeaves27_of_28` (new supplier) and `28_of_29` (renamed
+     pass-through) change value; the readers `x6Rows_of_open14`, `researchLeaves9_of_open14` (TailZ23) and
+     `sixContactMin_of_open28` (TailZ34) change value; `ZInQ.OneProof.frozenTarget` changes type and value (binder
+     `OpenTextbookLeaves16`, calls `_open42`).
+   - OpenStatements: 41 open hypotheses.
+   - `render_open.py` then `--check`: ok, 41 open hypotheses, all classified; **31 H hypotheses, strictest 11/20**,
+     10 others (32, 12/20 before: −2 LEAF fields + 1 LEAF field).
+   - `frontier_crosswalk.py` regenerated (31 matched; `neronSchemeExtensionDedekind` has no frontier ID), `--check` ok.
+   - DischargesTest rerun.
+   - Blueprint (not editable here; autoform not installed on this host, so not run): two pages name Lean targets that
+     the in-place folds delete: blueprint/roadmap/height-decomposition/abelian-varieties/mumford-group-law.md
+     (`HDec.HSyn.OpenResearchLeaves28.mumfordGroupLawConn`) and group-schemes/identity-component-neighbourhood.md
+     (`HDec.HSyn.OpenResearchLeaves28.sga3_VIB_3_10_Nbhd`). `autoform render --require-declarations` will report them
+     until the blueprint retargets or drops them (the other `\lean`/`lean:` targets checked by grep still exist:
+     `OpenTextbookLeaves13.neronSchemeExtensionExists`, `.charPolyIndepOfEllAlgClosed`, `.poincareComplement`).

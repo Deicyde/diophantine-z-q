@@ -1,5 +1,6 @@
 import ZInQKernel.OneProof.H.TailZ22
 import ZInQKernel.OneProof.H.TailZ40
+import ZInQKernel.Contrib.OneProof.MumfordGroupLawRed
 import ZInQKernel.Contrib.OneProof.FaltingsLemma5Lower
 
 /-! # OneProof H, leaf-fold14 (1/2): the reduct fold, `OpenResearchLeaves14` and `sixContactMin_of_open17`
@@ -650,7 +651,9 @@ structure OpenResearchLeaves14 : Prop where
   `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
   identity `e`. Replaces `mumfordRigidityCore`, which also asked Cor. 6.4 (not needed: rigid-prune proves that each
   `ι(a)` is a homomorphism from the field points). -/
-  mumfordGroupLaw : _root_.ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw
+  -- fold33-combine (goodmodel-iso): narrowed to `MumfordGroupLawDVR` (GIT 6.14 over a DVR), which
+  -- `GoodModelIso.mumfordGroupLawDVR_of_dedekind` proves from `neronSchemeExtensionDedekind`
+  mumfordGroupLaw : _root_.ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR
   /-- c-to-printed, printed form: Bosch–Lütkebohmert–Raynaud, *Néron models*, §1.2 Prop. 4 (over a Dedekind
   domain, a smooth separated model of finite type is a Néron model iff its localizations at the closed points are;
   locator UNVERIFIED). Replaces `neronLocalizesDVR`. -/
@@ -705,7 +708,7 @@ fields change. -/
 `deligneComponentsX6PrintedAb` and `geomConnOfAlgClosure` are no longer read. -/
 theorem x6Rows_of_open14 (r : OpenResearchLeaves14) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves12) :
     LeafAdopt.R1R2fpRepW ∧ X6Kummer.X6ConicModel :=
-  have hR := _root_.LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_groupLaw r.mumfordGroupLaw
+  have hR := _root_.LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_dvr r.mumfordGroupLaw
   QMSplit.Moduli.x6Rows_of_leavesW
     { t5 := _root_.AvSplit.torsionStructure_of_mumford t.mumfordTorsionAlgClosed
       babaGranathR := (_root_.LeafQM.AV.R1UnivRigid.babaGranathRational_iff_ab_gl hR).mpr r.babaGranathRationalAb
@@ -754,7 +757,7 @@ theorem researchLeaves9_of_open14 (r : OpenResearchLeaves14) (t : OpenTextbookLe
     OpenResearchLeaves9 where
   r1r2 := (x6Rows_of_open14 r t l).1
   shimuraFamily := (_root_.LeafQM.AV.R1UnivRigid.shimuraFamily_iff_ab_gl
-      (_root_.LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_groupLaw r.mumfordGroupLaw)).mpr
+      (_root_.LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_dvr r.mumfordGroupLaw)).mpr
     r.shimuraFamilyAb
   igusaPsi4 := r.igusaPsi4
   igusaChi10 := r.igusaChi10
@@ -779,7 +782,7 @@ theorem researchLeaves9_of_open14 (r : OpenResearchLeaves14) (t : OpenTextbookLe
   gaudronRemondThm14 := r.gaudronRemondThm14
   gonzalezRotgerCountX6 :=
     (_root_.LeafQM.AV.R1UnivRigid.gonzalezRotgerCountX6_iff_ab_gl
-      (_root_.LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_groupLaw r.mumfordGroupLaw)).mpr
+      (_root_.LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_dvr r.mumfordGroupLaw)).mpr
       r.gonzalezRotgerCountX6Ab
 
 /-- **G0 with only the open leaves and the open glue** (leaf-fold14, reduct fold; no `sorry`, standard axioms).

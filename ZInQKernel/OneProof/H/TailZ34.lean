@@ -39,7 +39,9 @@ structure OpenResearchLeaves21 : Prop where
   `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in `Over S` with
   identity `e`. Replaces `mumfordRigidityCore`, which also asked Cor. 6.4 (not needed: rigid-prune proves that each
   `ι(a)` is a homomorphism from the field points). -/
-  mumfordGroupLaw : _root_.ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw
+  -- fold33-combine (goodmodel-iso): narrowed to `MumfordGroupLawDVR` (GIT 6.14 over a DVR), which
+  -- `GoodModelIso.mumfordGroupLawDVR_of_dedekind` proves from `neronSchemeExtensionDedekind`
+  mumfordGroupLaw : _root_.ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR
   -- fold33-combine (sga3-nbhd): field `sga3_VIB_3_10` deleted (its readers no longer need SGA 3 VI_B 3.10)
   /-- x6-glue, printed form (on abelian schemes): Baba–Granath, Canad. J. Math. 60 (2008), Thm 2.1 and Lemma 3.1
   (read by the locator audit), on one canonical coarse witness `X₆`: a coordinate `π : X₆ → P¹` whose fibres are the
@@ -142,7 +144,8 @@ theorem openAddedLeaves16_of_OpenAddedLeaves17 (n : OpenAddedLeaves17) : OpenAdd
 (threaded down to `addedLeaves8_of_open9`) by `DCY3Used.y3Connected_of_leaves` from two research fields. -/
 theorem sixContactMin_of_open28 (r : OpenResearchLeaves21) (t : OpenTextbookLeaves11) (l : OpenAddedLeaves17) (g : OpenGlue7) : ZInQ.SixContactMin :=
   sixContactMin_of_open27 (openResearchLeaves20_of_OpenResearchLeaves21 r t) t (openAddedLeaves16_of_OpenAddedLeaves17 l) g
-    (_root_.DCY3Used.y3Connected_of_leaves r.mumfordGroupLaw r.shimuraMainThmIDeligneY3AbU)
+    (_root_.DCY3Used.y3Connected_of_ab_gl (_root_.LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_dvr r.mumfordGroupLaw)
+      (_root_.DCY3Used.y3ConnectedAb_of_U r.shimuraMainThmIDeligneY3AbU))
 
 end HSyn
 
