@@ -19,7 +19,7 @@ jobs:
   kernel:
     name: Complete kernel build and exact-target audit
     runs-on: ubuntu-24.04
-    timeout-minutes: 180
+    timeout-minutes: 360
     env:
       LEAN_NUM_THREADS: '4'
     steps:
@@ -233,7 +233,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: python -B scripts/kernel_base_report.py
-      - name: Add 8 GiB swap for the kernel audit
+      - name: Add 24 GiB swap for the kernel audit
         if: steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false'
         # Preserve existing swap. VM teardown releases this additional file.
         shell: bash
@@ -245,7 +245,7 @@ jobs:
             original_status=$?
             trap - EXIT
             set +e
-            args=(--record-swap build/kernel-ci/swap-status.json --disk-path "$RUNNER_TEMP" --allocation "$allocation")
+            args=(--record-swap build/kernel-ci/swap-status.json --disk-path "$RUNNER_TEMP" --allocation "$allocation" --requested-bytes 25769803776)
             if [[ -n "$swap_file" ]]; then args+=(--added-path "$swap_file"); fi
             python -B scripts/kernel_diagnostics.py "${args[@]}"
             record_status=$?
@@ -257,14 +257,14 @@ jobs:
           df -h "$RUNNER_TEMP"
           swapon --show
           available=$(df -B1 --output=avail "$RUNNER_TEMP" | tail -n 1)
-          if (( available < 12 * 1024 * 1024 * 1024 )); then
+          if (( available < 28 * 1024 * 1024 * 1024 )); then
             allocation='skipped-low-disk'
-            echo '::warning::Less than 12 GiB free; continuing the full kernel audit without additional swap.'
+            echo '::warning::Less than 28 GiB free; cannot add 24 GiB swap while leaving 4 GiB disk headroom. Continuing the full kernel audit with existing swap.'
             echo 'Additional audit swap skipped: insufficient disk space. All audit checks still run.' >> "$GITHUB_STEP_SUMMARY"
           else
             swap_file=$(mktemp "$RUNNER_TEMP/kernel-audit-swap.XXXXXX")
             allocation='added'
-            sudo fallocate -l 8G "$swap_file"
+            sudo fallocate -l 24G "$swap_file"
             sudo chmod 600 "$swap_file"
             sudo mkswap "$swap_file"
             sudo swapon "$swap_file"

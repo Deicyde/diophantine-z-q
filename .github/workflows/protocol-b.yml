@@ -42,7 +42,7 @@ jobs:
       contents: write
       pull-requests: read
       actions: write
-    timeout-minutes: 185
+    timeout-minutes: 360
     env:
       PROGRAM_ACTION: wait-lean
     steps:
@@ -445,7 +445,7 @@ jobs:
           # secrets, GitHub-hosted runners and SHA-pinned actions. Project cache restore
           # is main-only, even for pre-existing reserved refs; save is push-on-main-only.
           # A change requires a reviewed pin update.
-          LEAN_WORKFLOW_SHA256 = '6c2213d6373c9ac6d142619c6326f2da233dcb6891e6be0f408f75fad340e10c'
+          LEAN_WORKFLOW_SHA256 = 'cf5e2e7a8dcf7887295e2c9f3fe5b8e06746431c47e46656efdfa990b1c6a3f3'
           LEAN_REF_PREFIX = 'refs/heads/codex/protocol-b-kernel/'
 
 
@@ -710,7 +710,7 @@ jobs:
                   if not lean_profile_eligible(files):
                       return
                   state.update(eligible=True, head=pr['head']['sha'], base=pr['base']['sha'])
-                  deadline = time.monotonic() + 180 * 60
+                  deadline = time.monotonic() + 355 * 60
                   provisioned = False
                   dispatch_receipt = {}
                   while True:
@@ -726,7 +726,7 @@ jobs:
                           dispatch_receipt = ensure_kernel_dispatch(gh, pr)
                           provisioned = True
                       if time.monotonic() >= deadline:
-                          raise ValueError('Kernel evidence was not ready within 180 minutes; no paid review started. An unresolved claim is retained, never replayed')
+                          raise ValueError('Kernel evidence was not ready within 355 minutes; no paid review started. An unresolved claim is retained, never replayed')
                       log('Lean profile: waiting for direct kernel evidence; no model call or repeated dispatch')
                       time.sleep(30)
               except Exception as error:

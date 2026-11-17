@@ -127,10 +127,10 @@ class PhaseTests(unittest.TestCase):
 
 
 class WorkflowTests(unittest.TestCase):
-    def run_swap_step(self, *, available=20 * 1024**3, command_failure=0, record_failure=0):
+    def run_swap_step(self, *, available=40 * 1024**3, command_failure=0, record_failure=0):
         """Run the real EXIT trap against harmless stand-ins, never sudo or swapon."""
         steps = re.split(r"^      - name: ", WORKFLOW, flags=re.M)[1:]
-        step = next(s for s in steps if s.startswith("Add 8 GiB swap"))
+        step = next(s for s in steps if s.startswith("Add 24 GiB swap"))
         body = step.split("        run: |\n", 1)[1]
         script = "\n".join(line[10:] for line in body.splitlines()) + "\n"
         bash = "C:/Program Files/Git/bin/bash.exe" if os.name == "nt" else shutil.which("bash")
@@ -177,9 +177,11 @@ class WorkflowTests(unittest.TestCase):
         self.assertIn("LEAN_NUM_THREADS: '1'", steps[positions[2]])
         self.assertIn("LEAN_NUM_THREADS: '4'", WORKFLOW.split("    steps:", 1)[0])
 
-    def test_swap_settings_unchanged_and_status_preserved_before_build(self):
-        self.assertIn('sudo fallocate -l 8G "$swap_file"', WORKFLOW)
-        self.assertIn("available < 12 * 1024 * 1024 * 1024", WORKFLOW)
+    def test_six_hour_capacity_and_swap_status_preserved_before_build(self):
+        self.assertIn('sudo fallocate -l 24G "$swap_file"', WORKFLOW)
+        self.assertIn("available < 28 * 1024 * 1024 * 1024", WORKFLOW)
+        self.assertIn("timeout-minutes: 360", WORKFLOW)
+        self.assertIn("--requested-bytes 25769803776", WORKFLOW)
         self.assertIn("trap record_swap_on_exit EXIT", WORKFLOW)
         self.assertLess(WORKFLOW.index("name: Preserve verified swap configuration"),
                         WORKFLOW.index("name: Build all kernel modules"))
@@ -189,7 +191,7 @@ class WorkflowTests(unittest.TestCase):
         result, trace = self.run_swap_step(command_failure=9)
         self.assertEqual(result.returncode, 9, result.stderr)
         self.assertIn("record -B scripts/kernel_diagnostics.py", trace)
-        self.assertIn("--allocation added --added-path", trace)
+        self.assertIn("--allocation added --requested-bytes 25769803776 --added-path", trace)
         result, trace = self.run_swap_step(record_failure=7)
         self.assertEqual(result.returncode, 7, result.stderr)
 
@@ -198,6 +200,23 @@ class WorkflowTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertNotIn("sudo", trace)
         self.assertIn("--allocation skipped-low-disk", trace)
+
+    def test_swap_disk_threshold_leaves_four_gib_after_allocation(self):
+        result, trace = self.run_swap_step(available=28 * 1024**3 - 1)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertNotIn("sudo", trace)
+        result, trace = self.run_swap_step(available=28 * 1024**3)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("sudo fallocate -l 24G", trace)
+        self.assertIn("--requested-bytes 25769803776", trace)
+
+    def test_secret_free_waiter_fits_hosted_job_limit_and_keeps_receipt(self):
+        gate = (ROOT / ".github/workflows/protocol-b.yml").read_text(encoding="utf-8")
+        preflight = gate.split("  kernel_preflight:\n", 1)[1].split("    steps:\n", 1)[0]
+        self.assertIn("timeout-minutes: 360", preflight)
+        wait = gate.split("def wait_lean():", 1)[1].split("SOURCE_CHECK_SCHEMA", 1)[0]
+        self.assertIn("deadline = time.monotonic() + 355 * 60", wait)
+        self.assertIn("An unresolved claim is retained, never replayed", wait)
 
 
 if __name__ == "__main__":

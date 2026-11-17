@@ -128,6 +128,8 @@ class AuditDiagnostics:
 def swap_record(proc=Path("/proc"), added_path=None, requested_bytes=8 * 1024**3,
                 allocation="existing", page_size=None):
     """Read kernel-reported active devices. Do not infer activation from swapon's exit alone."""
+    if type(requested_bytes) is not int or requested_bytes <= 0:
+        raise ValueError("Requested swap size must be a positive integer")
     if allocation == "added" and not added_path:
         raise ValueError("An added-swap record requires its exact path")
     devices = []
@@ -155,10 +157,10 @@ def swap_record(proc=Path("/proc"), added_path=None, requested_bytes=8 * 1024**3
                          if k in {"MemTotal", "MemAvailable", "SwapTotal", "SwapFree"}}}
 
 
-def record_swap(output, disk_path, added_path=None, allocation="existing", proc=Path("/proc")):
+def record_swap(output, disk_path, added_path=None, allocation="existing", proc=Path("/proc"), requested_bytes=8 * 1024**3):
     output.parent.mkdir(parents=True, exist_ok=True)
     try:
-        record = swap_record(proc, added_path, allocation=allocation)
+        record = swap_record(proc, added_path, requested_bytes=requested_bytes, allocation=allocation)
         record["free_disk_bytes"] = shutil.disk_usage(disk_path).free
     except Exception as error:
         record = {"schema": "kernel-swap-status/v1", "verified": False,
@@ -174,6 +176,8 @@ if __name__ == "__main__":
     parser.add_argument("--record-swap", type=Path, required=True)
     parser.add_argument("--disk-path", type=Path, required=True)
     parser.add_argument("--added-path", type=Path)
+    parser.add_argument("--requested-bytes", type=int, default=8 * 1024**3)
     parser.add_argument("--allocation", choices=("existing", "added", "skipped-low-disk"), required=True)
     args = parser.parse_args()
-    record_swap(args.record_swap, args.disk_path, args.added_path, args.allocation)
+    record_swap(args.record_swap, args.disk_path, args.added_path, args.allocation,
+                requested_bytes=args.requested_bytes)
