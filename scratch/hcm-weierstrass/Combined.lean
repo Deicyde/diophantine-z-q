@@ -1868,7 +1868,7 @@ theorem shimuraThm54_of_localBiholo (h : ShimuraThm54LocalBiholo) : ShimuraThm54
   have h0 : ξ' 0 = 0 := by
     have hrep : finPart s * algebraMap (QNeg m) (AfK m) 0 - algebraMap (QNeg m) (AfK m) 0 ∈ latHat m 𝔞 := by
       rw [map_zero, mul_zero, sub_zero, ← map_zero (algebraMap (QNeg m) (AfK m))]
-      exact ZInQ.Contrib.HCMLattice.mem_latHat_of_mem
+      exact T5Glue.mem_latHat_of_mem
         ((ZInQ.Contrib.HCMLattice.mem_of_kappa L hL 0).2 (by rw [hk0]; exact zero_mem _))
     have := hcomm 0 0 fun p _ => ZInQ.Contrib.HCMLattice.rep_local_of_global hm L hL s hrep p
     rw [hk0, hξ.2] at this

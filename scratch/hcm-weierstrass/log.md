@@ -34,3 +34,14 @@ intrinsic complex structure on E(ℂ) = WeierstrassCurve.Affine.Point, and IsAna
   add_of_isAnalyticIso, isManifoldPoint, chartAt_coe, atlas_coord: [propext, Classical.choice, Quot.sound].
 - Contrib file: ZInQKernel/Contrib/OneProof/ShimuraThm54Biholo.lean (60 KB; namespace
   ZInQ.Contrib.HCMWeierstrass; instances scoped), built in 37 s.
+
+## Checks (2026-11-17 03:30-03:45), VERIFIED
+- `lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges`: Build completed successfully (16047 jobs).
+- `#discharges` (Discharges-output.txt): `DISCHARGES [hCM] by ZInQ.Contrib.HCMWeierstrass.shimuraThm54_of_biholo`,
+  still assumes `[ZInQ.Contrib.HCMWeierstrass.ShimuraThm54Biholo]`, axioms standard.
+- FoldCheck.lean (FoldCheck-output.txt): frozenTarget_hCMBiholo and the folded body frozenTarget_hCMBiholo':
+  standard axioms.
+- Combined.lean (Combined-output.txt): hcm-lattice's HCMLattice.lean (b3d51684, copied verbatim, import changed)
+  + leaf ShimuraThm54LocalBiholo (this file's IsAnalyticIso, ξ(0) = O; hcm-lattice's p-component s⁻¹𝔞, s⁻¹u) and
+  shimuraThm54_of_localBiholo : ShimuraThm54LocalBiholo → ShimuraThm54; hcmLattice_isAnalyticIso_iff (with
+  ξ(0) = O, hcm-lattice's IsAnalyticIso ↔ this file's): standard axioms. One fix: mem_latHat_of_mem is T5Glue's.
