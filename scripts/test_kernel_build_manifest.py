@@ -127,6 +127,15 @@ class ManifestTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.verify(self.archive(extras=[('outputs/.lake/build/extra', b'extra')]))
 
+    def test_unknown_extension_is_not_allowed_even_if_manifest_claims_ownership(self):
+        bad = copy.deepcopy(self.manifest)
+        payload = b'not a Lean build output'
+        path = '.lake/build/lib/lean/A.unrecognized.py'
+        bad['modules']['A']['outputs'].append(path)
+        bad['outputs'][path] = {'size': len(payload), 'sha256': hashlib.sha256(payload).hexdigest()}
+        with self.assertRaisesRegex(ValueError, 'does not belong'):
+            self.verify(self.archive(manifest=bad, outputs={**self.outputs, path: payload}))
+
     def test_unowned_multiply_owned_and_wrong_producer_manifest_fail(self):
         bad = copy.deepcopy(self.manifest)
         bad['producer']['run_attempt'] = 1

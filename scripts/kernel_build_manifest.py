@@ -18,6 +18,13 @@ MAX_MANIFEST = 16 * 1024 * 1024
 MAX_OUTPUT_BYTES = 16 * 1024 ** 3
 MAX_MEMBERS = 100000
 
+# Lean/Lake 4.35 Module.{leanLibPath,irPath} and buildLean output names.
+# Unknown extensions cannot ride alongside a module in a trusted bundle.
+LEAN_OUTPUTS = {'olean', 'olean.server', 'olean.private', 'ilean', 'ir', 'ir.sig'}
+IR_OUTPUTS = {'c', 'c.o.export', 'c.o.noexport', 'bc', 'bc.o'}
+LEAN_SUFFIXES = LEAN_OUTPUTS | {s + '.hash' for s in LEAN_OUTPUTS} | {'trace'}
+IR_SUFFIXES = IR_OUTPUTS | {s + '.hash' for s in IR_OUTPUTS} | {'setup.json'}
+
 
 def require(condition, message):
     if not condition:
@@ -45,6 +52,15 @@ def regular_path(value):
 
 def output_path(value):
     return regular_path(value) and value.startswith(('.lake/build/', 'lean/.lake/build/'))
+
+
+def module_output_path(name, source_path, path):
+    root = 'lean/' if source_path.startswith('lean/') else ''
+    for directory, suffixes in (('lib/lean/', LEAN_SUFFIXES), ('ir/', IR_SUFFIXES)):
+        prefix = root + '.lake/build/' + directory + name.replace('.', '/') + '.'
+        if path.startswith(prefix):
+            return path[len(prefix):] in suffixes
+    return False
 
 
 def unique_json(raw):
@@ -189,13 +205,10 @@ def validate_manifest(manifest, producer):
     for name, entry in manifest['modules'].items():
         paths = entry.get('outputs')
         require(isinstance(paths, list) and bool(paths), 'Missing module outputs')
-        root = 'lean/' if entry['inputs']['source_path'].startswith('lean/') else ''
-        prefixes = [root + '.lake/build/' + directory + name.replace('.', '/') + '.'
-                    for directory in ('lib/lean/', 'ir/')]
         for path in paths:
             require(isinstance(path, str) and path in outputs and path not in owned,
                     'Missing, duplicated or multiply owned output')
-            require(any(path.startswith(prefix) for prefix in prefixes),
+            require(module_output_path(name, entry['inputs']['source_path'], path),
                     'Output path does not belong to its module')
             owned.add(path)
         require(any(p.endswith('.olean') for p in paths)
