@@ -113,6 +113,11 @@ its characteristic-`0` form `PicZeroChar0.PicZeroAbVar0`, proved by `PicZeroChar
 theorem, `cartierSmooth_proof`; `Contrib/OneProof/PicZeroAbVarCharZero.lean`), and phisurj's theorems in
 characteristic `0` (`Contrib/OneProof/PhiSurjCharZero.lean`). The originals are unchanged.
 
+fold34-pr then removed the textbook fields `mumfordTorsionAlgClosed` and `gagaMorphism`, proved outright by fork PRs
+#54 (`ZInQ.Contrib.CloudB3W16Torsion.mumfordTorsionAlgClosed_proof`) and #55
+(`ZInQ.Contrib.OneProof.GAGAMorphism.gagaMorphism_proof`): two autofolds, `OpenTextbookLeaves17` (`TailZ56`,
+`sixContactMin_of_open49`) and `OpenTextbookLeaves18` (`TailZ57`, `sixContactMin_of_open50`; docs/research/fold34-pr.md).
+
 The hypotheses of `frozenTarget` are therefore exactly the open statements. Discharging one means replacing a field or
 hypothesis by its proof; the theorem's statement then loses that hypothesis.
 -/

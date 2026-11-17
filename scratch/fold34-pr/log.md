@@ -100,3 +100,4 @@ render_open count at base: 35 open (29 H, strictest 11/18, 6 others).
 base 35 open (29 H, strict 11/18) -> 33 open (27 H, strict and strictest 10/17, 6 others). kinds rows dropped:
 mumfordTorsionAlgClosed (LEAF), gagaMorphism (GLUE); claims rows dropped: the same two (issues #81, #82). No row added.
 Not edited: credits.tsv / fold-queue.tsv (outside this task's allowed files; suggested credits rows in the report).
+- Main.lean docstring: paragraph for TailZ56/TailZ57 added; rebuilt (frozenTarget standard axioms), hash dump byte-identical to hashes_2_gaga.txt, render_open --check ok, autoform check OK (VERIFIED).
