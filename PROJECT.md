@@ -80,11 +80,13 @@ Protocol reference: [Protocol B, edition 2](https://github.com/elliotglazer/prot
 
 This is a review map, not a new acceptance of the historical arguments. Follow
 the current-manuscript profile above before using the labels below. For Version
-18, the following parts need outside review when changed, along with their
+19, the following parts need outside review when changed, along with their
 affected consumers:
 
 | Step | Current manuscript labels | Why it is load-bearing |
 |---|---|---|
+| Selected 195 family | `v19:195-reduction`, `v19:195-rows`, `v19:195-fixed` | Both directions of the guarded coordinate changes, the primitive row basis and the coefficient specialization must agree with the retained 196 parent. |
+| Explicit 250 polynomial | `v19:sum-height`, `v19:reflected-height`, `v19:250-soundness`, `v19:250-completeness`, `v19:250-maps`, `v19:250-rows` | Effective constants, the fixed parameter 10220, simultaneous witnesses and the full decimal expansion must agree. |
 | Selected 196 family and elimination | `q196:fixed`, `q196:general`, `q196:family`, `q196:rows` | Both projection directions, nonzero rescaling factors, all retained guards and printed coefficients must agree with the parent and selected table. |
 | Parent arithmetic and finite algebra | `q198:family`, `q198:finite-algebra`, `q198:soundness`, `q198:completeness` | The 198-coordinate parent must supply the integer characterization for the same parameter and simultaneous witness choices. |
 | Busy Beaver parameter and coefficient bound | `q198bb:fixed`, `q198bb:threshold`, `q198bb:compiler`, `q198bb:coefficient` | The uniform threshold, halting-machine size, machine convention and strict coefficient comparison must justify the selected fixed parameter. |

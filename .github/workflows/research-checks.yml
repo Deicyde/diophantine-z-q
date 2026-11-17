@@ -182,6 +182,8 @@ jobs:
         run: |
           python -B scripts/test_v18_table_binding.py
           python -B scripts/check_v18_table_binding.py --root . --report build/version18/current-table-binding.json
+      - name: Check the Version 19 transformations, printed tables and decimal expression
+        run: python -B research/version19/construction/check.py
       - run: python scripts/check_construction.py --report build/construction-checks.json
       - run: python -B docs/audit-history/issue3/replay_row_hash.py
       - run: python scripts/check_lean.py
@@ -194,6 +196,7 @@ jobs:
             build/precision-call-arguments.json
             build/v18-predecessor-transport.json
             build/version18/*.json
+            build/version19/*.json
 
   paper:
     name: Paper build

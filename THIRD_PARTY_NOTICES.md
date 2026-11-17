@@ -9,6 +9,18 @@ Project licensing applies only to original project material. It does not relicen
 - Jonas Bayer, Marco David, Benedikt Stock, Abhik Pal, Yuri Matiyasevich, and Dierk Schleicher, [*Diophantine Equations and the DPRM Theorem*](https://isa-afp.org/entries/DPRM_Theorem.html), Archive of Formal Proofs, June 6, 2022. The entry is distributed under the BSD license linked on its page. The alpha-sequence and exponentiation constructions are credited in the relevant project sources. The curated construction directory does not vendor the Isabelle development.
 - Other mathematical sources for [Version 3](manuscripts/archive/quartic_9625.pdf) are identified in its bibliography and [dependency evidence](docs/quartic-9625/README.md). The October 11 manuscript has its own bibliography. Historical review reports preserve their particular citations and scope.
 
+## Version 19 construction sources
+
+The selected Brox sources are preserved at commit
+`cd474ee67104586c9d71885a7c95e8a21f12ca0c` of
+[diophantine-z-q_improvements](https://github.com/JoseBrox/diophantine-z-q_improvements).
+Their [input inventory](research/version19/construction/INPUTS.json) records the
+original bytes. The [pinned upstream license](research/version19/construction/inputs/jose/LICENSE)
+is Creative Commons Attribution 4.0 International. The explicit 250-coordinate
+data were supplied by Gemini Carbon, building on Brox's construction. See the
+[construction notices](research/version19/construction/NOTICE.md) for attribution
+and the distinction between upstream data and the independent checkers.
+
 ## Version 18 construction sources
 
 The 196-coordinate reduction is Jose Brox's construction at commit `5c35db3253a70b0875acec4b451cdaac4da3c8fd` of [diophantine-z-q_improvements](https://github.com/JoseBrox/diophantine-z-q_improvements). The [source pins](research/version18/196/provenance/SOURCE-PINS.json) authenticate all 29 preserved source files. The selected table is the unbalanced `family196/polynomial.json`; other supplied variants are retained provenance, not additional selected records.
