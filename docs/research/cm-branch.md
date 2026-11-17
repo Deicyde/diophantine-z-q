@@ -196,6 +196,15 @@ are deleted; `gonzalezRotgerX6Ab` is filled by the new `gonzalezRotgerX6Ab_of_co
 `x6ModuliWitness_of_coarse`, from `x6CoarseModuli` and `shimuraMainThmIDeligneY3AbU`). `no5_split.py` splits
 the result into five files under 130 KB.
 
+**Regenerating on a newer base** (all scripts in `scratch/cm-branch/gen/`, one Lean process at a time):
+1. `python3 mk_top.py <topTheorem> <TailZk>` writes `CMBranch/Top.lean` (`<topTheorem>_cm`); `lake build
+   ZInQKernel.Contrib.OneProof.CMBranch.Top`.
+2. Set the root in `scratch/cm-branch/AffectedList.lean` to `<topTheorem>_cm`, run it with `lake env lean` into
+   `scratch/cm-branch/affected.tsv`.
+3. `python3 gen_no5.py && python3 no5_edits.py && python3 no5_split.py && ./compile_no5.sh` (the edits assert
+   that every pattern they change is present, so a drift in the chain stops them visibly).
+4. `TopFields.lean` (roots and top bundles adjusted) prints the fields read by the old and the new top.
+
 **Remaining.**
 
 1. **Fold** (hand-fold, `scratch/cm-branch/autofold.json`): switch `frozenTarget` to the new top with the
