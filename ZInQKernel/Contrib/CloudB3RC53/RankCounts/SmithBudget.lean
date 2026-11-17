@@ -607,4 +607,86 @@ theorem fixedFieldBudgetSmith_proof : FixedFieldBudgetSmith := by
     e i j δ l h57d tK hK cE ht₁ ht₃ hh hJ hr₁ hr₂
   exact B.budget fr hn hpos fm gm hfg h57a hQ e i j δ l h57d ht₁ ht₃ hh hJ hr₁ hr₂
 
+/-! ## The inputs of RC7's `budget_57`
+
+RC7's `budget_57` (`ZInQKernel/Contrib/OneProof/RC/Determinant/Budget.lean`, draft commit
+79c2699a5) proves `B.mTot ≤ dK + 5 ∧ B.hSmith ≤ hK + 2 * cE + 2 * tK` from, among others, the
+"RankCounts" inputs (their Lean text, with `HD n`, `H0D … H3D` the cohomology of `D_c ⊗ 𝔽₂` and
+`D_c`):
+
+    (hmodel : rankTotal ≤ ∑ n, Module.finrank k (HD n))
+    (hsmith : rankTotal = 2 + 2 * B.mTot)
+    [Subsingleton H0D]
+    (htors : Module.length ℤ_[2] (Submodule.torsion ℤ_[2] H0D) +
+        Module.length ℤ_[2] (Submodule.torsion ℤ_[2] H1D) +
+        Module.length ℤ_[2] (Submodule.torsion ℤ_[2] H2D) +
+        Module.length ℤ_[2] (Submodule.torsion ℤ_[2] H3D) =
+      ∑ i ∈ range B.n, Module.length ℤ_[2] ((Fin (B.m i) → ℤ_[2]) ⧸
+        LinearMap.range (Matrix.diagonal (B.s i)).mulVecLin))
+
+`RC7Budget57Inputs` proves them for the central Smith complex, with `k = 𝔽₂`,
+`HD n = B.centralRed fr n`, `H^n D = B.centralH fr n`, `rankTotal = 2 + 2 * B.mTot` and the free
+generators `fr = (0, 1, 1, 0)` of tex 5379–5380. -/
+
+/-- The cokernel of the central Smith block `diag(s_i)` has length `∑_j v₂(s_ij)`; summed over the
+blocks this is `B.hSmith` (tex 5375–5383). PROVED. -/
+theorem SmithBlocks.sum_length_coker {S O : Type*} [CommRing S] [CommRing O] [Algebra Lam O]
+    (B : SmithBlocks S O) :
+    ∑ i ∈ Finset.range B.n, Module.length ℤ_[2] ((Fin (B.m i) → ℤ_[2]) ⧸
+      LinearMap.range (Matrix.diagonal (B.s i)).mulVecLin) = (B.hSmith : ℕ∞) := by
+  rw [SmithBlocks.hSmith, Nat.cast_sum]
+  refine Finset.sum_congr rfl fun i _ => ?_
+  rw [length_quotient_diagonal, Nat.cast_sum]
+  exact Finset.sum_congr rfl fun j _ => ord_eq_valuation (B.s_ne i j)
+
+/-- `H⁰(D_c) = 0` when there is no free generator in degree zero (tex 5285–5287, 5379–5380).
+PROVED. -/
+theorem SmithBlocks.subsingleton_centralH_zero {S O : Type*} [CommRing S] [CommRing O]
+    [Algebra Lam O] (B : SmithBlocks S O) (fr : ℕ → ℕ) (h0 : fr 0 = 0) :
+    Subsingleton (B.centralH fr 0) := by
+  have e := Hequiv (f := fr) B.σ B.σ_ne 0
+  have : Subsingleton ((Fin (fr 0) → ℤ_[2]) × Q B.σ 0) := by
+    have h1 : Subsingleton (Fin (fr 0) → ℤ_[2]) := by
+      rw [h0]; infer_instance
+    have h2 : Subsingleton (Q B.σ 0) := by
+      refine ⟨fun a b => ?_⟩
+      obtain ⟨y, rfl⟩ := Submodule.mkQ_surjective _ a
+      obtain ⟨z, rfl⟩ := Submodule.mkQ_surjective _ b
+      congr 1
+      funext j; exact (show Fin 0 from j).elim0
+    infer_instance
+  exact e.toEquiv.subsingleton
+
+/-- **RC7's `budget_57` RankCounts inputs, PROVED for the central Smith complex** (tex 5357–5359,
+5375–5383). For RC7's central Smith data `B` (disks in degrees `< 3`, central entries in `(2)`) and
+free generators `fr = (0, 1, 1, 0)` (one in each of degrees one and two, tex 5379–5380):
+`hmodel` and `hsmith` with `rankTotal = 2 + 2 * B.mTot` and `HD n = H^n(D_c ⊗ 𝔽₂)`;
+`[Subsingleton H0D]`; and `htors`, all in RC7's Lean text (`Determinant/Budget.lean`, draft commit
+79c2699a5). -/
+def RC7Budget57Inputs : Prop :=
+  ∀ (S O : Type) [CommRing S] [CommRing O] [Algebra Lam O] (B : SmithBlocks S O) (fr : ℕ → ℕ),
+    B.n ≤ 3 → (∀ i j, 1 ≤ (B.s i j).valuation) →
+    fr 0 = 0 → fr 1 = 1 → fr 2 = 1 → fr 3 = 0 →
+    let rankTotal := 2 + 2 * B.mTot
+    (rankTotal ≤ ∑ n : Fin 4, Module.finrank (ZMod 2) (B.centralRed fr n)) ∧
+    (rankTotal = 2 + 2 * B.mTot) ∧
+    Subsingleton (B.centralH fr 0) ∧
+    (Module.length ℤ_[2] (Submodule.torsion ℤ_[2] (B.centralH fr 0)) +
+        Module.length ℤ_[2] (Submodule.torsion ℤ_[2] (B.centralH fr 1)) +
+        Module.length ℤ_[2] (Submodule.torsion ℤ_[2] (B.centralH fr 2)) +
+        Module.length ℤ_[2] (Submodule.torsion ℤ_[2] (B.centralH fr 3)) =
+      ∑ i ∈ Finset.range B.n, Module.length ℤ_[2] ((Fin (B.m i) → ℤ_[2]) ⧸
+        LinearMap.range (Matrix.diagonal (B.s i)).mulVecLin))
+
+theorem rc7Budget57Inputs_proof : RC7Budget57Inputs := by
+  intro S O _ _ _ B fr hn hpos h0 h1 h2 h3 rankTotal
+  refine ⟨?_, rfl, B.subsingleton_centralH_zero fr h0, ?_⟩
+  · rw [B.sum_finrank_centralRed fr hn hpos]
+    simp only [Fin.sum_univ_four, Fin.val_zero, Fin.val_one, Fin.val_two,
+      show ((3 : Fin 4) : ℕ) = 3 from rfl, h0, h1, h2, h3, rankTotal]
+    omega
+  · have hS := B.sum_length_torsion_centralH fr hn
+    simp only [Fin.sum_univ_four, Fin.val_zero, Fin.val_one, Fin.val_two] at hS
+    exact hS.trans B.sum_length_coker.symm
+
 end ZInQ.Contrib.CloudB3RC53.RankCounts
