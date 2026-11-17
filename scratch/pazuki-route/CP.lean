@@ -24,6 +24,10 @@ def CountablePointsDefinedOver : Prop :=
 /-- `ℂ` under another name, to carry a second algebra structure. -/
 def CTwo : Type := ℂ
 
+/-- The polynomial ring over a countable field is countable. -/
+theorem countable_polynomial (K : Type) [Field K] [Countable K] : Countable K[X] :=
+  Function.Injective.countable (f := fun p : K[X] => p.toFinsupp) Polynomial.toFinsupp_injective
+
 /-- Over a countable field `K ⊆ ℂ` (through `σ`), two elements of `ℂ` transcendental over `σ(K)` are conjugate
 under a ring endomorphism of `ℂ` fixing `σ(K)` (both are part of transcendence bases of `ℂ` of the same
 cardinality `#ℂ`). -/
@@ -40,6 +44,7 @@ theorem exists_ringHom_eval {K : Type} [Field K] [Countable K] (σ : K →+* ℂ
   haveI : FaithfulSMul K[X] CTwo := (faithfulSMul_iff_algebraMap_injective _ _).2 hc
   obtain ⟨s, hs⟩ := exists_isTranscendenceBasis K[X] ℂ
   obtain ⟨t, ht⟩ := exists_isTranscendenceBasis K[X] CTwo
+  haveI : Countable K[X] := countable_polynomial K
   have hR : Cardinal.mk K[X] ≤ Cardinal.aleph0 := Cardinal.mk_le_aleph0
   have hC : Cardinal.aleph0 < Cardinal.mk ℂ := by
     rw [Cardinal.mk_complex]; exact Cardinal.aleph0_lt_continuum
@@ -67,16 +72,21 @@ theorem exists_ringHom_eval {K : Type} [Field K] [Countable K] (σ : K →+* ℂ
   refine ⟨(τ : ℂ →+* CTwo), ?_, ?_⟩
   · ext k
     have h := key (Polynomial.C k)
-    simpa [fa, fc] using h
+    have h' : fa (Polynomial.C k) = σ k := Polynomial.eval₂_C σ a
+    rw [h'] at h
+    exact h.trans (Polynomial.eval₂_C σ c)
   · have h := key Polynomial.X
-    simpa [fa, fc] using h
+    have h' : fa Polynomial.X = a := Polynomial.eval₂_X σ a
+    rw [h'] at h
+    exact h.trans (Polynomial.eval₂_X σ c)
 
 /-- Elements of `ℂ` algebraic over a countable `σ(K)` are countably many. -/
 theorem countable_not_injective {K : Type} [Field K] [Countable K] (σ : K →+* ℂ) :
     Set.Countable {c : ℂ | ¬ Function.Injective (eval₂RingHom σ c)} := by
-  refine (Set.countable_iUnion (fun p : K[X] => ((p.map σ).roots.toFinset : Set ℂ).countable_toSet)).mono ?_
+  haveI : Countable K[X] := countable_polynomial K
+  refine (Set.countable_iUnion (fun p : K[X] => Finset.countable_toSet ((p.map σ).roots.toFinset))).mono ?_
   intro c hc
-  simp only [Set.mem_setOf_eq, injective_iff_map_eq_zero, not_forall] at hc
+  simp only [Set.mem_ofPred_eq, injective_iff_map_eq_zero, not_forall] at hc
   obtain ⟨p, hp0, hp⟩ := hc
   refine Set.mem_iUnion.2 ⟨p, ?_⟩
   simp only [Finset.mem_coe, Multiset.mem_toFinset]
@@ -95,7 +105,7 @@ theorem not_injective_of_countable {K : Type} [Field K] [Countable K] (σ : K �
   let T := {c : ℂ | Function.Injective (eval₂RingHom σ c)}
   have hT : ¬ T.Countable := by
     intro hT
-    apply Cardinal.not_countable_complex
+    apply not_countable_complex
     have : (Set.univ : Set ℂ) = T ∪ {c : ℂ | ¬ Function.Injective (eval₂RingHom σ c)} := by
       ext c; simp [T, em]
     rw [this]
@@ -106,7 +116,7 @@ theorem not_injective_of_countable {K : Type} [Field K] [Countable K] (σ : K �
   let f : ℂ → (R →+* ℂ) := fun c => if hc : c ∈ T then (hex c hc).choose.comp ψ else ψ
   refine Set.MapsTo.countable_of_injOn (f := f) ?_ ?_ hcount
   · intro c hc
-    simp only [Set.mem_setOf_eq, f, hc, ↓reduceDIte]
+    simp only [Set.mem_ofPred_eq, f, hc, ↓reduceDIte]
     rw [RingHom.comp_assoc, hψ]
     exact (hex c hc).choose_spec.1
   · intro c hc c' hc' h
@@ -130,19 +140,19 @@ theorem countablePointsDefinedOver_proof : CountablePointsDefinedOver := by
   let z : Z.left := x (IsLocalRing.closedPoint ℂ)
   obtain ⟨_, ⟨U, hU, rfl⟩, hzU, -⟩ :=
     Z.left.isBasis_affineOpens.exists_subset_of_mem_open (Set.mem_univ z) isOpen_univ
-  have hxU : Set.range x ⊆ Set.range U.ι := by
+  have hxU : Set.range x ⊆ Set.range (Scheme.Opens.ι U) := by
     rintro _ ⟨p, rfl⟩
     rw [Subsingleton.elim p (IsLocalRing.closedPoint ℂ), Scheme.Opens.range_ι]
     exact hzU
-  let x₁ := IsOpenImmersion.lift U.ι x hxU
-  have hx₁ : x₁ ≫ U.ι = x := IsOpenImmersion.lift_fac _ _ _
+  let x₁ := IsOpenImmersion.lift (Scheme.Opens.ι U) x hxU
+  have hx₁ : x₁ ≫ (Scheme.Opens.ι U) = x := IsOpenImmersion.lift_fac _ _ _
   let e := hU.isoSpec
-  let g : Spec Γ(Z.left, U) ⟶ Spec (CommRingCat.of K) := e.inv ≫ U.ι ≫ Z.hom
+  let g : Spec Γ(Z.left, U) ⟶ Spec (CommRingCat.of K) := e.inv ≫ (Scheme.Opens.ι U) ≫ Z.hom
   let φK : CommRingCat.of K ⟶ Γ(Z.left, U) := Spec.preimage g
   have hg : Spec.map φK = g := Spec.map_preimage g
   let ψ : Γ(Z.left, U) ⟶ CommRingCat.of ℂ := Spec.preimage (x₁ ≫ e.hom)
   have hψ' : Spec.map ψ = x₁ ≫ e.hom := Spec.map_preimage _
-  have hxψ : x = Spec.map ψ ≫ e.inv ≫ U.ι := by
+  have hxψ : x = Spec.map ψ ≫ e.inv ≫ (Scheme.Opens.ι U) := by
     rw [hψ', Category.assoc, e.hom_inv_id_assoc, hx₁]
   have hψK : φK ≫ ψ = CommRingCat.ofHom σ := by
     apply Spec.map_injective
@@ -158,9 +168,9 @@ theorem countablePointsDefinedOver_proof : CountablePointsDefinedOver := by
   -- the `K`-homomorphisms `R → ℂ` over `σ` are countably many
   have hcount : Set.Countable {ψ' : Γ(Z.left, U) →+* ℂ | ψ'.comp φK.hom = σ} := by
     refine Set.MapsTo.countable_of_injOn
-      (f := fun ψ' => Spec.map (CommRingCat.ofHom ψ') ≫ e.inv ≫ U.ι) ?_ ?_ hS
+      (f := fun ψ' => Spec.map (CommRingCat.ofHom ψ') ≫ e.inv ≫ (Scheme.Opens.ι U)) ?_ ?_ hS
     · intro ψ' hψ'
-      change (Spec.map (CommRingCat.ofHom ψ') ≫ e.inv ≫ U.ι) ≫ Z.hom = _
+      change (Spec.map (CommRingCat.ofHom ψ') ≫ e.inv ≫ (Scheme.Opens.ι U)) ≫ Z.hom = _
       simp only [Category.assoc]
       change Spec.map (CommRingCat.ofHom ψ') ≫ g = _
       rw [← hg, ← Spec.map_comp]
@@ -168,7 +178,7 @@ theorem countablePointsDefinedOver_proof : CountablePointsDefinedOver := by
       ext k
       exact congrArg (fun f : K →+* ℂ => f k) hψ'
     · intro ψ₁ _ ψ₂ _ h
-      have h' := (cancel_mono (e.inv ≫ U.ι)).1 h
+      have h' := (cancel_mono (e.inv ≫ (Scheme.Opens.ι U))).1 h
       have h'' := Spec.map_injective h'
       exact congrArg CommRingCat.Hom.hom h''
   have halg : ∀ r, ¬ Function.Injective (eval₂RingHom σ (ψ r)) :=
@@ -181,20 +191,20 @@ theorem countablePointsDefinedOver_proof : CountablePointsDefinedOver := by
     { ψ.hom with commutes' := fun k => congrArg (fun f : K →+* ℂ => f k) hψK' }
   let S0 : Subalgebra K ℂ := ψA.range
   haveI : Algebra.FiniteType K S0 :=
-    Algebra.FiniteType.of_surjective inferInstance ψA.rangeRestrict ψA.rangeRestrict_surjective
+    Algebra.FiniteType.of_surjective ψA.rangeRestrict ψA.rangeRestrict_surjective
   haveI : Algebra.IsIntegral K S0 := by
     constructor
     rintro ⟨_, ⟨r, rfl⟩⟩
-    rw [← isIntegral_algHom_iff S0.val Subtype.val_injective]
     have h := halg r
     simp only [injective_iff_map_eq_zero, not_forall] at h
     obtain ⟨p, hp, hp0⟩ := h
-    exact (IsAlgebraic.isIntegral ⟨p, hp0, hp⟩)
+    have hi : IsIntegral K (ψA r) := IsAlgebraic.isIntegral ⟨p, hp0, hp⟩
+    exact (isIntegral_algHom_iff (S0.val) Subtype.val_injective).1 hi
   haveI : Module.Finite K S0 := Algebra.IsIntegral.finite
   have hfield : IsField S0 :=
     (Algebra.IsIntegral.isField_iff_isField (algebraMap K S0).injective).1 (Field.toIsField K)
   let E : IntermediateField K ℂ := S0.toIntermediateField' hfield
-  have hE : E.toSubalgebra = S0 := Subalgebra.toSubalgebra_toIntermediateField' S0 hfield
+  have hE : E.toSubalgebra = S0 := toSubalgebra_toIntermediateField' S0 hfield
   haveI : Module.Finite K E := by
     change Module.Finite K E.toSubalgebra
     rw [hE]; infer_instance
@@ -205,17 +215,17 @@ theorem countablePointsDefinedOver_proof : CountablePointsDefinedOver := by
   let ψE : Γ(Z.left, U) →+* E := ψ.hom.codRestrict E hmem
   have hψE : (E.val : E →+* ℂ).comp ψE = ψ.hom := rfl
   refine ⟨E, inferInstance, inferInstance, inferInstance, (E.val : E →+* ℂ), ?_,
-    Spec.map (CommRingCat.ofHom ψE) ≫ e.inv ≫ U.ι, ?_, ?_⟩
+    Spec.map (CommRingCat.ofHom ψE) ≫ e.inv ≫ (Scheme.Opens.ι U), ?_, ?_⟩
   · ext k; rfl
   · simp only [Category.assoc]
     change Spec.map (CommRingCat.ofHom ψE) ≫ g = _
     rw [← hg, ← Spec.map_comp]
     congr 1
     ext k
-    apply Subtype.val_injective
     change ψ (φK k) = σ k
     exact congrArg (fun f : K →+* ℂ => f k) hψK'
-  · rw [hxψ, ← Category.assoc, ← Spec.map_comp]
-    rfl
+  · rw [hxψ]
+    simp only [← Category.assoc, ← Spec.map_comp]
+    congr 3
 
 end PazukiRouteCP
