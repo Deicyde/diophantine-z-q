@@ -1,7 +1,7 @@
 import Mathlib
 
 /-!
-# mcheck-22p: Proposition `prop:fixed-prime-pattern` (diophantine_zq.tex L1267-1289), stated
+# mcheck-22p: Proposition `prop:fixed-prime-pattern` (diophantine_zq.tex L1267-1297), stated
 
 Mathlib-only restatement, written independently of the kernel's `ZInQ.FixedPrimePattern`
 (`ZInQKernel/Hypotheses/PrimePattern.lean`); `docs/research/mcheck-22p.md` compares the two.
@@ -50,7 +50,7 @@ def GoodP (p : ℕ) : Prop :=
 def Shape (B0 : ℝ) (w : ℤ) : Prop :=
   ∃ ε : ℤ, (ε = 1 ∨ ε = -1) ∧ ∃ k ∈ Kset, ∃ p : ℕ, B0 < p ∧ GoodP p ∧ w = ε * k * p
 
-/-- **Proposition (tex L1267-1289).** For every `A ∈ ℤ` and real `B₀` there are integers
+/-- **Proposition (tex L1267-1297).** For every `A ∈ ℤ` and real `B₀` there are integers
 `u₁, u₂, v`, `v ≠ 0`, such that with `u₃ = A v - u₁ - u₂` each of the 22 values
 `v`, `u_j - b v` (`1 ≤ j ≤ 3`, `b ∈ 𝓑`) has the shape `ε k p`. -/
 def FixedPrimePattern : Prop :=

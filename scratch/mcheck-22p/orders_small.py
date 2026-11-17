@@ -1,9 +1,9 @@
 """mcheck-22p step 2: orders d1, d2 of E: y^2 = x^3 - (75-53 sqrt2)^2 x at the two primes above
 a split p, by direct point counting (#E = p + 1 + sum_x legendre(x^3 - delta^2 x)).
 Samples (each <= 30 primes, run one after another):
-  S1: the first 30 primes p > 324 with p = 1 mod 8, p = 3 mod 7 (the residues c_2, c_7 of tex L1331);
+  S1: the first 30 primes p > 324 with p = 1 mod 8, p = 3 mod 7 (the residues c_2, c_7 of tex L1331-1333);
   S2: the first 30 primes p > 324 with p = 1 mod 8, p != 3 mod 7 (contrast: (7/p) may be +1);
-Checks the claims of tex L1543-1582."""
+Checks the claims of tex L1554-1594."""
 from nt import is_prime as isprime, sqrt_mod, legendre as legendre_symbol
 from math import gcd, isqrt
 

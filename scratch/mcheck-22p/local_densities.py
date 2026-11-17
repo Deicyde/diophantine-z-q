@@ -1,9 +1,9 @@
-"""mcheck-22p step 3: local densities of the 22 forms (tex L1293-1301, L1418-1428, L1644-1668).
+"""mcheck-22p step 3: local densities of the 22 forms (tex L1301-1313, L1420-1431, L1654-1666).
 Forms on T=(u1,u2,v): (0,0,1), (1,0,-b), (0,1,-b), (-1,-1,A-b), b in B.
 (a) For q = 331, 337 and A in a sample of 6 values: exact count of T in F_q^3 with all F != 0;
-    check 1-22/q <= P <= 1-22/q+C(22,2)/q^2 (tex L1421-1424) and log beta_q >= -484/q^2.
+    check 1-22/q <= P <= 1-22/q+C(22,2)/q^2 (tex L1424-1426) and log beta_q >= -484/q^2.
 (b) Fibre F_nu = c (c != 0 mod q): the other 21 restrictions have distinct zero lines and the
-    union has between 21q - C(21,2) and 21q points (tex L1662-1668); q = 331, 4 (nu, A, c) choices.
+    union has between 21q - C(21,2) and 21q points (tex L1657-1666); q = 331, 4 (nu, A, c) choices.
 (c) q <= 324: a residue mod q^5 avoiding all F_nu = 0 mod q^5 exists (proportion <= 22/q^5 < 1).
 (d) series bound: q^2 (log(1-22/q) - 22 log(1-1/q)) >= -484 for all q >= 325 (rational majorant).
 """

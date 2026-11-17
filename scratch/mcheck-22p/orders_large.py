@@ -1,4 +1,4 @@
-"""mcheck-22p step 2, large primes. Primes p meeting ALL residue prescriptions of tex L1329-1332
+"""mcheck-22p step 2, large primes. Primes p meeting ALL residue prescriptions of tex L1330-1333
 (p = 1 mod 8, p = 3 mod 7, p = 1 mod q for odd q <= 324, q != 7), so p+1 has no odd prime factor
 <= 324 other than possibly ... (p+1 = 4 mod 7, = 2 mod q): every odd l | gcd(d1,d2) is > 324.
 Orders: p = a^2 + b^2 (Cornacchia); #E_delta is one of p+1 +- 2a, p+1 +- 2b; the right one is
@@ -6,7 +6,7 @@ identified by testing [N]P = O on 4 random points (independent of the CM theory;
 whether exactly one candidate survives).
 Part A: 30 random pattern primes (seeded). Part B: 3 pattern primes built so that l = 337 divides
 the trace half and p+1 (so gcd(d1,d2) = 4*337): the congruence conditions alone do NOT give
-gcd = 4; the sieve step of tex L1584-1642 is needed for l > L."""
+gcd = 4; the sieve step of tex L1600-1643 is needed for l > L."""
 import random
 from math import gcd, isqrt
 from nt import is_prime, sqrt_mod, legendre, primes_upto
@@ -86,7 +86,7 @@ def crt(rs, ms):
         x += M * t; M *= m
     return x % M, M
 
-# residues of tex L1329-1332
+# residues of tex L1330-1333
 rs, ms = [1], [8]
 for q in PR:
     if q == 2: continue
