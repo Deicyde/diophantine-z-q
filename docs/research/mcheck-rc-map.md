@@ -32,3 +32,21 @@ Columns: tex lines | label | claim | kind | size | depends on | GZ/TYZ contact.
 | 2649-2675 | ex:sec7-ksplit-seed | nonempty K-split unit seed for E^(k); proof via 2-primary of E_l(F_p) of order 4 | own, specific to E_l; App ex:app-nonempty-seeds | 27 | App E/G | none |
 | 2677-2693 | (packet realization) | grounded Laplacian minors, product of top forms -> one choice works for both | own (sketch) | 17 | App simultaneous address | none |
 | 2695-2715 | ex:sec7-final-family | binary family h_x, x in F2^b, with (3.9): simple zero, L_*(h_x k)!=0, j_gen <= omega+C_o, v2 L_* <= 2omega + C_e; hence 2j_rc <= 4omega + C_J | own; App ex:app-simultaneous-address, ex:app-final-family | 21 | two-symbol address, (3.4), (3.8) | uses (3.4) (CST) |
+
+### Section 8 (sec:arithmetic), tex L2718-4380
+
+| tex | label | claim | kind | size | depends on | GZ/TYZ |
+|---|---|---|---|---|---|---|
+| 2718-2741 | (setup) | coefficient rings A_i=(Z/2^i)[t]/t^i, M_i=(T_2E (x) A_i)(chi_h Psi_i); one moving character Psi_i for whole family | own | 24 | ex:arith-moving-character | none |
+| 2743-2760 | ex:arith-data | conventions: Lambda, O, binary family, local conditions | own (definition) | 18 | sec 7 | none |
+| 2761-2830 | ex:arith-conjugate-duality | tau^*M_i = M_i^*(1) via Weil pairing; finite Selmer duality C_U(M) = RHom(C_{U^perp}(M^*(1)),R)[-3] | own + cites Nekovar Selmer complexes (by section, below) | 70 | - | none |
+| 2834-3393 | ex:arith-finite-heegner | finite Heegner/Kolyvagin descent at p=2 with ONE multiplier L: norm relations (4.1) (cites Cai-Chen-Liu Thm 2.15; Elkik/Manin-Drinfeld), CM congruence (H4) (own; Howard 2012 sec 1.7 (13) as cross-ref), (H5)-(H7) derivative classes, descent (H8)-(H9) (Nekovar 4.1.4.1), local descent (H10) (Lang 1956 Thm 1; Silverman IV.3.2(a)), exact one-prime precision (H12)-(H19), coefficient push/Shapiro (H20)-(H21) (Nekovar 8.1.1-8.1.6), local tame diagrams, Selmer-cone witnesses (H22) | own (a full Kolyvagin-system construction at 2; uses Serre open image) | 560 | Serre open image, CCL, Nekovar | Heegner points + Kolyvagin derivatives, own argument; no GZ formula used; NOT a citation of Kolyvagin Thm 1 |
+| 3395-3468 | ex:arith-local-kummer | derived Kummer condition is its exact annihilator with integral isotropy homotopy | own + cites Milne ADT I.2.3, I.3.2-3.5; Nekovar 5.1, 5.2.4, 5.4.3, 6.3.4 | 74 | - | none |
+| 3470-3496 | (4.4), support change | tame split local model; Nekovar Prop 7.8.8(ii) support change, five uses | cites Nekovar 7.8.8(ii) | 27 | - | none |
+| 3498-3702 | ex:arith-moving-character | split primes r = 1 mod 2^B and characters xi of Gal(H_r/K) with xi=1 at active orientations, trivial at 2N, and v2(2 +- a_r) <= c_E = 16d+21 | own (Kummer + Chebotarev + explicit SL2(Z2) group theory) | 205 | Serre open image | none |
+| 3704-3880 | ex:arith-paired-functional | closed degree-2 functional lambda_z = PD(-, j^{-1}c(z)), integral over O[G]; height-one regularity for primitive constituents | own + Nekovar 6.2.5-6.2.8, 6.3.4 | 177 | inner limit (sec 9), local Kummer | none |
+| 3882-3892 | ex:arith-coordinate | coordinate u of [z](x)[lambda] in det line | own (definition) | 11 | - | none |
+| 3894-3988 | ex:arith-central-specialization | central specialization: z_0 = i(LmP), lambda_0 = Kummer dual of c_K(LmP); free coefficients have valuation j_rc + v2(Lm) | own | 95 | (4.5) from finite Heegner | none (point identity only) |
+| 3989-4140 | ex:arith-central-calibration | (4.6): v2 u_prim(0) = 2j_rc - 4omega(h) - s(h) - s(hk) - sum_{p|k} t_p + O(1) at known simple zeros | own (Kummer complex torsion + Cassels isogeny invariance via Milne ADT I.7.3 (7.3.1) + Edixhoven Thm 5.3/Rem 5.4.1 for component groups); uses lem:forward-rank | 152 | lem:forward-rank (Kolyvagin Thm 1 print; Kato Cor 14.3), finite Heegner | via lem:forward-rank: CITES Kolyvagin Thm 1 as print |
+| 4142-4317 | ex:arith-common-coordinate | primitive vs relaxed: l_q u_rel = e_q^2 eps_q u_prim (4.7); universal integral correction eta in O[G] | own (exact algebra; Nekovar 6.4.1-6.4.3) | 176 | moving character | none |
+| 4319-4373 | ex:arith-base-zero | if L'(E/K,1)=0 then u_prim,0(0) = u~_0(0) = 0 | own DVR/Smith argument + "conductor-one height formula" makes Heegner point torsion | 55 | paired functional, (4.5), common coordinate | CITES A PRINT (GZ in CST 1.1 form, conductor one) |
