@@ -32,3 +32,4 @@
   So heightK is relative to K, in the h_x ("2ĥ") convention; constant factors absorbed by ∃ C.
 - Manuscript fixes E non-CM (VERIFIED: tex L1013, L1807, L2836, L6835): CSTThm11Split's non-CM
   restriction costs nothing for the manuscript's uses.
+- Report docs/research/kolyv-cst-printed.md written (statement checks, ratings, uses, known issues, manuscript check, print-reader list).
