@@ -33,3 +33,40 @@ Preserve the old published TeX/PDF pair at its original paths and bytes; do not 
 The `Research checks / Paper build` job runs `scripts/check_version_increment.py --github-event` in addition to the existing current-pair and build checks. For a pull request to the publication branch, the comparison uses the runner's `pull_request.base.sha` and requires it to match the live default branch. A stale concurrent pull request must update and rerun. A default-branch push uses the trusted event's `before` commit. Pre-release branch pushes, integration pull requests and manual branch runs compare against the event repository's live default branch, so draft iterations do not consume publication numbers. Candidate files cannot choose that baseline. A missing or invalid required baseline fails the transition check.
 
 Manual runs on the default branch and tag pushes perform an explicitly labeled current-state check, not a publication-transition acceptance. Local maintainers can use `--base-ref <published-commit>` for a diagnostic comparison or `--state-only` for a state check; GitHub Actions rejects these alternatives and requires its event mode. Protected review and repository merge controls must still establish authorization, review the policy implementation and require a current base. These finite version checks do not authenticate a reviewer or prove the manuscript.
+
+## The explicit-polynomial record
+
+A pull request may claim the explicit-polynomial record only for a new record justified under this policy whose polynomial, written out in plain algebraic notation, is under 100,000 bytes. The notation, the measuring program and the exact rule are in [docs/explicit-record](explicit-record/README.md). The size limit is a repository convention and is not stated in the manuscript.
+
+## Corrections to released versions
+
+A released version is never edited. Its TeX, PDF and data keep their original bytes. A correction is recorded, and enters the manuscript in a later version.
+
+Every correction is classed by what it affects:
+
+| Class | What it concerns | Recorded at once | Manuscript |
+| --- | --- | --- | --- |
+| A | A stated result is wrong, or its proof has a gap | Dated notice on the release page and in the README | New version as soon as a repair has been reviewed |
+| B | Credit or attribution | Dated notice on the release page; README and CREDITS corrected | Corrected in the next version |
+| C | Wording, typography, navigation | Backlog entry only | Corrected in the next version, or deferred with a reason |
+
+The backlog is [issue 129](https://github.com/elliotglazer/diophantine-z-q/issues/129). The review gate appends nonblocking reviewer notes to it automatically. Anyone may add an entry by hand; an entry names the version, the location, the class, and what should change. Notes about gate code or repository tooling are tracked separately from notes about the manuscript.
+
+Each release page carries a "Known corrections" section listing the class A and class B entries for that version, with links. A reader of a released PDF can find there what is known to be wrong with it.
+
+The pull request for a new version lists every open backlog entry against the preceding version and marks each one corrected or deferred, with a reason for each deferral. Review of that pull request checks that the list is complete.
+
+A version containing only corrections is published when a class A entry exists, or when the owner decides the accumulated class B and class C entries justify one. Otherwise corrections are made in the next version published for mathematical reasons. Any such version takes the next integer, as above.
+
+## Approving a release
+
+Any repository collaborator may approve the release of a new manuscript version. A version is released when its pull request merges and its release is published; the conditions are:
+
+1. The designated review check has passed on the exact head. A finding or an incomplete-review item is resolved by repair or by a repository admin's explicit override; a release that needs an override therefore needs an admin.
+2. A collaborator has approved that exact head, by a pull request comment naming the version and the head commit. The approver is not the principal author of the version's new result and is not the person whose agent wrote the pull request.
+3. Every addition to or removal from the credits, the contributor lists or the AI usage statement has been confirmed by the person named, by the operator of the agent named, or by the owner, and the confirmation is linked in the pull request.
+4. No other version pull request is open and ready for review. A second candidate waits, then updates against the published version and takes the next integer.
+
+Until the gate enforces condition 2 itself, the author keeps the version pull request in draft until the approval comment for its current head exists, because an accepted ready pull request merges automatically. A changed head needs a new approval.
+
+Agents preparing a version follow the [manuscript agent guide](manuscript-agent-guide.md).
