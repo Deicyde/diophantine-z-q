@@ -28,7 +28,7 @@ variable {K : Type*} [Field K]
 theorem discr_basis_two [Algebra ℚ K] (c : Basis (Fin 2) ℚ K) (h0 : c 0 = 1) (A B : ℚ)
     (hw : c 1 * c 1 = A • c 1 + B • (1 : K)) :
     Algebra.discr ℚ c = A ^ 2 + 4 * B := by
-  haveI : Module.Finite ℚ K := Module.Finite.of_basis c
+  have : Module.Finite ℚ K := Module.Finite.of_basis c
   have hfin : finrank ℚ K = 2 := by rw [finrank_eq_card_basis c]; simp
   have htr1 : Algebra.trace ℚ K 1 = 2 := by
     rw [← map_one (algebraMap ℚ K), Algebra.trace_algebraMap, hfin]; norm_num
@@ -37,8 +37,9 @@ theorem discr_basis_two [Algebra ℚ K] (c : Basis (Fin 2) ℚ K) (h0 : c 0 = 1)
     rw [Algebra.trace_eq_matrix_trace c, Matrix.trace, Fin.sum_univ_two]
     simp only [Matrix.diag, Algebra.leftMulMatrix_eq_repr_mul, h0, mul_one, hw, c.repr_self,
       map_add, map_smul, Finsupp.add_apply, Finsupp.smul_apply]
-    have h1 : (1 : K) = c 0 := h0.symm
-    rw [h1, c.repr_self, c.repr_self]
+    simp
+    right
+    rw [← h0, c.repr_self]
     simp
   have htrww : Algebra.trace ℚ K (c 1 * c 1) = A * A + 2 * B := by
     rw [hw, map_add, map_smul, map_smul, htrw, htr1, smul_eq_mul, smul_eq_mul]; ring
@@ -92,16 +93,17 @@ theorem discr_eq_of_sq (hD : Int.IsFundamentalDiscr D) (hneg : D < 0)
     (hK : finrank ℚ K = 2) (hδ : δ ^ 2 = (D : K)) : discr K = D := by
   rw [← discr_eq_discr K (thetaBasis hD hneg hK hδ)]
   apply Int.cast_injective (α := ℚ)
-  rw [← eq_intCast (algebraMap ℤ ℚ), ← Algebra.discr_localizationLocalization ℤ ℤ⁰ K]
+  rw [← eq_intCast (algebraMap ℤ ℚ), ← Algebra.discr_localizationLocalization ℤ (nonZeroDivisors ℤ) K]
   have h4 := four_mul_cD hD.1
-  have hval : Algebra.discr ℚ ((thetaBasis hD hneg hK hδ).localizationLocalization ℚ ℤ⁰ K) =
+  have hval : Algebra.discr ℚ ((thetaBasis hD hneg hK hδ).localizationLocalization ℚ (nonZeroDivisors ℤ) K) =
       (D : ℚ) ^ 2 + 4 * (-(cD D : ℚ)) := by
     apply discr_basis_two
     · simp [Basis.localizationLocalization_apply, thetaBasis_apply]
     · simp only [Basis.localizationLocalization_apply, thetaBasis_apply, Matrix.cons_val_one,
         Matrix.cons_val_zero]
-      show (thetaO hD hδ : K) * (thetaO hD hδ : K) = _
-      rw [coe_thetaO, Rat.smul_def, Rat.smul_def, mul_one]
+      have hθ : algebraMap (𝓞 K) K (thetaO hD hδ) = thetaK D δ := rfl
+      simp only [hθ]
+      rw [Rat.smul_def, Rat.smul_def, mul_one]
       have h4K : (4 : K) * (cD D : K) = (D : K) ^ 2 - D := by exact_mod_cast congrArg (Int.cast (R := K)) h4
       simp only [thetaK]
       push_cast
@@ -121,11 +123,11 @@ theorem exists_sq_eq_discr (hK : finrank ℚ K = 2) : ∃ δ : K, δ ^ 2 = (disc
   -- an element outside `ℚ`
   obtain ⟨w, hw⟩ : ∃ w : K, w ∉ Set.range (algebraMap ℚ K) := by
     by_contra h
-    push_neg at h
+    push Not at h
     have : finrank ℚ K = 1 := by
-      have hbot : (⊥ : Subalgebra ℚ K) = ⊤ := by
-        rw [eq_top_iff]; intro x _; exact h x
-      rw [← Subalgebra.finrank_top', ← hbot, Subalgebra.finrank_bot]
+      have hbot : (⊥ : IntermediateField ℚ K) = ⊤ := by
+        rw [eq_top_iff]; intro x _; exact IntermediateField.mem_bot.mpr (h x)
+      exact IntermediateField.bot_eq_top_iff_finrank_eq_one.mp hbot
     omega
   have hli : LinearIndependent ℚ ![(1 : K), w] := by
     rw [LinearIndependent.pair_iff]
@@ -141,7 +143,7 @@ theorem exists_sq_eq_discr (hK : finrank ℚ K = 2) : ∃ δ : K, δ ^ 2 = (disc
       rw [eq_ratCast]
       push_cast
       field_simp
-      linear_combination hst
+      linear_combination (-1 : K) * hst
   let c := basisOfLinearIndependentOfCardEqFinrank hli (by simp [hK])
   have hc0 : c 0 = 1 := by simp [c]
   have hc1 : c 1 = w := by simp [c]
@@ -162,13 +164,15 @@ theorem exists_sq_eq_discr (hK : finrank ℚ K = 2) : ∃ δ : K, δ ^ 2 = (disc
   have hdisc : (discr K : ℚ) = (c.toMatrix b').det ^ 2 * (A ^ 2 + 4 * B) := by
     rw [coe_discr, ← hdc, ← Algebra.discr_of_matrix_vecMul, ← hb']
     simp only [b', Basis.coe_reindex, Algebra.discr_reindex]
-  refine ⟨((c.toMatrix b').det : K) * (2 * w - (A : K)), ?_⟩
+  obtain ⟨d, hd⟩ : ∃ d : ℚ, d = (c.toMatrix b').det := ⟨_, rfl⟩
+  rw [← hd] at hdisc
+  refine ⟨(d : K) * (2 * w - (A : K)), ?_⟩
   have : ((discr K : ℤ) : K) = (((discr K : ℚ)) : K) := (Rat.cast_intCast _).symm
   rw [this, hdisc]
   have hww' : w * w = (A : K) * w + (B : K) := by
     rw [← hc1, hww, Rat.smul_def, Rat.smul_def, mul_one]
   push_cast
-  linear_combination (4 * ((c.toMatrix b').det : K) ^ 2) * hww'
+  linear_combination (4 * (d : K) ^ 2) * hww'
 
 end Exists
 
