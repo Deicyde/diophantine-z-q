@@ -1,0 +1,27 @@
+/-
+Vendored from anthropics/fermats-last-theorem, commit 6e837e75355538c7f80bab5b956861e86c4eacc2, Apache-2.0.
+Upstream module: P2M.Sol.S_IsIntegrallyClosed_height_eq_one_of_mem_associatedPrimes
+Modified for the Z-in-Q kernel (2026-11-16, task neron-flt): local import paths are relocated
+(`P2M.Util` is the copy published by Cloud Worker 2) and the upstream lakefile options are set
+as `set_option` lines after the imports; any other change is marked `-- [port]`.
+Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
+Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+-/
+import Mathlib
+import ZInQKernel.Contrib.OneProof.NeronFLT.Vendor.AnthropicFLT.Theorems.Thm_IsIntegrallyClosed_isDiscreteValuationRing_localization_of_mem_associatedPrimes
+import ZInQKernel.Contrib.OneProof.NeronFLT.Vendor.AnthropicFLT.Theorems.Thm_Ideal_height_eq_one_of_isDiscreteValuationRing_localization_atPrime
+import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
+
+set_option maxHeartbeats 4000000
+set_option synthInstance.maxHeartbeats 400000
+set_option backward.isDefEq.respectTransparency.types false
+set_option autoImplicit false
+
+namespace P2MW.S_IsIntegrallyClosed_height_eq_one_of_mem_associatedPrimes
+
+theorem solution
+    {B : Type*} [CommRing B] [IsDomain B] [IsNoetherianRing B] [IsIntegrallyClosed B]
+    {x : B} (hx : x ≠ 0) (P : Ideal B) [P.IsPrime]
+    (hP : P ∈ associatedPrimes B (B ⧸ Ideal.span {x})) : P.height = 1 :=
+  Ideal.height_eq_one_of_isDiscreteValuationRing_localization_atPrime P
+    (IsIntegrallyClosed.isDiscreteValuationRing_localization_of_mem_associatedPrimes hx P hP)

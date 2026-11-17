@@ -1,0 +1,10 @@
+{"name": "neron-flt",
+ "imports": ["ZInQKernel.Contrib.OneProof.NeronDVRLocalSH"],
+ "discharges": [
+   {"field": "neronSchemeExtensionExists",
+    "proof": "_root_.NeronFLT.neronSchemeExtensionExists_of_descentSH {n}.neronDescentSH",
+    "leaves": [{"name": "neronDescentSH", "type": "_root_.NeronFLT.NeronDescentSH",
+                "doc": "Bosch-Lutkebohmert-Raynaud, Neron models (1990): descent of Neron models from the strict henselization (a smooth K-group scheme of finite type has a Neron model over the DVR R if and only if its base change to K^sh has one over R^sh; 7.2 Thm 1 / 6.5, locator UNVERIFIED), the 'if' direction for abelian varieties, R^sh pinned by IsSHSep as in GapSHPair.NeronBaseChangeStrictHenselization. Existence over henselian DVRs is proved (vendored FLT development, NeronFLT.exists_neron_of_henselian).",
+                "kind": "published",
+                "flag": "locator UNVERIFIED (BLR 7.2 Thm 1 / 6.5: Neron models descend from R^sh to R); R^sh pinned by IsSHSep (EGA IV 18.8.8 reading, as GapSHPair)",
+                "source": "BLR 7.2 Thm 1 / 6.5 (descent from the strict henselization)"}]}]}

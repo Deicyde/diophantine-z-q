@@ -1,0 +1,2 @@
+import ZInQKernel.Contrib.OneProof.NeronSchemeExtensionDVRSH
+#print axioms NeronFLT.GLD.neronSchemeExtensionDVR_of_descentSH
