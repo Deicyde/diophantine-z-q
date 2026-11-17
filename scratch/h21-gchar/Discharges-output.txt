@@ -1,0 +1,7 @@
+DISCHARGES [h21C] by ZInQ.Contrib.H21CSteps.tyzThm21PairsC_of_span
+  still assumes: [ZInQ.Contrib.H21CSteps.TYZThm21Span]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [h21C] by ZInQ.Contrib.H21GChar.tyzThm21PairsC_of_G
+  still assumes: [ZInQ.Contrib.H21GChar.TYZThm21PairsG]
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 39 open hypotheses, 13550 theorems checked, 27 discharge one
