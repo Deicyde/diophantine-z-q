@@ -31,7 +31,7 @@
 
 **Replay:** run `python3 scratch/fold-chev/gen/gen_bypass.py` on any later head. It follows Main's chain, so it works on
 top of further autofolds; this was tested in text only, on a head with a fake extra autofold. Keep the Contrib commit and
-regenerate the fold. Report: `docs/research/fold-chev.md`; log: `scratch/fold-chev/log.md`.
+regenerate the fold. Commits: 36808d3e merge, c0761608 Contrib move, c72c936a generator, ba5f6df5 fold. Report: `docs/research/fold-chev.md`; log: `scratch/fold-chev/log.md`.
 
 **What remains:** nothing for this fold. A side note: `ZInQ.ChevFree.pazukiCor13Upper_of_printed_free` would let
 `pazukiCor13Upper` be retyped to height-fix's printed leaf. That is a rating question and was not done.
