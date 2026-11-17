@@ -16,7 +16,6 @@ No `sorry`, no `axiom`. -/
 noncomputable section
 
 set_option linter.unusedSectionVars false
-set_option synthInstance.maxHeartbeats 400000
 
 namespace R16Split
 
@@ -27,17 +26,27 @@ section KernelC
 open PkgI3 PkgI3.AbVar LeafModCurves
 open CategoryTheory Limits MonoidalCategory CartesianMonoidalCategory MonObj
 
+/-- **T7 at abelian varieties over `ℚ`**: the body of `PkgI3.CharPolyIndepOfEll` at `k = ℚ` (the only field at which
+`R16Split.trace_endV_rat` applies it). -/
+def CharPolyIndepOfEllAtQ : Prop :=
+  ∀ (A : AbVar ℚ) (φ : AbVar.End A), ∃ P : Polynomial ℤ, P.Monic ∧
+    ∀ (ℓ : ℕ) [Fact ℓ.Prime], (ℓ : ℚ) ≠ 0 →
+      ∀ (I : Type) [Fintype I] [DecidableEq I] (b : Module.Basis I ℚ_[ℓ] (A.V ℓ)),
+        (LinearMap.toMatrix b b ((homT (ℓ := ℓ) φ).baseChange ℚ_[ℓ])).charpoly =
+          P.map (Int.castRingHom ℚ_[ℓ])
+
 variable (ℓ : ℕ) [Fact ℓ.Prime]
 
 /-- **Rational traces (from Mumford §19 Thm 4 over `ℚ`, `CharPolyIndepOfEllC`; copy of `trace_endV_rat`).** Every element of
 `End⁰(A)` has rational trace on `V_ℓ(A)`. -/
-theorem trace_endV_ratC (hCP : ZInQ.Contrib.OneProof.CharPolyLattice.CharPolyIndepOfEllC) (A : AbVar ℚ)
+theorem trace_endV_ratC (hCP : CharPolyIndepOfEllAtQ) (A : AbVar ℚ)
     [Module.Finite ℚ_[ℓ] (A.V ℓ)] (x : A.End0) :
     ∃ r : ℚ, LinearMap.trace ℚ_[ℓ] (A.V ℓ) (endV ℓ A x) = (r : ℚ_[ℓ]) := by
   induction x using TensorProduct.induction_on with
   | zero => exact ⟨0, by simp⟩
   | tmul q e =>
-    obtain ⟨P, -, hP⟩ := hCP ℚ (Rat.castHom ℂ) A e
+    have : Module.Free ℚ_[ℓ] (A.V ℓ) := Module.Free.of_divisionRing ℚ_[ℓ] (A.V ℓ)
+    obtain ⟨P, -, hP⟩ := hCP A e
     have h : LinearMap.trace ℚ_[ℓ] (A.V ℓ) ((homT (ℓ := ℓ) e).baseChange ℚ_[ℓ]) =
         ((-P.nextCoeff : ℤ) : ℚ_[ℓ]) := by
       rw [LinearMap.trace_eq_matrix_trace ℚ_[ℓ] (Module.finBasis ℚ_[ℓ] (A.V ℓ)),
@@ -56,7 +65,7 @@ theorem trace_endV_ratC (hCP : ZInQ.Contrib.OneProof.CharPolyLattice.CharPolyInd
 /-- **Glue (proved): the rank-two clause from the dimension clause.** If a number field `F` acts on
 `A` through `θ` and `dim A = [F : ℚ]`, then every `ι`-eigenfunctional space of `V_ℓ(A)` has
 dimension `2`. Uses `PkgI3.TateModuleFree` and `PkgI3.CharPolyIndepOfEll` (Mumford §19 Thm 4). -/
-theorem rank_two_of_dimC (hT : PkgI3.TateModuleFree) (hCP : ZInQ.Contrib.OneProof.CharPolyLattice.CharPolyIndepOfEllC)
+theorem rank_two_of_dimC (hT : PkgI3.TateModuleFree) (hCP : CharPolyIndepOfEllAtQ)
     (A : AbVar ℚ) {F : Type} [Field F] [Algebra ℚ F] [FiniteDimensional ℚ F] (θ : F →+* A.End0)
     (hdim : A.dim = ((Module.finrank ℚ F : ℕ) : WithBot ℕ∞)) (emb : F →+* PadicAlgCl ℓ) :
     Module.finrank (PadicAlgCl ℓ) (eigenFun ℓ A θ emb) = 2 := by
@@ -113,7 +122,7 @@ open PkgI3 PkgI3.AbVar
 
 /-- **R16 from its core without the rank-two clause, `TateModuleFree` and Mumford §19 Thm 4.** -/
 theorem r16_of_coreYC (hC : R16CoreY) (hT : PkgI3.TateModuleFree)
-    (hCP : ZInQ.Contrib.OneProof.CharPolyLattice.CharPolyIndepOfEllC) : LeafModCurves.R16_EichlerShimuraJ1' := by
+    (hCP : CharPolyIndepOfEllAtQ) : LeafModCurves.R16_EichlerShimuraJ1' := by
   intro N χ f J hN hf hJ
   obtain ⟨hfin, A, π, θ, hs, hdim, hgal⟩ := hC N χ f J hN hf hJ
   exact ⟨hfin, A, π, θ, hs, hdim, fun ℓ _ emb =>
@@ -126,7 +135,7 @@ theorem r16_of_printedC (hC : R16CoreY) (HL : BPAnalytic.Uniformization.Uniformi
     (hM : AvSplit.MumfordTorsionAlgClosed) : LeafModCurves.R16_EichlerShimuraJ1' :=
   r16_of_coreYC hC
     (T5Torsion.TateFree.tateModuleFree_of_torsionStructure (AvSplit.torsionStructure_of_mumford hM))
-    (ZInQ.Contrib.OneProof.CharPolyLattice.charPolyIndepOfEllC HL hM)
+    (fun A φ => ZInQ.Contrib.OneProof.CharPolyLattice.charPolyIndepOfEllC HL hM ℚ (Rat.castHom ℂ) A φ)
 
 end CoreC
 
