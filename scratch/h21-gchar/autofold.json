@@ -1,0 +1,21 @@
+{
+  "name": "h21-gchar",
+  "note": "Manual fold: h21C is a top-level argument of frozenTarget (autofold.py folds bundle fields only). Primary (on top of h21c-steps): h21C (TYZThm21PairsC) is replaced by h21G (H21GChar.TYZThm21SpanG: h21S with the quadratic period formed with TYZ's genus character chi_{d1,d2} = character of K_n(sqrt d2*) through the Artin map); h21C = H21CSteps.tyzThm21PairsC_of_span (H21GChar.tyzThm21Span_of_G h21G). Alternative (without h21c-steps): h21PG (H21GChar.TYZThm21PairsG), h21C = H21GChar.tyzThm21PairsC_of_G h21PG. The Lean content of scratch/h21-gchar/GChar.lean goes to a new module, e.g. ZInQKernel/Contrib/OneProof/TYZThm21GChar.lean (imports OneProof.TYZSplit, Contrib.OneProof.TYZThm21Span, Contrib.OneProof.TYZGenusFold.Jacobi; it must not import OneProof.Main). Checked in scratch/h21-gchar/FoldCheck.lean.",
+  "imports": ["ZInQKernel.Contrib.OneProof.TYZThm21GChar"],
+  "replace_binders": {"(h21C : ZInQ.Contrib.TYZGenusFold.TYZThm21PairsC)": "(h21G : ZInQ.Contrib.H21GChar.TYZThm21SpanG)"},
+  "replace_args": {"h21C": "(ZInQ.Contrib.H21CSteps.tyzThm21PairsC_of_span (ZInQ.Contrib.H21GChar.tyzThm21Span_of_G h21G))"},
+  "alternative": {
+    "replace_binders": {"(h21C : ZInQ.Contrib.TYZGenusFold.TYZThm21PairsC)": "(h21PG : ZInQ.Contrib.H21GChar.TYZThm21PairsG)"},
+    "replace_args": {"h21C": "(ZInQ.Contrib.H21GChar.tyzThm21PairsC_of_G h21PG)"}},
+  "discharges": [
+    {"field": "h21C", "proof": "_root_.ZInQ.Contrib.H21GChar.tyzThm21PairsC_of_G",
+     "leaves": [{"field": "h21PG", "type": "ZInQ.Contrib.H21GChar.TYZThm21PairsG", "kind": "consequence",
+                 "flag": "pending-review,restricted,unread"}]},
+    {"field": "h21S", "proof": "_root_.ZInQ.Contrib.H21GChar.tyzThm21Span_of_G",
+     "leaves": [{"field": "h21G", "type": "ZInQ.Contrib.H21GChar.TYZThm21SpanG", "kind": "consequence",
+                 "flag": "pending-review,restricted,unread"}]}],
+  "kinds_remove": ["frozenTarget\th21C", "frozenTarget\th21S (if h21c-steps was integrated first)"],
+  "kinds_add": "scratch/h21-gchar/kinds-rows.tsv (row h21G; row h21PG for the alternative)",
+  "check": "ZInQ.Contrib.TYZChain.frozenTarget_h21G, frozenTarget_h21G' (primary), frozenTarget_h21PG, frozenTarget_h21PG' (alternative); all [propext, Classical.choice, Quot.sound]",
+  "count": "frozenTarget hypotheses unchanged in number (h21C -> h21G); step (b) of the queue10 composite verdict removed; step (a) remains (h21-lcal)"
+}
