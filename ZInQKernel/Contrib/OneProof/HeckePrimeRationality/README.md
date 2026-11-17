@@ -110,6 +110,12 @@ are proved in the reduction, not hidden premises.
   level. Slope reduction and a terminating Euclidean expansion are proved.
   Every larger-level defect remains explicit; original-level determinant
   constraints and label descent are not supplied by that expansion.
+- Actual μ, λ² and every quadratic label case have proved membership in
+  the independently defined division-series span. The normalized modular
+  form evaluates exactly to the raw `reg` defect; finite correction sums
+  remain at their stated ambient level. Zero/opposite cases retain negative
+  squares, and the three-μ formula is restricted to three Good classes.
+  No Petersson-subspace, level-descent or whole-space statement follows.
 
 Raw excluded labels are not representative-independent: the zero-label
 control proves values 1/2 and 3/2 and refutes naive raw distribution. The
@@ -127,19 +133,23 @@ The classical source is Khuri-Makdisi, arXiv:0903.1439v6, Theorem 5.1 and its
 generator theorem: same principal level N ≥ 3, weight ≥ 2, base field C.
 The proved x-series identification, μ/x Fourier dualities and same-level
 quadratic generator inclusion do not substitute for the spanning proof.
-The μ- and all-label defect bindings to the independent series span,
-original-level row constraints, Eisenstein level descent, low-weight trace
-closure and the spanning argument remain separate obligations.
+The μ-forms, every quadratic label case and the normalized raw correlation
+defect now have proved membership in the independent convergent series span,
+by explicit equalities and finite combinations. This is not identification
+with a classical Petersson-Eisenstein subspace. Original-level row constraints,
+Eisenstein level descent, low-weight trace closure and the full spanning
+argument remain separate obligations.
 The Γ₁ `(0,b)` family alone cannot replace the principal family.
 
-The current 71-module audit checks 1001 named public proofs/instances and
-108 selected definitions, constructions or type aliases with at most
+The current 73-module audit checks 1029 named public proofs/instances and
+117 selected definitions, constructions or type aliases with at most
 `propext`, `Classical.choice`, `Quot.sound`, and no `sorryAx`. **Auditing a
 predicate's definition does not prove that predicate**:
 `PrincipalProductSpanning` is still an input.
-See `CHECKS.md` and `FourierCorrelationAudit.lean` for exact editions and commands.
-The earlier `Audit.lean`, `AnalyticAudit.lean`, `WeightTwoAudit.lean` and
-`ThetaConstantAudit.lean` preserve the 34-, 49-, 56- and 59-module checkpoints.
+See `CHECKS.md` and `SeriesMembershipAudit.lean` for exact editions and commands.
+The earlier `Audit.lean`, `AnalyticAudit.lean`, `WeightTwoAudit.lean`,
+`ThetaConstantAudit.lean` and `FourierCorrelationAudit.lean` preserve the
+34-, 49-, 56-, 59- and 71-module checkpoints.
 
 These are ordinary pinned compilations plus complete separate source reviews
 with warm imports, not independent cold replay of all imported constants or

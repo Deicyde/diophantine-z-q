@@ -664,3 +664,55 @@ descent, original-level product-row constraints, low-weight trace closure and
 principal spanning remain separate proof obligations. No original assembly
 hypothesis has been discharged. The unrestricted Hecke leaf and full Z-in-Q
 theorem remain unproved, and the unconditional original extent remains N ≤ 6.
+
+## Actual all-label series-span and correlation binding: 73 modules
+
+Two further mathematical modules preserve all 71 earlier mathematical
+editions and five historical audits. `divisionSpan` is defined from the
+range of the independently convergent series-defined `divisionEisensteinMF`,
+not from x, μ, D or the entire modular-form space. Explicit form equalities
+prove that actual x and μ belong to that span; λ² enters by `x + 2μ`.
+
+The actual quadratic-defect form is built from three genuine λ products.
+All label cases are proved: bad left/right/sum retain negative squares;
+the three-μ expression is reached only with three Good classes. Every case
+then has proved series-span membership, including the explicit N=1 zero form.
+
+The square of the common scale κ=−2πi is proved nonzero. Dividing the actual
+quadratic form by κ² gives exactly raw `TorsionCorrelation.D` on canonical
+ambient labels. The finite defect sums and factor-1/s correction are genuine
+modular forms in the same ambient-level series span. The correlation
+recurrence retains `0 < M,n,s`, `n ∣ M`, `s ∣ M` and `s • B′ = B` unchanged.
+No defect is silently discarded and no lower-level descent is assumed.
+
+Both ordinary parent builds, all 37 new-declaration audits and literal
+actual μ/D membership, raw-defect equality and degenerate-case contracts
+exited 0. Complete independent source review read all 355 lines and the
+exact previously reviewed callees. `SeriesMembershipAudit.lean` co-imports
+all 73 modules and audits 1029 named public proofs/instances plus 117 selected
+definitions, constructions or type aliases: all 1146 records have at most
+`propext`, `Classical.choice`, `Quot.sound`, with no `sorryAx`.
+
+```sh
+lake --no-cache --no-ansi build +ZInQKernel.Contrib.OneProof.HeckePrimeRationality.AllLevelDivisionSeriesCorrelation:olean
+lake --no-cache env lean ZInQKernel/Contrib/OneProof/HeckePrimeRationality/SeriesMembershipAudit.lean
+```
+
+Exact added source editions:
+
+- `AllLevelDivisionSeriesMembership.lean`:
+  `c442dff7675d35a6c7d4e194d147b7bbb576b3b54ed68eb1ad3a945f6500983e`
+- `AllLevelDivisionSeriesCorrelation.lean`:
+  `761194aea33475e279be2e873f90f371d0590a01665ea07f482da49b3f84eebd`
+
+Exact complete audit SHA256:
+`697133d58830ffae8aff784d03cd4b118b99563a08e9b925459c62f3f37aa80b`.
+
+This is membership in a specific independently convergent series span, not
+identification with a classical Petersson-Eisenstein subspace, level descent,
+trace closure or a `⊤` statement about all modular forms. The remaining
+original-level product-row constraints, level maps/trace closure and full
+principal spanning are not proved here. The unrestricted original Hecke
+leaf, its assembly hypothesis and full Z-in-Q remain unchanged and unproved;
+N ≤ 6 remains the unconditional original-contract extent. Warm imported
+proof closures and complete source review are not a cold replay certificate.
