@@ -38,3 +38,10 @@
 * `lake env lean scratch/eichler-rebase/BypassFold.lean`: compiles, EXIT 0, no errors. VERIFIED (bypass-compile.txt):
   'HDec.HSyn.sixContactMin_of_open49' depends on axioms: [propext, Classical.choice, Quot.sound]
   'ZInQ.Contrib.TYZChain.frozenTarget_E' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+## #discharges (Discharges.lean, main + R5fpCountLe)
+* `#discharges: 35 open hypotheses, 10261 theorems checked, 36 discharge one`; none by this task's theorems
+  (`R5fpCountLe` is weaker than `gonzalezRotgerProp56X6`; the removal is the bypass). The four
+  `gonzalezRotgerProp56X6` lines are GR56's three `_of_*` (with the leaf `EichlerOptEmbCount6`) and
+  `GRCountX6.prop56X6_of_r5fpCount` (from `R5fpCount`), all already in main's imports. `eichlerOptEmbBound6`,
+  `r5fpCountLe_proof`: [propext, Classical.choice, Quot.sound]. VERIFIED (discharges.txt).
