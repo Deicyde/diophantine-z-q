@@ -51,7 +51,7 @@ theorem isIntegral_of_mem_O {b : B} (hb : b ∈ LeafQM.O) : IsIntegral ℤ b := 
         Polynomial.C (n 0 ^ 2 + n 0 * n 2 + n 2 ^ 2 - 2 * n 1 ^ 2 - 2 * n 1 * n 3 - 2 * n 3 ^ 2) :
           Polynomial ℤ).natDegree = 2 := by compute_degree!
     refine Polynomial.monic_of_natDegree_le_of_coeff_eq_one 2 hd.le ?_
-    simp [Polynomial.coeff_X, Polynomial.coeff_C]
+    simp [Polynomial.coeff_X, Polynomial.coeff_C, Polynomial.coeff_X_pow, Polynomial.coeff_C_mul]
   · simp only [Polynomial.eval₂_add, Polynomial.eval₂_sub, Polynomial.eval₂_mul, Polynomial.eval₂_X_pow,
       Polynomial.eval₂_X, Polynomial.eval₂_C]
     ext <;> simp [LeafQM.ofInt, sq] <;> ring
@@ -122,12 +122,11 @@ theorem com_equiv_of_rel {k : Type} [Field k] [NumberField k] (hk : Module.finra
   obtain ⟨x, hxO, hx⟩ := D.exists_O hC hA φ'
   have hxrel : x * x + P • x + algebraMap ℚ B Q = 0 := by
     apply HDec.QMLattice.act_inj D.v_ne
+    have hc' : c * c + (P : ℂ) * c + (Q : ℂ) = 0 := by rw [← hp, ← hq]; push_cast; exact hc
     rw [act_add, act_add, act_mul, hx, HDec.QMLattice.act_smul_vec, hx, act_smul, hx,
-      HDec.QMLattice.act_algebraMap, act_zero, smul_smul, smul_smul, ← add_smul, ← add_smul, ← hp, ← hq]
-    push_cast
-    rw [hc, zero_smul]
+      HDec.QMLattice.act_algebraMap, act_zero, smul_smul, smul_smul, ← add_smul, ← add_smul, hc', zero_smul]
   have hcrel : c * c + P • c + algebraMap ℚ ℂ Q = 0 := by
-    rw [← hp, ← hq, Rat.smul_def]; push_cast; exact hc
+    rw [eq_ratCast (algebraMap ℚ ℂ), Rat.smul_def, ← hp, ← hq]; push_cast; exact hc
   set Φ := liftQuad hk hy hyq x hxrel with hΦ
   set ψ := (liftQuad hk hy hyq c hcrel).toRingHom with hψ
   have hint : ∀ a : k, IsIntegral ℤ a → Φ a ∈ LeafQM.O := by
@@ -146,8 +145,8 @@ theorem com_equiv_of_rel {k : Type} [Field k] [NumberField k] (hk : Module.finra
     rw [Subring.mem_comap]
     constructor
     · intro ha
-      have hi : IsIntegral ℤ (Φ a) := isIntegral_of_mem_O ha
-      exact (isIntegral_algHom_iff (Φ.restrictScalars ℤ) Φ.toRingHom.injective).mp hi
+      have hi : IsIntegral ℤ ((Φ.restrictScalars ℤ) a) := isIntegral_of_mem_O ha
+      exact (isIntegral_algHom_iff (Φ.restrictScalars ℤ) (Φ : k →+* B).injective).mp hi
     · intro ha
       exact hint a ha
   have heig : ∀ a, act ((⟨Φ, hopt⟩ : GRCountX6.OptEmb k _).1 a) D.v = ψ a • D.v := by
@@ -198,16 +197,16 @@ open HDec.G0ModField.KernelField (endBC)
 
 theorem hasRel_bcAut (σ : Qbar →+* Qbar) (Pr : QMPair Qbar) {p q : ℤ} (h : HasRel p q Pr.q) :
     HasRel p q (X6ALIdeal.bcAut σ Pr).q := by
-  letI : Algebra Qbar Qbar := σ.toAlgebra
   obtain ⟨φ, hφ, hr⟩ := h
-  refine ⟨endBC Pr.A Qbar φ, ?_, ?_⟩
-  · show endBC Pr.A Qbar φ ∈ Subring.centralizer (Set.range ((endBC Pr.A Qbar).comp Pr.q.iota))
+  let E := @HDec.G0ModField.KernelField.endBC Qbar _ Pr.A Qbar _ σ.toAlgebra
+  refine ⟨E φ, ?_, ?_⟩
+  · show E φ ∈ Subring.centralizer (Set.range (E.comp Pr.q.iota))
     rw [Subring.mem_centralizer_iff]
     rintro _ ⟨a, rfl⟩
     have hc : Pr.q.iota a * φ = φ * Pr.q.iota a :=
       (Subring.mem_centralizer_iff.mp hφ) _ ⟨a, rfl⟩
     simp only [RingHom.comp_apply, ← map_mul, hc]
-  · have := congrArg (endBC Pr.A Qbar) hr
+  · have := congrArg E hr
     simpa using this
 
 theorem hasRel_of_iso {K : Type} [Field K] {Pr Qr : QMPair K} (f : QMIso Pr.q Qr.q) {p q : ℤ}
@@ -236,7 +235,6 @@ section Count
 theorem two_of_three {α β : Type*} (Ψ : α ≃ β) (T : Set β) [Finite T] (hT : Nat.card T ≤ 2) (x y z : α)
     (hx : Ψ x ∈ T) (hy : Ψ y ∈ T) (hz : Ψ z ∈ T) : x = y ∨ x = z ∨ y = z := by
   let e := Finite.equivFin T
-  have hcard : Nat.card T = Fintype.card (Fin (Nat.card T)) := by simp
   have ha := (e ⟨_, hx⟩).isLt
   have hb := (e ⟨_, hy⟩).isLt
   have hc := (e ⟨_, hz⟩).isLt
@@ -295,10 +293,11 @@ open X6Glue
 /-- An element of `ℚ̄` fixed by every automorphism is rational. -/
 theorem exists_moves {z : Qbar} (hz : ∀ r : ℚ, z ≠ algebraMap ℚ Qbar r) : ∃ σ : Qbar ≃ₐ[ℚ] Qbar, σ z ≠ z := by
   by_contra h
-  push_neg at h
-  have hmem : z ∈ IntermediateField.fixedField
-      (IntermediateField.fixingSubgroup (⊥ : IntermediateField ℚ Qbar)) := fun σ => h σ.1
-  rw [InfiniteGalois.fixedField_fixingSubgroup] at hmem
+  push Not at h
+  have hmem : z ∈ (⊥ : IntermediateField ℚ Qbar) := by
+    rw [← InfiniteGalois.fixedField_fixingSubgroup (⊥ : IntermediateField ℚ Qbar)]
+    intro σ
+    exact h σ.1
   obtain ⟨r, hr⟩ := IntermediateField.mem_bot.1 hmem
   exact hz r hr.symm
 
@@ -374,7 +373,7 @@ theorem charts_at_infty (hc : ElkiesCharts X t) (x : fieldPt Qbar ⟶ X)
     have : X.left.evaluation t.V pt.1 hV t.g = 0 := by
       rw [Scheme.evaluation_eq_zero_iff_notMem_basicOpen, t.basicOpen_g]
       exact fun h' => h h'.1
-    rw [this, map_zero]
+    simp [this]
   refine ⟨ev (φV eR), by rw [hev_apply]; exact eval_mem x t.V hV _, ?_⟩
   have := congrArg (fun z => ev (φV z)) X6Glue.rel2
   simp only [map_sub, map_pow, map_mul, map_one, map_ofNat, map_zero, hg0] at this
@@ -429,7 +428,6 @@ theorem map_one_fix (σ : Qbar ≃ₐ[ℚ] Qbar) : (OnePoint.some (1 : Qbar)).ma
 theorem map_infty_fix (σ : Qbar ≃ₐ[ℚ] Qbar) : (OnePoint.infty : OnePoint Qbar).map (σ : Qbar →+* Qbar) = OnePoint.infty := by
   simp [OnePoint.map_infty]
 
-include hU hG hM in
 /-- **Step (c) for one discriminant**, in terms of a relation `(p, q)`, its field `k` and a count `≤ 2`. -/
 theorem every_of_one_rel (h6 : X6Props Y Φ X Ψ fY) (t : ToP1 X.left) (hc : X6Glue.ElkiesCharts X t)
     {p q : ℤ} {R : Type} [CommRing R]
@@ -523,13 +521,13 @@ theorem every_cm_of_one (hU : BPAnalytic.Uniformization.UniformizationLeafAll) (
   obtain ⟨⟨x24, P24, h24, c24, v24⟩, ⟨x4, P4, h4, c4, v4⟩, ⟨x3, P3, h3, c3, v3⟩⟩ := hone
   intro x P hP
   refine ⟨fun h => ?_, fun h => ?_, fun h => ?_⟩
-  · exact every_of_one_rel hU hG hM h6 t hc (p := 0) (q := 6)
+  · exact every_of_one_rel h6 t hc (p := 0) (q := 6)
       (fun Pr hr => com_equiv_of_hasCM24 hU hG hM Pr ((hasRel_24 _).2 hr)) (cm_le_two_24 hU hG hM)
       (Or.inl rfl) ⟨x24, P24, h24, (hasRel_24 _).1 c24, v24⟩ x P hP ((hasRel_24 _).1 h)
-  · exact every_of_one_rel hU hG hM h6 t hc (p := 0) (q := 1)
+  · exact every_of_one_rel h6 t hc (p := 0) (q := 1)
       (fun Pr hr => com_equiv_of_hasCM4 hU hG hM Pr ((hasRel_4 _).2 hr)) (cm_le_two_4 hU hG hM)
       (Or.inr (Or.inl rfl)) ⟨x4, P4, h4, (hasRel_4 _).1 c4, v4⟩ x P hP ((hasRel_4 _).1 h)
-  · exact every_of_one_rel hU hG hM h6 t hc (p := -1) (q := 1)
+  · exact every_of_one_rel h6 t hc (p := -1) (q := 1)
       (fun Pr hr => com_equiv_of_hasCM3 hU hG hM Pr ((hasRel_3 _).2 hr)) (cm_le_two_3 hU hG hM)
       (Or.inr (Or.inr rfl)) ⟨x3, P3, h3, (hasRel_3 _).1 c3, v3⟩ x P hP ((hasRel_3 _).1 h)
 
@@ -547,6 +545,15 @@ theorem elkiesX6StarEvery_of_one (h : ElkiesX6StarOneIdeal) (hX : X6CoarseModuli
     (hG : ZInQ.HomLattice.GAGAMorphism) (hM : AvSplit.MumfordTorsionAlgClosed) :
     ElkiesPrint.ElkiesX6StarEvery :=
   elkiesX6StarEvery_of_ideal' (elkiesX6StarEveryIdeal_of_one h hU hG hM) hX hY hM
+
+/-- **The bundle field `elkiesX6StarEvery` from the new leaf and the bundle's current coarse leaf `x6CoarseModuli`**
+(twist form; x6-coarse's `x6CoarseModuliIdeal_of_twist` from the textbook fields). This is the form used by the
+autofold spec against the current main. -/
+theorem elkiesX6StarEvery_of_one_twist (h : ElkiesX6StarOneIdeal) (hX : GRX6AbPrint.X6CoarseModuli)
+    (hY : RayClassCFT.ShimuraMainThmIDeligneY3AbU) (hU : BPAnalytic.Uniformization.UniformizationLeafAll)
+    (hG : ZInQ.HomLattice.GAGAMorphism) (hM : AvSplit.MumfordTorsionAlgClosed) :
+    ElkiesPrint.ElkiesX6StarEvery :=
+  elkiesX6StarEvery_of_one h (x6CoarseModuliIdeal_of_twist hG hM hX) hY hU hG hM
 
 /-- **The new leaf is no stronger than the old one, given CM points exist** (`CMExists`, e.g. from González–Rotger's
 count): the existential CM clause follows from the universal one. -/
@@ -578,14 +585,14 @@ include hU hG hM in
 /-- **`HasCM4` ⇔ CM by `ℤ[i]` exactly.** -/
 theorem hasCM4_iff_com (Pr : QMPair Qbar) : HasCM4 Pr.q ↔ Nonempty (com Pr.q ≃+* Pi0X6.R4) :=
   ⟨com_equiv_of_hasCM4 hU hG hM Pr, fun ⟨e⟩ => (hasRel_4 _).2
-    (hasRel_of_com_equiv (k := K4) (IsCyclotomicExtension.zeta_spec 4 ℚ K4).isIntegral (by norm_num)
+    (hasRel_of_com_equiv (k := K4) (yk := y4) ((IsCyclotomicExtension.zeta_spec 4 ℚ K4).isIntegral (by norm_num))
       (p := 0) (q := 1) (by have := y4_rel; push_cast at this ⊢; linear_combination this) e)⟩
 
 include hU hG hM in
 /-- **`HasCM3` ⇔ CM by `ℤ[ζ₃]` exactly.** -/
 theorem hasCM3_iff_com (Pr : QMPair Qbar) : HasCM3 Pr.q ↔ Nonempty (com Pr.q ≃+* Pi0X6.R3) :=
   ⟨com_equiv_of_hasCM3 hU hG hM Pr, fun ⟨e⟩ => (hasRel_3 _).2
-    (hasRel_of_com_equiv (k := K3) ((IsCyclotomicExtension.zeta_spec 3 ℚ K3).isIntegral (by norm_num)).neg
+    (hasRel_of_com_equiv (k := K3) (yk := y3) ((IsCyclotomicExtension.zeta_spec 3 ℚ K3).isIntegral (by norm_num)).neg
       (p := -1) (q := 1) (by have := y3_rel; push_cast at this ⊢; linear_combination this) e)⟩
 
 include hU hG hM in

@@ -1,0 +1,22 @@
+{
+ "name": "elkies-c-fold",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.ElkiesX6StarCM"
+ ],
+ "discharges": [
+  {
+   "field": "elkiesX6StarEvery",
+   "proof": "_root_.ElkiesC.elkiesX6StarEvery_of_one_twist {n}.elkiesX6StarOneIdeal {n}.x6CoarseModuli {n}.shimuraMainThmIDeligneY3AbU _root_.uniformizationLeafAll_proof _root_.ZInQ.Contrib.OneProof.GAGAMorphism.gagaMorphism_proof _root_.ZInQ.Contrib.CloudB3W16Torsion.mumfordTorsionAlgClosed_proof",
+   "leaves": [
+    {
+     "name": "elkiesX6StarOneIdeal",
+     "type": "_root_.ElkiesC.ElkiesX6StarOneIdeal",
+     "doc": "elkies-c: Elkies, Shimura curve computations (ANTS-III 1998, arXiv math/0005160) section 3 with Sigma = {2,3}: X*(1) = X(1)/W (p. 10, w_p : A -> A/ker I_p), X*(1) = P^1_t with the elliptic points of orders 2, 4, 6 at t = 0, 1, infinity (p. 17), the CM point of discriminant -24, -4, -3 at t = 0, 1, infinity (Table 1 p. 26, pp. 22-23), Q(X(1)) = Q(t)(sqrt(-t), sqrt(3(t-1))) (p. 17); for every witness of the moduli description of X0(6,1) (R1fpPropsAb, X6Props) carrying the printed Atkin-Lehner automorphisms (X6ALIdeal.ALIdealClause), no existence claim: some t : X6 -> P1 with Q(X6)^W = Q(t) (Elkies' isogeny-form W), the charts s^2 = -t, r^2 = 3(t-1), and the CM clause in printed form read in the weakest way: SOME Qbar-point whose QM pair has phi in End_O(A) with phi^2 = -6 (resp. phi^2 = -1, phi^2 - phi + 1 = 0) has t = 0 (resp. 1, infinity). Replaces elkiesX6StarEvery: x6-coarse's ElkiesX6StarEveryIdeal (the value at EVERY such point) is proved from it with the textbook fields (ElkiesC.elkiesX6StarEveryIdeal_of_one: exactness HasCM_D -> End_O(A) = R_D by the lattice model, #CM(R_D) <= 2 by EichlerBound.r5fpCountLe_proof with h(Z[sqrt-6]) <= 2 proved by Minkowski's bound, Galois conjugacy of the two points, the conjugate point distinct by the charts).",
+     "kind": "consequence",
+     "flag": "pending review (Addendum 1: new leaf, GLUE until a reviewer rates it); consequence step left: Q(X/W) = Q(X)^W (step (a), with another worker); step (c) ('every point with that CM' from 'the CM point of X*(1)') and the HasCM exactness step are proved glue (ElkiesC, docs/research/elkies-c.md); locators as read by the lead from arXiv math/0005160",
+     "source": "Elkies 1998 (ANTS-III, LNCS 1423; arXiv math/0005160) section 3, Sigma = {2,3}: X*(1) = X(1)/W with w_p : A -> A/ker I_p (p. 10), X*(1) = P^1_t (p. 17), the CM point of each of the discriminants -24, -4, -3 at t = 0, 1, infinity (Table 1 p. 26, pp. 22-23), equations of X(1) over the t-line (p. 17); on every witness of the moduli description of X0(6,1) carrying the printed Atkin-Lehner automorphisms, no existence claim"
+    }
+   ]
+  }
+ ]
+}
