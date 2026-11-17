@@ -92,9 +92,12 @@ The objects are those of `H33D1.TYZThm33CurveSome` (a normal proper model `(X, �
   point in `ℍ` of TYZ's image of `√−n`;
 * `f₀(P_n) = shMap UTYZ_le P_n`, and the `ℂ`-points of `X` at it are `IsShPointAt 32 ι (f₀ P_n)`.
 
-Readings left (not Lean): G2 (TYZ's `X_{U₀(32)}` over `ℚ` is the model `(X, ι)`: its function field
-is `ℚ(j, j₃₂) ⊂ ℚ((q))` with `∞` the place `ord_q`, and its `ℂ`-points are `Sh (U0 32)` through
-`IsPointAt`; see the report), the identification `X_U ≅ X₀(32)_{ℚ(i)}` with `f_n` (G5's second half,
+G2 at scheme level is definition-level (lead ruling, 11-17): the canonical model of `X_{U₀(N)}` over `ℚ` is by
+construction the curve with function field `ℚ(j, j_N)` (Shimura 1971, §6.7, Prop. 6.9; locator UNVERIFIED), and with
+`x0Field_eq_adjoin_ratFnSh` (§5b) and model uniqueness (`ZInQ.CurveModel.exists_iso_of_functionField`) nothing else
+is left for it.
+
+Readings left (not Lean): the identification `X_U ≅ X₀(32)_{ℚ(i)}` with `f_n` (G5's second half,
 used only through `zOfLift`), the sign of `[i]` (G6, h33-sign), the model `y² = x³ + 4x` (G7, §4),
 the weakenings of h33-dict. -/
 def TYZThm33AdelicSome : Prop :=
