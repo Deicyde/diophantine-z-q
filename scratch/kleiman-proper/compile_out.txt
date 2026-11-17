@@ -1,0 +1,3 @@
+'KleimanProper.picZeroAbVar0_of_narrowed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KleimanProper.picZeroDimLeAbVar0_of_narrowed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KleimanProper.picZeroProper_of_surjective' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -1,5 +1,6 @@
 import ZInQKernel.Contrib.OneProof.PhiSurjCharZero
 import ZInQKernel.Contrib.OneProof.PicZeroAbVarCharZero
+import ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.AlgebraicGeometry.Group.Separated
 
 /-!
 # kleiman-proper: the field `kleimanPicZeroProper` and what the chain reads of it
@@ -118,7 +119,30 @@ theorem picZeroDimLeAbVar0_of_narrowed (h1 : PicRepresentableAbVar) (hL : PicLoc
   rw [ha, hb]
   exact_mod_cast hba
 
+/-! ## §4. The last step of the brief (Stacks 03GN shape), compiled -/
+
+/-- The image of a proper scheme under a surjective morphism to a separated scheme locally of finite type is
+proper. -/
+theorem isProper_of_surjective {X Y S : Scheme} (f : X ⟶ Y) (g : Y ⟶ S) [IsProper (f ≫ g)] [Surjective f]
+    [IsSeparated g] [LocallyOfFiniteType g] : IsProper g := by
+  haveI := UniversallyClosed.of_comp_surjective f g
+  exact ⟨⟩
+
+/-- **`Pic⁰` is proper once some morphism from `A` onto it exists** (e.g. `λ_L`, if it were known to be
+surjective): `P` is separated as a group scheme over a field (vendored `GrpObj.isSeparated_hom`), locally of finite
+type by `PicLocFinType`. What is missing is the surjective `f` (docs/research/kleiman-proper.md §3). -/
+theorem picZeroProper_of_surjective (hL : PicLocFinType) {K : Type} [Field K] {A : AbVar K}
+    {P : Over (Spec (CommRingCat.of K))} (rep : (picardFunctor A.X.hom).obj.RepresentableBy P) (V : P.left.Opens)
+    (f : A.X.left ⟶ (V : Scheme)) (hf : f ≫ V.ι ≫ P.hom = A.X.hom) [Surjective f] :
+    IsProper (V.ι ≫ P.hom) := by
+  letI := picardFunctorCommGrpObj A.X.hom rep
+  haveI : LocallyOfFiniteType P.hom := hL K A P rep
+  haveI : IsSeparated P.hom := GrpObj.isSeparated_hom P
+  haveI : IsProper (f ≫ V.ι ≫ P.hom) := by rw [hf]; infer_instance
+  exact isProper_of_surjective f (V.ι ≫ P.hom)
+
 end KleimanProper
 
 #print axioms KleimanProper.picZeroAbVar0_of_narrowed
 #print axioms KleimanProper.picZeroDimLeAbVar0_of_narrowed
+#print axioms KleimanProper.picZeroProper_of_surjective

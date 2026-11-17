@@ -27,3 +27,18 @@ YES. Every lemma of phisurj's proof of `PhiAmpleIsogeny`/`PhiAmpleIsogeny0` take
   `picZeroDimLeAbVar0_of_narrowed (h1 hL hI hT h3) : PicZeroDimLeAbVar0`.
 - `lake env lean`: no errors; `#print axioms` both: [propext, Classical.choice, Quot.sound]. (first run: one name
   error `ZInQ.Contrib.AbVarBC.dim_finite` -> `PkgI3.AbVar.dim_finite`, fixed.)
+- §4 added: `isProper_of_surjective` (Stacks 03GN shape: `UniversallyClosed.of_comp_surjective`) and
+  `picZeroProper_of_surjective (hL : PicLocFinType) … (f : A.X.left ⟶ V) (hf : f ≫ V.ι ≫ P.hom = A.X.hom)
+  [Surjective f] : IsProper (V.ι ≫ P.hom)` (separatedness from vendored `GrpObj.isSeparated_hom`, CloudW07).
+  Compiled, all three `#print axioms`: [propext, Classical.choice, Quot.sound] (output in compile_out.txt).
+
+## Step 3: other routes checked (VERIFIED by reading unless marked)
+- open-statements.json: no open hypothesis other than the four Pic leaves mentions Picard / identity component /
+  IsProper (python scan) — no existing leaf implies properness of Pic⁰.
+- Vendored CloudW07 `nonempty_iso_pullback_lift_of_isAlgClosed` (Picard/AffineSpaceRigidity.lean:349, Stacks 0BEH):
+  line bundles on X ×_k D(f) have isomorphic pullbacks at two k-points, X integral with UFD stalks. This rules out
+  nonconstant maps from opens of 𝔸¹ into Pic (no G_a, G_m inside Pic⁰) but (a) needs UFD stalks of A (regular local
+  ⇒ UFD, Auslander–Buchsbaum: Mathlib 4.35 has only RegularLocalRing/Defs, Polynomial; not proved) and (b) going
+  from "no rational curves" to "proper" needs Chevalley's structure theorem and Borel's G_a/G_m lemma (not in the tree).
+- kinds.tsv: `consequence` rows count strict GLUE, so narrowing the field to `KleimanPicZeroProperAbVar0` (a
+  consequence) would trade a LEAF for a GLUE: not recommended, no fold written.
