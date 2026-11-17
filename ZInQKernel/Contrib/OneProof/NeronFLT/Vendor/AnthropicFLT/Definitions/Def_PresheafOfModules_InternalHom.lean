@@ -13,6 +13,8 @@ set_option maxHeartbeats 4000000
 set_option synthInstance.maxHeartbeats 400000
 set_option backward.isDefEq.respectTransparency.types false
 set_option autoImplicit false
+-- [port] Lean v4.35: instance-search transparency flag (see the adaptation note in Mathlib.Algebra.Category.ModuleCat.Presheaf.Monoidal)
+set_option backward.isDefEq.respectTransparency.instanceSearchTypes false
 
 set_option autoImplicit false
 set_option backward.isDefEq.respectTransparency false
@@ -20,6 +22,17 @@ set_option backward.isDefEq.respectTransparency false
 universe u v' u'
 
 open CategoryTheory MonoidalCategory Limits Opposite
+
+-- [port] Lean v4.35: instance search no longer sees through `(T ⋙ forget₂ CommRingCat RingCat).obj X`
+noncomputable def commRingCompForget₂Obj_port_IH {E : Type*} [CategoryTheory.Category E]
+    (T : CategoryTheory.Functor E CommRingCat) (X : E) :
+    CommRing ((T ⋙ CategoryTheory.forget₂ CommRingCat RingCat).obj X) :=
+  inferInstanceAs (CommRing (T.obj X))
+
+attribute [local instance] commRingCompForget₂Obj_port_IH
+
+-- [port] Mathlib v4.35: the monoidal API of presheaves of modules over CommRingCat lives in `PresheafOfModulesOfCommRing`
+open PresheafOfModulesOfCommRing
 
 namespace PresheafOfModules
 
@@ -216,7 +229,11 @@ noncomputable def curryFamily (θ : F ⊗ G ⟶ N) {X : Cᵒᵖ} (y : G.obj X) :
     change N.map g (θ.app Y _) = θ.app Z _
     rw [← naturality_apply]
     erw [Monoidal.tensorObj_map_tmul]
-    rw [← PresheafOfModules.map_comp_apply]⟩
+    -- [port] Lean v4.35: `tensorObj_map_tmul` now produces `PresheafOfModulesOfCommRing.map`, an abbreviation of
+    -- `PresheafOfModules.map`; unfold it before rewriting
+    simp only [PresheafOfModulesOfCommRing.map]
+    erw [← PresheafOfModules.map_comp_apply]
+    rfl⟩
 
 @[simp] lemma curryFamily_app (θ : F ⊗ G ⟶ N) {X : Cᵒᵖ} (y : G.obj X) {Y : Cᵒᵖ} (f : X ⟶ Y)
     (x : F.obj Y) : (curryFamily F θ y).1 f x = θ.app Y (x ⊗ₜ[R.obj Y] G.map f y) := rfl

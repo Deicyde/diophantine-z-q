@@ -1,9 +1,14 @@
 """Apply mechanical Mathlib-v4.35 renames to ported files; each changed line gets a `-- [port]` comment above it.
-usage: python3 -I fix.py FILE..."""
+(adapted from flt-cqj2's fix.py) usage: python3 -I fix.py FILE..."""
 import sys, re
+M = 'Mathlib v4.35: the monoidal structure on presheaves of modules over CommRingCat moved to `PresheafOfModulesOfCommRing`'
 RULES = [
   (r'Ideal\.isMaximal_of_isIntegral_of_isMaximal_comap \(R := ', 'Ideal.isMaximal_of_isIntegral_of_isMaximal_under (R := ',
    'Mathlib v4.35: the algebra form of `isMaximal_of_isIntegral_of_isMaximal_comap` is `..._under`'),
+  (r'PresheafOfModules\.Monoidal\.tensorHom_app', 'PresheafOfModulesOfCommRing.tensorHom_app', M),
+  (r'PresheafOfModules\.Monoidal\.', 'PresheafOfModulesOfCommRing.Monoidal.', M),
+  (r'PresheafOfModules\.(tensorHom_app|whiskerRight_app|whiskerLeft_app|leftUnitor_hom_app|leftUnitor_inv_app|rightUnitor_hom_app|rightUnitor_inv_app|associator_hom_app|associator_inv_app|tensorObj_obj|braiding_hom_app|braiding_inv_app)\b',
+   r'PresheafOfModulesOfCommRing.\1', M),
 ]
 for p in sys.argv[1:]:
     lines = open(p, encoding='utf-8').read().split('\n'); out = []; n = 0
@@ -12,7 +17,7 @@ for p in sys.argv[1:]:
         for pat, rep, msg in RULES:
             if re.search(pat, new): new = re.sub(pat, rep, new); why.append(msg)
         if new != l:
-            ind = re.match(r'\s*', l).group(0); out.append(ind + '-- [port] ' + '; '.join(why)); n += 1
+            ind = re.match(r'\s*', l).group(0); out.append(ind + '-- [port] ' + '; '.join(sorted(set(why)))); n += 1
         out.append(new)
     if n:
         open(p, 'w', encoding='utf-8').write('\n'.join(out)); print(p.split('/')[-1], n)

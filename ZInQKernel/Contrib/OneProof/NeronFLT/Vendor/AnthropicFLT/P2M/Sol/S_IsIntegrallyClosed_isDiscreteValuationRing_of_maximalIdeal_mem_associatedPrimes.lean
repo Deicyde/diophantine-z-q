@@ -15,6 +15,12 @@ set_option synthInstance.maxHeartbeats 400000
 set_option backward.isDefEq.respectTransparency.types false
 set_option autoImplicit false
 
+-- [port] Lean 4.35 repairs: this body is CloudW03NeronSurj's port of the same upstream file
+-- (ZInQKernel/Contrib/CloudW03NeronSurj/Vendor/P2M/Sol/S_IsIntegrallyClosed_isDiscreteValuationRing_of_maximalIdeal_mem_associatedPrimes.lean) with its namespace wrapper removed.
+
+
+
+
 namespace P2MW.S_IsIntegrallyClosed_isDiscreteValuationRing_of_maximalIdeal_mem_associatedPrimes
 
 open IsLocalRing
@@ -111,7 +117,7 @@ theorem isDiscreteValuationRing_of_maximalIdeal_eq_colon
         exact Ideal.mul_mem_right _ _ (Ideal.mem_span_singleton_self n)
       · rw [Ideal.submodule_span_eq, Ideal.span_singleton_le_iff_mem]
         exact hn
-    exact ((IsDiscreteValuationRing.TFAE B hnf).out 0 4).mpr hprinc
+    exact ((IsDiscreteValuationRing.TFAE B hnf).out 1 5).mpr hprinc
   ·
     push Not at hcase
     exfalso
@@ -168,3 +174,6 @@ theorem solution
     (h : IsLocalRing.maximalIdeal B ∈ associatedPrimes B (B ⧸ Ideal.span {x})) :
     IsDiscreteValuationRing B :=
   Ws10Flat.isDiscreteValuationRing_of_maximalIdeal_mem_associatedPrimes hx h
+
+end P2MW.S_IsIntegrallyClosed_isDiscreteValuationRing_of_maximalIdeal_mem_associatedPrimes
+

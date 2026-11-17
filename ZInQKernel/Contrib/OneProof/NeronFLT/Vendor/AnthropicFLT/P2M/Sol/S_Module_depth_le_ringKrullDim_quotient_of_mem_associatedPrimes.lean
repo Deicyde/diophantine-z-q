@@ -16,7 +16,20 @@ set_option synthInstance.maxHeartbeats 400000
 set_option backward.isDefEq.respectTransparency.types false
 set_option autoImplicit false
 
+-- [port] Lean 4.35 repairs: this body is CloudW03NeronSurj's port of the same upstream file
+-- (ZInQKernel/Contrib/CloudW03NeronSurj/Vendor/P2M/Sol/S_Module_depth_le_ringKrullDim_quotient_of_mem_associatedPrimes.lean) with its namespace wrapper removed.
+
+
+
+p2m_open "IsLocalRing Module PowerSeries"
+
 namespace P2MW.S_Module_depth_le_ringKrullDim_quotient_of_mem_associatedPrimes
+
+-- Port to v4.35: allow definitional equality of quotient-map and instance paths
+-- during the original kernel/annihilator argument; no mathematical input is added.
+set_option backward.defeqAttrib.useBackward true
+set_option backward.isDefEq.respectTransparency false
+set_option backward.isDefEq.respectTransparency.types false
 
 open IsLocalRing RingTheory
 
@@ -73,7 +86,7 @@ lemma Module.depth_le_krullDim_support [Nontrivial M] [Module.Finite R M] :
   simp only [WithBot.coe_le_coe, ge_iff_le]
   induction n using Nat.strong_induction_on generalizing M with
   | h n IH =>
-    rw [depth, sSup_le_iff]
+    rw [_root_.Module.depth, sSup_le_iff]
     rintro _ ⟨l, hl, hl', rfl⟩
     apply WithTop.coe_le_coe.mpr ?_
     cases l with
@@ -94,8 +107,9 @@ lemma Module.depth_le_krullDim_support [Nontrivial M] [Module.Finite R M] :
         (LinearMap.annihilator_le_of_surjective _ (Submodule.mkQ_surjective _)))
         (show Ideal.span _ ≤ RingHom.ker _ by
           rw [Ideal.span_le, Set.singleton_subset_iff]
-          simp only [SetLike.mem_coe, RingHom.mem_ker, Ideal.quotientMap_mk, RingHom.id_apply,
-            Ideal.Quotient.eq_zero_iff_mem, Module.mem_annihilator]
+          change Ideal.Quotient.mk (annihilator R (QuotSMulTop x M)) x = 0
+          rw [Ideal.Quotient.eq_zero_iff_mem]
+          rw [_root_.Module.mem_annihilator]
           intro m
           obtain ⟨m, rfl⟩ := Submodule.Quotient.mk_surjective _ m
           rw [← Submodule.Quotient.mk_smul, Submodule.Quotient.mk_eq_zero]
@@ -1691,3 +1705,6 @@ theorem solution
     {p : Ideal R} (hp : p ∈ associatedPrimes R M) :
     (Module.depth R M : WithBot ℕ∞) ≤ ringKrullDim (R ⧸ p) :=
   Ws14Port.Module.depth_le_ringKrullDim_quotient_of_mem_associatedPrimes M hp
+
+end P2MW.S_Module_depth_le_ringKrullDim_quotient_of_mem_associatedPrimes
+

@@ -16,6 +16,12 @@ set_option synthInstance.maxHeartbeats 400000
 set_option backward.isDefEq.respectTransparency.types false
 set_option autoImplicit false
 
+-- [port] Lean 4.35 repairs: this body is CloudW03NeronSurj's port of the same upstream file
+-- (ZInQKernel/Contrib/CloudW03NeronSurj/Vendor/P2M/Sol/S_AlgebraicGeometry_Smooth_isDiscreteValuationRing_stalk_of_forall_specializes.lean) with its namespace wrapper removed.
+
+
+
+
 namespace P2MW.S_AlgebraicGeometry_Smooth_isDiscreteValuationRing_stalk_of_forall_specializes
 set_option autoImplicit false
 universe u
@@ -129,7 +135,7 @@ theorem solution
   have h03 : IsDiscreteValuationRing (T.presheaf.stalk η) ↔
       IsIntegrallyClosed (T.presheaf.stalk η) ∧
         ∃! P : Ideal (T.presheaf.stalk η), P ≠ ⊥ ∧ P.IsPrime :=
-    (IsDiscreteValuationRing.TFAE (T.presheaf.stalk η) hnf).out 0 3
+    (IsDiscreteValuationRing.TFAE (T.presheaf.stalk η) hnf).out 1 4
   refine h03.mpr ⟨hic, ?_⟩
   refine ⟨IsLocalRing.maximalIdeal _, ⟨hm0, inferInstance⟩, ?_⟩
   rintro P ⟨hP0, hPp⟩
@@ -137,3 +143,6 @@ theorem solution
     rw [IsDomain.minimalPrimes_eq_singleton_bot]; exact hP0
   exact IsLocalRing.eq_maximalIdeal
     (((Ring.krullDimLE_one_iff.mp inferInstance) P hPp).resolve_left hnotmin)
+
+end P2MW.S_AlgebraicGeometry_Smooth_isDiscreteValuationRing_stalk_of_forall_specializes
+

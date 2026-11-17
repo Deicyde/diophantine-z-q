@@ -100,7 +100,8 @@ theorem tensorHom_app_tensorSections (φ : L ⟶ L') (ψ : M ⟶ M') {U : X.Open
   rw [← h']
   erw [sheafify_map_val_app_unit ((ι X).map φ ⊗ₘ (ι X).map ψ) (op U)]
   congr 1
-  all_goals (erw [PresheafOfModules.Monoidal.tensorHom_app])
+  -- [port] Mathlib v4.35: the monoidal structure on presheaves of modules over CommRingCat moved to `PresheafOfModulesOfCommRing`
+  all_goals (erw [PresheafOfModulesOfCommRing.tensorHom_app])
   all_goals exact ModuleCat.MonoidalCategory.tensorHom_tmul _ _ _ _
 
 end TensorHomSections

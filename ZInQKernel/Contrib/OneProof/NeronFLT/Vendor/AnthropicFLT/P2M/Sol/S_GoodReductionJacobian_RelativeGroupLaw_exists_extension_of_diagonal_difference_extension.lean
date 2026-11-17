@@ -18,11 +18,24 @@ set_option synthInstance.maxHeartbeats 400000
 set_option backward.isDefEq.respectTransparency.types false
 set_option autoImplicit false
 
+-- [port] Lean 4.35 repairs: this body is CloudW03NeronSurj's port of the same upstream file
+-- (ZInQKernel/Contrib/CloudW03NeronSurj/Vendor/P2M/Sol/S_GoodReductionJacobian_RelativeGroupLaw_exists_extension_of_diagonal_difference_extension.lean) with its namespace wrapper removed.
+
+
+
+p2m_open "AlgebraicGeometry"
+
 namespace P2MW.S_GoodReductionJacobian_RelativeGroupLaw_exists_extension_of_diagonal_difference_extension
 
 set_option autoImplicit false
 set_option maxHeartbeats 1600000
 set_option synthInstance.maxHeartbeats 1600000
+-- Lean 4.35 defeq drift (port adaptation, no proof change): restore the pre-4.35 `isDefEq`
+-- transparency behaviour the source's `rw` motives rely on; Mathlib sets the same options at the
+-- corresponding lemmas (e.g. `Mathlib/AlgebraicGeometry/Restrict.lean`).
+set_option backward.isDefEq.respectTransparency false
+set_option backward.isDefEq.respectTransparency.types false
+set_option backward.defeqAttrib.useBackward true
 
 universe u
 
@@ -239,7 +252,7 @@ theorem dense_kernelPair_fstV [Smooth t]
   intro k
   let g := pullback.fst (pZ t V W) (pZ t V W) ≫ pZ t V W ≫ t
   haveI : Flat g := inferInstance
-  let η : ↥(Spec (CommRingCat.of R)) := (⟨⊥, Ideal.bot_prime⟩ : PrimeSpectrum R)
+  let η : ↥(Spec (CommRingCat.of R)) := (⟨⊥, Ideal.isPrime_bot⟩ : PrimeSpectrum R)
   have hη : η ⤳ g.base k :=
     (PrimeSpectrum.le_iff_specializes (x := η) (y := g.base k)).mp bot_le
   obtain ⟨k', hk', hgk'⟩ := Flat.generalizingMap g hη
@@ -390,3 +403,6 @@ theorem solution
           ⟨b ≫ v.1, by rw [Category.assoc, v.2, ← Category.assoc, ← hb, Category.assoc, Category.assoc]⟩)) :
     ∃ φ : SchemeHomOver t f, V.ι ≫ φ.1 = v.1 :=
   GoodReductionJacobian.RelativeGroupLaw.DESC.main R G t V hVη hVs v W d hd
+
+end P2MW.S_GoodReductionJacobian_RelativeGroupLaw_exists_extension_of_diagonal_difference_extension
+

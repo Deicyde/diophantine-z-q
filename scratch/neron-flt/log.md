@@ -26,3 +26,11 @@
 - tools/port.py (flt-cqj2's, retargeted): 576 modules copied to ZInQKernel/Contrib/OneProof/NeronFLT/Vendor/AnthropicFLT/
   with header, relocated imports, upstream lakefile options as set_option lines. Original FLT namespaces kept (as the
   CloudB2/CloudW02 FLT vendorings do; FLT names are disjoint across its modules).
+- build1 (lake build of the Thm module): 554 of 576 new modules built, 20 failed (build1.log). VERIFIED.
+  * 8 failures are among the 70 modules CloudW03NeronSurj had already ported: their bodies replaced by CloudW03's
+    Lean-4.35 versions with the namespace wrapper removed (tools/unwrap.py; marked `-- [port]`).
+  * PresheafOfModules defs (PullbackMonoidal, InternalHom, ExteriorPower): Mathlib v4.35 moved the monoidal API to
+    `PresheafOfModulesOfCommRing` (tools/fix.py renames + `open PresheafOfModulesOfCommRing`), and instance search no
+    longer sees `CommRing ((T ⋙ forget₂ CommRingCat RingCat).obj X)`: `instanceSearchTypes false` flag (as Mathlib's
+    own Presheaf/Monoidal.lean) and a file-local instance (tools/patch_pm.py). Two proof lines adjusted (`-- [port]`).
+    The three files compile alone (lake env lean). VERIFIED.

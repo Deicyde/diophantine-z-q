@@ -8,11 +8,18 @@ Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
 -/
 import Mathlib
+import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
 
 set_option maxHeartbeats 4000000
 set_option synthInstance.maxHeartbeats 400000
 set_option backward.isDefEq.respectTransparency.types false
 set_option autoImplicit false
+
+-- [port] Lean 4.35 repairs: this body is CloudW03NeronSurj's port of the same upstream file
+-- (ZInQKernel/Contrib/CloudW03NeronSurj/Vendor/Definitions/Def_Mathlib_RingTheory_SmoothAlgebraOverFieldRegularStalks.lean) with its namespace wrapper removed.
+
+
+
 
 universe u
 
@@ -161,7 +168,7 @@ theorem not_isRegularLocalRing_localization_atPrime_dualNumber (K : Type*) [Fiel
   have hf : IsField (Localization.AtPrime (maximalIdeal (DualNumber K))) :=
     isField_of_isRegularLocalRing_of_krullDimLE_zero
       (Localization.AtPrime (maximalIdeal (DualNumber K)))
-  letI := hf.toField
+  haveI : IsDomain (Localization.AtPrime (maximalIdeal (DualNumber K))) := hf.isDomain
   have hz : algebraMap (DualNumber K)
       (Localization.AtPrime (maximalIdeal (DualNumber K))) DualNumber.eps = 0 :=
     (DualNumber.isNilpotent_eps.map (algebraMap (DualNumber K)
@@ -184,56 +191,3 @@ theorem not_forall_regular_stalks_without_smooth :
 
 end SmoothFieldFiberRegularStalks
 
-/--
-info: 'SmoothFieldFiberRegularStalks.isRegularLocalRing_localization_atPrime_of_isArtinianRing_of_isReduced' depends on axioms: [propext, Classical.choice, Quot.sound]
--/
-#guard_msgs (whitespace := lax) in
-#print axioms SmoothFieldFiberRegularStalks.isRegularLocalRing_localization_atPrime_of_isArtinianRing_of_isReduced
-
-/--
-info: 'SmoothFieldFiberRegularStalks.isRegularRing_of_isArtinianRing_of_isReduced' depends on axioms: [propext, Classical.choice, Quot.sound]
--/
-#guard_msgs (whitespace := lax) in
-#print axioms SmoothFieldFiberRegularStalks.isRegularRing_of_isArtinianRing_of_isReduced
-
-/--
-info: 'SmoothFieldFiberRegularStalks.isRegularLocalRing_localization_atPrime_of_formallyUnramified' depends on axioms: [propext, Classical.choice, Quot.sound]
--/
-#guard_msgs (whitespace := lax) in
-#print axioms SmoothFieldFiberRegularStalks.isRegularLocalRing_localization_atPrime_of_formallyUnramified
-
-/--
-info: 'SmoothFieldFiberRegularStalks.isRegularLocalRing_localization_atPrime_of_etale' depends on axioms: [propext, Classical.choice, Quot.sound]
--/
-#guard_msgs (whitespace := lax) in
-#print axioms SmoothFieldFiberRegularStalks.isRegularLocalRing_localization_atPrime_of_etale
-
-/--
-info: 'SmoothFieldFiberRegularStalks.isRegularRing_of_etale' depends on axioms: [propext, Classical.choice, Quot.sound]
--/
-#guard_msgs (whitespace := lax) in
-#print axioms SmoothFieldFiberRegularStalks.isRegularRing_of_etale
-
-/--
-info: 'SmoothFieldFiberRegularStalks.isRegularRing_of_smooth_of_input' depends on axioms: [propext, Classical.choice, Quot.sound]
--/
-#guard_msgs (whitespace := lax) in
-#print axioms SmoothFieldFiberRegularStalks.isRegularRing_of_smooth_of_input
-
-/--
-info: 'SmoothFieldFiberRegularStalks.not_isRegularLocalRing_dualNumber' depends on axioms: [propext, Classical.choice, Quot.sound]
--/
-#guard_msgs (whitespace := lax) in
-#print axioms SmoothFieldFiberRegularStalks.not_isRegularLocalRing_dualNumber
-
-/--
-info: 'SmoothFieldFiberRegularStalks.not_isRegularLocalRing_localization_atPrime_dualNumber' depends on axioms: [propext, Classical.choice, Quot.sound]
--/
-#guard_msgs (whitespace := lax) in
-#print axioms SmoothFieldFiberRegularStalks.not_isRegularLocalRing_localization_atPrime_dualNumber
-
-/--
-info: 'SmoothFieldFiberRegularStalks.not_forall_regular_stalks_without_smooth' depends on axioms: [propext, Classical.choice, Quot.sound]
--/
-#guard_msgs (whitespace := lax) in
-#print axioms SmoothFieldFiberRegularStalks.not_forall_regular_stalks_without_smooth

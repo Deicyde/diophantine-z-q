@@ -16,10 +16,14 @@ set_option autoImplicit false
 
 set_option autoImplicit false
 set_option backward.isDefEq.respectTransparency false
+-- [port] Lean v4.35: instance-search transparency flag (see the adaptation note in Mathlib.Algebra.Category.ModuleCat.Presheaf.Monoidal)
+set_option backward.isDefEq.respectTransparency.instanceSearchTypes false
 
 universe v u v₁ u₁ v₂ u₂
 
 open CategoryTheory MonoidalCategory Limits Functor.LaxMonoidal Functor.OplaxMonoidal
+-- [port] Mathlib v4.35: the monoidal API of presheaves of modules over CommRingCat lives in `PresheafOfModulesOfCommRing`
+open PresheafOfModulesOfCommRing
 
 namespace PresheafOfModules
 
@@ -221,6 +225,13 @@ end PresheafOfModules
 
 namespace PresheafOfModules
 
+-- [port] Lean v4.35: instance search no longer sees through `(T ⋙ forget₂ CommRingCat RingCat).obj X`
+noncomputable def commRingCompForget₂Obj_port {E : Type*} [Category E] (T : E ⥤ CommRingCat.{u}) (X : E) :
+    CommRing ((T ⋙ forget₂ CommRingCat RingCat).obj X) :=
+  inferInstanceAs (CommRing (T.obj X))
+
+attribute [local instance] commRingCompForget₂Obj_port
+
 namespace PullbackMonoidal
 
 open Opposite Functor.LaxMonoidal Functor.OplaxMonoidal
@@ -291,7 +302,8 @@ lemma tensorHom_app_tmul {E : Type u} [SmallCategory E] {T : Eᵒᵖ ⥤ CommRin
     (f : M₁ ⟶ M₂) (g : M₃ ⟶ M₄) (X : Eᵒᵖ) (m : M₁.obj X) (n : M₃.obj X) :
     DFunLike.coe (α := (M₁.obj X ⊗ M₃.obj X :)) (β := fun _ => (M₂.obj X ⊗ M₄.obj X :))
       ((f ⊗ₘ g).app X).hom (m ⊗ₜ[T.obj X] n) = f.app X m ⊗ₜ[T.obj X] g.app X n := by
-  erw [PresheafOfModules.tensorHom_app]
+  -- [port] Mathlib v4.35: `PresheafOfModulesOfCommRing.tensorHom_app` is stated with `Hom.app'`; the goal is the
+  -- tensor-product formula by definition
   exact ModuleCat.MonoidalCategory.tensorHom_tmul _ _ _ _
 
 omit [HasFiniteProducts C] [HasFiniteProducts D] [PreservesFiniteProducts F] in
