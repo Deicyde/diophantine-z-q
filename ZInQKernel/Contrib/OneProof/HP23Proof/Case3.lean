@@ -20,7 +20,9 @@ open ZInQ.Contrib.TYZDecomp.H29Split ZInQ.Contrib.T21Proof ZInQ.Contrib.HfxProof
 open scoped Quaternion
 open ZInQ.RouteK.Rank5b
 
-local instance (p : Nat.Primes) : Fact p.1.Prime := ⟨p.2⟩
+-- contrib-clashes: `private`, so that the auto-generated instance name does not collide with the
+-- identical local instance of a sibling module when both are imported.
+private local instance (p : Nat.Primes) : Fact p.1.Prime := ⟨p.2⟩
 
 /-- **The partition data for `n ≡ 3 (mod 8)`** (hfx-proof's `testVector_three`, with the conclusion
 `testVector_of_partition` replaced by its hypotheses), and `F ∈ {−3, 1}` is odd. -/

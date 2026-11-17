@@ -1,6 +1,6 @@
 -- Vendored from frenzymath/Jacobian-Challenge (https://github.com/frenzymath/Jacobian-Challenge, commit c4254cce15b3e284a0a3ae1d73936f2ee195d272, module Jacobian.AlgebraicGeometry.Cohomology.DirectImage.Affine), Apache-2.0.
 -- Copyright 2026 Axel Delaval, Jie Xu, and Shitan Xu; see LICENSE and NOTICE in ZInQKernel/Contrib/CloudW07JacobiansCurves/.
--- Changed for this repository: import paths moved under `ZInQKernel.Contrib.CloudW07JacobiansCurves`; names and namespaces unchanged.
+-- Changed for this repository: import paths moved under `ZInQKernel.Contrib.CloudW07JacobiansCurves`; names and namespaces unchanged, except that the anonymous local instance `PreservesZeroMorphisms (SheafOfModules.toSheaf …)` is `private` (its generated name also occurs in Modules/Extension).
 import ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.AlgebraicGeometry.Cohomology.InjectiveFlasque
 import ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.AlgebraicGeometry.Cohomology.Affine.Pushforward
 import ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.AlgebraicGeometry.Cohomology.LongExact
@@ -29,7 +29,7 @@ namespace AlgebraicGeometry.Scheme.Modules
 
 variable {X T : Scheme.{u}}
 
-local instance : Functor.PreservesZeroMorphisms (C := X.Modules)
+private local instance : Functor.PreservesZeroMorphisms (C := X.Modules)
     (SheafOfModules.toSheaf.{u} X.ringCatSheaf) where
   map_zero := by intros; ext openSubset sectionValue; rfl
 

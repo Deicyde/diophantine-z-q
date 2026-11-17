@@ -25,7 +25,9 @@ open IsDedekindDomain NumberField
 open scoped Quaternion
 open ZInQ.RouteK.Rank5b
 
-local instance (p : Nat.Primes) : Fact p.1.Prime := ⟨p.2⟩
+-- contrib-clashes: `private`, so that the auto-generated instance name does not collide with the
+-- identical local instance of a sibling module when both are imported.
+private local instance (p : Nat.Primes) : Fact p.1.Prime := ⟨p.2⟩
 
 section DC
 

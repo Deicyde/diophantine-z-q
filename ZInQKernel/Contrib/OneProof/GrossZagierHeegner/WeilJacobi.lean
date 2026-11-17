@@ -1,5 +1,6 @@
 import ZInQKernel.Contrib.OneProof.GrossZagierHeegner.WeilTheta
 import Mathlib.NumberTheory.ModularForms.LevelOne.DimensionFormula
+import ZInQKernel.Contrib.OneProof.GrossZagierHeegner.JacobiLambdaDeriv
 
 /-!
 # gz-weil: Jacobi's derivative formula `dλ/dt = πi λ θ₄⁴`, proved
@@ -7,7 +8,7 @@ import Mathlib.NumberTheory.ModularForms.LevelOne.DimensionFormula
 Task gz-weil (2026-11-15). Report: `docs/research/gz-weil.md`; scratch and log: `scratch/gz-weil/`.
 
 `WeilTheta.lean` reduced the modular parametrization of `C_d` to `JacobiLambdaDeriv`. This file
-proves it (`jacobiLambdaDeriv`), so the parametrization is a theorem
+proves it (`jacobiLambdaDeriv_viaCuspForms`), so the parametrization is a theorem
 (`shimuraCMParamCd_proved : GZHL3.ShimuraCMParamCd`). The proof is the classical modular one, with
 Mathlib's level-one dimension formula:
 
@@ -26,6 +27,12 @@ Mathlib's level-one dimension formula:
   `E₁ = 0` is `(log θ₂/θ₃)' = (πi/4)θ₄⁴`, i.e. `λ' = πiλθ₄⁴`.
 
 No `sorry`, no `axiom`.
+
+Task contrib-clashes (2026-11-17): jacobi-lambda's `JacobiLambdaDeriv.lean` proves the same formula by
+another route and declares `jacobiLambdaDeriv`, `etaModelDifferential` and `modularParamC1` under the
+same names and types. Those three are the canonical declarations; this file imports them. Its own proof
+is kept under the name `jacobiLambdaDeriv_viaCuspForms` (same type), and the derived
+`etaModelDifferential` and `modularParamC1` (identical statements) are no longer repeated here.
 -/
 
 noncomputable section
@@ -780,8 +787,9 @@ theorem E_eq_zero {t : ℂ} (ht : 0 < t.im) : E1 t = 0 := by
     have : E1 t ^ 2 = 0 := by linear_combination h1 + omega3 ^ 2 * hb0
     exact pow_eq_zero_iff (two_ne_zero) |>.mp this
 
-/-- **Jacobi's derivative formula, proved**: `dλ/dt = πi λ θ₄⁴` for `λ = θ₂⁴/θ₃⁴`. -/
-theorem jacobiLambdaDeriv : JacobiLambdaDeriv := by
+/-- **Jacobi's derivative formula, proved**: `dλ/dt = πi λ θ₄⁴` for `λ = θ₂⁴/θ₃⁴` (via cusp forms of
+level one; jacobi-lambda's `jacobiLambdaDeriv` is the same statement by the Landen recursion). -/
+theorem jacobiLambdaDeriv_viaCuspForms : JacobiLambdaDeriv := by
   intro t ht
   have h2 := thetaTwo_ne_zero ht
   have h3 := thetaThree_ne_zero ht
@@ -806,19 +814,15 @@ theorem jacobiLambdaDeriv : JacobiLambdaDeriv := by
 
 /-! ## Consequences -/
 
-/-- x0-32's leaf `X0.EtaModelDifferential` (`x' = 4πi f₁ y` on the eta-quotient model of `X₀(32)`),
-proved. -/
-theorem etaModelDifferential : ZInQ.Contrib.TYZGenus.X0.EtaModelDifferential :=
-  etaModelDifferential_of_jacobiLambdaDeriv jacobiLambdaDeriv
-
-/-- The analytic modular parametrization of `C₁` by `X₀(32)` (`ModularParamC1`), proved. -/
-theorem modularParamC1 : ModularParamC1 := modularParamC1_of_jacobiLambdaDeriv jacobiLambdaDeriv
+/- x0-32's leaf `X0.EtaModelDifferential` and `ModularParamC1` follow from `jacobiLambdaDeriv` by
+`etaModelDifferential_of_jacobiLambdaDeriv` and `modularParamC1_of_jacobiLambdaDeriv`; the theorems
+`etaModelDifferential` and `modularParamC1` are declared in `JacobiLambdaDeriv.lean` (imported). -/
 
 /-- **gz-hl3's `ShimuraCMParamCd`, proved**: for every squarefree `d ≡ 5 (mod 8)` and every
 newform `f` of `C_d`, the periods of `f` lie in a rational multiple of the period lattice of
 `C_d : y² = x³ − d²x`. No Eichler–Shimura, no Faltings. -/
 theorem shimuraCMParamCd_proved : ZInQ.GZHL3.ShimuraCMParamCd :=
-  shimuraCMParamCd_of_jacobiLambdaDeriv jacobiLambdaDeriv
+  shimuraCMParamCd_of_jacobiLambdaDeriv jacobiLambdaDeriv_viaCuspForms
 
 /-- **`GZStatements.GrossZagierHeegnerCd` from uniformization and gz-hl3's three Heegner-point
 leaves for `C_d`** (the parametrization is proved). -/

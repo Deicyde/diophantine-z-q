@@ -36,6 +36,11 @@ its first three comment lines):
   copied files updated, so that they do not collide with identically named declarations of the
   vendored Stacks project elsewhere in this repository (the 47 affected files say so in their
   third comment line);
+* in Cohomology/Flasque.lean, Cohomology/DirectImage/Affine.lean and
+  Cohomology/AcyclicResolution.lean the anonymous `local instance` of
+  `Functor.PreservesZeroMorphisms (SheafOfModules.toSheaf X.ringCatSheaf)` is made `private`, so that
+  its generated name does not occur in four modules (Modules/Extension.lean keeps it); the three
+  files say so in their third comment line (task contrib-clashes, 2026-11-17);
 * any further edit needed to compile against this repository's Lean v4.35.0 /
   Mathlib 56a005855ea17e0b0958f73ec801ae140b0a1679 (upstream pins Lean
   v4.35.0-rc3 / Mathlib b63f6e8a68d220e3b3bc4f3792bb53650d375f24) is listed in
