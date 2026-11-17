@@ -1,0 +1,68 @@
+OPEN: 37 open hypotheses
+HYP OpenResearchLeaves31.r9a : some (PkgI3.FaltingsSemisimple)
+HYP OpenResearchLeaves31.r9b : some (PkgI3.FaltingsTate)
+HYP OpenResearchLeaves31.hodgeTateDecompAbVar : some (ZInQ.Contrib.HodgeSplit.HodgeTateDecompAbVar)
+HYP OpenResearchLeaves31.deRhamH1AbVarT : some (ZInQ.Contrib.HodgeSplit.DeRhamH1AbVarT)
+HYP OpenResearchLeaves31.r11r12 : some (HDec.PkgI4.PanBerger)
+HYP OpenResearchLeaves31.eigenformHTNew : some (ZInQ.Contrib.HodgeSplit.EigenformHTNew)
+HYP OpenResearchLeaves31.r17 : some (LadicCond.CarayolR17')
+HYP OpenResearchLeaves31.bostLowerBound : some (ZInQ.HeightSplit.BostLowerBound)
+HYP OpenResearchLeaves31.javanpeykarBound : some (ZInQ.HeightSplit.JavanpeykarBound)
+HYP OpenResearchLeaves31.pazukiCor13Upper : some (ZInQ.HeightSplit.PazukiCor13Upper)
+HYP OpenResearchLeaves31.gaudronRemondThm14 : some (ZInQ.HeightSplit.GaudronRemondThm14)
+HYP OpenResearchLeaves31.gonzalezRotgerX6Ab : some (HDec.QMSplit.Moduli.GonzalezRotgerX6Ab)
+HYP OpenResearchLeaves31.gonzalezRotgerProp56X6 : some (GRCountX6.GonzalezRotgerProp56X6)
+HYP OpenResearchLeaves31.sga7_IX_3_5_ForwardGeom : some (UnipotentForward.SGA7_IX_3_5_ForwardGeom)
+HYP OpenResearchLeaves31.shimuraMainThmIDeligneY3AbU : some (RayClassCFT.ShimuraMainThmIDeligneY3AbU)
+HYP OpenResearchLeaves31.r16CoreY : some (R16Split.R16CoreY)
+HYP OpenResearchLeaves31.elkiesX6StarFunctionField : some (HDec.QMSplit.Moduli.ElkiesCoord.ElkiesX6StarFunctionField)
+HYP OpenResearchLeaves31.sga7_IX_3_3_SHpre : some (DictModels.SGA7Pre.SGA7_IX_3_3_SHpre)
+HYP OpenResearchLeaves31.raynaudSemistableSHOr : some (DictModels.RaynaudOr.RaynaudSemistableSHOr)
+HYP OpenResearchLeaves31.neronSchemeExtensionDedekind : some (ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind)
+HYP OpenResearchLeaves31.neronOggShafarevichSep : some (NOSSepDict.NeronOggShafarevichSep)
+HYP OpenResearchLeaves31.dsThm965Printed : some (DSCoeffExt.DSThm965Printed)
+HYP OpenResearchLeaves31.eigenformCoeffFieldFinite : some (DSCoeffExt.EigenformCoeffFieldFinite)
+HYP OpenResearchLeaves31.dsThm966Printed : some (DSThm966EV.DSThm966Printed)
+HYP OpenTextbookLeaves16.mumfordTorsionAlgClosed : some (AvSplit.MumfordTorsionAlgClosed)
+HYP OpenTextbookLeaves16.charPolyIndepOfEllAlgClosed : some (ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed)
+HYP OpenTextbookLeaves16.gagaMorphism : some (ZInQ.HomLattice.GAGAMorphism)
+HYP OpenAddedLeaves20.picRepresentableAbVar : some (T09Pic.PicRepresentableAbVar)
+HYP OpenAddedLeaves20.picZeroAbVar : some (T09Pic.PicZeroAbVar)
+HYP OpenAddedLeaves20.weilPairingMumford : some (T09Pic.WeilPairingMumford)
+HYP OpenAddedLeaves20.mumfordPhiSurjectiveAC : some (PicDict.MumfordPhiSurjectiveAC)
+HYP h11 : some (ZInQ.Contrib.TYZDecomp.TYZThm11Integral)
+HYP hL29 : some (ZInQ.Contrib.TYZDecomp.H29Split.TYZLemma29PrintedNe3)
+HYP hCM : some (ZInQ.Contrib.HCMDict.ShimuraThm54)
+HYP h33 : some (ZInQ.Contrib.TYZGenus.TYZSplit.TYZThm33)
+HYP hBFH : some (ZInQ.BFHPrinted.BFHClauseIIGamma0)
+HYP hGZ : some (ZInQ.GZAlg.GrossZagierAlgOptCd)
+CLOSURE size: 271096
+CLOSURE hits (21): [HDec.HSyn.OpenTextbookLeaves10HF.homFreeFiniteAlgClosed,
+ HDec.HSyn.OpenTextbookLeaves11HF.homFreeFiniteAlgClosed,
+ HDec.HSyn.OpenTextbookLeaves12HF.homFreeFiniteAlgClosed,
+ HDec.HSyn.OpenTextbookLeaves13HF.homFreeFiniteAlgClosed,
+ HDec.HSyn.OpenTextbookLeaves6HF.homFreeFiniteAlgClosed,
+ HDec.HSyn.OpenTextbookLeaves7HF.homFreeFiniteAlgClosed,
+ HDec.HSyn.OpenTextbookLeaves8HF.homFreeFiniteAlgClosed,
+ HDec.HSyn.OpenTextbookLeaves9HF.homFreeFiniteAlgClosed,
+ T5Glue.ShimuraMainCM,
+ ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed._proof_4,
+ ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed._proof_4,
+ ZInQ.Contrib.NeronC.NeronSchemeExtensionExists,
+ ZInQ.Contrib.OneProof.HomFreeC.HomFreeFiniteC,
+ ZInQ.Contrib.OneProof.HomFreeC.homFreeFiniteC,
+ ZInQ.GZOptimal.GrossZagierModuliOptAt,
+ ZInQ.GZOptimal.GrossZagierModuliOptAt._proof_1,
+ ZInQ.GZOptimal.GrossZagierModuliOptAt._proof_2,
+ ZInQ.GZOptimal.GrossZagierModuliOptAt._proof_3,
+ ZInQ.GZOptimal.GrossZagierModuliOptCd,
+ ZInQ.GZStatements.GrossZagierHeegnerCd,
+ ZInQ.GZStatements.GrossZagierHeegnerCd._proof_1]
+STATEMENT-CLOSURE OpenTextbookLeaves16.charPolyIndepOfEllAlgClosed: [ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed._proof_4,
+ ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed._proof_4]
+STATEMENT-CLOSURE check done
+'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	2m15.824s
+user	1m29.232s
+sys	0m5.354s
