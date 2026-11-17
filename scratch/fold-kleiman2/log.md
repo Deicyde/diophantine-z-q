@@ -40,3 +40,6 @@ Base wip/leaf-fold33b 75d94fe7 (TailZ67, `sixContactMin_of_open60`; render_open 
    kleimanPicZeroProper dropped. render_open.py: 34 H hypotheses, strictest 11/23, 5 others (39 open; unchanged:
    one GLUE out, one GLUE in; -1 GLUE when the leaf is rated LEAF); --check ok. frontier_crosswalk.py: 232 IDs, 6
    matched; --check ok.
+10. autoform check blueprint --lean-root . (taskset -c 0): OK: 772 articles, 2333 dependencies, 697 fully proved; rc 0.
+11. Reproducibility: gen.py dry run on the folded head stops with "OpenAddedLeaves26 has no field kleimanPicZeroProper
+    (already folded?)", as designed. build_1.txt trimmed to progress/axiom/summary lines (full output 8.9 MB).
