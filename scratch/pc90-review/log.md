@@ -15,3 +15,6 @@
 - VERIFIED: Compose2.lean: frozenTarget_printed (KolyvaginThm1Printed in place of KolyvaginThm1) compiles; axioms standard; frozenTarget, MainGreenTao headline, poleCompleteness_of_restrictedConverseGenuine_mw standard.
 - VERIFIED: Axioms.lean: 19 PR theorems (final, kummerSelmerM, both matrixRealization, both dimThreeCount, mordellWeilM, descentGlueM, lemma54_of_leaves, NonVacuity, local images) all standard axioms.
 - VERIFIED: MainGreenTao.lean unchanged vs merge base.
+- VERIFIED (hand check vs S12 L586-688): K#1=0 needs a^t1=0 and sum lambda=0 on support; K#1_B = K1_B + lambda(a^t 1_B) = lambda; q0 row of K1_B = sum C entries + sum_B s_b = 0 via [q_b/q0]=[q0/q_b]+s_b (s0=1); I-I block: diag = column sum of C = 0, [q0/q_i]=[q_i/q0] since s_i=0; 1_B^t A 1_B = sum_B lambda = 1; toggling [q0/q_j] changes only K_jj after deleting q0 (and the deleted q0 row/col), det multilinear, top coeff det M0 = 1; bits absent from Q0 matrix (S12 L688). No error.
+- VERIFIED: Mathlib LFunction.lean localPolynomial: good 1-aX+qX^2 (a=q+1-#Point incl. O), split 1-X, nonsplit 1+X, additive 1, on minimal model at adicCompletion.
+- Report written: docs/research/pc90-review.md (verdict: not ready only because S12 committed; Lean clean).
