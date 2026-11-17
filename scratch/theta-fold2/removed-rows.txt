@@ -1,0 +1,4 @@
+# kinds.tsv
+added	thetaRatiosAlgebraic	composite		GLUE	GLUE	Shimura 1976; Mumford Tata II IIIa 8; Igusa (qm-split: ThetaNullNonvanishing + glue, not folded)	leaf-fold10 table (g0-thetapoint)			T2		elliotglazer/diophantine-z-q#86
+# claims.tsv
+thetaRatiosAlgebraic	theta-direct; linyang-printed; igusa-alg	host task theta-direct running	2026-11-16		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/igusa-alg	held

@@ -1,0 +1,905 @@
+diff -ruN a/ZInQKernel/Contrib/OneProof/ThetaDirect/Split.lean b/ZInQKernel/Contrib/OneProof/ThetaDirect/Split.lean
+--- a/ZInQKernel/Contrib/OneProof/ThetaDirect/Split.lean	2026-11-16 01:12:36.061478610 -0800
++++ b/ZInQKernel/Contrib/OneProof/ThetaDirect/Split.lean	2026-11-16 01:12:36.154187556 -0800
+@@ -1,4 +1,4 @@
+-import ZInQKernel.Contrib.OneProof.ThetaDirect.UseForm
++import ZInQKernel.OneProof.H.TailZ19
+ 
+ /-! theta-direct: copied verbatim from origin/wip/theta-fold (8e3dbdea) `ZInQKernel/Contrib/OneProof/LinYangSplit.lean`;
+    only the import lines are changed (this base has no theta-fold modules). -/
+diff -ruN a/ZInQKernel/Contrib/OneProof/ThetaDirect/UseForm.lean b/ZInQKernel/Contrib/OneProof/ThetaDirect/UseForm.lean
+--- a/ZInQKernel/Contrib/OneProof/ThetaDirect/UseForm.lean	2026-11-16 01:12:36.061424498 -0800
++++ b/ZInQKernel/Contrib/OneProof/ThetaDirect/UseForm.lean	1969-12-31 16:00:00.000000000 -0800
+@@ -1,92 +0,0 @@
+-import ZInQKernel.OneProof.H.TailZ19
+-
+-/-! # theta-direct (helper 1/5): the use form `ThetaRatiosAtQM` (copied verbatim)
+-
+-Copied verbatim from origin/wip/theta-fold (8e3dbdea) `ZInQKernel/OneProof/H/TailK.lean` lines 281-346
+-(theta-split's `ThetaRatiosAtQM`, `Jmap_ne_zero`, `thetaPointOfFibre_of_qm_atQM`; scratch/theta-split/ThetaUse.lean §1).
+-They are not on this base (fork main a40d5c4d): theta-fold moved them into TailK, which this task does not edit.
+-The enclosing `namespace HDec`, `set_option maxHeartbeats 1000000`, `noncomputable section`, `namespace HSyn` and
+-`open CategoryTheory AlgebraicGeometry G0Split` are those of TailK at that point (its lines 7, 9, 29, 31, 33). -/
+-
+-namespace HDec
+-
+-set_option maxHeartbeats 1000000
+-
+-noncomputable section
+-
+-namespace HSyn
+-
+-open CategoryTheory AlgebraicGeometry G0Split
+-
+-/-! ### theta-fold: the use form of `ThetaRatiosAlgebraic` (theta-split, moved here unchanged)
+-
+-theta-split's `ThetaRatiosAtQM` (scratch/theta-split/ThetaUse.lean §1, via igusa-alg and linyang-printed) is how
+-`gluePieces_of_open4` uses the theta algebraicity: only along pkg-I1's QM period matrices `Ω(τ)`. igusa-alg and
+-linyang-printed prove it from the printed leaves `IgusaThetaExpressions` and `LinYangEx29All` (with `QMHauptmodul`;
+-`ZInQKernel/Contrib/OneProof/LinYangPrinted.lean`), which replace the universal field `thetaRatiosAlgebraic`. -/
+-
+-namespace G0Split.ThetaPt.ThetaSplit
+-
+-open _root_.ZInQ ZInQ ZInQ.JHeight LeafQM.AV ZInQ.DefFaltings
+-open _root_.ZInQ.LeafPush2 (CPts cptObj IsUniformization IsSiegel IsPeriodMatrix Char2 thetaConst
+-  absLogHeight)
+-open Complex Polynomial
+-
+-/-- **GLUE (G19 / F1, the use of `ThetaRatiosAlgebraic`; theta-null ratios on the QM curve).**
+-For `τ` in the upper half-plane with `j_θ(Ω(τ)) = jNum(Ω(τ))/jDen(Ω(τ)) = q ∈ ℚ \ {0}` (pkg-I1's
+-`Ω(τ) = (F₀(τ)P⁻¹)⁻¹E(τ)`, the period matrix of the QM lattice `ι(𝒪)(τ, 1)ᵀ` for N5's maximal order
+-of the quaternion algebra of discriminant 6): some theta constant `θ_{m₀}(0, Ω(τ))` is nonzero and every
+-ratio `θ_m(0, Ω(τ))/θ_{m₀}(0, Ω(τ))` is an algebraic number. (In fact `m₀ = (0,0)` works and all ten
+-even theta constants are nonzero, since `jNum ≠ 0`.)
+-
+-This is exactly how the bundle field `ThetaRatiosAlgebraic` is used (at `Ω(τ)` with `j_θ = J(u)`,
+-`u ∉ 𝒞`): `thetaPointOfFibre_of_qm_atQM`. It is a statement about explicit holomorphic functions of
+-one variable `τ`; no abelian variety or polarization occurs. Why true: `QMThetaSymmetric` (below) and
+-`thetaRatiosAtQM_of_symmetric`. -/
+-def ThetaRatiosAtQM : Prop :=
+-  ∀ τ : ℂ, 0 < τ.im → ∀ q : ℚ, q ≠ 0 →
+-    PkgI1.jNum (PkgI1.Omega τ) / PkgI1.jDen (PkgI1.Omega τ) = (q : ℂ) →
+-    ∃ m₀ : Char2, thetaConst (BPAnalytic.QM.Omega τ) m₀ ≠ 0 ∧
+-      ∀ m, IsAlgebraic ℚ (thetaConst (BPAnalytic.QM.Omega τ) m / thetaConst (BPAnalytic.QM.Omega τ) m₀)
+-
+-/-- `J(u) ≠ 0` off the contact set (as kernel `J_ne_zero`, PRArith l.131, reproved). -/
+-theorem Jmap_ne_zero {u : ℚ} (hu : u ∉ contactSet) : Jmap u ≠ 0 := by
+-  unfold Jmap
+-  have hG := G_ne_zero u
+-  simp only [contactSet, Finset.mem_insert, Finset.mem_singleton, not_or] at hu
+-  obtain ⟨h0, h1, h2, h3, h4, h5⟩ := hu
+-  have hF : u * (u + 15) * (u + 20) * (u + 24) * (u + 30) * (u + 60) ≠ 0 := by
+-    refine mul_ne_zero (mul_ne_zero (mul_ne_zero (mul_ne_zero (mul_ne_zero h0 ?_) ?_) ?_) ?_) ?_
+-    · intro h; exact h1 (by linarith)
+-    · intro h; exact h2 (by linarith)
+-    · intro h; exact h3 (by linarith)
+-    · intro h; exact h4 (by linarith)
+-    · intro h; exact h5 (by linarith)
+-  exact div_ne_zero (mul_ne_zero (by norm_num) (pow_ne_zero _ hF)) (pow_ne_zero _ hG)
+-
+-/-- **Missing piece 9, `ThetaPointOfFibre`, from `FibreQMPeriod` and the use form (proved).**
+-Replaces `thetaPointOfFibre_of_qm_ratios hQM hAlg` (same proof, with `ThetaRatiosAtQM` applied at the
+-`τ` of `FibreQMPeriod` instead of `ThetaRatiosAlgebraic` at `Ω(τ)`). -/
+-theorem thetaPointOfFibre_of_qm_atQM (hQM : FibreQMPeriod) (hT : ThetaRatiosAtQM) :
+-    ThetaPointOfFibre := by
+-  intro Y Φ π h1 h2 u hu K A hFib
+-  obtain ⟨σ, Λ, Φu, hΦu, τ, hτ, F, hF, hJ⟩ := hQM Y Φ π h1 h2 u hu K A hFib
+-  have hS : IsSiegel (BPAnalytic.QM.Omega τ) := isSiegel_Omega hτ
+-  have hP : IsPeriodMatrix Λ (BPAnalytic.QM.Omega τ) :=
+-    isPeriodMatrix_of_comap (isPeriodMatrix_qmLattice hτ.ne') F hF
+-  have hJθ : jTheta (BPAnalytic.QM.Omega τ) = ((Jmap u : ℚ) : ℂ) := by
+-    rw [jTheta_eq, ← omega_eq]; exact hJ
+-  obtain ⟨m₀, h0, halg⟩ := hT τ hτ (Jmap u) (Jmap_ne_zero hu) hJ
+-  obtain ⟨L, emb, z, hz⟩ := exists_nf_of_isAlgebraic _ halg
+-  have hz' : ∀ m, emb (z m) = (thetaConst (BPAnalytic.QM.Omega τ) m₀)⁻¹ *
+-      thetaConst (BPAnalytic.QM.Omega τ) m := fun m => by rw [hz m, div_eq_inv_mul]
+-  exact ⟨σ, Λ, Φu, hΦu, BPAnalytic.QM.Omega τ, hS, hP, L, emb, z, _, inv_ne_zero h0, hz', L,
+-    fun i => z (evenEnum i), f1_of_theta emb _ z _ (inv_ne_zero h0) hz' (Jmap u) hJθ, height_even z⟩
+-
+-end G0Split.ThetaPt.ThetaSplit
+-
+-end HSyn
+-
+-end
+-
+-end HDec
+diff -ruN a/ZInQKernel/Contrib/OneProof/X0ModuliUsed.lean b/ZInQKernel/Contrib/OneProof/X0ModuliUsed.lean
+--- a/ZInQKernel/Contrib/OneProof/X0ModuliUsed.lean	2026-11-16 01:12:36.061364208 -0800
++++ b/ZInQKernel/Contrib/OneProof/X0ModuliUsed.lean	2026-11-16 01:12:36.153885611 -0800
+@@ -3,6 +3,7 @@
+ import ZInQKernel.Contrib.TYZChain.Main
+ import ZInQKernel.OneProof.TYZSplit
+ import ZInQKernel.OneProof.H.TailZ35
++import ZInQKernel.Contrib.OneProof.ThetaDirect
+ import ZInQKernel.OneProof.TopChain
+ import ZInQKernel.Contrib.OneProof.FHNonvanishing
+ 
+@@ -331,7 +332,7 @@
+     (hFH : ZInQ.GZFH.FriedbergHoffsteinB_FE) (hL3 : ZInQ.GZDecomp.GrossZagierHeegner) :
+     ZInQ.FrozenTarget :=
+   ZInQ.GZDecomp.frozenTarget_of_sixContactMin_tyzThm35ReadingA_gzLeaves
+-    (HDec.HSyn.sixContactMin_of_open29 r t l g)
++    (HDec.HSyn.sixContactMin_of_open29 r t l g HDec.ThetaDirect.thetaRatiosAtQM_of_qmHauptmodul)
+     (tyzThm35ReadingA_of_used h11 h29 hCM hXU h33)
+     ZInQ.GZTheta.Frontier.heckeThetaNewform (ZInQ.GZFH.fhNonvanishing_of_friedbergHoffsteinB_FE hFH) hL3
+ 
+@@ -360,7 +361,7 @@
+     (hFH : ZInQ.GZFH.FriedbergHoffsteinB_FE) (hL3 : ZInQ.GZDecomp.GrossZagierHeegner) :
+     ZInQ.FrozenTarget :=
+   ZInQ.GZDecomp.frozenTarget_of_sixContactMin_tyzThm35ReadingA_gzLeaves
+-    (HDec.HSyn.sixContactMin_of_open29 r t l g)
++    (HDec.HSyn.sixContactMin_of_open29 r t l g HDec.ThetaDirect.thetaRatiosAtQM_of_qmHauptmodul)
+     (tyzThm35ReadingA_of_eta h11 h29 hCM hXE h33)
+     ZInQ.GZTheta.Frontier.heckeThetaNewform (ZInQ.GZFH.fhNonvanishing_of_friedbergHoffsteinB_FE hFH) hL3
+ 
+@@ -384,7 +385,7 @@
+     (hFH : ZInQ.GZFH.FriedbergHoffsteinB_FE) (hL3 : ZInQ.GZDecomp.GrossZagierHeegner) :
+     ZInQ.FrozenTarget :=
+   ZInQ.GZDecomp.frozenTarget_of_sixContactMin_tyzThm35ReadingA_gzLeaves
+-    (HDec.HSyn.sixContactMin_of_open29 r t l g)
++    (HDec.HSyn.sixContactMin_of_open29 r t l g HDec.ThetaDirect.thetaRatiosAtQM_of_qmHauptmodul)
+     (tyzThm35ReadingA_of_theta h11 h29 hCM hT h33)
+     ZInQ.GZTheta.Frontier.heckeThetaNewform (ZInQ.GZFH.fhNonvanishing_of_friedbergHoffsteinB_FE hFH) hL3
+ 
+diff -ruN a/ZInQKernel/OneProof/H/TailK.lean b/ZInQKernel/OneProof/H/TailK.lean
+--- a/ZInQKernel/OneProof/H/TailK.lean	2026-11-16 01:12:36.059676320 -0800
++++ b/ZInQKernel/OneProof/H/TailK.lean	2026-11-16 01:12:36.148152000 -0800
+@@ -188,7 +188,6 @@
+   leaves (for `AbVarSpreadsOut`). -/
+ structure OpenAddedLeaves4 : Prop where
+   cmOptimalEmbedding : FS5NoCM.CMOptimalEmbedding
+-  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+   qmHauptmodul : PkgI1.QMHauptmodul
+   qmClassNumberOne : G0Split.FibreQM.QMClassNumberOne
+   senTwist : G0Galois.SenTwist
+@@ -279,11 +278,79 @@
+     (hT : PkgI3.TateModuleFree) : G0Galois.DetTate :=
+   G0Galois.detTate_of_zl (tatePairingZl_of_leaves4 h9 hQ hT5) hT
+ 
++/-! ### theta-direct (theta-fold's plumbing): the use form of `ThetaRatiosAlgebraic` (theta-split, moved here unchanged)
++
++theta-split's `ThetaRatiosAtQM` (scratch/theta-split/ThetaUse.lean §1, via igusa-alg and linyang-printed) is how
++`gluePieces_of_open4` uses the theta algebraicity: only along pkg-I1's QM period matrices `Ω(τ)`. igusa-alg and
++theta-direct proves it with no hypotheses (`HDec.ThetaDirect.thetaRatiosAtQM_proof`,
++`ZInQKernel/Contrib/OneProof/ThetaDirect.lean`), so the universal field `thetaRatiosAlgebraic` is dropped. -/
++
++namespace G0Split.ThetaPt.ThetaSplit
++
++open _root_.ZInQ ZInQ ZInQ.JHeight LeafQM.AV ZInQ.DefFaltings
++open _root_.ZInQ.LeafPush2 (CPts cptObj IsUniformization IsSiegel IsPeriodMatrix Char2 thetaConst
++  absLogHeight)
++open Complex Polynomial
++
++/-- **GLUE (G19 / F1, the use of `ThetaRatiosAlgebraic`; theta-null ratios on the QM curve).**
++For `τ` in the upper half-plane with `j_θ(Ω(τ)) = jNum(Ω(τ))/jDen(Ω(τ)) = q ∈ ℚ \ {0}` (pkg-I1's
++`Ω(τ) = (F₀(τ)P⁻¹)⁻¹E(τ)`, the period matrix of the QM lattice `ι(𝒪)(τ, 1)ᵀ` for N5's maximal order
++of the quaternion algebra of discriminant 6): some theta constant `θ_{m₀}(0, Ω(τ))` is nonzero and every
++ratio `θ_m(0, Ω(τ))/θ_{m₀}(0, Ω(τ))` is an algebraic number. (In fact `m₀ = (0,0)` works and all ten
++even theta constants are nonzero, since `jNum ≠ 0`.)
++
++This is exactly how the bundle field `ThetaRatiosAlgebraic` is used (at `Ω(τ)` with `j_θ = J(u)`,
++`u ∉ 𝒞`): `thetaPointOfFibre_of_qm_atQM`. It is a statement about explicit holomorphic functions of
++one variable `τ`; no abelian variety or polarization occurs. Why true: `QMThetaSymmetric` (below) and
++`thetaRatiosAtQM_of_symmetric`. -/
++def ThetaRatiosAtQM : Prop :=
++  ∀ τ : ℂ, 0 < τ.im → ∀ q : ℚ, q ≠ 0 →
++    PkgI1.jNum (PkgI1.Omega τ) / PkgI1.jDen (PkgI1.Omega τ) = (q : ℂ) →
++    ∃ m₀ : Char2, thetaConst (BPAnalytic.QM.Omega τ) m₀ ≠ 0 ∧
++      ∀ m, IsAlgebraic ℚ (thetaConst (BPAnalytic.QM.Omega τ) m / thetaConst (BPAnalytic.QM.Omega τ) m₀)
++
++/-- `J(u) ≠ 0` off the contact set (as kernel `J_ne_zero`, PRArith l.131, reproved). -/
++theorem Jmap_ne_zero {u : ℚ} (hu : u ∉ contactSet) : Jmap u ≠ 0 := by
++  unfold Jmap
++  have hG := G_ne_zero u
++  simp only [contactSet, Finset.mem_insert, Finset.mem_singleton, not_or] at hu
++  obtain ⟨h0, h1, h2, h3, h4, h5⟩ := hu
++  have hF : u * (u + 15) * (u + 20) * (u + 24) * (u + 30) * (u + 60) ≠ 0 := by
++    refine mul_ne_zero (mul_ne_zero (mul_ne_zero (mul_ne_zero (mul_ne_zero h0 ?_) ?_) ?_) ?_) ?_
++    · intro h; exact h1 (by linarith)
++    · intro h; exact h2 (by linarith)
++    · intro h; exact h3 (by linarith)
++    · intro h; exact h4 (by linarith)
++    · intro h; exact h5 (by linarith)
++  exact div_ne_zero (mul_ne_zero (by norm_num) (pow_ne_zero _ hF)) (pow_ne_zero _ hG)
++
++/-- **Missing piece 9, `ThetaPointOfFibre`, from `FibreQMPeriod` and the use form (proved).**
++Replaces `thetaPointOfFibre_of_qm_ratios hQM hAlg` (same proof, with `ThetaRatiosAtQM` applied at the
++`τ` of `FibreQMPeriod` instead of `ThetaRatiosAlgebraic` at `Ω(τ)`). -/
++theorem thetaPointOfFibre_of_qm_atQM (hQM : FibreQMPeriod) (hT : ThetaRatiosAtQM) :
++    ThetaPointOfFibre := by
++  intro Y Φ π h1 h2 u hu K A hFib
++  obtain ⟨σ, Λ, Φu, hΦu, τ, hτ, F, hF, hJ⟩ := hQM Y Φ π h1 h2 u hu K A hFib
++  have hS : IsSiegel (BPAnalytic.QM.Omega τ) := isSiegel_Omega hτ
++  have hP : IsPeriodMatrix Λ (BPAnalytic.QM.Omega τ) :=
++    isPeriodMatrix_of_comap (isPeriodMatrix_qmLattice hτ.ne') F hF
++  have hJθ : jTheta (BPAnalytic.QM.Omega τ) = ((Jmap u : ℚ) : ℂ) := by
++    rw [jTheta_eq, ← omega_eq]; exact hJ
++  obtain ⟨m₀, h0, halg⟩ := hT τ hτ (Jmap u) (Jmap_ne_zero hu) hJ
++  obtain ⟨L, emb, z, hz⟩ := exists_nf_of_isAlgebraic _ halg
++  have hz' : ∀ m, emb (z m) = (thetaConst (BPAnalytic.QM.Omega τ) m₀)⁻¹ *
++      thetaConst (BPAnalytic.QM.Omega τ) m := fun m => by rw [hz m, div_eq_inv_mul]
++  exact ⟨σ, Λ, Φu, hΦu, BPAnalytic.QM.Omega τ, hS, hP, L, emb, z, _, inv_ne_zero h0, hz', L,
++    fun i => z (evenEnum i), f1_of_theta emb _ z _ (inv_ne_zero h0) hz' (Jmap u) hJθ, height_even z⟩
++
++end G0Split.ThetaPt.ThetaSplit
++
+ /-- **Leaves.lean's `GluePieces` from leaf-fold4's open statements** (leaf-fold3's `gluePieces_of_open3`,
+ verbatim but for: the fields closed by leaf-fold4 replaced by their theorems above; T26 from T5
+ (`tateModuleFree_of_t5'`); `DetTate` from `detTate_of_leaves4`, i.e. without the leaf `DivisiblePoints`). -/
+ theorem gluePieces_of_open4 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves4)
+-    (l : OpenAddedLeaves4) (g : OpenGlue4) (hYu : QMLattice.YuB6Alg) : GluePieces :=
++    (l : OpenAddedLeaves4) (g : OpenGlue4) (hYu : QMLattice.YuB6Alg)
++    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : GluePieces :=
+   let t2 := textbookLeaves2_of_open3 (textbookLeaves3_of_open4 t)
+   let r3 := researchLeaves3_of_open2 r
+   let t3 := textbookLeaves_of_open2 t2
+@@ -306,12 +373,12 @@
+         uniformizationLiftAnalytic_proved))
+     productExists := G0Product.productExists
+     reverseIsogeny := G0RevIsog.reverseIsogeny_of_leaves3 r3 G0Split.dimFinite
+-    thetaPoint := G0Split.ThetaPt.thetaPointOfFibre_of_qm_ratios
++    thetaPoint := G0Split.ThetaPt.ThetaSplit.thetaPointOfFibre_of_qm_atQM
+       (G0Split.FibreQM.fibreQMPeriod_main_rep r.r1r2 hMob l.qmHauptmodul
+         t.t35 t2.t11a l.qmClassNumberOne (r.r1b r.r1r2) (periodMapGlue_of_leaves4 r.r1r2 t.t5 t.homLatticeCorr l.cmDescends)
+         hauptmodulUnique_proved4
+         (qmDenZeroCM3_of_leaves4 r.r4 l.gammaStarGen l.valenceBoundGammaStar) cPtsTransport_proved3)
+-      l.thetaRatiosAlgebraic
++      (hθ l.qmHauptmodul)
+     modularConstituent := modularConstituent_of_field t3
+       (G0ModField.fibreCoverExists_of_propTSAll' t.t5
+         (propTSAll_of_pieces3 r.r1r2 t.t5 l.y3Connected l.qmAutCard l.serreRigidity3 l.alFixedPoints
+@@ -349,10 +416,11 @@
+ * `OpenGlue4`: 1 glue Prop (`HeckeVertWitness`).
+ The table of every field is `docs/research/leaf-fold4.md` §2. -/
+ theorem sixContactMin_of_open4 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves4)
+-    (l : OpenAddedLeaves4) (g : OpenGlue4) (h20 : G0Split.R20Lower) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
++    (l : OpenAddedLeaves4) (g : OpenGlue4) (h20 : G0Split.R20Lower) (hYu : QMLattice.YuB6Alg)
++    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
+   sixContactMin_of_leavesR3 (researchLeaves3_of_open2 r)
+     (textbookLeaves_of_open2 (textbookLeaves2_of_open3 (textbookLeaves3_of_open4 t)))
+-    (gluePieces_of_open4 r t l g hYu) h20
++    (gluePieces_of_open4 r t l g hYu hθ) h20
+ 
+ end HSyn
+ 
+diff -ruN a/ZInQKernel/OneProof/H/TailN.lean b/ZInQKernel/OneProof/H/TailN.lean
+--- a/ZInQKernel/OneProof/H/TailN.lean	2026-11-16 01:12:36.059732735 -0800
++++ b/ZInQKernel/OneProof/H/TailN.lean	2026-11-16 01:12:36.151420194 -0800
+@@ -229,7 +229,6 @@
+ /-- leaf-fold4's added-leaves bundle from leaf-fold5's (`serreRigidity3` from T35 and `HomLatticeCorr`). -/
+ theorem addedLeaves4_of_open5 (t : OpenTextbookLeaves5) (l : OpenAddedLeaves5) : OpenAddedLeaves4 where
+   cmOptimalEmbedding := l.cmOptimalEmbedding
+-  thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
+   qmHauptmodul := l.qmHauptmodul
+   qmClassNumberOne := l.qmClassNumberOne
+   senTwist := l.senTwist
+diff -ruN a/ZInQKernel/OneProof/H/TailO.lean b/ZInQKernel/OneProof/H/TailO.lean
+--- a/ZInQKernel/OneProof/H/TailO.lean	2026-11-16 01:12:36.059803361 -0800
++++ b/ZInQKernel/OneProof/H/TailO.lean	2026-11-16 01:12:36.148841506 -0800
+@@ -2592,7 +2592,7 @@
+   egaIV_17_7_8_ii : _root_.ZInQ.Contrib.SpreadOut.EGAIV_17_7_8_ii
+ 
+ theorem openAddedLeaves4_of_Q5 (l : OpenAddedLeavesQ5) : OpenAddedLeaves4 :=
+-  ⟨l.cmOptimalEmbedding, l.thetaRatiosAlgebraic, l.qmHauptmodul, l.qmClassNumberOne, l.senTwist,
++  ⟨l.cmOptimalEmbedding, l.qmHauptmodul, l.qmClassNumberOne, l.senTwist,
+     l.finiteImageHT, l.t09SymmIsogenyExists, l.isogenyQuasiInverse, l.x6ConicModel, l.y3Connected,
+     l.qmAutCard, l.serreRigidity3, l.alFixedPoints, l.zariskiConnectedness, l.cmDescends,
+     LeafQCheck.gammaStarGen_proof, l.valenceBoundGammaStar, l.egaIV_8_8_2_ii, l.egaIV_8_10_5_xii,
+@@ -2812,7 +2812,6 @@
+ `qmHauptmodul` → `qmHauptmodulBase3`. 20 fields. -/
+ structure OpenAddedLeaves6 : Prop where
+   cmOptimalEmbedding : FS5NoCM.CMOptimalEmbedding
+-  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+   /-- leafq-check, LEAF?: the Hauptmodul property of the theta quotient on `Γ*` and its value `−16/27` at the
+   order-2 point (the clauses at the discriminants `−4`, `−3` are proved). -/
+   qmHauptmodulBase3 : LeafQCheck.HM.QMHauptmodulBase3
+@@ -2883,7 +2882,6 @@
+ theorem addedLeaves4_of_open6 (r : OpenResearchLeaves5) (t : OpenTextbookLeaves6) (l : OpenAddedLeaves6) :
+     OpenAddedLeaves4 where
+   cmOptimalEmbedding := l.cmOptimalEmbedding
+-  thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
+   qmHauptmodul := qmHauptmodul_of6 r l
+   qmClassNumberOne := l.qmClassNumberOne
+   senTwist := l.senTwist
+@@ -2918,35 +2916,10 @@
+ * `OpenGlue6`: 1 glue Prop (`ModelCoordinateResidue`).
+ The table of every field is `docs/research/leaf-fold6.md` §2. -/
+ theorem sixContactMin_of_open6 (r : OpenResearchLeaves5) (t : OpenTextbookLeaves6)
+-    (l : OpenAddedLeaves6) (g : OpenGlue6) (h20 : G0Split.R20Lower) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
++    (l : OpenAddedLeaves6) (g : OpenGlue6) (h20 : G0Split.R20Lower) (hYu : QMLattice.YuB6Alg)
++    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
+   sixContactMin_of_open4 (researchLeaves2_of_open5 r) (textbookLeaves4_of_open6 t l) (addedLeaves4_of_open6 r t l)
+-    (glue4_of_open6 r t l g) h20 hYu
+-
+-/-- leaf-fold5's added-leaves bundle from leaf-fold6's: the four fields leafq-check replaced are theorems from the
+-new fields (and `r4`, `r1r2`, T5, T11(b)); the other 17 are the same fields. -/
+-theorem addedLeaves5_of_open6 (r : OpenResearchLeaves5) (t : OpenTextbookLeaves6) (l : OpenAddedLeaves6) :
+-    OpenAddedLeaves5 where
+-  cmOptimalEmbedding := l.cmOptimalEmbedding
+-  thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
+-  qmHauptmodul := qmHauptmodul_of6 r l
+-  qmClassNumberOne := l.qmClassNumberOne
+-  senTwist := l.senTwist
+-  finiteImageHT := l.finiteImageHT
+-  t09SymmIsogenyExists := l.t09SymmIsogenyExists
+-  isogenyQuasiInverse := l.isogenyQuasiInverse
+-  x6ConicModel := l.x6ConicModel
+-  y3Connected := l.y3Connected
+-  qmAutCard := l.qmAutCard
+-  alFixedPoints := l.alFixedPoints
+-  zariskiConnectedness := l.zariskiConnectedness
+-  cmDescends := cmDescends_of6 r t l
+-  gammaStarGen := LeafQCheck.gammaStarGen_proof
+-  valenceBoundGammaStar := LeafQCheck.VB.valenceBound_of_formula l.valenceFormulaGammaStar
+-  egaIV_8_8_2_ii := l.egaIV_8_8_2_ii
+-  egaIV_8_10_5_xii := l.egaIV_8_10_5_xii
+-  egaIV_17_7_8_ii := l.egaIV_17_7_8_ii
+-  shimuraGoodReduction := l.shimuraGoodReduction
+-  curveBijIso := l.curveBijIso
++    (glue4_of_open6 r t l g) h20 hYu hθ
+ 
+ end HDec.HSyn
+ 
+@@ -2954,7 +2927,8 @@
+ 
+ example : ∀ (_ : HDec.HSyn.OpenResearchLeaves5) (_ : HDec.HSyn.OpenTextbookLeaves6)
+     (_ : HDec.HSyn.OpenAddedLeaves6) (_ : HDec.HSyn.OpenGlue6) (_ : HDec.HSyn.G0Split.R20Lower)
+-    (_ : HDec.QMLattice.YuB6Alg), _root_.ZInQ.SixContactMin :=
++    (_ : HDec.QMLattice.YuB6Alg)
++    (_ : HDec.PkgI1.QMHauptmodul → HDec.HSyn.G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM), _root_.ZInQ.SixContactMin :=
+   HDec.HSyn.sixContactMin_of_open6
+ 
+ #print axioms HDec.HSyn.t8_ofK6
+@@ -2963,5 +2937,4 @@
+ #print axioms HDec.HSyn.textbookLeaves4_of_open6
+ #print axioms HDec.HSyn.addedLeaves4_of_open6
+ #print axioms HDec.HSyn.glue4_of_open6
+-#print axioms HDec.HSyn.addedLeaves5_of_open6
+ #print axioms HDec.HSyn.sixContactMin_of_open6
+diff -ruN a/ZInQKernel/OneProof/H/TailX.lean b/ZInQKernel/OneProof/H/TailX.lean
+--- a/ZInQKernel/OneProof/H/TailX.lean	2026-11-16 01:12:36.059916621 -0800
++++ b/ZInQKernel/OneProof/H/TailX.lean	2026-11-16 01:12:36.149623743 -0800
+@@ -150,7 +150,6 @@
+ `ShimuraTaniyamaQbar`, `isogenyQuasiInverse` by `MilneIsogenyQuasiInverse`, `senTwist`, `finiteImageHT` by
+ Tate's two theorems, and `shimuraGoodReduction` by its guard-free form. 16 fields. -/
+ structure OpenAddedLeaves7 : Prop where
+-  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+   qmHauptmodulBase3 : LeafQCheck.HM.QMHauptmodulBase3
+   /-- qm-split, H-42/H-61/H-63: `End_𝒪(A)` of a QM surface over `ℂ` is `ℤ` or an optimally embedded order of an
+   imaginary quadratic field (replaces `cmOptimalEmbedding`, `qmAutCard`, `alFixedPoints`). -/
+@@ -245,7 +244,6 @@
+ theorem addedLeaves6_of_open7 (r : OpenResearchLeaves7) (t : OpenTextbookLeaves7) (l : OpenAddedLeaves7) :
+     OpenAddedLeaves6 where
+   cmOptimalEmbedding := (qmRows_of7 t l).2.2
+-  thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
+   qmHauptmodulBase3 := l.qmHauptmodulBase3
+   qmClassNumberOne := QMSplit.CNO.qmClassNumberOne_proof
+   senTwist := HodgeLF7.senTwist (_root_.ZInQ.Contrib.HodgeSplit.senTwist_of_tate l.tateTwistInvariants l.axSenTate)
+@@ -275,9 +273,10 @@
+ `ZInQ.SixContactMin` follows from `OpenResearchLeaves7` (29), `OpenTextbookLeaves7` (23), `OpenAddedLeaves7` (16)
+ and `OpenGlue7` (1, `QuotientP1Coordinate`). The table of every field is `docs/research/leaf-fold7.md` §2. -/
+ theorem sixContactMin_of_open7 (r : OpenResearchLeaves7) (t : OpenTextbookLeaves7) (l : OpenAddedLeaves7)
+-    (g : OpenGlue7) (h20 : G0Split.R20Lower) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
++    (g : OpenGlue7) (h20 : G0Split.R20Lower) (hYu : QMLattice.YuB6Alg)
++    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
+   sixContactMin_of_open6 (researchLeaves5_of_open7 r l) (textbookLeaves6_of_open7 t l) (addedLeaves6_of_open7 r t l)
+-    (glue6_of_open7 g) h20 hYu
++    (glue6_of_open7 g) h20 hYu hθ
+ 
+ end HSyn
+ 
+diff -ruN a/ZInQKernel/OneProof/H/TailZ11.lean b/ZInQKernel/OneProof/H/TailZ11.lean
+--- a/ZInQKernel/OneProof/H/TailZ11.lean	2026-11-16 01:12:36.059973346 -0800
++++ b/ZInQKernel/OneProof/H/TailZ11.lean	2026-11-16 01:12:36.128490705 -0800
+@@ -53,8 +53,9 @@
+ leaf-fold8's `OpenAddedLeaves8` (14) and leaf-fold7's `OpenGlue7` (1, `QuotientP1Coordinate`). The table of every
+ field is `docs/research/leaf-fold10.md` §2. -/
+ theorem sixContactMin_of_open10 (r : OpenResearchLeaves9) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves8)
+-    (g : OpenGlue7) (hF5 : _root_.ZInQ.HeightSplit.FaltingsLemma5BCLower) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
+-  sixContactMin_of_open9 r (textbookLeaves9_of_open10 t) l g hF5 hYu
++    (g : OpenGlue7) (hF5 : _root_.ZInQ.HeightSplit.FaltingsLemma5BCLower) (hYu : QMLattice.YuB6Alg)
++    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
++  sixContactMin_of_open9 r (textbookLeaves9_of_open10 t) l g hF5 hYu hθ
+ 
+ end HSyn
+ 
+diff -ruN a/ZInQKernel/OneProof/H/TailZ13.lean b/ZInQKernel/OneProof/H/TailZ13.lean
+--- a/ZInQKernel/OneProof/H/TailZ13.lean	2026-11-16 01:12:36.060032495 -0800
++++ b/ZInQKernel/OneProof/H/TailZ13.lean	2026-11-16 01:12:36.150137526 -0800
+@@ -17,7 +17,6 @@
+ /-- **The added leaves still open** (leaf-fold10): leaf-fold8's `OpenAddedLeaves8` with `y3Connected` replaced by
+ shimura-glue's `DeligneComponentsY3Printed`. 14 fields. -/
+ structure OpenAddedLeaves9 : Prop where
+-  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+   qmCentralizerCMC : QMSplit.Aut.QMCentralizerCMC
+   tateTwistInvariants : _root_.ZInQ.Contrib.HodgeSplit.TateTwistInvariants
+   axSenTate : _root_.ZInQ.Contrib.HodgeSplit.AxSenTate
+@@ -45,7 +44,6 @@
+ 
+ /-- leaf-fold8's added-leaf bundle from leaf-fold10's: `y3Connected` from the printed Deligne leaf. -/
+ theorem addedLeaves8_of_open9 (l : OpenAddedLeaves9) : OpenAddedLeaves8 where
+-  thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
+   qmCentralizerCMC := l.qmCentralizerCMC
+   tateTwistInvariants := l.tateTwistInvariants
+   axSenTate := l.axSenTate
+@@ -66,8 +64,9 @@
+ `OpenAddedLeaves9` (14) and leaf-fold7's `OpenGlue7` (1, `QuotientP1Coordinate`). The table of every field is
+ `docs/research/leaf-fold10.md` §2. -/
+ theorem sixContactMin_of_open11 (r : OpenResearchLeaves9) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves9)
+-    (g : OpenGlue7) (hF5 : _root_.ZInQ.HeightSplit.FaltingsLemma5BCLower) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
+-  sixContactMin_of_open10 r t (addedLeaves8_of_open9 l) g hF5 hYu
++    (g : OpenGlue7) (hF5 : _root_.ZInQ.HeightSplit.FaltingsLemma5BCLower) (hYu : QMLattice.YuB6Alg)
++    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
++  sixContactMin_of_open10 r t (addedLeaves8_of_open9 l) g hF5 hYu hθ
+ 
+ end HSyn
+ 
+diff -ruN a/ZInQKernel/OneProof/H/TailZ15.lean b/ZInQKernel/OneProof/H/TailZ15.lean
+--- a/ZInQKernel/OneProof/H/TailZ15.lean	2026-11-16 01:12:36.060087559 -0800
++++ b/ZInQKernel/OneProof/H/TailZ15.lean	2026-11-16 01:12:36.128558858 -0800
+@@ -130,9 +130,10 @@
+ and leaf-fold7's `OpenGlue7` (1, `QuotientP1Coordinate`). The table of every field is
+ `docs/research/leaf-fold10.md` §2. -/
+ theorem sixContactMin_of_open12 (r : OpenResearchLeaves10) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves9)
+-    (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
++    (g : OpenGlue7) (hYu : QMLattice.YuB6Alg)
++    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
+   sixContactMin_of_open11 (researchLeaves9_of_open10 r t l) t l g
+-    (_root_.ZInQ.HeightSplit.faltingsLemma5BCLower_of_BC r.faltingsLemma5BC) hYu
++    (_root_.ZInQ.HeightSplit.faltingsLemma5BCLower_of_BC r.faltingsLemma5BC) hYu hθ
+ 
+ end HSyn
+ 
+diff -ruN a/ZInQKernel/OneProof/H/TailZ17.lean b/ZInQKernel/OneProof/H/TailZ17.lean
+--- a/ZInQKernel/OneProof/H/TailZ17.lean	2026-11-16 01:12:36.060141089 -0800
++++ b/ZInQKernel/OneProof/H/TailZ17.lean	2026-11-16 01:12:36.151634416 -0800
+@@ -253,7 +253,6 @@
+ /-- leaf-fold10's added-leaf bundle from route-a-fold's: Deligne's printed theorem on `Y₃` from its
+ abelian-scheme form and the research field `mumfordRigidityCore`. -/
+ theorem addedLeaves9_of_open10 (r : OpenResearchLeaves11) (l : OpenAddedLeaves10) : OpenAddedLeaves9 where
+-  thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
+   qmCentralizerCMC := l.qmCentralizerCMC
+   tateTwistInvariants := l.tateTwistInvariants
+   axSenTate := l.axSenTate
+@@ -275,8 +274,9 @@
+ and leaf-fold7's `OpenGlue7` (1, `QuotientP1Coordinate`). The moduli leaves are stated on abelian schemes, as
+ printed; the table of every changed field is `docs/research/route-a-fold.md` §2. -/
+ theorem sixContactMin_of_open13 (r : OpenResearchLeaves11) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves10)
+-    (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
+-  sixContactMin_of_open12 (researchLeaves10_of_open11 r) t (addedLeaves9_of_open10 r l) g hYu
++    (g : OpenGlue7) (hYu : QMLattice.YuB6Alg)
++    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
++  sixContactMin_of_open12 (researchLeaves10_of_open11 r) t (addedLeaves9_of_open10 r l) g hYu hθ
+ 
+ end HSyn
+ 
+diff -ruN a/ZInQKernel/OneProof/H/TailZ18.lean b/ZInQKernel/OneProof/H/TailZ18.lean
+--- a/ZInQKernel/OneProof/H/TailZ18.lean	2026-11-16 01:12:36.060215251 -0800
++++ b/ZInQKernel/OneProof/H/TailZ18.lean	2026-11-16 01:12:36.128965899 -0800
+@@ -1248,8 +1248,9 @@
+ `ZInQ.SixContactMin` from `OpenResearchLeaves11` (29), `OpenTextbookLeaves10` (15), `OpenAddedLeaves11` (13) and
+ `OpenGlue7` (1). -/
+ theorem sixContactMin_of_open14 (r : OpenResearchLeaves11) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves11)
+-    (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
+-  sixContactMin_of_open13 r t (addedLeaves10_of_open11 l) g hYu
++    (g : OpenGlue7) (hYu : QMLattice.YuB6Alg)
++    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
++  sixContactMin_of_open13 r t (addedLeaves10_of_open11 l) g hYu hθ
+ 
+ end HSyn
+ 
+diff -ruN a/ZInQKernel/OneProof/H/TailZ19.lean b/ZInQKernel/OneProof/H/TailZ19.lean
+--- a/ZInQKernel/OneProof/H/TailZ19.lean	2026-11-16 01:12:36.060285346 -0800
++++ b/ZInQKernel/OneProof/H/TailZ19.lean	2026-11-16 01:12:36.129415486 -0800
+@@ -1911,8 +1911,9 @@
+ `ZInQ.SixContactMin` from `OpenResearchLeaves12` (32), `OpenTextbookLeaves10` (15), `OpenAddedLeaves11` (13) and
+ `OpenGlue7` (1). -/
+ theorem sixContactMin_of_open15 (r : OpenResearchLeaves12) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves11)
+-    (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
+-  sixContactMin_of_open14 (researchLeaves11_of_open12 r t) t l g hYu
++    (g : OpenGlue7) (hYu : QMLattice.YuB6Alg)
++    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
++  sixContactMin_of_open14 (researchLeaves11_of_open12 r t) t l g hYu hθ
+ 
+ end HSyn
+ 
+diff -ruN a/ZInQKernel/OneProof/H/TailZ22.lean b/ZInQKernel/OneProof/H/TailZ22.lean
+--- a/ZInQKernel/OneProof/H/TailZ22.lean	2026-11-16 01:12:36.060363393 -0800
++++ b/ZInQKernel/OneProof/H/TailZ22.lean	2026-11-16 01:12:36.150209834 -0800
+@@ -230,7 +230,6 @@
+ /-- **The added leaves still open** (x6-fold): leaf-fold12's `OpenAddedLeaves11` without `x6ConicModel` (proved by
+ x6-glue's `x6ConicModel_of_published`), with two of its leaves added. 14 fields. -/
+ structure OpenAddedLeaves12 : Prop where
+-  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+   qmCentralizerCMC : QMSplit.Aut.QMCentralizerCMC
+   tateTwistInvariants : _root_.ZInQ.Contrib.HodgeSplit.TateTwistInvariants
+   axSenTate : _root_.ZInQ.Contrib.HodgeSplit.AxSenTate
+@@ -312,30 +311,6 @@
+   sga7_IX_3_3 := r.sga7_IX_3_3
+   egaIV_8_10_5_openImm := r.egaIV_8_10_5_openImm
+ 
+-/-- leaf-fold12's added-leaf bundle from x6-fold's: `x6ConicModel` from x6-glue's `x6ConicModel_of_published`. -/
+-theorem addedLeaves11_of_open12 (r : OpenResearchLeaves13) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves12) :
+-    OpenAddedLeaves11 where
+-  thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
+-  qmCentralizerCMC := l.qmCentralizerCMC
+-  tateTwistInvariants := l.tateTwistInvariants
+-  axSenTate := l.axSenTate
+-  t09SymmIsogenyExists := l.t09SymmIsogenyExists
+-  milneIsogenyQuasiInverse := l.milneIsogenyQuasiInverse
+-  shimuraTaniyamaQbar := l.shimuraTaniyamaQbar
+-  egaIV_8_10_5_xii := l.egaIV_8_10_5_xii
+-  shimuraGoodReductionNoGuard := l.shimuraGoodReductionNoGuard
+-  valenceFormulaCocompactEq := l.valenceFormulaCocompactEq
+-  shimizuCovolumeO1 := l.shimizuCovolumeO1
+-  deligneComponentsY3PrintedAb := l.deligneComponentsY3PrintedAb
+-  x6ConicModel := (x6Rows_of_open13 r t l).2
+-
+-/-- **G0 with only the open leaves and the open glue** (x6-fold; no `sorry`, standard axioms).
+-`ZInQ.SixContactMin` from `OpenResearchLeaves13` (35), `OpenTextbookLeaves10` (15), `OpenAddedLeaves12` (14) and
+-`OpenGlue7` (1). -/
+-theorem sixContactMin_of_open16 (r : OpenResearchLeaves13) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves12)
+-    (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
+-  sixContactMin_of_open15 (researchLeaves12_of_open13 r t l) t (addedLeaves11_of_open12 r t l) g hYu
+-
+ end HSyn
+ 
+ end HDec
+@@ -344,5 +319,3 @@
+ #print axioms HDec.QMSplit.Moduli.x6ConicModel_of_published
+ #print axioms HDec.HSyn.x6Rows_of_open13
+ #print axioms HDec.HSyn.researchLeaves12_of_open13
+-#print axioms HDec.HSyn.addedLeaves11_of_open12
+-#print axioms HDec.HSyn.sixContactMin_of_open16
+diff -ruN a/ZInQKernel/OneProof/H/TailZ23.lean b/ZInQKernel/OneProof/H/TailZ23.lean
+--- a/ZInQKernel/OneProof/H/TailZ23.lean	2026-11-16 01:12:36.060420899 -0800
++++ b/ZInQKernel/OneProof/H/TailZ23.lean	2026-11-16 01:12:36.151915219 -0800
+@@ -738,7 +738,6 @@
+ `addedLeaves10_of_open11` and `addedLeaves9_of_open10`). -/
+ theorem addedLeaves9_of_open14 (r : OpenResearchLeaves14) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves12) :
+     OpenAddedLeaves9 where
+-  thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
+   qmCentralizerCMC := l.qmCentralizerCMC
+   tateTwistInvariants := l.tateTwistInvariants
+   axSenTate := l.axSenTate
+@@ -810,9 +809,10 @@
+ `ZInQ.SixContactMin` from `OpenResearchLeaves14` (35), `OpenTextbookLeaves10` (15), `OpenAddedLeaves12` (14) and
+ `OpenGlue7` (1). -/
+ theorem sixContactMin_of_open17 (r : OpenResearchLeaves14) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves12)
+-    (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
++    (g : OpenGlue7) (hYu : QMLattice.YuB6Alg)
++    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
+   sixContactMin_of_open11 (researchLeaves9_of_open14 r t l) t (addedLeaves9_of_open14 r t l) g
+-    (_root_.CToPrinted.faltingsLemma5BCLower_of_printed r.faltingsLemma5Printed) hYu
++    (_root_.CToPrinted.faltingsLemma5BCLower_of_printed r.faltingsLemma5Printed) hYu hθ
+ 
+ end HSyn
+ 
+diff -ruN a/ZInQKernel/OneProof/H/TailZ24.lean b/ZInQKernel/OneProof/H/TailZ24.lean
+--- a/ZInQKernel/OneProof/H/TailZ24.lean	2026-11-16 01:12:36.060493218 -0800
++++ b/ZInQKernel/OneProof/H/TailZ24.lean	2026-11-16 01:12:36.150533190 -0800
+@@ -767,7 +767,6 @@
+ `t09SymmIsogenyExists` (t09-pic's `T09Pic.t09SymmIsogenyExists_of_four`), with its four printed leaves added.
+ 17 fields. -/
+ structure OpenAddedLeaves13 : Prop where
+-  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+   qmCentralizerCMC : QMSplit.Aut.QMCentralizerCMC
+   tateTwistInvariants : _root_.ZInQ.Contrib.HodgeSplit.TateTwistInvariants
+   axSenTate : _root_.ZInQ.Contrib.HodgeSplit.AxSenTate
+@@ -813,7 +812,6 @@
+ 
+ /-- x6-fold's added-leaf bundle from leaf-fold14's: `t09SymmIsogenyExists` from t09-pic's four printed leaves. -/
+ theorem addedLeaves12_of_open13 (l : OpenAddedLeaves13) : OpenAddedLeaves12 where
+-  thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
+   qmCentralizerCMC := l.qmCentralizerCMC
+   tateTwistInvariants := l.tateTwistInvariants
+   axSenTate := l.axSenTate
+@@ -833,8 +831,9 @@
+ `ZInQ.SixContactMin` from `OpenResearchLeaves14` (35), `OpenTextbookLeaves10` (15), `OpenAddedLeaves13` (17) and
+ `OpenGlue7` (1). -/
+ theorem sixContactMin_of_open18 (r : OpenResearchLeaves14) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves13)
+-    (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
+-  sixContactMin_of_open17 r t (addedLeaves12_of_open13 l) g hYu
++    (g : OpenGlue7) (hYu : QMLattice.YuB6Alg)
++    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
++  sixContactMin_of_open17 r t (addedLeaves12_of_open13 l) g hYu hθ
+ 
+ end HSyn
+ 
+diff -ruN a/ZInQKernel/OneProof/H/TailZ25.lean b/ZInQKernel/OneProof/H/TailZ25.lean
+--- a/ZInQKernel/OneProof/H/TailZ25.lean	2026-11-16 01:12:36.060555902 -0800
++++ b/ZInQKernel/OneProof/H/TailZ25.lean	2026-11-16 01:12:36.130836172 -0800
+@@ -134,8 +134,9 @@
+   strictHenselizationPair := n.strictHenselizationPair
+ 
+ /-- **G0 with only the open leaves and the open glue** (gt-ega; generated). -/
+-theorem sixContactMin_of_open19 (r : OpenResearchLeaves15) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves13) (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
+-  sixContactMin_of_open18 (openResearchLeaves14_of_OpenResearchLeaves15 r) t l g hYu
++theorem sixContactMin_of_open19 (r : OpenResearchLeaves15) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves13) (g : OpenGlue7) (hYu : QMLattice.YuB6Alg)
++    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
++  sixContactMin_of_open18 (openResearchLeaves14_of_OpenResearchLeaves15 r) t l g hYu hθ
+ 
+ end HSyn
+ 
+diff -ruN a/ZInQKernel/OneProof/H/TailZ26.lean b/ZInQKernel/OneProof/H/TailZ26.lean
+--- a/ZInQKernel/OneProof/H/TailZ26.lean	2026-11-16 01:12:36.060615121 -0800
++++ b/ZInQKernel/OneProof/H/TailZ26.lean	2026-11-16 01:12:36.150902846 -0800
+@@ -130,7 +130,6 @@
+ 
+ /-- `OpenAddedLeaves13` without `shimizuCovolumeO1` (leaf-fold16). -/
+ structure OpenAddedLeaves14 : Prop where
+-  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+   qmCentralizerCMC : QMSplit.Aut.QMCentralizerCMC
+   tateTwistInvariants : _root_.ZInQ.Contrib.HodgeSplit.TateTwistInvariants
+   axSenTate : _root_.ZInQ.Contrib.HodgeSplit.AxSenTate
+@@ -171,7 +170,6 @@
+ 
+ /-- `OpenAddedLeaves13` from `OpenAddedLeaves14`: `shimizuCovolumeO1` by the contributions. -/
+ theorem openAddedLeaves13_of_OpenAddedLeaves14 (n : OpenAddedLeaves14) : OpenAddedLeaves13 where
+-  thetaRatiosAlgebraic := n.thetaRatiosAlgebraic
+   qmCentralizerCMC := n.qmCentralizerCMC
+   tateTwistInvariants := n.tateTwistInvariants
+   axSenTate := n.axSenTate
+@@ -190,8 +188,9 @@
+   weilPairingMumford := n.weilPairingMumford
+ 
+ /-- **G0 with only the open leaves and the open glue** (leaf-fold16; generated). -/
+-theorem sixContactMin_of_open20 (r : OpenResearchLeaves16) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves14) (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
+-  sixContactMin_of_open19 (openResearchLeaves15_of_OpenResearchLeaves16 r) t (openAddedLeaves13_of_OpenAddedLeaves14 l) g hYu
++theorem sixContactMin_of_open20 (r : OpenResearchLeaves16) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves14) (g : OpenGlue7) (hYu : QMLattice.YuB6Alg)
++    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
++  sixContactMin_of_open19 (openResearchLeaves15_of_OpenResearchLeaves16 r) t (openAddedLeaves13_of_OpenAddedLeaves14 l) g hYu hθ
+ 
+ end HSyn
+ 
+diff -ruN a/ZInQKernel/OneProof/H/TailZ27.lean b/ZInQKernel/OneProof/H/TailZ27.lean
+--- a/ZInQKernel/OneProof/H/TailZ27.lean	2026-11-16 01:12:36.060670645 -0800
++++ b/ZInQKernel/OneProof/H/TailZ27.lean	2026-11-16 01:12:36.131267079 -0800
+@@ -122,8 +122,9 @@
+   strictHenselizationPair := n.strictHenselizationPair
+ 
+ /-- **G0 with only the open leaves and the open glue** (gt-grcount-fold; generated). -/
+-theorem sixContactMin_of_open21 (r : OpenResearchLeaves17) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves14) (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
+-  sixContactMin_of_open20 (openResearchLeaves16_of_OpenResearchLeaves17 r) t l g hYu
++theorem sixContactMin_of_open21 (r : OpenResearchLeaves17) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves14) (g : OpenGlue7) (hYu : QMLattice.YuB6Alg)
++    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
++  sixContactMin_of_open20 (openResearchLeaves16_of_OpenResearchLeaves17 r) t l g hYu hθ
+ 
+ end HSyn
+ 
+diff -ruN a/ZInQKernel/OneProof/H/TailZ28.lean b/ZInQKernel/OneProof/H/TailZ28.lean
+--- a/ZInQKernel/OneProof/H/TailZ28.lean	2026-11-16 01:12:36.060722994 -0800
++++ b/ZInQKernel/OneProof/H/TailZ28.lean	2026-11-16 01:12:36.131391197 -0800
+@@ -121,8 +121,9 @@
+   gonzalezRotgerProp56X6 := n.gonzalezRotgerProp56X6
+ 
+ /-- **G0 with only the open leaves and the open glue** (leaf-fold18; generated). -/
+-theorem sixContactMin_of_open22 (r : OpenResearchLeaves18) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves14) (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
+-  sixContactMin_of_open21 (openResearchLeaves17_of_OpenResearchLeaves18 r) t l g hYu
++theorem sixContactMin_of_open22 (r : OpenResearchLeaves18) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves14) (g : OpenGlue7) (hYu : QMLattice.YuB6Alg)
++    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
++  sixContactMin_of_open21 (openResearchLeaves17_of_OpenResearchLeaves18 r) t l g hYu hθ
+ 
+ end HSyn
+ 
+diff -ruN a/ZInQKernel/OneProof/H/TailZ29.lean b/ZInQKernel/OneProof/H/TailZ29.lean
+--- a/ZInQKernel/OneProof/H/TailZ29.lean	2026-11-16 01:12:36.060775473 -0800
++++ b/ZInQKernel/OneProof/H/TailZ29.lean	2026-11-16 01:12:36.131509254 -0800
+@@ -118,8 +118,9 @@
+   neronBaseChangeStrictHenselization := n.neronBaseChangeStrictHenselization
+ 
+ /-- **G0 with only the open leaves and the open glue** (leaf-fold18; generated). -/
+-theorem sixContactMin_of_open23 (r : OpenResearchLeaves19) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves14) (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
+-  sixContactMin_of_open22 (openResearchLeaves18_of_OpenResearchLeaves19 r) t l g hYu
++theorem sixContactMin_of_open23 (r : OpenResearchLeaves19) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves14) (g : OpenGlue7) (hYu : QMLattice.YuB6Alg)
++    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
++  sixContactMin_of_open22 (openResearchLeaves18_of_OpenResearchLeaves19 r) t l g hYu hθ
+ 
+ end HSyn
+ 
+diff -ruN a/ZInQKernel/OneProof/H/TailZ30.lean b/ZInQKernel/OneProof/H/TailZ30.lean
+--- a/ZInQKernel/OneProof/H/TailZ30.lean	2026-11-16 01:12:36.060827921 -0800
++++ b/ZInQKernel/OneProof/H/TailZ30.lean	2026-11-16 01:12:36.151117288 -0800
+@@ -12,7 +12,6 @@
+ 
+ /-- `OpenAddedLeaves14` without `qmCentralizerCMC` (leaf-fold18). -/
+ structure OpenAddedLeaves15 : Prop where
+-  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+   tateTwistInvariants : _root_.ZInQ.Contrib.HodgeSplit.TateTwistInvariants
+   axSenTate : _root_.ZInQ.Contrib.HodgeSplit.AxSenTate
+   milneIsogenyQuasiInverse : _root_.AvSplit.MilneIsogenyQuasiInverse
+@@ -52,7 +51,6 @@
+ 
+ /-- `OpenAddedLeaves14` from `OpenAddedLeaves15`: `qmCentralizerCMC` by the contributions. -/
+ theorem openAddedLeaves14_of_OpenAddedLeaves15 (n : OpenAddedLeaves15) (t : OpenTextbookLeaves10) : OpenAddedLeaves14 where
+-  thetaRatiosAlgebraic := n.thetaRatiosAlgebraic
+   qmCentralizerCMC := _root_.HDec.QMLattice.qmCentralizerCMC_of t.uniformizationLeafAll t.gagaMorphism t.mumfordTorsionAlgClosed
+   tateTwistInvariants := n.tateTwistInvariants
+   axSenTate := n.axSenTate
+@@ -70,9 +68,10 @@
+   weilPairingMumford := n.weilPairingMumford
+ 
+ /-- **G0 with only the open leaves and the open glue** (leaf-fold18; generated). -/
+-theorem sixContactMin_of_open24 (r : OpenResearchLeaves19) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves15) (g : OpenGlue7) : ZInQ.SixContactMin :=
++theorem sixContactMin_of_open24 (r : OpenResearchLeaves19) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves15) (g : OpenGlue7)
++    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
+   sixContactMin_of_open23 r t (openAddedLeaves14_of_OpenAddedLeaves15 l t) g
+-    (QMLattice.yuB6Alg_of' t.uniformizationLeafAll t.gagaMorphism t.mumfordTorsionAlgClosed)
++    (QMLattice.yuB6Alg_of' t.uniformizationLeafAll t.gagaMorphism t.mumfordTorsionAlgClosed) hθ
+ 
+ end HSyn
+ 
+diff -ruN a/ZInQKernel/OneProof/H/TailZ31.lean b/ZInQKernel/OneProof/H/TailZ31.lean
+--- a/ZInQKernel/OneProof/H/TailZ31.lean	2026-11-16 01:12:36.060893751 -0800
++++ b/ZInQKernel/OneProof/H/TailZ31.lean	2026-11-16 01:12:36.151161084 -0800
+@@ -12,7 +12,6 @@
+ 
+ /-- `OpenAddedLeaves15` without `valenceFormulaCocompactEq` (leaf-fold18). -/
+ structure OpenAddedLeaves16 : Prop where
+-  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+   tateTwistInvariants : _root_.ZInQ.Contrib.HodgeSplit.TateTwistInvariants
+   axSenTate : _root_.ZInQ.Contrib.HodgeSplit.AxSenTate
+   milneIsogenyQuasiInverse : _root_.AvSplit.MilneIsogenyQuasiInverse
+@@ -49,7 +48,6 @@
+ 
+ /-- `OpenAddedLeaves15` from `OpenAddedLeaves16`: `valenceFormulaCocompactEq` by the contributions. -/
+ theorem openAddedLeaves15_of_OpenAddedLeaves16 (n : OpenAddedLeaves16) : OpenAddedLeaves15 where
+-  thetaRatiosAlgebraic := n.thetaRatiosAlgebraic
+   tateTwistInvariants := n.tateTwistInvariants
+   axSenTate := n.axSenTate
+   milneIsogenyQuasiInverse := n.milneIsogenyQuasiInverse
+@@ -66,8 +64,9 @@
+   weilPairingMumford := n.weilPairingMumford
+ 
+ /-- **G0 with only the open leaves and the open glue** (leaf-fold18; generated). -/
+-theorem sixContactMin_of_open25 (r : OpenResearchLeaves19) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves16) (g : OpenGlue7) : ZInQ.SixContactMin :=
+-  sixContactMin_of_open24 r t (openAddedLeaves15_of_OpenAddedLeaves16 l) g
++theorem sixContactMin_of_open25 (r : OpenResearchLeaves19) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves16) (g : OpenGlue7)
++    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
++  sixContactMin_of_open24 r t (openAddedLeaves15_of_OpenAddedLeaves16 l) g hθ
+ 
+ end HSyn
+ 
+diff -ruN a/ZInQKernel/OneProof/H/TailZ32.lean b/ZInQKernel/OneProof/H/TailZ32.lean
+--- a/ZInQKernel/OneProof/H/TailZ32.lean	2026-11-16 01:12:36.060944497 -0800
++++ b/ZInQKernel/OneProof/H/TailZ32.lean	2026-11-16 01:12:36.131738539 -0800
+@@ -42,8 +42,9 @@
+   neronSchemeExtensionExists := n.neronSchemeExtensionExists
+ 
+ /-- **G0 with only the open leaves and the open glue** (leaf-fold19; generated). -/
+-theorem sixContactMin_of_open26 (r : OpenResearchLeaves19) (t : OpenTextbookLeaves11) (l : OpenAddedLeaves16) (g : OpenGlue7) : ZInQ.SixContactMin :=
+-  sixContactMin_of_open25 r (openTextbookLeaves10_of_OpenTextbookLeaves11 t) l g
++theorem sixContactMin_of_open26 (r : OpenResearchLeaves19) (t : OpenTextbookLeaves11) (l : OpenAddedLeaves16) (g : OpenGlue7)
++    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
++  sixContactMin_of_open25 r (openTextbookLeaves10_of_OpenTextbookLeaves11 t) l g hθ
+ 
+ end HSyn
+ 
+diff -ruN a/ZInQKernel/OneProof/H/TailZ33.lean b/ZInQKernel/OneProof/H/TailZ33.lean
+--- a/ZInQKernel/OneProof/H/TailZ33.lean	2026-11-16 01:12:36.061007711 -0800
++++ b/ZInQKernel/OneProof/H/TailZ33.lean	2026-11-16 01:12:36.131767993 -0800
+@@ -119,8 +119,9 @@
+   elkiesX6StarPrinted := n.elkiesX6StarPrinted
+ 
+ /-- **G0 with only the open leaves and the open glue** (leaf-fold20; generated). -/
+-theorem sixContactMin_of_open27 (r : OpenResearchLeaves20) (t : OpenTextbookLeaves11) (l : OpenAddedLeaves16) (g : OpenGlue7) : ZInQ.SixContactMin :=
+-  sixContactMin_of_open26 (openResearchLeaves19_of_OpenResearchLeaves20 r t) t l g
++theorem sixContactMin_of_open27 (r : OpenResearchLeaves20) (t : OpenTextbookLeaves11) (l : OpenAddedLeaves16) (g : OpenGlue7)
++    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
++  sixContactMin_of_open26 (openResearchLeaves19_of_OpenResearchLeaves20 r t) t l g hθ
+ 
+ end HSyn
+ 
+diff -ruN a/ZInQKernel/OneProof/H/TailZ34.lean b/ZInQKernel/OneProof/H/TailZ34.lean
+--- a/ZInQKernel/OneProof/H/TailZ34.lean	2026-11-16 01:12:36.061077026 -0800
++++ b/ZInQKernel/OneProof/H/TailZ34.lean	2026-11-16 01:12:36.151215145 -0800
+@@ -115,7 +115,6 @@
+ 
+ /-- `OpenAddedLeaves16` without `shimuraGoodReductionNoGuard`, with the leaves `shimuraIntegralModelRep` (leaf-fold22). -/
+ structure OpenAddedLeaves17 : Prop where
+-  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+   tateTwistInvariants : _root_.ZInQ.Contrib.HodgeSplit.TateTwistInvariants
+   axSenTate : _root_.ZInQ.Contrib.HodgeSplit.AxSenTate
+   milneIsogenyQuasiInverse : _root_.AvSplit.MilneIsogenyQuasiInverse
+@@ -153,7 +152,6 @@
+ 
+ /-- `OpenAddedLeaves16` from `OpenAddedLeaves17`: `shimuraGoodReductionNoGuard` by the contributions. -/
+ theorem openAddedLeaves16_of_OpenAddedLeaves17 (n : OpenAddedLeaves17) : OpenAddedLeaves16 where
+-  thetaRatiosAlgebraic := n.thetaRatiosAlgebraic
+   tateTwistInvariants := n.tateTwistInvariants
+   axSenTate := n.axSenTate
+   milneIsogenyQuasiInverse := n.milneIsogenyQuasiInverse
+@@ -169,8 +167,9 @@
+   weilPairingMumford := n.weilPairingMumford
+ 
+ /-- **G0 with only the open leaves and the open glue** (leaf-fold22; generated). -/
+-theorem sixContactMin_of_open28 (r : OpenResearchLeaves21) (t : OpenTextbookLeaves11) (l : OpenAddedLeaves17) (g : OpenGlue7) : ZInQ.SixContactMin :=
+-  sixContactMin_of_open27 (openResearchLeaves20_of_OpenResearchLeaves21 r t) t (openAddedLeaves16_of_OpenAddedLeaves17 l) g
++theorem sixContactMin_of_open28 (r : OpenResearchLeaves21) (t : OpenTextbookLeaves11) (l : OpenAddedLeaves17) (g : OpenGlue7)
++    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
++  sixContactMin_of_open27 (openResearchLeaves20_of_OpenResearchLeaves21 r t) t (openAddedLeaves16_of_OpenAddedLeaves17 l) g hθ
+ 
+ end HSyn
+ 
+diff -ruN a/ZInQKernel/OneProof/H/TailZ35.lean b/ZInQKernel/OneProof/H/TailZ35.lean
+--- a/ZInQKernel/OneProof/H/TailZ35.lean	2026-11-16 01:12:36.059329418 -0800
++++ b/ZInQKernel/OneProof/H/TailZ35.lean	2026-11-16 01:12:36.134027481 -0800
+@@ -113,8 +113,9 @@
+   shimuraMainThmIDeligneY3AbU := n.shimuraMainThmIDeligneY3AbU
+ 
+ /-- **G0 with only the open leaves and the open glue** (r16-split; generated). -/
+-theorem sixContactMin_of_open29 (r : OpenResearchLeaves22) (t : OpenTextbookLeaves11) (l : OpenAddedLeaves17) (g : OpenGlue7) : ZInQ.SixContactMin :=
+-  sixContactMin_of_open28 (openResearchLeaves21_of_OpenResearchLeaves22 r t) t l g
++theorem sixContactMin_of_open29 (r : OpenResearchLeaves22) (t : OpenTextbookLeaves11) (l : OpenAddedLeaves17) (g : OpenGlue7)
++    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
++  sixContactMin_of_open28 (openResearchLeaves21_of_OpenResearchLeaves22 r t) t l g hθ
+ 
+ end HSyn
+ 
+diff -ruN a/ZInQKernel/OneProof/H/TailZ4.lean b/ZInQKernel/OneProof/H/TailZ4.lean
+--- a/ZInQKernel/OneProof/H/TailZ4.lean	2026-11-16 01:12:36.061147732 -0800
++++ b/ZInQKernel/OneProof/H/TailZ4.lean	2026-11-16 01:12:36.149896352 -0800
+@@ -126,7 +126,6 @@
+ `qmHauptmodulBase3` replaced by the valence formula, Shimizu's covolume and the CM value at `−24` (qm-glue). 14
+ fields. -/
+ structure OpenAddedLeaves8 : Prop where
+-  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+   qmCentralizerCMC : QMSplit.Aut.QMCentralizerCMC
+   tateTwistInvariants : _root_.ZInQ.Contrib.HodgeSplit.TateTwistInvariants
+   axSenTate : _root_.ZInQ.Contrib.HodgeSplit.AxSenTate
+@@ -230,7 +229,6 @@
+ 
+ /-- leaf-fold7's added bundle from leaf-fold8's. -/
+ theorem addedLeaves7_of_open8 (r : OpenResearchLeaves8) (l : OpenAddedLeaves8) : OpenAddedLeaves7 where
+-  thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
+   qmHauptmodulBase3 := LeafQCheck.HM.QMSplit.qmHauptmodulBase3_of_leaves
+     (QMSplit.Theta.thetaModularity_of r.igusaPsi4 r.igusaChi10) l.valenceFormulaCocompactEq l.shimizuCovolumeO1
+     l.igusaCMValue24
+@@ -255,9 +253,10 @@
+ and leaf-fold7's `OpenGlue7` (1, `QuotientP1Coordinate`). The table of every field is
+ `docs/research/leaf-fold8.md` §2. -/
+ theorem sixContactMin_of_open8 (r : OpenResearchLeaves8) (t : OpenTextbookLeaves8) (l : OpenAddedLeaves8)
+-    (g : OpenGlue7) (hF5 : _root_.ZInQ.HeightSplit.FaltingsLemma5BCLower) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
++    (g : OpenGlue7) (hF5 : _root_.ZInQ.HeightSplit.FaltingsLemma5BCLower) (hYu : QMLattice.YuB6Alg)
++    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
+   sixContactMin_of_open7 (researchLeaves7_of_open8 r t) (textbookLeaves7_of_open8 t) (addedLeaves7_of_open8 r l) g
+-    (r20Lower_of8 r t hF5) hYu
++    (r20Lower_of8 r t hF5) hYu hθ
+ 
+ end HSyn
+ 
+diff -ruN a/ZInQKernel/OneProof/H/TailZ9.lean b/ZInQKernel/OneProof/H/TailZ9.lean
+--- a/ZInQKernel/OneProof/H/TailZ9.lean	2026-11-16 01:12:36.061202034 -0800
++++ b/ZInQKernel/OneProof/H/TailZ9.lean	2026-11-16 01:12:36.128249302 -0800
+@@ -141,8 +141,9 @@
+ `OpenAddedLeaves8` (14) and leaf-fold7's `OpenGlue7` (1, `QuotientP1Coordinate`). The table of every field is
+ `docs/research/leaf-fold9.md` §2. -/
+ theorem sixContactMin_of_open9 (r : OpenResearchLeaves9) (t : OpenTextbookLeaves9) (l : OpenAddedLeaves8)
+-    (g : OpenGlue7) (hF5 : _root_.ZInQ.HeightSplit.FaltingsLemma5BCLower) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
+-  sixContactMin_of_open8 (researchLeaves8_of_open9 r t) (textbookLeaves8_of_open9 t) l g hF5 hYu
++    (g : OpenGlue7) (hF5 : _root_.ZInQ.HeightSplit.FaltingsLemma5BCLower) (hYu : QMLattice.YuB6Alg)
++    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
++  sixContactMin_of_open8 (researchLeaves8_of_open9 r t) (textbookLeaves8_of_open9 t) l g hF5 hYu hθ
+ 
+ end HSyn
+ 
+diff -ruN a/ZInQKernel/OneProof/Main.lean b/ZInQKernel/OneProof/Main.lean
+--- a/ZInQKernel/OneProof/Main.lean	2026-11-16 01:12:36.061260913 -0800
++++ b/ZInQKernel/OneProof/Main.lean	2026-11-16 01:12:36.152626348 -0800
+@@ -5,6 +5,7 @@
+ import ZInQKernel.Contrib.OneProof.RingClassLattice
+ import ZInQKernel.Contrib.OneProof.FHNonvanishing
+ import ZInQKernel.Contrib.OneProof.ThetaWeierstrass8
++import ZInQKernel.Contrib.OneProof.ThetaDirect
+ 
+ /-!
+ # The whole proof in one theorem
+@@ -67,7 +68,7 @@
+     (hFH : ZInQ.GZFH.FriedbergHoffsteinB_FE) (hL3 : ZInQ.GZDecomp.GrossZagierHeegner) :
+     ZInQ.FrozenTarget :=
+   ZInQ.GZDecomp.frozenTarget_of_sixContactMin_tyzThm35ReadingA_gzLeaves
+-    (HDec.HSyn.sixContactMin_of_open29 r t l g)
++    (HDec.HSyn.sixContactMin_of_open29 r t l g HDec.ThetaDirect.thetaRatiosAtQM_of_qmHauptmodul)
+     (ThetaWP8.tyzThm35ReadingA_noHX h11 h29 hCM h33)
+     ZInQ.GZTheta.Frontier.heckeThetaNewform (ZInQ.GZFH.fhNonvanishing_of_friedbergHoffsteinB_FE hFH) hL3
+ 

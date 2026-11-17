@@ -1,10 +1,14 @@
-import ZInQKernel.OneProof.H.TailZ42
+import ZInQKernel.OneProof.H.TailZ45
 import ZInQKernel.OneProof.TYZSplit
 import ZInQKernel.OneProof.TopChain
 import ZInQKernel.Contrib.TYZChain.Main
 import ZInQKernel.Contrib.OneProof.RingClassLattice
 import ZInQKernel.Contrib.OneProof.TYZLemma29Mod2
 import ZInQKernel.Contrib.OneProof.FHNonvanishing
+import ZInQKernel.Contrib.OneProof.BFHGamma0
+import ZInQKernel.Contrib.OneProof.LegendreThreeSquares
+import ZInQKernel.Contrib.OneProof.TYZThm21At31
+import ZInQKernel.Contrib.OneProof.JonesPall
 import ZInQKernel.Contrib.OneProof.ThetaWeierstrass8
 
 /-!
@@ -68,20 +72,19 @@ open ZInQ.Contrib.TYZDecomp ZInQ.Contrib.TYZGenus
 
 /-- **Theorem 1.1, from every statement still open.** -/
 theorem _root_.ZInQ.OneProof.frozenTarget
-    (r : HDec.HSyn.OpenResearchLeaves26) (t : HDec.HSyn.OpenTextbookLeaves12) (l : HDec.HSyn.OpenAddedLeaves17)
-    (g : HDec.HSyn.OpenGlue8)
+    (r : HDec.HSyn.OpenResearchLeaves28) (t : HDec.HSyn.OpenTextbookLeaves13) (l : HDec.HSyn.OpenAddedLeaves19)
     (h11 : TYZThm11Integral)
-    (hL3s : H29Split.LegendreThreeSquares) (hJP : H29Split.JonesPallX2Y2Z16)
     (hfx : H29Split.TYZTestVectorExists) (hL29 : H29Split.TYZLemma29PrintedNe3)
-    (hT21 : H29Split.TYZThm21At31) (hP23 : H29Split.TYZProp23Printed)
+    (hP23 : H29Split.TYZProp23Printed)
     (hCM : _root_.T5Glue.ShimuraMainCM)
     (h33 : ZInQ.Contrib.TYZGenus.TYZSplit.TYZThm33)
-    (hFH : ZInQ.GZFH.FriedbergHoffsteinB_FE) (hL3 : ZInQ.GZDecomp.GrossZagierHeegner) :
+    (hBFH : ZInQ.BFHPrinted.BFHClauseIIGamma0) (hL3 : ZInQ.GZDecomp.GrossZagierHeegner) :
     ZInQ.FrozenTarget :=
   ZInQ.GZDecomp.frozenTarget_of_sixContactMin_tyzThm35ReadingA_gzLeaves
-    (HDec.HSyn.sixContactMin_of_open35 r t l g)
-    (ThetaWP8.tyzThm35ReadingA_noHX h11 (H29Split.tyzLemma29Mod2_of_sixLeaves hL3s hJP hfx hL29 hT21 hP23) hCM h33)
-    ZInQ.GZTheta.Frontier.heckeThetaNewform (ZInQ.GZFH.fhNonvanishing_of_friedbergHoffsteinB_FE hFH) hL3
+    (HDec.HSyn.sixContactMin_of_open38 r t l)
+    (ThetaWP8.tyzThm35ReadingA_noHX h11 (H29Split.tyzLemma29Mod2_of_sixLeaves ZInQ.Contrib.OneProof.LegendreThreeSquares.legendreThreeSquares_proof
+      ZInQ.Contrib.OneProof.JonesPall.jonesPall_proof hfx hL29 ZInQ.Contrib.T21Proof.tyzThm21At31 hP23) hCM h33)
+    ZInQ.GZTheta.Frontier.heckeThetaNewform (ZInQ.BFHPrinted.fhNonvanishing_of_bfhClauseIIGamma0 hBFH) hL3
 
 end ZInQ.Contrib.TYZChain
 

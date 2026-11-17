@@ -733,7 +733,6 @@ theorem semistableReductionDVR_of14 (r : OpenResearchLeaves14) (t : OpenTextbook
 `addedLeaves10_of_open11` and `addedLeaves9_of_open10`). -/
 theorem addedLeaves9_of_open14 (r : OpenResearchLeaves14) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves12) :
     OpenAddedLeaves9 where
-  thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
   qmCentralizerCMC := l.qmCentralizerCMC
   tateTwistInvariants := l.tateTwistInvariants
   axSenTate := l.axSenTate
@@ -791,9 +790,10 @@ theorem researchLeaves9_of_open14 (r : OpenResearchLeaves14) (t : OpenTextbookLe
 theorem sixContactMin_of_open17 (r : OpenResearchLeaves14) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves12)
     (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) (h6 : PkgI2.RaynaudCriterionNF.{0})
     (hSS : _root_.ZInQ.HeightSplit.SemistableReductionThm ∧ _root_.ZInQ.HeightSplit.SemistablePersists)
-    (hY3 : TSHecke.Y3Connected) : ZInQ.SixContactMin :=
+    (hY3 : TSHecke.Y3Connected)
+    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
   sixContactMin_of_open11 (researchLeaves9_of_open14 r t l h6 hSS) t (addedLeaves9_of_open14 r t l) g
-    (_root_.ReductSplit.faltingsLemma5BCLower_final _root_.GapHeight.faltingsLemma5Lower) hYu hY3
+    (_root_.ReductSplit.faltingsLemma5BCLower_final _root_.GapHeight.faltingsLemma5Lower) hYu hY3 hθ
 
 end HSyn
 

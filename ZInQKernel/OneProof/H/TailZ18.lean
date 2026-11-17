@@ -1239,8 +1239,9 @@ theorem addedLeaves10_of_open11 (l : OpenAddedLeaves11) : OpenAddedLeaves10 wher
 `ZInQ.SixContactMin` from `OpenResearchLeaves11` (29), `OpenTextbookLeaves10` (15), `OpenAddedLeaves11` (13) and
 `OpenGlue7` (1). -/
 theorem sixContactMin_of_open14 (r : OpenResearchLeaves11) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves11)
-    (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) (hY3 : TSHecke.Y3Connected) : ZInQ.SixContactMin :=
-  sixContactMin_of_open13 r t (addedLeaves10_of_open11 l) g hYu hY3
+    (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) (hY3 : TSHecke.Y3Connected)
+    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
+  sixContactMin_of_open13 r t (addedLeaves10_of_open11 l) g hYu hY3 hθ
 
 end HSyn
 

@@ -1,0 +1,1124 @@
+base 17299  after 18176  removed 11  new 888  changed 206
+
+## removed
+  HDec.HSyn.OpenAddedLeaves12.thetaRatiosAlgebraic ZInQKernel.OneProof.H.TailZ22
+  HDec.HSyn.OpenAddedLeaves13.thetaRatiosAlgebraic ZInQKernel.OneProof.H.TailZ24
+  HDec.HSyn.OpenAddedLeaves14.thetaRatiosAlgebraic ZInQKernel.OneProof.H.TailZ26
+  HDec.HSyn.OpenAddedLeaves15.thetaRatiosAlgebraic ZInQKernel.OneProof.H.TailZ30
+  HDec.HSyn.OpenAddedLeaves16.thetaRatiosAlgebraic ZInQKernel.OneProof.H.TailZ31
+  HDec.HSyn.OpenAddedLeaves17.thetaRatiosAlgebraic ZInQKernel.OneProof.H.TailZ34
+  HDec.HSyn.OpenAddedLeaves4.thetaRatiosAlgebraic ZInQKernel.OneProof.H.TailK
+  HDec.HSyn.OpenAddedLeaves6.thetaRatiosAlgebraic ZInQKernel.OneProof.H.TailO
+  HDec.HSyn.OpenAddedLeaves7.thetaRatiosAlgebraic ZInQKernel.OneProof.H.TailX
+  HDec.HSyn.OpenAddedLeaves8.thetaRatiosAlgebraic ZInQKernel.OneProof.H.TailZ4
+  HDec.HSyn.OpenAddedLeaves9.thetaRatiosAlgebraic ZInQKernel.OneProof.H.TailZ13
+
+## new, by module
+  ZInQKernel.Contrib.OneProof.ThetaDirect: 69
+  ZInQKernel.Contrib.OneProof.ThetaDirect.Analytic: 1
+  ZInQKernel.Contrib.OneProof.ThetaDirect.Glue: 274
+  ZInQKernel.Contrib.OneProof.ThetaDirect.Kron: 277
+  ZInQKernel.Contrib.OneProof.ThetaDirect.Modular: 51
+  ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes: 69
+  ZInQKernel.Contrib.OneProof.ThetaDirect.Relations: 42
+  ZInQKernel.Contrib.OneProof.ThetaDirect.Split: 71
+  ZInQKernel.Contrib.OneProof.ThetaDirect.Valence: 28
+  ZInQKernel.OneProof.H.TailK: 6
+
+## new
+  HDec.HSyn.G0Split.ThetaPt.IgusaAlgFinal.igusaAlg_all ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.IgusaAlgFinal.qmThetaSymmetricCore_of_linYang ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.IgusaAlgFinal.qmThetaSymmetricCurve_iff ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.IgusaAlgFinal.qmThetaSymmetricCurve_of_linYang ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.IgusaAlgFinal.qmThetaSymmetricCurve_of_linYang._proof_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.IgusaAlgFinal.thetaEightSquare_iff ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.IgusaAlgFinal.thetaPointOfFibre_of_linYang ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.IgusaAlgFinal.thetaRatiosAtQM_of_linYang ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.IgusaAlg ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.IgusaThetaSymmetric ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.LinYangThetaCurve ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.Sq ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.Sq.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.Sq0 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.Sq1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.Sq2 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.Sq3 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.Sq4 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.Sq5 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.Sq6 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.Sq7 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.Sq8 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.Sq9 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.U2 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.U2.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.blocks_eval ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.chi10T ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.chi10T.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.chi10T_eq ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.chi10Th ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.chi10Th_eq ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.chi12T ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.chi12T.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.chi12T_eq ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.chi12Th ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.chi12Th._proof_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.chi12Th.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.chi12Th_eq ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.dupEquiv ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.dupEquiv._proof_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.dupEquiv._proof_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.dupEquiv._proof_3 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.dupEquiv._proof_4 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.dupEquiv._proof_5 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.dupEquiv._proof_6 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.dupInv ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.dupInv.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.dupMap ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.dupMap.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.dupSign ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.dupSign.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.dupSign_eq ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.esymmL ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.esymmL._f ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.esymmL._sunfold ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.esymmL._unsafe_rec ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.esymmL.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.esymmL.eq_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.esymmL.eq_3 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.esymmL.eq_def ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.esymmL.match_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.esymmL_blocks ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.esymmL_nil ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.esymmL_pair ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.esymmL_single ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.esymm_coe ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.evenChars_eq ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.evenChars_val ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.exists_qY_lower ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.exists_qY_lower_two ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.fin2_add_castC ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.fin2_cases ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.gMaj ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.gMaj.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaAlg3 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaAlg4 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaAlg5 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaAlg6 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaAlg7 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaAlg8 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaAlg9 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaAlg_of_data ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP._proof_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP._proof_10 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP._proof_11 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP._proof_12 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP._proof_13 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP._proof_14 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP._proof_15 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP._proof_16 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP._proof_17 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP._proof_18 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP._proof_19 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP._proof_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP._proof_20 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP._proof_21 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP._proof_22 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP._proof_23 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP._proof_24 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP._proof_25 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP._proof_26 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP._proof_27 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP._proof_28 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP._proof_29 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP._proof_3 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP._proof_30 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP._proof_31 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP._proof_4 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP._proof_5 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP._proof_6 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP._proof_7 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP._proof_8 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP._proof_9 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP.eq_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP.eq_3 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP.eq_4 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP.eq_5 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP.eq_6 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP.eq_7 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP.eq_8 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP.match_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaThetaSymmetric_of_alg ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.jratio_eq ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.jratio_eq._simp_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.jratio_eq._simp_1_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.jratio_eq._simp_1_3 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.jratio_eq._simp_1_4 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.jratio_eq._simp_1_5 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.jratio_eq._simp_1_6 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.jratio_eq._simp_1_7 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.norm_thetaTerm ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.norm_thetaTerm_le ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.par ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.par.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.par_cast ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.par_cast._proof_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.par_two_mul_add ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.pow16_of_sq ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.pow8_of_sq ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.prod_evenChars ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.prod_evenChars._simp_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.prod_evenChars._simp_1_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.psi4T ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.psi4T.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.psi4T_eq ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.psi4Th ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.psi4Th._proof_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.psi4Th.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.psi4Th_eq ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.psi6T ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.psi6T.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.psi6T_eq ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.psi6Th ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.psi6Th.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.psi6Th_eq ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.qY ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.qY._proof_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.qY.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.qY_lower ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.qY_two_smul ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.qmThetaSymmetricCurve_of ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.qmThetaSymmetricCurve_of._simp_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.qmThetaSymmetricCurve_of._simp_1_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.qmThetaSymmetricCurve_of._simp_1_3 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.qmThetaSymmetricCurve_of._simp_1_4 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.qmThetaSymmetricCurve_of._simp_1_5 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.qmThetaSymmetricCurve_of._simp_1_6 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.qmThetaSymmetricCurve_of._simp_1_7 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.qmThetaSymmetricCurve_of_alg ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.qmThetaSymmetricCurve_of_alg59 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.qmThetaSymmetricCurve_of_alg59._proof_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.rhs3_eq ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.rhs4_eq ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.rhs5_eq ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.rhs6_eq ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.rhs7_eq ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.rhs8_eq ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.rhs9_eq ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.sq0 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.sq1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.sq2 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.sq3 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.sq4 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.sq5 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.sq6 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.sq7 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.sq8 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.sq9 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.sq_eq_Sq ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.sq_expand ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.sq_xr_ge ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.sum_evenChars ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.sum_evenChars._simp_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.sum_evenChars._simp_1_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.summable_gMaj ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.summable_norm_thetaTerm ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.thetaConst_eq_tsum ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.thetaConst_sq_eq ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.thetaEightSquare ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.thetaEightSquare' ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.thetaEight_eq ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.thetaTerm ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.thetaTerm._proof_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.thetaTerm.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.thetaTerm_coord ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.thetaTerm_mul_dupMap ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.univ_fin2_fin2 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.xr ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaGlue.xr.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.Jmap_ne_zero ZInQKernel.OneProof.H.TailK
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.Jmap_ne_zero._simp_1_1 ZInQKernel.OneProof.H.TailK
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.Jmap_ne_zero._simp_1_2 ZInQKernel.OneProof.H.TailK
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.Jmap_ne_zero._simp_1_3 ZInQKernel.OneProof.H.TailK
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.QMThetaSymmetric ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.QMThetaSymmetricCore ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.QMThetaSymmetricCurve ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.ThetaEightSquare ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.ThetaEightSquare._proof_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM ZInQKernel.OneProof.H.TailK
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.card_thetaEight ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.esymm_cons_succ ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.esymm_one ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.esymm_one' ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.esymm_ten ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.esymm_ten._simp_1_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.esymm_ten._simp_1_3 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.esymm_ten._simp_1_4 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.esymm_ten._simp_1_5 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.esymm_ten._simp_1_6 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.esymm_ten._simp_1_7 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.esymm_ten._simp_1_8 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.isAlgebraic_of_esymm ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.isAlgebraic_of_esymm._proof_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.isOddChar_of_not_even ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.isOddChar_of_not_even._proof_1_4 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.isOddChar_of_not_even._simp_1_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.isOddChar_of_not_even._simp_1_3 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.eq_10 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.eq_11 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.eq_12 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.eq_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.eq_3 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.eq_4 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.eq_5 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.eq_6 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.eq_7 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.eq_8 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.eq_9 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.match_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR_identity ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR_identity._proof_1_14 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR_identity._proof_1_15 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmThetaSymmetricCore_of ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmThetaSymmetricCore_of._proof_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmThetaSymmetric_of_core ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.thetaEight ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.thetaEight.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.thetaPointOfFibre_of_qm_atQM ZInQKernel.OneProof.H.TailK
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.thetaPointOfFibre_of_qm_core ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.thetaPointOfFibre_of_qm_curve ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.thetaRatiosAtQM_of_symmetric ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.thetaRatiosAtQM_of_symmetric._simp_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.thetaRatiosAtQM_of_symmetric._simp_1_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.thetaRatiosAtQM_of_symmetric._simp_1_3 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.thetaRatiosAtQM_of_symmetric._simp_1_4 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.thetaRatiosAtQM_of_symmetric._simp_1_5 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.thetaRatiosAtQM_of_symmetric._simp_1_6 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.thetaRatiosAtQM_of_symmetric._simp_1_7 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.two_esymm_two ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.HSyn.G0Split.ThetaPt.ThetaSplit.zero_mem_evenChars ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.PkgI1.evenChars.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  HDec.ThetaDirect.G20 ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.G20_eq' ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.G20_tau24 ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.G20_tau4 ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.G8_eq' ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.G8_tau24 ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.G8_tau4 ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.GS ZInQKernel.Contrib.OneProof.ThetaDirect.Valence
+  HDec.ThetaDirect.GS._proof_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Valence
+  HDec.ThetaDirect.I_im_pos ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.Kτ ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.Kτ_ne ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.NodeAlg ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.QMThetaSymmetricAlg ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.SAuto ZInQKernel.Contrib.OneProof.ThetaDirect.Valence
+  HDec.ThetaDirect.SAutoSubgroup ZInQKernel.Contrib.OneProof.ThetaDirect.Valence
+  HDec.ThetaDirect.V00 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.V00.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.V00_ne ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.V01 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.V01._proof_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.V01.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.V01_eq_V10 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.V01_ne ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.V01_pow4 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.V01_ratio_mem ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.V10 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.Zf24_ne ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.Zf4_ne ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.analytic_G20 ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.analytic_G8 ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.analytic_GS ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.analytic_chi12 ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.analytic_psi6 ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.auto12 ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.auto20' ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.auto6 ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.auto8' ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.autoGS ZInQKernel.Contrib.OneProof.ThetaDirect.Valence
+  HDec.ThetaDirect.auto_const_mul ZInQKernel.Contrib.OneProof.ThetaDirect.Valence
+  HDec.ThetaDirect.auto_mul ZInQKernel.Contrib.OneProof.ThetaDirect.Valence
+  HDec.ThetaDirect.auto_pow ZInQKernel.Contrib.OneProof.ThetaDirect.Valence
+  HDec.ThetaDirect.auto_sub ZInQKernel.Contrib.OneProof.ThetaDirect.Valence
+  HDec.ThetaDirect.c1 ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.c1.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.c1_mem ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.c1_mem._simp_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.c1_mem._simp_1_2 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.c1_mem._simp_1_3 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.c1_mem._simp_1_4 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.c1_mem._simp_1_5 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.c1_mem._simp_1_6 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.c1_mem._simp_1_7 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.c2 ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.c2.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.c2_mem ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.c2_mem._simp_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.c2_mem._simp_1_2 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.c2_mem._simp_1_3 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.c2_mem._simp_1_4 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.c2_mem._simp_1_5 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.c2_mem._simp_1_6 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.c2_mem._simp_1_7 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.c3 ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.c3.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.c3_mem ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.c3_mem._simp_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.c3_mem._simp_1_2 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.c3_mem._simp_1_3 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.c3_mem._simp_1_4 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.c3_mem._simp_1_5 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.c3_mem._simp_1_6 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.c3_mem._simp_1_7 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.chi12T_perm4 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.chi12T_perm6 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.chi12T_smul ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.chi12T_smul' ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.chi12Th_M4 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.chi12Th_M6 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.e4_0000 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.e4_0001 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.e4_0010 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.e4_0011 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.e4_0100 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.e4_0110 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.e4_1000 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.e4_1001 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.e4_1100 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.e4_1111 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.e6_0000 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.e6_0001 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.e6_0010 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.e6_0011 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.e6_0100 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.e6_0110 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.e6_1000 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.e6_1001 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.e6_1100 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.e6_1111 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.e_sq_val ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.eq_zero_of_nodes ZInQKernel.Contrib.OneProof.ThetaDirect.Valence
+  HDec.ThetaDirect.eq_zero_of_nodes._proof_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Valence
+  HDec.ThetaDirect.exp_even_piI ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.exp_neg_pi4_mem ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.exp_pi4_mem ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.fin2_le ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.igusaP_hom ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.igusaP_mem ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.mem_of_esymm_mem ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.mem_of_esymm_mem._proof_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.mem_of_pow_mem ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.neg_inv_τ1 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.nodeAlg_cm4 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.nodeAlg_cm4._proof_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.nodeAlg_cm4._proof_1_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.nodeAlg_of_mul ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.nodeAlg_of_sq ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.nodeAlg_om24 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.nodeAlg_om24._simp_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.nodeAlg_om24._simp_1_10 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.nodeAlg_om24._simp_1_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.nodeAlg_om24._simp_1_3 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.nodeAlg_om24._simp_1_4 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.nodeAlg_om24._simp_1_5 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.nodeAlg_om24._simp_1_6 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.nodeAlg_om24._simp_1_7 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.nodeAlg_om24._simp_1_8 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.nodeAlg_om24._simp_1_9 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.nodeAlg_tau24 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.node_vals ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.node_vals._simp_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.node_vals._simp_1_2 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.node_vals._simp_1_3 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.node_vals._simp_1_4 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.node_vals._simp_1_5 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.node_vals._simp_1_6 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.node_vals._simp_1_7 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.ofNat_mem' ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.pairwise_nodes ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.pairwise_nodes._simp_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.pairwise_nodes._simp_1_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.pg_cases ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.pg_th1_eq ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.phase_mem ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.prod2_tau24 ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.prod2_tau4 ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.psi6T_perm4 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.psi6T_perm6 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.psi6T_smul ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.psi6T_smul' ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.psi6Th_M4 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.psi6Th_M6 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.qmThetaSymmetricAlg_proof ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.qmThetaSymmetricAlg_proof._proof_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.qmThetaSymmetricAlg_proof._proof_1_9 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.qmThetaSymmetricAlg_proof._simp_1_2 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.qmThetaSymmetricAlg_proof._simp_1_3 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.qmThetaSymmetricAlg_proof._simp_1_4 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.qmThetaSymmetricAlg_proof._simp_1_5 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.qmThetaSymmetricAlg_proof._simp_1_6 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.qmThetaSymmetricAlg_proof._simp_1_7 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.qmThetaSymmetricAlg_proof._simp_1_8 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.ratCast_mem' ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.rel1 ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.rel1_G ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.rel2 ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.rel2_G ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.rel2_G._simp_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.rel2_G._simp_1_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.sAuto_g4 ZInQKernel.Contrib.OneProof.ThetaDirect.Valence
+  HDec.ThetaDirect.sAuto_g6 ZInQKernel.Contrib.OneProof.ThetaDirect.Valence
+  HDec.ThetaDirect.sAuto_gen ZInQKernel.Contrib.OneProof.ThetaDirect.Valence
+  HDec.ThetaDirect.sAuto_inv ZInQKernel.Contrib.OneProof.ThetaDirect.Valence
+  HDec.ThetaDirect.sAuto_mul ZInQKernel.Contrib.OneProof.ThetaDirect.Valence
+  HDec.ThetaDirect.sAuto_of_sp ZInQKernel.Contrib.OneProof.ThetaDirect.Valence
+  HDec.ThetaDirect.sAuto_of_sp._simp_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Valence
+  HDec.ThetaDirect.sAuto_of_sp._simp_1_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Valence
+  HDec.ThetaDirect.sAuto_of_sp._simp_1_3 ZInQKernel.Contrib.OneProof.ThetaDirect.Valence
+  HDec.ThetaDirect.sAuto_of_sp._simp_1_4 ZInQKernel.Contrib.OneProof.ThetaDirect.Valence
+  HDec.ThetaDirect.sAuto_of_sp._simp_1_5 ZInQKernel.Contrib.OneProof.ThetaDirect.Valence
+  HDec.ThetaDirect.sAuto_of_sp._simp_1_6 ZInQKernel.Contrib.OneProof.ThetaDirect.Valence
+  HDec.ThetaDirect.sAuto_of_sp._simp_1_7 ZInQKernel.Contrib.OneProof.ThetaDirect.Valence
+  HDec.ThetaDirect.sAuto_of_sp._simp_1_8 ZInQKernel.Contrib.OneProof.ThetaDirect.Valence
+  HDec.ThetaDirect.sAuto_one ZInQKernel.Contrib.OneProof.ThetaDirect.Valence
+  HDec.ThetaDirect.sAuto_scalar ZInQKernel.Contrib.OneProof.ThetaDirect.Valence
+  HDec.ThetaDirect.sum8_tau24 ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.sum8_tau4 ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.tau24 ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.tau24_omega ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.tau4 ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.tau4_ne_tau24 ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.tau4_omega ZInQKernel.Contrib.OneProof.ThetaDirect.Relations
+  HDec.ThetaDirect.th1_add_one_half ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.th1_add_one_zero ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.th1_d1' ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.th1_d1'' ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.th1_τ1_mem ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.th1_τ1_mem._simp_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.th1_τ1_mem._simp_1_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.th1_τ1_mem._simp_1_3 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.th1_τ1_mem._simp_1_4 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.th1_τ1_mem._simp_1_5 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.th1_τ1_mem._simp_1_6 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.th1_τ1_mem._simp_1_7 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.th1_τ1_mem._simp_1_8 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.th1_τ2_mem ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.th1_τ2_mem._simp_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.th1_τ2_mem._simp_1_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.th1_τ2_mem._simp_1_3 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.th1_τ2_mem._simp_1_4 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.th1_τ2_mem._simp_1_5 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.th1_τ2_mem._simp_1_6 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.th1_τ2_mem._simp_1_7 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.th1_τ2_mem._simp_1_8 ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.thetaConst_ne_of_prod ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.thetaConst_odd' ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.thetaConst_omega_analyticAt ZInQKernel.Contrib.OneProof.ThetaDirect.Analytic
+  HDec.ThetaDirect.thetaPointOfFibre_of_qmPeriod ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.thetaRatiosAtQM_of_qmHauptmodul ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.thetaRatiosAtQM_of_symAlg ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.thetaRatiosAtQM_of_symAlg._simp_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.thetaRatiosAtQM_of_symAlg._simp_1_2 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.thetaRatiosAtQM_of_symAlg._simp_1_3 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.thetaRatiosAtQM_of_symAlg._simp_1_4 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.thetaRatiosAtQM_of_symAlg._simp_1_5 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.thetaRatiosAtQM_of_symAlg._simp_1_6 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.thetaRatiosAtQM_of_symAlg._simp_1_7 ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.thetaRatiosAtQM_proof ZInQKernel.Contrib.OneProof.ThetaDirect
+  HDec.ThetaDirect.valenceGS ZInQKernel.Contrib.OneProof.ThetaDirect.Valence
+  HDec.ThetaDirect.σ4_0000 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.σ4_0001 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.σ4_0010 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.σ4_0011 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.σ4_0100 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.σ4_0110 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.σ4_1000 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.σ4_1001 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.σ4_1100 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.σ4_1111 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.σ6_0000 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.σ6_0001 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.σ6_0010 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.σ6_0011 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.σ6_0100 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.σ6_0110 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.σ6_1000 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.σ6_1001 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.σ6_1100 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.σ6_1111 ZInQKernel.Contrib.OneProof.ThetaDirect.Modular
+  HDec.ThetaDirect.τ1_ne ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  HDec.ThetaDirect.τ2_add_one ZInQKernel.Contrib.OneProof.ThetaDirect.Nodes
+  IgusaAlgEval.Data ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Data._sizeOf_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Data._sizeOf_inst ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Data.blocks ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Data.casesOn ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Data.ctorIdx ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Data.dK ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Data.gen ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Data.gen.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Data.genAbs ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Data.genAbs.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Data.genFast ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Data.genFast.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Data.genFast_eq ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Data.gen_eq_zero ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Data.gen_isHom ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Data.gen_isHom._proof_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Data.gen_isHom._simp_1_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Data.k ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Data.maj_gen ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Data.map_gen ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Data.map_genAbs ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Data.mk ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Data.mk._flat_ctor ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Data.mk.inj ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Data.mk.injEq ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Data.mk.noConfusion ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Data.mk.sizeOf_spec ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Data.noConfusion ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Data.noConfusionType ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Data.rec ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Data.recOn ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Data.rhs ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.E ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.E._f ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.E._sunfold ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.E._unsafe_rec ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.E.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.E.eq_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.E.eq_3 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.E.eq_def ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.E.match_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.EV ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.EV._f ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.EV._sunfold ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.EV._unsafe_rec ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.EV.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.EV.eq_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.EV.eq_def ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.EV.match_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.EV_getD ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.EV_getD._proof_1_10 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.EV_getD._proof_1_9 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.E_isHom ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.E_isHom._proof_1_5 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.E_isHom._proof_1_6 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.E_maj ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.MP ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Maj ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Maj.add ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Maj.mul ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Maj.nonneg ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Maj.pow ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.Maj.sub ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE._sizeOf_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE._sizeOf_inst ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.abs ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.abs._f ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.abs._sunfold ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.abs._unsafe_rec ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.add ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.add.elim ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.add.inj ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.add.injEq ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.add.noConfusion ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.add.sizeOf_spec ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.below ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.brecOn ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.brecOn.eq ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.brecOn.go ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.c ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.c.elim ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.c.inj ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.c.injEq ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.c.noConfusion ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.c.sizeOf_spec ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.casesOn ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.ctorElim ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.ctorElimType ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.ctorIdx ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.eval ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.eval._f ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.eval._sunfold ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.eval._unsafe_rec ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.eval.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.eval.eq_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.eval.eq_3 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.eval.eq_4 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.eval.eq_5 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.eval.eq_def ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.eval.match_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.eval_v0 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.eval_v1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.eval_v2 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.eval_v3 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.hd ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.hd._f ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.hd._sparseCasesOn_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.hd._sparseCasesOn_1.else_eq ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.hd._sunfold ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.hd._unsafe_rec ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.hd.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.hd.eq_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.hd.eq_3 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.hd.eq_4 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.hd.eq_5 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.hd.eq_def ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.hd.match_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.hd.match_4 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.isHom ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.maj ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.map_eval ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.mul ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.mul.elim ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.mul.inj ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.mul.injEq ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.mul.noConfusion ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.mul.sizeOf_spec ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.noConfusion ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.noConfusionType ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.pow ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.pow.elim ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.pow.inj ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.pow.injEq ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.pow.noConfusion ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.pow.sizeOf_spec ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.rec ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.recOn ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.v ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.v.elim ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.v.inj ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.v.injEq ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.v.noConfusion ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.PE.v.sizeOf_spec ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.blkQ0 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.blkQ0.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.blkQ1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.blkQ1.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.blkQ2 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.blkQ2.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.blkQ3 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.blkQ3.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.blkQ4 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.blkQ4.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.blkQ5 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.blkQ5.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.blkQ6 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.blkQ6.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.blkR0 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.blkR0.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.blkR1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.blkR1.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.blkR2 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.blkR2.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.blkR3 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.blkR3.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.blkR4 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.blkR4.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.blkR5 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.blkR5.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.blkR6 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.blkR6.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.blocksPE ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.blocksPE.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.coeff_le_eval_one ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.dK3 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.dK3.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.dK4 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.dK4.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.dK5 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.dK5.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.dK6 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.dK6.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.dK7 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.dK7.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.dK8 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.dK8.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.dK9 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.dK9.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.data3 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.data4 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.data5 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.data6 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.data7 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.data8 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.data9 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.digits3 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.eq_zero_of_eval_eq_zero_of_coeff_lt ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.eq_zero_of_eval_eq_zero_of_coeff_lt._proof_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.evB ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.evB.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.evBabs ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.evBabs.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen3_eq_zero ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen3_eq_zero._proof_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen3_eq_zero._proof_1_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen3_eq_zero._proof_1_3 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen3_eq_zero._proof_1_4 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen4_eq_zero ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen4_eq_zero._proof_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen4_eq_zero._proof_1_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen4_eq_zero._proof_1_3 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen4_eq_zero._proof_1_4 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen5_eq_zero ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen5_eq_zero._proof_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen5_eq_zero._proof_1_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen5_eq_zero._proof_1_3 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen5_eq_zero._proof_1_4 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen6_eq_zero ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen6_eq_zero._proof_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen6_eq_zero._proof_1_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen6_eq_zero._proof_1_3 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen6_eq_zero._proof_1_4 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen7_eq_zero ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen7_eq_zero._proof_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen7_eq_zero._proof_1_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen7_eq_zero._proof_1_3 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen7_eq_zero._proof_1_4 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen8_eq_zero ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen8_eq_zero._proof_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen8_eq_zero._proof_1_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen8_eq_zero._proof_1_3 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen8_eq_zero._proof_1_4 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen9_eq_zero ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen9_eq_zero._proof_1_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen9_eq_zero._proof_1_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen9_eq_zero._proof_1_3 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.gen9_eq_zero._proof_1_4 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.isHom_of_eq ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.kron ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.kron.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.kron_eq_zero ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.kron_eq_zero._proof_1_3 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.kron_eq_zero._proof_1_4 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.kron_eq_zero._proof_1_5 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.kron_eq_zero._proof_1_6 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.kron_eq_zero._proof_1_7 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.kron_eq_zero._simp_1_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.kron_monomial ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.maj_X_pow ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.maj_intCast ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.maj_ite ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.maj_one ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.maj_sel ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.maj_zero ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.map_E ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.map_sel ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.psi4E ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.psi4E._proof_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.psi4E.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.psi6E ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.psi6E.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.rhsE3 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.rhsE3.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.rhsE4 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.rhsE4.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.rhsE5 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.rhsE5.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.rhsE6 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.rhsE6.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.rhsE7 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.rhsE7.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.rhsE8 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.rhsE8.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.rhsE9 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.rhsE9.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.sel ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.sel.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.sel_X ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.stepV ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.stepV.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.sum_support_fin4 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.x10E ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.x10E.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.x12E ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.x12E.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.x12E0 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.x12E0.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.x12E1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.x12E1.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.x12E2 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.x12E2.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  IgusaAlgEval.x12E3 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  IgusaAlgEval.x12E3.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.0.HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP.match_1.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.0.HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP.match_1.eq_2 ZInQKernel.Contrib.OneProof.ThetaDirect
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.0.HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP.match_1.eq_3 ZInQKernel.Contrib.OneProof.ThetaDirect
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.0.HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP.match_1.eq_4 ZInQKernel.Contrib.OneProof.ThetaDirect
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.0.HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP.match_1.eq_5 ZInQKernel.Contrib.OneProof.ThetaDirect
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.0.HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP.match_1.eq_6 ZInQKernel.Contrib.OneProof.ThetaDirect
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.0.HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP.match_1.eq_7 ZInQKernel.Contrib.OneProof.ThetaDirect
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.0.HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP.match_1.eq_8 ZInQKernel.Contrib.OneProof.ThetaDirect
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.0.HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP.match_1.splitter ZInQKernel.Contrib.OneProof.ThetaDirect
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Glue.0.HDec.HSyn.G0Split.ThetaPt.ThetaGlue.esymmL.match_1.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Glue.0.HDec.HSyn.G0Split.ThetaPt.ThetaGlue.esymmL.match_1.eq_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Glue.0.HDec.HSyn.G0Split.ThetaPt.ThetaGlue.esymmL.match_1.eq_3 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Glue.0.HDec.HSyn.G0Split.ThetaPt.ThetaGlue.esymmL.match_1.splitter ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Glue.0.HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP.match_1.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Glue.0.HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP.match_1.eq_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Glue.0.HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP.match_1.eq_3 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Glue.0.HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP.match_1.eq_4 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Glue.0.HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP.match_1.eq_5 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Glue.0.HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP.match_1.eq_6 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Glue.0.HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP.match_1.eq_7 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Glue.0.HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP.match_1.eq_8 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Glue.0.HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaP.match_1.splitter ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Glue.0.HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.match_1.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Glue.0.HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.match_1.eq_10 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Glue.0.HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.match_1.eq_11 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Glue.0.HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.match_1.eq_12 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Glue.0.HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.match_1.eq_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Glue.0.HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.match_1.eq_3 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Glue.0.HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.match_1.eq_4 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Glue.0.HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.match_1.eq_5 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Glue.0.HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.match_1.eq_6 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Glue.0.HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.match_1.eq_7 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Glue.0.HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.match_1.eq_8 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Glue.0.HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.match_1.eq_9 ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Glue.0.HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.match_1.splitter ZInQKernel.Contrib.OneProof.ThetaDirect.Glue
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Kron.0.IgusaAlgEval.E.match_1.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Kron.0.IgusaAlgEval.E.match_1.eq_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Kron.0.IgusaAlgEval.E.match_1.eq_3 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Kron.0.IgusaAlgEval.E.match_1.splitter ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Kron.0.IgusaAlgEval.EV.match_1.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Kron.0.IgusaAlgEval.EV.match_1.eq_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Kron.0.IgusaAlgEval.EV.match_1.splitter ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Kron.0.IgusaAlgEval.PE.eval.match_1.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Kron.0.IgusaAlgEval.PE.eval.match_1.eq_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Kron.0.IgusaAlgEval.PE.eval.match_1.eq_3 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Kron.0.IgusaAlgEval.PE.eval.match_1.eq_4 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Kron.0.IgusaAlgEval.PE.eval.match_1.eq_5 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Kron.0.IgusaAlgEval.PE.eval.match_1.splitter ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Kron.0.IgusaAlgEval.PE.hd.match_1.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Kron.0.IgusaAlgEval.PE.hd.match_1.eq_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Kron.0.IgusaAlgEval.PE.hd.match_1.splitter ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Kron.0.IgusaAlgEval.PE.hd.match_4.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Kron.0.IgusaAlgEval.PE.hd.match_4.eq_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Kron.0.IgusaAlgEval.PE.hd.match_4.splitter ZInQKernel.Contrib.OneProof.ThetaDirect.Kron
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Split.0.HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.match_1.eq_1 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Split.0.HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.match_1.eq_10 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Split.0.HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.match_1.eq_11 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Split.0.HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.match_1.eq_12 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Split.0.HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.match_1.eq_2 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Split.0.HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.match_1.eq_3 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Split.0.HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.match_1.eq_4 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Split.0.HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.match_1.eq_5 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Split.0.HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.match_1.eq_6 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Split.0.HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.match_1.eq_7 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Split.0.HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.match_1.eq_8 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Split.0.HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.match_1.eq_9 ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+  _private.ZInQKernel.Contrib.OneProof.ThetaDirect.Split.0.HDec.HSyn.G0Split.ThetaPt.ThetaSplit.qmR.match_1.splitter ZInQKernel.Contrib.OneProof.ThetaDirect.Split
+
+## changed (T = type hash changed, V = value only)
+  V HDec.HSyn.OpenAddedLeaves12.axSenTate ZInQKernel.OneProof.H.TailZ22
+  T HDec.HSyn.OpenAddedLeaves12.casesOn ZInQKernel.OneProof.H.TailZ22
+  V HDec.HSyn.OpenAddedLeaves12.egaIV_8_10_5_xii ZInQKernel.OneProof.H.TailZ22
+  V HDec.HSyn.OpenAddedLeaves12.milneIsogenyQuasiInverse ZInQKernel.OneProof.H.TailZ22
+  T HDec.HSyn.OpenAddedLeaves12.mk ZInQKernel.OneProof.H.TailZ22
+  T HDec.HSyn.OpenAddedLeaves12.mk._flat_ctor ZInQKernel.OneProof.H.TailZ22
+  V HDec.HSyn.OpenAddedLeaves12.qmCentralizerCMC ZInQKernel.OneProof.H.TailZ22
+  T HDec.HSyn.OpenAddedLeaves12.rec ZInQKernel.OneProof.H.TailZ22
+  T HDec.HSyn.OpenAddedLeaves12.recOn ZInQKernel.OneProof.H.TailZ22
+  V HDec.HSyn.OpenAddedLeaves12.shimizuCovolumeO1 ZInQKernel.OneProof.H.TailZ22
+  V HDec.HSyn.OpenAddedLeaves12.t09SymmIsogenyExists ZInQKernel.OneProof.H.TailZ22
+  V HDec.HSyn.OpenAddedLeaves12.tateTwistInvariants ZInQKernel.OneProof.H.TailZ22
+  V HDec.HSyn.OpenAddedLeaves12.valenceFormulaCocompactEq ZInQKernel.OneProof.H.TailZ22
+  V HDec.HSyn.OpenAddedLeaves13.axSenTate ZInQKernel.OneProof.H.TailZ24
+  T HDec.HSyn.OpenAddedLeaves13.casesOn ZInQKernel.OneProof.H.TailZ24
+  V HDec.HSyn.OpenAddedLeaves13.egaIV_8_10_5_xii ZInQKernel.OneProof.H.TailZ24
+  V HDec.HSyn.OpenAddedLeaves13.milneIsogenyQuasiInverse ZInQKernel.OneProof.H.TailZ24
+  T HDec.HSyn.OpenAddedLeaves13.mk ZInQKernel.OneProof.H.TailZ24
+  T HDec.HSyn.OpenAddedLeaves13.mk._flat_ctor ZInQKernel.OneProof.H.TailZ24
+  V HDec.HSyn.OpenAddedLeaves13.phiAmpleIsogeny ZInQKernel.OneProof.H.TailZ24
+  V HDec.HSyn.OpenAddedLeaves13.picRepresentableAbVar ZInQKernel.OneProof.H.TailZ24
+  V HDec.HSyn.OpenAddedLeaves13.picZeroAbVar ZInQKernel.OneProof.H.TailZ24
+  V HDec.HSyn.OpenAddedLeaves13.qmCentralizerCMC ZInQKernel.OneProof.H.TailZ24
+  T HDec.HSyn.OpenAddedLeaves13.rec ZInQKernel.OneProof.H.TailZ24
+  T HDec.HSyn.OpenAddedLeaves13.recOn ZInQKernel.OneProof.H.TailZ24
+  V HDec.HSyn.OpenAddedLeaves13.shimizuCovolumeO1 ZInQKernel.OneProof.H.TailZ24
+  V HDec.HSyn.OpenAddedLeaves13.tateTwistInvariants ZInQKernel.OneProof.H.TailZ24
+  V HDec.HSyn.OpenAddedLeaves13.valenceFormulaCocompactEq ZInQKernel.OneProof.H.TailZ24
+  V HDec.HSyn.OpenAddedLeaves13.weilPairingMumford ZInQKernel.OneProof.H.TailZ24
+  V HDec.HSyn.OpenAddedLeaves14.axSenTate ZInQKernel.OneProof.H.TailZ26
+  T HDec.HSyn.OpenAddedLeaves14.casesOn ZInQKernel.OneProof.H.TailZ26
+  V HDec.HSyn.OpenAddedLeaves14.egaIV_8_10_5_xii ZInQKernel.OneProof.H.TailZ26
+  V HDec.HSyn.OpenAddedLeaves14.milneIsogenyQuasiInverse ZInQKernel.OneProof.H.TailZ26
+  T HDec.HSyn.OpenAddedLeaves14.mk ZInQKernel.OneProof.H.TailZ26
+  T HDec.HSyn.OpenAddedLeaves14.mk._flat_ctor ZInQKernel.OneProof.H.TailZ26
+  V HDec.HSyn.OpenAddedLeaves14.phiAmpleIsogeny ZInQKernel.OneProof.H.TailZ26
+  V HDec.HSyn.OpenAddedLeaves14.picRepresentableAbVar ZInQKernel.OneProof.H.TailZ26
+  V HDec.HSyn.OpenAddedLeaves14.picZeroAbVar ZInQKernel.OneProof.H.TailZ26
+  V HDec.HSyn.OpenAddedLeaves14.qmCentralizerCMC ZInQKernel.OneProof.H.TailZ26
+  T HDec.HSyn.OpenAddedLeaves14.rec ZInQKernel.OneProof.H.TailZ26
+  T HDec.HSyn.OpenAddedLeaves14.recOn ZInQKernel.OneProof.H.TailZ26
+  V HDec.HSyn.OpenAddedLeaves14.tateTwistInvariants ZInQKernel.OneProof.H.TailZ26
+  V HDec.HSyn.OpenAddedLeaves14.valenceFormulaCocompactEq ZInQKernel.OneProof.H.TailZ26
+  V HDec.HSyn.OpenAddedLeaves14.weilPairingMumford ZInQKernel.OneProof.H.TailZ26
+  V HDec.HSyn.OpenAddedLeaves15.axSenTate ZInQKernel.OneProof.H.TailZ30
+  T HDec.HSyn.OpenAddedLeaves15.casesOn ZInQKernel.OneProof.H.TailZ30
+  V HDec.HSyn.OpenAddedLeaves15.egaIV_8_10_5_xii ZInQKernel.OneProof.H.TailZ30
+  V HDec.HSyn.OpenAddedLeaves15.milneIsogenyQuasiInverse ZInQKernel.OneProof.H.TailZ30
+  T HDec.HSyn.OpenAddedLeaves15.mk ZInQKernel.OneProof.H.TailZ30
+  T HDec.HSyn.OpenAddedLeaves15.mk._flat_ctor ZInQKernel.OneProof.H.TailZ30
+  V HDec.HSyn.OpenAddedLeaves15.phiAmpleIsogeny ZInQKernel.OneProof.H.TailZ30
+  V HDec.HSyn.OpenAddedLeaves15.picRepresentableAbVar ZInQKernel.OneProof.H.TailZ30
+  V HDec.HSyn.OpenAddedLeaves15.picZeroAbVar ZInQKernel.OneProof.H.TailZ30
+  T HDec.HSyn.OpenAddedLeaves15.rec ZInQKernel.OneProof.H.TailZ30
+  T HDec.HSyn.OpenAddedLeaves15.recOn ZInQKernel.OneProof.H.TailZ30
+  V HDec.HSyn.OpenAddedLeaves15.tateTwistInvariants ZInQKernel.OneProof.H.TailZ30
+  V HDec.HSyn.OpenAddedLeaves15.valenceFormulaCocompactEq ZInQKernel.OneProof.H.TailZ30
+  V HDec.HSyn.OpenAddedLeaves15.weilPairingMumford ZInQKernel.OneProof.H.TailZ30
+  V HDec.HSyn.OpenAddedLeaves16.axSenTate ZInQKernel.OneProof.H.TailZ31
+  T HDec.HSyn.OpenAddedLeaves16.casesOn ZInQKernel.OneProof.H.TailZ31
+  V HDec.HSyn.OpenAddedLeaves16.egaIV_8_10_5_xii ZInQKernel.OneProof.H.TailZ31
+  V HDec.HSyn.OpenAddedLeaves16.milneIsogenyQuasiInverse ZInQKernel.OneProof.H.TailZ31
+  T HDec.HSyn.OpenAddedLeaves16.mk ZInQKernel.OneProof.H.TailZ31
+  T HDec.HSyn.OpenAddedLeaves16.mk._flat_ctor ZInQKernel.OneProof.H.TailZ31
+  V HDec.HSyn.OpenAddedLeaves16.phiAmpleIsogeny ZInQKernel.OneProof.H.TailZ31
+  V HDec.HSyn.OpenAddedLeaves16.picRepresentableAbVar ZInQKernel.OneProof.H.TailZ31
+  V HDec.HSyn.OpenAddedLeaves16.picZeroAbVar ZInQKernel.OneProof.H.TailZ31
+  T HDec.HSyn.OpenAddedLeaves16.rec ZInQKernel.OneProof.H.TailZ31
+  T HDec.HSyn.OpenAddedLeaves16.recOn ZInQKernel.OneProof.H.TailZ31
+  V HDec.HSyn.OpenAddedLeaves16.tateTwistInvariants ZInQKernel.OneProof.H.TailZ31
+  V HDec.HSyn.OpenAddedLeaves16.weilPairingMumford ZInQKernel.OneProof.H.TailZ31
+  V HDec.HSyn.OpenAddedLeaves17.axSenTate ZInQKernel.OneProof.H.TailZ34
+  T HDec.HSyn.OpenAddedLeaves17.casesOn ZInQKernel.OneProof.H.TailZ34
+  V HDec.HSyn.OpenAddedLeaves17.egaIV_8_10_5_xii ZInQKernel.OneProof.H.TailZ34
+  V HDec.HSyn.OpenAddedLeaves17.milneIsogenyQuasiInverse ZInQKernel.OneProof.H.TailZ34
+  T HDec.HSyn.OpenAddedLeaves17.mk ZInQKernel.OneProof.H.TailZ34
+  T HDec.HSyn.OpenAddedLeaves17.mk._flat_ctor ZInQKernel.OneProof.H.TailZ34
+  V HDec.HSyn.OpenAddedLeaves17.phiAmpleIsogeny ZInQKernel.OneProof.H.TailZ34
+  V HDec.HSyn.OpenAddedLeaves17.picRepresentableAbVar ZInQKernel.OneProof.H.TailZ34
+  V HDec.HSyn.OpenAddedLeaves17.picZeroAbVar ZInQKernel.OneProof.H.TailZ34
+  T HDec.HSyn.OpenAddedLeaves17.rec ZInQKernel.OneProof.H.TailZ34
+  T HDec.HSyn.OpenAddedLeaves17.recOn ZInQKernel.OneProof.H.TailZ34
+  V HDec.HSyn.OpenAddedLeaves17.tateTwistInvariants ZInQKernel.OneProof.H.TailZ34
+  V HDec.HSyn.OpenAddedLeaves17.weilPairingMumford ZInQKernel.OneProof.H.TailZ34
+  V HDec.HSyn.OpenAddedLeaves4.alFixedPoints ZInQKernel.OneProof.H.TailK
+  T HDec.HSyn.OpenAddedLeaves4.casesOn ZInQKernel.OneProof.H.TailK
+  V HDec.HSyn.OpenAddedLeaves4.cmDescends ZInQKernel.OneProof.H.TailK
+  V HDec.HSyn.OpenAddedLeaves4.egaIV_17_7_8_ii ZInQKernel.OneProof.H.TailK
+  V HDec.HSyn.OpenAddedLeaves4.egaIV_8_10_5_xii ZInQKernel.OneProof.H.TailK
+  V HDec.HSyn.OpenAddedLeaves4.egaIV_8_8_2_ii ZInQKernel.OneProof.H.TailK
+  V HDec.HSyn.OpenAddedLeaves4.finiteImageHT ZInQKernel.OneProof.H.TailK
+  V HDec.HSyn.OpenAddedLeaves4.gammaStarGen ZInQKernel.OneProof.H.TailK
+  V HDec.HSyn.OpenAddedLeaves4.isogenyQuasiInverse ZInQKernel.OneProof.H.TailK
+  T HDec.HSyn.OpenAddedLeaves4.mk ZInQKernel.OneProof.H.TailK
+  T HDec.HSyn.OpenAddedLeaves4.mk._flat_ctor ZInQKernel.OneProof.H.TailK
+  V HDec.HSyn.OpenAddedLeaves4.qmAutCard ZInQKernel.OneProof.H.TailK
+  V HDec.HSyn.OpenAddedLeaves4.qmClassNumberOne ZInQKernel.OneProof.H.TailK
+  V HDec.HSyn.OpenAddedLeaves4.qmHauptmodul ZInQKernel.OneProof.H.TailK
+  T HDec.HSyn.OpenAddedLeaves4.rec ZInQKernel.OneProof.H.TailK
+  T HDec.HSyn.OpenAddedLeaves4.recOn ZInQKernel.OneProof.H.TailK
+  V HDec.HSyn.OpenAddedLeaves4.senTwist ZInQKernel.OneProof.H.TailK
+  V HDec.HSyn.OpenAddedLeaves4.serreRigidity3 ZInQKernel.OneProof.H.TailK
+  V HDec.HSyn.OpenAddedLeaves4.t09SymmIsogenyExists ZInQKernel.OneProof.H.TailK
+  V HDec.HSyn.OpenAddedLeaves4.valenceBoundGammaStar ZInQKernel.OneProof.H.TailK
+  V HDec.HSyn.OpenAddedLeaves4.x6ConicModel ZInQKernel.OneProof.H.TailK
+  V HDec.HSyn.OpenAddedLeaves4.y3Connected ZInQKernel.OneProof.H.TailK
+  V HDec.HSyn.OpenAddedLeaves4.zariskiConnectedness ZInQKernel.OneProof.H.TailK
+  V HDec.HSyn.OpenAddedLeaves6.alFixedPoints ZInQKernel.OneProof.H.TailO
+  T HDec.HSyn.OpenAddedLeaves6.casesOn ZInQKernel.OneProof.H.TailO
+  V HDec.HSyn.OpenAddedLeaves6.curveBijIso ZInQKernel.OneProof.H.TailO
+  V HDec.HSyn.OpenAddedLeaves6.egaIV_17_7_8_ii ZInQKernel.OneProof.H.TailO
+  V HDec.HSyn.OpenAddedLeaves6.egaIV_8_10_5_xii ZInQKernel.OneProof.H.TailO
+  V HDec.HSyn.OpenAddedLeaves6.egaIV_8_8_2_ii ZInQKernel.OneProof.H.TailO
+  V HDec.HSyn.OpenAddedLeaves6.finiteImageHT ZInQKernel.OneProof.H.TailO
+  V HDec.HSyn.OpenAddedLeaves6.isogenyQuasiInverse ZInQKernel.OneProof.H.TailO
+  T HDec.HSyn.OpenAddedLeaves6.mk ZInQKernel.OneProof.H.TailO
+  T HDec.HSyn.OpenAddedLeaves6.mk._flat_ctor ZInQKernel.OneProof.H.TailO
+  V HDec.HSyn.OpenAddedLeaves6.qmAutCard ZInQKernel.OneProof.H.TailO
+  V HDec.HSyn.OpenAddedLeaves6.qmClassNumberOne ZInQKernel.OneProof.H.TailO
+  V HDec.HSyn.OpenAddedLeaves6.qmHauptmodulBase3 ZInQKernel.OneProof.H.TailO
+  T HDec.HSyn.OpenAddedLeaves6.rec ZInQKernel.OneProof.H.TailO
+  T HDec.HSyn.OpenAddedLeaves6.recOn ZInQKernel.OneProof.H.TailO
+  V HDec.HSyn.OpenAddedLeaves6.senTwist ZInQKernel.OneProof.H.TailO
+  V HDec.HSyn.OpenAddedLeaves6.stQM ZInQKernel.OneProof.H.TailO
+  V HDec.HSyn.OpenAddedLeaves6.t09SymmIsogenyExists ZInQKernel.OneProof.H.TailO
+  V HDec.HSyn.OpenAddedLeaves6.valenceFormulaGammaStar ZInQKernel.OneProof.H.TailO
+  V HDec.HSyn.OpenAddedLeaves6.x6ConicModel ZInQKernel.OneProof.H.TailO
+  V HDec.HSyn.OpenAddedLeaves6.y3Connected ZInQKernel.OneProof.H.TailO
+  V HDec.HSyn.OpenAddedLeaves6.zariskiConnectedness ZInQKernel.OneProof.H.TailO
+  V HDec.HSyn.OpenAddedLeaves7.axSenTate ZInQKernel.OneProof.H.TailX
+  T HDec.HSyn.OpenAddedLeaves7.casesOn ZInQKernel.OneProof.H.TailX
+  V HDec.HSyn.OpenAddedLeaves7.egaIV_17_7_8_ii ZInQKernel.OneProof.H.TailX
+  V HDec.HSyn.OpenAddedLeaves7.egaIV_8_10_5_xii ZInQKernel.OneProof.H.TailX
+  V HDec.HSyn.OpenAddedLeaves7.egaIV_8_8_2_ii ZInQKernel.OneProof.H.TailX
+  V HDec.HSyn.OpenAddedLeaves7.milneIsogenyQuasiInverse ZInQKernel.OneProof.H.TailX
+  T HDec.HSyn.OpenAddedLeaves7.mk ZInQKernel.OneProof.H.TailX
+  T HDec.HSyn.OpenAddedLeaves7.mk._flat_ctor ZInQKernel.OneProof.H.TailX
+  V HDec.HSyn.OpenAddedLeaves7.qmCentralizerCMC ZInQKernel.OneProof.H.TailX
+  V HDec.HSyn.OpenAddedLeaves7.qmHauptmodulBase3 ZInQKernel.OneProof.H.TailX
+  T HDec.HSyn.OpenAddedLeaves7.rec ZInQKernel.OneProof.H.TailX
+  T HDec.HSyn.OpenAddedLeaves7.recOn ZInQKernel.OneProof.H.TailX
+  V HDec.HSyn.OpenAddedLeaves7.t09SymmIsogenyExists ZInQKernel.OneProof.H.TailX
+  V HDec.HSyn.OpenAddedLeaves7.tateTwistInvariants ZInQKernel.OneProof.H.TailX
+  V HDec.HSyn.OpenAddedLeaves7.valenceFormulaGammaStar ZInQKernel.OneProof.H.TailX
+  V HDec.HSyn.OpenAddedLeaves7.x6ConicModel ZInQKernel.OneProof.H.TailX
+  V HDec.HSyn.OpenAddedLeaves7.y3Connected ZInQKernel.OneProof.H.TailX
+  V HDec.HSyn.OpenAddedLeaves7.zariskiConnectedness ZInQKernel.OneProof.H.TailX
+  V HDec.HSyn.OpenAddedLeaves8.axSenTate ZInQKernel.OneProof.H.TailZ4
+  T HDec.HSyn.OpenAddedLeaves8.casesOn ZInQKernel.OneProof.H.TailZ4
+  V HDec.HSyn.OpenAddedLeaves8.egaIV_8_10_5_xii ZInQKernel.OneProof.H.TailZ4
+  V HDec.HSyn.OpenAddedLeaves8.igusaCMValue24 ZInQKernel.OneProof.H.TailZ4
+  V HDec.HSyn.OpenAddedLeaves8.milneIsogenyQuasiInverse ZInQKernel.OneProof.H.TailZ4
+  T HDec.HSyn.OpenAddedLeaves8.mk ZInQKernel.OneProof.H.TailZ4
+  T HDec.HSyn.OpenAddedLeaves8.mk._flat_ctor ZInQKernel.OneProof.H.TailZ4
+  V HDec.HSyn.OpenAddedLeaves8.qmCentralizerCMC ZInQKernel.OneProof.H.TailZ4
+  T HDec.HSyn.OpenAddedLeaves8.rec ZInQKernel.OneProof.H.TailZ4
+  T HDec.HSyn.OpenAddedLeaves8.recOn ZInQKernel.OneProof.H.TailZ4
+  V HDec.HSyn.OpenAddedLeaves8.shimizuCovolumeO1 ZInQKernel.OneProof.H.TailZ4
+  V HDec.HSyn.OpenAddedLeaves8.t09SymmIsogenyExists ZInQKernel.OneProof.H.TailZ4
+  V HDec.HSyn.OpenAddedLeaves8.tateTwistInvariants ZInQKernel.OneProof.H.TailZ4
+  V HDec.HSyn.OpenAddedLeaves8.valenceFormulaCocompactEq ZInQKernel.OneProof.H.TailZ4
+  V HDec.HSyn.OpenAddedLeaves8.x6ConicModel ZInQKernel.OneProof.H.TailZ4
+  V HDec.HSyn.OpenAddedLeaves8.y3Connected ZInQKernel.OneProof.H.TailZ4
+  V HDec.HSyn.OpenAddedLeaves9.axSenTate ZInQKernel.OneProof.H.TailZ13
+  T HDec.HSyn.OpenAddedLeaves9.casesOn ZInQKernel.OneProof.H.TailZ13
+  V HDec.HSyn.OpenAddedLeaves9.egaIV_8_10_5_xii ZInQKernel.OneProof.H.TailZ13
+  V HDec.HSyn.OpenAddedLeaves9.igusaCMValue24 ZInQKernel.OneProof.H.TailZ13
+  V HDec.HSyn.OpenAddedLeaves9.milneIsogenyQuasiInverse ZInQKernel.OneProof.H.TailZ13
+  T HDec.HSyn.OpenAddedLeaves9.mk ZInQKernel.OneProof.H.TailZ13
+  T HDec.HSyn.OpenAddedLeaves9.mk._flat_ctor ZInQKernel.OneProof.H.TailZ13
+  V HDec.HSyn.OpenAddedLeaves9.qmCentralizerCMC ZInQKernel.OneProof.H.TailZ13
+  T HDec.HSyn.OpenAddedLeaves9.rec ZInQKernel.OneProof.H.TailZ13
+  T HDec.HSyn.OpenAddedLeaves9.recOn ZInQKernel.OneProof.H.TailZ13
+  V HDec.HSyn.OpenAddedLeaves9.shimizuCovolumeO1 ZInQKernel.OneProof.H.TailZ13
+  V HDec.HSyn.OpenAddedLeaves9.t09SymmIsogenyExists ZInQKernel.OneProof.H.TailZ13
+  V HDec.HSyn.OpenAddedLeaves9.tateTwistInvariants ZInQKernel.OneProof.H.TailZ13
+  V HDec.HSyn.OpenAddedLeaves9.valenceFormulaCocompactEq ZInQKernel.OneProof.H.TailZ13
+  V HDec.HSyn.OpenAddedLeaves9.x6ConicModel ZInQKernel.OneProof.H.TailZ13
+  V HDec.HSyn.addedLeaves12_of_open13 ZInQKernel.OneProof.H.TailZ24
+  V HDec.HSyn.addedLeaves4_of_open5 ZInQKernel.OneProof.H.TailN
+  V HDec.HSyn.addedLeaves4_of_open6 ZInQKernel.OneProof.H.TailO
+  V HDec.HSyn.addedLeaves6_of_open7 ZInQKernel.OneProof.H.TailX
+  V HDec.HSyn.addedLeaves7_of_open8 ZInQKernel.OneProof.H.TailZ4
+  V HDec.HSyn.addedLeaves8_of_open9 ZInQKernel.OneProof.H.TailZ13
+  V HDec.HSyn.addedLeaves9_of_open10 ZInQKernel.OneProof.H.TailZ17
+  V HDec.HSyn.addedLeaves9_of_open14 ZInQKernel.OneProof.H.TailZ23
+  T HDec.HSyn.gluePieces_of_open4 ZInQKernel.OneProof.H.TailK
+  V HDec.HSyn.openAddedLeaves13_of_OpenAddedLeaves14 ZInQKernel.OneProof.H.TailZ26
+  V HDec.HSyn.openAddedLeaves14_of_OpenAddedLeaves15 ZInQKernel.OneProof.H.TailZ30
+  V HDec.HSyn.openAddedLeaves15_of_OpenAddedLeaves16 ZInQKernel.OneProof.H.TailZ31
+  V HDec.HSyn.openAddedLeaves16_of_OpenAddedLeaves17 ZInQKernel.OneProof.H.TailZ34
+  V HDec.HSyn.openAddedLeaves4_of_Q5 ZInQKernel.OneProof.H.TailO
+  T HDec.HSyn.sixContactMin_of_open10 ZInQKernel.OneProof.H.TailZ11
+  T HDec.HSyn.sixContactMin_of_open11 ZInQKernel.OneProof.H.TailZ13
+  T HDec.HSyn.sixContactMin_of_open12 ZInQKernel.OneProof.H.TailZ15
+  T HDec.HSyn.sixContactMin_of_open13 ZInQKernel.OneProof.H.TailZ17
+  T HDec.HSyn.sixContactMin_of_open14 ZInQKernel.OneProof.H.TailZ18
+  T HDec.HSyn.sixContactMin_of_open15 ZInQKernel.OneProof.H.TailZ19
+  T HDec.HSyn.sixContactMin_of_open17 ZInQKernel.OneProof.H.TailZ23
+  T HDec.HSyn.sixContactMin_of_open18 ZInQKernel.OneProof.H.TailZ24
+  V HDec.HSyn.sixContactMin_of_open19 ZInQKernel.OneProof.H.TailZ25
+  T HDec.HSyn.sixContactMin_of_open4 ZInQKernel.OneProof.H.TailK
+  T HDec.HSyn.sixContactMin_of_open6 ZInQKernel.OneProof.H.TailO
+  T HDec.HSyn.sixContactMin_of_open7 ZInQKernel.OneProof.H.TailX
+  T HDec.HSyn.sixContactMin_of_open8 ZInQKernel.OneProof.H.TailZ4
+  T HDec.HSyn.sixContactMin_of_open9 ZInQKernel.OneProof.H.TailZ9

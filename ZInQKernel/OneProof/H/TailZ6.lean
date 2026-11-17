@@ -119,7 +119,7 @@ theorem artinTransport_finite (hDS : DSThm966) (ℓ : ℕ) [Fact ℓ.Prime] (ιC
   rfl
 
 /-- **Row r15 (`HSyn.DeligneSerreConseq`), proved from the published-form leaf `DSThm966`
-(Deligne–Serre 1974 Thm 4.1; Diamond–Shurman Thm 9.6.6).** A semisimple `ρ` attached to a weight-one
+(Deligne–Serre 1974 Thm 4.1 (4.1.1), p. 514).** A semisimple `ρ` attached to a weight-one
 normalized eigenform `g` agrees at Frobenius, outside the primes dividing `Nℓ`, with the
 `ℓ`-adic realization `ρ₀` of Deligne–Serre's representation (`artinTransport_finite`); both are
 semisimple, so they are conjugate (`attachedConj_proof`: T18 + T19), and `ρ` has finite image. -/
