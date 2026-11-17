@@ -1,110 +1,76 @@
-# Verified main build reuse: implementation in progress
+# Verified main build reuse: implementation and validation
 
-No workflow uses this code yet. The existing main-only cache policy remains in
-force. This branch begins option D1, the owner's requested reuse of verified
-main compilation outputs in PR builds. It does not change the required audit.
+The workflow implementation is described in [Verified reuse of main build
+outputs](kernel-verified-reuse.md). It replaces the old project-output cache
+with authenticated artifacts from successful exact-main runs. Compilation
+reuse does not replace the complete kernel replay, exact-target checks or axiom
+closure. Dependency setup still uses the pinned Mathlib cache.
 
-`scripts/kernel_build_manifest.py` implements the first boundary. It validates
-producer/run/attempt identity from independently obtained GitHub API records,
-compares the approved workflow digest, and verifies the complete downloaded
-archive digest before reading its manifest. The artifact's own claims cannot
-replace any of those independent inputs. A successful exact-main run and its
-successful exact-attempt kernel job are mandatory. Non-main branches, forks,
-failed and interrupted producers are not eligible. Both main pushes and main
-dispatches are supported:
-the gate's own token merges start post-merge checks by dispatch. The source
-commit must be an authenticated main ancestor, with the same approved workflow
-digest. The independent API facts and the bundle bind the event and exact ref.
+## Code and trust boundaries
 
-Every output is checked against its SHA-256 and byte length. The archive must
-contain exactly the manifest and declared regular files. Unsafe paths, links,
-aliases, duplicate members/JSON keys, unknown files, missing files and incomplete
-module outputs are rejected. Both root and local `lean/` package build paths are
-covered. Each output belongs to precisely one module. This validation library
-does not extract or install anything.
+- `kernel_build_source.py` selects a producer from GitHub metadata, checking
+  main ancestry, the approved workflow, exact successful attempt, job and
+  artifact. `kernel_build_download.py` checks GitHub's archive digest, limits
+  the download and removes the API token before following the signed redirect.
+  Only these trusted selection operations receive a GitHub read token.
+- `kernel_build_manifest.py` validates the complete archive, output sizes and
+  hashes, module ownership and dependency closure. It rejects unsafe paths,
+  links, duplicate entries, unknown outputs and incomplete modules. Candidate
+  metadata cannot supply producer authority.
+- The context, package, environment, runtime, resolution and inventory helpers
+  fingerprint the installed compiler, dependencies, build controls and actual
+  module lookup. Lean parses import headers. They reject missing or changed
+  inputs and inconsistent source resolution. Candidate configuration executes
+  without the selection token or provider credentials.
+- `kernel_build_restore.py` stages verified files into absent project build
+  roots. It does not replace dependency outputs. Invalid or incompatible
+  evidence selects a cold build. An error after restoration begins stops the
+  job; it does not continue with a partial installation.
+- The driver and session helpers capture inputs again after the build and full
+  audit. Lake runs with `--rehash` and separate controls that disable other
+  artifact restoration. Only an exact-main push or dispatch can stage a
+  reusable bundle after the complete audit passes with stable inputs and
+  outputs. Consumers require the producer run to finish successfully.
 
-Reuse requires identical compiler/package environments and exact module input
-records with an unchanged transitive project dependency closure. The graph
-algorithm is iterative so a several-thousand-module chain does not hit Python's
-recursion limit. A missing input or cyclic inventory is rejected; it is not
-silently treated as an external dependency. The input records must be obtained
-from the pinned compiler/Lake, including its import flags and resolved sources.
+The workflow reads the driver from protected main before candidate execution.
+Until the driver is installed there, implementation PRs build cold. This is
+intentional and does not demonstrate a production artifact restore.
 
-`scripts/kernel_build_source.py` now selects a producer using authenticated
-GitHub metadata. It reads main's current tip, proves the producer's ancestry,
-reads the producer workflow bytes, and checks the exact job and artifact.
-Jobs and artifacts are fully paginated. A fresh run read rejects a retry that
-starts during selection. The search examines at most ten recent successful
-runs by default; an older eligible run omitted by this limit means a cold
-build. The selector does not download or restore the artifact. Its JSON client
-does not follow redirects or run candidate code. Workflow integration must run
-the reviewed selector with a step-scoped read token before candidate execution.
+## Measurements obtained
 
-`scripts/kernel_build_download.py` follows the artifact API's signed redirect
-using a new request without the API token. It accepts only HTTPS GitHub Actions
-or Azure artifact-storage hosts, enforces byte and time limits, and checks the
-downloaded archive digest before returning its unique local path. A bad or
-interrupted download removes only that partial file. Tests cover credentials
-on both redirect stages, unknown hosts, bad digests and resource limits. A
-read-only probe downloaded an actual main-run measurement artifact and verified
-its digest; that old-format artifact was not restored or accepted for reuse.
+The [Linux validation run 44104869076](https://github.com/elliotglazer/diophantine-z-q/actions/runs/44104869076)
+used the actual compiler, context collector, verifier, restorer and unchanged
+auditor on a four-module fixture. Cold, unchanged reuse and a one-module edit
+produced equal complete audit reports covering five declarations. Unchanged
+reuse restored all four modules; the edit restored only the independent
+module and rebuilt the changed module's three-module reverse dependency
+closure. Build times were 0.984s, 0.178s and 0.779s. Each full audit took about
+2.4s; context preparation took about 21s per case. These are fixture results,
+not a whole-project performance forecast or authenticated main-producer test.
 
-`scripts/kernel_build_restore.py` stages only the selected modules after full
-archive validation. It checks each staged file again, keeps its timestamp old
-so Lake must check inputs, and then installs into absent project build roots.
-Existing build roots, linked parents and missing local packages are refused.
-If installing a second root fails, the first root is moved back before the
-failure is returned. Dependency packages are never cleaned or overwritten.
-The caller must not start candidate build processes during this operation.
+The [full cold run 44104869120](https://github.com/elliotglazer/diophantine-z-q/actions/runs/44104869120)
+passed on PR157 head `18fe2c8fe6573ff078641b808819c1b0f7386cc1`, checked through
+its test merge `47e7dd2de5c87292dbb3d121008b580923320d23`. It covered all 944
+project modules, 37,708 declarations and 37,851 raw declaration occurrences.
+Build commands took 57m52.068s and the full audit 22m14.326s. The additional
+24 GiB swap was verified, about 27 GiB total. Root-build GNU time maximum RSS
+was 11.98 GiB; audit maximum RSS was 14.09 GiB. Sampled audit process-tree swap
+peaked at 7.80 GiB. Minimum available host memory during the root build was
+2.06 GiB. RSS is not aggregate physical memory and tree sums can double-count
+shared mappings. The original build and audit artifacts retain the samples.
 
-`scripts/kernel_build_inventory.py` compares the complete project module map
-with Lake's actual source, import and header query results. It rejects changed
-source bytes during collection, unexpected source resolution, missing modules,
-inconsistent import facets and unknown external imports. External packages and
-builtin imports need independently validated identities; the collector does
-not infer those identities from a module name. Its query helper refuses API
-credentials in its environment, but evaluating a Lake configuration can run
-code, so workflow isolation remains necessary. The collector passed against
-the actual compiler on the four-module fixture. Full package/environment
-validation and a full-baseline run are still required.
+## Remaining deployment validation
 
-`scripts/kernel_build_packages.py` fingerprints root and local package
-configuration, and checks that installed Git dependencies are clean, at the
-exact pinned commit, and actually use the claimed working directory. It never
-fetches or updates a dependency. This is only the package part of the build
-environment; complete toolchain/platform identity and resolved external source
-bindings still need to be connected before reuse is enabled.
+The current-main integration requires its own checks and review. After an
+accepted implementation reaches main, measure the first cold main producer,
+an unchanged PR restore and a one-module edit. Verify the independent GitHub
+producer identity and artifact digest, compare the full audit reports and
+report restored/rebuilt modules, transfer and hashing time, build and audit
+time, host available memory, RSS, swap and disk usage. A local fixture or the
+completed cold run does not supply those production measurements.
 
-## Work still required before a PR or deployment
-
-1. Implement package/config/environment identity, integrate the compiler-derived
-   collector and validate source resolution on the full baseline. A regex
-   import approximation is insufficient. Keep candidate code away from the API
-   lookup credential.
-2. Integrate the metadata selector and bounded artifact downloader, preserving
-   the separation between trusted API credentials and candidate execution.
-   Verify the complete archive against the independently obtained digest.
-   Never take a candidate-supplied run ID as authority.
-3. Produce the manifest and outputs only after a complete successful build and
-   full audit. The first producer must be cold with the legacy project cache
-   disabled. Only main publishes reusable artifacts.
-4. Integrate verified staging with a clean checkout. Disable automatic Lake
-   artifact-cache restoration and force content checks. An invalid bundle
-   selects a cold build; an install/rollback failure stops the job rather than
-   compiling with uncertain output state.
-5. Integrate the workflow, contract pins, gate workflow pin, diagnostics and
-   regression tests. Continue to replay every declaration, compare every exact
-   target type and compute the full axiom closure on each run.
-6. Run cold/warm hosted comparisons and adversarial tests, reporting actual
-   reused/rebuilt modules, time, RSS, swap, disk, digest and transfer costs.
-
-The local four-module experiment uses real Lean 4.35.0 outputs and rejects a
-poisoned `.olean` before restoration. It shows selective reuse and invalidation
-of an edited module's consumers with automatic Lake artifact caching disabled.
-It does not establish GitHub provenance or full-project performance. The larger
-measured plan, kept outside this branch until implementation is complete,
-separately addresses chained jobs and the likely need for a lower-memory audit
-reader/replay. Neither is implemented here.
-
-Run the current isolated tests with
+Tests must continue to reject forged artifacts and traces, forks, stale or
+failed attempts, changed toolchains/dependencies, unsafe archives and partial
+restores. Run the isolated reuse tests with
 `python -B -m unittest discover -s scripts -p 'test_kernel_build_*.py' -v`.
+Chained compilation and partitioned auditing are separate planned work.

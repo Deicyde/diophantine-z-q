@@ -108,7 +108,9 @@ class KernelDispatch(unittest.TestCase):
     def test_gate_pin_matches_verified_main_output_workflow(self):
         kernel = (ROOT / '.github/workflows/kernel-lean.yml').read_text(encoding='utf-8')
         self.assertEqual(gate.LEAN_WORKFLOW_SHA256, hashlib.sha256(kernel.encode()).hexdigest())
-        self.assertIn("if: steps.verified_bundle.outputs.publish == 'true' && steps.cache_ref.outputs.is_main == 'true'", kernel)
+        publish = kernel.split('      - name: Publish verified successful main build outputs', 1)[1]
+        self.assertIn("steps.verified_bundle.outputs.publish == 'true' && steps.cache_ref.outputs.is_main == 'true'", publish)
+        self.assertIn("(github.event_name == 'push' || github.event_name == 'workflow_dispatch')", publish)
         self.assertNotIn('uses: actions/cache', kernel)
 
     def test_existing_direct_run_cannot_bypass_old_cache_workflow_rejection(self):
@@ -258,9 +260,10 @@ class KernelDispatch(unittest.TestCase):
         for block in (pre, cleanup):
             self.assertNotIn('environment: protocol-b', block)
             self.assertNotIn('secrets.', block)
-        self.assertIn('needs: kernel_preflight', workflow)
-        self.assertIn("github.event_name != 'schedule' && github.event.action != 'closed'", pre)
-        self.assertNotIn('workflow_run:', workflow)
+        self.assertIn('needs: [route_request, kernel_preflight]', workflow)
+        self.assertIn("needs.route_request.outputs.eligible == 'true'", pre)
+        self.assertIn("needs.outside_admission.outputs.proceed == 'true'", pre)
+        self.assertIn('workflows: [Research checks, Kernel Lean build and audit]', workflow)
         self.assertIn("cron: '17 * * * *'", workflow)
 
 
