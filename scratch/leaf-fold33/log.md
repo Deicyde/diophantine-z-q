@@ -396,3 +396,21 @@ Base: fork main after w82 (leaf-fold32b 03f2467d + STATUS.md wording, 5e235a40).
     H 4/29 on 33 -> 4/27 on 31. Checks (VERIFIED): build +Main +Discharges (16215 jobs); frozenTarget standard axioms;
     check_target.py; only Main.lean modified among existing OneProof modules; OpenStatements 36 (both fields gone);
     DischargesTest rerun, no error; render_open --check ok; crosswalk --check ok; autoform check ok.
+42. Reviewer rating (inbox 53, cove-88 q21 rate + verify): igusaGL2DSGalSome LEAF/LEAF, kind published, flag the
+    reading text of inbox 53 (no unread marker; must_be_glue false), rated_by "q21-igusa-rate + q21-igusa-verify".
+    Provenance: DS is not in the manuscript's bibliography (off-route; folded because it was already done). H 4/27 ->
+    5/26 on 31. render_open --check ok, crosswalk --check ok.
+43. fold-b105 merged (its checks VERIFIED on its branch; rebuilt here): TailZ75 chevalleyPerfect removed outright
+    (fold-chev's bypass regenerated on the coeff-field-tc CF chain; -1 field -1 GLUE), TailZ76 semistab-assembly
+    (bostLowerBoundAn, gaudronRemondThm14An -> *SS leaves, pending review), TailZ77 pb-p1 bypass (panPrintedP,
+    bergerPrintedVT -> panPrintedF, bergerSurveyF); kinds per cove-88 q22 (inbox 52, 55): panPrintedF published GLUE,
+    no "unread"; bergerSurveyF consequence GLUE; Berger locator Thm 0.6 = Thm 5.19. Then jp-an-retype (inbox 54,
+    wip/jp-an-retype 21c53772): autofold scratch/leaf-fold33/autofold-jp-an.json -> TailZ78, `sixContactMin_of_open71`:
+    javanpeykarThm111 <- javanpeykarThm111An (Thm 1.1.1 + section 2.3 composite as the manuscript cites at L870; cited;
+    consequence, reading-risk R3'); mumfordTorsionAlgClosed by PR #54's proof. Count: 36 -> 35 open; H 5/26 on 31 ->
+    5/25 on 30. Checks (VERIFIED): build +Main +Discharges (16223 jobs); frozenTarget standard axioms; OpenStatements
+    35; DischargesTest rerun, no error; render_open --check ok; crosswalk --check ok; autoform check ok.
+44. Reviewer rating (inbox 57, cove-88 q23): deRhamVpAbVarDirect LEAF/LEAF, kind published, flag the AI page read of
+    inbox 57 (no unread marker), rated_by "q23-derham-rate + q23-derham-verify"; provenance (b), outside the
+    manuscript's bibliography. DeRhamRange.lean imported from OneProof/Main.lean so the built target re-checks
+    range_iotaF_eq_bdrFix. H 5/25 -> 6/24 on 30. Build +Main, frozenTarget standard axioms, render/crosswalk --check ok.

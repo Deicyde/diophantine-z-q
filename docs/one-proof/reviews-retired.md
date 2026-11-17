@@ -8,3 +8,5 @@ readings were of the old statements and do not rate the new ones; they are kept 
 
 Later (batch TailZ72): the rows of gonzalezRotgerThm512X6 (replaced by gonzalezRotgerThm512X6RCF, gr512-bridge), bergerPrintedV (replaced by bergerPrintedVT, pb-pst) and modularHTPrinted (replaced
 by modularHTCoeff, htnew-assembly) moved here for the same reason.
+
+Later (fold-b105, pb-p1): the row of panPrintedP (replaced by panPrintedF, Pan over Fontaine's B_st as printed) moved here for the same reason.
