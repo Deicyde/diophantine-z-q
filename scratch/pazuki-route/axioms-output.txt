@@ -1,4 +1,6 @@
 'PazukiRoute.finrank_bcMap' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PazukiRoute.symmPrincipalDefinedOver_of_class' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PazukiRoute.symmClassDefinedOver_of_countable' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PazukiRoute.symmetricClassesCountable_of_fields' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PazukiRoute.pazukiCor13Upper_of_route' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PazukiRoute.pazukiCor13Upper_of_route2' depends on axioms: [propext, Classical.choice, Quot.sound]
