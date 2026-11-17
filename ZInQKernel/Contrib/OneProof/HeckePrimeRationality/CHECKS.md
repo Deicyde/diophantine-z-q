@@ -574,3 +574,93 @@ Exact complete audit SHA256:
 `PrincipalProductSpanning` and the original unrestricted Hecke leaf remain
 OPEN. No original global hypothesis, pin or assembly has changed; the
 unconditional original-contract extent remains nonzero N ≤ 6.
+
+## Actual Fourier, Eisenstein and correlation checkpoint: 71 modules
+
+Twelve additive mathematical modules preserve every earlier 59-module
+source edition and all four historical audits. They prove:
+
+- the actual μ/x Fourier dualities for every positive level and all integer
+  labels, with factors −1 and −1/N² and pairing `br−as`;
+- all-degree μ distribution with factor 1 and the frozen zero convention,
+  through a genuine enumeration of the surviving divisible frequencies;
+- actual principal-level x, λ and μ modular forms of weights 2, 1 and 2,
+  with every field proved for all positive N, including N=1 and N=2;
+- independently defined weight-two congruence-difference and principal-lift
+  Eisenstein lattice series, with absolute differences, ordinarily summable
+  rows, exact WP/G2 normalization, actual modular-form fields and equality
+  to x-values at every label;
+- explicit quadratic generator inclusion of actual x- and μ-forms in the
+  complex span of genuine Good degree-two principal torsion products at
+  the same level, under the visible N ≥ 3 guard;
+- actual finite-correlation recurrence and its zero-slope base, a genuine
+  embedded torsion-kernel enumeration, representative independence,
+  injective ambient enlargement, constructed larger-level preimages, slope
+  reduction and a terminating Euclidean expansion retaining every defect.
+
+Parent builds, complete new-declaration audits and literal contracts all
+exited 0. Literal checks use actual data, root-qualified modular-form groups,
+actual lattice summands and the precise factors and level guards. Separate
+complete source reviews checked all added source and load-bearing callees.
+These are ordinary pinned compilations with warm imports, not independent
+cold replay of every imported constant or full-project acceptance.
+
+`FourierCorrelationAudit.lean` co-imports all 71 mathematical modules and
+checks all 1001 named public proof/instance declarations and 108 selected
+definitions, constructions or type aliases. All 1109 records have at most
+`propext`, `Classical.choice`, `Quot.sound`, with no `sorryAx`. A definition
+or span audit does not prove that the defined predicate holds or that the
+span is the entire modular-form space.
+
+```sh
+lake --no-cache --no-ansi build +ZInQKernel.Contrib.OneProof.HeckePrimeRationality.AllLevelTorsionMuFourierFinite:olean
+lake --no-cache --no-ansi build +ZInQKernel.Contrib.OneProof.HeckePrimeRationality.TorsionWeierstrassForms:olean
+lake --no-cache --no-ansi build +ZInQKernel.Contrib.OneProof.HeckePrimeRationality.AllLevelEisensteinWeightTwoBounds:olean
+lake --no-cache --no-ansi build +ZInQKernel.Contrib.OneProof.HeckePrimeRationality.AllLevelTorsionMuDistributionNat:olean
+lake --no-cache --no-ansi build +ZInQKernel.Contrib.OneProof.HeckePrimeRationality.TorsionQuadraticGeneratorSpan:olean
+lake --no-cache --no-ansi build +ZInQKernel.Contrib.OneProof.HeckePrimeRationality.AllLevelTorsionCorrelationEnlarge:olean
+lake --no-cache env lean ZInQKernel/Contrib/OneProof/HeckePrimeRationality/FourierCorrelationAudit.lean
+```
+
+Exact new mathematical source editions:
+
+- `AllLevelTorsionCorrelation.lean`:
+  `8ad203b3d75f6701616e40f44b6470800d41b78b1ab1ed1e0ce88e8b40586c64`
+- `AllLevelTorsionMuFourierKernel.lean`:
+  `f95c400fb1b2dc5127d3af20a0ee3ec79bda0c79fd9640a1ad445b6e4466bf53`
+- `AllLevelTorsionMuFourierLaurent.lean`:
+  `6a2d43b59d1204e3e77c952e2058acdae1b2c5b159552ac541ee9815ab4afd03`
+- `AllLevelTorsionMuFourier.lean`:
+  `b13a747f2e81097308f438907504295544e048478a5b798b4f6951117d839fcf`
+- `AllLevelTorsionMuFourierFinite.lean`:
+  `848c32ac0322257bb48f3a14c1a4f59e2057d2143d813f7ec2409598b175ba83`
+- `TorsionWeierstrassForms.lean`:
+  `c47ed79aa9bc5e96077aa3a6c7a3fc210a81c1abe43bac6860f4dc0194abd00c`
+- `AllLevelEisensteinWeightTwo.lean`:
+  `640ce251ed8fe73955903e54d1ce7422c905ccd235d9f8c518f60095e71faa63`
+- `AllLevelEisensteinWeightTwoBounds.lean`:
+  `badc7fe02c7cb47a7e0acf694de5636859f41632e7dcba1cdb63d6fe717e876a`
+- `AllLevelTorsionMuDistributionNat.lean`:
+  `9a46bd20019b6f2434ccb0c942ac0e06ca02b32a596b2cbab858c2f0085b2fac`
+- `TorsionQuadraticGenerators.lean`:
+  `3c210441bae49c36d1d40be7b5049fe915d89303b3c847f44712c2fda8bd53b7`
+- `TorsionQuadraticGeneratorSpan.lean`:
+  `451ab574d54634ce508ea1a128ccdd21869f642747b07d493ec970ef0e727ddd`
+- `AllLevelTorsionCorrelationEnlarge.lean`:
+  `b2db13e4aa570a6f5601cc609fd9ee9c14e59a4f56fa9d5cc689b4e03e8b7719`
+
+Exact complete audit SHA256:
+`e8b54bc9ca3e5659d2215c812a68f68841d7e1fa98b86677afeb67f79a1644bb`.
+
+The x/Eisenstein identification is in the convergent series sense; it is not
+Petersson-subspace membership, trace closure or whole-space spanning. The
+same-level quadratic generator formula excludes N=2. The enlarged Euclidean
+expansion records multiplicatively growing ambient levels and leaves every
+D-correction explicit; original-level integer row constraints, label descent
+and correction identification are not supplied by that expansion.
+
+The μ/defect bindings to the independent series span, Eisenstein level
+descent, original-level product-row constraints, low-weight trace closure and
+principal spanning remain separate proof obligations. No original assembly
+hypothesis has been discharged. The unrestricted Hecke leaf and full Z-in-Q
+theorem remain unproved, and the unconditional original extent remains N ≤ 6.

@@ -82,6 +82,34 @@ are proved in the reduction, not hidden premises.
   degree, with factor n² and the explicit zero convention for bad labels.
   The full sum over nonzero n-torsion vanishes; no individual-value vanishing
   claim is made.
+- The actual μ/x Fourier dualities are proved for every positive level and
+  every integer label, with factors −1 and −1/N² and pairing exponent `br−as`.
+  Their second Laurent coefficient comes from an ordinary analytic kernel
+  unit. The zero row follows from the actual x-distribution and finite
+  orthogonality, not a Fourier-defined replacement for μ or x.
+- The actual μ-values satisfy all-degree distribution with factor 1,
+  including a zero-class image. Frequency selection is an explicit bijection;
+  no individual preimage value is forced to vanish.
+- Actual x, λ and μ are bundled as principal-level modular forms of weights
+  2, 1 and 2 for every positive N and every integer label. Invariance,
+  holomorphy and every-cusp boundedness are proved, including N=1 and N=2.
+- Actual x is identified with an independently defined, convergent
+  principal-divisor weight-two Eisenstein lattice series. Absolute lattice
+  differences and ordinarily summable rows are kept distinct; the raw
+  two-dimensional inverse-square sum is not rearranged as an absolute sum.
+  This is an identification in the series sense, not a Petersson-subspace
+  or trace-closure theorem.
+- For N ≥ 3, explicit quadratic Fourier inversion puts the actual x- and
+  μ-forms in the complex span of genuine Good degree-two principal torsion
+  products at the same level. The denominator N²−4 is proved nonzero under
+  this visible bound; no such formula is claimed at N=2. This is generator
+  inclusion, not spanning of the whole modular-form space.
+- Actual finite correlations obey the exact recurrence, with the full
+  defect correction and factors n/s and 1/s. An injective ambient-level map
+  preserves actual values and constructs the needed preimage at a larger
+  level. Slope reduction and a terminating Euclidean expansion are proved.
+  Every larger-level defect remains explicit; original-level determinant
+  constraints and label descent are not supplied by that expansion.
 
 Raw excluded labels are not representative-independent: the zero-label
 control proves values 1/2 and 3/2 and refutes naive raw distribution. The
@@ -97,18 +125,21 @@ space or weight.
 The actual principal Eisenstein-product spanning theorem remains missing.
 The classical source is Khuri-Makdisi, arXiv:0903.1439v6, Theorem 5.1 and its
 generator theorem: same principal level N ≥ 3, weight ≥ 2, base field C.
-The analytic constructions above do not substitute for its proof. Genuine
-Eisenstein identification, the μ/x Fourier identities, low-weight trace closure
-and the spanning argument must still be bound to the actual forms.
+The proved x-series identification, μ/x Fourier dualities and same-level
+quadratic generator inclusion do not substitute for the spanning proof.
+The μ- and all-label defect bindings to the independent series span,
+original-level row constraints, Eisenstein level descent, low-weight trace
+closure and the spanning argument remain separate obligations.
 The Γ₁ `(0,b)` family alone cannot replace the principal family.
 
-The current 59-module audit checks 817 named public proofs/instances and
-66 selected definitions or constructions with at most `propext`, `Classical.choice`,
-`Quot.sound`, and no `sorryAx`. **Auditing a predicate's definition does not
-prove that predicate**: `PrincipalProductSpanning` is still an input.
-See `CHECKS.md` and `ThetaConstantAudit.lean` for exact editions and commands.
-The earlier `Audit.lean`, `AnalyticAudit.lean` and `WeightTwoAudit.lean`
-preserve the 34-, 49- and 56-module checkpoints.
+The current 71-module audit checks 1001 named public proofs/instances and
+108 selected definitions, constructions or type aliases with at most
+`propext`, `Classical.choice`, `Quot.sound`, and no `sorryAx`. **Auditing a
+predicate's definition does not prove that predicate**:
+`PrincipalProductSpanning` is still an input.
+See `CHECKS.md` and `FourierCorrelationAudit.lean` for exact editions and commands.
+The earlier `Audit.lean`, `AnalyticAudit.lean`, `WeightTwoAudit.lean` and
+`ThetaConstantAudit.lean` preserve the 34-, 49-, 56- and 59-module checkpoints.
 
 These are ordinary pinned compilations plus complete separate source reviews
 with warm imports, not independent cold replay of all imported constants or
