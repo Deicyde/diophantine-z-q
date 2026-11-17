@@ -1,0 +1,1 @@
+scratch/eichler-rebase/AllContribNew.lean:4:0: error: import ZInQKernel.HDecomp.Textbook.Different failed, environment already contains 'PkgI6.TraceContainsRamificationIdx' from ZInQKernel.Contrib.Different.Local

@@ -45,3 +45,14 @@
   `gonzalezRotgerProp56X6` lines are GR56's three `_of_*` (with the leaf `EichlerOptEmbCount6`) and
   `GRCountX6.prop56X6_of_r5fpCount` (from `R5fpCount`), all already in main's imports. `eichlerOptEmbBound6`,
   `r5fpCountLe_proof`: [propext, Classical.choice, Quot.sound]. VERIFIED (discharges.txt).
+
+## Step 2: name clashes
+* `AllContribNew.lean` = main's 244 top-level Contrib modules (closures cover all 4326 Contrib modules) + GR56Lattice,
+  R5fpCountLe, GRDict. `lake build` of all 247: OK (14352 jobs, build3.log). VERIFIED.
+* `lake env lean AllContribNew.lean`: fails on a PRE-EXISTING main clash, not involving this branch:
+  `import ZInQKernel.HDecomp.Textbook.Different failed, environment already contains
+  'PkgI6.TraceContainsRamificationIdx' from ZInQKernel.Contrib.Different.Local`. VERIFIED (allcontrib-compile.txt).
+* `ClashScan.lean` (reads the .olean constNames of the joint closure, no environment): 16716 modules, 809300 names;
+  `clashes involving this branch's modules: 0` (561 constants of the 14 new modules, aux names included);
+  103 pre-existing clashes among main's modules (TDifferent/PkgI6 Different pair, 3 ZInQ.GZWeil.*, CloudW07 instance,
+  HP23Proof instance, Mathlib hcongr_*). VERIFIED (clashscan.txt).
