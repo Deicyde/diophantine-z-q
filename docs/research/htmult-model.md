@@ -39,7 +39,8 @@ Brinon–Conrad 9.2.10 step remains (see the lead's request).
 
 ## 2. The new theorems (namespace `HDec.PkgI4.HTModel`)
 
-Shared hypotheses for §2.1–2.2: `E, L` are fields with `ℚ_p → E → L` a scalar tower, both finite over `ℚ_p`,
+Shared hypotheses for §2.1–2.2: `E, L` are fields with `ℚ_p → E → L` a scalar tower (finite over `ℚ_p` only in
+`htMultE_eq_of_basis`, where pb-fix3's `htMultE_eq_htMultU` needs it; §2.1 and `htMultU_eq_of_basis` need no finiteness),
 and `b : Basis (Fin d) E L`. The models are `ρE : GQp p →* GL (Fin n) E` and `ρL : GQp p →* GL (Fin n) L`, with
 `hρ : ∀ σ, Matrix.GeneralLinearGroup.map (algebraMap E L) (ρE σ) = ρL σ`, i.e. `ρ_L = ρ_E ⊗_E L`.
 
