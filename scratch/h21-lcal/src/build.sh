@@ -10,6 +10,6 @@ AX='#print axioms ZInQ.Contrib.H21Lcal.functionalEquationPlus_proof
 #print axioms ZInQ.Contrib.H21Lcal.tyzThm21Span_of_printed
 #print axioms ZInQ.Contrib.H21Lcal.tyzThm21SpanPrinted_of_span'
 { printf 'import ZInQKernel.Contrib.HeckeAll.Provider\nimport ZInQKernel.Contrib.OneProof.TYZThm21Span\nimport ZInQKernel.Contrib.OneProof.TYZLcalOne\n'
-  cat src/part1.lean src/part2.lean src/part3.lean; echo; echo "$AX"; } > H21Lcal.lean
+  cat src/part1.lean.txt src/part2.lean.txt src/part3.lean.txt; echo; echo "$AX"; } > H21Lcal.lean.txt
 { printf 'import ZInQKernel.OneProof.Main\nimport ZInQKernel.Contrib.HeckeAll.Provider\nimport ZInQKernel.Contrib.OneProof.TYZThm21Span\nimport ZInQKernel.Contrib.OneProof.TYZLcalOne\n'
-  cat src/part1.lean src/part2.lean src/part3.lean src/fold.lean; } > FoldCheck.lean
+  cat src/part1.lean.txt src/part2.lean.txt src/part3.lean.txt src/fold.lean.txt; } > FoldCheck.lean.txt
