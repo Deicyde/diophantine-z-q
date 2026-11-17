@@ -41,3 +41,14 @@ So g(η)=q, q closed ⇒ q = g(P₀)=e, κ(e)=ℚ ⇒ g and 1 agree on Spec κ(�
   Well-defined by IsX1Gen + identity theorem (WeberField eq_zero_or_eq_zero, eq_zero_of_eventually),
   bad points (g₂g₃ = 0) isolated, evAn = ez on good points (WeberField evAn_eq).
 - Consequence: isHeckeT_unique / isDiamond_unique hold with NO hypothesis; gap 1 needs only AbelJacobiX1.
+
+## atTau_unique, final checks
+- VERIFIED (compiles in ZInQKernel/Contrib/OneProof/HeckeGlue.lean, std axioms): `atTau_unique` — two complex
+  points satisfying AtTau at τ are equal (local ring = place O_τ; valuative uniqueness; germ values).
+- VERIFIED `lake build ZInQKernel.Contrib.OneProof.HeckeGlue` succeeds.
+- VERIFIED #discharges (scratch/hecke-glue/Discharges-output.txt): 35 open hypotheses, 10617 theorems checked;
+  r16CoreY by AfTateLam.r16CoreY_of_ds965 with the same five leaves; all HeckeGlue theorems std axioms.
+- VERIFIED Target.lean: copies of X1TauPoints/AbelJacobiX1/ConstOnTauPoints are Iff.rfl to the originals.
+- VERIFIED autofold dry run: strict count 11/18 on 29 -> 15/17 on 32 (unchanged).
+- AbelJacobiX1: remains open; printed statement DS Thm 6.1.2 VERIFIED at 2005 printing pp. 214-215 (pdftotext);
+  no Lean printed form possible (no Riemann-surface Jacobian / H_1 / path integrals in Mathlib 4.35).

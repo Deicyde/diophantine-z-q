@@ -12,3 +12,4 @@ import ZInQKernel.Contrib.OneProof.HeckeGlue
 #print axioms AfTateLam.HeckeGlue.isDiamond_unique'
 #print axioms AfTateLam.HeckeGlue.evF_eq_zero_of_heckeJ_eq_zero_of_abelJacobi
 #print axioms AfTateLam.HeckeGlue.killsIf_iff_IfDS_of_abelJacobi
+#print axioms AfTateLam.HeckeGlue.atTau_unique

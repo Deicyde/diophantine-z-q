@@ -25,6 +25,7 @@ from Mathlib, the vendored CloudW07 curve library and the tree's `WeberField` an
   generic point is finite, and finitely many closed points carry finitely many complex points, while
   `j` takes infinitely many values on `ℍ`; so the generic point maps to the closed point `g(P₀) = 0`,
   whose residue field is `ℚ`, and `g = 0` (Mathlib's `ext_of_fromSpecResidueField_eq`).
+* `atTau_unique`: the point `x_τ` is unique (`AtTau` characterizes it), as `AtTau`'s docstring says.
 * `isHeckeT_unique'`, `isDiamond_unique'`: hecke-pin's pinning of `T_p` and `⟨d⟩`, with no hypothesis.
 * `evF_eq_zero_of_heckeJ_eq_zero_of_abelJacobi`, `killsIf_iff_IfDS_of_abelJacobi`: hecke-pin's gap 1,
   with `AbelJacobiX1` as the only remaining input.
@@ -813,5 +814,184 @@ theorem killsIf_iff_IfDS_of_abelJacobi (hAJ : AbelJacobiX1) {N : ℕ} (hN : 2 �
     (hδ : ∀ d : (ZMod N)ˣ, IsDiamond N jX tX aj d (δ d)) {B : AbVar ℚ} (φ : AbVar.Hom J B) :
     KillsIf χ f tp δ φ ↔ ∀ T ∈ IfDS χ f tp δ, T.hom ≫ φ.hom = (0 : AbVar.Hom J B).hom :=
   killsIf_iff_IfDS_of_leaves x1TauPoints hAJ hN hf hC hG hJ htp hδ φ
+
+open X1Igusa.Weber (G2f G3f)
+
+/-! ## 9. The point `x_τ` is unique -/
+
+/-- Maps `Spec ℂ → Y` are determined by their point and their values on germs. -/
+theorem specC_hom_ext {Y : Scheme} (f f' : Spec (CommRingCat.of ℂ) ⟶ Y)
+    (hp : f (IsLocalRing.closedPoint ℂ) = f' (IsLocalRing.closedPoint ℂ))
+    (hv : ∀ (U : Y.Opens) (s : Γ(Y, U)) (h : f (IsLocalRing.closedPoint ℂ) ∈ U),
+      Scheme.stalkClosedPointTo f (Y.presheaf.germ U _ h s) =
+        Scheme.stalkClosedPointTo f' (Y.presheaf.germ U _ (hp ▸ h) s)) : f = f' := by
+  apply (SpecToEquivOfLocalRing Y (CommRingCat.of ℂ)).injective
+  rw [SpecToEquivOfLocalRing_eq_iff]
+  refine ⟨hp, ?_⟩
+  ext b
+  obtain ⟨U, hU, s, rfl⟩ := Y.presheaf.exists_germ_eq b
+  simp only [SpecToEquivOfLocalRing_apply_snd_coe]
+  refine (hv U s hU).trans ?_
+  simp only [TopCat.Presheaf.stalkCongr_hom]
+  change _ = Scheme.stalkClosedPointTo f' (Y.presheaf.stalkSpecializes _ (Y.presheaf.germ U _ hU s))
+  exact congrArg (fun t => Scheme.stalkClosedPointTo f' t)
+    (TopCat.Presheaf.germ_stalkSpecializes_apply _ _ _ _).symm
+
+variable {N : ℕ} {X : Over SpecQ} [IsIntegral X.left] {jX tX : X.left.functionField}
+
+/-- A complex point as a morphism from `Spec ℂ`. -/
+abbrev cl (x : CPt X) : Spec (CommRingCat.of ℂ) ⟶ X.left := x.left
+
+/-- `𝒪_{X,p} → K(X)`. -/
+abbrev spAt (p : X.left) : X.left.presheaf.stalk p ⟶ X.left.functionField :=
+  X.left.presheaf.stalkSpecializes ((genericPoint_spec X.left).specializes (Set.mem_univ p))
+
+theorem spAt_germ {U : X.left.Opens} {p : X.left} (hp : p ∈ U) (s : Γ(X.left, U)) [Nonempty U] :
+    spAt p (X.left.presheaf.germ U p hp s) = X.left.germToFunctionField U s :=
+  TopCat.Presheaf.germ_stalkSpecializes_apply _ _ _ _
+
+theorem spAt_injective (p : X.left) : Function.Injective (spAt p) :=
+  IsFractionRing.injective (X.left.presheaf.stalk p) X.left.functionField
+
+/-- `RegAt` in terms of the stalk at the point. -/
+theorem regAt_iff {x : CPt X} {a : X.left.functionField} {c : ℂ} :
+    RegAt x a c ↔ ∃ b, spAt (cl x (IsLocalRing.closedPoint ℂ)) b = a ∧
+      Scheme.stalkClosedPointTo (cl x) b = c := by
+  constructor
+  · rintro ⟨U, hU, s, hle, hs, rfl⟩
+    refine ⟨X.left.presheaf.germ U _ (hle trivial) s, ?_, (value_eq (cl x) s hle).symm⟩
+    exact (spAt_germ _ s).trans hs
+  · rintro ⟨b, rfl, rfl⟩
+    obtain ⟨U, hpU, s, rfl⟩ := X.left.presheaf.exists_germ_eq b
+    have hne : Nonempty U := ⟨⟨_, hpU⟩⟩
+    have hle : ⊤ ≤ (cl x) ⁻¹ᵁ U := fun z _ => by
+      rw [Subsingleton.elim z (IsLocalRing.closedPoint ℂ)]; exact hpU
+    exact ⟨U, hne, s, hle, (spAt_germ hpU s).symm, value_eq (cl x) s hle⟩
+
+/-- From the generic branch near `τ` in `ℂ` back to the limit over `ℍ`. -/
+theorem tendsto_evAn_of_hol (τ : UpperHalfPlane) {P Q : Polynomial (Polynomial ℤ)} {c : ℂ}
+    (h : Tendsto (fun z => holHom N z P / holHom N z Q) (𝓝[≠] (τ : ℂ)) (𝓝 c)) :
+    Tendsto (fun τ' => X1Igusa.Weber.evAn N (AfTateOr.toQ P) τ' /
+      X1Igusa.Weber.evAn N (AfTateOr.toQ Q) τ') (𝓝[≠] τ) (𝓝 c) := by
+  have hc : Tendsto ((↑) : UpperHalfPlane → ℂ) (𝓝[≠] τ) (𝓝[≠] (τ : ℂ)) := by
+    refine tendsto_nhdsWithin_iff.mpr ⟨(UpperHalfPlane.continuous_coe.tendsto τ).mono_left
+      nhdsWithin_le_nhds, ?_⟩
+    filter_upwards [self_mem_nhdsWithin] with τ' hτ'
+    exact fun he => hτ' (UpperHalfPlane.coe_injective he)
+  refine (h.comp hc).congr' ?_
+  filter_upwards [hc.eventually (eventually_good τ)] with τ' hg
+  obtain ⟨h2, h3⟩ := mul_ne_zero_iff.mp hg
+  have h2' : (T5Glue.pp τ').g₂ ≠ 0 := by
+    simpa [G2f, UpperHalfPlane.ofComplex_apply] using h2
+  have h3' : (T5Glue.pp τ').g₃ ≠ 0 := by
+    simpa [G3f, UpperHalfPlane.ofComplex_apply] using h3
+  simp only [Function.comp]
+  rw [evAn_eq_hol P _ h2' h3', evAn_eq_hol Q _ h2' h3']
+
+variable (hN : 2 ≤ N) (hG : IsX1Gen N X jX tX) (τ : UpperHalfPlane)
+include hN hG
+
+/-- At a point `x` satisfying `AtTau`, every function of the place is regular with its limit. -/
+theorem atTau_regAt_place {x : CPt X} (hx : AtTau N jX tX x τ) (a : X.left.functionField)
+    (h : a ∈ placeO hN hG τ) : RegAt x a (placeEv hN hG τ ⟨a, h⟩) := by
+  obtain ⟨P, Q, hr⟩ := exists_rep hG a
+  have h1 := (placeEv_spec hN hG τ ⟨a, h⟩).congr' (mf_eq hN hG τ hr)
+  have := hx P Q _ hr.1 (tendsto_evAn_of_hol τ h1)
+  rwa [← hr.2] at this
+
+/-- At such a point the local ring is the place: `𝒪_{X,x} = O_τ` inside `K(X)`. -/
+theorem mem_placeO_iff {x : CPt X} (hx : AtTau N jX tX x τ) (a : X.left.functionField) :
+    a ∈ placeO hN hG τ ↔ ∃ b, spAt (cl x (IsLocalRing.closedPoint ℂ)) b = a := by
+  constructor
+  · intro h
+    obtain ⟨b, hb, -⟩ := regAt_iff.mp (atTau_regAt_place hN hG τ hx a h)
+    exact ⟨b, hb⟩
+  · rintro ⟨b, rfl⟩
+    by_cases hne : spAt (cl x (IsLocalRing.closedPoint ℂ)) b = 0
+    · rw [hne]; exact zero_mem _
+    rcases (placeO hN hG τ).mem_or_inv_mem (spAt _ b) with h | h
+    · exact h
+    obtain ⟨b', hb', hv⟩ := regAt_iff.mp (atTau_regAt_place hN hG τ hx _ h)
+    have hbb : b * b' = 1 := spAt_injective _ (by rw [map_mul, hb', mul_inv_cancel₀ hne, map_one])
+    have hu : placeEv hN hG τ ⟨_, h⟩ ≠ 0 := by
+      rw [← hv]; intro h0
+      have := congrArg (Scheme.stalkClosedPointTo (cl x)) hbb
+      rw [map_mul, h0, mul_zero, map_one] at this
+      exact zero_ne_one this
+    obtain ⟨⟨u, ui, hu1, hu2⟩, hu'⟩ := placeEv_local hN hG τ ⟨_, h⟩ hu
+    have : (spAt (cl x (IsLocalRing.closedPoint ℂ)) b) = ui := by
+      have hu'' : u = ⟨_, h⟩ := hu'
+      subst hu''
+      have e := congrArg (fun y : placeO hN hG τ => (y : X.left.functionField)) hu1
+      change (spAt _ b)⁻¹ * (ui : X.left.functionField) = 1 at e
+      calc spAt _ b = spAt _ b * ((spAt _ b)⁻¹ * (ui : X.left.functionField)) := by rw [e, _root_.mul_one]
+        _ = ui := by rw [← _root_.mul_assoc, mul_inv_cancel₀ hne, _root_.one_mul]
+    rw [this]; exact ui.2
+
+omit hN hG in
+/-- The valuative square of a place. -/
+def placeSq (O : ValuationSubring X.left.functionField) (ev : O →+* ℂ)
+    (hev : ∀ a : O, ev a ≠ 0 → IsUnit a) : ValuativeCommSq X.hom :=
+  haveI := charZero_of_place O ev
+  { R := O
+    K := X.left.functionField
+    i₁ := X.left.fromSpecStalk (genericPoint X.left)
+    i₂ := Spec.map (CommRingCat.ofHom (ratHom O ev hev))
+    commSq := ⟨specQ_ext _ _⟩ }
+
+omit hN hG in
+/-- A point whose local ring is `O` gives a lift of the valuative square through it. -/
+theorem lift_point (O : ValuationSubring X.left.functionField) (ev : O →+* ℂ)
+    (hev : ∀ a : O, ev a ≠ 0 → IsUnit a) (p : X.left) (hO : ∀ a, a ∈ O ↔ ∃ b, spAt p b = a) :
+    ∃ l : (placeSq O ev hev).commSq.LiftStruct, l.l (IsLocalRing.closedPoint O) = p := by
+  let φ0 : X.left.presheaf.stalk p →+* O := (spAt p).hom.codRestrict O fun b => (hO _).2 ⟨b, rfl⟩
+  have hφ0 : ∀ b, ((φ0 b : O) : X.left.functionField) = spAt p b := fun _ => rfl
+  have : IsLocalHom φ0 := by
+    refine ⟨fun b hb => ?_⟩
+    obtain ⟨⟨u, ui, h1, -⟩, rfl⟩ := hb
+    obtain ⟨b', hb'⟩ := (hO _).1 ui.2
+    have e := congrArg (fun y : O => (y : X.left.functionField)) h1
+    simp only [MulMemClass.coe_mul, OneMemClass.coe_one] at e
+    refine isUnit_iff_exists_inv.mpr ⟨b', spAt_injective p ?_⟩
+    rw [map_mul, hb', map_one, ← hφ0]
+    exact e
+  let φ : X.left.presheaf.stalk p ⟶ CommRingCat.of O := CommRingCat.ofHom φ0
+  have : IsLocalHom φ.hom := ‹IsLocalHom φ0›
+  have hcomp : φ ≫ CommRingCat.ofHom (algebraMap O X.left.functionField) = spAt p := by
+    ext b; rfl
+  refine ⟨⟨Spec.map φ ≫ X.left.fromSpecStalk p, ?_, specQ_ext _ _⟩, ?_⟩
+  · change Spec.map (CommRingCat.ofHom (algebraMap O X.left.functionField)) ≫
+      Spec.map φ ≫ X.left.fromSpecStalk p = X.left.fromSpecStalk (genericPoint X.left)
+    rw [← Category.assoc, ← Spec.map_comp, hcomp, Scheme.SpecMap_stalkSpecializes_fromSpecStalk]
+  · change (X.left.fromSpecStalk p) ((Spec.map φ) (IsLocalRing.closedPoint O)) = p
+    rw [Spec_closedPoint, Scheme.fromSpecStalk_closedPoint]
+
+/-- The value at a point satisfying `AtTau` is the limit at `τ`. -/
+theorem value_atTau {y : CPt X} (hy : AtTau N jX tX y τ) {U : X.left.Opens} (s : Γ(X.left, U))
+    (h : cl y (IsLocalRing.closedPoint ℂ) ∈ U) [Nonempty U] :
+    ∃ hm : X.left.germToFunctionField U s ∈ placeO hN hG τ,
+      Scheme.stalkClosedPointTo (cl y) (X.left.presheaf.germ U _ h s) =
+        placeEv hN hG τ ⟨_, hm⟩ := by
+  have hm : X.left.germToFunctionField U s ∈ placeO hN hG τ :=
+    (mem_placeO_iff hN hG τ hy _).2 ⟨_, spAt_germ h s⟩
+  refine ⟨hm, regAt_unique (regAt_iff.2 ⟨_, spAt_germ h s, rfl⟩)
+    (atTau_regAt_place hN hG τ hy _ hm)⟩
+
+/-- **The point `x_τ` is unique**: two complex points satisfying `AtTau` at `τ` are equal. -/
+theorem atTau_unique (hC : IsCurve X) {x x' : CPt X} (hx : AtTau N jX tX x τ)
+    (hx' : AtTau N jX tX x' τ) : x = x' := by
+  have : IsProper X.hom := hC.proper
+  have hsub := IsSeparated.valuativeCriterion X.hom
+    (placeSq (placeO hN hG τ) (placeEv hN hG τ) (placeEv_local hN hG τ))
+  obtain ⟨l, hl⟩ := lift_point _ _ (placeEv_local hN hG τ) _ (mem_placeO_iff hN hG τ hx)
+  obtain ⟨l', hl'⟩ := lift_point _ _ (placeEv_local hN hG τ) _ (mem_placeO_iff hN hG τ hx')
+  have hp : cl x (IsLocalRing.closedPoint ℂ) = cl x' (IsLocalRing.closedPoint ℂ) := by
+    rw [← hl, ← hl', Subsingleton.elim l l']
+  apply Over.OverMorphism.ext
+  refine specC_hom_ext (cl x) (cl x') hp fun U s h => ?_
+  have : Nonempty U := ⟨⟨_, h⟩⟩
+  obtain ⟨hm, e⟩ := value_atTau hN hG τ hx s h
+  obtain ⟨hm', e'⟩ := value_atTau hN hG τ hx' s (hp ▸ h)
+  rw [e, e']
 
 end AfTateLam.HeckeGlue

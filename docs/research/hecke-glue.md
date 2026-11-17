@@ -66,6 +66,18 @@ local `ev : O → ℂ`. Then some complex point `x` has every `a ∈ O` regular 
 
 `x1TauPoints_of_tauPlace` combines the two steps.
 
+**Uniqueness (`atTau_unique`; compiled).** Two complex points that satisfy `AtTau` at `τ` are equal. This
+confirms the parenthetical claim in `AtTau`'s docstring ("for every `τ` exactly one complex point satisfies
+this"). The proof:
+* At such a point `x` the local ring `𝒪_{X,x}` equals `O_τ` inside `K(X)` (`mem_placeO_iff`): `O_τ ⊆ 𝒪_{X,x}` by
+  `AtTau`, and the reverse inclusion holds by domination.
+* Two such points give two lifts of the same valuative square (`lift_point`). These are equal by the
+  uniqueness half of the criterion (`IsSeparated.valuativeCriterion`), so the two points coincide.
+* The two maps `Spec ℂ → X` have the same values on germs (`value_atTau`), so they are equal
+  (`specC_hom_ext`).
+
+So `x_τ` is a well-defined function of `τ`.
+
 **Consequence: `X1TauPoints` is not a leaf.** Its only inputs are the definition of `IsX1Gen` (the integer
 relations of `(j_X, t_X)` are those of `(j, f₁)`), Mathlib and the tree's Weber analysis. hecke-pin read it as
 the DS §7.7 identification `X₁(N) = X₁(N)_alg,ℂ`. That identification is not needed here, because `IsX1Gen`
@@ -117,6 +129,9 @@ HeckePin.lean is not edited: the wrappers are new theorems in HeckeGlue.lean.
 **`#discharges`** (VERIFIED, `scratch/hecke-glue/Discharges-output.txt`): `r16CoreY` is still discharged by
 `AfTateLam.r16CoreY_of_ds965`, assuming the same five leaves. The new theorems discharge no open field, as
 expected. They are audit theorems about the dictionary hypotheses of those leaves, not new routes.
+
+**Fold dry run** (VERIFIED, `scratch/hecke-glue/dryrun-raw.txt`): `autofold.py --dry-run` on the spec gives
+`strict count: 11/18 on 29 -> 15/17 on 32`, the same as hecke-pin and r16-det.
 
 **Verbatim copy** (VERIFIED, `scratch/hecke-glue/Target.lean`):
 * the three Props are copied from HeckePin.lean;
@@ -178,6 +193,7 @@ Milne JV 1.1/6.1, GAGA (DS §7.2); not printed form".
 | `TauPlace` (new) | GLUE (analytic) | not a leaf | proved (`tauPlace`) |
 | `X1TauPoints` (hecke-pin) | GLUE (was: LEAF candidate) | not a leaf: follows from `IsX1Gen`, Mathlib and `WeberField` | proved (`x1TauPoints`) |
 | `ConstOnTauPoints` (hecke-pin) | GLUE | not a leaf | proved (`constOnTauPoints`) |
+| `x_τ` unique (new theorem, no Prop) | GLUE | not a leaf | proved (`atTau_unique`) |
 | `AbelJacobiX1` (hecke-pin) | LEAF candidate, composite | not printed form (§5) | open |
 
 No new leaf is introduced.
@@ -191,7 +207,7 @@ The autofold spec (`scratch/hecke-glue/autofold.json`) is hecke-pin's spec with 
 
 ## 7. Files and checks
 
-* `ZInQKernel/Contrib/OneProof/HeckeGlue.lean`: new, about 800 lines; imports `HeckePin` and CloudW07's
+* `ZInQKernel/Contrib/OneProof/HeckeGlue.lean`: new, about 1050 lines; imports `HeckePin` and CloudW07's
   `Curve.Dimension`. `lake build ZInQKernel.Contrib.OneProof.HeckeGlue` succeeds (VERIFIED).
 * `scratch/hecke-glue/HeckeGlue.lean`: the same file (scratch copy).
 * `scratch/hecke-glue/Target.lean`: verbatim copies and `Iff.rfl` checks (VERIFIED).

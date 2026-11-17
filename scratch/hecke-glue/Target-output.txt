@@ -1,0 +1,2 @@
+'AfTateLam.HeckeGlueTarget.x1TauPoints_copy' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AfTateLam.HeckeGlueTarget.constOnTauPoints_copy' depends on axioms: [propext, Classical.choice, Quot.sound]
