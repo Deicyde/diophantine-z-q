@@ -122,4 +122,122 @@ theorem tyzThm33CurveSome_of_adelic (h : TYZThm33AdelicSome) : H33D1.TYZThm33Cur
 theorem tyzThm33_of_adelic (hCM : T5Glue.ShimuraMainCM) (h : TYZThm33AdelicSome) : TYZThm33 :=
   H33D1.tyzThm33_of_curveSome hCM (tyzThm33CurveSome_of_adelic h)
 
+/-! ## §3b. `IsPointAt` is `Γ₀(N)`-invariant; the two leaves are equivalent -/
+
+/-- `(j(τ), j(Nτ))` is `Γ₀(N)`-invariant (Gamma0QExp's `jf_smul`, `jN_smul_of_mem`). -/
+theorem pt2_smul {N : ℕ} [NeZero N] {σ : Matrix.SpecialLinearGroup (Fin 2) ℤ}
+    (hσ : σ ∈ CongruenceSubgroup.Gamma0 N) (w : ℍ) : pt2 N (σ • w) = pt2 N w := by
+  have h1 : jFun (σ • w) = jFun w := ZInQ.Gamma0QExp.jf_smul σ w
+  have h2 : jFun (scaleN N (σ • w)) = jFun (scaleN N w) :=
+    ZInQ.Gamma0QExp.jN_smul_of_mem N hσ w
+  ext i
+  fin_cases i
+  · exact h1
+  · exact h2
+
+/-- Every `P(j, j_N)/Q(j, j_N)` is `Γ₀(N)`-invariant. -/
+theorem ratFn_smul {N : ℕ} [NeZero N] {σ : Matrix.SpecialLinearGroup (Fin 2) ℤ}
+    (hσ : σ ∈ CongruenceSubgroup.Gamma0 N) (P Q : MvPolynomial (Fin 2) ℚ) (w : ℍ) :
+    ratFn N P Q (σ • w) = ratFn N P Q w := by
+  simp only [ratFn, polyFn, pt2_smul hσ w]
+
+/-- **Limits at `σ τ` of a `σ`-invariant function are limits at `τ`** (the Möbius map of `σ` is a
+local homeomorphism at `τ`). -/
+theorem tendsto_of_smul_invariant {F : ℍ → ℂ} (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ)
+    (hF : ∀ w : ℍ, F (σ • w) = F w) (τ : ℍ) {L : Filter ℂ}
+    (h : Tendsto (F ∘ ofComplex) (𝓝[≠] ((σ • τ : ℍ) : ℂ)) L) :
+    Tendsto (F ∘ ofComplex) (𝓝[≠] (τ : ℂ)) L := by
+  set a : ℂ := ((σ 0 0 : ℤ) : ℂ); set b : ℂ := ((σ 0 1 : ℤ) : ℂ)
+  set c : ℂ := ((σ 1 0 : ℤ) : ℂ); set d : ℂ := ((σ 1 1 : ℤ) : ℂ)
+  set m : ℂ → ℂ := fun z => (a * z + b) / (c * z + d)
+  have hdet : a * d - b * c = 1 := by
+    have := σ.det_coe
+    rw [Matrix.det_fin_two] at this
+    simp only [a, b, c, d]; exact_mod_cast this
+  have hcoe : ∀ w : ℍ, ((σ • w : ℍ) : ℂ) = m w := fun w => by
+    rw [UpperHalfPlane.coe_specialLinearGroup_apply]; simp [m, a, b, c, d]
+  have hden : c * (τ : ℂ) + d ≠ 0 := by
+    have := UpperHalfPlane.denom_ne_zero (σ : GL (Fin 2) ℝ) τ
+    simpa [UpperHalfPlane.denom, c, d] using this
+  have hcont : ContinuousAt m (τ : ℂ) :=
+    ContinuousAt.div (by fun_prop) (by fun_prop) hden
+  have hev : ∀ᶠ z in 𝓝 (τ : ℂ), 0 < z.im ∧ c * z + d ≠ 0 := by
+    have h1 : ∀ᶠ z in 𝓝 (τ : ℂ), 0 < z.im :=
+      (isOpen_lt continuous_const Complex.continuous_im).mem_nhds τ.im_pos
+    have h2 : ∀ᶠ z in 𝓝 (τ : ℂ), c * z + d ≠ 0 :=
+      ContinuousAt.eventually_ne (by fun_prop) hden
+    exact h1.and h2
+  have hm : Tendsto m (𝓝[≠] (τ : ℂ)) (𝓝[≠] ((σ • τ : ℍ) : ℂ)) := by
+    rw [hcoe]
+    refine tendsto_nhdsWithin_iff.mpr ⟨hcont.tendsto.mono_left nhdsWithin_le_nhds, ?_⟩
+    filter_upwards [nhdsWithin_le_nhds hev, self_mem_nhdsWithin] with z hz hne
+    intro heq
+    apply hne
+    have heq' : m z = m τ := heq
+    simp only [m] at heq'
+    rw [div_eq_div_iff hz.2 hden] at heq'
+    have : (a * d - b * c) * (z - τ) = 0 := by linear_combination heq'
+    rw [hdet, one_mul, sub_eq_zero] at this
+    exact this
+  refine (h.comp hm).congr' ?_
+  filter_upwards [nhdsWithin_le_nhds hev] with z hz
+  simp only [Function.comp_apply]
+  have hz' : ofComplex z = ⟨z, hz.1⟩ := ofComplex_apply_of_im_pos hz.1
+  have hmz : ofComplex (m z) = σ • (⟨z, hz.1⟩ : ℍ) := by
+    have him : 0 < (m z).im := by
+      have := (σ • (⟨z, hz.1⟩ : ℍ)).im_pos
+      rwa [UpperHalfPlane.im, hcoe] at this
+    rw [ofComplex_apply_of_im_pos him]
+    exact UpperHalfPlane.ext (by rw [hcoe])
+  rw [hmz, hF, hz']
+
+/-- **`IsPointAt` is `Γ₀(N)`-invariant**: `x` is the point `σ τ` iff it is the point `τ`. -/
+theorem isPointAt_smul_iff {N : ℕ} [NeZero N] {X : Scheme.{0}} [IsIntegral X]
+    {ι : X.functionField ≃+* X0Field N} {σ : Matrix.SpecialLinearGroup (Fin 2) ℤ}
+    (hσ : σ ∈ CongruenceSubgroup.Gamma0 N) (τ : ℍ) (x : Spec (CommRingCat.of ℂ) ⟶ X) :
+    IsPointAt N ι (σ • τ) x ↔ IsPointAt N ι τ x := by
+  constructor
+  · intro h s P Q hr
+    exact tendsto_of_smul_invariant σ (ratFn_smul hσ P Q) τ (h s P Q hr)
+  · intro h s P Q hr
+    have hσ' : σ⁻¹ ∈ CongruenceSubgroup.Gamma0 N := inv_mem hσ
+    have e : σ⁻¹ • σ • τ = τ := inv_smul_smul σ τ
+    exact tendsto_of_smul_invariant σ⁻¹ (ratFn_smul hσ' P Q) (σ • τ) (by rw [e]; exact h s P Q hr)
+
+/-- **`x` is the point `[τ, 1]` of `X_{U₀(N)}(ℂ)°` iff `x` is the point `τ`.** -/
+theorem isShPointAt_toSh_iff {N : ℕ} [NeZero N] {X : Scheme.{0}} [IsIntegral X]
+    {ι : X.functionField ≃+* X0Field N} (τ : ℍ) (x : Spec (CommRingCat.of ℂ) ⟶ X) :
+    IsShPointAt N ι (toSh (U0 N) τ) x ↔ IsPointAt N ι τ x := by
+  refine ⟨isPointAt_of_isShPointAt, fun h τ' hτ' => ?_⟩
+  obtain ⟨σ, hσ, rfl⟩ := (toSh_eq_toSh_iff (NeZero.ne N) τ' τ).mp hτ'
+  exact (isPointAt_smul_iff hσ τ' x).mp h
+
+/-- **`IsShPointAt` in existential form**: `x` is the point `P` iff it is the point `τ` for some
+(equivalently every) `τ` with `[τ, 1] = P`; such `τ` exist by strong approximation. -/
+theorem isShPointAt_iff_exists {N : ℕ} [NeZero N] {X : Scheme.{0}} [IsIntegral X]
+    {ι : X.functionField ≃+* X0Field N} (P : Sh (U0 N)) (x : Spec (CommRingCat.of ℂ) ⟶ X) :
+    IsShPointAt N ι P x ↔ ∃ τ : ℍ, toSh (U0 N) τ = P ∧ IsPointAt N ι τ x := by
+  obtain ⟨τ, rfl⟩ := toSh_surjective (NeZero.ne N) P
+  refine ⟨fun h => ⟨τ, rfl, isPointAt_of_isShPointAt h⟩, ?_⟩
+  rintro ⟨τ', hτ', h⟩
+  rw [← hτ']
+  exact (isShPointAt_toSh_iff τ' x).mpr h
+
+/-- **h33-d1's body implies the adelic body**: the two leaves are equivalent. -/
+theorem tyz33BodyAd_of_body {X : Scheme.{0}} [IsIntegral X] {sX : X ⟶ Spec (CommRingCat.of ℚ)}
+    {ι : X.functionField ≃+* X0Field 32} (h : H33D1.TYZ33Body X sX ι) : TYZ33BodyAd X sX ι := by
+  intro i₀ hi hs hc w h5 h7
+  refine h i₀ hi hs hc w (fun n hn hsq x hx => h5 n hn hsq x ?_)
+    (fun n hn hsq x hx => h7 n hn hsq x ?_)
+  · rw [f0_tyzP5]; exact (isShPointAt_toSh_iff _ x).mpr hx
+  · rw [f0_tyzP7]; exact (isShPointAt_toSh_iff _ x).mpr hx
+
+theorem tyzThm33AdelicSome_of_curveSome (h : H33D1.TYZThm33CurveSome) : TYZThm33AdelicSome := by
+  obtain ⟨X, hX, sX, hp, hN, hd, ι, hb⟩ := h
+  exact ⟨X, hX, sX, hp, hN, hd, ι, tyz33BodyAd_of_body hb⟩
+
+/-- **The adelic leaf and h33-d1's leaf are equivalent.** -/
+theorem tyzThm33AdelicSome_iff : TYZThm33AdelicSome ↔ H33D1.TYZThm33CurveSome :=
+  ⟨tyzThm33CurveSome_of_adelic, tyzThm33AdelicSome_of_curveSome⟩
+
 end ZInQ.H33G5
