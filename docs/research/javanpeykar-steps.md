@@ -124,7 +124,21 @@ leaves count as GLUE until a reviewer rates them, as for the current field), the
 
 ## 5. `#discharges`
 
-See `scratch/javanpeykar-steps/discharges_out.txt` (recorded below once the build finished).
+VERIFIED. `lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges
++ZInQKernel.Contrib.OneProof.JavanpeykarThm111` completed (14289 jobs; `scratch/javanpeykar-steps/build_out.txt`),
+then `lake env lean scratch/javanpeykar-steps/Discharges.lean` (full output `discharges_out.txt`):
+
+```
+DISCHARGES [OpenResearchLeaves39.javanpeykarPrintedMapHF] by JavanpeykarSteps.javanpeykarPrintedMap_of_thm111
+  still assumes: [JavanpeykarSteps.JavanpeykarThm111]
+  axioms: [propext, Classical.choice, Quot.sound]
+```
+
+The fold dry run `python3 scripts/one_proof/autofold.py scratch/javanpeykar-steps/autofold.json --dry-run`
+reports `strict count: 17/16 on 33 -> 18/15 on 33; strictest 17/16 -> 18/15`, i.e. GLUE 16 → 15 in both
+columns. The generated module (`FoldDryRun.lean.txt`, first line stripped; renamed `.txt` so it does not
+redeclare `HDec.HSyn` bundles in the tree) compiles, and `HDec.HSyn.sixContactMin_of_open57` depends on
+`[propext, Classical.choice, Quot.sound]`.
 
 ## 6. What remains
 

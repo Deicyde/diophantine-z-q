@@ -29,3 +29,11 @@ scratch/javanpeykar-steps/JavanpeykarThm111.lean (`lake env lean`, 7 s, no error
   `ZInQ.HeightSplit.isStableFaltingsHeight_unique` (ZInQ.H5Neron.NeronModelExists, SemistableNeronBaseChange).
   GeomConnOfRationalPoint is proved (`geomConnOfRationalPoint_proof`).
 * Copied verbatim to ZInQKernel/Contrib/OneProof/JavanpeykarThm111.lean.
+## Step C: #discharges and fold dry run (VERIFIED)
+
+* lake build +Main +Discharges +Contrib.OneProof.JavanpeykarThm111: success, 14289 jobs (build_out.txt).
+* #discharges (discharges_out.txt): DISCHARGES [OpenResearchLeaves39.javanpeykarPrintedMapHF] by
+  JavanpeykarSteps.javanpeykarPrintedMap_of_thm111; still assumes [JavanpeykarSteps.JavanpeykarThm111];
+  standard axioms.
+* autofold --dry-run: strict 17/16 -> 18/15 on 33, strictest 17/16 -> 18/15. Generated module compiles,
+  sixContactMin_of_open57 standard axioms (FoldDryRun.lean.txt).
