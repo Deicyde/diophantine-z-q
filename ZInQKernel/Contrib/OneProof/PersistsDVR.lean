@@ -6,7 +6,7 @@ import ZInQKernel.Contrib.OneProof.SGA7PersistsNF
 Task persists-dvr (docs/research/persists-dvr.md; triage2 §1 Task 2).
 
 The research field `semistablePersistsSHcp` (`ReductB.SemistablePersistsSHcp`, TailZ23 L315; SGA 7 I Exp. IX
-Prop. 3.3, first assertion, over a strictly henselian DVR of characteristic `0` with perfect residue field) is
+Cor. 3.3, first assertion, over a strictly henselian DVR of characteristic `0` with perfect residue field) is
 discharged from fields that stay on the chain:
 
 * `semistablePersistsDVR_of_printed : SGA3_VIB_3_10 → SGA7_IX_3_3 → GeomConnOfRationalPoint →

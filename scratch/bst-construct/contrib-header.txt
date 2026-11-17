@@ -1,0 +1,35 @@
+import ZInQKernel.Contrib.OneProof.PanBergerPrinted
+import ZInQKernel.Contrib.OneProof.DSThm965Weak
+
+/-!
+# Berger's `B_st = B_max[log [p̃]] ⊆ B_dR` and the leaves of `r11r12` over it (task bst-construct)
+
+pb-fix2's `BergerPrintedU` (Berger 2002, Théorème 0.7) used pb-bypass's abstract `B_st = B_cris[X]` and a
+`ℚ_p`-dimension normalization with an abstract `K_0`. This file builds the period rings the way Berger prints
+them (Berger 2002 §1.2; wording UNVERIFIED here), as subrings of Mathlib's `B_dR = BDeRham 𝓞_ℂ_p p`:
+
+* `Amax`: `A_max = {Σ a_n (ω/p)^n : a_n ∈ A_inf = W(𝓞_ℂ_p♭), a_n → 0 p-adically}` inside `B_dR^+`, the
+  series evaluated `ker θ`-adically (`psEval`), `ω = ξ = p − [p̃]` (bdr-kertheta's generator;
+  `amaxOf_eq_amax`: every generator of `ker θ` gives the same ring);
+* `logPlus`, `logTeich` (`log [ε]`, `ε^♯ = 1`), `logPTilde` (`log [p̃] := log([p̃]/p)`), all in `B_dR^+`;
+* `BmaxPlus = A_max[1/p]`, `Bmax = B_max^+[1/t]` (inverting every `log [ε]`, `ε ≠ 1`),
+  `Bst = B_max[log [p̃]]`;
+* Fontaine's admissibility `IsAdmissible B H ρ :⇔ dim_{B^H} (B ⊗_{ℚ_p} V)^H = dim_{ℚ_p} V`;
+  `IsSemistableB`, `IsPstB`, `LocalIsPstB`.
+
+Proved (standard axioms): `B_max^+`, `B_max` and `B_st` are `G_{ℚ_p}`-stable (`bmaxPlus_stable`,
+`bmax_stable`, `bst_stable`), with `σ(log [p̃]) = log [p̃] + log [u_σ]` (`bdrAct_logPTilde`), from the
+additivity of `log` on `1 + ker θ` (`logPlus_add`) and `log [ε] ∈ A_max` (`logTeich_mem_amax`); the trivial
+representation is admissible for every `B` (`isAdmissible_trivial`); `B_dR^+ → B_dR` is injective;
+`log [ε] ≠ 0` for every `ε ≠ 1` with `ε^♯ = 1`, and such `ε` exist, so `t ≠ 0` (`logTeich_ne_zero`,
+`exists_t_ne_zero`); given
+Fontaine's transcendence of `log [p̃]` (`LogPTildeTranscendental`), `B_st ≅ B_max[X]`
+(`bstEquivPolynomial`); given Fontaine's `B_st^{G_K} = K_0` in dimension form (`FontaineBstInvariants`),
+admissibility is pb-fix2's normalization `dim_{ℚ_p} D_st,K = [K_0 : ℚ_p] · dim V` (`isSemistableB_iff_K0`).
+
+The leaves `BergerPrintedB` and `PanPrintedB` are pb-fix2's `BergerPrintedU` and `PanPrintedU` with potential
+semistability computed over Berger's `B_st` (`LocalIsPstB`); `panBerger_of_printedB` discharges `r11r12`
+from them and Diamond–Shurman 9.6.5/9.6.6 (pb-fix2's proof verbatim). Neither named input above is used by
+it.
+-/
+

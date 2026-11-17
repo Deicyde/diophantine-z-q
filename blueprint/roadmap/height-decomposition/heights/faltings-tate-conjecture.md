@@ -3,7 +3,7 @@ article_id: af_ccb32cfc8a10eccca6039f49
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves31.r9b
+lean: HDec.HSyn.OpenResearchLeaves40.r9b
 ---
 
 # Faltings' theorem on Tate's conjecture

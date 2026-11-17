@@ -3,7 +3,7 @@ article_id: af_45fff05ecc3aee55a906d96a
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves31.r16CoreY
+lean: HDec.HSyn.OpenResearchLeaves40.r16CoreY
 ---
 
 # Shimura's abelian varieties attached to newforms

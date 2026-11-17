@@ -1,0 +1,22 @@
+{
+ "name": "htnew-print",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.EigenformHTPrinted"
+ ],
+ "discharges": [
+  {
+   "field": "eigenformHTNew",
+   "proof": "_root_.EigenformHTPrinted.eigenformHTNew_of_printed {n}.modularHTPrinted {n}.eigenformCoeffFieldFinite",
+   "leaves": [
+    {
+     "name": "modularHTPrinted",
+     "type": "_root_.EigenformHTPrinted.ModularHTPrinted",
+     "doc": "R13, printed existence form, reading-robust (htnew-print): for a prime l, embeddings iota_C, iota_L and a Tau Ceti newform f of weight k >= 2 and level N (every level, l | N included), there is a continuous rho : G_Q -> GL_2(Qbar_l), unramified outside N l, with either (arithmetic Frobenius trace a_p and Hodge-Tate weights {0, 1-k}) or (geometric Frobenius trace a_p and Hodge-Tate weights {0, k-1}) (kernel convention: cyclotomic weight -1). No semisimplicity asked; the trace clause is 'if iota_C(alpha) = a_p then tr = iota_L(alpha)'. Replaces eigenformHTNew: semisimplification preserves HT weights, the dual, the newform dictionary and the Chebotarev/Brauer-Nesbitt transport are proved in Lean (EigenformHTPrinted.lean).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (existence form of the theorem on Galois representations attached to newforms, Hodge-Tate weights 0, k-1 at l, every level; the reading points of ht-exists are absorbed by the statement: normalization and sign convention by or-introduction, no semisimplicity, trace clause only); locator UNVERIFIED",
+     "source": "Existence form as printed: Taylor, Galois representations, Ann. Fac. Sci. Toulouse Math. (6) 13 (2004); Gee, Modularity lifting theorems, Essent. Number Theory 1 (2022) section 2 (numbers UNVERIFIED). Content: Deligne 1971; Faltings, Math. Ann. 278 (1987); Saito, Invent. Math. 129 (1997); Kato, Asterisque 295 (2004) sections 9.2-9.4, (9.2.2), pp. 187-188 (read by the locator audit, row R13) and 11.3 (UNVERIFIED)"
+    }
+   ]
+  }
+ ]
+}

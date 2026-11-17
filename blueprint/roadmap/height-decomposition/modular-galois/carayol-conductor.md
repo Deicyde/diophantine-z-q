@@ -3,23 +3,24 @@ article_id: af_70638693e5265599a45e25ae
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves31.r17
+lean: HDec.HSyn.OpenResearchLeaves40.carayolThmAIrr
 ---
 
 # Carayol's theorem on the conductor
 
-The *Carayol statement* is the following assertion. Let $\ell$ be a prime, $f$ a newform of weight
-$2$ and level $N$ with character $\chi$, and
-$\rho:G_{\mathbb Q}\to\mathrm{GL}_2(\overline{\mathbb Q}_\ell)$ a semisimple representation attached
-to $f$. Then for every prime $p\ne\ell$ the exponent of the conductor of $\rho$ restricted to a
-decomposition group at $p$ is $v_p(N)$.
+The *Carayol statement* is the following assertion. Let $f$ be a newform of weight $2$ and level
+$N$ whose coefficient field $K_f$ is a number field, and $\lambda$ a place of $K_f$ above a prime
+$\ell$. Then there is a continuous representation
+$\rho:G_{\mathbb Q}\to\mathrm{GL}_2(K_{f,\lambda})$ that is irreducible and odd, is unramified at
+every prime $p\nmid N\ell$ with the trace of an arithmetic Frobenius equal to $a_p(f)$, and whose
+conductor has exponent $v_p(N)$ at every prime $p\ne\ell$.
 
-It is not printed in this form but follows from published theorems; reaching it from the print takes
-further theorems, which are not proved here. Carayol's theorem covers every $\ell$, including $2$,
-and every $p\ne\ell$, including $p\mid N$. The conductor is the Serre–Tate conductor, which does not
-change under duals, so the normalization of the attached representation does not matter. Reaching
-the statement from the print, for every semisimple attached representation, takes standard steps. It
-is a hypothesis, not proved here.
+The project classes it as a published statement; its reading against the print is still pending.
+No single source prints the package: it puts together the representation of Shimura and Deligne,
+Carayol's Théorème (A) with Casselman's theorem on the conductor of a newform, and Ribet's
+irreducibility. The conductor is the Serre–Tate conductor of the restriction to a decomposition
+group. The project's earlier form, for every semisimple representation over
+$\overline{\mathbb Q}_\ell$ attached to $f$, is proved here from this one. It is a hypothesis, not proved here.
 
 ## Depends on
 

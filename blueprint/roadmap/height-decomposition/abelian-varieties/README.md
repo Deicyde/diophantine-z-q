@@ -9,8 +9,9 @@ Mumford's book; over a general field, the existence of the Picard scheme and the
 identity component, from which the proof builds a symmetric isogeny to the dual; and over
 $\mathbb C$, GAGA for homomorphisms.
 
-Of these five statements, four are published statements and one is a consequence of published
-theorems; none is proved here.
+Of these five statements, two are now proved here: the torsion points and GAGA for homomorphisms.
+Of the other three, the project classes two as published statements and one as a consequence of
+published theorems; they are not proved here.
 
 - [Torsion points over an algebraically closed field](torsion-points.md)
 - [The characteristic polynomial of an endomorphism](characteristic-polynomial.md)

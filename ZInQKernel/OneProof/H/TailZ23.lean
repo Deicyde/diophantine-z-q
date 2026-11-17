@@ -310,7 +310,7 @@ def RaynaudSemistableSHcp : Prop :=
       ∃ y : A.Pt K, ZInQ.Contrib.AbVarBC.extPt A (Algebra.ofId K (AlgebraicClosure K)) y = x) →
     SemistableNeronModels A O
 
-/-- **LEAF (printed base, restricted) `SemistablePersistsSHcp`**: SGA 7 I, Exp. IX, Prop. 3.3,
+/-- **LEAF (printed base, restricted) `SemistablePersistsSHcp`**: SGA 7 I, Exp. IX, Cor. 3.3,
 first assertion (number UNVERIFIED), over a strictly henselian base DVR `O` of a field of
 characteristic `0` with perfect (hence algebraically closed) residue field. A specialization of
 `SemistablePersistsSH`. -/
@@ -686,7 +686,7 @@ structure OpenResearchLeaves14 : Prop where
   this form is stronger than the print for imperfect residue fields. Replaces, with `strictHenselizationPair`,
   `raynaudSemistable` and (by K1) `semistableReductionDVR`. -/
   raynaudSemistableSH : _root_.ReductGlue.RaynaudSemistableSH
-  /-- reduct-b, printed form, restricted: SGA 7 I Exp. IX Prop. 3.3, first assertion (number UNVERIFIED), over a
+  /-- reduct-b, printed form, restricted: SGA 7 I Exp. IX Cor. 3.3, first assertion (number UNVERIFIED), over a
   strictly henselian DVR of a field of characteristic `0` with perfect, hence algebraically closed, residue field
   (a specialization of every reading of the print). With `strictHenselizationPair` replaces `semistablePersistsDVR`
   at its two uses, SS1 and SS3, which are over number fields. -/

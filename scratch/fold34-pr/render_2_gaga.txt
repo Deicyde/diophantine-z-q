@@ -1,0 +1,5 @@
+wrote docs/one-proof/OPEN.md
+wrote docs/one-proof/pages-wanted.md
+wrote docs/one-proof/CONTRIBUTING.md
+wrote STATUS.md
+27 H hypotheses, strictest 10/17, 6 others

@@ -32,7 +32,10 @@ from memory, UNVERIFIED).** Serre, Tate, *Good reduction of abelian varieties*, 
 residue characteristic, `I` acts trivially on `A(K_s)[m]` ⟺ (c) the same for infinitely many such `m`. Lean form:
 as the chain's `PkgI2.NeronOggShafarevich` (good reduction = an abelian scheme over `O` with generic fibre `A`;
 "`m` prime to the residue characteristic" = `IsUnit (m : O)`), with `AlgebraicClosure K` replaced by any `Ks`
-with `IsSepClosure K Ks`. The print's (d) (`T_ℓ` unramified for one `ℓ`) is not stated. -/
+with `IsSepClosure K Ks`. The print's (d) (`T_ℓ` unramified for one `ℓ`) is not stated. The print assumes that the
+residue field is perfect (§1; recalled, not read by this project); the Lean form does not, so over an imperfect
+residue field it exceeds Theorem 1 (BLR 7.4 Thm 5 gives the `T_ℓ` form over every discrete valuation ring). The
+chain applies it over number fields only (AI audit 2026-11-17). -/
 def NeronOggShafarevichSep : Prop :=
   ∀ (K : Type) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O]
     (Ks : Type) [Field Ks] [Algebra K Ks] [IsSepClosure K Ks]

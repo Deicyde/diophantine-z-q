@@ -1,0 +1,12 @@
+{
+ "name": "cfext-proof",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.ConstantFieldExtensionUnramifiedFinite"
+ ],
+ "discharges": [
+  {
+   "field": "constantFieldExtensionUnramifiedFinite",
+   "proof": "_root_.CFExtProof.constantFieldExtensionUnramifiedFinite_proof"
+  }
+ ]
+}

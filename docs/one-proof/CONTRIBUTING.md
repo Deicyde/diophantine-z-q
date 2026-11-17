@@ -105,8 +105,8 @@ build re-checked, and OPEN.md regenerated.
 ## What it costs to build
 
 You do not need to build anything to contribute. If you want to, these are the measured figures so far.
-`lake exe cache get` fetches only Mathlib's compiled files; nothing of this project is cached, so its own files
-build from source.
+`lake exe cache get` fetches only Mathlib's compiled files, so on your own machine this project's files build from
+source. The automatic check on a pull request starts from a cached build of `main` instead.
 
 | what was built | cold or partial | commit | measured |
 | --- | --- | --- | --- |
@@ -119,10 +119,14 @@ build from source.
 | the Tau Ceti dependency tree | cold | not recorded | 6,846 Lake jobs in 8 minutes 4 seconds; 3.4 GB |
 | one large file compiled against an already built `ZInQKernel.OneProof.Main` | partial (that file only) | not recorded | about 8 to 9 GB of memory |
 | upstream's kernel job on a GitHub-hosted runner | not recorded | not recorded | needed a 180-minute timeout and 8 GiB of extra swap |
+| `lake build +ZInQKernel.OneProof.Main` on a 12-core, 18 GB machine, `LEAN_NUM_THREADS=8` (AI audit, [#62](https://github.com/Deicyde/diophantine-z-q/issues/62)) | cold, stopped for disk | `e1b31749` | 694 of the 5,225 project modules in 41 minutes, no errors; 0.44 GB of `.olean` and 3.4 GB of per-module `.setup.json` files (median 3.4 MB; they embed absolute paths, so a short checkout path matters) |
+| the discharge check's build step on GitHub-hosted runners, before the build cache | cold | several pull requests | five runs stopped at the 270-minute limit (43981996517, 43968843468, 43920004200, 43839513202, 43751567891) |
 
-A cold measurement of `lake build +ZInQKernel.OneProof.Main` on a GitHub-hosted runner will be added to this
-table. On a laptop a full build is a bigger investment. A measured row from your machine (commit, cold or partial,
-cores, memory cap, peak memory, disk, Lake jobs, wall-clock) is welcome and credited.
+No cold build of `lake build +ZInQKernel.OneProof.Main` has finished on a GitHub-hosted runner yet; the main build
+cache workflow carries its progress from run to run until one does, and its first finished run belongs in this table.
+On a laptop a full build is a bigger investment: allow several hours and roughly 20 GB of disk. A measured row from
+your machine (commit, cold or partial, cores, memory cap, peak memory, disk, Lake jobs, wall-clock) is welcome and
+credited.
 
 ## For the integrator: folding a contribution
 
@@ -143,7 +147,10 @@ hypotheses. Its output (generated from `scratch/contrib-kit/DischargesTest-outpu
 <!-- worked-example:begin -->
 ```
 scratch/contrib-kit/DischargesTest.lean:13:8: warning: declaration uses `sorry`
-DISCHARGES [OpenResearchLeaves38.dsThm965Printed] by DSCoeffExt.dsThm965Printed_of_charpoly
+DISCHARGES [OpenResearchLeaves40.carayolThmAIrr] by CarayolPrinted.carayolThmAIrr_of_split
+  still assumes: [CarayolPrinted.CarayolExistence, CarayolPrinted.CarayolConductor]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves40.dsThm965Printed] by DSCoeffExt.dsThm965Printed_of_charpoly
   still assumes: [∀ (N : ℕ) [inst : NeZero N] (k : ℤ) (χ : DirichletCharacter ℂ N) (f : ZInQ.Contrib.G9.PkgI4.CF N k),
    2 ≤ k →
      DSCoeffExt.IsNormalizedEigenformDS f χ →
@@ -176,181 +183,100 @@ DISCHARGES [OpenResearchLeaves38.dsThm965Printed] by DSCoeffExt.dsThm965Printed_
                                              (↥(DSCoeffExt.coeffField f)) lam))
                                          b)]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves38.raynaudSemistableSHOr] by DictModels.RaynaudOr.or_of_field
+DISCHARGES [OpenResearchLeaves40.raynaudSemistableSHOr] by DictModels.RaynaudOr.or_of_field
   still assumes: [ReductGlue.RaynaudSemistableSH]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves38.sga7_IX_3_3_SHpre] by DictModels.SGA7Pre.pre_of_SH
+DISCHARGES [OpenResearchLeaves40.sga7_IX_3_3_SHpre] by DictModels.SGA7Pre.pre_of_SH
   still assumes: [SGA7PersistsNF.SGA7_IX_3_3_SH, CToPrinted.SGA3_VIB_3_10, AVGlue.GeomConnOfRationalPoint]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves38.gonzalezRotgerProp56X6] by GR56.gonzalezRotgerProp56X6_of_leaves
-  still assumes: [GRCountX6.EichlerOptEmbCount6,
- GR56.QMTorusAbelian,
- GR56.CMPairDescendsQbar,
- BPAnalytic.Uniformization.UniformizationLeafAll,
- ZInQ.HomLattice.GAGAMorphism,
- AvSplit.MumfordTorsionAlgClosed]
+DISCHARGES [OpenResearchLeaves40.modularHTPrinted] by EigenformHTPrinted.printed_of_eigenformHTNew
+  still assumes: [DSCoeffExt.DSThm965Printed,
+ DSCoeffExt.EigenformCoeffFieldFinite,
+ DSCoeffExt.DSThm966Printed,
+ ZInQ.Contrib.HodgeSplit.EigenformHTNew]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves38.gonzalezRotgerProp56X6] by GR56.gonzalezRotgerProp56X6_of_main
-  still assumes: [GRCountX6.EichlerOptEmbCount6,
- RayClassCFT.ShimuraMainThmIDeligneY3AbU,
- HDec.HSyn.G0Split.FibreQM.PeriodMapH.QMSplitSTQM.ShimuraTaniyamaQbar,
- BPAnalytic.Uniformization.UniformizationLeafAll,
- ZInQ.HomLattice.GAGAMorphism,
- AvSplit.MumfordTorsionAlgClosed]
-  axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves38.gonzalezRotgerProp56X6] by GR56.gonzalezRotgerProp56X6_of_st
-  still assumes: [GRCountX6.EichlerOptEmbCount6,
- GR56.QMTorusAbelian,
- HDec.HSyn.G0Split.FibreQM.PeriodMapH.QMSplitSTQM.ShimuraTaniyamaQbar,
- BPAnalytic.Uniformization.UniformizationLeafAll,
- ZInQ.HomLattice.GAGAMorphism,
- AvSplit.MumfordTorsionAlgClosed]
-  axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves38.gonzalezRotgerProp56X6] by GRCountX6.prop56X6_of_r5fpCount
-  still assumes: [LeafQM.AV.R5fpCount]
-  axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves38.gonzalezRotgerProp56X6] by GRDict.gonzalezRotgerProp56X6_of_cm
-  still assumes: [GRDict.GonzalezRotgerProp56X6CM,
- BPAnalytic.Uniformization.UniformizationLeafAll,
- ZInQ.HomLattice.GAGAMorphism,
- AvSplit.MumfordTorsionAlgClosed]
-  axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves38.x6CoarseModuli] by GRX6AbPrint.x6CoarseModuli_of_witness
+DISCHARGES [OpenResearchLeaves40.x6CoarseModuli] by GRX6AbPrint.x6CoarseModuli_of_witness
   still assumes: [GRDict.X6ModuliWitness]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenTextbookLeaves16.charPolyIndepOfEllAlgClosed] by HDec.HSyn.OpenTextbookLeaves10HF.charPolyIndepOfEllAlgClosed
+DISCHARGES [OpenTextbookLeaves17.charPolyIndepOfEllAlgClosed] by HDec.HSyn.OpenTextbookLeaves10HF.charPolyIndepOfEllAlgClosed
   still assumes: [HDec.HSyn.OpenTextbookLeaves10HF]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenTextbookLeaves16.gagaMorphism] by HDec.HSyn.OpenTextbookLeaves10HF.gagaMorphism
-  still assumes: [HDec.HSyn.OpenTextbookLeaves10HF]
-  axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenTextbookLeaves16.mumfordTorsionAlgClosed] by HDec.HSyn.OpenTextbookLeaves10HF.mumfordTorsionAlgClosed
-  still assumes: [HDec.HSyn.OpenTextbookLeaves10HF]
-  axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenTextbookLeaves16.charPolyIndepOfEllAlgClosed] by HDec.HSyn.OpenTextbookLeaves11HF.charPolyIndepOfEllAlgClosed
+DISCHARGES [OpenTextbookLeaves17.charPolyIndepOfEllAlgClosed] by HDec.HSyn.OpenTextbookLeaves11HF.charPolyIndepOfEllAlgClosed
   still assumes: [HDec.HSyn.OpenTextbookLeaves11HF]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenTextbookLeaves16.gagaMorphism] by HDec.HSyn.OpenTextbookLeaves11HF.gagaMorphism
-  still assumes: [HDec.HSyn.OpenTextbookLeaves11HF]
-  axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenTextbookLeaves16.mumfordTorsionAlgClosed] by HDec.HSyn.OpenTextbookLeaves11HF.mumfordTorsionAlgClosed
-  still assumes: [HDec.HSyn.OpenTextbookLeaves11HF]
-  axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenTextbookLeaves16.charPolyIndepOfEllAlgClosed] by HDec.HSyn.OpenTextbookLeaves12HF.charPolyIndepOfEllAlgClosed
+DISCHARGES [OpenTextbookLeaves17.charPolyIndepOfEllAlgClosed] by HDec.HSyn.OpenTextbookLeaves12HF.charPolyIndepOfEllAlgClosed
   still assumes: [HDec.HSyn.OpenTextbookLeaves12HF]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenTextbookLeaves16.gagaMorphism] by HDec.HSyn.OpenTextbookLeaves12HF.gagaMorphism
-  still assumes: [HDec.HSyn.OpenTextbookLeaves12HF]
-  axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenTextbookLeaves16.mumfordTorsionAlgClosed] by HDec.HSyn.OpenTextbookLeaves12HF.mumfordTorsionAlgClosed
-  still assumes: [HDec.HSyn.OpenTextbookLeaves12HF]
-  axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenTextbookLeaves16.charPolyIndepOfEllAlgClosed] by HDec.HSyn.OpenTextbookLeaves13HF.charPolyIndepOfEllAlgClosed
+DISCHARGES [OpenTextbookLeaves17.charPolyIndepOfEllAlgClosed] by HDec.HSyn.OpenTextbookLeaves13HF.charPolyIndepOfEllAlgClosed
   still assumes: [HDec.HSyn.OpenTextbookLeaves13HF]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenTextbookLeaves16.gagaMorphism] by HDec.HSyn.OpenTextbookLeaves13HF.gagaMorphism
-  still assumes: [HDec.HSyn.OpenTextbookLeaves13HF]
-  axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenTextbookLeaves16.mumfordTorsionAlgClosed] by HDec.HSyn.OpenTextbookLeaves13HF.mumfordTorsionAlgClosed
-  still assumes: [HDec.HSyn.OpenTextbookLeaves13HF]
-  axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenTextbookLeaves16.charPolyIndepOfEllAlgClosed] by HDec.HSyn.OpenTextbookLeaves14HF.charPolyIndepOfEllAlgClosed
+DISCHARGES [OpenTextbookLeaves17.charPolyIndepOfEllAlgClosed] by HDec.HSyn.OpenTextbookLeaves14HF.charPolyIndepOfEllAlgClosed
   still assumes: [HDec.HSyn.OpenTextbookLeaves14HF]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenTextbookLeaves16.gagaMorphism] by HDec.HSyn.OpenTextbookLeaves14HF.gagaMorphism
-  still assumes: [HDec.HSyn.OpenTextbookLeaves14HF]
-  axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenTextbookLeaves16.mumfordTorsionAlgClosed] by HDec.HSyn.OpenTextbookLeaves14HF.mumfordTorsionAlgClosed
-  still assumes: [HDec.HSyn.OpenTextbookLeaves14HF]
-  axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenTextbookLeaves16.charPolyIndepOfEllAlgClosed] by HDec.HSyn.OpenTextbookLeaves6HF.charPolyIndepOfEllAlgClosed
+DISCHARGES [OpenTextbookLeaves17.charPolyIndepOfEllAlgClosed] by HDec.HSyn.OpenTextbookLeaves6HF.charPolyIndepOfEllAlgClosed
   still assumes: [HDec.HSyn.OpenTextbookLeaves6HF]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenTextbookLeaves16.charPolyIndepOfEllAlgClosed] by HDec.HSyn.OpenTextbookLeaves7HF.charPolyIndepOfEllAlgClosed
+DISCHARGES [OpenTextbookLeaves17.charPolyIndepOfEllAlgClosed] by HDec.HSyn.OpenTextbookLeaves7HF.charPolyIndepOfEllAlgClosed
   still assumes: [HDec.HSyn.OpenTextbookLeaves7HF]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenTextbookLeaves16.gagaMorphism] by HDec.HSyn.OpenTextbookLeaves7HF.gagaMorphism
-  still assumes: [HDec.HSyn.OpenTextbookLeaves7HF]
-  axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenTextbookLeaves16.mumfordTorsionAlgClosed] by HDec.HSyn.OpenTextbookLeaves7HF.mumfordTorsionAlgClosed
-  still assumes: [HDec.HSyn.OpenTextbookLeaves7HF]
-  axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenTextbookLeaves16.charPolyIndepOfEllAlgClosed] by HDec.HSyn.OpenTextbookLeaves8HF.charPolyIndepOfEllAlgClosed
+DISCHARGES [OpenTextbookLeaves17.charPolyIndepOfEllAlgClosed] by HDec.HSyn.OpenTextbookLeaves8HF.charPolyIndepOfEllAlgClosed
   still assumes: [HDec.HSyn.OpenTextbookLeaves8HF]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenTextbookLeaves16.gagaMorphism] by HDec.HSyn.OpenTextbookLeaves8HF.gagaMorphism
-  still assumes: [HDec.HSyn.OpenTextbookLeaves8HF]
-  axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenTextbookLeaves16.mumfordTorsionAlgClosed] by HDec.HSyn.OpenTextbookLeaves8HF.mumfordTorsionAlgClosed
-  still assumes: [HDec.HSyn.OpenTextbookLeaves8HF]
-  axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenTextbookLeaves16.charPolyIndepOfEllAlgClosed] by HDec.HSyn.OpenTextbookLeaves9HF.charPolyIndepOfEllAlgClosed
+DISCHARGES [OpenTextbookLeaves17.charPolyIndepOfEllAlgClosed] by HDec.HSyn.OpenTextbookLeaves9HF.charPolyIndepOfEllAlgClosed
   still assumes: [HDec.HSyn.OpenTextbookLeaves9HF]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenTextbookLeaves16.gagaMorphism] by HDec.HSyn.OpenTextbookLeaves9HF.gagaMorphism
-  still assumes: [HDec.HSyn.OpenTextbookLeaves9HF]
-  axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenTextbookLeaves16.mumfordTorsionAlgClosed] by HDec.HSyn.OpenTextbookLeaves9HF.mumfordTorsionAlgClosed
-  still assumes: [HDec.HSyn.OpenTextbookLeaves9HF]
-  axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves38.elkiesX6StarEvery] by HDec.QMSplit.Moduli.ElkiesPrint.every_of_functionField
+DISCHARGES [OpenResearchLeaves40.elkiesX6StarEvery] by HDec.QMSplit.Moduli.ElkiesPrint.every_of_functionField
   still assumes: [HDec.QMSplit.Moduli.ElkiesCoord.ElkiesX6StarFunctionField, ObjBridge.TorsionStructure]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves38.constantFieldExtensionUnramifiedFinite] by JavanpeykarRebase.finite_of_full
-  still assumes: [JavanpeykarFix.ConstantFieldExtensionUnramifiedFull]
-  axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves38.javanpeykarPrintedMapHF] by JavanpeykarRebase.javanpeykarPrintedMap_of_fix
+DISCHARGES [OpenResearchLeaves40.javanpeykarPrintedMapHF] by JavanpeykarRebase.javanpeykarPrintedMap_of_fix
   still assumes: [JavanpeykarFix.JavanpeykarPrintedMap,
  ZInQ.LeafPush2.UniformizationExists,
  AVGlue.GeomConnOfRationalPoint]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves38.eigenformHTNew] by NewformDict.eigenformHTNew_of_newform
-  still assumes: [NewformDict.EigenformHTNewNewform]
-  axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves38.r16CoreY] by NewformDict.r16CoreY_of_newform
+DISCHARGES [OpenResearchLeaves40.r16CoreY] by NewformDict.r16CoreY_of_newform
   still assumes: [NewformDict.R16CoreYNewform]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves38.r16CoreY] by R16Split.coreY_of_r16
+DISCHARGES [OpenResearchLeaves40.r16CoreY] by R16Split.coreY_of_r16
   still assumes: [LeafModCurves.R16_EichlerShimuraJ1']
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves38.sga7_IX_3_5_ForwardGeom] by UnipotentForward.forwardGeom_of_forward
+DISCHARGES [OpenResearchLeaves40.sga7_IX_3_5_ForwardGeom] by UnipotentForward.forwardGeom_of_forward
   still assumes: [UnipotentForward.SGA7_IX_3_5_Forward, UnipotentForward.SemiAbelianDescendsSepClosed]
   axioms: [propext, Classical.choice, Quot.sound]
 DISCHARGES [hBFH] by ZInQ.BFHPrinted.bfhClauseIIGamma0_of_bfhClauseIIKronecker
   still assumes: [ZInQ.BFHPrinted.BFHClauseIIKronecker]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves38.hodgeTateDecompExists] by ZInQ.Contrib.HodgeTateFromPairing.hodgeTateDecompExists_of_field
+DISCHARGES [OpenResearchLeaves40.hodgeTateDecompExists] by ZInQ.Contrib.HodgeTateFromPairing.hodgeTateDecompExists_of_field
   still assumes: [ZInQ.Contrib.HodgeSplit.HodgeTateDecompAbVar]
   axioms: [propext, Classical.choice, Quot.sound]
 DISCHARGES [hGZ] by ZInQ.GZAlg.grossZagierAlgOptCd_of
   still assumes: [ZInQ.GZAlg.GrossZagierAlgOpt]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves38.pazukiCor13Upper] by ZInQ.HeightDict.pazukiCor13Upper_of_printed
+DISCHARGES [OpenResearchLeaves40.pazukiCor13Upper] by ZInQ.HeightDict.pazukiCor13Upper_of_printed
   still assumes: [ZInQ.HeightDict.PazukiCor13UpperPrinted,
  BPAnalytic.Uniformization.UniformizationLeafAll,
  AvSplit.MumfordTorsionAlgClosed]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves38.bostLowerBoundPrinted] by ZInQ.HeightFix.bostLowerBoundPrinted_of_kernel
+DISCHARGES [OpenResearchLeaves40.bostLowerBoundPrinted] by ZInQ.HeightFix.bostLowerBoundPrinted_of_kernel
   still assumes: [ZInQ.HeightSplit.BostLowerBound, ZInQ.LeafPush2.UniformizationExists, AVGlue.GeomConnOfRationalPoint]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves38.gaudronRemondThm14Printed] by ZInQ.HeightFix.gaudronRemondThm14Printed_of_kernel
+DISCHARGES [OpenResearchLeaves40.gaudronRemondThm14Printed] by ZInQ.HeightFix.gaudronRemondThm14Printed_of_kernel
   still assumes: [ZInQ.HeightSplit.GaudronRemondThm14,
  ZInQ.LeafPush2.UniformizationExists,
  AVGlue.GeomConnOfRationalPoint]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves38.pazukiCor13Upper] by ZInQ.HeightFix.pazukiCor13Upper_of_printed
+DISCHARGES [OpenResearchLeaves40.pazukiCor13Upper] by ZInQ.HeightFix.pazukiCor13Upper_of_printed
   still assumes: [ZInQ.HeightFix.PazukiCor13UpperPrinted,
  BPAnalytic.Uniformization.UniformizationLeafAll,
  AvSplit.MumfordTorsionAlgClosed,
  ZInQ.HeightFix.SemiAbelianDescendsPerfect]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves38.pazukiCor13Upper] by ZInQ.SemiAbDescend.pazukiCor13Upper_of_printed_chevalley
+DISCHARGES [OpenResearchLeaves40.pazukiCor13Upper] by ZInQ.SemiAbDescend.pazukiCor13Upper_of_printed_chevalley
   still assumes: [ZInQ.HeightFix.PazukiCor13UpperPrinted,
  BPAnalytic.Uniformization.UniformizationLeafAll,
  AvSplit.MumfordTorsionAlgClosed,
  ZInQ.SemiAbDescend.ChevalleyPerfect]
   axioms: [propext, Classical.choice, Quot.sound]
-#discharges: 39 open hypotheses, 11116 theorems checked, 49 discharge one
+#discharges: 36 open hypotheses, 12078 theorems checked, 28 discharge one
 ```
 <!-- worked-example:end -->
 

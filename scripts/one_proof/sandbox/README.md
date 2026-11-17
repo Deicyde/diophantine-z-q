@@ -12,7 +12,7 @@ A pass says what the reporter printed, not that the file is safe or correct.
 ## What runs where
 
 - **On GitHub's hosted runners**, for every pull request into `main` that touches
-  `ZInQKernel/Contrib/OneProof/`: the whole check, in a fresh virtual machine that is discarded after the job.
+  `ZInQKernel/Contrib/OneProof/`: the whole check, in a fresh virtual machine that is discarded after the job, starting from the newest build of `main` in the Actions cache.
 - **On project machines**: nothing from a pull request. Lean runs code while it elaborates a file: `#eval`,
   `run_cmd`, `initialize`, macros, custom elaborators and tactics all execute during `lake build`, with the
   rights of the user who runs the build. Project machines hold SSH keys, GitHub credentials and network access,
@@ -51,7 +51,7 @@ parent.
    text, so a disagreement with Lean's lexer can add hits but never hide one. An unterminated string, comment,
    escaped identifier or interpolation brace is a hit. Matching uses Lean's identifier characters and errs
    towards false positives. `import Lean` is only a note, since Mathlib re-exports Lean.
-3. **Build**, in its own step, after `lake exe cache get` (Mathlib only; nothing of this project is cached).
+3. **Build**, in its own step, after `lake exe cache get` (Mathlib) and a restore of the newest build of `main` that `.github/workflows/main-build-cache.yml` saved, so only the contribution and what it changes are compiled. The step before the build fails the check if a run of the same pull request saved a build cache of its own.
    `discharge_check.sh build` builds `+ZInQKernel.OneProof.Main`, `+ZInQKernel.OneProof.Discharges` and each
    added module, and stops the build after 270 minutes. The nonce does not exist yet.
 4. **Reporter**, in a separate step. The step makes `DISCHARGE_NONCE` with Python's `secrets` module; only
@@ -75,7 +75,7 @@ parent.
 
 ## Security model
 
-- The job runs on a GitHub-hosted runner: a fresh virtual machine per job, with no access to project machines.
+- The job runs on a GitHub-hosted runner: a fresh virtual machine per job, with no access to project machines. Its only state from earlier runs is the build of `main` restored from the Actions cache, which only pushes to `main` write (`main-build-cache.yml`); a cache saved under the pull request's own ref is refused.
 - The workflow's only permission is `contents: read`, so its `GITHUB_TOKEN` can only read, and checkout runs
   with `persist-credentials: false`, so the token is not left in `.git/config`.
 - The workflow uses no secrets, variables or environments. A pull request from a fork gets no secrets and a
@@ -111,7 +111,7 @@ parent.
   restoring the scripts from `BASE` covers the scripts, not the workflow. Read the pull request's file list
   first.
 - A run uses hosted runner time, and an outside file can make it long. The job limit is 300 minutes, a build
-  stops after 270 and the reporter step after 20; a cold build of the OneProof target on a hosted runner has not been measured yet (see below).
+  stops after 270 and the reporter step after 20; no cold build of the OneProof target has finished on a hosted runner: before the build cache existed, five pull-request runs stopped at the 270-minute limit (see below).
 
 ## Reading the result
 
@@ -133,9 +133,9 @@ hosted runner is known before the check is relied on. It runs `discharge_check.s
 `/usr/bin/time -v` with the 270-minute limit and writes `result.json` with the commit, the build's exit status
 and whether it hit the limit, wall-clock seconds, the Lake job count, peak memory, and `df` and `free` before
 and after. The job summary shows `result.json`, and the artifact holds it with the build log. Add the figure to
-the build-cost table of `docs/one-proof/CONTRIBUTING.md`. If the build does not fit comfortably, seed the base
-commit's oleans only from a trusted build made from the base commit alone on a project machine and checked by
-hash, never from a contributor run or its cache.
+the build-cost table of `docs/one-proof/CONTRIBUTING.md`. The pull request check no longer builds cold: it starts
+from the build of `main` that `main-build-cache.yml` makes after each push to `main` that changes Lean, never from
+a contributor run or its cache.
 
 ## Commands
 

@@ -1,0 +1,37 @@
+quad vs gamma: -2.5712e-22
+real period om1 = 2.622057554292119810464839589891119413683
+periods / lam (should be Gaussian integers generating Z[i]):
+    (4.01456712202e-39 + 4.01456712202e-39j)
+    (1.0 + 8.75605266632e-42j)
+    (1.0 + 8.75605266632e-42j)
+    (4.00838863684e-39 - 4.01714468951e-39j)
+    (-4.0068158424e-39 + 4.02432794774e-39j)
+    (4.01553341254e-39 + 4.01553341254e-39j)
+n = 5, h(-64n) = 8
+   e=1   project sign z=(1-[i])P: 16*P_chi torsion-den=0 coords(P)=(0.18635780658, -0.31364219342) | other sign (1+[i]): torsion-den=1 coords=(-0.5, 1.30552745255e-38)
+   e=5   project sign z=(1-[i])P: 16*P_chi torsion-den=1 coords(P)=(1.30552745255e-38, 0.5) | other sign (1+[i]): torsion-den=0 coords=(0.31364219342, 0.18635780658)
+n = 13, h(-64n) = 8
+   e=1   project sign z=(1-[i])P: 16*P_chi torsion-den=0 coords(P)=(0.0635437205029, -0.436456279497) | other sign (1+[i]): torsion-den=1 coords=(-0.5, 5.29303383679e-39)
+   e=13  project sign z=(1-[i])P: 16*P_chi torsion-den=1 coords(P)=(5.29303383679e-39, 0.5) | other sign (1+[i]): torsion-den=0 coords=(0.436456279497, 0.0635437205029)
+n = 21, h(-64n) = 16
+   e=1   project sign z=(1-[i])P: 16*P_chi torsion-den=0 coords(P)=(-0.144444757097, -0.144444757097) | other sign (1+[i]): torsion-den=1 coords=(-0.5, -0.5)
+   e=3   project sign z=(1-[i])P: 16*P_chi torsion-den=0 coords(P)=(0.203443585376, -0.796556414624) | other sign (1+[i]): torsion-den=1 coords=(-0.5, 0.5)
+   e=7   project sign z=(1-[i])P: 16*P_chi torsion-den=1 coords(P)=(0.5, 0.5) | other sign (1+[i]): torsion-den=0 coords=(0.796556414624, 0.203443585376)
+   e=21  project sign z=(1-[i])P: 16*P_chi torsion-den=1 coords(P)=(-0.5, 0.5) | other sign (1+[i]): torsion-den=0 coords=(0.144444757097, -0.144444757097)
+n = 29, h(-64n) = 24
+   e=1   project sign z=(1-[i])P: 16*P_chi torsion-den=0 coords(P)=(0.251926161021, -0.248073838979) | other sign (1+[i]): torsion-den=1 coords=(-1.0, 0.5)
+   e=29  project sign z=(1-[i])P: 16*P_chi torsion-den=1 coords(P)=(0.5, 1.0) | other sign (1+[i]): torsion-den=0 coords=(0.248073838979, 0.251926161021)
+n = 37, h(-64n) = 8
+   e=1   project sign z=(1-[i])P: 16*P_chi torsion-den=0 coords(P)=(0.00908047220775, -0.490919527792) | other sign (1+[i]): torsion-den=1 coords=(-0.5, -8.57217556032e-39)
+   e=37  project sign z=(1-[i])P: 16*P_chi torsion-den=1 coords(P)=(-8.57217556032e-39, 0.5) | other sign (1+[i]): torsion-den=0 coords=(0.490919527792, 0.00908047220775)
+n = 53, h(-64n) = 24
+   e=1   project sign z=(1-[i])P: 16*P_chi torsion-den=0 coords(P)=(0.343127506292, -0.156872493708) | other sign (1+[i]): torsion-den=1 coords=(-1.0, 0.5)
+   e=53  project sign z=(1-[i])P: 16*P_chi torsion-den=1 coords(P)=(0.5, 1.0) | other sign (1+[i]): torsion-den=0 coords=(0.156872493708, 0.343127506292)
+n = 61, h(-64n) = 24
+   e=1   project sign z=(1-[i])P: 16*P_chi torsion-den=0 coords(P)=(0.304988033431, -0.195011966569) | other sign (1+[i]): torsion-den=1 coords=(-1.29852261041e-38, -0.5)
+   e=61  project sign z=(1-[i])P: 16*P_chi torsion-den=1 coords(P)=(-0.5, 1.29852261041e-38) | other sign (1+[i]): torsion-den=0 coords=(0.195011966569, 0.304988033431)
+n = 85, h(-64n) = 16
+   e=1   project sign z=(1-[i])P: 16*P_chi torsion-den=0 coords(P)=(0.246977194876, -0.753022805124) | other sign (1+[i]): torsion-den=1 coords=(-0.5, -0.5)
+   e=5   project sign z=(1-[i])P: 16*P_chi torsion-den=1 coords(P)=(0.5, 0.5) | other sign (1+[i]): torsion-den=0 coords=(0.245431226321, -0.245431226321)
+   e=17  project sign z=(1-[i])P: 16*P_chi torsion-den=0 coords(P)=(-0.245431226321, -0.245431226321) | other sign (1+[i]): torsion-den=1 coords=(-0.5, 0.5)
+   e=85  project sign z=(1-[i])P: 16*P_chi torsion-den=1 coords(P)=(-0.5, 0.5) | other sign (1+[i]): torsion-den=0 coords=(0.753022805124, 0.246977194876)

@@ -24,7 +24,7 @@ This file
 * §1 proves the divisibility of `ℓ`-power torsion (`T_ℓ A → A(K̄)[ℓⁿ]` onto) from the kernel's
   `PkgI2.TorsionStructure` (itself proved from the bundle leaf `AvSplit.MumfordTorsionAlgClosed`);
 * §2 defines Néron models over a valuation ring `O ⊆ K` (BLR 1.2 Def. 1) and semistable reduction
-  (SGA 7 IX Déf. 3.2 read over `κ̄`), with `HeightSplit.HasSemiAbelianIdentityComponent`;
+  (SGA 7 IX Déf. 3.4 read over `κ̄`), with `HeightSplit.HasSemiAbelianIdentityComponent`;
 * §3 states the published theorems as leaves;
 * §4-§6 prove the rows.
 No `sorry`, no `axiom`.
@@ -190,7 +190,7 @@ def geomSpecialFibre (𝒩 : GroupModelO A O) : Over (Spec (CommRingCat.of (ResB
 
 instance (𝒩 : GroupModelO A O) : GrpObj (geomSpecialFibre 𝒩) := Functor.grpObjObj
 
-/-- **Semistable special fibre** (SGA 7 IX Déf. 2.2/3.1-3.2, UNVERIFIED locators): the identity
+/-- **Semistable special fibre** (SGA 7 IX Déf. 3.4, UNVERIFIED locators): the identity
 component of the geometric special fibre is an extension of an abelian variety by a (split) torus
 (height-split's `HasSemiAbelianIdentityComponent`; over `κ̄` every torus is split). -/
 def GroupModelO.IsSemistable (𝒩 : GroupModelO A O) : Prop :=
@@ -702,7 +702,7 @@ end Transport
 /-! ## §9. The global height-split rows SS1 (`SemistableReductionThm`) and SS3
 (`SemistablePersists`) from the local SGA 7 IX theorems -/
 
-/-- **LEAF `SemistablePersistsDVR` (SGA 7 I, Exp. IX, Prop. 3.3, first assertion; number
+/-- **LEAF `SemistablePersistsDVR` (SGA 7 I, Exp. IX, Cor. 3.3, first assertion; number
 UNVERIFIED).** `O ⊆ K` a discrete valuation ring, `K'/K` a finite extension, `O' ⊆ K'` a discrete
 valuation ring over `O`. If `A` has semistable reduction at `O`, then `A_{K'}` has semistable
 reduction at `O'` (every Néron model of `A_{K'}` over `O'` is semistable). SGA 7 may allow any
@@ -953,7 +953,7 @@ def comapHom {K K' : Type} [Field K] [Field K'] [Algebra K K'] {O : ValuationSub
     have hx : (x : K) ∈ O'.comap (algebraMap K K') := by rw [hO]; exact x.2
     exact hx)
 
-/-- **LEAF `IdentityComponentBaseChangeDVR` (SGA 7 I, Exp. IX, Prop. 3.3, second assertion; number
+/-- **LEAF `IdentityComponentBaseChangeDVR` (SGA 7 I, Exp. IX, Cor. 3.3, second assertion; number
 UNVERIFIED).** `O ⊆ K` a discrete valuation ring, `K'/K` finite, `O' ⊆ K'` a discrete valuation ring
 over `O`, `A` with semistable reduction at `O`, `𝒩`, `𝒩'` the Néron models of `A` over `O` and of
 `A_{K'}` over `O'`. For the identity component `𝒰 = 𝒩⁰` (an open subgroup scheme of `𝒩` with

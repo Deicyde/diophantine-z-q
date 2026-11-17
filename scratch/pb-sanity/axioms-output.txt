@@ -1,0 +1,26 @@
+'HDec.PkgI4.PanBergerSplit.panBerger_definitions_nondegenerate' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.PkgI4.PanBergerSplit.pow_mul_prod_logOf_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.PanBergerSplit.bcrisAut' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.PanBergerSplit.stEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.PanBergerSplit.stAct_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.PanBergerSplit.stAct_mul_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.PanBergerSplit.isPst_quadChar' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.PanBergerSplit.isSemistableOver_of_trivial' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.PanBergerSplit.nonempty_tEps' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.PanBergerSplit.embW_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.PanBergerSplit.linearIndependent_teichB' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.PanBergerSplit.natDegree_minpoly_le_finrank_bstInv' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.PkgI4.PanBergerSplit.pow_mul_prod_logOf_mul_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.PanBergerSplit.exists_stAct_X_ne' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.PanBergerSplit.X_not_mem_bstInv_bot' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.PanBergerSplit.isSemistableOver_of_period' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.PanBergerSplit.isSemistableOver_quadChar_teich' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.PanBergerSplit.logAdditive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.PanBergerSplit.stAut' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PBLogPoly.FM_coeff_dvd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.PanBergerSplit.X_not_mem_bstInv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.PanBergerSplit.quadChar_ne_one' depends on axioms: [propext, Classical.choice, Quot.sound]
