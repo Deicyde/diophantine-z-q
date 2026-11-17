@@ -12,42 +12,56 @@ g on Γ₁(N) with integral Fourier coefficients, prove that the actual
 The original definition, operator, normalization, coefficient map and
 quantifiers remain unchanged.
 
-## New proved fragments
+## Verified mathematical contributions
 
-The three Lean modules in this contribution compile under pinned Lean 4.35.0
-and contain 12 public theorems:
+Six proof modules contain 51 public theorem/lemma declarations, compiled and
+audited with pinned Lean 4.35.0. Their conclusions have different scopes:
 
-- Rationality of every coefficient indexed by m with p not dividing m, at
-  arbitrary nonzero levels, with no diamond-action premise.
-- The complete coefficient conclusion when p is in the identity or negative
-  identity residue class modulo N. The latter uses the actual −I diamond
-  action, with scalar (−1)^k, not a rationality assumption.
-- The complete conclusion at levels N = 1, 2, 3, 4, 6, for every good prime
-  and every input form. The finite unit checks are closed kernel decisions.
+- **Rationality fragments:** all coefficients off multiples of p at every
+  nonzero level; all coefficients for p ≡ ±1 modulo N; and the complete
+  conclusion at N = 1, 2, 3, 4, 6 for every good prime and every input form.
+- **All-level conjugation:** every actual diamond class commutes with complex
+  conjugation and preserves real Fourier coefficients. The actual good-prime
+  Hecke operator preserves real coefficients too. Real is not rational.
+- **Global theta nonvanishing:** Mathlib's actual `jacobiTheta₂` is nonzero at
+  `(aτ+b)/5 + (τ+1)/2` for every τ in the upper half-plane whenever a and b
+  are not both divisible by 5. No product formula or assumed zero set is used.
+- **Sharp level-five coefficient bound:** for every integer k ≥ 0, an actual
+  modular form on Γ₁(5) whose coefficients 0 through k vanish is zero. The
+  proof constructs `f²(⟨2⟩f)²` on Γ₀(5) and uses its index-six Sturm bound.
+  No basis, dimension or rationality premise is supplied. This theorem is
+  on modular forms; applying it to cusp forms requires the standard coercion.
 
-These statements work at every integer weight; in these special cases k ≥ 2
-is not required. Their residue/level restrictions are explicit.
+The rationality fragments and conjugation results work at every integer
+weight; their level/residue/input-field restrictions remain explicit.
 
-**The full all-level target remains OPEN.** A special-case proof is not its
-discharge. Non-sign diamond action still needs an arithmetic rationality
-argument. This group-theoretic limitation is not a claim that every other
-unit acts nonscalarly at every weight or that the other levels are impossible.
+**The full all-level target remains OPEN.** The theta and sharp-bound lemmas
+close two concrete analytic sub-obligations for a level-five construction;
+they do not yet construct the weight-one modular forms, establish their
+coefficient descent, or prove Hecke rationality at level five. They are not
+being counted as a full leaf discharge.
+
+The general non-sign diamond action still needs an arithmetic rationality
+argument. Neither finite unit enumeration nor preservation of real
+coefficients supplies it. No impossibility or universal non-scalarity claim
+is made for other levels or weights.
 
 Do not use `diamondIntegralToRational_of_heckePrime` circularly: that existing
 result derives diamond rationality from the very full Hecke leaf being proved.
-No general Hecke or diamond-preservation premise is hidden in these fragments.
+No general Hecke or diamond-preservation premise is hidden in these proofs.
 
 ## Checks and history
 
-See `CHECKS.md` for actual build commands, the one coercion repair, the finite
-kernel-context repair, and the 12-theorem transitive axiom audit. The audit has
+See `CHECKS.md` for build commands, source hashes, actual compiler repairs and
+literal target checks. The combined 51-declaration transitive axiom audit uses
 only `propext`, `Classical.choice`, and `Quot.sound`, with no `sorryAx`.
-Independent mathematical source review is separate from compiler checking.
+Separate mathematical source reviews checked the final code and its scope.
+These checks are not an independent cold replay of every imported constant.
 
-Only new contribution files are added. Existing source, dependency pins,
-assemblies and published proof history remain untouched. No PR, merge or
-land is claimed by this WIP branch.
+Only contribution additions and additive status updates are made. Existing
+proof source, dependency pins, assemblies and published history are preserved.
+No assumption has been removed from the final single-proof assembly, and no
+PR, merge or land is claimed by this WIP branch.
 
-This contribution is an AI-assisted mathematical proof attempt. Compiled
-fragments, source review and an integrated proof are different evidence grades.
-It does not prove that Z is Diophantine in Q.
+This is an AI-assisted mathematical proof attempt. It does not prove that
+Z is Diophantine in Q.

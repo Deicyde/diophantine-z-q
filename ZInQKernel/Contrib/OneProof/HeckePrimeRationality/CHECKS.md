@@ -86,3 +86,68 @@ rationality of the actual non-sign diamond coefficients on integral-input
 forms without assuming the general diamond/Hecke preservation leaf circularly.
 No hypothesis has been removed from the final single-proof assembly. No PR,
 merge or project-completion claim is made.
+
+## Current analytic checkpoint: 51 public declarations
+
+Three further exact proof modules have now been compiled and independently
+source-reviewed. The earlier 12 theorem bodies and hashes above are unchanged.
+The full all-level rationality leaf is still open.
+
+```sh
+lake --no-cache --no-ansi build +ZInQKernel.Contrib.OneProof.HeckePrimeRationality.RealCoefficients:olean
+lake --no-cache --no-ansi build +ZInQKernel.Contrib.OneProof.HeckePrimeRationality.ThetaFiveNonvanishing:olean
+lake --no-cache --no-ansi build +ZInQKernel.Contrib.OneProof.HeckePrimeRationality.SharpLevelFiveBound:olean
+```
+
+The final parent build and combined 51-declaration axiom audit exited 0.
+The audit enumerates every public theorem/lemma in the six proof modules and
+prints its transitive axioms: all remain within the standard trio, with no
+`sorryAx`. It also proves literal examples using root-qualified Mathlib types
+and the actual theta function, so wrapper aliases cannot weaken the two targets.
+The exact audit script and output are retained in the verification packet.
+
+- `RealCoefficients.lean`: 5363 bytes,
+  `635ee91a2e5f4a029e11ee031b8c3c9961675bd72f532dd733389ed453a910f9`.
+  Five public theorems prove all-level conjugation commutation and real
+  coefficient preservation, not rationality. A beta reduction was needed
+  before the q-expansion rewrite; the statements were unchanged.
+- `ThetaFiveNonvanishing.lean`: 19355 bytes,
+  `01f91286f5ffc718277553c8a199d188b92fab2e5cd697cfb3a9400d9e07ba3e`.
+  Twenty-three public theorem declarations, including the exact global
+  5-torsion nonvanishing target, with no product/zero-set assumption.
+- `SharpLevelFiveBound.lean`: 7720 bytes,
+  `af8523a8748fe1f8b2a69d75b90ff5ecd298ff3f904bb220af562440ccf93d58`.
+  Eleven public lemma/theorem declarations, including truncation injectivity
+  through the weight at level five. No basis/dimension/rationality premise.
+
+For concise independent target checks, use:
+
+```lean
+import ZInQKernel.Contrib.OneProof.HeckePrimeRationality.ThetaFiveNonvanishing
+import ZInQKernel.Contrib.OneProof.HeckePrimeRationality.SharpLevelFiveBound
+
+open UpperHalfPlane CongruenceSubgroup Matrix.SpecialLinearGroup
+open scoped UpperHalfPlane MatrixGroups
+
+example (tau : UpperHalfPlane) (a b : Int) (h : ¬ (5 ∣ a ∧ 5 ∣ b)) :
+    _root_.jacobiTheta₂
+      (((a : Complex) * (tau : Complex) + (b : Complex)) / 5 + ((tau : Complex) + 1) / 2)
+      (tau : Complex) ≠ 0 :=
+  ZInQ.Contrib.HeckePrimeRationality.ThetaFive.jacobiTheta₂_fiveTorsion_ne_zero tau a b h
+
+example (k : Int) (hk : 0 ≤ k)
+    (f : _root_.ModularForm
+      ((CongruenceSubgroup.Gamma1 5).map (Matrix.SpecialLinearGroup.mapGL Real)) k)
+    (h : ∀ n : Nat, n ≤ k.toNat → (_root_.UpperHalfPlane.qExpansion 1 f).coeff n = 0) :
+    f = 0 :=
+  CoeffRational.SharpLevelFiveBound.eq_zero_of_coeff_eq_zero k hk f h
+
+#print axioms ZInQ.Contrib.HeckePrimeRationality.ThetaFive.jacobiTheta₂_fiveTorsion_ne_zero
+#print axioms CoeffRational.SharpLevelFiveBound.eq_zero_of_coeff_eq_zero
+```
+
+The plain-file module-system warnings remain; they are warnings, not errors.
+No source header/body was churned merely to suppress them. Ordinary compiler
+checking and separate source review are not a cold native replay certificate.
+The weight-one forms and their coefficient descent are not supplied by these
+helpers. No assumption in the final single-proof assembly has been discharged.
