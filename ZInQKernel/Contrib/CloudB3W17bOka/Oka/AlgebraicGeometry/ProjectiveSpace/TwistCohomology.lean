@@ -96,6 +96,7 @@ noncomputable def cechSectionsEquiv (k : ℤ) {p : ℕ} (σ : Fin (p + 1) → UL
   (resEquiv (twistingSheaf n R k) (cechOpen_stdCover σ)).trans
     (sectionsUIEquiv _ k (im_nonempty _))
 
+set_option backward.isDefEq.respectTransparency false in
 /-- Under `cechSectionsEquiv`, the restriction `U_{τ ∘ θ} ⊇ U_τ` is the localisation map
 `A[1 / X_{im (τ ∘ θ)}] → A[1 / X_{im τ}]`. -/
 lemma cechSectionsEquiv_res (k : ℤ) {m p : ℕ} (τ : Fin (p + 1) → ULift.{u} (Fin (n + 1)))

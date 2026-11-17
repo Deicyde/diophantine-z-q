@@ -219,6 +219,7 @@ theorem eq_zero_of_exhaustion [Finite ι] (hC : CousinSplitting F) (s : ℕ → 
 
 variable [Fintype ι]
 
+set_option backward.isDefEq.respectTransparency false in
 /-- **`lim¹ 𝒪 = 0`** along an increasing sequence of opens `U n` of `ℂ^ι` such that functions
 holomorphic on `U (n + 1)` are uniform limits on `U n` of functions holomorphic on `⋃ U n`. -/
 theorem limOneVanishesOn_structureSheafAb {U : ℕ → Opens (TopCat.of (ι → ℂ))} (hU : Monotone U)

@@ -51,6 +51,7 @@ noncomputable abbrev complexSpaceStructureSheafAb (ι : Type u) [Fintype ι] :
     TopCat.AbSheaf (TopCat.of (ι → ℂ)) :=
   (complexSpace ι).structureSheafAb
 
+set_option backward.isDefEq.respectTransparency false in
 /-- Sections of the structure sheaf split along Cousin splittings of holomorphic functions. -/
 theorem cousinSplitting_structureSheafAb : CousinSplitting (complexSpaceStructureSheafAb ι) := by
   intro V A B h hsplit s
@@ -67,6 +68,7 @@ theorem cousinSplitting_structureSheafAb : CousinSplitting (complexSpaceStructur
   change (s : OkaRing V).toFun _ ⟨x.1, h x.2⟩ = fA x.1 - -fB x.1
   rw [hx, sub_neg_eq_add]
 
+set_option backward.isDefEq.respectTransparency false in
 /-- `lim¹ 𝒪 = 0` along the standard exhaustion of `(ℂ^×)^P × ℂ^{ι \ P}`. -/
 theorem mittagLefflerExhaustion_structureSheafAb [DecidableEq ι] :
     MittagLefflerExhaustion (complexSpaceStructureSheafAb ι) := by
