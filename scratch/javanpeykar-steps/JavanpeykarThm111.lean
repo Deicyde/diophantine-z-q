@@ -218,4 +218,47 @@ theorem javanpeykarPrintedMap_of_thm111 (hJ : JavanpeykarThm111) :
   exact (hJ (AlgebraicClosure K) (baseChangeCurve X (AlgebraicClosure K)) hproj hg1 W repW htcW x hh
     dB hdB).trans (javanpeykarBound_mono _ hle)
 
+/-! ## §5. (H2), (H3): the height of the leaf is the print's single value -/
+
+section Height
+
+open ZInQ.HeightFix
+
+variable {K : Type} [Field K] {J J' : PkgI3.AbVar K}
+
+/-- The dimension of an abelian variety is invariant under isomorphism. -/
+theorem dim_eq_of_iso (e : J.X ≅ J'.X) : J.dim = J'.dim := by
+  unfold PkgI3.AbVar.dim
+  exact IsHomeomorph.topologicalKrullDim_eq _
+    (Scheme.homeoOfIso ((Over.forget _).mapIso e)).isHomeomorph
+
+/-- **(H2) The printed stable height is invariant under isomorphism of abelian varieties (glue,
+proved).** A group model of `J_L` is one of `J'_L` through `e_L` (javanpeykar-dict's `transport`, same
+scheme over `𝓞_L`), so the Néron property, semistability and the printed metric data carry over. -/
+theorem isPrintedStableHeight_of_iso (e : J.X ≅ J'.X) [IsMonHom e.hom] {x : ℝ}
+    (h : IsPrintedStableHeight J x) : IsPrintedStableHeight J' x := by
+  obtain ⟨L, i1, i2, i3, 𝒩, g, hN, hS, hdim, eta, hetaM, heta0, hsec, r, hr, hx⟩ := h
+  exact ⟨L, i1, i2, i3, transport 𝒩 e, g, isNeronModel_transport 𝒩 e hN, hS,
+    (dim_eq_of_iso e).symm.trans hdim, eta, hetaM, heta0, hsec, r, hr, hx⟩
+
+/-- **(H2) for the leaf's height**: a stable height of `W` over `ℚ̄` is one of every `W' ≅ W`. -/
+theorem isStableHeightBar_of_iso {Qbar : Type} [Field Qbar] {W W' : AbelianVariety Qbar}
+    (e : W ≅ W') {h : ℝ} (hW : IsStableHeightBar W h) : IsStableHeightBar W' h := by
+  obtain ⟨L, i1, i2, i3, V, ⟨f⟩, hV⟩ := hW
+  exact ⟨L, i1, i2, i3, V, ⟨f ≪≫ e⟩, hV⟩
+
+/-- **(H3) The printed stable height has one value** (given T35, Stacks 04KV, N1 and SS2): two witnesses
+of `IsPrintedStableHeight A` coincide, since both are kernel stable heights
+(`ZInQ.HeightFix.isStableFaltingsHeight_of_printed`) and the published stable height does not depend on
+the field of semistable reduction (`ZInQ.HeightSplit.isStableFaltingsHeight_unique`). So the leaf's
+`∀ x, IsPrintedStableHeight (ofVendored V) x → …` asserts the bound for the print's single value only. -/
+theorem isPrintedStableHeight_unique (hT35 : ZInQ.LeafPush2.UniformizationExists)
+    (hGC : AVGlue.GeomConnOfRationalPoint) (hN1 : ZInQ.H5Neron.NeronModelExists)
+    (hSS2 : ZInQ.HeightSplit.SemistableNeronBaseChange) [NumberField K] {A : PkgI3.AbVar K} {x y : ℝ}
+    (hx : IsPrintedStableHeight A x) (hy : IsPrintedStableHeight A y) : x = y :=
+  ZInQ.HeightSplit.isStableFaltingsHeight_unique hN1 hSS2
+    (isStableFaltingsHeight_of_printed hT35 hGC hx) (isStableFaltingsHeight_of_printed hT35 hGC hy)
+
+end Height
+
 end JavanpeykarSteps
