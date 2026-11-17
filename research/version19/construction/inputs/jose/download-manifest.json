@@ -1,0 +1,155 @@
+{
+  "commit": "cd474ee67104586c9d71885a7c95e8a21f12ca0c",
+  "files": [
+    {
+      "path": "computation/quartic/affine_laurent195_v45/construction-report.json",
+      "bytes": 1129,
+      "sha256": "3be073bec4b916dd4830253754a9e63e7e284baab2c178a253dbbbd46f397e1a"
+    },
+    {
+      "path": "computation/quartic/affine_laurent195_v45/independent-verification.json",
+      "bytes": 18737,
+      "sha256": "cf9ae1c82322237332f93cdc5323015bc2b0db8eba5bea15a556db83fa1b7486"
+    },
+    {
+      "path": "computation/quartic/affine_laurent195_v45/polynomial-family.json",
+      "bytes": 455626,
+      "sha256": "99d3844d334a16502053bef55e4f6e0a4e3e08daa786737f22aa09c619069084"
+    },
+    {
+      "path": "computation/quartic/affine_laurent195_v45/quadratic-family.json",
+      "bytes": 186004,
+      "sha256": "304f94843c1a4ac94fcd5f1295fee8b532e7f0424e638314d892c556e2fbfdf9"
+    },
+    {
+      "path": "computation/quartic/affine_laurent195_v45/transformation.json",
+      "bytes": 64892,
+      "sha256": "5ac9fdcb6becd504d5e698373f52a5bddc99afe9c93614705b07efd3ff4f4e2f"
+    },
+    {
+      "path": "computation/quartic/affine_laurent257_v45/construction-report.json",
+      "bytes": 1235,
+      "sha256": "ccb343232c13ba5c7d430d0078ca1beab92bf83bfd95d3882a3debd83463672c"
+    },
+    {
+      "path": "computation/quartic/affine_laurent257_v45/independent-verification.json",
+      "bytes": 24562,
+      "sha256": "edef325cf05c45770e7bf3ca94861b87e2bad31ab5f584609831ddc91feb634b"
+    },
+    {
+      "path": "computation/quartic/affine_laurent257_v45/polynomial-family.json",
+      "bytes": 575022,
+      "sha256": "e20b497a105b61ca7644ec349afecceddf00e8191d9854aba75f84f682158bd9"
+    },
+    {
+      "path": "computation/quartic/affine_laurent257_v45/quadratic-family.json",
+      "bytes": 238043,
+      "sha256": "c77c4951e0298cd3c3eabf3a9fa0deb1ff9dcfe216568962c803e5fadb1c2040"
+    },
+    {
+      "path": "computation/quartic/affine_laurent257_v45/transformation.json",
+      "bytes": 84534,
+      "sha256": "9527fbd4e621aac193a21074f23c0f59cd7de719688d8b4624886e4468d7e385"
+    },
+    {
+      "path": "computation/quartic/laurent_recovery_v38/family196/balanced-quadratic.json",
+      "bytes": 180354,
+      "sha256": "5b86e26d395e60360ecd1210dd87819b3f57b60e3585db7ad7deff0d677a593c"
+    },
+    {
+      "path": "computation/quartic/laurent_recovery_v38/family196/quadratic.json",
+      "bytes": 180374,
+      "sha256": "3b6ab20da25bced159559c35e512e2bb2e56959b734b4265c8f80a7bd9cdb1c1"
+    },
+    {
+      "path": "computation/quartic/laurent_recovery_v38/family258/balanced-quadratic.json",
+      "bytes": 236142,
+      "sha256": "ad8204d383210613590b3daa8031dc43113d50b0d26e84d067971cac5f37fe4c"
+    },
+    {
+      "path": "computation/quartic/laurent_recovery_v38/family258/quadratic.json",
+      "bytes": 237355,
+      "sha256": "97f980d6f970210c483fb8c65d0f91da86f2a41ee9c25e228c057b106c907ddd"
+    },
+    {
+      "path": "papers/quartic/quartic195_20261116_v45.tex",
+      "bytes": 10093,
+      "sha256": "ced8683918d265d6fd4d3bb9157b1178013a6beab6a90f5c2f848076d05fa2c7"
+    },
+    {
+      "path": "papers/quartic/quartic196_redundancy_20261115_v40.tex",
+      "bytes": 7914,
+      "sha256": "475c3b28e24938f2aa59e3fa1ff517be21985947ad9ff8433d4317ab53eecf98"
+    },
+    {
+      "path": "papers/quartic/quartic257_20261116_v45.tex",
+      "bytes": 9542,
+      "sha256": "a5db95122fbdd14a4dfffc16151acfb06a6e21e863d69e3f319f83a91e237221"
+    },
+    {
+      "path": "papers/quartic/primitive_quadratic_bases_20261115_v40.tex",
+      "bytes": 13138,
+      "sha256": "52d4afde0ecfb798a80d772d3b4029f309c544a91c812567c76f4891071f6f9a"
+    },
+    {
+      "path": "papers/elliptic_charts/paired_ratio_redundancy_20261115_v40.tex",
+      "bytes": 13769,
+      "sha256": "91aeecbc966927c60dbdabb3c6f79a19a84215743cf56228f36771019cb227df"
+    },
+    {
+      "path": "papers/elliptic_charts/compressed_reference_20261114_v27.tex",
+      "bytes": 10069,
+      "sha256": "3206276ca6f556bcf2d645467518f5420209948a1de124c9455aa8335f07887c"
+    },
+    {
+      "path": "computation/quartic/primitive_basis196_v40/quadratic.json",
+      "bytes": 187352,
+      "sha256": "381ea54e77505a8d9b452b2afab42bd052beb0fb4dbd0804f63f2f609efbb275"
+    },
+    {
+      "path": "computation/quartic/primitive_basis196_v40/transform.json",
+      "bytes": 2397,
+      "sha256": "680f3e346dc168de563d82e60ed5b858b1100c7e44719e46eaf7c24966e022ac"
+    },
+    {
+      "path": "computation/quartic/primitive_basis196_v40/normalizations.json",
+      "bytes": 1235,
+      "sha256": "f3b6c4c789ae7d6d9c3164b74eebb21a8eb11171630b959d847fd8e2b24c1c51"
+    },
+    {
+      "path": "computation/quartic/paired_redundancy196_v40/quadratic.json",
+      "bytes": 178178,
+      "sha256": "39c7e70c745fd6762e1dca9d595a1abcd3af6a9ac737e2b353dddb45dacad9c1"
+    },
+    {
+      "path": "computation/quartic/paired_redundancy196_v40/balanced-quadratic.json",
+      "bytes": 178157,
+      "sha256": "36dc9ae7dcc7cadd81bdfcd2145e0366f7acd4a0a14b2e9d7173c05e228fe4ab"
+    },
+    {
+      "path": "computation/quartic/paired_redundancy196_v40/certificate.json",
+      "bytes": 1195,
+      "sha256": "fdf85d0c1eb2ba034a3b7ce0565a08aba1814ffe1b41832954ea79545364ccb6"
+    },
+    {
+      "path": "papers/quartic/laurent_elimination_20261115_v38.tex",
+      "bytes": 19408,
+      "sha256": "5ba965e483472b3ea6c74b31098b055525e0e86c8e317eff1ee42cfcfd8efdda"
+    },
+    {
+      "path": "papers/quartic/explicit260_20261114_v27.tex",
+      "bytes": 8600,
+      "sha256": "87a61169969206a4f3de2392c0711af8c9dbc4e2ed42e54b69bd65b7437479e6"
+    },
+    {
+      "path": "computation/quartic/laurent_recovery_v38/family196/balancing.json",
+      "bytes": 19230,
+      "sha256": "0700615a7c66a5ee3ebe519b010676a398d6051c37e4b30255c69173b3328537"
+    },
+    {
+      "path": "computation/quartic/laurent_recovery_v38/family258/balancing.json",
+      "bytes": 27114,
+      "sha256": "ed43917252f3eeb579deeb71093e28432b0cd47678fb6b7a7df1ab7f11ee9976"
+    }
+  ]
+}

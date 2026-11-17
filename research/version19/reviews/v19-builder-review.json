@@ -1,0 +1,49 @@
+{
+  "schema": "record-manuscript-policy-review/v1",
+  "decision": "accepted_within_scope",
+  "reviewer": "Claude Fable 5.2, in Elliot Glazer's Claude Code session (local review, not the Protocol B gate reviewer)",
+  "author_of_policy_or_implementation": false,
+  "reviewed_at": "2026-11-17T03:45:00+00:00",
+  "reviewed_root": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\version19-release-20261116\\repo",
+  "request": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\version19-release-20261116\\BUILDER-REVIEW-REQUEST.json",
+  "files": [
+    {"path": "scripts/build_paper.py", "sha256": "f62e565f8543b7ff44a66d3cac6aa47189d1f8d7802e169ed4f9f3864bf4f86f", "bytes": 9646},
+    {"path": "scripts/check_current_manuscript.py", "sha256": "ebc45e56fce617602002e9232d215e4f988f23fd4e6b10dd42bcea5e166e0dfe", "bytes": 5642},
+    {"path": "docs/current-manuscript.json", "sha256": "42ea0147de56ad3a7da45e4b7239a8d6a59d3fe6fad09bc6277a751d98279213", "bytes": 517},
+    {"path": "docs/audit-history/current.json", "sha256": "2b0dd7653076633f53c1e32b43dd4c11a664b5ace5b5685ff6afc30ed4b82ca4", "bytes": 372544},
+    {"path": "manuscripts/quartic_v19.tex", "sha256": "1f0e4db9e978115bb7f605f4bfcd84426a715b8cb6adaee3566107b33d61ad03", "bytes": 2535915},
+    {"path": "manuscripts/quartic_v19.pdf", "sha256": "cc1adfb0107661e001593cbfeae57e0221d6cfb8bc8f48a5e0be213144844172", "bytes": 5088828},
+    {"path": "research/version19/BUILD.json", "sha256": "08ef0de65548bdb230f6a995e1894f918bf6c36d4c116e50d2df57d9a9de2e35", "bytes": 215199},
+    {"path": "research/version18/build_pdf.py", "sha256": "5afbf7050dd8b5ea45546560fc5e4f20b415c5c66c580e128fa93f8a349edf41", "bytes": 17800},
+    {"path": "manuscripts/quartic_v16.tex", "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74", "bytes": 1926498},
+    {"path": "manuscripts/quartic_v16.pdf", "sha256": "5634295d85bdfd2aef476ad49827b160f119e94996e1f644c3b05a96eabf6315", "bytes": 2732163},
+    {"path": "manuscripts/quartic_v17.tex", "sha256": "f6bf186008d33270dadbba6bd490f22116c66168975c3f84ad5bc6f281726e12", "bytes": 2338864},
+    {"path": "manuscripts/quartic_v17.pdf", "sha256": "20ee7ebabdbba1e15406af72d31854206beaaa257e1c52fca2abd113243ea7ea", "bytes": 3916929},
+    {"path": "manuscripts/quartic_v18.tex", "sha256": "0cb9c70baed00d736c88636243c4da96c38ce4f96090d029d0020ce459435a29", "bytes": 2324626},
+    {"path": "manuscripts/quartic_v18.pdf", "sha256": "e6fb5b6a7c5d3340db2c3b1f14e78fbb9c357f11544584c6a96ae2abc2c0579d", "bytes": 4849204}
+  ],
+  "scope": "Build selection and recorded source/PDF/build correspondence for this exact Version 19 candidate, and byte preservation of the six released Version 16, 17 and 18 manuscript files in this checkout. No whole-proof or protected gate acceptance of Version 19 is given or implied by this record.",
+  "checks": [
+    "Hashed all fourteen files in the reviewed root: every hash and byte count equals the request.",
+    "Builders: scripts/build_paper.py and research/version18/build_pdf.py are the same bytes as in my Version 18 record of 2026-11-16. In this checkout, `git diff HEAD -- scripts research/version18` is empty at HEAD 5c7ad797, which is origin/main, so all builder and selector scripts are main's.",
+    "Ran scripts/check_current_manuscript.py in the reviewed root: exit status 0. docs/current-manuscript.json declares version 19 with the tex, pdf and build-record hashes listed above and no extra TeX inputs.",
+    "research/version19/BUILD.json: manuscript_version 19, status success, source_sha256 1f0e4db9..., pdf_sha256 cc1adfb0..., pdf_bytes 5088828, builder_sha256 equal to build_pdf.py, three serial passes each with return code 0, tex_errors 0, unresolved_references 0, auxiliary_stable true, PDF metadata 759 pages and title 'Z is Diophantine in Q, Version 19'.",
+    "PDF, with pdfinfo and pdftotext: 759 pages; title 'Z is Diophantine in Q, Version 19'; the extracted text contains no '??', no 'working draft', no '437 921' and no '100 KB'; the abstract sentence 'Written out in plain algebraic notation with every coefficient in decimal, it is 85 737 bytes of text.' occurs once.",
+    "First page: its extracted text equals that of the owner's reference first page (Documents\\v19-progress-summary\\v19-first-page.pdf) except for three page numbers in the table of contents.",
+    "Released files: the six Version 16, 17 and 18 manuscript files hash, as working-tree files, to the Git blobs at origin/main 5c7ad797 and to the values above.",
+    "Source delta: the reviewed source differs from the draft whose mathematics, typeset sections and printed tables I reviewed (SHA256 388eb3e8...) by the title line, the PDF title metadata, the one abstract sentence, and seven exposition edits. I read the complete diff from the intermediate file ba62240a... (the draft with only the title and abstract changes) to this source: (1) definition of 'formal' with v(x) = -2a, v(y) = -3a; (2) definition of M_5(u) through the five integer forms and its comparison with M_S; (3) the monotone substitution M_S <= B_* M_5 with the two product inequalities; (4) the exponent written as 237 + 2*109445 + 18 + 13 = 219158; (5) the sentence on the coefficient C; (6) the domain check for u = 2 + 1/t and u' = 2 + 1/(2-t), the row sums 3 and 7, the five forms a, 2a+b, a+b, b-2399a, 407a+32b and the conclusion M_5(u) = E_2^epsilon M_+; (7) kappa_i and e_i in place of c_i and c_i' in the coordinate maps. I rechecked each added formula by hand and found no error. No other line differs."
+  ],
+  "observations": [
+    "The exposition edits may shift page numbers; three table-of-contents entries on the first page differ by one from the owner's reference page.",
+    "The abstract no longer mentions a size limit, as the owner directed; the limit is proposed as repository policy in draft PR 145.",
+    "Carbon reported (relay 2026-11-16 19:20) an independent exact check of the printed 195 transformation data and of the height formula for every N >= 1 on the pre-edit source; those sections are untouched by the seven edits.",
+    "docs/current-manuscript.json and research/version19/BUILD.json must be committed byte for byte."
+  ],
+  "limitations": [
+    "I did not run pdfLaTeX or any build.",
+    "I did not check docs/audit-history/builder-binding.json or its self-test, nor the Version 19 release manifest, handoff files or the modified README, CREDITS, CITATION, PROJECT and workflow files in this checkout.",
+    "The candidate was not yet committed or pushed when reviewed; this record applies to these bytes only.",
+    "My earlier reviews of the Version 19 mathematics, typeset sections and printed tables were of the pre-edit draft and are recorded separately; this record does not restate or extend them.",
+    "This is reviewer-authored evidence from a local session. It is not model authentication and not protected App acceptance."
+  ]
+}

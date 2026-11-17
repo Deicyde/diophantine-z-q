@@ -37,3 +37,23 @@ Manual runs on the default branch and tag pushes perform an explicitly labeled c
 ## The explicit-polynomial record
 
 A pull request may claim the explicit-polynomial record only for a new record justified under this policy whose polynomial, written out in plain algebraic notation, is under 100,000 bytes. The notation, the measuring program and the exact rule are in [docs/explicit-record](explicit-record/README.md). The size limit is a repository convention and is not stated in the manuscript.
+
+## Corrections to released versions
+
+A released version is never edited. Its TeX, PDF and data keep their original bytes. A correction is recorded, and enters the manuscript in a later version.
+
+Every correction is classed by what it affects:
+
+| Class | What it concerns | Recorded at once | Manuscript |
+| --- | --- | --- | --- |
+| A | A stated result is wrong, or its proof has a gap | Dated notice on the release page and in the README | New version as soon as a repair has been reviewed |
+| B | Credit or attribution | Dated notice on the release page; README and CREDITS corrected | Corrected in the next version |
+| C | Wording, typography, navigation | Backlog entry only | Corrected in the next version, or deferred with a reason |
+
+The backlog is [issue 129](https://github.com/elliotglazer/diophantine-z-q/issues/129). The review gate appends nonblocking reviewer notes to it automatically. Anyone may add an entry by hand; an entry names the version, the location, the class, and what should change. Notes about gate code or repository tooling are tracked separately from notes about the manuscript.
+
+Each release page carries a "Known corrections" section listing the class A and class B entries for that version, with links. A reader of a released PDF can find there what is known to be wrong with it.
+
+The pull request for a new version lists every open backlog entry against the preceding version and marks each one corrected or deferred, with a reason for each deferral. Review of that pull request checks that the list is complete.
+
+A version containing only corrections is published when a class A entry exists, or when the owner decides the accumulated class B and class C entries justify one. Otherwise corrections are made in the next version published for mathematical reasons. Any such version takes the next integer, as above.

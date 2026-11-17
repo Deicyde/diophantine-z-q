@@ -1,0 +1,2845 @@
+{
+  "name": "family244_unbalanced",
+  "source": "family244/family247-intermediate-quadratic.json",
+  "source_sha256": "c25cf39405fced582502f95e703963187bfa907d2dc502c85558044fb100ecfe",
+  "base_units": [
+    "w0",
+    "w1",
+    "w2"
+  ],
+  "powers": {
+    "79": [
+      -1,
+      0,
+      0
+    ],
+    "80": [
+      1,
+      0,
+      0
+    ],
+    "81": [
+      2,
+      0,
+      0
+    ],
+    "82": [
+      4,
+      0,
+      0
+    ],
+    "94": [
+      0,
+      -1,
+      0
+    ],
+    "95": [
+      0,
+      1,
+      0
+    ],
+    "96": [
+      0,
+      2,
+      0
+    ],
+    "97": [
+      0,
+      4,
+      0
+    ],
+    "221": [
+      0,
+      0,
+      -1
+    ],
+    "222": [
+      0,
+      0,
+      1
+    ],
+    "223": [
+      0,
+      0,
+      2
+    ],
+    "224": [
+      0,
+      0,
+      4
+    ]
+  },
+  "weights": {
+    "6": [
+      -1,
+      0,
+      0
+    ],
+    "7": [
+      1,
+      0,
+      0
+    ],
+    "10": [
+      0,
+      -1,
+      0
+    ],
+    "11": [
+      0,
+      1,
+      0
+    ],
+    "83": [
+      -2,
+      0,
+      0
+    ],
+    "84": [
+      -2,
+      0,
+      0
+    ],
+    "85": [
+      -2,
+      0,
+      0
+    ],
+    "86": [
+      -2,
+      0,
+      0
+    ],
+    "87": [
+      2,
+      0,
+      0
+    ],
+    "88": [
+      -1,
+      0,
+      0
+    ],
+    "98": [
+      0,
+      -2,
+      0
+    ],
+    "99": [
+      0,
+      -2,
+      0
+    ],
+    "100": [
+      0,
+      -2,
+      0
+    ],
+    "101": [
+      0,
+      -2,
+      0
+    ],
+    "102": [
+      0,
+      2,
+      0
+    ],
+    "103": [
+      0,
+      -1,
+      0
+    ],
+    "123": [
+      -2,
+      0,
+      0
+    ],
+    "124": [
+      -2,
+      0,
+      0
+    ],
+    "125": [
+      -2,
+      0,
+      0
+    ],
+    "126": [
+      -2,
+      0,
+      0
+    ],
+    "127": [
+      -2,
+      0,
+      0
+    ],
+    "128": [
+      -2,
+      0,
+      0
+    ],
+    "129": [
+      -2,
+      0,
+      0
+    ],
+    "130": [
+      -2,
+      0,
+      0
+    ],
+    "131": [
+      -2,
+      0,
+      0
+    ],
+    "132": [
+      -2,
+      0,
+      0
+    ],
+    "133": [
+      -2,
+      0,
+      0
+    ],
+    "134": [
+      -2,
+      0,
+      0
+    ],
+    "135": [
+      -2,
+      0,
+      0
+    ],
+    "136": [
+      -2,
+      0,
+      0
+    ],
+    "137": [
+      -2,
+      0,
+      0
+    ],
+    "138": [
+      -2,
+      0,
+      0
+    ],
+    "139": [
+      0,
+      -2,
+      0
+    ],
+    "140": [
+      0,
+      -2,
+      0
+    ],
+    "141": [
+      0,
+      -2,
+      0
+    ],
+    "142": [
+      0,
+      -2,
+      0
+    ],
+    "143": [
+      0,
+      -2,
+      0
+    ],
+    "144": [
+      0,
+      -2,
+      0
+    ],
+    "145": [
+      0,
+      -2,
+      0
+    ],
+    "146": [
+      0,
+      -2,
+      0
+    ],
+    "147": [
+      0,
+      -2,
+      0
+    ],
+    "148": [
+      0,
+      -2,
+      0
+    ],
+    "149": [
+      0,
+      -2,
+      0
+    ],
+    "150": [
+      0,
+      -2,
+      0
+    ],
+    "151": [
+      0,
+      -2,
+      0
+    ],
+    "152": [
+      0,
+      -2,
+      0
+    ],
+    "153": [
+      0,
+      -2,
+      0
+    ],
+    "154": [
+      0,
+      -2,
+      0
+    ],
+    "214": [
+      0,
+      0,
+      -1
+    ],
+    "215": [
+      0,
+      0,
+      1
+    ],
+    "225": [
+      0,
+      0,
+      -2
+    ],
+    "226": [
+      0,
+      0,
+      -2
+    ],
+    "227": [
+      0,
+      0,
+      -2
+    ],
+    "228": [
+      0,
+      0,
+      -2
+    ],
+    "229": [
+      0,
+      0,
+      2
+    ],
+    "230": [
+      0,
+      0,
+      -1
+    ],
+    "232": [
+      0,
+      0,
+      -2
+    ],
+    "233": [
+      0,
+      0,
+      -2
+    ],
+    "234": [
+      0,
+      0,
+      -2
+    ],
+    "235": [
+      0,
+      0,
+      -2
+    ],
+    "236": [
+      0,
+      0,
+      -2
+    ],
+    "237": [
+      0,
+      0,
+      -2
+    ],
+    "238": [
+      0,
+      0,
+      -2
+    ],
+    "239": [
+      0,
+      0,
+      -2
+    ],
+    "240": [
+      0,
+      0,
+      -2
+    ],
+    "241": [
+      0,
+      0,
+      -2
+    ],
+    "242": [
+      0,
+      0,
+      -2
+    ],
+    "243": [
+      0,
+      0,
+      -2
+    ],
+    "244": [
+      0,
+      0,
+      -2
+    ],
+    "245": [
+      0,
+      0,
+      -2
+    ],
+    "246": [
+      0,
+      0,
+      -2
+    ],
+    "247": [
+      0,
+      0,
+      -2
+    ]
+  },
+  "constants": {
+    "109": "1/981949949521011646279509932288013517604094669913140033589964224332595426527668691070368153600000000000000",
+    "110": "-1/80990493410131000784375977023646274345820490095244015289194989569855772668241364832628280392076492800000000000000",
+    "13": "-80990493410131000784375977023646274345820490095244015289194989569855772668241364832628280392076492800000000000000",
+    "14": "80990493410131000784375977023646274345820490095244015289194989569855772668241364832628280392076492800000000000000",
+    "15": "80990493410131000784375977023646274345820490095244015289194989569855772668241364832628280392076492800000000000000",
+    "16": "80990493410131000784375977023646274345820490095244015289194989569855772668241364832628280392076492800000000000000",
+    "111": "6559460022816473064427431957397377114378321583881934439033037886520117807677801471184467109634922174526973579361857075453357674477590916881449625540738742001395656814037190682710210716744206348451840000000000000000000000000000",
+    "113": "6559460022816473064427431957397377114378321583881934439033037886520117807677801471184467109634922174526973579361857075453357674477590916881449625540738742001395656814037190682710210716744206348451840000000000000000000000000000",
+    "112": "-1"
+  },
+  "constant_scale_H": "981949949521011646279509932288013517604094669913140033589964224332595426527668691070368153600000000000000",
+  "constant_scale_K": "80990493410131000784375977023646274345820490095244015289194989569855772668241364832628280392076492800000000000000",
+  "deleted_coordinates": [
+    82,
+    97,
+    224
+  ],
+  "deleted_rows": [
+    "detector0.inverseWeightFourthPower.definition",
+    "detector1.inverseWeightFourthPower.definition",
+    "detector2.inverseWeightFourthPower.definition"
+  ],
+  "guard_rows": [
+    "detector0.inverseWeight.definition",
+    "detector0.inverseWeightSquared.definition",
+    "detector1.inverseWeight.definition",
+    "detector1.inverseWeightSquared.definition",
+    "detector2.inverseWeight.definition",
+    "detector2.inverseWeightSquared.definition"
+  ],
+  "retained_nonzero_proof": "For each j in {0,1,2}, the literal retained guard row q_j * w_j = 1 forces w_j != 0 on both source and target varieties, and w_{j,2} = w_j^2 is retained literally.",
+  "target_sha256": "dad70be3864cbfb52d5c1fb7239cecb17296c65ebd80735218c5db94b9e3e6f7",
+  "row_certificates": [
+    {
+      "source_row": 1,
+      "target_row": 1,
+      "name": "inputSquare.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 2,
+      "target_row": 2,
+      "name": "Lucas.C.0.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 3,
+      "target_row": 3,
+      "name": "Lucas.C.1.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 4,
+      "target_row": 4,
+      "name": "Lucas.AT.0.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 5,
+      "target_row": 5,
+      "name": "Lucas.AT.1.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 6,
+      "target_row": 6,
+      "name": "Lucas.F0.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 7,
+      "target_row": 7,
+      "name": "Lucas.F1.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 8,
+      "target_row": 8,
+      "name": "testSquare.12.0.0.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 9,
+      "target_row": 9,
+      "name": "testSquare.12.0.1.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 10,
+      "target_row": 10,
+      "name": "testSquare.12.1.0.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 11,
+      "target_row": 11,
+      "name": "testSquare.12.1.1.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 12,
+      "target_row": 12,
+      "name": "testSquare.40.0.0.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 13,
+      "target_row": 13,
+      "name": "testSquare.40.0.1.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 14,
+      "target_row": 14,
+      "name": "testSquare.40.1.0.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 15,
+      "target_row": 15,
+      "name": "testSquare.40.1.1.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 16,
+      "target_row": 16,
+      "name": "testSquare.40.2.0.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 17,
+      "target_row": 17,
+      "name": "testSquare.40.2.1.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 18,
+      "target_row": 18,
+      "name": "testSquare.40.3.0.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 19,
+      "target_row": 19,
+      "name": "testSquare.40.3.1.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 20,
+      "target_row": 20,
+      "name": "testSquare.40.4.0.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 21,
+      "target_row": 21,
+      "name": "testSquare.40.4.1.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 22,
+      "target_row": 22,
+      "name": "additive.detector0.contactSquare",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 23,
+      "target_row": 23,
+      "name": "additive.detector0.contactFourthPower",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 24,
+      "target_row": 24,
+      "name": "additive.detector0.contactCombination",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 25,
+      "target_row": 25,
+      "name": "additive.detector0.contactRelation",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 26,
+      "target_row": 26,
+      "name": "detector0.inverseWeight.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 27,
+      "target_row": 27,
+      "name": "detector0.inverseWeightSquared.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 28,
+      "target_row": 28,
+      "name": "detector0.normOver2w0.definition",
+      "division_exponents": [
+        -4,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 29,
+      "target_row": 29,
+      "name": "balanced.detector0.poleInput.definition",
+      "division_exponents": [
+        -4,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 30,
+      "target_row": 30,
+      "name": "detector0.p2.definition",
+      "division_exponents": [
+        2,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 31,
+      "target_row": 31,
+      "name": "detector0.firstConic",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 32,
+      "target_row": 32,
+      "name": "detector0.Bh.definition",
+      "division_exponents": [
+        -2,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 33,
+      "target_row": 33,
+      "name": "detector0.q2.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 34,
+      "target_row": 34,
+      "name": "detector0.secondConic",
+      "division_exponents": [
+        -2,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 35,
+      "target_row": 35,
+      "name": "additive.detector1.contactSquare",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 36,
+      "target_row": 36,
+      "name": "additive.detector1.contactFourthPower",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 37,
+      "target_row": 37,
+      "name": "additive.detector1.contactCombination",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 38,
+      "target_row": 38,
+      "name": "additive.detector1.contactRelation",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 39,
+      "target_row": 39,
+      "name": "detector1.inverseWeight.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 40,
+      "target_row": 40,
+      "name": "detector1.inverseWeightSquared.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 41,
+      "target_row": 41,
+      "name": "detector1.normOver2w0.definition",
+      "division_exponents": [
+        0,
+        -4,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 42,
+      "target_row": 42,
+      "name": "balanced.detector1.poleInput.definition",
+      "division_exponents": [
+        0,
+        -4,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 43,
+      "target_row": 43,
+      "name": "detector1.p2.definition",
+      "division_exponents": [
+        0,
+        2,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 44,
+      "target_row": 44,
+      "name": "detector1.firstConic",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 45,
+      "target_row": 45,
+      "name": "detector1.Bh.definition",
+      "division_exponents": [
+        0,
+        -2,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 46,
+      "target_row": 46,
+      "name": "detector1.q2.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 47,
+      "target_row": 47,
+      "name": "detector1.secondConic",
+      "division_exponents": [
+        0,
+        -2,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 48,
+      "target_row": 48,
+      "name": "scalar.rPair1.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 49,
+      "target_row": 49,
+      "name": "scalar.four_contact_product.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 50,
+      "target_row": 50,
+      "name": "scalar.W2.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 51,
+      "target_row": 51,
+      "name": "scalar.b.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "981949949521011646279509932288013517604094669913140033589964224332595426527668691070368153600000000000000"
+    },
+    {
+      "source_row": 52,
+      "target_row": 52,
+      "name": "scalar.p2.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1/6559460022816473064427431957397377114378321583881934439033037886520117807677801471184467109634922174526973579361857075453357674477590916881449625540738742001395656814037190682710210716744206348451840000000000000000000000000000"
+    },
+    {
+      "source_row": 53,
+      "target_row": 53,
+      "name": "scalar.firstConic",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1/2186486674272157688142477319132459038126107194627311479677679295506705935892600490394822369878307391508991193120619025151119224825863638960483208513579580667131885604679063560903403572248068782817280000000000000000000000000000"
+    },
+    {
+      "source_row": 54,
+      "target_row": 54,
+      "name": "scalar.Bh.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "-1/80990493410131000784375977023646274345820490095244015289194989569855772668241364832628280392076492800000000000000"
+    },
+    {
+      "source_row": 55,
+      "target_row": 55,
+      "name": "scalar.q2.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1/6559460022816473064427431957397377114378321583881934439033037886520117807677801471184467109634922174526973579361857075453357674477590916881449625540738742001395656814037190682710210716744206348451840000000000000000000000000000"
+    },
+    {
+      "source_row": 56,
+      "target_row": 56,
+      "name": "scalar.secondConic",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1/6559460022816473064427431957397377114378321583881934439033037886520117807677801471184467109634922174526973579361857075453357674477590916881449625540738742001395656814037190682710210716744206348451840000000000000000000000000000"
+    },
+    {
+      "source_row": 57,
+      "target_row": 57,
+      "name": "parity_scalar.reduced_scalar.root.power4",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 60,
+      "target_row": 58,
+      "name": "scalar.r_power_2.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 61,
+      "target_row": 59,
+      "name": "scalar.ratio1_unscaled_square.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 62,
+      "target_row": 60,
+      "name": "parity_scalar.scalar.ratio_node.consolidated_denominator.power4",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 63,
+      "target_row": 61,
+      "name": "scalar.forced_prime.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 64,
+      "target_row": 62,
+      "name": "amplified.C1.power4.0.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 65,
+      "target_row": 63,
+      "name": "amplified.C1.power4.1.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 66,
+      "target_row": 64,
+      "name": "residue.I.power4.0.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 67,
+      "target_row": 65,
+      "name": "residue.I.power4.1.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 68,
+      "target_row": 66,
+      "name": "residue.det0.factor0.0.reciprocal.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 69,
+      "target_row": 67,
+      "name": "residue.det0.factor0.1.reciprocal.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 70,
+      "target_row": 68,
+      "name": "residue.det0.factor1.0.reciprocal.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 71,
+      "target_row": 69,
+      "name": "residue.det0.factor1.1.reciprocal.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 72,
+      "target_row": 70,
+      "name": "residue.det0.factor2.0.reciprocal.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 73,
+      "target_row": 71,
+      "name": "residue.det0.factor2.1.reciprocal.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 74,
+      "target_row": 72,
+      "name": "residue.det0.factor3.0.reciprocal.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 75,
+      "target_row": 73,
+      "name": "residue.det0.factor3.1.reciprocal.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 76,
+      "target_row": 74,
+      "name": "residue.det0.factor4.0.reciprocal.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 77,
+      "target_row": 75,
+      "name": "residue.det0.factor4.1.reciprocal.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 78,
+      "target_row": 76,
+      "name": "amplified.det0.product1.0.definition",
+      "division_exponents": [
+        -4,
+        0,
+        0
+      ],
+      "primitive_multiplier": "-1"
+    },
+    {
+      "source_row": 79,
+      "target_row": 77,
+      "name": "amplified.det0.product1.1.definition",
+      "division_exponents": [
+        -4,
+        0,
+        0
+      ],
+      "primitive_multiplier": "-1"
+    },
+    {
+      "source_row": 80,
+      "target_row": 78,
+      "name": "amplified.det0.product2.0.definition",
+      "division_exponents": [
+        -4,
+        0,
+        0
+      ],
+      "primitive_multiplier": "-1"
+    },
+    {
+      "source_row": 81,
+      "target_row": 79,
+      "name": "amplified.det0.product2.1.definition",
+      "division_exponents": [
+        -4,
+        0,
+        0
+      ],
+      "primitive_multiplier": "-1"
+    },
+    {
+      "source_row": 82,
+      "target_row": 80,
+      "name": "amplified.det0.product3.0.definition",
+      "division_exponents": [
+        -4,
+        0,
+        0
+      ],
+      "primitive_multiplier": "-1"
+    },
+    {
+      "source_row": 83,
+      "target_row": 81,
+      "name": "amplified.det0.product3.1.definition",
+      "division_exponents": [
+        -4,
+        0,
+        0
+      ],
+      "primitive_multiplier": "-1"
+    },
+    {
+      "source_row": 84,
+      "target_row": 82,
+      "name": "amplified.det0.product4.0.definition",
+      "division_exponents": [
+        -4,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 85,
+      "target_row": 83,
+      "name": "amplified.det0.product4.1.definition",
+      "division_exponents": [
+        -4,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 86,
+      "target_row": 84,
+      "name": "residue.det1.factor0.0.reciprocal.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 87,
+      "target_row": 85,
+      "name": "residue.det1.factor0.1.reciprocal.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 88,
+      "target_row": 86,
+      "name": "residue.det1.factor1.0.reciprocal.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 89,
+      "target_row": 87,
+      "name": "residue.det1.factor1.1.reciprocal.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 90,
+      "target_row": 88,
+      "name": "residue.det1.factor2.0.reciprocal.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 91,
+      "target_row": 89,
+      "name": "residue.det1.factor2.1.reciprocal.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 92,
+      "target_row": 90,
+      "name": "residue.det1.factor3.0.reciprocal.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 93,
+      "target_row": 91,
+      "name": "residue.det1.factor3.1.reciprocal.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 94,
+      "target_row": 92,
+      "name": "residue.det1.factor4.0.reciprocal.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 95,
+      "target_row": 93,
+      "name": "residue.det1.factor4.1.reciprocal.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 96,
+      "target_row": 94,
+      "name": "amplified.det1.product1.0.definition",
+      "division_exponents": [
+        0,
+        -4,
+        0
+      ],
+      "primitive_multiplier": "-1"
+    },
+    {
+      "source_row": 97,
+      "target_row": 95,
+      "name": "amplified.det1.product1.1.definition",
+      "division_exponents": [
+        0,
+        -4,
+        0
+      ],
+      "primitive_multiplier": "-1"
+    },
+    {
+      "source_row": 98,
+      "target_row": 96,
+      "name": "amplified.det1.product2.0.definition",
+      "division_exponents": [
+        0,
+        -4,
+        0
+      ],
+      "primitive_multiplier": "-1"
+    },
+    {
+      "source_row": 99,
+      "target_row": 97,
+      "name": "amplified.det1.product2.1.definition",
+      "division_exponents": [
+        0,
+        -4,
+        0
+      ],
+      "primitive_multiplier": "-1"
+    },
+    {
+      "source_row": 100,
+      "target_row": 98,
+      "name": "amplified.det1.product3.0.definition",
+      "division_exponents": [
+        0,
+        -4,
+        0
+      ],
+      "primitive_multiplier": "-1"
+    },
+    {
+      "source_row": 101,
+      "target_row": 99,
+      "name": "amplified.det1.product3.1.definition",
+      "division_exponents": [
+        0,
+        -4,
+        0
+      ],
+      "primitive_multiplier": "-1"
+    },
+    {
+      "source_row": 102,
+      "target_row": 100,
+      "name": "amplified.det1.product4.0.definition",
+      "division_exponents": [
+        0,
+        -4,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 103,
+      "target_row": 101,
+      "name": "amplified.det1.product4.1.definition",
+      "division_exponents": [
+        0,
+        -4,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 104,
+      "target_row": 102,
+      "name": "rootProduct.1.equation1.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 105,
+      "target_row": 103,
+      "name": "rootProduct.1.equation1.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 106,
+      "target_row": 104,
+      "name": "rootProduct.1.equation2.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 107,
+      "target_row": 105,
+      "name": "rootProduct.1.equation2.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 108,
+      "target_row": 106,
+      "name": "rootProduct.1.equation3.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 109,
+      "target_row": 107,
+      "name": "rootProduct.1.equation3.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 110,
+      "target_row": 108,
+      "name": "rootProduct.1.equation4.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 111,
+      "target_row": 109,
+      "name": "rootProduct.1.equation4.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 112,
+      "target_row": 110,
+      "name": "rootProduct.1.equation5.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 113,
+      "target_row": 111,
+      "name": "rootProduct.1.equation5.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 114,
+      "target_row": 112,
+      "name": "rootProduct.1.equation6.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 115,
+      "target_row": 113,
+      "name": "rootProduct.1.equation6.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 116,
+      "target_row": 114,
+      "name": "rootProduct.1.equation7.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 117,
+      "target_row": 115,
+      "name": "rootProduct.1.equation7.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 118,
+      "target_row": 116,
+      "name": "alternate.direct.1.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 119,
+      "target_row": 117,
+      "name": "alternate.direct.1.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 120,
+      "target_row": 118,
+      "name": "rootProduct.1.equation9.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 121,
+      "target_row": 119,
+      "name": "rootProduct.1.equation9.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 122,
+      "target_row": 120,
+      "name": "rootProduct.2.equation1.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 123,
+      "target_row": 121,
+      "name": "rootProduct.2.equation1.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 124,
+      "target_row": 122,
+      "name": "rootProduct.2.equation2.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 125,
+      "target_row": 123,
+      "name": "rootProduct.2.equation2.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 126,
+      "target_row": 124,
+      "name": "rootProduct.2.equation3.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 127,
+      "target_row": 125,
+      "name": "rootProduct.2.equation3.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 128,
+      "target_row": 126,
+      "name": "rootProduct.2.equation4.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 129,
+      "target_row": 127,
+      "name": "rootProduct.2.equation4.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 130,
+      "target_row": 128,
+      "name": "rootProduct.2.equation5.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 131,
+      "target_row": 129,
+      "name": "rootProduct.2.equation5.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 132,
+      "target_row": 130,
+      "name": "rootProduct.2.equation6.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 133,
+      "target_row": 131,
+      "name": "rootProduct.2.equation6.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 134,
+      "target_row": 132,
+      "name": "rootProduct.2.equation7.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 135,
+      "target_row": 133,
+      "name": "rootProduct.2.equation7.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 136,
+      "target_row": 134,
+      "name": "alternate.direct.2.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 137,
+      "target_row": 135,
+      "name": "alternate.direct.2.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 138,
+      "target_row": 136,
+      "name": "rootProduct.2.equation9.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 139,
+      "target_row": 137,
+      "name": "rootProduct.2.equation9.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 140,
+      "target_row": 138,
+      "name": "rootProduct.3.equation1.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 141,
+      "target_row": 139,
+      "name": "rootProduct.3.equation1.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 142,
+      "target_row": 140,
+      "name": "rootProduct.3.equation2.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 143,
+      "target_row": 141,
+      "name": "rootProduct.3.equation2.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 144,
+      "target_row": 142,
+      "name": "rootProduct.3.equation3.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 145,
+      "target_row": 143,
+      "name": "rootProduct.3.equation3.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 146,
+      "target_row": 144,
+      "name": "rootProduct.3.equation4.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 147,
+      "target_row": 145,
+      "name": "rootProduct.3.equation4.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 148,
+      "target_row": 146,
+      "name": "rootProduct.3.equation5.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 149,
+      "target_row": 147,
+      "name": "rootProduct.3.equation5.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 150,
+      "target_row": 148,
+      "name": "rootProduct.3.equation6.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 151,
+      "target_row": 149,
+      "name": "rootProduct.3.equation6.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 152,
+      "target_row": 150,
+      "name": "rootProduct.3.equation7.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 153,
+      "target_row": 151,
+      "name": "rootProduct.3.equation7.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 154,
+      "target_row": 152,
+      "name": "alternate.direct.3.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 155,
+      "target_row": 153,
+      "name": "alternate.direct.3.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 156,
+      "target_row": 154,
+      "name": "rootProduct.3.equation9.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 157,
+      "target_row": 155,
+      "name": "rootProduct.3.equation9.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 158,
+      "target_row": 156,
+      "name": "rootProduct.4.equation1.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 159,
+      "target_row": 157,
+      "name": "rootProduct.4.equation1.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 160,
+      "target_row": 158,
+      "name": "rootProduct.4.equation2.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 161,
+      "target_row": 159,
+      "name": "rootProduct.4.equation2.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 162,
+      "target_row": 160,
+      "name": "rootProduct.4.equation3.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 163,
+      "target_row": 161,
+      "name": "rootProduct.4.equation3.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 164,
+      "target_row": 162,
+      "name": "rootProduct.4.equation4.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 165,
+      "target_row": 163,
+      "name": "rootProduct.4.equation4.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 166,
+      "target_row": 164,
+      "name": "rootProduct.4.equation5.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 167,
+      "target_row": 165,
+      "name": "rootProduct.4.equation5.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 168,
+      "target_row": 166,
+      "name": "rootProduct.4.equation6.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 169,
+      "target_row": 167,
+      "name": "rootProduct.4.equation6.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 170,
+      "target_row": 168,
+      "name": "rootProduct.4.equation7.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 171,
+      "target_row": 169,
+      "name": "rootProduct.4.equation7.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 172,
+      "target_row": 170,
+      "name": "alternate.direct.4.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 173,
+      "target_row": 171,
+      "name": "alternate.direct.4.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 174,
+      "target_row": 172,
+      "name": "rootProduct.4.equation9.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 175,
+      "target_row": 173,
+      "name": "rootProduct.4.equation9.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 176,
+      "target_row": 174,
+      "name": "rootProduct.S.retained_j.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 177,
+      "target_row": 175,
+      "name": "rootProduct.S.retained_j.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 178,
+      "target_row": 176,
+      "name": "scalar.S.direct_ratio.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 179,
+      "target_row": 177,
+      "name": "scalar.S.direct_ratio.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 180,
+      "target_row": 178,
+      "name": "additive.aggregate.rootTrace",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 181,
+      "target_row": 179,
+      "name": "sharedT.reference.relation1.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 182,
+      "target_row": 180,
+      "name": "sharedT.reference.relation1.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 183,
+      "target_row": 181,
+      "name": "sharedT.reference.relation2.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 184,
+      "target_row": 182,
+      "name": "sharedT.reference.relation2.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 185,
+      "target_row": 183,
+      "name": "sharedT.reference.relation3.0",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 186,
+      "target_row": 184,
+      "name": "sharedT.reference.relation3.1",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 187,
+      "target_row": 185,
+      "name": "additive.detector2.contactSquare",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 188,
+      "target_row": 186,
+      "name": "additive.detector2.contactFourthPower",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 189,
+      "target_row": 187,
+      "name": "additive.detector2.contactCombination",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 190,
+      "target_row": 188,
+      "name": "additive.detector2.contactRelation",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 191,
+      "target_row": 189,
+      "name": "detector2.inverseWeight.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 192,
+      "target_row": 190,
+      "name": "detector2.inverseWeightSquared.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 193,
+      "target_row": 191,
+      "name": "detector2.normOver2w0.definition",
+      "division_exponents": [
+        0,
+        0,
+        -4
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 194,
+      "target_row": 192,
+      "name": "balanced.detector2.poleInput.definition",
+      "division_exponents": [
+        0,
+        0,
+        -4
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 195,
+      "target_row": 193,
+      "name": "detector2.p2.definition",
+      "division_exponents": [
+        0,
+        0,
+        2
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 196,
+      "target_row": 194,
+      "name": "detector2.firstConic",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 197,
+      "target_row": 195,
+      "name": "detector2.Bh.definition",
+      "division_exponents": [
+        0,
+        0,
+        -2
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 198,
+      "target_row": 196,
+      "name": "detector2.q2.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 199,
+      "target_row": 197,
+      "name": "detector2.secondConic",
+      "division_exponents": [
+        0,
+        0,
+        -2
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 201,
+      "target_row": 198,
+      "name": "residue.det2.factor0.0.reciprocal.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 202,
+      "target_row": 199,
+      "name": "residue.det2.factor0.1.reciprocal.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 203,
+      "target_row": 200,
+      "name": "residue.det2.factor1.0.reciprocal.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 204,
+      "target_row": 201,
+      "name": "residue.det2.factor1.1.reciprocal.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 205,
+      "target_row": 202,
+      "name": "residue.det2.factor2.0.reciprocal.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 206,
+      "target_row": 203,
+      "name": "residue.det2.factor2.1.reciprocal.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 207,
+      "target_row": 204,
+      "name": "residue.det2.factor3.0.reciprocal.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 208,
+      "target_row": 205,
+      "name": "residue.det2.factor3.1.reciprocal.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 209,
+      "target_row": 206,
+      "name": "residue.det2.factor4.0.reciprocal.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 210,
+      "target_row": 207,
+      "name": "residue.det2.factor4.1.reciprocal.definition",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 211,
+      "target_row": 208,
+      "name": "amplified.det2.product1.0.definition",
+      "division_exponents": [
+        0,
+        0,
+        -4
+      ],
+      "primitive_multiplier": "-1"
+    },
+    {
+      "source_row": 212,
+      "target_row": 209,
+      "name": "amplified.det2.product1.1.definition",
+      "division_exponents": [
+        0,
+        0,
+        -4
+      ],
+      "primitive_multiplier": "-1"
+    },
+    {
+      "source_row": 213,
+      "target_row": 210,
+      "name": "amplified.det2.product2.0.definition",
+      "division_exponents": [
+        0,
+        0,
+        -4
+      ],
+      "primitive_multiplier": "-1"
+    },
+    {
+      "source_row": 214,
+      "target_row": 211,
+      "name": "amplified.det2.product2.1.definition",
+      "division_exponents": [
+        0,
+        0,
+        -4
+      ],
+      "primitive_multiplier": "-1"
+    },
+    {
+      "source_row": 215,
+      "target_row": 212,
+      "name": "amplified.det2.product3.0.definition",
+      "division_exponents": [
+        0,
+        0,
+        -4
+      ],
+      "primitive_multiplier": "-1"
+    },
+    {
+      "source_row": 216,
+      "target_row": 213,
+      "name": "amplified.det2.product3.1.definition",
+      "division_exponents": [
+        0,
+        0,
+        -4
+      ],
+      "primitive_multiplier": "-1"
+    },
+    {
+      "source_row": 217,
+      "target_row": 214,
+      "name": "amplified.det2.product4.0.definition",
+      "division_exponents": [
+        0,
+        0,
+        -4
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 218,
+      "target_row": 215,
+      "name": "amplified.det2.product4.1.definition",
+      "division_exponents": [
+        0,
+        0,
+        -4
+      ],
+      "primitive_multiplier": "1"
+    },
+    {
+      "source_row": 219,
+      "target_row": 216,
+      "name": "additive.aggregate.rootShift2",
+      "division_exponents": [
+        0,
+        0,
+        0
+      ],
+      "primitive_multiplier": "1"
+    }
+  ]
+}
