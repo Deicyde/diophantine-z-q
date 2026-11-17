@@ -852,7 +852,8 @@ without spaces, followed by one reason applying to all of them:
 
 The single-ID form remains valid. Each listed item retains its own record,
 pointing to the same admin comment and reason. Use only the current head's
-full displayed IDs; unknown IDs grant no authority. The summary lists the
+full displayed IDs. An unrecognised ID rejects the whole comment; the reply names
+the comment and those IDs so the admin can post a correction. The summary lists the
 items actually applied from the authenticated App record. The command makes
 no model call.
 
@@ -882,6 +883,9 @@ App summary names the reviewer who resolved the item. An actual objection from
 the other reviewer remains blocking, as does a later reopening. An incomplete
 review still has its separate scope item and requires completed coverage or an
 explicit admin override; closing a finding does not imply a completed review.
+The runtime marks the positions of automatic copies in the App-authenticated
+envelope, outside the model's report. Matching text alone cannot classify an
+objection as an automatic copy, and completed reviews never use those markers.
 
 An absent or incomplete review carries unresolved obligations from the PR's
 App-authenticated earlier records across heads. An empty later record cannot

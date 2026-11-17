@@ -1,9 +1,11 @@
 """Exact administrative decisions and lossless duplicate-delivery handling."""
 import copy
+import json
+import os
 import unittest
 from unittest.mock import Mock, patch
 
-from test_gate import gate, HEAD, envelope, report, report_comment, comment, run_pipeline
+from test_gate import gate, HEAD, APP_ID, FakeGH, FakeApp, envelope, report, report_comment, comment, run_pipeline
 import test_admin_override as admin_fixtures
 import test_delivered_closure as delivery_fixtures
 from test_delivered_closure import response
@@ -66,6 +68,18 @@ class MultiItemOverrides(unittest.TestCase):
             self.assertIsNone(gate.parse_override_command('/protocol-b override '+HEAD+' '+ids+' reason'))
         self.assertIsNone(gate.parse_override_command('/protocol-b override '+HEAD+' F1   '))
 
+    def test_unknown_id_reply_names_comment_and_applies_nothing(self):
+        gh, app, event = self.setup_case(ids=['1-1-astra-F1', 'mistyped-id'])
+        provider = Mock(side_effect=AssertionError('No reviewer'))
+        with patch.object(gate, 'model_turn', side_effect=AssertionError('No provider request')):
+            _, app, errors, state = run_pipeline(gh, app, event=event, provider=provider)
+        provider.assert_not_called()
+        self.assertTrue(errors)
+        self.assertEqual(app.final['conclusion'], 'failure')
+        self.assertFalse(state.get('overrides'))
+        replies = [p['body'] for p in gh.posts if p.get('body', '').startswith('This override was ignored.')]
+        self.assertTrue(any('Comment '+str(event['comment']['id']) in p and 'mistyped-id' in p for p in replies))
+
     def test_multi_override_command_does_not_create_a_discussion_objection(self):
         gh, _, _ = self.setup_case()
         self.assertEqual(gate.history_coverage([{'body':gh.comments[-1]['body']}]), set())
@@ -122,7 +136,8 @@ class OriginReviewerClosure(unittest.TestCase):
              'fable':envelope('fable',review=report(decision='changes_requested',prior_findings=[
                  {'id':self.ident,'resolution':'unresolved','reason':'Repair still needed.'}]))}
         # This is an automatic carry, not a second reviewer making an objection.
-        old['fable']['runtime_retained_dispositions']=copy.deepcopy(old['fable']['review']['prior_findings'])
+        old['fable']['complete']=False
+        old['fable']['runtime_retained_prior_indices']=[0]
         current={'astra':envelope(run='2',read_prerequisites_complete=True,review=report(prior_findings=[
                       {'id':self.ident,'resolution':'resolved','reason':'Checked the repaired source.'}])),
                  'fable':envelope('fable',run='2',complete=False,review=report(decision='not_reviewed',
@@ -146,6 +161,37 @@ class OriginReviewerClosure(unittest.TestCase):
         current['fable']=envelope('fable',run='2',read_prerequisites_complete=True,review=report(prior_findings=[
             {'id':self.ident,'resolution':'resolved','reason':'Only the peer thinks it is fixed.'}]))
         self.assertIn(self.ident,gate.historical_obligations([(5,old)],current))
+
+    def test_identical_genuine_disposition_is_not_a_runtime_copy(self):
+        old,current=self.fixture()
+        # Only position zero came from the runtime. The next identical entry
+        # is an actual delivered objection and must still block.
+        old['fable']['review']['prior_findings'].append(
+            copy.deepcopy(old['fable']['review']['prior_findings'][0]))
+        self.assertIn(self.ident,gate.historical_obligations([(5,old)],current))
+
+    def test_completed_review_never_discards_a_marked_disposition(self):
+        old,current=self.fixture()
+        old['fable']['complete']=True
+        self.assertIn(self.ident,gate.historical_obligations([(5,old)],current))
+
+    def test_runtime_positions_survive_only_in_the_authenticated_app_record(self):
+        old,current=self.fixture()
+        state={'head':HEAD,'policy_ref':'b'*40,'reports':old}
+        saved=json.loads(gate.decision_text(state,old,[]))
+        self.assertEqual(saved['reports']['fable']['runtime_retained_prior_indices'],[0])
+        app=FakeApp()
+        app.prior(saved['reports'])
+        app.checks[5]['name']=gate.CHECK
+        gh=FakeGH()
+        with patch.dict(os.environ,{'APP_ID':str(APP_ID)}):
+            genuine=gate.trusted_reports(app,gh.pr,gate.CHECK,999)
+            self.assertEqual(genuine['fable']['runtime_retained_prior_indices'],[0])
+            app.checks[5]['app']['id']=APP_ID+1
+            self.assertEqual(gate.trusted_reports(app,gh.pr,gate.CHECK,999),{})
+        model_value=report(runtime_retained_prior_indices=[0])
+        with self.assertRaisesRegex(ValueError,'Incomplete final report'):
+            gate.validate_review(model_value,set(),{})
 
     def test_unvalidated_or_unread_origin_resolution_cannot_close(self):
         for change in ({'complete':False},{'read_prerequisites_complete':False},{'identity_error':True},

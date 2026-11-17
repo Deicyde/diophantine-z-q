@@ -2894,6 +2894,11 @@ jobs:
                   return None
               return match[1], list(dict.fromkeys(match[2].split(','))), match[3].strip()
 
+          def unknown_override_ids(ids, prior):
+              return [ident for ident in ids if ident not in prior
+                      and not re.fullmatch(r"scope-[0-9]+-[0-9]+-(astra|fable)", ident)]
+
+
           def history(gh, pr, known=None):
               comments = gh.pages(f"/issues/{pr['number']}/comments")
               discussion = [{"id": c["id"], "author": c["user"]["login"], "created": c["created_at"], "body": c["body"]}
@@ -2943,7 +2948,7 @@ jobs:
                       # Scope IDs may be supplied by the authenticated App record
                       # rather than a published report comment. Final application
                       # still intersects this list with that record's actual items.
-                      if not all(ident in prior or re.fullmatch(r"scope-[0-9]+-[0-9]+-(astra|fable)", ident) for ident in ids):
+                      if unknown_override_ids(ids, prior):
                           continue
                       login = comment["user"]["login"]
                       if administrator(gh, comment["user"]) and unedited_override_comment(gh, comment):
@@ -3036,9 +3041,12 @@ jobs:
                               'resolution': 'unresolved', 'reason': f.get('objection', ''), 'observation': event}
                           if owners.get(ident) == family:
                               resolutions.pop(ident, None)
-                      for f in value.get('prior_findings', []):
-                          # Runtime retention is not a new objection from the interrupted reviewer.
-                          if f in envelope.get('runtime_retained_dispositions', []):
+                      for index, f in enumerate(value.get('prior_findings', [])):
+                          # Runtime-only positions are authenticated with the App envelope,
+                          # outside the model's report. Identical text is not enough to skip
+                          # an actual disposition. Completed reports never use this marker.
+                          if (not envelope.get('complete') and index in
+                                  envelope.get('runtime_retained_prior_indices', [])):
                               continue
                           # An incomplete execution cannot silently resolve old objections.
                           valid = (envelope.get('complete') and envelope.get('read_prerequisites_complete') is not False
@@ -3123,8 +3131,10 @@ jobs:
                       retained = [{'id': ident, 'resolution': 'unresolved',
                            'reason': 'Retained from the earlier App record; the interrupted review did not resolve it. '+reason}
                           for ident, reason in sorted(carried.items()) if ident not in existing]
-                      current['review'].setdefault('prior_findings', []).extend(retained)
-                      current.setdefault('runtime_retained_dispositions', []).extend(retained)
+                      dispositions = current['review'].setdefault('prior_findings', [])
+                      current.setdefault('runtime_retained_prior_indices', []).extend(
+                          range(len(dispositions), len(dispositions) + len(retained)))
+                      dispositions.extend(retained)
                   if family not in state['reports']:
                       state['reports'][family] = {
                           'reviewer': family, 'model': MODELS[family], 'reported_model': None,
@@ -4086,6 +4096,15 @@ jobs:
                       for ident in override_findings(saved, pr['head']['sha']):
                           known.setdefault(ident, {'objection': 'Item recorded in the current App check.'})
                   discussion, prior, overrides, _ = history(gh, pr, known)
+                  if override_command:
+                      parsed = parse_override_command(command)
+                      unknown = unknown_override_ids(parsed[1], prior) if parsed else []
+                      if unknown:
+                          message = ('This override was ignored. Comment '+str(event['comment']['id'])+
+                                     ' contains unrecognised finding IDs: '+', '.join(unknown)+
+                                     '. No item from that comment was applied. Post a corrected new comment.')
+                          gh.call(f'/issues/{number}/comments', 'POST', {'body': message})
+                          raise ValueError(message)
                   record("context.json", {"head": pr["head"]["sha"], "base": pr["base"]["sha"],
                                          "trusted_workflow": trusted_ref, "class": change_class,
                                          "prior_findings": prior, "overrides": overrides, "discussion": discussion})
