@@ -4,11 +4,11 @@ Usage: python3 scratch/frontier/chain.py [A|F]   (default: both); `doc` compares
 compares the library theorem ZInQ.OneProof.frozenTarget with scenario A
 
 Scenario A ("compiled"): only theorems that compose in one Lean world today, i.e. the top chain (r3: atkin-li's C2
-and tyz-chain's T0, kernel modules) and the compiled H assembly: leaf-fold29's `HDec.HSyn.sixContactMin_of_open31`
-(refresh r9; r8 leaf-fold19's `sixContactMin_of_open26`, r7 leaf-fold13's `sixContactMin_of_open16`, r6
-leaf-fold11's `sixContactMin_of_open15`, r5 leaf-fold9's `sixContactMin_of_open9`, r4 leaf-fold8's
-`sixContactMin_of_open8`, r3 leaf-fold5's `sixContactMin_of_open5`, r2 leaf-fold4's `sixContactMin_of_open4`, before
-that assemble-port's `sixContactMin_of_leaves5`).
+and tyz-chain's T0, kernel modules) and the compiled H assembly: leaf-fold33's `HDec.HSyn.sixContactMin_of_open48`
+(refresh r10; r9 leaf-fold29's `sixContactMin_of_open31`, r8 leaf-fold19's `sixContactMin_of_open26`, r7
+leaf-fold13's `sixContactMin_of_open16`, r6 leaf-fold11's `sixContactMin_of_open15`, r5 leaf-fold9's
+`sixContactMin_of_open9`, r4 leaf-fold8's `sixContactMin_of_open8`, r3 leaf-fold5's `sixContactMin_of_open5`, r2
+leaf-fold4's `sixContactMin_of_open4`, before that assemble-port's `sixContactMin_of_leaves5`).
 Its open set is the hypothesis list of that composite.
 
 Scenario F ("frontier"): A plus every proof or reduction of an open Prop found on today's branches; since r9 its top is
@@ -36,16 +36,15 @@ B5 = ("93a1e33c", "scratch/cpts-transport/Bundle5.lean")
 AP = ("92a27877", "scratch/assemble-port/AssemblePort.lean")  # assemble-port final flat check (27 glue fields, 1126 s)
 LF4 = ("9dcf1ca8", "scratch/leaf-fold4/Leaves4.lean")  # leaf-fold4 final flat file (md5 6bbeb639, 1048 s, 26+19+20+1 fields)
 LF5 = ("5a7e03d1", "scratch/leaf-fold5/Leaves5.lean")  # leaf-fold5 final flat file (md5 5999e1db, flat run 2: 1570 s, 26+21+21+2)
-# r9: the H base is leaf-fold29 inside the library (ZInQKernel/OneProof/H/: leaf-fold20 to leaf-fold29 and
-# leaf-fold-hx over leaf-fold19; r8: leaf-fold19, since 11-15; r7: leaf-fold13, since w66; r6: leaf-fold11, since
-# w63; r5: leaf-fold9, since w60; r4: leaf-fold8, since w59). "OPH" is read as the text of all those modules
-# (OpenResearchLeaves24 and sixContactMin_of_open31 are in TailZ37.lean, OpenAddedLeaves17 in TailZ34.lean,
-# OpenTextbookLeaves11 in TailZ32.lean, the glue bundle OpenGlue7 in TailX.lean; defcheck looks for the chain's
-# copies anywhere in them).
-OPX = (MAIN, "ZInQKernel/OneProof/H/TailZ37.lean")
-OPX34 = (MAIN, "ZInQKernel/OneProof/H/TailZ34.lean")
-OPX32 = (MAIN, "ZInQKernel/OneProof/H/TailZ32.lean")
-OPX7 = (MAIN, "ZInQKernel/OneProof/H/TailX.lean")
+# r10: the H base is leaf-fold33 inside the library (ZInQKernel/OneProof/H/: leaf-fold30 to leaf-fold33 over
+# leaf-fold29; r9: leaf-fold29, since 11-16; r8: leaf-fold19, since 11-15; r7: leaf-fold13, since w66; r6: leaf-fold11,
+# since w63; r5: leaf-fold9, since w60; r4: leaf-fold8, since w59). "OPH" is read as the text of all those modules
+# (sixContactMin_of_open48 and its bundle OpenAddedLeaves25 are in TailZ55.lean, OpenResearchLeaves31 and
+# OpenTextbookLeaves16 in TailZ50.lean; leaf-fold32 dropped the glue bundle, empty once abhyankar proved nvLocalInertia;
+# leaf-fold33's reroutes are copies in new modules, the originals unchanged; defcheck looks for the chain's copies
+# anywhere in them).
+OPX = (MAIN, "ZInQKernel/OneProof/H/TailZ55.lean")
+OPX50 = (MAIN, "ZInQKernel/OneProof/H/TailZ50.lean")
 OPH = ("OPH", "ZInQKernel/OneProof/H/")
 # qm-split's and qm-glue's files `import TailK`: leaf-fold4's chain, whose sources are in scratch/leaf-fold4/olean/.
 # "LF4C" is read as the files in TailK's import closure there.
@@ -169,10 +168,33 @@ def mp_heads(txt, name):
 # wins over C2 in scenario F.
 edge("FrozenTarget", "frozenTarget_of_sixContactMin_tyzThm35ReadingA_fhNonvanishingCd_grossZagierHeegnerCd", MAIN,
      "ZInQKernel/Contrib/GZStatements/Weak.lean",
-     ["SixContactMin", "TYZThm35ReadingA", "FHNonvanishingCd", "GrossZagierHeegnerCd"], "F",
-     "gz-statements: the C_d form of the top")
+     ["SixContactMin", "TYZThm35ReadingA", "FHNonvanishingCd", "GrossZagierHeegnerCd"], "AF",
+     "gz-statements: the C_d form of the top (r10: the library theorem takes it too, leaf-fold33)")
 edge("FHNonvanishingCd", "fhNonvanishingCd_of_fhNonvanishing", MAIN, "ZInQKernel/Contrib/GZStatements/Weak.lean",
-     ["FHNonvanishing"], "F", "gz-statements: the restricted form is weaker")
+     ["FHNonvanishing"], "AF", "gz-statements: the restricted form is weaker")
+# r10 (leaf-fold33): route A's C_d chain in the library theorem: heegner-32's Heegner point from hCM with the two
+# Gross-Zagier statements at the curves C_d; gzopt-dict's GrossZagierFormulaCd from hGZ (Gross-Zagier over the
+# algebraic X0(N)) with the q-expansion principle (gamma0-qexp) and the eta-quotient law at level 32 (etaw32-proof),
+# both proved; gz-conj's GrossConjugationCd proved. First, so they win over jacobi-lambda's split.
+CP = "ZInQKernel/Contrib/OneProof/"
+edge("GrossZagierHeegnerCd", "grossZagierHeegnerCd_of_printed", MAIN, CP + "HeegnerPointRationalCd.lean",
+     ["ShimuraMainCM", "GrossZagierFormulaCd", "GrossConjugationCd"], "AF", "heegner-32, in the library since leaf-fold33")
+edge("GrossZagierFormulaCd", "grossZagierFormulaCd_of_alg", MAIN, CP + "GrossZagierAlgebraic.lean",
+     ["GrossZagierAlgOptCd", "Gamma0QExpansion", "EtaW32Character"], "AF", "gzopt-dict, in the library since leaf-fold33")
+edge("Gamma0QExpansion", "gamma0QExpansion_proof", MAIN, CP + "Gamma0QExpansion.lean", [], "AF",
+     "gamma0-qexp, in the library since leaf-fold33")
+edge("EtaW32Character", "etaW32Character_proof", MAIN, CP + "EtaW32Character.lean", [], "AF",
+     "etaw32-proof, in the library since leaf-fold33")
+edge("GrossConjugationCd", "grossConjugationCd", MAIN, CP + "GrossConjugationCd.lean", [], "AF",
+     "gz-conj, in the library since leaf-fold33")
+# r10 (leaf-fold33): hcm-dict's printed Shimura Thm 5.4 gives ShimuraMainCM; hfx-proof and hp23-proof prove two more of
+# h29-ne3's leaves
+edge("ShimuraMainCM", "shimuraMainCM_of_printed", MAIN, CP + "ShimuraMainCM.lean", ["ShimuraThm54"], "AF",
+     "hcm-dict, in the library since leaf-fold33")
+edge("TYZTestVectorExists", "tyzTestVectorExists", MAIN, CP + "TYZTestVectorExists.lean", [], "AF",
+     "hfx-proof, in the library since leaf-fold33")
+edge("TYZProp23Printed", "tyzProp23Printed", MAIN, CP + "TYZProp23Printed.lean", [], "AF",
+     "hp23-proof, in the library since leaf-fold33")
 edge("GrossZagierHeegnerCd", "grossZagierHeegnerCd_of_leaves4", MAIN,
      "ZInQKernel/Contrib/OneProof/GrossZagierHeegner/JacobiLambdaDeriv.lean",
      ["WeierstrassUniformization", "HeegnerPointRationalCd", "GrossZagierFormulaCd", "GrossConjugationCd"], "F",
@@ -183,8 +205,32 @@ edge("HeegnerPointRationalCd", "heegnerPointRationalCd_of_printed", MAIN,
 edge("FrozenTarget", "frozenTarget_of_sixContactMin_tyzThm35ReadingA_fhNonvanishing_grossZagierHeegner", MAIN,
      "ZInQKernel/Contrib/GZTheta/NewCMFinal.lean",
      ["SixContactMin", "TYZThm35ReadingA", "FHNonvanishing", "GrossZagierHeegner"])
+# r10 (leaf-fold32): bfh-gamma0 proves FHNonvanishing from Bump-Friedberg-Hoffstein's clause (ii) on Gamma_0(N), a
+# drop-in for gz-fh's leaf, so frozenTarget takes hBFH in place of hFH. First, so it wins over gz-fh's edge, which
+# stays compiled but is off the route.
+edge("FHNonvanishing", "fhNonvanishing_of_bfhClauseIIGamma0", MAIN, CP + "BFHGamma0.lean", ["BFHClauseIIGamma0"], "AF",
+     "bfh-gamma0, in the library since leaf-fold32")
+# r10 (leaf-fold32): fork PRs #36 and #38 prove Legendre's three-square theorem and the Jones-Pall form, and t21-proof
+# TYZ's Theorem 2.1 at (3, 1), three of h29-ne3's six leaves, so frozenTarget drops hL3s, hJP and hT21
+edge("LegendreThreeSquares", "legendreThreeSquares_proof", MAIN, CP + "LegendreThreeSquares.lean", [], "AF",
+     "fork PR #36, in the library since leaf-fold32")
+edge("JonesPallX2Y2Z16", "jonesPall_proof", MAIN, CP + "JonesPall.lean", [], "AF",
+     "fork PR #38, in the library since leaf-fold32")
+edge("TYZThm21At31", "tyzThm21At31", MAIN, CP + "TYZThm21At31.lean", [], "AF",
+     "t21-proof, in the library since leaf-fold32")
+# r10 (leaf-fold32): fields that fork PRs #25, #29, #31, #34 and #35 and milne-compile prove; leaf-fold32 closes them
+# in TailZ44, and scenario F's edges that take one as a hypothesis take the proof
+for _concl, _thm, _file, _who in [
+        ("GeomConnOfRationalPoint", "geomConnOfRationalPoint_proof", "GeomConnOfRationalPoint.lean", "fork PR #25"),
+        ("TateTwistInvariants", "tateTwistInvariants_proof", "TateTwistInvariants.lean", "fork PR #29"),
+        ("AxSenTate", "axSenTate_proof", "AxSenTate.lean", "fork PR #29"),
+        ("GroupSchemeEquidim", "groupSchemeEquidim_proof", "GroupSchemeEquidim.lean", "fork PR #31"),
+        ("CartierSmooth", "cartierSmooth_proof", "CartierSmooth.lean", "fork PR #34"),
+        ("UniformizationLeafAll", "uniformizationLeafAll_proof", "UniformizationLeafAll.lean", "fork PR #35"),
+        ("MilneIsogenyQuasiInverse", "milneIsogenyQuasiInverse_proof", "MilneQuasiInverse/Main.lean", "milne-compile")]:
+    edge(_concl, _thm, MAIN, CP + _file, [], "F", _who + ", closed by leaf-fold32")
 # r9 (leaf-fold24): gz-fh proves the twisted functional equation, so frozenTarget takes FHNonvanishing from the single
-# leaf FriedbergHoffsteinB_FE (until r8: the top hypothesis hL2 itself)
+# leaf FriedbergHoffsteinB_FE (until r8: the top hypothesis hL2 itself; r10: off the route, bfh-gamma0's edge above)
 edge("FHNonvanishing", "fhNonvanishing_of_friedbergHoffsteinB_FE", MAIN,
      "ZInQKernel/Contrib/OneProof/FHNonvanishing.lean", ["FriedbergHoffsteinB_FE"], "AF",
      "gz-fh, in the library since leaf-fold24")
@@ -217,8 +263,22 @@ edge("ShimuraReciprocityModFn", "shimuraReciprocityModFn_of_printed", MAIN,
 #  cm-bridge's B1; it stays compiled there but is off the route)
 
 # --- H
-edge("SixContactMin", "sixContactMin_of_open31", *OPX,
-     ["OpenResearchLeaves24", "OpenTextbookLeaves11", "OpenAddedLeaves17", "OpenGlue7"])
+edge("SixContactMin", "sixContactMin_of_open48", *OPX,
+     ["OpenResearchLeaves31", "OpenTextbookLeaves16", "OpenAddedLeaves25"])
+# (combined leaf-fold32 at main 5e235a40: sixContactMin_of_open38 in TailZ45.lean, bundles OpenResearchLeaves28,
+#  OpenTextbookLeaves13, OpenAddedLeaves19; leaf-fold33 folds poincare-proof, neron-sh-proof, phi-ample,
+#  homfree-noemb, sga3-nbhd, goodmodel-iso with group-law-dvr, phisurj with weil-proof, piczero-char0, idcomp-lft and
+#  piclft)
+# (r9 at main 0e70c94e: leaf-fold29's sixContactMin_of_open31 in TailZ37.lean, bundles OpenResearchLeaves24,
+#  OpenTextbookLeaves11, OpenAddedLeaves17, OpenGlue7; leaf-fold30 to leaf-fold32 fold ds965-weak (dsThm965 restated
+#  as dsThm965Weak), sgr-fold (shimuraIntegralModelRep and quotientP1Coordinate go, the glue nvLocalInertia comes),
+#  persists-dvr (semistablePersistsSHcp), dcy3-fold (deligneComponentsY3PrintedAb), pi0-fold
+#  (deligneComponentsX6PrintedAb and geomConnOfAlgClosure), fork PR #24 (regularSmoothPerfect), abhyankar
+#  (nvLocalInertia, and the empty glue bundle with it), theta-fold2 (thetaRatiosAlgebraic), fork PRs #25, #29, #31,
+#  #34 and #35 and milne-compile (seven fields), gt-sga3 (sga3_VIB_3_10 narrowed to sga3_VIB_3_10_Nbhd), ega-limit
+#  (egaIV_8_10_5_xii), dict-models (sga7_IX_3_3_SH, raynaudSemistableSH, mumfordGroupLaw and
+#  neronBaseChangeStrictHenselization restated in printed form), dict-galois (r7a), pic-fix (phiAmpleIsogeny) and
+#  coeff-fix (dsThm965Weak, dsThm966))
 # (r8 at main 37391b11: leaf-fold19's sixContactMin_of_open26 in TailZ32.lean, bundles OpenResearchLeaves19,
 #  OpenTextbookLeaves11, OpenAddedLeaves16, OpenGlue7; leaf-fold20 to leaf-fold28b fold gt-sga7, gt-unip, yu-prune,
 #  gt-rayclass, sgr-split, h33-sign, gt-rigidity with rigid-prune, gz-fh, r16-split, elkies-coord and flt-cqj2,
@@ -721,10 +781,9 @@ edge("NeronMappingAbelianSchemeSurj", "NeronMappingAbelianSchemeSurj_proof", MAI
 
 # ---------------------------------------------------------------- bundles
 STRUCTS = {
-    "OpenResearchLeaves24": (OPX, "OpenResearchLeaves24"),
-    "OpenTextbookLeaves11": (OPX32, "OpenTextbookLeaves11"),
-    "OpenAddedLeaves17": (OPX34, "OpenAddedLeaves17"),
-    "OpenGlue7": (OPX7, "OpenGlue7"),
+    "OpenResearchLeaves31": (OPX50, "OpenResearchLeaves31"),
+    "OpenTextbookLeaves16": (OPX50, "OpenTextbookLeaves16"),
+    "OpenAddedLeaves25": (OPX, "OpenAddedLeaves25"),
 }
 # fields the proof does not use: none (r6: the integrator's prune, merged in w62, removed r3, serreTateThm2 and t10,
 # the three that its fixed Lean scan, wip/prune-scan e3045e7d, found unused at w61; genus-fold (w63) removed
@@ -749,32 +808,12 @@ USED_IN_F = set()
 # signatures are compared ((rev, file, theorem, hypothesis heads, conclusion head)); `new`: the Props the replacement
 # takes in place of the field (open nodes of F unless an edge proves them); `uses`: every line of OneProof/H that
 # mentions the field must match one of these patterns (a field declaration, a copy `f := t.f`, or the consumer).
-BYPASS = {
-    "ThetaRatiosAlgebraic": dict(
-        task="theta-split", new=["ThetaEightSquare", "QMThetaSymmetricCurve"],
-        note="its consumer thetaPointOfFibre_of_qm_ratios (TailA) is replaced by route 1's final form, the same "
-             "conclusion from the global identity and the curve part",
-        checks=[(MAIN, "ZInQKernel/OneProof/H/TailA.lean", "thetaPointOfFibre_of_qm_ratios",
-                 ["FibreQMPeriod", "ThetaRatiosAlgebraic"], "ThetaPointOfFibre"),
-                (MAIN, "scratch/theta-split/ThetaUse.lean", "thetaPointOfFibre_of_qm_curve",
-                 ["FibreQMPeriod", "ThetaEightSquare", "QMThetaSymmetricCurve"], "ThetaPointOfFibre")],
-        field=None, uses=[]),
-    # r9: dcy3-used (merged by leaf-fold29, not folded: the used form is weaker than the field, so autofold.py cannot
-    # take it). The chain reads the field only through TailZ23 and TailZ13's y3Connected_of_deligne
-    # (deligneComponentsY3_of_printed …), as Y3Connected, which follows from two research fields.
-    "DeligneComponentsY3PrintedAb": dict(
-        task="dcy3-used", new=["MumfordGroupLaw", "ShimuraMainThmIDeligneY3AbU"],
-        note="the term y3Connected_of_deligne (deligneComponentsY3_of_printed …) of TailZ13 is replaced by "
-             "y3Connected_of_leaves",
-        checks=[(MAIN, "ZInQKernel/OneProof/H/TailZ12.lean", "deligneComponentsY3_of_printed",
-                 ["DeligneComponentsY3Printed"], "DeligneComponentsY3"),
-                (MAIN, "ZInQKernel/Contrib/OneProof/DeligneComponentsY3Used.lean", "y3Connected_of_leaves",
-                 ["MumfordGroupLaw", "ShimuraMainThmIDeligneY3AbU"], "Y3Connected")],
-        field="deligneComponentsY3PrintedAb",
-        uses=[r"^\s*deligneComponentsY3PrintedAb : _root_\.ShimuraGlue\.DeligneComponentsY3PrintedAb$",
-              r"^\s*deligneComponentsY3PrintedAb := [a-z]\.deligneComponentsY3PrintedAb$",
-              r"^\s*l\.deligneComponentsY3PrintedAb$", r"^\* `deligneComponentsY3Printed : "]),
-}
+BYPASS = {}
+# (r9: theta-split's replacement of ThetaRatiosAlgebraic's consumer thetaPointOfFibre_of_qm_ratios (TailA) by
+#  thetaPointOfFibre_of_qm_curve (scratch/theta-split/ThetaUse.lean), new Props ThetaEightSquare and
+#  QMThetaSymmetricCurve; and dcy3-used's replacement of the term y3Connected_of_deligne (deligneComponentsY3_of_printed
+#  …) of TailZ13 by y3Connected_of_leaves (Contrib/OneProof/DeligneComponentsY3Used.lean), new Props MumfordGroupLaw
+#  and ShimuraMainThmIDeligneY3AbU. leaf-fold30's dcy3-fold and leaf-fold32's theta-fold2 remove both fields.)
 # r6: leaves on which the forms of other rows rest, listed in F although no edge takes them. (Drafted at w62 with
 # r1univ-rigid's MumfordRigidityCore, a field of the library theorem since w63; at w62 also BYPASS "GenusX1Field":
 # genus-route replaced t34's two uses by dim J1(N) <= N^2 (t34Le), and genus-fold (w63) removed the field.)
@@ -1287,8 +1326,7 @@ def doc_check(path="docs/research/frontier.md"):
 # rulings, not this check.)
 FIELDS_TSV = "docs/one-proof/kinds.tsv"
 OPEN_JSON = "docs/one-proof/open-statements.json"
-TSV_BUNDLE = {"OpenResearchLeaves24": "research", "OpenTextbookLeaves11": "textbook", "OpenAddedLeaves17": "added",
-              "OpenGlue7": "glue"}
+TSV_BUNDLE = {"OpenResearchLeaves31": "research", "OpenTextbookLeaves16": "textbook", "OpenAddedLeaves25": "added"}
 
 
 def onep_check():
