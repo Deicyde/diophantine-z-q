@@ -30,3 +30,4 @@ Base: wip/gr-isogdeg at 73ac1620 (= wip/r3-residual), merged origin/main (ff558b
   longer a field of OpenTextbookLeaves17 on main (it is proved, TailZ64): fixed by the _final theorem.
 - finDeg_eq_finrank_of_flat (flat + loc. fin. pres. ⇒ rank constant): compiles (remark, unused).
 - Not proved: equality finDeg = isogDeg in char 0 (needs flatness of isogenies / étale kernel).
+- EqRing.lean: finite_ringHom, card_ringHom_eq_rankAtStalk (char 0 equality), card_ringHom_le_of_isAlgClosed (descent to alg. closed subfield): compile (VERIFIED).
