@@ -252,13 +252,14 @@ The gate checks GitHub's edit metadata and the exact current body, so changing
 someone else's admin-authored comment cannot create an admin decision. Preserve substantive objections in the
 project's findings record as well as the PR discussion.
 
-Both reviewers default to a preflight context budget of 400,000 estimated tokens.
-The repository variable `PROTOCOL_B_MANUSCRIPT_PROFILE` defaults to `standard`
-when unset or empty. An owner can set it to `expanded` when the provider accounts
-allow the larger spending profile. Only then, if the complete GitHub diff changes
-a path under `manuscripts/`, including a rename out of that directory, both
-receive 900,000. Other PRs retain the standard profile. Unknown variable values
-stop before model calls. The expanded profile fits the published
+Both reviewers receive a preflight context budget of 900,000 estimated tokens
+when the complete GitHub diff changes a path under `manuscripts/`, `research/`
+or `data/`, or `docs/current-manuscript.json`. Both sides of renames and deleted
+paths count. Research paths are selected conservatively because they hold the
+manuscript's tables, certificates and verifiers. Other PRs receive 400,000.
+This selection is automatic; the former `PROTOCOL_B_MANUSCRIPT_PROFILE` variable
+is no longer read. It changes no authorization to start a paid review, spending
+guard, or acceptance rule. The expanded profile fits the published
 windows of [Astra 6](https://developers.openai.com/api/docs/models/gpt-6-astra)
 (1,050,000) and [Fable 5.2](https://platform.claude.com/docs/en/models/fable-5-2/overview)
 (1,000,000), checked November 14, 2026. Both budgets are totals,
@@ -270,6 +271,35 @@ for the standard profile or 50,000 for the expanded manuscript profile
 for fetched text, 16,000 for a search result block, and 128,000 for a binary
 fetch result. These estimates do not change the actual conversation sent to
 the provider. Unknown block types and repository text receive no discount.
+
+`read_pdf` reads the actual committed PDF through GitHub's file/blob API and
+extracts 1-10 physical pages at a time. The result includes the commit, SHA256
+and page numbers, so the raw URL's `application/octet-stream` type does not
+prevent reading it. Ubuntu Poppler runs in a separate Bubblewrap namespace
+without network or host home access and with no inherited credentials. Only
+system libraries, the single input PDF and a new output directory are mounted;
+memory, CPU, output size and wall time are bounded. Installation comes from
+Ubuntu repositories, never from a candidate file. Isolation or extraction
+failure returns a tool error, not a successful read, with no unisolated retry.
+Scanned pages, images and layout are not verified by text extraction. Relevant
+unread visual content remains an incomplete-scope item. Successful page reads
+use the existing context allowance and whole-file reuse binding.
+
+A reviewer may count a passing finite CI check as coverage of a printed table
+after inspecting its complete workflow, checker and necessary dependencies,
+and verifying that the executed check relates the actual printed table to the
+committed data. `read_ci_job` obtains the actual job, attempt, successful steps
+and execution commit. It accepts this PR's head or its exact base/head test
+merge. `record_table_coverage` requires admitted checker/workflow/table reads,
+a successful step and equal blob identities for the workflow, checkers, data
+and table at the reviewed and executed commits. The reviewer records the exact
+claim and limits, including checkout selection, generated inputs, caches and
+ignored failures. Mechanical identity checks do not establish that the command
+actually tests the table or that the checker proves what is needed; those remain
+the reviewer's responsibility. The reviewer report and run artifact retain this
+scoped CI reliance. It cannot turn an error, missing argument or other incomplete
+review into acceptance. Such a review is not reused across a changed head without
+fresh CI inspection. Same-head retention still preserves its original evidence.
 
 Before the first request, if its estimate would exhaust the output and recovery
 reserves, the gate defers inline patches from that unsent packet. Every changed

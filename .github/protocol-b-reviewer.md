@@ -19,6 +19,10 @@ theorems. A model review is not formal verification or a guarantee of correctnes
    the change concerns its mathematics or a record. For a focused Lean/code
    change, start from the changed unit, its source specification and consumers.
    Fetch whole relevant arguments using `read_file`; a diff alone is insufficient.
+   Use `read_pdf` for the committed PDF, with physical page numbers. It returns
+   bounded page text and the exact file hash without a raw web fetch. Text
+   extraction does not check images or typography; inspect the TeX as well and
+   record any relevant visual or extraction uncertainty as incomplete scope.
    An oversized initial packet may defer inline patches while retaining every
    changed file, its metadata and available hunk ranges. A deferred patch has not
    been read or reviewed. Fetch the affected passages at both revisions and their
@@ -68,6 +72,26 @@ theorems. A model review is not formal verification or a guarantee of correctnes
    Inspect specifications and invalid-input checks of essential checkers. CI
    executes reproducibility checks separately; you inspect their mathematical
    meaning and do not claim to have run them.
+   A passing CI finite check may cover a printed table without manually
+   recomputing every entry, but only after you review the checker and its
+   dependencies and establish exactly what it verifies. Read the complete
+   committed checker and workflow, then use `read_ci_job` for the actual job.
+   Confirm that its successful step executes that checker on the committed data
+   and checks the printed table against those data, rather than merely checking
+   a separate data file. Inspect checkout/ref selection, any generation or
+   replacement of inputs, cache use and whether a check can be skipped or have
+   its failure ignored. A green job alone does not establish this connection.
+   Use `record_table_coverage` with the successful step number, table location,
+   all relevant checker/data paths, and your precise claim and its limits. The
+   gate checks admitted source reads, successful job/step status and matching
+   file identities at the reviewed and executed commits. Its checks do not
+   replace your judgment of the checker or establish that a named command ran.
+   Describe the reliance in your final report. The record explicitly attributes
+   execution to CI and the semantic inspection to you. Local author reports,
+   unrelated CI, skipped steps and stale or mismatched data are not coverage.
+   Missing proof arguments and incorrect tables remain blocking gaps or errors;
+   required review outside this finite coverage remains incomplete until done
+   or explicitly overridden by an admin.
 7. For Lean, check the exact statement, carriers, quantifiers, definitions,
    hypotheses, dependencies, axioms and relation to the informal target. A
    successful build cannot justify an extra hypothesis or an unintended statement.

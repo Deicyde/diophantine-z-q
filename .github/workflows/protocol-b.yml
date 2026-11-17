@@ -1,5 +1,5 @@
 # MODE defaults to off unless the owner enables test/live.
-# No checkout, cache restore, dependency install, or candidate executable.
+# No checkout, cache restore, or candidate executable. PDF tools come from Ubuntu.
 name: Protocol B
 
 on:
@@ -76,6 +76,8 @@ jobs:
           import pathlib
           import re
           import sys
+          import subprocess
+          import tempfile
           import time
           import urllib.error
           import urllib.parse
@@ -112,6 +114,12 @@ jobs:
           WEB_BINARY_RESULT_RESERVE = 128_000
 
 
+          def manuscript_path(path):
+              # Research trees contain the manuscript's tables, certificates and verifiers.
+              # Prefer extra budget to missing a data-only change; this grants no review access.
+              return (path.startswith(('manuscripts/', 'research/', 'data/')) or
+                      path == 'docs/current-manuscript.json')
+
           def configure_budget(files):
               """Choose one profile from the complete GitHub diff, before reviewers start.
 
@@ -119,18 +127,15 @@ jobs:
               Both profiles include the output and formatting reserves within the cap.
               """
               global CONTEXT_TOKEN_BUDGET, TOOL_CHARACTER_BUDGET, WEB_MAX_USES, WEB_FETCH_MAX_CONTENT_TOKENS
-              configured = os.environ.get('MANUSCRIPT_PROFILE', '') or 'standard'
-              if configured not in {'standard', 'expanded'}:
-                  raise ValueError('MANUSCRIPT_PROFILE must be standard or expanded; no model call')
-              manuscript = any(path.startswith('manuscripts/') for file in files
+              manuscript = any(manuscript_path(path) for file in files
                                for path in (file['filename'], file.get('previous_filename', '')))
-              expanded = manuscript and configured == 'expanded'
+              expanded = manuscript
               CONTEXT_TOKEN_BUDGET = 900_000 if expanded else 400_000
               TOOL_CHARACTER_BUDGET = 1_200_000 * CONTEXT_TOKEN_BUDGET // 400_000
               WEB_MAX_USES = {'web_search': 10, 'web_fetch': 20} if expanded else {'web_search': 3, 'web_fetch': 5}
               WEB_FETCH_MAX_CONTENT_TOKENS = 50_000 if expanded else 20_000
               return {'profile': 'manuscript-expanded' if expanded else 'standard',
-                      'configured_manuscript_profile': configured, 'manuscript_changed': manuscript,
+                      'selection': 'automatic changed paths', 'manuscript_changed': manuscript,
                       'tool_character_budget': TOOL_CHARACTER_BUDGET,
                       'context_token_budget': CONTEXT_TOKEN_BUDGET,
                       'output_token_budget': OUTPUT_TOKEN_BUDGET,
@@ -257,7 +262,7 @@ jobs:
                   raise ValueError("Pagination limit reached; no partial review is allowed")
 
               @functools.lru_cache(maxsize=32)
-              def text(self, path, ref):
+              def blob(self, path, ref):
                   if not re.fullmatch(r"[0-9a-f]{40}", ref):
                       raise ValueError("Source ref must be a commit")
                   if path.startswith("/") or any(p in {"", ".", ".."} for p in path.split("/")):
@@ -276,7 +281,87 @@ jobs:
                       raise ValueError("File exceeds 16 MB; use its specification or request a smaller review")
                   if value.get("encoding") != "base64":
                       value = self.call("/git/blobs/" + value["sha"])
-                  return base64.b64decode(value["content"], validate=False).decode("utf-8")
+                  return base64.b64decode(value["content"], validate=False)
+
+              def text(self, path, ref):
+                  return self.blob(path, ref).decode("utf-8")
+
+
+          def pdf_command(source, output, start, count):
+              # Only system libraries, this one PDF and a fresh output directory are visible.
+              # No host home, /proc, credentials or network; no unisolated fallback.
+              return ['/usr/bin/sudo', '-n', '/usr/bin/bwrap', '--unshare-all',
+                      '--die-with-parent', '--new-session', '--uid', '65534', '--gid', '65534',
+                      '--cap-drop', 'ALL', '--clearenv', '--setenv', 'PATH', '/usr/bin',
+                      '--setenv', 'LC_ALL', 'C.UTF-8', '--ro-bind', '/usr', '/usr',
+                      '--ro-bind', '/lib', '/lib', '--ro-bind', '/lib64', '/lib64',
+                      '--dev', '/dev', '--ro-bind', str(source), '/input.pdf',
+                      '--bind', str(output), '/output', '--chdir', '/',
+                      '/usr/bin/prlimit', '--as=536870912', '--cpu=25', '--fsize=1048576',
+                      '--nproc=16', '--', '/usr/bin/pdftotext', '-f', str(start),
+                      '-l', str(start+count-1), '-layout', '-enc', 'UTF-8',
+                      '/input.pdf', '/output/pages.txt']
+
+
+          def pdf_pages(raw, start, count):
+              if type(start) is not int or type(count) is not int or start < 1 or not 1 <= count <= 10:
+                  raise ValueError('Read 1 to 10 PDF pages, starting at page 1 or later')
+              if len(raw) > 16_000_000 or not raw.startswith(b'%PDF-'):
+                  raise ValueError('Expected a PDF of at most 16 MB')
+              with tempfile.TemporaryDirectory(prefix='protocol-b-pdf-') as directory:
+                  directory = pathlib.Path(directory)
+                  source, output = directory/'input.pdf', directory/'output'
+                  source.write_bytes(raw)
+                  source.chmod(0o444)
+                  output.mkdir(mode=0o777)
+                  output.chmod(0o777)
+                  try:
+                      result = subprocess.run(pdf_command(source, output, start, count),
+                          env={'PATH': '/usr/bin:/bin', 'LC_ALL': 'C.UTF-8'},
+                          stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
+                          stderr=subprocess.DEVNULL, timeout=35, check=False)
+                  except (OSError, subprocess.TimeoutExpired) as error:
+                      raise ValueError('PDF extraction unavailable or timed out; no pages were reviewed') from error
+                  extracted = output/'pages.txt'
+                  if result.returncode or not extracted.is_file() or extracted.is_symlink():
+                      raise ValueError('PDF extraction failed (invalid/encrypted PDF, page range or isolation failure); no pages were reviewed')
+                  if extracted.stat().st_size > 100_000:
+                      raise ValueError('PDF pages exceed 100,000 bytes; request fewer pages')
+                  pages = extracted.read_text(encoding='utf-8').split('\f')
+                  if pages and not pages[-1].strip():
+                      pages.pop()
+                  if not pages or not any(page.strip() for page in pages):
+                      raise ValueError('PDF pages have no extractable text; scan or visual content remains unreviewed')
+                  return [{'page': start+i, 'text': page} for i, page in enumerate(pages)]
+
+
+          def ci_job_evidence(gh, pr, job_id):
+              if type(job_id) is not int or job_id < 1:
+                  raise ValueError('Expected a positive GitHub Actions job ID')
+              try:
+                  job = gh.call('/actions/jobs/'+str(job_id))
+              except RequestError as error:
+                  if error.status == 404:
+                      raise ValueError('No such Actions job in this repository; use list_ci_checks for job links') from None
+                  raise
+              if job.get('status') != 'completed' or job.get('conclusion') != 'success':
+                  raise ValueError('CI job did not complete successfully')
+              run = gh.call('/actions/runs/'+str(job['run_id'])+'/attempts/'+str(job['run_attempt']))
+              sha = job.get('head_sha')
+              if sha != run.get('head_sha'):
+                  raise ValueError('CI job/run commit mismatch')
+              if sha != pr['head']['sha']:
+                  parents = [p['sha'] for p in gh.call('/commits/'+str(sha)).get('parents', [])]
+                  if run.get('event') != 'pull_request' or parents != [pr['base']['sha'], pr['head']['sha']]:
+                      raise ValueError('CI did not run on this head or its exact base/head test merge')
+              workflow = run.get('path', '')
+              if not re.fullmatch(r'\.github/workflows/[\w.-]+\.ya?ml', workflow):
+                  raise ValueError('Cannot identify the CI workflow source')
+              return {'job_id': job_id, 'job_url': job['html_url'], 'job_name': job['name'],
+                      'run_id': run['id'], 'run_attempt': job['run_attempt'],
+                      'executed_sha': sha, 'reviewed_head': pr['head']['sha'],
+                      'workflow': workflow, 'steps': job.get('steps', []),
+                      'notice': 'Success alone is not table coverage. Read the workflow and checker, then record the exact claim with record_table_coverage.'}
 
 
           # BEGIN UNATTENDED HELPERS
@@ -1860,10 +1945,27 @@ jobs:
               }, "required": ["decision", "scope_complete", "not_reviewed", "report", "findings", "prior_findings", "sources_read", "not_outside_reviewed", "source_checks", "access_limitations"],
           }
           TOOLS = [
-              {"name": "read_file", "description": "Read a pinned PR or base text file by lines; binary PDFs return a pinned public URL. Never executes content.",
+              {"name": "read_file", "description": "Read a pinned PR or base text file by lines. For PDFs use read_pdf. Never executes candidate content.",
                "parameters": {"type": "object", "properties": {"path": {"type": "string"},
                  "revision": {"type": "string", "enum": ["head", "base"]}, "start": {"type": "integer"}, "count": {"type": "integer"}},
                  "required": ["path", "revision", "start", "count"], "additionalProperties": False}},
+              {"name": "read_pdf", "description": "Read text extracted from 1-10 pages of the committed head/base PDF, with physical page numbers and SHA256. No raw web fetch needed. Images and layout are not verified by text extraction.",
+               "parameters": {"type": "object", "properties": {"path": {"type": "string"},
+                 "revision": {"type": "string", "enum": ["head", "base"]}, "start": {"type": "integer"}, "count": {"type": "integer"}},
+                 "required": ["path", "revision", "start", "count"], "additionalProperties": False}},
+              {"name": "list_ci_checks", "description": "List current CI checks and job links for the pinned head and its exact test merge, 20 at a time. The job ID is the number following /job/ in its details URL.",
+               "parameters": {"type": "object", "properties": {"offset": {"type": "integer"}},
+                 "required": ["offset"], "additionalProperties": False}},
+              {"name": "read_ci_job", "description": "Read actual GitHub Actions job/step results, bound to this head or its exact test merge. Obtain a job ID from list_ci_checks. Does not execute code or establish mathematical coverage.",
+               "parameters": {"type": "object", "properties": {"job_id": {"type": "integer"}},
+                 "required": ["job_id"], "additionalProperties": False}},
+              {"name": "record_table_coverage", "description": "After reading a successful CI job, its complete workflow and checkers, record reliance for one printed table. Explain exactly how the executed step checks the printed table against committed data, all checker dependencies, and limits. This is your scoped attestation, not automatic proof or general acceptance.",
+                 "parameters": {"type": "object", "properties": {"job_id": {"type": "integer"}, "step_number": {"type": "integer"},
+                 "table_path": {"type": "string"}, "table_location": {"type": "string"},
+                 "checker_paths": {"type": "array", "items": {"type": "string"}},
+                 "data_paths": {"type": "array", "items": {"type": "string"}},
+                 "claim_and_limits": {"type": "string"}},
+                   "required": ["job_id", "step_number", "table_path", "table_location", "checker_paths", "data_paths", "claim_and_limits"], "additionalProperties": False}},
               {"name": "list_files", "description": "List pinned head paths with a literal substring; results are paged, never silently truncated.",
                "parameters": {"type": "object", "properties": {"contains": {"type": "string"}, "offset": {"type": "integer"}},
                  "required": ["contains", "offset"], "additionalProperties": False}},
@@ -2260,6 +2362,7 @@ jobs:
                   self.invalid_finish = None
                   self.discovery = {}
                   self.binary_dependencies = set()
+                  self.ci_jobs, self.table_coverage = {}, []
                   self.initial_files = files
                   self.initial_packet = None
                   self.original_files_digest = hashlib.sha256(json.dumps(files, sort_keys=True).encode()).hexdigest()
@@ -2296,7 +2399,80 @@ jobs:
                           if isinstance(f, dict) and isinstance(f.get('id'), str)
                           and f.get('severity') != 'note'} & self.pending_fresh_ids
 
+              def covered_file(self, path):
+                  ref = self.pr['head']['sha']
+                  lines = self.file_lines.get((path, ref))
+                  if lines is None:
+                      return False
+                  covered = set()
+                  for read in self.reads:
+                      if read['path'] == path and read['revision'] == ref:
+                          covered.update(range(read['start'], read['start']+read['count']))
+                  return set(range(1, len(lines)+1)) <= covered
+
+              def record_table(self, args):
+                  evidence = ci_job_evidence(self.gh, self.pr, args['job_id'])
+                  if evidence != self.ci_jobs.get(args['job_id']):
+                      raise ValueError('Read this exact successful CI job first')
+                  if type(args['step_number']) is not int or not any(step.get('number') == args['step_number'] and
+                             step.get('status') == 'completed' and step.get('conclusion') == 'success'
+                             for step in evidence['steps']):
+                      raise ValueError('Select the successful step that actually ran the finite checker, not a skipped step')
+                  checkers, data = args['checker_paths'], args['data_paths']
+                  if not 1 <= len(checkers) <= 8 or not 1 <= len(data) <= 16:
+                      raise ValueError('Name 1-8 checker files and 1-16 committed data files')
+                  if not args['table_location'].strip() or len(args['claim_and_limits'].strip()) < 80:
+                      raise ValueError('Describe the printed table, executed command, data binding and limits')
+                  required_reads = set(checkers + [evidence['workflow']])
+                  if any(not self.covered_file(path) for path in required_reads):
+                      raise ValueError('Read the complete workflow and checker files at head before claiming CI coverage')
+                  if not any(r['path'] == args['table_path'] and r['revision'] == self.pr['head']['sha'] for r in self.reads):
+                      raise ValueError('Read the printed table source or PDF before recording coverage')
+                  paths = sorted(required_reads | set(data) | {args['table_path']})
+                  blobs = {}
+                  for path in paths:
+                      sha = source_identity(self.gh, path, self.pr['head']['sha'])
+                      if source_identity(self.gh, path, evidence['executed_sha']) != sha:
+                          raise ValueError('CI checked different committed bytes for '+path)
+                      blobs[path] = sha
+                  claim = {**args, **evidence, 'blobs': blobs,
+                           'basis': 'Reviewer inspected checker/workflow and attests the successful step checks this printed table against these committed data. No broader proof claim.'}
+                  self.table_coverage.append(claim)
+                  return {'table_coverage': claim}
+
               def tool(self, name, args):
+                  if name == 'list_ci_checks':
+                      offset = args['offset']
+                      if type(offset) is not int or offset < 0:
+                          raise ValueError('Expected a nonnegative offset')
+                      heads = [self.pr['head']['sha']]
+                      merge = self.pr.get('merge_commit_sha')
+                      if merge and merge not in heads:
+                          parents = [p['sha'] for p in self.gh.call('/commits/'+merge).get('parents', [])]
+                          if parents == [self.pr['base']['sha'], self.pr['head']['sha']]:
+                              heads.append(merge)
+                      rows = [{k: c.get(k) for k in ('id', 'name', 'head_sha', 'status', 'conclusion', 'details_url')}
+                              for sha in heads for c in head_checks(self.gh, sha)]
+                      return {'checks': rows[offset:offset+20], 'total': len(rows),
+                              'next_offset': offset+20 if offset+20 < len(rows) else None}
+                  if name == 'read_pdf':
+                      if args['revision'] not in {'head', 'base'} or not args['path'].lower().endswith('.pdf'):
+                          raise ValueError('Expected a PDF path and head/base revision')
+                      path, side = args['path'], args['revision']
+                      ref = self.pr[side]['sha']
+                      raw = self.gh.blob(path, ref)
+                      pages = pdf_pages(raw, args['start'], args['count'])
+                      self.binary_dependencies.add((path, side))
+                      self.reads.append({'path': path, 'revision': ref, 'start': args['start'],
+                                        'count': len(pages), 'kind': 'pdf_text_pages'})
+                      return {'path': path, 'revision': ref, 'sha256': hashlib.sha256(raw).hexdigest(),
+                              'pages': pages, 'scope': 'Extracted text only. Physical PDF page numbers; images, typography and extraction ambiguities require separate inspection.'}
+                  if name == 'read_ci_job':
+                      result = ci_job_evidence(self.gh, self.pr, args['job_id'])
+                      self.ci_jobs[args['job_id']] = result
+                      return result
+                  if name == 'record_table_coverage':
+                      return self.record_table(args)
                   if name == "read_history":
                       self.history_read = True
                       return {"discussion": self.history, "earlier_findings": self.prior, "authenticated_overrides": self.overrides}
@@ -2310,8 +2486,7 @@ jobs:
                           raise ValueError("Read 1 to 1000 lines, starting at line 1 or later")
                       if path.lower().endswith(".pdf"):
                           self.binary_dependencies.add((path, args["revision"]))
-                          return {"pdf_url": "https://raw.githubusercontent.com/" + self.gh.repo + "/" + ref + "/" + urllib.parse.quote(path),
-                                  "instruction": "Read via web tools; an unavailable source is not verified."}
+                          return {"instruction": "Use read_pdf with this path, physical start page and page count. This notice is not a source read."}
                       if (path, ref) not in self.file_lines:
                           self.file_lines[path, ref] = self.gh.text(path, ref).splitlines()
                       lines = self.file_lines[path, ref]
@@ -2494,6 +2669,7 @@ jobs:
                                       item.update(resolution='unresolved', reason=
                                                   'Earlier finding history was not admitted to this review. Its disposition remains unresolved.')
                               record(self.family + "-source-reads.json", self.reads)
+                              record(self.family + "-ci-table-coverage.json", self.table_coverage)
                               self.invalid_finish = None
                               self.delivered_finals.clear()
                               return value
@@ -2533,11 +2709,14 @@ jobs:
                       for call_index, call in enumerate(calls):
                           args = json.loads(call["arguments"]) if self.family == "astra" else call["input"]
                           reads_before, history_before = len(self.reads), self.history_read
+                          coverage_before, ci_before = len(self.table_coverage), dict(self.ci_jobs)
                           try:
                               if call["name"] == 'finish_review' and finish_error:
                                   value = {'error': finish_error}
                               elif self.finish_now:
                                   raise ValueError('Read too large for the remaining review allowance. ' + FINISH_NOW_INSTRUCTION)
+                              elif call['name'] == 'record_table_coverage' and len(calls) != 1:
+                                  raise ValueError('Record table coverage in a separate turn after inspecting the returned sources and CI evidence')
                               else:
                                   value = self.tool(call["name"], args)
                           except (ValueError, UnicodeError) as error:
@@ -2557,6 +2736,8 @@ jobs:
                               # Fetching a source is not evidence that the reviewer saw it.
                               del self.reads[reads_before:]
                               self.history_read = history_before
+                              del self.table_coverage[coverage_before:]
+                              self.ci_jobs = ci_before
                           value['remaining_context_tokens'] = max(0, allowance(values) - 128)
                           if self.finish_now or value['remaining_context_tokens'] < REVIEWER_OUTPUT_RESERVE:
                               self.finish_now = True
@@ -3102,6 +3283,8 @@ jobs:
 
 
           def make_reuse_binding(gh, pr, files, reviewer):
+              if reviewer.table_coverage:
+                  raise ValueError('CI table coverage is bound to its reviewed head; cross-head reuse requires fresh CI inspection')
               packet = reviewer.initial_packet or {}
               if packet.get('patches_deferred') and packet.get('merge_base') != pr['base']['sha']:
                   raise ValueError('Deferred merge-base context may be read through untracked web tools; cross-head reuse disabled on a diverged base')
@@ -3828,6 +4011,7 @@ jobs:
                                               "attempt": os.environ["GITHUB_RUN_ATTEMPT"], "review": value,
                                               "read_prerequisites_complete": bool(reviewers[family].history_read and reviewers[family].reads),
                                               "finished_early": reviewers[family].finish_now,
+                                              "ci_table_coverage": reviewers[family].table_coverage,
                                               "initial_packet": reviewers[family].initial_packet,
                                               "complete": True, "policy_ref": os.environ['GITHUB_SHA'],
                                               "history_digest": passage_digest(sorted(history_coverage(discussion))) if reviewers[family].history_read else None,
@@ -4516,6 +4700,10 @@ jobs:
       ROUTED_PR: ${{ needs.route_request.outputs.number }}
     steps:
       - *prepare_program
+      - name: Install isolated PDF reader from Ubuntu
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends poppler-utils bubblewrap
       - name: Read this run's kernel preparation
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
@@ -4538,7 +4726,6 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           MODE: ${{ vars.PROTOCOL_B_MODE }}
-          MANUSCRIPT_PROFILE: ${{ vars.PROTOCOL_B_MANUSCRIPT_PROFILE }}
           TEST_PR: ${{ vars.PROTOCOL_B_TEST_PR }}
           NOTES_ISSUE: ${{ vars.PROTOCOL_B_NOTES_ISSUE }}
         run: python3 "$RUNNER_TEMP/protocol-b.py" review
