@@ -1,0 +1,38 @@
+== grep over the whole tree (all .lean files) for the two X6 fields, in the y3-x6 route files
+ZInQKernel/Contrib/OneProof/Y3X6Fold.lean:8:two `X₆` fields of the research bundle, `x6CoarseModuliIdeal` (the coarse moduli scheme `X₆ = X₀(6,1)` and the
+ZInQKernel/Contrib/OneProof/Y3X6Fold.lean:9:Atkin–Lehner group) and `elkiesX6StarEveryIdeal` (Elkies' coordinate on `X₆/W`), were read only to build
+ZInQKernel/Contrib/OneProof/Y3X6Fold.lean:12:  `gonzalezRotgerX6Ab` and `babaGranathRationalAb`), whose readers need only R2 on `Y₃`, `π` onto `P¹(ℚ̄)` and the
+ZInQKernel/Contrib/OneProof/Y3X6Fold.lean:23:`OpenResearchLeaves55Y3` = `OpenResearchLeaves54CM` − `x6CoarseModuliIdeal` − `elkiesX6StarEveryIdeal` + `y3ToP1j` +
+ZInQKernel/Contrib/OneProof/Y3X6/Top.lean:5:`OpenResearchLeaves55Y3` is cm-branch2's `OpenResearchLeaves54CM` without `x6CoarseModuliIdeal` and
+ZInQKernel/Contrib/OneProof/Y3X6/Top.lean:6:`elkiesX6StarEveryIdeal`, with y3-p1j's leaf `y3ToP1j` (`Y3P1j.Y3ToP1j`, the manuscript's map `Y₃ → P¹_j`) and the
+ZInQKernel/Contrib/OneProof/Y3X6/Top.lean:8:intermediate bundles are copied without `x6CoarseModuli`, `elkiesX6StarEvery` and with the two new fields; the last
+ZInQKernel/Contrib/OneProof/Y3X6/Top.lean:256:cm-branch2's): `x6CoarseModuliIdeal` and `elkiesX6StarEveryIdeal` removed; `y3ToP1j` (leaf) and `heckeSqrtBranchAny` (glue)
+== readers of X6Props/R2X6Props/CMExists/X6Surj/R2X6PropsIff in the y3-x6 route files (code lines)
+ZInQKernel/Contrib/OneProof/Y3X6Fold.lean:11:* the moduli row's `X₆` witness `(X, Ψ, fY, π₆)` with `X6Props`, `R2X6PropsIff`, `X6Surj` (through
+ZInQKernel/Contrib/OneProof/Y3X6/Row.lean:8:`X₆ = X₀(6,1)` witness `(X, Ψ, fY, π₆)` with `X6Props`, `R2X6PropsIff`, `X6Surj`; the readers of those clauses
+ZInQKernel/Contrib/OneProof/Y3X6/Row.lean:68:(`R1recProps`). On the `X₆` row this needed `CMExists` and the fibre clause on `X₆` (`cm_of_val`). -/
+ZInQKernel/Contrib/OneProof/Y3X6/Top.lean:257:added. No `X₆` witness, no `X6Props`, `R2X6Props`, `CMExists`, `X6Surj` in the closure (scratch/y3-x6/closure.txt). -/
+== all files in the tree that mention the two fields
+scratch/cm-branch2/ClauseUse.lean
+scratch/cm-branch2/GRUse73.lean
+scratch/cm-branch2/GRUse.lean
+scratch/x6-coarse/Axioms.lean
+scratch/x6-coarse/X6ALIdeal.lean
+ZInQKernel/Contrib/OneProof/CMBranch/No5E.lean
+ZInQKernel/Contrib/OneProof/CMBranch/Open73.lean
+ZInQKernel/Contrib/OneProof/X6AtkinLehnerIdeal.lean
+ZInQKernel/Contrib/OneProof/Y3X6Fold.lean
+ZInQKernel/Contrib/OneProof/Y3X6/Top.lean
+ZInQKernel/OneProof/H/TailZ71.lean
+ZInQKernel/OneProof/H/TailZ72.lean
+ZInQKernel/OneProof/H/TailZ73.lean
+ZInQKernel/OneProof/H/TailZ74.lean
+ZInQKernel/OneProof/H/TailZ75.lean
+ZInQKernel/OneProof/H/TailZ76.lean
+ZInQKernel/OneProof/H/TailZ77.lean
+ZInQKernel/OneProof/H/TailZ78.lean
+ZInQKernel/OneProof/H/TailZ79.lean
+ZInQKernel/OneProof/H/TailZ80.lean
+ZInQKernel/OneProof/H/TailZ81.lean
+ZInQKernel/OneProof/H/TailZ82.lean
+ZInQKernel/OneProof/H/TailZ83.lean
