@@ -17,7 +17,7 @@ Base 9a100aa7 (leaf-fold22). Field `HDec.HSyn.OpenResearchLeaves21.r17 : _root_.
   - ℓ = 3, p = 5, ρ = the R14 representation isomorphic to `D.r3`.
   `f` = the newform of `newform_of_pan` (Pan–Berger's eigenform, twisted by T24, newform by T25), level N
   arbitrary: the instances are a general weight-2 newform attached to a 2-dimensional constituent of
-  `V_ℓ(A)` for Glazer's model `A/L'` (QM abelian surface), at every prime p. Not special, not vacuous.
+  `V_ℓ(A)` for the manuscript's model `A/L'` (QM abelian surface), at every prime p. Not special, not vacuous.
 * What g15 does with the equality `v_p(N) = c` (c = condAt at an adapted level): only `v_p(N) ≤ c`
   (c ≤ E₀ ⇒ v_p(N) ≤ E₀; c ≤ 2 ⇒ v_p(N) ≤ 2; c = 0 ⇒ p ∤ N). VERIFIED by reading TailA:3537-3576.
 

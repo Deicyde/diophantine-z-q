@@ -52,7 +52,7 @@ autofold dry-run fold (`sixContactMin_of_open29`, standard axioms). Details in �
   representation attached to `f`, isomorphic to G8's `r₅` (resp. `r₃`); `f` is the newform obtained
   from Pan–Berger's eigenform for `r₅` (`newform_of_pan`: twist T24, newform T25), of arbitrary level
   `N`. So: a general weight-2 newform whose 5-adic representation is a 2-dimensional constituent of
-  `V₅(A)` for Glazer's model `A/L'`, at every prime. Nothing makes the instance special: `N` is not
+  `V₅(A)` for the manuscript's model `A/L'`, at every prime. Nothing makes the instance special: `N` is not
   computed, `A` varies with `u ∈ ℚ`.
 * What g15 does with `v_p(N) = c` (`c` the conductor at an adapted level): `c ≤ E₀ ⇒ v_p(N) ≤ E₀`
   (`p ≤ D`), `c ≤ 2 ⇒ v_p(N) ≤ 2` (`p > D`), `c = 0 ⇒ p ∤ N` (`p ∉ T`). Only `v_p(N) ≤ c` is used,
