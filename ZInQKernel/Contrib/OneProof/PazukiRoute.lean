@@ -1,5 +1,8 @@
 import ZInQKernel.Contrib.OneProof.PazukiInputs
 import ZInQKernel.Contrib.OneProof.PicLocFinType
+import ZInQKernel.Contrib.OneProof.PhiSurjCharZero
+import ZInQKernel.Contrib.OneProof.IdentityComponentLFT
+import ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosed
 
 /-!
 # pazuki-route: the arithmetic core of `pazukiCor13Upper` reduced to a symmetric-locus argument
@@ -384,6 +387,111 @@ theorem symmClassDefinedOver_of_countable (hRep : PicRepresentableAbVar) (hS : S
 
 end Compose
 
+/-! ## §4b. `SymmetricClassesCountable` from existing fields -/
+
+section Countable
+
+open T09Pic PicDict PkgI3 PhiSurj
+
+/-- A free `ℤ`-module of finite rank is countable. -/
+theorem countable_of_free_finite (M : Type) [AddCommGroup M] [Module.Free ℤ M] [Module.Finite ℤ M] :
+    Countable M := by
+  let b := Module.Free.chooseBasis ℤ M
+  exact Function.Injective.countable b.equivFun.injective
+
+theorem pic_map_inv {X Y : Scheme.{0}} (f : X ⟶ Y) (c : Y.Pic) :
+    Scheme.Pic.map f c⁻¹ = (Scheme.Pic.map f c)⁻¹ := by
+  rw [← Scheme.Pic.mapHom_apply, map_inv, Scheme.Pic.mapHom_apply]
+
+/-- `[-1]^* c = c⁻¹` for a translation-invariant class `c` (from `m^*c = p₁^*c ⊗ p₂^*c`). -/
+theorem map_inv_of_isTI (h1 : PicRepresentableAbVar) (h2 : PicZeroChar0.PicZeroAbVar0) {k : Type} [Field k]
+    [IsAlgClosed k] [CharZero k] (X : AbVar k) (c : X.X.left.Pic) (hc : AC.IsTI c) :
+    Scheme.Pic.map (GrpObj.inv (X := X.X)).left c = c⁻¹ := by
+  have hμ := mu_pic_of_isTI0 h1 h2 X c hc
+  let s := (CartesianMonoidalCategory.lift (𝟙 X.X) (GrpObj.inv (X := X.X))).left
+  have hs1 : s ≫ pullback.fst X.X.hom X.X.hom = 𝟙 _ := by simp [s]
+  have hs2 : s ≫ pullback.snd X.X.hom X.X.hom = (GrpObj.inv (X := X.X)).left := by simp [s]
+  have hsμ : s ≫ (μ[X.X]).left = X.X.hom ≫ η[X.X].left := by
+    have h := mul_inv_cancel (𝟙 X.X)
+    rw [CategoryTheory.Hom.mul_def, CategoryTheory.Hom.inv_def, CategoryTheory.Hom.one_def,
+      Category.id_comp] at h
+    have h' := congrArg CommaMorphism.left h
+    simp only [Over.comp_left] at h'
+    exact h'
+  have e1 : Scheme.Pic.map (s ≫ (μ[X.X]).left) c = 1 := by
+    rw [hsμ, Scheme.Pic.map_comp, Subsingleton.elim (α := (Spec (CommRingCat.of k)).Pic)
+      (Scheme.Pic.map η[X.X].left c) 1, Scheme.Pic.map_one]
+  rw [Scheme.Pic.map_comp, hμ, Scheme.Pic.map_mul, ← Scheme.Pic.map_comp, ← Scheme.Pic.map_comp, hs1, hs2,
+    Scheme.Pic.map_id] at e1
+  exact eq_inv_of_mul_eq_one_right e1
+
+/-- **`SymmetricClassesCountable` (proved) from existing LEAF fields**: `PicRepresentableAbVar`,
+`KleimanPicZeroProper` (with the proved `PicLocFinType`, `IdentityComponentLFT` and Cartier smoothness this gives
+`Pic⁰` as an abelian variety in characteristic `0`) and `MumfordTorsionAlgClosed` (with the proved
+`uniformizationLeafAll` it gives Mumford §19 Thm 3 over `ℂ`, `homFreeFiniteC`, and the bound on `Pic⁰[2]`,
+`card_isDT_le0`). A symmetric `L` determines `λ_L ∈ Hom(A_ℂ, Pic⁰)` (countable); two symmetric classes with the same
+`λ` differ by a translation-invariant symmetric class, which is `2`-torsion (`map_inv_of_isTI`); there are finitely
+many of those. -/
+theorem symmetricClassesCountable_of_fields (h1 : PicRepresentableAbVar) (hK : PicFix.KleimanPicZeroProper)
+    (hT : AvSplit.MumfordTorsionAlgClosed) : SymmetricClassesCountable := by
+  intro K _ _ A σ
+  let X : AbVar ℂ := bcC A σ
+  have h2 : PicZeroChar0.PicZeroAbVar0 :=
+    PicZeroChar0.picZeroAbVar0_of_leaves PicLFT.picLocFinType_proof IdCompLFT.identityComponentLFT_proof hK
+  obtain ⟨P, ⟨rep⟩⟩ := h1 ℂ X
+  obtain ⟨B, j, hj⟩ := h2 ℂ X P rep
+  have hHom : Countable (AbVar.Hom X B) := by
+    obtain ⟨hfree, hfin, -, -⟩ :=
+      ZInQ.Contrib.OneProof.HomFreeC.homFreeFiniteC uniformizationLeafAll_proof hT ℂ (RingHom.id ℂ) X B
+    exact countable_of_free_finite _
+  let F : X.X.left.Pic → AbVar.Hom X B := fun L => (exists_hom_comp_eq_phiL rep hj L).choose
+  have hF : ∀ L, (F L).hom ≫ j = phiL rep L := fun L => (exists_hom_comp_eq_phiL rep hj L).choose_spec
+  obtain ⟨g, hg⟩ := HDec.HSyn.G0Split.dimFinite ℂ X
+  have hD : Set.Finite {c : X.X.left.Pic | AC.IsDT 2 c} := by
+    have := (PhiSurj.AVDesc.card_isDT_le0 h1 h2 hT X g 2 hg two_pos two_ne_zero).1
+    exact Set.finite_coe_iff.mp this
+  let Sym := {L : X.X.left.Pic | Scheme.Pic.map (GrpObj.inv (X := X.X)).left L = L}
+  have key : ∀ L ∈ Sym, ∀ L' ∈ Sym, F L = F L' → AC.IsDT 2 (L' * L⁻¹) := by
+    intro L hL L' hL' hFL
+    have hp : phiL rep L = phiL rep L' := by rw [← hF L, ← hF L', hFL]
+    have hTI : AC.IsTI (L' * L⁻¹) := by
+      intro x
+      have e : AC.phi L x = AC.phi L' x :=
+        kClass_injective rep (by rw [← kpt_comp_phiL, ← kpt_comp_phiL, hp])
+      unfold AC.phi at e
+      rw [Scheme.Pic.map_mul, pic_map_inv]
+      have hb : Scheme.Pic.map (AC.tr x).left L' = Scheme.Pic.map (AC.tr x).left L * L⁻¹ * L' := by
+        rw [e]; group
+      rw [hb]
+      generalize Scheme.Pic.map (AC.tr x).left L = a
+      calc a * L⁻¹ * L' * a⁻¹ = (L' * L⁻¹) * (a * a⁻¹) := by ac_rfl
+        _ = L' * L⁻¹ := by rw [_root_.mul_inv_cancel, _root_.mul_one]
+    refine ⟨hTI, ?_⟩
+    have hinv := map_inv_of_isTI h1 h2 X _ hTI
+    have hsym : Scheme.Pic.map (GrpObj.inv (X := X.X)).left (L' * L⁻¹) = L' * L⁻¹ := by
+      rw [Scheme.Pic.map_mul, pic_map_inv]
+      rw [show Scheme.Pic.map (GrpObj.inv (X := X.X)).left L = L from hL,
+        show Scheme.Pic.map (GrpObj.inv (X := X.X)).left L' = L' from hL']
+    rw [hsym] at hinv
+    rw [pow_two]
+    nth_rewrite 1 [hinv]
+    exact inv_mul_cancel _
+  have hfib : ∀ h : AbVar.Hom X B, (Sym ∩ F ⁻¹' {h}).Countable := by
+    intro h
+    rcases (Sym ∩ F ⁻¹' {h}).eq_empty_or_nonempty with he | ⟨L₀, hL₀S, hL₀F⟩
+    · rw [he]; exact Set.countable_empty
+    · refine ((hD.image (fun c => c * L₀)).subset ?_).countable
+      rintro L ⟨hLS, hLF⟩
+      refine ⟨L * L₀⁻¹, key L₀ hL₀S L hLS ((hL₀F.trans hLF.symm) : F L₀ = F L), ?_⟩
+      simp
+  have hU : Sym = ⋃ h : AbVar.Hom X B, (Sym ∩ F ⁻¹' {h}) := by
+    ext L; simp
+  change Sym.Countable
+  rw [hU]
+  exact Set.countable_iUnion hfib
+
+end Countable
+
 /-! ## §5. The field -/
 
 /-- `PazukiInputs.SymmPrincipalDefinedOver` from the two smaller statements, the descent of ampleness and the
@@ -403,5 +511,14 @@ theorem pazukiCor13Upper_of_route (hG : ZInQ.HomLattice.GAGAMorphism) (hP : Pazu
     (hS : SymmetricClassesCountable) (hC : CountablePointsDefinedOver) :
     ZInQ.HeightSplit.PazukiCor13Upper :=
   PazukiInputs.pazukiCor13Upper_of_definedOver hG hP hR (symmPrincipalDefinedOver_of_route hRep hA hS hC)
+
+/-- **The field `pazukiCor13Upper` with the symmetric classes counted** from existing fields (`GAGAMorphism`,
+`PicRepresentableAbVar`, `KleimanPicZeroProper`, `MumfordTorsionAlgClosed`), `PazukiCor13UpperPP` (LEAF),
+`RiemannPPAV` (composite), `AmpleDescendsFieldExt` (LEAF) and `CountablePointsDefinedOver` (glue). -/
+theorem pazukiCor13Upper_of_route2 (hG : ZInQ.HomLattice.GAGAMorphism) (hP : PazukiDict.PazukiCor13UpperPP)
+    (hR : PazukiAlg.RiemannPPAV) (hRep : T09Pic.PicRepresentableAbVar) (hK : PicFix.KleimanPicZeroProper)
+    (hT : AvSplit.MumfordTorsionAlgClosed) (hA : AmpleDescendsFieldExt) (hC : CountablePointsDefinedOver) :
+    ZInQ.HeightSplit.PazukiCor13Upper :=
+  pazukiCor13Upper_of_route hG hP hR hRep hA (symmetricClassesCountable_of_fields hRep hK hT) hC
 
 end PazukiRoute
