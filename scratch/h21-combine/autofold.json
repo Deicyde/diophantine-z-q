@@ -1,0 +1,16 @@
+{
+  "name": "h21-combine",
+  "note": "Manual fold: h21S is a top-level argument of frozenTarget (autofold.py folds bundle fields only). Reproduce with `python3 scratch/h21-combine/fold.py --write` on any head whose Main still has the h21S binder (later bundle autofolds do not touch it); the Contrib modules TYZThm21GChar.lean, H21Lcal.lean, TYZThm21GP.lean are separate commits and need no change. h21S (H21CSteps.TYZThm21Span) is replaced by h21GP (H21Combine.TYZThm21SpanGP: h21S with TYZ's genus character chi_{d1,d2} (h21-gchar) and TYZ's printed script-L^2 (h21-lcal)); h21C = H21Combine.tyzThm21PairsC_of_GP h21GP; equivalence H21Combine.tyzThm21SpanGP_iff_span.",
+  "imports": ["ZInQKernel.Contrib.OneProof.TYZThm21GP"],
+  "replace_binders": {"(h21S : ZInQ.Contrib.H21CSteps.TYZThm21Span)": "(h21GP : ZInQ.Contrib.H21Combine.TYZThm21SpanGP)"},
+  "replace_args": {"(ZInQ.Contrib.H21CSteps.tyzThm21PairsC_of_span h21S)": "(ZInQ.Contrib.H21Combine.tyzThm21PairsC_of_GP h21GP)"},
+  "discharges": [
+    {"field": "h21S", "proof": "_root_.ZInQ.Contrib.H21Combine.tyzThm21Span_of_GP",
+     "leaves": [{"field": "h21GP", "type": "ZInQ.Contrib.H21Combine.TYZThm21SpanGP", "kind": "consequence",
+                 "flag": "pending-review"}]}],
+  "kinds_remove": ["frozenTarget\th21S"],
+  "kinds_add": "scratch/h21-combine/kinds-row.tsv (row h21GP)",
+  "claims_remove": [],
+  "check": "scratch/h21-combine/checks.sh TAG; ClosureCheck: no frozenTarget binder of type TYZThm21Span/TYZThm21PairsC; sorryAx absent",
+  "count": "frozenTarget hypotheses unchanged in number (h21S -> h21GP), GLUE -> GLUE: count neutral until a reviewer rates h21GP"
+}
