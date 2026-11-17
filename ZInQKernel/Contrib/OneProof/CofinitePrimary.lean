@@ -449,4 +449,219 @@ theorem exists_addEquiv_of_isPPrimary (A : Type u) [AddCommGroup A] (hA : IsPPri
 
 end Structure
 
+/-! ### Counting `p^n`-torsion -/
+
+section Counting
+
+variable (p) in
+/-- The class of `p⁻ⁿ`, of order `pⁿ` in `ℚ_p/ℤ_p`. -/
+def eN (n : ℕ) : Qp p := QuotientAddGroup.mk (((p : ℚ_[p]) ^ n)⁻¹)
+
+theorem nsmul_eN_eq_zero_iff (n k : ℕ) : k • eN p n = 0 ↔ p ^ n ∣ k := by
+  rw [eN, nsmul_mk, mk_eq_zero_iff, norm_mul, norm_inv, norm_pow, Padic.norm_p, inv_pow, inv_inv]
+  have hp0 : (0 : ℝ) < (p : ℝ) ^ n := by have := hp.out.pos; positivity
+  have h := Padic.norm_int_le_pow_iff_dvd (p := p) (k : ℤ) n
+  simp only [Int.cast_natCast, zpow_neg, zpow_natCast] at h
+  rw [← le_div_iff₀ hp0, one_div, h]
+  exact_mod_cast Int.natCast_dvd_natCast
+
+theorem exists_nsmul_eN_eq (n : ℕ) {y : Qp p} (hy : p ^ n • y = 0) : ∃ k : ℕ, k • eN p n = y := by
+  induction y using QuotientAddGroup.induction_on with
+  | H q =>
+    rw [nsmul_mk, mk_eq_zero_iff] at hy
+    let u : ℤ_[p] := ⟨((p ^ n : ℕ) : ℚ_[p]) * q, hy⟩
+    obtain ⟨w, hw⟩ := Ideal.mem_span_singleton'.mp (PadicInt.appr_spec n u)
+    refine ⟨PadicInt.appr u n, ?_⟩
+    have hp0 : ((p : ℚ_[p]) ^ n) ≠ 0 := pow_ne_zero _ (by exact_mod_cast hp.out.ne_zero)
+    have hw' : ((w : ℚ_[p]) * (p : ℚ_[p]) ^ n) = ((p ^ n : ℕ) : ℚ_[p]) * q -
+        (PadicInt.appr u n : ℚ_[p]) := by
+      have := congrArg (fun z : ℤ_[p] => (z : ℚ_[p])) hw
+      simp only [PadicInt.coe_mul, PadicInt.coe_sub, PadicInt.coe_natCast, PadicInt.coe_pow] at this
+      exact this
+    have hq : q - (PadicInt.appr u n : ℚ_[p]) * ((p : ℚ_[p]) ^ n)⁻¹ = w := by
+      push_cast at hw'
+      field_simp
+      linear_combination -hw'
+    rw [eN, nsmul_mk, ← sub_eq_zero, ← QuotientAddGroup.mk_sub, mk_eq_zero_iff]
+    rw [show (PadicInt.appr u n : ℚ_[p]) * ((p : ℚ_[p]) ^ n)⁻¹ - q = -(w : ℚ_[p]) by
+      rw [← hq]; ring]
+    rw [norm_neg]
+    exact w.2
+
+theorem addOrderOf_eN (n : ℕ) : addOrderOf (eN p n) = p ^ n := by
+  apply Nat.dvd_antisymm
+  · exact addOrderOf_dvd_of_nsmul_eq_zero ((nsmul_eN_eq_zero_iff n _).mpr dvd_rfl)
+  · exact (nsmul_eN_eq_zero_iff n _).mp (addOrderOf_nsmul_eq_zero _)
+
+theorem tors_Qp_eq (n : ℕ) : tors (Qp p) (p ^ n) = AddSubgroup.zmultiples (eN p n) := by
+  ext y
+  rw [mem_tors, AddSubgroup.mem_zmultiples_iff]
+  constructor
+  · intro hy
+    obtain ⟨k, hk⟩ := exists_nsmul_eN_eq n hy
+    exact ⟨k, by rw [natCast_zsmul, hk]⟩
+  · rintro ⟨k, rfl⟩
+    rw [smul_comm, (nsmul_eN_eq_zero_iff n _).mpr dvd_rfl, zsmul_zero]
+
+variable (p) in
+/-- **`#(ℚ_p/ℤ_p)[pⁿ] = pⁿ`**. -/
+theorem card_tors_Qp (n : ℕ) : Nat.card (tors (Qp p) (p ^ n)) = p ^ n := by
+  rw [tors_Qp_eq, Nat.card_zmultiples, addOrderOf_eN]
+
+omit hp in
+theorem card_tors_congr {A B : Type*} [AddCommGroup A] [AddCommGroup B] (e : A ≃+ B) (m : ℕ) :
+    Nat.card (tors A m) = Nat.card (tors B m) :=
+  Nat.card_congr
+    { toFun := fun a => ⟨e a, mem_tors.mpr (by rw [← map_nsmul, mem_tors.mp a.2, map_zero])⟩
+      invFun := fun b => ⟨e.symm b, mem_tors.mpr (by
+        rw [← map_nsmul, mem_tors.mp b.2, map_zero])⟩
+      left_inv := fun a => Subtype.ext (e.symm_apply_apply _)
+      right_inv := fun b => Subtype.ext (e.apply_symm_apply _) }
+
+omit hp in
+theorem card_tors_prod {B C : Type*} [AddCommGroup B] [AddCommGroup C] (m : ℕ) :
+    Nat.card (tors (B × C) m) = Nat.card (tors B m) * Nat.card (tors C m) := by
+  rw [← Nat.card_prod]
+  exact Nat.card_congr
+    { toFun := fun x => (⟨(x : B × C).1, mem_tors.mpr (by
+          have := congrArg Prod.fst (mem_tors.mp x.2); simpa using this)⟩,
+        ⟨(x : B × C).2, mem_tors.mpr (by
+          have := congrArg Prod.snd (mem_tors.mp x.2); simpa using this)⟩)
+      invFun := fun y => ⟨((y.1 : B), (y.2 : C)), mem_tors.mpr (by
+        rw [Prod.smul_mk, mem_tors.mp y.1.2, mem_tors.mp y.2.2, Prod.mk_zero_zero])⟩
+      left_inv := fun x => rfl
+      right_inv := fun y => rfl }
+
+omit hp in
+theorem card_tors_pi {B : Type*} [AddCommGroup B] (t m : ℕ) :
+    Nat.card (tors (Fin t → B) m) = Nat.card (tors B m) ^ t := by
+  have h : Nat.card (Fin t → tors B m) = Nat.card (tors B m) ^ t := by
+    rw [Nat.card_fun, Nat.card_eq_fintype_card (α := Fin t), Fintype.card_fin]
+  rw [← h]
+  exact Nat.card_congr
+    { toFun := fun x i => ⟨(x : Fin t → B) i, mem_tors.mpr (by
+          have := congrFun (mem_tors.mp x.2) i; simpa using this)⟩
+      invFun := fun y => ⟨fun i => (y i : B), mem_tors.mpr (by
+        funext i; simp [mem_tors.mp (y i).2])⟩
+      left_inv := fun x => rfl
+      right_inv := fun y => rfl }
+
+/-- **`#A[pⁿ] = p^{nt} · #F[pⁿ]`** for `A ≅ (ℚ_p/ℤ_p)^t × F`. -/
+theorem card_tors_of_addEquiv {A F : Type*} [AddCommGroup A] [AddCommGroup F] {t : ℕ}
+    (e : A ≃+ (Fin t → Qp p) × F) (n : ℕ) :
+    Nat.card (tors A (p ^ n)) = p ^ (n * t) * Nat.card (tors F (p ^ n)) := by
+  rw [card_tors_congr e, card_tors_prod, card_tors_pi, card_tors_Qp, ← pow_mul]
+
+end Counting
+
+/-! ### Counting quotients and growth rates -/
+
+section Quotients
+
+omit hp in
+/-- `#A = #ker f · #B` for a surjective homomorphism from a finite group. -/
+theorem card_eq_card_ker_mul_of_surjective {A B : Type*} [AddCommGroup A] [AddCommGroup B]
+    [Finite A] (f : A →+ B) (hf : Function.Surjective f) :
+    Nat.card A = Nat.card f.ker * Nat.card B := by
+  rw [AddSubgroup.card_eq_card_quotient_mul_card_addSubgroup f.ker, mul_comm,
+    Nat.card_congr (QuotientAddGroup.quotientKerEquivOfSurjective f hf).toEquiv]
+
+omit hp in
+/-- `#(T/mT) = #T[m]` for a finite abelian group `T`. -/
+theorem card_quotient_nsmul_range_eq_card_tors {T : Type*} [AddCommGroup T] [Finite T] (m : ℕ) :
+    Nat.card (T ⧸ (nsmulAddMonoidHom (α := T) m).range) = Nat.card (tors T m) := by
+  have h1 := AddSubgroup.card_eq_card_quotient_mul_card_addSubgroup
+    (nsmulAddMonoidHom (α := T) m).range
+  have h2 := AddSubgroup.card_eq_card_quotient_mul_card_addSubgroup
+    (nsmulAddMonoidHom (α := T) m).ker
+  rw [Nat.card_congr (QuotientAddGroup.quotientKerEquivRange (nsmulAddMonoidHom (α := T) m)).toEquiv]
+    at h2
+  have hpos : 0 < Nat.card (nsmulAddMonoidHom (α := T) m).range := Nat.card_pos
+  have : Nat.card (T ⧸ (nsmulAddMonoidHom (α := T) m).range) *
+      Nat.card (nsmulAddMonoidHom (α := T) m).range =
+      Nat.card (tors T m) * Nat.card (nsmulAddMonoidHom (α := T) m).range := by
+    rw [← h1, h2, mul_comm]
+  exact Nat.eq_of_mul_eq_mul_right hpos this
+
+omit hp in
+/-- **`#(A/mA) = m^r · #T[m]`** for `A ≅ ℤ^r × T` with `T` finite. -/
+theorem card_quotient_nsmul_range_of_addEquiv {A T : Type*} [AddCommGroup A] [AddCommGroup T]
+    [Finite T] {r : ℕ} (e : A ≃+ (Fin r → ℤ) × T) {m : ℕ} (hm : m ≠ 0) :
+    Nat.card (A ⧸ (nsmulAddMonoidHom (α := A) m).range) = m ^ r * Nat.card (tors T m) := by
+  classical
+  have : NeZero m := ⟨hm⟩
+  let π : A →+ (Fin r → ZMod m) × (T ⧸ (nsmulAddMonoidHom (α := T) m).range) :=
+    (AddMonoidHom.prodMap (AddMonoidHom.compLeft (Int.castAddHom (ZMod m)) (Fin r))
+      (QuotientAddGroup.mk' _)).comp e.toAddMonoidHom
+  have hπ : Function.Surjective π := by
+    rintro ⟨v, t⟩
+    obtain ⟨t, rfl⟩ := QuotientAddGroup.mk'_surjective _ t
+    refine ⟨e.symm (fun i => ((v i).val : ℤ), t), ?_⟩
+    refine Prod.ext ?_ ?_
+    · funext i
+      simp [π]
+    · simp [π]
+  have hker : π.ker = (nsmulAddMonoidHom (α := A) m).range := by
+    ext a
+    rw [AddMonoidHom.mem_ker, AddMonoidHom.mem_range]
+    constructor
+    · intro h
+      have h1 := congrArg Prod.fst h
+      have h2 := congrArg Prod.snd h
+      simp only [π, AddMonoidHom.coe_comp, Function.comp_apply, AddEquiv.coe_toAddMonoidHom,
+        AddMonoidHom.coe_prodMap, Prod.map_fst, Prod.map_snd, Prod.fst_zero, Prod.snd_zero] at h1 h2
+      obtain ⟨u, hu⟩ := (QuotientAddGroup.eq_zero_iff _).mp h2
+      have hv : ∀ i, (m : ℤ) ∣ (e a).1 i := fun i => by
+        have := congrFun h1 i
+        simpa [ZMod.intCast_zmod_eq_zero_iff_dvd] using this
+      choose w hw using hv
+      refine ⟨e.symm (w, u), ?_⟩
+      apply e.injective
+      rw [nsmulAddMonoidHom_apply, map_nsmul, AddEquiv.apply_symm_apply]
+      refine Prod.ext ?_ ?_
+      · funext i
+        simp only [Prod.smul_fst, Pi.smul_apply, nsmul_eq_mul]
+        rw [hw i]
+      · simpa [nsmulAddMonoidHom_apply] using hu
+    · rintro ⟨b, rfl⟩
+      simp only [π, nsmulAddMonoidHom_apply, map_nsmul, AddMonoidHom.coe_comp, Function.comp_apply]
+      refine Prod.ext ?_ ?_
+      · funext i
+        simp
+      · simp only [Prod.smul_snd, Prod.snd_zero]
+        exact (QuotientAddGroup.eq_zero_iff _).mpr ⟨_, rfl⟩
+  rw [← hker, Nat.card_congr (QuotientAddGroup.quotientKerEquivOfSurjective π hπ).toEquiv,
+    Nat.card_prod, Nat.card_fun, Nat.card_zmod, Nat.card_eq_fintype_card (α := Fin r),
+    Fintype.card_fin, card_quotient_nsmul_range_eq_card_tors]
+
+omit hp in
+/-- **Growth rates**: if `bⁿᵃ xₙ = bⁿᶜ yₙ` for all `n` with `xₙ, yₙ` bounded and positive, `b > 1`,
+then `a = c`. -/
+theorem eq_of_pow_mul_eq {b a c C : ℕ} (hb : 1 < b) (x y : ℕ → ℕ)
+    (hx : ∀ n, 1 ≤ x n ∧ x n ≤ C) (hy : ∀ n, 1 ≤ y n ∧ y n ≤ C)
+    (h : ∀ n, b ^ (n * a) * x n = b ^ (n * c) * y n) : a = c := by
+  have key : ∀ {a c : ℕ} (x y : ℕ → ℕ), (∀ n, x n ≤ C) → (∀ n, 1 ≤ y n) →
+      (∀ n, b ^ (n * a) * x n = b ^ (n * c) * y n) → c ≤ a := by
+    intro a c x y hx hy h
+    by_contra hlt
+    push Not at hlt
+    have hC := h (C + 1)
+    have h1 : b ^ ((C + 1) * c) ≤ b ^ ((C + 1) * a) * C := by
+      calc b ^ ((C + 1) * c) ≤ b ^ ((C + 1) * c) * y (C + 1) := Nat.le_mul_of_pos_right _ (hy _)
+        _ = b ^ ((C + 1) * a) * x (C + 1) := hC.symm
+        _ ≤ b ^ ((C + 1) * a) * C := Nat.mul_le_mul_left _ (hx _)
+    have h2 : b ^ ((C + 1) * c) = b ^ ((C + 1) * a) * b ^ ((C + 1) * (c - a)) := by
+      rw [← pow_add, ← mul_add, Nat.add_sub_cancel' hlt.le]
+    rw [h2] at h1
+    have h3 : b ^ ((C + 1) * (c - a)) ≤ C :=
+      Nat.le_of_mul_le_mul_left h1 (pow_pos (by omega) _)
+    have h4 : C + 1 < b ^ ((C + 1) * (c - a)) :=
+      lt_of_lt_of_le (Nat.lt_pow_self hb)
+        (Nat.pow_le_pow_right (by omega) (Nat.le_mul_of_pos_right _ (by omega)))
+    omega
+  exact le_antisymm (key y x (fun n => (hy n).2) (fun n => (hx n).1) (fun n => (h n).symm))
+    (key x y (fun n => (hx n).2) (fun n => (hy n).1) h)
+
+end Quotients
+
 end ZInQ.Cofinite
