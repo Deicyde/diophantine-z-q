@@ -1,6 +1,7 @@
 import ZInQKernel.Contrib.OneProof.X6AtkinLehnerIdeal
 import ZInQKernel.Contrib.OneProof.R5fpCountLe
 import ZInQKernel.Contrib.OneProof.ElkiesC.ClassNumber24
+import ZInQKernel.OneProof.H.LPrefix
 
 /-!
 # elkies-c: Elkies' CM values at **every** CM point, from the CM point of each discriminant
@@ -45,16 +46,15 @@ open ShimuraGlue.Ray RayClassCFT
 
 theorem isIntegral_of_mem_O {b : B} (hb : b ∈ LeafQM.O) : IsIntegral ℤ b := by
   obtain ⟨n, rfl⟩ := (hb : InO b)
-  refine ⟨Polynomial.X ^ 2 - Polynomial.C (2 * n 0 + n 2) * Polynomial.X +
-      Polynomial.C (n 0 ^ 2 + n 0 * n 2 + n 2 ^ 2 - 2 * n 1 ^ 2 - 2 * n 1 * n 3 - 2 * n 3 ^ 2), ?_, ?_⟩
-  · have hd : (Polynomial.X ^ 2 - Polynomial.C (2 * n 0 + n 2) * Polynomial.X +
-        Polynomial.C (n 0 ^ 2 + n 0 * n 2 + n 2 ^ 2 - 2 * n 1 ^ 2 - 2 * n 1 * n 3 - 2 * n 3 ^ 2) :
-          Polynomial ℤ).natDegree = 2 := by compute_degree!
-    refine Polynomial.monic_of_natDegree_le_of_coeff_eq_one 2 hd.le ?_
-    simp [Polynomial.coeff_X, Polynomial.coeff_C, Polynomial.coeff_X_pow, Polynomial.coeff_C_mul]
-  · simp only [Polynomial.eval₂_add, Polynomial.eval₂_sub, Polynomial.eval₂_mul, Polynomial.eval₂_X_pow,
-      Polynomial.eval₂_X, Polynomial.eval₂_C]
-    ext <;> simp [LeafQM.ofInt, sq] <;> ring
+  set t : ℤ := 2 * n 0 + n 2 with ht
+  set N : ℤ := n 0 ^ 2 + n 0 * n 2 + n 2 ^ 2 - 2 * n 1 ^ 2 - 2 * n 1 * n 3 - 2 * n 3 ^ 2 with hN
+  have key : LeafQM.ofInt n * LeafQM.ofInt n - (t : B) * LeafQM.ofInt n + (N : B) = 0 := by
+    ext <;> simp [LeafQM.ofInt] <;> (try simp only [ht, hN]) <;> push_cast <;> ring
+  have hmon : (Polynomial.X ^ 2 - Polynomial.C t * Polynomial.X + Polynomial.C N : Polynomial ℤ).Monic := by
+    monicity!
+  refine ⟨_, hmon, ?_⟩
+  rw [← Polynomial.aeval_def]
+  simpa [sq] using key
 
 /-! ## 2. Exactness: a relation in `End_𝒪(A)` determines `End_𝒪(A)` -/
 
@@ -69,18 +69,18 @@ def HasRel {K : Type} [Field K] {A : PkgI3.AbVar K} (p q : ℤ) (qs : QMStr A) :
 
 theorem hasRel_24 {K : Type} [Field K] {A : PkgI3.AbVar K} (qs : QMStr A) : HasCM24 qs ↔ HasRel 0 6 qs := by
   constructor
-  · rintro ⟨φ, hφ, h⟩; exact ⟨φ, hφ, by rw [h]; push_cast; ring⟩
-  · rintro ⟨φ, hφ, h⟩; exact ⟨φ, hφ, by push_cast at h; linear_combination h⟩
+  · rintro ⟨φ, hφ, h⟩; exact ⟨φ, hφ, by rw [h]; simp⟩
+  · rintro ⟨φ, hφ, h⟩; exact ⟨φ, hφ, by simp at h; exact eq_neg_of_add_eq_zero_left h⟩
 
 theorem hasRel_4 {K : Type} [Field K] {A : PkgI3.AbVar K} (qs : QMStr A) : HasCM4 qs ↔ HasRel 0 1 qs := by
   constructor
-  · rintro ⟨φ, hφ, h⟩; exact ⟨φ, hφ, by rw [h]; push_cast; ring⟩
-  · rintro ⟨φ, hφ, h⟩; exact ⟨φ, hφ, by push_cast at h; linear_combination h⟩
+  · rintro ⟨φ, hφ, h⟩; exact ⟨φ, hφ, by rw [h]; simp⟩
+  · rintro ⟨φ, hφ, h⟩; exact ⟨φ, hφ, by simp at h; exact eq_neg_of_add_eq_zero_left h⟩
 
 theorem hasRel_3 {K : Type} [Field K] {A : PkgI3.AbVar K} (qs : QMStr A) : HasCM3 qs ↔ HasRel (-1) 1 qs := by
   constructor
-  · rintro ⟨φ, hφ, h⟩; exact ⟨φ, hφ, by push_cast; linear_combination h⟩
-  · rintro ⟨φ, hφ, h⟩; exact ⟨φ, hφ, by push_cast at h; linear_combination h⟩
+  · rintro ⟨φ, hφ, h⟩; exact ⟨φ, hφ, by simpa [sub_eq_add_neg] using h⟩
+  · rintro ⟨φ, hφ, h⟩; exact ⟨φ, hφ, by simpa [sub_eq_add_neg] using h⟩
 
 theorem hasRel_of_ringEquiv {K K' : Type} [Field K] [Field K'] {A : PkgI3.AbVar K} {A' : PkgI3.AbVar K'}
     {qs : QMStr A} {qs' : QMStr A'} (e : com qs ≃+* com qs') {p q : ℤ} (h : HasRel p q qs) : HasRel p q qs' := by
@@ -120,6 +120,7 @@ theorem com_equiv_of_rel {k : Type} [Field k] [NumberField k] (hk : Module.finra
     simp only [map_add, map_mul, map_intCast, map_zero, GR56.LatData.scalHom_apply] at this
     exact this
   obtain ⟨x, hxO, hx⟩ := D.exists_O hC hA φ'
+  rw [← hcdef] at hx
   have hxrel : x * x + P • x + algebraMap ℚ B Q = 0 := by
     apply HDec.QMLattice.act_inj D.v_ne
     have hc' : c * c + (P : ℂ) * c + (Q : ℂ) = 0 := by rw [← hp, ← hq]; push_cast; exact hc
@@ -165,12 +166,12 @@ theorem com_equiv_of_hasCM24 (Pr : QMPair Qbar) (h : HasCM24 Pr.q) : Nonempty (c
     (by norm_num) (by norm_num) Pr ((hasRel_24 _).1 h)
 
 include hU hG hM in
-theorem com_equiv_of_hasCM4 (Pr : QMPair Qbar) (h : HasCM4 Pr.q) : Nonempty (com Pr.q ≃+* Pi0X6.R4) :=
+theorem com_equiv_of_hasCM4 (Pr : QMPair Qbar) (h : HasCM4 Pr.q) : Nonempty (com Pr.q ≃+* HDec.Pi0X6.R4) :=
   com_equiv_of_rel hU hG hM finrank_K4 (not_rat_of_disc y4_rel (by norm_num)) y4_rel ringOfIntegersGen_K4
     (p := 0) (q := 1) (by norm_num) (by norm_num) Pr ((hasRel_4 _).1 h)
 
 include hU hG hM in
-theorem com_equiv_of_hasCM3 (Pr : QMPair Qbar) (h : HasCM3 Pr.q) : Nonempty (com Pr.q ≃+* Pi0X6.R3) :=
+theorem com_equiv_of_hasCM3 (Pr : QMPair Qbar) (h : HasCM3 Pr.q) : Nonempty (com Pr.q ≃+* HDec.Pi0X6.R3) :=
   com_equiv_of_rel hU hG hM finrank_K3 (not_rat_of_disc y3_rel (by norm_num)) y3_rel ringOfIntegersGen_K3
     (p := -1) (q := 1) (by norm_num) (by norm_num) Pr ((hasRel_3 _).1 h)
 
@@ -207,7 +208,8 @@ theorem hasRel_bcAut (σ : Qbar →+* Qbar) (Pr : QMPair Qbar) {p q : ℤ} (h : 
       (Subring.mem_centralizer_iff.mp hφ) _ ⟨a, rfl⟩
     simp only [RingHom.comp_apply, ← map_mul, hc]
   · have := congrArg E hr
-    simpa using this
+    simp only [map_add, map_mul, map_intCast, map_zero] at this
+    exact this
 
 theorem hasRel_of_iso {K : Type} [Field K] {Pr Qr : QMPair K} (f : QMIso Pr.q Qr.q) {p q : ℤ}
     (h : HasRel p q Pr.q) : HasRel p q Qr.q :=
@@ -220,7 +222,7 @@ variable {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y} {X : Over (Spec
 `ShimuraSplit.bc_uniquePair`, and `End_𝒪` of the base change `bcAut σ`). -/
 theorem hasRel_galPt (h6 : X6Props Y Φ X Ψ fY) (σ : Qbar ≃ₐ[ℚ] Qbar) {x : fieldPt Qbar ⟶ X} {Pr : QMPair Qbar}
     (hx : Ψ x = Quotient.mk _ Pr) {p q : ℤ} (h : HasRel p q Pr.q) :
-    ∃ Qr : QMPair Qbar, Ψ (Pi0X6.galPt σ x) = Quotient.mk _ Qr ∧ HasRel p q Qr.q := by
+    ∃ Qr : QMPair Qbar, Ψ (HDec.Pi0X6.galPt σ x) = Quotient.mk _ Qr ∧ HasRel p q Qr.q := by
   obtain ⟨Qr, hQ, hbc⟩ := h6.2.2.2.1 σ x Pr hx
   obtain ⟨f⟩ := ShimuraSplit.bc_uniquePair (X6ALIdeal.isBaseChange_bcAut (σ : Qbar →+* Qbar) Pr) hbc
   exact ⟨Qr, hQ, hasRel_of_iso f (hasRel_bcAut _ Pr h)⟩
@@ -266,21 +268,23 @@ theorem cm_le_two_24 :
     Finite {c : Quotient (pairSetoid Qbar) // ∃ P : QMPair Qbar, Quotient.mk _ P = c ∧ Nonempty (com P.q ≃+* R24)} ∧
       Nat.card {c : Quotient (pairSetoid Qbar) //
         ∃ P : QMPair Qbar, Quotient.mk _ P = c ∧ Nonempty (com P.q ≃+* R24)} ≤ 2 :=
-  cm_le_two hU hG hM finrank_K24 pic_R24_ne_zero (by rw [inertCount6_K24]; simpa using pic_R24_le_two)
+  cm_le_two hU hG hM finrank_K24 pic_R24_ne_zero (by rw [inertCount6_K24, pow_zero, one_mul]; exact pic_R24_le_two)
 
 include hU hG hM in
 theorem cm_le_two_4 :
-    Finite {c : Quotient (pairSetoid Qbar) // ∃ P : QMPair Qbar, Quotient.mk _ P = c ∧ Nonempty (com P.q ≃+* Pi0X6.R4)} ∧
+    Finite {c : Quotient (pairSetoid Qbar) // ∃ P : QMPair Qbar, Quotient.mk _ P = c ∧ Nonempty (com P.q ≃+* HDec.Pi0X6.R4)} ∧
       Nat.card {c : Quotient (pairSetoid Qbar) //
-        ∃ P : QMPair Qbar, Quotient.mk _ P = c ∧ Nonempty (com P.q ≃+* Pi0X6.R4)} ≤ 2 :=
-  cm_le_two hU hG hM finrank_K4 (by rw [Pi0X6.pic_R4]; norm_num) (by rw [Pi0X6.inertCount6_K4, Pi0X6.pic_R4])
+        ∃ P : QMPair Qbar, Quotient.mk _ P = c ∧ Nonempty (com P.q ≃+* HDec.Pi0X6.R4)} ≤ 2 :=
+  cm_le_two hU hG hM finrank_K4 (by change Nat.card (CommRing.Pic HDec.Pi0X6.R4) ≠ 0; rw [HDec.Pi0X6.pic_R4]; norm_num)
+    (by rw [HDec.Pi0X6.inertCount6_K4]; change 2 ^ 1 * Nat.card (CommRing.Pic HDec.Pi0X6.R4) ≤ 2; rw [HDec.Pi0X6.pic_R4]; norm_num)
 
 include hU hG hM in
 theorem cm_le_two_3 :
-    Finite {c : Quotient (pairSetoid Qbar) // ∃ P : QMPair Qbar, Quotient.mk _ P = c ∧ Nonempty (com P.q ≃+* Pi0X6.R3)} ∧
+    Finite {c : Quotient (pairSetoid Qbar) // ∃ P : QMPair Qbar, Quotient.mk _ P = c ∧ Nonempty (com P.q ≃+* HDec.Pi0X6.R3)} ∧
       Nat.card {c : Quotient (pairSetoid Qbar) //
-        ∃ P : QMPair Qbar, Quotient.mk _ P = c ∧ Nonempty (com P.q ≃+* Pi0X6.R3)} ≤ 2 :=
-  cm_le_two hU hG hM finrank_K3 (by rw [Pi0X6.pic_R3]; norm_num) (by rw [Pi0X6.inertCount6_K3, Pi0X6.pic_R3])
+        ∃ P : QMPair Qbar, Quotient.mk _ P = c ∧ Nonempty (com P.q ≃+* HDec.Pi0X6.R3)} ≤ 2 :=
+  cm_le_two hU hG hM finrank_K3 (by change Nat.card (CommRing.Pic HDec.Pi0X6.R3) ≠ 0; rw [HDec.Pi0X6.pic_R3]; norm_num)
+    (by rw [HDec.Pi0X6.inertCount6_K3]; change 2 ^ 1 * Nat.card (CommRing.Pic HDec.Pi0X6.R3) ≤ 2; rw [HDec.Pi0X6.pic_R3]; norm_num)
 
 end Count
 
@@ -312,9 +316,9 @@ variable {X : Over (Spec (CommRingCat.of ℚ))} {t : ToP1 X.left}
 
 /-- A point with a non-rational coordinate in its residue field is moved by some `σ`. -/
 theorem galPt_ne_of_mem {x : fieldPt Qbar ⟶ X} {z : Qbar} (hzx : z ∈ residueImage (X := X.left) x.left)
-    {d : ℚ} (hd : d < 0) (hz : z ^ 2 = (d : Qbar)) : ∃ σ : Qbar ≃ₐ[ℚ] Qbar, Pi0X6.galPt σ x ≠ x := by
+    {d : ℚ} (hd : d < 0) (hz : z ^ 2 = (d : Qbar)) : ∃ σ : Qbar ≃ₐ[ℚ] Qbar, HDec.Pi0X6.galPt σ x ≠ x := by
   obtain ⟨σ, hσ⟩ := exists_moves (not_rat_of_sq hd hz)
-  exact ⟨σ, fun h => hσ ((Pi0X6.galPt_eq_self_iff σ x).1 h z hzx)⟩
+  exact ⟨σ, fun h => hσ ((HDec.Pi0X6.galPt_eq_self_iff σ x).1 h z hzx)⟩
 
 /-- Values of sections of `t.U` at a point of `t.U` lie in its residue field. -/
 theorem eval_mem (x : fieldPt Qbar ⟶ X) (U : X.left.Opens)
@@ -382,7 +386,7 @@ theorem charts_at_infty (hc : ElkiesCharts X t) (x : fieldPt Qbar ⟶ X)
 theorem moved_of_val (hc : ElkiesCharts X t) (x : fieldPt Qbar ⟶ X)
     (hx : t.val (K := Qbar) x.left = OnePoint.some 0 ∨ t.val (K := Qbar) x.left = OnePoint.some 1 ∨
       t.val (K := Qbar) x.left = OnePoint.infty) :
-    ∃ σ : Qbar ≃ₐ[ℚ] Qbar, Pi0X6.galPt σ x ≠ x := by
+    ∃ σ : Qbar ≃ₐ[ℚ] Qbar, HDec.Pi0X6.galPt σ x ≠ x := by
   rcases hx with h | h | h
   · obtain ⟨-, r, hr, hr2⟩ := charts_at_some hc x h
     exact galPt_ne_of_mem hr (d := -3) (by norm_num) (by rw [hr2]; push_cast; ring)
@@ -407,15 +411,15 @@ variable {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y} {X : Over (Spec
 most two classes, and `x₀ ∈ S` a point moved by some `σ` at which `t` takes a value `v` fixed by every `σ`. Then
 `t = v` on all of `S`. -/
 theorem every_of_one_core (t : ToP1 X.left) (S : (fieldPt Qbar ⟶ X) → Prop)
-    (hS : ∀ (σ : Qbar ≃ₐ[ℚ] Qbar) x, S x → S (Pi0X6.galPt σ x))
+    (hS : ∀ (σ : Qbar ≃ₐ[ℚ] Qbar) x, S x → S (HDec.Pi0X6.galPt σ x))
     (T : Set (Quotient (pairSetoid Qbar))) [Finite T] (hT : Nat.card T ≤ 2) (hST : ∀ x, S x → Ψ x ∈ T)
     {x₀ : fieldPt Qbar ⟶ X} (h₀ : S x₀) {v : OnePoint Qbar} (hv : t.val (K := Qbar) x₀.left = v)
     (hfix : ∀ σ : Qbar ≃ₐ[ℚ] Qbar, v.map (σ : Qbar →+* Qbar) = v)
-    {σ : Qbar ≃ₐ[ℚ] Qbar} (hσ : Pi0X6.galPt σ x₀ ≠ x₀) :
+    {σ : Qbar ≃ₐ[ℚ] Qbar} (hσ : HDec.Pi0X6.galPt σ x₀ ≠ x₀) :
     ∀ x, S x → t.val (K := Qbar) x.left = v := by
   intro x hx
-  have hv' : t.val (K := Qbar) (Pi0X6.galPt σ x₀).left = v := by rw [Pi0X6.val_galPt, hv, hfix]
-  rcases two_of_three Ψ T hT x x₀ (Pi0X6.galPt σ x₀) (hST x hx) (hST x₀ h₀) (hST _ (hS σ x₀ h₀))
+  have hv' : t.val (K := Qbar) (HDec.Pi0X6.galPt σ x₀).left = v := by rw [HDec.Pi0X6.val_galPt, hv, hfix]
+  rcases two_of_three Ψ T hT x x₀ (HDec.Pi0X6.galPt σ x₀) (hST x hx) (hST x₀ h₀) (hST _ (hS σ x₀ h₀))
     with h | h | h
   · rw [h, hv]
   · rw [h, hv']
@@ -444,7 +448,7 @@ theorem every_of_one_rel (h6 : X6Props Y Φ X Ψ fY) (t : ToP1 X.left) (hc : X6G
     {c | ∃ P : QMPair Qbar, Quotient.mk _ P = c ∧ Nonempty (com P.q ≃+* R)} with hTdef
   haveI : Finite T := hfin
   let S : (fieldPt Qbar ⟶ X) → Prop := fun x => ∃ P : QMPair Qbar, Ψ x = Quotient.mk _ P ∧ HasRel p q P.q
-  have hS : ∀ (σ : Qbar ≃ₐ[ℚ] Qbar) x, S x → S (Pi0X6.galPt σ x) := by
+  have hS : ∀ (σ : Qbar ≃ₐ[ℚ] Qbar) x, S x → S (HDec.Pi0X6.galPt σ x) := by
     rintro σ x ⟨P, hP, hr⟩
     exact hasRel_galPt h6 σ hP hr
   have hST : ∀ x, S x → Ψ x ∈ T := by
@@ -579,18 +583,18 @@ include hU hG hM in
 /-- **`HasCM24` ⇔ CM by `ℤ[√−6]` exactly** (`End_𝒪(A) ≅ ℤ[√−6]`). -/
 theorem hasCM24_iff_com (Pr : QMPair Qbar) : HasCM24 Pr.q ↔ Nonempty (com Pr.q ≃+* R24) :=
   ⟨com_equiv_of_hasCM24 hU hG hM Pr, fun ⟨e⟩ => (hasRel_24 _).2
-    (hasRel_of_com_equiv (k := K24) y24_integral (p := 0) (q := 6) (by push_cast; linear_combination y24_mul) e)⟩
+    (hasRel_of_com_equiv y24_integral (p := 0) (q := 6) (by push_cast; linear_combination y24_mul) e)⟩
 
 include hU hG hM in
 /-- **`HasCM4` ⇔ CM by `ℤ[i]` exactly.** -/
-theorem hasCM4_iff_com (Pr : QMPair Qbar) : HasCM4 Pr.q ↔ Nonempty (com Pr.q ≃+* Pi0X6.R4) :=
+theorem hasCM4_iff_com (Pr : QMPair Qbar) : HasCM4 Pr.q ↔ Nonempty (com Pr.q ≃+* HDec.Pi0X6.R4) :=
   ⟨com_equiv_of_hasCM4 hU hG hM Pr, fun ⟨e⟩ => (hasRel_4 _).2
     (hasRel_of_com_equiv (k := K4) (yk := y4) ((IsCyclotomicExtension.zeta_spec 4 ℚ K4).isIntegral (by norm_num))
       (p := 0) (q := 1) (by have := y4_rel; push_cast at this ⊢; linear_combination this) e)⟩
 
 include hU hG hM in
 /-- **`HasCM3` ⇔ CM by `ℤ[ζ₃]` exactly.** -/
-theorem hasCM3_iff_com (Pr : QMPair Qbar) : HasCM3 Pr.q ↔ Nonempty (com Pr.q ≃+* Pi0X6.R3) :=
+theorem hasCM3_iff_com (Pr : QMPair Qbar) : HasCM3 Pr.q ↔ Nonempty (com Pr.q ≃+* HDec.Pi0X6.R3) :=
   ⟨com_equiv_of_hasCM3 hU hG hM Pr, fun ⟨e⟩ => (hasRel_3 _).2
     (hasRel_of_com_equiv (k := K3) (yk := y3) ((IsCyclotomicExtension.zeta_spec 3 ℚ K3).isIntegral (by norm_num)).neg
       (p := -1) (q := 1) (by have := y3_rel; push_cast at this ⊢; linear_combination this) e)⟩
@@ -601,21 +605,21 @@ points `[z] ∈ Γ∖ℍ` fixed by an optimal embedding, through the moduli inte
 theorem hasCM24_iff_isGRCMPoint {X : Over (Spec (CommRingCat.of ℚ))}
     (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)) (x : fieldPt Qbar ⟶ X) :
     (∃ P : QMPair Qbar, Ψ x = Quotient.mk _ P ∧ HasCM24 P.q) ↔ GRDict.IsGRCMPoint Ψ R24 x := by
-  rw [GRDict.isGRCMPoint_iff hU hG hM finrank_K24 le_rfl (by rw [conductor_max]; norm_num) Ψ x]
+  refine Iff.trans ?_ (GRDict.isGRCMPoint_iff hU hG hM finrank_K24 le_rfl (by rw [conductor_max]; norm_num) Ψ x).symm
   exact exists_congr fun P => and_congr_right fun _ => hasCM24_iff_com hU hG hM P
 
 include hU hG hM in
 theorem hasCM4_iff_isGRCMPoint {X : Over (Spec (CommRingCat.of ℚ))}
     (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)) (x : fieldPt Qbar ⟶ X) :
-    (∃ P : QMPair Qbar, Ψ x = Quotient.mk _ P ∧ HasCM4 P.q) ↔ GRDict.IsGRCMPoint Ψ Pi0X6.R4 x := by
-  rw [GRDict.isGRCMPoint_iff hU hG hM finrank_K4 le_rfl (by rw [conductor_max]; norm_num) Ψ x]
+    (∃ P : QMPair Qbar, Ψ x = Quotient.mk _ P ∧ HasCM4 P.q) ↔ GRDict.IsGRCMPoint Ψ HDec.Pi0X6.R4 x := by
+  refine Iff.trans ?_ (GRDict.isGRCMPoint_iff hU hG hM finrank_K4 le_rfl (by rw [conductor_max]; norm_num) Ψ x).symm
   exact exists_congr fun P => and_congr_right fun _ => hasCM4_iff_com hU hG hM P
 
 include hU hG hM in
 theorem hasCM3_iff_isGRCMPoint {X : Over (Spec (CommRingCat.of ℚ))}
     (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)) (x : fieldPt Qbar ⟶ X) :
-    (∃ P : QMPair Qbar, Ψ x = Quotient.mk _ P ∧ HasCM3 P.q) ↔ GRDict.IsGRCMPoint Ψ Pi0X6.R3 x := by
-  rw [GRDict.isGRCMPoint_iff hU hG hM finrank_K3 le_rfl (by rw [conductor_max]; norm_num) Ψ x]
+    (∃ P : QMPair Qbar, Ψ x = Quotient.mk _ P ∧ HasCM3 P.q) ↔ GRDict.IsGRCMPoint Ψ HDec.Pi0X6.R3 x := by
+  refine Iff.trans ?_ (GRDict.isGRCMPoint_iff hU hG hM finrank_K3 le_rfl (by rw [conductor_max]; norm_num) Ψ x).symm
   exact exists_congr fun P => and_congr_right fun _ => hasCM3_iff_com hU hG hM P
 
 end Dict
