@@ -1,0 +1,30 @@
+scratch/fold33-review/Vacuity.lean:59:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/fold33-review/Vacuity.lean:74:13: warning: Variable name `A` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _A
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+USE ZInQ.Contrib.HCMDict.shimuraMainCM_of_printed: in closure = true, exists = true
+USE ZInQ.Contrib.HCMDict.eq_scaled_of_isAnalyticUnif: in closure = true, exists = true
+USE ZInQ.GZAlg.grossZagierFormulaCd_of_alg: in closure = true, exists = true
+USE ZInQ.GZAlg.grossZagierModuliOptAt_of_alg: in closure = true, exists = true
+USE ZInQ.GZOptimal.core_selfOptimal: in closure = true, exists = true
+USE ZInQ.PeriodOdd.core_isog: in closure = true, exists = true
+USE ZInQ.PeriodOdd.grossZagierFormulaCd_of_etaW32: in closure = true, exists = true
+USE ZInQ.Contrib.GroupLawNeron.mumfordGroupLawDVR_of_neron: in closure = true, exists = true
+USE ZInQ.Contrib.GroupLawNeron.dvr_of_dedekind: in closure = true, exists = true
+USE ZInQ.Contrib.GroupLawNeron.neronSchemeExtensionExists_of_dedekind: in closure = true, exists = true
+USE ZInQ.Contrib.GroupLawNeron.NeronGoodModelIso: in closure = true, exists = true
+'Fold33Review.shimuraThm54_hyps_satisfiable' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	3m19.978s
+user	1m19.681s
+sys	0m8.983s
