@@ -160,7 +160,8 @@ class PDFReads(unittest.TestCase):
             listener.listen()
             port = listener.getsockname()[1]
             code = f'''import os,pathlib,socket
-assert set(os.environ) <= {{'PATH','LC_ALL'}}
+# bubblewrap sets PWD itself after applying --clearenv and --chdir.
+assert dict(os.environ) == {{'PATH': '/usr/bin', 'LC_ALL': 'C.UTF-8', 'PWD': '/'}}, sorted(os.environ)
 assert not pathlib.Path('/home').exists() and not pathlib.Path('/proc').exists()
 assert not pathlib.Path('/etc').exists()
 assert pathlib.Path('/input.pdf').read_bytes().startswith(b'%PDF-')
