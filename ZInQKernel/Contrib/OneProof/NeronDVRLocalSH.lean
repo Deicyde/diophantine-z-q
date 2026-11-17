@@ -58,21 +58,24 @@ theorem mem_valSub_iff (x : K) :
     x ∈ (ValuationRing.valuation R K).valuationSubring ↔ ∃ a : R, algebraMap R K a = x :=
   ValuationRing.mem_integer_iff R K x
 
+/-- The map from `R` to its valuation subring of `K`. -/
+def valSubHom : R →+* (ValuationRing.valuation R K).valuationSubring where
+  toFun a := ⟨algebraMap R K a, (mem_valSub_iff R K _).2 ⟨a, rfl⟩⟩
+  map_one' := Subtype.ext (map_one _)
+  map_mul' a b := Subtype.ext (map_mul _ a b)
+  map_zero' := Subtype.ext (map_zero _)
+  map_add' a b := Subtype.ext (map_add _ a b)
+
 /-- `R` is isomorphic to its valuation subring of `K`. -/
 def valSubEquiv : R ≃+* (ValuationRing.valuation R K).valuationSubring :=
-  RingEquiv.ofBijective
-    { toFun := fun a => ⟨algebraMap R K a, (mem_valSub_iff R K _).2 ⟨a, rfl⟩⟩
-      map_one' := Subtype.ext (map_one _)
-      map_mul' := fun a b => Subtype.ext (map_mul _ a b)
-      map_zero' := Subtype.ext (map_zero _)
-      map_add' := fun a b => Subtype.ext (map_add _ a b) }
+  RingEquiv.ofBijective (valSubHom R K)
     ⟨fun a b h => IsFractionRing.injective R K (congrArg Subtype.val h),
      fun x => by
        obtain ⟨a, ha⟩ := (mem_valSub_iff R K x.1).1 x.2
        exact ⟨a, Subtype.ext ha⟩⟩
 
 theorem isDVR_valSub : IsDiscreteValuationRing (ValuationRing.valuation R K).valuationSubring :=
-  RingEquivClass.isDiscreteValuationRing (valSubEquiv R K)
+  IsDiscreteValuationRing.RingEquivClass.isDiscreteValuationRing (valSubEquiv R K)
 
 /-- **Néron models over any DVR, from the descent leaf.** -/
 theorem exists_neron_of_descentSH (h : NeronDescentSH) (A : PkgI3.AbVar K) :

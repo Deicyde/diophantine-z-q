@@ -113,7 +113,7 @@ theorem exists_neron_of_henselian [HenselianLocalRing R] (A : PkgI3.AbVar K) :
       (R := R) K LAK hAK
   haveI := he
   refine ⟨Over.mk g, isNeronModelOver_of_bundle' R K (Over.mk g) hN, ⟨?_⟩⟩
-  exact Over.isoMk (asIso e.1) e.2
+  exact Over.isoMk (@asIso _ _ _ _ e.1 he) e.2
 
 end DVR
 
