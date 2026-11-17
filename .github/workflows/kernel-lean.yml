@@ -338,7 +338,7 @@ jobs:
         shell: bash
         run: env -u GH_TOKEN -u GITHUB_TOKEN -u OPENAI_API_KEY -u ANTHROPIC_API_KEY -u ACTIONS_RUNTIME_TOKEN -u ACTIONS_ID_TOKEN_REQUEST_TOKEN -u LAKE_CACHE_KEY -u LAKE_CACHE_ARTIFACT_ENDPOINT -u LAKE_CACHE_REVISION_ENDPOINT -u LAKE_CACHE_SERVICE python -E -s -B "$RUNNER_TEMP/kernel-reuse-driver/kernel_build_driver.py" finish --state "$RUNNER_TEMP/kernel-main-reuse" --workspace "$GITHUB_WORKSPACE"
       - name: Preserve reuse decisions and input evidence
-        if: always() && steps.reuse_driver.outputs.enabled == 'true'
+        if: always() && (github.event_name != 'pull_request' || steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false') && steps.reuse_driver.outputs.enabled == 'true'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: kernel-reuse-evidence-${{ github.run_attempt }}
@@ -352,7 +352,7 @@ jobs:
           path: build/kernel-ci/
           if-no-files-found: error
       - name: Publish verified successful main build outputs
-        if: steps.verified_bundle.outputs.publish == 'true' && steps.cache_ref.outputs.is_main == 'true' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        if: (github.event_name != 'pull_request' || steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false') && steps.verified_bundle.outputs.publish == 'true' && steps.cache_ref.outputs.is_main == 'true' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: kernel-main-build-${{ github.run_id }}-${{ github.run_attempt }}

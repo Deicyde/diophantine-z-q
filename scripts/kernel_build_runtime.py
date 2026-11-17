@@ -74,6 +74,20 @@ def native_inputs(verified_roots):
     return result
 
 
+def loader_paths(path, query_env, ldd='/usr/bin/ldd'):
+    """Retain bounded diagnostics when an actual loader response is rejected."""
+    process = subprocess.run([ldd, str(path)], env=query_env, capture_output=True,
+                             timeout=30, check=False)
+    raw = process.stdout + process.stderr
+    try:
+        require(len(raw) <= MAX_LOADER_OUTPUT, 'Oversized loader response')
+        return parse_ldd(raw.decode('utf-8'), process.returncode)
+    except (ValueError, UnicodeError) as error:
+        excerpt = raw[:4096].decode('utf-8', errors='backslashreplace')
+        raise ValueError(f'Loader inspection failed for {path!s}, exit {process.returncode}: '
+                         f'{error}; response excerpt: {excerpt!r}') from error
+
+
 def capture_runtime(verified_roots, system_drivers, *, environ=None, ldd='/usr/bin/ldd'):
     """Capture actual transitive loader paths, hashes, and host ABI identity.
 
@@ -117,11 +131,7 @@ def capture_runtime(verified_roots, system_drivers, *, environ=None, ldd='/usr/b
     selected = {}
     for path in inputs:
         before = file_fingerprint(Path('/'), path)
-        process = subprocess.run([ldd, str(path)], env=query_env, capture_output=True,
-                                 timeout=30, check=False)
-        raw = process.stdout + process.stderr
-        require(len(raw) <= MAX_LOADER_OUTPUT, 'Oversized loader response')
-        libraries = parse_ldd(raw.decode('utf-8'), process.returncode)
+        libraries = loader_paths(path, query_env, ldd)
         require(file_fingerprint(Path('/'), path) == before, 'Native input changed during lookup')
         files[str(path)] = before
         selected[str(path)] = libraries

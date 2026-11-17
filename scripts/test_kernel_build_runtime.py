@@ -1,5 +1,6 @@
 from pathlib import Path
 import shutil
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -10,6 +11,16 @@ import kernel_build_runtime as runtime
 
 
 class RuntimeTests(unittest.TestCase):
+    def test_rejected_actual_response_records_path_exit_and_bounded_excerpt(self):
+        response = subprocess.CompletedProcess([], 1, b'unrecognized library\n', b'X' * 5000)
+        with patch.object(runtime.subprocess, 'run', return_value=response):
+            with self.assertRaises(ValueError) as caught:
+                runtime.loader_paths('/verified/tool', {'PATH': '/usr/bin:/bin'})
+        message = str(caught.exception)
+        self.assertIn('/verified/tool, exit 1', message)
+        self.assertIn('unrecognized library', message)
+        self.assertLess(len(message), 4500)
+
     def test_loader_paths_include_interpreter_and_transitive_libraries(self):
         # POSIX parsing is tested without invoking any supplied executable.
         text = ('linux-vdso.so.1 (0x00007ffff000)\n'
