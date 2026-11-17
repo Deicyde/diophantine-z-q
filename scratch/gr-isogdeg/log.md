@@ -15,3 +15,9 @@ Base: wip/gr-isogdeg at 73ac1620 (= wip/r3-residual), merged origin/main (ff558b
 - T0.lean: `Scheme.Hom.finrank` unfolds by `rfl` from a non-module file (body visible) (VERIFIED, after fixing
   the test statement).
 - Sch.lean: `card_points_le_finrank` (f finite, Y integral, y₀ : Spec Ω → Y onto the generic point: Ω-points of X over y₀ are finite, at most `f.finrank (genericPoint Y)`; ring lemma as hypothesis): compiles (VERIFIED).
+- IsogDeg.lean (imports ZInQKernel.HDecomp.Faltings.Leaves + Mathlib): `finDeg φ := φ.left.finrank (genericPoint B.X.left)`
+  and `isogDeg_le_finDeg : IsIsogeny φ → isogDeg φ ≤ finDeg φ` (any field K, any characteristic): compiles,
+  axioms [propext, Classical.choice, Quot.sound] (VERIFIED).
+  Pitfalls: `ι` is a reserved token under `open MonObj` (renamed `emb`); `mul_left_cancel` on Over-homs needs the
+  type given explicitly (`@mul_left_cancel (ptObj K Ω ⟶ A.X) ...`); the local `Epi` instance was not found by
+  `cancel_epi`, use `hepi.left_cancellation`.
