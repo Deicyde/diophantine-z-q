@@ -1,0 +1,171 @@
+{'identical@5a01f5fe': 1807, 'identical@97a5b235': 45, 'DIFFERENT': 47, 'no-pin-header': 123}
+DIFF ZInQKernel/Contrib/TauCeti/AlgebraicGeometry/EllipticCurve/MordellWeil/XSubT.lean -- code differs from 5a01f5fe:TauCeti/AlgebraicGeometry/EllipticCurve/MordellWeil/XSubT.lean
+DIFF ZInQKernel/Contrib/TauCeti/AlgebraicGeometry/EllipticCurve/Projective/Prime.lean -- code differs from 5a01f5fe:TauCeti/AlgebraicGeometry/EllipticCurve/Projective/Prime.lean
+DIFF ZInQKernel/Contrib/TauCeti/Backport/Algebra/Algebra/Hom.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/Algebra/BigOperators/Finset/Range.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/Algebra/BigOperators/Group/List.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/Algebra/Field/Basic.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/Algebra/Group/ForwardDiff.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/Algebra/Group/MapMulMulEqOne.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/Algebra/Group/PowMonoidHom.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/Algebra/Group/Units/Basic.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/Algebra/Polynomial/Derivative.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/Algebra/Polynomial/Laurent/Coeff.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/Algebra/Polynomial/Laurent/Derivative.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/Algebra/Polynomial/Laurent/Symmetric.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/Algebra/Polynomial/Taylor.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/AlgebraicGeometry/EllipticCurve/Affine/Point/Line.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/AlgebraicGeometry/EllipticCurve/TateCurve/AnnulusEvaluation.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/AlgebraicGeometry/EllipticCurve/TateCurve/BaseChange.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/AlgebraicGeometry/EllipticCurve/TateCurve/Basic.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/AlgebraicGeometry/EllipticCurve/TateCurve/CoordinateEvaluation.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/AlgebraicGeometry/EllipticCurve/TateCurve/Coordinates.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/AlgebraicGeometry/EllipticCurve/TateCurve/Equation.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/AlgebraicGeometry/EllipticCurve/TateCurve/FormalPoint.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/AlgebraicGeometry/EllipticCurve/TateCurve/Homomorphism.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/AlgebraicGeometry/EllipticCurve/TateCurve/Injectivity.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/AlgebraicGeometry/EllipticCurve/TateCurve/Line.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/AlgebraicGeometry/EllipticCurve/TateCurve/Parameter.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/AlgebraicGeometry/EllipticCurve/TateCurve/Specialization.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/AlgebraicGeometry/EllipticCurve/TateCurve/Strata.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/AlgebraicGeometry/EllipticCurve/TateCurve/Theta/Basic.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/AlgebraicGeometry/EllipticCurve/TateCurve/Theta/Coefficients.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/AlgebraicGeometry/EllipticCurve/TateCurve/Theta/Product.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/AlgebraicGeometry/EllipticCurve/TateCurve/Uniformization.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/AlgebraicGeometry/EllipticCurve/TateCurve/XCoordinate.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/Analysis/Asymptotics/Lemmas.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/Analysis/Normed/Field/ZPowers.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/Analysis/Normed/Group/Ultra.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/Analysis/Normed/Module/InfiniteSum.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/Analysis/Normed/Ring/Basic.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/Analysis/Normed/Ring/InfiniteSum.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/Analysis/Normed/Ring/Ultra.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/Analysis/Polynomial/Ultra.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/Analysis/SpecificLimits/Normed.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/Data/Int/MulPred.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/Data/Nat/Prime/Basic.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/FieldTheory/Galois/Abelian/Basic.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/FieldTheory/Galois/AbsoluteGaloisGroup/FiniteExtension.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/FieldTheory/Galois/AbsoluteGaloisGroup/Norm.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/FieldTheory/Galois/Restriction.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/GroupTheory/Abelianization/Basic.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/GroupTheory/OrderOfElement/Basic.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/GroupTheory/QuotientGroup/Basic.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/GroupTheory/SpecificGroups/Cyclic/Basic.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/LinearAlgebra/Exact.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/Mathlib/Polynomial.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ArithmeticFunction/Sigma/Congruence.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ArithmeticFunction/Sigma/Evaluation.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ArithmeticFunction/Sigma/Series.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Brauer/CharacterFormula.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/ClassField.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Formation/Layer/Inflation.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/Brauer/SumFormula.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/IdeleClass/Norm.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/IdeleClass/SecondInequality.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/IdeleLocalization.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/Kummer/AuxiliaryPlaces.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/Kummer/Ideles.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/Kummer/IdelesRingClass.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/Kummer/Norm.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/LiftingObstruction.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/PrescribedInvariant.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/PrimeDegreeDecomposition.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/GlobalExistence/NormSubgroup.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/GlobalExistence/NormSubgroupRingClass.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/Cyclotomic/FixingSubgroup.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/Divisors.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ModularForms/Basic.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ModularForms/CongruenceSubgroups/Basic.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ModularForms/Degeneracy.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ModularForms/Fricke/OldSpace.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ModularForms/Newforms/Basic.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ModularForms/Newforms/Descent/CharacterSpace.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ModularForms/Newforms/OldAtPrime.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ModularForms/Newforms/PrimeDecomposition.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ModularForms/Newforms/StrongMultiplicityOne/Across.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ModularForms/Newforms/SupportAwayFromLevel.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ModularForms/Petersson/Trace.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/NumberField/Global/Adeles/Norm/Galois.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/NumberField/Global/Ideles/Basic.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/NumberField/Global/Ideles/FiniteIdeal.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/NumberField/Global/Ideles/Norm/Galois.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/NumberField/Global/Ideles/Norm/Relative.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/NumberField/Global/Ideles/Ray/ClassQuotient.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/NumberField/Global/Ideles/Ray/OpenSubgroup.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/NumberField/Global/RayClass/Integral.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/NumberField/Global/RayClass/Rat.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/NumberField/LocalGlobal/AbsoluteGaloisGroup.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/NumberField/LocalGlobal/DecompositionGroup.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/NumberField/LocalGlobal/Semilocal/Basic.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/NumberField/Units/LocalPowerClass.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/TsumDivisorsAntidiagonal.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/Order/Filter/AtTopBot/Finset.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/RepresentationTheory/Homological/ContCohomology/CarryCocycle.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/RepresentationTheory/Homological/ContCohomology/Corestriction/Mackey/Basic.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/RingTheory/ClassGroup/HeightOneSpectrum.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/RingTheory/DedekindDomain/AdicValuation/ValuativeRel.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/RingTheory/HahnSeries/EventualCoeff.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/RingTheory/HahnSeries/Map.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/RingTheory/LaurentSeries/Convergence.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/RingTheory/LaurentSeries/LaurentPolynomial.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/RingTheory/Polynomial/Chebyshev/Taylor.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/RingTheory/Polynomial/Cyclotomic/Basic.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/RingTheory/Polynomial/Distinguished.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/RingTheory/Polynomial/Pochhammer.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/RingTheory/PowerSeries/BoundedHom.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/RingTheory/PowerSeries/EvalAt.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/RingTheory/PowerSeries/HasseDeriv/Basic.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/RingTheory/PowerSeries/Restricted.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/RingTheory/PowerSeries/Swap.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/Topology/Algebra/ContinuousMonoidHom/Basic.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/Topology/Algebra/InfiniteSum/IntegralCoefficients.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/Topology/Algebra/InfiniteSum/Sigma.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Backport/Topology/MetricSpace/Ultra/Completion.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/FieldTheory/Finite/EulerCriterion.lean -- code differs from 5a01f5fe:TauCeti/FieldTheory/Finite/EulerCriterion.lean
+DIFF ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Norm.lean -- code differs from 97a5b235:TauCeti/GroupTheory/GroupAction/Norm.lean
+DIFF ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer.lean -- code differs from 5a01f5fe:TauCeti/GroupTheory/GroupAction/Stabilizer.lean
+DIFF ZInQKernel/Contrib/TauCeti/GroupTheory/SpecificGroups/Cyclic/Basic.lean -- code differs from 5a01f5fe:TauCeti/GroupTheory/SpecificGroups/Cyclic/Basic.lean
+DIFF ZInQKernel/Contrib/TauCeti/GroupTheory/SpecificGroups/Cyclic/PowMonoidHom.lean -- code differs from 97a5b235:TauCeti/GroupTheory/SpecificGroups/Cyclic/PowMonoidHom.lean
+DIFF ZInQKernel/Contrib/TauCeti/MathlibBackport/Sylow.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/Notice.lean -- NO PIN HEADER
+DIFF ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/ClassFields/KroneckerWeber.lean -- code differs from 97a5b235:TauCeti/NumberTheory/ClassFieldTheory/ClassFields/KroneckerWeber.lean
+DIFF ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/ClassFields/RayClassField.lean -- code differs from 97a5b235:TauCeti/NumberTheory/ClassFieldTheory/ClassFields/RayClassField.lean
+DIFF ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/ClassFields/RaySubgroup.lean -- code differs from 97a5b235:TauCeti/NumberTheory/ClassFieldTheory/ClassFields/RaySubgroup.lean
+DIFF ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Formation/InvariantKernel.lean -- code differs from 5a01f5fe:TauCeti/NumberTheory/ClassFieldTheory/Formation/InvariantKernel.lean
+DIFF ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/AdmissibleModulus/Basic.lean -- code differs from 97a5b235:TauCeti/NumberTheory/ClassFieldTheory/Global/AdmissibleModulus/Basic.lean
+DIFF ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/AdmissibleModulus/Ramification.lean -- code differs from 97a5b235:TauCeti/NumberTheory/ClassFieldTheory/Global/AdmissibleModulus/Ramification.lean
+DIFF ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/AdmissibleModulus/Reciprocity.lean -- code differs from 97a5b235:TauCeti/NumberTheory/ClassFieldTheory/Global/AdmissibleModulus/Reciprocity.lean
+DIFF ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/ClassFormation.lean -- code differs from 97a5b235:TauCeti/NumberTheory/ClassFieldTheory/Global/ClassFormation.lean
+DIFF ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/CorestrictionLocalization.lean -- code differs from 97a5b235:TauCeti/NumberTheory/ClassFieldTheory/Global/CorestrictionLocalization.lean
+DIFF ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/Kummer/AuxiliaryPlaces.lean -- code differs from 5a01f5fe:TauCeti/NumberTheory/ClassFieldTheory/Global/Kummer/AuxiliaryPlaces.lean
+DIFF ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/Kummer/Index.lean -- code differs from 97a5b235:TauCeti/NumberTheory/ClassFieldTheory/Global/Kummer/Index.lean
+DIFF ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/Kummer/Norm.lean -- code differs from 5a01f5fe:TauCeti/NumberTheory/ClassFieldTheory/Global/Kummer/Norm.lean
+DIFF ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/LocalArtin/Compatibility.lean -- code differs from 97a5b235:TauCeti/NumberTheory/ClassFieldTheory/Global/LocalArtin/Compatibility.lean
+DIFF ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/LocalArtin/Frobenius.lean -- code differs from 97a5b235:TauCeti/NumberTheory/ClassFieldTheory/Global/LocalArtin/Frobenius.lean
+DIFF ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/PrescribedInvariant.lean -- code differs from 5a01f5fe:TauCeti/NumberTheory/ClassFieldTheory/Global/PrescribedInvariant.lean
+DIFF ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/Reciprocity.lean -- code differs from 97a5b235:TauCeti/NumberTheory/ClassFieldTheory/Global/Reciprocity.lean
+DIFF ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/GlobalExistence/AbelianLayer.lean -- code differs from 97a5b235:TauCeti/NumberTheory/ClassFieldTheory/GlobalExistence/AbelianLayer.lean
+DIFF ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/GlobalExistence/Correspondence.lean -- code differs from 97a5b235:TauCeti/NumberTheory/ClassFieldTheory/GlobalExistence/Correspondence.lean
+DIFF ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/GlobalExistence/Existence.lean -- code differs from 97a5b235:TauCeti/NumberTheory/ClassFieldTheory/GlobalExistence/Existence.lean
+DIFF ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/GlobalExistence/Kummer.lean -- code differs from 97a5b235:TauCeti/NumberTheory/ClassFieldTheory/GlobalExistence/Kummer.lean
+DIFF ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/GlobalExistence/NormLimitation.lean -- code differs from 97a5b235:TauCeti/NumberTheory/ClassFieldTheory/GlobalExistence/NormLimitation.lean
+DIFF ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow.lean -- code differs from 5a01f5fe:TauCeti/NumberTheory/LocalField/UnitFiltration/Pow.lean
+DIFF ZInQKernel/Contrib/TauCeti/NumberTheory/ModularForms/Basic.lean -- code differs from 5a01f5fe:TauCeti/NumberTheory/ModularForms/Basic.lean
+DIFF ZInQKernel/Contrib/TauCeti/NumberTheory/ModularForms/LFunction/Sign.lean -- code differs from 5a01f5fe:TauCeti/NumberTheory/ModularForms/LFunction/Sign.lean
+DIFF ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/FinitePlace.lean -- code differs from 5a01f5fe:TauCeti/NumberTheory/NumberField/FinitePlace.lean
+DIFF ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/Global/Orders/RayClass.lean -- code differs from 97a5b235:TauCeti/NumberTheory/NumberField/Global/Orders/RayClass.lean
+DIFF ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/InfinitePlace/Completion/Real.lean -- code differs from 97a5b235:TauCeti/NumberTheory/NumberField/InfinitePlace/Completion/Real.lean
+DIFF ZInQKernel/Contrib/TauCeti/RepresentationTheory/Cyclic/Norm.lean -- code differs from 97a5b235:TauCeti/RepresentationTheory/Cyclic/Norm.lean
+DIFF ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean -- code differs from 5a01f5fe:TauCeti/RepresentationTheory/FDRep.lean
+DIFF ZInQKernel/Contrib/TauCeti/RepresentationTheory/Homological/ContCohomology/Coinduced/Discrete.lean -- code differs from 5a01f5fe:TauCeti/RepresentationTheory/Homological/ContCohomology/Coinduced/Discrete.lean
+DIFF ZInQKernel/Contrib/TauCeti/RepresentationTheory/Homological/ContCohomology/Corestriction/Mackey/Pullback.lean -- code differs from 97a5b235:TauCeti/RepresentationTheory/Homological/ContCohomology/Corestriction/Mackey/Pullback.lean
+DIFF ZInQKernel/Contrib/TauCeti/RepresentationTheory/Homological/GroupCohomology/PrimeIndex.lean -- code differs from 5a01f5fe:TauCeti/RepresentationTheory/Homological/GroupCohomology/PrimeIndex.lean
+DIFF ZInQKernel/Contrib/TauCeti/RepresentationTheory/Homological/TateCohomology/TrivialityCriterion.lean -- code differs from 5a01f5fe:TauCeti/RepresentationTheory/Homological/TateCohomology/TrivialityCriterion.lean
+DIFF ZInQKernel/Contrib/TauCeti/RingTheory/MvPolynomial/Homogeneous.lean -- code differs from 5a01f5fe:TauCeti/RingTheory/MvPolynomial/Homogeneous.lean
+DIFF ZInQKernel/Contrib/TauCeti/RingTheory/Polynomial/Cyclotomic/PrimePow.lean -- code differs from 97a5b235:TauCeti/RingTheory/Polynomial/Cyclotomic/PrimePow.lean
+DIFF ZInQKernel/Contrib/TauCeti/Topology/Algebra/Group/Profinite/Generation.lean -- code differs from 5a01f5fe:TauCeti/Topology/Algebra/Group/Profinite/Generation.lean
+DIFF ZInQKernel/Contrib/TauCeti/Topology/Algebra/Group/Profinite/Sylow/Basic.lean -- code differs from 5a01f5fe:TauCeti/Topology/Algebra/Group/Profinite/Sylow/Basic.lean
+DIFF ZInQKernel/Contrib/TauCeti/Topology/Algebra/Group/Profinite/Sylow/Containment.lean -- code differs from 5a01f5fe:TauCeti/Topology/Algebra/Group/Profinite/Sylow/Containment.lean
+DIFF ZInQKernel/Contrib/TauCeti/Topology/Algebra/Group/Profinite/Sylow/Existence.lean -- code differs from 5a01f5fe:TauCeti/Topology/Algebra/Group/Profinite/Sylow/Existence.lean
+DIFF ZInQKernel/Contrib/TauCeti/Topology/Algebra/Star/Completion.lean -- code differs from 97a5b235:TauCeti/Topology/Algebra/Star/Completion.lean
