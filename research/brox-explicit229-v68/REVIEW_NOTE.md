@@ -16,9 +16,9 @@ R_j(new_y) = 149^(b_j) * Q_j(149^(a_1)*new_y_1, ..., 149^(a_229)*new_y_229),
 P_hat(new_y) = sum_{j=1}^{207} R_j(new_y)^2.
 ```
 
-Here `a_1=0`, and every scaling factor is a nonzero rational number. The diagonal map is an automorphism of rational affine 229-space fixing the input. Each transformed quadratic row is an integer polynomial with content one (all 1,132 source terms were checked). Since rational sums of squares are zero exactly when every term is zero, the projection of `P_hat=0` onto the distinguished input is **exactly the same** as the projection of the source 207-row system. This transfers soundness and integer completeness **provided the retained arithmetic premises of the source construction hold**, with no new conditions.
+Here `a_1=0`, and every scaling factor is a nonzero rational number. The diagonal map is an automorphism of rational affine 229-space fixing the input. Each transformed quadratic row is an integer polynomial with content one (all 1,132 source terms were checked). Since rational sums of squares are zero exactly when every term is zero, the projection of `P_hat=0` onto the distinguished input is **exactly the same** as the projection of the source 207-row system. This transfers soundness and integer completeness from the **newly proved source N=15 theorem**, subject to its stated global arithmetic inputs. Only the diagonal change itself introduces no new arithmetic condition. Upstream Version 20 does not prove this effective N=15 theorem.
 
-A full arithmetic exposition and the diagonal exponent tables appear in `paper.tex`. Its retained arithmetic body matches the preceding `source_paper.tex` apart from the theorem-label replacement, which was checked by exact text comparison.
+The full arithmetic exposition and diagonal exponent tables appear in `paper.tex`. The original arithmetic body matches the preceding `source_paper.tex` apart from the theorem-label replacement; a new final source-input-audit section proves the cutoff-free local comparison and identifies the height and graft suppliers. The standalone four-point height proof is included under `suppliers/`.
 
 ## Independent exact computation
 
@@ -35,6 +35,8 @@ Reproduce from this directory:
 
 ```sh
 python -B build.py
+python -B check_graft.py
+python -B check_arithmetic.py --output arithmetic_certificate_replay.json
 python -B check.py
 python -B upstream/measure_plain_text.py polynomial.json --verify-text quartic229-N15.txt
 # Optional second checker, requires SymPy:
@@ -45,9 +47,9 @@ The main checker uses the Python standard library and is independent of the buil
 
 ## What is verified, and what remains open
 
-**Established here:** the input-preserving rational equivalence, transformed row integrality, fully expanded coefficients, degree, variable count, coefficient height and strict size bound. Exact reconstruction, byte comparison and polynomial-ring verification are distinct from review of the source arithmetic.
+**Verified by exact computations:** the input-preserving rational equivalence, transformed row integrality, all 168 unchanged rows and 31 copied rows, all 34 copied coordinates, the aggregate map, fully expanded coefficients, degree, variable count, coefficient height and strict size bound. The graft row identities were also freshly checked against the source tables. The new proofs of the torsion-inclusive height and cutoff-free local extraction are included for independent mathematical review. Exact reconstruction, byte comparison and polynomial-ring verification are distinct from review of the source arithmetic.
 
-**Not independently established here:** the inherited prime-pattern, modular-height, elliptic-group and prepared-pole theorems, nor a complete independent audit of the fixed `N=15` arithmetic realization argument. Their source statements and application hypotheses still require the project reviewers' checks. The original source review records this limitation; the mathematical claim is conditional on its retained premises. The original producer and independent checker certificates report the same scope.
+**Not independently established here:** the inherited prime-pattern, modular-height, elliptic-group and prepared-pole theorems, nor a complete cross-family audit of the new fixed `N=15` soundness and completeness proof. Their source statements and application hypotheses still require the project reviewers' checks. The original source review records this limitation; the new source-height and small-prime arguments are proved in the included material but require the receiving project's review. The mathematical claim remains relative to the retained global premises. The original producer and independent checker certificates report the same scope.
 
 **Not an official record release:** Upstream policy requires a complete incorporated current TeX project, matching PDF, pinned build and hashes, cross-family Protocol B review and collaborator approval before promotion. This is a focused candidate note for maintainers to integrate. No old version, release artifact, current-manuscript selector, rule or review gate is changed.
 

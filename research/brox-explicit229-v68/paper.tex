@@ -958,6 +958,286 @@ $b_i$ & Indices $i$\\
 \bottomrule
 \end{longtable}
 
+
+\section{Effective-height and local-extraction verification}
+\label{sec:source-input-audit}
+
+This section supplies the precise source-to-consumer bridges needed for
+the new effective assertion in Theorem~\ref{thm:source}. That assertion,
+unlike the diagonal normalization, does \emph{not} follow merely from
+the published ineffective 195-coordinate theorem. The proofs here use
+the previously stated global arithmetic inputs but establish the
+new torsion-inclusive height constant and the cutoff-free extraction
+as specific, reviewable applications.
+
+\subsection{Binding the source quadrics to the 195-coordinate construction}
+
+The source tables in
+\path{research/brox-explicit229-v68/source/quadratic195.json}
+and \path{source/quadratic229-v62.json} are linked by the exact
+\path{graft.json} and \path{contact-change.json} files.
+The 195-coordinate table has 175 rows. Among its first 174 rows,
+168 are copied unchanged and six contact rows are replaced. Its last
+row has only its $q^2$ coefficient changed from 14 to 26.
+The 31 equations and 34 local coordinates of the second detector
+are copied, and the second aggregate component is added, giving
+$175+31+1=207$ rows and $195+34=229$ coordinates.
+Only the argument coordinate $x_{86}$ of the copied local block is
+used outside that block in its parent, in the aggregate equation.
+
+The standard-library verifier \path{check_graft.py} reads both
+authenticated source tables, checks each unchanged row, each of the
+31 coordinate-renamed copies, all 34 cloned coordinate names and
+indices, and the absence of other consumers of local coordinates.
+It independently constructs both components of
+$q^2\sum_{i=1}^4x(Q_i)$ in the algebra
+$\Q[\rho]/(\rho^2-2)$ using the exact secant formulas, including the
+factor $C$ in $f_3,f_4$. It checks both aggregate equations and
+every one of the twelve physical contact rows (including the
+midpoint and inverse-weight constraints). It also independently
+expands the entire $207$-square parameter family to check its
+degree, primitive content and coefficient profile.
+The fixed-$N=15$ source-to-final coefficient comparison is checked
+separately by \path{check.py}; there is no ambiguous reuse of the
+filename \path{quadratic.json} for two different tables.
+The parent table is byte-identical to the copy in
+\path{research/version19/construction/inputs/jose/computation/quartic/affine_laurent195_v45/quadratic-family.json}
+of the receiving repository.
+
+\subsection{The four-point height constant with torsion allowed}
+\label{sec:sum-height-audit}
+
+The full proof of the uniform sum-height theorem and its numerical
+four-point corollary is supplied in
+\path{suppliers/effective_torsion_sums_20261117_v62.tex},
+Theorem~1.1 and Corollary~4.1 of that note. Here is the exact
+specialization consumed by~\eqref{eq:index-height}.
+Write $Q_i=[m_i]R_0+T_i$ with $T_i\in E[2](K)$,
+including $m_i=0$ provided $Q_i$ is finite, and put
+\[
+ M=\max(1,|m_1|,\ldots,|m_4|),\qquad
+ Z=\sum_i x(Q_i)+4d+1 .
+\]
+Over $K=\Q(\sqrt2)$ there is no odd ramification and
+$h(d)=\tfrac12\log7$. The uniform theorem gives
+\[
+ h(Z)\ge\max_i h(x(Q_i))
+              -24\log M-\log864-\tfrac12\log7 .
+\]
+For nonzero $m_i$, the retained generator height and duplication
+inequality give $h(x(Q_i))\ge m_i^2/4-3$.
+The elementary inequality
+$24\log M-M^2/8\le12\log96-12<43$ then yields
+$M^2<8h(Z)+456$; when all indices vanish this is immediate.
+For the source labels,
+\[
+ B=\max(1,|m_1|/2,|m_2|,|m_3|,|2m_4+1|)
+ \le2M+1,\qquad (2M+1)^2\le5M^2+5 .
+\]
+Hence $B^2<40h(Z)+2285$. Finally \eqref{eq:height} and
+$40\log32<140$ yield
+\[
+                 B^2<40\sum_{j=0}^2h(t_j)+2425
+\]
+for \emph{all} finite points, including torsion translates,
+zero indices, repetitions and negative labels.
+The separate supplier proves the local principal-part theorem used
+here, rather than assuming an ineffective height constant or a
+positivity condition on each individual abscissa.
+
+\subsection{Cutoff-free valuation and ratio comparison}
+\label{sec:small-prime-audit}
+
+\begin{lemma}\label{lem:cutoff-free}
+For the actual scalar and reflected-detector rows of this source
+system, the conclusions \eqref{eq:scalar-div},
+\eqref{eq:scalar-height} and \eqref{eq:residual-div}
+hold without requiring that a consumed prime exceed $76176$.
+For scalar contacts the excluded rational primes are $S$, while
+for detector contacts they are $\Gamma$ as defined above.
+In particular, the reduction from the earlier large exceptional
+set is supported by the \emph{local argument}, not by applying a
+large-prime lemma outside its stated range.
+\end{lemma}
+
+\begin{proof}
+All primes outside $S$ or $\Gamma$ are odd and unramified in
+$K=\Q(\sqrt2)$ and give good reduction of $E$.
+Their local valuations, normalized by $v(p)=1$, are integral.
+Every scalar contact difference is a unit outside
+$\{2,3,5,7\}$, and all reflected-contact denominators,
+pairwise differences and midpoint differences are units
+outside $\Gamma$. Thus a consumed prime lies at a unique
+positive odd-depth contact; the scalar input has odd depth
+$\mu=v_p(R_s)>0$, or a detector has
+$v_p(q_j)=-\mu<0$ and $v_p(R_j)=\mu$, where
+$R_j=(1+q_j)^{-1}$. No numerical lower bound on $p$
+has entered.
+
+First consider the scalar input. For every such $p$,
+$9792=2^6 3^2 17$ is a unit. The contact-free
+parameter at $149$ has the four nonsquare residues
+$59,97,109,108$, so $149\nmid M_S(\beta)$; the separate
+forced valuation is $\mu=2N+1$ or $2N-1$ there.
+At a place above a consumed prime the valuation of
+$F=\operatorname{Nm}(1/x(H))$ is even.
+Writing
+\[
+ R_s^4W_s=Z_0^4R_s^{-6}+Z_1^2R_s^{-1}+F^2,
+\]
+the three finite term valuations are respectively in
+$2+4\Z$, $1+2\Z$, and $4\Z$.
+Thus no two finite terms have equal valuation; there is
+no hidden cancellation, including when some components vanish.
+The pole equations give the preparation-zero obstruction:
+$v_p(b_s)$ cannot be negative and odd for
+$p\notin\{2,3,17\}$. As
+$v_p(b_s)=\mu+2v_p(W_s)$ is odd, it follows that
+$v_p(W_s)>-\mu/2$. Comparing the three individual terms
+with $v_p(R_s^4W_s)>7\mu/2$ yields
+\[
+ v_p(Z_0)>19\mu/8,\quad
+ v_p(Z_1)>9\mu/4,\quad
+ v_p(F)>7\mu/4 .
+\]
+At some place above $p$, $H$ belongs to the primary
+formal group. The scalar quotient has exactly the physical
+interpretation $Z=2z(Q_2)/z(H)$ from the retained
+inverse-Vieta and scalar-ratio lemmas, with
+$h=\nu(H)\in\tfrac12\Z\setminus\{0\}$.
+The scalar is formal or lies in the translated
+$(0,0)$-formal chart. Translating by $(0,0)$ negates $z$,
+and multiplying by two kills the two-torsion in the
+group relation. For the formal logarithm
+\[
+ \ell(z)=\sum_{j\ge0}
+   \frac{(-1)^j\binom{2j}{j}D^j}{4j+1}z^{4j+1}
+\]
+the $j=1$ correction has relative valuation at least $4r$
+provided $p\ne5$. For $j\ge2$,
+$v_p(4j+1)\le4j-4$ gives the same bound at $r=v(z)\ge1$.
+Hence $\ell(z)/z\in1+p^{4r}\mathcal O$, and $\ell$
+is an isometry on the formal group at every prime consumed
+here. The exact logarithmic ratio, with the harmless
+torsion-translation sign, gives $v_p(a/h)>9\mu/4$.
+Since $h$ is $p$-integral and $a\ne0$, this proves
+$149^{L_N}M_S(\beta)^3\mid |a|$.
+The previously stated full-family H4.2 bound, with its
+\emph{small} exceptional set $S$, then gives
+\eqref{eq:scalar-height}; its height theorem is not a
+cutoff-dependent local extraction statement.
+
+Next consider one reflected detector at
+$p\notin\Gamma$. For the five physical factors displayed
+above, a nonzero reciprocal abscissa has even valuation;
+identity numerator points contribute reciprocal zero.
+In each ordinary factor, nonconstant term valuations
+occupy distinct classes: odd, $2\bmod4$ and $4\bmod8$,
+all distinct from the valuation zero of the leading $1$.
+In the third factor the two odd terms are distinct
+modulo four, the next is $2\bmod4$, and the final
+is $4\bmod8$. Consequently every factor is nonzero,
+its valuation is at most zero, and there is a unique
+lowest-valuation term unless the leading $1$ is lowest.
+This argument uses neither a large residue characteristic
+nor positivity of any test valuation.
+
+Let $W_j$ be their product and put
+$\ell=\max_{v\mid p}v(W_j)\le0$.
+The cleared trace equation implies
+$W_j\ne0$ and
+$\eta_j=\operatorname{Tr}(W_j^{-1})^{-1}\ne0$.
+With $\gamma=408/409$ the actual pole input is
+\[
+ b_j=\gamma^2 R_j/
+       \operatorname{Tr}(W_j^{-1})^2.
+\]
+Here $v_p(\gamma)\le0$ for every $p\notin\Gamma$,
+because the numerator is supported on $\{2,3,17\}$.
+At $p=409$ its valuation is \emph{negative}; that only
+strengthens the following estimate, so we do not
+incorrectly call $\gamma$ a unit at that prime.
+The field trace satisfies
+$v_p(\operatorname{Tr}(W_j^{-1}))\ge-\ell$.
+It follows that
+$v_p(b_j)\le\mu+2\ell$.
+This valuation is odd, and the same
+preparation-zero obstruction forbids negative odd
+valuation outside $\{2,3,17\}$.
+Therefore $\ell>-\mu/2$.
+At a place attaining $\ell$ each factor and each of its
+finite summands has valuation greater than $-\mu/2$.
+The exponents in the five actual factors now give
+\[
+ \begin{aligned}
+  v(C_2),v(C_3),v(C_4),v(G)&>9\mu/4,\\
+  v(C_1)&>3\mu/8,&v(I)&>9\mu/8,\\
+  v(D_H),v(A_1),v(A_3),v(A_4)&>3\mu/4,\\
+  v(A_2)&>5\mu/4,&
+  v(B_0),v(B_i)&>7\mu/8 .
+ \end{aligned}
+\]
+Integer valuations and the parity of reciprocals imply
+orders at least three for $C_2,C_3,C_4,G$, order at
+least one for $C_1,I$, and depth at least two for every
+relevant nonzero reciprocal.
+
+Finally the primary and conjugate opposite points are
+formal at this place. The retained exact ratio equations
+have the forms
+$k_i u_i/h+e_i$ and $k_i v_i/(h-1)+e_i$
+for multipliers $k_i=1,2,4$ and offsets $e_i=0,1$,
+with $u_i-v_i=\nu(Q_i)$.
+At least one of $h,h-1$ is a $p$-adic unit,
+so one exact ratio is integral. The positive valuation
+of $C_i=L_i-L_i'$ transfers integrality to the other
+approximate ratio, and the order-four formal logarithm
+unit transfers it back to the second exact ratio.
+\emph{Only then} may the relative order-four error be used
+as an absolute congruence.
+Multiplying by the integral $h$ and $h-1$ gives
+\[
+ hL_i-(h-1)L_i'
+   =L_i+(h-1)C_i
+   \equiv k_i(u_i-v_i)+e_i
+\]
+to order at least three for $i=2,3,4$ and one for $i=1$.
+Thus $L_1\equiv n\pmod p$ and
+$(L_2,L_3,L_4)\equiv(a,t,b)\pmod{p^3}$.
+Since $I=L_1-\beta$ and the displayed $G$ specializes
+to the integer Lucas residual $\Delta$, we obtain
+$p\mid J_X$ when $n\ne\beta$ and $p^3\mid\Delta$
+when $\Delta\ne0$.
+Taking the squarefree product of the consumed primes
+proves \eqref{eq:residual-div} independently for each
+detector. Zero tests, finite torsion differences,
+split and inert places, and midpoint solutions are
+covered by the same argument.
+
+The only use of the cutoff $76176$ in the previous
+explicit constructions was their chosen larger
+comparison-prime set and completeness prime selection;
+their local polynomial and formal-group arguments have
+just been rechecked under the smaller, exact exceptional
+sets $S$ and $\Gamma$. The selected completeness primes
+may still be required to exceed $76176$,
+as already stated in Section~7.
+\end{proof}
+
+\subsection{Scope of verification}
+
+The above proofs do not replace the inherited
+project's analytic prime-pattern, modular height or
+prepared-pole theorems. They establish the new
+torsion-inclusive height application and the
+small-prime local bridge with their own explicit
+hypotheses and show which data tie the new rows to
+the previously published parent. The numerical
+checks are separately reproducible using
+\path{check_arithmetic.py}; the coefficient and
+normalization checks are \path{check.py} and
+\path{check_independent.py}.
+
 \begin{thebibliography}{9}
 \bibitem{Parent195}
 \emph{A quartic definition with 195 rational coordinates},
@@ -967,7 +1247,7 @@ with the complete table in
 \bibitem{TorsionSums}
 \emph{Effective heights of elliptic sums with torsion translates},
 17 November 2026,
-\nolinkurl{papers/effective_sums/effective_torsion_sums_20261117_v62.tex}.
+\nolinkurl{research/brox-explicit229-v68/suppliers/effective_torsion_sums_20261117_v62.tex}.
 \bibitem{ExplicitParent}
 \emph{$\Z$ is Diophantine in $\Q$}, Version 19, Part I,
 17 November 2026. The three-detector construction there is attributed
