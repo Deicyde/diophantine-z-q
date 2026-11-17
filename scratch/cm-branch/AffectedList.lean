@@ -33,6 +33,9 @@ open Lean Meta in
         let cs := v.getUsedConstants ++ ci.type.getUsedConstants
         if cs.any (fun c => aff.contains c) then
           aff := aff.insert n; changed := true
+          match ci with
+          | .ctorInfo c => if !aff.contains c.induct then aff := aff.insert c.induct
+          | _ => pure ()
       | none => pure ()
   for n in aff.toList do
     let mod := (env.getModuleIdxFor? n).map (fun i => (i.toNat, env.header.moduleNames[i.toNat]!))
