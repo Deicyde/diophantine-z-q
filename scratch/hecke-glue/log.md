@@ -20,3 +20,13 @@ So g(η)=q, q closed ⇒ q = g(P₀)=e, κ(e)=ℚ ⇒ g and 1 agree on Spec κ(�
   exists_good_point, Dlf_ne), HeckePin (const_of_countable).
 - Note: ConstOnTauPoints is not provable without the points: with no x_τ its hypothesis is vacuous.
   So the theorem takes X1TauPoints; isHeckeT_unique / isDiamond_unique then need X1TauPoints only.
+
+## 04:40 X1TauPoints reduced to the analytic GLUE TauPlace
+- VERIFIED (compiles, scratch/hecke-glue/HeckeGlueWip.lean): `exists_cpt_of_place` (valuative criterion
+  of properness, Mathlib `UniversallyClosed.eq_valuativeCriterion`; center p, local hom 𝒪_{X,p} → O;
+  O = 𝒪_{X,p} since 𝒪_{X,p} is a valuation ring (CloudW07 `valuationRing_stalk`) dominated by O)
+  and `x1TauPoints_of_tauPlace : TauPlace → X1TauPoints`.
+- TauPlace (GLUE, analytic): a valuation subring O ⊆ K(X) with local ev : O → ℂ containing every
+  P/Q whose analytic quotient has a limit c at τ, with ev = c. To be proved from the
+  meromorphy of evAn (WeberField diffOn_ez, evAn_eq) and IsX1Gen.
+- So X1TauPoints is NOT a leaf: it is glue (no published input beyond the definition of IsX1Gen).

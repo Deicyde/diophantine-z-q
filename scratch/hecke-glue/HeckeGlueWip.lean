@@ -254,4 +254,189 @@ theorem constOnTauPoints_of_x1TauPoints (hP : X1TauPoints) : ConstOnTauPoints :=
   apply CommRingCat.hom_ext
   exact ringHom_ext_of_toRat ψ.hom _ _
 
+
+/-! ## 6. Complex points from places: `X1TauPoints` from `TauPlace` -/
+
+/-- Morphisms to `Spec ℚ` are unique. -/
+theorem specQ_ext {Y : Scheme} (f g : Y ⟶ SpecQ) : f = g := by
+  apply ext_of_isAffine
+  rw [← cancel_epi (Scheme.ΓSpecIso (CommRingCat.of ℚ)).inv]
+  ext1
+  exact RingHom.ext_rat _ _
+
+/-- The value of a section at a complex point is computed in the stalk. -/
+theorem value_eq {Y : Scheme} (f : Spec (CommRingCat.of ℂ) ⟶ Y) {U : Y.Opens} (s : Γ(Y, U))
+    (hle : ⊤ ≤ f ⁻¹ᵁ U) :
+    (Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom (f.appLE U ⊤ hle s) =
+      Scheme.stalkClosedPointTo f (Y.presheaf.germ U _ (hle trivial) s) := by
+  have h := congrArg (fun φ => φ.hom s) (Scheme.germ_stalkClosedPointTo f U (hle trivial))
+  refine Eq.trans ?_ h.symm
+  rfl
+
+/-- The value at a complex point factoring through `Spec 𝒪_{Y,p}`. -/
+theorem value_fromSpecStalk {Y : Scheme} {p : Y} (F : Y.presheaf.stalk p ⟶ CommRingCat.of ℂ)
+    [IsLocalHom F.hom] {U : Y.Opens} (s : Γ(Y, U)) (hpU : p ∈ U)
+    (f : Spec (CommRingCat.of ℂ) ⟶ Y) (hf : f = Spec.map F ≫ Y.fromSpecStalk p)
+    (hle : ⊤ ≤ f ⁻¹ᵁ U) :
+    (Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom (f.appLE U ⊤ hle s) =
+      F (Y.presheaf.germ U p hpU s) := by
+  subst hf
+  rw [value_eq]
+  have := congrArg (fun φ => φ.hom s)
+    (Scheme.germ_stalkClosedPointTo_Spec_fromSpecStalk F U (hle trivial))
+  exact this
+
+section Place
+
+variable (O : ValuationSubring X.left.functionField) (ev : O →+* ℂ)
+
+theorem charZero_of_place (O : ValuationSubring X.left.functionField) (ev : O →+* ℂ) :
+    CharZero X.left.functionField := by
+  have : CharZero O := RingHom.charZero ev
+  refine ⟨fun m n h => ?_⟩
+  have h' : ((m : O) : X.left.functionField) = ((n : O) : X.left.functionField) := by
+    simpa using h
+  exact Nat.cast_injective (Subtype.ext h')
+
+theorem rat_mem [CharZero X.left.functionField] (hev : ∀ a : O, ev a ≠ 0 → IsUnit a) (r : ℚ) :
+    ((r : ℚ) : X.left.functionField) ∈ O := by
+  have hd : IsUnit ((r.den : ℕ) : O) := hev _ (by simp)
+  obtain ⟨u, hu⟩ := hd
+  have hinv : (((u⁻¹ : Oˣ) : O) : X.left.functionField) = ((r.den : X.left.functionField))⁻¹ := by
+    apply eq_inv_of_mul_eq_one_left
+    have := congrArg (fun y : O => (y : X.left.functionField)) (Units.inv_mul u)
+    simp only [hu] at this
+    simpa using this
+  rw [Rat.cast_def, div_eq_mul_inv]
+  exact mul_mem (intCast_mem O _) (by rw [← hinv]; exact ((u⁻¹ : Oˣ) : O).2)
+
+/-- `ℚ → O`. -/
+def ratHom [CharZero X.left.functionField] (hev : ∀ a : O, ev a ≠ 0 → IsUnit a) : ℚ →+* O where
+  toFun r := ⟨_, rat_mem O ev hev r⟩
+  map_one' := by ext; simp
+  map_mul' a b := by ext; simp
+  map_zero' := by ext; simp
+  map_add' a b := by ext; simp
+
+end Place
+
+/-- **The center of a place.** Given a valuation subring `O` of `K(X)` with a local homomorphism
+`ev : O → ℂ`, there is a complex point `x` of the curve `X` at which every element `a ∈ O` is
+regular with value `ev a` (valuative criterion of properness; the local rings of the smooth curve
+are valuation rings). -/
+theorem exists_cpt_of_place (hC : IsCurve X) (O : ValuationSubring X.left.functionField)
+    (ev : O →+* ℂ) (hev : ∀ a : O, ev a ≠ 0 → IsUnit a) :
+    ∃ x : CPt X, ∀ (a : X.left.functionField) (h : a ∈ O), RegAt x a (ev ⟨a, h⟩) := by
+  have : IsProper X.hom := hC.proper
+  have : SmoothOfRelativeDimension 1 X.hom := hC.smooth
+  have := charZero_of_place O ev
+  have hUC : ValuativeCriterion.Existence X.hom := by
+    have : (ValuativeCriterion.Existence ⊓ @QuasiCompact) X.hom := by
+      rw [← UniversallyClosed.eq_valuativeCriterion]; infer_instance
+    exact this.1
+  let S : ValuativeCommSq X.hom :=
+    { R := O
+      K := X.left.functionField
+      i₁ := X.left.fromSpecStalk (genericPoint X.left)
+      i₂ := Spec.map (CommRingCat.ofHom (ratHom O ev hev))
+      commSq := ⟨specQ_ext _ _⟩ }
+  obtain ⟨⟨ℓ, hℓ1, -⟩⟩ := (hUC S).exists_lift
+  -- the center `p` and the local homomorphism `φ : 𝒪_{X,p} → O`
+  set p := ℓ (IsLocalRing.closedPoint O) with hp
+  let φ := Scheme.stalkClosedPointTo ℓ
+  have hℓ : Spec.map φ ≫ X.left.fromSpecStalk p = ℓ := Scheme.Spec_stalkClosedPointTo_fromSpecStalk ℓ
+  have hsp : genericPoint X.left ⤳ p := (genericPoint_spec X.left).specializes trivial
+  let sp := X.left.presheaf.stalkSpecializes hsp
+  have hcomp : φ ≫ CommRingCat.ofHom (algebraMap O X.left.functionField) = sp := by
+    apply Spec.map_inj.mp
+    rw [← cancel_mono (X.left.fromSpecStalk p), Spec.map_comp, Category.assoc, hℓ,
+      Scheme.SpecMap_stalkSpecializes_fromSpecStalk]
+    exact hℓ1
+  have hcompE : ∀ b, ((φ b : O) : X.left.functionField) = sp b := fun b =>
+    congrArg (fun u => u.hom b) hcomp
+  -- `O` is the local ring at `p`
+  have hval : ValuationRing (X.left.presheaf.stalk p) := Scheme.valuationRing_stalk X.hom p
+  have hdom : ∀ a ∈ O, ∃ b, sp b = a := by
+    intro a ha
+    obtain ⟨b1, b2, hb2, rfl⟩ :=
+      IsFractionRing.div_surjective (A := X.left.presheaf.stalk p) (K := X.left.functionField) a
+    have hinj : Function.Injective sp := IsFractionRing.injective (X.left.presheaf.stalk p) _
+    have hb2' : b2 ≠ 0 := nonZeroDivisors.ne_zero hb2
+    have hs2 : sp b2 ≠ 0 := fun h => hb2' (hinj (by rw [h, map_zero]))
+    change sp b1 / sp b2 ∈ O at ha
+    change ∃ b, sp b = sp b1 / sp b2
+    obtain ⟨c, hc | hc⟩ := ValuationRing.cond b1 b2
+    · by_cases hb1 : b1 = 0
+      · exact ⟨0, by simp [hb1]⟩
+      have hs1 : sp b1 ≠ 0 := fun h => hb1 (hinj (by rw [h, map_zero]))
+      have hcne : sp c ≠ 0 := fun h => hs2 (by rw [← hc, map_mul, h, mul_zero])
+      have hq : sp b1 / sp b2 = (sp c)⁻¹ := by
+        rw [← hc, map_mul]; field_simp
+      by_cases hu : IsUnit c
+      · refine ⟨((hu.unit⁻¹ : (X.left.presheaf.stalk p)ˣ) : X.left.presheaf.stalk p), ?_⟩
+        rw [hq]
+        apply eq_inv_of_mul_eq_one_left
+        rw [← map_mul]
+        have : ((hu.unit⁻¹ : (X.left.presheaf.stalk p)ˣ) : X.left.presheaf.stalk p) * c = 1 :=
+          hu.val_inv_mul
+        rw [this, map_one]
+      · exfalso
+        apply hu
+        apply isUnit_of_map_unit φ.hom
+        refine isUnit_iff_exists_inv.mpr ⟨⟨_, ha⟩, Subtype.ext ?_⟩
+        change ((φ c : O) : X.left.functionField) * (sp b1 / sp b2) = 1
+        rw [hcompE, hq, mul_inv_cancel₀ hcne]
+    · exact ⟨c, by rw [← hc, map_mul]; field_simp⟩
+  -- the complex point
+  have : IsLocalHom ev := ⟨fun a ha => hev a (IsUnit.ne_zero ha)⟩
+  have : IsLocalHom (CommRingCat.ofHom ev).hom := ‹IsLocalHom ev›
+  let xl : Spec (CommRingCat.of ℂ) ⟶ X.left := Spec.map (CommRingCat.ofHom ev) ≫ ℓ
+  have hxl : xl = Spec.map (φ ≫ CommRingCat.ofHom ev) ≫ X.left.fromSpecStalk p := by
+    simp only [xl, Spec.map_comp, Category.assoc, hℓ]
+  have hxp : ∀ z, xl z = p := fun z => by
+    rw [Subsingleton.elim z (IsLocalRing.closedPoint ℂ)]
+    exact congrArg ℓ (Spec_closedPoint (f := CommRingCat.ofHom ev))
+  have : IsLocalHom (φ ≫ CommRingCat.ofHom ev).hom :=
+    inferInstanceAs (IsLocalHom ((CommRingCat.ofHom ev).hom.comp φ.hom))
+  refine ⟨Over.homMk xl (specQ_ext _ _), fun a ha => ?_⟩
+  obtain ⟨b, hb⟩ := hdom a ha
+  obtain ⟨U, hpU, s, hs⟩ := X.left.presheaf.germ_exist b
+  have hne : Nonempty U := ⟨⟨p, hpU⟩⟩
+  have hle : ⊤ ≤ xl ⁻¹ᵁ U := fun z _ => by
+    show xl z ∈ U
+    rw [hxp z]; exact hpU
+  refine ⟨U, hne, s, hle, ?_, ?_⟩
+  · rw [← hb, ← hs]
+    exact (TopCat.Presheaf.germ_stalkSpecializes_apply _ _ _ _).symm
+  · refine (value_fromSpecStalk (φ ≫ CommRingCat.ofHom ev) s hpU xl hxl hle).trans ?_
+    rw [hs]
+    change ev (φ b) = ev ⟨a, ha⟩
+    congr 1
+    exact Subtype.ext ((hcompE b).trans hb)
+
+
+/-- **GLUE (analytic): the place of `K(X) = ℚ(j_X, t_X)` at `τ ∈ ℍ`.** For a model `X` of DS's
+`X₁(N)_alg` with generators `(j_X, t_X)` (`IsX1Gen`) and `τ ∈ ℍ`, there are a valuation subring `O` of
+`K(X)` and a local homomorphism `ev : O → ℂ` such that every `P(j_X, t_X)/Q(j_X, t_X)` whose meromorphic
+function `P(j, f₁)/Q(j, f₁)` has a limit `c` at `τ` (over the punctured neighbourhood) lies in `O` with
+`ev = c`. (`O` = the functions with a finite limit at `τ`, `ev` = the limit.) -/
+def TauPlace : Prop :=
+  ∀ (N : ℕ), 2 ≤ N → ∀ (X : Over SpecQ) [IsIntegral X.left] (jX tX : X.left.functionField),
+    IsX1Gen N X jX tX → ∀ τ : UpperHalfPlane,
+      ∃ (O : ValuationSubring X.left.functionField) (ev : O →+* ℂ),
+        (∀ a : O, ev a ≠ 0 → IsUnit a) ∧
+        ∀ (P Q : Polynomial (Polynomial ℤ)) (c : ℂ), AfTateOr.ev2 Q jX tX ≠ 0 →
+          Filter.Tendsto (fun τ' => X1Igusa.Weber.evAn N (AfTateOr.toQ P) τ' /
+            X1Igusa.Weber.evAn N (AfTateOr.toQ Q) τ') (nhdsWithin τ {τ}ᶜ) (nhds c) →
+          ∃ h : AfTateOr.ev2 P jX tX / AfTateOr.ev2 Q jX tX ∈ O, ev ⟨_, h⟩ = c
+
+/-- **`X1TauPoints` from the place at `τ`.** -/
+theorem x1TauPoints_of_tauPlace (hT : TauPlace) : X1TauPoints := by
+  intro N hN X _ jX tX hC hG τ
+  obtain ⟨O, ev, hev, hO⟩ := hT N hN X jX tX hG τ
+  obtain ⟨x, hx⟩ := exists_cpt_of_place hC O ev hev
+  refine ⟨x, fun P Q c hQ hlim => ?_⟩
+  obtain ⟨h, hc⟩ := hO P Q c hQ hlim
+  exact hc ▸ hx _ h
+
 end AfTateLam.HeckeGlue
