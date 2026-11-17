@@ -32,3 +32,24 @@
      `private local instance`.
   4. CloudW07 Cohomology/{Flasque, DirectImage/Affine, AcyclicResolution}.lean: the anonymous local
      PreservesZeroMorphisms instance made `private`; third comment line and NOTICE updated (vendored files).
+- VERIFIED: after the fixes, `lake build` of all 4368 Contrib modules: success (14380 jobs, 0 errors).
+- VERIFIED (scan-after.txt): fatal clashes 0; non-auxiliary duplicate names among project modules 0 (the only
+  remaining non-auxiliary duplicates are Mathlib's own `CategoryTheory.Abelian.instIsStableUnderBaseChange
+  Epimorphisms`/`...CobaseChangeMonomorphisms` in Mathlib.CategoryTheory.Abelian.CommSq / Monomorphisms,
+  identical theorems, accepted). Remaining OK-DUP lines are realized aux lemmas (eq_N, congr_simp, ...).
+  Note: the strict scan (axiom/axiom counted fatal) reported 189 "fatal" before, all realized aux lemmas of
+  Init/Mathlib/TauCeti exported as axioms by `module` files except the 6 Different defs; Lean accepts
+  Prop-typed axiom/axiom duplicates (`isPropCheap`), and the scan now approximates that by "same type".
+- VERIFIED: AllImport.lean (all 4368 Contrib modules) elaborates: exit 0, 9.4 GB, 9 s.
+- VERIFIED: AllImportRoot.lean (`import ZInQKernel`, OneProof.Main, OneProof.Discharges and all 4368 Contrib
+  modules) elaborates; frozenTarget and the headline theorem: [propext, Classical.choice, Quot.sound].
+- VERIFIED: ZInQKernel/Contrib/AllContrib.lean regenerated to import all 4368 other Contrib modules (was 3047,
+  stale, no OneProof); `lake build ZInQKernel.Contrib.AllContrib` succeeds (14381 jobs).
+- VERIFIED: scripts/print_axioms.lean: 542 declarations, all [propext, Classical.choice, Quot.sound].
+- VERIFIED: baseline-after.txt vs baseline-before.txt: identical except the last line
+  "#discharges: 39 open hypotheses, 11113 → 11116 theorems checked, 49 discharge one". The 49 DISCHARGES
+  blocks (hypothesis, theorem, still-assumes, axioms), frozenTarget's and sixContactMin_of_open55's types and
+  axioms are byte-identical. The +3 are new distinct constants in Main's closure, none discharging anything:
+  `ZInQ.GZWeil.jacobiLambdaDeriv_viaCuspForms` (+1; WeilJacobi's removed etaModelDifferential/modularParamC1
+  were identical duplicates, one environment constant each before and after), and the two `private` local
+  instances of HP23Proof/Case3 and TYZGenusFold/Local (+2; before, each was merged with its identical twin).
