@@ -74,7 +74,7 @@ No statement was changed. No statement is false or vacuous (§2.3).
 
 ## 1. (A) Consumer audit
 
-### 1.1 Readers (VERIFIED, read; taint run §6)
+### 1.1 Readers (VERIFIED, read, and by the reader scan of §6)
 
 - The field `ZInQ.HeightSplit.PazukiCor13Upper` (`ZInQKernel/OneProof/H/TailY.lean:778`) is read by
   `r22_of_upper` (TailY:810). It proves `ZInQ.LeafPush2.R22_Pazuki`, together with `NeronModelExists`,
@@ -286,7 +286,16 @@ All VERIFIED (outputs in `scratch/pazuki-route/`).
 - **Autofold dry run** (`autofold.json` → `autofold-dryrun.txt`): `strict count: 11/18 on 29 -> 13/18 on 31;
   strictest 11/18 -> 13/18`, with no `--allow-rise`. The module (line 1 stripped: `FoldCheck.lean`) compiles, and
   `HDec.HSyn.sixContactMin_of_open49` depends on `[propext, Classical.choice, Quot.sound]` (`foldcheck-output.txt`).
-- **Taint run** (`FieldTaint.lean`, a copy of fold33-pic's with seed `pazukiCor13Upper`): __TAINT__
+- **Taint run** (`FieldTaint.lean`, a copy of fold33-pic's with seed `pazukiCor13Upper`): the forward taint over `frozenTarget`'s closure did not finish within the 2-hour limit (twice; it was stopped, not
+  restarted). It was replaced by a single pass over the environment (`Readers.lean` → `readers_out.txt`, 3 min): it
+  lists every constant using a projection named `pazukiCor13Upper`, the type `ZInQ.HeightSplit.PazukiCor13Upper` or
+  `r22_of_upper`. The 182 hits are:
+  - bundle `casesOn`/`mk` and the bundle-to-bundle maps (`openResearchLeaves*_of_*`, `researchLeaves*_of_open*`),
+    which forward the field;
+  - `HDec.HSyn.heightRowsNo20_of8(_hf)`, `ZInQ.HeightSplit.heightRows_of`, `heightRows_leavesOnly` and
+    `r22_of_leaves`, all through `r22_of_upper`.
+
+  So the only mathematical reader is `r22_of_upper` (R22), as in §1.1.
 
 ## 7. Fold count
 

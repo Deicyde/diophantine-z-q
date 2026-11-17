@@ -28,3 +28,7 @@
   assumes the 7 above; 35 open hypotheses, 9960 theorems checked, 39 discharge one. VERIFIED.
 - autofold dry run (no --allow-rise needed): strict count 11/18 on 29 -> 13/18 on 31 (GLUE neutral, +2 LEAF);
   FoldCheck.lean compiles, sixContactMin_of_open49 standard axioms. VERIFIED.
+- FieldTaint (frozenTarget closure) stopped at the 2 h limit, no output (not restarted). Replaced by Readers.lean
+  (single pass over env.constants.map₁, 3 min): 182 hits; besides bundle casesOn/mk and bundle-to-bundle maps, the
+  readers are heightRowsNo20_of8(_hf), HeightSplit.heightRows_of / heightRows_leavesOnly / r22_of_leaves, all via
+  r22_of_upper. VERIFIED.
