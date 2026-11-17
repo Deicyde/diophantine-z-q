@@ -105,8 +105,8 @@ build re-checked, and OPEN.md regenerated.
 ## What it costs to build
 
 You do not need to build anything to contribute. If you want to, these are the measured figures so far.
-`lake exe cache get` fetches only Mathlib's compiled files; nothing of this project is cached, so its own files
-build from source.
+`lake exe cache get` fetches only Mathlib's compiled files, so on your own machine this project's files build from
+source. The automatic check on a pull request starts from a cached build of `main` instead.
 
 | what was built | cold or partial | commit | measured |
 | --- | --- | --- | --- |
