@@ -1,4 +1,5 @@
 import ZInQKernel.Contrib.OneProof.SelmerTwoPower
+import ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.MordellWeil.FinitelyGenerated
 
 /-!
 # Lemma 5.4: `dim Sel₂ = 3` gives `corank_{ℤ₂} Sel_{2^∞} = 1`
@@ -6,9 +7,10 @@ import ZInQKernel.Contrib.OneProof.SelmerTwoPower
 The manuscript's Lemma 5.4 (`lem:corank`, `diophantine_zq.tex` lines 1072–1084), over the genuine
 Selmer groups of `ZInQKernel/Contrib/OneProof/SelmerTwoPower.lean`: for an elliptic curve `E/ℚ` with
 full rational two-torsion, `#Sel₂(E/ℚ) = 8` implies `SelmerCorankOne E`, i.e.
-`Sel_{2^∞}(E/ℚ) ≅ ℚ₂/ℤ₂ × F` with `F` finite (`selmerCorankOne_of_card_selmerAt_one`). Its inputs are
-the printed theorems of Mordell–Weil (`MordellWeilQ`) and Cassels–Tate (`CasselsTateSquare`); everything
-else is proved here: `Sel_{2^∞}` is `2`-primary, the kernel of `Sel_{2ⁿ} → Sel_{2^∞}` is bounded by
+`Sel_{2^∞}(E/ℚ) ≅ ℚ₂/ℤ₂ × F` with `F` finite (`selmerCorankOne_of_card_selmerAt_one`, with the
+Mordell–Weil theorem as a hypothesis, and `selmerCorankOne_of_card_selmerAt_one'`, with it proved by
+Tau Ceti's `WeierstrassCurve.Affine.fg_point_of_numberField`, `mordellWeilQ`). Its remaining input is
+the printed Cassels–Tate square property (`CasselsTateSquare`); everything else is proved here: `Sel_{2^∞}` is `2`-primary, the kernel of `Sel_{2ⁿ} → Sel_{2^∞}` is bounded by
 `#E(ℚ)[2^∞]`, the `2ⁿ`-descent sequences give `#Sel_{2ⁿ} = #(E(ℚ)/2ⁿ) · #Sha[2ⁿ]`, and the structure
 theorem `ZInQ.Cofinite.exists_addEquiv_of_isPPrimary` with a growth-rate comparison gives the corank.
 -/
@@ -363,5 +365,21 @@ theorem selmerCorankOne_of_card_selmerAt_one (hMW : MordellWeilQ E) (hCT : Casse
   rw [hrt] at ht
   subst ht
   exact ⟨F, inferInstance, hF, ⟨eS⟩⟩
+
+/-! ### Mordell–Weil, proved -/
+
+/-- **The Mordell–Weil theorem for elliptic curves over `ℚ`**: Tau Ceti's
+`WeierstrassCurve.Affine.fg_point_of_numberField` (weak Mordell–Weil and the naïve height, after
+M. Stoll's `EllipticCurves`), at the number field `ℚ`. -/
+theorem mordellWeilQ (E : WeierstrassCurve ℚ) [E.IsElliptic] : MordellWeilQ E :=
+  WeierstrassCurve.Affine.fg_point_of_numberField
+
+/-- **Lemma 5.4 with Mordell–Weil proved**: for an elliptic curve over `ℚ` with full rational
+two-torsion, `#Sel₂(E/ℚ) = 8` implies `corank_{ℤ₂} Sel_{2^∞}(E/ℚ) = 1`, given the Cassels–Tate square
+property. -/
+theorem selmerCorankOne_of_card_selmerAt_one' (E : WeierstrassCurve ℚ) [E.IsElliptic]
+    (hCT : CasselsTateSquare E) (h2 : FullTwoTorsion E) (hSel : Nat.card (selmerAt E 1) = 8) :
+    SelmerCorankOne E :=
+  selmerCorankOne_of_card_selmerAt_one E (mordellWeilQ E) hCT h2 hSel
 
 end ZInQ.Manuscript.SelmerTwoPower

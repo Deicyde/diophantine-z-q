@@ -57,9 +57,14 @@ with `#Sel₂(E_ℓ/ℚ) = 8`, Theorem 5.3 over the genuine Selmer condition, Le
 (Mordell–Weil, Cassels–Tate, Kolyvagin) make every class of `Sel₂(E_ℓ/ℚ)` a Kummer class of a rational
 point — the step "the Kummer class is then represented by actual rational points".
 
+**Mordell–Weil proved.** Tau Ceti 5a01f5fe proves the Mordell–Weil theorem for elliptic curves over
+number fields (`WeierstrassCurve.Affine.fg_point_of_numberField`, `MordellWeil/FinitelyGenerated.lean`,
+after M. Stoll's `EllipticCurves`); its 7 missing modules are vendored (`scratch/selmer-2infty/vendor-mw.txt`).
+`mordellWeilQ` discharges `MordellWeilQ E` for every elliptic `E/ℚ`; `selmerCorankOne_of_card_selmerAt_one'`
+(Lemma 5.4) and `kummerSelmerMap_surjective_of_restrictedConverse'` drop it as a hypothesis. Lemma 5.4's
+remaining printed input is the Cassels–Tate square property.
+
 **Next (not done).**
 1. Connect `ZInQ.Manuscript.PoleRC.SelM` (explicit `2`-Selmer system, `wip/pc-from-rc`) with `selmerAt E 1`
    (Tau Ceti's `EtaleTwoDescent`, Silverman X.1.4): then that lane's `Lemma54At SelmerCorankOne` follows
    from this Lemma 5.4.
-2. Discharge `MordellWeilQ` from Tau Ceti's `MordellWeil/FinitelyGenerated` (Tau Ceti main; needs a
-   backport to this toolchain).

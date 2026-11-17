@@ -123,6 +123,12 @@ Repository: https://github.com/TauCetiProject/TauCeti
   AlgebraicGeometry/EllipticCurve/MordellWeil/XSubT.lean (see below). The commit-5a01f5fe module
   Algebra.Group.MapMulMulEqOne of that closure is not vendored: the Backport/ copy of the
   commit-4d91513e version (task t40-tate) is used instead.
+- Commit 5a01f5fe (as above): the 7 further modules vendored unmodified by the Z-in-Q task
+  selmer-2infty for the Mordell-Weil theorem (the closure of
+  AlgebraicGeometry.EllipticCurve.MordellWeil.FinitelyGenerated: weak Mordell-Weil, the S-integer
+  Selmer groups of the etale algebra, finiteness of class groups and units of the factor rings,
+  and fg_point_of_numberField, after M. Stoll's EllipticCurves; list in
+  scratch/selmer-2infty/vendor-mw.txt).
 
 Location in this repository
 ---------------------------

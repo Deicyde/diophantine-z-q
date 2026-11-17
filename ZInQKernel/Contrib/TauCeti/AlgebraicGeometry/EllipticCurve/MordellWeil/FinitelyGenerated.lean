@@ -1,0 +1,160 @@
+/-
+Copyright (c) 2026 The Tau Ceti contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: The Tau Ceti contributors
+-/
+-- Vendored from Tau Ceti (https://github.com/TauCetiProject/TauCeti, commit 5a01f5fe3621, module TauCeti.AlgebraicGeometry.EllipticCurve.MordellWeil.FinitelyGenerated), Apache-2.0.
+module
+
+public import Mathlib.GroupTheory.Descent
+public import Mathlib.NumberTheory.Height.NumberField
+public import ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Affine.Point.VariableChange
+public import ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.MordellWeil.NaiveHeight
+public import ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.MordellWeil.WeakMordellWeil
+public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.IntegralClosure
+
+/-!
+# Finite generation of the group of rational points
+
+The descent is complete: the weak Mordell–Weil theorem gives that `E(K)/2E(K)` is finite, the
+naïve height satisfies the approximate parallelogram law and the Northcott property, and Mathlib's
+descent engine `AddCommGroup.fg_of_descent'` turns those two into finite generation of `E(K)`.
+Finiteness of the torsion subgroup comes out of the same two inputs and is Mathlib's
+`WeierstrassCurve.Affine.finite_torsion`.
+
+The statements are named for their conclusions, per the roadmap: no declaration is called
+`mordellWeil`, and the classical name appears in docstrings only.
+
+## Main results
+
+* `WeierstrassCurve.Affine.fg_point` : `E(K)` is finitely generated, for a curve in the normal
+  form `y² = f(x)` over the fraction field of a Dedekind domain, under per-factor class-group and
+  unit-group finiteness.
+* `WeierstrassCurve.Affine.fg_point_of_variableChange` : the same for an arbitrary Weierstrass
+  curve, transferred along an admissible change of variables.
+* `WeierstrassCurve.Affine.fg_point_of_numberField` : **the Mordell–Weil theorem** — `E(K)` is
+  finitely generated for an elliptic curve over a number field.
+
+## Instances
+
+Over a number field `F` the per-factor hypotheses of `fg_point` hold for every curve, and are
+registered as instances: `finite_classGroup_ringOfIntegersFactor` (the class number theorem) and
+`fg_units_ringOfIntegersFactor` (Dirichlet's unit theorem). The Mordell–Weil theorem itself is
+registered as the instance `moduleFinite_point_of_numberField`, so that `E(K)` is a finite
+`ℤ`-module and its rank is `Module.finrank ℤ E(K)`.
+
+## Two divergences from the source, both forced by what is already on `main`
+
+*Unit groups are `Monoid.FG`, not `Group.FG`.* The source states `fg_point` with
+`Group.FG (ringOfIntegersFactor R p)ˣ`, but `main`'s weak Mordell–Weil theorem
+(`finiteIndex_range_nsmulAddMonoidHom_two`) takes `Monoid.FG`. Matching `main` avoids an
+impedance mismatch at the one place the hypothesis is used; `Group.fg_iff_monoid_fg` converts,
+and the instance `fg_units_ringOfIntegersFactor` does exactly that when discharging it from
+Dirichlet's theorem.
+
+*The finiteness inputs are `TauCeti`'s.* `NumberField.finite_classGroup_integralClosure` and
+`NumberField.fg_units_integralClosure` are in
+`TauCeti.NumberTheory.NumberField.IntegralClosure`, since they are general number theory and
+mention no curve.
+
+## References
+
+* [M. Stoll, *EllipticCurves*](https://github.com/MichaelStollBayreuth/EllipticCurves), commit
+  `66889eada51a74c2f5dfb7fb5909b0b5a0a2d96e`, `EllipticCurves/MordellWeil.lean` (`:350`, `:371`,
+  `:390`, `:416`), Apache-2.0. The proofs are that file's.
+-/
+
+public section
+
+open Height NumberField
+
+namespace WeierstrassCurve.Affine
+
+variable {F : Type*} [Field F] {W : Affine F}
+
+section Northcott
+
+variable [AdmissibleAbsValues F] [Northcott (logHeight₁ (K := F))]
+variable [DecidableEq F] [W.toAffine.IsElliptic]
+
+/-- **The Mordell–Weil theorem**, general version: `E(K)` is finitely generated, for an elliptic
+curve `E` given by an equation `y² = f(x)` with a monic cubic `f` (`a₁ = a₃ = 0`) over a field `K`
+such that `K` has admissible absolute values with the Northcott property, `K` is the fraction
+field of a Dedekind domain `R`, and for each irreducible factor `p` of `f` the integral closure of
+`R` in `K[X] ⧸ (p)` has finite class group and finitely generated unit group.
+
+For `K` a number field all of these hold; see `fg_point_of_numberField`.
+
+The per-factor hypotheses cannot be replaced by the corresponding hypotheses on `R` itself: by a
+theorem of Claborn, refined by Leedham-Green and by Clark, *every* abelian group is the class
+group of the integral closure of a PID in a separable quadratic extension, so
+`Finite (ClassGroup R)` gives no control over the class groups of the factors. -/
+theorem fg_point (R : Type*) [CommRing R] [IsDedekindDomain R] [Algebra R F]
+    [IsFractionRing R F] [W.IsCharNeTwoNF]
+    [(p : W.f.Factors) → Finite (ClassGroup (W.ringOfIntegersFactor R p))]
+    [(p : W.f.Factors) → Monoid.FG (W.ringOfIntegersFactor R p)ˣ] :
+    AddGroup.FG W.Point := by
+  obtain ⟨C, hC⟩ := approx_parallelogram_law W
+  exact AddCommGroup.fg_of_descent' (W.finiteIndex_range_nsmulAddMonoidHom_two R)
+    Point.naiveHeight_nonneg hC
+
+/-- **The Mordell–Weil theorem** for an arbitrary Weierstrass curve: `E(K)` is finitely generated,
+given an admissible change of variables `C` bringing `E` into the normal form `y² = f(x)`,
+together with the finiteness hypotheses of `fg_point` for the model `C • E`. The result transfers
+along the isomorphism of point groups `Point.addEquivVariableChange`.
+
+Such a `C` exists whenever `2` is invertible in `K`, by completing the square. -/
+theorem fg_point_of_variableChange (R : Type*) [CommRing R] [IsDedekindDomain R] [Algebra R F]
+    [IsFractionRing R F] (C : VariableChange F) [(C • W).IsCharNeTwoNF]
+    [(p : (C • W).toAffine.f.Factors) →
+      Finite (ClassGroup ((C • W).toAffine.ringOfIntegersFactor R p))]
+    [(p : (C • W).toAffine.f.Factors) →
+      Monoid.FG ((C • W).toAffine.ringOfIntegersFactor R p)ˣ] :
+    AddGroup.FG W.Point := by
+  have := fg_point (W := (C • W).toAffine) R
+  exact AddGroup.fg_of_surjective (f := (Point.addEquivVariableChange W C).toAddMonoidHom)
+    (Point.addEquivVariableChange W C).surjective
+
+end Northcott
+
+section NumberField
+
+variable {F : Type*} [Field F] [NumberField F]
+
+/-- The **class number theorem** for the field factors of the étale algebra of a curve over a
+number field: the ring of integers of each factor `F[X] ⧸ (p)` has finite class group. -/
+instance finite_classGroup_ringOfIntegersFactor (W : Affine F) (p : W.f.Factors) :
+    Finite (ClassGroup (W.ringOfIntegersFactor (𝓞 F) p)) :=
+  NumberField.finite_classGroup_integralClosure F (AdjoinRoot (p : Polynomial F))
+
+/-- **Dirichlet's unit theorem** for the field factors of the étale algebra of a curve over a
+number field: the ring of integers of each factor `F[X] ⧸ (p)` has finitely generated unit
+group. -/
+instance fg_units_ringOfIntegersFactor (W : Affine F) (p : W.f.Factors) :
+    Monoid.FG (W.ringOfIntegersFactor (𝓞 F) p)ˣ :=
+  Group.fg_iff_monoid_fg.mp
+    (NumberField.fg_units_integralClosure F (AdjoinRoot (p : Polynomial F)))
+
+variable [DecidableEq F] {W : Affine F} [W.toAffine.IsElliptic]
+
+/-- **The Mordell–Weil theorem**: the group `E(K)` of `K`-rational points of an elliptic curve `E`
+over a number field `K` is finitely generated.
+
+The square on the left-hand side is completed by an admissible change of variables, possible since
+`K` has characteristic zero, and the finiteness hypotheses of `fg_point` for the resulting model
+are the class number theorem and Dirichlet's unit theorem. -/
+theorem fg_point_of_numberField : AddGroup.FG W.Point := by
+  have := invertibleOfNonzero (two_ne_zero (α := F))
+  obtain ⟨C, hC⟩ := exists_variableChange_isCharNeTwoNF (W := W)
+  exact fg_point_of_variableChange (𝓞 F) C
+
+/-- **The Mordell–Weil theorem** as an instance: the group `E(K)` of `K`-rational points of an
+elliptic curve `E` over a number field `K` is a finitely generated `ℤ`-module. -/
+instance moduleFinite_point_of_numberField : Module.Finite ℤ W.Point :=
+  Module.Finite.iff_addGroup_fg.mpr fg_point_of_numberField
+
+end NumberField
+
+end WeierstrassCurve.Affine
+
+end

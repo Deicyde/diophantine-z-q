@@ -1,0 +1,109 @@
+/-
+Copyright (c) 2026 The Tau Ceti contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: The Tau Ceti contributors
+-/
+-- Vendored from Tau Ceti (https://github.com/TauCetiProject/TauCeti, commit 5a01f5fe3621, module TauCeti.NumberTheory.NumberField.IntegralClosure), Apache-2.0.
+module
+
+public import Mathlib.NumberTheory.ClassNumber.AdmissibleAbs
+public import Mathlib.NumberTheory.ClassNumber.Finite
+public import Mathlib.NumberTheory.NumberField.ClassNumber
+public import Mathlib.NumberTheory.NumberField.Units.DirichletTheorem
+public import Mathlib.RingTheory.IntegralClosure.IsIntegralClosure.Basic
+import ZInQKernel.Contrib.TauCeti.RingTheory.IntegralClosure.Transfer
+
+/-!
+# The integral closure of `𝓞 K` in a finite extension of number fields
+
+For a finite extension `L` of a number field `K`, the integral closure of `𝓞 K` in `L` is the
+integral closure of `ℤ` in `L` — that is `TauCeti.IsIntegralClosure.tower_bot` applied along
+`ℤ → 𝓞 K → L` — hence isomorphic to `𝓞 L`. Two consequences transfer along that identification
+and are the finiteness inputs of the Mordell–Weil descent: the class group of the integral closure
+is finite, and its unit group is finitely generated. The unit rank and the triviality of the class
+group transfer as well; they turn the descent bound into a number for a given curve.
+
+All four are stated for `integralClosure (𝓞 K) L` rather than for `𝓞 L`, because that is the ring
+the descent actually produces — `WeierstrassCurve.Affine.ringOfIntegersFactor` is an integral
+closure in a quotient `K[X] ⧸ (p)`, not a ring of integers presented as such.
+
+## Main results
+
+* `NumberField.finite_classGroup_integralClosure` : the **class number theorem** for it.
+* `NumberField.fg_units_integralClosure` : the finite-generation half of **Dirichlet's unit
+  theorem** for it.
+* `NumberField.finrank_units_integralClosure` : its unit group has rank the unit rank of `L`.
+* `NumberField.isPrincipalIdealRing_integralClosure_iff` : it is a principal ideal domain exactly
+  when `L` has class number one.
+
+## References
+
+* [M. Stoll, *EllipticCurves*](https://github.com/MichaelStollBayreuth/EllipticCurves), commit
+  `66889eada51a74c2f5dfb7fb5909b0b5a0a2d96e`, `EllipticCurves/Mathlib/Basic.lean`, Apache-2.0.
+  That file collects general-purpose results its author flags as Mathlib candidates;
+  `NumberField.finite_classGroup_integralClosure` and `NumberField.fg_units_integralClosure` are
+  adapted from it essentially verbatim. The `ℤ → 𝓞 K → L` identification they rest on is
+  `TauCeti.IsIntegralClosure.tower_bot`, credited to Stacks in its own module.
+-/
+
+public section
+
+open NumberField
+
+variable (K L : Type*) [Field K] [Field L] [Algebra K L]
+
+section Finiteness
+
+variable [NumberField K] [FiniteDimensional K L]
+
+/-- The **class number theorem** for the integral closure of `𝓞 K` in a finite extension `L`
+of the number field `K`: its class group is finite. -/
+theorem NumberField.finite_classGroup_integralClosure :
+    Finite (ClassGroup (integralClosure (𝓞 K) L)) := by
+  have : NumberField L := .of_module_finite K L
+  have := TauCeti.IsIntegralClosure.tower_bot (R := ℤ) (A := 𝓞 K) (B := L)
+    (C := integralClosure (𝓞 K) L)
+  have := ClassGroup.fintypeOfAdmissibleOfFinite ℚ L
+    (S := integralClosure (𝓞 K) L) AbsoluteValue.absIsAdmissible
+  exact Finite.of_fintype _
+
+/-- **Dirichlet's unit theorem** (finite generation) for the integral closure of `𝓞 K` in a
+finite extension `L` of the number field `K`: its unit group is finitely generated. -/
+theorem NumberField.fg_units_integralClosure :
+    Group.FG (integralClosure (𝓞 K) L)ˣ := by
+  have : NumberField L := .of_module_finite K L
+  have e : integralClosure (𝓞 K) L ≃ₐ[𝓞 K] (𝓞 L) :=
+    IsIntegralClosure.equiv (𝓞 K) (integralClosure (𝓞 K) L) L (𝓞 L)
+  have : Group.FG (𝓞 L)ˣ := Group.fg_iff_monoid_fg.mpr inferInstance
+  exact Group.fg_of_surjective
+    (f := (Units.mapEquiv e.symm.toRingEquiv.toMulEquiv).toMonoidHom)
+    (Units.mapEquiv e.symm.toRingEquiv.toMulEquiv).surjective
+
+end Finiteness
+
+section Invariants
+
+variable [NumberField L]
+
+/-- The unit group of the integral closure of `𝓞 K` in a number field `L` has rank the unit rank
+of `L`. -/
+theorem NumberField.finrank_units_integralClosure :
+    Module.finrank ℤ (Additive (integralClosure (𝓞 K) L)ˣ) = NumberField.Units.rank L := by
+  let e : integralClosure (𝓞 K) L ≃ₐ[𝓞 K] (𝓞 L) :=
+    IsIntegralClosure.equiv (𝓞 K) (integralClosure (𝓞 K) L) L (𝓞 L)
+  rw [(Units.mapEquiv e.toRingEquiv.toMulEquiv).toAdditive.toIntLinearEquiv.finrank_eq,
+    NumberField.Units.finrank_eq]
+
+/-- The integral closure of `𝓞 K` in a number field `L` is a principal ideal domain exactly when
+`L` has class number one. -/
+theorem NumberField.isPrincipalIdealRing_integralClosure_iff :
+    IsPrincipalIdealRing (integralClosure (𝓞 K) L) ↔ NumberField.classNumber L = 1 := by
+  let e : integralClosure (𝓞 K) L ≃ₐ[𝓞 K] (𝓞 L) :=
+    IsIntegralClosure.equiv (𝓞 K) (integralClosure (𝓞 K) L) L (𝓞 L)
+  rw [NumberField.classNumber_eq_one_iff]
+  exact ⟨fun _ ↦ .of_surjective e.toRingEquiv e.surjective,
+    fun _ ↦ .of_surjective e.symm.toRingEquiv e.symm.surjective⟩
+
+end Invariants
+
+end

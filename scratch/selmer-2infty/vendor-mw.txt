@@ -1,0 +1,7 @@
+TauCeti.AlgebraicGeometry.EllipticCurve.MordellWeil.BadPrimes
+TauCeti.AlgebraicGeometry.EllipticCurve.MordellWeil.FinitelyGenerated
+TauCeti.AlgebraicGeometry.EllipticCurve.MordellWeil.SelmerGroupA
+TauCeti.AlgebraicGeometry.EllipticCurve.MordellWeil.WeakMordellWeil
+TauCeti.NumberTheory.NumberField.IntegralClosure
+TauCeti.RingTheory.DedekindDomain.SInteger.SelmerGroup.Card
+TauCeti.RingTheory.DedekindDomain.SInteger.SelmerGroup.Etale

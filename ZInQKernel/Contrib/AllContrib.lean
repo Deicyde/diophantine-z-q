@@ -3152,3 +3152,10 @@ import ZInQKernel.Contrib.OneProof.SelmerTwoPower
 import ZInQKernel.Contrib.OneProof.CofinitePrimary
 import ZInQKernel.Contrib.OneProof.SelmerCorank
 import ZInQKernel.Contrib.OneProof.SelmerKummer
+import ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.MordellWeil.BadPrimes
+import ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.MordellWeil.FinitelyGenerated
+import ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.MordellWeil.SelmerGroupA
+import ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.MordellWeil.WeakMordellWeil
+import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.IntegralClosure
+import ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.SInteger.SelmerGroup.Card
+import ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.SInteger.SelmerGroup.Etale

@@ -12,8 +12,9 @@ For the manuscript's curves `E_ℓ : y² = x(x - ℓ)(x + 3ℓ)` (`ZInQ.Manuscri
   Kummer class is then represented by actual rational points");
 * `kummerSelmerMap_surjective_of_restrictedConverse`: the same for `E_ℓ` in the domain of
   Theorem 5.3, from Theorem 5.3 over the genuine Selmer condition (`RestrictedConverseGenuine`),
-  Lemma 5.4 (`selmerCorankOne_of_card_selmerAt_one`) and the printed inputs Mordell–Weil,
-  Cassels–Tate and the rank half of Lemma 5.5 (Kolyvagin, with modularity), as stated hypotheses.
+  Lemma 5.4 (`selmerCorankOne_of_card_selmerAt_one`) and the printed inputs Cassels–Tate and the rank
+  half of Lemma 5.5 (Kolyvagin, with modularity), as stated hypotheses; Mordell–Weil is proved
+  (`mordellWeilQ`, Tau Ceti), giving `kummerSelmerMap_surjective_of_restrictedConverse'`.
 -/
 
 noncomputable section
@@ -172,5 +173,17 @@ theorem kummerSelmerMap_surjective_of_restrictedConverse {ℓ : ℕ}
   have hcor := selmerCorankOne_of_card_selmerAt_one _ hMW hCT h2 hSel
   have han := hRC ℓ hℓ hsf hmod hcor
   exact kummerSelmerMap_surjective_of_rank_one _ hMW h2 hSel (hK han)
+
+/-- **The manuscript's lines 1107–1110 with Mordell–Weil proved**: as
+`kummerSelmerMap_surjective_of_restrictedConverse`, with `MordellWeilQ` discharged by
+`mordellWeilQ`. -/
+theorem kummerSelmerMap_surjective_of_restrictedConverse' {ℓ : ℕ}
+    [(ZInQ.Manuscript.curve (ℓ : ℚ)).IsElliptic] (hℓ : 0 < ℓ) (hsf : Squarefree ℓ)
+    (hmod : ℓ % 12 = 11) (hRC : RestrictedConverseGenuine)
+    (hK : KolyvaginRankOne (ZInQ.Manuscript.curve ℓ))
+    (hCT : CasselsTateSquare (ZInQ.Manuscript.curve ℓ))
+    (hSel : Nat.card (selmerAt (ZInQ.Manuscript.curve ℓ) 1) = 8) :
+    Function.Surjective ((ZInQ.Manuscript.curve (ℓ : ℚ)).kummerSelmerMap emb (isUnit_two_pow 1)) :=
+  kummerSelmerMap_surjective_of_restrictedConverse hℓ hsf hmod hRC hK (mordellWeilQ _) hCT hSel
 
 end ZInQ.Manuscript.SelmerTwoPower
