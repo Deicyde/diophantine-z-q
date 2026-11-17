@@ -1,0 +1,6 @@
+wrote docs/one-proof/OPEN.md
+wrote docs/one-proof/pages-wanted.md
+wrote docs/one-proof/CONTRIBUTING.md
+wrote STATUS.md
+30 H hypotheses, strictest 14/16, 6 others
+ok: 36 open hypotheses, all classified; 4 generated files up to date

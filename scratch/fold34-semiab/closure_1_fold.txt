@@ -1,0 +1,30 @@
+frozenTarget: closure 272010
+  contains ZInQ.HeightSplit.BostLowerBound: true
+  contains ZInQ.HeightSplit.GaudronRemondThm14: true
+  contains ZInQ.HeightFix.SemiAbelianDescendsPerfect: true
+  contains ZInQ.HeightDict.BostLowerBoundPrinted: false
+  contains ZInQ.HeightDict.GaudronRemondThm14Printed: false
+  contains ZInQ.SemiAbDescend.semiAbelianDescendsPerfect_of_chevalley: true
+  contains ZInQ.SemiAbDescend.ChevalleyPerfect: true
+  contains ZInQ.HeightFix.BostLowerBoundPrinted: true
+  contains ZInQ.HeightFix.GaudronRemondThm14Printed: true
+  contains ZInQ.HeightFix.IsPrintedStableHeight: true
+  contains HDec.HSyn.OpenResearchLeaves32: true
+  contains HDec.HSyn.sixContactMin_of_open49: true
+  contains PicDict.MumfordPhiSurjectiveAC: false
+  contains T09Pic.WeilPairingMumford: false
+  contains T09Pic.PicZeroAbVar: false
+  contains PicDict.PicZeroSmooth: false
+  contains CToPrinted.SGA3_VIB_3_10: false
+  contains SGA3IdComp.SGA3_VIB_3_10_Nbhd: false
+  contains DictModels.MumfordConn.MumfordGroupLawConn: false
+  contains ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw: false
+  contains ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed: false
+  contains PkgI3.HomFreeFinite: false
+  contains ZInQ.GZDecomp.GrossZagierHeegner: false
+  contains sorryAx: false
+  binders: 9
+  bundle HDec.HSyn.OpenResearchLeaves32: 25 fields
+  bundle HDec.HSyn.OpenTextbookLeaves16: 3 fields
+  bundle HDec.HSyn.OpenAddedLeaves25: 2 fields
+  fields with a removed type: 0

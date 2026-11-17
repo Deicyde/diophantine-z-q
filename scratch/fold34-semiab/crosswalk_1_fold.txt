@@ -1,0 +1,3 @@
+wrote docs/one-proof/frontier-crosswalk.tsv: 232 IDs, 24 matched to an open hypothesis
+open hypotheses with no frontier ID: bostLowerBoundPrinted, chevalleyPerfect, dsThm965Printed, dsThm966Printed, eigenformCoeffFieldFinite, gaudronRemondThm14Printed, hBFH, hCM, hGZ, kleimanPicZeroProper, neronOggShafarevichSep, neronSchemeExtensionDedekind, raynaudSemistableSHOr, sga7_IX_3_3_SHpre
+ok: docs/one-proof/frontier-crosswalk.tsv is up to date (232 IDs, 24 matched)
