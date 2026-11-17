@@ -1,0 +1,151 @@
+/-
+Vendored from anthropics/fermats-last-theorem, commit 6e837e75355538c7f80bab5b956861e86c4eacc2, Apache-2.0.
+Upstream module: P2M.Sol.S_ModularFormClass_isBoundedAt_heckeU (git blob acafb6801d5154fcd95030349143b54c304778c1, sha256 c2e8bd8e2f3bd513ca0f4592ec7325e64ff1b088b7a41eb9f1d647bf2711a24e).
+Ported to Lean 4.35 / Mathlib 56a0058; changes from upstream are marked `-- [port]`.
+Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
+Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+-/
+import Mathlib.NumberTheory.ModularForms.Basic
+import ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.Definitions.Def_ModularForm_HeckeOperator
+
+set_option maxHeartbeats 4000000
+set_option synthInstance.maxHeartbeats 400000
+set_option backward.isDefEq.respectTransparency.types false
+set_option autoImplicit false
+
+namespace ModularForm
+end ModularForm
+namespace MatrixGroups
+end MatrixGroups
+namespace P2MW.S_ModularFormClass_isBoundedAt_heckeU.ModularForm
+end P2MW.S_ModularFormClass_isBoundedAt_heckeU.ModularForm
+
+namespace P2MW.S_ModularFormClass_isBoundedAt_heckeU
+
+namespace ModularForm
+export _root_.ModularForm (add ext upperTriangularGL heckeMatrix heckeDiagMatrix heckeMatrix_zero heckeDiagMatrix_zero heckeU heckeT heckeU_def heckeT_eq_heckeU_add)
+namespace S06W2
+open _root_.ModularForm
+
+open UpperHalfPlane OnePoint
+open scoped _root_.MatrixGroups _root_.ModularForm _root_.P2MW.S_ModularFormClass_isBoundedAt_heckeU.ModularForm
+
+section RatCusps
+
+variable {F : Type*} [FunLike F ℍ ℂ] {Γ : Subgroup (GL (Fin 2) ℝ)} [Γ.IsArithmetic] {k : ℤ}
+
+theorem isCusp_ratCast_smul {c : OnePoint ℝ} (hc : IsCusp c Γ) (g : GL (Fin 2) ℚ) :
+    IsCusp (Matrix.GeneralLinearGroup.map (Rat.castHom ℝ) g • c) Γ := by
+  rw [Subgroup.IsArithmetic.isCusp_iff_isCusp_SL2Z, isCusp_SL2Z_iff] at hc ⊢
+  obtain ⟨c, rfl⟩ := hc
+  exact ⟨g • c, by rw [← Rat.coe_castHom, OnePoint.map_smul]⟩
+
+theorem isBoundedAt_slash_ratCast [ModularFormClass F Γ k] (f : F) (g : GL (Fin 2) ℚ) {c : OnePoint ℝ}
+    (hc : IsCusp c Γ) : c.IsBoundedAt (⇑f ∣[k] (Matrix.GeneralLinearGroup.map (Rat.castHom ℝ) g)) k :=
+  OnePoint.IsBoundedAt.smul_iff.mp (ModularFormClass.bdd_at_cusps f (isCusp_ratCast_smul hc g))
+
+theorem isZeroAt_slash_ratCast [CuspFormClass F Γ k] (f : F) (g : GL (Fin 2) ℚ) {c : OnePoint ℝ}
+    (hc : IsCusp c Γ) : c.IsZeroAt (⇑f ∣[k] (Matrix.GeneralLinearGroup.map (Rat.castHom ℝ) g)) k :=
+  OnePoint.IsZeroAt.smul_iff.mp (CuspFormClass.zero_at_cusps f (isCusp_ratCast_smul hc g))
+
+end RatCusps
+
+section HeckeMatrices
+
+def ratUpperTriangularGL (a b d : ℚ) (had : a * d ≠ 0) : GL (Fin 2) ℚ :=
+  Matrix.GeneralLinearGroup.mkOfDetNeZero !![a, b; 0, d]
+    (by rwa [Matrix.det_fin_two_of, mul_zero, sub_zero])
+
+theorem upperTriangularGL_eq_map (a b d : ℚ) (had : a * d ≠ 0) :
+    upperTriangularGL a b d (by exact_mod_cast had) =
+      Matrix.GeneralLinearGroup.map (Rat.castHom ℝ) (ratUpperTriangularGL a b d had) := by
+  ext i j
+  fin_cases i <;> fin_cases j <;>
+    simp [ratUpperTriangularGL, upperTriangularGL, Matrix.GeneralLinearGroup.mkOfDetNeZero]
+
+theorem exists_heckeMatrix_eq_map (p j : ℕ) :
+    ∃ g : GL (Fin 2) ℚ, heckeMatrix p j = Matrix.GeneralLinearGroup.map (Rat.castHom ℝ) g := by
+  rcases eq_or_ne p 0 with rfl | hp
+  · exact ⟨1, by rw [heckeMatrix_zero, map_one]⟩
+  · refine ⟨ratUpperTriangularGL 1 j p (by rw [one_mul]; exact_mod_cast hp), ?_⟩
+    ext i j
+    fin_cases i <;> fin_cases j <;>
+      simp [heckeMatrix, hp, ratUpperTriangularGL, upperTriangularGL, Matrix.GeneralLinearGroup.mkOfDetNeZero]
+
+theorem exists_heckeDiagMatrix_eq_map (p : ℕ) :
+    ∃ g : GL (Fin 2) ℚ, heckeDiagMatrix p = Matrix.GeneralLinearGroup.map (Rat.castHom ℝ) g := by
+  rcases eq_or_ne p 0 with rfl | hp
+  · exact ⟨1, by rw [heckeDiagMatrix_zero, map_one]⟩
+  · refine ⟨ratUpperTriangularGL p 0 1 (by rw [mul_one]; exact_mod_cast hp), ?_⟩
+    ext i j
+    fin_cases i <;> fin_cases j <;>
+      simp [heckeDiagMatrix, hp, ratUpperTriangularGL, upperTriangularGL, Matrix.GeneralLinearGroup.mkOfDetNeZero]
+
+end HeckeMatrices
+
+section Cusps
+
+variable {F : Type*} [FunLike F ℍ ℂ] {Γ : Subgroup (GL (Fin 2) ℝ)} [Γ.IsArithmetic] {k : ℤ}
+
+theorem isBoundedAt_sum {ι : Type*} {c : OnePoint ℝ} {k : ℤ} (s : Finset ι)
+    {f : ι → ℍ → ℂ} (hf : ∀ i ∈ s, c.IsBoundedAt (f i) k) : c.IsBoundedAt (∑ i ∈ s, f i) k := by
+  classical
+  induction s using Finset.induction_on with
+  | empty =>
+    intro g _
+    rw [Finset.sum_empty, SlashAction.zero_slash]
+    exact Filter.const_boundedAtFilter _ (0 : ℂ)
+  | insert a s ha ih =>
+    rw [Finset.sum_insert ha]
+    exact (hf a (Finset.mem_insert_self a s)).add (ih fun i hi => hf i (Finset.mem_insert_of_mem hi))
+
+theorem isZeroAt_sum {ι : Type*} {c : OnePoint ℝ} {k : ℤ} (s : Finset ι)
+    {f : ι → ℍ → ℂ} (hf : ∀ i ∈ s, c.IsZeroAt (f i) k) : c.IsZeroAt (∑ i ∈ s, f i) k := by
+  classical
+  induction s using Finset.induction_on with
+  | empty =>
+    intro g _
+    rw [Finset.sum_empty, SlashAction.zero_slash]
+    exact Filter.zero_zeroAtFilter _
+  | insert a s ha ih =>
+    rw [Finset.sum_insert ha]
+    exact (hf a (Finset.mem_insert_self a s)).add (ih fun i hi => hf i (Finset.mem_insert_of_mem hi))
+
+theorem isBoundedAt_heckeU [ModularFormClass F Γ k] (f : F) (p : ℕ) {c : OnePoint ℝ} (hc : IsCusp c Γ) :
+    c.IsBoundedAt (heckeU k p ⇑f) k := by
+  rw [heckeU_def]
+  refine isBoundedAt_sum _ fun j _ => ?_
+  obtain ⟨g, hg⟩ := exists_heckeMatrix_eq_map p j
+  rw [hg]
+  exact isBoundedAt_slash_ratCast f g hc
+
+theorem isBoundedAt_heckeT [ModularFormClass F Γ k] (f : F) (p : ℕ) {c : OnePoint ℝ} (hc : IsCusp c Γ) :
+    c.IsBoundedAt (heckeT k p ⇑f) k := by
+  rw [heckeT_eq_heckeU_add]
+  refine (isBoundedAt_heckeU f p hc).add ?_
+  obtain ⟨g, hg⟩ := exists_heckeDiagMatrix_eq_map p
+  rw [hg]
+  exact isBoundedAt_slash_ratCast f g hc
+
+theorem isZeroAt_heckeU [CuspFormClass F Γ k] (f : F) (p : ℕ) {c : OnePoint ℝ} (hc : IsCusp c Γ) :
+    c.IsZeroAt (heckeU k p ⇑f) k := by
+  rw [heckeU_def]
+  refine isZeroAt_sum _ fun j _ => ?_
+  obtain ⟨g, hg⟩ := exists_heckeMatrix_eq_map p j
+  rw [hg]
+  exact isZeroAt_slash_ratCast f g hc
+
+theorem isZeroAt_heckeT [CuspFormClass F Γ k] (f : F) (p : ℕ) {c : OnePoint ℝ} (hc : IsCusp c Γ) :
+    c.IsZeroAt (heckeT k p ⇑f) k := by
+  rw [heckeT_eq_heckeU_add]
+  refine (isZeroAt_heckeU f p hc).add ?_
+  obtain ⟨g, hg⟩ := exists_heckeDiagMatrix_eq_map p
+  rw [hg]
+  exact isZeroAt_slash_ratCast f g hc
+
+end Cusps
+
+end ModularForm.S06W2
+
+theorem solution {F : Type*} [FunLike F UpperHalfPlane ℂ] {Γ : Subgroup (Matrix.GeneralLinearGroup (Fin 2) ℝ)} [Γ.IsArithmetic] {k : ℤ} [ModularFormClass F Γ k] (f : F) (p : ℕ) {c : OnePoint ℝ} (hc : IsCusp c Γ) : OnePoint.IsBoundedAt c (ModularForm.heckeU k p ⇑f) k :=
+  ModularForm.S06W2.isBoundedAt_heckeU f p hc

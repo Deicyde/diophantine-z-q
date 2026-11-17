@@ -1,0 +1,91 @@
+/-
+Vendored from anthropics/fermats-last-theorem, commit 6e837e75355538c7f80bab5b956861e86c4eacc2, Apache-2.0.
+Upstream module: Definitions.Def_AlgebraicCurve_DifferentialPushPull (git blob b31e104c520fae0dccaf9b5146c4893b057007fd, sha256 9516696b2a99dd7ca9225091cc1f890cb9da2c71aa9bf6e0b63ebfb97daea53c).
+Ported to Lean 4.35 / Mathlib 56a0058; changes from upstream are marked `-- [port]`.
+Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
+Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+-/
+import Mathlib
+import ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.Definitions.Def_AlgebraicCurve_Correspondence
+
+set_option maxHeartbeats 4000000
+set_option synthInstance.maxHeartbeats 400000
+set_option backward.isDefEq.respectTransparency.types false
+set_option autoImplicit false
+
+set_option autoImplicit false
+
+noncomputable section
+
+open KaehlerDifferential TensorProduct
+
+namespace AlgebraicCurve
+
+namespace Differential
+
+variable {K F F' : Type*} [Field K] [Field F] [Field F'] [Algebra K F] [Algebra K F']
+
+def pullbackAlong (φ : F →ₐ[K] F') : Ω[F⁄K] →ₗ[K] Ω[F'⁄K] :=
+  letI := algebraAlong φ
+  haveI := isScalarTower_along φ
+  (KaehlerDifferential.map K K F F').restrictScalars K
+
+theorem pullbackAlong_D (φ : F →ₐ[K] F') (f : F) :
+    pullbackAlong φ (D K F f) = D K F' (φ f) := by
+  letI := algebraAlong φ
+  haveI := isScalarTower_along φ
+  exact KaehlerDifferential.map_D K K F F' f
+
+theorem pullbackAlong_smul (φ : F →ₐ[K] F') (f : F) (ω : Ω[F⁄K]) :
+    pullbackAlong φ (f • ω) = φ f • pullbackAlong φ ω := by
+  letI := algebraAlong φ
+  haveI := isScalarTower_along φ
+  show KaehlerDifferential.map K K F F' (f • ω) = _
+  rw [LinearMap.map_smul_of_tower]
+  rfl
+
+open Classical in
+
+def traceAlong (φ : F →ₐ[K] F') : Ω[F'⁄K] →ₗ[K] Ω[F⁄K] :=
+  if h : SeparableAlong K φ then
+    letI := algebraAlong φ
+    haveI := isScalarTower_along φ
+    haveI : Algebra.IsSeparable F F' := h
+    haveI : Algebra.FormallyEtale F F' := Algebra.FormallyEtale.of_isSeparable F F'
+    ((TensorProduct.lid F Ω[F⁄K]).toLinearMap ∘ₗ
+      (Algebra.trace F F').rTensor Ω[F⁄K] ∘ₗ
+      (KaehlerDifferential.tensorKaehlerEquivOfFormallyEtale K F F').symm.toLinearMap).restrictScalars K
+  else 0
+
+theorem traceAlong_smul_pullbackAlong (φ : F →ₐ[K] F') (h : SeparableAlong K φ) (u : F')
+    (ω : Ω[F⁄K]) :
+    traceAlong φ (u • pullbackAlong φ ω) =
+      (letI := algebraAlong φ; Algebra.trace F F' u) • ω := by
+  letI := algebraAlong φ
+  haveI := isScalarTower_along φ
+  haveI : Algebra.IsSeparable F F' := h
+  haveI : Algebra.FormallyEtale F F' := Algebra.FormallyEtale.of_isSeparable F F'
+  rw [traceAlong, dif_pos h]
+  simp only [LinearMap.coe_restrictScalars, LinearMap.coe_comp, LinearEquiv.coe_coe,
+    Function.comp_apply]
+  have hsymm : (KaehlerDifferential.tensorKaehlerEquivOfFormallyEtale K F F').symm
+      (u • pullbackAlong φ ω) = u ⊗ₜ ω := by
+    rw [LinearEquiv.symm_apply_eq, KaehlerDifferential.tensorKaehlerEquivOfFormallyEtale_apply,
+      KaehlerDifferential.mapBaseChange_tmul]
+    rfl
+  rw [hsymm, LinearMap.rTensor_tmul, TensorProduct.lid_tmul]
+
+theorem traceAlong_of_not (φ : F →ₐ[K] F') (h : ¬ SeparableAlong K φ) : traceAlong φ = 0 := by
+  rw [traceAlong, dif_neg h]
+
+def correspondence (φ ψ : F →ₐ[K] F') : Ω[F⁄K] →ₗ[K] Ω[F⁄K] :=
+  traceAlong φ ∘ₗ pullbackAlong ψ
+
+theorem correspondence_apply (φ ψ : F →ₐ[K] F') (ω : Ω[F⁄K]) :
+    correspondence φ ψ ω = traceAlong φ (pullbackAlong ψ ω) := rfl
+
+end Differential
+
+end AlgebraicCurve
+
+end

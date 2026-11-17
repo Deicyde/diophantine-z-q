@@ -1,10 +1,7 @@
 /-
 Vendored from anthropics/fermats-last-theorem, commit 6e837e75355538c7f80bab5b956861e86c4eacc2, Apache-2.0.
 Upstream module: Definitions.Def_FLTPrelim_Modularity (git blob 9f2ad60d351dbc01aba577f418e2642524c7b997, sha256 5a68b3d1fd8bcb1fcd56c254cb84983ace76ba53a9c437a208350ce3e8cabe02).
-Modified for the Z-in-Q kernel (2026-11-16, cluster C5): import paths relocated (modules already
-vendored elsewhere in the kernel are imported from there), the upstream lakefile options set as
-`set_option` lines, and: no other change.
-Any other change is marked `-- [port]`.
+Ported to Lean 4.35 / Mathlib 56a0058; changes from upstream are marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
 -/

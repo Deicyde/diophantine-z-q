@@ -1,10 +1,7 @@
 /-
 Vendored from anthropics/fermats-last-theorem, commit 6e837e75355538c7f80bab5b956861e86c4eacc2, Apache-2.0.
 Upstream module: P2M.Sol.S_Representation_exists_conj_eq_of_charpoly_eq_of_finite_range (git blob da8ce7efe03b60a0f6f5a64b1a6e3caaed4eddea, sha256 f088f45ecef3d771d03773ef6eca9580f83e9590541049fa103ec5a3ec844f5c).
-Modified for the Z-in-Q kernel (2026-11-16, cluster C5): import paths relocated (modules already
-vendored elsewhere in the kernel are imported from there), the upstream lakefile options set as
-`set_option` lines, and: dropped import P2M.Util (wrapper commands replaced by ordinary Lean); P2M wrapper commands replaced by ordinary `open`/`open scoped`/`export` with absolute `_root_` names, as the wrapper resolved them; the namespaces they name are registered once at the top of the file.
-Any other change is marked `-- [port]`.
+Ported to Lean 4.35 / Mathlib 56a0058; changes from upstream are marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
 -/

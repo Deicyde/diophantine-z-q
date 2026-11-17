@@ -1,0 +1,159 @@
+/-
+Vendored from anthropics/fermats-last-theorem, commit 6e837e75355538c7f80bab5b956861e86c4eacc2, Apache-2.0.
+Upstream module: P2M.Sol.S_AlgebraicCurve_le_genusFF_of_constantFieldExtension_of_isAlgClosed (git blob deedf87ec2f94ef7b36c5b7e493345d163aa23fa, sha256 04510d3122fa1ca72c5ebd5bba5dfd47d8bc11c2c1da86793e92e2042e254cd1).
+Ported to Lean 4.35 / Mathlib 56a0058; changes from upstream are marked `-- [port]`.
+Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
+Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+-/
+import Mathlib
+import ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.Definitions.Def_AlgebraicCurve_DivisorClassGroup
+import ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.Definitions.Def_AlgebraicCurve_IsCurveOver
+import ZInQKernel.Contrib.CloudB3SC5DeligneSerre.Vendor.AnthropicFLT.Definitions.Def_AlgebraicCurve_Repartitions
+import ZInQKernel.Contrib.CloudB3SC5DeligneSerre.Vendor.AnthropicFLT.Definitions.Def_AlgebraicCurve_AdelicIndex
+import ZInQKernel.Contrib.CloudB3SC5DeligneSerre.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicCurve_Place_exists_comap_algebraMap_eq_of_constantFieldExtension_of_isAlgClosed
+import ZInQKernel.Contrib.CloudB3SC5DeligneSerre.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicCurve_ell_mapDomain_eq_of_constantFieldExtension_of_isAlgClosed
+import ZInQKernel.Contrib.CloudB3SC5DeligneSerre.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicCurve_exists_genus_riemannIndex_of_isCurveOver
+import ZInQKernel.Contrib.CloudB3SC5DeligneSerre.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicCurve_stichtenothGenusExists_of_isCurveOver
+import ZInQKernel.Contrib.CloudB3SC5DeligneSerre.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicCurve_indexOfSpecialty_eq_finrank_H1
+import ZInQKernel.Contrib.CloudB3SC5DeligneSerre.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicCurve_indexOfSpecialty_eq_zero_of_genusReached
+import ZInQKernel.Contrib.CloudB3SC5DeligneSerre.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicCurve_essFiniteType_of_transcendental_of_finiteDimensional
+import ZInQKernel.Contrib.CloudB3SC5DeligneSerre.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicCurve_Place_deg_eq_one_of_isAlgClosed_of_finite
+import ZInQKernel.Contrib.CloudB3SC5DeligneSerre.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicCurve_Place_mem_range_algebraMap_of_forall_ord_eq_zero_of_isAlgClosed
+import ZInQKernel.Contrib.CloudB3SC5DeligneSerre.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicCurve_Divisor_degree_eq_sum_support
+
+set_option maxHeartbeats 4000000
+set_option synthInstance.maxHeartbeats 400000
+set_option backward.isDefEq.respectTransparency.types false
+set_option autoImplicit false
+
+namespace P2MW.S_AlgebraicCurve_le_genusFF_of_constantFieldExtension_of_isAlgClosed
+
+set_option autoImplicit false
+set_option maxHeartbeats 4000000
+
+open AlgebraicCurve
+
+namespace W7XGenusFFGE
+
+theorem constantsAreBase {K F : Type*} [Field K] [Field F] [Algebra K F] [IsAlgClosed K]
+    [IsCurveOver K F]
+    (hfg : ∃ x : F, Transcendental K x ∧
+      FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F) :
+    ConstantsAreBase K F := by
+  obtain ⟨x, hxt, hxfd⟩ := hfg
+  haveI : HasPrincipalDivisors K F := IsCurveOver.hasPrincipalDivisors
+  refine le_antisymm (fun f hf => ?_) (fun f ⟨c, hc⟩ => hc ▸ fun v =>
+    Place.adicValuation_algebraMap_le_one v c)
+  rcases eq_or_ne f 0 with rfl | hf0
+  · exact zero_mem _
+  have hord : ∀ v : Place K F, 0 ≤ v.ord f := fun v => by
+    have := (mem_riemannRochSpace_iff.mp hf v).resolve_left hf0; simpa using this
+
+  obtain ⟨D, hDord, hDdeg⟩ := HasPrincipalDivisors.exists_divisor (K := K) (F := F) f hf0
+  have hdiv : ∀ v : Place K F, v.ord f = 0 := by
+    by_contra hne; push_neg at hne; obtain ⟨v, hv⟩ := hne
+    have hpos : 0 < v.ord f := (hord v).lt_of_ne' hv
+    refine absurd hDdeg (ne_of_gt ?_)
+    rw [Divisor.degree_eq_sum_support]
+    refine Finset.sum_pos' (fun w _ => ?_) ⟨v, ?_, ?_⟩
+    · exact mul_nonneg (by rw [hDord w]; exact hord w) (Int.natCast_nonneg _)
+    · simp only [Finsupp.mem_support_iff, hDord v]; exact hv
+    · rw [hDord v]
+      haveI : Module.Finite K v.ResidueField := IsCurveOver.finiteResidue v
+      have hd1 : (v.deg : ℤ) = 1 := by
+        exact_mod_cast Place.deg_eq_one_of_isAlgClosed_of_finite v
+      rw [hd1, mul_one]; exact hpos
+  exact ⟨_, (Place.mem_range_algebraMap_of_forall_ord_eq_zero_of_isAlgClosed x hxt
+    (F := F) hdiv).choose_spec⟩
+
+end W7XGenusFFGE
+
+open W7XGenusFFGE
+
+theorem solution (K F K' F' : Type*)
+    [Field K] [Field F] [Field K'] [Field F'] [Algebra K F] [Algebra K' F']
+    [Algebra K K'] [Algebra F F'] [Algebra K F'] [IsScalarTower K K' F'] [IsScalarTower K F F']
+    [IsAlgClosed K] [IsAlgClosed K']
+    (hfg : ∃ x : F, Transcendental K x ∧ FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F)
+    (hfg' : ∃ x : F', Transcendental K' x ∧
+      FiniteDimensional (IntermediateField.adjoin K' ({x} : Set F')) F')
+    [IsCurveOver K F] [IsCurveOver K' F']
+    (hgen : IntermediateField.adjoin K' (Set.range (algebraMap F F')) = ⊤) :
+    genusFF K F ≤ genusFF K' F' := by
+  classical
+
+  obtain ⟨x, hxt, hxfd⟩ := id hfg
+  obtain ⟨x', hxt', hxfd'⟩ := id hfg'
+  haveI : Algebra.EssFiniteType K F :=
+    essFiniteType_of_transcendental_of_finiteDimensional hxt hxfd
+  haveI : Algebra.EssFiniteType K' F' :=
+    essFiniteType_of_transcendental_of_finiteDimensional hxt' hxfd'
+  have hCAB : ConstantsAreBase K F := constantsAreBase hfg
+  have hCAB' : ConstantsAreBase K' F' := constantsAreBase hfg'
+  haveI : HasPrincipalDivisors K F := IsCurveOver.hasPrincipalDivisors
+  haveI : HasPrincipalDivisors K' F' := IsCurveOver.hasPrincipalDivisors
+
+  obtain ⟨γ, hγ⟩ := exists_genus_riemannIndex_of_isCurveOver (K := K) (F := F) hCAB
+  obtain ⟨γ', hγ'⟩ := exists_genus_riemannIndex_of_isCurveOver (K := K') (F := F') hCAB'
+  have hγeq : γ = (genusFF K F : ℤ) := by
+    have h0 := (hγ 0).2
+    rw [show Divisor.degree (0 : Divisor K F) = 0 from map_zero _,
+      ell_zero_eq_one_of_constantsAreBase hCAB,
+      indexOfSpecialty_eq_finrank_H1 (K := K) (F := F) 0] at h0
+    unfold genusFF; push_cast at h0 ⊢; linarith
+  have hγeq' : γ' = (genusFF K' F' : ℤ) := by
+    have h0 := (hγ' 0).2
+    rw [show Divisor.degree (0 : Divisor K' F') = 0 from map_zero _,
+      ell_zero_eq_one_of_constantsAreBase hCAB',
+      indexOfSpecialty_eq_finrank_H1 (K := K') (F := F') 0] at h0
+    unfold genusFF; push_cast at h0 ⊢; linarith
+
+  obtain ⟨hne, hfd0, γ₀, D₀, hD₀⟩ := stichtenothGenusExists_of_isCurveOver (K := K) (F := F) hCAB
+  haveI : Nonempty (Place K F) := hne
+  haveI : FiniteDimensional K ↥(LSpace (0 : Divisor K F)) := hfd0
+  have hi0 : indexOfSpecialty D₀ = 0 := indexOfSpecialty_eq_zero_of_genusReached hD₀
+  have hkey : Divisor.degree D₀ - (ell D₀ : ℤ) = γ - 1 := by
+    have := (hγ D₀).2; rw [hi0] at this; push_cast at this; linarith
+
+  have hX := fun P =>
+    Place.exists_comap_algebraMap_eq_of_constantFieldExtension_of_isAlgClosed
+      K F K' F' hfg hfg' hgen P
+  choose lift hlift_comap hlift_ord hlift_uniq using hX
+  have hlift_inj : Function.Injective lift := fun P Q h => by
+    have hP : (lift P).toValuationSubring.comap (algebraMap F F') = P.toValuationSubring :=
+      hlift_comap P
+    have hQ : (lift P).toValuationSubring.comap (algebraMap F F') = Q.toValuationSubring := by
+      rw [h]; exact hlift_comap Q
+    exact Place.ext (hP.symm.trans hQ)
+  have hlift_new : ∀ v' : Place K' F', (∀ v, lift v ≠ v') →
+      ∀ v : Place K F, v'.toValuationSubring.comap (algebraMap F F') ≠ v.toValuationSubring := by
+    intro v' hnv v hcomap
+    exact hnv v ((hlift_uniq v v' hcomap).symm)
+  haveI : ∀ v : Place K F, Module.Finite K v.ResidueField := fun v => IsCurveOver.finiteResidue v
+  haveI : ∀ v' : Place K' F', Module.Finite K' v'.ResidueField :=
+    fun v' => IsCurveOver.finiteResidue v'
+
+  set D₀' : Divisor K' F' := Finsupp.mapDomain lift D₀ with hD₀'def
+  have hdegEq : Divisor.degree D₀' = Divisor.degree D₀ := by
+    rw [Divisor.degree_eq_sum_support, Divisor.degree_eq_sum_support, hD₀'def,
+      Finsupp.mapDomain_support_of_injective hlift_inj,
+      Finset.sum_image (fun a _ b _ h => hlift_inj h)]
+    refine Finset.sum_congr rfl fun v _ => ?_
+    rw [Finsupp.mapDomain_apply_of_injective hlift_inj,
+      show ((lift v).deg : ℤ) = 1 from by
+        exact_mod_cast Place.deg_eq_one_of_isAlgClosed_of_finite (lift v),
+      show ((v.deg : ℤ)) = 1 from by exact_mod_cast Place.deg_eq_one_of_isAlgClosed_of_finite v]
+  haveI : FiniteDimensional K ↥(riemannRochSpace D₀) := hD₀.finite
+  have hellEq : ell (K := K') D₀' = ell (K := K) D₀ := by
+    rw [hD₀'def]
+    exact ell_mapDomain_eq_of_constantFieldExtension_of_isAlgClosed K F K' F' hfg hfg' hgen
+      lift hlift_ord hlift_inj hlift_new D₀
+
+  have hbound : Divisor.degree D₀' - (ell (K := K') D₀' : ℤ) ≤ γ' - 1 := by
+    have hIF := (hγ' D₀').2
+    have hnn : (0:ℤ) ≤ (indexOfSpecialty (K := K') D₀' : ℤ) := Int.natCast_nonneg _
+    linarith
+  rw [hdegEq, hellEq, hkey] at hbound
+  have hγle : γ ≤ γ' := by linarith
+  rw [hγeq, hγeq'] at hγle
+  exact_mod_cast hγle

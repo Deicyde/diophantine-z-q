@@ -1,10 +1,7 @@
 /-
 Vendored from anthropics/fermats-last-theorem, commit 6e837e75355538c7f80bab5b956861e86c4eacc2, Apache-2.0.
 Upstream module: P2M.Sol.S_ModularCurve_SerreImage_contains_SL2 (git blob 35c22a34fa32a3788f1f59991fd3107daa63f963, sha256 b9d0e67244f51640869687241ed8af1c11441b6f734d45f91402cb89a90db1ba).
-Modified for the Z-in-Q kernel (2026-11-16, cluster C5): import paths relocated (modules already
-vendored elsewhere in the kernel are imported from there), the upstream lakefile options set as
-`set_option` lines, and: dropped import P2M.Util (wrapper commands replaced by ordinary Lean); expanded local notation `local notation "𝕄" => Matrix (Fin 2) (Fin 2) (ZMod p)` (64 uses); P2M wrapper commands replaced by ordinary `open`/`open scoped`/`export` with absolute `_root_` names, as the wrapper resolved them; the namespaces they name are registered once at the top of the file.
-Any other change is marked `-- [port]`.
+Ported to Lean 4.35 / Mathlib 56a0058; changes from upstream are marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
 -/

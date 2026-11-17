@@ -1,0 +1,34 @@
+/-
+Vendored from anthropics/fermats-last-theorem, commit 6e837e75355538c7f80bab5b956861e86c4eacc2, Apache-2.0.
+Upstream module: P2M.Sol.S_ModularForm_exists_coe_eq_of_levelOne (git blob 8dc7c841bc13d6761e56dc9918fb7a907e22b0e2, sha256 0275b08a1cd75f994023ba588169037af98133d2092a3f20d0ce22f7c7672e21).
+Ported to Lean 4.35 / Mathlib 56a0058; changes from upstream are marked `-- [port]`.
+Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
+Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+-/
+import Mathlib
+import Mathlib.NumberTheory.ModularForms.LevelOne.DimensionFormula
+import Mathlib.NumberTheory.ModularForms.CongruenceSubgroups
+import Mathlib.NumberTheory.ModularForms.QExpansion
+import Mathlib.RingTheory.LaurentSeries
+
+set_option maxHeartbeats 4000000
+set_option synthInstance.maxHeartbeats 400000
+set_option backward.isDefEq.respectTransparency.types false
+set_option autoImplicit false
+
+namespace P2MW.S_ModularForm_exists_coe_eq_of_levelOne
+
+open UpperHalfPlane
+open scoped MatrixGroups
+
+theorem solution (Γ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) {k : ℤ} (F : ModularForm 𝒮ℒ k) :
+    ∃ G : ModularForm (Γ : Subgroup (GL (Fin 2) ℝ)) k, (G : ℍ → ℂ) = (F : ℍ → ℂ) := by
+  have hle : ((Γ : Subgroup (GL (Fin 2) ℝ))) ≤ 𝒮ℒ := by
+    rintro _ ⟨γ, -, rfl⟩
+    exact ⟨γ, rfl⟩
+  refine ⟨{ toFun := F
+            slash_action_eq' := fun γ hγ => F.slash_action_eq' γ (hle hγ)
+            holo' := F.holo'
+            bdd_at_cusps' := fun hc => F.bdd_at_cusps' (hc.mono hle) }, rfl⟩
+
+#print axioms solution

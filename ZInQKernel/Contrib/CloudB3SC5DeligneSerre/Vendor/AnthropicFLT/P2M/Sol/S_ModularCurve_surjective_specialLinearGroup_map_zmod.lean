@@ -1,10 +1,7 @@
 /-
 Vendored from anthropics/fermats-last-theorem, commit 6e837e75355538c7f80bab5b956861e86c4eacc2, Apache-2.0.
 Upstream module: P2M.Sol.S_ModularCurve_surjective_specialLinearGroup_map_zmod (git blob 5af66c0ab1935c93630e005e0bf318905a20f26f, sha256 3c8efd4f31c2348dc71fab5a192fa85a35f340f16d8e00d69413a9e654d09b9c).
-Modified for the Z-in-Q kernel (2026-11-16, cluster C5): import paths relocated (modules already
-vendored elsewhere in the kernel are imported from there), the upstream lakefile options set as
-`set_option` lines, and: dropped import P2M.Util (wrapper commands replaced by ordinary Lean).
-Any other change is marked `-- [port]`.
+Ported to Lean 4.35 / Mathlib 56a0058; changes from upstream are marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
 -/

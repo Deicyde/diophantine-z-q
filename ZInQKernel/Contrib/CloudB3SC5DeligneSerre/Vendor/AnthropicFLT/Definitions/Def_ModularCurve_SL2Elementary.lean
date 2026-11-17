@@ -1,10 +1,7 @@
 /-
 Vendored from anthropics/fermats-last-theorem, commit 6e837e75355538c7f80bab5b956861e86c4eacc2, Apache-2.0.
 Upstream module: Definitions.Def_ModularCurve_SL2Elementary (git blob e40b7dabd038906b9041974aba1e52567c517332, sha256 32a4d842842abefeff0db7ed0888ca62295a3b9ddf5e19b8e850f020fe9537b0).
-Modified for the Z-in-Q kernel (2026-11-16, cluster C5): import paths relocated (modules already
-vendored elsewhere in the kernel are imported from there), the upstream lakefile options set as
-`set_option` lines, and: no other change.
-Any other change is marked `-- [port]`.
+Ported to Lean 4.35 / Mathlib 56a0058; changes from upstream are marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
 -/

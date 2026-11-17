@@ -4,10 +4,11 @@ Version 2.0 (LICENSE). That repository's own notices are reproduced byte for byt
 ATTRIBUTION.upstream.md; the per-file attributions listed in ATTRIBUTION.upstream.md apply to the corresponding files
 here.
 
-Modifications (2026-11-16, Z-in-Q kernel, cluster C5), stated in each file's header: import paths are relocated
-(upstream modules already vendored elsewhere in this kernel are imported from that copy rather than duplicated); the
-upstream lakefile options are set as `set_option` lines after the imports; the upstream proof-wrapper utility
-(`P2M.Util`) is not imported, its commands being replaced by ordinary Lean (`open`, `open scoped`, `export`, and
-`revert`/`exact` of the paired proof); the generated blanket `attribute [-instance]` / `attribute [-simp]` lists are
-removed; single-token local notations are expanded to their terms; any other change is marked `-- [port]`.
-SOURCE_MANIFEST.json records, per file, the upstream path, git blob SHA-1, SHA-256 and the edits applied.
+Modifications: the files are ported to Lean 4.35 / Mathlib 56a0058. Import paths are relocated (upstream modules
+already vendored elsewhere in this kernel are imported from that copy rather than duplicated); the upstream lakefile
+options are set as `set_option` lines after the imports; the upstream proof-wrapper utility (`P2M.Util`) is not
+imported, its commands being replaced by ordinary Lean (`open`, `open scoped`, `export`, `alias`, and `revert`/`exact`
+of the paired proof); the generated blanket `attribute [-instance]` / `attribute [-simp]` lists are removed; local
+notations are expanded to their terms; any other change is marked `-- [port]`. The root solution file states the
+upstream conclusion without its irreducibility conjunct (marked there). SOURCE_MANIFEST.json records, per file, the
+upstream module, git blob SHA-1 and SHA-256, and the SHA-256 of the vendored file.

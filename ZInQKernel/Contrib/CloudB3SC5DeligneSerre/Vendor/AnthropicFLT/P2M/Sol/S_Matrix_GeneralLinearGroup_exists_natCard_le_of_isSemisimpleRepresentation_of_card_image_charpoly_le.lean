@@ -1,10 +1,7 @@
 /-
 Vendored from anthropics/fermats-last-theorem, commit 6e837e75355538c7f80bab5b956861e86c4eacc2, Apache-2.0.
 Upstream module: P2M.Sol.S_Matrix_GeneralLinearGroup_exists_natCard_le_of_isSemisimpleRepresentation_of_card_image_charpoly_le (git blob d78bfc61f6ba04cf27cd65f5525abb26d042b5e1, sha256 304ea55882d4bcf5309156e77bf3d2ee89fb92ccb7dc7bd7a0886777b27e301a).
-Modified for the Z-in-Q kernel (2026-11-16, cluster C5): import paths relocated (modules already
-vendored elsewhere in the kernel are imported from there), the upstream lakefile options set as
-`set_option` lines, and: dropped import P2M.Util (wrapper commands replaced by ordinary Lean); wrapper exports of same-file private lemmas written as `alias` declarations in the current namespace; 0 wrapper alias command(s) written as ordinary `alias` declarations (Batteries `alias`); P2M wrapper commands replaced by ordinary `open`/`open scoped`/`export` with absolute `_root_` names, as the wrapper resolved them; the namespaces they name are registered once at the top of the file.
-Any other change is marked `-- [port]`.
+Ported to Lean 4.35 / Mathlib 56a0058; changes from upstream are marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
 -/

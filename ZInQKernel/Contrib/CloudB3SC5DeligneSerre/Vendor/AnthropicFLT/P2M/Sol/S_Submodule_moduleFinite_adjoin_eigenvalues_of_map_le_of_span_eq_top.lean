@@ -1,10 +1,7 @@
 /-
 Vendored from anthropics/fermats-last-theorem, commit 6e837e75355538c7f80bab5b956861e86c4eacc2, Apache-2.0.
 Upstream module: P2M.Sol.S_Submodule_moduleFinite_adjoin_eigenvalues_of_map_le_of_span_eq_top (git blob 6da61ac131cc9763f83d7d94646b7f8b50b5b3ce, sha256 39fc39681ae1832378be4fee598b6682c9f569b47dee3e7f50820ad26fce90c4).
-Modified for the Z-in-Q kernel (2026-11-16, cluster C5): import paths relocated (modules already
-vendored elsewhere in the kernel are imported from there), the upstream lakefile options set as
-`set_option` lines, and: dropped import P2M.Util (wrapper commands replaced by ordinary Lean); [port] Mathlib 4.35 IsAddTorsionFree cancellation includes an AddCommute premise; the ambient submodule is commutative and the same proof ignores it; [port] Derive the actual integer-module torsion-freeness from inclusion in the complex vector space; Mathlib 4.35 no longer infers it from the weaker IsAddTorsionFree class.
-Any other change is marked `-- [port]`.
+Ported to Lean 4.35 / Mathlib 56a0058; changes from upstream are marked `-- [port]`.
 Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
 Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
 -/
