@@ -64,7 +64,7 @@ theorem eq_unif_mul_of_isAnalyticIso {Λ : Set ℂ} {ξ : ℂ → W.toAffine.Poi
   -- `φ` agrees near `z₀` with the derivative of the lift at `z₀`
   have hφloc : ∀ z₀, ∀ z ∈ Metric.ball z₀ (rad z₀), φ z = deriv (lift z₀) z := by
     intro z₀ z hz
-    refine deriv_eq_of_lifts (hliftD z z (Metric.mem_ball_self (hrad z))) (hliftD z₀ z hz) ?_
+    refine deriv_eq_of_lifts (W := W) (hliftD z z (Metric.mem_ball_self (hrad z))) (hliftD z₀ z hz) ?_
     filter_upwards [Metric.isOpen_ball.mem_nhds (Metric.mem_ball_self (hrad z)),
       Metric.isOpen_ball.mem_nhds hz] with w hw1 hw2
     rw [hlift z w hw1, hlift z₀ w hw2]
@@ -92,10 +92,13 @@ theorem eq_unif_mul_of_isAnalyticIso {Λ : Set ℂ} {ξ : ℂ → W.toAffine.Poi
       exact (hξ.1 _ _).2 (by simpa [l] using hl)
     have hkd : DifferentiableAt ℂ (lift k) (z - l) := by
       simpa [l] using hliftD k k (Metric.mem_ball_self (hrad k))
-    have := deriv_eq_of_lifts (hliftD z z (Metric.mem_ball_self (hrad z)))
+    have := deriv_eq_of_lifts (W := W) (hliftD z z (Metric.mem_ball_self (hrad z)))
       (hkd.comp z (differentiableAt_id.sub_const l)) hG
+    have h2 : deriv (lift k ∘ fun y => id y - l) z = deriv (lift k) (z - l) := by
+      have := (hkd.hasDerivAt.comp z ((hasDerivAt_id z).sub_const l)).deriv
+      rw [this, mul_one]
     simp only [φ]
-    rw [this, deriv_comp_sub_const]
+    rw [this, h2]
     simp [l]
   -- Liouville
   obtain ⟨B, hB⟩ := hK.exists_bound_of_continuousOn hφd.continuous.continuousOn
@@ -122,7 +125,9 @@ theorem eq_unif_mul_of_isAnalyticIso {Λ : Set ℂ} {ξ : ℂ → W.toAffine.Poi
           rw [← hφα v, hφloc z v hv]; exact (hliftD z v hv).hasDerivAt
         have h2 : HasDerivAt (fun v => α * v) α v := by
           simpa using (hasDerivAt_id v).const_mul α
-        simpa using h1.sub h2
+        have h3 := h1.sub h2
+        rw [sub_self] at h3
+        exact h3
       exact IsOpen.is_const_of_deriv_eq_zero (f := fun v => lift z v - α * v) Metric.isOpen_ball
         (convex_ball z (rad z)).isPreconnected
         (fun v hv => (hd v hv).differentiableAt.differentiableWithinAt)
