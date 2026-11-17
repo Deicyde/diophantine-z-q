@@ -1,0 +1,22 @@
+# kolyv-cst-printed results log
+
+## 2026-11-17
+- Merged origin/wip/pc-from-rc (5404a9fe) into d435851d: clean (merge commit 91c35ba97).
+- Read: docs/research/pc-from-rc.md, PoleRC/CRM.lean, PoleS12/Leaves.lean, SelmerTwoPower.lean.
+- Existing: IsModular (L-series form, written fresh by pc-s12), BCDTThmA, KolyvaginThm1 (r=1 only),
+  kolyvaginRankOne_of_printed, KolyvaginRankOne (CRM.lean), AnalyticRankOne (PoleManuscript.lean).
+- Manuscript lines (VERIFIED, read in diophantine_zq.tex on this base): lem:forward-rank L1086-1109,
+  Kolyvagin cite L1093, BCDT cite L1092, Kato L1103-1108; uses L1111-1113 (r=1), L4020 (r=1),
+  L2386, L7626, L7780, L8267 (r=0); L6803 table row "Forward finiteness \cite{gz,kolyvagin}".
+  CST cites L2428 (applies twice; conditions L2429-2432), L8268-8272 (unaveraged height formula,
+  Rankin derivative L'(E^(D_w),1)L(E^(h_*),1) != 0), uncited uses "explicit height formula"
+  L2464, "conductor-one height formula" L4345, "the height formula" L9439, table L6797.
+  Bibitems: kolyvagin L11163-11166, cst L11181-11183, bcdt L11150-11154.
+- Page text in repo: none of Kolyvagin or CST. Secondhand summaries (NOT the print):
+  docs/theorem-application-audit/evidence/parallel-forward-modularity-report.md (A020: Kolyvagin
+  printed p.3 modular = weak Weil parametrization X0(N)->E, N conductor; Thm 1 p.4: rank = an. rank
+  and Sha finite when an. rank <= 1; proof chain Thms 2-5 pp.4-5), and
+  docs/theorem-application-audit/evidence/applications.md §6 (CST 1.1, printed pp. 2524-2525 of
+  ANT 8:10 (2014) 2523-2572: hypotheses listed). Both UNVERIFIED by this task.
+- New file ZInQKernel/Contrib/OneProof/KolyvCST/Kolyvagin.lean: AnalyticRank, KolyvaginThm1Printed
+  (r <= 1), ForwardRank, KummerCorank (GLUE), ForwardCorank, bridges.
