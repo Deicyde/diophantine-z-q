@@ -1,0 +1,2 @@
+scratch/pc90-review/Compose.lean:1:0: error: import ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Affine.FunctionField.Divisor.Sum failed, environment already contains 'WeierstrassCurve.Affine.divisorSum' from ZInQKernel.Contrib.CloudB2X0Transitive.Vendor.AnthropicFLT.Definitions.Def_WeierstrassCurve_GenusOnePic0
+EXIT 1

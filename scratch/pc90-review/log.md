@@ -9,3 +9,9 @@
 - VERIFIED: S12 L586-587 a = entries 1 at q0, b*; L638 [q0/qb] prescription; L677-688 toggle/Boolean cube. pc-s12 report cites L581-583 for a (off by ~5).
 - VERIFIED: frozenTarget path: PoleS12.simultaneousConstruction = PoleRC.simultaneousConstruction_of PoleS12.matrixRealization (dimThreeCount_S12 localGoodUnram); CRM via PoleRC.crm_of_restrictedConverse_proved (mordellWeilM + descentGlueM). Cloud's PoleRC.matrixRealization, PoleRC.dimThreeCount (local four) NOT on path.
 - VERIFIED: merge-tree HEAD vs 5f1fac79 clean.
+- VERIFIED: lake build ZInQKernel.OneProof.Main ZInQKernel.MainGreenTao: success, 16114 jobs; frozenTarget axioms [propext, Classical.choice, Quot.sound] (build log info line Main.lean:155).
+- VERIFIED: lake build of all 50 PR modules (pr-modules.txt): success, 16166 jobs, no errors.
+- VERIFIED: Compose.lean (Main + PoleCompletenessFromRCGenuineFinal) FAILS: "environment already contains 'WeierstrassCurve.Affine.divisorSum' from ...AnthropicFLT...GenusOnePic0" (TauCeti Divisor.Sum). Main.lean's stated reason for keeping hKum is correct.
+- VERIFIED: Compose2.lean: frozenTarget_printed (KolyvaginThm1Printed in place of KolyvaginThm1) compiles; axioms standard; frozenTarget, MainGreenTao headline, poleCompleteness_of_restrictedConverseGenuine_mw standard.
+- VERIFIED: Axioms.lean: 19 PR theorems (final, kummerSelmerM, both matrixRealization, both dimThreeCount, mordellWeilM, descentGlueM, lemma54_of_leaves, NonVacuity, local images) all standard axioms.
+- VERIFIED: MainGreenTao.lean unchanged vs merge base.

@@ -1,0 +1,28 @@
+'ZInQ.Manuscript.PoleS12.poleCompleteness_of_restrictedConverseGenuine_final' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.PoleS12.kummerSelmerM' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.PoleRC.kummerSelmerM_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.PoleS12.poleCompleteness_of_restrictedConverseGenuine' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.PoleS12.matrixRealization' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.PoleRC.Simul.matrixRealization' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.PoleS12.dimThreeCount' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.PoleRC.dimThreeCount' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.PoleS12.simultaneousConstruction' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.PoleRC.mordellWeilM' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.PoleRC.descentGlueM' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.SelmerTwoPower.lemma54_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.SelmerTwoPower.Z2Corank.unique' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.SelmerTwoPower.NonVacuity.selmerAt_curve_exists_ne_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.SelmerTwoPower.NonVacuity.cls_not_mem_selmerAt' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.PoleS12.selM_finite' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.PoleS12.localGoodUnram' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.PoleRC.localTwo' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Manuscript.PoleRC.localGood' depends on axioms: [propext, Classical.choice, Quot.sound]
+EXIT 0

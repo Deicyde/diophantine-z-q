@@ -1,0 +1,9 @@
+'ZInQ.PC90Review.frozenTarget_printed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Manuscript.PoleS12.poleCompleteness_of_restrictedConverseGenuine_mw' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+EXIT 0
