@@ -1,4 +1,4 @@
-# coeff-field-tc fold checks (2026-11-17, devvm19021, Lean v4.35.0, Mathlib 56a00585)
+# coeff-field-tc fold checks (2026-11-17, Lean v4.35.0, Mathlib 56a00585)
 # base e1b31749 + cherry-picks of 7cbb5472, 54bf6b25, fa1159b6, c914cb14; the checks of scripts/one_proof/autofold.py
 == base Main build
 info: ZInQKernel/Contrib/CloudB2X0Transitive/Vendor/AnthropicFLT/P2M/Sol/S_ModularCurve_PhiGen_exists_phiGenDescends.lean:324:0: 'P2MW.S_ModularCurve_PhiGen_exists_phiGenDescends.solution' depends on axioms: [propext, Classical.choice, Quot.sound]
