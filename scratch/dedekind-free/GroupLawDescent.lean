@@ -642,4 +642,83 @@ theorem isAbVarFibre_bc {S S' : Scheme.{0}} (p : S' ⟶ S) (F : Over S) (e : S �
 
 end FibreBC
 
+section Main
+
+/-- **GIT Thm 6.14 over a DVR descends along a faithfully flat cover by a DVR** whose generic fibre is a field:
+`R → O₁` with `Spec O₁ → Spec R` flat and surjective, and `Spec E = Spec O₁ ×_{Spec R} Spec K`. -/
+theorem mumfordGroupLawAt_of_cover (R : Type) [CommRing R] [IsDomain R] [IsDiscreteValuationRing R]
+    {O₁ : Type} [CommRing O₁] [IsDomain O₁] [IsDiscreteValuationRing O₁] (φ : R →+* O₁)
+    [Flat (Spec.map (CommRingCat.ofHom φ))] [Surjective (Spec.map (CommRingCat.ofHom φ))]
+    (E : Type) [Field E] [Algebra (FractionRing R) E] (ι₁ : O₁ →+* E)
+    (hsq : IsPullback (Spec.map (CommRingCat.ofHom ι₁)) (κm (FractionRing R) E)
+      (Spec.map (CommRingCat.ofHom φ)) (genMap R (FractionRing R)))
+    (hM : MumfordGroupLawAt O₁) : MumfordGroupLawAt R := by
+  intro F e hP hS hGC he hfib
+  haveI := hP; haveI := hS
+  let K := FractionRing R
+  let ηS := genMap R K
+  let p := Spec.map (CommRingCat.ofHom φ)
+  let η₁ := Spec.map (CommRingCat.ofHom ι₁)
+  haveI : IsSchemeTheoreticallyDominant ηS := genMap_isSchemeTheoreticallyDominant (R := R) K
+  obtain ⟨A, g, hA⟩ := hfib K ηS
+  let P := Over.pullback p
+  let F₁ := P.obj F
+  have hP₁ : IsProper F₁.hom := by dsimp [F₁, P]; infer_instance
+  have hS₁ : Smooth F₁.hom := by dsimp [F₁, P]; infer_instance
+  have hGC₁ : GeometricallyConnected F₁.hom := by dsimp [F₁, P]; infer_instance
+  have he₁ : e₁ p F e he ≫ F₁.hom = 𝟙 _ := pullback.lift_snd _ _ _
+  have hfib₁ : ∀ (K' : Type) [Field K'] (s : Spec (CommRingCat.of K') ⟶ Spec (CommRingCat.of O₁)),
+      ∃ (A' : AbVar K') (g' : A'.X.left ⟶ F₁.left), IsAbVarFibre F₁ (e₁ p F e he) s A' g' := by
+    intro K' _ s
+    obtain ⟨A', g', h'⟩ := hfib K' (s ≫ p)
+    exact ⟨A', _, isAbVarFibre_bc p F e he s A' g' h'⟩
+  obtain ⟨G₁, hη₁⟩ := hM F₁ (e₁ p F e he) hP₁ hS₁ hGC₁ he₁ hfib₁
+  letI := G₁
+  haveI : Flat (F ⊗ F).hom := by
+    change Flat (pullback.fst F.hom F.hom ≫ F.hom); infer_instance
+  -- the multiplication
+  obtain ⟨μd, hμd⟩ := descend p (F ⊗ F) F (Functor.OplaxMonoidal.δ P F F ≫ μ[F₁])
+    (cocycle_of_generic p ηS η₁ hsq (F ⊗ F) F _ (fun T a a' τ τ' ha ha' h1 h2 => by
+      obtain ⟨w, hw1, hw2, hw3, hw4⟩ := gen_mul p F e he ηS η₁ hsq.w A g hA hη₁ a τ ha
+      obtain ⟨w', hw1', hw2', hw3', hw4'⟩ := gen_mul p F e he ηS η₁ hsq.w A g hA hη₁ a' τ' ha'
+      have hww : w = w' := by
+        refine pullback.hom_ext (f := A.X.hom) (g := A.X.hom) ?_ ?_
+        · apply hA.1.hom_ext
+          · change w ≫ (fst A.X A.X).left ≫ g = w' ≫ (fst A.X A.X).left ≫ g
+            rw [hw1, hw1', reassoc_of% h1]
+          · change w ≫ (fst A.X A.X).left ≫ A.X.hom = w' ≫ (fst A.X A.X).left ≫ A.X.hom
+            rw [Over.w (fst A.X A.X), hw3, hw3', h2]
+        · apply hA.1.hom_ext
+          · change w ≫ (snd A.X A.X).left ≫ g = w' ≫ (snd A.X A.X).left ≫ g
+            rw [hw2, hw2', reassoc_of% h1]
+          · change w ≫ (snd A.X A.X).left ≫ A.X.hom = w' ≫ (snd A.X A.X).left ≫ A.X.hom
+            rw [Over.w (snd A.X A.X), hw3, hw3', h2]
+      rw [hw4, hw4', hww]))
+  -- the inverse
+  obtain ⟨ιd, hιd⟩ := descend p F F ι[F₁]
+    (cocycle_of_generic p ηS η₁ hsq F F _ (fun T a a' τ τ' ha ha' h1 h2 => by
+      obtain ⟨w, hw1, hw2, hw3⟩ := gen_inv p F e he ηS η₁ hsq.w A g hA hη₁ a τ ha
+      obtain ⟨w', hw1', hw2', hw3'⟩ := gen_inv p F e he ηS η₁ hsq.w A g hA hη₁ a' τ' ha'
+      have hww : w = w' := hA.1.hom_ext (by rw [hw1, hw1', h1]) (by rw [hw2, hw2', h2])
+      rw [hw3, hw3', hww]))
+  -- the unit
+  have he' : e ≫ F.hom = (𝟙_ (Over (Spec (CommRingCat.of R)))).hom := he
+  let ηd : 𝟙_ (Over (Spec (CommRingCat.of R))) ⟶ F := Over.homMk e he'
+  have hηd : P.map ηd = Functor.OplaxMonoidal.η P ≫ η[F₁] := by
+    ext1
+    apply pullback.hom_ext
+    · simp only [P, ηd, Over.pullback_map_left, Over.homMk_left, pullback.lift_fst, Over.comp_left,
+        Over.η_pullback_left, Category.assoc, hη₁, e₁]
+      rw [← Category.assoc, ← pullback.condition]
+      simp
+    · have h1 := Over.w (P.map ηd)
+      have h2 := Over.w (Functor.OplaxMonoidal.η P ≫ η[F₁])
+      simp only [P, F₁, Over.pullback_obj_hom] at h1 h2 ⊢
+      rw [h1, h2]
+  refine ⟨grpObjOfDescent p F μd hμd ιd hιd ηd hηd, ?_⟩
+  rw [grpObjOfDescent_one]
+  rfl
+
+end Main
+
 end DedekindFree
