@@ -1,0 +1,104 @@
+--- a/docs/one-proof/open-statements.json
++++ b/docs/one-proof/open-statements.json
+@@ -156,11 +156,11 @@
+    "docstring":
+    "**LEAF (H-25; published form).** Mumford, *Abelian varieties* (1970; 2nd ed. 1974), §4,\nApplication 2, (iv) (UNVERIFIED locator): for an abelian variety `X` of dimension `g` over an\nalgebraically closed field `k` and an integer `n` with `char k ∤ n`, the group\n`X_n = {x ∈ X : nx = 0}` of `n`-torsion points is isomorphic to `(ℤ/nℤ)^{2g}`. Mumford's points\nare the closed points, i.e. the `k`-points (`Pts A k`); `dim` is the topological Krull dimension\nof the underlying space; \"`char k ∤ n`\" with `n ≥ 1` is `(n : k) ≠ 0`; the group isomorphism is a\nbijection `e` with `e(x + y) = e x + e y` (written multiplicatively on points). ",
+    "bundle": "OpenTextbookLeaves15"},
+-  {"type": "ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed",
+-   "statement": "ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed",
+-   "field": "charPolyIndepOfEllAlgClosed",
++  {"type": "ZInQ.Contrib.OneProof.CharpolyHF.HomFreeFiniteAlgClosedCharP",
++   "statement": "ZInQ.Contrib.OneProof.CharpolyHF.HomFreeFiniteAlgClosedCharP",
++   "field": "homFreeFiniteAlgClosedCharP",
+    "docstring":
+-   "**T7 in Mumford's setting** (consequence of a published theorem). D. Mumford, *Abelian\nvarieties* (1970), §19, Theorem 4 (UNVERIFIED locator; `k` algebraically closed): for\n`φ ∈ End(X)` the polynomial `P_φ(n) = deg(n - φ)` lies in `ℤ[X]`, is monic of degree `2g`, and is\nthe characteristic polynomial of `T_ℓ(φ)` for every `ℓ ≠ char k`. This is\n`PkgI3.CharPolyIndepOfEll` with `[IsAlgClosed k]` added (it drops `deg P = 2g` and\n`P(n) = deg(n - φ)`). ",
++   "**Mumford §19 Thm 3 in characteristic `p` (printed form, restricted).** D. Mumford, *Abelian varieties* (1970),\n§19, Theorem 3 (UNVERIFIED locator), for an algebraically closed field `k` of characteristic `p > 0`: `Hom(X, Y)` is\nfree of finite rank `≤ 4 dim X dim Y` and `ℤ_ℓ ⊗ Hom(X, Y) → Hom(T_ℓ X, T_ℓ Y)` is injective for `ℓ ≠ p`. This is\n`ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed` restricted to characteristic `p` (homfree-proof's\n`HomFreeFiniteAlgClosedNoEmb` covers these fields and the huge fields of characteristic `0`). ",
+    "bundle": "OpenTextbookLeaves15"},
+   {"type": "ZInQ.HomLattice.GAGAMorphism",
+    "statement": "ZInQ.HomLattice.GAGAMorphism",
+--- a/docs/one-proof/OPEN.md
++++ b/docs/one-proof/OPEN.md
+@@ -76,7 +76,6 @@
+ | [`mumfordGroupLawConn`](#mumfordgrouplawconn) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/group-law)) | 2026-11-16 |
+ | [`neronOggShafarevichSep`](#neronoggshafarevichsep) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/nos-proof)) | 2026-11-16 |
+ | [`mumfordTorsionAlgClosed`](#mumfordtorsionalgclosed) | the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/81#issuecomment-6887798791)) | 2026-11-15 |
+-| [`charPolyIndepOfEllAlgClosed`](#charpolyindepofellalgclosed) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/deg-det)) | 2026-11-16 |
+ | [`gagaMorphism`](#gagamorphism) | the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/82#issuecomment-6887799149)) | 2026-11-15 |
+ | [`neronSchemeExtensionExists`](#neronschemeextensionexists) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/neron-ext)) | 2026-11-16 |
+ | [`picRepresentableAbVar`](#picrepresentableabvar) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/pic-repr)) | 2026-11-16 |
+@@ -189,7 +188,7 @@
+ | [`r9b`](#r9b) | research | published | LEAF |  | long-pole | T4 | [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/faltings-cm)) |
+ | [`raynaudSemistableSHOr`](#raynaudsemistableshor) | research | published | LEAF | reading-risk |  |  | [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/raynaud-proof)) |
+ | [`sga3_VIB_3_10_Nbhd`](#sga3_vib_3_10_nbhd) | research | published | LEAF | unread, unverified-locator | narrowing | T2 | [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81) | 0 | pending narrowing: a narrower restatement is planned, so it is not offered as stated |
+-| [`charPolyIndepOfEllAlgClosed`](#charpolyindepofellalgclosed) | textbook | published | LEAF |  |  | T3 | [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/deg-det)) |
++| [`homFreeFiniteAlgClosedCharP`](#homfreefinitealgclosedcharp) | textbook | published | LEAF |  |  | T3 | [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81) | 0 | open |
+ | [`mumfordTorsionAlgClosed`](#mumfordtorsionalgclosed) | textbook | published | LEAF |  |  | T2-T3 | [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81) | 0 | held by the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/81#issuecomment-6887798791)) |
+ | [`neronSchemeExtensionExists`](#neronschemeextensionexists) | textbook | published | LEAF |  |  | T4 | [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/neron-ext)) |
+ | [`h11`](#h11) | frozenTarget | published | LEAF | unverified-locator, note |  | T4 | [elliotglazer #74](https://github.com/elliotglazer/diophantine-z-q/issues/74) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/h11-reduce)) |
+@@ -664,24 +663,23 @@
+ 
+ > gt-sga3, narrowed: SGA 3 VI_B 3.10 in neighbourhood form: for a smooth group scheme G over any S and every s in S, some open neighbourhood of e(s) lies in the identity component G^0 (numbers UNVERIFIED). With GeomConnOfRationalPoint (proved) gives SGA3_VIB_3_10 (SGA3IdComp.sga3_VIB_3_10_of_nbhd).
+ 
+-### charPolyIndepOfEllAlgClosed
++### homFreeFiniteAlgClosedCharP
+ 
+-* Bundle field `HDec.HSyn.OpenTextbookLeaves15.charPolyIndepOfEllAlgClosed`; kind **published**, strict **LEAF**.
+-* Source: Mumford 19 Thm 4 (specialization)
++* Bundle field `HDec.HSyn.OpenTextbookLeaves15.homFreeFiniteAlgClosedCharP`; kind **published**, strict **LEAF**.
++* Source: Mumford 19 Thm 3 (specialization: k algebraically closed of characteristic p > 0)
+ * tier T3 (model triage, unreviewed); discussion: [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81).
+ * Human readings recorded: none.
+-* Status: held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/deg-det)).
++* Status: open.
+ 
+ ```lean
+-ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed
++ZInQ.Contrib.OneProof.CharpolyHF.HomFreeFiniteAlgClosedCharP
+ ```
+ 
+-> **T7 in Mumford's setting** (consequence of a published theorem). D. Mumford, *Abelian
+-> varieties* (1970), §19, Theorem 4 (UNVERIFIED locator; `k` algebraically closed): for
+-> `φ ∈ End(X)` the polynomial `P_φ(n) = deg(n - φ)` lies in `ℤ[X]`, is monic of degree `2g`, and is
+-> the characteristic polynomial of `T_ℓ(φ)` for every `ℓ ≠ char k`. This is
+-> `PkgI3.CharPolyIndepOfEll` with `[IsAlgClosed k]` added (it drops `deg P = 2g` and
+-> `P(n) = deg(n - φ)`).
++> **Mumford §19 Thm 3 in characteristic `p` (printed form, restricted).** D. Mumford, *Abelian varieties* (1970),
++> §19, Theorem 3 (UNVERIFIED locator), for an algebraically closed field `k` of characteristic `p > 0`: `Hom(X, Y)` is
++> free of finite rank `≤ 4 dim X dim Y` and `ℤ_ℓ ⊗ Hom(X, Y) → Hom(T_ℓ X, T_ℓ Y)` is injective for `ℓ ≠ p`. This is
++> `ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed` restricted to characteristic `p` (homfree-proof's
++> `HomFreeFiniteAlgClosedNoEmb` covers these fields and the huge fields of characteristic `0`).
+ 
+ ### mumfordTorsionAlgClosed
+ 
+--- a/docs/one-proof/kinds.tsv
++++ b/docs/one-proof/kinds.tsv
+@@ -24,7 +24,7 @@
+ research	sga7_IX_3_3_SHpre	published	pending reading: locator UNVERIFIED: SGA 7 IX 3.3 may assume an algebraically closed residue field (then the print is the restriction to such O, as for sga7_IX_3_3_SH)	GLUE	GLUE	SGA 7 I, Exp. IX, Prop. 3.3, second assertion (N0 x_S S' = N'0 for semistable reduction), over strictly henselian traits, U = pullback.fst^-1(N0) as printed (number UNVERIFIED); dict-models	leaf-fold32-dict; pending review				pending-reading,unverified-locator	elliotglazer/diophantine-z-q#85
+ research	sga7_IX_3_5_ForwardGeom	published	pending reading: two recorded readings make it a consequence (k(s) definition, through SemiAbelianDescendsSepClosed, proved only for perfect k; no echelon clause in 3.5, through IX 2.4) (dictionary pass 11-16)	GLUE	GLUE	SGA 7 I Exp. IX Prop. 3.5, forward direction at sigma = tau, over a strictly henselian DVR with K^s (number UNVERIFIED)	leaf-fold20; pending review; statement review 2026-11-15 (two lenses, AI, no print): YES; CONSEQUENCE under the alternative readings; dictionary pass 2026-11-16 (statement review; the lead rulings (a), (c))				pending-reading,unverified-locator	elliotglazer/diophantine-z-q#85
+ research	shimuraMainThmIDeligneY3AbU	composite		GLUE	GLUE	Shimura, Ann. of Math. 85 (1967) Main Theorem I (reciprocity at CM points); Deligne, Sem. Bourbaki 389 (1971) sections 4.9-4.21 and 5 (adelic form, canonical model; the PEL model is Cor. 5.7 / Ex. 5.8, not Thm 4.21, which is the Siegel case); Milne, Introduction to Shimura varieties sections 12-14; fine moduli of QM abelian surfaces with level 3 (R1fpPropsAb, as for r1r2Ab); locators UNVERIFIED	leaf-fold22; pending review					elliotglazer/diophantine-z-q#86
+-textbook	charPolyIndepOfEllAlgClosed	published		LEAF	LEAF	Mumford 19 Thm 4 (specialization)	leaf-fold10 table (av-b1)			T3		elliotglazer/diophantine-z-q#81
++textbook	homFreeFiniteAlgClosedCharP	published		LEAF	LEAF	Mumford 19 Thm 3 (specialization: k algebraically closed of characteristic p > 0)	charpoly-hf (swap for charPolyIndepOfEllAlgClosed, Mumford 19 Thm 4)			T3		elliotglazer/diophantine-z-q#81
+ textbook	gagaMorphism	consequence	re-rated 11-16 under the dictionary ruling: GAGA's hypothesis (a holomorphic map A^an -> B^an) is reached from IsStrongUnif and IsAnalyticHom only through the holomorphic inverse function theorem (phi^-1 holomorphic), the same hypothesis-direction step as ShimuraThm54; also a use form shaped by homLatticeCorr_of_strong_gaga; print SGA 1 XII 4.4 for proper X (Serre's GAGA is for projective varieties); locator UNVERIFIED (numbers)	GLUE	GLUE	Serre, GAGA (1956), for homomorphisms of complex abelian varieties (homlattice 3.2)	leaf-fold10 table (homlattice, av-split; folded by leaf-fold7); dictionary pass 2026-11-16 (statement review)			T3-T4	note,unverified-locator	elliotglazer/diophantine-z-q#82
+ textbook	mumfordTorsionAlgClosed	published		LEAF	LEAF	A(k)[n] = (Z/n)^{2g} over k algebraically closed, char k not dividing n: Mumford, Abelian varieties 4, Application 2 (iv)	leaf-fold10 table (av-split; folded by leaf-fold7)			T2-T3		elliotglazer/diophantine-z-q#81
+ textbook	neronSchemeExtensionExists	published		LEAF	LEAF	BLR 1.4 Thm 3	leaf-fold10 table (neron-c)	R2		T4		elliotglazer/diophantine-z-q#85
+--- a/docs/one-proof/claims.tsv
++++ b/docs/one-proof/claims.tsv
+@@ -1,7 +1,6 @@
+ field	task	status	since	issue	holder_kind	public_holder	claim_url	hold
+ mumfordTorsionAlgClosed	cloud batch 2	claimed on the issue 2026-11-15 02:14Z, in progress	2026-11-15	elliotglazer/diophantine-z-q#81	project	project	https://github.com/elliotglazer/diophantine-z-q/issues/81#issuecomment-6887798791	held
+ gagaMorphism	cloud batch 2	claimed on the issue 2026-11-15 02:14Z, in progress	2026-11-15	elliotglazer/diophantine-z-q#82	project	project	https://github.com/elliotglazer/diophantine-z-q/issues/82#issuecomment-6887799149	held
+-charPolyIndepOfEllAlgClosed	deg-det	host task deg-det running	2026-11-16	elliotglazer/diophantine-z-q#81	project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/deg-det	held
+ neronSchemeExtensionExists	neron-ext	host task neron-ext running	2026-11-16	elliotglazer/diophantine-z-q#85	project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/neron-ext	held
+ h11	h11-reduce	host task h11-reduce running	2026-11-16	elliotglazer/diophantine-z-q#74	project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/h11-reduce	held
+ picRepresentableAbVar	pic-repr	host task pic-repr running	2026-11-16	elliotglazer/diophantine-z-q#81	project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/pic-repr	held
+--- a/docs/one-proof/frontier-crosswalk.tsv
++++ b/docs/one-proof/frontier-crosswalk.tsv
+@@ -61,7 +61,7 @@
+ H-67		ZariskiConn.ZariskiConnectedness	249195fd0,f6df5fa32,cba8157f7	no
+ H-69		HomUnify.HomLatticeCorr	249195fd0,f6df5fa32,cba8157f7	no
+ H-70		ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed	f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
+-H-71	charPolyIndepOfEllAlgClosed	ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed	f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
++H-71		ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed	f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
+ H-72		ZInQ.Contrib.AVB1.PoincareComplement	f6df5fa32,cba8157f7,5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
+ H-73		ZInQ.Contrib.AVB1.ImageFactorization	f6df5fa32,cba8157f7	no
+ H-74		ZInQ.Contrib.AVB1.SimpleSurjIsogeny	f6df5fa32,cba8157f7	no

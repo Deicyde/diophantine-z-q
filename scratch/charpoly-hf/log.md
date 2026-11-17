@@ -29,8 +29,30 @@
 
 ## Taint of the T7 field on the base route (scratch/charpoly-hf/Taint.lean -> taint_out.txt), VERIFIED
 - frozenTarget closure 270,833 constants; seeds `*.t7`, `*.charPolyIndepOfEllAlgClosed`; 65 tainted.
-- Carriers on the route: TextbookLeavesHF? no — OTL2HF, 3HF, 4HF, 6HF–14HF (homfree reroute copies) and OTL15 (TailZ48).
+- Carriers on the route: OpenTextbookLeaves2HF, 3HF, 4HF, 6HF–14HF (homfree reroute copies) and OpenTextbookLeaves15 (TailZ48).
 - Every tainted constant is in Contrib/OneProof/HomFreeFiniteAlgClosedReroute.lean (61), TailZ48 (3), Main (frozenTarget).
   Direct readers: gluePieces_of_open4_hf (t.t7), textbookLeaves4_of_open6_hf (t7 := t7_of_algClosed5 …),
   openResearchLeaves21_of_OpenResearchLeaves22_hf (R16: r16_of_printed … t.charPolyIndepOfEllAlgClosed).
   The original OTL13 (named by the blueprint) is not on the route.
+
+## Fold (swap), VERIFIED in a copy tree (~/chf-foldtree: reflink copy of this worktree without .git; outside the repo)
+- `python3 scratch/charpoly-hf/fold_edit.py --tree ~/chf-foldtree` (asserts every match): edits
+  Contrib/OneProof/HomFreeFiniteAlgClosedReroute.lean and OneProof/H/TailZ48.lean; diff = scratch/charpoly-hf/fold.patch
+  (268 lines; `git apply --check` OK on this branch).
+- Field `charPolyIndepOfEllAlgClosed` (Mumford §19 Thm 4) replaced by `homFreeFiniteAlgClosedCharP`
+  (`CharpolyHF.HomFreeFiniteAlgClosedCharP`, Mumford §19 Thm 3, k alg. closed of char p). Count-neutral.
+- `lake build ZInQKernel.OneProof.Main` there: Build completed successfully (14192 jobs).
+- FoldCheck.lean there (foldcheck_out.txt): OTL15 has no charPolyIndepOfEllAlgClosed, has homFreeFiniteAlgClosedCharP;
+  blueprint target OTL13.charPolyIndepOfEllAlgClosed still exists; closure 270,888 constants, none of
+  AVB1.CharPolyIndepOfEllAlgClosed, PkgI3.CharPolyIndepOfEll, AVB1.HomFreeFiniteAlgClosed, PkgI3.HomFreeFinite,
+  HomFreeFiniteAlgClosedNoEmb, sorryAx, OTL13.charPolyIndepOfEllAlgClosed, t7_of_algClosed5, no constant named
+  *CharPolyIndepOfEll*; frozenTarget axioms [propext, Classical.choice, Quot.sound].
+- Docs there: `lake env lean scripts/one_proof/OpenStatements.lean` (40 open hypotheses); kinds.tsv row renamed
+  (source "Mumford 19 Thm 3 (specialization: k algebraically closed of characteristic p > 0)"); claims.tsv row of the old
+  field dropped; `render_open.py` -> "33 H hypotheses, strictest 13/20, 7 others"; `render_open.py --check` ok;
+  frontier-crosswalk regenerated (H-71 loses its field) and `--check` ok (run in the worktree with the folded
+  open-statements.json, then restored). Diff = scratch/charpoly-hf/fold-docs.patch (applies).
+- #discharges on this branch (unfolded; Discharges.lean -> discharges_out.txt): 40 open hypotheses, 9222 theorems,
+  49 discharge lines; the new modules discharge no field directly (expected: a reroute); the copied CharPolyLattice
+  gives degpoly-proof's count-neutral `charPolyIndepOfEllAlgClosed_of_noEmb`; no sorry.
+- Not run: autoform (not installed on this host); the DumpCompact hash guard.
