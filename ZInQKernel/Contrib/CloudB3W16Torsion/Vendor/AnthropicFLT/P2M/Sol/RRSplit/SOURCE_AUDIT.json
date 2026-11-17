@@ -1,0 +1,49 @@
+{
+  "status": "passed",
+  "source_pin": "6e837e75355538c7f80bab5b956861e86c4eacc2",
+  "checked_lean_files": 30,
+  "original_solution_signatures_byte_identical": 6,
+  "contiguous_original_source_partitions": 6,
+  "prohibited_lean_forms": "none",
+  "solution_axioms": {
+    "P2MW.S_AlgebraicCurve_residueTheoremK_ratFunc_of_isAlgClosed.solution": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "P2MW.S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.solution": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "P2MW.S_AlgebraicCurve_functionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.solution": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "P2MW.S_AlgebraicCurve_tateAgreement.solution": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "P2MW.S_AlgebraicCurve_tateTraceCompat_of_isSeparable.solution": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "P2MW.S_AlgebraicCurve_tateChainRule.solution": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "max_lean_file_bytes": 136967,
+  "max_observed_compiler_rss_kib": 10853532,
+  "compiled_module_logs_exit_zero": 30,
+  "scope": "Supporting source proofs only; not H102 discharge",
+  "public_evidence_policy": {
+    "recorded_proof_audit_unchanged": true,
+    "public_type_axiom_evidence": "Compile/PUBLIC_TYPE_AXIOM_EXCERPTS.md",
+    "raw_stdout_retained_unchanged_privately": true
+  }
+}
