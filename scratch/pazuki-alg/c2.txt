@@ -1,0 +1,3 @@
+'PazukiAlg.pazukiCor13Upper_of_riemann' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PazukiAlg.symmPrincipalTransport' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PazukiAlg.thetaDivisorAlgebraicC_of_riemann' depends on axioms: [propext, Classical.choice, Quot.sound]

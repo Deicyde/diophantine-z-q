@@ -1,0 +1,5 @@
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [12811/12811] Built ZInQKernel.Contrib.OneProof.PazukiCor13Upper (6.4s)
+Build completed successfully (12811 jobs).
+EXIT 0

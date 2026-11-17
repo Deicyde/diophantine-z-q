@@ -1,0 +1,5 @@
+✔ [9134/9136] Built ZInQKernel.Contrib.CloudB3W17Uniformization.AbelianAnalyticAssembly (4.7s)
+✔ [9135/9136] Built ZInQKernel.Contrib.CloudB3W17Uniformization.Uniformization (4.3s)
+✔ [9136/9136] Built ZInQKernel.Contrib.OneProof.UniformizationLeafAll (4.2s)
+Build completed successfully (9136 jobs).
+EXIT 0

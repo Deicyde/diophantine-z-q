@@ -1,0 +1,5 @@
+warning: ZInQKernel/Contrib/OneProof/ThetaWeierstrass8.lean: imports `Mathlib.Analysis.Complex.Liouville` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+ℹ [14103/14103] Built ZInQKernel.OneProof.Main (5.0s)
+info: ZInQKernel/OneProof/Main.lean:91:0: 'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (14103 jobs).
+EXIT 0

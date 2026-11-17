@@ -1,0 +1,39 @@
+{
+ "name": "pazuki-alg",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.PazukiAlg"
+ ],
+ "discharges": [
+  {
+   "field": "pazukiCor13Upper",
+   "proof": "_root_.PazukiAlg.pazukiCor13Upper_of_riemann {t}.gagaMorphism {n}.pazukiCor13UpperPP {n}.riemannPPAV {n}.symmPrincipalDescends",
+   "leaves": [
+    {
+     "name": "pazukiCor13UpperPP",
+     "type": "_root_.PazukiDict.PazukiCor13UpperPP",
+     "doc": "Pazuki, Theta height and Faltings height, Bull. SMF 140 (2012), Cor. 1.3(2) (g = r = 2), upper half, for an algebraic principally polarized abelian surface (A_K', L) (L ample, symmetric, h0 = 1) with the biholomorphic uniformization and the period matrix of (A_sigma, L) given by the theta divisor; printed form (pazuki-dict).",
+     "kind": "published",
+     "flag": "reading risk: Pazuki Def. 2.6 level-2 theta coordinates identified with the classical theta[a;b](0, Omega) (UNVERIFIED; locators.md item 5, leaf-review-b premise 3; if they are theta[a;0](0, 2 Omega) the leaf overstates the print by about log 4); locator UNVERIFIED",
+     "source": "Pazuki, Bull. SMF 140 (2012), Cor. 1.3(2), pp. 21-22 (arXiv:0907.1458v2 Cor. 1.3(2) p. 3; Def. 2.1 pp. 6-7; Def. 2.6 p. 9), upper half, algebraic (A, L) as printed"
+    },
+    {
+     "name": "riemannPPAV",
+     "type": "_root_.PazukiAlg.RiemannPPAV",
+     "doc": "Riemann's theorem for Omega in the Siegel space H_2 (pazuki-alg): there are a complex abelian surface B0 with a biholomorphic uniformization C^2/(Omega Z^2 + Z^2) = B0(C), a symmetric principal polarization L0 of B0 (ample, symmetric, h0 = 1) and a section of L0 whose divisor is the zero set of theta(. + c, Omega) for some c (the print has c = 0). Printed in the analytic category (Mumford AV 2-3, Birkenhake-Lange 8.1 and 8.5); read for schemes through Chow/GAGA, hence rated a composite.",
+     "kind": "composite",
+     "flag": "composite: Appell-Humbert and Frobenius (theta spans H0 of the symmetric bundle L(H_Omega, chi_0)), Lefschetz/Chow (X_Omega projective), GAGA (the line bundle and its section are algebraic); would clear with a print of the scheme form (an abelian variety over C with an ample symmetric L of h0 = 1 whose section is theta); locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, sections 2-3 (Appell-Humbert, Frobenius, algebraizability); Mumford, Tata Lectures on Theta I, Ch. II sections 1 and 3; Birkenhake-Lange, Complex abelian varieties, 8.1 and 8.5; Serre, GAGA (1956) (locators UNVERIFIED)"
+    },
+    {
+     "name": "symmPrincipalDescends",
+     "type": "_root_.PazukiDict.SymmPrincipalDescends",
+     "doc": "A symmetric principal polarization (L, s) of A_C, A over a number field K, is the base change of a symmetric principal polarization (L', s') of A_K' for a number field K' (same divisor on complex points); composite (pazuki-dict, arithmetic half of AnalyticPPAlgebraic).",
+     "kind": "composite",
+     "flag": "composite: NS(A_Qbar) = NS(A_C) (invariance of the Neron-Severi group under extension of algebraically closed fields), symmetric bundles in one class differ by Pic0[2] (finite, Qbar-points), flat base change of H0 and descent of ampleness; locator UNVERIFIED",
+     "source": "Maulik-Poonen, Neron-Severi groups under specialization, Duke 161 (2012), Prop. 3.1; Mumford, Abelian varieties, 8 and 16 (locators UNVERIFIED)"
+    }
+   ]
+  }
+ ],
+ "note": "pazuki-alg (docs/research/pazuki-alg.md): pazukiCor13Upper from Pazuki's printed corollary for algebraic (A, L) (pazuki-dict's leaf), Riemann's theorem for Omega in H_2 (RiemannPPAV, new), the existing field gagaMorphism and pazuki-dict's arithmetic half SymmPrincipalDescends. The analytic half ThetaDivisorAlgebraicC is proved in Lean from RiemannPPAV and gagaMorphism (iso B = B0 by GAGA twice; transport of symmetric principal polarizations along isomorphisms proved; discreteness of Omega Z^2 + Z^2 proved). Against kinds.tsv (pazukiCor13Upper GLUE) the strict GLUE count rises by one (needs --allow-rise); pazuki-dict's coarser spec (one composite AnalyticPPAlgebraic) is neutral."
+}

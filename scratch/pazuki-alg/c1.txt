@@ -1,0 +1,14 @@
+ZInQKernel/Contrib/OneProof/PazukiAlg.lean:115:24: warning: This simp argument is unused:
+  Matrix.mulVec
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [dotProduct]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+ZInQKernel/Contrib/OneProof/PazukiAlg.lean:115:39: warning: This simp argument is unused:
+  dotProduct
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Matrix.mulVec]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
