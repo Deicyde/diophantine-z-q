@@ -340,6 +340,7 @@ noncomputable def cechSectionsEquivAn (k : ℤ) {p : ℕ} (σ : Fin (p + 1) → 
   (isoSectionsEquiv (twistingSheafAnIso n k) _).trans (twHolEquiv _ (vecCone_cechOpen σ))
 
 open CechProjectiveAn SimplexCochain in
+set_option backward.isDefEq.respectTransparency false in
 lemma cechSectionsEquivAn_res (k : ℤ) {m p : ℕ} (τ : Fin (p + 1) → ULift.{u} (Fin (n + 1)))
     (θ : Fin (m + 1) → Fin (p + 1))
     (s : (twistingSheafAn.{u} n k).toAb.obj.obj

@@ -53,6 +53,7 @@ variable {n : ℕ} {R : Type u} [CommRing R]
 
 
 
+set_option backward.isDefEq.respectTransparency false in
 /-- **The basic open of `Xⱼ / Xᵢ` in the chart `Uᵢ` is `Uᵢ ∩ Uⱼ`.** -/
 lemma basicOpen_xDiv (i j : Fin (n + 1)) :
     (AlgebraicGeometry.CloudB3W17bOkaProjectiveSpace (n) (R)).basicOpen (xDiv i j) = U n R i ⊓ U n R j := by
@@ -203,6 +204,7 @@ lemma isCompact_univ : IsCompact (Set.univ : Set (AlgebraicGeometry.CloudB3W17bO
   have := isCompact_iUnion (fun i ↦ (isAffineOpen_U (n := n) (R := R) i).isCompact)
   rwa [← Opens.coe_iSup, iSup_U, Opens.coe_top] at this
 
+set_option backward.isDefEq.respectTransparency false in
 /-- **Serre's theorem A** on `ℙ(n; R)`: for a quasi-coherent `F` of finite type there is `m₀`
 such that for all `m ≥ m₀`, finitely many global sections of `F(m)` generate it, i.e. give an
 epimorphism `𝒪^I ⟶ F(m)` with `I` finite. -/
@@ -273,6 +275,7 @@ theorem exists_generatingSections_twist [F.IsFiniteType] :
   obtain ⟨I, hI, σ, hσ⟩ := h m hm
   exact ⟨⟨I, fun q ↦ SheafOfModules.sectionOfTerminal Limits.isTerminalTop _ (σ q), hσ⟩, ⟨hI⟩⟩
 
+set_option backward.isDefEq.respectTransparency false in
 /-- **Serre's theorem A, untwisted**: for `m ≫ 0` there is an epimorphism
 `𝒪^I(-m) ⟶ F` with `I` finite. See `twistFreeIso` for `𝒪^I(-m) ≅ ⊕_I O(-m)`. -/
 theorem exists_epi_twist_free [F.IsFiniteType] :
@@ -316,6 +319,7 @@ theorem isCoherent_twist [F.IsCoherent] (m : ℤ) : (twist F m).IsCoherent := by
 
 
 omit [F.IsQuasicoherent] in
+set_option backward.isDefEq.respectTransparency false in
 /-- **Coherent sheaves on `ℙⁿ` over a noetherian ring are quotients of sums of `O(-m)` with
 coherent kernel**: for `m ≫ 0` there is an epimorphism `π : 𝒪^I(-m) ⟶ F` (`I` finite,
 `𝒪^I(-m) ≅ ⊕_I O(-m)` by `twistFreeIso`) whose kernel is coherent, i.e. a short exact sequence

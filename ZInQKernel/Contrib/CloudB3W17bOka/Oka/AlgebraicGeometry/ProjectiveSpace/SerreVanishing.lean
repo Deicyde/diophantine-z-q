@@ -50,6 +50,7 @@ instance (X : Scheme.{u}) : PreservesFiniteColimits (Scheme.Modules.toAbFunctor 
 
 variable {n : ℕ} {R : Type u} [CommRing R]
 
+set_option backward.isDefEq.respectTransparency false in
 /-- Cohomology of a finite coproduct of sheaves of modules vanishes in degree `q` if it vanishes
 on every summand. -/
 lemma H_sigma_eq_zero {X : Scheme.{u}} {I : Type u} [Finite I] (G : I → X.Modules) (q : ℕ)
