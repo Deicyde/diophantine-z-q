@@ -44,8 +44,8 @@ def w : O24 := ⟨y24, y24_integral⟩
 theorem w_coe : ((w : O24) : K24) = y24 := rfl
 
 theorem w_mul : w * w = -6 := by
-  ext
-  simp only [RingOfIntegers.coe_eq_algebraMap, map_mul, map_neg, map_ofNat]
+  apply RingOfIntegers.coe_injective
+  rw [map_mul, map_neg, map_ofNat]
   exact y24_mul
 
 theorem repr_w (x : O24) : ∃ a b : ℤ, x = a + b * w := by
@@ -60,7 +60,8 @@ theorem eq_zero_of_repr {a b : ℤ} (h : (a : O24) + b * w = 0) : a = 0 ∧ b = 
     have := congrArg (fun x : O24 => (x : K24)) h
     simp only [RingOfIntegers.coe_eq_algebraMap, map_add, map_mul, map_intCast, map_zero] at this
     push_cast
-    simpa using this
+    rw [zero_mul, add_zero]
+    exact this
   obtain ⟨h1, h2⟩ := repr_unique y24_ne h'
   exact ⟨by exact_mod_cast h1, by exact_mod_cast h2⟩
 
@@ -154,7 +155,7 @@ theorem p2_mul_p3 : p2 * p3 = Ideal.span {w} := by
     obtain ⟨c, d, rfl⟩ := Ideal.mem_span_pair.1 hs
     rw [Ideal.mem_span_singleton']
     exact ⟨-(a * c * w) + 2 * a * d + 3 * b * c + b * d * w, by
-      linear_combination (a * c - b * d) * w_mul⟩
+      linear_combination (-(a * c)) * w_mul⟩
   · rw [Ideal.span_le, Set.singleton_subset_iff]
     have h1 : w * 3 ∈ p2 * p3 := Ideal.mul_mem_mul w_mem_p2 three_mem_p3
     have h2 : (2 : O24) * w ∈ p2 * p3 := Ideal.mul_mem_mul two_mem_p2 w_mem_p3
@@ -191,7 +192,7 @@ theorem eq_of_dvd_of_absNorm_eq {I J : Ideal O24} (hIJ : I ∣ J) (hN : Ideal.ab
 
 /-- The only ideal of norm 2 is `𝔭₂`. -/
 theorem eq_p2 {I : Ideal O24} (hI : Ideal.absNorm I = 2) : I = p2 := by
-  have hP : I.IsPrime := Ideal.isPrime_of_irreducible_absNorm (by rw [hI]; exact Nat.prime_two.irreducible)
+  have hP : I.IsPrime := Ideal.isPrime_of_irreducible_absNorm (by rw [hI]; exact Nat.prime_two)
   have h2 : (2 : O24) ∈ I := by have := Ideal.absNorm_mem I; rw [hI] at this; exact_mod_cast this
   have hw : w ∈ I := by
     have hww : w * w ∈ I := by
@@ -209,7 +210,7 @@ theorem eq_p2 {I : Ideal O24} (hI : Ideal.absNorm I = 2) : I = p2 := by
 
 /-- The only ideal of norm 3 is `𝔭₃`. -/
 theorem eq_p3 {I : Ideal O24} (hI : Ideal.absNorm I = 3) : I = p3 := by
-  have hP : I.IsPrime := Ideal.isPrime_of_irreducible_absNorm (by rw [hI]; exact Nat.prime_three.irreducible)
+  have hP : I.IsPrime := Ideal.isPrime_of_irreducible_absNorm (by rw [hI]; exact Nat.prime_three)
   have h3 : (3 : O24) ∈ I := by have := Ideal.absNorm_mem I; rw [hI] at this; exact_mod_cast this
   have hw : w ∈ I := by
     have hww : w * w ∈ I := by
@@ -229,11 +230,11 @@ theorem eq_p3 {I : Ideal O24} (hI : Ideal.absNorm I = 3) : I = p3 := by
 
 theorem p2_mem : p2 ∈ (Ideal O24)⁰ :=
   mem_nonZeroDivisors_of_ne_zero (fun h => by
-    have := absNorm_p2; rw [h, Ideal.absNorm_bot] at this; norm_num at this)
+    have := absNorm_p2; rw [h] at this; simp at this)
 
 theorem p3_mem : p3 ∈ (Ideal O24)⁰ :=
   mem_nonZeroDivisors_of_ne_zero (fun h => by
-    have := absNorm_p3; rw [h, Ideal.absNorm_bot] at this; norm_num at this)
+    have := absNorm_p3; rw [h] at this; simp at this)
 
 theorem mk0_p2_sq : ClassGroup.mk0 ⟨p2, p2_mem⟩ * ClassGroup.mk0 ⟨p2, p2_mem⟩ = 1 := by
   rw [← map_mul]
@@ -282,6 +283,7 @@ theorem classGroup_mem (C : ClassGroup O24) :
     rw [Ne, Ideal.absNorm_eq_zero_iff]
     exact nonZeroDivisors.coe_ne_zero I
   interval_cases hN : Ideal.absNorm (I : Ideal O24)
+  · exact absurd rfl h0
   · left
     rw [Ideal.absNorm_eq_one_iff] at hN
     rw [ClassGroup.mk0_eq_one_iff, hN]

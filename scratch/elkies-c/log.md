@@ -16,3 +16,4 @@ Base: wip/x6-coarse 0dc0c1fa, merged origin/main (5c7d9ba7) as 63d3efec.
   `conductor_R4`.
 - `GR56.com_equiv_of_eig` + `GR56.datQ`, `com_bcQ`, `LatData.exists_O`: End_𝒪 from an optimal embedding.
 - Not in the tree: `#Pic(ℤ[√−6])`, `inertCount6 K24`.
+- ClassNumber24.lean compiles (lake env lean, no errors) — VERIFIED 2026-11-17: discr K24 = −24, #ClassGroup ≤ 2, inertCount6 K24 = 0
