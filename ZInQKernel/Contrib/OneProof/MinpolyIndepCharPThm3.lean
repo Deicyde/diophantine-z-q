@@ -35,7 +35,10 @@ variable {k : Type} [Field k]
 §19, Theorem 3 (UNVERIFIED locator), for an algebraically closed field `k` of characteristic `p > 0`: `Hom(X, Y)` is
 free of finite rank `≤ 4 dim X dim Y` and `ℤ_ℓ ⊗ Hom(X, Y) → Hom(T_ℓ X, T_ℓ Y)` is injective for `ℓ ≠ p`. This is
 `ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed` restricted to characteristic `p` (homfree-proof's
-`HomFreeFiniteAlgClosedNoEmb` covers these fields and the huge fields of characteristic `0`). -/
+`HomFreeFiniteAlgClosedNoEmb` covers these fields and the huge fields of characteristic `0`). Use (charpoly-hf): at the
+reduction `Ā` of `FrobTraceLink` (characteristic `p`) it gives, through `minpolyIndepOfEllCharP_of_homFree`, the
+`ℓ`-independent minimal polynomial of `V_ℓ(α')` that charpoly-charp's proof of `common_trace` reads (G8's `r ⊕ r`
+structure then fixes the trace); it replaces Mumford §19 Thm 4 (`charPolyIndepOfEllAlgClosed`) there. -/
 def HomFreeFiniteAlgClosedCharP : Prop :=
   ∀ (k : Type) [Field k] [IsAlgClosed k] (p : ℕ), p.Prime → CharP k p → ∀ (A B : PkgI3.AbVar k),
     Module.Free ℤ (PkgI3.AbVar.Hom A B) ∧ Module.Finite ℤ (PkgI3.AbVar.Hom A B) ∧

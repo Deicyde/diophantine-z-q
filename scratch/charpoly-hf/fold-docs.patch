@@ -12,7 +12,7 @@
 +   "field": "homFreeFiniteAlgClosedCharP",
     "docstring":
 -   "**T7 in Mumford's setting** (consequence of a published theorem). D. Mumford, *Abelian\nvarieties* (1970), §19, Theorem 4 (UNVERIFIED locator; `k` algebraically closed): for\n`φ ∈ End(X)` the polynomial `P_φ(n) = deg(n - φ)` lies in `ℤ[X]`, is monic of degree `2g`, and is\nthe characteristic polynomial of `T_ℓ(φ)` for every `ℓ ≠ char k`. This is\n`PkgI3.CharPolyIndepOfEll` with `[IsAlgClosed k]` added (it drops `deg P = 2g` and\n`P(n) = deg(n - φ)`). ",
-+   "**Mumford §19 Thm 3 in characteristic `p` (printed form, restricted).** D. Mumford, *Abelian varieties* (1970),\n§19, Theorem 3 (UNVERIFIED locator), for an algebraically closed field `k` of characteristic `p > 0`: `Hom(X, Y)` is\nfree of finite rank `≤ 4 dim X dim Y` and `ℤ_ℓ ⊗ Hom(X, Y) → Hom(T_ℓ X, T_ℓ Y)` is injective for `ℓ ≠ p`. This is\n`ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed` restricted to characteristic `p` (homfree-proof's\n`HomFreeFiniteAlgClosedNoEmb` covers these fields and the huge fields of characteristic `0`). ",
++   "**Mumford §19 Thm 3 in characteristic `p` (printed form, restricted).** D. Mumford, *Abelian varieties* (1970),\n§19, Theorem 3 (UNVERIFIED locator), for an algebraically closed field `k` of characteristic `p > 0`: `Hom(X, Y)` is\nfree of finite rank `≤ 4 dim X dim Y` and `ℤ_ℓ ⊗ Hom(X, Y) → Hom(T_ℓ X, T_ℓ Y)` is injective for `ℓ ≠ p`. This is\n`ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed` restricted to characteristic `p` (homfree-proof's\n`HomFreeFiniteAlgClosedNoEmb` covers these fields and the huge fields of characteristic `0`). Use (charpoly-hf): at the\nreduction `Ā` of `FrobTraceLink` (characteristic `p`) it gives, through `minpolyIndepOfEllCharP_of_homFree`, the\n`ℓ`-independent minimal polynomial of `V_ℓ(α')` that charpoly-charp's proof of `common_trace` reads (G8's `r ⊕ r`\nstructure then fixes the trace); it replaces Mumford §19 Thm 4 (`charPolyIndepOfEllAlgClosed`) there. ",
     "bundle": "OpenTextbookLeaves15"},
    {"type": "ZInQ.HomLattice.GAGAMorphism",
     "statement": "ZInQ.HomLattice.GAGAMorphism",
@@ -35,7 +35,7 @@
  | [`mumfordTorsionAlgClosed`](#mumfordtorsionalgclosed) | textbook | published | LEAF |  |  | T2-T3 | [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81) | 0 | held by the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/81#issuecomment-6887798791)) |
  | [`neronSchemeExtensionExists`](#neronschemeextensionexists) | textbook | published | LEAF |  |  | T4 | [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/neron-ext)) |
  | [`h11`](#h11) | frozenTarget | published | LEAF | unverified-locator, note |  | T4 | [elliotglazer #74](https://github.com/elliotglazer/diophantine-z-q/issues/74) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/h11-reduce)) |
-@@ -664,24 +663,23 @@
+@@ -664,24 +663,26 @@
  
  > gt-sga3, narrowed: SGA 3 VI_B 3.10 in neighbourhood form: for a smooth group scheme G over any S and every s in S, some open neighbourhood of e(s) lies in the identity component G^0 (numbers UNVERIFIED). With GeomConnOfRationalPoint (proved) gives SGA3_VIB_3_10 (SGA3IdComp.sga3_VIB_3_10_of_nbhd).
  
@@ -66,7 +66,10 @@
 +> §19, Theorem 3 (UNVERIFIED locator), for an algebraically closed field `k` of characteristic `p > 0`: `Hom(X, Y)` is
 +> free of finite rank `≤ 4 dim X dim Y` and `ℤ_ℓ ⊗ Hom(X, Y) → Hom(T_ℓ X, T_ℓ Y)` is injective for `ℓ ≠ p`. This is
 +> `ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed` restricted to characteristic `p` (homfree-proof's
-+> `HomFreeFiniteAlgClosedNoEmb` covers these fields and the huge fields of characteristic `0`).
++> `HomFreeFiniteAlgClosedNoEmb` covers these fields and the huge fields of characteristic `0`). Use (charpoly-hf): at the
++> reduction `Ā` of `FrobTraceLink` (characteristic `p`) it gives, through `minpolyIndepOfEllCharP_of_homFree`, the
++> `ℓ`-independent minimal polynomial of `V_ℓ(α')` that charpoly-charp's proof of `common_trace` reads (G8's `r ⊕ r`
++> structure then fixes the trace); it replaces Mumford §19 Thm 4 (`charPolyIndepOfEllAlgClosed`) there.
  
  ### mumfordTorsionAlgClosed
  
