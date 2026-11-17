@@ -95,11 +95,9 @@ theorem fixed_of_sq_of_iterate (f : G →* G) (x : G) (m q : ℕ) (hcop : Nat.Co
     rw [hit] at this
     exact (mul_eq_right.mp this.symm)
   have h2 : N ^ m = 1 := by
-    rw [hN, ← diffHom_iterate_pow f 1 m x]
-    show diffHom f (x ^ m) = 1
-    rw [hx, map_one]
+    rw [hN, diffHom_apply, mul_pow, ← map_pow, hx, map_one, inv_pow, hx, inv_one, _root_.mul_one]
   have hN1 : N = 1 := by
-    have := pow_gcd_eq_one N h1 h2
+    have := pow_gcd_eq_one.mpr ⟨h1, h2⟩
     rwa [Nat.Coprime.gcd_eq_one hcop, pow_one] at this
   rw [hN, diffHom_apply] at hN1
   exact mul_inv_eq_one.mp hN1
@@ -332,8 +330,10 @@ theorem raynaudCriterionNFNil_of_sq (h : GapNeron.RaynaudCriterionNF) : RaynaudC
   have h2 := h K O w hw A m hm hmO hrat σ hσ ℓ hℓ hℓO n x hx
   simp only [UnipSq] at h2
   simp only [Function.iterate_succ, Function.iterate_zero, Function.comp_apply, id]
-  rw [← h2, map_mul, map_inv]
-  group
+  have : IsProper A.X.hom := IsAbelianVariety.proper
+  have : GeometricallyIntegral A.X.hom := IsAbelianVariety.geomIntegral
+  have : IsCommMonObj A.X := isCommMonObj_of_isProper_of_geometricallyIntegral A.X
+  rw [← h2, PkgI2.galAct_mul, PkgI2.galAct_inv, mul_inv, inv_inv, ← _root_.mul_assoc]
 
 /-- The same for the kernel-universe form `HDec.PkgI2.RaynaudCriterionNF.{0}`. -/
 theorem raynaudCriterionNFNil_of_sq' (h : HDec.PkgI2.RaynaudCriterionNF.{0}) : RaynaudCriterionNFNil :=
@@ -348,9 +348,13 @@ theorem tate_iter {K : Type} [Field K] {Ω : Type} [Field Ω] [Algebra K Ω] (B 
   | zero => rfl
   | succ N ih =>
     rw [pow_succ', Module.End.mul_apply, Function.iterate_succ_apply']
-    change (galTΩ B ℓ σ (((galTΩ B ℓ σ - 1) ^ N) t)).1 n - (((galTΩ B ℓ σ - 1) ^ N) t).1 n = _
-    simp only [galTΩ, PkgI3.Tate.map_apply, ih, MonoidHom.toAdditive_apply_apply, toMul_ofMul]
-    rw [div_eq_mul_inv, ofMul_mul, ofMul_inv]
+    have ih' : (fun y => B.galAct σ y * y⁻¹)^[N] (Additive.toMul (t.1 n)) =
+        Additive.toMul ((((galTΩ B ℓ σ - 1) ^ N) t).1 n) := by rw [ih]; rfl
+    rw [ih']
+    generalize ((galTΩ B ℓ σ - 1) ^ N) t = s
+    show (galTΩ B ℓ σ s).1 n - s.1 n = _
+    rw [show (galTΩ B ℓ σ s).1 n = Additive.ofMul (B.galAct σ (Additive.toMul (s.1 n))) from rfl,
+      ofMul_mul, ofMul_inv, sub_eq_add_neg]
     rfl
 
 /-- **r6 at number fields, nilpotent form, from the leaves**: neron-dvr's `GapNeron.raynaudCriterion_of_leavesNF`
@@ -368,10 +372,10 @@ theorem raynaudCriterion_of_leavesNF_nil (hR : RaynaudSemistable) (hU : Semistab
     hU K O (AlgebraicClosure K) w hw B (GapNeron.hasSemistableReduction_ofNF hN O B hss) ℓ hℓO σ hσ
   refine ⟨N, fun n x hx => ?_⟩
   obtain ⟨t, ht⟩ := exists_tate_lift A hT ℓ (natCast_ne_zero_of_isUnit O hℓO) n x hx
-  have h := congrArg (fun s : TΩ B (AlgebraicClosure K) ℓ => Additive.toMul (s.1 n))
-    (LinearMap.congr_fun hN0 t)
-  simp only [tate_iter, ht, toMul_ofMul, LinearMap.zero_apply] at h
-  exact h
+  have h0 : ((galTΩ B ℓ σ - 1) ^ N) t = 0 := by rw [hN0]; rfl
+  have h := tate_iter B ℓ σ t n N
+  rw [h0, ht] at h
+  exact (congrArg Additive.toMul h).symm
 
 /-- **r6 at number fields, nilpotent form** (the `raynaudCriterion_leavesNF` interface). -/
 theorem raynaudCriterion_leavesNF_nil (hR : RaynaudSemistable) (hU : SemistableUnipotentNilCP)

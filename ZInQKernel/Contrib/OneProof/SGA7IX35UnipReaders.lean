@@ -69,8 +69,10 @@ theorem nilQuat_trivial (hQ : HDec.PkgI2.QuatUnipotentTrivial.{u}) (G : Type u) 
         have hTT : T (T y) = 1 := by
           rw [hT, hT, ← Function.iterate_add_apply, ← two_mul, ← pow_succ']
           exact hQi (2 * k) (by omega) y hy
-        rw [map_mul, hTT]
-        group) x hx
+        rw [map_mul, hTT, _root_.mul_one]
+        apply Additive.ofMul.injective
+        simp only [ofMul_mul, ofMul_inv, ofMul_one]
+        abel) x hx
     have : x * T x = x := key
     rw [← hT]
     exact mul_eq_left.mp this
@@ -95,7 +97,7 @@ namespace HDec
 namespace G15Ram
 
 open _root_.PkgI4 (GQp GQ decomp)
-open LadicCond
+open _root_.LadicCond
 open CategoryTheory MonObj
 open scoped Pointwise
 
@@ -207,7 +209,7 @@ theorem raynaudPlace_of_R6Nil (hR6 : SGA735Nil.RaynaudCriterionNFNil)
     Nat.Coprime.pow a n ((Nat.coprime_primes Fact.out hℓ).mpr (fun h => hℓp h.symm))
   have hfix : A.galAct σg x = x :=
     SGA735Nil.fixed_of_nil_of_iterate (A.galAct σg) x (ℓ ^ n) (p ^ a) N hcop hx hD ha
-  rw [hfix, mul_inv_cancel, one_mul, inv_mul_cancel]
+  rw [hfix, hfix, mul_inv_cancel, _root_.one_mul, inv_mul_cancel]
 
 end G15Ram
 
