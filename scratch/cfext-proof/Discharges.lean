@@ -1,0 +1,9 @@
+import ZInQKernel.OneProof.Main
+import ZInQKernel.OneProof.Discharges
+import ZInQKernel.Contrib.OneProof.ConstantFieldExtensionUnramifiedFinite
+
+#discharges
+
+example : JavanpeykarRebase.ConstantFieldExtensionUnramifiedFinite :=
+  CFExtProof.constantFieldExtensionUnramifiedFinite_proof
+#print axioms CFExtProof.constantFieldExtensionUnramifiedFinite_proof

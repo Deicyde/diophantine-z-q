@@ -1,0 +1,42 @@
+/-!
+# Sanity checks of pb-bypass's period rings and of `LocalIsPst` (task pb-sanity)
+
+`ZInQKernel/Contrib/OneProof/PanBerger.lean` (task pb-bypass) defines `A_cris`, `B_cris^+`,
+`log [ε]`, `B_cris`, `B_st = B_cris[u]` with its action of `G_{ℚ_p}`, and `LocalIsPst`, and splits
+the research field `r11r12` into `PanPrinted` and `BergerPrinted`. Those two leaves are genuine only
+if the definitions are not degenerate. This file proves, with no `sorry` (only `propext`, `Classical.choice`, `Quot.sound`):
+
+* **Non-degeneracy.** `p^m · ∏ log [ε_i] ≠ 0` in `A_cris` for every finite family with
+  `ε_i^♯ = 1`, `ε_i ≠ 1` (`pow_mul_prod_logOf_ne_zero`); hence `0 ∉ tMonoid`, and `B_cris^+`,
+  `B_cris`, `B_st` are not the zero ring (`nontrivial_bcrisPlus`, `nontrivial_bcris`,
+  `nontrivial_bst`); `log [ε]` is not nilpotent in `B_cris^+` (`logOf_not_isNilpotent`); such `ε`
+  exist (`nonempty_tEps`, `ε = (1, ζ_p, ζ_{p²}, …)`); `ℚ_p → B_st` is injective. The argument uses
+  only `A_inf`: `ker θ = (ξ)` (`Contrib/G9/KerTheta.lean`), `ξ`-adic separatedness of
+  `A_inf`, the lattice bound `N! · A_cris^0 ⊆ A_inf + ξ^N A_inf[1/p]` and the leading
+  coefficient under `θ[1/p]`.
+* **The action.** `G_{ℚ_p}` acts on `B_cris` and on `B_st` by ring automorphisms (`bcrisAut`,
+  `stAut`, group homomorphisms into the automorphism groups). For `B_st` the group law is the
+  cocycle identity for `log [u_σ]` (`stAct_mul_iff`), which follows from the additivity of `log` on
+  `{ε : ε^♯ = 1}` (`logAdditive : LogAdditive p`, proved through the truncated identity
+  `L_M(a + b + ab) − L_M(a) − L_M(b)` in `ℚ[B][A]`: its coefficients vanish in total degree `≤ M`
+  (a derivative argument) and, in the divided-power basis, are divisible by `N` when `M ≥ 2N + 1`).
+  The monodromy variable is genuine: for every finite `K` some `σ ∈ G_K` moves `p♭`, so
+  `σ(u) = u + c(σ)t ≠ u` and `u ∉ B_st^{G_K}` (`exists_stAct_X_ne`, `X_not_mem_bstInv`).
+* **`K_0 ⊆ B_st^{G_K}`.** `A_inf → B_st` is injective and equivariant (`embW_injective`,
+  `stAct_embW`); for a root of unity `μ ∈ K` of order prime to `p`, the Teichmüller lift `[μ♭]`
+  lies in `B_st^{G_K}` and `1, [μ♭], …, [μ♭]^{d-1}` (`d = [ℚ_p(μ) : ℚ_p]`) are `ℚ_p`-linearly
+  independent (`teichB_pow_mem_bstInv`, `linearIndependent_teichB`), so a finite-dimensional
+  `B_st^{G_K}` has dimension `≥ [ℚ_p(μ) : ℚ_p]` (`natDegree_minpoly_le_finrank_bstInv`).
+* **Semistable representations.** A representation trivial on `G_K` is semistable over `K`
+  (`isSemistableOver_of_trivial`, any `K`), so representations with finite image on a finite `K`,
+  the trivial `n`-dimensional representation (`localIsPst_one`) and the quadratic characters
+  `σ ↦ σ(α)/α` (`isPst_quadChar`) are potentially semistable. A character with a unit period in
+  `B_st` is semistable (`isSemistableOver_of_period`); so the quadratic character of a root of
+  unity `β` of order prime to `p` with `β² ∈ ℚ_p` (for `p` odd and `β` of order `2(p − 1)`, the
+  unramified quadratic character) is semistable over `ℚ_p` itself (`isSemistableOver_quadChar_teich`),
+  and nontrivial when `β ∉ ℚ_p` (`quadChar_ne_one`).
+
+Not proved (see `docs/research/pb-sanity.md`): `B_st^{G_K} ⊆ K_0` (in particular the finite
+dimensionality of `B_st^{G_K}`, which `IsSemistableOver` needs to mean Fontaine's condition), and a
+representation that fails `LocalIsPst`.
+-/

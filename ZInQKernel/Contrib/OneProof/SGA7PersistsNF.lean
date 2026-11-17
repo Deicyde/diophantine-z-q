@@ -6,7 +6,7 @@ import ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.CategoryTheory.Comma.
 # `CToPrinted.SGA7_IX_3_3` from its strictly henselian form (task gt-sga7)
 
 The open hypothesis `sga7_IX_3_3` (`CToPrinted.SGA7_IX_3_3`, `ZInQKernel/OneProof/H/TailZ19.lean`) is the
-**second** assertion of SGA 7 I, Exp. IX, Prop. 3.3 (`N⁰ ×_R R' ≅ N'⁰` for semistable reduction) over an
+**second** assertion of SGA 7 I, Exp. IX, Cor. 3.3 (`N⁰ ×_R R' ≅ N'⁰` for semistable reduction) over an
 arbitrary pair of discrete valuation rings `O ⊆ O'` with `K'/K` finite. It counts GLUE because SGA 7 IX may
 be printed over strictly henselian traits. The chain's leaf `ReductB.SemistablePersistsSHcp` is the *first*
 assertion of 3.3 (semistable reduction persists) and does not give the second, so a strictly henselian form
@@ -47,7 +47,7 @@ namespace SGA7PersistsNF
 
 /-! ## Statements -/
 
-/-- **LEAF `SGA7_IX_3_3_SH`** (Grothendieck, SGA 7 I, Exp. IX, Prop. 3.3, second assertion, over strictly
+/-- **LEAF `SGA7_IX_3_3_SH`** (Grothendieck, SGA 7 I, Exp. IX, Cor. 3.3, second assertion, over strictly
 henselian traits; number and wording recalled, UNVERIFIED, no network). The field statement
 `CToPrinted.SGA7_IX_3_3` word for word with both discrete valuation rings strictly henselian (reduct-glue's
 `IsStrictlyHenselianDVR`: henselian with separably closed residue field). *Printed* (as recalled):
@@ -71,7 +71,7 @@ def SGA7_IX_3_3_SH : Prop :=
     ∀ U : (bcO hO 𝒩.G).left.Opens, (U : Set (bcO hO 𝒩.G).left) = idCompSet (bcO hO 𝒩.G) →
       IsOpenImmersion (U.ι ≫ c.left) ∧ Set.range (U.ι ≫ c.left).base = idCompSet 𝒩'.G
 
-/-- **LEAF (restricted) `SGA7_IX_3_3_SHcp`** (SGA 7 I, Exp. IX, Prop. 3.3, second assertion; number
+/-- **LEAF (restricted) `SGA7_IX_3_3_SHcp`** (SGA 7 I, Exp. IX, Cor. 3.3, second assertion; number
 UNVERIFIED): `SGA7_IX_3_3_SH` with `[CharZero K]` and `[PerfectField κ(O)]` added, so that the residue field
 of the strictly henselian `O` is algebraically closed (Mathlib `isAlgClosed_of_perfectField`). The same
 restriction as the chain's `ReductB.SemistablePersistsSHcp` (the first assertion): a specialization of every

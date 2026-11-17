@@ -1,0 +1,30 @@
+{
+ "name": "r17-rebase-split",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.CarayolPrintedIrr"
+ ],
+ "discharges": [
+  {
+   "field": "r17",
+   "proof": "_root_.CarayolPrinted.carayolR17'_of_split {n}.carayolExistence {n}.carayolConductor {n}.eigenformCoeffFieldFinite",
+   "leaves": [
+    {
+     "name": "carayolExistence",
+     "type": "_root_.CarayolPrinted.CarayolExistence",
+     "doc": "Existence part of Carayol's leaf (r17-rebase): for a printed newform f of weight 2 with number field K_f and a place lambda | l, a continuous, irreducible, odd rho : G_Q -> GL_2(K_{f,lambda}), unramified at p not dividing N l with arithmetic-Frobenius trace a_p(f). Eichler-Shimura-Deligne for weight 2 with Ribet's irreducibility. With carayolConductor, replaces r17.",
+     "kind": "published",
+     "flag": "unread: new printed leaf; Shimura 1971 Thm 7.14 (weight 2), Deligne 1971, Ribet 1977 Thm 2.3 (irreducible), oddness from det rho = psi chi_l; locators UNVERIFIED",
+     "source": "Shimura, Introduction to the arithmetic theory of automorphic functions (1971) Thm 7.14; Deligne, Sem. Bourbaki 355 (1971); Ribet, LNM 601 (1977) Thm 2.3; Darmon-Diamond-Taylor 1997 Thm 3.1; locators UNVERIFIED"
+    },
+    {
+     "name": "carayolConductor",
+     "type": "_root_.CarayolPrinted.CarayolConductor",
+     "doc": "Conductor part of Carayol's leaf (r17-rebase): every continuous, irreducible, odd rho : G_Q -> GL_2(K_{f,lambda}) attached to the printed weight-2 newform f (unramified at p not dividing N l, Frobenius trace a_p(f)) has Serre-Tate conductor exponent v_p(N) at every prime p != l. Consequence of Carayol 1986 Theoreme (A) (local-global compatibility) with Casselman 1973 (a(pi_p) = v_p(N)). With carayolExistence, replaces r17.",
+     "kind": "composite",
+     "flag": "composite: Carayol 1986 Theoreme (A) (local-global compatibility with pi_p; read by the locator audit, row R17) with Casselman 1973 (a(pi_p) = v_p(N)); a packaged print (Darmon-Diamond-Taylor 1997 Thm 3.1, Carayol section 0.8) would make it a leaf; locators UNVERIFIED",
+     "source": "Carayol, Ann. Sci. ENS (4) 19 (1986), Theoreme (A), pp. 409-411; Casselman, Math. Ann. 201 (1973); packaged: Darmon-Diamond-Taylor 1997 Thm 3.1 (UNVERIFIED)"
+    }
+   ]
+  }
+ ]
+}

@@ -462,7 +462,7 @@ def EigenformCoeffFieldFinite : Prop :=
     2 ≤ k → IsNormalizedEigenformDS f χ → FiniteDimensional ℚ (coeffField f)
 
 /-- **LEAF (Deligne–Serre, printed form).** Deligne–Serre, *Formes modulaires de poids 1*, Ann. Sci. ÉNS (4) 7
-(1974), Thm 4.1 with display (4.1.1), p. 514 (locator from the task brief, not read here: UNVERIFIED).
+(1974), Thm 4.1 with display (4.1.1), pp. 513-514 (locators.md and an outside reader agree).
 For a normalized eigenform `f ∈ S_1(N, χ)` (Diamond–Shurman
 Def. 5.8.1; Deligne–Serre's hypothesis, a nonzero form of type `(1, χ)` that is an eigenvector of the `T_p`,
 `p ∤ N`, with eigenvalues `a_p`, holds for it since `a₁ = 1`) there is a continuous

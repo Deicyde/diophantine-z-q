@@ -1,0 +1,4 @@
+'EigenformHTPrinted.eigenformHTNew_of_printed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'EigenformHTPrinted.printed_of_eigenformHTNew' depends on axioms: [propext, Classical.choice, Quot.sound]
+'EigenformHTPrinted.exists_ss' depends on axioms: [propext, Classical.choice, Quot.sound]
+'EigenformHTPrinted.trace_of_charpoly' depends on axioms: [propext, Classical.choice, Quot.sound]

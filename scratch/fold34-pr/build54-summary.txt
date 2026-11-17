@@ -1,0 +1,7 @@
+# summary of lake build ZInQKernel.Contrib.OneProof.MumfordTorsionAlgClosed (full log 4.4 MB not committed: linter warnings)
+modules built: 1343
+Build completed successfully (10693 jobs).
+
+real	23m10.730s
+user	166m29.923s
+sys	44m33.719s

@@ -1,0 +1,3 @@
+'HDec.HSyn.sixContactMin_of_open35E' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZChain.frozenTarget_E' depends on axioms: [propext, Classical.choice, Quot.sound]
+EXIT 0

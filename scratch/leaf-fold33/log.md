@@ -225,3 +225,40 @@ Base: fork main after w82 (leaf-fold32b 03f2467d + STATUS.md wording, 5e235a40).
     check_target.py; among existing OneProof modules only Main.lean changed (Contrib MumfordGroupLawNeron.lean changed
     by the reviewer fix, as intended); OpenStatements 39; DischargesTest rerun; render_open --check ok (34 H,
     strictest 16/18, 5 others); crosswalk --check ok; autoform check ok.
+26. gonzalezRotgerProp56X6 (consequence, GLUE) removed by eichler-bound's bypass, integrated by fold34-eichler: merged
+    wip/fold34-eichler up to its Contrib commit b6645db0 (R5fpCountLeHF; merges wip/eichler-bound 09896d1f, hygiene
+    included), its scratch tools from fd1377d8, then scratch/fold34-eichler/replay.sh on this head: copy
+    OneProof/H/EichlerBoundCopy.lean (gen.py from the taint run of this head) + TailZ63 (OpenResearchLeaves39,
+    `sixContactMin_of_open56`), Main patched, kinds row dropped (claims row already dropped by inbox 1). No new leaf:
+    39 open -> 38 open; H 16/18 on 34 -> 16/17 on 33. Checks (VERIFIED): build +Main +Discharges + copy + TailZ63
+    (14288 jobs); frozenTarget standard axioms; check_target.py; among existing OneProof modules only Main.lean
+    changed; closure check (bundle without the field, count Props supplied by EichlerBound.r5fpCountLe_of_two);
+    OpenStatements 38; DischargesTest rerun (the 5 gonzalezRotgerProp56X6 lines gone); render_open --check ok (33 H,
+    strictest 16/17, 5 others); crosswalk --check ok; autoform check ok.
+27. Inbox 3 readings (kinds.tsv: sga7_IX_3_5_ForwardGeom LEAF/LEAF; raynaudSemistableSHOr reading flags cleared;
+    sga7_IX_3_3_SHpre consequence GLUE with the three-step flag; hGZ flag names D1, D2, jacobiSym = epsilon_D) and the
+    SGA 7 IX locators in docstrings (144 comment-only edits: Prop. 3.3 -> Cor. 3.3, semistable reduction Def. 3.4).
+    H 16/17 on 33 -> 17/16 on 33.
+28. Fork PRs #54 (mumfordTorsionAlgClosed_proof, 9f54c2cc) and #55 (gagaMorphism_proof, d81efece), both verified by
+    fold34-pr and by the reviewer's second compile (inbox 2, 4): merged, one autofold
+    scratch/leaf-fold33/autofold-pr54-55.json (fold34-pr's two specs combined) -> TailZ64, `sixContactMin_of_open57`;
+    vendored LICENSE/NOTICE kept; no new leaf. 38 open -> 36 open; H 17/16 on 33 -> 16/15 on 31. Checks (VERIFIED):
+    build +Main +Discharges (16038 jobs, PR libraries included); frozenTarget standard axioms; check_target.py; only
+    Main.lean changed among existing OneProof modules; closure (no sorryAx, the two fields gone from the bundles);
+    OpenStatements 36; DischargesTest rerun, no error; render_open --check ok (31 H, strictest 16/15, 5 others);
+    crosswalk --check ok; autoform check ok.
+29. Batch for w96 (inbox 6, 7, 9 and cfext-proof), one autofold scratch/leaf-fold33/autofold-batch-w96.json -> TailZ65,
+    `sixContactMin_of_open58`: merged wip/cfext-proof 3849bd80, wip/r17-rebase 4095ce12, wip/htnew-print 8f700a64,
+    wip/pb-fix3 6a2187dd (hygiene: 10 scratch dry-run files renamed .lean.txt). Spec: constantFieldExtensionUnramifiedFinite
+    := CFExtProof.constantFieldExtensionUnramifiedFinite_proof (outright, cfext-proof); carayolThmA (r17-print's leaf)
+    := CarayolPrinted.carayolThmA_of_irr from r17-rebase's leaf carayolThmAIrr (Burnside clause proved), flagged
+    "pending reading: conductor clause (DDT 1997 Thm 3.1 / Carayol 1986 0.8)" (inbox 6); eigenformHTNew := htnew-print's
+    eigenformHTNew_of_printed from modularHTPrinted; r11r12 := pb-fix3's panBerger_of_printedPV from panPrintedP and
+    bergerPrintedV; eigenformCoeffFieldFinite in both proof terms replaced by coeff-rational's
+    eigenformCoeffFieldFinite_of_heckePrime {n}.gamma1IntegralSpan {n}.heckePrimeIntegralToRational. New printed leaves
+    "pending review" (inbox 7), all four new rows GLUE/GLUE. Inbox 9: dsThm966Printed locator pp. 513-514 in kinds.tsv
+    and both docstrings (DSCoeffExt.lean, DSThm966EV.lean). Count: 36 open -> 36 open; H 16/15 on 31 -> 16/15 on 31
+    (cfext -1 field -1 GLUE; r11r12 one GLUE -> two GLUE; the other two GLUE for GLUE). Checks (VERIFIED): build
+    +Main +Discharges (16047 jobs); frozenTarget standard axioms; check_target.py; only Main.lean changed among existing
+    OneProof modules; closure (no sorryAx); OpenStatements 36; DischargesTest rerun, no error; render_open --check ok
+    (31 H, strictest 16/15, 5 others); crosswalk --check ok; autoform check ok.

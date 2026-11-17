@@ -597,7 +597,7 @@ that for every finite extension `L'/L₀` and every Néron model `𝒩'` over `�
 model `𝒰` (the identity component `𝒩'⁰`) that is an open subgroup both of `𝒩'` and of a base
 change `𝒱` of `𝒩₀` (namely `𝒱 = 𝒩₀ ×_{𝓞_{L₀}} 𝓞_{L'}`, with `𝒰 = 𝒩₀⁰ ×_{𝓞_{L₀}} 𝓞_{L'}`).
 Consequence of SGA 7 IX Thm 3.6 (Grothendieck's semistable reduction theorem: `A_{L₀}` is
-semistable for some finite `L₀`) and SGA 7 IX Prop./Cor. 3.3 (in the semistable case
+semistable for some finite `L₀`) and SGA 7 IX Cor. 3.3 (in the semistable case
 `(𝒩_{L'})⁰ = (𝒩⁰)_{L'}`), with the openness of the identity component (SGA 3 VI_B 3.10) and
 the compatibility of Néron models with localization (BLR §1.2); all locators UNVERIFIED. -/
 def SemistableNeronIdentityComponent : Prop :=

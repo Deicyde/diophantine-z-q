@@ -1,0 +1,12 @@
+This package adapts selected source files from AxiomMath/Stacks at revision
+c496df0d9beea9deaeabcea8492605f9a0a2313b.
+
+The upstream Apache-2.0 LICENSE is included verbatim. Source-file copyright,
+author notices and mathematical source references are retained.
+
+Import paths are remapped to the contribution prefix. Metadata-only
+Stacks/SGA/EGA annotations and commands are omitted. Limited fixed-pin
+proof-API adaptations are documented in MODIFICATIONS.md.
+
+The ComplexProduct wrapper is additional supporting code proving reducedness
+on the existing complex over-category product.

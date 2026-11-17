@@ -187,7 +187,7 @@ morphism `X → ℙ¹_ℚ̄` unramified over `ℙ¹ ∖ {0, 1, ∞}`.
 This is `JavanpeykarFix.JavanpeykarPrintedMap` (javanpeykar-fix) verbatim, with height-dict's
 `ZInQ.HeightDict.IsPrintedStableHeight` replaced by height-fix's `ZInQ.HeightFix.IsPrintedStableHeight`
 (sound archimedean metric: the measure `(i/2)^g η ∧ η̄`, defined chart by chart, must exist; Néron
-model over a field of semistable reduction read over the residue fields `k(𝔭)`, SGA 7 IX 2.2/3.2).
+model over a field of semistable reduction read over the residue fields `k(𝔭)`, SGA 7 IX Déf. 3.4).
 Stated for `X = X₀ ×_K ℚ̄` (`X₀` a smooth proper geometrically connected curve over a number field
 `K`, `ℚ̄ = AlgebraicClosure K`):
 * `X` smooth, connected, projective (a closed immersion into `ℙ(n; Spec ℚ̄)`, hypothesis);
