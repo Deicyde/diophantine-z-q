@@ -1,67 +1,74 @@
-# Prime Hecke rationality — mathematical proof attempt
+# Prime Hecke rationality — proved low levels, open all-level target
 
-## Exact open target
+## Exact original target
 
-`CoeffRational.HeckePrimeIntegralToRational`, declared in
-`ZInQKernel/Contrib/OneProof/CoeffRational.lean` at base
-`27657ffb10fd6706595d384eb412cfe5d091427d`.
+`CoeffRational.HeckePrimeIntegralToRational`, in
+`ZInQKernel/Contrib/OneProof/CoeffRational.lean`, is unchanged. For every nonzero
+level N, weight k ≥ 2, good prime p, and cusp form g on Γ₁(N) with integral
+Fourier coefficients, it asks for rational coefficients of the actual
+`heckeSlashGamma1CuspFormEnd k (diagCosetGamma1 N p) g`.
 
-For every nonzero level N, weight k ≥ 2, prime p not dividing N, and cusp form
-g on Γ₁(N) with integral Fourier coefficients, prove that the actual
-`heckeSlashGamma1CuspFormEnd k (diagCosetGamma1 N p) g` has rational coefficients.
-The original definition, operator, normalization, coefficient map and
-quantifiers remain unchanged.
+**The original all-level target remains OPEN.** No global hypothesis has been
+removed from the final single-proof assembly, and this work does not prove
+that Z is Diophantine in Q.
 
-## Verified mathematical contributions
+## New closed level-five conclusion
 
-Six proof modules contain 51 public theorem/lemma declarations, compiled and
-audited with pinned Lean 4.35.0. Their conclusions have different scopes:
+`LevelFive.integral_input_hecke_rational` proves exactly the original contract
+at N = 5, with only its original weight, prime, good-prime and integral-input
+hypotheses. No generator, basis, Galois, dimension or rationality premise
+remains in this export.
 
-- **Rationality fragments:** all coefficients off multiples of p at every
-  nonzero level; all coefficients for p ≡ ±1 modulo N; and the complete
-  conclusion at N = 1, 2, 3, 4, 6 for every good prime and every input form.
-- **All-level conjugation:** every actual diamond class commutes with complex
-  conjugation and preserves real Fourier coefficients. The actual good-prime
-  Hecke operator preserves real coefficients too. Real is not rational.
-- **Global theta nonvanishing:** Mathlib's actual `jacobiTheta₂` is nonzero at
-  `(aτ+b)/5 + (τ+1)/2` for every τ in the upper half-plane whenever a and b
-  are not both divisible by 5. No product formula or assumed zero set is used.
-- **Sharp level-five coefficient bound:** for every integer k ≥ 0, an actual
-  modular form on Γ₁(5) whose coefficients 0 through k vanish is zero. The
-  proof constructs `f²(⟨2⟩f)²` on Γ₀(5) and uses its index-six Sturm bound.
-  No basis, dimension or rationality premise is supplied. This theorem is
-  on modular forms; applying it to cusp forms requires the standard coercion.
+The proof also gives two stronger results at level five:
 
-The rationality fragments and conjugation results work at every integer
-weight; their level/residue/input-field restrictions remain explicit.
+- Every diamond class preserves rational modular-form coefficients at every
+  natural weight.
+- The actual prime-Hecke operator preserves rational cusp-form coefficients
+  at every nonnegative integer weight, including the bad prime.
 
-**The full all-level target remains OPEN.** The theta and sharp-bound lemmas
-close two concrete analytic sub-obligations for a level-five construction;
-they do not yet construct the weight-one modular forms, establish their
-coefficient descent, or prove Hecke rationality at level five. They are not
-being counted as a full leaf discharge.
+With the earlier sign-only cases, `integral_input_hecke_rational_le_six`
+proves the exact original conclusion at every nonzero level N ≤ 6. That level
+bound is explicit; levels N ≥ 7 are not discharged.
 
-The general non-sign diamond action still needs an arithmetic rationality
-argument. Neither finite unit enumeration nor preservation of real
-coefficients supplies it. No impossibility or universal non-scalarity claim
+## What was constructed, not assumed
+
+1. Global nonvanishing of Mathlib's actual theta function at shifted nonzero
+   5-torsion points, proved by transformations and dominant-term estimates.
+2. Actual weight-one modular forms from completed theta logarithmic derivatives,
+   with holomorphy, Γ₁ invariance and boundedness at every cusp proved.
+3. Their actual q-expansions, cyclotomic coefficient membership and Galois
+   covariance, including the constant and first coefficients.
+4. Finite Galois structure and the fixed-field theorem for the explicit fifth
+   cyclotomic field.
+5. Concrete normalized generators A and B. Their rational coefficients follow
+   from Galois conjugation and the sharp weight-one coefficient bound. The
+   actual non-sign diamond has the integer matrix
+   `⟨2⟩A = -3A - B`, `⟨2⟩B = 10A + 3B`.
+6. The all-weight power basis and rational coordinate extraction, from a proved
+   sharp level-five bound. The Hecke recurrence then gives the closed export.
+
+The separate all-level conjugation result preserves real coefficients, not
+rational coefficients. Neither it nor the level-five construction supplies
+a uniform proof at arbitrary levels. No non-scalarity or impossibility claim
 is made for other levels or weights.
 
-Do not use `diamondIntegralToRational_of_heckePrime` circularly: that existing
-result derives diamond rationality from the very full Hecke leaf being proved.
-No general Hecke or diamond-preservation premise is hidden in these proofs.
+## Checks, scope and history
 
-## Checks and history
+See `CHECKS.md` for source hashes, commands, literal target checks and the
+transitive axiom audits. The new source was compiled with pinned Lean 4.35.0
+and independently reviewed. Audited closures use only `propext`,
+`Classical.choice`, and `Quot.sound`, with no `sorryAx`. Warm imports are
+explicitly disclosed; this is not an independent cold replay of every
+imported constant or a full-project integration certificate.
 
-See `CHECKS.md` for build commands, source hashes, actual compiler repairs and
-literal target checks. The combined 51-declaration transitive axiom audit uses
-only `propext`, `Classical.choice`, and `Quot.sound`, with no `sorryAx`.
-Separate mathematical source reviews checked the final code and its scope.
-These checks are not an independent cold replay of every imported constant.
+All source additions are confined to this contribution. Existing proof source,
+dependency pins, assemblies and published history are preserved. Only this
+contribution's status/check documents are updated additively. No PR, merge or
+land is claimed by the WIP branch.
 
-Only contribution additions and additive status updates are made. Existing
-proof source, dependency pins, assemblies and published history are preserved.
-No assumption has been removed from the final single-proof assembly, and no
-PR, merge or land is claimed by this WIP branch.
+This is background work for the modularity/coefficient-field passage in the
+manuscript's six-contact height estimate, not its pole-completeness argument.
+The modular level N = 5 here is not the manuscript's coefficient prime ℓ = 5.
+The all-level leaf and the other global proof obligations remain separate.
 
-This is an AI-assisted mathematical proof attempt. It does not prove that
-Z is Diophantine in Q.
+This is an AI-assisted mathematical proof contribution.

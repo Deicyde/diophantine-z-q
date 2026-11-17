@@ -149,5 +149,81 @@ example (k : Int) (hk : 0 ≤ k)
 The plain-file module-system warnings remain; they are warnings, not errors.
 No source header/body was churned merely to suppress them. Ordinary compiler
 checking and separate source review are not a cold native replay certificate.
-The weight-one forms and their coefficient descent are not supplied by these
-helpers. No assumption in the final single-proof assembly has been discharged.
+These earlier helpers did not supply the weight-one forms or their coefficient
+descent. The later checkpoint below constructs those and proves the level-five
+contract. The all-level hypothesis in the final single-proof assembly remains
+undischarged.
+
+## Closed level-five endpoint
+
+The actual weight-one forms, coefficient arithmetic, fifth cyclotomic field,
+normalized rational generators and power-basis action are now proved. The
+conditional algebraic helper is bound to those concrete proof objects in
+`LevelFive.lean`; no generator, basis, Galois or rationality premise survives.
+
+```sh
+lake --no-cache --no-ansi build +ZInQKernel.Contrib.OneProof.HeckePrimeRationality.LevelFive:olean
+lake --no-cache --no-ansi build +ZInQKernel.Contrib.OneProof.HeckePrimeRationality.LowLevels:olean
+lake --no-cache env lean LevelFiveEndpointAudit.lean
+```
+
+All final commands exited 0. The endpoint audit checks this literal original
+contract specialized at N = 5, using root-qualified types and operators:
+
+```lean
+import ZInQKernel.Contrib.OneProof.HeckePrimeRationality.LevelFive
+
+example (k : Int) (p : Nat)
+    (g : _root_.CuspForm
+      ((_root_.CongruenceSubgroup.Gamma1 5).map (_root_.Matrix.SpecialLinearGroup.mapGL Real)) k)
+    (hk : 2 ≤ k) (hp : p.Prime) (hgood : ¬ p ∣ 5)
+    (hg : ∀ m : Nat, ∃ z : Int,
+      (_root_.UpperHalfPlane.qExpansion 1 g).coeff m = (z : Complex)) :
+    ∀ m : Nat, ∃ q : Rat,
+      (_root_.UpperHalfPlane.qExpansion 1
+        (_root_.HeckeRing.GL2.heckeSlashGamma1CuspFormEnd k
+          (_root_.HeckeRing.GL2.diagCosetGamma1 5 p) g)).coeff m = (q : Complex) :=
+  ZInQ.Contrib.HeckePrimeRationality.LevelFive.integral_input_hecke_rational k p g hk hp hgood hg
+
+#print axioms ZInQ.Contrib.HeckePrimeRationality.LevelFive.integral_input_hecke_rational
+```
+
+The full endpoint axiom closure is `[propext, Classical.choice, Quot.sound]`.
+The complete supporting module audits also remain within this standard trio;
+no `sorryAx` was reported. Separate source review checked the actual generator
+construction, Galois-fixed coefficient argument, integer diamond matrix and
+all endpoint binders, not merely the conditional helper.
+
+Current additional source hashes:
+
+- `ThetaFiveTorsionDefinitions.lean`:
+  `1cc7d8168ba13be52660e079dc081f6f33a292e151a2410a0d5fe17b6d4fbbeb`
+- `ThetaFiveTorsionForms.lean`:
+  `fd20716f2e20c5f718d43a9f6e429bb3e050d998421faa30d05b79b685ffbef7`
+- `ThetaFiveTorsionCoefficients.lean`:
+  `75726aa34563f24de2e08891e0c7312cbbc2367e4b2f64af247fb1d895479396`
+- `ThetaFiveCyclotomicField.lean`:
+  `f9b19d85085aa6af6349e10bb61847ac4d2ab8a218c1aa201d0a37c069204d17`
+- `ThetaFivePowerBasis.lean`:
+  `10e6c156f24423a961dfb3d8b8b1ae1972272e7de70e155b8b5f6c44a06f7a0c`
+- `ThetaFiveNormalizedGenerators.lean`:
+  `29316c9702ce801a311425f0ff8ef1d97a29eb7ffd7f943df64138e283e897f8`
+- `ThetaFiveRationalGenerators.lean`:
+  `740ffccaa69477bf8f76b08f12ab4129199b52eee77254bfa130eabea1de6b0e`
+- `ThetaFiveDiamondFromBasis.lean`:
+  `cb2c8c5f731cd9aba66a6675a97f871b0012511dd7f6b6fe86c3f6deee6c2531`
+- `LevelFive.lean`:
+  `047bfbcabaffece34a8e73eae1e56c2067af35370cafa5deed2f0a07f7b2e45e`
+- `LowLevels.lean`:
+  `944886d247918369dd1c45369c512a7a32af71b452299484e4095684e80b2ceb`
+
+The earlier six proof modules and their reported hashes are unchanged.
+Compiler repairs in the new normalized-generator module supplied the correct
+field-denominator nonzero facts, exact polynomial multipliers, and an explicit
+Gamma0 membership proof; no target statement was weakened. Failed attempts
+are retained in the private verification record.
+
+`LowLevels.lean` combines the level-five theorem with the earlier sign cases
+and exposes only the extra bound N ≤ 6. It does not discharge any level N ≥ 7.
+The original all-level target, final assembly and other global obligations
+remain unchanged. No PR, merge, landing or full Z-in-Q claim is made.
