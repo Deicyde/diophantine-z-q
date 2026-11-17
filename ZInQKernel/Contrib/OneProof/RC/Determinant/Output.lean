@@ -16,7 +16,7 @@ ring `MonoidAlgebra O G` of a finite elementary abelian `2`-group `G`; sign char
 `χ : G →* ℤˣ` with evaluations `signEval χ : O[G] → O`; elements of `O` are read through their
 Laurent coefficients `[tⁱ] : O → ℤ₂` (`LaurentCoeffData`, realized for the genuine
 `𝒪 = lim (ℤ/2ⁿ)((t))` in `OCoeff.lean`); the corrected coordinate `ũ_x ∈ Λ[1/2]` is
-`g_x / 2^e` with `g_x ∈ Λ`.
+`g_x / 2^{e_x}` with `g_x ∈ Λ`.
 
 Main result `fixed_field_clearing` (PROVED from the named inputs): with `f = 2^a Δ⁴` and
 `d = η Δ Q` in `O[G]`,
@@ -59,6 +59,8 @@ structure LaurentCoeffData {O : Type*} [CommRing O] [Algebra Lam O] (D : PoleDat
     ∀ i : ℤ, i < -(L : ℤ) → (2 : ℤ_[2]) ^ M ∣ coeffZ y i
   conv : ∀ (y : O) (g : Lam) (n : ℤ),
     HasSum (fun k : ℕ => coeffZ y (n - k) * PowerSeries.coeff k g) (coeffZ (y * algebraMap Lam O g) n)
+  /-- the coefficients tend to `0` at `-∞` (elements of `𝒪`, tex 2747–2748) -/
+  decay : ∀ (y : O) (M : ℕ), ∃ L : ℕ, ∀ i : ℤ, i < -(L : ℤ) → (2 : ℤ_[2]) ^ M ∣ coeffZ y i
 
 namespace LaurentCoeffData
 
@@ -82,6 +84,22 @@ theorem coeffZ_two_pow_mul (e : ℕ) (y : O) (i : ℤ) :
   simpa using this
 
 end LaurentCoeffData
+
+/-- **Tex 5517–5519, 5526–5532, 5630–5632 (PROVED).**  The entry pole bound consumed by the
+clearing: if the sign-evaluated block `A_i` is a submatrix of `U d_x V`, where `U, V` are the
+constant basis changes of the Smith decomposition (over `Λ`) and every entry of the sign-evaluated
+differential `d_x` of `D` has pole at most `L` modulo `2^M` (for the entries next to the cancelled
+new block this is `PoleData.newLocal_schur_pole`; the other entries are power series), then every
+entry of `A_i` has pole at most `L` modulo `2^M`. -/
+theorem entry_pole_of_differential {O : Type*} [CommRing O] [Algebra Lam O] (D : PoleData Lam O)
+    {p q r s e e' : Type*} [Fintype q] [Fintype r] {M L : ℕ}
+    (U : Matrix p q Lam) (d : Matrix q r O) (V : Matrix r s Lam)
+    (hd : ∀ i j, d i j ∈ D.poleModLE M L) (fe : e → p) (fe' : e' → s) (Ax : Matrix e e' O)
+    (hA : Ax = (U.map (algebraMap Lam O) * d * V.map (algebraMap Lam O)).submatrix fe fe') :
+    ∀ j k, Ax j k ∈ D.poleModLE M L := by
+  intro j k
+  rw [hA, Matrix.submatrix_apply]
+  exact D.basisChange_entry_mem_poleModLE U d V hd _ _
 
 section Assembly
 
@@ -117,27 +135,27 @@ theorem coordinate_of_patterns {S K : Type*} [CommRing S] [Field K] {B : SmithBl
 
 /-- **Proposition `ex:limits-fixed-field-clearing`, (5.9) (PROVED from the named inputs).**
 See the module docstring for the list of inputs.  `X` indexes the sign characters `χ x` of the
-family; `ũ_x = g_x / 2^e`. -/
+family; `ũ_x = g_x / 2^{e_x}`. -/
 theorem fixed_field_clearing [Fintype G] {X : Type*} (χ : X → G →* ℤˣ)
     (B : SmithBlocks (MonoidAlgebra O G) O) (hn : 2 < B.n)
     -- the augmentation of `D` is the old complex over `Λ` (tex 5517, 5537–5538)
     (haug : ∀ i, (B.A i).map aug = (B.A0 i).map (algebraMap Lam O))
     (sd : ScalarData B) (κ ε η : MonoidAlgebra O G) (a : ℕ)
-    (e : ℕ) (g : X → Lam) (h2O : (2 : O) ≠ 0)
+    (e : X → ℕ) (g : X → Lam) (h2O : (2 : O) ≠ 0)
     -- the generic patterns and Elliot's coordinate identity (tex 5605–5617; ELLIOT)
     (RankOne Acyclic : X → Prop) (hpat : ∀ x, RankOne x ∨ Acyclic x)
     (hrank : ∀ x, evK (χ x) B.Δ ≠ 0 → RankOne x →
-      uK e (g x) = evK (χ x) η * evK (χ x) κ * sd.αK (evK (χ x)) *
+      uK (e x) (g x) = evK (χ x) η * evK (χ x) κ * sd.αK (evK (χ x)) *
         (((2 : FractionRing O) ^ a)⁻¹ * sd.βK (evK (χ x))) * cleanT (evK (χ x)) B ε)
     (hacyc : ∀ x, evK (χ x) B.Δ ≠ 0 → Acyclic x →
-      sd.αK (evK (χ x)) = 0 ∧ uK e (g x) = (0 : FractionRing O))
+      sd.αK (evK (χ x)) = 0 ∧ uK (e x) (g x) = (0 : FractionRing O))
     -- the entry pole bound (5.8) at every sign character (tex 5517–5519)
     (hpole : ∀ x M i, ∀ j k, ((B.A i).map (signEval (χ x))) j k ∈ D.poleModLE M (4 * M))
     -- the budget (5.7) (tex 5384–5386)
     (dK hK cE tK : ℕ) (hm : B.mTot ≤ dK + 5) (hh : B.hSmith ≤ hK + 2 * cE + 2 * tK) :
     (∀ x (n : ℤ), HasSum (fun k : ℕ =>
         ((LC.coeffZ (signEval (χ x) (clearF B a)) (n - k) : ℤ_[2]) : ℚ_[2]) *
-        (((PowerSeries.coeff k (g x) : ℤ_[2]) : ℚ_[2]) / 2 ^ e))
+        (((PowerSeries.coeff k (g x) : ℤ_[2]) : ℚ_[2]) / 2 ^ e x))
         (LC.coeffZ (signEval (χ x) (sd.dd κ ε η)) n : ℚ_[2])) ∧
     (∀ i : ℤ, i < 0 → LC.coeffZ (aug (clearF B a)) i = 0) ∧
     LC.coeffZ (aug (clearF B a)) 0 ≠ 0 ∧
@@ -150,27 +168,27 @@ theorem fixed_field_clearing [Fintype G] {X : Type*} (χ : X → G →* ℤˣ)
     intro h; apply h2O; apply hinj; rw [map_ofNat, h, map_zero]
   -- the integral identity `f_x g_x = 2^e d_x` in `O`
   have hint : ∀ x, signEval (χ x) (clearF B a) * algebraMap Lam O (g x) =
-      2 ^ e * signEval (χ x) (sd.dd κ ε η) := by
+      2 ^ e x * signEval (χ x) (sd.dd κ ε η) := by
     intro x
-    have hcoord : evK (χ x) B.Δ ≠ 0 → uK e (g x) = evK (χ x) η * evK (χ x) κ *
+    have hcoord : evK (χ x) B.Δ ≠ 0 → uK (e x) (g x) = evK (χ x) η * evK (χ x) κ *
         sd.αK (evK (χ x)) * (((2 : FractionRing O) ^ a)⁻¹ * sd.βK (evK (χ x))) *
           cleanT (evK (χ x)) B ε := fun hΔ =>
       coordinate_of_patterns (S := MonoidAlgebra O G) (K := FractionRing O) (evK (χ x)) sd κ ε η a
-        (uK e (g x)) (RankOne x) (Acyclic x) (hpat x) (hrank x hΔ) (hacyc x hΔ)
-    have hid : evK (χ x) (clearF B a) * uK e (g x) = evK (χ x) (sd.dd κ ε η) :=
+        (uK (e x) (g x)) (RankOne x) (Acyclic x) (hpat x) (hrank x hΔ) (hacyc x hΔ)
+    have hid : evK (χ x) (clearF B a) * uK (e x) (g x) = evK (χ x) (sd.dd κ ε η) :=
       f_mul_u_eq_d (S := MonoidAlgebra O G) (K := FractionRing O) (evK (χ x)) sd κ ε η a
-        (uK e (g x)) h2K hn hcoord
+        (uK (e x) (g x)) h2K hn hcoord
     rw [evK_apply, evK_apply, uK] at hid
     apply IsFractionRing.injective O (FractionRing O)
-    have h2e : (2 : FractionRing O) ^ e ≠ 0 := pow_ne_zero _ h2K
+    have h2e : (2 : FractionRing O) ^ e x ≠ 0 := pow_ne_zero _ h2K
     set A := algebraMap O (FractionRing O) (signEval (χ x) (clearF B a))
     set Bd := algebraMap O (FractionRing O) (signEval (χ x) (sd.dd κ ε η))
     set Gx := algebraMap O (FractionRing O) (algebraMap Lam O (g x))
     calc algebraMap O (FractionRing O) (signEval (χ x) (clearF B a) * algebraMap Lam O (g x))
         = A * Gx := map_mul _ _ _
-      _ = (A * (Gx / 2 ^ e)) * 2 ^ e := by field_simp
-      _ = Bd * 2 ^ e := by rw [hid]
-      _ = algebraMap O (FractionRing O) (2 ^ e * signEval (χ x) (sd.dd κ ε η)) := by
+      _ = (A * (Gx / 2 ^ e x)) * 2 ^ e x := by field_simp
+      _ = Bd * 2 ^ e x := by rw [hid]
+      _ = algebraMap O (FractionRing O) (2 ^ e x * signEval (χ x) (sd.dd κ ε η)) := by
           rw [map_mul, map_pow, map_ofNat, mul_comm]
   have hval := valuation_f0 B a hK cE tK hh
   have haug' : ∀ i, (B.A i).map (aug : MonoidAlgebra O G →ₐ[O] O).toRingHom =
@@ -182,8 +200,8 @@ theorem fixed_field_clearing [Fintype G] {X : Type*} (χ : X → G →* ℤˣ)
     have hc := LC.conv (signEval (χ x) (clearF B a)) (g x) n
     rw [hint x, LC.coeffZ_two_pow_mul] at hc
     have hq := hc.map PadicInt.Coe.ringHom continuous_subtype_val
-    have hq2 := hq.div_const ((2 : ℚ_[2]) ^ e)
-    have h2e : (2 : ℚ_[2]) ^ e ≠ 0 := pow_ne_zero _ two_ne_zero
+    have hq2 := hq.div_const ((2 : ℚ_[2]) ^ e x)
+    have h2e : (2 : ℚ_[2]) ^ e x ≠ 0 := pow_ne_zero _ two_ne_zero
     convert hq2 using 1
     · funext k
       simp only [Function.comp_apply, map_mul, PadicInt.Coe.ringHom_apply]

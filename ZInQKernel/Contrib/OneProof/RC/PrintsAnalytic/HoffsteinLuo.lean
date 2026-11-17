@@ -42,14 +42,15 @@ the print's setting (the theorem's `d` lie in `Δ_w = {d : ±d > 0, μ(d) ≠ 0,
 depend on `f` or `S`); `d` is odd ✓. The theorem does not say `d > 0`: that is forced by (1), as
 App G L10025 says, and is `pos_of_twisted_functional_equation` below (PROVED from (1)). The
 identification `L(s, f, χ_d) = L(A^{(d)}, s)` for the curve is `TwistDictionary` (GLUE,
-`Newform.lean`); the curve form of the theorem is `HoffsteinLuoCurve`.
+`Newform.lean`); the curve forms over the shared vocabulary are `HoffsteinLuoCurve` and
+`TwistedRootNumberCurve`, and `pos_of_twistedRootNumber` is the step `d > 0`.
 -/
 
 noncomputable section
 
 namespace ZInQ.Manuscript.RC.PrintsAnalytic
 
-open ZInQ.Manuscript HeckeRing.GL2 Complex
+open ZInQ.Manuscript ZInQ.Contrib.CloudB3RC53 HeckeRing.GL2 Complex
 
 /-- **Hoffstein–Luo, Theorem** (PRINT; Math. Res. Lett. 4 (1997) 435–444, §1, pp. 435–436).
 For a newform `f` of weight `k ≥ 2`, level `N`, trivial nebentypus, and any finite set `S` of
@@ -81,16 +82,30 @@ def TwistedFunctionalEquation : Prop :=
             newformSign f hχ * ((kroneckerNegOne D * kronecker D N : ℤ) : ℂ) *
               completedL (D.natAbs ^ 2 * N) F s
 
-/-- **Hoffstein–Luo for an elliptic curve** (the form used at tex L1985–1991 and App G
-L10016–10027). For an elliptic curve `A/ℚ` with newform `f` of level `N` and any finite set `S` of
-primes there are infinitely many odd fundamental discriminants `d`, prime to `N`, with `ω(d) ≤ 4`,
-`χ_d(p) = 1` for `p ∈ S`, and `ord_{s=1} L(A^{(d)}, s) = 0`. It follows from `HoffsteinLuoTheorem`
-with `TwistDictionary` and `HasseConvergence` (`Bridges.lean`, `hoffsteinLuoCurve_of`). -/
+/-- **Hoffstein–Luo for an elliptic curve** (PRINT, composite: the form used at tex L1985–1991 and
+App G L9995–10027, over the shared vocabulary `qtwist`, `AnalyticRank`). For every elliptic curve
+`A/ℚ` and every finite set `S` of primes there are infinitely many odd fundamental discriminants
+`d` with `ω(d) ≤ 4`, `χ_d(p) = 1` for every `p ∈ S`, and `ord_{s=1} L(A^{(d)}, s) = 0`, i.e.
+`L(A^{(d)}, 1) ≠ 0`. This is `HoffsteinLuoTheorem` applied to the newform of `A` (modularity,
+`ModularNewform`), with `L(s, f, χ_d) = L(A^{(d)}, s)` for `d` prime to the level (`TwistDictionary`,
+GLUE; the print's `d` are prime to the level) and the convention `Re s > 3/2`
+(`HasseConvergence`, GLUE); `Bridges.lean` proves `hoffsteinLuoCurve_of` from these. No hypothesis
+on `S` is needed: the print's `d` are always prime to the level. -/
 def HoffsteinLuoCurve : Prop :=
-  ∀ A : WeierstrassCurve ℚ, A.IsElliptic → ∀ (N : ℕ) [NeZero N] (f : Newform N 2),
-    IsNewformOf A f → ∀ S : Finset ℕ, (∀ p ∈ S, p.Prime) →
-      {d : ℤ | IsFundamentalDiscriminant d ∧ Odd d ∧ IsCoprime d (N : ℤ) ∧ omega d ≤ 4 ∧
-        (∀ p ∈ S, kronecker d p = 1) ∧ HasAnalyticOrder (quadTwist A d) 0}.Infinite
+  ∀ A : WeierstrassCurve ℚ, A.IsElliptic → ∀ S : Finset ℕ, (∀ p ∈ S, p.Prime) →
+    {d : ℤ | IsFundamentalDiscriminant d ∧ Odd d ∧ omega d ≤ 4 ∧
+      (∀ p ∈ S, kronecker d p = 1) ∧ AnalyticRank (qtwist A d) 0}.Infinite
+
+/-- **The twisted functional equation for an elliptic curve** (PRINT, composite: display (1) of
+Hoffstein–Luo p. 435 and BFH p. 543 for the newform of `A`, with `TwistDictionary`). If `L(A, s)`
+has the functional equation of level `N` and sign `w`, and `D` is a fundamental discriminant prime
+to `N`, then `L(A^{(D)}, s)` has the functional equation of level `D²N` and sign
+`w χ_D(-N) = w · sgn(D) · χ_D(N)`. Used at App G L10025 ("The functional equation forces
+`d > 0`"), through `pos_of_twistedRootNumber`. -/
+def TwistedRootNumberCurve : Prop :=
+  ∀ A : WeierstrassCurve ℚ, A.IsElliptic → ∀ (N : ℕ) (w : ℤ), RootNumberAt A N w →
+    ∀ D : ℤ, IsFundamentalDiscriminant D → IsCoprime D (N : ℤ) →
+      RootNumberAt (qtwist A D) (D.natAbs ^ 2 * N) (w * (kroneckerNegOne D * kronecker D N))
 
 /-! ### `d > 0` from the twisted functional equation (App G L10025) -/
 
@@ -112,8 +127,8 @@ theorem jacobiSym_eq_one_of_forall_prime_dvd {D : ℤ} :
         rw [hc]
         have := hp.two_le
         nlinarith [Nat.pos_of_ne_zero hc0]
-      haveI : NeZero m.minFac := ⟨hp.ne_zero⟩
-      haveI : NeZero c := ⟨hc0⟩
+      have : NeZero m.minFac := ⟨hp.ne_zero⟩
+      have : NeZero c := ⟨hc0⟩
       rw [hc, jacobiSym.mul_right, h _ hp (Nat.minFac_dvd m),
         ih c hcm fun p hp' hpc => h p hp' (hc ▸ Dvd.dvd.mul_left hpc _), one_mul]
 
@@ -157,5 +172,27 @@ theorem pos_of_twisted_functional_equation {N : ℕ} (hN : 0 < N) {k : ℕ} (hk 
     kroneckerNegOne] at h1
   have h1' : Int.sign D = 1 := by exact_mod_cast h1
   exact Int.sign_eq_one_iff_pos.mp h1'
+
+/-- **`d > 0` for the twisted curve** (PROVED; App G L10025, "The functional equation forces
+`d > 0`, since `A^{q₀}` has even root number and every conductor prime splits"). If `A^{(D)}` has
+the functional equation of level `D²N` and sign `1 · χ_D(-N)` (the output of
+`TwistedRootNumberCurve` when `A` has root number `+1`), every prime factor of `N` splits in
+`ℚ(√D)`, and `L(A^{(D)}, 1) ≠ 0`, then `D > 0`. -/
+theorem pos_of_twistedRootNumber {A : WeierstrassCurve ℚ} {N : ℕ} (hN : 0 < N) {D : ℤ}
+    (hD : D ≠ 0)
+    (hroot : RootNumberAt (qtwist A D) (D.natAbs ^ 2 * N) (1 * (kroneckerNegOne D * kronecker D N)))
+    (hsplit : ∀ p : ℕ, p.Prime → p ∣ N → kronecker D p = 1)
+    (h0 : AnalyticRank (qtwist A D) 0) : 0 < D := by
+  obtain ⟨-, F', hF', hFE⟩ := hroot
+  obtain ⟨F, hF, hF1⟩ := analyticRank_zero_iff.mp h0
+  have hEq : F' = F := isLContinuation_eq hF' hF
+  subst hEq
+  refine pos_of_twisted_functional_equation (F := F') hN (k := 2) (by norm_num) hD (ε := 1) rfl ?_
+    hsplit ?_
+  · intro s hs1 hs2
+    have h := hFE s hs1 (by exact_mod_cast hs2)
+    push_cast at h ⊢
+    simpa using h
+  · simpa using hF1
 
 end ZInQ.Manuscript.RC.PrintsAnalytic

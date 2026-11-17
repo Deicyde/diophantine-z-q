@@ -29,22 +29,22 @@ abbrev Acoef (i : ℕ) : Type := (ZMod (2 ^ i))[X] ⧸ Ideal.span {(X : (ZMod (2
 /-- The variable `t ∈ A_i`. -/
 noncomputable def tA (i : ℕ) : Acoef i := Ideal.Quotient.mk _ X
 
-/-- `t^i = 0` in `A_i`, `PROVED`. -/
+/-- `t^i = 0` in `A_i` (tex 2725), `PROVED`. -/
 theorem tA_pow (i : ℕ) : tA i ^ i = 0 := by
   rw [tA, ← map_pow, Ideal.Quotient.eq_zero_iff_mem]
   exact Ideal.subset_span rfl
 
-/-- `2^i = 0` in `A_i`, `PROVED`. -/
+/-- `2^i = 0` in `A_i` (tex 2725), `PROVED`. -/
 theorem two_pow_A (i : ℕ) : (2 : Acoef i) ^ i = 0 := by
   rw [show (2 : Acoef i) ^ i = ((2 ^ i : ℕ) : Acoef i) by push_cast; ring,
     ← map_natCast (algebraMap (ZMod (2 ^ i)) (Acoef i)), ZMod.natCast_self, map_zero]
 
-/-- `1 + t` is a unit of `A_i` (`t` is nilpotent), `PROVED`. -/
+/-- `1 + t` is a unit of `A_i` (`t` is nilpotent; tex 2783), `PROVED`. -/
 theorem isUnit_one_add_tA (i : ℕ) : IsUnit (1 + tA i) :=
   (IsNilpotent.isUnit_one_add ⟨i, tA_pow i⟩)
 
-/-- The squaring step: if `2 ∈ J` and `x - 1 ∈ J^{k+1}`, then `x² - 1 ∈ J^{k+2}`, since
-`x² - 1 = (x - 1)((x - 1) + 2)`. -/
+/-- The squaring step behind tex 2785, `PROVED`: if `2 ∈ J` and `x - 1 ∈ J^{k+1}`, then
+`x² - 1 ∈ J^{k+2}`, since `x² - 1 = (x - 1)((x - 1) + 2)`. -/
 theorem sq_sub_one_mem_pow {R : Type*} [CommRing R] (J : Ideal R) (h2 : (2 : R) ∈ J) (x : R)
     (k : ℕ) (hx : x - 1 ∈ J ^ (k + 1)) : x ^ 2 - 1 ∈ J ^ (k + 2) := by
   have e : x ^ 2 - 1 = (x - 1) * ((x - 1) + 2) := by ring
@@ -84,7 +84,7 @@ noncomputable def unitPowHom {A : Type*} [CommRing A] (n : ℕ) (u : Aˣ) (hu : 
     map_mul' := fun x y => by
       rw [toAdd_mul, ZMod.val_add, ← pow_eq_pow_mod _ hu, pow_add] }
 
-/-- The power character evaluates as `u^{x.val}`, `PROVED`. -/
+/-- The power character evaluates as `u^{x.val}` (tex 2783), `PROVED`. -/
 theorem unitPowHom_apply {A : Type*} [CommRing A] (n : ℕ) (u : Aˣ) (hu : u ^ (2 ^ n) = 1)
     (x : Multiplicative (ZMod (2 ^ n))) :
     unitPowHom n u hu x = u ^ (Multiplicative.toAdd x).val := by

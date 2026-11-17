@@ -15,9 +15,11 @@ open Finset Matrix
 
 variable {L : Type*} [AddCommGroup L]
 
+/-- Auxiliary result for the App G address constructions, tex 10625–10700. Kind: PROVED. -/
 theorem zmod2_cases (a : ZMod 2) : a = 0 ∨ a = 1 := by
   revert a; decide
 
+/-- Auxiliary result for the App G address constructions, tex 10625–10700. Kind: PROVED. -/
 theorem zmod2_add_self (a : ZMod 2) : a + a = 0 := by
   rcases zmod2_cases a with rfl | rfl <;> decide
 
@@ -29,6 +31,7 @@ the functionals vanishing at `x_*`. -/
 def lam {b : ℕ} (xs : Fin b → ZMod 2) (j0 i : Fin b) : Fin b → ZMod 2 :=
   if i = j0 then Pi.single j0 1 else Pi.single i 1 + (xs i + 1) • Pi.single j0 1
 
+/-- Auxiliary result for the App G address constructions, tex 10625–10700. Kind: PROVED. -/
 theorem lam_apply_sum {b : ℕ} (xs : Fin b → ZMod 2) (j0 i : Fin b) (x : Fin b → ZMod 2) :
     (∑ k, lam xs j0 i k * x k) = if i = j0 then x j0 else x i + (xs i + 1) * x j0 := by
   unfold lam
@@ -45,6 +48,7 @@ theorem lam_target {b : ℕ} {xs : Fin b → ZMod 2} {j0 : Fin b} (h : xs j0 = 1
   · exact h
   · rw [h, mul_one, ← add_assoc, zmod2_add_self, zero_add]
 
+/-- Auxiliary result for the App G address constructions, tex 10625–10700. Kind: PROVED. -/
 theorem lam_ne_zero {b : ℕ} {xs : Fin b → ZMod 2} {j0 : Fin b} (h : xs j0 = 1) (i : Fin b) :
     lam xs j0 i ≠ 0 := by
   intro h0
@@ -64,6 +68,7 @@ theorem lam_all_one {b : ℕ} {xs : Fin b → ZMod 2} {j0 : Fin b} (h : xs j0 = 
     rcases zmod2_cases (x i) with h1 | h1 <;> rcases zmod2_cases (xs i) with h2 | h2 <;>
       rw [h1, h2] at this ⊢ <;> first | rfl | (exfalso; revert this; decide)
 
+/-- Auxiliary result for the App G address constructions, tex 10625–10700. Kind: PROVED. -/
 theorem exists_coord_one {b : ℕ} {x : Fin b → ZMod 2} (hx : x ≠ 0) : ∃ j, x j = 1 := by
   by_contra hcon
   push_neg at hcon
@@ -81,6 +86,7 @@ theorem CoefficientRules.congr {ε : L →+ ZMod 2} {A : Config L → ZMod 2}
   · intro v w hvw
     exact (hz v v.2 w w.2 (fun h => hvw (Subtype.ext h))).symm
 
+/-- Auxiliary result for the App G address constructions, tex 10625–10700. Kind: PROVED. -/
 theorem Config.Compatible.flipBy {ε : L →+ ZMod 2} {Γ : Config L} (hΓ : Γ.Compatible ε)
     (U : Finset (Sym2 ℕ)) : (Γ.flipBy U).Compatible ε := by
   intro v hv w hw hvw
@@ -94,6 +100,7 @@ theorem Config.Compatible.flipBy {ε : L →+ ZMod 2} {Γ : Config L} (hΓ : Γ.
   · rw [if_neg (fun h' => hU h'.2), if_neg (fun h' => hU (hs ▸ h'.2))]
     simpa using h
 
+/-- Auxiliary result for the App G address constructions, tex 10625–10700. Kind: PROVED. -/
 theorem Config.Compatible.restrict {ε : L →+ ZMod 2} {Γ : Config L} (hΓ : Γ.Compatible ε)
     {W : Finset ℕ} (hW : W ⊆ Γ.V) : (Γ.restrict W).Compatible ε :=
   fun v hv w hw hvw => hΓ v (hW hv) w (hW hw) hvw
@@ -124,11 +131,13 @@ theorem netEdges_congr {Γ Δ : Config L} {T X : Finset ℕ}
   rw [Finset.mem_product] at hp
   rw [h p.1 hp.1 p.2 hp.2]
 
+/-- Auxiliary result for the App G address constructions, tex 10625–10700. Kind: PROVED. -/
 theorem netOp_congr {Γ Δ : Config L} {T X : Finset ℕ}
     (h : ∀ x ∈ X, ∀ u ∈ T ∪ X, Γ.z x u = Δ.z x u) : netOp Γ T X = netOp Δ T X := by
   unfold netOp
   rw [netEdges_congr h]
 
+/-- Auxiliary result for the App G address constructions, tex 10625–10700. Kind: PROVED. -/
 theorem lap_congr {Γ Δ : Config L} {T X : Finset ℕ}
     (h : ∀ x ∈ X, ∀ u ∈ T ∪ X, Γ.z x u = Δ.z x u) : lap Γ T X = lap Δ T X := by
   funext i j
@@ -147,6 +156,7 @@ theorem rep_mem {V : Finset ℕ} {S : Finset (Sym2 ℕ)} {v : ℕ} (hv : v ∈ V
   rw [dif_pos hne]
   exact (Finset.mem_filter.mp (Finset.min'_mem _ hne)).1
 
+/-- Auxiliary result for the App G address constructions, tex 10625–10700. Kind: PROVED. -/
 theorem starForest_subset_pairs (T : Finset ℕ) (S : Finset (Sym2 ℕ)) :
     starForest T S ⊆ pairs T := by
   classical
@@ -157,6 +167,7 @@ theorem starForest_subset_pairs (T : Finset ℕ) (S : Finset (Sym2 ℕ)) :
   unfold pairs
   exact Finset.mem_image.mpr ⟨(rep T S a, a), by simp [rep_mem ha.1, ha.1, ha.2], rfl⟩
 
+/-- Auxiliary result for the App G address constructions, tex 10625–10700. Kind: PROVED. -/
 theorem prod_X_eq_monomial (F : Finset (Sym2 ℕ)) :
     (∏ e ∈ F, (MvPolynomial.X e : MvPolynomial (Sym2 ℕ) (ZMod 2))) =
       MvPolynomial.monomial (∑ e ∈ F, Finsupp.single e 1) 1 := by
@@ -167,6 +178,7 @@ theorem prod_X_eq_monomial (F : Finset (Sym2 ℕ)) :
     rw [Finset.prod_insert haF, Finset.sum_insert haF, ih, MvPolynomial.X,
       MvPolynomial.monomial_mul, one_mul]
 
+/-- Auxiliary result for the App G address constructions, tex 10625–10700. Kind: PROVED. -/
 theorem sum_single_eq_single {F : Finset (Sym2 ℕ)} {f : Sym2 ℕ}
     (h : (∑ e ∈ F, Finsupp.single e (1 : ℕ)) = Finsupp.single f 1) : F = {f} := by
   classical
@@ -190,6 +202,7 @@ theorem sum_single_eq_single {F : Finset (Sym2 ℕ)} {f : Sym2 ℕ}
     rw [if_neg hg, if_pos rfl] at this
     exact absurd this (by norm_num)
 
+/-- Auxiliary result for the App G address constructions, tex 10625–10700. Kind: PROVED. -/
 theorem netOp_coeff_single_of_not_mem (Γ : Config L) (T X : Finset ℕ) {f : Sym2 ℕ}
     (hf : f ∉ pairs T) : (netOp Γ T X).coeff (Finsupp.single f 1) = 0 := by
   classical

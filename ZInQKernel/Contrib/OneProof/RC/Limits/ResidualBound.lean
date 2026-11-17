@@ -122,10 +122,12 @@ Hypotheses and their kinds, all with trivial coefficients `𝔽₂` resp. `W = E
 * `hInf` (GLUE, inflation–restriction, tex 4519–4520): inflation `H¹(G_{K,S₀},𝔽₂) → H¹(G_{K,S_T},𝔽₂)`
   is injective, so `h¹(G_{K,S₀}, 𝔽₂) ≤ h¹(G_{K,S_T}, 𝔽₂)`.
 * `hW1`, `hW0` (GLUE): `W = 𝔽₂²` is trivial, so `h¹(W) = 2·h¹(𝔽₂)` and `h⁰(G_{K,S₀}, W) = 2`.
-* `hEuler` (PRINT, Milne, *Arithmetic Duality Theorems*, 2nd ed. 2006, Ch. I, Thm 5.1, applied
-  over the imaginary quadratic field `K`, tex 4525–4530): `h⁰ − h¹ + h² = −2` for `W` of order 4
-  (one complex place, `[K:ℚ] = 2`); cohomological dimension (Milne ADT I.4.10) gives `H^{>2} = 0`,
-  which is why the total residual cohomology is `h⁰ + h¹ + h²`.
+* `hEuler` (PRINT, Milne, *Arithmetic Duality Theorems*, 2nd ed. 2006, Ch. I, Thm 5.1, p. 67,
+  applied over the imaginary quadratic field `K`, tex 4525–4530; hypothesis check: `S₀` contains
+  the places above `2`, so `#W = 4` is a unit in `R_{K,S₀}`): `χ(G_S, W) = ∏_{v arch} #H⁰(G_v, W) /
+  |#W|_v = 4/16`, i.e. `h⁰ − h¹ + h² = −2` (one complex place, `[K:ℚ] = 2`); Milne ADT I, Thm 4.10(c),
+  pp. 56–57, gives `H^r(G_S, W) ≅ ∏_{v real} H^r(K_v, W) = 0` for `r ≥ 3` (no real place), which is
+  why the total residual cohomology is `h⁰ + h¹ + h²`.
 
 Conclusion: `h² = h¹ − 4`, `h¹(G_{K,S₀}, W) ≤ 4s`, and the total residual cohomology dimension of
 the global complex is at most `8s − 2`, in particular at most `8s + 2`. -/
@@ -164,9 +166,11 @@ theorem global_estimate_weak (s dQ dK h1S0F2 h0 h1 h2 : ℕ)
 `w ∣ 2` and `d_w = 0` otherwise.
 
 Inputs: `hH0` (GLUE: `W` is trivial, so `H⁰ = W`); `hH2` (PRINT: local duality, Milne ADT, 2nd ed.,
-Ch. I, Cor. 2.3: `H²(K_w, W) ≅ H⁰(K_w, W^∨(1))^∨`, and `W^∨(1) = Hom(W, μ₂)` is again trivial of
-dimension 2); `hχ` (PRINT: local Euler characteristic, Milne ADT I.2.8:
-`χ(K_w, W) = |#W|_{K_w}`, i.e. `h⁰ − h¹ + h² = −2 d_w` for `#W = 4`). -/
+Ch. I, Cor. 2.3, p. 28: `H²(K_w, W) ≅ H⁰(K_w, W^D)^*`, and `W^D = Hom(W, μ₂)` is again trivial of
+dimension 2); `hχ` (PRINT: local Euler characteristic, Milne ADT I, Thm 2.8, p. 31:
+`χ(G, W) = (R : #W·R)⁻¹`, i.e. `h⁰ − h¹ + h² = −2 d_w` for `#W = 4`).  These three inputs are
+derived from the PRINT propositions over Mathlib's continuous cohomology in
+`LocalPrints.local_cohomology_dims`. -/
 theorem local_dims (d h0 h1 h2 : ℕ) (hH0 : h0 = 2) (hH2 : h2 = 2)
     (hχ : (h0 : ℤ) - h1 + h2 = -(2 * d)) :
     h1 = 4 + 2 * d ∧ h0 + h1 + h2 = 8 + 2 * d := by

@@ -47,14 +47,14 @@ open UpperHalfPlane Complex
 
 /-- The point `r + i t` of `ℍ` for `t > 0`. -/
 def vertPoint (r t : ℝ) (ht : 0 < t) : ℍ :=
-  ⟨(r : ℂ) + (t : ℂ) * I, by simpa using ht⟩
+  ⟨(r : ℂ) + (t : ℂ) * Complex.I, by simpa using ht⟩
 
 /-- **`∫_r^{i∞} f(z) dz`** along the vertical ray `z = r + i t`, `t ∈ (0, ∞)`, from the cusp `r ∈ ℚ`
 (`none` is the cusp `∞`, where the integral is `0`). For a cusp form the integrand is integrable
 (exponential decay at both ends). -/
 def cuspRayIntegral (f : ℍ → ℂ) : Option ℚ → ℂ
   | none => 0
-  | some r => ∫ t in Set.Ioi (0 : ℝ), (if ht : 0 < t then f (vertPoint r t ht) else 0) * I
+  | some r => ∫ t in Set.Ioi (0 : ℝ), (if ht : 0 < t then f (vertPoint r t ht) else 0) * Complex.I
 
 /-- The segment from `z` to `w` stays in `ℍ`. -/
 theorem segPoint_im_pos (z w : ℍ) {t : ℝ} (ht : t ∈ Set.Icc (0 : ℝ) 1) :
@@ -98,7 +98,8 @@ def ManinDrinfeld : Prop :=
   ∀ Γ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ), CongruenceSubgroup.IsCongruenceSubgroup Γ →
     ∀ r s : Option ℚ, ∃ m : ℕ, 0 < m ∧ ∃ γ ∈ Γ,
       ∀ f : CuspForm (Γ : Subgroup (GL (Fin 2) ℝ)) 2,
-        (m : ℂ) * (cuspRayIntegral f s - cuspRayIntegral f r) = segmentIntegral f I (γ • I)
+        (m : ℂ) * (cuspRayIntegral f s - cuspRayIntegral f r) =
+          segmentIntegral f UpperHalfPlane.I (γ • UpperHalfPlane.I)
 
 /-! ### Heegner points and the norm relations of Cai–Chen–Liu -/
 
@@ -149,7 +150,7 @@ def HeegnerPointData.NormRelations {E : WeierstrassCurve ℚ} (D : HeegnerPointD
 theorem HeegnerPointData.zero_normRelations {E : WeierstrassCurve ℚ} (DK : ℤ) (N : ℕ)
     (H : ℕ → IntermediateField ℚ Qbar) (relGal : ℕ → ℕ → Finset GalQ) (frob : ℕ → ℕ → GalQ) :
     (HeegnerPointData.mk (E := E) DK N H (fun _ => 0) relGal frob).NormRelations := by
-  refine ⟨fun d ℓ _ _ => ?_, fun d q _ _ => ?_⟩ <;> simp
+  refine ⟨fun d ℓ _ _ => ?_, fun d q _ _ => ?_⟩ <;> simp [zsmul_zero]
 
 /-- **Cai–Chen–Liu, Trans. AMS 370 (2018), Theorem 2.15, p. 3730, applied through `φ`** (PRINT over
 the interface `HeegnerPointData`, parametric in the anchor). The print: *`[H_{mℓ} : H_m] = (ℓ+1)/u_m`

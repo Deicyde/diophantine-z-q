@@ -30,6 +30,7 @@ def auxAt (name : κ → Phys b → ℕ) (p : κ) (lamv : Fin b → Fin b → ZM
 
 variable {Γ : Config L} {N : Finset κ} {name : κ → Phys b → ℕ} {spec : κ → NetSpec b}
 
+/-- Auxiliary result for the App G active networks and attachment columns, tex 10657–10683. Kind: PROVED. -/
 theorem at_glue_V (hinj : NamesInj N name) (hfr : NamesFresh Γ N name)
     (act' : ℕ → Option (Fin b → ZMod 2)) (x : Fin b → ZMod 2) :
     ((glue Γ N name spec).at (glueAct act' N name spec) x).V =
@@ -56,6 +57,7 @@ theorem at_glue_V (hinj : NamesInj N name) (hfr : NamesFresh Γ N name)
       refine ⟨mem_glue_V.mpr (Or.inr ⟨p, hp, q, rfl⟩), ?_⟩
       simpa [present, glueAct_aux hinj act' hp q] using hq
 
+/-- Auxiliary result for the App G active networks and attachment columns, tex 10657–10683. Kind: PROVED. -/
 theorem auxAt_disjoint_terms (hfr : NamesFresh Γ N name) {p : κ} (hp : p ∈ N)
     (lamv : Fin b → Fin b → ZMod 2) (x : Fin b → ZMod 2) (T : Finset ℕ) (hT : T ⊆ Γ.V) :
     Disjoint T (auxAt name p lamv x) := by
@@ -65,6 +67,7 @@ theorem auxAt_disjoint_terms (hfr : NamesFresh Γ N name) {p : κ} (hp : p ∈ N
   obtain ⟨q, _, rfl⟩ := Finset.mem_image.mp hu'
   exact hfr p hp q (hT hu)
 
+/-- Auxiliary result for the App G active networks and attachment columns, tex 10657–10683. Kind: PROVED. -/
 theorem auxAt_disjoint (hinj : NamesInj N name) {p p' : κ} (hp : p ∈ N) (hp' : p' ∈ N)
     (hpp : p ≠ p') (lamv lamv' : Fin b → Fin b → ZMod 2) (x : Fin b → ZMod 2) :
     Disjoint (auxAt name p lamv x) (auxAt name p' lamv' x) := by
@@ -75,24 +78,33 @@ theorem auxAt_disjoint (hinj : NamesInj N name) {p p' : κ} (hp : p ∈ N) (hp' 
   obtain ⟨q', _, hq'⟩ := Finset.mem_image.mp hu'
   exact hpp (hinj p' hp' p hp q' q hq').1.symm
 
+/-- The map from active coordinates to active auxiliary vertices. -/
+def auxMap (name : κ → Phys b → ℕ) (p : κ) (lamv : Fin b → Fin b → ZMod 2)
+    (x : Fin b → ZMod 2) (q : {q : Phys b // q.1 ∈ actGroups lamv x}) : auxAt name p lamv x :=
+  ⟨name p q.1, Finset.mem_image.mpr ⟨q.1, Finset.mem_filter.mpr ⟨Finset.mem_univ _, q.2⟩, rfl⟩⟩
+
+/-- Auxiliary result for the App G active networks and attachment columns, tex 10657–10683. Kind: PROVED. -/
+theorem auxMap_bijective (name : κ → Phys b → ℕ) (p : κ) (lamv : Fin b → Fin b → ZMod 2)
+    (x : Fin b → ZMod 2) (hinj : ∀ q q', name p q = name p q' → q = q') :
+    Function.Bijective (auxMap name p lamv x) := by
+  refine ⟨fun q q' h => Subtype.ext (hinj _ _ (congrArg Subtype.val h)), fun u => ?_⟩
+  obtain ⟨q, hq, hu⟩ := Finset.mem_image.mp u.2
+  exact ⟨⟨q, (Finset.mem_filter.mp hq).2⟩, Subtype.ext hu⟩
+
 /-- The active auxiliary vertices of one network are indexed by the coordinates of its active
 groups. -/
 noncomputable def auxEquiv (name : κ → Phys b → ℕ) (p : κ) (lamv : Fin b → Fin b → ZMod 2)
     (x : Fin b → ZMod 2) (hinj : ∀ q q', name p q = name p q' → q = q') :
     (auxAt name p lamv x) ≃ {q : Phys b // q.1 ∈ actGroups lamv x} :=
-  (Equiv.ofBijective
-    (fun q : {q : Phys b // q.1 ∈ actGroups lamv x} =>
-      (⟨name p q.1, Finset.mem_image.mpr ⟨q.1, Finset.mem_filter.mpr ⟨Finset.mem_univ _, q.2⟩,
-        rfl⟩⟩ : auxAt name p lamv x))
-    ⟨fun q q' h => Subtype.ext (hinj _ _ (congrArg Subtype.val h)), fun u => by
-      obtain ⟨q, hq, hu⟩ := Finset.mem_image.mp u.2
-      exact ⟨⟨q, (Finset.mem_filter.mp hq).2⟩, Subtype.ext hu⟩⟩).symm
+  (Equiv.ofBijective _ (auxMap_bijective name p lamv x hinj)).symm
 
+/-- Auxiliary result for the App G active networks and attachment columns, tex 10657–10683. Kind: PROVED. -/
 theorem name_auxEquiv (name : κ → Phys b → ℕ) (p : κ) (lamv : Fin b → Fin b → ZMod 2)
     (x : Fin b → ZMod 2) (hinj : ∀ q q', name p q = name p q' → q = q')
     (i : auxAt name p lamv x) : name p (auxEquiv name p lamv x hinj i).1 = i := by
-  unfold auxEquiv
-  exact congrArg Subtype.val (Equiv.ofBijective_apply_symm_apply _ _ i)
+  have h := Equiv.ofBijective_apply_symm_apply (auxMap name p lamv x)
+    (auxMap_bijective name p lamv x hinj) i
+  exact congrArg Subtype.val h
 
 end Active
 
@@ -108,6 +120,7 @@ def colOf (cv : Phys b → ZMod 2) (anc : Fin b → ℕ) (R : Finset ℕ) : ℕ 
   fun u => ∑ g, (if anc g = u then (1 : ZMod 2) else 0) • grp g +
     (if u ∈ R then (1 : ZMod 2) else 0) • cv
 
+/-- Auxiliary result for the App G active networks and attachment columns, tex 10657–10683. Kind: PROVED. -/
 theorem sum_grp_apply (J : Finset (Fin b)) (q : Phys b) :
     (∑ g ∈ J, grp g q) = if q.1 ∈ J then 1 else 0 := by
   classical

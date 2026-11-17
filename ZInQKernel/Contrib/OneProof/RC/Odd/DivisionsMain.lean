@@ -34,7 +34,7 @@ structure SourceHyp (T δ : ℕ) (χ : ℕ → R) (GoodPrime : ℕ → Prop) (ap
   prime : ∀ q, GoodPrime q → q.Prime
   odd : ∀ q, GoodPrime q → Odd (q : ℤ)
   ap_mod : ∀ q, GoodPrime q → ap q ≡ q + 1 [ZMOD 4]
-  rec : ∀ q (hq : GoodPrime q), ∃ ε : ℤ, (ε = 1 ∨ ε = -1) ∧
+  recur : ∀ q (hq : GoodPrime q), ∃ ε : ℤ, (ε = 1 ∨ ε = -1) ∧
     @RecAt R _ q ⟨prime q hq⟩ (χ q) ε (ap q) a
   zero : a 0 = 0
   depth : ∀ n, (2 : R) ^ (min T (δ + (oddPart n).card)) ∣ a n
@@ -106,13 +106,12 @@ theorem DivInv.step {T δ : ℕ} {χ : ℕ → R} {GoodPrime : ℕ → Prop} {U 
       obtain ⟨s, rfl | rfl⟩ := Nat.even_or_odd' k
       · apply hcop q _ (dvd_mul_of_dvd_right hqm _)
         rw [oddPart_pow_even_mul hp.out hn' hpn', Finset.mem_sdiff, Finset.mem_insert]
-        exact ⟨(Finset.mem_sdiff.mp hq).1, by rintro (e | e); exact hqp e;
-          exact (Finset.mem_sdiff.mp hq).2 e⟩
+        exact ⟨(Finset.mem_sdiff.mp hq).1, fun hmem => hmem.elim hqp (Finset.mem_sdiff.mp hq).2⟩
       · apply hcop q _ (dvd_mul_of_dvd_right hqm _)
         rw [oddPart_pow_odd_mul hp.out hn' hpn', Finset.mem_sdiff, Finset.mem_insert,
           Finset.mem_insert]
-        exact ⟨Or.inr (Finset.mem_sdiff.mp hq).1, by rintro (e | e); exact hqp e;
-          exact (Finset.mem_sdiff.mp hq).2 e⟩
+        exact ⟨Or.inr (Finset.mem_sdiff.mp hq).1,
+          fun hmem => hmem.elim hqp (Finset.mem_sdiff.mp hq).2⟩
     obtain ⟨s, rfl | rfl⟩ := Nat.even_or_odd' k
     · -- `p ∉ J`: odd factors `b⁰_s − b⁰_{s−1}`
       rw [oddPart_pow_even_mul hp.out hn' hpn', Finset.sdiff_insert_of_notMem hnp, hcard]

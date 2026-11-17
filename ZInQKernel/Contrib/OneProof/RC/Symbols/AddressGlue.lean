@@ -1,5 +1,5 @@
 import ZInQKernel.Contrib.OneProof.RC.Symbols.AddressBasis
-import ZInQKernel.Contrib.OneProof.RC.Symbols.Targets.NetworkMatrices
+import ZInQKernel.Contrib.OneProof.RC.Symbols.NetworkMatrices
 
 /-!
 # Lane RC2: auxiliary networks glued to a terminal configuration (App G, tex 10657–10720)
@@ -69,12 +69,14 @@ theorem lap_eq_Qsub (hTX : Disjoint T X)
   · rw [if_neg hij]
     exact hQ i j hij
 
+/-- Auxiliary result for the App G network gluing, tex 10657–10700. Kind: PROVED. -/
 theorem attach_eq_restr (hcol : ∀ i : X, ∀ u ∈ T, Γ.z i u = col u (e i).1) {a : ℕ}
     (ha : a ∈ T) : attach Γ X a = restr J (col a) ∘ e := by
   funext i
   simp only [attach, Function.comp_apply, restr]
   exact hcol i a ha
 
+/-- Auxiliary result for the App G network gluing, tex 10657–10700. Kind: PROVED. -/
 theorem det_lap_eq (hTX : Disjoint T X)
     (hQ : ∀ i j : X, i ≠ j → Γ.z i j = Q (e i).1 (e j).1)
     (hcol : ∀ i : X, ∀ u ∈ T, Γ.z i u = col u (e i).1)
@@ -83,6 +85,7 @@ theorem det_lap_eq (hTX : Disjoint T X)
     (lap Γ T X).det = (Qsub Q J).det := by
   rw [lap_eq_Qsub Γ T X J e Q col hTX hQ hcol hlap, Matrix.det_submatrix_equiv_self]
 
+/-- Auxiliary result for the App G network gluing, tex 10657–10700. Kind: PROVED. -/
 theorem attach_adj_eq (hTX : Disjoint T X)
     (hQ : ∀ i j : X, i ≠ j → Γ.z i j = Q (e i).1 (e j).1)
     (hcol : ∀ i : X, ∀ u ∈ T, Γ.z i u = col u (e i).1)
@@ -124,6 +127,7 @@ noncomputable def decode (N : Finset κ) (name : κ → Phys b → ℕ) (u : ℕ
 def NamesInj (N : Finset κ) (name : κ → Phys b → ℕ) : Prop :=
   ∀ p ∈ N, ∀ p' ∈ N, ∀ q q', name p q = name p' q' → p = p' ∧ q = q'
 
+/-- Auxiliary result for the App G network gluing, tex 10657–10700. Kind: PROVED. -/
 theorem decode_name {N : Finset κ} {name : κ → Phys b → ℕ} (hinj : NamesInj N name) {p : κ}
     (hp : p ∈ N) (q : Phys b) : decode N name (name p q) = some (p, q) := by
   classical
@@ -135,6 +139,7 @@ theorem decode_name {N : Finset κ} {name : κ → Phys b → ℕ} (hinj : Names
   congr 1
   exact Prod.ext h1 h2
 
+/-- Auxiliary result for the App G network gluing, tex 10657–10700. Kind: PROVED. -/
 theorem decode_eq_none {N : Finset κ} {name : κ → Phys b → ℕ} {u : ℕ}
     (hu : ∀ p ∈ N, ∀ q, name p q ≠ u) : decode N name u = none := by
   classical
@@ -170,46 +175,56 @@ variable {Γ : Config L} {N : Finset κ} {name : κ → Phys b → ℕ} {spec : 
 def NamesFresh (Γ : Config L) (N : Finset κ) (name : κ → Phys b → ℕ) : Prop :=
   ∀ p ∈ N, ∀ q, name p q ∉ Γ.V
 
+/-- Auxiliary result for the App G network gluing, tex 10657–10700. Kind: PROVED. -/
 theorem decode_of_mem (hfr : NamesFresh Γ N name) {u : ℕ} (hu : u ∈ Γ.V) :
     decode N name u = none :=
   decode_eq_none fun p hp q h => hfr p hp q (h ▸ hu)
 
+/-- Auxiliary result for the App G network gluing, tex 10657–10700. Kind: PROVED. -/
 theorem glue_z_tt {u v : ℕ} (hu : u ∈ Γ.V) (hv : v ∈ Γ.V) :
     (glue Γ N name spec).z u v = Γ.z u v := by
   simp [glue, hu, hv]
 
+/-- Auxiliary result for the App G network gluing, tex 10657–10700. Kind: PROVED. -/
 theorem glue_z_at (hinj : NamesInj N name) (hfr : NamesFresh Γ N name) {p : κ} (hp : p ∈ N)
     (q : Phys b) {v : ℕ} (hv : v ∈ Γ.V) :
     (glue Γ N name spec).z (name p q) v = (spec p).col v q := by
   simp [glue, hfr p hp q, hv, decode_name hinj hp q]
 
+/-- Auxiliary result for the App G network gluing, tex 10657–10700. Kind: PROVED. -/
 theorem glue_z_ta (hinj : NamesInj N name) (hfr : NamesFresh Γ N name) {p : κ} (hp : p ∈ N)
     (q : Phys b) {u : ℕ} (hu : u ∈ Γ.V) :
     (glue Γ N name spec).z u (name p q) = (spec p).col u q := by
   simp [glue, hfr p hp q, hu, decode_name hinj hp q]
 
 open Classical in
+/-- Auxiliary result for the App G network gluing, tex 10657–10700. Kind: PROVED. -/
 theorem glue_z_aa (hinj : NamesInj N name) (hfr : NamesFresh Γ N name) {p p' : κ} (hp : p ∈ N)
     (hp' : p' ∈ N) (q q' : Phys b) :
     (glue Γ N name spec).z (name p q) (name p' q') = if p = p' then (spec p).Q q q' else 0 := by
   simp [glue, hfr p hp q, hfr p' hp' q', decode_name hinj hp q, decode_name hinj hp' q']
 
+/-- Auxiliary result for the App G network gluing, tex 10657–10700. Kind: PROVED. -/
 theorem glue_t_term {v : ℕ} (hv : v ∈ Γ.V) : (glue Γ N name spec).t v = Γ.t v := by
   simp [glue, hv]
 
+/-- Auxiliary result for the App G network gluing, tex 10657–10700. Kind: PROVED. -/
 theorem glue_t_aux (hfr : NamesFresh Γ N name) {p : κ} (hp : p ∈ N) (q : Phys b) :
     (glue Γ N name spec).t (name p q) = 0 := by
   simp [glue, hfr p hp q]
 
+/-- Auxiliary result for the App G network gluing, tex 10657–10700. Kind: PROVED. -/
 theorem glueAct_term (hfr : NamesFresh Γ N name) (act' : ℕ → Option (Fin b → ZMod 2)) {v : ℕ}
     (hv : v ∈ Γ.V) : glueAct act' N name spec v = act' v := by
   simp [glueAct, decode_of_mem hfr hv]
 
+/-- Auxiliary result for the App G network gluing, tex 10657–10700. Kind: PROVED. -/
 theorem glueAct_aux (hinj : NamesInj N name) (act' : ℕ → Option (Fin b → ZMod 2)) {p : κ}
     (hp : p ∈ N) (q : Phys b) :
     glueAct act' N name spec (name p q) = some ((spec p).lamv q.1) := by
   simp [glueAct, decode_name hinj hp q]
 
+/-- Auxiliary result for the App G network gluing, tex 10657–10700. Kind: PROVED. -/
 theorem mem_glue_V {v : ℕ} :
     v ∈ (glue Γ N name spec).V ↔ v ∈ Γ.V ∨ ∃ p ∈ N, ∃ q, name p q = v := by
   simp [glue]
@@ -238,6 +253,7 @@ theorem glue_compatible {ε : L →+ ZMod 2} (hΓ : Γ.Compatible ε) (hinj : Na
     · rw [if_neg hpp, if_neg (Ne.symm hpp)]
       simp
 
+/-- Auxiliary result for the App G network gluing, tex 10657–10700. Kind: PROVED. -/
 theorem glue_extends (hfr : NamesFresh Γ N name) : Γ.Extends (glue Γ N name spec) := by
   refine ⟨fun v hv => mem_glue_V.mpr (Or.inl hv), fun v hv => glue_t_term hv, ?_⟩
   intro v hv w hw

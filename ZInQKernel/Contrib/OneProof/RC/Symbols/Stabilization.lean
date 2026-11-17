@@ -51,38 +51,39 @@ theorem label_type_stabilizes {I α : Type*} [Finite α] (𝒰 : Ultrafilter I) 
   exact ⟨a, ha⟩
 
 /-- The limit symbol: on each configuration, the value of the stage symbols on a set in the
-ultrafilter (tex 10514–10517, 10541–10544). -/
+ultrafilter (tex 10515–10517, 10540–10544). -/
 noncomputable def limSymbol {I : Type*} (𝒰 : Ultrafilter I) (A : I → Config L → ZMod 2) :
     Config L → ZMod 2 :=
   fun Γ => Classical.choose (label_type_stabilizes 𝒰 (fun i => A i Γ))
 
+omit [AddCommGroup L] in
 /-- The stage symbols take the limit value on a set in the ultrafilter, configuration by
-configuration (tex 10514–10517, 10541–10544). Kind: PROVED. -/
+configuration (tex 10515–10517, 10540–10544). Kind: PROVED. -/
 theorem limSymbol_spec {I : Type*} (𝒰 : Ultrafilter I) (A : I → Config L → ZMod 2)
     (Γ : Config L) : ∀ᶠ i in (𝒰 : Filter I), A i Γ = limSymbol 𝒰 A Γ :=
   Classical.choose_spec (label_type_stabilizes 𝒰 (fun i => A i Γ))
 
 /-- Normalized configuration data with at most `W + 1` vertices, named `0, …, n - 1`: the vertex
 count `n ≤ W + 1`, the types and the bits (padded beyond `n`). A finite type when `L` is finite
-(tex 10513–10516, 10539–10540). -/
+(tex 10513–10514, 10538–10540). -/
 abbrev NormData (L : Type*) (W : ℕ) : Type _ :=
   Fin (W + 2) × (Fin (W + 1) → L) × (Fin (W + 1) → Fin (W + 1) → ZMod 2)
 
-/-- The configuration with vertices `0, …, n - 1` given by normalized data. -/
+/-- The configuration with vertices `0, …, n - 1` given by normalized data (tex 10513–10514). -/
 def normConfig {W : ℕ} (d : NormData L W) : Config L where
   V := Finset.range (d.1 : ℕ)
   t := fun a => if h : a < W + 1 then d.2.1 ⟨a, h⟩ else 0
   z := fun a b => if h : a < W + 1 ∧ b < W + 1 then d.2.2 ⟨a, h.1⟩ ⟨b, h.2⟩ else 0
 
 /-- Normalization of a configuration with at most `W + 1` vertices: its vertices are renamed
-increasingly to `0, …, n - 1`. -/
+increasingly to `0, …, n - 1` (tex 10513–10514). -/
 noncomputable def normalize {W : ℕ} (Γ : Config L) (hc : Γ.V.card ≤ W + 1) : NormData L W :=
   (⟨Γ.V.card, by omega⟩,
     fun j => if h : (j : ℕ) < Γ.V.card then Γ.t (Γ.V.orderIsoOfFin rfl ⟨j, h⟩) else 0,
     fun j k => if h : (j : ℕ) < Γ.V.card ∧ (k : ℕ) < Γ.V.card then
       Γ.z (Γ.V.orderIsoOfFin rfl ⟨j, h.1⟩) (Γ.V.orderIsoOfFin rfl ⟨k, h.2⟩) else 0)
 
-/-- A configuration is isomorphic to its normalization (tex 10513–10516, 10539–10540).
+/-- A configuration is isomorphic to its normalization (tex 10513–10514, 10538–10540).
 Kind: PROVED. -/
 theorem normalize_iso {W : ℕ} (Γ : Config L) (hc : Γ.V.card ≤ W + 1) :
     Γ.IsIso (normConfig (normalize Γ hc)) := by
@@ -97,19 +98,19 @@ theorem normalize_iso {W : ℕ} (Γ : Config L) (hc : Γ.V.card ≤ W + 1) :
     fun v => by rw [Fin.eta, OrderIso.apply_symm_apply]
   refine ⟨f, fun v => ?_, fun v w _ => ?_⟩
   · change (if h : ((f v : ℕ)) < W + 1 then _ else 0) = Γ.t v
-    rw [dite_eq_left (hlt v)]
+    rw [dite_eq_left (show ((f v : ℕ)) < W + 1 from hlt v)]
     change (if h : ((e.symm v : Fin Γ.V.card) : ℕ) < Γ.V.card then
       Γ.t (e ⟨((e.symm v : Fin Γ.V.card) : ℕ), h⟩) else 0) = Γ.t v
     rw [dite_eq_left (e.symm v).isLt, hval v]
   · change (if h : ((f v : ℕ)) < W + 1 ∧ ((f w : ℕ)) < W + 1 then _ else 0) = Γ.z v w
-    rw [dite_eq_left ⟨hlt v, hlt w⟩]
+    rw [dite_eq_left (show ((f v : ℕ)) < W + 1 ∧ ((f w : ℕ)) < W + 1 from ⟨hlt v, hlt w⟩)]
     change (if h : ((e.symm v : Fin Γ.V.card) : ℕ) < Γ.V.card ∧
         ((e.symm w : Fin Γ.V.card) : ℕ) < Γ.V.card then
       Γ.z (e ⟨((e.symm v : Fin Γ.V.card) : ℕ), h.1⟩) (e ⟨((e.symm w : Fin Γ.V.card) : ℕ), h.2⟩)
       else 0) = Γ.z v w
     rw [dite_eq_left ⟨(e.symm v).isLt, (e.symm w).isLt⟩, hval v, hval w]
 
-/-- **One table per cutoff** (tex 10513–10516, 10539–10544): for every cutoff `W`, the valid
+/-- **One table per cutoff** (tex 10512–10517, 10533–10544): for every cutoff `W`, the valid
 stages give finitely many possible tables on compatible typed graphs with at most `W + 1`
 vertices (through normalized data, by graph dependence at the stages); one table occurs on a set
 in the ultrafilter, and on that set every stage table agrees with the limit symbol on all those
@@ -134,7 +135,7 @@ theorem cutoff_table_stabilizes [Finite L] {I : Type*} (𝒰 : Ultrafilter I)
   obtain ⟨j, hRj, hTj, hj⟩ := ((hvalid W).and (hT.and (limSymbol_spec 𝒰 A Γ))).exists
   rw [htab i hR hTi Γ hc hΓ, ← hj, htab j hRj hTj Γ hc hΓ]
 
-/-- The limit symbol satisfies the coefficient rules (tex 10514–10518, 10545–10546): each rule
+/-- The limit symbol satisfies the coefficient rules (tex 10518–10519, 10545–10546): each rule
 instance involves finitely many configurations and is inherited at the cutoff `W = |V(Γ)|`.
 Kind: PROVED. -/
 theorem limSymbol_rules {I : Type*} (𝒰 : Ultrafilter I) (ε : L →+ ZMod 2)
@@ -166,7 +167,9 @@ theorem odd_stabilization [Fintype L] [DecidableEq L] {I : Type*} (𝒰 : Ultraf
         ∀ᶠ i in (𝒰 : Filter I), ∀ k, A i (Γs k) = Ainf (Γs k) := by
   refine ⟨limSymbol 𝒰 A, limSymbol_rules 𝒰 ε A hvalid, fun n Γs hΓs => ?_⟩
   filter_upwards [cutoff_table_stabilizes 𝒰 ε A hvalid (∑ k, (Γs k).V.card)] with i hi k
-  exact hi (Γs k) (le_trans (Finset.single_le_sum (fun _ _ => Nat.zero_le _)
-    (Finset.mem_univ k)) (Nat.le_succ _)) (hΓs k)
+  have hk : (Γs k).V.card ≤ ∑ k, (Γs k).V.card :=
+    Finset.single_le_sum (f := fun k => (Γs k).V.card) (fun _ _ => Nat.zero_le _)
+      (Finset.mem_univ k)
+  exact hi (Γs k) (le_trans hk (Nat.le_succ _)) (hΓs k)
 
 end ZInQ.Manuscript.RC.Symbols

@@ -1,4 +1,5 @@
 import ZInQKernel.Contrib.OneProof.RC.Determinant.Pole
+import ZInQKernel.Contrib.OneProof.RC.Determinant.Schur
 import Mathlib.LinearAlgebra.Matrix.Adjugate
 import Mathlib.RingTheory.PowerSeries.Basic
 import Mathlib.NumberTheory.Padics.PadicIntegers
@@ -180,6 +181,36 @@ noncomputable def ScalarData.βK (sd : ScalarData B) : K :=
 (tex 5591–5593). -/
 noncomputable def cleanT (B : SmithBlocks S O) (ε : S) : K :=
   φ ε * ∏ i ∈ range B.n, (φ (B.δ i)) ^ ((-1 : ℤ) ^ i)
+
+/-- **Tex 5562–5566, 5577–5580 (PROVED).**  `α` is the `H₁`-coordinate of the elimination
+projection of the incoming cancellation (`elimProj` of `Schur.lean`, `(b, v) ↦ v - C A_0⁻¹ b`)
+applied to the transported cycle `(z_B, z_H)`; the outgoing cancellation at degree one contributes
+only the coordinate projection, and by `smith_preceding`/`smith_following` no other cancellation
+changes the entries involved. -/
+theorem αK_eq_elimProj (sd : ScalarData B) :
+    sd.αK φ = (elimProj ((B.A 0).map φ) (Matrix.of fun (_ : Unit) j => φ (sd.C j)) *ᵥ
+      Sum.elim (fun k => φ (sd.zB k)) (fun _ => φ sd.zH)) () := by
+  rw [elimProj, fromCols_mulVec_sumElim, Matrix.neg_mulVec, ← Matrix.mulVec_mulVec,
+    Matrix.one_mulVec, ScalarData.αK]
+  show _ = -((fun j => φ (sd.C j)) ⬝ᵥ (((B.A 0).map φ)⁻¹ *ᵥ fun k => φ (sd.zB k))) + φ sd.zH
+  ring
+
+/-- **Tex 5567–5569, 5581 (PROVED).**  `β` is the transported functional `(μ_E, μ_H)` evaluated on
+the elimination inclusion of the outgoing cancellation (`elimIncl` of `Schur.lean`,
+`v ↦ (-A_2⁻¹ B_H v, v)`) at the generator of `H₂`; the incoming cancellation at degree two
+contributes only the coordinate inclusion. -/
+theorem βK_eq_elimIncl (sd : ScalarData B) :
+    sd.βK φ = Sum.elim (fun j => φ (sd.μE j)) (fun _ => φ sd.μH) ⬝ᵥ
+      (elimIncl ((B.A 2).map φ) (Matrix.of fun j (_ : Unit) => φ (sd.BH j)) *ᵥ fun _ => 1) := by
+  rw [elimIncl, fromRows_mulVec, sumElim_dotProduct_sumElim, Matrix.neg_mulVec,
+    ← Matrix.mulVec_mulVec, Matrix.one_mulVec, dotProduct_neg, ScalarData.βK]
+  have hB : (Matrix.of fun j (_ : Unit) => φ (sd.BH j)) *ᵥ (fun _ => (1 : K)) =
+      fun k => φ (sd.BH k) := by
+    funext k; simp [Matrix.mulVec, dotProduct]
+  have hH : (fun (_ : Unit) => φ sd.μH) ⬝ᵥ (fun _ => (1 : K)) = φ sd.μH := by
+    simp [dotProduct]
+  rw [hB, hH]
+  ring
 
 theorem map_δ (i : ℕ) : φ (B.δ i) = ((B.A i).map φ).det := by
   rw [SmithBlocks.δ, RingHom.map_det, RingHom.mapMatrix_apply]

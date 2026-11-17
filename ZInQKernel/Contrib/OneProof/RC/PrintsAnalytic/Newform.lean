@@ -24,7 +24,7 @@ A newform of trivial nebentypus is a newform for `Γ₀(N)` (`TauCeti.cuspFormCh
   in its Introduction condition (2), and Milne's Theorem 11.19, Remark 11.18 and Proposition 11.21).
 * `HasseConvergence` (GLUE): `∑ a_n(E) n^{-s}` converges absolutely on `Re s > 3/2`.
 * `TwistDictionary` (GLUE): for a fundamental discriminant `D` prime to the level of the newform of
-  `E`, `a_n(E^{(D)}) = χ_D(n) a_n(E)`.
+  `E`, `a_n(E^{(D)}) = χ_D(n) a_n(E)`, with the blueprint's twist `qtwist`.
 
 **Milne, Theorem 11.19 and Remark 11.18** (the manuscript's locator at tex L1781–1786 for the
 modular parametrization `φ = α q_f : J₀(N) → E`). Read in J. S. Milne, *Modular functions and
@@ -42,7 +42,9 @@ modular forms*, v1.31 (March 22, 2017), p. 117:
 Modular curves `X₀(N)`, their Jacobians `J₀(N)` and Hecke correspondences are not in Mathlib or the
 tree, so the geometric half (the quotient `q_f : J₀(N) ↠ A_f`, `φ T_q = [a_q] φ`) cannot be stated
 over genuine definitions; it is used only by the Heegner-point steps (lanes RC9/RC10). Its analytic
-half, the newform `f` with `L(f, s) = L(E, s)`, is `ModularNewform` below. **Use check:** the
+half, the newform `f` with `L(f, s) = L(E, s)`, is `ModularNewform` below; its consequence in the
+vocabulary of the shared top layer, the existence of a root number (`RootNumber E w`, Milne's
+"strong Hasse–Weil" at the trivial character), is `MilneHasseWeil` in `Milne.lean`. **Use check:** the
 11/5 text attributes to Milne a "rational weight-two newform `f` of level `N` and an elliptic
 quotient `q_f : J₀(N) ↠ A_f` in the rational isogeny class of `E`". Theorem 11.19 with Remark 11.18
 gives `J₀(N) ↠ E` itself and `L(E, s) = L(f, s)`; the newform property is Proposition 11.21 and the
@@ -56,7 +58,7 @@ noncomputable section
 
 namespace ZInQ.Manuscript.RC.PrintsAnalytic
 
-open ZInQ.Manuscript HeckeRing.GL2 UpperHalfPlane Complex
+open ZInQ.Manuscript ZInQ.Contrib.CloudB3RC53 HeckeRing.GL2 UpperHalfPlane Complex
 
 /-- The `n`-th Fourier coefficient `a_n(f)` of a newform (`f(z) = ∑ a_n e^{2πinz}`; the
 `q`-expansion at width `1`, the width of `Γ₁(N)` at `∞`). -/
@@ -93,7 +95,10 @@ is new (its eigenvalues would otherwise come from a lower level `M`, and Carayol
 give conductor `M`). Milne, *Modular functions and modular forms* v1.31, Theorem 11.19 (with its
 proof), Remark 11.18 and Proposition 11.21, p. 117 (see the module docstring). This strengthens the
 tree's `PoleS12.BCDTThmA`, whose `IsModular` asks only for a `Γ₀(N)` cusp form with the same
-coefficients; `Bridges.lean` derives `PoleS12.BCDTThmA` from it. -/
+coefficients (the blueprint's `Prints.bcdt`); `Bridges.lean` derives `PoleS12.BCDTThmA` from it.
+It is stated in addition to the blueprint's `BCDTThmA` because the literal prints of Hoffstein–Luo
+and Bump–Friedberg–Hoffstein are about newforms: it is the bridge from them to the curve forms used
+by the manuscript. -/
 def ModularNewform : Prop :=
   ∀ E : WeierstrassCurve ℚ, E.IsElliptic →
     ∃ (N : ℕ) (_ : NeZero N) (f : Newform N 2), IsNewformOf E f
@@ -117,6 +122,6 @@ Hasse–Weil L-function `L(E, s) = L(f, s)`", p. 435) for twists. -/
 def TwistDictionary : Prop :=
   ∀ E : WeierstrassCurve ℚ, E.IsElliptic → ∀ (N : ℕ) [NeZero N] (f : Newform N 2),
     IsNewformOf E f → ∀ D : ℤ, IsFundamentalDiscriminant D → IsCoprime D (N : ℤ) →
-      ∀ n : ℕ, 0 < n → lcoeff (quadTwist E D) n = twistCoeff (lcoeff E) D n
+      ∀ n : ℕ, 0 < n → lcoeff (qtwist E D) n = twistCoeff (lcoeff E) D n
 
 end ZInQ.Manuscript.RC.PrintsAnalytic

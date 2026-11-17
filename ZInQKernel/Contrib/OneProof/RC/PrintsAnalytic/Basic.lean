@@ -31,7 +31,8 @@ need beyond it:
 **The level `N` in `RootNumber`.** For the genuine `L(E, s)` (not identically zero: its Dirichlet
 series has `a₁ = 1`) two functional equations of this shape force the same `N` and the same sign,
 since `(N/N')^{1-s}` would be constant on an open set; so the `N` of a `RootNumberAt` witness is the
-conductor of `E`.
+conductor of `E`. This is proved in `Bridges.lean` (`level_sign_unique`, and
+`eq_level_and_sign_of_rootNumberAt`: the level and sign are those of the newform of `E`).
 -/
 
 noncomputable section
@@ -114,6 +115,34 @@ def RootNumberAt (E : WeierstrassCurve ℚ) (N : ℕ) (w : ℤ) : Prop :=
 theorem rootNumber_iff_exists_rootNumberAt {E : WeierstrassCurve ℚ} {w : ℤ} :
     RootNumber E w ↔ ∃ N : ℕ, RootNumberAt E N w :=
   Iff.rfl
+
+/-- **Two entire continuations of `L(E, s)` agree everywhere** (PROVED; identity theorem, as in the
+tree's `ZInQ.Literature.IsLContinuation.eq`). -/
+theorem isLContinuation_eq {E : WeierstrassCurve ℚ} {F G : ℂ → ℂ} (hF : IsLContinuation E F)
+    (hG : IsLContinuation E G) : F = G := by
+  have hU : {s : ℂ | 3 / 2 < s.re} ∈ nhds (2 : ℂ) :=
+    (isOpen_lt continuous_const Complex.continuous_re).mem_nhds (by norm_num)
+  have hev : F =ᶠ[nhds (2 : ℂ)] G :=
+    Filter.mem_of_superset hU fun s hs => (hF.2 s hs).trans (hG.2 s hs).symm
+  funext z
+  have hFa := Complex.analyticOnNhd_univ_iff_differentiable.mpr hF.1
+  have hGa := Complex.analyticOnNhd_univ_iff_differentiable.mpr hG.1
+  exact hFa.eqOn_of_preconnected_of_eventuallyEq hGa isPreconnected_univ (Set.mem_univ 2) hev
+    (Set.mem_univ z)
+
+/-- `ord_{s=1} L(E, s) = 0` means: some (equivalently every) entire continuation is nonzero at
+`s = 1` (PROVED). -/
+theorem analyticRank_zero_iff {E : WeierstrassCurve ℚ} :
+    AnalyticRank E 0 ↔ ∃ F : ℂ → ℂ, IsLContinuation E F ∧ F 1 ≠ 0 := by
+  constructor
+  · rintro ⟨F, hFd, hFL, h0⟩
+    refine ⟨F, ⟨hFd, hFL⟩, ?_⟩
+    have h0' : analyticOrderAt F 1 = 0 := by exact_mod_cast h0
+    exact ((hFd.analyticAt 1).analyticOrderAt_eq_zero).mp h0'
+  · rintro ⟨F, ⟨hFd, hFL⟩, h1⟩
+    refine ⟨F, hFd, hFL, ?_⟩
+    have : analyticOrderAt F 1 = 0 := ((hFd.analyticAt 1).analyticOrderAt_eq_zero).mpr h1
+    exact_mod_cast this
 
 /-! ### The sign of a functional equation with nonzero central value -/
 

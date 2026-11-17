@@ -18,6 +18,8 @@ hypothesis (its statement, with tex lines, is `CommonCoordinate47` in `Statement
 * `map_correctionFactor_of_inactive`, `map_correctionFactor_of_active`,
   `map_eta` (tex 4220–4221): at a character `x` the factor is `x(l_q/e_q²) = 1 + 2x(v_q)` where
   `x(g_q) = 1` (unused prime) and `1` where `x(g_q) = −1` (active prime).
+* `single_prime_47` (tex 4166–4193): (4.7) at one prime from the support triangle and
+  `δ_q = q⁴ l_q`.
 * `prod_relax` (ELLIOT gap filled, see the docstring): iterating (4.7) one unused prime at a time
   gives `(∏ l_q) u_rel = (∏ e_q² ε_q) u_prim` over all unused primes of a character.
 * `corrected_eq` (tex 4222–4226): `ũ_x = η_x u_{rel,x} = (∏_{q unused} ε_q) u_{prim,x}`.
@@ -72,6 +74,18 @@ theorem map_eta {ι : Type*} [DecidableEq ι] (x : R →+* S) (Q : Finset ι) (v
   · rcases hsign q hq with h1 | h1
     · exact absurd h1 h
     · exact map_correctionFactor_of_active x h1
+
+/-- **(4.7) at one unused prime from the support triangle** (tex 4166–4192). If the support
+triangle gives `δ_q u_rel = e_q² ε' u_prim` (the class and the paired functional each contribute
+one `e_q`, `λ_R ∘ i = e_q λ_P`; ELLIOT, tex 4166–4180, with Nekovář 6.4.1–6.4.3) and the two
+quotient determinants are `δ_q = q⁴ l_q` (`quotientDet_eq`), then `l_q u_rel = e_q² ε_q u_prim`
+with `ε_q = ε' q⁻⁴`, a unit when `ε'` is (tex 4189–4193: "`q^{-4}` is one also"). PROVED. -/
+theorem single_prime_47 {K : Type*} [CommRing K] {urel uprim e δ l q qi ε' : K}
+    (hq : q * qi = 1) (hδ : δ = q ^ 4 * l) (htri : δ * urel = e ^ 2 * ε' * uprim) :
+    l * urel = e ^ 2 * (ε' * qi ^ 4) * uprim := by
+  have h1 : l * urel = qi ^ 4 * (δ * urel) := by
+    rw [hδ]; linear_combination (-(l * urel) * (q * qi + 1) * (q ^ 2 * qi ^ 2 + 1)) * hq
+  rw [h1, htri]; ring
 
 /-- **Iterating (4.7) over the unused primes of one character.** ELLIOT (gap filled here):
 the text states (4.7) at one unused prime (tex 4185–4188) and then multiplies the correction

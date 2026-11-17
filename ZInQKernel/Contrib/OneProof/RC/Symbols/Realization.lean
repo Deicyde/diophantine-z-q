@@ -56,11 +56,11 @@ theorem legBit_congr_not {a b : ℤ} {q r : ℕ}
   · rw [ite_eq_right (fun h' => h.mp h' hb), ite_eq_left hb]; decide
   · rw [ite_eq_left (h.mpr hb), ite_eq_right hb]; decide
 
-/-- Characteristic two: `x + x = 0` in `ZMod 2`. Kind: PROVED. -/
+/-- Characteristic two: `x + x = 0` in `ZMod 2` (auxiliary to tex 2037–2041). Kind: PROVED. -/
 theorem zmod2_add_self' (x : ZMod 2) : x + x = 0 := by
   fin_cases x <;> decide
 
-/-- The sign coordinate `ε_p = (p - 1)/2 mod 2` of an odd `p`, read as `p / 2` (tex 2039–2040):
+/-- The sign coordinate `ε_p = (p - 1)/2 mod 2` of an odd `p`, read as `p / 2` (tex 2038–2039):
 it is one exactly when `p ≡ 3 (mod 4)`. Kind: PROVED. -/
 theorem half_cast_eq (p : ℕ) (hp : p % 2 = 1) :
     ((p / 2 : ℕ) : ZMod 2) = if p % 4 = 3 then 1 else 0 := by
@@ -108,7 +108,7 @@ theorem primeConfig_compatible {L : Type*} [AddCommGroup L] (ε : L →+ ZMod 2)
   rw [ht v hv, ht w hw]
   exact legBit_reciprocity (hV v hv).1 (hV w hw).1 (hV v hv).2 (hV w hw).2 hvw
 
-/-- A prescribed residue bit at an odd prime is a nonzero residue class there (tex 2163–2164).
+/-- A prescribed residue bit at an odd prime is a nonzero residue class there (tex 2164–2165).
 Kind: PROVED. -/
 theorem exists_residue_bit {p : ℕ} (hp : p.Prime) (hp2 : p ≠ 2) (b : ZMod 2) :
     ∃ a : ℕ, ¬ p ∣ a ∧ legBit a p = b := by
@@ -127,12 +127,13 @@ theorem exists_residue_bit {p : ℕ} (hp : p.Prime) (hp2 : p ≠ 2) (b : ZMod 2)
       rw [this]; exact ⟨0, by rw [mul_zero]⟩
     · rwa [Int.cast_natCast, ZMod.natCast_zmod_val]
 
-/-- A prime coprime to an even modulus is odd. Kind: PROVED. -/
+/-- A prime coprime to an even modulus is odd (the modulus of the type contains two, tex
+2162–2163). Kind: PROVED. -/
 theorem ne_two_of_coprime_even {m p : ℕ} (h2 : 2 ∣ m) (hp : Nat.Coprime p m) : p ≠ 2 := by
   rintro rfl
   exact absurd (Nat.Coprime.eq_one_of_dvd hp h2) (by decide)
 
-/-- **One realization step** (tex 2161–2167): a prime above any bound `B`, in a prescribed
+/-- **One realization step** (tex 2162–2169): a prime above any bound `B`, in a prescribed
 reduced class modulo `m` (with `2 ∣ m`), with prescribed residue bits at finitely many primes
 coprime to `m`. Each bit is a nonzero residue class at its prime, the Chinese remainder theorem
 combines these classes with the class modulo `m`, and Dirichlet's theorem supplies a prime in the
@@ -186,11 +187,12 @@ theorem exists_prime_step (m : ℕ) (hm : 0 < m) (h2 : 2 ∣ m) (S : Finset ℕ)
     apply legBit_congr
     rw [Int.cast_natCast, Int.cast_natCast, (ZMod.natCast_eq_natCast_iff _ _ _).mpr hqp]
 
-/-- A natural number above the maximum of a finite set is not in it. Kind: PROVED. -/
+/-- A natural number above the maximum of a finite set is not in it (avoidance, tex 2168–2169).
+Kind: PROVED. -/
 theorem not_mem_of_sup_lt {s : Finset ℕ} {x : ℕ} (h : s.sup id < x) : x ∉ s := fun hx =>
   absurd (Finset.le_sup (f := id) hx) (not_le.mpr h)
 
-/-- Successive choice of the new primes (tex 2161–2168), indexed by `ℕ`: the first `k` new primes
+/-- Successive choice of the new primes (tex 2163–2169), indexed by `ℕ`: the first `k` new primes
 are distinct, fresh (outside the old primes and the avoidance set), in their reduced classes,
 with the prescribed bits at the old primes and at the earlier new primes. Kind: PROVED. -/
 theorem finite_realization_nat (m : ℕ) (hm : 0 < m) (h2 : 2 ∣ m) (old : Finset ℕ)

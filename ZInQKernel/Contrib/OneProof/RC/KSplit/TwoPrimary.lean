@@ -27,7 +27,8 @@ with the three two-torsion points `T₀ = (0, 0)`, `T₁ = (ℓ, 0)`, `T₂ = (�
 * `four_dvd_card`: full rational two-torsion gives `4 ∣ #E_ℓ(F)` (tex 10475–10476: "full rational
   two-torsion gives `a_p ≡ p + 1 (mod 4)`").
 * `nonsquares_of_one_mod_four`, `card_curveF_zmod_of_conditions`: over `𝔽_p` with `p ≡ 1 (mod 4)`
-  and `(ℓ/p) = −1`, the three differences are nonsquares (tex 2643–2649).
+  and `(ℓ/p) = −1`, the three differences are nonsquares (tex 2643–2649);
+  `card_primaryComponent_two_zmod`, `v2_card_zmod`: the same with the Legendre symbol.
 
 All results here are `PROVED`.
 -/
@@ -324,6 +325,25 @@ theorem card_curveF_zmod_of_conditions (hp4 : p % 4 = 1) {L : ZMod p} (hL : ¬ I
   obtain ⟨hn0, hn1, hn2⟩ := nonsquares_of_one_mod_four hp4 hL
   exact ⟨four_dvd_card_of_nonsquares h2 h3 hL0 hn0 hn1 hn2,
     not_eight_dvd_card_of_nonsquares h2 h3 hL0 hn0 hn1 hn2⟩
+
+/-- **The two-primary part of `E_ℓ(𝔽_p)` has order exactly four** when `p ≡ 1 (mod 4)` and
+`(ℓ/p) = −1` (`PROVED`; tex 2643–2650, 10482–10499): the lane's headline statement, with the
+Legendre symbol written as a Jacobi symbol at the prime `p`. -/
+theorem card_primaryComponent_two_zmod (hp4 : p % 4 = 1) {ℓ : ℤ} (hℓ : jacobiSym ℓ p = -1) :
+    Nat.card (AddCommGroup.primaryComponent (curveF ((ℓ : ℤ) : ZMod p)).toAffine.Point 2) = 4 := by
+  rw [← jacobiSym.legendreSym.to_jacobiSym] at hℓ
+  have hL : ¬ IsSquare ((ℓ : ℤ) : ZMod p) := (legendreSym.eq_neg_one_iff p).mp hℓ
+  obtain ⟨h2, h3⟩ := two_three_ne_zero_of_one_mod_four hp4
+  have hL0 : ((ℓ : ℤ) : ZMod p) ≠ 0 := by rintro h; exact hL (h ▸ ⟨0, by ring⟩)
+  obtain ⟨hn0, hn1, hn2⟩ := nonsquares_of_one_mod_four hp4 hL
+  exact card_primaryComponent_two_eq_four h2 h3 hL0 hn0 hn1 hn2
+
+/-- **`v₂ #E_ℓ(𝔽_p) = 2`** when `p ≡ 1 (mod 4)` and `(ℓ/p) = −1` (`PROVED`; tex 10500). -/
+theorem v2_card_zmod (hp4 : p % 4 = 1) {ℓ : ℤ} (hℓ : jacobiSym ℓ p = -1) :
+    4 ∣ Nat.card (curveF ((ℓ : ℤ) : ZMod p)).toAffine.Point ∧
+      ¬ 8 ∣ Nat.card (curveF ((ℓ : ℤ) : ZMod p)).toAffine.Point := by
+  rw [← jacobiSym.legendreSym.to_jacobiSym] at hℓ
+  exact card_curveF_zmod_of_conditions hp4 ((legendreSym.eq_neg_one_iff p).mp hℓ)
 
 end ZModP
 

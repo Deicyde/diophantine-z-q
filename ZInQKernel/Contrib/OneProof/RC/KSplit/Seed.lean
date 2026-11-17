@@ -34,10 +34,6 @@ namespace ZInQ.Manuscript.RC.KSplit
 
 open ZInQ.Manuscript.PoleRC
 
-/-- `ℓ ≡ 11 (mod 12)` gives `ℓ` odd and prime to `3`. -/
-theorem not_two_three_dvd_of_mod_twelve {ℓ : ℕ} (hℓ12 : ℓ % 12 = 11) :
-    ¬ 2 ∣ ℓ ∧ ¬ 3 ∣ ℓ := by omega
-
 /-- Facts about a prime `p` with `(ℓ/p) = −1`, `(k/p) = 1`, `p ≡ 1 (mod 4)`: `p ∤ 6kℓ`, `k` is a
 nonzero square and `ℓ` a nonsquare modulo `p` (`PROVED`). -/
 theorem seed_prime_facts {ℓ : ℕ} {k : ℤ} {p : ℕ} [hp : Fact p.Prime] (hp4 : p % 4 = 1)

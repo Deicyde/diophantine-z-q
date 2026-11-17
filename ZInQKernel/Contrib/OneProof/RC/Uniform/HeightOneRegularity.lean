@@ -33,7 +33,7 @@ the fields of `RegularitySwitchProcess` with their tex lines. The algebra behind
 relaxed image and the equal valuations) and `KernelDetection.lean` (rank-two detection).
 
 `DEPARTURE` (form only): membership in `R = Λ_𝔭` is an abstract predicate `Reg` on the coordinate field,
-closed under products (for `Λ_𝔭` inside `Frac Λ` this is `RegularAt` of `UniformLowerBound.lean`).
+closed under products (for `Λ_𝔭` inside `Frac Λ` this is `RegularAtPrime` of `UniformLowerBound.lean`).
 -/
 
 namespace ZInQ.Manuscript.RC.Uniform

@@ -73,13 +73,15 @@ variable {A M : Type*} [CommRing A] [AddCommGroup M] [Module A M]
 def Rtw (ρ : G →* Module.End A M) (θ : G ⧸ H →* Aˣ) (g : G) : Module.End A M :=
   (θ (QuotientGroup.mk g) : A) • ρ g
 
-/-- `R` is multiplicative. -/
+omit [Fintype (G ⧸ H)] in
+/-- `R = θ ρ_T` is multiplicative (tex 3231, 3235), `PROVED`. -/
 theorem Rtw_mul (ρ : G →* Module.End A M) (θ : G ⧸ H →* Aˣ) (g k : G) :
     Rtw H ρ θ (g * k) = Rtw H ρ θ g * Rtw H ρ θ k := by
   unfold Rtw
   rw [QuotientGroup.mk_mul, map_mul, map_mul, Units.val_mul, smul_mul_smul_comm]
 
-/-- On `H`, `R = ρ_T` (`θ` factors through `Δ = G/H`). -/
+omit [Fintype (G ⧸ H)] in
+/-- On `H`, `R = ρ_T` (`θ` factors through `Δ = G/H`; tex 3204, 3231), `PROVED`. -/
 theorem Rtw_of_mem (ρ : G →* Module.End A M) (θ : G ⧸ H →* Aˣ) (x : G) (hx : x ∈ H) :
     Rtw H ρ θ x = ρ x := by
   unfold Rtw
@@ -88,7 +90,8 @@ theorem Rtw_of_mem (ρ : G →* Module.End A M) (θ : G ⧸ H →* Aˣ) (x : G) 
 /-- The cocycle `h(g,δ) = r_{gδ}⁻¹ g r_δ` of a section `r` of `G → G/H` (tex 3222). -/
 def hc (r : G ⧸ H → G) (g : G) (δ : G ⧸ H) : G := (r (QuotientGroup.mk g * δ))⁻¹ * g * r δ
 
-/-- `h(g,δ) ∈ H`. -/
+omit [Fintype (G ⧸ H)] in
+/-- `h(g,δ) ∈ H` (tex 3222), `PROVED`. -/
 theorem hc_mem (r : G ⧸ H → G) (hr : ∀ δ, (QuotientGroup.mk (r δ) : G ⧸ H) = δ) (g : G)
     (δ : G ⧸ H) : hc H r g δ ∈ H := by
   unfold hc
@@ -96,6 +99,7 @@ theorem hc_mem (r : G ⧸ H → G) (hr : ∀ δ, (QuotientGroup.mk (r δ) : G �
     QuotientGroup.mk_inv, hr, hr]
   group
 
+omit [Fintype (G ⧸ H)] in
 /-- The identity `h(gk,δ) = h(g,kδ) h(k,δ)` (tex 3229–3230), `PROVED`. -/
 theorem hc_mul (r : G ⧸ H → G) (g k : G) (δ : G ⧸ H) :
     hc H r (g * k) δ = hc H r g (QuotientGroup.mk k * δ) * hc H r k δ := by
@@ -149,6 +153,7 @@ def T3 (c : H → H → H → M) : G → G → G → M :=
     (c (hH H r hr g (QuotientGroup.mk (k * l) * δ)) (hH H r hr k (QuotientGroup.mk l * δ))
       (hH H r hr l δ))
 
+omit [Fintype (G ⧸ H)] in
 /-- The key identity `R(r_{gδ}) ρ_T(h(g,δ)) = R(g) R(r_δ)`, from `r_{gδ} h(g,δ) = g r_δ`. -/
 private theorem Rtw_key (g : G) (δ : G ⧸ H) (x : M) :
     Rtw H ρ θ (r (QuotientGroup.mk g * δ)) (ρ (hH H r hr g δ) x) =
@@ -162,6 +167,7 @@ private theorem Rtw_key (g : G) (δ : G ⧸ H) (x : M) :
     rw [← Rtw_of_mem H ρ θ _ (hH H r hr g δ).2, ← Rtw_mul, ← Rtw_mul, e]
   exact congrArg (fun F : Module.End A M => F x) hop
 
+omit [Fintype (G ⧸ H)] in
 /-- `h(g,kδ) h(k,δ) = h(gk,δ)` as elements of `H`. -/
 private theorem hH_mul (g k : G) (δ : G ⧸ H) :
     hH H r hr g (QuotientGroup.mk k * δ) * hH H r hr k δ = hH H r hr (g * k) δ :=
@@ -289,6 +295,262 @@ theorem T1_change_section (r' : G ⧸ H → G) (hr' : ∀ δ, (QuotientGroup.mk 
     (fun δ => Rtw H ρ θ (r δ) (b (k δ))) (fun δ => rfl)]
   abel
 
+/-! ### Every degree: the transfer `𝒯_θ` and `d 𝒯_θ = 𝒯_θ d` (tex 3235–3244) -/
+
+/-- The inhomogeneous differential in degree `n` for an action map `act` (tex 3235–3244), with
+the formula of Mathlib's `inhomogeneousCochains.d`: for `g = (g₀,…,g_n)`,
+`(dⁿ f)(g) = g₀ f(g₁,…,g_n) + ∑_{j=0}^{n} (-1)^{j+1} f(Fin.contractNth j (· * ·) g)`, where
+`Fin.contractNth j (· * ·) g = (g₀,…,g_j g_{j+1},…,g_n)` for `j < n` and
+`Fin.contractNth n (· * ·) g = (g₀,…,g_{n-1})`.  In degrees `0, 1, 2` it is `d0`, `d1`, `d2`
+(`dn_eq_d0`, `dn_eq_d1`, `dn_eq_d2`). -/
+def dn {Γ : Type*} [Mul Γ] {n : ℕ} (act : Γ → Module.End A M) (f : (Fin n → Γ) → M) :
+    (Fin (n + 1) → Γ) → M :=
+  fun g => act (g 0) (f (Fin.tail g)) +
+    ∑ j : Fin (n + 1), (-1 : ℤ) ^ (j.val + 1) • f (Fin.contractNth j (· * ·) g)
+
+/-- Degree-`n` transfer (H21), tex 3237–3242, for every `n` (tex 3235–3244):
+`(𝒯_θ c)(g₁,…,g_n) = ∑_δ R(r_{g₁⋯g_n δ}) c(h(g₁,δ₁),…,h(g_n,δ_n))`, `δ_i = g_{i+1}⋯g_n δ`.
+Here `g : Fin n → G` lists `g₁,…,g_n` as `g 0,…,g (n-1)`; the ordered product `g₁⋯g_n` is
+`(List.ofFn g).prod`, and the coset paired with `g i` (that is, `δ_{i+1} = g_{i+2}⋯g_n δ`) is
+`((List.ofFn g).drop (i + 1)).prod * δ`.  In degrees `0, 1, 2, 3` it is `T0`, `T1`, `T2`, `T3`
+(`Tn_eq_T0`, `Tn_eq_T1`, `Tn_eq_T2`, `Tn_eq_T3`). -/
+def Tn {n : ℕ} (c : (Fin n → H) → M) : (Fin n → G) → M :=
+  fun g => ∑ δ, Rtw H ρ θ (r (QuotientGroup.mk (List.ofFn g).prod * δ))
+    (c fun i => hH H r hr (g i) (QuotientGroup.mk ((List.ofFn g).drop (i.val + 1)).prod * δ))
+
+/-- tex 3235–3244 (the cosets of tex 3237–3242), indexed from `0` and including the full
+product: `sufCoset H g δ i = (g i ⋯ g (n-1)) δ`; thus `sufCoset H g δ 0 = (g 0 ⋯ g (n-1)) δ`, the
+coset paired with `g i` in `Tn` is `sufCoset H g δ (i + 1)`, and `sufCoset H g δ n = δ`. -/
+private def sufCoset {n : ℕ} (g : Fin n → G) (δ : G ⧸ H) (i : Fin (n + 1)) : G ⧸ H :=
+  QuotientGroup.mk ((List.ofFn g).drop i.val).prod * δ
+
+omit [Fintype (G ⧸ H)] in
+/-- tex 3235–3244, `PROVED`: the empty suffix, `sufCoset H g δ n = δ`. -/
+private theorem sufCoset_last {n : ℕ} (g : Fin n → G) (δ : G ⧸ H) :
+    sufCoset H g δ (Fin.last n) = δ := by
+  rw [sufCoset, Fin.val_last, List.drop_of_length_le List.length_ofFn.le, List.prod_nil,
+    QuotientGroup.mk_one, one_mul]
+
+omit [Fintype (G ⧸ H)] in
+/-- tex 3235–3244, `PROVED`: the recursion `sufCoset H g δ i = (g i) (sufCoset H g δ (i + 1))`
+(left multiplication in `G/H`). -/
+private theorem sufCoset_castSucc {n : ℕ} (g : Fin n → G) (δ : G ⧸ H) (i : Fin n) :
+    sufCoset H g δ i.castSucc = QuotientGroup.mk (g i) * sufCoset H g δ i.succ := by
+  rw [sufCoset, sufCoset, Fin.val_castSucc, Fin.val_succ,
+    List.drop_eq_getElem_cons (by rw [List.length_ofFn]; exact i.isLt), List.getElem_ofFn,
+    List.prod_cons, QuotientGroup.mk_mul, mul_assoc]
+
+omit [Fintype (G ⧸ H)] in
+/-- tex 3235–3244, `PROVED`: `sufCoset H g δ` is the only sequence with last value `δ` that
+satisfies the recursion of `sufCoset_castSucc`. -/
+private theorem sufCoset_eq_of_rec {n : ℕ} (g : Fin n → G) (δ : G ⧸ H)
+    (E : Fin (n + 1) → G ⧸ H) (hlast : E (Fin.last n) = δ)
+    (hstep : ∀ i : Fin n, E i.castSucc = QuotientGroup.mk (g i) * E i.succ) :
+    E = sufCoset H g δ := by
+  funext i
+  induction i using Fin.reverseInduction with
+  | last => rw [hlast, sufCoset_last]
+  | cast i ih => rw [hstep, sufCoset_castSucc, ih]
+
+omit [Fintype (G ⧸ H)] in
+/-- tex 3235–3244, `PROVED`: the cosets of `Fin.tail g` are those of `g`, shifted by one. -/
+private theorem sufCoset_tail {n : ℕ} (g : Fin (n + 1) → G) (δ : G ⧸ H) (i : Fin (n + 1)) :
+    sufCoset H (Fin.tail g) δ i = sufCoset H g δ i.succ := by
+  rw [sufCoset, sufCoset, Fin.val_succ, List.ofFn_succ (f := g), List.drop_succ_cons]
+  rfl
+
+omit [Fintype (G ⧸ H)] in
+/-- tex 3235–3244, `PROVED`: dropping the last entry `g n` of `g` and replacing `δ` by
+`(g n) δ` does not change the cosets. -/
+private theorem sufCoset_init {n : ℕ} (g : Fin (n + 1) → G) (δ : G ⧸ H) (i : Fin (n + 1)) :
+    sufCoset H (Fin.init g) (QuotientGroup.mk (g (Fin.last n)) * δ) i =
+      sufCoset H g δ i.castSucc := by
+  refine congrFun (sufCoset_eq_of_rec H (Fin.init g) _ (fun i => sufCoset H g δ i.castSucc)
+    ?_ ?_).symm i
+  · show sufCoset H g δ (Fin.last n).castSucc = _
+    rw [sufCoset_castSucc, Fin.succ_last, sufCoset_last]
+  · intro k
+    show sufCoset H g δ k.castSucc.castSucc = QuotientGroup.mk (g k.castSucc) *
+      sufCoset H g δ k.succ.castSucc
+    rw [sufCoset_castSucc H g δ k.castSucc, Fin.succ_castSucc]
+
+omit [Fintype (G ⧸ H)] in
+/-- tex 3235–3244, `PROVED`: merging `g j` and `g (j + 1)` (`j < n`) deletes the coset
+`sufCoset H g δ (j + 1)`. -/
+private theorem sufCoset_contractNth {n : ℕ} (g : Fin (n + 1) → G) (δ : G ⧸ H) (j : Fin n)
+    (i : Fin (n + 1)) :
+    sufCoset H (Fin.contractNth j.castSucc (· * ·) g) δ i =
+      sufCoset H g δ (j.castSucc.succ.succAbove i) := by
+  refine congrFun (sufCoset_eq_of_rec H _ δ
+    (fun i => sufCoset H g δ (j.castSucc.succ.succAbove i)) ?_ ?_).symm i
+  · show sufCoset H g δ (j.castSucc.succ.succAbove (Fin.last n)) = δ
+    have hl : j.castSucc.succ ≤ (Fin.last n).castSucc := by
+      simp only [Fin.le_def, Fin.val_succ, Fin.val_castSucc, Fin.val_last]; omega
+    rw [Fin.succAbove_of_le_castSucc _ _ hl, Fin.succ_last, sufCoset_last]
+  · intro k
+    show sufCoset H g δ (j.castSucc.succ.succAbove k.castSucc) =
+      QuotientGroup.mk (Fin.contractNth j.castSucc (· * ·) g k) *
+        sufCoset H g δ (j.castSucc.succ.succAbove k.succ)
+    rcases lt_trichotomy (k : ℕ) j with h | h | h
+    · have h1 : (k : ℕ) < (j.castSucc : ℕ) := by simpa using h
+      have h2 : k.castSucc.castSucc < j.castSucc.succ := by
+        simp only [Fin.lt_def, Fin.val_succ, Fin.val_castSucc]; omega
+      have h3 : k.succ.castSucc < j.castSucc.succ := by
+        simp only [Fin.lt_def, Fin.val_succ, Fin.val_castSucc]; omega
+      rw [Fin.contractNth_apply_of_lt _ _ _ _ h1, Fin.succAbove_of_castSucc_lt _ _ h2,
+        Fin.succAbove_of_castSucc_lt _ _ h3, sufCoset_castSucc H g δ k.castSucc,
+        Fin.succ_castSucc]
+    · have h1 : (k : ℕ) = (j.castSucc : ℕ) := by simpa using h
+      have h2 : k.castSucc.castSucc < j.castSucc.succ := by
+        simp only [Fin.lt_def, Fin.val_succ, Fin.val_castSucc]; omega
+      have h3 : j.castSucc.succ ≤ k.succ.castSucc := by
+        simp only [Fin.le_def, Fin.val_succ, Fin.val_castSucc]; omega
+      rw [Fin.contractNth_apply_of_eq _ _ _ _ h1, Fin.succAbove_of_castSucc_lt _ _ h2,
+        Fin.succAbove_of_le_castSucc _ _ h3, sufCoset_castSucc H g δ k.castSucc,
+        Fin.succ_castSucc, sufCoset_castSucc H g δ k.succ, QuotientGroup.mk_mul, mul_assoc]
+    · have h1 : (j.castSucc : ℕ) < (k : ℕ) := by simpa using h
+      have h2 : j.castSucc.succ ≤ k.castSucc.castSucc := by
+        simp only [Fin.le_def, Fin.val_succ, Fin.val_castSucc]; omega
+      have h3 : j.castSucc.succ ≤ k.succ.castSucc := by
+        simp only [Fin.le_def, Fin.val_succ, Fin.val_castSucc]; omega
+      rw [Fin.contractNth_apply_of_gt _ _ _ _ h1, Fin.succAbove_of_le_castSucc _ _ h2,
+        Fin.succAbove_of_le_castSucc _ _ h3, Fin.succ_castSucc,
+        sufCoset_castSucc H g δ k.succ]
+
+/-- tex 3235–3244: the arguments `(h(g₁,δ₁),…,h(g_n,δ_n))` of `c` in `Tn` (tex 3237–3242),
+`hArgs H r hr g δ i = h(g i, sufCoset H g δ (i + 1))`. -/
+private def hArgs {n : ℕ} (g : Fin n → G) (δ : G ⧸ H) : Fin n → H :=
+  fun i => hH H r hr (g i) (sufCoset H g δ i.succ)
+
+/-- tex 3235–3244, `PROVED`: `Tn` written with `sufCoset` and `hArgs`. -/
+private theorem Tn_eq_sum_hArgs {n : ℕ} (c : (Fin n → H) → M) (g : Fin n → G) :
+    Tn H ρ θ r hr c g = ∑ δ, Rtw H ρ θ (r (sufCoset H g δ 0)) (c (hArgs H r hr g δ)) :=
+  rfl
+
+omit [Fintype (G ⧸ H)] in
+/-- tex 3235–3244, `PROVED`: the face `0` of `hArgs`. -/
+private theorem hArgs_tail {n : ℕ} (g : Fin (n + 1) → G) (δ : G ⧸ H) :
+    Fin.tail (hArgs H r hr g δ) = hArgs H r hr (Fin.tail g) δ := by
+  funext i
+  show hH H r hr (g i.succ) (sufCoset H g δ i.succ.succ) =
+    hH H r hr (g i.succ) (sufCoset H (Fin.tail g) δ i.succ)
+  rw [sufCoset_tail]
+
+omit [Fintype (G ⧸ H)] in
+/-- tex 3235–3244, `PROVED`: the last face of `hArgs`. -/
+private theorem hArgs_init {n : ℕ} (g : Fin (n + 1) → G) (δ : G ⧸ H) :
+    Fin.init (hArgs H r hr g δ) =
+      hArgs H r hr (Fin.init g) (QuotientGroup.mk (g (Fin.last n)) * δ) := by
+  funext i
+  show hH H r hr (g i.castSucc) (sufCoset H g δ i.castSucc.succ) =
+    hH H r hr (g i.castSucc)
+      (sufCoset H (Fin.init g) (QuotientGroup.mk (g (Fin.last n)) * δ) i.succ)
+  rw [sufCoset_init, Fin.succ_castSucc]
+
+omit [Fintype (G ⧸ H)] in
+/-- tex 3235–3244, `PROVED`: the inner faces of `hArgs`, by `h(gk,δ) = h(g,kδ) h(k,δ)`
+(tex 3229–3230). -/
+private theorem hArgs_contractNth {n : ℕ} (g : Fin (n + 1) → G) (δ : G ⧸ H) (j : Fin n) :
+    Fin.contractNth j.castSucc (· * ·) (hArgs H r hr g δ) =
+      hArgs H r hr (Fin.contractNth j.castSucc (· * ·) g) δ := by
+  funext k
+  show Fin.contractNth j.castSucc (· * ·) (hArgs H r hr g δ) k =
+    hH H r hr (Fin.contractNth j.castSucc (· * ·) g k)
+      (sufCoset H (Fin.contractNth j.castSucc (· * ·) g) δ k.succ)
+  rw [sufCoset_contractNth]
+  rcases lt_trichotomy (k : ℕ) j with h | h | h
+  · have h1 : (k : ℕ) < (j.castSucc : ℕ) := by simpa using h
+    have h3 : k.succ.castSucc < j.castSucc.succ := by
+      simp only [Fin.lt_def, Fin.val_succ, Fin.val_castSucc]; omega
+    rw [Fin.contractNth_apply_of_lt _ _ _ _ h1, Fin.contractNth_apply_of_lt _ _ _ _ h1,
+      Fin.succAbove_of_castSucc_lt _ _ h3]
+    show hH H r hr (g k.castSucc) (sufCoset H g δ k.castSucc.succ) = _
+    rw [Fin.succ_castSucc]
+  · have h1 : (k : ℕ) = (j.castSucc : ℕ) := by simpa using h
+    have h3 : j.castSucc.succ ≤ k.succ.castSucc := by
+      simp only [Fin.le_def, Fin.val_succ, Fin.val_castSucc]; omega
+    rw [Fin.contractNth_apply_of_eq _ _ _ _ h1, Fin.contractNth_apply_of_eq _ _ _ _ h1,
+      Fin.succAbove_of_le_castSucc _ _ h3]
+    show hH H r hr (g k.castSucc) (sufCoset H g δ k.castSucc.succ) *
+      hH H r hr (g k.succ) (sufCoset H g δ k.succ.succ) = _
+    rw [Fin.succ_castSucc, sufCoset_castSucc, hH_mul]
+  · have h1 : (j.castSucc : ℕ) < (k : ℕ) := by simpa using h
+    have h3 : j.castSucc.succ ≤ k.succ.castSucc := by
+      simp only [Fin.le_def, Fin.val_succ, Fin.val_castSucc]; omega
+    rw [Fin.contractNth_apply_of_gt _ _ _ _ h1, Fin.contractNth_apply_of_gt _ _ _ _ h1,
+      Fin.succAbove_of_le_castSucc _ _ h3]
+    rfl
+
+/-- tex 3235–3244, `PROVED`: the last face `Fin.contractNth n` deletes the last entry. -/
+private theorem contractNth_last_eq_init {α : Type*} {n : ℕ} (op : α → α → α)
+    (g : Fin (n + 1) → α) : Fin.contractNth (Fin.last n) op g = Fin.init g := by
+  funext k
+  exact Fin.contractNth_apply_of_lt _ _ _ _ k.isLt
+
+/-- (H21), tex 3243–3244 in every degree (tex 3235–3244), `PROVED`: `d 𝒯_θ = 𝒯_θ d` from
+degree `n` to degree `n + 1`, for every `n`, where `d` is the inhomogeneous differential `dn` of
+the twisted action `R = θ ρ_T` of `G` on the left and of `ρ_T` restricted to `H` on the right.
+The face `0` uses `R(r_{gδ}) ρ_T(h(g,δ)) = R(g) R(r_δ)`, the inner faces use
+`h(gk,δ) = h(g,kδ) h(k,δ)`, and the last face reindexes the sum over `δ` by left
+multiplication with the last entry of `g`. -/
+theorem Tn_comm_d {n : ℕ} (c : (Fin n → H) → M) :
+    dn (Rtw H ρ θ) (Tn H ρ θ r hr c) = Tn H ρ θ r hr (dn (actH H ρ) c) := by
+  funext g
+  simp only [dn, Tn_eq_sum_hArgs, map_add, map_sum, map_zsmul, Finset.sum_add_distrib,
+    Finset.smul_sum]
+  congr 1
+  · refine Finset.sum_congr rfl fun δ _ => ?_
+    have h0 : sufCoset H g δ 0 =
+        QuotientGroup.mk (g 0) * sufCoset H g δ (0 : Fin (n + 1)).succ :=
+      sufCoset_castSucc H g δ 0
+    rw [hArgs_tail, sufCoset_tail, h0]
+    exact (Rtw_key H ρ θ r hr (g 0) _ _).symm
+  · conv_rhs => rw [Finset.sum_comm]
+    rw [Fin.sum_univ_castSucc, Fin.sum_univ_castSucc]
+    congr 1
+    · refine Finset.sum_congr rfl fun j _ => Finset.sum_congr rfl fun δ _ => ?_
+      rw [hArgs_contractNth, sufCoset_contractNth, Fin.succ_succAbove_zero]
+    · simp only [contractNth_last_eq_init, hArgs_init]
+      symm
+      refine Fintype.sum_equiv (Equiv.mulLeft (QuotientGroup.mk (g (Fin.last n)))) _ _
+        fun δ => ?_
+      simp only [Equiv.coe_mulLeft]
+      rw [sufCoset_init, Fin.castSucc_zero]
+
+/-- tex 3235–3244, `PROVED`: in degree `0`, `dn` is `d0`. -/
+theorem dn_eq_d0 {Γ : Type*} [Mul Γ] (act : Γ → Module.End A M) (Q : M) (g : Fin 1 → Γ) :
+    dn act (fun _ => Q) g = d0 act Q (g 0) := by
+  simp [dn, d0, sub_eq_add_neg]
+
+/-- tex 3235–3244, `PROVED`: in degree `1`, `dn` is `d1`. -/
+theorem dn_eq_d1 {Γ : Type*} [Mul Γ] (act : Γ → Module.End A M) (b : Γ → M) (g : Fin 2 → Γ) :
+    dn act (fun x => b (x 0)) g = d1 act b (g 0) (g 1) := by
+  simp [dn, d1, Fin.sum_univ_two, Fin.contractNth, Fin.tail, sub_eq_add_neg, add_assoc]
+
+/-- tex 3235–3244, `PROVED`: in degree `2`, `dn` is `d2`. -/
+theorem dn_eq_d2 {Γ : Type*} [Mul Γ] (act : Γ → Module.End A M) (c : Γ → Γ → M)
+    (g : Fin 3 → Γ) : dn act (fun x => c (x 0) (x 1)) g = d2 act c (g 0) (g 1) (g 2) := by
+  simp [dn, d2, Fin.sum_univ_three, Fin.contractNth, Fin.tail, sub_eq_add_neg, add_assoc]
+
+/-- tex 3235–3244, `PROVED`: in degree `0`, `Tn` is `T0`. -/
+theorem Tn_eq_T0 (Q : M) (g : Fin 0 → G) : Tn H ρ θ r hr (fun _ => Q) g = T0 H ρ θ r Q := by
+  simp [Tn, T0]
+
+/-- tex 3235–3244, `PROVED`: in degree `1`, `Tn` is `T1`. -/
+theorem Tn_eq_T1 (b : H → M) (g : Fin 1 → G) :
+    Tn H ρ θ r hr (fun x => b (x 0)) g = T1 H ρ θ r hr b (g 0) := by
+  simp [Tn, T1, List.ofFn_succ]
+
+/-- tex 3235–3244, `PROVED`: in degree `2`, `Tn` is `T2`. -/
+theorem Tn_eq_T2 (c : H → H → M) (g : Fin 2 → G) :
+    Tn H ρ θ r hr (fun x => c (x 0) (x 1)) g = T2 H ρ θ r hr c (g 0) (g 1) := by
+  simp [Tn, T2, List.ofFn_succ]
+
+/-- tex 3235–3244, `PROVED`: in degree `3`, `Tn` is `T3`. -/
+theorem Tn_eq_T3 (c : H → H → H → M) (g : Fin 3 → G) :
+    Tn H ρ θ r hr (fun x => c (x 0) (x 1) (x 2)) g = T3 H ρ θ r hr c (g 0) (g 1) (g 2) := by
+  simp [Tn, T3, List.ofFn_succ, mul_assoc]
+
 end H21
 
 /-! ## (4.2) in common coordinates -/
@@ -414,7 +676,7 @@ def signC2 : Multiplicative (ZMod 2) →* ℤˣ where
   map_mul' := by decide
 
 open Classical in
-/-- Gap B1-b, negative control, `PROVED`: without `θ` trivial on `N` the conclusion of
+/-- Gap B1-b, negative control, tex 3289–3295, `PROVED`: without `θ` trivial on `N` the conclusion of
 `B1b_twisted_split_norm` fails.  Take `Δ = N = C₂ = {1, s}`, `A = P = ℤ` with the trivial action,
 `θ(s) = -1`, `y_f = y_{f/q} = 1`, `σ_q = 1`, `a_q = 4` and `T = {1}`.  Every other hypothesis holds
 (the norm relation reads `1 + 1 = 4 - 1 - 1`), but the twisted sum is `1 - 1 = 0`, while the right

@@ -71,7 +71,7 @@ theorem H5_neg_one_mem {k' : Type*} [Field k'] (k : Subfield k') : (-1 : k'ˣ) �
 /-- The polynomial `D_ℓ(X) = ∑_{j=1}^{ℓ} j X^j` over `ℤ`. -/
 noncomputable def Dpoly (ℓ : ℕ) : Polynomial ℤ := ∑ j ∈ Icc 1 ℓ, (j : Polynomial ℤ) * Polynomial.X ^ j
 
-/-- (H6), polynomial form, `PROVED`:
+/-- (H6), polynomial form, tex 2988–2990, `PROVED`:
 `(X - 1) ∑_{j=1}^{ℓ} j X^j = ℓ X^{ℓ+1} - ∑_{j=1}^{ℓ} X^j` in `ℤ[X]`. -/
 theorem H6_poly (ℓ : ℕ) :
     (Polynomial.X - 1) * Dpoly ℓ =
@@ -102,7 +102,7 @@ theorem H6 {R : Type*} [Ring R] (σ : R) (ℓ : ℕ) (hσ : σ ^ (ℓ + 1) = 1) 
     rfl
   rw [this]; abel
 
-/-- (H6) in the group ring `R[G]` of any group with `σ^{ℓ+1} = 1` (here `G = C_{ℓ+1}` or the full
+/-- (H6), tex 2985–2990, in the group ring `R[G]` of any group with `σ^{ℓ+1} = 1` (here `G = C_{ℓ+1}` or the full
 relative group of (H5)), `PROVED`. -/
 theorem H6_groupRing {R G : Type*} [CommRing R] [Group G] (σ : G) (ℓ : ℕ)
     (hσ : σ ^ (ℓ + 1) = 1) :
@@ -121,7 +121,7 @@ def Tract {G V : Type*} [Monoid G] [AddCommGroup V] [DistribMulAction G V] (σ :
     (Y : V) : V :=
   ∑ j ∈ range (ℓ + 1), σ ^ j • Y
 
-/-- (H6) acting on points, `PROVED`: if `σ^{ℓ+1} Y = Y`, then
+/-- (H6) acting on points, tex 2990 and 3138, `PROVED`: if `σ^{ℓ+1} Y = Y`, then
 `σ D_ℓ Y - D_ℓ Y = (ℓ + 1) Y - Tr_ℓ Y`. -/
 theorem H6_act {G V : Type*} [Monoid G] [AddCommGroup V] [DistribMulAction G V] (σ : G) (ℓ : ℕ)
     (Y : V) (hY : σ ^ (ℓ + 1) • Y = Y) :

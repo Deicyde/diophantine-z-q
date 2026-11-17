@@ -33,7 +33,7 @@ theorem H1_factor (k : ℕ) :
       2 ^ ((k + 2) + 2) * (1 + 6 * 2 ^ k + 16 * (2 ^ k) ^ 2 + 16 * (2 ^ k) ^ 3) := by
   ring
 
-/-- The cofactor in `H1_factor` is odd. -/
+/-- The cofactor in `H1_factor` is odd (tex 2887), `PROVED`. -/
 theorem H1_cofactor_odd (k : ℕ) :
     Odd ((1 : ℤ) + 6 * 2 ^ k + 16 * (2 ^ k) ^ 2 + 16 * (2 ^ k) ^ 3) :=
   ⟨3 * 2 ^ k + 8 * (2 ^ k) ^ 2 + 8 * (2 ^ k) ^ 3, by ring⟩
@@ -58,7 +58,7 @@ theorem H1_padicVal (n : ℕ) (hn : 2 ≤ n) :
   have : ((2 : ℤ) ^ (n + 2)) = ((2 ^ (n + 2) : ℕ) : ℤ) := by norm_cast
   rw [this, padicValInt.of_nat, padicValNat.prime_pow]
 
-/-- Negative control for (H1): the hypothesis `n ≥ 2` is needed.  For `n = 1`, `u = 3` and
+/-- Negative control for (H1), tex 2882 ("choose `n ≥ 2`"): the hypothesis `n ≥ 2` is needed.  For `n = 1`, `u = 3` and
 `2^{n+3} = 16` divides `u⁴ - 1 = 80`, so `v₂(u⁴ - 1) = 4 ≠ n + 2`. `PROVED`. -/
 theorem H1_fails_at_one : padicValInt 2 (((1 : ℤ) + 2 ^ 1) ^ 4 - 1) ≠ 1 + 2 := by
   have : ((1 : ℤ) + 2 ^ 1) ^ 4 - 1 = 2 ^ 4 * 5 := by norm_num

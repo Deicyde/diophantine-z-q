@@ -24,7 +24,7 @@ noncomputable def actT (m : Sym2 ℕ →₀ ℕ) (f : Finset (Sym2 ℕ) → ZMod
 lemma zmod2_add_self (x : ZMod 2) : x + x = 0 := by
   fin_cases x <;> decide
 
-/-- `act` as a sum over any finite set of monomials containing the support. PROVED. -/
+/-- `act` as a sum over any finite set of monomials containing the support (tex 2219, 10635–10655). PROVED. -/
 theorem act_eq_sum (p : MvPolynomial (Sym2 ℕ) (ZMod 2)) (f : Finset (Sym2 ℕ) → ZMod 2)
     (U : Finset (Sym2 ℕ)) {s : Finset (Sym2 ℕ →₀ ℕ)} (hs : p.support ⊆ s) :
     act p f U = ∑ m ∈ s, p.coeff m * actT m f U := by
@@ -47,17 +47,17 @@ theorem act_add (p q : MvPolynomial (Sym2 ℕ) (ZMod 2)) (f : Finset (Sym2 ℕ) 
   refine Finset.sum_congr rfl fun m _ => ?_
   rw [MvPolynomial.coeff_add, add_mul]
 
-/-- The zero polynomial acts by zero. PROVED. -/
+/-- The zero polynomial acts by zero (tex 2219, 10635–10655). PROVED. -/
 theorem act_zero (f : Finset (Sym2 ℕ) → ZMod 2) : act 0 f = fun _ => 0 := by
   funext U; simp [act]
 
-/-- A monomial acts by its coefficient times the monomial operator. PROVED. -/
+/-- A monomial acts by its coefficient times the monomial operator (tex 2219, 10635–10655). PROVED. -/
 theorem act_monomial (u : Sym2 ℕ →₀ ℕ) (a : ZMod 2) (f : Finset (Sym2 ℕ) → ZMod 2)
     (U : Finset (Sym2 ℕ)) : act (MvPolynomial.monomial u a) f U = a * actT u f U := by
   rw [act_eq_sum _ f U (MvPolynomial.support_monomial_subset), Finset.sum_singleton,
     MvPolynomial.coeff_monomial, if_pos rfl]
 
-/-- Linearity of the monomial operator in the function (sum). PROVED. -/
+/-- Linearity of the monomial operator in the function (sum) (tex 2219, 10635–10655). PROVED. -/
 theorem actT_add_fun (m : Sym2 ℕ →₀ ℕ) (f g : Finset (Sym2 ℕ) → ZMod 2) (U : Finset (Sym2 ℕ)) :
     actT m (fun V => f V + g V) U = actT m f U + actT m g U := by
   unfold actT
@@ -65,7 +65,7 @@ theorem actT_add_fun (m : Sym2 ℕ →₀ ℕ) (f g : Finset (Sym2 ℕ) → ZMod
   · rw [Finset.sum_add_distrib]
   · simp
 
-/-- Linearity of the monomial operator in the function (scalar). PROVED. -/
+/-- Linearity of the monomial operator in the function (scalar) (tex 2219, 10635–10655). PROVED. -/
 theorem actT_smul_fun (m : Sym2 ℕ →₀ ℕ) (c : ZMod 2) (f : Finset (Sym2 ℕ) → ZMod 2)
     (U : Finset (Sym2 ℕ)) : actT m (fun V => c * f V) U = c * actT m f U := by
   unfold actT
@@ -73,7 +73,7 @@ theorem actT_smul_fun (m : Sym2 ℕ →₀ ℕ) (c : ZMod 2) (f : Finset (Sym2 �
   · rw [Finset.mul_sum]
   · simp
 
-/-- Linearity of the action in the function (sum). PROVED. -/
+/-- Linearity of the action in the function (sum) (tex 2219, 10635–10655). PROVED. -/
 theorem act_add_fun (p : MvPolynomial (Sym2 ℕ) (ZMod 2)) (f g : Finset (Sym2 ℕ) → ZMod 2)
     (U : Finset (Sym2 ℕ)) : act p (fun V => f V + g V) U = act p f U + act p g U := by
   rw [act_eq_sum p _ U subset_rfl, act_eq_sum p f U subset_rfl, act_eq_sum p g U subset_rfl,
@@ -81,7 +81,7 @@ theorem act_add_fun (p : MvPolynomial (Sym2 ℕ) (ZMod 2)) (f g : Finset (Sym2 �
   refine Finset.sum_congr rfl fun m _ => ?_
   rw [actT_add_fun, mul_add]
 
-/-- Linearity of the action in the function (scalar). PROVED. -/
+/-- Linearity of the action in the function (scalar) (tex 2219, 10635–10655). PROVED. -/
 theorem act_smul_fun (p : MvPolynomial (Sym2 ℕ) (ZMod 2)) (c : ZMod 2)
     (f : Finset (Sym2 ℕ) → ZMod 2) (U : Finset (Sym2 ℕ)) :
     act p (fun V => c * f V) U = c * act p f U := by
@@ -89,13 +89,13 @@ theorem act_smul_fun (p : MvPolynomial (Sym2 ℕ) (ZMod 2)) (c : ZMod 2)
   refine Finset.sum_congr rfl fun m _ => ?_
   rw [actT_smul_fun]; ring
 
-/-- The zero monomial acts as the identity. PROVED. -/
+/-- The zero monomial acts as the identity (tex 2219, 10635–10655). PROVED. -/
 theorem actT_zero (f : Finset (Sym2 ℕ) → ZMod 2) : actT 0 f = f := by
   funext U
   have h : symmDiff U (∅ : Finset (Sym2 ℕ)) = U := symmDiff_bot U
   simp [actT, h]
 
-/-- A monomial with an exponent at least two acts by zero. PROVED. -/
+/-- A monomial with an exponent at least two acts by zero (tex 2219, 10635–10655). PROVED. -/
 theorem actT_eq_zero_of_two_le {m : Sym2 ℕ →₀ ℕ} {e : Sym2 ℕ} (he : 2 ≤ m e)
     (f : Finset (Sym2 ℕ) → ZMod 2) (U : Finset (Sym2 ℕ)) : actT m f U = 0 := by
   unfold actT
@@ -105,7 +105,7 @@ theorem actT_eq_zero_of_two_le {m : Sym2 ℕ →₀ ℕ} {e : Sym2 ℕ} (he : 2 
   omega
 
 /-- Multiplying a monomial by one more variable applies one more difference
-(`Δ_e² = 0` when the variable is already present). PROVED. -/
+(`Δ_e² = 0` when the variable is already present) (tex 2219, 10635–10655). PROVED. -/
 theorem actT_single_add (e : Sym2 ℕ) (b : Sym2 ℕ →₀ ℕ) (g : Finset (Sym2 ℕ) → ZMod 2)
     (U : Finset (Sym2 ℕ)) :
     actT (Finsupp.single e 1 + b) g U = actT b g U + actT b g (symmDiff U {e}) := by
@@ -184,7 +184,7 @@ theorem actT_single_add (e : Sym2 ℕ) (b : Sym2 ℕ →₀ ℕ) (g : Finset (Sy
     unfold actT
     rw [if_neg h1, if_neg hb, if_neg hb, add_zero]
 
-/-- Composition of monomial operators is the operator of the product monomial. PROVED. -/
+/-- Composition of monomial operators is the operator of the product monomial (tex 2219, 10635–10655). PROVED. -/
 theorem actT_comp (u v : Sym2 ℕ →₀ ℕ) (f : Finset (Sym2 ℕ) → ZMod 2) :
     actT u (actT v f) = actT (u + v) f := by
   induction u using Finsupp.induction with
@@ -225,12 +225,12 @@ theorem act_mul (p q : MvPolynomial (Sym2 ℕ) (ZMod 2)) (f : Finset (Sym2 ℕ) 
   | add p1 p2 h1 h2 =>
     rw [add_mul, act_add, h1, h2, act_add]
 
-/-- The unit polynomial acts as the identity. PROVED. -/
+/-- The unit polynomial acts as the identity (tex 2219, 10635–10655). PROVED. -/
 theorem act_one (f : Finset (Sym2 ℕ) → ZMod 2) : act 1 f = f := by
   funext U
   rw [← MvPolynomial.C_1, MvPolynomial.C_apply, act_monomial, actT_zero, one_mul]
 
-/-- A constant acts by scalar multiplication. PROVED. -/
+/-- A constant acts by scalar multiplication (tex 2219, 10635–10655). PROVED. -/
 theorem act_C (a : ZMod 2) (f : Finset (Sym2 ℕ) → ZMod 2) (U : Finset (Sym2 ℕ)) :
     act (MvPolynomial.C a) f U = a * f U := by
   rw [MvPolynomial.C_apply, act_monomial, actT_zero]
@@ -260,7 +260,7 @@ lemma ind_support (S : Finset (Sym2 ℕ)) : (ind S).support = S := by
   rw [Finsupp.mem_support_iff, ind_apply]
   split_ifs with h <;> simp [h]
 
-/-- A squarefree monomial acts by the iterated difference over its support. PROVED. -/
+/-- A squarefree monomial acts by the iterated difference over its support (tex 2219, 10635–10655). PROVED. -/
 theorem actT_ind (S : Finset (Sym2 ℕ)) (f : Finset (Sym2 ℕ) → ZMod 2) (U : Finset (Sym2 ℕ)) :
     actT (ind S) f U = dif f S U := by
   unfold actT dif
@@ -270,7 +270,7 @@ theorem actT_ind (S : Finset (Sym2 ℕ)) (f : Finset (Sym2 ℕ) → ZMod 2) (U :
   split_ifs <;> omega
 
 /-- The action at `U` only reads `f` on the sets `U ∆ W` with `W` inside the variables of
-`p`. PROVED. -/
+`p` (tex 2219, 10635–10655). PROVED. -/
 theorem act_congr_fun (p : MvPolynomial (Sym2 ℕ) (ZMod 2)) (f g : Finset (Sym2 ℕ) → ZMod 2)
     (U : Finset (Sym2 ℕ))
     (h : ∀ m ∈ p.support, ∀ W ⊆ m.support, f (symmDiff U W) = g (symmDiff U W)) :

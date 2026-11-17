@@ -208,8 +208,8 @@ theorem newLocal_inv_pole {Q ι : Type*} [Fintype Q] [DecidableEq Q] [Fintype ι
     simp only [D.mul_approxInv (A _) (d _) (v _) (w _) (hdet _)]
     ext ⟨i, q⟩ ⟨j, q'⟩
     by_cases h : q = q'
-    · subst h; by_cases hij : i = j <;> simp [blockDiagonal_apply_eq, Matrix.one_apply, hij]
-    · simp [blockDiagonal_apply_ne _ _ _ h, Matrix.one_apply, h]
+    · subst h; by_cases hij : i = j <;> simp [blockDiagonal_apply_eq, hij]
+    · simp [blockDiagonal_apply_ne _ _ _ h, h]
   have hBC : Bx * C = 1 + (2 : O) • F := by
     rw [hBx, Matrix.add_mul, hAC, Matrix.smul_mul]
     simp only [F, smul_add]; abel
@@ -293,8 +293,8 @@ theorem newLocal_isUnit_det {Q ι : Type*} [Fintype Q] [DecidableEq Q] [Fintype 
     simp only [D.mul_approxInv (A _) (d _) (v _) (w _) (hdet _)]
     ext ⟨i, q⟩ ⟨j, q'⟩
     by_cases h : q = q'
-    · subst h; by_cases hij : i = j <;> simp [blockDiagonal_apply_eq, Matrix.one_apply, hij]
-    · simp [blockDiagonal_apply_ne _ _ _ h, Matrix.one_apply, h]
+    · subst h; by_cases hij : i = j <;> simp [blockDiagonal_apply_eq, hij]
+    · simp [blockDiagonal_apply_ne _ _ _ h, h]
   have hBC : Bx * C = 1 + (2 : O) • (W + V.map (algebraMap Λ O) * C) := by
     rw [hBx, Matrix.add_mul, hAC, Matrix.smul_mul]; simp only [smul_add]; abel
   have hu : IsUnit (Bx * C).det := by rw [hBC]; exact hdet12 _

@@ -29,8 +29,6 @@ they share.
 * `twistedCoeffS`, `LSValueVanishes`: the partial twisted `L`-series
   `L_S(E, χ, s) = ∑_{(n, S) = 1} a_n(E) χ(n) n^{-s}` (Kato's `L_S(f, χ, s)` for the newform `f` of
   `E`, Euler factors at the primes of `S` removed) and the vanishing of its continuation at `1`.
-
-Public hygiene: no internal names or paths; lane labels only.
 -/
 
 noncomputable section

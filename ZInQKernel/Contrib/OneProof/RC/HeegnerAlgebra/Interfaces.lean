@@ -23,9 +23,10 @@ explicit:
 * `H11_assembled`: (H8)–(H9) and (H11): `b_{I,a}` restricts to `δ_a(L D_I y_{f n_I})`;
 * `H19_assembled`: the singular coordinate relation `s_new = J f_old` at precision `2^m`.
 
-Locators of printed sources are given as the manuscript gives them; those for Nekovář were checked
-against the Astérisque 310 text (see the lane report); the others are `UNVERIFIED` here (lane RC9
-states Cai–Chen–Liu, Elkik, Serre, Lang and Silverman as printed leaves).
+Locators of printed sources are given as the manuscript gives them.  Those for Nekovář were read
+in the Astérisque 310 text: (4.1.4.1), p. 96, and Sections 8.1.1–8.1.6, pp. 189–194, are correct;
+the others are `UNVERIFIED` here (lane RC9 states Cai–Chen–Liu, Elkik, Serre, Lang and Silverman as
+printed leaves).
 -/
 
 namespace ZInQ.Manuscript.RC.HeegnerAlgebra
@@ -47,18 +48,23 @@ structure KummerSequence (Γ P HV HE : Type*) [Group Γ] [AddCommGroup P] [AddCo
   ker_δ : ∀ x, δ x = 0 ↔ ∃ y, x = ((2 : ℤ) ^ a) • y
   exact : ∀ v, j v = 0 ↔ ∃ x, δ x = v
 
-/-- `δ_a` kills `2^a`-multiples. -/
+/-- `δ_a` kills `2^a`-multiples (tex 3001–3002), `PROVED`. -/
 theorem KummerSequence.δ_two_pow {Γ P HV HE : Type*} [Group Γ] [AddCommGroup P] [AddCommGroup HV]
     [AddCommGroup HE] [DistribMulAction Γ P] [DistribMulAction Γ HV] {a : ℕ}
     (K : KummerSequence Γ P HV HE a) (x : P) : K.δ (((2 : ℤ) ^ a) • x) = 0 :=
   (K.ker_δ _).mpr ⟨x, rfl⟩
 
-/-- `PRINT` (Nekovář, *Selmer complexes*, Astérisque 310, formula (4.1.4.1), p. 96; see the lane
-report for the check of this locator), with `GLUE` (H2) input, tex 3004–3017: for the finite
-Galois extension `M = M_I` of `B = H_f` with group `Γ` and `V_a = E[2^a]`, the five-term sequence
-`0 → H¹(Γ, V_a^{G_M}) → H¹(B, V_a) → H¹(M, V_a)^Γ → H²(Γ, V_a^{G_M})`, and the vanishing of
-multiplication by `2^e` on the outer groups, which follows from (H2) because `V_a^{G_M} =
-E(M)[2^a]` is killed by `2^e` ("hence on every cochain and cohomology group of `Γ`"). -/
+/-- `PRINT` (Nekovář, *Selmer complexes*, Astérisque 310, formula (4.1.4.1), p. 96: the
+Hochschild–Serre spectral sequence; the five-term sequence is its standard low-degree exact
+sequence, which the print does not write out), with `GLUE` (H2) input, tex 3004–3017: for the
+finite Galois extension `M = M_I` of `B = H_f` with group `Γ` and `V_a = E[2^a]`, the five-term
+sequence `0 → H¹(Γ, V_a^{G_M}) → H¹(B, V_a) → H¹(M, V_a)^Γ → H²(Γ, V_a^{G_M})`, and the vanishing
+of multiplication by `2^e` on the outer groups, which follows from (H2) because `V_a^{G_M} =
+E(M)[2^a]` is killed by `2^e` ("hence on every cochain and cohomology group of `Γ`").  For
+Mathlib's group cohomology of discrete groups, injectivity of inflation, exactness at `H¹(B, V)`
+and the `2^e`-killing are `PROVED` in `InfResMathlib.lean` (`fiveTermOfGenuineInvariants`,
+`groupCohomology_zsmul_eq_zero`); the transgression term and the continuous (profinite) version
+remain this `PRINT` input. -/
 structure InfResInput (A B C D : Type*) [AddCommGroup A] [AddCommGroup B] [AddCommGroup C]
     [AddCommGroup D] (e : ℕ) where
   /-- the five-term sequence (H8) -/
@@ -223,7 +229,7 @@ structure UpperDivisionInput (G V : Type*) [Group G] [AddCommGroup V] [DistribMu
   φ : G
   frob_fixes : φ • P = P
 
-/-- (H19), finite coordinate, `PROVED` from `UpperDivisionInput`: `f_new = 0`. -/
+/-- (H19), finite coordinate, tex 3183–3187, `PROVED` from `UpperDivisionInput`: `f_new = 0`. -/
 theorem H19_finite_assembled {G V : Type*} [Group G] [AddCommGroup V] [DistribMulAction G V]
     (U : UpperDivisionInput G V) : U.b U.φ = 0 :=
   H19_finite U.b U.P U.coboundary U.φ U.frob_fixes

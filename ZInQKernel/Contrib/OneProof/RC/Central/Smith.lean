@@ -261,8 +261,7 @@ dimensions `(1,1)` in degrees one and two and vanishes in every other degree, th
 generic complex is acyclic, or its generic dimensions are `(1,1)` in degrees one and two and
 every differential has the same generic and central rank (no disk `[A --t^r--> A]` with `r > 0`).
 PROVED. -/
-theorem bounded_complex_dichotomy (ρ : A →+* k)
-    (hρ : ∀ x ∈ IsLocalRing.maximalIdeal A, ρ x = 0) (r : ℕ → ℕ)
+theorem bounded_complex_dichotomy (ρ : A →+* k) (r : ℕ → ℕ)
     (d : ∀ i, Matrix (Fin (r (i + 1))) (Fin (r i)) A) (hd : ∀ i, d (i + 1) * d i = 0)
     (hk1 : cohDim r (fun i => (d i).map ρ) 1 = 1) (hk2 : cohDim r (fun i => (d i).map ρ) 2 = 1)
     (hk0 : ∀ i, i ≠ 1 → i ≠ 2 → cohDim r (fun i => (d i).map ρ) i = 0) :
@@ -276,15 +275,14 @@ theorem bounded_complex_dichotomy (ρ : A →+* k)
   have hdk : ∀ i, (d (i + 1)).map ρ * (d i).map ρ = 0 := by
     intro i; rw [← Matrix.map_mul, hd i, Matrix.map_zero _ (map_zero _)]
   exact smith_dichotomy r (fun i => ((d i).map (algebraMap A F)).rank)
-    (fun i => ((d i).map ρ).rank) _ _ (fun i => rank_map_residue_le ρ (d i))
+    (fun i => ((d i).map ρ).rank) _ _ (fun i => rank_map_residue_le (F := F) ρ (d i))
     (cohDim_add r (fun i => (d i).map (algebraMap A F)) hdF)
     (cohDim_add r (fun i => (d i).map ρ) hdk) hk1 hk2 hk0
 
 /-- **The disk count** (tex 4349–4351): `dim_k H^i(C ⊗ k) = dim_F H^i(C ⊗ F) + δ_i + δ_{i−1}`,
 where `δ_i = rank_F d_i − rank_k d̄_i` is the number of disks with `r > 0` between degrees `i` and
 `i + 1`. PROVED. -/
-theorem cohDim_residue_eq (ρ : A →+* k) (hρ : ∀ x ∈ IsLocalRing.maximalIdeal A, ρ x = 0)
-    (r : ℕ → ℕ) (d : ∀ i, Matrix (Fin (r (i + 1))) (Fin (r i)) A)
+theorem cohDim_residue_eq (ρ : A →+* k) (r : ℕ → ℕ) (d : ∀ i, Matrix (Fin (r (i + 1))) (Fin (r i)) A)
     (hd : ∀ i, d (i + 1) * d i = 0) (i : ℕ) :
     cohDim r (fun i => (d i).map ρ) i =
       cohDim r (fun i => (d i).map (algebraMap A F)) i +

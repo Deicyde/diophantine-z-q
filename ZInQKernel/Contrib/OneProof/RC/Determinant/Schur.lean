@@ -119,8 +119,13 @@ theorem smith_block_cancel (A : Matrix e e R) (B : Matrix e r R) (C : Matrix r' 
   have h2 : A⁻¹ * A = 1 := nonsing_inv_mul A hA
   have h1' : A * (A⁻¹ * B) = B := by rw [← Matrix.mul_assoc, h1, Matrix.one_mul]
   rw [fromBlocks_multiply, fromBlocks_multiply]
-  refine fromBlocks_inj.mpr ⟨?_, ?_, ?_, ?_⟩ <;>
-    simp [Matrix.mul_assoc, h2, h1', sub_eq_add_neg] <;> abel
+  refine fromBlocks_inj.mpr ⟨?_, ?_, ?_, ?_⟩
+  · simp
+  · simp [h1']
+  · simp [Matrix.mul_assoc, h2]
+  · simp only [Matrix.one_mul, Matrix.mul_one, Matrix.neg_mul, Matrix.mul_neg, Matrix.add_mul,
+      Matrix.mul_assoc, h2]
+    abel
 
 /-- **Tex 5554 (PROVED).**  Both elementary matrices of `smith_block_cancel` have determinant one. -/
 theorem smith_elementary_det (A : Matrix e e R) (B : Matrix e r R) (C : Matrix r' e R) :
@@ -223,6 +228,7 @@ theorem elim_deformation_retract (A : Matrix e e R) (B : Matrix e r R) (C : Matr
       ← fromBlocks_one]
     refine fromBlocks_inj.mpr ⟨?_, ?_, ?_, ?_⟩ <;> simp [h1]
 
+omit [Fintype r] [Fintype r'] in
 /-- **Tex 5559 (PROVED).**  Every inverse used is `adj(A_i)/δ_i`: multiplying the elimination
 projection by `δ_i = det A_i` clears its only denominator, and likewise for the inclusion. -/
 theorem elim_denominators (A : Matrix e e R) (B : Matrix e r R) (C : Matrix r' e R)

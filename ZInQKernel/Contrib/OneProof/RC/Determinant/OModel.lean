@@ -23,13 +23,22 @@ is `2b + tᵏu` with `u` a unit of `Λ`, and `2` is nilpotent modulo `2ⁿ`.  He
 * `OInf` : the subring of compatible sequences in `∏ₙ (ℤ/2ⁿ)((t))`, and the type `OO = ↥OInf`;
 * `lamToO : Λ →+* OO`, which makes `OO` a `Λ`-algebra;
 * `tInv`, `algebraMap_X_mul_tInv`, `isUnit_t` : `t` is invertible in `𝒪`;
-* `isUnit_one_add_two_mul` : `1 + 2y` is invertible for every `y ∈ 𝒪`;
+* `isUnit_one_add_two_mul_OO` : `1 + 2y` is invertible for every `y ∈ 𝒪`;
 * `proj M : OO →+* (ℤ/2^M)((t))`, the reduction modulo `2^M`, with `proj_two_pow_mul`,
   `proj_algebraMap`, `proj_tInv`;
 * `lamToO_injective` : `Λ → 𝒪` is injective, so `𝒪` is nontrivial;
 * `coeff_proj_eq_zero_of_mem` : the coefficient form of the pole bounds: if
   `y ≡ t^{-L} a (mod 2^M)` with `a ∈ Λ`, then the reduction of `y` modulo `2^M` has no Laurent
   term below degree `-L`.
+
+The model has the defining properties of `(Λ_{(2)})^`:
+
+* `isUnit_algebraMap_of_not_mem_span_two` : elements of `Λ` outside `(2)` become units;
+* `proj_eq_zero_iff_mem`, `ker_proj`, `proj_surjective`, `quotTwoPowEquiv` :
+  `𝒪/2^M ≅ (ℤ/2^M)((t))`;
+* an `IsAdicComplete (Ideal.span {2}) OO` instance: `𝒪` is `2`-adically complete and separated;
+* `exists_eq_two_pow_mul_unit` and an `IsDomain OO` instance: every nonzero element is `2^M`
+  times a unit, and `𝒪` is an integral domain.
 
 Everything here is PROVED.
 -/
@@ -173,7 +182,7 @@ end OModel
 
 /-- **Tex 2747–2748, 3728 (PROVED).**  For every `y ∈ 𝒪`, `1 + 2y` is a unit of `𝒪`: in each
 component `(ℤ/2ⁿ)((t))` the element `2y` is nilpotent, since `(2y)ⁿ = 2ⁿyⁿ = 0`. -/
-theorem isUnit_one_add_two_mul (y : OO) : IsUnit (1 + 2 * y) := by
+theorem isUnit_one_add_two_mul_OO (y : OO) : IsUnit (1 + 2 * y) := by
   apply isUnit_of_forall_isUnit_component
   intro n
   show IsUnit (1 + 2 * (y : ∀ n, LaurentSeries (ZMod (2 ^ n))) n)
@@ -312,7 +321,7 @@ theorem isUnit_algebraMap_of_not_mem_span_two (a : PowerSeries ℤ_[2])
     rw [hdec, map_add, map_mul, ← hw', map_ofNat]
     linear_combination (-2 * algebraMap (PowerSeries ℤ_[2]) OO b) * w.mul_inv
   rw [key]
-  exact w.isUnit.mul (isUnit_one_add_two_mul _)
+  exact w.isUnit.mul (isUnit_one_add_two_mul_OO _)
 
 namespace OModel
 
@@ -499,7 +508,7 @@ theorem exists_eq_two_pow_mul_unit (y : OO) (hy : y ≠ 0) :
   obtain ⟨e, he⟩ := Ideal.mem_span_singleton'.mp ((proj_eq_zero_iff_mem 1 _).mp hcw)
   have hunit : IsUnit (c * w) := by
     have : c * w = 1 + 2 * e := by linear_combination he.symm
-    rw [this]; exact isUnit_one_add_two_mul e
+    rw [this]; exact isUnit_one_add_two_mul_OO e
   exact ⟨M, (isUnit_of_mul_isUnit_left hunit).unit, by rw [IsUnit.unit_spec, mul_comm]⟩
 
 /-- **Tex 2747–2748, 3728 (PROVED).**  `𝒪` has no zero divisors. -/

@@ -62,10 +62,11 @@ bound `4`, as the manuscript cites it (tex 1990–1991, `\cite[p.~436]{hl}` at 9
 def HoffsteinLuo : Prop := HoffsteinLuoBound 4
 
 /-- **Bump–Friedberg–Hoffstein, clause (i)** (PRINT; Invent. Math. 102 (1990), 543–618, Theorem,
-pp. 543–544): for a modular elliptic curve `A/ℚ` with root number `ε` and a finite set `S` of
-primes containing the primes of the level (here: every prime at which the model is not good),
-there is a fundamental discriminant `D` with `wD < 0` (`w` the root number), every prime of `S` split in `ℚ(√D)`, and
-`L(s, A^{(D)})` with a simple zero at `s = 1`.
+pp. 543–544): for a modular elliptic curve `A/ℚ` with root number `w` (the blueprint's
+`RootNumber`: the sign of the functional equation of `L(A, s)`, which is the `ε` of the print) and
+a finite set `S` of primes containing the primes of the level (here: every prime at which the
+model is not good), there is a fundamental discriminant `D` with `wD < 0`, every prime of `S` split
+in `ℚ(√D)`, and `L(s, A^{(D)})` with a simple zero at `s = 1`.
 
 The print: "Let `f` be cuspidal newform of even weight `k` with trivial character for the group
 `Γ₀(M)`, and let `S` be a finite set of primes including all those dividing `M`. Let `ε` denote the

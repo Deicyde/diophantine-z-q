@@ -93,7 +93,7 @@ theorem H14 {R : Type*} [Ring R] (F : R) (a ℓ : ℤ) (hF : F ^ 2 - (a : R) * F
     rw [← sub_eq_zero, ← hF]; abel
   rw [this]; abel
 
-/-- (H17), polynomial form, `PROVED`:
+/-- (H17), polynomial form, tex 3158–3162, `PROVED`:
 `(X - a)(a X - (ℓ+1)) = (a - (ℓ+1) X) + a (X² - a X + ℓ)` in `ℤ[X]`. -/
 theorem H17_poly (a ℓ : ℤ) :
     (Polynomial.X - Polynomial.C a) * (Polynomial.C a * Polynomial.X - (Polynomial.C ℓ + 1)) =
@@ -176,7 +176,7 @@ theorem f_old_torsion (F : Vb →+ Vb) (a : ℕ) (L : ℤ) (Xb Qb : Vb)
     ((2 : ℤ) ^ a) • (F (F Qb) - Qb) = 0 := by
   rw [smul_sub, ← map_zsmul, ← map_zsmul, hQ, map_zsmul, map_zsmul, hX, sub_self]
 
-/-- `∑_{j=1}^{ℓ} j = ℓ(ℓ+1)/2`, in the form `2 ∑ j = ℓ(ℓ+1)`. -/
+/-- `∑_{j=1}^{ℓ} j = ℓ(ℓ+1)/2` (tex 3171, (H18)), in the form `2 ∑ j = ℓ(ℓ+1)`, `PROVED`. -/
 theorem sum_Icc_id_two (ℓ : ℕ) : 2 * ∑ j ∈ Icc 1 ℓ, (j : ℤ) = (ℓ : ℤ) * (ℓ + 1) := by
   induction ℓ with
   | zero => simp

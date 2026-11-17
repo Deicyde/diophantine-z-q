@@ -7,7 +7,9 @@ import ZInQKernel.Contrib.OneProof.RC.HeegnerAlgebra.Frobenius
 import ZInQKernel.Contrib.OneProof.RC.HeegnerAlgebra.Transfer
 import ZInQKernel.Contrib.OneProof.RC.HeegnerAlgebra.LocalDiagrams
 import ZInQKernel.Contrib.OneProof.RC.HeegnerAlgebra.Homotopy
+import ZInQKernel.Contrib.OneProof.RC.HeegnerAlgebra.InfResMathlib
 import ZInQKernel.Contrib.OneProof.RC.HeegnerAlgebra.Interfaces
+import ZInQKernel.Contrib.OneProof.RC.HeegnerAlgebra.InterfacesTransfer
 
 /-!
 # Lane RC10: the checkable algebra of the finite Heegner descent at 2
@@ -29,5 +31,8 @@ transfer maps, local Selmer duality data) are stated as named interfaces in `Int
 * `Transfer`: (H20), (H21) in degrees 0–2, change of sections, (4.2), gap B1-b (tex 3202–3295).
 * `LocalDiagrams`: tame resolution, `res`/`cor` diagonals, adjunction (tex 3297–3336).
 * `Homotopy`: contraction transfer, the 3-arrow identity, (H22) witnesses (tex 3337–3406).
-* `Interfaces`: the cohomological inputs as named hypotheses, and assembly theorems.
+* `InfResMathlib`: the injectivity of inflation, exactness at `H¹(G, A)` and the `2^e`-killing
+  of (H8) for Mathlib's genuine group cohomology of discrete groups.
+* `Interfaces`, `InterfacesTransfer`: the cohomological inputs as named hypotheses, and assembly
+  theorems.
 -/

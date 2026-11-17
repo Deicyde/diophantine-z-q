@@ -36,8 +36,11 @@ Uses in the manuscript (`diophantine_zq.tex`):
   genuine anchor is `recip`, which forces nonzero classes whenever a genuine partial `L`-value is
   nonzero (`KatoZetaInterface.z_ne_zero_of_L_ne_zero`). The Iwasawa modules stay unanchored; see
   the sizing note at `KatoZetaInterface`.
-* `z2Corank_zero_of_finite`, `forward_rank_zero` (PROVED): the `r = 0` half of `lem:forward-rank`
-  from `KatoCor14_3` and `BCDTThmA`.
+* `z2Corank_zero_of_finite`, `forward_rank_zero`, `forward_rank_zero_twist` (PROVED): the `r = 0`
+  half of `lem:forward-rank` from `KatoCor14_3` and `BCDTThmA` (the latter from the shared top
+  layer's `Prints`).
+* Hypothesis (v) of Thm. 13.4 for `T₂E ⊗ χ` is PROVED from Serre's theorem in `KatoHypV.lean`
+  (`kato_hyp_v`).
 -/
 
 noncomputable section
@@ -98,6 +101,15 @@ theorem forward_rank_zero (hK : KatoCor14_3) (hB : BCDTThmA) (E : WeierstrassCur
     Finite E.toAffine.Point ∧ Finite (sha E) ∧ Z2Corank (selmerTwoPower E) 0 := by
   obtain ⟨h1, h2, h3⟩ := hK E hE (hB E hE) hL
   exact ⟨h1, h2, z2Corank_zero_of_finite _⟩
+
+/-- **The same, with BCDT taken from the shared top layer's `Prints`** (PROVED): for the companion
+twist at tex 2627–2647, `L(E^{(k)}, 1) ≠ 0` gives `corank_{ℤ₂} Sel_{2^∞}(E^{(k)}/ℚ) = 0`
+(`s₂(E^{(k)}/ℚ) = 0`) and finite `Ш(E^{(k)}/ℚ)`; here `E^{(k)} = qtwist E k`. -/
+theorem forward_rank_zero_twist (P : Prints) (hK : KatoCor14_3) (E : WeierstrassCurve ℚ) (k : ℚ)
+    (hE : (qtwist E k).IsElliptic) (hL : AnalyticRank (qtwist E k) 0) :
+    Finite (qtwist E k).toAffine.Point ∧ Finite (sha (qtwist E k)) ∧
+      Z2Corank (selmerTwoPower (qtwist E k)) 0 :=
+  forward_rank_zero hK P.bcdt (qtwist E k) hE hL
 
 /-! ### Theorem 13.5(2) (Rohrlich) -/
 
@@ -180,9 +192,11 @@ theorem EulerSystemData.zero_isEulerSystem {O : Type} [CommRing O] (H : ℕ → 
 /-! ### Theorem 13.4 (the Euler-system divisibility) as an interface -/
 
 /-- **The data of Kato's Theorem 13.4 (p. 226), as an interface.** A commutative ring `Λ`
-(standing for `O_L[[G_∞]]`, `G_∞ = Gal(ℚ(ζ_{p^∞})/ℚ)`, Kato 12.1), modules `H1 = 𝐇¹(T)`,
-`H2 = 𝐇²(T)`, `H2loc = 𝐇²_loc(T)` (Kato 12.2), the localization map, and the images
-`zIw n = z_{p^n}` of the Euler system in `𝐇¹(T)`. ABSTRACT. -/
+(standing for Kato's `Λ`, printed `O_F[[G_∞]]`, `G_∞ = Gal(ℚ(ζ_{p^∞})/ℚ)`, Kato 12.1; for `E/ℚ` at
+`p = 2` the coefficient ring is `ℤ₂`), modules `H1 = 𝐇¹(T)`,
+`H2 = 𝐇²(T)`, `H2loc = 𝐇²_loc(T)` (Kato 12.2), the localization map, and the element
+`zIw = (z_{p^n})_n ∈ 𝐇¹(T)` (the norm-compatible system of the Euler system along the cyclotomic
+tower). ABSTRACT. -/
 structure IwasawaData (Λ : Type) [CommRing Λ] where
   /-- `𝐇¹(T) = lim_n H¹(ℤ[ζ_{p^n}, 1/p], T)`. -/
   H1 : Type
@@ -198,7 +212,7 @@ structure IwasawaData (Λ : Type) [CommRing Λ] where
   [mod3 : Module Λ H2loc]
   /-- The localization `𝐇²(T) → 𝐇²_loc(T)`. -/
   loc : H2 →ₗ[Λ] H2loc
-  /-- The image `(z_{p^n})_n` of the Euler system in `𝐇¹(T)`. -/
+  /-- The norm-compatible system `(z_{p^n})_n ∈ 𝐇¹(T)`. -/
   zIw : H1
 
 attribute [instance] IwasawaData.acg1 IwasawaData.mod1 IwasawaData.acg2 IwasawaData.mod2
@@ -239,19 +253,23 @@ def katoP (E : WeierstrassCurve ℚ) (ℓ : ℕ) : Polynomial ℤ_[2] :=
     Polynomial.X ^ 2
 
 /-- **Kato's zeta elements for `E` at `p = 2`: the interface the proof uses** (App. E). For the
-fixed curve `E` and a finite set `Σ ∋ 2` containing the primes of bad reduction:
+fixed curve `E`, a finite set `Sbad` of primes containing `2` and the primes of bad reduction (the
+`prime(2N)` of the manuscript), and Kato's index set `Σ ⊇ Sbad` (in Example 13.3,
+`Σ = prime(c d p N)` for the smoothing integers `c, d`):
 
-* `es` with `es_euler`: Kato's elements form an Euler system for `(T₂E, ℚ₂, Σ)`
-  (**Prop. 8.12, p. 186**, via **Example 13.3, p. 225**);
-* `iw` with `iw_z` and `iw_thm13_4`: the Iwasawa data of the same system, and the conclusion of
+* `es` with `es_euler`: Kato's elements `z_m = {}_{c,d}z_m^{(2)}(f, 1, 1, ξ, Sbad ∪ prime(m))`
+  form an Euler system for `(T₂E, ℚ₂, Σ)` (**Prop. 8.12, p. 186**, via **Example 13.3, p. 225**);
+* `iw`, `proj`, `iw_z` and `iw_thm13_4`: the Iwasawa data of the same system (its class `zIw`
+  projects to the `z_{2^n}`), and the conclusion of
   **Thm. 13.4(1)(2), p. 226** at height-one primes not containing `2` (its hypotheses (i)–(v) are
-  verified in the manuscript at tex 7206–7232: (i) by Thm. 13.5(2), (v) by Serre's open image);
+  verified in the manuscript at tex 7206–7232: (i) by Thm. 13.5(2), (v) by Serre's open image, see
+  `kato_hyp_v`);
 * `recip`, the **central-value anchor** (Thm. 6.6, p. 163, with Thm. 9.7, p. 189; manuscript
   (K12)–(K13), tex 7118–7142): a linear functional `per m` on `H m` (the period of the dual
   exponential) such that for every Dirichlet character `χ` modulo `m ∈ Ξ` the `χ`-weighted sum of
-  the Galois translates of `z_m` has period `s · b(χ) · L_{prime(mN)}(E, χ, 1)`, with the fixed
-  smoothing scalar `s ≠ 0` and nonzero period constants `b(χ)`. Here `L_S(E, χ, 1)` is the value at
-  `1` of a fixed entire continuation `Lcont` of the genuine partial twisted `L`-series.
+  the Galois translates of `z_m` has period `s · b(χ) · L_{Sbad ∪ prime(m)}(E, χ, 1)`, with the
+  fixed smoothing scalar `s ≠ 0` and nonzero period constants `b(χ)`. Here `L_S(E, χ, 1)` is the
+  value at `1` of a fixed entire continuation `Lcont` of the genuine partial twisted `L`-series.
 
 **Sizing a genuine definition.** Replacing the abstract fields needs, beyond the vendored Galois
 cohomology: (a) `H¹(ℤ[ζ_m, 1/p], T)` as continuous cohomology of `Gal(ℚ̄/ℚ(ζ_m))` with
@@ -262,13 +280,17 @@ lines); (b) corestriction and the group-ring structure (several hundred lines); 
 (d) Kato's elements themselves, built from Beilinson's elements in `K₂` of modular curves and the
 étale regulator (absent; tens of thousands of lines); (e) Fontaine's `D_dR`, `B_dR` and the dual
 exponential for `recip` (absent; a major project). -/
-structure KatoZetaInterface (E : WeierstrassCurve ℚ) (Sig : Finset ℕ) where
+structure KatoZetaInterface (E : WeierstrassCurve ℚ) (Sig Sbad : Finset ℕ) where
   /-- Kato's Euler system `(z_m)_{m ∈ Ξ}` in `H¹(ℤ[ζ_m, 1/2], T₂E)`. -/
   es : EulerSystemData ℤ_[2]
   /-- **Prop. 8.12 / Example 13.3**: the Euler-system relation with `P_ℓ = 1 - a_ℓ t + ℓ t²`. -/
   es_euler : es.IsEulerSystem 2 Sig (katoP E)
   /-- The Iwasawa data `𝐇¹, 𝐇², 𝐇²_loc` over `Λ = ℤ₂[[G_∞]]`, with `zIw = (z_{2^n})_n`. -/
   iw : IwasawaData KatoLambda2
+  /-- The projections `𝐇¹(T) → H¹(ℤ[ζ_{2^n}, 1/2], T)` of the inverse limit. -/
+  proj : ∀ n : ℕ, iw.H1 →+ es.H (2 ^ n)
+  /-- `zIw = (z_{2^n})_n`: the Iwasawa class projects to the Euler-system classes. -/
+  iw_z : ∀ n : ℕ, proj n iw.zIw = es.z (2 ^ n)
   /-- **Thm. 13.4(1)(2)** for this system. -/
   iw_thm13_4 : iw.Thm13_4Conclusion 2
   /-- The period of the dual exponential on `H m`. -/
@@ -279,23 +301,23 @@ structure KatoZetaInterface (E : WeierstrassCurve ℚ) (Sig : Finset ℕ) where
   /-- The fixed nonzero rational period constants `b_ε` (one per sign `χ(-1)`). -/
   b : ∀ {m : ℕ}, DirichletCharacter ℂ m → ℂ
   b_ne_zero : ∀ {m : ℕ} (χ : DirichletCharacter ℂ m), b χ ≠ 0
-  /-- An entire continuation of each genuine partial twisted `L`-series `L_{prime(mN)}(E, χ, s)`
-  (`N` enters through `Sig`, which contains the bad primes). -/
+  /-- An entire continuation of each genuine partial twisted `L`-series
+  `L_{Sbad ∪ prime(m)}(E, χ, s)`. -/
   Lcont : ∀ {m : ℕ}, DirichletCharacter ℂ m → ℂ → ℂ
   Lcont_entire : ∀ {m : ℕ} (χ : DirichletCharacter ℂ m), Differentiable ℂ (Lcont χ)
   Lcont_eq : ∀ {m : ℕ} (χ : DirichletCharacter ℂ m) (s : ℂ), 3 / 2 < s.re →
-    Lcont χ s = LSeries (twistedCoeffS E (Sig ∪ m.primeFactors) χ) s
+    Lcont χ s = LSeries (twistedCoeffS E (Sbad ∪ m.primeFactors) χ) s
   /-- **The central-value anchor** (Thm. 6.6 with Thm. 9.7): the `χ`-weighted sum of the Galois
-  translates of `z_m` has period `s · b(χ) · L_{prime(mN)}(E, χ, 1)`. -/
+  translates of `z_m` has period `s · b(χ) · L_{Sbad ∪ prime(m)}(E, χ, 1)`. -/
   recip : ∀ (m : ℕ) [NeZero m], KatoXi 2 Sig m → ∀ χ : DirichletCharacter ℂ m,
     ∑ g : (ZMod m)ˣ, χ (g : ZMod m) * per m (MonoidAlgebra.of ℤ_[2] (ZMod m)ˣ g • es.z m) =
       s * b χ * Lcont χ 1
 
 /-- **Non-vacuity of the anchor**: in any `KatoZetaInterface`, `z_m ≠ 0` as soon as one genuine
-partial `L`-value `L_{prime(mN)}(E, χ, 1)` with `χ` modulo `m ∈ Ξ` is nonzero. So the interface
-cannot be filled by the zero system unless all these genuine values vanish. -/
-theorem KatoZetaInterface.z_ne_zero_of_L_ne_zero {E : WeierstrassCurve ℚ} {Sig : Finset ℕ}
-    (K : KatoZetaInterface E Sig) {m : ℕ} [NeZero m] (hm : KatoXi 2 Sig m)
+partial `L`-value `L_{Sbad ∪ prime(m)}(E, χ, 1)` with `χ` modulo `m ∈ Ξ` is nonzero. So the
+interface cannot be filled by the zero system unless all these genuine values vanish. -/
+theorem KatoZetaInterface.z_ne_zero_of_L_ne_zero {E : WeierstrassCurve ℚ} {Sig Sbad : Finset ℕ}
+    (K : KatoZetaInterface E Sig Sbad) {m : ℕ} [NeZero m] (hm : KatoXi 2 Sig m)
     (χ : DirichletCharacter ℂ m)
     (hL : K.Lcont χ 1 ≠ 0) : K.es.z m ≠ 0 := by
   intro hz
@@ -304,19 +326,21 @@ theorem KatoZetaInterface.z_ne_zero_of_L_ne_zero {E : WeierstrassCurve ℚ} {Sig
   exact mul_ne_zero (mul_ne_zero K.s_ne_zero (K.b_ne_zero χ)) hL h.symm
 
 /-- **Kato's construction for `E` (PRINT over the interface `KatoZetaInterface`)**: for an
-elliptic curve `E/ℚ` without complex multiplication and a finite set `Σ` of primes containing `2`
-and the primes of bad reduction, Kato's zeta elements furnish a `KatoZetaInterface E Σ`
-(Prop. 8.12, Example 13.3, Thm. 13.4(1)(2), Thms. 6.6 and 9.7 of Kato, Astérisque 295). The
-non-CM hypothesis is the one under which §13 proves Thm. 13.4's hypothesis (v) (p. 226: "if `f`
-has CM, this theorem is not applied because the condition (v) is not satisfied"). The condition on
-`Σ` says that outside `Σ` the given model is integral with unit discriminant, so `Σ` contains `2`
-and every prime of bad reduction (Kato 13.1: `Σ` contains `p` and the primes where `T` ramifies).
--/
+elliptic curve `E/ℚ` without complex multiplication and a finite set `Sbad` of primes containing `2`
+and the primes of bad reduction, there is a finite `Σ ⊇ Sbad` (Kato's `prime(c d p N)`) for which
+Kato's zeta elements furnish a `KatoZetaInterface E Σ Sbad` (Prop. 8.12, Example 13.3,
+Thm. 13.4(1)(2), Thms. 6.6 and 9.7 of Kato, Astérisque 295). The non-CM hypothesis is the one under
+which §13 proves Thm. 13.4's hypothesis (v) (p. 226: "if `f` has CM, this theorem is not applied
+because the condition (v) is not satisfied"). The condition on `Sbad` says that outside `Sbad` the
+given model is integral with unit discriminant, so `Sbad` contains every prime of bad reduction
+(Kato 13.1: `Σ` contains `p` and the primes where `T` ramifies; (5.1.1): `S ⊇ prime(mN)`;
+(8.1.2): `prime(cd) ∩ S = ∅`, which is why `Σ` and the `S = Sbad ∪ prime(m)` of the elements
+differ). -/
 def KatoZetaLeaf : Prop :=
-  ∀ (E : WeierstrassCurve ℚ) [E.IsElliptic], HasNoCM E → ∀ Sig : Finset ℕ, 2 ∈ Sig →
-    (∀ p : ℕ, p.Prime → p ∉ Sig →
+  ∀ (E : WeierstrassCurve ℚ) [E.IsElliptic], HasNoCM E → ∀ Sbad : Finset ℕ, 2 ∈ Sbad →
+    (∀ p : ℕ, p.Prime → p ∉ Sbad →
       (¬ p ∣ E.a₁.den ∧ ¬ p ∣ E.a₂.den ∧ ¬ p ∣ E.a₃.den ∧ ¬ p ∣ E.a₄.den ∧ ¬ p ∣ E.a₆.den) ∧
         ¬ (p : ℤ) ∣ E.Δ.num) →
-    Nonempty (KatoZetaInterface E Sig)
+    ∃ Sig : Finset ℕ, Sbad ⊆ Sig ∧ Nonempty (KatoZetaInterface E Sig Sbad)
 
 end ZInQ.Manuscript.RC.PrintsArith

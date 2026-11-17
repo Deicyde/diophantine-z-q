@@ -327,8 +327,7 @@ theorem Hp_p (hη1 : η 1 = 1) : Hp a η S p p = 0 := by
 support at `p²p'`, and the recurrence at `p ∣ pp'` has `κ = 0`, so
 `H[p²p'] = (a(p³p') − η(p)a(pp'))/4`. -/
 theorem Hp_p_sq_mul [CharZero L] (hrec : ShellRecurrence a (η p) ψp ap p) {p' : ℕ}
-    (hp' : p'.Prime)
-    (hne : p' ≠ p) :
+    (hp' : p'.Prime) (hne : p' ≠ p) :
     Hp a η S p (p ^ 2 * p') = η p * ((ap : L) - 1) * a (p * p') / 4 := by
   have hr := hrec (p * p')
   have hleg : legendreSym p (-((p * p' : ℕ) : ℤ)) = 0 := by
@@ -394,7 +393,8 @@ variable {a η df : ℕ → L} {S p : ℕ} {δB δ1 δp : L}
 
 /-- **The exact expansion `(G.4c)`** (`PROVED`; tex 10408–10422): there is no `Θ₁[p]` term since
 `p` is not a square, and `Θ_{p}[p] = 1`. -/
-theorem dphi_expansion [CharZero L] (hp : p.Prime) (hη1 : η 1 = 1) (hdf : DphiBlocks df a η S p δB δ1 δp) :
+theorem dphi_expansion [CharZero L] (hp : p.Prime) (hη1 : η 1 = 1)
+    (hdf : DphiBlocks df a η S p δB δ1 δp) :
     df p = (δB * Bp a (η p) p p - δp * Bp a (η p) p p) / 2 +
       ∑ j ∈ Icc 1 (Nat.sqrt p), (δB * Bp a (η p) p (p - j ^ 2) -
         δ1 * Bp a (η p) p 1 * unaryTheta η S 1 (p - j ^ 2) -
@@ -426,7 +426,8 @@ theorem dphi_p_inTwoO_of_G4ab [CharZero L] (hp : p.Prime) (hη1 : η 1 = 1) (hη
 
 /-- **The determinant identity** (`PROVED`; tex 10374–10379): with `δ_B = δ_p`,
 `d(φ)f = δ_p f + ((δ_p − δ₁)b₁/2) θΘ₁` exactly, for `f = θH`. -/
-theorem dphi_eq_det_identity [CharZero L] (hdf : DphiBlocks df a η S p δB δ1 δp) (hBp : δB = δp) (n : ℕ) :
+theorem dphi_eq_det_identity [CharZero L] (hdf : DphiBlocks df a η S p δB δ1 δp) (hBp : δB = δp)
+    (n : ℕ) :
     df n = δp * thetaMul (Hp a η S p) n +
       (δp - δ1) * Bp a (η p) p 1 / 2 * thetaMul (unaryTheta η S 1) n := by
   have hH : Hp a η S p = fun n => (Bp a (η p) p n - Bp a (η p) p 1 * unaryTheta η S 1 n -
@@ -458,7 +459,8 @@ theorem dphi_p_inTwoO_of_det [CharZero L] (hp : p.Prime) (hη1 : η 1 = 1) (hηO
 /-- **`H[p³] ∈ 2𝒪`** (`PROVED`; tex 10437–10452): the trace identity at `p²`, `(G.4c)`, `(G.4d)`,
 the good Hecke formula at the fresh prime `p'`, and `H[p²p'] = η(p)(a_p − 1)a(pp')/4` with
 `v₂ a(pp') ≥ 3`. -/
-theorem Hp_p_cube_inTwoO [CharZero L] [Fact p.Prime] {ψp : L} {ap : ℤ} (hrec : ShellRecurrence a (η p) ψp ap p)
+theorem Hp_p_cube_inTwoO [CharZero L] [Fact p.Prime] {ψp : L} {ap : ℤ}
+    (hrec : ShellRecurrence a (η p) ψp ap p)
     {p' : ℕ} (hp' : p'.Prime) (hne : p' ≠ p) (hH : ∀ n, Hp a η S p n ∈ O) (hηp : η p ∈ O)
     {tf : ℕ → L} (htrace : tf (p ^ 2) = thetaMul (Hp a η S p) (p ^ 3) + df p)
     (hHecke : InTwoO O (tf (p ^ 2) - thetaMul (Hp a η S p) (p ^ 2 * p')))
@@ -561,10 +563,65 @@ theorem cong_eight_of_mem_ideal [CharZero L] (I : Ideal O) (h2I : (2 : O) ∈ I)
 
 end ModEight
 
+/-! ### The inputs `(G.4a)`, `(G.4b)` and the transported bound, from Elliot's lower bounds -/
+
+section Inputs
+
+variable {O : Subring L} {a : ℕ → L} {ηp : L} {p : ℕ}
+
+/-- `B[n] = a(pn)/2` when `p ∤ n`: the `V_p` term is zero (`PROVED`; tex 10397–10398). -/
+theorem Bp_of_not_dvd {n : ℕ} (hn : ¬ p ∣ n) : Bp a ηp p n = a (p * n) / 2 := by
+  unfold Bp; rw [ite_eq_right hn, mul_zero, sub_zero]
+
+/-- **`(G.4a)` from the improved bound** (`PROVED`; tex 10345–10352): "if `p` lies in the
+coefficient filter, the improved bound is `v₂ a(p) ≥ 2`; otherwise the actual filter gives
+`a(p) = 0`". Either
+way `b₁ = a(p)/2 ∈ 2𝒪`. The two alternatives are the `ELLIOT` inputs. -/
+theorem G4a_of_improved_bound [CharZero L] (hp1 : p ≠ 1) (h : (∃ y ∈ O, a p = 4 * y) ∨ a p = 0) :
+    InTwoO O (Bp a ηp p 1) := by
+  rw [Bp_one hp1]
+  rcases h with ⟨y, hy, hay⟩ | h0
+  · exact ⟨y, hy, by rw [hay]; ring⟩
+  · rw [h0, zero_div]; exact InTwoO.zero
+
+/-- **`(G.4b)` from the support sieve, the shell recurrences and the lower bound** (`PROVED`;
+tex 10388–10406): for `n = p − j²`, `p ∤ n`, so `B[n] = a(pn)/2`; either the coprimality sieve
+makes the coefficient zero, or `n = rm²` and the integral shell recurrences give
+`a(pn) = c · a(pr)` with `c ∈ 𝒪`, where `a(pr) ∈ 4𝒪` if `r > 1` (`v₂ a(pr) ≥ ω(pr) ≥ 2`, or zero
+off the filter), and `a(pn) = c · a(p)` with `a(p)/2 = b₁ ∈ 2𝒪` (`(G.4a)`) if `r = 1`. The three
+alternatives are the `ELLIOT` inputs. -/
+theorem G4b_of_shell [CharZero L] {n : ℕ} (hn : ¬ p ∣ n)
+    (h : a (p * n) = 0 ∨ (∃ c ∈ O, ∃ y ∈ O, a (p * n) = c * (4 * y)) ∨
+      (∃ c ∈ O, a (p * n) = c * a p ∧ InTwoO O (a p / 2))) :
+    InTwoO O (Bp a ηp p n) := by
+  rw [Bp_of_not_dvd hn]
+  rcases h with h0 | ⟨c, hc, y, hy, h⟩ | ⟨c, hc, h, hb⟩
+  · rw [h0, zero_div]; exact InTwoO.zero
+  · exact ⟨c * y, O.mul_mem hc hy, by rw [h]; ring⟩
+  · rw [h, mul_div_assoc]; exact hb.mul_left hc
+
+end Inputs
+
+/-- **The transported lower bound** (`PROVED`; tex 10296–10314): from the Waldspurger comparison
+`v₂ a_new(D) = v₂ a_old(d_k D) − v₂ a_old(d_k)` (`ELLIOT`, through `(E.10)`–`(E.11)`), the old
+lower bound `v₂ a_old(d) ≥ ω(d) + δ` at `d = d_k D`, the old unit condition
+`v₂ a_old(d_k) = ω(d_k) + δ`, and `ω(d_k D) = ω(d_k) + ω(D)` for coprime `d_k, D`, it follows that
+`v₂ a_new(D) ≥ ω(D)`. Valuations of nonzero coefficients are integers here; a zero coefficient
+satisfies the bound trivially. -/
+theorem transport_lower_bound (vnew vold : ℕ → ℤ) (δ : ℤ) {dk D : ℕ} (hcop : Nat.Coprime dk D)
+    (hW : vnew D = vold (dk * D) - vold dk)
+    (hlow : (ArithmeticFunction.cardDistinctFactors (dk * D) : ℤ) + δ ≤ vold (dk * D))
+    (hunit : vold dk = ArithmeticFunction.cardDistinctFactors dk + δ) :
+    (ArithmeticFunction.cardDistinctFactors D : ℤ) ≤ vnew D := by
+  rw [ArithmeticFunction.cardDistinctFactors_mul hcop] at hlow
+  push_cast at hlow
+  omega
+
 /-! ### The whole chain at one prime -/
 
 /-- **The no-seed data at a fresh good `K`-split prime `p`** (tex 10319–10481): the transported
-even source (coefficients `a`, characters `η`, `ψ(p)`, support `S`), its `ELLIOT`/`PRINT` properties,
+even source (coefficients `a`, characters `η`, `ψ(p)`, support `S`), its `ELLIOT`/`PRINT`
+properties,
 and the Galois-trace data `t(φ)f`, `d(φ)f` with the fresh prime `p'`. Fields:
 * `ha1`: normalization at index one (tex 10291–10292);
 * `hrec`: `(E.12)` at `p` (tex 8156–8161, `PRINT` interface);
