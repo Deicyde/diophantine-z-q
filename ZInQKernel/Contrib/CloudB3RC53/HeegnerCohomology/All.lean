@@ -8,6 +8,7 @@ import ZInQKernel.Contrib.CloudB3RC53.HeegnerCohomology.Shapiro
 import ZInQKernel.Contrib.CloudB3RC53.HeegnerCohomology.ShapiroInput
 import ZInQKernel.Contrib.CloudB3RC53.HeegnerCohomology.Witness
 import ZInQKernel.Contrib.CloudB3RC53.HeegnerCohomology.Cartesian
+import ZInQKernel.Contrib.CloudB3RC53.HeegnerCohomology.MackeyCor
 
 /-!
 # HeegnerCohomology: the cohomological layer of `ex:arith-finite-heegner` (tex 2834–3410)
@@ -29,4 +30,6 @@ Index of the area (all `PROVED`, standard axioms):
   section of Shapiro's map; RC10's `ShapiroTransferInput`; node `ShapiroNode`.
 * `Witness`: (H22) Selmer-cone witnesses.
 * `Cartesian`: restriction and corestriction commute in Cartesian squares; node `CartesianNode`.
+* `MackeyCor`: each Mackey orbit term is the local corestriction of the transported cocycle; node
+  `MackeyCorNode`.
 -/
