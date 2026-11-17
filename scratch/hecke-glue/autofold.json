@@ -1,0 +1,79 @@
+{
+ "name": "hecke-glue",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.R16CoreYDS965",
+  "ZInQKernel.Contrib.OneProof.HeckePin",
+  "ZInQKernel.Contrib.OneProof.HeckeGlue"
+ ],
+ "discharges": [
+  {
+   "field": "r16CoreY",
+   "proof": "_root_.AfTateLam.r16CoreY_of_ds965 {n}.heckeJ1DS {n}.afShimura {n}.afCharpolyDS965 {n}.igusaGL2DS {t}.mumfordTorsionAlgClosed",
+   "leaves": [
+    {
+     "name": "heckeJ1DS",
+     "type": "_root_.AfTateLam.HeckeJ1DS",
+     "doc": "aftate-fix2 (r16-det fold): the Hecke operators on J_1(N) over Q. For N >= 2, every model X of Diamond-Shurman's X_1(N)_alg with chosen generators (j_X, t_X) of K(X) = Q(j, f_1) (IsX1Gen: the integer relations of (j_X, t_X) are those of (j(tau), f_1(tau)), f_1 = T5Glue.weber <1,tau> (1/N)), every rational point P0 and every Jacobian (J, aj) (Albanese property): there are endomorphisms T_p (every prime p) and <d> (d in (Z/N)^*) of J over Q acting on degree-0 divisor classes of the points x_tau (AtTau: the complex point where every g in K(X) whose meromorphic function on H has a limit c at tau is regular with value c) by DS's double-coset formulas: T_p[x_tau] = sum_{j<p} [x_{(tau+j)/p}] + [x_{g(p tau)}] (last term for p not dividing N; g in SL_2(Z), N | c, d = p mod N), <d>[x_tau] = [x_{g tau}]. Dictionary audit (hecke-pin): IsHeckeT/IsDiamond pin T_p and <d> (AfTateLam.HeckePin.isHeckeT_unique, isDiamond_unique); hecke-glue proves both inputs X1TauPoints and ConstOnTauPoints (AfTateLam.HeckeGlue.x1TauPoints, constOnTauPoints), so the pinning holds with no hypothesis (AfTateLam.HeckeGlue.isHeckeT_unique', isDiamond_unique').",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Diamond-Shurman 6.3 Hecke operators on Div/Pic^0 of X_1(N) by double cosets, pp. 226-227, coset representatives Prop. 5.2.1 p. 171, 7.9 T_p and <d> defined over Q p. 300; AI-read by r16-close, no human reading)",
+     "source": "Diamond-Shurman, A First Course in Modular Forms, GTM 228 (2005), 6.3 (pp. 226-227), Prop. 5.2.1 (p. 171), 7.9 (p. 300); Shimura 1971 7.2 (unread)"
+    },
+    {
+     "name": "afShimura",
+     "type": "_root_.AfTateLam.AfShimura",
+     "doc": "aftate-fix2 (r16-det fold): Shimura's A_f over Q. For a newform f in S_2(Gamma_1(N)) with nebentypus chi, N >= 2, X, (j_X, t_X), P0, (J, aj) as in heckeJ1DS and any T_p, <d> with DS's divisor action: K_f is a number field, and there are A, pi : J -> A and theta : K_f -> End^0(A) with IsAfQuotient (pi surjective, kills I_f J, universal among homomorphisms to abelian varieties killing I_f J; I_f = image of the kernel of T_p -> a_p(f), <d> -> chi(d) on the free algebra) and IsAfAction (theta(a_p) is the endomorphism induced by T_p, theta(chi(d)) the one induced by <d>). Dictionary audit (hecke-pin): KillsIf kills exactly DS's I_f J (AfTateLam.HeckePin.killsIf_iff_IfDS_of_leaves, from ker(heckeJ) in ker(evF); inputs X1TauPoints, AbelJacobiX1; Eichler-integral glue proved; hecke-glue proves X1TauPoints, leaving AbelJacobiX1 only: AfTateLam.HeckeGlue.killsIf_iff_IfDS_of_abelJacobi); A_f unique up to unique isomorphism compatible with pi (isAfQuotient_unique, no input); theta unique (theta_unique, via a_n in Q(a_p, chi(d)), no input).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Shimura 1973 Thm 1: the Q-rational quotient A_f = J/I_f J with the coefficient-field action; read by the locator audit, row R16, pp. 526-527; DS Def. 6.6.3, Prop. 6.6.4 over C)",
+     "source": "Shimura, On the factors of the jacobian variety of a modular function field, J. Math. Soc. Japan 25 (1973), Thm 1, pp. 526-527 (read by the locator audit, row R16); Diamond-Shurman GTM 228 (2005), Def. 6.6.3 (p. 241), Prop. 6.6.4 (p. 242) (AI-read by r16-close)"
+    },
+    {
+     "name": "afCharpolyDS965",
+     "type": "_root_.AfTateLam.AfCharpolyDS965",
+     "doc": "r16-det: Diamond-Shurman Thm 9.6.5 at k = 2 for the Section 9.5 realization on A_f, over K_{f,lambda}, universal over A_f. For every (A, pi, theta) that is DS's A_f (afShimura's characterization, for any X, generators, P0, Jacobian and Hecke operators as in heckeJ1DS), every prime l and every place lambda | l of K_f: for p not dividing N l every arithmetic Frobenius sigma at p acting on V_lambda = K_lambda (x)_{Q_l (x) K_f} V_l(A) (rho_{f,lambda}, DS Exercise 9.5.2(a)) has characteristic polynomial X^2 - a_p X + chi(p) p over K_lambda. Statement = aftate-fix2's AfTateLam.AfTateDSLambda verbatim (AfTateLam.afCharpolyDS965_iff, Iff.rfl); it implies r16-close's glue AfDetLambda (AfTateLam.afDetLambda_of_ds965). Dictionary audit (hecke-pin): its IsHeckeT, IsDiamond, IsAfQuotient, IsAfAction hypotheses are about DS's T_p, <d>, A_f, theta (AfTateLam.HeckePin, as for afShimura/heckeJ1DS; hecke-glue: T_p, <d> pinned with no hypothesis, I_f modulo AbelJacobiX1 only). DS p. 393 (2016 p. 404): the identification of the Section 9.5 representation with 9.6.5's rho at k = 2 is the sentence two paragraphs after the theorem ('Section 9.5 constructed rho_{f,lambda} when k = 2 ...'); it asserts the identification, gives no proof.",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Diamond-Shurman Thm 9.6.5, 'the characteristic equation of rho_{f,lambda}(Frob_p) is x^2 - a_p x + chi(p) p^{k-1} = 0', at k = 2, with DS's identification on the same page that for k = 2 the representation is the Section 9.5 construction, whose characteristic equation Section 9.5 had not proved; AI-read by r16-det in the 2005 (p. 393) and 2016 (p. 404) printings, no human reading)",
+     "source": "Diamond-Shurman, A First Course in Modular Forms, GTM 228 (2005), Theorem 9.6.5 and the paragraph after it, p. 393 (2016 fourth printing p. 404); rho_{f,lambda} and V_l(A_f) as in Lemma 9.5.3, Theorem 9.5.4, Exercise 9.5.2(a), pp. 389-391"
+    },
+    {
+     "name": "igusaGL2DS",
+     "type": "_root_.X1Igusa.IgusaGL2DS",
+     "doc": "x1-igusa: Igusa's theorem in its printed form, Gal(Q(j, E_j[N])/Q(j)) = GL_2(Z/N) for Diamond-Shurman's E_j : y^2 = 4x^3 - g x - g, g = 27j/(j-1728), j transcendental. For N >= 1, every basis e : (Z/N)^2 = E_j[N] over an algebraic closure of Q(j) and every g in GL_2(Z/N), some sigma in Aut(Q(j)bar/Q(j)) acts on E_j[N] as g in the basis e. Used through X1Igusa.x1PointsConjugate_of_igusaGL2DS (the dictionary IsX1Model -> IsX1AlgDS, aftate-or).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Diamond-Shurman Thm 7.6.3, Gal(Q(j,E_j[N])/Q(j)) = GL_2(Z/N), p. 290, with E_j of (7.12) p. 282; AI-read by r16-close, no human reading)",
+     "source": "Diamond-Shurman, A First Course in Modular Forms, GTM 228 (2005), Theorem 7.6.3 (p. 290), universal curve (7.12) (p. 282); Igusa, Amer. J. Math. 81 (1959) (unread)"
+    }
+   ]
+  }
+ ],
+ "note": "r16-det: report docs/research/r16-det.md. r16-close's fold with the pair AfTateDSLambdaSat (DS 9.5.4, 'satisfies') + AfDetLambda (GLUE) replaced by the single printed leaf AfCharpolyDS965 (DS Thm 9.6.5 at k = 2, which DS identify with the Section 9.5 realization on A_f; read in both printings). After fold34-pr (mumfordTorsionAlgClosed proved by PR #54) replace {t}.mumfordTorsionAlgClosed by _root_.ZInQ.Contrib.CloudB3W16Torsion.mumfordTorsionAlgClosed_proof. hecke-pin: same discharge as r16-det; the fold's leaf set is unchanged. hecke-pin adds audit theorems (ZInQKernel/Contrib/OneProof/HeckePin.lean) showing the dictionary hypotheses of heckeJ1DS, afShimura, afCharpolyDS965 pin DS's objects. Audit inputs (not hypotheses of the fold): AfTateLam.HeckePin.X1TauPoints (kind published-consequence, flag 'not printed form: consequence of DS 7.7 pp. 290-291 (X1(N) = X1(N)_alg,C, function field C(j,f1)) through the Riemann-surface/scheme-point dictionary'), AfTateLam.HeckePin.AbelJacobiX1 (kind published-consequence, flag 'not printed form: composite of DS Thm 6.1.2 (Abel, p. 214), DS 3.3 (S_2 = holomorphic differentials), Milne JV Thm 1.1/Prop 6.1 (UNVERIFIED numbers)'), AfTateLam.HeckePin.ConstOnTauPoints (kind glue, flag 'standard algebraic geometry, unproved'). EichlerPrimitive and EichlerHecke are proved (eichlerPrimitive, eichlerHecke). hecke-glue: same discharge; the fold's leaf set is unchanged. AfTateLam.HeckeGlue (ZInQKernel/Contrib/OneProof/HeckeGlue.lean) proves X1TauPoints (via the analytic glue TauPlace and the center of a place, valuative criterion) and ConstOnTauPoints, so of hecke-pin's three audit inputs only AbelJacobiX1 remains (report docs/research/hecke-glue.md).",
+ "audit_props": [
+  {
+   "name": "X1TauPoints",
+   "type": "_root_.AfTateLam.HeckePin.X1TauPoints",
+   "kind": "glue",
+   "flag": "proved (AfTateLam.HeckeGlue.x1TauPoints, from TauPlace + exists_cpt_of_place); not a leaf",
+   "source": "hecke-glue (Lean proof); Mathlib valuative criterion, meromorphicOrderAt; CloudW07 valuationRing_stalk; WeberField evAn_eq, diffOn_ez"
+  },
+  {
+   "name": "TauPlace",
+   "type": "_root_.AfTateLam.HeckeGlue.TauPlace",
+   "kind": "glue",
+   "flag": "proved (AfTateLam.HeckeGlue.tauPlace)",
+   "source": "hecke-glue (Lean proof)"
+  },
+  {
+   "name": "ConstOnTauPoints",
+   "type": "_root_.AfTateLam.HeckePin.ConstOnTauPoints",
+   "kind": "glue",
+   "flag": "proved (AfTateLam.HeckeGlue.constOnTauPoints)",
+   "source": "hecke-glue (Lean proof); Mathlib closedPoints_subset_preimage_closedPoints, ext_of_fromSpecResidueField_eq; CloudW07 curve dimension"
+  },
+  {
+   "name": "AbelJacobiX1",
+   "type": "_root_.AfTateLam.HeckePin.AbelJacobiX1",
+   "kind": "consequence",
+   "flag": "not printed form: composite of DS Thm 6.1.2 (Abel, 2005 pp. 214-215), DS 3.3 (S_2 = holomorphic differentials), Milne JV Thm 1.1/Prop 6.1 (UNVERIFIED numbers), GAGA (DS 7.2); strictest GLUE under the 11-16 dictionary ruling; leaf candidate",
+   "source": "Diamond-Shurman GTM 228 (2005) Thm 6.1.2 pp. 214-215; 3.3; 7.2; Milne, Jacobian varieties (1986)"
+  }
+ ]
+}
