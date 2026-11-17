@@ -154,8 +154,8 @@ for _, _, f, s, k in sorted(uniq.values()):
         stats["struct"] += 1
     txt, n = edit_assign(txt)
     stats["assign"] += n
-    if "FS5NoCM.fibreComTrivialFull_of_leaves''" in txt:
-        txt, n1 = re.subn(r"FS5NoCM\.fibreComTrivialFull_of_leaves''(?![\w'])", "FS5NoCM.fibreComTrivialFull_of_leaves''_le", txt)
+    if re.search(r"FS5NoCM\.fibreComTrivialFull_of_leaves(_hf)?''(?![\w'])", txt):
+        txt, n1 = re.subn(r"FS5NoCM\.fibreComTrivialFull_of_leaves(_hf)?''(?![\w'])", r"FS5NoCM.fibreComTrivialFull_of_leaves\1''_le", txt)
         txt, n2 = re.subn(r"(?<![\w.'])(\w+)\.r5count\)", r"\1.r5le)", txt)
         assert n1 == n2 == 1, (s, n1, n2)
         stats["consumer"] += 1
@@ -180,7 +180,7 @@ NEWTOP = f"sixContactMin_of_open{TOPK + 1}"
 MAIN_IMPORTS = re.findall(r"^import .*$", MAIN, re.M)
 MAIN_OPENS = re.search(r"namespace ZInQ\.Contrib\.TYZChain\n\n((?:open .*\n)*)", MAIN).group(1)
 topf = cfile(TOPR)
-sm = re.search(r"((?:/--(?:(?!-/).)*?-/\n)?)structure " + TOPR + r" : Prop where\n((?:  .*\n)+)", open(topf).read(), re.S)
+sm = re.search(r"((?:/--(?:(?!-/).)*?-/\n)?)structure " + TOPR + r" : Prop where\n((?:  [^\n]*\n)+)", open(topf).read(), re.S)
 body = sm.group(2)
 fl = re.findall(r"^  (\w+) :", body, re.M)
 assert "gonzalezRotgerProp56X6" in fl
@@ -239,6 +239,18 @@ weaker field cannot fill the old ones, so this module copies (suffix `_eb` / `EB
 
 set_option linter.all false
 set_option maxHeartbeats 1000000
+
+namespace HDec.FS5NoCM
+open LeafQM.AV LeafQM.AV.Pin PkgI3
+
+/-- `fibreComTrivialFull_of_leaves_hf''` (homfree-noemb, `HomFreeFiniteAlgClosedReroute/Consumers.lean`) with
+`GR56.R5fpCountLe` (eichler-rebase glue, as gr56-prove's `fibreComTrivialFull_of_leaves''_le`). -/
+theorem fibreComTrivialFull_of_leaves_hf''_le (hL : R1R2fpFull) (hM : LeafQM.AV.Pin.MobiusGlue)
+    (hYu : QMLattice.YuB6Alg) (t6 : _root_.ZInQ.Contrib.OneProof.HomFreeC.HomFreeFiniteC) (hE : CMOptimalEmbedding)
+    (hK : X6KummerFibre) (hC : _root_.GR56.R5fpCountLe) : FibreComTrivialFull :=
+  fibreComTrivialFull_of_le hL hM (comIntOrQuadOrder_of_leaves_hf hYu t6) (cmConductorCoprime6_of hE) hK hC
+
+end HDec.FS5NoCM
 '''
 tail = ("\nnamespace HDec\n\nnamespace HSyn\n\n" + "\n".join(top) + "\nend HSyn\n\nend HDec\n\n"
         "namespace ZInQ.Contrib.TYZChain\n\n" + MAIN_OPENS + "\n"
