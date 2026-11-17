@@ -46,3 +46,8 @@ Modules under ZInQKernel/Contrib/OneProof/ (new files only):
 - Gamma0QExpansion.lean: `ZInQ.Contrib.Gamma0QExp.gamma0QExpansion_proof : ZInQ.GZAlg.Gamma0QExpansion`.
 - `#print axioms gamma0QExpansion_proof`: [propext, Classical.choice, Quot.sound] (scratch/gamma0-qexp/Axioms.lean).
 - No new leaf, no new glue Prop: the statement is proved for every N ≥ 1 exactly as stated.
+
+## 2026-11-16 18:05 final checks (VERIFIED)
+- local notation `𝕢` removed from the Contrib files (kit: no notation); full rebuild OK.
+- axioms.out, discharges.out (`DISCHARGES [hQ] ... still assumes: []`), foldcheck.out (`frozenTarget_noQ`, standard axioms).
+- Report docs/research/gamma0-qexp.md; fleet note .fleet/gamma0-qexp.md.
