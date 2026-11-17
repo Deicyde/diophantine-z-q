@@ -442,9 +442,10 @@ jobs:
 
 
           # The exact approved workflow has only read permissions, no environments or
-          # secrets, GitHub-hosted runners and SHA-pinned actions. Its sole explicit cache
-          # save is restricted to pushes on main. A change requires a reviewed pin update.
-          LEAN_WORKFLOW_SHA256 = '24343f1b708f28c2d75d58d0fd645a8504ab294e9a4f67356f01767098e81222'
+          # secrets, GitHub-hosted runners and SHA-pinned actions. Project cache restore
+          # is main-only, even for pre-existing reserved refs; save is push-on-main-only.
+          # A change requires a reviewed pin update.
+          LEAN_WORKFLOW_SHA256 = 'a340919517c59da2c446ab3f7119377d9b4aa2cdc7760159cf93d5165cd7d745'
           LEAN_REF_PREFIX = 'refs/heads/codex/protocol-b-kernel/'
 
 
