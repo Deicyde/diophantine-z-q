@@ -8,7 +8,7 @@ strictest 11/18, 6 others).
    FoldDryRunAll4; height-fix FoldDryRun; semiab-descend FoldDryRun, FoldDryRunCheck). No host paths in the merged
    files (grep /home/, user name). No vendored code or LICENSE/NOTICE files in either branch.
    dict-models' `ZInQKernel/Contrib/OneProof/RaynaudSemistableOr.lean` is in the base tree (VERIFIED, ls).
-2. Build: seeded .lake/build and lean/.lake/build from ~/dzq-check2 (built at c0f3d085, Main.lean identical).
+2. Build: seeded .lake/build and lean/.lake/build from the shared prebuilt tree dzq-check2 (built at c0f3d085, Main.lean identical).
    Base hash dump `hashes_0_base.txt` (15751 constants; frozenTarget standard axioms) taken before any new build.
    `lake build ZInQKernel.Contrib.OneProof.SemiAbelianDescendsPerfect`: OK (builds HeightDictionary + its three
    submodules, PrintedStableHeight, SemiAbelianDescendsPerfect on this base; only linter warnings)
