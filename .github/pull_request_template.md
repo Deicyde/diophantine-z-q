@@ -18,3 +18,7 @@ Follow the [contributor review guide](https://github.com/elliotglazer/diophantin
 List checks run, their results and what they establish. Report `python -B scripts/check_audit_history.py --self-test` when relevant. Identify unrun checks and unresolved assumptions.
 
 Check the live [public ruleset](https://github.com/elliotglazer/diophantine-z-q/rules/26781429) for current enforcement. The private repository has no ruleset. Green CI alone does not certify a proof.
+
+## AI use
+
+State whether AI tools were used. If so, name the tools and describe their role and what you checked yourself. If none were used, say so. Replace this instruction with your answer.

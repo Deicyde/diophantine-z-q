@@ -176,7 +176,7 @@ class LeanProfile(unittest.TestCase):
     def test_wait_runs_before_secret_exposure_and_preserves_candidate_code_isolation(self):
         preparation=workflow.split('  kernel_preflight:',1)[1].split('  run_reviewers:',1)[0]
         self.assertNotIn('secrets.',preparation)
-        self.assertIn('PROGRAM_ACTION: wait-lean',preparation)
+        self.assertIn('"$RUNNER_TEMP/protocol-b.py" wait-lean',preparation)
         self.assertNotIn('environment: protocol-b',preparation)
         self.assertNotIn('actions/checkout',workflow)
         self.assertNotIn('zipfile.extract',workflow)

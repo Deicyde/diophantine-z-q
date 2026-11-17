@@ -1,0 +1,116 @@
+{
+  "schema": "record-manuscript-policy-review/v1",
+  "decision": "accepted_within_scope",
+  "reviewer": "Claude Fable 5.2, in Elliot Glazer's Claude Code session (local review, not the Protocol B gate reviewer)",
+  "author_of_policy_or_implementation": false,
+  "reviewed_at": "2026-11-17T15:10:00+00:00",
+  "reviewed_root": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\version20-release-20261117\\repo",
+  "request": "relay/to-fable/20261117-0118-from-astra-v20-wording-final-binding.md",
+  "files": [
+    {
+      "path": "scripts/build_paper.py",
+      "sha256": "f62e565f8543b7ff44a66d3cac6aa47189d1f8d7802e169ed4f9f3864bf4f86f",
+      "bytes": 9646
+    },
+    {
+      "path": "scripts/check_current_manuscript.py",
+      "sha256": "ebc45e56fce617602002e9232d215e4f988f23fd4e6b10dd42bcea5e166e0dfe",
+      "bytes": 5642
+    },
+    {
+      "path": "docs/current-manuscript.json",
+      "sha256": "4960b9816fec22913e8705c2a5311b24bd595a65144217926ad1765ae42f5710",
+      "bytes": 517
+    },
+    {
+      "path": "docs/audit-history/current.json",
+      "sha256": "2b0dd7653076633f53c1e32b43dd4c11a664b5ace5b5685ff6afc30ed4b82ca4",
+      "bytes": 372544
+    },
+    {
+      "path": "manuscripts/quartic_v20.tex",
+      "sha256": "95044840af8c3872c6298ea7c5eb4055fbbcd9d91be338ee33b97ba20c503c32",
+      "bytes": 2673450
+    },
+    {
+      "path": "manuscripts/quartic_v20.pdf",
+      "sha256": "061c435337b27e280535544b2d50caef920d8d2d4b33051f575d967b748e59fe",
+      "bytes": 5171261
+    },
+    {
+      "path": "research/version20/BUILD.json",
+      "sha256": "8ea3d9fce441ff44872d0bd585ec6b1b982f9af85742c404c9cbef30fd200d9e",
+      "bytes": 215744
+    },
+    {
+      "path": "research/version18/build_pdf.py",
+      "sha256": "5afbf7050dd8b5ea45546560fc5e4f20b415c5c66c580e128fa93f8a349edf41",
+      "bytes": 17800
+    },
+    {
+      "path": "manuscripts/quartic_v16.tex",
+      "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+      "bytes": 1926498
+    },
+    {
+      "path": "manuscripts/quartic_v16.pdf",
+      "sha256": "5634295d85bdfd2aef476ad49827b160f119e94996e1f644c3b05a96eabf6315",
+      "bytes": 2732163
+    },
+    {
+      "path": "manuscripts/quartic_v17.tex",
+      "sha256": "f6bf186008d33270dadbba6bd490f22116c66168975c3f84ad5bc6f281726e12",
+      "bytes": 2338864
+    },
+    {
+      "path": "manuscripts/quartic_v17.pdf",
+      "sha256": "20ee7ebabdbba1e15406af72d31854206beaaa257e1c52fca2abd113243ea7ea",
+      "bytes": 3916929
+    },
+    {
+      "path": "manuscripts/quartic_v18.tex",
+      "sha256": "0cb9c70baed00d736c88636243c4da96c38ce4f96090d029d0020ce459435a29",
+      "bytes": 2324626
+    },
+    {
+      "path": "manuscripts/quartic_v18.pdf",
+      "sha256": "e6fb5b6a7c5d3340db2c3b1f14e78fbb9c357f11544584c6a96ae2abc2c0579d",
+      "bytes": 4849204
+    },
+    {
+      "path": "manuscripts/quartic_v19.tex",
+      "sha256": "1f0e4db9e978115bb7f605f4bfcd84426a715b8cb6adaee3566107b33d61ad03",
+      "bytes": 2535915
+    },
+    {
+      "path": "manuscripts/quartic_v19.pdf",
+      "sha256": "cc1adfb0107661e001593cbfeae57e0221d6cfb8bc8f48a5e0be213144844172",
+      "bytes": 5088828
+    }
+  ],
+  "scope": "Build selection and recorded source/PDF/build correspondence for this exact Version 20 candidate, and byte preservation of the eight released Version 16, 17, 18 and 19 manuscript files in this checkout. No whole-proof or protected gate acceptance of Version 20 is given or implied by this record.",
+  "checks": [
+    "Hashed all sixteen files in the reviewed root: the hashes and byte counts are as listed, and the five inputs named in the request (build_paper.py, current-manuscript.json, quartic_v20.tex, quartic_v20.pdf, BUILD.json) equal the request's hashes.",
+    "Builders: scripts/build_paper.py and research/version18/build_pdf.py are the same bytes as in my Version 19 record; scripts, builders and research/version19 are unchanged from origin/main.",
+    "Ran scripts/check_current_manuscript.py in the reviewed root: exit status 0. docs/current-manuscript.json declares version 20 with the tex, pdf and build-record hashes listed above.",
+    "research/version20/BUILD.json: manuscript_version 20, status success, source and pdf hashes equal to the files, builder_sha256 equal to build_pdf.py, three serial passes each with return code 0, tex_errors 0, unresolved_references 0, 781 pages.",
+    "PDF, with pdfinfo and pdftotext: 781 pages; title 'Z is Diophantine in Q, Version 20'; no '??'; the abstract states 247 variables, 3 385 monomials, the coefficient bound, 96 712 bytes, and 195 variables with 2 956 monomials; the AI usage statement names 6 Astra and 6.1 Sol, Opus 5.5, Gemini 4 Carbon, Fable 5.1 and 5.2, and says 'the polynomials'.",
+    "Released files: the eight Version 16 to 19 manuscript files hash, as working-tree files, to the Git blobs at origin/main and to the values above.",
+    "Printed tables, parsed from the TeX with my own parser: the 219 rows of the explicit 247 equal Carbon's explicit247 table; their expansion has 247 variables, 3,385 monomials, degree four, leading input coefficient 1, content 1, largest coefficient 149^10220 + 298442980098761875927809873 (bit length 73,780) at the constant term only, and is 96,712 bytes in the PR145 notation with SHA-256 455afb0b7143654119db3a68a85fec2fde566cf7fbdf3f7c84bd5d75b32719b9. The printed scalings, row operations and permutation equal Carbon's certificate and reproduce rows 1 to 216 from the Version 19 unbalanced 244 system. The printed 195 and 250 tables and both map sections are line for line those of Version 19.",
+    "Source delta from Version 19: 19 diff hunks. I read all of them: the new explicit-247 Part; four explanatory mathematical edits (secant equations without division by the slope; the scalar lower bound c >= 149^{L_N} as in retained P11; the identification of the deleted 214 coordinates and rows; additivity of the formal logarithm, including above 2), each rechecked and found correct; and the title, date, abstract, Part retitling, the rewording of the 195 result, 'Gemini 4 Carbon', two edition-relative phrases and the AI usage statement. No other line differs.",
+    "Delta from the source of my earlier record (fa1e3eb4...) to this source: exactly five hunks, which I read: the starting system defined as the first 216 rows of the retained 250 table with y_250 replaced by A; a citation of Theorem v19:250-fixed; the remark that index 47 is the input-square coordinate; the eight off-block entries (58,112), (64,10), (65,11), (102,108), (120,126), (121,216), (138,144), (156,162) listed with the statement that each points to a row with no off-diagonal entry; and '196- and 198-coordinate constructions' in place of 'the latter two'. No table, polynomial, lemma or theorem statement is touched, so the table checks recorded above carry over unchanged. For these bytes I re-hashed the four changed files, re-ran scripts/check_current_manuscript.py (exit 0), re-read BUILD.json (version 20, success, three passes with return code 0, no TeX errors or unresolved references, 781 pages, hashes equal to the files), re-ran pdfinfo and pdftotext (781 pages, title 'Z is Diophantine in Q, Version 20', no '??', the 96 712 byte sentence present), and re-confirmed the eight released manuscript files against origin/main."
+  ],
+  "observations": [
+    "The exposition notes from my text review were applied in this revision; this record is for the revised bytes.",
+    "Changed or added relative to origin/main: six root and documentation files, CURRENT_VERSION20.md, the two Version 20 manuscript files and research/version20/. Nothing under .github/, scripts/, tests/ or releases/, and KERNEL_CONTRACT.json is untouched.",
+    "Unlike the Version 19 pull request, this candidate adds no CI step for the new Version 20 finite checks; they were run separately by the author and, independently, by this review.",
+    "docs/current-manuscript.json and research/version20/BUILD.json must be committed byte for byte."
+  ],
+  "limitations": [
+    "I did not run pdfLaTeX or any build, and did not inspect page images of the PDF.",
+    "I did not check docs/audit-history/builder-binding.json or its self-test, research/version20/CORRECTIONS.md beyond the entries for the four mathematical edits, or the release manifest and handoff files.",
+    "The candidate was not yet committed or pushed when reviewed; this record applies to these bytes only.",
+    "This is reviewer-authored evidence from a local session. It is not model authentication and not protected App acceptance."
+  ],
+  "supersedes": "relay/to-astra/20261117-1430-from-fable-v20-builder-review.json, which applies to the earlier bytes (source fa1e3eb4..., PDF b99d8f0d...) and remains valid for them only."
+}

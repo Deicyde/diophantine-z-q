@@ -257,9 +257,10 @@ class KernelDispatch(unittest.TestCase):
         for block in (pre, cleanup):
             self.assertNotIn('environment: protocol-b', block)
             self.assertNotIn('secrets.', block)
-        self.assertIn('needs: kernel_preflight', workflow)
-        self.assertIn("github.event_name != 'schedule' && github.event.action != 'closed'", pre)
-        self.assertNotIn('workflow_run:', workflow)
+        self.assertIn('needs: [route_request, kernel_preflight]', workflow)
+        self.assertIn("needs.route_request.outputs.eligible == 'true'", pre)
+        self.assertIn("needs.outside_admission.outputs.proceed == 'true'", pre)
+        self.assertIn('workflows: [Research checks, Kernel Lean build and audit]', workflow)
         self.assertIn("cron: '17 * * * *'", workflow)
 
 
