@@ -1,0 +1,15 @@
+{
+  "name": "h21c-steps",
+  "note": "Manual fold: h21C is a top-level argument of frozenTarget (autofold.py folds bundle fields only). h21C (TYZThm21PairsC) is replaced by h21S (H21CSteps.TYZThm21Span: TYZ Theorem 2.1 with pi^U = sum_delta C f_delta as printed in Theorem 2.4(1)); h21C = tyzThm21PairsC_of_span h21S (equivalence: tyzThm21Span_of_pairsC). Checked in scratch/h21c-steps/FoldCheck.lean.",
+  "imports": ["ZInQKernel.Contrib.OneProof.TYZThm21Span"],
+  "replace_binders": {"(h21C : ZInQ.Contrib.TYZGenusFold.TYZThm21PairsC)": "(h21S : ZInQ.Contrib.H21CSteps.TYZThm21Span)"},
+  "replace_args": {"h21C": "(ZInQ.Contrib.H21CSteps.tyzThm21PairsC_of_span h21S)"},
+  "discharges": [
+    {"field": "h21C", "proof": "_root_.ZInQ.Contrib.H21CSteps.tyzThm21PairsC_of_span",
+     "leaves": [{"field": "h21S", "type": "ZInQ.Contrib.H21CSteps.TYZThm21Span", "kind": "published",
+                 "flag": "pending-review,restricted,unread"}]}],
+  "kinds_remove": ["frozenTarget\th21C"],
+  "kinds_add": "scratch/h21c-steps/kinds-rows.tsv (row h21S)",
+  "check": "ZInQ.Contrib.TYZChain.frozenTarget_h21S (new body), ZInQ.Contrib.TYZChain.frozenTarget_h21S' (through the current frozenTarget)",
+  "count": "frozenTarget hypotheses unchanged in number (h21C -> h21S); GLUE -1 if a reviewer rates h21S LEAF"
+}
