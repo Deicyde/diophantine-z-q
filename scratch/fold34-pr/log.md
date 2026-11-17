@@ -31,3 +31,26 @@ render_open count at base: 35 open (29 H, strictest 11/18, 6 others).
 - Module-name clashes: none (all new modules are under new directories ZInQKernel/Contrib/CloudB3W16Torsion,
   CloudB3W16FiniteGroup; the one file under an existing directory is the new OneProof/MumfordTorsionAlgClosed.lean).
   Declaration clashes with Main's environment are checked by the fold build (step 2). No vendored file edited.
+
+## Step 2. Autofold mumfordTorsionAlgClosed (textbook bundle) — render_open: 35 -> 34 open (29 -> 28 H)
+- `python3 scripts/one_proof/autofold.py scratch/fold34-pr/autofold-mumford.json`: "strict count: 11/18 on 29 ->
+  10/18 on 28; strictest 11/18 -> 10/18"; wrote ZInQKernel/OneProof/H/TailZ56.lean (OpenTextbookLeaves17 =
+  OpenTextbookLeaves16 without mumfordTorsionAlgClosed, `openTextbookLeaves16_of_OpenTextbookLeaves17` filling it with
+  `ZInQ.Contrib.CloudB3W16Torsion.mumfordTorsionAlgClosed_proof`, `sixContactMin_of_open49`), switched Main.lean,
+  dropped the kinds row (textbook, published, LEAF/LEAF) and the claims row (cloud batch 2, issue #81).
+  No new leaf. The field was LEAF, so the step removes a field (GLUE unchanged at 18).
+- `lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges ZInQKernel.OneProof.H.TailZ56`: success
+  (15579 jobs, 1 min); `'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]`
+  (VERIFIED). No declaration clash between the PR's library and Main's environment (the build would fail on one).
+- Hash guard (scratch/fold34-pr/DumpCompact.lean, tools/hashdiff.py; hashdiff_1_mumford.txt) (VERIFIED):
+  before 15751, after 15761, only before 0, only after 10 (all in ZInQKernel.OneProof.H.TailZ56), changed 1
+  (ZInQ.OneProof.frozenTarget, type+value).
+- Closure check (ClosureCheck.lean; closure_1_mumford.txt) (VERIFIED): closure 289644 constants; sorryAx absent;
+  AvSplit.MumfordTorsionAlgClosed is in the closure only as the type of the proved provider (no bundle field of
+  OpenResearchLeaves31 / OpenTextbookLeaves17 / OpenAddedLeaves25 has it as type); the earlier removed Props
+  (SGA3_VIB_3_10(_Nbhd), MumfordGroupLawConn, HomFreeFiniteAlgClosed, HomFreeFinite, MumfordPhiSurjectiveAC,
+  PicZeroAbVar, PicZeroSmooth) stay absent.
+- OpenStatements.lean regenerated open-statements.json; render_open.py: "28 H hypotheses, strictest 10/18, 6 others";
+  render_open.py --check: "ok: 34 open hypotheses, all classified; 4 generated files up to date"; frontier_crosswalk.py
+  then --check ok (232 IDs, 25 matched); DischargesTest rerun (output differs only by the bundle rename 16 -> 17 and
+  the dropped field); `autoform check blueprint --lean-root .`: "OK: 781 articles, 2343 dependencies", rc 0.

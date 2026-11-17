@@ -144,24 +144,18 @@
    "docstring":
    "Deligne-Serre, Formes modulaires de poids 1, Ann. Sci. ENS (4) 7 (1974), Thm 4.1 with (4.1.1), p. 514, as printed: for f != 0 a (cusp) form of type (1, eps) with eps(-1) = -1 that is an eigenvector of the T_p, p not dividing N, with eigenvalues a_p (Tau Ceti EigenformAwayFromLevel N 1, no normalization a_1 = 1), a continuous rho : G_Q -> GL_2(C) with finite image, unramified outside N, with tr rho(Frob_p) = a_p (the T_p-eigenvalue F.eigenvalue p) and det rho(Frob_p) = eps(p). The coefficient form a_p = coeff g p (from a_1 = 1) and eps(-1) = -1 (parity lemma, TauCeti Parity.lean:113) are glue in DSThm966EV.dsThm966_of_printed (coeff-fix). ",
    "bundle": "OpenResearchLeaves31"},
-  {"type": "AvSplit.MumfordTorsionAlgClosed",
-   "statement": "AvSplit.MumfordTorsionAlgClosed",
-   "field": "mumfordTorsionAlgClosed",
-   "docstring":
-   "**LEAF (H-25; published form).** Mumford, *Abelian varieties* (1970; 2nd ed. 1974), §4,\nApplication 2, (iv) (UNVERIFIED locator): for an abelian variety `X` of dimension `g` over an\nalgebraically closed field `k` and an integer `n` with `char k ∤ n`, the group\n`X_n = {x ∈ X : nx = 0}` of `n`-torsion points is isomorphic to `(ℤ/nℤ)^{2g}`. Mumford's points\nare the closed points, i.e. the `k`-points (`Pts A k`); `dim` is the topological Krull dimension\nof the underlying space; \"`char k ∤ n`\" with `n ≥ 1` is `(n : k) ≠ 0`; the group isomorphism is a\nbijection `e` with `e(x + y) = e x + e y` (written multiplicatively on points). ",
-   "bundle": "OpenTextbookLeaves16"},
   {"type": "ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed",
    "statement": "ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed",
    "field": "charPolyIndepOfEllAlgClosed",
    "docstring":
    "**T7 in Mumford's setting** (consequence of a published theorem). D. Mumford, *Abelian\nvarieties* (1970), §19, Theorem 4 (UNVERIFIED locator; `k` algebraically closed): for\n`φ ∈ End(X)` the polynomial `P_φ(n) = deg(n - φ)` lies in `ℤ[X]`, is monic of degree `2g`, and is\nthe characteristic polynomial of `T_ℓ(φ)` for every `ℓ ≠ char k`. This is\n`PkgI3.CharPolyIndepOfEll` with `[IsAlgClosed k]` added (it drops `deg P = 2g` and\n`P(n) = deg(n - φ)`). ",
-   "bundle": "OpenTextbookLeaves16"},
+   "bundle": "OpenTextbookLeaves17"},
   {"type": "ZInQ.HomLattice.GAGAMorphism",
    "statement": "ZInQ.HomLattice.GAGAMorphism",
    "field": "gagaMorphism",
    "docstring":
    "**GAGA for maps of complex abelian varieties (textbook leaf candidate; Serre, GAGA (1956);\nSGA 1 XII 4.4: `Hom(X, Y) → Hom(X^an, Y^an)` is bijective for `X` proper over `ℂ`; locators\nUNVERIFIED).** Let `φ : ℂ^g ⧸ Λ ≃ A(ℂ)` be a strong uniformization (so `φ` presents `A^an`), and\n`ψ : ℂ^g → B(ℂ)` an analytic homomorphism killing `Λ` (= a holomorphic homomorphism\n`A^an → B^an`). Then `ψ` comes from an algebraic morphism `f : A → B`. ",
-   "bundle": "OpenTextbookLeaves16"},
+   "bundle": "OpenTextbookLeaves17"},
   {"type": "T09Pic.PicRepresentableAbVar",
    "statement": "T09Pic.PicRepresentableAbVar",
    "field": "picRepresentableAbVar",
@@ -210,4 +204,4 @@
    "docstring":
    "**The leaf of the `C_d` route, algebraic form**: `GrossZagierAlgOptAt E'` for every short model\n`E'` in the isogeny class of `C_d : y² = x³ − d²x` (`aₙ(E') = aₙ(C_d)`), `d ≡ 5 (mod 8)` squarefree.\nA restriction of `GrossZagierAlgOpt`. ",
    "bundle": "frozenTarget"}],
- "count": 35}
+ "count": 34}

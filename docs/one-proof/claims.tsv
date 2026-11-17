@@ -1,5 +1,4 @@
 field	task	status	since	issue	holder_kind	public_holder	claim_url	hold
-mumfordTorsionAlgClosed	cloud batch 2	claimed on the issue 2026-11-15 02:14Z, in progress	2026-11-15	elliotglazer/diophantine-z-q#81	project	project	https://github.com/elliotglazer/diophantine-z-q/issues/81#issuecomment-6887798791	held
 gagaMorphism	cloud batch 2	claimed on the issue 2026-11-15 02:14Z, in progress	2026-11-15	elliotglazer/diophantine-z-q#82	project	project	https://github.com/elliotglazer/diophantine-z-q/issues/82#issuecomment-6887799149	held
 charPolyIndepOfEllAlgClosed	deg-det	host task deg-det running	2026-11-16	elliotglazer/diophantine-z-q#81	project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/deg-det	held
 h11	h11-reduce	host task h11-reduce running	2026-11-16	elliotglazer/diophantine-z-q#74	project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/h11-reduce	held

@@ -11,14 +11,14 @@ Each hypothesis is a Lean `Prop`; proving one in Lean, or reducing it to stateme
 removes it. See
 [CONTRIBUTING.md](CONTRIBUTING.md) for how to contribute and check a proof.
 
-**29 hypotheses of the H part** (in the bundles `OpenAddedLeaves25`, `OpenResearchLeaves31`, `OpenTextbookLeaves16`), plus 6 hypotheses of the Tian–Yuan–Zhang and Gross–Zagier parts listed at the end.
+**28 hypotheses of the H part** (in the bundles `OpenAddedLeaves25`, `OpenResearchLeaves31`, `OpenTextbookLeaves17`), plus 6 hypotheses of the Tian–Yuan–Zhang and Gross–Zagier parts listed at the end.
 
-* **Strict count: 11 published / 18 glue** (the strictest flagged reading; no hypothesis carries a strictest-reading flag).
+* **Strict count: 10 published / 18 glue** (the strictest flagged reading; no hypothesis carries a strictest-reading flag).
 * LEAF means a published, refereed theorem stated over genuine definitions in its printed form, or a direct
   instance of it (a special case that needs no argument). GLUE is everything else: a consequence of one theorem,
   a composite of several, project glue, or a leaf whose published form is still pending a reading (`kinds.tsv`,
   column `flag`).
-* By kind: composite 5, consequence 11, published 13.
+* By kind: composite 5, consequence 11, published 12.
 
 ## Kernel-wide readings
 
@@ -74,7 +74,6 @@ ping, and is released if there is no reply within 7 days of the ping.
 | [`r16CoreY`](#r16corey) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/r16-used)) | 2026-11-15 |
 | [`raynaudSemistableSHOr`](#raynaudsemistableshor) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/raynaud-proof)) | 2026-11-16 |
 | [`neronOggShafarevichSep`](#neronoggshafarevichsep) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/nos-proof)) | 2026-11-16 |
-| [`mumfordTorsionAlgClosed`](#mumfordtorsionalgclosed) | the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/81#issuecomment-6887798791)) | 2026-11-15 |
 | [`charPolyIndepOfEllAlgClosed`](#charpolyindepofellalgclosed) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/deg-det)) | 2026-11-16 |
 | [`gagaMorphism`](#gagamorphism) | the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/82#issuecomment-6887799149)) | 2026-11-15 |
 | [`picRepresentableAbVar`](#picrepresentableabvar) | the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/pic-repr)) | 2026-11-16 |
@@ -179,7 +178,6 @@ Picard scheme and Weil pairing. Claim it on [Deicyde #14](https://github.com/Dei
 | [`r9b`](#r9b) | research | published | LEAF |  | long-pole | T4 | [elliotglazer #37](https://github.com/elliotglazer/diophantine-z-q/issues/37) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/faltings-cm)) |
 | [`raynaudSemistableSHOr`](#raynaudsemistableshor) | research | published | LEAF | reading-risk |  |  | [elliotglazer #85](https://github.com/elliotglazer/diophantine-z-q/issues/85) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/raynaud-proof)) |
 | [`charPolyIndepOfEllAlgClosed`](#charpolyindepofellalgclosed) | textbook | published | LEAF |  |  | T3 | [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/deg-det)) |
-| [`mumfordTorsionAlgClosed`](#mumfordtorsionalgclosed) | textbook | published | LEAF |  |  | T2-T3 | [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81) | 0 | held by the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/81#issuecomment-6887798791)) |
 | [`h11`](#h11) | frozenTarget | published | LEAF | unverified-locator, note |  | T4 | [elliotglazer #74](https://github.com/elliotglazer/diophantine-z-q/issues/74) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/h11-reduce)) |
 | [`hL29`](#hl29) | frozenTarget | published | LEAF | restricted, unread |  | T4 | [elliotglazer #74](https://github.com/elliotglazer/diophantine-z-q/issues/74) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/h29-proof)) |
 | [`hCM`](#hcm) | frozenTarget | published | LEAF | unread, unverified-locator |  | T2 | [elliotglazer #74](https://github.com/elliotglazer/diophantine-z-q/issues/74) | 0 | held by the project ([claim](https://github.com/Deicyde/diophantine-z-q/tree/wip/cm-primitive)) |
@@ -457,7 +455,7 @@ RayClassCFT.ShimuraMainThmIDeligneY3AbU
 
 ### gagaMorphism
 
-* Bundle field `HDec.HSyn.OpenTextbookLeaves16.gagaMorphism`; kind **consequence**, strict **GLUE**; flag: re-rated 11-16 under the dictionary ruling: GAGA's hypothesis (a holomorphic map A^an -> B^an) is reached from IsStrongUnif and IsAnalyticHom only through the holomorphic inverse function theorem (phi^-1 holomorphic), the same hypothesis-direction step as ShimuraThm54; also a use form shaped by homLatticeCorr_of_strong_gaga; print SGA 1 XII 4.4 for proper X (Serre's GAGA is for projective varieties); locator UNVERIFIED (numbers).
+* Bundle field `HDec.HSyn.OpenTextbookLeaves17.gagaMorphism`; kind **consequence**, strict **GLUE**; flag: re-rated 11-16 under the dictionary ruling: GAGA's hypothesis (a holomorphic map A^an -> B^an) is reached from IsStrongUnif and IsAnalyticHom only through the holomorphic inverse function theorem (phi^-1 holomorphic), the same hypothesis-direction step as ShimuraThm54; also a use form shaped by homLatticeCorr_of_strong_gaga; print SGA 1 XII 4.4 for proper X (Serre's GAGA is for projective varieties); locator UNVERIFIED (numbers).
 * Source: Serre, GAGA (1956), for homomorphisms of complex abelian varieties (homlattice 3.2)
 * tier T3-T4 (model triage, unreviewed); discussion: [elliotglazer #82](https://github.com/elliotglazer/diophantine-z-q/issues/82).
 * Human readings recorded: none.
@@ -607,7 +605,7 @@ DictModels.RaynaudOr.RaynaudSemistableSHOr
 
 ### charPolyIndepOfEllAlgClosed
 
-* Bundle field `HDec.HSyn.OpenTextbookLeaves16.charPolyIndepOfEllAlgClosed`; kind **published**, strict **LEAF**.
+* Bundle field `HDec.HSyn.OpenTextbookLeaves17.charPolyIndepOfEllAlgClosed`; kind **published**, strict **LEAF**.
 * Source: Mumford 19 Thm 4 (specialization)
 * tier T3 (model triage, unreviewed); discussion: [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81).
 * Human readings recorded: none.
@@ -623,26 +621,6 @@ ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed
 > the characteristic polynomial of `T_ℓ(φ)` for every `ℓ ≠ char k`. This is
 > `PkgI3.CharPolyIndepOfEll` with `[IsAlgClosed k]` added (it drops `deg P = 2g` and
 > `P(n) = deg(n - φ)`).
-
-### mumfordTorsionAlgClosed
-
-* Bundle field `HDec.HSyn.OpenTextbookLeaves16.mumfordTorsionAlgClosed`; kind **published**, strict **LEAF**.
-* Source: A(k)[n] = (Z/n)^{2g} over k algebraically closed, char k not dividing n: Mumford, Abelian varieties 4, Application 2 (iv)
-* tier T2-T3 (model triage, unreviewed); discussion: [elliotglazer #81](https://github.com/elliotglazer/diophantine-z-q/issues/81).
-* Human readings recorded: none.
-* Status: held by the project ([claim](https://github.com/elliotglazer/diophantine-z-q/issues/81#issuecomment-6887798791)).
-
-```lean
-AvSplit.MumfordTorsionAlgClosed
-```
-
-> **LEAF (H-25; published form).** Mumford, *Abelian varieties* (1970; 2nd ed. 1974), §4,
-> Application 2, (iv) (UNVERIFIED locator): for an abelian variety `X` of dimension `g` over an
-> algebraically closed field `k` and an integer `n` with `char k ∤ n`, the group
-> `X_n = {x ∈ X : nx = 0}` of `n`-torsion points is isomorphic to `(ℤ/nℤ)^{2g}`. Mumford's points
-> are the closed points, i.e. the `k`-points (`Pts A k`); `dim` is the topological Krull dimension
-> of the underlying space; "`char k ∤ n`" with `n ≥ 1` is `(n : k) ≠ 0`; the group isomorphism is a
-> bijection `e` with `e(x + y) = e x + e y` (written multiplicatively on points).
 
 ## Tian–Yuan–Zhang and Gross–Zagier hypotheses
 
