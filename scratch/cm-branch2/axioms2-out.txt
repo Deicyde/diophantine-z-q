@@ -1,0 +1,3 @@
+'HDec.HSyn.sixContactMin_of_open72_cmbranch2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.CMBranch.coxProperLattice_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_open72_cm2_r5' depends on axioms: [propext, Classical.choice, Quot.sound]
