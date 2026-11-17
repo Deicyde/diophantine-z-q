@@ -2,10 +2,35 @@
 import hashlib
 import json
 from pathlib import Path
+import re
 import tempfile
 import unittest
 
-from check_kernel_contract import classify, git, validate
+from check_kernel_contract import ROOT, classify, git, tracked, validate
+
+
+def external_input_reads(root):
+    """Guard the scope rule's current no-file-read premise, including new Contrib files.
+
+    This lexical guard is not a complete Lean effect analysis. Adding an
+    intentional external input needs a reviewed contract/scope update first.
+    """
+    primitive = re.compile(r'include_str|include_bin|IO\s*\.\s*FS\s*\.|readFile|readBinFile|IO\s*\.\s*Process')
+    found = []
+    for path in tracked(root):
+        if path.endswith('.lean') and (path == 'ZInQKernel.lean'
+                or path.startswith(('ZInQKernel/', 'lean/', 'ThirdParty/'))):
+            for line, text in enumerate((root / path).read_text(encoding='utf-8').splitlines(), 1):
+                match = primitive.search(text)
+                if match:
+                    found.append(f'{path}:{line}: {match.group()}')
+    return found
+
+
+class CurrentInputTests(unittest.TestCase):
+    def test_kernel_sources_have_no_unregistered_external_input_primitives(self):
+        self.assertEqual(external_input_reads(ROOT), [],
+                         'External input requires reviewed kernel contract and scope rules')
 
 
 class ContractTests(unittest.TestCase):
@@ -84,6 +109,18 @@ class ContractTests(unittest.TestCase):
         self.write(".github/workflows/other.yml", "name: new automation\n")
         self.commit()
         self.assertEqual(classify(self.root, self.base)["route"], "statement_or_infrastructure_review")
+
+    def test_external_input_guard_reports_file_and_line(self):
+        path = 'ZInQKernel/Contrib/External.lean'
+        self.write(path, '-- fixture\n')
+        self.commit()
+        for primitive in ['include_str', 'include_bin', 'IO.FS.readFile',
+                          'readFile', 'readBinFile', 'IO.Process.output', 'IO . FS . readFile']:
+            with self.subTest(primitive=primitive):
+                self.write(path, '-- fixture\n' + primitive + '\n')
+                found = external_input_reads(self.root)
+                self.assertEqual(len(found), 1)
+                self.assertTrue(found[0].startswith(path + ':2: '))
 
 
 if __name__ == "__main__":
