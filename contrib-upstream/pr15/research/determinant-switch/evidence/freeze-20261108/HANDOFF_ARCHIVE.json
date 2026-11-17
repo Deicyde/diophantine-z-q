@@ -1,0 +1,11 @@
+{
+  "archive": "derivative-switch-six-lemma-handoff.zip",
+  "sha256": "6ad9640a223eb6fe49e9583532e36a773cda0b5f78e795344d30dea950d1d6b3",
+  "bytes": 35018,
+  "generated_input_manifest_sha256": "e37368316a682d30f9358d7cf1c1ebd01e622e7896c99ca020ae5f94288f6188",
+  "zip_metadata": "ZIP_STORED; sorted paths; timestamp 2026-11-08 00:00:00; Unix 100644",
+  "file_count": 10,
+  "compiled_artifacts": false,
+  "dependency_symlinks": false,
+  "fresh_generations_and_archives_byte_identical": true
+}

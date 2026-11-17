@@ -1,0 +1,55 @@
+--- construction/reference_round7/builder.cjs
++++ construction/builder.cjs
+@@ -2,10 +2,10 @@
+ // Adapted from the Version 10 odd-product source, with credits retained below.
+ // Further changes: reciprocal complete charts and scaled logarithms, normalized poles,
+ // positive lambda witnesses, correction42, three contacts, and a field-norm anchor.
+-// Round seven: contact-unit detector weights, an outer scalar constant, and S=3^2790.
++// Round eight: a uniform order12 pair and the refined-height anchor S=3^2364.
+ // A separately certified diagonal change balances coefficients without new coordinates.
+ // The changed local claims are separately reviewed; global source claim is inherited.
+-// See the accompanying proof note and transformations.json for proofs and scope.
++// See the proof note and package-root pr_dependency_inventory.json for proofs and scope.
+ // The original upstream builder independently reconstructed the Brox v3 formulas.
+ const fs=require('node:fs'), path=require('node:path'), crypto=require('node:crypto');
+ const OUT=__dirname;
+@@ -225,7 +225,7 @@
+ const inputProduct=assign('inputProduct',add(sq(X),X)),inputSquare=save('inputSquare',sub(inputProduct,X)),beta=save('beta',add(scale(inputProduct,11016),C(5155)));
+ const CC=fmul('Lucas.C',fsub(L[2],fc(2)),L[4]), AT=fmul('Lucas.AT',L[2],L[3]);
+ const FF=[assign('Lucas.F0',add(sq(L[3][0]),scale(sq(L[3][1]),2),scale(mul(AT[0],CC[0]),-1),scale(mul(AT[1],CC[1]),-2),sq(CC[0]),scale(sq(CC[1]),2),C(-1))),assign('Lucas.F1',add(scale(mul(L[3][0],L[3][1]),2),scale(mul(AT[0],CC[1]),-1),scale(mul(AT[1],CC[0]),-1),scale(mul(CC[0],CC[1]),2)))];
+-const tests=[...PU.map((p,i)=>({value:p.point.g,order:i===0?45:1})),...PV.map(p=>({value:fconj(p.f),order:1}))];
++const tests=[...PU.map((p,i)=>({value:p.point.g,order:i===0?45:i===1?12:1})),...PV.map(p=>({value:fconj(p.f),order:1}))];
+ for(let i=1;i<=4;i++)tests.push({value:fsub(L[i],LP[i]),order:i===1?12:45});
+ tests.push({value:fsub(L[1],[beta,zero]),order:45},{value:FF,order:45});
+ tests.forEach((t,j)=>saveF('test'+j,t.value));
+@@ -244,7 +244,7 @@
+  return out;
+ }
+ let squareTests={};for(let m of [1,12,45])squareTests[m]=tests.filter(t=>t.order===m).map((t,j)=>fsq('testSquare.'+m+'.'+j,t.value));
+-const mixedTest1=squareTests[1].shift(),mixedTest12=squareTests[12][0],mixedTestProduct=fmul('mixedTestProduct',mixedTest1,mixedTest12);
++const mixedTest1=squareTests[12][0],mixedTest12=squareTests[12][1],mixedTestProduct=fmul('mixedTestProduct',mixedTest1,mixedTest12);
+ let coeffs={};for(let m of [1,45]){let sqtests=squareTests[m],sizes=m===1?[4,4]:[3,3],pos=0;coeffs[m]=sizes.map((n,b)=>{let co=polyProduct('symmetric.'+m+'.group'+b,sqtests.slice(pos,pos+n));pos+=n;return co;});}
+ start('fixed_height_scales',[3352,3405]);
+ let productX=fc(1);
+@@ -292,8 +292,8 @@
+  q12=rquot('detector'+r+'.q12',sq(mixD),eDelta,'positive_inverse_R');
+  let mixedHigh=rsq('detector'+r+'.mixedHigh',q12);
+  let q45=rquot('detector'+r+'.q45',sq(mixedHigh),q1cube,'positive_order_one_weight');
+- let q1q12=rm('detector'+r+'.q1q12',q1,q12);
+- let mixedRaw=fadd(fc(1),fadd(fadd(rawFmul([q1,zero],mixedTest1),rawFmul([q12,zero],mixedTest12)),rawFmul([q1q12,zero],mixedTestProduct)));
++ // Both paired tests now have order12; mixedHigh=q12^2 is already stored.
++ let mixedRaw=fadd(fc(1),fadd(rawFmul([q12,zero],fadd(mixedTest1,mixedTest12)),rawFmul([mixedHigh,zero],mixedTestProduct)));
+  let mixed=saveF('detector'+r+'.mixed',mixedRaw.map((v,j)=>assign('detector'+r+'.mixed.'+j,v)));
+  let pure=fmul('detector'+r+'.pure',evalSym('detector'+r+'.E1',coeffs[1],q1),evalSym('detector'+r+'.E45',coeffs[45],q45));
+  let w=fmul('detector'+r+'.W',pure,mixed);
+@@ -344,8 +344,8 @@
+ for(let i=0;i<census.length;i++){let c=census[i],next=census[i+1];c.newCoordinates=(next?next.startCoordinates:coords.length)-c.startCoordinates;c.newResiduals=(next?next.startResiduals:residuals.length)-c.startResiduals;}
+ const sourceName='sources/diophantine_optimization_20261106_v3.tex';
+ const inputSourceSha256='fc8bc7b8fae727e24f934ddd7de0a7cff8a005e89c3d0cac1ea14e5191b910ca';
+-const data={format:'brox-independent-quadratic-ir-v1',source:{path:sourceName,sha256:inputSourceSha256,reconstruction:'independent_from_displayed_formulas_not_original_gate_bytes',refinements:[{name:'shared_scalar_point',lines:[2946,3044]},{name:'fixed_scales',lines:[3352,3405]},{name:'comparison_precision52',lines:[4160,4279]},{name:'scalar_order32',lines:[4285,4306]},{name:'quotient_domains',lines:[4311,4405]},{name:'direct_lucas',lines:[4575,4605]}]},fixedParameter:{name:'S',value:'3^2790',coordinate:false},coordinates:coords,residuals,gates,values,guards,census,anchor:{rowId:anchorRow,privateCoordinateIds:anchor.map(idof),physicalA:encode(fa)},counts:{baseCoordinates:coords.filter(c=>c.kind==='base'||c.kind==='input').length,structuralResiduals:residuals.length-gates.length,coordinates:coords.length,residuals:residuals.length,gates:gates.length}};
+-data.variant={name:'round7_delta_unit_outer_constant_anchor2790',status:'conditional',transformations:'transformations.json',inputUnchanged:true};
++const data={format:'brox-independent-quadratic-ir-v1',source:{path:sourceName,sha256:inputSourceSha256,reconstruction:'independent_from_displayed_formulas_not_original_gate_bytes',refinements:[{name:'shared_scalar_point',lines:[2946,3044]},{name:'fixed_scales',lines:[3352,3405]},{name:'comparison_precision52',lines:[4160,4279]},{name:'scalar_order32',lines:[4285,4306]},{name:'quotient_domains',lines:[4311,4405]},{name:'direct_lucas',lines:[4575,4605]}]},fixedParameter:{name:'S',value:'3^2364',coordinate:false},coordinates:coords,residuals,gates,values,guards,census,anchor:{rowId:anchorRow,privateCoordinateIds:anchor.map(idof),physicalA:encode(fa)},counts:{baseCoordinates:coords.filter(c=>c.kind==='base'||c.kind==='input').length,structuralResiduals:residuals.length-gates.length,coordinates:coords.length,residuals:residuals.length,gates:gates.length}};
++data.variant={name:'round8_primary12_uniform_pair_anchor2364',status:'conditional',transformations:'pr_dependency_inventory.json',inputUnchanged:true};
+ fs.writeFileSync(path.join(OUT,'raw-ir.json'),JSON.stringify(data,null,2)+'\n');
+ // An equivalent translated system. This is 16 times the original anchor
+ // after u=S+(U-3V+3W)/4,v=S/2+V/4,w=3S/2+W/4.

@@ -1,0 +1,103 @@
+\section{Balancing coefficients without adding variables}
+
+The preceding arguments allow the fixed anchor integer
+\[
+ S_0=3^{2790}=c^6,\qquad c=3^{465}.
+\]
+The core produced by the selected source has 392 active rational
+coordinates and 360 quadratic residuals. Its integer coefficients are
+already explicit after specializing $S_0$. A diagonal rational change
+of twelve existing coordinates makes those coefficients substantially
+smaller without introducing a constant-chain witness.
+
+\subsection{The exact change of coordinates}
+
+Let $x_i$ denote a coordinate of the compiled source system and $y_i$
+its replacement. The distinguished input is unchanged: $x_0=y_0=X$.
+All unlisted coordinates are unchanged. For the listed coordinates set
+$x_i=c^{e_i}y_i$ with the following exponents:
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Source coordinates & Number & $e_i$\\\midrule
+The two coefficients of $h_S$ &2&1\\
+The two stored coefficients of $x(S)$ &2&1\\
+The two coefficients of $w=h_S\tau$ &2&2\\
+The two coefficients of $f(S-P)$ &2&1\\
+The three translated anchor witnesses $U,V,W$ &3&4\\
+The materialized physical anchor $\Theta$ &1&4\\\bottomrule
+\end{tabular}
+\end{center}
+
+The coordinate names and integer source identifiers are bound in the
+machine-readable certificate. The coefficients of $h_S$ and $x(S)$
+are intentionally scaled by the same factor, although the old identity
+is $x(S)=h_S^2$. Their new defining equations incorporate that factor;
+the new coordinates are decoded before being interpreted as the old
+point functions. No semantic identity is silently assumed unchanged.
+
+Since $c$ is a fixed nonzero rational integer, this diagonal map is a
+bijection on $\mathbb Q^{392}$. Its inverse divides a listed coordinate
+by $c^{e_i}$. It fixes the input and does not introduce any square-root
+choice, new quantified parameter, or arithmetic hypothesis.
+
+Let $R_j(x,S_0)$ be an integer quadratic residual of the compiled source.
+Substitute $x_i=c^{e_i}y_i$ and $S_0=c^6$, combine like monomials, and
+let $d_j\ne0$ be the signed integer content of the resulting row, with
+the sign chosen to make the first coefficient positive. Set
+\[
+ Q_j(y)=\frac{R_j((c^{e_i}y_i)_i,c^6)}{d_j}.
+\]
+Every $Q_j$ is a primitive integer polynomial of degree at most two.
+The delivered polynomial is exactly
+\[
+ P_{392}(y)=\sum_{j=1}^{360}Q_j(y)^2.
+\]
+Over $\mathbb Q$, a sum of squares vanishes if and only if each
+summand vanishes. Thus
+\[
+ P_{392}(y)=0\quad\Longleftrightarrow\quad
+ R_j((c^{e_i}y_i)_i,c^6)=0\quad\text{for every }j.
+\]
+Combining this equivalence with the diagonal bijection proves equality
+of the existential projections to $X$. The new polynomial need not be
+a single constant multiple of the old sum of squares: its individual
+rows have been rescaled, which preserves their common zero set.
+
+\subsection{Why the exponent drops}
+
+Before the change, the fixed parameter occurs with exponent six in $c$.
+After substitution, each affected row has a common power of $c$ whose
+removal leaves a span at most two in its remaining $c$-exponents.
+For example, the physical anchor row contains $\Theta$ and $N(w)$
+at exponent four and $S_0N(B_0+X\sqrt2)$ at exponent six. Dividing
+by its common factor leaves exponent two. In the translated anchor
+row, the quadratic witness terms have exponent eight and the
+$S_0U$ term has exponent ten, again leaving a span of two.
+
+The shifted-point equations, the root chart equations, and the scalar
+leaves have the same bounded span. All of these statements are checked
+on the actual compiled rows. Consequently their squares involve at
+most $c^4$ in the large coefficient, in place of the former $S_0^2=c^{12}$.
+
+For the selected source, exact full expansion gives
+\[
+ \max|\operatorname{coeff}(P_{392})|
+ =1+40532396646334464\,c^4
+ =1+40532396646334464\,3^{1860}.
+\]
+This integer has 905 decimal digits and 3004 bits. The complete
+quartic has 26,301 nonzero monomials, content one, and coefficient
+one on $X^4$. Every coordinate occurs. The two constant-chain
+coordinates used in the preceding coefficient-controlled construction
+are therefore unnecessary at its former 978-digit cap.
+
+The diagonal pattern was suggested by a linear optimization of
+coefficient valuations. That floating-point search is not a verification
+dependency. The selected pattern uses only the displayed integer
+exponents; the delivered producer uses Python's standard library and
+exact integers. A separately authored checker reconstructs all 360
+substituted rows, verifies each nonzero row divisor and the input-fixed
+diagonal map, independently expands the complete sum of squares,
+and compares every coefficient of the text table. The search makes
+no optimality claim.

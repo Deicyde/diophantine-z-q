@@ -1,0 +1,471 @@
+{
+  "status": "PASS",
+  "scope": "Frozen conditional algebraic packet only; arithmetic Selmer/Poitou\u2013Tate compatibility remains OPEN.",
+  "repository": "https://github.com/CheyLoveday/diophantine-z-q.git",
+  "branch_requested": "codex/derivative-switch-boundary-v13",
+  "checkout_commit": "e653d6ff295ae4e0535710a7d64aa255d294d211",
+  "reviewed_scalar_ratio_snapshot_from_packet": "3d2243ff141f9681fbd6a659ca28ffddfae9b000",
+  "lean_version": "Lean (version 4.35.0, x86_64-unknown-linux-gnu, commit eb6cafb7290e8bd5f2937522d8d804f58f02bafc, Release)",
+  "lean_prefix": "/opt/lean.4.35.0-56a005855ea1",
+  "lake_version": "Lake version 5.0.0-src+eb6cafb (Lean version 4.35.0)",
+  "platform": "Linux ubuntu 7.0.0-31-generic #31-Ubuntu SMP PREEMPT_DYNAMIC Sat Aug  1 04:26:38 UTC 2026 x86_64 GNU/Linux",
+  "bubblewrap": {
+    "version": "bubblewrap 0.11.1",
+    "probe_exit_code": 0,
+    "status": "PASS",
+    "sandbox_preserved": true
+  },
+  "packet_manifest_sha256": "d313ec3ff5ad0e91d555d26b2beef6ad401d7e9c86cdfe77adbe119062498610",
+  "generated_manifest_sha256": "117f9ca2c28c42e45198f790dd8c3f324e1bed9d3af11ea9707575363304b811",
+  "preparation_receipt": {
+    "status": "PREPARED_FROM_REPOSITORY",
+    "checkout_commit": "e653d6ff295ae4e0535710a7d64aa255d294d211",
+    "packet": "scalar-ratio",
+    "selected_declarations": 39,
+    "reviewed_source_commit": "3d2243ff141f9681fbd6a659ca28ffddfae9b000",
+    "prerequisite_inputs_checked": 128,
+    "packet_manifest_sha256": "d313ec3ff5ad0e91d555d26b2beef6ad401d7e9c86cdfe77adbe119062498610",
+    "packet_inputs_checked": 99,
+    "generated_manifest_sha256": "117f9ca2c28c42e45198f790dd8c3f324e1bed9d3af11ea9707575363304b811",
+    "generated_inputs_checked": 24,
+    "preparation_script_sha256": "6dd6779b1b5a85a2916f836a690efb5a827198db06ab6390269eef2c750682be",
+    "lean_invoked": false,
+    "network_used": false,
+    "paranoid_run": "NOT_RUN; owned by Open Math in the cloud",
+    "cloud_command": [
+      "lake",
+      "comparator",
+      "--config",
+      "comparator.json",
+      "--paranoid"
+    ]
+  },
+  "generated_inputs_checked": 24,
+  "generated_source_files_including_manifest": 25,
+  "extra_untracked_receipt_not_in_manifest": [
+    "OPENMATH_PREPARATION.json"
+  ],
+  "theorems_selected_and_compared": 39,
+  "definition_names": [],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
+  "intentional_challenge_holes": 39,
+  "solution_sorry_warnings": 0,
+  "kernel_results": [
+    {
+      "name": "Lean default",
+      "status": "PASS",
+      "executable": "/opt/lean.4.35.0-56a005855ea1/bin/leanchecker",
+      "sha256": "12c38901cdbfab178f1bf6145dd30012e9a3b2c11ca695292a5884fa3cbaddb6",
+      "declarations_reported": null,
+      "acceptance_message": "Lean default kernel accepts the solution"
+    },
+    {
+      "name": "Lean paranoid",
+      "status": "PASS",
+      "executable": "/opt/lean.4.35.0-56a005855ea1/bin/leanchecker-paranoid",
+      "sha256": "ca74d1e9a856149ed05acb600d8931a574dd9f465745beeaf93e3de7b7cbe274",
+      "declarations_reported": null,
+      "acceptance_message": "Lean paranoid kernel accepts the solution"
+    },
+    {
+      "name": "lean4lean",
+      "status": "PASS",
+      "executable": "/opt/lean.4.35.0-56a005855ea1/bin/lean4lean",
+      "sha256": "baaec030a70c78562ced2c75866ab0d2410e81ce680b835179ed16570ad5ef97",
+      "declarations_reported": 11492,
+      "acceptance_message": "lean4lean kernel accepts the solution"
+    },
+    {
+      "name": "nanoda",
+      "status": "PASS",
+      "executable": "/opt/lean.4.35.0-56a005855ea1/bin/nanoda_bin",
+      "sha256": "cbf13950fc4a48f635a0beceeb5ed32dd82568b870cfd081b6391c1f2cf02ba5",
+      "declarations_reported": null,
+      "acceptance_message": "nanoda kernel accepts the solution"
+    },
+    {
+      "name": "con-leche",
+      "status": "PASS",
+      "executable": "/opt/lean.4.35.0-56a005855ea1/bin/con-leche",
+      "sha256": "23a32522ea2c79f4ec8b48916272b37a423bda171e57cd83cfcf142eec50e621",
+      "declarations_reported": 11495,
+      "acceptance_message": "con-leche: accepted 11495 declarations (--verified)"
+    },
+    {
+      "name": "con-ron",
+      "status": "PASS",
+      "executable": "/opt/lean.4.35.0-56a005855ea1/bin/con-ron",
+      "sha256": "60f4ca9fb9436c323789fa49aae33af6dcd1b9b54b43a66b461779ce79fd8eec",
+      "declarations_reported": 11495,
+      "acceptance_message": "con-ron: accepted 11495 declarations (--verified)"
+    }
+  ],
+  "dependency_results": {
+    "subsystem": "locked-dependencies",
+    "checker": "git rev-parse HEAD and git status --porcelain --untracked-files=no",
+    "records": [
+      {
+        "name": "mathlib",
+        "path": ".lake/packages/mathlib",
+        "expected_revision": "56a005855ea17e0b0958f73ec801ae140b0a1679",
+        "actual_revision": "56a005855ea17e0b0958f73ec801ae140b0a1679",
+        "revision_matches": true,
+        "tracked_source_clean": true,
+        "status": "PASS"
+      },
+      {
+        "name": "plausible",
+        "path": ".lake/packages/plausible",
+        "expected_revision": "dfa4f38190d07c37e315953e08b90fe2d95b3c24",
+        "actual_revision": "dfa4f38190d07c37e315953e08b90fe2d95b3c24",
+        "revision_matches": true,
+        "tracked_source_clean": true,
+        "status": "PASS"
+      },
+      {
+        "name": "LeanSearchClient",
+        "path": ".lake/packages/LeanSearchClient",
+        "expected_revision": "d6b4c7be5be75ec4917c873ac50c756dc1436372",
+        "actual_revision": "d6b4c7be5be75ec4917c873ac50c756dc1436372",
+        "revision_matches": true,
+        "tracked_source_clean": true,
+        "status": "PASS"
+      },
+      {
+        "name": "importGraph",
+        "path": ".lake/packages/importGraph",
+        "expected_revision": "a41f0e9a4dea23188ea9cc1c41ac9f8bbafe0b93",
+        "actual_revision": "a41f0e9a4dea23188ea9cc1c41ac9f8bbafe0b93",
+        "revision_matches": true,
+        "tracked_source_clean": true,
+        "status": "PASS"
+      },
+      {
+        "name": "proofwidgets",
+        "path": ".lake/packages/proofwidgets",
+        "expected_revision": "df72b022e558978a1c50264cfc4d7fec86fa8e04",
+        "actual_revision": "df72b022e558978a1c50264cfc4d7fec86fa8e04",
+        "revision_matches": true,
+        "tracked_source_clean": true,
+        "status": "PASS"
+      },
+      {
+        "name": "aesop",
+        "path": ".lake/packages/aesop",
+        "expected_revision": "4a174c490d8707121c4a9290800489f105d85e07",
+        "actual_revision": "4a174c490d8707121c4a9290800489f105d85e07",
+        "revision_matches": true,
+        "tracked_source_clean": true,
+        "status": "PASS"
+      },
+      {
+        "name": "Qq",
+        "path": ".lake/packages/Qq",
+        "expected_revision": "dce0ad79c486cb1fb504af04f953c3466b0c6db8",
+        "actual_revision": "dce0ad79c486cb1fb504af04f953c3466b0c6db8",
+        "revision_matches": true,
+        "tracked_source_clean": true,
+        "status": "PASS"
+      },
+      {
+        "name": "batteries",
+        "path": ".lake/packages/batteries",
+        "expected_revision": "66e469188fe07963e5cf666c7d4433f45b8131c5",
+        "actual_revision": "66e469188fe07963e5cf666c7d4433f45b8131c5",
+        "revision_matches": true,
+        "tracked_source_clean": true,
+        "status": "PASS"
+      },
+      {
+        "name": "Cli",
+        "path": ".lake/packages/Cli",
+        "expected_revision": "c24fe6078c630e89b489bffe59b3e20ac30d12c8",
+        "actual_revision": "c24fe6078c630e89b489bffe59b3e20ac30d12c8",
+        "revision_matches": true,
+        "tracked_source_clean": true,
+        "status": "PASS"
+      }
+    ],
+    "all_nine_pass": true
+  },
+  "exit_codes": {
+    "dependency-cache.exit-code.txt": "0",
+    "dependency-inventory.exit-code.txt": "0",
+    "comparator.exit-code.txt": "0",
+    "manifest.exit-code.txt": "0",
+    "sandbox-probe.exit-code.txt": "0"
+  },
+  "full_comparator_exit_code": 0,
+  "frozen_manifest_after_comparator_exit_code": 0,
+  "proof_export": {
+    "format": "NDJSON in scoped temporary files",
+    "standalone_file_retained": false,
+    "reason": "Lean IO.FS.withTempFile deletes the export after its sandboxed use; no retained standalone NDJSON export is claimed.",
+    "compiled_artifacts_retained": [
+      {
+        "module": "Solution.lean",
+        "kind": ".olean",
+        "source_path": ".lake/build/lib/lean/Solution.olean",
+        "artifact_path": "Solution.olean",
+        "sha256": "b331773b327bb43aec3b1accc71db097fbc04d7cea2f4deeed841e1044657598",
+        "bytes": 2120
+      },
+      {
+        "module": "Solution.lean",
+        "kind": ".ilean",
+        "source_path": ".lake/build/lib/lean/Solution.ilean",
+        "artifact_path": "Solution.ilean",
+        "sha256": "7ec4b273045963213b1171c87142c307a14826df04eeb00ba1ef24e205175030",
+        "bytes": 472
+      },
+      {
+        "module": "Solution.lean",
+        "kind": ".trace",
+        "source_path": ".lake/build/lib/lean/Solution.trace",
+        "artifact_path": "Solution.trace",
+        "sha256": "7c5e3148a495fbef9578577795d99e20f1c0b19c5467effc85ff9d2df5974c0b",
+        "bytes": 5327
+      },
+      {
+        "module": "Research/BoundaryCupAdapter.lean",
+        "kind": ".olean",
+        "source_path": ".lake/build/lib/lean/Research/BoundaryCupAdapter.olean",
+        "artifact_path": "Research/BoundaryCupAdapter.olean",
+        "sha256": "006b1bb25ca26242c75c74449c58d350e3d85a77308509942fbb48e9efc191f2",
+        "bytes": 156352
+      },
+      {
+        "module": "Research/BoundaryCupAdapter.lean",
+        "kind": ".ilean",
+        "source_path": ".lake/build/lib/lean/Research/BoundaryCupAdapter.ilean",
+        "artifact_path": "Research/BoundaryCupAdapter.ilean",
+        "sha256": "381483bde1a058f918bd72ed77958ced4af384b28b99403f0d86c7e23e83dc5a",
+        "bytes": 3234
+      },
+      {
+        "module": "Research/BoundaryCupAdapter.lean",
+        "kind": ".trace",
+        "source_path": ".lake/build/lib/lean/Research/BoundaryCupAdapter.trace",
+        "artifact_path": "Research/BoundaryCupAdapter.trace",
+        "sha256": "8d6da8cbc705a1ae218142f685dc289a80ab2b14dd8b998083a08743733c2192",
+        "bytes": 4710
+      },
+      {
+        "module": "Research/BoundaryScalar.lean",
+        "kind": ".olean",
+        "source_path": ".lake/build/lib/lean/Research/BoundaryScalar.olean",
+        "artifact_path": "Research/BoundaryScalar.olean",
+        "sha256": "0f3779e303fbf73cfe1c3695888af3c1e267785d6de9c693908bf4848a34aff5",
+        "bytes": 647232
+      },
+      {
+        "module": "Research/BoundaryScalar.lean",
+        "kind": ".ilean",
+        "source_path": ".lake/build/lib/lean/Research/BoundaryScalar.ilean",
+        "artifact_path": "Research/BoundaryScalar.ilean",
+        "sha256": "f7e60658254e38eba869b47f548e48a75ae8681cf8408324279cd6db4393054a",
+        "bytes": 34669
+      },
+      {
+        "module": "Research/BoundaryScalar.lean",
+        "kind": ".trace",
+        "source_path": ".lake/build/lib/lean/Research/BoundaryScalar.trace",
+        "artifact_path": "Research/BoundaryScalar.trace",
+        "sha256": "822e161f9c92d6807b02a3dfc4c1d3a3176ff2bf4f9eca5a47ddc8c53a4d195d",
+        "bytes": 4502
+      },
+      {
+        "module": "Research/DerivativeSwitch/BoundaryCup.lean",
+        "kind": ".olean",
+        "source_path": ".lake/build/lib/lean/Research/DerivativeSwitch/BoundaryCup.olean",
+        "artifact_path": "Research/DerivativeSwitch/BoundaryCup.olean",
+        "sha256": "2f4d00a275c2b59c15468b66dc3c99e545389733b03047744f7c9e51fa93115f",
+        "bytes": 342904
+      },
+      {
+        "module": "Research/DerivativeSwitch/BoundaryCup.lean",
+        "kind": ".ilean",
+        "source_path": ".lake/build/lib/lean/Research/DerivativeSwitch/BoundaryCup.ilean",
+        "artifact_path": "Research/DerivativeSwitch/BoundaryCup.ilean",
+        "sha256": "a20c4df7cfcd147d52a940d97ba44ff2c4291e68275c0d65f915a86a38dd71e1",
+        "bytes": 24846
+      },
+      {
+        "module": "Research/DerivativeSwitch/BoundaryCup.lean",
+        "kind": ".trace",
+        "source_path": ".lake/build/lib/lean/Research/DerivativeSwitch/BoundaryCup.trace",
+        "artifact_path": "Research/DerivativeSwitch/BoundaryCup.trace",
+        "sha256": "9785e52d3d36272d7c7c3846558820fce3d51590aea00cd7fbccf0aedb17f19a",
+        "bytes": 4443
+      },
+      {
+        "module": "Research/DerivativeSwitch/CommonStrict.lean",
+        "kind": ".olean",
+        "source_path": ".lake/build/lib/lean/Research/DerivativeSwitch/CommonStrict.olean",
+        "artifact_path": "Research/DerivativeSwitch/CommonStrict.olean",
+        "sha256": "e5ee4cbb4f025b7fdb62788ecb018c7c492256d7ad356c96e191b936c8c4dc45",
+        "bytes": 1241016
+      },
+      {
+        "module": "Research/DerivativeSwitch/CommonStrict.lean",
+        "kind": ".ilean",
+        "source_path": ".lake/build/lib/lean/Research/DerivativeSwitch/CommonStrict.ilean",
+        "artifact_path": "Research/DerivativeSwitch/CommonStrict.ilean",
+        "sha256": "df442fc2b7762b281a3767a6ff5b8cb4316fde32ce6da8a35fb5fbe13cad65fb",
+        "bytes": 59955
+      },
+      {
+        "module": "Research/DerivativeSwitch/CommonStrict.lean",
+        "kind": ".trace",
+        "source_path": ".lake/build/lib/lean/Research/DerivativeSwitch/CommonStrict.trace",
+        "artifact_path": "Research/DerivativeSwitch/CommonStrict.trace",
+        "sha256": "e8df1780634be23553f02fa64198bfd6473ee0a758da3b78299e8c9638b4c72e",
+        "bytes": 4766
+      },
+      {
+        "module": "Research/DerivativeSwitch/Coordinate.lean",
+        "kind": ".olean",
+        "source_path": ".lake/build/lib/lean/Research/DerivativeSwitch/Coordinate.olean",
+        "artifact_path": "Research/DerivativeSwitch/Coordinate.olean",
+        "sha256": "162b476f26540688fcc45fe94717113f8267f542406944417a0794d7d3ae2225",
+        "bytes": 433592
+      },
+      {
+        "module": "Research/DerivativeSwitch/Coordinate.lean",
+        "kind": ".ilean",
+        "source_path": ".lake/build/lib/lean/Research/DerivativeSwitch/Coordinate.ilean",
+        "artifact_path": "Research/DerivativeSwitch/Coordinate.ilean",
+        "sha256": "ce022ebf49861e8b64fa1d3fbbf6bd9395795441533c5b30fd964a14f2910906",
+        "bytes": 27724
+      },
+      {
+        "module": "Research/DerivativeSwitch/Coordinate.lean",
+        "kind": ".trace",
+        "source_path": ".lake/build/lib/lean/Research/DerivativeSwitch/Coordinate.trace",
+        "artifact_path": "Research/DerivativeSwitch/Coordinate.trace",
+        "sha256": "da7bba0932cfd0f1e2ee3ba86bed0d6d16f876860de96020ac6a34ced0383231",
+        "bytes": 6303
+      },
+      {
+        "module": "Research/DerivativeSwitch/UnitCriterion.lean",
+        "kind": ".olean",
+        "source_path": ".lake/build/lib/lean/Research/DerivativeSwitch/UnitCriterion.olean",
+        "artifact_path": "Research/DerivativeSwitch/UnitCriterion.olean",
+        "sha256": "a7015f654dccf4a77d269b39343be2d03f681ebd95b9c6c84753ae2ad5669be4",
+        "bytes": 424072
+      },
+      {
+        "module": "Research/DerivativeSwitch/UnitCriterion.lean",
+        "kind": ".ilean",
+        "source_path": ".lake/build/lib/lean/Research/DerivativeSwitch/UnitCriterion.ilean",
+        "artifact_path": "Research/DerivativeSwitch/UnitCriterion.ilean",
+        "sha256": "c46b7b039d0de7de57b0ac03c829c61bf993e534c87b79b19ddd007148e2d66d",
+        "bytes": 25648
+      },
+      {
+        "module": "Research/DerivativeSwitch/UnitCriterion.lean",
+        "kind": ".trace",
+        "source_path": ".lake/build/lib/lean/Research/DerivativeSwitch/UnitCriterion.trace",
+        "artifact_path": "Research/DerivativeSwitch/UnitCriterion.trace",
+        "sha256": "a017f374a2e116aa9258643ec1b11bd6d5ff4d7761fc10273c9abd728cac49a8",
+        "bytes": 4455
+      },
+      {
+        "module": "Research/DerivativeSwitchBoundary.lean",
+        "kind": ".olean",
+        "source_path": ".lake/build/lib/lean/Research/DerivativeSwitchBoundary.olean",
+        "artifact_path": "Research/DerivativeSwitchBoundary.olean",
+        "sha256": "e96755485762234269b1849b19e40bca568066b9d889cfac8f70f95d7d84baa7",
+        "bytes": 296568
+      },
+      {
+        "module": "Research/DerivativeSwitchBoundary.lean",
+        "kind": ".ilean",
+        "source_path": ".lake/build/lib/lean/Research/DerivativeSwitchBoundary.ilean",
+        "artifact_path": "Research/DerivativeSwitchBoundary.ilean",
+        "sha256": "9d8d0c2bb495e5590db9cc8251ed5b6b694bb4741a41208520c66eac55e8e4a6",
+        "bytes": 5397
+      },
+      {
+        "module": "Research/DerivativeSwitchBoundary.lean",
+        "kind": ".trace",
+        "source_path": ".lake/build/lib/lean/Research/DerivativeSwitchBoundary.trace",
+        "artifact_path": "Research/DerivativeSwitchBoundary.trace",
+        "sha256": "5c06d76d68446a004a4298b7916397e6c70e508f9791535bbbe84150ec2edcc5",
+        "bytes": 4542
+      }
+    ]
+  },
+  "arithmetic_selmer_presentation_constructed": false,
+  "boundary_cup_compatibility_proved": false,
+  "restricted_converse_proved": false,
+  "main_diophantine_theorem_proved": false,
+  "timeouts": null,
+  "unavailable_checkers": [],
+  "archive_contents": "Complete original logs, preparation receipts, source inventories, locked dependency records, checker identities, compiled artifacts, and required reading.",
+  "commands": [
+    {
+      "step": "clone-and-checkout",
+      "working_directory": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo",
+      "command": "git -c advice.detachedHead=false clone --single-branch --branch codex/derivative-switch-boundary-v13 https://github.com/CheyLoveday/diophantine-z-q.git .scratch/diophantine-z-q-openmath-39 && git -C .scratch/diophantine-z-q-openmath-39 checkout --detach e653d6ff295ae4e0535710a7d64aa255d294d211",
+      "evidence": [
+        "openmath-evidence-39/checkout.txt",
+        "openmath-evidence-39/initial-status.txt"
+      ]
+    },
+    {
+      "step": "preparation",
+      "working_directory": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/diophantine-z-q-openmath-39",
+      "command": "python3 -B scripts/prepare_derivative_switch_openmath.py --packet scalar-ratio",
+      "evidence": [
+        "openmath-evidence-39/preparation.log",
+        "openmath-evidence-39/OPENMATH_PREPARATION.json"
+      ]
+    },
+    {
+      "step": "manifest-before-cache",
+      "working_directory": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/diophantine-z-q-openmath-39/lean/.checks/openmath-scalar-ratio",
+      "command": "sha256sum -c MANIFEST.sha256",
+      "evidence": [
+        "openmath-evidence-39/manifest-before.log",
+        "openmath-evidence-39/manifest-after-cache.log"
+      ]
+    },
+    {
+      "step": "dependency-cache",
+      "working_directory": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/diophantine-z-q-openmath-39/lean/.checks/openmath-scalar-ratio",
+      "command": "MATHLIB_CACHE_DIR=\"$PWD/.lake/mathlib-cache\" lake exe cache get --cache-from=master Mathlib.Algebra.Module.Equiv.Basic Mathlib.Tactic.Ring Mathlib.LinearAlgebra.Matrix.Adjugate Mathlib.Tactic.FieldSimp Mathlib.LinearAlgebra.BilinearForm.Properties Mathlib.LinearAlgebra.Matrix.NonsingularInverse Mathlib.Tactic.Push Mathlib.Data.Matrix.Block Mathlib.Tactic.FinCases",
+      "exit_code": 0,
+      "evidence": [
+        "openmath-evidence-39/dependency-cache.log",
+        "openmath-evidence-39/dependency-cache.exit-code.txt",
+        "openmath-evidence-39/dependencies.json"
+      ]
+    },
+    {
+      "step": "comparator",
+      "working_directory": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/diophantine-z-q-openmath-39/lean/.checks/openmath-scalar-ratio",
+      "command": "lake comparator --config comparator.json --paranoid",
+      "exit_code": 0,
+      "evidence": [
+        "openmath-evidence-39/comparator.stdout.log",
+        "openmath-evidence-39/comparator.stderr.log",
+        "openmath-evidence-39/comparator.exit-code.txt"
+      ]
+    },
+    {
+      "step": "manifest-after-comparator",
+      "working_directory": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/diophantine-z-q-openmath-39/lean/.checks/openmath-scalar-ratio",
+      "command": "sha256sum -c MANIFEST.sha256",
+      "exit_code": 0,
+      "evidence": [
+        "openmath-evidence-39/manifest-after-comparator.log",
+        "openmath-evidence-39/manifest.exit-code.txt"
+      ]
+    }
+  ]
+}

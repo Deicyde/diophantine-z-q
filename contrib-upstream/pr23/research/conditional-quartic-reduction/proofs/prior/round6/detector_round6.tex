@@ -1,0 +1,227 @@
+\section{Seven mixed Laurent gates for all three detector orders}
+
+The starting construction is the frozen fifth-round builder, with SHA256
+\texttt{68cb3cb1a809766aa102b8c43444d8b38c02760751e773a960489c327e33c12b}.
+The selected replacement saves one rational coordinate in each of the three
+detectors. It also raises the high detector order from forty-four to
+forty-five. The latter is justified by the retained logarithm, not inferred
+from a circuit count. The frozen integrated source reviewed here has SHA256
+\texttt{3f63cb782d52857446cf39f6e545aeb74f380d1347826eafa888cbb487738d51}.
+The inherited global arithmetic qualifications remain unchanged.
+
+\subsection{Use the two independent weight parameters together}
+
+Retain the fifth-round coordinate and guard
+\[
+ \phi(t)=-49+1/t,\qquad \delta=98t-1,
+ \qquad t=A\lambda,
+ \qquad \lambda=\frac{32}{1225}+u^2+v^2,
+\]
+where the three scales are $1,C_0^2,(C_0+C_1)^2$. The preceding
+real point bounds give $C_0\ge193$ and $C_0+C_1\ge61$, so every
+scale is at least one and is a rational square. The contact polynomial is
+\[
+ F(t)=t(t-1/49)(t-1/50)(t-1/2450)(t-32/1225).
+\]
+The required weights and one existing pole-input coordinate are
+\[
+ e=\frac{(A\delta)^5}{F(t)},\qquad
+ q_m=\frac{e^{2m-1}}{\delta^3},\qquad E=e\delta.
+\]
+In particular $q_1=e/\delta^3$. The order-one product evaluation already
+requires $q_1^2,q_1^3,q_1^4$. Move its first two powers, and the existing
+coordinate $E$, before the higher-weight circuit. Their computations
+are reused by the later product and pole input.
+
+Starting with $e,E,q_1^3$, introduce just seven coordinates:
+\begin{align*}
+ a&=E^2,& b&=1/a,& c&=b^2/E,& d&=e q_1^3/c,\\
+ q_{12}&=d^2/c,& h&=q_{12}^2,& q_{45}&=h^2/q_1^3.
+\end{align*}
+The exact exponent table is
+\[
+\begin{array}{c|rrrrrrr}
+ &a&b&c&d&q_{12}&h&q_{45}\\ \hline
+ e&2&-2&-5&9&23&46&89\\
+ \delta&2&-2&-5&-4&-3&-6&-3
+\end{array}
+\]
+For example $c=e^{-5}\delta^{-5}$ and
+$d=e\,(e^3\delta^{-9})/(e^{-5}\delta^{-5})=e^9\delta^{-4}$.
+Thus the two outputs are exactly the required $q_{12}$ and $q_{45}$.
+The old circuit introduced six pure Laurent powers and two output
+weights, so this replaces eight new coordinates by seven.
+
+This saving is specific to the actual shared product circuit: counting
+$q_1^3$ as free without establishing its existing use would be invalid.
+The source checker verifies that the early square and cube are exactly
+the aliases later used as the order-one evaluation powers. It also checks
+all seven displayed equations against the actual residual rows.
+No new use of the auxiliary coordinate $\delta^3$ is introduced; its
+three final eliminations remain available.
+
+\subsection{Domains, projections and degrees}
+
+For every solution $t\ge32/1225$ and $\delta\ge39/25>0$.
+All factors of $F$ are nonnegative on this interval. The equation
+$eF=(A\delta)^5$ rules out $F=0$, so $F,e,E,q_1$ are positive.
+Consequently $a,b,c,d,q_{12},h,q_{45}$ are positive and every quotient
+denominator in the new chain is nonzero. These coordinates are uniquely
+determined by the earlier data. Eliminating them restores the indicated
+rational weight identities, while those identities uniquely extend any
+point of the preceding domain to the new chain. No roots or branch
+choices are introduced.
+
+Each equation has degree at most two in stored rational coordinates:
+for instance $cd=e q_1^3$ uses the coordinate already storing $q_1^3$,
+and the final relation is $q_1^3q_{45}=h^2$. The existing $E=e\delta$
+equation is also quadratic because $\delta$ is affine in $t$.
+Reordering it does not create a dependency cycle. The source checker
+checks the degree of every source residual with the fixed anchor
+constant represented by a coordinate.
+
+The total-positive factors $1+q_mD_j^2$ remain at least one at both real
+embeddings. Their product $W=W_0+W_1\sqrt2$ therefore has $W_0\ge1$
+and $N(W)>0$. The actual pole input still is
+\[
+ B=\frac{\bigl(N(W)/(2W_0)\bigr)^2}{E}.
+\]
+Thus the trace quotient and pole denominator have the same nonzero
+domains as before. There is no new sign predicate.
+
+\subsection{The arbitrary-order local consumer}
+
+The sixteen field tests now have orders $1,12,45$: nine order-one tests,
+one input cross test of order twelve, and six high-order tests. The latter
+are the primary inverse root, the three Lucas-label cross tests, the input
+discrepancy, and the direct Lucas residual. The product grouping remains
+one mixed $(1,12)$ block, two four-test order-one blocks, and two
+three-test high-order blocks. The mixed-block identity is unchanged:
+\[
+ (1+q_1U)(1+q_{12}V)
+ =1+q_1U+q_{12}V+(q_1q_{12})UV.
+\]
+
+Put $R=E^{-1}$. For every positive integer $m$,
+\[
+ 1+R\left(\frac{D_j/\delta^{m+1}}{R^m}\right)^2
+   =1+q_mD_j^2.
+\]
+The source's arbitrary-order one-place argument therefore applies
+without changing its valuation calculation. More explicitly, at a
+consumed unramified prime with odd $\alpha=v_p(R)$, the nonconstant term
+of each factor has odd valuation. Thus the factor valuation is its
+minimum with zero. The pole condition gives positive valuation to
+$R/\operatorname{Tr}(W^{-1})^2$, forcing $\alpha>0$ and, at a common
+successful place, $v(D_j)>(m-3/4)\alpha$. Integral normalized valuations
+give $v(D_j)\ge m$. The guard is a unit at the consumed contacts, as
+already established for the retained exceptional set. This is the actual
+proof of Lemma \texttt{v5-one-place} in the pinned upstream manuscript,
+lines 11031--11061; its argument permits arbitrary positive orders.
+The reduced exceptional set and pole hypotheses are justified in the
+previous arithmetic proofs, rather than by disregarding the printed
+large prime cutoff.
+
+The retained long logarithm polynomial is $G_{12}$. If a formal
+parameter has depth $r\ge1$, its polynomial argument has valuation $4r$.
+For every omitted coefficient index $j\ge13$ and every consumed prime
+$p\ge11$, the existing coefficient estimate gives
+\[
+ v_p(a_j)\ge-\frac{4j+1}{p-1},\qquad
+ \frac{4j+1}{p-1}\le\frac{4j+1}{10}\le4j-45.
+\]
+The last inequality follows from
+$10(4j-45)-(4j+1)=36(j-13)+17\ge0$.
+Hence every omitted term has valuation at least $45r$, and the valuations
+tend to infinity. This proves the required relative precision forty-five
+without adding an exceptional prime. In particular no unproved uniform
+precision fifty-two is used. The input logarithm keeps $G_2$ and precision
+twelve. The primary inverse-root test gives primary depth at least
+forty-five, and hence primary relative error at least one hundred eighty.
+The previously proved weak-unit comparison first transfers integrality;
+then the two-anchor comparison gives the actual Lucas-label congruences
+at order forty-five and the input-label congruence at order twelve.
+The separate identity-input branch is retained.
+
+Completeness replaces only the primary index progression $\Pi^{43}\mid h$
+by $\Pi^{44}\mid h$. The original separation argument gives
+$\gcd(\Pi,M_+L)=1$, so this change is compatible with the same CRT
+requirements. The alternate points still require only formal depth one;
+there is no incompatible demand that both $h$ and $h-1$ be divisible by
+the chosen prime. All finite lower bounds on prepared point functions
+remain available.
+
+The fifth-round real and small-prime limits are uniform in every fixed
+positive order. In particular the nonconstant factors are
+$O(\lambda^{-3})$ at infinity. At $p=2,3,17$, writing
+$\nu=v_p(v)$ for the chosen denominator parameter,
+$\eta=v_p(A)$ and $\alpha=v_p(98)$, their lower bound is
+\[
+ 3\nu+(10m-8)(\eta+\alpha)-2c_p.
+\]
+It tends to infinity for $m=1,12,45$. Only finite preparatory constants
+change. The fixed Gaussian squareclasses and all contact values are
+unchanged. This verifies the real and local completeness transfer;
+the seven extra rational coordinates themselves impose no approximation
+or smallness condition.
+
+\subsection{Implementation and exact measurements}
+
+The isolated detector replacement was compiled completely:
+\[
+ 412/380\quad\longrightarrow\quad402/370
+ \quad\longrightarrow\quad398/366.
+\]
+These are coordinates/residuals before compilation, after the generic
+compiler, and after four further certified eliminations. The baseline
+was $415/383\to405/373\to401/369$. Thus all three raw-coordinate savings
+survive the final projection-preserving elimination pipeline.
+
+Combined with the independently proved two-coordinate scalar norm-tree
+reduction and the inverse-root physical anchor, the selected source has
+\[
+ 410/378\quad\longrightarrow\quad400/368
+ \quad\longrightarrow\quad\boxed{396/364}.
+\]
+The inverse-root anchor uses $S_0=3^{3072}$; the exact anchor equivalence
+and scalar/Lucas height margins are proved in
+\texttt{arithmetic\_round6.tex}. The mixed scalar norm-tree proof is
+\texttt{geometry\_round6.tex}. Neither change is inferred merely from
+matching counts. The final quartic has 396 active rational coordinates,
+364 quadratic residuals, 26,225 ordinary-coordinate monomials and
+primitive integer content one. The three ordinary decimal constant
+circuits have respectively 398, 399 and 400 active coordinates. Their
+coefficient and support claims belong to the separate exact table audit.
+
+The selected checker \texttt{check\_detector\_round6.py} imports neither
+producer nor compiler. It passes 390 source assertions, seven exact
+Laurent exponent identities and two expanded mixed-block identities on
+the frozen integrated source. Its coverage includes independent binomial
+reconstruction of the $G_{12}$ square completion, all logarithm outputs
+and quotient consumers, every field-test alias, all squared tests and
+shared symmetric coefficients, all evaluation powers, the shortened
+scales and guard, both high-weight outputs, actual square/cube reuse,
+the norm and pole input, and the lifted degree bound. The independent
+scalar reviewer additionally checks 64 actual source equations, seven
+chart/proxy identities and the exact valuation descent. These are finite
+algebraic checks; the global arithmetic inputs retain their stated
+conditional status.
+
+\subsection{Search limitations and unselected candidates}
+
+The circuit was found by an exact exponent-pair search using operations
+$(a,b)+(c,d)-(e,f)$, corresponding to quadratic quotient gates. The
+first three new operations were restricted to doubled differences;
+the final two used general pair sums minus one earlier exponent pair.
+The search included the already required $e,\delta,\delta^2,\delta^3,E$
+and order-one powers. The selected search additionally prohibited new
+uses of $\delta^3$ to preserve its existing eliminations. This is a
+restricted constructive search, not an exhaustive lower-bound proof
+for every rational circuit. No minimality assertion is made.
+
+Cost-neutral order-forty-six and order-forty-eight circuits were also
+fully compiled; both retained 401 final coordinates before the separate
+scalar improvement. Seven-gate alternatives using $\delta^3$ and lower
+orders ten or eleven were investigated, but were not selected over the
+simple measured order-twelve/forty-five circuit. No unselected variant
+is used by the final arithmetic argument.

@@ -1,0 +1,104 @@
+{
+  "wrapperSha256": "a660293cc6fa97a55d8d3635645f666fd1c6b52d96276ec768b4a3faedecc3ae",
+  "checkerSha256": "95baeaec4d8e8dca33c94cb5a4cc6edc9dd837a66c71830c9a2c6f3c91be3536",
+  "cases": [
+    {
+      "case": "control_without_stdout",
+      "returnCode": 0,
+      "successReceiptPresent": true,
+      "expectedSuccess": true,
+      "diagnosticTail": [
+        "PASS: 1 deterministic artifacts matched byte for byte; all exact audits passed.",
+        "Tracked proposal source files are unchanged.",
+        "Fresh build input files are unchanged.",
+        "Note: stdout marker was absent; structured completion, source and all artifact/audit checks passed.",
+        "Receipt: /workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/wrapper-probes/independent-90yrvtuy/control_without_stdout/output/reproduction-receipt.json"
+      ],
+      "commandLogSha256": "435172d3a470b3611e5395e574ab63a3c8ec7f5e67bfe84a799a7dd075742dab"
+    },
+    {
+      "case": "changed_fresh_builder",
+      "returnCode": 1,
+      "successReceiptPresent": false,
+      "expectedSuccess": false,
+      "diagnosticTail": [
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/wrapper-probes/independent-90yrvtuy/changed_fresh_builder/source/reproduce.py\", line 236, in <module>",
+        "    main()",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/wrapper-probes/independent-90yrvtuy/changed_fresh_builder/source/reproduce.py\", line 180, in main",
+        "    raise RuntimeError('Fresh build input changed during the build: '+item['path'])",
+        "RuntimeError: Fresh build input changed during the build: construction/builder.cjs"
+      ],
+      "commandLogSha256": "6a560878cd76bff262b7028561765010f9806d9e8f2f633cd2463df2d30c9e0e"
+    },
+    {
+      "case": "changed_fresh_proof",
+      "returnCode": 1,
+      "successReceiptPresent": false,
+      "expectedSuccess": false,
+      "diagnosticTail": [
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/wrapper-probes/independent-90yrvtuy/changed_fresh_proof/source/reproduce.py\", line 236, in <module>",
+        "    main()",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/wrapper-probes/independent-90yrvtuy/changed_fresh_proof/source/reproduce.py\", line 180, in main",
+        "    raise RuntimeError('Fresh build input changed during the build: '+item['path'])",
+        "RuntimeError: Fresh build input changed during the build: proofs/input.tex"
+      ],
+      "commandLogSha256": "078334816a98851f5b4cad13067b54442f65466d6b586dfbe69ce5edd9514162"
+    },
+    {
+      "case": "deleted_fresh_proof",
+      "returnCode": 1,
+      "successReceiptPresent": false,
+      "expectedSuccess": false,
+      "diagnosticTail": [
+        "    fresh = regular_file(output, relative_path(item['path']))",
+        "            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/wrapper-probes/independent-90yrvtuy/deleted_fresh_proof/source/reproduce.py\", line 40, in regular_file",
+        "    raise ValueError('Missing or escaping artifact: '+str(relative))",
+        "ValueError: Missing or escaping artifact: proofs/input.tex"
+      ],
+      "commandLogSha256": "0bc8df9d5fa29884c6a749ef4c4eac056e1947adfc2741dd9fc94e25512aecf4"
+    },
+    {
+      "case": "symlinked_fresh_proof",
+      "returnCode": 1,
+      "successReceiptPresent": false,
+      "expectedSuccess": false,
+      "diagnosticTail": [
+        "    fresh = regular_file(output, relative_path(item['path']))",
+        "            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/wrapper-probes/independent-90yrvtuy/symlinked_fresh_proof/source/reproduce.py\", line 38, in regular_file",
+        "    raise ValueError('Symbolic link is not an input or output artifact: '+str(relative))",
+        "ValueError: Symbolic link is not an input or output artifact: proofs/input.tex"
+      ],
+      "commandLogSha256": "e8201c24c47b75d8e932c52cf3f6de6d1e6227b273b3f4c0516f4bc758e9df07"
+    },
+    {
+      "case": "changed_fresh_pipeline",
+      "returnCode": 1,
+      "successReceiptPresent": false,
+      "expectedSuccess": false,
+      "diagnosticTail": [
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/wrapper-probes/independent-90yrvtuy/changed_fresh_pipeline/source/reproduce.py\", line 236, in <module>",
+        "    main()",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/wrapper-probes/independent-90yrvtuy/changed_fresh_pipeline/source/reproduce.py\", line 180, in main",
+        "    raise RuntimeError('Fresh build input changed during the build: '+item['path'])",
+        "RuntimeError: Fresh build input changed during the build: construction/reproduce.py"
+      ],
+      "commandLogSha256": "15b83d7195c403aec67f09f90b5d03b4e61572f130cca441e52ad5d4c6f6148b"
+    },
+    {
+      "case": "completion_before_nonzero_exit",
+      "returnCode": 1,
+      "successReceiptPresent": false,
+      "expectedSuccess": false,
+      "diagnosticTail": [
+        "Rebuilding from 3 source/proof files in /workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/wrapper-probes/independent-90yrvtuy/completion_before_nonzero_exit/output",
+        "",
+        "Construction or audit failed; complete log: /workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/wrapper-probes/independent-90yrvtuy/completion_before_nonzero_exit/output/construction.log"
+      ],
+      "commandLogSha256": "87b8535710d58ff6e71a629010e451fd26068f3cd6f2fcb97cb207436bb79107"
+    }
+  ],
+  "allExpectationsMatched": true,
+  "scope": "Independent mock tests of structured completion, unchanged fresh seeds, and process-failure precedence. No mathematical construction is executed."
+}

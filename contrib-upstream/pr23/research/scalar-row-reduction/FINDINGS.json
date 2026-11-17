@@ -1,0 +1,60 @@
+{
+  "format": "scalar-row-findings-v1",
+  "date": "2026-11-09",
+  "findings": [
+    {
+      "id": "ROW01",
+      "title": "Exact A row identities",
+      "historicalDisposition": "prior components located",
+      "argument": "The supplied A edit changes only the two w numerator rows; exact multipliers depend on raw normalization.",
+      "evidence": "PROOF.md: A; check_rows.py",
+      "status": "Addressed by exact identities; pending non-author review",
+      "manuscriptDisposition": "Pending; current Version13 unchanged"
+    },
+    {
+      "id": "ROW02",
+      "title": "tri changes the stored Bh normalization",
+      "historicalDisposition": "prior components located",
+      "argument": "Removing W2 also rescales Bh by mu=184460384539620. Both maps and the actual second conic are checked.",
+      "evidence": "PROOF.md: tri; check_rows.py",
+      "status": "Addressed explicitly; pending non-author review",
+      "manuscriptDisposition": "Pending; current Version13 unchanged"
+    },
+    {
+      "id": "ROW03",
+      "title": "New diagonal map and complete table",
+      "historicalDisposition": "new local representation",
+      "argument": "Fixed integer weights replace the old restricted map. LP optimality is not asserted. Every coefficient is reconstructed.",
+      "evidence": "DIAGONAL_WEIGHTS.json; check_diagonal.py; EXPECTED.json",
+      "status": "Finite checks specified; pending reproduction/review",
+      "manuscriptDisposition": "Pending; current Version13 unchanged"
+    },
+    {
+      "id": "ROW04",
+      "title": "Contributed exploratory claims and negative evidence",
+      "historicalDisposition": "historical research retained",
+      "argument": "Original evidence retained; W/trace invariance and high-order-chain claims corrected, and restricted search limits preserved.",
+      "evidence": "prior-investigation/INVENTORY.json; codex-vetting/VETTING.txt",
+      "status": "Outside present mathematical dependency; scope review required",
+      "manuscriptDisposition": "Pending; current Version13 unchanged"
+    },
+    {
+      "id": "ROW05",
+      "title": "tau, missing tests, B/C and upstream-defect speculation",
+      "historicalDisposition": "unresolved",
+      "argument": "No arithmetic acceptance for those measured candidates. Tau sign cancellation, guard and anchor; omitted primary formal premise; B/C three-adic application remain open. No Version13 defect established.",
+      "evidence": "prior-investigation/codex-vetting/VETTING.txt",
+      "status": "Open research outside claimed construction",
+      "manuscriptDisposition": "Pending; current Version13 unchanged"
+    },
+    {
+      "id": "ROW06",
+      "title": "Global proof and release integration",
+      "historicalDisposition": "inherited unresolved scope",
+      "argument": "No new global theorem, current-manuscript incorporation, public readback or App acceptance is supplied by finite checks.",
+      "evidence": "HANDOFF.md; parent handoffs",
+      "status": "Open; separate from local row-equivalence claim",
+      "manuscriptDisposition": "Pending; current Version13 unchanged"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-08",
+  "sources": {
+    "/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/lean-toolchain": "ca5f1f601d34c49079e38d7e7041eb0f2a9c227fbc1df0f404820069a052330c",
+    "/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/lake-manifest.json": "a770787f33b5824f61a0731d59e67fca3f44a531b21d1fc1a804064c6fb54e58",
+    "/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/lakefile.toml": "632fda3c75f7616378b9dadd0906d9518c7b4a1199c59d7b36369121acfb3b26",
+    "/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.lake/packages/mathlib/Cache/README.md": "321f8674a91b30988f61068464a73fcc05346e0c338311f96993eb22d3400d4e",
+    "/Users/chey/.elan/toolchains/leanprover--lean4---v4.35.0/src/lean/lake/Lake/Check/Compare.lean": "0281630a33b8f08a9f3f40f229cd843c02441a0cd4d8a6d8548dc2bb8ded4c68",
+    "/Users/chey/.elan/toolchains/leanprover--lean4---v4.35.0/src/lean/lake/Lake/Check/Axioms.lean": "261fa54494a6a17c23b8588d788ab1080e5c39af2143948f8e140cfa295560d1",
+    "/Users/chey/.elan/toolchains/leanprover--lean4---v4.35.0/src/lean/lake/Lake/CLI/Check.lean": "55daf430e5adea38453b21798cbdf4cd099f66ec969494022a566a8ae098c00b"
+  },
+  "official_urls": [
+    "https://lean-lang.org/doc/reference/latest/releases/v4.35.0/",
+    "https://lean-lang.org/doc/reference/latest/ValidatingProofs/",
+    "https://github.com/leanprover-community/mathlib4/blob/56a005855ea17e0b0958f73ec801ae140b0a1679/Cache/README.md"
+  ],
+  "conclusions": [
+    "Native compilation plus per-target axiom inspection is local development evidence",
+    "Protected bubblewrap comparison is Linux cloud work; not simulated on macOS",
+    "Paranoid includes additional kernels; none run locally",
+    "Specific Mathlib import closures use master cache only",
+    "No dependency or inherited target configuration change"
+  ]
+}

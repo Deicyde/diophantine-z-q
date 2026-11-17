@@ -1,0 +1,381 @@
+{
+  "format": "higher-orders-author-contract-v1",
+  "status": "author_submission_pending_independent_review",
+  "authors": [
+    "User-supplied Opus weight47/scalarpoles/compose exploration",
+    "Codex /root proof and integration,2026-11-09"
+  ],
+  "independentAcceptance": false,
+  "parentCommit": "32abb654ec295e28b51f92a51d7f12d4c5a626ec",
+  "proof": {
+    "path": "research/higher-order-variant/PROOF.md",
+    "sha256": "0fdcfd150aaff4ae4fd9ed04d38bb724baf9b3a02e4cb25932cd70b491f73d60"
+  },
+  "sources": [
+    {
+      "id": "one-place",
+      "path": "manuscripts/quartic_v10.tex",
+      "locator": "lem:v5-one-place and proof; pole certificate used therein",
+      "sha256": "9559b22cc581346da1b3150fa9b8dfb62cfb048f6aac0b866448ae7ae879ff38"
+    },
+    {
+      "id": "small-primes",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round4/arithmetic_round4.tex",
+      "locator": "Actual finite exceptional-set pole reapplication",
+      "sha256": "b72fa74f4d4ea192d17ff257e17bd8307a12700b53a2de990c4a3c526e5d181e"
+    },
+    {
+      "id": "normalization",
+      "path": "research/conditional-quartic-reduction/proofs/detector_round7.tex",
+      "locator": "Contact-unit normalization, actual R and simultaneous pole completeness",
+      "sha256": "ed01c9416d3b4daf02a26958642194230c0186a896f17817bfe30c8a16d481d3"
+    },
+    {
+      "id": "mixed",
+      "path": "research/mixed-detector-normalization/PROOF.md",
+      "locator": "Actual test indices, small-prime reapplication and order46 consumers",
+      "sha256": "3dfb7eb74c10358744a41c4c7bfa36d154fae149f6748e3082fa6013c11b2abd"
+    },
+    {
+      "id": "precision",
+      "path": "research/detector-cube-reuse/references/precision51_PROOF.md",
+      "locator": "Entire logarithm tail and identity branches",
+      "sha256": "e6a825c3b85a9c56a6a2678ad0fa411ecedec53a005a0464efb45677f056054c"
+    },
+    {
+      "id": "height",
+      "path": "research/height-consumer-refinement/PROOF.md",
+      "locator": "Uniform height transfer, Lucas endpoint and scalar/input margins",
+      "sha256": "5a4ff818479f28dfb988526cbcac89b9f6fdb264fe7e9f999123fe0547d45029"
+    },
+    {
+      "id": "zero",
+      "path": "research/scalar-preparation-zero/PROOF.md",
+      "locator": "Actual simultaneous finite and real construction and choice order",
+      "sha256": "79bb5a8c5ce16c6b4559848739aeb78b7d23eb4a90f2ff0ad8ccf97a3674280a"
+    },
+    {
+      "id": "rows",
+      "path": "research/scalar-row-reduction/PROOF.md",
+      "locator": "Retained source witness maps and exact diagonal representation",
+      "sha256": "b64c429a02bdb083182ede492cfb67f902e487585f5eca4eeb28dd353ffc320e"
+    },
+    {
+      "id": "protocol",
+      "path": "docs/research-review/PROTOCOL.md",
+      "locator": "Version1.2, changed applications and conditional handoff",
+      "sha256": "b5365b3d9cd9a782bf7fd0b6020403d5d400eac13dc7e60875484a8769d3d925"
+    },
+    {
+      "id": "odd-power",
+      "path": "research/odd-power-detectors/PROOF.md",
+      "locator": "Uniform arbitrary-order normalization, actual trace and simultaneous pole completeness",
+      "sha256": "5d20636e3ab9a6d7b54cca4a2efa6a802d0f91984ec0be49c1c1b8875a80b1ab"
+    },
+    {
+      "id": "chain",
+      "path": "research/scalar-chain-reduction/PROOF.md",
+      "locator": "Actual norm nodes and strict descent; source denominator and scalar contact domain",
+      "sha256": "710088f6d9517c966a55a54e9d6adb383a335d705b7b4ca5a0f1dbde16f6be4d"
+    },
+    {
+      "id": "proxy",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round5/geometry_round5.tex",
+      "locator": "Scalar proxy and uniform two-place trace, including41; arbitrary positive scalar order; finite/real completeness",
+      "sha256": "3d5f0fff2fc45bd2b7504c933a8583367555d10e78a18b9885c2d01a151261bb"
+    },
+    {
+      "id": "anchor",
+      "path": "research/conditional-quartic-reduction/proofs/optional_anchor_height_round7.tex",
+      "locator": "Varying even-anchor equivalence and exact downstream point/input domain",
+      "sha256": "686faeed616eef6ebed472b2414a36e8158d4de838248238815ecc283e39a4e6"
+    },
+    {
+      "id": "round8",
+      "path": "research/conditional-quartic-reduction/proofs/arithmetic_round8.tex",
+      "locator": "Actual height inputs and noncircular anchor derivation",
+      "sha256": "826523050c2f0d315561ae064124b420862ff09eeafaa63437e0339ce7c22f7b"
+    }
+  ],
+  "obligations": [
+    {
+      "id": "source_hypotheses",
+      "requiredInput": "Uniform scalar proxy after both points are formal, arbitrary positive detector orders, complete specialized pole hypotheses.",
+      "constructedInput": "Same unnormalized proxy, r>0, kappa=r^-15, both-place formal premises from four leaves; d=D/delta^(2m-1).",
+      "justification": "The actual norm yields all four premises before the proxy; small-prime one-place proof is reapplied at50, not inferred from its old large-prime statement.",
+      "consumer": "PROOF.md: Actual source objects; Seven-coordinate order50 detector chain",
+      "sourceReferences": [
+        "one-place",
+        "small-primes",
+        "normalization",
+        "mixed",
+        "precision",
+        "height",
+        "zero",
+        "rows",
+        "protocol",
+        "odd-power",
+        "chain",
+        "proxy",
+        "anchor",
+        "round8"
+      ],
+      "evidence": [
+        "higher_patch.py",
+        "check_higher.py",
+        "reproduce.py",
+        "DIAGONAL_WEIGHTS.json",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "constructed_objects",
+      "requiredInput": "Every materialized quotient and every test must be the object consumed.",
+      "constructedInput": "rInverse31=r^-31,y=Tproxy/r^32; inner kappa remainsr^-15. q1^4 is shared; q1^-7 produces q1^23 andq1^99.",
+      "justification": "Exact source comparison and actual gate decoding check one added scalar coordinate, shared fourth power, all tests and retained guards.",
+      "consumer": "PROOF.md: Actual source objects; Seven-coordinate order50 detector chain",
+      "sourceReferences": [
+        "one-place",
+        "small-primes",
+        "normalization",
+        "mixed",
+        "precision",
+        "height",
+        "zero",
+        "rows",
+        "protocol",
+        "odd-power",
+        "chain",
+        "proxy",
+        "anchor",
+        "round8"
+      ],
+      "evidence": [
+        "higher_patch.py",
+        "check_higher.py",
+        "reproduce.py",
+        "DIAGONAL_WEIGHTS.json",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "domain_and_index_coverage",
+      "requiredInput": "All scalar contacts, all sixteen tests at a common contact place, split/inert/identity cases.",
+      "constructedInput": "Eight tests1,two12,six50; scalar radical47; unchanged exception set and two-place41 argument.",
+      "justification": "Unit delta preserves valuations; integral-valued unramified places give m from strict m-3/4. Four scalar leaves establish both-place formal domains.",
+      "consumer": "PROOF.md: Scalar descent; Seven-coordinate order50 detector chain; Precision50",
+      "sourceReferences": [
+        "one-place",
+        "small-primes",
+        "normalization",
+        "mixed",
+        "precision",
+        "height",
+        "zero",
+        "rows",
+        "protocol",
+        "odd-power",
+        "chain",
+        "proxy",
+        "anchor",
+        "round8"
+      ],
+      "evidence": [
+        "higher_patch.py",
+        "check_higher.py",
+        "reproduce.py",
+        "DIAGONAL_WEIGHTS.json",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "transition_maps",
+      "requiredInput": "Exact scalar scaling, trace factor, conic and diagonal maps on the retained domain.",
+      "constructedInput": "Tproxy=r^32*y; d=D/delta^(2m-1); n=N(W)/(2W0); scalarT=42rN^2; input-fixed diagonal.",
+      "justification": "All powers and factors checked explicitly; positive inverse denominators preclude extra cleared branches. New scalar/detector private witnesses are constructed, not transported arbitrarily.",
+      "consumer": "PROOF.md: Scalar descent; Seven-coordinate order50 detector chain; Finite representation",
+      "sourceReferences": [
+        "one-place",
+        "small-primes",
+        "normalization",
+        "mixed",
+        "precision",
+        "height",
+        "zero",
+        "rows",
+        "protocol",
+        "odd-power",
+        "chain",
+        "proxy",
+        "anchor",
+        "round8"
+      ],
+      "evidence": [
+        "higher_patch.py",
+        "check_higher.py",
+        "reproduce.py",
+        "DIAGONAL_WEIGHTS.json",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "consumed_object_identity",
+      "requiredInput": "The same a-1, integer Lucas residual and reduced input numerator at sufficient orders.",
+      "constructedInput": "v(Tproxy)=v((a-1)/h), M(beta)^47 dividesa-1; actual Lucas50 and input12 after two-anchor integrality transfer.",
+      "justification": "Relative error51 supplies50 only after integral ratios; primary identities covered separately. No tau proxy or norm of the height product substituted.",
+      "consumer": "PROOF.md: Scalar descent; Precision50; Anchor1512",
+      "sourceReferences": [
+        "one-place",
+        "small-primes",
+        "normalization",
+        "mixed",
+        "precision",
+        "height",
+        "zero",
+        "rows",
+        "protocol",
+        "odd-power",
+        "chain",
+        "proxy",
+        "anchor",
+        "round8"
+      ],
+      "evidence": [
+        "higher_patch.py",
+        "check_higher.py",
+        "reproduce.py",
+        "DIAGONAL_WEIGHTS.json",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "conventions",
+      "requiredInput": "Normalized valuations and real embeddings; rational polynomial with fixed input and explicit anchor.",
+      "constructedInput": "K=Q(sqrt2),v_p(p)=1,E1512,physical scalar42rN^2,positive conic coefficient42r.",
+      "justification": "Anchor domain is 0!=a-1 in2*3^755Z; trace factor2 and all exact rational row factors retained.",
+      "consumer": "PROOF.md: Actual source objects; Anchor1512; Finite representation",
+      "sourceReferences": [
+        "one-place",
+        "small-primes",
+        "normalization",
+        "mixed",
+        "precision",
+        "height",
+        "zero",
+        "rows",
+        "protocol",
+        "odd-power",
+        "chain",
+        "proxy",
+        "anchor",
+        "round8"
+      ],
+      "evidence": [
+        "higher_patch.py",
+        "check_higher.py",
+        "reproduce.py",
+        "DIAGONAL_WEIGHTS.json",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "local_conditions",
+      "requiredInput": "One final H must meet stronger scalar finite conditions, high detector depths, and real pole smallness.",
+      "constructedInput": "Proxy depth48R+1, five leaves16R+1; fixed H0 thenQ, roots/scales/L0/bounds before primes; primary progressionPi^49.",
+      "justification": "Arbitrary finite proxy preparation and real orbit density apply in that order. Compatible gcds yield actual finalH. New detector weights decay and have positive nu slopes99 at high order.",
+      "consumer": "PROOF.md: Scalar completeness; Simultaneous higher-order detector completeness",
+      "sourceReferences": [
+        "one-place",
+        "small-primes",
+        "normalization",
+        "mixed",
+        "precision",
+        "height",
+        "zero",
+        "rows",
+        "protocol",
+        "odd-power",
+        "chain",
+        "proxy",
+        "anchor",
+        "round8"
+      ],
+      "evidence": [
+        "higher_patch.py",
+        "check_higher.py",
+        "reproduce.py",
+        "DIAGONAL_WEIGHTS.json",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "exceptional_cases",
+      "requiredInput": "Zero leaves/witnesses, split41, loss at53, bad primes2/3/17, both anchor signs and zero packed summands.",
+      "constructedInput": "Infinite-valued zero leaves; all guards retained; exact proxy trace; precision51; scalar/detector squareclasses and depths3,1,2.",
+      "justification": "Source proofs are applied to these actual objects; conic positivity supplies zero branches. No good reduction at exceptional primes is assumed.",
+      "consumer": "PROOF.md: Scalar descent/completeness; Precision50; Simultaneous completeness; Anchor1512",
+      "sourceReferences": [
+        "one-place",
+        "small-primes",
+        "normalization",
+        "mixed",
+        "precision",
+        "height",
+        "zero",
+        "rows",
+        "protocol",
+        "odd-power",
+        "chain",
+        "proxy",
+        "anchor",
+        "round8"
+      ],
+      "evidence": [
+        "higher_patch.py",
+        "check_higher.py",
+        "reproduce.py",
+        "DIAGONAL_WEIGHTS.json",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "downstream_consumers",
+      "requiredInput": "Scalar, Lucas and final-input inequalities uniformly beyond new endpoint; reproducible full polynomial.",
+      "constructedInput": "Exact E1512 inequalities at scalar47,detector50,input12; Lucas monotone exponent892;377/346/25979,327digits1084bits.",
+      "justification": "Explicit integer checks plus monotonicity close the conditional soundness proof; full finite replay checks each row/coefficient. No coefficient or anchor optimality claimed.",
+      "consumer": "PROOF.md: Anchor1512 and all height margins; Finite representation",
+      "sourceReferences": [
+        "one-place",
+        "small-primes",
+        "normalization",
+        "mixed",
+        "precision",
+        "height",
+        "zero",
+        "rows",
+        "protocol",
+        "odd-power",
+        "chain",
+        "proxy",
+        "anchor",
+        "round8"
+      ],
+      "evidence": [
+        "higher_patch.py",
+        "check_higher.py",
+        "reproduce.py",
+        "DIAGONAL_WEIGHTS.json",
+        "EXPECTED.json"
+      ]
+    }
+  ],
+  "historicalDisposition": "Prior norm/proxy, arbitrary-order normalization, precision51 and anchor/height inputs located and read; present stronger applications written anew.",
+  "manuscriptDisposition": "Pending; current Version13 unchanged.",
+  "profile": "HANDOFF.md",
+  "parentReview": {
+    "archiveCommit": "a29295eafefc9cfb82bd1ff9cc82ce093db4dff4",
+    "path": "research/independent-local-reviews/2026-11-09/power376/REPORT.md",
+    "sha256": "1123e986220bd5f3d895c45c88d6da1a3dcd13b91b8eedee86c1c1d7d60ab427",
+    "scope": "Parent order46/scalar31 local application only; present scalar47/detector50 application needs fresh review."
+  }
+}

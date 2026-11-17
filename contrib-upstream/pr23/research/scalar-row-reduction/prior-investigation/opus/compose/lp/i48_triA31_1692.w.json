@@ -1,0 +1,146 @@
+{
+ "S.chart.h0": [
+  279,
+  1
+ ],
+ "S.chart.h1": [
+  279,
+  0
+ ],
+ "S.chart.j0": [
+  190,
+  0
+ ],
+ "S.chart.j1": [
+  190,
+  0
+ ],
+ "H.chart.j0": [
+  1,
+  2
+ ],
+ "H.chart.j1": [
+  1,
+  0
+ ],
+ "anchor.U": [
+  1313,
+  0
+ ],
+ "anchor.V": [
+  1313,
+  0
+ ],
+ "anchor.W": [
+  1313,
+  0
+ ],
+ "S.chart.x.0.quadratic": [
+  190,
+  1
+ ],
+ "S.chart.x.1.quadratic": [
+  189,
+  0
+ ],
+ "H.chart.x.0.quadratic": [
+  29,
+  2
+ ],
+ "H.chart.x.1.quadratic": [
+  378,
+  -1
+ ],
+ "V0.f.0": [
+  1,
+  2
+ ],
+ "primaryRatio.0": [
+  358,
+  0
+ ],
+ "primaryRatio.1": [
+  358,
+  0
+ ],
+ "heightProduct.scale0.quadratic": [
+  -16,
+  0
+ ],
+ "scalar.rInverse7": [
+  -156,
+  0
+ ],
+ "scalar.rInverse15": [
+  -695,
+  0
+ ],
+ "scalar.rInverse31": [
+  -1037,
+  0
+ ],
+ "scalar.shiftedS.rootTimesInverseRoot.0": [
+  656,
+  0
+ ],
+ "scalar.shiftedS.rootTimesInverseRoot.1": [
+  656,
+  0
+ ],
+ "scalar.shiftedS.f.0": [
+  743,
+  0
+ ],
+ "scalar.shiftedS.f.1": [
+  743,
+  0
+ ],
+ "scalar.shiftedS.nonzeroRealF": [
+  -363,
+  0
+ ],
+ "scalar.ratioProxyReal.quadratic": [
+  1394,
+  1
+ ],
+ "scalar.ratioProxyLeaf": [
+  710,
+  0
+ ],
+ "scalar.chain3.rightSquare.quadratic": [
+  1800,
+  0
+ ],
+ "scalar.chain3.quadratic": [
+  1105,
+  0
+ ],
+ "scalar.chain2.rightSquare.quadratic": [
+  1830,
+  0
+ ],
+ "scalar.chain2.quadratic": [
+  1106,
+  0
+ ],
+ "scalar.chain1.rightSquare.quadratic": [
+  1832,
+  0
+ ],
+ "scalar.chain1.quadratic": [
+  756,
+  0
+ ],
+ "scalar.N.rightSquare.quadratic": [
+  1132,
+  1
+ ],
+ "scalar.N": [
+  54,
+  0
+ ],
+ "anchor.physicalA.quadratic": [
+  1313,
+  1
+ ]
+}

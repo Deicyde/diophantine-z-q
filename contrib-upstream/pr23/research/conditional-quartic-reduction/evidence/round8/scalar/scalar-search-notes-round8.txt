@@ -1,0 +1,36 @@
+ROUND-EIGHT SCALAR/GEOMETRY SEARCH: NO ADDITIONAL REDUCTION SELECTED
+
+The retained outer-constant scalar tree remains selected. The following
+avenues were examined before the independent detector and diagonal reviews
+were prioritized. None is counted as a variable saving.
+
+1. Two Laurent-power steps give r^-7 and uniform scalar order14 in the retained
+   five-leaf tree. The proposed height exponent37/2 still exceeds14. Thus the
+   simpler anchor arithmetic does not rescue that immediate one-coordinate
+   deletion. Three steps give r^-15 and scalar order28 as before.
+
+2. The shared k_V output is consumed only by the common alternate logarithm,
+   suggesting direct substitution of k_V=(xF+js-1)/(hs). Directly multiplying
+   the final G12 polynomial by hs makes its previously quadratic numerator
+   cubic unless its two rational polynomial-output coordinates are retained.
+   That compensating cost prevents a saving in this straightforward fusion.
+   No complete alternative evaluation circuit with a lower count was found;
+   no compiled count is claimed for this idea.
+
+3. Replacing the two coefficients of f(S-P) by the stored w coordinates could
+   remove a field quotient, but small w can arise from S approaching the
+   two-torsion point(0,0), not only from S approaching P. Without an additional
+   argument it does not supply the formal Q=S-P premise needed by the scalar
+   trace proxy. A norm-based replacement would have to control branches and
+   the different possible divisibility factors a and a-1; that may consume
+   more scalar precision and gates than it saves. This is an unresolved
+   alternative, not a proof that every such approach is impossible.
+
+4. Fixing a private pole witness, for example e=17, would make one conic easy
+   but no completeness theorem for the remaining quartic/conic system was
+   obtained. The source pole-realization theorem does not automatically
+   permit this specialization. No such deletion is accepted or implemented.
+
+No mathematical defect in the selected scalar argument was identified by
+these searches. The indispensable shifted-point nonzero guard, both-place
+formal premises, split41 case and current preparation order are retained.

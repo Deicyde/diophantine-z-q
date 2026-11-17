@@ -1,0 +1,30 @@
+{
+ "name": "pb-fix3",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.PanBergerDict"
+ ],
+ "discharges": [
+  {
+   "field": "r11r12",
+   "proof": "_root_.HDec.PkgI4.PanDict.panBerger_of_printedPV {n}.panPrintedP {n}.bergerPrintedV {n}.dsThm965Printed {n}.eigenformCoeffFieldFinite {n}.dsThm966Printed",
+   "leaves": [
+    {
+     "name": "panPrintedP",
+     "type": "_root_.HDec.PkgI4.PanDict.PanPrintedP",
+     "doc": "R12. Pan, J. Amer. Math. Soc. 35 (2022), 1031-1169, Theorem 1.0.4 (= arXiv:1901.07166v2 Thm 1.0.4 with Conj. 1.0.1, pp. 5 and 2; JAMS number and page UNVERIFIED), p >= 5, for each iota_p : Qbar_p = C, printed form for one continuous rho : G_Q -> GL_2(Qbar_p): rho irreducible (no stable subspace but 0 and Qbar_p^2), unramified outside finitely many primes, odd, rho|G_Qp potentially semistable (Fontaine admissibility over Berger's B_st = B_max[log p~] inside B_dR, on a model V = E^n) and with distinct Hodge-Tate weights (multiplicity of w = dim_E (V (x)_Qp C_p(w))^{G_Qp}, cyclotomic weight -1) => rho comes from a cuspidal eigenform up to twist: a cuspidal eigenform g (Tau Ceti EigenformAwayFromLevel N k), rho_g attached to g through iota_p (tr rho_g(Frob_q^geom) = iota_p^-1(lambda_q(g)) and unramified, almost all q), a continuous character psi and P in GL_2(Qbar_p) with rho(s) = psi(s) P rho_g(s) P^-1",
+     "kind": "published",
+     "flag": "unread: JAMS theorem number and page locator UNVERIFIED (arXiv v2 statement read, h-a011 section 1.1, rv-h-a011 section 2); readings: 'cuspidal eigenform' in its weakest sense (eigen for the T_n, n prime to the level; a newform or full eigenform is one), rho_g pinned by its geometric-Frobenius traces at almost all q (Pan's normalization, FM.tex L253/L270 read by h-a011; the trace formula itself recalled); pst on a model over Berger's B_st inside B_dR (bst-construct). Dictionaries to the kernel forms proved in Lean (PanBergerDict: localDistinctHTP_iff, isIrreducibleP_of, exists_normalized_of_eigenform, exists_eigenform_of_normalized, trace_of_twist)",
+     "source": "Pan, The Fontaine-Mazur conjecture in the residually reducible case, J. Amer. Math. Soc. 35 (2022), 1031-1169, Thm 1.0.4 (= arXiv:1901.07166v2 Thm 1.0.4, p. 5; JAMS numbering UNVERIFIED); p >= 5; predicates in Contrib/OneProof/PanBergerDict.lean (IsIrreducibleP, LocalDistinctHTP, IsAttachedVia, IsTwistOf) and BergerBst.lean (LocalIsPstB)"
+    },
+    {
+     "name": "bergerPrintedV",
+     "type": "_root_.HDec.PkgI4.PanDict.BergerPrintedV",
+     "doc": "R11. Berger, Invent. Math. 148 (2002), Theoreme 0.7 = Cor. 5.22 of the published version (author copy pp. 6, 52) = Thm 0.6 = Thm 5.19 of arXiv:math/0102179v3, K = Q_p, for one p-adic representation V = E^n (E/Q_p finite inside Qbar_p, rho_E : G_Qp -> GL_n(E) continuous): dim_Qp (B_dR (x) V)^{G_Qp} = dim V => exists finite K/Q_p with dim over B_st^{G_K} of (B_st (x) V)^{G_K} = dim V, Berger's B_st = B_max[log p~] inside Mathlib's B_dR, B_max = A_max[1/p][1/t], A_max = {sum a_n (omega/p)^n : a_n in A_inf -> 0}",
+     "kind": "published",
+     "flag": "unread: Springer pagination locator UNVERIFIED (author copy Thm 0.7 read by the locator audit); Berger section 1.2's wording of A_max/B_max recalled, not read (UNVERIFIED); semistable as B_st-admissible over B_st^{G_K} (Fontaine's formalism; Berger's dim_F D_st with F = B_st^{G_K} by Fontaine's theorem); de Rham as dim_Qp D_dR = dim V (K = Q_p)",
+     "source": "Berger, Representations p-adiques et equations differentielles, Invent. Math. 148 (2002), Theoreme 0.7 (= arXiv:math/0102179v3 Thm 0.6 = Thm 5.19); de Rham implies potentially semistable; B_st, B_max, A_max and admissibility in Contrib/OneProof/BergerBst.lean (Bst, IsPstB); de Rham as pb-fix2's IsDeRhamU"
+    }
+   ]
+  }
+ ]
+}

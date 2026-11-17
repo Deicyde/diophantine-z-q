@@ -1,0 +1,26 @@
+{
+  "status": "ACCEPT",
+  "uniformBijectionAndSOSArgumentReviewed": true,
+  "independentCheckerHasNoProducerImports": true,
+  "expectedExponent": 2790,
+  "expectedCoordinates": 392,
+  "checkedRows": 360,
+  "checkedMonomials": 26301,
+  "exactMaximumFormula": "1+40532396646334464*3^1860",
+  "fileBindings": {
+    "seventh-work/root/selected/proofs/diagonal_scaling.tex": "1e2c856690cdd0c511feca650e9b9a0136b09326b6c8005089dade723c78affb",
+    "seventh-work/root/selected/construction/balance_coefficients.py": "efba9f8b845dc9171db7d63da0cc6bbba616922394faabc5afb0502fe0dcdb7b",
+    "seventh-work/geometry/check_diagonal_scaling.py": "abc16a0cfc566d161e49ecab6bd347422fc40f23a7b2be119e2aba14bdf03779",
+    "seventh-work/geometry/diagonal-scaling-check.json": "ace0735659bb62610bfd8bf658bbd2951822614e39a25bea4eee5416671e3280",
+    "seventh-work/geometry/diagonal-expectation-rejections.json": "22d6169ed24aafac9b294fe9efaf816b8c067a8831b58f234683bb3914268f05",
+    "seventh-work/geometry/diagonal-independent-review-round7.txt": "8c911c275d6f5ca20fb30817d16a4cf4a4d73a5815c2a94d734251f6094c701b",
+    "seventh-work/root/selected/construction/builder.cjs": "78b54bcde24ff8a91091e102a4734c49878699f071d9230e5ce7a70ffd2114d0",
+    "seventh-work/root/selected/construction/raw-ir.json": "582c8bf2fcde54242bb23bf7aa33d3a7a9065f04b8edd885a13386b5b779b92c",
+    "seventh-work/root/selected/construction/final/integer-candidate-ir.json": "60c37a4f41caf501b29215f88fc539b12ab646cdc9797dd572584d99985c2f22",
+    "seventh-work/root/selected/construction/balanced/integer-ir.json": "0ae74167ce075282f7695ef3d2bb3d7b477d8faa379d0abff964ab5dee224745",
+    "seventh-work/root/selected/construction/balanced/polynomial.json": "e64cd7b37823d9a7242e99ae367dec9f11a91d7dc6dd5e056f6f19d6c91558bb",
+    "seventh-work/root/selected/construction/balanced/diagonal-certificate.json": "5d724a1b821020f9d3435857186122b9b48e7fee6b62ebb2859b3a25eaf2343b",
+    "seventh-work/root/selected/construction/balanced/summary.json": "ff89494738d44de9606dcc24b85d322e3819025902ee5c214ef52c6b3347b17f",
+    "seventh-work/root/selected/construction/quartic-392-balanced-decimal.txt": "81eddac871e7575cc54b8e2cd00fcbbc5cd65a8853a031f87415fdafde71686c"
+  }
+}

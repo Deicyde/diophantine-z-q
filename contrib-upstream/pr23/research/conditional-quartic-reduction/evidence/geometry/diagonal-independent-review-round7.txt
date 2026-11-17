@@ -1,0 +1,61 @@
+INDEPENDENT DIAGONAL-TRANSFORMATION REVIEW — ROUND SEVEN
+
+Verdict: ACCEPT. The uniform algebraic argument is valid, and the independent
+checker verifies the actual 392-variable output at the separately required fixed
+parameter S=3^2790. This review imports no producer, compiler, or other checker.
+No selected source, proof, producer, or output file was mutated.
+
+Mathematical review
+-------------------
+I read the complete diagonal_scaling.tex and balance_coefficients.py. Put
+c=3^465. Each of the twelve listed old coordinates equals c^e times its new
+coordinate, with e=1,2,or4 as specified, and every other coordinate is unchanged.
+This is a diagonal bijection over Q, with inverse given by division by the same
+nonzero powers. Input coordinate zero is fixed before and after compaction.
+The same exponent on h_S and x(S) is intentional: all original equations are
+substituted, and the new coordinate names are decoded before being interpreted
+as the old geometric functions. No unchanged relation x_new=h_new^2 is assumed.
+
+The earlier arithmetic proof separately permits S=3^2790. Diagonal equivalence
+is asserted for this fixed value, not between the systems at exponents 3072 and
+2790 without that arithmetic transfer. No new parameter or witness is introduced.
+
+For each original quadratic row, the audit evaluates the fixed S, applies the
+specified diagonal substitutions, combines like monomials, and checks the exact
+nonzero signed integer content in the certificate. Dividing by that content
+preserves the row's zero set and gives a primitive integer quadratic row. The
+new quartic is the sum of the squares of those rows. Over Q it vanishes exactly
+when all rows vanish, so the input projection is unchanged. The proof correctly
+does not claim that the two full sum-of-squares polynomials differ by one common
+constant factor.
+
+Actual finite audit
+-------------------
+All 360 quadratic rows and all 360 nonzero divisors were reconstructed. Source
+exponent spans in c are: 338 rows of span 0, 11 rows of span 1, and 11 rows of span 2.
+This verifies the stated exponent-span explanation on the compiled equations.
+The independent checker expands each square using unordered term pairs and a
+factor of two for cross terms, then compares every integer coefficient in both
+the JSON quartic and the complete decimal text table. It verifies all coordinate
+correspondences, every coordinate's activity, exact degree 4, primitive content 1,
+and coefficient 1 on the fourth power of the original unchanged input.
+
+The measured output has 392 coordinates, 360 quadratic residuals, and 26,301
+quartic monomials. Its exact maximum absolute coefficient is independently checked
+as 1+40532396646334464*3^1860, not merely checked by its length. This has 905 decimal
+digits and 3004 bits. The final text table is 1,064,980 bytes with SHA256
+81eddac871e7575cc54b8e2cd00fcbbc5cd65a8853a031f87415fdafde71686c.
+
+The checker requires an independently supplied expected exponent and coordinate
+count; both a wrong exponent and a wrong coordinate count were separately
+rejected. All selected exponents and computations use exact integers/rationals.
+The exploratory numerical optimization is not a verification dependency.
+
+Scope
+-----
+This is an independent exact algebraic implementation and a review of the uniform
+bijection/SOS argument. It is not a second proof of the inherited curve, rank,
+height, prime-selection, or Lucas inputs. Source-to-core compiler and elimination
+certificates remain separately audited. The adjacent bindings include the precise
+producer, proof, checker, source IR, outputs, full audit report, and rejection
+report reviewed here.

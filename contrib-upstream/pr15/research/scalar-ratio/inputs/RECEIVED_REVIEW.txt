@@ -1,0 +1,239 @@
+**I’ve written the general-size Lean candidate for the scalar-ratio theorem, the integral-unit criterion, and a separately stated boundary–cup adapter.** The adapter derives the comparison from lower-level identities involving the same functionals; it does not assume determinant preservation.
+
+**Verification boundary:** the ordinary algebraic derivation and exact computational tests are complete. **Lean compilation is not complete**: this environment has no Lean/Lake executable, and toolchain download was blocked. The files contain candidate proof bodies, but they must not be described as kernel-verified until compilation and the axiom audit succeed.
+
+diophantine_zq_scalar_ratio_milestone_2026-11-08.zip[Download the complete scalar-ratio milestone bundle](sandbox:/mnt/data/diophantine_zq_scalar_ratio_milestone_2026-11-08.zip)
+
+## 1. The formal target now starts from the actual matrices
+
+The development keeps the common-strict presentation
+\[
+D_F=[D_0\mid A_F],
+\qquad
+D_S=[D_0\mid A_S],
+\]
+the actual cycles
+\[
+z_F=(h_F,v),\qquad z_S=(h_S,Jv),
+\]
+and the actual closed functionals
+\[
+D_Fz_F=D_Sz_S=0,\qquad
+\lambda_FD_F=\lambda_SD_S=0.
+\]
+
+Crucially, the determinant coordinate is specified by the **full matrix identity**
+\[
+\boxed{z\lambda=u\,\operatorname{adj}(D).}
+\]
+
+It is **not defined to equal the formula we want to prove**.
+
+For a fractional complement \(x\), set
+\[
+\eta=\det[v,x]\ne0,\qquad
+a=A_Fx,\qquad b=A_SJx,
+\]
+\[
+\theta=\det[D_0\mid a\mid b]\ne0,\qquad
+\delta=\det J,
+\]
+and define the cross-boundary scalars by literal evaluation:
+\[
+q_F=\lambda_F(b),\qquad q_S=\lambda_S(a).
+\]
+
+The candidate theorem `common_strict_coordinate_formula` derives
+\[
+\boxed{
+u_F=-\frac{\eta q_F}{\theta},
+\qquad
+u_S=\frac{\delta\eta q_S}{\theta}.
+}
+\]
+
+Separate lemmas establish that the normal-frame hypotheses force a nonzero adjugate and that the coordinate satisfying the matrix identity is unique. Thus the theorem can be applied to coordinates supplied independently by their defining specification.
+
+## 2. A cleaner proof makes the sign and common factor explicit
+
+I simplified the normal-form argument.
+
+Use the source frames
+\[
+B_F=[e_1,\ldots,e_m,z_F,(0,x)],
+\qquad
+B_S=[e_1,\ldots,e_m,z_S,(0,Jx)].
+\]
+
+Instead of using two different final \(2\times2\) normal blocks, order the target complement columns differently:
+\[
+T_F=[D_0\mid b\mid a],
+\qquad
+T_S=[D_0\mid a\mid b].
+\]
+
+Both complexes then have the **same** normal differential:
+\[
+D_FB_F=T_FN,\qquad D_SB_S=T_SN,
+\qquad
+N=\operatorname{diag}(I_m,0,1).
+\]
+
+The determinant factors are
+\[
+\det B_F=\eta,\qquad
+\det B_S=\delta\eta,\qquad
+\det T_F=-\theta,\qquad
+\det T_S=\theta.
+\]
+
+Closedness determines the normalized rows:
+\[
+\lambda_FT_F=q_Fe_{m+1}^{*},
+\qquad
+\lambda_ST_S=q_Se_{m+1}^{*}.
+\]
+
+The scalar formulas now follow from one change-of-frame theorem and one diagonal-adjugate calculation. The candidate uses the pinned Mathlib adjugate and determinant interfaces for those steps.  
+
+**This is an arbitrary-size calculation, not merely a formalization of the \(2\times2\) counterexample.** The entire common factor \(\theta\), including any nonunit strict contribution, remains present until cancellation.
+
+## 3. The integral criterion is stronger than the quotient formula
+
+The familiar quotient statement is
+\[
+\frac{\delta u_F}{u_S}=-\frac{q_F}{q_S},
+\]
+when the denominator is nonzero.
+
+But the more useful formal interface avoids division by either functional:
+\[
+\boxed{q_S(\delta u_F)+q_Fu_S=0.}
+\]
+
+For the actual integral subring \(R\subset L\), define
+\[
+\operatorname{UnitRelated}_R(a,b)
+\iff
+\exists \epsilon\in R^\times,\quad a=\epsilon b.
+\]
+
+This must use **units of \(R\)**. Testing `IsUnit` in the fraction field would declare every nonzero discrepancy acceptable and destroy the arithmetic content.
+
+With \(\delta\) an integral unit, the candidate derives
+\[
+\boxed{
+\operatorname{UnitRelated}_R(u_F,u_S)
+\iff
+\operatorname{UnitRelated}_R(q_F,q_S).
+}
+\]
+
+This formulation allows a common nonunit factor and includes the case where both functionals—and hence both coordinates—vanish. It does not cover a zero local class: \(\eta\ne0\) remains an explicit hypothesis.
+
+For a DVR, this is the desired equality-of-valuations criterion. The development also includes a consumer for a multiplicative valuation that is trivial on integral units.
+
+## 4. The arithmetic adapter now has a precise, noncircular statement
+
+The adapter uses the **same** \(\lambda_F,\lambda_S\) stored in the common-strict data. It requires the full boundary–cup identities
+\[
+\lambda_F(A_Ss)=c_F\beta(v,s)
+\qquad\text{for every }s,
+\]
+\[
+\lambda_S(A_Ff)=-c_S\beta(f,Jv)
+\qquad\text{for every }f,
+\]
+where
+\[
+\beta(f,s)=\varepsilon\,\omega(f,Js),
+\qquad J^2=1,
+\]
+and \(\omega\) is the alternating local area form.
+
+These are lower-level naturality hypotheses. Neither \(q_F=q_S\) nor determinant preservation is an input.
+
+Evaluation at \(s=Jx\) and \(f=x\) gives
+\[
+q_F=c_F\varepsilon\eta,
+\qquad
+q_S=c_S\varepsilon\eta.
+\]
+
+Therefore the normalization defect is exactly
+\[
+\boxed{\frac{\delta u_F}{u_S}=-\frac{c_F}{c_S}.}
+\]
+
+There are two useful consequences.
+
+**Common normalization:** when \(c_F=c_S\),
+\[
+\delta u_F=-u_S.
+\]
+For \(\delta=-1\), this gives
+\[
+\boxed{u_F=u_S}
+\]
+in the fixed cofactor/orientation convention—not merely equality of valuations. A consistent change of orientation may alter a unit sign.
+
+**Normalization up to an integral unit:** when
+\[
+c_F=\epsilon_Rc_S,\qquad \epsilon_R\in R^\times,
+\]
+the integral-unit criterion gives the required valuation preservation. The individual normalization factors need not be units.
+
+That is the connecting theorem we were aiming for: **actual boundary–cup naturality plus compatible normalization implies the determinant comparison.**
+
+It remains necessary to establish those inputs for the manuscript’s actual arithmetic construction. The adapter does not construct Poitou–Tate duality or certify H19–H22.
+
+## 5. The ratio is not an artefact of choosing a complement
+
+The ordinary derivation also proves complement independence.
+
+Both cross-functionals vanish on \(v\), because the cycle equations place \(A_Fv\) and \(A_SJv\) in the common strict image, which the closed functionals annihilate.
+
+Every other complement has the form
+\[
+x'=rx+sv,\qquad r\ne0.
+\]
+Then
+\[
+q_F'=rq_F,\qquad q_S'=rq_S,\qquad
+\eta'=r\eta,\qquad \theta'=r^2\theta.
+\]
+
+Consequently, the coordinates and the ratio are unchanged.
+
+**The defect belongs to the two induced functionals on the one-dimensional quotient \(F/Lv\), not to an arbitrary fractional-complement choice.** This quotient interpretation is supplied as an ordinary proof and tested exactly; it is not a separately completed Lean construction in this packet.
+
+## 6. What was checked
+
+The new exact-rational suite passed:
+
+| Check | Result |
+|---|---:|
+| Common-strict models in matrix sizes \(2\)–\(6\) | 180 |
+| Full boundary–cup identities checked on local bases | 720 |
+| Integral-unit comparisons at primes \(2,3,5\) | 540 |
+| Fractional-complement changes | 180 |
+| Wrong-functional negative controls rejected | 90 |
+
+The cases include common nonunit denominator clearings, zero functionals, and local vectors not fixed up to sign by \(J\). The previous 300-case matrix regression also passed. Normal and optimized Python executions produced byte-identical results.
+
+These checks reuse the preceding packet’s exact matrix utilities; they are **not an independently implemented checker or independent review**.
+
+## 7. Files and remaining gates
+
+| Lean module | Intended coverage |
+|---|---|
+| `Coordinate.lean` | Full cofactor specification, frame covariance, normal form, nonzero adjugate and uniqueness |
+| `CommonStrict.lean` | Explicit raw frames and the general-size coordinate formulas |
+| `UnitCriterion.lean` | Exact discrepancy, integral-unit equivalence and valuation consumer |
+| `BoundaryCup.lean` | Cross evaluations, normalization defect and the arithmetic-facing adapter |
+
+The bundle targets the fork’s pinned Lean 4.35.0 and Mathlib revision, without changing the inherited snapshot.  It includes a fresh-build driver configured to compile the four modules and inspect **18 target statements and their transitive axioms**. That driver has not been run against Lean here; elaboration or library-interface repairs may still be necessary.
+
+**The mathematical implication is now explicit. The remaining gates are distinct:** compile and review the formal development, then instantiate its lower-level boundary–cup contract with the actual arithmetic maps, normalizations and required localizations.
+
+diophantine_zq_scalar_ratio_milestone_2026-11-08.zip[Complete bundle](sandbox:/mnt/data/diophantine_zq_scalar_ratio_milestone_2026-11-08.zip) · MATHEMATICS.md[Mathematical derivation](sandbox:/mnt/data/scalar_ratio_milestone/MATHEMATICS.md) · ARITHMETIC_CONTRACT.md[Arithmetic application contract](sandbox:/mnt/data/scalar_ratio_milestone/ARITHMETIC_CONTRACT.md) · HANDOFF.md[Repo-agent handoff](sandbox:/mnt/data/scalar_ratio_milestone/HANDOFF.md)

@@ -1,0 +1,12 @@
+{
+ "name": "fold34-gaga",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.GAGAMorphism"
+ ],
+ "discharges": [
+  {
+   "field": "gagaMorphism",
+   "proof": "_root_.ZInQ.Contrib.OneProof.GAGAMorphism.gagaMorphism_proof"
+  }
+ ]
+}

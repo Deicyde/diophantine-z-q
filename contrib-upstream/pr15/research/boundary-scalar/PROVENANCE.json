@@ -1,0 +1,32 @@
+{
+  "received_date": "2026-11-08",
+  "archive": {
+    "path": "inputs/diophantine_zq_complete_math_review_bundle_2026-11-08.zip",
+    "bytes": 59579,
+    "sha256": "a90ece63029cdbca8bb7db1871cc5325a6cd19b505e6ed53810ab17fb2e62bae",
+    "zip_integrity": "CRC PASS",
+    "outer_manifest_entries_verified": 17,
+    "inner_manifest_entries_verified": 9,
+    "members_accounted_for": 19
+  },
+  "source_review_commit": "40d01c53b3545a62949b14669c4906d3e978110e",
+  "intake_branch_commit": "083344e84a231d9127d57589ae5c0b355384579b",
+  "source_identity": "The supplied reviewed Lean and Python sources match the current six-lemma sources byte for byte.",
+  "supplied_authorship": "Review and ordinary matrix derivation supplied by a reviewing assistant who reports helping formulate the original candidate; an adversarial re-review, not independent self-acceptance.",
+  "received_scope": "General common-strict matrix formula, exact finite checker, primitive negative control, historical review archive and handover; no new Lean proof supplied.",
+  "current_contribution": "Review and formalize the bounded matrix consequence and a typed boundary-cup adapter; preserve the arithmetic realization as OPEN.",
+  "copied_checker": {
+    "archive_member": "review/check_boundary_scalar.py",
+    "path": "check_boundary_scalar.py",
+    "sha256": "fac50661ebbd4e57e93db2dbf8bb01ba10c6fd3cd93eb5cedfd8ee8a476f87a1",
+    "transformation": "byte-identical copy"
+  },
+  "prior_records": "Historical candidate, reviews and handover remain unmodified inside the received archive. Their dated repository status is historical.",
+  "publication_scope": "Isolated research branch; no manuscript, accepted helper, main, dependency pin or arithmetic acceptance record changes.",
+  "pasted_review": {
+    "path": "inputs/REVIEW_40d01c5-pasted.txt",
+    "bytes": 14532,
+    "sha256": "366fd6d09a467560e536b6eaae8d992c083093bf38922a1ed874869dbacc9b7e",
+    "transformation": "byte-identical copy of user attachment; historical input, not current status authority"
+  }
+}

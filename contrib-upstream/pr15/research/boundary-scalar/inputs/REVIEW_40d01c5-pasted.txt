@@ -1,0 +1,349 @@
+## Review of `40d01c5`
+
+**The committed mathematics is sound within its stated scope. It is a useful formal-coverage contribution, but it does not yet supply the connecting theorem needed for the determinant switch.** The most valuable next increment is now identifiable: an exact formula expressing the determinant-coordinate discrepancy in terms of two cross-boundary evaluations. I derived that formula and tested it against stronger controls during this review.
+
+One status correction: GitHub now serves `40d01c5` from your **public** fork, and the research branch is present remotely. The earlier “committed but not pushed” message no longer describes the live state. I made no remote changes.   
+
+I pinned the mathematical review to:
+
+```text
+40d01c53b3545a62949b14669c4906d3e978110e
+```
+
+Because I helped formulate the original candidate, this is an **adversarial re-review**, not independent acceptance of my own earlier proposed lemmas.
+
+## 1. What the commit actually establishes
+
+I read the Lean source, mathematical contract, verification driver, exact Python models, frozen build receipt, comparator implementation and separately authored review.
+
+| Component | Assessment |
+|---|---|
+| Finite and singular kernel descriptions | Correct under the explicit `AxesKernel` hypothesis |
+| Disjointness of boundary images | Correct |
+| Exclusion of the identity-on-strict boundary square | Correct, with the necessary outside-vector hypothesis |
+| Two-dimensional volume transport | Correct over the stated commutative-ring generality |
+| Integral quotient-lattice comparison | Correct ordinary algebra in the contract; not formalized |
+| Actual class-functional determinant comparison | Not proved in this module |
+| Arithmetic realization of the boundary–cup identities | Explicitly remains outside the packet |
+
+The four boundary proofs are direct, valid linear-algebra arguments. The two volume proofs establish the actual determinant factor rather than assuming primitivity. The contract also correctly distinguishes kernel identities from cohomology-dimension statements: generic rank one additionally needs nonzero localization and vanishing of the strict \(H^1\).  
+
+**I did not find a substantive mathematical error in these six statements.**
+
+The implementation has also improved since the initial packet: its normalization test now computes determinant coordinates from all cofactors rather than assigning the desired ratios. That is a real improvement in the evidence. 
+
+## 2. The contribution needs to be described precisely
+
+### This corrects our proposed verification route—not a triangle claimed by the manuscript
+
+The printed switch proof already uses **two separate exact triangles** and their common strict determinant factor. It does not assert the identity-on-strict triangle isomorphism that we subsequently considered. 
+
+Therefore the appropriate claim is:
+
+> We formalize an obstruction to one overly strong comparison strategy and isolate the additional compatibility required for the actual determinant argument.
+
+It would be inaccurate to claim:
+
+> We found and repaired an invalid triangle isomorphism in the paper.
+
+The distinction matters mathematically, not just editorially.
+
+### The current formal results extract consequences of a strong hypothesis
+
+The `AxesKernel` assumption is
+\[
+\ker(d_F,d_S)=L(v,0)\oplus L(0,Jv).
+\]
+
+In this setting it is equivalent to the conjunction
+\[
+\ker d_F=Lv,\qquad
+\ker d_S=LJv,\qquad
+\operatorname{im}d_F\cap\operatorname{im}d_S=0.
+\]
+
+For the reverse implication, if \(d_F(x)+d_S(y)=0\), then \(d_F(x)=-d_S(y)\) lies in both images, hence vanishes; the two kernel descriptions finish the argument.
+
+Thus the first three lemmas correctly unpack the hypothesis. **They do not establish the arithmetic self-annihilator statement that produces it.**
+
+Likewise, the volume identity is standard determinant multiplicativity. Its formalization is useful, but these six elementary results alone would be a modest mathematical contribution. Their main value is making a sensitive proof interface explicit and preventing an invalid shortcut.
+
+## 3. A stronger negative control: primitivity does not fix the problem
+
+The committed checker shows that rescaling one functional by two changes the determinant valuation. I pushed this further.
+
+**Even when both classes and both functionals are primitive and integral, the required determinant valuations can differ.**
+
+Take \(R=\mathbb Z_2\), with fraction field \(L=\mathbb Q_2\), and let the common strict complex be
+\[
+\mathcal K=R^2[-2].
+\]
+
+Define two complexes in degrees one and two:
+\[
+C_F=[R^2\xrightarrow{D_F}R^2],
+\qquad
+C_S=[R^2\xrightarrow{D_S}R^2],
+\]
+where
+\[
+D_F=
+\begin{pmatrix}
+0&2\\
+0&0
+\end{pmatrix},
+\qquad
+D_S=
+\begin{pmatrix}
+0&0\\
+0&4
+\end{pmatrix}.
+\]
+
+Set
+\[
+J=\begin{pmatrix}1&0\\0&-1\end{pmatrix},
+\qquad
+v=e_1,
+\qquad
+z_F=z_S=e_1,
+\]
+and choose the closed functionals
+\[
+\lambda_F=(0,1),
+\qquad
+\lambda_S=(1,0).
+\]
+
+Everything below holds:
+
+- Both generic cohomology profiles are \((1,1)\).
+- The combined boundary kernel is exactly \(L(e_1,0)\oplus L(0,e_1)\).
+- \(Jv=v\), \(\det J=-1\), and both local quotient lattices modulo the class line are isomorphic.
+- Both cycles and both functionals are primitive and integral.
+- The strict complex is literally the same on both sides.
+
+Nevertheless, in the cofactor convention used by your checker,
+\[
+z_F\lambda_F=u_F\operatorname{adj}(D_F),
+\qquad
+z_S\lambda_S=u_S\operatorname{adj}(D_S),
+\]
+we obtain
+\[
+\boxed{u_F=-\frac12,\qquad u_S=\frac14.}
+\]
+
+The determinant-line comparison induced by \(J\) therefore has
+\[
+\boxed{
+\frac{\Phi_{\det}(\tau_F)}{\tau_S}=2,
+}
+\]
+which is not a 2-adic unit.
+
+The reason is visible in the cohomology:
+\[
+H^2(C_F)\simeq R/(2)\oplus R,
+\qquad
+H^2(C_S)\simeq R\oplus R/(4).
+\]
+
+**Matching local class-line quotients does not control the indices of the two boundary images.**
+
+This is not a counterexample to the arithmetic switch: it does not supply the manuscript’s compatible Poitou–Tate normalization. It is a stronger counterexample to the weaker inference from local \(J\), exact axes, integrality and primitivity alone.
+
+That gives the next lemma a precise job.
+
+## 4. A more substantial connecting theorem
+
+I derived the following exact comparison. It is an **ordinary algebraic theorem in an explicit common-strict presentation**, not yet a Lean theorem or an arithmetic application.
+
+### Setup
+
+Let \(R\) be a DVR with fraction field \(L\). Write
+\[
+D_F=[D_0\mid A_F],
+\qquad
+D_S=[D_0\mid A_S],
+\]
+where \(D_0\) is an \(n\times(n-2)\) matrix and \(A_F,A_S\) each have two columns.
+
+These are the differentials of two two-term complexes sharing
+\[
+\mathcal K=[R^{n-2}\xrightarrow{D_0}R^n].
+\]
+
+Retain the **actual** cycles
+\[
+z_F=(h_F,v),
+\qquad
+z_S=(h_S,Jv),
+\]
+where \(v\ne0\) and \(J\in\operatorname{GL}_2(R)\). Let \(\lambda_F,\lambda_S\) be nonzero closed functionals.
+
+Choose a fractional complement \(x\in L^2\) with
+\[
+\eta=\det[v,x]\ne0,
+\]
+and put
+\[
+a=A_Fx,\qquad b=A_SJx.
+\]
+
+Assume that
+\[
+T=[D_0\mid a\mid b]
+\]
+is invertible over \(L\). This is the required independence of the two boundary directions modulo the strict image.
+
+Define the **cross-boundary scalars**
+\[
+q_F=\lambda_F(b),
+\qquad
+q_S=\lambda_S(a).
+\]
+
+They evaluate each actual functional on the complementary boundary direction supplied by the other triangle.
+
+### Exact result
+
+Writing \(\theta=\det T\) and \(\delta=\det J\), the determinant coordinates satisfy
+\[
+\boxed{
+u_F=-\frac{\eta q_F}{\theta},
+\qquad
+u_S=\frac{\delta\eta q_S}{\theta}.
+}
+\]
+
+The determinant-line map supplied by the common strict factor and \(J\) contributes \(\delta\). Hence
+\[
+\boxed{
+\frac{\Phi_{\det}(\tau_F)}{\tau_S}
+=
+-\frac{q_F}{q_S}.
+}
+\tag{*}
+\]
+
+In particular,
+\[
+\boxed{
+v_R(u_F)-v_R(u_S)
+=
+v_R(q_F)-v_R(q_S).
+}
+\tag{**}
+\]
+
+These formulas use a fixed explicit cofactor convention. Changing a consistent determinant orientation changes a sign, not the valuation conclusion.
+
+### Why the proof works
+
+Use the domain bases
+\[
+(e_1,\ldots,e_{n-2},z_F,(0,x)),
+\qquad
+(e_1,\ldots,e_{n-2},z_S,(0,Jx)),
+\]
+and the common target basis \(T\).
+
+The final two-dimensional blocks of the differentials become
+\[
+\begin{pmatrix}0&1\\0&0\end{pmatrix},
+\qquad
+\begin{pmatrix}0&0\\0&1\end{pmatrix}.
+\]
+
+Closedness of the functionals makes their corresponding coordinates
+\[
+(0,q_F),\qquad(q_S,0).
+\]
+
+Their tensor coordinates are therefore \(-q_F\) and \(q_S\). Restoring the basis determinants yields the displayed formulas.
+
+**The whole common denominator \(\theta\) cancels.** This retains, rather than discards, any nonunit strict contribution. The calculation also allows divisible \(v\), fractional complements and nonzero strict components \(h_F,h_S\). It never replaces the arithmetic class by a primitive generator.
+
+This is an explicit two-term realization of the determinant-line comparison; it does not require an isomorphism between the two complexes. The general determinant formalism distinguishes precisely these objects. [stacks.math.columbia.edu](https://stacks.math.columbia.edu/tag/0FJI)
+
+### Why this is a meaningful improvement
+
+The remaining question becomes:
+\[
+\boxed{\text{Why is }q_F/q_S\in R^\times\text{ for the actual arithmetic functionals?}}
+\]
+
+That is narrower and more testable than “verify determinant compatibility.”
+
+It also weakens an unnecessarily strong requirement from our earlier discussion: **neither \(q_F\) nor \(q_S\) needs to be a unit individually.** A common nonunit factor cancels. What matters is their ratio.
+
+For example, compatible boundary–cup identities of the form
+\[
+q_F=c\,\varepsilon\,\omega(v,x),
+\qquad
+q_S=c\,\varepsilon\,\omega(v,x)
+\]
+give the required unit comparison, even when the common normalization \(c\) is not a unit.
+
+The outstanding arithmetic work is proving that the *same* normalization occurs, with the actual conjugate transport, orthogonal comparison, retained cochains and cone signs—not choosing functionals for which the answer works.
+
+## 5. What should become the mathematics-bearing contribution
+
+I would retain the current six lemmas, but make them supporting results rather than the endpoint.
+
+The next scoped addition should establish:
+
+| Result | Mathematical content |
+|---|---|
+| **Common-strict determinant-coordinate formula** | Prove \((*)\) from explicit matrices, cycles and closed functionals, including common torsion factors |
+| **Unit-comparison criterion** | Deduce valuation preservation from the cross-boundary scalar ratio being a unit; allow common nonunit normalization |
+| **Source-facing boundary–cup adapter** | State the exact lower-level arithmetic identities that imply that unit ratio, retaining the actual classes and functionals |
+
+This fits your intended contribution: **connecting lemmas, not the full restricted converse**.
+
+The critical design constraint is that the new theorem must not take the desired determinant equality as a hypothesis. It should derive it from the lower-level boundary–cup evaluations. That is the difference between a useful conditional theorem and a wrapper around the missing result.
+
+The current contract already identifies these arithmetic obligations honestly. The improvement is to prove the algebraic implication between them and the determinant conclusion, rather than leaving that implication in prose. 
+
+## 6. Verification: what I actually checked
+
+I reconstructed the committed Lean and Python sources locally and verified their hashes against the frozen receipt.
+
+The exact committed Python checker reproduced:
+\[
+3{,}800\text{ local-volume trials},\qquad
+132\text{ normalization controls}.
+\]
+Its `python -O` execution correctly refused to run with assertions disabled.
+
+I also wrote a separate exact-rational checker for the stronger formula:
+
+| Additional check | Observed result |
+|---|---:|
+| Common-strict matrix examples, sizes \(2\)–\(5\) | 300 passed |
+| Equal cross-boundary normalization cases | 152 passed |
+| Unequal-scale negative controls detecting nonunit discrepancies | 129 passed |
+| Cases with divisible local vectors | 255 passed |
+| Primitive \(2\times2\) counterexample above | Reproduced |
+| Normal versus optimized output | Byte-identical |
+
+The new tests vary the strict torsion, finite and singular boundary scales, integral bases and strict components of the actual cycles. They check every entry of the adjugate tensor identity.
+
+**I did not rerun Lean compilation:** no Lean/Lake executable was available in this environment. The committed receipts report a pinned Lean 4.35 build and show only `propext` and `Quot.sound` for the six declarations; I inspected those as supplied evidence, not as a fresh compiler run. 
+
+The verification driver and comparator are appropriately scoped. They distinguish fresh target compilation, source identity, statement comparison and external checking rather than calling all of them mathematical verification.  
+
+One practical consequence: the current Open Math handoff checks the **same six already-proved lemmas**. Its successful completion would strengthen assurance of those lemmas; it would not resolve the missing determinant comparison. The handoff itself acknowledges that limitation. 
+
+## Assessment
+
+**Keep the current fork contribution. It is correct, bounded formal work. But the stronger mathematical contribution is the boundary-scalar theorem and its actual-source adapter.**
+
+That moves the project from “this proposed square is inappropriate” to:
+
+> “Here is the exact determinant discrepancy, here is why divisible vectors and common strict torsion cancel, and here is the precise arithmetic identity still required to make the discrepancy a unit.”
+
+No claim of literature novelty, complete arithmetic compatibility or restricted-converse verification is justified yet. The attached derivation supplies a concrete next connecting theorem rather than another verification checklist.
+
+derivative_switch_deep_review_40d01c5.zip[Complete review packet](sandbox:/mnt/data/derivative_switch_deep_review_40d01c5.zip) · REVIEW_40d01c5.md[Source-pinned review](sandbox:/mnt/data/derivative_switch_review/REVIEW_40d01c5.md) · BOUNDARY_SCALAR_LEMMA.md[Boundary-scalar theorem and proof](sandbox:/mnt/data/derivative_switch_review/BOUNDARY_SCALAR_LEMMA.md) · check_boundary_scalar.py[Exact checker](sandbox:/mnt/data/derivative_switch_review/check_boundary_scalar.py) · boundary_scalar_results.json[Results](sandbox:/mnt/data/derivative_switch_review/boundary_scalar_results.json)

@@ -1,0 +1,4 @@
+⚠ [824/825] Built Research.DerivativeSwitchBoundary (7.4s)
+warning: Research/DerivativeSwitchBoundary.lean: imports `Mathlib.Algebra.Module.Equiv.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Research/DerivativeSwitchBoundary.lean: imports `Mathlib.Tactic.Ring` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+Build completed successfully (825 jobs).

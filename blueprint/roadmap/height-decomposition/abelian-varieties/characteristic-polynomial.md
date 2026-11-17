@@ -3,7 +3,7 @@ article_id: af_1e3160ca04529d52a155a1d6
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenTextbookLeaves16.charPolyIndepOfEllAlgClosed
+lean: HDec.HSyn.OpenTextbookLeaves17.charPolyIndepOfEllAlgClosed
 ---
 
 # The characteristic polynomial of an endomorphism

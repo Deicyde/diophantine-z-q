@@ -1,0 +1,598 @@
+[(5, 'S.chart.h0'), (6, 'S.chart.h1'), (7, 'S.chart.j0'), (8, 'S.chart.j1'), (25, 'US.chart.h0'), (26, 'US.chart.h1'), (27, 'US.chart.j0'), (28, 'US.chart.j1'), (58, 'anchor.U'), (59, 'anchor.V'), (60, 'anchor.W'), (63, 'S.chart.x.0.quadratic'), (64, 'S.chart.x.1.quadratic'), (73, 'US.chart.x.0.quadratic'), (74, 'US.chart.x.1.quadratic'), (179, 'inputProduct.quadratic'), (238, 'heightProduct.scale0.quadratic'), (375, 'scalar.shiftedS.rootTimesInverseRoot.0'), (376, 'scalar.shiftedS.rootTimesInverseRoot.1'), (377, 'scalar.shiftedS.f.0'), (378, 'scalar.shiftedS.f.1'), (379, 'scalar.shiftedS.nonzeroRealF'), (380, 'scalar.ratioProxyReal.quadratic'), (381, 'scalar.ratioProxyLeaf'), (382, 'scalar.chain3.rightSquare.quadratic'), (383, 'scalar.chain3.quadratic'), (384, 'scalar.chain2.rightSquare.quadratic'), (385, 'scalar.chain2.quadratic'), (386, 'scalar.chain1.rightSquare.quadratic'), (387, 'scalar.chain1.quadratic'), (388, 'scalar.N.rightSquare.quadratic'), (389, 'scalar.N'), (396, 'anchor.physicalA.quadratic')]
+ROW 5 S.chart.x.0.definition gate
+   S^0 * 1 * S.chart.h0 * S.chart.h0
+   S^0 * 2 * S.chart.h1 * S.chart.h1
+   S^0 * -1 * S.chart.x.0.quadratic
+ROW 6 S.chart.x.1.definition gate
+   S^0 * 1 * S.chart.h0 * S.chart.h1
+   S^0 * -1 * S.chart.x.1.quadratic
+ROW 7 S.chart.equation.0 structural
+   S^0 * 11 * 
+   S^0 * 1 * S.chart.j0 * S.chart.j0
+   S^0 * 2 * S.chart.j1 * S.chart.j1
+   S^0 * -1 * S.chart.x.0.quadratic * S.chart.x.0.quadratic
+   S^0 * -8 * S.chart.x.1.quadratic * S.chart.x.1.quadratic
+ROW 8 S.chart.equation.1 structural
+   S^0 * 3 * 
+   S^0 * -1 * S.chart.j0 * S.chart.j1
+   S^0 * 2 * S.chart.x.0.quadratic * S.chart.x.1.quadratic
+ROW 23 US.chart.x.0.definition gate
+   S^0 * 1 * US.chart.h0 * US.chart.h0
+   S^0 * 2 * US.chart.h1 * US.chart.h1
+   S^0 * -1 * US.chart.x.0.quadratic
+ROW 24 US.chart.x.1.definition gate
+   S^0 * 1 * US.chart.h0 * US.chart.h1
+   S^0 * -1 * US.chart.x.1.quadratic
+ROW 25 US.chart.equation.0 structural
+   S^0 * 1 * 
+   S^0 * -1 * US.chart.j0 * US.chart.j0
+   S^0 * -2 * US.chart.j1 * US.chart.j1
+   S^0 * -11 * US.chart.x.0.quadratic * US.chart.x.0.quadratic
+   S^0 * 48 * US.chart.x.0.quadratic * US.chart.x.1.quadratic
+   S^0 * -88 * US.chart.x.1.quadratic * US.chart.x.1.quadratic
+ROW 26 US.chart.equation.1 structural
+   S^0 * 1 * US.chart.j0 * US.chart.j1
+   S^0 * -3 * US.chart.x.0.quadratic * US.chart.x.0.quadratic
+   S^0 * 22 * US.chart.x.0.quadratic * US.chart.x.1.quadratic
+   S^0 * -24 * US.chart.x.1.quadratic * US.chart.x.1.quadratic
+ROW 49 V2.inverseRoot.definition.0 gate
+   S^0 * 1 * S.chart.h0 * US.chart.j0
+   S^0 * 2 * S.chart.h1 * US.chart.j1
+   S^0 * -1 * S.chart.j0 * US.chart.h0
+   S^0 * -2 * S.chart.j1 * US.chart.h1
+   S^0 * -1 * S.chart.x.0.quadratic * V2.inverseRoot.0
+   S^0 * -4 * S.chart.x.1.quadratic * V2.inverseRoot.1
+   S^0 * -11 * US.chart.x.0.quadratic * V2.inverseRoot.0
+   S^0 * 12 * US.chart.x.0.quadratic * V2.inverseRoot.1
+   S^0 * 24 * US.chart.x.1.quadratic * V2.inverseRoot.0
+   S^0 * -44 * US.chart.x.1.quadratic * V2.inverseRoot.1
+ROW 50 V2.inverseRoot.definition.1 gate
+   S^0 * 1 * S.chart.h0 * US.chart.j1
+   S^0 * 1 * S.chart.h1 * US.chart.j0
+   S^0 * -1 * S.chart.j0 * US.chart.h1
+   S^0 * -1 * S.chart.j1 * US.chart.h0
+   S^0 * -1 * S.chart.x.0.quadratic * V2.inverseRoot.1
+   S^0 * -2 * S.chart.x.1.quadratic * V2.inverseRoot.0
+   S^0 * 6 * US.chart.x.0.quadratic * V2.inverseRoot.0
+   S^0 * -11 * US.chart.x.0.quadratic * V2.inverseRoot.1
+   S^0 * -22 * US.chart.x.1.quadratic * V2.inverseRoot.0
+   S^0 * 24 * US.chart.x.1.quadratic * V2.inverseRoot.1
+ROW 53 V2.scaledK.definition.0 gate
+   S^0 * 1 * US.chart.h0 * S.chart.x.0.quadratic
+   S^0 * 11 * US.chart.h0 * V2.f.0.quadratic
+   S^0 * -24 * US.chart.h0 * V2.f.1.quadratic
+   S^0 * 4 * US.chart.h1 * S.chart.x.1.quadratic
+   S^0 * -12 * US.chart.h1 * V2.f.0.quadratic
+   S^0 * 44 * US.chart.h1 * V2.f.1.quadratic
+   S^0 * 1 * V2.inverseRoot.0 * V2.scaledK.0
+   S^0 * 2 * V2.inverseRoot.1 * V2.scaledK.1
+ROW 54 V2.scaledK.definition.1 gate
+   S^0 * 2 * US.chart.h0 * S.chart.x.1.quadratic
+   S^0 * -6 * US.chart.h0 * V2.f.0.quadratic
+   S^0 * 22 * US.chart.h0 * V2.f.1.quadratic
+   S^0 * 1 * US.chart.h1 * S.chart.x.0.quadratic
+   S^0 * 11 * US.chart.h1 * V2.f.0.quadratic
+   S^0 * -24 * US.chart.h1 * V2.f.1.quadratic
+   S^0 * 1 * V2.inverseRoot.0 * V2.scaledK.1
+   S^0 * 1 * V2.inverseRoot.1 * V2.scaledK.0
+ROW 93 logV2.polynomial.0.definition gate
+   S^0 * 2453670019251645266966527571558400 * 
+   S^0 * -2453670019251645266966527571558400 * S.chart.j0 * logV2.scaled.0
+   S^0 * -4907340038503290533933055143116800 * S.chart.j1 * logV2.scaled.1
+   S^0 * 2453670019251645266966527571558400 * V2.scaledK.0 * logV2.scaled.0
+   S^0 * 4907340038503290533933055143116800 * V2.scaledK.1 * logV2.scaled.1
+   S^0 * -10796148084707239174652721314856960 * logV2.fSquare.0.quadratic
+   S^0 * -1449364490121445611954947787440843 * logV2.fSquare.0.quadratic * logV2.fSquare.0.quadratic
+   S^0 * 15860403125059549909061397549611712 * logV2.fSquare.0.quadratic * logV2.fSquare.1.quadratic
+   S^0 * -373989642626653336537328884522352640 * logV2.fSquare.0.quadratic * logV2.wPower2.0.quadratic
+   S^0 * -279038904343202489437178027830149120 * logV2.fSquare.0.quadratic * logV2.wPower2.1.quadratic
+   S^0 * -28830862188693245749946820548306720448 * logV2.fSquare.0.quadratic * logV2.wPower4.0.quadratic
+   S^0 * -43022219224578522155361058642032826368 * logV2.fSquare.0.quadratic * logV2.wPower4.1.quadratic
+   S^0 * -291925907671400012677994818110555936 * logV2.fSquare.0.quadratic * logV2.squareRoot.0.quadratic
+   S^0 * -173707978118519015808393610776529152 * logV2.fSquare.0.quadratic * logV2.squareRoot.1.quadratic
+   S^0 * 47110464369631589125757329373921280 * logV2.fSquare.1.quadratic
+   S^0 * -46379663683886259582558329198106976 * logV2.fSquare.1.quadratic * logV2.fSquare.1.quadratic
+   S^0 * 1631954804189032741253798768824811520 * logV2.fSquare.1.quadratic * logV2.wPower2.0.quadratic
+   S^0 * 2046285298516818255872638870754426880 * logV2.fSquare.1.quadratic * logV2.wPower2.1.quadratic
+   S^0 * 125807398641570526908858853301702052864 * logV2.fSquare.1.quadratic * logV2.wPower4.0.quadratic
+   S^0 * 315496274313575829139314430041574060032 * logV2.fSquare.1.quadratic * logV2.wPower4.1.quadratic
+   S^0 * 1273858506202472782594886479027880448 * logV2.fSquare.1.quadratic * logV2.squareRoot.0.quadratic
+   S^0 * 1273858506202472782594886479027880448 * logV2.fSquare.1.quadratic * logV2.squareRoot.1.quadratic
+   S^0 * -61691744005287559257983695053995317 * logV2.wPower2.0.quadratic
+   S^0 * -218770243912180719289094355184850604 * logV2.wPower2.0.quadratic * logV2.wPower2.0.quadratic
+   S^0 * -302530096489816170821296630603218302976 * logV2.wPower2.0.quadratic * logV2.wPower4.0.quadratic
+   S^0 * -4529642487625453135294743394590533952 * logV2.wPower2.0.quadratic * logV2.squareRoot.0.quadratic
+   S^0 * -204668728284025710912678463568999808 * logV2.wPower2.1.quadratic * logV2.wPower2.1.quadratic
+   S^0 * -566059158768134120152516576727480008704 * logV2.wPower2.1.quadratic * logV2.wPower4.1.quadratic
+   S^0 * -3379629628072876950686233413580502016 * logV2.wPower2.1.quadratic * logV2.squareRoot.1.quadratic
+   S^0 * -3561478283647552837618898081387714868 * logV2.wPower4.0.quadratic
+   S^0 * -7428714811282080594736971247178120162304 * logV2.wPower4.0.quadratic * logV2.wPower4.0.quadratic
+   S^0 * -834692753670281174240766895045251658752 * logV2.wPower4.0.quadratic * logV2.squareRoot.0.quadratic
+   S^0 * -27799495690467711301285293459868789112832 * logV2.wPower4.1.quadratic * logV2.wPower4.1.quadratic
+   S^0 * -1245551881124564653789330910741100920832 * logV2.wPower4.1.quadratic * logV2.squareRoot.1.quadratic
+   S^0 * -23446585672247493259825652185074764544 * logV2.squareRoot.0.quadratic * logV2.squareRoot.0.quadratic
+   S^0 * -13951687342163797642210305432441182208 * logV2.squareRoot.1.quadratic * logV2.squareRoot.1.quadratic
+ROW 94 logV2.polynomial.1.definition gate
+   S^0 * 613417504812911316741631892889600 * S.chart.j0 * logV2.scaled.1
+   S^0 * 613417504812911316741631892889600 * S.chart.j1 * logV2.scaled.0
+   S^0 * -613417504812911316741631892889600 * V2.scaledK.0 * logV2.scaled.1
+   S^0 * -613417504812911316741631892889600 * V2.scaledK.1 * logV2.scaled.0
+   S^0 * -1472202011550987160179916542935040 * logV2.fSquare.0.quadratic
+   S^0 * -247818798829055467329084336712683 * logV2.fSquare.0.quadratic * logV2.fSquare.0.quadratic
+   S^0 * 2898728980242891223909895574881686 * logV2.fSquare.0.quadratic * logV2.fSquare.1.quadratic
+   S^0 * -50998587630907273164181211525775360 * logV2.fSquare.0.quadratic * logV2.wPower2.0.quadratic
+   S^0 * -63946415578650570496019964711075840 * logV2.fSquare.0.quadratic * logV2.wPower2.1.quadratic
+   S^0 * -3931481207549078965901839165678189152 * logV2.fSquare.0.quadratic * logV2.wPower4.0.quadratic
+   S^0 * -9859258572299244660603575938799189376 * logV2.fSquare.0.quadratic * logV2.wPower4.1.quadratic
+   S^0 * -39808078318827274456090202469621264 * logV2.fSquare.0.quadratic * logV2.squareRoot.0.quadratic
+   S^0 * -39808078318827274456090202469621264 * logV2.fSquare.0.quadratic * logV2.squareRoot.1.quadratic
+   S^0 * 10796148084707239174652721314856960 * logV2.fSquare.1.quadratic
+   S^0 * -7930201562529774954530698774805856 * logV2.fSquare.1.quadratic * logV2.fSquare.1.quadratic
+   S^0 * 373989642626653336537328884522352640 * logV2.fSquare.1.quadratic * logV2.wPower2.0.quadratic
+   S^0 * 279038904343202489437178027830149120 * logV2.fSquare.1.quadratic * logV2.wPower2.1.quadratic
+   S^0 * 28830862188693245749946820548306720448 * logV2.fSquare.1.quadratic * logV2.wPower4.0.quadratic
+   S^0 * 43022219224578522155361058642032826368 * logV2.fSquare.1.quadratic * logV2.wPower4.1.quadratic
+   S^0 * 291925907671400012677994818110555936 * logV2.fSquare.1.quadratic * logV2.squareRoot.0.quadratic
+   S^0 * 173707978118519015808393610776529152 * logV2.fSquare.1.quadratic * logV2.squareRoot.1.quadratic
+   S^0 * -74812622270486670844975271721244248 * logV2.wPower2.0.quadratic * logV2.wPower2.1.quadratic
+   S^0 * -103455887918797239762723200102654963712 * logV2.wPower2.0.quadratic * logV2.wPower4.1.quadratic
+   S^0 * -617678521039834518449283190171436448 * logV2.wPower2.0.quadratic * logV2.squareRoot.1.quadratic
+   S^0 * -10548329285878183707323636978144277 * logV2.wPower2.1.quadratic
+   S^0 * -51727943959398619881361600051327481856 * logV2.wPower2.1.quadratic * logV2.wPower4.0.quadratic
+   S^0 * -774498456433367634532261823945531712 * logV2.wPower2.1.quadratic * logV2.squareRoot.0.quadratic
+   S^0 * -5080779041913132841996270490297988919296 * logV2.wPower4.0.quadratic * logV2.wPower4.1.quadratic
+   S^0 * -113821739136856523760104576597079771648 * logV2.wPower4.0.quadratic * logV2.squareRoot.1.quadratic
+   S^0 * -1217914853475328949652058411251757416 * logV2.wPower4.1.quadratic
+   S^0 * -285438972757712733160055000378168961024 * logV2.wPower4.1.quadratic * logV2.squareRoot.0.quadratic
+   S^0 * -6394523365158407252679723323202208512 * logV2.squareRoot.0.quadratic * logV2.squareRoot.1.quadratic
+ROW 125 L2.definition.0 gate
+   S^0 * 1 * US.chart.h0 * primaryRatio.0
+   S^0 * 2 * US.chart.h1 * primaryRatio.1
+   S^0 * -1 * US.chart.j0 * L2.0
+   S^0 * -2 * US.chart.j1 * L2.1
+ROW 126 L2.definition.1 gate
+   S^0 * 1 * US.chart.h0 * primaryRatio.1
+   S^0 * 1 * US.chart.h1 * primaryRatio.0
+   S^0 * -1 * US.chart.j0 * L2.1
+   S^0 * -1 * US.chart.j1 * L2.0
+ROW 127 LP2.definition.0 gate
+   S^0 * 1 * S.chart.h0 * logV2.scaled.0
+   S^0 * 2 * S.chart.h1 * logV2.scaled.1
+   S^0 * -1 * logV0.0 * LP2.0
+   S^0 * -2 * logV0.1 * LP2.1
+ROW 128 LP2.definition.1 gate
+   S^0 * 1 * S.chart.h0 * logV2.scaled.1
+   S^0 * 1 * S.chart.h1 * logV2.scaled.0
+   S^0 * -1 * logV0.0 * LP2.1
+   S^0 * -1 * logV0.1 * LP2.0
+ROW 137 inputProduct.definition gate
+   S^0 * 1 * input
+   S^0 * 1 * input * input
+   S^0 * -1 * inputProduct.quadratic
+ROW 152 testSquare.45.4.0.definition gate
+   S^0 * 1 * L1.0 * L1.0
+   S^0 * -22032 * L1.0 * inputProduct.quadratic
+   S^0 * 2 * L1.1 * L1.1
+   S^0 * 121352256 * inputProduct.quadratic * inputProduct.quadratic
+   S^0 * -1 * testSquare.45.4.0.quadratic
+ROW 153 testSquare.45.4.1.definition gate
+   S^0 * 1 * L1.0 * L1.1
+   S^0 * -11016 * L1.1 * inputProduct.quadratic
+   S^0 * -1 * testSquare.45.4.1.quadratic
+ROW 158 symmetric.1.group0.left.co2.0.definition gate
+   S^0 * 1 * US.chart.x.0.quadratic * UT.chart.x.0.quadratic
+   S^0 * 8 * US.chart.x.1.quadratic * UT.chart.x.1.quadratic
+   S^0 * -1 * symmetric.1.group0.left.co2.0.quadratic
+ROW 159 symmetric.1.group0.left.co2.1.definition gate
+   S^0 * 1 * US.chart.x.0.quadratic * UT.chart.x.1.quadratic
+   S^0 * 1 * US.chart.x.1.quadratic * UT.chart.x.0.quadratic
+   S^0 * -1 * symmetric.1.group0.left.co2.1.quadratic
+ROW 162 symmetric.1.group0.co2.0.definition gate
+   S^0 * 1 * US.chart.x.0.quadratic * UZ.chart.x.0.quadratic
+   S^0 * 1 * US.chart.x.0.quadratic * logV0.fSquare.0.quadratic
+   S^0 * 8 * US.chart.x.1.quadratic * UZ.chart.x.1.quadratic
+   S^0 * -8 * US.chart.x.1.quadratic * logV0.fSquare.1.quadratic
+   S^0 * 1 * UT.chart.x.0.quadratic * UZ.chart.x.0.quadratic
+   S^0 * 1 * UT.chart.x.0.quadratic * logV0.fSquare.0.quadratic
+   S^0 * 8 * UT.chart.x.1.quadratic * UZ.chart.x.1.quadratic
+   S^0 * -8 * UT.chart.x.1.quadratic * logV0.fSquare.1.quadratic
+   S^0 * -1 * symmetric.1.group0.co2.0.quadratic
+ROW 163 symmetric.1.group0.co2.1.definition gate
+   S^0 * 1 * US.chart.x.0.quadratic * UZ.chart.x.1.quadratic
+   S^0 * -1 * US.chart.x.0.quadratic * logV0.fSquare.1.quadratic
+   S^0 * 1 * US.chart.x.1.quadratic * UZ.chart.x.0.quadratic
+   S^0 * 1 * US.chart.x.1.quadratic * logV0.fSquare.0.quadratic
+   S^0 * 1 * UT.chart.x.0.quadratic * UZ.chart.x.1.quadratic
+   S^0 * -1 * UT.chart.x.0.quadratic * logV0.fSquare.1.quadratic
+   S^0 * 1 * UT.chart.x.1.quadratic * UZ.chart.x.0.quadratic
+   S^0 * 1 * UT.chart.x.1.quadratic * logV0.fSquare.0.quadratic
+   S^0 * 1 * symmetric.1.group0.co2.1.quadratic
+ROW 164 symmetric.1.group0.co3.0.definition gate
+   S^0 * 1 * US.chart.x.0.quadratic * symmetric.1.group0.right.co2.0.quadratic
+   S^0 * -8 * US.chart.x.1.quadratic * symmetric.1.group0.right.co2.1.quadratic
+   S^0 * 1 * UT.chart.x.0.quadratic * symmetric.1.group0.right.co2.0.quadratic
+   S^0 * -8 * UT.chart.x.1.quadratic * symmetric.1.group0.right.co2.1.quadratic
+   S^0 * 1 * UZ.chart.x.0.quadratic * symmetric.1.group0.left.co2.0.quadratic
+   S^0 * 8 * UZ.chart.x.1.quadratic * symmetric.1.group0.left.co2.1.quadratic
+   S^0 * 1 * logV0.fSquare.0.quadratic * symmetric.1.group0.left.co2.0.quadratic
+   S^0 * -8 * logV0.fSquare.1.quadratic * symmetric.1.group0.left.co2.1.quadratic
+   S^0 * -1 * symmetric.1.group0.co3.0.quadratic
+ROW 165 symmetric.1.group0.co3.1.definition gate
+   S^0 * 1 * US.chart.x.0.quadratic * symmetric.1.group0.right.co2.1.quadratic
+   S^0 * -1 * US.chart.x.1.quadratic * symmetric.1.group0.right.co2.0.quadratic
+   S^0 * 1 * UT.chart.x.0.quadratic * symmetric.1.group0.right.co2.1.quadratic
+   S^0 * -1 * UT.chart.x.1.quadratic * symmetric.1.group0.right.co2.0.quadratic
+   S^0 * -1 * UZ.chart.x.0.quadratic * symmetric.1.group0.left.co2.1.quadratic
+   S^0 * -1 * UZ.chart.x.1.quadratic * symmetric.1.group0.left.co2.0.quadratic
+   S^0 * -1 * logV0.fSquare.0.quadratic * symmetric.1.group0.left.co2.1.quadratic
+   S^0 * 1 * logV0.fSquare.1.quadratic * symmetric.1.group0.left.co2.0.quadratic
+   S^0 * 1 * symmetric.1.group0.co3.1.quadratic
+ROW 184 symmetric.45.group1.right.co2.0.definition gate
+   S^0 * 20620 * L1.0 * Lucas.F0.quadratic
+   S^0 * -10310 * L1.0 * testSquare.45.5.0.quadratic
+   S^0 * 82480 * L1.1 * Lucas.F1.quadratic
+   S^0 * -82480 * L1.1 * testSquare.45.5.1.quadratic
+   S^0 * -227149920 * inputProduct.quadratic * Lucas.F0.quadratic
+   S^0 * 113574960 * inputProduct.quadratic * testSquare.45.5.0.quadratic
+   S^0 * -2 * Lucas.F0.quadratic * testSquare.45.4.0.quadratic
+   S^0 * -16 * Lucas.F1.quadratic * testSquare.45.4.1.quadratic
+   S^0 * 1 * testSquare.45.4.0.quadratic * testSquare.45.5.0.quadratic
+   S^0 * 16 * testSquare.45.4.1.quadratic * testSquare.45.5.1.quadratic
+   S^0 * -20620 * symmetric.45.group1.right.co2.0.quadratic
+ROW 185 symmetric.45.group1.right.co2.1.definition gate
+   S^0 * 20620 * L1.0 * Lucas.F1.quadratic
+   S^0 * -20620 * L1.0 * testSquare.45.5.1.quadratic
+   S^0 * 10310 * L1.1 * Lucas.F0.quadratic
+   S^0 * -5155 * L1.1 * testSquare.45.5.0.quadratic
+   S^0 * -227149920 * inputProduct.quadratic * Lucas.F1.quadratic
+   S^0 * 227149920 * inputProduct.quadratic * testSquare.45.5.1.quadratic
+   S^0 * -2 * Lucas.F0.quadratic * testSquare.45.4.1.quadratic
+   S^0 * -2 * Lucas.F1.quadratic * testSquare.45.4.0.quadratic
+   S^0 * 2 * testSquare.45.4.0.quadratic * testSquare.45.5.1.quadratic
+   S^0 * 1 * testSquare.45.4.1.quadratic * testSquare.45.5.0.quadratic
+   S^0 * -20620 * symmetric.45.group1.right.co2.1.quadratic
+ROW 186 symmetric.45.group1.co2.0.definition gate
+   S^0 * 10310 * L1.0 * testSquare.45.3.0.quadratic
+   S^0 * 41240 * L1.1 * testSquare.45.3.1.quadratic
+   S^0 * -113574960 * inputProduct.quadratic * testSquare.45.3.0.quadratic
+   S^0 * 2 * Lucas.F0.quadratic * testSquare.45.3.0.quadratic
+   S^0 * 16 * Lucas.F1.quadratic * testSquare.45.3.1.quadratic
+   S^0 * -1 * testSquare.45.3.0.quadratic * testSquare.45.4.0.quadratic
+   S^0 * -1 * testSquare.45.3.0.quadratic * testSquare.45.5.0.quadratic
+   S^0 * -8 * testSquare.45.3.1.quadratic * testSquare.45.4.1.quadratic
+   S^0 * -16 * testSquare.45.3.1.quadratic * testSquare.45.5.1.quadratic
+   S^0 * -10310 * symmetric.45.group1.co2.0.quadratic
+ROW 187 symmetric.45.group1.co2.1.definition gate
+   S^0 * 10310 * L1.0 * testSquare.45.3.1.quadratic
+   S^0 * 5155 * L1.1 * testSquare.45.3.0.quadratic
+   S^0 * -113574960 * inputProduct.quadratic * testSquare.45.3.1.quadratic
+   S^0 * 2 * Lucas.F0.quadratic * testSquare.45.3.1.quadratic
+   S^0 * 2 * Lucas.F1.quadratic * testSquare.45.3.0.quadratic
+   S^0 * -1 * testSquare.45.3.0.quadratic * testSquare.45.4.1.quadratic
+   S^0 * -2 * testSquare.45.3.0.quadratic * testSquare.45.5.1.quadratic
+   S^0 * -1 * testSquare.45.3.1.quadratic * testSquare.45.4.0.quadratic
+   S^0 * -1 * testSquare.45.3.1.quadratic * testSquare.45.5.0.quadratic
+   S^0 * -10310 * symmetric.45.group1.co2.1.quadratic
+ROW 188 symmetric.45.group1.co3.0.definition gate
+   S^0 * 10310 * L1.0 * testSquare.45.3.0.quadratic
+   S^0 * 41240 * L1.1 * testSquare.45.3.1.quadratic
+   S^0 * -113574960 * inputProduct.quadratic * testSquare.45.3.0.quadratic
+   S^0 * 53148050 * Lucas.F0.quadratic * testSquare.45.3.0.quadratic
+   S^0 * 425184400 * Lucas.F1.quadratic * testSquare.45.3.1.quadratic
+   S^0 * -1 * testSquare.45.3.0.quadratic * testSquare.45.4.0.quadratic
+   S^0 * -26574025 * testSquare.45.3.0.quadratic * testSquare.45.5.0.quadratic
+   S^0 * -20620 * testSquare.45.3.0.quadratic * symmetric.45.group1.right.co2.0.quadratic
+   S^0 * -8 * testSquare.45.3.1.quadratic * testSquare.45.4.1.quadratic
+   S^0 * -425184400 * testSquare.45.3.1.quadratic * testSquare.45.5.1.quadratic
+   S^0 * -164960 * testSquare.45.3.1.quadratic * symmetric.45.group1.right.co2.1.quadratic
+   S^0 * -10310 * symmetric.45.group1.co3.0.quadratic
+ROW 189 symmetric.45.group1.co3.1.definition gate
+   S^0 * 10310 * L1.0 * testSquare.45.3.1.quadratic
+   S^0 * 5155 * L1.1 * testSquare.45.3.0.quadratic
+   S^0 * -113574960 * inputProduct.quadratic * testSquare.45.3.1.quadratic
+   S^0 * 53148050 * Lucas.F0.quadratic * testSquare.45.3.1.quadratic
+   S^0 * 53148050 * Lucas.F1.quadratic * testSquare.45.3.0.quadratic
+   S^0 * -1 * testSquare.45.3.0.quadratic * testSquare.45.4.1.quadratic
+   S^0 * -53148050 * testSquare.45.3.0.quadratic * testSquare.45.5.1.quadratic
+   S^0 * -20620 * testSquare.45.3.0.quadratic * symmetric.45.group1.right.co2.1.quadratic
+   S^0 * -1 * testSquare.45.3.1.quadratic * testSquare.45.4.0.quadratic
+   S^0 * -26574025 * testSquare.45.3.1.quadratic * testSquare.45.5.0.quadratic
+   S^0 * -20620 * testSquare.45.3.1.quadratic * symmetric.45.group1.right.co2.0.quadratic
+   S^0 * -10310 * symmetric.45.group1.co3.1.quadratic
+ROW 190 heightProduct.S.0.definition gate
+   S^0 * 1 * A.chart.x.0.quadratic * S.chart.x.0.quadratic
+   S^0 * 8 * A.chart.x.1.quadratic * S.chart.x.1.quadratic
+   S^0 * -1 * heightProduct.S.0.quadratic
+ROW 191 heightProduct.S.1.definition gate
+   S^0 * 1 * A.chart.x.0.quadratic * S.chart.x.1.quadratic
+   S^0 * 1 * A.chart.x.1.quadratic * S.chart.x.0.quadratic
+   S^0 * -1 * heightProduct.S.1.quadratic
+ROW 196 heightProduct.scale0.definition gate
+   S^0 * 1 * heightProduct.Z.0.quadratic * heightProduct.Z.0.quadratic
+   S^0 * -1 * heightProduct.scale0.quadratic
+ROW 215 detector0.E1.block0.0.definition gate
+   S^0 * 1 * US.chart.x.0.quadratic * detector0.q1
+   S^0 * 1 * UT.chart.x.0.quadratic * detector0.q1
+   S^0 * 1 * UZ.chart.x.0.quadratic * detector0.q1
+   S^0 * 1 * logV0.fSquare.0.quadratic * detector0.q1
+   S^0 * 1 * symmetric.1.group0.left.co2.0.quadratic * detector0.q1SquaredForWeights.quadratic
+   S^0 * 1 * symmetric.1.group0.right.co2.0.quadratic * detector0.q1SquaredForWeights.quadratic
+   S^0 * 1 * symmetric.1.group0.co2.0.quadratic * detector0.q1SquaredForWeights.quadratic
+   S^0 * 1 * symmetric.1.group0.co3.0.quadratic * detector0.q1CubedForWeights.quadratic
+   S^0 * 1 * symmetric.1.group0.co4.0.quadratic * detector0.E1.power4.quadratic
+   S^0 * -1 * detector0.E1.block0.0.quadratic
+ROW 216 detector0.E1.block0.1.definition gate
+   S^0 * 1 * US.chart.x.1.quadratic * detector0.q1
+   S^0 * 1 * UT.chart.x.1.quadratic * detector0.q1
+   S^0 * 1 * UZ.chart.x.1.quadratic * detector0.q1
+   S^0 * -1 * logV0.fSquare.1.quadratic * detector0.q1
+   S^0 * 1 * symmetric.1.group0.left.co2.1.quadratic * detector0.q1SquaredForWeights.quadratic
+   S^0 * -1 * symmetric.1.group0.right.co2.1.quadratic * detector0.q1SquaredForWeights.quadratic
+   S^0 * -1 * symmetric.1.group0.co2.1.quadratic * detector0.q1SquaredForWeights.quadratic
+   S^0 * 1 * symmetric.1.group0.co3.1.quadratic * detector0.q1CubedForWeights.quadratic
+   S^0 * -1 * symmetric.1.group0.co4.1.quadratic * detector0.E1.power4.quadratic
+   S^0 * 1 * detector0.E1.block0.1.quadratic
+ROW 225 detector0.E45.block1.0.definition gate
+   S^0 * 10310 * L1.0 * detector0.q45
+   S^0 * 10310 * L1.0 * detector0.E45.power2.quadratic
+   S^0 * -113574960 * inputProduct.quadratic * detector0.q45
+   S^0 * -113574960 * inputProduct.quadratic * detector0.E45.power2.quadratic
+   S^0 * 2 * Lucas.F0.quadratic * detector0.q45
+   S^0 * 53148050 * Lucas.F0.quadratic * detector0.E45.power2.quadratic
+   S^0 * -1 * testSquare.45.3.0.quadratic * detector0.q45
+   S^0 * -26574026 * testSquare.45.3.0.quadratic * detector0.E45.power2.quadratic
+   S^0 * -26574025 * testSquare.45.3.0.quadratic * detector0.E45.power3.quadratic
+   S^0 * -1 * testSquare.45.4.0.quadratic * detector0.q45
+   S^0 * -1 * testSquare.45.4.0.quadratic * detector0.E45.power2.quadratic
+   S^0 * -1 * testSquare.45.5.0.quadratic * detector0.q45
+   S^0 * -26574025 * testSquare.45.5.0.quadratic * detector0.E45.power2.quadratic
+   S^0 * -20620 * symmetric.45.group1.right.co2.0.quadratic * detector0.E45.power2.quadratic
+   S^0 * 10310 * symmetric.45.group1.co2.0.quadratic * detector0.E45.power2.quadratic
+   S^0 * 10310 * symmetric.45.group1.co3.0.quadratic * detector0.E45.power3.quadratic
+   S^0 * -10310 * detector0.E45.block1.0.quadratic
+ROW 241 detector1.t.definition gate
+   S^0 * 1 * lambda * heightProduct.scale0.quadratic
+   S^0 * -1 * detector1.t.quadratic
+ROW 245 detector1.Adelta.definition gate
+   S^0 * 1 * heightProduct.scale0.quadratic * detector1.t.quadratic
+   S^0 * -1 * detector1.Adelta.quadratic
+ROW 246 detector1.Adelta4.half.square.definition gate
+   S^0 * 1 * heightProduct.scale0.quadratic * heightProduct.scale0.quadratic
+   S^0 * -784 * heightProduct.scale0.quadratic * detector1.Adelta.quadratic
+   S^0 * 153664 * detector1.Adelta.quadratic * detector1.Adelta.quadratic
+   S^0 * -1 * detector1.Adelta4.half.square.quadratic
+ROW 248 detector1.q1.definition gate
+   S^0 * 470596000000 * heightProduct.scale0.quadratic * detector1.Adelta4.square.quadratic
+   S^0 * -8 * detector1.t.quadratic * detector1.q1
+   S^0 * 82793 * detector1.Fsquare.quadratic * detector1.q1
+   S^0 * -43850100 * detector1.F.quadratic * detector1.q1
+ROW 261 detector1.E1.block0.0.definition gate
+   S^0 * 1 * US.chart.x.0.quadratic * detector1.q1
+   S^0 * 1 * UT.chart.x.0.quadratic * detector1.q1
+   S^0 * 1 * UZ.chart.x.0.quadratic * detector1.q1
+   S^0 * 1 * logV0.fSquare.0.quadratic * detector1.q1
+   S^0 * 1 * symmetric.1.group0.left.co2.0.quadratic * detector1.q1SquaredForWeights.quadratic
+   S^0 * 1 * symmetric.1.group0.right.co2.0.quadratic * detector1.q1SquaredForWeights.quadratic
+   S^0 * 1 * symmetric.1.group0.co2.0.quadratic * detector1.q1SquaredForWeights.quadratic
+   S^0 * 1 * symmetric.1.group0.co3.0.quadratic * detector1.q1CubedForWeights.quadratic
+   S^0 * 1 * symmetric.1.group0.co4.0.quadratic * detector1.E1.power4.quadratic
+   S^0 * -1 * detector1.E1.block0.0.quadratic
+ROW 262 detector1.E1.block0.1.definition gate
+   S^0 * 1 * US.chart.x.1.quadratic * detector1.q1
+   S^0 * 1 * UT.chart.x.1.quadratic * detector1.q1
+   S^0 * 1 * UZ.chart.x.1.quadratic * detector1.q1
+   S^0 * -1 * logV0.fSquare.1.quadratic * detector1.q1
+   S^0 * 1 * symmetric.1.group0.left.co2.1.quadratic * detector1.q1SquaredForWeights.quadratic
+   S^0 * -1 * symmetric.1.group0.right.co2.1.quadratic * detector1.q1SquaredForWeights.quadratic
+   S^0 * -1 * symmetric.1.group0.co2.1.quadratic * detector1.q1SquaredForWeights.quadratic
+   S^0 * 1 * symmetric.1.group0.co3.1.quadratic * detector1.q1CubedForWeights.quadratic
+   S^0 * -1 * symmetric.1.group0.co4.1.quadratic * detector1.E1.power4.quadratic
+   S^0 * 1 * detector1.E1.block0.1.quadratic
+ROW 271 detector1.E45.block1.0.definition gate
+   S^0 * 10310 * L1.0 * detector1.q45
+   S^0 * 10310 * L1.0 * detector1.E45.power2.quadratic
+   S^0 * -113574960 * inputProduct.quadratic * detector1.q45
+   S^0 * -113574960 * inputProduct.quadratic * detector1.E45.power2.quadratic
+   S^0 * 2 * Lucas.F0.quadratic * detector1.q45
+   S^0 * 53148050 * Lucas.F0.quadratic * detector1.E45.power2.quadratic
+   S^0 * -1 * testSquare.45.3.0.quadratic * detector1.q45
+   S^0 * -26574026 * testSquare.45.3.0.quadratic * detector1.E45.power2.quadratic
+   S^0 * -26574025 * testSquare.45.3.0.quadratic * detector1.E45.power3.quadratic
+   S^0 * -1 * testSquare.45.4.0.quadratic * detector1.q45
+   S^0 * -1 * testSquare.45.4.0.quadratic * detector1.E45.power2.quadratic
+   S^0 * -1 * testSquare.45.5.0.quadratic * detector1.q45
+   S^0 * -26574025 * testSquare.45.5.0.quadratic * detector1.E45.power2.quadratic
+   S^0 * -20620 * symmetric.45.group1.right.co2.0.quadratic * detector1.E45.power2.quadratic
+   S^0 * 10310 * symmetric.45.group1.co2.0.quadratic * detector1.E45.power2.quadratic
+   S^0 * 10310 * symmetric.45.group1.co3.0.quadratic * detector1.E45.power3.quadratic
+   S^0 * -10310 * detector1.E45.block1.0.quadratic
+ROW 307 detector2.E1.block0.0.definition gate
+   S^0 * 1 * US.chart.x.0.quadratic * detector2.q1
+   S^0 * 1 * UT.chart.x.0.quadratic * detector2.q1
+   S^0 * 1 * UZ.chart.x.0.quadratic * detector2.q1
+   S^0 * 1 * logV0.fSquare.0.quadratic * detector2.q1
+   S^0 * 1 * symmetric.1.group0.left.co2.0.quadratic * detector2.q1SquaredForWeights.quadratic
+   S^0 * 1 * symmetric.1.group0.right.co2.0.quadratic * detector2.q1SquaredForWeights.quadratic
+   S^0 * 1 * symmetric.1.group0.co2.0.quadratic * detector2.q1SquaredForWeights.quadratic
+   S^0 * 1 * symmetric.1.group0.co3.0.quadratic * detector2.q1CubedForWeights.quadratic
+   S^0 * 1 * symmetric.1.group0.co4.0.quadratic * detector2.E1.power4.quadratic
+   S^0 * -1 * detector2.E1.block0.0.quadratic
+ROW 308 detector2.E1.block0.1.definition gate
+   S^0 * 1 * US.chart.x.1.quadratic * detector2.q1
+   S^0 * 1 * UT.chart.x.1.quadratic * detector2.q1
+   S^0 * 1 * UZ.chart.x.1.quadratic * detector2.q1
+   S^0 * -1 * logV0.fSquare.1.quadratic * detector2.q1
+   S^0 * 1 * symmetric.1.group0.left.co2.1.quadratic * detector2.q1SquaredForWeights.quadratic
+   S^0 * -1 * symmetric.1.group0.right.co2.1.quadratic * detector2.q1SquaredForWeights.quadratic
+   S^0 * -1 * symmetric.1.group0.co2.1.quadratic * detector2.q1SquaredForWeights.quadratic
+   S^0 * 1 * symmetric.1.group0.co3.1.quadratic * detector2.q1CubedForWeights.quadratic
+   S^0 * -1 * symmetric.1.group0.co4.1.quadratic * detector2.E1.power4.quadratic
+   S^0 * 1 * detector2.E1.block0.1.quadratic
+ROW 317 detector2.E45.block1.0.definition gate
+   S^0 * 10310 * L1.0 * detector2.q45
+   S^0 * 10310 * L1.0 * detector2.E45.power2.quadratic
+   S^0 * -113574960 * inputProduct.quadratic * detector2.q45
+   S^0 * -113574960 * inputProduct.quadratic * detector2.E45.power2.quadratic
+   S^0 * 2 * Lucas.F0.quadratic * detector2.q45
+   S^0 * 53148050 * Lucas.F0.quadratic * detector2.E45.power2.quadratic
+   S^0 * -1 * testSquare.45.3.0.quadratic * detector2.q45
+   S^0 * -26574026 * testSquare.45.3.0.quadratic * detector2.E45.power2.quadratic
+   S^0 * -26574025 * testSquare.45.3.0.quadratic * detector2.E45.power3.quadratic
+   S^0 * -1 * testSquare.45.4.0.quadratic * detector2.q45
+   S^0 * -1 * testSquare.45.4.0.quadratic * detector2.E45.power2.quadratic
+   S^0 * -1 * testSquare.45.5.0.quadratic * detector2.q45
+   S^0 * -26574025 * testSquare.45.5.0.quadratic * detector2.E45.power2.quadratic
+   S^0 * -20620 * symmetric.45.group1.right.co2.0.quadratic * detector2.E45.power2.quadratic
+   S^0 * 10310 * symmetric.45.group1.co2.0.quadratic * detector2.E45.power2.quadratic
+   S^0 * 10310 * symmetric.45.group1.co3.0.quadratic * detector2.E45.power3.quadratic
+   S^0 * -10310 * detector2.E45.block1.0.quadratic
+ROW 333 scalar.rPair1.definition gate
+   S^0 * 1 * inputProduct.quadratic * inputProduct.quadratic
+   S^0 * -1 * scalar.rPair1.quadratic
+ROW 334 scalar.rThree.definition gate
+   S^0 * 10309 * inputProduct.quadratic * inputProduct.quadratic
+   S^0 * 11016 * inputProduct.quadratic * scalar.rPair1.quadratic
+   S^0 * -10309 * scalar.rThree.quadratic
+ROW 335 scalar.rInverse.definition gate
+   S^0 * 1 * 
+   S^0 * -28138306136472 * inputProduct.quadratic * scalar.rInverse
+   S^0 * -20059891973568 * scalar.rPair1.quadratic * scalar.rInverse
+   S^0 * -40032653027328 * scalar.rThree.quadratic * scalar.rInverse
+   S^0 * -4391913917610 * scalar.rInverse
+ROW 336 scalar.rInverse3.definition gate
+   S^0 * 28138306136472 * inputProduct.quadratic * scalar.rInverse3
+   S^0 * 20059891973568 * scalar.rPair1.quadratic * scalar.rInverse3
+   S^0 * 40032653027328 * scalar.rThree.quadratic * scalar.rInverse3
+   S^0 * -1 * scalar.rInverse * scalar.rInverse
+   S^0 * 4391913917610 * scalar.rInverse3
+ROW 337 scalar.rInverse7.definition gate
+   S^0 * 28138306136472 * inputProduct.quadratic * scalar.rInverse7
+   S^0 * 20059891973568 * scalar.rPair1.quadratic * scalar.rInverse7
+   S^0 * 40032653027328 * scalar.rThree.quadratic * scalar.rInverse7
+   S^0 * -1 * scalar.rInverse3 * scalar.rInverse3
+   S^0 * 4391913917610 * scalar.rInverse7
+ROW 338 scalar.rInverse15.definition gate
+   S^0 * 28138306136472 * inputProduct.quadratic * scalar.rInverse15
+   S^0 * 20059891973568 * scalar.rPair1.quadratic * scalar.rInverse15
+   S^0 * 40032653027328 * scalar.rThree.quadratic * scalar.rInverse15
+   S^0 * -1 * scalar.rInverse7 * scalar.rInverse7
+   S^0 * 4391913917610 * scalar.rInverse15
+ROW 339 scalar.shiftedS.rootTimesInverseRoot.definition.0 gate
+   S^0 * 8 * S.chart.h0 * S.chart.j0
+   S^0 * -28 * S.chart.h0 * S.chart.j1
+   S^0 * -28 * S.chart.h1 * S.chart.j0
+   S^0 * 16 * S.chart.h1 * S.chart.j1
+   S^0 * 39 * S.chart.x.0.quadratic
+   S^0 * 57 * S.chart.x.0.quadratic * scalar.shiftedS.rootTimesInverseRoot.0
+   S^0 * -56 * S.chart.x.0.quadratic * scalar.shiftedS.rootTimesInverseRoot.1
+   S^0 * -144 * S.chart.x.1.quadratic
+   S^0 * -112 * S.chart.x.1.quadratic * scalar.shiftedS.rootTimesInverseRoot.0
+   S^0 * 228 * S.chart.x.1.quadratic * scalar.shiftedS.rootTimesInverseRoot.1
+   S^0 * 88 * scalar.shiftedS.rootTimesInverseRoot.0
+   S^0 * -96 * scalar.shiftedS.rootTimesInverseRoot.1
+ROW 340 scalar.shiftedS.rootTimesInverseRoot.definition.1 gate
+   S^0 * 14 * S.chart.h0 * S.chart.j0
+   S^0 * -8 * S.chart.h0 * S.chart.j1
+   S^0 * -8 * S.chart.h1 * S.chart.j0
+   S^0 * 28 * S.chart.h1 * S.chart.j1
+   S^0 * 36 * S.chart.x.0.quadratic
+   S^0 * 28 * S.chart.x.0.quadratic * scalar.shiftedS.rootTimesInverseRoot.0
+   S^0 * -57 * S.chart.x.0.quadratic * scalar.shiftedS.rootTimesInverseRoot.1
+   S^0 * -78 * S.chart.x.1.quadratic
+   S^0 * -114 * S.chart.x.1.quadratic * scalar.shiftedS.rootTimesInverseRoot.0
+   S^0 * 112 * S.chart.x.1.quadratic * scalar.shiftedS.rootTimesInverseRoot.1
+   S^0 * 48 * scalar.shiftedS.rootTimesInverseRoot.0
+   S^0 * -88 * scalar.shiftedS.rootTimesInverseRoot.1
+ROW 341 scalar.shiftedS.f.definition.0 gate
+   S^0 * 1 * S.chart.x.0.quadratic * scalar.shiftedS.f.0
+   S^0 * 4 * S.chart.x.1.quadratic * scalar.shiftedS.f.1
+   S^0 * -1 * scalar.shiftedS.rootTimesInverseRoot.0 * scalar.shiftedS.rootTimesInverseRoot.0
+   S^0 * -2 * scalar.shiftedS.rootTimesInverseRoot.1 * scalar.shiftedS.rootTimesInverseRoot.1
+ROW 342 scalar.shiftedS.f.definition.1 gate
+   S^0 * 1 * S.chart.x.0.quadratic * scalar.shiftedS.f.1
+   S^0 * 2 * S.chart.x.1.quadratic * scalar.shiftedS.f.0
+   S^0 * -2 * scalar.shiftedS.rootTimesInverseRoot.0 * scalar.shiftedS.rootTimesInverseRoot.1
+ROW 343 scalar.shiftedS.nonzeroRealF.definition gate
+   S^0 * 1 * 
+   S^0 * -1 * scalar.shiftedS.f.0 * scalar.shiftedS.nonzeroRealF
+ROW 344 scalar.ratioProxyReal.definition gate
+   S^0 * 1 * primaryRatio.0 * scalar.shiftedS.rootTimesInverseRoot.0
+   S^0 * 2 * primaryRatio.1 * scalar.shiftedS.rootTimesInverseRoot.1
+   S^0 * -1 * scalar.ratioProxyReal.quadratic
+ROW 345 scalar.ratioProxyLeaf.definition gate
+   S^0 * 28138306136472 * inputProduct.quadratic * scalar.ratioProxyLeaf
+   S^0 * 20059891973568 * scalar.rPair1.quadratic * scalar.ratioProxyLeaf
+   S^0 * 40032653027328 * scalar.rThree.quadratic * scalar.ratioProxyLeaf
+   S^0 * -1 * scalar.rInverse15 * scalar.ratioProxyReal.quadratic
+   S^0 * 4391913917610 * scalar.ratioProxyLeaf
+ROW 346 scalar.chain3.rightSquare.definition gate
+   S^0 * 1 * scalar.ratioProxyLeaf * scalar.ratioProxyLeaf
+   S^0 * -1 * scalar.chain3.rightSquare.quadratic
+ROW 347 scalar.chain3.definition gate
+   S^0 * 1 * scalar.rInverse15 * scalar.chain3.rightSquare.quadratic
+   S^0 * 1 * scalar.shiftedS.f.1 * scalar.shiftedS.f.1
+   S^0 * -1 * scalar.chain3.quadratic
+ROW 348 scalar.chain2.rightSquare.definition gate
+   S^0 * 1 * scalar.chain3.quadratic * scalar.chain3.quadratic
+   S^0 * -1 * scalar.chain2.rightSquare.quadratic
+ROW 349 scalar.chain2.definition gate
+   S^0 * 1 * scalar.rInverse15 * scalar.chain2.rightSquare.quadratic
+   S^0 * 1 * scalar.shiftedS.f.0 * scalar.shiftedS.f.0
+   S^0 * -1 * scalar.chain2.quadratic
+ROW 350 scalar.chain1.rightSquare.definition gate
+   S^0 * 1 * scalar.chain2.quadratic * scalar.chain2.quadratic
+   S^0 * -1 * scalar.chain1.rightSquare.quadratic
+ROW 351 scalar.chain1.definition gate
+   S^0 * 4 * H.chart.x.1.quadratic * H.chart.x.1.quadratic
+   S^0 * 1 * scalar.rInverse15 * scalar.chain1.rightSquare.quadratic
+   S^0 * -1 * scalar.chain1.quadratic
+ROW 352 scalar.N.rightSquare.definition gate
+   S^0 * 1 * scalar.chain1.quadratic * scalar.chain1.quadratic
+   S^0 * -1 * scalar.N.rightSquare.quadratic
+ROW 353 scalar.N.definition gate
+   S^0 * 1 * H.chart.x.0.quadratic * H.chart.x.0.quadratic
+   S^0 * -28138306136472 * inputProduct.quadratic * scalar.N
+   S^0 * -20059891973568 * scalar.rPair1.quadratic * scalar.N
+   S^0 * -40032653027328 * scalar.rThree.quadratic * scalar.N
+   S^0 * 1 * scalar.rInverse15 * scalar.N.rightSquare.quadratic
+   S^0 * -4391913917610 * scalar.N
+ROW 354 scalar.W2.definition gate
+   S^0 * 1 * scalar.N * scalar.N
+   S^0 * -1 * scalar.W2.quadratic
+ROW 356 scalar.firstConic structural
+   S^0 * 289 * 
+   S^0 * 34 * scalar.normalized_e
+   S^0 * -3 * scalar.normalized_e * scalar.normalized_e
+   S^0 * -20090750581441008 * inputProduct.quadratic * scalar.p2.quadratic
+   S^0 * -14322762869127552 * scalar.rPair1.quadratic * scalar.p2.quadratic
+   S^0 * -28583314261512192 * scalar.rThree.quadratic * scalar.p2.quadratic
+   S^0 * -3135826537173540 * scalar.p2.quadratic
+ROW 357 scalar.preparationT.definition gate
+   S^0 * 851437489 * inputProduct.quadratic * scalar.W2.quadratic
+   S^0 * 606992616 * scalar.rPair1.quadratic * scalar.W2.quadratic
+   S^0 * 1211348736 * scalar.rThree.quadratic * scalar.W2.quadratic
+   S^0 * -851437489 * scalar.preparationT.quadratic
+ROW 361 scalar.secondConic structural
+   S^0 * 1 * scalar.s * scalar.s
+   S^0 * 2 * scalar.s * scalar.factored_v
+   S^0 * -20090750581441008 * inputProduct.quadratic * scalar.q2.quadratic
+   S^0 * -14322762869127552 * scalar.rPair1.quadratic * scalar.q2.quadratic
+   S^0 * -28583314261512192 * scalar.rThree.quadratic * scalar.q2.quadratic
+   S^0 * -3 * scalar.factored_v * scalar.factored_v
+   S^0 * -3135826537173540 * scalar.q2.quadratic
+ROW 362 anchor.physicalA.definition gate
+   S^0 * 1 * scalar.shiftedS.rootTimesInverseRoot.0 * scalar.shiftedS.rootTimesInverseRoot.0
+   S^0 * -2 * scalar.shiftedS.rootTimesInverseRoot.1 * scalar.shiftedS.rootTimesInverseRoot.1
+   S^0 * -1 * anchor.physicalA.quadratic
+   S^1 * 6 * input
+   S^1 * -6 * inputProduct.quadratic
+   S^1 * 201326592 * heightProduct.scale0.quadratic
+ROW 363 anchor.translatedEquation structural
+   S^0 * 1 * anchor.U * anchor.U
+   S^0 * -6 * anchor.U * anchor.V
+   S^0 * 6 * anchor.U * anchor.W
+   S^0 * 15 * anchor.V * anchor.V
+   S^0 * -18 * anchor.V * anchor.W
+   S^0 * 7 * anchor.W * anchor.W
+   S^0 * -48 * anchor.physicalA.quadratic * anchor.physicalA.quadratic
+   S^1 * 8 * anchor.U

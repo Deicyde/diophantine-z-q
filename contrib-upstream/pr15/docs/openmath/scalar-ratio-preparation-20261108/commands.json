@@ -1,0 +1,89 @@
+[
+  {
+    "label": "prepare-default",
+    "command": [
+      "/Users/chey/.pyenv/versions/3.12.3/bin/python",
+      "-B",
+      "scripts/prepare_derivative_switch_openmath.py"
+    ],
+    "cwd": "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-08-scalar-ratio-repo-prepare/clean-checkout",
+    "exit_code": 0,
+    "expected_exit_code": 0
+  },
+  {
+    "label": "prepare-boundary-scalar",
+    "command": [
+      "/Users/chey/.pyenv/versions/3.12.3/bin/python",
+      "-B",
+      "scripts/prepare_derivative_switch_openmath.py",
+      "--packet",
+      "boundary-scalar"
+    ],
+    "cwd": "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-08-scalar-ratio-repo-prepare/clean-checkout",
+    "exit_code": 0,
+    "expected_exit_code": 0
+  },
+  {
+    "label": "prepare-six-lemma",
+    "command": [
+      "/Users/chey/.pyenv/versions/3.12.3/bin/python",
+      "-B",
+      "scripts/prepare_derivative_switch_openmath.py",
+      "--packet",
+      "six-lemma"
+    ],
+    "cwd": "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-08-scalar-ratio-repo-prepare/clean-checkout",
+    "exit_code": 0,
+    "expected_exit_code": 0
+  },
+  {
+    "label": "reject-new-source",
+    "command": [
+      "/Users/chey/.pyenv/versions/3.12.3/bin/python",
+      "-B",
+      "scripts/prepare_derivative_switch_openmath.py",
+      "--output",
+      "lean/.checks/rejected-new-source"
+    ],
+    "cwd": "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-08-scalar-ratio-repo-prepare/clean-checkout",
+    "exit_code": 1,
+    "expected_exit_code": 1
+  },
+  {
+    "label": "reject-prior-matrix-source",
+    "command": [
+      "/Users/chey/.pyenv/versions/3.12.3/bin/python",
+      "-B",
+      "scripts/prepare_derivative_switch_openmath.py",
+      "--output",
+      "lean/.checks/rejected-prior-matrix-source"
+    ],
+    "cwd": "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-08-scalar-ratio-repo-prepare/clean-checkout",
+    "exit_code": 1,
+    "expected_exit_code": 1
+  },
+  {
+    "label": "reject-prior-six-source",
+    "command": [
+      "/Users/chey/.pyenv/versions/3.12.3/bin/python",
+      "-B",
+      "scripts/prepare_derivative_switch_openmath.py",
+      "--output",
+      "lean/.checks/rejected-prior-six-source"
+    ],
+    "cwd": "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-08-scalar-ratio-repo-prepare/clean-checkout",
+    "exit_code": 1,
+    "expected_exit_code": 1
+  },
+  {
+    "label": "reject-existing-output",
+    "command": [
+      "/Users/chey/.pyenv/versions/3.12.3/bin/python",
+      "-B",
+      "scripts/prepare_derivative_switch_openmath.py"
+    ],
+    "cwd": "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-08-scalar-ratio-repo-prepare/clean-checkout",
+    "exit_code": 1,
+    "expected_exit_code": 1
+  }
+]

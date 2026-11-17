@@ -1,0 +1,1 @@
+.checks/scalar-ratio-units/UnitPrefix.lean:1:0: error: object file '/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.lake/packages/mathlib/.lake/build/lib/lean/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.olean' of module Mathlib.LinearAlgebra.Matrix.NonsingularInverse does not exist

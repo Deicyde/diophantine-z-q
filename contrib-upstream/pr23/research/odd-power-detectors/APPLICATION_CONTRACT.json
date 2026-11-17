@@ -1,0 +1,306 @@
+{
+  "format": "odd-power-author-contract-v1",
+  "status": "author_submission_pending_independent_review",
+  "authors": [
+    "User-supplied Opus frontier exploration (chain discovery)",
+    "Codex /root application proof and integration,2026-11-09"
+  ],
+  "independentAcceptance": false,
+  "parentCommit": "ce15e8ece219a2bb000075a5a79f6ffd9bea6dfd",
+  "proof": {
+    "path": "research/odd-power-detectors/PROOF.md",
+    "sha256": "5d20636e3ab9a6d7b54cca4a2efa6a802d0f91984ec0be49c1c1b8875a80b1ab"
+  },
+  "sources": [
+    {
+      "id": "one-place",
+      "path": "manuscripts/quartic_v10.tex",
+      "locator": "lem:v5-one-place and proof; pole certificate used therein",
+      "sha256": "9559b22cc581346da1b3150fa9b8dfb62cfb048f6aac0b866448ae7ae879ff38"
+    },
+    {
+      "id": "small-primes",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round4/arithmetic_round4.tex",
+      "locator": "Actual finite exceptional-set pole reapplication",
+      "sha256": "b72fa74f4d4ea192d17ff257e17bd8307a12700b53a2de990c4a3c526e5d181e"
+    },
+    {
+      "id": "normalization",
+      "path": "research/conditional-quartic-reduction/proofs/detector_round7.tex",
+      "locator": "Contact-unit normalization, actual R and simultaneous pole completeness",
+      "sha256": "ed01c9416d3b4daf02a26958642194230c0186a896f17817bfe30c8a16d481d3"
+    },
+    {
+      "id": "mixed",
+      "path": "research/mixed-detector-normalization/PROOF.md",
+      "locator": "Actual test indices, small-prime reapplication and order46 consumers",
+      "sha256": "3dfb7eb74c10358744a41c4c7bfa36d154fae149f6748e3082fa6013c11b2abd"
+    },
+    {
+      "id": "precision",
+      "path": "research/detector-cube-reuse/references/precision51_PROOF.md",
+      "locator": "Entire logarithm tail and identity branches",
+      "sha256": "e6a825c3b85a9c56a6a2678ad0fa411ecedec53a005a0464efb45677f056054c"
+    },
+    {
+      "id": "height",
+      "path": "research/height-consumer-refinement/PROOF.md",
+      "locator": "Uniform height transfer, Lucas endpoint and scalar/input margins",
+      "sha256": "5a4ff818479f28dfb988526cbcac89b9f6fdb264fe7e9f999123fe0547d45029"
+    },
+    {
+      "id": "zero",
+      "path": "research/scalar-preparation-zero/PROOF.md",
+      "locator": "Actual simultaneous finite and real construction and choice order",
+      "sha256": "79bb5a8c5ce16c6b4559848739aeb78b7d23eb4a90f2ff0ad8ccf97a3674280a"
+    },
+    {
+      "id": "rows",
+      "path": "research/scalar-row-reduction/PROOF.md",
+      "locator": "Retained source witness maps and exact diagonal representation",
+      "sha256": "b64c429a02bdb083182ede492cfb67f902e487585f5eca4eeb28dd353ffc320e"
+    },
+    {
+      "id": "protocol",
+      "path": "docs/research-review/PROTOCOL.md",
+      "locator": "Version1.2, changed applications and conditional handoff",
+      "sha256": "b5365b3d9cd9a782bf7fd0b6020403d5d400eac13dc7e60875484a8769d3d925"
+    }
+  ],
+  "obligations": [
+    {
+      "id": "source_hypotheses",
+      "requiredInput": "Nonzero R,W,trace and preparation-zero pole certificate on unramified integral-valued places.",
+      "constructedInput": "Same R, positive weights and exact B=R/Tr(W^-1)^2 for p outside{2,3,5,7,13,17}.",
+      "justification": "The source proof is reapplied using the actual small-prime pole implication; its old cutoff is not silently discarded.",
+      "consumer": "PROOF.md: One common place",
+      "sourceReferences": [
+        "one-place",
+        "small-primes",
+        "normalization",
+        "mixed",
+        "precision",
+        "height",
+        "zero",
+        "rows",
+        "protocol"
+      ],
+      "evidence": [
+        "power_patch.py",
+        "check_power.py",
+        "reproduce.py",
+        "DIAGONAL_WEIGHTS.json",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "constructed_objects",
+      "requiredInput": "One quadratic weight circuit for each of three actual scales; every factor represented.",
+      "constructedInput": "q12=q1^23,h=q1^46,q46=q1^91 with stored squares/cubes.",
+      "justification": "Actual defining rows/gates and all outside expressions are compared; denominator q1>0.",
+      "consumer": "PROOF.md: Exact source circuit",
+      "sourceReferences": [
+        "one-place",
+        "small-primes",
+        "normalization",
+        "mixed",
+        "precision",
+        "height",
+        "zero",
+        "rows",
+        "protocol"
+      ],
+      "evidence": [
+        "power_patch.py",
+        "check_power.py",
+        "reproduce.py",
+        "DIAGONAL_WEIGHTS.json",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "domain_and_index_coverage",
+      "requiredInput": "All sixteen tests at one common place per consumed contact, split/inert and zero tests.",
+      "constructedInput": "Eight order1, two order12 and six order46 tests use D/delta^(2m-1).",
+      "justification": "Unit delta preserves valuations; arbitrary-field-input one-place proof handles each test simultaneously.",
+      "consumer": "PROOF.md: One common place",
+      "sourceReferences": [
+        "one-place",
+        "small-primes",
+        "normalization",
+        "mixed",
+        "precision",
+        "height",
+        "zero",
+        "rows",
+        "protocol"
+      ],
+      "evidence": [
+        "power_patch.py",
+        "check_power.py",
+        "reproduce.py",
+        "DIAGONAL_WEIGHTS.json",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "transition_maps",
+      "requiredInput": "Exact normalization and trace/norm factor; no false old/new pole-witness equivalence.",
+      "constructedInput": "R(d/R^m)^2=q1^(2m-1)D^2; n=N(W)/(2W0).",
+      "justification": "Both Laurent exponents match and n^2/E=R/Tr(W^-1)^2. New pole witnesses constructed separately.",
+      "consumer": "PROOF.md: One common place; completeness",
+      "sourceReferences": [
+        "one-place",
+        "small-primes",
+        "normalization",
+        "mixed",
+        "precision",
+        "height",
+        "zero",
+        "rows",
+        "protocol"
+      ],
+      "evidence": [
+        "power_patch.py",
+        "check_power.py",
+        "reproduce.py",
+        "DIAGONAL_WEIGHTS.json",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "consumed_object_identity",
+      "requiredInput": "Actual labels, Lucas residual, input numerator and scalar proxy with sufficient orders.",
+      "constructedInput": "Same field functions and meanings; high46,input12,scalar31.",
+      "justification": "Two-anchor integrality transfer precedes absolute-error use; identities and conjugation covered.",
+      "consumer": "PROOF.md: Unchanged order46 consumers",
+      "sourceReferences": [
+        "one-place",
+        "small-primes",
+        "normalization",
+        "mixed",
+        "precision",
+        "height",
+        "zero",
+        "rows",
+        "protocol"
+      ],
+      "evidence": [
+        "power_patch.py",
+        "check_power.py",
+        "reproduce.py",
+        "DIAGONAL_WEIGHTS.json",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "conventions",
+      "requiredInput": "Q/K basis, normalized valuations, fixed anchor and rational coordinate maps.",
+      "constructedInput": "K=Q(sqrt2),v(p)=1, same exceptional set and S=3^2010.",
+      "justification": "No changed scale, hidden norm or factor2; exact input-fixed diagonal expansion supplied.",
+      "consumer": "PROOF.md: Circuit; common place; representation",
+      "sourceReferences": [
+        "one-place",
+        "small-primes",
+        "normalization",
+        "mixed",
+        "precision",
+        "height",
+        "zero",
+        "rows",
+        "protocol"
+      ],
+      "evidence": [
+        "power_patch.py",
+        "check_power.py",
+        "reproduce.py",
+        "DIAGONAL_WEIGHTS.json",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "local_conditions",
+      "requiredInput": "All pole hypotheses simultaneously for new B.",
+      "constructedInput": "New products decay at infinity and have valuations(2m-1)(nu+4s); same R parity/squareclasses.",
+      "justification": "Fixed finite/real bounds are strengthened before prime selection; final H selected with compatible CRT and density.",
+      "consumer": "PROOF.md: Simultaneous completeness",
+      "sourceReferences": [
+        "one-place",
+        "small-primes",
+        "normalization",
+        "mixed",
+        "precision",
+        "height",
+        "zero",
+        "rows",
+        "protocol"
+      ],
+      "evidence": [
+        "power_patch.py",
+        "check_power.py",
+        "reproduce.py",
+        "DIAGONAL_WEIGHTS.json",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "exceptional_cases",
+      "requiredInput": "Zero tests, zero pole witnesses, primary identities and exceptional2/3/17 behavior.",
+      "constructedInput": "Positive q1 excludes quotient zero branches; unchanged inverse guards and finite depths.",
+      "justification": "Trace unit at contacts, ramified2 closeness, identity comparison and positive conic zero branch explicitly retained.",
+      "consumer": "PROOF.md: Common place; consumers; completeness",
+      "sourceReferences": [
+        "one-place",
+        "small-primes",
+        "normalization",
+        "mixed",
+        "precision",
+        "height",
+        "zero",
+        "rows",
+        "protocol"
+      ],
+      "evidence": [
+        "power_patch.py",
+        "check_power.py",
+        "reproduce.py",
+        "DIAGONAL_WEIGHTS.json",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "downstream_consumers",
+      "requiredInput": "Complete conditional input conclusion and fully specified polynomial.",
+      "constructedInput": "Same exact E2010 scalar/Lucas/input margins;376/345/25964,425digits.",
+      "justification": "Uniform endpoint and integer checks plus full compilation/conic/diagonal replay; global inputs remain conditional.",
+      "consumer": "PROOF.md: Consumers; representation",
+      "sourceReferences": [
+        "one-place",
+        "small-primes",
+        "normalization",
+        "mixed",
+        "precision",
+        "height",
+        "zero",
+        "rows",
+        "protocol"
+      ],
+      "evidence": [
+        "power_patch.py",
+        "check_power.py",
+        "reproduce.py",
+        "DIAGONAL_WEIGHTS.json",
+        "EXPECTED.json"
+      ]
+    }
+  ],
+  "historicalDisposition": "One-place and completeness components located; new odd-power normalization with its actual consumers rederived.",
+  "manuscriptDisposition": "Pending; current Version13 unchanged.",
+  "profile": "HANDOFF.md",
+  "parentReview": {
+    "archiveCommit": "a2d259fed72f6310e0ccfac9cdd1bc346b88782e",
+    "path": "research/independent-local-reviews/2026-11-09/row379/REPORT.md",
+    "sha256": "ad1217cd42d34a1df653f83a96ed37e7124aa0d22e5fd5d6cd82f54e487e6744",
+    "scope": "Parent local algebra and handoff only; new normalization needs its own review."
+  }
+}

@@ -1,0 +1,2 @@
+'CarayolPrinted.carayolRealization_of_printed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CarayolPrinted.carayolRealization_of_printedIrr' depends on axioms: [propext, Classical.choice, Quot.sound]

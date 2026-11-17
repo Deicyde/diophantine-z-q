@@ -1,0 +1,309 @@
+{
+  "format": "conditional-quartic-proposal-outputs-v1",
+  "selected": {
+    "coordinates": 392,
+    "residuals": 360,
+    "degree": 4,
+    "monomials": 26301,
+    "integerContent": 1,
+    "inputFourthPowerCoefficient": "1",
+    "maximumCoefficientDigits": 905,
+    "maximumCoefficientBits": 3004,
+    "scaledCoordinates": 12,
+    "anchorExponent": 2790,
+    "cExponent": 465,
+    "tableSha256": "81eddac871e7575cc54b8e2cd00fcbbc5cd65a8853a031f87415fdafde71686c",
+    "tableBytes": 1064980,
+    "certificateSha256": "5d724a1b821020f9d3435857186122b9b48e7fee6b62ebb2859b3a25eaf2343b"
+  },
+  "files": [
+    {
+      "path": "construction/balanced/diagonal-certificate.json",
+      "bytes": 28727,
+      "sha256": "5d724a1b821020f9d3435857186122b9b48e7fee6b62ebb2859b3a25eaf2343b"
+    },
+    {
+      "path": "construction/balanced/integer-ir.json",
+      "bytes": 511500,
+      "sha256": "0ae74167ce075282f7695ef3d2bb3d7b477d8faa379d0abff964ab5dee224745"
+    },
+    {
+      "path": "construction/balanced/polynomial.json",
+      "bytes": 4142584,
+      "sha256": "e64cd7b37823d9a7242e99ae367dec9f11a91d7dc6dd5e056f6f19d6c91558bb"
+    },
+    {
+      "path": "construction/balanced/summary.json",
+      "bytes": 486,
+      "sha256": "ff89494738d44de9606dcc24b85d322e3819025902ee5c214ef52c6b3347b17f"
+    },
+    {
+      "path": "construction/census.json",
+      "bytes": 1923,
+      "sha256": "e4d0370ca4ea57b540ccf2cb9364ddca86f161f3d5bc55cb425667c7ae189240"
+    },
+    {
+      "path": "construction/compiled/compiled-ir.json",
+      "bytes": 1274707,
+      "sha256": "e8a0bfc60de0598661d187da03ff94d39953ed501f6e386bba5f622d39857fd6"
+    },
+    {
+      "path": "construction/compiled/coordinate-map.json",
+      "bytes": 38926,
+      "sha256": "240148380bac186774a02f6ab87bf547ffe88013addcacade1f2bfc3709e3c6f"
+    },
+    {
+      "path": "construction/compiled/polynomial.json",
+      "bytes": 4349228,
+      "sha256": "52d03c4bd64d4259522bec67fd766453601c2f2bbd99b5b9298163c0e91e35b2"
+    },
+    {
+      "path": "construction/compiled/reduction-certificate.json",
+      "bytes": 45364,
+      "sha256": "b0544262923338384c33c15485fa8db8b0f8fab4173af9ae20254596c92359d2"
+    },
+    {
+      "path": "construction/compiled/specialization-certificate.json",
+      "bytes": 794,
+      "sha256": "96ac69d2edbe005e72a0d80621a72b8810d8bbc8767a5dd5054acf0a483801ea"
+    },
+    {
+      "path": "construction/final/candidate-ir.json",
+      "bytes": 767560,
+      "sha256": "7ffbdcb29165c6cb01cdab4326611e0b0a7e63cded6d6cc726b17eabe9a8c3f3"
+    },
+    {
+      "path": "construction/final/integer-candidate-ir.json",
+      "bytes": 767560,
+      "sha256": "60c37a4f41caf501b29215f88fc539b12ab646cdc9797dd572584d99985c2f22"
+    },
+    {
+      "path": "construction/final/polynomial/compiled-ir.json",
+      "bytes": 767560,
+      "sha256": "7ffbdcb29165c6cb01cdab4326611e0b0a7e63cded6d6cc726b17eabe9a8c3f3"
+    },
+    {
+      "path": "construction/final/polynomial/coordinate-map.json",
+      "bytes": 38926,
+      "sha256": "240148380bac186774a02f6ab87bf547ffe88013addcacade1f2bfc3709e3c6f"
+    },
+    {
+      "path": "construction/final/polynomial/polynomial.json",
+      "bytes": 4349228,
+      "sha256": "52d03c4bd64d4259522bec67fd766453601c2f2bbd99b5b9298163c0e91e35b2"
+    },
+    {
+      "path": "construction/final/polynomial/reduction-certificate.json",
+      "bytes": 175,
+      "sha256": "e795b19148e86032c60be9ec9dde404e313a967d672137ed6dea76d514f41186"
+    },
+    {
+      "path": "construction/final/polynomial/specialization-certificate.json",
+      "bytes": 794,
+      "sha256": "96ac69d2edbe005e72a0d80621a72b8810d8bbc8767a5dd5054acf0a483801ea"
+    },
+    {
+      "path": "construction/final/source-ir.json",
+      "bytes": 1274707,
+      "sha256": "e8a0bfc60de0598661d187da03ff94d39953ed501f6e386bba5f622d39857fd6"
+    },
+    {
+      "path": "construction/ordinary392/polynomial/compiled-ir.json",
+      "bytes": 544356,
+      "sha256": "6eac5783113da7599947d78de6c183d9db43da25bfef5e2c185b712e14124742"
+    },
+    {
+      "path": "construction/ordinary392/polynomial/coordinate-map.json",
+      "bytes": 38926,
+      "sha256": "240148380bac186774a02f6ab87bf547ffe88013addcacade1f2bfc3709e3c6f"
+    },
+    {
+      "path": "construction/ordinary392/polynomial/polynomial.json",
+      "bytes": 4127243,
+      "sha256": "e587d5ac3324940d6b5c296b33bd52a03bae87a776dc9181edc25651205dd789"
+    },
+    {
+      "path": "construction/ordinary392/specialization-report.json",
+      "bytes": 921,
+      "sha256": "ea75245e6e8e0e9ba9ffda601d7aa7f6f1fb1639dfe7ff3d6fef26cecd412496"
+    },
+    {
+      "path": "construction/ordinary392/specialized-ir.json",
+      "bytes": 544356,
+      "sha256": "6eac5783113da7599947d78de6c183d9db43da25bfef5e2c185b712e14124742"
+    },
+    {
+      "path": "construction/ordinary394/lifted-ir.json",
+      "bytes": 769631,
+      "sha256": "ffc9fd8922ea766a446eb3b1e0dd8d23409264d99f1ae404c32b02e54e735f3d"
+    },
+    {
+      "path": "construction/ordinary394/polynomial/compiled-ir.json",
+      "bytes": 769631,
+      "sha256": "467ac4dc6f90aef7c4430428b7405aed6daa8b12488c4349ecd43153239a0b0a"
+    },
+    {
+      "path": "construction/ordinary394/polynomial/coordinate-map.json",
+      "bytes": 39113,
+      "sha256": "c8ba7948c1e8dd97e97627f3550b278462db3136487496e1c6af1f7f5bffd059"
+    },
+    {
+      "path": "construction/ordinary394/polynomial/polynomial.json",
+      "bytes": 4353149,
+      "sha256": "c07b074532a08ed3da06a2cf76b5f590de3e315311da7cc5af164777d0cf00fd"
+    },
+    {
+      "path": "construction/ordinary394/polynomial/reduction-certificate.json",
+      "bytes": 383,
+      "sha256": "b0f85635c76f65383c9d292a441da0fbfbcbc3cfa550af39f8216d52f94a209c"
+    },
+    {
+      "path": "construction/ordinary394/polynomial/specialization-certificate.json",
+      "bytes": 1587,
+      "sha256": "a0183f1215a358f026e4eb65ecda1aa0de4b69782776aa80966f8ee1bcde0005"
+    },
+    {
+      "path": "construction/ordinary395/lifted-ir.json",
+      "bytes": 769819,
+      "sha256": "cf715b0ccb35b3085d656b7659b2fed26760d704fd2bd419682e8f51e96d10fd"
+    },
+    {
+      "path": "construction/ordinary395/polynomial/compiled-ir.json",
+      "bytes": 769819,
+      "sha256": "ea73f41f599be2125770f405e4368452e706fa446515ed86edb7518d3f38298c"
+    },
+    {
+      "path": "construction/ordinary395/polynomial/coordinate-map.json",
+      "bytes": 39207,
+      "sha256": "549d8c00adef2b3c7e0b23cfb2b7bfd38a79f9fb9cb7210c997315ee4ce064e4"
+    },
+    {
+      "path": "construction/ordinary395/polynomial/polynomial.json",
+      "bytes": 4352734,
+      "sha256": "44c032791c1f36537de6d349769ffdbab4e0fe4c48c3e8524fce79b42c8db9d3"
+    },
+    {
+      "path": "construction/ordinary395/polynomial/reduction-certificate.json",
+      "bytes": 486,
+      "sha256": "a8342394ac0ec30e99155a99ab5a1fdd2f7dda1b9d50e6e0c6ab10f7a0637f02"
+    },
+    {
+      "path": "construction/ordinary395/polynomial/specialization-certificate.json",
+      "bytes": 1080,
+      "sha256": "2d8121111cc28159072b0d309ac506dc4ed30941a545e35c970ccb89e1fd408b"
+    },
+    {
+      "path": "construction/ordinary396/lifted-ir.json",
+      "bytes": 770108,
+      "sha256": "cc0196651eb84c5b123138197e59f168ad18c85f38e3d3c93c02ec13ad6f4624"
+    },
+    {
+      "path": "construction/ordinary396/polynomial/compiled-ir.json",
+      "bytes": 770108,
+      "sha256": "888f930486ae451c7b8d76c1defba7f718df55581f4375eee433b0affd56228b"
+    },
+    {
+      "path": "construction/ordinary396/polynomial/coordinate-map.json",
+      "bytes": 39300,
+      "sha256": "2a8e6262de0ccae77098bafb62d06c301b715768e450ec79e162e54b09be6d51"
+    },
+    {
+      "path": "construction/ordinary396/polynomial/polynomial.json",
+      "bytes": 4352632,
+      "sha256": "db85b00a85375cf6004f0be54f2c8dc3776f9e06955eefafefbf392596f0a4ea"
+    },
+    {
+      "path": "construction/ordinary396/polynomial/reduction-certificate.json",
+      "bytes": 589,
+      "sha256": "006f125353f31f3b8c6017bb27ca22c5c1eced5e3d04ead1dc9849ce04b00029"
+    },
+    {
+      "path": "construction/ordinary396/polynomial/specialization-certificate.json",
+      "bytes": 876,
+      "sha256": "8a1b7d91015385258680ba9e26eb4ee33cc928987f8598492bcac4e956e30694"
+    },
+    {
+      "path": "construction/quartic-392-balanced-decimal.txt",
+      "bytes": 1064980,
+      "sha256": "81eddac871e7575cc54b8e2cd00fcbbc5cd65a8853a031f87415fdafde71686c"
+    },
+    {
+      "path": "construction/quartic-392-decimal.txt",
+      "bytes": 1057155,
+      "sha256": "7af15eba5d61223b12b7d811a04d83f3af44a102727b27c5cd3df5a375300b59"
+    },
+    {
+      "path": "construction/quartic-392-symbolic.txt",
+      "bytes": 1017319,
+      "sha256": "3d1a2df075d404e07a94af0787a203beb50c5b1a4c158ebfff00ce3ddc3549e3"
+    },
+    {
+      "path": "construction/quartic-394-decimal.txt",
+      "bytes": 1020138,
+      "sha256": "af64dfb2428fca505940b2508d2ca1cf0962274316929e85394732fbeebfecba"
+    },
+    {
+      "path": "construction/quartic-395-decimal.txt",
+      "bytes": 1019234,
+      "sha256": "b701fd0f019b32ec68b880a5f496804b12ad45135c4417b5b83acd44bd1af855"
+    },
+    {
+      "path": "construction/quartic-396-decimal.txt",
+      "bytes": 1018644,
+      "sha256": "4345c591e44c1f48bbbf7c93191962a0fcf59f38f5699512d55b9e74431d7eab"
+    },
+    {
+      "path": "construction/raw-ir.json",
+      "bytes": 1288895,
+      "sha256": "582c8bf2fcde54242bb23bf7aa33d3a7a9065f04b8edd885a13386b5b779b92c"
+    },
+    {
+      "path": "construction/raw-translated-ir.json",
+      "bytes": 1289554,
+      "sha256": "24824afcb99ebd7b4a266a43c5ae24fb98a3a2093de5ca17e00ca1e3720664ba"
+    },
+    {
+      "path": "construction/table-summary.json",
+      "bytes": 1441,
+      "sha256": "a328cab41deb255092fa1cffe0381f4204d4d2e0097ca2a159cf62efa5857a7c"
+    },
+    {
+      "path": "construction/text-table-summary.json",
+      "bytes": 3207,
+      "sha256": "52f90410c1dc31ee17f6f5ae25b9a59ae954f0e0a055dfe26da19d7b72db50ec"
+    }
+  ],
+  "committedTables": [
+    {
+      "committed": "tables/quartic-392-balanced-decimal.txt",
+      "generated": "construction/quartic-392-balanced-decimal.txt"
+    }
+  ],
+  "auditReports": [
+    "construction/independent-gate-check.json",
+    "construction/detector-source-check.json",
+    "construction/independent-final-symbolic-check.json",
+    "construction/ordinary392/specialization-report.json",
+    "audit/arithmetic-check.json",
+    "audit/delivered-quartics-check.json",
+    "audit/detector-independent-check.json",
+    "audit/diagonal-scaling-check.json",
+    "audit/geometry-check.json",
+    "audit/integrated-bridge-check.json",
+    "audit/parameter-binding-check.json",
+    "audit/scalar-independent-check.json",
+    "audit/scalar-second-review-check.json",
+    "audit/scaled-chain-independent-check.json"
+  ],
+  "diagnosticsNotByteCompared": [
+    "construction/compiled/compiler-report.json",
+    "construction/final/modulo-certificate.json",
+    "construction/final/polynomial/compiler-report.json",
+    "construction/final/verification.json",
+    "construction/ordinary394/polynomial/compiler-report.json",
+    "construction/ordinary395/polynomial/compiler-report.json",
+    "construction/ordinary396/polynomial/compiler-report.json"
+  ],
+  "diagnosticReason": "Timing fields or a hash of a timing-bearing certificate vary between runs. These diagnostics are regenerated and their mathematical content is independently checked, but their whole-file bytes are not golden outputs.",
+  "scope": "Reference bytes for exact finite mathematical outputs; audit success does not establish inherited global arithmetic."
+}

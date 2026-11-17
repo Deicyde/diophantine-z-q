@@ -1,0 +1,7 @@
+# summary of lake build ZInQKernel.Contrib.OneProof.GAGAMorphism (full log not committed: linter warnings)
+modules built: 398
+Build completed successfully (9854 jobs).
+
+real	17m31.220s
+user	71m27.208s
+sys	6m50.472s

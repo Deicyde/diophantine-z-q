@@ -1,0 +1,143 @@
+{
+  "date": "2026-11-08",
+  "observationCutoff": "PR descriptions/comments/reviews read after upstream #10 merge on 2026-11-08; no comments or submitted reviews observed on #8/#9/#11/#12. This is not a promise against later findings.",
+  "receivedAuditLocations": [
+    "Complete pr8 evidence/reviews and source manifests",
+    "Separate-agent reports and FINDINGS.json files in the reviews artifact group",
+    "User-supplied earlier estimates and retractions, extracted mathematically in the rejected-ports source packet; raw conversations excluded"
+  ],
+  "coverageLimit": "This ledger indexes received stack-level findings and linked detailed packet ledgers; it is not a new full audit of every historical package objection.",
+  "findings": [
+    {
+      "id": "old-pin-kato",
+      "status": "open-integration",
+      "concern": "The package pins Version10; Version11 repairs the Kato index/limiting-class route.",
+      "evidenceGroup": "import-comparison",
+      "disposition": "Prior repair located and interface comparison recorded; actual inherited application integration into the current manuscript remains pending. Local finite replays do not close this.",
+      "manuscriptDisposition": "pending"
+    },
+    {
+      "id": "global-inputs-and-coverage",
+      "status": "open",
+      "concern": "The proposed arithmetic interpretation retains 11 inherited input groups; full published-source application coverage is incomplete.",
+      "evidenceGroup": "pr8",
+      "disposition": "Keep mathematical assumptions separate from review coverage. Component reviews make no whole-proof or current-manuscript acceptance claim.",
+      "manuscriptDisposition": "pending"
+    },
+    {
+      "id": "423-overlap",
+      "status": "open-attribution",
+      "concern": "The package and Version13 both have 423-variable intermediates; their precise overlap is not established.",
+      "evidenceGroup": "pr8",
+      "disposition": "Retain provenance and do not add the package savings to Version13 reductions. No priority claim.",
+      "manuscriptDisposition": "pending"
+    },
+    {
+      "id": "chart-saving-estimate",
+      "status": "corrected-measured",
+      "concern": "An earlier unmeasured estimate suggested eight variables saved by a chart port.",
+      "evidenceGroup": "rejected-ports",
+      "disposition": "The exact implemented port has no variable saving and 194 fewer monomials. Retain measured source and previous research context; no general lower-bound claim.",
+      "manuscriptDisposition": "not an incorporated manuscript result"
+    },
+    {
+      "id": "rational-log-saving-estimate",
+      "status": "corrected-measured",
+      "concern": "An earlier unmeasured estimate suggested eight variables saved by a rational logarithm.",
+      "evidenceGroup": "rejected-ports",
+      "disposition": "The exact implemented port adds eight variables. The old polynomial-output slots were already removed by the compiler. No impossibility claim about other approximants.",
+      "manuscriptDisposition": "not an incorporated manuscript result"
+    },
+    {
+      "id": "preparation-zero-completeness",
+      "status": "reviewed-local",
+      "concern": "Dropping W=1+N requires a new real/finite completeness argument for the actual chain.",
+      "evidenceGroup": "reviews",
+      "disposition": "Separate preparation-zero report at the frozen pr12 commit checks the B^4 limit, finite squareclasses, CRT, density, actual shared point and consumers. Conditional local review only.",
+      "manuscriptDisposition": "pending"
+    },
+    {
+      "id": "all-primary-identities",
+      "status": "reviewed-local-exposition",
+      "concern": "The precision draft mentioned the input identity branch but needed explicit coverage for all primary identities.",
+      "evidenceGroup": "reviews",
+      "disposition": "The final precision proof at bc51100 explicitly treats all U_i=O; reviewer acknowledged exact updated proof/contract hashes. The reports are preserved unchanged.",
+      "manuscriptDisposition": "pending"
+    },
+    {
+      "id": "cost-neutral-higher-weight",
+      "status": "open-research",
+      "concern": "Implemented high orders46/47 add one weight coordinate per detector.",
+      "evidenceGroup": "precision",
+      "disposition": "Actual complete compiles give386 variables/646digits. Cost-neutral circuit remains open; no exhaustive optimality conclusion.",
+      "manuscriptDisposition": "pending"
+    },
+    {
+      "id": "v12-handoff-and-scope",
+      "status": "pending-independent-assessment",
+      "concern": "Merged protocol requires cumulative evidence and an independently assessed scope for non-release duties.",
+      "evidenceGroup": "reviews",
+      "disposition": "This handoff supplies profile, artifact representations, versioned evidence, findings and manifests. Final head/scope acknowledgment and readback are recorded separately. Required App check remains distinct.",
+      "manuscriptDisposition": "not a manuscript change"
+    },
+    {
+      "id": "external-delivery-review-coverage",
+      "status": "records-integrated-pending-scope-review",
+      "concern": "Some original assembled-manifest, patch-route and final-fresh-build reviews were outside the imported156-file overlay.",
+      "disposition": "Original external review records and validation JSON are now retained byte for byte in delivery-history; omitted distribution-only files and access limits are explicit in DELIVERY_SELECTION.json.",
+      "manuscriptDisposition": "not a manuscript change",
+      "evidence": "DELIVERY_SELECTION.json and delivery-history/MANIFEST.json"
+    },
+    {
+      "id": "historical-fresh-input-mutation",
+      "status": "historical-repair-present",
+      "concern": "Original wrapper probes found that copied builder/proof inputs could mutate while the original snapshot stayed unchanged.",
+      "historicalDisposition": "Prior repair and review located, not a new finding in this update.",
+      "disposition": "The retained wrapper rechecks every fresh seed as a regular non-symlink file with the declared size and hash after child success and before issuing the success receipt. The original review describes seven focused negative/positive mocks and overlapping45-case suite; later final-manifest and final-integration reviews bind the completed run. This update reads the actual existing repair and preserves its history, without generating fresh reviewer approval.",
+      "evidence": [
+        "delivery-history/reviews/package-integration-review-round8.txt:20-34",
+        "delivery-history/reviews/package-integration-review-round8.json:resolvedFinding",
+        "delivery-history/reviews/package-integration-final-review-round8.txt",
+        "delivery-history/reviews/final-pr-manifest-independent-review.json"
+      ],
+      "currentConsumer": "research/conditional-quartic-reduction/reproduce.py:177-180 and receipt creation after those checks",
+      "manuscriptDisposition": "not a manuscript change"
+    },
+    {
+      "id": "historical-stdout-truncation",
+      "status": "cause-unresolved; success-decision-dependency-removed",
+      "concern": "An earlier run had unexplained stdout truncation.",
+      "historicalDisposition": "Prior incident and mitigation located; no diagnosis or root-cause repair established.",
+      "disposition": "The retained wrapper bases success on exit status, structured completion, fresh-input integrity, artifact equality and audit reports. It records the stdout marker diagnostically. This removes the marker from the success authority but leaves the original truncation cause explicitly unresolved.",
+      "evidence": [
+        "delivery-history/reviews/package-integration-review-round8.txt:9-38",
+        "delivery-history/reviews/package-integration-final-review-round8.txt:47-48"
+      ],
+      "currentConsumer": "research/conditional-quartic-reduction/reproduce.py:174-221 and 230-231",
+      "manuscriptDisposition": "not a manuscript change"
+    },
+    {
+      "id": "historical-wrapper-four-findings",
+      "status": "historical-repairs-present",
+      "historicalDisposition": "Four prior findings and their individual reviewed resolutions located; retained current mechanisms read, not newly invented repairs.",
+      "concerns": [
+        "Symlinked source ancestors could reach regular files.",
+        "Generated outputs or PASS reports could be mislabeled build seeds.",
+        "PYTHONOPTIMIZE could disable assertion-based audits.",
+        "Timing-bearing outputs and transitive hashes were incorrectly described as deterministic."
+      ],
+      "disposition": "The retained wrapper rejects every symlink path component, limits/disjoins source seeds from generated/audit/reserved outputs, rejects optimized execution and strips PYTHONOPTIMIZE from the child, and excludes declared volatile diagnostics from byte equality while still rebuilding/checking them. The original round-seven31/51 counts are historical; the selected round-eight manifest has34 inputs and54 deterministic artifacts.",
+      "evidence": [
+        "research/conditional-quartic-reduction/evidence/arithmetic/pr-reproduction-review.json:resolvedFindings",
+        "research/conditional-quartic-reduction/evidence/arithmetic/wrapper-preliminary-findings.json",
+        "research/conditional-quartic-reduction/evidence/arithmetic/reproduction-volatile-outputs.json"
+      ],
+      "evidenceCommit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "currentConsumers": [
+        "research/conditional-quartic-reduction/reproduce.py:regular_file and validate_expected, optimization guard and child environment",
+        "research/conditional-quartic-reduction/EXPECTED_OUTPUTS.json:diagnosticsNotByteCompared and diagnosticReason"
+      ],
+      "manuscriptDisposition": "not a manuscript change"
+    }
+  ]
+}

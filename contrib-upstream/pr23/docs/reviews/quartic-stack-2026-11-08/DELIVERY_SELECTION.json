@@ -1,0 +1,301 @@
+{
+  "originalArchiveName": "glazer_389_draft_pr_package.zip",
+  "originalArchiveSha256": "688a9129bbb2523dba3d83d7184aea6414d011b7904dad1ea0c223361b34fc8a",
+  "coverage": "All external delivery review files, validation JSON and manifest/base/integrity records are preserved. The original complete zip and omitted distribution-only items are not published by this handoff; no claim of complete bundle publication or fresh historical patch replay. Payload files are already frozen in pr8.",
+  "files": [
+    {
+      "originalPath": "AGENT_HANDOFF.md",
+      "sha256": "4eabcb5156e4449ec706863fae81fc8652f79062d9c79b74f130f44b7d807735",
+      "bytes": 10308,
+      "publishedPath": null,
+      "status": "archive-only distribution patch, execution log or delivery instruction; not a public artifact or current reproduction input"
+    },
+    {
+      "originalPath": "MANIFEST.json",
+      "sha256": "51bfa5f5c73e34d1073abe65f2369750dd066ab5cb9ffbbd7682b7b02ae3aa14",
+      "bytes": 42408,
+      "publishedPath": "delivery-history/MANIFEST.json",
+      "status": "original bytes retained"
+    },
+    {
+      "originalPath": "PATCH_APPLICATION.json",
+      "sha256": "fe201baea3ca5befefb09b0b84d2f16bf64b5f55d7388287c84c51093261ec80",
+      "bytes": 755,
+      "publishedPath": "delivery-history/PATCH_APPLICATION.json",
+      "status": "original bytes retained"
+    },
+    {
+      "originalPath": "PR_BODY.md",
+      "sha256": "8d625f03513c48310ce28b5f840445f8c038e0ad64201c1985165d2926c336e3",
+      "bytes": 6566,
+      "publishedPath": null,
+      "status": "archive-only distribution patch, execution log or delivery instruction; not a public artifact or current reproduction input"
+    },
+    {
+      "originalPath": "PR_TITLE.txt",
+      "sha256": "3ca7eaf5835d61f074409737d70830eac05e9115032a039c92267106d8a48373",
+      "bytes": 62,
+      "publishedPath": null,
+      "status": "archive-only distribution patch, execution log or delivery instruction; not a public artifact or current reproduction input"
+    },
+    {
+      "originalPath": "START_HERE.md",
+      "sha256": "4d7b636e9564218b0741d8fb37e1bf289df716f7baa9830c52bb4245cad2ac45",
+      "bytes": 4050,
+      "publishedPath": null,
+      "status": "archive-only distribution patch, execution log or delivery instruction; not a public artifact or current reproduction input"
+    },
+    {
+      "originalPath": "UPSTREAM_BASE.json",
+      "sha256": "59d8e5732bf0021e05f8799392bf496b9666073371543eeb361edc98ee954d5c",
+      "bytes": 554,
+      "publishedPath": "delivery-history/UPSTREAM_BASE.json",
+      "status": "original bytes retained"
+    },
+    {
+      "originalPath": "VALIDATION.json",
+      "sha256": "d2ee62b1c5340870e99e76be4b51fe0b2bd59e4219e2e42959c2853a07c4fade",
+      "bytes": 2495,
+      "publishedPath": "delivery-history/VALIDATION.json",
+      "status": "original bytes retained"
+    },
+    {
+      "originalPath": "proposed-change.patch",
+      "sha256": "070acc6f6ef000c478436b9bca801b5cc9170e403496302649b83976fb47b630",
+      "bytes": 3686008,
+      "publishedPath": null,
+      "status": "archive-only distribution patch, execution log or delivery instruction; not a public artifact or current reproduction input"
+    },
+    {
+      "originalPath": "reviews/check_delivery_patch_scope_round8.py",
+      "sha256": "2557541868a2acf890f9046e8bafd479ee703b69d2751e8878d526810d559989",
+      "bytes": 9698,
+      "publishedPath": "delivery-history/reviews/check_delivery_patch_scope_round8.py",
+      "status": "original bytes retained"
+    },
+    {
+      "originalPath": "reviews/check_update_base_helper_round8.py",
+      "sha256": "58cfe57f511d9a4988b6826dfea76f8118d60d22c4bb20e3d3101e475063e140",
+      "bytes": 5440,
+      "publishedPath": "delivery-history/reviews/check_update_base_helper_round8.py",
+      "status": "original bytes retained"
+    },
+    {
+      "originalPath": "reviews/delivery-independent-review-round8.json",
+      "sha256": "f4e55cd07921918bd951df72b6473733bd5c036f77f33fa7a257aeac4faf8b1e",
+      "bytes": 3123,
+      "publishedPath": "delivery-history/reviews/delivery-independent-review-round8.json",
+      "status": "original bytes retained"
+    },
+    {
+      "originalPath": "reviews/delivery-independent-review-round8.txt",
+      "sha256": "3221d247dbfb9f2068db809ecc023a17c0142f0106f8415f8a9dc49d6712f708",
+      "bytes": 4263,
+      "publishedPath": "delivery-history/reviews/delivery-independent-review-round8.txt",
+      "status": "original bytes retained"
+    },
+    {
+      "originalPath": "reviews/delivery-patch-scope-review-round8.json",
+      "sha256": "cafc8f8cd1c2fcefc01441dbb74afd7faa5c752a647fb457dfaa68a5fb340269",
+      "bytes": 2628,
+      "publishedPath": "delivery-history/reviews/delivery-patch-scope-review-round8.json",
+      "status": "original bytes retained"
+    },
+    {
+      "originalPath": "reviews/documentation-final-review.json",
+      "sha256": "b7a7b1905e24478bf3d61f46666c6f83455263253612eaa621c59aec4b90751d",
+      "bytes": 9795,
+      "publishedPath": "delivery-history/reviews/documentation-final-review.json",
+      "status": "original bytes retained"
+    },
+    {
+      "originalPath": "reviews/documentation-final-review.txt",
+      "sha256": "ab10713429b5e9bf95747cc35a10f9411d79ab0e2bc83487366fa46af0b90b4b",
+      "bytes": 6860,
+      "publishedPath": "delivery-history/reviews/documentation-final-review.txt",
+      "status": "original bytes retained"
+    },
+    {
+      "originalPath": "reviews/final-pipeline-helpers-independent.json",
+      "sha256": "1e011b98a2b650501f8ef9ff257a2cf4489bc9dd5cdeb5958ecb9308a3a46d70",
+      "bytes": 3012,
+      "publishedPath": "delivery-history/reviews/final-pipeline-helpers-independent.json",
+      "status": "original bytes retained"
+    },
+    {
+      "originalPath": "reviews/final-pr-manifest-independent-review.json",
+      "sha256": "e78495fc509474726a04c0f1ee66beba73d78255428f5e79d7e57a3759c0563b",
+      "bytes": 13739,
+      "publishedPath": "delivery-history/reviews/final-pr-manifest-independent-review.json",
+      "status": "original bytes retained"
+    },
+    {
+      "originalPath": "reviews/package-integration-final-review-round8.json",
+      "sha256": "83f885a0cfb05397ca761abb39024f568abedd489fb73b5e7c359779193e4847",
+      "bytes": 3358,
+      "publishedPath": "delivery-history/reviews/package-integration-final-review-round8.json",
+      "status": "original bytes retained"
+    },
+    {
+      "originalPath": "reviews/package-integration-final-review-round8.txt",
+      "sha256": "c92435abf67286ac596fd633ff82d9d9cc97de43a8dde5e6b9278ee9334baee3",
+      "bytes": 3152,
+      "publishedPath": "delivery-history/reviews/package-integration-final-review-round8.txt",
+      "status": "original bytes retained"
+    },
+    {
+      "originalPath": "reviews/package-integration-review-round8.json",
+      "sha256": "af9d94c67a693a2334111a5022f16501599444c7f96f8be6944dc8ccd8ce8be4",
+      "bytes": 3326,
+      "publishedPath": "delivery-history/reviews/package-integration-review-round8.json",
+      "status": "original bytes retained"
+    },
+    {
+      "originalPath": "reviews/package-integration-review-round8.txt",
+      "sha256": "95bf50debf50dfde16fe3034f8e9b0ab92549272dfdb5e99742d40a12007cc56",
+      "bytes": 6584,
+      "publishedPath": "delivery-history/reviews/package-integration-review-round8.txt",
+      "status": "original bytes retained"
+    },
+    {
+      "originalPath": "reviews/patch-routes-independent-check.json",
+      "sha256": "042aad3868fd6528c54301a545500fc8466ff9329cb66d0f2334d042b454aea9",
+      "bytes": 21041,
+      "publishedPath": "delivery-history/reviews/patch-routes-independent-check.json",
+      "status": "original bytes retained"
+    },
+    {
+      "originalPath": "reviews/rejected-path-notes-round8.txt",
+      "sha256": "ba37a32b0369d531baeb78cecf269591344a7f5b443eb1d3f5051214b09c0221",
+      "bytes": 4625,
+      "publishedPath": "delivery-history/reviews/rejected-path-notes-round8.txt",
+      "status": "original bytes retained"
+    },
+    {
+      "originalPath": "reviews/update-base-helper-review-round8.json",
+      "sha256": "4f7039f10d5be4b9e1d07352f7fdd055a950cda7da2d99a039a410aa7a650bf8",
+      "bytes": 2391,
+      "publishedPath": "delivery-history/reviews/update-base-helper-review-round8.json",
+      "status": "original bytes retained"
+    },
+    {
+      "originalPath": "reviews/verify-update-base-independent-probes.json",
+      "sha256": "1d9ea4844a88fcf67053756544109b5c0b00021060b3cf5cfdf900ccf988422a",
+      "bytes": 2066,
+      "publishedPath": "delivery-history/reviews/verify-update-base-independent-probes.json",
+      "status": "original bytes retained"
+    },
+    {
+      "originalPath": "update-from-392.patch",
+      "sha256": "b2002eea250e697be649a40dd1176526d08baa037bd802d5d48e28812c6be664",
+      "bytes": 4227668,
+      "publishedPath": null,
+      "status": "archive-only distribution patch, execution log or delivery instruction; not a public artifact or current reproduction input"
+    },
+    {
+      "originalPath": "validation/fresh-construction.log",
+      "sha256": "6de5997a30c2de0756a934e5cf3717ccf203c154981633be9abd0b1dbd4ef251",
+      "bytes": 54835,
+      "publishedPath": null,
+      "status": "archive-only distribution patch, execution log or delivery instruction; not a public artifact or current reproduction input"
+    },
+    {
+      "originalPath": "validation/fresh-delivered-quartics-check.json",
+      "sha256": "b4424ee56bcc23da3b203e6208c9c694d235691290ca7a5a317291adf4906978",
+      "bytes": 14739,
+      "publishedPath": "delivery-history/validation/fresh-delivered-quartics-check.json",
+      "status": "original bytes retained"
+    },
+    {
+      "originalPath": "validation/fresh-diagonal-scaling-check.json",
+      "sha256": "56d754acd0509803b45fa5b33771b2c7565461056205dabb82f67451d7dcbd92",
+      "bytes": 3114,
+      "publishedPath": "delivery-history/validation/fresh-diagonal-scaling-check.json",
+      "status": "original bytes retained"
+    },
+    {
+      "originalPath": "validation/fresh-pipeline-completion.json",
+      "sha256": "680e7d4172b9631e967a31e3e1067fd1a80a8546b2b9ac8bae90e7a734ffc2bf",
+      "bytes": 738,
+      "publishedPath": "delivery-history/validation/fresh-pipeline-completion.json",
+      "status": "original bytes retained"
+    },
+    {
+      "originalPath": "validation/fresh-pipeline-progress.json",
+      "sha256": "a3a1260b02d0328157a32161f8762b89cf20cf6b4c624dcdf070e18cf00ee869",
+      "bytes": 719,
+      "publishedPath": "delivery-history/validation/fresh-pipeline-progress.json",
+      "status": "original bytes retained"
+    },
+    {
+      "originalPath": "validation/fresh-reproduction-receipt.json",
+      "sha256": "c3980b3f049522be4c2eda06f965f465cae648bbad40b4b5799bb5bed880e32a",
+      "bytes": 12573,
+      "publishedPath": "delivery-history/validation/fresh-reproduction-receipt.json",
+      "status": "original bytes retained"
+    },
+    {
+      "originalPath": "validation/fresh-wrapper.log",
+      "sha256": "ac94946d76505d470282bd2f18e1bea394deadc8fc9b4af6c03545b46adbc6a3",
+      "bytes": 421,
+      "publishedPath": null,
+      "status": "archive-only distribution patch, execution log or delivery instruction; not a public artifact or current reproduction input"
+    },
+    {
+      "originalPath": "validation/full-apply.log",
+      "sha256": "3906ac324cbad36e0cdac4b04d7396cd92c2e15b971cc252c256af62531b3a82",
+      "bytes": 702,
+      "publishedPath": null,
+      "status": "archive-only distribution patch, execution log or delivery instruction; not a public artifact or current reproduction input"
+    },
+    {
+      "originalPath": "validation/full-check.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "publishedPath": null,
+      "status": "archive-only distribution patch, execution log or delivery instruction; not a public artifact or current reproduction input"
+    },
+    {
+      "originalPath": "validation/incremental-apply.log",
+      "sha256": "668a877d7808b2e668085c624640d68bb9723f44c1248573c717a82bf87818ce",
+      "bytes": 462,
+      "publishedPath": null,
+      "status": "archive-only distribution patch, execution log or delivery instruction; not a public artifact or current reproduction input"
+    },
+    {
+      "originalPath": "validation/incremental-check.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "publishedPath": null,
+      "status": "archive-only distribution patch, execution log or delivery instruction; not a public artifact or current reproduction input"
+    },
+    {
+      "originalPath": "validation/selected-diagonal-certificate.json",
+      "sha256": "82f4e4a0b3c86eacbeded815f97ef0e46df3a553c82e9d8243ef671788ca0b24",
+      "bytes": 48248,
+      "publishedPath": "delivery-history/validation/selected-diagonal-certificate.json",
+      "status": "original bytes retained"
+    },
+    {
+      "originalPath": "validation/upstream-audit-history.log",
+      "sha256": "778f36f460ce8d240e0a1ba3778a09826bb515e511109eac642f89819dac0ed6",
+      "bytes": 104,
+      "publishedPath": null,
+      "status": "archive-only distribution patch, execution log or delivery instruction; not a public artifact or current reproduction input"
+    },
+    {
+      "originalPath": "verify_bundle.py",
+      "sha256": "3e5aea518ea8934494c6f2fb2088ecf164d7b2cc76ac1177311a15df8899de21",
+      "bytes": 1516,
+      "publishedPath": null,
+      "status": "archive-only distribution patch, execution log or delivery instruction; not a public artifact or current reproduction input"
+    },
+    {
+      "originalPath": "verify_update_base.py",
+      "sha256": "218c91ee3b9a1ad55eab56d14dcab6f5d8d2e77475c959e9f4f2857480d51afc",
+      "bytes": 2324,
+      "publishedPath": null,
+      "status": "archive-only distribution patch, execution log or delivery instruction; not a public artifact or current reproduction input"
+    }
+  ]
+}

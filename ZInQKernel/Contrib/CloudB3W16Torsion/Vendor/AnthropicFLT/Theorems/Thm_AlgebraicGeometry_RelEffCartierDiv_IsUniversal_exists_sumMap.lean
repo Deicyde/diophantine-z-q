@@ -1,0 +1,33 @@
+/-
+Vendored from anthropics/fermats-last-theorem @ 6e837e75355538c7f80bab5b956861e86c4eacc2.
+Original module: Theorems.Thm_AlgebraicGeometry_RelEffCartierDiv_IsUniversal_exists_sumMap. Apache-2.0.
+Modification notice (CloudB3 Worker16, 2026-11-16): relocated imports; removed
+nonessential negative-attribute and reactivation scaffolding; expanded namespace/open/export
+helpers to ordinary commands and resolved metadata aliases directly. Mathematical proof
+bodies retained, subject to documented Lean 4.35 API adaptations.
+Full original notices/credits: NOTICE.upstream, ATTRIBUTION.upstream.md, LICENSE in this vendor root.
+-/
+import Mathlib.AlgebraicGeometry.Morphisms.Smooth
+import Mathlib.AlgebraicGeometry.Morphisms.Separated
+import Mathlib.AlgebraicGeometry.Morphisms.UnderlyingMap
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_RelEffCartierDivSum
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_RelEffCartierDivFunctor
+import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.P2M.Sol.S_AlgebraicGeometry_RelEffCartierDiv_IsUniversal_exists_sumMap
+
+set_option backward.isDefEq.respectTransparency false
+
+set_option autoImplicit false
+
+universe u
+
+open CategoryTheory CategoryTheory.Limits open AlgebraicGeometry hiding prodKerGraph_comap_mapOnProdOver
+
+theorem AlgebraicGeometry.RelEffCartierDiv.IsUniversal.exists_sumMap
+    {𝒞 S : Scheme.{u}} {f : 𝒞 ⟶ S} [IsSeparated f] [SmoothOfRelativeDimension 1 f]
+    {r : ℕ} {Y : Scheme.{u}} {y : Y ⟶ S} {Duniv : RelEffCartierDiv f r y}
+    (hU : Duniv.IsUniversal) :
+    ∃ (σ : fibrePowOver f r ⟶ Y) (hσ : σ ≫ y = fibrePowOver.toBase f r),
+      Duniv.I.comap (mapOnProdOver f σ hσ) = fibrePowOver.tautIdeal f r ∧
+      IsFinite σ ∧ Flat σ ∧ LocallyOfFinitePresentation σ ∧ Surjective σ ∧
+      ∀ x : Y, σ.finrank x = r.factorial := by p2m_exact_reverting @_root_.P2MW.S_AlgebraicGeometry_RelEffCartierDiv_IsUniversal_exists_sumMap.solution

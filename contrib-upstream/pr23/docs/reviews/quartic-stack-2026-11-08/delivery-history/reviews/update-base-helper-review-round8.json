@@ -1,0 +1,55 @@
+{
+  "status": "PASS",
+  "helperPath": "/workspace/scratch/d64cf807c3ea/eighth-work/root/verify_update_base.py",
+  "helperSha256": "218c91ee3b9a1ad55eab56d14dcab6f5d8d2e77475c959e9f4f2857480d51afc",
+  "baselineManifestSha256": "f2d74ebd40b61a48b1b3d1ecdb55d2fda53f372a090fce8ec1fcd347e333bbd5",
+  "baselineFiles": 112,
+  "baselineManifestEntries": 111,
+  "cases": [
+    {
+      "case": "valid",
+      "exitCode": 0,
+      "stdout": "PASS: exact previous 392-variable overlay; 112 files and all byte hashes match.\nThis verifies the update base only; apply the patch and run current reproduction next.\n",
+      "stderr": "",
+      "checkoutUnchanged": true,
+      "unrelatedSentinelSha256": "5e62ea6bd8fd6e8b6dd7dca43395a3fa142414793c48aa4ec6f6a579ec80edcb"
+    },
+    {
+      "case": "wrong_manifest",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "FAIL: This is not the exact previous 392-variable manifest\n",
+      "checkoutUnchanged": true,
+      "unrelatedSentinelSha256": "5e62ea6bd8fd6e8b6dd7dca43395a3fa142414793c48aa4ec6f6a579ec80edcb"
+    },
+    {
+      "case": "changed_source",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "FAIL: Changed previous file: construction/builder.cjs\n",
+      "checkoutUnchanged": true,
+      "unrelatedSentinelSha256": "5e62ea6bd8fd6e8b6dd7dca43395a3fa142414793c48aa4ec6f6a579ec80edcb"
+    },
+    {
+      "case": "extra_file",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "FAIL: The previous overlay has missing or extra files\n",
+      "checkoutUnchanged": true,
+      "unrelatedSentinelSha256": "5e62ea6bd8fd6e8b6dd7dca43395a3fa142414793c48aa4ec6f6a579ec80edcb"
+    },
+    {
+      "case": "symlink_source",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "FAIL: Unexpected symbolic link: construction/builder.cjs\n",
+      "checkoutUnchanged": true,
+      "unrelatedSentinelSha256": "5e62ea6bd8fd6e8b6dd7dca43395a3fa142414793c48aa4ec6f6a579ec80edcb"
+    }
+  ],
+  "allFiveCheckoutsUnchanged": true,
+  "frozenBaselineUnchanged": true,
+  "probeDirectory": "/workspace/scratch/d64cf807c3ea/eighth-work/detector/delivery-probes/update-base-review-vokl88sk",
+  "checkerSha256": "58cfe57f511d9a4988b6826dfea76f8118d60d22c4bb20e3d3101e475063e140",
+  "scope": "One valid control and four focused rejection cases. Read-only helper review; no patch application or global arithmetic verification is claimed here."
+}

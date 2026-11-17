@@ -1,0 +1,13 @@
+{
+  "rowSpreadLowerBound": "1/3",
+  "fixedInputCoefficient": "-1/3",
+  "nonzeroDualMultipliers": {
+    "5146": "-2/3",
+    "5147": "-2/3",
+    "5155": "-2/3",
+    "5338": "-1/3",
+    "5343": "-1/3",
+    "5349": "-1/3"
+  },
+  "scope": "Exact certificate for powers-of-S diagonal scalings of these fixed residual rows; not global circuit optimality."
+}

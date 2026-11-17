@@ -1,0 +1,198 @@
+\section{A scalar norm tree with inverse weights}
+
+This replacement starts from the frozen fifth-round builder with SHA256
+\texttt{68cb3cb1a809766aa102b8c43444d8b38c02760751e773a960489c327e33c12b}.
+It preserves the scalar order twenty-eight while removing two rational
+coordinates after the full compiler. The point domains, the unnormalized
+scalar proxy, the five-contact height theorem, and the inherited global
+arithmetic inputs are unchanged. This is a transfer of the scalar
+soundness and completeness argument; it is not a bijection between all
+old and new scalar witness tuples.
+
+\subsection{The actual source equations}
+
+Retain
+\[
+ \beta=2401+2754(2X+1)^2,\qquad
+ r=\beta(\beta-1)(32\beta+343)>0.
+\]
+The scalar points are $H=[h]P$ and $Q=S-P=[a-1]P$, with
+$h\ne0$ and $a-1\ne0$. Their existing charts, including the rational
+inverse of $f(Q)_0$, are retained. In particular the removed identity
+output $S=P$ is still excluded; the tangent case $S=-P$ is retained.
+Write
+\[
+ (A,B,C,D_0)=\bigl(f(H)_0,f(H)_1,f(Q)_0,f(Q)_1\bigr),
+ \qquad T=\operatorname{Re}(k_Hw).
+\]
+Here $w=h_S\tau$, $\tau^2=f(Q)$, and $k_H=y(H)/x(H)$ are exactly
+the existing fifth-round functions. The letter $D_0$ in this section
+denotes a rational scalar coefficient, not the curve coefficient.
+
+Starting with the already required $q_1=r^{-1}$, use three Laurent
+steps rather than the former four power coordinates:
+\[
+ rq_3=q_1^2,\qquad rq_7=q_3^2,\qquad rq_{15}=q_7^2.
+\]
+Thus $\kappa=q_{15}=r^{-15}$. Introduce the scaled proxy by
+\[
+ ry=Tq_{15},\qquad\text{so }y=T/r^{16}.
+\]
+Keep the optimized left subtree, but change the weights in the right
+subtree and the final node:
+\begin{align*}
+ n_0&=1+A^2/r,&n_1&=B^2/r^2+C^2/r,\\
+ L&=n_0^2+r n_1^2,&J&=D_0^2+\kappa y^2,\\
+ W&=L^2+\kappa J^2.
+\end{align*}
+The outer scalar pole input remains exactly $b=42rW^2$.
+Since $r,\kappa>0$ at the real place, $n_0\ge1$, $L\ge1$ and
+$W\ge1$. All the existing absorption of $W^2$ into the pole variables
+therefore remains legitimate. No scalar pole equation is changed.
+
+Every displayed operation has a quadratic implementation. For $n_1$
+one retains $z=B/r$ and the equation $rn_1=zB+C^2$. The three later
+norm nodes each materialize the square of their right argument before
+multiplying it by $r$ or $q_{15}$. In particular no cubic product is
+silently inlined. The existing quadratic expression for $T$ is retained.
+
+\subsection{Soundness: inverse weights increase the right-branch bounds}
+
+Let $p$ be a consumed prime for $M_{\mathcal S}(\beta)$, where
+$\mathcal S$ is the already selected exceptional set. The earlier
+three-contact calculation gives
+\[
+ R=v_p(r)>0\quad\text{and}\quad R\text{ odd},
+\]
+and $42$ is a $p$-unit. The pole predicate and $b\ne0$ imply
+\[
+ R+2v_p(W)>0,\qquad v_p(W)>-R/2.
+\]
+Alternatively, if one starts with only oddness of $R$, the constant
+all-left path and the noncancellation calculation below give $v_p(W)\le0$,
+so the same pole implication first excludes $R<0$.
+
+For rational inputs, the two summands in
+$u^2+r v^2$ have opposite valuation parity, and so do the two summands
+in $u^2+r^{-15}v^2$. Consequently the valuation of either norm node is
+the minimum of its two summand valuations. This remains valid when one
+argument vanishes, with $v_p(0)=+\infty$.
+
+Descending first through $W=L^2+r^{-15}J^2$ gives
+\[
+ v_p(L)>-R/4,\qquad v_p(J)>29R/4.
+\]
+Descending through the retained left subtree gives
+\[
+ v_p(n_0)>-R/8,\qquad v_p(n_1)>-5R/8.
+\]
+Its two initial nodes then imply
+\[
+ v_p(A)>7R/16,\qquad
+ v_p(B)>11R/16,\qquad
+ v_p(C)>3R/16.
+\]
+The two summands of $n_1=B^2/r^2+C^2/r$ also have opposite valuation
+parity because $R$ is odd. The right subtree implies
+\[
+ v_p(D_0)>29R/8,\qquad v_p(y)>89R/8.
+\]
+All four coefficients of $f(H)$ and $f(Q)$ therefore have positive
+integer valuation. This puts both points in the formal group at every
+place above $p$, before any use of the proxy conclusion.
+
+Since $y=T/r^{16}$,
+\[
+ v_p(T)>\left(16+\frac{89}{8}\right)R=\frac{217}{8}R.
+\]
+In particular $v_p(T)\ge28$, as $R\ge1$ and the valuation of a
+nonzero rational number is integral. The fifth-round two-place proxy
+lemma now applies without alteration:
+\[
+ v_p(T)=v_p\bigl((a-1)/h\bigr).
+\]
+Its hypotheses have just been obtained from the first four scalar
+coefficients. That lemma covers split and inert places, including the
+nonunit fixed-coordinate case at 41. Since $h$ is a nonzero integer,
+\[
+ v_p(a-1)\ge28,
+ \qquad M_{\mathcal S}(\beta)^{28}\mid a-1.
+\]
+Thus the exact order-twenty-eight height consumer is preserved. There
+is no new exceptional prime, no use of an unproved exact proxy identity,
+and no need to modify any logarithm precision in this scalar argument.
+
+\subsection{Completeness and the order of choices}
+
+Fix an integral input, so $r$ is a fixed positive integer. The inherited
+scalar preparation first chooses $H=[h_0]P$ sufficiently deep at the
+finite prime support of $42r$, and then chooses $Q=[a-1]P$ sufficiently
+deeper. It permits arbitrary finite lower bounds on the coefficients of
+$f(H)$ and $f(Q)$ and on $T$: for fixed $H$, as $Q\to O$ one has
+$S\to P$, bounded $h_S$, and $w=h_S\tau\to0$, hence $T\to0$.
+
+Here are explicit sufficient new bounds at a prime $p\mid r$, with
+$R=v_p(r)\ge1$. Require
+\[
+ v_p(A),v_p(B),v_p(C)\ge R,\qquad
+ v_p(D_0)\ge4R+1,\qquad v_p(y)\ge12R+1.
+\]
+They give $n_0\equiv1\pmod p$, integral $n_1$, and
+$L\equiv1\pmod p$. Moreover
+\[
+ v_p(J)\ge\min(8R+2,9R+2)=8R+2,
+\]
+so $v_p(\kappa J^2)\ge R+4>0$, and $W\equiv1\pmod p$.
+The bound on $y$ amounts to the finite condition $v_p(T)\ge28R+1$.
+It can be imposed after $H$ is fixed. These bounds are compatible with
+all prior arbitrary divisibility and size requirements on the indices.
+
+At a prime dividing 42 but not $r$, both $r$ and $\kappa$ are units.
+Requiring the four scalar coefficients and $y$ to be divisible by $p$
+again gives $W\equiv1\pmod p$. These statements also cover the
+ramified and bad primes: the preparation uses sufficiently deep formal
+subgroups there, not the good-reduction valuation lemma used for
+soundness. At every other prime $42r$ is a unit and $W^2$ contributes
+even valuation, as in the original pole proof.
+
+Thus $b=42rW^2$ is positive, nonzero, has square reduced denominator,
+and has the same local squareclasses as $42r$ at $2,3,17$. The inherited
+scalar preparation and pole theorem supplies the witnesses. With $S$
+fixed, all changed leaves are rational functions of $H$ with nonzero
+denominators at the prepared point, so the finite lower bounds persist
+on a congruence class $h\equiv h_0\pmod L$. The roots and scales are
+fixed before the later contact-prime selection, exactly as before.
+
+\subsection{Measured cost, independent checks, and alternatives}
+
+The new power chain uses three coordinates in place of four. The old
+coordinate $f(Q)_1/r$ is deleted, since the right subtree now uses
+$D_0=f(Q)_1$ directly. All other scalar operations retain their former
+coordinate cost. The complete isolated pipeline gives
+\[
+ \text{raw }413/381,\qquad
+ \text{generic compiler }403/371,\qquad
+ \boxed{\text{final }399\text{ coordinates and }367\text{ residuals}}.
+\]
+The two numbers in the first two pairs are coordinates and residuals.
+The residuals are quadratic, hence their sum of squares is quartic.
+The independent gate replay checks all 352 gate identities and 340
+compiler operations. Four further certified eliminations give the
+stated final count. These are measurements of the actual implementation,
+not estimates from a list of algebraic abbreviations.
+
+The preceding all-inverse-weight prototype also worked, but replacing
+the left subtree as well lost one of its cheap quotient realizations.
+It compiled to 400/368 and is superseded by the mixed-weight tree.
+Simply replacing the old power chain by $r^{-31}$ can increase nominal
+precision but saves no coordinate; it does not exploit the valuation
+contribution of the two right norm edges. A direct replacement of all
+norm weights without rechecking the first four leaves or the final pole
+input would not justify the scalar consumer.
+
+The source checker reconstructs all changed scalar equations, the
+unchanged normalized scalar pole equations, the complete point and
+subtraction modules, the logarithm circuits, the proxy and its inverse
+guard. It also checks the exact affine valuation descent above. Its
+finite checks supplement this uniform proof and do not certify the
+inherited global arithmetic theorem.

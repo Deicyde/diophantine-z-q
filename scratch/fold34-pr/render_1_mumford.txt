@@ -1,0 +1,4 @@
+wrote docs/one-proof/OPEN.md
+wrote docs/one-proof/CONTRIBUTING.md
+wrote STATUS.md
+28 H hypotheses, strictest 10/18, 6 others

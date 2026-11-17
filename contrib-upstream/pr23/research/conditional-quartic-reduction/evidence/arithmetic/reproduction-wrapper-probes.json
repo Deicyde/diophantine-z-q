@@ -1,0 +1,497 @@
+{
+  "status": "PASS",
+  "wrapperSha256": "8d60c1e427081cf57c9d40869204753ccafbc21f74d322511fb565fb51035167",
+  "probeScriptSha256": "a4b560d98482138e584a6a520747fa590362392f970f5158a1a795731bd740f3",
+  "cases": 33,
+  "matched": 33,
+  "results": [
+    {
+      "case": "valid_fresh_output",
+      "expectedSuccess": true,
+      "observedSuccess": true,
+      "returnCode": 0,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "Rebuilding from 3 source/proof files in /workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/valid_fresh_output/output",
+        "PASS: 1 deterministic artifacts matched byte for byte; all exact audits passed.",
+        "Tracked proposal source files are unchanged.",
+        "Receipt: /workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/valid_fresh_output/output/reproduction-receipt.json"
+      ],
+      "logSha256": "1786d49ba8de2bba852af31dd2a00df63d40603307812f147322dfc5ce323051"
+    },
+    {
+      "case": "valid_existing_empty_output",
+      "expectedSuccess": true,
+      "observedSuccess": true,
+      "returnCode": 0,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "Rebuilding from 3 source/proof files in /workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/valid_existing_empty_output/output",
+        "PASS: 1 deterministic artifacts matched byte for byte; all exact audits passed.",
+        "Tracked proposal source files are unchanged.",
+        "Receipt: /workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/valid_existing_empty_output/output/reproduction-receipt.json"
+      ],
+      "logSha256": "c346503592002429db78a45bb79c62c7edc4a61be7aa442e143345743f623960"
+    },
+    {
+      "case": "valid_source_only_check",
+      "expectedSuccess": true,
+      "observedSuccess": true,
+      "returnCode": 0,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "PASS: 6 source/evidence files match the supplied snapshot."
+      ],
+      "logSha256": "d692b940609c1d0f1f4abd72750bbfc049b7f895e294a6c3d1a58de79565b66e"
+    },
+    {
+      "case": "subprocess_failure_despite_marker",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "Rebuilding from 3 source/proof files in /workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/subprocess_failure_despite_marker/output",
+        "PASS: fresh construction, every coefficient table, and every portable audit.",
+        "Construction or audit failed; complete log: /workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/subprocess_failure_despite_marker/output/construction.log"
+      ],
+      "logSha256": "8aea2225e02fddf5e2ac27d261a08723888ad99307bcba5fa583ded222ced214"
+    },
+    {
+      "case": "missing_success_marker",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/missing_success_marker/source/reproduce.py\", line 203, in <module>",
+        "    main()",
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/missing_success_marker/source/reproduce.py\", line 166, in main",
+        "    raise RuntimeError('The complete pipeline did not record its final success marker')",
+        "RuntimeError: The complete pipeline did not record its final success marker"
+      ],
+      "logSha256": "9f0b59c99af619faa74a5fdce3450ddfd4dd8f0c9ce69a2337620b04cc62736a"
+    },
+    {
+      "case": "artifact_mismatch",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/artifact_mismatch/source/reproduce.py\", line 203, in <module>",
+        "    main()",
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/artifact_mismatch/source/reproduce.py\", line 171, in main",
+        "    raise RuntimeError('Reconstructed artifact differs: '+item['path'])",
+        "RuntimeError: Reconstructed artifact differs: construction/artifact.txt"
+      ],
+      "logSha256": "223153ada706c71ab4a26f3a603802fbe171830811225201b5c9932c2e6f9534"
+    },
+    {
+      "case": "committed_table_mismatch",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/committed_table_mismatch/source/reproduce.py\", line 203, in <module>",
+        "    main()",
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/committed_table_mismatch/source/reproduce.py\", line 175, in main",
+        "    raise RuntimeError('Committed coefficient table differs from its reconstruction')",
+        "RuntimeError: Committed coefficient table differs from its reconstruction"
+      ],
+      "logSha256": "efd9f40de2e9d2ac3e3616e4841aeed9c863758f005fe7fdd0dfee198ae007e7"
+    },
+    {
+      "case": "failed_audit_status",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/failed_audit_status/source/reproduce.py\", line 203, in <module>",
+        "    main()",
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/failed_audit_status/source/reproduce.py\", line 184, in main",
+        "    raise RuntimeError('Missing successful audit status: '+name)",
+        "RuntimeError: Missing successful audit status: audit/fixture-check.json"
+      ],
+      "logSha256": "88bab927b3100a1fc945ce71bf5829485e6a54769fc0c4bf9a4d4042ef91340b"
+    },
+    {
+      "case": "missing_audit_report",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    report_path = regular_file(output, relative_path(name))",
+        "                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/missing_audit_report/source/reproduce.py\", line 40, in regular_file",
+        "    raise ValueError('Missing or escaping artifact: '+str(relative))",
+        "ValueError: Missing or escaping artifact: audit/fixture-check.json"
+      ],
+      "logSha256": "3878cba8dcb7253da3b9ce32751662afe6797f42a00d41abed0f4b5ce42081cf"
+    },
+    {
+      "case": "source_changed_during_build",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    _, after_hash = verify_snapshot()",
+        "                    ^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/source_changed_during_build/source/reproduce.py\", line 73, in verify_snapshot",
+        "    raise ValueError('Source snapshot changed: '+str(path))",
+        "ValueError: Source snapshot changed: proofs/input.tex"
+      ],
+      "logSha256": "a90595908f9fa451e00bf8edc26768925c739effd3aaab5952296eecd10a4fbb"
+    },
+    {
+      "case": "manifest_changed_during_build",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/manifest_changed_during_build/source/reproduce.py\", line 203, in <module>",
+        "    main()",
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/manifest_changed_during_build/source/reproduce.py\", line 178, in main",
+        "    raise RuntimeError('Tracked source manifest changed during the build')",
+        "RuntimeError: Tracked source manifest changed during the build"
+      ],
+      "logSha256": "8139d50874fe17eb8de9535977988ebaba516fdbcc850496a48ff3edded7af84"
+    },
+    {
+      "case": "nonempty_output_is_preserved",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/nonempty_output_is_preserved/source/reproduce.py\", line 203, in <module>",
+        "    main()",
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/nonempty_output_is_preserved/source/reproduce.py\", line 142, in main",
+        "    raise ValueError('Output directory is not empty; select a fresh --output path')",
+        "ValueError: Output directory is not empty; select a fresh --output path"
+      ],
+      "logSha256": "90b8110b43f79d3be04b81fc928430ac7f65dbcdbc9a8e3dad7210d5ba9bd614"
+    },
+    {
+      "case": "output_inside_source",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/output_inside_source/source/reproduce.py\", line 203, in <module>",
+        "    main()",
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/output_inside_source/source/reproduce.py\", line 140, in main",
+        "    raise ValueError('Output must be outside the tracked proposal source directory')",
+        "ValueError: Output must be outside the tracked proposal source directory"
+      ],
+      "logSha256": "db2e7e1b379a9d69a7376009d555ee8095b932b6c47989ee939662acfa819d1f"
+    },
+    {
+      "case": "source_symlink_file",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    actual = regular_file(HERE, path)",
+        "             ^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/source_symlink_file/source/reproduce.py\", line 38, in regular_file",
+        "    raise ValueError('Symbolic link is not an input or output artifact: '+str(relative))",
+        "ValueError: Symbolic link is not an input or output artifact: proofs/input.tex"
+      ],
+      "logSha256": "39769a9d3b6d8fda011d2adaab98bdc343664c1244141e74985d5ba704ba9773"
+    },
+    {
+      "case": "source_symlink_ancestor",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    actual = regular_file(HERE, path)",
+        "             ^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/source_symlink_ancestor/source/reproduce.py\", line 38, in regular_file",
+        "    raise ValueError('Symbolic link is not an input or output artifact: '+str(relative))",
+        "ValueError: Symbolic link is not an input or output artifact: proofs/input.tex"
+      ],
+      "logSha256": "b718bb4b4b084e243bbb08104fbbd798a2cf0d819217d4a0622560ab6f6d6246"
+    },
+    {
+      "case": "seeded_generated_output_and_audit",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    expected = validate_expected(manifest)",
+        "               ^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/seeded_generated_output_and_audit/source/reproduce.py\", line 92, in validate_expected",
+        "    raise ValueError('Only construction/checker source and proof text may seed a build: '+str(path))",
+        "ValueError: Only construction/checker source and proof text may seed a build: audit/fixture-check.json"
+      ],
+      "logSha256": "e4fe332e3b27b48ffcefcc8a83a2a5da78c76db10e2ef479f7c949e1770daf0f"
+    },
+    {
+      "case": "unlisted_generated_intermediate_seed",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    expected = validate_expected(manifest)",
+        "               ^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/unlisted_generated_intermediate_seed/source/reproduce.py\", line 92, in validate_expected",
+        "    raise ValueError('Only construction/checker source and proof text may seed a build: '+str(path))",
+        "ValueError: Only construction/checker source and proof text may seed a build: construction/stale-ir.json"
+      ],
+      "logSha256": "1f4544affeacb8087c38280c6544dad377ca88da2938d8b12acba714bffe3c8c"
+    },
+    {
+      "case": "reserved_receipt_seed",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    expected = validate_expected(manifest)",
+        "               ^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/reserved_receipt_seed/source/reproduce.py\", line 92, in validate_expected",
+        "    raise ValueError('Only construction/checker source and proof text may seed a build: '+str(path))",
+        "ValueError: Only construction/checker source and proof text may seed a build: reproduction-receipt.json"
+      ],
+      "logSha256": "7efb9dc56ea584941b89b5dcddd68c329c9711bba9356220e336c2699cd2dff1"
+    },
+    {
+      "case": "wrong_expected_format",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    expected = validate_expected(manifest)",
+        "               ^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/wrong_expected_format/source/reproduce.py\", line 82, in validate_expected",
+        "    raise ValueError('Unknown expected-output manifest format')",
+        "ValueError: Unknown expected-output manifest format"
+      ],
+      "logSha256": "b8faba297bea7c7a1b7fa4e8fcdc854be897b9a853b9e2e2c216624b0bfc4ab6"
+    },
+    {
+      "case": "duplicate_source_path",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    paths = file_records(manifest['files'], 'source')",
+        "            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/duplicate_source_path/source/reproduce.py\", line 51, in file_records",
+        "    raise ValueError('Duplicate '+label+' path: '+str(path))",
+        "ValueError: Duplicate source path: reproduce.py"
+      ],
+      "logSha256": "c460eb7dc3642573fc2bc894121daedad666bc429427f39c5ffe4fb433970d97"
+    },
+    {
+      "case": "duplicate_expected_path",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    generated = file_records(expected['files'], 'output')",
+        "                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/duplicate_expected_path/source/reproduce.py\", line 51, in file_records",
+        "    raise ValueError('Duplicate '+label+' path: '+str(path))",
+        "ValueError: Duplicate output path: construction/artifact.txt"
+      ],
+      "logSha256": "747c2b49f24aa6ffe6f74e8293e80417988a4e822a161caaf7ad484681ba6684"
+    },
+    {
+      "case": "duplicate_audit_path",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    expected = validate_expected(manifest)",
+        "               ^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/duplicate_audit_path/source/reproduce.py\", line 98, in validate_expected",
+        "    raise ValueError('Duplicate audit report path')",
+        "ValueError: Duplicate audit report path"
+      ],
+      "logSha256": "6a97300428984c1bffe4df169c801d7cb815926dedf4bff2a796d9951293bfdd"
+    },
+    {
+      "case": "duplicate_committed_table",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    expected = validate_expected(manifest)",
+        "               ^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/duplicate_committed_table/source/reproduce.py\", line 111, in validate_expected",
+        "    raise ValueError('Duplicate committed table: '+str(src))",
+        "ValueError: Duplicate committed table: tables/fixture-table.txt"
+      ],
+      "logSha256": "189c79527592f759f111dd6a4ba4dac15f13f7e7b3621adebc4f65f4810b2262"
+    },
+    {
+      "case": "empty_expected_files",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    generated = file_records(expected['files'], 'output')",
+        "                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/empty_expected_files/source/reproduce.py\", line 46, in file_records",
+        "    raise ValueError(label+' must contain a nonempty file list')",
+        "ValueError: output must contain a nonempty file list"
+      ],
+      "logSha256": "c709c0299d075a5e8c700681f0f9186a2807620872e78868147f73af7d6f2655"
+    },
+    {
+      "case": "empty_committed_tables",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    expected = validate_expected(manifest)",
+        "               ^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/empty_committed_tables/source/reproduce.py\", line 106, in validate_expected",
+        "    raise ValueError('Committed tables must be a nonempty list')",
+        "ValueError: Committed tables must be a nonempty list"
+      ],
+      "logSha256": "cadb9ba1a3a5b2019ed8fdf35e92ac1f403b10682e9f2571a7fcc78ea10dd92c"
+    },
+    {
+      "case": "empty_audit_reports",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    expected = validate_expected(manifest)",
+        "               ^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/empty_audit_reports/source/reproduce.py\", line 95, in validate_expected",
+        "    raise ValueError('Expected audit reports must be a nonempty list')",
+        "ValueError: Expected audit reports must be a nonempty list"
+      ],
+      "logSha256": "2f0a643d9b6d03391e71bb8733dbb206b53b62ce057f9f530306501dba3e6c52"
+    },
+    {
+      "case": "unbound_expected_manifest",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    manifest, manifest_hash = verify_snapshot()",
+        "                              ^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/unbound_expected_manifest/source/reproduce.py\", line 68, in verify_snapshot",
+        "    raise ValueError('The wrapper and expected outputs must be source-manifest-bound')",
+        "ValueError: The wrapper and expected outputs must be source-manifest-bound"
+      ],
+      "logSha256": "262e64431410169277ade5acd71a839d34cc9ed4372dc98a6a13bce97705836e"
+    },
+    {
+      "case": "unbound_wrapper",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    manifest, manifest_hash = verify_snapshot()",
+        "                              ^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/unbound_wrapper/source/reproduce.py\", line 68, in verify_snapshot",
+        "    raise ValueError('The wrapper and expected outputs must be source-manifest-bound')",
+        "ValueError: The wrapper and expected outputs must be source-manifest-bound"
+      ],
+      "logSha256": "fa5400fd722a83d91543ba89853b9fa87229baee74d9c26dfae70745040415e0"
+    },
+    {
+      "case": "source_path_traversal",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    path = relative_path(item['path'])",
+        "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/source_path_traversal/source/reproduce.py\", line 28, in relative_path",
+        "    raise ValueError('Invalid manifest path: '+value)",
+        "ValueError: Invalid manifest path: ../external/input.tex"
+      ],
+      "logSha256": "6df4f863bcda95d456b7ab87b8e8b488986ab7be3f199584d462ce6e0f0e50ab"
+    },
+    {
+      "case": "source_hash_mismatch",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    manifest, manifest_hash = verify_snapshot()",
+        "                              ^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/source_hash_mismatch/source/reproduce.py\", line 73, in verify_snapshot",
+        "    raise ValueError('Source snapshot changed: '+str(path))",
+        "ValueError: Source snapshot changed: proofs/input.tex"
+      ],
+      "logSha256": "390d392e55fc526edd0e3a37033f1e639ce1ab30a692fd2c0b8560eb3a1c9df8"
+    },
+    {
+      "case": "optimized_failing_assertion",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/optimized_failing_assertion/source/reproduce.py\", line 203, in <module>",
+        "    main()",
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/optimized_failing_assertion/source/reproduce.py\", line 128, in main",
+        "    raise RuntimeError('Run without -O or PYTHONOPTIMIZE; exact audits require Python assertions')",
+        "RuntimeError: Run without -O or PYTHONOPTIMIZE; exact audits require Python assertions"
+      ],
+      "logSha256": "1b5b7210cc69b07645d0d327b16f8bac9500cacd8d3e36a855f069941424f783"
+    },
+    {
+      "case": "child_assertions_enabled_when_wrapper_ignores_environment",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/child_assertions_enabled_when_wrapper_ignores_environment/output/construction/reproduce.py\", line 4, in <module>",
+        "    assert False, 'mandatory fixture assertion must fail'",
+        "           ^^^^^",
+        "AssertionError: mandatory fixture assertion must fail",
+        "Construction or audit failed; complete log: /workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/child_assertions_enabled_when_wrapper_ignores_environment/output/construction.log"
+      ],
+      "logSha256": "b854d7bf52193d1476312aa17838420cce11363312a756934823f9ec28ed15ce"
+    },
+    {
+      "case": "generated_artifact_symlink",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    path = regular_file(output, relative_path(item['path']))",
+        "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/seventh-work/arithmetic/wrapper-probes-final/probe-5c4edyi2/generated_artifact_symlink/source/reproduce.py\", line 38, in regular_file",
+        "    raise ValueError('Symbolic link is not an input or output artifact: '+str(relative))",
+        "ValueError: Symbolic link is not an input or output artifact: construction/artifact.txt"
+      ],
+      "logSha256": "0545620913874d87957a9748b391fb54b9d104dd2eb00269d0aff387f919f7de"
+    }
+  ],
+  "scope": "Isolated mock builders test wrapper validation, fresh-output discipline and failure propagation. These probes do not execute or certify the mathematical construction; its real fresh reproduction is separate."
+}

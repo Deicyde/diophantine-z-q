@@ -1,0 +1,104 @@
+{
+  "format": "higher-orders-findings-v1",
+  "date": "2026-11-09",
+  "findings": [
+    {
+      "id": "HIGH01",
+      "title": "Scalar47 is a new application",
+      "historicalDisposition": "prior components found",
+      "argument": "Same kappa, new proxy denominator r^32 gives strict1475/32. Both-place proxy at41 and stronger finite preparation48R+1 are written explicitly.",
+      "status": "Author argument; independent review pending",
+      "manuscriptDisposition": "Pending; current Version13 unchanged",
+      "evidence": [
+        "PROOF.md",
+        "HANDOFF.md",
+        "check_higher.py",
+        "../scalar-row-reduction/prior-investigation/INVENTORY.json"
+      ]
+    },
+    {
+      "id": "HIGH02",
+      "title": "Higher-order detector and precision consumers",
+      "historicalDisposition": "prior components found",
+      "argument": "Inverse-seventh chain is valid on positive q1; normalization at50 and entire precision51 argument cover actual ratios and identity branches.",
+      "status": "Author argument; independent review pending",
+      "manuscriptDisposition": "Pending; current Version13 unchanged",
+      "evidence": [
+        "PROOF.md",
+        "HANDOFF.md",
+        "check_higher.py",
+        "../scalar-row-reduction/prior-investigation/INVENTORY.json"
+      ]
+    },
+    {
+      "id": "HIGH03",
+      "title": "Anchor and all margins",
+      "historicalDisposition": "prior components found",
+      "argument": "E1512 permits2*3^755; scalar47,Lucas50,input12 exact endpoints and uniform monotonicity checked. Original estimated floor replaced by exact checks.",
+      "status": "Finite evidence plus author proof; review pending",
+      "manuscriptDisposition": "Pending; current Version13 unchanged",
+      "evidence": [
+        "PROOF.md",
+        "HANDOFF.md",
+        "check_higher.py",
+        "../scalar-row-reduction/prior-investigation/INVENTORY.json"
+      ]
+    },
+    {
+      "id": "HIGH04",
+      "title": "Changed scalar N and pole inputs",
+      "historicalDisposition": "earlier scope distinction retained",
+      "argument": "Only formulas outside listed rows agree. Evaluated N,W,trace,B change; completeness reconstructs private witnesses.",
+      "status": "Addressed in present proof; review pending",
+      "manuscriptDisposition": "Pending; current Version13 unchanged",
+      "evidence": [
+        "PROOF.md",
+        "HANDOFF.md",
+        "check_higher.py",
+        "../scalar-row-reduction/prior-investigation/INVENTORY.json"
+      ]
+    },
+    {
+      "id": "HIGH05",
+      "title": "Misleading inherited W>=1 comment",
+      "historicalDisposition": "prior preparation-zero correction located",
+      "argument": "Actual source has W=N>0. Third generated builder corrects stale comment; no changed mathematical assumption.",
+      "status": "Editorial correction, exact source checker compares actual rows",
+      "manuscriptDisposition": "Pending; current Version13 unchanged",
+      "evidence": [
+        "PROOF.md",
+        "HANDOFF.md",
+        "check_higher.py",
+        "../scalar-row-reduction/prior-investigation/INVENTORY.json"
+      ]
+    },
+    {
+      "id": "HIGH06",
+      "title": "Rejected alternatives and optimality",
+      "historicalDisposition": "prior corrections and negative evidence retained",
+      "argument": "No tau,changed anchor rows or dropped formal tests used. Six-gate obstruction restricted to specified model; no global optimum claimed.",
+      "status": "Deferred unchanged; no acceptance of rejected alternatives",
+      "manuscriptDisposition": "Pending; current Version13 unchanged",
+      "evidence": [
+        "PROOF.md",
+        "HANDOFF.md",
+        "check_higher.py",
+        "../scalar-row-reduction/prior-investigation/INVENTORY.json"
+      ]
+    },
+    {
+      "id": "HIGH07",
+      "title": "Inherited global and release closure",
+      "historicalDisposition": "inherited unresolved",
+      "argument": "Global published-source checks, Kato/current-source integration,current manuscript,historical stdout incident and designated App acceptance remain separate.",
+      "status": "Open outside conditional local claim",
+      "manuscriptDisposition": "Pending; current Version13 unchanged",
+      "evidence": [
+        "PROOF.md",
+        "HANDOFF.md",
+        "check_higher.py",
+        "../scalar-row-reduction/prior-investigation/INVENTORY.json"
+      ]
+    }
+  ]
+}

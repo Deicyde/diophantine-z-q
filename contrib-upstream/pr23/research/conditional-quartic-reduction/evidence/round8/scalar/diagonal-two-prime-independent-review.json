@@ -1,0 +1,112 @@
+{
+  "format": "round8-independent-diagonal-review-v1",
+  "disposition": "ACCEPT",
+  "scope": "Exact finite input-fixed rational diagonal equivalence and complete coefficient verification; inherited global arithmetic remains conditional.",
+  "reviewerRole": "Separately authored scalar/geometry review lane; imports no producer, builder, compiler or other checker.",
+  "expected": {
+    "anchorExponent": 2364,
+    "coordinates": 389,
+    "residuals": 357,
+    "degree": 4,
+    "monomials": 26295,
+    "maximumCoefficientDigits": 757,
+    "maximumCoefficientBits": 2513,
+    "maximumAbsoluteCoefficient": "28902*3^1576"
+  },
+  "reviewPoints": [
+    "All thirteen coordinate factors are nonzero rationals; twelve ternary and two dyadic with one overlap; the input is fixed.",
+    "Decoded semantic first height scale is A=4*old_x238=2^-19*new_y238; no square claim is imposed on new_y238.",
+    "All 357 primitive integer rows and nonzero rational divisors reconstructed independently by pivot ratios.",
+    "Five noninteger row divisors have reduced denominators 2^21 three times, 2^42 once and 2^13 once.",
+    "Full SOS compared coefficient by coefficient using unordered term pairs, then every decimal table coefficient checked.",
+    "All 389 coordinates active, degree four, content one, X^4 coefficient one, exact maximum verified.",
+    "Six negative probes rejected, including coefficient tampering with its advertised polynomial hash rebound.",
+    "Integrated detector conservation independently passed 157 assertions against the regenerated round-seven baseline at explicit exponent2364."
+  ],
+  "notEstablished": [
+    "The inherited global arithmetic theorem or unconditional Diophantine definability of Z in Q.",
+    "A complete Lean formalization, external peer review, optimality, publication, or public repository action."
+  ],
+  "fileBindings": {
+    "proof": {
+      "name": "proofs/diagonal_scaling_round8.tex",
+      "sha256": "0115c276febf3b06b46462d06aa862714456f78790e5ec6bd68ac938db8b2e50"
+    },
+    "producer": {
+      "name": "construction/balance_coefficients.py",
+      "sha256": "9e9a7ebcb3e4be58862381c2b51f85352ba4b688495912da2585b1ad37973a63"
+    },
+    "checker": {
+      "name": "check_diagonal_scaling_round8.py",
+      "sha256": "506da8992d048bc16f5df0a1cde9226201dff9d8169d2d0bbc92b12d10cd4f64"
+    },
+    "independentWrittenReview": {
+      "name": "diagonal-two-prime-independent-review.txt",
+      "sha256": "be3475e8326747a2ae63f4de09eb48f7f67871b0b438a8fb3ac635a8858c3876"
+    },
+    "integratedDiagonalReport": {
+      "name": "diagonal-two-prime-integrated-check.json",
+      "sha256": "56d754acd0509803b45fa5b33771b2c7565461056205dabb82f67451d7dcbd92"
+    },
+    "negativeProbeReport": {
+      "name": "diagonal-two-prime-negative-probes.json",
+      "sha256": "240caf1e328a9c84a6ba810784603bbcebebacebf9d19d688d9601cd87644a07"
+    },
+    "integratedDetectorReport": {
+      "name": "detector-promotion-integrated-check.json",
+      "sha256": "e91f530ef6d0fd5f6f1cc0bc28e6beb7fdbc869cc8a59fdbd0df111191a870bc"
+    },
+    "detectorChecker": {
+      "name": "check_detector_promotion_independent.py",
+      "sha256": "b22c88d2cdec10d0eeef157b5d3a2b5e889ed223f3782d7095c1dfa193c28aca"
+    },
+    "detectorProof": {
+      "name": "proofs/detector_round8.tex",
+      "sha256": "150b79708b8088d1c75641571277eecf452fe72b7c729cc4fe783e4da76b83bb"
+    },
+    "priorDetectorWrittenReview": {
+      "name": "detector-promotion-independent-review.txt",
+      "sha256": "cfc85378eef5d0d08b906af2745e7bd45166483430c09ee5f6f6c396ba3d04f9"
+    },
+    "baselineBuilder": {
+      "name": "construction/reference_round7/builder.cjs",
+      "sha256": "78b54bcde24ff8a91091e102a4734c49878699f071d9230e5ce7a70ffd2114d0"
+    },
+    "baselineRawIr": {
+      "name": "construction/reference_round7/raw-ir.json",
+      "sha256": "582c8bf2fcde54242bb23bf7aa33d3a7a9065f04b8edd885a13386b5b779b92c"
+    },
+    "builder": {
+      "name": "construction/builder.cjs",
+      "sha256": "b4bf6af38a7620a5b6a572039da4fcb22cd6f4ce006c439d89588c1259231f3b"
+    },
+    "rawIr": {
+      "name": "construction/raw-ir.json",
+      "sha256": "1095bc2ea475835b942606c21440d3b44492918aabd6554637a3c413c7b338b6"
+    },
+    "sourceIr": {
+      "name": "construction/final/integer-candidate-ir.json",
+      "sha256": "1e9071816ccb40d562545be08f21ccac76813a64796173d155d0d3ae7dbebb50"
+    },
+    "balancedIr": {
+      "name": "construction/balanced/integer-ir.json",
+      "sha256": "fc0a1412f1463762994207e0ed55a311095c5079180d28bc48f0e984c516619f"
+    },
+    "balancedPolynomial": {
+      "name": "construction/balanced/polynomial.json",
+      "sha256": "00e436b5ded71fe24975fb2ec913ade44255f033a556fcfae84ae7513366c752"
+    },
+    "certificate": {
+      "name": "construction/balanced/diagonal-certificate.json",
+      "sha256": "82f4e4a0b3c86eacbeded815f97ef0e46df3a553c82e9d8243ef671788ca0b24"
+    },
+    "summary": {
+      "name": "construction/balanced/summary.json",
+      "sha256": "cd53a62432df98a531e0f5799835ba54fefe18d914aefbc1416c8d544aa0af1b"
+    },
+    "decimalTable": {
+      "name": "construction/quartic-389-balanced-decimal.txt",
+      "sha256": "1c612d20915667dfd81a7895f8d93231d5efeaf86ecfaa15194408d298d35573"
+    }
+  }
+}

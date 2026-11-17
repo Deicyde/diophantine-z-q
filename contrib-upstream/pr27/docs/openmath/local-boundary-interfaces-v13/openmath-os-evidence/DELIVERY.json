@@ -1,0 +1,11 @@
+{
+  "review_head": "3e01aa877cd7434fdc759fe7b6a9271de6deff2e",
+  "fork_merge_commit": "b6223977015d6f25baf613d0c88a5c83050f9c84",
+  "raw_ndjson_sha256": "4dca1de2e2450011f8ec32eb8cd9c17b531c7fbedd813ce75b0221dfe30e42aa",
+  "zip_sha256": "15e2f2fb5d5f26202ea22baa38dfce23bc84a8207c70d5ea2fed38f1d53d8244",
+  "file_manifest_excluded": [
+    "EVIDENCE_MANIFEST.sha256"
+  ],
+  "export_transport": "ZIP with byte-identical packet.ndjson payload",
+  "file_count_excluding_manifest": 72
+}

@@ -1,0 +1,97 @@
+{
+  "status": "ACCEPT_REVIEWED_SOURCES_AND_FINITE_CHECKS_PENDING_FINAL_MANIFEST",
+  "reviewerLane": "round8_arithmetic",
+  "sources": [
+    {
+      "path": "reproduce.py",
+      "sha256": "a660293cc6fa97a55d8d3635645f666fd1c6b52d96276ec768b4a3faedecc3ae"
+    },
+    {
+      "path": "construction/reproduce.py",
+      "sha256": "1ab289dccfb5c2ce671548ee0fdb0485047adadac6e0639798800163126fde0a"
+    },
+    {
+      "path": "construction/verify_package.py",
+      "sha256": "98b349d31773b0c993c1e4f94977cd7721a61de01a5ba93ec40e6b26ebe543c4"
+    },
+    {
+      "path": "audit/check_scaled_chains_independent.py",
+      "sha256": "c5b6c0de2d40cef39a53c0cc15bd0f358cfd614fca8dd2d2cb916dfb20b7505b"
+    },
+    {
+      "path": "audit/check_delivered_quartics_round8.py",
+      "sha256": "481587f5d3c6c490a2981e0413a392eebf99e4eae73592728f17579d778d5452"
+    },
+    {
+      "path": "review_tools/check_pr_reproduction_manifest.py",
+      "sha256": "df2154fe0583d0a84445631ff37e978c05aee01a2d1cc95c1ccb7872ecdc0428"
+    }
+  ],
+  "independentReviewCheckers": [
+    {
+      "path": "check_structured_wrapper_independent.py",
+      "sha256": "95baeaec4d8e8dca33c94cb5a4cc6edc9dd837a66c71830c9a2c6f3c91be3536"
+    },
+    {
+      "path": "check_pipeline_helpers_independent.py",
+      "sha256": "906b7afe0044111e25e497d3731d4f650829163295f52bb750b209e11d9bc8cc"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "structured-wrapper-independent-probes-fixed.json",
+      "sha256": "e7401b016f06da99063527c133d82687f4281bba7cd79d263c4c30b9c05b58d3"
+    },
+    {
+      "path": "root-wrapper-probes-fixed.json",
+      "sha256": "d954f6a86a636b85898ef5c416f365e97fcb5ca6f2d5b3d96ba26398444baf6a"
+    },
+    {
+      "path": "pipeline-helpers-independent-round8-final-source.json",
+      "sha256": "9ea1400ae725f51aa2be8fb3be3ab4d22a39fe475db123445a2b1eb41d8393f9"
+    },
+    {
+      "path": "scaled-chain-independent-round8.json",
+      "sha256": "13cc6d278de015134abbbd7d7bc4bd60c90cd85f0a413a4f2a2844fae03d4d6c"
+    },
+    {
+      "path": "delivered-quartics-reviewed-round8.json",
+      "sha256": "28b9ecfbc6f1b7f75a84dfe22b95af13be21dd044c9a235a216f876d4b4679fc"
+    }
+  ],
+  "writtenReview": {
+    "path": "package-integration-review-round8.txt",
+    "sha256": "95bf50debf50dfde16fe3034f8e9b0ab92549272dfdb5e99742d40a12007cc56"
+  },
+  "observedResults": {
+    "focusedWrapperMocksPassed": 7,
+    "existingWrapperProbesPassed": 45,
+    "pipelineHelperChecksPassed": 20,
+    "orderedPipelineStages": 23,
+    "coreCoordinates": 389,
+    "coreResiduals": 357,
+    "coreMonomials": 26295,
+    "constantChainCoordinates": [
+      391,
+      392,
+      393
+    ],
+    "constantChainMaximumDigits": [
+      752,
+      323,
+      151
+    ],
+    "sourceReportsBoundByDeliveredCheck": 8
+  },
+  "resolvedFinding": "Fresh copied build input mutations were accepted before the fix; the wrapper now rechecks regular non-symlink files, lengths and SHA-256 for all build inputs before success.",
+  "pending": [
+    "Assembled source/output manifest review",
+    "Fresh outer-wrapper reproduction receipt"
+  ],
+  "limitations": [
+    "No diagnosis of earlier unexplained stdout truncation",
+    "Internal independent agent review, not a formal proof or external endorsement",
+    "Inherited global arithmetic remains conditional",
+    "No optimality claim"
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "summary": {
+    "coordinates": 377,
+    "residuals": 346,
+    "degree": 4,
+    "monomials": 25979,
+    "integerContent": 1,
+    "inputFourthPowerCoefficient": "1",
+    "maximumCoefficientDigits": 327,
+    "maximumCoefficientBits": 1084,
+    "scaledCoordinates": 36,
+    "ternaryScaledCoordinates": 36,
+    "dyadicScaledCoordinates": 9,
+    "anchorExponent": 1512,
+    "cExponent": null,
+    "tableSha256": "1e02fbc1675c9474c3fcc754aae2edece6493f2fb67ec1909d57ac387269690b",
+    "tableBytes": 1051175,
+    "certificateSha256": "570ae84f45bd8e4abbb1df747433cba8f179afbc63fb1c7651d987d835b5837b"
+  },
+  "omittedCoordinates": [
+    {
+      "id": 52,
+      "name": "scalar.preparationU",
+      "kind": "base",
+      "protected": false,
+      "block": "base",
+      "sourceLines": [
+        2354,
+        2487
+      ]
+    },
+    {
+      "id": 53,
+      "name": "scalar.preparationV",
+      "kind": "base",
+      "protected": false,
+      "block": "base",
+      "sourceLines": [
+        2354,
+        2487
+      ]
+    }
+  ],
+  "arithmeticAcceptance": false,
+  "files": {
+    "builder.cjs": "0b8cc4589c46ba26a051515e456adb087a1243416d0ad40c5d0da505d95ff401",
+    "raw-translated-ir.json": "c40281473ea4c9ab626543786e74f0d795c3dee92c5677a34501fd7152e90b19",
+    "final/integer-candidate-ir.json": "89d0edd84bb7dea6636995f630c99c8dc6259e5a198ed5d39db51ab2904c1011",
+    "balanced/polynomial.json": "2a0ba15e5b65576f421fdf0ba9ff8f645c0a492d6395a4eb06735ced763368f5",
+    "gate-check.json": "765861a9b406a46cfb9f3e87336bb64d7e42e61d6ea1a3f88c2e05d0d45f047a",
+    "transport-check.json": "91e70be3b222fb521bd0e65dc9b5f0abf74036e9fad2b37b4587df623c64ea8b",
+    "diagonal-check.json": "705a277be097b877719f9d961fee7c8a7e908f05dcd2c6f047728349e01d7023",
+    "higher-check.json": "c5dcf8550212d0c44aafffc5141bcd4c690447569204b018b4a3d5bd899e9ca7"
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "status": "PASS",
+  "finiteChecks": 15,
+  "checks": [
+    "exact retained height bits",
+    "rational exponential bound for log50",
+    "rational exponential bound for log7",
+    "real projective operator factors product",
+    "opposite valuation parities 0",
+    "packing integrality boundary 0",
+    "opposite valuation parities 1",
+    "packing integrality boundary 1",
+    "preceding sufficient test fails True",
+    "first sufficient test passes True",
+    "paired even exponent same predicate True",
+    "preceding sufficient test fails False",
+    "first sufficient test passes False",
+    "paired even exponent same predicate False",
+    "selected exponent succeeds with preceding constants"
+  ],
+  "checkerSha256": "91d5873e7a47813441629a0bb51aa56caff40bf71d6941101d7bbfad81a8d05d",
+  "proofSha256": "686faeed616eef6ebed472b2414a36e8158d4de838248238815ecc283e39a4e6",
+  "heightBits": 683,
+  "scalarOrder": 28,
+  "highOrder": 45,
+  "parityCases": [
+    {
+      "exponentParity": 0,
+      "epsilon": 1,
+      "packingCoefficient": 3,
+      "forcedIndexThreeExponentForE2kPlusS": "k-1"
+    },
+    {
+      "exponentParity": 1,
+      "epsilon": 0,
+      "packingCoefficient": 1,
+      "forcedIndexThreeExponentForE2kPlusS": "k"
+    }
+  ],
+  "comparisons": [
+    {
+      "usesOptionalProjectiveHeight": true,
+      "previousExponent": {
+        "exponent": 2770,
+        "scalar28": true,
+        "Lucas45": false,
+        "both": false,
+        "indexThreeExponent": 1384
+      },
+      "firstSufficientOddExponent": {
+        "exponent": 2771,
+        "scalar28": true,
+        "Lucas45": true,
+        "both": true,
+        "indexThreeExponent": 1385
+      },
+      "pairedEvenExponent": 2772
+    },
+    {
+      "usesOptionalProjectiveHeight": false,
+      "previousExponent": {
+        "exponent": 2786,
+        "scalar28": true,
+        "Lucas45": false,
+        "both": false,
+        "indexThreeExponent": 1392
+      },
+      "firstSufficientOddExponent": {
+        "exponent": 2787,
+        "scalar28": true,
+        "Lucas45": true,
+        "both": true,
+        "indexThreeExponent": 1393
+      },
+      "pairedEvenExponent": 2788
+    }
+  ],
+  "selectedExponent": 2790,
+  "scope": "Optional sufficient-comparison endpoints only. The uniform monotonicity in the note makes the immediately preceding failure an endpoint certificate. No global or circuit optimality claim; the selected construction uses the preceding height constants."
+}

@@ -1,0 +1,201 @@
+\section{Use available primary depth to share the order-twelve square}
+
+The frozen preceding source has SHA256
+\texttt{78b54bcde24ff8a91091e102a4734c49878699f071d9230e5ce7a70ffd2114d0}.
+The isolated replacement in this section has SHA256
+\texttt{5eae7a6cb6fd22e2da8a457354628355ece7e8930b60200d088cd0cfca1d28cb}.
+It saves one rational coordinate in each of the three detectors by
+strengthening one test which the existing completeness witnesses already
+satisfy to higher order. No global arithmetic input is proved here; their
+qualifications and the preceding complete local arguments are retained.
+
+\subsection{The actual test whose order changes}
+
+Write $U_A=[u_A]P_*$ for the primary point attached to the input label,
+$g_A=g(U_A)$ for its complete reciprocal-chart coordinate, and
+\[
+ D_{\times}=L_1-\overline{\ell(V_1)/\ell(V_0)}
+\]
+for the existing input cross test. Thus $g_A^2=f(U_A)$, and the source
+aliases are \texttt{test1} and \texttt{test10}, respectively. The
+preceding detector required orders one and twelve on this pair. Require
+order twelve on \emph{both} tests instead. The complete order list, in
+the source order \texttt{test0},\ldots,\texttt{test15}, is now
+\[
+ (45,12,1,1,1,1,1,1,1,1,12,45,45,45,45,45).
+\]
+There are eight order-one tests, two order-twelve tests, and six
+order-forty-five tests. All underlying field functions, their conjugations,
+and all other orders are unchanged. In particular no order-one alternate
+point test is strengthened: the alternate points still need only formal
+depth one.
+
+The retained one-place lemma applies to arbitrary positive orders.
+With $t=A\lambda$, $\delta=98t-1$, and
+\[
+ R=\frac{F(t)}{A^5\delta^6},\qquad
+ q_m=\frac{e^{2m-1}}{\delta},\qquad
+ e=\frac{(A\delta)^5}{F(t)},
+\]
+the semantic test is still $\delta D$, and the implemented factor is
+$1+q_mD^2$. At a consumed contact $\delta$ is a unit, so the common-place
+conclusion for the new order list supplies $v_{\mathfrak p}(g_A)\ge12$.
+This implies the former order-one conclusion and leaves every other
+required conclusion unchanged. The subsequent primary/alternate
+comparison, the actual $G_2/G_{12}$ error bounds, the identity-input case,
+and the three height consumers therefore apply with their old premises.
+This is a strengthened local predicate used in the conditional soundness
+argument; it is not a bijection between every pair of old and new detector
+witness tuples.
+
+\subsection{Why completeness already gives this stronger primary test}
+
+In the retained completeness construction, the integer input $X$ first
+fixes the integer label
+\[
+ n=\beta(X)=11016X^2+11016X+5155.
+\]
+The primary points are chosen as $H=[h]P_*$ and $U_A=[hn]P_*=[n]H$.
+At every selected contact place used for the primary side, the existing
+progression $\Pi^{44}\mid h$, together with the prescribed annihilating
+reduction order, makes $H$ formal of depth at least forty-five. This is
+exactly the existing depth used for the high-order \texttt{test0}; the
+present change imposes no new congruence on $h$.
+
+For completeness of this deduction, let $E_s$ be the subgroup of a good
+integral formal group whose parameter $z$ has valuation at least the
+positive integer $s$. The integral formal addition and inverse series
+show that $E_s$ is a group. Hence $[n]E_s\subseteq E_s$ for every integer
+$n$, including negative $n$ and $n=0$. Equivalently the integral series
+$z([n]Q)=n z(Q)+O(z(Q)^2)$ cannot lower its positive valuation. Therefore
+\[
+ v_{\mathfrak p}(z(U_A))\ge
+ v_{\mathfrak p}(z(H))\ge45.
+\]
+On a formal point in the reciprocal chart,
+$z=-g/l$ and $l^2=1-Dg^4$; the relevant $l$ is a unit. Consequently
+\[
+ v_{\mathfrak p}(g_A)=v_{\mathfrak p}(z(U_A))\ge45\ge12.
+\]
+Both choices of the square-root chart have the same valuation. The
+identity case has $g_A=0$ and satisfies every requested positive order;
+no nonidentity guard for $U_A$ has been inserted. The consumed primes
+remain outside $\{2,3,5,7,13,17\}$, so the good integral and unramified
+formal-group hypotheses are exactly those already used in the retained
+primary-depth argument.
+
+The existing CRT conditions and their coprimalities are unchanged.
+In particular the alternate condition involving $h-1$ is not strengthened,
+and one does not demand that a selected prime divide both $h$ and $h-1$.
+The scalar preparation and continuity neighborhoods, root points, square
+scales and finite valuation/real bounds are still fixed before the
+asymptotic contact-prime selection. This argument uses the actual
+completeness choice $U_A=[n]H$; it does not assume that equality for an
+arbitrary putative solution in the soundness direction.
+
+\subsection{The shared uniform block and its exact cost}
+
+Put $U=g_A^2$ and $V=D_{\times}^2$, both elements of $K=\mathbb Q(\sqrt2)$.
+The preceding product block was
+\[
+ (1+q_1U)(1+q_{12}V)
+ =1+q_1U+q_{12}V+(q_1q_{12})UV.
+\]
+The replacement is the uniform-order block
+\[
+ (1+q_{12}U)(1+q_{12}V)
+ =1+q_{12}(U+V)+q_{12}^2 UV.
+\]
+The shared field coefficient $UV$ is exactly the same as before.
+The stored square $q_{12}^2$ is already the coordinate
+\texttt{detector*.mixedHigh}, required by the unchanged high-weight
+relation
+\[
+ q_1^3q_{45}=(q_{12}^2)^2.
+\]
+Thus each detector can delete its separate coordinate for $q_1q_{12}$.
+The two rational output coordinates of the block remain; every defining
+row is quadratic in the stored coordinates. The two four-test order-one
+blocks and two three-test high-order blocks use exactly their preceding
+lists, because the promoted test was precisely the one previously
+removed from the order-one list for the mixed pair. Their shared
+coefficients, product evaluations and weight powers are unchanged.
+The seven-node higher-weight chain also remains unchanged.
+
+On the positive source domain $F,q_1,q_{12},q_{45},E$ are positive.
+Both squared tests are nonnegative at either real embedding. The new
+block and each other factor are therefore at least one. The old
+conclusions $W_0\ge1$, $N(W)>0$, nonzero reciprocal trace, and positive
+pole input remain valid. No quotient denominator or branch restriction
+has been added. In the construction of the weight chain, all denominators
+remain the previously checked nonzero $E$ and $q_1^3$.
+
+\subsection{The changed factor in the pole-completeness estimates}
+
+At a selected contact prime, $v_p(R)=1$ and $\delta$ is a unit. At the
+successful place, $v(g_A)\ge45$ gives
+\[
+ v(q_{12}g_A^2)=1-24+2v(g_A)\ge67>0.
+\]
+The new factor is thus one modulo the prime. At either place, a
+nonzero nonconstant term has odd valuation. Each inverse factor has
+residue zero or one, and the reciprocal trace has the same unit residue
+one or two as in the preceding proof. At noncontact primes the even
+valuation of the unchanged $R$ supplies the same square-denominator
+argument for the pole input.
+
+At real infinity every fixed-order weight still satisfies
+$q_m=O(\lambda^{-1})$. The underlying $g_A$ is one of the already
+uniformly bounded tests in the real progression argument, so replacing
+$q_1g_A^2$ by $q_{12}g_A^2$ changes only its fixed bound. The full product
+still satisfies $W=1+O(\lambda^{-1})$ and the same pole input tends to
+zero through positive values. In particular the required bound $B<17$
+is eventually satisfied.
+
+At $p=2,3,17$, retain
+$\nu=v_p(v)$, $\eta=v_p(A)$ and $\alpha=v_p(98)$. The preceding exact
+weight estimate is
+\[
+ v_p(q_m)=\nu+(10m-6)(\eta+\alpha).
+\]
+For the promoted test and its fixed lower bound $v(g_A)\ge-c_p$ this
+becomes
+\[
+ v_p(q_{12}g_A^2)\ge
+ \nu+114(\eta+\alpha)-2c_p\longrightarrow+\infty.
+\]
+Thus the same freedom to increase the denominator divisibility supplies
+the preparation-zero pole conditions. The scale, bound $c_p$, and order
+twelve are fixed before this choice. The argument does not require
+$\eta+\alpha$ to be nonnegative. Together with the unchanged local
+squareclasses and pole-input formula, this verifies the new
+completeness application.
+
+\subsection{Measured construction and verification scope}
+
+With all other seventh-round parameters retained, including
+$S_0=3^{2790}$, full compilation gives
+\[
+ 400\text{ coordinates}/368\text{ residuals}
+ \quad\longrightarrow\quad
+ \boxed{389\text{ coordinates}/357\text{ residuals}}.
+\]
+The source has 339 gates. The independent gate checker verifies all
+339 identities and 330 compiler operations. The compiled polynomial
+has degree four, 26,295 nonzero monomials, primitive content one, and
+all 389 coordinates active. These counts include the distinguished
+input, which remains unchanged. The three-coordinate saving and
+six-monomial decrease are relative to the frozen 392-coordinate,
+360-residual construction; no final-elimination saving is counted twice.
+
+The separately executed source checker
+\texttt{check\_detector\_round8.py} imports neither producer nor compiler.
+It reconstructs all sixteen semantic tests and the new order allocation,
+the unchanged logarithms, weight chain, shared coefficients, uniform
+pair, remaining products, norm/pole consumers and lifted degree. It
+passes 384 source assertions, seven Laurent identities, three
+normalization identities and two expanded component identities for the
+uniform pair. These exact finite checks bind the implementation;
+the formal-group and completeness arguments above supply the uniform
+mathematical deduction. All inherited global arithmetic remains
+conditional as in the preceding package.

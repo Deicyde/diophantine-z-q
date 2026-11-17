@@ -1,0 +1,260 @@
+\section{The selected detector scales and Laurent circuit}
+
+This section concerns the selected fifth-round construction. Its builder is
+\texttt{glazer\_fifth\_reduction\_package/construction/builder.cjs}, SHA256
+\texttt{68cb3cb1a809766aa102b8c43444d8b38c02760751e773a960489c327e33c12b}.
+The fixed coefficient is $S_0=3^{2^{13}}$, not an extra quantified variable.
+The earlier source is pinned at commit
+\texttt{036cebe4f1a4aa7ca89820a9b48f3629b4c364d6}.
+The uniform arithmetic inputs remain those stated in the accompanying
+arithmetic proof; the finite source checks below do not independently
+establish those inputs.
+
+\subsection{One fewer coordinate for the third height scale}
+
+Write the four-root abscissa product as
+\[
+ C=\prod_{i=1}^4x(Q_i)=C_0+C_1\rho,\qquad\rho^2=2.
+\]
+The selected rational scales are
+\[
+ 1,\qquad C_0^2,\qquad(C_0+C_1)^2.
+\]
+The third replaces $(1+C_1^2)^2$ and removes its inner-square coordinate.
+The physical norm anchor still uses $C_0^2$ and is unchanged by this
+particular simplification.
+
+At both real embeddings the root equations $x=h^2$ and
+$j^2=x^2-(3-\rho)^2$ give $x\ge3-\sigma(\rho)>1$. Consequently
+\[
+ C_+\ge193-132\rho,\qquad C_-\ge193+132\rho.
+\]
+The identity
+\[
+ C_0+C_1=\frac{1+1/\rho}{2}C_+
+         +\frac{1-1/\rho}{2}C_-
+\]
+has positive weights. It gives $C_0+C_1\ge61$, while $C_0\ge193$.
+Thus every selected scale is a positive nonzero rational square and is
+at least one. These are algebraic-domain facts on every source solution;
+they do not depend on a rank or height statement.
+
+The actual product-height proof is in
+\texttt{docs/quartic-523-540/addition.tex}, lines296--350. For the new
+fractional-linear coordinate $\phi(t)=-49+1/t$, the elementary height
+comparison is $h(t)\le h(\phi(t))+\log50$. Therefore if a nonzero integer
+$N$ is divisible by the $k$th powers of the three contact radicals, put
+\[
+ T=(H+\log50)|N|^{19/k}.
+\]
+The detector height estimates give
+$h(\lambda),h(C_0^2\lambda),h((C_0+C_1)^2\lambda)\le T$.
+Height subadditivity and $h(z^2)=2h(z)$ give
+\[
+ h(C_0),h(C_0+C_1)\le T,\qquad
+ h(C_1)\le2T+\log2.
+\]
+Hence
+\[
+ h(C)\le h(C_0)+h(C_1)+\tfrac32\log2
+       \le3T+\tfrac52\log2.
+\]
+The selected height constant satisfies $H\ge4$. Since
+\[
+ 3\log50+\tfrac52\log2<16\le4H
+\]
+and $|N|^{19/k}\ge1$, the same retained bound follows:
+\[
+ h(C)<7H|N|^{19/k},\qquad B^2-6<7H|N|^{19/k}.
+\]
+For the numerical inequality it is already enough to use
+$\log50<4$ and $\log2<7/10$. The intermediate height estimate is weaker
+than its predecessor, but the retained constant $7H$ has sufficient slack.
+This checks the changed coordinate and the changed scale together; the
+old $\log3$ error is not used for the new coordinate.
+
+In completeness the roots and scales are fixed before prime selection.
+The source chooses $D_0$ such that every $D_0^2\theta/A$ is integral and
+excludes the prime factors of the fixed scales and contact differences.
+Its required scale hypothesis is a positive nonzero rational square,
+which the replacement satisfies. The actual passage
+\texttt{manuscripts/quartic\_v10.tex}, lines11244--11257, explicitly
+deletes repeated contact forms while retaining their incidences in all
+detectors. Thus a possible equality of the second and third scales is
+harmless. The five forms within any one detector remain distinct because
+its scale is nonzero. No new distinctness assumption is introduced.
+
+\subsection{Selected contacts, positivity and the guard}
+
+The coordinate and guard are
+\[
+ \phi(t)=-49+1/t,\qquad \delta=98t-1,
+\]
+with
+\[
+ \Theta=\{0,1/49,1/50,1/2450,32/1225\},\qquad
+ F(t)=\prod_{\theta\in\Theta}(t-\theta).
+\]
+The five images under $\phi$ are respectively
+$\infty,0,1,2401,-343/32$. The matrix of $\phi$ has determinant $-1$.
+Contact denominators and pairwise differences have support in
+$\{2,3,5,7\}$. The values of $\delta$ on the contacts are
+\[
+ -1,\quad1,\quad24/25,\quad-24/25,\quad39/25,
+\]
+which introduce only the additional prime13. The precise remaining
+arithmetic consumers are checked in \texttt{arithmetic\_round5.tex};
+the selected exceptional set is $\{2,3,5,7,13,17\}$.
+
+The source imposes
+\[
+ \lambda=32/1225+u^2+v^2.
+\]
+Since $A\ge1$, $t=A\lambda$ is at least the largest contact. Therefore
+$\delta\ge39/25>0$ and $F(t)\ge0$. The equation
+\[
+ eF(t)=(A\delta)^5
+\]
+forces $F(t)>0$ and $e>0$. In particular all Laurent denominators used
+below are nonzero before invoking any pole equation.
+
+The extra positivity equation has canonical completeness witnesses.
+The unit-scale contact $32/1225$ is retained among the prime forms, so
+the inherited prime selection gives
+$\lambda-32/1225=p/(D_0w)^2$ with $p$ the norm of a selected Gaussian
+prime. Dividing its two integer coefficients by $D_0w$ gives the two
+rational square witnesses. Repeated-form merging retains this incidence.
+Thus the extra equation uses the existing Gaussian norm conclusion,
+not a new assertion that every positive rational is a sum of two squares.
+
+\subsection{A same-cost order-forty-four chain}
+
+For each scale set
+\[
+ e=\frac{(A\delta)^5}{F(t)},\qquad
+ q_1=\frac e{\delta^3},\qquad
+ R=(e\delta)^{-1}.
+\]
+Use the six intermediate powers
+\[
+ e^{-1},\ e^{-3},\ e^{-7},\ e^9,\ e^{-23},\ e^{-55}.
+\]
+Their actual quadratic quotient equations implement
+\begin{align*}
+ e^{-1}&=1/e,&
+ e^{-3}&=(e^{-1})^2/e,&
+ e^{-7}&=(e^{-3})^2/e,\\
+ e^9&=e^2/e^{-7},&
+ e^{-23}&=(e^{-7})^2/e^9,&
+ e^{-55}&=(e^{-23})^2/e^9.
+\end{align*}
+Then define
+\[
+ q_{12}=q_1e^{-1}/e^{-23},\qquad
+ q_{44}=q_{12}e^9/e^{-55}.
+\]
+The $e$-exponents are $1-1+23=23$ and $23+9+55=87$, respectively.
+Thus $q_m=e^{2m-1}/\delta^3$ for each selected order. Every intermediate
+is uniquely determined on the proved nonzero domain. Every numerator is
+quadratic and every denominator affine in stored coordinates. There are
+six intermediate powers and two output quotients per detector, exactly
+the cost of the preceding order-forty circuit.
+
+The selected sixteen tests comprise nine order-one tests, one input
+cross test of order12 and six order44 tests. The primary inverse roots
+are used as before; the alternate reciprocal-abscissa tests are unchanged.
+The high-order tests are the primary root $g_H$, the three Lucas-label
+cross tests, the input discrepancy and the direct Lucas residual.
+
+The field product still uses a mixed $(1,12)$ block, two groups of four
+remaining order-one tests and two groups of three order44 tests. If $U,V$
+are the squared inputs to the mixed block, its identity is exactly
+\[
+ (1+q_1U)(1+q_{12}V)
+ =1+q_1U+q_{12}V+(q_1q_{12})UV.
+\]
+The shared symmetric coefficients and their evaluations are reconstructed
+independently by the source checker.
+
+\subsection{The actual one-place and completeness consumers}
+
+For every positive integer $m$ the identity
+\[
+ 1+R\left(\frac{D_j/\delta^{m+1}}{R^m}\right)^2
+ =1+q_mD_j^2
+\]
+is exact. The arbitrary-order one-place proof in the source therefore
+applies with orders $1,12,44$, once the guard and contact units established
+in the arithmetic proof are inserted. Its proof uses valuation parity,
+integral normalized valuations and the pole obstruction outside
+$\{2,3,17\}$; the larger printed numerical prime cutoff is not consumed
+by those steps.
+
+All $q_m$ are positive. Each field factor is at least one at both real
+embeddings. Hence the real coefficient of their product is at least one,
+its norm is positive, and the retained trace quotient and positive pole
+input have their intended nonzero domains.
+
+The four long alternate logarithms use $G_{12}$, whose exact completed-square
+circuit and real nonvanishing are proved in \texttt{geometry\_round5.tex}.
+Its relative precision at every consumed prime is at least44; the selected
+construction does not require uniform precision52. The input numerator
+retains $G_2$ with relative precision12. The weak unit estimates first
+transfer integrality; only then are the relative errors made absolute.
+The primary root test gives formal depth44, hence primary relative error
+at least176. This gives the three Lucas labels at order44 and the input
+label at order12, with the same separate identity-input argument.
+
+Completeness strengthens only the primary progression, using $\Pi^{43}$
+in place of $\Pi^{39}$. The existing separation proof gives
+$\gcd(\Pi,M_+L)=1$, so this changes no CRT compatibility. Opposite points
+remain at formal depth one. In particular no condition $p\mid h-1$ is
+imposed together with $p\mid h$.
+
+The new coordinate and guard retain the source product formula for $R$
+with square denominator $v^5\delta^6$. At a chosen contact prime, every
+inverse factor is one at the successful place and zero or one elsewhere;
+the reciprocal trace has residue one or two and is a unit. At infinity
+$R\sim98^{-6}A^{-6}\lambda^{-1}$ and every nonconstant factor is
+$O(\lambda^{-3})$. At $p=2,3,17$, with
+$\nu=v_p(v)$, $\eta=v_p(A)$ and $\alpha=v_p(98)$, sufficiently large
+prescribed $\nu$ gives
+\[
+ v_p(R)=\nu-6\eta-6\alpha,
+\]
+and the nonconstant terms have lower bound
+\[
+ 3\nu+(10m-8)(\eta+\alpha)-2c_p.
+\]
+This tends to infinity for every retained order. The same Gaussian
+classes give the required local squares. Consequently only finite
+preparatory constants change in the real and small-prime pole argument.
+
+\subsection{Measured final source and the verification boundary}
+
+The selected integrated source has415 raw coordinates and383 residuals,
+then405/373 after generic compilation, then401/369 after four further
+exact eliminations. The two-variable saving relative to403 consists of
+this one-coordinate scale simplification and the separately proved
+one-coordinate scalar proxy. The logarithm and Laurent-circuit changes
+increase available precision without increasing the core count.
+
+Its expanded fixed-coefficient polynomial has401 active coordinates,
+369 quadratic residuals, degree4, 26,225 ordinary-coordinate monomials
+and primitive integer content1. The standard four-coordinate constant
+chain gives405 coordinates; the two-coordinate chain gives403. Direct
+decimal specialization retains401. Their degree and coefficient claims
+are checked by the separate exact table auditors.
+
+The checker \texttt{check\_detector\_final.py} imports neither producer
+nor compiler. It passes381 source assertions and two expanded mixed-block
+identities on the frozen source. It independently derives the $G_{12}$
+completion coefficients by the binomial series for the square root at
+infinity, rather than by the producer's coefficient-matching algorithm.
+It checks the exact completion identity, real nonvanishing, all actual
+logarithm quotient consumers, every test alias and weight equation,
+every shared product coefficient and evaluation, the new contact and
+guard data, the shortened scale and the anchor13 declaration. It also
+checks that every source residual is quadratic when the fixed coefficient
+is represented by a coordinate. These finite checks remain distinct
+from the uniform arithmetic and completeness arguments.

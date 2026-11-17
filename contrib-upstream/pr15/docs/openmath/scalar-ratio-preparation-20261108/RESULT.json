@@ -1,0 +1,83 @@
+{
+  "status": "PASS",
+  "checkout_commit": "af6d3f404cf6e04a8752ac1b173d3d01108b606a",
+  "source_only_clone": "Git-only checkout; no dependency cache, prior output, root upload ZIP or local attachment",
+  "preparation_modes": {
+    "default": {
+      "status": "PREPARED_FROM_REPOSITORY",
+      "checkout_commit": "af6d3f404cf6e04a8752ac1b173d3d01108b606a",
+      "packet": "scalar-ratio",
+      "selected_declarations": 39,
+      "reviewed_source_commit": "3d2243ff141f9681fbd6a659ca28ffddfae9b000",
+      "prerequisite_inputs_checked": 128,
+      "packet_manifest_sha256": "d313ec3ff5ad0e91d555d26b2beef6ad401d7e9c86cdfe77adbe119062498610",
+      "packet_inputs_checked": 99,
+      "generated_manifest_sha256": "117f9ca2c28c42e45198f790dd8c3f324e1bed9d3af11ea9707575363304b811",
+      "generated_inputs_checked": 24,
+      "preparation_script_sha256": "6dd6779b1b5a85a2916f836a690efb5a827198db06ab6390269eef2c750682be",
+      "lean_invoked": false,
+      "network_used": false,
+      "paranoid_run": "NOT_RUN; owned by Open Math in the cloud",
+      "cloud_command": [
+        "lake",
+        "comparator",
+        "--config",
+        "comparator.json",
+        "--paranoid"
+      ]
+    },
+    "boundary-scalar": {
+      "status": "PREPARED_FROM_REPOSITORY",
+      "checkout_commit": "af6d3f404cf6e04a8752ac1b173d3d01108b606a",
+      "packet": "boundary-scalar",
+      "selected_declarations": 21,
+      "reviewed_source_commit": "7ca086adf4298e2b611b9fa0b954eab838873bf3",
+      "prerequisite_inputs_checked": 63,
+      "packet_manifest_sha256": "8696323b0d1bb78e68ba4daea0437f38dde4ff3be8281e3856712a5f5369dba6",
+      "packet_inputs_checked": 65,
+      "generated_manifest_sha256": "fa7749aa918702ddb8f3694641839a1f751e2b377784c153e3332196076fc171",
+      "generated_inputs_checked": 16,
+      "preparation_script_sha256": "6dd6779b1b5a85a2916f836a690efb5a827198db06ab6390269eef2c750682be",
+      "lean_invoked": false,
+      "network_used": false,
+      "paranoid_run": "NOT_RUN; owned by Open Math in the cloud",
+      "cloud_command": [
+        "lake",
+        "comparator",
+        "--config",
+        "comparator.json",
+        "--paranoid"
+      ]
+    },
+    "six-lemma": {
+      "status": "PREPARED_FROM_REPOSITORY",
+      "checkout_commit": "af6d3f404cf6e04a8752ac1b173d3d01108b606a",
+      "packet": "six-lemma",
+      "selected_declarations": 6,
+      "reviewed_source_commit": "2c15940380520d6b6de72c2a1b6700ed192a7a87",
+      "prerequisite_inputs_checked": 0,
+      "packet_manifest_sha256": "de9e04423f3ccafa9690e6ff53c1f0bb79f5f91406ee3e4e89246ce2cf97fa12",
+      "packet_inputs_checked": 63,
+      "generated_manifest_sha256": "e37368316a682d30f9358d7cf1c1ebd01e622e7896c99ca020ae5f94288f6188",
+      "generated_inputs_checked": 9,
+      "preparation_script_sha256": "6dd6779b1b5a85a2916f836a690efb5a827198db06ab6390269eef2c750682be",
+      "lean_invoked": false,
+      "network_used": false,
+      "paranoid_run": "NOT_RUN; owned by Open Math in the cloud",
+      "cloud_command": [
+        "lake",
+        "comparator",
+        "--config",
+        "comparator.json",
+        "--paranoid"
+      ]
+    }
+  },
+  "rejected_controls": 4,
+  "lean_execution": "NOT_RUN",
+  "network_during_preparation": false,
+  "cloud_or_paranoid_dispatch": "NOT_RUN",
+  "scope": "Offline repository completeness, deterministic preparation and input rejection; not clean Linux proof replay",
+  "wrapper_sha256": "6dd6779b1b5a85a2916f836a690efb5a827198db06ab6390269eef2c750682be",
+  "openmath_handoff_sha256": "d9d531c2df7e399e2fc6d6879bf6c3c30b022a2e73974cc8bc54c5abb38f50aa"
+}

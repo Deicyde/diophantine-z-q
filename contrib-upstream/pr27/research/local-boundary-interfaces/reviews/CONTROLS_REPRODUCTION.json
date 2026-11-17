@@ -1,0 +1,59 @@
+{
+  "reviewer": "Codex /root/normalization_claim_review",
+  "date": "2026-11-10",
+  "author_independence": "Reviewer did not author or repair this script; shared model/runtime limitations apply.",
+  "cwd": "repository root",
+  "python": "3.13.12 (v3.13.12:1cbe4818347, Feb  3 2026, 13:36:53) [Clang 16.0.0 (clang-1600.0.26.6)]",
+  "python_optimization_flag": 0,
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "command": [
+    "python3",
+    "-B",
+    "research/local-boundary-interfaces/check_controls.py"
+  ],
+  "exit_code": 0,
+  "optimized_command": [
+    "python3",
+    "-O",
+    "-B",
+    "research/local-boundary-interfaces/check_controls.py"
+  ],
+  "optimized_exit_code": 1,
+  "author_python": "3.12.3",
+  "reviewer_python": "3.13.12",
+  "author_comparison": "All JSON fields equal except Python version (3.12.3 versus current interpreter).",
+  "input_hashes_before": {
+    "research/local-boundary-interfaces/check_controls.py": "9e6dc833f23c7008eac55363689e56d1f128599c5c9bbd3fa226916b3ca91c7c",
+    "research/local-boundary-interfaces/CHECK_DESIGN.md": "bff116b1b765d249b754b4f3dd657a538172f4027cfb0c45193124869c93ddd4",
+    "research/local-boundary-interfaces/CONTROLS_PROVENANCE.json": "2e8b2cd225cf340a90272be6d4178c9d274a63fd130e9a89bdbfe064b47b0a77",
+    "research/local-boundary-interfaces/ORIGIN.json": "06dc5c0e20a76051e51a241aef299cf97c6fd5fcb5d7b3a8f2b721c903795f53",
+    "research/local-boundary-interfaces/TARGETS.json": "b5e5bd8f58ced1f62e3e0b282f0b61d5d992f846c95446f2b5af749bdc6361da",
+    "lean/Research/DerivativeSwitch/ConjugateLocalTransport.lean": "8688eef27fcc89c02eb3ab270e5359534dc23ef16e11678bdb1dd3587e3f8b86",
+    "lean/Research/DerivativeSwitch/ConjugateLocalH1.lean": "078ac50ae0c90c8e609a57c51c5884a25646ad7305531f1cf531617485b9078f",
+    "lean/Research/DerivativeSwitch/ActualBoundaryCup.lean": "77bcdd2ae5283ffd6cc51062e452da4294fcd5b3d952940b588b2d5b52ecdd90",
+    "lean/Research/DerivativeSwitch/OrthogonalComparison.lean": "bfec996b869e44c6a42fc058fbc24cc7288b1f61d0f0e7eef1f4f58f41dca1ba"
+  },
+  "input_hashes_after": {
+    "research/local-boundary-interfaces/check_controls.py": "9e6dc833f23c7008eac55363689e56d1f128599c5c9bbd3fa226916b3ca91c7c",
+    "research/local-boundary-interfaces/CHECK_DESIGN.md": "bff116b1b765d249b754b4f3dd657a538172f4027cfb0c45193124869c93ddd4",
+    "research/local-boundary-interfaces/CONTROLS_PROVENANCE.json": "2e8b2cd225cf340a90272be6d4178c9d274a63fd130e9a89bdbfe064b47b0a77",
+    "research/local-boundary-interfaces/ORIGIN.json": "06dc5c0e20a76051e51a241aef299cf97c6fd5fcb5d7b3a8f2b721c903795f53",
+    "research/local-boundary-interfaces/TARGETS.json": "b5e5bd8f58ced1f62e3e0b282f0b61d5d992f846c95446f2b5af749bdc6361da",
+    "lean/Research/DerivativeSwitch/ConjugateLocalTransport.lean": "8688eef27fcc89c02eb3ab270e5359534dc23ef16e11678bdb1dd3587e3f8b86",
+    "lean/Research/DerivativeSwitch/ConjugateLocalH1.lean": "078ac50ae0c90c8e609a57c51c5884a25646ad7305531f1cf531617485b9078f",
+    "lean/Research/DerivativeSwitch/ActualBoundaryCup.lean": "77bcdd2ae5283ffd6cc51062e452da4294fcd5b3d952940b588b2d5b52ecdd90",
+    "lean/Research/DerivativeSwitch/OrthogonalComparison.lean": "bfec996b869e44c6a42fc058fbc24cc7288b1f61d0f0e7eef1f4f58f41dca1ba"
+  },
+  "outputs": {
+    "CONTROLS_REPRODUCTION.stdout.json": "db165a30d082299aed4ad98cb97760f74321150a3a07d632dc8147bb34d2772c",
+    "CONTROLS_REPRODUCTION.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "CONTROLS_OPTIMIZED.stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "CONTROLS_OPTIMIZED.stderr.txt": "22243bcd0711a66dc682634d5f23e069696116faf84b742beb06d8475cc32b80"
+  },
+  "status": "PASS",
+  "scope": "Finite diagnostic models only; no arithmetic occurrence proof or external Lean checker.",
+  "executable_sha256": "6371b34b5d7720eab2d5416c00daf784ed20448b5d34af5638197084a87df8f3",
+  "private_original_sha256": "a72f06def5219d7427dda574ca4d887bb45ad02042a1f113a07c44e74f2047a6",
+  "private_original_file": "reviewer-controls-reproduction-original.json (retained outside the submission)",
+  "path_normalization": "Only interpreter/script/cwd path strings were normalized for portability. The exact local invocation is retained in the private original receipt; command flags, results and output bytes are unchanged."
+}

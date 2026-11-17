@@ -1,0 +1,54 @@
+{
+ "scalar.shiftedS.rootTimesInverseRoot.1": [
+  710,
+  0
+ ],
+ "anchor.U": [
+  1420,
+  0
+ ],
+ "S.chart.h0": [
+  355,
+  0
+ ],
+ "S.chart.x.0.quadratic": [
+  355,
+  1
+ ],
+ "scalar.shiftedS.f.0": [
+  355,
+  0
+ ],
+ "S.chart.h1": [
+  355,
+  0
+ ],
+ "anchor.physicalA.quadratic": [
+  1420,
+  0
+ ],
+ "scalar.shiftedS.rootTimesInverseRoot.0": [
+  710,
+  0
+ ],
+ "scalar.shiftedS.f.1": [
+  355,
+  0
+ ],
+ "anchor.W": [
+  1420,
+  0
+ ],
+ "S.chart.x.1.quadratic": [
+  355,
+  0
+ ],
+ "heightProduct.scale0.quadratic": [
+  0,
+  -21
+ ],
+ "anchor.V": [
+  1420,
+  0
+ ]
+}

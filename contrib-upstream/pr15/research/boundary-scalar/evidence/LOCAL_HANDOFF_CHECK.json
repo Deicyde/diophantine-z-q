@@ -1,0 +1,69 @@
+{
+  "status": "PASS",
+  "profile": "development",
+  "platform": "arm64-apple-darwin24.6.0",
+  "selected_declarations": 21,
+  "groups": {
+    "original": 6,
+    "matrix_principal": 13,
+    "typed_adapter": 2
+  },
+  "concrete_project_definitions": 8,
+  "default_project": "/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.checks/boundary-scalar-handoff-6",
+  "default_build_exit_code": 0,
+  "challenge_absent_immediately_after_default_build": true,
+  "challenge_build_exit_code": 0,
+  "intentional_specification_hole_warnings": 21,
+  "warnings": "Legacy research modules import module-system Mathlib; no solution admission or disallowed axiom",
+  "probe_exit_code": 0,
+  "probe_log": "handoff/structure-and-axioms.log",
+  "probe_scope": "Unisolated direct pinned compareAt/checkAxioms, no kernel replay",
+  "negative_controls": [
+    "missing boundary_scalar_formula",
+    "changed boundary_scalar_formula statement",
+    "changed protected finiteNormal",
+    "challenge sorryAx proofs as solution"
+  ],
+  "generator": "verification/prepare.py",
+  "generated_files": 17,
+  "fresh_regeneration_byte_identical": true,
+  "generated_manifest_sha256": "fa7749aa918702ddb8f3694641839a1f751e2b377784c153e3332196076fc171",
+  "final_spec_import_contexts": "Original, Matrix, Cup specs each match their paired proof module imports exactly",
+  "local_cache_reuse": "Local-only .lake/packages symlink to pinned dependency cache; excluded from generated input map",
+  "historical_failures": [
+    {
+      "case": "setup script used generated-project cwd instead of repository cwd",
+      "result": "FileNotFoundError; subsequent pinned dependency materialization interrupted with exit130; no pass claimed"
+    },
+    {
+      "case": "only Solution registered as solution library root",
+      "result": "unknown Research module prefix; fixed by four explicit solution roots"
+    },
+    {
+      "case": "single combined spec elaborated old signatures after broader imports",
+      "result": "Strict comparator rejected changed coercion instance. Fixed by separately compiled import-context-matched specs; final21 comparison passes."
+    }
+  ],
+  "source_hashes": {
+    "research/boundary-scalar/verification/compare_exports.lean": "a4be6356a55e6bc4c6b4767b054816d42de97251f93c112a5d404c01d09fc7d2",
+    "research/boundary-scalar/verification/comparator.json": "72047c185bbc3d5f9c5632244a014be7e9a9f35e1cc86d5cde0e0aab5411cec8",
+    "research/boundary-scalar/verification/lakefile.toml": "abf16baba12326d8d4cfe4fcf4ba5d4cafa25c4d551df22938ce208264f93872",
+    "research/boundary-scalar/verification/Challenge.lean": "966d252297c89c83b28bcda1e21031da37ad54bd6a35712f68a680bcf281130f",
+    "research/boundary-scalar/verification/Challenge/Cup.lean": "657609e50b5b058f5e2435cced7f1efcadcd91aed076a7612742f409c12bf18e",
+    "research/boundary-scalar/verification/Challenge/Matrix.lean": "70141ae019654b59a07e1d34cead19aa5882f9a2f1b1097f021bb24653c12860",
+    "research/boundary-scalar/verification/Challenge/Original.lean": "ae5cd67b93287c345a3b1a808eeeed9744667bb73eb10f068d8b056b20b497e8"
+  },
+  "export_hashes": {
+    "solution": "4d5f9aefda69011b789d543abc0b834a205f6066767732599ba50f15d1f91dc9",
+    "challenge": "06d074281724b25a6fa78b857a11922756cda53bdd48c2431785f330c43e2fb8"
+  },
+  "historical_export_hashes": {
+    "solution": "4d5f9aefda69011b789d543abc0b834a205f6066767732599ba50f15d1f91dc9",
+    "rejected_challenge": "38c671d5a65bb50b1d77c6ef9e8a18d663343c769e27fb6215797b1a26c5096a"
+  },
+  "native_export_replay": "NOT_RUN",
+  "protected_comparator": "NOT_RUN",
+  "external_checkers": "NOT_RUN",
+  "paranoid": false,
+  "arithmetic_application": "OPEN"
+}

@@ -1,0 +1,90 @@
+{
+  "root_package": "local_boundary_verification",
+  "proof_roots": 41,
+  "prepared_project": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary",
+  "dependency_provenance": "Lake materialized the locked source revisions in this review workspace and rebuilt their Linux compiled artifacts from the pinned sources. The separate native driver compiled the four selected modules using the already validated pinned sources. There is no end-to-end independently authenticated hermetic dependency claim.",
+  "cli_origin": "Source Cli was copied at the exact locked revision c24fe6078c630e89b489bffe59b3e20ac30d12c8 and built in the review workspace before the first missing-cache assertion was resolved. All pinned source revisions remain unchanged.",
+  "dependencies": [
+    {
+      "name": "mathlib",
+      "revision": "56a005855ea17e0b0958f73ec801ae140b0a1679",
+      "source": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/packages/mathlib",
+      "compiled_cache": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/packages/mathlib/.lake/build/lib/lean",
+      "tracked_source_clean": true,
+      "freshly_rebuilt_with_the_lake_project": true,
+      "cache_present": true
+    },
+    {
+      "name": "plausible",
+      "revision": "dfa4f38190d07c37e315953e08b90fe2d95b3c24",
+      "source": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/packages/plausible",
+      "compiled_cache": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/packages/plausible/.lake/build/lib/lean",
+      "tracked_source_clean": true,
+      "freshly_rebuilt_with_the_lake_project": true,
+      "cache_present": true
+    },
+    {
+      "name": "LeanSearchClient",
+      "revision": "d6b4c7be5be75ec4917c873ac50c756dc1436372",
+      "source": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/packages/LeanSearchClient",
+      "compiled_cache": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/packages/LeanSearchClient/.lake/build/lib/lean",
+      "tracked_source_clean": true,
+      "freshly_rebuilt_with_the_lake_project": true,
+      "cache_present": true
+    },
+    {
+      "name": "importGraph",
+      "revision": "a41f0e9a4dea23188ea9cc1c41ac9f8bbafe0b93",
+      "source": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/packages/importGraph",
+      "compiled_cache": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/packages/importGraph/.lake/build/lib/lean",
+      "tracked_source_clean": true,
+      "freshly_rebuilt_with_the_lake_project": true,
+      "cache_present": true
+    },
+    {
+      "name": "proofwidgets",
+      "revision": "df72b022e558978a1c50264cfc4d7fec86fa8e04",
+      "source": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/packages/proofwidgets",
+      "compiled_cache": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/packages/proofwidgets/.lake/build/lib/lean",
+      "tracked_source_clean": true,
+      "freshly_rebuilt_with_the_lake_project": true,
+      "cache_present": true
+    },
+    {
+      "name": "aesop",
+      "revision": "4a174c490d8707121c4a9290800489f105d85e07",
+      "source": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/packages/aesop",
+      "compiled_cache": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/packages/aesop/.lake/build/lib/lean",
+      "tracked_source_clean": true,
+      "freshly_rebuilt_with_the_lake_project": true,
+      "cache_present": true
+    },
+    {
+      "name": "Qq",
+      "revision": "dce0ad79c486cb1fb504af04f953c3466b0c6db8",
+      "source": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/packages/Qq",
+      "compiled_cache": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/packages/Qq/.lake/build/lib/lean",
+      "tracked_source_clean": true,
+      "freshly_rebuilt_with_the_lake_project": true,
+      "cache_present": true
+    },
+    {
+      "name": "batteries",
+      "revision": "66e469188fe07963e5cf666c7d4433f45b8131c5",
+      "source": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/packages/batteries",
+      "compiled_cache": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/packages/batteries/.lake/build/lib/lean",
+      "tracked_source_clean": true,
+      "freshly_rebuilt_with_the_lake_project": true,
+      "cache_present": true
+    },
+    {
+      "name": "Cli",
+      "revision": "c24fe6078c630e89b489bffe59b3e20ac30d12c8",
+      "source": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/packages/Cli",
+      "compiled_cache": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/packages/Cli/.lake/build/lib/lean",
+      "tracked_source_clean": true,
+      "freshly_rebuilt_with_the_lake_project": true,
+      "cache_present": true
+    }
+  ]
+}

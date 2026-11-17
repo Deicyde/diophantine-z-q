@@ -1,0 +1,222 @@
+{
+  "format": "internal-review-evidence-bindings-v1",
+  "scope": "Preserved internal AI-assisted review artifacts, not proof of inherited globals.",
+  "files": [
+    {
+      "path": "evidence/arithmetic/scalar-independent-review-round7.json",
+      "bytes": 4144,
+      "sha256": "6135781b257c8f4bee7d410e7c44caaf3902d900559e14f52df1ad3f091343c5",
+      "originalWorkspaceRelativePath": "seventh-work/arithmetic/scalar-independent-review-round7.json"
+    },
+    {
+      "path": "evidence/arithmetic/scalar-independent-integrated-check.json",
+      "bytes": 4180,
+      "sha256": "f0f0361147e69fcde8855103b2e19a7ff7e18e373b5b15d83d9a5280084eed23",
+      "originalWorkspaceRelativePath": "seventh-work/arithmetic/scalar-independent-integrated-check.json"
+    },
+    {
+      "path": "evidence/arithmetic/detector-independent-review-round7.json",
+      "bytes": 6594,
+      "sha256": "b06f2c3bbba57c4fe11e072b5e34dfe6abda213e793dff755cf09945026439e6",
+      "originalWorkspaceRelativePath": "seventh-work/arithmetic/detector-independent-review-round7.json"
+    },
+    {
+      "path": "evidence/arithmetic/detector-independent-integrated-check.json",
+      "bytes": 7237,
+      "sha256": "b91f90c60ff33377eb15421089228a9b85a181954ebba84106acf4cf34179af1",
+      "originalWorkspaceRelativePath": "seventh-work/arithmetic/detector-independent-integrated-check.json"
+    },
+    {
+      "path": "evidence/arithmetic/detector-review-spacing-addendum.json",
+      "bytes": 2515,
+      "sha256": "443ee5d36075afb66761f2c6dd057dff2c78cd64350a10cb7156cb5e58461988",
+      "originalWorkspaceRelativePath": "seventh-work/arithmetic/detector-review-spacing-addendum.json"
+    },
+    {
+      "path": "evidence/arithmetic/detector-proof-spacing.patch",
+      "bytes": 2018,
+      "sha256": "5fb14c33c40eccab21bc1a233cb5c47fe1a112c0529560dcde93c7e559481221",
+      "originalWorkspaceRelativePath": "seventh-work/arithmetic/detector-proof-spacing.patch"
+    },
+    {
+      "path": "evidence/arithmetic/detector-proof-reviewed-original.tex",
+      "bytes": 12495,
+      "sha256": "8978cb9d7ce57c796a4b77752f527cd1f18419d90781a46c9139902ee7e2c03a",
+      "originalWorkspaceRelativePath": "seventh-work/arithmetic/detector-proof-reviewed-original.tex"
+    },
+    {
+      "path": "evidence/arithmetic/detector-independent-integrated-check-proof-update.json",
+      "bytes": 7237,
+      "sha256": "1698356a27c64938b295eba05a42d0193c2d6448a107a8995a665e20297b0491",
+      "originalWorkspaceRelativePath": "seventh-work/arithmetic/detector-independent-integrated-check-proof-update.json"
+    },
+    {
+      "path": "evidence/arithmetic/arithmetic-integrated-check.json",
+      "bytes": 4084,
+      "sha256": "a53bb559b84b65e886f60c59e0e2439bc2010e9fd9f47aff56d7c2c224ba5013",
+      "originalWorkspaceRelativePath": "seventh-work/arithmetic/arithmetic-integrated-check.json"
+    },
+    {
+      "path": "evidence/arithmetic/scaled-chains-independent-review.json",
+      "bytes": 836,
+      "sha256": "9cd4d39d34ebbb8e9e40e933049fc0cf1e6b5a2930d060306620f04ea128bb5d",
+      "originalWorkspaceRelativePath": "seventh-work/arithmetic/scaled-chains-independent-review.json"
+    },
+    {
+      "path": "evidence/arithmetic/scaled-chains-independent-check.json",
+      "bytes": 2895,
+      "sha256": "0d255a521d815c09ab43353062d81bffaaf332909ec039d6b8e32fbf5362f9c5",
+      "originalWorkspaceRelativePath": "seventh-work/arithmetic/scaled-chains-independent-check.json"
+    },
+    {
+      "path": "evidence/arithmetic/optional-anchor-height-check.json",
+      "bytes": 2453,
+      "sha256": "0d296057d76c96f764c9302029107d19fb8735e1230a2e643f356f8bd6092ab9",
+      "originalWorkspaceRelativePath": "seventh-work/arithmetic/optional-anchor-height-check.json"
+    },
+    {
+      "path": "evidence/arithmetic/reproduction-wrapper-probes.json",
+      "bytes": 26183,
+      "sha256": "fe7541cd723b710b4d4b99394639dd70c828b4bdf23469f0d546a8ef010a4dd1",
+      "originalWorkspaceRelativePath": "seventh-work/arithmetic/reproduction-wrapper-probes.json"
+    },
+    {
+      "path": "evidence/arithmetic/wrapper-preliminary-findings.json",
+      "bytes": 1289,
+      "sha256": "cd50cd9e50687dbd725327e40d02f92286e13faac533754bedd8298e131d1a40",
+      "originalWorkspaceRelativePath": "seventh-work/arithmetic/wrapper-preliminary-findings.json"
+    },
+    {
+      "path": "evidence/arithmetic/reproduction-volatile-outputs.json",
+      "bytes": 1787,
+      "sha256": "41f511e21b8482cbc613d65fb7a2f304da35873fb74b02d270fa0e9926c86130",
+      "originalWorkspaceRelativePath": "seventh-work/arithmetic/reproduction-volatile-outputs.json"
+    },
+    {
+      "path": "evidence/arithmetic/pr-reproduction-review.json",
+      "bytes": 16648,
+      "sha256": "75632da6384f2c3ccb517053737ffc3700cbdea298f6d8f30f495ca0511dcb81",
+      "originalWorkspaceRelativePath": "seventh-work/arithmetic/pr-reproduction-review.json"
+    },
+    {
+      "path": "evidence/arithmetic/pr-reproduction-review.txt",
+      "bytes": 1498,
+      "sha256": "58cf17f603d037f98b5a3f6d6b7cec8b6fc3707866273d40bf61f172c754c031",
+      "originalWorkspaceRelativePath": "seventh-work/arithmetic/pr-reproduction-review.txt"
+    },
+    {
+      "path": "evidence/arithmetic/pr-reproduction-manifest-check.json",
+      "bytes": 11530,
+      "sha256": "27c2b55c44d8b3c8c093eace762e4b7a50b5c3a1ec191b80f5722755519b8be6",
+      "originalWorkspaceRelativePath": "seventh-work/arithmetic/pr-reproduction-manifest-check.json"
+    },
+    {
+      "path": "evidence/geometry/arithmetic-independent-review-round7.txt",
+      "bytes": 4290,
+      "sha256": "df95de1a8660f899f9806693d7bb54cb44a36d0269a4e81cb0386b11cc74aa81",
+      "originalWorkspaceRelativePath": "seventh-work/geometry/arithmetic-independent-review-round7.txt"
+    },
+    {
+      "path": "evidence/geometry/arithmetic-independent-review-bindings-round7.json",
+      "bytes": 2950,
+      "sha256": "3a5a779f78023c6b012c1c914c3fffafea8068096190f081004c73a2b474d4bc",
+      "originalWorkspaceRelativePath": "seventh-work/geometry/arithmetic-independent-review-bindings-round7.json"
+    },
+    {
+      "path": "evidence/geometry/diagonal-independent-review-round7.txt",
+      "bytes": 3653,
+      "sha256": "8c911c275d6f5ca20fb30817d16a4cf4a4d73a5815c2a94d734251f6094c701b",
+      "originalWorkspaceRelativePath": "seventh-work/geometry/diagonal-independent-review-round7.txt"
+    },
+    {
+      "path": "evidence/geometry/diagonal-independent-review-bindings-round7.json",
+      "bytes": 2216,
+      "sha256": "0ffa0e72f93b1f0a23e7fb3edb63554fb2f363b9593e3ece86fc41b329d464b8",
+      "originalWorkspaceRelativePath": "seventh-work/geometry/diagonal-independent-review-bindings-round7.json"
+    },
+    {
+      "path": "evidence/geometry/diagonal-scaling-check.json",
+      "bytes": 2434,
+      "sha256": "ace0735659bb62610bfd8bf658bbd2951822614e39a25bea4eee5416671e3280",
+      "originalWorkspaceRelativePath": "seventh-work/geometry/diagonal-scaling-check.json"
+    },
+    {
+      "path": "evidence/geometry/geometry-bindings-round7.json",
+      "bytes": 1946,
+      "sha256": "df4fff10281c57f092af876fd78bbbdddd9b8c21721e544c7a76da87915c8651",
+      "originalWorkspaceRelativePath": "seventh-work/geometry/geometry-bindings-round7.json"
+    },
+    {
+      "path": "evidence/geometry/integrated-geometry-check.json",
+      "bytes": 2809,
+      "sha256": "764cf612099ce6ec0cc28a1076bc8847dff967fb3a53bea17892e3aa23404a6d",
+      "originalWorkspaceRelativePath": "seventh-work/geometry/integrated-geometry-check.json"
+    },
+    {
+      "path": "evidence/geometry/rejected-paths-round7.txt",
+      "bytes": 2761,
+      "sha256": "f72e071ea0997f998a5c0c4d2b962becf378e5f97a355e312f6e965bcd631167",
+      "originalWorkspaceRelativePath": "seventh-work/geometry/rejected-paths-round7.txt"
+    },
+    {
+      "path": "evidence/geometry/pdf-qa/pdf-qa-receipt-round7.txt",
+      "bytes": 6240,
+      "sha256": "3634ce13de0b0416eb80bab4711fbb45261fca3101ba0eeb0901eab65c0ea97a",
+      "originalWorkspaceRelativePath": "seventh-work/geometry/pdf-qa/pdf-qa-receipt-round7.txt"
+    },
+    {
+      "path": "evidence/geometry/pdf-qa/pdf-qa-bindings-round7.json",
+      "bytes": 8930,
+      "sha256": "afb0f10e41d6d376c5755252a15891b6cc0a48092df4cdbca910f7c683ec6dff",
+      "originalWorkspaceRelativePath": "seventh-work/geometry/pdf-qa/pdf-qa-bindings-round7.json"
+    },
+    {
+      "path": "evidence/geometry/pr-claims-consumer-review-round7.json",
+      "bytes": 42754,
+      "sha256": "16b0f9ad646f9fdcf6472ef8f8e7d79c2706e611771f067f58794570a9f80c00",
+      "originalWorkspaceRelativePath": "seventh-work/geometry/pr-claims-consumer-review-round7.json"
+    },
+    {
+      "path": "evidence/geometry/pr-claims-consumer-review-round7.txt",
+      "bytes": 2805,
+      "sha256": "8841bbcaca031422e85b19d6aca24da7a76643b3a39f77871e8d673e827aefd0",
+      "originalWorkspaceRelativePath": "seventh-work/geometry/pr-claims-consumer-review-round7.txt"
+    },
+    {
+      "path": "evidence/detectors/scalar-independent-review.txt",
+      "bytes": 6517,
+      "sha256": "fa264728c0ab9b19c119407b09c9b4e4b903b1b3fd9780a4287cea64938a9a25",
+      "originalWorkspaceRelativePath": "seventh-work/detectors/scalar-independent-review.txt"
+    },
+    {
+      "path": "evidence/detectors/integrated-scalar-independent-check.json",
+      "bytes": 3581,
+      "sha256": "453c45002db76a4cba8361c5e2e0e6eb39287b6de810a049ef2c1a5148397e14",
+      "originalWorkspaceRelativePath": "seventh-work/detectors/integrated-scalar-independent-check.json"
+    },
+    {
+      "path": "evidence/detectors/round7-review-bindings.json",
+      "bytes": 3574,
+      "sha256": "61b443d9620578a8d0fb9dbdc0134e5a6034da070f4c160c18409090ccbdc687",
+      "originalWorkspaceRelativePath": "seventh-work/detectors/round7-review-bindings.json"
+    },
+    {
+      "path": "evidence/detectors/rejected-path-notes.txt",
+      "bytes": 3420,
+      "sha256": "aa375b4f9a2cd8fddb5b13622cd5267b890760f3cee09ad8ead0b2b06e167c6a",
+      "originalWorkspaceRelativePath": "seventh-work/detectors/rejected-path-notes.txt"
+    },
+    {
+      "path": "evidence/detectors/proof-spacing-only.patch",
+      "bytes": 2011,
+      "sha256": "be0e18ee42599a856e52a6ab9efbf9d90295cdb5fd79658e1026a1f8645a8247",
+      "originalWorkspaceRelativePath": "seventh-work/detectors/proof-spacing-only.patch"
+    },
+    {
+      "path": "evidence/detectors/pr-dependency-validation.json",
+      "bytes": 1255,
+      "sha256": "d01171a666bd23054e6ab407531087dea41e54e5379653e195cf20162e327ca0",
+      "originalWorkspaceRelativePath": "seventh-work/detectors/pr-dependency-validation.json"
+    }
+  ]
+}

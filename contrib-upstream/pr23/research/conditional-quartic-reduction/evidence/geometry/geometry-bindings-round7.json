@@ -1,0 +1,35 @@
+{
+  "status": "PASS",
+  "baselineBuilderSha256": "3f63cb782d52857446cf39f6e545aeb74f380d1347826eafa888cbb487738d51",
+  "sourceAssertions": 223,
+  "unchangedBaselineRejected": true,
+  "counts": {
+    "raw": [
+      409,
+      377
+    ],
+    "generic": [
+      399,
+      367
+    ],
+    "final": [
+      395,
+      363
+    ]
+  },
+  "scalarOrder": 28,
+  "fileBindings": {
+    "seventh-work/geometry/geometry_round7.tex": "0402ccf6c3e193c685d01e0ff6e46449001ac074a1bf4501419d6fb1fea88035",
+    "seventh-work/geometry/check_geometry_round7.py": "9fe327499537b10914fb560e8073dfed75d5231c991de2ebf49a70e1631acd0d",
+    "seventh-work/geometry/outer-constant-geometry-check.json": "67945e7b790d2f912843283b8e17c65ffd2bc6035f8c9cd76ba7d789cc6ed05a",
+    "seventh-work/geometry/outer_constant.patch": "9dd34d913bdea38bd68720f71204275ff3d495e377d3434a39b0ce2bf033ed8a",
+    "seventh-work/geometry/outer_constant/builder.cjs": "7566b7d0b28ddf00d3e9218bdeb668079a7e6b363d3ba77a621a9c3d97459acf",
+    "seventh-work/geometry/outer_constant/raw-ir.json": "c6be786e79b5fc9e71d90508307e6d4fdd424d576cabaecb561faffcc50898a4",
+    "seventh-work/geometry/outer_constant/raw-translated-ir.json": "47e8847c221f134c9152e7f9935090d3e908d7e58f68ee01ea8b2cb06cd8ec01",
+    "seventh-work/geometry/outer_constant/independent-gate-check.json": "3c2af7075c6f8c25e4e0b00bba4af3f474afe5104f1c9360633e685a6b797a9a",
+    "seventh-work/geometry/outer_constant/compiled/compiled-ir.json": "e7e08cc49918dcfc5344a41b96e9ce04275b0e2712407d60227a1bd6ea6fc06d",
+    "seventh-work/geometry/outer_constant/final/integer-candidate-ir.json": "bbdb8e8fecf5d3a4332eca393f1c379c68605e7cdd03110c328d3282550945a1",
+    "seventh-work/geometry/outer_constant/final/modulo-certificate.json": "b0eb077394a0b0104d7e37744b42cb8737c94aa99b581c8a4f028345642a2529",
+    "seventh-work/geometry/outer_constant/final/verification.json": "01c14cc0dad9a44de5525a0465317aa0d5cb873a1881c9e660447e53b36db7bb"
+  }
+}

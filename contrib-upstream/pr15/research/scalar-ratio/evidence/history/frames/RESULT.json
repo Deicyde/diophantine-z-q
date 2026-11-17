@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "scope": "Two owned source modules, native elaboration with kernel checking enabled; no replay/comparator/paranoid claim",
+  "command": [
+    "lean",
+    "-j1",
+    "-Ddebug.skipKernelTC=false",
+    "-o",
+    "<fresh module .olean>",
+    "<source module .lean>"
+  ],
+  "cwd": "/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean",
+  "outputs": [
+    {
+      "source": "lean/Research/DerivativeSwitch/Coordinate.lean",
+      "source_sha256": "229e66269880b9970b15ca36fab290d2572fdfac7396383d3327e652128ade90",
+      "received_sha256": "e0cfbefd5d95f0673730735bb2b241dc70db0225b9c13c715c9d580e455f27ab",
+      "olean": "lean/.checks/scalar-ratio-frames/lib/Research/DerivativeSwitch/Coordinate.olean",
+      "olean_sha256": "acdcbdbf23e607fb051d3d1f09d85eb01e860c307c651fcef7948f9f331ac7b3",
+      "log": "lean/.checks/scalar-ratio-frames/coordinate-03.log"
+    },
+    {
+      "source": "lean/Research/DerivativeSwitch/CommonStrict.lean",
+      "source_sha256": "c5770846489d7fdab0024d8f3c49e0a474eb0fa56dc428cc6a7034bc8e5605e4",
+      "received_sha256": "53d581522547747a974d8ee656df017b1c31c73433c090a4b6b301869e11ec2a",
+      "olean": "lean/.checks/scalar-ratio-frames/lib/Research/DerivativeSwitch/CommonStrict.olean",
+      "olean_sha256": "0625a1ef4a17a5b73980e40f23bc1d699ff676790bcc4e20d1e414dedf84ccc6",
+      "log": "lean/.checks/scalar-ratio-frames/commonstrict-07.log"
+    }
+  ],
+  "warnings": {
+    "Coordinate": [
+      "Unused DecidableEq n section parameter in tensor_mul, mul_tensor, row_mul_assoc, preserved to retain received theorem signatures"
+    ],
+    "CommonStrict": []
+  },
+  "paranoid": "NOT_RUN",
+  "axiom_audit": "Parent integration responsibility"
+}

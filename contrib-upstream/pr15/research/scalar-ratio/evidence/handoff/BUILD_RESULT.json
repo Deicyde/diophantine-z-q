@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "default_targets": "Seven solution modules and Solution; Challenge absent",
+  "challenge_holes": 39,
+  "generated_files": 25,
+  "generated_manifest_sha256": "117f9ca2c28c42e45198f790dd8c3f324e1bed9d3af11ea9707575363304b811",
+  "cache": "Local symlink to exact pinned dependency caches; not a cloud or clean Linux run",
+  "kernel_replay": "NOT_RUN",
+  "paranoid": "NOT_RUN"
+}

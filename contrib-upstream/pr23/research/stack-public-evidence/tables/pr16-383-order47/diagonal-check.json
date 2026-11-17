@@ -1,0 +1,75 @@
+{
+  "status": "PASS",
+  "expectedAnchorExponent": 2010,
+  "expectedCoordinates": 383,
+  "checkedQuadraticRows": 352,
+  "checkedNonzeroRowDivisors": 352,
+  "rowExponentSpanHistogram": {
+    "0": 330,
+    "1": 11,
+    "2": 11
+  },
+  "maximumAbsoluteCoefficientFormula": "28902*3^1340",
+  "nonintegerRowDivisors": [
+    {
+      "id": 196,
+      "name": "heightProduct.scale0.definition",
+      "denominator": "2097152"
+    },
+    {
+      "id": 242,
+      "name": "detector1.t.definition",
+      "denominator": "2097152"
+    },
+    {
+      "id": 246,
+      "name": "detector1.Adelta.definition",
+      "denominator": "2097152"
+    },
+    {
+      "id": 247,
+      "name": "detector1.Adelta4.half.square.definition",
+      "denominator": "4398046511104"
+    },
+    {
+      "id": 249,
+      "name": "detector1.q1.definition",
+      "denominator": "8192"
+    }
+  ],
+  "exactMaximumFormulaVerified": true,
+  "fullSumOfSquaresIdentity": true,
+  "everyDecimalCoefficientChecked": true,
+  "diagonalMapIsBijectionOverQ": true,
+  "inputFixed": true,
+  "measured": {
+    "coordinates": 383,
+    "residuals": 352,
+    "degree": 4,
+    "monomials": 26043,
+    "integerContent": 1,
+    "inputFourthPowerCoefficient": "1",
+    "maximumCoefficientDigits": 644,
+    "maximumCoefficientBits": 2139,
+    "scaledCoordinates": 13,
+    "ternaryScaledCoordinates": 12,
+    "dyadicScaledCoordinates": 2,
+    "anchorExponent": 2010,
+    "cExponent": 335,
+    "tableSha256": "d2e9856dcbd752a156548e37545f48ed8e1e8d263c5b374aad5a19f44f8eab6f",
+    "tableBytes": 1021849,
+    "certificateSha256": "17b6a0a550f83d2ca7e06da288b6c045f28e23dc3bb04cf100ae4a1b38f391e9"
+  },
+  "fileBindings": {
+    "final/integer-candidate-ir.json": "10a09c6049997777aed37f8092403b29309c9429d5f216dbd20f031a53a66283",
+    "balanced/integer-ir.json": "eb5584946352f84ea794455680929323cdf7a79b89a590a8d411a81b313d4614",
+    "balanced/polynomial.json": "65e55794940a9b7ea93ac0424d273e4e0c5f2d4b469cf3c52ada8009e46aeb8c",
+    "balanced/diagonal-certificate.json": "17b6a0a550f83d2ca7e06da288b6c045f28e23dc3bb04cf100ae4a1b38f391e9",
+    "balanced/summary.json": "8b5421dc6ad35494ad5d90a80ab8e28807cef5641f825c0ea219f87c5ea3772f",
+    "quartic-383-balanced-decimal.txt": "d2e9856dcbd752a156548e37545f48ed8e1e8d263c5b374aad5a19f44f8eab6f",
+    "builder.cjs": "d74d5f1ee84f169b21ffdae6bd9bc7dbd6f056145e8b117174d9ccca80b02b16",
+    "raw-ir.json": "11bc10e12bd9b95ea20f50bb7fb9458055d38c96666e084c5e0498b77fd39cdd"
+  },
+  "checkerSha256": "506da8992d048bc16f5df0a1cde9226201dff9d8169d2d0bbc92b12d10cd4f64",
+  "scope": "Exact diagonal substitution at the independently specified fixed parameter, nonzero primitive-row scaling, all normalized quadratic rows, full SOS, coordinate compaction, and every decimal text coefficient.  The inverse map divides each coordinate by its nonzero rational factor 2^a*3^b, including the specified negative dyadic exponent. Over Q a sum of rational squares vanishes exactly when every row vanishes. This gives the same projection onto the unchanged input; inherited global arithmetic and source-to-core compilation are separate obligations."
+}

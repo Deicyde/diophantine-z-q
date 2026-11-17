@@ -1,0 +1,35 @@
+{
+  "status": "historical_author_investigation_not_independent_acceptance",
+  "sourceCommit": "31563264ba3dfbc3f00b4b08c099e9380caacd42",
+  "coverage": "Verbatim notes, scratch search scripts and small result certificates. Large generated circuit/solver/table artifacts are not archived here; the new height tables are reconstructed by the current runner. Scratch scripts retain their original temporary paths and are not production entry points. For regrouping reruns, first reproduce the parent default and supply that builder at the recorded ROOT/build/final380 path. The LP consumes the same parent final integer IR and needs scipy; its six-multiplier rational certificate is retained. Neither search is a claimed complete optimization.",
+  "files": [
+    {
+      "path": "NEXT_PR.md",
+      "sha256": "ecf97635d37507cc906434a27daed3ac40c7bf14eabf673fc91093544fcb5fd4"
+    },
+    {
+      "path": "grouping_probe.py",
+      "sha256": "32f4627f1da79c4b0326d2cf7f312a167dfbf33d727b83aaf1345ed627436e9f"
+    },
+    {
+      "path": "grouping/RESULTS.json",
+      "sha256": "1d4cb494a2d1caa98f74eca8d25465463b5004a0b4c6328d85b7b93b0b6b9691"
+    },
+    {
+      "path": "scaling_lp.py",
+      "sha256": "5b2e5524e7e0a69a746fb6c22d2102193bb186ba0155ae44869b6dd46677e421"
+    },
+    {
+      "path": "scaling_weights.json",
+      "sha256": "b2e8d2161ae3c1d8162b1dccf89c404cf2499e43fbf2b7ff6684cce7ef915c5f"
+    },
+    {
+      "path": "scaling_dual.json",
+      "sha256": "b6f74c309ba2e5cfbb32e0c5e7e59e226435be83e3ca22f20d85d728f0a4e30a"
+    },
+    {
+      "path": "height_margins.json",
+      "sha256": "e29f6688ef8462dd5003a5d51a74687b8f4ee3998c0c0fee036aac82e3ab6d5c"
+    }
+  ]
+}

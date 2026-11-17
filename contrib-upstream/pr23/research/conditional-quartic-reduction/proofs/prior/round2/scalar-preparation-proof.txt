@@ -1,0 +1,41 @@
+SCALAR PREPARATION CONIC
+
+With beta=1224X^2+2451 and X rational, beta>=2451>2401. Therefore each
+factor of r=beta(beta-1)(beta-2401)(32beta+343) is positive, so
+r>0. The scalar norm recursion has
+ n0=1+f_U0,0^2/r>=1,
+ nLeft=n0^2+r*n1^2>=1,
+ W=nLeft^2+r*nRight^2>=1.
+These inequalities hold for every rational solution of the circuit equations.
+Consequently b=21*r*W^2>0. No local arithmetic claim is needed for this sign.
+
+The old preparation is T=(1+b*t^2)/b and U=2/T-b. Hence
+ U=b(1-b*t^2)/(1+b*t^2).
+Introduce V=2*b*t/(1+b*t^2). Direct multiplication gives
+ U^2+b*V^2=b^2.
+All quantities are rational; denominators are nonzero because b>0.
+
+Conversely, let U,V be any rational solution of U^2+b*V^2=b^2. If U!=-b,
+put t=V/(b+U); direct substitution recovers the displayed Mobius formula.
+If U=-b, the conic and b>0 give V=0. Replace U by +b; all other retained
+residuals are unchanged because they use U only through U^2. Then t=0
+recovers the old preparation. This is equivalence after existential
+projection, not a bijection at that exceptional pair.
+
+Implementation: two base coordinates U,V replace one old base t. Keep a
+quadratic assignment for each of U^2,V^2 and impose
+ U2 + b*V2 - b^2=0.
+The downstream expression Bh=e*(17b-U2) is unchanged. The old t^2,T,U+b
+assignments disappear. Net variable saving is 1. All residuals remain
+quadratic. The combined raw-structure checker verifies that the only raw
+residual occurrence of U is its square definition, so the exceptional sign
+flip is mechanically certified to preserve all other equations.
+
+SEMANTIC b COORDINATE
+
+The scalar b output is stored directly as one coordinate, with its full
+quadratic defining expression b-21*r*W2=0, where W2 denotes the already
+stored W^2 expression. This replaces the old normalized homogeneous-gate
+coordinate by an invertible affine change. No coordinate is added. It avoids
+raising a large normalization coefficient to the fourth power in the conic
+contribution to the SOS.

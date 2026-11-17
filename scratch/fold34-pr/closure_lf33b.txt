@@ -1,0 +1,17 @@
+frozenTarget: closure 299961
+  contains AvSplit.MumfordTorsionAlgClosed: true
+  contains ZInQ.HomLattice.GAGAMorphism: true
+  contains sorryAx: false
+  contains ZInQ.Contrib.CloudB3W16Torsion.mumfordTorsionAlgClosed_proof: true
+  contains ZInQ.Contrib.OneProof.GAGAMorphism.gagaMorphism_proof: true
+  contains CToPrinted.SGA3_VIB_3_10: false
+  contains SGA3IdComp.SGA3_VIB_3_10_Nbhd: false
+  contains DictModels.MumfordConn.MumfordGroupLawConn: false
+  contains ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed: false
+  contains PkgI3.HomFreeFinite: false
+  contains PicDict.MumfordPhiSurjectiveAC: false
+  contains T09Pic.PicZeroAbVar: false
+  contains PicDict.PicZeroSmooth: false
+  bundle HDec.HSyn.OpenResearchLeaves39: 28 fields
+  bundle HDec.HSyn.OpenTextbookLeaves17: 1 fields
+  bundle HDec.HSyn.OpenAddedLeaves25: 2 fields

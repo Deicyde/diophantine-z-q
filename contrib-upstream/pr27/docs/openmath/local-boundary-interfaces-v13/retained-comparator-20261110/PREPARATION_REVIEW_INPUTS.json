@@ -1,0 +1,106 @@
+{
+  "review_id": "pr27-retained-comparator-preparation-source-review-20261110",
+  "date": "2026-11-10",
+  "reviewer": {
+    "agent": "/root/retained_comparator_review",
+    "requested_model": "gpt-6-astra",
+    "role": "Non-author source/preparation reviewer",
+    "authorship": "No contribution scripts, Challenge, configuration, handoff or validation records authored or edited by this reviewer. Only these review artifacts are reviewer-authored.",
+    "prior_exposure": "Read repository rules and reconstructed PR27 source declarations, contracts and edge cases before reviewing candidate Challenge/support; later read author local validation logs. Parent context and model/toolchain limitations are shared.",
+    "model_provenance": "Requested model identity only; this report cannot authenticate serving-model identity or protected-controller eligibility."
+  },
+  "decision": "NO_BLOCKING_FINDINGS_IN_PREPARATION_SCOPE",
+  "protected_controller_acceptance": false,
+  "checkout_commit": "059bf903b441220246d5c1161f8dc24165b7a534",
+  "revision_binding": "New uncommitted support reviewed by exact hashes below; baseline checkout is not a claim that support was committed. Reprepare at the published handoff commit.",
+  "repository_inputs_sha256": {
+    "AGENTS.md": "292d48f40ea2748166b9d5fcc7974b831959dc99092692a542d6c704e924b538",
+    "docs/openmath/local-boundary-interfaces-v13/retained-comparator-20261110/HANDOFF.md": "d1efffcde29f6ec1c6cc49ed4ebf226a895bddab22f97c4197282c28c6d4a231",
+    "docs/openmath/local-boundary-interfaces-v13/retained-comparator-20261110/LOCAL_VALIDATION.json": "d91ec445535046d542d0fa9be3579351a0e0c7fe7b01073fa020bfa9e8922fe6",
+    "docs/openmath/local-boundary-interfaces-v13/retained-comparator-20261110/REQUEST.json": "b91ce36257a6462191c8e16e2dbd0b27ed5ba4497ccca4fdef16f75ea9c3c5a3",
+    "docs/openmath/local-boundary-interfaces-v13/retained-comparator-20261110/SUPPORT.sha256": "61eb12009ac16dfdd90c7ba097a02489197e8d7ce1f9e54e1199d106da2e48d4",
+    "docs/openmath/local-boundary-interfaces-v13/retained-comparator-20261110/export-roots.txt": "4d24dd1ebcd1cec317562b825ed1177f94b5177068ad5f54d1bde904bee1a6af",
+    "docs/research-review/ASTRA-REVIEW-POLICY.md": "7ab22a753f25450eb955ff8b315a814cfaaa784cc0855d929e2d68442663ec4b",
+    "lean/Research/DerivativeSwitch/ActualBoundaryCup.lean": "77bcdd2ae5283ffd6cc51062e452da4294fcd5b3d952940b588b2d5b52ecdd90",
+    "lean/Research/DerivativeSwitch/ConjugateLocalH1.lean": "078ac50ae0c90c8e609a57c51c5884a25646ad7305531f1cf531617485b9078f",
+    "lean/Research/DerivativeSwitch/ConjugateLocalTransport.lean": "8688eef27fcc89c02eb3ab270e5359534dc23ef16e11678bdb1dd3587e3f8b86",
+    "lean/Research/DerivativeSwitch/OrthogonalComparison.lean": "bfec996b869e44c6a42fc058fbc24cc7288b1f61d0f0e7eef1f4f58f41dca1ba",
+    "lean/lake-manifest.json": "a770787f33b5824f61a0731d59e67fca3f44a531b21d1fc1a804064c6fb54e58",
+    "lean/lean-toolchain": "ca5f1f601d34c49079e38d7e7041eb0f2a9c227fbc1df0f404820069a052330c",
+    "research/local-boundary-interfaces/APPLICATION.md": "39bcbe3573d567348047ea0dd88e7308100ed993320a03e949b2e5e556c45ce3",
+    "research/local-boundary-interfaces/MANIFEST.sha256": "ce59e6667e58c1858a0bb87830c35f4142dc1f69c805f2e4daaa169f130220e3",
+    "research/local-boundary-interfaces/README.md": "02b0b1e74230d0ec21e02079877a7716729e6b8d66d6b62074604b8cdc3d0023",
+    "research/local-boundary-interfaces/TARGETS.json": "b5e5bd8f58ced1f62e3e0b282f0b61d5d992f846c95446f2b5af749bdc6361da",
+    "research/local-boundary-interfaces/comparator/CHALLENGE_ORIGIN.json": "8ba29dbc0fbdab3a76facaa39c6a45b746de99fc29fdb1331f3f01f1424e1a30",
+    "research/local-boundary-interfaces/comparator/Challenge.lean": "52aa8ebab9ec3a769aae43c5ee89831fbce2eec0730d7f253126b732458c099e",
+    "research/local-boundary-interfaces/comparator/Challenge/ActualBoundaryCup.lean": "9f6da7a2ee1bf261685e2ff6d91da7e9f59c4d65545b5f9dcae1a293ad7248e2",
+    "research/local-boundary-interfaces/comparator/Challenge/ConjugateLocalH1.lean": "0c6f7c20c7b853c8c9244cfa1107f0db8086fa621d8ded495bf0c69dccb36719",
+    "research/local-boundary-interfaces/comparator/Challenge/ConjugateLocalTransport.lean": "bffb19028463115f9e43f907ab887ae71c6dc3f3daf8ec2064e9231a925e05df",
+    "research/local-boundary-interfaces/comparator/Challenge/OrthogonalComparison.lean": "9f831ae731b203072f8d186ba97d7e4d8a406792dd113d5eb12ca8e0252dd60c",
+    "research/local-boundary-interfaces/comparator/comparator.json": "bd967ab76c65d1b2de2f11773d81395f581eaaee3df49eb7ce6cf0f3952a2092",
+    "scripts/prepare_local_boundary_comparator.py": "c20eda10fa54307aba7fdae83e8df45ed02919e722f2b0afab8b4689a42063df",
+    "scripts/prepare_local_boundary_openmath.py": "76a9d63ed718bb12a64f71013b3de8fd8fcd3852ed2462e2aca0ba63a47ac8d2"
+  },
+  "prepared_project_files_sha256": {
+    "BASE_PROJECT_MANIFEST.sha256": "5a828f5d4608b801f7016b7c387fae3ab78274f237c8077771b38d7bbadd20a0",
+    "COMPARATOR_INPUTS.sha256": "4454a09775b9cc9ad77ce7c6d8af91804bae3fce9df23350ededa651315cd52c",
+    "Challenge/ActualBoundaryCup.lean": "9f6da7a2ee1bf261685e2ff6d91da7e9f59c4d65545b5f9dcae1a293ad7248e2",
+    "Challenge/ConjugateLocalH1.lean": "0c6f7c20c7b853c8c9244cfa1107f0db8086fa621d8ded495bf0c69dccb36719",
+    "Challenge/ConjugateLocalTransport.lean": "bffb19028463115f9e43f907ab887ae71c6dc3f3daf8ec2064e9231a925e05df",
+    "Challenge/OrthogonalComparison.lean": "9f831ae731b203072f8d186ba97d7e4d8a406792dd113d5eb12ca8e0252dd60c",
+    "Challenge.lean": "52aa8ebab9ec3a769aae43c5ee89831fbce2eec0730d7f253126b732458c099e",
+    "Packet.lean": "2dc49e29cb722b74e53b4df0bd59c9ac5029a2c4c372318c852cbf9eeca93943",
+    "RETENTION_PREPARATION.json": "1200c9adad987d536f9ae40c2f72baf21573d80c760236b13a45803fa3887bb7",
+    "Research/DerivativeSwitch/ActualBoundaryCup.lean": "77bcdd2ae5283ffd6cc51062e452da4294fcd5b3d952940b588b2d5b52ecdd90",
+    "Research/DerivativeSwitch/ConjugateLocalH1.lean": "078ac50ae0c90c8e609a57c51c5884a25646ad7305531f1cf531617485b9078f",
+    "Research/DerivativeSwitch/ConjugateLocalTransport.lean": "8688eef27fcc89c02eb3ab270e5359534dc23ef16e11678bdb1dd3587e3f8b86",
+    "Research/DerivativeSwitch/OrthogonalComparison.lean": "bfec996b869e44c6a42fc058fbc24cc7288b1f61d0f0e7eef1f4f58f41dca1ba",
+    "SOURCES.json": "5bcc1ced8b5f7c433856d127b85f3c955262f727b9a4f2216ce6dda8321b9626",
+    "TARGETS.json": "b5e5bd8f58ced1f62e3e0b282f0b61d5d992f846c95446f2b5af749bdc6361da",
+    "comparator.json": "bd967ab76c65d1b2de2f11773d81395f581eaaee3df49eb7ce6cf0f3952a2092",
+    "export-roots.txt": "4d24dd1ebcd1cec317562b825ed1177f94b5177068ad5f54d1bde904bee1a6af",
+    "lake-manifest.json": "3c33fbe92ad8ea1c36b87d134b9a6ec3c3d8f4918985683f33ffbcbe02ebe7fa",
+    "lakefile.toml": "df7b9d1425e7eff41d09a3e69a8dc974a396e0891066bb71e8f74f15af7f22b8",
+    "lean-toolchain": "ca5f1f601d34c49079e38d7e7041eb0f2a9c227fbc1df0f404820069a052330c",
+    "roots.txt": "0a9494f88a2d1784adc56ecd6e3e628015953217074111740ccadcdfe5ecd007"
+  },
+  "pinned_comparator_source_sha256": {
+    "/Users/chey/.elan/toolchains/leanprover--lean4---v4.35.0/src/lean/lake/Lake/CLI/Check.lean": "55daf430e5adea38453b21798cbdf4cd099f66ec969494022a566a8ae098c00b",
+    "/Users/chey/.elan/toolchains/leanprover--lean4---v4.35.0/src/lean/lake/Lake/Check/Compare.lean": "0281630a33b8f08a9f3f40f229cd843c02441a0cd4d8a6d8548dc2bb8ded4c68",
+    "/Users/chey/.elan/toolchains/leanprover--lean4---v4.35.0/src/lean/lake/Lake/Check/Axioms.lean": "261fa54494a6a17c23b8588d788ab1080e5c39af2143948f8e140cfa295560d1"
+  },
+  "independent_offline_checks": {
+    "support_entries": 11,
+    "complete_project_entries": 19,
+    "independent_output": "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-10-retained-comparator/independent-review-intn2a05/pr27-prepared",
+    "prepared_index_sha256": "4454a09775b9cc9ad77ce7c6d8af91804bae3fce9df23350ededa651315cd52c",
+    "repeat_byte_identical": true,
+    "baseline_sources_match": true,
+    "positive_prepare_exit": 0,
+    "existing_output_rejected": {
+      "exit": 1,
+      "stderr": "Output must be new\n"
+    },
+    "source_drift_rejected": {
+      "exit": 1,
+      "stderr": "Frozen input changed: lean/Research/DerivativeSwitch/ActualBoundaryCup.lean\n"
+    },
+    "request_drift_rejected": {
+      "exit": 1,
+      "stderr": "Input missing, outside root, or changed: docs/openmath/local-boundary-interfaces-v13/retained-comparator-20261110/REQUEST.json\n"
+    },
+    "lean_executed": false
+  },
+  "test_harness_note": "An initial reviewer isolated-copy fixture omitted SUPPORT.sha256 and therefore failed before reaching its source-drift assertion. The fixture was corrected; the reported isolated controls were then rerun successfully. This was a reviewer test-fixture omission, not a contribution defect.",
+  "findings": [],
+  "deferred": {
+    "challenge_compilation": "NOT_RUN",
+    "solution_compilation": "NOT_RUN_BY_THIS_REVIEW",
+    "comparator": "NOT_RUN",
+    "paranoid": "NOT_RUN",
+    "six_checker_execution": "NOT_RUN",
+    "cloud_dispatch": "NOT_DISPATCHED",
+    "owner": "Open Math OS",
+    "source_to_export_binding": "Must be established by protected remote build/export records; supplied-export comparison alone does not establish it."
+  }
+}

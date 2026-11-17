@@ -1,0 +1,91 @@
+{
+  "status": "PASS",
+  "assurance_profile": "development",
+  "lean": "Lean (version 4.35.0, arm64-apple-darwin24.6.0, commit eb6cafb7290e8bd5f2937522d8d804f58f02bafc, Release)",
+  "dependencies": [
+    {
+      "name": "mathlib",
+      "revision": "56a005855ea17e0b0958f73ec801ae140b0a1679"
+    },
+    {
+      "name": "plausible",
+      "revision": "dfa4f38190d07c37e315953e08b90fe2d95b3c24"
+    },
+    {
+      "name": "LeanSearchClient",
+      "revision": "d6b4c7be5be75ec4917c873ac50c756dc1436372"
+    },
+    {
+      "name": "importGraph",
+      "revision": "a41f0e9a4dea23188ea9cc1c41ac9f8bbafe0b93"
+    },
+    {
+      "name": "proofwidgets",
+      "revision": "df72b022e558978a1c50264cfc4d7fec86fa8e04"
+    },
+    {
+      "name": "aesop",
+      "revision": "4a174c490d8707121c4a9290800489f105d85e07"
+    },
+    {
+      "name": "Qq",
+      "revision": "dce0ad79c486cb1fb504af04f953c3466b0c6db8"
+    },
+    {
+      "name": "batteries",
+      "revision": "66e469188fe07963e5cf666c7d4433f45b8131c5"
+    },
+    {
+      "name": "Cli",
+      "revision": "c24fe6078c630e89b489bffe59b3e20ac30d12c8"
+    }
+  ],
+  "theorem_axioms": {
+    "Research.DerivativeSwitch.finite_kernel_line": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.singular_kernel_line": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.boundary_images_meet_zero": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.no_identity_strict_square": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.Volume.area_action": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.Volume.area_neg_one": [
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "allowed_axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "paranoid": false,
+  "external_checkers": "NOT_RUN",
+  "main_theorem_proved": false,
+  "fresh_target_olean": true,
+  "dependency_cache": "Trusted published prebuilt cache",
+  "input_hashes": {
+    "lean/Research/DerivativeSwitchBoundary.lean": "63a9215fa55568069d2d1a7b2c3a7345ec21c7ad6a82203f42c5451ee4b8bbea",
+    "lean/lean-toolchain": "ca5f1f601d34c49079e38d7e7041eb0f2a9c227fbc1df0f404820069a052330c",
+    "lean/lakefile.toml": "632fda3c75f7616378b9dadd0906d9518c7b4a1199c59d7b36369121acfb3b26",
+    "lean/lake-manifest.json": "a770787f33b5824f61a0731d59e67fca3f44a531b21d1fc1a804064c6fb54e58",
+    "lean/SOURCE_MANIFEST.json": "343d2eb94974a9c3defb58b8349f94378fb1984cb260b53162790426d8bbff96",
+    "research/determinant-switch/verify.py": "31c046d81d66c42c91dcee3571bad403c6ad73f790aebc36597d888b1464b1f4",
+    "research/determinant-switch/CONTRACT.md": "01be1c4182cd5c7483ad2253b93b975ddced22396372e726aa808614d525516b",
+    "research/determinant-switch/check_local_model.py": "2bdf4fa6ead8c8e656f9b49d9d745a7274f7d3daf81915eb88727271d8988ef1"
+  },
+  "artifact_sha256": "39e5ac5cab19dcdfa4a530342dab3725ffc9b90ed18536b10ee0a04900ad7a3e",
+  "semantic_review": "See VERIFICATION.md; no independent acceptance claimed"
+}

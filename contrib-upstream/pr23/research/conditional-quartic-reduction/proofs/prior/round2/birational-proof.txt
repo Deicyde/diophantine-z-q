@@ -1,0 +1,89 @@
+FOUR EXACT LOCAL TRANSFORMATIONS: 483 -> 467
+
+Working field K=Q(sqrt(2)); D=11-6sqrt(2). Original square-abscissa
+point chart: x=h^2, j^2=x^2-D, y=h*j. All existing original difference
+guards are retained. There is no extra arithmetic lemma in these changes.
+
+1. NORMALIZE U POINTS (2 FINAL VARIABLES SAVED)
+
+For U=H,UA,US,UT,UZ retain h,x,f with x=h^2 and x*f=1, but replace the
+base pair j by k=j/h. The new curve equation is k^2=x-D*f, and y=x*k.
+The point is unchanged; conversely reconstruct j=h*k. h is nonzero because
+h^2*f=1. Thus this change is a rational bijection on the existing domain.
+The old chart also has h nonzero (h=0 would give j^2=-D, impossible in the
+real field K); the existing f inverse already ensures this in the system.
+
+Identity, before quotienting by x=h^2:
+ (h*k)^2-x^2+D
+ = x*(k^2-x+D*f)-D*(x*f-1)+(h^2-x)*k^2.
+
+The shared primary ratio j_H/h_H becomes k_H, with no additional pair of
+coordinates. L_i=(h_i*k_H)/j_i becomes k_H/k_i. The existing domain excludes
+j_i=0, equivalently k_i=0. No input or semantic test changes.
+
+2. NORMALIZE DIFFERENCE OUTPUTS (10 FINAL VARIABLES SAVED)
+
+For every V_i=U_i-R_i, retain the original dx inverse and slope m, and
+x_V=m^2-x_U-x_R. Replace y_V coordinate pair by k_V=y_V/x_V, using
+ x_V*k_V = m*(x_U-x_V)-y_U.
+This is still a pair of quadratic equations. The existing f_V=1/x_V
+retains exactly the original nonzero domain. Reconstruct y_V=x_V*k_V.
+
+A log output L previously satisfied y_V*L=-x_V*G, where G is the last
+quadratic stage of the formal-log polynomial. Its equivalent new equation
+is k_V*L=-G. The nonzero x_V justifies cancellation, and G can now be
+substituted directly into this equation, eliminating its two coordinates.
+There are five log outputs, hence ten final coordinates removed. This is
+not the previously rejected attempt merely to remove a z=-x/y parameter.
+
+3. NORMALIZE THE SHARED SCALAR DIFFERENCE (2 FINAL VARIABLES SAVED)
+
+Use the same y/x output for S-P, retaining its original dx guard and f_S
+inverse. The scalar direct leaf was y_V*leaf=x_V*kScaled, so it becomes
+k_V*leaf=kScaled. The pair kScaled=k_H*r^(-32) is quadratic and can now
+inline. Again x_V is already invertible; both maps are rational and exact.
+
+4. DIRECT RECIPROCAL CHART FOR V0=H-P (2 FINAL VARIABLES SAVED)
+
+P=(x_R,y_R), h_R,j_R are the fixed rational-in-K constants already in the
+source. For U=H in the new chart let
+ d=x-x_R, J=h_R*k+j_R, M=x*k+y_R,
+ m=M/d, t=d/J, f_V=t^2/x, k_V=h_R*t-m.
+Keep the original d inverse. Allocate m,t,f_V; k_V is affine because h_R
+is constant. There are no x_V,y_V or separate k_V coordinates. x and f=1/x
+are already in the U chart.
+
+Identity, with x_R=h_R^2 and y_R=h_R*j_R:
+ M^2-(x+x_R)*d^2-x*J^2
+ =d*((x*k^2-x^2+D)-(j_R^2-x_R^2+D)).
+Both parenthesized quantities vanish on the point charts. Hence the old
+x_V=m^2-x-x_R is x*J^2/d^2. In the original system x_V is nonzero, so J is
+nonzero. Thus t exists uniquely, and f_V=t^2/x=1/x_V. Conversely the new
+equations J*t=d and the retained nonzero d imply J,t nonzero; x is already
+nonzero; so f_V is nonzero and defines the old x_V uniquely. Finally
+ h_R*J-M+d*k=0
+implies the old ordinate m*(x-x_V)-x*k equals (h_R*t-m)*x_V. This proves
+that the point orientation, not just its abscissa, is unchanged. The old
+log nonvanishing hypotheses transfer because y_V=x_V*k_V and x_V != 0.
+
+Every forward substitution and backward reconstruction is rational in K,
+thus rational in the two Q components. All new residuals are quadratic in
+those components. S appears only in the already protected packed anchor;
+weighted degree with S counted as a variable stays <=2.
+
+ACTUAL PIPELINE COUNTS
+
+Raw: 484 coordinates, 453 residuals. Generic compiler removes the ten G
+output coordinates and two kScaled coordinates, yielding472/441. The same
+five modulo eliminations as in the prior483 construction yield467/436.
+The counts include the unchanged input coordinate. 17-chain specialization
+therefore yields484 variables with the same old coefficient-size budget.
+
+The retained d inverse is still a two-component K inverse for each of the
+six differences. Any separate guard improvement is not included here.
+
+Files check_chart_changes.py and chart-check.json independently check the
+three displayed polynomial identities and exact K-valued point examples.
+Independent compiler, elimination and complete SOS checks certify the finite
+algebraic artifacts. The claimed arithmetic definition of Z is inherited;
+these checks do not establish it.

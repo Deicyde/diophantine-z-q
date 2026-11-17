@@ -1,0 +1,42 @@
+ROUND-SEVEN GEOMETRY SEARCH RECORD
+
+Selected and measured
+---------------------
+Moving the constant outside the scalar norm tree is selected. It relies on the
+actual input polynomial to exclude negative odd contact valuations, rather than
+an inner constant path. The full isolated pipeline is 409/377 -> 399/367 -> 395/363.
+Its scalar order remains 28. The rigorous transfer, source reconstruction, and
+hash bindings are in geometry_round7.tex, check_geometry_round7.py, and the
+associated reports. The actual earlier source already notes that a negative
+valuation of beta is twice that of X (addition.tex 421–433); the current argument
+checks that property for the changed beta and contact product and uses it to
+simplify the circuit. No historical arithmetic gap is being alleged.
+
+Other avenues considered but not selected
+-----------------------------------------
+1. Replacing the three inverse-power steps by two within the existing uniform
+   family gives scalar order 14. The unchanged exponent 19 height estimate cannot
+   make c^(1−19/14)>80H by enlarging the anchor. This is an obstruction within
+   that family and consumer, not a lower bound for every possible scalar gadget.
+2. Replacing weighted binary norms by unweighted sums of two squares would
+   lose uniform noncancellation. For example 1^2+12^2 is divisible by 29 even
+   though both entries are 29-adic units; 29 is outside the exceptional set.
+   This invalidates the proposed local inference for arbitrary rational leaves.
+   It is not a claimed counterexample to the whole elliptic construction.
+3. Using small w=h_S*tau directly instead of both coefficients of f(S−P)
+   requires an additional exclusion of a reduction where h_S is small. No
+   uniform exclusion on the actual cyclic point domain was proved, so this
+   branch was not implemented or counted as a saving.
+4. Removing the rational inverse of f(S−P)_0 would reopen the identity output
+   S=P at the point-chart level. No proof that the other retained consumers
+   exclude that branch was found. The guard is retained; there is no claim of
+   a constructed global counterexample when it is omitted.
+5. Dropping the final affine 1 from the selected W gives no coordinate saving
+   and loses the automatic real bound W>=1 and the convenient W=1 modulo the
+   preparation primes. The free affine constant is retained.
+6. An inverse outer pole base and rescaled constant can redistribute valuation
+   bounds, but the explored four-node realizations still require the same number
+   of scalar coordinates. No uncompiled variant is claimed to improve the count.
+
+The scalar search was constructive and limited, not exhaustive. Only the selected
+candidate's complete compiler measurement is reported as a new reduction.

@@ -1,0 +1,75 @@
+FINAL ROUND-SEVEN PDF QUALITY-ASSURANCE RECEIPT
+
+Verdict: ACCEPT. All 14 final pages are covered by visual inspection. No clipping,
+overlap, unreadable formula, incorrect displayed count, or misleading claim of
+unconditional arithmetic proof or completed publication remains. No proof,
+wrapper, construction, or PDF file was changed by this review.
+
+Final PDF: seventh-work/root/pdf-build/proposal_note.pdf
+SHA256: c73e5f7b0d030fc977f6387083d033a983943948f30e26cfb46af1b858f82a94
+Pages: 14. Bytes: 317821. Page size: US letter.
+Wrapper SHA256: c38b9dcc3db87e30039d2e0ef7f446bcbaab0bbfd70bfafd990f1572bab9e0fc
+
+Review method and revision coverage
+-----------------------------------
+All 14 pages of the preceding PDF 833af8789681d1475ab3a29d31b72c3764cea148a3bb5f611b66ebcb01242e32
+were rendered and visually inspected. Four missing prose spaces were reported
+and corrected by the detector proof author; the editorial-only patch was read.
+No mathematical token or source construction changed. The revised detector
+proof has SHA256 ed01c9416d3b4daf02a26958642194230c0186a896f17817bfe30c8a16d481d3.
+
+The final PDF was rendered again at 110 dpi. Pages 3–7 changed and were all
+visually inspected again. Pages 1,2,8,9,10,11,12,13,14 have byte-identical PNG
+renders to the already inspected initial version. The adjacent render comparison
+therefore provides final-byte coverage for every page. An image-display failure
+on the initial page 7 was resolved by a 100-dpi render; it was not a PDF defect,
+and the final page 7 displayed successfully at 110 dpi.
+
+There are no overfull or underfull boxes. Two hyperref warnings remove math-shift
+markers from the PDF bookmark for the heading containing e. The printed heading
+and the actual bookmark text, 'Compute the weights without storing e', were
+checked and are correct. These are nonblocking bookmark-conversion diagnostics.
+
+Page-by-page result
+-------------------
+Page 01: PASS. Title, result table, 392 total variables including the input, 391 existential witnesses, exact maximum coefficient, 398-to-392 comparison, and conditional characterization are clear and accurate.
+Page 02: PASS. Three improvements, raw 403/371 to 392/360 pipeline, 342 gate identities / 333 compiler operations, zero later eliminations, source credits, and unsubmitted additive-proposal status agree with the implementation.
+Page 03: PASS. Contact-unit normalization, exact guard values and exceptional set, unchanged R, semantic test rescaling, and direct q1 equations fit and are legible. The first line-reference spacing defect is corrected.
+Page 04: PASS. Seven-node Laurent circuit, exponent lists, product grouping, nonzero quotient domains, quadratic degree, and unchanged pole input are consistent. The order 45 spacing defect is corrected.
+Page 05: PASS. Completeness at contacts, off-contact parity, real asymptotics, and the small-prime valuation bounds are readable and preserve their stated hypotheses. The second line-reference spacing defect is corrected.
+Page 06: PASS. Isolated 393 and combined 392 measurements are correctly distinguished; source-checker scope and the restricted search obstruction do not assert global optimality. The exceed 1024 spacing defect is corrected.
+Page 07: PASS. The outer-constant scalar equations, quadratic realization, identity guard, and direct proof that odd R is positive are correct and fit the page.
+Page 08: PASS. The scalar descent explicitly allows cancellation in W=1+N, establishes formal membership before the proxy, and derives uniform 28 without asserting 28R. The finite completeness bounds are readable.
+Page 09: PASS. The scalar completeness conclusion and isolated 395 measurement are clear; the following arithmetic section identifies its exact inherited inputs and integrated-source binding.
+Page 10: PASS. The anchor at 3^2790, packed-label parity deduction, dyadic condition, unchanged exceptional set, and 683-bit height constant are consistent.
+Page 11: PASS. G12/G2 precisions 45/12, the three consumers, and the exact selected scalar and Lucas margins are correctly displayed; optional height improvements are not used by the selected construction.
+Page 12: PASS. The final integrality inference includes prime 17. The twelve-coordinate diagonal table, input fixation, and intentional equal scalings of h_S and x(S) are accurately explained.
+Page 13: PASS. Primitive-row scaling and SOS equivalence preserve the input projection; the exponent-span argument and exact maximum 1+40532396646334464*3^1860 agree with the independent audit.
+Page 14: PASS. Verification scopes, source-only reproduction, coding-agent handoff, pending manuscript incorporation, and the optional research note are stated without an unconditional global-proof or publication claim.
+
+Numerical and reporting checks
+------------------------------
+The five displayed forms match the actual final summaries:
+form      variables  residuals  monomials  maximum decimal digits
+balanced      392        360       26301          905
+direct        392        360       26301         2679
+chain2        394        362       26310          888
+chain3        395        363       26313          381
+chain4        396        364       26316          178
+
+The balanced maximum is exactly 1+40532396646334464*3^1860, with 905 decimal
+digits and 3004 bits. The source parameter is 3^2790; scalar/input/high orders
+remain 28/12/45. The displayed constant-chain exponent lists terminate at 2790.
+The preceding coefficient-controlled count 398 falls to 392, while the core count
+falls 396 to 392. The monomial increase is 26301−26225=76. All counts include the
+input. The projection is explicitly conditional on the listed inherited inputs.
+
+Disposition
+-----------
+No outstanding correction is requested. The package is clearly a proposed
+additive contribution for a separate coding-agent session, with manuscript
+incorporation pending and no public submission made during preparation. This
+visual/reporting review is separate from the bound uniform mathematical reviews
+and exact algebraic audits. The adjacent JSON binds the final PDF, wrapper,
+four included proofs, table summaries, build log, editorial patch, rendered
+pages, and the independent final source/diagonal reports.

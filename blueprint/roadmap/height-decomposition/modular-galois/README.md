@@ -12,16 +12,19 @@ $\iota_\ell:\overline{\mathbb Q}\to\overline{\mathbb Q}_\ell$. A continuous repr
 $\rho:G_{\mathbb Q}\to\mathrm{GL}_2(\overline{\mathbb Q}_\ell)$ is *attached* to $f$ when, at every
 prime $p\nmid N\ell$, it is unramified and the trace of an arithmetic Frobenius at $p$ is
 $\iota_\ell\iota_{\mathbb C}^{-1}(a_p(f))$. These statements give the representations attached to
-eigenforms of weight $k\ge2$ (Deligne) and of weight $1$ (Deligne–Serre), the finiteness of the
-coefficient field, the Hodge–Tate weights (Kato) and conductors (Carayol) of the representations,
-and Shimura's abelian varieties attached to newforms of weight $2$.
+eigenforms of weight $k\ge2$ (Deligne) and of weight $1$ (Deligne–Serre), two statements on
+integral Fourier coefficients from which the finiteness of the coefficient field is proved, the
+Hodge–Tate weights and conductors (Carayol) of the representations, and Shimura's abelian varieties
+attached to newforms of weight $2$.
 
-Of these six statements, two are published statements, two are consequences of published theorems
-and two combine several published theorems; none is proved here.
+Of these seven statements, the project classes six as published statements, two of them with
+the reading against the print still pending, and one combines several published theorems; none is
+proved here.
 
 - [Hodge–Tate weights of the representation of a newform](kato-hodge-tate-weights.md)
 - [Carayol's theorem on the conductor](carayol-conductor.md)
 - [Shimura's abelian varieties attached to newforms](shimura-abelian-varieties.md)
 - [Deligne's Galois representations of eigenforms](deligne-representations.md)
-- [The coefficients of an eigenform generate a number field](coefficient-field-finite.md)
+- [Cusp forms with integral Fourier coefficients](coefficient-field-finite.md)
+- [Hecke operators and rational Fourier coefficients](hecke-operators-rational-coefficients.md)
 - [The Deligne–Serre theorem](deligne-serre.md)

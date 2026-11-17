@@ -1,0 +1,69 @@
+\section{A mixed detector block recovers the precision saving}
+
+The preceding logarithm argument makes only one cross test order12.
+The full implemented list has nine order-one tests, one order-twelve test,
+and six order-forty tests. For each of the three scales, write
+\[
+ t=A\lambda,\quad\delta=t-1,\quad
+ e=(A\delta)^5/F(t),\quad R=(e\delta)^{-1},\quad
+ q_m=e^{2m-1}/\delta^3.
+\]
+The existing arbitrary-order detector lemma applies because, for each
+test $D_j$ and positive integer $m$,
+\[
+ 1+R\left(\frac{D_j/\delta^{m+1}}{R^m}\right)^2
+       =1+q_mD_j^2.
+\]
+The inverse-power circuit already supplies $q_{12}=q_1e^{22}$ and
+$q_{40}=q_1e^{78}$. No extra inverse-power chain is needed.
+
+Let $A_1$ denote one order-one squared test and $B_{12}$ the sole
+order-twelve squared test. Precompute $A_1B_{12}$ once over $K$, and
+evaluate in each detector
+\[
+ (1+q_1A_1)(1+q_{12}B_{12})
+  =1+q_1A_1+q_{12}B_{12}+(q_1q_{12})(A_1B_{12}).
+\]
+Group the remaining eight order-one factors as $4+4$, and the remaining
+six order-forty factors as $3+3$. This retains five evaluated $K$-blocks.
+The shared coefficient cost remains 34 rational coordinates: two for the
+mixed coefficient, twenty for the order-one groups, and twelve for the
+order-forty groups. The extra $q_1$ power and removed $q_{40}$ power cancel.
+Only the three scalar products $q_1q_{12}$, one per detector, are new.
+The $G_9\to G_2$ change saves six coordinates, so its net saving is three.
+Together with the nine primary-root savings, this detector lane saves twelve.
+
+\subsection{Actual domain and completeness consumers}
+
+The retained positive-$\lambda$ condition gives $q_1>0$; the even powers
+in $q_{12},q_{40}$ make them positive as well. Every factor is therefore
+at least one at both real embeddings. All nonzero trace, norm, and
+positive pole-input domains used by the earlier guard removals persist.
+
+At a selected contact prime, $v(R)=1$ and $\delta$ is a unit. At the
+successful place, $v(D_j)\ge m_j$, so
+\[
+ v(q_{m_j}D_j^2)=1-2m_j+2v(D_j)\ge1.
+\]
+Each inverse factor has residue one there. At either place, the
+nonconstant term has odd valuation when nonzero. Its factor thus has
+valuation zero or negative, and its inverse has residue one or zero.
+The reciprocal trace is a unit, with residue one or two. This is the
+same local pole-input consumer as before.
+
+The new primary square factor is $1+q_mf(U_i)$. It depends only on the
+underlying point, not on the sign of its inverse-root chart. At infinity,
+$|\sigma(g)|^2=\sigma(f)$ supplies fixed bounds from the old point bounds.
+For each fixed $m$, the weights satisfy $q_m=O(\lambda^{-3})$, and the
+product approaches one as before. At the fixed exceptional primes, the
+identity $v(g)=v(f)/2$ changes only finite lower bounds. The same prescribed
+divisibility makes all terms sufficiently small. The inherited local and
+real pole-completeness statements therefore apply after altering those
+finite bounds; no stronger prime-pattern hypothesis is required.
+
+The detailed source proof is preserved as
+\texttt{detector\_reduction\_proof.txt}. Its independent source checker
+reconstructs all 16 aliases, full conjugation of each alternate ratio,
+the five primary root squares, the actual shared coefficients and mixed
+evaluations, all inverse weights, positivity, and norm/pole-input consumers.
+It checks 304 source assertions and two expanded component identities.

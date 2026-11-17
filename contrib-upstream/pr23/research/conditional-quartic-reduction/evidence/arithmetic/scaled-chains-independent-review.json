@@ -1,0 +1,26 @@
+{
+  "status": "ACCEPT",
+  "scope": "The adapted checker differs from the previously independently reviewed stdlib checker only by the fixed exponent3072 to2790 and the three explicitly listed coefficient chains. Exact execution reconstructs every lifted and directly specialized residual; final polynomial/gauge audits are separate.",
+  "oldCheckerSha256": "2ebb0f2fed830df64750f176b44dec4d2ffbb2a0827f1a5c50b13e1477a63796",
+  "adaptedCheckerSha256": "ca5f2146f07ba46064f57d54392502fc965204d6ea82f43abd8a3a701deebd7f",
+  "onlyDeclaredParameterChanges": true,
+  "chains": [
+    [
+      930,
+      930
+    ],
+    [
+      399,
+      399,
+      396
+    ],
+    [
+      186,
+      186,
+      186,
+      186
+    ]
+  ],
+  "terminalExponent": 2790,
+  "executionReportSha256": "0d255a521d815c09ab43353062d81bffaaf332909ec039d6b8e32fbf5362f9c5"
+}

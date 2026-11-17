@@ -1,0 +1,127 @@
+INDEPENDENT REVIEW: THE ROUND-SEVEN OUTER-CONSTANT SCALAR TREE
+
+Decision: ACCEPT the proposed local soundness/completeness transfer and its
+actual implementation. Inherited group, two-place proxy, pole, height and
+simultaneous-prime inputs retain their previously stated conditional status.
+The finite source checks do not establish those global inputs.
+
+Sources read in this review:
+* seventh-work/geometry/geometry_round7.tex, in full.
+* The full diff from the frozen sixth-round builder to
+  seventh-work/geometry/outer_constant/builder.cjs.
+* The actual changed scalar block, retained point/proxy equations and
+  normalized pole equations, both in the isolated source and in
+  seventh-work/root/selected/construction/builder.cjs.
+* The previous scalar proxy identity, its nonunit fixed-coordinate case at 41,
+  and the previous rational-domain/continuity argument. These are retained
+  applications, not newly claimed global theorems.
+
+The source and proof hashes are bound in round7-review-bindings.json.
+
+1. The missing old constant path is legitimately replaced
+
+The old all-left constant path helped force odd R=v_p(r) to be positive.
+The new proof correctly replaces that step by an actual property of the
+input polynomial, not an unsupported assertion for arbitrary rational beta.
+The source really has
+  beta=11016 X^2+11016 X+5155, 11016=2^3*3^4*17,
+  r=beta(beta-1)(32beta+343).
+Outside S={2,3,5,7,13,17}, if v_p(X)<0 the quadratic term has uniquely
+smallest valuation, hence v_p(beta)=2v_p(X) and v_p(r)=6v_p(X), an even
+integer. If X is integral at p, all three factors of r are integral.
+Therefore odd R is positive. I independently reconstructed all these
+actual source definitions; the argument would fail for an independently
+chosen rational beta, which the source does not permit.
+
+2. Algebra, domains and quadratic implementation
+
+Write A=f(H)_0, B=f(H)_1, C=f(Q)_0 and D=f(Q)_1. The changed nodes are
+  n=B^2/r^2+C^2/r,
+  L=A^2/r+n^2/r^2,
+  J=D^2+r^-15*y^2,
+  N=L^2+r^-15*J^2, W=1+N,
+with y=T/r^16 and T=Re(k_H w) retained exactly.
+The actual four left-side coordinates are z=B/r, n, u=n/r, and L, with
+  rn=zB+C^2, rL=A^2+un.
+Both later right-hand squares are explicitly materialized. The source
+therefore implements quadratic equations, rather than inlining a cubic.
+The old n0 coordinate has disappeared, and W=1+N is an affine alias.
+
+Since beta>=2401, r>0. Every denominator is a power of this positive r;
+all new extensions are unique. N>=0 and W>=1 at the real place. The
+existing absorption of W^2 in the normalized pole witnesses remains
+legitimate. The semantic pole input remains exactly 42rW^2, and all
+normalized conic/preparation rows were checked separately. Point charts
+are unchanged: the inverse of f(Q)_0 still excludes Q=O or S=P, while
+the allowed tangent case S=-P and every chart sign choice remain.
+
+3. The new valuation argument handles cancellation correctly
+
+The scalar pole gives v(W)>-R/2. The preceding input-polynomial argument
+gives R>0, so v(1)=0>-R/2. Hence N=W-1 also has v(N)>-R/2 by the
+ultrametric inequality. This step allows cancellation in 1+N; no parity
+claim is made about that affine addition.
+
+For every binary norm node the coefficient valuations have opposite
+parity: (-2R,-R) for n, (-R,-2R) for L, and (0,-15R) for J and N.
+Consequently exact valuation descent gives
+  v(L)>-R/4, v(J)>29R/4,
+  v(A)>3R/8, v(n)>7R/8,
+  v(B)>23R/16, v(C)>15R/16,
+  v(D)>29R/8, v(y)>89R/8,
+  v(T)>217R/8.
+The attached independent checker recomputes all ten affine bounds with
+exact rational arithmetic. Zero arguments are harmless under v(0)=infinity.
+
+All four point coefficients have positive integer valuation before the
+retained proxy lemma is used, so both points are formal at all places
+above the consumed prime. The same two-place proxy lemma gives
+v_p(T)=v_p((a-1)/h), including the nonunit case at 41. Since h is a
+nonzero integer, uniform v_p(a-1)>=28 follows. This is the required
+radical divisibility M_S(beta)^28 | a-1. The proof does not assert the
+stronger v_p(T)>=28R, which the strict 217R/8 bound does not generally give.
+
+4. Completeness and choice order
+
+At p|r with R>=1, require
+  v(A)>=R+1, v(B),v(C)>=2R+1,
+  v(D)>=4R+1, v(y)>=12R+1.
+Direct substitution gives
+  v(n)>=2R+2, v(L)>=R+2, v(J)>=8R+2,
+  v(N)>=R+4, W=1 modulo p.
+The y condition is the finite bound v(T)>=28R+1. The old preparation can
+impose these requirements: choose H sufficiently deep first, then Q
+sufficiently deeper. For fixed H, as Q tends to O the point S tends to P,
+h_S stays bounded, w=h_S*tau tends to zero, and T tends to zero.
+No conflict between primary and alternate chosen-prime indices is added.
+
+At p|42 with p not dividing r, the weights are units; requiring positive
+valuation of the four coefficients and y gives N=0 and W=1 modulo p.
+At every other prime the extra factor W^2 contributes even valuation.
+Thus the same square reduced denominator and local squareclasses of
+42rW^2 are available. These preparation arguments use deep formal
+neighborhoods at bad or ramified primes, not a good-reduction argument.
+After S is fixed, the changed node functions have nonzero denominators
+at the prepared H; continuity preserves finite lower bounds on a suitable
+congruence class of h. The roots and scales remain fixed before later
+contact-prime selection. This proves the needed existential transfer,
+without a purported bijection between old and new pole witness tuples.
+
+5. Independent source and compiler checks
+
+check_scalar_round7_independent.py imports neither the geometric proposer's
+checker nor the producer/compiler. It reconstructs 69 source assertions,
+seven retained exact chart/proxy polynomial identities, the exact input
+polynomial and contact product, every changed scalar node, every normalized
+scalar pole equation, and ten affine valuation bounds. It passes on the
+integrated builder whose SHA256 is
+78b54bcde24ff8a91091e102a4734c49878699f071d9230e5ce7a70ffd2114d0.
+The report is integrated-scalar-independent-check.json.
+
+The separate detector checker passes 384 source assertions, seven Laurent
+identities, three semantic normalization identities and two mixed-block
+identities on the same source. All 342 source gate identities and 333 generic
+compiler operations have also been independently replayed, giving 392
+coordinates and 360 quadratic residuals. The final elimination certificate
+has zero operations and was checked against the actual generic output.
+The final sum-of-squares/table and coefficient-balancing audits are separate.

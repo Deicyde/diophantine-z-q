@@ -1,0 +1,81 @@
+{
+  "status": "ACCEPT_FINAL_SOURCE_AND_REPRODUCTION_EVIDENCE",
+  "reviewerLane": "round8_arithmetic",
+  "remainingReviewGates": [],
+  "finalSourceManifestSha256": "268694a99ae9e73f99c3847270994d51b7b9861aa9e521a622c583bed95076c2",
+  "expectedOutputsSha256": "982533489878025cf90d7fb5307fe4a8a1af050a095ce2da8de91843a5f896dc",
+  "wrapperSha256": "a660293cc6fa97a55d8d3635645f666fd1c6b52d96276ec768b4a3faedecc3ae",
+  "pipelineSha256": "1ab289dccfb5c2ce671548ee0fdb0485047adadac6e0639798800163126fde0a",
+  "sourceRecords": 155,
+  "totalPayloadFiles": 156,
+  "freshBuildInputs": 34,
+  "deterministicArtifacts": 54,
+  "successfulAuditReports": 15,
+  "pipelineStages": 23,
+  "selected": {
+    "coordinates": 389,
+    "residuals": 357,
+    "degree": 4,
+    "monomials": 26295,
+    "integerContent": 1,
+    "inputFourthPowerCoefficient": "1",
+    "maximumCoefficientDigits": 757,
+    "maximumCoefficientBits": 2513,
+    "scaledCoordinates": 13,
+    "ternaryScaledCoordinates": 12,
+    "dyadicScaledCoordinates": 2,
+    "anchorExponent": 2364,
+    "cExponent": 394,
+    "tableSha256": "1c612d20915667dfd81a7895f8d93231d5efeaf86ecfaa15194408d298d35573",
+    "tableBytes": 1050826,
+    "certificateSha256": "82f4e4a0b3c86eacbeded815f97ef0e46df3a553c82e9d8243ef671788ca0b24"
+  },
+  "evidence": [
+    {
+      "path": "final-pr-manifest-independent-review.json",
+      "sha256": "e78495fc509474726a04c0f1ee66beba73d78255428f5e79d7e57a3759c0563b"
+    },
+    {
+      "path": "final-pipeline-helpers-independent.json",
+      "sha256": "1e011b98a2b650501f8ef9ff257a2cf4489bc9dd5cdeb5958ecb9308a3a46d70"
+    },
+    {
+      "path": "structured-wrapper-independent-probes-fixed.json",
+      "sha256": "e7401b016f06da99063527c133d82687f4281bba7cd79d263c4c30b9c05b58d3"
+    },
+    {
+      "path": "root-wrapper-probes-fixed.json",
+      "sha256": "d954f6a86a636b85898ef5c416f365e97fcb5ca6f2d5b3d96ba26398444baf6a"
+    },
+    {
+      "path": "package-integration-review-round8.json",
+      "sha256": "af9d94c67a693a2334111a5022f16501599444c7f96f8be6944dc8ccd8ce8be4"
+    },
+    {
+      "path": "scaled-chain-independent-round8.json",
+      "sha256": "13cc6d278de015134abbbd7d7bc4bd60c90cd85f0a413a4f2a2844fae03d4d6c"
+    },
+    {
+      "path": "delivered-quartics-reviewed-round8.json",
+      "sha256": "28b9ecfbc6f1b7f75a84dfe22b95af13be21dd044c9a235a216f876d4b4679fc"
+    }
+  ],
+  "freshReproductionReceipt": {
+    "path": "eighth-work/root/fresh-checkout/build/round8-reproduction/reproduction-receipt.json",
+    "sha256": "c3980b3f049522be4c2eda06f965f465cae648bbad40b4b5799bb5bed880e32a",
+    "sourceManifestAndOutputRecordsChecked": true,
+    "allAuditReportHashesChecked": true,
+    "constructionLogHashChecked": true,
+    "completionRecordHashChecked": true
+  },
+  "writtenReview": {
+    "path": "package-integration-final-review-round8.txt",
+    "sha256": "c92435abf67286ac596fd633ff82d9d9cc97de43a8dde5e6b9278ee9334baee3"
+  },
+  "scope": "Final source inventory, manifest, source/output bindings and actual completed fresh-reproduction evidence independently reviewed. Full reconstruction executed by packaging lane; inherited arithmetic remains conditional.",
+  "limitations": [
+    "Internal independent agent review; not formal proof or external endorsement",
+    "No diagnosis of earlier stdout truncation",
+    "No variable/anchor/coefficient optimality claim"
+  ]
+}

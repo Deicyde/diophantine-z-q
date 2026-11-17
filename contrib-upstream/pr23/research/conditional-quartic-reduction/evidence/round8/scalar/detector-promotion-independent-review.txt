@@ -1,0 +1,104 @@
+ROUND-EIGHT PRIMARY-ORDER PROMOTION: INDEPENDENT REVIEW
+
+Disposition: ACCEPT within the retained conditional arithmetic framework.
+
+Subject
+-------
+The proposed detector change promotes the existing primary test g(U_A) from
+order1 to order12. It pairs that test with the unchanged order12 input-cross
+test, reusing the already stored q12 square and deleting q1*q12 in each of
+three detectors. This review was authored separately from the proposer and
+does not import the proposer's source checker, compiler or builder.
+
+Actual source identification
+----------------------------
+The reviewed builder is 5eae7a6cb6fd22e2da8a457354628355ece7e8930b60200d088cd0cfca1d28cb.
+The reviewed proof is 150b79708b8088d1c75641571277eecf452fe72b7c729cc4fe783e4da76b83bb.
+test1 is the complete primary reciprocal coordinate UA.g, whose square is
+UA.f. test10 is L1 minus the conjugate of the raw quotient LV1/LV0. Conjugation
+has not been lost in the implementation. The entire order list is
+45,12,1,1,1,1,1,1,1,1,12,45,45,45,45,45.
+All eight order1 and six order45 factors retain their previous lists.
+
+Soundness
+---------
+The retained arbitrary-positive-order one-place lemma gives the new requested
+orders simultaneously at one common place. In particular its new order12
+conclusion for g(U_A) supplies the old order1 premise. Every other semantic
+test and order is unchanged. No equality U_A=[n]H is assumed in this direction;
+that is a completeness choice, not a premise for arbitrary solutions. The
+stronger premise therefore does not weaken the retained input comparison,
+G2/G12 approximation, scalar, Lucas or height consumers. The identity primary
+case remains represented by g=0,l=+/-1 and satisfies every positive order.
+
+Completeness
+------------
+For an integral input, n=beta(X) is an integer fixed before the contact-prime
+choice. The retained construction takes U_A=[n]H. At each selected primary
+contact place, H already has formal depth at least45 by the existing Pi^44
+progression and reduction-order condition. Over the good integral model,
+the formal points of parameter valuation at leasts form a subgroup: integral
+addition and inverse series cannot lower positive parameter valuation. Thus
+integer multiplication by n keeps depth at least45, including n=0 or negative
+n. On the reciprocal chart z=-g/l and l is a unit at a formal point, so
+v(g(U_A))>=45>=12. This deduction uses exactly the already retained good,
+unramified formal-group hypotheses outside{2,3,5,7,13,17}.
+
+No alternate point test is strengthened. The h-1 progression and all CRT
+coprimalities are unchanged, so the conflicting p|h and p|h-1 demands do not
+arise. Roots, scales, continuity neighborhoods and real/small-prime bounds
+remain fixed before the asymptotic contact-prime selection.
+
+The new factor in the pole estimates
+------------------------------------
+At a selected contact v(R)=1 and delta is a unit. Hence v(q12)=1-24=-23,
+and the promoted factor's nonconstant term has valuation at least
+-23+2*45=67>0 at the successful place. At either place its nonconstant term
+has odd valuation when nonzero, so the retained reciprocal-factor residue
+argument still yields residue0 or1 and the trace remains a unit with residue
+one or two. At noncontacts the pole input R is unchanged, preserving the
+even-valuation/square-denominator argument.
+
+At infinity q12=O(lambda^-1), while the same g(U_A) is already among the
+uniformly bounded test functions. Thus W=1+O(lambda^-1) and the required
+positive pole input tends to zero. At the fixed small primes the new lower
+bound is nu+114*(eta+alpha)-2*c_p. Its slope in nu is1; eta,alpha,c_p and
+the order are fixed before nu grows. No sign assumption on eta+alpha is
+needed. The retained preparation-zero converse therefore has its same
+actual hypotheses after choosing the finite divisibility bounds deeply
+enough. The global simultaneous-prime theorem itself is not re-proved here.
+
+Finite algebra and measured cost
+--------------------------------
+The identity (1+qU)(1+qV)=1+q(U+V)+q^2*UV holds over the commutative field K.
+The actual q12 square is also used in q1^3*q45=(q12^2)^2. Removing q1*q12
+therefore removes three rational coordinates and their three defining rows,
+without introducing a quotient or a domain restriction.
+
+The independent checker decodes monomials into semantic coordinate names.
+It directly compares all362 unaffected source equations with the frozen392
+baseline, and checks that exactly the three q1*q12 coordinates disappeared.
+It reconstructs all16 test functions and orders, their squared aliases, the
+uniform pair in each detector, and its actual full-product, norm and pole
+consumers. It also confirms quadratic lifted degree and the measured counts:
+raw400/368 with339 gates; compiled389/357, with26295 ordinary monomials.
+The formal S-polynomial has26299 monomial/S-power terms, which is a distinct
+count. Its checks cover all active compact coordinates and exact quartic degree.
+The supplied report contains157 successful assertions with the original IR
+provided. The optional baseline-free path still checks the frozen normalized
+equation digest; the PR pipeline should regenerate the bound original IR from
+its preserved builder and use the explicit --baseline option.
+
+The fixed exponent is an explicit checker argument. Changing only S's declared
+value to the separately reviewed even exponent2364 leaves these symbolic
+equation comparisons valid. The numerical anchor inequalities remain a
+separate arithmetic proof and are not licensed merely by this source audit.
+
+Scope
+-----
+No material defect was found in this local replacement. It is a strengthened
+predicate with a checked completeness construction, not a bijection between
+all old and new complete witness tuples. The inherited group, global height,
+pole-realization, prime-pattern and other arithmetic inputs retain their
+qualifications. This review is internal AI-assisted review; it does not claim
+human peer review, a complete Lean theorem, minimality or an external release.

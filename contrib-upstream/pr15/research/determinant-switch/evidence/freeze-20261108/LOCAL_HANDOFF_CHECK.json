@@ -1,0 +1,107 @@
+{
+  "date": "2026-11-08",
+  "platform": "arm64-apple-darwin24.6.0",
+  "lean_commit": "eb6cafb7290e8bd5f2937522d8d804f58f02bafc",
+  "purpose": "Local preparation and export-structure probe; NOT protected comparator or kernel replay",
+  "profile": "development",
+  "paranoid": false,
+  "external_kernels": "NOT_RUN",
+  "protected_comparator": "NOT_RUN",
+  "linux_bubblewrap": "NOT_RUN",
+  "open_math_os_dispatch": "NOT_RUN",
+  "push": "NOT_RUN",
+  "local_handoff_directory": "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-08-packet-freeze-review/handoff-local",
+  "dependency_reuse": "Local-only .lake/packages symlink to the already pinned macOS dependency cache; not shipped",
+  "builds": [
+    {
+      "command": [
+        "lake",
+        "build"
+      ],
+      "exit_code": 0,
+      "default_target": "BoundarySolution",
+      "challenge_artifact_absent_after_default": true,
+      "log": "lake-default-build.log"
+    },
+    {
+      "command": [
+        "lake",
+        "build",
+        "Challenge"
+      ],
+      "exit_code": 0,
+      "expected_sorry_warnings": 6,
+      "log": "lake-challenge-build.log"
+    }
+  ],
+  "module_warnings": "Both legacy modules warn about importing module-system Mathlib; no source/proof change made",
+  "probe": {
+    "command": [
+      "lake",
+      "env",
+      "lean",
+      "-Ddebug.skipKernelTC=false",
+      "--run",
+      "/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/research/determinant-switch/verification/compare_exports.lean",
+      "comparator.json",
+      "../challenge.ndjson",
+      "../solution.ndjson"
+    ],
+    "exit_code": 0,
+    "log": "export-structure-final.log",
+    "negative_controls": [
+      "missing theorem",
+      "changed theorem statement",
+      "changed protected definition",
+      "challenge holes as solution proofs"
+    ],
+    "initial_failure": "Missing explicit Lean.Data.Json.FromToJson.Basic import in new probe; fixed before successful rerun; original diagnostic retained in export-structure.log"
+  },
+  "generated_input_manifest_sha256": "1eb28da0482932df7db8902c6925ebc485a80a6a349df41a29d3c7218ea974b6",
+  "regeneration": "Two fresh generations produced 10 byte-identical files; lock differs only in root package name",
+  "inputs": {
+    "research/determinant-switch/CONTRACT.md": "08eb0e5730bcf249fc9c2071fa1366b39b31907a93cc9dffb185bbac1b9a1408",
+    "lean/Research/DerivativeSwitchBoundary.lean": "63a9215fa55568069d2d1a7b2c3a7345ec21c7ad6a82203f42c5451ee4b8bbea",
+    "research/determinant-switch/verification/Challenge.lean": "ae5cd67b93287c345a3b1a808eeeed9744667bb73eb10f068d8b056b20b497e8",
+    "research/determinant-switch/verification/README.md": "b58d2f7dc29650ce8aba1605cdd54f2b1a9b3f7901a21ab5b9f735885661a915",
+    "research/determinant-switch/verification/comparator.json": "c91df4fe3af892aa84e5beb124b6a07ad741eec20060508fc515f44dd19f970a",
+    "research/determinant-switch/verification/compare_exports.lean": "4669da5900da840a77549ad341e766c110989fdf9e7abc511949ff6a1a700117",
+    "research/determinant-switch/verification/lakefile.toml": "5ea438b8dbe8bffa2b289bb0b99f46e8fed55f3c19237cc94c59ede0afdd0c52",
+    "research/determinant-switch/verification/prepare.py": "a813ad793c42d0cb44348cff090565942fb61aa5cfdc5e5c2f822b939da8a950"
+  },
+  "retained_local_artifacts": {
+    "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-08-packet-freeze-review/solution.ndjson": "b95f855582935940e4fd7672ee8727de62dd5a2927f5fdb66a9b1f6522e2f2cd",
+    "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-08-packet-freeze-review/challenge.ndjson": "5c3f44bfbdde6524d9993ec49b8e9838c907c1f86e3e312c7f459029b28d3a41",
+    "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-08-packet-freeze-review/handoff-local/.lake/build/lib/lean/Research/DerivativeSwitchBoundary.olean": "54e38b1a420618617353c79765a83e95beb1153e4bd8400d0a59ffdb01b71e03",
+    "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-08-packet-freeze-review/handoff-local/.lake/build/lib/lean/Challenge.olean": "2c0a3faf5cb40a37d8a9e3b071e9376150fd4461352988012c724363fcdb9140"
+  },
+  "export_metadata": {
+    "meta": {
+      "exporter": {
+        "name": "lean4export",
+        "version": "3.1.0"
+      },
+      "format": {
+        "version": "3.1.0"
+      },
+      "lean": {
+        "githash": "eb6cafb7290e8bd5f2937522d8d804f58f02bafc",
+        "version": "4.35.0"
+      }
+    }
+  },
+  "future_run": "lake comparator --config comparator.json --paranoid; all six required checker outcomes remain pending",
+  "final_handoff": {
+    "directory": "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-08-packet-freeze-review/handoff-final",
+    "manifest_sha256": "e37368316a682d30f9358d7cf1c1ebd01e622e7896c99ca020ae5f94288f6188",
+    "source_contract_sha256": "01be1c4182cd5c7483ad2253b93b975ddced22396372e726aa808614d525516b",
+    "regeneration": "All 10 final files byte-identical on a second fresh generation",
+    "changes_from_tested_handoff": [
+      "CONTRACT.md",
+      "MANIFEST.sha256",
+      "SOURCES.json"
+    ],
+    "evidence_reuse": "Only scope prose and its source/manifest bindings changed; solution, challenge, config, toolchain and dependency bytes match the tested handoff exactly",
+    "native_final_result": "RESULT.json"
+  }
+}

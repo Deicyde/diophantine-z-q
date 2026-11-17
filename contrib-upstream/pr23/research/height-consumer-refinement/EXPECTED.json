@@ -1,0 +1,58 @@
+{
+  "45": {
+    "order": 45,
+    "anchorExponent": 2118,
+    "summary": {
+      "coordinates": 380,
+      "residuals": 349,
+      "degree": 4,
+      "monomials": 26025,
+      "integerContent": 1,
+      "inputFourthPowerCoefficient": "1",
+      "maximumCoefficientDigits": 679,
+      "maximumCoefficientBits": 2253,
+      "scaledCoordinates": 13,
+      "ternaryScaledCoordinates": 12,
+      "dyadicScaledCoordinates": 2,
+      "anchorExponent": 2118,
+      "cExponent": 353,
+      "tableSha256": "a194dd94682d4e458d0e03407e39aea056a6626014210c384b3a9c80f19a43e6",
+      "tableBytes": 1025094,
+      "certificateSha256": "e78c09f11779fca009e35a39e43f3d545d578502e484a8130b1a1015e41f8e6f"
+    },
+    "files": {
+      "final/integer-candidate-ir.json": "d41915a4a99d1fca5ba893e5484b38f1230dd10eb39d717b770b3276296ddeca",
+      "balanced/polynomial.json": "5df1f18719ffbce4d3d379f2a54b0b002a572c6c20ab2568a6e54ab1983b46ae",
+      "builder.cjs": "e912a1c38dcb03d14bd24fe31cb027c3c65fa767c0da456256bebdf66315dcdb",
+      "raw-translated-ir.json": "f1dee3d1e5521e359518d07d7748bdfa2d9204eb810ba37e495838c918d5192b"
+    }
+  },
+  "47": {
+    "order": 47,
+    "anchorExponent": 2010,
+    "summary": {
+      "coordinates": 383,
+      "residuals": 352,
+      "degree": 4,
+      "monomials": 26043,
+      "integerContent": 1,
+      "inputFourthPowerCoefficient": "1",
+      "maximumCoefficientDigits": 644,
+      "maximumCoefficientBits": 2139,
+      "scaledCoordinates": 13,
+      "ternaryScaledCoordinates": 12,
+      "dyadicScaledCoordinates": 2,
+      "anchorExponent": 2010,
+      "cExponent": 335,
+      "tableSha256": "d2e9856dcbd752a156548e37545f48ed8e1e8d263c5b374aad5a19f44f8eab6f",
+      "tableBytes": 1021849,
+      "certificateSha256": "17b6a0a550f83d2ca7e06da288b6c045f28e23dc3bb04cf100ae4a1b38f391e9"
+    },
+    "files": {
+      "final/integer-candidate-ir.json": "10a09c6049997777aed37f8092403b29309c9429d5f216dbd20f031a53a66283",
+      "balanced/polynomial.json": "65e55794940a9b7ea93ac0424d273e4e0c5f2d4b469cf3c52ada8009e46aeb8c",
+      "builder.cjs": "d74d5f1ee84f169b21ffdae6bd9bc7dbd6f056145e8b117174d9ccca80b02b16",
+      "raw-translated-ir.json": "0f38a762e8a6a56e7be4a853df6a93dbb7b27231f0c9ed217fa0e31a7404457b"
+    }
+  }
+}

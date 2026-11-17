@@ -1,0 +1,30 @@
+{
+ "name": "pb-bypass",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.PanBerger"
+ ],
+ "discharges": [
+  {
+   "field": "r11r12",
+   "proof": "_root_.HDec.PkgI4.PanBergerSplit.panBerger_of_printed {n}.panPrinted {n}.bergerPrinted",
+   "leaves": [
+    {
+     "name": "panPrinted",
+     "type": "_root_.HDec.PkgI4.PanBergerSplit.PanPrinted",
+     "doc": "R12. Pan, J. Amer. Math. Soc. 35 (2022), 1031-1169, Theorem 1.0.4 (= arXiv:1901.07166v2 Thm 1.0.4 with Conj. 1.0.1, pp. 5 and 2; JAMS number and page UNVERIFIED), p >= 5, potentially semistable in Fontaine's sense (LocalIsPst over pb-bypass's B_st); pkg-I4's template PanFor at the genuine predicate (computed on V^vee, as LocalIsDeRham)",
+     "kind": "published",
+     "flag": "unread: new printed leaf over pb-bypass's B_cris/B_st definitions (no statement check yet); JAMS theorem number and page locator UNVERIFIED (arXiv v2 statement read, h-a011 section 1.1)",
+     "source": "Pan, The Fontaine-Mazur conjecture in the residually reducible case, J. Amer. Math. Soc. 35 (2022), 1031-1169, Thm 1.0.4 (= arXiv:1901.07166v2 Thm 1.0.4, p. 5; JAMS numbering UNVERIFIED); p >= 5; pst as defined in Contrib/OneProof/PanBerger.lean"
+    },
+    {
+     "name": "bergerPrinted",
+     "type": "_root_.HDec.PkgI4.PanBergerSplit.BergerPrinted",
+     "doc": "R11. Berger, Invent. Math. 148 (2002), Theoreme 0.7 = Cor. 5.22 of the published version (author copy pp. 6, 52) = Thm 0.6 = Thm 5.19 of arXiv:math/0102179v3: de Rham implies potentially semistable (LocalIsDeRham -> LocalIsPst, pb-bypass's B_st)",
+     "kind": "published",
+     "flag": "unread: new printed leaf over pb-bypass's B_cris/B_st definitions (no statement check yet); Springer pagination locator UNVERIFIED (author copy Thm 0.7 read by the locator audit)",
+     "source": "Berger, Representations p-adiques et equations differentielles, Invent. Math. 148 (2002), Theoreme 0.7 (= arXiv:math/0102179v3 Thm 0.6 = Thm 5.19); de Rham implies potentially semistable"
+    }
+   ]
+  }
+ ]
+}

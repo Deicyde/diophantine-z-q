@@ -5,7 +5,7 @@ import ZInQKernel.Contrib.OneProof.UnipotentForward
 
 The research field `raynaudSemistableSH` (`ReductGlue.RaynaudSemistableSH`, TailZ14) concludes
 `SemistableNeronModels A O`: semistability read on the *geometric* special fibre `𝒩 ×_O κ̄`. If SGA 7 IX defines
-semistable reduction over the residue field `k(s)` itself (Déf. 2.2/3.1, as recalled), the print gives the `k(s)`
+semistable reduction over the residue field `k(s)` itself (Déf. 3.4, as recalled), the print gives the `k(s)`
 form, and the step to `κ̄` needs base change of a semi-abelian group to `κ̄` and Stacks 04KV (the 11-16
 dictionary pass counted that against the row).
 
@@ -251,7 +251,7 @@ section Neron
 
 variable {K : Type} [Field K] {A : PkgI3.AbVar K} {O : ValuationSubring K}
 
-/-- **Semistable special fibre over `k(s)`, general torus** (SGA 7 IX Déf. 2.2/3.1 read over `k(s)`; locators
+/-- **Semistable special fibre over `k(s)`, general torus** (SGA 7 IX Déf. 3.4 read over `k(s)`; locators
 UNVERIFIED): the identity component of `𝒩 ×_O k(s)` is an extension of an abelian variety by a torus. -/
 def IsSemistableResT (𝒩 : GroupModelO A O) : Prop :=
   HasSemiAbelianIdCompTorus (UnipotentForward.specialFibre 𝒩)

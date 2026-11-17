@@ -1,0 +1,30 @@
+{
+ "name": "pb-fix2",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.PanBergerPrinted"
+ ],
+ "discharges": [
+  {
+   "field": "r11r12",
+   "proof": "_root_.HDec.PkgI4.PanBergerSplit.panBerger_of_printedU {n}.panPrintedU {n}.bergerPrintedU {n}.dsThm965 {n}.dsThm966",
+   "leaves": [
+    {
+     "name": "panPrintedU",
+     "type": "_root_.HDec.PkgI4.PanBergerSplit.PanPrintedU",
+     "doc": "R12. Pan, J. Amer. Math. Soc. 35 (2022), 1031-1169, Theorem 1.0.4 (= arXiv:1901.07166v2 Thm 1.0.4 with Conj. 1.0.1, pp. 5 and 2; JAMS number and page UNVERIFIED), p >= 5, for each iota_p : Qbar_p = C, printed form for one rho: rho irreducible (Burnside form), unramified outside finitely many primes, odd, rho|G_Qp potentially semistable and Hodge-Tate with distinct weights (both computed on the underlying space V, Fontaine's tensor form) => tr rho(Frob_q^geom) = psi(Frob_q^geom) iota_p^-1(a_q(g)) for almost all q, g a normalized cuspidal eigenform",
+     "kind": "published",
+     "flag": "unread: JAMS theorem number and page locator UNVERIFIED (arXiv v2 statement read, h-a011 section 1.1); eigenform reading: 'comes from a cuspidal eigenform up to twist' read as rho = rho_{g,iota_p} (x) psi', whose trace identity at geometric Frobenius holds in every normalization of rho_g (dual and conjugate-eigenform forms differ by a character); pst and HT hypotheses printed on V (pkg-I4's V^dual convention handled in the glue through rho^dual); irreducible stated in Burnside form (stronger hypothesis); B_st and K_0 readings as for bergerPrintedU",
+     "source": "Pan, The Fontaine-Mazur conjecture in the residually reducible case, J. Amer. Math. Soc. 35 (2022), 1031-1169, Thm 1.0.4 (= arXiv:1901.07166v2 Thm 1.0.4, p. 5; JAMS numbering UNVERIFIED); p >= 5; predicates in Contrib/OneProof/PanBergerPrinted.lean (LocalIsPstU, LocalDistinctHTU)"
+    },
+    {
+     "name": "bergerPrintedU",
+     "type": "_root_.HDec.PkgI4.PanBergerSplit.BergerPrintedU",
+     "doc": "R11. Berger, Invent. Math. 148 (2002), Theoreme 0.7 = Cor. 5.22 of the published version (author copy pp. 6, 52) = Thm 0.6 = Thm 5.19 of arXiv:math/0102179v3, K = Q_p: de Rham => potentially semistable for the Q_p-representation V = E^n underlying rho, Fontaine's definitions in tensor form on V: dim (B_dR (x) V)^G = dim V => exists finite K, dim_Qp (B_st (x) V)^{G_K} = [K_0:Q_p] dim V with K_0 = W(k_K)[1/p]",
+     "kind": "published",
+     "flag": "unread: Springer pagination locator UNVERIFIED (author copy Thm 0.7 read by the locator audit); B_st reading: Fontaine's abstract B_cris[X] with sigma(X) = X + c(sigma) t (pb-bypass's Bst), not the subring B_cris[log [p-flat]] of B_dR; admissibility normalization: dim_{K_0} D_st,K(V) = dim V written in Q_p-dimensions with the explicit factor [K_0:Q_p], K_0 = W(k_K)[1/p] = Localization.Away p (WittVector p k_K) (pb-fix2 proves [K_0:Q_p] = residue degree); the K_0-module structure of D_st (K_0 in B_st^{G_K}) is not built in Lean",
+     "source": "Berger, Representations p-adiques et equations differentielles, Invent. Math. 148 (2002), Theoreme 0.7 (= arXiv:math/0102179v3 Thm 0.6 = Thm 5.19); de Rham implies potentially semistable; predicates in Contrib/OneProof/PanBergerPrinted.lean (LocalIsDeRhamU, LocalIsPstU, K0W)"
+    }
+   ]
+  }
+ ]
+}

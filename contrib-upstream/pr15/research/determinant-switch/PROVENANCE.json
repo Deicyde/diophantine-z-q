@@ -1,0 +1,39 @@
+{
+  "archive": "derivative_switch_pr_candidate.zip",
+  "archive_sha256": "7242ed88ac6e93a30aed751f53b3bf252b4be332382011280e3d4f2d85afeb75",
+  "baseline": "9c0b3aba60d90fdcac82115f0582a6f52f1054f7",
+  "worktree": "derivative-switch-review",
+  "branch": "codex/derivative-switch-boundary-v13",
+  "files": [
+    {
+      "zip_entry": "derivative_switch_pr_candidate/README.md",
+      "sha256": "a08d5fcf11f5c5dc9c6637255ffc1ed4fb14d1af953264c9fd998c94fb5a3f48",
+      "bytes": 1007
+    },
+    {
+      "zip_entry": "derivative_switch_pr_candidate/research/determinant-switch/check_local_model.py",
+      "sha256": "82046753edf739080eb7cf04bbe1c9f47a55c7b1c23ec4f71ba0519f0d4bcfec",
+      "bytes": 2977,
+      "ingested_path": "research/determinant-switch/check_local_model.py"
+    },
+    {
+      "zip_entry": "derivative_switch_pr_candidate/research/determinant-switch/CONTRACT.md",
+      "sha256": "94418b346242147dba31c68baae5319f9dca6a5c44d56678bd3e87a008eed22f",
+      "bytes": 7926,
+      "ingested_path": "research/determinant-switch/CONTRACT.md"
+    },
+    {
+      "zip_entry": "derivative_switch_pr_candidate/lean/Research/DerivativeSwitchBoundary.lean",
+      "sha256": "4f31e5e372e22814c0793f1f49ce6e8a0efca73bca4f1ff208859b5e73ebb0c4",
+      "bytes": 5099,
+      "ingested_path": "lean/Research/DerivativeSwitchBoundary.lean"
+    }
+  ],
+  "existing_files_overwritten": false,
+  "archive_path": "inputs/derivative_switch_pr_candidate.zip",
+  "changes": [
+    "Narrowed Mathlib imports; original six proof bodies unchanged",
+    "Replaced assigned normalization ratios with actual common-strict-complex cofactor checks",
+    "Added explicit fresh-output native verification, semantic crosswalk, provenance and evidence"
+  ]
+}

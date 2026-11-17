@@ -1,0 +1,1664 @@
+"""Build the selected round-eight dependency inventory and Markdown handoff.
+
+This is standalone: it carries the reviewed current dependency statements and
+binds them to the package and pinned repository supplied on the command line.
+It does not import a producer, compiler, historical inventory, or audit receipt.
+"""
+from pathlib import Path
+import argparse
+import copy
+import hashlib
+import json
+from fractions import Fraction
+
+INVENTORY = {'schema': 'glazer-pr-dependency-consumer-inventory-v2',
+ 'status': 'draft PR dependency inventory; manuscript integration pending',
+ 'upstream': {'commit': '036cebe4f1a4aa7ca89820a9b48f3629b4c364d6', 'repositoryPathsRemainOriginal': True},
+ 'selected': {'builder': 'construction/builder.cjs',
+              'totalVariablesIncludingInput': 389,
+              'existentialWitnessVariables': 388,
+              'quadraticResiduals': 357,
+              'rawCoordinates': 400,
+              'rawResiduals': 368,
+              'gateIdentities': 339,
+              'compilerOperations': 330,
+              'finalExtraEliminations': 0,
+              'anchor': '3^2364',
+              'anchorForcedThreeExponent': 1181,
+              'balancedBase': '3^394',
+              'balancedChangedCoordinates': 13,
+              'balancedTernaryCoordinates': 12,
+              'balancedDyadicCoordinates': 2,
+              'orders': [1, 12, 45],
+              'testOrders': [45, 12, 1, 1, 1, 1, 1, 1, 1, 1, 12, 45, 45, 45, 45, 45],
+              'scalarOrder': 28,
+              'exceptionalSet': [2, 3, 5, 7, 13, 17],
+              'conductorConstant': '2^32*3^9',
+              'heightExponent': '577/32',
+              'heightConstant': '3*2^106*(2^32*3^9)^6*46410^18+128',
+              'heightConstantBits': 665,
+              'scalarHeightTarget': 'h(beta)<|a-1|/4<=(|a|+1)/4',
+              'balancedMaximumCoefficient': '28902*3^1576',
+              'balancedCoefficientDigits': 757,
+              'balancedCoefficientBits': 2513,
+              'monomials': 26295,
+              'degree': 4,
+              'content': 1,
+              'inputFourthPowerCoefficient': 1,
+              'scalarCorrection': 42,
+              'scalarInput': '2401+2754*(2X+1)^2'},
+ 'conventions': {'field': 'Q(rho), rho^2=2, basis (1,rho)',
+                 'curve': 'y^2=x^3-(11-6rho)x',
+                 'generator': 'P=(57/8-7rho/2,-165/8+417rho/32)',
+                 'fieldNorm': 'N(a+b rho)=a^2-2b^2',
+                 'valuations': 'v(p)=1 at consumed unramified places; local 2 arguments explicitly use '
+                               'v(2)=1,v(rho)=1/2',
+                 'heights': 'absolute logarithmic Weil heights with normalized local degree weights',
+                 'consumerCoordinates': 'Builder/raw-IR semantic coordinates precede diagonal scaling. '
+                                        'Decode all 13 changed stored coordinates with the two-prime '
+                                        'certificate before interpreting old point equations, scalar '
+                                        'identities or square scales. In particular the new height-scale '
+                                        'coordinate itself need not be square.'},
+ 'scope': {'finiteChecks': '384 detector source assertions,7 Laurent identities,3 normalization identities '
+                           'and 2 uniform-pair component identities; a separate157-assertion '
+                           'detector-promotion review; unchanged69 scalar assertions with 7 chart/proxy '
+                           'identities and 10 valuation bounds;339 gate identities and 330 compiler '
+                           'operations. Arithmetic has97 source/numerical assertions plus a separately '
+                           'written67-assertion exact certificate. The two-prime audit must verify all 357 '
+                           'rational row divisors and compare every one of 26,295 coefficients in the '
+                           'complete JSON and decimal SOS tables.',
+           'notEstablished': 'Finite checks and independent agent reviews do not prove the inherited group, '
+                             'quaternion, global geometric/modularity/height, '
+                             'restricted-converse/pole-realization, simultaneous-prime or Lucas inputs. No '
+                             'whole-proof Lean certification or independent human peer review is asserted.',
+           'history': 'This inventories retained arguments and current applications. It makes no new-gap or '
+                      'historical-priority assertion. Prior numerical examples are not automatically current '
+                      'parameter justifications.',
+           'manuscriptIntegration': 'Pending. The proposed 389 construction, stronger primary predicate, '
+                                    'refined global height application, selected anchor and two-prime '
+                                    'coefficient map must be incorporated or explicitly referenced at their '
+                                    'actual manuscript consumers before an upstream status is changed.'},
+ 'inheritedInputs': [{'id': 'G_curve',
+                      'statement': 'The displayed normalized curve over Q(sqrt2) has the fixed '
+                                   'infinite-order point P and 2E(K)=Z P; finite root labels are nonzero '
+                                   'integers and h(x([n]P))>=n^2-6.',
+                      'qualification': 'Inherited source arithmetic input, not established by circuit '
+                                       'checks. The square-abscissa equivalence is specific to this field '
+                                       'and D.',
+                      'sources': [{'pathBase': 'repository',
+                                   'path': 'manuscripts/quartic_v10.tex',
+                                   'anchors': ['prop:generator',
+                                               'subsec:v5-point-source',
+                                               'eq:o8-indexheight']},
+                                  {'pathBase': 'repository',
+                                   'path': 'docs/quartic-523-540/addition.tex',
+                                   'anchors': ['subsec:v9-inputs', 'v9chart:prop:chart']}]},
+                     {'id': 'G_formal',
+                      'statement': 'Integral formal-group addition, inverse and multiplication series; exact '
+                                   'local depths/leading residues at 2 and 3; unramified logarithm isometry '
+                                   'and its recurrence/valuation bound. Positive-depth formal subgroups are '
+                                   'stable under every integral multiple.',
+                      'qualification': 'Retained mathematical input; applications to actual orders and '
+                                       'exceptional cases are checked by the cited local proofs.',
+                      'sources': [{'pathBase': 'repository',
+                                   'path': 'manuscripts/quartic_v10.tex',
+                                   'anchors': ['subsec:o8-anchor-subgroup',
+                                               'lem:quartic-reciprocal-log',
+                                               'lem:v5-unramified-log']},
+                                  {'pathBase': 'repository',
+                                   'path': 'docs/quartic-523-540/addition.tex',
+                                   'anchors': ['subsec:v9-local-depth', 'subsec:v9-deep-completeness']}]},
+                     {'id': 'G_quaternion',
+                      'statement': 'For every rational t, including 0, the three-witness conic '
+                                   'u^2+6v^2-2w^2-3t^2+2=0 is soluble exactly when t is integral at 2 and 3.',
+                      'qualification': 'Inherited quaternion embedding/local-global criterion; finite anchor '
+                                       'samples are not its proof.',
+                      'sources': [{'pathBase': 'repository',
+                                   'path': 'manuscripts/quartic_v10.tex',
+                                   'anchors': ['lem:v5-three-witness-anchor', 'lines 10973--11024']}]},
+                     {'id': 'G_height_geometry',
+                      'statement': 'The five-contact construction supplies a normal fiber field, an '
+                                   'L-defined maximal-order QM action and full 3-torsion. Its compatible '
+                                   'representations, normal extension, primitive modular level, character '
+                                   'order and CM/non-CM realization supply the intermediate inequalities '
+                                   'used in the retained Belyi/Jacobian/isogeny-height proof.',
+                      'qualification': 'The inherited geometric/modularity/isogeny-height theorems and their '
+                                       'hypotheses remain conditional. The original manuscript assembles an '
+                                       'exponent 19 estimate; the selected 577/32 estimate is a new explicit '
+                                       'reapplication of its intermediate inequalities in T32, not a '
+                                       'substitution into the old final theorem.',
+                      'sources': [{'pathBase': 'repository',
+                                   'path': 'manuscripts/quartic_v10.tex',
+                                   'anchors': ['lines 6861--7405',
+                                               'sec:h5-level-repair',
+                                               'thm:quartic-height19',
+                                               'lines 8915--9073']}]},
+                     {'id': 'G_pole',
+                      'statement': 'The pole predicate excludes negative odd valuations outside {2,3,17}; '
+                                   'its converse and preparation-zero specialization hold under the stated '
+                                   'positivity, square-denominator and local-square hypotheses.',
+                      'qualification': 'Retains the source restricted converse RC, corank and simultaneous '
+                                       'two-twist realization dependencies. For preparation zero require '
+                                       'b<17 and v2(b)>=3,v3(b)>=1,v17(b)>=2.',
+                      'sources': [{'pathBase': 'repository',
+                                   'path': 'manuscripts/quartic_v10.tex',
+                                   'anchors': ['hyp:RC',
+                                               'lem:corank',
+                                               'lem:original-seven-simultaneous-realization',
+                                               'hyp:o8-pole',
+                                               'lem:original-seven-parity-completeness',
+                                               'v5:preparation-zero-bridge']}]},
+                     {'id': 'G_one_place',
+                      'statement': 'The arbitrary-positive-order reciprocal-trace detector gives all '
+                                   'specified test orders at one common place when the contact valuation is '
+                                   'odd and the pole predicate holds.',
+                      'qualification': 'Retained uniform local proof, applied with the actual field, contact '
+                                       'units and order list. Smaller prime exclusions must be justified by '
+                                       'its hypotheses, not by simply deleting its printed cutoff.',
+                      'sources': [{'pathBase': 'repository',
+                                   'path': 'manuscripts/quartic_v10.tex',
+                                   'anchors': ['lem:v5-one-place', 'lines 11031--11061']}]},
+                     {'id': 'G_product_height',
+                      'statement': 'For odd root indices the height of the product of abscissae in K equals '
+                                   'the sum of their heights, permitting three fixed-square scales.',
+                      'qualification': 'This is a height in K, not the rational norm; local signs and '
+                                       'oddness must be established before use.',
+                      'sources': [{'pathBase': 'repository',
+                                   'path': 'docs/quartic-523-540/addition.tex',
+                                   'anchors': ['v9:lem:product', 'v9:cor:scales', 'v9:eq:height-transfer']}]},
+                     {'id': 'G_prime_pattern',
+                      'statement': 'The source simultaneous Gaussian prime theorem, Artin-pattern weighted '
+                                   'count and diagonal argument supply selected contact primes with the '
+                                   'prescribed classes, finite avoidances and real/denominator growth.',
+                      'qualification': 'All roots, scales, coefficient data and congruence conditions '
+                                       'precede this asymptotic choice; repeated forms are merged with '
+                                       'incidences retained. This global input is not independently proved '
+                                       'here.',
+                      'sources': [{'pathBase': 'repository',
+                                   'path': 'manuscripts/quartic_v10.tex',
+                                   'anchors': ['thm:v5-simultaneous-primes',
+                                               'prop:v5-artin-patterns',
+                                               'subsec:v5-diagonal',
+                                               'lines 11244--11275']}]},
+                     {'id': 'G_reductions',
+                      'statement': 'The selected split reductions have cardinalities N(pi-1),N(pi+1); their '
+                                   'doubling-image orders divided by 4 give the needed coprimalities.',
+                      'qualification': 'Only annihilating group orders are used; no unproved claim about '
+                                       'exact point order is substituted.',
+                      'sources': [{'pathBase': 'repository',
+                                   'path': 'manuscripts/quartic_v10.tex',
+                                   'anchors': ['lem:v5-two-reductions']},
+                                  {'pathBase': 'repository',
+                                   'path': 'docs/quartic-523-540/addition.tex',
+                                   'anchors': ['lem:v9-bridge', 'v9:lem:separation']}]},
+                     {'id': 'G_progression',
+                      'statement': 'Finite-place continuity and the real-progression lemma preserve prepared '
+                                   'scalar conditions and provide uniform real bounds on comparison tests in '
+                                   'later compatible progressions.',
+                      'qualification': 'Bounds are chosen before future progression moduli and are then '
+                                       'consumed by the real pole estimate.',
+                      'sources': [{'pathBase': 'repository',
+                                   'path': 'manuscripts/quartic_v10.tex',
+                                   'anchors': ['v5:scalar32-bridge',
+                                               'v5:real-progression-bridge',
+                                               'lines 11220--11241']},
+                                  {'pathBase': 'repository',
+                                   'path': 'docs/quartic-523-540/addition.tex',
+                                   'anchors': ['subsec:v9-completeness', 'subsec:v9-deep-completeness']}]},
+                     {'id': 'G_lucas',
+                      'statement': 'The stated Lucas identity/growth result supplies odd positive '
+                                   'completeness labels and, from the literal residual F=0 and b!=0, log '
+                                   'B>|a|-3.',
+                      'qualification': 'Retained arithmetic theorem and its sign/nonzero hypotheses; exact '
+                                       'evaluation of the residual alone is not its growth proof.',
+                      'sources': [{'pathBase': 'repository',
+                                   'path': 'manuscripts/quartic_v10.tex',
+                                   'anchors': ['lem:o8-lucas']},
+                                  {'pathBase': 'repository',
+                                   'path': 'docs/quartic-523-540/addition.tex',
+                                   'anchors': ['subsec:v9-soundness', 'subsec:v9-completeness']}]}],
+ 'transformations': [{'id': 'T01',
+                      'title': 'Root chart and direct targets',
+                      'mathematicalType': 'retained source-domain equivalence',
+                      'retainedStatement': 'The four roots use x=h^2,j^2=x^2-D,y=hj without stored '
+                                           'ordinates; comparison targets are Q_i and P directly.',
+                      'domainAndHypotheses': 'K=Q(sqrt2),D=(3-sqrt2)^2; roots finite nonidentity with h,j,x '
+                                             'nonzero; field equations mean both rational components.',
+                      'actualCurrentConsumer': {'pathBase': 'package',
+                                                'source': 'construction/builder.cjs',
+                                                'anchors': ['point_modules', 'direct_targets', 'four', 'R']},
+                      'inheritedInputs': ['G_curve'],
+                      'proofSources': [{'proofId': 'P3_geometry',
+                                        'argument': 'opening root-domain argument'}],
+                      'upstreamApplications': [{'pathBase': 'repository',
+                                                'path': 'docs/quartic-523-540/addition.tex',
+                                                'anchors': ['lem:v9-bridge',
+                                                            'v9chart:prop:chart',
+                                                            'Using the chart without ordinate variables']}],
+                      'selectionNote': 'Already part of the pinned 523 baseline; this inventory does not '
+                                       'claim it as a new round 8 theorem.',
+                      'manuscriptIntegration': 'pending: the 389-source composition has not been '
+                                               'incorporated into the pinned manuscript',
+                      'historicalDisposition': 'The listed arguments retain their stated domains; prior '
+                                               'numerical specializations are explicitly distinguished. No '
+                                               'new-gap, priority or whole-proof-validation claim.'},
+                     {'id': 'T02',
+                      'title': 'Complete primary reciprocal charts',
+                      'mathematicalType': 'domain enlargement with checked arithmetic consumer',
+                      'retainedStatement': 'For U_A,U_S,U_T,U_Z use f=g^2,l^2=1-Df^2; g=0,l=+/-1 represents '
+                                           'O, while l never vanishes.',
+                      'domainAndHypotheses': 'For finite points recover x=1/g^2,y=l/g^3. The norm '
+                                             'obstruction 7*N(g)^2=1 excludes l=0. Identity inputs use a '
+                                             'separate congruence argument.',
+                      'actualCurrentConsumer': {'pathBase': 'package',
+                                                'source': 'construction/builder.cjs',
+                                                'anchors': ['reciprocalCharts',
+                                                            'UA.g',
+                                                            'US.g',
+                                                            'UT.g',
+                                                            'UZ.g',
+                                                            'L1 through L4']},
+                      'inheritedInputs': ['G_curve', 'G_formal'],
+                      'proofSources': [{'proofId': 'P3_geometry',
+                                        'argument': 'Primary charts; Soundness of the new identity-input '
+                                                    'case'},
+                                       {'proofId': 'P4_geometry',
+                                        'argument': 'input-only G2 comparison, including U1=O'}],
+                      'upstreamApplications': [],
+                      'selectionNote': '',
+                      'manuscriptIntegration': 'pending: the 389-source composition has not been '
+                                               'incorporated into the pinned manuscript',
+                      'historicalDisposition': 'The listed arguments retain their stated domains; prior '
+                                               'numerical specializations are explicitly distinguished. No '
+                                               'new-gap, priority or whole-proof-validation claim.'},
+                     {'id': 'T03',
+                      'title': 'Complete subtraction and joint shared chart',
+                      'mathematicalType': 'rational chart equivalence on the stated domains',
+                      'retainedStatement': 'The variable-target reciprocal subtraction represents exactly '
+                                           'U_i-Q_i, including U_i=O and tangency U_i=-Q_i, excluding '
+                                           'identity output. The joint H,H-P chart uses fF=s^2 and the two '
+                                           'hs*k equations.',
+                      'domainAndHypotheses': 'x_R+D f_U is totally positive; the equations force tau!=0. In '
+                                             'the joint chart f,F,s,g are nonzero and k_H,k_V do not vanish. '
+                                             'Recover old l,tau,M with the displayed rational formulas.',
+                      'actualCurrentConsumer': {'pathBase': 'package',
+                                                'source': 'construction/builder.cjs',
+                                                'anchors': ['subtractReciprocal',
+                                                            'subtractSharedJoint',
+                                                            'V0.f',
+                                                            'V0.k',
+                                                            'primaryRatio',
+                                                            'V1 through V4']},
+                      'inheritedInputs': ['G_curve'],
+                      'proofSources': [{'proofId': 'P3_geometry',
+                                        'argument': 'A reciprocal difference formula, all exceptional cases'},
+                                       {'proofId': 'P4_geometry',
+                                        'argument': 'A joint chart for the shared point and its translate; '
+                                                    'exact recovery and nonzero denominators'}],
+                      'upstreamApplications': [],
+                      'selectionNote': '',
+                      'manuscriptIntegration': 'pending: the 389-source composition has not been '
+                                               'incorporated into the pinned manuscript',
+                      'historicalDisposition': 'The listed arguments retain their stated domains; prior '
+                                               'numerical specializations are explicitly distinguished. No '
+                                               'new-gap, priority or whole-proof-validation claim.'},
+                     {'id': 'T04',
+                      'title': 'Shared primary ratios and scaled alternate logs',
+                      'mathematicalType': 'rational coordinate elimination and exact function evaluation',
+                      'retainedStatement': 'L_i=k_H*g_i/l_i equals z(U_i)/z(H); store eta_i=ell(V_i)/h_i '
+                                           'through (M_i-j_i)eta_i=-G, then conjugate the entire ratio '
+                                           'ell(V_i)/ell(V0).',
+                      'domainAndHypotheses': 'H,H-P finite nonidentity; l_i and alternate logarithm '
+                                             'denominators nonzero. U_i=O gives L_i=0 without forming '
+                                             'log(O)/z(O).',
+                      'actualCurrentConsumer': {'pathBase': 'package',
+                                                'source': 'construction/builder.cjs',
+                                                'anchors': ['primaryRatio',
+                                                            'L1 through L4',
+                                                            'LP1 through LP4',
+                                                            'logV*.scaled',
+                                                            'V*.logDenominator']},
+                      'inheritedInputs': ['G_curve', 'G_formal'],
+                      'proofSources': [{'proofId': 'P3_geometry',
+                                        'argument': 'Primary charts; Scale logarithms by the root '
+                                                    'coordinate; identity-input case'},
+                                       {'proofId': 'P4_geometry', 'argument': 'joint-chart ratio recovery'}],
+                      'upstreamApplications': [{'pathBase': 'repository',
+                                                'path': 'docs/quartic-523-540/addition.tex',
+                                                'anchors': ['v9:sec:depth', 'subsec:v9-local-depth']}],
+                      'selectionNote': '',
+                      'manuscriptIntegration': 'pending: the 389-source composition has not been '
+                                               'incorporated into the pinned manuscript',
+                      'historicalDisposition': 'The listed arguments retain their stated domains; prior '
+                                               'numerical specializations are explicitly distinguished. No '
+                                               'new-gap, priority or whole-proof-validation claim.'},
+                     {'id': 'T05',
+                      'title': 'Degree 12 completion and input-only degree 2 log',
+                      'mathematicalType': 'exact polynomial circuit plus nonzero-domain proof',
+                      'retainedStatement': 'Use G12=a 12*U6^2+R6, deg(R6)<=6, evaluated with w^2,w^4,U6; '
+                                           'retain G2 for V1 only.',
+                      'domainAndHypotheses': 'The completion is over Q, not an algebraic square-root choice. '
+                                             'At both real embeddings 0<D f(V)^2<1; G12(1)>0 and G2(1)=7/15 '
+                                             'prevent zero logs.',
+                      'actualCurrentConsumer': {'pathBase': 'package',
+                                                'source': 'construction/builder.cjs',
+                                                'anchors': ['aCoeffs',
+                                                            'logSquareU',
+                                                            'logSquareR',
+                                                            'log',
+                                                            'LV',
+                                                            'logV0,2,3,4',
+                                                            'logV1']},
+                      'inheritedInputs': ['G_formal'],
+                      'proofSources': [{'proofId': 'P5_geometry',
+                                        'argument': 'Complete a polynomial square; Nonvanishing and consumed '
+                                                    'local precision'},
+                                       {'proofId': 'P4_geometry',
+                                        'argument': 'Only the input comparison needs a degree-two alternate '
+                                                    'logarithm'}],
+                      'upstreamApplications': [],
+                      'selectionNote': '',
+                      'manuscriptIntegration': 'pending: the 389-source composition has not been '
+                                               'incorporated into the pinned manuscript',
+                      'historicalDisposition': 'The listed arguments retain their stated domains; prior '
+                                               'numerical specializations are explicitly distinguished. No '
+                                               'new-gap, priority or whole-proof-validation claim.'},
+                     {'id': 'T06',
+                      'title': 'Actual local precision and asymmetric comparisons',
+                      'mathematicalType': 'uniform local arithmetic transfer',
+                      'retainedStatement': 'G12 has relative precision 45r, G2 precision 12r, and raw z has '
+                                           'error 4r at every consumed prime. Primary g_H order 45 gives '
+                                           'depth 45; comparison gives Lucas labels mod p^45 and input label '
+                                           'mod p^12.',
+                      'domainAndHypotheses': 'Consumed primes outside S6 are unramified and at least 11. '
+                                             'Check a 3=-14/195 and tail bounds;13 remains excluded. First '
+                                             'transfer integrality using one of h,h-1 being a unit, then '
+                                             'make relative errors absolute; include U_i=O and inert places.',
+                      'actualCurrentConsumer': {'pathBase': 'package',
+                                                'source': 'construction/builder.cjs',
+                                                'anchors': ['tests',
+                                                            'test0',
+                                                            'test10 through test15',
+                                                            'L1 through L4',
+                                                            'LP1 through LP4']},
+                      'inheritedInputs': ['G_formal', 'G_one_place'],
+                      'proofSources': [{'proofId': 'P5_arithmetic',
+                                        'argument': 'Actual G2 and raw-z precision bounds with the current '
+                                                    'exception set'},
+                                       {'proofId': 'P6_arithmetic',
+                                        'argument': 'The retained logarithm supports order 45 and Pi^44'},
+                                       {'proofId': 'P8_detector',
+                                        'argument': 'The promoted primary test preserves every old '
+                                                    'comparison premise'},
+                                       {'proofId': 'P8_arithmetic',
+                                        'argument': 'Actual height consumers retain local orders 28,45,12'},
+                                       {'proofId': 'P3_geometry',
+                                        'argument': 'Soundness of the identity-input case'}],
+                      'upstreamApplications': [{'pathBase': 'repository',
+                                                'path': 'docs/quartic-523-540/addition.tex',
+                                                'anchors': ['subsec:v9-local-depth']}],
+                      'selectionNote': '',
+                      'manuscriptIntegration': 'pending: the 389-source composition has not been '
+                                               'incorporated into the pinned manuscript',
+                      'historicalDisposition': 'The listed arguments retain their stated domains; prior '
+                                               'numerical specializations are explicitly distinguished. No '
+                                               'new-gap, priority or whole-proof-validation claim.'},
+                     {'id': 'T07',
+                      'title': 'Primary order promotion and retained alternate tests',
+                      'mathematicalType': 'stronger local predicate with a complete existing-witness '
+                                          'construction',
+                      'retainedStatement': 'Use g_H at order 45, primary g(U_A) at order 12, and '
+                                           'g(U_S),g(U_T),g(U_Z) at order 1; leave every conjugated f(V_i) '
+                                           'test at order 1. The complete source order list is '
+                                           '(45,12,1,1,1,1,1,1,1,1,12,45,45,45,45,45). The squared primary '
+                                           'tests reuse f=g^2.',
+                      'domainAndHypotheses': 'At consumed contacts delta is a unit, so order 12 on g(U_A) '
+                                             'implies the former order 1 premise at the same common place. '
+                                             'Completeness chooses U_A=[n]H with integral n=beta(X); the '
+                                             'existing Pi^44 progression puts H and hence U_A in formal '
+                                             'depth 45. This equality is used only for the constructed '
+                                             'completeness witnesses. The identity U_A=O is allowed and no '
+                                             'alternate-depth condition is strengthened.',
+                      'actualCurrentConsumer': {'pathBase': 'package',
+                                                'source': 'construction/builder.cjs',
+                                                'anchors': ['tests',
+                                                            'test1',
+                                                            'squareTests',
+                                                            'testSquare.1',
+                                                            'testSquare.12',
+                                                            'testSquare.45']},
+                      'inheritedInputs': ['G_formal', 'G_one_place', 'G_prime_pattern', 'G_reductions'],
+                      'proofSources': [{'proofId': 'P4_geometry',
+                                        'argument': 'Inverse-root tests and the shared primary depth'},
+                                       {'proofId': 'P6_detector',
+                                        'argument': 'Arbitrary-order local consumer and Pi^44 progression'},
+                                       {'proofId': 'P8_detector',
+                                        'argument': 'The actual test whose order changes; existing formal '
+                                                    'depth supplies its completeness'}],
+                      'upstreamApplications': [],
+                      'selectionNote': 'Predicate strengthening is not a bijection on all old detector '
+                                       'witness tuples. No new congruence or prime-selection condition is '
+                                       'imposed.',
+                      'manuscriptIntegration': 'pending: the 389-source composition has not been '
+                                               'incorporated into the pinned manuscript',
+                      'historicalDisposition': 'The listed arguments retain their stated domains; prior '
+                                               'numerical specializations are explicitly distinguished. No '
+                                               'new-gap, priority or whole-proof-validation claim.'},
+                     {'id': 'T08',
+                      'title': 'Grouped products and a uniform order 12 pair',
+                      'mathematicalType': 'exact polynomial identity with shared quadratic gates',
+                      'retainedStatement': 'Evaluate one uniform (12,12) pair, two groups of four order 1 '
+                                           'factors and two groups of three order 45 factors. If U=g(U_A)^2 '
+                                           'and V=D_cross^2, use 1+q12(U+V)+q12^2 UV. The shared field '
+                                           'coefficient UV is retained, and q12^2 already exists as '
+                                           'mixedHigh in the high-weight chain.',
+                      'domainAndHypotheses': 'The product identity is over the commutative field K; the '
+                                             'primary predicate strengthening is justified separately in '
+                                             'T07. No arithmetic distinctness or nonzero test is needed. '
+                                             'Each detector deletes only the former q1*q12 coordinate, '
+                                             'saving three coordinates in total.',
+                      'actualCurrentConsumer': {'pathBase': 'package',
+                                                'source': 'construction/builder.cjs',
+                                                'anchors': ['polyProduct',
+                                                            'mixedTestProduct',
+                                                            'coeffs',
+                                                            'evalSym',
+                                                            'detector*.mixed',
+                                                            'detector*.W']},
+                      'inheritedInputs': [],
+                      'proofSources': [{'proofId': 'P4_mixed',
+                                        'argument': 'Retained shared symmetric coefficients and remaining '
+                                                    'product groups'},
+                                       {'proofId': 'P7_detector',
+                                        'argument': 'Retained direct weights and high-order chain'},
+                                       {'proofId': 'P8_detector',
+                                        'argument': 'The shared uniform block and its exact cost'}],
+                      'upstreamApplications': [],
+                      'selectionNote': 'All 16 underlying test functions are retained. q12-squared reuse is '
+                                       'an actual stored-coordinate reuse, not an unmaterialized '
+                                       'degree-three substitution.',
+                      'manuscriptIntegration': 'pending: the 389-source composition has not been '
+                                               'incorporated into the pinned manuscript',
+                      'historicalDisposition': 'The listed arguments retain their stated domains; prior '
+                                               'numerical specializations are explicitly distinguished. No '
+                                               'new-gap, priority or whole-proof-validation claim.'},
+                     {'id': 'T09',
+                      'title': 'Three positive square scales and their height allowance',
+                      'mathematicalType': 'real inequality and height-bound transfer',
+                      'retainedStatement': 'Use the decoded square scales1,C0^2,(C0+C1)^2 for C=product '
+                                           'x(Q_i). Real bounds give C0>=193 and C0+C1>=61. With '
+                                           'alpha=577/32 and the selected H, the height transfer remains '
+                                           'B^2-6<7H|N|^(alpha/k), including log50 for the fractional-linear '
+                                           'coordinate change.',
+                      'domainAndHypotheses': 'Four roots are finite double points; oddness is required for '
+                                             'product-height, not real positivity. Scales are fixed before '
+                                             'prime selection, and coincident scales are allowed. After '
+                                             'two-prime balancing the stored first scale coordinate is not '
+                                             'itself the semantic square: decode A=C0^2=2^-19*y_scale before '
+                                             'applying arithmetic arguments.',
+                      'actualCurrentConsumer': {'pathBase': 'package',
+                                                'source': 'construction/builder.cjs',
+                                                'anchors': ['heightProduct',
+                                                            'heightProduct.scale0',
+                                                            'heightProduct.scale1',
+                                                            'scales']},
+                      'inheritedInputs': ['G_curve', 'G_product_height', 'G_height_geometry'],
+                      'proofSources': [{'proofId': 'P5_detector',
+                                        'argument': 'One fewer coordinate for the third height scale'},
+                                       {'proofId': 'P5_arithmetic',
+                                        'argument': 'Retained three-scale transfer and log50 allowance'},
+                                       {'proofId': 'P8_arithmetic',
+                                        'argument': 'Apply the new height bound to the actual consumers'},
+                                       {'proofId': 'P8_diagonal',
+                                        'argument': 'Decode the stored first height-scale coordinate'}],
+                      'upstreamApplications': [{'pathBase': 'repository',
+                                                'path': 'docs/quartic-523-540/addition.tex',
+                                                'anchors': ['v9:lem:product', 'v9:cor:scales']}],
+                      'selectionNote': '',
+                      'manuscriptIntegration': 'pending: the 389-source composition has not been '
+                                               'incorporated into the pinned manuscript',
+                      'historicalDisposition': 'The listed arguments retain their stated domains; prior '
+                                               'numerical specializations are explicitly distinguished. No '
+                                               'new-gap, priority or whole-proof-validation claim.'},
+                     {'id': 'T10',
+                      'title': 'Shifted contact coordinate and guard',
+                      'mathematicalType': 'exact rational coordinate and local-unit calculation',
+                      'retainedStatement': 'phi(t)=-49+1/t maps Theta={0,1/49,1/50,1/2450,32/1225} to the '
+                                           'five height contacts; delta=98t-1 is a unit at consumed contacts '
+                                           'outside S6.',
+                      'domainAndHypotheses': 'Unimodular matrix; contact denominators/differences supported '
+                                             'at 2,3,5,7 and guard values introduce 13. A pole of t maps to '
+                                             '-49, not a consumed contact outside S6.',
+                      'actualCurrentConsumer': {'pathBase': 'package',
+                                                'source': 'construction/builder.cjs',
+                                                'anchors': ['detector*.t', 'detector*.F', 'delta', 'roots']},
+                      'inheritedInputs': ['G_height_geometry', 'G_one_place'],
+                      'proofSources': [{'proofId': 'P5_arithmetic',
+                                        'argument': 'Choose the detector coordinate and guard together'},
+                                       {'proofId': 'P5_detector',
+                                        'argument': 'Selected contacts, positivity and the guard'},
+                                       {'proofId': 'P7_detector',
+                                        'argument': 'The normalization freedom in the actual local lemma'}],
+                      'upstreamApplications': [],
+                      'selectionNote': '',
+                      'manuscriptIntegration': 'pending: the 389-source composition has not been '
+                                               'incorporated into the pinned manuscript',
+                      'historicalDisposition': 'The listed arguments retain their stated domains; prior '
+                                               'numerical specializations are explicitly distinguished. No '
+                                               'new-gap, priority or whole-proof-validation claim.'},
+                     {'id': 'T11',
+                      'title': 'Positive lambda witnesses and removal of trace guards',
+                      'mathematicalType': 'witness restriction with canonical completeness and forced '
+                                          'nonzero domain',
+                      'retainedStatement': 'Impose lambda=32/1225+u^2+v^2. All factors of W are >=1 in both '
+                                           'embeddings, so W0>=1,N(W)>0 and no separate W0 inverse is '
+                                           'needed.',
+                      'domainAndHypotheses': 'A>=1 and the direct weight equation force F>0. Completeness '
+                                             'uses the retained unit-scale maximal-contact prime p=N(pi), '
+                                             'divided by the square denominator; arbitrary positivity alone '
+                                             'would not supply the two-square witnesses.',
+                      'actualCurrentConsumer': {'pathBase': 'package',
+                                                'source': 'construction/builder.cjs',
+                                                'anchors': ['lambda.positiveChart',
+                                                            'lambda.positiveA',
+                                                            'lambda.positiveB',
+                                                            'detector*.normOver2w0']},
+                      'inheritedInputs': ['G_prime_pattern', 'G_progression'],
+                      'proofSources': [{'proofId': 'P3_positive',
+                                        'argument': 'Domains from positivity; canonical Gaussian witnesses'},
+                                       {'proofId': 'P5_detector',
+                                        'argument': 'Selected current contact and positivity chart'},
+                                       {'proofId': 'P7_detector',
+                                        'argument': 'Nonzero domains and quadratic degree'},
+                                       {'proofId': 'P8_detector',
+                                        'argument': 'Uniform pair factors remain positive; every '
+                                                    'reciprocal/norm denominator is retained'}],
+                      'upstreamApplications': [],
+                      'selectionNote': '',
+                      'manuscriptIntegration': 'pending: the 389-source composition has not been '
+                                               'incorporated into the pinned manuscript',
+                      'historicalDisposition': 'The listed arguments retain their stated domains; prior '
+                                               'numerical specializations are explicitly distinguished. No '
+                                               'new-gap, priority or whole-proof-validation claim.'},
+                     {'id': 'T12',
+                      'title': 'Contact-unit test normalization',
+                      'mathematicalType': 'local predicate transfer with rechecked completeness',
+                      'retainedStatement': 'The semantic tests are delta*D_j with R=F/(A^5 delta^6), and '
+                                           'implemented factors use q_m=e^(2m-1)/delta. Delta is a contact '
+                                           'unit, so this normalization preserves the specified contact '
+                                           'order. The selected order list has eight order 1, two order 12 '
+                                           'and six order 45 tests, including the separately justified '
+                                           'primary promotion.',
+                      'domainAndHypotheses': 'The one-place lemma accepts arbitrary K-valued normalized '
+                                             'inputs; delta is a unit only at consumed contacts. R and its '
+                                             'square-denominator formula are unchanged. Every fixed-order '
+                                             'weight is O(lambda^-1). The small-prime lower bound remains '
+                                             'nu+(10m-6)(eta+gamma)-2c_p; for the promoted test m=12 gives '
+                                             'nu+114(eta+gamma)-2c_p. All finite/real bounds are fixed '
+                                             'before the later progression and prime choices. Here '
+                                             'nu=v_p(v), eta=v_p(A), and gamma=v_p(98); this local gamma is '
+                                             'unrelated to the global height exponent alpha.',
+                      'actualCurrentConsumer': {'pathBase': 'package',
+                                                'source': 'construction/builder.cjs',
+                                                'anchors': ['tests',
+                                                            'detector*.mixed',
+                                                            'detector*.E1',
+                                                            'detector*.E45',
+                                                            'detector*.B']},
+                      'inheritedInputs': ['G_one_place', 'G_pole', 'G_prime_pattern', 'G_progression'],
+                      'proofSources': [{'proofId': 'P7_detector',
+                                        'argument': 'Normalization freedom and retained '
+                                                    'contact/off-contact/real estimates'},
+                                       {'proofId': 'P8_detector',
+                                        'argument': 'Changed factor at contacts, real infinity and 2,3,17'}],
+                      'upstreamApplications': [{'pathBase': 'repository',
+                                                'path': 'manuscripts/quartic_v10.tex',
+                                                'anchors': ['lem:v5-one-place',
+                                                            'v5:preparation-zero-bridge',
+                                                            'lines 11220--11241']}],
+                      'selectionNote': '',
+                      'manuscriptIntegration': 'pending: the 389-source composition has not been '
+                                               'incorporated into the pinned manuscript',
+                      'historicalDisposition': 'The listed arguments retain their stated domains; prior '
+                                               'numerical specializations are explicitly distinguished. No '
+                                               'new-gap, priority or whole-proof-validation claim.'},
+                     {'id': 'T13',
+                      'title': 'Direct q1 and the seven higher-weight gates',
+                      'mathematicalType': 'unique rational extension and shared circuit',
+                      'retainedStatement': 'Define q1 F=A(A delta)^4 and E=q1 delta^2=R^-1. Compute '
+                                           'E^2,E^3,E^3q1^3,(E^3q1^3)^2,q12, q12^2,q45; q12=E^11 '
+                                           'q1^12,q45=E^44 q1^45.',
+                      'domainAndHypotheses': 'F,q1,E positive; quotient denominators E and q1^3 nonzero. '
+                                             'delta^2 reuses t^2. The q1 square/cube are actual existing '
+                                             'product-evaluation powers. No stored e or delta^3 survives.',
+                      'actualCurrentConsumer': {'pathBase': 'package',
+                                                'source': 'construction/builder.cjs',
+                                                'anchors': ['detector*.q1',
+                                                            'detector*.eDelta',
+                                                            'detector*.mixA through mixD',
+                                                            'detector*.q12',
+                                                            'detector*.q45',
+                                                            'detector*.E1.power2',
+                                                            'detector*.E1.power3']},
+                      'inheritedInputs': [],
+                      'proofSources': [{'proofId': 'P7_detector',
+                                        'argument': 'Compute the weights without storing e; Nonzero domains '
+                                                    'and quadratic degree'},
+                                       {'proofId': 'P8_detector',
+                                        'argument': 'mixedHigh=q12^2 is reused by the uniform pair without '
+                                                    'an additional gate'}],
+                      'upstreamApplications': [],
+                      'selectionNote': '',
+                      'manuscriptIntegration': 'pending: the 389-source composition has not been '
+                                               'incorporated into the pinned manuscript',
+                      'historicalDisposition': 'The listed arguments retain their stated domains; prior '
+                                               'numerical specializations are explicitly distinguished. No '
+                                               'new-gap, priority or whole-proof-validation claim.'},
+                     {'id': 'T14',
+                      'title': 'Reciprocal-trace norm quotient',
+                      'mathematicalType': 'exact field identity with proved domain',
+                      'retainedStatement': 'For W=W0+W1*rho, n=N(W)/(2W0)=1/Tr(W^-1) and '
+                                           'B=n^2/E=R/Tr(W^-1)^2.',
+                      'domainAndHypotheses': 'Total positivity of W supplies W0>0,N(W)>0,T!=0 before any '
+                                             'pole predicate. At selected contacts trace residue 1 or 2 is a '
+                                             'unit; elsewhere even R valuations stay even after division by '
+                                             'a rational square.',
+                      'actualCurrentConsumer': {'pathBase': 'package',
+                                                'source': 'construction/builder.cjs',
+                                                'anchors': ['detector*.normOver2w0',
+                                                            'detector*.B',
+                                                            'detector*.Bsemantic']},
+                      'inheritedInputs': ['G_one_place', 'G_pole'],
+                      'proofSources': [{'proofId': 'P3_positive',
+                                        'argument': 'positive norm and trace domains'},
+                                       {'proofId': 'P7_detector',
+                                        'argument': 'Nonzero domains; contact/off-contact completeness'},
+                                       {'proofId': 'P8_detector',
+                                        'argument': 'Changed factor retains contact trace residues, '
+                                                    'positivity and off-contact parity'}],
+                      'upstreamApplications': [],
+                      'selectionNote': '',
+                      'manuscriptIntegration': 'pending: the 389-source composition has not been '
+                                               'incorporated into the pinned manuscript',
+                      'historicalDisposition': 'The listed arguments retain their stated domains; prior '
+                                               'numerical specializations are explicitly distinguished. No '
+                                               'new-gap, priority or whole-proof-validation claim.'},
+                     {'id': 'T15',
+                      'title': 'Homogeneous pole coordinates',
+                      'mathematicalType': 'input-fixed rational witness equivalence',
+                      'retainedStatement': 'Normalize old e,p,s,q by b,b,b,b^2 respectively. For unprepared '
+                                           'poles T=b; for prepared poles T=U^2/b. The two normalized conics '
+                                           'use 17b and e(17-T).',
+                      'domainAndHypotheses': 'Only b and b^2 are divided by; b>0 is supplied independently '
+                                             'by detector or scalar positivity. Keep all degenerate e,p,q,s '
+                                             'branches permitted by the original predicate.',
+                      'actualCurrentConsumer': {'pathBase': 'package',
+                                                'source': 'construction/builder.cjs',
+                                                'anchors': ['pole',
+                                                            'detector*.firstConic',
+                                                            'detector*.secondConic',
+                                                            'scalar.firstConic',
+                                                            'scalar.secondConic']},
+                      'inheritedInputs': ['G_pole'],
+                      'proofSources': [{'proofId': 'P3_arithmetic',
+                                        'argument': 'Independent review of homogeneous pole coordinates'}],
+                      'upstreamApplications': [{'pathBase': 'repository',
+                                                'path': 'manuscripts/quartic_v10.tex',
+                                                'anchors': ['hyp:o8-pole', 'v5:preparation-zero-bridge']}],
+                      'selectionNote': '',
+                      'manuscriptIntegration': 'pending: the 389-source composition has not been '
+                                               'incorporated into the pinned manuscript',
+                      'historicalDisposition': 'The listed arguments retain their stated domains; prior '
+                                               'numerical specializations are explicitly distinguished. No '
+                                               'new-gap, priority or whole-proof-validation claim.'},
+                     {'id': 'T16',
+                      'title': 'Conic scalar preparation and square absorption',
+                      'mathematicalType': 'rational witness equivalences including the parametrization '
+                                          'endpoint',
+                      'retainedStatement': 'Replace the rational preparation parametrization by U^2+bV^2=b^2 '
+                                           'and use T=b-V^2,U^2=bT. For b=r_corr W^2 with r_corr=42r, '
+                                           'rescale p,q by W and U by1/W, making r_corr the actual conic '
+                                           'coefficient.',
+                      'domainAndHypotheses': 'b>0,W>=1. The omitted parametrization endpoint U=-b,V=0 is '
+                                             'handled by changing U to +b because downstream uses its '
+                                             'square. No extra nonzero condition on a pole witness is '
+                                             'inserted.',
+                      'actualCurrentConsumer': {'pathBase': 'package',
+                                                'source': 'construction/builder.cjs',
+                                                'anchors': ['scalar.preparationT',
+                                                            'scalar.preparationConic',
+                                                            'scalar.correctedR',
+                                                            'scalar.W2',
+                                                            'pole']},
+                      'inheritedInputs': ['G_pole'],
+                      'proofSources': [{'proofId': 'P2_arithmetic',
+                                        'argument': 'One fewer coordinate for scalar preparation'},
+                                       {'proofId': 'P3_arithmetic',
+                                        'argument': 'homogeneous pole coordinates and three-coordinate '
+                                                    'preparation'},
+                                       {'proofId': 'P4_scalar',
+                                        'argument': 'Absorb the known square in the scalar pole input'},
+                                       {'proofId': 'P7_geometry',
+                                        'argument': 'unchanged pole consumer and W>=1'}],
+                      'upstreamApplications': [],
+                      'selectionNote': '',
+                      'manuscriptIntegration': 'pending: the 389-source composition has not been '
+                                               'incorporated into the pinned manuscript',
+                      'historicalDisposition': 'The listed arguments retain their stated domains; prior '
+                                               'numerical specializations are explicitly distinguished. No '
+                                               'new-gap, priority or whole-proof-validation claim.'},
+                     {'id': 'T17',
+                      'title': 'Current input map, three scalar contacts and correction 42',
+                      'mathematicalType': 'local/global-consumer transfer for a new input label',
+                      'retainedStatement': 'beta=2401+2754(2X+1)^2; r=beta(beta-1)(32beta+343); correction '
+                                           '42. Infinity and 2401 have even contact order, and the '
+                                           'irrelevant 1/2 contact is absent.',
+                      'domainAndHypotheses': 'The anchor excludes X=-1/2 before the height theorem omitting '
+                                             'beta=2401 is used. At consumed primes only 0,1,-343/32 can '
+                                             'have odd contact. For integer X,42r is positive and locally '
+                                             'square at 2,3,17.',
+                      'actualCurrentConsumer': {'pathBase': 'package',
+                                                'source': 'construction/builder.cjs',
+                                                'anchors': ['beta',
+                                                            'scalar.rPair1',
+                                                            'scalar.rThree',
+                                                            'scalar.correctedR']},
+                      'inheritedInputs': ['G_height_geometry', 'G_pole', 'G_progression'],
+                      'proofSources': [{'proofId': 'P2_arithmetic',
+                                        'argument': 'exact contact set and removed 2beta-1 factor, as '
+                                                    'predecessor'},
+                                       {'proofId': 'P3_arithmetic',
+                                        'argument': 'Make one finite contact a square fibre; Fixed local '
+                                                    'correction and completeness'},
+                                       {'proofId': 'P7_geometry',
+                                        'argument': 'Odd contact valuations are already positive'},
+                                       {'proofId': 'P8_arithmetic',
+                                        'argument': 'Selected even anchor excludes X=-1/2 before applying '
+                                                    'the new height estimate'}],
+                      'upstreamApplications': [],
+                      'selectionNote': '',
+                      'manuscriptIntegration': 'pending: the 389-source composition has not been '
+                                               'incorporated into the pinned manuscript',
+                      'historicalDisposition': 'The listed arguments retain their stated domains; prior '
+                                               'numerical specializations are explicitly distinguished. No '
+                                               'new-gap, priority or whole-proof-validation claim.'},
+                     {'id': 'T18',
+                      'title': 'Adapted input coordinate and final integrality recovery',
+                      'mathematicalType': 'input-fixed affine change plus denominator argument',
+                      'retainedStatement': 'Store Y=X^2+X, use beta=11016Y+5155 and X^2=Y-X. Once n=beta is '
+                                           'integral and the anchor gives X integral at 2,3, every '
+                                           'denominator prime is excluded, including 17 via its coefficient '
+                                           'valuation 1.',
+                      'domainAndHypotheses': 'X itself stays coordinate 0. Y and the physical anchor/scales '
+                                             'stay materialized for lifted-degree control. The argument '
+                                             'requires the current polynomial, not an arbitrary rational '
+                                             'label.',
+                      'actualCurrentConsumer': {'pathBase': 'package',
+                                                'source': 'construction/builder.cjs',
+                                                'anchors': ['inputProduct',
+                                                            'inputSquare',
+                                                            'beta',
+                                                            'anchor.physicalA']},
+                      'inheritedInputs': ['G_height_geometry', 'G_quaternion', 'G_lucas'],
+                      'proofSources': [{'proofId': 'P3_arithmetic',
+                                        'argument': 'Keep the input gate adapted to the new label; final '
+                                                    'input denominator argument'},
+                                       {'proofId': 'P8_arithmetic',
+                                        'argument': 'Actual input contradiction and final denominator-prime '
+                                                    'recovery'}],
+                      'upstreamApplications': [],
+                      'selectionNote': '',
+                      'manuscriptIntegration': 'pending: the 389-source composition has not been '
+                                               'incorporated into the pinned manuscript',
+                      'historicalDisposition': 'The listed arguments retain their stated domains; prior '
+                                               'numerical specializations are explicitly distinguished. No '
+                                               'new-gap, priority or whole-proof-validation claim.'},
+                     {'id': 'T19',
+                      'title': 'Packed parity from the abscissa product',
+                      'mathematicalType': 'uniform local proof replacing private odd-chart witnesses',
+                      'retainedStatement': 'For each nonzero root index n, normalized x([n]P) has residue '
+                                           'rho or 2rho at 3. Hence v3(C0)=-sum e(n_i), so 3-integrality of '
+                                           'C0 forces all four labels odd before product-height use.',
+                      'domainAndHypotheses': 'e(n)=0 for odd n and 2+2v3(n) for even n. Negative indices and '
+                                             'all chart signs are covered; this is not inferred from finite '
+                                             'samples. Old odd-chart witnesses can be restored existentially '
+                                             'on odd labels.',
+                      'actualCurrentConsumer': {'pathBase': 'package',
+                                                'source': 'construction/builder.cjs',
+                                                'anchors': ['heightProduct',
+                                                            'heightProduct.scale0',
+                                                            'anchor.physicalA',
+                                                            'anchor.equation']},
+                      'inheritedInputs': ['G_curve', 'G_formal', 'G_quaternion'],
+                      'proofSources': [{'proofId': 'P1_anchor',
+                                        'argument': 'Leading residues; one coefficient detects all four '
+                                                    'parities; projection/sign recovery'},
+                                       {'proofId': 'P8_arithmetic',
+                                        'argument': 'Retained even anchor: force oddness at 3 before any '
+                                                    'product-height use'}],
+                      'upstreamApplications': [{'pathBase': 'repository',
+                                                'path': 'docs/quartic-523-540/addition.tex',
+                                                'anchors': ['v9:prop:odd-chart']}],
+                      'selectionNote': '',
+                      'manuscriptIntegration': 'pending: the 389-source composition has not been '
+                                               'incorporated into the pinned manuscript',
+                      'historicalDisposition': 'The listed arguments retain their stated domains; prior '
+                                               'numerical specializations are explicitly distinguished. No '
+                                               'new-gap, priority or whole-proof-validation claim.'},
+                     {'id': 'T20',
+                      'title': 'Field-norm anchor with local input tests',
+                      'mathematicalType': 'local predicate equivalence through the quaternion criterion',
+                      'retainedStatement': 'Use Theta=N(w)+3S0 N(4096C0+X*rho), with the three-witness '
+                                           'anchor. Opposite 3-adic parity separates the two norms; after '
+                                           'parity is known, the dyadic condition forces X integral at 2.',
+                      'domainAndHypotheses': 'At 3, N is anisotropic and the basis is integral. Use the '
+                                             'correct order: first force odd roots at 3, then derive '
+                                             '2-integrality of 4096C0 and w; only then isolate -6X^2. The '
+                                             'quaternion criterion includes zero argument.',
+                      'actualCurrentConsumer': {'pathBase': 'package',
+                                                'source': 'construction/builder.cjs',
+                                                'anchors': ['anchor.physicalA',
+                                                            'anchor.equation',
+                                                            'inputSquare',
+                                                            'heightProduct.scale0']},
+                      'inheritedInputs': ['G_quaternion', 'G_formal', 'G_curve'],
+                      'proofSources': [{'proofId': 'P3_arithmetic',
+                                        'argument': 'Use the existing quadratic field norm in the anchor'},
+                                       {'proofId': 'P6_arithmetic',
+                                        'argument': 'Exact anchor equivalence; dyadic condition'},
+                                       {'proofId': 'P8_arithmetic',
+                                        'argument': 'Selected even anchor domain and its noncircular local '
+                                                    'order'}],
+                      'upstreamApplications': [],
+                      'selectionNote': '',
+                      'manuscriptIntegration': 'pending: the 389-source composition has not been '
+                                               'incorporated into the pinned manuscript',
+                      'historicalDisposition': 'The listed arguments retain their stated domains; prior '
+                                               'numerical specializations are explicitly distinguished. No '
+                                               'new-gap, priority or whole-proof-validation claim.'},
+                     {'id': 'T21',
+                      'title': 'Stored-root physical anchor and selected depth',
+                      'mathematicalType': 'local equivalence and checked numerical specialization',
+                      'retainedStatement': 'Use N(w) in the physical anchor, where w=h_S*tau and '
+                                           'tau^2=f(S-P), and set S0=3^2364. The exact point/input domain is '
+                                           'four odd roots, X integral at 2 and 3, and 0!=a-1 in 2*3^1181 Z.',
+                      'domainAndHypotheses': 'For odd a, h_S is a 3-adic unit and v3(w)=1+v3(a-1). At 2, '
+                                             'v(h_S)=-3/2 and v(w)=v2(a-1)>=1. The even-exponent formula is '
+                                             'used; no optional odd-exponent generalization is needed.',
+                      'actualCurrentConsumer': {'pathBase': 'package',
+                                                'source': 'construction/builder.cjs',
+                                                'anchors': ['scalar.shiftedS.w',
+                                                            'anchor.physicalA',
+                                                            'fixedParameter']},
+                      'inheritedInputs': ['G_curve', 'G_formal', 'G_quaternion'],
+                      'proofSources': [{'proofId': 'P6_arithmetic',
+                                        'argument': 'Exact stored-root anchor equivalence for arbitrary even '
+                                                    'exponents and the dyadic argument'},
+                                       {'proofId': 'P8_arithmetic',
+                                        'argument': 'Retained even anchor and noncircular local order; exact '
+                                                    'margins for 2364'}],
+                      'upstreamApplications': [],
+                      'selectionNote': 'The packing coefficient is still three. Old 2790/depth 1394 is a '
+                                       'prior numerical specialization, not a current constraint. No '
+                                       'odd-exponent generalization is used.',
+                      'manuscriptIntegration': 'pending: the 389-source composition has not been '
+                                               'incorporated into the pinned manuscript',
+                      'historicalDisposition': 'The listed arguments retain their stated domains; prior '
+                                               'numerical specializations are explicitly distinguished. No '
+                                               'new-gap, priority or whole-proof-validation claim.'},
+                     {'id': 'T22',
+                      'title': 'Fused scalar shift and its indispensable guard',
+                      'mathematicalType': 'rational function recovery on an explicit nonzero domain',
+                      'retainedStatement': 'Store w through (x_P*x_S+D)w=h_P*h_S*j_S-x_S*j_P and x_S '
+                                           'f(Q)=w^2. Delete the old M,k_Q outputs but retain the rational '
+                                           'inverse of f(Q)_0.',
+                      'domainAndHypotheses': 'x_S and the first denominator are nonzero/positive. '
+                                             'f(Q)_0=tau0^2+2tau1^2, so its inverse excludes Q=O/S=P and '
+                                             'permits recovery of M=-(x_P+D f)/w. Tangency S=-P remains.',
+                      'actualCurrentConsumer': {'pathBase': 'package',
+                                                'source': 'construction/builder.cjs',
+                                                'anchors': ['subtractRootConstant',
+                                                            'scalar.shiftedS.rootTimesInverseRoot',
+                                                            'scalar.shiftedS.f',
+                                                            'scalar.shiftedS.nonzeroRealF']},
+                      'inheritedInputs': ['G_curve'],
+                      'proofSources': [{'proofId': 'P4_geometry',
+                                        'argument': 'Fuse the scalar reciprocal difference'},
+                                       {'proofId': 'P5_geometry',
+                                        'argument': 'Restore exactly the deleted nonzero restriction'}],
+                      'upstreamApplications': [],
+                      'selectionNote': '',
+                      'manuscriptIntegration': 'pending: the 389-source composition has not been '
+                                               'incorporated into the pinned manuscript',
+                      'historicalDisposition': 'The listed arguments retain their stated domains; prior '
+                                               'numerical specializations are explicitly distinguished. No '
+                                               'new-gap, priority or whole-proof-validation claim.'},
+                     {'id': 'T23',
+                      'title': 'Real scalar proxy and the split 41 case',
+                      'mathematicalType': 'two-place valuation replacement, not exact-ratio equality',
+                      'retainedStatement': 'T0=Re(k_H*w) satisfies vp(T0)=vp((a-1)/h) once all four '
+                                           'f(H),f(Q) coefficients are positive at the consumed prime. Only '
+                                           'this rational coefficient is tested.',
+                      'domainAndHypotheses': 'Use both places when split. The recovered identity '
+                                             'h_P(w*k_Q+h_P)+D f+j_Pw=0 gives w*k_Q=-h_P mod p; when h_P is '
+                                             'nonunit at 41 use integrality of h_S instead of dividing by '
+                                             'h_P. Trace of -h_P is 2.',
+                      'actualCurrentConsumer': {'pathBase': 'package',
+                                                'source': 'construction/builder.cjs',
+                                                'anchors': ['scalar.ratioProxyReal',
+                                                            'scalar.directLeaf',
+                                                            'scalar.leaf4']},
+                      'inheritedInputs': ['G_formal', 'G_curve'],
+                      'proofSources': [{'proofId': 'P4_scalar',
+                                        'argument': 'Use only the real coefficient of the scalar ratio'},
+                                       {'proofId': 'P5_geometry',
+                                        'argument': 'Uniform two-place trace argument including 41; '
+                                                    'completeness'}],
+                      'upstreamApplications': [],
+                      'selectionNote': '',
+                      'manuscriptIntegration': 'pending: the 389-source composition has not been '
+                                               'incorporated into the pinned manuscript',
+                      'historicalDisposition': 'The listed arguments retain their stated domains; prior '
+                                               'numerical specializations are explicitly distinguished. No '
+                                               'new-gap, priority or whole-proof-validation claim.'},
+                     {'id': 'T24',
+                      'title': 'Inverse 15 scalar chain and outer constant',
+                      'mathematicalType': 'uniform scalar predicate transfer with full preparation',
+                      'retainedStatement': 'Use kappa=r^-15 and y=T0/r^16. Set n=B^2/r^2+C^2/r, '
+                                           'L=A^2/r+n^2/r^2, J=D^2+kappa*y^2, N=L^2+kappa*J^2, W=1+N. The '
+                                           'conclusion remains M_S(beta)^28 | a-1.',
+                      'domainAndHypotheses': 'Actual beta makes any odd R=vp(r) positive. From W bound use '
+                                             'N=W-1 by ultrametric inequality, allowing cancellation. '
+                                             'Opposite parity inside each norm yields positivity of the '
+                                             'first four coefficients before proxy, then vp(T0)>217R/8 and '
+                                             'uniform lower bound >=28. Completeness uses the displayed '
+                                             'finite bounds; no 28R claim.',
+                      'actualCurrentConsumer': {'pathBase': 'package',
+                                                'source': 'construction/builder.cjs',
+                                                'anchors': ['scalar.rInverse3',
+                                                            'scalar.rInverse7',
+                                                            'scalar.rInverse15',
+                                                            'scalar.ratioProxyLeaf',
+                                                            'scalar.n1OverR',
+                                                            'scalar.nLeft',
+                                                            'scalar.N',
+                                                            'scalar.W']},
+                      'inheritedInputs': ['G_pole', 'G_formal', 'G_progression'],
+                      'proofSources': [{'proofId': 'P6_geometry',
+                                        'argument': 'inverse-weight chain and retained right-branch bounds'},
+                                       {'proofId': 'P7_geometry',
+                                        'argument': 'all sections: actual input positivity, outer constant, '
+                                                    'valuation descent and explicit preparation'}],
+                      'upstreamApplications': [],
+                      'selectionNote': '',
+                      'manuscriptIntegration': 'pending: the 389-source composition has not been '
+                                               'incorporated into the pinned manuscript',
+                      'historicalDisposition': 'The listed arguments retain their stated domains; prior '
+                                               'numerical specializations are explicitly distinguished. No '
+                                               'new-gap, priority or whole-proof-validation claim.'},
+                     {'id': 'T25',
+                      'title': 'Finite exceptional set in the height application',
+                      'mathematicalType': 'reapplication of an inherited global proof to checked support',
+                      'retainedStatement': 'Use S6={2,3,5,7,13,17} and B_S=46410. The five-contact geometry, '
+                                           'local logarithms, contact units and pole obstruction satisfy '
+                                           'their actual hypotheses outside this set. The new global '
+                                           'estimate is h(z)<=H M_S(z)^(577/32), with H defined in T27 and '
+                                           'derived in T32.',
+                      'domainAndHypotheses': 'Ramification support contains the fixed geometric bad primes, '
+                                             'and even contacts introduce no new ramification. Each removal '
+                                             'of a printed large cutoff is justified at its actual consumer. '
+                                             'The Euler-product cutoff53 is numerical and does not add53 to '
+                                             'S6 or remove its detector contacts. Completeness may still '
+                                             'select primes>76176.',
+                      'actualCurrentConsumer': {'pathBase': 'package',
+                                                'source': 'construction/builder.cjs',
+                                                'anchors': ['tests',
+                                                            'detector*.F',
+                                                            'scalar.r',
+                                                            'all height consumers']},
+                      'inheritedInputs': ['G_height_geometry', 'G_formal', 'G_one_place', 'G_pole'],
+                      'proofSources': [{'proofId': 'P4_arithmetic',
+                                        'argument': 'Finite-support reapplication of the geometry and LR '
+                                                    'proof with checked local consumers'},
+                                       {'proofId': 'P5_arithmetic',
+                                        'argument': 'Current contact set, conductor and logarithm '
+                                                    'exceptions'},
+                                       {'proofId': 'P8_arithmetic',
+                                        'argument': 'Precise inherited height inputs and elementary '
+                                                    'Euler-product refinement'}],
+                      'upstreamApplications': [],
+                      'selectionNote': '',
+                      'manuscriptIntegration': 'pending: the 389-source composition has not been '
+                                               'incorporated into the pinned manuscript',
+                      'historicalDisposition': 'The listed arguments retain their stated domains; prior '
+                                               'numerical specializations are explicitly distinguished. No '
+                                               'new-gap, priority or whole-proof-validation claim.'},
+                     {'id': 'T26',
+                      'title': 'QM commutant and sharper conductor constant',
+                      'mathematicalType': 'conditional refinement of degree/conductor applications',
+                      'retainedStatement': 'L-defined QM gives Gal(L(A[11])/L) in GL2(F11), hence degree '
+                                           'divides 2^10*3^3*5^2*11. Full L-defined 3-torsion gives good '
+                                           'reduction at 2,5,7; sharper different integration yields a '
+                                           '2<=34,a 3<=11,a 5,a 7<=2 and N<=2^32*3^9 R^2.',
+                      'domainAndHypotheses': 'Use divisibility, not only a degree upper bound. All '
+                                             'endomorphisms are L-defined; 3-torsion theorem requires n>=3 '
+                                             'prime to residue characteristic; at 3 retain 11-torsion field. '
+                                             'Scalar character/cochain extensions, normality and companion '
+                                             'at 3 conductor at 5 are retained.',
+                      'actualCurrentConsumer': {'pathBase': 'package',
+                                                'source': 'construction/builder.cjs',
+                                                'anchors': ['fixed numerical height constant consumed by '
+                                                            'arithmetic proof']},
+                      'inheritedInputs': ['G_height_geometry'],
+                      'proofSources': [{'proofId': 'P4_qm',
+                                        'argument': 'An exact degree divisibility bound: matrix-unit '
+                                                    'commutant argument'},
+                                       {'proofId': 'P5_arithmetic',
+                                        'argument': 'Use the full three-torsion; Retain the sharp term in '
+                                                    'the different formula'},
+                                       {'proofId': 'P8_arithmetic',
+                                        'argument': 'Explicit reuse of N<=C R^2, rad(N)|R and t<=4608R with '
+                                                    'primitive-level and character-order conventions'}],
+                      'upstreamApplications': [{'pathBase': 'repository',
+                                                'path': 'manuscripts/quartic_v10.tex',
+                                                'anchors': ['lines 6861--7006',
+                                                            'lines 7090--7405',
+                                                            'lines 8915--9073']}],
+                      'selectionNote': '',
+                      'manuscriptIntegration': 'pending: the 389-source composition has not been '
+                                               'incorporated into the pinned manuscript',
+                      'historicalDisposition': 'The listed arguments retain their stated domains; prior '
+                                               'numerical specializations are explicitly distinguished. No '
+                                               'new-gap, priority or whole-proof-validation claim.'},
+                     {'id': 'T27',
+                      'title': 'Selected height constant and the three actual contradictions',
+                      'mathematicalType': 'checked applications of inherited height and Lucas inputs',
+                      'retainedStatement': 'Set alpha=577/32 and H=3*2^106*(2^32*3^9)^6*46410^18+128, a '
+                                           '665-bit integer. At S0=3^2364, scalar order 28 gives '
+                                           'h(beta)<c/4<=(|a|+1)/4, c=|a-1|. High order 45 forces the '
+                                           'literal Lucas residual F=0; input order 12 then forces n=beta. '
+                                           'The previous c/80 target is not required or claimed.',
+                      'domainAndHypotheses': 'Use B^2-6<7H|N|^(alpha/k), |F|<5B^4, and b!=0. For '
+                                             'c_*=2*3^1181 and b_*=c_*-1, exact checks give c_*^319>(4H)^896 '
+                                             'and b_*^143>(24H)^360. Also 40H<2^670 and 100*670<b_* imply '
+                                             'log(40H)<|a|/100. Thus input comparison gives log '
+                                             'B<(487/500)|a|+19/20<|a|-3 for |a|>152, contradicting the '
+                                             'inherited Lucas bound.',
+                      'actualCurrentConsumer': {'pathBase': 'package',
+                                                'source': 'construction/builder.cjs',
+                                                'anchors': ['Lucas.C',
+                                                            'Lucas.AT',
+                                                            'Lucas.F0',
+                                                            'Lucas.F1',
+                                                            'test14',
+                                                            'test15',
+                                                            'fixedParameter',
+                                                            'anchor.equation']},
+                      'inheritedInputs': ['G_height_geometry', 'G_product_height', 'G_lucas', 'G_curve'],
+                      'proofSources': [{'proofId': 'P5_arithmetic',
+                                        'argument': 'Retained conductor inputs, log50 allowance and '
+                                                    'three-scale height transfer'},
+                                       {'proofId': 'P8_arithmetic',
+                                        'argument': 'New height bound and all three actual consumers, '
+                                                    'including the weaker sufficient scalar target'}],
+                      'upstreamApplications': [{'pathBase': 'repository',
+                                                'path': 'docs/quartic-523-540/addition.tex',
+                                                'anchors': ['subsec:v9-soundness', 'v9:eq:height-transfer']}],
+                      'selectionNote': 'The uniform global reapplication is separately exposed in T32. '
+                                       'Optional projective-height or odd-anchor results and the exploratory '
+                                       'high44 alternative are not selected.',
+                      'manuscriptIntegration': 'pending: the 389-source composition has not been '
+                                               'incorporated into the pinned manuscript',
+                      'historicalDisposition': 'The listed arguments retain their stated domains; prior '
+                                               'numerical specializations are explicitly distinguished. No '
+                                               'new-gap, priority or whole-proof-validation claim.'},
+                     {'id': 'T28',
+                      'title': 'Deeper-primary completeness and choice order',
+                      'mathematicalType': 'global witness construction using inherited inputs',
+                      'retainedStatement': 'Fix scalar preparation, roots, square scales and continuity '
+                                           'modulus first. Choose separated Gaussian contact primes and '
+                                           'solve h=0 mod Pi^44*M_minus,h=1 mod M_plus,h=h0 mod L. Alternate '
+                                           'points retain depth 1; every constructed primary U_i=[n_i]H has '
+                                           'depth at least45, which supplies the promoted U_A order 12 test.',
+                      'domainAndHypotheses': 'Use gcd(Pi,M_plus*L)=1 and direct-target doubling-image '
+                                             'orders. Repeated forms retain their incidences. Do not demand '
+                                             'that the same prime divide both h and h-1. Real and '
+                                             'small-prime test bounds are fixed before prime selection. The '
+                                             'finite3^1181 divisibility of a-1 is supplied by the existing '
+                                             'arbitrary-divisibility scalar preparation.',
+                      'actualCurrentConsumer': {'pathBase': 'package',
+                                                'source': 'construction/builder.cjs',
+                                                'anchors': ['H and U_i witness construction',
+                                                            'lambda positivity witnesses',
+                                                            'all three detector poles',
+                                                            'scalar preservation']},
+                      'inheritedInputs': ['G_prime_pattern',
+                                          'G_reductions',
+                                          'G_progression',
+                                          'G_formal',
+                                          'G_pole',
+                                          'G_lucas'],
+                      'proofSources': [{'proofId': 'P4_geometry',
+                                        'argument': 'Actual deeper-primary CRT consumer'},
+                                       {'proofId': 'P6_arithmetic',
+                                        'argument': 'High order 45 and Pi^44 progression'},
+                                       {'proofId': 'P7_detector',
+                                        'argument': 'Retained contact-unit pole limits'},
+                                       {'proofId': 'P7_geometry', 'argument': 'Current scalar preparation'},
+                                       {'proofId': 'P8_detector',
+                                        'argument': 'Integral formal multiplication and changed-factor '
+                                                    'completeness'},
+                                       {'proofId': 'P8_arithmetic',
+                                        'argument': 'Finite anchor 2364 divisibility and completeness choice '
+                                                    'order'}],
+                      'upstreamApplications': [{'pathBase': 'repository',
+                                                'path': 'docs/quartic-523-540/addition.tex',
+                                                'anchors': ['lem:v9-bridge',
+                                                            'v9:lem:separation',
+                                                            'subsec:v9-deep-completeness']},
+                                               {'pathBase': 'repository',
+                                                'path': 'manuscripts/quartic_v10.tex',
+                                                'anchors': ['lines 11220--11354']}],
+                      'selectionNote': '',
+                      'manuscriptIntegration': 'pending: the 389-source composition has not been '
+                                               'incorporated into the pinned manuscript',
+                      'historicalDisposition': 'The listed arguments retain their stated domains; prior '
+                                               'numerical specializations are explicitly distinguished. No '
+                                               'new-gap, priority or whole-proof-validation claim.'},
+                     {'id': 'T29',
+                      'title': 'Materialized anchor and affine translation',
+                      'mathematicalType': 'invertible private-coordinate change and degree preservation',
+                      'retainedStatement': 'Keep Theta, C0^2 and Y materialized; translate '
+                                           'u=S0+(U-3V+3W)/4,v=S0/2+V/4,w=3S0/2+W/4. The anchor becomes '
+                                           '-48Theta^2+U^2-6UV+6UW+15V^2-18VW+7W^2+8S0U=0.',
+                      'domainAndHypotheses': 'The affine map has nonzero rational determinant and fixes X. '
+                                             'No cubic S0*C0^2 or substitution of Theta into its square is '
+                                             'allowed. All rows stay quadratic if S0 is later lifted.',
+                      'actualCurrentConsumer': {'pathBase': 'package',
+                                                'source': 'construction/builder.cjs',
+                                                'anchors': ['anchor.physicalA',
+                                                            'raw-translated-ir.json',
+                                                            'anchor.equation',
+                                                            'protected coordinate flags']},
+                      'inheritedInputs': [],
+                      'proofSources': [{'proofId': 'P1_anchor',
+                                        'argument': 'Projection, quadratic degree, and source dependencies'},
+                                       {'proofId': 'P3_arithmetic',
+                                        'argument': 'adapted protected input coordinate'},
+                                       {'proofId': 'P7_diagonal',
+                                        'argument': 'actual translated anchor row and exponent span'},
+                                       {'proofId': 'P8_diagonal',
+                                        'argument': 'Selected ternary/dyadic map and rational primitive '
+                                                    'normalization after the same affine anchor '
+                                                    'translation'}],
+                      'upstreamApplications': [{'pathBase': 'repository',
+                                                'path': 'docs/quartic-523-540/addition.tex',
+                                                'anchors': ['subsec:v9-finite']}],
+                      'selectionNote': '',
+                      'manuscriptIntegration': 'pending: the 389-source composition has not been '
+                                               'incorporated into the pinned manuscript',
+                      'historicalDisposition': 'The listed arguments retain their stated domains; prior '
+                                               'numerical specializations are explicitly distinguished. No '
+                                               'new-gap, priority or whole-proof-validation claim.'},
+                     {'id': 'T30',
+                      'title': 'Certified compilation and complete SOS',
+                      'mathematicalType': 'exact rational algebra and input-projection preservation',
+                      'retainedStatement': 'The generic compiler preserves the rational zero projection and '
+                                           'produces389 coordinates and 357 quadratic rows from 400 source '
+                                           'coordinates and 368 residuals; no further elimination is used. '
+                                           'Primitive nonzero rational row normalization followed by the '
+                                           'complete sum of squares gives a quartic with the same rational '
+                                           'zero set.',
+                      'domainAndHypotheses': 'Every removed coordinate has the displayed reversible '
+                                             'pivot/assignment map. Coordinate0 is fixed, protected '
+                                             'anchor/input/scale values remain materialized, and quotient '
+                                             'domains remain separate proved obligations. Exact finite '
+                                             'algebra does not establish the global arithmetic '
+                                             'interpretation.',
+                      'actualCurrentConsumer': {'pathBase': 'package',
+                                                'source': 'construction/builder.cjs',
+                                                'anchors': ['construction/compiled/reduction-certificate.json',
+                                                            'construction/final/verification.json',
+                                                            'construction/compiled/polynomial.json',
+                                                            'construction/tools/checker.cjs']},
+                      'inheritedInputs': [],
+                      'proofSources': [{'proofId': 'P8_detector',
+                                        'argument': 'Measured construction and verification scope:339 gate '
+                                                    'identities and 330 compiler operations'},
+                                       {'proofId': 'P7_geometry',
+                                        'argument': 'Retained scalar implementation and degree'},
+                                       {'proofId': 'P8_diagonal',
+                                        'argument': 'Nonzero rational row rescaling and 357-row SOS '
+                                                    'equivalence'}],
+                      'upstreamApplications': [],
+                      'selectionNote': '',
+                      'manuscriptIntegration': 'pending: the 389-source composition has not been '
+                                               'incorporated into the pinned manuscript',
+                      'historicalDisposition': 'The listed arguments retain their stated domains; prior '
+                                               'numerical specializations are explicitly distinguished. No '
+                                               'new-gap, priority or whole-proof-validation claim.'},
+                     {'id': 'T31',
+                      'title': 'Two-prime balancing of the complete decimal quartic',
+                      'mathematicalType': 'input-fixed rational diagonal bijection and row scaling',
+                      'retainedStatement': 'With c=3^394 and S0=c^6, use old x_i=2^b_i*3^a_i*new y_i on13 '
+                                           'existing coordinates. Twelve have the retained ternary factors '
+                                           'c,c^2,c^4; two have dyadic factors, with one overlap: '
+                                           'S.chart.x.0.quadratic gains2 and heightProduct.scale0.quadratic '
+                                           'gains2^-21. Clear row denominators, divide by each nonzero '
+                                           'signed rational content, and square/sum all 357 rows.',
+                      'domainAndHypotheses': 'The map is an input-fixed rational bijection and introduces no '
+                                             'new variable or root choice. Decode every changed stored '
+                                             'coordinate before interpreting semantic point functions or '
+                                             'square scales. The scale value A=C0^2 becomes2^-19*y_scale, so '
+                                             'y_scale need not itself be square. Five row divisors are '
+                                             'nonintegral, with denominator 2^21 three times,2^42 once and '
+                                             '2^13 once. Each exact nonzero divisor is certified.',
+                      'actualCurrentConsumer': {'pathBase': 'package',
+                                                'source': 'construction/builder.cjs',
+                                                'anchors': ['construction/balanced/diagonal-certificate.json',
+                                                            'construction/balanced/integer-ir.json',
+                                                            'construction/balanced/polynomial.json',
+                                                            'construction/quartic-389-balanced-decimal.txt']},
+                      'inheritedInputs': [],
+                      'proofSources': [{'proofId': 'P7_diagonal',
+                                        'argument': 'Retained ternary exponent-span derivation, with its '
+                                                    'earlier numerical example classified as prior'},
+                                       {'proofId': 'P8_diagonal',
+                                        'argument': 'Complete13-coordinate map, rational row divisors, and '
+                                                    'exact full-table coefficient comparison'}],
+                      'upstreamApplications': [],
+                      'selectionNote': 'The exact coefficient maximum is28902*3^1576, with 757 decimal '
+                                       'digits and 2513 bits. The complete quartic has26,295 monomials, '
+                                       'degree 4, content 1 and coefficient 1 on X^4; every one of the 389 '
+                                       'coordinates occurs. Floating-point search is not a verification '
+                                       'dependency or an optimality certificate.',
+                      'manuscriptIntegration': 'pending: the 389-source composition has not been '
+                                               'incorporated into the pinned manuscript',
+                      'historicalDisposition': 'The listed arguments retain their stated domains; prior '
+                                               'numerical specializations are explicitly distinguished. No '
+                                               'new-gap, priority or whole-proof-validation claim.'},
+                     {'id': 'T32',
+                      'title': 'Euler-product and genus improvement of the global height bound',
+                      'mathematicalType': 'conditional uniform reapplication of inherited geometric and '
+                                          'height inequalities',
+                      'retainedStatement': 'For all positive N, product_(p|N)(1+1/p)<(32/9)*rad(N)^(1/192). '
+                                           'Thus d_H<T=2^14*C*R^(577/192). The retained surface realization '
+                                           'gives g>=2; combined with g<=1+d_H/12 it gives g< T/6. '
+                                           'Javanpeykar, the retained variation bound V<=T^6 and Bost yield '
+                                           'h_F(A)<2^106*C^6*R^(577/32), including the CM branch by '
+                                           'domination. The geometric comparison and 46410^(1/32)<3/2 give '
+                                           'the H used in T27.',
+                      'domainAndHypotheses': 'Here R=46410*M_S(z) is the global height radical, distinct '
+                                             'from the detector pole parameter R in T10–T14. The exact '
+                                             'small-prime list consists of all 15 primes below 53; every '
+                                             'normalized factor exceeds 1, their product is <32/9, and the '
+                                             'monotone tail is <=1. The modular subgroup contains -I, so d_H '
+                                             'has no extra factor 2; t is the nebentypus order, not the '
+                                             'coefficient-field degree. The same stable Faltings metric, '
+                                             'primitive level, rad(N)|R and normal-field hypotheses are '
+                                             'retained. This uses the actual intermediate proof rather than '
+                                             'only its final exponent 19 conclusion.',
+                      'actualCurrentConsumer': {'pathBase': 'package',
+                                                'source': 'construction/builder.cjs',
+                                                'anchors': ['fixedParameter: S=3^2364',
+                                                            'scalar order28 height consumer',
+                                                            'Lucas order45 height consumer',
+                                                            'input order12 height consumer']},
+                      'inheritedInputs': ['G_height_geometry'],
+                      'proofSources': [{'proofId': 'P4_arithmetic',
+                                        'argument': 'Finite-support geometry and LR reapplication'},
+                                       {'proofId': 'P5_arithmetic',
+                                        'argument': 'Sharper conductor C=2^32*3^9'},
+                                       {'proofId': 'P8_arithmetic',
+                                        'argument': 'Euler-product refinement; Jacobian and isogeny-height '
+                                                    'bounds'}],
+                      'upstreamApplications': [{'pathBase': 'repository',
+                                                'path': 'manuscripts/quartic_v10.tex',
+                                                'anchors': ['sec:h5-level-repair',
+                                                            'thm:quartic-height19',
+                                                            'lines8915--9073']}],
+                      'selectionNote': 'The new exponent is577/32=18.03125. No new global theorem is '
+                                       'asserted proved, no exceptional prime is added, and no asymptotic '
+                                       'exponent 18 estimate or optimal constant is claimed.',
+                      'manuscriptIntegration': 'pending: the 389-source composition has not been '
+                                               'incorporated into the pinned manuscript',
+                      'historicalDisposition': 'An explicit improvement of the retained proof inequalities; '
+                                               'no assertion that the earlier derivation was incorrect or a '
+                                               'new historical gap.'}],
+ 'proofCatalog': {'P1_anchor': {'pathBase': 'package',
+                                'path': 'proofs/prior/round1/packed_anchor_note_body.tex',
+                                'roleInSelectedConstruction': 'Active uniform leading-residue/product-parity '
+                                                              'argument; old anchor form and numerical '
+                                                              'exponent are superseded.'},
+                  'P1_scalar': {'pathBase': 'package',
+                                'path': 'proofs/prior/round1/additional_circuit.tex',
+                                'roleInSelectedConstruction': 'Historical exact scalar-leaf fusion; its '
+                                                              'literal circuit is superseded by the current '
+                                                              'real proxy.'},
+                  'P2_charts': {'pathBase': 'package',
+                                'path': 'proofs/prior/round2/birational-proof.txt',
+                                'roleInSelectedConstruction': 'Historical normalized finite charts; their '
+                                                              'literal equations are superseded by complete '
+                                                              'reciprocal/joint charts.'},
+                  'P2_arithmetic': {'pathBase': 'package',
+                                    'path': 'proofs/prior/round2/further_arithmetic_body.tex',
+                                    'roleInSelectedConstruction': 'Active conic-preparation argument and '
+                                                                  'predecessor of local-input packing; old '
+                                                                  'label, correction 21, four contacts and '
+                                                                  'six difference guards are superseded.'},
+                  'P2_arithmetic_text': {'pathBase': 'package',
+                                         'path': 'proofs/prior/round2/further_arithmetic_proof.txt',
+                                         'roleInSelectedConstruction': 'Prior detailed arithmetic text; use '
+                                                                       'with its displayed domains, not its '
+                                                                       'superseded numerical parameters.'},
+                  'P2_preparation': {'pathBase': 'package',
+                                     'path': 'proofs/prior/round2/scalar-preparation-proof.txt',
+                                     'roleInSelectedConstruction': 'Active rational conic/parametrization '
+                                                                   'equivalence for positive b, including '
+                                                                   'the omitted endpoint; positivity is now '
+                                                                   'supplied by current r and W.'},
+                  'P3_arithmetic': {'pathBase': 'package',
+                                    'path': 'proofs/prior/round3/arithmetic_proof.tex',
+                                    'roleInSelectedConstruction': 'Active field-norm packing, current '
+                                                                  'beta/r/correction 42, adapted input '
+                                                                  'coordinate, and homogeneous pole maps; '
+                                                                  'old scalar order and anchor exponent are '
+                                                                  'superseded.'},
+                  'P3_geometry': {'pathBase': 'package',
+                                  'path': 'proofs/prior/round3/geometry_proof.tex',
+                                  'roleInSelectedConstruction': 'Active complete reciprocal '
+                                                                'point/subtraction and scaled-log arguments, '
+                                                                'including identity/tangent cases; shared H '
+                                                                'and scalar equations are refined later.'},
+                  'P3_positive': {'pathBase': 'package',
+                                  'path': 'proofs/prior/round3/positivity_proof.tex',
+                                  'roleInSelectedConstruction': 'Active Gaussian-witness/positive-product '
+                                                                'mechanism; old contact 1/2399 and guard t-1 '
+                                                                'are replaced by current contact 32/1225 and '
+                                                                'guard 98t-1.'},
+                  'P4_arithmetic': {'pathBase': 'package',
+                                    'path': 'proofs/prior/round4/arithmetic_round4.tex',
+                                    'roleInSelectedConstruction': 'Active reapplication of the height proof '
+                                                                  'to finite ramification support and checks '
+                                                                  'of actual local consumers; scalar order '
+                                                                  '24, old exceptional set and anchor 19 are '
+                                                                  'not current.'},
+                  'P4_detector': {'pathBase': 'package',
+                                  'path': 'proofs/prior/round4/detector_reduction_proof.txt',
+                                  'roleInSelectedConstruction': 'Retained inverse-root and local '
+                                                                'mixed-product derivation; the literal '
+                                                                'high-order 40 weights and the old unequal '
+                                                                'pair are superseded.'},
+                  'P4_geometry': {'pathBase': 'package',
+                                  'path': 'proofs/prior/round4/geometry_round4.tex',
+                                  'roleInSelectedConstruction': 'Active joint H/H-P chart, scalar w fusion, '
+                                                                'inverse-root tests and input-only G2 '
+                                                                'argument; replace printed high order 40/CRT '
+                                                                'Pi^39 by current 45/Pi^44 via later proof.'},
+                  'P4_mixed': {'pathBase': 'package',
+                               'path': 'proofs/prior/round4/mixed_detector_block.tex',
+                               'roleInSelectedConstruction': 'Retained shared symmetric-product identities '
+                                                             'and coefficient construction; the selected '
+                                                             'pair is now uniform (12,12), replacing the '
+                                                             'displayed (1,12) pair. High-order groups '
+                                                             'remain 3+3 at order 45.'},
+                  'P4_qm': {'pathBase': 'package',
+                            'path': 'proofs/prior/round4/qm_conductor_anchor16.tex',
+                            'roleInSelectedConstruction': 'Active quaternionic commutant and '
+                                                          'degree-divisibility argument; its conservative '
+                                                          'conductor constants and anchor 16 are '
+                                                          'superseded.'},
+                  'P4_scalar': {'pathBase': 'package',
+                                'path': 'proofs/prior/round4/scalar_streamlining.tex',
+                                'roleInSelectedConstruction': 'Active two-place real-coefficient principle '
+                                                              'and square absorption in the scalar pole; '
+                                                              'exact-ratio leaf/tree are superseded.'},
+                  'P5_arithmetic': {'pathBase': 'package',
+                                    'path': 'proofs/prior/round5/arithmetic_round5.tex',
+                                    'roleInSelectedConstruction': 'Retained three-torsion/sharp-different '
+                                                                  'conductor constant, contacts, guard, '
+                                                                  'exception set, input-log estimates and '
+                                                                  'three-scale height transfer. Its exponent '
+                                                                  '19 height constant, high order 44 and '
+                                                                  'numerical anchor are superseded.'},
+                  'P5_detector': {'pathBase': 'package',
+                                  'path': 'proofs/prior/round5/detector_final.tex',
+                                  'roleInSelectedConstruction': 'Active linear-combination square scale, log '
+                                                                '50 height allowance, contact positivity and '
+                                                                'Gaussian witnesses; old weight chain/order '
+                                                                '44 are superseded.'},
+                  'P5_geometry': {'pathBase': 'package',
+                                  'path': 'proofs/prior/round5/geometry_round5.tex',
+                                  'roleInSelectedConstruction': 'Active G12 completion/nonvanishing and '
+                                                                'scalar real proxy with its f(Q)_0 guard and '
+                                                                'split 41 argument.'},
+                  'P6_arithmetic': {'pathBase': 'package',
+                                    'path': 'proofs/prior/round6/arithmetic_round6.tex',
+                                    'roleInSelectedConstruction': 'Active stored-root norm anchor '
+                                                                  'equivalence for arbitrary even exponents '
+                                                                  'and high order 45 logarithm bound; '
+                                                                  'selected 3072 and its constant chains are '
+                                                                  'superseded.'},
+                  'P6_detector': {'pathBase': 'package',
+                                  'path': 'proofs/prior/round6/detector_round6.tex',
+                                  'roleInSelectedConstruction': 'Retained high-order 45 comparison and Pi^44 '
+                                                                'compatibility; literal delta^-3 weights are '
+                                                                'superseded by round 7 normalization and '
+                                                                'round 8 uniform pairing.'},
+                  'P6_geometry': {'pathBase': 'package',
+                                  'path': 'proofs/prior/round6/geometry_round6.tex',
+                                  'roleInSelectedConstruction': 'Active inverse15/right-branch and '
+                                                                'proxy-scaling argument; old left '
+                                                                'subtree/constant position is replaced by '
+                                                                'round 7.'},
+                  'P6_family': {'pathBase': 'package',
+                                'path': 'proofs/prior/round6/inverse_weight_family.tex',
+                                'roleInSelectedConstruction': 'Optional precision-family research; no '
+                                                              'general member or stronger scalar order from '
+                                                              'this file is a dependency of selected 389.'},
+                  'P7_detector': {'pathBase': 'package',
+                                  'path': 'proofs/detector_round7.tex',
+                                  'roleInSelectedConstruction': 'Retained contact-unit normalization, direct '
+                                                                'q1/E weights and local/pole estimates. Its '
+                                                                'old (1,12) pairing, order allocation and '
+                                                                '392-count example are superseded by the '
+                                                                'round 8 primary promotion.'},
+                  'P7_geometry': {'pathBase': 'package',
+                                  'path': 'proofs/geometry_round7.tex',
+                                  'roleInSelectedConstruction': 'Current unchanged outer-constant scalar '
+                                                                'tree, actual-input odd-valuation argument '
+                                                                'and completeness preparation.'},
+                  'P7_arithmetic': {'pathBase': 'package',
+                                    'path': 'proofs/arithmetic_round7.tex',
+                                    'roleInSelectedConstruction': 'Prior anchor 2790 specialization and '
+                                                                  'exponent 19 numerical margins. Uniform '
+                                                                  'even-anchor arguments remain available, '
+                                                                  'but the selected exponent 2364, height '
+                                                                  'exponent 577/32 and c/4 consumer are '
+                                                                  'justified by round 8.'},
+                  'P7_diagonal': {'pathBase': 'package',
+                                  'path': 'proofs/diagonal_scaling.tex',
+                                  'roleInSelectedConstruction': 'Prior twelve-coordinate ternary diagonal '
+                                                                'map and exponent-span argument. Its '
+                                                                '905-digit392-variable table and '
+                                                                'integer-only row divisors are historical; '
+                                                                'round 8 adds two dyadic factors and uses '
+                                                                'rational row divisors.'},
+                  'P7_optional': {'pathBase': 'package',
+                                  'path': 'proofs/optional_anchor_height_round7.tex',
+                                  'roleInSelectedConstruction': 'Optional odd-exponent '
+                                                                'anchor/projective-height research; neither '
+                                                                'improvement is needed by the selected 389 '
+                                                                'construction.'},
+                  'P8_detector': {'pathBase': 'package',
+                                  'path': 'proofs/detector_round8.tex',
+                                  'roleInSelectedConstruction': 'Current primary U_A order 12 promotion, '
+                                                                'uniform (12,12) pair and q12-squared reuse, '
+                                                                'with domains, common-place soundness, all '
+                                                                'completeness estimates and measured '
+                                                                '389-count circuit. Its isolated count '
+                                                                'example keeps anchor 2790 only to measure '
+                                                                'the detector change separately.'},
+                  'P8_arithmetic': {'pathBase': 'package',
+                                    'path': 'proofs/arithmetic_round8.tex',
+                                    'roleInSelectedConstruction': 'Current Euler-product/genus reapplication '
+                                                                  'yielding height exponent 577/32 and '
+                                                                  '665-bit constant; even anchor 2364 with '
+                                                                  'depth 1181; actual c/4, order 45 and '
+                                                                  'order 12 consumers and completeness.'},
+                  'P8_diagonal': {'pathBase': 'package',
+                                  'path': 'proofs/diagonal_scaling_round8.tex',
+                                  'roleInSelectedConstruction': 'Current input-fixed two-prime diagonal map '
+                                                                'on13 coordinates, exact rational primitive '
+                                                                'row normalization, complete357-row SOS and '
+                                                                '757-digit coefficient maximum.'}},
+ 'notSelected': ['Old labels2X^2+3 or1224X^2+2451, corrections21/105/Boolean selectors and four/five-factor '
+                 'scalar products',
+                 'Six rational difference guards and earlier finite-only primary charts; current complete '
+                 'charts include the stated identity and tangent branches',
+                 'Exact scalar ratio circuits; the retained real proxy has its own nonzero-domain and '
+                 'split41 proof',
+                 'Old G9/G10 circuits, alternate-depth>=2 experiments, high orders 40/42/43/44/46/48/51/52 '
+                 'and scalar orders 24/27/31/32/56. The exploratory high44 numerical margin at 2364 is not a '
+                 'selected circuit or proof dependency',
+                 'Anchor exponents 2^26,2^19,2^16,2^13,4096,3072 and 2790, including their literal old '
+                 'constant chains. The uniform even-exponent proof is reused at 2364, with depth 1181',
+                 'Old exponent 19 height coefficient and the previous scalar c/80 numerical target; selected '
+                 'alpha=577/32,665-bit H and c/4 are independently checked at the actual consumers',
+                 'The previous mixed(1,12) pair and its q1*q12 coordinate; selected tests are paired '
+                 'uniformly at(12,12) and reuse q12^2',
+                 'General inverse-weight-family, optional projective-height and odd-exponent-anchor '
+                 'research; none is needed by selected 389',
+                 'Old delta^-3 weight chains and the unvetted stronger delta^2*D normalization. The selected '
+                 'weights remain delta^-1 and R is unchanged',
+                 'The prior 392-variable905-digit ternary-only table and 12-coordinate-only diagonal '
+                 'certificate; the current map changes 13 coordinates and requires rational row divisors',
+                 'Any six-node, total-variable-count, anchor-exponent or coefficient-optimality claim'],
+ 'handoffChecks': ['Verify the pinned source and selected builder hashes before edits; confirm the current '
+                   'proof hashes in this catalog.',
+                   'Read each cited argument and check its domain at the current consumer. A receipt hash is '
+                   'a binding, not the mathematical argument.',
+                   'Preserve identity/tangent branches, the scalar f(Q)_0 guard, full conjugation, '
+                   'first-four formal premises, decoded square scales and completeness choice order.',
+                   'Use the full selected test order list, including U_A order 12; scalar order 28; '
+                   'S0=3^2364; depth 1181; alpha=577/32; the 665-bit H; and the actual c/4 consumer. Do not '
+                   'reuse old numeric examples as current hypotheses.',
+                   'Decode13 changed coordinates before interpreting the balanced table, and verify every '
+                   'signed rational row divisor including the five nonintegral cases.',
+                   'Run the current exact source/gate/arithmetic/table/diagonal checkers and repository '
+                   'audit-history checker after any relevant changes.',
+                   'Keep manuscript integration pending until each connecting argument or exact reference is '
+                   'present at its consuming passage and reviewed. Do not refresh historical audit hashes '
+                   'merely to silence failures.']}
+
+def digest(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def table_cell(value):
+    return value.replace('|', r'\|')
+
+
+def main():
+    ap=argparse.ArgumentParser()
+    ap.add_argument('--package',type=Path,required=True)
+    ap.add_argument('--upstream',type=Path,required=True)
+    ap.add_argument('--out',type=Path,default=Path(__file__).resolve().parent)
+    args=ap.parse_args()
+    package=args.package.resolve(); upstream=args.upstream.resolve(); out=args.out.resolve()
+    if not __debug__:
+        raise RuntimeError('Run with assertions enabled')
+    data=copy.deepcopy(INVENTORY)
+    catalog=data['proofCatalog']
+    for p in catalog.values():
+        path=package/p['path']
+        assert path.is_file(), str(path)
+        p['sha256']=digest(path)
+    builder=package/data['selected']['builder']
+    data['selected']['builderSha256']=digest(builder)
+    text=builder.read_text()
+    assert "value:'3^2364'" in text and "value:'3^2790'" not in text
+    assert 'rawFmul([mixedHigh,zero],mixedTestProduct)' in text
+    assert "order:i===0?45:i===1?12:1" in text
+    assert "mixedTest1=squareTests[12][0],mixedTest12=squareTests[12][1]" in text
+    globals_={g['id']:g for g in data['inheritedInputs']}
+    ids=[e['id'] for e in data['transformations']]
+    assert len(ids)==len(set(ids))==32
+    assert ids==['T'+str(i).zfill(2) for i in range(1,33)]
+    for e in data['transformations']:
+        assert all(g in globals_ for g in e['inheritedInputs'])
+        assert all(p['proofId'] in catalog for p in e['proofSources'])
+        for source in e['upstreamApplications']:
+            assert (upstream/source['path']).is_file(),source
+    for g in globals_.values():
+        for source in g['sources']:
+            assert (upstream/source['path']).is_file(),source
+    H=3*2**106*(2**32*3**9)**6*46410**18+128
+    maximum=28902*3**1576
+    assert H.bit_length()==665 and maximum.bit_length()==2513 and len(str(maximum))==757
+    assert Fraction(577,32)<19 and 2364==6*394 and 1181==2364//2-1
+    # When generated artifacts are present, bind the claimed census to them.
+    raw_path=package/'construction/raw-ir.json'
+    if raw_path.is_file():
+        raw=json.loads(raw_path.read_text())
+        assert raw['fixedParameter']=={'name':'S','value':'3^2364','coordinate':False}
+        assert (len(raw['coordinates']),len(raw['residuals']),len(raw['gates']))==(400,368,339)
+        data['selected']['rawIrSha256']=digest(raw_path)
+    out.mkdir(parents=True,exist_ok=True)
+    target=out/'pr_dependency_inventory.json'
+    target.write_text(json.dumps(data,indent=2)+'\n')
+    lines=['# Dependencies of the proposed 389-variable construction','',
+      '**Status: draft PR; manuscript integration is pending.** This inventories the actual selected construction, domains and consuming passages. Historical derivations remain classified as prior evidence. The inventory does not assert mathematical priority, a newly discovered historical gap, or validation of the inherited global arithmetic.','',
+      'The pinned upstream commit is `036cebe4f1a4aa7ca89820a9b48f3629b4c364d6`. The selected builder is [construction/builder.cjs](construction/builder.cjs), SHA256 `'+data['selected']['builderSha256']+'`. Package paths are relative to this directory; upstream-source paths are relative to the repository root.','',
+      '## Selected parameters and coordinate conventions','',
+      '| Item | Selected value |','|---|---|',
+      '| Coordinates / quadratic residuals | 389 total including input / 357; 388 existential witnesses; zero further eliminations |',
+      '| Full test order list | 45,12,1,1,1,1,1,1,1,1,12,45,45,45,45,45 |',
+      '| Scalar order / exceptional set | 28 / {2,3,5,7,13,17} |',
+      '| Fixed anchor / forced depth / balancing base | S₀=3^2364 / 3^1181 divides a−1 / c=3^394 |',
+      '| Global height exponent | α=577/32=18.03125 |',
+      '| Conductor / height constants | C=2^32·3^9; H=3·2^106 C^6·46410^18+128; 665 bits |',
+      '| Actual scalar height target | h(β)<abs(a−1)/4≤(abs(a)+1)/4 |',
+      '| Balanced polynomial | 26,295 monomials; degree 4; content 1; max coefficient 28902·3^1576 with 757 digits and 2513 bits |',
+      '| Diagonal map | 13 changed coordinates: 12 ternary factors and 2 dyadic factors, with one overlap |',
+      '| Input / scalar product | β=2401+2754(2X+1)²; r=β(β−1)(32β+343); correction 42 |','',
+      'All field coordinates use K=Q(ρ),ρ²=2 in the basis (1,ρ), with norm a²−2b². Consumed unramified valuations have v(p)=1; dyadic arguments explicitly use v(2)=1,v(ρ)=1/2. Heights are absolute logarithmic Weil heights. **Consumers below refer to semantic source coordinates before balancing. Decode all 13 changed coordinates before applying old point identities or square-scale arguments; the transformed stored height-scale coordinate need not itself be a rational square.**','',
+      '## Inherited mathematical inputs','',
+      'These retain their original qualifications. Exact arithmetic and independent agent reviews do not establish the inherited theorems.','',
+      '| ID | Input and required qualification | Upstream argument |','|---|---|---|']
+    for g in data['inheritedInputs']:
+        ss='; '.join('`'+r['path']+'`: '+', '.join('`'+a+'`' for a in r['anchors']) for r in g['sources'])
+        lines.append('| '+g['id']+' | '+table_cell(g['statement']+' '+g['qualification'])+' | '+table_cell(ss)+' |')
+    lines += ['', '## Retained transformations and their actual consumers','',
+      'Every item states its mathematical type and domain. A predicate transfer or strengthening is not a bijection between all old and new witness tuples. Proof links name arguments; historical numerical examples are current only where a selected proof explicitly checks the replacement.','']
+    for e in data['transformations']:
+        lines += ['### '+e['id']+' — '+e['title'],'',
+          '**'+e['mathematicalType']+'.** '+e['retainedStatement']+' '+e['domainAndHypotheses'],'',
+          '**Current consumer:** '+', '.join('`'+a+'`' for a in e['actualCurrentConsumer']['anchors'])+'. Inherited inputs: '+(', '.join(e['inheritedInputs']) if e['inheritedInputs'] else 'none beyond exact algebra and the stated domain')+'.','',
+          '**Proof:** '+'; '.join('['+catalog[r['proofId']]['path']+']('+catalog[r['proofId']]['path']+') — '+r['argument'] for r in e['proofSources'])+'.']
+        if e['upstreamApplications']:
+            lines += ['Upstream application: '+'; '.join('`'+r['path']+'` ('+', '.join('`'+a+'`' for a in r['anchors'])+')' for r in e['upstreamApplications'])+'.']
+        if e['selectionNote']:
+            lines.append(e['selectionNote'])
+        lines.append('')
+    lines += ['## Proof catalog: selected arguments and prior derivations','',
+      'The JSON inventory binds all '+str(len(catalog))+' proof texts. Their roles below distinguish selected statements from prior numerical examples.','',
+      '| Proof | Role in the selected construction |','|---|---|']
+    for p in catalog.values():
+        lines.append('| ['+p['path']+']('+p['path']+') | '+table_cell(p['roleInSelectedConstruction'])+' |')
+    lines += ['', '## Explicitly unselected paths','']
+    for x in data['notSelected']:
+        lines.append('- '+x+'.')
+    lines += ['', '## Verification and manuscript handoff','',data['scope']['finiteChecks'],'',data['scope']['notEstablished'],'']
+    for x in data['handoffChecks']:
+        lines.append('- '+x)
+    lines += ['', '**Historical disposition:** this is an inventory of supplied derivations and current applications, without a priority or new-gap claim. **Manuscript disposition:** incorporation of the 389-source composition remains pending. Finite checks alone do not change that status.','']
+    md=out/'PR_DEPENDENCIES.md'
+    md.write_text('\n'.join(lines))
+    report={'status':'PASS','transformations':len(ids),'inheritedInputs':len(globals_),'proofTexts':len(catalog),'builderSha256':data['selected']['builderSha256'],'jsonSha256':digest(target),'markdownSha256':digest(md),'generatorSha256':digest(Path(__file__))}
+    (out/'pr-dependency-validation-round8.json').write_text(json.dumps(report,indent=2)+'\n')
+    print(json.dumps(report,indent=2))
+
+
+if __name__=='__main__':
+    main()

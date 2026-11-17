@@ -1,0 +1,43 @@
+{
+  "sourceIrSha256": "1e9071816ccb40d562545be08f21ccac76813a64796173d155d0d3ae7dbebb50",
+  "summary": {
+    "coordinates": 385,
+    "residuals": 353,
+    "degree": 4,
+    "monomials": 26235,
+    "integerContent": 1,
+    "inputFourthPowerCoefficient": "1",
+    "maximumCoefficientDigits": 757,
+    "maximumCoefficientBits": 2513,
+    "scaledCoordinates": 13,
+    "ternaryScaledCoordinates": 12,
+    "dyadicScaledCoordinates": 2,
+    "anchorExponent": 2364,
+    "cExponent": 394,
+    "tableSha256": "47da004230ff7a20c7a0824738422eb9c29c4a6e6de92455e3d956e979161ecf",
+    "tableBytes": 1048785,
+    "certificateSha256": "091a90bfb52ad7090796d1f910607bf2ad15a3b070961c6c0a8aac0b0c8c12f0"
+  },
+  "artifacts": [
+    {
+      "path": "final/integer-candidate-ir.json",
+      "sha256": "89b527cd75560efbd8b3baceb60b8bde8e64a2352334b9d479c0c53bb7c3fd4c"
+    },
+    {
+      "path": "balanced/integer-ir.json",
+      "sha256": "102af204937f709defb6725eaedc7e8d97bb01fdb635a27d91eba9a89c949c85"
+    },
+    {
+      "path": "balanced/polynomial.json",
+      "sha256": "65e3cca0e9add503bc16d64db63ac2a80b07f8b69b7b687d1089099d542bfb74"
+    },
+    {
+      "path": "balanced/diagonal-certificate.json",
+      "sha256": "091a90bfb52ad7090796d1f910607bf2ad15a3b070961c6c0a8aac0b0c8c12f0"
+    },
+    {
+      "path": "quartic-385-balanced-decimal.txt",
+      "sha256": "47da004230ff7a20c7a0824738422eb9c29c4a6e6de92455e3d956e979161ecf"
+    }
+  ]
+}

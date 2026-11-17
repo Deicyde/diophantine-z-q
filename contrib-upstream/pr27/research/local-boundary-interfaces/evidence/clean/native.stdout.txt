@@ -1,0 +1,1 @@
+{"status": "PASS", "proof_roots": 41, "output": "lean/.checks/lbi-native-reviewed-20261110"}

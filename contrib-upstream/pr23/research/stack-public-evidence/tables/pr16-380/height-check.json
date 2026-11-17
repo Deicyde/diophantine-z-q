@@ -1,0 +1,52 @@
+{
+  "status": "PASS",
+  "independentAcceptance": false,
+  "sourceComparison": {
+    "equalSymbolicSections": [
+      "anchor",
+      "census",
+      "coordinates",
+      "counts",
+      "format",
+      "gates",
+      "guards",
+      "residuals",
+      "source",
+      "values"
+    ],
+    "oldExponent": 2130,
+    "newExponent": 2118,
+    "equalResiduals": 364,
+    "equalGuards": 2
+  },
+  "selectedMargins": {
+    "order": 45,
+    "exponent": 2118,
+    "scalarTarget": "4",
+    "scalar": true,
+    "lucas": true,
+    "auxiliary": true,
+    "monotoneRatioPower": 572
+  },
+  "precedingEndpoint": {
+    "order": 45,
+    "exponent": 2112,
+    "scalarTarget": "4",
+    "scalar": true,
+    "lucas": false,
+    "auxiliary": true,
+    "monotoneRatioPower": 572
+  },
+  "negativeControlsRejected": [
+    "preceding insufficient endpoint",
+    "restore old parameter",
+    "change a residual",
+    "drop guards",
+    "rename input"
+  ],
+  "scope": "Exact finite comparisons and unchanged symbolic circuit. Uniform height transfer, completeness and inherited arithmetic require source-level review.",
+  "files": {
+    "before": "49f2748054378ea831d278d4832a318a2ab6057ccfcdfaccc233ac933db75156",
+    "after": "f1dee3d1e5521e359518d07d7748bdfa2d9204eb810ba37e495838c918d5192b"
+  }
+}

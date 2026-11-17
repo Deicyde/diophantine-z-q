@@ -1,0 +1,307 @@
+{
+  "format": "factored-pole-author-application-contract-v1",
+  "id": "389-TO-385-FOUR-FACTORED-POLES",
+  "status": "author_argument_pending_independent_review",
+  "authors": [
+    "Codex /root, Cameron session 2026-11-08"
+  ],
+  "independentAcceptance": false,
+  "parentCommit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+  "sourceCompiledIrSha256": "1e9071816ccb40d562545be08f21ccac76813a64796173d155d0d3ae7dbebb50",
+  "proof": {
+    "path": "research/factored-pole-reduction/PROOF.md",
+    "sha256": "364309a61432b4de3615852175cab0faa7a3aeb9d5d251f4da521454277198d4",
+    "sectionStartLines": {
+      "## Historical source and normalization": 10,
+      "## Constructed equations and maps": 44,
+      "## Required input and domain coverage": 91,
+      "## Consumers, scaling and finite evidence": 116
+    }
+  },
+  "sources": [
+    {
+      "id": "v13-template",
+      "path": "docs/manuscript-revisions/version13/addition.tex",
+      "sha256": "91b278b3ca1684df93e32883d8046a2accda970efc1ed9159b095183092d5a09",
+      "locator": "Factored poles and the preparation conic, lines 595\u2013615"
+    },
+    {
+      "id": "v13-history",
+      "path": "quartics/quartic-394-411/sources/work/quartic-under400-20261107/02-squares/REPORT.md",
+      "sha256": "a93a5236680f04f382dc09bba941c9ee59883e69f013ca60627e37b605e1e72c",
+      "locator": "Baselines must be kept separate"
+    },
+    {
+      "id": "parent-builder",
+      "path": "research/conditional-quartic-reduction/construction/builder.cjs",
+      "sha256": "b4bf6af38a7620a5b6a572039da4fcb22cd6f4ce006c439d89588c1259231f3b",
+      "locator": "pole function and three detector / scalar consumers, lines 263\u2013332"
+    },
+    {
+      "id": "detector-domain",
+      "path": "research/conditional-quartic-reduction/proofs/detector_round7.tex",
+      "sha256": "ed01c9416d3b4daf02a26958642194230c0186a896f17817bfe30c8a16d481d3",
+      "locator": "Nonzero domains and quadratic degree, lines 117\u2013144"
+    },
+    {
+      "id": "detector-promotion",
+      "path": "research/conditional-quartic-reduction/proofs/detector_round8.tex",
+      "sha256": "150b79708b8088d1c75641571277eecf452fe72b7c729cc4fe783e4da76b83bb",
+      "locator": "The actual primary test and paired product; unchanged real domain"
+    },
+    {
+      "id": "scalar-domain",
+      "path": "research/conditional-quartic-reduction/proofs/geometry_round7.tex",
+      "sha256": "0402ccf6c3e193c685d01e0ff6e46449001ac074a1bf4501419d6fb1fea88035",
+      "locator": "Input beta, contact product r, and W=1+N, lines 15\u201349"
+    },
+    {
+      "id": "pole-normalization",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round3/arithmetic_proof.tex",
+      "sha256": "66cdc4ef3e2f0e5cfde8b50e3ac360dd27d2ac17826ce23fd4ec688ac7d438d4",
+      "locator": "Independent review of homogeneous pole coordinates, lines 181\u2013224"
+    },
+    {
+      "id": "parent-scaling-proof",
+      "path": "research/conditional-quartic-reduction/proofs/diagonal_scaling_round8.tex",
+      "sha256": "0115c276febf3b06b46462d06aa862714456f78790e5ec6bd68ac938db8b2e50",
+      "locator": "Input-fixed rational diagonal scaling and primitive residuals"
+    }
+  ],
+  "obligations": {
+    "source_hypotheses": {
+      "status": "author_argument_pending_review",
+      "required": "A normalized second conic over Q with positive semantic coefficient b; a proof of the s=0 branch.",
+      "constructed": "Three detector coefficients B=n^2/E and scalar coefficient 42r, each strictly positive on the unchanged parent domain.",
+      "justification": "The proof records the unchanged positivity arguments and the scalar square absorption. Version 13 provides the prior template, not acceptance of this application.",
+      "sources": [
+        "v13-template",
+        "detector-domain",
+        "detector-promotion",
+        "scalar-domain",
+        "parent-builder"
+      ],
+      "evidence": [
+        "PROOF.md",
+        "build_transport.py",
+        "check_transport.py",
+        "reproduce.py"
+      ]
+    },
+    "constructed_objects": {
+      "status": "author_argument_pending_review",
+      "required": "The conic and all private square slots, with exact normalization.",
+      "constructed": "Compiled 389-variable IR with H=17E-h for detectors and H=-184460384539603E-1181808857731824h for the scalar.",
+      "justification": "The producer decodes H from metadata; the separate checker reconstructs H and b from the actual conic coefficients and compares the whole polynomial.",
+      "sources": [
+        "parent-builder",
+        "pole-normalization"
+      ],
+      "evidence": [
+        "PROOF.md",
+        "build_transport.py",
+        "check_transport.py",
+        "reproduce.py"
+      ]
+    },
+    "index_domain_coverage": {
+      "status": "author_argument_pending_review",
+      "required": "Both s!=0 and s=0 for every rational solution on the retained domain; no extra inverse guard.",
+      "constructed": "The nonzero branch uses H/s and q/s; the zero branch uses positive b to force H=q=0 and chooses v=Q=Q2=0.",
+      "justification": "These two cases exhaust Q. There is no indexed Euler system in this local transformation; the global inherited theorem is not changed.",
+      "sources": [
+        "v13-template",
+        "detector-domain",
+        "scalar-domain"
+      ],
+      "evidence": [
+        "PROOF.md",
+        "build_transport.py",
+        "check_transport.py",
+        "reproduce.py"
+      ]
+    },
+    "transition_maps": {
+      "status": "author_argument_pending_review",
+      "required": "Maps in both directions that satisfy every old/new equation.",
+      "constructed": "Old-to-new division by s on the nonzero branch and an explicit zero lift; new-to-old H=sv, q=sQ, q2=s^2Q2, s2=s^2 and h=(sv-rest)/alpha.",
+      "justification": "The old second-conic and q2 residuals are s^2 times new residuals up to nonzero constant normalization; the old square residual is identically zero. Reverse transport needs no division by s.",
+      "sources": [
+        "v13-template",
+        "parent-builder"
+      ],
+      "evidence": [
+        "PROOF.md",
+        "build_transport.py",
+        "check_transport.py",
+        "reproduce.py"
+      ]
+    },
+    "limiting_object_identity": {
+      "status": "author_argument_pending_review",
+      "required": "The object consumed downstream must be the original normalized pole block with the same input.",
+      "constructed": "All outside coordinates, b, E, T, input x0 and parameter S are retained; the old private witnesses are reconstructed exactly.",
+      "justification": "No limit is used here. Exact residual identities and unchanged outside consumers establish the relevant object identity; no merely proportional pole input is substituted.",
+      "sources": [
+        "parent-builder",
+        "pole-normalization"
+      ],
+      "evidence": [
+        "PROOF.md",
+        "build_transport.py",
+        "check_transport.py",
+        "reproduce.py"
+      ]
+    },
+    "coefficient_conventions": {
+      "status": "author_argument_pending_review",
+      "required": "Rational witnesses, exact fixed nonzero affine normalization constants, quadratic residuals and input-fixed scaling.",
+      "constructed": "The compiled scalar h differs from H, and the scalar conic coefficient 42r differs from physical input 42rW^2. The original thirteen diagonal factors are reused.",
+      "justification": "All calculations use Fraction / integer arithmetic. Row normalization uses nonzero rational scalars. The unchanged diagonal checker reconstructs every residual and quartic coefficient.",
+      "sources": [
+        "parent-builder",
+        "parent-scaling-proof"
+      ],
+      "evidence": [
+        "PROOF.md",
+        "build_transport.py",
+        "check_transport.py",
+        "reproduce.py"
+      ]
+    },
+    "local_conditions": {
+      "status": "author_argument_pending_review",
+      "required": "Preserve the original real domain and all finite-place consumers.",
+      "constructed": "The positive-domain premises lie in the 341 unchanged outside residuals; all local orders, primes, anchor and height constants are retained.",
+      "justification": "The new-to-old polynomial reconstruction works without positivity. Positivity is used only for the old-to-new zero lift and is justified by unchanged parent arguments. This does not re-prove those global dependencies.",
+      "sources": [
+        "detector-domain",
+        "detector-promotion",
+        "scalar-domain"
+      ],
+      "evidence": [
+        "PROOF.md",
+        "build_transport.py",
+        "check_transport.py",
+        "reproduce.py"
+      ]
+    },
+    "exceptional_cases": {
+      "status": "author_argument_pending_review",
+      "required": "Handle s=0 and all signs/zero choices of other private witnesses.",
+      "constructed": "At s=0, 17bq^2+3H^2=0 forces H=q=0; the stored old h can be nonzero. No division by q, H or v occurs.",
+      "justification": "The affine normalization constants are fixed nonzero rationals. Reconstructing old solutions works even when a new private factor is zero.",
+      "sources": [
+        "v13-template",
+        "parent-builder"
+      ],
+      "evidence": [
+        "PROOF.md",
+        "build_transport.py",
+        "check_transport.py",
+        "reproduce.py"
+      ]
+    },
+    "downstream_consumption": {
+      "status": "author_argument_pending_review",
+      "required": "Exclude outside use of repurposed/deleted coordinates and preserve the polynomial input projection.",
+      "constructed": "For each of four prefixes the only consumers of h,q,q2,s2 are Bh.definition, q2.definition, s2.definition and secondConic.",
+      "justification": "The checker scans every residual, verifies all 341 exterior rows unchanged, verifies the four deleted rows and preserves x0. The parent scaling checker then verifies all 26,235 quartic coefficients.",
+      "sources": [
+        "parent-builder",
+        "parent-scaling-proof"
+      ],
+      "evidence": [
+        "PROOF.md",
+        "build_transport.py",
+        "check_transport.py",
+        "reproduce.py"
+      ]
+    }
+  },
+  "historicalDisposition": "Prior justification found for the factored-conic template; this application uses different compiled normalizations and requires fresh review.",
+  "manuscriptDisposition": "Pending; the research packet is not incorporated into the current manuscript or accepted register.",
+  "dependencyImpact": "Only four local conic representations change. No acceptance of the inherited detector, height, scalar or arithmetic argument is supplied. The parent global assumptions remain conditional.",
+  "boundFiles": [
+    {
+      "path": "docs/manuscript-revisions/version13/addition.tex",
+      "sha256": "91b278b3ca1684df93e32883d8046a2accda970efc1ed9159b095183092d5a09"
+    },
+    {
+      "path": "quartics/quartic-394-411/sources/work/quartic-under400-20261107/02-squares/REPORT.md",
+      "sha256": "a93a5236680f04f382dc09bba941c9ee59883e69f013ca60627e37b605e1e72c"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/EXPECTED_OUTPUTS.json",
+      "sha256": "982533489878025cf90d7fb5307fe4a8a1af050a095ce2da8de91843a5f896dc"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/SOURCE_MANIFEST.json",
+      "sha256": "268694a99ae9e73f99c3847270994d51b7b9861aa9e521a622c583bed95076c2"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/audit/check_diagonal_scaling.py",
+      "sha256": "506da8992d048bc16f5df0a1cde9226201dff9d8169d2d0bbc92b12d10cd4f64"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/construction/balance_coefficients.py",
+      "sha256": "9e9a7ebcb3e4be58862381c2b51f85352ba4b688495912da2585b1ad37973a63"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/construction/builder.cjs",
+      "sha256": "b4bf6af38a7620a5b6a572039da4fcb22cd6f4ce006c439d89588c1259231f3b"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/proofs/detector_round7.tex",
+      "sha256": "ed01c9416d3b4daf02a26958642194230c0186a896f17817bfe30c8a16d481d3"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/proofs/detector_round8.tex",
+      "sha256": "150b79708b8088d1c75641571277eecf452fe72b7c729cc4fe783e4da76b83bb"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/proofs/diagonal_scaling_round8.tex",
+      "sha256": "0115c276febf3b06b46462d06aa862714456f78790e5ec6bd68ac938db8b2e50"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/proofs/geometry_round7.tex",
+      "sha256": "0402ccf6c3e193c685d01e0ff6e46449001ac074a1bf4501419d6fb1fea88035"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/proofs/prior/round3/arithmetic_proof.tex",
+      "sha256": "66cdc4ef3e2f0e5cfde8b50e3ac360dd27d2ac17826ce23fd4ec688ac7d438d4"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/reproduce.py",
+      "sha256": "a660293cc6fa97a55d8d3635645f666fd1c6b52d96276ec768b4a3faedecc3ae"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/review_tools/check_pr_reproduction_manifest.py",
+      "sha256": "df2154fe0583d0a84445631ff37e978c05aee01a2d1cc95c1ccb7872ecdc0428"
+    },
+    {
+      "path": "research/factored-pole-reduction/EXPECTED.json",
+      "sha256": "fa538af98e555bb8d75e5598c868c72d006f4905f8389c04f460c3bbb6d89874"
+    },
+    {
+      "path": "research/factored-pole-reduction/PROOF.md",
+      "sha256": "364309a61432b4de3615852175cab0faa7a3aeb9d5d251f4da521454277198d4"
+    },
+    {
+      "path": "research/factored-pole-reduction/README.md",
+      "sha256": "a16c6fb58b2cca3a5a1808fd51b3bb1ec571be1972ed047f3bf12298c4126c7b"
+    },
+    {
+      "path": "research/factored-pole-reduction/build_transport.py",
+      "sha256": "1e58266e056db9b3b2a14f8c78fb2c0a1df41196e7745818fb077dc98b029156"
+    },
+    {
+      "path": "research/factored-pole-reduction/check_transport.py",
+      "sha256": "4330e24df146ebdd8f525d52d689bd94c39327fe95ad1a6cf1f3e4640562078b"
+    },
+    {
+      "path": "research/factored-pole-reduction/reproduce.py",
+      "sha256": "f685bc9184183b8684be9315e507409e90b67b3faf33af3bac6ff66dc03ab9a7"
+    }
+  ]
+}

@@ -234,7 +234,7 @@ noncomputable abbrev bcO {O : ValuationSubring K} {O' : ValuationSubring K'}
     Over (Spec (CommRingCat.of O')) :=
   (Over.pullback (Spec.map (CommRingCat.ofHom (comapHom hO)))).obj G
 
-/-- **LEAF `SGA7_IX_3_3`** (Grothendieck, SGA 7 I, Exp. IX, Prop. 3.3, second assertion; number and wording
+/-- **LEAF `SGA7_IX_3_3`** (Grothendieck, SGA 7 I, Exp. IX, Cor. 3.3, second assertion; number and wording
 recalled, UNVERIFIED). *Printed* (as recalled): `R → R'` a local homomorphism of discrete valuation rings
 with fraction fields `K ⊆ K'`, `A_K` an abelian variety with semistable reduction, `N`, `N'` the Néron models
 of `A_K` over `R` and of `A_{K'}` over `R'`; then the canonical morphism `N ×_R R' → N'` induces an

@@ -1,0 +1,68 @@
+{
+  "status": "PASS",
+  "independentAcceptance": false,
+  "sourceDelta": {
+    "changedRows": [
+      "detector0.q46.definition",
+      "detector1.q46.definition",
+      "detector2.q46.definition"
+    ],
+    "outsideRowsUnchanged": 361,
+    "allGuardsUnchanged": true,
+    "allCoordinateSlotsRetained": true,
+    "onlyOtherChange": "fixed parameter and descriptive variant metadata"
+  },
+  "finiteChecks": {
+    "weightExponents": {
+      "q1": [
+        1,
+        -1
+      ],
+      "q12": [
+        23,
+        -1
+      ],
+      "high": [
+        91,
+        -3
+      ]
+    },
+    "localNuAndS": [
+      [
+        1,
+        4
+      ],
+      [
+        1,
+        114
+      ],
+      [
+        3,
+        452
+      ]
+    ],
+    "contactDeltaValues": [
+      "-1",
+      "1",
+      "24/25",
+      "-24/25",
+      "39/25"
+    ],
+    "highOrder": 46,
+    "anchorExponent": 2010,
+    "lucasRatioPower": 636,
+    "allThreeConsumerMargins": true
+  },
+  "negativeControlsRejected": [
+    "detector0.q46.definition",
+    "scalar.N.definition",
+    "drop guards",
+    "wrong anchor",
+    "rename input"
+  ],
+  "files": {
+    "before": "f1dee3d1e5521e359518d07d7748bdfa2d9204eb810ba37e495838c918d5192b",
+    "after": "f6ac117625f054cf6fec0863f1a3417b0f5305a9e477e901e098387a6a6fac40"
+  },
+  "scope": "Exact source/equation/exponent and integer checks; uniform arithmetic arguments and inherited inputs require separate mathematical review."
+}

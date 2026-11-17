@@ -1,0 +1,8 @@
++ PROJECT=/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary
++ EVIDENCE=/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/docs/openmath/local-boundary-interfaces-v13/openmath-os-evidence
++ cd /workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary
++ sha256sum -c MANIFEST.sha256
++ lean --version
++ lake --version
++ set +e
++ lake build

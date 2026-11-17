@@ -1,0 +1,24 @@
+--- solution
++++ single-file-challenge
+@@ -146,11 +146,9 @@
+                 F S (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1) (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3) inst_2
+                 inst_4)
+               F S
+-              (@LinearEquiv.instEquivLike.{u_1, u_1, u_2, u_3} K K F S
++              (@DFinsupp.instEquivLikeLinearEquiv.{u_1, u_1, u_2, u_3} K K
+                 (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                 (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+-                (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1) (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3) inst_2
+-                inst_4
+                 (@RingHom.id.{u_1} K
+                   (@Semiring.toNonAssocSemiring.{u_1} K
+                     (@CommSemiring.toSemiring.{u_1} K
+@@ -164,5 +162,7 @@
+                     (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst))))
+                 (@RingHomInvPair.ids.{u_1} K
+                   (@CommSemiring.toSemiring.{u_1} K
+-                    (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst))))))
++                    (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst))))
++                F S (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1) (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3) inst_2
++                inst_4))
+             J v)))

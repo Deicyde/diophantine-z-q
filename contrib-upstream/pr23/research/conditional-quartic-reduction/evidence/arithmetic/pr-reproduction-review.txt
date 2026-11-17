@@ -1,0 +1,24 @@
+Independent PR reproduction review: ACCEPT
+
+The wrapper and actual build/output contract have been reviewed independently of
+their author. The final wrapper passes 33 isolated orchestration/failure probes.
+The real manifest has 31 code/proof seeds, 51 deterministic artifact comparisons,
+14 successful-audit requirements and one committed complete coefficient table.
+All 105 declared source/evidence files matched their supplied hashes at review;
+there were no missing or unlisted files and no symbolic links.
+
+Four findings were resolved: symbolic-link ancestors, stale generated seeds,
+assertion disabling via PYTHONOPTIMIZE, and nondeterministic timing reports.
+The exact 7 volatile diagnostic files are expressly excluded from whole-file
+byte comparison, but their mathematical certificates are still regenerated and
+replayed. Every actual IR, polynomial, coordinate map, reduction/specialization
+certificate and full text table in the 51-file contract remains checked.
+
+This receipt is bound to the wrapper, pipeline, EXPECTED_OUTPUTS, actual seed
+list and generated-output list, rather than to a self-referential final hash
+of SOURCE_MANIFEST.json. Adding this non-build evidence does not alter that
+contract. The separate real fresh build is not represented as completed by
+this review. Original findings and the detector editorial-update history are
+preserved. The inherited global arithmetic remains conditional.
+
+Exact bindings and detailed closure evidence: pr-reproduction-review.json.

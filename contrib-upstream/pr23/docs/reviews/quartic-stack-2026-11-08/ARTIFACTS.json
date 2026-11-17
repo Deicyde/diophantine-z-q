@@ -1,0 +1,134 @@
+{
+  "date": "2026-11-08",
+  "profile": "PROFILE.md",
+  "artifacts": [
+    {
+      "id": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "directory": "research/conditional-quartic-reduction",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/tree/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction",
+      "variables": 389,
+      "maximumCoefficientDigits": 757,
+      "monomials": 26295,
+      "reproduce": "python3 -B research/conditional-quartic-reduction/reproduce.py",
+      "representation": "Committed selected full decimal table; generator, certificates, proof notes and retained historical evidence.",
+      "status": "conditional research; manuscript incorporation pending",
+      "fileCount": 156
+    },
+    {
+      "id": "pr9",
+      "commit": "6fd131e7ca150d7a023bcb6ac4f1971912705fab",
+      "directory": "research/factored-pole-reduction",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/tree/6fd131e7ca150d7a023bcb6ac4f1971912705fab/research/factored-pole-reduction",
+      "variables": 385,
+      "maximumCoefficientDigits": 757,
+      "monomials": 26235,
+      "reproduce": "python3 -B research/factored-pole-reduction/reproduce.py",
+      "representation": "Generator and exact expected output hashes; full decimal table regenerated, not committed in this directory.",
+      "status": "conditional research; manuscript incorporation pending",
+      "fileCount": 7
+    },
+    {
+      "id": "pr11",
+      "commit": "e3444641dffc2d1cf5a9791111d584110e5dd111",
+      "directory": "research/scalar-chain-reduction",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/tree/e3444641dffc2d1cf5a9791111d584110e5dd111/research/scalar-chain-reduction",
+      "variables": 385,
+      "maximumCoefficientDigits": 682,
+      "monomials": 26200,
+      "reproduce": "python3 -B research/scalar-chain-reduction/reproduce.py --output build/chain31",
+      "representation": "Generator and exact expected output hashes; full decimal table regenerated, not committed in this directory.",
+      "status": "conditional research; manuscript incorporation pending",
+      "fileCount": 10
+    },
+    {
+      "id": "pr12",
+      "commit": "a1f9233049cc0f8aeb2a6ccd7e7b613cec3c1ec0",
+      "directory": "research/scalar-preparation-zero",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/tree/a1f9233049cc0f8aeb2a6ccd7e7b613cec3c1ec0/research/scalar-preparation-zero",
+      "variables": 383,
+      "maximumCoefficientDigits": 682,
+      "monomials": 26019,
+      "reproduce": "python3 -B research/scalar-preparation-zero/reproduce.py --output build/zero383",
+      "representation": "Generator and exact expected output hashes; full decimal table regenerated, not committed in this directory.",
+      "status": "conditional research; manuscript incorporation pending",
+      "fileCount": 10
+    },
+    {
+      "id": "precision",
+      "commit": "bc51100fd3ada82df0dac55d6f1d235219430c74",
+      "directory": "research/higher-detector-precision",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/tree/bc51100fd3ada82df0dac55d6f1d235219430c74/research/higher-detector-precision",
+      "variables": 386,
+      "maximumCoefficientDigits": 646,
+      "monomials": null,
+      "reproduce": "python3 -B research/higher-detector-precision/experiment.py --order 47 --exponent 2016 --output build/higher47",
+      "representation": "Separate research alternatives; generator and expected hashes. Order46 has26046 monomials; order47 has26037.",
+      "status": "conditional research; manuscript incorporation pending",
+      "fileCount": 7
+    },
+    {
+      "id": "rejected-ports",
+      "commit": "a8ce102d3a2d9c903a17ac1a181e5560d1f6342a",
+      "directory": "research/quartic-followup",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/tree/a8ce102d3a2d9c903a17ac1a181e5560d1f6342a/research/quartic-followup",
+      "variables": null,
+      "maximumCoefficientDigits": null,
+      "monomials": null,
+      "reproduce": "python3 -B research/quartic-followup/reproduce.py",
+      "representation": "Retained chart, rational-logarithm and earlier scalar experiments; superseded/negative results, not selected PR changes.",
+      "status": "versioned supporting research evidence",
+      "fileCount": 12
+    },
+    {
+      "id": "chain-investigation",
+      "commit": "a8ce102d3a2d9c903a17ac1a181e5560d1f6342a",
+      "directory": "research/scalar-chain-investigation",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/tree/a8ce102d3a2d9c903a17ac1a181e5560d1f6342a/research/scalar-chain-investigation",
+      "variables": null,
+      "maximumCoefficientDigits": null,
+      "monomials": null,
+      "reproduce": "python3 -B research/scalar-chain-investigation/reproduce.py --output build/chain-investigation",
+      "representation": "Historical order31 and combined-zero experiments; selected focused packets supersede their author-status snapshots.",
+      "status": "versioned supporting research evidence",
+      "fileCount": 9
+    },
+    {
+      "id": "reviews",
+      "commit": "1b375ac63c3df4f24b7537037bd890e78e8f578b",
+      "directory": "research/independent-local-reviews/2026-11-08",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/tree/1b375ac63c3df4f24b7537037bd890e78e8f578b/research/independent-local-reviews/2026-11-08",
+      "variables": null,
+      "maximumCoefficientDigits": null,
+      "monomials": null,
+      "reproduce": null,
+      "representation": "Unmodified separate-agent reports, source manifests, independent checks and replay receipts; not protocol App acceptance.",
+      "status": "versioned supporting research evidence",
+      "fileCount": 22
+    },
+    {
+      "id": "import-comparison",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "directory": "docs/reviews/quartic389-import",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/tree/490d14ef06d3369b7a68a07a5202e017d794549c/docs/reviews/quartic389-import",
+      "variables": null,
+      "maximumCoefficientDigits": null,
+      "monomials": null,
+      "reproduce": null,
+      "representation": "Author source comparison of old package pin against Version13, including the repaired Kato route.",
+      "status": "versioned supporting research evidence",
+      "fileCount": 2
+    }
+  ],
+  "reviewPathMapping": {
+    "publishedRoot": "https://github.com/cameronfreer/diophantine-z-q/tree/1b375ac63c3df4f24b7537037bd890e78e8f578b/research/independent-local-reviews/2026-11-08",
+    "historicalTemporaryRoot": "/tmp/quartic-independent-review",
+    "rule": "The unmodified review directory hierarchy is copied below the publishedRoot. Temporary worktree paths are historical execution locations. Source manifests map their relative paths to the exact reviewed source commits; generated output trees not archived can be rebuilt with the listed commands."
+  },
+  "toolVersions": {
+    "python": "3.12.3",
+    "node": "18.19.1"
+  },
+  "inheritedInputs": "research/conditional-quartic-reduction/PR_DEPENDENCIES.md at the pr8 commit; all 11 named groups retained",
+  "reviewLimits": "The original package audits are inventoried, not freshly independently re-audited in full. Manuscript integration and full published-source closure remain pending."
+}

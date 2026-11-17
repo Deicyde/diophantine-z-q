@@ -1,0 +1,14 @@
+{
+  "challenge_module": "Challenge",
+  "solution_module": "Research.DerivativeSwitchBoundary",
+  "theorem_names": [
+    "Research.DerivativeSwitch.finite_kernel_line",
+    "Research.DerivativeSwitch.singular_kernel_line",
+    "Research.DerivativeSwitch.boundary_images_meet_zero",
+    "Research.DerivativeSwitch.no_identity_strict_square",
+    "Research.DerivativeSwitch.Volume.area_action",
+    "Research.DerivativeSwitch.Volume.area_neg_one"
+  ],
+  "definition_names": [],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"]
+}

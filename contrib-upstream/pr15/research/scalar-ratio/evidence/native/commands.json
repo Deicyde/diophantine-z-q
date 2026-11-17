@@ -1,0 +1,203 @@
+[
+  {
+    "label": "frozen-source-guard",
+    "command": [
+      "/Users/chey/.pyenv/versions/3.12.3/bin/python",
+      "-B",
+      "scripts/check_lean.py"
+    ],
+    "cwd": ".",
+    "exit_code": 0,
+    "expected_exit_code": 0
+  },
+  {
+    "label": "audit-history",
+    "command": [
+      "/Users/chey/.pyenv/versions/3.12.3/bin/python",
+      "-B",
+      "scripts/check_audit_history.py",
+      "--self-test"
+    ],
+    "cwd": ".",
+    "exit_code": 0,
+    "expected_exit_code": 0
+  },
+  {
+    "label": "original-model",
+    "command": [
+      "/Users/chey/.pyenv/versions/3.12.3/bin/python",
+      "-B",
+      "research/determinant-switch/check_local_model.py"
+    ],
+    "cwd": ".",
+    "exit_code": 0,
+    "expected_exit_code": 0
+  },
+  {
+    "label": "boundary-model",
+    "command": [
+      "/Users/chey/.pyenv/versions/3.12.3/bin/python",
+      "-B",
+      "research/scalar-ratio/tests/check_milestone.py"
+    ],
+    "cwd": ".",
+    "exit_code": 0,
+    "expected_exit_code": 0
+  },
+  {
+    "label": "boundary-model-optimized",
+    "command": [
+      "/Users/chey/.pyenv/versions/3.12.3/bin/python",
+      "-B",
+      "-O",
+      "research/scalar-ratio/tests/check_milestone.py"
+    ],
+    "cwd": ".",
+    "exit_code": 0,
+    "expected_exit_code": 0
+  },
+  {
+    "label": "lean-version",
+    "command": [
+      "lean",
+      "--version"
+    ],
+    "cwd": "lean",
+    "exit_code": 0,
+    "expected_exit_code": 0
+  },
+  {
+    "label": "lake-version",
+    "command": [
+      "lake",
+      "--version"
+    ],
+    "cwd": "lean",
+    "exit_code": 0,
+    "expected_exit_code": 0
+  },
+  {
+    "label": "target-DerivativeSwitchBoundary",
+    "command": [
+      "lean",
+      "-j1",
+      "-Ddebug.skipKernelTC=false",
+      "-o",
+      "/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.checks/scalar-ratio-verified-1/lib/Research/DerivativeSwitchBoundary.olean",
+      "Research/DerivativeSwitchBoundary.lean"
+    ],
+    "cwd": "lean",
+    "exit_code": 0,
+    "expected_exit_code": 0
+  },
+  {
+    "label": "target-BoundaryScalar",
+    "command": [
+      "lean",
+      "-j1",
+      "-Ddebug.skipKernelTC=false",
+      "-o",
+      "/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.checks/scalar-ratio-verified-1/lib/Research/BoundaryScalar.olean",
+      "Research/BoundaryScalar.lean"
+    ],
+    "cwd": "lean",
+    "exit_code": 0,
+    "expected_exit_code": 0
+  },
+  {
+    "label": "target-BoundaryCupAdapter",
+    "command": [
+      "lean",
+      "-j1",
+      "-Ddebug.skipKernelTC=false",
+      "-o",
+      "/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.checks/scalar-ratio-verified-1/lib/Research/BoundaryCupAdapter.olean",
+      "Research/BoundaryCupAdapter.lean"
+    ],
+    "cwd": "lean",
+    "exit_code": 0,
+    "expected_exit_code": 0
+  },
+  {
+    "label": "target-DerivativeSwitch.Coordinate",
+    "command": [
+      "lean",
+      "-j1",
+      "-Ddebug.skipKernelTC=false",
+      "-o",
+      "/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.checks/scalar-ratio-verified-1/lib/Research/DerivativeSwitch/Coordinate.olean",
+      "Research/DerivativeSwitch/Coordinate.lean"
+    ],
+    "cwd": "lean",
+    "exit_code": 0,
+    "expected_exit_code": 0
+  },
+  {
+    "label": "target-DerivativeSwitch.CommonStrict",
+    "command": [
+      "lean",
+      "-j1",
+      "-Ddebug.skipKernelTC=false",
+      "-o",
+      "/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.checks/scalar-ratio-verified-1/lib/Research/DerivativeSwitch/CommonStrict.olean",
+      "Research/DerivativeSwitch/CommonStrict.lean"
+    ],
+    "cwd": "lean",
+    "exit_code": 0,
+    "expected_exit_code": 0
+  },
+  {
+    "label": "target-DerivativeSwitch.UnitCriterion",
+    "command": [
+      "lean",
+      "-j1",
+      "-Ddebug.skipKernelTC=false",
+      "-o",
+      "/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.checks/scalar-ratio-verified-1/lib/Research/DerivativeSwitch/UnitCriterion.olean",
+      "Research/DerivativeSwitch/UnitCriterion.lean"
+    ],
+    "cwd": "lean",
+    "exit_code": 0,
+    "expected_exit_code": 0
+  },
+  {
+    "label": "target-DerivativeSwitch.BoundaryCup",
+    "command": [
+      "lean",
+      "-j1",
+      "-Ddebug.skipKernelTC=false",
+      "-o",
+      "/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.checks/scalar-ratio-verified-1/lib/Research/DerivativeSwitch/BoundaryCup.olean",
+      "Research/DerivativeSwitch/BoundaryCup.lean"
+    ],
+    "cwd": "lean",
+    "exit_code": 0,
+    "expected_exit_code": 0
+  },
+  {
+    "label": "solution",
+    "command": [
+      "lean",
+      "-j1",
+      "-Ddebug.skipKernelTC=false",
+      "-o",
+      "/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.checks/scalar-ratio-verified-1/lib/Solution.olean",
+      "Solution.lean"
+    ],
+    "cwd": "lean/.checks/scalar-ratio-verified-1",
+    "exit_code": 0,
+    "expected_exit_code": 0
+  },
+  {
+    "label": "axioms-and-statements",
+    "command": [
+      "lean",
+      "-j1",
+      "-Ddebug.skipKernelTC=false",
+      "/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.checks/scalar-ratio-verified-1/Axioms.lean"
+    ],
+    "cwd": "lean",
+    "exit_code": 0,
+    "expected_exit_code": 0
+  }
+]

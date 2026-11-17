@@ -1,0 +1,160 @@
+{
+  "status": "PASS",
+  "date": "2026-11-10",
+  "snapshot_commit": "0715d6bf23d63e552c68a1dced24a85d216fa9b7",
+  "fresh_detached_worktree": true,
+  "tracked_tree_clean_before": true,
+  "no_preexisting_project_output": true,
+  "dependency_cache": "Only unchanged pinned dependency package caches shared read-only by usage; no source/dependency rebuild or independent OS isolation.",
+  "commands": [
+    {
+      "label": "native",
+      "command": [
+        "python3",
+        "-B",
+        "research/local-boundary-interfaces/verify_native.py",
+        "lean/.checks/lbi-native-reviewed-20261110"
+      ],
+      "cwd": "fresh checkout root",
+      "start_utc": "2026-11-10T08:32:35.112736+00:00",
+      "end_utc": "2026-11-10T08:33:08.584704+00:00",
+      "exit_code": 0,
+      "executable_sha256": "6371b34b5d7720eab2d5416c00daf784ed20448b5d34af5638197084a87df8f3",
+      "stdout_sha256": "9736732d85f10e02340a050f4136a4554b1646be4a0bb32af547b4d6db86590b",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "controls",
+      "command": [
+        "python3",
+        "-B",
+        "research/local-boundary-interfaces/check_controls.py"
+      ],
+      "cwd": "fresh checkout root",
+      "start_utc": "2026-11-10T08:33:08.585607+00:00",
+      "end_utc": "2026-11-10T08:33:08.661496+00:00",
+      "exit_code": 0,
+      "executable_sha256": "6371b34b5d7720eab2d5416c00daf784ed20448b5d34af5638197084a87df8f3",
+      "stdout_sha256": "db165a30d082299aed4ad98cb97760f74321150a3a07d632dc8147bb34d2772c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "protocol",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/check_audit_history.py",
+        "--self-test"
+      ],
+      "cwd": "fresh checkout root",
+      "start_utc": "2026-11-10T08:33:08.662327+00:00",
+      "end_utc": "2026-11-10T08:33:08.980091+00:00",
+      "exit_code": 0,
+      "executable_sha256": "6371b34b5d7720eab2d5416c00daf784ed20448b5d34af5638197084a87df8f3",
+      "stdout_sha256": "7539e0a83103f2656b233dcf98570fb769e636973f4765cd48f04b87a7d5ee0d",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "native_receipts_compared": {
+    "ActualBoundaryCup.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byte_identical": true
+    },
+    "ActualBoundaryCup.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byte_identical": true
+    },
+    "Audit.lean": {
+      "sha256": "3e6290f5b39aacfe537d154513359abb397f2fd22866462aa17fd131b5b67fb3",
+      "byte_identical": true
+    },
+    "ConjugateLocalH1.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byte_identical": true
+    },
+    "ConjugateLocalH1.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byte_identical": true
+    },
+    "ConjugateLocalTransport.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byte_identical": true
+    },
+    "ConjugateLocalTransport.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byte_identical": true
+    },
+    "OrthogonalComparison.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byte_identical": true
+    },
+    "OrthogonalComparison.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byte_identical": true
+    },
+    "RESULT.json": {
+      "sha256": "7776f4e9ad8420e6e52572cf49b3561bccf1a1d7786ea12e15c1dc4f83b5b079",
+      "byte_identical": true
+    },
+    "axioms-and-statements.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byte_identical": true
+    },
+    "axioms-and-statements.stdout.txt": {
+      "sha256": "e1c9a23a52fd2e8cb10876d1ed2b6be177dfebe557c29cfe8611f6761c8d257e",
+      "byte_identical": true
+    },
+    "commands.json": {
+      "sha256": "e836cee8120db877f63be5450081012b924725d43533988119cc3dd863e0a76a",
+      "byte_identical": true
+    },
+    "lake-version.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byte_identical": true
+    },
+    "lake-version.stdout.txt": {
+      "sha256": "165f92ed239a8c7db772bf5ee9d58c59357b489951582a12c86dc9d8e06b23a2",
+      "byte_identical": true
+    },
+    "lean-version.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byte_identical": true
+    },
+    "lean-version.stdout.txt": {
+      "sha256": "469679dd8c6cec218a7a5e9a36c7a27decc968dacfe057ab3083f0ef43600dac",
+      "byte_identical": true
+    }
+  },
+  "fresh_artifact_hashes": {
+    "Research/DerivativeSwitch/ActualBoundaryCup.olean": "298f27c4d331fdfc1349fab1b88bb1c454cbb7d2b6e5d95793fa9b322434766a",
+    "Research/DerivativeSwitch/ConjugateLocalH1.olean": "7663a450e5425be740b5296acad430cb1c26c54dc23e0bbe71c5a5e9ddd043c9",
+    "Research/DerivativeSwitch/ConjugateLocalTransport.olean": "bc4c8a6ee97ac2800b85a98bc316afc9a91a05f49c4fd68106fa52f0741a1c2c",
+    "Research/DerivativeSwitch/OrthogonalComparison.olean": "4f7915cf71f69401c5eb55681cd725deb087447ca54a861a639753e6727d758e"
+  },
+  "native_input_hashes": {
+    "lean/Research/DerivativeSwitch/ConjugateLocalTransport.lean": "8688eef27fcc89c02eb3ab270e5359534dc23ef16e11678bdb1dd3587e3f8b86",
+    "lean/Research/DerivativeSwitch/ConjugateLocalH1.lean": "078ac50ae0c90c8e609a57c51c5884a25646ad7305531f1cf531617485b9078f",
+    "lean/Research/DerivativeSwitch/ActualBoundaryCup.lean": "77bcdd2ae5283ffd6cc51062e452da4294fcd5b3d952940b588b2d5b52ecdd90",
+    "lean/Research/DerivativeSwitch/OrthogonalComparison.lean": "bfec996b869e44c6a42fc058fbc24cc7288b1f61d0f0e7eef1f4f58f41dca1ba",
+    "lean/lean-toolchain": "ca5f1f601d34c49079e38d7e7041eb0f2a9c227fbc1df0f404820069a052330c",
+    "lean/lakefile.toml": "632fda3c75f7616378b9dadd0906d9518c7b4a1199c59d7b36369121acfb3b26",
+    "lean/lake-manifest.json": "a770787f33b5824f61a0731d59e67fca3f44a531b21d1fc1a804064c6fb54e58",
+    "research/local-boundary-interfaces/ORIGIN.json": "06dc5c0e20a76051e51a241aef299cf97c6fd5fcb5d7b3a8f2b721c903795f53",
+    "research/local-boundary-interfaces/TARGETS.json": "b5e5bd8f58ced1f62e3e0b282f0b61d5d992f846c95446f2b5af749bdc6361da",
+    "research/local-boundary-interfaces/README.md": "02b0b1e74230d0ec21e02079877a7716729e6b8d66d6b62074604b8cdc3d0023",
+    "research/local-boundary-interfaces/APPLICATION.md": "39bcbe3573d567348047ea0dd88e7308100ed993320a03e949b2e5e556c45ce3",
+    "research/local-boundary-interfaces/verify_native.py": "98fdeef1944b8cdeb72c1d5b071a4208e78cba7e7032901f715917cb52240976"
+  },
+  "controls_author_byte_identical": false,
+  "controls_author_only_differences": {
+    "python": {
+      "author": "3.12.3",
+      "clean": "3.13.12"
+    }
+  },
+  "controls_reviewer_byte_identical": true,
+  "controls_substantive_fields_identical": true,
+  "protocol_output_byte_identical": true,
+  "tracked_tree_clean_after": true,
+  "comparison_correction": "Initial byte comparison against author Python3.12 receipt failed solely on version metadata. Preserved all output bytes; semantic fields equal and complete output byte-identical to the independent Python3.13 reviewer receipt. See COMPARISON_NOTE.md."
+}

@@ -1,0 +1,5 @@
+REJECTED missing theorem: Const not found in solution: 'Research.BoundaryScalar.boundary_scalar_formula'
+REJECTED changed theorem statement: Challenge and solution theorem statement do not match: 'Research.BoundaryScalar.boundary_scalar_formula'
+REJECTED changed protected definition: Const does not match between challenge and target 'Research.BoundaryScalar.finiteNormal'
+REJECTED challenge holes as solution proofs: Illegal axiom detected: 'sorryAx'
+STRUCTURE_AND_AXIOMS_PASS declarations=21 negative_controls=4; no kernel replay or isolation

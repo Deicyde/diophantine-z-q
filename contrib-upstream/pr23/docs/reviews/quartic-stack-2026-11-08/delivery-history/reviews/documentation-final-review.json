@@ -1,0 +1,200 @@
+{
+  "format": "round8-final-documentation-review-v1",
+  "status": "PASS",
+  "disposition": "ACCEPT; no changes requested",
+  "authorship": "The document drafter performed this final evidence-backed consistency review of the assembled files; no independent human review is claimed.",
+  "scope": "Final claims, links, handoff commands, import bases and validation-record consistency. Exact byte bindings exclude the later outer MANIFEST.json. This is not another fresh mathematical build or a proof of inherited global arithmetic.",
+  "findings": [],
+  "selected": {
+    "coordinates": 389,
+    "residuals": 357,
+    "degree": 4,
+    "monomials": 26295,
+    "integerContent": 1,
+    "inputFourthPowerCoefficient": "1",
+    "maximumCoefficientDigits": 757,
+    "maximumCoefficientBits": 2513,
+    "scaledCoordinates": 13,
+    "ternaryScaledCoordinates": 12,
+    "dyadicScaledCoordinates": 2,
+    "anchorExponent": 2364,
+    "cExponent": 394,
+    "tableSha256": "1c612d20915667dfd81a7895f8d93231d5efeaf86ecfaa15194408d298d35573",
+    "tableBytes": 1050826,
+    "certificateSha256": "82f4e4a0b3c86eacbeded815f97ef0e46df3a553c82e9d8243ef671788ca0b24"
+  },
+  "witnessCountExcludingInput": 388,
+  "exactMaximumCoefficient": "28902*3^1576",
+  "inventory": {
+    "transformations": 32,
+    "inheritedInputGroups": 11,
+    "boundProofTexts": 30,
+    "pdfPages": 14
+  },
+  "actualFreshReceipt": {
+    "status": "PASS",
+    "sourceFilesVerified": 155,
+    "buildInputFiles": 34,
+    "deterministicArtifactsCompared": 54,
+    "successfulAuditReports": 15,
+    "pipelineStagesVerified": 23,
+    "trackedProposalFilesUnchanged": true,
+    "freshBuildInputFilesUnchanged": true
+  },
+  "reviewChecks": [
+    "Selected 389-total/388-witness, 357-row, 26295-monomial and 757-digit claims agree with the final manifests and fresh independent diagonal report.",
+    "Actual committed table hash, byte count and exact maximum agree with the earlier complete coefficient audit bound to the same bytes.",
+    "All direct/chain comparison counts, monomials, digits and bits agree with the fresh delivered-quartics report; current 392-variable chain is distinguished from old selected 392.",
+    "Mathematical descriptions match the selected primary promotion, 577/32 height proof, even 2364 anchor and 13-coordinate rational diagonal map.",
+    "Semantic scale decoding A=4*x238=2^-19*y238 and rational divisors are stated correctly.",
+    "Thirty proof texts, 32 transformations, 11 inherited input groups and 14 PDF pages match current artifacts.",
+    "All 12 README Markdown links resolve; required outer handoff files and script names are present except the intentionally later outer seal.",
+    "Both import routes have final successful application records and agree with the independently executed complete payload comparison.",
+    "Update helper pins the exact prior 112-file overlay and old manifest; matching patch context alone is not treated as verification.",
+    "Structured 23-stage completion, unchanged source and copied inputs, output comparison and successful audit requirements match the actual wrapper and receipt.",
+    "The old stdout-marker incident remains undiagnosed; no speculative cause or claim that a stdout string certifies completion is introduced.",
+    "Conditional global arithmetic, pending manuscript integration, internal AI scope, and no publication/official-version/complete-Lean/minimality/priority claims are retained.",
+    "No private research path or prior chat is required by the handoff; Python/Node standard-library requirements and TeX-only-for-PDF qualification are accurate."
+  ],
+  "limitations": [
+    "No outer MANIFEST.json binding is included: it will be created after this review is copied into the bundle.",
+    "Actual pinned clean-checkout and fresh-build execution results are checked through the bound root validation and receipts; the reviewer does not claim another fresh pipeline run.",
+    "The earlier independent full-patch application probe used an empty tree because the patch is purely additive; its scope is distinct from the root pinned-checkout validation.",
+    "This review does not establish inherited global arithmetic, independent human peer review, a complete Lean theorem, minimality or public acceptance."
+  ],
+  "fileBindings": {
+    "PR_TITLE.txt": {
+      "bytes": 62,
+      "sha256": "3ca7eaf5835d61f074409737d70830eac05e9115032a039c92267106d8a48373"
+    },
+    "PR_BODY.md": {
+      "bytes": 6566,
+      "sha256": "8d625f03513c48310ce28b5f840445f8c038e0ad64201c1985165d2926c336e3"
+    },
+    "AGENT_HANDOFF.md": {
+      "bytes": 10308,
+      "sha256": "4eabcb5156e4449ec706863fae81fc8652f79062d9c79b74f130f44b7d807735"
+    },
+    "START_HERE.md": {
+      "bytes": 4050,
+      "sha256": "4d7b636e9564218b0741d8fb37e1bf289df716f7baa9830c52bb4245cad2ac45"
+    },
+    "UPSTREAM_BASE.json": {
+      "bytes": 554,
+      "sha256": "59d8e5732bf0021e05f8799392bf496b9666073371543eeb361edc98ee954d5c"
+    },
+    "VALIDATION.json": {
+      "bytes": 2495,
+      "sha256": "d2ee62b1c5340870e99e76be4b51fe0b2bd59e4219e2e42959c2853a07c4fade"
+    },
+    "PATCH_APPLICATION.json": {
+      "bytes": 755,
+      "sha256": "fe201baea3ca5befefb09b0b84d2f16bf64b5f55d7388287c84c51093261ec80"
+    },
+    "proposed-change.patch": {
+      "bytes": 3686008,
+      "sha256": "070acc6f6ef000c478436b9bca801b5cc9170e403496302649b83976fb47b630"
+    },
+    "update-from-392.patch": {
+      "bytes": 4227668,
+      "sha256": "b2002eea250e697be649a40dd1176526d08baa037bd802d5d48e28812c6be664"
+    },
+    "verify_update_base.py": {
+      "bytes": 2324,
+      "sha256": "218c91ee3b9a1ad55eab56d14dcab6f5d8d2e77475c959e9f4f2857480d51afc"
+    },
+    "verify_bundle.py": {
+      "bytes": 1516,
+      "sha256": "3e5aea518ea8934494c6f2fb2088ecf164d7b2cc76ac1177311a15df8899de21"
+    },
+    "validation/fresh-reproduction-receipt.json": {
+      "bytes": 12573,
+      "sha256": "c3980b3f049522be4c2eda06f965f465cae648bbad40b4b5799bb5bed880e32a"
+    },
+    "validation/fresh-pipeline-completion.json": {
+      "bytes": 738,
+      "sha256": "680e7d4172b9631e967a31e3e1067fd1a80a8546b2b9ac8bae90e7a734ffc2bf"
+    },
+    "validation/fresh-diagonal-scaling-check.json": {
+      "bytes": 3114,
+      "sha256": "56d754acd0509803b45fa5b33771b2c7565461056205dabb82f67451d7dcbd92"
+    },
+    "validation/fresh-delivered-quartics-check.json": {
+      "bytes": 14739,
+      "sha256": "b4424ee56bcc23da3b203e6208c9c694d235691290ca7a5a317291adf4906978"
+    },
+    "validation/upstream-audit-history.log": {
+      "bytes": 104,
+      "sha256": "778f36f460ce8d240e0a1ba3778a09826bb515e511109eac642f89819dac0ed6"
+    },
+    "reviews/final-pr-manifest-independent-review.json": {
+      "bytes": 13739,
+      "sha256": "e78495fc509474726a04c0f1ee66beba73d78255428f5e79d7e57a3759c0563b"
+    },
+    "reviews/patch-routes-independent-check.json": {
+      "bytes": 21041,
+      "sha256": "042aad3868fd6528c54301a545500fc8466ff9329cb66d0f2334d042b454aea9"
+    },
+    "reviews/verify-update-base-independent-probes.json": {
+      "bytes": 2066,
+      "sha256": "1d9ea4844a88fcf67053756544109b5c0b00021060b3cf5cfdf900ccf988422a"
+    },
+    "payload/research/conditional-quartic-reduction/README.md": {
+      "bytes": 13054,
+      "sha256": "f0733e1e34c80534c25f3b33833cdbe69322accd50e324bbfc72e53c461d6051"
+    },
+    "payload/research/conditional-quartic-reduction/SOURCE_MANIFEST.json": {
+      "bytes": 32141,
+      "sha256": "268694a99ae9e73f99c3847270994d51b7b9861aa9e521a622c583bed95076c2"
+    },
+    "payload/research/conditional-quartic-reduction/EXPECTED_OUTPUTS.json": {
+      "bytes": 12905,
+      "sha256": "982533489878025cf90d7fb5307fe4a8a1af050a095ce2da8de91843a5f896dc"
+    },
+    "payload/research/conditional-quartic-reduction/PR_DEPENDENCIES.md": {
+      "bytes": 58237,
+      "sha256": "08d91f384f10c423af0df12ad9567e2159eda67541c2012850998d23a8f33501"
+    },
+    "payload/research/conditional-quartic-reduction/pr_dependency_inventory.json": {
+      "bytes": 90827,
+      "sha256": "f7566dc37f90983001d5e63732cfa30dbff431c0b2b177a3e56faeba9aa83508"
+    },
+    "payload/research/conditional-quartic-reduction/PROVENANCE.json": {
+      "bytes": 5431,
+      "sha256": "6c5040460616308b1f347e7ab2a28d0e1a059ea5fe031860283b2f023bddd1d8"
+    },
+    "payload/research/conditional-quartic-reduction/reproduce.py": {
+      "bytes": 12653,
+      "sha256": "a660293cc6fa97a55d8d3635645f666fd1c6b52d96276ec768b4a3faedecc3ae"
+    },
+    "payload/research/conditional-quartic-reduction/construction/reproduce.py": {
+      "bytes": 6204,
+      "sha256": "1ab289dccfb5c2ce671548ee0fdb0485047adadac6e0639798800163126fde0a"
+    },
+    "payload/research/conditional-quartic-reduction/proofs/detector_round8.tex": {
+      "bytes": 9344,
+      "sha256": "150b79708b8088d1c75641571277eecf452fe72b7c729cc4fe783e4da76b83bb"
+    },
+    "payload/research/conditional-quartic-reduction/proofs/arithmetic_round8.tex": {
+      "bytes": 15729,
+      "sha256": "826523050c2f0d315561ae064124b420862ff09eeafaa63437e0339ce7c22f7b"
+    },
+    "payload/research/conditional-quartic-reduction/proofs/diagonal_scaling_round8.tex": {
+      "bytes": 6521,
+      "sha256": "0115c276febf3b06b46462d06aa862714456f78790e5ec6bd68ac938db8b2e50"
+    },
+    "payload/research/conditional-quartic-reduction/proposal_note.pdf": {
+      "bytes": 342518,
+      "sha256": "07149927ad5abf1b0e1617f607023d72d4f07e19dad0b594829b0ea607442f00"
+    },
+    "payload/research/conditional-quartic-reduction/tables/quartic-389-balanced-decimal.txt": {
+      "bytes": 1050826,
+      "sha256": "1c612d20915667dfd81a7895f8d93231d5efeaf86ecfaa15194408d298d35573"
+    }
+  },
+  "writtenReview": {
+    "name": "documentation-final-review.txt",
+    "bytes": 6860,
+    "sha256": "ab10713429b5e9bf95747cc35a10f9411d79ab0e2bc83487366fa46af0b90b4b"
+  }
+}

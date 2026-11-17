@@ -1,0 +1,66 @@
+{
+  "format": "glazer-draft-pr-validation-v2",
+  "status": "PASS",
+  "upstreamCommit": "036cebe4f1a4aa7ca89820a9b48f3629b4c364d6",
+  "selected": {
+    "coordinates": 389,
+    "residuals": 357,
+    "degree": 4,
+    "monomials": 26295,
+    "integerContent": 1,
+    "inputFourthPowerCoefficient": "1",
+    "maximumCoefficientDigits": 757,
+    "maximumCoefficientBits": 2513,
+    "scaledCoordinates": 13,
+    "ternaryScaledCoordinates": 12,
+    "dyadicScaledCoordinates": 2,
+    "anchorExponent": 2364,
+    "cExponent": 394,
+    "tableSha256": "1c612d20915667dfd81a7895f8d93231d5efeaf86ecfaa15194408d298d35573",
+    "tableBytes": 1050826,
+    "certificateSha256": "82f4e4a0b3c86eacbeded815f97ef0e46df3a553c82e9d8243ef671788ca0b24"
+  },
+  "patches": {
+    "proposed-change.patch": {
+      "bytes": 3686008,
+      "sha256": "070acc6f6ef000c478436b9bca801b5cc9170e403496302649b83976fb47b630"
+    },
+    "update-from-392.patch": {
+      "bytes": 4227668,
+      "sha256": "b2002eea250e697be649a40dd1176526d08baa037bd802d5d48e28812c6be664"
+    }
+  },
+  "patchApplicationReport": "PATCH_APPLICATION.json",
+  "application": {
+    "fullPatchAppliedToPinnedCleanWorktree": true,
+    "incrementalPatchAppliedToExactPrior112FileOverlay": true,
+    "identicalCurrentPayloadFiles": 156
+  },
+  "freshBuild": {
+    "receipt": "validation/fresh-reproduction-receipt.json",
+    "receiptSha256": "c3980b3f049522be4c2eda06f965f465cae648bbad40b4b5799bb5bed880e32a",
+    "pipelineStages": 23,
+    "boundSourceFiles": 155,
+    "buildInputs": 34,
+    "deterministicArtifactsCompared": 54,
+    "successfulAuditReports": 15,
+    "sourceFilesUnchanged": true,
+    "workingInputFilesUnchanged": true,
+    "stdoutCompletionMarkerPresent": true
+  },
+  "upstreamAuditHistory": {
+    "status": "PASS",
+    "historicalDispositions": 9,
+    "log": "validation/upstream-audit-history.log",
+    "trackedUpstreamFilesChanged": 0
+  },
+  "proofNote": {
+    "pages": 14,
+    "pdfSha256": "07149927ad5abf1b0e1617f607023d72d4f07e19dad0b594829b0ea607442f00",
+    "latexWarnings": 0,
+    "allPagesVisuallyInspected": true
+  },
+  "independentFinalManifestReview": "reviews/final-pr-manifest-independent-review.json",
+  "scope": "Finite exact construction and patch/reproduction checks plus separate internal AI proof reviews. Inherited global arithmetic remains conditional. No human peer review, completed Lean proof, minimality or official release acceptance is asserted.",
+  "publication": "No public PR, push, message, merge or release."
+}

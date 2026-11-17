@@ -1,0 +1,436 @@
+{
+  "status": "PASS",
+  "scope": "Independent full exact SOS/table/constant-chain/direct-specialization audit, source grouping reconstruction, parameter binding, and portable-script inspection. The inherited global arithmetic remains conditional on the separate reviewed proof inputs.",
+  "builderSha256": "b4bf6af38a7620a5b6a572039da4fcb22cd6f4ce006c439d89588c1259231f3b",
+  "rawIrSha256": "1095bc2ea475835b942606c21440d3b44492918aabd6554637a3c413c7b338b6",
+  "parameterBinding": {
+    "expectedExponent": 2364,
+    "expectedValue": "3^2364",
+    "sourceAndIntermediateMetadataChecked": [
+      "raw-ir.json",
+      "raw-translated-ir.json",
+      "compiled/compiled-ir.json",
+      "final/source-ir.json",
+      "final/candidate-ir.json",
+      "final/integer-candidate-ir.json",
+      "final/polynomial/compiled-ir.json",
+      "compiled/polynomial.json",
+      "final/polynomial/polynomial.json"
+    ],
+    "specializationSignCertificatesUseExpectedExponent": true
+  },
+  "anchorTranslation": {
+    "identity": "translated row = 16 * old row after stated affine substitution",
+    "determinant": "1/64",
+    "verified": true
+  },
+  "protectedInterface": {
+    "inputId": 0,
+    "inputProtected": true,
+    "protectedCoordinates": [
+      "inputProduct.quadratic",
+      "heightProduct.scale0.quadratic",
+      "anchor.physicalA.quadratic"
+    ],
+    "inputProduct": "Y=X^2+X; X^2=Y-X",
+    "maximumDegreeWithSAsCoordinate": 2,
+    "differenceGuards": 0,
+    "detectorTraceGuards": 0
+  },
+  "actualDetectorSource": {
+    "status": "PASS",
+    "sourceAssertions": 384,
+    "abstractUniformPairIdentities": 2,
+    "abstractLaurentIdentities": 7,
+    "expectedHighOrder": 45,
+    "expectedAnchor": "3^2364",
+    "actualGroups": {
+      "uniformPairOrders": [
+        12,
+        12
+      ],
+      "order1Blocks": [
+        4,
+        4
+      ],
+      "order45Blocks": [
+        3,
+        3
+      ]
+    },
+    "checkerSha256": "879b8585f4c4df31a69fc1f77b6a68e3340407c7c47a96e3db6df80e8611e949",
+    "builderBindingMatches": true,
+    "rawIrBindingMatches": true,
+    "scope": "Exact G12/G2 source polynomials and consumers, including independently generated completion coefficients, primary inverse-root test aliases with U_A strengthened to order12, uniform order12 pair reusing the stored q12 square, orders1/12/high, all product circuits and seven-node weight powers with actual common subexpression reuse and no stored e or delta cube, affine guard98t-1, shorter positive square scale and norm consumers. Uniform local/completeness proofs are separate; inherited global arithmetic not verified."
+  },
+  "scriptAudit": {
+    "portable": true,
+    "runtimeRequirements": [
+      "Python 3 standard library",
+      "Node.js standard library"
+    ],
+    "externalNetworkRequired": false,
+    "atomicTextAndDirectSpecializationPublication": true,
+    "completionRecordScope": "The outer wrapper verifies structured completion after the final audit stage.",
+    "scripts": [
+      {
+        "path": "construction/builder.cjs",
+        "sha256": "b4bf6af38a7620a5b6a572039da4fcb22cd6f4ce006c439d89588c1259231f3b"
+      },
+      {
+        "path": "construction/finish_tables.py",
+        "sha256": "f5b422ce97e5c9f99e1fd7b47ff5df797929873498cc6db852a4fb1571ad24eb"
+      },
+      {
+        "path": "construction/verify_package.py",
+        "sha256": "98b349d31773b0c993c1e4f94977cd7721a61de01a5ba93ec40e6b26ebe543c4"
+      },
+      {
+        "path": "construction/check_final.cjs",
+        "sha256": "a01dabf50a7b882bb1fe99a157ce2228dba21153ea195a130b0dbdb259aa996c"
+      },
+      {
+        "path": "construction/write_tables_text.py",
+        "sha256": "171aca43a9710e03c9f9ce35cd9c228a3bf142833c2f344705e8c9f59e08a631"
+      },
+      {
+        "path": "construction/specialize_core.py",
+        "sha256": "1a0d86e5cd7d098d1a9c5d0c1f5f8fa2a0d5bbb070901b122881b9fbd5d8c027"
+      },
+      {
+        "path": "construction/tools/compile_ir.py",
+        "sha256": "45d5df9546e1f39b61d064d4204a0b41469b5a18134281b7e439f5faab62f28a"
+      },
+      {
+        "path": "construction/tools/checker.cjs",
+        "sha256": "dc0e394b2fa758dfd9af2d6ee56f18907a5acdd9d659f9883acdffe1ec173de4"
+      },
+      {
+        "path": "construction/tools/run_pipeline.py",
+        "sha256": "591def4c716d3bff456bf83ef3511840377bea02bf4e94f52017914b013c5a8c"
+      },
+      {
+        "path": "construction/tools/modulo_search.py",
+        "sha256": "63380ce9300bf8c97bda58beb62a7ae7536dd1cde61a45a00cdff772c8968d57"
+      },
+      {
+        "path": "construction/tools/affine_search.py",
+        "sha256": "d122f8fa2628d57925397025e54463a1ea9bbf92440ff5e08779aa7f77be4682"
+      },
+      {
+        "path": "construction/tools/search.py",
+        "sha256": "982959296b369b98ed370f73b460e906966c282654acd27e0d5b913c50082a03"
+      },
+      {
+        "path": "construction/tools/verify.py",
+        "sha256": "13c4190c50867573d470d7f4efb4e25dacf49872c3f0c9c23acf8404da840a48"
+      },
+      {
+        "path": "construction/tools/verify_elimination.py",
+        "sha256": "ea67ec8575c8b4fbea0cd5ccffc60165263537f53d6b12febc99d7d4f974785e"
+      },
+      {
+        "path": "construction/reproduce.py",
+        "sha256": "1ab289dccfb5c2ce671548ee0fdb0485047adadac6e0639798800163126fde0a"
+      },
+      {
+        "path": "audit/check_arithmetic_round7.py",
+        "sha256": "4b8a97dd36a8e7177f308b273333093fdcb7d7720d1e6f3c405f8d6c231d6015"
+      },
+      {
+        "path": "audit/check_arithmetic_round8.py",
+        "sha256": "29b4a833cc5f7503423ff507d6eed5fed4f8f54b244cdf3bc82aafce0451703a"
+      },
+      {
+        "path": "audit/check_arithmetic_round8_independent.py",
+        "sha256": "169abbf21283b4c05c6e376a446d881241a6ae55f1d0e138ba4197a03d03a330"
+      },
+      {
+        "path": "audit/check_delivered_quartics_round7.py",
+        "sha256": "26fbc8f2e1e8f1e71df9f8f6ccd3cea03fade1de4936232722ae4e4aab595004"
+      },
+      {
+        "path": "audit/check_delivered_quartics_round8.py",
+        "sha256": "481587f5d3c6c490a2981e0413a392eebf99e4eae73592728f17579d778d5452"
+      },
+      {
+        "path": "audit/check_detector_independent.py",
+        "sha256": "a1f46fa3f3a65ffe3cb06f80e087f87666d93f1d3ec2db298d06391b69d889f2"
+      },
+      {
+        "path": "audit/check_detector_promotion_independent.py",
+        "sha256": "b22c88d2cdec10d0eeef157b5d3a2b5e889ed223f3782d7095c1dfa193c28aca"
+      },
+      {
+        "path": "audit/check_detector_source.py",
+        "sha256": "879b8585f4c4df31a69fc1f77b6a68e3340407c7c47a96e3db6df80e8611e949"
+      },
+      {
+        "path": "audit/check_diagonal_scaling.py",
+        "sha256": "506da8992d048bc16f5df0a1cde9226201dff9d8169d2d0bbc92b12d10cd4f64"
+      },
+      {
+        "path": "audit/check_geometry_round7.py",
+        "sha256": "9fe327499537b10914fb560e8073dfed75d5231c991de2ebf49a70e1631acd0d"
+      },
+      {
+        "path": "audit/check_integrated_bridges.py",
+        "sha256": "31a3d7aeb2c054118ee2498d82038813ba5509aa60b1e37f6b4c2b6379f05c20"
+      },
+      {
+        "path": "audit/check_parameter_binding.py",
+        "sha256": "1c9e2e1d02b6aedbb36ece42edc198f9b990d508f61a93ebd2a5c7d008415440"
+      },
+      {
+        "path": "audit/check_scalar_independent.py",
+        "sha256": "c8d5568301e063ef0f7938f8218f04d5b4215419976f3f919e3ce5bdd47ada0c"
+      },
+      {
+        "path": "audit/check_scalar_second_review.py",
+        "sha256": "0150ca83b9e0c6a2ffc48be72936f705bbfda69343ffe3f54e17e6ae8248bb2a"
+      },
+      {
+        "path": "audit/check_scaled_chains_independent.py",
+        "sha256": "c5b6c0de2d40cef39a53c0cc15bd0f358cfd614fca8dd2d2cb916dfb20b7505b"
+      }
+    ]
+  },
+  "auditReportBindings": [
+    {
+      "name": "detector-independent-check.json",
+      "sha256": "e91f530ef6d0fd5f6f1cc0bc28e6beb7fdbc869cc8a59fdbd0df111191a870bc",
+      "builderBindingMatches": true,
+      "rawIrBindingChecked": true
+    },
+    {
+      "name": "geometry-check.json",
+      "sha256": "e70ee67ea8d2512402e160a9fdb5b03b3df249c9325bcd583087dea257f81627",
+      "builderBindingMatches": true,
+      "rawIrBindingChecked": true
+    },
+    {
+      "name": "scalar-independent-check.json",
+      "sha256": "ed71ab6c524b9153c93679a502c3bec086308eae270ba434c1f31c066829b97c",
+      "builderBindingMatches": true,
+      "rawIrBindingChecked": true
+    },
+    {
+      "name": "arithmetic-check.json",
+      "sha256": "9f0950dcbd02535b1aa0338d864bdbec77e6f8ca8a302df6872acd6187d720bc",
+      "builderBindingMatches": true,
+      "rawIrBindingChecked": true
+    },
+    {
+      "name": "arithmetic-independent-check.json",
+      "sha256": "623a6c1b4341a09fe558f5a9fb7e5b85f40f0745e6239144e0fb79353cd24cb1",
+      "builderBindingMatches": true,
+      "rawIrBindingChecked": true
+    },
+    {
+      "name": "scalar-second-review-check.json",
+      "sha256": "658bd1e430a784e87959f25fedd3b07aae4b549e5c5d77a00f6cf638e247bab6",
+      "builderBindingMatches": true,
+      "rawIrBindingChecked": true
+    },
+    {
+      "name": "scaled-chain-independent-check.json",
+      "sha256": "13cc6d278de015134abbbd7d7bc4bd60c90cd85f0a413a4f2a2844fae03d4d6c",
+      "builderBindingMatches": true,
+      "rawIrBindingChecked": true
+    },
+    {
+      "name": "integrated-bridge-check.json",
+      "sha256": "1f320bda1da61553434cd13b8780b157f88531c71f8747329fdafa993ac59377",
+      "builderBindingMatches": true,
+      "rawIrBindingChecked": true
+    }
+  ],
+  "symbolic": {
+    "coordinates": 389,
+    "residuals": 357,
+    "degree": 4,
+    "monomials": 26295,
+    "formalCoefficientTerms": 26299,
+    "content": 1,
+    "contentWitness": "coefficient of x0^4 equals 1",
+    "maximum": {
+      "monomial": [
+        228,
+        228
+      ],
+      "coefficientBySPower": {
+        "2": "40532396646334464",
+        "0": "1"
+      },
+      "dominanceAtFixedSVerified": true
+    },
+    "sourceIrSha256": "1e9071816ccb40d562545be08f21ccac76813a64796173d155d0d3ae7dbebb50",
+    "compiledIrSha256": "ce3ee236e1d177526458d9e9cc40a0251718f320962fbe7ec05bb9707157ea56",
+    "polynomialSha256": "2c74a46ad382da8b616eaf0990de088094fb662a389a60686a2db8312c697854",
+    "textTable": {
+      "rows": 26295,
+      "bytes": 1017229,
+      "sha256": "ccb5bd16f2e8751a70fcaedec33f265cd990ee047c08f6b031484c47b79589bf",
+      "allCoefficientsCompared": true
+    }
+  },
+  "directDecimal": {
+    "specialization": {
+      "fixedValue": "3^2364",
+      "fixedValueDecimalDigits": 1128,
+      "allResidualsExactlyEvaluated": true,
+      "allSosCoefficientsExactlyEvaluated": true,
+      "additionalCoordinates": 0,
+      "residualRenormalization": false,
+      "coordinateMapUnchanged": true
+    },
+    "table": {
+      "coordinates": 389,
+      "residuals": 357,
+      "degree": 4,
+      "monomials": 26295,
+      "formalCoefficientTerms": 26295,
+      "content": 1,
+      "contentWitness": "coefficient of x0^4 equals 1",
+      "maximum": {
+        "bits": 7549,
+        "decimalDigits": 2273
+      },
+      "sourceIrSha256": "71c6cb54caa681f5d057b42b95ce6340de6e4626bc6dfb00763739fb90944b64",
+      "compiledIrSha256": "71c6cb54caa681f5d057b42b95ce6340de6e4626bc6dfb00763739fb90944b64",
+      "polynomialSha256": "33d3613ca16f9df34267eb3bc3bcfe9e28288b680e397b5ef3f31ed461e0d90e",
+      "textTable": {
+        "rows": 26295,
+        "bytes": 1050964,
+        "sha256": "6ac59987b9beb1c1e0d6a30b18ba938510e1e6f85ec903a1ea04120507030738",
+        "allCoefficientsCompared": true
+      }
+    }
+  },
+  "ordinary": {
+    "391": {
+      "chain": {
+        "coefficientExponents": [
+          788,
+          788
+        ],
+        "targetExponent": 2364,
+        "coordinateExponents": [
+          788,
+          2364
+        ],
+        "coordinatesAdded": 2,
+        "uniqueExtension": true,
+        "lastValue": "3^2364",
+        "allOldRowsExactlySpecialized": true
+      },
+      "table": {
+        "coordinates": 391,
+        "residuals": 359,
+        "degree": 4,
+        "monomials": 26304,
+        "formalCoefficientTerms": 26304,
+        "content": 1,
+        "contentWitness": "coefficient of x0^4 equals 1",
+        "maximum": {
+          "bits": 2498,
+          "decimalDigits": 752
+        },
+        "sourceIrSha256": "48576c3792afa653399b5c6054946f29fda652b87b1dd97749e5186c2675eb6a",
+        "compiledIrSha256": "ea6b74cf4c349226122de58cf6d629f374fe58502b95a50cab0d67e817b5c26d",
+        "polynomialSha256": "19e0b52b357371f1a828d399d531c0c4c60c42114b83b09a7442c128750eccf1",
+        "textTable": {
+          "rows": 26304,
+          "bytes": 1019640,
+          "sha256": "b8403757b0530d8190b7e49806b924a62c4f864e07d4c76a48297d660eb0c339",
+          "allCoefficientsCompared": true
+        }
+      }
+    },
+    "392": {
+      "chain": {
+        "coefficientExponents": [
+          338,
+          338,
+          336
+        ],
+        "targetExponent": 2364,
+        "coordinateExponents": [
+          338,
+          1014,
+          2364
+        ],
+        "coordinatesAdded": 3,
+        "uniqueExtension": true,
+        "lastValue": "3^2364",
+        "allOldRowsExactlySpecialized": true
+      },
+      "table": {
+        "coordinates": 392,
+        "residuals": 360,
+        "degree": 4,
+        "monomials": 26307,
+        "formalCoefficientTerms": 26307,
+        "content": 1,
+        "contentWitness": "coefficient of x0^4 equals 1",
+        "maximum": {
+          "bits": 1072,
+          "decimalDigits": 323
+        },
+        "sourceIrSha256": "40877a10a9e057fbf1d3f95d2515981a62bdea71380ebe85e51722dfbca53564",
+        "compiledIrSha256": "4324afc27cd6fdc286420d4f598c39447ab3fdf162bca09ca9a71993cbebcf15",
+        "polynomialSha256": "cb704c5fbb0b514b6dfd74c7e64f8fe4074d7a9177657a974a46968c9e1934c5",
+        "textTable": {
+          "rows": 26307,
+          "bytes": 1018884,
+          "sha256": "541cacbae2e6423d3bc6d454e1b383f416bf624c5bf113a63712f3a088b3c3af",
+          "allCoefficientsCompared": true
+        }
+      }
+    },
+    "393": {
+      "chain": {
+        "coefficientExponents": [
+          158,
+          158,
+          158,
+          152
+        ],
+        "targetExponent": 2364,
+        "coordinateExponents": [
+          158,
+          474,
+          1106,
+          2364
+        ],
+        "coordinatesAdded": 4,
+        "uniqueExtension": true,
+        "lastValue": "3^2364",
+        "allOldRowsExactlySpecialized": true
+      },
+      "table": {
+        "coordinates": 393,
+        "residuals": 361,
+        "degree": 4,
+        "monomials": 26310,
+        "formalCoefficientTerms": 26310,
+        "content": 1,
+        "contentWitness": "coefficient of x0^4 equals 1",
+        "maximum": {
+          "bits": 501,
+          "decimalDigits": 151
+        },
+        "sourceIrSha256": "d4021e76dbd5c31ad85869e2f5534d8fea442f712d0eecebffeddfb1aaa66ef8",
+        "compiledIrSha256": "5c271acfccd6f94280b1adf9c70dbb2e9a243bc1ce705e485505272c7378d093",
+        "polynomialSha256": "e4157d0e0912bcd0904d8371163c678616c00ba0e85333d0762cc0074962dd61",
+        "textTable": {
+          "rows": 26310,
+          "bytes": 1018382,
+          "sha256": "5a8d42a4dffc84ea93fde518b369101b499f13dcaf497e3fece77f92d7619d69",
+          "allCoefficientsCompared": true
+        }
+      }
+    }
+  },
+  "checkerSha256": "481587f5d3c6c490a2981e0413a392eebf99e4eae73592728f17579d778d5452"
+}

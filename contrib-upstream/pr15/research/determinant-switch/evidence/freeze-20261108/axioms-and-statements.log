@@ -1,0 +1,960 @@
+def Research.DerivativeSwitch.AxesKernel.{u_1, u_2, u_3, u_4} : {K : Type u_1} →
+  {F : Type u_2} →
+    {S : Type u_3} →
+      {H : Type u_4} →
+        [inst : Field.{u_1} K] →
+          [inst_1 : AddCommGroup.{u_2} F] →
+            [inst_2 :
+                @Module.{u_1, u_2} K F
+                  (@CommSemiring.toSemiring.{u_1} K
+                    (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                  (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1)] →
+              [inst_3 : AddCommGroup.{u_3} S] →
+                [inst_4 :
+                    @Module.{u_1, u_3} K S
+                      (@CommSemiring.toSemiring.{u_1} K
+                        (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                      (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3)] →
+                  [inst_5 : AddCommGroup.{u_4} H] →
+                    [inst_6 :
+                        @Module.{u_1, u_4} K H
+                          (@CommSemiring.toSemiring.{u_1} K
+                            (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                          (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5)] →
+                      @LinearMap.{u_1, u_1, u_2, u_4} K K
+                          (@CommSemiring.toSemiring.{u_1} K
+                            (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                          (@CommSemiring.toSemiring.{u_1} K
+                            (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                          (@RingHom.id.{u_1} K
+                            (@Semiring.toNonAssocSemiring.{u_1} K
+                              (@CommSemiring.toSemiring.{u_1} K
+                                (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+                          F H (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1)
+                          (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5) inst_2 inst_6 →
+                        @LinearMap.{u_1, u_1, u_3, u_4} K K
+                            (@CommSemiring.toSemiring.{u_1} K
+                              (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                            (@CommSemiring.toSemiring.{u_1} K
+                              (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                            (@RingHom.id.{u_1} K
+                              (@Semiring.toNonAssocSemiring.{u_1} K
+                                (@CommSemiring.toSemiring.{u_1} K
+                                  (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+                            S H (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3)
+                            (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5) inst_4 inst_6 →
+                          @LinearEquiv.{u_1, u_1, u_2, u_3} K K
+                              (@CommSemiring.toSemiring.{u_1} K
+                                (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                              (@CommSemiring.toSemiring.{u_1} K
+                                (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                              (@RingHom.id.{u_1} K
+                                (@Semiring.toNonAssocSemiring.{u_1} K
+                                  (@CommSemiring.toSemiring.{u_1} K
+                                    (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+                              (@RingHom.id.{u_1} K
+                                (@Semiring.toNonAssocSemiring.{u_1} K
+                                  (@CommSemiring.toSemiring.{u_1} K
+                                    (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+                              ⋯ ⋯ F S (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1)
+                              (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3) inst_2 inst_4 →
+                            F → Prop :=
+fun {K} {F} {S} {H} [inst : Field.{u_1} K] [inst_1 : AddCommGroup.{u_2} F]
+    [inst_2 :
+      @Module.{u_1, u_2} K F
+        (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+        (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1)]
+    [inst_3 : AddCommGroup.{u_3} S]
+    [inst_4 :
+      @Module.{u_1, u_3} K S
+        (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+        (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3)]
+    [inst_5 : AddCommGroup.{u_4} H]
+    [inst_6 :
+      @Module.{u_1, u_4} K H
+        (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+        (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5)]
+    dF dS J v =>
+  ∀ (x : F) (y : S),
+    Iff
+      (@Eq.{u_4 + 1} H
+        (@HAdd.hAdd.{u_4, u_4, u_4} H H H
+          (@instHAdd.{u_4} H
+            (@AddCommMagma.toAdd.{u_4} H
+              (@AddCommSemigroup.toAddCommMagma.{u_4} H
+                (@AddCommMonoid.toAddCommSemigroup.{u_4} H (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5)))))
+          (@DFunLike.coe.{max (u_2 + 1) (u_4 + 1), u_2 + 1, u_4 + 1}
+            (@LinearMap.{u_1, u_1, u_2, u_4} K K
+              (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+              (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+              (@RingHom.id.{u_1} K
+                (@Semiring.toNonAssocSemiring.{u_1} K
+                  (@CommSemiring.toSemiring.{u_1} K
+                    (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+              F H (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1) (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5) inst_2
+              inst_6)
+            F (fun x => H)
+            (@LinearMap.instFunLike.{u_1, u_1, u_2, u_4} K K F H
+              (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+              (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+              (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1) (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5) inst_2
+              inst_6
+              (@RingHom.id.{u_1} K
+                (@Semiring.toNonAssocSemiring.{u_1} K
+                  (@CommSemiring.toSemiring.{u_1} K
+                    (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst))))))
+            dF x)
+          (@DFunLike.coe.{max (u_3 + 1) (u_4 + 1), u_3 + 1, u_4 + 1}
+            (@LinearMap.{u_1, u_1, u_3, u_4} K K
+              (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+              (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+              (@RingHom.id.{u_1} K
+                (@Semiring.toNonAssocSemiring.{u_1} K
+                  (@CommSemiring.toSemiring.{u_1} K
+                    (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+              S H (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3) (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5) inst_4
+              inst_6)
+            S (fun x => H)
+            (@LinearMap.instFunLike.{u_1, u_1, u_3, u_4} K K S H
+              (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+              (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+              (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3) (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5) inst_4
+              inst_6
+              (@RingHom.id.{u_1} K
+                (@Semiring.toNonAssocSemiring.{u_1} K
+                  (@CommSemiring.toSemiring.{u_1} K
+                    (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst))))))
+            dS y))
+        (@OfNat.ofNat.{u_4} H (nat_lit 0)
+          (@Zero.toOfNat0.{u_4} H
+            (@NegZeroClass.toZero.{u_4} H
+              (@SubNegZeroMonoid.toNegZeroClass.{u_4} H
+                (@SubtractionMonoid.toSubNegZeroMonoid.{u_4} H
+                  (@SubtractionCommMonoid.toSubtractionMonoid.{u_4} H
+                    (@AddCommGroup.toDivisionAddCommMonoid.{u_4} H inst_5))))))))
+      (∃ a b,
+        And
+          (@Eq.{u_2 + 1} F x
+            (@HSMul.hSMul.{u_1, u_2, u_2} K F F
+              (@instHSMul.{u_1, u_2} K F
+                (@SMulZeroClass.toSMul.{u_1, u_2} K F
+                  (@AddZero.toZero.{u_2} F
+                    (@AddZeroClass.toAddZero.{u_2} F
+                      (@AddMonoid.toAddZeroClass.{u_2} F
+                        (@SubNegMonoid.toAddMonoid.{u_2} F
+                          (@AddGroup.toSubNegMonoid.{u_2} F (@AddCommGroup.toAddGroup.{u_2} F inst_1))))))
+                  (@DistribSMul.toSMulZeroClass.{u_1, u_2} K F
+                    (@AddMonoid.toAddZeroClass.{u_2} F
+                      (@SubNegMonoid.toAddMonoid.{u_2} F
+                        (@AddGroup.toSubNegMonoid.{u_2} F (@AddCommGroup.toAddGroup.{u_2} F inst_1))))
+                    (@DistribMulAction.toDistribSMul.{u_1, u_2} K F
+                      (@Semiring.toMonoid.{u_1} K
+                        (@CommSemiring.toSemiring.{u_1} K
+                          (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst))))
+                      (@SubNegMonoid.toAddMonoid.{u_2} F
+                        (@AddGroup.toSubNegMonoid.{u_2} F (@AddCommGroup.toAddGroup.{u_2} F inst_1)))
+                      (@Module.toDistribMulAction.{u_1, u_2} K F
+                        (@CommSemiring.toSemiring.{u_1} K
+                          (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                        (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1) inst_2)))))
+              a v))
+          (@Eq.{u_3 + 1} S y
+            (@HSMul.hSMul.{u_1, u_3, u_3} K S S
+              (@instHSMul.{u_1, u_3} K S
+                (@SMulZeroClass.toSMul.{u_1, u_3} K S
+                  (@AddZero.toZero.{u_3} S
+                    (@AddZeroClass.toAddZero.{u_3} S
+                      (@AddMonoid.toAddZeroClass.{u_3} S
+                        (@SubNegMonoid.toAddMonoid.{u_3} S
+                          (@AddGroup.toSubNegMonoid.{u_3} S (@AddCommGroup.toAddGroup.{u_3} S inst_3))))))
+                  (@DistribSMul.toSMulZeroClass.{u_1, u_3} K S
+                    (@AddMonoid.toAddZeroClass.{u_3} S
+                      (@SubNegMonoid.toAddMonoid.{u_3} S
+                        (@AddGroup.toSubNegMonoid.{u_3} S (@AddCommGroup.toAddGroup.{u_3} S inst_3))))
+                    (@DistribMulAction.toDistribSMul.{u_1, u_3} K S
+                      (@Semiring.toMonoid.{u_1} K
+                        (@CommSemiring.toSemiring.{u_1} K
+                          (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst))))
+                      (@SubNegMonoid.toAddMonoid.{u_3} S
+                        (@AddGroup.toSubNegMonoid.{u_3} S (@AddCommGroup.toAddGroup.{u_3} S inst_3)))
+                      (@Module.toDistribMulAction.{u_1, u_3} K S
+                        (@CommSemiring.toSemiring.{u_1} K
+                          (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                        (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3) inst_4)))))
+              b
+              (@DFunLike.coe.{max (u_2 + 1) (u_3 + 1), u_2 + 1, u_3 + 1}
+                (@LinearEquiv.{u_1, u_1, u_2, u_3} K K
+                  (@CommSemiring.toSemiring.{u_1} K
+                    (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                  (@CommSemiring.toSemiring.{u_1} K
+                    (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                  (@RingHom.id.{u_1} K
+                    (@Semiring.toNonAssocSemiring.{u_1} K
+                      (@CommSemiring.toSemiring.{u_1} K
+                        (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+                  (@RingHom.id.{u_1} K
+                    (@Semiring.toNonAssocSemiring.{u_1} K
+                      (@CommSemiring.toSemiring.{u_1} K
+                        (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+                  ⋯ ⋯ F S (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1) (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3)
+                  inst_2 inst_4)
+                F (fun x => S)
+                (@EquivLike.toFunLike.{max (u_2 + 1) (u_3 + 1), u_2 + 1, u_3 + 1}
+                  (@LinearEquiv.{u_1, u_1, u_2, u_3} K K
+                    (@CommSemiring.toSemiring.{u_1} K
+                      (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                    (@CommSemiring.toSemiring.{u_1} K
+                      (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                    (@RingHom.id.{u_1} K
+                      (@Semiring.toNonAssocSemiring.{u_1} K
+                        (@CommSemiring.toSemiring.{u_1} K
+                          (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+                    (@RingHom.id.{u_1} K
+                      (@Semiring.toNonAssocSemiring.{u_1} K
+                        (@CommSemiring.toSemiring.{u_1} K
+                          (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+                    ⋯ ⋯ F S (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1)
+                    (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3) inst_2 inst_4)
+                  F S
+                  (@LinearEquiv.instEquivLike.{u_1, u_1, u_2, u_3} K K F S
+                    (@CommSemiring.toSemiring.{u_1} K
+                      (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                    (@CommSemiring.toSemiring.{u_1} K
+                      (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                    (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1) (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3) inst_2
+                    inst_4
+                    (@RingHom.id.{u_1} K
+                      (@Semiring.toNonAssocSemiring.{u_1} K
+                        (@CommSemiring.toSemiring.{u_1} K
+                          (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+                    (@RingHom.id.{u_1} K
+                      (@Semiring.toNonAssocSemiring.{u_1} K
+                        (@CommSemiring.toSemiring.{u_1} K
+                          (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+                    ⋯ ⋯))
+                J v))))
+def Research.DerivativeSwitch.Volume.area.{u_1} : {R : Type u_1} →
+  [CommRing.{u_1} R] → Prod.{u_1, u_1} R R → Prod.{u_1, u_1} R R → R :=
+fun {R} [inst : CommRing.{u_1} R] v w =>
+  @HSub.hSub.{u_1, u_1, u_1} R R R
+    (@instHSub.{u_1} R
+      (@SubNegMonoid.toSub.{u_1} R
+        (@AddGroup.toSubNegMonoid.{u_1} R
+          (@AddGroupWithOne.toAddGroup.{u_1} R (@Ring.toAddGroupWithOne.{u_1} R (@CommRing.toRing.{u_1} R inst))))))
+    (@HMul.hMul.{u_1, u_1, u_1} R R R
+      (@instHMul.{u_1} R
+        (@Distrib.toMul.{u_1} R
+          (@instDistribOfSemiring.{u_1} R (@CommSemiring.toSemiring.{u_1} R (@CommRing.toCommSemiring.{u_1} R inst)))))
+      (@Prod.fst.{u_1, u_1} R R v) (@Prod.snd.{u_1, u_1} R R w))
+    (@HMul.hMul.{u_1, u_1, u_1} R R R
+      (@instHMul.{u_1} R
+        (@Distrib.toMul.{u_1} R
+          (@instDistribOfSemiring.{u_1} R (@CommSemiring.toSemiring.{u_1} R (@CommRing.toCommSemiring.{u_1} R inst)))))
+      (@Prod.snd.{u_1, u_1} R R v) (@Prod.fst.{u_1, u_1} R R w))
+def Research.DerivativeSwitch.Volume.action.{u_1} : {R : Type u_1} →
+  [CommRing.{u_1} R] → R → R → R → R → Prod.{u_1, u_1} R R → Prod.{u_1, u_1} R R :=
+fun {R} [inst : CommRing.{u_1} R] a b c d v =>
+  @Prod.mk.{u_1, u_1} R R
+    (@HAdd.hAdd.{u_1, u_1, u_1} R R R
+      (@instHAdd.{u_1} R
+        (@Distrib.toAdd.{u_1} R
+          (@instDistribOfSemiring.{u_1} R (@CommSemiring.toSemiring.{u_1} R (@CommRing.toCommSemiring.{u_1} R inst)))))
+      (@HMul.hMul.{u_1, u_1, u_1} R R R
+        (@instHMul.{u_1} R
+          (@Distrib.toMul.{u_1} R
+            (@instDistribOfSemiring.{u_1} R
+              (@CommSemiring.toSemiring.{u_1} R (@CommRing.toCommSemiring.{u_1} R inst)))))
+        a (@Prod.fst.{u_1, u_1} R R v))
+      (@HMul.hMul.{u_1, u_1, u_1} R R R
+        (@instHMul.{u_1} R
+          (@Distrib.toMul.{u_1} R
+            (@instDistribOfSemiring.{u_1} R
+              (@CommSemiring.toSemiring.{u_1} R (@CommRing.toCommSemiring.{u_1} R inst)))))
+        b (@Prod.snd.{u_1, u_1} R R v)))
+    (@HAdd.hAdd.{u_1, u_1, u_1} R R R
+      (@instHAdd.{u_1} R
+        (@Distrib.toAdd.{u_1} R
+          (@instDistribOfSemiring.{u_1} R (@CommSemiring.toSemiring.{u_1} R (@CommRing.toCommSemiring.{u_1} R inst)))))
+      (@HMul.hMul.{u_1, u_1, u_1} R R R
+        (@instHMul.{u_1} R
+          (@Distrib.toMul.{u_1} R
+            (@instDistribOfSemiring.{u_1} R
+              (@CommSemiring.toSemiring.{u_1} R (@CommRing.toCommSemiring.{u_1} R inst)))))
+        c (@Prod.fst.{u_1, u_1} R R v))
+      (@HMul.hMul.{u_1, u_1, u_1} R R R
+        (@instHMul.{u_1} R
+          (@Distrib.toMul.{u_1} R
+            (@instDistribOfSemiring.{u_1} R
+              (@CommSemiring.toSemiring.{u_1} R (@CommRing.toCommSemiring.{u_1} R inst)))))
+        d (@Prod.snd.{u_1, u_1} R R v)))
+'Research.DerivativeSwitch.finite_kernel_line' depends on axioms: [propext, Quot.sound.{u}]
+'Research.DerivativeSwitch.singular_kernel_line' depends on axioms: [propext, Quot.sound.{u}]
+'Research.DerivativeSwitch.boundary_images_meet_zero' depends on axioms: [propext, Quot.sound.{u}]
+'Research.DerivativeSwitch.no_identity_strict_square' depends on axioms: [propext, Quot.sound.{u}]
+'Research.DerivativeSwitch.Volume.area_action' depends on axioms: [propext, Quot.sound.{u}]
+'Research.DerivativeSwitch.Volume.area_neg_one' depends on axioms: [propext, Quot.sound.{u}]
+STATEMENT Research.DerivativeSwitch.finite_kernel_line: ∀ {K : Type u_1} {F : Type u_2} {S : Type u_3} {H : Type u_4}
+  [inst : Field.{u_1} K] [inst_1 : AddCommGroup.{u_2} F]
+  [inst_2 :
+    @_root_.Module.{u_1, u_2} K F
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1)]
+  [inst_3 : AddCommGroup.{u_3} S]
+  [inst_4 :
+    @_root_.Module.{u_1, u_3} K S
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3)]
+  [inst_5 : AddCommGroup.{u_4} H]
+  [inst_6 :
+    @_root_.Module.{u_1, u_4} K H
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5)]
+  (dF :
+    @LinearMap.{u_1, u_1, u_2, u_4} K K
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@RingHom.id.{u_1} K
+        (@Semiring.toNonAssocSemiring.{u_1} K
+          (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+      F H (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1) (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5) inst_2 inst_6)
+  (dS :
+    @LinearMap.{u_1, u_1, u_3, u_4} K K
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@RingHom.id.{u_1} K
+        (@Semiring.toNonAssocSemiring.{u_1} K
+          (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+      S H (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3) (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5) inst_4 inst_6)
+  (J :
+    @LinearEquiv.{u_1, u_1, u_2, u_3} K K
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@RingHom.id.{u_1} K
+        (@Semiring.toNonAssocSemiring.{u_1} K
+          (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+      (@RingHom.id.{u_1} K
+        (@Semiring.toNonAssocSemiring.{u_1} K
+          (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+      ⋯ ⋯ F S (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1) (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3) inst_2
+      inst_4)
+  (v : F),
+  @Research.DerivativeSwitch.AxesKernel.{u_1, u_2, u_3, u_4} K F S H inst inst_1 inst_2 inst_3 inst_4 inst_5 inst_6 dF
+      dS J v →
+    ∀ (x : F),
+      Iff
+        (@Eq.{u_4 + 1} H
+          (@DFunLike.coe.{max (u_2 + 1) (u_4 + 1), u_2 + 1, u_4 + 1}
+            (@LinearMap.{u_1, u_1, u_2, u_4} K K
+              (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+              (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+              (@RingHom.id.{u_1} K
+                (@Semiring.toNonAssocSemiring.{u_1} K
+                  (@CommSemiring.toSemiring.{u_1} K
+                    (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+              F H (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1) (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5) inst_2
+              inst_6)
+            F (fun x => H)
+            (@LinearMap.instFunLike.{u_1, u_1, u_2, u_4} K K F H
+              (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+              (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+              (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1) (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5) inst_2
+              inst_6
+              (@RingHom.id.{u_1} K
+                (@Semiring.toNonAssocSemiring.{u_1} K
+                  (@CommSemiring.toSemiring.{u_1} K
+                    (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst))))))
+            dF x)
+          (@OfNat.ofNat.{u_4} H (nat_lit 0)
+            (@Zero.toOfNat0.{u_4} H
+              (@NegZeroClass.toZero.{u_4} H
+                (@SubNegZeroMonoid.toNegZeroClass.{u_4} H
+                  (@SubtractionMonoid.toSubNegZeroMonoid.{u_4} H
+                    (@SubtractionCommMonoid.toSubtractionMonoid.{u_4} H
+                      (@AddCommGroup.toDivisionAddCommMonoid.{u_4} H inst_5))))))))
+        (∃ a,
+          @Eq.{u_2 + 1} F x
+            (@HSMul.hSMul.{u_1, u_2, u_2} K F F
+              (@instHSMul.{u_1, u_2} K F
+                (@SMulZeroClass.toSMul.{u_1, u_2} K F
+                  (@AddZero.toZero.{u_2} F
+                    (@AddZeroClass.toAddZero.{u_2} F
+                      (@AddMonoid.toAddZeroClass.{u_2} F
+                        (@SubNegMonoid.toAddMonoid.{u_2} F
+                          (@AddGroup.toSubNegMonoid.{u_2} F (@AddCommGroup.toAddGroup.{u_2} F inst_1))))))
+                  (@DistribSMul.toSMulZeroClass.{u_1, u_2} K F
+                    (@AddMonoid.toAddZeroClass.{u_2} F
+                      (@SubNegMonoid.toAddMonoid.{u_2} F
+                        (@AddGroup.toSubNegMonoid.{u_2} F (@AddCommGroup.toAddGroup.{u_2} F inst_1))))
+                    (@DistribMulAction.toDistribSMul.{u_1, u_2} K F
+                      (@Semiring.toMonoid.{u_1} K
+                        (@CommSemiring.toSemiring.{u_1} K
+                          (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst))))
+                      (@SubNegMonoid.toAddMonoid.{u_2} F
+                        (@AddGroup.toSubNegMonoid.{u_2} F (@AddCommGroup.toAddGroup.{u_2} F inst_1)))
+                      (@Module.toDistribMulAction.{u_1, u_2} K F
+                        (@CommSemiring.toSemiring.{u_1} K
+                          (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                        (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1) inst_2)))))
+              a v))
+AXIOM_CHECK Research.DerivativeSwitch.finite_kernel_line: [propext, Quot.sound]
+STATEMENT Research.DerivativeSwitch.singular_kernel_line: ∀ {K : Type u_1} {F : Type u_2} {S : Type u_3} {H : Type u_4}
+  [inst : Field.{u_1} K] [inst_1 : AddCommGroup.{u_2} F]
+  [inst_2 :
+    @_root_.Module.{u_1, u_2} K F
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1)]
+  [inst_3 : AddCommGroup.{u_3} S]
+  [inst_4 :
+    @_root_.Module.{u_1, u_3} K S
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3)]
+  [inst_5 : AddCommGroup.{u_4} H]
+  [inst_6 :
+    @_root_.Module.{u_1, u_4} K H
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5)]
+  (dF :
+    @LinearMap.{u_1, u_1, u_2, u_4} K K
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@RingHom.id.{u_1} K
+        (@Semiring.toNonAssocSemiring.{u_1} K
+          (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+      F H (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1) (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5) inst_2 inst_6)
+  (dS :
+    @LinearMap.{u_1, u_1, u_3, u_4} K K
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@RingHom.id.{u_1} K
+        (@Semiring.toNonAssocSemiring.{u_1} K
+          (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+      S H (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3) (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5) inst_4 inst_6)
+  (J :
+    @LinearEquiv.{u_1, u_1, u_2, u_3} K K
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@RingHom.id.{u_1} K
+        (@Semiring.toNonAssocSemiring.{u_1} K
+          (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+      (@RingHom.id.{u_1} K
+        (@Semiring.toNonAssocSemiring.{u_1} K
+          (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+      ⋯ ⋯ F S (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1) (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3) inst_2
+      inst_4)
+  (v : F),
+  @Research.DerivativeSwitch.AxesKernel.{u_1, u_2, u_3, u_4} K F S H inst inst_1 inst_2 inst_3 inst_4 inst_5 inst_6 dF
+      dS J v →
+    ∀ (y : S),
+      Iff
+        (@Eq.{u_4 + 1} H
+          (@DFunLike.coe.{max (u_3 + 1) (u_4 + 1), u_3 + 1, u_4 + 1}
+            (@LinearMap.{u_1, u_1, u_3, u_4} K K
+              (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+              (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+              (@RingHom.id.{u_1} K
+                (@Semiring.toNonAssocSemiring.{u_1} K
+                  (@CommSemiring.toSemiring.{u_1} K
+                    (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+              S H (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3) (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5) inst_4
+              inst_6)
+            S (fun x => H)
+            (@LinearMap.instFunLike.{u_1, u_1, u_3, u_4} K K S H
+              (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+              (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+              (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3) (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5) inst_4
+              inst_6
+              (@RingHom.id.{u_1} K
+                (@Semiring.toNonAssocSemiring.{u_1} K
+                  (@CommSemiring.toSemiring.{u_1} K
+                    (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst))))))
+            dS y)
+          (@OfNat.ofNat.{u_4} H (nat_lit 0)
+            (@Zero.toOfNat0.{u_4} H
+              (@NegZeroClass.toZero.{u_4} H
+                (@SubNegZeroMonoid.toNegZeroClass.{u_4} H
+                  (@SubtractionMonoid.toSubNegZeroMonoid.{u_4} H
+                    (@SubtractionCommMonoid.toSubtractionMonoid.{u_4} H
+                      (@AddCommGroup.toDivisionAddCommMonoid.{u_4} H inst_5))))))))
+        (∃ b,
+          @Eq.{u_3 + 1} S y
+            (@HSMul.hSMul.{u_1, u_3, u_3} K S S
+              (@instHSMul.{u_1, u_3} K S
+                (@SMulZeroClass.toSMul.{u_1, u_3} K S
+                  (@AddZero.toZero.{u_3} S
+                    (@AddZeroClass.toAddZero.{u_3} S
+                      (@AddMonoid.toAddZeroClass.{u_3} S
+                        (@SubNegMonoid.toAddMonoid.{u_3} S
+                          (@AddGroup.toSubNegMonoid.{u_3} S (@AddCommGroup.toAddGroup.{u_3} S inst_3))))))
+                  (@DistribSMul.toSMulZeroClass.{u_1, u_3} K S
+                    (@AddMonoid.toAddZeroClass.{u_3} S
+                      (@SubNegMonoid.toAddMonoid.{u_3} S
+                        (@AddGroup.toSubNegMonoid.{u_3} S (@AddCommGroup.toAddGroup.{u_3} S inst_3))))
+                    (@DistribMulAction.toDistribSMul.{u_1, u_3} K S
+                      (@Semiring.toMonoid.{u_1} K
+                        (@CommSemiring.toSemiring.{u_1} K
+                          (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst))))
+                      (@SubNegMonoid.toAddMonoid.{u_3} S
+                        (@AddGroup.toSubNegMonoid.{u_3} S (@AddCommGroup.toAddGroup.{u_3} S inst_3)))
+                      (@Module.toDistribMulAction.{u_1, u_3} K S
+                        (@CommSemiring.toSemiring.{u_1} K
+                          (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                        (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3) inst_4)))))
+              b
+              (@DFunLike.coe.{max (u_2 + 1) (u_3 + 1), u_2 + 1, u_3 + 1}
+                (@LinearEquiv.{u_1, u_1, u_2, u_3} K K
+                  (@CommSemiring.toSemiring.{u_1} K
+                    (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                  (@CommSemiring.toSemiring.{u_1} K
+                    (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                  (@RingHom.id.{u_1} K
+                    (@Semiring.toNonAssocSemiring.{u_1} K
+                      (@CommSemiring.toSemiring.{u_1} K
+                        (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+                  (@RingHom.id.{u_1} K
+                    (@Semiring.toNonAssocSemiring.{u_1} K
+                      (@CommSemiring.toSemiring.{u_1} K
+                        (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+                  ⋯ ⋯ F S (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1) (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3)
+                  inst_2 inst_4)
+                F (fun x => S)
+                (@EquivLike.toFunLike.{max (u_2 + 1) (u_3 + 1), u_2 + 1, u_3 + 1}
+                  (@LinearEquiv.{u_1, u_1, u_2, u_3} K K
+                    (@CommSemiring.toSemiring.{u_1} K
+                      (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                    (@CommSemiring.toSemiring.{u_1} K
+                      (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                    (@RingHom.id.{u_1} K
+                      (@Semiring.toNonAssocSemiring.{u_1} K
+                        (@CommSemiring.toSemiring.{u_1} K
+                          (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+                    (@RingHom.id.{u_1} K
+                      (@Semiring.toNonAssocSemiring.{u_1} K
+                        (@CommSemiring.toSemiring.{u_1} K
+                          (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+                    ⋯ ⋯ F S (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1)
+                    (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3) inst_2 inst_4)
+                  F S
+                  (@LinearEquiv.instEquivLike.{u_1, u_1, u_2, u_3} K K F S
+                    (@CommSemiring.toSemiring.{u_1} K
+                      (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                    (@CommSemiring.toSemiring.{u_1} K
+                      (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                    (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1) (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3) inst_2
+                    inst_4
+                    (@RingHom.id.{u_1} K
+                      (@Semiring.toNonAssocSemiring.{u_1} K
+                        (@CommSemiring.toSemiring.{u_1} K
+                          (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+                    (@RingHom.id.{u_1} K
+                      (@Semiring.toNonAssocSemiring.{u_1} K
+                        (@CommSemiring.toSemiring.{u_1} K
+                          (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+                    ⋯ ⋯))
+                J v)))
+AXIOM_CHECK Research.DerivativeSwitch.singular_kernel_line: [propext, Quot.sound]
+STATEMENT Research.DerivativeSwitch.boundary_images_meet_zero: ∀ {K : Type u_1} {F : Type u_2} {S : Type u_3}
+  {H : Type u_4} [inst : Field.{u_1} K] [inst_1 : AddCommGroup.{u_2} F]
+  [inst_2 :
+    @_root_.Module.{u_1, u_2} K F
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1)]
+  [inst_3 : AddCommGroup.{u_3} S]
+  [inst_4 :
+    @_root_.Module.{u_1, u_3} K S
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3)]
+  [inst_5 : AddCommGroup.{u_4} H]
+  [inst_6 :
+    @_root_.Module.{u_1, u_4} K H
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5)]
+  (dF :
+    @LinearMap.{u_1, u_1, u_2, u_4} K K
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@RingHom.id.{u_1} K
+        (@Semiring.toNonAssocSemiring.{u_1} K
+          (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+      F H (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1) (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5) inst_2 inst_6)
+  (dS :
+    @LinearMap.{u_1, u_1, u_3, u_4} K K
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@RingHom.id.{u_1} K
+        (@Semiring.toNonAssocSemiring.{u_1} K
+          (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+      S H (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3) (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5) inst_4 inst_6)
+  (J :
+    @LinearEquiv.{u_1, u_1, u_2, u_3} K K
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@RingHom.id.{u_1} K
+        (@Semiring.toNonAssocSemiring.{u_1} K
+          (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+      (@RingHom.id.{u_1} K
+        (@Semiring.toNonAssocSemiring.{u_1} K
+          (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+      ⋯ ⋯ F S (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1) (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3) inst_2
+      inst_4)
+  (v : F),
+  @Research.DerivativeSwitch.AxesKernel.{u_1, u_2, u_3, u_4} K F S H inst inst_1 inst_2 inst_3 inst_4 inst_5 inst_6 dF
+      dS J v →
+    ∀ (x : F) (y : S),
+      @Eq.{u_4 + 1} H
+          (@DFunLike.coe.{max (u_2 + 1) (u_4 + 1), u_2 + 1, u_4 + 1}
+            (@LinearMap.{u_1, u_1, u_2, u_4} K K
+              (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+              (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+              (@RingHom.id.{u_1} K
+                (@Semiring.toNonAssocSemiring.{u_1} K
+                  (@CommSemiring.toSemiring.{u_1} K
+                    (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+              F H (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1) (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5) inst_2
+              inst_6)
+            F (fun x => H)
+            (@LinearMap.instFunLike.{u_1, u_1, u_2, u_4} K K F H
+              (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+              (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+              (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1) (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5) inst_2
+              inst_6
+              (@RingHom.id.{u_1} K
+                (@Semiring.toNonAssocSemiring.{u_1} K
+                  (@CommSemiring.toSemiring.{u_1} K
+                    (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst))))))
+            dF x)
+          (@DFunLike.coe.{max (u_3 + 1) (u_4 + 1), u_3 + 1, u_4 + 1}
+            (@LinearMap.{u_1, u_1, u_3, u_4} K K
+              (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+              (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+              (@RingHom.id.{u_1} K
+                (@Semiring.toNonAssocSemiring.{u_1} K
+                  (@CommSemiring.toSemiring.{u_1} K
+                    (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+              S H (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3) (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5) inst_4
+              inst_6)
+            S (fun x => H)
+            (@LinearMap.instFunLike.{u_1, u_1, u_3, u_4} K K S H
+              (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+              (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+              (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3) (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5) inst_4
+              inst_6
+              (@RingHom.id.{u_1} K
+                (@Semiring.toNonAssocSemiring.{u_1} K
+                  (@CommSemiring.toSemiring.{u_1} K
+                    (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst))))))
+            dS y) →
+        And
+          (@Eq.{u_4 + 1} H
+            (@DFunLike.coe.{max (u_2 + 1) (u_4 + 1), u_2 + 1, u_4 + 1}
+              (@LinearMap.{u_1, u_1, u_2, u_4} K K
+                (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                (@RingHom.id.{u_1} K
+                  (@Semiring.toNonAssocSemiring.{u_1} K
+                    (@CommSemiring.toSemiring.{u_1} K
+                      (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+                F H (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1) (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5) inst_2
+                inst_6)
+              F (fun x => H)
+              (@LinearMap.instFunLike.{u_1, u_1, u_2, u_4} K K F H
+                (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1) (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5) inst_2
+                inst_6
+                (@RingHom.id.{u_1} K
+                  (@Semiring.toNonAssocSemiring.{u_1} K
+                    (@CommSemiring.toSemiring.{u_1} K
+                      (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst))))))
+              dF x)
+            (@OfNat.ofNat.{u_4} H (nat_lit 0)
+              (@Zero.toOfNat0.{u_4} H
+                (@NegZeroClass.toZero.{u_4} H
+                  (@SubNegZeroMonoid.toNegZeroClass.{u_4} H
+                    (@SubtractionMonoid.toSubNegZeroMonoid.{u_4} H
+                      (@SubtractionCommMonoid.toSubtractionMonoid.{u_4} H
+                        (@AddCommGroup.toDivisionAddCommMonoid.{u_4} H inst_5))))))))
+          (@Eq.{u_4 + 1} H
+            (@DFunLike.coe.{max (u_3 + 1) (u_4 + 1), u_3 + 1, u_4 + 1}
+              (@LinearMap.{u_1, u_1, u_3, u_4} K K
+                (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                (@RingHom.id.{u_1} K
+                  (@Semiring.toNonAssocSemiring.{u_1} K
+                    (@CommSemiring.toSemiring.{u_1} K
+                      (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+                S H (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3) (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5) inst_4
+                inst_6)
+              S (fun x => H)
+              (@LinearMap.instFunLike.{u_1, u_1, u_3, u_4} K K S H
+                (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3) (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5) inst_4
+                inst_6
+                (@RingHom.id.{u_1} K
+                  (@Semiring.toNonAssocSemiring.{u_1} K
+                    (@CommSemiring.toSemiring.{u_1} K
+                      (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst))))))
+              dS y)
+            (@OfNat.ofNat.{u_4} H (nat_lit 0)
+              (@Zero.toOfNat0.{u_4} H
+                (@NegZeroClass.toZero.{u_4} H
+                  (@SubNegZeroMonoid.toNegZeroClass.{u_4} H
+                    (@SubtractionMonoid.toSubNegZeroMonoid.{u_4} H
+                      (@SubtractionCommMonoid.toSubtractionMonoid.{u_4} H
+                        (@AddCommGroup.toDivisionAddCommMonoid.{u_4} H inst_5))))))))
+AXIOM_CHECK Research.DerivativeSwitch.boundary_images_meet_zero: [propext, Quot.sound]
+STATEMENT Research.DerivativeSwitch.no_identity_strict_square: ∀ {K : Type u_1} {F : Type u_2} {S : Type u_3}
+  {H : Type u_4} [inst : Field.{u_1} K] [inst_1 : AddCommGroup.{u_2} F]
+  [inst_2 :
+    @_root_.Module.{u_1, u_2} K F
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1)]
+  [inst_3 : AddCommGroup.{u_3} S]
+  [inst_4 :
+    @_root_.Module.{u_1, u_3} K S
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3)]
+  [inst_5 : AddCommGroup.{u_4} H]
+  [inst_6 :
+    @_root_.Module.{u_1, u_4} K H
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5)]
+  (dF :
+    @LinearMap.{u_1, u_1, u_2, u_4} K K
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@RingHom.id.{u_1} K
+        (@Semiring.toNonAssocSemiring.{u_1} K
+          (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+      F H (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1) (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5) inst_2 inst_6)
+  (dS :
+    @LinearMap.{u_1, u_1, u_3, u_4} K K
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@RingHom.id.{u_1} K
+        (@Semiring.toNonAssocSemiring.{u_1} K
+          (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+      S H (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3) (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5) inst_4 inst_6)
+  (J :
+    @LinearEquiv.{u_1, u_1, u_2, u_3} K K
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+      (@RingHom.id.{u_1} K
+        (@Semiring.toNonAssocSemiring.{u_1} K
+          (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+      (@RingHom.id.{u_1} K
+        (@Semiring.toNonAssocSemiring.{u_1} K
+          (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+      ⋯ ⋯ F S (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1) (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3) inst_2
+      inst_4)
+  (v : F),
+  @Research.DerivativeSwitch.AxesKernel.{u_1, u_2, u_3, u_4} K F S H inst inst_1 inst_2 inst_3 inst_4 inst_5 inst_6 dF
+      dS J v →
+    (∃ x,
+        ∀ (a : K),
+          @Ne.{u_2 + 1} F x
+            (@HSMul.hSMul.{u_1, u_2, u_2} K F F
+              (@instHSMul.{u_1, u_2} K F
+                (@SMulZeroClass.toSMul.{u_1, u_2} K F
+                  (@AddZero.toZero.{u_2} F
+                    (@AddZeroClass.toAddZero.{u_2} F
+                      (@AddMonoid.toAddZeroClass.{u_2} F
+                        (@SubNegMonoid.toAddMonoid.{u_2} F
+                          (@AddGroup.toSubNegMonoid.{u_2} F (@AddCommGroup.toAddGroup.{u_2} F inst_1))))))
+                  (@DistribSMul.toSMulZeroClass.{u_1, u_2} K F
+                    (@AddMonoid.toAddZeroClass.{u_2} F
+                      (@SubNegMonoid.toAddMonoid.{u_2} F
+                        (@AddGroup.toSubNegMonoid.{u_2} F (@AddCommGroup.toAddGroup.{u_2} F inst_1))))
+                    (@DistribMulAction.toDistribSMul.{u_1, u_2} K F
+                      (@Semiring.toMonoid.{u_1} K
+                        (@CommSemiring.toSemiring.{u_1} K
+                          (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst))))
+                      (@SubNegMonoid.toAddMonoid.{u_2} F
+                        (@AddGroup.toSubNegMonoid.{u_2} F (@AddCommGroup.toAddGroup.{u_2} F inst_1)))
+                      (@Module.toDistribMulAction.{u_1, u_2} K F
+                        (@CommSemiring.toSemiring.{u_1} K
+                          (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                        (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1) inst_2)))))
+              a v)) →
+      Not
+        (∀ (x : F),
+          @Eq.{u_4 + 1} H
+            (@DFunLike.coe.{max (u_2 + 1) (u_4 + 1), u_2 + 1, u_4 + 1}
+              (@LinearMap.{u_1, u_1, u_2, u_4} K K
+                (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                (@RingHom.id.{u_1} K
+                  (@Semiring.toNonAssocSemiring.{u_1} K
+                    (@CommSemiring.toSemiring.{u_1} K
+                      (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+                F H (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1) (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5) inst_2
+                inst_6)
+              F (fun x => H)
+              (@LinearMap.instFunLike.{u_1, u_1, u_2, u_4} K K F H
+                (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1) (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5) inst_2
+                inst_6
+                (@RingHom.id.{u_1} K
+                  (@Semiring.toNonAssocSemiring.{u_1} K
+                    (@CommSemiring.toSemiring.{u_1} K
+                      (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst))))))
+              dF x)
+            (@DFunLike.coe.{max (u_3 + 1) (u_4 + 1), u_3 + 1, u_4 + 1}
+              (@LinearMap.{u_1, u_1, u_3, u_4} K K
+                (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                (@RingHom.id.{u_1} K
+                  (@Semiring.toNonAssocSemiring.{u_1} K
+                    (@CommSemiring.toSemiring.{u_1} K
+                      (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+                S H (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3) (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5) inst_4
+                inst_6)
+              S (fun x => H)
+              (@LinearMap.instFunLike.{u_1, u_1, u_3, u_4} K K S H
+                (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                (@CommSemiring.toSemiring.{u_1} K (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3) (@AddCommGroup.toAddCommMonoid.{u_4} H inst_5) inst_4
+                inst_6
+                (@RingHom.id.{u_1} K
+                  (@Semiring.toNonAssocSemiring.{u_1} K
+                    (@CommSemiring.toSemiring.{u_1} K
+                      (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst))))))
+              dS
+              (@DFunLike.coe.{max (u_2 + 1) (u_3 + 1), u_2 + 1, u_3 + 1}
+                (@LinearEquiv.{u_1, u_1, u_2, u_3} K K
+                  (@CommSemiring.toSemiring.{u_1} K
+                    (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                  (@CommSemiring.toSemiring.{u_1} K
+                    (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                  (@RingHom.id.{u_1} K
+                    (@Semiring.toNonAssocSemiring.{u_1} K
+                      (@CommSemiring.toSemiring.{u_1} K
+                        (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+                  (@RingHom.id.{u_1} K
+                    (@Semiring.toNonAssocSemiring.{u_1} K
+                      (@CommSemiring.toSemiring.{u_1} K
+                        (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+                  ⋯ ⋯ F S (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1) (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3)
+                  inst_2 inst_4)
+                F (fun x => S)
+                (@EquivLike.toFunLike.{max (u_2 + 1) (u_3 + 1), u_2 + 1, u_3 + 1}
+                  (@LinearEquiv.{u_1, u_1, u_2, u_3} K K
+                    (@CommSemiring.toSemiring.{u_1} K
+                      (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                    (@CommSemiring.toSemiring.{u_1} K
+                      (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                    (@RingHom.id.{u_1} K
+                      (@Semiring.toNonAssocSemiring.{u_1} K
+                        (@CommSemiring.toSemiring.{u_1} K
+                          (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+                    (@RingHom.id.{u_1} K
+                      (@Semiring.toNonAssocSemiring.{u_1} K
+                        (@CommSemiring.toSemiring.{u_1} K
+                          (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+                    ⋯ ⋯ F S (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1)
+                    (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3) inst_2 inst_4)
+                  F S
+                  (@LinearEquiv.instEquivLike.{u_1, u_1, u_2, u_3} K K F S
+                    (@CommSemiring.toSemiring.{u_1} K
+                      (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                    (@CommSemiring.toSemiring.{u_1} K
+                      (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))
+                    (@AddCommGroup.toAddCommMonoid.{u_2} F inst_1) (@AddCommGroup.toAddCommMonoid.{u_3} S inst_3) inst_2
+                    inst_4
+                    (@RingHom.id.{u_1} K
+                      (@Semiring.toNonAssocSemiring.{u_1} K
+                        (@CommSemiring.toSemiring.{u_1} K
+                          (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+                    (@RingHom.id.{u_1} K
+                      (@Semiring.toNonAssocSemiring.{u_1} K
+                        (@CommSemiring.toSemiring.{u_1} K
+                          (@Semifield.toCommSemiring.{u_1} K (@Field.toSemifield.{u_1} K inst)))))
+                    ⋯ ⋯))
+                J x)))
+AXIOM_CHECK Research.DerivativeSwitch.no_identity_strict_square: [propext, Quot.sound]
+STATEMENT Research.DerivativeSwitch.Volume.area_action: ∀ {R : Type u_1} [inst : CommRing.{u_1} R] (a b c d : R)
+  (v w : Prod.{u_1, u_1} R R),
+  @Eq.{u_1 + 1} R
+    (@Research.DerivativeSwitch.Volume.area.{u_1} R inst
+      (@Research.DerivativeSwitch.Volume.action.{u_1} R inst a b c d v)
+      (@Research.DerivativeSwitch.Volume.action.{u_1} R inst a b c d w))
+    (@HMul.hMul.{u_1, u_1, u_1} R R R
+      (@instHMul.{u_1} R
+        (@Distrib.toMul.{u_1} R
+          (@instDistribOfSemiring.{u_1} R (@CommSemiring.toSemiring.{u_1} R (@CommRing.toCommSemiring.{u_1} R inst)))))
+      (@HSub.hSub.{u_1, u_1, u_1} R R R
+        (@instHSub.{u_1} R
+          (@SubNegMonoid.toSub.{u_1} R
+            (@AddGroup.toSubNegMonoid.{u_1} R
+              (@AddGroupWithOne.toAddGroup.{u_1} R (@Ring.toAddGroupWithOne.{u_1} R (@CommRing.toRing.{u_1} R inst))))))
+        (@HMul.hMul.{u_1, u_1, u_1} R R R
+          (@instHMul.{u_1} R
+            (@Distrib.toMul.{u_1} R
+              (@instDistribOfSemiring.{u_1} R
+                (@CommSemiring.toSemiring.{u_1} R (@CommRing.toCommSemiring.{u_1} R inst)))))
+          a d)
+        (@HMul.hMul.{u_1, u_1, u_1} R R R
+          (@instHMul.{u_1} R
+            (@Distrib.toMul.{u_1} R
+              (@instDistribOfSemiring.{u_1} R
+                (@CommSemiring.toSemiring.{u_1} R (@CommRing.toCommSemiring.{u_1} R inst)))))
+          b c))
+      (@Research.DerivativeSwitch.Volume.area.{u_1} R inst v w))
+AXIOM_CHECK Research.DerivativeSwitch.Volume.area_action: [propext, Quot.sound]
+STATEMENT Research.DerivativeSwitch.Volume.area_neg_one: ∀ {R : Type u_1} [inst : CommRing.{u_1} R] (a b c d : R)
+  (v w : Prod.{u_1, u_1} R R),
+  @Eq.{u_1 + 1} R
+      (@HSub.hSub.{u_1, u_1, u_1} R R R
+        (@instHSub.{u_1} R
+          (@SubNegMonoid.toSub.{u_1} R
+            (@AddGroup.toSubNegMonoid.{u_1} R
+              (@AddGroupWithOne.toAddGroup.{u_1} R (@Ring.toAddGroupWithOne.{u_1} R (@CommRing.toRing.{u_1} R inst))))))
+        (@HMul.hMul.{u_1, u_1, u_1} R R R
+          (@instHMul.{u_1} R
+            (@Distrib.toMul.{u_1} R
+              (@instDistribOfSemiring.{u_1} R
+                (@CommSemiring.toSemiring.{u_1} R (@CommRing.toCommSemiring.{u_1} R inst)))))
+          a d)
+        (@HMul.hMul.{u_1, u_1, u_1} R R R
+          (@instHMul.{u_1} R
+            (@Distrib.toMul.{u_1} R
+              (@instDistribOfSemiring.{u_1} R
+                (@CommSemiring.toSemiring.{u_1} R (@CommRing.toCommSemiring.{u_1} R inst)))))
+          b c))
+      (@Neg.neg.{u_1} R
+        (@NegZeroClass.toNeg.{u_1} R
+          (@SubNegZeroMonoid.toNegZeroClass.{u_1} R
+            (@SubtractionMonoid.toSubNegZeroMonoid.{u_1} R
+              (@SubtractionCommMonoid.toSubtractionMonoid.{u_1} R
+                (@AddCommGroup.toDivisionAddCommMonoid.{u_1} R
+                  (@Ring.toAddCommGroup.{u_1} R (@CommRing.toRing.{u_1} R inst)))))))
+        (@OfNat.ofNat.{u_1} R (nat_lit 1)
+          (@One.toOfNat1.{u_1} R
+            (@AddMonoidWithOne.toOne.{u_1} R
+              (@AddGroupWithOne.toAddMonoidWithOne.{u_1} R
+                (@Ring.toAddGroupWithOne.{u_1} R (@CommRing.toRing.{u_1} R inst))))))) →
+    @Eq.{u_1 + 1} R (@Research.DerivativeSwitch.Volume.area.{u_1} R inst v w)
+        (@OfNat.ofNat.{u_1} R (nat_lit 1)
+          (@One.toOfNat1.{u_1} R
+            (@AddMonoidWithOne.toOne.{u_1} R
+              (@AddGroupWithOne.toAddMonoidWithOne.{u_1} R
+                (@Ring.toAddGroupWithOne.{u_1} R (@CommRing.toRing.{u_1} R inst)))))) →
+      @Eq.{u_1 + 1} R
+        (@Research.DerivativeSwitch.Volume.area.{u_1} R inst
+          (@Research.DerivativeSwitch.Volume.action.{u_1} R inst a b c d v)
+          (@Research.DerivativeSwitch.Volume.action.{u_1} R inst a b c d w))
+        (@Neg.neg.{u_1} R
+          (@NegZeroClass.toNeg.{u_1} R
+            (@SubNegZeroMonoid.toNegZeroClass.{u_1} R
+              (@SubtractionMonoid.toSubNegZeroMonoid.{u_1} R
+                (@SubtractionCommMonoid.toSubtractionMonoid.{u_1} R
+                  (@AddCommGroup.toDivisionAddCommMonoid.{u_1} R
+                    (@Ring.toAddCommGroup.{u_1} R (@CommRing.toRing.{u_1} R inst)))))))
+          (@OfNat.ofNat.{u_1} R (nat_lit 1)
+            (@One.toOfNat1.{u_1} R
+              (@AddMonoidWithOne.toOne.{u_1} R
+                (@AddGroupWithOne.toAddMonoidWithOne.{u_1} R
+                  (@Ring.toAddGroupWithOne.{u_1} R (@CommRing.toRing.{u_1} R inst)))))))
+AXIOM_CHECK Research.DerivativeSwitch.Volume.area_neg_one: [propext, Quot.sound]
+AXIOM_AUDIT_PASS declarations=6

@@ -1,0 +1,29 @@
+Research/DerivativeSwitch/BoundaryCup.lean:49:37: error: Type mismatch
+  d.J
+has type
+  (Matrix (Fin 2) (Fin 2) K)ˣ
+but is expected to have type
+  Matrix ?m.61 (Fin 2) K
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Research/DerivativeSwitch/BoundaryCup.lean:79:36: error: unsolved goals
+K : Type u_1
+I : Type u_2
+inst✝² : Field K
+inst✝¹ : Fintype I
+inst✝ : DecidableEq I
+d : CommonStrictData K I
+epsilon cF cS uF uS : K
+h : BoundaryCupIdentity d epsilon cF cS
+heps : epsilon ≠ 0
+hcS : cS ≠ 0
+huF : HasCoordinate (join d.D0 d.AF) (cycle d.hF d.v) d.lamF uF
+huS : HasCoordinate (join d.D0 d.AS) (cycle d.hS (↑d.J *ᵥ d.v)) d.lamS uS
+hqF : d.qF = cF * epsilon * d.eta
+hqS : d.qS = cS * epsilon * d.eta
+hs : d.qS ≠ 0
+⊢ -(cF * d.eta * d.eta⁻¹) = -cF

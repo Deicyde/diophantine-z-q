@@ -1,0 +1,119 @@
+{
+  "status": "PASS",
+  "pipelineSha256": "1ab289dccfb5c2ce671548ee0fdb0485047adadac6e0639798800163126fde0a",
+  "checkerSha256": "906b7afe0044111e25e497d3731d4f650829163295f52bb750b209e11d9bc8cc",
+  "expectedManifestSha256": "982533489878025cf90d7fb5307fe4a8a1af050a095ce2da8de91843a5f896dc",
+  "checks": [
+    {
+      "check": "successful stage appended exactly once",
+      "passed": true
+    },
+    {
+      "check": "success journal order",
+      "passed": true
+    },
+    {
+      "check": "success journal identifies stage",
+      "passed": true
+    },
+    {
+      "check": "success journal remains in progress until completion",
+      "passed": true
+    },
+    {
+      "check": "atomic write leaves no temporary file",
+      "passed": true
+    },
+    {
+      "check": "duplicate stage rejected before subprocess",
+      "passed": true
+    },
+    {
+      "check": "duplicate stage leaves journal unchanged",
+      "passed": true
+    },
+    {
+      "check": "nonzero stage raises exact exit code",
+      "passed": true
+    },
+    {
+      "check": "failed stage excluded from completion sequence",
+      "passed": true
+    },
+    {
+      "check": "failure journal preserves successful prefix",
+      "passed": true
+    },
+    {
+      "check": "failure journal records failed stage and code",
+      "passed": true
+    },
+    {
+      "check": "failure journal has explicit FAIL status",
+      "passed": true
+    },
+    {
+      "check": "stage failure does not write completion",
+      "passed": true
+    },
+    {
+      "check": "atomic writer replaces existing JSON exactly",
+      "passed": true
+    },
+    {
+      "check": "all actual stage identifiers are unique",
+      "passed": true
+    },
+    {
+      "check": "exactly one final structured completion write",
+      "passed": true
+    },
+    {
+      "check": "completion write follows all actual stages",
+      "passed": true
+    },
+    {
+      "check": "completion is built as an explicit dictionary",
+      "passed": true
+    },
+    {
+      "check": "completion status and format are explicit",
+      "passed": true
+    },
+    {
+      "check": "completion uses live completed stage list",
+      "passed": true
+    },
+    {
+      "check": "actual ordered pipeline stages match output manifest",
+      "passed": true
+    }
+  ],
+  "assertions": 21,
+  "orderedActualStages": [
+    "build_source",
+    "build_reference_source",
+    "compile_source",
+    "verify_gates",
+    "reduce_rows",
+    "lift_constants",
+    "verify_detector",
+    "independent_detector",
+    "verify_package",
+    "verify_symbolic",
+    "specialize",
+    "write_tables",
+    "balance",
+    "verify_geometry",
+    "independent_scalar",
+    "verify_arithmetic",
+    "independent_arithmetic",
+    "verify_chains",
+    "second_scalar",
+    "verify_parameter_binding",
+    "verify_stage_bridges",
+    "verify_diagonal",
+    "verify_delivered_tables"
+  ],
+  "scope": "Independent focused journal/helper execution and static completion-order checks; no mathematical construction executed."
+}

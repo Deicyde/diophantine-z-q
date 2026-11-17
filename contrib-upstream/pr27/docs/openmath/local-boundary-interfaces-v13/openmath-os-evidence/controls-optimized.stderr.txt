@@ -1,0 +1,1 @@
+Refusing optimized Python: these controls require assertions

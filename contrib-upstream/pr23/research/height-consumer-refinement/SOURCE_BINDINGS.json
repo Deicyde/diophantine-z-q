@@ -1,0 +1,347 @@
+{
+  "format": "height-consumer-source-bindings-v1",
+  "parentCommit": "31563264ba3dfbc3f00b4b08c099e9380caacd42",
+  "scope": "Exact local packet, retained inherited bound sources and workflow; current manuscript remains unchanged. The digest of this manifest is separate.",
+  "files": [
+    {
+      "path": ".github/workflows/detector-cube-reuse.yml",
+      "sha256": "970c5aa64747468bfdf435150cf62d2fffe707d557024fe2c3a9a7c50be7b509"
+    },
+    {
+      "path": ".github/workflows/height-consumer-refinement.yml",
+      "sha256": "e022474695dca74f40ca2f1e88e89264ce91231b6a0bf232bc3579593e45090b"
+    },
+    {
+      "path": ".github/workflows/research-checks.yml",
+      "sha256": "5c0c4a27ccb7339d65689b998b6209c7671b375bb7b6867dfb6952a403e83269"
+    },
+    {
+      "path": ".github/workflows/scalar-preparation-zero.yml",
+      "sha256": "d86aff1d94c00ed7286bf91acf2c2659c0b33329b2a1c35ad5738a2b2616a98c"
+    },
+    {
+      "path": "docs/manuscript-revisions/version13/addition.tex",
+      "sha256": "91b278b3ca1684df93e32883d8046a2accda970efc1ed9159b095183092d5a09"
+    },
+    {
+      "path": "docs/quartic-523-540/addition.tex",
+      "sha256": "0c9444eac7cb889109cbf6e011667decd0aa7b2dfaf4169e4e01f4dbe4176d1e"
+    },
+    {
+      "path": "docs/release-policy.md",
+      "sha256": "d9f5461cf3dca3de4c65328e0a1f89a1f15a174ef15956432e0a39fdfbad1c30"
+    },
+    {
+      "path": "docs/research-review/PROTOCOL.md",
+      "sha256": "b5365b3d9cd9a782bf7fd0b6020403d5d400eac13dc7e60875484a8769d3d925"
+    },
+    {
+      "path": "docs/reviews/quartic-stack-2026-11-08/FINDINGS.json",
+      "sha256": "bec5ccb8be242b8f15e2128d6af52d115506c72d2294c4319a329210160050b2"
+    },
+    {
+      "path": "docs/reviews/quartic-stack-2026-11-08/HANDOFF_MANIFEST.json",
+      "sha256": "22219edd1b719298eafa4c4e52474d0d341170fbe14437b5b8e90919e4eb4178"
+    },
+    {
+      "path": "docs/reviews/quartic-stack-2026-11-08/PROFILE.md",
+      "sha256": "61e716a1e40e2499aea3acfeb7692234bfa1d71f76250bb05fc3c6477afbbd03"
+    },
+    {
+      "path": "manuscripts/quartic_v13.tex",
+      "sha256": "9db71bbfcefb37db56eabcf40a5f9dd85de9ed58294635da3dbf6d4f5caa8fcd"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/SOURCE_MANIFEST.json",
+      "sha256": "268694a99ae9e73f99c3847270994d51b7b9861aa9e521a622c583bed95076c2"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/audit/check_diagonal_scaling.py",
+      "sha256": "506da8992d048bc16f5df0a1cde9226201dff9d8169d2d0bbc92b12d10cd4f64"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/construction/balance_coefficients.py",
+      "sha256": "9e9a7ebcb3e4be58862381c2b51f85352ba4b688495912da2585b1ad37973a63"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/construction/builder.cjs",
+      "sha256": "b4bf6af38a7620a5b6a572039da4fcb22cd6f4ce006c439d89588c1259231f3b"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/construction/tools/affine_search.py",
+      "sha256": "d122f8fa2628d57925397025e54463a1ea9bbf92440ff5e08779aa7f77be4682"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/construction/tools/checker.cjs",
+      "sha256": "dc0e394b2fa758dfd9af2d6ee56f18907a5acdd9d659f9883acdffe1ec173de4"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/construction/tools/compile_ir.py",
+      "sha256": "45d5df9546e1f39b61d064d4204a0b41469b5a18134281b7e439f5faab62f28a"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/construction/tools/modulo_search.py",
+      "sha256": "63380ce9300bf8c97bda58beb62a7ae7536dd1cde61a45a00cdff772c8968d57"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/construction/tools/run_pipeline.py",
+      "sha256": "591def4c716d3bff456bf83ef3511840377bea02bf4e94f52017914b013c5a8c"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/construction/tools/search.py",
+      "sha256": "982959296b369b98ed370f73b460e906966c282654acd27e0d5b913c50082a03"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/construction/tools/verify.py",
+      "sha256": "13c4190c50867573d470d7f4efb4e25dacf49872c3f0c9c23acf8404da840a48"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/construction/tools/verify_elimination.py",
+      "sha256": "ea67ec8575c8b4fbea0cd5ccffc60165263537f53d6b12febc99d7d4f974785e"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/evidence/geometry/rejected-paths-round7.txt",
+      "sha256": "f72e071ea0997f998a5c0c4d2b962becf378e5f97a355e312f6e965bcd631167"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/evidence/round8/scalar/scalar-search-notes-round8.txt",
+      "sha256": "916a0abbe7c9dbc7f44664ffda3eb93b87d45092244df1610a1ab10634466065"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/proofs/arithmetic_round8.tex",
+      "sha256": "826523050c2f0d315561ae064124b420862ff09eeafaa63437e0339ce7c22f7b"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/proofs/detector_round7.tex",
+      "sha256": "ed01c9416d3b4daf02a26958642194230c0186a896f17817bfe30c8a16d481d3"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/proofs/detector_round8.tex",
+      "sha256": "150b79708b8088d1c75641571277eecf452fe72b7c729cc4fe783e4da76b83bb"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/proofs/diagonal_scaling_round8.tex",
+      "sha256": "0115c276febf3b06b46462d06aa862714456f78790e5ec6bd68ac938db8b2e50"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/proofs/geometry_round7.tex",
+      "sha256": "0402ccf6c3e193c685d01e0ff6e46449001ac074a1bf4501419d6fb1fea88035"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/proofs/optional_anchor_height_round7.tex",
+      "sha256": "686faeed616eef6ebed472b2414a36e8158d4de838248238815ecc283e39a4e6"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/proofs/prior/round3/arithmetic_proof.tex",
+      "sha256": "66cdc4ef3e2f0e5cfde8b50e3ac360dd27d2ac17826ce23fd4ec688ac7d438d4"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/proofs/prior/round4/geometry_round4.tex",
+      "sha256": "f51c4c6801b205475ac467aafaa61faec9e0da4a978275b3f965701b0a50c141"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/proofs/prior/round4/scalar_streamlining.tex",
+      "sha256": "ba3707caa4b29e58180cd08abbc6c176a38dd2d7bb15292ed953f1df3120f9a8"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/proofs/prior/round5/geometry_round5.tex",
+      "sha256": "3d5f0fff2fc45bd2b7504c933a8583367555d10e78a18b9885c2d01a151261bb"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/reproduce.py",
+      "sha256": "a660293cc6fa97a55d8d3635645f666fd1c6b52d96276ec768b4a3faedecc3ae"
+    },
+    {
+      "path": "research/detector-cube-reuse/APPLICATION_CONTRACT.json",
+      "sha256": "bebd3e9bceca3ef7dbd6dcc87d6f95ce9dc9d033bd2225bf62da2f0a421cadad"
+    },
+    {
+      "path": "research/detector-cube-reuse/EXPECTED.json",
+      "sha256": "269c9157b8955414cfd05272c5f10d525742b6643908ad5eebbadfd7b823b095"
+    },
+    {
+      "path": "research/detector-cube-reuse/FINDINGS.json",
+      "sha256": "578e3374e0724fc5ddbe3938ea4a987897556ac1ab785ef24826fc337dd470c2"
+    },
+    {
+      "path": "research/detector-cube-reuse/HANDOFF.md",
+      "sha256": "be24d616a6c4de5a96e665b57b43c7e6eadd6c3e00a348a08e2547da10c324dd"
+    },
+    {
+      "path": "research/detector-cube-reuse/PROOF.md",
+      "sha256": "e91bffcf999c5862b04903beac1e28675ecbfc5eb92c2921c68576af09989aa6"
+    },
+    {
+      "path": "research/detector-cube-reuse/README.md",
+      "sha256": "5af725ee1bcb5b21c30ff7e0d76642b21cc7bd812396473e15fdcd9ddfd9f359"
+    },
+    {
+      "path": "research/detector-cube-reuse/SOURCE_BINDINGS.json",
+      "sha256": "23462ef0798ba6f9cb73bc7ccf1b21184fc9b98356c1a834dd154937841ed8d7"
+    },
+    {
+      "path": "research/detector-cube-reuse/SOURCE_BINDINGS_SHA256.txt",
+      "sha256": "05426669602d9c6c3410079a7188b47fe80f502f479bfae11fd0e3fa6e7fa72c"
+    },
+    {
+      "path": "research/detector-cube-reuse/check_cube.py",
+      "sha256": "c03630d1144a5ef59e7d1d8319e27c531748b55f85756ef831d0e30920f50124"
+    },
+    {
+      "path": "research/detector-cube-reuse/cube_patch.py",
+      "sha256": "cfde5a2e6e9afbd655a85af529a1a285560eb80347ad41653b6d0018628e02b7"
+    },
+    {
+      "path": "research/detector-cube-reuse/references/ORIGIN.json",
+      "sha256": "214e72480fbc87466d30b6f1b5e9de27c0fec291feec45006ca4d19ea9898795"
+    },
+    {
+      "path": "research/detector-cube-reuse/references/precision51_PROOF.md",
+      "sha256": "e6a825c3b85a9c56a6a2678ad0fa411ecedec53a005a0464efb45677f056054c"
+    },
+    {
+      "path": "research/detector-cube-reuse/reproduce.py",
+      "sha256": "161f6a988b927dab54efee33dfbc319ee00a58def7d6c8d899b08f5b84c6191e"
+    },
+    {
+      "path": "research/factored-pole-reduction/PROOF.md",
+      "sha256": "364309a61432b4de3615852175cab0faa7a3aeb9d5d251f4da521454277198d4"
+    },
+    {
+      "path": "research/factored-pole-reduction/build_transport.py",
+      "sha256": "1e58266e056db9b3b2a14f8c78fb2c0a1df41196e7745818fb077dc98b029156"
+    },
+    {
+      "path": "research/factored-pole-reduction/check_transport.py",
+      "sha256": "4330e24df146ebdd8f525d52d689bd94c39327fe95ad1a6cf1f3e4640562078b"
+    },
+    {
+      "path": "research/height-consumer-refinement/APPLICATION_CONTRACT.json",
+      "sha256": "ef4bae3f51159d4f83ebf7db8e078153575279c39e173fd13894e9ca96f48857"
+    },
+    {
+      "path": "research/height-consumer-refinement/EXPECTED.json",
+      "sha256": "472d6471804491eaf63f2e37e02abddc6a0469fc6a05a385aed1b949bc65fb64"
+    },
+    {
+      "path": "research/height-consumer-refinement/FINDINGS.json",
+      "sha256": "8f264fb8f76d210c52925598e869c5d53b39d8a34fc475982e8e32567e50f5cc"
+    },
+    {
+      "path": "research/height-consumer-refinement/HANDOFF.md",
+      "sha256": "e0f12a7cb18ade1de54be812e78cce80889c7aa46eb86f9b6ae6cca223a2728f"
+    },
+    {
+      "path": "research/height-consumer-refinement/PROOF.md",
+      "sha256": "5a4ff818479f28dfb988526cbcac89b9f6fdb264fe7e9f999123fe0547d45029"
+    },
+    {
+      "path": "research/height-consumer-refinement/README.md",
+      "sha256": "7a17baa8366c73fdd8693f6ba902f842ca1be3250ad098361de6af275e790c6c"
+    },
+    {
+      "path": "research/height-consumer-refinement/check_height.py",
+      "sha256": "f0ab01c244b2c1237d95f64376959acb5f08d174927c828ce871777e96d8cfbc"
+    },
+    {
+      "path": "research/height-consumer-refinement/prior-investigation/INVENTORY.json",
+      "sha256": "47de0ba1dcd05914efb30275813d493f631dd97f3f5f6ab8482ba8d74c01b8ff"
+    },
+    {
+      "path": "research/height-consumer-refinement/prior-investigation/NEXT_PR.md",
+      "sha256": "ecf97635d37507cc906434a27daed3ac40c7bf14eabf673fc91093544fcb5fd4"
+    },
+    {
+      "path": "research/height-consumer-refinement/prior-investigation/grouping/RESULTS.json",
+      "sha256": "1d4cb494a2d1caa98f74eca8d25465463b5004a0b4c6328d85b7b93b0b6b9691"
+    },
+    {
+      "path": "research/height-consumer-refinement/prior-investigation/grouping_probe.py",
+      "sha256": "32f4627f1da79c4b0326d2cf7f312a167dfbf33d727b83aaf1345ed627436e9f"
+    },
+    {
+      "path": "research/height-consumer-refinement/prior-investigation/height_margins.json",
+      "sha256": "e29f6688ef8462dd5003a5d51a74687b8f4ee3998c0c0fee036aac82e3ab6d5c"
+    },
+    {
+      "path": "research/height-consumer-refinement/prior-investigation/scaling_dual.json",
+      "sha256": "b6f74c309ba2e5cfbb32e0c5e7e59e226435be83e3ca22f20d85d728f0a4e30a"
+    },
+    {
+      "path": "research/height-consumer-refinement/prior-investigation/scaling_lp.py",
+      "sha256": "5b2e5524e7e0a69a746fb6c22d2102193bb186ba0155ae44869b6dd46677e421"
+    },
+    {
+      "path": "research/height-consumer-refinement/prior-investigation/scaling_weights.json",
+      "sha256": "b2e8d2161ae3c1d8162b1dccf89c404cf2499e43fbf2b7ff6684cce7ef915c5f"
+    },
+    {
+      "path": "research/height-consumer-refinement/reproduce.py",
+      "sha256": "758ccd8d89feda74fb09cd89ccaf6f3f28ab0db2374640098ebbce72547a457c"
+    },
+    {
+      "path": "research/scalar-chain-reduction/APPLICATION_CONTRACT.json",
+      "sha256": "a670f64ed1ff5926b0579522684870aee397a64a3b23a3413f9df0e3e13acbc9"
+    },
+    {
+      "path": "research/scalar-chain-reduction/EXPECTED.json",
+      "sha256": "146390f68342b425d38b3c938505bd0092b6686a0d619de7e564ac107beb5682"
+    },
+    {
+      "path": "research/scalar-chain-reduction/PROOF.md",
+      "sha256": "710088f6d9517c966a55a54e9d6adb383a335d705b7b4ca5a0f1dbde16f6be4d"
+    },
+    {
+      "path": "research/scalar-chain-reduction/README.md",
+      "sha256": "63f733855eb63609e87b9abdebcb33095f04e9708770bb9cc7e143ace3219945"
+    },
+    {
+      "path": "research/scalar-chain-reduction/SOURCE_BINDINGS.json",
+      "sha256": "13ef75e44755682a5b88c56dccfbbd4dd4fae63fc091338fcf43b4f9c3c82a7e"
+    },
+    {
+      "path": "research/scalar-chain-reduction/chain_patch.py",
+      "sha256": "31584f3da8f039adf416887e10f50af9e0f80a2d3ae7f63d5116d03b775fa276"
+    },
+    {
+      "path": "research/scalar-chain-reduction/check_chain.py",
+      "sha256": "ddb671a3d43f75167e2d58971f1e58ac921cb85209a48206fc01c91e676a34f1"
+    },
+    {
+      "path": "research/scalar-chain-reduction/reproduce.py",
+      "sha256": "23c98d994a46fb68291dabfe4a3284655d2ac9866e54482ea99e19ec16ad69d6"
+    },
+    {
+      "path": "research/scalar-preparation-zero/APPLICATION_CONTRACT.json",
+      "sha256": "ebe792aa48c59f825d0f35835e05ba824f30c9ca411af0776cd1b2ffb38c7cc7"
+    },
+    {
+      "path": "research/scalar-preparation-zero/EXPECTED.json",
+      "sha256": "51cbf1da47334167f5e7f45a32c75ac059521d3365db290d22843435df03bc07"
+    },
+    {
+      "path": "research/scalar-preparation-zero/PROOF.md",
+      "sha256": "79bb5a8c5ce16c6b4559848739aeb78b7d23eb4a90f2ff0ad8ccf97a3674280a"
+    },
+    {
+      "path": "research/scalar-preparation-zero/README.md",
+      "sha256": "dc7c62b9a2c2aee7aea9ef86c491adb4b3de53e0e1bda070350cf12d99718902"
+    },
+    {
+      "path": "research/scalar-preparation-zero/SOURCE_BINDINGS.json",
+      "sha256": "f6136f6e29025d0620ece7fbae4bfd04552b1795a061fdeb04f6d3b2e5d3d45d"
+    },
+    {
+      "path": "research/scalar-preparation-zero/check_zero.py",
+      "sha256": "f9a31f1f314489a14e058f05a0f88b427ea1b159daf8c10fa3820744abb7f127"
+    },
+    {
+      "path": "research/scalar-preparation-zero/reproduce.py",
+      "sha256": "55518079d667d2795babee2f19c92de21c1921f9b47ad207ace685d8c06f17cc"
+    },
+    {
+      "path": "research/scalar-preparation-zero/zero_patch.py",
+      "sha256": "3b85eca70302b16135497f44de442793ae11ff084b1fee65425ca2ee1381a79a"
+    }
+  ]
+}

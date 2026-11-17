@@ -1,0 +1,6 @@
+HOME=/workspace/nucleus/work/home
+TMPDIR=/tmp
+LEAN_PATH=/opt/mathlib/.lake/packages/Cli/.lake/build/lib/lean:/opt/mathlib/.lake/packages/batteries/.lake/build/lib/lean:/opt/mathlib/.lake/packages/Qq/.lake/build/lib/lean:/opt/mathlib/.lake/packages/aesop/.lake/build/lib/lean:/opt/mathlib/.lake/packages/proofwidgets/.lake/build/lib/lean:/opt/mathlib/.lake/packages/importGraph/.lake/build/lib/lean:/opt/mathlib/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/opt/mathlib/.lake/packages/plausible/.lake/build/lib/lean:/opt/mathlib/.lake/packages/mathlib/.lake/build/lib/lean:/opt/mathlib/.lake/build/lib/lean:/opt/cslib/.lake/build/lib/lean:/opt/lean/lib/lean
+TEMP=/tmp
+TMP=/tmp
+PATH=/workspace/nucleus/work/home/.local/bin:/workspace/nucleus/work/home/.cargo/bin:/workspace/nucleus/work/home/.elan/bin:/opt/lean/bin:/opt/math/bin:/usr/local/bin:/usr/bin:/bin

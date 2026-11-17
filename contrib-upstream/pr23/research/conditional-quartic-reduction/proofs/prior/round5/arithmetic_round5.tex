@@ -1,0 +1,310 @@
+\section{A smaller conductor constant and a shifted detector coordinate}
+
+This note starts from the immutable fourth-round package with builder hash
+\texttt{ca171bf25610cb7da003ed58b4c4d43799a67fd4b5d6ca1b8fbac74a2dcc7e0e}.
+The upstream manuscript is pinned at commit
+\texttt{036cebe4f1a4aa7ca89820a9b48f3629b4c364d6}.
+All global geometric, modularity, height-transfer, group, simultaneous-prime,
+pole and quaternion ingredients remain inherited. This note checks changed
+applications of their actual proofs; computational checks of its constants
+are not substitutes for those ingredients.
+
+\subsection{Use the full three-torsion already defined over the fiber field}
+
+The actual geometric construction in
+\texttt{manuscripts/quartic\_v10.tex}, lines 6933--7006, provides a
+normal field $L/\mathbb Q$ with $[L:\mathbb Q]\mid576$, a maximal-order
+quaternion action on $A/L$, and full three-torsion markings defined over
+$L$. In particular all of $A[3]$ is $L$-rational.
+
+Raynaud's criterion, in Silverberg--Zarhin, \emph{Semistable reduction
+and torsion subgroups of abelian varieties}, Ann. Inst. Fourier 45 (1995),
+Theorem 3.5 on printed page 406, applies to full $n$-torsion for $n\ge3$
+prime to the residue characteristic. The primary published page was
+checked directly, including the inequality $n\ge3$.
+The source already invokes this theorem with three-torsion in lines
+883--885 and with eleven-torsion in lines 7153--7156.
+Thus $A$ is semistable over $L$ at $2,5,7$.
+
+The source's quaternionic torus argument, lines 7105--7126, upgrades
+this to good reduction: a positive-rank torus in the semistable special
+fiber would give a unital embedding of the quaternion division algebra
+$B$ into $M_t(\mathbb Q)$ for $1\le t\le2$, which is impossible.
+At $3$, retain the previous field $E=L(A[11])$. The fourth-round
+matrix-unit argument gives
+\[
+ [E:\mathbb Q]\mid2^{10}3^3 5^2 11,
+\]
+and eleven-torsion gives good reduction there.
+
+Let $\chi,b$ be precisely the scalar character and cochain constructed
+in the source's (LR2). On $G_L$, $b$ is a conjugation-invariant character
+whose square is $\chi$. Put $F_0=L\mathbb Q(\chi)$ and let $F'_0$
+kill the quadratic restriction of $b$ to $G_{F_0}$. This is a normal
+extension, by the same argument used in the source for $E\mathbb Q(\chi)$.
+Over $F'_0$, the scalar correction is trivial and the compatible
+representation is the Tate representation of $A$.
+
+At $2$, the two scalar extensions each add ramification index at most
+two; the local valuation bound is therefore $v_2(e_{F'_0})\le6+2=8$.
+At $5,7$ both added extensions are tame and $[L:\mathbb Q]$ is prime
+to those residue characteristics. At $3$, use the old $E$-based extension;
+its two added extensions are tame, so $v_3(e)\le3$. It is legitimate to
+use different auxiliary fields at different primes to bound one local
+conductor. The resulting wild-index bounds are
+\[
+ (k_2,k_3,k_5,k_7)=(8,3,0,0).
+\]
+
+\subsection{Retain the sharp term in the different formula}
+
+For the finite Galois local extensions just used, the source proves
+\[
+ \delta\le e-1+e\,v_p(e),\qquad
+ \delta/e=1-1/e+\int_0^\infty(1-|G^u|^{-1})\,du.
+\]
+These are the conventions in lines 7367--7386. Subtracting the common
+$1-1/e$ term gives an integral at most $k=v_p(e)$.
+For $u>0$, every nontrivial $G^u$ is a $p$-group, so the integrand is
+at least $(p-1)/p$ up to the last positive upper break. The value at
+$u=0$ and the choice of endpoint convention have measure zero and do not
+change this estimate. The last break is at most $pk/(p-1)$.
+
+The two-dimensional representation is unramified over the corresponding
+auxiliary field. Its Swan conductor is therefore at most $2pk/(p-1)$,
+and its tame contribution is at most two. If $k=0$, it is tame. Hence
+\[
+ a_2\le34,\qquad a_3\le11,\qquad a_5\le2,\qquad a_7\le2.
+\]
+Use the source's companion representation at three to compute the
+conductor at five, exactly as before. At every $p>7$ the original bound
+$a_p\le2$ is unchanged, with zero conductor outside its support $T$.
+Since $R$ contains $2,3,5,7$, the already present factor $R^2$ absorbs
+two powers of each. Consequently
+\[
+ \boxed{N\le C R^2,\qquad C=2^{32}3^9=84537841287168<2^{47}.}
+\]
+This refinement changes neither the modular representation nor its
+primitive-level interpretation.
+
+\subsection{Choose the detector coordinate and guard together}
+
+Replace the old fractional-linear coordinate by
+\[
+ \phi(t)=-49+1/t,
+\]
+which sends the five new contact values
+\[
+ \Theta=\{0,1/49,1/50,1/2450,32/1225\}
+\]
+to $\{\infty,0,1,2401,-343/32\}$. Its integral matrix has determinant
+$-1$. All contact denominators and nonzero pairwise differences have
+prime support in $\{2,3,5,7\}$.
+
+For each chosen positive-square scale $A$, put
+\[
+ t=A\lambda,\qquad\delta=98t-1,\qquad
+ F(t)=\prod_{\theta\in\Theta}(t-\theta),\qquad
+ e=(A\delta)^5/F(t),\qquad R=1/(e\delta).
+\]
+The values of $\delta$ on the five contacts, in the displayed order, are
+\[
+ -1,\quad1,\quad24/25,\quad-24/25,\quad39/25.
+\]
+Their only extra prime is $13$. This agrees with the exception already
+needed by the retained input logarithm.
+
+The positivity chart becomes
+\[
+ \lambda=32/1225+u^2+v^2.
+\]
+The largest contact is $32/1225$. All three scales are at least one,
+so $t$ lies at or above this value, where $\delta\ge39/25>0$.
+The defining equation $eF=(A\delta)^5$ excludes a contact value and
+therefore gives $F>0$, $e>0$. For every positive order $m$,
+\[
+ q_m=e^{2m-1}/\delta^3>0.
+\]
+Every real detector factor $1+q_mD_j^2$ is at least one. Thus all prior
+nonzero trace, norm and pole-input arguments remain valid; no new guard
+is silently assumed.
+
+At every prime outside $\{2,3,5,7,13\}$, a prime in the transformed
+contact radical has finite contact with exactly one element of $\Theta$,
+and $\delta$ is a unit there. Contact at infinity for $t$ does not occur:
+$\phi(\infty)=-49$ is distinct from all five target contacts modulo these
+primes. The matrix is unimodular, so the same odd-contact radical is
+obtained after applying $\phi$. The usual one-place argument applies
+because
+\[
+ 1+R\left(\frac{D/\delta^{m+1}}{R^m}\right)^2
+       =1+\frac{e^{2m-1}}{\delta^3}D^2.
+\]
+The identity and its valuation proof do not require the old guard $t-1$.
+
+\subsection{Check the actual logarithm orders}
+
+Use $G_{12}$ for the shared alternate denominator and for the three
+Lucas-label numerators, with high detector order $44$. Retain $G_2$
+for the input numerator and low cross order $12$.
+The exact circuit identities and global nonvanishing of these polynomial
+approximants are proved in the separate geometry note.
+
+Set
+\[
+ \mathcal S=\{2,3,5,7,13,17\},\qquad B_{\mathcal S}=46410.
+\]
+All primes outside this set are at least eleven. For a formal point
+of depth $r\ge1$, the source identity gives $\log_E=zG(w)$ with
+$v(w)=4r$ and $v(a_j)\ge-(4j+1)/(p-1)$.
+For $G_{12}$, every omitted $j\ge13$ satisfies
+\[
+ (4j+1)/10\le4(j-11),
+\]
+so its relative error has valuation at least $44r$.
+For $G_2$, the first omitted coefficient is
+$a_3=-14/195$, integral at all consumed primes. For $j\ge4$,
+$(4j+1)/10\le4(j-3)$, giving relative precision $12r$.
+For raw $z$, $a_1=-2/5$ is integral and the same estimate for $j\ge2$
+gives $\log_E/z\in1+p^{4r}\mathcal O$.
+These tail bounds tend to infinity and control the entire series.
+They hold at split and inert unramified places. This explicitly checks
+the retained input logarithm; omitting $13$ would fail its order-twelve
+consumer.
+
+The primary root test at high order $44$ gives primary formal depth
+at least $44$. Weak logarithm-unit estimates and the fact that one of
+$h,h-1$ is a $p$-unit transfer integrality before relative errors are
+made absolute. The three Lucas labels are then compared at order $44$,
+and the input label at order $12$. The primary error is at least $176$.
+The existing identity-input branch uses its own cross-test order and
+does not form $\log(O)/z(O)$.
+
+\subsection{Height constants, scales and the anchor}
+
+The finite-support geometry, (LR1)--(LR5), CM branch and exponent-nineteen
+height proof are the actual ones audited in the fourth-round note.
+They apply with the smaller support and the new conductor constant:
+\[
+ H=2\cdot2^{109}C^6B_{\mathcal S}^{19}+128,
+ \qquad h(x)\le H M_{\mathcal S}(x)^{19}.
+\]
+The exact $H$ has bit length $683$. The elementary bound used below is
+\[
+ H<2^{697},\qquad697=2+109+6\cdot47+19\cdot16.
+\]
+This still dominates the inherited CM estimate.
+
+For the selected one-coordinate scale reduction, retain $1,C_0^2$ and
+replace $(1+C_1^2)^2$ by $(C_0+C_1)^2$, where
+$C=C_0+C_1\rho$ is the product of the four root abscissas.
+At both real embeddings $C>d^4$, and $d^4=193-132\rho$.
+The positive weights $(1\pm1/\sqrt2)/2$ therefore give $C_0+C_1>61$.
+All scales remain greater than or equal to one.
+
+The coordinate change satisfies $h(t)\le h(\phi(t))+\log50$.
+If all three radicals divide a nonzero integer $N$ to order $k$, put
+$T=(H+\log50)|N|^{19/k}$. Then $h(C_0),h(C_0+C_1)\le T$ and
+\[
+ h(C_1)\le2T+\log2,\qquad h(C)\le3T+\tfrac52\log2.
+\]
+Since $H\ge4$ and $3\log50+\tfrac52\log2<16$, the old constant
+$7H$ still suffices. The product-height identity and root lower bound
+therefore retain the exact consumer
+\[
+ B^2-6<7H|N|^{19/k},\qquad B=\max(|n|,|a|,|t|,|b|).
+\]
+
+Use scalar order $m=28$. Starting from $q_1=r^{-1}$, four coordinates
+give
+\[
+ rq_3=q_1^2,\qquad rq_7=q_3^2,\qquad
+ q_{14}=q_7^2,\qquad q_{28}=q_{14}^2.
+\]
+The previously reviewed scalar norm recursion is uniform in positive
+orders, so $M_{\mathcal S}(\beta)^{28}\mid a-1$ and
+$h(\beta)\le H|a-1|^{19/28}$. The separately reviewed unnormalized
+scalar proxy retains exactly this index valuation conclusion, including
+the prime $41$; it needs no additional exceptional prime.
+
+Set the anchor coefficient to $S_0=3^{2^{13}}$, with
+$C_a=3^{2^{12}}$. The unchanged norm-anchor calculation gives
+\[
+ 0\ne a-1\in2\cdot3^{2^{11}-1}\mathbb Z.
+\]
+Write $c=|a-1|$. Then
+\[
+ \log_2c>3071.5,\qquad\log_2|a|>3070.5.
+\]
+The scalar margin follows from
+\[
+ (9/28)3071.5>987>704=7+697,
+\]
+which gives $h(\beta)<c/80\le|a|/40$.
+Also $\log(40H)<703<|a|/40$; the last inequality follows already
+from $40\cdot703<2^{15}<|a|$.
+
+For the Lucas polynomial $F$, if $F\ne0$, its order-$44$ divisibility
+and $|F|<5B^4$ give
+\[
+ B^{3/11}<7H5^{19/44}+6<24H.
+\]
+But
+\[
+ (3/11)3070.5>837>702=5+697>\log_2(24H),
+\]
+contradicting $B\ge|a|$. Hence $F=0$, and the inherited Lucas theorem
+gives $\log B>|a|-3$. For $n\ne\beta$, the order-twelve input comparison
+gives the unchanged contradictory upper bound
+\[
+ \log B<\tfrac{12}{5}\log(40H)+\tfrac{19}{5}h(\beta)
+ <\tfrac{31}{200}|a|<|a|-3.
+\]
+Thus all soundness consumers are satisfied without importing the former
+tenth-power margin as an unnecessary common requirement.
+
+\subsection{Completeness and the new fixed constants}
+
+Keep the source's order of choices: scalar preparation, roots and positive
+square scales, continuity modulus, then contact primes. The old order-$32$
+scalar preparation supplies order $28$. Choose contact primes greater than
+$76176$ with the new fixed contact positions and the same Gaussian classes.
+All new exclusions and differences are fixed before prime selection.
+The separation proof still gives the required coprimalities, so the primary
+progression uses $\Pi^{43}$ rather than $\Pi^{39}$, yielding depth at
+least $44$. Opposite points retain depth one.
+
+The positivity chart has canonical witnesses: $32/1225$ is a contact of
+the unit-scale detector. The selected contact formula gives
+$\lambda-32/1225=p/v$, where $v=D_0^2w^2$ is a square and the selected
+$p$ is a Gaussian norm. Thus this difference is a sum of two rational
+squares. Arbitrary positivity alone would not establish this assertion.
+
+The product formula for $R$ still has square denominator $v^5\delta^6$,
+and hence the same odd valuations and local squareclasses. The successful
+place makes the reciprocal trace a unit at selected contact primes, exactly
+as before. Real asymptotics now read
+\[
+ R\sim98^{-6}A^{-6}\lambda^{-1},\quad W=1+O(\lambda^{-3}),
+ \quad B_{\rm pole}\sim(4\cdot98^6A^6\lambda)^{-1}.
+\]
+At $p=2,3,17$, let $\nu=v_p(v)$, $\eta=v_p(A)$ and
+$\alpha=v_p(98)$. For sufficiently large prescribed $\nu$,
+\[
+ v_p(\delta)=\alpha+\eta-\nu,\qquad
+ v_p(R)=\nu-6\eta-6\alpha,
+\]
+and the nonconstant detector factors have valuation at least
+\[
+ 3\nu+(10m-8)(\eta+\alpha)-2c_p.
+\]
+This tends to infinity for every retained fixed order. Accordingly the
+source's small-prime pole bounds and real upper bound $B_{\rm pole}<17$
+hold after increasing only finite preparatory constants. No new
+simultaneous-prime hypothesis or circular choice is introduced.
+
+The standard constant chain now runs from exponent ten through thirteen,
+using four coordinates. An intermediate chain can use twelve through
+thirteen, using two coordinates. These count statements require the
+ordinary quadratic lifting audit; the fixed-coefficient core has no extra
+coordinate for the changed numerical anchor.

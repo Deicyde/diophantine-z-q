@@ -1,0 +1,215 @@
+\section{Moving the scalar constant outside the norm tree}
+
+This replacement starts from the frozen sixth-round construction with
+builder SHA256
+\texttt{3f63cb782d52857446cf39f6e545aeb74f380d1347826eafa888cbb487738d51}.
+It removes one rational coordinate after the complete compiler while
+preserving scalar order twenty-eight. The point charts, nonzero shifted-point
+guard, scalar proxy, logarithms, detector tests, physical anchor, and scalar
+pole equations are unchanged. The new scalar witnesses are justified by a
+soundness and completeness transfer; a bijection between the old and new
+scalar witness tuples is neither needed nor asserted. The inherited global
+arithmetic remains conditional.
+
+\subsection{The replacement and its quadratic implementation}
+
+Retain the actual input polynomial and contact product
+\[
+ \beta=2401+2754(2X+1)^2
+       =11016X^2+11016X+5155,
+ \qquad r=\beta(\beta-1)(32\beta+343).
+\]
+For every rational input, $\beta\ge2401$ and $r>0$. Retain the scalar
+points $H=[h]P$ and $Q=S-P=[a-1]P$, where $h\ne0$ and $a-1\ne0$,
+and write
+\[
+ (A,B,C,D_0)=\bigl(f(H)_0,f(H)_1,f(Q)_0,f(Q)_1\bigr),
+ \qquad T=\operatorname{Re}(k_Hw).
+\]
+These are the same functions as in the preceding construction:
+$k_H=y(H)/x(H)$, $w=h_S\tau$, and $\tau^2=f(Q)$.
+The existing inverse of $f(Q)_0$ still excludes $S=P$; the tangent case
+$S=-P$ and all chart sign choices are retained.
+
+Keep the three existing Laurent steps and scaled proxy,
+\[
+ rq_3=q_1^2,\quad rq_7=q_3^2,\quad rq_{15}=q_7^2,
+ \quad q_1=r^{-1},\quad \kappa=q_{15}=r^{-15},
+ \quad ry=Tq_{15},\quad y=T/r^{16}.
+\]
+Replace the scalar tree by
+\begin{align*}
+ n&=B^2/r^2+C^2/r,&
+ L&=A^2/r+n^2/r^2,\\
+ J&=D_0^2+\kappa y^2,&
+ N&=L^2+\kappa J^2,\qquad W=1+N.
+\end{align*}
+The physical pole input remains $b=42rW^2$ and is passed through the
+same normalized scalar pole equations. Since every coefficient in these
+real norm expressions is positive, $N\ge0$ and $W\ge1$.
+
+The two left nodes use exactly four rational coordinates:
+\[
+ z=B/r,\qquad rn=zB+C^2,\qquad u=n/r,\qquad rL=A^2+un.
+\]
+Each equation has degree at most two. The $J$ and $N$ nodes each retain
+a stored square of their right argument, so their inverse-weight terms
+are also genuinely quadratic in stored coordinates. The final addition
+$W=1+N$ is affine and introduces no coordinate. Relative to the preceding
+implementation, the former node $n_0=1+A^2/r$ disappears; the former
+two-coordinate realization of $L=n_0^2+rn^2$ is replaced by the displayed
+two-coordinate realization of the new $L$.
+
+All new denominators are $r$, which is already positive and has an
+explicit rational inverse. Thus the rational extensions defining the
+new nodes are unique, and no new branch or zero-denominator domain is
+introduced. The shifted-point identity guard is not inferred from
+these scalar equations and is explicitly retained.
+
+\subsection{Odd contact valuations are already positive}
+
+Let $p$ be a consumed prime outside the retained exceptional set
+$\mathcal S=\{2,3,5,7,13,17\}$. The three-contact argument supplies an
+odd valuation $R=v_p(r)$. Its positivity need not be enforced by an
+all-left constant path in a norm tree.
+
+Indeed, if $v_p(X)<0$, the leading coefficient
+$11016=2^3 3^4 17$ is a $p$-unit. The three terms in the expanded
+polynomial for $\beta$ then have distinct relevant smallest valuation,
+so
+\[
+ v_p(\beta)=2v_p(X)<0.
+\]
+Since $32$ is also a $p$-unit,
+\[
+ v_p(\beta-1)=v_p(32\beta+343)=2v_p(X),
+ \qquad v_p(r)=6v_p(X),
+\]
+which is even. If instead $v_p(X)\ge0$, all three contact factors are
+integral, so $v_p(r)\ge0$. Consequently oddness of $R$ implies $R>0$
+for every consumed prime. This is a statement about the actual input
+polynomial; it would not follow for an arbitrary independently chosen
+rational $\beta$.
+
+\subsection{Soundness with an outer constant}
+
+At such a prime, $42$ is a unit and the unchanged scalar pole implication
+gives
+\[
+ R+2v_p(W)>0,\qquad v_p(W)>-R/2.
+\]
+Because $R>0$, also $v_p(1)=0>-R/2$. Applying the ultrametric inequality
+to $N=W-1$ therefore gives
+\[
+ v_p(N)>-R/2.
+\]
+This step allows cancellation between $1$ and $N$; no assertion of
+noncancellation at the final affine addition is made.
+
+Within every binary norm node, the two rational summands have opposite
+valuation parity. In $n$ their coefficient valuations are $-2R$ and
+$-R$; in $L$ they are $-R$ and $-2R$; in both $J$ and $N$ they are
+$0$ and $-15R$. Thus each node's valuation is exactly the smaller
+summand valuation. The argument also covers zero arguments by taking
+$v_p(0)=+\infty$.
+
+Descending from $N$ gives
+\[
+ v_p(L)>-R/4,\qquad v_p(J)>29R/4.
+\]
+The two left nodes give
+\[
+ v_p(A)>3R/8,\qquad v_p(n)>7R/8,\qquad
+ v_p(B)>23R/16,\qquad v_p(C)>15R/16.
+\]
+The right node gives the same bounds as before,
+\[
+ v_p(D_0)>29R/8,\qquad v_p(y)>89R/8,
+ \qquad v_p(T)>217R/8.
+\]
+In particular all four coefficients of $f(H)$ and $f(Q)$ have positive
+integer valuation. Both points therefore belong to the formal group at
+every place above $p$, before the scalar proxy lemma is applied.
+
+The retained two-place proxy lemma, including its nonunit fixed-coordinate
+case at $41$, now gives
+\[
+ v_p(T)=v_p\bigl((a-1)/h\bigr).
+\]
+Since $R\ge1$ and rational valuations are integral, the strict bound
+$v_p(T)>217R/8$ implies $v_p(T)\ge28$. Since $h$ is a nonzero integer,
+\[
+ v_p(a-1)\ge28,
+ \qquad M_{\mathcal S}(\beta)^{28}\mid a-1.
+\]
+This is the same uniform scalar order as before. No stronger bound
+$v_p(T)\ge28R$ is asserted. In particular, the same scalar height
+consumer remains valid without changing the logarithm precision or
+introducing an exceptional prime.
+
+\subsection{Completeness and the order of choices}
+
+Fix an integral input, so $r$ is a fixed positive integer. The inherited
+preparation chooses $H$ first and then chooses $Q$ sufficiently deeper
+at a finite set of primes. For fixed $H$, the retained function
+$T=\operatorname{Re}(k_Hw)$ tends to zero as $Q\to O$, because
+$S\to P$, $h_S$ stays bounded, and $\tau\to0$. Arbitrarily large
+finite lower bounds on the four scalar coefficients and on $T$ are
+therefore available in the same order as before.
+
+For $p\mid r$, put $R=v_p(r)\ge1$. The following explicit sufficient
+bounds establish the new local preparation:
+\[
+ v_p(A)\ge R+1,\quad v_p(B),v_p(C)\ge2R+1,
+ \quad v_p(D_0)\ge4R+1,\quad v_p(y)\ge12R+1.
+\]
+They imply
+\[
+ v_p(n)\ge2R+2,\qquad v_p(L)\ge R+2,
+ \qquad v_p(J)\ge8R+2.
+\]
+Consequently
+\[
+ v_p(N)\ge\min(2R+4,R+4)=R+4>0,
+ \qquad W\equiv1\pmod p.
+\]
+The lower bound for $y$ is just the finite requirement
+$v_p(T)\ge28R+1$, attainable after $H$ is fixed. At a prime dividing
+$42$ but not $r$, requiring the four coefficients and $y$ to be
+divisible by $p$ again gives $N\equiv0$ and $W\equiv1$ modulo $p$.
+These preparation statements use sufficiently deep formal neighborhoods;
+they do not assume good reduction at the small or ramified primes.
+
+Thus $42rW^2$ is positive and nonzero, its reduced denominator is a
+square, and the same local squareclasses at $2,3,17$ and the same
+normalized pole realization are available. The inequality $W\ge1$
+retains the real preparation used previously. Once $S$ is fixed, every
+changed node is a rational function of $H$ with nonzero denominators
+at the prepared point. The finite lower bounds persist on an appropriate
+congruence class of $h$. Roots and scales are therefore still fixed
+before the contact-prime selection. No simultaneous prime selection
+or new global theorem is used.
+
+\subsection{Actual measured cost and finite checks}
+
+With the sixth-round detector and anchor parameters unchanged, the
+complete isolated pipeline gives
+\[
+ \text{raw }409/377,\qquad
+ \text{generic compiler }399/367,\qquad
+ \boxed{\text{final }395\text{ coordinates and }363\text{ residuals}}.
+\]
+The pairs list coordinates and residuals. The independent gate replay
+checks all $348$ source gates and the compiler operations; four further
+certified eliminations give the displayed final count. Every residual
+is quadratic, so the sum of their squares remains quartic. These are
+counts from the complete implementation, not estimates from the
+displayed abbreviations.
+
+The standalone geometry checker reconstructs the actual changed scalar
+rows and their unchanged normalized pole consumer, as well as all
+retained point, difference, logarithm, scalar proxy, and nonzero-domain
+rows. It checks the exact input polynomial, affine valuation bounds,
+and finite completeness inequalities. Its $223$ source assertions and
+the retained exact identity, tangent, and split-$41$ checks supplement
+this uniform proof; they do not establish the inherited global arithmetic.

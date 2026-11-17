@@ -1,0 +1,25 @@
+{
+  "status": "FINDINGS_CONFIRMED",
+  "wrapperSha256": "9341233e403933cae48871fa2c1cb47de13618a6286bc5e84106668485c93e57",
+  "cases": [
+    {
+      "name": "symlinked_source_ancestor",
+      "result": "ACCEPTED",
+      "expectedForHardenedWrapper": "REJECT",
+      "details": "The manifest source is a regular file reached through a symlinked directory; direct is_symlink does not detect the ancestor."
+    },
+    {
+      "name": "preseeded_generated_artifact_and_audit",
+      "result": "ACCEPTED_WITH_PASS_RECEIPT",
+      "expectedForHardenedWrapper": "REJECT",
+      "details": "The mock builder only prints the success marker. The generated artifact and PASS report were supplied as buildInput and nevertheless counted as newly reproduced."
+    },
+    {
+      "name": "optimized_assert_based_audits",
+      "result": "ACCEPTED_WITH_PASS_RECEIPT",
+      "expectedForHardenedWrapper": "REJECT_OR_RUN_WITH_ASSERTIONS_ENABLED",
+      "details": "An unconditionally failing mock audit assert was skipped under inherited PYTHONOPTIMIZE=1; the wrapper still issued PASS. Artifact generation itself remained deterministic."
+    }
+  ],
+  "scope": "Isolated mock fixtures testing wrapper validation only; not a claim about failure of the real mathematical pipeline or the eventual manifests."
+}

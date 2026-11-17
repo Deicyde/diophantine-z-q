@@ -1,0 +1,57 @@
+{
+  "status": "PASS",
+  "scope": "Independent direct probes of the documented prior-overlay verification helper; no patch or global mathematics claim.",
+  "helperSha256": "218c91ee3b9a1ad55eab56d14dcab6f5d8d2e77475c959e9f4f2857480d51afc",
+  "previousManifestSha256": "f2d74ebd40b61a48b1b3d1ecdb55d2fda53f372a090fce8ec1fcd347e333bbd5",
+  "cases": [
+    {
+      "case": "exact_previous_overlay",
+      "expectedSuccess": true,
+      "returnCode": 0,
+      "matchedExpectedOutcome": true,
+      "message": "PASS: exact previous 392-variable overlay; 112 files and all byte hashes match.\nThis verifies the update base only; apply the patch and run current reproduction next."
+    },
+    {
+      "case": "changed_bound_file",
+      "expectedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectedOutcome": true,
+      "message": "FAIL: Changed previous file: README.md"
+    },
+    {
+      "case": "changed_manifest_bytes",
+      "expectedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectedOutcome": true,
+      "message": "FAIL: This is not the exact previous 392-variable manifest"
+    },
+    {
+      "case": "extra_overlay_file",
+      "expectedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectedOutcome": true,
+      "message": "FAIL: The previous overlay has missing or extra files"
+    },
+    {
+      "case": "missing_bound_file",
+      "expectedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectedOutcome": true,
+      "message": "FAIL: Missing previous file: README.md"
+    },
+    {
+      "case": "symlink_to_identical_file",
+      "expectedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectedOutcome": true,
+      "message": "FAIL: Unexpected symbolic link: README.md"
+    },
+    {
+      "case": "restored_exact_overlay",
+      "expectedSuccess": true,
+      "returnCode": 0,
+      "matchedExpectedOutcome": true,
+      "message": "PASS: exact previous 392-variable overlay; 112 files and all byte hashes match.\nThis verifies the update base only; apply the patch and run current reproduction next."
+    }
+  ]
+}

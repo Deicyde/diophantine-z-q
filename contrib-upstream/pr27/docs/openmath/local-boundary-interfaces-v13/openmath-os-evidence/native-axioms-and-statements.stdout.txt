@@ -1,0 +1,993 @@
+def Research.DerivativeSwitch.ConjugateLocalTransport.twist.{u_1, u_2, u_3} : {R : Type u_1} →
+  {G : Type u_2} →
+    {V : Type u_3} →
+      [inst : CommRing.{u_1} R] →
+        [inst_1 : Group.{u_2} G] →
+          [inst_2 : AddCommGroup.{u_3} V] →
+            [inst_3 : Module.{u_1, u_3} R V] →
+              (H : Subgroup.{u_2} G) →
+                MonoidHom.{u_2, u_3} G (Module.End.{u_1, u_3} R V) →
+                  MonoidHom.{u_2, u_1} (↥H) (Units.{u_1} R) → MonoidHom.{u_2, u_3} (↥H) (Module.End.{u_1, u_3} R V) :=
+fun {R} {G} {V} [CommRing.{u_1} R] [Group.{u_2} G] [AddCommGroup.{u_3} V] [Module.{u_1, u_3} R V] H T alpha =>
+  MonoidHom.mk.{u_2, u_3} (OneHom.mk.{u_2, u_3} (fun h => HSMul.hSMul.{u_1, u_3, u_3} (↑(alpha h)) (T ↑h)) ⋯) ⋯
+def Research.DerivativeSwitch.ConjugateLocalTransport.conjugation.{u_2} : {G : Type u_2} →
+  [inst : Group.{u_2} G] → (H : Subgroup.{u_2} G) → [Subgroup.Normal.{u_2} H] → G → MonoidHom.{u_2, u_2} ↥H ↥H :=
+fun {G} [Group.{u_2} G] H [Subgroup.Normal.{u_2} H] a =>
+  MonoidHom.mk.{u_2, u_2}
+    (OneHom.mk.{u_2, u_2}
+      (fun h => Subtype.mk.{u_2 + 1} (HMul.hMul.{u_2, u_2, u_2} (HMul.hMul.{u_2, u_2, u_2} a ↑h) (Inv.inv.{u_2} a)) ⋯)
+      ⋯)
+    ⋯
+def Research.DerivativeSwitch.ConjugateLocalTransport.IsCrossed.{u_1, u_2, u_3} : {R : Type u_1} →
+  {G : Type u_2} →
+    {V : Type u_3} →
+      [inst : CommRing.{u_1} R] →
+        [inst_1 : Group.{u_2} G] →
+          [inst_2 : AddCommGroup.{u_3} V] →
+            [inst_3 : Module.{u_1, u_3} R V] → MonoidHom.{u_2, u_3} G (Module.End.{u_1, u_3} R V) → (G → V) → Prop :=
+fun {R} {G} {V} [CommRing.{u_1} R] [Group.{u_2} G] [AddCommGroup.{u_3} V] [Module.{u_1, u_3} R V] rho p =>
+  ∀ (g h : G), Eq.{u_3 + 1} (p (HMul.hMul.{u_2, u_2, u_2} g h)) (HAdd.hAdd.{u_3, u_3, u_3} (p g) ((rho g) (p h)))
+structure Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.{u_1, u_2, u_3} {R : Type u_1} {G : Type u_2}
+  {V : Type u_3} [CommRing.{u_1} R] [Group.{u_2} G] [AddCommGroup.{u_3} V] [Module.{u_1, u_3} R V]
+  (H : Subgroup.{u_2} G) (T : MonoidHom.{u_2, u_3} G (Module.End.{u_1, u_3} R V))
+  (alpha : MonoidHom.{u_2, u_1} (↥H) (Units.{u_1} R)) : Type u_2
+number of parameters: 10
+fields:
+  Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.tau.{u_1, u_2, u_3} : G
+  Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.frobenius.{u_1, u_2, u_3} : G
+  Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.transporter.{u_1, u_2, u_3} : ↥H
+  Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.finiteGenerator.{u_1, u_2, u_3} : ↥H
+  Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.inertia.{u_1, u_2, u_3} : ↥H
+  Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.ell.{u_1, u_2, u_3} : ℕ
+  Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.tau_sq.{u_1, u_2,
+    u_3} : Eq.{u_2 + 1}
+      (HPow.hPow.{u_2, 0, u_2} (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.tau.{u_1, u_2, u_3} self) 2)
+      1
+  Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.frobenius_eq.{u_1, u_2,
+    u_3} : Eq.{u_2 + 1} (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.frobenius.{u_1, u_2, u_3} self)
+      (HMul.hMul.{u_2, u_2, u_2}
+        (↑(Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.transporter.{u_1, u_2, u_3} self))
+        (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.tau.{u_1, u_2, u_3} self))
+  Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.tate_frobenius.{u_1, u_2,
+    u_3} : Eq.{u_3 + 1} (T (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.frobenius.{u_1, u_2, u_3} self))
+      (T (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.tau.{u_1, u_2, u_3} self))
+  Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.finite_eq.{u_1, u_2,
+    u_3} : Eq.{u_2 + 1}
+      (↑(Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.finiteGenerator.{u_1, u_2, u_3} self))
+      (HPow.hPow.{u_2, 0, u_2}
+        (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.frobenius.{u_1, u_2, u_3} self) 2)
+  Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.tame_eq.{u_1, u_2,
+    u_3} : Eq.{u_2 + 1}
+      (HMul.hMul.{u_2, u_2, u_2}
+        (HMul.hMul.{u_2, u_2, u_2}
+          (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.frobenius.{u_1, u_2, u_3} self)
+          ↑(Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.inertia.{u_1, u_2, u_3} self))
+        (Inv.inv.{u_2} (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.frobenius.{u_1, u_2, u_3} self)))
+      (HPow.hPow.{u_2, 0, u_2}
+        (↑(Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.inertia.{u_1, u_2, u_3} self))
+        (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.ell.{u_1, u_2, u_3} self))
+  Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.alpha_finite.{u_1, u_2,
+    u_3} : Eq.{u_1 + 1}
+      (alpha (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.finiteGenerator.{u_1, u_2, u_3} self)) 1
+  Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.alpha_inertia.{u_1, u_2,
+    u_3} : Eq.{u_1 + 1}
+      (alpha (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.inertia.{u_1, u_2, u_3} self)) 1
+  Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.tate_inertia.{u_1, u_2,
+    u_3} : Eq.{u_3 + 1} (T ↑(Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.inertia.{u_1, u_2, u_3} self))
+      1
+constructor:
+  Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.mk.{u_1, u_2, u_3} {R : Type u_1} {G : Type u_2}
+    {V : Type u_3} [CommRing.{u_1} R] [Group.{u_2} G] [AddCommGroup.{u_3} V] [Module.{u_1, u_3} R V]
+    {H : Subgroup.{u_2} G} {T : MonoidHom.{u_2, u_3} G (Module.End.{u_1, u_3} R V)}
+    {alpha : MonoidHom.{u_2, u_1} (↥H) (Units.{u_1} R)} (tau frobenius : G) (transporter finiteGenerator inertia : ↥H)
+    (ell : ℕ) (tau_sq : Eq.{u_2 + 1} (HPow.hPow.{u_2, 0, u_2} tau 2) 1)
+    (frobenius_eq : Eq.{u_2 + 1} frobenius (HMul.hMul.{u_2, u_2, u_2} (↑transporter) tau))
+    (tate_frobenius : Eq.{u_3 + 1} (T frobenius) (T tau))
+    (finite_eq : Eq.{u_2 + 1} (↑finiteGenerator) (HPow.hPow.{u_2, 0, u_2} frobenius 2))
+    (tame_eq :
+      Eq.{u_2 + 1} (HMul.hMul.{u_2, u_2, u_2} (HMul.hMul.{u_2, u_2, u_2} frobenius ↑inertia) (Inv.inv.{u_2} frobenius))
+        (HPow.hPow.{u_2, 0, u_2} (↑inertia) ell))
+    (alpha_finite : Eq.{u_1 + 1} (alpha finiteGenerator) 1) (alpha_inertia : Eq.{u_1 + 1} (alpha inertia) 1)
+    (tate_inertia : Eq.{u_3 + 1} (T ↑inertia) 1) :
+    Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.{u_1, u_2, u_3} H T alpha
+def Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.transportUnit.{u_1, u_2, u_3} : {R : Type u_1} →
+  {G : Type u_2} →
+    {V : Type u_3} →
+      [inst : CommRing.{u_1} R] →
+        [inst_1 : Group.{u_2} G] →
+          [inst_2 : AddCommGroup.{u_3} V] →
+            [inst_3 : Module.{u_1, u_3} R V] →
+              {H : Subgroup.{u_2} G} →
+                {T : MonoidHom.{u_2, u_3} G (Module.End.{u_1, u_3} R V)} →
+                  {alpha : MonoidHom.{u_2, u_1} (↥H) (Units.{u_1} R)} →
+                    Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.{u_1, u_2, u_3} H T alpha →
+                      Units.{u_1} R :=
+fun {R} {G} {V} [CommRing.{u_1} R] [Group.{u_2} G] [AddCommGroup.{u_3} V] [Module.{u_1, u_3} R V] {H} {T} {alpha} D =>
+  Inv.inv.{u_1} (alpha (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.transporter.{u_1, u_2, u_3} D))
+def Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.coordinates.{u_1, u_2, u_3} : {R : Type u_1} →
+  {G : Type u_2} →
+    {V : Type u_3} →
+      [inst : CommRing.{u_1} R] →
+        [inst_1 : Group.{u_2} G] →
+          [inst_2 : AddCommGroup.{u_3} V] →
+            [inst_3 : Module.{u_1, u_3} R V] →
+              {H : Subgroup.{u_2} G} →
+                {T : MonoidHom.{u_2, u_3} G (Module.End.{u_1, u_3} R V)} →
+                  {alpha : MonoidHom.{u_2, u_1} (↥H) (Units.{u_1} R)} →
+                    Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.{u_1, u_2, u_3} H T alpha →
+                      (↥H → V) → Prod.{u_3, u_3} V V :=
+fun {R} {G} {V} [CommRing.{u_1} R] [Group.{u_2} G] [AddCommGroup.{u_3} V] [Module.{u_1, u_3} R V] {H} {T} {alpha} D p =>
+  Prod.mk.{u_3, u_3} (p (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.finiteGenerator.{u_1, u_2, u_3} D))
+    (p (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.inertia.{u_1, u_2, u_3} D))
+def Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.rawConjugate.{u_1, u_2, u_3} : {R : Type u_1} →
+  {G : Type u_2} →
+    {V : Type u_3} →
+      [inst : CommRing.{u_1} R] →
+        [inst_1 : Group.{u_2} G] →
+          [inst_2 : AddCommGroup.{u_3} V] →
+            [inst_3 : Module.{u_1, u_3} R V] →
+              {H : Subgroup.{u_2} G} →
+                {T : MonoidHom.{u_2, u_3} G (Module.End.{u_1, u_3} R V)} →
+                  {alpha : MonoidHom.{u_2, u_1} (↥H) (Units.{u_1} R)} →
+                    Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.{u_1, u_2, u_3} H T alpha →
+                      [Subgroup.Normal.{u_2} H] → (↥H → V) → ↥H → V :=
+fun {R} {G} {V} [CommRing.{u_1} R] [Group.{u_2} G] [AddCommGroup.{u_3} V] [Module.{u_1, u_3} R V] {H} {T} {alpha} D
+    [Subgroup.Normal.{u_2} H] p =>
+  Function.comp.{u_2 + 1, u_2 + 1, u_3 + 1} p
+    ⇑(Research.DerivativeSwitch.ConjugateLocalTransport.conjugation.{u_2} H
+        (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.tau.{u_1, u_2, u_3} D))
+def Research.DerivativeSwitch.ConjugateLocalTransport.cocycleEvaluation.{u} : {R G V : Type u} →
+  [inst : CommRing.{u} R] →
+    [inst_1 : Group.{u} G] →
+      [inst_2 : AddCommGroup.{u} V] →
+        [inst_3 : Module.{u, u} R V] →
+          (rho : MonoidHom.{u, u} G (Module.End.{u, u} R V)) →
+            G →
+              LinearMap.{u, u, u, u} (RingHom.id.{u} R) (↥(groupCohomology.cocycles₁.{u, u} (Rep.of.{u, u, u} rho)))
+                V :=
+fun {R G V} [CommRing.{u} R] [Group.{u} G] [AddCommGroup.{u} V] [Module.{u, u} R V] rho x =>
+  LinearMap.mk.{u, u, u, u} (AddHom.mk.{u, u} (fun p => p x) ⋯) ⋯
+def Research.DerivativeSwitch.ConjugateLocalTransport.h1Evaluation.{u} : {R G V : Type u} →
+  [inst : CommRing.{u} R] →
+    [inst_1 : Group.{u} G] →
+      [inst_2 : AddCommGroup.{u} V] →
+        [inst_3 : Module.{u, u} R V] →
+          (rho : MonoidHom.{u, u} G (Module.End.{u, u} R V)) →
+            (x : G) →
+              Eq.{u + 1} (rho x) 1 →
+                LinearMap.{u, u, u, u} (RingHom.id.{u} R) (↑(groupCohomology.H1.{u} (Rep.of.{u, u, u} rho))) V :=
+fun {R G V} [CommRing.{u} R] [Group.{u} G] [AddCommGroup.{u} V] [Module.{u, u} R V] rho x hx =>
+  (LinearMap.liftOfSurjective.{u, u, u, u} ⋯)
+    (Subtype.mk.{u + 1} (Research.DerivativeSwitch.ConjugateLocalTransport.cocycleEvaluation.{u} rho x) ⋯)
+def Research.DerivativeSwitch.ConjugateLocalTransport.cocyclePullback.{u} : {R G V : Type u} →
+  [inst : CommRing.{u} R] →
+    [inst_1 : Group.{u} G] →
+      [inst_2 : AddCommGroup.{u} V] →
+        [inst_3 : Module.{u, u} R V] →
+          (rho : MonoidHom.{u, u} G (Module.End.{u, u} R V)) →
+            (gamma : MonoidHom.{u, u} G G) →
+              LinearMap.{u, u, u, u} (RingHom.id.{u} R) ↥(groupCohomology.cocycles₁.{u, u} (Rep.of.{u, u, u} rho))
+                ↥(groupCohomology.cocycles₁.{u, u} (Rep.of.{u, u, u} (MonoidHom.comp.{u, u, u} rho gamma))) :=
+fun {R G V} [CommRing.{u} R] [Group.{u} G] [AddCommGroup.{u} V] [Module.{u, u} R V] rho gamma =>
+  LinearMap.mk.{u, u, u, u} (AddHom.mk.{u, u} (fun p => Subtype.mk.{u + 1} (fun x => p (gamma x)) ⋯) ⋯) ⋯
+def Research.DerivativeSwitch.ConjugateLocalTransport.h1Pullback.{u} : {R G V : Type u} →
+  [inst : CommRing.{u} R] →
+    [inst_1 : Group.{u} G] →
+      [inst_2 : AddCommGroup.{u} V] →
+        [inst_3 : Module.{u, u} R V] →
+          (rho : MonoidHom.{u, u} G (Module.End.{u, u} R V)) →
+            (gamma : MonoidHom.{u, u} G G) →
+              LinearMap.{u, u, u, u} (RingHom.id.{u} R) ↑(groupCohomology.H1.{u} (Rep.of.{u, u, u} rho))
+                ↑(groupCohomology.H1.{u} (Rep.of.{u, u, u} (MonoidHom.comp.{u, u, u} rho gamma))) :=
+fun {R G V} [CommRing.{u} R] [Group.{u} G] [AddCommGroup.{u} V] [Module.{u, u} R V] rho gamma =>
+  (LinearMap.liftOfSurjective.{u, u, u, u} ⋯)
+    (Subtype.mk.{u + 1}
+      (ModuleCat.Hom.hom.{u, u} (groupCohomology.H1π.{u} (Rep.of.{u, u, u} (MonoidHom.comp.{u, u, u} rho gamma))) ∘ₗ
+        Research.DerivativeSwitch.ConjugateLocalTransport.cocyclePullback.{u} rho gamma)
+      ⋯)
+def Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.h1Coordinates.{u} : {R G V : Type u} →
+  [inst : CommRing.{u} R] →
+    [inst_1 : Group.{u} G] →
+      [inst_2 : AddCommGroup.{u} V] →
+        [inst_3 : Module.{u, u} R V] →
+          {H : Subgroup.{u} G} →
+            {T : MonoidHom.{u, u} G (Module.End.{u, u} R V)} →
+              {alpha : MonoidHom.{u, u} (↥H) (Units.{u} R)} →
+                Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.{u, u, u} H T alpha →
+                  LinearMap.{u, u, u, u} (RingHom.id.{u} R)
+                    (↑(groupCohomology.H1.{u}
+                        (Rep.of.{u, u, u}
+                          (Research.DerivativeSwitch.ConjugateLocalTransport.twist.{u, u, u} H T alpha))))
+                    (Prod.{u, u} V V) :=
+fun {R G V} [CommRing.{u} R] [Group.{u} G] [AddCommGroup.{u} V] [Module.{u, u} R V] {H} {T} {alpha} D =>
+  LinearMap.prod.{u, u, u, u}
+    (Research.DerivativeSwitch.ConjugateLocalTransport.h1Evaluation.{u}
+      (Research.DerivativeSwitch.ConjugateLocalTransport.twist.{u, u, u} H T alpha)
+      (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.finiteGenerator.{u, u, u} D) ⋯)
+    (Research.DerivativeSwitch.ConjugateLocalTransport.h1Evaluation.{u}
+      (Research.DerivativeSwitch.ConjugateLocalTransport.twist.{u, u, u} H T alpha)
+      (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.inertia.{u, u, u} D) ⋯)
+def Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.conjugateH1Coordinates.{u} : {R G V : Type u} →
+  [inst : CommRing.{u} R] →
+    [inst_1 : Group.{u} G] →
+      [inst_2 : AddCommGroup.{u} V] →
+        [inst_3 : Module.{u, u} R V] →
+          {H : Subgroup.{u} G} →
+            {T : MonoidHom.{u, u} G (Module.End.{u, u} R V)} →
+              {alpha : MonoidHom.{u, u} (↥H) (Units.{u} R)} →
+                (D : Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.{u, u, u} H T alpha) →
+                  [inst_4 : Subgroup.Normal.{u} H] →
+                    LinearMap.{u, u, u, u} (RingHom.id.{u} R)
+                      (↑(groupCohomology.H1.{u}
+                          (Rep.of.{u, u, u}
+                            (MonoidHom.comp.{u, u, u}
+                              (Research.DerivativeSwitch.ConjugateLocalTransport.twist.{u, u, u} H T alpha)
+                              (Research.DerivativeSwitch.ConjugateLocalTransport.conjugation.{u} H
+                                (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.tau.{u, u, u} D))))))
+                      (Prod.{u, u} V V) :=
+fun {R G V} [CommRing.{u} R] [Group.{u} G] [AddCommGroup.{u} V] [Module.{u, u} R V] {H} {T} {alpha} D
+    [Subgroup.Normal.{u} H] =>
+  LinearMap.prod.{u, u, u, u}
+    (Research.DerivativeSwitch.ConjugateLocalTransport.h1Evaluation.{u}
+      (MonoidHom.comp.{u, u, u} (Research.DerivativeSwitch.ConjugateLocalTransport.twist.{u, u, u} H T alpha)
+        (Research.DerivativeSwitch.ConjugateLocalTransport.conjugation.{u} H
+          (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.tau.{u, u, u} D)))
+      (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.finiteGenerator.{u, u, u} D) ⋯)
+    (Research.DerivativeSwitch.ConjugateLocalTransport.h1Evaluation.{u}
+      (MonoidHom.comp.{u, u, u} (Research.DerivativeSwitch.ConjugateLocalTransport.twist.{u, u, u} H T alpha)
+        (Research.DerivativeSwitch.ConjugateLocalTransport.conjugation.{u} H
+          (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.tau.{u, u, u} D)))
+      (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.inertia.{u, u, u} D) ⋯)
+structure Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.{u_1, u_2, u_3, u_4, u_5, u_6} {R : Type u_1}
+  {L0 : Type u_2} {L1 : Type u_3} {L2 : Type u_4} {T1 : Type u_5} {T2 : Type u_6} [CommRing.{u_1} R]
+  [AddCommGroup.{u_2} L0] [Module.{u_1, u_2} R L0] [AddCommGroup.{u_3} L1] [Module.{u_1, u_3} R L1]
+  [AddCommGroup.{u_4} L2] [Module.{u_1, u_4} R L2] [AddCommGroup.{u_5} T1] [Module.{u_1, u_5} R T1]
+  [AddCommGroup.{u_6} T2] [Module.{u_1, u_6} R T2] : Type (max (max (max (max u_2 u_3) u_4) u_5) u_6)
+number of parameters: 17
+fields:
+  Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.d0.{u_1, u_2, u_3, u_4, u_5,
+    u_6} : LinearMap.{u_1, u_1, u_2, u_3} (RingHom.id.{u_1} R) L0 L1
+  Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.d1.{u_1, u_2, u_3, u_4, u_5,
+    u_6} : LinearMap.{u_1, u_1, u_3, u_4} (RingHom.id.{u_1} R) L1 L2
+  Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.dt.{u_1, u_2, u_3, u_4, u_5,
+    u_6} : LinearMap.{u_1, u_1, u_5, u_6} (RingHom.id.{u_1} R) T1 T2
+  Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.cup10.{u_1, u_2, u_3, u_4, u_5,
+    u_6} : LinearMap.{u_1, u_1, u_3, max u_5 u_2} (RingHom.id.{u_1} R) L1
+      (LinearMap.{u_1, u_1, u_2, u_5} (RingHom.id.{u_1} R) L0 T1)
+  Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.cup01.{u_1, u_2, u_3, u_4, u_5,
+    u_6} : LinearMap.{u_1, u_1, u_2, max u_5 u_3} (RingHom.id.{u_1} R) L0
+      (LinearMap.{u_1, u_1, u_3, u_5} (RingHom.id.{u_1} R) L1 T1)
+  Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.cup11.{u_1, u_2, u_3, u_4, u_5,
+    u_6} : LinearMap.{u_1, u_1, u_3, max u_6 u_3} (RingHom.id.{u_1} R) L1
+      (LinearMap.{u_1, u_1, u_3, u_6} (RingHom.id.{u_1} R) L1 T2)
+  Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.cup20.{u_1, u_2, u_3, u_4, u_5,
+    u_6} : LinearMap.{u_1, u_1, u_4, max u_6 u_2} (RingHom.id.{u_1} R) L2
+      (LinearMap.{u_1, u_1, u_2, u_6} (RingHom.id.{u_1} R) L0 T2)
+  Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.cup02.{u_1, u_2, u_3, u_4, u_5,
+    u_6} : LinearMap.{u_1, u_1, u_2, max u_6 u_4} (RingHom.id.{u_1} R) L0
+      (LinearMap.{u_1, u_1, u_4, u_6} (RingHom.id.{u_1} R) L2 T2)
+  Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.leibniz10.{u_1, u_2, u_3, u_4, u_5,
+    u_6} : ∀ (l : L1) (q : L0),
+      Eq.{u_6 + 1}
+        ((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.dt.{u_1, u_2, u_3, u_4, u_5, u_6} self)
+          (((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.cup10.{u_1, u_2, u_3, u_4, u_5, u_6} self) l) q))
+        (HSub.hSub.{u_6, u_6, u_6}
+          (((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.cup20.{u_1, u_2, u_3, u_4, u_5, u_6} self)
+              ((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.d1.{u_1, u_2, u_3, u_4, u_5, u_6} self) l))
+            q)
+          (((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.cup11.{u_1, u_2, u_3, u_4, u_5, u_6} self) l)
+            ((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.d0.{u_1, u_2, u_3, u_4, u_5, u_6} self) q)))
+  Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.leibniz01.{u_1, u_2, u_3, u_4, u_5,
+    u_6} : ∀ (q : L0) (l : L1),
+      Eq.{u_6 + 1}
+        ((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.dt.{u_1, u_2, u_3, u_4, u_5, u_6} self)
+          (((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.cup01.{u_1, u_2, u_3, u_4, u_5, u_6} self) q) l))
+        (HAdd.hAdd.{u_6, u_6, u_6}
+          (((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.cup11.{u_1, u_2, u_3, u_4, u_5, u_6} self)
+              ((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.d0.{u_1, u_2, u_3, u_4, u_5, u_6} self) q))
+            l)
+          (((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.cup02.{u_1, u_2, u_3, u_4, u_5, u_6} self) q)
+            ((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.d1.{u_1, u_2, u_3, u_4, u_5, u_6} self) l)))
+constructor:
+  Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.mk.{u_1, u_2, u_3, u_4, u_5, u_6} {R : Type u_1}
+    {L0 : Type u_2} {L1 : Type u_3} {L2 : Type u_4} {T1 : Type u_5} {T2 : Type u_6} [CommRing.{u_1} R]
+    [AddCommGroup.{u_2} L0] [Module.{u_1, u_2} R L0] [AddCommGroup.{u_3} L1] [Module.{u_1, u_3} R L1]
+    [AddCommGroup.{u_4} L2] [Module.{u_1, u_4} R L2] [AddCommGroup.{u_5} T1] [Module.{u_1, u_5} R T1]
+    [AddCommGroup.{u_6} T2] [Module.{u_1, u_6} R T2] (d0 : LinearMap.{u_1, u_1, u_2, u_3} (RingHom.id.{u_1} R) L0 L1)
+    (d1 : LinearMap.{u_1, u_1, u_3, u_4} (RingHom.id.{u_1} R) L1 L2)
+    (dt : LinearMap.{u_1, u_1, u_5, u_6} (RingHom.id.{u_1} R) T1 T2)
+    (cup10 :
+      LinearMap.{u_1, u_1, u_3, max u_5 u_2} (RingHom.id.{u_1} R) L1
+        (LinearMap.{u_1, u_1, u_2, u_5} (RingHom.id.{u_1} R) L0 T1))
+    (cup01 :
+      LinearMap.{u_1, u_1, u_2, max u_5 u_3} (RingHom.id.{u_1} R) L0
+        (LinearMap.{u_1, u_1, u_3, u_5} (RingHom.id.{u_1} R) L1 T1))
+    (cup11 :
+      LinearMap.{u_1, u_1, u_3, max u_6 u_3} (RingHom.id.{u_1} R) L1
+        (LinearMap.{u_1, u_1, u_3, u_6} (RingHom.id.{u_1} R) L1 T2))
+    (cup20 :
+      LinearMap.{u_1, u_1, u_4, max u_6 u_2} (RingHom.id.{u_1} R) L2
+        (LinearMap.{u_1, u_1, u_2, u_6} (RingHom.id.{u_1} R) L0 T2))
+    (cup02 :
+      LinearMap.{u_1, u_1, u_2, max u_6 u_4} (RingHom.id.{u_1} R) L0
+        (LinearMap.{u_1, u_1, u_4, u_6} (RingHom.id.{u_1} R) L2 T2))
+    (leibniz10 :
+      ∀ (l : L1) (q : L0),
+        Eq.{u_6 + 1} (dt ((cup10 l) q)) (HSub.hSub.{u_6, u_6, u_6} ((cup20 (d1 l)) q) ((cup11 l) (d0 q))))
+    (leibniz01 :
+      ∀ (q : L0) (l : L1),
+        Eq.{u_6 + 1} (dt ((cup01 q) l)) (HAdd.hAdd.{u_6, u_6, u_6} ((cup11 (d0 q)) l) ((cup02 q) (d1 l)))) :
+    Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.{u_1, u_2, u_3, u_4, u_5, u_6}
+def Research.DerivativeSwitch.OrthogonalComparison.fibreD.{u_1, u_2, u_3, u_4, u_7, u_8} : {G₀ : Type u_1} →
+  {G₁ : Type u_2} →
+    {U₀ : Type u_3} →
+      {U₁ : Type u_4} →
+        {L₀ : Type u_7} →
+          {L₁ : Type u_8} →
+            [inst : AddCommGroup.{u_1} G₀] →
+              [inst_1 : AddCommGroup.{u_2} G₁] →
+                [inst_2 : AddCommGroup.{u_3} U₀] →
+                  [inst_3 : AddCommGroup.{u_4} U₁] →
+                    [inst_4 : AddCommGroup.{u_7} L₀] →
+                      [inst_5 : AddCommGroup.{u_8} L₁] →
+                        AddMonoidHom.{u_1, u_2} G₀ G₁ →
+                          AddMonoidHom.{u_3, u_4} U₀ U₁ →
+                            AddMonoidHom.{u_7, u_8} L₀ L₁ →
+                              AddMonoidHom.{u_1, u_8} G₀ L₁ →
+                                AddMonoidHom.{u_3, u_8} U₀ L₁ →
+                                  Prod.{u_1, max u_7 u_3} G₀ (Prod.{u_3, u_7} U₀ L₀) →
+                                    Prod.{u_2, max u_8 u_4} G₁ (Prod.{u_4, u_8} U₁ L₁) :=
+fun {G₀} {G₁} {U₀} {U₁} {L₀} {L₁} [AddCommGroup.{u_1} G₀] [AddCommGroup.{u_2} G₁] [AddCommGroup.{u_3} U₀]
+    [AddCommGroup.{u_4} U₁] [AddCommGroup.{u_7} L₀] [AddCommGroup.{u_8} L₁] dG dU dL loc inc z =>
+  Prod.mk.{u_2, max u_4 u_8} (dG z.1)
+    (Prod.mk.{u_4, u_8} (dU z.2.1)
+      (HSub.hSub.{u_8, u_8, u_8} (HSub.hSub.{u_8, u_8, u_8} (loc z.1) (inc z.2.1)) (dL z.2.2)))
+def Research.DerivativeSwitch.OrthogonalComparison.fibreComparison.{u_1, u_3, u_5, u_7} : {G₀ : Type u_1} →
+  {U₀ : Type u_3} →
+    {V₀ : Type u_5} →
+      {L₀ : Type u_7} →
+        [inst : AddCommGroup.{u_3} U₀] →
+          [inst_1 : AddCommGroup.{u_5} V₀] →
+            [inst_2 : AddCommGroup.{u_7} L₀] →
+              AddMonoidHom.{u_3, u_5} U₀ V₀ →
+                AddMonoidHom.{u_3, u_7} U₀ L₀ →
+                  Prod.{u_1, max u_7 u_3} G₀ (Prod.{u_3, u_7} U₀ L₀) →
+                    Prod.{u_1, max u_7 u_5} G₀ (Prod.{u_5, u_7} V₀ L₀) :=
+fun {G₀} {U₀} {V₀} {L₀} [AddCommGroup.{u_3} U₀] [AddCommGroup.{u_5} V₀] [AddCommGroup.{u_7} L₀] a h z =>
+  Prod.mk.{u_1, max u_5 u_7} z.1 (Prod.mk.{u_5, u_7} (a z.2.1) (HAdd.hAdd.{u_7, u_7, u_7} z.2.2 (h z.2.1)))
+STATEMENT Research.DerivativeSwitch.ConjugateLocalTransport.crossed_conjugation: ∀ {R : Type u_1} {G : Type u_2}
+  {V : Type u_3} [inst : CommRing.{u_1} R] [inst_1 : Group.{u_2} G] [inst_2 : AddCommGroup.{u_3} V]
+  [inst_3 : _root_.Module.{u_1, u_3} R V] (rho : MonoidHom.{u_2, u_3} G (Module.End.{u_1, u_3} R V)) (p : G → V),
+  Research.DerivativeSwitch.ConjugateLocalTransport.IsCrossed.{u_1, u_2, u_3} rho p →
+    ∀ (a x : G),
+      Eq.{u_3 + 1} (p (HMul.hMul.{u_2, u_2, u_2} (HMul.hMul.{u_2, u_2, u_2} (Inv.inv.{u_2} a) x) a))
+        ((rho (Inv.inv.{u_2} a)) (HSub.hSub.{u_3, u_3, u_3} (HAdd.hAdd.{u_3, u_3, u_3} (p x) ((rho x) (p a))) (p a)))
+AXIOM_CHECK Research.DerivativeSwitch.ConjugateLocalTransport.crossed_conjugation: [propext, Quot.sound]
+STATEMENT Research.DerivativeSwitch.ConjugateLocalTransport.crossed_pow_of_trivial: ∀ {R : Type u_1} {G : Type u_2}
+  {V : Type u_3} [inst : CommRing.{u_1} R] [inst_1 : Group.{u_2} G] [inst_2 : AddCommGroup.{u_3} V]
+  [inst_3 : _root_.Module.{u_1, u_3} R V] (rho : MonoidHom.{u_2, u_3} G (Module.End.{u_1, u_3} R V)) (p : G → V),
+  Research.DerivativeSwitch.ConjugateLocalTransport.IsCrossed.{u_1, u_2, u_3} rho p →
+    ∀ (x : G),
+      Eq.{u_3 + 1} (rho x) 1 →
+        ∀ (n : ℕ), Eq.{u_3 + 1} (p (HPow.hPow.{u_2, 0, u_2} x n)) (HSMul.hSMul.{u_1, u_3, u_3} (↑n) (p x))
+AXIOM_CHECK Research.DerivativeSwitch.ConjugateLocalTransport.crossed_pow_of_trivial: [propext, Quot.sound]
+STATEMENT Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.tate_transporter: ∀ {R : Type u_1} {G : Type u_2}
+  {V : Type u_3} [inst : CommRing.{u_1} R] [inst_1 : Group.{u_2} G] [inst_2 : AddCommGroup.{u_3} V]
+  [inst_3 : _root_.Module.{u_1, u_3} R V] {H : Subgroup.{u_2} G}
+  {T : MonoidHom.{u_2, u_3} G (Module.End.{u_1, u_3} R V)} {alpha : MonoidHom.{u_2, u_1} (↥H) (Units.{u_1} R)}
+  (D : Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.{u_1, u_2, u_3} H T alpha),
+  Eq.{u_3 + 1} (T ↑(Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.transporter.{u_1, u_2, u_3} D)) 1
+AXIOM_CHECK Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.tate_transporter: [propext, Quot.sound]
+STATEMENT Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.twist_transporter: ∀ {R : Type u_1} {G : Type u_2}
+  {V : Type u_3} [inst : CommRing.{u_1} R] [inst_1 : Group.{u_2} G] [inst_2 : AddCommGroup.{u_3} V]
+  [inst_3 : _root_.Module.{u_1, u_3} R V] {H : Subgroup.{u_2} G}
+  {T : MonoidHom.{u_2, u_3} G (Module.End.{u_1, u_3} R V)} {alpha : MonoidHom.{u_2, u_1} (↥H) (Units.{u_1} R)}
+  (D : Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.{u_1, u_2, u_3} H T alpha),
+  Eq.{u_3 + 1}
+    ((Research.DerivativeSwitch.ConjugateLocalTransport.twist.{u_1, u_2, u_3} H T alpha)
+      (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.transporter.{u_1, u_2, u_3} D))
+    (HSMul.hSMul.{u_1, u_3, u_3}
+      (↑(alpha (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.transporter.{u_1, u_2, u_3} D))) 1)
+AXIOM_CHECK Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.twist_transporter: [propext, Quot.sound]
+STATEMENT Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.twist_transporter_inv: ∀ {R : Type u_1}
+  {G : Type u_2} {V : Type u_3} [inst : CommRing.{u_1} R] [inst_1 : Group.{u_2} G] [inst_2 : AddCommGroup.{u_3} V]
+  [inst_3 : _root_.Module.{u_1, u_3} R V] {H : Subgroup.{u_2} G}
+  {T : MonoidHom.{u_2, u_3} G (Module.End.{u_1, u_3} R V)} {alpha : MonoidHom.{u_2, u_1} (↥H) (Units.{u_1} R)}
+  (D : Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.{u_1, u_2, u_3} H T alpha),
+  Eq.{u_3 + 1}
+    ((Research.DerivativeSwitch.ConjugateLocalTransport.twist.{u_1, u_2, u_3} H T alpha)
+      (Inv.inv.{u_2} (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.transporter.{u_1, u_2, u_3} D)))
+    (HSMul.hSMul.{u_1, u_3, u_3}
+      (↑(Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.transportUnit.{u_1, u_2, u_3} D)) 1)
+AXIOM_CHECK Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.twist_transporter_inv: [propext, Quot.sound]
+STATEMENT Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.tate_finite: ∀ {R : Type u_1} {G : Type u_2}
+  {V : Type u_3} [inst : CommRing.{u_1} R] [inst_1 : Group.{u_2} G] [inst_2 : AddCommGroup.{u_3} V]
+  [inst_3 : _root_.Module.{u_1, u_3} R V] {H : Subgroup.{u_2} G}
+  {T : MonoidHom.{u_2, u_3} G (Module.End.{u_1, u_3} R V)} {alpha : MonoidHom.{u_2, u_1} (↥H) (Units.{u_1} R)}
+  (D : Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.{u_1, u_2, u_3} H T alpha),
+  Eq.{u_3 + 1} (T ↑(Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.finiteGenerator.{u_1, u_2, u_3} D)) 1
+AXIOM_CHECK Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.tate_finite: [propext, Quot.sound]
+STATEMENT Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.twist_finite: ∀ {R : Type u_1} {G : Type u_2}
+  {V : Type u_3} [inst : CommRing.{u_1} R] [inst_1 : Group.{u_2} G] [inst_2 : AddCommGroup.{u_3} V]
+  [inst_3 : _root_.Module.{u_1, u_3} R V] {H : Subgroup.{u_2} G}
+  {T : MonoidHom.{u_2, u_3} G (Module.End.{u_1, u_3} R V)} {alpha : MonoidHom.{u_2, u_1} (↥H) (Units.{u_1} R)}
+  (D : Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.{u_1, u_2, u_3} H T alpha),
+  Eq.{u_3 + 1}
+    ((Research.DerivativeSwitch.ConjugateLocalTransport.twist.{u_1, u_2, u_3} H T alpha)
+      (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.finiteGenerator.{u_1, u_2, u_3} D))
+    1
+AXIOM_CHECK Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.twist_finite: [propext, Quot.sound]
+STATEMENT Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.twist_inertia: ∀ {R : Type u_1} {G : Type u_2}
+  {V : Type u_3} [inst : CommRing.{u_1} R] [inst_1 : Group.{u_2} G] [inst_2 : AddCommGroup.{u_3} V]
+  [inst_3 : _root_.Module.{u_1, u_3} R V] {H : Subgroup.{u_2} G}
+  {T : MonoidHom.{u_2, u_3} G (Module.End.{u_1, u_3} R V)} {alpha : MonoidHom.{u_2, u_1} (↥H) (Units.{u_1} R)}
+  (D : Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.{u_1, u_2, u_3} H T alpha),
+  Eq.{u_3 + 1}
+    ((Research.DerivativeSwitch.ConjugateLocalTransport.twist.{u_1, u_2, u_3} H T alpha)
+      (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.inertia.{u_1, u_2, u_3} D))
+    1
+AXIOM_CHECK Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.twist_inertia: [propext, Quot.sound]
+STATEMENT Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.rawConjugate_isCrossed: ∀ {R : Type u_1}
+  {G : Type u_2} {V : Type u_3} [inst : CommRing.{u_1} R] [inst_1 : Group.{u_2} G] [inst_2 : AddCommGroup.{u_3} V]
+  [inst_3 : _root_.Module.{u_1, u_3} R V] {H : Subgroup.{u_2} G}
+  {T : MonoidHom.{u_2, u_3} G (Module.End.{u_1, u_3} R V)} {alpha : MonoidHom.{u_2, u_1} (↥H) (Units.{u_1} R)}
+  (D : Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.{u_1, u_2, u_3} H T alpha)
+  [inst_4 : Subgroup.Normal.{u_2} H] (p : ↥H → V),
+  Research.DerivativeSwitch.ConjugateLocalTransport.IsCrossed.{u_1, u_2, u_3}
+      (Research.DerivativeSwitch.ConjugateLocalTransport.twist.{u_1, u_2, u_3} H T alpha) p →
+    Research.DerivativeSwitch.ConjugateLocalTransport.IsCrossed.{u_1, u_2, u_3}
+      (MonoidHom.comp.{u_2, u_2, u_3}
+        (Research.DerivativeSwitch.ConjugateLocalTransport.twist.{u_1, u_2, u_3} H T alpha)
+        (Research.DerivativeSwitch.ConjugateLocalTransport.conjugation.{u_2} H
+          (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.tau.{u_1, u_2, u_3} D)))
+      (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.rawConjugate.{u_1, u_2, u_3} D p)
+AXIOM_CHECK Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.rawConjugate_isCrossed: [propext, Quot.sound]
+STATEMENT Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.conjugation_finite: ∀ {R : Type u_1}
+  {G : Type u_2} {V : Type u_3} [inst : CommRing.{u_1} R] [inst_1 : Group.{u_2} G] [inst_2 : AddCommGroup.{u_3} V]
+  [inst_3 : _root_.Module.{u_1, u_3} R V] {H : Subgroup.{u_2} G}
+  {T : MonoidHom.{u_2, u_3} G (Module.End.{u_1, u_3} R V)} {alpha : MonoidHom.{u_2, u_1} (↥H) (Units.{u_1} R)}
+  (D : Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.{u_1, u_2, u_3} H T alpha)
+  [inst_4 : Subgroup.Normal.{u_2} H],
+  Eq.{u_2 + 1}
+    ((Research.DerivativeSwitch.ConjugateLocalTransport.conjugation.{u_2} H
+        (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.tau.{u_1, u_2, u_3} D))
+      (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.finiteGenerator.{u_1, u_2, u_3} D))
+    (HMul.hMul.{u_2, u_2, u_2}
+      (HMul.hMul.{u_2, u_2, u_2}
+        (Inv.inv.{u_2} (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.transporter.{u_1, u_2, u_3} D))
+        (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.finiteGenerator.{u_1, u_2, u_3} D))
+      (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.transporter.{u_1, u_2, u_3} D))
+AXIOM_CHECK Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.conjugation_finite: [propext, Quot.sound]
+STATEMENT Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.conjugation_inertia: ∀ {R : Type u_1}
+  {G : Type u_2} {V : Type u_3} [inst : CommRing.{u_1} R] [inst_1 : Group.{u_2} G] [inst_2 : AddCommGroup.{u_3} V]
+  [inst_3 : _root_.Module.{u_1, u_3} R V] {H : Subgroup.{u_2} G}
+  {T : MonoidHom.{u_2, u_3} G (Module.End.{u_1, u_3} R V)} {alpha : MonoidHom.{u_2, u_1} (↥H) (Units.{u_1} R)}
+  (D : Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.{u_1, u_2, u_3} H T alpha)
+  [inst_4 : Subgroup.Normal.{u_2} H],
+  Eq.{u_2 + 1}
+    ((Research.DerivativeSwitch.ConjugateLocalTransport.conjugation.{u_2} H
+        (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.tau.{u_1, u_2, u_3} D))
+      (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.inertia.{u_1, u_2, u_3} D))
+    (HMul.hMul.{u_2, u_2, u_2}
+      (HMul.hMul.{u_2, u_2, u_2}
+        (Inv.inv.{u_2} (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.transporter.{u_1, u_2, u_3} D))
+        (HPow.hPow.{u_2, 0, u_2} (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.inertia.{u_1, u_2, u_3} D)
+          (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.ell.{u_1, u_2, u_3} D)))
+      (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.transporter.{u_1, u_2, u_3} D))
+AXIOM_CHECK Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.conjugation_inertia: [propext, Quot.sound]
+STATEMENT Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.rawConjugate_finite: ∀ {R : Type u_1}
+  {G : Type u_2} {V : Type u_3} [inst : CommRing.{u_1} R] [inst_1 : Group.{u_2} G] [inst_2 : AddCommGroup.{u_3} V]
+  [inst_3 : _root_.Module.{u_1, u_3} R V] {H : Subgroup.{u_2} G}
+  {T : MonoidHom.{u_2, u_3} G (Module.End.{u_1, u_3} R V)} {alpha : MonoidHom.{u_2, u_1} (↥H) (Units.{u_1} R)}
+  (D : Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.{u_1, u_2, u_3} H T alpha)
+  [inst_4 : Subgroup.Normal.{u_2} H] (p : ↥H → V),
+  Research.DerivativeSwitch.ConjugateLocalTransport.IsCrossed.{u_1, u_2, u_3}
+      (Research.DerivativeSwitch.ConjugateLocalTransport.twist.{u_1, u_2, u_3} H T alpha) p →
+    Eq.{u_3 + 1}
+      (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.rawConjugate.{u_1, u_2, u_3} D p
+        (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.finiteGenerator.{u_1, u_2, u_3} D))
+      (HSMul.hSMul.{u_1, u_3, u_3}
+        (↑(Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.transportUnit.{u_1, u_2, u_3} D))
+        (p (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.finiteGenerator.{u_1, u_2, u_3} D)))
+AXIOM_CHECK Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.rawConjugate_finite: [propext, Quot.sound]
+STATEMENT Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.rawConjugate_inertia: ∀ {R : Type u_1}
+  {G : Type u_2} {V : Type u_3} [inst : CommRing.{u_1} R] [inst_1 : Group.{u_2} G] [inst_2 : AddCommGroup.{u_3} V]
+  [inst_3 : _root_.Module.{u_1, u_3} R V] {H : Subgroup.{u_2} G}
+  {T : MonoidHom.{u_2, u_3} G (Module.End.{u_1, u_3} R V)} {alpha : MonoidHom.{u_2, u_1} (↥H) (Units.{u_1} R)}
+  (D : Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.{u_1, u_2, u_3} H T alpha)
+  [inst_4 : Subgroup.Normal.{u_2} H] (p : ↥H → V),
+  Research.DerivativeSwitch.ConjugateLocalTransport.IsCrossed.{u_1, u_2, u_3}
+      (Research.DerivativeSwitch.ConjugateLocalTransport.twist.{u_1, u_2, u_3} H T alpha) p →
+    Eq.{u_3 + 1}
+      (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.rawConjugate.{u_1, u_2, u_3} D p
+        (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.inertia.{u_1, u_2, u_3} D))
+      (HSMul.hSMul.{u_1, u_3, u_3}
+        (↑(Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.transportUnit.{u_1, u_2, u_3} D))
+        (HSMul.hSMul.{u_1, u_3, u_3}
+          (↑(Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.ell.{u_1, u_2, u_3} D))
+          (p (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.inertia.{u_1, u_2, u_3} D))))
+AXIOM_CHECK Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.rawConjugate_inertia: [propext, Quot.sound]
+STATEMENT Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.coordinates_rawConjugate: ∀ {R : Type u_1}
+  {G : Type u_2} {V : Type u_3} [inst : CommRing.{u_1} R] [inst_1 : Group.{u_2} G] [inst_2 : AddCommGroup.{u_3} V]
+  [inst_3 : _root_.Module.{u_1, u_3} R V] {H : Subgroup.{u_2} G}
+  {T : MonoidHom.{u_2, u_3} G (Module.End.{u_1, u_3} R V)} {alpha : MonoidHom.{u_2, u_1} (↥H) (Units.{u_1} R)}
+  (D : Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.{u_1, u_2, u_3} H T alpha)
+  [inst_4 : Subgroup.Normal.{u_2} H] (p : ↥H → V),
+  Research.DerivativeSwitch.ConjugateLocalTransport.IsCrossed.{u_1, u_2, u_3}
+      (Research.DerivativeSwitch.ConjugateLocalTransport.twist.{u_1, u_2, u_3} H T alpha) p →
+    Eq.{u_3 + 1}
+      (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.coordinates.{u_1, u_2, u_3} D
+        (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.rawConjugate.{u_1, u_2, u_3} D p))
+      (Prod.mk.{u_3, u_3}
+        (HSMul.hSMul.{u_1, u_3, u_3}
+          (↑(Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.transportUnit.{u_1, u_2, u_3} D))
+          (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.coordinates.{u_1, u_2, u_3} D p).1)
+        (HSMul.hSMul.{u_1, u_3, u_3}
+          (↑(Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.transportUnit.{u_1, u_2, u_3} D))
+          (HSMul.hSMul.{u_1, u_3, u_3}
+            (↑(Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.ell.{u_1, u_2, u_3} D))
+            (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.coordinates.{u_1, u_2, u_3} D p).2)))
+AXIOM_CHECK Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.coordinates_rawConjugate: [propext, Quot.sound]
+STATEMENT Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.coordinates_rawConjugate_of_neg_one: ∀
+  {R : Type u_1} {G : Type u_2} {V : Type u_3} [inst : CommRing.{u_1} R] [inst_1 : Group.{u_2} G]
+  [inst_2 : AddCommGroup.{u_3} V] [inst_3 : _root_.Module.{u_1, u_3} R V] {H : Subgroup.{u_2} G}
+  {T : MonoidHom.{u_2, u_3} G (Module.End.{u_1, u_3} R V)} {alpha : MonoidHom.{u_2, u_1} (↥H) (Units.{u_1} R)}
+  (D : Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.{u_1, u_2, u_3} H T alpha)
+  [inst_4 : Subgroup.Normal.{u_2} H],
+  Eq.{u_1 + 1} (↑(Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.ell.{u_1, u_2, u_3} D)) (-1) →
+    ∀ (p : ↥H → V),
+      Research.DerivativeSwitch.ConjugateLocalTransport.IsCrossed.{u_1, u_2, u_3}
+          (Research.DerivativeSwitch.ConjugateLocalTransport.twist.{u_1, u_2, u_3} H T alpha) p →
+        Eq.{u_3 + 1}
+          (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.coordinates.{u_1, u_2, u_3} D
+            (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.rawConjugate.{u_1, u_2, u_3} D p))
+          (Prod.mk.{u_3, u_3}
+            (HSMul.hSMul.{u_1, u_3, u_3}
+              (↑(Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.transportUnit.{u_1, u_2, u_3} D))
+              (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.coordinates.{u_1, u_2, u_3} D p).1)
+            (Neg.neg.{u_3}
+              (HSMul.hSMul.{u_1, u_3, u_3}
+                (↑(Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.transportUnit.{u_1, u_2, u_3} D))
+                (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.coordinates.{u_1, u_2, u_3} D p).2)))
+AXIOM_CHECK Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.coordinates_rawConjugate_of_neg_one: [propext,
+ Quot.sound]
+STATEMENT Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.twist_conjugation_finite: ∀ {R : Type u_1}
+  {G : Type u_2} {V : Type u_3} [inst : CommRing.{u_1} R] [inst_1 : Group.{u_2} G] [inst_2 : AddCommGroup.{u_3} V]
+  [inst_3 : _root_.Module.{u_1, u_3} R V] {H : Subgroup.{u_2} G}
+  {T : MonoidHom.{u_2, u_3} G (Module.End.{u_1, u_3} R V)} {alpha : MonoidHom.{u_2, u_1} (↥H) (Units.{u_1} R)}
+  (D : Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.{u_1, u_2, u_3} H T alpha)
+  [inst_4 : Subgroup.Normal.{u_2} H],
+  Eq.{u_3 + 1}
+    ((Research.DerivativeSwitch.ConjugateLocalTransport.twist.{u_1, u_2, u_3} H T alpha)
+      ((Research.DerivativeSwitch.ConjugateLocalTransport.conjugation.{u_2} H
+          (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.tau.{u_1, u_2, u_3} D))
+        (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.finiteGenerator.{u_1, u_2, u_3} D)))
+    1
+AXIOM_CHECK Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.twist_conjugation_finite: [propext, Quot.sound]
+STATEMENT Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.twist_conjugation_inertia: ∀ {R : Type u_1}
+  {G : Type u_2} {V : Type u_3} [inst : CommRing.{u_1} R] [inst_1 : Group.{u_2} G] [inst_2 : AddCommGroup.{u_3} V]
+  [inst_3 : _root_.Module.{u_1, u_3} R V] {H : Subgroup.{u_2} G}
+  {T : MonoidHom.{u_2, u_3} G (Module.End.{u_1, u_3} R V)} {alpha : MonoidHom.{u_2, u_1} (↥H) (Units.{u_1} R)}
+  (D : Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.{u_1, u_2, u_3} H T alpha)
+  [inst_4 : Subgroup.Normal.{u_2} H],
+  Eq.{u_3 + 1}
+    ((Research.DerivativeSwitch.ConjugateLocalTransport.twist.{u_1, u_2, u_3} H T alpha)
+      ((Research.DerivativeSwitch.ConjugateLocalTransport.conjugation.{u_2} H
+          (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.tau.{u_1, u_2, u_3} D))
+        (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.inertia.{u_1, u_2, u_3} D)))
+    1
+AXIOM_CHECK Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.twist_conjugation_inertia: [propext, Quot.sound]
+STATEMENT Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.coordinates_add_coboundary: ∀ {R : Type u_1}
+  {G : Type u_2} {V : Type u_3} [inst : CommRing.{u_1} R] [inst_1 : Group.{u_2} G] [inst_2 : AddCommGroup.{u_3} V]
+  [inst_3 : _root_.Module.{u_1, u_3} R V] {H : Subgroup.{u_2} G}
+  {T : MonoidHom.{u_2, u_3} G (Module.End.{u_1, u_3} R V)} {alpha : MonoidHom.{u_2, u_1} (↥H) (Units.{u_1} R)}
+  (D : Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.{u_1, u_2, u_3} H T alpha) (p : ↥H → V) (v : V),
+  Eq.{u_3 + 1}
+    (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.coordinates.{u_1, u_2, u_3} D fun h =>
+      HAdd.hAdd.{u_3, u_3, u_3} (p h)
+        (HSub.hSub.{u_3, u_3, u_3}
+          (((Research.DerivativeSwitch.ConjugateLocalTransport.twist.{u_1, u_2, u_3} H T alpha) h) v) v))
+    (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.coordinates.{u_1, u_2, u_3} D p)
+AXIOM_CHECK Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.coordinates_add_coboundary: [propext,
+ Quot.sound]
+STATEMENT Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.conjugate_coordinates_add_coboundary: ∀
+  {R : Type u_1} {G : Type u_2} {V : Type u_3} [inst : CommRing.{u_1} R] [inst_1 : Group.{u_2} G]
+  [inst_2 : AddCommGroup.{u_3} V] [inst_3 : _root_.Module.{u_1, u_3} R V] {H : Subgroup.{u_2} G}
+  {T : MonoidHom.{u_2, u_3} G (Module.End.{u_1, u_3} R V)} {alpha : MonoidHom.{u_2, u_1} (↥H) (Units.{u_1} R)}
+  (D : Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.{u_1, u_2, u_3} H T alpha)
+  [inst_4 : Subgroup.Normal.{u_2} H] (p : ↥H → V) (v : V),
+  Eq.{u_3 + 1}
+    (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.coordinates.{u_1, u_2, u_3} D
+      (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.rawConjugate.{u_1, u_2, u_3} D fun h =>
+        HAdd.hAdd.{u_3, u_3, u_3} (p h)
+          (HSub.hSub.{u_3, u_3, u_3}
+            (((Research.DerivativeSwitch.ConjugateLocalTransport.twist.{u_1, u_2, u_3} H T alpha) h) v) v)))
+    (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.coordinates.{u_1, u_2, u_3} D
+      (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.rawConjugate.{u_1, u_2, u_3} D p))
+AXIOM_CHECK Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.conjugate_coordinates_add_coboundary: [propext,
+ Quot.sound]
+STATEMENT Research.DerivativeSwitch.ConjugateLocalTransport.h1_projection_surjective: ∀ {R G V : Type u}
+  [inst : CommRing.{u} R] [inst_1 : Group.{u} G] [inst_2 : AddCommGroup.{u} V] [inst_3 : _root_.Module.{u, u} R V]
+  (rho : MonoidHom.{u, u} G (Module.End.{u, u} R V)),
+  Function.Surjective.{u + 1, u + 1} ⇑(ModuleCat.Hom.hom.{u, u} (groupCohomology.H1π.{u} (Rep.of.{u, u, u} rho)))
+AXIOM_CHECK Research.DerivativeSwitch.ConjugateLocalTransport.h1_projection_surjective: [propext,
+ Classical.choice,
+ Quot.sound]
+STATEMENT Research.DerivativeSwitch.ConjugateLocalTransport.cocycleEvaluation_kills_kernel: ∀ {R G V : Type u}
+  [inst : CommRing.{u} R] [inst_1 : Group.{u} G] [inst_2 : AddCommGroup.{u} V] [inst_3 : _root_.Module.{u, u} R V]
+  (rho : MonoidHom.{u, u} G (Module.End.{u, u} R V)) (x : G),
+  Eq.{u + 1} (rho x) 1 →
+    LE.le.{u} (LinearMap.ker.{u, u, u, u} (ModuleCat.Hom.hom.{u, u} (groupCohomology.H1π.{u} (Rep.of.{u, u, u} rho))))
+      (LinearMap.ker.{u, u, u, u} (Research.DerivativeSwitch.ConjugateLocalTransport.cocycleEvaluation.{u} rho x))
+AXIOM_CHECK Research.DerivativeSwitch.ConjugateLocalTransport.cocycleEvaluation_kills_kernel: [propext,
+ Classical.choice,
+ Quot.sound]
+STATEMENT Research.DerivativeSwitch.ConjugateLocalTransport.h1Evaluation_projection: ∀ {R G V : Type u}
+  [inst : CommRing.{u} R] [inst_1 : Group.{u} G] [inst_2 : AddCommGroup.{u} V] [inst_3 : _root_.Module.{u, u} R V]
+  (rho : MonoidHom.{u, u} G (Module.End.{u, u} R V)) (x : G) (hx : Eq.{u + 1} (rho x) 1)
+  (p : ↥(groupCohomology.cocycles₁.{u, u} (Rep.of.{u, u, u} rho))),
+  Eq.{u + 1}
+    ((Research.DerivativeSwitch.ConjugateLocalTransport.h1Evaluation.{u} rho x hx)
+      ((CategoryTheory.ConcreteCategory.hom.{u, u, u + 1, u} (groupCohomology.H1π.{u} (Rep.of.{u, u, u} rho))) p))
+    (p x)
+AXIOM_CHECK Research.DerivativeSwitch.ConjugateLocalTransport.h1Evaluation_projection: [propext,
+ Classical.choice,
+ Quot.sound]
+STATEMENT Research.DerivativeSwitch.ConjugateLocalTransport.cocyclePullback_kills_kernel: ∀ {R G V : Type u}
+  [inst : CommRing.{u} R] [inst_1 : Group.{u} G] [inst_2 : AddCommGroup.{u} V] [inst_3 : _root_.Module.{u, u} R V]
+  (rho : MonoidHom.{u, u} G (Module.End.{u, u} R V)) (gamma : MonoidHom.{u, u} G G),
+  LE.le.{u} (LinearMap.ker.{u, u, u, u} (ModuleCat.Hom.hom.{u, u} (groupCohomology.H1π.{u} (Rep.of.{u, u, u} rho))))
+    (LinearMap.ker.{u, u, u, u}
+      (ModuleCat.Hom.hom.{u, u} (groupCohomology.H1π.{u} (Rep.of.{u, u, u} (MonoidHom.comp.{u, u, u} rho gamma))) ∘ₗ
+        Research.DerivativeSwitch.ConjugateLocalTransport.cocyclePullback.{u} rho gamma))
+AXIOM_CHECK Research.DerivativeSwitch.ConjugateLocalTransport.cocyclePullback_kills_kernel: [propext,
+ Classical.choice,
+ Quot.sound]
+STATEMENT Research.DerivativeSwitch.ConjugateLocalTransport.h1Pullback_projection: ∀ {R G V : Type u}
+  [inst : CommRing.{u} R] [inst_1 : Group.{u} G] [inst_2 : AddCommGroup.{u} V] [inst_3 : _root_.Module.{u, u} R V]
+  (rho : MonoidHom.{u, u} G (Module.End.{u, u} R V)) (gamma : MonoidHom.{u, u} G G)
+  (p : ↥(groupCohomology.cocycles₁.{u, u} (Rep.of.{u, u, u} rho))),
+  Eq.{u + 1}
+    ((Research.DerivativeSwitch.ConjugateLocalTransport.h1Pullback.{u} rho gamma)
+      ((CategoryTheory.ConcreteCategory.hom.{u, u, u + 1, u} (groupCohomology.H1π.{u} (Rep.of.{u, u, u} rho))) p))
+    ((CategoryTheory.ConcreteCategory.hom.{u, u, u + 1, u}
+        (groupCohomology.H1π.{u} (Rep.of.{u, u, u} (MonoidHom.comp.{u, u, u} rho gamma))))
+      ((Research.DerivativeSwitch.ConjugateLocalTransport.cocyclePullback.{u} rho gamma) p))
+AXIOM_CHECK Research.DerivativeSwitch.ConjugateLocalTransport.h1Pullback_projection: [propext,
+ Classical.choice,
+ Quot.sound]
+STATEMENT Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.h1Coordinates_projection: ∀ {R G V : Type u}
+  [inst : CommRing.{u} R] [inst_1 : Group.{u} G] [inst_2 : AddCommGroup.{u} V] [inst_3 : _root_.Module.{u, u} R V]
+  {H : Subgroup.{u} G} {T : MonoidHom.{u, u} G (Module.End.{u, u} R V)} {alpha : MonoidHom.{u, u} (↥H) (Units.{u} R)}
+  (D : Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.{u, u, u} H T alpha)
+  (p :
+    ↥(groupCohomology.cocycles₁.{u, u}
+        (Rep.of.{u, u, u} (Research.DerivativeSwitch.ConjugateLocalTransport.twist.{u, u, u} H T alpha)))),
+  Eq.{u + 1}
+    ((Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.h1Coordinates.{u} D)
+      ((CategoryTheory.ConcreteCategory.hom.{u, u, u + 1, u}
+          (groupCohomology.H1π.{u}
+            (Rep.of.{u, u, u} (Research.DerivativeSwitch.ConjugateLocalTransport.twist.{u, u, u} H T alpha))))
+        p))
+    (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.coordinates.{u, u, u} D ⇑p)
+AXIOM_CHECK Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.h1Coordinates_projection: [propext,
+ Classical.choice,
+ Quot.sound]
+STATEMENT Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.conjugateH1Coordinates_projection: ∀
+  {R G V : Type u} [inst : CommRing.{u} R] [inst_1 : Group.{u} G] [inst_2 : AddCommGroup.{u} V]
+  [inst_3 : _root_.Module.{u, u} R V] {H : Subgroup.{u} G} {T : MonoidHom.{u, u} G (Module.End.{u, u} R V)}
+  {alpha : MonoidHom.{u, u} (↥H) (Units.{u} R)}
+  (D : Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.{u, u, u} H T alpha) [inst_4 : Subgroup.Normal.{u} H]
+  (p :
+    ↥(groupCohomology.cocycles₁.{u, u}
+        (Rep.of.{u, u, u}
+          (MonoidHom.comp.{u, u, u} (Research.DerivativeSwitch.ConjugateLocalTransport.twist.{u, u, u} H T alpha)
+            (Research.DerivativeSwitch.ConjugateLocalTransport.conjugation.{u} H
+              (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.tau.{u, u, u} D)))))),
+  Eq.{u + 1}
+    ((Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.conjugateH1Coordinates.{u} D)
+      ((CategoryTheory.ConcreteCategory.hom.{u, u, u + 1, u}
+          (groupCohomology.H1π.{u}
+            (Rep.of.{u, u, u}
+              (MonoidHom.comp.{u, u, u} (Research.DerivativeSwitch.ConjugateLocalTransport.twist.{u, u, u} H T alpha)
+                (Research.DerivativeSwitch.ConjugateLocalTransport.conjugation.{u} H
+                  (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.tau.{u, u, u} D))))))
+        p))
+    (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.coordinates.{u, u, u} D ⇑p)
+AXIOM_CHECK Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.conjugateH1Coordinates_projection: [propext,
+ Classical.choice,
+ Quot.sound]
+STATEMENT Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.h1_local_transport: ∀ {R G V : Type u}
+  [inst : CommRing.{u} R] [inst_1 : Group.{u} G] [inst_2 : AddCommGroup.{u} V] [inst_3 : _root_.Module.{u, u} R V]
+  {H : Subgroup.{u} G} {T : MonoidHom.{u, u} G (Module.End.{u, u} R V)} {alpha : MonoidHom.{u, u} (↥H) (Units.{u} R)}
+  (D : Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.{u, u, u} H T alpha)
+  [inst_4 : Subgroup.Normal.{u} H],
+  Eq.{u + 1} (↑(Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.ell.{u, u, u} D)) (-1) →
+    ∀
+      (z :
+        ↑(groupCohomology.H1.{u}
+            (Rep.of.{u, u, u} (Research.DerivativeSwitch.ConjugateLocalTransport.twist.{u, u, u} H T alpha)))),
+      Eq.{u + 1}
+        ((Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.conjugateH1Coordinates.{u} D)
+          ((Research.DerivativeSwitch.ConjugateLocalTransport.h1Pullback.{u}
+              (Research.DerivativeSwitch.ConjugateLocalTransport.twist.{u, u, u} H T alpha)
+              (Research.DerivativeSwitch.ConjugateLocalTransport.conjugation.{u} H
+                (Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.tau.{u, u, u} D)))
+            z))
+        (Prod.mk.{u, u}
+          (HSMul.hSMul.{u, u, u}
+            (↑(Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.transportUnit.{u, u, u} D))
+            ((Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.h1Coordinates.{u} D) z).1)
+          (Neg.neg.{u}
+            (HSMul.hSMul.{u, u, u}
+              (↑(Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.transportUnit.{u, u, u} D))
+              ((Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.h1Coordinates.{u} D) z).2)))
+AXIOM_CHECK Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.h1_local_transport: [propext,
+ Classical.choice,
+ Quot.sound]
+STATEMENT Research.DerivativeSwitch.ActualBoundaryCup.closed_cup_differential: ∀ {R : Type u_1} {L0 : Type u_2}
+  {L1 : Type u_3} {L2 : Type u_4} {T1 : Type u_5} {T2 : Type u_6} [inst : CommRing.{u_1} R]
+  [inst_1 : AddCommGroup.{u_2} L0] [inst_2 : _root_.Module.{u_1, u_2} R L0] [inst_3 : AddCommGroup.{u_3} L1]
+  [inst_4 : _root_.Module.{u_1, u_3} R L1] [inst_5 : AddCommGroup.{u_4} L2] [inst_6 : _root_.Module.{u_1, u_4} R L2]
+  [inst_7 : AddCommGroup.{u_5} T1] [inst_8 : _root_.Module.{u_1, u_5} R T1] [inst_9 : AddCommGroup.{u_6} T2]
+  [inst_10 : _root_.Module.{u_1, u_6} R T2]
+  (D : Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.{u_1, u_2, u_3, u_4, u_5, u_6}) (l : L1) (q : L0),
+  Eq.{u_4 + 1} ((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.d1.{u_1, u_2, u_3, u_4, u_5, u_6} D) l) 0 →
+    Eq.{u_6 + 1}
+      (((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.cup11.{u_1, u_2, u_3, u_4, u_5, u_6} D) l)
+        ((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.d0.{u_1, u_2, u_3, u_4, u_5, u_6} D) q))
+      (Neg.neg.{u_6}
+        ((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.dt.{u_1, u_2, u_3, u_4, u_5, u_6} D)
+          (((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.cup10.{u_1, u_2, u_3, u_4, u_5, u_6} D) l) q)))
+AXIOM_CHECK Research.DerivativeSwitch.ActualBoundaryCup.closed_cup_differential: [propext, Quot.sound]
+STATEMENT Research.DerivativeSwitch.ActualBoundaryCup.pure_boundary_correction: ∀ {R : Type u_1} {L0 : Type u_2}
+  {L1 : Type u_3} {L2 : Type u_4} {T1 : Type u_5} {T2 : Type u_6} [inst : CommRing.{u_1} R]
+  [inst_1 : AddCommGroup.{u_2} L0] [inst_2 : _root_.Module.{u_1, u_2} R L0] [inst_3 : AddCommGroup.{u_3} L1]
+  [inst_4 : _root_.Module.{u_1, u_3} R L1] [inst_5 : AddCommGroup.{u_4} L2] [inst_6 : _root_.Module.{u_1, u_4} R L2]
+  [inst_7 : AddCommGroup.{u_5} T1] [inst_8 : _root_.Module.{u_1, u_5} R T1] [inst_9 : AddCommGroup.{u_6} T2]
+  [inst_10 : _root_.Module.{u_1, u_6} R T2]
+  (D : Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.{u_1, u_2, u_3, u_4, u_5, u_6})
+  (l localGlobal localCondition : L1) (q : L0),
+  Eq.{u_4 + 1} ((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.d1.{u_1, u_2, u_3, u_4, u_5, u_6} D) l) 0 →
+    Eq.{u_3 + 1} localCondition
+        (HAdd.hAdd.{u_3, u_3, u_3} localGlobal
+          ((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.d0.{u_1, u_2, u_3, u_4, u_5, u_6} D) q)) →
+      Eq.{u_6 + 1}
+        (((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.cup11.{u_1, u_2, u_3, u_4, u_5, u_6} D) l)
+          localCondition)
+        (HSub.hSub.{u_6, u_6, u_6}
+          (((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.cup11.{u_1, u_2, u_3, u_4, u_5, u_6} D) l)
+            localGlobal)
+          ((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.dt.{u_1, u_2, u_3, u_4, u_5, u_6} D)
+            (((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.cup10.{u_1, u_2, u_3, u_4, u_5, u_6} D) l) q)))
+AXIOM_CHECK Research.DerivativeSwitch.ActualBoundaryCup.pure_boundary_correction: [propext, Quot.sound]
+STATEMENT Research.DerivativeSwitch.ActualBoundaryCup.traced_pure_boundary: ∀ {R : Type u_1} {L0 : Type u_2}
+  {L1 : Type u_3} {L2 : Type u_4} {T1 : Type u_5} {T2 : Type u_6} [inst : CommRing.{u_1} R]
+  [inst_1 : AddCommGroup.{u_2} L0] [inst_2 : _root_.Module.{u_1, u_2} R L0] [inst_3 : AddCommGroup.{u_3} L1]
+  [inst_4 : _root_.Module.{u_1, u_3} R L1] [inst_5 : AddCommGroup.{u_4} L2] [inst_6 : _root_.Module.{u_1, u_4} R L2]
+  [inst_7 : AddCommGroup.{u_5} T1] [inst_8 : _root_.Module.{u_1, u_5} R T1] [inst_9 : AddCommGroup.{u_6} T2]
+  [inst_10 : _root_.Module.{u_1, u_6} R T2]
+  (D : Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.{u_1, u_2, u_3, u_4, u_5, u_6})
+  (trace : LinearMap.{u_1, u_1, u_6, u_1} (RingHom.id.{u_1} R) T2 R),
+  (∀ (x : T1),
+      Eq.{u_1 + 1}
+        (trace ((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.dt.{u_1, u_2, u_3, u_4, u_5, u_6} D) x)) 0) →
+    ∀ (l localGlobal localCondition : L1) (q : L0),
+      Eq.{u_4 + 1} ((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.d1.{u_1, u_2, u_3, u_4, u_5, u_6} D) l)
+          0 →
+        Eq.{u_3 + 1} localCondition
+            (HAdd.hAdd.{u_3, u_3, u_3} localGlobal
+              ((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.d0.{u_1, u_2, u_3, u_4, u_5, u_6} D) q)) →
+          Eq.{u_1 + 1}
+            (trace
+              (((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.cup11.{u_1, u_2, u_3, u_4, u_5, u_6} D) l)
+                localCondition))
+            (trace
+              (((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.cup11.{u_1, u_2, u_3, u_4, u_5, u_6} D) l)
+                localGlobal))
+AXIOM_CHECK Research.DerivativeSwitch.ActualBoundaryCup.traced_pure_boundary: [propext, Classical.choice, Quot.sound]
+STATEMENT Research.DerivativeSwitch.ActualBoundaryCup.traced_left_boundary: ∀ {R : Type u_1} {L0 : Type u_2}
+  {L1 : Type u_3} {L2 : Type u_4} {T1 : Type u_5} {T2 : Type u_6} [inst : CommRing.{u_1} R]
+  [inst_1 : AddCommGroup.{u_2} L0] [inst_2 : _root_.Module.{u_1, u_2} R L0] [inst_3 : AddCommGroup.{u_3} L1]
+  [inst_4 : _root_.Module.{u_1, u_3} R L1] [inst_5 : AddCommGroup.{u_4} L2] [inst_6 : _root_.Module.{u_1, u_4} R L2]
+  [inst_7 : AddCommGroup.{u_5} T1] [inst_8 : _root_.Module.{u_1, u_5} R T1] [inst_9 : AddCommGroup.{u_6} T2]
+  [inst_10 : _root_.Module.{u_1, u_6} R T2]
+  (D : Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.{u_1, u_2, u_3, u_4, u_5, u_6})
+  (trace : LinearMap.{u_1, u_1, u_6, u_1} (RingHom.id.{u_1} R) T2 R),
+  (∀ (x : T1),
+      Eq.{u_1 + 1}
+        (trace ((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.dt.{u_1, u_2, u_3, u_4, u_5, u_6} D) x)) 0) →
+    ∀ (q : L0) (l : L1),
+      Eq.{u_4 + 1} ((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.d1.{u_1, u_2, u_3, u_4, u_5, u_6} D) l)
+          0 →
+        Eq.{u_1 + 1}
+          (trace
+            (((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.cup11.{u_1, u_2, u_3, u_4, u_5, u_6} D)
+                ((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.d0.{u_1, u_2, u_3, u_4, u_5, u_6} D) q))
+              l))
+          0
+AXIOM_CHECK Research.DerivativeSwitch.ActualBoundaryCup.traced_left_boundary: [propext, Quot.sound]
+STATEMENT Research.DerivativeSwitch.ActualBoundaryCup.traced_right_boundary: ∀ {R : Type u_1} {L0 : Type u_2}
+  {L1 : Type u_3} {L2 : Type u_4} {T1 : Type u_5} {T2 : Type u_6} [inst : CommRing.{u_1} R]
+  [inst_1 : AddCommGroup.{u_2} L0] [inst_2 : _root_.Module.{u_1, u_2} R L0] [inst_3 : AddCommGroup.{u_3} L1]
+  [inst_4 : _root_.Module.{u_1, u_3} R L1] [inst_5 : AddCommGroup.{u_4} L2] [inst_6 : _root_.Module.{u_1, u_4} R L2]
+  [inst_7 : AddCommGroup.{u_5} T1] [inst_8 : _root_.Module.{u_1, u_5} R T1] [inst_9 : AddCommGroup.{u_6} T2]
+  [inst_10 : _root_.Module.{u_1, u_6} R T2]
+  (D : Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.{u_1, u_2, u_3, u_4, u_5, u_6})
+  (trace : LinearMap.{u_1, u_1, u_6, u_1} (RingHom.id.{u_1} R) T2 R),
+  (∀ (x : T1),
+      Eq.{u_1 + 1}
+        (trace ((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.dt.{u_1, u_2, u_3, u_4, u_5, u_6} D) x)) 0) →
+    ∀ (l : L1) (q : L0),
+      Eq.{u_4 + 1} ((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.d1.{u_1, u_2, u_3, u_4, u_5, u_6} D) l)
+          0 →
+        Eq.{u_1 + 1}
+          (trace
+            (((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.cup11.{u_1, u_2, u_3, u_4, u_5, u_6} D) l)
+              ((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.d0.{u_1, u_2, u_3, u_4, u_5, u_6} D) q)))
+          0
+AXIOM_CHECK Research.DerivativeSwitch.ActualBoundaryCup.traced_right_boundary: [propext, Quot.sound]
+STATEMENT Research.DerivativeSwitch.ActualBoundaryCup.traced_change_left: ∀ {R : Type u_1} {L0 : Type u_2}
+  {L1 : Type u_3} {L2 : Type u_4} {T1 : Type u_5} {T2 : Type u_6} [inst : CommRing.{u_1} R]
+  [inst_1 : AddCommGroup.{u_2} L0] [inst_2 : _root_.Module.{u_1, u_2} R L0] [inst_3 : AddCommGroup.{u_3} L1]
+  [inst_4 : _root_.Module.{u_1, u_3} R L1] [inst_5 : AddCommGroup.{u_4} L2] [inst_6 : _root_.Module.{u_1, u_4} R L2]
+  [inst_7 : AddCommGroup.{u_5} T1] [inst_8 : _root_.Module.{u_1, u_5} R T1] [inst_9 : AddCommGroup.{u_6} T2]
+  [inst_10 : _root_.Module.{u_1, u_6} R T2]
+  (D : Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.{u_1, u_2, u_3, u_4, u_5, u_6})
+  (trace : LinearMap.{u_1, u_1, u_6, u_1} (RingHom.id.{u_1} R) T2 R),
+  (∀ (x : T1),
+      Eq.{u_1 + 1}
+        (trace ((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.dt.{u_1, u_2, u_3, u_4, u_5, u_6} D) x)) 0) →
+    ∀ (l m : L1) (q : L0),
+      Eq.{u_4 + 1} ((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.d1.{u_1, u_2, u_3, u_4, u_5, u_6} D) m)
+          0 →
+        Eq.{u_1 + 1}
+          (trace
+            (((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.cup11.{u_1, u_2, u_3, u_4, u_5, u_6} D)
+                (HAdd.hAdd.{u_3, u_3, u_3} l
+                  ((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.d0.{u_1, u_2, u_3, u_4, u_5, u_6} D) q)))
+              m))
+          (trace
+            (((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.cup11.{u_1, u_2, u_3, u_4, u_5, u_6} D) l) m))
+AXIOM_CHECK Research.DerivativeSwitch.ActualBoundaryCup.traced_change_left: [propext, Quot.sound]
+STATEMENT Research.DerivativeSwitch.ActualBoundaryCup.traced_change_right: ∀ {R : Type u_1} {L0 : Type u_2}
+  {L1 : Type u_3} {L2 : Type u_4} {T1 : Type u_5} {T2 : Type u_6} [inst : CommRing.{u_1} R]
+  [inst_1 : AddCommGroup.{u_2} L0] [inst_2 : _root_.Module.{u_1, u_2} R L0] [inst_3 : AddCommGroup.{u_3} L1]
+  [inst_4 : _root_.Module.{u_1, u_3} R L1] [inst_5 : AddCommGroup.{u_4} L2] [inst_6 : _root_.Module.{u_1, u_4} R L2]
+  [inst_7 : AddCommGroup.{u_5} T1] [inst_8 : _root_.Module.{u_1, u_5} R T1] [inst_9 : AddCommGroup.{u_6} T2]
+  [inst_10 : _root_.Module.{u_1, u_6} R T2]
+  (D : Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.{u_1, u_2, u_3, u_4, u_5, u_6})
+  (trace : LinearMap.{u_1, u_1, u_6, u_1} (RingHom.id.{u_1} R) T2 R),
+  (∀ (x : T1),
+      Eq.{u_1 + 1}
+        (trace ((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.dt.{u_1, u_2, u_3, u_4, u_5, u_6} D) x)) 0) →
+    ∀ (l m : L1) (q : L0),
+      Eq.{u_4 + 1} ((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.d1.{u_1, u_2, u_3, u_4, u_5, u_6} D) l)
+          0 →
+        Eq.{u_1 + 1}
+          (trace
+            (((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.cup11.{u_1, u_2, u_3, u_4, u_5, u_6} D) l)
+              (HAdd.hAdd.{u_3, u_3, u_3} m
+                ((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.d0.{u_1, u_2, u_3, u_4, u_5, u_6} D) q))))
+          (trace
+            (((Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData.cup11.{u_1, u_2, u_3, u_4, u_5, u_6} D) l) m))
+AXIOM_CHECK Research.DerivativeSwitch.ActualBoundaryCup.traced_change_right: [propext, Quot.sound]
+STATEMENT Research.DerivativeSwitch.OrthogonalComparison.fibreComparison_commutes: ∀ {G₀ : Type u_1} {G₁ : Type u_2}
+  {U₀ : Type u_3} {U₁ : Type u_4} {V₀ : Type u_5} {V₁ : Type u_6} {L₀ : Type u_7} {L₁ : Type u_8}
+  [inst : AddCommGroup.{u_1} G₀] [inst_1 : AddCommGroup.{u_2} G₁] [inst_2 : AddCommGroup.{u_3} U₀]
+  [inst_3 : AddCommGroup.{u_4} U₁] [inst_4 : AddCommGroup.{u_5} V₀] [inst_5 : AddCommGroup.{u_6} V₁]
+  [inst_6 : AddCommGroup.{u_7} L₀] [inst_7 : AddCommGroup.{u_8} L₁] (dG : AddMonoidHom.{u_1, u_2} G₀ G₁)
+  (dU : AddMonoidHom.{u_3, u_4} U₀ U₁) (dV : AddMonoidHom.{u_5, u_6} V₀ V₁) (dL : AddMonoidHom.{u_7, u_8} L₀ L₁)
+  (loc : AddMonoidHom.{u_1, u_8} G₀ L₁) (inc : AddMonoidHom.{u_3, u_8} U₀ L₁) (inc' : AddMonoidHom.{u_5, u_8} V₀ L₁)
+  (a₀ : AddMonoidHom.{u_3, u_5} U₀ V₀) (a₁ : AddMonoidHom.{u_4, u_6} U₁ V₁) (h₀ : AddMonoidHom.{u_3, u_7} U₀ L₀)
+  (h₁ : AddMonoidHom.{u_4, u_8} U₁ L₁),
+  (∀ (u : U₀), Eq.{u_6 + 1} (dV (a₀ u)) (a₁ (dU u))) →
+    (∀ (u : U₀),
+        Eq.{u_8 + 1} (HSub.hSub.{u_8, u_8, u_8} (inc u) (inc' (a₀ u)))
+          (HAdd.hAdd.{u_8, u_8, u_8} (dL (h₀ u)) (h₁ (dU u)))) →
+      ∀ (z : Prod.{u_1, max u_7 u_3} G₀ (Prod.{u_3, u_7} U₀ L₀)),
+        Eq.{max (max (u_2 + 1) (u_6 + 1)) (u_8 + 1)}
+          (Research.DerivativeSwitch.OrthogonalComparison.fibreD.{u_1, u_2, u_5, u_6, u_7, u_8} dG dV dL loc inc'
+            (Research.DerivativeSwitch.OrthogonalComparison.fibreComparison.{u_1, u_3, u_5, u_7} a₀ h₀ z))
+          (Research.DerivativeSwitch.OrthogonalComparison.fibreComparison.{u_2, u_4, u_6, u_8} a₁ h₁
+            (Research.DerivativeSwitch.OrthogonalComparison.fibreD.{u_1, u_2, u_3, u_4, u_7, u_8} dG dU dL loc inc z))
+AXIOM_CHECK Research.DerivativeSwitch.OrthogonalComparison.fibreComparison_commutes: [propext]
+STATEMENT Research.DerivativeSwitch.OrthogonalComparison.fibreComparison_global: ∀ {G₀ : Type u_1} {U₀ : Type u_3}
+  {V₀ : Type u_5} {L₀ : Type u_7} [inst : AddCommGroup.{u_3} U₀] [inst_1 : AddCommGroup.{u_5} V₀]
+  [inst_2 : AddCommGroup.{u_7} L₀] (a : AddMonoidHom.{u_3, u_5} U₀ V₀) (h : AddMonoidHom.{u_3, u_7} U₀ L₀)
+  (z : Prod.{u_1, max u_7 u_3} G₀ (Prod.{u_3, u_7} U₀ L₀)),
+  Eq.{u_1 + 1} (Research.DerivativeSwitch.OrthogonalComparison.fibreComparison.{u_1, u_3, u_5, u_7} a h z).1 z.1
+AXIOM_CHECK Research.DerivativeSwitch.OrthogonalComparison.fibreComparison_global: []
+STATEMENT Research.DerivativeSwitch.OrthogonalComparison.fibreComparison_sign_change: ∀ {G₀ : Type u_1} {U₀ : Type u_3}
+  {V₀ : Type u_5} {L₀ : Type u_7} [inst : AddCommGroup.{u_3} U₀] [inst_1 : AddCommGroup.{u_5} V₀]
+  [inst_2 : AddCommGroup.{u_7} L₀] (a : AddMonoidHom.{u_3, u_5} U₀ V₀) (h : AddMonoidHom.{u_3, u_7} U₀ L₀) (g : G₀)
+  (u : U₀) (l : L₀),
+  Eq.{u_7 + 1}
+    (Neg.neg.{u_7}
+      (Research.DerivativeSwitch.OrthogonalComparison.fibreComparison.{u_1, u_3, u_5, u_7} a h
+            (Prod.mk.{u_1, max u_3 u_7} g (Prod.mk.{u_3, u_7} u (Neg.neg.{u_7} l)))).2.2)
+    (HSub.hSub.{u_7, u_7, u_7} l (h u))
+AXIOM_CHECK Research.DerivativeSwitch.OrthogonalComparison.fibreComparison_sign_change: [propext]
+STATEMENT Research.DerivativeSwitch.OrthogonalComparison.inverse_preserves_global_homotopy: {ι : Type u_1} →
+  {V : Type u} →
+    [inst : CategoryTheory.Category.{v, u} V] →
+      [inst_1 : CategoryTheory.Preadditive.{v, u} V] →
+        {c : ComplexShape.{u_1} ι} →
+          {C D G : HomologicalComplex.{v, u, u_1} V c} →
+            (j : Quiver.Hom.{max u_1 v, max (max u u_1) v} C D) →
+              (k : Quiver.Hom.{max u_1 v, max (max u u_1) v} D C) →
+                (p : Quiver.Hom.{max u_1 v, max (max u u_1) v} C G) →
+                  (q : Quiver.Hom.{max u_1 v, max (max u u_1) v} D G) →
+                    Eq.{max (u_1 + 1) (v + 1)} (CategoryTheory.CategoryStruct.comp.{max u_1 v, max (max u u_1) v} j q)
+                        p →
+                      Homotopy.{v, u, u_1} (CategoryTheory.CategoryStruct.comp.{max u_1 v, max (max u_1 u) v} k j)
+                          (CategoryTheory.CategoryStruct.id.{max u_1 v, max (max u u_1) v} D) →
+                        Homotopy.{v, u, u_1} (CategoryTheory.CategoryStruct.comp.{max u_1 v, max (max u_1 u) v} k p) q
+AXIOM_CHECK Research.DerivativeSwitch.OrthogonalComparison.inverse_preserves_global_homotopy: [propext,
+ Classical.choice,
+ Quot.sound]
+STATEMENT Research.DerivativeSwitch.OrthogonalComparison.inverse_preserves_global_homology: ∀ {ι : Type u_1}
+  {V : Type u} [inst : CategoryTheory.Category.{v, u} V] [inst_1 : CategoryTheory.Preadditive.{v, u} V]
+  {c : ComplexShape.{u_1} ι} {C D G : HomologicalComplex.{v, u, u_1} V c}
+  (j : Quiver.Hom.{max u_1 v, max (max u u_1) v} C D) (k : Quiver.Hom.{max u_1 v, max (max u u_1) v} D C)
+  (p : Quiver.Hom.{max u_1 v, max (max u u_1) v} C G) (q : Quiver.Hom.{max u_1 v, max (max u u_1) v} D G),
+  Eq.{max (u_1 + 1) (v + 1)} (CategoryTheory.CategoryStruct.comp.{max u_1 v, max (max u u_1) v} j q) p →
+    ∀
+      (hk :
+        Homotopy.{v, u, u_1} (CategoryTheory.CategoryStruct.comp.{max u_1 v, max (max u_1 u) v} k j)
+          (CategoryTheory.CategoryStruct.id.{max u_1 v, max (max u u_1) v} D))
+      (i : ι) [inst_2 : HomologicalComplex.HasHomology.{v, u, u_1} D i]
+      [inst_3 : HomologicalComplex.HasHomology.{v, u, u_1} G i],
+      Eq.{v + 1}
+        (HomologicalComplex.homologyMap.{v, u, u_1}
+          (CategoryTheory.CategoryStruct.comp.{max u_1 v, max (max u_1 u) v} k p) i)
+        (HomologicalComplex.homologyMap.{v, u, u_1} q i)
+AXIOM_CHECK Research.DerivativeSwitch.OrthogonalComparison.inverse_preserves_global_homology: [propext,
+ Classical.choice,
+ Quot.sound]
+STATEMENT Research.DerivativeSwitch.OrthogonalComparison.inverse_preserves_local_homotopy: {ι : Type u_1} →
+  {V : Type u} →
+    [inst : CategoryTheory.Category.{v, u} V] →
+      [inst_1 : CategoryTheory.Preadditive.{v, u} V] →
+        {c : ComplexShape.{u_1} ι} →
+          {C D G L : HomologicalComplex.{v, u, u_1} V c} →
+            (j : Quiver.Hom.{max u_1 v, max (max u u_1) v} C D) →
+              (k : Quiver.Hom.{max u_1 v, max (max u u_1) v} D C) →
+                (p : Quiver.Hom.{max u_1 v, max (max u u_1) v} C G) →
+                  (q : Quiver.Hom.{max u_1 v, max (max u u_1) v} D G) →
+                    Eq.{max (u_1 + 1) (v + 1)} (CategoryTheory.CategoryStruct.comp.{max u_1 v, max (max u u_1) v} j q)
+                        p →
+                      Homotopy.{v, u, u_1} (CategoryTheory.CategoryStruct.comp.{max u_1 v, max (max u_1 u) v} k j)
+                          (CategoryTheory.CategoryStruct.id.{max u_1 v, max (max u u_1) v} D) →
+                        (loc : Quiver.Hom.{max u_1 v, max (max u u_1) v} G L) →
+                          Homotopy.{v, u, u_1}
+                            (CategoryTheory.CategoryStruct.comp.{max u_1 v, max (max u_1 u) v}
+                              (CategoryTheory.CategoryStruct.comp.{max u_1 v, max (max u_1 u) v} k p) loc)
+                            (CategoryTheory.CategoryStruct.comp.{max u_1 v, max (max u u_1) v} q loc)
+AXIOM_CHECK Research.DerivativeSwitch.OrthogonalComparison.inverse_preserves_local_homotopy: [propext,
+ Classical.choice,
+ Quot.sound]
+STATEMENT Research.DerivativeSwitch.OrthogonalComparison.inverse_preserves_local_homology: ∀ {ι : Type u_1} {V : Type u}
+  [inst : CategoryTheory.Category.{v, u} V] [inst_1 : CategoryTheory.Preadditive.{v, u} V] {c : ComplexShape.{u_1} ι}
+  {C D G L : HomologicalComplex.{v, u, u_1} V c} (j : Quiver.Hom.{max u_1 v, max (max u u_1) v} C D)
+  (k : Quiver.Hom.{max u_1 v, max (max u u_1) v} D C) (p : Quiver.Hom.{max u_1 v, max (max u u_1) v} C G)
+  (q : Quiver.Hom.{max u_1 v, max (max u u_1) v} D G),
+  Eq.{max (u_1 + 1) (v + 1)} (CategoryTheory.CategoryStruct.comp.{max u_1 v, max (max u u_1) v} j q) p →
+    ∀
+      (hk :
+        Homotopy.{v, u, u_1} (CategoryTheory.CategoryStruct.comp.{max u_1 v, max (max u_1 u) v} k j)
+          (CategoryTheory.CategoryStruct.id.{max u_1 v, max (max u u_1) v} D))
+      (loc : Quiver.Hom.{max u_1 v, max (max u u_1) v} G L) (i : ι)
+      [inst_2 : HomologicalComplex.HasHomology.{v, u, u_1} D i]
+      [inst_3 : HomologicalComplex.HasHomology.{v, u, u_1} L i],
+      Eq.{v + 1}
+        (HomologicalComplex.homologyMap.{v, u, u_1}
+          (CategoryTheory.CategoryStruct.comp.{max u_1 v, max (max u_1 u) v}
+            (CategoryTheory.CategoryStruct.comp.{max u_1 v, max (max u_1 u) v} k p) loc)
+          i)
+        (HomologicalComplex.homologyMap.{v, u, u_1}
+          (CategoryTheory.CategoryStruct.comp.{max u_1 v, max (max u_1 u) v} q loc) i)
+AXIOM_CHECK Research.DerivativeSwitch.OrthogonalComparison.inverse_preserves_local_homology: [propext,
+ Classical.choice,
+ Quot.sound]
+AXIOM_AUDIT_PASS declarations=41

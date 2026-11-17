@@ -1,0 +1,10 @@
+info: plausible: checking out revision 'dfa4f38190d07c37e315953e08b90fe2d95b3c24'
+info: stderr:
+fatal: Unable to create '/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/packages/plausible/.git/index.lock': File exists.
+
+Another git process seems to be running in this repository, e.g.
+an editor opened by 'git commit'. Please make sure all processes
+are terminated then try again. If it still fails, a git process
+may have crashed in this repository earlier:
+remove the file manually to continue.
+error: external command 'git' exited with code 128

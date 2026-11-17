@@ -1,0 +1,11 @@
+{
+ "name": "leaf-fold33-pr54-55",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.MumfordTorsionAlgClosed",
+  "ZInQKernel.Contrib.OneProof.GAGAMorphism"
+ ],
+ "discharges": [
+  {"field": "mumfordTorsionAlgClosed", "proof": "_root_.ZInQ.Contrib.CloudB3W16Torsion.mumfordTorsionAlgClosed_proof"},
+  {"field": "gagaMorphism", "proof": "_root_.ZInQ.Contrib.OneProof.GAGAMorphism.gagaMorphism_proof"}
+ ]
+}

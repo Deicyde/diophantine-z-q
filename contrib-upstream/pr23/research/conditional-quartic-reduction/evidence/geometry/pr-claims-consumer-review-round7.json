@@ -1,0 +1,1676 @@
+{
+  "format": "round7-independent-pr-claims-consumer-review-v1",
+  "status": "ACCEPT within the stated conditional scope",
+  "reviewer": "separately assigned geometry agent",
+  "packageWorkspaceRelativePath": "seventh-work/root/upstream-worktree/research/conditional-quartic-reduction",
+  "upstreamCommit": "036cebe4f1a4aa7ca89820a9b48f3629b4c364d6",
+  "selectedBuilderSha256": "78b54bcde24ff8a91091e102a4734c49878699f071d9230e5ce7a70ffd2114d0",
+  "scope": "Read-only review of the lean PR claims, attribution, provenance, and all T01–T31 dependency-map entries against the already independently reviewed selected construction. No new proof of inherited globals and no assertion of human or Lean approval. The outer bundle application and fresh-checkout validation are separate.",
+  "manualReview": {
+    "readCompletely": [
+      "README.md",
+      "ATTRIBUTION.md",
+      "PROVENANCE.json",
+      "evidence/README.md",
+      "PR_DEPENDENCIES.md"
+    ],
+    "countAndCoefficientClaims": "392 total / 391 witnesses, 360 rows, 26301 terms, degree 4, all active, content 1 and x0^4 coefficient 1 match selected outputs and the prior full SOS/diagonal audit. The exact maximum and all alternate table counts are correctly stated.",
+    "comparisonClaims": "Four fewer core variables and six fewer variables at the preceding 978-digit cap are explicitly comparisons with the previous local research package; no intermediate upstream acceptance, coefficient-file byte reduction, minimality, or priority is claimed.",
+    "consumerClaims": "The map distinguishes source equivalence, local predicate transfer, stronger preparation, and conditional arithmetic application. It preserves identity/tangent cases, f(Q)_0 nonzero guard, two-place proxy including 41, current orders 1/12/45 and scalar 28, S=3^2790, the six-prime exceptional set, and the order of prime selection. All 22 prior proof texts are supplied; obsolete parameter examples are explicitly not current hypotheses.",
+    "diagonalClaims": "Semantic coordinates must be decoded through the input-fixed diagonal map; nonzero rowwise scaling preserves a common zero set rather than requiring one scalar multiple of the previous SOS.",
+    "boundaryAndPublicationClaims": "Inherited global curve, quaternion, height/modularity, pole, prime-selection and Lucas inputs remain explicitly conditional. Internal AI reviews, finite checks, and hashes are not represented as human review, complete Lean verification, maintainer acceptance or manuscript integration.",
+    "optionalResults": "The parity/height appendix and inverse-weight family are not selected dependencies.",
+    "evidencePortability": "Historical receipt paths are explicitly provenance strings and the preserved evidence has portable mappings. Evidence cannot seed the fresh build.",
+    "upstreamScope": "The checkout is at the stated pin; no tracked baseline modification was observed. An unrelated untracked temporary compiler artifact was reported to the parent for exclusion from the patch."
+  },
+  "correctedIssues": [
+    {
+      "issue": "T24 had a consumer locator containing an extra space: scalar.rInverse 15.",
+      "resolution": "Inventory author corrected the Markdown, JSON and generator to scalar.rInverse15; no mathematical or source change."
+    }
+  ],
+  "openMaterialIssues": [],
+  "automatedCheckCount": 387,
+  "automatedChecks": [
+    {
+      "check": "selected builder provenance",
+      "pass": true
+    },
+    {
+      "check": "provenance proofs/detector_round7.tex",
+      "pass": true
+    },
+    {
+      "check": "provenance proofs/geometry_round7.tex",
+      "pass": true
+    },
+    {
+      "check": "provenance proofs/arithmetic_round7.tex",
+      "pass": true
+    },
+    {
+      "check": "provenance proofs/diagonal_scaling.tex",
+      "pass": true
+    },
+    {
+      "check": "provenance proofs/optional_anchor_height_round7.tex",
+      "pass": true
+    },
+    {
+      "check": "provenance lineage/upstream_v10_builder.cjs",
+      "pass": true
+    },
+    {
+      "check": "provenance lineage/baseline_423_builder.cjs",
+      "pass": true
+    },
+    {
+      "check": "provenance lineage/round4_builder.cjs",
+      "pass": true
+    },
+    {
+      "check": "provenance lineage/round5_builder.cjs",
+      "pass": true
+    },
+    {
+      "check": "provenance lineage/round6_builder.cjs",
+      "pass": true
+    },
+    {
+      "check": "pinned source manuscripts/quartic_v10.tex",
+      "pass": true
+    },
+    {
+      "check": "pinned source docs/quartic-523-540/addition.tex",
+      "pass": true
+    },
+    {
+      "check": "pinned source quartics/quartic-523-540/source-reproduction/builders/odd-product-asymmetric-source.cjs",
+      "pass": true
+    },
+    {
+      "check": "pinned source CONTRIBUTING.md",
+      "pass": true
+    },
+    {
+      "check": "pinned source AGENTS.md",
+      "pass": true
+    },
+    {
+      "check": "pinned source THIRD_PARTY_NOTICES.md",
+      "pass": true
+    },
+    {
+      "check": "pinned source docs/audit-history/PROTOCOL.md",
+      "pass": true
+    },
+    {
+      "check": "T01 through T31 IDs",
+      "pass": true
+    },
+    {
+      "check": "eleven inherited input groups",
+      "pass": true
+    },
+    {
+      "check": "26 selected proof texts",
+      "pass": true
+    },
+    {
+      "check": "proof P1_anchor",
+      "pass": true
+    },
+    {
+      "check": "proof P1_scalar",
+      "pass": true
+    },
+    {
+      "check": "proof P2_charts",
+      "pass": true
+    },
+    {
+      "check": "proof P2_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "proof P2_arithmetic_text",
+      "pass": true
+    },
+    {
+      "check": "proof P2_preparation",
+      "pass": true
+    },
+    {
+      "check": "proof P3_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "proof P3_geometry",
+      "pass": true
+    },
+    {
+      "check": "proof P3_positive",
+      "pass": true
+    },
+    {
+      "check": "proof P4_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "proof P4_detector",
+      "pass": true
+    },
+    {
+      "check": "proof P4_geometry",
+      "pass": true
+    },
+    {
+      "check": "proof P4_mixed",
+      "pass": true
+    },
+    {
+      "check": "proof P4_qm",
+      "pass": true
+    },
+    {
+      "check": "proof P4_scalar",
+      "pass": true
+    },
+    {
+      "check": "proof P5_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "proof P5_detector",
+      "pass": true
+    },
+    {
+      "check": "proof P5_geometry",
+      "pass": true
+    },
+    {
+      "check": "proof P6_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "proof P6_detector",
+      "pass": true
+    },
+    {
+      "check": "proof P6_geometry",
+      "pass": true
+    },
+    {
+      "check": "proof P6_family",
+      "pass": true
+    },
+    {
+      "check": "proof P7_detector",
+      "pass": true
+    },
+    {
+      "check": "proof P7_geometry",
+      "pass": true
+    },
+    {
+      "check": "proof P7_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "proof P7_diagonal",
+      "pass": true
+    },
+    {
+      "check": "22 prior proof texts",
+      "pass": true
+    },
+    {
+      "check": "T01 proof P3_geometry",
+      "pass": true
+    },
+    {
+      "check": "T01 input G_curve",
+      "pass": true
+    },
+    {
+      "check": "T02 proof P3_geometry",
+      "pass": true
+    },
+    {
+      "check": "T02 proof P4_geometry",
+      "pass": true
+    },
+    {
+      "check": "T02 input G_curve",
+      "pass": true
+    },
+    {
+      "check": "T02 input G_formal",
+      "pass": true
+    },
+    {
+      "check": "T03 proof P3_geometry",
+      "pass": true
+    },
+    {
+      "check": "T03 proof P4_geometry",
+      "pass": true
+    },
+    {
+      "check": "T03 input G_curve",
+      "pass": true
+    },
+    {
+      "check": "T04 proof P3_geometry",
+      "pass": true
+    },
+    {
+      "check": "T04 proof P4_geometry",
+      "pass": true
+    },
+    {
+      "check": "T04 input G_curve",
+      "pass": true
+    },
+    {
+      "check": "T04 input G_formal",
+      "pass": true
+    },
+    {
+      "check": "T05 proof P5_geometry",
+      "pass": true
+    },
+    {
+      "check": "T05 proof P4_geometry",
+      "pass": true
+    },
+    {
+      "check": "T05 input G_formal",
+      "pass": true
+    },
+    {
+      "check": "T06 proof P5_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "T06 proof P6_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "T06 proof P7_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "T06 proof P3_geometry",
+      "pass": true
+    },
+    {
+      "check": "T06 input G_formal",
+      "pass": true
+    },
+    {
+      "check": "T06 input G_one_place",
+      "pass": true
+    },
+    {
+      "check": "T07 proof P4_geometry",
+      "pass": true
+    },
+    {
+      "check": "T07 proof P6_detector",
+      "pass": true
+    },
+    {
+      "check": "T07 proof P7_detector",
+      "pass": true
+    },
+    {
+      "check": "T07 input G_formal",
+      "pass": true
+    },
+    {
+      "check": "T07 input G_one_place",
+      "pass": true
+    },
+    {
+      "check": "T07 input G_prime_pattern",
+      "pass": true
+    },
+    {
+      "check": "T07 input G_reductions",
+      "pass": true
+    },
+    {
+      "check": "T08 proof P4_mixed",
+      "pass": true
+    },
+    {
+      "check": "T08 proof P7_detector",
+      "pass": true
+    },
+    {
+      "check": "T09 proof P5_detector",
+      "pass": true
+    },
+    {
+      "check": "T09 proof P5_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "T09 proof P7_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "T09 input G_curve",
+      "pass": true
+    },
+    {
+      "check": "T09 input G_product_height",
+      "pass": true
+    },
+    {
+      "check": "T09 input G_height_geometry",
+      "pass": true
+    },
+    {
+      "check": "T10 proof P5_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "T10 proof P5_detector",
+      "pass": true
+    },
+    {
+      "check": "T10 proof P7_detector",
+      "pass": true
+    },
+    {
+      "check": "T10 input G_height_geometry",
+      "pass": true
+    },
+    {
+      "check": "T10 input G_one_place",
+      "pass": true
+    },
+    {
+      "check": "T11 proof P3_positive",
+      "pass": true
+    },
+    {
+      "check": "T11 proof P5_detector",
+      "pass": true
+    },
+    {
+      "check": "T11 proof P7_detector",
+      "pass": true
+    },
+    {
+      "check": "T11 input G_prime_pattern",
+      "pass": true
+    },
+    {
+      "check": "T11 input G_progression",
+      "pass": true
+    },
+    {
+      "check": "T12 proof P7_detector",
+      "pass": true
+    },
+    {
+      "check": "T12 input G_one_place",
+      "pass": true
+    },
+    {
+      "check": "T12 input G_pole",
+      "pass": true
+    },
+    {
+      "check": "T12 input G_prime_pattern",
+      "pass": true
+    },
+    {
+      "check": "T12 input G_progression",
+      "pass": true
+    },
+    {
+      "check": "T13 proof P7_detector",
+      "pass": true
+    },
+    {
+      "check": "T14 proof P3_positive",
+      "pass": true
+    },
+    {
+      "check": "T14 proof P7_detector",
+      "pass": true
+    },
+    {
+      "check": "T14 input G_one_place",
+      "pass": true
+    },
+    {
+      "check": "T14 input G_pole",
+      "pass": true
+    },
+    {
+      "check": "T15 proof P3_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "T15 input G_pole",
+      "pass": true
+    },
+    {
+      "check": "T16 proof P2_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "T16 proof P3_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "T16 proof P4_scalar",
+      "pass": true
+    },
+    {
+      "check": "T16 proof P7_geometry",
+      "pass": true
+    },
+    {
+      "check": "T16 input G_pole",
+      "pass": true
+    },
+    {
+      "check": "T17 proof P2_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "T17 proof P3_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "T17 proof P7_geometry",
+      "pass": true
+    },
+    {
+      "check": "T17 input G_height_geometry",
+      "pass": true
+    },
+    {
+      "check": "T17 input G_pole",
+      "pass": true
+    },
+    {
+      "check": "T17 input G_progression",
+      "pass": true
+    },
+    {
+      "check": "T18 proof P3_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "T18 proof P7_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "T18 input G_height_geometry",
+      "pass": true
+    },
+    {
+      "check": "T18 input G_quaternion",
+      "pass": true
+    },
+    {
+      "check": "T18 input G_lucas",
+      "pass": true
+    },
+    {
+      "check": "T19 proof P1_anchor",
+      "pass": true
+    },
+    {
+      "check": "T19 proof P7_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "T19 input G_curve",
+      "pass": true
+    },
+    {
+      "check": "T19 input G_formal",
+      "pass": true
+    },
+    {
+      "check": "T19 input G_quaternion",
+      "pass": true
+    },
+    {
+      "check": "T20 proof P3_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "T20 proof P6_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "T20 proof P7_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "T20 input G_quaternion",
+      "pass": true
+    },
+    {
+      "check": "T20 input G_formal",
+      "pass": true
+    },
+    {
+      "check": "T20 input G_curve",
+      "pass": true
+    },
+    {
+      "check": "T21 proof P6_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "T21 proof P7_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "T21 input G_curve",
+      "pass": true
+    },
+    {
+      "check": "T21 input G_formal",
+      "pass": true
+    },
+    {
+      "check": "T21 input G_quaternion",
+      "pass": true
+    },
+    {
+      "check": "T22 proof P4_geometry",
+      "pass": true
+    },
+    {
+      "check": "T22 proof P5_geometry",
+      "pass": true
+    },
+    {
+      "check": "T22 input G_curve",
+      "pass": true
+    },
+    {
+      "check": "T23 proof P4_scalar",
+      "pass": true
+    },
+    {
+      "check": "T23 proof P5_geometry",
+      "pass": true
+    },
+    {
+      "check": "T23 input G_formal",
+      "pass": true
+    },
+    {
+      "check": "T23 input G_curve",
+      "pass": true
+    },
+    {
+      "check": "T24 proof P6_geometry",
+      "pass": true
+    },
+    {
+      "check": "T24 proof P7_geometry",
+      "pass": true
+    },
+    {
+      "check": "T24 input G_pole",
+      "pass": true
+    },
+    {
+      "check": "T24 input G_formal",
+      "pass": true
+    },
+    {
+      "check": "T24 input G_progression",
+      "pass": true
+    },
+    {
+      "check": "T25 proof P4_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "T25 proof P5_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "T25 proof P7_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "T25 input G_height_geometry",
+      "pass": true
+    },
+    {
+      "check": "T25 input G_formal",
+      "pass": true
+    },
+    {
+      "check": "T25 input G_one_place",
+      "pass": true
+    },
+    {
+      "check": "T25 input G_pole",
+      "pass": true
+    },
+    {
+      "check": "T26 proof P4_qm",
+      "pass": true
+    },
+    {
+      "check": "T26 proof P5_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "T26 input G_height_geometry",
+      "pass": true
+    },
+    {
+      "check": "T27 proof P5_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "T27 proof P7_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "T27 input G_height_geometry",
+      "pass": true
+    },
+    {
+      "check": "T27 input G_product_height",
+      "pass": true
+    },
+    {
+      "check": "T27 input G_lucas",
+      "pass": true
+    },
+    {
+      "check": "T27 input G_curve",
+      "pass": true
+    },
+    {
+      "check": "T28 proof P4_geometry",
+      "pass": true
+    },
+    {
+      "check": "T28 proof P6_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "T28 proof P7_detector",
+      "pass": true
+    },
+    {
+      "check": "T28 proof P7_geometry",
+      "pass": true
+    },
+    {
+      "check": "T28 proof P7_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "T28 input G_prime_pattern",
+      "pass": true
+    },
+    {
+      "check": "T28 input G_reductions",
+      "pass": true
+    },
+    {
+      "check": "T28 input G_progression",
+      "pass": true
+    },
+    {
+      "check": "T28 input G_formal",
+      "pass": true
+    },
+    {
+      "check": "T28 input G_pole",
+      "pass": true
+    },
+    {
+      "check": "T28 input G_lucas",
+      "pass": true
+    },
+    {
+      "check": "T29 proof P1_anchor",
+      "pass": true
+    },
+    {
+      "check": "T29 proof P3_arithmetic",
+      "pass": true
+    },
+    {
+      "check": "T29 proof P7_diagonal",
+      "pass": true
+    },
+    {
+      "check": "T30 proof P7_detector",
+      "pass": true
+    },
+    {
+      "check": "T30 proof P7_geometry",
+      "pass": true
+    },
+    {
+      "check": "T30 proof P7_diagonal",
+      "pass": true
+    },
+    {
+      "check": "T31 proof P7_diagonal",
+      "pass": true
+    },
+    {
+      "check": "README.md link PR_DEPENDENCIES.md",
+      "pass": true
+    },
+    {
+      "check": "README.md link tables/quartic-392-balanced-decimal.txt",
+      "pass": true
+    },
+    {
+      "check": "README.md link EXPECTED_OUTPUTS.json",
+      "pass": true
+    },
+    {
+      "check": "README.md link proofs/detector_round7.tex",
+      "pass": true
+    },
+    {
+      "check": "README.md link proofs/geometry_round7.tex",
+      "pass": true
+    },
+    {
+      "check": "README.md link proofs/arithmetic_round7.tex",
+      "pass": true
+    },
+    {
+      "check": "README.md link proofs/diagonal_scaling.tex",
+      "pass": true
+    },
+    {
+      "check": "README.md link proposal_note.pdf",
+      "pass": true
+    },
+    {
+      "check": "README.md link PR_DEPENDENCIES.md",
+      "pass": true
+    },
+    {
+      "check": "README.md link pr_dependency_inventory.json",
+      "pass": true
+    },
+    {
+      "check": "README.md link proofs/optional_anchor_height_round7.tex",
+      "pass": true
+    },
+    {
+      "check": "README.md link PROVENANCE.json",
+      "pass": true
+    },
+    {
+      "check": "README.md link ATTRIBUTION.md",
+      "pass": true
+    },
+    {
+      "check": "README.md link evidence/README.md",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link construction/builder.cjs",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round3/geometry_proof.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round3/geometry_proof.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round4/geometry_round4.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round3/geometry_proof.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round4/geometry_round4.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round3/geometry_proof.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round4/geometry_round4.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round5/geometry_round5.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round4/geometry_round4.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round5/arithmetic_round5.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round6/arithmetic_round6.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/arithmetic_round7.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round3/geometry_proof.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round4/geometry_round4.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round6/detector_round6.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/detector_round7.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round4/mixed_detector_block.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/detector_round7.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round5/detector_final.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round5/arithmetic_round5.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/arithmetic_round7.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round5/arithmetic_round5.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round5/detector_final.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/detector_round7.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round3/positivity_proof.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round5/detector_final.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/detector_round7.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/detector_round7.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/detector_round7.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round3/positivity_proof.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/detector_round7.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round3/arithmetic_proof.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round2/further_arithmetic_body.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round3/arithmetic_proof.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round4/scalar_streamlining.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/geometry_round7.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round2/further_arithmetic_body.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round3/arithmetic_proof.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/geometry_round7.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round3/arithmetic_proof.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/arithmetic_round7.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round1/packed_anchor_note_body.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/arithmetic_round7.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round3/arithmetic_proof.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round6/arithmetic_round6.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/arithmetic_round7.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round6/arithmetic_round6.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/arithmetic_round7.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round4/geometry_round4.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round5/geometry_round5.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round4/scalar_streamlining.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round5/geometry_round5.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round6/geometry_round6.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/geometry_round7.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round4/arithmetic_round4.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round5/arithmetic_round5.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/arithmetic_round7.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round4/qm_conductor_anchor16.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round5/arithmetic_round5.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round5/arithmetic_round5.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/arithmetic_round7.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round4/geometry_round4.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round6/arithmetic_round6.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/detector_round7.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/geometry_round7.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/arithmetic_round7.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round1/packed_anchor_note_body.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/prior/round3/arithmetic_proof.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/diagonal_scaling.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/detector_round7.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/geometry_round7.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/diagonal_scaling.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link proofs/diagonal_scaling.tex",
+      "pass": true
+    },
+    {
+      "check": "PR_DEPENDENCIES.md link pr_dependency_inventory.json",
+      "pass": true
+    },
+    {
+      "check": "fixed T24 consumer locator",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/balanced/diagonal-certificate.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/balanced/integer-ir.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/balanced/polynomial.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/balanced/summary.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/census.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/compiled/compiled-ir.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/compiled/coordinate-map.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/compiled/polynomial.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/compiled/reduction-certificate.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/compiled/specialization-certificate.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/final/candidate-ir.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/final/integer-candidate-ir.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/final/polynomial/compiled-ir.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/final/polynomial/coordinate-map.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/final/polynomial/polynomial.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/final/polynomial/reduction-certificate.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/final/polynomial/specialization-certificate.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/final/source-ir.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/ordinary392/polynomial/compiled-ir.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/ordinary392/polynomial/coordinate-map.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/ordinary392/polynomial/polynomial.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/ordinary392/specialization-report.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/ordinary392/specialized-ir.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/ordinary394/lifted-ir.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/ordinary394/polynomial/compiled-ir.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/ordinary394/polynomial/coordinate-map.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/ordinary394/polynomial/polynomial.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/ordinary394/polynomial/reduction-certificate.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/ordinary394/polynomial/specialization-certificate.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/ordinary395/lifted-ir.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/ordinary395/polynomial/compiled-ir.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/ordinary395/polynomial/coordinate-map.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/ordinary395/polynomial/polynomial.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/ordinary395/polynomial/reduction-certificate.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/ordinary395/polynomial/specialization-certificate.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/ordinary396/lifted-ir.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/ordinary396/polynomial/compiled-ir.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/ordinary396/polynomial/coordinate-map.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/ordinary396/polynomial/polynomial.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/ordinary396/polynomial/reduction-certificate.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/ordinary396/polynomial/specialization-certificate.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/quartic-392-balanced-decimal.txt",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/quartic-392-decimal.txt",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/quartic-392-symbolic.txt",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/quartic-394-decimal.txt",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/quartic-395-decimal.txt",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/quartic-396-decimal.txt",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/raw-ir.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/raw-translated-ir.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/table-summary.json",
+      "pass": true
+    },
+    {
+      "check": "expected deterministic artifact construction/text-table-summary.json",
+      "pass": true
+    },
+    {
+      "check": "preserved evidence evidence/arithmetic/scalar-independent-review-round7.json",
+      "pass": true
+    },
+    {
+      "check": "preserved evidence evidence/arithmetic/scalar-independent-integrated-check.json",
+      "pass": true
+    },
+    {
+      "check": "preserved evidence evidence/arithmetic/detector-independent-review-round7.json",
+      "pass": true
+    },
+    {
+      "check": "preserved evidence evidence/arithmetic/detector-independent-integrated-check.json",
+      "pass": true
+    },
+    {
+      "check": "preserved evidence evidence/arithmetic/detector-review-spacing-addendum.json",
+      "pass": true
+    },
+    {
+      "check": "preserved evidence evidence/arithmetic/detector-proof-spacing.patch",
+      "pass": true
+    },
+    {
+      "check": "preserved evidence evidence/arithmetic/detector-proof-reviewed-original.tex",
+      "pass": true
+    },
+    {
+      "check": "preserved evidence evidence/arithmetic/detector-independent-integrated-check-proof-update.json",
+      "pass": true
+    },
+    {
+      "check": "preserved evidence evidence/arithmetic/arithmetic-integrated-check.json",
+      "pass": true
+    },
+    {
+      "check": "preserved evidence evidence/arithmetic/scaled-chains-independent-review.json",
+      "pass": true
+    },
+    {
+      "check": "preserved evidence evidence/arithmetic/scaled-chains-independent-check.json",
+      "pass": true
+    },
+    {
+      "check": "preserved evidence evidence/arithmetic/optional-anchor-height-check.json",
+      "pass": true
+    },
+    {
+      "check": "preserved evidence evidence/arithmetic/reproduction-wrapper-probes.json",
+      "pass": true
+    },
+    {
+      "check": "preserved evidence evidence/arithmetic/wrapper-preliminary-findings.json",
+      "pass": true
+    },
+    {
+      "check": "preserved evidence evidence/arithmetic/reproduction-volatile-outputs.json",
+      "pass": true
+    },
+    {
+      "check": "preserved evidence evidence/geometry/arithmetic-independent-review-round7.txt",
+      "pass": true
+    },
+    {
+      "check": "preserved evidence evidence/geometry/arithmetic-independent-review-bindings-round7.json",
+      "pass": true
+    },
+    {
+      "check": "preserved evidence evidence/geometry/diagonal-independent-review-round7.txt",
+      "pass": true
+    },
+    {
+      "check": "preserved evidence evidence/geometry/diagonal-independent-review-bindings-round7.json",
+      "pass": true
+    },
+    {
+      "check": "preserved evidence evidence/geometry/diagonal-scaling-check.json",
+      "pass": true
+    },
+    {
+      "check": "preserved evidence evidence/geometry/geometry-bindings-round7.json",
+      "pass": true
+    },
+    {
+      "check": "preserved evidence evidence/geometry/integrated-geometry-check.json",
+      "pass": true
+    },
+    {
+      "check": "preserved evidence evidence/geometry/rejected-paths-round7.txt",
+      "pass": true
+    },
+    {
+      "check": "preserved evidence evidence/geometry/pdf-qa/pdf-qa-receipt-round7.txt",
+      "pass": true
+    },
+    {
+      "check": "preserved evidence evidence/geometry/pdf-qa/pdf-qa-bindings-round7.json",
+      "pass": true
+    },
+    {
+      "check": "preserved evidence evidence/detectors/scalar-independent-review.txt",
+      "pass": true
+    },
+    {
+      "check": "preserved evidence evidence/detectors/integrated-scalar-independent-check.json",
+      "pass": true
+    },
+    {
+      "check": "preserved evidence evidence/detectors/round7-review-bindings.json",
+      "pass": true
+    },
+    {
+      "check": "preserved evidence evidence/detectors/rejected-path-notes.txt",
+      "pass": true
+    },
+    {
+      "check": "preserved evidence evidence/detectors/proof-spacing-only.patch",
+      "pass": true
+    },
+    {
+      "check": "preserved evidence evidence/detectors/pr-dependency-validation.json",
+      "pass": true
+    },
+    {
+      "check": "successful selected audit construction/independent-gate-check.json",
+      "pass": true
+    },
+    {
+      "check": "successful selected audit construction/detector-source-check.json",
+      "pass": true
+    },
+    {
+      "check": "successful selected audit construction/independent-final-symbolic-check.json",
+      "pass": true
+    },
+    {
+      "check": "successful selected audit construction/ordinary392/specialization-report.json",
+      "pass": true
+    },
+    {
+      "check": "successful selected audit audit/arithmetic-check.json",
+      "pass": true
+    },
+    {
+      "check": "successful selected audit audit/delivered-quartics-check.json",
+      "pass": true
+    },
+    {
+      "check": "successful selected audit audit/detector-independent-check.json",
+      "pass": true
+    },
+    {
+      "check": "successful selected audit audit/diagonal-scaling-check.json",
+      "pass": true
+    },
+    {
+      "check": "successful selected audit audit/geometry-check.json",
+      "pass": true
+    },
+    {
+      "check": "successful selected audit audit/integrated-bridge-check.json",
+      "pass": true
+    },
+    {
+      "check": "successful selected audit audit/parameter-binding-check.json",
+      "pass": true
+    },
+    {
+      "check": "successful selected audit audit/scalar-independent-check.json",
+      "pass": true
+    },
+    {
+      "check": "successful selected audit audit/scalar-second-review-check.json",
+      "pass": true
+    },
+    {
+      "check": "successful selected audit audit/scaled-chain-independent-check.json",
+      "pass": true
+    },
+    {
+      "check": "selected metric coordinates",
+      "pass": true
+    },
+    {
+      "check": "selected metric residuals",
+      "pass": true
+    },
+    {
+      "check": "selected metric degree",
+      "pass": true
+    },
+    {
+      "check": "selected metric monomials",
+      "pass": true
+    },
+    {
+      "check": "selected metric integerContent",
+      "pass": true
+    },
+    {
+      "check": "selected metric inputFourthPowerCoefficient",
+      "pass": true
+    },
+    {
+      "check": "selected metric maximumCoefficientDigits",
+      "pass": true
+    },
+    {
+      "check": "selected metric maximumCoefficientBits",
+      "pass": true
+    },
+    {
+      "check": "selected metric scaledCoordinates",
+      "pass": true
+    },
+    {
+      "check": "selected metric anchorExponent",
+      "pass": true
+    },
+    {
+      "check": "selected metric cExponent",
+      "pass": true
+    },
+    {
+      "check": "selected metric tableSha256",
+      "pass": true
+    },
+    {
+      "check": "selected metric tableBytes",
+      "pass": true
+    },
+    {
+      "check": "selected maximum exact expression",
+      "pass": true
+    },
+    {
+      "check": "selected decimal table",
+      "pass": true
+    },
+    {
+      "check": "final visual-review PDF",
+      "pass": true
+    }
+  ],
+  "bindings": [
+    {
+      "path": "README.md",
+      "bytes": 10438,
+      "sha256": "6b405f97f65bb938ee46964bb8b6dc67fcee85240b64e2d3947cb4f8cbcb3064"
+    },
+    {
+      "path": "PROVENANCE.json",
+      "bytes": 3956,
+      "sha256": "fd5e5ccfdca44ae2c19de77930264012d7f24f389088d948282007facb7cd4c2"
+    },
+    {
+      "path": "ATTRIBUTION.md",
+      "bytes": 1511,
+      "sha256": "eaab06cf7d50c2b66618b98e1bfe7091a53a562dab059eeb6d4f159843611bce"
+    },
+    {
+      "path": "PR_DEPENDENCIES.md",
+      "bytes": 41730,
+      "sha256": "681a788f273ed7db8ac0e08b7276cbf059c6bade60999b208253f43c1649e8a5"
+    },
+    {
+      "path": "pr_dependency_inventory.json",
+      "bytes": 75618,
+      "sha256": "18db593e2e96f8588399b9573e2c7d74ff9f6a3ce9d3684095beeeaf74565dec"
+    },
+    {
+      "path": "EXPECTED_OUTPUTS.json",
+      "bytes": 11542,
+      "sha256": "2e531832aa512a418c4e8f9edc54f33a012a1c3124243012a5151a412a94fdac"
+    },
+    {
+      "path": "evidence/README.md",
+      "bytes": 1570,
+      "sha256": "af70771be4df4a4947fcc313ec9f69d403b67d0ea7b6142adbc4687a4024dd07"
+    },
+    {
+      "path": "evidence/review-bindings.json",
+      "bytes": 9150,
+      "sha256": "e8fc32179d867a544674a57cc310b9ac56725098f4c688fea0c207289a694d47"
+    },
+    {
+      "path": "construction/builder.cjs",
+      "bytes": 28376,
+      "sha256": "78b54bcde24ff8a91091e102a4734c49878699f071d9230e5ce7a70ffd2114d0"
+    },
+    {
+      "path": "proposal_note.tex",
+      "bytes": 9164,
+      "sha256": "c38b9dcc3db87e30039d2e0ef7f446bcbaab0bbfd70bfafd990f1572bab9e0fc"
+    },
+    {
+      "path": "proposal_note.pdf",
+      "bytes": 317821,
+      "sha256": "c73e5f7b0d030fc977f6387083d033a983943948f30e26cfb46af1b858f82a94"
+    },
+    {
+      "path": "tables/quartic-392-balanced-decimal.txt",
+      "bytes": 1064980,
+      "sha256": "81eddac871e7575cc54b8e2cd00fcbbc5cd65a8853a031f87415fdafde71686c"
+    },
+    {
+      "path": "reproduce.py",
+      "bytes": 10297,
+      "sha256": "8d60c1e427081cf57c9d40869204753ccafbc21f74d322511fb565fb51035167"
+    },
+    {
+      "path": "proofs/detector_round7.tex",
+      "bytes": 12499,
+      "sha256": "ed01c9416d3b4daf02a26958642194230c0186a896f17817bfe30c8a16d481d3"
+    },
+    {
+      "path": "proofs/geometry_round7.tex",
+      "bytes": 8613,
+      "sha256": "0402ccf6c3e193c685d01e0ff6e46449001ac074a1bf4501419d6fb1fea88035"
+    },
+    {
+      "path": "proofs/arithmetic_round7.tex",
+      "bytes": 8862,
+      "sha256": "14f548346d7630bf2d440fbc33a10bda10bb6cc7604692d59bcb1c821a5bf5ff"
+    },
+    {
+      "path": "proofs/diagonal_scaling.tex",
+      "bytes": 4701,
+      "sha256": "1e2c856690cdd0c511feca650e9b9a0136b09326b6c8005089dade723c78affb"
+    },
+    {
+      "path": "proofs/optional_anchor_height_round7.tex",
+      "bytes": 10578,
+      "sha256": "686faeed616eef6ebed472b2414a36e8158d4de838248238815ecc283e39a4e6"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+import ZInQKernel.Contrib.OneProof.BergerBst
+import ZInQKernel.Contrib.OneProof.DSThm966EV
+import ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.Decomposition
+import ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.FullEigenform
+
+/-!
+# `r11r12` from Pan 2022 Thm 1.0.4 and Berger 2002 Thm 0.7 with printed hypotheses and conclusion (task pb-fix3)
+
+bst-construct's `PanPrintedB` was pb-fix2's `PanPrintedU` with potential semistability over Berger's `B_st`. Its
+Hodge–Tate hypothesis was finrank-based (`htMultU = dim_{ℚ_p} / [E : ℚ_p]`, a natural-number division), its
+irreducibility hypothesis was the kernel's Burnside form, and its conclusion used the kernel's coefficient-form
+predicate `IsNormalizedEigenform`. This file restates Pan's theorem with every hypothesis and the conclusion as
+printed (`PanPrintedP`) and proves in Lean the dictionaries the consumer needs:
+
+* **Hodge–Tate weights** (`htMultE`, `LocalDistinctHTP`): the multiplicity of `w` is
+  `dim_E (V ⊗_{ℚ_p} ℂ_p(w))^{G_{ℚ_p}}` on a model `V = E^n` (cyclotomic weight `−1`). `htMultE_eq_htMultU` and
+  `localDistinctHTP_iff` prove it equal to the finrank form (`dim_{ℚ_p} W = [E : ℚ_p] · dim_E W`).
+* **Irreducible** (`IsIrreducibleP`): no stable subspace of `ℚ̄_p²` but `0` and the whole space;
+  `isIrreducibleP_of`: the Burnside form implies it.
+* **"Comes from a cuspidal eigenform up to twist"**: a cuspidal eigenform `g` (Tau Ceti's
+  `EigenformAwayFromLevel`), the representation `ρ_g` attached to it through `ι_p` (`IsAttachedVia`: geometric
+  Frobenius traces `ι_p⁻¹(λ_q(g))` at almost all `q`), and `ρ ≅ ρ_g ⊗ ψ` (`IsTwistOf`).
+  `exists_normalized_of_eigenform` passes to the newform of the eigensystem (Tau Ceti, Diamond–Shurman
+  Prop. 5.8.4), a normalized full eigenform, hence `IsNormalizedEigenform` with `a_q = λ_q(g)` for `q ∤ N`
+  (`DSCoeffExt.isNormalizedEigenform_of_DS`); `exists_eigenform_of_normalized` is the converse; `one_le_weight`
+  gives `k ≥ 1`; `trace_of_twist` gives the trace form.
+
+`panPrintedB_of_printedP` proves bst-construct's `PanPrintedB` from `PanPrintedP`. Berger's leaf is restated for
+one continuous `ρ_E : G_{ℚ_p} → GL_n(E)` (`BergerPrintedV`: a `p`-adic representation `V = E^n`), and
+`bergerPrintedB_of_V` proves bst-construct's `BergerPrintedB` from it (`continuous_model`).
+`panBerger_of_printedPV` discharges `r11r12 : PanBerger` from the two printed leaves and the current bundle's
+fields `dsThm965Printed`, `eigenformCoeffFieldFinite` and `dsThm966Printed`.
+-/

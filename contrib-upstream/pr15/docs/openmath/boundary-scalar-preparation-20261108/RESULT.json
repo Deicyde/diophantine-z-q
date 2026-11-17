@@ -1,0 +1,123 @@
+{
+  "status": "PASS",
+  "scope": "Repository-only offline preparation, current combined default and original explicit mode",
+  "tested_checkout_commit": "155fbbb972e137320d61e175c36199f2ade15231",
+  "reviewed_math_commit": "7ca086adf4298e2b611b9fa0b954eab838873bf3",
+  "fresh_clone": true,
+  "tracked_git_objects_only": true,
+  "dependency_cache_present": false,
+  "lean_invoked": false,
+  "network_used_by_preparation": false,
+  "combined": {
+    "status": "PREPARED_FROM_REPOSITORY",
+    "checkout_commit": "155fbbb972e137320d61e175c36199f2ade15231",
+    "packet": "boundary-scalar",
+    "selected_declarations": 21,
+    "reviewed_source_commit": "7ca086adf4298e2b611b9fa0b954eab838873bf3",
+    "prerequisite_inputs_checked": 63,
+    "packet_manifest_sha256": "8696323b0d1bb78e68ba4daea0437f38dde4ff3be8281e3856712a5f5369dba6",
+    "packet_inputs_checked": 65,
+    "generated_manifest_sha256": "fa7749aa918702ddb8f3694641839a1f751e2b377784c153e3332196076fc171",
+    "generated_inputs_checked": 16,
+    "preparation_script_sha256": "3dedc7dbb6dedc4e44f3e3c88cfcec85c513b3f3f473cedd0716ee64891a9865",
+    "lean_invoked": false,
+    "network_used": false,
+    "paranoid_run": "NOT_RUN; owned by Open Math in the cloud",
+    "cloud_command": [
+      "lake",
+      "comparator",
+      "--config",
+      "comparator.json",
+      "--paranoid"
+    ]
+  },
+  "original": {
+    "status": "PREPARED_FROM_REPOSITORY",
+    "checkout_commit": "155fbbb972e137320d61e175c36199f2ade15231",
+    "packet": "six-lemma",
+    "selected_declarations": 6,
+    "reviewed_source_commit": "2c15940380520d6b6de72c2a1b6700ed192a7a87",
+    "prerequisite_inputs_checked": 0,
+    "packet_manifest_sha256": "de9e04423f3ccafa9690e6ff53c1f0bb79f5f91406ee3e4e89246ce2cf97fa12",
+    "packet_inputs_checked": 63,
+    "generated_manifest_sha256": "e37368316a682d30f9358d7cf1c1ebd01e622e7896c99ca020ae5f94288f6188",
+    "generated_inputs_checked": 9,
+    "preparation_script_sha256": "3dedc7dbb6dedc4e44f3e3c88cfcec85c513b3f3f473cedd0716ee64891a9865",
+    "lean_invoked": false,
+    "network_used": false,
+    "paranoid_run": "NOT_RUN; owned by Open Math in the cloud",
+    "cloud_command": [
+      "lake",
+      "comparator",
+      "--config",
+      "comparator.json",
+      "--paranoid"
+    ]
+  },
+  "negative_controls": [
+    "existing output rejected",
+    "modified frozen matrix specification rejected before generation"
+  ],
+  "script_sha256": "3dedc7dbb6dedc4e44f3e3c88cfcec85c513b3f3f473cedd0716ee64891a9865",
+  "entry_document_sha256": "b712f22aa583ad7e62f2792bc7ff17651ae15b74a8bf1c3b018d3cba2532a6c7",
+  "checkout_clean_after_checks": true,
+  "commands": [
+    {
+      "label": "combined-default",
+      "command": [
+        "/Users/chey/.pyenv/versions/3.12.3/bin/python3",
+        "-B",
+        "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-08-boundary-scalar-repo-prepare/clean-checkout/scripts/prepare_derivative_switch_openmath.py"
+      ],
+      "cwd": "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-08-boundary-scalar-repo-prepare/clean-checkout",
+      "exit_code": 0,
+      "expected_exit_code": 0
+    },
+    {
+      "label": "original-explicit",
+      "command": [
+        "/Users/chey/.pyenv/versions/3.12.3/bin/python3",
+        "-B",
+        "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-08-boundary-scalar-repo-prepare/clean-checkout/scripts/prepare_derivative_switch_openmath.py",
+        "--packet",
+        "six-lemma"
+      ],
+      "cwd": "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-08-boundary-scalar-repo-prepare/clean-checkout",
+      "exit_code": 0,
+      "expected_exit_code": 0
+    },
+    {
+      "label": "existing-output-rejected",
+      "command": [
+        "/Users/chey/.pyenv/versions/3.12.3/bin/python3",
+        "-B",
+        "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-08-boundary-scalar-repo-prepare/clean-checkout/scripts/prepare_derivative_switch_openmath.py"
+      ],
+      "cwd": "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-08-boundary-scalar-repo-prepare/clean-checkout",
+      "exit_code": 1,
+      "expected_exit_code": 1
+    },
+    {
+      "label": "changed-spec-rejected",
+      "command": [
+        "/Users/chey/.pyenv/versions/3.12.3/bin/python3",
+        "-B",
+        "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-08-boundary-scalar-repo-prepare/clean-checkout/scripts/prepare_derivative_switch_openmath.py",
+        "--output",
+        "lean/.checks/rejected-input"
+      ],
+      "cwd": "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-08-boundary-scalar-repo-prepare",
+      "exit_code": 1,
+      "expected_exit_code": 1
+    }
+  ],
+  "log_sha256": {
+    "changed-spec-rejected.log": "08069faecd552983754209265ef5c2a4121c42d1d1177b8aafd9082a3f5c6dcc",
+    "combined-default.log": "f243e563f0da435ec48b2eb4618b125e092fed5d3aa05910aaaab38d6349ccd4",
+    "existing-output-rejected.log": "f61f33ad94423c32f5ecd0448e1c51d1de8b6d970a53ce83a062ab8a84f351e6",
+    "original-explicit.log": "715364cf7a3737146b6f3390fcb8bf6c2644fd35b5c6074a353e6f593d06ac5f"
+  },
+  "paranoid": "NOT_RUN; reserved for Open Math cloud execution",
+  "arithmetic_tensor_compatibility": "OPEN",
+  "whitespace_policy": "Authored source passes git diff --check; received pasted review keeps original trailing spaces for byte identity"
+}

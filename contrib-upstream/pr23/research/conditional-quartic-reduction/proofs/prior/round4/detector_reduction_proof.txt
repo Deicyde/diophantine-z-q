@@ -1,0 +1,229 @@
+PRIMARY INVERSE-ROOT TESTS AND A MIXED ORDER-(1,12) PRODUCT BLOCK
+
+Scope and provenance
+--------------------
+This is a conditional local reduction of the delivered 423-variable system.
+It does not prove the inherited group, height, Gaussian-prime, pole, or
+quaternion results. It is an optimization, not an allegation of a new gap.
+The existing arbitrary-order detector lemma and the existing prime-separation
+lemma supply the needed framework; their actual proofs and consumers were
+read. Separate review of this new application is recorded independently.
+
+Pinned source commit: 036cebe4f1a4aa7ca89820a9b48f3629b4c364d6.
+Actual source passages read:
+  manuscripts/quartic_v10.tex, lines11031-11061: one-place lemma, arbitrary m_j;
+  manuscripts/quartic_v10.tex, lines11244-11345: prime choice, trace units,
+    positive pole inputs, real and small-prime estimates;
+  docs/quartic-523-540/addition.tex, lines464-475: beta discrepancy only needs12;
+  docs/quartic-523-540/addition.tex, lines490-527: asymmetric-depth source,
+    log estimates, integrality transfer, and the actual comparison consumer;
+  docs/quartic-523-540/addition.tex, lines529-574: prime separation and the
+    compatible deeper-primary progression.
+The preceding 423 proof supplies the reciprocal charts, identity-input case,
+positive-lambda restriction, normalized poles, and scalar/anchor changes.
+
+The implemented candidate is mixed12-root-tests/builder.cjs, SHA256
+f27bf2f4a0cf4c71c17799f56f7f18aa93f0105b8d9347b24001f0397795a4db.
+It has 411 total coordinates, 379 quadratic residuals, and 25,335 quartic
+monomials. The 17- and9-coordinate lifts have428 and420 coordinates.
+These include the distinguished input. S=3^(2^26) is a fixed coefficient.
+
+1. Replace primary inverse abscissas by their existing inverse roots
+-----------------------------------------------------------------
+Retain K=Q(rho), rho^2=2, D=(3-rho)^2, and the reciprocal primary chart
+
+  f=g^2,  l^2=1-D*f^2,  x=1/f,  z=-g/l.
+
+For U_1,...,U_4 replace the order-one detector test f(U_i) by g(U_i), at
+the same order one. For H replace f(H) by g(H), at the same order forty.
+Keep all five conjugated alternate tests f(V_i) unchanged. In particular
+this candidate does not require a separately materialized inverse root ofV0.
+
+At any consumed place, the normalized valuation has integral value group.
+For a primary point, f=g^2, so
+
+  v(f)>=1  iff  v(g)>=1.
+
+Thus the four order-one substitutions impose precisely the same local
+formal-membership requirements. If g=0, the point is O and both tests vanish;
+the preceding identity-input soundness argument applies verbatim.
+
+H is nonidentity. The new H test gives v(g(H))>=40. Because D is a unit at
+every consumed prime and g(H) is positive-valuation, l(H) is a unit. Hence
+v(z(H))=v(g(H))>=40 and v(f(H))>=80. This strengthens the former H test,
+which gave v(f(H))>=40 and z-depth>=20. It is not claimed to be a rational
+witness equivalence with the old H-test equation.
+
+The detector factors become 1+q*g^2=1+q*f. Therefore their squared inputs
+reuse existing f coordinates. Signs of the square-root chart are irrelevant
+to every detector product. Each new factor is a rational function of the
+underlying point, even though g itself is a chart coordinate. In particular
+the completeness proof does not require a simultaneous continuous choice
+of square-root sign at all places.
+
+These substitutions remove ten raw coordinates. One of them was already
+removed by the old final elimination, so the measured final saving is nine:
+423->414. Replacing the five alternate order-one f tests by their existing
+inverse roots was also tested. It gave the same counts because their f^2
+coordinates remain required by the alternate logarithms. The smaller source
+change, retaining all five alternate f tests, was selected.
+
+2. The stronger H condition has canonical completeness witnesses
+---------------------------------------------------------------
+The existing prime separation argument chooses contact primes outside L
+and the fixed scales, with Pi their product, such that
+
+  gcd(Pi,M_+)=1,  gcd(Pi,L)=1.
+
+The old source chooses
+
+  h=0 mod Pi^19 M_-,  h=1 mod M_+,  h=h0 mod L.
+
+Replace19 by39. All pairwise compatibility conditions are unchanged because
+only the exponent of Pi changes. No additional restriction on the contact
+primes is needed. The same real-progression statement applies to the new
+nonconstant progression with the same fixed real bounds. Multiplication
+first by the primary doubling-image order makes P formal with z-depth>=1;
+multiplication by p^39 raises this depth to at least40, by the same formal
+logarithm isometry. This gives the new H condition and the primary conditions
+for U_i=[h*n_i]P. The opposite points [h-1]P and[(h-1)*n_i]P need only their
+old formal depth one. The old scalar conditions remain preserved moduloL.
+
+This avoids the obstruction to deepening the opposite points: primary
+p-divisibility of h is not being combined with p-divisibility of h-1.
+
+3. Use order12 only for the first cross test
+-------------------------------------------
+Change logV1 from G9 to G2 and change only L1-LP1 from detector order40 to12.
+Keep logV0 and logV2,logV3,logV4 atG9. Keep L1-beta at order40. The full test
+list, in the implemented order, is:
+
+  index0:      g(H), order40;
+  indices1-4:  g(U1),...,g(U4), order1;
+  indices5-9:  conjugate(f(V0)),...,conjugate(f(V4)), order1;
+  index10:     L1-LP1, order12;
+  indices11-13:L2-LP2,...,L4-LP4, order40;
+  index14:     L1-beta, order40;
+  index15:     direct Lucas residual, order40.
+
+Here LPi is the conjugate of the entire alternate-logarithm ratio. The raw
+source values named LPi save the ratio before conjugation; the checker
+therefore explicitly conjugates those values when reconstructing the tests.
+
+At opposite formal depth one, G2 has relative error at least12 and G9 has
+relative error at least40, at primes above the fixed cutoff. Thus the first
+ratio has relative error>=12, and the other three have relative error>=40.
+Before transferring precision, the same weak unit estimates show equality
+of valuations between truncated and exact ratios. At least one of h,h-1 is
+a p-unit. The positive-order cross test transfers integrality to both ratios.
+For finite U_i this then gives primary depth at least that ofH, namely40,
+and hence primary relative error>=160. Relative errors are now absolute.
+The source subtraction of h*r_i and(h-1)*r'_i gives
+
+  L1=n mod p^12;
+  L2=a, L3=t, L4=b mod p^40.
+
+The preceding U_i=O branch uses the corresponding precision12 or40 without
+any quotient log(O)/z(O). Conjugation preserves the valuation in the inert
+case. The direct Lucas proof is unchanged, while the beta discrepancy is
+divisible by the contact radicals to order12, exactly the order used in the
+source's final height contradiction. The retained stronger beta test40
+causes no soundness or completeness problem.
+
+For canonical completeness U_i=[h*n_i]P and n=beta. The deeper primary
+progression makes L_i-n_i have order>=160. The new G2 alternate ratio differs
+from n by order>=12, so the first cross test has order12. The other G9 ratios
+and all other tests retain their old precision. In particular L1-beta still
+has order40. The detailed formal-log proof is supplied by the geometry review.
+
+4. The arbitrary-order detector lemma still applies
+---------------------------------------------------
+For each scaleA, retain t=A*lambda, delta=t-1, and
+
+  e=(A*delta)^5/F(t),  R=1/(e*delta),
+  q_m=e^(2m-1)/delta^3=q_1*e^(2m-2).
+
+Indeed
+
+  1+R*((D_j/delta^(m+1))/R^m)^2 = 1+q_m*D_j^2.
+
+This exact identity holds for every positive integerm. The existing inverse
+power chain already produces q12=q1*e^22 and q40=q1*e^78. It is unchanged.
+The one-place lemma applies to arbitrary elementsD_j ofK and arbitrary
+positive ordersm_j. Therefore the changed list above supplies all the stated
+local requirements at one common place above each odd contact prime.
+
+The positive-lambda condition and all its weight-domain equations remain
+unchanged. The prior proof gives q1>0. Since22 and78 are even,
+
+  q12>0,  q40>0.
+
+Every detector factor is consequently at least1 at both real embeddings,
+including the new primary factors1+q_m*f(U_i). Thus W and its reciprocal
+trace remain nonzero, w0>=1, N(W)>0, and the normalized pole input is positive.
+No deleted trace guard is being restored or assumed implicitly.
+
+5. Completeness estimates for the changed factors
+------------------------------------------------
+At a selected contact prime, R has valuation1 and delta is a unit. At the
+successful place, v(D_j)>=m_j, so
+
+  v(q_m*D_j^2)=1-2m_j+2v(D_j)>=1.
+
+Every inverse factor has residue1. At either place the valuation of a
+nonconstant term is odd, so its factor has valuation zero or negative and
+its inverse has residue1 or0. The reciprocal trace therefore has residue1
+or2, hence is a unit. The new pole input has valuation1 at its contact primes
+and even valuation elsewhere, exactly as required in the inherited proof.
+
+Real bounds for the new primary tests follow from
+
+  |sigma(g)|^2=sigma(f)>=0.
+
+The old fixed real bound on f supplies a fixed bound on g. The new squared
+factor itself is1+q*f, with no branch ambiguity. For every fixedm the source
+identity still gives q_m=O(lambda^-3). Thus W=1+O(lambda^-3), its reciprocal
+trace tends to2, and the positive pole input tends to0.
+
+At p=2,3,17 the old fixed p-adic neighborhoods give lower bounds onv(f),
+hence fixed lower bounds onv(g)=v(f)/2. If nu=v_p(v) and eta=v_p(A), the
+nonconstant term retains the source lower bound
+
+  3*nu+(10*m-8)*eta-2*c_p.
+
+Only the finite constantsc_p may change. Since the set of orders remains
+finite (1,12,40), sufficiently high prescribed divisibility ofw makes all
+these terms arbitrarily small p-adically. The same pole-completeness lemma
+applies. There is no stronger simultaneous-prime hypothesis.
+
+6. A mixed block makes the reduced precision save variables
+-----------------------------------------------------------
+Separating all order12 factors into a new product would squander most of
+the G2 saving. Pair the sole order12 squared testB with one order1 squared
+testA. Precompute AB inK once and evaluate, for each detector,
+
+  (1+q1*A)(1+q12*B)
+    =1+q1*A+q12*B+(q1*q12)*(AB).
+
+This uses one new scalar weight product per detector. The remaining eight
+order1 tests are grouped4+4; the remaining six order40 tests are grouped3+3.
+The total number of evaluated K-valued blocks stays five. The shared
+coefficient cost stays the same: the mixed pair costs2 rational coordinates,
+the order1 blocks20, and the order40 blocks12, for34 total, the old total.
+The maximum q1 degree rises3->4 and the maximum q40 degree falls4->3, so their
+power costs cancel. The sole extra cost is q1*q12 in each of three detectors:
+three variables. G9->G2 removes six variables. Net saving: three.
+
+Together with the nine primary-root savings, the measured final count is
+423-9-6+3=411. The actual build is427 raw coordinates/395residuals, then
+415/383 after generic compilation, then411/379 after four further exact
+eliminations. Every source residual is quadratic, also when the fixedS is
+replaced by a constant-chain coordinate.
+
+The checker check_detector_source.py independently reconstructs all16test
+aliases (including full conjugation), the five primary root squares, all
+shared coefficients, all evaluations, the mixed block, every inverse weight
+power, the positive-lambda relation, and the norm/pole-input consumers. It
+checks304source assertions and two fully expanded abstract mixed-block
+component identities. It imports neither builder nor compiler. This exact
+check is separate from the uniform local and completeness arguments above.

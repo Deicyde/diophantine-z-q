@@ -1,0 +1,47 @@
+{
+  "status": "PASS",
+  "independentAcceptance": false,
+  "beforeSha256": "dd4deaeb9f837caafbcf93973f54e811d2cad8994b40e6571b5ea78d77308113",
+  "afterSha256": "5c01c1651cef342deca65803d4563d7e92f13d93a396c2c62fa77b7416ea31c7",
+  "sourceDelta": {
+    "changedRows": [
+      "scalar.Bh.definition",
+      "scalar.preparationT.definition",
+      "scalar.secondConic"
+    ],
+    "deletedRows": [
+      "scalar.preparationConic"
+    ],
+    "unchangedRows": 364,
+    "unusedCoordinates": [
+      "scalar.preparationU",
+      "scalar.preparationV"
+    ]
+  },
+  "localClaims": {
+    "rhoMod32": 4,
+    "rhoMod243": 81,
+    "rhoMod17": 13,
+    "retainedChainAndHeightMargins": {
+      "strictProxyBound": "963/32",
+      "scalarOrder": 31,
+      "anchorExponent": 2130,
+      "indexDivisibilityExponentAt3": 1064,
+      "heightExponent": "577/32",
+      "heightConstantBits": 665,
+      "scalarIntegerMargin": true,
+      "lucasIntegerMargin": true,
+      "inputLogMargin": true,
+      "maximumCoefficientDigits": 682,
+      "maximumCoefficientBits": 2266
+    }
+  },
+  "negativeControlsRejected": [
+    "scalar.preparationT.definition",
+    "scalar.Bh.definition",
+    "scalar.secondConic",
+    "restore W=1+N",
+    "restore preparation conic"
+  ],
+  "scope": "Exact finite equations, congruences and unchanged scalar chain. Uniform real/finite completeness is a separate author argument."
+}

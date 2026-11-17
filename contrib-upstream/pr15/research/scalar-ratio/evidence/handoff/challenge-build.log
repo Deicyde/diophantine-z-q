@@ -1,0 +1,61 @@
+⚠ [1835/1843] Built Challenge.Original (1.9s)
+warning: Challenge/Original.lean: imports `Mathlib.Algebra.Module.Equiv.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Challenge/Original.lean: imports `Mathlib.Tactic.Ring` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Challenge/Original.lean:27:8: declaration uses `sorry`
+warning: Challenge/Original.lean:33:8: declaration uses `sorry`
+warning: Challenge/Original.lean:39:8: declaration uses `sorry`
+warning: Challenge/Original.lean:46:8: declaration uses `sorry`
+warning: Challenge/Original.lean:64:8: declaration uses `sorry`
+warning: Challenge/Original.lean:68:8: declaration uses `sorry`
+⚠ [1836/1843] Built Challenge.Matrix (2.3s)
+warning: Challenge/Matrix.lean: imports `Mathlib.LinearAlgebra.Matrix.Adjugate` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Challenge/Matrix.lean: imports `Mathlib.Tactic.FieldSimp` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Challenge/Matrix.lean:24:8: declaration uses `sorry`
+warning: Challenge/Matrix.lean:27:8: declaration uses `sorry`
+warning: Challenge/Matrix.lean:31:8: declaration uses `sorry`
+warning: Challenge/Matrix.lean:37:8: declaration uses `sorry`
+warning: Challenge/Matrix.lean:44:8: declaration uses `sorry`
+warning: Challenge/Matrix.lean:51:8: declaration uses `sorry`
+warning: Challenge/Matrix.lean:57:8: declaration uses `sorry`
+warning: Challenge/Matrix.lean:63:8: declaration uses `sorry`
+warning: Challenge/Matrix.lean:69:8: declaration uses `sorry`
+warning: Challenge/Matrix.lean:75:8: declaration uses `sorry`
+warning: Challenge/Matrix.lean:94:8: declaration uses `sorry`
+warning: Challenge/Matrix.lean:98:8: declaration uses `sorry`
+warning: Challenge/Matrix.lean:102:8: declaration uses `sorry`
+⚠ [1837/1843] Built Challenge.Cup (2.2s)
+warning: Challenge/Cup.lean: imports `Mathlib.Algebra.Module.Equiv.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Challenge/Cup.lean: imports `Mathlib.LinearAlgebra.BilinearForm.Properties` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Challenge/Cup.lean: imports `Mathlib.Tactic.Ring` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Challenge/Cup.lean:20:8: declaration uses `sorry`
+warning: Challenge/Cup.lean:31:8: declaration uses `sorry`
+⚠ [1838/1843] Built Challenge.Coordinate (2.3s)
+warning: Challenge/Coordinate.lean: imports `Mathlib.LinearAlgebra.Matrix.NonsingularInverse` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Challenge/Coordinate.lean: imports `Mathlib.Tactic.FieldSimp` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Challenge/Coordinate.lean: imports `Mathlib.Tactic.Ring` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Challenge/Coordinate.lean: imports `Mathlib.Tactic.Push` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Challenge/Coordinate.lean:34:8: declaration uses `sorry`
+warning: Challenge/Coordinate.lean:48:8: declaration uses `sorry`
+warning: Challenge/Coordinate.lean:58:6: declaration uses `sorry`
+warning: Challenge/Coordinate.lean:63:8: declaration uses `sorry`
+⚠ [1839/1843] Built Challenge.CommonStrict (2.1s)
+warning: Challenge/CommonStrict.lean: imports `Mathlib.Data.Matrix.Block` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Challenge/CommonStrict.lean: imports `Mathlib.Tactic.FinCases` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Challenge/CommonStrict.lean:54:8: declaration uses `sorry`
+warning: Challenge/CommonStrict.lean:64:8: declaration uses `sorry`
+warning: Challenge/CommonStrict.lean:117:8: declaration uses `sorry`
+⚠ [1840/1843] Built Challenge.UnitCriterion (1.0s)
+warning: Challenge/UnitCriterion.lean:32:8: declaration uses `sorry`
+warning: Challenge/UnitCriterion.lean:37:8: declaration uses `sorry`
+warning: Challenge/UnitCriterion.lean:43:8: declaration uses `sorry`
+warning: Challenge/UnitCriterion.lean:49:8: declaration uses `sorry`
+warning: Challenge/UnitCriterion.lean:60:8: declaration uses `sorry`
+warning: Challenge/UnitCriterion.lean:66:8: declaration uses `sorry`
+⚠ [1841/1843] Built Challenge.BoundaryCup (1.0s)
+warning: Challenge/BoundaryCup.lean:40:8: declaration uses `sorry`
+warning: Challenge/BoundaryCup.lean:45:8: declaration uses `sorry`
+warning: Challenge/BoundaryCup.lean:54:8: declaration uses `sorry`
+warning: Challenge/BoundaryCup.lean:62:8: declaration uses `sorry`
+warning: Challenge/BoundaryCup.lean:70:8: declaration uses `sorry`
+✔ [1842/1843] Built Challenge (1.9s)
+Build completed successfully (1843 jobs).

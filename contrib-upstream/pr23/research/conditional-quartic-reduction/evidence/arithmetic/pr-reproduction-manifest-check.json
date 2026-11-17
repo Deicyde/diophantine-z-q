@@ -1,0 +1,327 @@
+{
+  "status": "PASS",
+  "wrapperSha256": "8d60c1e427081cf57c9d40869204753ccafbc21f74d322511fb565fb51035167",
+  "expectedOutputsSha256": "2e531832aa512a418c4e8f9edc54f33a012a1c3124243012a5151a412a94fdac",
+  "pipelineSha256": "96a5a5ae14e79360504ba9c168f14a5366a6f746d729691a85fb4ca4d4385539",
+  "checkerSha256": "cd7cdd71c44aa67e780bcd5e1db6f422754c83a3e7dda279a392114772b81507",
+  "reviewedSourceEvidenceFiles": 105,
+  "allDeclaredFilesMatchAndInventoryCompleteAtReview": true,
+  "buildInputFiles": 31,
+  "buildInputKinds": {
+    "auditCode": 11,
+    "constructionCode": 16,
+    "proofText": 4
+  },
+  "buildInputs": [
+    {
+      "path": "audit/check_arithmetic_round7.py",
+      "bytes": 14366,
+      "sha256": "4b8a97dd36a8e7177f308b273333093fdcb7d7720d1e6f3c405f8d6c231d6015",
+      "buildInput": true
+    },
+    {
+      "path": "audit/check_delivered_quartics_round7.py",
+      "bytes": 24181,
+      "sha256": "26fbc8f2e1e8f1e71df9f8f6ccd3cea03fade1de4936232722ae4e4aab595004",
+      "buildInput": true
+    },
+    {
+      "path": "audit/check_detector_independent.py",
+      "bytes": 10140,
+      "sha256": "a1f46fa3f3a65ffe3cb06f80e087f87666d93f1d3ec2db298d06391b69d889f2",
+      "buildInput": true
+    },
+    {
+      "path": "audit/check_detector_source.py",
+      "bytes": 15337,
+      "sha256": "109d2111523938c805e5e877a94e2e8386a33c3bbaf31ea3da18cae1778f28e7",
+      "buildInput": true
+    },
+    {
+      "path": "audit/check_diagonal_scaling.py",
+      "bytes": 16107,
+      "sha256": "abc16a0cfc566d161e49ecab6bd347422fc40f23a7b2be119e2aba14bdf03779",
+      "buildInput": true
+    },
+    {
+      "path": "audit/check_geometry_round7.py",
+      "bytes": 30529,
+      "sha256": "9fe327499537b10914fb560e8073dfed75d5231c991de2ebf49a70e1631acd0d",
+      "buildInput": true
+    },
+    {
+      "path": "audit/check_integrated_bridges.py",
+      "bytes": 5681,
+      "sha256": "31a3d7aeb2c054118ee2498d82038813ba5509aa60b1e37f6b4c2b6379f05c20",
+      "buildInput": true
+    },
+    {
+      "path": "audit/check_parameter_binding.py",
+      "bytes": 4658,
+      "sha256": "1c9e2e1d02b6aedbb36ece42edc198f9b990d508f61a93ebd2a5c7d008415440",
+      "buildInput": true
+    },
+    {
+      "path": "audit/check_scalar_independent.py",
+      "bytes": 13098,
+      "sha256": "c8d5568301e063ef0f7938f8218f04d5b4215419976f3f919e3ce5bdd47ada0c",
+      "buildInput": true
+    },
+    {
+      "path": "audit/check_scalar_second_review.py",
+      "bytes": 12093,
+      "sha256": "0150ca83b9e0c6a2ffc48be72936f705bbfda69343ffe3f54e17e6ae8248bb2a",
+      "buildInput": true
+    },
+    {
+      "path": "audit/check_scaled_chains_independent.py",
+      "bytes": 6824,
+      "sha256": "ca5f2146f07ba46064f57d54392502fc965204d6ea82f43abd8a3a701deebd7f",
+      "buildInput": true
+    },
+    {
+      "path": "construction/balance_coefficients.py",
+      "bytes": 6761,
+      "sha256": "efba9f8b845dc9171db7d63da0cc6bbba616922394faabc5afb0502fe0dcdb7b",
+      "buildInput": true
+    },
+    {
+      "path": "construction/builder.cjs",
+      "bytes": 28376,
+      "sha256": "78b54bcde24ff8a91091e102a4734c49878699f071d9230e5ce7a70ffd2114d0",
+      "buildInput": true
+    },
+    {
+      "path": "construction/check_final.cjs",
+      "bytes": 1538,
+      "sha256": "a01dabf50a7b882bb1fe99a157ce2228dba21153ea195a130b0dbdb259aa996c",
+      "buildInput": true
+    },
+    {
+      "path": "construction/finish_tables.py",
+      "bytes": 4175,
+      "sha256": "f5b422ce97e5c9f99e1fd7b47ff5df797929873498cc6db852a4fb1571ad24eb",
+      "buildInput": true
+    },
+    {
+      "path": "construction/reproduce.py",
+      "bytes": 4038,
+      "sha256": "96a5a5ae14e79360504ba9c168f14a5366a6f746d729691a85fb4ca4d4385539",
+      "buildInput": true
+    },
+    {
+      "path": "construction/specialize_core.py",
+      "bytes": 4679,
+      "sha256": "1a0d86e5cd7d098d1a9c5d0c1f5f8fa2a0d5bbb070901b122881b9fbd5d8c027",
+      "buildInput": true
+    },
+    {
+      "path": "construction/tools/affine_search.py",
+      "bytes": 3270,
+      "sha256": "d122f8fa2628d57925397025e54463a1ea9bbf92440ff5e08779aa7f77be4682",
+      "buildInput": true
+    },
+    {
+      "path": "construction/tools/checker.cjs",
+      "bytes": 21773,
+      "sha256": "dc0e394b2fa758dfd9af2d6ee56f18907a5acdd9d659f9883acdffe1ec173de4",
+      "buildInput": true
+    },
+    {
+      "path": "construction/tools/compile_ir.py",
+      "bytes": 23343,
+      "sha256": "45d5df9546e1f39b61d064d4204a0b41469b5a18134281b7e439f5faab62f28a",
+      "buildInput": true
+    },
+    {
+      "path": "construction/tools/modulo_search.py",
+      "bytes": 4480,
+      "sha256": "63380ce9300bf8c97bda58beb62a7ae7536dd1cde61a45a00cdff772c8968d57",
+      "buildInput": true
+    },
+    {
+      "path": "construction/tools/run_pipeline.py",
+      "bytes": 1109,
+      "sha256": "591def4c716d3bff456bf83ef3511840377bea02bf4e94f52017914b013c5a8c",
+      "buildInput": true
+    },
+    {
+      "path": "construction/tools/search.py",
+      "bytes": 1826,
+      "sha256": "982959296b369b98ed370f73b460e906966c282654acd27e0d5b913c50082a03",
+      "buildInput": true
+    },
+    {
+      "path": "construction/tools/verify.py",
+      "bytes": 5487,
+      "sha256": "13c4190c50867573d470d7f4efb4e25dacf49872c3f0c9c23acf8404da840a48",
+      "buildInput": true
+    },
+    {
+      "path": "construction/tools/verify_elimination.py",
+      "bytes": 5418,
+      "sha256": "ea67ec8575c8b4fbea0cd5ccffc60165263537f53d6b12febc99d7d4f974785e",
+      "buildInput": true
+    },
+    {
+      "path": "construction/verify_package.py",
+      "bytes": 9116,
+      "sha256": "03eaf6663d82ebce0047ada547ab827fe3a036c582b3a4f219aed36eba5c9161",
+      "buildInput": true
+    },
+    {
+      "path": "construction/write_tables_text.py",
+      "bytes": 3616,
+      "sha256": "171aca43a9710e03c9f9ce35cd9c228a3bf142833c2f344705e8c9f59e08a631",
+      "buildInput": true
+    },
+    {
+      "path": "proofs/arithmetic_round7.tex",
+      "bytes": 8862,
+      "sha256": "14f548346d7630bf2d440fbc33a10bda10bb6cc7604692d59bcb1c821a5bf5ff",
+      "buildInput": true
+    },
+    {
+      "path": "proofs/detector_round7.tex",
+      "bytes": 12499,
+      "sha256": "ed01c9416d3b4daf02a26958642194230c0186a896f17817bfe30c8a16d481d3",
+      "buildInput": true
+    },
+    {
+      "path": "proofs/diagonal_scaling.tex",
+      "bytes": 4701,
+      "sha256": "1e2c856690cdd0c511feca650e9b9a0136b09326b6c8005089dade723c78affb",
+      "buildInput": true
+    },
+    {
+      "path": "proofs/geometry_round7.tex",
+      "bytes": 8613,
+      "sha256": "0402ccf6c3e193c685d01e0ff6e46449001ac074a1bf4501419d6fb1fea88035",
+      "buildInput": true
+    }
+  ],
+  "buildInputsDisjointFromGeneratedArtifactsAndAuditReports": true,
+  "deterministicArtifactsComparedToCompletedReference": 51,
+  "deterministicArtifactPaths": [
+    "construction/balanced/diagonal-certificate.json",
+    "construction/balanced/integer-ir.json",
+    "construction/balanced/polynomial.json",
+    "construction/balanced/summary.json",
+    "construction/census.json",
+    "construction/compiled/compiled-ir.json",
+    "construction/compiled/coordinate-map.json",
+    "construction/compiled/polynomial.json",
+    "construction/compiled/reduction-certificate.json",
+    "construction/compiled/specialization-certificate.json",
+    "construction/final/candidate-ir.json",
+    "construction/final/integer-candidate-ir.json",
+    "construction/final/polynomial/compiled-ir.json",
+    "construction/final/polynomial/coordinate-map.json",
+    "construction/final/polynomial/polynomial.json",
+    "construction/final/polynomial/reduction-certificate.json",
+    "construction/final/polynomial/specialization-certificate.json",
+    "construction/final/source-ir.json",
+    "construction/ordinary392/polynomial/compiled-ir.json",
+    "construction/ordinary392/polynomial/coordinate-map.json",
+    "construction/ordinary392/polynomial/polynomial.json",
+    "construction/ordinary392/specialization-report.json",
+    "construction/ordinary392/specialized-ir.json",
+    "construction/ordinary394/lifted-ir.json",
+    "construction/ordinary394/polynomial/compiled-ir.json",
+    "construction/ordinary394/polynomial/coordinate-map.json",
+    "construction/ordinary394/polynomial/polynomial.json",
+    "construction/ordinary394/polynomial/reduction-certificate.json",
+    "construction/ordinary394/polynomial/specialization-certificate.json",
+    "construction/ordinary395/lifted-ir.json",
+    "construction/ordinary395/polynomial/compiled-ir.json",
+    "construction/ordinary395/polynomial/coordinate-map.json",
+    "construction/ordinary395/polynomial/polynomial.json",
+    "construction/ordinary395/polynomial/reduction-certificate.json",
+    "construction/ordinary395/polynomial/specialization-certificate.json",
+    "construction/ordinary396/lifted-ir.json",
+    "construction/ordinary396/polynomial/compiled-ir.json",
+    "construction/ordinary396/polynomial/coordinate-map.json",
+    "construction/ordinary396/polynomial/polynomial.json",
+    "construction/ordinary396/polynomial/reduction-certificate.json",
+    "construction/ordinary396/polynomial/specialization-certificate.json",
+    "construction/quartic-392-balanced-decimal.txt",
+    "construction/quartic-392-decimal.txt",
+    "construction/quartic-392-symbolic.txt",
+    "construction/quartic-394-decimal.txt",
+    "construction/quartic-395-decimal.txt",
+    "construction/quartic-396-decimal.txt",
+    "construction/raw-ir.json",
+    "construction/raw-translated-ir.json",
+    "construction/table-summary.json",
+    "construction/text-table-summary.json"
+  ],
+  "noTimingOrAbsoluteWorkspaceFieldsInDeterministicJson": true,
+  "committedTables": [
+    {
+      "committed": "tables/quartic-392-balanced-decimal.txt",
+      "generated": "construction/quartic-392-balanced-decimal.txt",
+      "bytes": 1064980,
+      "sha256": "81eddac871e7575cc54b8e2cd00fcbbc5cd65a8853a031f87415fdafde71686c"
+    }
+  ],
+  "successfulAuditReports": [
+    {
+      "path": "construction/independent-gate-check.json",
+      "status": "passed_exact_algebra_checks"
+    },
+    {
+      "path": "construction/detector-source-check.json",
+      "status": "PASS"
+    },
+    {
+      "path": "construction/independent-final-symbolic-check.json",
+      "status": "passed_final_SOS_and_fixed_parameter_checks"
+    },
+    {
+      "path": "construction/ordinary392/specialization-report.json",
+      "status": "PASS"
+    },
+    {
+      "path": "audit/arithmetic-check.json",
+      "status": "PASS"
+    },
+    {
+      "path": "audit/delivered-quartics-check.json",
+      "status": "PASS"
+    },
+    {
+      "path": "audit/detector-independent-check.json",
+      "status": "PASS"
+    },
+    {
+      "path": "audit/diagonal-scaling-check.json",
+      "status": "PASS"
+    },
+    {
+      "path": "audit/geometry-check.json",
+      "status": "PASS"
+    },
+    {
+      "path": "audit/integrated-bridge-check.json",
+      "status": "PASS"
+    },
+    {
+      "path": "audit/parameter-binding-check.json",
+      "status": "PASS"
+    },
+    {
+      "path": "audit/scalar-independent-check.json",
+      "status": "PASS"
+    },
+    {
+      "path": "audit/scalar-second-review-check.json",
+      "status": "PASS"
+    },
+    {
+      "path": "audit/scaled-chain-independent-check.json",
+      "status": "PASS"
+    }
+  ],
+  "sourceManifestSelfHashIntentionallyNotRecorded": true,
+  "scope": "Actual manifest and completed-reference coverage review. This does not by itself claim a new full pipeline run. Adding this non-build review to the source snapshot changes no frozen build-input or expected-output binding."
+}

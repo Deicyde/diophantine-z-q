@@ -1,0 +1,31 @@
+{
+  "sourceSha256": "fd69771b054ac308a9158dbba4b147da6fb529dca819802adc73e4012ae14cc0",
+  "activeIrSha256": "230f73c63049ce324eaa0d271bfa51fb9240e34e9e518777ca868cb0c592eebc",
+  "coordinateMapSha256": "3d24dcec01ab8486f9b7036ad840f772f968762c7416ac2857edafd29703a7a3",
+  "omittedCoordinates": [
+    {
+      "id": 52,
+      "name": "scalar.preparationU",
+      "kind": "base",
+      "protected": false,
+      "block": "base",
+      "sourceLines": [
+        2354,
+        2487
+      ]
+    },
+    {
+      "id": 53,
+      "name": "scalar.preparationV",
+      "kind": "base",
+      "protected": false,
+      "block": "base",
+      "sourceLines": [
+        2354,
+        2487
+      ]
+    }
+  ],
+  "allResidualsUnchanged": true,
+  "proof": "The two unprotected base slots occur in no residual. Forget them; extend with zeros. Semantic source pole witnesses are reconstructed separately."
+}

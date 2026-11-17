@@ -1,0 +1,36 @@
+{
+  "source_commit": "33483f751e6dcd3f91fb303969838aca33ad0458",
+  "adapted_sources": [
+    {
+      "source_path": "research/actual-boundary-cup/check_cochains.py",
+      "source_blob": "6db29038caf24067602f41e9526096524ef6505d",
+      "sha256": "ad9c45851b76cdfdb4c7d360e4a4c034ca36911647f45c8770c3635674280c60",
+      "adaptation": "Retain simplicial-torus definitions and exact correction/trace witnesses; use 64 deterministic trials instead of 256; integrate with local runner and assertion guard."
+    },
+    {
+      "source_path": "research/orthogonal-comparison/check_comparison.py",
+      "source_blob": "238c458dac8d0ba313d72c06d9553a22e4d5e844",
+      "sha256": "5b071db8be64a86dba569f12527ef1e3bd7bf2463927586d8cda5fe9d5643fc9",
+      "adaptation": "Retain degreewise cone and two-term homotopy checks with a smaller cone grid. Strengthen the unsupported-inverse control to a genuine unit isomorphism lacking the common projection. Use actual finite polynomial Artin ring for nilpotence control. Drop old manuscript dependency."
+    },
+    {
+      "source_path": "research/arithmetic-boundary-cup/check_local_signs.py",
+      "source_blob": "cd474ff51b3b91b3ed5e82e89f4b37f9996164d6",
+      "sha256": "010fd02e939a699f0256349bc631907df3d45bce64e55ed19435520d21ad1f5b",
+      "adaptation": "Reuse the raw local cup form, tame sign and extra-J diagnostics only; omit determinant, volume and cofactor suite."
+    },
+    {
+      "source_path": "research/arithmetic-switch-integration/check_integration.py",
+      "source_blob": "12d556ea39bcf8b536a074d295f7a1d60b55c10b",
+      "sha256": "dd9e21642f1c617ef16ab41da990c524b503c452835825ee149e28657e151a22",
+      "adaptation": "Reuse a minimal local-cup-derived opposite-row normalization/rescaling control only. Exclude cofactor, strict determinant, character and universal-descent checks."
+    }
+  ],
+  "new_controls": [
+    "C8 over Z/32: raw conjugate cocycle requires pulled-back coefficient action",
+    "Coboundary evaluation fails at a nontrivially acting element",
+    "Refuse optimized Python before assertions",
+    "Check selected candidate module hashes against ORIGIN.json"
+  ],
+  "runtime_dependencies": "Python standard library and four candidate modules for hash binding only; no import of research/frozen Lean modules"
+}

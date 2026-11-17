@@ -81,7 +81,7 @@ def specialFibre (𝒩 : GroupModelO A O) : Over (Spec (CommRingCat.of (IsLocalR
 
 instance (𝒩 : GroupModelO A O) : GrpObj (specialFibre 𝒩) := Functor.grpObjObj
 
-/-- **Semistable special fibre over `k(s)`** (SGA 7 IX Déf. 2.2 and 3.1 read over the residue field
+/-- **Semistable special fibre over `k(s)`** (SGA 7 IX Déf. 3.4 read over the residue field
 `k(s)`, as printed; locators UNVERIFIED): the identity component of `𝒩 ×_O k(s)` is an extension of
 an abelian variety by a split torus (`HasSemiAbelianIdentityComponent`). Over a separably closed
 `k(s)` every torus is split. -/
@@ -414,7 +414,7 @@ direction, which are the only parts r6 uses.
 
 Semistable reduction is read on the geometric special fibre (`HasSemistableReduction`: a Néron model whose
 special fibre over `κ̄` has an identity component that is an extension of an abelian variety by a torus). Reading
-risk: if SGA 7 IX Déf. 3.1 reads this over `k(s)`, the leaf follows from the print only together with
+risk: if SGA 7 IX Déf. 3.4 reads this over `k(s)`, the leaf follows from the print only together with
 `SemiAbelianDescendsSepClosed`. That matters only when `k(s)` is imperfect: for perfect `k(s)` the two readings
 agree (`isSemistableRes_iff`). The reading-robust form is `SGA7_IX_3_5_Forward`. -/
 def SGA7_IX_3_5_ForwardGeom : Prop :=

@@ -1,0 +1,138 @@
+{
+  "algorithm": "SHA-256",
+  "profileVersion": "2026-11-08-v1",
+  "files": [
+    {
+      "path": "ARTIFACTS.json",
+      "sha256": "379176fde30f7de2132188a2b5d52cf697114015cc96f2eb9e3f4f4ed9c1c930"
+    },
+    {
+      "path": "DELIVERY_SELECTION.json",
+      "sha256": "02038a8e44d50d13d844a517b1b542d050daf7ac4789e8588d2d8850649116c3"
+    },
+    {
+      "path": "EVIDENCE_MANIFEST.json",
+      "sha256": "ce7cfc0bc00fdc85fce64dc8c11eef2f7ff86406f632aae225b48bdf029097d1"
+    },
+    {
+      "path": "FINDINGS.json",
+      "sha256": "bec5ccb8be242b8f15e2128d6af52d115506c72d2294c4319a329210160050b2"
+    },
+    {
+      "path": "HANDOFF.md",
+      "sha256": "6cb2311a28d9aa5f2a4d377cb6f8e083de7c528ad536ee725615b37902219fd4"
+    },
+    {
+      "path": "PROFILE.md",
+      "sha256": "61e716a1e40e2499aea3acfeb7692234bfa1d71f76250bb05fc3c6477afbbd03"
+    },
+    {
+      "path": "delivery-history/MANIFEST.json",
+      "sha256": "51bfa5f5c73e34d1073abe65f2369750dd066ab5cb9ffbbd7682b7b02ae3aa14"
+    },
+    {
+      "path": "delivery-history/PATCH_APPLICATION.json",
+      "sha256": "fe201baea3ca5befefb09b0b84d2f16bf64b5f55d7388287c84c51093261ec80"
+    },
+    {
+      "path": "delivery-history/UPSTREAM_BASE.json",
+      "sha256": "59d8e5732bf0021e05f8799392bf496b9666073371543eeb361edc98ee954d5c"
+    },
+    {
+      "path": "delivery-history/VALIDATION.json",
+      "sha256": "d2ee62b1c5340870e99e76be4b51fe0b2bd59e4219e2e42959c2853a07c4fade"
+    },
+    {
+      "path": "delivery-history/reviews/check_delivery_patch_scope_round8.py",
+      "sha256": "2557541868a2acf890f9046e8bafd479ee703b69d2751e8878d526810d559989"
+    },
+    {
+      "path": "delivery-history/reviews/check_update_base_helper_round8.py",
+      "sha256": "58cfe57f511d9a4988b6826dfea76f8118d60d22c4bb20e3d3101e475063e140"
+    },
+    {
+      "path": "delivery-history/reviews/delivery-independent-review-round8.json",
+      "sha256": "f4e55cd07921918bd951df72b6473733bd5c036f77f33fa7a257aeac4faf8b1e"
+    },
+    {
+      "path": "delivery-history/reviews/delivery-independent-review-round8.txt",
+      "sha256": "3221d247dbfb9f2068db809ecc023a17c0142f0106f8415f8a9dc49d6712f708"
+    },
+    {
+      "path": "delivery-history/reviews/delivery-patch-scope-review-round8.json",
+      "sha256": "cafc8f8cd1c2fcefc01441dbb74afd7faa5c752a647fb457dfaa68a5fb340269"
+    },
+    {
+      "path": "delivery-history/reviews/documentation-final-review.json",
+      "sha256": "b7a7b1905e24478bf3d61f46666c6f83455263253612eaa621c59aec4b90751d"
+    },
+    {
+      "path": "delivery-history/reviews/documentation-final-review.txt",
+      "sha256": "ab10713429b5e9bf95747cc35a10f9411d79ab0e2bc83487366fa46af0b90b4b"
+    },
+    {
+      "path": "delivery-history/reviews/final-pipeline-helpers-independent.json",
+      "sha256": "1e011b98a2b650501f8ef9ff257a2cf4489bc9dd5cdeb5958ecb9308a3a46d70"
+    },
+    {
+      "path": "delivery-history/reviews/final-pr-manifest-independent-review.json",
+      "sha256": "e78495fc509474726a04c0f1ee66beba73d78255428f5e79d7e57a3759c0563b"
+    },
+    {
+      "path": "delivery-history/reviews/package-integration-final-review-round8.json",
+      "sha256": "83f885a0cfb05397ca761abb39024f568abedd489fb73b5e7c359779193e4847"
+    },
+    {
+      "path": "delivery-history/reviews/package-integration-final-review-round8.txt",
+      "sha256": "c92435abf67286ac596fd633ff82d9d9cc97de43a8dde5e6b9278ee9334baee3"
+    },
+    {
+      "path": "delivery-history/reviews/package-integration-review-round8.json",
+      "sha256": "af9d94c67a693a2334111a5022f16501599444c7f96f8be6944dc8ccd8ce8be4"
+    },
+    {
+      "path": "delivery-history/reviews/package-integration-review-round8.txt",
+      "sha256": "95bf50debf50dfde16fe3034f8e9b0ab92549272dfdb5e99742d40a12007cc56"
+    },
+    {
+      "path": "delivery-history/reviews/patch-routes-independent-check.json",
+      "sha256": "042aad3868fd6528c54301a545500fc8466ff9329cb66d0f2334d042b454aea9"
+    },
+    {
+      "path": "delivery-history/reviews/rejected-path-notes-round8.txt",
+      "sha256": "ba37a32b0369d531baeb78cecf269591344a7f5b443eb1d3f5051214b09c0221"
+    },
+    {
+      "path": "delivery-history/reviews/update-base-helper-review-round8.json",
+      "sha256": "4f7039f10d5be4b9e1d07352f7fdd055a950cda7da2d99a039a410aa7a650bf8"
+    },
+    {
+      "path": "delivery-history/reviews/verify-update-base-independent-probes.json",
+      "sha256": "1d9ea4844a88fcf67053756544109b5c0b00021060b3cf5cfdf900ccf988422a"
+    },
+    {
+      "path": "delivery-history/validation/fresh-delivered-quartics-check.json",
+      "sha256": "b4424ee56bcc23da3b203e6208c9c694d235691290ca7a5a317291adf4906978"
+    },
+    {
+      "path": "delivery-history/validation/fresh-diagonal-scaling-check.json",
+      "sha256": "56d754acd0509803b45fa5b33771b2c7565461056205dabb82f67451d7dcbd92"
+    },
+    {
+      "path": "delivery-history/validation/fresh-pipeline-completion.json",
+      "sha256": "680e7d4172b9631e967a31e3e1067fd1a80a8546b2b9ac8bae90e7a734ffc2bf"
+    },
+    {
+      "path": "delivery-history/validation/fresh-pipeline-progress.json",
+      "sha256": "a3a1260b02d0328157a32161f8762b89cf20cf6b4c624dcdf070e18cf00ee869"
+    },
+    {
+      "path": "delivery-history/validation/fresh-reproduction-receipt.json",
+      "sha256": "c3980b3f049522be4c2eda06f965f465cae648bbad40b4b5799bb5bed880e32a"
+    },
+    {
+      "path": "delivery-history/validation/selected-diagonal-certificate.json",
+      "sha256": "82f4e4a0b3c86eacbeded815f97ef0e46df3a553c82e9d8243ef671788ca0b24"
+    }
+  ]
+}

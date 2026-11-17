@@ -1,0 +1,75 @@
+{
+  "status": "PASS",
+  "scope": "Repository-only offline preparation; cloud execution belongs to Open Math",
+  "tested_checkout_commit": "919e8ff881cd19f8b468a93757f6e1b5347cdca4",
+  "fresh_clone": true,
+  "clone_command": [
+    "git",
+    "clone",
+    "--no-local",
+    "--depth",
+    "1",
+    "--single-branch",
+    "--branch",
+    "codex/derivative-switch-boundary-v13",
+    "<local repository>",
+    "<new checkout>"
+  ],
+  "input_source": "Committed Git objects only; no copied ignored files or ZIP",
+  "preparation_script_sha256": "618b8f7afbeecae5a00908c463b54bc5d91ffcab767e2f7251b94109c7072f86",
+  "entry_document_sha256": "3f3c071f6e3086b0e44f7c7a2362aeed7b6883cb9d3d87f64677039681bf81d5",
+  "packet_manifest_sha256": "de9e04423f3ccafa9690e6ff53c1f0bb79f5f91406ee3e4e89246ce2cf97fa12",
+  "generated_manifest_sha256": "e37368316a682d30f9358d7cf1c1ebd01e622e7896c99ca020ae5f94288f6188",
+  "packet_inputs_checked": 63,
+  "generated_inputs_checked": 9,
+  "checkout_clean_after_checks": true,
+  "dependency_cache_present": false,
+  "lean_invoked": false,
+  "network_used_by_preparation": false,
+  "negative_controls": [
+    "Existing output rejected without overwriting",
+    "Changed frozen challenge rejected before generating output"
+  ],
+  "commands": [
+    {
+      "label": "fresh-checkout-prepare",
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3",
+        "-B",
+        "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-08-openmath-repo-prepare/clean-checkout/scripts/prepare_derivative_switch_openmath.py"
+      ],
+      "cwd": "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-08-openmath-repo-prepare/clean-checkout",
+      "exit_code": 0
+    },
+    {
+      "label": "reject-existing-output",
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3",
+        "-B",
+        "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-08-openmath-repo-prepare/clean-checkout/scripts/prepare_derivative_switch_openmath.py"
+      ],
+      "cwd": "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-08-openmath-repo-prepare/clean-checkout",
+      "exit_code": 1
+    },
+    {
+      "label": "reject-changed-frozen-input",
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3",
+        "-B",
+        "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-08-openmath-repo-prepare/clean-checkout/scripts/prepare_derivative_switch_openmath.py",
+        "--output",
+        "lean/.checks/should-not-be-created"
+      ],
+      "cwd": "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-08-openmath-repo-prepare",
+      "exit_code": 1
+    }
+  ],
+  "log_sha256": {
+    "fresh-checkout-prepare.log": "b2be53ce897aa2206896ff7b3db7faf74afab35274892327f9b106b6cdd13622",
+    "reject-changed-frozen-input.log": "4c4f3e0529dcd22f0bc3ef7090428f531fb6f1ce4330860d86c82b2066f7b39f",
+    "reject-existing-output.log": "f61f33ad94423c32f5ecd0448e1c51d1de8b6d970a53ce83a062ab8a84f351e6"
+  },
+  "cloud_paranoid_run": "NOT_RUN",
+  "remote_push": "NOT_PERFORMED",
+  "python_version": "3.13.12 (v3.13.12:1cbe4818347, Feb  3 2026, 13:36:53) [Clang 16.0.0 (clang-1600.0.26.6)]"
+}

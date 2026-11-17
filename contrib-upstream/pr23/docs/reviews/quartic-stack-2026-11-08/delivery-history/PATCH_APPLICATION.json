@@ -1,0 +1,36 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "route": "full",
+      "action": "check",
+      "returnCode": 0
+    },
+    {
+      "route": "full",
+      "action": "apply",
+      "returnCode": 0
+    },
+    {
+      "route": "full",
+      "payloadFilesCompared": 156,
+      "identicalToDeliveredOverlay": true
+    },
+    {
+      "route": "incremental",
+      "action": "check",
+      "returnCode": 0
+    },
+    {
+      "route": "incremental",
+      "action": "apply",
+      "returnCode": 0
+    },
+    {
+      "route": "incremental",
+      "payloadFilesCompared": 156,
+      "identicalToDeliveredOverlay": true
+    }
+  ],
+  "scope": "Both binary patches apply and yield the exact156-file current overlay; mathematical reproduction is separately recorded."
+}

@@ -1,0 +1,87 @@
+{
+  "status": "PASS_OFFLINE_PREPARATION_ONLY",
+  "baseline_commit": "7c178b3edaf7f1ca9c91d542c3453bfdbaea73f3",
+  "request_sha256": "20905a3b5f061f5fff8a7f8ab816debc2023cca872e5b0980de19033aedf1ca9",
+  "support_manifest_sha256": "21f7237e1b806dd3dd8e1d913d9ef07e204525106f0c51145c1bc9dc2c32bfe9",
+  "trusted_inputs_checked": 19,
+  "support_files_checked": 4,
+  "complete_project_index_entries": 27,
+  "comparator_inputs_manifest_sha256": "3b6ad16cf3c17cf0bceb5dca1d07fcf685ad8a84c193dd545dfa00bccb207b73",
+  "mathematical_and_pin_files_byte_identical_to_baseline": [
+    "lean/Research/BoundaryCupAdapter.lean",
+    "lean/Research/BoundaryScalar.lean",
+    "lean/Research/DerivativeSwitch/BoundaryCup.lean",
+    "lean/Research/DerivativeSwitch/CommonStrict.lean",
+    "lean/Research/DerivativeSwitch/Coordinate.lean",
+    "lean/Research/DerivativeSwitch/UnitCriterion.lean",
+    "lean/Research/DerivativeSwitchBoundary.lean",
+    "lean/lake-manifest.json",
+    "lean/lean-toolchain"
+  ],
+  "repeat_generation_byte_identical": true,
+  "cases": {
+    "positive_offline_prepare": {
+      "argv": [
+        "python3",
+        "-B",
+        "scripts/prepare_scalar_ratio_retained.py",
+        "--output",
+        "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-10-retained-comparator/pr15-repeat"
+      ],
+      "cwd": "/Users/chey/Coding_Projects/diophantinezq/foundation-pr",
+      "exit_code": 0,
+      "stdout": "{\n  \"output\": \"/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-10-retained-comparator/pr15-repeat\",\n  \"files\": 25,\n  \"manifest_sha256\": \"117f9ca2c28c42e45198f790dd8c3f324e1bed9d3af11ea9707575363304b811\",\n  \"executed_lean\": false\n}\n{\n  \"status\": \"PREPARED_FROM_REPOSITORY\",\n  \"checkout_commit\": \"7c178b3edaf7f1ca9c91d542c3453bfdbaea73f3\",\n  \"packet\": \"scalar-ratio\",\n  \"selected_declarations\": 39,\n  \"reviewed_source_commit\": \"3d2243ff141f9681fbd6a659ca28ffddfae9b000\",\n  \"prerequisite_inputs_checked\": 128,\n  \"packet_manifest_sha256\": \"d313ec3ff5ad0e91d555d26b2beef6ad401d7e9c86cdfe77adbe119062498610\",\n  \"packet_inputs_checked\": 99,\n  \"generated_manifest_sha256\": \"117f9ca2c28c42e45198f790dd8c3f324e1bed9d3af11ea9707575363304b811\",\n  \"generated_inputs_checked\": 24,\n  \"preparation_script_sha256\": \"6dd6779b1b5a85a2916f836a690efb5a827198db06ab6390269eef2c750682be\",\n  \"lean_invoked\": false,\n  \"network_used\": false,\n  \"paranoid_run\": \"NOT_RUN; owned by Open Math in the cloud\",\n  \"cloud_command\": [\n    \"lake\",\n    \"comparator\",\n    \"--config\",\n    \"comparator.json\",\n    \"--paranoid\"\n  ]\n}\n{\n  \"status\": \"PREPARED_ONLY\",\n  \"checkout_commit\": \"7c178b3edaf7f1ca9c91d542c3453bfdbaea73f3\",\n  \"packet\": \"scalar-ratio\",\n  \"request_sha256\": \"20905a3b5f061f5fff8a7f8ab816debc2023cca872e5b0980de19033aedf1ca9\",\n  \"support_manifest_sha256\": \"21f7237e1b806dd3dd8e1d913d9ef07e204525106f0c51145c1bc9dc2c32bfe9\",\n  \"base_project_manifest_sha256\": \"117f9ca2c28c42e45198f790dd8c3f324e1bed9d3af11ea9707575363304b811\",\n  \"comparator_inputs_manifest_sha256\": \"3b6ad16cf3c17cf0bceb5dca1d07fcf685ad8a84c193dd545dfa00bccb207b73\",\n  \"theorem_targets\": 39,\n  \"definition_targets\": 0,\n  \"lean_executed\": false,\n  \"comparator\": \"NOT_RUN\",\n  \"paranoid\": \"NOT_RUN\",\n  \"execution_owner\": \"Open Math OS\",\n  \"base_sources_note\": \"SOURCES.json and BASE_PROJECT_MANIFEST.sha256, if present, describe the original base stage; COMPARATOR_INPUTS.sha256 covers the complete comparison project.\"\n}\n",
+      "stderr": ""
+    },
+    "existing_output_rejected": {
+      "argv": [
+        "python3",
+        "-B",
+        "scripts/prepare_scalar_ratio_retained.py",
+        "--output",
+        "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-10-retained-comparator/pr15-prepared"
+      ],
+      "cwd": "/Users/chey/Coding_Projects/diophantinezq/foundation-pr",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Output must be new\n"
+    },
+    "isolated_source_drift_rejected": {
+      "argv": [
+        "python3",
+        "-B",
+        "scripts/prepare_scalar_ratio_retained.py",
+        "--output",
+        "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-10-retained-comparator/pr15-must-not-exist"
+      ],
+      "cwd": "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-10-retained-comparator/pr15-tampered-copy",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Frozen input changed: lean/Research/BoundaryCupAdapter.lean\n"
+    },
+    "isolated_request_drift_rejected": {
+      "argv": [
+        "python3",
+        "-B",
+        "scripts/prepare_scalar_ratio_retained.py",
+        "--output",
+        "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-10-retained-comparator/pr15-must-not-exist"
+      ],
+      "cwd": "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-10-retained-comparator/pr15-tampered-copy",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Input missing, outside root, or changed: docs/openmath/scalar-ratio-retained-comparator-20261110/REQUEST.json\n"
+    }
+  },
+  "handoff_local_links_checked": [
+    "REQUEST.json",
+    "SUPPORT.sha256"
+  ],
+  "new_preparer_python_syntax": "PASS",
+  "lean_executed": false,
+  "comparator": "NOT_RUN",
+  "paranoid": "NOT_RUN",
+  "open_math_os_dispatch": "NOT_DISPATCHED; handoff to be supplied to operator",
+  "scope": "Offline packaging/identity/adverse checks only. Not formal compilation, kernel replay or protected review acceptance.",
+  "receipt_note": "Prepared at the baseline checkout with new uncommitted support identified by the support manifest. Reprepare at the published handoff commit; runtime checkout receipts may then have different hashes."
+}

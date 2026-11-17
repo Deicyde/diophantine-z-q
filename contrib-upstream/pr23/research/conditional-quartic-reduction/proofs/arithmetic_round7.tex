@@ -1,0 +1,201 @@
+\section{The selected smaller anchor and unchanged arithmetic consumers}
+
+The starting construction is the frozen sixth-round package, with builder
+SHA256
+\texttt{3f63cb782d52857446cf39f6e545aeb74f380d1347826eafa888cbb487738d51}.
+The selected integrated source has builder SHA256
+\texttt{78b54bcde24ff8a91091e102a4734c49878699f071d9230e5ce7a70ffd2114d0}.
+The upstream source remains pinned at
+\texttt{036cebe4f1a4aa7ca89820a9b48f3629b4c364d6}.
+All inherited curve, rank, quaternion, height, pole, simultaneous-prime
+and Lucas inputs retain their previous qualifications.  The new scalar
+and detector implementations have separate local proofs and source
+checks; this section checks their actual arithmetic consumers and the
+smaller anchor constant.  Computational checks do not establish the
+inherited global inputs.
+
+\subsection{The exact retained anchor domain}
+
+Put $K=\mathbb Q(\rho)$, $\rho^2=2$, and
+$N(x+y\rho)=x^2-2y^2$.  For the four root labels $(n,a,t,b)$, write
+$C=\prod_i x(Q_i)=C_0+C_1\rho$ and $B_0=4096C_0$.
+The scalar point is $S=[a]P$ and $Q=S-P=[a-1]P$.  Its unchanged
+chart and nonzero guard supply $a\ne0$, $a-1\ne0$, $h_S\ne0$, and
+an already stored coordinate $w=h_S\tau$ with
+$h_S^2=x(S)$ and $\tau^2=f(Q)$.  Use
+\[
+ S_0=3^{2790},\qquad
+ \Theta=N(w)+3S_0N(B_0+X\rho),\qquad
+ u^2+6v^2-2z^2-3\Theta^2+2S_0^2=0.
+\]
+This is the same stored-root physical anchor as in round six, with its
+fixed exponent changed.  Its exact characterization is
+\[
+ \text{all four root labels odd},\qquad
+ X\in\mathbb Z_{(2)}\cap\mathbb Z_{(3)},\qquad
+ 0\ne a-1\in2\cdot3^{1394}\mathbb Z.
+\]
+
+For clarity, the local order of this characterization is as follows.
+The actual quaternion criterion tests integrality at $2$ and $3$ of
+\[
+ \Theta/S_0=N(w/3^{1395})+3N(B_0+X\rho).
+\]
+At $3$ the norm is anisotropic modulo $3$, so the two summands have
+opposite valuation parity; their separate integrality follows.  The
+actual product leading-residue formula
+\[
+ v_3(C_0)=-\sum_i e(n_i),\qquad
+ e(n)=0\ (n\text{ odd}),\quad e(n)=2+2v_3(n)\ (n\text{ even})
+\]
+then forces all labels odd before using any odd-product height identity.
+For odd $a$, $h_S$ is a $3$-adic unit and
+$v_3(w)=1+v_3(a-1)$; this gives the displayed divisibility.
+At $2$, the integral odd formal series gives
+$v(z([j]P))=3/2+v_2(j)$ for nonzero integers $j$.  Thus the already
+proved oddness gives $v(h_S)=-3/2$ and
+$v(w)=v_2(a-1)\ge1$, making both rational coefficients of $w$
+$2$-integral.  Also $B_0$ is $2$-integral.  The only remaining possibly
+nonintegral term is $-6X^2$, whose valuation is odd, so $X$ is
+$2$-integral.  The converse follows by the same valuations and the
+quaternion criterion, including its zero-argument case.  Sign choices
+of $h_S$ and $\tau$ are harmless, and no square-root branch is added.
+
+The actual source passages are
+\texttt{manuscripts/quartic\_v10.tex}, lines 8132--8244 and
+10973--11024; the prior packed-anchor leading-residue proof; and the
+sixth-round stored-root anchor proof.  This specialization adds no
+new global assertion.  Completeness chooses the positive scalar index
+$a-1$ arbitrarily divisible, so $3^{1394}\mid a-1$ is a finite
+preparation requirement compatible with the same later choices.
+
+\subsection{The three height consumers retain their hypotheses}
+
+The retained exceptional set is $\{2,3,5,7,13,17\}$ and its product is
+$46410$.  Its inherited height constant remains exactly
+\[
+ H=2^{110}(2^{32}3^9)^6\,46410^{19}+128.
+\]
+Its bit length is $683$; no decimal or logarithmic approximation is used
+in the accompanying numerical certificate.
+
+The new scalar tree still gives
+$M_{\mathcal S}(\beta)^{28}\mid a-1$, so
+\[
+ h(\beta)\le H|a-1|^{19/28},\qquad
+ \beta=2401+2754(2X+1)^2.
+\]
+The detector normalization keeps the actual orders $1,12,45$ at every
+consumed contact: its guard $\delta=98t-1$ is a unit there, so absorbing
+one factor of $\delta$ into each semantic test does not change the
+valuation conclusion.  The precise arbitrary-order implication and
+its completeness are proved in the detector section; they are not
+inferred from a circuit count.
+
+The long logarithm is still $G_{12}$.  At every consumed prime $p\ge11$
+and formal depth $r\ge1$, its omitted index $j\ge13$ satisfies
+\[
+ 4jr-(4j+1)/(p-1)\ge45r,
+\]
+using $(4j+1)/10\le4j-45$.  The valuations tend to infinity, so the
+entire omitted tail has the required precision.  The input logarithm
+is still $G_2$: its first omitted coefficient is $-14/195$, integral
+outside the retained exceptional set, and gives depth at least $12r$.
+For $j\ge4$ the same factorial bound gives depth at least $12r$ because
+$(4j+1)/10\le4j-12$.  Thus no new exceptional prime is needed.
+The primary inverse-root test of order $45$ gives primary depth at least
+$45$ and primary relative logarithm error at least $180$.
+The existing weak-unit and two-anchor comparisons consequently give
+Lucas-label congruences of order $45$ and input-label congruence of
+order $12$, with their identity-input branch unchanged.
+
+The three scales $1,C_0^2,(C_0+C_1)^2$ remain fixed positive rational
+squares after the four roots are chosen.  The preceding product-height
+bound therefore remains
+\[
+ B^2-6<7H|N|^{19/k},\qquad B=\max(|n|,|a|,|t|,|b|),
+\]
+whenever the three contact radicals divide a nonzero integer $N$ to
+order $k$.  The actual odd-product and height consumers are
+\texttt{docs/quartic-523-540/addition.tex}, lines 286--350 and 421--477,
+with the already reviewed changed coordinate and scale constants.
+An optional projective-height improvement and an odd-exponent anchor
+lemma are recorded separately; neither is needed here.
+
+In particular the literal Lucas polynomial is
+\[
+ F=t^2-a(a-2)tb+(a-2)^2b^2-1.
+\]
+For $B>4$, its source bound is $|F|<5B^4$.  If $F\ne0$, the
+order-forty-five comparison and the displayed height inequality give
+\[
+ B^{14/45}<7H\,5^{19/45}+6<24H.
+\]
+The final estimate uses $5^{19/45}<3$ and $H\ge4$.
+If instead $F=0$, the nonidentity root $Z$ has $b\ne0$, and the
+inherited Lucas theorem gives $\log B>|a|-3$.
+Finally, if $n\ne\beta$, the nonzero reduced numerator of $n-\beta$
+has absolute value at most $2e^{h(\beta)}B$.  The order-twelve
+comparison and height inequality give the input estimate used below.
+
+\subsection{Exact margins at exponent 2790}
+
+
+The selected construction uses the particularly simple even exponent
+$E=2790$, scalar order $28$, input order $12$ and high order $45$.
+This choice already works with the preceding $7H$ product-height bound
+and its $24H$ Lucas consequence.  Thus the optional projective-height
+improvement in the separate research note is not a new dependency of the selected construction.
+The odd-exponent generalization is also not needed for this selection:
+the physical coefficient remains $\gamma=3$.
+
+Write $c=|a-1|$.  Here $q=1395$, $c_*=2\cdot3^{1394}$.
+Three small exact-integer checks
+are
+\[
+ 3^{53}>2^{84},\qquad H<2^{683},\qquad 3H<2^{684}.
+\]
+They give the transparent strict lower bounds
+\[
+ \log_2c>\frac{117149}{53},\qquad
+ \log_2|a|>\frac{117096}{53}.
+\]
+Indeed $c\ge c_*$ and $|a|\ge c-1\ge c/2$.  Consequently
+\[
+ \frac9{28}\frac{117149}{53}>690>\log_2(80H),
+ \qquad
+ \frac{14}{45}\frac{117096}{53}>687>\log_2(24H).
+\]
+The first inequality proves $h(\beta)<c/80\le|a|/40$; the second
+contradicts the unchanged consequence $B^{14/45}<24H$ of $F\ne0$.
+Also $\log(40H)<689$ and $40\cdot689<2^{15}<|a|$, giving the
+separate logarithmic margin.  The input-order-twelve contradiction is
+exactly
+\[
+ \log B<\frac{12}{5}\log(40H)+\frac{19}{5}h(\beta)
+ <\frac{31}{200}|a|<|a|-3.
+\]
+The last comparison holds already when $|a|>4$.
+
+All inequalities are strict.  The companion checker also verifies the
+stronger direct integer tests
+$c_*^9>(80H)^{28}$ and
+$(c_*-1)^{14}>(24H)^{45}$ without logarithmic approximation.
+Thus there is no rounding assumption about the 683-bit constant.
+The fixed parameter can be written $S_0=c_0^6$ with $c_0=3^{465}$;
+any subsequent nonzero diagonal coordinate rescaling using $c_0$
+requires only its separate exact algebraic equivalence audit.
+
+The two contradictions therefore force $n=\beta\in\mathbb Z$.
+Together with $X\in\mathbb Z_{(2)}\cap\mathbb Z_{(3)}$, this gives
+$X\in\mathbb Z$: at every other prime the leading coefficient of
+$\beta=11016X^2+11016X+5155$ has valuation zero, except valuation one
+at $17$, and a negative valuation of $X$ would in either case force
+a negative valuation of $\beta$.  Completeness uses the same integral
+input map, odd root labels, finite scalar preparation, primary
+progression $\Pi^{44}\mid h$, positive square scales, Gaussian
+positivity witnesses, and subsequent contact-prime selection.  The
+selected smaller anchor changes only the finite divisibility already
+checked above.  No independent exponent-ten anchor requirement is
+silently discarded: its actual Lucas consumer has been checked directly
+at the retained high order forty-five.

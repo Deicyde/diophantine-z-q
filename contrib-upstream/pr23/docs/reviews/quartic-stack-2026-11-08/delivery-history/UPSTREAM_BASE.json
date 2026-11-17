@@ -1,0 +1,11 @@
+{
+  "repository": "https://github.com/elliotglazer/diophantine-z-q",
+  "commit": "036cebe4f1a4aa7ca89820a9b48f3629b4c364d6",
+  "proposalPath": "research/conditional-quartic-reduction",
+  "oldOverlayTree": "3d756a4e48ed1b7af866924aaa54d03d01cf5e51",
+  "newOverlayTree": "3c5b2b3eb75c7f4bf3d50fb7dedf1e9216f9860e",
+  "oldManifestSha256": "f2d74ebd40b61a48b1b3d1ecdb55d2fda53f372a090fce8ec1fcd347e333bbd5",
+  "oldFileCount": 112,
+  "currentFileCount": 156,
+  "publicationStatus": "Local draft package only; no public PR, push, message, merge or release."
+}

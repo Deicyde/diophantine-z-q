@@ -1,0 +1,205 @@
+{
+  "source_repository": "CheyLoveday/diophantine-z-q",
+  "source_commit": "33483f751e6dcd3f91fb303969838aca33ad0458",
+  "base_repository": "elliotglazer/diophantine-z-q",
+  "base_commit": "9c0b3aba60d90fdcac82115f0582a6f52f1054f7",
+  "observed_2026_11_10": {
+    "upstream_main": "9c0b3aba60d90fdcac82115f0582a6f52f1054f7",
+    "research_head": "33483f751e6dcd3f91fb303969838aca33ad0458",
+    "foundation_pr_15_head": "7c178b3edaf7f1ca9c91d542c3453bfdbaea73f3",
+    "foundation_pr_15_state": "open, ready, unmerged"
+  },
+  "selection": "Four exact source modules only; no bulk cherry-pick",
+  "modules": [
+    {
+      "path": "lean/Research/DerivativeSwitch/ConjugateLocalTransport.lean",
+      "module": "Research.DerivativeSwitch.ConjugateLocalTransport",
+      "source_blob": "608436d2985dd662f72d386e897305495ea82f57",
+      "sha256": "8688eef27fcc89c02eb3ab270e5359534dc23ef16e11678bdb1dd3587e3f8b86",
+      "imports": [
+        "Mathlib.Algebra.Module.LinearMap.End",
+        "Mathlib.Algebra.Group.Subgroup.Basic",
+        "Mathlib.Tactic.Group"
+      ]
+    },
+    {
+      "path": "lean/Research/DerivativeSwitch/ConjugateLocalH1.lean",
+      "module": "Research.DerivativeSwitch.ConjugateLocalH1",
+      "source_blob": "40017413b52c7ba9f83a9617abffdb5afdc05625",
+      "sha256": "078ac50ae0c90c8e609a57c51c5884a25646ad7305531f1cf531617485b9078f",
+      "imports": [
+        "Research.DerivativeSwitch.ConjugateLocalTransport",
+        "Mathlib.RepresentationTheory.Homological.GroupCohomology.LowDegree",
+        "Mathlib.LinearAlgebra.Isomorphisms"
+      ]
+    },
+    {
+      "path": "lean/Research/DerivativeSwitch/ActualBoundaryCup.lean",
+      "module": "Research.DerivativeSwitch.ActualBoundaryCup",
+      "source_blob": "6358b5e8e6ed17d415a171f35cb27bf33dbc9abc",
+      "sha256": "77bcdd2ae5283ffd6cc51062e452da4294fcd5b3d952940b588b2d5b52ecdd90",
+      "imports": [
+        "Mathlib.LinearAlgebra.Isomorphisms"
+      ]
+    },
+    {
+      "path": "lean/Research/DerivativeSwitch/OrthogonalComparison.lean",
+      "module": "Research.DerivativeSwitch.OrthogonalComparison",
+      "source_blob": "e4c5447702196a76ec982229b065862f1f1aa63e",
+      "sha256": "bfec996b869e44c6a42fc058fbc24cc7288b1f61d0f0e7eef1f4f58f41dca1ba",
+      "imports": [
+        "Mathlib.Algebra.Homology.Homotopy",
+        "Mathlib.Tactic.Abel"
+      ]
+    }
+  ],
+  "dependency_pin_files": {
+    "lean/lean-toolchain": "ca5f1f601d34c49079e38d7e7041eb0f2a9c227fbc1df0f404820069a052330c",
+    "lean/lakefile.toml": "632fda3c75f7616378b9dadd0906d9518c7b4a1199c59d7b36369121acfb3b26",
+    "lean/lake-manifest.json": "a770787f33b5824f61a0731d59e67fca3f44a531b21d1fc1a804064c6fb54e58"
+  },
+  "protocol_files": {
+    "AGENTS.md": "8962f442f897f69d6f001a589eeae22881bda75b77f1b77e7f30f3b7d50e0bfb",
+    "CONTRIBUTING.md": "6e03f59a04aed487fe53b7300e4e7dbbaeeda092ec27e314309bc0f02048adbf",
+    "docs/research-review/PROTOCOL.md": "b5365b3d9cd9a782bf7fd0b6020403d5d400eac13dc7e60875484a8769d3d925",
+    "docs/audit-history/PROTOCOL.md": "c0b9834a75e64bfd66183b06d1e26019f957a38468ce41b10ce290f8c5c44816"
+  },
+  "preparation_date": "2026-11-10",
+  "preparation_author": "Codex /root, directed by Chey Loveday",
+  "publication_status": "LOCAL_PREPARATION_ONLY; no publication authorized",
+  "support_provenance": [
+    {
+      "path": "research/conjugate-local-transport/verify_native.py",
+      "source_commit": "33483f751e6dcd3f91fb303969838aca33ad0458",
+      "source_blob": "6e6f6c97932b2cd7038793cc2b24e0b262e3b43a",
+      "sha256": "b51ba90d40ae3497019af8ea2bff65725182f99ba44d349537eaf80c74849e95",
+      "use": "Adapted runner or source-map context; historical status not adopted"
+    },
+    {
+      "path": "research/arithmetic-switch-integration/verify_native.py",
+      "source_commit": "33483f751e6dcd3f91fb303969838aca33ad0458",
+      "source_blob": "2dd75ed26df390858c0020b8f49f93a68cb4d5b1",
+      "sha256": "ced02010b4687f3c9bf44e8023c47d40b3c20d091b68f967dba15a2da011fac9",
+      "use": "Adapted runner or source-map context; historical status not adopted"
+    },
+    {
+      "path": "research/conjugate-local-transport/APPLICATION.md",
+      "source_commit": "33483f751e6dcd3f91fb303969838aca33ad0458",
+      "source_blob": "87a41be02f3754355b3c1b658839e09aad63cc7b",
+      "sha256": "20b4a52e556a8a238b45a191f0f595b2f366042f0594c638c40919a6a3801b77",
+      "use": "Adapted runner or source-map context; historical status not adopted"
+    },
+    {
+      "path": "research/conjugate-local-transport/DERIVATION.md",
+      "source_commit": "33483f751e6dcd3f91fb303969838aca33ad0458",
+      "source_blob": "ba79e70e3db016942b012036841906d3fb78604d",
+      "sha256": "ad679e62e29d97e2752a683e5c9de1ea9cf244002f76c57a716d9237654e10e0",
+      "use": "Adapted runner or source-map context; historical status not adopted"
+    },
+    {
+      "path": "research/actual-boundary-cup/APPLICATION.md",
+      "source_commit": "33483f751e6dcd3f91fb303969838aca33ad0458",
+      "source_blob": "35a0b740aea6d15de2e459f61b9af48ebe393958",
+      "sha256": "24400ff8ee75d99d4977df5e751e62f71484f4b66308548e6f41ddfb514ef136",
+      "use": "Adapted runner or source-map context; historical status not adopted"
+    },
+    {
+      "path": "research/actual-boundary-cup/DERIVATION.md",
+      "source_commit": "33483f751e6dcd3f91fb303969838aca33ad0458",
+      "source_blob": "6b353b96e5a45d24d7a4743a91328ef8cc3355cc",
+      "sha256": "ce2084ecbadaa62c861ef92e443d2f78231a8d59c4f90cf3080cb78545387a28",
+      "use": "Adapted runner or source-map context; historical status not adopted"
+    },
+    {
+      "path": "research/orthogonal-comparison/DERIVATION.md",
+      "source_commit": "33483f751e6dcd3f91fb303969838aca33ad0458",
+      "source_blob": "20dd7ddffcc84e21429e79e48468fb3107b73924",
+      "sha256": "eac267d42dafa465de5c96c8754446e07b86c2a5802aaf54cae7103f09e80cd2",
+      "use": "Adapted runner or source-map context; historical status not adopted"
+    }
+  ],
+  "manuscript": {
+    "path": "manuscripts/quartic_v13.tex",
+    "sha256": "9db71bbfcefb37db56eabcf40a5f9dd85de9ed58294635da3dbf6d4f5caa8fcd",
+    "source_commit": "9c0b3aba60d90fdcac82115f0582a6f52f1054f7",
+    "excerpts": [
+      {
+        "label": "conjugate-duality",
+        "first_line": 2898,
+        "last_line": 2967,
+        "sha256": "e00a37c281568ce1f0ad987296919f14a50165f1a40e771be94632c8064d7954"
+      },
+      {
+        "label": "H12",
+        "first_line": 3225,
+        "last_line": 3233,
+        "sha256": "d90f2091c3540337d81924175a51b5f1c999227980cc8f065e04f1d24fd6d5ae"
+      },
+      {
+        "label": "H20-H21",
+        "first_line": 3339,
+        "last_line": 3417,
+        "sha256": "b594d9d3e0e06eb0f4340c21a34713a9c977b0df583dbc373eb399a820bb292a"
+      },
+      {
+        "label": "local-pairing",
+        "first_line": 3431,
+        "last_line": 3508,
+        "sha256": "2e1a4deabbd16cf79e4636098077742f6520c34ee8cc93508daae182423eeb2c"
+      },
+      {
+        "label": "H22",
+        "first_line": 3509,
+        "last_line": 3542,
+        "sha256": "1f0f828dc765ec205f123e4da17d6051e5940fc2ea1a0e5c60813d7288be37a9"
+      },
+      {
+        "label": "paired-functional",
+        "first_line": 3842,
+        "last_line": 4012,
+        "sha256": "f1b77a55a0504035233f27d91b2634427844720b9f8944dfc58aa4f5d314f2b0"
+      },
+      {
+        "label": "stored-coordinate",
+        "first_line": 4014,
+        "last_line": 4029,
+        "sha256": "94dc4307df0b9cce6a6f878d58a744cbd5dd08c447cad72e1f79085cba1e920e"
+      },
+      {
+        "label": "inner-limit",
+        "first_line": 4577,
+        "last_line": 4636,
+        "sha256": "f9ebbcb9b92e8275742890da4b7e9d48cde08d6212e468a3b68cd593807776f3"
+      },
+      {
+        "label": "derivative-switch",
+        "first_line": 5021,
+        "last_line": 5093,
+        "sha256": "c9ea06e2bb70105998ce2634ae67b518c2b5bace2c789df49c3fc5834434a6e4"
+      },
+      {
+        "label": "lower-bound",
+        "first_line": 5095,
+        "last_line": 5379,
+        "sha256": "8e702c695af82266ca5f9fea205e86c6053b028f923ca1bde8c21a81de60e251"
+      },
+      {
+        "label": "derivative-orthogonal",
+        "first_line": 5351,
+        "last_line": 5373,
+        "sha256": "edd752be43cee705bb488c60a5af41aaf484bd489573ad6ff0fa088ae129bd2d"
+      }
+    ]
+  },
+  "external_source": {
+    "title": "Jan Nekovar, Selmer complexes, Asterisque 310 (2006)",
+    "url": "https://www.numdam.org/item/AST_2006__310__R1_0/",
+    "pdf_sha256": "61c84e5ad3252a2e520747215ac57a282addc2b58c824a3637bcd77bbe02153f",
+    "sections": [
+      "1.3.1-1.3.4",
+      "6.3.1-6.3.3",
+      "7.1.1-7.2.1"
+    ],
+    "status": "Published context; no global arithmetic theorem imported as a custom Lean axiom"
+  }
+}

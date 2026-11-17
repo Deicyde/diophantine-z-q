@@ -3,7 +3,7 @@ article_id: af_713bae1ffdec4d9810eae927
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves31.neronSchemeExtensionDedekind
+lean: HDec.HSyn.OpenResearchLeaves40.neronSchemeExtensionDedekind
 ---
 
 # Néron models over Dedekind domains

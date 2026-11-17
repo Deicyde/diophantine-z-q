@@ -1,0 +1,30 @@
+frozenTarget: closure 271942
+  contains GRCountX6.GonzalezRotgerProp56X6: false
+  contains ShimuraSplit.GonzalezRotgerCountX6Ab: false
+  contains ShimuraSplit.GonzalezRotgerCountX6: false
+  contains LeafQM.AV.R5fpCount: false
+  contains GRCountX6.EichlerOptEmbCount6: false
+  contains sorryAx: false
+  contains GR56.R5fpCountLe: true
+  contains EichlerBound.r5fpCountLe_proof: true
+  contains EichlerBound.r5fpCountLe_of_two: true
+  contains HDec.FS5NoCM.fibreComTrivialFull_of_leaves_hf''_le: true
+  contains HDec.HSyn.OpenResearchLeaves31: false
+  contains HDec.HSyn.sixContactMin_of_open48: false
+  contains HDec.HSyn.sixContactMin_of_open45_pz: false
+  contains HDec.HSyn.gluePieces_of_open4_hf_pz: false
+  contains HDec.FS5NoCM.fibreComTrivialFull_of_leaves_hf'': false
+  contains HDec.HSyn.OpenResearchLeaves31EB: true
+  contains HDec.HSyn.sixContactMin_of_open48_eb: true
+  contains PicDict.MumfordPhiSurjectiveAC: false
+  contains T09Pic.PicZeroAbVar: false
+  contains PicDict.PicZeroSmooth: false
+  contains CToPrinted.SGA3_VIB_3_10: false
+  contains SGA3IdComp.SGA3_VIB_3_10_Nbhd: false
+  contains DictModels.MumfordConn.MumfordGroupLawConn: false
+  contains ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw: false
+  contains ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed: false
+  contains PkgI3.HomFreeFinite: false
+  bundle HDec.HSyn.OpenResearchLeaves32: 23 fields
+  bundle HDec.HSyn.OpenTextbookLeaves16: 3 fields
+  bundle HDec.HSyn.OpenAddedLeaves25: 2 fields

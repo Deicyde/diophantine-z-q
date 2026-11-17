@@ -1,0 +1,42 @@
+{
+  "core_manifest_sha256": "ce59e6667e58c1858a0bb87830c35f4142dc1f69c805f2e4daaa169f130220e3",
+  "generator_sha256": "76a9d63ed718bb12a64f71013b3de8fd8fcd3852ed2462e2aca0ba63a47ac8d2",
+  "sources": {
+    "Research/DerivativeSwitch/ConjugateLocalTransport.lean": {
+      "source": "lean/Research/DerivativeSwitch/ConjugateLocalTransport.lean",
+      "sha256": "8688eef27fcc89c02eb3ab270e5359534dc23ef16e11678bdb1dd3587e3f8b86",
+      "transformation": "byte-identical"
+    },
+    "Research/DerivativeSwitch/ConjugateLocalH1.lean": {
+      "source": "lean/Research/DerivativeSwitch/ConjugateLocalH1.lean",
+      "sha256": "078ac50ae0c90c8e609a57c51c5884a25646ad7305531f1cf531617485b9078f",
+      "transformation": "byte-identical"
+    },
+    "Research/DerivativeSwitch/ActualBoundaryCup.lean": {
+      "source": "lean/Research/DerivativeSwitch/ActualBoundaryCup.lean",
+      "sha256": "77bcdd2ae5283ffd6cc51062e452da4294fcd5b3d952940b588b2d5b52ecdd90",
+      "transformation": "byte-identical"
+    },
+    "Research/DerivativeSwitch/OrthogonalComparison.lean": {
+      "source": "lean/Research/DerivativeSwitch/OrthogonalComparison.lean",
+      "sha256": "bfec996b869e44c6a42fc058fbc24cc7288b1f61d0f0e7eef1f4f58f41dca1ba",
+      "transformation": "byte-identical"
+    },
+    "lean-toolchain": {
+      "source": "lean/lean-toolchain",
+      "sha256": "ca5f1f601d34c49079e38d7e7041eb0f2a9c227fbc1df0f404820069a052330c",
+      "transformation": "byte-identical"
+    },
+    "lake-manifest.json": {
+      "source": "lean/lake-manifest.json",
+      "sha256": "a770787f33b5824f61a0731d59e67fca3f44a531b21d1fc1a804064c6fb54e58",
+      "transformation": "Only root package name changed; all nine dependency pins preserved"
+    }
+  },
+  "generated_support": [
+    "Packet.lean",
+    "roots.txt",
+    "lakefile.toml"
+  ],
+  "scope": "41 named roots and their transitive proof closure; no frozen-39 imports, challenge, or new theorem"
+}

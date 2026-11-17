@@ -1,0 +1,679 @@
+{
+  "status": "PASS",
+  "wrapperSha256": "a660293cc6fa97a55d8d3635645f666fd1c6b52d96276ec768b4a3faedecc3ae",
+  "probeScriptSha256": "10177784865dcfc934b7a9ff0c94fc275c04c8bb10dd6097ff3637253d28f25e",
+  "cases": 45,
+  "matched": 45,
+  "results": [
+    {
+      "case": "valid_fresh_output",
+      "expectedSuccess": true,
+      "observedSuccess": true,
+      "returnCode": 0,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "Rebuilding from 3 source/proof files in /workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/valid_fresh_output/output",
+        "PASS: 1 deterministic artifacts matched byte for byte; all exact audits passed.",
+        "Tracked proposal source files are unchanged.",
+        "Fresh build input files are unchanged.",
+        "Receipt: /workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/valid_fresh_output/output/reproduction-receipt.json"
+      ],
+      "logSha256": "962e56b6dcb987573c92773eb551cff1b2a345f5161e987656a21f12fe1531ed"
+    },
+    {
+      "case": "valid_existing_empty_output",
+      "expectedSuccess": true,
+      "observedSuccess": true,
+      "returnCode": 0,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "Rebuilding from 3 source/proof files in /workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/valid_existing_empty_output/output",
+        "PASS: 1 deterministic artifacts matched byte for byte; all exact audits passed.",
+        "Tracked proposal source files are unchanged.",
+        "Fresh build input files are unchanged.",
+        "Receipt: /workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/valid_existing_empty_output/output/reproduction-receipt.json"
+      ],
+      "logSha256": "ea607c38241f805639d124ed7bc639a9cb94befd6167901de6c27bc997e4ab09"
+    },
+    {
+      "case": "valid_source_only_check",
+      "expectedSuccess": true,
+      "observedSuccess": true,
+      "returnCode": 0,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "PASS: 6 source/evidence files match the supplied snapshot."
+      ],
+      "logSha256": "d692b940609c1d0f1f4abd72750bbfc049b7f895e294a6c3d1a58de79565b66e"
+    },
+    {
+      "case": "subprocess_failure_despite_marker",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "Rebuilding from 3 source/proof files in /workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/subprocess_failure_despite_marker/output",
+        "PASS: fresh construction, every coefficient table, and every portable audit.",
+        "Construction or audit failed; complete log: /workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/subprocess_failure_despite_marker/output/construction.log"
+      ],
+      "logSha256": "52ff2bc7bc0ae504074ed9e5ec861416cf28fcb4da2079250415609c3e99240c"
+    },
+    {
+      "case": "structured_completion_without_stdout_marker",
+      "expectedSuccess": true,
+      "observedSuccess": true,
+      "returnCode": 0,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "PASS: 1 deterministic artifacts matched byte for byte; all exact audits passed.",
+        "Tracked proposal source files are unchanged.",
+        "Fresh build input files are unchanged.",
+        "Note: stdout marker was absent; structured completion, source and all artifact/audit checks passed.",
+        "Receipt: /workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/structured_completion_without_stdout_marker/output/reproduction-receipt.json"
+      ],
+      "logSha256": "9f8116891928b7d7995408ca57de90236dc061f43d80b592df4ffcb750613a48"
+    },
+    {
+      "case": "stdout_marker_without_structured_completion",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    completion_path = regular_file(output, Path(expected['completionRecord']['path']))",
+        "                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/stdout_marker_without_structured_completion/source/reproduce.py\", line 40, in regular_file",
+        "    raise ValueError('Missing or escaping artifact: '+str(relative))",
+        "ValueError: Missing or escaping artifact: pipeline-completion.json"
+      ],
+      "logSha256": "aa88a0c0300d343e97df08e3952d8664715740e126b02a387f902519ad600ad1"
+    },
+    {
+      "case": "wrong_completion_format",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/wrong_completion_format/source/reproduce.py\", line 236, in <module>",
+        "    main()",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/wrong_completion_format/source/reproduce.py\", line 186, in main",
+        "    raise RuntimeError('The complete pipeline did not record structured success')",
+        "RuntimeError: The complete pipeline did not record structured success"
+      ],
+      "logSha256": "e572cbf1c8c863ee8043813c0db3ebb65a6053095963e1d35072fb4a7c935fef"
+    },
+    {
+      "case": "failed_completion_status",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/failed_completion_status/source/reproduce.py\", line 236, in <module>",
+        "    main()",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/failed_completion_status/source/reproduce.py\", line 186, in main",
+        "    raise RuntimeError('The complete pipeline did not record structured success')",
+        "RuntimeError: The complete pipeline did not record structured success"
+      ],
+      "logSha256": "a5baf130c6e0c39e804317e35ea82c934409b9675658b3c4412e8948f37cba1f"
+    },
+    {
+      "case": "wrong_completion_pipeline_hash",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/wrong_completion_pipeline_hash/source/reproduce.py\", line 236, in <module>",
+        "    main()",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/wrong_completion_pipeline_hash/source/reproduce.py\", line 188, in main",
+        "    raise RuntimeError('Completion record refers to a different pipeline')",
+        "RuntimeError: Completion record refers to a different pipeline"
+      ],
+      "logSha256": "06681fc4d5d82ce15829e8cc3cf3a7bc1b7f66e14dd50bef6e2e2404efb22ff9"
+    },
+    {
+      "case": "incomplete_stage_sequence",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/incomplete_stage_sequence/source/reproduce.py\", line 236, in <module>",
+        "    main()",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/incomplete_stage_sequence/source/reproduce.py\", line 190, in main",
+        "    raise RuntimeError('Pipeline stage list is incomplete, reordered or unexpected')",
+        "RuntimeError: Pipeline stage list is incomplete, reordered or unexpected"
+      ],
+      "logSha256": "a31fe1f8c49e61b7fd3e83244987cbb9211f591886fb047c794019c7d7447a3e"
+    },
+    {
+      "case": "reordered_stage_sequence",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/reordered_stage_sequence/source/reproduce.py\", line 236, in <module>",
+        "    main()",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/reordered_stage_sequence/source/reproduce.py\", line 190, in main",
+        "    raise RuntimeError('Pipeline stage list is incomplete, reordered or unexpected')",
+        "RuntimeError: Pipeline stage list is incomplete, reordered or unexpected"
+      ],
+      "logSha256": "f85c1cfa7f2bc22ec70f32b08378a25a4f1b35bb841973741bfd492e0b8b502f"
+    },
+    {
+      "case": "extra_stage_sequence",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/extra_stage_sequence/source/reproduce.py\", line 236, in <module>",
+        "    main()",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/extra_stage_sequence/source/reproduce.py\", line 190, in main",
+        "    raise RuntimeError('Pipeline stage list is incomplete, reordered or unexpected')",
+        "RuntimeError: Pipeline stage list is incomplete, reordered or unexpected"
+      ],
+      "logSha256": "ab88ef1741a6b5988d0adcaf48c73e9f52206b7a3d1225ccf6a002c34daf15fd"
+    },
+    {
+      "case": "duplicate_expected_stage",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    expected = validate_expected(manifest)",
+        "               ^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/duplicate_expected_stage/source/reproduce.py\", line 125, in validate_expected",
+        "    raise ValueError('Duplicate completion stage')",
+        "ValueError: Duplicate completion stage"
+      ],
+      "logSha256": "6c053864178c9a44157616c5f8d9693d054fb11636cd2161524fe73bac48b0c1"
+    },
+    {
+      "case": "empty_expected_stage_sequence",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    expected = validate_expected(manifest)",
+        "               ^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/empty_expected_stage_sequence/source/reproduce.py\", line 123, in validate_expected",
+        "    raise ValueError('Completion stages must be a nonempty list of identifiers')",
+        "ValueError: Completion stages must be a nonempty list of identifiers"
+      ],
+      "logSha256": "bc8d666abdc441b0f3c4855cd31fc1eea72b4e82e2b142271d641d8ba0a4b8fd"
+    },
+    {
+      "case": "escaping_completion_record_path",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    expected = validate_expected(manifest)",
+        "               ^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/escaping_completion_record_path/source/reproduce.py\", line 118, in validate_expected",
+        "    raise ValueError('Unexpected structured completion or pipeline path')",
+        "ValueError: Unexpected structured completion or pipeline path"
+      ],
+      "logSha256": "d6941fc4e932fd1e6afee6824ca0cf5250b81ccceefa3e44ece15a35cb83e54c"
+    },
+    {
+      "case": "completion_record_cannot_seed_build",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    expected = validate_expected(manifest)",
+        "               ^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/completion_record_cannot_seed_build/source/reproduce.py\", line 92, in validate_expected",
+        "    raise ValueError('Only construction/checker source and proof text may seed a build: '+str(path))",
+        "ValueError: Only construction/checker source and proof text may seed a build: pipeline-completion.json"
+      ],
+      "logSha256": "f70e1f4505a253c52f5a487ff2b5586cebd4ce831294f76f507d549d7e5b5560"
+    },
+    {
+      "case": "completion_record_symlink",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    completion_path = regular_file(output, Path(expected['completionRecord']['path']))",
+        "                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/completion_record_symlink/source/reproduce.py\", line 38, in regular_file",
+        "    raise ValueError('Symbolic link is not an input or output artifact: '+str(relative))",
+        "ValueError: Symbolic link is not an input or output artifact: pipeline-completion.json"
+      ],
+      "logSha256": "5f5be18406ecd8bce8c93dc780c1e4a6a55c559d8887019d503c645d799c90c2"
+    },
+    {
+      "case": "artifact_mismatch",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/artifact_mismatch/source/reproduce.py\", line 236, in <module>",
+        "    main()",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/artifact_mismatch/source/reproduce.py\", line 196, in main",
+        "    raise RuntimeError('Reconstructed artifact differs: '+item['path'])",
+        "RuntimeError: Reconstructed artifact differs: construction/artifact.txt"
+      ],
+      "logSha256": "c2396e44c8248977fc94d56748fb4e5602606e5db8a3807f6476010a53816b3c"
+    },
+    {
+      "case": "committed_table_mismatch",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/committed_table_mismatch/source/reproduce.py\", line 236, in <module>",
+        "    main()",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/committed_table_mismatch/source/reproduce.py\", line 200, in main",
+        "    raise RuntimeError('Committed coefficient table differs from its reconstruction')",
+        "RuntimeError: Committed coefficient table differs from its reconstruction"
+      ],
+      "logSha256": "14a3379b872ef57be44aecd3a27f6192f2634b91dff92c1720c64d20a88a1ca0"
+    },
+    {
+      "case": "failed_audit_status",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/failed_audit_status/source/reproduce.py\", line 236, in <module>",
+        "    main()",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/failed_audit_status/source/reproduce.py\", line 209, in main",
+        "    raise RuntimeError('Missing successful audit status: '+name)",
+        "RuntimeError: Missing successful audit status: audit/fixture-check.json"
+      ],
+      "logSha256": "8a7c3b7568f2610f32cbcbd151f045655a5723dd6cfc7b990b54651a29279acc"
+    },
+    {
+      "case": "missing_audit_report",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    report_path = regular_file(output, relative_path(name))",
+        "                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/missing_audit_report/source/reproduce.py\", line 40, in regular_file",
+        "    raise ValueError('Missing or escaping artifact: '+str(relative))",
+        "ValueError: Missing or escaping artifact: audit/fixture-check.json"
+      ],
+      "logSha256": "43b1039a305ef5f385cfdfacae1a7f4b08d267caf3a80dc153f6c512e73e86d6"
+    },
+    {
+      "case": "source_changed_during_build",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    _, after_hash = verify_snapshot()",
+        "                    ^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/source_changed_during_build/source/reproduce.py\", line 73, in verify_snapshot",
+        "    raise ValueError('Source snapshot changed: '+str(path))",
+        "ValueError: Source snapshot changed: proofs/input.tex"
+      ],
+      "logSha256": "a2cc4dae13527158c11828e8f91935a31f62639caef5a040c3f893ff0f2ac594"
+    },
+    {
+      "case": "manifest_changed_during_build",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/manifest_changed_during_build/source/reproduce.py\", line 236, in <module>",
+        "    main()",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/manifest_changed_during_build/source/reproduce.py\", line 203, in main",
+        "    raise RuntimeError('Tracked source manifest changed during the build')",
+        "RuntimeError: Tracked source manifest changed during the build"
+      ],
+      "logSha256": "d6d63a6de8e611f3c7603c3ff2d611df8b9026db784bb444d000aa4adf10e86b"
+    },
+    {
+      "case": "nonempty_output_is_preserved",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/nonempty_output_is_preserved/source/reproduce.py\", line 236, in <module>",
+        "    main()",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/nonempty_output_is_preserved/source/reproduce.py\", line 153, in main",
+        "    raise ValueError('Output directory is not empty; select a fresh --output path')",
+        "ValueError: Output directory is not empty; select a fresh --output path"
+      ],
+      "logSha256": "42b8f32c0c35577d2442e1737579a9e34f7355f9ddaf953a0253eb97987f9b14"
+    },
+    {
+      "case": "output_inside_source",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/output_inside_source/source/reproduce.py\", line 236, in <module>",
+        "    main()",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/output_inside_source/source/reproduce.py\", line 151, in main",
+        "    raise ValueError('Output must be outside the tracked proposal source directory')",
+        "ValueError: Output must be outside the tracked proposal source directory"
+      ],
+      "logSha256": "3b3183455bf138fc98586aa35c8a3bd58ecf89b425cf10ebd9ef573a142b020d"
+    },
+    {
+      "case": "source_symlink_file",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    actual = regular_file(HERE, path)",
+        "             ^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/source_symlink_file/source/reproduce.py\", line 38, in regular_file",
+        "    raise ValueError('Symbolic link is not an input or output artifact: '+str(relative))",
+        "ValueError: Symbolic link is not an input or output artifact: proofs/input.tex"
+      ],
+      "logSha256": "9a343270d8662c1d41b653a0ad85923d8601b21d549466ba8d571285e62d5355"
+    },
+    {
+      "case": "source_symlink_ancestor",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    actual = regular_file(HERE, path)",
+        "             ^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/source_symlink_ancestor/source/reproduce.py\", line 38, in regular_file",
+        "    raise ValueError('Symbolic link is not an input or output artifact: '+str(relative))",
+        "ValueError: Symbolic link is not an input or output artifact: proofs/input.tex"
+      ],
+      "logSha256": "41970c0be69b7e38b0056cedfe441cdc5936651ff4fc9df6dcd224b4d1444837"
+    },
+    {
+      "case": "seeded_generated_output_and_audit",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    expected = validate_expected(manifest)",
+        "               ^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/seeded_generated_output_and_audit/source/reproduce.py\", line 92, in validate_expected",
+        "    raise ValueError('Only construction/checker source and proof text may seed a build: '+str(path))",
+        "ValueError: Only construction/checker source and proof text may seed a build: audit/fixture-check.json"
+      ],
+      "logSha256": "288adfa29abb9c75fd67c092e809eca0c76d439c6adf8b792e9df5d4371dde83"
+    },
+    {
+      "case": "unlisted_generated_intermediate_seed",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    expected = validate_expected(manifest)",
+        "               ^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/unlisted_generated_intermediate_seed/source/reproduce.py\", line 92, in validate_expected",
+        "    raise ValueError('Only construction/checker source and proof text may seed a build: '+str(path))",
+        "ValueError: Only construction/checker source and proof text may seed a build: construction/stale-ir.json"
+      ],
+      "logSha256": "dd775c7d71cc660ac3717c90ff3796430a8dc5b267d8517080bd2fc5daf6422e"
+    },
+    {
+      "case": "reserved_receipt_seed",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    expected = validate_expected(manifest)",
+        "               ^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/reserved_receipt_seed/source/reproduce.py\", line 92, in validate_expected",
+        "    raise ValueError('Only construction/checker source and proof text may seed a build: '+str(path))",
+        "ValueError: Only construction/checker source and proof text may seed a build: reproduction-receipt.json"
+      ],
+      "logSha256": "9d6d6b7d3dfe992d181c4e9eb61ad0762277faa39846820d331580c81855b7d8"
+    },
+    {
+      "case": "wrong_expected_format",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    expected = validate_expected(manifest)",
+        "               ^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/wrong_expected_format/source/reproduce.py\", line 82, in validate_expected",
+        "    raise ValueError('Unknown expected-output manifest format')",
+        "ValueError: Unknown expected-output manifest format"
+      ],
+      "logSha256": "bcee1c17dfb7fa3314afd3fb73cf0560ca5204a6f5c5a387c628a9bd42b85fec"
+    },
+    {
+      "case": "duplicate_source_path",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    paths = file_records(manifest['files'], 'source')",
+        "            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/duplicate_source_path/source/reproduce.py\", line 51, in file_records",
+        "    raise ValueError('Duplicate '+label+' path: '+str(path))",
+        "ValueError: Duplicate source path: reproduce.py"
+      ],
+      "logSha256": "7ce1ac385af5f64f0cf5742c3d9555a34d1151e480f12f327f879199d0bd1350"
+    },
+    {
+      "case": "duplicate_expected_path",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    generated = file_records(expected['files'], 'output')",
+        "                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/duplicate_expected_path/source/reproduce.py\", line 51, in file_records",
+        "    raise ValueError('Duplicate '+label+' path: '+str(path))",
+        "ValueError: Duplicate output path: construction/artifact.txt"
+      ],
+      "logSha256": "8eb5deff00149bbecd3a887a4a6759a7ca8068319beaae50414c9e5f2aa97e98"
+    },
+    {
+      "case": "duplicate_audit_path",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    expected = validate_expected(manifest)",
+        "               ^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/duplicate_audit_path/source/reproduce.py\", line 98, in validate_expected",
+        "    raise ValueError('Duplicate audit report path')",
+        "ValueError: Duplicate audit report path"
+      ],
+      "logSha256": "f84f0c1eed5451b36e97dd5d37643de370db819980086aa5f45e4d88027b7324"
+    },
+    {
+      "case": "duplicate_committed_table",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    expected = validate_expected(manifest)",
+        "               ^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/duplicate_committed_table/source/reproduce.py\", line 112, in validate_expected",
+        "    raise ValueError('Duplicate committed table: '+str(src))",
+        "ValueError: Duplicate committed table: tables/fixture-table.txt"
+      ],
+      "logSha256": "55618f3d03907cfbd70ffad200cd491e9a013c0180b947c9396eb78324a0f431"
+    },
+    {
+      "case": "empty_expected_files",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    generated = file_records(expected['files'], 'output')",
+        "                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/empty_expected_files/source/reproduce.py\", line 46, in file_records",
+        "    raise ValueError(label+' must contain a nonempty file list')",
+        "ValueError: output must contain a nonempty file list"
+      ],
+      "logSha256": "80bb2bda431cb1ec1a5be9959123708734b3dffb6634ba2096ee4bb4811c6009"
+    },
+    {
+      "case": "empty_committed_tables",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    expected = validate_expected(manifest)",
+        "               ^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/empty_committed_tables/source/reproduce.py\", line 107, in validate_expected",
+        "    raise ValueError('Committed tables must be a nonempty list')",
+        "ValueError: Committed tables must be a nonempty list"
+      ],
+      "logSha256": "cb594b23e089d06088bca46506bb79961c4199803fe7101adc8cf54bfa47fb9e"
+    },
+    {
+      "case": "empty_audit_reports",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    expected = validate_expected(manifest)",
+        "               ^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/empty_audit_reports/source/reproduce.py\", line 95, in validate_expected",
+        "    raise ValueError('Expected audit reports must be a nonempty list')",
+        "ValueError: Expected audit reports must be a nonempty list"
+      ],
+      "logSha256": "36c9d57a77a75e6be776a003c7e80cb95ebb6ecfaf3608a6e7a0f643ce349c69"
+    },
+    {
+      "case": "unbound_expected_manifest",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    manifest, manifest_hash = verify_snapshot()",
+        "                              ^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/unbound_expected_manifest/source/reproduce.py\", line 68, in verify_snapshot",
+        "    raise ValueError('The wrapper and expected outputs must be source-manifest-bound')",
+        "ValueError: The wrapper and expected outputs must be source-manifest-bound"
+      ],
+      "logSha256": "3ea95a2f5f885b50dcb3e19efd6b156ab6eaee1311d43a4056035ba5e62342cc"
+    },
+    {
+      "case": "unbound_wrapper",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    manifest, manifest_hash = verify_snapshot()",
+        "                              ^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/unbound_wrapper/source/reproduce.py\", line 68, in verify_snapshot",
+        "    raise ValueError('The wrapper and expected outputs must be source-manifest-bound')",
+        "ValueError: The wrapper and expected outputs must be source-manifest-bound"
+      ],
+      "logSha256": "5d723e57d3fb00faa703dfbb2127b8245d340d8f929eb83d3c17d0a5eb100315"
+    },
+    {
+      "case": "source_path_traversal",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    path = relative_path(item['path'])",
+        "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/source_path_traversal/source/reproduce.py\", line 28, in relative_path",
+        "    raise ValueError('Invalid manifest path: '+value)",
+        "ValueError: Invalid manifest path: ../external/input.tex"
+      ],
+      "logSha256": "e119b0a3a0fd1224fb1d6798d40cc9bbe02e5a4615c54720112cfeb4b0db8533"
+    },
+    {
+      "case": "source_hash_mismatch",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    manifest, manifest_hash = verify_snapshot()",
+        "                              ^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/source_hash_mismatch/source/reproduce.py\", line 73, in verify_snapshot",
+        "    raise ValueError('Source snapshot changed: '+str(path))",
+        "ValueError: Source snapshot changed: proofs/input.tex"
+      ],
+      "logSha256": "5edd19fb0f74fd1e20d453ea68c7f33057a1f00a2d1447cae7a6d914e1b62074"
+    },
+    {
+      "case": "optimized_failing_assertion",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/optimized_failing_assertion/source/reproduce.py\", line 236, in <module>",
+        "    main()",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/optimized_failing_assertion/source/reproduce.py\", line 139, in main",
+        "    raise RuntimeError('Run without -O or PYTHONOPTIMIZE; exact audits require Python assertions')",
+        "RuntimeError: Run without -O or PYTHONOPTIMIZE; exact audits require Python assertions"
+      ],
+      "logSha256": "577a150f020ae5ca749c8e1133dc07a18ed4fc421cfd379cd979bc66919fc2ff"
+    },
+    {
+      "case": "child_assertions_enabled_when_wrapper_ignores_environment",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/child_assertions_enabled_when_wrapper_ignores_environment/output/construction/reproduce.py\", line 4, in <module>",
+        "    assert False, 'mandatory fixture assertion must fail'",
+        "           ^^^^^",
+        "AssertionError: mandatory fixture assertion must fail",
+        "Construction or audit failed; complete log: /workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/child_assertions_enabled_when_wrapper_ignores_environment/output/construction.log"
+      ],
+      "logSha256": "fb3cb73db1aec9431f21a2acefc6e5a9d6545ca77a52cf062bc51e9c6988b252"
+    },
+    {
+      "case": "generated_artifact_symlink",
+      "expectedSuccess": false,
+      "observedSuccess": false,
+      "returnCode": 1,
+      "matchedExpectation": true,
+      "diagnosticTail": [
+        "    path = regular_file(output, relative_path(item['path']))",
+        "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/root-wrapper-probes/probe-oqg_ut38/generated_artifact_symlink/source/reproduce.py\", line 38, in regular_file",
+        "    raise ValueError('Symbolic link is not an input or output artifact: '+str(relative))",
+        "ValueError: Symbolic link is not an input or output artifact: construction/artifact.txt"
+      ],
+      "logSha256": "e3c83648c041b478a4d0bc5f09f270168c922e77c3bd222da401383ced046d66"
+    }
+  ],
+  "scope": "Isolated mock builders test wrapper validation, fresh-output discipline and failure propagation. These probes do not execute or certify the mathematical construction; its real fresh reproduction is separate."
+}

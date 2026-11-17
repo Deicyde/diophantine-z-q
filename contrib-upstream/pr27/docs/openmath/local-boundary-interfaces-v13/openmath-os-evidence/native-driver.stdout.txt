@@ -1,0 +1,1 @@
+{"status": "PASS", "proof_roots": 41, "output": "lean/.checks/pr2-native-independent"}

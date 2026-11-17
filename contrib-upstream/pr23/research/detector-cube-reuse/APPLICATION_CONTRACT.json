@@ -1,0 +1,236 @@
+{
+  "format": "detector-cube-author-application-contract-v1",
+  "status": "author_submission_pending_independent_review",
+  "authors": [
+    "Codex /root, Cameron session 2026-11-08"
+  ],
+  "independentAcceptance": false,
+  "parentCommit": "772fe96a0e65bee76db500d8ef3a7a6b5e884d1f",
+  "proof": {
+    "path": "research/detector-cube-reuse/PROOF.md",
+    "sha256": "e91bffcf999c5862b04903beac1e28675ecbfc5eb92c2921c68576af09989aa6"
+  },
+  "sources": [
+    {
+      "id": "builder",
+      "path": "research/conditional-quartic-reduction/construction/builder.cjs",
+      "locator": "Detector loop: Fsquare, Fmiddle, q1 powers and higher-weight segment; source lines 279\u2013305",
+      "sha256": "b4bf6af38a7620a5b6a572039da4fcb22cd6f4ce006c439d89588c1259231f3b"
+    },
+    {
+      "id": "normalization",
+      "path": "research/conditional-quartic-reduction/proofs/detector_round7.tex",
+      "locator": "Compute the weights without storing e; nonzero domains; actual normalized pole consumer",
+      "sha256": "ed01c9416d3b4daf02a26958642194230c0186a896f17817bfe30c8a16d481d3"
+    },
+    {
+      "id": "parent-zero",
+      "path": "research/scalar-preparation-zero/PROOF.md",
+      "locator": "Actual order31 scalar preparation-zero argument, physical inputs, simultaneous construction and all consumers",
+      "sha256": "79bb5a8c5ce16c6b4559848739aeb78b7d23eb4a90f2ff0ad8ccf97a3674280a"
+    },
+    {
+      "id": "parent-chain",
+      "path": "research/scalar-chain-reduction/PROOF.md",
+      "locator": "Scalar descent and retained order45 height margins at exponent2130",
+      "sha256": "710088f6d9517c966a55a54e9d6adb383a335d705b7b4ca5a0f1dbde16f6be4d"
+    },
+    {
+      "id": "precision",
+      "path": "research/detector-cube-reuse/references/precision51_PROOF.md",
+      "locator": "Verbatim bc51100 supplying proof: full tail, identity cases, CRT and all three height consumers at exponent2016",
+      "sha256": "e6a825c3b85a9c56a6a2678ad0fa411ecedec53a005a0464efb45677f056054c"
+    },
+    {
+      "id": "protocol",
+      "path": "docs/research-review/PROTOCOL.md",
+      "locator": "Version1.2: source/applications, cumulative handoff and non-author exact-source decisions",
+      "sha256": "b5365b3d9cd9a782bf7fd0b6020403d5d400eac13dc7e60875484a8769d3d925"
+    }
+  ],
+  "obligations": [
+    {
+      "id": "source_hypotheses",
+      "requiredInput": "The existing equations for t2, M, q1cube, E and the positive chart.",
+      "constructedInput": "Same objects and guards; delta3 is affine in t,t2,M.",
+      "justification": "Q[t] decoding establishes delta3=(98t-1)^3 using the actual Fmiddle row.",
+      "consumer": "PROOF.md: An affine cubic already exists",
+      "sourceReferences": [
+        "builder",
+        "normalization",
+        "parent-zero",
+        "parent-chain",
+        "precision",
+        "protocol"
+      ],
+      "evidence": [
+        "check_cube.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "constructed_objects",
+      "requiredInput": "The actual rational coordinates and affine aliases, rather than merely a symbolic cubic.",
+      "constructedInput": "No coordinate for delta3; replace four intermediate nodes by three.",
+      "justification": "Checker verifies affine degree and absence of a deltaCubed coordinate; full compilation measures the saving.",
+      "consumer": "PROOF.md: Four weight gates replace five",
+      "sourceReferences": [
+        "builder",
+        "normalization",
+        "parent-zero",
+        "parent-chain",
+        "precision",
+        "protocol"
+      ],
+      "evidence": [
+        "check_cube.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "domain_and_index_coverage",
+      "requiredInput": "Every old/new allowed source solution, all three detectors and retained point/zero branches.",
+      "constructedInput": "Same common coordinates with uniquely determined new or old auxiliary extensions.",
+      "justification": "Explicit maps cover all solutions; positivity already supplies E!=0. No new infinite index family. Optional series tail is the entire j>=13 domain in the supplying precision proof.",
+      "consumer": "PROOF.md: Four weight gates; Arithmetic consumers; Optional higher precision",
+      "sourceReferences": [
+        "builder",
+        "normalization",
+        "parent-zero",
+        "parent-chain",
+        "precision",
+        "protocol"
+      ],
+      "evidence": [
+        "check_cube.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "transition_maps",
+      "requiredInput": "Projection equivalence and exact weights; no lost scalar.",
+      "constructedInput": "e3=q1^3 delta^3, e6=e3^2, e12=e6^2, E q12=e12^2.",
+      "justification": "Old mixC=E^3 q1^3=e6 and mixD=e12 since E=q1 delta^2. Both maps preserve q12 and downstream data.",
+      "consumer": "PROOF.md: Four weight gates replace five",
+      "sourceReferences": [
+        "builder",
+        "normalization",
+        "parent-zero",
+        "parent-chain",
+        "precision",
+        "protocol"
+      ],
+      "evidence": [
+        "check_cube.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "consumed_object_identity",
+      "requiredInput": "The same q12, actual factor products, reciprocal trace and physical pole inputs.",
+      "constructedInput": "Identical q1,E,q12 and high45 (or high47) values in every detector.",
+      "justification": "Every outside raw row and guard agrees by named-coordinate comparison. Scalar H, inputs, root labels and fixed anchor retain their exact meanings.",
+      "consumer": "PROOF.md: Arithmetic consumers; Optional higher precision",
+      "sourceReferences": [
+        "builder",
+        "normalization",
+        "parent-zero",
+        "parent-chain",
+        "precision",
+        "protocol"
+      ],
+      "evidence": [
+        "check_cube.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "conventions",
+      "requiredInput": "Quadratic rational equations, fixed input, integer primitive rows after diagonal scaling.",
+      "constructedInput": "Same K=Q(sqrt2), valuations, contact polynomial, normalization and decoding.",
+      "justification": "Affine alias uses rational coefficients only; new product has degree<=2. Input-fixed projection and nonzero rational row scaling preserve rational zeros.",
+      "consumer": "PROOF.md: An affine cubic; Actual compiled outputs",
+      "sourceReferences": [
+        "builder",
+        "normalization",
+        "parent-zero",
+        "parent-chain",
+        "precision",
+        "protocol"
+      ],
+      "evidence": [
+        "check_cube.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "local_conditions",
+      "requiredInput": "All pole/one-place and simultaneous finite/real hypotheses.",
+      "constructedInput": "Identical weights for default45; exact projection of prior47 route for optional47.",
+      "justification": "Default adds no new arithmetic hypothesis; optional route retains previously proved depth47, anchor2016 and scalar-zero simultaneous construction.",
+      "consumer": "PROOF.md: Arithmetic consumers; Optional higher precision",
+      "sourceReferences": [
+        "builder",
+        "normalization",
+        "parent-zero",
+        "parent-chain",
+        "precision",
+        "protocol"
+      ],
+      "evidence": [
+        "check_cube.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "exceptional_cases",
+      "requiredInput": "Zero private witnesses, identity primary points, small primes and nonzero denominator guards.",
+      "constructedInput": "All old guards and branch arguments retained; no division by delta3 or a private conic witness.",
+      "justification": "E positivity is inherited; the optional reference explicitly covers all U_i=O and p53 precision loss. No new exclusion at any prime.",
+      "consumer": "PROOF.md: Four weight gates; Optional higher precision",
+      "sourceReferences": [
+        "builder",
+        "normalization",
+        "parent-zero",
+        "parent-chain",
+        "precision",
+        "protocol"
+      ],
+      "evidence": [
+        "check_cube.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "downstream_consumers",
+      "requiredInput": "Actual compiled count, all coefficients and local arithmetic outputs.",
+      "constructedInput": "Default380/349/26025 at2130; optional383/352/26043 at2016.",
+      "justification": "Full gate/compiler, omission, conic and diagonal replay checks every coefficient; source comparison proves the local substitution. Global inputs remain conditional.",
+      "consumer": "PROOF.md: Actual compiled outputs",
+      "sourceReferences": [
+        "builder",
+        "normalization",
+        "parent-zero",
+        "parent-chain",
+        "precision",
+        "protocol"
+      ],
+      "evidence": [
+        "check_cube.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    }
+  ],
+  "historicalDisposition": "Prior contact polynomial and weight definitions located; exact cubic reuse supplied here without priority or general optimality claim.",
+  "manuscriptDisposition": "pending; no new current manuscript or release acceptance",
+  "profile": "HANDOFF.md"
+}

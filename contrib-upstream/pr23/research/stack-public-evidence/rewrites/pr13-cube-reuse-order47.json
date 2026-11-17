@@ -1,0 +1,797 @@
+{
+ "format": "stack-public-evidence-cube-reuse-v1",
+ "layer": "PR #13 detector-cube-reuse (optional order 47, anchor 3^2016)",
+ "before": {
+  "table": "pr13-383-order47",
+  "role": "baselineRawIr",
+  "packetPath": "tables/pr13-383-order47/baseline/raw-translated-ir.json.gz",
+  "sha256": "63381ce00aacbf2a1675a74e169003d00446db71ee42229d7a29825ab9925db7"
+ },
+ "after": {
+  "table": "pr13-383-order47",
+  "role": "rawIr",
+  "packetPath": "tables/pr13-383-order47/raw-translated-ir.json.gz",
+  "sha256": "850099ea0a403718d39825c45f24dfabe5965656f1dd8363d4072d2a30522468"
+ },
+ "meaning": "Row-level certificate. Each listed row must be a nonzero rational multiple of sum(lhs) - sum(rhs), where each entry is [coefficient, product of named values] and the named values are the affine \"values\" of that raw IR. c2,c3,c4 are the coefficients of t^2,t^3,t^4 in prod(t - root). The cubic alias deltaCubed must be affine, own no coordinate, and equal (98t-1)^3 after solving the t, Fsquare, Fmiddle aliases for their coordinates. All other rows, the inverse guards and every common named value must be identical.",
+ "contactRoots": [
+  "0",
+  "1/49",
+  "1/50",
+  "1/2450",
+  "32/1225"
+ ],
+ "expectedDelta": {
+  "deletedRows": [
+   "detector0.mixA.definition",
+   "detector0.mixB.definition",
+   "detector0.mixC.definition",
+   "detector0.mixD.definition",
+   "detector1.mixA.definition",
+   "detector1.mixB.definition",
+   "detector1.mixC.definition",
+   "detector1.mixD.definition",
+   "detector2.mixA.definition",
+   "detector2.mixB.definition",
+   "detector2.mixC.definition",
+   "detector2.mixD.definition"
+  ],
+  "addedRows": [
+   "detector0.eCubed.definition",
+   "detector0.eSixth.definition",
+   "detector0.eTwelfth.definition",
+   "detector1.eCubed.definition",
+   "detector1.eSixth.definition",
+   "detector1.eTwelfth.definition",
+   "detector2.eCubed.definition",
+   "detector2.eSixth.definition",
+   "detector2.eTwelfth.definition"
+  ],
+  "changedRows": [
+   "detector0.q12.definition",
+   "detector1.q12.definition",
+   "detector2.q12.definition"
+  ]
+ },
+ "afterIdentities": [
+  {
+   "row": "detector0.Fsquare.definition",
+   "lhs": [
+    [
+     1,
+     [
+      "detector0.Fsquare"
+     ]
+    ]
+   ],
+   "rhs": [
+    [
+     1,
+     [
+      "detector0.t",
+      "detector0.t"
+     ]
+    ]
+   ]
+  },
+  {
+   "row": "detector0.Fmiddle.definition",
+   "lhs": [
+    [
+     1,
+     [
+      "detector0.Fmiddle"
+     ]
+    ]
+   ],
+   "rhs": [
+    [
+     1,
+     [
+      "detector0.Fsquare",
+      "detector0.t"
+     ]
+    ],
+    [
+     "c4",
+     [
+      "detector0.Fsquare"
+     ]
+    ],
+    [
+     "c3",
+     [
+      "detector0.t"
+     ]
+    ],
+    [
+     "c2",
+     []
+    ]
+   ]
+  },
+  {
+   "row": "detector0.eCubed.definition",
+   "lhs": [
+    [
+     1,
+     [
+      "detector0.eCubed"
+     ]
+    ]
+   ],
+   "rhs": [
+    [
+     1,
+     [
+      "detector0.q1CubedForWeights",
+      "detector0.deltaCubed"
+     ]
+    ]
+   ]
+  },
+  {
+   "row": "detector0.eSixth.definition",
+   "lhs": [
+    [
+     1,
+     [
+      "detector0.eSixth"
+     ]
+    ]
+   ],
+   "rhs": [
+    [
+     1,
+     [
+      "detector0.eCubed",
+      "detector0.eCubed"
+     ]
+    ]
+   ]
+  },
+  {
+   "row": "detector0.eTwelfth.definition",
+   "lhs": [
+    [
+     1,
+     [
+      "detector0.eTwelfth"
+     ]
+    ]
+   ],
+   "rhs": [
+    [
+     1,
+     [
+      "detector0.eSixth",
+      "detector0.eSixth"
+     ]
+    ]
+   ]
+  },
+  {
+   "row": "detector0.q12.definition",
+   "lhs": [
+    [
+     1,
+     [
+      "detector0.q12",
+      "detector0.eDelta"
+     ]
+    ]
+   ],
+   "rhs": [
+    [
+     1,
+     [
+      "detector0.eTwelfth",
+      "detector0.eTwelfth"
+     ]
+    ]
+   ]
+  },
+  {
+   "row": "detector1.Fsquare.definition",
+   "lhs": [
+    [
+     1,
+     [
+      "detector1.Fsquare"
+     ]
+    ]
+   ],
+   "rhs": [
+    [
+     1,
+     [
+      "detector1.t",
+      "detector1.t"
+     ]
+    ]
+   ]
+  },
+  {
+   "row": "detector1.Fmiddle.definition",
+   "lhs": [
+    [
+     1,
+     [
+      "detector1.Fmiddle"
+     ]
+    ]
+   ],
+   "rhs": [
+    [
+     1,
+     [
+      "detector1.Fsquare",
+      "detector1.t"
+     ]
+    ],
+    [
+     "c4",
+     [
+      "detector1.Fsquare"
+     ]
+    ],
+    [
+     "c3",
+     [
+      "detector1.t"
+     ]
+    ],
+    [
+     "c2",
+     []
+    ]
+   ]
+  },
+  {
+   "row": "detector1.eCubed.definition",
+   "lhs": [
+    [
+     1,
+     [
+      "detector1.eCubed"
+     ]
+    ]
+   ],
+   "rhs": [
+    [
+     1,
+     [
+      "detector1.q1CubedForWeights",
+      "detector1.deltaCubed"
+     ]
+    ]
+   ]
+  },
+  {
+   "row": "detector1.eSixth.definition",
+   "lhs": [
+    [
+     1,
+     [
+      "detector1.eSixth"
+     ]
+    ]
+   ],
+   "rhs": [
+    [
+     1,
+     [
+      "detector1.eCubed",
+      "detector1.eCubed"
+     ]
+    ]
+   ]
+  },
+  {
+   "row": "detector1.eTwelfth.definition",
+   "lhs": [
+    [
+     1,
+     [
+      "detector1.eTwelfth"
+     ]
+    ]
+   ],
+   "rhs": [
+    [
+     1,
+     [
+      "detector1.eSixth",
+      "detector1.eSixth"
+     ]
+    ]
+   ]
+  },
+  {
+   "row": "detector1.q12.definition",
+   "lhs": [
+    [
+     1,
+     [
+      "detector1.q12",
+      "detector1.eDelta"
+     ]
+    ]
+   ],
+   "rhs": [
+    [
+     1,
+     [
+      "detector1.eTwelfth",
+      "detector1.eTwelfth"
+     ]
+    ]
+   ]
+  },
+  {
+   "row": "detector2.Fsquare.definition",
+   "lhs": [
+    [
+     1,
+     [
+      "detector2.Fsquare"
+     ]
+    ]
+   ],
+   "rhs": [
+    [
+     1,
+     [
+      "detector2.t",
+      "detector2.t"
+     ]
+    ]
+   ]
+  },
+  {
+   "row": "detector2.Fmiddle.definition",
+   "lhs": [
+    [
+     1,
+     [
+      "detector2.Fmiddle"
+     ]
+    ]
+   ],
+   "rhs": [
+    [
+     1,
+     [
+      "detector2.Fsquare",
+      "detector2.t"
+     ]
+    ],
+    [
+     "c4",
+     [
+      "detector2.Fsquare"
+     ]
+    ],
+    [
+     "c3",
+     [
+      "detector2.t"
+     ]
+    ],
+    [
+     "c2",
+     []
+    ]
+   ]
+  },
+  {
+   "row": "detector2.eCubed.definition",
+   "lhs": [
+    [
+     1,
+     [
+      "detector2.eCubed"
+     ]
+    ]
+   ],
+   "rhs": [
+    [
+     1,
+     [
+      "detector2.q1CubedForWeights",
+      "detector2.deltaCubed"
+     ]
+    ]
+   ]
+  },
+  {
+   "row": "detector2.eSixth.definition",
+   "lhs": [
+    [
+     1,
+     [
+      "detector2.eSixth"
+     ]
+    ]
+   ],
+   "rhs": [
+    [
+     1,
+     [
+      "detector2.eCubed",
+      "detector2.eCubed"
+     ]
+    ]
+   ]
+  },
+  {
+   "row": "detector2.eTwelfth.definition",
+   "lhs": [
+    [
+     1,
+     [
+      "detector2.eTwelfth"
+     ]
+    ]
+   ],
+   "rhs": [
+    [
+     1,
+     [
+      "detector2.eSixth",
+      "detector2.eSixth"
+     ]
+    ]
+   ]
+  },
+  {
+   "row": "detector2.q12.definition",
+   "lhs": [
+    [
+     1,
+     [
+      "detector2.q12",
+      "detector2.eDelta"
+     ]
+    ]
+   ],
+   "rhs": [
+    [
+     1,
+     [
+      "detector2.eTwelfth",
+      "detector2.eTwelfth"
+     ]
+    ]
+   ]
+  }
+ ],
+ "beforeIdentities": [
+  {
+   "row": "detector0.mixA.definition",
+   "lhs": [
+    [
+     1,
+     [
+      "detector0.mixA"
+     ]
+    ]
+   ],
+   "rhs": [
+    [
+     1,
+     [
+      "detector0.eDelta",
+      "detector0.eDelta"
+     ]
+    ]
+   ]
+  },
+  {
+   "row": "detector0.mixB.definition",
+   "lhs": [
+    [
+     1,
+     [
+      "detector0.mixB"
+     ]
+    ]
+   ],
+   "rhs": [
+    [
+     1,
+     [
+      "detector0.mixA",
+      "detector0.eDelta"
+     ]
+    ]
+   ]
+  },
+  {
+   "row": "detector0.mixC.definition",
+   "lhs": [
+    [
+     1,
+     [
+      "detector0.mixC"
+     ]
+    ]
+   ],
+   "rhs": [
+    [
+     1,
+     [
+      "detector0.q1CubedForWeights",
+      "detector0.mixB"
+     ]
+    ]
+   ]
+  },
+  {
+   "row": "detector0.mixD.definition",
+   "lhs": [
+    [
+     1,
+     [
+      "detector0.mixD"
+     ]
+    ]
+   ],
+   "rhs": [
+    [
+     1,
+     [
+      "detector0.mixC",
+      "detector0.mixC"
+     ]
+    ]
+   ]
+  },
+  {
+   "row": "detector0.q12.definition",
+   "lhs": [
+    [
+     1,
+     [
+      "detector0.q12",
+      "detector0.eDelta"
+     ]
+    ]
+   ],
+   "rhs": [
+    [
+     1,
+     [
+      "detector0.mixD",
+      "detector0.mixD"
+     ]
+    ]
+   ]
+  },
+  {
+   "row": "detector1.mixA.definition",
+   "lhs": [
+    [
+     1,
+     [
+      "detector1.mixA"
+     ]
+    ]
+   ],
+   "rhs": [
+    [
+     1,
+     [
+      "detector1.eDelta",
+      "detector1.eDelta"
+     ]
+    ]
+   ]
+  },
+  {
+   "row": "detector1.mixB.definition",
+   "lhs": [
+    [
+     1,
+     [
+      "detector1.mixB"
+     ]
+    ]
+   ],
+   "rhs": [
+    [
+     1,
+     [
+      "detector1.mixA",
+      "detector1.eDelta"
+     ]
+    ]
+   ]
+  },
+  {
+   "row": "detector1.mixC.definition",
+   "lhs": [
+    [
+     1,
+     [
+      "detector1.mixC"
+     ]
+    ]
+   ],
+   "rhs": [
+    [
+     1,
+     [
+      "detector1.q1CubedForWeights",
+      "detector1.mixB"
+     ]
+    ]
+   ]
+  },
+  {
+   "row": "detector1.mixD.definition",
+   "lhs": [
+    [
+     1,
+     [
+      "detector1.mixD"
+     ]
+    ]
+   ],
+   "rhs": [
+    [
+     1,
+     [
+      "detector1.mixC",
+      "detector1.mixC"
+     ]
+    ]
+   ]
+  },
+  {
+   "row": "detector1.q12.definition",
+   "lhs": [
+    [
+     1,
+     [
+      "detector1.q12",
+      "detector1.eDelta"
+     ]
+    ]
+   ],
+   "rhs": [
+    [
+     1,
+     [
+      "detector1.mixD",
+      "detector1.mixD"
+     ]
+    ]
+   ]
+  },
+  {
+   "row": "detector2.mixA.definition",
+   "lhs": [
+    [
+     1,
+     [
+      "detector2.mixA"
+     ]
+    ]
+   ],
+   "rhs": [
+    [
+     1,
+     [
+      "detector2.eDelta",
+      "detector2.eDelta"
+     ]
+    ]
+   ]
+  },
+  {
+   "row": "detector2.mixB.definition",
+   "lhs": [
+    [
+     1,
+     [
+      "detector2.mixB"
+     ]
+    ]
+   ],
+   "rhs": [
+    [
+     1,
+     [
+      "detector2.mixA",
+      "detector2.eDelta"
+     ]
+    ]
+   ]
+  },
+  {
+   "row": "detector2.mixC.definition",
+   "lhs": [
+    [
+     1,
+     [
+      "detector2.mixC"
+     ]
+    ]
+   ],
+   "rhs": [
+    [
+     1,
+     [
+      "detector2.q1CubedForWeights",
+      "detector2.mixB"
+     ]
+    ]
+   ]
+  },
+  {
+   "row": "detector2.mixD.definition",
+   "lhs": [
+    [
+     1,
+     [
+      "detector2.mixD"
+     ]
+    ]
+   ],
+   "rhs": [
+    [
+     1,
+     [
+      "detector2.mixC",
+      "detector2.mixC"
+     ]
+    ]
+   ]
+  },
+  {
+   "row": "detector2.q12.definition",
+   "lhs": [
+    [
+     1,
+     [
+      "detector2.q12",
+      "detector2.eDelta"
+     ]
+    ]
+   ],
+   "rhs": [
+    [
+     1,
+     [
+      "detector2.mixD",
+      "detector2.mixD"
+     ]
+    ]
+   ]
+  }
+ ],
+ "cubicAliases": [
+  {
+   "t": "detector0.t",
+   "square": "detector0.Fsquare",
+   "middle": "detector0.Fmiddle",
+   "cube": "detector0.deltaCubed",
+   "slope": 98
+  },
+  {
+   "t": "detector1.t",
+   "square": "detector1.Fsquare",
+   "middle": "detector1.Fmiddle",
+   "cube": "detector1.deltaCubed",
+   "slope": 98
+  },
+  {
+   "t": "detector2.t",
+   "square": "detector2.Fsquare",
+   "middle": "detector2.Fmiddle",
+   "cube": "detector2.deltaCubed",
+   "slope": 98
+  }
+ ]
+}

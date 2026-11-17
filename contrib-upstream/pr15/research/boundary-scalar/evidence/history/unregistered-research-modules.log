@@ -1,0 +1,19 @@
+✖ [2/3] Building Solution (254ms)
+trace: .> LEAN_PATH=/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.lake/packages/Cli/.lake/build/lib/lean:/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.lake/packages/batteries/.lake/build/lib/lean:/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.lake/packages/Qq/.lake/build/lib/lean:/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.lake/packages/aesop/.lake/build/lib/lean:/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.lake/packages/importGraph/.lake/build/lib/lean:/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.lake/packages/plausible/.lake/build/lib/lean:/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.lake/packages/mathlib/.lake/build/lib/lean:/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.checks/boundary-scalar-handoff-3/.lake/build/lib/lean /Users/chey/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean -Ddebug.skipKernelTC=false /Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.checks/boundary-scalar-handoff-3/Solution.lean -o /Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.checks/boundary-scalar-handoff-3/.lake/build/lib/lean/Solution.olean -i /Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.checks/boundary-scalar-handoff-3/.lake/build/lib/lean/Solution.ilean -c /Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.checks/boundary-scalar-handoff-3/.lake/build/ir/Solution.c --setup /Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.checks/boundary-scalar-handoff-3/.lake/build/ir/Solution.setup.json --json
+error: Solution.lean:1:0: unknown module prefix 'Research'
+
+No directory 'Research' or file 'Research.olean' in the search path entries:
+/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.lake/packages/Cli/.lake/build/lib/lean
+/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.lake/packages/batteries/.lake/build/lib/lean
+/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.lake/packages/Qq/.lake/build/lib/lean
+/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.lake/packages/aesop/.lake/build/lib/lean
+/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.lake/packages/proofwidgets/.lake/build/lib/lean
+/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.lake/packages/importGraph/.lake/build/lib/lean
+/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean
+/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.lake/packages/plausible/.lake/build/lib/lean
+/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.lake/packages/mathlib/.lake/build/lib/lean
+/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.checks/boundary-scalar-handoff-3/.lake/build/lib/lean
+/Users/chey/.elan/toolchains/leanprover--lean4---v4.35.0/lib/lean
+Some required targets logged failures:
+- Solution
+error: build failed

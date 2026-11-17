@@ -1,0 +1,7 @@
+OK: 781 articles, 2343 dependencies
+    705 fully proved
+    2531 declaration name(s) resolved in the Lean sources
+
+real	0m29.012s
+user	0m23.303s
+sys	0m0.938s

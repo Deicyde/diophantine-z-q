@@ -1,0 +1,122 @@
+{
+  "status": "PASS",
+  "sourceAssertionsAndFiniteChecks": 58,
+  "checks": [
+    "input remains coordinate0",
+    "fixed parameter is not a coordinate",
+    "declared exact exponent",
+    "positive anchor exponent",
+    "stored w alias",
+    "scalar.shiftedS.rootTimesInverseRoot.definition.0",
+    "scalar.shiftedS.rootTimesInverseRoot.definition.1",
+    "scalar.shiftedS.f.definition.0",
+    "scalar.shiftedS.f.definition.1",
+    "S.chart.x.0.definition",
+    "S.chart.x.1.definition",
+    "scalar.shiftedS.nonzeroRealF.definition",
+    "anchor.physicalA.definition",
+    "anchor.equation",
+    "all residuals quadratic with S lifted",
+    "detector0 high-order output present",
+    "detector1 high-order output present",
+    "detector2 high-order output present",
+    "norm anisotropic modulo3",
+    "fourth power of rho modulo3",
+    "all four product leading residues nonzero",
+    "dyadic product clearing factor",
+    "doubling error strictly deeper at initial depth",
+    "weighted root dyadic minimum after oddness",
+    "fixed point x from square-root chart",
+    "fixed point y from root chart",
+    "fixed point dyadic formal depth",
+    "literal z2P calculation",
+    "both normalized z2P coefficients have depth1",
+    "normalized z2P leading residue",
+    "first omitted G12 coefficient",
+    "its exact denominator factorization",
+    "full G12 tail linear intercept",
+    "positive tail inequality slope",
+    "G2 first omitted coefficient retains13 exception",
+    "unchanged conductor constant",
+    "unchanged exceptional product",
+    "exact height bit length",
+    "exact height bound",
+    "scalar28 exact old margin",
+    "Lucas exact old margin",
+    "Lucas exact sharpened margin",
+    "Lucas comparison uniform exponent positive",
+    "Lucas coefficient estimate exponent",
+    "Lucas coefficient estimate constant",
+    "input logarithmic size margin",
+    "input orders10 through12 contradiction",
+    "opposite norm parities",
+    "two real projective operator factors multiply to7",
+    "projective rational height constant weaker than retained7H",
+    "logarithm3 rational lower bound",
+    "tight24H binary upper bound",
+    "displayed scalar rational margin",
+    "displayed Lucas rational margin",
+    "simple gauge constant exponent",
+    "scaled chain [930, 930]",
+    "scaled chain [399, 399, 396]",
+    "scaled chain [186, 186, 186, 186]"
+  ],
+  "builderSha256": "78b54bcde24ff8a91091e102a4734c49878699f071d9230e5ce7a70ffd2114d0",
+  "rawIrSha256": "582c8bf2fcde54242bb23bf7aa33d3a7a9065f04b8edd885a13386b5b779b92c",
+  "checkerSha256": "4b8a97dd36a8e7177f308b273333093fdcb7d7720d1e6f3c405f8d6c231d6015",
+  "proofSha256": "14f548346d7630bf2d440fbc33a10bda10bb6cc7604692d59bcb1c821a5bf5ff",
+  "fixedParameter": {
+    "name": "S",
+    "value": "3^2790",
+    "coordinate": false
+  },
+  "anchorExponent": 2790,
+  "forcedIndexThreeExponent": 1394,
+  "anchorPackingCoefficient": 3,
+  "minimumIndexBits": 2211,
+  "minimumAbsoluteScalarBits": 2211,
+  "highOrder": 45,
+  "requiredScalarConclusion": 28,
+  "finiteExceptionalPrimes": [
+    2,
+    3,
+    5,
+    7,
+    13,
+    17
+  ],
+  "heightConstantBits": 683,
+  "scaledChains": [
+    {
+      "coefficientExponents": [
+        930,
+        930
+      ],
+      "terminalExponent": 2790,
+      "coordinates": 2,
+      "largestSquaredChainCoefficientDigits": 888
+    },
+    {
+      "coefficientExponents": [
+        399,
+        399,
+        396
+      ],
+      "terminalExponent": 2790,
+      "coordinates": 3,
+      "largestSquaredChainCoefficientDigits": 381
+    },
+    {
+      "coefficientExponents": [
+        186,
+        186,
+        186,
+        186
+      ],
+      "terminalExponent": 2790,
+      "coordinates": 4,
+      "largestSquaredChainCoefficientDigits": 178
+    }
+  ],
+  "scope": "Exact stored-w source chart and anchor equations, local seed calculations, G12 tail constants, scaled-chain exponents and old and sharpened scalar/Lucas/input numerical margins. The uniform norm/formal-group proofs, scalar conclusion, detector source, completeness and inherited globals are reviewed separately."
+}

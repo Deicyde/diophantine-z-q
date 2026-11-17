@@ -1,0 +1,146 @@
+[
+  {
+    "name": "baseline",
+    "orders": [
+      45,
+      12,
+      1,
+      1,
+      1
+    ],
+    "inputOrder": 45,
+    "partitions": [
+      [
+        4,
+        4
+      ],
+      [
+        2
+      ],
+      [
+        3,
+        3
+      ]
+    ],
+    "compiledBeforeFactoredPoles": {
+      "coordinates": 384,
+      "compiledCoordinatesBeforeFreeOmission": 386,
+      "residuals": 353,
+      "activeCoordinates": 384,
+      "ordinaryCoordinateMonomials": 26089,
+      "parameterCoefficientTerms": 26093,
+      "degree": 4,
+      "maxSPower": 2,
+      "integerCoefficients": true,
+      "sIndependentCoefficientGcd": 1
+    }
+  },
+  {
+    "name": "demote_H_and_input",
+    "orders": [
+      12,
+      12,
+      1,
+      1,
+      1
+    ],
+    "inputOrder": 12,
+    "partitions": [
+      [
+        4,
+        4
+      ],
+      [
+        4
+      ],
+      [
+        4
+      ]
+    ],
+    "compiledBeforeFactoredPoles": {
+      "coordinates": 387,
+      "compiledCoordinatesBeforeFreeOmission": 389,
+      "residuals": 356,
+      "activeCoordinates": 387,
+      "ordinaryCoordinateMonomials": 17149,
+      "parameterCoefficientTerms": 17153,
+      "degree": 4,
+      "maxSPower": 2,
+      "integerCoefficients": true,
+      "sIndependentCoefficientGcd": 1
+    }
+  },
+  {
+    "name": "promote_two_primary",
+    "orders": [
+      45,
+      12,
+      45,
+      45,
+      1
+    ],
+    "inputOrder": 45,
+    "partitions": [
+      [
+        3,
+        3
+      ],
+      [
+        2
+      ],
+      [
+        4,
+        4
+      ]
+    ],
+    "compiledBeforeFactoredPoles": {
+      "coordinates": 384,
+      "compiledCoordinatesBeforeFreeOmission": 386,
+      "residuals": 353,
+      "activeCoordinates": 384,
+      "ordinaryCoordinateMonomials": 27251,
+      "parameterCoefficientTerms": 27255,
+      "degree": 4,
+      "maxSPower": 2,
+      "integerCoefficients": true,
+      "sIndependentCoefficientGcd": 1
+    }
+  },
+  {
+    "name": "promote_three_primary",
+    "orders": [
+      45,
+      12,
+      45,
+      45,
+      45
+    ],
+    "inputOrder": 45,
+    "partitions": [
+      [
+        2,
+        3
+      ],
+      [
+        2
+      ],
+      [
+        3,
+        3,
+        3
+      ]
+    ],
+    "compiledBeforeFactoredPoles": {
+      "coordinates": 387,
+      "compiledCoordinatesBeforeFreeOmission": 389,
+      "residuals": 356,
+      "activeCoordinates": 387,
+      "ordinaryCoordinateMonomials": 42191,
+      "parameterCoefficientTerms": 42195,
+      "degree": 4,
+      "maxSPower": 2,
+      "integerCoefficients": true,
+      "sIndependentCoefficientGcd": 1
+    }
+  }
+]

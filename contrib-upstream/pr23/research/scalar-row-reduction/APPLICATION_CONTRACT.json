@@ -1,0 +1,279 @@
+{
+  "format": "scalar-row-author-contract-v1",
+  "status": "author_submission_pending_independent_review",
+  "authors": [
+    "User-supplied Opus exploration (A and tri discoveries)",
+    "Codex /root integration and proof, 2026-11-09"
+  ],
+  "independentAcceptance": false,
+  "parentCommit": "eb00b7c9c5be2e8666c0403c750c6c780cf78563",
+  "proof": {
+    "path": "research/scalar-row-reduction/PROOF.md",
+    "sha256": "b64c429a02bdb083182ede492cfb67f902e487585f5eca4eeb28dd353ffc320e"
+  },
+  "sources": [
+    {
+      "id": "parent",
+      "path": "research/mixed-detector-normalization/PROOF.md",
+      "locator": "Exact field functions, positive detector and scalar domain, orders46/31 and E2010",
+      "sha256": "3dfb7eb74c10358744a41c4c7bfa36d154fae149f6748e3082fa6013c11b2abd"
+    },
+    {
+      "id": "chart",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round5/geometry_round5.tex",
+      "locator": "Fused subtraction, shifted guard and two-place proxy, including41",
+      "sha256": "3d5f0fff2fc45bd2b7504c933a8583367555d10e78a18b9885c2d01a151261bb"
+    },
+    {
+      "id": "zero",
+      "path": "research/scalar-preparation-zero/PROOF.md",
+      "locator": "Physical input42rN^2 versus coefficient42r, positive N and all pole branches",
+      "sha256": "79bb5a8c5ce16c6b4559848739aeb78b7d23eb4a90f2ff0ad8ccf97a3674280a"
+    },
+    {
+      "id": "factor",
+      "path": "research/factored-pole-reduction/PROOF.md",
+      "locator": "Actual affine normalization and maps including s=0",
+      "sha256": "364309a61432b4de3615852175cab0faa7a3aeb9d5d251f4da521454277198d4"
+    },
+    {
+      "id": "height",
+      "path": "research/height-consumer-refinement/PROOF.md",
+      "locator": "Unchanged exact height consumers and anchor domain",
+      "sha256": "5a4ff818479f28dfb988526cbcac89b9f6fdb264fe7e9f999123fe0547d45029"
+    },
+    {
+      "id": "current",
+      "path": "manuscripts/quartic_v13.tex",
+      "locator": "Current manuscript remains unchanged; no incorporation claimed",
+      "sha256": "9db71bbfcefb37db56eabcf40a5f9dd85de9ed58294635da3dbf6d4f5caa8fcd"
+    },
+    {
+      "id": "protocol",
+      "path": "docs/research-review/PROTOCOL.md",
+      "locator": "Version1.2 local scope and independent acceptance",
+      "sha256": "b5365b3d9cd9a782bf7fd0b6020403d5d400eac13dc7e60875484a8769d3d925"
+    }
+  ],
+  "obligations": [
+    {
+      "id": "source_hypotheses",
+      "requiredInput": "Rational equations over the retained positive point/pole domain; r*ri=1.",
+      "constructedInput": "Same domain; no changed arithmetic theorem input.",
+      "justification": "The explicit bijection preserves every outside coordinate and physical pole input.",
+      "consumer": "PROOF.md: Actual source and retained domain; tri",
+      "sourceReferences": [
+        "parent",
+        "chart",
+        "zero",
+        "factor",
+        "height",
+        "current",
+        "protocol"
+      ],
+      "evidence": [
+        "row_patch.py",
+        "check_rows.py",
+        "DIAGONAL_WEIGHTS.json",
+        "check_diagonal.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "constructed_objects",
+      "requiredInput": "Actual w, physical42rN^2 and compiled Bh encoding.",
+      "constructedInput": "Numerator uses hS^2; T=42rN^2 replaces Z/T0; Bh_new=mu Bh_old.",
+      "justification": "Five row identities and the private-slot usage scan identify the consumed objects.",
+      "consumer": "PROOF.md: A; tri",
+      "sourceReferences": [
+        "parent",
+        "chart",
+        "zero",
+        "factor",
+        "height",
+        "current",
+        "protocol"
+      ],
+      "evidence": [
+        "row_patch.py",
+        "check_rows.py",
+        "DIAGONAL_WEIGHTS.json",
+        "check_diagonal.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "domain_and_index_coverage",
+      "requiredInput": "Every rational solution, permitted sign and zero conic witness; same arithmetic indices.",
+      "constructedInput": "Bijection on private source witnesses, input fixed.",
+      "justification": "r*ri=1 and fixed mu!=0 suffice; no generic-branch restriction. No new limiting process.",
+      "consumer": "PROOF.md: tri; composition",
+      "sourceReferences": [
+        "parent",
+        "chart",
+        "zero",
+        "factor",
+        "height",
+        "current",
+        "protocol"
+      ],
+      "evidence": [
+        "row_patch.py",
+        "check_rows.py",
+        "DIAGONAL_WEIGHTS.json",
+        "check_diagonal.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "transition_maps",
+      "requiredInput": "Both directions, scalars and actual second-conic normalization.",
+      "constructedInput": "T=42rZ, Bh_new=mu Bh_old; inverse Z=N^2,T0=LN^2,Bh_old=Bh_new/mu.",
+      "justification": "mu(1+kL)=42r and the full conic identity verify both directions; compiler/conic maps replayed.",
+      "consumer": "PROOF.md: tri; composition",
+      "sourceReferences": [
+        "parent",
+        "chart",
+        "zero",
+        "factor",
+        "height",
+        "current",
+        "protocol"
+      ],
+      "evidence": [
+        "row_patch.py",
+        "check_rows.py",
+        "DIAGONAL_WEIGHTS.json",
+        "check_diagonal.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "consumed_object_identity",
+      "requiredInput": "Preserve w,f(Q), scalar proxy, pole inputs, detector R/W and input coordinate.",
+      "constructedInput": "All outside residuals/gates/guards retained, unchanged physical input.",
+      "justification": "Only private scalar slots change; A is an invertible constant row operation.",
+      "consumer": "PROOF.md: A; tri",
+      "sourceReferences": [
+        "parent",
+        "chart",
+        "zero",
+        "factor",
+        "height",
+        "current",
+        "protocol"
+      ],
+      "evidence": [
+        "row_patch.py",
+        "check_rows.py",
+        "DIAGONAL_WEIGHTS.json",
+        "check_diagonal.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "conventions",
+      "requiredInput": "Q coefficients, K basis1,rho, source row normalization and rational diagonal factors.",
+      "constructedInput": "Fixed raw row multipliers, same basis and S=3^2010; specified2/3 powers.",
+      "justification": "Checker matches actual row coefficients; fixed weights define an input-preserving rational bijection.",
+      "consumer": "PROOF.md: A; composition",
+      "sourceReferences": [
+        "parent",
+        "chart",
+        "zero",
+        "factor",
+        "height",
+        "current",
+        "protocol"
+      ],
+      "evidence": [
+        "row_patch.py",
+        "check_rows.py",
+        "DIAGONAL_WEIGHTS.json",
+        "check_diagonal.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "local_conditions",
+      "requiredInput": "Positive coefficient for conic zero branch and original local conditions.",
+      "constructedInput": "Same42r>0,N>0 and detector inputs as parent.",
+      "justification": "The source equivalence changes no point, finite/real condition or depth; conic normalization checked anew.",
+      "consumer": "PROOF.md: Actual source; composition",
+      "sourceReferences": [
+        "parent",
+        "chart",
+        "zero",
+        "factor",
+        "height",
+        "current",
+        "protocol"
+      ],
+      "evidence": [
+        "row_patch.py",
+        "check_rows.py",
+        "DIAGONAL_WEIGHTS.json",
+        "check_diagonal.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "exceptional_cases",
+      "requiredInput": "r=0, vanishing private witnesses, Q=O, S=-P and sign branches.",
+      "constructedInput": "r=0 excluded by retained inverse; no new inverse guard; shifted guard retained.",
+      "justification": "Algebraic maps tolerate N/e=0; arithmetic positivity retained; conic reverse covers s=0 explicitly.",
+      "consumer": "PROOF.md: tri; composition",
+      "sourceReferences": [
+        "parent",
+        "chart",
+        "zero",
+        "factor",
+        "height",
+        "current",
+        "protocol"
+      ],
+      "evidence": [
+        "row_patch.py",
+        "check_rows.py",
+        "DIAGONAL_WEIGHTS.json",
+        "check_diagonal.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "downstream_consumers",
+      "requiredInput": "Same rational input projection and specified complete quartic.",
+      "constructedInput": "379 coordinates,348rows,26021monomials,425digits1410bits.",
+      "justification": "Exact compiler/conic certificates plus every-row and full-decimal-table reconstruction; global arithmetic conditional.",
+      "consumer": "PROOF.md: Composition; review status",
+      "sourceReferences": [
+        "parent",
+        "chart",
+        "zero",
+        "factor",
+        "height",
+        "current",
+        "protocol"
+      ],
+      "evidence": [
+        "row_patch.py",
+        "check_rows.py",
+        "DIAGONAL_WEIGHTS.json",
+        "check_diagonal.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    }
+  ],
+  "historicalDisposition": "Contributed exact rewrites and retained source arguments found; actual normalization and final composition supplied here.",
+  "manuscriptDisposition": "Pending; unchanged current manuscript.",
+  "profile": "HANDOFF.md"
+}

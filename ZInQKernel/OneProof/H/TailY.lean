@@ -103,7 +103,7 @@ noncomputable instance (𝒢 : GroupModel A L) (𝔭 : Ideal (𝓞 L)) [𝔭.IsP
 
 /-- **Semistable reduction everywhere** (applied to a Néron model `𝒩` of `A_L`): at every maximal
 ideal `𝔭` of `𝓞_L`, the identity component of the geometric special fibre `𝒩_{κ̄(𝔭)}` is
-semi-abelian. (SGA 7 IX Déf. 3.1/3.2, UNVERIFIED locators; the special fibre of the global Néron
+semi-abelian. (SGA 7 IX Déf. 3.4, UNVERIFIED locators; the special fibre of the global Néron
 model at `𝔭` is that of the Néron model over `𝓞_{L,𝔭}`: Néron models localize, BLR §1.2 Prop. 4,
 number UNVERIFIED.) -/
 def IsSemistable (𝒢 : GroupModel A L) : Prop :=
@@ -137,7 +137,7 @@ def SemistableReductionThm : Prop :=
       ∀ 𝒩 : GroupModel A L₀, 𝒩.IsNeronModel → IsSemistable 𝒩
 
 /-- **Leaf SS2. Base change of the identity component in the semistable case** (SGA 7 I, Exp. IX,
-Prop. 3.3 / Cor. 3.3.1, UNVERIFIED numbers): if `A_L` has semistable reduction, then for every finite
+Cor. 3.3 / Cor. 3.3.1, UNVERIFIED numbers): if `A_L` has semistable reduction, then for every finite
 extension `L'/L` the identity component of the Néron model of `A_{L'}` is the base change of the
 identity component of the Néron model of `A_L`. Stated with the kernel's `IsBaseChangeOf` and
 `IsOpenSubgroupModel` exactly as the kernel's N2 (`SemistableNeronIdentityComponent`) does:

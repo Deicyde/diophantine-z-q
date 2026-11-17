@@ -1,0 +1,83 @@
+/-
+Vendored from anthropics/fermats-last-theorem @ 6e837e75355538c7f80bab5b956861e86c4eacc2.
+Original module: P2M.Sol.S_GoodReductionJacobian_AbelianSchemePropertyBundle_flat_of_isFinite. Apache-2.0.
+Modification notice (CloudB3 Worker16, 2026-11-16): relocated imports; removed
+nonessential negative-attribute and reactivation scaffolding; expanded namespace/open/export
+helpers to ordinary commands and resolved metadata aliases directly. Mathematical proof
+bodies retained, subject to documented Lean 4.35 API adaptations.
+Full original notices/credits: NOTICE.upstream, ATTRIBUTION.upstream.md, LICENSE in this vendor root.
+-/
+import Mathlib
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_JacJ1Iface
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_RelativeGroupLaw
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Definitions.Def_AlgebraicGeometry_NeronModelEndomorphismExtension
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_Smooth_isRegularLocalRing_stalk
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_GoodReductionJacobian_AbelianSchemePropertyBundle_isIntegral_of_field
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_ringKrullDim_stalk_eq_of_isFinite_endomorphism
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_IsFinite_ringKrullDim_stalk_quotient_eq_zero
+import ZInQKernel.Contrib.CloudB3W16Torsion.Vendor.AnthropicFLT.Theorems.Thm_Module_Flat_of_isLocalHom_of_isRegularLocalRing_of_ringKrullDim_quotient_eq_zero
+import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
+
+set_option backward.isDefEq.respectTransparency false
+
+namespace P2MW.S_GoodReductionJacobian_AbelianSchemePropertyBundle_flat_of_isFinite
+
+set_option autoImplicit false
+
+noncomputable section
+
+open CategoryTheory CategoryTheory.Limits AlgebraicGeometry NeronModelInfra GoodReductionJacobian
+
+universe u
+
+namespace P2mIsogFlat
+
+variable {K : Type u} [Field K] {A : Scheme.{u}} {f : A ⟶ Spec (CommRingCat.of K)}
+
+-- [port] Keep the private helper in this module-local namespace, avoiding a self-export.
+private theorem isLocallyNoetherian (hA : AbelianSchemePropertyBundle K f) : IsLocallyNoetherian A := by
+  haveI : Smooth f := hA.smooth
+  exact LocallyOfFiniteType.isLocallyNoetherian f
+-- [port] No export alias is needed for the private helper above.
+theorem flat_stalkMap (hA : AbelianSchemePropertyBundle K f) (β : SchemeHomOver f f)
+    [IsFinite β.1] (x : A) : (β.1.stalkMap x).hom.Flat := by
+  haveI : Smooth f := hA.smooth
+  haveI : IsIntegral A := AbelianSchemePropertyBundle.isIntegral_of_field hA
+  haveI : IsLocallyNoetherian A := isLocallyNoetherian hA
+
+  haveI hx : IsRegularLocalRing (A.presheaf.stalk x) := Smooth.isRegularLocalRing_stalkFLT (f := f) x
+  haveI hy : IsRegularLocalRing (A.presheaf.stalk (β.1.base x)) :=
+    Smooth.isRegularLocalRing_stalkFLT (f := f) (β.1.base x)
+
+  letI alg : Algebra (A.presheaf.stalk (β.1.base x)) (A.presheaf.stalk x) :=
+    (β.1.stalkMap x).hom.toAlgebra
+  haveI : IsLocalHom (algebraMap (A.presheaf.stalk (β.1.base x)) (A.presheaf.stalk x)) :=
+    inferInstanceAs (IsLocalHom (β.1.stalkMap x).hom)
+
+  have hfib : ringKrullDim ((A.presheaf.stalk x) ⧸
+      (IsLocalRing.maximalIdeal (A.presheaf.stalk (β.1.base x))).map
+        (algebraMap (A.presheaf.stalk (β.1.base x)) (A.presheaf.stalk x))) = 0 :=
+    AlgebraicGeometry.IsFinite.ringKrullDim_stalk_quotient_eq_zero β.1 x
+
+  have hdim : ringKrullDim (A.presheaf.stalk x) =
+      ringKrullDim (A.presheaf.stalk (β.1.base x)) :=
+    AlgebraicGeometry.ringKrullDim_stalk_eq_of_isFinite_endomorphism (f := f) β.1 β.2 x
+
+  have hflat : Module.Flat (A.presheaf.stalk (β.1.base x)) (A.presheaf.stalk x) :=
+    Module.Flat.of_isLocalHom_of_isRegularLocalRing_of_ringKrullDim_quotient_eq_zero
+      (A.presheaf.stalk (β.1.base x)) (A.presheaf.stalk x) hfib hdim
+  exact hflat
+
+theorem main (hA : AbelianSchemePropertyBundle K f) (β : SchemeHomOver f f) [IsFinite β.1] :
+    Flat β.1 :=
+  Flat.of_stalkMap β.1 (flat_stalkMap hA β)
+
+end P2mIsogFlat
+
+theorem solution
+    (K : Type u) [Field K] {A : Scheme.{u}} {f : A ⟶ Spec (CommRingCat.of K)}
+    (hA : AbelianSchemePropertyBundle K f) (β : SchemeHomOver f f) [IsFinite β.1] :
+    Flat β.1 :=
+  P2mIsogFlat.main hA β
+
+end

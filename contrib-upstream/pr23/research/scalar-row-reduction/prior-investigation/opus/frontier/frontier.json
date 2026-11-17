@@ -1,0 +1,219 @@
+{
+ "rows": [
+  {
+   "k": 37,
+   "E_scalar": 2016,
+   "E_lucas": 16656,
+   "E": 16656,
+   "digits": 5303,
+   "bits": 17615,
+   "binding": "lucas",
+   "powGates": 8,
+   "varsPow": 380,
+   "status": "ESTIMATED"
+  },
+  {
+   "k": 38,
+   "E_scalar": 2016,
+   "E_lucas": 8280,
+   "E": 8280,
+   "digits": 2639,
+   "bits": 8764,
+   "binding": "lucas",
+   "powGates": 8,
+   "varsPow": 380,
+   "status": "ESTIMATED"
+  },
+  {
+   "k": 39,
+   "E_scalar": 2016,
+   "E_lucas": 5610,
+   "E": 5610,
+   "digits": 1789,
+   "bits": 5943,
+   "binding": "lucas",
+   "powGates": 7,
+   "varsPow": 377,
+   "status": "ESTIMATED"
+  },
+  {
+   "k": 40,
+   "E_scalar": 2016,
+   "E_lucas": 4290,
+   "E": 4290,
+   "digits": 1370,
+   "bits": 4548,
+   "binding": "lucas",
+   "powGates": 7,
+   "varsPow": 377,
+   "status": "ESTIMATED"
+  },
+  {
+   "k": 41,
+   "E_scalar": 2016,
+   "E_lucas": 3510,
+   "E": 3510,
+   "digits": 1121,
+   "bits": 3724,
+   "binding": "lucas",
+   "powGates": 8,
+   "varsPow": 380,
+   "status": "ESTIMATED"
+  },
+  {
+   "k": 42,
+   "E_scalar": 2016,
+   "E_lucas": 2988,
+   "E": 2988,
+   "digits": 955,
+   "bits": 3173,
+   "binding": "lucas",
+   "powGates": 8,
+   "varsPow": 380,
+   "status": "ESTIMATED"
+  },
+  {
+   "k": 43,
+   "E_scalar": 2016,
+   "E_lucas": 2622,
+   "E": 2622,
+   "digits": 839,
+   "bits": 2786,
+   "binding": "lucas",
+   "powGates": 7,
+   "varsPow": 377,
+   "status": "ESTIMATED"
+  },
+  {
+   "k": 44,
+   "E_scalar": 2016,
+   "E_lucas": 2346,
+   "E": 2346,
+   "digits": 751,
+   "bits": 2494,
+   "binding": "lucas",
+   "powGates": 8,
+   "varsPow": 380,
+   "status": "ESTIMATED"
+  },
+  {
+   "k": 45,
+   "E_scalar": 2016,
+   "E_lucas": 2130,
+   "E": 2130,
+   "digits": 682,
+   "bits": 2266,
+   "binding": "lucas",
+   "powGates": 7,
+   "varsPow": 377,
+   "status": "MEASURED E=2130"
+  },
+  {
+   "k": 46,
+   "E_scalar": 2016,
+   "E_lucas": 1956,
+   "E": 2016,
+   "digits": 646,
+   "bits": 2146,
+   "binding": "scalar",
+   "powGates": 7,
+   "varsPow": 377,
+   "status": "MEASURED E=2016"
+  },
+  {
+   "k": 47,
+   "E_scalar": 2016,
+   "E_lucas": 1818,
+   "E": 2016,
+   "digits": 646,
+   "bits": 2146,
+   "binding": "scalar",
+   "powGates": 8,
+   "varsPow": 380,
+   "status": "ESTIMATED"
+  },
+  {
+   "k": 48,
+   "E_scalar": 2016,
+   "E_lucas": 1704,
+   "E": 2016,
+   "digits": 646,
+   "bits": 2146,
+   "binding": "scalar",
+   "powGates": 8,
+   "varsPow": 380,
+   "status": "ESTIMATED"
+  },
+  {
+   "k": 49,
+   "E_scalar": 2016,
+   "E_lucas": 1602,
+   "E": 2016,
+   "digits": 646,
+   "bits": 2146,
+   "binding": "scalar",
+   "powGates": 8,
+   "varsPow": 380,
+   "status": "ESTIMATED"
+  },
+  {
+   "k": 50,
+   "E_scalar": 2016,
+   "E_lucas": 1518,
+   "E": 2016,
+   "digits": 646,
+   "bits": 2146,
+   "binding": "scalar",
+   "powGates": 8,
+   "varsPow": 380,
+   "status": "ESTIMATED"
+  },
+  {
+   "k": 51,
+   "E_scalar": 2016,
+   "E_lucas": 1446,
+   "E": 2016,
+   "digits": 646,
+   "bits": 2146,
+   "binding": "scalar",
+   "powGates": 8,
+   "varsPow": 380,
+   "status": "ESTIMATED"
+  }
+ ],
+ "measured": {
+  "45:pow": [
+   377,
+   682,
+   "MEASURED E=2130"
+  ],
+  "46:pow": [
+   377,
+   646,
+   "MEASURED E=2016"
+  ],
+  "45:strict": [
+   380,
+   682,
+   "MEASURED (#13)"
+  ],
+  "47:strict": [
+   383,
+   646,
+   "MEASURED (#13 opt)"
+  ],
+  "46:d3": [
+   380,
+   646,
+   "MEASURED E=2016 (q46=mixedHigh^2/q1, delta^-3)"
+  ]
+ },
+ "sharpenedConsumers(other session, unreviewed)": {
+  "46": {
+   "E": 2010,
+   "vars": 377,
+   "digits": 644,
+   "status": "MEASURED table; consumer unreviewed"
+  }
+ }
+}

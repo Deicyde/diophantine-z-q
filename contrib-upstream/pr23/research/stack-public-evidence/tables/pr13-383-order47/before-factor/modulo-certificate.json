@@ -1,0 +1,15 @@
+{
+  "baselineSha256": "3215584835ff3739ce06acab3dbeb334295f6b0b2b33563ee0accabb4f943967",
+  "operations": [],
+  "counts": {
+    "coordinates": 387,
+    "residuals": 356,
+    "degree": 2
+  },
+  "scanned": 536,
+  "elapsedSeconds": 5.020641803741455,
+  "affineRounds": [
+    0
+  ],
+  "affineElapsedSeconds": 0.044255971908569336
+}

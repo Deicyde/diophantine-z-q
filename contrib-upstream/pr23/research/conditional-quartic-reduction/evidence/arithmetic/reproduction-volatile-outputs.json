@@ -1,0 +1,71 @@
+{
+  "expectedManifestAtReviewSha256": "5cf177c4daf155a889d145d8f6dc634e3e069ecece8845dec7d5f00c6b85a6a3",
+  "excludedDiagnosticFiles": {
+    "construction/compiled/compiler-report.json": {
+      "reason": "volatile_fields",
+      "fields": [
+        [
+          "/elapsedSeconds",
+          1.373
+        ]
+      ]
+    },
+    "construction/final/modulo-certificate.json": {
+      "reason": "volatile_fields",
+      "fields": [
+        [
+          "/elapsedSeconds",
+          3.9514968395233154
+        ],
+        [
+          "/affineElapsedSeconds",
+          0.036496639251708984
+        ]
+      ]
+    },
+    "construction/final/polynomial/compiler-report.json": {
+      "reason": "volatile_fields",
+      "fields": [
+        [
+          "/elapsedSeconds",
+          0.967
+        ]
+      ]
+    },
+    "construction/ordinary394/polynomial/compiler-report.json": {
+      "reason": "volatile_fields",
+      "fields": [
+        [
+          "/elapsedSeconds",
+          0.878
+        ]
+      ]
+    },
+    "construction/ordinary395/polynomial/compiler-report.json": {
+      "reason": "volatile_fields",
+      "fields": [
+        [
+          "/elapsedSeconds",
+          0.882
+        ]
+      ]
+    },
+    "construction/ordinary396/polynomial/compiler-report.json": {
+      "reason": "volatile_fields",
+      "fields": [
+        [
+          "/elapsedSeconds",
+          0.849
+        ]
+      ]
+    },
+    "construction/final/verification.json": {
+      "reason": "references_volatile_artifact_hash",
+      "dependsOn": [
+        "construction/final/modulo-certificate.json"
+      ]
+    }
+  },
+  "remainingDeterministicFiles": 51,
+  "method": "Independently inspect all expected JSON for timing/path fields, then transitively search expected output bytes for hashes of the volatile files."
+}

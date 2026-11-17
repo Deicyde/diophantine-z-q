@@ -5,7 +5,7 @@ import ZInQKernel.Contrib.OneProof.SGA7PersistsNF
 
 The research field `sga7_IX_3_3_SH` (`SGA7PersistsNF.SGA7_IX_3_3_SH`) asks, for the open `U` of `N ×_O O'` with
 `U = idCompSet (N ×_O O')` (the identity component of the base change), that `U → N'` be an open immersion with
-image `N'⁰`. The print (SGA 7 I, Exp. IX, Prop. 3.3, second assertion) speaks of `N⁰ ×_S S'`, the base change of
+image `N'⁰`. The print (SGA 7 I, Exp. IX, Cor. 3.3, second assertion) speaks of `N⁰ ×_S S'`, the base change of
 the open subscheme `N⁰ ⊆ N`, i.e. the open `pullback.fst ⁻¹' N⁰` of `N ×_S S'`. The two opens agree only through
 SGA 3 VI_B 3.3 (the identity component commutes with base change), which the 11-16 dictionary pass counted against
 the row.
@@ -29,7 +29,7 @@ open ReductSplit ReductGlue CToPrinted
 
 namespace DictModels.SGA7Pre
 
-/-- **LEAF `SGA7_IX_3_3_SHpre`** (Grothendieck, SGA 7 I, Exp. IX, Prop. 3.3, second assertion, over strictly
+/-- **LEAF `SGA7_IX_3_3_SHpre`** (Grothendieck, SGA 7 I, Exp. IX, Cor. 3.3, second assertion, over strictly
 henselian traits; number and wording recalled, UNVERIFIED, no network). *Printed* (as recalled): `S' → S` a
 morphism of traits, `A_K` with semistable reduction, `N`, `N'` the Néron models of `A_K` over `S` and of `A_{K'}`
 over `S'`; then `N ×_S S' → N'` induces an isomorphism `N⁰ ×_S S' ≅ N'⁰`.

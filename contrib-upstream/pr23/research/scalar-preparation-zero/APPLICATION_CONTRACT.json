@@ -1,0 +1,267 @@
+{
+  "format": "scalar-zero-author-application-contract-v1",
+  "status": "author_argument_pending_independent_review",
+  "authors": [
+    "Codex /root, Cameron session 2026-11-08"
+  ],
+  "independentAcceptance": false,
+  "parentCommit": "e3444641dffc2d1cf5a9791111d584110e5dd111",
+  "proof": {
+    "path": "research/scalar-preparation-zero/PROOF.md",
+    "sha256": "79bb5a8c5ce16c6b4559848739aeb78b7d23eb4a90f2ff0ad8ccf97a3674280a"
+  },
+  "sources": [
+    {
+      "id": "pole-zero",
+      "path": "manuscripts/quartic_v13.tex",
+      "locator": "v5:preparation-zero-bridge, lines 10563\u201310636",
+      "sha256": "9db71bbfcefb37db56eabcf40a5f9dd85de9ed58294635da3dbf6d4f5caa8fcd"
+    },
+    {
+      "id": "real-progression",
+      "path": "manuscripts/quartic_v13.tex",
+      "locator": "v5:real-progression-bridge, lines 10638\u201310694",
+      "sha256": "9db71bbfcefb37db56eabcf40a5f9dd85de9ed58294635da3dbf6d4f5caa8fcd"
+    },
+    {
+      "id": "prime-compatibility",
+      "path": "manuscripts/quartic_v13.tex",
+      "locator": "subsec:v9-deep-completeness, lines 19727\u201319746",
+      "sha256": "9db71bbfcefb37db56eabcf40a5f9dd85de9ed58294635da3dbf6d4f5caa8fcd"
+    },
+    {
+      "id": "v13-scalar",
+      "path": "docs/manuscript-revisions/version13/addition.tex",
+      "locator": "Specializing the scalar preparation to zero, lines 631\u2013704",
+      "sha256": "91b278b3ca1684df93e32883d8046a2accda970efc1ed9159b095183092d5a09"
+    },
+    {
+      "id": "parent-norm",
+      "path": "research/scalar-chain-reduction/PROOF.md",
+      "locator": "Actual order-31 chain, finite preparation and all three height consumers at anchor exponent 2130",
+      "sha256": "710088f6d9517c966a55a54e9d6adb383a335d705b7b4ca5a0f1dbde16f6be4d"
+    },
+    {
+      "id": "parent-height",
+      "path": "research/scalar-chain-reduction/PROOF.md",
+      "locator": "Actual order-31 chain, finite preparation and all three height consumers at anchor exponent 2130",
+      "sha256": "710088f6d9517c966a55a54e9d6adb383a335d705b7b4ca5a0f1dbde16f6be4d"
+    },
+    {
+      "id": "parent-detector",
+      "path": "research/conditional-quartic-reduction/proofs/detector_round7.tex",
+      "locator": "Completeness order of choices and exponent 44, lines 146\u2013165",
+      "sha256": "ed01c9416d3b4daf02a26958642194230c0186a896f17817bfe30c8a16d481d3"
+    },
+    {
+      "id": "primary-promotion",
+      "path": "research/conditional-quartic-reduction/proofs/detector_round8.tex",
+      "locator": "Order-12 primary promotion with retained order-45 primary depth",
+      "sha256": "150b79708b8088d1c75641571277eecf452fe72b7c729cc4fe783e4da76b83bb"
+    },
+    {
+      "id": "scalar-proxy",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round5/geometry_round5.tex",
+      "locator": "Same two-place scalar proxy, including its nonunit fixed-coordinate case at 41",
+      "sha256": "3d5f0fff2fc45bd2b7504c933a8583367555d10e78a18b9885c2d01a151261bb"
+    },
+    {
+      "id": "square-absorption",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round4/scalar_streamlining.tex",
+      "locator": "Absorb the known square in the scalar pole input",
+      "sha256": "ba3707caa4b29e58180cd08abbc6c176a38dd2d7bb15292ed953f1df3120f9a8"
+    },
+    {
+      "id": "pole-normalization",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round3/arithmetic_proof.tex",
+      "locator": "Independent review of homogeneous pole coordinates",
+      "sha256": "66cdc4ef3e2f0e5cfde8b50e3ac360dd27d2ac17826ce23fd4ec688ac7d438d4"
+    },
+    {
+      "id": "joint-chart",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round4/geometry_round4.tex",
+      "locator": "Joint reciprocal chart and nonzero H domain",
+      "sha256": "f51c4c6801b205475ac467aafaa61faec9e0da4a978275b3f965701b0a50c141"
+    },
+    {
+      "id": "actual-builder",
+      "path": "research/conditional-quartic-reduction/construction/builder.cjs",
+      "locator": "Joint H chart, scalar norm tree and normalized pole consumer",
+      "sha256": "b4bf6af38a7620a5b6a572039da4fcb22cd6f4ce006c439d89588c1259231f3b"
+    },
+    {
+      "id": "factored-transport",
+      "path": "research/factored-pole-reduction/PROOF.md",
+      "locator": "Both maps and positive-input zero branch",
+      "sha256": "364309a61432b4de3615852175cab0faa7a3aeb9d5d251f4da521454277198d4"
+    },
+    {
+      "id": "prime-input",
+      "path": "manuscripts/quartic_v13.tex",
+      "locator": "thm:v5-simultaneous-primes, fixed q,M,H,Y and k>=2, lines 16566\u201316604",
+      "sha256": "9db71bbfcefb37db56eabcf40a5f9dd85de9ed58294635da3dbf6d4f5caa8fcd"
+    }
+  ],
+  "obligations": {
+    "source_hypotheses": {
+      "status": "author_argument_pending_review",
+      "required": "Preparation-zero obstruction; for completeness positive b<17, square reduced denominator, local squares at 2,3,17 and depths 3,1,2.",
+      "constructed": "Physical b=42rN^2 with the actual parent r and norm tree.",
+      "justification": "The proof establishes positivity, congruences of rho, finite-depth bounds and the simultaneous real bound.",
+      "sources": [
+        "pole-zero",
+        "parent-norm",
+        "actual-builder"
+      ],
+      "evidence": [
+        "PROOF.md",
+        "zero_patch.py",
+        "check_zero.py",
+        "reproduce.py"
+      ]
+    },
+    "constructed_objects": {
+      "status": "author_argument_pending_review",
+      "required": "The same normalized pole formula and scalar proxy at the actual points H and R=S-P.",
+      "constructed": "W=N replaces 1+N; scalar T=42rN^2; omitted preparation u=42rN and v=0 recover the source preparation.",
+      "justification": "The conic coefficient is rho=42r, distinguished from the physical b=rho N^2. This is a new soundness/completeness route, not a witness bijection to old W.",
+      "sources": [
+        "square-absorption",
+        "pole-normalization",
+        "actual-builder"
+      ],
+      "evidence": [
+        "PROOF.md",
+        "zero_patch.py",
+        "check_zero.py",
+        "reproduce.py"
+      ]
+    },
+    "index_domain_coverage": {
+      "status": "author_argument_pending_review",
+      "required": "All integer inputs for completeness and every rational solution for soundness; final h in the required primary/opposite and continuity congruences.",
+      "constructed": "beta and r unchanged; h=0 mod Pi^44 M_-, h=1 mod M_+, h=h0 mod L0 with 64m0|L0 and m0|h0.",
+      "justification": "The source gcd conditions imply compatibility. The modulus is fixed before the contact primes; its dense positive tail meets the chosen nonempty real neighborhood. The proof constructs the source odd squarefree M from the odd support of L0 excluding seven, retains the special ray conditions at 2 and 7, and fixes q, the integer forms, the size bound and the cutoff before invoking the fixed-data theorem.",
+      "sources": [
+        "prime-compatibility",
+        "real-progression",
+        "parent-detector",
+        "primary-promotion",
+        "prime-input"
+      ],
+      "evidence": [
+        "PROOF.md",
+        "zero_patch.py",
+        "check_zero.py",
+        "reproduce.py"
+      ]
+    },
+    "transition_maps": {
+      "status": "author_argument_pending_review",
+      "required": "Reconstruct source zero-preparation witnesses and apply the four conics with no deleted zero branch.",
+      "constructed": "u=rho N, v=0; reverse square absorption divides by proved N>0; factored poles reconstruct the old conics.",
+      "justification": "The local conic maps are exact. The changed W is justified by separate scalar soundness and a fresh completeness construction.",
+      "sources": [
+        "pole-zero",
+        "square-absorption",
+        "factored-transport"
+      ],
+      "evidence": [
+        "PROOF.md",
+        "zero_patch.py",
+        "check_zero.py",
+        "reproduce.py"
+      ]
+    },
+    "limiting_object_identity": {
+      "status": "author_argument_pending_review",
+      "required": "The final shared point, scalar root and pole input must be the ones consumed downstream.",
+      "constructed": "R is fixed before varying H; the same Tproxy=Re(k_H w_S) is controlled on a neighborhood and a congruence class of H0.",
+      "justification": "With H0 fixed and R tending to the two real identities, N tends to (A^2+r^-15*B^4)/r and b tends to (42/r)*(A^2+r^-15*B^4)^2. First H0 makes this small; an actual finite R then fixes a neighborhood, and the final compatible progression chooses the actual shared H inside it.",
+      "sources": [
+        "real-progression",
+        "scalar-proxy",
+        "parent-detector",
+        "actual-builder"
+      ],
+      "evidence": [
+        "PROOF.md",
+        "zero_patch.py",
+        "check_zero.py",
+        "reproduce.py"
+      ]
+    },
+    "coefficient_conventions": {
+      "status": "author_argument_pending_review",
+      "required": "Rational coefficients in K=Q(sqrt(2)), normalized unramified valuations, and the original input-fixed diagonal factors.",
+      "constructed": "A,B,C,D0 are the same rational coefficients; r>0, y=Tproxy/r^16 and kappa=r^-15. The current chain is J3=D0^2+kappa*y^2, J2=C^2+kappa*J3^2, J1=B^2+kappa*J2^2, r*N=A^2+kappa*J1^2.",
+      "justification": "Both-place proxy and norm parity use the same conventions as the parent. All downstream height constants and the diagonal scaling are retained.",
+      "sources": [
+        "scalar-proxy",
+        "parent-norm",
+        "parent-height"
+      ],
+      "evidence": [
+        "PROOF.md",
+        "zero_patch.py",
+        "check_zero.py",
+        "reproduce.py"
+      ]
+    },
+    "local_conditions": {
+      "status": "author_argument_pending_review",
+      "required": "Order-31 soundness outside {2,3,5,7,13,17}; preparation at support(42r) union {17}, plus inherited comparison conditions.",
+      "constructed": "The pole gives v(N)>-R_p/2; the unchanged order-31 chain gives v(Tproxy)>963R_p/32. For integer input, all five leaves at depth >=16R_p+1 on support(r) give v(N)>=16R_p+2; positive leaf depths where r is a unit give v(N)>=2.",
+      "justification": "rho is 4 mod32, 81 mod243 and 13 mod17; b has the required local squareclasses, depths and square reduced denominator.",
+      "sources": [
+        "parent-norm",
+        "scalar-proxy",
+        "pole-zero"
+      ],
+      "evidence": [
+        "PROOF.md",
+        "zero_patch.py",
+        "check_zero.py",
+        "reproduce.py"
+      ]
+    },
+    "exceptional_cases": {
+      "status": "author_argument_pending_review",
+      "required": "Zero norm leaves, all private pole branches, p=41, and identity exclusions of H and R.",
+      "constructed": "A>0 makes N>0 even if other leaves vanish. Valuation infinity is allowed for zero leaves. The original H and R charts/guards are unchanged.",
+      "justification": "No division by a new possibly zero value is introduced. The retained split-41 proxy proof applies only after both points have been put in the formal group, as before.",
+      "sources": [
+        "joint-chart",
+        "scalar-proxy",
+        "factored-transport"
+      ],
+      "evidence": [
+        "PROOF.md",
+        "zero_patch.py",
+        "check_zero.py",
+        "reproduce.py"
+      ]
+    },
+    "downstream_consumption": {
+      "status": "author_argument_pending_review",
+      "required": "The height proof must receive its original order-31 divisibility, and detector completeness must retain order 45.",
+      "constructed": "Same nonzero integral h and scalar index a-1, same anchor 3^2130, same order-45 / order-12 tests and same root scales.",
+      "justification": "The proof gives v_p(a-1)>=31. The final progression uses Pi^44; roots, scales and real/finite bounds precede contact selection. Finite replay separately checks changed scalar rows and every final coefficient. The raw coordinate allocation is identical. Three scalar rows change and one is deleted; no non-scalar source row changes. A checked free-coordinate omission carries the compiler output to the affine-search input without changing any residual.",
+      "sources": [
+        "parent-height",
+        "parent-detector",
+        "primary-promotion",
+        "actual-builder"
+      ],
+      "evidence": [
+        "PROOF.md",
+        "zero_patch.py",
+        "check_zero.py",
+        "reproduce.py"
+      ]
+    }
+  },
+  "historicalDisposition": "Prior preparation-zero and simultaneous real/finite construction found in Version 13. The current order-31 chain requires the connecting argument, stronger finite depths and changed real limit supplied here; the earlier balanced-tree proposal does not authorize this application.",
+  "manuscriptDisposition": "Pending. This research packet is not an accepted manuscript application.",
+  "unresolvedAcceptance": "Independent review must check the source zero-preparation theorem, all local inputs and the simultaneous construction for the exact chain on #11. No acceptance record is supplied by the author."
+}

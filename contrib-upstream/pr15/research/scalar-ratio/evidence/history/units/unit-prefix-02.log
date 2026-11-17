@@ -1,0 +1,9 @@
+.checks/scalar-ratio-units/UnitPrefix.lean:126:2: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+.checks/scalar-ratio-units/UnitPrefix.lean:126:6: warning: Unused tactic linter: `ring` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+.checks/scalar-ratio-units/UnitPrefix.lean:126:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`

@@ -1,0 +1,84 @@
+{
+  "status": "PASS_OFFLINE_PREPARATION_ONLY",
+  "baseline_commit": "059bf903b441220246d5c1161f8dc24165b7a534",
+  "request_sha256": "b91ce36257a6462191c8e16e2dbd0b27ed5ba4497ccca4fdef16f75ea9c3c5a3",
+  "support_manifest_sha256": "61eb12009ac16dfdd90c7ba097a02489197e8d7ce1f9e54e1199d106da2e48d4",
+  "trusted_inputs_checked": 13,
+  "support_files_checked": 11,
+  "complete_project_index_entries": 19,
+  "comparator_inputs_manifest_sha256": "4454a09775b9cc9ad77ce7c6d8af91804bae3fce9df23350ededa651315cd52c",
+  "mathematical_and_pin_files_byte_identical_to_baseline": [
+    "lean/Research/DerivativeSwitch/ActualBoundaryCup.lean",
+    "lean/Research/DerivativeSwitch/ConjugateLocalH1.lean",
+    "lean/Research/DerivativeSwitch/ConjugateLocalTransport.lean",
+    "lean/Research/DerivativeSwitch/OrthogonalComparison.lean",
+    "lean/lake-manifest.json",
+    "lean/lean-toolchain"
+  ],
+  "repeat_generation_byte_identical": true,
+  "cases": {
+    "positive_offline_prepare": {
+      "argv": [
+        "python3",
+        "-B",
+        "scripts/prepare_local_boundary_comparator.py",
+        "--output",
+        "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-10-retained-comparator/pr27-repeat"
+      ],
+      "cwd": "/Users/chey/Coding_Projects/diophantinezq/upstream-local-boundary-interfaces-pr",
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"PREPARED\",\n  \"files\": 12,\n  \"proof_roots\": 41,\n  \"manifest_sha256\": \"5a828f5d4608b801f7016b7c387fae3ab78274f237c8077771b38d7bbadd20a0\",\n  \"lean_executed\": false,\n  \"paranoid\": \"NOT_RUN\"\n}\n{\n  \"status\": \"PREPARED_ONLY\",\n  \"checkout_commit\": \"059bf903b441220246d5c1161f8dc24165b7a534\",\n  \"packet\": \"local-boundary-interfaces\",\n  \"request_sha256\": \"b91ce36257a6462191c8e16e2dbd0b27ed5ba4497ccca4fdef16f75ea9c3c5a3\",\n  \"support_manifest_sha256\": \"61eb12009ac16dfdd90c7ba097a02489197e8d7ce1f9e54e1199d106da2e48d4\",\n  \"base_project_manifest_sha256\": \"5a828f5d4608b801f7016b7c387fae3ab78274f237c8077771b38d7bbadd20a0\",\n  \"comparator_inputs_manifest_sha256\": \"4454a09775b9cc9ad77ce7c6d8af91804bae3fce9df23350ededa651315cd52c\",\n  \"theorem_targets\": 39,\n  \"definition_targets\": 2,\n  \"lean_executed\": false,\n  \"comparator\": \"NOT_RUN\",\n  \"paranoid\": \"NOT_RUN\",\n  \"execution_owner\": \"Open Math OS\",\n  \"base_sources_note\": \"SOURCES.json and BASE_PROJECT_MANIFEST.sha256, if present, describe the original base stage; COMPARATOR_INPUTS.sha256 covers the complete comparison project.\"\n}\n",
+      "stderr": ""
+    },
+    "existing_output_rejected": {
+      "argv": [
+        "python3",
+        "-B",
+        "scripts/prepare_local_boundary_comparator.py",
+        "--output",
+        "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-10-retained-comparator/pr27-prepared"
+      ],
+      "cwd": "/Users/chey/Coding_Projects/diophantinezq/upstream-local-boundary-interfaces-pr",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Output must be new\n"
+    },
+    "isolated_source_drift_rejected": {
+      "argv": [
+        "python3",
+        "-B",
+        "scripts/prepare_local_boundary_comparator.py",
+        "--output",
+        "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-10-retained-comparator/pr27-must-not-exist"
+      ],
+      "cwd": "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-10-retained-comparator/pr27-tampered-copy",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Frozen input changed: lean/Research/DerivativeSwitch/ActualBoundaryCup.lean\n"
+    },
+    "isolated_request_drift_rejected": {
+      "argv": [
+        "python3",
+        "-B",
+        "scripts/prepare_local_boundary_comparator.py",
+        "--output",
+        "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-10-retained-comparator/pr27-must-not-exist"
+      ],
+      "cwd": "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-10-retained-comparator/pr27-tampered-copy",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Input missing, outside root, or changed: docs/openmath/local-boundary-interfaces-v13/retained-comparator-20261110/REQUEST.json\n"
+    }
+  },
+  "handoff_local_links_checked": [
+    "REQUEST.json",
+    "SUPPORT.sha256"
+  ],
+  "new_preparer_python_syntax": "PASS",
+  "lean_executed": false,
+  "comparator": "NOT_RUN",
+  "paranoid": "NOT_RUN",
+  "open_math_os_dispatch": "NOT_DISPATCHED; handoff to be supplied to operator",
+  "scope": "Offline packaging/identity/adverse checks only. Not formal compilation, kernel replay or protected review acceptance.",
+  "receipt_note": "Prepared at the baseline checkout with new uncommitted support identified by the support manifest. Reprepare at the published handoff commit; runtime checkout receipts may then have different hashes."
+}

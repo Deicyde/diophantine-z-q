@@ -1,0 +1,18 @@
+{
+  "coordinates": 374,
+  "residuals": 343,
+  "degree": 4,
+  "monomials": 25921,
+  "integerContent": 1,
+  "inputFourthPowerCoefficient": "1",
+  "maximumCoefficientDigits": 485,
+  "maximumCoefficientBits": 1611,
+  "scaledCoordinates": 23,
+  "ternaryScaledCoordinates": 22,
+  "dyadicScaledCoordinates": 3,
+  "anchorExponent": 2016,
+  "cExponent": null,
+  "tableSha256": "f060e426a4aa6c9192c369e79b4b6d48980c7f873db79278cf36d4152b9c1f25",
+  "tableBytes": 1037351,
+  "certificateSha256": "1f8ad9264846f569d99db6d0ad89a884ea0f9aed6d2ae6e71686bec83974f607"
+}
