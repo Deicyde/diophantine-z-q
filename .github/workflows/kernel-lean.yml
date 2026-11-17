@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 180
     env:
-      LEAN_NUM_THREADS: '4'
+      LEAN_NUM_THREADS: '2'
     steps:
       - name: Decide whether this PR affects the kernel
         id: scope

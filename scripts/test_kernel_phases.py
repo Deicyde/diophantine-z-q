@@ -175,7 +175,7 @@ class WorkflowTests(unittest.TestCase):
             self.assertIn(condition, steps[pos])
         self.assertNotIn("always()", steps[positions[2]])
         self.assertIn("LEAN_NUM_THREADS: '1'", steps[positions[2]])
-        self.assertIn("LEAN_NUM_THREADS: '4'", WORKFLOW.split("    steps:", 1)[0])
+        self.assertIn("LEAN_NUM_THREADS: '2'", WORKFLOW.split("    steps:", 1)[0])
 
     def test_swap_settings_unchanged_and_status_preserved_before_build(self):
         self.assertIn('sudo fallocate -l 8G "$swap_file"', WORKFLOW)
