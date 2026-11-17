@@ -85,7 +85,7 @@ Modified for the Z-in-Q kernel (2026-11-16, CloudB3SC2Mumford). The Lean files u
 copies of files of anthropics/fermats-last-theorem at commit 6e837e75355538c7f80bab5b956861e86c4eacc2. Each
 carries a header naming its upstream module. Import paths are relocated (modules this repository already vendors
 under CloudB2X0Transitive and CloudW02Connectedness are imported from those copies), the upstream lakefile
-options are set as set_option lines. Fourteen files also omit upstream #print axioms diagnostic checks;
-these diagnostic-only removals are not marked in the individual files. All other code changes are marked
+options are set as set_option lines. Seventeen files also omit upstream #print axioms diagnostic checks;
+each records the removal in its file header. All other code changes are marked
 "-- [port]" in the file. SOURCE_MANIFEST.json lists every file with its upstream path and SHA-256. The upstream NOTICE is reproduced above and in
 NOTICE.upstream; the per-file attributions are in ATTRIBUTION.upstream.md; the licence is in LICENSE.
