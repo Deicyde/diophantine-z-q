@@ -21,3 +21,12 @@ Base: wip/gr-isogdeg at 73ac1620 (= wip/r3-residual), merged origin/main (ff558b
   Pitfalls: `ι` is a reserved token under `open MonObj` (renamed `emb`); `mul_left_cancel` on Over-homs needs the
   type given explicitly (`@mul_left_cancel (ptObj K Ω ⟶ A.X) ...`); the local `Epi` instance was not found by
   `cancel_epi`, use `hepi.left_cancellation`.
+- ZInQKernel/Contrib/OneProof/GaudronRemondIsogDeg.lean: lake build of Main+Discharges+module OK (16049 jobs; build1.txt);
+  rebuilt with `gaudronRemondThm14Printed_of_anDeg_final` (MumfordTorsionAlgClosed filled by its proof; build2.txt).
+- #discharges: `gaudronRemondThm14Printed_of_anDeg_final` discharges OpenResearchLeaves40.gaudronRemondThm14Printed,
+  still assumes [ZInQ.GRIsogDeg.GaudronRemondThm14AnDeg], standard axioms (VERIFIED, discharges.txt).
+- autofold.json dry run: 16/15 -> 16/15 (kinds.tsv already rated the replaced row LEAF); the generated module compiles,
+  sixContactMin_of_open59 standard axioms (VERIFIED). First spec draft used {t}.mumfordTorsionAlgClosed, which is no
+  longer a field of OpenTextbookLeaves17 on main (it is proved, TailZ64): fixed by the _final theorem.
+- finDeg_eq_finrank_of_flat (flat + loc. fin. pres. ⇒ rank constant): compiles (remark, unused).
+- Not proved: equality finDeg = isogDeg in char 0 (needs flatness of isogenies / étale kernel).

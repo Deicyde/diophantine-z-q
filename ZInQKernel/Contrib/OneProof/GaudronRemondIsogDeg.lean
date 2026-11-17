@@ -1,4 +1,5 @@
 import ZInQKernel.Contrib.OneProof.AnalyticStableHeight
+import ZInQKernel.Contrib.OneProof.MumfordTorsionAlgClosed
 import Mathlib.AlgebraicGeometry.Morphisms.FlatRank
 import Mathlib.AlgebraicGeometry.Geometrically.Integral
 import Mathlib.LinearAlgebra.FreeModule.Finite.Matrix
@@ -24,7 +25,8 @@ degree `[K(A) : K(B)]` of `φ` as a finite morphism. The consumer needs `# ker �
 * `finDeg_eq_finrank_of_flat` (end): for flat `φ` the rank is the same at every point (remark; not used).
 * `GaudronRemondThm14AnDeg` (§4): the leaf with `isogDeg` replaced by `finDeg` (GR's degree);
   `gaudronRemondThm14An_of_deg` derives `GaudronRemondThm14An`, and `gaudronRemondThm14Printed_of_anDeg`
-  the bundle field `gaudronRemondThm14Printed` (with T35 through `mumfordTorsionAlgClosed`, as in r3-residual).
+  the bundle field `gaudronRemondThm14Printed` (with T35 through `mumfordTorsionAlgClosed`, as in r3-residual);
+  `gaudronRemondThm14Printed_of_anDeg_final` fills `mumfordTorsionAlgClosed` by its proof.
 
 No `sorry`, no `axiom`, no code that runs at build time. -/
 
@@ -302,6 +304,12 @@ filled by its proof). -/
 theorem gaudronRemondThm14Printed_of_anDeg (h : GaudronRemondThm14AnDeg)
     (hMT : AvSplit.MumfordTorsionAlgClosed) : ZInQ.HeightFix.GaudronRemondThm14Printed :=
   ZInQ.R3Residual.gaudronRemondThm14Printed_of_an (gaudronRemondThm14An_of_deg h) hMT
+
+/-- **The field `gaudronRemondThm14Printed`** from the leaf with the printed degree alone
+(`mumfordTorsionAlgClosed` filled by its proof, `ZInQ.Contrib.CloudB3W16Torsion.mumfordTorsionAlgClosed_proof`). -/
+theorem gaudronRemondThm14Printed_of_anDeg_final (h : GaudronRemondThm14AnDeg) :
+    ZInQ.HeightFix.GaudronRemondThm14Printed :=
+  gaudronRemondThm14Printed_of_anDeg h ZInQ.Contrib.CloudB3W16Torsion.mumfordTorsionAlgClosed_proof
 
 end Leaf
 

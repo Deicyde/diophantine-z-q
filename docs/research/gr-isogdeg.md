@@ -32,11 +32,22 @@ the printed degree. `gaudronRemondThm14An_of_deg` derives r3-residual's leaf fro
 `GaudronRemondThm14An` is now a direct instance of the print.
 
 ```
-DISCHARGES_PLACEHOLDER
+DISCHARGES [OpenResearchLeaves40.gaudronRemondThm14Printed] by ZInQ.GRIsogDeg.gaudronRemondThm14Printed_of_anDeg_final
+  still assumes: [ZInQ.GRIsogDeg.GaudronRemondThm14AnDeg]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves40.gaudronRemondThm14Printed] by ZInQ.GRIsogDeg.gaudronRemondThm14Printed_of_anDeg
+  still assumes: [ZInQ.GRIsogDeg.GaudronRemondThm14AnDeg, AvSplit.MumfordTorsionAlgClosed]
+  axioms: [propext, Classical.choice, Quot.sound]
 ```
 
 **Count: −1 GLUE.** r3-residual's report (§3) left `gaudronRemondThm14An` GLUE on this step alone. With the
 step proved, the row is a direct instance of the print, so r3-residual's full −3 stands.
+
+The fold script (`autofold.py --dry-run`) shows no change: `16/15 → 16/15`. This base's `kinds.tsv` already
+rates the replaced row LEAF, so swapping it for a new LEAF leaves the counts as they were.
+
+The bundle field needs only the new leaf: `mumfordTorsionAlgClosed` is filled by its proof
+`ZInQ.Contrib.CloudB3W16Torsion.mumfordTorsionAlgClosed_proof`, and T35 by `uniformizationLeafAll_proof`.
 
 The inequality holds in every characteristic, because `# ker(K̄)` is the separable degree. So the proof
 needs neither characteristic 0 nor separability nor flatness.
@@ -118,7 +129,27 @@ Notes on the rating:
 
 ## 5. Checks
 
-CHECKS_PLACEHOLDER
+All of the following are VERIFIED.
+
+- **Build.** `lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges +ZInQKernel.Contrib.OneProof.GaudronRemondIsogDeg`
+  succeeded with 16049 jobs (`scratch/gr-isogdeg/build1.txt`). `frozenTarget` has the standard axioms.
+  After `mumfordTorsionAlgClosed_proof` was added, the module was rebuilt (`build2.txt`, 14251 jobs).
+- **Axioms.** `#print axioms` gives `[propext, Classical.choice, Quot.sound]` for:
+  - `isogDeg_le_finDeg`;
+  - `gaudronRemondThm14An_of_deg`;
+  - `gaudronRemondThm14Printed_of_anDeg`.
+- **`#discharges`** (`scratch/gr-isogdeg/discharges.txt`): the two discharges in §1. r3-residual's
+  `gaudronRemondThm14Printed_of_an*` lines are still listed as well.
+- **Autofold.** Spec `scratch/gr-isogdeg/autofold.json`: one new leaf, `gaudronRemondThm14AnDeg`, with kind
+  published and flag "unread …; locator UNVERIFIED".
+  - `--dry-run`: `strict count: 16/15 on 31 -> 16/15 on 31; strictest 16/15 -> 16/15`.
+  - The generated module (`FoldDryRun.lean`, first line stripped) compiles, and
+    `HDec.HSyn.sixContactMin_of_open59` has the standard axioms (`FoldDryRun-compile.txt`).
+- **The other spec.** `autofold-after-r3.json` (field `gaudronRemondThm14An`) applies only after
+  r3-residual's fold, so it was not dry-run.
+- **Remark lemma.** `finDeg_eq_finrank_of_flat`: if `φ` is flat and locally of finite presentation, then
+  `finDeg φ = φ.left.finrank y` at every point `y` of `B`. It follows from Mathlib's
+  `isLocallyConstant_finrank` and the connectedness of `B`. It is not used.
 
 ## 6. What remains
 
