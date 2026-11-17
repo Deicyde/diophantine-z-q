@@ -49,6 +49,9 @@ DISCHARGES [OpenTextbookLeaves13.neronSchemeExtensionExists] by NeronExt.extensi
 DISCHARGES [OpenTextbookLeaves13.neronSchemeExtensionExists] by NeronFLT.extension_of_descentSH
   still assumes: [ZInQ.Contrib.SpreadOut.EGAIV_8_10_5_xii, NeronFLT.NeronDescentSH]
   axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenTextbookLeaves13.neronSchemeExtensionExists] by NeronFLT.neronSchemeExtensionExists_of_descentSH
+  still assumes: [NeronFLT.NeronDescentSH]
+  axioms: [propext, Classical.choice, Quot.sound]
 DISCHARGES [OpenAddedLeaves19.picZeroAbVar] by PicDict.picZeroAbVar_of_leaves
   still assumes: [PicDict.PicLocFinType, PicDict.IdentityComponentLFT, PicDict.PicZeroSmooth, PicDict.PicZeroProper]
   axioms: [propext, Classical.choice, Quot.sound]
@@ -99,8 +102,9 @@ DISCHARGES [OpenResearchLeaves28.sga7_IX_3_5_ForwardGeom] by UnipotentForward.fo
 DISCHARGES [hBFH] by ZInQ.BFHPrinted.bfhClauseIIGamma0_of_bfhClauseIIKronecker
   still assumes: [ZInQ.BFHPrinted.BFHClauseIIKronecker]
   axioms: [propext, Classical.choice, Quot.sound]
-#discharges: 45 open hypotheses, 13604 theorems checked, 15 discharge one
+#discharges: 45 open hypotheses, 13605 theorems checked, 16 discharge one
 'NeronFLT.extension_of_descentSH' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NeronFLT.neronSchemeExtensionExists_of_descentSH' depends on axioms: [propext, Classical.choice, Quot.sound]
 'NeronFLT.neronDVRLocal_of_descentSH' depends on axioms: [propext, Classical.choice, Quot.sound]
 'NeronFLT.exists_neron_of_henselian' depends on axioms: [propext, Classical.choice, Quot.sound]
 'NeronFLT.exists_neron_of_descentSH' depends on axioms: [propext, Classical.choice, Quot.sound]

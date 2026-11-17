@@ -58,3 +58,21 @@
   VERIFIED.
 - tools/rename_clash.py: token rename `t` → `t_nflt` of 18 last components in 44 vendored files, plus the qualified
   `IsRegularLocalRing.isDomain` → `..._nflt` (5 files); each file's header records it.
+- build7: all vendored modules rebuilt after the renames; `NeronFLT/Henselian.lean` compiles after one fix
+  (`@asIso _ _ _ _ e.1 he`). VERIFIED.
+
+## 2026-11-16 17:20 contributor file
+- `ZInQKernel/Contrib/OneProof/NeronDVRLocalSH.lean` (namespace NeronFLT): new leaf `NeronDescentSH`;
+  `exists_neron_of_descentSH`, `neronDVRLocal_of_descentSH : NeronDescentSH → NeronExt.NeronDVRLocal`,
+  `extension_of_descentSH`, `neronSchemeExtensionExists_of_descentSH : NeronDescentSH → NeronSchemeExtensionExists`
+  (EGA IV 8.10.5 (xii) from the tree's `ZInQ.Contrib.EGAProperLimit.egaIV_8_10_5_xii_proof`). Builds. VERIFIED.
+- `#discharges` (scratch/neron-flt/Discharges.lean → discharges.txt): 
+  `DISCHARGES [OpenTextbookLeaves13.neronSchemeExtensionExists] by NeronFLT.neronSchemeExtensionExists_of_descentSH
+  still assumes: [NeronFLT.NeronDescentSH] axioms: [propext, Classical.choice, Quot.sound]`;
+  `#discharges: 45 open hypotheses, 13605 theorems checked, 16 discharge one`. `#print axioms` standard for
+  extension_of_descentSH, neronSchemeExtensionExists_of_descentSH, neronDVRLocal_of_descentSH,
+  exists_neron_of_henselian, exists_neron_of_descentSH. VERIFIED.
+- autofold.json: discharges `neronSchemeExtensionExists`, adds leaf `neronDescentSH` (published, flag locator
+  UNVERIFIED). `autofold.py --dry-run`: `strict count: 16/21 on 37 -> 16/21 on 37; strictest 16/21 -> 16/21`
+  (count-neutral). Its module with line 1 stripped (AutofoldDry.lean) compiles; `sixContactMin_of_open39` axioms
+  standard. VERIFIED.

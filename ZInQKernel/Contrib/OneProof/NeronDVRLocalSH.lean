@@ -1,5 +1,6 @@
 import ZInQKernel.Contrib.OneProof.NeronFLT.Henselian
 import ZInQKernel.Contrib.OneProof.StrictHenselizationPair
+import ZInQKernel.Contrib.OneProof.EGAIV_8_10_5_xii
 
 /-! # neron-flt: `NeronExt.NeronDVRLocal` from Néron existence over henselian DVRs and descent from `R^sh`
 
@@ -109,6 +110,12 @@ leaf (neron-ext's `NeronExt.extension_of_dvrLocal` with `neronDVRLocal_of_descen
 theorem extension_of_descentSH (hpr : ZInQ.Contrib.SpreadOut.EGAIV_8_10_5_xii) (h : NeronDescentSH) :
     ZInQ.Contrib.NeronC.NeronSchemeExtensionExists :=
   NeronExt.extension_of_dvrLocal hpr (neronDVRLocal_of_descentSH h)
+
+/-- **The textbook field `neronSchemeExtensionExists` from the descent leaf alone**: EGA IV 8.10.5 (xii) is proved
+in the tree (ega-limit, `ZInQ.Contrib.EGAProperLimit.egaIV_8_10_5_xii_proof`). -/
+theorem neronSchemeExtensionExists_of_descentSH (h : NeronDescentSH) :
+    ZInQ.Contrib.NeronC.NeronSchemeExtensionExists :=
+  extension_of_descentSH ZInQ.Contrib.EGAProperLimit.egaIV_8_10_5_xii_proof h
 
 end NeronFLT
 
