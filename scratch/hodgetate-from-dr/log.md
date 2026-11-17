@@ -2,7 +2,7 @@
 
 ## 2026-11-16 15:00 setup
 - Merged origin/main: already up to date; origin/wip/integrate-w82 already in HEAD (5e235a40a).
-- lean/.lake/build was missing (unknown module prefix 'ZInQ'); copied from ~/dzq/lean/.lake/build (lean/ZInQ identical, diff -rq empty).
+- lean/.lake/build was missing (unknown module prefix 'ZInQ'); copied from the main checkout's lean/.lake/build (lean/ZInQ identical, diff -rq empty).
 
 ## Consumers of the field (VERIFIED by grep)
 - `HodgeTateDecompAbVar` (ZInQKernel/OneProof/H/TailS.lean:347) is read in exactly one place:

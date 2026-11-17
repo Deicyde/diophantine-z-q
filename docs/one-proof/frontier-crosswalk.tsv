@@ -112,7 +112,7 @@ H-118		CurveSplit.RegularSmoothPerfect	5fd81e870,085a7a53a,f18bcb904,3691994d4,f
 H-119		CurveSplit.ShimuraGoodReductionNoGuard	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d	no
 H-120		ZInQ.Contrib.HodgeSplit.TateTwistInvariants	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
 H-121		ZInQ.Contrib.HodgeSplit.AxSenTate	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
-H-122	hodgeTateDecompAbVar	ZInQ.Contrib.HodgeSplit.HodgeTateDecompAbVar	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
+H-122		ZInQ.Contrib.HodgeSplit.HodgeTateDecompAbVar	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
 H-123	deRhamH1AbVarT	ZInQ.Contrib.HodgeSplit.DeRhamH1AbVarT	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes
 H-124		ZInQ.Contrib.HodgeSplit.BdRInvariants	5fd81e870,085a7a53a,f18bcb904,3691994d4	no
 H-125		ZInQ.Contrib.HodgeSplit.DSThm965	5fd81e870,085a7a53a,f18bcb904,3691994d4,f96b7323d,8342c2eb7	yes

@@ -1,0 +1,28 @@
+frozenTarget: closure 271666
+  contains ZInQ.Contrib.HodgeSplit.HodgeTateDecompAbVar: true
+  contains ZInQ.Contrib.HodgeTateFromPairing.HodgeTateDecompExists: true
+  contains ZInQ.Contrib.HodgeTateFromPairing.hodgeTateDecompAbVar_of_open: true
+  contains ZInQ.Contrib.HodgeTateFromPairing.hodgeTateDecompAbVar_of_printed: false
+  contains HDec.HSyn.OpenResearchLeaves31: true
+  contains HDec.HSyn.OpenResearchLeaves32: true
+  contains PicDict.MumfordPhiSurjectiveAC: false
+  contains PicFix.phiAmpleIsogeny_of_printed: false
+  contains T09Pic.PicZeroAbVar: false
+  contains PicDict.PicZeroSmooth: false
+  contains T09Pic.PhiAmpleIsogeny: false
+  contains HDec.WeilPairing.T09_SymmIsogenyExists: false
+  contains PicFix.MumfordKLFiniteSectionAC: false
+  contains CToPrinted.SGA3_VIB_3_10: false
+  contains SGA3IdComp.SGA3_VIB_3_10_Nbhd: false
+  contains DictModels.MumfordConn.MumfordGroupLawConn: false
+  contains ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw: false
+  contains ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed: false
+  contains PkgI3.HomFreeFinite: false
+  contains sorryAx: false
+  contains PicZeroChar0.T09_SymmIsogenyExists0: true
+  contains PicZeroChar0.PicZeroAbVar0: true
+  contains T09Pic.WeilPairingMumford: false
+  bundle HDec.HSyn.OpenResearchLeaves32: 24 fields
+    field hodgeTateDecompExists has a checked type: [ZInQ.Contrib.HodgeTateFromPairing.HodgeTateDecompExists]
+  bundle HDec.HSyn.OpenTextbookLeaves16: 3 fields
+  bundle HDec.HSyn.OpenAddedLeaves25: 2 fields
