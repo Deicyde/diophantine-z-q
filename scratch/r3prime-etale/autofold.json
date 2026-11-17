@@ -1,0 +1,8 @@
+{"name": "r3prime-etale",
+ "imports": ["ZInQKernel.Contrib.OneProof.HolChartSerre"],
+ "discharges": [],
+ "note": "No bundle field is discharged: R3' was a reading step inside the height predicate (IsAnMetricSq) of the leaves bostLowerBoundAn(SS), gaudronRemondThm14An(SS), javanpeykarThm111(An), not a field. Proved in Lean: ZInQ.R3Etale.isHolChart_iff_isSerreChart' (T35 only) and isSerreMetricSq_iff. No fold to run; proposed kinds.tsv flag updates (drop the R3' caveat) are in docs/research/r3prime-etale.md section 5. Count-neutral alone.",
+ "flag_updates": {
+   "bostLowerBoundAn": "R3' closed by r3prime-etale (ZInQ.R3Etale.isHolChart_iff_isSerreChart', isSerreMetricSq_iff: the IsHolChart atlas is the atlas of Serre's (A_tau(C), O^an), from T35); remaining: display UNVERIFIED; Deligne normalization h_D = h_F + (g/2) log pi; locator UNVERIFIED; Bost row being re-routed",
+   "gaudronRemondThm14An": "R3' closed by r3prime-etale (same theorems); remaining: statement check of GR Thm 1.4 and kappa against the print (locator read by the audit)",
+   "javanpeykarThm111": "R3' closed by r3prime-etale (same theorems; IsStableHeightBarAn is built on IsAnMetricSq); remaining: lead's ruling on the Thm 1.1.1 + section 2.3 composite; definition-level readings (stable height independent of field and model; IsBelyiMap via ramification indices)"}}

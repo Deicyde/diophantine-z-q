@@ -2,11 +2,11 @@
 article_id: af_4e6a477acc111a69a661451e
 declaration: def
 origin: bridged
-statement: formalized
-lean: ZInQ.RouteK.Rank.CertifiedRankTYZInf
 ---
 
 # The Tian–Yuan–Zhang hypothesis in infinitely-many-points form
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 The hypothesis CR₃^TYZ,Inf is the following assertion. Let $d$ be a squarefree positive integer with
 $d\equiv5\pmod8$ whose genus sum of row 5b, built from Rédei's bits, is odd: $T_{5b}(d)=1$. Then

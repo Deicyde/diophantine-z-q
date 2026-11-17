@@ -1,0 +1,9 @@
+{"name": "r3prime-bc",
+ "imports": ["ZInQKernel.Contrib.OneProof.HolChartBC", "ZInQKernel.Contrib.OneProof.HolChartSerre"],
+ "discharges": [],
+ "new_leaves": [],
+ "note": "No bundle field is discharged (as for r3prime-etale, which this folds with): R3' was a reading step inside IsAnMetricSq, not a field. This task closes r3prime-etale's remaining reading note (a) (the lead's condition (ii)): ZInQ.R3BC.ptsHomeomorph ((G.Pts tau, anTop) homeomorphic to CPt of the base change G x_{O_L,tau} Spec C with Bridge's classicalTopology, compatible with evaluation: xevalAt_toBC), ZInQ.R3BC.bcHolAt_iff (Serre's sheaf of the base change from its own regular functions = AnHolAt), ZInQ.R3BC.isHolChart_iff_isBCSerreChart (T35 only). Not a spec for autofold.py; no dry run applicable. Count-neutral.",
+ "flag_updates": {
+   "bostLowerBoundAn": "R3' closed by r3prime-etale + r3prime-bc (ZInQ.R3Etale.isHolChart_iff_isSerreChart', ZInQ.R3BC.isHolChart_iff_isBCSerreChart, isSerreMetricSq_iff: the IsHolChart atlas is the atlas of Serre's complex space of A_tau = G x_{O_L,tau} C, from T35; no reading note); remaining: display UNVERIFIED; Deligne normalization h_D = h_F + (g/2) log pi; locator UNVERIFIED; Bost row being re-routed",
+   "gaudronRemondThm14An": "R3' closed by r3prime-etale + r3prime-bc (same theorems; no reading note); remaining: statement check of GR Thm 1.4 and kappa against the print",
+   "javanpeykarThm111": "R3' closed by r3prime-etale + r3prime-bc (same theorems; IsStableHeightBarAn is built on IsAnMetricSq; no reading note); remaining: lead's ruling on the Thm 1.1.1 + section 2.3 composite; definition-level readings"}}

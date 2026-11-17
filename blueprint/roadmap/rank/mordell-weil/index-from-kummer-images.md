@@ -2,12 +2,11 @@
 article_id: af_69d2055cbab7f3a1198c470d
 declaration: theorem
 origin: background
-statement: formalized
-proof: formalized
-lean: ZInQ.RouteK.Rank.mwFiniteIndex_two_of_kummer, ZInQ.RouteK.Rank.mwKer_kummer_finiteIndex, ZInQ.RouteK.Rank.mwPhiHat, ZInQ.RouteK.Rank.mwPhiHat_phi, ZInQ.RouteK.Rank.mwKer_kummer_eq_range, ZInQ.RouteK.Rank.mwKer_kummer'_le_comap
 ---
 
 # The index of $2E_b(K)$ from the two Kummer images
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 Let $K$ be a field of characteristic different from $2$ and $b\in K^\times$, and let
 $$\hat\varphi=\lambda_b\circ\varphi_{-4b}:E_{-4b}(K)\to E_{16b}(K)\to E_b(K)$$

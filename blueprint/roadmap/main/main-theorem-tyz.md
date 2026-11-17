@@ -2,12 +2,11 @@
 article_id: af_f74996c1558c73365e2fa419
 declaration: theorem
 origin: bridged
-statement: formalized
-proof: formalized
-lean: ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZ, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZCl
 ---
 
 # The main theorem from the Tian–Yuan–Zhang forms of the rank hypothesis
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 Assume the minimal height hypothesis and the Tian–Yuan–Zhang form CR₃^TYZ of the certified rank
 hypothesis. Then the target statement holds. The theorem also holds under the minimal height hypothesis and

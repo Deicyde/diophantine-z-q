@@ -4,10 +4,12 @@ declaration: theorem
 origin: bridged
 statement: formalized
 proof: formalized
-lean: ZInQ.RouteK.Slots.selmerCertified_d₁, ZInQ.RouteK.Slots.selmerCertified_d₂, ZInQ.RouteK.Inputs, ZInQ.RouteK.Slots.d₁, ZInQ.RouteK.Slots.d₂, ZInQ.RouteK.Slots.d₁_eq', ZInQ.RouteK.Slots.d₂_eq, ZInQ.RouteK.Slots.squarefree_d₁, ZInQ.RouteK.Slots.squarefree_d₂, ZInQ.RouteK.Slots.d₁_mod, ZInQ.RouteK.Slots.β_dvd_d₁, ZInQ.RouteK.selmerCertified_of_primeCfg
+lean: ZInQ.RouteK.selmerCertified_of_primeCfg
 ---
 
 # The realization: both curves reduce to the base configuration
+
+> **Partly removed from the Lean development.** Some Lean declarations of this page were removed with Route K (fork issue #77; they are at the tag `route-k-final`): `ZInQ.RouteK.Slots.selmerCertified_d₁`, `ZInQ.RouteK.Slots.selmerCertified_d₂`, `ZInQ.RouteK.Inputs`, `ZInQ.RouteK.Slots.d₁`, `ZInQ.RouteK.Slots.d₂`, `ZInQ.RouteK.Slots.d₁_eq'`, `ZInQ.RouteK.Slots.d₂_eq`, `ZInQ.RouteK.Slots.squarefree_d₁`, `ZInQ.RouteK.Slots.squarefree_d₂`, `ZInQ.RouteK.Slots.d₁_mod`, `ZInQ.RouteK.Slots.β_dvd_d₁`. The page is kept until the blueprint rewrite (#81).
 
 Let $\beta,\theta$ be integers such that $\beta$ is odd and squarefree with
 $|\beta|\equiv7\pmod8$; $\theta>0$ is squarefree with $\theta\equiv1\pmod8$; $\beta$ and

@@ -2,12 +2,11 @@
 article_id: af_57f9026e2107fde5a87ce794
 declaration: theorem
 origin: background
-statement: formalized
-proof: formalized
-lean: ZInQ.Contrib.PSide.card_solutions_eq, ZInQ.Contrib.PSide.charSum_odd_eq_zero, ZInQ.Contrib.PSide.LFunction_cd_apply_prime_eq_neg_charSum
 ---
 
 # Point counts by the quadratic character
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 Let $F$ be a finite field with $q$ elements and $\chi$ its quadratic character: $\chi(0)=0$,
 $\chi(c)=1$ for a nonzero square $c$ and $\chi(c)=-1$ for a non-square $c$.

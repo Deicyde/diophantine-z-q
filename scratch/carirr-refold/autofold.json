@@ -1,0 +1,22 @@
+{
+ "name": "carirr-refold",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.CarayolRefold"
+ ],
+ "discharges": [
+  {
+   "field": "carayolThmAIrr",
+   "proof": "_root_.CarayolRefold.carayolThmAIrr_of_frob {n}.carayolThmAFrob",
+   "leaves": [
+    {
+     "name": "carayolThmAFrob",
+     "type": "_root_.CarayolRefold.CarayolThmAFrob",
+     "doc": "carirr-refold, consequence of Darmon-Diamond-Taylor 1997 Thm 3.1 (proved: CarayolRefold.frob_of_DDT31 from carirr-odd's transcription CarayolDDT.CarayolDDT31), with the Frobenius clause in the normalization the manuscript reads off Carayol 1986 Theoreme (A) (diophantine_zq.tex L9784-9796): for a printed newform f (Tau Ceti Newform N 2, psi = f.chi) with number field K_f and a place lambda | l, a continuous rho : G_Q -> GL_2(K_{f,lambda}) that is irreducible (Ribet 1977), unramified at p not dividing N l with arithmetic Frobenius of trace a_p and determinant p psi(p) (polynomial X^2 - a_p X + p psi(p)), and with codim V^{I_p} + integral_0^infty codim V^{G_p^u} du = v_p(N) at every p != l (Carayol Thm A + conductor of local Langlands + Casselman 1973 Thm 1; packaged in DDT 3.1). Oddness is proved from the Frobenius determinant (CarayolRefold.odd_of_frobDet, one Chebotarev element). Carayol's own form (sigma_lambda(pi)|G_{Q_p} <-> pi_p under local Langlands) has no Lean form (no pi_{f,p}, Weil-Deligne representations or local Langlands in Lean). Replaces carayolThmAIrr.",
+     "kind": "published",
+     "flag": "unread: new printed leaf (packaged form; consequence of DDT 1997 Thm 3.1 (a)-(d) via CarayolRefold.frob_of_DDT31, of which every clause was found printed by reviewer verdict queue10 carIrr and AI audit #65); statement check: (i) irreducible over K_{f,lambda} (Ribet LNM 601 Thm 2.3 or DDT 3.1(c) 'absolutely irreducible'); (ii) arithmetic Frobenius polynomial X^2 - a_p X + p psi(p) (manuscript L9794 from Carayol's normalization; DDT 3.1 trace a_p and det = psi chi_l); (iii) the conductor clause is a consequence of Carayol 1986 Theoreme (A) with the conductor compatibility of local Langlands and Casselman 1973 Thm 1, printed as one statement only in DDT 3.1 ('N(rho) is the prime-to-l part of N', AI reading); Carayol's form of Theorem A is not expressible in Lean (report section 2); locators UNVERIFIED",
+     "source": "Darmon-Diamond-Taylor, Fermat's Last Theorem, Current Developments in Mathematics 1995 (1997), Thm 3.1 (a)-(d) and section 2 (conductor); Carayol, Ann. Sci. ENS (4) 19 (1986) 409-468, sections 0.3-0.7 and Theoreme (A), pp. 409-411 (the manuscript's locator, L9778; normalization L9784-9796); Casselman, Math. Ann. 201 (1973) Thm 1, pp. 302-306 (manuscript L9802-9806); Ribet, LNM 601 (1977) Thm 2.3; Shimura 1971 Thm 7.14; locators UNVERIFIED"
+    }
+   ]
+  }
+ ]
+}

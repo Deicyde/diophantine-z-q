@@ -2,12 +2,11 @@
 article_id: af_d20e50050fb896e0a12905fd
 declaration: theorem
 origin: bridged
-statement: formalized
-proof: formalized
-lean: ZInQ.RouteK.Rank.certifiedRankDLAdmRk_of_certifiedRankDLRk
 ---
 
 # CR₃^DL,Adm,Rk from CR₃^DL,Rk
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 The hypothesis CR₃^DL,Rk implies CR₃^DL,Adm,Rk.
 

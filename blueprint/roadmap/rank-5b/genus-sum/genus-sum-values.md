@@ -2,12 +2,11 @@
 article_id: af_97ea9ad0fa6dfaedf979fb9c
 declaration: theorem
 origin: bridged
-statement: formalized
-proof: formalized
-lean: ZInQ.RouteK.Rank5b.T5b_21, ZInQ.RouteK.Rank5b.T5b_5, ZInQ.RouteK.Rank5b.T5b_5_direct
 ---
 
 # Two values of the genus sum
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 $T_{5b}(21)=1$ and $T_{5b}(5)=0$.
 

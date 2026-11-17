@@ -2,12 +2,11 @@
 article_id: af_36f98bb18398d8fc2566c44d
 declaration: theorem
 origin: background
-statement: formalized
-proof: formalized
-lean: ZInQ.Contrib.PSide.convolution_one_one, ZInQ.Contrib.PSide.LSeriesSummable_cdCoeff, ZInQ.Contrib.PSide.LSeriesSummable_cd, ZInQ.Contrib.PSide.abscissaOfAbsConv_cd_le, ZInQ.Contrib.PSide.differentiableOn_LSeries_cd
 ---
 
 # $L(C_d,s)$ converges absolutely on $\operatorname{Re}s>3/2$
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 Let $c_d(n)$ be the numbers of [the standard Euler product](l-series.md), $a_n(C_d)$ the
 coefficients of $L(C_d,s)$ as in [the coefficients at prime powers](prime-power-coefficients.md),

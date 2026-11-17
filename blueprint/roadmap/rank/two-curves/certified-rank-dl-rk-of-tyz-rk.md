@@ -2,12 +2,11 @@
 article_id: af_b4eebcf586b36379613785c3
 declaration: theorem
 origin: bridged
-statement: formalized
-proof: formalized
-lean: ZInQ.RouteK.Rank.certifiedRankDLRk_of_certifiedRankTYZRk, ZInQ.RouteK.Rank.exists_infinite_order_of_certifiedRankTYZRk_of_selmerCertified
 ---
 
 # CR₃^DL,Rk from CR₃^TYZ,Rk
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 The hypothesis CR₃^TYZ,Rk implies CR₃^DL,Rk.
 

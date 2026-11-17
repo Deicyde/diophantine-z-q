@@ -1,0 +1,17 @@
+'CarayolHerbrand.adaptedExists_of_norm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CarayolHerbrand.condExp_eq_ddt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CarayolHerbrand.condExp_decomp_eq_ddt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CarayolHerbrand.carayolThmAIrr_iff_DDT' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CarayolHerbrand.carayolR17'_of_DDT' depends on axioms: [propext, Classical.choice, Quot.sound]
+@HDec.Swan.swanAt_eq_integral_upperAbs : ∀ {p : ℕ} [inst : Fact (Nat.Prime p)],
+  HDec.Swan.SwanAtIntegral →
+    HDec.Swan.UpperAbsWild →
+      HDec.Swan.UpperAbsSurj →
+        ∀ {k : Type} [inst_1 : Field k] {n : ℕ} {ρ : PkgI4.GQp p →* GL (Fin n) k} {L : LadicCond.Fld p},
+          LadicCond.IsAdapted L ρ →
+            ↑(LadicCond.swanAt L ρ) = ∫ (u : ℝ) in Set.Ioi 0, ↑(LadicCond.codimInv ρ (LadicCond.upperAbs p u))
+@CarayolHerbrand.condExp_eq_ddt : ∀ {p : ℕ} [inst : Fact (Nat.Prime p)] {K : Type} [inst_1 : NormedField K]
+  [IsUltrametricDist K] {ℓ : ℕ} [Fact (Nat.Prime ℓ)],
+  ‖↑ℓ‖ < 1 →
+    ℓ ≠ p →
+      ∀ {n : ℕ} (ρ : PkgI4.GQp p →* GL (Fin n) K), Continuous ⇑ρ → ↑(LadicCond.condExp ρ) = CarayolHerbrand.ddtCondExp ρ

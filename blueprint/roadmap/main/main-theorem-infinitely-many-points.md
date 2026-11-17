@@ -2,12 +2,11 @@
 article_id: af_755b80700166574c1184f60d
 declaration: theorem
 origin: bridged
-statement: formalized
-proof: formalized
-lean: ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankInf, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZInf, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZClInf, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankDLInf
 ---
 
 # The main theorem from the infinitely-many-points forms of the rank hypothesis
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 Assume the minimal height hypothesis and the hypothesis CR₃^Inf. Then the target statement holds,
 as in [the main theorem from three hypotheses](main-theorem-three-hypotheses.md). The theorem

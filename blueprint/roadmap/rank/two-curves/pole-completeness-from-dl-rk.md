@@ -2,12 +2,11 @@
 article_id: af_694426e2d167b37e12c64795
 declaration: theorem
 origin: bridged
-statement: formalized
-proof: formalized
-lean: ZInQ.RouteK.Rank.poleCompleteness_of_certifiedRankDLRk, ZInQ.RouteK.Rank.poleSoluble_of_slots_infinite_order
 ---
 
 # Pole completeness from CR₃^DL,Rk
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 Assume CR₃^DL,Rk. Then pole completeness holds: every admissible $B$ satisfies $\Phi(B)$.
 

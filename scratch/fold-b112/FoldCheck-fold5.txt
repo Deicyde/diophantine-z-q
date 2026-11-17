@@ -1,0 +1,16 @@
+'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.OneProof.frozenTarget : HDec.HSyn.OpenResearchLeaves57 →
+  HDec.HSyn.OpenTextbookLeaves18 → HDec.HSyn.OpenAddedLeaves27 → ZInQ.PoleCompleteness → ZInQ.FrozenTarget
+ZInQ.OneProof.frozenTarget: closure 293169
+  contains sorryAx: false
+  contains CarayolRefold.CarayolThmAFrob: true
+  contains CarayolRefold.carayolThmAIrr_of_frob: true
+  contains CarayolRefold.odd_of_frobDet: true
+  contains CarayolPrinted.CarayolThmAIrr: true
+  contains HDec.HSyn.OpenResearchLeaves57: true
+  contains HDec.HSyn.sixContactMin_of_open76: true
+  contains ZInQ.SemistabAssembly.BostLowerBoundAnSS: false
+  contains ZInQ.BostGR9.GaudronRemondSec9LowerAnSS: true
+  contains SZRaynaud.SilverbergZarhinThm35: true
+  contains Y3RouteA.Y3FullThreeRepZ30: true
+field check: HDec.HSyn.OpenResearchLeaves56 27 fields, HDec.HSyn.OpenResearchLeaves57 27 fields; only in old: [carayolThmAIrr]; only in new: [carayolThmAFrob]

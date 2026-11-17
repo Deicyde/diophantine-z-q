@@ -1,0 +1,19 @@
+scratch/bost-gr9/GR9Bypass.lean:3298:98: warning: Variable name `l` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _l
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/bost-gr9/GR9Bypass.lean:3555:68: warning: Variable name `t` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _t
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+'HDec.HSyn.sixContactMin_of_open67_gr9' depends on axioms: [propext, Classical.choice, Quot.sound]
+original fields: 29, copy fields: 29
+only in original: [bostLowerBoundAn]; only in copy: [gaudronRemondSec9LowerAn]
+
+real	0m7.332s
+user	0m7.035s
+sys	0m17.484s

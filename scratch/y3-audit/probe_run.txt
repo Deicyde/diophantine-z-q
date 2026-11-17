@@ -1,0 +1,16 @@
+closure size 273124
+frozen value? some (true)
+open58 in cl false
+marker LeafQM.AV.R1UnivRigid.R1fpPropsAb in closure: true
+marker LeafQM.AV.R1fpProps in closure: true
+marker LeafQM.AV.PtEquiv in closure: true
+marker LeafQM.AV.R1UnivRigid.R1famAbProps in closure: true
+marker LeafQM.AV.R1famProps in closure: true
+marker LeafQM.AV.R1UnivRigid.R1univAbProps in closure: true
+marker LeafQM.AV.R1univProps in closure: true
+marker LeafQM.AV.R1UnivRigid.QMAbScheme in closure: true
+marker LeafQM.AV.QMFamily in closure: true
+marker LeafQM.AV.IsFibreOf in closure: true
+marker RayClassCFT.ShimuraMainThmIDeligneY3AbU in closure: true
+marker SGRSplit.ShimuraIntegralModelRep in closure: false
+381 hits

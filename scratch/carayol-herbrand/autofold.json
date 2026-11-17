@@ -1,0 +1,22 @@
+{
+ "name": "carayol-herbrand",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.CarayolHerbrand"
+ ],
+ "discharges": [
+  {
+   "field": "r17",
+   "proof": "_root_.CarayolHerbrand.carayolR17'_of_DDT {n}.carayolThmAIrrDDT {n}.eigenformCoeffFieldFinite",
+   "leaves": [
+    {
+     "name": "carayolThmAIrrDDT",
+     "type": "_root_.CarayolHerbrand.CarayolThmAIrrDDT",
+     "doc": "Darmon-Diamond-Taylor 1997 Thm 3.1 (a)-(d) at F = Q, weight 2, with DDT's conductor exponent (section 2): for a printed newform f (Tau Ceti Newform N 2) with number field K_f and a place lambda | l of K_f, there is a continuous rho : G_Q -> GL_2(K_{f,lambda}) (Mathlib adicCompletion), irreducible (no stable subspace other than 0 and K_{f,lambda}^2), odd (some involution c in G_Q has det rho(c) = -1), unramified at p not dividing N l with arithmetic-Frobenius trace a_p(f), and at every prime p != l: codim V^{I_p} + integral_0^infty codim V^{I_p^u} du = v_p(N) (upper-numbering ramification groups LadicCond.upperAbs of rho|G_{Q_p}). Its equivalence with CarayolPrinted.CarayolThmAIrr (Serre-Tate lower-numbering condExp) is proved in Lean (Herbrand's theorem, carayol-herbrand), and the passage to r17 as in r17-rebase. Replaces r17.",
+     "kind": "published",
+     "flag": "unread: new printed leaf (DDT 1997 Thm 3.1 (a)-(d), pp. 85-86, conductor as defined in DDT section 2, p. 54; pages from the r17 reading, not re-read by carayol-herbrand); the conductor clause transcribes DDT's integral, so the Herbrand step is no longer a reading risk; statement check: compare each clause with the print (irreducible over K_{f,lambda}; det = psi chi_l giving oddness; trace normalization of Frob_p; (d) conductor = prime-to-l part of N); locators UNVERIFIED",
+     "source": "Darmon-Diamond-Taylor, Fermat's Last Theorem, Current Developments in Mathematics 1995 (International Press, 1997), section 2 p. 54 (conductor) and Thm 3.1 (a)-(d) pp. 85-86; packaging Carayol 1986 Theoreme (A) with Casselman 1973, Ribet 1977 Thm 2.3, Shimura 1971 Thm 7.14, Deligne 1971; Herbrand: Serre, Corps locaux IV section 3 Prop. 14 (proved in Lean); locators UNVERIFIED"
+    }
+   ]
+  }
+ ]
+}

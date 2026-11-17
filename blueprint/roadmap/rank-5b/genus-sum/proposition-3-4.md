@@ -2,12 +2,11 @@
 article_id: af_a8ed25ba8f798d8030f44345
 declaration: theorem
 origin: bridged
-statement: formalized
-proof: formalized
-lean: ZInQ.RouteK.Rank5b.Sec3.det_M5bG_eq_class73, ZInQ.RouteK.Rank5b.Sec3.markE', ZInQ.RouteK.Rank5b.Sec3.prod_markW'_eq, ZInQ.RouteK.Rank5b.Sec3.sum_marked'_eq
 ---
 
 # $\det M_{5b}$ as a sum over partitions into class-7 and class-3 blocks (Proposition 3.4)
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 Let $a,y,z$ be bits on a finite set $V$ that satisfy reciprocity and $y(V)=0$. Then
 $$\det M_{5b}=\sum_\pi\prod_{B\in\pi}g(B),$$

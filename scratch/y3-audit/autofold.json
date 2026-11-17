@@ -1,0 +1,30 @@
+{
+ "name": "y3-audit",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.Y3RepresentableQ"
+ ],
+ "discharges": [
+  {
+   "field": "shimuraMainThmIDeligneY3AbU",
+   "proof": "_root_.Y3Audit.shimuraMainThmIDeligneY3AbU_of_rep' {n}.y3RepresentableQ {n}.deligneCanonicalModelY3EveryH",
+   "leaves": [
+    {
+     "name": "y3RepresentableQ",
+     "type": "_root_.Y3Audit.Y3RepresentableQ",
+     "doc": "y3-audit, representability over Q (one object: the fine moduli scheme Y3 with its universal family): there are a proper smooth curve Y/Q and a universal QMAbSchemeP over Y (abelian surface scheme, O -> End_S(A) for the maximal order O of B = (2,-3|Q), O-linear full level-3 structure in Mumford's form) such that every QMAbSchemeP over a locally noetherian Q-scheme S is its pullback (with iota and eta) along exactly one Q-morphism S -> Y. No polarization. True by a STANDARD argument (rigidity at level 3, Serre's lemma; free quotient of Buzzard's V1(5) scheme, diophantine_zq.tex L441-478) but no verified print states it at level K3: Buzzard 1997 excludes level at 3 | disc 6. Candidate print: Kottwitz, JAMS 5 (1992) section 5 at an auxiliary p not dividing 6 (K3 neat prime-to-p level; generic fibre), with the PEL comparison (Lemma P, isogeny classes, level classes). Implies Y3Fix.Y3FineModuliAbP (Y3Audit.y3FineModuliAbP_of_rep').",
+     "kind": "published",
+     "flag": "pending reading: no verified print at level K3 (Buzzard 1997 excludes level at primes dividing the discriminant 6; Kottwitz 1992 section 5 at an auxiliary good prime unread, polarized PEL problem up to prime-to-p isogeny, comparison glue C1-C4 of docs/research/y3-audit.md 4.3); locator UNVERIFIED",
+     "source": "Kottwitz, Points on some Shimura varieties over finite fields, J. AMS 5 (1992) section 5 (generic fibre at p = 5, K^p = K3 neat); or Buzzard, Duke Math. J. 87 (1997) Thm 2.1 / Cor. 2.3 at V1(5) plus rigidity, Isom scheme, free quotient by (O/5O)^x and etale descent (diophantine_zq.tex L441-478); locators UNVERIFIED"
+    },
+    {
+     "name": "deligneCanonicalModelY3EveryH",
+     "type": "_root_.Y3Fix.DeligneCanonicalModelY3EveryH",
+     "doc": "y3-fix, printed form (one object: Y3 = Sh_K3(B^x, H^+-) with its moduli interpretation and canonical-model property): for every witness (Y, Phi) of R1fpPropsAbP there is Psi : H x (B tensor A_f)^x -> Y(C), onto with fibres the B^x_+ \\ . / K3 classes, holomorphic in tau, with the moduli interpretation at g in O-hat^x in the print's H_1 / Hodge form (IsHodgeH1: for an analytic uniformization A(C) = Lie A / H_1(A,Z), an O-linear beta : B_R = H_1(A,R) with beta(O) = H_1(A,Z) and beta(M J_tau) = i beta(M), J_tau = h_tau(i)) and Shimura's reciprocity law at CM points (conventions existential). Deligne, Sem. Bourbaki 389 (1971) section 4 (moduli interpretation by (H_1(A,Q), h_A) = (B, h)) and section 5 (Cor. 5.7 / Ex. 5.8 per locators.md R1); Milne, Introduction to Shimura varieties sections 8 and 14; locators UNVERIFIED. The passage to the kernel's lattice form is proved (Y3Fix.lattice_of_hodge).",
+     "kind": "published",
+     "flag": "locator UNVERIFIED; reading risk (locators.md R1): the print is for the polarized PEL moduli problem with polarization-compatible level structure over the reflex field E(G,X) = Q; the sign convention h_tau(i) = J_tau (versus -J_tau) of Deligne's normalization is not checked; the moduli interpretation (Milne 8) and the canonical-model property (Milne 14) are read as one statement about the moduli scheme",
+     "source": "Deligne, Travaux de Shimura, Sem. Bourbaki 389 (1971) sections 4-5 (Cor. 5.7, Ex. 5.8: the PEL moduli scheme is the canonical model; moduli interpretation of Sh_K(C) by Hodge structures on H_1); Milne, Introduction to Shimura varieties (2005) sections 8 and 14; at B = (2,-3|Q), level K3, as a consequence (bijective and holomorphic in tau, moduli clause at O-hat^x as QM pairs in H_1 form, conventions existential); locators UNVERIFIED"
+    }
+   ]
+  }
+ ]
+}

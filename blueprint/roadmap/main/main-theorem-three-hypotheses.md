@@ -4,10 +4,12 @@ declaration: theorem
 origin: cited
 statement: formalized
 proof: formalized
-lean: ZInQ.exists_bounded_integer_polynomial_defining_integers_of, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactEstimate, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_addMulBound, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_twoSlopePattern, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_poleCompleteness, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_nodeCheck
+lean: ZInQ.exists_bounded_integer_polynomial_defining_integers_of_poleCompleteness
 ---
 
 # The main theorem from three hypotheses
+
+> **Partly removed from the Lean development.** Some Lean declarations of this page were removed with Route K (fork issue #77; they are at the tag `route-k-final`): `ZInQ.exists_bounded_integer_polynomial_defining_integers_of`, `ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactEstimate`, `ZInQ.exists_bounded_integer_polynomial_defining_integers_of_addMulBound`, `ZInQ.exists_bounded_integer_polynomial_defining_integers_of_twoSlopePattern`, `ZInQ.exists_bounded_integer_polynomial_defining_integers_of_nodeCheck`. The page is kept until the blueprint rewrite (#81).
 
 Assume the minimal height hypothesis, the certified rank hypothesis CR₃ and the
 twenty-two-prime pattern. Then the target statement holds: some integer polynomial in

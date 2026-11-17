@@ -2,12 +2,11 @@
 article_id: af_bd602c5d214aff8b7e221f0d
 declaration: theorem
 origin: bridged
-statement: formalized
-proof: formalized
-lean: ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankDLRk, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankDLAdmRk
 ---
 
 # The main theorem from positive rank on the two curves of a slot choice
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 Assume the minimal height hypothesis and the hypothesis CR₃^DL,Rk. Then the target statement holds.
 

@@ -2,12 +2,11 @@
 article_id: af_ae559fdab397e6c566581d45
 declaration: theorem
 origin: bridged
-statement: formalized
-proof: formalized
-lean: ZInQ.RouteK.Rank5b.Sec3.card_setAgen, ZInQ.RouteK.Rank5b.Sec3.setAgen, ZInQ.RouteK.Rank5b.Sec3.card_setAgen_roots, ZInQ.RouteK.Rank5b.Sec3.resp_blocks_iff, ZInQ.RouteK.Rank5b.Sec3.card_uniform_eq
 ---
 
 # Compatible partitions with one or two roots per block
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 Let $f$ be a forest on a finite set $V$ with root set $R$, and let $E\subseteq R$. The set
 partitions compatible with $f$ in which every root in $E$ is the only root of its block and every

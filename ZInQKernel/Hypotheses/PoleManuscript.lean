@@ -4,19 +4,16 @@ import ZInQKernel.Hypotheses.Pole
 /-!
 # The manuscript's pole predicate: Theorem 5.2 and Theorem 5.3 as statements
 
-Target statements for the lane of fork issue #74: the 11/5 manuscript's own pole polynomial
-(`diophantine_zq.tex`, lines 973–1011), in place of the Route K polynomial of
-`ZInQKernel/Hypotheses/Pole.lean`.
+The 11/5 manuscript's pole polynomial (`diophantine_zq.tex`, lines 973–1011) and its Theorems 5.2
+and 5.3, in the namespace `ZInQ.Manuscript` (fork issue #74).
 
-This file only states. Nothing here is used by the main theorem yet, nothing is assumed, and no
-existing declaration is changed.
-
-* `Manuscript.polePoly`, `Manuscript.PoleSoluble`: the manuscript's `Q_pole` and `Φ`, with the
-  curves `y² = x(x - ℓ)(x + 3ℓ)`. They differ from `ZInQ.polePoly` only in the factors `A + 3e`
-  and `Az² + 3eH`, where Route K has `A + e` and `Az² + eH`.
-* `Manuscript.PoleCompleteness`: **Theorem 5.2** (`hyp:PC`). This is the input PC of the
-  manuscript's assembly (Lemma 1.2), and the hypothesis the manuscript-faithful headline is to
-  take.
+* `Manuscript.polePoly`, `Manuscript.PoleSoluble`, `Manuscript.PoleCompleteness`: the manuscript's
+  `Q_pole`, `Φ` and **Theorem 5.2** (`hyp:PC`). Since fork issue #76 the main theorem's pole polynomial
+  `ZInQ.polePoly` (`ZInQKernel/Hypotheses/Pole.lean`) is the manuscript's, with the curves
+  `y² = x(x - ℓ)(x + 3ℓ)`, so these three are abbreviations of `ZInQ.polePoly`, `ZInQ.PoleSoluble`
+  and `ZInQ.PoleCompleteness`: there is one definition. PC is a hypothesis of the headline
+  `ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness` and of
+  `ZInQ.OneProof.frozenTarget`.
 * `Manuscript.curve`, `Manuscript.AnalyticRankOne`, `Manuscript.RestrictedConverse`:
   **Theorem 5.3** (`hyp:RC`), the restricted converse from which the manuscript proves
   Theorem 5.2. Its Selmer condition is a parameter here, because this repository has no
@@ -27,32 +24,33 @@ namespace ZInQ.Manuscript
 
 open scoped BigOperators
 
-/-- The manuscript's pole polynomial `Q_pole` (Section 5, lines 979–986), evaluated at the input
-`B` and its eleven witnesses `b₀, …, b₅, e, z, r₁, r₂, w`:
-`T₁ = A(A - e)(A + 3e)` and `T₂ = A(Az² - eH)(Az² + 3eH)`, so that `(A, r₁)` lies on
-`E_e` and `(Az², zr₂)` on `E_{eH}`, where `E_ℓ : y² = x(x - ℓ)(x + 3ℓ)`. -/
-def polePoly (B : ℚ) (b : Fin 6 → ℚ) (e z r₁ r₂ w : ℚ) : ℚ :=
-  let m := (1 - 2 * b 0) * (1 + b 1) * (1 + 2 * b 2) * (1 + 4 * b 3) * (1 + 6 * b 4) *
-    (1 + 12 * b 5)
-  let A := m * B
-  let H := A * (A - B ^ 2)
-  let T₁ := A * (A - e) * (A + 3 * e)
-  let T₂ := A * (A * z ^ 2 - e * H) * (A * z ^ 2 + 3 * e * H)
-  B * ((∑ i, (b i ^ 2 - b i) ^ 2) + (e * H * z * w - 1) ^ 2 + (r₁ ^ 2 - T₁) ^ 2 +
-    (r₂ ^ 2 - T₂) ^ 2)
+/-- The manuscript's pole polynomial `Q_pole` (Section 5, lines 976–982): an abbreviation of
+`ZInQ.polePoly`, which is `Q_pole` with `T₁ = A(A - e)(A + 3e)` and `T₂ = A(Az² - eH)(Az² + 3eH)`. -/
+abbrev polePoly (B : ℚ) (b : Fin 6 → ℚ) (e z r₁ r₂ w : ℚ) : ℚ :=
+  ZInQ.polePoly B b e z r₁ r₂ w
 
-/-- The manuscript's `Φ(B)`: its pole polynomial has a rational zero with input `B`. -/
-def PoleSoluble (B : ℚ) : Prop :=
-  ∃ (b : Fin 6 → ℚ) (e z r₁ r₂ w : ℚ), polePoly B b e z r₁ r₂ w = 0
+/-- The manuscript's `Φ(B)`: an abbreviation of `ZInQ.PoleSoluble`. -/
+abbrev PoleSoluble (B : ℚ) : Prop :=
+  ZInQ.PoleSoluble B
 
-/-- **Theorem 5.2 of the 11/5 manuscript (pole completeness, `hyp:PC`), for the manuscript's
-polynomial.** Every rational `B` with square reduced denominator, `0 < B < 1/2` and
-`v_p(B) ≥ 4` for every `p ∈ S₀ = {2, 3, 5, 7, 13}` satisfies `Φ(B)`.
+/-- **Theorem 5.2 of the 11/5 manuscript (pole completeness, `hyp:PC`, lines 1001–1004).** Every
+rational `B` with square reduced denominator, `0 < B < 1/2` and `v_p(B) ≥ 4` for every
+`p ∈ S₀ = {2, 3, 5, 7, 13}` satisfies `Φ(B)`. An abbreviation of `ZInQ.PoleCompleteness`. -/
+abbrev PoleCompleteness : Prop :=
+  ZInQ.PoleCompleteness
 
-The statement has the same shape as `ZInQ.PoleCompleteness`; only the polynomial differs. -/
-def PoleCompleteness : Prop :=
-  ∀ B : ℚ, IsSquare B.den → 0 < B → B < 1 / 2 → (∀ p ∈ poleS0, 4 ≤ padicValRat p B) →
-    PoleSoluble B
+/-- The manuscript's `Q_pole` written out (lines 976–982) is `ZInQ.polePoly`. -/
+theorem polePoly_eq (B : ℚ) (b : Fin 6 → ℚ) (e z r₁ r₂ w : ℚ) :
+    polePoly B b e z r₁ r₂ w =
+      let m := (1 - 2 * b 0) * (1 + b 1) * (1 + 2 * b 2) * (1 + 4 * b 3) * (1 + 6 * b 4) *
+        (1 + 12 * b 5)
+      let A := m * B
+      let H := A * (A - B ^ 2)
+      let T₁ := A * (A - e) * (A + 3 * e)
+      let T₂ := A * (A * z ^ 2 - e * H) * (A * z ^ 2 + 3 * e * H)
+      B * ((∑ i, (b i ^ 2 - b i) ^ 2) + (e * H * z * w - 1) ^ 2 + (r₁ ^ 2 - T₁) ^ 2 +
+        (r₂ ^ 2 - T₂) ^ 2) :=
+  rfl
 
 /-- The manuscript's curve `E_ℓ : y² = x(x - ℓ)(x + 3ℓ) = x³ + 2ℓx² - 3ℓ²x`. -/
 def curve (ℓ : ℚ) : WeierstrassCurve ℚ := ⟨0, 2 * ℓ, 0, -3 * ℓ ^ 2, 0⟩

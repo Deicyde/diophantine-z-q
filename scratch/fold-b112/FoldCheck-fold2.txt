@@ -1,0 +1,14 @@
+'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+ZInQ.OneProof.frozenTarget : HDec.HSyn.OpenResearchLeaves55 →
+  HDec.HSyn.OpenTextbookLeaves18 → HDec.HSyn.OpenAddedLeaves27 → ZInQ.PoleCompleteness → ZInQ.FrozenTarget
+ZInQ.OneProof.frozenTarget: closure 292974
+  contains sorryAx: false
+  contains SZRaynaud.SilverbergZarhinThm35: true
+  contains SZRaynaud.raynaudSemistableSHOr_of_sz35: true
+  contains DictModels.RaynaudOr.RaynaudSemistableSHOr: true
+  contains HDec.HSyn.OpenResearchLeaves55: true
+  contains HDec.HSyn.sixContactMin_of_open74: true
+  contains ZInQ.SemistabAssembly.BostLowerBoundAnSS: false
+  contains ZInQ.HeightSplit.BostLowerBound: false
+  contains ZInQ.BostGR9.GaudronRemondSec9LowerAnSS: true
+field check: HDec.HSyn.OpenResearchLeaves54 27 fields, HDec.HSyn.OpenResearchLeaves55 27 fields; only in old: [raynaudSemistableSHOr]; only in new: [silverbergZarhinThm35]

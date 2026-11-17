@@ -2,12 +2,11 @@
 article_id: af_732b2d7656b98b06478e69fd
 declaration: theorem
 origin: bridged
-statement: formalized
-proof: formalized
-lean: ZInQ.RouteK.Rank.exists_infinite_order_iff_infinitelyManyPoints, ZInQ.RouteK.Rank.infinitelyManyPoints_iff_infinite_points, ZInQ.RouteK.Rank.infPtsMap_bijective, ZInQ.RouteK.Rank.infPtsMap, ZInQ.RouteK.Rank.infPts_nonsingular
 ---
 
 # A point of infinite order exists iff there are infinitely many rational points
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 Let $d\ne0$ be a natural number and $C_d$ the curve $y^2=x^3-d^2x$ over $\mathbb Q$. Then $C_d(\mathbb Q)$
 contains a point of infinite order if and only if $y^2=x^3-d^2x$ has infinitely many rational

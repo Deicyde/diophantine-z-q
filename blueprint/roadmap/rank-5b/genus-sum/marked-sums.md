@@ -4,10 +4,12 @@ declaration: theorem
 origin: bridged
 statement: formalized
 proof: formalized
-lean: ZInQ.RouteK.Rank5b.Sec3.genusSum5b_eq_marked, ZInQ.RouteK.Rank5b.Sec3.markW, ZInQ.RouteK.Rank5b.Sec3.w7_eq_zero, ZInQ.RouteK.Rank5b.Sec3.w3_eq_zero, ZInQ.RouteK.Rank5b.Sec3.w1_eq_zero, ZInQ.RouteK.Rank5b.Sec3.classes_of_markW_ne_zero, ZInQ.RouteK.Rank5b.Sec3.markW', ZInQ.RouteK.Rank5b.Sec3.class73_eq_marked
+lean: ZInQ.RouteK.Rank5b.Sec3.genusSum5b_eq_marked, ZInQ.RouteK.Rank5b.Sec3.markW, ZInQ.RouteK.Rank5b.Sec3.w7_eq_zero, ZInQ.RouteK.Rank5b.Sec3.w3_eq_zero, ZInQ.RouteK.Rank5b.Sec3.w1_eq_zero, ZInQ.RouteK.Rank5b.Sec3.classes_of_markW_ne_zero
 ---
 
 # Partition sums with marked blocks
+
+> **Partly removed from the Lean development.** Some Lean declarations of this page were removed with Route K (fork issue #77; they are at the tag `route-k-final`): `ZInQ.RouteK.Rank5b.Sec3.markW'`, `ZInQ.RouteK.Rank5b.Sec3.class73_eq_marked`. The page is kept until the blueprint rewrite (#81).
 
 Let $a,y,z$ be bits on a finite set $V$, and let $w_7,w_3,w_1$ be the block weights: $w_c(B)$ is
 $g(B)$ if $B$ has class $c$ and $0$ otherwise.

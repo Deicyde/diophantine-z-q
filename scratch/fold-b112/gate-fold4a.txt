@@ -1,0 +1,6 @@
+AUTOFOLD-DRYRUN-EXIT=0
+TREE-UNCHANGED=yes
+GATEFOLD-EXIT=0
+GATEFOLD-AXIOMS=standard
+(files in /tmp/tmp.S9cxDWy6uy)
+GATE=ok

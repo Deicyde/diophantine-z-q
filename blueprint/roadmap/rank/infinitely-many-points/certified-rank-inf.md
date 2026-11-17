@@ -2,11 +2,11 @@
 article_id: af_caf88329a2d903d0eae64269
 declaration: def
 origin: bridged
-statement: formalized
-lean: ZInQ.RouteK.Rank.CertifiedRankInf
 ---
 
 # The certified rank hypothesis in infinitely-many-points form
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 The hypothesis CR₃^Inf is the following assertion. Let $d$ be a squarefree positive integer with
 $d\equiv5\pmod8$. Suppose that the 2-Selmer group $\mathrm{Sel}_2(C_d)$ has exactly $8$ elements and

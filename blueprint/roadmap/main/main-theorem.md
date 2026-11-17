@@ -2,12 +2,11 @@
 article_id: af_85e6d577c7de0fa238d647e3
 declaration: theorem
 origin: bridged
-statement: formalized
-proof: formalized
-lean: ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_tyzThm35ReadingA_heckeContinuation_functionalEquation5_grossZagier
 ---
 
 # The main theorem
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 Assume the minimal height hypothesis and four statements about L-series of elliptic curves: the
 Gross–Zagier statement, the functional equation of $L(C_d,s)$ on the strip

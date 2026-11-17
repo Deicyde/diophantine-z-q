@@ -1,0 +1,299 @@
+before 188726  after 179119  only before 9613  only after 6  changed 20
+
+## changed (name: module | before type,value hash -> after)
+ZInQ.Assembly.poleSoluble_no_negative_odd: ZInQKernel.Assembly.Local.PoleObstruction | value
+ZInQ.Manuscript.PoleCompleteness: ZInQKernel.Hypotheses.PoleManuscript | value
+ZInQ.Manuscript.PoleSoluble: ZInQKernel.Hypotheses.PoleManuscript | value
+ZInQ.Manuscript.polePoly: ZInQKernel.Hypotheses.PoleManuscript | value
+ZInQ.Mult.abscissa_val_even: ZInQKernel.Multiplication.Certificate.Parity | type, value
+ZInQ.Mult.poleSystem_of_polePoly_eq_zero: ZInQKernel.Multiplication.Certificate.Parity | type, value
+ZInQ.Mult.pole_obstruction: ZInQKernel.Multiplication.Certificate.Parity | value
+ZInQ.OneProof.frozenTarget: ZInQKernel.OneProof.Main | type, value
+ZInQ.RouteK.natConfig.congr_simp: ZInQKernel.RouteK.Selmer.Bits | module ZInQKernel.RouteK.Assembly.PoleCompleteness -> ZInQKernel.RouteK.Selmer.Bits
+ZInQ.RouteK.signBit.eq_1: ZInQKernel.RouteK.Selmer.Covering | module ZInQKernel.RouteK.Assembly.SecondCurve -> ZInQKernel.RouteK.Selmer.Covering
+ZInQ.Size.poleTemplate_maj: ZInQKernel.Size.Majorants.Templates | value
+ZInQ.Syntax.VarsIn.polePoly: ZInQKernel.Syntax.Templates.Core | value
+ZInQ.Syntax.ev_polePolyX: ZInQKernel.Syntax.Templates.Core | value
+ZInQ.Syntax.poleT1: ZInQKernel.Syntax.Templates.Core | value
+ZInQ.Syntax.poleT1.eq_1: ZInQKernel.Syntax.Templates.Core | type
+ZInQ.Syntax.poleT2: ZInQKernel.Syntax.Templates.Core | value
+ZInQ.Syntax.poleT2.eq_1: ZInQKernel.Syntax.Templates.Core | type
+ZInQ.polePoly: ZInQKernel.Hypotheses.Pole | value
+ZInQ.polePoly.eq_1: ZInQKernel.Syntax.Templates.Core | module ZInQKernel.RouteK.Assembly.Points -> ZInQKernel.Syntax.Templates.Core, type
+ZInQ.poleS0.eq_1: ZInQKernel.Multiplication.Certificate.ConstantsProperties | module ZInQKernel.Multiplication.Certificate.Parity -> ZInQKernel.Multiplication.Certificate.ConstantsProperties
+
+## only before: 9613 constants in 256 modules
+
+### file absent after: 8538 constants in 195 modules
+ZInQKernel.Contrib.GZDecomp.Decomp: 37
+ZInQKernel.Contrib.GZDecomp.Scope: 11
+ZInQKernel.Contrib.GZStatements.Compat: 22
+ZInQKernel.Contrib.GZStatements.Hensel: 12
+ZInQKernel.Contrib.GZStatements.Level: 6
+ZInQKernel.Contrib.GZStatements.Weak: 21
+ZInQKernel.Contrib.GZTheta.ALArith: 31
+ZInQKernel.Contrib.GZTheta.ALBasic: 13
+ZInQKernel.Contrib.GZTheta.ALFinal: 3
+ZInQKernel.Contrib.GZTheta.ALFricke: 13
+ZInQKernel.Contrib.GZTheta.ALMain: 22
+ZInQKernel.Contrib.GZTheta.ALRep: 10
+ZInQKernel.Contrib.GZTheta.BadCoeff: 8
+ZInQKernel.Contrib.GZTheta.Basic: 36
+ZInQKernel.Contrib.GZTheta.Eta: 37
+ZInQKernel.Contrib.GZTheta.Eta32: 97
+ZInQKernel.Contrib.GZTheta.EtaForm32: 30
+ZInQKernel.Contrib.GZTheta.EtaTheta: 32
+ZInQKernel.Contrib.GZTheta.Final: 3
+ZInQKernel.Contrib.GZTheta.HeckeComb: 46
+ZInQKernel.Contrib.GZTheta.JacobiGauss: 15
+ZInQKernel.Contrib.GZTheta.Main: 8
+ZInQKernel.Contrib.GZTheta.New32: 46
+ZInQKernel.Contrib.GZTheta.NewCMFinal: 3
+ZInQKernel.Contrib.GZTheta.NewCMProof: 86
+ZInQKernel.Contrib.GZTheta.Split: 13
+ZInQKernel.Contrib.GZTheta.ThetaUnique: 11
+ZInQKernel.Contrib.GZTheta.TripleProduct: 83
+ZInQKernel.Contrib.GZTheta.TwistFricke: 17
+ZInQKernel.Contrib.GaussFE.Headline: 3
+ZInQKernel.Contrib.OneProof.BFHGamma0: 21
+ZInQKernel.Contrib.OneProof.BFHKronecker: 20
+ZInQKernel.Contrib.OneProof.BFHNonvanishing: 20
+ZInQKernel.Contrib.OneProof.BFHPrinted.Gamma0Newform: 43
+ZInQKernel.Contrib.OneProof.BFHPrinted.Kronecker: 26
+ZInQKernel.Contrib.OneProof.BFHPrinted.Split: 24
+ZInQKernel.Contrib.OneProof.BFHPrinted.Witness: 2
+ZInQKernel.Contrib.OneProof.CdOptimal: 7
+ZInQKernel.Contrib.OneProof.CdOptimal.Level32: 49
+ZInQKernel.Contrib.OneProof.CdOptimal.Structure: 65
+ZInQKernel.Contrib.OneProof.CdOptimal.Unif: 15
+ZInQKernel.Contrib.OneProof.CurveModelUnique: 9
+ZInQKernel.Contrib.OneProof.EtaW32Character: 95
+ZInQKernel.Contrib.OneProof.FHNonvanishing: 1
+ZInQKernel.Contrib.OneProof.FHNonvanishing.Basic: 30
+ZInQKernel.Contrib.OneProof.FHNonvanishing.FE: 19
+ZInQKernel.Contrib.OneProof.FHNonvanishing.TwistFE: 58
+ZInQKernel.Contrib.OneProof.FHPrinted.LocalNorm: 92
+ZInQKernel.Contrib.OneProof.FriedbergHoffsteinBFE: 32
+ZInQKernel.Contrib.OneProof.Gamma0QExp.Cosets: 37
+ZInQKernel.Contrib.OneProof.Gamma0QExp.Descent: 3
+ZInQKernel.Contrib.OneProof.Gamma0QExp.LevelOne: 34
+ZInQKernel.Contrib.OneProof.Gamma0QExp.LevelOneMero: 26
+ZInQKernel.Contrib.OneProof.Gamma0QExp.QSeries: 41
+ZInQKernel.Contrib.OneProof.Gamma0QExp.Reduce: 18
+ZInQKernel.Contrib.OneProof.Gamma0QExpansion: 3
+ZInQKernel.Contrib.OneProof.GrossConjugationCd: 92
+ZInQKernel.Contrib.OneProof.GrossZagierAlgebraic: 93
+ZInQKernel.Contrib.OneProof.GrossZagierAlgebraic.X0Model: 24
+ZInQKernel.Contrib.OneProof.GrossZagierHeegner: 80
+ZInQKernel.Contrib.OneProof.GrossZagierHeegner.Cd: 14
+ZInQKernel.Contrib.OneProof.GrossZagierHeegner.Heegner: 334
+ZInQKernel.Contrib.OneProof.GrossZagierHeegner.HeegnerCd: 2
+ZInQKernel.Contrib.OneProof.GrossZagierHeegner.JacobiLambdaDeriv: 96
+ZInQKernel.Contrib.OneProof.GrossZagierHeegner.Weil: 53
+ZInQKernel.Contrib.OneProof.GrossZagierHeegner.WeilJacobi: 185
+ZInQKernel.Contrib.OneProof.GrossZagierHeegner.WeilLattice: 14
+ZInQKernel.Contrib.OneProof.GrossZagierHeegner.WeilParam: 54
+ZInQKernel.Contrib.OneProof.GrossZagierHeegner.WeilTheta: 26
+ZInQKernel.Contrib.OneProof.GrossZagierModelUnique: 17
+ZInQKernel.Contrib.OneProof.GrossZagierModuli: 97
+ZInQKernel.Contrib.OneProof.GrossZagierOptimal: 77
+ZInQKernel.Contrib.OneProof.GrossZagierPlane: 75
+ZInQKernel.Contrib.OneProof.GrossZagierPlane.Extension: 18
+ZInQKernel.Contrib.OneProof.GrossZagierScheme: 63
+ZInQKernel.Contrib.OneProof.GrossZagierScheme.Core: 68
+ZInQKernel.Contrib.OneProof.GrossZagierScheme.EpsD: 28
+ZInQKernel.Contrib.OneProof.GrossZagierScheme.Model: 14
+ZInQKernel.Contrib.OneProof.GrossZagierScheme.PointTau: 41
+ZInQKernel.Contrib.OneProof.GrossZagierSplit: 14
+ZInQKernel.Contrib.OneProof.GrossZagierSplit.QuadSplit: 95
+ZInQKernel.Contrib.OneProof.GrossZagierSplitUnique: 14
+ZInQKernel.Contrib.OneProof.HCMLattice: 158
+ZInQKernel.Contrib.OneProof.HP23Proof.Case1: 9
+ZInQKernel.Contrib.OneProof.HP23Proof.Case3: 1
+ZInQKernel.Contrib.OneProof.HP23Proof.Generic: 10
+ZInQKernel.Contrib.OneProof.HP23Proof.Good: 28
+ZInQKernel.Contrib.OneProof.HeegnerPointRationalCd: 2
+ZInQKernel.Contrib.OneProof.HeegnerPointRationalCd.Compose: 80
+ZInQKernel.Contrib.OneProof.HeegnerPointRationalCd.Genus: 29
+ZInQKernel.Contrib.OneProof.HeegnerPointRationalCd.Recip: 17
+ZInQKernel.Contrib.OneProof.HeegnerPointRationalCd.Twist: 92
+ZInQKernel.Contrib.OneProof.HeegnerPointRationalCd.Used: 18
+ZInQKernel.Contrib.OneProof.HfxProof.Assembly: 19
+ZInQKernel.Contrib.OneProof.HfxProof.Case1: 42
+ZInQKernel.Contrib.OneProof.HfxProof.Case3: 36
+ZInQKernel.Contrib.OneProof.HfxProof.ClassOne: 70
+ZInQKernel.Contrib.OneProof.HfxProof.Euclid: 21
+ZInQKernel.Contrib.OneProof.HfxProof.Finite1: 55
+ZInQKernel.Contrib.OneProof.HfxProof.Finite25: 7
+ZInQKernel.Contrib.OneProof.HfxProof.Finite3: 41
+ZInQKernel.Contrib.OneProof.HfxProof.Lemma25: 20
+ZInQKernel.Contrib.OneProof.HfxProof.Merge: 20
+ZInQKernel.Contrib.OneProof.HfxProof.Order: 5
+ZInQKernel.Contrib.OneProof.HfxProof.Order1: 13
+ZInQKernel.Contrib.OneProof.HfxProof.Sg: 30
+ZInQKernel.Contrib.OneProof.HfxProof.TauData: 9
+ZInQKernel.Contrib.OneProof.HfxProof.TwoAdic: 23
+ZInQKernel.Contrib.OneProof.JonesPall: 1
+ZInQKernel.Contrib.OneProof.JonesPall.Descent: 16
+ZInQKernel.Contrib.OneProof.JonesPall.Parity: 40
+ZInQKernel.Contrib.OneProof.JonesPall.Quaternion: 19
+ZInQKernel.Contrib.OneProof.JonesPall.Representation: 14
+ZInQKernel.Contrib.OneProof.LegendreThreeSquares: 1
+ZInQKernel.Contrib.OneProof.LegendreThreeSquares.Atlas: 99
+ZInQKernel.Contrib.OneProof.PeriodOdd: 39
+ZInQKernel.Contrib.OneProof.PeriodOdd.Isogeny: 51
+ZInQKernel.Contrib.OneProof.PeriodOdd.LFunction: 43
+ZInQKernel.Contrib.OneProof.PeriodOdd.NeZero: 1
+ZInQKernel.Contrib.OneProof.ShimuraMainCM: 49
+ZInQKernel.Contrib.OneProof.T21Proof.BaseChange: 9
+ZInQKernel.Contrib.OneProof.T21Proof.Brandt: 36
+ZInQKernel.Contrib.OneProof.T21Proof.Brandt2: 29
+ZInQKernel.Contrib.OneProof.T21Proof.BrandtValue: 13
+ZInQKernel.Contrib.OneProof.T21Proof.Finite: 29
+ZInQKernel.Contrib.OneProof.T21Proof.GlobalStep: 27
+ZInQKernel.Contrib.OneProof.T21Proof.Hurwitz: 82
+ZInQKernel.Contrib.OneProof.T21Proof.K2: 11
+ZInQKernel.Contrib.OneProof.T21Proof.LBounds: 46
+ZInQKernel.Contrib.OneProof.T21Proof.LKernel: 44
+ZInQKernel.Contrib.OneProof.T21Proof.LUnit: 33
+ZInQKernel.Contrib.OneProof.T21Proof.LValues: 18
+ZInQKernel.Contrib.OneProof.T21Proof.Local: 26
+ZInQKernel.Contrib.OneProof.T21Proof.LocalPred: 35
+ZInQKernel.Contrib.OneProof.T21Proof.Tau: 26
+ZInQKernel.Contrib.OneProof.TYZGenusFold.Class: 25
+ZInQKernel.Contrib.OneProof.TYZGenusFold.Ideles: 30
+ZInQKernel.Contrib.OneProof.TYZGenusFold.Jacobi: 8
+ZInQKernel.Contrib.OneProof.TYZGenusFold.Local: 7
+ZInQKernel.Contrib.OneProof.TYZLcalOne: 107
+ZInQKernel.Contrib.OneProof.TYZLemma28Sym: 2
+ZInQKernel.Contrib.OneProof.TYZLemma29Genus: 44
+ZInQKernel.Contrib.OneProof.TYZLemma29Mod2: 151
+ZInQKernel.Contrib.OneProof.TYZProp23Printed: 1
+ZInQKernel.Contrib.OneProof.TYZSquareOddness.Coordinates: 19
+ZInQKernel.Contrib.OneProof.TYZTestVectorExists: 1
+ZInQKernel.Contrib.OneProof.TYZThm11Genus: 26
+ZInQKernel.Contrib.OneProof.TYZThm11Integral: 59
+ZInQKernel.Contrib.OneProof.TYZThm21At31: 18
+ZInQKernel.Contrib.OneProof.TYZThm21Span: 20
+ZInQKernel.Contrib.OneProof.TYZThm21Span.FDelta: 58
+ZInQKernel.Contrib.OneProof.TYZThm33: 84
+ZInQKernel.Contrib.OneProof.TYZThm33Alg: 84
+ZInQKernel.Contrib.OneProof.TYZThm33Alg.ThetaJ: 131
+ZInQKernel.Contrib.OneProof.TYZThm33Curve: 20
+ZInQKernel.Contrib.OneProof.TYZThm33Curve.Charts: 75
+ZInQKernel.Contrib.OneProof.TYZThm33Curve.Normal: 58
+ZInQKernel.Contrib.OneProof.ThetaWeierstrass8: 123
+ZInQKernel.Contrib.OneProof.X0ModuliUsed: 40
+ZInQKernel.Contrib.OneProof.X0ModuliUsed.EtaRoute: 184
+ZInQKernel.Contrib.PSide.APZero: 9
+ZInQKernel.Contrib.TYZChain.Bridge: 474
+ZInQKernel.Contrib.TYZChain.L321: 313
+ZInQKernel.Contrib.TYZChain.Lcal: 116
+ZInQKernel.Contrib.TYZChain.Lemma318: 170
+ZInQKernel.Contrib.TYZChain.Main: 2
+ZInQKernel.Contrib.TYZChain.Sqrt2Glue: 147
+ZInQKernel.Contrib.TYZChain.Thm35: 269
+ZInQKernel.Contrib.TYZGenus.ShimuraEtaInv: 61
+ZInQKernel.Contrib.TYZGenus.ShimuraFricke: 36
+ZInQKernel.Contrib.TYZGenus.ShimuraTheta: 45
+ZInQKernel.Contrib.TYZGenus.ShimuraThetaDup: 43
+ZInQKernel.MainLiterature: 5
+ZInQKernel.OneProof.TYZSplit: 137
+ZInQKernel.OneProof.TopChain: 3
+ZInQKernel.RouteK.Assembly.DL: 4
+ZInQKernel.RouteK.Assembly.Data: 63
+ZInQKernel.RouteK.Assembly.FirstCurve: 40
+ZInQKernel.RouteK.Assembly.Points: 3
+ZInQKernel.RouteK.Assembly.PoleCompleteness: 4
+ZInQKernel.RouteK.Assembly.SecondCurve: 35
+ZInQKernel.RouteK.Rank5b: 1
+ZInQKernel.RouteK.Rank5b.Check: 47
+ZInQKernel.RouteK.Rank5b.Sec3.Check: 3
+ZInQKernel.RouteK.Rank5b.Sec3.Prop34: 17
+ZInQKernel.RouteK.Rank5b.Sec3.Props: 28
+ZInQKernel.RouteK.Rank5bSec3: 3
+ZInQKernel.RouteK.RankDL: 18
+ZInQKernel.RouteK.RankInf: 27
+ZInQKernel.RouteK.RankMW: 2
+ZInQKernel.RouteK.RankMW.Image: 12
+ZInQKernel.RouteK.RankMW.Index: 17
+ZInQKernel.RouteK.RankMW.PhiAdd: 46
+ZInQKernel.RouteK.RankMW.Torsion: 10
+ZInQKernel.RouteK.RankVariants: 8
+
+### file present, module not in the other environment: 1055 constants in 57 modules
+ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.CanonicalHeight.Basic: 44
+ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.GaloisDescent: 6
+ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.MordellWeil.NaiveHeight: 3
+ZInQKernel.Contrib.TauCeti.Backport.Data.Nat.Prime.Basic: 2
+ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ModularForms.Basic: 4
+ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ModularForms.CongruenceSubgroups.Basic: 2
+ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ModularForms.Degeneracy: 28
+ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ModularForms.Fricke.OldSpace: 1
+ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ModularForms.Newforms.Basic: 8
+ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ModularForms.Newforms.Descent.CharacterSpace: 1
+ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ModularForms.Newforms.OldAtPrime: 23
+ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ModularForms.Newforms.PrimeDecomposition: 1
+ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ModularForms.Newforms.StrongMultiplicityOne.Across: 18
+ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ModularForms.Newforms.SupportAwayFromLevel: 15
+ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ModularForms.Petersson.Trace: 2
+ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.Basic: 15
+ZInQKernel.Contrib.TauCeti.LinearAlgebra.Eigenspace.Separation: 5
+ZInQKernel.Contrib.TauCeti.LinearAlgebra.End.InvertibleTwo: 10
+ZInQKernel.Contrib.TauCeti.LinearAlgebra.Matrix.SpecialLinearGroup.ConjJ: 13
+ZInQKernel.Contrib.TauCeti.LinearAlgebra.QuadraticForm.OfParallelogram: 19
+ZInQKernel.Contrib.TauCeti.NumberTheory.LSeries.EntireExtension: 10
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.AtkinLehner.DoubleCoset: 8
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.AtkinLehner.Gamma1: 55
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.AtkinLehner.Hecke: 19
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.AtkinLehner.LevelRaise: 15
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.AtkinLehner.Matrix: 39
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.AtkinLehner.NewSpace: 2
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.AtkinLehner.Normalized: 52
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.AtkinLehner.Normalizer: 8
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.AtkinLehner.OldSpace: 6
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.AtkinLehner.Operator: 62
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.AtkinLehner.Sign: 33
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Conjugate: 75
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Fricke.CharacterSpace: 21
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Fricke.Conjugation: 49
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Fricke.Hecke: 9
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Fricke.Involution: 34
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Fricke.Matrix: 8
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Fricke.Normalized: 62
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Fricke.OldSpace: 10
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Fricke.Operator: 27
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Conjugation: 9
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.LFunction.Basic: 9
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.LFunction.FunctionalEquation: 19
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.LFunction.Sign: 10
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.AnalyticInvariants: 23
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.BadPrime.AtkinLehner: 6
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.BadPrime.Descent: 5
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.BadPrime.Vanishing: 4
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.Conjugate: 19
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.Fricke: 28
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.MultiplicityOne: 13
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.SelfDual: 12
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Petersson.AtkinLehner: 9
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Petersson.Conjugate: 2
+ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.TrivialNebentypus: 61
+ZInQKernel.Contrib.TauCeti.NumberTheory.MulChar.Lemmas: 2
+
+### module in both environments: 20 constants in 4 modules
+ZInQKernel.Hypotheses.PoleManuscript: 1: ZInQ.Manuscript.polePoly._proof_1
+ZInQKernel.Main: 9: ZInQ.exists_bounded_integer_polynomial_defining_integers_of, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_addMulBound, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_certifiedRankSel, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_certifiedRankSel_greenTaoDense, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_goodPrimeAP, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_greenTaoDense, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_nodeCheck, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactEstimate, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_twoSlopePattern
+ZInQKernel.MainGreenTao: 4: ZInQ.exists_bounded_integer_polynomial_defining_integers_of_certifiedRankSel_goodPrimeDensity, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_goodPrimeDensity, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRank, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankSel
+ZInQKernel.Multiplication.Certificate.Parity: 6: ZInQ.Mult.congruentCurve_rhs_nonzero_and_valuation, ZInQ.Mult.poleSystem, ZInQ.Mult.poleSystem_no_negative_odd_valuation, ZInQ.Mult.poleSystem_no_negative_odd_valuation._proof_1_1, ZInQ.Mult.poleSystem_no_negative_odd_valuation._proof_1_2, ZInQ.Mult.poleSystem_no_negative_odd_valuation._proof_1_3
+
+## only after: 6 constants in 4 modules
+
+### file absent after: 0 constants in 0 modules
+
+### file present, module not in the other environment: 0 constants in 0 modules
+
+### module in both environments: 6 constants in 4 modules
+ZInQKernel.Hypotheses.PoleManuscript: 1: ZInQ.Manuscript.polePoly_eq
+ZInQKernel.Main: 2: ZInQ.exists_bounded_integer_polynomial_defining_integers_of_poleCompleteness_goodPrimeAP, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_poleCompleteness_greenTaoDense
+ZInQKernel.MainGreenTao: 2: ZInQ.exists_bounded_integer_polynomial_defining_integers_of_poleCompleteness_goodPrimeDensity, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness
+ZInQKernel.Syntax.Templates.Core: 1: ZInQ.Syntax.poleT1._proof_1

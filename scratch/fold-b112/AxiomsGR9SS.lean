@@ -1,0 +1,4 @@
+import ZInQKernel.Contrib.OneProof.GaudronRemondSection9SS
+#print axioms ZInQ.BostGR9.gaudronRemondSec9LowerAn_of_ss
+#print axioms ZInQ.BostGR9.gaudronRemondSec9LowerAnSS_of_bostLowerBoundAnSS
+#print axioms ZInQ.BostGR9.r21_of_sec9An

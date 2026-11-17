@@ -2,12 +2,11 @@
 article_id: af_e3e3752d0edd98a526ec6bd1
 declaration: theorem
 origin: background
-statement: formalized
-proof: formalized
-lean: ZInQ.RouteK.Rank.mwPhi_add_generic, ZInQ.RouteK.Rank.mwPhi_double, ZInQ.RouteK.Rank.mwPhi_double'
 ---
 
 # The two-isogeny on chord sums and doubles
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 Let $K$ be a field of characteristic different from $2$, $b\in K^\times$, and let
 $\varphi_b:E_b(K)\to E_{-4b}(K)$ be the two-isogeny. Write $T=(0,0)$.

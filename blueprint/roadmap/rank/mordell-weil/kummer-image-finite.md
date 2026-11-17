@@ -2,12 +2,11 @@
 article_id: af_89fdee3a33b76cb93a1cd93b
 declaration: theorem
 origin: background
-statement: formalized
-proof: formalized
-lean: ZInQ.RouteK.Rank.mwKummer_range_finite, ZInQ.RouteK.Rank.mwEven_padicValRat_x, ZInQ.RouteK.Rank.mwSqc_eq_divisor
 ---
 
 # The Kummer image over $\mathbb Q$ is finite
+
+> **Removed from the Lean development.** The Lean declarations of this page were removed with Route K and the Tian–Yuan–Zhang/Gross–Zagier route (fork issue #77); they are at the tag `route-k-final`. The page is kept, unformalized, until the blueprint rewrite (#81).
 
 Let $c$ be a nonzero integer. Then the Kummer image
 $\alpha_c(E_c(\mathbb Q))\subseteq\mathbb Q^\times/\mathbb Q^{\times2}$ of $E_c:y^2=x^3+cx$ is
