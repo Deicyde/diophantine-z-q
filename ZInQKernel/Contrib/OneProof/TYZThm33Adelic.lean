@@ -392,4 +392,101 @@ theorem qExp_mem_X0Field (N : ℕ) [NeZero N] (F : Sh (U0 N) → ℂ)
     (hx : HasQExp (F ∘ toSh (U0 N)) x) : x ∈ X0Field N :=
   ZInQ.Contrib.Gamma0QExp.gamma0QExpansion_proof N _ hF x hx
 
+/-! ## §5b. G2: `j` and `j_N` are functions on `X_{U₀(N)}(ℂ)°` with rational `q`-expansion; the field -/
+
+/-- A `q`-expansion `x` gives the last clause of `IsRatModFnMero`: `q^k g = Σ_{n ≥ 0} a_n qⁿ`. -/
+theorem hasSum_nat_of_hasQExp {g : ℍ → ℂ} {x : LaurentSeries ℚ} (h : HasQExp g x) :
+    ∃ (k : ℕ) (a : ℕ → ℚ) (T : ℝ), ∀ τ : ℍ, T < τ.im →
+      HasSum (fun n : ℕ => (a n : ℂ) * Complex.exp (2 * Real.pi * Complex.I * τ) ^ n)
+        (Complex.exp (2 * Real.pi * Complex.I * τ) ^ k * g τ) := by
+  classical
+  obtain ⟨T, hT⟩ := h
+  by_cases hx : x = 0
+  · refine ⟨0, fun _ => 0, T, fun τ hτ => ?_⟩
+    have h0 := hT τ hτ
+    subst hx
+    simp only [HahnSeries.coeff_zero, Rat.cast_zero, zero_mul] at h0
+    rw [← hasSum_zero.unique h0]
+    simp
+  set k : ℕ := (-x.order).toNat with hk
+  refine ⟨k, fun n => x.coeff ((n : ℤ) - k), T, fun τ hτ => ?_⟩
+  set q : ℂ := Complex.exp (2 * Real.pi * Complex.I * τ) with hq
+  have hq0 : q ≠ 0 := Complex.exp_ne_zero _
+  have h1 := (hT τ hτ).mul_left (q ^ k)
+  have hqp : qPar τ = q := rfl
+  rw [hqp] at h1
+  have hinj : Function.Injective (fun n : ℕ => (n : ℤ) - k) := fun a b h => by
+    simpa using h
+  have hsupp : ∀ m : ℤ, m ∉ Set.range (fun n : ℕ => (n : ℤ) - k) →
+      q ^ k * ((x.coeff m : ℂ) * q ^ m) = 0 := by
+    intro m hm
+    have hlt : m < x.order := by
+      by_contra hge
+      push Not at hge
+      apply hm
+      refine ⟨(m + k).toNat, ?_⟩
+      have : (0 : ℤ) ≤ m + k := by
+        have : -(k : ℤ) ≤ x.order := by
+          rw [hk]; have := Int.self_le_toNat (-x.order); linarith
+        linarith
+      simp only [Int.toNat_of_nonneg this]; ring
+    rw [HahnSeries.coeff_eq_zero_of_lt_order hlt]; simp
+  have h2 := (hinj.hasSum_iff hsupp).mpr h1
+  refine h2.congr_fun fun n => ?_
+  simp only [Function.comp_apply]
+  rw [zpow_sub₀ hq0, zpow_natCast, zpow_natCast]
+  field_simp
+
+/-- **`j` is a function on `X_{U₀(N)}(ℂ)°` with rational `q`-expansion** (`IsRatModFnMero`). -/
+theorem isRatModFnMero_j (N : ℕ) : ZInQ.GZHeegner.IsRatModFnMero N jFun := by
+  refine ⟨fun γ _ τ => ZInQ.Gamma0QExp.jf_smul γ τ, fun τ => (holoH_jFun τ).meromorphicAt,
+    fun γ => ?_, hasSum_nat_of_hasQExp hasQExp_j⟩
+  have h := ZInQ.Gamma0QExp.modGrowth_jN_smul 1 γ
+  have e : (fun τ => ZInQ.Gamma0QExp.jN 1 (γ • τ)) = fun τ => jFun (γ • τ) := by
+    funext τ
+    show ZInQ.Gamma0QExp.jf _ = ZInQ.Gamma0QExp.jf _
+    congr 1
+    exact UpperHalfPlane.ext (by simp)
+  rw [e] at h
+  exact h
+
+/-- **`j(Nτ)` is a function on `X_{U₀(N)}(ℂ)°` with rational `q`-expansion.** -/
+theorem isRatModFnMero_jN (N : ℕ) [NeZero N] :
+    ZInQ.GZHeegner.IsRatModFnMero N (fun τ => jFun (scaleN N τ)) :=
+  ⟨fun _ hγ τ => ZInQ.Gamma0QExp.jN_smul_of_mem N hγ τ,
+    fun τ => (holoH_jFun.comp_scaleN N τ).meromorphicAt,
+    fun γ => ZInQ.Gamma0QExp.modGrowth_jN_smul N γ, hasSum_nat_of_hasQExp (hasQExp_jN N)⟩
+
+/-- **TYZ's `ℚ(X_{U₀(N)})`, read through `τ ↦ [τ, 1]` and `q`-expansion at `∞`**: the `q`-expansions of
+the functions on `X_{U₀(N)}(ℂ)° = GL₂(ℚ)⁺ \ (ℍ × GL₂(𝔸_f)/U₀(N))` that are meromorphic, of moderate
+growth at the cusps and have rational `q`-expansion at `∞`. -/
+def RatFnSh (N : ℕ) [NeZero N] : Set (LaurentSeries ℚ) :=
+  {x | ∃ F : Sh (U0 N) → ℂ, ZInQ.GZHeegner.IsRatModFnMero N (F ∘ toSh (U0 N)) ∧
+    HasQExp (F ∘ toSh (U0 N)) x}
+
+theorem mem_ratFnSh_of {N : ℕ} [NeZero N] {g : ℍ → ℂ} (hg : ZInQ.GZHeegner.IsRatModFnMero N g)
+    {x : LaurentSeries ℚ} (hx : HasQExp g x) : x ∈ RatFnSh N := by
+  refine ⟨(shFunEquiv N).symm ⟨g, hg.1⟩, ?_⟩
+  have e : ((shFunEquiv N).symm ⟨g, hg.1⟩) ∘ toSh (U0 N) = g :=
+    congrArg Subtype.val ((shFunEquiv N).apply_symm_apply ⟨g, hg.1⟩)
+  rw [e]; exact ⟨hg, hx⟩
+
+attribute [local instance high] HahnSeries.powerSeriesAlgebra in
+/-- **G2 (analytic level): `ℚ(X_{U₀(N)}) = ℚ(j, j_N)` inside `ℚ((q))`.** The `q`-expansions of the
+rational functions on TYZ's `X_{U₀(N)}(ℂ)°` lie in `ℚ(j, j_N)` (the `q`-expansion principle,
+`gamma0QExpansion_proof`) and contain its generators `jq`, `jq(q^N)` (`isRatModFnMero_j`,
+`isRatModFnMero_jN`): they generate `X0Field N`, and the cusp `∞` is the place `ord_q`. -/
+theorem x0Field_eq_adjoin_ratFnSh (N : ℕ) [NeZero N] :
+    X0Field N = IntermediateField.adjoin ℚ (RatFnSh N) := by
+  apply le_antisymm
+  · show IntermediateField.adjoin ℚ _ ≤ _
+    apply IntermediateField.adjoin_le_iff.mpr
+    rintro x (rfl | rfl)
+    · exact IntermediateField.subset_adjoin ℚ _ (mem_ratFnSh_of (isRatModFnMero_j N) hasQExp_j)
+    · exact IntermediateField.subset_adjoin ℚ _ (mem_ratFnSh_of (isRatModFnMero_jN N) (hasQExp_jN N))
+  · exact IntermediateField.adjoin_le_iff.mpr fun x ⟨F, hF, hx⟩ => qExp_mem_X0Field N F hF x hx
+
+theorem ratFnSh_subset (N : ℕ) [NeZero N] : RatFnSh N ⊆ X0Field N :=
+  fun x ⟨F, hF, hx⟩ => qExp_mem_X0Field N F hF x hx
+
 end ZInQ.H33G5
