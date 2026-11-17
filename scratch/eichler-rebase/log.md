@@ -11,3 +11,7 @@
 * `autofold.py scratch/eichler-rebase/autofold.json --dry-run` (count-only spec, no new leaf) on main's kinds.tsv:
   `strict count: 11/18 on 29 -> 11/17 on 28; strictest 11/18 -> 11/17`. VERIFIED (autofold-dryrun.txt). The
   dry-run module itself is not a fold (dummy proof text): the field is removed by the bypass, not filled.
+
+## Step 1: build on the merged tree
+* `lake build ZInQKernel.Contrib.OneProof.R5fpCountLe` on the merged tree: Build completed successfully (12948 jobs),
+  EXIT 0, no edits needed (EichlerBound/{Order..Bound}, GR56Lattice, R5fpCountLe all built). VERIFIED (build1.log).
