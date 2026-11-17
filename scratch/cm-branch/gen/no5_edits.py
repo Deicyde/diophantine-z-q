@@ -12,8 +12,10 @@ def delthm(s, name):
     assert m, ('NOTHM', name)
     return s[:m.start()]+'-- cm-branch edit: `'+name+'` deleted (it used González–Rotger\'s content)\n'+s[m.end():]
 def B(s):
-    s=rep(s,'r5ptProps_of_thm512_no5 h hU hG hM h1 h6⟩','trivial⟩ -- cm-branch edit')
-    s=delthm(s,'r5ptProps_of_thm512_no5')
+    for nm in ['r5ptProps_of_thm512_no5','gonzalezRotgerX6Ab_of_witness_no5','gonzalezRotgerX6Ab_of_coarse_no5',
+               'gonzalezRotgerX6Ab_of_print_no5']:
+        s=delthm(s,nm)
+    if 'theorem gonzalezRotgerThm512X6_of_rcf_no5' in s: s=delthm(s,'gonzalezRotgerThm512X6_of_rcf_no5')
     s=delthm(s,'r5fp_of_point_no5')
     s=delthm(s,'r5fp_of_rep_no5')
     s=re.sub(r'(theorem point_of_r5fp_no5 .*?: R5ptProps_no5 X Ψ := ).*?(?=\n\n|\n/--|\nend )', lambda m: m.group(1)+'trivial -- cm-branch edit', s, count=1, flags=re.S)
@@ -49,6 +51,9 @@ def C(s):
     # drop the field r5 : LeafQM.AV.R5fp (with its doc comment) and every `r5 := …` line
     s=re.sub(r'(\n  /--(?:(?!-/).)*-/)?\n  r5 : LeafQM\.AV\.R5fp', '', s, flags=re.S)
     s=re.sub(r'\n  r5 := [^\n]*', '', s)
+    # drop the González–Rotger 5.12 fields (both forms) and their assignments
+    s=re.sub(r'(\n  /--(?:(?!-/).)*-/)?\n  gonzalezRotgerThm512X6(RCF)?(_no5)? : [^\n]*', '', s, flags=re.S)
+    s=re.sub(r'\n  gonzalezRotgerThm512X6(RCF)?(_no5)? := [^\n]*', '', s)
     return s
 edit('No5C.lean',C)
 print('edits applied')

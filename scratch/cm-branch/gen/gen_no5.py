@@ -26,8 +26,8 @@ def struct_end(mod,a):
     return j
 for s,(idx,mod,a,b) in structs.items(): decls.append((s,idx,mod,a,b))
 # exclusions: R5ptProps itself is replaced by a `True` def; my own Top/Open4 files are regenerated separately
-EXCL={'LeafQM.AV.R5ptProps'}
-SKIPMOD={'ZInQKernel.Contrib.OneProof.CMBranch.Top','ZInQKernel.Contrib.OneProof.CMBranch.Open4'}
+EXCL={'LeafQM.AV.R5ptProps','GRDict.GonzalezRotgerThm512X6','GR512Bridge.GonzalezRotgerThm512X6RCF'}
+SKIPMOD=set()
 keep=[d for d in decls if d[0] not in EXCL and d[2] not in SKIPMOD]
 names=set(d[0] for d in decls)  # rename set includes Top/Open4 names and R5ptProps
 last={}

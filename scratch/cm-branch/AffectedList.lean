@@ -20,7 +20,7 @@ open Lean Meta in
       for c in v.getUsedConstants ++ ci.type.getUsedConstants do
         if !seen.contains c then stack := stack.push c
     | none => pure ()
-  let base : Std.HashSet Name := Std.HashSet.ofList [`LeafQM.AV.R1R2fp, `HDec.LeafAdopt.R1R2fpRepW, `LeafQM.AV.R5ptProps]
+  let base : Std.HashSet Name := Std.HashSet.ofList [`LeafQM.AV.R1R2fp, `HDec.LeafAdopt.R1R2fpRepW, `LeafQM.AV.R5ptProps, `GRDict.GonzalezRotgerThm512X6, `GR512Bridge.GonzalezRotgerThm512X6RCF]
   let mut aff := base
   let mut changed := true
   while changed do
