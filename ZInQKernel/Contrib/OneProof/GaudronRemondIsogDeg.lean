@@ -21,6 +21,7 @@ degree `[K(A) : K(B)]` of `φ` as a finite morphism. The consumer needs `# ker �
   `φ ∘ ξ`, which lies over the generic point of `B` (`card_points_le_finrank`, §2); these inject into the ring
   maps `Γ(φ⁻¹U) → Ω` over `Γ(U) → Ω` for an affine open `U`, at most the rank at the zero prime
   (`card_ringHom_le_rankAtStalk`, §1, from Mathlib's `card_algHom_le_finrank`).
+* `finDeg_eq_finrank_of_flat` (end): for flat `φ` the rank is the same at every point (remark; not used).
 * `GaudronRemondThm14AnDeg` (§4): the leaf with `isogDeg` replaced by `finDeg` (GR's degree);
   `gaudronRemondThm14An_of_deg` derives `GaudronRemondThm14An`, and `gaudronRemondThm14Printed_of_anDeg`
   the bundle field `gaudronRemondThm14Printed` (with T35 through `mumfordTorsionAlgClosed`, as in r3-residual).
@@ -303,5 +304,17 @@ theorem gaudronRemondThm14Printed_of_anDeg (h : GaudronRemondThm14AnDeg)
   ZInQ.R3Residual.gaudronRemondThm14Printed_of_an (gaudronRemondThm14An_of_deg h) hMT
 
 end Leaf
+
+section Flat
+variable {K : Type} [Field K]
+/-- For a flat isogeny (every isogeny is flat, STANDARD; not proved here), `finDeg φ` is Mathlib's rank of
+`φ` at every point of `B` (e.g. at the origin, where it is the rank of the kernel group scheme;
+finite presentation holds over a field since `B` is noetherian). -/
+theorem finDeg_eq_finrank_of_flat {A B : PkgI3.AbVar K} (φ : A.X ⟶ B.X) [IsFinite φ.left]
+    [Flat φ.left] [LocallyOfFinitePresentation φ.left] (y : B.X.left) :
+    finDeg φ = φ.left.finrank y := by
+  haveI := isIntegral_left B
+  exact (Scheme.Hom.isLocallyConstant_finrank φ.left).apply_eq_of_preconnectedSpace _ _
+end Flat
 
 end ZInQ.GRIsogDeg
