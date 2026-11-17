@@ -16,6 +16,8 @@ fine fold is GLUE-neutral (18 → 18 strict GLUE, +2 LEAF, no `--allow-rise`), w
 * **Checks (VERIFIED):** build +Main +Discharges +PazukiRoute succeeds (14231 jobs); standard axioms;
   `#discharges`: pazukiCor13Upper discharged by `PazukiRoute.pazukiCor13Upper_of_fields` (35 open, 39 discharge one);
   autofold dry run `11/18 on 29 -> 13/18 on 31`, FoldCheck.lean compiles (sixContactMin_of_open49, standard axioms).
+* **Reader scan:** the frozenTarget-closure taint did not finish in 2 h (stopped, not restarted); a single-pass
+  environment scan (`scratch/pazuki-route/Readers.lean`, 3 min) shows the only mathematical reader is `r22_of_upper`.
 * **(A) consumer audit:** negative. The only reader chain is r22_of_upper → R22_Pazuki → thetaPazuki with
   ThetaPointOfFibre; the fibres (QML3) carry no polarization, Ω(τ) and the theta point are analytic, and no open field
   bounds a moduli/theta height by h_F. The analytic-to-algebraic step must stay on the chain.
