@@ -23,7 +23,31 @@ from kernel_build_packages import package_environment
 from kernel_build_restore import no_links
 
 SEARCH_KEYS = ('LEAN_PATH', 'LEAN_SRC_PATH', 'LEAN_SYSROOT', 'LD_LIBRARY_PATH',
-               'DYLD_LIBRARY_PATH', 'PATH')
+               'DYLD_LIBRARY_PATH', 'PATH', 'LEAN', 'LAKE', 'LAKE_HOME', 'LEAN_AR', 'LEAN_CC')
+
+
+def validate_toolchain_selection(prefix, observed):
+    """A fixed Lake binary must not silently select a different compiler.
+
+    Lake 4.35 InstallPath.lean allows override selection and custom CC/AR.
+    This first reuse profile accepts only the verified bundled installation.
+    Other valid user toolchains can still build cold; they cannot reuse it.
+    """
+    prefix = Path(prefix).resolve()
+    for key, expected in (('LEAN_SYSROOT', prefix), ('LAKE_HOME', prefix),
+                          ('LEAN', prefix/'bin'/('lean.exe' if os.name == 'nt' else 'lean')),
+                          ('LAKE', prefix/'bin'/('lake.exe' if os.name == 'nt' else 'lake'))):
+        value = observed.get(key)
+        require(isinstance(value, str) and Path(value).is_absolute()
+                and Path(value).resolve() == expected, 'Lake selected an unverified '+key)
+    for key in ('LEAN_AR', 'LEAN_CC'):
+        value = observed.get(key)
+        if key == 'LEAN_CC' and value is None:
+            # None selects the installed Lean's bundled compiler.
+            continue
+        require(isinstance(value, str) and Path(value).is_absolute()
+                and Path(value).resolve().is_relative_to(prefix) and Path(value).is_file(),
+                'Lake selected an unverified native tool '+key)
 
 
 def checked_packages(root, expected_packages, expected_dependencies, *, git_executable='git'):
@@ -39,6 +63,10 @@ def capture_lake_environment(root, prefix, expected_packages, expected_dependenc
     no_links(root); no_links(prefix)
     require(not any(os.environ.get(k) for k in FORBIDDEN_ENV),
             'Lake environment lookup must run without credentials')
+    require(os.environ.get('LAKE_OVERRIDE_LEAN') in (None, '', '0', 'false')
+            and not os.environ.get('LEAN_GITHASH') and not os.environ.get('LD_PRELOAD')
+            and not os.environ.get('DYLD_INSERT_LIBRARIES'),
+            'Unsupported compiler/runtime override; do not query or reuse')
     project_layout(root)
     checked_packages(root, expected_packages, expected_dependencies, git_executable=git_executable)
     require(toolchain_inputs(prefix)['summary'] == expected_toolchain,
@@ -54,6 +82,7 @@ def capture_lake_environment(root, prefix, expected_packages, expected_dependenc
     require(isinstance(value, dict) and set(value) == set(SEARCH_KEYS)
             and all(v is None or isinstance(v, str) for v in value.values()),
             'Malformed Lake search environment')
+    validate_toolchain_selection(prefix, value)
     checked_packages(root, expected_packages, expected_dependencies, git_executable=git_executable)
     return value
 

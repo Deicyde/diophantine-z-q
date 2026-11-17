@@ -13,7 +13,7 @@ from kernel_build_manifest import digest, regular_path, require, unique_json, va
 from kernel_build_restore import no_links
 
 FORBIDDEN_ENV = ('GH_TOKEN', 'GITHUB_TOKEN', 'OPENAI_API_KEY', 'ANTHROPIC_API_KEY',
-                 'ACTIONS_RUNTIME_TOKEN', 'ACTIONS_ID_TOKEN_REQUEST_TOKEN')
+                 'ACTIONS_RUNTIME_TOKEN', 'ACTIONS_ID_TOKEN_REQUEST_TOKEN', 'LAKE_CACHE_KEY')
 
 
 def read_source(root, relative):

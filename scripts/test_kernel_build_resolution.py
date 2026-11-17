@@ -15,6 +15,11 @@ class ResolutionTests(unittest.TestCase):
         self.root=Path(temporary.name)/'project'; self.root.mkdir()
         self.prefix=Path(temporary.name)/'toolchain'; self.prefix.mkdir()
         self.env={k:None for k in resolve.SEARCH_KEYS}
+        binary=self.prefix/'bin'; binary.mkdir()
+        ar=binary/'llvm-ar'; ar.write_bytes(b'fixture')
+        self.env.update({'LEAN_SYSROOT':str(self.prefix.resolve()),'LAKE_HOME':str(self.prefix.resolve()),
+            'LEAN':str(binary/('lean.exe' if os.name=='nt' else 'lean')),
+            'LAKE':str(binary/('lake.exe' if os.name=='nt' else 'lake')),'LEAN_AR':str(ar)})
         self.packages={'packages':{}}
 
     def test_dependency_config_is_not_evaluated_until_all_expected_inputs_match(self):
@@ -82,6 +87,22 @@ class ResolutionTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'credentials'):
                 resolve.resolve_imports(self.root,self.prefix,['Init'],self.env)
             run.assert_not_called()
+
+    def test_fixed_lake_cannot_report_an_unverified_compiler_or_native_tool(self):
+        for key in ('LEAN_SYSROOT','LAKE_HOME','LEAN','LAKE','LEAN_AR','LEAN_CC'):
+            with self.subTest(key=key):
+                foreign={**self.env,key:str(self.root/'unverified')}
+                with self.assertRaisesRegex(ValueError,'unverified'):
+                    resolve.validate_toolchain_selection(self.prefix,foreign)
+
+    def test_runtime_and_trace_overrides_are_refused_before_lake_runs(self):
+        for key,value in (('LAKE_OVERRIDE_LEAN','true'),('LEAN_GITHASH','forged'),
+                          ('LD_PRELOAD','unverified.so'),('LAKE_CACHE_KEY','fixture-not-a-key')):
+            with self.subTest(key=key),patch.dict(os.environ,{key:value}), \
+                    patch.object(resolve.subprocess,'run') as run:
+                with self.assertRaises(ValueError):
+                    resolve.capture_lake_environment(self.root,self.prefix,self.packages,{},'expected')
+                run.assert_not_called()
 
 
 if __name__=='__main__':unittest.main()
