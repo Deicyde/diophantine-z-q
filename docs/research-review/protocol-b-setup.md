@@ -992,8 +992,10 @@ Renames, incomplete patches, manuscript/record changes and mixed code changes
 do not qualify through the focused-documents rule. The separate outside-author
 rule still applies to every outside contributor without reducing review scope.
 
-Outside contributors still need a write collaborator's `/protocol-b review`
-before any model call. One paid round runs both missing reviewers and may pass
+An outside contributor's first attempt may use the bounded unattended admission
+path described above. A refused or already-consumed attempt needs a write
+collaborator's `/protocol-b review` before further model calls. One paid round
+runs both missing reviewers and may pass
 normally if the review requirement is met. Otherwise the author can repair the
 change, and a maintainer chooses what happens next. Automatic pushes do not
 start a second paid round. A write collaborator may deliberately request another
@@ -1032,13 +1034,19 @@ not process isolation or a claim that a successful build authenticates itself.
 
 ### Direct kernel execution and secret separation
 
-Rollout restriction: do not use the Lean profile on outside pull requests
-until both the cache-provenance follow-up to PR133 has merged and the
-controlled live fork-dispatch test has passed with recorded evidence.
-The owner's PR133 overrides permit the infrastructure merge; they do not
-authorize outside-PR use. Before those two conditions are met, maintainers
-must not start production reviews of outside Lean PRs through this profile.
-The specifically authorized controlled fork test is the only test exception.
+The initial rollout prerequisites were satisfied on November 17, 2026:
+[PR137](https://github.com/elliotglazer/diophantine-z-q/pull/137), the
+cache-provenance follow-up to PR133, merged as
+`5c7ad7973b911ebc0ee1532cc8fcf5dbf70b52f4`, and the controlled fork-dispatch
+test passed. The [test record](reviews/fork-dispatch-2026-11-17/README.md)
+links the successful exact-head kernel run, the gate's authenticated preflight
+receipt and the original public report. The owner had authorized outside-PR
+use after those two prerequisites passed; the PR133 overrides alone did not
+authorize it. This was a controlled execution/provenance test on an
+admin-operated fork, not a test of unaffiliated-contributor authorization or
+of the new unattended admission path. Each outside PR still needs a current
+collaborator's review command or the separately verified unattended admission
+described above, and must pass all remaining source and evidence checks.
 
 A separate preparation job, without an environment or provider/App keys, waits
 up to 180 minutes for direct kernel execution at the exact reviewed head. Its

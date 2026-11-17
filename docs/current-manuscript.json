@@ -1,17 +1,17 @@
 {
   "schema": "current-manuscript/v1",
-  "version": 19,
+  "version": 20,
   "tex": {
-    "path": "manuscripts/quartic_v19.tex",
-    "sha256": "1f0e4db9e978115bb7f605f4bfcd84426a715b8cb6adaee3566107b33d61ad03"
+    "path": "manuscripts/quartic_v20.tex",
+    "sha256": "95044840af8c3872c6298ea7c5eb4055fbbcd9d91be338ee33b97ba20c503c32"
   },
   "pdf": {
-    "path": "manuscripts/quartic_v19.pdf",
-    "sha256": "cc1adfb0107661e001593cbfeae57e0221d6cfb8bc8f48a5e0be213144844172"
+    "path": "manuscripts/quartic_v20.pdf",
+    "sha256": "061c435337b27e280535544b2d50caef920d8d2d4b33051f575d967b748e59fe"
   },
   "build_record": {
-    "path": "research/version19/BUILD.json",
-    "sha256": "08ef0de65548bdb230f6a995e1894f918bf6c36d4c116e50d2df57d9a9de2e35"
+    "path": "research/version20/BUILD.json",
+    "sha256": "8ea3d9fce441ff44872d0bd585ec6b1b982f9af85742c404c9cbef30fd200d9e"
   },
   "required_tex_inputs": []
 }
