@@ -17,11 +17,7 @@ inst = ('\n-- [port] Lean v4.35: instance search no longer sees through `(T ⋙ 
         '  inferInstanceAs (CommRing (T.obj X))\n\n'
         'attribute [local instance] commRingCompForget₂Obj_port_%s\n') % (tag, tag)
 if 'commRingCompForget₂Obj_port' not in s:
-    lines = s.split('\n')
-    for k, l in enumerate(lines):
-        if l.startswith('open '):
-            j = k
-            while j + 1 < len(lines) and lines[j + 1].startswith('  '): j += 1
-            lines.insert(j + 1, inst); break  # (superseded: see move below)
-    s = '\n'.join(lines)
+    key = 'set_option backward.isDefEq.respectTransparency.instanceSearchTypes false\n'
+    pos = s.index(key) + len(key)
+    s = s[:pos] + inst + s[pos:]
 open(p, 'w', encoding='utf-8').write(s); print('patched', p)

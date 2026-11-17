@@ -101,6 +101,12 @@ theorem neronDVRLocal_of_descentSH (h : NeronDescentSH) : NeronExt.NeronDVRLocal
     IsFractionRing.isFractionRing_of_isDomain_of_isLocalization v.primeCompl Rv L
   exact exists_neron_of_descentSH Rv L h (A.baseChange L)
 
+/-- **The textbook field `neronSchemeExtensionExists`** from the chain's EGA IV 8.10.5 (xii) leaf and the descent
+leaf (neron-ext's `NeronExt.extension_of_dvrLocal` with `neronDVRLocal_of_descentSH`). -/
+theorem extension_of_descentSH (hpr : ZInQ.Contrib.SpreadOut.EGAIV_8_10_5_xii) (h : NeronDescentSH) :
+    ZInQ.Contrib.NeronC.NeronSchemeExtensionExists :=
+  NeronExt.extension_of_dvrLocal hpr (neronDVRLocal_of_descentSH h)
+
 end NeronFLT
 
 end
