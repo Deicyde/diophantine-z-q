@@ -1,12 +1,12 @@
 {
  "name": "cm-branch",
- "mode": "hand-fold (not mechanical): no top field is discharged. Dry runs (compiled): HDec.HSyn.sixContactMin_of_open67_cm (CMBranch/Top.lean: NoCM off the route) and HDec.HSyn.sixContactMin_of_open67_cm_no5 (CMBranch/No5A..No5F.lean: also the R5ptProps/González–Rotger prune). The latter reads every top field the current top reads except OpenResearchLeaves48.gonzalezRotgerThm512X6RCF, plus the 7 CMInputs statements. Do the fold in place (as pi0-fold did), applying the edits listed in docs/research/cm-branch.md section 6 to the original declarations. Raises the GLUE count by 3 (needs --allow-rise) until the glue is proved.",
+ "mode": "hand-fold (not mechanical): no top field is discharged. Dry runs (compiled): HDec.HSyn.sixContactMin_of_open72_cm (CMBranch/Top.lean: NoCM off the route) and HDec.HSyn.sixContactMin_of_open72_cm_no5 (CMBranch/No5A..No5E.lean: also the R5ptProps/González–Rotger prune). The latter reads every top field the current top reads except OpenResearchLeaves53.gonzalezRotgerThm512X6RCF, plus the 7 CMInputs statements. Do the fold in place (as pi0-fold did), applying the edits listed in docs/research/cm-branch.md section 6 to the original declarations. Raises the GLUE count by 3 (needs --allow-rise) until the glue is proved.",
  "imports": [
-  "ZInQKernel.Contrib.OneProof.CMBranch.No5F"
+  "ZInQKernel.Contrib.OneProof.CMBranch.No5E"
  ],
  "replaces": {
-  "at": "HDec.HSyn.sixContactMin_of_open67 r t l",
-  "by": "HDec.HSyn.sixContactMin_of_open67_cm_no5 r t l ⟨{n}.cmHomFieldSplit, {n}.fowlerProp27, {n}.cmjDegree, {n}.cmPotentialGood, {n}.cmHeight62, {n}.reducedCMPeriod, {n}.heightAdditivityUpper⟩"
+  "at": "HDec.HSyn.sixContactMin_of_open72 r t l",
+  "by": "HDec.HSyn.sixContactMin_of_open72_cm_no5 r t l ⟨{n}.cmHomFieldSplit, {n}.fowlerProp27, {n}.cmjDegree, {n}.cmPotentialGood, {n}.cmHeight62, {n}.reducedCMPeriod, {n}.heightAdditivityUpper⟩"
  },
  "stay": [
   {
@@ -72,7 +72,7 @@
  "removed": [
   {
    "field": "gonzalezRotgerThm512X6RCF",
-   "reason": "unread by sixContactMin_of_open67_cm_no5 (scratch/cm-branch/topfields.txt)"
+   "reason": "unread by sixContactMin_of_open72_cm_no5 (scratch/cm-branch/topfields.txt)"
   }
  ],
  "prune_scan_after_fold": "r5count / gonzalezRotgerProp56X6, cmOptimalEmbedding, x6ConicModel in the lower bundles: carried but unread"
