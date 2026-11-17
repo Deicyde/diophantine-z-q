@@ -11,6 +11,10 @@ realized `eq_1`/`congr_simp` lemmas and identical theorems). Adapted from eichle
 Run: `lake env lean scratch/contrib-clashes/ClashScan.lean` from the worktree root. -/
 open Lean
 
+def kind : ConstantInfo → String
+  | .thmInfo _ => "thm" | .axiomInfo _ => "axiom" | .defnInfo _ => "def" | .opaqueInfo _ => "opaque"
+  | .inductInfo _ => "induct" | .ctorInfo _ => "ctor" | .recInfo _ => "rec" | .quotInfo _ => "quot"
+
 run_cmd do
   let src ← IO.FS.readFile "scratch/contrib-clashes/contrib-modules.txt"
   let roots := (src.splitOn "\n").filterMap fun l =>
@@ -45,13 +49,16 @@ run_cmd do
              | .thmInfo t, .thmInfo t' => t.all == t'.all
              | .thmInfo t, .axiomInfo a => t.all == [a.name]
              | .axiomInfo a, .thmInfo t => t.all == [a.name]
+             -- axiom/axiom: Lean also requires the type to be a `Prop` (`isPropCheap`); realized
+             -- theorems exported by `module` files are axioms here. Approximated by "same type".
+             | .axiomInfo a, .axiomInfo a' => a.isUnsafe == a'.isUnsafe
              | _, _ => false)
           if ok then
             nOk := nOk + 1
             IO.println s!"OK-DUP {c} : {m'} / {m}"
           else
             nFatal := nFatal + 1
-            IO.println s!"FATAL {c} : {m'} / {m}"
+            IO.println s!"FATAL {c} : {m'} / {m} [{kind ci'} / {kind ci}; sameType {ci.type == ci'.type}]"
       | none => owner := owner.insert c (m, ci)
   for m in missing do IO.println s!"MISSING-OLEAN {m}"
   IO.println s!"modules read {nmods}; missing oleans {missing.size}; constants {owner.size}"
