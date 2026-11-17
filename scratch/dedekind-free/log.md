@@ -25,3 +25,23 @@ Build: .lake/build copied from ~/dzq-wt/leaf-fold33b (identical Main.lean); Nero
 * A global model over `𝓞_L` from local ones is neron-ext's gluing (proved), but it needs Néron models over the
   *non-henselian* `(𝓞_L)_v` (`NeronDVRLocal`), i.e. effective descent from `R^sh` (neron-flt's leaf `NeronDescentSH`).
 * Hence: the height readers do not move; the field cannot go with no new leaf. Target -1 NOT reached.
+
+## 3. (a) proved: `MumfordGroupLawDVR` with no Néron leaf (VERIFIED, compiled 11-16 ~23:55)
+File scratch/dedekind-free/GroupLawDescent.lean (one file; S1Local/S3Descent/S4Fibre are its earlier drafts).
+`#print axioms DedekindFree.mumfordGroupLawDVR_proof` : [propext, Classical.choice, Quot.sound].
+Steps (all compiled):
+* `mumfordGroupLawAt_of_henselian`: GIT 6.14 at one henselian DVR, from `NeronFLT.exists_neron_of_henselian` (vendored FLT) and
+  copies of goodmodel-iso's `neronGoodModelIso_of_dvr` / group-law-dvr's `mumfordGroupLawDVR_of_neron` with `R` fixed
+  (`NeronExtAt R`, `GoodModelIsoAt R`).
+* `map_injective`, `descend`: base change along a flat surjective qc `p` is injective on `Over` morphisms; a morphism of base
+  changes descends if it coequalizes (Mathlib `EffectiveEpi` instance for fpqc maps, Stacks 023Q).
+* `grpObjOfDescent`: a `GrpObj` on `F` from descended `μ, ι, η` (group structure on `T ⟶ F` transported along the injective
+  base change map; `GrpObj.ofRepresentableBy`).
+* `isAbVarFibre₁`, `inv_fibre` (rigidity, copy of the first half of `isGrpFibre_of_rigidity`), `gen_inv`, `gen_mul`: at points
+  over the generic point `Spec E → Spec O₁`, the inverse/multiplication of `F₁` are computed by those of `A = F_K` over `K`.
+* `cocycle_of_generic`: the descent condition from generic data (kernel pair flat over `S`, its `K`-fibre schematically
+  dense, `F` separated; `IsPullback (Spec E) (Spec O₁) (Spec K) (Spec R)`).
+* `mumfordGroupLawAt_of_cover`: GIT 6.14 descends along `R → O₁` (flat, surjective on Spec, `E = O₁ ⊗_R K`).
+* `mumfordGroupLawAt_all`: cover = gt-shpair's strict henselization `O₁ = wE w` in the inertia field `E ⊆ K̄`
+  (`isSHSep_inertia`): `R → O₁` faithfully flat (torsion-free over a PID + local), `E` the localization of `O₁` at `φ(R⁰)`
+  (`assoc_pow`), `CommRingCat.isPushout_of_isLocalization` + `isPullback_SpecMap_of_isPushout`.

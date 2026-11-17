@@ -721,4 +721,98 @@ theorem mumfordGroupLawAt_of_cover (R : Type) [CommRing R] [IsDomain R] [IsDiscr
 
 end Main
 
+section Ring
+
+open ReductSplit ReductGlue
+
+variable (R : Type) [CommRing R] [IsDomain R] [IsDiscreteValuationRing R]
+
+/-- **GIT Thm 6.14 over every DVR, with no Néron leaf.** Descend from the strict henselization (a henselian DVR,
+where the vendored FLT development gives Néron models and goodmodel-iso's argument gives the group law). -/
+theorem mumfordGroupLawAt_all : MumfordGroupLawAt R := by
+  let K := FractionRing R
+  let O := (ValuationRing.valuation R K).valuationSubring
+  haveI := NeronFLT.isDVR_valSub R K
+  obtain ⟨w, hw⟩ := GapSHPair.exists_comap_eq (Ω := AlgebraicClosure K) O
+  have hS := GapSHPair.isSHSep_inertia w hw
+  let E := GapSHPair.inertiaField (K := K) w
+  let O₁ := GapSHPair.wE (K := K) w
+  haveI : IsDiscreteValuationRing O₁ := hS.1.1
+  haveI : HenselianLocalRing O₁ := hS.1.2.1
+  have hO : O₁.comap (algebraMap K E) = O := GapSHPair.hE_eq w hw
+  let φ : R →+* O₁ := (comapHom hO).comp (NeronFLT.valSubHom R K)
+  have hφinj : Function.Injective φ := by
+    intro a b h
+    have h1 := congrArg (fun x : O₁ => (x : E)) h
+    change algebraMap K E (algebraMap R K a) = algebraMap K E (algebraMap R K b) at h1
+    exact IsFractionRing.injective R K ((algebraMap K E).injective h1)
+  -- faithful flatness
+  letI : Algebra R O₁ := φ.toAlgebra
+  haveI : Module.Flat R O₁ := by
+    rw [Module.Flat.flat_iff_torsion_eq_bot_of_isBezout]
+    rw [eq_bot_iff]
+    rintro x ⟨⟨a, ha⟩, hax⟩
+    have ha0 : a ≠ 0 := nonZeroDivisors.ne_zero ha
+    change φ a * x = 0 at hax
+    rcases mul_eq_zero.1 hax with h | h
+    · exact absurd (hφinj (h.trans (map_zero φ).symm)) ha0
+    · exact h
+  haveI : IsLocalHom (algebraMap R O₁) := by
+    haveI : IsLocalHom (comapHom hO) := comapHom_isLocalHom hO
+    haveI : IsLocalHom (NeronFLT.valSubHom R K) :=
+      (inferInstance : IsLocalHom (NeronFLT.valSubEquiv R K : R →+* O))
+    exact (inferInstance : IsLocalHom ((comapHom hO).comp (NeronFLT.valSubHom R K)))
+  haveI : Module.FaithfullyFlat R O₁ := Module.FaithfullyFlat.of_flat_of_isLocalHom
+  have hff := (flat_and_surjective_SpecMap_iff (CommRingCat.ofHom φ)).2 (by
+    change RingHom.FaithfullyFlat (algebraMap R O₁)
+    exact (RingHom.faithfullyFlat_algebraMap_iff).2 inferInstance)
+  haveI : Flat (Spec.map (CommRingCat.ofHom φ)) := hff.1
+  haveI : Surjective (Spec.map (CommRingCat.ofHom φ)) := hff.2
+  -- the generic fibre
+  have hι : Function.Injective (algebraMap O₁ E) := Subtype.val_injective
+  haveI : IsLocalization ((nonZeroDivisors R).map φ) E := by
+    rw [isLocalization_iff]
+    refine ⟨?_, ?_, ?_⟩
+    · rintro ⟨y, m, hm, rfl⟩
+      refine isUnit_iff_ne_zero.2 fun h0 => ?_
+      have : φ m = 0 := hι (h0.trans (map_zero _).symm)
+      exact nonZeroDivisors.ne_zero hm (hφinj (this.trans (map_zero φ).symm))
+    · intro z
+      rcases O₁.mem_or_inv_mem z with hz | hz
+      · exact ⟨(⟨z, hz⟩, 1), by simp; rfl⟩
+      · by_cases hz0 : z = 0
+        · exact ⟨(0, 1), by simp [hz0]⟩
+        let b : O₁ := ⟨z⁻¹, hz⟩
+        have hb0 : b ≠ 0 := fun h => hz0 (inv_eq_zero.1 (congrArg Subtype.val h))
+        obtain ⟨ϖ, hϖ⟩ := IsDiscreteValuationRing.exists_irreducible O
+        obtain ⟨n, u, hu⟩ := GapSHPair.assoc_pow w hw ϖ hϖ hb0
+        let r : R := (NeronFLT.valSubEquiv R K).symm ϖ
+        have hr : φ r = comapHom hO ϖ := by
+          change comapHom hO (NeronFLT.valSubEquiv R K ((NeronFLT.valSubEquiv R K).symm ϖ)) = _
+          rw [RingEquiv.apply_symm_apply]
+        have hr0 : r ^ n ∈ nonZeroDivisors R := by
+          refine mem_nonZeroDivisors_of_ne_zero (pow_ne_zero _ fun h => hϖ.ne_zero ?_)
+          rw [show ϖ = NeronFLT.valSubEquiv R K r from (RingEquiv.apply_symm_apply _ _).symm, h, map_zero]
+        refine ⟨(↑u⁻¹, ⟨φ (r ^ n), Submonoid.mem_map_of_mem _ hr0⟩), ?_⟩
+        change z * algebraMap O₁ E (φ (r ^ n)) = algebraMap O₁ E ↑u⁻¹
+        have hb : φ (r ^ n) = b * ↑u⁻¹ := by
+          rw [map_pow, hr, ← hu, _root_.mul_assoc, Units.mul_inv, _root_.mul_one]
+        rw [hb, map_mul, ← _root_.mul_assoc]
+        change z * z⁻¹ * _ = _
+        rw [mul_inv_cancel₀ hz0, _root_.one_mul]
+    · intro x y h
+      exact ⟨1, by rw [hι h]⟩
+  have hpush := CommRingCat.isPushout_of_isLocalization φ (algebraMap K E)
+    (by ext a; rfl) (nonZeroDivisors R) (Rₘ := K) (Sₘ := E)
+  have hsq := isPullback_SpecMap_of_isPushout _ _ _ _ hpush
+  exact mumfordGroupLawAt_of_cover R φ E (algebraMap O₁ E) hsq (mumfordGroupLawAt_of_henselian O₁)
+
+end Ring
+
+/-- **`MumfordGroupLawDVR` (GIT Thm 6.14 over a DVR) proved, with no Néron leaf.** -/
+theorem mumfordGroupLawDVR_proof : ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR :=
+  fun R _ _ _ => mumfordGroupLawAt_all R
+
 end DedekindFree
+
+#print axioms DedekindFree.mumfordGroupLawDVR_proof
