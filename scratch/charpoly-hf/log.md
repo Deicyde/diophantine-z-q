@@ -4,7 +4,7 @@
 - Base wip/leaf-fold33b 968b59ef8; origin/main c1e4ed1b8 already an ancestor (merge: "Already up to date").
 - Build: reflink copy of ~/dzq-wt/leaf-fold33b/.lake/build and lean/.lake/build (that tree is at 4da8d4f32 =
   base + hP23 fold; H chain identical).
-- Copied charpoly-charp's sources (origin/wip/charpoly-charp 512080e4) into scratch/charpoly-hf/cc/ for reference.
+- Copied charpoly-charp's sources (origin/wip/charpoly-charp 512080e4) into scratch/charpoly-hf/cc/ for reference (.lean files renamed .lean.txt).
 
 ## Reading findings (VERIFIED by reading)
 - charpoly-charp's only char-p input: `exists_minpoly_endE (hH : PkgI3.HomFreeFinite) (hT : TateModuleFree) Ab α`
