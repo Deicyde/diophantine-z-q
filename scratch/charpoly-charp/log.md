@@ -22,3 +22,17 @@ deg-det Contrib files); `lake build ZInQKernel.OneProof.H.TailC` up to date (VER
   t6 = t6_of_algClosed5 homFreeFiniteAlgClosed, tateModuleFree_of_t5' t5). Chain 2 (R16, A over ℚ)
   uses CharPolyIndepOfEllAlgClosedC (degpoly-proof, from mumfordTorsionAlgClosed and the PROVED
   uniformizationLeafAll_proof). Target −1, no new leaf looks reachable.
+
+## Step 1 result (VERIFIED, compiled)
+
+* scratch/charpoly-charp/LinAlg.lean (Mathlib only): `linIndep_map`, `linIndep_baseChange`, `aeval_intertwines`,
+  `trace_eq_of_minpoly` (tr S = −(4/deg m)·nextCoeff m when S ~ M ⊕ M and the annihilator of S is (m), m ∈ ℚ[X]).
+* scratch/charpoly-charp/Core.lean (+ HDecomp.C10.Link): `exists_minpoly_endE (hH : HomFreeFinite)
+  (hT : TateModuleFree) A α : ∃ m : ℚ[X] monic, ∀ ℓ ≠ char k, ∀ E ⊇ ℚ_ℓ (char 0), ∀ G : E[X],
+  aeval (endE α ℓ E) G = 0 ↔ m.map ∣ G` (minimal polynomial of 1⊗α in End⁰; ℤ_ℓ-injectivity of
+  tateHomZl; clearing denominators ℤ_ℓ→ℚ_ℓ; left-inverse matrices ℚ→ℚ_ℓ→E).
+* scratch/charpoly-charp/CommonTrace.lean (+ TailC): `HDec.G14Trace.common_trace_of_homFree` — exactly
+  `common_trace` with `hM : CharPolyIndepOfEll` replaced by `hH : HomFreeFinite` `hT : TateModuleFree`.
+  `#print axioms`: [propext, Classical.choice, Quot.sound].
+* So (1) answered: the ℓ-independence of tr(α | T_ℓ Ā) is NOT an extra input at that k: G8's intertwining
+  (already a hypothesis of common_trace) plus Mumford §19 Thm 3 force it.
