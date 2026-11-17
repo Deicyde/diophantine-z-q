@@ -45,3 +45,4 @@ intrinsic complex structure on E(ℂ) = WeierstrassCurve.Affine.Point, and IsAna
   + leaf ShimuraThm54LocalBiholo (this file's IsAnalyticIso, ξ(0) = O; hcm-lattice's p-component s⁻¹𝔞, s⁻¹u) and
   shimuraThm54_of_localBiholo : ShimuraThm54LocalBiholo → ShimuraThm54; hcmLattice_isAnalyticIso_iff (with
   ξ(0) = O, hcm-lattice's IsAnalyticIso ↔ this file's): standard axioms. One fix: mem_latHat_of_mem is T5Glue's.
+- Statement.lean: verbatim copy of ShimuraThm54 and IsAnalyticUnif, equal by rfl (compiled, no output).
