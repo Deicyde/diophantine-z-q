@@ -34,6 +34,7 @@ SOURCES = {
     'Fixture.lean': 'import Fixture.Consumer\nimport Fixture.Independent\ntheorem fixtureExpected : fixtureValue + 1 = 8 := rfl\n',
 }
 PATHS = {path[:-5].replace('/', '.'): path for path in SOURCES}
+CASES = ('cold', 'unchanged', 'edited-closure')
 SPEC = {'modules': sorted(PATHS), 'headline': {'declaration': 'fixtureConsumer',
         'type_declaration': 'fixtureExpected'},
         'exports': ['fixtureConsumer', 'fixtureValue_eq', 'fixtureIndependent', 'fixtureExpected'], 'targets': []}
@@ -81,13 +82,17 @@ def validate(output, prefix):
         with (output/(case['name']+'-'+label+'.log')).open('wb') as log:
             process = subprocess.Popen(list(map(str, args)), cwd=workspace, env=environment,
                 stdout=log, stderr=subprocess.STDOUT, start_new_session=True)
-            record['pid'] = process.pid
-            save()
             try:
+                record['pid'] = process.pid
+                save()
                 with AuditDiagnostics(process.pid, output, name=case['name']+'-'+label):
                     code = process.wait(timeout=300)
-            except subprocess.TimeoutExpired:
-                os.killpg(process.pid, signal.SIGKILL)
+            except BaseException:
+                if process.poll() is None:
+                    try:
+                        os.killpg(process.pid, signal.SIGKILL)
+                    except ProcessLookupError:
+                        pass  # The owned process exited between poll and kill.
                 process.wait()
                 raise
         record.update(exit_code=code, seconds=time.monotonic()-start)
@@ -107,12 +112,12 @@ def validate(output, prefix):
     archive_path = output/'local-fixture-only.zip'
     baseline = expected_environment = selection = None
     try:
-        for name in ('cold', 'unchanged', 'edited_closure'):
+        for name in CASES:
             case = {'name': name, 'commands': []}
             report['cases'].append(case)
             controls = output/(name+'-controls')
             environment, _ = prepare_controls(workspace, controls, environ=original_environment)
-            if name == 'edited_closure':
+            if name == 'edited-closure':
                 (workspace/'Fixture/Input.lean').write_text(SOURCES['Fixture/Input.lean'].replace(':= 7\n', ':= 3 + 4\n', 1))
             start = time.monotonic()
             if name == 'cold':

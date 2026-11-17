@@ -7,6 +7,13 @@ import validate_kernel_reuse_linux as validation
 
 
 class LiveValidationGuards(unittest.TestCase):
+    def test_all_fixture_labels_are_valid_diagnostic_phase_names(self):
+        with tempfile.TemporaryDirectory() as directory:
+            for case in validation.CASES:
+                for phase in ('build', 'audit', 'no-build', 'independent-no-build', 'changed-needs-build'):
+                    with self.subTest(case=case, phase=phase):
+                        validation.AuditDiagnostics(0, Path(directory), name=case+'-'+phase)
+
     def test_non_linux_is_rejected_before_creating_an_output(self):
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory)/'output'

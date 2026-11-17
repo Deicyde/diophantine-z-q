@@ -971,7 +971,7 @@
     "scripts/test_kernel_build_environment.py": "6d5e4438a0bbfeefefe64edd3af2dd973d3481b8e500ce28ab9fdf1d20971b36",
     "scripts/test_kernel_build_inventory.py": "ca7267fefaad4dcc70f8ed7b82aee3571e4c46db690f6939a4a39a7b3ce41fa8",
     "scripts/test_kernel_build_layout.py": "6c6376af8e12010c4ecbdfc74cd36ebea4122b6c524699ab554a3e98bbffa0ab",
-    "scripts/test_kernel_build_live_validation.py": "b8a2d39b4137105f6035459a96262ff672d29a0f59565e2fe1dee790538bac4b",
+    "scripts/test_kernel_build_live_validation.py": "9863c38c861c373ae1f33af0b5bcbf0753066e20dc588bbe57819c197d255b66",
     "scripts/test_kernel_build_manifest.py": "ddaeb4ea4344ad983d40acc16f56cd527016a58f0760ecd9493c92d93d71fd99",
     "scripts/test_kernel_build_packages.py": "1d282a331b919ab6c198883ee4bef63274c66e3f7fd7d82ac2f8b86344ca255d",
     "scripts/test_kernel_build_prepare.py": "c859f2ca49647f05614a54bea88a9653a8aef334edc17ab143d40e34ca3dc779",
@@ -986,7 +986,7 @@
     "scripts/test_kernel_diagnostics.py": "eba53120942f60a2da99a672c9ef596d400e185e6202e9d4c20a33236d909815",
     "scripts/test_kernel_phases.py": "42cb9d4c145e4e48c9060f9f91e8bdeea89f72bae25393c95c4f92fad7c74db5",
     "scripts/test_kernel_pr_scope.py": "5d4dbdf17c5cd497fe9df924cf0a739cbad02d4bae7678c1c034002ae6c5b00a",
-    "scripts/validate_kernel_reuse_linux.py": "2521b365f698c56b3b7a519bce837902aa8fcfbfcb22623da766b287d3f6bb8c"
+    "scripts/validate_kernel_reuse_linux.py": "fc6a20de21fd92c66a15ab360fb8b7e33717246433938f7e2e59b93395f4c1e6"
   },
   "targets": [
     {
