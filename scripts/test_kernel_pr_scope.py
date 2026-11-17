@@ -75,6 +75,35 @@ class ScopeTests(unittest.TestCase):
         self.locked.add('docs/guide.md')
         self.assertTrue(self.decide()[0])
 
+    def test_versioned_research_data_verifiers_and_release_records_skip(self):
+        paths = ['research/version19/data/quartic250.json',
+                 'research/version19/verify250.py', 'research/version100/data/weights.csv',
+                 'research/version1/table.tsv', 'research/version19/polynomial.txt',
+                 'research/version19/LICENSE', 'research/version19/NOTICE',
+                 'docs/current-manuscript.json', 'docs/audit-history/builder-binding.json']
+        self.rows = [{'filename': p, 'status': 'modified'} for p in paths]
+        self.current['changed_files'] = len(paths)
+        self.assertFalse(self.decide()[0])
+        for path in paths:
+            with self.subTest(path=path):
+                self.assertTrue(scope.affects_kernel(path, {path}))
+
+    def test_research_exemption_keeps_all_kernel_inputs_and_rename_origins(self):
+        for name in ['Proof.lean', 'lakefile.lean', 'lakefile.toml', 'lake-manifest.json',
+                     'lean-toolchain', 'KERNEL_CONTRACT.json']:
+            path = 'research/version19/nested/' + name
+            self.assertTrue(scope.affects_kernel(path, set()), path)
+        self.rows = [{'filename': 'research/version19/verifier.py',
+                      'previous_filename': 'scripts/helper.py', 'status': 'renamed'}]
+        self.assertTrue(self.decide()[0])
+
+    def test_unknown_files_and_other_research_locations_still_build(self):
+        for path in ['research/version19/archive.zip', 'research/version19/run.sh',
+                     'research/version19/data.bin', 'research/version19x/verify.py',
+                     'research/version01/verify.py', 'research/other/verify.py',
+                     'research/version19/../verify.py', 'docs/other.json']:
+            self.assertTrue(scope.affects_kernel(path, set()), path)
+
     def test_both_rename_paths_are_checked(self):
         self.rows = [{'filename': 'docs/former-source.md', 'previous_filename': 'Old.lean', 'status': 'renamed'}]
         self.assertTrue(self.decide()[0])
