@@ -68,6 +68,13 @@ code, so workflow isolation remains necessary. The collector passed against
 the actual compiler on the four-module fixture. Full package/environment
 validation and a full-baseline run are still required.
 
+`scripts/kernel_build_packages.py` fingerprints root and local package
+configuration, and checks that installed Git dependencies are clean, at the
+exact pinned commit, and actually use the claimed working directory. It never
+fetches or updates a dependency. This is only the package part of the build
+environment; complete toolchain/platform identity and resolved external source
+bindings still need to be connected before reuse is enabled.
+
 ## Work still required before a PR or deployment
 
 1. Implement package/config/environment identity, integrate the compiler-derived
