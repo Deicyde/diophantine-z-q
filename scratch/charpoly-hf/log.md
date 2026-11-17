@@ -71,3 +71,7 @@
   `fold_edit.py` (renames the field also in its TailZ49 / OpenTextbookLeaves16): `lake build ZInQKernel.OneProof.Main`
   OK (14178 jobs), frozenTarget standard axioms; FoldCheck (foldcheck_combine_out.txt): closure 270,455, no banned
   constant. Text-level dry run of fold_edit.py on that branch's files: OK.
+- Fold tree: scratch/contrib-kit/DischargesTest.lean rerun (40 open, 9225 theorems, 48 discharge lines; the field's
+  projection lines renamed); render_open.py rewrote CONTRIBUTING.md's worked example; --check ok. fold-docs.patch now
+  covers open-statements.json, OPEN.md, kinds.tsv, claims.tsv, frontier-crosswalk.tsv, CONTRIBUTING.md,
+  DischargesTest-output.txt (applies).

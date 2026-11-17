@@ -171,7 +171,9 @@ in the reroute module, 3 in TailZ48, and `frozenTarget`.
    - `kinds.tsv`: the row is renamed, with source "Mumford 19 Thm 3 (specialization: k algebraically closed of
      characteristic p > 0)", kind published, strict LEAF;
    - `claims.tsv`: the old field's claim row is dropped;
-   - `open-statements.json`, `OPEN.md` and `frontier-crosswalk.tsv` are regenerated (H-71 loses its field).
+   - `open-statements.json`, `OPEN.md` and `frontier-crosswalk.tsv` are regenerated (H-71 loses its field);
+   - `scratch/contrib-kit/DischargesTest.lean` is rerun, and `render_open.py` updates the worked example in
+     `CONTRIBUTING.md`.
 
 The original `OpenTextbookLeaves13.charPolyIndepOfEllAlgClosed`, which the blueprint page
 `abelian-varieties/characteristic-polynomial.md` names, stays in place, off the route. No existing declaration is
