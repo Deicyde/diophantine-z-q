@@ -1309,7 +1309,7 @@ theorem sixContactMin_of_open11_hf (r : OpenResearchLeaves9) (t : OpenTextbookLe
 end HSyn
 end HDec
 
--- copied from ZInQKernel/OneProof/H/TailZ23.lean:708 (x6Rows_of_open14)
+-- copied from ZInQKernel/OneProof/H/TailZ23.lean:706 (x6Rows_of_open14)
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open NumberField
 open PkgI2 (IsAbelianVariety IsInertia HasGoodReduction)
@@ -1330,7 +1330,7 @@ theorem x6Rows_of_open14_hf (r : OpenResearchLeaves14) (t : OpenTextbookLeaves10
 end HSyn
 end HDec
 
--- copied from ZInQKernel/OneProof/H/TailZ23.lean:720 (raynaudSemistable_of14)
+-- copied from ZInQKernel/OneProof/H/TailZ23.lean:718 (raynaudSemistable_of14)
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open NumberField
 open PkgI2 (IsAbelianVariety IsInertia HasGoodReduction)
@@ -1345,7 +1345,7 @@ theorem raynaudSemistable_of14_hf (r : OpenResearchLeaves14) (t : OpenTextbookLe
 end HSyn
 end HDec
 
--- copied from ZInQKernel/OneProof/H/TailZ23.lean:727 (semistableReductionDVR_of14)
+-- copied from ZInQKernel/OneProof/H/TailZ23.lean:725 (semistableReductionDVR_of14)
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open NumberField
 open PkgI2 (IsAbelianVariety IsInertia HasGoodReduction)
@@ -1360,7 +1360,7 @@ theorem semistableReductionDVR_of14_hf (r : OpenResearchLeaves14) (t : OpenTextb
 end HSyn
 end HDec
 
--- copied from ZInQKernel/OneProof/H/TailZ23.lean:734 (addedLeaves9_of_open14)
+-- copied from ZInQKernel/OneProof/H/TailZ23.lean:732 (addedLeaves9_of_open14)
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open NumberField
 open PkgI2 (IsAbelianVariety IsInertia HasGoodReduction)
@@ -1383,7 +1383,7 @@ theorem addedLeaves9_of_open14_hf (r : OpenResearchLeaves14) (t : OpenTextbookLe
 end HSyn
 end HDec
 
--- copied from ZInQKernel/OneProof/H/TailZ23.lean:752 (researchLeaves9_of_open14)
+-- copied from ZInQKernel/OneProof/H/TailZ23.lean:750 (researchLeaves9_of_open14)
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open NumberField
 open PkgI2 (IsAbelianVariety IsInertia HasGoodReduction)
@@ -1396,7 +1396,8 @@ fields replaced by reduct-b's theorems). r6-nf: r6 (at number fields) and SS1, S
 number-field Néron theorem (N1 alone), which replaced BLR 1.4/3 over every DVR. -/
 theorem researchLeaves9_of_open14_hf (r : OpenResearchLeaves14) (t : OpenTextbookLeaves10HF) (l : OpenAddedLeaves12)
     (h6 : PkgI2.RaynaudCriterionNF.{0})
-    (hSS : _root_.ZInQ.HeightSplit.SemistableReductionThm ∧ _root_.ZInQ.HeightSplit.SemistablePersists) :
+    (hSS : _root_.ZInQ.HeightSplit.SemistableReductionThm ∧ _root_.ZInQ.HeightSplit.SemistablePersists)
+    (hNBC : _root_.ZInQ.HeightSplit.SemistableNeronBaseChange) :
     OpenResearchLeaves9 where
   r1r2 := (x6Rows_of_open14_hf r t l).1
   shimuraFamily := (_root_.LeafQM.AV.R1UnivRigid.shimuraFamily_iff_ab_gl
@@ -1417,8 +1418,7 @@ theorem researchLeaves9_of_open14_hf (r : OpenResearchLeaves14) (t : OpenTextboo
   r16 := r.r16
   r17 := r.r17
   semistableReductionThm := hSS.1
-  semistableNeronBaseChange := _root_.CToPrinted.semistableNeronBaseChange_of_printed_full r.blr_1_2_4
-    r.sga3_VIB_3_10 r.sga7_IX_3_3 r.egaIV_8_10_5_openImm t.geomConnOfRationalPoint
+  semistableNeronBaseChange := hNBC
   semistablePersists := hSS.2
   bostLowerBound := r.bostLowerBound
   javanpeykarBound := r.javanpeykarBound
@@ -1431,7 +1431,7 @@ theorem researchLeaves9_of_open14_hf (r : OpenResearchLeaves14) (t : OpenTextboo
 end HSyn
 end HDec
 
--- copied from ZInQKernel/OneProof/H/TailZ23.lean:790 (sixContactMin_of_open17)
+-- copied from ZInQKernel/OneProof/H/TailZ23.lean:788 (sixContactMin_of_open17)
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open NumberField
 open PkgI2 (IsAbelianVariety IsInertia HasGoodReduction)
@@ -1444,8 +1444,9 @@ theorem sixContactMin_of_open17_hf (r : OpenResearchLeaves14) (t : OpenTextbookL
     (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) (h6 : PkgI2.RaynaudCriterionNF.{0})
     (hSS : _root_.ZInQ.HeightSplit.SemistableReductionThm ∧ _root_.ZInQ.HeightSplit.SemistablePersists)
     (hY3 : TSHecke.Y3Connected)
-    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
-  sixContactMin_of_open11_hf (researchLeaves9_of_open14_hf r t l h6 hSS) t (addedLeaves9_of_open14_hf r t l) g
+    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM)
+    (hNBC : _root_.ZInQ.HeightSplit.SemistableNeronBaseChange) : ZInQ.SixContactMin :=
+  sixContactMin_of_open11_hf (researchLeaves9_of_open14_hf r t l h6 hSS hNBC) t (addedLeaves9_of_open14_hf r t l) g
     (_root_.ReductSplit.faltingsLemma5BCLower_final _root_.GapHeight.faltingsLemma5Lower) hYu hY3 hθ
 end HSyn
 end HDec
@@ -1463,13 +1464,14 @@ theorem sixContactMin_of_open18_hf (r : OpenResearchLeaves14) (t : OpenTextbookL
     (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) (h6 : PkgI2.RaynaudCriterionNF.{0})
     (hSS : _root_.ZInQ.HeightSplit.SemistableReductionThm ∧ _root_.ZInQ.HeightSplit.SemistablePersists)
     (hY3 : TSHecke.Y3Connected)
-    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
-  sixContactMin_of_open17_hf r t (addedLeaves12_of_open13 l) g hYu h6 hSS hY3 hθ
+    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM)
+    (hNBC : _root_.ZInQ.HeightSplit.SemistableNeronBaseChange) : ZInQ.SixContactMin :=
+  sixContactMin_of_open17_hf r t (addedLeaves12_of_open13 l) g hYu h6 hSS hY3 hθ hNBC
 end HSyn
 end HDec
 end
 
--- copied from ZInQKernel/OneProof/H/TailZ25.lean:136 (sixContactMin_of_open19)
+-- copied from ZInQKernel/OneProof/H/TailZ25.lean:139 (sixContactMin_of_open19)
 namespace HDec
 namespace HSyn
 /-- **G0 with only the open leaves and the open glue** (gt-ega; generated). -/
@@ -1479,10 +1481,11 @@ theorem sixContactMin_of_open19_hf (r : OpenResearchLeaves15) (t : OpenTextbookL
     (hY3 : TSHecke.Y3Connected) : ZInQ.SixContactMin :=
   sixContactMin_of_open18_hf (openResearchLeaves14_of_OpenResearchLeaves15 r) t l g hYu h6 hSS hY3
     HDec.ThetaDirect.thetaRatiosAtQM_of_qmHauptmodul
+    (_root_.SGA3Nbhd.semistableNeronBaseChange_noSGA3 r.blr_1_2_4 r.sga7_IX_3_3 t.geomConnOfRationalPoint)
 end HSyn
 end HDec
 
--- copied from ZInQKernel/OneProof/H/TailZ26.lean:169 (raynaudCriterionNF_of14)
+-- copied from ZInQKernel/OneProof/H/TailZ26.lean:166 (raynaudCriterionNF_of14)
 namespace HDec
 namespace HSyn
 /-- **r6 at number fields** (r6-nf) from leaf-fold14's bundles: neron-dvr's `GapNeron.raynaudCriterion_leavesNF`
@@ -1496,7 +1499,7 @@ theorem raynaudCriterionNF_of14_hf (r : OpenResearchLeaves14) (t : OpenTextbookL
 end HSyn
 end HDec
 
--- copied from ZInQKernel/OneProof/H/TailZ26.lean:177 (ss1_ss3_of14NF)
+-- copied from ZInQKernel/OneProof/H/TailZ26.lean:174 (ss1_ss3_of14NF)
 namespace HDec
 namespace HSyn
 /-- **SS1 and SS3** (r6-nf; the reroute of `ss1_ss3_of14`, docs/research/neron-dvr.md §3.2): neron-dvr's
@@ -1510,7 +1513,7 @@ theorem ss1_ss3_of14NF_hf (r : OpenResearchLeaves14) (t : OpenTextbookLeaves10HF
 end HSyn
 end HDec
 
--- copied from ZInQKernel/OneProof/H/TailZ26.lean:186 (sixContactMin_of_open20)
+-- copied from ZInQKernel/OneProof/H/TailZ26.lean:183 (sixContactMin_of_open20)
 namespace HDec
 namespace HSyn
 /-- **G0 with only the open leaves and the open glue** (leaf-fold16; generated; r6-nf: supplies r6 at number fields
@@ -1525,7 +1528,7 @@ theorem sixContactMin_of_open20_hf (r : OpenResearchLeaves16) (t : OpenTextbookL
 end HSyn
 end HDec
 
--- copied from ZInQKernel/OneProof/H/TailZ27.lean:118 (sixContactMin_of_open21)
+-- copied from ZInQKernel/OneProof/H/TailZ27.lean:115 (sixContactMin_of_open21)
 namespace HDec
 namespace HSyn
 /-- **G0 with only the open leaves and the open glue** (gt-grcount-fold; generated). -/
@@ -1535,7 +1538,7 @@ theorem sixContactMin_of_open21_hf (r : OpenResearchLeaves17) (t : OpenTextbookL
 end HSyn
 end HDec
 
--- copied from ZInQKernel/OneProof/H/TailZ28.lean:117 (sixContactMin_of_open22)
+-- copied from ZInQKernel/OneProof/H/TailZ28.lean:114 (sixContactMin_of_open22)
 namespace HDec
 namespace HSyn
 /-- **G0 with only the open leaves and the open glue** (leaf-fold18; generated). -/
@@ -1545,7 +1548,7 @@ theorem sixContactMin_of_open22_hf (r : OpenResearchLeaves18) (t : OpenTextbookL
 end HSyn
 end HDec
 
--- copied from ZInQKernel/OneProof/H/TailZ29.lean:114 (sixContactMin_of_open23)
+-- copied from ZInQKernel/OneProof/H/TailZ29.lean:111 (sixContactMin_of_open23)
 namespace HDec
 namespace HSyn
 /-- **G0 with only the open leaves and the open glue** (leaf-fold18; generated). -/
@@ -1643,7 +1646,7 @@ theorem sixContactMin_of_open26_hf (r : OpenResearchLeaves19) (t : OpenTextbookL
 end HSyn
 end HDec
 
--- copied from ZInQKernel/OneProof/H/TailZ33.lean:84 (openResearchLeaves19_of_OpenResearchLeaves20)
+-- copied from ZInQKernel/OneProof/H/TailZ33.lean:83 (openResearchLeaves19_of_OpenResearchLeaves20)
 namespace HDec
 namespace HSyn
 /-- `OpenResearchLeaves19` from `OpenResearchLeaves20`: `sga7_IX_3_3`, `semistableUnipotent` by the contributions. -/
@@ -1666,8 +1669,7 @@ theorem openResearchLeaves19_of_OpenResearchLeaves20_hf (n : OpenResearchLeaves2
   gaudronRemondThm14 := n.gaudronRemondThm14
   semistableUnipotent := _root_.UnipotentForward.semistableUnipotent_of_forwardGeom n.sga7_IX_3_5_ForwardGeom _root_.ZInQ.Contrib.OneProof.MulEtale.mulEtaleAbelianScheme_proof n.neronBaseChangeStrictHenselization
   mumfordGroupLaw := n.mumfordGroupLaw
-  sga3_VIB_3_10 := n.sga3_VIB_3_10
-  sga7_IX_3_3 := _root_.SGA7PersistsNF.sga7_IX_3_3_of_SH n.sga7_IX_3_3_SH n.neronBaseChangeStrictHenselization n.sga3_VIB_3_10 t.geomConnOfRationalPoint
+  sga7_IX_3_3 := _root_.SGA3Nbhd.NF.sga7_IX_3_3_of_SH' n.sga7_IX_3_3_SH n.neronBaseChangeStrictHenselization t.geomConnOfRationalPoint
   babaGranathRationalAb := n.babaGranathRationalAb
   gonzalezRotgerX6Ab := n.gonzalezRotgerX6Ab
   rayClassCMAb := n.rayClassCMAb
@@ -1679,7 +1681,7 @@ theorem openResearchLeaves19_of_OpenResearchLeaves20_hf (n : OpenResearchLeaves2
 end HSyn
 end HDec
 
--- copied from ZInQKernel/OneProof/H/TailZ33.lean:115 (sixContactMin_of_open27)
+-- copied from ZInQKernel/OneProof/H/TailZ33.lean:113 (sixContactMin_of_open27)
 namespace HDec
 namespace HSyn
 /-- **G0 with only the open leaves and the open glue** (leaf-fold20; generated). -/
@@ -1689,7 +1691,7 @@ theorem sixContactMin_of_open27_hf (r : OpenResearchLeaves20) (t : OpenTextbookL
 end HSyn
 end HDec
 
--- copied from ZInQKernel/OneProof/H/TailZ34.lean:80 (openResearchLeaves20_of_OpenResearchLeaves21)
+-- copied from ZInQKernel/OneProof/H/TailZ34.lean:78 (openResearchLeaves20_of_OpenResearchLeaves21)
 namespace HDec
 namespace HSyn
 /-- `OpenResearchLeaves20` from `OpenResearchLeaves21`: `rayClassCMAb`, `shimuraFamilyAb` by the contributions. -/
@@ -1711,7 +1713,6 @@ theorem openResearchLeaves20_of_OpenResearchLeaves21_hf (n : OpenResearchLeaves2
   pazukiCor13Upper := n.pazukiCor13Upper
   gaudronRemondThm14 := n.gaudronRemondThm14
   mumfordGroupLaw := n.mumfordGroupLaw
-  sga3_VIB_3_10 := n.sga3_VIB_3_10
   babaGranathRationalAb := n.babaGranathRationalAb
   gonzalezRotgerX6Ab := n.gonzalezRotgerX6Ab
   rayClassCMAb := _root_.RayClassCFT.rayClassCMAb_of_leaves n.shimuraMainThmIDeligneY3AbU t.uniformizationLeafAll t.gagaMorphism
@@ -1725,7 +1726,7 @@ theorem openResearchLeaves20_of_OpenResearchLeaves21_hf (n : OpenResearchLeaves2
 end HSyn
 end HDec
 
--- copied from ZInQKernel/OneProof/H/TailZ34.lean:146 (sixContactMin_of_open28)
+-- copied from ZInQKernel/OneProof/H/TailZ34.lean:143 (sixContactMin_of_open28)
 namespace HDec
 namespace HSyn
 /-- **G0 with only the open leaves and the open glue** (leaf-fold22; generated). dcy3-fold: supplies `TSHecke.Y3Connected`
@@ -1736,7 +1737,7 @@ theorem sixContactMin_of_open28_hf (r : OpenResearchLeaves21) (t : OpenTextbookL
 end HSyn
 end HDec
 
--- copied from ZInQKernel/OneProof/H/TailZ35.lean:79 (openResearchLeaves21_of_OpenResearchLeaves22)
+-- copied from ZInQKernel/OneProof/H/TailZ35.lean:77 (openResearchLeaves21_of_OpenResearchLeaves22)
 namespace HDec
 namespace HSyn
 /-- `OpenResearchLeaves21` from `OpenResearchLeaves22`: `r16` by the contributions. -/
@@ -1757,7 +1758,6 @@ theorem openResearchLeaves21_of_OpenResearchLeaves22_hf (n : OpenResearchLeaves2
   pazukiCor13Upper := n.pazukiCor13Upper
   gaudronRemondThm14 := n.gaudronRemondThm14
   mumfordGroupLaw := n.mumfordGroupLaw
-  sga3_VIB_3_10 := n.sga3_VIB_3_10
   babaGranathRationalAb := n.babaGranathRationalAb
   gonzalezRotgerX6Ab := n.gonzalezRotgerX6Ab
   raynaudSemistableSH := n.raynaudSemistableSH
@@ -1771,7 +1771,7 @@ theorem openResearchLeaves21_of_OpenResearchLeaves22_hf (n : OpenResearchLeaves2
 end HSyn
 end HDec
 
--- copied from ZInQKernel/OneProof/H/TailZ35.lean:109 (sixContactMin_of_open29)
+-- copied from ZInQKernel/OneProof/H/TailZ35.lean:106 (sixContactMin_of_open29)
 namespace HDec
 namespace HSyn
 /-- **G0 with only the open leaves and the open glue** (r16-split; generated). -/
@@ -1780,7 +1780,7 @@ theorem sixContactMin_of_open29_hf (r : OpenResearchLeaves22) (t : OpenTextbookL
 end HSyn
 end HDec
 
--- copied from ZInQKernel/OneProof/H/TailZ36.lean:109 (sixContactMin_of_open30)
+-- copied from ZInQKernel/OneProof/H/TailZ36.lean:106 (sixContactMin_of_open30)
 namespace HDec
 namespace HSyn
 /-- **G0 with only the open leaves and the open glue** (elkies-coord-fold; generated). -/
@@ -1789,7 +1789,7 @@ theorem sixContactMin_of_open30_hf (r : OpenResearchLeaves23) (t : OpenTextbookL
 end HSyn
 end HDec
 
--- copied from ZInQKernel/OneProof/H/TailZ37.lean:74 (openResearchLeaves23_of_OpenResearchLeaves24)
+-- copied from ZInQKernel/OneProof/H/TailZ37.lean:72 (openResearchLeaves23_of_OpenResearchLeaves24)
 namespace HDec
 namespace HSyn
 /-- `OpenResearchLeaves23` from `OpenResearchLeaves24`: `babaGranathRationalAb` by the contributions. -/
@@ -1809,7 +1809,6 @@ theorem openResearchLeaves23_of_OpenResearchLeaves24_hf (n : OpenResearchLeaves2
   pazukiCor13Upper := n.pazukiCor13Upper
   gaudronRemondThm14 := n.gaudronRemondThm14
   mumfordGroupLaw := n.mumfordGroupLaw
-  sga3_VIB_3_10 := n.sga3_VIB_3_10
   babaGranathRationalAb := _root_.BGExplicit.babaGranathRationalAb_of_printed (_root_.HDec.QMSplit.Moduli.ElkiesCoord.elkiesX6StarPrinted_of_functionField n.elkiesX6StarFunctionField) t.uniformizationLeafAll t.gagaMorphism t.mumfordTorsionAlgClosed
   gonzalezRotgerX6Ab := n.gonzalezRotgerX6Ab
   raynaudSemistableSH := n.raynaudSemistableSH
@@ -1824,7 +1823,7 @@ theorem openResearchLeaves23_of_OpenResearchLeaves24_hf (n : OpenResearchLeaves2
 end HSyn
 end HDec
 
--- copied from ZInQKernel/OneProof/H/TailZ37.lean:104 (sixContactMin_of_open31)
+-- copied from ZInQKernel/OneProof/H/TailZ37.lean:101 (sixContactMin_of_open31)
 namespace HDec
 namespace HSyn
 /-- **G0 with only the open leaves and the open glue** (leaf-fold29; generated). -/
@@ -1833,7 +1832,7 @@ theorem sixContactMin_of_open31_hf (r : OpenResearchLeaves24) (t : OpenTextbookL
 end HSyn
 end HDec
 
--- copied from ZInQKernel/OneProof/H/TailZ38.lean:104 (sixContactMin_of_open32)
+-- copied from ZInQKernel/OneProof/H/TailZ38.lean:101 (sixContactMin_of_open32)
 namespace HDec
 namespace HSyn
 /-- **G0 with only the open leaves and the open glue** (ds965-weak; generated). -/
@@ -1911,7 +1910,7 @@ theorem sixContactMin_of_open33_hf (r : OpenResearchLeaves25) (t : OpenTextbookL
 end HSyn
 end HDec
 
--- copied from ZInQKernel/OneProof/H/TailZ41.lean:70 (openResearchLeaves25_of_OpenResearchLeaves26)
+-- copied from ZInQKernel/OneProof/H/TailZ41.lean:69 (openResearchLeaves25_of_OpenResearchLeaves26)
 namespace HDec
 namespace HSyn
 /-- `OpenResearchLeaves25` from `OpenResearchLeaves26`: `semistablePersistsSHcp` by the contributions. -/
@@ -1930,10 +1929,9 @@ theorem openResearchLeaves25_of_OpenResearchLeaves26_hf (n : OpenResearchLeaves2
   pazukiCor13Upper := n.pazukiCor13Upper
   gaudronRemondThm14 := n.gaudronRemondThm14
   mumfordGroupLaw := n.mumfordGroupLaw
-  sga3_VIB_3_10 := n.sga3_VIB_3_10
   gonzalezRotgerX6Ab := n.gonzalezRotgerX6Ab
   raynaudSemistableSH := n.raynaudSemistableSH
-  semistablePersistsSHcp := _root_.GapPersists.semistablePersistsSHcp_of_SH n.sga3_VIB_3_10 n.sga7_IX_3_3_SH n.neronBaseChangeStrictHenselization t.geomConnOfRationalPoint
+  semistablePersistsSHcp := _root_.SGA3Nbhd.Persists.semistablePersistsSHcp_of_SH' n.sga7_IX_3_3_SH n.neronBaseChangeStrictHenselization t.geomConnOfRationalPoint
   gonzalezRotgerProp56X6 := n.gonzalezRotgerProp56X6
   neronBaseChangeStrictHenselization := n.neronBaseChangeStrictHenselization
   sga7_IX_3_3_SH := n.sga7_IX_3_3_SH
@@ -1945,7 +1943,7 @@ theorem openResearchLeaves25_of_OpenResearchLeaves26_hf (n : OpenResearchLeaves2
 end HSyn
 end HDec
 
--- copied from ZInQKernel/OneProof/H/TailZ41.lean:99 (sixContactMin_of_open34)
+-- copied from ZInQKernel/OneProof/H/TailZ41.lean:97 (sixContactMin_of_open34)
 namespace HDec
 namespace HSyn
 /-- **G0 with only the open leaves and the open glue** (persists-dvr; generated). -/
@@ -2009,7 +2007,7 @@ theorem sixContactMin_of_open36_hf (r : OpenResearchLeaves26) (t : OpenTextbookL
 end HSyn
 end HDec
 
--- copied from ZInQKernel/OneProof/H/TailZ44.lean:104 (OpenTextbookLeaves13)
+-- copied from ZInQKernel/OneProof/H/TailZ44.lean:103 (OpenTextbookLeaves13)
 namespace HDec
 namespace HSyn
 /-- `OpenTextbookLeaves12HF` without `geomConnOfRationalPoint`, `groupSchemeEquidim`, `cartierSmooth`, `uniformizationLeafAll` (leaf-fold32). -/
@@ -2023,7 +2021,7 @@ structure OpenTextbookLeaves13HF : Prop where
 end HSyn
 end HDec
 
--- copied from ZInQKernel/OneProof/H/TailZ44.lean:113 (openTextbookLeaves12_of_OpenTextbookLeaves13)
+-- copied from ZInQKernel/OneProof/H/TailZ44.lean:112 (openTextbookLeaves12_of_OpenTextbookLeaves13)
 namespace HDec
 namespace HSyn
 /-- `OpenTextbookLeaves12HF` from `OpenTextbookLeaves13HF`: `geomConnOfRationalPoint`, `groupSchemeEquidim`, `cartierSmooth`, `uniformizationLeafAll` by the contributions. -/
@@ -2041,7 +2039,7 @@ theorem openTextbookLeaves12_of_OpenTextbookLeaves13_hf (n : OpenTextbookLeaves1
 end HSyn
 end HDec
 
--- copied from ZInQKernel/OneProof/H/TailZ44.lean:157 (sixContactMin_of_open37)
+-- copied from ZInQKernel/OneProof/H/TailZ44.lean:156 (sixContactMin_of_open37)
 namespace HDec
 namespace HSyn
 /-- **G0 with only the open leaves and the open glue** (leaf-fold32; generated). -/
@@ -2050,7 +2048,7 @@ theorem sixContactMin_of_open37_hf (r : OpenResearchLeaves27) (t : OpenTextbookL
 end HSyn
 end HDec
 
--- copied from ZInQKernel/OneProof/H/TailZ45.lean:127 (sixContactMin_of_open38)
+-- copied from ZInQKernel/OneProof/H/TailZ45.lean:126 (sixContactMin_of_open38)
 namespace HDec
 namespace HSyn
 /-- **G0 with only the open leaves and the open glue** (leaf-fold32-dict; generated). -/
@@ -2059,7 +2057,7 @@ theorem sixContactMin_of_open38_hf (r : OpenResearchLeaves28) (t : OpenTextbookL
 end HSyn
 end HDec
 
--- copied from ZInQKernel/OneProof/H/TailZ46.lean:92 (OpenTextbookLeaves14)
+-- copied from ZInQKernel/OneProof/H/TailZ46.lean:90 (OpenTextbookLeaves14)
 namespace HDec
 namespace HSyn
 /-- `OpenTextbookLeaves13HF` without `poincareComplement` (leaf-fold33). -/
@@ -2071,7 +2069,7 @@ structure OpenTextbookLeaves14HF : Prop where
 end HSyn
 end HDec
 
--- copied from ZInQKernel/OneProof/H/TailZ46.lean:100 (openTextbookLeaves13_of_OpenTextbookLeaves14)
+-- copied from ZInQKernel/OneProof/H/TailZ46.lean:98 (openTextbookLeaves13_of_OpenTextbookLeaves14)
 namespace HDec
 namespace HSyn
 /-- `OpenTextbookLeaves13HF` from `OpenTextbookLeaves14HF`: `poincareComplement` by the contributions. -/
@@ -2085,7 +2083,7 @@ theorem openTextbookLeaves13_of_OpenTextbookLeaves14_hf (n : OpenTextbookLeaves1
 end HSyn
 end HDec
 
--- copied from ZInQKernel/OneProof/H/TailZ46.lean:109 (sixContactMin_of_open39)
+-- copied from ZInQKernel/OneProof/H/TailZ46.lean:107 (sixContactMin_of_open39)
 namespace HDec
 namespace HSyn
 /-- **G0 with only the open leaves and the open glue** (leaf-fold33; generated). -/

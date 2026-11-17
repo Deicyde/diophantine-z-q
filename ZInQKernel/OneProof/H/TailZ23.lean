@@ -655,9 +655,7 @@ structure OpenResearchLeaves14 : Prop where
   domain, a smooth separated model of finite type is a Néron model iff its localizations at the closed points are;
   locator UNVERIFIED). Replaces `neronLocalizesDVR`. -/
   blr_1_2_4 : _root_.CToPrinted.BLR_1_2_4
-  /-- c-to-printed, printed form: SGA 3 VI_B 3.10 (the identity component `G⁰` of a smooth group scheme is open;
-  number UNVERIFIED). With the next two and `geomConnOfRationalPoint` replaces `semistableNeronBaseChange`. -/
-  sga3_VIB_3_10 : _root_.CToPrinted.SGA3_VIB_3_10
+  -- fold33-combine (sga3-nbhd): field `sga3_VIB_3_10` deleted (its readers no longer need SGA 3 VI_B 3.10)
   /-- c-to-printed, printed form: SGA 7 IX 3.3 (`N⁰ ⊗ R' ≅ N'⁰` for semistable reduction; locator UNVERIFIED). -/
   sga7_IX_3_3 : _root_.CToPrinted.SGA7_IX_3_3
   /-- c-to-printed, printed form: EGA IV 8.10.5, open immersions descend through limits (locator UNVERIFIED). -/
@@ -751,7 +749,8 @@ fields replaced by reduct-b's theorems). r6-nf: r6 (at number fields) and SS1, S
 number-field Néron theorem (N1 alone), which replaced BLR 1.4/3 over every DVR. -/
 theorem researchLeaves9_of_open14 (r : OpenResearchLeaves14) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves12)
     (h6 : PkgI2.RaynaudCriterionNF.{0})
-    (hSS : _root_.ZInQ.HeightSplit.SemistableReductionThm ∧ _root_.ZInQ.HeightSplit.SemistablePersists) :
+    (hSS : _root_.ZInQ.HeightSplit.SemistableReductionThm ∧ _root_.ZInQ.HeightSplit.SemistablePersists)
+    (hNBC : _root_.ZInQ.HeightSplit.SemistableNeronBaseChange) :
     OpenResearchLeaves9 where
   r1r2 := (x6Rows_of_open14 r t l).1
   shimuraFamily := (_root_.LeafQM.AV.R1UnivRigid.shimuraFamily_iff_ab_gl
@@ -772,8 +771,7 @@ theorem researchLeaves9_of_open14 (r : OpenResearchLeaves14) (t : OpenTextbookLe
   r16 := r.r16
   r17 := r.r17
   semistableReductionThm := hSS.1
-  semistableNeronBaseChange := _root_.CToPrinted.semistableNeronBaseChange_of_printed_full r.blr_1_2_4
-    r.sga3_VIB_3_10 r.sga7_IX_3_3 r.egaIV_8_10_5_openImm t.geomConnOfRationalPoint
+  semistableNeronBaseChange := hNBC
   semistablePersists := hSS.2
   bostLowerBound := r.bostLowerBound
   javanpeykarBound := r.javanpeykarBound
@@ -791,8 +789,9 @@ theorem sixContactMin_of_open17 (r : OpenResearchLeaves14) (t : OpenTextbookLeav
     (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) (h6 : PkgI2.RaynaudCriterionNF.{0})
     (hSS : _root_.ZInQ.HeightSplit.SemistableReductionThm ∧ _root_.ZInQ.HeightSplit.SemistablePersists)
     (hY3 : TSHecke.Y3Connected)
-    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
-  sixContactMin_of_open11 (researchLeaves9_of_open14 r t l h6 hSS) t (addedLeaves9_of_open14 r t l) g
+    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM)
+    (hNBC : _root_.ZInQ.HeightSplit.SemistableNeronBaseChange) : ZInQ.SixContactMin :=
+  sixContactMin_of_open11 (researchLeaves9_of_open14 r t l h6 hSS hNBC) t (addedLeaves9_of_open14 r t l) g
     (_root_.ReductSplit.faltingsLemma5BCLower_final _root_.GapHeight.faltingsLemma5Lower) hYu hY3 hθ
 
 end HSyn

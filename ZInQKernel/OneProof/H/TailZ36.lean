@@ -37,9 +37,7 @@ structure OpenResearchLeaves23 : Prop where
   identity `e`. Replaces `mumfordRigidityCore`, which also asked Cor. 6.4 (not needed: rigid-prune proves that each
   `ι(a)` is a homomorphism from the field points). -/
   mumfordGroupLaw : _root_.ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw
-  /-- c-to-printed, printed form: SGA 3 VI_B 3.10 (the identity component `G⁰` of a smooth group scheme is open;
-  number UNVERIFIED). With the next two and `geomConnOfRationalPoint` replaces `semistableNeronBaseChange`. -/
-  sga3_VIB_3_10 : _root_.CToPrinted.SGA3_VIB_3_10
+  -- fold33-combine (sga3-nbhd): field `sga3_VIB_3_10` deleted (its readers no longer need SGA 3 VI_B 3.10)
   /-- x6-glue, printed form (on abelian schemes): Baba–Granath, Canad. J. Math. 60 (2008), Thm 2.1 and Lemma 3.1
   (read by the locator audit), on one canonical coarse witness `X₆`: a coordinate `π : X₆ → P¹` whose fibres are the
   `Aut(𝒪)`-twist classes, with three distinct rational values at the CM points of discriminants `−4, −3, −24` (the
@@ -92,7 +90,6 @@ theorem openResearchLeaves22_of_OpenResearchLeaves23 (n : OpenResearchLeaves23) 
   pazukiCor13Upper := n.pazukiCor13Upper
   gaudronRemondThm14 := n.gaudronRemondThm14
   mumfordGroupLaw := n.mumfordGroupLaw
-  sga3_VIB_3_10 := n.sga3_VIB_3_10
   babaGranathRationalAb := n.babaGranathRationalAb
   gonzalezRotgerX6Ab := n.gonzalezRotgerX6Ab
   raynaudSemistableSH := n.raynaudSemistableSH

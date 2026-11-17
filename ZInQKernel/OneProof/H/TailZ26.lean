@@ -50,9 +50,7 @@ structure OpenResearchLeaves16 : Prop where
   identity `e`. Replaces `mumfordRigidityCore`, which also asked Cor. 6.4 (not needed: rigid-prune proves that each
   `ι(a)` is a homomorphism from the field points). -/
   mumfordGroupLaw : _root_.ZInQ.Contrib.MumfordRigidity.MumfordGroupLaw
-  /-- c-to-printed, printed form: SGA 3 VI_B 3.10 (the identity component `G⁰` of a smooth group scheme is open;
-  number UNVERIFIED). With the next two and `geomConnOfRationalPoint` replaces `semistableNeronBaseChange`. -/
-  sga3_VIB_3_10 : _root_.CToPrinted.SGA3_VIB_3_10
+  -- fold33-combine (sga3-nbhd): field `sga3_VIB_3_10` deleted (its readers no longer need SGA 3 VI_B 3.10)
   /-- c-to-printed, printed form: SGA 7 IX 3.3 (`N⁰ ⊗ R' ≅ N'⁰` for semistable reduction; locator UNVERIFIED). -/
   sga7_IX_3_3 : _root_.CToPrinted.SGA7_IX_3_3
   /-- x6-glue, printed form (on abelian schemes): Baba–Granath, Canad. J. Math. 60 (2008), Thm 2.1 and Lemma 3.1
@@ -112,7 +110,6 @@ theorem openResearchLeaves15_of_OpenResearchLeaves16 (n : OpenResearchLeaves16) 
   gonzalezRotgerCountX6Ab := n.gonzalezRotgerCountX6Ab
   mumfordGroupLaw := n.mumfordGroupLaw
   blr_1_2_4 := _root_.GapBLR.blr_1_2_4
-  sga3_VIB_3_10 := n.sga3_VIB_3_10
   sga7_IX_3_3 := n.sga7_IX_3_3
   babaGranathRationalAb := n.babaGranathRationalAb
   gonzalezRotgerX6Ab := n.gonzalezRotgerX6Ab
