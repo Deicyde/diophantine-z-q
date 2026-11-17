@@ -1,0 +1,27 @@
+'ZInQ.Contrib.OneProof.CharpolyHF.minpoly_baseChange_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.OneProof.CharpolyHF.exists_minpoly_endE_charP' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.G14Trace.common_trace_of_minpolyCharP' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.G14Trace.g14TraceCompat_of_link_minpolyCharP' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.G0AssembleMod.linkedTateData_of_local_minpolyCharP' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.OneProof.CharpolyHF.minpolyIndepOfEllCharP_of_homFree' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'R16Split.r16_of_printedC' depends on axioms: [propext, Classical.choice, Quot.sound]
+HDec.HSyn.G0AssembleMod.linkedTateData_of_local_minpolyCharP : ZInQ.Contrib.OneProof.CharpolyHF.MinpolyIndepOfEllCharP →
+  PkgI3.TateModuleFree → HDec.HSyn.G0AssembleMod.LinkedTateLocal → HDec.HSyn.G0AssembleMod.LinkedTateData
+ZInQ.Contrib.OneProof.CharpolyHF.minpolyIndepOfEllCharP_of_homFree : ZInQ.Contrib.OneProof.CharpolyHF.HomFreeFiniteAlgClosedCharP →
+  PkgI3.TateModuleFree → ZInQ.Contrib.OneProof.CharpolyHF.MinpolyIndepOfEllCharP
+def ZInQ.Contrib.OneProof.CharpolyHF.MinpolyIndepOfEllCharP : Prop :=
+∀ (k : Type) [inst : Field k] (p : ℕ),
+  Nat.Prime p →
+    CharP k p →
+      ∀ (A : PkgI3.AbVar k) (α : A.End),
+        ∃ m,
+          m.Monic ∧
+            ∀ (ℓ : ℕ) [inst_1 : Fact (Nat.Prime ℓ)],
+              ↑ℓ ≠ 0 →
+                ∀ (G : Polynomial ℚ_[ℓ]),
+                  (Polynomial.aeval (LinearMap.baseChange ℚ_[ℓ] (PkgI3.AbVar.homT α))) G = 0 ↔
+                    Polynomial.map (Rat.castHom ℚ_[ℓ]) m ∣ G
