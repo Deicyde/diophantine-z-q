@@ -7,7 +7,6 @@ picRepresentableAbVar	pic-repr	host task pic-repr running	2026-11-16	elliotglaze
 r17	r17-bypass	host task running	2026-11-15		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/r17-bypass	held
 eigenformHTNew	ht-bypass	host task running	2026-11-15		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/ht-bypass	held
 r11r12	pb-bypass	host task running	2026-11-15		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/pb-bypass	held
-gaudronRemondThm14	gr14-narrow	host task gr14-narrow running: forward direction only; reverse existence from milneIsogenyQuasiInverse	2026-11-15		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/gr14-narrow	held
 r9a	faltings-cm	host task faltings-cm running: whether every live instance is CM, then semisimplicity and the Tate property from the CM leaves	2026-11-15		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/faltings-cm	held
 r9b	faltings-cm	host task faltings-cm running: whether every live instance is CM, then semisimplicity and the Tate property from the CM leaves	2026-11-15		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/faltings-cm	held
 gonzalezRotgerProp56X6	gr56-prove	host task gr56-prove running: Prop. 5.6 at D = 6 from the lattice model and cm-stab	2026-11-15		project	project	https://github.com/Deicyde/diophantine-z-q/tree/wip/gr56-prove	held

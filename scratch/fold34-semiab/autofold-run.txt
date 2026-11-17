@@ -1,0 +1,3 @@
+strict count: 11/18 on 29 -> 14/16 on 30; strictest 11/18 -> 14/16
+wrote ZInQKernel/OneProof/H/TailZ56.lean, switched ZInQKernel/OneProof/Main.lean to sixContactMin_of_open49, updated docs/one-proof/kinds.tsv and docs/one-proof/claims.tsv
+next: lake build +ZInQKernel.OneProof.Main, the hash guard, OpenStatements.lean, render_open.py, render_open.py --check
