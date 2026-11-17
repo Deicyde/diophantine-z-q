@@ -18,3 +18,4 @@ Base: wip/x6-coarse 0dc0c1fa, merged origin/main (5c7d9ba7) as 63d3efec.
 - Not in the tree: `#Pic(ℤ[√−6])`, `inertCount6 K24`.
 - ClassNumber24.lean compiles (lake env lean, no errors) — VERIFIED 2026-11-17: discr K24 = −24, #ClassGroup ≤ 2, inertCount6 K24 = 0
 - ElkiesX6StarCM.lean compiles (lake env lean, no errors) — VERIFIED 2026-11-17 (after fixes: Pi0X6 is HDec.Pi0X6 in LPrefix; End not commutative so no ring on End)
+- Axioms.lean: all 89 declarations of the two files print [propext, Classical.choice, Quot.sound] — VERIFIED (axioms.txt)
