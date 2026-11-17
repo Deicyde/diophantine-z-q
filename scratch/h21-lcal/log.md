@@ -26,3 +26,9 @@ GaussFE: OK (16074 jobs), frozenTarget standard axioms.
   * `TYZThm21PairsPrinted` (∀ R, h21C with IsLcalSignPrinted R) ↔ `TYZThm21PairsC`;
     `TYZThm21SpanPrinted` ↔ `TYZThm21Span` (h21c-steps).
   * pitfall: importing TYZLcalOne makes bare `curveC` ambiguous under these opens; use ZInQ.Contrib.TYZDecomp.curveC.
+- FoldCheck.lean (development + `import ZInQKernel.OneProof.Main`): VERIFIED compiled; frozenTarget_h21P, _h21P',
+  _h21SP, _h21SP' all [propext, Classical.choice, Quot.sound] (FoldCheck-output.txt).
+- autofold.json (variants A: h21C -> h21P on current Main; B: h21S -> h21SP after h21c-steps), kinds-rows.tsv
+  (kind consequence, flag pending review, strict GLUE until reviewed).
+- Observation: h21c-steps' FoldCheck.lean uses OpenResearchLeaves38 / TYZThm33 (older top); current Main has
+  OpenResearchLeaves42 / h33a. Not re-checked here.

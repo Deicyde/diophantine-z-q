@@ -1,0 +1,28 @@
+{
+  "name": "h21-lcal",
+  "note": "Manual fold: h21C is a top-level argument of frozenTarget (autofold.py folds bundle fields only). Step (a) of the queue10 verdict on h21C: the sign choices are taken against TYZ's printed script-L^2 (lcalSqPrinted R, the case split on ord_{s=1} with the L'/(Omega R) branch) instead of lcalSq; lcalSqPrinted R m = lcalSq m on squarefree m = 1, 3 mod 8 is proved (root number +1: functionalEquationPlus_proof, analyticOrderAt_ne_one). Variant A on the current Main (h21C -> h21P); variant B after h21c-steps (h21S -> h21SP). Both are equivalences. Checked in scratch/h21-lcal/FoldCheck.lean. The development is scratch/h21-lcal/H21Lcal.lean (namespace ZInQ.Contrib.H21Lcal); the integrator moves it to a module, e.g. ZInQKernel/Contrib/OneProof/H21Lcal.lean, with imports ZInQKernel.Contrib.HeckeAll.Provider, ZInQKernel.Contrib.OneProof.TYZThm21Span, ZInQKernel.Contrib.OneProof.TYZLcalOne.",
+  "imports": ["ZInQKernel.Contrib.OneProof.H21Lcal"],
+  "variantA": {
+    "replace_binders": {"(h21C : ZInQ.Contrib.TYZGenusFold.TYZThm21PairsC)": "(h21P : ZInQ.Contrib.H21Lcal.TYZThm21PairsPrinted)"},
+    "replace_args": {"h21C": "(ZInQ.Contrib.H21Lcal.tyzThm21PairsC_of_printed h21P)"},
+    "discharges": [
+      {"field": "h21C", "proof": "_root_.ZInQ.Contrib.H21Lcal.tyzThm21PairsC_of_printed",
+       "leaves": [{"field": "h21P", "type": "ZInQ.Contrib.H21Lcal.TYZThm21PairsPrinted", "kind": "consequence",
+                   "flag": "pending-review,restricted"}]}],
+    "kinds_remove": ["frozenTarget\th21C"],
+    "kinds_add": "scratch/h21-lcal/kinds-rows.tsv (row h21P)",
+    "check": "ZInQ.Contrib.TYZChain.frozenTarget_h21P, frozenTarget_h21P'"
+  },
+  "variantB": {
+    "replace_binders": {"(h21S : ZInQ.Contrib.H21CSteps.TYZThm21Span)": "(h21SP : ZInQ.Contrib.H21Lcal.TYZThm21SpanPrinted)"},
+    "replace_args": {"(ZInQ.Contrib.H21CSteps.tyzThm21PairsC_of_span h21S)": "(ZInQ.Contrib.H21Lcal.tyzThm21PairsC_of_spanPrinted h21SP)"},
+    "discharges": [
+      {"field": "h21S", "proof": "_root_.ZInQ.Contrib.H21Lcal.tyzThm21Span_of_printed",
+       "leaves": [{"field": "h21SP", "type": "ZInQ.Contrib.H21Lcal.TYZThm21SpanPrinted", "kind": "consequence",
+                   "flag": "pending-review,restricted"}]}],
+    "kinds_remove": ["frozenTarget\th21S"],
+    "kinds_add": "scratch/h21-lcal/kinds-rows.tsv (row h21SP)",
+    "check": "ZInQ.Contrib.TYZChain.frozenTarget_h21SP, frozenTarget_h21SP'"
+  },
+  "count": "frozenTarget hypotheses unchanged in number; step (a) of the queue10 composite verdict removed (no new leaf); step (b) (Legendre gchar vs TYZ's CFT character) is h21-gchar's"
+}
