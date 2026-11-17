@@ -122,6 +122,10 @@ days, five per UTC day and forty per UTC calendar month across the project.
 An attempt reserves its allowance before triage; rejection, interruption or
 provider failure does not refund it. Stable GitHub account IDs identify authors.
 A short admission job serializes the quota scan and reservation across PRs.
+The scan includes open and closed PRs in immutable creation order; duplicate
+or out-of-order results stop admission. A second, per-PR lock covers the
+entire review and publication job for every event route. A queued round
+reads the preceding round's findings after acquiring that lock.
 The reservation consists of an original bot intent comment plus a matching
 record from the dedicated App. Incomplete or ambiguous records stop new
 spending until reconciled. Time passing never proves that a request had no
@@ -153,6 +157,11 @@ policy documents, other documentation and all Lean contributions need an
 unedited `/protocol-b merge <full head SHA>` comment from a current write
 collaborator. The command uses existing current-head App acceptance without a
 model call, and keeps the same required-check, up-to-date and ruleset checks.
+It rereads current discussion and App-backed obligations before merging.
+A newer objection or interrupted review blocks the old acceptance; the
+merge command itself is authorization, not a disposition of a finding.
+Existing admin scope overrides remain usable only when current admin
+authorization and the discussion covered by that acceptance are unchanged.
 Lean helper merges remain manual until a compatible independent type-theory
 checker is established. A reviewer scope item still blocks unless an admin
 explicitly overrides it. No release authority is granted by this process.

@@ -304,13 +304,16 @@ class Receipt(unittest.TestCase):
                 stack.enter_context(patch.object(gate, 'head_checks', return_value=[check]))
                 stack.enter_context(patch.object(gate, 'same_policy', return_value=change != 'policy'))
                 merge = stack.enter_context(patch.object(gate, 'merge_and_dispatch'))
+                history = stack.enter_context(patch.object(gate, 'outside_merge_review_current'))
                 provider = stack.enter_context(patch.object(gate, 'outside_model_once'))
                 if change:
                     with self.assertRaises(ValueError): gate.outside_merge_command(Mock(), candidate(), 'main', 'live')
                     merge.assert_not_called()
+                    history.assert_not_called()
                 else:
                     gate.outside_merge_command(Mock(), candidate(), 'main', 'live')
                     merge.assert_called_once()
+                    history.assert_called_once()
                 provider.assert_not_called()
 
 

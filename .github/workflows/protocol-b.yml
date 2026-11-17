@@ -708,7 +708,19 @@ jobs:
               now = now.astimezone(datetime.timezone.utc)
               cutoff = min(now.replace(day=1, hour=0, minute=0, second=0, microsecond=0),
                            now-datetime.timedelta(days=7))
-              pulls = gh.pages('/pulls?state=all&sort=updated&direction=desc')
+              # Creation order is immutable under comments, pushes, closure and reopening.
+              # Updated-order pagination can silently omit an older reservation when a PR
+              # moves from an unread page to an already read page. Include closed PRs and
+              # reject duplicate/out-of-order pages rather than deduplicating them.
+              pulls = gh.pages('/pulls?state=all&sort=created&direction=asc')
+              previous_number = 0
+              for pr in pulls:
+                  number = pr.get('number')
+                  if type(number) is not int or number <= previous_number:
+                      raise ValueError('Unstable unattended PR pagination; no partial quota accounting')
+                  previous_number = number
+              if current['number'] not in {p['number'] for p in pulls}:
+                  raise ValueError('Current PR missing from unattended quota enumeration')
               selected = {current['number']: current}
               for pr in pulls:
                   if outside_stamp(pr['updated_at']) >= cutoff:
@@ -1257,6 +1269,33 @@ jobs:
                       'quota_before': local.get('quota_before'), 'limits': OUTSIDE_LIMITS}
 
 
+          def outside_merge_review_current(gh, pr, state):
+              """A merge command authorizes merging, never disposition of a new objection."""
+              reports = state.get('reports') or {}
+              if set(reports) != set(MODELS):
+                  raise ValueError('Merge needs the authenticated reports for both reviewers')
+              for family, envelope in reports.items():
+                  if (envelope.get('reviewer') != family or envelope.get('model') != MODELS[family]
+                          or effective_head(envelope) != pr['head']['sha']
+                          or not same_policy(gh, envelope.get('policy_ref', ''), state['policy_ref'])):
+                      raise ValueError('Merge reports do not bind this head and policy')
+              spend = review_spend_history(gh, gh, pr, state['name'], state['policy_ref'])
+              pending = reconcile_obligations(gh, pr, reports, spend['candidates'])
+              discussion, prior, overrides, _ = history(gh, pr, {
+                  ident: {'objection': item['reason'], **item} for ident, item in pending.items()})
+              if state.get('overrides'):
+                  # Only the original admin acceptance may cover incomplete scope. A
+                  # later merge command cannot silently extend it to new discussion.
+                  digest = passage_digest(sorted(history_coverage(discussion)))
+                  if digest != state.get('override_history_digest'):
+                      raise ValueError('Review history changed after admin acceptance; no merge')
+                  applied = overridden_decision(reports, overrides, pr['head']['sha'])
+                  if applied != state['overrides']:
+                      raise ValueError('Admin override authorization changed; no merge')
+              elif not combined_decision(reports, prior, discussion)[0]:
+                  raise ValueError('Review history has changed or is unresolved; no merge')
+
+
           def outside_merge_command(gh, pr, default, mode):
               """Act on existing App acceptance, without making another model request."""
               name = CHECK if mode == 'live' else 'Protocol B / test review'
@@ -1272,7 +1311,11 @@ jobs:
                   raise ValueError('The accepted check does not bind this PR, head and current policy')
               state = {'number': pr['number'], 'head': pr['head']['sha'], 'base': pr['base']['sha'],
                        'default': default, 'policy_ref': value['policy_ref'],
-                       'outside_admission': value.get('outside_admission')}
+                       'outside_admission': value.get('outside_admission'), 'name': name,
+                       'reports': value.get('reports'), 'overrides': value.get('overrides'),
+                       'override_history_digest': value.get('override_history_digest'),
+                       'merge_command_check': check['id']}
+              outside_merge_review_current(gh, pr, state)
               record('outside-merge-command.json', {'check': check['id'], **state, 'model_calls': 0})
               if mode == 'live':
                   merge_and_dispatch(gh, state)
@@ -3268,6 +3311,7 @@ jobs:
                       continue  # Attestation metadata is not a new discussion objection.
                   body = item.get('body', '')
                   if body.strip() == '/protocol-b review' or re.fullmatch(
+                          r'/protocol-b merge [0-9a-f]{40}', body.strip()) or re.fullmatch(
                           r'/protocol-b override [0-9a-f]{40} [A-Za-z0-9_-]+\s+.+', body.strip(), re.S):
                       continue  # Authorization commands are revalidated separately.
                   if item.get('author') == 'github-actions[bot]' and body.startswith((ROUND_MARKER, SUMMARY_MARKER,
@@ -3342,7 +3386,9 @@ jobs:
                                  'lean_kernel_provenance': lean_provenance(state),
                                  'paid_rounds': state.get('paid_rounds', 0),
                                  'source_access_limitations': limits,
-                                 'scope_overrides': state.get('scope_overrides', [])})
+                                 'scope_overrides': state.get('scope_overrides', []),
+                                 'overrides': state.get('overrides'),
+                                 'override_history_digest': state.get('override_history_digest')})
 
 
           def bounded_decision(state, envelopes, prior, discussion):
@@ -3704,6 +3750,7 @@ jobs:
                       if limits:
                           summary += '\nNonblocking source-access limitations:\n' + json.dumps(limits, indent=2)
                       state['overrides'] = applied
+                      state['override_history_digest'] = passage_digest(sorted(history_coverage(discussion)))
                       state['scope_overrides'] = [item for e in envelopes.values()
                                                   if (item := review_scope_item(e)) and item['id'] in applied]
                       if state['scope_overrides']:
@@ -3966,6 +4013,8 @@ jobs:
               latest_ref = gh.call('/commits/' + state['default'])['sha']
               if not same_policy(gh, state['policy_ref'], latest_ref):
                   raise RuntimeError('Review policy changed before requesting merge')
+              if state.get('merge_command_check'):
+                  outside_merge_review_current(gh, current, state)
               permission = outside_merge_permission(gh, state, current, int(os.environ['APP_ID']))
               record('outside-merge.json', {'head': state['head'], **permission})
               if not permission['allowed']:
@@ -4452,6 +4501,11 @@ jobs:
 
   run_reviewers:
     name: Run reviewers and publish App check
+    # All event routes share this lock, including wake jobs whose workflow
+    # concurrency key is a run ID. Read history only after taking this lock.
+    concurrency:
+      group: protocol-b-review-pr-${{ needs.route_request.outputs.number }}
+      cancel-in-progress: false
     needs: [route_request, kernel_preflight]
     if: '!cancelled() && needs.kernel_preflight.result == ''success'' && needs.route_request.outputs.eligible == ''true'''
     runs-on: ubuntu-24.04
