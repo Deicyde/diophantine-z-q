@@ -1,0 +1,3 @@
+info: ZInQKernel/OneProof/Main.lean:146:0: 'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [14231/14231] Built ZInQKernel.Contrib.OneProof.PazukiRoute (8.5s)
+Build completed successfully (14231 jobs).

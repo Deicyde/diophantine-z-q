@@ -6,7 +6,7 @@
  "discharges": [
   {
    "field": "pazukiCor13Upper",
-   "proof": "_root_.PazukiRoute.pazukiCor13Upper_of_route {t}.gagaMorphism {n}.pazukiCor13UpperPP {n}.riemannPPAV {l}.picRepresentableAbVar {n}.ampleDescendsFieldExt {n}.symmetricClassesCountable {n}.countablePointsDefinedOver",
+   "proof": "_root_.PazukiRoute.pazukiCor13Upper_of_fields {t}.gagaMorphism {n}.pazukiCor13UpperPP {n}.riemannPPAV {l}.picRepresentableAbVar {l}.kleimanPicZeroProper {t}.mumfordTorsionAlgClosed {n}.ampleDescendsFieldExt",
    "leaves": [
     {
      "name": "pazukiCor13UpperPP",
@@ -31,25 +31,9 @@
      "kind": "published",
      "flag": "locator UNVERIFIED (EGA IV 2.7.2, EGA II 4.6.6 recalled, not read); printed for quasi-compact f relative to S, read absolutely over the affine base Spec k (EGA II 4.6.6)",
      "source": "EGA IV_2, Cor. 2.7.2; EGA II, Prop. 4.6.6 (locators UNVERIFIED)"
-    },
-    {
-     "name": "symmetricClassesCountable",
-     "type": "_root_.PazukiRoute.SymmetricClassesCountable",
-     "doc": "For an abelian variety A over a number field K and sigma : K -> C, the classes L in Pic(A_C) with [-1]^*L = L are countably many (pazuki-route). Why true: L -> phi_L into Hom(A_C, Pic0), free of finite rank (Mumford 19 Thm 3, homFreeFiniteC in the tree), kernel Pic0 (Mumford 8); symmetric classes in Pic0 are 2-torsion ([-1]^* = inverse on Pic0, Mumford 8 (iv)); Pic0[2] finite (Mumford 4).",
-     "kind": "composite",
-     "flag": "composite: Neron-Severi (phi_L into Hom(A, Pic0), Hom free of finite rank), [-1]^* is inversion on Pic0, Pic0[2] finite; every input is in the tree (homFreeFiniteC, mu_pic_of_isTI0, card_isDT_le0) but the assembly is not proved; locator UNVERIFIED",
-     "source": "Mumford, Abelian varieties, sections 4, 8 (iv), 19 Thm 3 (locators UNVERIFIED)"
-    },
-    {
-     "name": "countablePointsDefinedOver",
-     "type": "_root_.PazukiRoute.CountablePointsDefinedOver",
-     "doc": "A scheme Z locally of finite type over a number field K with countably many C-points over sigma : K -> C has every such point defined over a number field K' (x = Spec sigma' composed with y : Spec K' -> Z). Pure algebraic geometry and field theory: residue fields of Z are finitely generated over K; a non-algebraic one has uncountably many K-embeddings into C over sigma, giving uncountably many C-points (pazuki-route).",
-     "kind": "glue",
-     "flag": "project glue (no literature input): finitely generated residue fields, transcendence degree of C over a countable subfield, factorization of Spec C -> Z through Spec kappa(z)",
-     "source": "pazuki-route (standard: Zariski's lemma; uncountable transcendence degree of C over Q)"
     }
    ]
   }
  ],
- "note": "pazuki-route (docs/research/pazuki-route.md): pazuki-inputs' composite core SymmPrincipalDefinedOver is proved (PazukiRoute.symmPrincipalDefinedOver_of_route) from the existing LEAF field picRepresentableAbVar, the new LEAF ampleDescendsFieldExt (EGA IV 2.7.2), the composite symmetricClassesCountable and the glue lemma countablePointsDefinedOver; h0 descends by flat base change (proved), the symmetric locus of the Picard scheme is locally of finite type (picLocFinType_proof) and its C-points are the symmetric classes (Kleiman 9.2.5, pushforwardUnitUniversal). Against kinds.tsv (pazukiCor13Upper GLUE) the strict GLUE count rises by two (needs --allow-rise): one more than pazuki-inputs. Not recommended for folding before symmetricClassesCountable and countablePointsDefinedOver are proved; then the fold is neutral (RiemannPPAV the only GLUE)."
+ "note": "pazuki-route (docs/research/pazuki-route.md): pazuki-inputs' composite core SymmPrincipalDefinedOver (the arithmetic half: a symmetric principal polarization of A_C is defined over a number field) is proved in Lean (PazukiRoute.symmPrincipalDefinedOver_of_fields) from the existing LEAF fields picRepresentableAbVar, kleimanPicZeroProper, mumfordTorsionAlgClosed and the new printed leaf ampleDescendsFieldExt (EGA IV 2.7.2): h0 descends by flat base change; the symmetric locus of the Picard scheme is locally of finite type and its C-points are the symmetric classes of A_C, countably many (lambda_L in Hom(A_C, Pic0), free of finite rank, fibres in Pic0[2]); a scheme locally of finite type over a number field with countably many C-points has them all defined over number fields (transcendence bases of C). The only glue left in the field is RiemannPPAV (composite). Against kinds.tsv (pazukiCor13Upper GLUE) the strict GLUE count is unchanged (pazukiCor13Upper out, riemannPPAV in) and two LEAF rows are added (pazukiCor13UpperPP, ampleDescendsFieldExt). The -1 needs RiemannPPAV rated printed form (a reading of a scheme-form print of Riemann's theorem with GAGA for line bundles) or proved."
 }

@@ -15,3 +15,16 @@
   SymmetricClassesCountable (GLUE composite), CountablePointsDefinedOver (GLUE, AG). Proved: h0 descent along
   bcMap (flat base change), SymmPrincipalDefinedOver <= SymmClassDefinedOver + AmpleDescendsFieldExt,
   SymmClassDefinedOver <= PicRepresentableAbVar + SymmetricClassesCountable + CountablePointsDefinedOver.
+- SymmetricClassesCountable PROVED (symmetricClassesCountable_of_fields) from picRepresentableAbVar,
+  kleimanPicZeroProper, mumfordTorsionAlgClosed (+ proved picLocFinType, identityComponentLFT, Cartier, homFreeFiniteC,
+  card_isDT_le0, mu_pic_of_isTI0). VERIFIED (compiled, standard axioms).
+- CountablePointsDefinedOver PROVED (countablePointsDefinedOver_proof; CP.lean then Route.lean): affine open, Spec of
+  f.t. K-algebra, transcendence bases of C (IsAlgClosure.equivOfEquiv over K[X] with two algebra structures),
+  countability of algebraic numbers over countable K. VERIFIED.
+- Main: PazukiRoute.pazukiCor13Upper_of_fields (GAGAMorphism, PazukiCor13UpperPP, RiemannPPAV, PicRepresentableAbVar,
+  KleimanPicZeroProper, MumfordTorsionAlgClosed, AmpleDescendsFieldExt). Axioms standard (axioms-output.txt). VERIFIED.
+- Build +Main +Discharges +Contrib.OneProof.PazukiRoute: Build completed successfully (14231 jobs). VERIFIED.
+- #discharges: DISCHARGES [OpenResearchLeaves31.pazukiCor13Upper] by PazukiRoute.pazukiCor13Upper_of_fields, still
+  assumes the 7 above; 35 open hypotheses, 9960 theorems checked, 39 discharge one. VERIFIED.
+- autofold dry run (no --allow-rise needed): strict count 11/18 on 29 -> 13/18 on 31 (GLUE neutral, +2 LEAF);
+  FoldCheck.lean compiles, sixContactMin_of_open49 standard axioms. VERIFIED.
