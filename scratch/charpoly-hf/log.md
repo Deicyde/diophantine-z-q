@@ -56,3 +56,13 @@
   49 discharge lines; the new modules discharge no field directly (expected: a reroute); the copied CharPolyLattice
   gives degpoly-proof's count-neutral `charPolyIndepOfEllAlgClosed_of_noEmb`; no sorry.
 - Not run: autoform (not installed on this host); the DumpCompact hash guard.
+- Hash guard (DumpCompact.lean, extended to the reroute module; hashes_0_base.txt, hashes_1_fold.txt, hashdiff.txt):
+  14501 -> 14501 constants; only before 10 (the projections `OTL6HF..14HF.charPolyIndepOfEllAlgClosed`,
+  `OTL15.charPolyIndepOfEllAlgClosed`), only after 10 (the `homFreeFiniteAlgClosedCharP` projections); changed 86:
+  the 14 carrier structures' constructor families (mk, _flat_ctor, rec, casesOn, recOn) and t7 / field projections,
+  and the values of gluePieces_of_open4_hf, textbookLeaves4_of_open6_hf, openResearchLeaves21_of_OpenResearchLeaves22_hf,
+  the pass-through conversions textbookLeaves6..9_of_open7..10_hf, openTextbookLeaves10..13_of_..._hf,
+  openTextbookLeaves14HF_of_OpenTextbookLeaves15. frozenTarget and sixContactMin_of_open41: hashes unchanged
+  (constants referenced by name).
+- Blueprint targets (BlueprintNames.lean, bp_names.txt = 2531 `lean:` names): 117 not in Main's environment in
+  both trees, outputs identical (bpnames_base.txt = bpnames_fold.txt): the fold deletes no blueprint target.

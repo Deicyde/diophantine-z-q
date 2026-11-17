@@ -1,0 +1,106 @@
+- HDec.HSyn.OpenTextbookLeaves10HF.charPolyIndepOfEllAlgClosed ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute
+- HDec.HSyn.OpenTextbookLeaves11HF.charPolyIndepOfEllAlgClosed ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute
+- HDec.HSyn.OpenTextbookLeaves12HF.charPolyIndepOfEllAlgClosed ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute
+- HDec.HSyn.OpenTextbookLeaves13HF.charPolyIndepOfEllAlgClosed ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute
+- HDec.HSyn.OpenTextbookLeaves14HF.charPolyIndepOfEllAlgClosed ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute
+- HDec.HSyn.OpenTextbookLeaves15.charPolyIndepOfEllAlgClosed ZInQKernel.OneProof.H.TailZ48
+- HDec.HSyn.OpenTextbookLeaves6HF.charPolyIndepOfEllAlgClosed ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute
+- HDec.HSyn.OpenTextbookLeaves7HF.charPolyIndepOfEllAlgClosed ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute
+- HDec.HSyn.OpenTextbookLeaves8HF.charPolyIndepOfEllAlgClosed ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute
+- HDec.HSyn.OpenTextbookLeaves9HF.charPolyIndepOfEllAlgClosed ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute
++ HDec.HSyn.OpenTextbookLeaves10HF.homFreeFiniteAlgClosedCharP ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute
++ HDec.HSyn.OpenTextbookLeaves11HF.homFreeFiniteAlgClosedCharP ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute
++ HDec.HSyn.OpenTextbookLeaves12HF.homFreeFiniteAlgClosedCharP ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute
++ HDec.HSyn.OpenTextbookLeaves13HF.homFreeFiniteAlgClosedCharP ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute
++ HDec.HSyn.OpenTextbookLeaves14HF.homFreeFiniteAlgClosedCharP ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute
++ HDec.HSyn.OpenTextbookLeaves15.homFreeFiniteAlgClosedCharP ZInQKernel.OneProof.H.TailZ48
++ HDec.HSyn.OpenTextbookLeaves6HF.homFreeFiniteAlgClosedCharP ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute
++ HDec.HSyn.OpenTextbookLeaves7HF.homFreeFiniteAlgClosedCharP ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute
++ HDec.HSyn.OpenTextbookLeaves8HF.homFreeFiniteAlgClosedCharP ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute
++ HDec.HSyn.OpenTextbookLeaves9HF.homFreeFiniteAlgClosedCharP ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute
+~ HDec.HSyn.OpenTextbookLeaves10HF.casesOn ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type+value
+~ HDec.HSyn.OpenTextbookLeaves10HF.mk ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves10HF.mk._flat_ctor ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type+value
+~ HDec.HSyn.OpenTextbookLeaves10HF.rec ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves10HF.recOn ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves11HF.casesOn ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type+value
+~ HDec.HSyn.OpenTextbookLeaves11HF.mk ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves11HF.mk._flat_ctor ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type+value
+~ HDec.HSyn.OpenTextbookLeaves11HF.rec ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves11HF.recOn ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves12HF.casesOn ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type+value
+~ HDec.HSyn.OpenTextbookLeaves12HF.mk ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves12HF.mk._flat_ctor ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type+value
+~ HDec.HSyn.OpenTextbookLeaves12HF.rec ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves12HF.recOn ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves13HF.casesOn ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type+value
+~ HDec.HSyn.OpenTextbookLeaves13HF.mk ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves13HF.mk._flat_ctor ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type+value
+~ HDec.HSyn.OpenTextbookLeaves13HF.rec ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves13HF.recOn ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves14HF.casesOn ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type+value
+~ HDec.HSyn.OpenTextbookLeaves14HF.mk ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves14HF.mk._flat_ctor ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type+value
+~ HDec.HSyn.OpenTextbookLeaves14HF.rec ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves14HF.recOn ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves15.casesOn ZInQKernel.OneProof.H.TailZ48 type+value
+~ HDec.HSyn.OpenTextbookLeaves15.mk ZInQKernel.OneProof.H.TailZ48 type
+~ HDec.HSyn.OpenTextbookLeaves15.mk._flat_ctor ZInQKernel.OneProof.H.TailZ48 type+value
+~ HDec.HSyn.OpenTextbookLeaves15.rec ZInQKernel.OneProof.H.TailZ48 type
+~ HDec.HSyn.OpenTextbookLeaves15.recOn ZInQKernel.OneProof.H.TailZ48 type
+~ HDec.HSyn.OpenTextbookLeaves2HF.casesOn ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type+value
+~ HDec.HSyn.OpenTextbookLeaves2HF.mk ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves2HF.mk._flat_ctor ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type+value
+~ HDec.HSyn.OpenTextbookLeaves2HF.rec ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves2HF.recOn ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves2HF.t7 ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves3HF.casesOn ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type+value
+~ HDec.HSyn.OpenTextbookLeaves3HF.mk ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves3HF.mk._flat_ctor ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type+value
+~ HDec.HSyn.OpenTextbookLeaves3HF.rec ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves3HF.recOn ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves3HF.t7 ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves4HF.casesOn ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type+value
+~ HDec.HSyn.OpenTextbookLeaves4HF.mk ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves4HF.mk._flat_ctor ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type+value
+~ HDec.HSyn.OpenTextbookLeaves4HF.rec ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves4HF.recOn ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves4HF.t7 ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves6HF.casesOn ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type+value
+~ HDec.HSyn.OpenTextbookLeaves6HF.mk ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves6HF.mk._flat_ctor ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type+value
+~ HDec.HSyn.OpenTextbookLeaves6HF.rec ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves6HF.recOn ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves7HF.casesOn ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type+value
+~ HDec.HSyn.OpenTextbookLeaves7HF.mk ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves7HF.mk._flat_ctor ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type+value
+~ HDec.HSyn.OpenTextbookLeaves7HF.rec ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves7HF.recOn ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves8HF.casesOn ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type+value
+~ HDec.HSyn.OpenTextbookLeaves8HF.mk ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves8HF.mk._flat_ctor ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type+value
+~ HDec.HSyn.OpenTextbookLeaves8HF.rec ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves8HF.recOn ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves9HF.casesOn ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type+value
+~ HDec.HSyn.OpenTextbookLeaves9HF.mk ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves9HF.mk._flat_ctor ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type+value
+~ HDec.HSyn.OpenTextbookLeaves9HF.rec ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.OpenTextbookLeaves9HF.recOn ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.TextbookLeavesHF.casesOn ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type+value
+~ HDec.HSyn.TextbookLeavesHF.mk ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.TextbookLeavesHF.mk._flat_ctor ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type+value
+~ HDec.HSyn.TextbookLeavesHF.rec ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.TextbookLeavesHF.recOn ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.TextbookLeavesHF.t7 ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute type
+~ HDec.HSyn.gluePieces_of_open4_hf ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute value
+~ HDec.HSyn.openResearchLeaves21_of_OpenResearchLeaves22_hf ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute value
+~ HDec.HSyn.openTextbookLeaves10_of_OpenTextbookLeaves11_hf ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute value
+~ HDec.HSyn.openTextbookLeaves11_of_OpenTextbookLeaves12_hf ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute value
+~ HDec.HSyn.openTextbookLeaves12_of_OpenTextbookLeaves13_hf ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute value
+~ HDec.HSyn.openTextbookLeaves13_of_OpenTextbookLeaves14_hf ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute value
+~ HDec.HSyn.openTextbookLeaves14HF_of_OpenTextbookLeaves15 ZInQKernel.OneProof.H.TailZ48 value
+~ HDec.HSyn.textbookLeaves4_of_open6_hf ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute value
+~ HDec.HSyn.textbookLeaves6_of_open7_hf ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute value
+~ HDec.HSyn.textbookLeaves7_of_open8_hf ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute value
+~ HDec.HSyn.textbookLeaves8_of_open9_hf ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute value
+~ HDec.HSyn.textbookLeaves9_of_open10_hf ZInQKernel.Contrib.OneProof.HomFreeFiniteAlgClosedReroute value
