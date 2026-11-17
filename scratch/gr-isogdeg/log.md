@@ -31,3 +31,5 @@ Base: wip/gr-isogdeg at 73ac1620 (= wip/r3-residual), merged origin/main (ff558b
 - finDeg_eq_finrank_of_flat (flat + loc. fin. pres. ⇒ rank constant): compiles (remark, unused).
 - Not proved: equality finDeg = isogDeg in char 0 (needs flatness of isogenies / étale kernel).
 - EqRing.lean: finite_ringHom, card_ringHom_eq_rankAtStalk (char 0 equality), card_ringHom_le_of_isAlgClosed (descent to alg. closed subfield): compile (VERIFIED).
+- EqSch.lean: points_equiv_ringHom (bijection points over Spec L→Spec R→Y with ring maps Γ(f⁻¹U)→L): compiles.
+- EqAll.lean: finrank_le_card_points (generic fibre, char 0), card_points_le_of_isAlgClosed (descent Ω→K̄), finDeg_le_isogDeg [CharZero K], isogDeg_eq_finDeg [CharZero K]: compile, axioms standard (VERIFIED).
