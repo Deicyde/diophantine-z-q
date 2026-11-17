@@ -19,3 +19,4 @@ Base: wip/x6-coarse 0dc0c1fa, merged origin/main (5c7d9ba7) as 63d3efec.
 - ClassNumber24.lean compiles (lake env lean, no errors) — VERIFIED 2026-11-17: discr K24 = −24, #ClassGroup ≤ 2, inertCount6 K24 = 0
 - ElkiesX6StarCM.lean compiles (lake env lean, no errors) — VERIFIED 2026-11-17 (after fixes: Pi0X6 is HDec.Pi0X6 in LPrefix; End not commutative so no ring on End)
 - Axioms.lean: all 89 declarations of the two files print [propext, Classical.choice, Quot.sound] — VERIFIED (axioms.txt)
+- autofold dry run (scratch/elkies-c/autofold.json): strict count: 15/16 on 31 -> 15/16 on 31; strictest 15/16 -> 15/16 (new leaf flagged pending review, counts GLUE as the field it replaces) — VERIFIED
