@@ -207,7 +207,7 @@ The autofold spec (`scratch/hecke-glue/autofold.json`) is hecke-pin's spec with 
 
 ## 7. Files and checks
 
-* `ZInQKernel/Contrib/OneProof/HeckeGlue.lean`: new, about 1050 lines; imports `HeckePin` and CloudW07's
+* `ZInQKernel/Contrib/OneProof/HeckeGlue.lean`: new, about 1000 lines; imports `HeckePin` and CloudW07's
   `Curve.Dimension`. `lake build ZInQKernel.Contrib.OneProof.HeckeGlue` succeeds (VERIFIED).
 * `scratch/hecke-glue/HeckeGlue.lean`: the same file (scratch copy).
 * `scratch/hecke-glue/Target.lean`: verbatim copies and `Iff.rfl` checks (VERIFIED).
