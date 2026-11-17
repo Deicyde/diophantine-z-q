@@ -164,7 +164,7 @@ theorems checked, 33 discharge one`.
 
 ## 6. Files
 
-* `ZInQKernel/Contrib/OneProof/MumfordGroupLawDescent.lean`: the contributor file (about 840 lines).
+* `ZInQKernel/Contrib/OneProof/MumfordGroupLawDescent.lean`: the contributor file (873 lines).
   * It imports `NeronGoodModelIso`, which defines `MumfordGroupLawDVR` through `MumfordGroupLawRed`, and
     `NeronDVRLocalSH` (FLT, gt-shpair, ega-limit). It never imports `OneProof.Main`.
   * It has no `sorry` and no build-time code. Its one instance is `attribute [local instance]`.
