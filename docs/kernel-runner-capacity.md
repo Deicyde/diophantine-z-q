@@ -24,8 +24,8 @@ The first measured PR151 run, `44048587166`, had about 63.75 GiB free after its
 old 8 GiB allocation. Its cold root build took 57m53s. The timing tool reported
 11.61 GiB maximum resident set size, which is not a sum of simultaneously
 running processes. The sampled process-tree and host-memory records provide
-the complementary measurements. The full audit result and timing are recorded
-separately when the run finishes. This observation supports trying the larger
+the complementary measurements. The full audit passed in 22m02.927s, with maximum RSS 14.13 GiB.
+Its report covered all 944 project modules and 37,708 declarations. This observation supports trying the larger
 swap allocation; it does not guarantee disk capacity on every hosted runner.
 
 Verified reuse of main's outputs, chained build jobs and an audit split into
