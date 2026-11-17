@@ -40,13 +40,30 @@ def familyMap {B U Z W : Scheme.{u}} (p : U ⟶ B) (a : Z ⟶ B) (b : W ⟶ Z) :
     pullback p (b ≫ a) ⟶ pullback p a :=
   pullback.map p (b ≫ a) p a (𝟙 U) b (𝟙 B) (by simp) (by simp)
 
+private theorem familyMap_fst {B U Z W : Scheme.{u}}
+    (p : U ⟶ B) (a : Z ⟶ B) (b : W ⟶ Z) :
+    familyMap p a b ≫ pullback.fst p a = pullback.fst p (b ≫ a) := by
+  simp only [familyMap, pullback.map, pullback.lift_fst, Category.comp_id]
+
+private theorem familyMap_snd {B U Z W : Scheme.{u}}
+    (p : U ⟶ B) (a : Z ⟶ B) (b : W ⟶ Z) :
+    familyMap p a b ≫ pullback.snd p a = pullback.snd p (b ≫ a) ≫ b := by
+  unfold familyMap
+  exact pullback.lift_snd _ _ _
+
 /-- Cancellation of the original pullback square gives the actual parameter
 Cartesian square. There is no flatness condition on b. -/
 theorem familyMap_isPullback {B U Z W : Scheme.{u}}
     (p : U ⟶ B) (a : Z ⟶ B) (b : W ⟶ Z) :
     IsPullback (familyMap p a b) (pullback.snd p (b ≫ a)) (pullback.snd p a) b := by
-  exact ((IsPullback.of_hasPullback p (b ≫ a)).flip.of_bot
-    (by simp [familyMap]) (IsPullback.of_hasPullback p a).flip).flip
+  have efst : familyMap p a b ≫ pullback.fst p a = pullback.fst p (b ≫ a) := by
+    simp only [familyMap, pullback.map, pullback.lift_fst, Category.comp_id]
+  have esnd : familyMap p a b ≫ pullback.snd p a = pullback.snd p (b ≫ a) ≫ b := by
+    simp only [familyMap, pullback.map, pullback.lift_snd]
+  have outer : IsPullback (pullback.snd p (b ≫ a))
+      (familyMap p a b ≫ pullback.fst p a) (b ≫ a) p :=
+    efst.symm ▸ (IsPullback.of_hasPullback p (b ≫ a)).flip
+  exact (outer.of_bot esnd.symm (IsPullback.of_hasPullback p a).flip).flip
 
 variable {k κ : Type u} [Field k] [Field κ] {X Y Z : Scheme.{u}}
 
@@ -56,7 +73,7 @@ def fieldFst (f : X ⟶ Spec (.of k)) (g : Y ⟶ Spec (.of k))
     pullback (pullback.fst f g ≫ f) α ⟶ pullback f α :=
   pullback.lift (pullback.fst (pullback.fst f g ≫ f) α ≫ pullback.fst f g)
     (pullback.snd (pullback.fst f g ≫ f) α)
-    (by simpa only [Category.assoc] using pullback.condition (pullback.fst f g ≫ f) α)
+    ((Category.assoc _ _ _).trans (pullback.condition (f := pullback.fst f g ≫ f) (g := α)))
 
 /-- The canonical projection of the same field-changed product to Y. -/
 def fieldSnd (f : X ⟶ Spec (.of k)) (g : Y ⟶ Spec (.of k))
@@ -64,8 +81,40 @@ def fieldSnd (f : X ⟶ Spec (.of k)) (g : Y ⟶ Spec (.of k))
     pullback (pullback.fst f g ≫ f) α ⟶ pullback g α :=
   pullback.lift (pullback.fst (pullback.fst f g ≫ f) α ≫ pullback.snd f g)
     (pullback.snd (pullback.fst f g ≫ f) α) (by
-      rw [Category.assoc, ← pullback.condition]
-      exact pullback.condition (pullback.fst f g ≫ f) α)
+      calc
+        (pullback.fst (pullback.fst f g ≫ f) α ≫ pullback.snd f g) ≫ g =
+            pullback.fst (pullback.fst f g ≫ f) α ≫ (pullback.snd f g ≫ g) := Category.assoc _ _ _
+        _ = pullback.fst (pullback.fst f g ≫ f) α ≫ (pullback.fst f g ≫ f) :=
+          congrArg (fun h => pullback.fst (pullback.fst f g ≫ f) α ≫ h)
+            (pullback.condition (f := f) (g := g)).symm
+        _ = pullback.snd (pullback.fst f g ≫ f) α ≫ α :=
+          pullback.condition (f := pullback.fst f g ≫ f) (g := α))
+
+private theorem fieldFst_fst (f : X ⟶ Spec (.of k)) (g : Y ⟶ Spec (.of k))
+    (α : Spec (.of κ) ⟶ Spec (.of k)) :
+    fieldFst f g α ≫ pullback.fst f α =
+      pullback.fst (pullback.fst f g ≫ f) α ≫ pullback.fst f g := by
+  unfold fieldFst
+  exact pullback.lift_fst _ _ _
+
+private theorem fieldFst_snd (f : X ⟶ Spec (.of k)) (g : Y ⟶ Spec (.of k))
+    (α : Spec (.of κ) ⟶ Spec (.of k)) :
+    fieldFst f g α ≫ pullback.snd f α = pullback.snd (pullback.fst f g ≫ f) α := by
+  unfold fieldFst
+  exact pullback.lift_snd _ _ _
+
+private theorem fieldSnd_fst (f : X ⟶ Spec (.of k)) (g : Y ⟶ Spec (.of k))
+    (α : Spec (.of κ) ⟶ Spec (.of k)) :
+    fieldSnd f g α ≫ pullback.fst g α =
+      pullback.fst (pullback.fst f g ≫ f) α ≫ pullback.snd f g := by
+  unfold fieldSnd
+  exact pullback.lift_fst _ _ _
+
+private theorem fieldSnd_snd (f : X ⟶ Spec (.of k)) (g : Y ⟶ Spec (.of k))
+    (α : Spec (.of κ) ⟶ Spec (.of k)) :
+    fieldSnd f g α ≫ pullback.snd g α = pullback.snd (pullback.fst f g ≫ f) α := by
+  unfold fieldSnd
+  exact pullback.lift_snd _ _ _
 
 /-- The actual field-changed product is Cartesian over the actual field.
 This is the universal pullback comparison, not a numerical object iso. -/
@@ -73,17 +122,36 @@ theorem fieldProduct_isPullback
     (f : X ⟶ Spec (.of k)) (g : Y ⟶ Spec (.of k))
     (α : Spec (.of κ) ⟶ Spec (.of k)) :
     IsPullback (fieldFst f g α) (fieldSnd f g α) (pullback.snd f α) (pullback.snd g α) := by
+  have hfst : fieldFst f g α ≫ pullback.fst f α =
+      pullback.fst (pullback.fst f g ≫ f) α ≫ pullback.fst f g := by
+    unfold fieldFst
+    exact pullback.lift_fst _ _ _
+  have hsnd : fieldFst f g α ≫ pullback.snd f α =
+      pullback.snd (pullback.fst f g ≫ f) α := by
+    unfold fieldFst
+    exact pullback.lift_snd _ _ _
+  have source : IsPullback (pullback.fst (pullback.fst f g ≫ f) α)
+      (fieldFst f g α ≫ pullback.snd f α) (pullback.fst f g ≫ f) α :=
+    hsnd.symm ▸ IsPullback.of_hasPullback (pullback.fst f g ≫ f) α
   have hx : IsPullback (pullback.fst (pullback.fst f g ≫ f) α)
       (fieldFst f g α) (pullback.fst f g) (pullback.fst f α) :=
-    (IsPullback.of_hasPullback (pullback.fst f g ≫ f) α).of_bot
-      (by simp [fieldFst]) (IsPullback.of_hasPullback f α)
+    source.of_bot hfst.symm (IsPullback.of_hasPullback f α)
   have outer := hx.paste_horiz (IsPullback.of_hasPullback f g).flip
   have outer' : IsPullback
       (pullback.fst (pullback.fst f g ≫ f) α ≫ pullback.snd f g)
-      (fieldFst f g α) g (pullback.snd f α ≫ α) := by
-    simpa only [pullback.condition] using outer
-  exact outer'.flip.of_bot (by simp [fieldSnd])
-    (IsPullback.of_hasPullback g α).flip
+      (fieldFst f g α) g (pullback.snd f α ≫ α) :=
+    (pullback.condition (f := f) (g := α)) ▸ outer
+  have yfst : fieldSnd f g α ≫ pullback.fst g α =
+      pullback.fst (pullback.fst f g ≫ f) α ≫ pullback.snd f g := by
+    unfold fieldSnd
+    exact pullback.lift_fst _ _ _
+  have ysnd : fieldSnd f g α ≫ pullback.snd g α =
+      pullback.snd (pullback.fst f g ≫ f) α := by
+    unfold fieldSnd
+    exact pullback.lift_snd _ _ _
+  have source' : IsPullback (fieldFst f g α) (fieldSnd f g α ≫ pullback.fst g α)
+      (pullback.snd f α ≫ α) g := yfst.symm ▸ outer'.flip
+  exact source'.of_bot (hsnd.trans ysnd.symm) (IsPullback.of_hasPullback g α).flip
 
 /-- The native field-product isomorphism fixed by the actual projections. -/
 def fieldProductIso (f : X ⟶ Spec (.of k)) (g : Y ⟶ Spec (.of k))
@@ -134,7 +202,27 @@ theorem faceX_family_square
           pullback.fst (pullback.fst f g ≫ f) a := by
           rw [Category.assoc, ← ht.w]
           simp [familyMap, Category.assoc]
-  · simp [familyMap, Category.assoc, L4.CubeFaces.nativeCubeFaceXR_structure]
+  · calc
+      (L6.nativeCubeFaceXR f g (b ≫ a) y hy ≫ familyMap (pullback.fst f g ≫ f) a b) ≫
+          pullback.snd (pullback.fst f g ≫ f) a =
+        L6.nativeCubeFaceXR f g (b ≫ a) y hy ≫
+          (familyMap (pullback.fst f g ≫ f) a b ≫ pullback.snd (pullback.fst f g ≫ f) a) :=
+        Category.assoc _ _ _
+      _ = L6.nativeCubeFaceXR f g (b ≫ a) y hy ≫
+          (pullback.snd (pullback.fst f g ≫ f) (b ≫ a) ≫ b) :=
+        congrArg (fun h => L6.nativeCubeFaceXR f g (b ≫ a) y hy ≫ h)
+          (familyMap_snd (pullback.fst f g ≫ f) a b)
+      _ = (L6.nativeCubeFaceXR f g (b ≫ a) y hy ≫
+          pullback.snd (pullback.fst f g ≫ f) (b ≫ a)) ≫ b := (Category.assoc _ _ _).symm
+      _ = pullback.snd f (b ≫ a) ≫ b :=
+        congrArg (fun h => h ≫ b) (L4.CubeFaces.nativeCubeFaceXR_structure f g (b ≫ a) y hy)
+      _ = familyMap f a b ≫ pullback.snd f a := (familyMap_snd f a b).symm
+      _ = familyMap f a b ≫ (L6.nativeCubeFaceXR f g a y hy ≫
+          pullback.snd (pullback.fst f g ≫ f) a) :=
+        congrArg (fun h => familyMap f a b ≫ h)
+          (L4.CubeFaces.nativeCubeFaceXR_structure f g a y hy).symm
+      _ = (familyMap f a b ≫ L6.nativeCubeFaceXR f g a y hy) ≫
+          pullback.snd (pullback.fst f g ≫ f) a := (Category.assoc _ _ _).symm
 
 /-- The existing Y-face has the same actual parameter square. -/
 theorem faceY_family_square
@@ -156,7 +244,27 @@ theorem faceY_family_square
           pullback.fst (pullback.fst f g ≫ f) a := by
           rw [Category.assoc, ← ht.w]
           simp [familyMap, Category.assoc]
-  · simp [familyMap, Category.assoc, L4.CubeFaces.nativeCubeFaceYR_structure]
+  · calc
+      (L6.nativeCubeFaceYR f g (b ≫ a) x hx ≫ familyMap (pullback.fst f g ≫ f) a b) ≫
+          pullback.snd (pullback.fst f g ≫ f) a =
+        L6.nativeCubeFaceYR f g (b ≫ a) x hx ≫
+          (familyMap (pullback.fst f g ≫ f) a b ≫ pullback.snd (pullback.fst f g ≫ f) a) :=
+        Category.assoc _ _ _
+      _ = L6.nativeCubeFaceYR f g (b ≫ a) x hx ≫
+          (pullback.snd (pullback.fst f g ≫ f) (b ≫ a) ≫ b) :=
+        congrArg (fun h => L6.nativeCubeFaceYR f g (b ≫ a) x hx ≫ h)
+          (familyMap_snd (pullback.fst f g ≫ f) a b)
+      _ = (L6.nativeCubeFaceYR f g (b ≫ a) x hx ≫
+          pullback.snd (pullback.fst f g ≫ f) (b ≫ a)) ≫ b := (Category.assoc _ _ _).symm
+      _ = pullback.snd g (b ≫ a) ≫ b :=
+        congrArg (fun h => h ≫ b) (L4.CubeFaces.nativeCubeFaceYR_structure f g (b ≫ a) x hx)
+      _ = familyMap g a b ≫ pullback.snd g a := (familyMap_snd g a b).symm
+      _ = familyMap g a b ≫ (L6.nativeCubeFaceYR f g a x hx ≫
+          pullback.snd (pullback.fst f g ≫ f) a) :=
+        congrArg (fun h => familyMap g a b ≫ h)
+          (L4.CubeFaces.nativeCubeFaceYR_structure f g a x hx).symm
+      _ = (familyMap g a b ≫ L6.nativeCubeFaceYR f g a x hx) ≫
+          pullback.snd (pullback.fst f g ≫ f) a := (Category.assoc _ _ _).symm
 
 /-- HC for the literal field cube, without a field-flatness hypothesis. -/
 theorem HC (f : X ⟶ Spec (.of k)) (g : Y ⟶ Spec (.of k))
@@ -192,13 +300,65 @@ theorem faceX_projections
     L6.nativeCubeFaceXR f g α y hy ≫ fieldFst f g α = 𝟙 _ ∧
       L6.nativeCubeFaceXR f g α y hy ≫ fieldSnd f g α = pullback.snd f α ≫ point g y hy α := by
   constructor
-  · apply pullback.hom_ext <;> simp [fieldFst, L6.nativeCubeFaceXR, L6.nativeCubeFaceXBase]
   · apply pullback.hom_ext
-    · simp only [Category.assoc, fieldSnd, pullback.lift_fst, L6.nativeCubeFaceXR,
-        pullback.map, pullback.lift_fst, L6.nativeCubeFaceXBase, point]
-      simp only [pullback.lift_snd, pullback.lift_fst, Category.assoc]
-      rw [pullback.condition_assoc]
-    · simp [fieldSnd, L6.nativeCubeFaceXR, point]
+    · calc
+        (L6.nativeCubeFaceXR f g α y hy ≫ fieldFst f g α) ≫ pullback.fst f α =
+            L6.nativeCubeFaceXR f g α y hy ≫ (fieldFst f g α ≫ pullback.fst f α) := Category.assoc _ _ _
+        _ = L6.nativeCubeFaceXR f g α y hy ≫
+            (pullback.fst (pullback.fst f g ≫ f) α ≫ pullback.fst f g) :=
+          congrArg (fun h => L6.nativeCubeFaceXR f g α y hy ≫ h) (fieldFst_fst f g α)
+        _ = (L6.nativeCubeFaceXR f g α y hy ≫ pullback.fst (pullback.fst f g ≫ f) α) ≫
+            pullback.fst f g := (Category.assoc _ _ _).symm
+        _ = (pullback.fst f α ≫ L6.nativeCubeFaceXBase f g y hy) ≫ pullback.fst f g :=
+          congrArg (fun h => h ≫ pullback.fst f g) (L4.CubeFaces.nativeCubeFaceXR_base_comm f g α y hy)
+        _ = pullback.fst f α ≫ (L6.nativeCubeFaceXBase f g y hy ≫ pullback.fst f g) := Category.assoc _ _ _
+        _ = pullback.fst f α ≫ 𝟙 X :=
+          congrArg (fun h => pullback.fst f α ≫ h) (L4.CubeFaces.nativeCubeFaceXBase_fst f g y hy)
+        _ = 𝟙 (pullback f α) ≫ pullback.fst f α :=
+          (Category.comp_id _).trans (Category.id_comp _).symm
+    · calc
+        (L6.nativeCubeFaceXR f g α y hy ≫ fieldFst f g α) ≫ pullback.snd f α =
+            L6.nativeCubeFaceXR f g α y hy ≫ (fieldFst f g α ≫ pullback.snd f α) := Category.assoc _ _ _
+        _ = L6.nativeCubeFaceXR f g α y hy ≫ pullback.snd (pullback.fst f g ≫ f) α :=
+          congrArg (fun h => L6.nativeCubeFaceXR f g α y hy ≫ h) (fieldFst_snd f g α)
+        _ = pullback.snd f α := L4.CubeFaces.nativeCubeFaceXR_structure f g α y hy
+        _ = 𝟙 (pullback f α) ≫ pullback.snd f α := (Category.id_comp _).symm
+  · have base_snd : L6.nativeCubeFaceXBase f g y hy ≫ pullback.snd f g = f ≫ y := by
+      unfold L6.nativeCubeFaceXBase
+      exact pullback.lift_snd _ _ _
+    have point_fst : point g y hy α ≫ pullback.fst g α = α ≫ y := by
+      unfold point
+      exact pullback.lift_fst _ _ _
+    apply pullback.hom_ext
+    · calc
+        (L6.nativeCubeFaceXR f g α y hy ≫ fieldSnd f g α) ≫ pullback.fst g α =
+            L6.nativeCubeFaceXR f g α y hy ≫ (fieldSnd f g α ≫ pullback.fst g α) := Category.assoc _ _ _
+        _ = L6.nativeCubeFaceXR f g α y hy ≫
+            (pullback.fst (pullback.fst f g ≫ f) α ≫ pullback.snd f g) :=
+          congrArg (fun h => L6.nativeCubeFaceXR f g α y hy ≫ h) (fieldSnd_fst f g α)
+        _ = (L6.nativeCubeFaceXR f g α y hy ≫ pullback.fst (pullback.fst f g ≫ f) α) ≫
+            pullback.snd f g := (Category.assoc _ _ _).symm
+        _ = (pullback.fst f α ≫ L6.nativeCubeFaceXBase f g y hy) ≫ pullback.snd f g :=
+          congrArg (fun h => h ≫ pullback.snd f g) (L4.CubeFaces.nativeCubeFaceXR_base_comm f g α y hy)
+        _ = pullback.fst f α ≫ (L6.nativeCubeFaceXBase f g y hy ≫ pullback.snd f g) := Category.assoc _ _ _
+        _ = pullback.fst f α ≫ (f ≫ y) := congrArg (fun h => pullback.fst f α ≫ h) base_snd
+        _ = (pullback.fst f α ≫ f) ≫ y := (Category.assoc _ _ _).symm
+        _ = (pullback.snd f α ≫ α) ≫ y :=
+          congrArg (fun h => h ≫ y) (pullback.condition (f := f) (g := α))
+        _ = pullback.snd f α ≫ (α ≫ y) := Category.assoc _ _ _
+        _ = pullback.snd f α ≫ (point g y hy α ≫ pullback.fst g α) :=
+          congrArg (fun h => pullback.snd f α ≫ h) point_fst.symm
+        _ = (pullback.snd f α ≫ point g y hy α) ≫ pullback.fst g α := (Category.assoc _ _ _).symm
+    · calc
+        (L6.nativeCubeFaceXR f g α y hy ≫ fieldSnd f g α) ≫ pullback.snd g α =
+            L6.nativeCubeFaceXR f g α y hy ≫ (fieldSnd f g α ≫ pullback.snd g α) := Category.assoc _ _ _
+        _ = L6.nativeCubeFaceXR f g α y hy ≫ pullback.snd (pullback.fst f g ≫ f) α :=
+          congrArg (fun h => L6.nativeCubeFaceXR f g α y hy ≫ h) (fieldSnd_snd f g α)
+        _ = pullback.snd f α := L4.CubeFaces.nativeCubeFaceXR_structure f g α y hy
+        _ = pullback.snd f α ≫ 𝟙 _ := (Category.comp_id _).symm
+        _ = pullback.snd f α ≫ (point g y hy α ≫ pullback.snd g α) :=
+          congrArg (fun h => pullback.snd f α ≫ h) (point_struct g y hy α).symm
+        _ = (pullback.snd f α ≫ point g y hy α) ≫ pullback.snd g α := (Category.assoc _ _ _).symm
 
 /-- The actual Y-face has the companion projection equations. -/
 theorem faceY_projections
@@ -208,13 +368,65 @@ theorem faceY_projections
     L6.nativeCubeFaceYR f g α x hx ≫ fieldFst f g α = pullback.snd g α ≫ point f x hx α ∧
       L6.nativeCubeFaceYR f g α x hx ≫ fieldSnd f g α = 𝟙 _ := by
   constructor
+  · have base_fst : L6.nativeCubeFaceYBase f g x hx ≫ pullback.fst f g = g ≫ x := by
+      unfold L6.nativeCubeFaceYBase
+      exact pullback.lift_fst _ _ _
+    have point_fst : point f x hx α ≫ pullback.fst f α = α ≫ x := by
+      unfold point
+      exact pullback.lift_fst _ _ _
+    apply pullback.hom_ext
+    · calc
+        (L6.nativeCubeFaceYR f g α x hx ≫ fieldFst f g α) ≫ pullback.fst f α =
+            L6.nativeCubeFaceYR f g α x hx ≫ (fieldFst f g α ≫ pullback.fst f α) := Category.assoc _ _ _
+        _ = L6.nativeCubeFaceYR f g α x hx ≫
+            (pullback.fst (pullback.fst f g ≫ f) α ≫ pullback.fst f g) :=
+          congrArg (fun h => L6.nativeCubeFaceYR f g α x hx ≫ h) (fieldFst_fst f g α)
+        _ = (L6.nativeCubeFaceYR f g α x hx ≫ pullback.fst (pullback.fst f g ≫ f) α) ≫
+            pullback.fst f g := (Category.assoc _ _ _).symm
+        _ = (pullback.fst g α ≫ L6.nativeCubeFaceYBase f g x hx) ≫ pullback.fst f g :=
+          congrArg (fun h => h ≫ pullback.fst f g) (L4.CubeFaces.nativeCubeFaceYR_base_comm f g α x hx)
+        _ = pullback.fst g α ≫ (L6.nativeCubeFaceYBase f g x hx ≫ pullback.fst f g) := Category.assoc _ _ _
+        _ = pullback.fst g α ≫ (g ≫ x) := congrArg (fun h => pullback.fst g α ≫ h) base_fst
+        _ = (pullback.fst g α ≫ g) ≫ x := (Category.assoc _ _ _).symm
+        _ = (pullback.snd g α ≫ α) ≫ x :=
+          congrArg (fun h => h ≫ x) (pullback.condition (f := g) (g := α))
+        _ = pullback.snd g α ≫ (α ≫ x) := Category.assoc _ _ _
+        _ = pullback.snd g α ≫ (point f x hx α ≫ pullback.fst f α) :=
+          congrArg (fun h => pullback.snd g α ≫ h) point_fst.symm
+        _ = (pullback.snd g α ≫ point f x hx α) ≫ pullback.fst f α := (Category.assoc _ _ _).symm
+    · calc
+        (L6.nativeCubeFaceYR f g α x hx ≫ fieldFst f g α) ≫ pullback.snd f α =
+            L6.nativeCubeFaceYR f g α x hx ≫ (fieldFst f g α ≫ pullback.snd f α) := Category.assoc _ _ _
+        _ = L6.nativeCubeFaceYR f g α x hx ≫ pullback.snd (pullback.fst f g ≫ f) α :=
+          congrArg (fun h => L6.nativeCubeFaceYR f g α x hx ≫ h) (fieldFst_snd f g α)
+        _ = pullback.snd g α := L4.CubeFaces.nativeCubeFaceYR_structure f g α x hx
+        _ = pullback.snd g α ≫ 𝟙 _ := (Category.comp_id _).symm
+        _ = pullback.snd g α ≫ (point f x hx α ≫ pullback.snd f α) :=
+          congrArg (fun h => pullback.snd g α ≫ h) (point_struct f x hx α).symm
+        _ = (pullback.snd g α ≫ point f x hx α) ≫ pullback.snd f α := (Category.assoc _ _ _).symm
   · apply pullback.hom_ext
-    · simp only [Category.assoc, fieldFst, pullback.lift_fst, L6.nativeCubeFaceYR,
-        pullback.map, pullback.lift_fst, L6.nativeCubeFaceYBase, point]
-      simp only [pullback.lift_fst, Category.assoc]
-      rw [pullback.condition_assoc]
-    · simp [fieldFst, L6.nativeCubeFaceYR, point]
-  · apply pullback.hom_ext <;> simp [fieldSnd, L6.nativeCubeFaceYR, L6.nativeCubeFaceYBase]
+    · calc
+        (L6.nativeCubeFaceYR f g α x hx ≫ fieldSnd f g α) ≫ pullback.fst g α =
+            L6.nativeCubeFaceYR f g α x hx ≫ (fieldSnd f g α ≫ pullback.fst g α) := Category.assoc _ _ _
+        _ = L6.nativeCubeFaceYR f g α x hx ≫
+            (pullback.fst (pullback.fst f g ≫ f) α ≫ pullback.snd f g) :=
+          congrArg (fun h => L6.nativeCubeFaceYR f g α x hx ≫ h) (fieldSnd_fst f g α)
+        _ = (L6.nativeCubeFaceYR f g α x hx ≫ pullback.fst (pullback.fst f g ≫ f) α) ≫
+            pullback.snd f g := (Category.assoc _ _ _).symm
+        _ = (pullback.fst g α ≫ L6.nativeCubeFaceYBase f g x hx) ≫ pullback.snd f g :=
+          congrArg (fun h => h ≫ pullback.snd f g) (L4.CubeFaces.nativeCubeFaceYR_base_comm f g α x hx)
+        _ = pullback.fst g α ≫ (L6.nativeCubeFaceYBase f g x hx ≫ pullback.snd f g) := Category.assoc _ _ _
+        _ = pullback.fst g α ≫ 𝟙 Y :=
+          congrArg (fun h => pullback.fst g α ≫ h) (L4.CubeFaces.nativeCubeFaceYBase_snd f g x hx)
+        _ = 𝟙 (pullback g α) ≫ pullback.fst g α :=
+          (Category.comp_id _).trans (Category.id_comp _).symm
+    · calc
+        (L6.nativeCubeFaceYR f g α x hx ≫ fieldSnd f g α) ≫ pullback.snd g α =
+            L6.nativeCubeFaceYR f g α x hx ≫ (fieldSnd f g α ≫ pullback.snd g α) := Category.assoc _ _ _
+        _ = L6.nativeCubeFaceYR f g α x hx ≫ pullback.snd (pullback.fst f g ≫ f) α :=
+          congrArg (fun h => L6.nativeCubeFaceYR f g α x hx ≫ h) (fieldSnd_snd f g α)
+        _ = pullback.snd g α := L4.CubeFaces.nativeCubeFaceYR_structure f g α x hx
+        _ = 𝟙 (pullback g α) ≫ pullback.snd g α := (Category.id_comp _).symm
 
 /-- BOTH literal face equations under the actual field-product comparison. -/
 theorem fieldProductIso_faces
@@ -247,8 +459,14 @@ theorem fieldProductIso_faces
     (fieldProductIso f g α).hom ≫
         (pullback.fst (pullback.snd f α) (pullback.snd g α) ≫ pullback.snd f α) =
       pullback.snd (pullback.fst f g ≫ f) α := by
-  rw [← Category.assoc, fieldProductIso_hom_fst]
-  simp [fieldFst]
+  calc
+    (fieldProductIso f g α).hom ≫
+        (pullback.fst (pullback.snd f α) (pullback.snd g α) ≫ pullback.snd f α) =
+      ((fieldProductIso f g α).hom ≫ pullback.fst (pullback.snd f α) (pullback.snd g α)) ≫
+        pullback.snd f α := (Category.assoc _ _ _).symm
+    _ = fieldFst f g α ≫ pullback.snd f α :=
+      congrArg (fun h => h ≫ pullback.snd f α) (fieldProductIso_hom_fst f g α)
+    _ = pullback.snd (pullback.fst f g ≫ f) α := fieldFst_snd f g α
 
 /-- The inverse preserves that SAME field action on the native product. -/
 @[reassoc] theorem fieldProductIso_inv_struct
@@ -271,7 +489,10 @@ theorem product_HC (f : X ⟶ Spec (.of k)) (g : Y ⟶ Spec (.of k))
       (pullback.snd (pullback.fst f g ≫ f) a) b := by
   exact (HC f g a b).of_iso' (fieldProductIso f g (b ≫ a)).symm
     (Iso.refl _) (Iso.refl _) (Iso.refl _)
-    (by simp) (by simp only [fieldProductIso_inv_struct, Category.comp_id]) (by simp) (by simp)
+    (Category.comp_id _).symm
+    ((fieldProductIso_inv_struct f g (b ≫ a)).trans (Category.comp_id _).symm)
+    ((Category.id_comp _).trans (Category.comp_id _).symm)
+    ((Category.id_comp _).trans (Category.comp_id _).symm)
 
 /-- HX on the SAME native product X-face, proved from the existing face triangle. -/
 theorem product_HX (f : X ⟶ Spec (.of k)) (g : Y ⟶ Spec (.of k))
@@ -417,10 +638,12 @@ private def biprodComponentEquiv (S : Type u) [CommRing S]
       change (biprod.snd : P ⊞ Q ⟶ Q).f n
         ((biprod.inl : P ⟶ P ⊞ Q).f n z.1 + (biprod.inr : Q ⟶ P ⊞ Q).f n z.2) = z.2
       rw [map_add, a, b, zero_add]
-  map_add' z w := by
-    apply Prod.ext <;> simp only [map_add]
-  map_smul' a z := by
-    apply Prod.ext <;> simp only [map_smul]
+  map_add' z w :=
+    Prod.ext (((biprod.fst : P ⊞ Q ⟶ P).f n).hom.map_add z w)
+      (((biprod.snd : P ⊞ Q ⟶ Q).f n).hom.map_add z w)
+  map_smul' a z :=
+    Prod.ext (((biprod.fst : P ⊞ Q ⟶ P).f n).hom.map_smul a z)
+      (((biprod.snd : P ⊞ Q ⟶ Q).f n).hom.map_smul a z)
 
 /-- Actual raw target PX biprod PY is finite free from the two produced
 finite-free complexes, not an extra rank/model premise. -/
@@ -520,6 +743,59 @@ private theorem retained_twoFaceHZero_neighbourhood
     freeP (freeFinite_biprod_terms S PX PY freePX freePY) targetHZero s
     initialHZero initialHZeroInjective initialHOneInjective
 
+/-- Literal residue-cone neighbourhood statement, separated from every
+geometric and native-H compatibility assertion. -/
+private def retainedModelConeNeighbourhoodStatement
+    {R : Type u} [CommRing R] {Q FX FY : Scheme.{u}}
+    {q : Q ⟶ Spec (.of R)} {jX : FX ⟶ Q} {jY : FY ⟶ Q}
+    {M : Q.Modules} {ι : Type u} [Fintype ι] {U : ι → Q.Opens}
+    {d : Γ(Spec (.of R), ⊤)}
+    (m : L1.RetainedNativeCechFaceModels R q jX jY M U d)
+    (s : Spec (.of (Localization.Away d))) : Prop :=
+  ∃ V : (Spec (.of (Localization.Away d))).Opens,
+    s ∈ V ∧ ∀ z : Spec (.of (Localization.Away d)), z ∈ V →
+      Module.finrank ((Spec (.of (Localization.Away d))).residueField z)
+          ((CochainComplex.mappingCone
+            ((L2.nativeResidueCochainFunctor (Localization.Away d) z).map
+              (biprod.lift m.ψX m.ψY))).homology 0) ≤
+        Module.finrank ((Spec (.of (Localization.Away d))).residueField s)
+          ((CochainComplex.mappingCone
+            ((L2.nativeResidueCochainFunctor (Localization.Away d) s).map
+              (biprod.lift m.ψX m.ψY))).homology 0)
+
+/-- The cone bound alone, for the actual retained free-finite model. No
+properness, flatness, invertibility or native-H compatibility instance enters. -/
+private theorem retainedModel_coneNeighbourhood
+    {R : Type u} [CommRing R] {Q FX FY : Scheme.{u}}
+    {q : Q ⟶ Spec (.of R)} {jX : FX ⟶ Q} {jY : FY ⟶ Q}
+    {M : Q.Modules} {ι : Type u} [Fintype ι] {U : ι → Q.Opens}
+    {d : Γ(Spec (.of R), ⊤)}
+    (m : L1.RetainedNativeCechFaceModels R q jX jY M U d)
+    (s : Spec (.of (Localization.Away d))) :
+    retainedModelConeNeighbourhoodStatement m s :=
+  L2.nativeTildeCone_exists_open_finrankHZero_le
+    (Localization.Away d) m.P (m.PX ⊞ m.PY) (biprod.lift m.ψX m.ψY)
+    m.freeFiniteP
+    (freeFinite_biprod_terms (Localization.Away d) m.PX m.PY m.freeFinitePX m.freeFinitePY) s
+
+/-- Abstract retained-diagram assembly, so a concrete cube does not expand
+all of its pullback coordinates while producing the finite-free cone bound. -/
+private theorem retainedFaceConeNeighbourhood
+    (R : Type u) [CommRing R] [IsNoetherianRing R]
+    {Q FX FY : Scheme.{u}} (q : Q ⟶ Spec (.of R)) (jX : FX ⟶ Q) (jY : FY ⟶ Q)
+    [IsProper q] [Flat q] [IsProper (jX ≫ q)] [Flat (jX ≫ q)]
+    [IsProper (jY ≫ q)] [Flat (jY ≫ q)] [IsAffineHom jX] [IsAffineHom jY]
+    (M : Q.Modules) [M.IsInvertible]
+    {ι : Type u} [Fintype ι] [Nonempty ι] (U : ι → Q.Opens)
+    (affineU : ∀ i, IsAffineOpen (U i)) (coverU : ⨆ i, U i = ⊤)
+    (p : Ideal Γ(Spec (.of R), ⊤)) [p.IsPrime] :
+    ∃ d ∉ p, ∃ m : L1.RetainedNativeCechFaceModels R q jX jY M U d,
+      m.NativeH01Compatible affineU coverU ∧
+      ∀ s : Spec (.of (Localization.Away d)), retainedModelConeNeighbourhoodStatement m s := by
+  obtain ⟨d, hd, m, nativeH01⟩ :=
+    L1.exists_retained_nativeCechFaceModels_with_nativeH01 R q jX jY M U affineU coverU p
+  exact ⟨d, hd, m, nativeH01, fun s => retainedModel_coneNeighbourhood m s⟩
+
 /-- Actual affine cube families have L1's SAME retained two-face models and
 an actual scalar-cone semicontinuity neighbourhood at EVERY point of their
 common localization. Face properness/flatness/affineness is DERIVED from the
@@ -552,20 +828,8 @@ theorem exists_retained_cubeFace_cone_neighbourhood
     letI : IsAffineHom jY := L4.CubeFaces.nativeCubeFaceYR_isAffineHom f g a x hx
     ∃ d ∉ p, ∃ m : L1.RetainedNativeCechFaceModels R q jX jY M U d,
       m.NativeH01Compatible affineU coverU ∧
-      ∀ s : Spec (.of (Localization.Away d)),
-        ∃ V : (Spec (.of (Localization.Away d))).Opens,
-          s ∈ V ∧ ∀ z : Spec (.of (Localization.Away d)), z ∈ V →
-            Module.finrank ((Spec (.of (Localization.Away d))).residueField z)
-                ((CochainComplex.mappingCone
-                  ((L2.nativeResidueCochainFunctor (Localization.Away d) z).map
-                    (biprod.lift m.ψX m.ψY))).homology 0) ≤
-              Module.finrank ((Spec (.of (Localization.Away d))).residueField s)
-                ((CochainComplex.mappingCone
-                  ((L2.nativeResidueCochainFunctor (Localization.Away d) s).map
-                    (biprod.lift m.ψX m.ψY))).homology 0) := by
-  let q := pullback.snd (pullback.fst f g ≫ f) a
-  let jX := L6.nativeCubeFaceXR f g a y hy
-  let jY := L6.nativeCubeFaceYR f g a x hx
+      ∀ s : Spec (.of (Localization.Away d)), retainedModelConeNeighbourhoodStatement m s := by
+  intro q jX jY
   obtain ⟨properQ, flatQ, _⟩ := L4.CubeFaces.nativeCubeFamily_geometry f g a
   letI : IsProper q := properQ
   letI : Flat q := flatQ
@@ -575,16 +839,14 @@ theorem exists_retained_cubeFace_cone_neighbourhood
   letI : Flat (jX ≫ q) := flatX
   letI : IsProper (jY ≫ q) := properY
   letI : Flat (jY ≫ q) := flatY
-  letI : IsAffineHom jX := L4.CubeFaces.nativeCubeFaceXR_isAffineHom f g a y hy
-  letI : IsAffineHom jY := L4.CubeFaces.nativeCubeFaceYR_isAffineHom f g a x hx
-  obtain ⟨d, hd, m, nativeH01⟩ :=
-    L1.exists_retained_nativeCechFaceModels_with_nativeH01 R q jX jY M U affineU coverU p
-  refine ⟨d, hd, m, nativeH01, ?_⟩
-  intro s
-  exact L2.nativeTildeCone_exists_open_finrankHZero_le
-    (Localization.Away d) m.P (m.PX ⊞ m.PY) (biprod.lift m.ψX m.ψY)
-    m.freeFiniteP
-    (freeFinite_biprod_terms (Localization.Away d) m.PX m.PY m.freeFinitePX m.freeFinitePY) s
+  letI affineX : IsAffineHom jX := L4.CubeFaces.nativeCubeFaceXR_isAffineHom.{u} f g a y hy
+  letI affineY : IsAffineHom jY := L4.CubeFaces.nativeCubeFaceYR_isAffineHom.{u} f g a x hx
+  exact @retainedFaceConeNeighbourhood.{u}
+    R ‹CommRing R› ‹IsNoetherianRing R›
+    (pullback (C := Scheme.{u}) (pullback.fst f g ≫ f) a)
+    (pullback (C := Scheme.{u}) f a) (pullback (C := Scheme.{u}) g a)
+    q jX jY properQ flatQ properX flatX properY flatY affineX affineY
+    M ‹M.IsInvertible› ι ‹Fintype ι› ‹Nonempty ι› U affineU coverU p ‹p.IsPrime›
 
 /-- A field-valued commuting diagram factors through the ORIGINAL residue
 fibre at its image point. Thus an actual residue-fibre Picard trivialization
@@ -602,7 +864,9 @@ private theorem fieldPicard_trivial_of_residue
   let lift : B ⟶ q.fiber t := pullback.lift a (qB ≫ Spec.map φ) (by
     rw [Category.assoc, hφ]
     exact commutes)
-  have hlift : lift ≫ q.fiberι t = a := by simp [lift, Scheme.Hom.fiberι]
+  have hlift : lift ≫ q.fiberι t = a := by
+    unfold lift Scheme.Hom.fiberι
+    exact pullback.lift_fst _ _ _
   rw [← Scheme.Pic.map_mk, ← hlift, Scheme.Pic.map_comp, hM, Scheme.Pic.map_one]
 
 /-- A finite NONEMPTY affine cover is genuine compact-space data. This is
@@ -665,6 +929,7 @@ private theorem modelHZero_eq_hFiber
     Module.finrank ((Spec (.of (Localization.Away d))).residueField s)
         (((L2.nativeResidueCochainFunctor (Localization.Away d) s).obj m.P).homology 0) =
       M.hFiber q 0 (L1.retainedModelBaseChart R (Localization.Away d) s) := by
+  letI : M.IsQuasicoherent := SheafOfModules.IsInvertible.isQuasicoherent.{u, u, u} ‹M.IsInvertible›
   let S := Localization.Away d
   let chart := L1.retainedModelBaseChart R S
   let qS := pullback.snd q chart
@@ -673,8 +938,12 @@ private theorem modelHZero_eq_hFiber
   let qB := qS.fiberToSpecResidueField s
   let a := qS.fiberι s ≫ pullback.fst q chart
   letI : (qS.fiber s).Over (Spec κ) := ⟨qB⟩
-  let e := m.sourceResidueH affineU coverU s qB a
-    (L1.retainedChartFibre_isPullback R S q s) 0
+  have chartSquare : IsPullback a qB q
+      ((Spec (.of S)).fromSpecResidueField s ≫ chart) :=
+    (congrArg (fun h : Spec κ ⟶ Spec (.of R) => IsPullback a qB q h)
+      (L1.retainedFieldBasePoint_residue R S s)).mp
+        (L1.retainedChartFibre_isPullback R S q s)
+  let e := m.sourceResidueH affineU coverU s qB a chartSquare 0
   have he := e.finrank_eq
   have coefficientRank : Module.finrank κ (((Scheme.Modules.pullback a).obj M).H 0) =
       MS.hFiber qS 0 s :=
@@ -684,10 +953,153 @@ private theorem modelHZero_eq_hFiber
       (IsPullback.of_hasPullback q chart) 0 s
   exact he.trans (coefficientRank.trans baseRank)
 
-/-- The actual entire faces force rank two of the SAME residue target;
-an initially trivial physical fibre forces source rank one and BOTH actual
-model-map injections. All comparison maps come from L1's produced package. -/
-private theorem cubeModel_fieldFacts
+/-- Picard functoriality for an abstract commuting face square. Keeping
+its schemes abstract avoids expanding concrete product coordinates here. -/
+private theorem facePic_trivial_of_square
+    {Q F QB FB : Scheme.{u}} (j : F ⟶ Q) (a : QB ⟶ Q) (b : FB ⟶ F) (jB : FB ⟶ QB)
+    (square : jB ≫ a = b ≫ j) (M : Q.Modules) [M.IsInvertible]
+    (hM : Scheme.Pic.map j (Scheme.Pic.mk M) = 1) :
+    Scheme.Pic.mk ((Scheme.Modules.pullback jB).obj ((Scheme.Modules.pullback a).obj M)) = 1 := by
+  letI : ((Scheme.Modules.pullback a).obj M).IsInvertible :=
+    Scheme.Modules.isInvertible_pullback a M
+  letI : ((Scheme.Modules.pullback jB).obj ((Scheme.Modules.pullback a).obj M)).IsInvertible :=
+    Scheme.Modules.isInvertible_pullback jB ((Scheme.Modules.pullback a).obj M)
+  rw [← Scheme.Pic.map_mk, ← Scheme.Pic.map_mk, ← Scheme.Pic.map_comp, square,
+    Scheme.Pic.map_comp, hM, Scheme.Pic.map_one]
+
+open MonoidalCategory CartesianMonoidalCategory
+
+/-- Target rank transport over abstract field-face diagrams. The two unit
+isomorphisms are obtained from the actual entire-face Picard equalities. -/
+private theorem modelTargetPair_rankTwo
+    (R : Type u) [CommRing R] {Q FX FY QB XB YB : Scheme.{u}}
+    (q : Q ⟶ Spec (.of R)) (jX : FX ⟶ Q) (jY : FY ⟶ Q)
+    [IsProper q] [IsAffineHom jX] [IsProper (jX ≫ q)]
+    [IsAffineHom jY] [IsProper (jY ≫ q)]
+    (M : Q.Modules) [M.IsInvertible] {ι : Type u} [Fintype ι]
+    (U : ι → Q.Opens) (affineU : ∀ i, IsAffineOpen (U i)) (coverU : ⨆ i, U i = ⊤)
+    (d : Γ(Spec (.of R), ⊤)) (m : L1.RetainedNativeCechFaceModels R q jX jY M U d)
+    (κ : Type u) [Field κ] (β : Localization.Away d →+* κ)
+    (qB : QB ⟶ Spec (.of κ)) (aB : QB ⟶ Q)
+    (bX : XB ⟶ FX) (jXB : XB ⟶ QB) (bY : YB ⟶ FY) (jYB : YB ⟶ QB)
+    [IsProper (jXB ≫ qB)] [GeometricallyIntegral (jXB ≫ qB)]
+    [IsProper (jYB ≫ qB)] [GeometricallyIntegral (jYB ≫ qB)]
+    (HC : IsPullback aB qB q (L1.retainedFieldBasePoint R (Localization.Away d) κ β))
+    (HX : IsPullback bX (jXB ≫ qB) (jX ≫ q) (L1.retainedFieldBasePoint R (Localization.Away d) κ β))
+    (HY : IsPullback bY (jYB ≫ qB) (jY ≫ q) (L1.retainedFieldBasePoint R (Localization.Away d) κ β))
+    (squareX : jXB ≫ aB = bX ≫ jX) (squareY : jYB ≫ aB = bY ≫ jY)
+    (hX : Scheme.Pic.map jX (Scheme.Pic.mk M) = 1)
+    (hY : Scheme.Pic.map jY (Scheme.Pic.mk M) = 1) :
+    Module.finrank κ
+      (((L1.RetainedFaceFibreConstruction.scalarComplexFunctor β).obj (m.PX ⊞ m.PY)).homology 0) = 2 := by
+  letI : QB.Over (Spec (.of κ)) := ⟨qB⟩
+  letI : XB.Over (Spec (.of κ)) := ⟨jXB ≫ qB⟩
+  letI : YB.Over (Spec (.of κ)) := ⟨jYB ≫ qB⟩
+  let MB : QB.Modules := (Scheme.Modules.pullback aB).obj M
+  have invertibleMB : MB.IsInvertible :=
+    @Scheme.Modules.isInvertible_pullback.{u} QB Q aB M ‹M.IsInvertible›
+  letI : MB.IsInvertible := invertibleMB
+  let MX : XB.Modules := (Scheme.Modules.pullback jXB).obj MB
+  letI : MX.IsInvertible := @Scheme.Modules.isInvertible_pullback.{u} XB QB jXB MB invertibleMB
+  let MY : YB.Modules := (Scheme.Modules.pullback jYB).obj MB
+  letI : MY.IsInvertible := @Scheme.Modules.isInvertible_pullback.{u} YB QB jYB MB invertibleMB
+  have hMX : Scheme.Pic.mk MX = 1 := facePic_trivial_of_square jX aB bX jXB squareX M hX
+  have hMY : Scheme.Pic.mk MY = 1 := facePic_trivial_of_square jY aB bY jYB squareY M hY
+  obtain ⟨eX⟩ := (Scheme.Pic.mk_eq_mk_iff MX (Scheme.Modules.unit XB)).mp
+    (hMX.trans Scheme.Pic.one_eq_mk_unit)
+  obtain ⟨eY⟩ := (Scheme.Pic.mk_eq_mk_iff MY (Scheme.Modules.unit YB)).mp
+    (hMY.trans Scheme.Pic.one_eq_mk_unit)
+  have pairRank : Module.finrank κ
+      (((L1.RetainedFaceFibreConstruction.scalarComplexFunctor β).obj (m.PX ⊞ m.PY)).homology 0) =
+      Module.finrank κ (MX.H 0 × MY.H 0) :=
+    m.finrank_modelTargetPair_eq_nativeFaces affineU coverU κ β qB aB bX jXB bY jYB
+      HC HX HY squareX squareY
+  haveI : IsProper (Over.mk (jXB ≫ qB)).hom := inferInstanceAs (IsProper (jXB ≫ qB))
+  haveI : GeometricallyIntegral (Over.mk (jXB ≫ qB)).hom :=
+    inferInstanceAs (GeometricallyIntegral (jXB ≫ qB))
+  haveI : IsProper (Over.mk (jYB ≫ qB)).hom := inferInstanceAs (IsProper (jYB ≫ qB))
+  haveI : GeometricallyIntegral (Over.mk (jYB ≫ qB)).hom :=
+    inferInstanceAs (GeometricallyIntegral (jYB ≫ qB))
+  have nativeTwo : Module.finrank κ (MX.H 0 × MY.H 0) = 2 :=
+    L6.nativeHZero_trivialFaces_finrank_eq_two (Over.mk (jXB ≫ qB)) (Over.mk (jYB ≫ qB)) MX MY eX eY
+  exact pairRank.trans nativeTwo
+
+/-- Initial source rank and the two actual map injections, over abstract
+native product factors. Only the original constructed model comparisons and
+an actual coefficient trivialization are transported. -/
+private theorem modelProduct_initialHZeroHOne
+    (R : Type u) [CommRing R] {Q FX FY : Scheme.{u}}
+    (q : Q ⟶ Spec (.of R)) (jX : FX ⟶ Q) (jY : FY ⟶ Q)
+    [IsProper q] [IsAffineHom jX] [IsProper (jX ≫ q)]
+    [IsAffineHom jY] [IsProper (jY ≫ q)]
+    (M : Q.Modules) [M.IsInvertible] {ι : Type u} [Fintype ι]
+    (U : ι → Q.Opens) (affineU : ∀ i, IsAffineOpen (U i)) (coverU : ⨆ i, U i = ⊤)
+    (d : Γ(Spec (.of R), ⊤)) (m : L1.RetainedNativeCechFaceModels R q jX jY M U d)
+    (κ : Type u) [Field κ] (β : Localization.Away d →+* κ)
+    (A B : Over (Spec (.of κ)))
+    [IsProper A.hom] [GeometricallyIntegral A.hom]
+    [IsProper B.hom] [GeometricallyIntegral B.hom]
+    (xκ : 𝟙_ (Over (Spec (.of κ))) ⟶ A) (yκ : 𝟙_ (Over (Spec (.of κ))) ⟶ B)
+    (aB : (A ⊗ B).left ⟶ Q) (bX : A.left ⟶ FX) (bY : B.left ⟶ FY)
+    (HC : IsPullback aB (A ⊗ B).hom q (L1.retainedFieldBasePoint R (Localization.Away d) κ β))
+    (HX : IsPullback bX ((lift (𝟙 A) (toUnit A ≫ yκ)).left ≫ (A ⊗ B).hom)
+      (jX ≫ q) (L1.retainedFieldBasePoint R (Localization.Away d) κ β))
+    (HY : IsPullback bY ((lift (toUnit B ≫ xκ) (𝟙 B)).left ≫ (A ⊗ B).hom)
+      (jY ≫ q) (L1.retainedFieldBasePoint R (Localization.Away d) κ β))
+    (squareX : (lift (𝟙 A) (toUnit A ≫ yκ)).left ≫ aB = bX ≫ jX)
+    (squareY : (lift (toUnit B ≫ xκ) (𝟙 B)).left ≫ aB = bY ≫ jY)
+    (eB : (Scheme.Modules.pullback aB).obj M ≅ Scheme.Modules.unit (A ⊗ B).left) :
+    Module.finrank κ
+        (((L1.RetainedFaceFibreConstruction.scalarComplexFunctor β).obj m.P).homology 0) = 1 ∧
+      Function.Injective (HomologicalComplex.homologyMap
+        ((L1.RetainedFaceFibreConstruction.scalarComplexFunctor β).map (biprod.lift m.ψX m.ψY)) (0 : ℤ)) ∧
+      Function.Injective (HomologicalComplex.homologyMap
+        ((L1.RetainedFaceFibreConstruction.scalarComplexFunctor β).map (biprod.lift m.ψX m.ψY)) (1 : ℤ)) := by
+  letI : (A ⊗ B).left.Over (Spec (.of κ)) := ⟨(A ⊗ B).hom⟩
+  letI : A.left.Over (Spec (.of κ)) := ⟨A.hom⟩
+  letI : B.left.Over (Spec (.of κ)) := ⟨B.hom⟩
+  let jXB := (lift (𝟙 A) (toUnit A ≫ yκ)).left
+  let jYB := (lift (toUnit B ≫ xκ) (𝟙 B)).left
+  have sourceOne : Module.finrank κ
+      (((L1.RetainedFaceFibreConstruction.scalarComplexFunctor β).obj m.P).homology 0) = 1 :=
+    (m.sourceFieldH affineU coverU κ β (A ⊗ B).hom aB HC 0).finrank_eq.trans
+      (L6.nativeHZero_trivialProduct_finrank_eq_one A B ((Scheme.Modules.pullback aB).obj M) eB)
+  have nativeZero : Function.Injective (fun z : ((Scheme.Modules.pullback aB).obj M).H 0 =>
+      (Scheme.Modules.H.pullback jXB ((Scheme.Modules.pullback aB).obj M) 0 z,
+        Scheme.Modules.H.pullback jYB ((Scheme.Modules.pullback aB).obj M) 0 z)) :=
+    L6.nativeHZero_twoFacesModule_injective A B xκ yκ ((Scheme.Modules.pullback aB).obj M) eB
+  have nativeOne : Function.Injective (fun z : ((Scheme.Modules.pullback aB).obj M).H 1 =>
+      (Scheme.Modules.H.pullback jXB ((Scheme.Modules.pullback aB).obj M) 1 z,
+        Scheme.Modules.H.pullback jYB ((Scheme.Modules.pullback aB).obj M) 1 z)) :=
+    L6.nativeHOne_twoFacesModule_injective A B xκ yκ ((Scheme.Modules.pullback aB).obj M) eB
+  have injectZero : Function.Injective (HomologicalComplex.homologyMap
+      ((L1.RetainedFaceFibreConstruction.scalarComplexFunctor β).map (biprod.lift m.ψX m.ψY)) (0 : ℤ)) :=
+    (m.homology_modelPair_injective_iff_nativeFacePair affineU coverU κ β
+      (A ⊗ B).hom aB bX jXB bY jYB HC HX HY squareX squareY 0 (by omega)).mpr nativeZero
+  have injectOne : Function.Injective (HomologicalComplex.homologyMap
+      ((L1.RetainedFaceFibreConstruction.scalarComplexFunctor β).map (biprod.lift m.ψX m.ψY)) (1 : ℤ)) :=
+    (m.homology_modelPair_injective_iff_nativeFacePair affineU coverU κ β
+      (A ⊗ B).hom aB bX jXB bY jYB HC HX HY squareX squareY 1 (by omega)).mpr nativeOne
+  exact ⟨sourceOne, injectZero, injectOne⟩
+
+/-- Actual residue H0 dimension, named independently of geometry and
+native-H site instances. This is the same scalar complex and homology. -/
+private def residueHZeroDimension (S : Type u) [CommRing S]
+    (P : CochainComplex (ModuleCat.{u} S) ℤ) (s : Spec (.of S)) : ℕ :=
+  Module.finrank ((Spec (.of S)).residueField s)
+    (((L2.nativeResidueCochainFunctor S s).obj P).homology 0)
+
+/-- Injectivity of the literal residue two-face map, stated independently
+of its geometric construction. No injection assumption is introduced. -/
+private def residueTwoFaceInjection (S : Type u) [CommRing S]
+    (P PX PY : CochainComplex (ModuleCat.{u} S) ℤ)
+    (ψX : P ⟶ PX) (ψY : P ⟶ PY) (s : Spec (.of S)) (n : ℤ) : Prop :=
+  Function.Injective (HomologicalComplex.homologyMap
+    ((L2.nativeResidueCochainFunctor S s).map (biprod.lift ψX ψY)) n)
+
+/-- The target-rank consequence at one residue point. Its construction is
+separate from initial source rank and initial map injectivity. -/
+private theorem cubeModel_residueTargetRank
     {k : Type u} [Field k] {X Y : Scheme.{u}}
     (f : X ⟶ Spec (.of k)) (g : Y ⟶ Spec (.of k))
     [IsProper f] [GeometricallyIntegral f] [IsProper g] [GeometricallyIntegral g]
@@ -701,18 +1113,9 @@ private theorem cubeModel_fieldFacts
     (m : L1.RetainedNativeCechFaceModels R (pullback.snd (pullback.fst f g ≫ f) a)
       (L6.nativeCubeFaceXR f g a y hy) (L6.nativeCubeFaceYR f g a x hx) M U d)
     (hX : Scheme.Pic.map (L6.nativeCubeFaceXR f g a y hy) (Scheme.Pic.mk M) = 1)
-    (hY : Scheme.Pic.map (L6.nativeCubeFaceYR f g a x hx) (Scheme.Pic.mk M) = 1) :
-    ∀ s : Spec (.of (Localization.Away d)),
-      Module.finrank ((Spec (.of (Localization.Away d))).residueField s)
-        (((L2.nativeResidueCochainFunctor (Localization.Away d) s).obj (m.PX ⊞ m.PY)).homology 0) = 2 ∧
-      (Scheme.Pic.map ((pullback.snd (pullback.fst f g ≫ f) a).fiberι
-          (L1.retainedModelBaseChart R (Localization.Away d) s)) (Scheme.Pic.mk M) = 1 →
-        Module.finrank ((Spec (.of (Localization.Away d))).residueField s)
-          (((L2.nativeResidueCochainFunctor (Localization.Away d) s).obj m.P).homology 0) = 1 ∧
-        Function.Injective (HomologicalComplex.homologyMap
-          ((L2.nativeResidueCochainFunctor (Localization.Away d) s).map (biprod.lift m.ψX m.ψY)) (0 : ℤ)) ∧
-        Function.Injective (HomologicalComplex.homologyMap
-          ((L2.nativeResidueCochainFunctor (Localization.Away d) s).map (biprod.lift m.ψX m.ψY)) (1 : ℤ))) := by
+    (hY : Scheme.Pic.map (L6.nativeCubeFaceYR f g a x hx) (Scheme.Pic.mk M) = 1)
+    (s : Spec (.of (Localization.Away d))) :
+    residueHZeroDimension (Localization.Away d) (m.PX ⊞ m.PY) s = 2 := by
   let q := pullback.snd (pullback.fst f g ≫ f) a
   let jX := L6.nativeCubeFaceXR f g a y hy
   let jY := L6.nativeCubeFaceYR f g a x hx
@@ -721,7 +1124,81 @@ private theorem cubeModel_fieldFacts
   letI : IsProper (jY ≫ q) := (L4.CubeFaces.nativeCubeFaceYR_family_geometry f g a x hx).1
   letI : IsAffineHom jX := L4.CubeFaces.nativeCubeFaceXR_isAffineHom f g a y hy
   letI : IsAffineHom jY := L4.CubeFaces.nativeCubeFaceYR_isAffineHom f g a x hx
-  intro s
+  let S := Localization.Away d
+  let κ := (Spec (.of S)).residueField s
+  let β := L2.nativeResidueScalarMap S s
+  let chart := L1.retainedModelBaseChart R S
+  let b := (Spec (.of S)).fromSpecResidueField s ≫ chart
+  let α := b ≫ a
+  let qB := pullback.fst (pullback.snd f α) (pullback.snd g α) ≫ pullback.snd f α
+  let aB := (ResidueCartesian.fieldProductIso f g α).inv ≫
+    ResidueCartesian.familyMap (pullback.fst f g ≫ f) a b
+  let bX := ResidueCartesian.familyMap f a b
+  let bY := ResidueCartesian.familyMap g a b
+  let xκ := ResidueCartesian.point f x hx α
+  let yκ := ResidueCartesian.point g y hy α
+  let hxκ := ResidueCartesian.point_struct f x hx α
+  let hyκ := ResidueCartesian.point_struct g y hy α
+  let jXB := L6.nativeCubeFaceXBase (pullback.snd f α) (pullback.snd g α) yκ hyκ
+  let jYB := L6.nativeCubeFaceYBase (pullback.snd f α) (pullback.snd g α) xκ hxκ
+  have squareX : jXB ≫ aB = bX ≫ jX := ResidueCartesian.product_faceX_square f g a b x hx y hy
+  have squareY : jYB ≫ aB = bY ≫ jY := ResidueCartesian.product_faceY_square f g a b x hx y hy
+  have hc : IsPullback aB qB q (L1.retainedFieldBasePoint R S κ β) := by
+    rw [L1.retainedFieldBasePoint_residue]
+    exact ResidueCartesian.product_HC f g a b
+  have hcx : IsPullback bX (jXB ≫ qB) (jX ≫ q) (L1.retainedFieldBasePoint R S κ β) := by
+    rw [L1.retainedFieldBasePoint_residue]
+    exact ResidueCartesian.product_HX f g a b y hy
+  have hcy : IsPullback bY (jYB ≫ qB) (jY ≫ q) (L1.retainedFieldBasePoint R S κ β) := by
+    rw [L1.retainedFieldBasePoint_residue]
+    exact ResidueCartesian.product_HY f g a b x hx
+  have structX : jXB ≫ qB = pullback.snd f α :=
+    L6.nativeCubeFaceXBase_struct (pullback.snd f α) (pullback.snd g α) yκ hyκ
+  have structY : jYB ≫ qB = pullback.snd g α :=
+    L6.nativeCubeFaceYBase_struct (pullback.snd f α) (pullback.snd g α) xκ hxκ
+  have properXB : IsProper (jXB ≫ qB) :=
+    Eq.mpr (congrArg (fun σ => IsProper σ) structX) (inferInstanceAs (IsProper (pullback.snd f α)))
+  have integralXB : GeometricallyIntegral (jXB ≫ qB) :=
+    Eq.mpr (congrArg (fun σ => GeometricallyIntegral σ) structX)
+      (inferInstanceAs (GeometricallyIntegral (pullback.snd f α)))
+  have properYB : IsProper (jYB ≫ qB) :=
+    Eq.mpr (congrArg (fun σ => IsProper σ) structY) (inferInstanceAs (IsProper (pullback.snd g α)))
+  have integralYB : GeometricallyIntegral (jYB ≫ qB) :=
+    Eq.mpr (congrArg (fun σ => GeometricallyIntegral σ) structY)
+      (inferInstanceAs (GeometricallyIntegral (pullback.snd g α)))
+  exact @modelTargetPair_rankTwo R _ _ _ _ _ _ _ q jX jY _ _ _ _ _ M _ ι _
+    U affineU coverU d m κ _ β qB aB bX jXB bY jYB
+    properXB integralXB properYB integralYB hc hcx hcy squareX squareY hX hY
+
+/-- Initial source rank and actual H0/H1 injections at one residue point.
+This declaration does not also elaborate the target-rank consequence. -/
+private theorem cubeModel_residueInitialFacts
+    {k : Type u} [Field k] {X Y : Scheme.{u}}
+    (f : X ⟶ Spec (.of k)) (g : Y ⟶ Spec (.of k))
+    [IsProper f] [GeometricallyIntegral f] [IsProper g] [GeometricallyIntegral g]
+    (x : Spec (.of k) ⟶ X) (hx : x ≫ f = 𝟙 _)
+    (y : Spec (.of k) ⟶ Y) (hy : y ≫ g = 𝟙 _)
+    (R : Type u) [CommRing R] (a : Spec (.of R) ⟶ Spec (.of k))
+    (M : (pullback (pullback.fst f g ≫ f) a).Modules) [M.IsInvertible]
+    {ι : Type u} [Fintype ι] (U : ι → (pullback (pullback.fst f g ≫ f) a).Opens)
+    (affineU : ∀ i, IsAffineOpen (U i)) (coverU : ⨆ i, U i = ⊤)
+    (d : Γ(Spec (.of R), ⊤))
+    (m : L1.RetainedNativeCechFaceModels R (pullback.snd (pullback.fst f g ≫ f) a)
+      (L6.nativeCubeFaceXR f g a y hy) (L6.nativeCubeFaceYR f g a x hx) M U d)
+    (s : Spec (.of (Localization.Away d)))
+    (initialPic : Scheme.Pic.map ((pullback.snd (pullback.fst f g ≫ f) a).fiberι
+      (L1.retainedModelBaseChart R (Localization.Away d) s)) (Scheme.Pic.mk M) = 1) :
+    residueHZeroDimension (Localization.Away d) m.P s = 1 ∧
+      residueTwoFaceInjection (Localization.Away d) m.P m.PX m.PY m.ψX m.ψY s (0 : ℤ) ∧
+      residueTwoFaceInjection (Localization.Away d) m.P m.PX m.PY m.ψX m.ψY s (1 : ℤ) := by
+  let q := pullback.snd (pullback.fst f g ≫ f) a
+  let jX := L6.nativeCubeFaceXR f g a y hy
+  let jY := L6.nativeCubeFaceYR f g a x hx
+  letI : IsProper q := (L4.CubeFaces.nativeCubeFamily_geometry f g a).1
+  letI : IsProper (jX ≫ q) := (L4.CubeFaces.nativeCubeFaceXR_family_geometry f g a y hy).1
+  letI : IsProper (jY ≫ q) := (L4.CubeFaces.nativeCubeFaceYR_family_geometry f g a x hx).1
+  letI : IsAffineHom jX := L4.CubeFaces.nativeCubeFaceXR_isAffineHom f g a y hy
+  letI : IsAffineHom jY := L4.CubeFaces.nativeCubeFaceYR_isAffineHom f g a x hx
   let S := Localization.Away d
   let κ := (Spec (.of S)).residueField s
   let β := L2.nativeResidueScalarMap S s
@@ -749,9 +1226,10 @@ private theorem cubeModel_fieldFacts
   letI : GeometricallyIntegral Xκ.hom := inferInstanceAs (GeometricallyIntegral (pullback.snd f α))
   letI : IsProper Yκ.hom := inferInstanceAs (IsProper (pullback.snd g α))
   letI : GeometricallyIntegral Yκ.hom := inferInstanceAs (GeometricallyIntegral (pullback.snd g α))
-  let MB := (Scheme.Modules.pullback aB).obj M
-  let MX := (Scheme.Modules.pullback jXB).obj MB
-  let MY := (Scheme.Modules.pullback jYB).obj MB
+  let MB : Pκ.Modules := (Scheme.Modules.pullback aB).obj M
+  have invertibleMB : MB.IsInvertible :=
+    @Scheme.Modules.isInvertible_pullback.{u} _ _ aB M ‹M.IsInvertible›
+  letI : MB.IsInvertible := invertibleMB
   have squareX : jXB ≫ aB = bX ≫ jX := ResidueCartesian.product_faceX_square f g a b x hx y hy
   have squareY : jYB ≫ aB = bY ≫ jY := ResidueCartesian.product_faceY_square f g a b x hx y hy
   have hc : IsPullback aB qB q (L1.retainedFieldBasePoint R S κ β) := by
@@ -763,51 +1241,51 @@ private theorem cubeModel_fieldFacts
   have hcy : IsPullback bY (jYB ≫ qB) (jY ≫ q) (L1.retainedFieldBasePoint R S κ β) := by
     rw [L1.retainedFieldBasePoint_residue]
     exact ResidueCartesian.product_HY f g a b x hx
-  have hMX : Scheme.Pic.mk MX = 1 := by
-    change Scheme.Pic.mk ((Scheme.Modules.pullback jXB).obj ((Scheme.Modules.pullback aB).obj M)) = 1
-    rw [← Scheme.Pic.map_mk, ← Scheme.Pic.map_mk, ← Scheme.Pic.map_comp, squareX,
-      Scheme.Pic.map_comp, hX, Scheme.Pic.map_one]
-  have hMY : Scheme.Pic.mk MY = 1 := by
-    change Scheme.Pic.mk ((Scheme.Modules.pullback jYB).obj ((Scheme.Modules.pullback aB).obj M)) = 1
-    rw [← Scheme.Pic.map_mk, ← Scheme.Pic.map_mk, ← Scheme.Pic.map_comp, squareY,
-      Scheme.Pic.map_comp, hY, Scheme.Pic.map_one]
-  obtain ⟨eX⟩ := (Scheme.Pic.mk_eq_mk_iff MX (Scheme.Modules.unit (pullback f α))).mp
-    (hMX.trans Scheme.Pic.one_eq_mk_unit)
-  obtain ⟨eY⟩ := (Scheme.Pic.mk_eq_mk_iff MY (Scheme.Modules.unit (pullback g α))).mp
-    (hMY.trans Scheme.Pic.one_eq_mk_unit)
-  have nativeTwo := L6.nativeHZero_trivialFaces_finrank_eq_two Xκ Yκ MX MY eX eY
-  have pairRank := m.finrank_modelTargetPair_eq_nativeFaces affineU coverU κ β
-    qB aB bX jXB bY jYB hc hcx hcy squareX squareY
-  dsimp only [jXB, jYB, qB] at pairRank
-  have targetRank : Module.finrank κ
-      (((L2.nativeResidueCochainFunctor S s).obj (m.PX ⊞ m.PY)).homology 0) = 2 := by
-    have normalized : Module.finrank κ (((L2.nativeResidueCochainFunctor S s).obj (m.PX ⊞ m.PY)).homology 0) =
-        Module.finrank κ (MX.H 0 × MY.H 0) := by
-      simpa only [L6.nativeCubeFaceXBase_struct, L6.nativeCubeFaceYBase_struct] using pairRank
-    exact normalized.trans nativeTwo
-  refine ⟨targetRank, ?_⟩
-  intro initialPic
   have pointImage : b (IsLocalRing.closedPoint κ) = chart s := by
-    simp [b, Scheme.Hom.comp_apply, Scheme.fromSpecResidueField_apply]
+    change chart ((Spec (.of S)).fromSpecResidueField s (IsLocalRing.closedPoint κ)) = chart s
+    exact congrArg (fun z : Spec (.of S) => chart z)
+      (Scheme.fromSpecResidueField_apply (X := Spec (.of S)) s (IsLocalRing.closedPoint κ))
+  have initialAtPoint : Scheme.Pic.map (q.fiberι (b (IsLocalRing.closedPoint κ)))
+      (Scheme.Pic.mk M) = 1 :=
+    Eq.mpr (congrArg (fun z : Spec (.of R) =>
+      Scheme.Pic.map (q.fiberι z) (Scheme.Pic.mk M) = 1) pointImage) initialPic
   have hMB : Scheme.Pic.mk MB = 1 :=
-    fieldPicard_trivial_of_residue q b qB aB (ResidueCartesian.product_HC f g a b).w M (by simpa only [pointImage] using initialPic)
+    fieldPicard_trivial_of_residue q b qB aB (ResidueCartesian.product_HC f g a b).w M initialAtPoint
   obtain ⟨eB⟩ := (Scheme.Pic.mk_eq_mk_iff MB (Scheme.Modules.unit Pκ)).mp
     (hMB.trans Scheme.Pic.one_eq_mk_unit)
   let xp : Over.mk (𝟙 (Spec κ)) ⟶ Xκ := Over.homMk xκ hxκ
   let yp : Over.mk (𝟙 (Spec κ)) ⟶ Yκ := Over.homMk yκ hyκ
-  have nativeZero := L6.nativeHZero_twoFacesModule_injective Xκ Yκ xp yp MB eB
-  have nativeOne := L6.nativeHOne_twoFacesModule_injective Xκ Yκ xp yp MB eB
-  change Function.Injective (fun z : MB.H 0 =>
-    (Scheme.Modules.H.pullback jXB MB 0 z, Scheme.Modules.H.pullback jYB MB 0 z)) at nativeZero
-  change Function.Injective (fun z : MB.H 1 =>
-    (Scheme.Modules.H.pullback jXB MB 1 z, Scheme.Modules.H.pullback jYB MB 1 z)) at nativeOne
-  have sourceOne := (m.sourceFieldH affineU coverU κ β qB aB hc 0).finrank_eq.trans
-    (L6.nativeHZero_trivialProduct_finrank_eq_one Xκ Yκ MB eB)
-  have injectZero := (m.homology_modelPair_injective_iff_nativeFacePair affineU coverU κ β
-    qB aB bX jXB bY jYB hc hcx hcy squareX squareY 0 (by omega)).mpr nativeZero
-  have injectOne := (m.homology_modelPair_injective_iff_nativeFacePair affineU coverU κ β
-    qB aB bX jXB bY jYB hc hcx hcy squareX squareY 1 (by omega)).mpr nativeOne
-  exact ⟨sourceOne, injectZero, injectOne⟩
+  exact modelProduct_initialHZeroHOne R q jX jY M U affineU coverU d m κ β
+    Xκ Yκ xp yp aB bX bY hc hcx hcy squareX squareY eB
+
+/-- The actual entire faces force rank two of the SAME residue target;
+an initially trivial physical fibre forces source rank one and BOTH actual
+model-map injections. All comparison maps come from L1's produced package. -/
+private theorem cubeModel_fieldFacts
+    {k : Type u} [Field k] {X Y : Scheme.{u}}
+    (f : X ⟶ Spec (.of k)) (g : Y ⟶ Spec (.of k))
+    [IsProper f] [GeometricallyIntegral f] [IsProper g] [GeometricallyIntegral g]
+    (x : Spec (.of k) ⟶ X) (hx : x ≫ f = 𝟙 _)
+    (y : Spec (.of k) ⟶ Y) (hy : y ≫ g = 𝟙 _)
+    (R : Type u) [CommRing R] (a : Spec (.of R) ⟶ Spec (.of k))
+    (M : (pullback (pullback.fst f g ≫ f) a).Modules) [M.IsInvertible]
+    {ι : Type u} [Fintype ι] (U : ι → (pullback (pullback.fst f g ≫ f) a).Opens)
+    (affineU : ∀ i, IsAffineOpen (U i)) (coverU : ⨆ i, U i = ⊤)
+    (d : Γ(Spec (.of R), ⊤))
+    (m : L1.RetainedNativeCechFaceModels R (pullback.snd (pullback.fst f g ≫ f) a)
+      (L6.nativeCubeFaceXR f g a y hy) (L6.nativeCubeFaceYR f g a x hx) M U d)
+    (hX : Scheme.Pic.map (L6.nativeCubeFaceXR f g a y hy) (Scheme.Pic.mk M) = 1)
+    (hY : Scheme.Pic.map (L6.nativeCubeFaceYR f g a x hx) (Scheme.Pic.mk M) = 1) :
+    ∀ s : Spec (.of (Localization.Away d)),
+      residueHZeroDimension (Localization.Away d) (m.PX ⊞ m.PY) s = 2 ∧
+      (Scheme.Pic.map ((pullback.snd (pullback.fst f g ≫ f) a).fiberι
+          (L1.retainedModelBaseChart R (Localization.Away d) s)) (Scheme.Pic.mk M) = 1 →
+        residueHZeroDimension (Localization.Away d) m.P s = 1 ∧
+        residueTwoFaceInjection (Localization.Away d) m.P m.PX m.PY m.ψX m.ψY s (0 : ℤ) ∧
+        residueTwoFaceInjection (Localization.Away d) m.P m.PX m.PY m.ψX m.ψY s (1 : ℤ)) := by
+  intro s
+  exact ⟨cubeModel_residueTargetRank f g x hx y hy R a M U affineU coverU d m hX hY s,
+    fun h => cubeModel_residueInitialFacts f g x hx y hy R a M U affineU coverU d m s h⟩
 
 /-- On an actual affine cube parameter, the lower H0 bound is produced by
 EXACTLY the two-face cone mechanism. Ordinary h0 semicontinuity is never used
@@ -839,7 +1317,7 @@ private theorem exists_open_affine_cubeHZero
   letI : Flat (jY ≫ q) := (L4.CubeFaces.nativeCubeFaceYR_family_geometry f g a x hx).2
   letI : IsAffineHom jX := L4.CubeFaces.nativeCubeFaceXR_isAffineHom f g a y hy
   letI : IsAffineHom jY := L4.CubeFaces.nativeCubeFaceYR_isAffineHom f g a x hx
-  letI : CompactSpace (pullback (pullback.fst f g ≫ f) a) :=
+  letI : CompactSpace ↥(pullback (C := Scheme.{u}) (pullback.fst f g ≫ f) a) :=
     QuasiCompact.compactSpace_of_compactSpace q
   obtain ⟨ι, finiteι, nonemptyι, U, affineU, coverU⟩ :=
     finite_nonempty_affine_cover (pullback (pullback.fst f g ≫ f) a)
@@ -848,13 +1326,18 @@ private theorem exists_open_affine_cubeHZero
   letI : Fintype ι := Fintype.ofFinite ι
   let p : Ideal Γ(Spec (.of R), ⊤) := ((Spec (.of R)).isoSpec.hom t).asIdeal
   letI : p.IsPrime := ((Spec (.of R)).isoSpec.hom t).isPrime
-  obtain ⟨d, hd, m, nativeH01⟩ :=
+  obtain ⟨d, hd, m, nativeH01⟩ :
+      ∃ d ∉ p, ∃ m : L1.RetainedNativeCechFaceModels R q jX jY M U d,
+        m.NativeH01Compatible affineU coverU :=
     L1.exists_retained_nativeCechFaceModels_with_nativeH01 R q jX jY M U affineU coverU p
   let S := Localization.Away d
   let chart := L1.retainedModelBaseChart R S
   obtain ⟨s, hs⟩ := retainedChart_lift_point R d t hd
   have facts := cubeModel_fieldFacts f g x hx y hy R a M U affineU coverU d m hX hY
-  have initial := (facts s).2 (by simpa only [hs] using ht)
+  have initialAtChart : Scheme.Pic.map (q.fiberι (chart s)) (Scheme.Pic.mk M) = 1 :=
+    Eq.mpr (congrArg (fun z : Spec (.of R) =>
+      Scheme.Pic.map (q.fiberι z) (Scheme.Pic.mk M) = 1) hs) ht
+  have initial := (facts s).2 initialAtChart
   let D := m.PX ⊞ m.PY
   let Φ := biprod.lift m.ψX m.ψY
   have freeD := freeFinite_biprod_terms S m.PX m.PY m.freeFinitePX m.freeFinitePY
@@ -929,6 +1412,7 @@ theorem exists_open_cubeFibreHZero_ge_one
       1 ≤ Module.finrank (T.left.residueField z)
         (((Scheme.Modules.pullback (q.fiberι z)).obj M).H 0) := by
   classical
+  letI : M.IsQuasicoherent := SheafOfModules.IsInvertible.isQuasicoherent.{u, u, u} ‹M.IsInvertible›
   let q := pullback.snd (pullback.fst f g ≫ f) T.hom
   letI : IsProper q := (L4.CubeFaces.nativeCubeFamily_geometry f g T.hom).1
   obtain ⟨W, affineW, htW, _⟩ :=
@@ -940,6 +1424,7 @@ theorem exists_open_cubeFibreHZero_ge_one
   let Qmap := ResidueCartesian.familyMap (pullback.fst f g ≫ f) T.hom chart
   let qR := pullback.snd (pullback.fst f g ≫ f) a
   let MR := (Scheme.Modules.pullback Qmap).obj M
+  letI : MR.IsInvertible := Scheme.Modules.isInvertible_pullback Qmap M
   have hChart : IsPullback Qmap qR q chart :=
     ResidueCartesian.familyMap_isPullback (pullback.fst f g ≫ f) T.hom chart
   have htRange : t ∈ Set.range chart := by
@@ -965,9 +1450,15 @@ theorem exists_open_cubeFibreHZero_ge_one
   have fibreSquare : IsPullback ab qb q bb :=
     (IsPullback.of_hasPullback qR ((Spec R).fromSpecResidueField tR)).paste_horiz hChart
   have imagePoint : bb (IsLocalRing.closedPoint K) = t := by
-    simp [bb, Scheme.Hom.comp_apply, Scheme.fromSpecResidueField_apply, htR]
+    change chart ((Spec R).fromSpecResidueField tR (IsLocalRing.closedPoint K)) = t
+    exact (congrArg (fun z : Spec R => chart z)
+      (Scheme.fromSpecResidueField_apply (X := Spec R) tR (IsLocalRing.closedPoint K))).trans htR
+  have initialAtImage : Scheme.Pic.map (q.fiberι (bb (IsLocalRing.closedPoint K)))
+      (Scheme.Pic.mk M) = 1 :=
+    Eq.mpr (congrArg (fun z : T.left =>
+      Scheme.Pic.map (q.fiberι z) (Scheme.Pic.mk M) = 1) imagePoint) ht
   have hInitialComposite : Scheme.Pic.mk ((Scheme.Modules.pullback ab).obj M) = 1 :=
-    fieldPicard_trivial_of_residue q bb qb ab fibreSquare.w M (by simpa only [imagePoint] using ht)
+    fieldPicard_trivial_of_residue q bb qb ab fibreSquare.w M initialAtImage
   have htMR : Scheme.Pic.map (qR.fiberι tR) (Scheme.Pic.mk MR) = 1 := by
     change Scheme.Pic.map (qR.fiberι tR) (Scheme.Pic.mk ((Scheme.Modules.pullback Qmap).obj M)) = 1
     rw [← Scheme.Pic.map_mk, ← Scheme.Pic.map_comp, Scheme.Pic.map_mk]

@@ -27,6 +27,14 @@ abbrev scalarHomologyFunctor {S κ : Type u} [CommRing S] [Field κ]
     CochainComplex (ModuleCat.{u} S) ℤ ⥤ ModuleCat.{u} κ :=
   scalarComplexFunctor β ⋙ HomologicalComplex.homologyFunctor (ModuleCat.{u} κ) (.up ℤ) n
 
+/-- Composition evaluation proved abstractly before instantiating the raw
+scalar/homology functor. No keyed rewriting through Functor.comp is needed. -/
+private theorem moduleFunctor_comp_apply
+    {C : Type*} [Category C] {κ : Type u} [Field κ]
+    (F : C ⥤ ModuleCat.{u} κ) {X Y Z : C} (f : X ⟶ Y) (g : Y ⟶ Z) (z : F.obj X) :
+    F.map g (F.map f z) = F.map (f ≫ g) z :=
+  (ConcreteCategory.congr_hom (F.map_comp f g) z).symm
+
 /-- The canonical biproduct homology comparison: forward projections and
 inverse inclusions of the SAME extended/homology functor. No rank selection. -/
 def scalarBiprodHomologyPairEquiv {S κ : Type u} [CommRing S] [Field κ]
@@ -46,30 +54,55 @@ def scalarBiprodHomologyPairEquiv {S κ : Type u} [CommRing S] [Field κ]
   · intro z
     have ht : F.map (biprod.fst ≫ biprod.inl + biprod.snd ≫ biprod.inr) = 𝟙 (F.obj (PX ⊞ PY)) := by
       rw [biprod.total, F.map_id]
-    have hz := ConcreteCategory.congr_hom ht z
-    rw [F.map_add, F.map_comp, F.map_comp] at hz
-    change F.map biprod.inl (F.map biprod.fst z) + F.map biprod.inr (F.map biprod.snd z) = z at hz
-    exact hz
+    have hsum : F.map (biprod.fst ≫ biprod.inl + biprod.snd ≫ biprod.inr) z =
+        F.map (biprod.fst ≫ biprod.inl) z + F.map (biprod.snd ≫ biprod.inr) z :=
+      ConcreteCategory.congr_hom (F.map_add (f := biprod.fst ≫ biprod.inl)
+        (g := biprod.snd ≫ biprod.inr)) z
+    have hz : F.map (biprod.fst ≫ biprod.inl + biprod.snd ≫ biprod.inr) z = z :=
+      ConcreteCategory.congr_hom ht z
+    exact ((congrArg₂ (fun x y => x + y)
+      (moduleFunctor_comp_apply F biprod.fst biprod.inl z)
+      (moduleFunctor_comp_apply F biprod.snd biprod.inr z)).trans hsum.symm).trans hz
   · intro z
     apply Prod.ext
-    · change F.map biprod.fst (F.map biprod.inl z.1 + F.map biprod.inr z.2) = z.1
+    · change F.map (biprod.fst : PX ⊞ PY ⟶ PX)
+        (F.map (biprod.inl : PX ⟶ PX ⊞ PY) z.1 + F.map (biprod.inr : PY ⟶ PX ⊞ PY) z.2) = z.1
       rw [map_add]
-      have hL : F.map biprod.fst (F.map biprod.inl z.1) = z.1 := by
-        rw [← ConcreteCategory.comp_apply, ← F.map_comp, biprod.inl_fst, F.map_id]
-        rfl
-      have hR : F.map biprod.fst (F.map biprod.inr z.2) = 0 := by
-        rw [← ConcreteCategory.comp_apply, ← F.map_comp, biprod.inr_fst, F.map_zero]
-        rfl
-      rw [hL, hR, add_zero]
-    · change F.map biprod.snd (F.map biprod.inl z.1 + F.map biprod.inr z.2) = z.2
+      have hL : F.map (biprod.fst : PX ⊞ PY ⟶ PX)
+          (F.map (biprod.inl : PX ⟶ PX ⊞ PY) z.1) = z.1 := by
+        have hL : (biprod.inl : PX ⟶ PX ⊞ PY) ≫ (biprod.fst : PX ⊞ PY ⟶ PX) = 𝟙 PX := biprod.inl_fst
+        exact (moduleFunctor_comp_apply F (biprod.inl : PX ⟶ PX ⊞ PY)
+          (biprod.fst : PX ⊞ PY ⟶ PX) z.1).trans
+          ((congrArg (fun f : PX ⟶ PX => F.map f z.1) hL).trans
+            ((ConcreteCategory.congr_hom (F.map_id PX) z.1).trans rfl))
+      have hR : F.map (biprod.fst : PX ⊞ PY ⟶ PX)
+          (F.map (biprod.inr : PY ⟶ PX ⊞ PY) z.2) = 0 := by
+        have hR : (biprod.inr : PY ⟶ PX ⊞ PY) ≫ (biprod.fst : PX ⊞ PY ⟶ PX) = (0 : PY ⟶ PX) := biprod.inr_fst
+        exact (moduleFunctor_comp_apply F (biprod.inr : PY ⟶ PX ⊞ PY)
+          (biprod.fst : PX ⊞ PY ⟶ PX) z.2).trans
+          ((congrArg (fun f : PY ⟶ PX => F.map f z.2) hR).trans
+            ((ConcreteCategory.congr_hom (F.map_zero (X := PY) (Y := PX)) z.2).trans rfl))
+      rw [hL, hR]
+      exact add_zero _
+    · change F.map (biprod.snd : PX ⊞ PY ⟶ PY)
+        (F.map (biprod.inl : PX ⟶ PX ⊞ PY) z.1 + F.map (biprod.inr : PY ⟶ PX ⊞ PY) z.2) = z.2
       rw [map_add]
-      have hL : F.map biprod.snd (F.map biprod.inl z.1) = 0 := by
-        rw [← ConcreteCategory.comp_apply, ← F.map_comp, biprod.inl_snd, F.map_zero]
-        rfl
-      have hR : F.map biprod.snd (F.map biprod.inr z.2) = z.2 := by
-        rw [← ConcreteCategory.comp_apply, ← F.map_comp, biprod.inr_snd, F.map_id]
-        rfl
-      rw [hL, hR, zero_add]
+      have hL : F.map (biprod.snd : PX ⊞ PY ⟶ PY)
+          (F.map (biprod.inl : PX ⟶ PX ⊞ PY) z.1) = 0 := by
+        have hL : (biprod.inl : PX ⟶ PX ⊞ PY) ≫ (biprod.snd : PX ⊞ PY ⟶ PY) = (0 : PX ⟶ PY) := biprod.inl_snd
+        exact (moduleFunctor_comp_apply F (biprod.inl : PX ⟶ PX ⊞ PY)
+          (biprod.snd : PX ⊞ PY ⟶ PY) z.1).trans
+          ((congrArg (fun f : PX ⟶ PY => F.map f z.1) hL).trans
+            ((ConcreteCategory.congr_hom (F.map_zero (X := PX) (Y := PY)) z.1).trans rfl))
+      have hR : F.map (biprod.snd : PX ⊞ PY ⟶ PY)
+          (F.map (biprod.inr : PY ⟶ PX ⊞ PY) z.2) = z.2 := by
+        have hR : (biprod.inr : PY ⟶ PX ⊞ PY) ≫ (biprod.snd : PX ⊞ PY ⟶ PY) = 𝟙 PY := biprod.inr_snd
+        exact (moduleFunctor_comp_apply F (biprod.inr : PY ⟶ PX ⊞ PY)
+          (biprod.snd : PX ⊞ PY ⟶ PY) z.2).trans
+          ((congrArg (fun f : PY ⟶ PY => F.map f z.2) hR).trans
+            ((ConcreteCategory.congr_hom (F.map_id PY) z.2).trans rfl))
+      rw [hL, hR]
+      exact zero_add _
 
 /-- Forward components are literally the two extended/homology projections. -/
 theorem scalarBiprodHomologyPairEquiv_lift {S κ : Type u} [CommRing S] [Field κ]
@@ -82,10 +115,12 @@ theorem scalarBiprodHomologyPairEquiv_lift {S κ : Type u} [CommRing S] [Field �
         HomologicalComplex.homologyMap ((scalarComplexFunctor β).map ψY) n z) := by
   let F := scalarHomologyFunctor β n
   apply Prod.ext
-  · change F.map biprod.fst (F.map (biprod.lift ψX ψY) z) = F.map ψX z
-    rw [← ConcreteCategory.comp_apply, ← F.map_comp, biprod.lift_fst]
-  · change F.map biprod.snd (F.map (biprod.lift ψX ψY) z) = F.map ψY z
-    rw [← ConcreteCategory.comp_apply, ← F.map_comp, biprod.lift_snd]
+  · change F.map (biprod.fst : PX ⊞ PY ⟶ PX) (F.map (biprod.lift ψX ψY) z) = F.map ψX z
+    exact (moduleFunctor_comp_apply F (biprod.lift ψX ψY) (biprod.fst : PX ⊞ PY ⟶ PX) z).trans
+      (congrArg (fun f : P ⟶ PX => F.map f z) (biprod.lift_fst ψX ψY))
+  · change F.map (biprod.snd : PX ⊞ PY ⟶ PY) (F.map (biprod.lift ψX ψY) z) = F.map ψY z
+    exact (moduleFunctor_comp_apply F (biprod.lift ψX ψY) (biprod.snd : PX ⊞ PY ⟶ PY) z).trans
+      (congrArg (fun f : P ⟶ PY => F.map f z) (biprod.lift_snd ψX ψY))
 
 /-- Elementary exact-map conjugation. The application below uses only the
 constructed θ comparisons, not an arbitrary isomorphism chosen from ranks. -/
@@ -162,15 +197,12 @@ theorem targetFieldPairH_square [IsProper q] [M.IsInvertible]
   letI : XB.Over (Spec (.of κ)) := ⟨qB⟩
   letI : YB.Over (Spec (.of κ)) := ⟨jXB ≫ qB⟩
   letI : ZB.Over (Spec (.of κ)) := ⟨jYB ≫ qB⟩
-  change LinearEquiv.prodCongr
-      (m.faceXFieldH affineU coverU κ β qB a bX jXB HC HX squareX n hn)
-      (m.faceYFieldH affineU coverU κ β qB a bY jYB HC HY squareY n hn)
-      (scalarBiprodHomologyPairEquiv β m.PX m.PY (n : ℤ)
-        (HomologicalComplex.homologyMap ((scalarComplexFunctor β).map (biprod.lift m.ψX m.ψY)) (n : ℤ) z)) = _
-  rw [scalarBiprodHomologyPairEquiv_lift]
-  apply Prod.ext
-  · exact m.faceXFieldH_square affineU coverU κ β qB a bX jXB HC HX squareX n hn z
-  · exact m.faceYFieldH_square affineU coverU κ β qB a bY jYB HC HY squareY n hn z
+  let θX := m.faceXFieldH affineU coverU κ β qB a bX jXB HC HX squareX n hn
+  let θY := m.faceYFieldH affineU coverU κ β qB a bY jYB HC HY squareY n hn
+  have hPair := scalarBiprodHomologyPairEquiv_lift β m.ψX m.ψY (n : ℤ) z
+  exact (congrArg (fun p => LinearEquiv.prodCongr θX θY p) hPair).trans
+    (Prod.ext (m.faceXFieldH_square affineU coverU κ β qB a bX jXB HC HX squareX n hn z)
+      (m.faceYFieldH_square affineU coverU κ β qB a bY jYB HC HY squareY n hn z))
 
 /-- Actual model injection iff actual native field-face injection. No injection
 is assumed here; native product-face facts supply the right side downstream. -/

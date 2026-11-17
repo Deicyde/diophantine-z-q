@@ -9,16 +9,15 @@ import ZInQKernel.Contrib.CloudR2Poincare.L2.CubeConeFibreIntegration
 /-!
 # Native theorem of the cube on the actual triple product
 
-Source-only assembly. Current native products have not been produced. The
-quantitative actual-fibre endpoint is awaited from the independent L2 lane;
-its exact interface is recorded in the source-only cube skeleton. L1's
-retained-model/native-H comparison is delivered as uncompiled source only.
+The two-face cone bounds for a line bundle and its dual give openness of
+residue-fibre triviality. On the actual triple product, connectedness and
+normalized reduced seesaw identify the seven-factor class with the unit.
 No model, rank, Picard-zero, square or cube proposition is assumed by the
 final theorem.
 
 The parameter used in the reduced global seesaw is J itself. Only after the
-actual class on J cubed is proved trivial may it be pulled back to arbitrary
-test schemes. None of these sources alters a published provider or telescope.
+actual class on J cubed is proved trivial is it pulled back to arbitrary
+test schemes.
 -/
 
 noncomputable section
@@ -74,14 +73,29 @@ private theorem cube_fibreClass_eq_one_of_bounds
   let a := q.fiberι z
   let P := (Scheme.Modules.pullback a).obj M
   letI : (q.fiber z).Over (Spec (T.residueField z)) := ⟨r⟩
+  have fibreSquare : IsPullback a r q (T.fromSpecResidueField z) :=
+    IsPullback.of_hasPullback q (T.fromSpecResidueField z)
+  haveI hrP : IsProper r :=
+    MorphismProperty.of_isPullback (P := @IsProper) fibreSquare
+      (inferInstance : IsProper q)
+  haveI hrG : GeometricallyIntegral r :=
+    MorphismProperty.of_isPullback (P := @GeometricallyIntegral) fibreSquare
+      (inferInstance : GeometricallyIntegral q)
+  haveI : IsProper ((q.fiber z) ↘ Spec (T.residueField z)) :=
+    inferInstanceAs (IsProper r)
+  haveI : GeometricallyIntegral ((q.fiber z) ↘ Spec (T.residueField z)) :=
+    inferInstanceAs (GeometricallyIntegral r)
   have hP : 1 ≤ Module.finrank (T.residueField z) (P.H 0) := hM
   have hPD : 1 ≤ Module.finrank (T.residueField z) (Pᵛ.H 0) := by
     calc
       1 ≤ Module.finrank (T.residueField z)
           (((Scheme.Modules.pullback a).obj Mᵛ).H 0) := hD
       _ = Module.finrank (T.residueField z) (Pᵛ.H 0) := cube_dual_fibre_finrank r a M
+  letI hPinv : P.IsInvertible := inferInstance
   have hclass : Scheme.Pic.mk P = 1 :=
-    nativePicardClass_eq_one_of_positiveHZero_dual r P hP hPD
+    @nativePicardClass_eq_one_of_positiveHZero_dual
+      (T.residueField z) (inferInstance : Field (T.residueField z))
+      (q.fiber z) r hrP hrG P hPinv hP hPD
   rw [Scheme.Pic.map_mk]
   exact hclass
 
@@ -182,8 +196,8 @@ private theorem cube_unit_baseChange_factors_through_third_face
       Hom.one_def, Over.comp_left, Over.toUnit_left, Over.lift_left,
       Over.snd_left, Category.assoc, pullback.lift_snd, pullback.lift_fst,
       Over.tensorObj_hom]
-    simpa only [Category.assoc] using congrArg (fun a => a ≫ η[A].left)
-      (pullback.condition (A ⊗ A).hom T.hom).symm
+    simpa only [Category.assoc, Over.tensorObj_hom] using congrArg (fun a => a ≫ η[A].left)
+      (pullback.condition (f := (A ⊗ A).hom) (g := T.hom)).symm
 
 /-- The actual Picard class on J cubed is one when its three entire
 coordinate faces are trivial. Openness is proved above; closedness,
@@ -223,7 +237,9 @@ theorem nativeCubePicardClass_eq_one_of_three_faces
       η[A].left (L1.groupUnit_over A) A N hX hY
   let unitTest : L1.fieldTest k k ⟶ A := 1
   have hAtUnit : Scheme.Pic.map (JacobianChallenge.baseChangeMap π unitTest) N = 1 := by
-    rw [cube_unit_baseChange_factors_through_third_face A (L1.fieldTest k k),
+    have hbc : JacobianChallenge.baseChangeMap π unitTest =
+        JacobianChallenge.baseChangeMap (A ⊗ A).hom (1 : L1.fieldTest k k ⟶ A) := rfl
+    rw [hbc, cube_unit_baseChange_factors_through_third_face A (L1.fieldTest k k),
       Scheme.Pic.map_comp, h₃, Scheme.Pic.map_one]
   have hUnitMem :=
     (L2.fibreTriviality_mem_fieldTest_iff π σ hσ A N hNorm unitTest).mpr hAtUnit
