@@ -94,8 +94,10 @@ theorem restrictedConverseGenuine_of_nodes (P : Prints) (hBr : BranchPackageNode
   set M := pkg.B + 2 * pkg.cdet + 1 with hM
   have h1 : pkg.cdet < M := by omega
   have h2 : pkg.B + 2 * pkg.cdet < M := by omega
-  have h3 : (pkg.LT M + 2) * (2 ^ M - 1) < (pkg.LT M + 2) * (2 ^ M - 1) + 1 := by omega
-  obtain ⟨C, c, hc, hCl, hPole, hBase, hUB, hBZ⟩ := pkg.coord M _ h1 h2 h3
+  set b := max pkg.b0 ((pkg.LT M + 2) * (2 ^ M - 1) + 1) with hb
+  have h3 : (pkg.LT M + 2) * (2 ^ M - 1) < b := by omega
+  have h4 : pkg.b0 ≤ b := le_max_left _ _
+  obtain ⟨C, c, hc, hCl, hPole, hBase, hUB, hBZ⟩ := pkg.coord M b h1 h2 h3 h4
   obtain ⟨x, hx0, hx⟩ := hMA _ M (pkg.LT M) pkg.B pkg.cdet c C h1 h2 h3 hc hCl hPole hBase
   rw [hBZ hP, sub_zero] at hx
   have hlow := hUB x hx0

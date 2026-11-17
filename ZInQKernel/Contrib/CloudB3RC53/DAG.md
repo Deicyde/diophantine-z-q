@@ -35,8 +35,8 @@ calibration, common coordinate, central specialization, base zero; RC16 switches
 | root number −1 | `RootNumberNode`, `rootNumberNode_proof` | 1793–1797 | DD Thm 1.8; rational 2-torsion of `E_ℓ` (`PoleRC`) | TOP | PROVED |
 | `L(E,1) = 0` | `CentralValueZeroNode`, `centralValueZeroNode_proof` | 5740–5741 | functional equation at `s = 1` | TOP | PROVED |
 | final deduction | `FinalRankDeductionNode`, `finalRankDeductionNode_proof` | 5736–5741 | order of a product | TOP | PROVED |
-| missing address (5.10)–(5.11) | `MissingAddressNode` | 5666–5735 | Boolean bit degree, cube parity, Gauss lemma for `𝒪` | RC1 | OPEN |
-| Branch 1 or Branch-2 package | `BranchPackageNode` (`FixedFieldPackage`) | 2587–2602, 2595–2715, 2718–5664, App E–G | every row below | RC0 | OPEN (bundles Sections 7–9) |
+| missing address (5.10)–(5.11) | `MissingAddressNode`; `ZInQ.Manuscript.RC.Boolean.missingAddressNode` | 5666–5735 | Boolean bit degree, cube parity, Gauss lemma for `𝒪` | RC1 | PROVED (on `rc/thm53-proof-20261117`) |
+| Branch 1 or Branch-2 package | `BranchPackageNode` (`FixedFieldPackage`) | 2587–2602, 2595–2715, 2718–5664, App E–G | every row below | RC0 | reduced by RC0 (`ZInQ.Manuscript.RC.branchPackageNode_of_steps`) to `Prints`, one Kummer GLUE and the 13 fields of `RCSteps`; fields OPEN |
 
 `FixedFieldPackage` fields and their sources:
 
@@ -46,6 +46,12 @@ calibration, common coordinate, central specialization, base zero; RC16 switches
 | `B` | `v₂ ũ_x(0) ≤ B` at `x ≠ 0` | AppGEndpoints | (3.9) ex:sec7-final-family / ex:app-final-family; (3.4) ex:sec7-genus-lower (CST); (4.6) ex:arith-central-calibration; (4.7) ex:arith-common-coordinate |
 | `cdet`, `LT`, `ClearingIdentity`, `PoleBound`, `BaseRegular` | (5.9) | RankCounts | ex:limits-fixed-field-budget (5.6)–(5.8); ex:arith-paired-functional (exponent `a`); ex:arith-common-coordinate (`η`); height-one regularity of ex:limits-uniform-lower-bound (`ũ_x ∈ Λ[1/2]`) |
 | `BaseZero` | `L'(E/K,1) = 0 ⇒ ũ_0(0) = 0` | RC15 | ex:arith-base-zero: CST at conductor one; Smith reduction over the DVR `Λ_(t)`; `s₂(E/K) = 1` (2617–2628) |
+
+`RCSteps` fields (RC0, `ZInQKernel/Contrib/OneProof/RC/Skeleton/Steps.lean`) and owners: `stages_advance`
+(2491–2551) and `gz_comparison` (3.4) (2427–2439, 2713–2714): GenusOdd; `final_family` (3.9) (2695–2715,
+10792–10858): AppGEndpoints; `clearing` (5.9): RC7 with RankCounts and PairedFunctional;
+`lstar_ne_zero_iff`: RC11; `genus_partner`: RC13; `visibility`, `one_admissible`: RC12; `companion`:
+RC2/RC11/RC13; `calibration`, `common_coordinate`, `base_zero`: RC15; `height_one`: RC16.
 
 ## Section 7 (sec:rc), L1760–2715
 

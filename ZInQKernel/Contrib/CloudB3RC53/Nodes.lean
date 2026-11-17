@@ -112,7 +112,7 @@ def BaseZero {b : ℕ} (E : WeierstrassCurve ℚ) (k : ℚ) (C : CoordData b) : 
 /-- **The fixed-field package of the remaining branch** (Branch 2). A final companion `k` with
 `L(E^{(k)}, 1) ≠ 0` (tex L2595–2600), constants `B`, `c_det` and a pole bound `L_T(M)` fixed
 before the binary dimension (tex L5497–5499, L5655–5662, L5730–5731), and, for every `M, b` as in
-(5.10), coefficient data with the clearing identity, the pole bound, a regular base with
+(5.10) with `b` beyond a threshold `b₀`, coefficient data with the clearing identity, the pole bound, a regular base with
 `c ≤ c_det`, the upper bound `B` and the base-zero conclusion. -/
 structure FixedFieldPackage (E : WeierstrassCurve ℚ) where
   /-- The final companion discriminant `k` (`K = ℚ(√k)`). -/
@@ -125,8 +125,11 @@ structure FixedFieldPackage (E : WeierstrassCurve ℚ) where
   cdet : ℕ
   /-- `L_T(M) = 16(d_K + 5)M`. -/
   LT : ℕ → ℕ
-  /-- For every `M, b` as in (5.10), the coefficient data. -/
-  coord : ∀ M b : ℕ, cdet < M → B + 2 * cdet < M → (LT M + 2) * (2 ^ M - 1) < b →
+  /-- The threshold beyond which the binary family (3.9) exists ("for every sufficiently large
+  `b`", tex L2679, L10794). -/
+  b0 : ℕ
+  /-- For every `M, b` as in (5.10) with `b ≥ b₀`, the coefficient data. -/
+  coord : ∀ M b : ℕ, cdet < M → B + 2 * cdet < M → (LT M + 2) * (2 ^ M - 1) < b → b0 ≤ b →
     ∃ (C : CoordData b) (c : ℕ), c ≤ cdet ∧ ClearingIdentity C ∧ PoleBound C (LT M) M ∧
       BaseRegular C c ∧ UpperBound C B ∧ BaseZero E k C
 
