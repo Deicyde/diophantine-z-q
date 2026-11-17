@@ -28,10 +28,10 @@ by `sixContactMin_of_open4_cm`. A scan of the transitive constant closure
 (`scratch/cm-branch/FieldUse2.lean`, output `fielduse-top.txt`) shows that the new top no longer depends
 on NoCM: `G0FibreSimple.FibreComTrivial` (FS5), all of `FS5NoCM` (the `X₆` Kummer fibre, the
 optimal-embedding conductor argument, `nocm_on_witness_le`, `elkies_sq`, …), `cmOptimalEmbedding` and
-`x6ConicModel` are gone from the closure (89 constants), and nothing was added outside the new files.
+`x6ConicModel` are gone from the closure (78 constants on the merged base, 89 on the first), and nothing was added outside the new files.
 
 **The R5ptProps prune, dry run (VERIFIED).** The files `CMBranch/No5A.lean` … `No5E.lean` (generated,
-§6) copy the 1325-constant region of the chain affected by the moduli row's conjunct `R5ptProps` and by the
+§6) copy the region of the chain affected (1015 constants on the merged base, 1325 on the first) by the moduli row's conjunct `R5ptProps` and by the
 González–Rotger field types, with `R5ptProps := True` and the González–Rotger fields deleted. Their top
 
 ```lean
@@ -184,7 +184,7 @@ of the statement being proved. `Localize.lean` copies that path with each Prop
 **How the dry run is built** (`scratch/cm-branch/gen/`): `AffectedList.lean` computes, in the closure of
 `sixContactMin_of_open72_cm`, every constant that (transitively, through values, types and structure
 constructors) mentions `LeafQM.AV.R1R2fp`, `LeafAdopt.R1R2fpRepW`, `LeafQM.AV.R5ptProps`,
-`GRDict.GonzalezRotgerThm512X6` or `GR512Bridge.GonzalezRotgerThm512X6RCF` (1325 constants, with their
+`GRDict.GonzalezRotgerThm512X6` or `GR512Bridge.GonzalezRotgerThm512X6RCF` (1015 constants on the merged base, with their
 declaration ranges). `gen_no5.py` replays the scope commands of each of the 28 source modules and copies the
 affected declarations verbatim, renaming every copied name `c` to `c_no5` (so name resolution is the
 original's), with `R5ptProps` replaced by `R5ptProps_no5 := True` (same arity: every destructuring pattern
