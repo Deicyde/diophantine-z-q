@@ -1,4 +1,4 @@
-import ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.GaloisCohomology.TwoDescent
+import ZInQKernel.Contrib.PoleRC.SelMTwoDescent
 import ZInQKernel.Contrib.PoleRC.Defs
 
 /-!
@@ -13,20 +13,24 @@ Everything here is over an arbitrary field `F` with `2, 3 ≠ 0` and a curve `W`
 `T_A = (−3m, 0)` and `T_B = (m, 0)`.
 
 * `smul_torsionCoeff_two`: `G_F` acts trivially on `W[2](Fˢ)` (the roots `0, m, −3m` lie in `F`).
-* `chiA`, `chiB`: Tau Ceti's characters `W[2] → μ₂` trivial exactly on `{O, T_A}`, `{O, T_B}`
-  (the Weil pairings `e₂(·, T_A)`, `e₂(·, T_B)`); `eq_zero_of_chi`: together they detect
+* `chiA`, `chiB`: the characters `W[2] → μ₂` trivial exactly on `{O, T_A}`, `{O, T_B}`
+  (`twoTorsionCharacter` of `SelMTwoDescent.lean`, adapted from Tau Ceti; they are the Weil
+  pairings `e₂(·, T_A)`, `e₂(·, T_B)`, which is not used); `eq_zero_of_chi`: together they detect
   `H¹(G_F, W[2])`; `sec`, `chiA_sec`, `chiB_sec`: every pair of classes of `H¹(G_F, μ₂)` is hit.
   So `H¹(G_F, W[2]) ≅ H¹(G_F, μ₂)²`, which is `(F*/F*²)²` by Kummer theory (Silverman X.1.4,
   first step).
 * `locM_iff_exists_point`: the x-form `LocM F m a b` of `Defs.lean` says exactly that `(a, b)` is
-  the image mod squares of a point `P ∈ W(F)` under the descent map `(uA, uB)`, Tau Ceti's
+  the image mod squares of a point `P ∈ W(F)` under the descent map `(uA, uB)`,
   `twoDescentUnit` at `T_A` and `T_B` (`x + 3m`, `x − m`, with `f'(e)` at `T_e` and `1` at `O`).
 * `torsionRes_mem_range_kummerMap_iff`: **the local condition**. For a field extension `L/K`, a
   curve `E/K` of this shape and a class `c ∈ H¹(G_K, E[2])` whose two characters are the Kummer
   classes of `a, b ∈ K*`, the restriction of `c` to `G_L` lies in the image of the local Kummer
-  map `E(L) → H¹(G_L, E[2])` iff `LocM L ℓ a b`. The core input is Tau Ceti's
+  map `E(L) → H¹(G_L, E[2])` iff `LocM L ℓ a b`. The core input is
   `explicitCoeff1_twoTorsionCharacter_kummerMap` (the Kummer map read through `T` is `x − e`,
-  Silverman X.1.4) with its compatibility with restriction.
+  Silverman X.1.4; Tau Ceti's proof) with `explicitMap1_explicitCoeff1_twoTorsionCharacter` (its
+  compatibility with restriction), both in `SelMTwoDescent.lean`.
+
+The import closure avoids Tau Ceti's Weil-pairing development (see `SelMTwoDescent.lean`).
 -/
 
 noncomputable section
@@ -188,20 +192,20 @@ theorem nsB : W.toAffine.Nonsingular m 0 :=
   hW.nonsingular_root h2 h3 hm (Or.inr (Or.inl rfl))
 
 /-- `T_A = (−3m, 0)` in `E_m[2](Fˢ)`. -/
-def TA : W.TorsionCoeff 2 := W.twoTorsionCoeff (nsA hW h2 h3 hm) (hW.psi_root _)
+def TA : W.TorsionCoeff 2 := twoTorsionCoeff W (nsA hW h2 h3 hm) (hW.psi_root _)
 
 /-- `T_B = (m, 0)` in `E_m[2](Fˢ)`. -/
-def TB : W.TorsionCoeff 2 := W.twoTorsionCoeff (nsB hW h2 h3 hm) (hW.psi_root _)
+def TB : W.TorsionCoeff 2 := twoTorsionCoeff W (nsB hW h2 h3 hm) (hW.psi_root _)
 
 /-- The character `E_m[2] → μ₂` trivial exactly on `{O, T_A}` (the Weil pairing `e₂(·, T_A)`):
 the coordinate `x + 3m` of the manuscript's Kummer map. -/
 def chiA [W.IsElliptic] : W.TorsionCoeff 2 →+[AbsoluteGaloisGroup F] KummerCoeff F 2 :=
-  W.twoTorsionCharacter (nsA hW h2 h3 hm) (hW.psi_root _) (isUnit_two_nat h2)
+  twoTorsionCharacter W (nsA hW h2 h3 hm) (hW.psi_root _) (isUnit_two_nat h2)
 
 /-- The character `E_m[2] → μ₂` trivial exactly on `{O, T_B}` (the Weil pairing `e₂(·, T_B)`):
 the coordinate `x − m` of the manuscript's Kummer map. -/
 def chiB [W.IsElliptic] : W.TorsionCoeff 2 →+[AbsoluteGaloisGroup F] KummerCoeff F 2 :=
-  W.twoTorsionCharacter (nsB hW h2 h3 hm) (hW.psi_root _) (isUnit_two_nat h2)
+  twoTorsionCharacter W (nsB hW h2 h3 hm) (hW.psi_root _) (isUnit_two_nat h2)
 
 include hW h2 h3 hm in
 theorem baseA_ne_baseB :
@@ -466,10 +470,10 @@ variable {F : Type*} [Field F] [DecidableEq F] {W : WeierstrassCurve F} {m : F}
   (hW : IsCurveE W m) (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) (hm : m ≠ 0)
 
 /-- The descent unit at `T_A`: `x + 3m`, with `f'(−3m) = 12m²` at `T_A` and `1` at `O`. -/
-def uA : W.toAffine.Point → Fˣ := W.twoDescentUnit (nsA hW h2 h3 hm) (hW.psi_root _)
+def uA : W.toAffine.Point → Fˣ := twoDescentUnit W (nsA hW h2 h3 hm) (hW.psi_root _)
 
 /-- The descent unit at `T_B`: `x − m`, with `f'(m) = 4m²` at `T_B` and `1` at `O`. -/
-def uB : W.toAffine.Point → Fˣ := W.twoDescentUnit (nsB hW h2 h3 hm) (hW.psi_root _)
+def uB : W.toAffine.Point → Fˣ := twoDescentUnit W (nsB hW h2 h3 hm) (hW.psi_root _)
 
 theorem uA_zero : uA hW h2 h3 hm 0 = 1 := twoDescentUnit_zero W _ _
 
@@ -680,40 +684,6 @@ omit [DecidableEq K] [DecidableEq L] in
 theorem three_ne_zero_map (h3 : (3 : K) ≠ 0) : (3 : L) ≠ 0 := by
   have := ne_zero_map (L := L) h3; rwa [map_ofNat] at this
 
-/-- `chiA` is the Weil pairing with `T_A`, as an equivariant map. -/
-theorem chiA_eq_weilPairingCoeff {F : Type*} [Field F] [DecidableEq F] {W : WeierstrassCurve F}
-    {m : F} (hW : IsCurveE W m) (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) (hm : m ≠ 0)
-    [W.IsElliptic] :
-    chiA hW h2 h3 hm = W.weilPairingCoeff 2 (isUnit_two_nat h2)
-      ⟨.some (-3 * m) 0 (nsA hW h2 h3 hm), AddSubgroup.torsionBy.nsmul_iff.mpr (by
-        rw [two_nsmul]
-        exact (Affine.Point.some_add_self_eq_zero_iff _).mpr (hW.psi_root _))⟩ := by
-  have hT : W.twoTorsionCoeff (nsA hW h2 h3 hm) (hW.psi_root _) =
-      W.baseTorsionCoeff 2 ⟨.some (-3 * m) 0 (nsA hW h2 h3 hm),
-        AddSubgroup.torsionBy.nsmul_iff.mpr (by
-        rw [two_nsmul]
-        exact (Affine.Point.some_add_self_eq_zero_iff _).mpr (hW.psi_root _))⟩ :=
-    Subtype.ext (by rw [coe_twoTorsionCoeff, coe_baseTorsionCoeff])
-  refine DistribMulActionHom.ext fun S => ?_
-  rw [chiA, twoTorsionCharacter_eq_weilPairing, hT, weilPairingCoeff_apply]
-
-/-- `chiB` is the Weil pairing with `T_B`, as an equivariant map. -/
-theorem chiB_eq_weilPairingCoeff {F : Type*} [Field F] [DecidableEq F] {W : WeierstrassCurve F}
-    {m : F} (hW : IsCurveE W m) (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) (hm : m ≠ 0)
-    [W.IsElliptic] :
-    chiB hW h2 h3 hm = W.weilPairingCoeff 2 (isUnit_two_nat h2)
-      ⟨.some m 0 (nsB hW h2 h3 hm), AddSubgroup.torsionBy.nsmul_iff.mpr (by
-        rw [two_nsmul]
-        exact (Affine.Point.some_add_self_eq_zero_iff _).mpr (hW.psi_root _))⟩ := by
-  have hT : W.twoTorsionCoeff (nsB hW h2 h3 hm) (hW.psi_root _) =
-      W.baseTorsionCoeff 2 ⟨.some (m) 0 (nsB hW h2 h3 hm),
-        AddSubgroup.torsionBy.nsmul_iff.mpr (by
-        rw [two_nsmul]
-        exact (Affine.Point.some_add_self_eq_zero_iff _).mpr (hW.psi_root _))⟩ :=
-    Subtype.ext (by rw [coe_twoTorsionCoeff, coe_baseTorsionCoeff])
-  refine DistribMulActionHom.ext fun S => ?_
-  rw [chiB, twoTorsionCharacter_eq_weilPairing, hT, weilPairingCoeff_apply]
-
 variable [E.IsElliptic] (τ : SeparableClosure K →ₐ[K] SeparableClosure L)
 
 /-- **Restriction carries `χ_A(c)` to `χ_A(res c)`.** -/
@@ -723,12 +693,9 @@ theorem chiA_torsionRes (c : H1 (AbsoluteGaloisGroup K) (E.TorsionCoeff 2)) :
       explicitMap1 _ _ _ _ (absoluteGaloisGroupMap τ) (kummerCoeffBaseChange 2 τ)
         continuous_of_discreteTopology (kummerCoeffBaseChange_smul 2 τ)
         (explicitCoeff1 _ _ (chiA hE h2 h3 hℓ) continuous_of_discreteTopology c) := by
-  rw [explicitCoeff1_congr _ continuous_of_discreteTopology
-      (chiA_eq_weilPairingCoeff (hE.baseChange L) _ _ _),
-    explicitCoeff1_congr _ continuous_of_discreteTopology (chiA_eq_weilPairingCoeff hE h2 h3 hℓ)]
-  refine (explicitMap1_explicitCoeff1_weilPairingCoeff E 2 (isUnit_two_nat h2) τ ?_ c).symm
-  rw [Affine.pointMap_some]
-  simp only [map_mul, map_neg, map_ofNat, map_zero]
+  unfold chiA
+  exact (explicitMap1_explicitCoeff1_twoTorsionCharacter τ _ _ _ _ _ _
+    (by rw [map_mul, map_neg, map_ofNat]) (map_zero _).symm c).symm
 
 /-- **Restriction carries `χ_B(c)` to `χ_B(res c)`.** -/
 theorem chiB_torsionRes (c : H1 (AbsoluteGaloisGroup K) (E.TorsionCoeff 2)) :
@@ -737,12 +704,8 @@ theorem chiB_torsionRes (c : H1 (AbsoluteGaloisGroup K) (E.TorsionCoeff 2)) :
       explicitMap1 _ _ _ _ (absoluteGaloisGroupMap τ) (kummerCoeffBaseChange 2 τ)
         continuous_of_discreteTopology (kummerCoeffBaseChange_smul 2 τ)
         (explicitCoeff1 _ _ (chiB hE h2 h3 hℓ) continuous_of_discreteTopology c) := by
-  rw [explicitCoeff1_congr _ continuous_of_discreteTopology
-      (chiB_eq_weilPairingCoeff (hE.baseChange L) _ _ _),
-    explicitCoeff1_congr _ continuous_of_discreteTopology (chiB_eq_weilPairingCoeff hE h2 h3 hℓ)]
-  refine (explicitMap1_explicitCoeff1_weilPairingCoeff E 2 (isUnit_two_nat h2) τ ?_ c).symm
-  rw [Affine.pointMap_some]
-  simp only [map_zero]
+  unfold chiB
+  exact (explicitMap1_explicitCoeff1_twoTorsionCharacter τ _ _ _ _ _ _ rfl (map_zero _).symm c).symm
 
 /-- **The local condition at `L`, in the x-form.** Let `c ∈ H¹(G_K, E[2])` have characters
 `χ_A(c) = κ(a)`, `χ_B(c) = κ(b)` (Kummer classes of `a, b ∈ K*`). Its restriction to `G_L` is the
