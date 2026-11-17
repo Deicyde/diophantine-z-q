@@ -207,6 +207,8 @@ class ScopeTests(unittest.TestCase):
         self.assertEqual(embedded, (ROOT / 'scripts/kernel_pr_scope.py').read_text())
         compile(embedded, '<kernel first step>', 'exec')
         self.assertIn('name: Complete kernel build and exact-target audit', workflow)
+        # Only trigger filters can suppress the required job. Embedded Python also
+        # contains 'paths:' in its conditionals, so inspect the trigger section only.
         self.assertNotIn('paths:', workflow.split('jobs:', 1)[0])
         self.assertNotIn('paths-ignore:', workflow.split('jobs:', 1)[0])
         self.assertNotIn("protected controller", workflow)

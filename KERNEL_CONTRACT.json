@@ -949,7 +949,7 @@
     "scripts/test_kernel_contract.py": "c678d0204deb42b716097eb6fb3f08d682035061d74c75154ca1f12491371888",
     "scripts/test_kernel_diagnostics.py": "a378953dfc9baf168ffe76c064f49c3058bb28f436179ae8e104ea303d1964ad",
     "scripts/test_kernel_phases.py": "76b737fc65be2c186d39e92576d1e10f733eddd5131f638b5195ec5de3a6d4e8",
-    "scripts/test_kernel_pr_scope.py": "bf03207ef24177278e481cae03521b5f7b2e81a3a9ffbc8f8913722f93e4bfd4"
+    "scripts/test_kernel_pr_scope.py": "dabffdf4fc151738fa8de5d4ba51c9152a146f0a2c6d3849be3fe12ca6af338a"
   },
   "targets": [
     {
