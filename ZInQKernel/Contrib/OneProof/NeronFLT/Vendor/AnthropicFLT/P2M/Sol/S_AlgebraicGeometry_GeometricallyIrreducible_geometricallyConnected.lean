@@ -1,0 +1,37 @@
+/-
+Vendored from anthropics/fermats-last-theorem, commit 6e837e75355538c7f80bab5b956861e86c4eacc2, Apache-2.0.
+Upstream module: P2M.Sol.S_AlgebraicGeometry_GeometricallyIrreducible_geometricallyConnected
+Modified for the Z-in-Q kernel (2026-11-16, task neron-flt): local import paths are relocated
+(`P2M.Util` is the copy published by Cloud Worker 2) and the upstream lakefile options are set
+as `set_option` lines after the imports; any other change is marked `-- [port]`.
+Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
+Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+-/
+import Mathlib
+import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
+
+set_option maxHeartbeats 4000000
+set_option synthInstance.maxHeartbeats 400000
+set_option backward.isDefEq.respectTransparency.types false
+set_option autoImplicit false
+
+namespace P2MW.S_AlgebraicGeometry_GeometricallyIrreducible_geometricallyConnected
+
+set_option autoImplicit false
+
+universe u
+
+open CategoryTheory AlgebraicGeometry
+
+theorem solution {X Y : Scheme.{u}} (f : X ⟶ Y)
+    [GeometricallyIrreducible f] : GeometricallyConnected f := by
+  refine ⟨?_⟩
+  have h := GeometricallyIrreducible.geometrically_irreducibleSpace (f := f)
+  rw [geometrically_eq_universally] at h ⊢
+  refine MorphismProperty.universally_mono ?_ _ h
+  intro X' Y' g hg hI hS
+  haveI : IrreducibleSpace X' := hg hI hS
+  infer_instance
+
+example {X Y : Scheme.{u}} (f : X ⟶ Y) [GeometricallyIntegral f] : GeometricallyConnected f :=
+  solution f

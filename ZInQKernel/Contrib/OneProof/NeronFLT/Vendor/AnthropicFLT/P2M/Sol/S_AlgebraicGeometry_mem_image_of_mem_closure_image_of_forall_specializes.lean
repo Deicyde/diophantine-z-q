@@ -1,0 +1,33 @@
+/-
+Vendored from anthropics/fermats-last-theorem, commit 6e837e75355538c7f80bab5b956861e86c4eacc2, Apache-2.0.
+Upstream module: P2M.Sol.S_AlgebraicGeometry_mem_image_of_mem_closure_image_of_forall_specializes
+Modified for the Z-in-Q kernel (2026-11-16, task neron-flt): local import paths are relocated
+(`P2M.Util` is the copy published by Cloud Worker 2) and the upstream lakefile options are set
+as `set_option` lines after the imports; any other change is marked `-- [port]`.
+Original copyright/attribution notices: Vendor/AnthropicFLT/NOTICE.upstream and
+Vendor/AnthropicFLT/ATTRIBUTION.upstream.md; license: Vendor/AnthropicFLT/LICENSE.
+-/
+import Mathlib
+import ZInQKernel.Contrib.OneProof.NeronFLT.Vendor.AnthropicFLT.Theorems.Thm_Topology_IsConstructible_mem_of_mem_closure_of_forall_specializes
+import ZInQKernel.Contrib.CloudW02Connectedness.Vendor.AnthropicFLT.P2M.Util
+
+set_option maxHeartbeats 4000000
+set_option synthInstance.maxHeartbeats 400000
+set_option backward.isDefEq.respectTransparency.types false
+set_option autoImplicit false
+
+namespace P2MW.S_AlgebraicGeometry_mem_image_of_mem_closure_image_of_forall_specializes
+
+set_option autoImplicit false
+
+open CategoryTheory AlgebraicGeometry Topology
+
+universe u
+
+theorem solution
+    {X Y : Scheme.{u}} (f : X ⟶ Y) [LocallyOfFinitePresentation f] [QuasiCompact f]
+    [CompactSpace Y] [QuasiSeparatedSpace Y] {C : Set X} (hC : Topology.IsConstructible C)
+    {y : Y} (hy : y ∈ closure (f.base '' C)) (hgen : ∀ c ∈ C, y ⤳ f.base c) :
+    y ∈ f.base '' C :=
+  (f.isConstructible_image hC).mem_of_mem_closure_of_forall_specializes hy
+    (by rintro _ ⟨c, hc, rfl⟩; exact hgen c hc)
