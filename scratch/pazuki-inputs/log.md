@@ -6,3 +6,4 @@
 - Existing fields relevant to descent (VERIFIED, kinds.tsv + TailZ24/TailQ/PicZeroAbVar): picRepresentableAbVar (LEAF),
   kleimanPicZeroProper (LEAF), mumfordTorsionAlgClosed (LEAF); PicZeroAbVar statement in TailZ24.
 - No copy of Mumford, *Abelian varieties* on this host (no network): the reading of RiemannPPAV cannot be done here.
+- Glue.lean part 1 (bcMap, liftPt_ptE, bcMap_isPullback, surjective_bcMap) compiles, 0 errors. VERIFIED.
