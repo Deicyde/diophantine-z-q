@@ -16,6 +16,14 @@ set_option autoImplicit false
 -- [port] Lean v4.35: instance-search transparency flag (see the adaptation note in Mathlib.Algebra.Category.ModuleCat.Presheaf.Monoidal)
 set_option backward.isDefEq.respectTransparency.instanceSearchTypes false
 
+-- [port] Lean v4.35: instance search no longer sees through `(T ⋙ forget₂ CommRingCat RingCat).obj X`
+noncomputable def commRingCompForget₂Obj_port_EP {E : Type*} [CategoryTheory.Category E]
+    (T : CategoryTheory.Functor E CommRingCat) (X : E) :
+    CommRing ((CategoryTheory.Functor.comp T (CategoryTheory.forget₂ CommRingCat RingCat)).obj X) :=
+  inferInstanceAs (CommRing (T.obj X))
+
+attribute [local instance] commRingCompForget₂Obj_port_EP
+
 set_option autoImplicit false
 set_option backward.isDefEq.respectTransparency false
 
@@ -23,13 +31,6 @@ universe u
 
 open CategoryTheory
 
--- [port] Lean v4.35: instance search no longer sees through `(T ⋙ forget₂ CommRingCat RingCat).obj X`
-noncomputable def commRingCompForget₂Obj_port_EP {E : Type*} [CategoryTheory.Category E]
-    (T : CategoryTheory.Functor E CommRingCat) (X : E) :
-    CommRing ((T ⋙ CategoryTheory.forget₂ CommRingCat RingCat).obj X) :=
-  inferInstanceAs (CommRing (T.obj X))
-
-attribute [local instance] commRingCompForget₂Obj_port_EP
 
 -- [port] Mathlib v4.35: the monoidal API of presheaves of modules over CommRingCat lives in `PresheafOfModulesOfCommRing`
 open PresheafOfModulesOfCommRing

@@ -11,6 +11,10 @@ RULES = [
    r'PresheafOfModulesOfCommRing.\1', M),
   (r'PresheafOfModules\.DifferentialsConstruction\.', 'PresheafOfModulesOfCommRing.DifferentialsConstruction.',
    'Mathlib v4.35: relative differentials of presheaves of CommRingCat moved to `PresheafOfModulesOfCommRing`'),
+  (r'ULift\.ext _ _ ', 'ULift.ext ', 'Mathlib v4.35: `ULift.ext` takes its two points implicitly'),
+  (r'Ideal\.bot_prime\b', 'Ideal.isPrime_bot', 'Mathlib v4.35: `Ideal.bot_prime` is `Ideal.isPrime_bot`'),
+  (r'Ideal\.isMaximal_of_isIntegral_of_isMaximal_comap _ ', 'Ideal.isMaximal_of_isIntegral_of_isMaximal_under (R := R) _ ',
+   'Mathlib v4.35: the algebra form of `isMaximal_of_isIntegral_of_isMaximal_comap` is `..._under`'),
 ]
 for p in sys.argv[1:]:
     lines = open(p, encoding='utf-8').read().split('\n'); out = []; n = 0

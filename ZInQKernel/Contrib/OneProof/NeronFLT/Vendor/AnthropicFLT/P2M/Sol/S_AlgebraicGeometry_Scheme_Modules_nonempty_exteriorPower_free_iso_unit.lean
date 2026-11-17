@@ -285,7 +285,8 @@ noncomputable def piPowBicone :
       change (Pi.single j.down a : Fin n → X.presheaf.obj V) j.down = a
       simp
     · rw [dif_neg h]
-      have h' : j'.down ≠ j.down := fun e => h (ULift.ext _ _ e.symm)
+      -- [port] Mathlib v4.35: `ULift.ext` takes its two points implicitly
+      have h' : j'.down ≠ j.down := fun e => h (ULift.ext e.symm)
       change (Pi.single j.down a : Fin n → X.presheaf.obj V) j'.down = (0 : X.presheaf.obj V)
       simp [h']
 

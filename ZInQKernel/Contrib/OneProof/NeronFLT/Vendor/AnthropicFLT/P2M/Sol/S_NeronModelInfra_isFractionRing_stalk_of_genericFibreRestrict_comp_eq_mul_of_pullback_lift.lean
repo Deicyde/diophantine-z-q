@@ -193,7 +193,9 @@ theorem exists_mem_opensRange_fst_specializes
     {S : Scheme.{u}} (s : S ⟶ Spec (CommRingCat.of R)) [Flat s] (x : S) :
     ∃ x' : S, x' ∈ (pullback.fst s (specGenericFibreInclusion R K)).opensRange ∧ x' ⤳ x := by
   obtain ⟨ϖ, hϖ⟩ := IsDiscreteValuationRing.exists_irreducible R
-  let ξ : PrimeSpectrum R := ⟨⊥, Ideal.bot_prime⟩
+  -- [port] Mathlib v4.35: `Ideal.bot_prime` is `Ideal.isPrime_bot`
+  -- [port] Mathlib v4.35: `Ideal.isPrime_bot` is `Ideal.isPrime_bot`
+  let ξ : PrimeSpectrum R := ⟨⊥, Ideal.isPrime_bot⟩
   have hξ : (ξ : Spec (CommRingCat.of R)) ⤳ s.base x :=
     (PrimeSpectrum.le_iff_specializes ξ (s.base x)).mp bot_le
   obtain ⟨x', hx', hx'ξ⟩ := Flat.generalizingMap s hξ

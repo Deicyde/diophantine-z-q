@@ -20,6 +20,19 @@ set_option maxHeartbeats 4000000
 set_option synthInstance.maxHeartbeats 400000
 set_option backward.isDefEq.respectTransparency.types false
 set_option autoImplicit false
+-- [port] Lean v4.35: backward-compatibility elaboration flags (as in CloudW03NeronSurj's port)
+set_option backward.isDefEq.respectTransparency false
+set_option backward.defeqAttrib.useBackward true
+-- [port] Lean v4.35: instance-search transparency flag (see the adaptation note in Mathlib.Algebra.Category.ModuleCat.Presheaf.Monoidal)
+set_option backward.isDefEq.respectTransparency.instanceSearchTypes false
+
+-- [port] Lean v4.35: instance search no longer sees through `(T ⋙ forget₂ CommRingCat RingCat).obj X`
+noncomputable def commRingCompForget₂Obj_port_5430ae {E : Type*} [CategoryTheory.Category E]
+    (T : CategoryTheory.Functor E CommRingCat) (X : E) :
+    CommRing ((CategoryTheory.Functor.comp T (CategoryTheory.forget₂ CommRingCat RingCat)).obj X) :=
+  inferInstanceAs (CommRing (T.obj X))
+
+attribute [local instance] commRingCompForget₂Obj_port_5430ae
 
 namespace P2MW.S_AlgebraicGeometry_Scheme_Modules_IsInvertible_exists_isFrameOn
 
@@ -41,6 +54,8 @@ p2m_open "PresheafOfModules"
 namespace FrameBridge
 
 open Opposite
+
+
 
 variable {C : Type u} [Category.{u} C] {R : Cᵒᵖ ⥤ CommRingCat.{u}}
   (F : PresheafOfModules.{u} (R ⋙ forget₂ CommRingCat RingCat))

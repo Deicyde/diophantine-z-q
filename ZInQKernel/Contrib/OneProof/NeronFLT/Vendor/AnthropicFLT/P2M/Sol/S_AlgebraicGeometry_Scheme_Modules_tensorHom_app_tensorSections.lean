@@ -19,6 +19,19 @@ set_option maxHeartbeats 4000000
 set_option synthInstance.maxHeartbeats 400000
 set_option backward.isDefEq.respectTransparency.types false
 set_option autoImplicit false
+-- [port] Lean v4.35: backward-compatibility elaboration flags (as in CloudW03NeronSurj's port)
+set_option backward.isDefEq.respectTransparency false
+set_option backward.defeqAttrib.useBackward true
+-- [port] Lean v4.35: instance-search transparency flag (see the adaptation note in Mathlib.Algebra.Category.ModuleCat.Presheaf.Monoidal)
+set_option backward.isDefEq.respectTransparency.instanceSearchTypes false
+
+-- [port] Lean v4.35: instance search no longer sees through `(T ⋙ forget₂ CommRingCat RingCat).obj X`
+noncomputable def commRingCompForget₂Obj_port_d6eec3 {E : Type*} [CategoryTheory.Category E]
+    (T : CategoryTheory.Functor E CommRingCat) (X : E) :
+    CommRing ((CategoryTheory.Functor.comp T (CategoryTheory.forget₂ CommRingCat RingCat)).obj X) :=
+  inferInstanceAs (CommRing (T.obj X))
+
+attribute [local instance] commRingCompForget₂Obj_port_d6eec3
 
 namespace P2MW.S_AlgebraicGeometry_Scheme_Modules_tensorHom_app_tensorSections
 
@@ -43,6 +56,8 @@ namespace TensorHomSections
 
 open Opposite TensorProduct
 
+
+
 variable {X : Scheme.{u}} {L L' M M' : X.Modules}
 
 abbrev adj (X : Scheme.{u}) := SheafOfModules.sheafifyAdj X.sheaf.obj X.ringCatSheaf.property
@@ -62,7 +77,8 @@ lemma sheafifyTensorIso_hom_naturality (f : L ⟶ L') (g : M ⟶ M') :
       (sheafifyTensorIso L M).hom ≫ (f ⊗ₘ g) := by
   dsimp only [sheafifyTensorIso, Iso.trans_hom, Iso.symm_hom, Iso.app_hom, asIso_hom,
     MonoidalCategory.tensorIso_hom]
-  simp only [MonoidalCategory.tensorIso_hom, Iso.app_hom, asIso_hom]
+  -- [port] Lean v4.35: the preceding `dsimp only` already performs these rewrites
+  try simp only [MonoidalCategory.tensorIso_hom, Iso.app_hom, asIso_hom]
   rw [Functor.Monoidal.μIso_inv, Functor.Monoidal.μIso_inv, ← Category.assoc,
     ← Functor.OplaxMonoidal.δ_natural, Category.assoc, Category.assoc,
     MonoidalCategory.tensorHom_comp_tensorHom, MonoidalCategory.tensorHom_comp_tensorHom]

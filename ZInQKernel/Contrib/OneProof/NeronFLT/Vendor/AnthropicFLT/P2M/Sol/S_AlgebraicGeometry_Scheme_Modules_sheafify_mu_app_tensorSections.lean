@@ -19,6 +19,19 @@ set_option maxHeartbeats 4000000
 set_option synthInstance.maxHeartbeats 400000
 set_option backward.isDefEq.respectTransparency.types false
 set_option autoImplicit false
+-- [port] Lean v4.35: backward-compatibility elaboration flags (as in CloudW03NeronSurj's port)
+set_option backward.isDefEq.respectTransparency false
+set_option backward.defeqAttrib.useBackward true
+-- [port] Lean v4.35: instance-search transparency flag (see the adaptation note in Mathlib.Algebra.Category.ModuleCat.Presheaf.Monoidal)
+set_option backward.isDefEq.respectTransparency.instanceSearchTypes false
+
+-- [port] Lean v4.35: instance search no longer sees through `(T ⋙ forget₂ CommRingCat RingCat).obj X`
+noncomputable def commRingCompForget₂Obj_port_05bf43 {E : Type*} [CategoryTheory.Category E]
+    (T : CategoryTheory.Functor E CommRingCat) (X : E) :
+    CommRing ((CategoryTheory.Functor.comp T (CategoryTheory.forget₂ CommRingCat RingCat)).obj X) :=
+  inferInstanceAs (CommRing (T.obj X))
+
+attribute [local instance] commRingCompForget₂Obj_port_05bf43
 
 namespace P2MW.S_AlgebraicGeometry_Scheme_Modules_sheafify_mu_app_tensorSections
 
@@ -113,6 +126,8 @@ end AlgebraicGeometry.Scheme.Modules
 end
 
 open CategoryTheory _root_.CategoryTheory.MonoidalCategory _root_.AlgebraicGeometry _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_sheafify_mu_app_tensorSections.AlgebraicGeometry _root_.AlgebraicGeometry.Scheme.Modules _root_.P2MW.S_AlgebraicGeometry_Scheme_Modules_sheafify_mu_app_tensorSections.AlgebraicGeometry.Scheme.Modules TensorProduct in
+
+
 
 theorem solution {X : AlgebraicGeometry.Scheme.{u}} (P Q : X.PresheafOfModules) {U : X.Opens}
     (x : P.obj (Opposite.op U)) (y : Q.obj (Opposite.op U)) :

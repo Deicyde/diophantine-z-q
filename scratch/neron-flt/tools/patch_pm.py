@@ -13,7 +13,7 @@ if 'instanceSearchTypes' not in s:
 inst = ('\n-- [port] Lean v4.35: instance search no longer sees through `(T ⋙ forget₂ CommRingCat RingCat).obj X`\n'
         'noncomputable def commRingCompForget₂Obj_port_%s {E : Type*} [CategoryTheory.Category E]\n'
         '    (T : CategoryTheory.Functor E CommRingCat) (X : E) :\n'
-        '    CommRing ((T ⋙ CategoryTheory.forget₂ CommRingCat RingCat).obj X) :=\n'
+        '    CommRing ((CategoryTheory.Functor.comp T (CategoryTheory.forget₂ CommRingCat RingCat)).obj X) :=\n'
         '  inferInstanceAs (CommRing (T.obj X))\n\n'
         'attribute [local instance] commRingCompForget₂Obj_port_%s\n') % (tag, tag)
 if 'commRingCompForget₂Obj_port' not in s:
@@ -22,6 +22,6 @@ if 'commRingCompForget₂Obj_port' not in s:
         if l.startswith('open '):
             j = k
             while j + 1 < len(lines) and lines[j + 1].startswith('  '): j += 1
-            lines.insert(j + 1, inst); break
+            lines.insert(j + 1, inst); break  # (superseded: see move below)
     s = '\n'.join(lines)
 open(p, 'w', encoding='utf-8').write(s); print('patched', p)
