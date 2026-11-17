@@ -4,6 +4,8 @@ Call only from trusted preparation code, after compiler/dependency fingerprints
 match. Never pass candidate executables. The collector examines every ELF file
 in those verified native input roots, not merely `lean --version`, and the
 explicit system driver list. It performs no compilation or project import.
+Lean's explicitly identified link-only glibc inputs remain fingerprinted, but
+are not inspected as standalone runtime objects.
 The same library-search environment must be used for the subsequent build.
 This is runtime evidence, not producer authentication or audit acceptance.
 """
@@ -25,6 +27,8 @@ MAX_LOADER_OUTPUT = 1024 * 1024
 LOADER_OVERRIDES = ('LD_PRELOAD', 'LD_AUDIT', 'LD_ASSUME_KERNEL', 'LD_HWCAP_MASK',
                     'LD_ORIGIN_PATH', 'GLIBC_TUNABLES', 'LD_PROFILE', 'LD_DEBUG',
                     'LD_DEBUG_OUTPUT', 'LD_TRACE_LOADED_OBJECTS')
+LEAN_LINK_ONLY_GLIBC = frozenset(
+    {'ld.so', 'libc.so', 'libdl.so', 'libm.so', 'librt.so', 'libpthread.so', 'libutil.so'})
 
 
 def parse_ldd(output, returncode):
@@ -88,7 +92,22 @@ def loader_paths(path, query_env, ldd='/usr/bin/ldd'):
                          f'{error}; response excerpt: {excerpt!r}') from error
 
 
-def capture_runtime(verified_roots, system_drivers, *, environ=None, ldd='/usr/bin/ldd'):
+def partition_link_inputs(inputs, compiler_root):
+    """Only the compiler's known glibc link inputs have this special role.
+
+    Lean 4.35.0 script/prepare-llvm-linux.sh lines 54-59 and 80 install these
+    for linking against older symbols, explicitly not for runtime loading.
+    Dependency libraries and unknown files never receive this classification.
+    """
+    if compiler_root is None:
+        return inputs, []
+    directory = Path(compiler_root).resolve(strict=True)/'lib/glibc'
+    link_only = [p for p in inputs if p.parent == directory and p.name in LEAN_LINK_ONLY_GLIBC]
+    return [p for p in inputs if p not in link_only], link_only
+
+
+def capture_runtime(verified_roots, system_drivers, *, environ=None, ldd='/usr/bin/ldd',
+                    compiler_root=None):
     """Capture actual transitive loader paths, hashes, and host ABI identity.
 
     system_drivers must be the trusted workflow's absolute executable paths,
@@ -113,7 +132,11 @@ def capture_runtime(verified_roots, system_drivers, *, environ=None, ldd='/usr/b
     preload = Path('/etc/ld.so.preload')
     require(not preload.exists() or not preload.read_bytes().strip(),
             'Host-wide loader preloading is not eligible for reuse')
-    inputs = native_inputs(verified_roots)
+    if compiler_root is not None:
+        require(Path(compiler_root).resolve(strict=True) in
+                {Path(root).resolve(strict=True) for root in verified_roots},
+                'Compiler link inputs require a verified compiler root')
+    inputs, link_only = partition_link_inputs(native_inputs(verified_roots), compiler_root)
     system_paths = [Path(p) for p in [ldd, *system_drivers]]
     for path in system_paths:
         require(path.is_file(), 'Missing runtime driver')
@@ -128,6 +151,9 @@ def capture_runtime(verified_roots, system_drivers, *, environ=None, ldd='/usr/b
     files = {}
     for path in [*system_paths, *config_paths]:
         files[str(path)] = file_fingerprint(Path('/'), path) if path.exists() else None
+    for path in link_only:
+        files[str(path)] = file_fingerprint(Path('/'), path)
+    link_only_resolved = {p.resolve(strict=True) for p in link_only}
     selected = {}
     for path in inputs:
         before = file_fingerprint(Path('/'), path)
@@ -136,6 +162,8 @@ def capture_runtime(verified_roots, system_drivers, *, environ=None, ldd='/usr/b
         files[str(path)] = before
         selected[str(path)] = libraries
         for library in libraries:
+            require(Path(library).resolve(strict=True) not in link_only_resolved,
+                    'Runtime selected a compiler link-only glibc input')
             observed = file_fingerprint(Path('/'), Path(library))
             require(library not in files or files[library] == observed,
                     'Runtime library changed during capture')
@@ -144,7 +172,8 @@ def capture_runtime(verified_roots, system_drivers, *, environ=None, ldd='/usr/b
         path = Path(name)
         require((file_fingerprint(Path('/'), path) if path.exists() else None) == expected,
                 'Runtime input changed during capture')
-    evidence = {'files': files, 'selected': selected}
+    evidence = {'files': files, 'selected': selected,
+                'compiler_link_only_inputs': sorted(map(str, link_only))}
     identity = {'schema': 'kernel-linux-runtime/v1', 'system': platform.system(),
                 'machine': platform.machine(), 'kernel': platform.release(),
                 'library_search_path': environment.get('LD_LIBRARY_PATH'),

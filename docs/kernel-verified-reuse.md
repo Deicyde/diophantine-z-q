@@ -24,6 +24,13 @@ can be restored, into absent project build directories. The build uses
 `lake --rehash build`, so timestamps are not a substitute for input hashes.
 Explicit per-run Lake controls disable other artifact restoration.
 
+The seven known glibc shared objects under the compiler's `lib/glibc/` are
+link inputs, as specified by [Lean 4.35.0's packaging script](https://github.com/leanprover/lean4/blob/v4.35.0/script/prepare-llvm-linux.sh#L54-L59).
+They remain hashed and checked for changes, but are not tested as standalone
+runtime libraries. Actual runtime selection of one of these objects is
+rejected. This exception does not cover dependency libraries, other paths or
+unknown files. All other loader errors still reject reuse.
+
 A missing producer, invalid bundle or incompatible installed environment uses
 the cold path. An error after restoration starts fails the job rather than
 continuing with a possibly partial installation. The decision and captured

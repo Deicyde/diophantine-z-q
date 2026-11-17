@@ -81,7 +81,8 @@ def capture_context(workspace, prefix, module_paths, build_commands, *, driver_p
     native_roots = {str(Path(prefix).resolve()): detail['toolchain_files']}
     for name, files in detail['dependency_files'].items():
         native_roots[str((Path(workspace)/packages['packages'][name]['location']).resolve())] = files
-    runtime, runtime_detail = capture_runtime(native_roots, system_drivers, environ={**environment, **lookup})
+    runtime, runtime_detail = capture_runtime(native_roots, system_drivers,
+        environ={**environment, **lookup}, compiler_root=prefix)
     identity['runtime'] = runtime
     if expected_environment is not None:
         require(identity == expected_environment, 'Actual lookup or runtime differs from the authenticated producer')

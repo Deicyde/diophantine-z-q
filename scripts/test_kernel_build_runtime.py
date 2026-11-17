@@ -11,6 +11,21 @@ import kernel_build_runtime as runtime
 
 
 class RuntimeTests(unittest.TestCase):
+    def test_only_known_compiler_glibc_link_inputs_are_partitioned(self):
+        with tempfile.TemporaryDirectory() as directory:
+            compiler = Path(directory).resolve()
+            inputs = [compiler/'lib/glibc/librt.so', compiler/'lib/glibc/unexpected.so',
+                      compiler/'dependency/lib/glibc/librt.so', compiler/'lib/libleanshared.so']
+            runtime_inputs, link_only = runtime.partition_link_inputs(inputs, compiler)
+            self.assertEqual(link_only, inputs[:1])
+            self.assertEqual(runtime_inputs, inputs[1:])
+            self.assertEqual(runtime.partition_link_inputs(inputs, None), (inputs, []))
+
+    def test_symbol_version_failure_remains_rejected_even_with_exit_zero(self):
+        with self.assertRaisesRegex(ValueError, 'Unresolved or unrecognized'):
+            runtime.parse_ldd("library: version `GLIBC_PRIVATE' not found\n"
+                              "libc.so.6 => /lib/libc.so.6 (0x1234)\n", 0)
+
     def test_rejected_actual_response_records_path_exit_and_bounded_excerpt(self):
         response = subprocess.CompletedProcess([], 1, b'unrecognized library\n', b'X' * 5000)
         with patch.object(runtime.subprocess, 'run', return_value=response):
@@ -82,6 +97,27 @@ class RuntimeTests(unittest.TestCase):
             again, _ = runtime.capture_runtime(
                 {str(root): expected}, [str(Path(sys.executable).resolve()), '/bin/sh'], environ={})
             self.assertEqual(identity, again)
+
+    @unittest.skipUnless(sys.platform.startswith('linux'), 'Actual ELF loader requires Linux')
+    def test_link_only_input_is_hashed_rechecked_and_cannot_be_loaded(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            tool = root/'program'; shutil.copyfile('/bin/true', tool)
+            link = root/'lib/glibc/librt.so'; link.parent.mkdir(parents=True)
+            link.write_bytes(b'\x7fELFlink-only fixture must not be executed')
+            files = {p.relative_to(root).as_posix(): file_fingerprint(root, p) for p in (tool, link)}
+            identity, evidence = runtime.capture_runtime({str(root): files}, ['/bin/sh'],
+                compiler_root=root, environ={})
+            self.assertIn(str(link), evidence['compiler_link_only_inputs'])
+            self.assertEqual(evidence['files'][str(link)], files['lib/glibc/librt.so'])
+            self.assertNotIn(str(link), evidence['selected'])
+            link.write_bytes(b'\x7fELFchanged link input')
+            with self.assertRaisesRegex(ValueError, 'changed since fingerprinting'):
+                runtime.capture_runtime({str(root): files}, ['/bin/sh'], compiler_root=root, environ={})
+            files['lib/glibc/librt.so'] = file_fingerprint(root, link)
+            with patch.object(runtime, 'loader_paths', return_value=[str(link)]):
+                with self.assertRaisesRegex(ValueError, 'Runtime selected'):
+                    runtime.capture_runtime({str(root): files}, ['/bin/sh'], compiler_root=root, environ={})
 
 
 if __name__ == '__main__':
