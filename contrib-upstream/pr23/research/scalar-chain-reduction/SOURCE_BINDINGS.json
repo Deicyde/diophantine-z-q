@@ -1,0 +1,145 @@
+{
+  "status": "Author source snapshot; independent acceptance pending",
+  "files": [
+    {
+      "path": ".github/workflows/research-checks.yml",
+      "sha256": "5c0c4a27ccb7339d65689b998b6209c7671b375bb7b6867dfb6952a403e83269"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/SOURCE_MANIFEST.json",
+      "sha256": "268694a99ae9e73f99c3847270994d51b7b9861aa9e521a622c583bed95076c2"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/audit/check_diagonal_scaling.py",
+      "sha256": "506da8992d048bc16f5df0a1cde9226201dff9d8169d2d0bbc92b12d10cd4f64"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/construction/balance_coefficients.py",
+      "sha256": "9e9a7ebcb3e4be58862381c2b51f85352ba4b688495912da2585b1ad37973a63"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/construction/builder.cjs",
+      "sha256": "b4bf6af38a7620a5b6a572039da4fcb22cd6f4ce006c439d89588c1259231f3b"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/construction/tools/affine_search.py",
+      "sha256": "d122f8fa2628d57925397025e54463a1ea9bbf92440ff5e08779aa7f77be4682"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/construction/tools/checker.cjs",
+      "sha256": "dc0e394b2fa758dfd9af2d6ee56f18907a5acdd9d659f9883acdffe1ec173de4"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/construction/tools/compile_ir.py",
+      "sha256": "45d5df9546e1f39b61d064d4204a0b41469b5a18134281b7e439f5faab62f28a"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/construction/tools/modulo_search.py",
+      "sha256": "63380ce9300bf8c97bda58beb62a7ae7536dd1cde61a45a00cdff772c8968d57"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/construction/tools/run_pipeline.py",
+      "sha256": "591def4c716d3bff456bf83ef3511840377bea02bf4e94f52017914b013c5a8c"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/construction/tools/search.py",
+      "sha256": "982959296b369b98ed370f73b460e906966c282654acd27e0d5b913c50082a03"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/construction/tools/verify.py",
+      "sha256": "13c4190c50867573d470d7f4efb4e25dacf49872c3f0c9c23acf8404da840a48"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/construction/tools/verify_elimination.py",
+      "sha256": "ea67ec8575c8b4fbea0cd5ccffc60165263537f53d6b12febc99d7d4f974785e"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/evidence/geometry/rejected-paths-round7.txt",
+      "sha256": "f72e071ea0997f998a5c0c4d2b962becf378e5f97a355e312f6e965bcd631167"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/evidence/round8/scalar/scalar-search-notes-round8.txt",
+      "sha256": "916a0abbe7c9dbc7f44664ffda3eb93b87d45092244df1610a1ab10634466065"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/proofs/arithmetic_round8.tex",
+      "sha256": "826523050c2f0d315561ae064124b420862ff09eeafaa63437e0339ce7c22f7b"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/proofs/detector_round7.tex",
+      "sha256": "ed01c9416d3b4daf02a26958642194230c0186a896f17817bfe30c8a16d481d3"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/proofs/detector_round8.tex",
+      "sha256": "150b79708b8088d1c75641571277eecf452fe72b7c729cc4fe783e4da76b83bb"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/proofs/diagonal_scaling_round8.tex",
+      "sha256": "0115c276febf3b06b46462d06aa862714456f78790e5ec6bd68ac938db8b2e50"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/proofs/geometry_round7.tex",
+      "sha256": "0402ccf6c3e193c685d01e0ff6e46449001ac074a1bf4501419d6fb1fea88035"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/proofs/optional_anchor_height_round7.tex",
+      "sha256": "686faeed616eef6ebed472b2414a36e8158d4de838248238815ecc283e39a4e6"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/proofs/prior/round3/arithmetic_proof.tex",
+      "sha256": "66cdc4ef3e2f0e5cfde8b50e3ac360dd27d2ac17826ce23fd4ec688ac7d438d4"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/proofs/prior/round4/scalar_streamlining.tex",
+      "sha256": "ba3707caa4b29e58180cd08abbc6c176a38dd2d7bb15292ed953f1df3120f9a8"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/proofs/prior/round5/geometry_round5.tex",
+      "sha256": "3d5f0fff2fc45bd2b7504c933a8583367555d10e78a18b9885c2d01a151261bb"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/reproduce.py",
+      "sha256": "a660293cc6fa97a55d8d3635645f666fd1c6b52d96276ec768b4a3faedecc3ae"
+    },
+    {
+      "path": "research/factored-pole-reduction/PROOF.md",
+      "sha256": "364309a61432b4de3615852175cab0faa7a3aeb9d5d251f4da521454277198d4"
+    },
+    {
+      "path": "research/factored-pole-reduction/build_transport.py",
+      "sha256": "1e58266e056db9b3b2a14f8c78fb2c0a1df41196e7745818fb077dc98b029156"
+    },
+    {
+      "path": "research/factored-pole-reduction/check_transport.py",
+      "sha256": "4330e24df146ebdd8f525d52d689bd94c39327fe95ad1a6cf1f3e4640562078b"
+    },
+    {
+      "path": "research/scalar-chain-reduction/APPLICATION_CONTRACT.json",
+      "sha256": "a670f64ed1ff5926b0579522684870aee397a64a3b23a3413f9df0e3e13acbc9"
+    },
+    {
+      "path": "research/scalar-chain-reduction/EXPECTED.json",
+      "sha256": "146390f68342b425d38b3c938505bd0092b6686a0d619de7e564ac107beb5682"
+    },
+    {
+      "path": "research/scalar-chain-reduction/PROOF.md",
+      "sha256": "710088f6d9517c966a55a54e9d6adb383a335d705b7b4ca5a0f1dbde16f6be4d"
+    },
+    {
+      "path": "research/scalar-chain-reduction/README.md",
+      "sha256": "63f733855eb63609e87b9abdebcb33095f04e9708770bb9cc7e143ace3219945"
+    },
+    {
+      "path": "research/scalar-chain-reduction/chain_patch.py",
+      "sha256": "31584f3da8f039adf416887e10f50af9e0f80a2d3ae7f63d5116d03b775fa276"
+    },
+    {
+      "path": "research/scalar-chain-reduction/check_chain.py",
+      "sha256": "ddb671a3d43f75167e2d58971f1e58ac921cb85209a48206fc01c91e676a34f1"
+    },
+    {
+      "path": "research/scalar-chain-reduction/reproduce.py",
+      "sha256": "23c98d994a46fb68291dabfe4a3284655d2ac9866e54482ea99e19ec16ad69d6"
+    }
+  ]
+}

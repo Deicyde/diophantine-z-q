@@ -1,0 +1,52 @@
+{
+  "table": {
+    "path": "/tmp/codex-opus-vet-20261109/higher50",
+    "coordinates": 377,
+    "rows": 346,
+    "monomials": 25979,
+    "digits": 327,
+    "anchor": 1512,
+    "table_sha256": "1e02fbc1675c9474c3fcc754aae2edece6493f2fb67ec1909d57ac387269690b",
+    "full_diagonal_and_coefficient_check": true
+  },
+  "chain": {
+    "path": "/tmp/codex-opus-vet-20261109/higher50",
+    "order": 50,
+    "blocks": [
+      {
+        "block": 0,
+        "exact_target_powers": {
+          "q12": 23,
+          "mixedHigh.quadratic": 46,
+          "q50": 99,
+          "E50.power2.quadratic": 198,
+          "E50.power3.quadratic": 297
+        },
+        "all_denominators_powers_of_positive_q1": true
+      },
+      {
+        "block": 1,
+        "exact_target_powers": {
+          "q12": 23,
+          "mixedHigh.quadratic": 46,
+          "q50": 99,
+          "E50.power2.quadratic": 198,
+          "E50.power3.quadratic": 297
+        },
+        "all_denominators_powers_of_positive_q1": true
+      },
+      {
+        "block": 2,
+        "exact_target_powers": {
+          "q12": 23,
+          "mixedHigh.quadratic": 46,
+          "q50": 99,
+          "E50.power2.quadratic": 198,
+          "E50.power3.quadratic": 297
+        },
+        "all_denominators_powers_of_positive_q1": true
+      }
+    ]
+  },
+  "fresh_ir_matches_supplied_ir": true
+}

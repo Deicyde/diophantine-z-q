@@ -1,0 +1,37 @@
+{
+  "status": "PASS",
+  "negativeCases": [
+    {
+      "case": "wrong independently supplied exponent",
+      "rejected": true,
+      "reason": "source anchor differs from independently supplied exponent"
+    },
+    {
+      "case": "wrong independently supplied coordinate count",
+      "rejected": true,
+      "reason": "source coordinate count differs"
+    },
+    {
+      "case": "opposite dyadic scaling direction in certificate",
+      "rejected": true,
+      "reason": "certificate does not specify the expected two-prime diagonal map"
+    },
+    {
+      "case": "incorrect nonzero rational row divisor",
+      "rejected": true,
+      "reason": "incorrect rational row divisor"
+    },
+    {
+      "case": "incorrect quartic coefficient with certificate hash rebound",
+      "rejected": true,
+      "reason": "full normalized sum-of-squares expansion differs"
+    },
+    {
+      "case": "incorrect delivered decimal coefficient",
+      "rejected": true,
+      "reason": "explicit decimal text differs from the checked quartic"
+    }
+  ],
+  "checkerSha256": "506da8992d048bc16f5df0a1cde9226201dff9d8169d2d0bbc92b12d10cd4f64",
+  "scope": "Targeted failure tests for the new rational two-prime scaling audit. No mathematical/source files outside private temporary copies were modified."
+}

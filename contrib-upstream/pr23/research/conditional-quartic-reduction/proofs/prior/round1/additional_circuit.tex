@@ -1,0 +1,29 @@
+\subsection{Feed the scaled scalar ratio directly into the norm tree}
+The scalar point is $R=Q_2-P=(x_R,y_R)$ and $r_\beta\ne0$ is the retained
+scalar contact product. Write $t=r_\beta^{-32}$. The old source computes
+\[
+ z_R=-x_R/y_R,\qquad \eta=-z_R k,\qquad (\lambda_4,\lambda_5)
+       =\text{the two rational components of }\eta t.
+\]
+It uses $z_R$ and $\eta$ only for these two leaves. Reuse the shared $k$
+from the preceding subsection, introduce $k_t=kt\in K$, and define
+$\Lambda\in K$ directly by
+\[
+ y_R\Lambda=x_Rk_t.
+\]
+The inherited point-domain statement gives $y_R\ne0$, so
+$\Lambda=x_Rkt/y_R=\eta t$. Use its rational components as the two
+leaves. Six rational coordinates for $z_R,\eta,\eta t$ become four for
+$k_t,\Lambda$, saving two coordinates after final compilation. Every
+displayed field equation remains quadratic in the existing coordinates.
+
+The net savings, after compilation, are therefore
+\[
+\begin{array}{lr}
+\text{Grouped products}&14\\
+\text{Primary ratios}&8\\
+\text{Scalar leaves}&2\\
+\text{Packed parity and anchor}&16
+\end{array}
+\]
+giving $523-14-8-2-16=483$ total variables.

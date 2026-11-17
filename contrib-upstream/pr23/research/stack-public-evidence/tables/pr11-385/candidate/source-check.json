@@ -1,0 +1,49 @@
+{
+  "status": "PASS",
+  "independentAcceptance": false,
+  "rawIrSha256": "dd4deaeb9f837caafbcf93973f54e811d2cad8994b40e6571b5ea78d77308113",
+  "claims": {
+    "strictProxyBound": "963/32",
+    "scalarOrder": 31,
+    "anchorExponent": 2130,
+    "indexDivisibilityExponentAt3": 1064,
+    "heightExponent": "577/32",
+    "heightConstantBits": 665,
+    "scalarIntegerMargin": true,
+    "lucasIntegerMargin": true,
+    "inputLogMargin": true,
+    "maximumCoefficientDigits": 682,
+    "maximumCoefficientBits": 2266
+  },
+  "sourceDelta": {
+    "deletedRows": [
+      "scalar.leaf1.definition",
+      "scalar.n1.definition",
+      "scalar.n1OverR.definition",
+      "scalar.nLeft.definition",
+      "scalar.nRight.definition",
+      "scalar.nRight.rightSquare.definition"
+    ],
+    "addedRows": [
+      "scalar.chain1.definition",
+      "scalar.chain1.rightSquare.definition",
+      "scalar.chain2.definition",
+      "scalar.chain2.rightSquare.definition",
+      "scalar.chain3.definition",
+      "scalar.chain3.rightSquare.definition"
+    ],
+    "changedRows": [
+      "scalar.N.definition",
+      "scalar.N.rightSquare.definition"
+    ],
+    "unchangedRows": 360
+  },
+  "rejectedNegativeControls": [
+    "scalar.N.definition",
+    "scalar.chain3.definition",
+    "scalar.ratioProxyLeaf.definition",
+    "wrong anchor parameter",
+    "missing shifted-point guard"
+  ],
+  "scope": "Exact scalar source rows and integer margins; no acceptance of uniform arithmetic arguments."
+}

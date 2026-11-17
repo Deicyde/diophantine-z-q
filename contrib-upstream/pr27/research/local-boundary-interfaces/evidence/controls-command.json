@@ -1,0 +1,22 @@
+{
+  "command": [
+    "python",
+    "-B",
+    "research/local-boundary-interfaces/check_controls.py"
+  ],
+  "cwd": "repository root",
+  "start_utc": "2026-11-10T08:19:00.725545+00:00",
+  "interpreter": "3.12.3 (main, Jul 16 2025, 08:43:28) [Clang 17.0.0 (clang-1700.0.13.3)]",
+  "script_sha256_before": "9e6dc833f23c7008eac55363689e56d1f128599c5c9bbd3fa226916b3ca91c7c",
+  "test_design_sha256_before": "bff116b1b765d249b754b4f3dd657a538172f4027cfb0c45193124869c93ddd4",
+  "stdout": "research/local-boundary-interfaces/evidence/controls.json",
+  "stderr": "research/local-boundary-interfaces/evidence/controls.stderr.txt",
+  "exit_code": 0,
+  "script_sha256_after": "9e6dc833f23c7008eac55363689e56d1f128599c5c9bbd3fa226916b3ca91c7c",
+  "test_design_sha256_after": "bff116b1b765d249b754b4f3dd657a538172f4027cfb0c45193124869c93ddd4",
+  "stdout_sha256": "86d82016fd7c1d20899cec5587c2844856c2059243daca6fced5015803128dd3",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "executable_sha256": "900ef57daedf8683c84100eadf21754ef1523f132814a489d7bffb6943b583b3",
+  "path_normalization": "Executable argv[0] and working directory are presented without local absolute paths. Version and executable SHA identify the interpreter; original receipt retained locally.",
+  "private_original_receipt_sha256": "1fac0d5bd2d03a704e00aab4859bdb009107e08d6eb4abba9abe1115a79fc05a"
+}

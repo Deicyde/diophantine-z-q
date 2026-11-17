@@ -1,0 +1,17 @@
+{
+  "date": "2026-11-10",
+  "status": "PASS",
+  "source_research_head": "33483f751e6dcd3f91fb303969838aca33ad0458",
+  "tracked_source_files_unchanged": 3175,
+  "method": "SHA-256 of every previously tracked research-checkout file compared to the local preparation intake snapshot; all match. Exact four selected blob identities also checked independently.",
+  "foundation_pr_live": {
+    "url": "https://github.com/elliotglazer/diophantine-z-q/pull/15",
+    "state": "open",
+    "draft": false,
+    "head": "codex/common-strict-foundation-v13",
+    "head_sha": "7c178b3edaf7f1ca9c91d542c3453bfdbaea73f3",
+    "base_sha": "9c0b3aba60d90fdcac82115f0582a6f52f1054f7"
+  },
+  "base_files_modified": 0,
+  "scope": "No frozen source, foundation branch, manuscript, acceptance record, old receipt or research-bank file was changed. No push or PR creation was performed."
+}

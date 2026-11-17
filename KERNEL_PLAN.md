@@ -346,6 +346,7 @@ python3 scripts/check_target.py
 lake env lean scripts/print_axioms.lean
 ```
 
-The `autoform verify` workflow builds the project, validates the blueprint and audits
-every root-package declaration for axioms beyond `propext`, `Quot.sound` and
-`Classical.choice`.
+The `autoform verify` workflow that used to audit every root-package declaration was removed on
+2026-11-17. The `main build cache` workflow now builds `+ZInQKernel.OneProof.Main` on pushes to
+`main` and fails unless the axioms of `ZInQ.OneProof.frozenTarget` are among `propext`,
+`Quot.sound` and `Classical.choice`. No workflow audits the other declarations.

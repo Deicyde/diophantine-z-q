@@ -1,0 +1,76 @@
+{
+  "format": "odd-power-findings-v1",
+  "date": "2026-11-09",
+  "findings": [
+    {
+      "id": "POWER01",
+      "title": "New one-place normalized inputs",
+      "historicalDisposition": "prior components located",
+      "argument": "D/delta^(2m-1) exactly gives q1^(2m-1); every consumed contact has unit delta. Common-place proof and small-prime reapplication written anew.",
+      "status": "Addressed by author proof; pending independent review",
+      "manuscriptDisposition": "Pending; current Version13 unchanged",
+      "evidence": [
+        "PROOF.md",
+        "HANDOFF.md",
+        "check_power.py",
+        "../scalar-row-reduction/prior-investigation/INVENTORY.json"
+      ]
+    },
+    {
+      "id": "POWER02",
+      "title": "Changed W, trace and pole input",
+      "historicalDisposition": "prior components located; earlier note corrected",
+      "argument": "The original frontier note incorrectly said these were unchanged. Only R is unchanged. Simultaneous completeness supplies new witnesses with positive real and small-prime decay.",
+      "status": "Addressed in proof; original note preserved",
+      "manuscriptDisposition": "Pending; current Version13 unchanged",
+      "evidence": [
+        "PROOF.md",
+        "HANDOFF.md",
+        "check_power.py",
+        "../scalar-row-reduction/prior-investigation/INVENTORY.json"
+      ]
+    },
+    {
+      "id": "POWER03",
+      "title": "Coordinate count and complete expansion",
+      "historicalDisposition": "new local implementation",
+      "argument": "Three fewer coordinates; every outside common source expression checked and complete pipeline replayed to376/425.",
+      "status": "Finite reproduction passed; no arithmetic acceptance inferred",
+      "manuscriptDisposition": "Pending; current Version13 unchanged",
+      "evidence": [
+        "PROOF.md",
+        "HANDOFF.md",
+        "check_power.py",
+        "../scalar-row-reduction/prior-investigation/INVENTORY.json"
+      ]
+    },
+    {
+      "id": "POWER04",
+      "title": "Restricted search claims",
+      "historicalDisposition": "historical corrections retained",
+      "argument": "Orders48/50 invalidate the earlier broad eight-gate claim. Six-gate obstruction remains limited to its specified monomial model.",
+      "status": "No optimality claim or acceptance of unimplemented routes",
+      "manuscriptDisposition": "Pending; current Version13 unchanged",
+      "evidence": [
+        "PROOF.md",
+        "HANDOFF.md",
+        "check_power.py",
+        "../scalar-row-reduction/prior-investigation/INVENTORY.json"
+      ]
+    },
+    {
+      "id": "POWER05",
+      "title": "Inherited global and release scope",
+      "historicalDisposition": "inherited unresolved",
+      "argument": "Current manuscript, global source closure, old stdout incident and designated App acceptance remain separate.",
+      "status": "Open outside conditional local claim",
+      "manuscriptDisposition": "Pending; current Version13 unchanged",
+      "evidence": [
+        "PROOF.md",
+        "HANDOFF.md",
+        "check_power.py",
+        "../scalar-row-reduction/prior-investigation/INVENTORY.json"
+      ]
+    }
+  ]
+}

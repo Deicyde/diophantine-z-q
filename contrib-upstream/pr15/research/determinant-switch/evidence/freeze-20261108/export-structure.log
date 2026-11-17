@@ -1,0 +1,252 @@
+/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/research/determinant-switch/verification/compare_exports.lean:29:36: error(lean.invalidField): Invalid field `getObjValAs?`: The environment does not contain `Lean.Json.getObjValAs?`, so it is not possible to project the field `getObjValAs?` from an expression
+  config
+of type `Json`
+/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/research/determinant-switch/verification/compare_exports.lean:30:38: error(lean.invalidField): Invalid field `getObjValAs?`: The environment does not contain `Lean.Json.getObjValAs?`, so it is not possible to project the field `getObjValAs?` from an expression
+  config
+of type `Json`
+/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/research/determinant-switch/verification/compare_exports.lean:31:42: error(lean.invalidField): Invalid field `getObjValAs?`: The environment does not contain `Lean.Json.getObjValAs?`, so it is not possible to project the field `getObjValAs?` from an expression
+  config
+of type `Json`
+/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/research/determinant-switch/verification/compare_exports.lean:32:9: error(lean.invalidField): Invalid field notation: Type of
+  names
+is not known; cannot resolve field `size`
+
+Hint: Consider replacing the field projection with a call to one of the following:
+  • `Array.size`
+  • `ByteArray.size`
+  • `ByteSlice.size`
+  • `FloatArray.size`
+  • `ISize.size`
+  • `Int16.size`
+  • `Int32.size`
+  • `Int64.size`
+  • `Int8.size`
+  • `UInt16.size`
+  • `UInt32.size`
+  • `UInt64.size`
+  • `UInt8.size`
+  • `USize.size`
+  • `Vector.size`
+  • `KVMap.size`
+  • `RArray.size`
+  • `Std.DHashMap.size`
+  • `Std.DTreeMap.size`
+  • `Std.ExtDHashMap.size`
+  • `Std.ExtDTreeMap.size`
+  • `Std.ExtHashMap.size`
+  • `Std.ExtHashSet.size`
+  • `Std.ExtTreeMap.size`
+  • `Std.ExtTreeSet.size`
+  • `Std.HashMap.size`
+  • `Std.HashSet.size`
+  • `Std.IterM.size`
+  • `Std.Rcc.size`
+  • `Std.Rci.size`
+  • `Std.Rco.size`
+  • `Std.Ric.size`
+  • `Std.Rii.size`
+  • `Std.Rio.size`
+  • `Std.Roc.size`
+  • `Std.Roi.size`
+  • `Std.Roo.size`
+  • `Std.Slice.size`
+  • `Std.TreeMap.size`
+  • `Std.TreeSet.size`
+  • `Std.DHashMap.Raw.size`
+  • `Std.DTreeMap.Raw.size`
+  • `Std.HashMap.Raw.size`
+  • `Std.HashSet.Raw.size`
+  • `Std.IterM.Partial.size`
+  • `Std.Legacy.Range.size`
+  • `Std.Rxc.HasSize.size`
+  • `Std.Rxi.HasSize.size`
+  • `Std.Rxo.HasSize.size`
+  • `Std.Slice.SliceSize.size`
+  • `Std.TreeMap.Raw.size`
+  • `Std.TreeSet.Raw.size`
+  • `Std.DTreeMap.Internal.Impl.size`
+  • `Std.DTreeMap.Internal.Impl.containsThenInsert.size`
+  • `Std.DTreeMap.Internal.Impl.containsThenInsert!.size`
+/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/research/determinant-switch/verification/compare_exports.lean:32:28: error(lean.invalidField): Invalid field notation: Type of
+  definitions
+is not known; cannot resolve field `isEmpty`
+
+Hint: Consider replacing the field projection with a call to one of the following:
+  • `Array.isEmpty`
+  • `ByteArray.isEmpty`
+  • `FloatArray.isEmpty`
+  • `List.isEmpty`
+  • `String.isEmpty`
+  • `Substring.isEmpty`
+  • `KVMap.isEmpty`
+  • `PersistentHashMap.isEmpty`
+  • `PersistentHashSet.isEmpty`
+  • `Std.DHashMap.isEmpty`
+  • `Std.DTreeMap.isEmpty`
+  • `Std.ExtDHashMap.isEmpty`
+  • `Std.ExtDTreeMap.isEmpty`
+  • `Std.ExtHashMap.isEmpty`
+  • `Std.ExtHashSet.isEmpty`
+  • `Std.ExtTreeMap.isEmpty`
+  • `Std.ExtTreeSet.isEmpty`
+  • `Std.Format.isEmpty`
+  • `Std.HashMap.isEmpty`
+  • `Std.HashSet.isEmpty`
+  • `Std.Iter.isEmpty`
+  • `Std.IterM.isEmpty`
+  • `Std.Queue.isEmpty`
+  • `Std.Rcc.isEmpty`
+  • `Std.Rci.isEmpty`
+  • `Std.Rco.isEmpty`
+  • `Std.Ric.isEmpty`
+  • `Std.Rii.isEmpty`
+  • `Std.Rio.isEmpty`
+  • `Std.Roc.isEmpty`
+  • `Std.Roi.isEmpty`
+  • `Std.Roo.isEmpty`
+  • `Std.TreeMap.isEmpty`
+  • `Std.TreeSet.isEmpty`
+  • `String.Internal.isEmpty`
+  • `String.Slice.isEmpty`
+  • `Substring.Raw.isEmpty`
+  • `PersistentHashMap.Node.isEmpty`
+  • `Std.DHashMap.Raw.isEmpty`
+  • `Std.DTreeMap.Raw.isEmpty`
+  • `Std.HashMap.Raw.isEmpty`
+  • `Std.HashSet.Raw.isEmpty`
+  • `Std.Iter.Total.isEmpty`
+  • `Std.IterM.Total.isEmpty`
+  • `Std.TreeMap.Raw.isEmpty`
+  • `Std.TreeSet.Raw.isEmpty`
+  • `Substring.Raw.Internal.isEmpty`
+  • `Std.DTreeMap.Internal.Impl.isEmpty`
+/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/research/determinant-switch/verification/compare_exports.lean:34:17: error(lean.invalidField): Invalid field notation: Type of
+  names
+is not known; cannot resolve field `map`
+
+Hint: Consider replacing the field projection with a call to one of the following:
+  • `Array.map`
+  • `BaseIO.map`
+  • `EIO.map`
+  • `EStateM.map`
+  • `Except.map`
+  • `ExceptT.map`
+  • `Functor.map`
+  • `List.map`
+  • `Option.map`
+  • `Prod.map`
+  • `StateT.map`
+  • `String.map`
+  • `Sum.map`
+  • `Task.map`
+  • `Thunk.map`
+  • `Vector.map`
+  • `Array.mapFinIdxM.map`
+  • `Array.mapM.map`
+  • `PersistentHashMap.map`
+  • `List.IsInfix.map`
+  • `List.IsPrefix.map`
+  • `List.IsSuffix.map`
+  • `List.Pairwise.map`
+  • `List.Perm.map`
+  • `List.Sublist.map`
+  • `Std.DHashMap.map`
+  • `Std.DTreeMap.map`
+  • `Std.ExtDHashMap.map`
+  • `Std.ExtDTreeMap.map`
+  • `Std.ExtHashMap.map`
+  • `Std.ExtTreeMap.map`
+  • `Std.HashMap.map`
+  • `Std.Iter.map`
+  • `Std.IterM.map`
+  • `Std.TreeMap.map`
+  • `Vector.mapFinIdxM.map`
+  • `Omega.Coeffs.map`
+  • `Omega.Constraint.map`
+  • `Std.DHashMap.Equiv.map`
+  • `Std.DHashMap.Raw.map`
+  • `Std.DTreeMap.Equiv.map`
+  • `Std.HashMap.Equiv.map`
+  • `Std.HashMap.Raw.map`
+  • `Std.Internal.Small.map`
+  • `Std.IterM.Equiv.map`
+  • `Std.IterM.InternalCombinators.map`
+  • `Std.Iterators.HetT.map`
+  • `Std.Iterators.PostconditionT.map`
+  • `Std.TreeMap.Equiv.map`
+  • `Std.DHashMap.Internal.AssocList.map`
+  • `Std.DHashMap.Internal.Raw₀.map`
+  • `Std.DHashMap.Raw.Equiv.map`
+  • `Std.DHashMap.Raw.WF.map`
+  • `Std.DTreeMap.Internal.Impl.map`
+  • `Std.HashMap.Raw.Equiv.map`
+  • `Std.HashMap.Raw.WF.map`
+  • `Std.Internal.List.DistinctKeys.map`
+  • `Std.DTreeMap.Internal.Impl.Balanced.map`
+  • `Std.DTreeMap.Internal.Impl.Equiv.map`
+  • `Std.DTreeMap.Internal.Impl.WF.map`
+/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/research/determinant-switch/verification/compare_exports.lean:35:15: error(lean.invalidField): Invalid field notation: Type of
+  allowed
+is not known; cannot resolve field `map`
+
+Hint: Consider replacing the field projection with a call to one of the following:
+  • `Array.map`
+  • `BaseIO.map`
+  • `EIO.map`
+  • `EStateM.map`
+  • `Except.map`
+  • `ExceptT.map`
+  • `Functor.map`
+  • `List.map`
+  • `Option.map`
+  • `Prod.map`
+  • `StateT.map`
+  • `String.map`
+  • `Sum.map`
+  • `Task.map`
+  • `Thunk.map`
+  • `Vector.map`
+  • `Array.mapFinIdxM.map`
+  • `Array.mapM.map`
+  • `PersistentHashMap.map`
+  • `List.IsInfix.map`
+  • `List.IsPrefix.map`
+  • `List.IsSuffix.map`
+  • `List.Pairwise.map`
+  • `List.Perm.map`
+  • `List.Sublist.map`
+  • `Std.DHashMap.map`
+  • `Std.DTreeMap.map`
+  • `Std.ExtDHashMap.map`
+  • `Std.ExtDTreeMap.map`
+  • `Std.ExtHashMap.map`
+  • `Std.ExtTreeMap.map`
+  • `Std.HashMap.map`
+  • `Std.Iter.map`
+  • `Std.IterM.map`
+  • `Std.TreeMap.map`
+  • `Vector.mapFinIdxM.map`
+  • `Omega.Coeffs.map`
+  • `Omega.Constraint.map`
+  • `Std.DHashMap.Equiv.map`
+  • `Std.DHashMap.Raw.map`
+  • `Std.DTreeMap.Equiv.map`
+  • `Std.HashMap.Equiv.map`
+  • `Std.HashMap.Raw.map`
+  • `Std.Internal.Small.map`
+  • `Std.IterM.Equiv.map`
+  • `Std.IterM.InternalCombinators.map`
+  • `Std.Iterators.HetT.map`
+  • `Std.Iterators.PostconditionT.map`
+  • `Std.TreeMap.Equiv.map`
+  • `Std.DHashMap.Internal.AssocList.map`
+  • `Std.DHashMap.Internal.Raw₀.map`
+  • `Std.DHashMap.Raw.Equiv.map`
+  • `Std.DHashMap.Raw.WF.map`
+  • `Std.DTreeMap.Internal.Impl.map`
+  • `Std.HashMap.Raw.Equiv.map`
+  • `Std.HashMap.Raw.WF.map`
+  • `Std.Internal.List.DistinctKeys.map`
+  • `Std.DTreeMap.Internal.Impl.Balanced.map`
+  • `Std.DTreeMap.Internal.Impl.Equiv.map`
+  • `Std.DTreeMap.Internal.Impl.WF.map`

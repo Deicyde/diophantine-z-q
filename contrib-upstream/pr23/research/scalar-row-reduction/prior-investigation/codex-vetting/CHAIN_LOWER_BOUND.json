@@ -1,0 +1,10 @@
+{
+  "model": "Monomial quotient gate z*v=x*y, initial e-exponents relaxed to every integer in [-1,4]; five mandatory distinct target coordinates beginning at exponent 23. Non-monomial cancellations and changed target interfaces excluded.",
+  "first_auxiliary_range": [
+    -6,
+    9
+  ],
+  "maximum_after_one_auxiliary_then_target": 19,
+  "target23_reachable_in_two_gates": false,
+  "inference": "Six new gates leave at most one auxiliary before the first mandatory target; all targets have exponent >=23, but two gates reach at most 19. This rules out six only in this stated model."
+}

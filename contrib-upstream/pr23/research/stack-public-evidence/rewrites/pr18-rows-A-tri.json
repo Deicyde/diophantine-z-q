@@ -1,0 +1,467 @@
+{
+ "format": "stack-public-evidence-ideal-certificate-v1",
+ "layer": "PR #18 scalar-row-reduction: row changes A and tri",
+ "old": {
+  "table": "pr17-380",
+  "role": "rawIr",
+  "packetPath": "tables/pr17-380/raw-translated-ir.json.gz",
+  "sha256": "f6ac117625f054cf6fec0863f1a3417b0f5305a9e477e901e098387a6a6fac40"
+ },
+ "new": {
+  "table": "pr18-379",
+  "role": "rawIr",
+  "packetPath": "tables/pr18-379/raw-translated-ir.json.gz",
+  "sha256": "40d54012e608282410c90e850637f71359c73321fc9762f64a7086347601fdc7"
+ },
+ "polynomialEncoding": "list of [rational coefficient, sorted list of coordinate names]; \"$S\" is the formal fixed parameter S",
+ "meaning": "For each direction, apply \"map\" (coordinate name -> polynomial in the base system; unmapped names are the identity) to every row of the target system. A listed row must equal the sum of multiplier*row over its combination of base rows; every unlisted target row must equal the base row of the same name. Hence each map sends solutions to solutions. Neither map touches the input or any coordinate outside \"map\".",
+ "expectedDelta": {
+  "deletedRows": [
+   "scalar.W2.definition"
+  ],
+  "addedRows": [],
+  "changedRows": [
+   "scalar.Bh.definition",
+   "scalar.preparationT.definition",
+   "scalar.secondConic",
+   "scalar.shiftedS.rootTimesInverseRoot.definition.0",
+   "scalar.shiftedS.rootTimesInverseRoot.definition.1"
+  ],
+  "removedCoordinates": [
+   "scalar.W2.quadratic",
+   "scalar.preparationT.quadratic"
+  ],
+  "addedCoordinates": [
+   "scalar.preparationT"
+  ]
+ },
+ "displayedConstants": {
+  "A.u0": [
+   "-39/8",
+   "18"
+  ],
+  "A.u1": [
+   "9/2",
+   "-39/4"
+  ],
+  "mu": "184460384539620",
+  "k": "521079743268/81331739215",
+  "claim": "mu*(1+k*L) = 42*r, with r and L decoded from the actual rows"
+ },
+ "r": [
+  [
+   "4391913917610",
+   []
+  ],
+  [
+   "28138306136472",
+   [
+    "inputProduct.quadratic"
+   ]
+  ],
+  [
+   "20059891973568",
+   [
+    "scalar.rPair1.quadratic"
+   ]
+  ],
+  [
+   "40032653027328",
+   [
+    "scalar.rThree.quadratic"
+   ]
+  ]
+ ],
+ "L": [
+  [
+   "1",
+   [
+    "inputProduct.quadratic"
+   ]
+  ],
+  [
+   "606992616/851437489",
+   [
+    "scalar.rPair1.quadratic"
+   ]
+  ],
+  [
+   "1211348736/851437489",
+   [
+    "scalar.rThree.quadratic"
+   ]
+  ]
+ ],
+ "directions": [
+  {
+   "direction": "old solution -> new solution",
+   "targetSystem": "new",
+   "baseSystem": "old",
+   "map": {
+    "scalar.preparationT": [
+     [
+      "184460384539620",
+      [
+       "scalar.W2.quadratic"
+      ]
+     ],
+     [
+      "1181808857731824",
+      [
+       "inputProduct.quadratic",
+       "scalar.W2.quadratic"
+      ]
+     ],
+     [
+      "842515462889856",
+      [
+       "scalar.W2.quadratic",
+       "scalar.rPair1.quadratic"
+      ]
+     ],
+     [
+      "1681371427147776",
+      [
+       "scalar.W2.quadratic",
+       "scalar.rThree.quadratic"
+      ]
+     ]
+    ],
+    "scalar.Bh.quadratic": [
+     [
+      "184460384539620",
+      [
+       "scalar.Bh.quadratic"
+      ]
+     ]
+    ]
+   },
+   "identities": [
+    {
+     "row": "scalar.shiftedS.rootTimesInverseRoot.definition.0",
+     "combination": [
+      [
+       "scalar.shiftedS.rootTimesInverseRoot.definition.0",
+       [
+        [
+         "1",
+         []
+        ]
+       ]
+      ],
+      [
+       "S.chart.x.0.definition",
+       [
+        [
+         "-39/8",
+         []
+        ]
+       ]
+      ],
+      [
+       "S.chart.x.1.definition",
+       [
+        [
+         "18",
+         []
+        ]
+       ]
+      ]
+     ]
+    },
+    {
+     "row": "scalar.shiftedS.rootTimesInverseRoot.definition.1",
+     "combination": [
+      [
+       "scalar.shiftedS.rootTimesInverseRoot.definition.1",
+       [
+        [
+         "1",
+         []
+        ]
+       ]
+      ],
+      [
+       "S.chart.x.0.definition",
+       [
+        [
+         "9/2",
+         []
+        ]
+       ]
+      ],
+      [
+       "S.chart.x.1.definition",
+       [
+        [
+         "-39/4",
+         []
+        ]
+       ]
+      ]
+     ]
+    },
+    {
+     "row": "scalar.preparationT.definition",
+     "combination": [
+      [
+       "scalar.rInverse.definition",
+       [
+        [
+         "42",
+         [
+          "scalar.W2.quadratic"
+         ]
+        ]
+       ]
+      ],
+      [
+       "scalar.W2.definition",
+       [
+        [
+         "42",
+         []
+        ]
+       ]
+      ]
+     ]
+    },
+    {
+     "row": "scalar.Bh.definition",
+     "combination": [
+      [
+       "scalar.Bh.definition",
+       [
+        [
+         "184460384539620",
+         []
+        ]
+       ]
+      ],
+      [
+       "scalar.preparationT.definition",
+       [
+        [
+         "1181808857731824",
+         [
+          "scalar.normalized_e"
+         ]
+        ]
+       ]
+      ]
+     ]
+    },
+    {
+     "row": "scalar.secondConic",
+     "combination": [
+      [
+       "scalar.secondConic",
+       [
+        [
+         "1",
+         []
+        ]
+       ]
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "direction": "new solution -> old solution",
+   "targetSystem": "old",
+   "baseSystem": "new",
+   "map": {
+    "scalar.W2.quadratic": [
+     [
+      "1",
+      [
+       "scalar.N",
+       "scalar.N"
+      ]
+     ]
+    ],
+    "scalar.preparationT.quadratic": [
+     [
+      "1",
+      [
+       "inputProduct.quadratic",
+       "scalar.N",
+       "scalar.N"
+      ]
+     ],
+     [
+      "606992616/851437489",
+      [
+       "scalar.N",
+       "scalar.N",
+       "scalar.rPair1.quadratic"
+      ]
+     ],
+     [
+      "1211348736/851437489",
+      [
+       "scalar.N",
+       "scalar.N",
+       "scalar.rThree.quadratic"
+      ]
+     ]
+    ],
+    "scalar.Bh.quadratic": [
+     [
+      "1/184460384539620",
+      [
+       "scalar.Bh.quadratic"
+      ]
+     ]
+    ]
+   },
+   "identities": [
+    {
+     "row": "scalar.shiftedS.rootTimesInverseRoot.definition.0",
+     "combination": [
+      [
+       "scalar.shiftedS.rootTimesInverseRoot.definition.0",
+       [
+        [
+         "1",
+         []
+        ]
+       ]
+      ],
+      [
+       "S.chart.x.0.definition",
+       [
+        [
+         "39/8",
+         []
+        ]
+       ]
+      ],
+      [
+       "S.chart.x.1.definition",
+       [
+        [
+         "-18",
+         []
+        ]
+       ]
+      ]
+     ]
+    },
+    {
+     "row": "scalar.shiftedS.rootTimesInverseRoot.definition.1",
+     "combination": [
+      [
+       "scalar.shiftedS.rootTimesInverseRoot.definition.1",
+       [
+        [
+         "1",
+         []
+        ]
+       ]
+      ],
+      [
+       "S.chart.x.0.definition",
+       [
+        [
+         "-9/2",
+         []
+        ]
+       ]
+      ],
+      [
+       "S.chart.x.1.definition",
+       [
+        [
+         "39/4",
+         []
+        ]
+       ]
+      ]
+     ]
+    },
+    {
+     "row": "scalar.W2.definition",
+     "combination": []
+    },
+    {
+     "row": "scalar.preparationT.definition",
+     "combination": []
+    },
+    {
+     "row": "scalar.Bh.definition",
+     "combination": [
+      [
+       "scalar.Bh.definition",
+       [
+        [
+         "1/184460384539620",
+         []
+        ]
+       ]
+      ],
+      [
+       "scalar.preparationT.definition",
+       [
+        [
+         "1/42",
+         [
+          "scalar.normalized_e"
+         ]
+        ],
+        [
+         "12406660554/81331739215",
+         [
+          "inputProduct.quadratic",
+          "scalar.normalized_e"
+         ]
+        ],
+        [
+         "3370896/30997015",
+         [
+          "scalar.normalized_e",
+          "scalar.rPair1.quadratic"
+         ]
+        ],
+        [
+         "123557571072/569322174505",
+         [
+          "scalar.normalized_e",
+          "scalar.rThree.quadratic"
+         ]
+        ]
+       ]
+      ],
+      [
+       "scalar.rInverse.definition",
+       [
+        [
+         "-1/184460384539620",
+         [
+          "scalar.normalized_e",
+          "scalar.preparationT"
+         ]
+        ]
+       ]
+      ]
+     ]
+    },
+    {
+     "row": "scalar.secondConic",
+     "combination": [
+      [
+       "scalar.secondConic",
+       [
+        [
+         "1",
+         []
+        ]
+       ]
+      ]
+     ]
+    }
+   ]
+  }
+ ]
+}

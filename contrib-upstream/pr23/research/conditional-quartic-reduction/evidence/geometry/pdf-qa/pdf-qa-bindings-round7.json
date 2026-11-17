@@ -1,0 +1,205 @@
+{
+  "status": "PASS",
+  "pdfSha256": "c73e5f7b0d030fc977f6387083d033a983943948f30e26cfb46af1b858f82a94",
+  "pages": 14,
+  "pagesInspected": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14
+  ],
+  "finalChangedPagesReinspected": [
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "unchangedRenderedPages": [
+    1,
+    2,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14
+  ],
+  "pageReviews": [
+    {
+      "page": 1,
+      "status": "PASS",
+      "note": "Title, result table, 392 total variables including the input, 391 existential witnesses, exact maximum coefficient, 398-to-392 comparison, and conditional characterization are clear and accurate.",
+      "render": "final-01.png",
+      "renderSha256": "676ff900f9edb56076d493dd6cc4f2f9909c6149d199c47267beb3a49ed33bb5"
+    },
+    {
+      "page": 2,
+      "status": "PASS",
+      "note": "Three improvements, raw 403/371 to 392/360 pipeline, 342 gate identities / 333 compiler operations, zero later eliminations, source credits, and unsubmitted additive-proposal status agree with the implementation.",
+      "render": "final-02.png",
+      "renderSha256": "d141d4e52fd81fc8774927bba0beef1b9ae6b1206ee868ab9e8b0f571d1f8377"
+    },
+    {
+      "page": 3,
+      "status": "PASS",
+      "note": "Contact-unit normalization, exact guard values and exceptional set, unchanged R, semantic test rescaling, and direct q1 equations fit and are legible. The first line-reference spacing defect is corrected.",
+      "render": "final-03.png",
+      "renderSha256": "1a41f2260557171ab59a4e8e67929b683c12411aa227e52e3f8ff3ddaa8fb0da"
+    },
+    {
+      "page": 4,
+      "status": "PASS",
+      "note": "Seven-node Laurent circuit, exponent lists, product grouping, nonzero quotient domains, quadratic degree, and unchanged pole input are consistent. The order 45 spacing defect is corrected.",
+      "render": "final-04.png",
+      "renderSha256": "3b5a2bd77f5ba61845fe4c58819ad061729e9705c9a8b3ac8418218a7a0a25db"
+    },
+    {
+      "page": 5,
+      "status": "PASS",
+      "note": "Completeness at contacts, off-contact parity, real asymptotics, and the small-prime valuation bounds are readable and preserve their stated hypotheses. The second line-reference spacing defect is corrected.",
+      "render": "final-05.png",
+      "renderSha256": "49c98a636cb65c3b7f67b11d03d029059e572b18c70c56e26e9753cd86a10d05"
+    },
+    {
+      "page": 6,
+      "status": "PASS",
+      "note": "Isolated 393 and combined 392 measurements are correctly distinguished; source-checker scope and the restricted search obstruction do not assert global optimality. The exceed 1024 spacing defect is corrected.",
+      "render": "final-06.png",
+      "renderSha256": "abc583382abb914215813f51df679b9f0b6fbc8db591a309ef90b2e511be1fa7"
+    },
+    {
+      "page": 7,
+      "status": "PASS",
+      "note": "The outer-constant scalar equations, quadratic realization, identity guard, and direct proof that odd R is positive are correct and fit the page.",
+      "render": "final-07.png",
+      "renderSha256": "ce19101fc4a095d8e0e70b6f9ddc617b21d0a9c7bb6dda57a6dde76f09a0e1fe"
+    },
+    {
+      "page": 8,
+      "status": "PASS",
+      "note": "The scalar descent explicitly allows cancellation in W=1+N, establishes formal membership before the proxy, and derives uniform 28 without asserting 28R. The finite completeness bounds are readable.",
+      "render": "final-08.png",
+      "renderSha256": "827f93ffe6bd5992724905ceb3ab132f9f601cf67389a9e05f7ed8d13460b755"
+    },
+    {
+      "page": 9,
+      "status": "PASS",
+      "note": "The scalar completeness conclusion and isolated 395 measurement are clear; the following arithmetic section identifies its exact inherited inputs and integrated-source binding.",
+      "render": "final-09.png",
+      "renderSha256": "21550d57c2497b62886ced9aa7363c689ec64a8ef921320538cb1d1c8cd2754d"
+    },
+    {
+      "page": 10,
+      "status": "PASS",
+      "note": "The anchor at 3^2790, packed-label parity deduction, dyadic condition, unchanged exceptional set, and 683-bit height constant are consistent.",
+      "render": "final-10.png",
+      "renderSha256": "fa40a585b66c381ce274227b69c7ca52663ca8c0590a1d14251ed07905b48f55"
+    },
+    {
+      "page": 11,
+      "status": "PASS",
+      "note": "G12/G2 precisions 45/12, the three consumers, and the exact selected scalar and Lucas margins are correctly displayed; optional height improvements are not used by the selected construction.",
+      "render": "final-11.png",
+      "renderSha256": "3946d5a4c2373f3a2b6eafea6cb99179c86ef9eb12d8d7684b34ebdfbe8abf16"
+    },
+    {
+      "page": 12,
+      "status": "PASS",
+      "note": "The final integrality inference includes prime 17. The twelve-coordinate diagonal table, input fixation, and intentional equal scalings of h_S and x(S) are accurately explained.",
+      "render": "final-12.png",
+      "renderSha256": "f513900ab2de66cbc0d16626fdd255d338c78cbfb9656a50777af5145e86a0b8"
+    },
+    {
+      "page": 13,
+      "status": "PASS",
+      "note": "Primitive-row scaling and SOS equivalence preserve the input projection; the exponent-span argument and exact maximum 1+40532396646334464*3^1860 agree with the independent audit.",
+      "render": "final-13.png",
+      "renderSha256": "9e1dcb5135a40499fb91462a7a6c990da1182716f4f47f450bf3e8a9722527ca"
+    },
+    {
+      "page": 14,
+      "status": "PASS",
+      "note": "Verification scopes, source-only reproduction, coding-agent handoff, pending manuscript incorporation, and the optional research note are stated without an unconditional global-proof or publication claim.",
+      "render": "final-14.png",
+      "renderSha256": "abeacc37a4fd172dc155b41ecd593d1e9138fcc42cbc0570540fea9c3167beb7"
+    }
+  ],
+  "resolvedEditorialIssues": [
+    "lines11031",
+    "order45",
+    "lines11220",
+    "exceed1024"
+  ],
+  "outstandingIssues": [],
+  "nonblockingBuildDiagnostics": {
+    "hyperrefMathShiftRemovalWarnings": 2,
+    "printedAndBookmarkHeadingVerified": "Compute the weights without storing e"
+  },
+  "tableClaims": [
+    {
+      "form": "balanced",
+      "coordinates": 392,
+      "residuals": 360,
+      "monomials": 26301,
+      "maximumCoefficientDigits": 905
+    },
+    {
+      "form": "direct",
+      "coordinates": 392,
+      "residuals": 360,
+      "monomials": 26301,
+      "maximumCoefficientDigits": 2679
+    },
+    {
+      "form": "chain2",
+      "coordinates": 394,
+      "residuals": 362,
+      "monomials": 26310,
+      "maximumCoefficientDigits": 888
+    },
+    {
+      "form": "chain3",
+      "coordinates": 395,
+      "residuals": 363,
+      "monomials": 26313,
+      "maximumCoefficientDigits": 381
+    },
+    {
+      "form": "chain4",
+      "coordinates": 396,
+      "residuals": 364,
+      "monomials": 26316,
+      "maximumCoefficientDigits": 178
+    }
+  ],
+  "fileBindings": {
+    "seventh-work/root/pdf-build/proposal_note.pdf": "c73e5f7b0d030fc977f6387083d033a983943948f30e26cfb46af1b858f82a94",
+    "seventh-work/root/selected/proposal_note.tex": "c38b9dcc3db87e30039d2e0ef7f446bcbaab0bbfd70bfafd990f1572bab9e0fc",
+    "seventh-work/root/pdf-build/proposal_note.log": "d8dc8162cd81702d67ccad5be0d82002082e7f0c8556de084bb9aab30c2dff6b",
+    "seventh-work/root/selected/proofs/detector_round7.tex": "ed01c9416d3b4daf02a26958642194230c0186a896f17817bfe30c8a16d481d3",
+    "seventh-work/root/selected/proofs/geometry_round7.tex": "0402ccf6c3e193c685d01e0ff6e46449001ac074a1bf4501419d6fb1fea88035",
+    "seventh-work/root/selected/proofs/arithmetic_round7.tex": "14f548346d7630bf2d440fbc33a10bda10bb6cc7604692d59bcb1c821a5bf5ff",
+    "seventh-work/root/selected/proofs/diagonal_scaling.tex": "1e2c856690cdd0c511feca650e9b9a0136b09326b6c8005089dade723c78affb",
+    "seventh-work/root/selected/construction/builder.cjs": "78b54bcde24ff8a91091e102a4734c49878699f071d9230e5ce7a70ffd2114d0",
+    "seventh-work/root/selected/construction/table-summary.json": "a328cab41deb255092fa1cffe0381f4204d4d2e0097ca2a159cf62efa5857a7c",
+    "seventh-work/root/selected/construction/text-table-summary.json": "52f90410c1dc31ee17f6f5ae25b9a59ae954f0e0a055dfe26da19d7b72db50ec",
+    "seventh-work/root/selected/construction/balanced/summary.json": "ff89494738d44de9606dcc24b85d322e3819025902ee5c214ef52c6b3347b17f",
+    "seventh-work/detectors/proof-spacing-only.patch": "be0e18ee42599a856e52a6ab9efbf9d90295cdb5fd79658e1026a1f8645a8247",
+    "seventh-work/geometry/integrated-geometry-check.json": "764cf612099ce6ec0cc28a1076bc8847dff967fb3a53bea17892e3aa23404a6d",
+    "seventh-work/geometry/diagonal-scaling-check.json": "ace0735659bb62610bfd8bf658bbd2951822614e39a25bea4eee5416671e3280",
+    "seventh-work/geometry/pdf-qa/render-comparison.json": "b1d4fba3584b40cdbe0532f862fd3ef2897463be91ddbc8c6f6069d7c6ac2f82",
+    "seventh-work/geometry/pdf-qa/pdf-qa-receipt-round7.txt": "3634ce13de0b0416eb80bab4711fbb45261fca3101ba0eeb0901eab65c0ea97a"
+  }
+}

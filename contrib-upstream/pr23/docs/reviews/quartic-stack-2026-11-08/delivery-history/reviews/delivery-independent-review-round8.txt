@@ -1,0 +1,76 @@
+INDEPENDENT DELIVERY REVIEW — ROUND EIGHT
+
+Disposition: ACCEPT the exact-old-overlay helper and final patch scope.
+This review covers the bytes bound in the adjacent JSON receipt. It does not
+replace mathematical reproduction, establish inherited arithmetic inputs, or
+claim a separate visual review of the PDF.
+
+1. Exact update-base helper
+
+I read verify_update_base.py and independently exercised it against private
+copies of the frozen preceding overlay. The helper pins the complete previous
+manifest byte hash, then checks every manifest entry's size and SHA-256 and
+requires equality between the full actual and expected file sets. The pinned
+manifest has 111 entries; together with SOURCE_MANIFEST.json there are 112 files.
+Relative-path canonicalization, duplicate detection, per-component symlink
+rejection and a final symlink scan prevent ordinary path substitutions from
+silently passing as the expected old source.
+
+The known-valid frozen overlay passes. Four focused negative cases reject
+with the intended diagnostic: a changed manifest byte string, a changed old
+builder, an additional unlisted regular file, and an old builder replaced by
+a symlink to an outside file containing the exact old bytes. That last case
+confirms the helper does not accept a symbolic link merely because its target
+has the right hash. All five probe checkouts, their outside-overlay sentinel
+files, the helper and the frozen baseline remained unchanged.
+
+The helper explicitly verifies only the update base. It does not assert a Git
+HEAD match, validate the update patch, or replace current-source reproduction.
+The handoff makes those separate duties clear. The supplied helper's hash is
+identical to the helper used in these behavioral probes.
+
+2. Final full and incremental patches
+
+I inspected every diff header, source/destination path and file mode. Every
+path in both patches lies under research/conditional-quartic-reduction/.
+No absolute path, parent traversal, symlink mode or submodule mode appears.
+The full patch consists of 156 new regular files. The update has 68 file
+sections: 45 additions, one deletion and three legitimate renames, with both
+ends of every rename confined to the same proposal prefix. Those three
+renames move historical round-seven audit scripts into lineage/round7_audit.
+
+For an independent application check, I used a private bare clone with its
+own index and object writes. The original repository and delivered files were
+read only. I initialized the private index at the pinned upstream commit,
+applied the full patch with --cached --check and --cached, and compared the
+resulting 156-file overlay to the delivered payload, including Git file modes
+and every blob. I then reset the index to the same pin, inserted the exact 112
+frozen baseline files, and applied the update through the same checks.
+
+Both routes match the complete delivered payload and produce the identical
+Git tree:
+  3c5b2b3eb75c7f4bf3d50fb7dedf1e9216f9860e
+
+All 2,104 tracked files of the pinned upstream outside the proposal prefix have
+identical paths, modes and object hashes after each route. The complete new
+payload has 155 manifest entries plus its root SOURCE_MANIFEST.json. The
+nested lineage/round7_delivery/SOURCE_MANIFEST.json is present and retains the
+exact old manifest hash, so the earlier basename-filter omission is absent
+from the reviewed patches.
+
+The --whitespace=nowarn option used during index application suppresses
+intentional historical-whitespace diagnostics; it does not rewrite bytes.
+No --whitespace=fix operation was used. Exact payload/blob comparison is the
+relevant preservation check.
+
+3. Bound review artifacts and limitations
+
+The two independent scripts and their machine-readable reports are included
+in this reviewer directory. The adjacent receipt binds those files, the
+reviewed helper, both final patches, the new root source manifest, the nested
+historical manifest and this written review. No delivery source was edited.
+
+These checks establish the stated import routes, exact baseline rejection
+behavior, payload identity and path confinement. The root's fresh 23-stage
+mathematical reproduction, proof reviews and PDF inspection are separate
+checks with their own receipts. No public action was performed.

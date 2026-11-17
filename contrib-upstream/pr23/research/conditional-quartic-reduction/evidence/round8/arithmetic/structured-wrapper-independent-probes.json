@@ -1,0 +1,76 @@
+{
+  "wrapperSha256": "273bafa739550a62805286ed1c13dd54ec05d03a935d8061b1af790493c1010f",
+  "checkerSha256": "08dad4497604cb677521cabadc100477bd34ff31a3746e7eaec797b89dd51508",
+  "cases": [
+    {
+      "case": "control_without_stdout",
+      "returnCode": 0,
+      "successReceiptPresent": true,
+      "expectedSuccess": true,
+      "diagnosticTail": [
+        "Rebuilding from 3 source/proof files in /workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/wrapper-probes/independent-2uzphy9_/control_without_stdout/output",
+        "PASS: 1 deterministic artifacts matched byte for byte; all exact audits passed.",
+        "Tracked proposal source files are unchanged.",
+        "Note: stdout marker was absent; structured completion, source and all artifact/audit checks passed.",
+        "Receipt: /workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/wrapper-probes/independent-2uzphy9_/control_without_stdout/output/reproduction-receipt.json"
+      ],
+      "commandLogSha256": "45864ec30264039407ae4c032318d872d6166080a747b36df4adda2ed0ad55e1"
+    },
+    {
+      "case": "changed_fresh_builder",
+      "returnCode": 0,
+      "successReceiptPresent": true,
+      "expectedSuccess": false,
+      "diagnosticTail": [
+        "Rebuilding from 3 source/proof files in /workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/wrapper-probes/independent-2uzphy9_/changed_fresh_builder/output",
+        "PASS: 1 deterministic artifacts matched byte for byte; all exact audits passed.",
+        "Tracked proposal source files are unchanged.",
+        "Note: stdout marker was absent; structured completion, source and all artifact/audit checks passed.",
+        "Receipt: /workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/wrapper-probes/independent-2uzphy9_/changed_fresh_builder/output/reproduction-receipt.json"
+      ],
+      "commandLogSha256": "94d5516674b961a207acbdc372d8a82a4c1cf32032530b3086ed2e065bb3f091"
+    },
+    {
+      "case": "changed_fresh_proof",
+      "returnCode": 0,
+      "successReceiptPresent": true,
+      "expectedSuccess": false,
+      "diagnosticTail": [
+        "Rebuilding from 3 source/proof files in /workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/wrapper-probes/independent-2uzphy9_/changed_fresh_proof/output",
+        "PASS: 1 deterministic artifacts matched byte for byte; all exact audits passed.",
+        "Tracked proposal source files are unchanged.",
+        "Note: stdout marker was absent; structured completion, source and all artifact/audit checks passed.",
+        "Receipt: /workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/wrapper-probes/independent-2uzphy9_/changed_fresh_proof/output/reproduction-receipt.json"
+      ],
+      "commandLogSha256": "ed5284b1a4c5020ca3de2cc9d783623dd5c4ad0459a0d91e991871ecce2933f0"
+    },
+    {
+      "case": "changed_fresh_pipeline",
+      "returnCode": 1,
+      "successReceiptPresent": false,
+      "expectedSuccess": false,
+      "diagnosticTail": [
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/wrapper-probes/independent-2uzphy9_/changed_fresh_pipeline/source/reproduce.py\", line 230, in <module>",
+        "    main()",
+        "  File \"/workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/wrapper-probes/independent-2uzphy9_/changed_fresh_pipeline/source/reproduce.py\", line 184, in main",
+        "    raise RuntimeError('Completion record refers to a different pipeline')",
+        "RuntimeError: Completion record refers to a different pipeline"
+      ],
+      "commandLogSha256": "1be967e30a12a6bfad84d103fa71b1c2f127911aa6fc88553ff8981fcc73e13a"
+    },
+    {
+      "case": "completion_before_nonzero_exit",
+      "returnCode": 1,
+      "successReceiptPresent": false,
+      "expectedSuccess": false,
+      "diagnosticTail": [
+        "Rebuilding from 3 source/proof files in /workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/wrapper-probes/independent-2uzphy9_/completion_before_nonzero_exit/output",
+        "",
+        "Construction or audit failed; complete log: /workspace/scratch/d64cf807c3ea/eighth-work/arithmetic/wrapper-probes/independent-2uzphy9_/completion_before_nonzero_exit/output/construction.log"
+      ],
+      "commandLogSha256": "40271832d79a5a01672387835dfcb9cf317d13953dcf105c0da78ab0dae573e3"
+    }
+  ],
+  "allExpectationsMatched": false,
+  "scope": "Independent mock tests of structured completion, unchanged fresh seeds, and process-failure precedence. No mathematical construction is executed."
+}

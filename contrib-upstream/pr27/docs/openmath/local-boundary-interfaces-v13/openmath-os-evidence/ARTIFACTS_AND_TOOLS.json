@@ -1,0 +1,126 @@
+{
+  "checker_names": {
+    "nanoda": "Executable path is `nanoda_bin` in this installed toolchain."
+  },
+  "compiled_artifact_hashes": [
+    {
+      "path": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/build/lib/lean/Packet.ilean",
+      "sha256": "b6107370625cb27a833f9e63facea9c6a132d1dc704fec87c5f942d548d24631",
+      "bytes": 348
+    },
+    {
+      "path": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/build/lib/lean/Packet.olean",
+      "sha256": "7431eabd97d01839342fcb69e32f8dfdb78a3bf85032bbc917871be3d2bb0948",
+      "bytes": 1792
+    },
+    {
+      "path": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/build/lib/lean/Packet.trace",
+      "sha256": "5f80e69966424b7c9e979a568cb1f4cef7293328878504ddb14ab613d90673f2",
+      "bytes": 4628
+    },
+    {
+      "path": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/build/lib/lean/Research/DerivativeSwitch/ActualBoundaryCup.ilean",
+      "sha256": "1983f2a0aeffb11f507d2b482b203cbc32a01987ec36de2abab9226ca40141be",
+      "bytes": 12619
+    },
+    {
+      "path": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/build/lib/lean/Research/DerivativeSwitch/ActualBoundaryCup.olean",
+      "sha256": "230801820f36240302b85cd0d1505134a74121eb985040f37874cccc9df82e52",
+      "bytes": 1175472
+    },
+    {
+      "path": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/build/lib/lean/Research/DerivativeSwitch/ActualBoundaryCup.trace",
+      "sha256": "5db501e857c541659dc1b42cf8b1720c69731b86e4d4102b5e6bae922be69e7d",
+      "bytes": 4238
+    },
+    {
+      "path": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/build/lib/lean/Research/DerivativeSwitch/ConjugateLocalH1.ilean",
+      "sha256": "34081c80bc9dfe65dd365713a4814ee7e8ef5f52894ca66cb16cb3c8bad07936",
+      "bytes": 29192
+    },
+    {
+      "path": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/build/lib/lean/Research/DerivativeSwitch/ConjugateLocalH1.olean",
+      "sha256": "80dc8b8f98c8d0292428f2a4f0c1912c4419c743fe52b8870bc5414df6904c31",
+      "bytes": 457408
+    },
+    {
+      "path": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/build/lib/lean/Research/DerivativeSwitch/ConjugateLocalH1.trace",
+      "sha256": "1e58412de92d484db0bdce259f3b2f94753a4c1a4e2805837dd12f4f5b884229",
+      "bytes": 4701
+    },
+    {
+      "path": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/build/lib/lean/Research/DerivativeSwitch/ConjugateLocalTransport.ilean",
+      "sha256": "61bc709b7ed8e249778ca51edf298ea11ff2366a6eeb21728cf0101d2f16a7b1",
+      "bytes": 43541
+    },
+    {
+      "path": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/build/lib/lean/Research/DerivativeSwitch/ConjugateLocalTransport.olean",
+      "sha256": "0992e14229ee2ce4ababed506afe0f4c4a5acd70a1dfa888da86fd903d4320a7",
+      "bytes": 953576
+    },
+    {
+      "path": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/build/lib/lean/Research/DerivativeSwitch/ConjugateLocalTransport.trace",
+      "sha256": "e352deaf015f0178879c18809a309bae6632c755539c5b04cc5cb97ae692dd80",
+      "bytes": 4622
+    },
+    {
+      "path": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/build/lib/lean/Research/DerivativeSwitch/OrthogonalComparison.ilean",
+      "sha256": "0cea15cd17283bc30a382c9d1ec4af8bb039ffbbb1f73bce84d12ffe0b672ed0",
+      "bytes": 10040
+    },
+    {
+      "path": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/build/lib/lean/Research/DerivativeSwitch/OrthogonalComparison.olean",
+      "sha256": "0c9daed22feff63eea41b833a9d3feb5f5890ddb5d696220f973c2a3da9bca22",
+      "bytes": 256552
+    },
+    {
+      "path": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.checks/openmath-local-boundary/.lake/build/lib/lean/Research/DerivativeSwitch/OrthogonalComparison.trace",
+      "sha256": "a41140aedf60ea4fcd62cea5f3566583c2a05997aa05b6824de5b3ec93b5122a",
+      "bytes": 4394
+    },
+    {
+      "path": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/docs/openmath/local-boundary-interfaces-v13/openmath-os-evidence/packet.ndjson",
+      "sha256": "4dca1de2e2450011f8ec32eb8cd9c17b531c7fbedd813ce75b0221dfe30e42aa",
+      "bytes": 88408652
+    }
+  ],
+  "tool_versions": {
+    "lean": {
+      "path": "/opt/lean.4.35.0-56a005855ea1/bin/lean",
+      "sha256": "bf8d54e4714cc4b03d3f6bb34c83b7202b87e49c8bfcbff6895c085bb90ceb38"
+    },
+    "lake": {
+      "path": "/opt/lean.4.35.0-56a005855ea1/bin/lake",
+      "sha256": "8ba83c98f76562d03b8dbc33f1057151ba6cbb121679dde76b2260ccc90495e1"
+    },
+    "leanexport": {
+      "path": "/opt/lean.4.35.0-56a005855ea1/bin/leanexport",
+      "sha256": "f6a6483d518a11b323c28b9bac176d2220df0e9fc3230833815db9586669c074"
+    },
+    "leanchecker": {
+      "path": "/opt/lean.4.35.0-56a005855ea1/bin/leanchecker",
+      "sha256": "12c38901cdbfab178f1bf6145dd30012e9a3b2c11ca695292a5884fa3cbaddb6"
+    },
+    "leanchecker-paranoid": {
+      "path": "/opt/lean.4.35.0-56a005855ea1/bin/leanchecker-paranoid",
+      "sha256": "ca74d1e9a856149ed05acb600d8931a574dd9f465745beeaf93e3de7b7cbe274"
+    },
+    "lean4lean": {
+      "path": "/opt/lean.4.35.0-56a005855ea1/bin/lean4lean",
+      "sha256": "baaec030a70c78562ced2c75866ab0d2410e81ce680b835179ed16570ad5ef97"
+    },
+    "nanoda_bin": {
+      "path": "/opt/lean.4.35.0-56a005855ea1/bin/nanoda_bin",
+      "sha256": "cbf13950fc4a48f635a0beceeb5ed32dd82568b870cfd081b6391c1f2cf02ba5"
+    },
+    "con-leche": {
+      "path": "/opt/lean.4.35.0-56a005855ea1/bin/con-leche",
+      "sha256": "23a32522ea2c79f4ec8b48916272b37a423bda171e57cd83cfcf142eec50e621"
+    },
+    "con-ron": {
+      "path": "/opt/lean.4.35.0-56a005855ea1/bin/con-ron",
+      "sha256": "60f4ca9fb9436c323789fa49aae33af6dcd1b9b54b43a66b461779ce79fd8eec"
+    }
+  },
+  "paranoid_exit_code": 0
+}

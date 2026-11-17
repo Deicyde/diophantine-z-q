@@ -1,0 +1,337 @@
+{
+  "status": "PASS",
+  "profile": "development",
+  "lean": "Lean (version 4.35.0, arm64-apple-darwin24.6.0, commit eb6cafb7290e8bd5f2937522d8d804f58f02bafc, Release)",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "python": "3.13.12",
+  "executable_sha256": {
+    "lean": "d1d9c26a539f54fe839d2aa7760bf1ac1dd76a30b26e2c9684bebf2900038fcf",
+    "lake": "d2d63c80ca10bd2cc9557d11d59221b95c6eefb078c9652a11ef887ab8a068a5"
+  },
+  "modules_freshly_compiled": [
+    "Research.DerivativeSwitch.ConjugateLocalTransport",
+    "Research.DerivativeSwitch.ConjugateLocalH1",
+    "Research.DerivativeSwitch.ActualBoundaryCup",
+    "Research.DerivativeSwitch.OrthogonalComparison"
+  ],
+  "proof_roots": [
+    "Research.DerivativeSwitch.ConjugateLocalTransport.crossed_conjugation",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.crossed_pow_of_trivial",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.tate_transporter",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.twist_transporter",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.twist_transporter_inv",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.tate_finite",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.twist_finite",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.twist_inertia",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.rawConjugate_isCrossed",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.conjugation_finite",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.conjugation_inertia",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.rawConjugate_finite",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.rawConjugate_inertia",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.coordinates_rawConjugate",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.coordinates_rawConjugate_of_neg_one",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.twist_conjugation_finite",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.twist_conjugation_inertia",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.coordinates_add_coboundary",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.conjugate_coordinates_add_coboundary",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.h1_projection_surjective",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.cocycleEvaluation_kills_kernel",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.h1Evaluation_projection",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.cocyclePullback_kills_kernel",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.h1Pullback_projection",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.h1Coordinates_projection",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.conjugateH1Coordinates_projection",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.h1_local_transport",
+    "Research.DerivativeSwitch.ActualBoundaryCup.closed_cup_differential",
+    "Research.DerivativeSwitch.ActualBoundaryCup.pure_boundary_correction",
+    "Research.DerivativeSwitch.ActualBoundaryCup.traced_pure_boundary",
+    "Research.DerivativeSwitch.ActualBoundaryCup.traced_left_boundary",
+    "Research.DerivativeSwitch.ActualBoundaryCup.traced_right_boundary",
+    "Research.DerivativeSwitch.ActualBoundaryCup.traced_change_left",
+    "Research.DerivativeSwitch.ActualBoundaryCup.traced_change_right",
+    "Research.DerivativeSwitch.OrthogonalComparison.fibreComparison_commutes",
+    "Research.DerivativeSwitch.OrthogonalComparison.fibreComparison_global",
+    "Research.DerivativeSwitch.OrthogonalComparison.fibreComparison_sign_change",
+    "Research.DerivativeSwitch.OrthogonalComparison.inverse_preserves_global_homotopy",
+    "Research.DerivativeSwitch.OrthogonalComparison.inverse_preserves_global_homology",
+    "Research.DerivativeSwitch.OrthogonalComparison.inverse_preserves_local_homotopy",
+    "Research.DerivativeSwitch.OrthogonalComparison.inverse_preserves_local_homology"
+  ],
+  "theorem_axioms": {
+    "Research.DerivativeSwitch.ConjugateLocalTransport.crossed_conjugation": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.ConjugateLocalTransport.crossed_pow_of_trivial": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.tate_transporter": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.twist_transporter": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.twist_transporter_inv": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.tate_finite": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.twist_finite": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.twist_inertia": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.rawConjugate_isCrossed": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.conjugation_finite": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.conjugation_inertia": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.rawConjugate_finite": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.rawConjugate_inertia": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.coordinates_rawConjugate": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.coordinates_rawConjugate_of_neg_one": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.twist_conjugation_finite": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.twist_conjugation_inertia": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.coordinates_add_coboundary": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.conjugate_coordinates_add_coboundary": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.ConjugateLocalTransport.h1_projection_surjective": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.ConjugateLocalTransport.cocycleEvaluation_kills_kernel": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.ConjugateLocalTransport.h1Evaluation_projection": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.ConjugateLocalTransport.cocyclePullback_kills_kernel": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.ConjugateLocalTransport.h1Pullback_projection": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.h1Coordinates_projection": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.conjugateH1Coordinates_projection": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.h1_local_transport": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.ActualBoundaryCup.closed_cup_differential": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.ActualBoundaryCup.pure_boundary_correction": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.ActualBoundaryCup.traced_pure_boundary": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.ActualBoundaryCup.traced_left_boundary": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.ActualBoundaryCup.traced_right_boundary": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.ActualBoundaryCup.traced_change_left": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.ActualBoundaryCup.traced_change_right": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.OrthogonalComparison.fibreComparison_commutes": [
+      "propext"
+    ],
+    "Research.DerivativeSwitch.OrthogonalComparison.fibreComparison_global": [],
+    "Research.DerivativeSwitch.OrthogonalComparison.fibreComparison_sign_change": [
+      "propext"
+    ],
+    "Research.DerivativeSwitch.OrthogonalComparison.inverse_preserves_global_homotopy": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.OrthogonalComparison.inverse_preserves_global_homology": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.OrthogonalComparison.inverse_preserves_local_homotopy": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.OrthogonalComparison.inverse_preserves_local_homology": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "permitted_axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "dependencies": [
+    {
+      "name": "mathlib",
+      "revision": "56a005855ea17e0b0958f73ec801ae140b0a1679",
+      "tracked_source_clean": true,
+      "cache_present": true
+    },
+    {
+      "name": "plausible",
+      "revision": "dfa4f38190d07c37e315953e08b90fe2d95b3c24",
+      "tracked_source_clean": true,
+      "cache_present": true
+    },
+    {
+      "name": "LeanSearchClient",
+      "revision": "d6b4c7be5be75ec4917c873ac50c756dc1436372",
+      "tracked_source_clean": true,
+      "cache_present": true
+    },
+    {
+      "name": "importGraph",
+      "revision": "a41f0e9a4dea23188ea9cc1c41ac9f8bbafe0b93",
+      "tracked_source_clean": true,
+      "cache_present": true
+    },
+    {
+      "name": "proofwidgets",
+      "revision": "df72b022e558978a1c50264cfc4d7fec86fa8e04",
+      "tracked_source_clean": true,
+      "cache_present": true
+    },
+    {
+      "name": "aesop",
+      "revision": "4a174c490d8707121c4a9290800489f105d85e07",
+      "tracked_source_clean": true,
+      "cache_present": true
+    },
+    {
+      "name": "Qq",
+      "revision": "dce0ad79c486cb1fb504af04f953c3466b0c6db8",
+      "tracked_source_clean": true,
+      "cache_present": true
+    },
+    {
+      "name": "batteries",
+      "revision": "66e469188fe07963e5cf666c7d4433f45b8131c5",
+      "tracked_source_clean": true,
+      "cache_present": true
+    },
+    {
+      "name": "Cli",
+      "revision": "c24fe6078c630e89b489bffe59b3e20ac30d12c8",
+      "tracked_source_clean": true,
+      "cache_present": false
+    }
+  ],
+  "dependency_cache_trust": "Existing pinned dependency caches and Lean standard library imported; not source-rebuilt or independently replayed. Clean tracked package sources do not authenticate cached binaries.",
+  "lean_path": ".checks/lbi-publication-20261110/lib:.lake/packages/mathlib/.lake/build/lib/lean:.lake/packages/plausible/.lake/build/lib/lean:.lake/packages/LeanSearchClient/.lake/build/lib/lean:.lake/packages/importGraph/.lake/build/lib/lean:.lake/packages/proofwidgets/.lake/build/lib/lean:.lake/packages/aesop/.lake/build/lib/lean:.lake/packages/Qq/.lake/build/lib/lean:.lake/packages/batteries/.lake/build/lib/lean",
+  "lean_src_path": "UNSET",
+  "input_hashes_before": {
+    "lean/Research/DerivativeSwitch/ConjugateLocalTransport.lean": "8688eef27fcc89c02eb3ab270e5359534dc23ef16e11678bdb1dd3587e3f8b86",
+    "lean/Research/DerivativeSwitch/ConjugateLocalH1.lean": "078ac50ae0c90c8e609a57c51c5884a25646ad7305531f1cf531617485b9078f",
+    "lean/Research/DerivativeSwitch/ActualBoundaryCup.lean": "77bcdd2ae5283ffd6cc51062e452da4294fcd5b3d952940b588b2d5b52ecdd90",
+    "lean/Research/DerivativeSwitch/OrthogonalComparison.lean": "bfec996b869e44c6a42fc058fbc24cc7288b1f61d0f0e7eef1f4f58f41dca1ba",
+    "lean/lean-toolchain": "ca5f1f601d34c49079e38d7e7041eb0f2a9c227fbc1df0f404820069a052330c",
+    "lean/lakefile.toml": "632fda3c75f7616378b9dadd0906d9518c7b4a1199c59d7b36369121acfb3b26",
+    "lean/lake-manifest.json": "a770787f33b5824f61a0731d59e67fca3f44a531b21d1fc1a804064c6fb54e58",
+    "research/local-boundary-interfaces/ORIGIN.json": "06dc5c0e20a76051e51a241aef299cf97c6fd5fcb5d7b3a8f2b721c903795f53",
+    "research/local-boundary-interfaces/TARGETS.json": "b5e5bd8f58ced1f62e3e0b282f0b61d5d992f846c95446f2b5af749bdc6361da",
+    "research/local-boundary-interfaces/README.md": "02b0b1e74230d0ec21e02079877a7716729e6b8d66d6b62074604b8cdc3d0023",
+    "research/local-boundary-interfaces/APPLICATION.md": "39bcbe3573d567348047ea0dd88e7308100ed993320a03e949b2e5e556c45ce3",
+    "research/local-boundary-interfaces/verify_native.py": "98fdeef1944b8cdeb72c1d5b071a4208e78cba7e7032901f715917cb52240976"
+  },
+  "input_hashes_after": {
+    "lean/Research/DerivativeSwitch/ConjugateLocalTransport.lean": "8688eef27fcc89c02eb3ab270e5359534dc23ef16e11678bdb1dd3587e3f8b86",
+    "lean/Research/DerivativeSwitch/ConjugateLocalH1.lean": "078ac50ae0c90c8e609a57c51c5884a25646ad7305531f1cf531617485b9078f",
+    "lean/Research/DerivativeSwitch/ActualBoundaryCup.lean": "77bcdd2ae5283ffd6cc51062e452da4294fcd5b3d952940b588b2d5b52ecdd90",
+    "lean/Research/DerivativeSwitch/OrthogonalComparison.lean": "bfec996b869e44c6a42fc058fbc24cc7288b1f61d0f0e7eef1f4f58f41dca1ba",
+    "lean/lean-toolchain": "ca5f1f601d34c49079e38d7e7041eb0f2a9c227fbc1df0f404820069a052330c",
+    "lean/lakefile.toml": "632fda3c75f7616378b9dadd0906d9518c7b4a1199c59d7b36369121acfb3b26",
+    "lean/lake-manifest.json": "a770787f33b5824f61a0731d59e67fca3f44a531b21d1fc1a804064c6fb54e58",
+    "research/local-boundary-interfaces/ORIGIN.json": "06dc5c0e20a76051e51a241aef299cf97c6fd5fcb5d7b3a8f2b721c903795f53",
+    "research/local-boundary-interfaces/TARGETS.json": "b5e5bd8f58ced1f62e3e0b282f0b61d5d992f846c95446f2b5af749bdc6361da",
+    "research/local-boundary-interfaces/README.md": "02b0b1e74230d0ec21e02079877a7716729e6b8d66d6b62074604b8cdc3d0023",
+    "research/local-boundary-interfaces/APPLICATION.md": "39bcbe3573d567348047ea0dd88e7308100ed993320a03e949b2e5e556c45ce3",
+    "research/local-boundary-interfaces/verify_native.py": "98fdeef1944b8cdeb72c1d5b071a4208e78cba7e7032901f715917cb52240976"
+  },
+  "artifact_hashes": {
+    "Research/DerivativeSwitch/ActualBoundaryCup.olean": "298f27c4d331fdfc1349fab1b88bb1c454cbb7d2b6e5d95793fa9b322434766a",
+    "Research/DerivativeSwitch/ConjugateLocalH1.olean": "7663a450e5425be740b5296acad430cb1c26c54dc23e0bbe71c5a5e9ddd043c9",
+    "Research/DerivativeSwitch/ConjugateLocalTransport.olean": "bc4c8a6ee97ac2800b85a98bc316afc9a91a05f49c4fd68106fa52f0741a1c2c",
+    "Research/DerivativeSwitch/OrthogonalComparison.olean": "4f7915cf71f69401c5eb55681cd725deb087447ca54a861a639753e6727d758e"
+  },
+  "protected_comparison": "NOT_RUN",
+  "export_replay": "NOT_RUN",
+  "external_checkers": "NOT_RUN",
+  "paranoid": "NOT_RUN",
+  "arithmetic_galois_selmer_instance": "NOT_FORMALIZED_BY_THIS_PACKET"
+}

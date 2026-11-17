@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "commands": [
+    "python -B research/scalar-ratio/tests/check_milestone.py",
+    "python -B -O research/scalar-ratio/tests/check_milestone.py"
+  ],
+  "exit_codes": [
+    0,
+    0
+  ],
+  "outputs_byte_identical": true,
+  "received_outputs_byte_identical": true,
+  "matrix_utilities_identical_previous_packet": true,
+  "checker_independence": "reused supplied implementation, not independent",
+  "normal_sha256": "e2d141099503d845ec240d1c85d7323a8d909c06b2a5540457acec92c48426e6",
+  "script_sha256": {
+    "research/scalar-ratio/tests/check_milestone.py": "7bf9326d4ba799a561fdeefcdb1d9dd5b887511fa61ed56b12c9ebd9369de59a",
+    "research/scalar-ratio/tests/exact_matrix.py": "fac50661ebbd4e57e93db2dbf8bb01ba10c6fd3cd93eb5cedfd8ee8a476f87a1"
+  },
+  "lean_compilation_field": "Historical scope of supplied finite checker; see separate native result for current compilation"
+}

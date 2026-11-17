@@ -1,0 +1,42 @@
+{
+  "result": "PASS",
+  "scope": "Independent PR #2 four-source, 41-root/16-definition semantic and six-checker evidence; no whole-manuscript acceptance.",
+  "review_head": "3e01aa877cd7434fdc759fe7b6a9271de6deff2e",
+  "fork_merge_commit": "b6223977015d6f25baf613d0c88a5c83050f9c84",
+  "pr_base": "9c0b3aba60d90fdcac82115f0582a6f52f1054f7",
+  "declaration_counts": [
+    "lean4lean checked 13713 declarations",
+    "con-leche accepted 13716 declarations",
+    "con-ron accepted 13716 declarations"
+  ],
+  "per_checker": {
+    "Lean_default": "accepted",
+    "Lean_paranoid": "accepted",
+    "lean4lean": "accepted",
+    "nanoda": "accepted",
+    "con-leche": "accepted",
+    "con-ron": "accepted"
+  },
+  "export_sha256": "4dca1de2e2450011f8ec32eb8cd9c17b531c7fbedd813ce75b0221dfe30e42aa",
+  "export_bytes": 88408652,
+  "proof_roots": 41,
+  "per_root_axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "dependency_revisions_verified": 9,
+  "core_manifest_verified_entries": 62,
+  "generated_manifest_sha256": "5a828f5d4608b801f7016b7c387fae3ab78274f237c8077771b38d7bbadd20a0",
+  "compiled_core_oleans_retained": 4,
+  "generated_artifact_records": 16,
+  "executable_hashes_present": true,
+  "sandbox": "Lake check with sandbox enabled by default; no --inadvisably-no-sandbox was used.",
+  "checks_not_run": [
+    "Open Math cloud execution",
+    "independent hermetic dependency rebuild",
+    "external independent specialist review"
+  ],
+  "statement_and_application_review": "No local proof defect found within conditional-interface scope. The actual global boundary-cup/Poitou\u2013Tate instance, common-strict matrix/stored-row identification, integral determinant realization, inner/outer limits, restricted converse, and main Diophantine theorem remain outside the PR.",
+  "published_history_unchanged": true
+}

@@ -1,0 +1,275 @@
+{
+  "date": "2026-11-10",
+  "reviewer": "Codex model agent /root/normalization_claim_review",
+  "scope": "Fresh nonauthor review of four exact source modules, final README/APPLICATION, printed statements, native runner and evidence, and independently reproduced finite controls; no arithmetic acceptance or external kernel replay",
+  "candidate_base": "9c0b3aba60d90fdcac82115f0582a6f52f1054f7",
+  "source_extraction_commit": "33483f751e6dcd3f91fb303969838aca33ad0458",
+  "extraction_bytes_checked_against_git": true,
+  "report": {
+    "path": "research/local-boundary-interfaces/reviews/PROOF_REVIEW.md",
+    "sha256": "17e3e4900095225c429c21d99a57a683a4360705a6b56cd5562e53c82c4b1ae3"
+  },
+  "inputs": [
+    {
+      "path": "lean/Research/DerivativeSwitch/ConjugateLocalTransport.lean",
+      "sha256": "8688eef27fcc89c02eb3ab270e5359534dc23ef16e11678bdb1dd3587e3f8b86"
+    },
+    {
+      "path": "lean/Research/DerivativeSwitch/ConjugateLocalH1.lean",
+      "sha256": "078ac50ae0c90c8e609a57c51c5884a25646ad7305531f1cf531617485b9078f"
+    },
+    {
+      "path": "lean/Research/DerivativeSwitch/ActualBoundaryCup.lean",
+      "sha256": "77bcdd2ae5283ffd6cc51062e452da4294fcd5b3d952940b588b2d5b52ecdd90"
+    },
+    {
+      "path": "lean/Research/DerivativeSwitch/OrthogonalComparison.lean",
+      "sha256": "bfec996b869e44c6a42fc058fbc24cc7288b1f61d0f0e7eef1f4f58f41dca1ba"
+    },
+    {
+      "path": "research/local-boundary-interfaces/TARGETS.json",
+      "sha256": "b5e5bd8f58ced1f62e3e0b282f0b61d5d992f846c95446f2b5af749bdc6361da"
+    },
+    {
+      "path": "research/local-boundary-interfaces/ORIGIN.json",
+      "sha256": "06dc5c0e20a76051e51a241aef299cf97c6fd5fcb5d7b3a8f2b721c903795f53"
+    },
+    {
+      "path": "lean/lean-toolchain",
+      "sha256": "ca5f1f601d34c49079e38d7e7041eb0f2a9c227fbc1df0f404820069a052330c"
+    },
+    {
+      "path": "lean/lake-manifest.json",
+      "sha256": "a770787f33b5824f61a0731d59e67fca3f44a531b21d1fc1a804064c6fb54e58"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "8962f442f897f69d6f001a589eeae22881bda75b77f1b77e7f30f3b7d50e0bfb"
+    },
+    {
+      "path": "docs/audit-history/PROTOCOL.md",
+      "sha256": "c0b9834a75e64bfd66183b06d1e26019f957a38468ce41b10ce290f8c5c44816"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "sha256": "6e03f59a04aed487fe53b7300e4e7dbbaeeda092ec27e314309bc0f02048adbf"
+    },
+    {
+      "path": "lean/lakefile.toml",
+      "sha256": "632fda3c75f7616378b9dadd0906d9518c7b4a1199c59d7b36369121acfb3b26"
+    },
+    {
+      "path": "docs/research-review/PROTOCOL.md",
+      "sha256": "b5365b3d9cd9a782bf7fd0b6020403d5d400eac13dc7e60875484a8769d3d925"
+    },
+    {
+      "path": "research/local-boundary-interfaces/README.md",
+      "sha256": "02b0b1e74230d0ec21e02079877a7716729e6b8d66d6b62074604b8cdc3d0023"
+    },
+    {
+      "path": "research/local-boundary-interfaces/APPLICATION.md",
+      "sha256": "39bcbe3573d567348047ea0dd88e7308100ed993320a03e949b2e5e556c45ce3"
+    },
+    {
+      "path": "research/local-boundary-interfaces/verify_native.py",
+      "sha256": "98fdeef1944b8cdeb72c1d5b071a4208e78cba7e7032901f715917cb52240976"
+    },
+    {
+      "path": "research/local-boundary-interfaces/check_controls.py",
+      "sha256": "9e6dc833f23c7008eac55363689e56d1f128599c5c9bbd3fa226916b3ca91c7c"
+    },
+    {
+      "path": "research/local-boundary-interfaces/CHECK_DESIGN.md",
+      "sha256": "bff116b1b765d249b754b4f3dd657a538172f4027cfb0c45193124869c93ddd4"
+    },
+    {
+      "path": "research/local-boundary-interfaces/CONTROLS_PROVENANCE.json",
+      "sha256": "2e8b2cd225cf340a90272be6d4178c9d274a63fd130e9a89bdbfe064b47b0a77"
+    },
+    {
+      "path": "research/local-boundary-interfaces/VERIFICATION.md",
+      "sha256": "c43f1d0ab810de110edb3bf8926bd825be53cd471ac9ed2a9a9718a2ef6158bb"
+    },
+    {
+      "path": "research/local-boundary-interfaces/FINDINGS.md",
+      "sha256": "e127f31533afd9398a55ae76baf3d947f55db04ddcf0aa2fcd433df4e85fa283"
+    },
+    {
+      "path": "research/local-boundary-interfaces/PR_DESCRIPTION.md",
+      "sha256": "99448c412258fe58742ff5da168f4a9de89ca706955171c3a42d9a976b6193cc"
+    }
+  ],
+  "mathlib_primary_sources": [
+    {
+      "path": "Mathlib/RepresentationTheory/Homological/GroupCohomology/LowDegree.lean",
+      "sha256": "4d9db7af5a24f317e22537418481858f178d1cb58bce4a25f64699a36b31c8e4"
+    },
+    {
+      "path": "Mathlib/Algebra/Homology/Homotopy.lean",
+      "sha256": "d14897fc5e2a101ee2205957e1172aba81bf986349be2e12e013a3b7e77d1923"
+    },
+    {
+      "path": "Mathlib/LinearAlgebra/Isomorphisms.lean",
+      "sha256": "fa74ae549f0a2e0fe1f7d98aa94950490c7a7a086ab4c50134cf6db1713c54fe"
+    }
+  ],
+  "submission_scope": {
+    "archive": "zq_pr_scope_and_math_bank_2026-11-09.zip",
+    "archive_sha256": "9033bfd7465083caeae72f6f3e857d51ff51c5be76c239e801514fdf5f897e79",
+    "member": "zq_pr_scope_and_math_bank_2026-11-09/submission/PR_SCOPE.md",
+    "sha256": "b8bcac178ea03e8e44c770b56c7a902e2295948f969265861e2214740184c14e",
+    "availability": "User-supplied scope archive retained outside this bounded submission; hash identifies scope, not a build dependency."
+  },
+  "proof_root_count": 41,
+  "limitations": [
+    "Shared model, source and native toolchain dependencies; no external human acceptance",
+    "Native run inspected, not repeated by this reviewer; no paranoid, independent checker or export replay",
+    "Dependency caches and Lean standard library are trusted imported binaries, not rebuilt/authenticated by clean source checks",
+    "Finite diagnostic controls are not actual Galois/Selmer instances or exhaustive arithmetic coverage",
+    "No global arithmetic normalization, determinant switch, characteristic-zero minus-one LocalData claim or main theorem acceptance",
+    "Current proposed PR prose reviewed; later clean-worktree reproduction, revised completion-status prose and hosted checks require their own final assembly record"
+  ],
+  "status": "PASS_WITHIN_CONDITIONAL_ALGEBRAIC_SCOPE",
+  "supporting_report": {
+    "path": "research/local-boundary-interfaces/reviews/CONTROLS_REVIEW.md",
+    "sha256": "978bb59bfd840985348d46a56b555e103a11c6b4aed8ffa71c85258caef78b8a"
+  },
+  "evidence": [
+    {
+      "path": "research/local-boundary-interfaces/evidence/native/ActualBoundaryCup.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "research/local-boundary-interfaces/evidence/native/ActualBoundaryCup.stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "research/local-boundary-interfaces/evidence/native/Audit.lean",
+      "sha256": "3e6290f5b39aacfe537d154513359abb397f2fd22866462aa17fd131b5b67fb3"
+    },
+    {
+      "path": "research/local-boundary-interfaces/evidence/native/ConjugateLocalH1.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "research/local-boundary-interfaces/evidence/native/ConjugateLocalH1.stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "research/local-boundary-interfaces/evidence/native/ConjugateLocalTransport.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "research/local-boundary-interfaces/evidence/native/ConjugateLocalTransport.stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "research/local-boundary-interfaces/evidence/native/OrthogonalComparison.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "research/local-boundary-interfaces/evidence/native/OrthogonalComparison.stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "research/local-boundary-interfaces/evidence/native/RESULT.json",
+      "sha256": "7776f4e9ad8420e6e52572cf49b3561bccf1a1d7786ea12e15c1dc4f83b5b079"
+    },
+    {
+      "path": "research/local-boundary-interfaces/evidence/native/axioms-and-statements.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "research/local-boundary-interfaces/evidence/native/axioms-and-statements.stdout.txt",
+      "sha256": "e1c9a23a52fd2e8cb10876d1ed2b6be177dfebe557c29cfe8611f6761c8d257e"
+    },
+    {
+      "path": "research/local-boundary-interfaces/evidence/native/commands.json",
+      "sha256": "e836cee8120db877f63be5450081012b924725d43533988119cc3dd863e0a76a"
+    },
+    {
+      "path": "research/local-boundary-interfaces/evidence/native/lake-version.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "research/local-boundary-interfaces/evidence/native/lake-version.stdout.txt",
+      "sha256": "165f92ed239a8c7db772bf5ee9d58c59357b489951582a12c86dc9d8e06b23a2"
+    },
+    {
+      "path": "research/local-boundary-interfaces/evidence/native/lean-version.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "research/local-boundary-interfaces/evidence/native/lean-version.stdout.txt",
+      "sha256": "469679dd8c6cec218a7a5e9a36c7a27decc968dacfe057ab3083f0ef43600dac"
+    },
+    {
+      "path": "research/local-boundary-interfaces/evidence/controls.json",
+      "sha256": "86d82016fd7c1d20899cec5587c2844856c2059243daca6fced5015803128dd3"
+    },
+    {
+      "path": "research/local-boundary-interfaces/evidence/controls.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "research/local-boundary-interfaces/evidence/controls-command.json",
+      "sha256": "65baa8875b8cb8cd8b606ae2280f3e8b12391de384d6c0ba80fccae40242869b"
+    },
+    {
+      "path": "research/local-boundary-interfaces/evidence/controls-optimized-command.json",
+      "sha256": "b907e94a31b7f99661782286d136909ced09f19ff6afd58cb63adc2bdf29916a"
+    },
+    {
+      "path": "research/local-boundary-interfaces/evidence/controls-optimized.stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "research/local-boundary-interfaces/evidence/controls-optimized.stderr.txt",
+      "sha256": "22243bcd0711a66dc682634d5f23e069696116faf84b742beb06d8475cc32b80"
+    },
+    {
+      "path": "research/local-boundary-interfaces/reviews/CONTROLS_REPRODUCTION.json",
+      "sha256": "0dd488f02c77958c3150f4323e599dfec30cff6d74703b016910a4c7a4973c98"
+    },
+    {
+      "path": "research/local-boundary-interfaces/reviews/CONTROLS_REPRODUCTION.stdout.json",
+      "sha256": "db165a30d082299aed4ad98cb97760f74321150a3a07d632dc8147bb34d2772c"
+    },
+    {
+      "path": "research/local-boundary-interfaces/reviews/CONTROLS_REPRODUCTION.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "research/local-boundary-interfaces/reviews/CONTROLS_OPTIMIZED.stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "research/local-boundary-interfaces/reviews/CONTROLS_OPTIMIZED.stderr.txt",
+      "sha256": "22243bcd0711a66dc682634d5f23e069696116faf84b742beb06d8475cc32b80"
+    }
+  ],
+  "native_receipt_checks": {
+    "proof_root_count": 41,
+    "definitions_read": 16,
+    "printed_output_lines_read": 993,
+    "commands_exit_zero": 7,
+    "selected_compile_and_audit_commands_with_kernel_check_enabled": 5,
+    "published_files_identical_to_local_completed_run": 17,
+    "current_input_hashes_match": true,
+    "four_fresh_artifact_hashes_match": true,
+    "transitive_axiom_list_matches_exact_selected_roots": true,
+    "all_native_stderr_empty": true,
+    "all_module_compile_stdout_empty": true,
+    "reviewer_rebuilt_lean": false
+  },
+  "control_reproduction": {
+    "status": "PASS",
+    "python_optimization_flag": 0,
+    "author_python": "3.12.3",
+    "reviewer_python": "3.13.12",
+    "all_json_fields_match_except_interpreter_version": true,
+    "optimized_refusal_exit_code": 1,
+    "reviewer_authored_script": false
+  },
+  "assembly_document_stage": "Pre-clean-reproduction versions inspected; later status changes require a separately bound supplement"
+}

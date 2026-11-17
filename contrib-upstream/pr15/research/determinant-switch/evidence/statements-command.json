@@ -1,0 +1,10 @@
+{
+  "command": [
+    "lean",
+    "-j1",
+    "-Ddebug.skipKernelTC=false",
+    "/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.checks/derivative-switch-verified-1/Statements.lean"
+  ],
+  "exit_code": 0,
+  "target_olean_sha256": "39e5ac5cab19dcdfa4a530342dab3725ffc9b90ed18536b10ee0a04900ad7a3e"
+}

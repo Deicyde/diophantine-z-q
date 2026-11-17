@@ -1,0 +1,83 @@
+ROUND-EIGHT DETECTOR SEARCH: SELECTED AND UNSELECTED PATHS
+
+Selected and measured
+
+Promote only the primary U_A inverse-root test from order 1 to order 12.
+The existing completeness witnesses already have U_A=[n]H in formal depth 45,
+while soundness needs only the previous weaker depth 1. This permits a uniform
+(12,12) product pair and reuse of the q12^2 coordinate already required for
+q45. Each of the three detectors deletes the old q1*q12 coordinate.
+The isolated actual compilation gives 389 coordinates, 357 rows and 26,295
+monomials; the extra-elimination pipeline found no additional elimination.
+The complete proof, source checker and gate checker are supplied separately.
+An independent scalar-lane review accepted the promotion with 157 assertions,
+including conservation of all 362 unaffected source equations.
+
+1. Promotions beyond the selected primary U_A
+
+All constructed primary multiples [n_i]H have depth 45, so further primary
+promotions are mathematically plausible on the completeness side. They do
+not automatically produce another saving. The selected promotion exploits a
+particular asymmetry: the existing input cross test already has order 12 and
+q12^2 is already materialized. Moving another primary test into that bucket
+changes the remaining product group sizes and generally requires another
+middle-weight power. Only rough grouped-product cost comparisons were made;
+no additional candidate was compiled and certified as a reduction. This is
+not an optimality claim over product circuits or order allocations.
+
+2. Lower high order 44
+
+The arithmetic lane's new exponent 577/32 and anchor 2364 permit the current
+coarse Lucas consumer at high order 44 as well as 45. That numerical possibility
+is not a gate reduction. The selected exact chain naturally has
+  q1^3*q45=(q12^2)^2.
+In the coordinates q_m=q1^m*E^(m-1), an analogous final expression for q44
+would divide q12^4 by q1^4*E, a monomial not already stored in the selected
+higher-weight chain. No complete cheaper chain, including the low order 12,
+q12-squared pair coefficient, product powers and required pole E, was found.
+The delivered order stays 45, and no high 44 source or count is claimed.
+
+Orders 37–43 fail the selected arithmetic lane's particular integer margin
+at the fixed anchor 2364. This does not prove those orders impossible with a
+different anchor or a sharper transfer estimate. A proposed gate gain would
+have to include that tradeoff and all local precision/completeness checks.
+
+3. Earlier restricted monomial searches
+
+The round-seven notes already record restricted exact A+B-C exponent-vector
+searches and their scope. Their negative results are not new exhaustive
+results for round 8 and are not a proof of global circuit optimality. Those
+searches must not be cited as excluding changes of normalization, alternate
+initial coordinates, nonmonomial identities or every possible schedule.
+No such broader negative claim is used in the selected package.
+
+4. Stronger contact-unit normalization
+
+The previous tempting replacement D by delta^2*D is still unselected. It can
+make a weight algebraically simpler but invalidates the old decay argument
+at real infinity: the pole-completeness construction needs the positive pole
+input eventually below 17. A compensating rational-square rescaling of that
+input would need a new complete domain, local-square, finite-prime and
+real-bound proof, together with an actual source-cost comparison. No such
+replacement was implemented or claimed this round.
+
+5. Pure syntactic deletion or witness identification
+
+Inlining an unstored weight square into a quadratic product can make a row
+cubic and its squared contribution sextic. Any such deletion must be measured
+in the actual lifted system, not counted from its surface notation. The
+selected reduction reuses an existing stored square and retains every
+protected input, anchor and scale coordinate.
+
+The identity U_A=[n]H belongs to the completeness construction. Imposing or
+assuming it on arbitrary soundness witnesses would change the problem and
+cannot justify deletion of a detector test. The selected proof instead
+applies the arbitrary-order one-place lemma to the unchanged full test list,
+then uses the stronger local conclusion only where the older consumer needs
+its weaker consequence. No test function or alternate-depth condition is
+dropped.
+
+The accepted reduction is local predicate transfer plus a checked existing-
+witness completeness construction. The broader geometric, modularity,
+height, group, quaternion, pole, prime-pattern and Lucas dependencies retain
+their stated conditional status.

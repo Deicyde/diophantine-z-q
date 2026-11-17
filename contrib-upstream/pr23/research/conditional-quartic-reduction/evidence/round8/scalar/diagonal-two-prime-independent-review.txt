@@ -1,0 +1,119 @@
+ROUND-EIGHT TWO-PRIME DIAGONAL CHANGE: INDEPENDENT REVIEW
+
+Disposition: ACCEPT as an exact transformation of the supplied finite system.
+
+Reviewed object
+---------------
+The integrated source declares S=3^2364 and contains 389 rational coordinates
+and 357 quadratic residuals after compilation. The new map changes thirteen
+existing coordinates, fixes the distinguished input, and introduces no new
+variable. The source, producer, proof, independent checker, generated files,
+positive report and negative-probe report are bound by the companion JSON.
+
+The proof reviewed here is diagonal_scaling_round8.tex, not the historical
+round-seven diagonal_scaling.tex. The independently authored checker imports
+neither the producer, builder, compiler, nor another checker. Its expected
+exponent and measured-count claims are supplied explicitly on its command line.
+
+Exact map and inverse
+---------------------
+Let c=3^394. Six stored coordinates have the old value c times their new
+value: the two h_S coefficients, the two stored x(S) coefficients, and the
+two f(S-P) coefficients. The stored real x(S) coefficient additionally has
+a factor 2. The two stored w=h_S*tau coefficients have factor c^2. The three
+translated anchor witnesses and the physical anchor have factor c^4. The
+stored heightProduct.scale0.quadratic coordinate has factor 2^-21. Every
+other coordinate, including X, is fixed. The listed union has thirteen
+coordinates: twelve with a ternary factor and two with a dyadic factor.
+
+Every factor is an explicit nonzero rational number. Dividing by these
+factors gives a rational inverse on the entire 389-dimensional space; there
+is no square-root existence condition. In particular it would be incorrect
+to reinterpret the new coordinates directly as the old point coordinates.
+Their semantic values are obtained by decoding the complete diagonal map.
+
+The square-scale detail has been checked against the actual raw value map,
+not inferred from a coordinate name. In this source heightProduct.0 is
+2*x236 and heightProduct.scale0 is 4*x238, while the row named
+heightProduct.scale0.definition is x238-x236^2=0. Thus the old semantic
+height scale A=C0^2 equals 4*x238. After x238=2^-21*y238 it is
+A=2^-19*y238, so y238=2^19*C0^2 need not be a rational square. The new proof
+states this correctly. Detector square-scale and parity arguments apply to
+decoded A=C0^2, which satisfies the original rows, and require no square
+claim about y238 itself. The same decoding principle recovers x(S)=h_S^2.
+
+Row normalization and existential projection
+--------------------------------------------
+For each old integer quadratic row, substitute the exact rational map and
+the fixed parameter. Let L be the positive least common denominator and g
+the signed integer content after multiplication by L. The divisor d=g/L
+is nonzero, and dividing the substituted row by d gives a primitive integer
+quadratic. Rowwise division by a nonzero rational preserves every equation.
+
+The independent checker reconstructs this normalization by a different
+algorithm: divide all coefficients by the leading rational coefficient p,
+take the common denominator M of these ratios, and use d=p/M. It checks
+primitive content and exact proportionality for all 357 rows. It confirms
+that exactly five divisors are noninteger, with denominators 2^21 in three
+rows, 2^42 in one row and 2^13 in one row. In particular an integer-content
+certificate without a denominator field would not suffice for this map.
+
+The new polynomial is exactly the sum of the squares of these 357 primitive
+rows. Rational squares are nonnegative in the usual ordering, so the sum
+vanishes exactly when every row vanishes. Together with the diagonal
+bijection fixing X, this proves equality of the old and new existential
+projections onto X. It does not assert that the old and new sums of squares
+are constant multiples of one another, nor is that assertion needed.
+
+Complete finite checks
+----------------------
+The checker re-expanded every normalized quadratic by unordered term pairs,
+including the doubled off-diagonal products. It compared all coefficients
+against both the produced JSON polynomial and the delivered decimal table.
+All 389 variables occur, the exact degree is four, the ordinary support has
+26,295 monomials, the integer content is one, and the coefficient of X^4
+is one. The table is 1,050,826 bytes and has SHA-256
+1c612d20915667dfd81a7895f8d93231d5efeaf86ecfaa15194408d298d35573.
+
+All 357 substituted source rows have c-exponent span at most two: 335 have
+span zero, 11 have span one and 11 have span two. The exact maximum after
+full expansion is 28902*c^4=28902*3^1576, with 757 decimal digits and
+2513 bits. This is an exact measured assertion at the selected parameter;
+no floating-point optimizer or unproved minimization claim enters its audit.
+
+As a distinct probe, the same change applied to the frozen 389-coordinate
+source at the previous exponent 2790 gives 28902*3^1860, or 892 digits and
+2963 bits. This corroborates the proof's separation between the small-prime
+balancing improvement and the further exponent reduction supplied by the
+arithmetic argument. Neither probe justifies the arithmetic argument itself.
+
+Six targeted negative probes all failed for the expected reason: an incorrect
+anchor exponent; an incorrect expected coordinate count; a changed dyadic
+weight; a changed fractional row divisor; a changed polynomial coefficient
+with its certificate hash rebound; and a changed decimal-table coefficient.
+The rebound-polynomial probe demonstrates an algebraic comparison beyond
+mere digest matching. These probes were run on isolated copies, not on the
+accepted integrated output.
+
+Integrated detector conservation
+-------------------------------
+The separately authored detector checker was also rerun on the integrated
+source with --expected-exponent 2364 and a regenerated round-seven baseline.
+Its 157 assertions passed. It compared all 362 unaffected symbolic equations
+by semantic coordinate name, bound the same primary-order promotion proof,
+and confirmed exactly the three deleted q1*q12 coordinates, raw 400/368 and
+compiled 389/357. The parameter change therefore does not hide an additional
+symbolic detector change. The prior independent formal-group/completeness
+review remains applicable to this same symbolic replacement.
+
+Scope and remaining dependencies
+--------------------------------
+No material defect was found in the new finite transformation or its proof.
+This review establishes the input-fixed diagonal bijection, nonzero row
+normalization, full SOS identity and exact coefficient/count assertions for
+the bound files. The original source-to-core compilation is checked by its
+own gate and compiler audits. The choice S=3^2364 is justified by the separate
+arithmetic proof and its review. The identification of the original source's
+projection with Z retains the global arithmetic qualifications in the package.
+This is internal AI-assisted review, not external peer review, a complete
+Lean certification, a minimality proof or a publication decision.

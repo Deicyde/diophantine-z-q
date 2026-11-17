@@ -1,0 +1,30 @@
+{
+  "summary": {
+    "coordinates": 379,
+    "residuals": 348,
+    "degree": 4,
+    "monomials": 26021,
+    "integerContent": 1,
+    "inputFourthPowerCoefficient": "1",
+    "maximumCoefficientDigits": 425,
+    "maximumCoefficientBits": 1410,
+    "scaledCoordinates": 35,
+    "ternaryScaledCoordinates": 34,
+    "dyadicScaledCoordinates": 9,
+    "anchorExponent": 2010,
+    "cExponent": null,
+    "tableSha256": "50167c7f2873a2022c5c1c7dbff735eec097e9c7f60c6624c7abb0ff34cd37ec",
+    "tableBytes": 1074014,
+    "certificateSha256": "7cfd907bf6b08a0bf30cef9e0b84f42c3892c2756fcfef51f3a258bef0cf5470"
+  },
+  "files": {
+    "raw-translated-ir.json": "40d54012e608282410c90e850637f71359c73321fc9762f64a7086347601fdc7",
+    "final/integer-candidate-ir.json": "dbe3c0f7fdf24efb61c7ac05ca9f553ebdec9d518970b2e657d49eda3eb59fc7",
+    "balanced/polynomial.json": "08a10683e1f9e8897cc6bbc5c293895287b93c6251ac62033044e12a330e7b38",
+    "balanced/integer-ir.json": "1ac6b6fc27b496f4375b61a59f62f6cbefd5e3da2853b092eaac74b30aba3a6e",
+    "balanced/diagonal-certificate.json": "7cfd907bf6b08a0bf30cef9e0b84f42c3892c2756fcfef51f3a258bef0cf5470",
+    "quartic-379-balanced-decimal.txt": "50167c7f2873a2022c5c1c7dbff735eec097e9c7f60c6624c7abb0ff34cd37ec",
+    "builder.cjs": "5520df38cfdebded9f4aadede97a77d20612aa3a9abfc057cd77eba6515c4290",
+    "baseline/raw-translated-ir.json": "f6ac117625f054cf6fec0863f1a3417b0f5305a9e477e901e098387a6a6fac40"
+  }
+}

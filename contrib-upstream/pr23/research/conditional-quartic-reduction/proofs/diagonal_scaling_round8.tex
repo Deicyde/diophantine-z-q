@@ -1,0 +1,143 @@
+\section{Two-prime coefficient balancing without new variables}
+
+The selected source has 389 rational coordinates, including the input
+$X$, and 357 quadratic residuals. Its fixed anchor is
+\[
+ S_0=3^{2364}=c^6,\qquad c=3^{394}.
+\]
+The preceding arithmetic argument supplies this parameter. The present
+change is an exact rational bijection on the already constructed system;
+its zero-set equivalence needs no further arithmetic input.
+
+\subsection{The explicit diagonal map}
+
+Write $x_i$ for an old compiled coordinate and $y_i$ for its replacement.
+Set
+\[
+ x_i=2^{b_i}3^{a_i}y_i.
+\]
+The input has $a_0=b_0=0$. All unlisted coordinates also have both
+exponents zero. The complete nontrivial map is as follows:
+\begin{center}
+\begin{tabular}{lrrr}
+\toprule
+Stored source coordinates & Number & $a_i/394$ & $b_i$\\\midrule
+The two coefficients of $h_S$ &2&1&0\\
+The stored real coefficient of $x(S)$ &1&1&1\\
+The stored $\rho$ coefficient of $x(S)$ &1&1&0\\
+The two coefficients of $f(S-P)$ &2&1&0\\
+The two coefficients of $w=h_S\tau$ &2&2&0\\
+Translated anchor witnesses $U,V,W$ &3&4&0\\
+Materialized physical anchor $\Theta$ &1&4&0\\
+Stored coordinate for the first nontrivial height scale &1&0&$-21$\\\bottomrule
+\end{tabular}
+\end{center}
+The last row denotes precisely the coordinate named
+\texttt{heightProduct.scale0.quadratic}. The additional dyadic factor
+in the second row targets precisely
+\texttt{S.chart.x.0.quadratic}. Names and source identifiers are bound in
+the certificate. Semantic height scales and point functions are recovered
+through the original value map after decoding these stored coordinates.
+In this source the semantic first height scale is
+$A=C_0^2=4x_s$, where $x_s$ is the stored coordinate in the last row.
+Thus after the change $A=2^{-19}y_s$, and $y_s=2^{19}C_0^2$
+need not itself be a rational square. Every detector square-scale and
+parity argument applies to the decoded $A=C_0^2$. The transformed
+equations retain precisely that value; no square property is imposed
+on the new coordinate $y_s$.
+
+There are thirteen changed coordinates: twelve with a ternary factor
+and two with a dyadic factor, with one overlap. Every factor is a fixed
+positive nonzero rational number, so the displayed map is a bijection
+on $\mathbb Q^{389}$ and fixes $X$. Its inverse divides each coordinate
+by the same factor. It introduces no new quantified variable or choice
+of a root.
+
+The transformed chart equations carry their corresponding powers of
+two and three. In particular the coordinates for $h_S$ and $x(S)$ have
+different semantic degrees but are scaled as displayed; decoding the
+whole transformed system recovers the original identity $x(S)=h_S^2$.
+
+\subsection{Rational row normalization and the zero projection}
+
+For an integer quadratic source residual $R_j(x,S_0)$, let
+\[
+ \widetilde R_j(y)=R_j((2^{b_i}3^{a_i}y_i)_i,3^{2364}).
+\]
+Its coefficients are rational because some $b_i$ are negative. Let
+$L_j>0$ be the least common multiple of their reduced denominators,
+and let $g_j\ne0$ be the signed integer content of $L_j\widetilde R_j$,
+with sign chosen to make the first coefficient in canonical monomial
+order positive. Put
+\[
+ d_j=g_j/L_j\in\mathbb Q^*,\qquad
+ Q_j=\widetilde R_j/d_j\in\mathbb Z[y_0,\ldots,y_{388}].
+\]
+Each $Q_j$ is primitive and has degree at most two. The selected quartic is
+\[
+ P_{389}(y)=\sum_{j=1}^{357}Q_j(y)^2.
+\]
+Every $d_j$ is nonzero. Consequently, over $\mathbb Q$,
+\[
+ P_{389}(y)=0
+ \ \Longleftrightarrow\ 
+ Q_j(y)=0\ \text{for all }j
+ \ \Longleftrightarrow\ 
+ R_j((2^{b_i}3^{a_i}y_i)_i,3^{2364})=0\ \text{for all }j.
+\]
+Together with the diagonal bijection, this proves equality of the
+existential projections to $X$. Rowwise rescaling preserves the common
+zero set; it need not make the new sum of squares one scalar multiple
+of the preceding sum of squares.
+
+The rational divisors matter. In the selected system five $d_j$ are
+nonintegers, with reduced denominators $2^{21}$ three times,
+$2^{42}$ once, and $2^{13}$ once. The certificate records every divisor's
+numerator and positive denominator. The checker reconstructs each
+substituted row and verifies the exact rational proportionality and
+primitive integer normalization, including these five cases.
+
+\subsection{Where the coefficient saving comes from}
+
+The ternary part is the preceding coefficient balancing: the affected
+rows have a span at most two in their powers of $c$, so their squares
+involve at most $c^4$. With only that map, the large coefficient of the
+stored height-scale coordinate in the physical anchor is
+$201326592c^2=3\cdot2^{26}c^2$. The extra factor $2^{-21}$ changes it
+to $96c^2$. Its squared contribution is then $9216c^4$.
+
+The extra factor two on the stored real coefficient of $x(S)$ balances
+the two shifted-point equations after primitive row normalization.
+The complete exact expansion, including contributions shared by
+different rows, gives
+\begin{equation}\label{r8:maximum-coefficient}
+ \boxed{\max|\operatorname{coeff}(P_{389})|
+      =28902c^4=28902\cdot3^{1576}.}
+\end{equation}
+This integer has 757 decimal digits and 2513 bits. The quartic has
+26,295 nonzero monomials, degree exactly four, content one, and
+coefficient one on $X^4$. All 389 coordinates occur. Every coefficient
+in the delivered text table is written as an ordinary decimal integer.
+
+For comparison on the preceding anchor alone, the same two dyadic
+factors lower its exact maximum from
+$1+40532396646334464\cdot3^{1860}$ to $28902\cdot3^{1860}$,
+reducing 905 digits to 892 without changing its coordinate count.
+The further decrease to 757 digits in
+\eqref{r8:maximum-coefficient} comes from the independently justified
+anchor exponent 2364.
+
+A linear optimization suggested the factors; its floating-point
+output is not a verification dependency or an optimality certificate.
+The delivered producer uses the displayed integer exponents and exact
+rational arithmetic. A separately authored checker imports no producer
+or compiler: it recovers row normalization by pivot ratios and common
+denominators, verifies every nonzero divisor, expands the sum of squares
+by unordered term pairs, and compares every coefficient in both the
+JSON polynomial and the decimal text table. The source gates and
+earlier compilation are covered by their separate exact checks.
+
+This establishes the finite transformation and coefficient assertions.
+The interpretation of the original source's projection as the integers
+retains the global arithmetic qualifications listed in the dependency
+inventory.

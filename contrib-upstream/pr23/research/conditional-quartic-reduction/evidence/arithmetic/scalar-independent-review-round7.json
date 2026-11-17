@@ -1,0 +1,55 @@
+{
+  "status": "ACCEPT_WITH_INHERITED_GLOBAL_QUALIFICATIONS",
+  "reviewer": "round-seven arithmetic lane, separate from the geometry proposer",
+  "subject": "Outer-constant scalar norm tree in the actual integrated source",
+  "bindings": {
+    "integratedBuilder": {
+      "path": "seventh-work/root/selected/construction/builder.cjs",
+      "sha256": "78b54bcde24ff8a91091e102a4734c49878699f071d9230e5ce7a70ffd2114d0"
+    },
+    "rawIr": {
+      "path": "seventh-work/root/selected/construction/raw-ir.json",
+      "sha256": "582c8bf2fcde54242bb23bf7aa33d3a7a9065f04b8edd885a13386b5b779b92c"
+    },
+    "reviewedProof": {
+      "path": "seventh-work/geometry/geometry_round7.tex",
+      "sha256": "0402ccf6c3e193c685d01e0ff6e46449001ac074a1bf4501419d6fb1fea88035"
+    },
+    "proposerChecker": {
+      "path": "seventh-work/geometry/check_geometry_round7.py",
+      "sha256": "9fe327499537b10914fb560e8073dfed75d5231c991de2ebf49a70e1631acd0d"
+    },
+    "independentChecker": {
+      "path": "seventh-work/arithmetic/check_scalar_independent_round7.py",
+      "sha256": "c8d5568301e063ef0f7938f8218f04d5b4215419976f3f919e3ce5bdd47ada0c"
+    },
+    "independentReport": {
+      "path": "seventh-work/arithmetic/scalar-independent-integrated-check.json",
+      "sha256": "f0f0361147e69fcde8855103b2e19a7ff7e18e373b5b15d83d9a5280084eed23"
+    },
+    "upstreamManuscript": {
+      "path": "diophantine-z-q/manuscripts/quartic_v10.tex",
+      "sha256": "9559b22cc581346da1b3150fa9b8dfb62cfb048f6aac0b866448ae7ae879ff38"
+    },
+    "actualAddition": {
+      "path": "diophantine-z-q/docs/quartic-523-540/addition.tex",
+      "sha256": "0c9444eac7cb889109cbf6e011667decd0aa7b2dfaf4169e4e01f4dbe4176d1e"
+    }
+  },
+  "independentFiniteChecks": {
+    "sourceAssertions": 70,
+    "abstractIdentities": 7,
+    "importsProposerOrCompiler": false
+  },
+  "uniformReview": [
+    "The actual beta is 11016X^2+11016X+5155 with 11016=2^3*3^4*17. At a consumed prime outside {2,3,5,7,13,17}, a pole of X gives v(beta)=2v(X) and v(r)=6v(X), which is even. Otherwise r is integral. Thus every consumed odd R is positive, before any pole-tree implication.",
+    "R>0 makes v(1)=0 greater than -R/2. Therefore the pole inequality v(W)>-R/2 implies v(N)=v(W-1)>-R/2 even when the final sum W=1+N cancels. No noncancellation is assumed at this final affine addition.",
+    "Each internal binary node has opposite summand valuation parity at odd R. Exact descent gives A>3R/8, B>23R/16, C>15R/16, D>29R/8 and T>217R/8. Zero leaves are allowed with infinite valuation.",
+    "The first four positive rational valuations force both H and Q formal at every place over p. The retained real proxy theorem, including its nonunit fixed-coordinate case at41, now applies. It gives v_p(T)=v_p((a-1)/h), hence v_p(a-1)>=28 because h is a nonzero integer. This does not claim v_p(T)>=28R.",
+    "The explicit preparation bounds A>=R+1, B,C>=2R+1, D>=4R+1, y>=12R+1 give n>=2R+2, L>=R+2, J>=8R+2 and N>=R+4. Thus W is a unit congruent1 at every p|r. At p|42 but p not dividing r, sufficiently divisible leaves again give W congruent1.",
+    "The proxy depth requirement is finite after H is fixed: y=T/r16, so requiring T>=28R+1 suffices. As Q approaches the identity, S approaches P, h_S remains bounded and tau tends to zero; all requested finite local depths are available in the inherited order of choices.",
+    "For integral input r is a positive integer. Preparation at p|42r removes any possible negative odd denominator valuation of42rW^2. Every other denominator valuation is even. Real positivity gives W>=1, so the unchanged normalized scalar pole map only divides by the nonzero W. Local squareclasses are unchanged because W is squared.",
+    "The shifted-point guard and tangent domain are retained. Every new algebraic quotient divides only by the already positive r. The physical anchor, input variable and detector semantic tests are unchanged by this scalar replacement."
+  ],
+  "scope": "Uniform local source-application review plus exact source equations; not a proof of the inherited rank, quaternion, global height, prime-selection, pole, or Lucas inputs."
+}

@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-08-boundary-scalar-intake/bundle/review/reviewed/check_local_model.py", line 123, in <module>
+    raise RuntimeError('Run without Python -O: validation assertions must be enabled')
+RuntimeError: Run without Python -O: validation assertions must be enabled

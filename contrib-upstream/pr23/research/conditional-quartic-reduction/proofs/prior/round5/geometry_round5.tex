@@ -1,0 +1,258 @@
+\section{A degree-twelve logarithm at the old coordinate cost}
+
+These changes start from the delivered 403-coordinate construction, whose
+builder has SHA256
+\texttt{ca171bf25610cb7da003ed58b4c4d43799a67fd4b5d6ca1b8fbac74a2dcc7e0e}.
+The field remains $K=\mathbb Q(\rho)$, $\rho^2=2$, and
+$D=(3-\rho)^2$. The inherited global arithmetic inputs remain conditional.
+
+Write
+\[
+ G_d(w)=\sum_{j=0}^d a_jw^j,\qquad
+ a_0=1,\quad a_1=-2/5,\quad
+ a_j=\frac{4j-5}{4j+1}a_{j-1}\quad(j\ge2).
+\]
+The old degree-nine circuit retains the three intermediate field
+coordinates $w^2,w^3$, and a middle polynomial before its final logarithm
+quotient. A different circuit handles degree twelve with the same number
+of coordinates. The pointwise field parameter $w=Df^2$ and its square
+$f^2$ are already used as before.
+
+\subsection{Complete a polynomial square}
+
+Choose
+\[
+ U(w)=w^6+u_5w^5+\cdots+u_1w,\qquad
+ R(w)=G_{12}(w)-a_{12}U(w)^2.
+\]
+Successively match coefficients of degrees $11,10,9,8,7$; each equation
+is linear in the next $u_j$, with nonzero coefficient $2a_{12}$.
+This determines rational $u_5,\ldots,u_1$ and gives $\deg R\le6$.
+The constant coefficient of $U$ is set to zero. Thus this is an exact
+polynomial identity over $\mathbb Q$, not an approximation or a choice
+of an algebraic square root.
+
+Introduce $w_2=w^2$ and $w_4=w_2^2$. Every polynomial of degree at most
+six has a quadratic expression in $1,w,w_2,w_4$, using the basis
+\[
+ 1,\quad w,\quad w_2,\quad ww_2,\quad w_4,
+ \quad ww_4,\quad w_2w_4.
+\]
+Materialize $U$ once by such a quadratic expression. Then
+$a_{12}U^2+R$ is also a quadratic expression in the materialized
+coordinates. It can be inserted into the old final field quotient.
+The final polynomial-output coordinate is eliminated by the same exact
+compiler step as before. The three retained intermediate field
+coordinates are now $w_2,w_4,U$. The fixed coefficient, if represented
+subsequently by a coordinate, does not enter these formulas.
+
+Consequently replacing the four long $G_9$ blocks by $G_{12}$ saves no
+core variables and adds none. The isolated full compilation remains
+403 coordinates and 371 residuals. The input-only $G_2$ block is retained.
+A proposed input upgrade to $G_4$ is not treated as free: the old $G_2$
+polynomial output is eliminated, whereas a completed-square $G_4$ needs
+another retained field coordinate.
+
+\subsection{Nonvanishing and the consumed local precision}
+
+For $j\ge1$ all $a_j$ are negative, and direct exact addition gives
+\[
+ G_{12}(1)=\frac{27378487}{130879175}>0.
+\]
+On every finite real reciprocal chart $0<Df^2<1$. Therefore
+$G_{12}(Df^2)\ge G_{12}(1)>0$ at both real embeddings. The old
+nonzero logarithm denominators and ratio domains are preserved.
+No point chart, sign choice, identity branch, or tangent branch changes
+in this logarithm replacement.
+
+The formal-series identity and coefficient bound from the pinned
+source, \texttt{manuscripts/quartic\_v10.tex}, lines 9220--9258, give
+\[
+ \log_E(Q)=z(Q)G_\infty(w),\qquad
+ v(w)=4r,\quad r=v(z(Q))\ge1,\qquad
+ v(a_j)\ge-\frac{4j+1}{p-1}.
+\]
+At every unramified consumed prime $p\ge11$, for $j\ge13$ one has
+\[
+ \frac{4j+1}{p-1}\le\frac{4j+1}{10}
+ \le(4j-44)r.
+\]
+Indeed $10(4j-44)-(4j+1)=36(j-13)+27\ge0$.
+Thus every omitted term has valuation at least $44r$, and the bounds
+tend to infinity. This proves the relative precision forty-four used
+by the selected construction, including the smaller admitted primes.
+It does not claim relative precision fifty-two at all those primes.
+For example, an omitted coefficient can lose a unit of valuation.
+
+The same formal estimate with first omitted index one gives
+$\log_E(Q)/z(Q)\in1+p^{4r}\mathcal O$: $a_1$ is integral for $p\ge11$,
+and for $j\ge2$ the inequality
+$(4j+1)/10\le4(j-1)r$ suffices. In particular $G_{12}$ has the same
+leading-unit and valuation behavior as the exact logarithm.
+The existing two-anchor comparison proof therefore uses the new
+truncation at order forty-four with no additional point depth or
+prime-pattern requirement. The input $G_2$/order-twelve consumer and
+the precise finite exceptional set are checked in the separate
+round-five arithmetic argument.
+
+\section{A scalar test using only a local approximation to the ratio}
+
+The scalar argument consumes a valuation, so computing the full exact
+field ratio is unnecessary. The following replacement saves one
+rational coordinate after the full compiler and preserves the actual
+scalar divisibility conclusion. It is a transfer of a local predicate,
+not a bijection between the old and new norm-tree witness spaces.
+
+Write the fixed point as $P=(x,hj)$ with
+\[
+ x=h^2,\qquad j^2=x^2-D,\qquad
+ h=-1+\frac74\rho.
+\]
+Retain the actual scalar root $S=(x_S,h_Sj_S)$, its curve equations,
+and the shifted point $Q=S-P$. The preceding fused subtraction chart
+uses
+\[
+ B=xx_S+D,\qquad
+ Bw=hh_Sj_S-x_Sj,\qquad x_Sf=w^2.
+\]
+Here $B$ is totally positive, $h_S\ne0$, and $w=h_S\tau$ with
+$f=\tau^2=f(Q)$. The deleted intermediate was
+\[
+ M=-\frac{x+Df}{w},\qquad k_Q=\frac{M-j}{h}.
+\]
+As before, $k_T=y(T)/x(T)=-1/z(T)$ for a nonidentity finite point.
+The shared point is $H=[h_0]P$, and $Q=[a-1]P$.
+
+\subsection{Restore exactly the deleted nonzero restriction}
+
+Deleting the $M$ equation would otherwise allow $w=f=0$, corresponding
+to $S=P$. This case must not be admitted. If
+$\tau=\tau_0+\tau_1\rho$, then
+\[
+ f_0=\tau_0^2+2\tau_1^2.
+\]
+Add the single rational equation $f_0v=1$. It forces $f\ne0$ and
+$w\ne0$, and conversely every old admissible point has $f_0>0$ and
+the unique extension $v=1/f_0$.
+
+One may now recover $M$ and $k_Q$ by the displayed rational formulas.
+The previous complete subtraction proof recovers exactly $Q=S-P$,
+including $S=-P$ and excluding $S=P$. No new ordinate branch occurs.
+Also $k_Q\ne0$: otherwise its reciprocal square chart would give
+$D\tau^4=1$, and hence $7\operatorname N(\tau)^2=1$, impossible
+over $\mathbb Q$. This is the same nonvanishing obstruction as before.
+The anchor, the two coefficients of $f(Q)$, and all their other
+consumers remain unchanged.
+
+\subsection{A uniform two-place trace argument, including the prime 41}
+
+Replace the exact scalar ratio $k_H/k_Q$ by the proxy
+\[
+ T=k_Hw,
+\]
+and test only its rational coefficient $T_0$ at the chosen scalar order.
+At an odd consumed prime the first four rational norm-tree leaves still
+put $H$ and $Q$ in the formal group at every place above $p$.
+No conclusion from the proxy is used to obtain this premise.
+The inherited logarithm homomorphism and local unit estimate give
+\[
+ \frac{k_H}{k_Q}=\frac{a-1}{h_0}\,u,
+ \qquad u\in1+p^4\mathcal O
+\]
+at every such place, with the same global field element $u$.
+
+Since $Q$ is formal, the point $S=P+Q$ reduces to the finite integral
+point $P$. Thus $h_S$ is integral. Also $\tau\in p\mathcal O$ and
+\[
+ l_Q=\tau k_Q,\qquad l_Q^2=1-Df^2,
+\]
+so $l_Q$ is an integral unit and $w\in p\mathcal O$.
+The exact recovered chart identity is
+\[
+ h(wk_Q+h)+Df+jw=0.                         \tag{*}
+\]
+If $h$ is a unit, this proves $wk_Q\equiv-h\pmod p$.
+If $h\in p\mathcal O$, then $x_S\equiv x=h^2\equiv0$, so
+$h_S\in p\mathcal O$ and
+$wk_Q=h_Sl_Q\equiv0\equiv-h\pmod p$.
+This second case is essential at the one place above 41 where $h$ is
+not a unit. All fixed coefficients $h,j,x$ are integral outside 2.
+
+Therefore $wk_Q$ is integral and congruent to $-h$ at every place,
+including both places in the split case. Multiplication by $u$ preserves
+this congruence. Writing
+\[
+ T=\frac{a-1}{h_0}\,U,\qquad U=u\,wk_Q,
+\]
+one obtains
+\[
+ U_0=\frac12\operatorname{Tr}_{K/\mathbb Q}(U)
+       \equiv-\frac12\operatorname{Tr}_{K/\mathbb Q}(h)
+       =1\pmod p.
+\]
+Unramifiedness and the two-place integrality assertion justify this
+rational trace congruence; $p$ is odd. Consequently
+\[
+ \boxed{\ v_p(T_0)=v_p((a-1)/h_0).\ }
+\]
+The scalar norm descent now yields $v_p(a-1)\ge m$ exactly as before.
+This works for every positive scalar order $m$, including the selected
+order twenty-eight. It introduces no extra exclusion of 41.
+Using $-T/h$ instead would have required a separate repair at 41;
+the unnormalized proxy deliberately avoids that problem.
+
+\subsection{Completeness and the implemented cost}
+
+At the selected good contact primes, the valuation equality transfers
+the old scalar lower bounds directly. At the remaining finite set, the
+old preparation permits arbitrary additional depth. The point $S$ tends
+to $P$ as $Q$ tends to the identity; $h_S$ remains bounded, while
+$w=h_S\tau$ tends to zero. Thus choosing $Q$ sufficiently deeper than
+$H$ makes $T_0/r^m$ satisfy any required finite lower bound. Only finitely
+many such bounds are altered. The constant left path of the norm tree
+is unchanged, so its unit and positivity arguments are preserved.
+
+At a real embedding, $l_Q^2=1-Df^2$ gives $|l_Q|\le1$ and hence
+\[
+ |T|=|k_H/k_Q|\,|h_Sl_Q|
+       \le |h_S|\,|k_H/k_Q|.
+\]
+The old bounded root chart and real continuity preparation therefore
+control the new test after changing finite constants. The inherited
+pole-realization and prime-pattern inputs are unchanged. The new
+inverse of $f_0$ exists for every old completeness witness.
+
+The actual implementation materializes the single rational quadratic
+\[
+ T_0=(k_H)_0w_0+2(k_H)_1w_1,
+\]
+and then its product with $r^{-m}$. This replaces the two rational
+coordinates of $M$ and the two of the full field ratio. The extra
+inverse of $f_0$ costs one rational coordinate. After accounting for
+the old compiler's elimination of the two preliminary scaled-ratio
+coordinates, the isolated final saving is one: 402 coordinates and
+370 residuals. Every new residual is quadratic.
+
+An initially attractive exact-ratio fusion was rejected by measurement.
+It removed $M$, but its cubic numerator forced two preliminary field
+components to remain materialized; with the necessary nonzero guard
+it compiled to 404, not fewer than 403. The accepted local proxy is
+different and has its own soundness and completeness proof above.
+
+\subsection{Finite verification boundary}
+
+The independent source checker reconstructs the point, ratio, and
+logarithm equations from the raw IR without importing the producer.
+It verifies the completed-square identity, its actual quadratic
+coordinate degree, the scalar proxy and inverse guard, and the previous
+orientation and exceptional cases. An additional exact split-prime
+example uses $Q=[26]P$, $H=[52]P$ at 41: $P$ has reduction orders
+13 and 2 at the two places. The proxy's rational unit has residue one,
+including the place where $h$ is nonunit. This example supplements,
+and does not replace, the uniform trace proof.
+
+The selected integrated source has 401 total coordinates after combining
+this one-coordinate scalar saving with the independently proved
+one-coordinate scale simplification. The separate arithmetic and detector
+proofs justify its order-forty-four tests, finite exceptional set, scalar
+order twenty-eight, and anchor exponent thirteen.

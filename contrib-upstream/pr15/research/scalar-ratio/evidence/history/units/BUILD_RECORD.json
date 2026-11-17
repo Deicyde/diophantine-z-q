@@ -1,0 +1,62 @@
+{
+  "author": {
+    "kind": "model",
+    "task": "/root/scalar_units_lean",
+    "role": "proof elaboration author, not independent reviewer"
+  },
+  "scope": "UnitCriterion and BoundaryCup native source compilation only",
+  "working_directory": "/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean",
+  "version": "Lean 4.35.0, pinned leanprover/lean4 v4.35.0",
+  "flags": [
+    "-j1",
+    "-Ddebug.skipKernelTC=false"
+  ],
+  "commands": [
+    "lean -j1 -Ddebug.skipKernelTC=false -o .checks/scalar-ratio-units/lib/Research/DerivativeSwitch/UnitCriterion.olean Research/DerivativeSwitch/UnitCriterion.lean",
+    "lean -j1 -Ddebug.skipKernelTC=false -o .checks/scalar-ratio-units/lib/Research/DerivativeSwitch/BoundaryCup.olean Research/DerivativeSwitch/BoundaryCup.lean"
+  ],
+  "lean_path": [
+    "/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.checks/scalar-ratio-units/lib",
+    "/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.lake/packages/mathlib/.lake/build/lib/lean",
+    "/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.lake/packages/plausible/.lake/build/lib/lean",
+    "/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.lake/packages/proofwidgets/.lake/build/lib/lean",
+    "/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.lake/packages/batteries/.lake/build/lib/lean",
+    "/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.lake/packages/aesop/.lake/build/lib/lean",
+    "/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.lake/packages/importGraph/.lake/build/lib/lean",
+    "/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean",
+    "/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.lake/packages/Qq/.lake/build/lib/lean"
+  ],
+  "source_sha256": {
+    "Research/DerivativeSwitch/UnitCriterion.lean": "efd9f4404b9760f9d7ebc2cb0874f21f517ed3868e9e23f78fd0465a2c03e45a",
+    "Research/DerivativeSwitch/BoundaryCup.lean": "64750e7706f82cf0a47b76c80503bcab0577c2aa18f9703c09b4b8288be0df90"
+  },
+  "artifacts_sha256": {
+    ".checks/scalar-ratio-units/lib/Research/DerivativeSwitch/BoundaryCup.olean": "a9df08ffae16713d71f8c4036d1d72ee4d2e8fe91142ab95c7bc49ee8692ad43",
+    ".checks/scalar-ratio-units/lib/Research/DerivativeSwitch/CommonStrict.olean": "0625a1ef4a17a5b73980e40f23bc1d699ff676790bcc4e20d1e414dedf84ccc6",
+    ".checks/scalar-ratio-units/lib/Research/DerivativeSwitch/Coordinate.olean": "acdcbdbf23e607fb051d3d1f09d85eb01e860c307c651fcef7948f9f331ac7b3",
+    ".checks/scalar-ratio-units/lib/Research/DerivativeSwitch/UnitCriterion.olean": "c992a4b3ae6050cffced44c47e8e3db96faa2779225d87391bb160ac3acc9445"
+  },
+  "logs_sha256": {
+    ".checks/scalar-ratio-units/cup-01.log": "626fdbf41220b92b7630aa7e386304ffb11199f84b54b0460b9351d4834a5f2c",
+    ".checks/scalar-ratio-units/cup-02.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".checks/scalar-ratio-units/unit-01.log": "4a2925c8abf06f5e906e4fdd10603f18d7b633ec77858ed95f3be071807544f6",
+    ".checks/scalar-ratio-units/unit-02.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".checks/scalar-ratio-units/unit-prefix-01.log": "04b51b537fe583d6a91e0e84d041d1aac8c46f7343d01f2268bd500a8be6e579",
+    ".checks/scalar-ratio-units/unit-prefix-02.log": "37bec044c1c3039c398826204d9a027ac34364887200b420714db4a78eac104a",
+    ".checks/scalar-ratio-units/unit-prefix-03.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "final_exit_codes": {
+    "unit-02.log": 0,
+    "cup-02.log": 0
+  },
+  "failures_preserved": [
+    "unit-prefix-01.log",
+    "unit-01.log",
+    "cup-01.log"
+  ],
+  "paranoid": "NOT_RUN",
+  "cloud": "NOT_RUN",
+  "arithmetic_application": "OPEN",
+  "statement_assumptions_changed": false,
+  "axiom_audit": "Parent performs fresh complete target audit; not claimed here"
+}

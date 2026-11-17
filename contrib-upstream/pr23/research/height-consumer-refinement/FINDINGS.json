@@ -1,0 +1,76 @@
+{
+  "format": "height-consumer-findings-v1",
+  "status": "author_submission",
+  "items": [
+    {
+      "id": "projective-current-exponent",
+      "history": "Prior justification located in optional round7; round8 deliberately retained coarser transfer.",
+      "packet": "Derivation incorporated in PROOF.md, pending non-author decision.",
+      "currentManuscript": "pending",
+      "evidence": [
+        "PROOF.md",
+        "APPLICATION_CONTRACT.json"
+      ]
+    },
+    {
+      "id": "final-input-margin",
+      "history": "Prior exact alpha-dependent input inequality located in arithmetic_round8; coarse alpha<19 was used in its final numerical margin.",
+      "packet": "Retain exact577/32 and prove h(beta)<8c/25 sufficient; pending non-author decision.",
+      "currentManuscript": "pending",
+      "evidence": [
+        "PROOF.md",
+        "check_height.py"
+      ]
+    },
+    {
+      "id": "endpoint-uniformity",
+      "history": "Optional round7 supplied a monotone endpoint argument for its old exponent.",
+      "packet": "Uniform factorization proved for exponent577 and both actual orders; exact endpoints and preceding failures recorded.",
+      "currentManuscript": "pending",
+      "evidence": [
+        "PROOF.md",
+        "check_height.py"
+      ]
+    },
+    {
+      "id": "no-variable-gain-screening",
+      "history": "Three selected regroupings compiled in prior author investigation; no saving.",
+      "packet": "Original scripts/results retained. Bounded probes do not establish an optimum.",
+      "currentManuscript": "not claimed",
+      "evidence": [
+        "prior-investigation/INVENTORY.json",
+        "prior-investigation/grouping/RESULTS.json"
+      ]
+    },
+    {
+      "id": "diagonal-leading-bound",
+      "history": "Author supplied a two-row bound and exact dual certificate in the prior investigation.",
+      "packet": "Preserved as unreviewed follow-up, not a dependency or claimed reviewed result of this PR.",
+      "currentManuscript": "pending",
+      "evidence": [
+        "prior-investigation/NEXT_PR.md",
+        "prior-investigation/scaling_dual.json"
+      ]
+    },
+    {
+      "id": "inherited-coverage",
+      "history": "Parent cumulative handoff preserves old-pin/Kato integration, source coverage and full-proof limitations.",
+      "packet": "Unchanged, unresolved within this local contribution. Required App acceptance remains separate.",
+      "currentManuscript": "pending",
+      "evidence": [
+        "HANDOFF.md",
+        "docs/reviews/quartic-stack-2026-11-08/FINDINGS.json"
+      ]
+    },
+    {
+      "id": "private-anchor-gate-reevaluation",
+      "history": "Non-author review asked for explicit tracking of the S-dependent physical-anchor gate when reusing the old root/H choices.",
+      "packet": "Proof and contract now explicitly reevaluate that private gate and translate the new conic witnesses at new S; computational source is unchanged. Final reviewer acknowledgment pending.",
+      "currentManuscript": "pending",
+      "evidence": [
+        "PROOF.md",
+        "APPLICATION_CONTRACT.json"
+      ]
+    }
+  ]
+}

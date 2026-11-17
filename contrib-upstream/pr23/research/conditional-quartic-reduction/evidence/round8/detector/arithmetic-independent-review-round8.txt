@@ -1,0 +1,133 @@
+INDEPENDENT ARITHMETIC REVIEW — ROUND EIGHT
+
+Disposition: ACCEPT the selected conditional derivation and exponent E=2364.
+Reviewer lane: detector; author lane: arithmetic.
+Upstream commit: 036cebe4f1a4aa7ca89820a9b48f3629b4c364d6.
+This review is of the proof and source bytes bound in the adjacent JSON receipt.
+It does not claim that the inherited global hypotheses are newly established,
+that the complete definition has been formalized, or that E=2364 is optimal.
+
+1. Scope and source comparison
+
+The arithmetic-only builder differs from the frozen seventh-round builder at
+exactly one occurrence: fixedParameter.value changes from 3^2790 to 3^2364.
+All displayed physical anchor equations, the packing coefficient three,
+scalar order 28, input order 12, high order 45, prime exceptions, logarithm
+polynomials, and three-scale height transfer remain in place. The stale
+round-seven variant name in this isolated probe is provenance metadata; the
+integrated package must name its selected variant accurately.
+
+I inspected the pinned manuscript's sharper five-contact height proof, in
+particular the determinant/nebentypus, modular-curve, Belyi, genus, realization,
+Faltings–Poincare, and isogeny-variation passages around lines 8915–9073. I also
+checked the supplied prior finite-support, conductor, and physical-anchor
+arguments. The new proof correctly reapplies intermediate inequalities; the
+old final exponent-nineteen statement alone would not imply the new result.
+
+2. Euler product and the inherited modular input
+
+The finite certificate checks all fifteen primes below 53 by independent
+trial division, checks that every normalized factor a_p=(1+1/p)p^(-1/192)
+exceeds one on that list, checks 54^192<53^193, and checks the displayed
+fifteen-prime product bound. The function (1+1/x)^192/x is decreasing for
+positive x, so every omitted prime contributes at most one. Because all
+fifteen displayed factors exceed one, replacing an arbitrary subset by the
+full list is legitimate. This proves the claimed uniform bound, including
+N=1, without assuming that every small prime divides N.
+
+The inherited bounds N<=C R^2, rad(N)|R and t<=4608 R therefore give
+  d_H < 2^14 C R^(577/192) = T.
+Here t is the order of the finite nebentypus. It is not a degree of its
+coefficient field. The source explicitly has -I in Gamma_H, so the modular
+map degree has no additional factor two. No squarefree-level, trivial-
+nebentypus, or bounded coefficient-field hypothesis has been added. The
+cutoff 53 is numerical and does not enlarge the arithmetic exception set.
+
+3. Genus and height coefficient
+
+The source realization puts the absolutely simple two-dimensional A inside
+J_H up to isogeny, giving g>=2. Together with g<=1+d_H/12 this gives d_H>=12
+and then g<=d_H/6<T/6. Thus the source's generic Belyi estimate improves to
+h_F(J_H)<(13,000,000/6) T^6. The original stable Faltings metric is retained.
+
+The old estimate V<=16 T^4(2+log T)+2 T^2(25+7 log T)<=T^6 applies unchanged:
+T>=16, g<T, log d'<8+log R<=8+log T, and the new Jacobian estimate is below
+the old 2^24 T^6 upper estimate used in its derivation. Both elementary
+endpoint and derivative inequalities hold. Bost's complement term is
+bounded by 3T/2<T^6. The exact comparison 13,000,000/6+2<2^22 then yields
+  h_F(A)<2^106 C^6 R^(577/32).
+The prior CM estimate 854R is also absorbed. Applying the same geometric
+comparison and using 2^32*46410<3^32 gives
+  h(z)<=H M(z)^(577/32),
+  H=3*2^106*C^6*46410^18+128.
+The additive 128 is safely absorbed since M>=1. The independent certificate
+confirms H has 665 bits, H<3*2^663, and H_old-128=247520*(H-128).
+
+4. Physical anchor and order of local inferences
+
+At E=2364, the unchanged conic tests integrality at 2 and 3 of
+  N_K(w/3^1182)+3 N_K(B_0+X rho).
+The two nonzero summands have opposite valuation parity at 3 because the
+quadratic norm is anisotropic there. Hence the coefficient integrality and
+w-depth implications hold before assuming any root-label parity. The prior
+leading-residue identity for C_0 then forces all four labels to be odd.
+Only afterward is h_S known to be a 3-adic unit, giving
+v_3(w)=1+v_3(a-1) and 0!=a-1 in 2*3^1181 Z.
+
+At 2, this established oddness and the integral formal multiplication series
+give v(w)=v_2(a-1)>=1, hence integrality of both rational coefficients of w.
+The packed B_0 is already integral. The sole potentially negative term
+-6X^2 cannot cancel the others, so X is 2-integral. The converse follows from
+the same valuations and the source quaternion criterion. Zero summands and
+all chart signs are covered; the claim concerns existence of conic witnesses,
+not a bijection between their tuples. No circular appeal to the odd-product
+height identity is used.
+
+5. The three actual numerical consumers
+
+Scalar: order 28 gives h(beta)<=H c^(577/896), c=|a-1|. The new target c/4 is
+sufficient, and c_*^319>(4H)^896 for c_*=2*3^1181 was checked directly with
+integers. The displayed logarithmic proof has positive exact margin 8199/53.
+The previous stronger c/80 inequality is correctly not claimed at E=2364.
+
+Height transfer: the shift phi(t)=-49+1/t contributes log 50. The current
+scales 1,C_0^2,(C_0+C_1)^2 yield h(C)<7H |N|^(alpha/k), alpha=577/32, with
+3 log 50+(5/2) log 2<16. The already established odd labels permit the
+retained product-height identity, giving B^2-6<7H |N|^(alpha/k). No optional
+projective-height or alternate odd-anchor result is needed.
+
+Lucas: the literal polynomial has |F|<5B^4 and order 45. For F!=0 it forces
+B^(143/360)<24H. The exact lower bound b_*^143>(24H)^360, b_*=c_*-1, is checked
+independently. The displayed weaker lower bound B>=3^1181 also has positive
+margin 1418412/53. Therefore F=0. The nonidentity b-root supplies b!=0 for
+the inherited Lucas inequality log B>|a|-3.
+
+Input: if n!=beta, order 12 and |N|<=2 exp(h(beta)) B give
+log B<12/(24-alpha)*log(40H)+alpha/(24-alpha)*h(beta).
+The new constant satisfies 40H<2^670 and 100*670<b_*, so its logarithmic term
+is less than |a|/100. Using alpha<19 and h(beta)<(|a|+1)/4 gives
+log B<(487/500)|a|+19/20<|a|-3 for |a|>152, contradicting Lucas. All required
+thresholds hold at the selected anchor. Thus n=beta is integral. Finally
+11016=2^3*3^4*17 and the anchor's 2- and 3-integrality force X integral,
+including the separate leading-coefficient valuation one at 17.
+
+6. Completeness and verification boundary
+
+The new global estimate enters soundness only. The anchor requests a finite
+3^1181 divisibility, covered by the existing arbitrary-divisibility scalar
+preparation. The order of choices, primary progression Pi^44, local pole
+preparation, and detector conditions remain unchanged. A separately selected
+primary-test strengthening has its own proof and need not be assumed here.
+
+My separate checker imports neither the producer, compiler, nor the author's
+checker. It verifies 67 exact integer/rational assertions and the selected
+fixed parameter, and records proof, checker, builder and raw-IR hashes. It
+uses no floating-point arithmetic. It does not mechanically certify the
+uniform inherited theorems, the monotonicity proof, the anchor argument or
+consumer reasoning; those are the subjects of this written review. It also
+does not independently reconstruct every source equation: the author's
+source checker and the integrated algebra/compiler audits cover that role.
+
+No material correction is requested. The isolated builder's historical
+variant label should be updated in the integrated package, as already
+expected by the packaging lane.

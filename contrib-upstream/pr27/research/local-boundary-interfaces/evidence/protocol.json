@@ -1,0 +1,13 @@
+{
+  "command": [
+    "python3",
+    "-B",
+    "scripts/check_audit_history.py",
+    "--self-test"
+  ],
+  "cwd": "repository root",
+  "exit_code": 0,
+  "coverage": "Existing audit-history structure and adverse controls; not mathematical acceptance of this new packet",
+  "stdout_sha256": "7539e0a83103f2656b233dcf98570fb769e636973f4765cd48f04b87a7d5ee0d",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

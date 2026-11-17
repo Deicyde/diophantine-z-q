@@ -1,0 +1,1701 @@
+{
+  "algorithm": "SHA-256",
+  "encoding": "Exact Git blob bytes; JSON files in this handoff are UTF-8 with LF and final newline",
+  "coverage": "All tracked files within the nine declared packet directories at their exact commits; named unchanged current release surfaces. Not a claim that every historical source or audit in the project was re-reviewed.",
+  "files": [
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/ATTRIBUTION.md",
+      "sha256": "eaab06cf7d50c2b66618b98e1bfe7091a53a562dab059eeb6d4f159843611bce",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/ATTRIBUTION.md"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/EXPECTED_OUTPUTS.json",
+      "sha256": "982533489878025cf90d7fb5307fe4a8a1af050a095ce2da8de91843a5f896dc",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/EXPECTED_OUTPUTS.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/PROVENANCE.json",
+      "sha256": "6c5040460616308b1f347e7ab2a28d0e1a059ea5fe031860283b2f023bddd1d8",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/PROVENANCE.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/PR_DEPENDENCIES.md",
+      "sha256": "08d91f384f10c423af0df12ad9567e2159eda67541c2012850998d23a8f33501",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/PR_DEPENDENCIES.md"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/README.md",
+      "sha256": "f0733e1e34c80534c25f3b33833cdbe69322accd50e324bbfc72e53c461d6051",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/README.md"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/SOURCE_MANIFEST.json",
+      "sha256": "268694a99ae9e73f99c3847270994d51b7b9861aa9e521a622c583bed95076c2",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/SOURCE_MANIFEST.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/audit/check_arithmetic_round8.py",
+      "sha256": "29b4a833cc5f7503423ff507d6eed5fed4f8f54b244cdf3bc82aafce0451703a",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/audit/check_arithmetic_round8.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/audit/check_arithmetic_round8_independent.py",
+      "sha256": "169abbf21283b4c05c6e376a446d881241a6ae55f1d0e138ba4197a03d03a330",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/audit/check_arithmetic_round8_independent.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/audit/check_delivered_quartics_round8.py",
+      "sha256": "481587f5d3c6c490a2981e0413a392eebf99e4eae73592728f17579d778d5452",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/audit/check_delivered_quartics_round8.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/audit/check_detector_promotion_independent.py",
+      "sha256": "b22c88d2cdec10d0eeef157b5d3a2b5e889ed223f3782d7095c1dfa193c28aca",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/audit/check_detector_promotion_independent.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/audit/check_detector_source.py",
+      "sha256": "879b8585f4c4df31a69fc1f77b6a68e3340407c7c47a96e3db6df80e8611e949",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/audit/check_detector_source.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/audit/check_diagonal_scaling.py",
+      "sha256": "506da8992d048bc16f5df0a1cde9226201dff9d8169d2d0bbc92b12d10cd4f64",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/audit/check_diagonal_scaling.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/audit/check_geometry_round7.py",
+      "sha256": "9fe327499537b10914fb560e8073dfed75d5231c991de2ebf49a70e1631acd0d",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/audit/check_geometry_round7.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/audit/check_integrated_bridges.py",
+      "sha256": "31a3d7aeb2c054118ee2498d82038813ba5509aa60b1e37f6b4c2b6379f05c20",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/audit/check_integrated_bridges.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/audit/check_parameter_binding.py",
+      "sha256": "1c9e2e1d02b6aedbb36ece42edc198f9b990d508f61a93ebd2a5c7d008415440",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/audit/check_parameter_binding.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/audit/check_scalar_independent.py",
+      "sha256": "c8d5568301e063ef0f7938f8218f04d5b4215419976f3f919e3ce5bdd47ada0c",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/audit/check_scalar_independent.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/audit/check_scalar_second_review.py",
+      "sha256": "0150ca83b9e0c6a2ffc48be72936f705bbfda69343ffe3f54e17e6ae8248bb2a",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/audit/check_scalar_second_review.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/audit/check_scaled_chains_independent.py",
+      "sha256": "c5b6c0de2d40cef39a53c0cc15bd0f358cfd614fca8dd2d2cb916dfb20b7505b",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/audit/check_scaled_chains_independent.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/construction/balance_coefficients.py",
+      "sha256": "9e9a7ebcb3e4be58862381c2b51f85352ba4b688495912da2585b1ad37973a63",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/construction/balance_coefficients.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/construction/builder.cjs",
+      "sha256": "b4bf6af38a7620a5b6a572039da4fcb22cd6f4ce006c439d89588c1259231f3b",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/construction/builder.cjs"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/construction/check_final.cjs",
+      "sha256": "a01dabf50a7b882bb1fe99a157ce2228dba21153ea195a130b0dbdb259aa996c",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/construction/check_final.cjs"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/construction/finish_tables.py",
+      "sha256": "f5b422ce97e5c9f99e1fd7b47ff5df797929873498cc6db852a4fb1571ad24eb",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/construction/finish_tables.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/construction/reference_round7/builder.cjs",
+      "sha256": "78b54bcde24ff8a91091e102a4734c49878699f071d9230e5ce7a70ffd2114d0",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/construction/reference_round7/builder.cjs"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/construction/reproduce.py",
+      "sha256": "1ab289dccfb5c2ce671548ee0fdb0485047adadac6e0639798800163126fde0a",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/construction/reproduce.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/construction/specialize_core.py",
+      "sha256": "1a0d86e5cd7d098d1a9c5d0c1f5f8fa2a0d5bbb070901b122881b9fbd5d8c027",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/construction/specialize_core.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/construction/tools/affine_search.py",
+      "sha256": "d122f8fa2628d57925397025e54463a1ea9bbf92440ff5e08779aa7f77be4682",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/construction/tools/affine_search.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/construction/tools/checker.cjs",
+      "sha256": "dc0e394b2fa758dfd9af2d6ee56f18907a5acdd9d659f9883acdffe1ec173de4",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/construction/tools/checker.cjs"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/construction/tools/compile_ir.py",
+      "sha256": "45d5df9546e1f39b61d064d4204a0b41469b5a18134281b7e439f5faab62f28a",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/construction/tools/compile_ir.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/construction/tools/modulo_search.py",
+      "sha256": "63380ce9300bf8c97bda58beb62a7ae7536dd1cde61a45a00cdff772c8968d57",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/construction/tools/modulo_search.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/construction/tools/run_pipeline.py",
+      "sha256": "591def4c716d3bff456bf83ef3511840377bea02bf4e94f52017914b013c5a8c",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/construction/tools/run_pipeline.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/construction/tools/search.py",
+      "sha256": "982959296b369b98ed370f73b460e906966c282654acd27e0d5b913c50082a03",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/construction/tools/search.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/construction/tools/verify.py",
+      "sha256": "13c4190c50867573d470d7f4efb4e25dacf49872c3f0c9c23acf8404da840a48",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/construction/tools/verify.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/construction/tools/verify_elimination.py",
+      "sha256": "ea67ec8575c8b4fbea0cd5ccffc60165263537f53d6b12febc99d7d4f974785e",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/construction/tools/verify_elimination.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/construction/verify_package.py",
+      "sha256": "98b349d31773b0c993c1e4f94977cd7721a61de01a5ba93ec40e6b26ebe543c4",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/construction/verify_package.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/construction/write_tables_text.py",
+      "sha256": "171aca43a9710e03c9f9ce35cd9c228a3bf142833c2f344705e8c9f59e08a631",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/construction/write_tables_text.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/README.md",
+      "sha256": "c0a4277661dbc578366eb7b51802fe40f36fdfa8ccbf304d92d05c3d64e29be8",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/README.md"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/arithmetic/arithmetic-integrated-check.json",
+      "sha256": "a53bb559b84b65e886f60c59e0e2439bc2010e9fd9f47aff56d7c2c224ba5013",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/arithmetic/arithmetic-integrated-check.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/arithmetic/detector-independent-integrated-check-proof-update.json",
+      "sha256": "1698356a27c64938b295eba05a42d0193c2d6448a107a8995a665e20297b0491",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/arithmetic/detector-independent-integrated-check-proof-update.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/arithmetic/detector-independent-integrated-check.json",
+      "sha256": "b91f90c60ff33377eb15421089228a9b85a181954ebba84106acf4cf34179af1",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/arithmetic/detector-independent-integrated-check.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/arithmetic/detector-independent-review-round7.json",
+      "sha256": "b06f2c3bbba57c4fe11e072b5e34dfe6abda213e793dff755cf09945026439e6",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/arithmetic/detector-independent-review-round7.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/arithmetic/detector-proof-reviewed-original.tex",
+      "sha256": "8978cb9d7ce57c796a4b77752f527cd1f18419d90781a46c9139902ee7e2c03a",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/arithmetic/detector-proof-reviewed-original.tex"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/arithmetic/detector-proof-spacing.patch",
+      "sha256": "5fb14c33c40eccab21bc1a233cb5c47fe1a112c0529560dcde93c7e559481221",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/arithmetic/detector-proof-spacing.patch"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/arithmetic/detector-review-spacing-addendum.json",
+      "sha256": "443ee5d36075afb66761f2c6dd057dff2c78cd64350a10cb7156cb5e58461988",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/arithmetic/detector-review-spacing-addendum.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/arithmetic/optional-anchor-height-check.json",
+      "sha256": "0d296057d76c96f764c9302029107d19fb8735e1230a2e643f356f8bd6092ab9",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/arithmetic/optional-anchor-height-check.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/arithmetic/pr-reproduction-manifest-check.json",
+      "sha256": "27c2b55c44d8b3c8c093eace762e4b7a50b5c3a1ec191b80f5722755519b8be6",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/arithmetic/pr-reproduction-manifest-check.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/arithmetic/pr-reproduction-review.json",
+      "sha256": "75632da6384f2c3ccb517053737ffc3700cbdea298f6d8f30f495ca0511dcb81",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/arithmetic/pr-reproduction-review.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/arithmetic/pr-reproduction-review.txt",
+      "sha256": "58cf17f603d037f98b5a3f6d6b7cec8b6fc3707866273d40bf61f172c754c031",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/arithmetic/pr-reproduction-review.txt"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/arithmetic/reproduction-volatile-outputs.json",
+      "sha256": "41f511e21b8482cbc613d65fb7a2f304da35873fb74b02d270fa0e9926c86130",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/arithmetic/reproduction-volatile-outputs.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/arithmetic/reproduction-wrapper-probes.json",
+      "sha256": "fe7541cd723b710b4d4b99394639dd70c828b4bdf23469f0d546a8ef010a4dd1",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/arithmetic/reproduction-wrapper-probes.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/arithmetic/scalar-independent-integrated-check.json",
+      "sha256": "f0f0361147e69fcde8855103b2e19a7ff7e18e373b5b15d83d9a5280084eed23",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/arithmetic/scalar-independent-integrated-check.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/arithmetic/scalar-independent-review-round7.json",
+      "sha256": "6135781b257c8f4bee7d410e7c44caaf3902d900559e14f52df1ad3f091343c5",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/arithmetic/scalar-independent-review-round7.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/arithmetic/scaled-chains-independent-check.json",
+      "sha256": "0d255a521d815c09ab43353062d81bffaaf332909ec039d6b8e32fbf5362f9c5",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/arithmetic/scaled-chains-independent-check.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/arithmetic/scaled-chains-independent-review.json",
+      "sha256": "9cd4d39d34ebbb8e9e40e933049fc0cf1e6b5a2930d060306620f04ea128bb5d",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/arithmetic/scaled-chains-independent-review.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/arithmetic/wrapper-preliminary-findings.json",
+      "sha256": "cd50cd9e50687dbd725327e40d02f92286e13faac533754bedd8298e131d1a40",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/arithmetic/wrapper-preliminary-findings.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/detectors/integrated-scalar-independent-check.json",
+      "sha256": "453c45002db76a4cba8361c5e2e0e6eb39287b6de810a049ef2c1a5148397e14",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/detectors/integrated-scalar-independent-check.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/detectors/pr-dependency-validation.json",
+      "sha256": "d01171a666bd23054e6ab407531087dea41e54e5379653e195cf20162e327ca0",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/detectors/pr-dependency-validation.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/detectors/proof-spacing-only.patch",
+      "sha256": "be0e18ee42599a856e52a6ab9efbf9d90295cdb5fd79658e1026a1f8645a8247",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/detectors/proof-spacing-only.patch"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/detectors/rejected-path-notes.txt",
+      "sha256": "aa375b4f9a2cd8fddb5b13622cd5267b890760f3cee09ad8ead0b2b06e167c6a",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/detectors/rejected-path-notes.txt"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/detectors/round7-review-bindings.json",
+      "sha256": "61b443d9620578a8d0fb9dbdc0134e5a6034da070f4c160c18409090ccbdc687",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/detectors/round7-review-bindings.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/detectors/scalar-independent-review.txt",
+      "sha256": "fa264728c0ab9b19c119407b09c9b4e4b903b1b3fd9780a4287cea64938a9a25",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/detectors/scalar-independent-review.txt"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/geometry/arithmetic-independent-review-bindings-round7.json",
+      "sha256": "3a5a779f78023c6b012c1c914c3fffafea8068096190f081004c73a2b474d4bc",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/geometry/arithmetic-independent-review-bindings-round7.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/geometry/arithmetic-independent-review-round7.txt",
+      "sha256": "df95de1a8660f899f9806693d7bb54cb44a36d0269a4e81cb0386b11cc74aa81",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/geometry/arithmetic-independent-review-round7.txt"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/geometry/diagonal-independent-review-bindings-round7.json",
+      "sha256": "0ffa0e72f93b1f0a23e7fb3edb63554fb2f363b9593e3ece86fc41b329d464b8",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/geometry/diagonal-independent-review-bindings-round7.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/geometry/diagonal-independent-review-round7.txt",
+      "sha256": "8c911c275d6f5ca20fb30817d16a4cf4a4d73a5815c2a94d734251f6094c701b",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/geometry/diagonal-independent-review-round7.txt"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/geometry/diagonal-scaling-check.json",
+      "sha256": "ace0735659bb62610bfd8bf658bbd2951822614e39a25bea4eee5416671e3280",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/geometry/diagonal-scaling-check.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/geometry/geometry-bindings-round7.json",
+      "sha256": "df4fff10281c57f092af876fd78bbbdddd9b8c21721e544c7a76da87915c8651",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/geometry/geometry-bindings-round7.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/geometry/integrated-geometry-check.json",
+      "sha256": "764cf612099ce6ec0cc28a1076bc8847dff967fb3a53bea17892e3aa23404a6d",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/geometry/integrated-geometry-check.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/geometry/pdf-qa/pdf-qa-bindings-round7.json",
+      "sha256": "afb0f10e41d6d376c5755252a15891b6cc0a48092df4cdbca910f7c683ec6dff",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/geometry/pdf-qa/pdf-qa-bindings-round7.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/geometry/pdf-qa/pdf-qa-receipt-round7.txt",
+      "sha256": "3634ce13de0b0416eb80bab4711fbb45261fca3101ba0eeb0901eab65c0ea97a",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/geometry/pdf-qa/pdf-qa-receipt-round7.txt"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/geometry/pr-claims-consumer-review-round7.json",
+      "sha256": "16b0f9ad646f9fdcf6472ef8f8e7d79c2706e611771f067f58794570a9f80c00",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/geometry/pr-claims-consumer-review-round7.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/geometry/pr-claims-consumer-review-round7.txt",
+      "sha256": "8841bbcaca031422e85b19d6aca24da7a76643b3a39f77871e8d673e827aefd0",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/geometry/pr-claims-consumer-review-round7.txt"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/geometry/rejected-paths-round7.txt",
+      "sha256": "f72e071ea0997f998a5c0c4d2b962becf378e5f97a355e312f6e965bcd631167",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/geometry/rejected-paths-round7.txt"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/prior/round7/reproduction-stdout-incident.json",
+      "sha256": "48b6fbda8f12105751548ae8628995a60551ab867a6b2e7cdd296b48ba10d2b6",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/prior/round7/reproduction-stdout-incident.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/review-bindings.json",
+      "sha256": "1fe945fd9c0c0ceeda28db8237c80b39e243e40c85706e33fe415509162fcfd7",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/review-bindings.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/round8/arithmetic/ARITHMETIC_DELTA.json",
+      "sha256": "1017303842fbcac484e77987b3ba054e14e63cf85fcf55905a8e966d93b1f4e7",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/round8/arithmetic/ARITHMETIC_DELTA.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/round8/arithmetic/arithmetic-source-check.json",
+      "sha256": "b28989ca7ce38081ec707286a271406bae021d03398990578e3398bccbe74a4e",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/round8/arithmetic/arithmetic-source-check.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/round8/arithmetic/delivered-quartics-reviewed-round8.json",
+      "sha256": "28b9ecfbc6f1b7f75a84dfe22b95af13be21dd044c9a235a216f876d4b4679fc",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/round8/arithmetic/delivered-quartics-reviewed-round8.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/round8/arithmetic/package-integration-review-round8.json",
+      "sha256": "af9d94c67a693a2334111a5022f16501599444c7f96f8be6944dc8ccd8ce8be4",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/round8/arithmetic/package-integration-review-round8.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/round8/arithmetic/package-integration-review-round8.txt",
+      "sha256": "95bf50debf50dfde16fe3034f8e9b0ab92549272dfdb5e99742d40a12007cc56",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/round8/arithmetic/package-integration-review-round8.txt"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/round8/arithmetic/root-wrapper-probes-fixed.json",
+      "sha256": "d954f6a86a636b85898ef5c416f365e97fcb5ca6f2d5b3d96ba26398444baf6a",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/round8/arithmetic/root-wrapper-probes-fixed.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/round8/arithmetic/scaled-chain-independent-round8.json",
+      "sha256": "13cc6d278de015134abbbd7d7bc4bd60c90cd85f0a413a4f2a2844fae03d4d6c",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/round8/arithmetic/scaled-chain-independent-round8.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/round8/arithmetic/structured-wrapper-independent-probes-fixed.json",
+      "sha256": "e7401b016f06da99063527c133d82687f4281bba7cd79d263c4c30b9c05b58d3",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/round8/arithmetic/structured-wrapper-independent-probes-fixed.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/round8/arithmetic/structured-wrapper-independent-probes.json",
+      "sha256": "36350efa32f8521392dde180f7fb99560ee383859d2668c1b90fd95937f53c08",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/round8/arithmetic/structured-wrapper-independent-probes.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/round8/detector/arithmetic-independent-numerics.json",
+      "sha256": "9d940efa3db35dc5128e2a4f9b46b22b75e582ec56dd078636c225df2db58b29",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/round8/detector/arithmetic-independent-numerics.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/round8/detector/arithmetic-independent-review-round8.json",
+      "sha256": "bf7ff55dcd0496e5670b6a2d3775c229cb51b20fd1306c12d360ee21a6268b31",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/round8/detector/arithmetic-independent-review-round8.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/round8/detector/arithmetic-independent-review-round8.txt",
+      "sha256": "51352069d362782faa1d2c78a7cebf8596560b7ce3f37cfec3f11fe6263617f4",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/round8/detector/arithmetic-independent-review-round8.txt"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/round8/detector/pr-dependency-audit-round8.json",
+      "sha256": "4743127742385516b0414f5c1c96714397089f9ffb0f6e4b6cd428700a6b5163",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/round8/detector/pr-dependency-audit-round8.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/round8/pdf-qa-receipt.json",
+      "sha256": "3be4f104b5257f689574b31e981dd59f44cb9249dce88048e98615f7071e2708",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/round8/pdf-qa-receipt.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/round8/review-bindings.json",
+      "sha256": "958d0eb4e7c08abb6913e9dd9aeb5314ae7e330d8f7e3e19a433d8b52a86ec28",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/round8/review-bindings.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/round8/scalar/detector-promotion-independent-review.json",
+      "sha256": "ce31afbcbc1779c5f7a0950dbc04c94ef2b60955da3a4d3f544485d419f4815e",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/round8/scalar/detector-promotion-independent-review.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/round8/scalar/detector-promotion-independent-review.txt",
+      "sha256": "cfc85378eef5d0d08b906af2745e7bd45166483430c09ee5f6f6c396ba3d04f9",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/round8/scalar/detector-promotion-independent-review.txt"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/round8/scalar/detector-promotion-integrated-check.json",
+      "sha256": "e91f530ef6d0fd5f6f1cc0bc28e6beb7fdbc869cc8a59fdbd0df111191a870bc",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/round8/scalar/detector-promotion-integrated-check.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/round8/scalar/diagonal-two-prime-independent-review.json",
+      "sha256": "d1a11bf112bd4448f5439d9eb2f2d12b9765d1fc40c7f8804308cdadcd884884",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/round8/scalar/diagonal-two-prime-independent-review.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/round8/scalar/diagonal-two-prime-independent-review.txt",
+      "sha256": "be3475e8326747a2ae63f4de09eb48f7f67871b0b438a8fb3ac635a8858c3876",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/round8/scalar/diagonal-two-prime-independent-review.txt"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/round8/scalar/diagonal-two-prime-integrated-check.json",
+      "sha256": "56d754acd0509803b45fa5b33771b2c7565461056205dabb82f67451d7dcbd92",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/round8/scalar/diagonal-two-prime-integrated-check.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/round8/scalar/diagonal-two-prime-negative-probes.json",
+      "sha256": "240caf1e328a9c84a6ba810784603bbcebebacebf9d19d688d9601cd87644a07",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/round8/scalar/diagonal-two-prime-negative-probes.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/evidence/round8/scalar/scalar-search-notes-round8.txt",
+      "sha256": "916a0abbe7c9dbc7f44664ffda3eb93b87d45092244df1610a1ab10634466065",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/evidence/round8/scalar/scalar-search-notes-round8.txt"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/lineage/baseline_423_builder.cjs",
+      "sha256": "a89afca62a3d4bad2c1444a579626ebe4eb505de805cedd14f2bfe1328fea420",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/lineage/baseline_423_builder.cjs"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/lineage/round4_builder.cjs",
+      "sha256": "ca171bf25610cb7da003ed58b4c4d43799a67fd4b5d6ca1b8fbac74a2dcc7e0e",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/lineage/round4_builder.cjs"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/lineage/round5_builder.cjs",
+      "sha256": "68cb3cb1a809766aa102b8c43444d8b38c02760751e773a960489c327e33c12b",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/lineage/round5_builder.cjs"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/lineage/round6-to-selected-builder.diff",
+      "sha256": "9032343563782237df27e47207248877593370d342bbdc55a461b195fc9f4103",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/lineage/round6-to-selected-builder.diff"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/lineage/round6_builder.cjs",
+      "sha256": "3f63cb782d52857446cf39f6e545aeb74f380d1347826eafa888cbb487738d51",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/lineage/round6_builder.cjs"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/lineage/round7-to-selected-builder.diff",
+      "sha256": "129d026144201a214a3a682ce443670ca297110bbbc3d38f7b67dc40f40c908c",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/lineage/round7-to-selected-builder.diff"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/lineage/round7_audit/check_arithmetic_round7.py",
+      "sha256": "4b8a97dd36a8e7177f308b273333093fdcb7d7720d1e6f3c405f8d6c231d6015",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/lineage/round7_audit/check_arithmetic_round7.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/lineage/round7_audit/check_delivered_quartics_round7.py",
+      "sha256": "26fbc8f2e1e8f1e71df9f8f6ccd3cea03fade1de4936232722ae4e4aab595004",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/lineage/round7_audit/check_delivered_quartics_round7.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/lineage/round7_audit/check_detector_independent.py",
+      "sha256": "a1f46fa3f3a65ffe3cb06f80e087f87666d93f1d3ec2db298d06391b69d889f2",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/lineage/round7_audit/check_detector_independent.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/lineage/round7_delivery/EXPECTED_OUTPUTS.json",
+      "sha256": "2e531832aa512a418c4e8f9edc54f33a012a1c3124243012a5151a412a94fdac",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/lineage/round7_delivery/EXPECTED_OUTPUTS.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/lineage/round7_delivery/SOURCE_MANIFEST.json",
+      "sha256": "f2d74ebd40b61a48b1b3d1ecdb55d2fda53f372a090fce8ec1fcd347e333bbd5",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/lineage/round7_delivery/SOURCE_MANIFEST.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/lineage/round7_delivery/reproduce.py",
+      "sha256": "8d60c1e427081cf57c9d40869204753ccafbc21f74d322511fb565fb51035167",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/lineage/round7_delivery/reproduce.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/lineage/round7_delivery/review_tools/check_pr_reproduction_manifest.py",
+      "sha256": "cd7cdd71c44aa67e780bcd5e1db6f422754c83a3e7dda279a392114772b81507",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/lineage/round7_delivery/review_tools/check_pr_reproduction_manifest.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/lineage/round7_delivery/review_tools/check_reproduction_wrapper.py",
+      "sha256": "a4b560d98482138e584a6a520747fa590362392f970f5158a1a795731bd740f3",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/lineage/round7_delivery/review_tools/check_reproduction_wrapper.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/lineage/round7_proposal_note.pdf",
+      "sha256": "c73e5f7b0d030fc977f6387083d033a983943948f30e26cfb46af1b858f82a94",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/lineage/round7_proposal_note.pdf"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/lineage/round7_proposal_note.tex",
+      "sha256": "c38b9dcc3db87e30039d2e0ef7f446bcbaab0bbfd70bfafd990f1572bab9e0fc",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/lineage/round7_proposal_note.tex"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/lineage/upstream_v10_builder.cjs",
+      "sha256": "bf01e9b051c9f5f7db2b3a9b2e0122d0d37118b30422d1d2ef54f6c3c0829af1",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/lineage/upstream_v10_builder.cjs"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/pr_dependency_inventory.json",
+      "sha256": "f7566dc37f90983001d5e63732cfa30dbff431c0b2b177a3e56faeba9aa83508",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/pr_dependency_inventory.json"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/proofs/arithmetic_round7.tex",
+      "sha256": "14f548346d7630bf2d440fbc33a10bda10bb6cc7604692d59bcb1c821a5bf5ff",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/proofs/arithmetic_round7.tex"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/proofs/arithmetic_round8.tex",
+      "sha256": "826523050c2f0d315561ae064124b420862ff09eeafaa63437e0339ce7c22f7b",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/proofs/arithmetic_round8.tex"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/proofs/detector_round7.tex",
+      "sha256": "ed01c9416d3b4daf02a26958642194230c0186a896f17817bfe30c8a16d481d3",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/proofs/detector_round7.tex"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/proofs/detector_round8.tex",
+      "sha256": "150b79708b8088d1c75641571277eecf452fe72b7c729cc4fe783e4da76b83bb",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/proofs/detector_round8.tex"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/proofs/diagonal_scaling.tex",
+      "sha256": "1e2c856690cdd0c511feca650e9b9a0136b09326b6c8005089dade723c78affb",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/proofs/diagonal_scaling.tex"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/proofs/diagonal_scaling_round8.tex",
+      "sha256": "0115c276febf3b06b46462d06aa862714456f78790e5ec6bd68ac938db8b2e50",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/proofs/diagonal_scaling_round8.tex"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/proofs/geometry_round7.tex",
+      "sha256": "0402ccf6c3e193c685d01e0ff6e46449001ac074a1bf4501419d6fb1fea88035",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/proofs/geometry_round7.tex"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/proofs/optional_anchor_height_round7.tex",
+      "sha256": "686faeed616eef6ebed472b2414a36e8158d4de838248238815ecc283e39a4e6",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/proofs/optional_anchor_height_round7.tex"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round1/additional_circuit.tex",
+      "sha256": "753ab8e9bd3f76a567d808716bd8bafc6125aba8c3a96b4418d5652d8adc2c8b",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/proofs/prior/round1/additional_circuit.tex"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round1/packed_anchor_note_body.tex",
+      "sha256": "ec02e27191445b8e7ad2bff8eff07f315f273f2b4948c58086894164a5f7ef9b",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/proofs/prior/round1/packed_anchor_note_body.tex"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round2/birational-proof.txt",
+      "sha256": "ad558f8bd6a82343b16b6eed1af77958e082b51fef9a3f5a9246933819d26833",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/proofs/prior/round2/birational-proof.txt"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round2/further_arithmetic_body.tex",
+      "sha256": "bc27eb515fdf391eb732ca8628c8ee8386989c0678f5e52d012f53e0ff1c5696",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/proofs/prior/round2/further_arithmetic_body.tex"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round2/further_arithmetic_proof.txt",
+      "sha256": "da9070110ecfe4f742025880c9bddab2c4aa0db33959b8ec16549813d06b4c2a",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/proofs/prior/round2/further_arithmetic_proof.txt"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round2/scalar-preparation-proof.txt",
+      "sha256": "8c5940a6dc177465c9656130fb0d39ac0d8cf87866534c2cf919360541c7584b",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/proofs/prior/round2/scalar-preparation-proof.txt"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round3/arithmetic_proof.tex",
+      "sha256": "66cdc4ef3e2f0e5cfde8b50e3ac360dd27d2ac17826ce23fd4ec688ac7d438d4",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/proofs/prior/round3/arithmetic_proof.tex"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round3/geometry_proof.tex",
+      "sha256": "d65c1c78aa540ff5a2aafa5834487f4f7ec780ce58955245ab4168320685d670",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/proofs/prior/round3/geometry_proof.tex"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round3/positivity_proof.tex",
+      "sha256": "0f25697d9ea6fcd49f1d1e6d6a97945bcb711c853eed19945c7fe5a6cc06524e",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/proofs/prior/round3/positivity_proof.tex"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round4/arithmetic_round4.tex",
+      "sha256": "b72fa74f4d4ea192d17ff257e17bd8307a12700b53a2de990c4a3c526e5d181e",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/proofs/prior/round4/arithmetic_round4.tex"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round4/detector_reduction_proof.txt",
+      "sha256": "9e0c770139ac3bdffa90a09112d3bf69eb4dc784f0696acc9282181e4cb2e91d",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/proofs/prior/round4/detector_reduction_proof.txt"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round4/geometry_round4.tex",
+      "sha256": "f51c4c6801b205475ac467aafaa61faec9e0da4a978275b3f965701b0a50c141",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/proofs/prior/round4/geometry_round4.tex"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round4/mixed_detector_block.tex",
+      "sha256": "4a60c53f94f4daf167c76afcdcaa5e2a484ca54c3a2858a235dc9af8adeb143e",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/proofs/prior/round4/mixed_detector_block.tex"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round4/qm_conductor_anchor16.tex",
+      "sha256": "7851eddfb01d6618b62448daf7a4e3b762df63fa92446b57c75aa8534176b0b7",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/proofs/prior/round4/qm_conductor_anchor16.tex"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round4/scalar_streamlining.tex",
+      "sha256": "ba3707caa4b29e58180cd08abbc6c176a38dd2d7bb15292ed953f1df3120f9a8",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/proofs/prior/round4/scalar_streamlining.tex"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round5/arithmetic_round5.tex",
+      "sha256": "d00e2c36e19ee4616c99a0a9a74f2a2bdc1ed32734689bb61c0cedc55e5e1806",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/proofs/prior/round5/arithmetic_round5.tex"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round5/detector_final.tex",
+      "sha256": "cc76b64c930236fd67dbbaf4b97d550f2301d0e9de347e1f689255f9f0770646",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/proofs/prior/round5/detector_final.tex"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round5/geometry_round5.tex",
+      "sha256": "3d5f0fff2fc45bd2b7504c933a8583367555d10e78a18b9885c2d01a151261bb",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/proofs/prior/round5/geometry_round5.tex"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round6/arithmetic_round6.tex",
+      "sha256": "b306e3f5e118dfdc8a5884c6e53acc7a1492a3f86919ddf9f19cc9d691180724",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/proofs/prior/round6/arithmetic_round6.tex"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round6/detector_round6.tex",
+      "sha256": "1800aa40fce67fa1106e40676088177453c59be73e3f395ab2d4a7f6c30c7aad",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/proofs/prior/round6/detector_round6.tex"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round6/geometry_round6.tex",
+      "sha256": "e2b2a7f6ffeb42263ff4e2008ffe1eb536def8a65a53b0a19705c18c3e66dced",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/proofs/prior/round6/geometry_round6.tex"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round6/inverse_weight_family.tex",
+      "sha256": "3d673e3894ef4526e5de745daf54093f8d3aeb89c000212a8271d726cb1171bb",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/proofs/prior/round6/inverse_weight_family.tex"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/proposal_note.pdf",
+      "sha256": "07149927ad5abf1b0e1617f607023d72d4f07e19dad0b594829b0ea607442f00",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/proposal_note.pdf"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/proposal_note.tex",
+      "sha256": "f32a48d3e38ec2f5a23efd7d932c5088148716f7e17e5e443f2653273ab44a14",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/proposal_note.tex"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/reproduce.py",
+      "sha256": "a660293cc6fa97a55d8d3635645f666fd1c6b52d96276ec768b4a3faedecc3ae",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/reproduce.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/review_tools/check_optional_anchor_height_round7.py",
+      "sha256": "91d5873e7a47813441629a0bb51aa56caff40bf71d6941101d7bbfad81a8d05d",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/review_tools/check_optional_anchor_height_round7.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/review_tools/check_pipeline_helpers_independent.py",
+      "sha256": "906b7afe0044111e25e497d3731d4f650829163295f52bb750b209e11d9bc8cc",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/review_tools/check_pipeline_helpers_independent.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/review_tools/check_pr_dependency_inventory_round8.py",
+      "sha256": "d6ca2ab146792d30531de6ddbf3e769af2bcd8d7af034b58a43f42c3bd8322d9",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/review_tools/check_pr_dependency_inventory_round8.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/review_tools/check_pr_reproduction_manifest.py",
+      "sha256": "df2154fe0583d0a84445631ff37e978c05aee01a2d1cc95c1ccb7872ecdc0428",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/review_tools/check_pr_reproduction_manifest.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/review_tools/check_reproduction_wrapper.py",
+      "sha256": "10177784865dcfc934b7a9ff0c94fc275c04c8bb10dd6097ff3637253d28f25e",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/review_tools/check_reproduction_wrapper.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/review_tools/check_structured_wrapper_independent.py",
+      "sha256": "95baeaec4d8e8dca33c94cb5a4cc6edc9dd837a66c71830c9a2c6f3c91be3536",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/review_tools/check_structured_wrapper_independent.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/review_tools/make_pr_dependency_inventory.py",
+      "sha256": "1a299739d72428e99c38607f9172e2a233a7d8cf27933b8afcedb5f8601f9553",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/review_tools/make_pr_dependency_inventory.py"
+    },
+    {
+      "group": "pr8",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "research/conditional-quartic-reduction/tables/quartic-389-balanced-decimal.txt",
+      "sha256": "1c612d20915667dfd81a7895f8d93231d5efeaf86ecfaa15194408d298d35573",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/research/conditional-quartic-reduction/tables/quartic-389-balanced-decimal.txt"
+    },
+    {
+      "group": "pr9",
+      "commit": "6fd131e7ca150d7a023bcb6ac4f1971912705fab",
+      "path": "research/factored-pole-reduction/APPLICATION_CONTRACT.json",
+      "sha256": "1ed004c5e93dd014b6a546902fb6fc03ecde61fafcbd9c2f23d8206cc83719bb",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/6fd131e7ca150d7a023bcb6ac4f1971912705fab/research/factored-pole-reduction/APPLICATION_CONTRACT.json"
+    },
+    {
+      "group": "pr9",
+      "commit": "6fd131e7ca150d7a023bcb6ac4f1971912705fab",
+      "path": "research/factored-pole-reduction/EXPECTED.json",
+      "sha256": "fa538af98e555bb8d75e5598c868c72d006f4905f8389c04f460c3bbb6d89874",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/6fd131e7ca150d7a023bcb6ac4f1971912705fab/research/factored-pole-reduction/EXPECTED.json"
+    },
+    {
+      "group": "pr9",
+      "commit": "6fd131e7ca150d7a023bcb6ac4f1971912705fab",
+      "path": "research/factored-pole-reduction/PROOF.md",
+      "sha256": "364309a61432b4de3615852175cab0faa7a3aeb9d5d251f4da521454277198d4",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/6fd131e7ca150d7a023bcb6ac4f1971912705fab/research/factored-pole-reduction/PROOF.md"
+    },
+    {
+      "group": "pr9",
+      "commit": "6fd131e7ca150d7a023bcb6ac4f1971912705fab",
+      "path": "research/factored-pole-reduction/README.md",
+      "sha256": "a16c6fb58b2cca3a5a1808fd51b3bb1ec571be1972ed047f3bf12298c4126c7b",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/6fd131e7ca150d7a023bcb6ac4f1971912705fab/research/factored-pole-reduction/README.md"
+    },
+    {
+      "group": "pr9",
+      "commit": "6fd131e7ca150d7a023bcb6ac4f1971912705fab",
+      "path": "research/factored-pole-reduction/build_transport.py",
+      "sha256": "1e58266e056db9b3b2a14f8c78fb2c0a1df41196e7745818fb077dc98b029156",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/6fd131e7ca150d7a023bcb6ac4f1971912705fab/research/factored-pole-reduction/build_transport.py"
+    },
+    {
+      "group": "pr9",
+      "commit": "6fd131e7ca150d7a023bcb6ac4f1971912705fab",
+      "path": "research/factored-pole-reduction/check_transport.py",
+      "sha256": "4330e24df146ebdd8f525d52d689bd94c39327fe95ad1a6cf1f3e4640562078b",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/6fd131e7ca150d7a023bcb6ac4f1971912705fab/research/factored-pole-reduction/check_transport.py"
+    },
+    {
+      "group": "pr9",
+      "commit": "6fd131e7ca150d7a023bcb6ac4f1971912705fab",
+      "path": "research/factored-pole-reduction/reproduce.py",
+      "sha256": "f685bc9184183b8684be9315e507409e90b67b3faf33af3bac6ff66dc03ab9a7",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/6fd131e7ca150d7a023bcb6ac4f1971912705fab/research/factored-pole-reduction/reproduce.py"
+    },
+    {
+      "group": "pr11",
+      "commit": "e3444641dffc2d1cf5a9791111d584110e5dd111",
+      "path": "research/scalar-chain-reduction/APPLICATION_CONTRACT.json",
+      "sha256": "a670f64ed1ff5926b0579522684870aee397a64a3b23a3413f9df0e3e13acbc9",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/e3444641dffc2d1cf5a9791111d584110e5dd111/research/scalar-chain-reduction/APPLICATION_CONTRACT.json"
+    },
+    {
+      "group": "pr11",
+      "commit": "e3444641dffc2d1cf5a9791111d584110e5dd111",
+      "path": "research/scalar-chain-reduction/EXPECTED.json",
+      "sha256": "146390f68342b425d38b3c938505bd0092b6686a0d619de7e564ac107beb5682",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/e3444641dffc2d1cf5a9791111d584110e5dd111/research/scalar-chain-reduction/EXPECTED.json"
+    },
+    {
+      "group": "pr11",
+      "commit": "e3444641dffc2d1cf5a9791111d584110e5dd111",
+      "path": "research/scalar-chain-reduction/LOCAL_CHECKS.json",
+      "sha256": "b7320fc4ffcb3848887e5554981f0ded14b259d8bcb5448b6596ee75cfb0cdd1",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/e3444641dffc2d1cf5a9791111d584110e5dd111/research/scalar-chain-reduction/LOCAL_CHECKS.json"
+    },
+    {
+      "group": "pr11",
+      "commit": "e3444641dffc2d1cf5a9791111d584110e5dd111",
+      "path": "research/scalar-chain-reduction/PROOF.md",
+      "sha256": "710088f6d9517c966a55a54e9d6adb383a335d705b7b4ca5a0f1dbde16f6be4d",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/e3444641dffc2d1cf5a9791111d584110e5dd111/research/scalar-chain-reduction/PROOF.md"
+    },
+    {
+      "group": "pr11",
+      "commit": "e3444641dffc2d1cf5a9791111d584110e5dd111",
+      "path": "research/scalar-chain-reduction/README.md",
+      "sha256": "63f733855eb63609e87b9abdebcb33095f04e9708770bb9cc7e143ace3219945",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/e3444641dffc2d1cf5a9791111d584110e5dd111/research/scalar-chain-reduction/README.md"
+    },
+    {
+      "group": "pr11",
+      "commit": "e3444641dffc2d1cf5a9791111d584110e5dd111",
+      "path": "research/scalar-chain-reduction/REPRODUCTION.json",
+      "sha256": "2def61e9290f00c15440f36f10a4db179794789431c207c5c8e081a0806336a0",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/e3444641dffc2d1cf5a9791111d584110e5dd111/research/scalar-chain-reduction/REPRODUCTION.json"
+    },
+    {
+      "group": "pr11",
+      "commit": "e3444641dffc2d1cf5a9791111d584110e5dd111",
+      "path": "research/scalar-chain-reduction/SOURCE_BINDINGS.json",
+      "sha256": "13ef75e44755682a5b88c56dccfbbd4dd4fae63fc091338fcf43b4f9c3c82a7e",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/e3444641dffc2d1cf5a9791111d584110e5dd111/research/scalar-chain-reduction/SOURCE_BINDINGS.json"
+    },
+    {
+      "group": "pr11",
+      "commit": "e3444641dffc2d1cf5a9791111d584110e5dd111",
+      "path": "research/scalar-chain-reduction/chain_patch.py",
+      "sha256": "31584f3da8f039adf416887e10f50af9e0f80a2d3ae7f63d5116d03b775fa276",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/e3444641dffc2d1cf5a9791111d584110e5dd111/research/scalar-chain-reduction/chain_patch.py"
+    },
+    {
+      "group": "pr11",
+      "commit": "e3444641dffc2d1cf5a9791111d584110e5dd111",
+      "path": "research/scalar-chain-reduction/check_chain.py",
+      "sha256": "ddb671a3d43f75167e2d58971f1e58ac921cb85209a48206fc01c91e676a34f1",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/e3444641dffc2d1cf5a9791111d584110e5dd111/research/scalar-chain-reduction/check_chain.py"
+    },
+    {
+      "group": "pr11",
+      "commit": "e3444641dffc2d1cf5a9791111d584110e5dd111",
+      "path": "research/scalar-chain-reduction/reproduce.py",
+      "sha256": "23c98d994a46fb68291dabfe4a3284655d2ac9866e54482ea99e19ec16ad69d6",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/e3444641dffc2d1cf5a9791111d584110e5dd111/research/scalar-chain-reduction/reproduce.py"
+    },
+    {
+      "group": "pr12",
+      "commit": "a1f9233049cc0f8aeb2a6ccd7e7b613cec3c1ec0",
+      "path": "research/scalar-preparation-zero/APPLICATION_CONTRACT.json",
+      "sha256": "ebe792aa48c59f825d0f35835e05ba824f30c9ca411af0776cd1b2ffb38c7cc7",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/a1f9233049cc0f8aeb2a6ccd7e7b613cec3c1ec0/research/scalar-preparation-zero/APPLICATION_CONTRACT.json"
+    },
+    {
+      "group": "pr12",
+      "commit": "a1f9233049cc0f8aeb2a6ccd7e7b613cec3c1ec0",
+      "path": "research/scalar-preparation-zero/EXPECTED.json",
+      "sha256": "51cbf1da47334167f5e7f45a32c75ac059521d3365db290d22843435df03bc07",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/a1f9233049cc0f8aeb2a6ccd7e7b613cec3c1ec0/research/scalar-preparation-zero/EXPECTED.json"
+    },
+    {
+      "group": "pr12",
+      "commit": "a1f9233049cc0f8aeb2a6ccd7e7b613cec3c1ec0",
+      "path": "research/scalar-preparation-zero/LOCAL_CHECKS.json",
+      "sha256": "eac2c0129d712a1f4e0f507a6a822e32987328ac5461cd7b66f5fa7964e59e17",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/a1f9233049cc0f8aeb2a6ccd7e7b613cec3c1ec0/research/scalar-preparation-zero/LOCAL_CHECKS.json"
+    },
+    {
+      "group": "pr12",
+      "commit": "a1f9233049cc0f8aeb2a6ccd7e7b613cec3c1ec0",
+      "path": "research/scalar-preparation-zero/PROOF.md",
+      "sha256": "79bb5a8c5ce16c6b4559848739aeb78b7d23eb4a90f2ff0ad8ccf97a3674280a",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/a1f9233049cc0f8aeb2a6ccd7e7b613cec3c1ec0/research/scalar-preparation-zero/PROOF.md"
+    },
+    {
+      "group": "pr12",
+      "commit": "a1f9233049cc0f8aeb2a6ccd7e7b613cec3c1ec0",
+      "path": "research/scalar-preparation-zero/README.md",
+      "sha256": "dc7c62b9a2c2aee7aea9ef86c491adb4b3de53e0e1bda070350cf12d99718902",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/a1f9233049cc0f8aeb2a6ccd7e7b613cec3c1ec0/research/scalar-preparation-zero/README.md"
+    },
+    {
+      "group": "pr12",
+      "commit": "a1f9233049cc0f8aeb2a6ccd7e7b613cec3c1ec0",
+      "path": "research/scalar-preparation-zero/REPRODUCTION.json",
+      "sha256": "558c83d41751f8c36b6d3833b5cff75e8ebf6586f9b5b337899623ee5d818d4a",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/a1f9233049cc0f8aeb2a6ccd7e7b613cec3c1ec0/research/scalar-preparation-zero/REPRODUCTION.json"
+    },
+    {
+      "group": "pr12",
+      "commit": "a1f9233049cc0f8aeb2a6ccd7e7b613cec3c1ec0",
+      "path": "research/scalar-preparation-zero/SOURCE_BINDINGS.json",
+      "sha256": "f6136f6e29025d0620ece7fbae4bfd04552b1795a061fdeb04f6d3b2e5d3d45d",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/a1f9233049cc0f8aeb2a6ccd7e7b613cec3c1ec0/research/scalar-preparation-zero/SOURCE_BINDINGS.json"
+    },
+    {
+      "group": "pr12",
+      "commit": "a1f9233049cc0f8aeb2a6ccd7e7b613cec3c1ec0",
+      "path": "research/scalar-preparation-zero/check_zero.py",
+      "sha256": "f9a31f1f314489a14e058f05a0f88b427ea1b159daf8c10fa3820744abb7f127",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/a1f9233049cc0f8aeb2a6ccd7e7b613cec3c1ec0/research/scalar-preparation-zero/check_zero.py"
+    },
+    {
+      "group": "pr12",
+      "commit": "a1f9233049cc0f8aeb2a6ccd7e7b613cec3c1ec0",
+      "path": "research/scalar-preparation-zero/reproduce.py",
+      "sha256": "55518079d667d2795babee2f19c92de21c1921f9b47ad207ace685d8c06f17cc",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/a1f9233049cc0f8aeb2a6ccd7e7b613cec3c1ec0/research/scalar-preparation-zero/reproduce.py"
+    },
+    {
+      "group": "pr12",
+      "commit": "a1f9233049cc0f8aeb2a6ccd7e7b613cec3c1ec0",
+      "path": "research/scalar-preparation-zero/zero_patch.py",
+      "sha256": "3b85eca70302b16135497f44de442793ae11ff084b1fee65425ca2ee1381a79a",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/a1f9233049cc0f8aeb2a6ccd7e7b613cec3c1ec0/research/scalar-preparation-zero/zero_patch.py"
+    },
+    {
+      "group": "precision",
+      "commit": "bc51100fd3ada82df0dac55d6f1d235219430c74",
+      "path": "research/higher-detector-precision/APPLICATION_CONTRACT.json",
+      "sha256": "f8f5cbd6042a86ec244e0ca7c75d62df209e238283268358ec8453b9855ee77d",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/bc51100fd3ada82df0dac55d6f1d235219430c74/research/higher-detector-precision/APPLICATION_CONTRACT.json"
+    },
+    {
+      "group": "precision",
+      "commit": "bc51100fd3ada82df0dac55d6f1d235219430c74",
+      "path": "research/higher-detector-precision/EXPECTED.json",
+      "sha256": "2e2d50aef289e50a098f92ab3e9a536fd5a38bc9fe62f8e815f930f697e8d245",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/bc51100fd3ada82df0dac55d6f1d235219430c74/research/higher-detector-precision/EXPECTED.json"
+    },
+    {
+      "group": "precision",
+      "commit": "bc51100fd3ada82df0dac55d6f1d235219430c74",
+      "path": "research/higher-detector-precision/PROOF.md",
+      "sha256": "e6a825c3b85a9c56a6a2678ad0fa411ecedec53a005a0464efb45677f056054c",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/bc51100fd3ada82df0dac55d6f1d235219430c74/research/higher-detector-precision/PROOF.md"
+    },
+    {
+      "group": "precision",
+      "commit": "bc51100fd3ada82df0dac55d6f1d235219430c74",
+      "path": "research/higher-detector-precision/README.md",
+      "sha256": "5507f2e0a01bed618c21ade6adefa9461713b9d8db44a02e55c58db78576e098",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/bc51100fd3ada82df0dac55d6f1d235219430c74/research/higher-detector-precision/README.md"
+    },
+    {
+      "group": "precision",
+      "commit": "bc51100fd3ada82df0dac55d6f1d235219430c74",
+      "path": "research/higher-detector-precision/SOURCE_BINDINGS.json",
+      "sha256": "f129baf00c40b37833e5e94173cce93c9f59ce768981e071347a19592860b931",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/bc51100fd3ada82df0dac55d6f1d235219430c74/research/higher-detector-precision/SOURCE_BINDINGS.json"
+    },
+    {
+      "group": "precision",
+      "commit": "bc51100fd3ada82df0dac55d6f1d235219430c74",
+      "path": "research/higher-detector-precision/check_precision.py",
+      "sha256": "723332fe36d3aebac672ddecee313cf53e5ee321e1453ba0ddb13fa751730d9c",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/bc51100fd3ada82df0dac55d6f1d235219430c74/research/higher-detector-precision/check_precision.py"
+    },
+    {
+      "group": "precision",
+      "commit": "bc51100fd3ada82df0dac55d6f1d235219430c74",
+      "path": "research/higher-detector-precision/experiment.py",
+      "sha256": "e1ad3f345a4f765f1a3e4b44323786a9a14d8f620c950239a21957f2e4932a9f",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/bc51100fd3ada82df0dac55d6f1d235219430c74/research/higher-detector-precision/experiment.py"
+    },
+    {
+      "group": "rejected-ports",
+      "commit": "a8ce102d3a2d9c903a17ac1a181e5560d1f6342a",
+      "path": "research/quartic-followup/APPLICATION_CONTRACT.json",
+      "sha256": "7f1a789bb1ad06ded5020fa267a1e03ac3a6b0151c8146c5f0798226c8aeeba7",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/a8ce102d3a2d9c903a17ac1a181e5560d1f6342a/research/quartic-followup/APPLICATION_CONTRACT.json"
+    },
+    {
+      "group": "rejected-ports",
+      "commit": "a8ce102d3a2d9c903a17ac1a181e5560d1f6342a",
+      "path": "research/quartic-followup/LOCAL_CLAIMS.json",
+      "sha256": "fbfcceb3bc03e6d5a256ff4d8971710dedc2326e61969b808bf821f320b25948",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/a8ce102d3a2d9c903a17ac1a181e5560d1f6342a/research/quartic-followup/LOCAL_CLAIMS.json"
+    },
+    {
+      "group": "rejected-ports",
+      "commit": "a8ce102d3a2d9c903a17ac1a181e5560d1f6342a",
+      "path": "research/quartic-followup/LOGARITHM.md",
+      "sha256": "2e1791856d10d6a0b3586b3452539d5b8a0a8dd4e7665597529e334a0e0c86c0",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/a8ce102d3a2d9c903a17ac1a181e5560d1f6342a/research/quartic-followup/LOGARITHM.md"
+    },
+    {
+      "group": "rejected-ports",
+      "commit": "a8ce102d3a2d9c903a17ac1a181e5560d1f6342a",
+      "path": "research/quartic-followup/README.md",
+      "sha256": "005d48782add33055e2dfc56ea68d3cc121e227240ae185327629a0415543e95",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/a8ce102d3a2d9c903a17ac1a181e5560d1f6342a/research/quartic-followup/README.md"
+    },
+    {
+      "group": "rejected-ports",
+      "commit": "a8ce102d3a2d9c903a17ac1a181e5560d1f6342a",
+      "path": "research/quartic-followup/RESULTS.json",
+      "sha256": "44c4634f187779ec47b23310b7e4f26cfd77e97354094fcb399cc2a0b9b54c93",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/a8ce102d3a2d9c903a17ac1a181e5560d1f6342a/research/quartic-followup/RESULTS.json"
+    },
+    {
+      "group": "rejected-ports",
+      "commit": "a8ce102d3a2d9c903a17ac1a181e5560d1f6342a",
+      "path": "research/quartic-followup/SCALAR_ARGUMENT.md",
+      "sha256": "eef1881d0d281c66f4a64b4f244e115335424f804125a86e2f65ba49a9873cd6",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/a8ce102d3a2d9c903a17ac1a181e5560d1f6342a/research/quartic-followup/SCALAR_ARGUMENT.md"
+    },
+    {
+      "group": "rejected-ports",
+      "commit": "a8ce102d3a2d9c903a17ac1a181e5560d1f6342a",
+      "path": "research/quartic-followup/SOURCE_BINDINGS.json",
+      "sha256": "64c60bacf4569c544d8de24355cdf0b7810d865e2dad065f7ee4e14f84d71642",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/a8ce102d3a2d9c903a17ac1a181e5560d1f6342a/research/quartic-followup/SOURCE_BINDINGS.json"
+    },
+    {
+      "group": "rejected-ports",
+      "commit": "a8ce102d3a2d9c903a17ac1a181e5560d1f6342a",
+      "path": "research/quartic-followup/chart_patch.py",
+      "sha256": "b7a08a6bf02f6ce063a72c9ee164bb0f163cbf9db3eb43c2ca48206c98a825ea",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/a8ce102d3a2d9c903a17ac1a181e5560d1f6342a/research/quartic-followup/chart_patch.py"
+    },
+    {
+      "group": "rejected-ports",
+      "commit": "a8ce102d3a2d9c903a17ac1a181e5560d1f6342a",
+      "path": "research/quartic-followup/check_local_claims.py",
+      "sha256": "7043054920b1d53e8feaea4facc794bc9b441c6c7fcb284effb7de30354fedaa",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/a8ce102d3a2d9c903a17ac1a181e5560d1f6342a/research/quartic-followup/check_local_claims.py"
+    },
+    {
+      "group": "rejected-ports",
+      "commit": "a8ce102d3a2d9c903a17ac1a181e5560d1f6342a",
+      "path": "research/quartic-followup/log_patch.py",
+      "sha256": "0dfb728ea44ebd20e81680988f1c70d15439dedee353b601549d224506f69b32",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/a8ce102d3a2d9c903a17ac1a181e5560d1f6342a/research/quartic-followup/log_patch.py"
+    },
+    {
+      "group": "rejected-ports",
+      "commit": "a8ce102d3a2d9c903a17ac1a181e5560d1f6342a",
+      "path": "research/quartic-followup/reproduce.py",
+      "sha256": "c92ca78e6e5a6cf39b5d1d7857948efeb991384d3e02d90557d2fdd2e66be51f",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/a8ce102d3a2d9c903a17ac1a181e5560d1f6342a/research/quartic-followup/reproduce.py"
+    },
+    {
+      "group": "rejected-ports",
+      "commit": "a8ce102d3a2d9c903a17ac1a181e5560d1f6342a",
+      "path": "research/quartic-followup/scalar_patch.py",
+      "sha256": "b1bf6a3828cb6c5b06a218c424779fbd535a65f0306c2e46eb853e7961f19d02",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/a8ce102d3a2d9c903a17ac1a181e5560d1f6342a/research/quartic-followup/scalar_patch.py"
+    },
+    {
+      "group": "chain-investigation",
+      "commit": "a8ce102d3a2d9c903a17ac1a181e5560d1f6342a",
+      "path": "research/scalar-chain-investigation/APPLICATION_CONTRACT.json",
+      "sha256": "e61465d2f6004cea23d79fdaa82e0fe8c41d670db6fa0ee1a491a873d0625ef8",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/a8ce102d3a2d9c903a17ac1a181e5560d1f6342a/research/scalar-chain-investigation/APPLICATION_CONTRACT.json"
+    },
+    {
+      "group": "chain-investigation",
+      "commit": "a8ce102d3a2d9c903a17ac1a181e5560d1f6342a",
+      "path": "research/scalar-chain-investigation/LOCAL_CHECKS.json",
+      "sha256": "0a608a2d52e2046298540b808726585d188cbb853572f1acfe49a6f1cad8e4d9",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/a8ce102d3a2d9c903a17ac1a181e5560d1f6342a/research/scalar-chain-investigation/LOCAL_CHECKS.json"
+    },
+    {
+      "group": "chain-investigation",
+      "commit": "a8ce102d3a2d9c903a17ac1a181e5560d1f6342a",
+      "path": "research/scalar-chain-investigation/PROOF.md",
+      "sha256": "6789fbd49f4a45e550ef99286434df4de79f2ee3f186933a61ff7973708f5bcd",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/a8ce102d3a2d9c903a17ac1a181e5560d1f6342a/research/scalar-chain-investigation/PROOF.md"
+    },
+    {
+      "group": "chain-investigation",
+      "commit": "a8ce102d3a2d9c903a17ac1a181e5560d1f6342a",
+      "path": "research/scalar-chain-investigation/README.md",
+      "sha256": "729f14d3deef90e0456f04ae613a142f0812a68c7aa089c73ddcca95409a4517",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/a8ce102d3a2d9c903a17ac1a181e5560d1f6342a/research/scalar-chain-investigation/README.md"
+    },
+    {
+      "group": "chain-investigation",
+      "commit": "a8ce102d3a2d9c903a17ac1a181e5560d1f6342a",
+      "path": "research/scalar-chain-investigation/RESULTS.json",
+      "sha256": "8c5c12171e79c3c7f76e47a170efcd0d7ce370f22868809df171d1318798325b",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/a8ce102d3a2d9c903a17ac1a181e5560d1f6342a/research/scalar-chain-investigation/RESULTS.json"
+    },
+    {
+      "group": "chain-investigation",
+      "commit": "a8ce102d3a2d9c903a17ac1a181e5560d1f6342a",
+      "path": "research/scalar-chain-investigation/SOURCE_BINDINGS.json",
+      "sha256": "e0b57359d21816af991eef250e9601bc97eca0b5cf5324a3c79b18fa6366fc83",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/a8ce102d3a2d9c903a17ac1a181e5560d1f6342a/research/scalar-chain-investigation/SOURCE_BINDINGS.json"
+    },
+    {
+      "group": "chain-investigation",
+      "commit": "a8ce102d3a2d9c903a17ac1a181e5560d1f6342a",
+      "path": "research/scalar-chain-investigation/chain_patch.py",
+      "sha256": "31584f3da8f039adf416887e10f50af9e0f80a2d3ae7f63d5116d03b775fa276",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/a8ce102d3a2d9c903a17ac1a181e5560d1f6342a/research/scalar-chain-investigation/chain_patch.py"
+    },
+    {
+      "group": "chain-investigation",
+      "commit": "a8ce102d3a2d9c903a17ac1a181e5560d1f6342a",
+      "path": "research/scalar-chain-investigation/check_chain.py",
+      "sha256": "07e001d7e001874691b99b5cb8c308090c745c5f6ad8954e83ad9a2a1ece7ed4",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/a8ce102d3a2d9c903a17ac1a181e5560d1f6342a/research/scalar-chain-investigation/check_chain.py"
+    },
+    {
+      "group": "chain-investigation",
+      "commit": "a8ce102d3a2d9c903a17ac1a181e5560d1f6342a",
+      "path": "research/scalar-chain-investigation/reproduce.py",
+      "sha256": "60185732b4a9b9a7fec38b61fcb9928dce63b6ece6c968893cef2a58edb1ec98",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/a8ce102d3a2d9c903a17ac1a181e5560d1f6342a/research/scalar-chain-investigation/reproduce.py"
+    },
+    {
+      "group": "reviews",
+      "commit": "1b375ac63c3df4f24b7537037bd890e78e8f578b",
+      "path": "research/independent-local-reviews/2026-11-08/ARCHIVE_MANIFEST.json",
+      "sha256": "e1e5ed30283a7701abaabd85bda32f0ef21a2223e6baf068f71b986b88fbaa0f",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/1b375ac63c3df4f24b7537037bd890e78e8f578b/research/independent-local-reviews/2026-11-08/ARCHIVE_MANIFEST.json"
+    },
+    {
+      "group": "reviews",
+      "commit": "1b375ac63c3df4f24b7537037bd890e78e8f578b",
+      "path": "research/independent-local-reviews/2026-11-08/FINDINGS.json",
+      "sha256": "4baa6704e2cf7373f43e8ccfac5697a3009e38ea08e93c56949d918c8331d0d4",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/1b375ac63c3df4f24b7537037bd890e78e8f578b/research/independent-local-reviews/2026-11-08/FINDINGS.json"
+    },
+    {
+      "group": "reviews",
+      "commit": "1b375ac63c3df4f24b7537037bd890e78e8f578b",
+      "path": "research/independent-local-reviews/2026-11-08/INDEPENDENT_CHECKS.json",
+      "sha256": "4d856b858039b675a1df011a989d2aed8630a256252531a91c03f5de96315b85",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/1b375ac63c3df4f24b7537037bd890e78e8f578b/research/independent-local-reviews/2026-11-08/INDEPENDENT_CHECKS.json"
+    },
+    {
+      "group": "reviews",
+      "commit": "1b375ac63c3df4f24b7537037bd890e78e8f578b",
+      "path": "research/independent-local-reviews/2026-11-08/README.md",
+      "sha256": "11e53d7c745261cfe82ad47df71e0f3f5cfbe10ad4fd1424ccd3cf4d024e54f7",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/1b375ac63c3df4f24b7537037bd890e78e8f578b/research/independent-local-reviews/2026-11-08/README.md"
+    },
+    {
+      "group": "reviews",
+      "commit": "1b375ac63c3df4f24b7537037bd890e78e8f578b",
+      "path": "research/independent-local-reviews/2026-11-08/REPORT.md",
+      "sha256": "00f1accc3f4bc2b9d27da6c9517c536898cea9c035647022fd6534bb349201fd",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/1b375ac63c3df4f24b7537037bd890e78e8f578b/research/independent-local-reviews/2026-11-08/REPORT.md"
+    },
+    {
+      "group": "reviews",
+      "commit": "1b375ac63c3df4f24b7537037bd890e78e8f578b",
+      "path": "research/independent-local-reviews/2026-11-08/SOURCE_HASHES.json",
+      "sha256": "12d7490aae5de767c5323d5055243139830010c90c70f21b1c5bcd4d91e3e8b8",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/1b375ac63c3df4f24b7537037bd890e78e8f578b/research/independent-local-reviews/2026-11-08/SOURCE_HASHES.json"
+    },
+    {
+      "group": "reviews",
+      "commit": "1b375ac63c3df4f24b7537037bd890e78e8f578b",
+      "path": "research/independent-local-reviews/2026-11-08/higher-precision/FINDINGS.json",
+      "sha256": "034a6beca572f93e36e52a05e0c04bbea80b734dc256dbd3547a25cb4fe110c6",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/1b375ac63c3df4f24b7537037bd890e78e8f578b/research/independent-local-reviews/2026-11-08/higher-precision/FINDINGS.json"
+    },
+    {
+      "group": "reviews",
+      "commit": "1b375ac63c3df4f24b7537037bd890e78e8f578b",
+      "path": "research/independent-local-reviews/2026-11-08/higher-precision/INDEPENDENT_CHECKS.json",
+      "sha256": "80be8651d12fccf5192258be48ced49fdf2f90024673506765f97d6efcbbf4d8",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/1b375ac63c3df4f24b7537037bd890e78e8f578b/research/independent-local-reviews/2026-11-08/higher-precision/INDEPENDENT_CHECKS.json"
+    },
+    {
+      "group": "reviews",
+      "commit": "1b375ac63c3df4f24b7537037bd890e78e8f578b",
+      "path": "research/independent-local-reviews/2026-11-08/higher-precision/REPORT.md",
+      "sha256": "79c9b84d571a8798230c77d497a918713e0a22900a8b2f703dc06b09b63a1584",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/1b375ac63c3df4f24b7537037bd890e78e8f578b/research/independent-local-reviews/2026-11-08/higher-precision/REPORT.md"
+    },
+    {
+      "group": "reviews",
+      "commit": "1b375ac63c3df4f24b7537037bd890e78e8f578b",
+      "path": "research/independent-local-reviews/2026-11-08/higher-precision/SOURCE_HASHES.json",
+      "sha256": "18ea20e6d09679155b3ebfeecf896743f74ba9f6bd9ae27071b6eadc45d03535",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/1b375ac63c3df4f24b7537037bd890e78e8f578b/research/independent-local-reviews/2026-11-08/higher-precision/SOURCE_HASHES.json"
+    },
+    {
+      "group": "reviews",
+      "commit": "1b375ac63c3df4f24b7537037bd890e78e8f578b",
+      "path": "research/independent-local-reviews/2026-11-08/higher-precision/independent_checks.py",
+      "sha256": "1d1de901745234af1c899f75b512ae3189594227ed2de23673b7e7493ccb5b6c",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/1b375ac63c3df4f24b7537037bd890e78e8f578b/research/independent-local-reviews/2026-11-08/higher-precision/independent_checks.py"
+    },
+    {
+      "group": "reviews",
+      "commit": "1b375ac63c3df4f24b7537037bd890e78e8f578b",
+      "path": "research/independent-local-reviews/2026-11-08/higher-precision/order46/MEASURED.json",
+      "sha256": "90acfe9525a215517d17e3ea0c812493145df00aef7657f357eac9f86a5efbe7",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/1b375ac63c3df4f24b7537037bd890e78e8f578b/research/independent-local-reviews/2026-11-08/higher-precision/order46/MEASURED.json"
+    },
+    {
+      "group": "reviews",
+      "commit": "1b375ac63c3df4f24b7537037bd890e78e8f578b",
+      "path": "research/independent-local-reviews/2026-11-08/higher-precision/order47/MEASURED.json",
+      "sha256": "f53318d6104ff10962803280d719c39e874d1235406f917072fd480f4f9c6288",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/1b375ac63c3df4f24b7537037bd890e78e8f578b/research/independent-local-reviews/2026-11-08/higher-precision/order47/MEASURED.json"
+    },
+    {
+      "group": "reviews",
+      "commit": "1b375ac63c3df4f24b7537037bd890e78e8f578b",
+      "path": "research/independent-local-reviews/2026-11-08/independent_checks.py",
+      "sha256": "ad1b30fd1adf012f337ed6f01a2583607b99736cc884f4ca9384bdf5bfc53fa1",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/1b375ac63c3df4f24b7537037bd890e78e8f578b/research/independent-local-reviews/2026-11-08/independent_checks.py"
+    },
+    {
+      "group": "reviews",
+      "commit": "1b375ac63c3df4f24b7537037bd890e78e8f578b",
+      "path": "research/independent-local-reviews/2026-11-08/pr11-replay/reproduction-receipt.json",
+      "sha256": "aa3c348c3b096d1ff093144677f4a3b909cfdeaaf2abbeac48d85f0faa4ea0a4",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/1b375ac63c3df4f24b7537037bd890e78e8f578b/research/independent-local-reviews/2026-11-08/pr11-replay/reproduction-receipt.json"
+    },
+    {
+      "group": "reviews",
+      "commit": "1b375ac63c3df4f24b7537037bd890e78e8f578b",
+      "path": "research/independent-local-reviews/2026-11-08/pr9-replay/reproduction-receipt.json",
+      "sha256": "b6ce7814cffb79bc4c1e2c719a2a2ba150cf3beee6645c55acbcb5e99066e0d8",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/1b375ac63c3df4f24b7537037bd890e78e8f578b/research/independent-local-reviews/2026-11-08/pr9-replay/reproduction-receipt.json"
+    },
+    {
+      "group": "reviews",
+      "commit": "1b375ac63c3df4f24b7537037bd890e78e8f578b",
+      "path": "research/independent-local-reviews/2026-11-08/preparation-zero/FINDINGS.json",
+      "sha256": "328d702e80fbae58a494d7da0533dcdfef9a82dd7b19cf50cfc76adefce01759",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/1b375ac63c3df4f24b7537037bd890e78e8f578b/research/independent-local-reviews/2026-11-08/preparation-zero/FINDINGS.json"
+    },
+    {
+      "group": "reviews",
+      "commit": "1b375ac63c3df4f24b7537037bd890e78e8f578b",
+      "path": "research/independent-local-reviews/2026-11-08/preparation-zero/INDEPENDENT_CHECKS.json",
+      "sha256": "6b5634154d9b43d90bca74069e795c251ae64c3f8d79bdcb13aa85c1d7093a12",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/1b375ac63c3df4f24b7537037bd890e78e8f578b/research/independent-local-reviews/2026-11-08/preparation-zero/INDEPENDENT_CHECKS.json"
+    },
+    {
+      "group": "reviews",
+      "commit": "1b375ac63c3df4f24b7537037bd890e78e8f578b",
+      "path": "research/independent-local-reviews/2026-11-08/preparation-zero/REPORT.md",
+      "sha256": "d582f20f2917eb81a37e8259b8b761445e6859cef8dad4cf7deee9f0e4c046ab",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/1b375ac63c3df4f24b7537037bd890e78e8f578b/research/independent-local-reviews/2026-11-08/preparation-zero/REPORT.md"
+    },
+    {
+      "group": "reviews",
+      "commit": "1b375ac63c3df4f24b7537037bd890e78e8f578b",
+      "path": "research/independent-local-reviews/2026-11-08/preparation-zero/SOURCE_HASHES.json",
+      "sha256": "66b934a8a652b0c8166da9c627bff263597400c34300ccb32437f626a277ab03",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/1b375ac63c3df4f24b7537037bd890e78e8f578b/research/independent-local-reviews/2026-11-08/preparation-zero/SOURCE_HASHES.json"
+    },
+    {
+      "group": "reviews",
+      "commit": "1b375ac63c3df4f24b7537037bd890e78e8f578b",
+      "path": "research/independent-local-reviews/2026-11-08/preparation-zero/independent_checks.py",
+      "sha256": "f235e48807f20c998baa51da9edff0d4c2ec2f2ecda5b0192f5eb285e6bf8107",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/1b375ac63c3df4f24b7537037bd890e78e8f578b/research/independent-local-reviews/2026-11-08/preparation-zero/independent_checks.py"
+    },
+    {
+      "group": "reviews",
+      "commit": "1b375ac63c3df4f24b7537037bd890e78e8f578b",
+      "path": "research/independent-local-reviews/2026-11-08/preparation-zero/replay/reproduction-receipt.json",
+      "sha256": "5d894a50db9ba12b218dc36ee34e0a839eeffbab4163ac33cc4aa5b09abc4675",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/1b375ac63c3df4f24b7537037bd890e78e8f578b/research/independent-local-reviews/2026-11-08/preparation-zero/replay/reproduction-receipt.json"
+    },
+    {
+      "group": "import-comparison",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "docs/reviews/quartic389-import/SOURCE_COMPARISON.json",
+      "sha256": "6d644eb5a8423705538433e4b3a6c139400006ee3f1983b54b7a8fd770ee3fa3",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/docs/reviews/quartic389-import/SOURCE_COMPARISON.json"
+    },
+    {
+      "group": "import-comparison",
+      "commit": "490d14ef06d3369b7a68a07a5202e017d794549c",
+      "path": "docs/reviews/quartic389-import/SOURCE_COMPARISON.md",
+      "sha256": "8574562350ac1f4905cabb9ea6eea3f894f002aa433afdf1de20cb0673ff114d",
+      "url": "https://github.com/cameronfreer/diophantine-z-q/blob/490d14ef06d3369b7a68a07a5202e017d794549c/docs/reviews/quartic389-import/SOURCE_COMPARISON.md"
+    },
+    {
+      "group": "unchanged-current-release",
+      "commit": "9c0b3aba60d90fdcac82115f0582a6f52f1054f7",
+      "path": "README.md",
+      "sha256": "0b320515ee886f816ed028a376d79264f4ff324a53b8de8a99b53e4001263aec",
+      "url": "https://github.com/elliotglazer/diophantine-z-q/blob/9c0b3aba60d90fdcac82115f0582a6f52f1054f7/README.md"
+    },
+    {
+      "group": "unchanged-current-release",
+      "commit": "9c0b3aba60d90fdcac82115f0582a6f52f1054f7",
+      "path": "docs/release-policy.md",
+      "sha256": "d9f5461cf3dca3de4c65328e0a1f89a1f15a174ef15956432e0a39fdfbad1c30",
+      "url": "https://github.com/elliotglazer/diophantine-z-q/blob/9c0b3aba60d90fdcac82115f0582a6f52f1054f7/docs/release-policy.md"
+    },
+    {
+      "group": "unchanged-current-release",
+      "commit": "9c0b3aba60d90fdcac82115f0582a6f52f1054f7",
+      "path": "docs/audit-history/current.json",
+      "sha256": "b5ea322583af1100d2d73f25a7185e42e747e76c5609f227331ecd03ab869eb9",
+      "url": "https://github.com/elliotglazer/diophantine-z-q/blob/9c0b3aba60d90fdcac82115f0582a6f52f1054f7/docs/audit-history/current.json"
+    },
+    {
+      "group": "unchanged-current-release",
+      "commit": "9c0b3aba60d90fdcac82115f0582a6f52f1054f7",
+      "path": "manuscripts/quartic_v13.tex",
+      "sha256": "9db71bbfcefb37db56eabcf40a5f9dd85de9ed58294635da3dbf6d4f5caa8fcd",
+      "url": "https://github.com/elliotglazer/diophantine-z-q/blob/9c0b3aba60d90fdcac82115f0582a6f52f1054f7/manuscripts/quartic_v13.tex"
+    },
+    {
+      "group": "unchanged-current-release",
+      "commit": "9c0b3aba60d90fdcac82115f0582a6f52f1054f7",
+      "path": "docs/manuscript-revisions/version13/evidence/release-artifacts.json",
+      "sha256": "23078103389747c9176702d20b44e452b1a036a46c010ae4149789ececef3637",
+      "url": "https://github.com/elliotglazer/diophantine-z-q/blob/9c0b3aba60d90fdcac82115f0582a6f52f1054f7/docs/manuscript-revisions/version13/evidence/release-artifacts.json"
+    },
+    {
+      "group": "unchanged-current-release",
+      "commit": "9c0b3aba60d90fdcac82115f0582a6f52f1054f7",
+      "path": "docs/manuscript-revisions/version13/inventory-install-manifest.json",
+      "sha256": "c6fd0cda27b33aae2fab903a7bd55d64ab83ac191b66eb1ca444f63766db1f01",
+      "url": "https://github.com/elliotglazer/diophantine-z-q/blob/9c0b3aba60d90fdcac82115f0582a6f52f1054f7/docs/manuscript-revisions/version13/inventory-install-manifest.json"
+    },
+    {
+      "group": "unchanged-current-release",
+      "commit": "9c0b3aba60d90fdcac82115f0582a6f52f1054f7",
+      "path": "manuscripts/quartic_v13.pdf",
+      "sha256": "c72b9cc5c4f2b588b370bea80418b636cd39593fee46c991b9360103ef76bc36",
+      "url": "https://github.com/elliotglazer/diophantine-z-q/blob/9c0b3aba60d90fdcac82115f0582a6f52f1054f7/manuscripts/quartic_v13.pdf"
+    }
+  ]
+}

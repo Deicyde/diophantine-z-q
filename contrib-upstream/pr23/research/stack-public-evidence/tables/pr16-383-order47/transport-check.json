@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "scope": "Exact conic reconstruction, source-to-candidate lift identities, full consumer incidence, unchanged exterior rows. Arithmetic hypotheses and independent acceptance remain separate.",
+  "coordinates": 383,
+  "residuals": 352,
+  "sourceSha256": "c4fe9d87ed972c2ccc7d055ebe2c1f6ce1910f96ef36e3e4c53860ff5dd895a1",
+  "candidateSha256": "10a09c6049997777aed37f8092403b29309c9429d5f216dbd20f031a53a66283",
+  "blocks": [
+    {
+      "prefix": "detector0",
+      "exactLiftRowFactors": {
+        "detector0.Bh.definition": "-1",
+        "detector0.q2.definition": "1",
+        "detector0.secondConic": "-1"
+      },
+      "incidenceChecked": true,
+      "zeroBranchReducedToPositiveSum": true
+    },
+    {
+      "prefix": "detector1",
+      "exactLiftRowFactors": {
+        "detector1.Bh.definition": "-1",
+        "detector1.q2.definition": "1",
+        "detector1.secondConic": "-1"
+      },
+      "incidenceChecked": true,
+      "zeroBranchReducedToPositiveSum": true
+    },
+    {
+      "prefix": "detector2",
+      "exactLiftRowFactors": {
+        "detector2.Bh.definition": "-1",
+        "detector2.q2.definition": "1",
+        "detector2.secondConic": "-1"
+      },
+      "incidenceChecked": true,
+      "zeroBranchReducedToPositiveSum": true
+    },
+    {
+      "prefix": "scalar",
+      "exactLiftRowFactors": {
+        "scalar.Bh.definition": "-1/2268",
+        "scalar.q2.definition": "1",
+        "scalar.secondConic": "-1"
+      },
+      "incidenceChecked": true,
+      "zeroBranchReducedToPositiveSum": true
+    }
+  ],
+  "rejectedNegativeControls": [
+    "change_conic_coefficient",
+    "add_outside_consumer",
+    "restore_deleted_square"
+  ],
+  "independentAcceptance": false
+}

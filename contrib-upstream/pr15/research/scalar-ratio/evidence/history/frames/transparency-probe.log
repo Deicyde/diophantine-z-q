@@ -1,0 +1,21 @@
+/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.checks/scalar-ratio-frames/TransparencyProbe.lean:173:81: error: unexpected token 'set_option'; expected 'lemma'
+/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.checks/scalar-ratio-frames/TransparencyProbe.lean:203:68: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (1000000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.checks/scalar-ratio-frames/TransparencyProbe.lean:196:36: error: (deterministic) timeout at `«tactic execution»`, maximum number of heartbeats (1000000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.checks/scalar-ratio-frames/TransparencyProbe.lean:175:0: error: (deterministic) timeout at `isDefEq`, maximum number of heartbeats (1000000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.checks/scalar-ratio-frames/TransparencyProbe.lean:251:0: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (1000000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.

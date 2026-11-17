@@ -1,0 +1,68 @@
+INDEPENDENT ARITHMETIC REVIEW — ROUND SEVEN
+
+Verdict: ACCEPT, conditional on the inherited inputs explicitly retained in the
+reviewed proofs. This review is separate from authorship of the arithmetic proof.
+The selected exponent 2790 does not depend on the optional projective-height or
+odd-exponent improvements. No source mutation was made.
+
+Reviewed selected proof: seventh-work/arithmetic/arithmetic_round7.tex
+SHA256: 14f548346d7630bf2d440fbc33a10bda10bb6cc7604692d59bcb1c821a5bf5ff
+Reviewed optional proof: seventh-work/arithmetic/optional_anchor_height_round7.tex
+SHA256: 686faeed616eef6ebed472b2414a36e8158d4de838248238815ecc283e39a4e6
+Integrated builder: 78b54bcde24ff8a91091e102a4734c49878699f071d9230e5ce7a70ffd2114d0
+
+Selected construction
+---------------------
+I read the entire selected proof, its actual integrated source interfaces, and
+the consuming passage addition.tex 421–477. I checked the source odd-product
+argument at addition.tex 286–350 as well. The prior round-six review had already
+read the local subgroup, quaternion, and packed leading-residue proofs; those
+unchanged inputs are retained and are not relabeled as a new global validation.
+
+At 3, anisotropic field norms give even valuations, while the two terms of the
+normalized anchor have opposite parity. Integrality of the packed coefficient
+therefore precedes and forces all four odd labels. Only then is the unit property
+of h_S used to deduce v_3(w)=1+v_3(a−1). The resulting divisibility is exactly
+0 != a−1 in 2*3^1394 Z. At 2, the integral odd formal series and depth 3/2 give
+the stated multiplication depths, after which the odd labels make w_0,w_1 and
+B_0 integral. The remaining −6X^2 term excludes a denominator at 2. Converse
+existence of conic witnesses, chart signs, tangent points, and the nonzero
+shifted-point guard are all accounted for.
+
+The retained G12 tail supports 45 at every consumed prime; the G2 tail supports
+12 outside the retained set. Primary depth45 gives relative precision180, and
+the three scales retain the same positivity and order of prime choices. I checked
+the scalar, Lucas, and input contradictions separately. The exact E2790 margins
+hold using the preceding 7H/24H constants. The final inference from integral beta
+to integral X also handles prime17: its leading coefficient has valuation one,
+so a negative input valuation still makes the quadratic term uniquely smallest.
+No independent exponent-ten condition is silently dropped.
+
+Optional results
+----------------
+The parity adjustment gamma=3^(1−E mod2) works for both exponent parities.
+The two normalized anchor terms have opposite 3-adic parity, and the same dyadic
+argument applies because gamma and 3^E are odd. Odd E=2k−1 and even E=2k have
+exactly the same point/input domain. This is equivalence of existence of conic
+witnesses, not a claimed bijection between their witness tuples.
+
+The projective-height estimate is valid place by place. Projective scaling
+removes the nonzero lambda, coordinatewise squaring doubles height, and the
+projective tuple height is bounded by the sum of its three affine heights.
+The coefficients 1−rho and rho are integral at finite places. At the real places
+the absolute operator constants are 2sqrt(2)−1 and 2sqrt(2)+1, both greater than
+one, with product7. This proves the stated half-log7 overhead and K0=(3H+14)/2.
+The odd-product theorem concerns C in K, not its rational norm, so no split-place
+cancellation is being suppressed. The resulting Lucas ratio is strictly increasing
+for B>sqrt(6) and k>38; endpoint tests therefore suffice. The optional threshold
+claims are minima only of those sufficient inequalities, as the proof states.
+
+Exact supplementary calculations
+--------------------------------
+The adjacent JSON records 32 independent exact integer/rational certificates:
+683-bit H, the rational logarithm certificate, both selected power inequalities,
+all three consumers, both tail inequalities, the norm/parity and archimedean
+constants, and the successful and failed neighboring optional endpoint tests.
+These finite calculations supplement the uniform review above; they are not a
+proof of the inherited global arithmetic. The selected proof and optional proof
+were reread after being split into their final separate files.

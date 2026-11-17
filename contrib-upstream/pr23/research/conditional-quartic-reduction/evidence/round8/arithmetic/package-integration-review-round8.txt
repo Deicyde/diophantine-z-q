@@ -1,0 +1,110 @@
+INDEPENDENT PACKAGE INTEGRATION REVIEW — ROUND EIGHT
+
+Disposition: ACCEPT the reviewed source changes and the recorded finite
+checks, subject to the final manifest/completed-reference review and a fresh
+outer-wrapper reproduction. The adjacent JSON binds the exact inspected
+source and report bytes. This review is an internal independent agent review,
+not a formal proof or external mathematical endorsement.
+
+1. Structured completion and unchanged build inputs
+
+The outer wrapper no longer treats a line in stdout as the success authority.
+It first requires the child process to exit successfully. It then verifies a
+regular, non-symlink completion record with the required format, PASS status,
+the manifest-bound pipeline SHA-256, and the complete exact ordered stage
+list. Mathematical artifacts still undergo exact byte comparisons; the
+committed coefficient table is compared with its regenerated counterpart;
+every selected audit report must report success; and the original source
+snapshot is rechecked. A missing stdout marker is recorded diagnostically.
+
+My first independent probes found a real omission: a build could change its
+fresh copied builder or proof while leaving the original proposal unchanged,
+and the wrapper would still issue success. I implemented the narrowly scoped
+fix authorized by the packaging lane: after child success and before any
+success receipt, each fresh build input must again be a regular non-symlink
+file and match its declared byte count and SHA-256. The original snapshot
+checks remain in place. The receipt records the fresh-input result.
+
+All seven focused independent mocks now behave as required: a correct build
+without stdout succeeds; changing the fresh builder, proof, or pipeline,
+deleting a fresh proof, replacing it by a symlink, and exiting nonzero after
+writing a valid completion record all fail without a success receipt. The
+existing 45-case wrapper suite also passes unchanged. These are orchestration
+tests, not mathematical tests. The seven and 45 cases overlap in some basic
+behaviors and are not asserted to be 52 distinct scenarios.
+
+This change removes stdout from the success decision. It does not identify
+the cause of the earlier unexplained stdout truncation, and this review makes
+no claim that that underlying cause has been diagnosed or repaired.
+
+2. Inner pipeline and diagnostic journal
+
+The reviewed inner pipeline has 23 unique stages, including regeneration of
+the frozen reference builder and the new independent arithmetic certificate.
+Every run() invocation appends its stage only after exit code zero. A nonzero
+exit writes an atomic FAIL journal with the successful prefix and then raises.
+A duplicate identifier is rejected before launching a subprocess. The only
+completion write follows all stage calls and includes the live successful
+stage list and the executing pipeline's hash. The writer flushes, fsyncs and
+replaces the JSON file atomically. The completion record, rather than the
+intermediate IN_PROGRESS journal, is the final result.
+
+Twenty focused helper/static checks pass on the reviewed final pipeline
+source: successful and failed stage behavior, duplicate rejection, prefix
+preservation, exact exit-code propagation, atomic replacement, absence of
+premature completion, unique actual stage identifiers and completion order.
+Final agreement with EXPECTED_OUTPUTS is intentionally left to the separate
+assembled-manifest review; a schema review is not a full pipeline execution.
+
+3. Uniform detector pair and delivered-table source bindings
+
+The changed verify_package expansion is exactly
+  (1+q Y1)(1+q Y2) = 1+q Y1+q Y2+q^2 Y1 Y2.
+It records the selected order-(12,12) pair and binds its separate actual
+source reconstruction to the current builder and raw IR. The actual source
+report passes 384 assertions and two uniform-pair identities. The inherited
+eight- and six-factor group expansions remain in place.
+
+The delivered-table checker now requests the current detector reconstruction
+and handles both top-level and nested sourceBinding fields. I inspected the
+updated binding logic and ran the checker on the actual integrated source
+with all eight selected source reports, including the independent arithmetic
+certificate. Every binding succeeds. Its obsolete stdout-based diagnostic
+has been removed; it explicitly assigns structured final completion to the
+outer wrapper after this last audit stage.
+
+4. Constant chains and exact tables
+
+The adapted chain checker imports neither producer nor compiler and now pins
+E=2364, 389 core coordinates and 357 core residuals. Its actual run reconstructs
+every old row in each lift, every newly introduced triangular equation, and
+every residual of direct specialization. It passes for:
+  391 coordinates / 359 residuals: coefficient exponents 788,788;
+  392 coordinates / 360 residuals: coefficient exponents 338,338,336;
+  393 coordinates / 361 residuals: coefficient exponents 158,158,158,152.
+Each final chain value is exactly 3^2364 and each extension is unique.
+
+The updated full delivered-table audit also passes in my separate run. The
+symbolic and direct decimal core have 389 coordinates, 357 residuals, 26,295
+monomials, degree four and integer content one. The direct decimal core has
+maximum coefficient length 2,273 digits. The 391/392/393 lifts have respectively
+26,304/26,307/26,310 monomials and maximum coefficient lengths 752/323/151.
+All complete text-table coefficients are compared against independent exact
+SOS reconstruction. Diagonal balancing has its own separate checker/review;
+these full-table checks concern the unbalanced core and its constant lifts.
+
+5. Manifest checker and limits
+
+I adapted the separate manifest reviewer to require the v2 output contract,
+the exact 23-stage sequence, all 15 selected audit reports, new arithmetic and
+detector proof/checker seeds, the reference-builder seed, unchanged fresh
+input bytes, the intended selected counts and parameter, and all three chain
+metadata records. It still verifies complete source inventory, deterministic
+artifact bytes, committed table equality and the absence of volatile fields
+in byte-compared JSON. It deliberately does not bind the source manifest's
+own hash, so a non-build review can be added without a circular hash claim.
+
+The final manifest and fresh outer-wrapper receipt must still be supplied by
+the packaging lane. These finite implementation checks do not establish the
+inherited global geometric/arithmetic inputs, the entire definition of Z in
+Q, or optimality of the circuit, anchor exponent or coefficient balance.

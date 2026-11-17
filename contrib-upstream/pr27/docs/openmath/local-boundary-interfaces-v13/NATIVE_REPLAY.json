@@ -1,0 +1,20 @@
+{
+  "command": [
+    "lake",
+    "env",
+    "leanchecker",
+    "--silent",
+    "--from-export",
+    "export-evidence/packet.ndjson"
+  ],
+  "cwd": "generated project root",
+  "exit_code": 0,
+  "export_sha256": "4dca1de2e2450011f8ec32eb8cd9c17b531c7fbedd813ce75b0221dfe30e42aa",
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "paranoid": "NOT_RUN",
+  "scope": "Native Lean4.35 bundled checker replay of the source-bound41-root export and its transitive proof closure",
+  "leanchecker_sha256": "d70e645ea2b0e597d0ff4cf67aa0c268483fac0b5b2b991ca2d4cd7fb78ab73c",
+  "leanexport_sha256": "01327b83d6a69dbc84fa04fd671c61068b2f074e51d1bf607bf6a6b9aed5339e",
+  "lean_version": "Lean (version 4.35.0, arm64-apple-darwin24.6.0, commit eb6cafb7290e8bd5f2937522d8d804f58f02bafc, Release)"
+}

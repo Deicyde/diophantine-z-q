@@ -1,0 +1,270 @@
+--- received/Coordinate.lean
++++ working/Coordinate.lean
+@@ -6,7 +6,8 @@
+ /-!
+ # Adjugate tensor coordinates and changes of frame
+ 
+-SOURCE-COMPLETE CANDIDATE: not compiled in the preparation environment.
++Received as an uncompiled candidate. Current verification is recorded in
++`research/scalar-ratio/VERIFICATION.md`.
+ Pinned target: Lean 4.35.0 / Mathlib 56a005855ea17e0b0958f73ec801ae140b0a1679.
+ 
+ The coordinate is specified by the full matrix identity `z lambda = u adj(D)`.
+@@ -58,7 +59,7 @@
+             simp [← Matrix.mul_assoc]
+     _ = _ := by
+       rw [Matrix.mul_adjugate]
+-      simp [Matrix.mul_smul]
++      simp
+ 
+ lemma det_unit_inv_mul (B : (Matrix n n K)ˣ) :
+     (↑B⁻¹ : Matrix n n K).det * (B : Matrix n n K).det = 1 := by
+@@ -91,13 +92,13 @@
+           (↑T⁻¹ : Matrix n n K) := by rw [hz, ← mul_tensor]
+       _ = _ := by
+         rw [hnormal]
+-        simp [Matrix.mul_smul, Matrix.smul_mul]
++        simp
+   have hadj : D.adjugate =
+       ((↑B⁻¹ : Matrix n n K).det * (T : Matrix n n K).det) •
+         ((B : Matrix n n K) * N.adjugate * (↑T⁻¹ : Matrix n n K)) := by
+     rw [hD', Matrix.adjugate_mul_distrib, Matrix.adjugate_mul_distrib,
+       adjugate_unit, adjugate_unit]
+-    simp [Matrix.smul_mul, Matrix.mul_smul, smul_smul, Matrix.mul_assoc]
++    simp [smul_smul, Matrix.mul_assoc, mul_comm]
+   have hscalar :
+       ((B : Matrix n n K).det / (T : Matrix n n K).det * u) *
+         ((↑B⁻¹ : Matrix n n K).det * (T : Matrix n n K).det) = u := by
+@@ -121,12 +122,12 @@
+         if i = k then 1 else 0 := by
+     by_cases hi : i = k
+     · subst i
+-      rw [if_pos rfl]
++      rw [ite_eq_left rfl]
+       apply Finset.prod_eq_one
+       intro j hj
+       have hjk : j ≠ k := (Finset.mem_erase.mp hj).1
+       simp [hjk]
+-    · rw [if_neg hi]
++    · rw [ite_eq_right hi]
+       apply Finset.prod_eq_zero (Finset.mem_erase.mpr ⟨Ne.symm hi, Finset.mem_univ k⟩)
+       simp
+   rw [normal, Matrix.adjugate_diagonal]
+@@ -140,7 +141,7 @@
+   unfold HasCoordinate
+   rw [adjugate_normal]
+   ext i j
+-  simp [tensor, mul_comm, mul_left_comm, mul_assoc]
++  simp [tensor, mul_left_comm]
+ 
+ /-- Row-vector associativity, spelled out to avoid an implicit transpose convention. -/
+ lemma row_mul_assoc (lam : n → K) (A B : Matrix n n K) :
+@@ -175,7 +176,7 @@
+     rw [row_normal_apply] at hzi
+     have hvalue : (lam ᵥ* (T : Matrix n n K)) i = 0 := by
+       simpa [hi] using hzi
+-    simp [Pi.single_apply, hi, Ne.symm hi, hvalue]
++    simp [hi, hvalue]
+ 
+ /-- General-size coordinate formula from a rank-one frame and the actual
+ closed functional. No cross-boundary normalization is assumed. -/
+@@ -219,7 +220,7 @@
+   classical
+   have hex : ∃ i j, D.adjugate i j ≠ 0 := by
+     by_contra h
+-    push_neg at h
++    push Not at h
+     apply hadj
+     ext i j
+     exact h i j
+--- received/CommonStrict.lean
++++ working/CommonStrict.lean
+@@ -5,7 +5,8 @@
+ /-!
+ # The common-strict coordinate formula
+ 
+-SOURCE-COMPLETE CANDIDATE; Lean compilation is NOT_RUN.
++Received as an uncompiled candidate. Current verification is recorded in
++`research/scalar-ratio/VERIFICATION.md`.
+ 
+ The inputs are the original common-strict matrices, actual cycles and closed
+ rows. The output proves the cofactor coordinate identities. Invertibility of
+@@ -46,16 +47,18 @@
+     Matrix (Index I) (Index I) K :=
+   join D0 (fun i => ![a i, b i])
+ 
++set_option backward.isDefEq.respectTransparency false in
+ lemma frame_det (h : I → K) (v x : Local K) :
+     (frame h v x).det = area v x := by
+-  simp [frame, pairCols, area, Matrix.det_fromBlocks_zero₂₁, Matrix.det_fin_two]
++  rw [frame, Matrix.det_fromBlocks_zero₂₁]
++  simp [pairCols, area, Matrix.det_fin_two, mul_comm]
+ 
+ lemma frame_cycle (h : I → K) (v x : Local K) :
+     frame h v x *ᵥ Pi.single (Sum.inr (0 : Fin 2)) 1 = cycle h v := by
+   ext i
+   rcases i with i | i
+-  · simp [frame, cycle, Matrix.mulVec, dotProduct, Pi.single_apply]
+-  · fin_cases i <;> simp [frame, pairCols, cycle, Matrix.mulVec, dotProduct,
++  · simp [frame, Matrix.fromBlocks, cycle, Matrix.mulVec, dotProduct, Pi.single_apply]
++  · fin_cases i <;> simp [frame, Matrix.fromBlocks, pairCols, cycle, Matrix.mulVec, dotProduct,
+       Pi.single_apply]
+ 
+ lemma pairCols_action (J : Matrix (Fin 2) (Fin 2) K) (v x : Local K) :
+@@ -67,7 +70,7 @@
+ lemma area_action (J : Matrix (Fin 2) (Fin 2) K) (v x : Local K) :
+     area (J *ᵥ v) (J *ᵥ x) = J.det * area v x := by
+   have h := congrArg Matrix.det (pairCols_action J v x)
+-  simpa [pairCols, area, Matrix.det_fin_two, Matrix.det_mul] using h
++  simpa [pairCols, area, Matrix.det_fin_two, Matrix.det_mul, mul_comm] using h
+ 
+ /-- The sole sign in the comparison is an actual column transposition. -/
+ lemma target_swap_det (D0 : Matrix (Index I) I K) (a b : Index I → K) :
+@@ -101,15 +104,15 @@
+       Fin.sum_univ_two] using congrFun hcycle i
+   ext i j
+   rcases j with j | j
+-  · simp [Matrix.mul_apply, frame, join, target, normal, pairCols,
++  · simp [Matrix.mul_apply, frame, Matrix.fromBlocks, join, target, normal, pairCols,
+       Matrix.diagonal_apply, Matrix.one_apply, Fintype.sum_sum_type,
+-      Fin.sum_univ_two, mul_ite]
++      mul_ite]
+   · fin_cases j
+-    · simpa [Matrix.mul_apply, frame, join, target, normal, pairCols,
++    · simpa [Matrix.mul_apply, frame, Matrix.fromBlocks, join, target, normal, pairCols,
+         Matrix.diagonal_apply, Matrix.one_apply, Fintype.sum_sum_type,
+         Fin.sum_univ_two, mul_ite] using hc i
+-    · simp [Matrix.mul_apply, Matrix.mulVec, dotProduct, frame, join, target,
+-        normal, pairCols, Matrix.diagonal_apply, Matrix.one_apply,
++    · simp [Matrix.mul_apply, Matrix.mulVec, dotProduct, frame, Matrix.fromBlocks, join, target,
++        normal, pairCols, Matrix.diagonal_apply,
+         Fintype.sum_sum_type, Fin.sum_univ_two, mul_ite]
+ 
+ noncomputable def matrixUnit {n : Type*} [Fintype n] [DecidableEq n]
+@@ -161,8 +164,12 @@
+     (Sum.inr (0 : Fin 2)) hD hz hclosed
+   have hq : (lam ᵥ* target D0 y (A *ᵥ x)) (Sum.inr (0 : Fin 2)) = lam ⬝ᵥ y := rfl
+   rw [hB, hT, frame_det, hq] at hc
+-  convert hc using 1 <;> ring
+-
++  have heq : area v x / (target D0 y (A *ᵥ x)).det * (lam ⬝ᵥ y) =
++      area v x * (lam ⬝ᵥ y) / (target D0 y (A *ᵥ x)).det := by ring
++  rw [heq] at hc
++  exact hc
++
++set_option backward.isDefEq.respectTransparency false in
+ /-- The common-strict determinant formula, in arbitrary finite size.
+ Only the actual cycle equations, closedness, nonzero local area and independent
+ generic target directions are assumed. The scalar-ratio conclusion is derived. -/
+@@ -173,11 +180,11 @@
+     (J : (Matrix (Fin 2) (Fin 2) K)ˣ)
+     (lamF lamS : Index I → K)
+     (hcycleF : join D0 AF *ᵥ cycle hF v = 0)
+-    (hcycleS : join D0 AS *ᵥ cycle hS ((J : Matrix _ _ K) *ᵥ v) = 0)
++    (hcycleS : join D0 AS *ᵥ cycle hS ((J : Matrix (Fin 2) (Fin 2) K) *ᵥ v) = 0)
+     (hclosedF : lamF ᵥ* join D0 AF = 0)
+     (hclosedS : lamS ᵥ* join D0 AS = 0)
+     (harea : area v x ≠ 0)
+-    (htarget : (target D0 (AF *ᵥ x) (AS *ᵥ ((J : Matrix _ _ K) *ᵥ x))).det ≠ 0) :
++    (htarget : (target D0 (AF *ᵥ x) (AS *ᵥ ((J : Matrix (Fin 2) (Fin 2) K) *ᵥ x))).det ≠ 0) :
+     let eta := area v x
+     let delta := (J : Matrix (Fin 2) (Fin 2) K).det
+     let a := AF *ᵥ x
+@@ -186,42 +193,46 @@
+     let qF := lamF ⬝ᵥ b
+     let qS := lamS ⬝ᵥ a
+     HasCoordinate (join D0 AF) (cycle hF v) lamF (-eta * qF / theta) ∧
+-    HasCoordinate (join D0 AS) (cycle hS ((J : Matrix _ _ K) *ᵥ v)) lamS
++    HasCoordinate (join D0 AS) (cycle hS ((J : Matrix (Fin 2) (Fin 2) K) *ᵥ v)) lamS
+       (delta * eta * qS / theta) := by
+   dsimp only
+   constructor
+-  · have ht : (target D0 (AS *ᵥ ((J : Matrix _ _ K) *ᵥ x)) (AF *ᵥ x)).det ≠ 0 := by
++  · have ht : (target D0 (AS *ᵥ ((J : Matrix (Fin 2) (Fin 2) K) *ᵥ x)) (AF *ᵥ x)).det ≠ 0 := by
+       rw [target_swap_det]
+       exact neg_ne_zero.mpr htarget
+-    have hf := raw_side_coordinate D0 AF hF v x
+-      (AS *ᵥ ((J : Matrix _ _ K) *ᵥ x)) lamF hcycleF hclosedF harea ht
++    have hf := raw_side_coordinate (K := K) (I := I) D0 AF hF v x
++      (AS *ᵥ ((J : Matrix (Fin 2) (Fin 2) K) *ᵥ x)) lamF hcycleF hclosedF harea ht
+     rw [target_swap_det] at hf
+-    convert hf using 1 <;> simp [div_neg] <;> ring
++    simpa only [div_neg, neg_mul, neg_div] using hf
+   · have hj : (J : Matrix (Fin 2) (Fin 2) K).det ≠ 0 :=
+       (Matrix.isUnits_det_units J).ne_zero
+-    have ha : area ((J : Matrix _ _ K) *ᵥ v) ((J : Matrix _ _ K) *ᵥ x) ≠ 0 := by
++    have ha : area ((J : Matrix (Fin 2) (Fin 2) K) *ᵥ v) ((J : Matrix (Fin 2) (Fin 2) K) *ᵥ x) ≠ 0 := by
+       rw [area_action]
+       exact mul_ne_zero hj harea
+-    have hs := raw_side_coordinate D0 AS hS ((J : Matrix _ _ K) *ᵥ v)
+-      ((J : Matrix _ _ K) *ᵥ x) (AF *ᵥ x) lamS hcycleS hclosedS ha htarget
++    have hs := raw_side_coordinate (K := K) (I := I) D0 AS hS ((J : Matrix (Fin 2) (Fin 2) K) *ᵥ v)
++      ((J : Matrix (Fin 2) (Fin 2) K) *ᵥ x) (AF *ᵥ x) lamS hcycleS hclosedS ha htarget
+     rw [area_action] at hs
+-    convert hs using 1 <;> ring
++    exact hs
+ 
+ /-- All source-bearing inputs, with no determinant-coordinate or unit-ratio
+ hypothesis. The arithmetic consumer must supply these *actual* rows/vectors. -/
+ structure CommonStrictData (K I : Type*) [Field K] [Fintype I] [DecidableEq I] where
+   D0 : Matrix (Index I) I K
+-  AF AS : Matrix (Index I) (Fin 2) K
+-  hF hS : I → K
+-  v x : Local K
++  AF : Matrix (Index I) (Fin 2) K
++  AS : Matrix (Index I) (Fin 2) K
++  hF : I → K
++  hS : I → K
++  v : Local K
++  x : Local K
+   J : (Matrix (Fin 2) (Fin 2) K)ˣ
+-  lamF lamS : Index I → K
++  lamF : Index I → K
++  lamS : Index I → K
+   cycleF : join D0 AF *ᵥ cycle hF v = 0
+-  cycleS : join D0 AS *ᵥ cycle hS ((J : Matrix _ _ K) *ᵥ v) = 0
++  cycleS : join D0 AS *ᵥ cycle hS ((J : Matrix (Fin 2) (Fin 2) K) *ᵥ v) = 0
+   closedF : lamF ᵥ* join D0 AF = 0
+   closedS : lamS ᵥ* join D0 AS = 0
+   area_ne : area v x ≠ 0
+-  target_ne : (target D0 (AF *ᵥ x) (AS *ᵥ ((J : Matrix _ _ K) *ᵥ x))).det ≠ 0
++  target_ne : (target D0 (AF *ᵥ x) (AS *ᵥ ((J : Matrix (Fin 2) (Fin 2) K) *ᵥ x))).det ≠ 0
+ 
+ namespace CommonStrictData
+ 
+@@ -237,27 +248,28 @@
+ 
+ theorem delta_ne_zero : d.delta ≠ 0 := (Matrix.isUnits_det_units d.J).ne_zero
+ 
++set_option backward.isDefEq.respectTransparency false in
+ theorem coordinate_values (uF uS : K)
+     (huF : HasCoordinate (join d.D0 d.AF) (cycle d.hF d.v) d.lamF uF)
+     (huS : HasCoordinate (join d.D0 d.AS)
+-      (cycle d.hS ((d.J : Matrix _ _ K) *ᵥ d.v)) d.lamS uS) :
++      (cycle d.hS ((d.J : Matrix (Fin 2) (Fin 2) K) *ᵥ d.v)) d.lamS uS) :
+     uF = -d.eta * d.qF / d.theta ∧
+     uS = d.delta * d.eta * d.qS / d.theta := by
+-  have hcoords := common_strict_coordinate_formula d.D0 d.AF d.AS d.hF d.hS
++  have hcoords := common_strict_coordinate_formula (K := K) (I := I) d.D0 d.AF d.AS d.hF d.hS
+     d.v d.x d.J d.lamF d.lamS d.cycleF d.cycleS d.closedF d.closedS
+     d.area_ne d.target_ne
+   dsimp only at hcoords
+   have htF : (target d.D0 d.b d.a).det ≠ 0 := by
+     rw [target_swap_det]
+     exact neg_ne_zero.mpr d.target_ne
+-  have hadjF := raw_side_adjugate_ne_zero d.D0 d.AF d.hF d.v d.x d.b
++  have hadjF := raw_side_adjugate_ne_zero (K := K) (I := I) d.D0 d.AF d.hF d.v d.x d.b
+     d.cycleF d.area_ne htF
+-  have hareaS : area ((d.J : Matrix _ _ K) *ᵥ d.v)
+-      ((d.J : Matrix _ _ K) *ᵥ d.x) ≠ 0 := by
++  have hareaS : area ((d.J : Matrix (Fin 2) (Fin 2) K) *ᵥ d.v)
++      ((d.J : Matrix (Fin 2) (Fin 2) K) *ᵥ d.x) ≠ 0 := by
+     rw [area_action]
+     exact mul_ne_zero d.delta_ne_zero d.area_ne
+-  have hadjS := raw_side_adjugate_ne_zero d.D0 d.AS d.hS
+-    ((d.J : Matrix _ _ K) *ᵥ d.v) ((d.J : Matrix _ _ K) *ᵥ d.x) d.a
++  have hadjS := raw_side_adjugate_ne_zero (K := K) (I := I) d.D0 d.AS d.hS
++    ((d.J : Matrix (Fin 2) (Fin 2) K) *ᵥ d.v) ((d.J : Matrix (Fin 2) (Fin 2) K) *ᵥ d.x) d.a
+     d.cycleS hareaS d.target_ne
+   constructor
+   · exact coordinate_unique _ _ _ _ _ hadjF huF hcoords.1

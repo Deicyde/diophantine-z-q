@@ -1,0 +1,202 @@
+{
+  "date": "2026-11-10",
+  "reviewer": "Codex /root/normalization_claim_review",
+  "status": "PASS",
+  "scope": "Bounded publication/Open Math support; source-bound replay preparation and local provenance, not new arithmetic acceptance or cloud checker completion",
+  "core_commit": "43664fd17014018461d6dfd64cf052c1e4afe298",
+  "core_files_compared_with_git": 65,
+  "core_manifest_sha256": "ce59e6667e58c1858a0bb87830c35f4142dc1f69c805f2e4daaa169f130220e3",
+  "manifest": {
+    "path": "docs/openmath/local-boundary-interfaces-v13/MANIFEST.sha256",
+    "sha256": "49a5afcbea147f4b9dce441a475116831a414ee8066033dd5f4537be4f86b7ec",
+    "entry_count": 18,
+    "inventory_exact": true
+  },
+  "manifest_exclusions": [
+    "docs/openmath/local-boundary-interfaces-v13/MANIFEST.sha256",
+    "docs/openmath/local-boundary-interfaces-v13/SUPPORT_REVIEW.md",
+    "docs/openmath/local-boundary-interfaces-v13/SUPPORT_REVIEW_INPUTS.json"
+  ],
+  "covered_files": [
+    {
+      "path": "docs/openmath/local-boundary-interfaces-v13/EXPORT.json",
+      "sha256": "ca7cc61b1a4e68644e6062c489a9c2a429d068f0d97ffe1a00ba3735cedc45d6"
+    },
+    {
+      "path": "docs/openmath/local-boundary-interfaces-v13/GENERATED_MANIFEST.sha256",
+      "sha256": "5a828f5d4608b801f7016b7c387fae3ab78274f237c8077771b38d7bbadd20a0"
+    },
+    {
+      "path": "docs/openmath/local-boundary-interfaces-v13/GENERATED_SOURCES.json",
+      "sha256": "5bcc1ced8b5f7c433856d127b85f3c955262f727b9a4f2216ce6dda8321b9626"
+    },
+    {
+      "path": "docs/openmath/local-boundary-interfaces-v13/HANDOVER.md",
+      "sha256": "8effb027a48e19dd39f898d3ddd913a05b339e855601c024a949c17b317e0bf9"
+    },
+    {
+      "path": "docs/openmath/local-boundary-interfaces-v13/LOCAL_COMMANDS.json",
+      "sha256": "9cd8f92cf8f0b48907f562d50f5d2dd575dea24da929d5495e09ae56ab49deee"
+    },
+    {
+      "path": "docs/openmath/local-boundary-interfaces-v13/LOCAL_VALIDATION.json",
+      "sha256": "03a798764dbb8b530dda053c0246e2f91542417fe673c592c5e301eb9bb8699f"
+    },
+    {
+      "path": "docs/openmath/local-boundary-interfaces-v13/NATIVE_REPLAY.json",
+      "sha256": "4036de6e12fcc425e9d51b309c14b8c3870884466478191e4c47585d05981408"
+    },
+    {
+      "path": "docs/openmath/local-boundary-interfaces-v13/README.md",
+      "sha256": "0168518e5305d3d4a4768e75cc6cae00d13a7552fad93442cbbc298b62ad96a6"
+    },
+    {
+      "path": "docs/openmath/local-boundary-interfaces-v13/controls.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/openmath/local-boundary-interfaces-v13/controls.stdout.txt",
+      "sha256": "db165a30d082299aed4ad98cb97760f74321150a3a07d632dc8147bb34d2772c"
+    },
+    {
+      "path": "docs/openmath/local-boundary-interfaces-v13/export.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/openmath/local-boundary-interfaces-v13/native-RESULT.json",
+      "sha256": "bb4b9f0a27bf0412a479a21d8b07dcbc90e95312d24d06c5d7b20e6f979985ca"
+    },
+    {
+      "path": "docs/openmath/local-boundary-interfaces-v13/native-commands.json",
+      "sha256": "3e05360e7bc02c3fd1cf8f935095fedc726de939c87f888a8593eb5a62ced0d7"
+    },
+    {
+      "path": "docs/openmath/local-boundary-interfaces-v13/native-replay.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/openmath/local-boundary-interfaces-v13/native-replay.stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/openmath/local-boundary-interfaces-v13/protocol.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/openmath/local-boundary-interfaces-v13/protocol.stdout.txt",
+      "sha256": "7539e0a83103f2656b233dcf98570fb769e636973f4765cd48f04b87a7d5ee0d"
+    },
+    {
+      "path": "scripts/prepare_local_boundary_openmath.py",
+      "sha256": "76a9d63ed718bb12a64f71013b3de8fd8fcd3852ed2462e2aca0ba63a47ac8d2"
+    }
+  ],
+  "report": {
+    "path": "docs/openmath/local-boundary-interfaces-v13/SUPPORT_REVIEW.md",
+    "sha256": "c45fd161cfe13f9d8c4bd32f992cb9a343c9e6cc252e237d7059c71a9d565166"
+  },
+  "installed_primary_sources": [
+    {
+      "toolchain_relative_path": "src/lean/LeanExport.lean",
+      "sha256": "ec95c53d108c5b014e7a53d6b88a4dbe41dc75c2e55102b2f8211268fcb94cf5"
+    },
+    {
+      "toolchain_relative_path": "src/lean/LeanExport/Basic.lean",
+      "sha256": "2e839d4ac1ef1992cfe09c489a97928ad8f8eaea3925bc76b511c6bf85e1b8aa"
+    },
+    {
+      "toolchain_relative_path": "src/lean/lake/Lake/CLI/Check.lean",
+      "sha256": "55daf430e5adea38453b21798cbdf4cd099f66ec969494022a566a8ae098c00b"
+    }
+  ],
+  "local_controls_and_protocol_stream_hashes_match": true,
+  "generator_reproduction": {
+    "status": "PASS",
+    "reviewer": "Codex /root/normalization_claim_review",
+    "command": [
+      "python3",
+      "-B",
+      "scripts/prepare_local_boundary_openmath.py",
+      "--output",
+      "<new temporary project>"
+    ],
+    "python": "3.13.12 (v3.13.12:1cbe4818347, Feb  3 2026, 13:36:53) [Clang 16.0.0 (clang-1600.0.26.6)]",
+    "exit_code": 0,
+    "stdout": {
+      "status": "PREPARED",
+      "files": 12,
+      "proof_roots": 41,
+      "manifest_sha256": "5a828f5d4608b801f7016b7c387fae3ab78274f237c8077771b38d7bbadd20a0",
+      "lean_executed": false,
+      "paranoid": "NOT_RUN"
+    },
+    "stderr_empty": true,
+    "generator_sha256": "76a9d63ed718bb12a64f71013b3de8fd8fcd3852ed2462e2aca0ba63a47ac8d2",
+    "generated_file_hashes": {
+      "SOURCES.json": "5bcc1ced8b5f7c433856d127b85f3c955262f727b9a4f2216ce6dda8321b9626",
+      "MANIFEST.sha256": "5a828f5d4608b801f7016b7c387fae3ab78274f237c8077771b38d7bbadd20a0",
+      "TARGETS.json": "b5e5bd8f58ced1f62e3e0b282f0b61d5d992f846c95446f2b5af749bdc6361da",
+      "lean-toolchain": "ca5f1f601d34c49079e38d7e7041eb0f2a9c227fbc1df0f404820069a052330c",
+      "lake-manifest.json": "3c33fbe92ad8ea1c36b87d134b9a6ec3c3d8f4918985683f33ffbcbe02ebe7fa",
+      "lakefile.toml": "7ed2e5335c3f08a4c00d2089b29091fa72ffeeb8ff0276fc551dcfa07fc4b018",
+      "roots.txt": "0a9494f88a2d1784adc56ecd6e3e628015953217074111740ccadcdfe5ecd007",
+      "Packet.lean": "2dc49e29cb722b74e53b4df0bd59c9ac5029a2c4c372318c852cbf9eeca93943",
+      "Research/DerivativeSwitch/ActualBoundaryCup.lean": "77bcdd2ae5283ffd6cc51062e452da4294fcd5b3d952940b588b2d5b52ecdd90",
+      "Research/DerivativeSwitch/ConjugateLocalTransport.lean": "8688eef27fcc89c02eb3ab270e5359534dc23ef16e11678bdb1dd3587e3f8b86",
+      "Research/DerivativeSwitch/OrthogonalComparison.lean": "bfec996b869e44c6a42fc058fbc24cc7288b1f61d0f0e7eef1f4f58f41dca1ba",
+      "Research/DerivativeSwitch/ConjugateLocalH1.lean": "078ac50ae0c90c8e609a57c51c5884a25646ad7305531f1cf531617485b9078f"
+    },
+    "generated_manifest_entries": 11,
+    "modules_byte_identical": 4,
+    "root_count": 41,
+    "only_lockfile_difference": [
+      "name"
+    ],
+    "dependency_pin_count": 9,
+    "expected_lake_configuration": true,
+    "existing_output_refusal_exit": 1,
+    "existing_output_unchanged": true,
+    "no_lean_execution_by_reviewer": true
+  },
+  "artifact_inspection": {
+    "status": "PASS",
+    "frozen_core_files_unchanged": 65,
+    "fresh_native_inputs_match": 12,
+    "fresh_native_statements_and_axioms_match": true,
+    "fresh_native_artifacts_match": 4,
+    "staged_Lake_artifacts_match": 5,
+    "export_bytes": 88408652,
+    "export_sha256": "4dca1de2e2450011f8ec32eb8cd9c17b531c7fbedd813ce75b0221dfe30e42aa",
+    "parsed_NDJSON_records": 1677955,
+    "selected_root_declarations_found": 41,
+    "selected_declaration_kinds": {
+      "thm": 39,
+      "def": 2
+    },
+    "serialized_axioms": [
+      "Quot.sound",
+      "propext",
+      "Classical.choice"
+    ],
+    "native_replay_exit_code": 0,
+    "export_and_replay_stderr_empty": true,
+    "tool_executable_hashes_match": true,
+    "no_proof_checker_run_by_reviewer": true
+  },
+  "official_documentation": {
+    "url": "https://lean-lang.org/doc/reference/latest/releases/v4.35.0/#checking-projects-with-lake-check-and-lake-comparator",
+    "access_date": "2026-11-10",
+    "selected_version": "Lean 4.35.0, eb6cafb7290e8bd5f2937522d8d804f58f02bafc",
+    "scope": "Command semantics corroborated with installed help and the exact toolchain source"
+  },
+  "resolved_finding": "Handover root-list assertion guards changed to explicit conditional failures; generator and mathematical sources unchanged",
+  "limitations": [
+    "Reviewer ran only offline preparation/refusal and read-only artifact checks, not another Lean build or proof-checker campaign",
+    "Native replay was executed by the integrator; reviewer inspected actual export, selected declaration inventory, hashes and receipts",
+    "Same host, model and toolchain; dependency caches retained as declared inputs",
+    "Paranoid checking, five additional bundled checkers and independent Open Math statement/source review pending",
+    "No protected comparator challenge or automatic source-origin certification from --from-export",
+    "No assertion of final PR/merge identity or remote publication state by this review",
+    "No new arithmetic, determinant-normalization, limiting-descent or main-theorem acceptance"
+  ]
+}

@@ -1,0 +1,150 @@
+\section{Use the quaternionic commutant in the torsion field}
+
+This refinement uses the same inherited geometric, good-reduction, scalar
+twist, compatible-representation, conductor, and height ingredients as
+the pinned Version 10 source at commit
+\texttt{036cebe4f1a4aa7ca89820a9b48f3629b4c364d6}. It does not replace
+those ingredients by a computer check. The finite exceptional set and the
+specialized local logarithm estimates are those proved in
+\texttt{arithmetic\_round4.tex}. That note's anchor-nineteen construction
+remains a separate fallback. This note justifies the smaller coefficient
+selected for the final construction.
+
+\subsection{An exact degree divisibility bound}
+
+The actual construction in \texttt{manuscripts/quartic\_v10.tex},
+lines 6861--7006, equips the fiber abelian surface $A/L$ with the action of
+a maximal order $\mathcal O$ in the quaternion algebra of discriminant
+$210$. It gives $[L:\mathbb Q]\mid576$, and every geometric
+endomorphism of $A$ is defined over $L$. The non-CM argument in lines
+7090--7151 takes $E=L(A[11])$ and proves $E/\mathbb Q$ Galois.
+Retain that proof of normality and all of its hypotheses.
+
+Since $11\nmid210$, the maximal order satisfies
+\[
+ \mathcal O/11\mathcal O\simeq M_2(\mathbb F_{11}).
+\]
+Its action on $V=A[11](\overline{\mathbb Q})$ is unital. Thus $V$ is
+a four-dimensional module over this matrix algebra. For completeness,
+its matrix units give $V=e_{11}V\oplus e_{22}V$, and $e_{12},e_{21}$
+identify these summands. Both have dimension two. Every endomorphism
+commuting with the matrix algebra is uniquely determined by its action
+on $e_{11}V$, and every linear endomorphism of that summand extends by
+the matrix units. Therefore
+\[
+ \operatorname{Aut}_{M_2(\mathbb F_{11})}(V)
+       \simeq\operatorname{GL}_2(\mathbb F_{11}).
+\]
+Equivalently, $V$ is the direct sum of two standard simple modules.
+No classification of an unknown Galois image is being invoked.
+
+Since all $\mathcal O$-endomorphisms are $L$-defined, the faithful
+action of $\operatorname{Gal}(E/L)$ on $V$ commutes with them. Lagrange's
+theorem and the degree tower give the divisibilities
+\[
+ [E:L]\mid|\operatorname{GL}_2(\mathbb F_{11})|
+       =(121-1)(121-11)=13200,
+\]
+\[
+ [E:\mathbb Q]\mid576\cdot13200
+       =2^{10}3^3 5^2 11.
+\]
+It is the divisibility, rather than only an upper bound on the numerical
+degree, that controls the prime valuations of local ramification indices.
+At $p=2,3,5,7$ it gives the respective bounds $(10,3,2,0)$ for
+$v_p(e_E)$.
+
+\subsection{The same local conductor proof with smaller constants}
+
+Use exactly the fields $F=E\mathbb Q(\chi)$ and $F'$ of the source's
+conductor proof, lines 7358--7404. At odd primes both added extensions
+are tame. At $2$, each adds ramification index at most two. Hence
+\[
+ (v_2(e_{F'}),v_3(e_{F'}),v_5(e_{F'}),v_7(e_{F'}))
+       \le(12,3,2,0).
+\]
+The source's different estimate and upper-numbering integral bound give
+the conservative last-break bound $2(k+1)$ when $v_p(e_{F'})\le k$.
+For the two-dimensional representation this gives Swan conductor at most
+$4(k+1)$ and tame conductor at most two. At $7$ the extension is tame,
+so the Swan conductor is zero. We retain these conservative bounds:
+\[
+ a_2\le54,\qquad a_3\le18,\qquad a_5\le14,\qquad a_7\le2.
+\]
+The source's companion-at-three argument still supplies the conductor
+at $5$; no coefficient-characteristic conductor is omitted. At every
+$p>7$ the previous bound $a_p\le2$ applies, and the conductor is
+unramified outside the same set $T$.
+
+Put
+\[
+ C_{\rm QM}=2^{54}3^{18}5^{14}7^2
+  =2087269329221403122073600000000000000<2^{121}.
+\]
+The above bounds imply
+\[
+ N\le C_{\rm QM}R^2,\qquad \operatorname{rad}(N)\mid R.
+\]
+This includes a harmless extra factor of $p^2$ at the four fixed bad
+primes; no subtraction of their tame contribution is needed. All other
+inputs to the exponent-nineteen height proof remain unchanged.
+
+\subsection{The height constant and anchor sixteen}
+
+The actual proof of the exponent-nineteen estimate in lines 8915--9073
+is uniform in a conductor constant $C\ge1$. Its final coefficient is
+$2^{109}C^6$. For
+\[
+ \mathcal S=\{p:p\le41\}\cup\{109,439,2399\},\qquad
+ B_{\mathcal S}=34926271784737221178290<2^{75},
+\]
+the argument of \texttt{arithmetic\_round4.tex} therefore gives
+\[
+ \mathcal H_{\rm QM}
+ =2\cdot2^{109}C_{\rm QM}^6B_{\mathcal S}^{19}+128,
+ \qquad h(t)\le\mathcal H_{\rm QM}M_{\mathcal S}(t)^{19}.
+\]
+The exact constant has bit length $2257$. A convenient elementary bound
+is
+\[
+ \mathcal H_{\rm QM}<2^{2262},\qquad
+ 2262=2+109+6\cdot121+19\cdot75.
+\]
+This also dominates the source's CM bound $854R$, so the separate CM
+branch is still covered. No change is made to the height exponent, the
+character-support construction, the group theorem, or the prime-pattern
+statement.
+
+Choose
+\[
+ C_{\rm a}=3^{2^{15}},\qquad S_0=C_{\rm a}^2=3^{2^{16}}.
+\]
+The unchanged local norm-anchor and quaternion argument then gives
+\[
+ 0\ne a-1\in2\cdot3^{2^{14}-1}\mathbb Z.
+\]
+Since $\log_2 3>3/2$,
+\[
+ \log_2|a-1|\ge1+(2^{14}-1)\log_2 3
+ >24575.5>22690=10(7+2262)
+ >\log_2(80\mathcal H_{\rm QM})^{10}.
+\]
+The order-twenty-four scalar argument consequently supplies
+$h(\beta)<|a|/40$. The same Lucas comparisons at order forty and the
+input comparison at order twelve reach their previous contradictions.
+All completeness arguments continue to choose contact primes greater
+than $76176$ and retain their previous finite exclusions.
+
+The fixed-coefficient core count is unaffected by this coefficient
+reduction. The standard decimal lift starts at $3^{2^{10}}$ and ends
+at $3^{2^{16}}$, so has seven coordinates. An intermediate decimal
+lift starts at $3^{2^{15}}$ and ends at $3^{2^{16}}$, so has two
+coordinates. The former start exponent eighteen is not used for this
+smaller endpoint. Direct decimal specialization of the fixed coefficient
+is also possible without adding coordinates; it is a coefficient-writing
+operation, not another mathematical reduction.
+
+Every specialization and lift must bind its exponent to the declared IR
+metadata. The parameterized tools and the adversarial parameter-binding
+check distinguish exponents sixteen, nineteen and twenty-six, including
+their sign certificates and exact modular coefficient contents.

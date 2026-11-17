@@ -1,0 +1,13 @@
+Z is Diophantine in Q: the Lean proof (Deicyde/diophantine-z-q)
+Copyright 2026 the contributors to Deicyde/diophantine-z-q
+
+The original material of this fork is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+That licence does not cover:
+
+* material whose history begins in the upstream repository elliotglazer/diophantine-z-q, which states no
+  licence: among it the two manuscripts (diophantine_zq.tex, diophantine_zq.pdf, "October 11 Manuscript/"),
+  construction/, the helper snapshot lean/, and the research scripts and documents that came with them;
+* vendored code, which keeps the licence and notices of its own source.
+
+THIRD_PARTY_NOTICES.md lists the mathematical sources, the dependencies and every vendored tree.

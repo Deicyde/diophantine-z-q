@@ -1,0 +1,87 @@
+{
+  "status": "PASS",
+  "sourceAssertions": 223,
+  "abstractPolynomialIdentities": 11,
+  "exactFieldSamples": {
+    "generic": 144,
+    "tangent": 24,
+    "identity_input": 24,
+    "excluded_identity_output": 24,
+    "scalar_constant": 14,
+    "scaled_log": 12,
+    "primary_ratio": 9
+  },
+  "newExactFieldSamples": {
+    "joint_shared": 14,
+    "joint_tangent": 2,
+    "scalar_fused": 14,
+    "scalar_tangent": 2
+  },
+  "round5Identities": {
+    "abstractIdentities": 3,
+    "maximumCircuitResidualDegree": 2,
+    "G12AtOne": "27378487/130879175",
+    "U6": [
+      "0",
+      "346831437088619/591496114849536",
+      "1188845483077/2292620600192",
+      "8070769/16537456",
+      "95207/192296",
+      "49/86",
+      "1"
+    ],
+    "R6": [
+      "1",
+      "-2/5",
+      "-18802725999782858658330903704357/144333530544214427468619268915200",
+      "-6189333936948628606587943097/93238714821843945393164902400",
+      "-4309208673615949401640673639/110585452463117237559335116800",
+      "-3535542768338777449/150394167871606505600",
+      "-3431881257208799461/272808025441518777600"
+    ],
+    "order45TailLinearCertificate": "10*(4*j-45)-(4*j+1)=36*(j-13)+17, j>=13"
+  },
+  "scalarProxySamples": {
+    "generic": 12,
+    "tangent": 2,
+    "excluded_identity": 2,
+    "split41": {
+      "formalIndices": [
+        26,
+        52
+      ],
+      "rootResidues": [
+        17,
+        24
+      ],
+      "proxyRealUnitResidue": 1,
+      "nonunitFixedRootPlace": 24
+    }
+  },
+  "scalarOrder": 28,
+  "outerConstantCertificates": {
+    "negativeInputValuationGivesEvenContactValuation": "R=6*v_p(X)",
+    "outerConstantArgument": "N=W-1, with v_p(1)=0>-R/2",
+    "strictValuationBoundsTimesR": {
+      "N": "-1/2",
+      "L": "-1/4",
+      "J": "29/4",
+      "fH0": "3/8",
+      "n1": "7/8",
+      "fH1": "23/16",
+      "fQ0": "15/16",
+      "fQ1": "29/8",
+      "y": "89/8",
+      "T": "217/8"
+    },
+    "preservedScalarOrder": 28,
+    "powerCoordinates": 3,
+    "removedSourceNode": "scalar.n0",
+    "completenessMinimumN": "R+4",
+    "maximumRawResidualDegree": 2
+  },
+  "sourceBuilderSha256": "78b54bcde24ff8a91091e102a4734c49878699f071d9230e5ce7a70ffd2114d0",
+  "rawIrSha256": "582c8bf2fcde54242bb23bf7aa33d3a7a9065f04b8edd885a13386b5b779b92c",
+  "checkerSha256": "9fe327499537b10914fb560e8073dfed75d5231c991de2ebf49a70e1631acd0d",
+  "scope": "Exact source equations for all point/chart/difference/logarithm modules, the changed outer-constant scalar tree and its normalized pole consumer, G12 circuit identities, proxy and nonzero guard, exact valuation descent certificates, prior orientation/identity/tangent checks and split41 example. Higher detector precision and fixed-anchor arithmetic are separate audits; the uniform proof and inherited global arithmetic are not proved by these computations."
+}

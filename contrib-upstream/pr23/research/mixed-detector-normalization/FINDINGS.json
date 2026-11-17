@@ -1,0 +1,67 @@
+{
+  "format": "mixed-detector-findings-v1",
+  "status": "author_submission",
+  "items": [
+    {
+      "id": "mixed-normalization",
+      "history": "Both normalized factor identities were present in the delivered round5/7 proofs.",
+      "packet": "Mixed use at order46 derived at every actual consumer; pending non-author decision.",
+      "currentManuscript": "pending",
+      "evidence": [
+        "PROOF.md",
+        "APPLICATION_CONTRACT.json"
+      ]
+    },
+    {
+      "id": "all-pole-conditions",
+      "history": "Prior normalization arguments give contact trace, even valuations elsewhere, squareclasses and small-prime/real preparation.",
+      "packet": "New high weight is checked explicitly at each consumer, with3nu+452s and lambda^-3; old pole witnesses are not reused.",
+      "currentManuscript": "pending",
+      "evidence": [
+        "PROOF.md",
+        "check_mixed.py"
+      ]
+    },
+    {
+      "id": "order46-suffices",
+      "history": "Earlier route already proved logarithm support for46/47; prior height PR selected47.",
+      "packet": "Actual new detector only asserts46 and its own Lucas margin at2010 is checked. No order47 output or unmeasured saving claimed.",
+      "currentManuscript": "pending",
+      "evidence": [
+        "PROOF.md",
+        "EXPECTED.json",
+        "check_mixed.py"
+      ]
+    },
+    {
+      "id": "limited-negative-searches",
+      "history": "Parent preserved unsuccessful chart/log ports and bounded regrouping probes; earlier weight searches were not globally exhaustive.",
+      "packet": "Preserved unchanged and not invoked to exclude mixed normalizations or prove optimality.",
+      "currentManuscript": "not claimed",
+      "evidence": [
+        "HANDOFF.md",
+        "research/height-consumer-refinement/prior-investigation/INVENTORY.json"
+      ]
+    },
+    {
+      "id": "inherited-coverage",
+      "history": "Parent handoff retains Kato/current-source integration, full-source coverage, current-manuscript incorporation and original stdout root-cause limitations.",
+      "packet": "Remain unresolved here. New local review and computational checks do not close them or provide the designated App authorization.",
+      "currentManuscript": "pending",
+      "evidence": [
+        "HANDOFF.md"
+      ]
+    },
+    {
+      "id": "generated-weight-comments",
+      "history": "The parent comment q45=q1*e^88 was correct before the new normalization; the mechanical label change made its generated q46 version stale. The old semantic-test comment also needed explicit mixed inputs.",
+      "packet": "Non-author reviewer identified the commentary issue. Author updated the patch to generate q46=e^91/delta^3 and exact low/high lemma-input comments. Removing line comments gives identical executable source; raw IR and table hashes remain bound unchanged. Final reviewer acknowledgment pending.",
+      "currentManuscript": "not affected",
+      "evidence": [
+        "normalize_patch.py",
+        "EXPECTED.json",
+        "PROOF.md"
+      ]
+    }
+  ]
+}

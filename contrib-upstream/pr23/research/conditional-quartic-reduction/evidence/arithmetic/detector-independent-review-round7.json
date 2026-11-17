@@ -1,0 +1,74 @@
+{
+  "status": "ACCEPT_WITH_INHERITED_GLOBAL_QUALIFICATIONS",
+  "reviewer": "round-seven arithmetic lane, separate from the detector proposer",
+  "subject": "Contact-unit normalization, direct q1, and retained high45/input12 consumers",
+  "bindings": {
+    "integratedBuilder": {
+      "path": "seventh-work/root/selected/construction/builder.cjs",
+      "sha256": "78b54bcde24ff8a91091e102a4734c49878699f071d9230e5ce7a70ffd2114d0"
+    },
+    "rawIr": {
+      "path": "seventh-work/root/selected/construction/raw-ir.json",
+      "sha256": "582c8bf2fcde54242bb23bf7aa33d3a7a9065f04b8edd885a13386b5b779b92c"
+    },
+    "reviewedProof": {
+      "path": "seventh-work/detectors/detector_round7.tex",
+      "sha256": "8978cb9d7ce57c796a4b77752f527cd1f18419d90781a46c9139902ee7e2c03a"
+    },
+    "proposerChecker": {
+      "path": "seventh-work/detectors/check_detector_round7.py",
+      "sha256": "109d2111523938c805e5e877a94e2e8386a33c3bbaf31ea3da18cae1778f28e7"
+    },
+    "independentChecker": {
+      "path": "seventh-work/arithmetic/check_detector_normalization_round7.py",
+      "sha256": "a1f46fa3f3a65ffe3cb06f80e087f87666d93f1d3ec2db298d06391b69d889f2"
+    },
+    "independentReport": {
+      "path": "seventh-work/arithmetic/detector-independent-integrated-check.json",
+      "sha256": "b91f90c60ff33377eb15421089228a9b85a181954ebba84106acf4cf34179af1"
+    },
+    "selectedArithmeticProof": {
+      "path": "seventh-work/arithmetic/arithmetic_round7.tex",
+      "sha256": "14f548346d7630bf2d440fbc33a10bda10bb6cc7604692d59bcb1c821a5bf5ff"
+    },
+    "arithmeticReport": {
+      "path": "seventh-work/arithmetic/arithmetic-integrated-check.json",
+      "sha256": "a53bb559b84b65e886f60c59e0e2439bc2010e9fd9f47aff56d7c2c224ba5013"
+    },
+    "upstreamManuscript": {
+      "path": "diophantine-z-q/manuscripts/quartic_v10.tex",
+      "sha256": "9559b22cc581346da1b3150fa9b8dfb62cfb048f6aac0b866448ae7ae879ff38"
+    },
+    "actualAddition": {
+      "path": "diophantine-z-q/docs/quartic-523-540/addition.tex",
+      "sha256": "0c9444eac7cb889109cbf6e011667decd0aa7b2dfaf4169e4e01f4dbe4176d1e"
+    }
+  },
+  "independentFiniteChecks": {
+    "sourceAssertions": 164,
+    "laurentIdentities": 7,
+    "normalizationIdentities": 3,
+    "importsProposerOrCompiler": false
+  },
+  "actualPassagesRead": [
+    "quartic_v10.tex11031\u201311061, arbitrary-order one-place proof",
+    "quartic_v10.tex11220\u201311241, fixed neighborhoods and real bounds independent of future progression moduli",
+    "quartic_v10.tex11244\u201311363, contact primes, reciprocal trace, squareclasses and preparation-zero pole converse",
+    "addition.tex529\u2013574, separation and deeper primary CRT progression",
+    "addition.tex421\u2013477, scalar, Lucas and input height consumers"
+  ],
+  "uniformReview": [
+    "The exact source keeps R=F/(A^5 delta^6) and implements q1=A*(A delta)^4/F, E=q1 delta^2=R^-1. Thus the pole input n^2/E still equals R/Tr(W^-1)^2. The change does not silently replace R by a function with different parity or squareclasses.",
+    "The one-place proof accepts arbitrary K-valued normalized tests. The exact identity is R^(1-2m)*(D/delta^m)^2=(e^(2m-1)/delta)D^2. At every consumed contact, delta is a unit, so the conclusion on D/delta^m is exactly the required conclusion on D at one common place for all16 tests.",
+    "At a consumed prime the rational scale A has even valuation because it is a square. The five finite contact differences have the reviewed exceptional support; a pole of t maps to-49, not a height contact outside that support. The guard values-1,1,24/25,-24/25,39/25 are units outside S. Prime13 remains excluded; no guard-unit assertion is made there.",
+    "Completeness first fixes scalar preparation, roots, scales and a continuity modulus. The actual real-progression passage bounds the unscaled D_j independently of later moduli; the finite neighborhoods bound their valuations at2,3,17. Therefore the slower q_m=O(lambda^-1) decay is still uniform along the final progression, giving W->1, trace->2 and B~1/(4*98^6*A^6*lambda)<17.",
+    "The actual separation and CRT proof allows the same Pi^44 primary progression, since the successful primary depth remains45 and alternate depth remains1. No incompatible condition is imposed on both h and h-1. Prime selection still occurs after roots and scales, and its prescribed denominator divisibility precedes the final progression.",
+    "At every selected contact prime, delta is a unit and R has valuation1. Each inverse factor has residue0 or1; at the successful place all are1, so the trace has residue1 or2 and is a unit. Thus B has the required positive odd valuation.",
+    "At all other primes, the explicit product of selected prime forms divided by v^5*delta^6 has even valuation, because v is a square. Therefore B has even valuation there regardless of the trace. In particular zeros of delta away from contacts contribute even order and do not introduce a negative odd denominator obstruction.",
+    "The Gaussian classes still make R, and hence B, square at2,3,17. For sufficiently large nu=v_p(v), exact dominance gives v_p(e)=5(eta+alpha), v_p(delta)=eta+alpha-nu, and v_p(q_m)=nu+(10m-6)(eta+alpha). With the fixed lower bounds on D_j this tends to infinity for m1,12,45. The trace is consequently as close to2 as required, including at the ramified prime2, and v_p(B)=nu-6(eta+alpha)-2v_p(2) reaches each preparation-zero threshold.",
+    "The positive chart and direct q1F=A*(A delta)^4 equation force F,q1,E>0 and all displayed chain denominators nonzero. Every new chain coordinate is a unique rational extension. Factor positivity gives W0>=1 and nonzero norm, establishing the actual trace quotient domain before the pole equations.",
+    "The retained G12 tail gives high45 and G2 gives input12 outside the same exception set; the primary inverse-root order45 supplies depth45. The same two-anchor proof transfers integrality and gives the Lucas-label and input-label congruences. The independent E2790 arithmetic certificate separately checks scalar28, Lucas45 and input12 contradictions with the unchanged7H/24H bounds.",
+    "No witness-wise bijection between the old and new detector factors is asserted. The equivalence of integer-input characterization is established through the separate soundness and completeness arguments and the uniform nonzero domains."
+  ],
+  "scope": "Independent review of the changed local normalization and its actual source consumers. This does not independently prove the inherited global rank, height, simultaneous-prime, pole, or Lucas ingredients."
+}

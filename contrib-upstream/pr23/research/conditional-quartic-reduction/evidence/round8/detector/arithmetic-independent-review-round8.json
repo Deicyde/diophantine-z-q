@@ -1,0 +1,87 @@
+{
+  "status": "ACCEPT_CONDITIONAL_DERIVATION",
+  "reviewerLane": "round8_detector",
+  "upstreamCommit": "036cebe4f1a4aa7ca89820a9b48f3629b4c364d6",
+  "selectedAlpha": "577/32",
+  "selectedAnchorExponent": 2364,
+  "independentExactChecks": 67,
+  "sourceDiffVerified": "Exactly one fixedParameter.value replacement: 3^2790 to 3^2364",
+  "bindings": {
+    "selectedProof": {
+      "path": "eighth-work/arithmetic/arithmetic_round8.tex",
+      "sha256": "826523050c2f0d315561ae064124b420862ff09eeafaa63437e0339ce7c22f7b"
+    },
+    "independentChecker": {
+      "path": "eighth-work/detector/check_arithmetic_round8_independent.py",
+      "sha256": "169abbf21283b4c05c6e376a446d881241a6ae55f1d0e138ba4197a03d03a330"
+    },
+    "independentNumericalReport": {
+      "path": "eighth-work/detector/arithmetic-independent-numerics.json",
+      "sha256": "9d940efa3db35dc5128e2a4f9b46b22b75e582ec56dd078636c225df2db58b29"
+    },
+    "writtenReview": {
+      "path": "eighth-work/detector/arithmetic-independent-review-round8.txt",
+      "sha256": "51352069d362782faa1d2c78a7cebf8596560b7ce3f37cfec3f11fe6263617f4"
+    },
+    "upstreamManuscript": {
+      "path": "diophantine-z-q/manuscripts/quartic_v10.tex",
+      "sha256": "9559b22cc581346da1b3150fa9b8dfb62cfb048f6aac0b866448ae7ae879ff38"
+    },
+    "baselineBuilder": {
+      "path": "seventh-work/root/glazer_draft_pr_package/payload/research/conditional-quartic-reduction/construction/builder.cjs",
+      "sha256": "78b54bcde24ff8a91091e102a4734c49878699f071d9230e5ce7a70ffd2114d0"
+    },
+    "arithmeticOnlyBuilder": {
+      "path": "eighth-work/arithmetic/candidate/builder.cjs",
+      "sha256": "18e51c55f7775c844251600b476429c66b568f7a3aaa19b7c48c0418a5e9b82b"
+    },
+    "arithmeticOnlyRawIr": {
+      "path": "eighth-work/arithmetic/candidate/raw-ir.json",
+      "sha256": "54ee2d244acb76078695c476f1eae1dad50bc866e85861fe0eb9a96eb31d5f40"
+    },
+    "authorChecker": {
+      "path": "eighth-work/arithmetic/check_arithmetic_round8.py",
+      "sha256": "29b4a833cc5f7503423ff507d6eed5fed4f8f54b244cdf3bc82aafce0451703a"
+    },
+    "authorReport": {
+      "path": "eighth-work/arithmetic/arithmetic-source-check.json",
+      "sha256": "b28989ca7ce38081ec707286a271406bae021d03398990578e3398bccbe74a4e"
+    },
+    "finiteSupportProof": {
+      "path": "seventh-work/root/glazer_draft_pr_package/payload/research/conditional-quartic-reduction/proofs/prior/round4/arithmetic_round4.tex",
+      "sha256": "b72fa74f4d4ea192d17ff257e17bd8307a12700b53a2de990c4a3c526e5d181e"
+    },
+    "conductorProof": {
+      "path": "seventh-work/root/glazer_draft_pr_package/payload/research/conditional-quartic-reduction/proofs/prior/round5/arithmetic_round5.tex",
+      "sha256": "d00e2c36e19ee4616c99a0a9a74f2a2bdc1ed32734689bb61c0cedc55e5e1806"
+    },
+    "packedAnchorProof": {
+      "path": "seventh-work/root/glazer_draft_pr_package/payload/research/conditional-quartic-reduction/proofs/prior/round1/packed_anchor_note_body.tex",
+      "sha256": "ec02e27191445b8e7ad2bff8eff07f315f273f2b4948c58086894164a5f7ef9b"
+    },
+    "inverseRootAnchorProof": {
+      "path": "seventh-work/root/glazer_draft_pr_package/payload/research/conditional-quartic-reduction/proofs/prior/round6/arithmetic_round6.tex",
+      "sha256": "b306e3f5e118dfdc8a5884c6e53acc7a1492a3f86919ddf9f19cc9d691180724"
+    },
+    "precedingArithmeticProof": {
+      "path": "seventh-work/root/glazer_draft_pr_package/payload/research/conditional-quartic-reduction/proofs/arithmetic_round7.tex",
+      "sha256": "14f548346d7630bf2d440fbc33a10bda10bb6cc7604692d59bcb1c821a5bf5ff"
+    }
+  },
+  "reviewedClaims": [
+    "Euler product handles arbitrary subsets and its full prime tail",
+    "Inherited nebentypus and radical conventions unchanged",
+    "Genus improvement and stable Faltings variation retain all hypotheses",
+    "665-bit integer height coefficient and exponent577/32 derived",
+    "Even physical anchor has the exact stated noncircular domain",
+    "Scalar c/4, Lucas order45, and input order12 consumers close",
+    "Completeness finite-divisibility preparation and choice order preserved"
+  ],
+  "limitations": [
+    "Retained global geometric, modularity, height, group, pole, quaternion and prime inputs remain conditional",
+    "Not a formal proof or independent validation of all inherited mathematics",
+    "Numerical checker does not reconstruct all source equations",
+    "No claim of anchor or circuit optimality",
+    "Historical variant label in isolated arithmetic probe must be updated when integrating"
+  ]
+}

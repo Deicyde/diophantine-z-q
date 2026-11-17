@@ -1,0 +1,726 @@
+{
+  "source": "candidate-ir.json",
+  "sourceSha256": "c9e0b9690eb8f5f9cdbdc3d821f888190ecfb7e1e6a2fcfdd6660ae71b52402c",
+  "candidateSha256": "89d0edd84bb7dea6636995f630c99c8dc6259e5a198ed5d39db51ab2904c1011",
+  "blocks": [
+    {
+      "prefix": "detector0",
+      "s": 41,
+      "newV": 277,
+      "newQ": 43,
+      "newQSquare": 279,
+      "removedSquare": 278,
+      "semanticOldH": [
+        {
+          "sPower": 0,
+          "monomial": [
+            40
+          ],
+          "coefficient": "17"
+        },
+        {
+          "sPower": 0,
+          "monomial": [
+            277
+          ],
+          "coefficient": "-1"
+        }
+      ],
+      "positiveConicInput": [
+        {
+          "sPower": 0,
+          "monomial": [
+            275
+          ],
+          "coefficient": "1"
+        }
+      ],
+      "reverseLift": {
+        "277": [
+          {
+            "sPower": 0,
+            "monomial": [
+              40
+            ],
+            "coefficient": "17"
+          },
+          {
+            "sPower": 0,
+            "monomial": [
+              41,
+              277
+            ],
+            "coefficient": "-1"
+          }
+        ],
+        "43": [
+          {
+            "sPower": 0,
+            "monomial": [
+              41,
+              43
+            ],
+            "coefficient": "1"
+          }
+        ],
+        "279": [
+          {
+            "sPower": 0,
+            "monomial": [
+              41,
+              41,
+              279
+            ],
+            "coefficient": "1"
+          }
+        ],
+        "278": [
+          {
+            "sPower": 0,
+            "monomial": [
+              41,
+              41
+            ],
+            "coefficient": "1"
+          }
+        ]
+      },
+      "privateConsumerRows": [
+        "detector0.Bh.definition",
+        "detector0.q2.definition",
+        "detector0.s2.definition",
+        "detector0.secondConic"
+      ],
+      "normalizedNewRows": {
+        "detector0.Bh.definition": [
+          {
+            "sPower": 0,
+            "monomial": [
+              40
+            ],
+            "coefficient": "17"
+          },
+          {
+            "sPower": 0,
+            "monomial": [
+              40,
+              275
+            ],
+            "coefficient": "-1"
+          },
+          {
+            "sPower": 0,
+            "monomial": [
+              41,
+              277
+            ],
+            "coefficient": "-1"
+          }
+        ],
+        "detector0.q2.definition": [
+          {
+            "sPower": 0,
+            "monomial": [
+              43,
+              43
+            ],
+            "coefficient": "1"
+          },
+          {
+            "sPower": 0,
+            "monomial": [
+              279
+            ],
+            "coefficient": "-1"
+          }
+        ],
+        "detector0.secondConic": [
+          {
+            "sPower": 0,
+            "monomial": [
+              41,
+              41
+            ],
+            "coefficient": "1"
+          },
+          {
+            "sPower": 0,
+            "monomial": [
+              41,
+              277
+            ],
+            "coefficient": "2"
+          },
+          {
+            "sPower": 0,
+            "monomial": [
+              275,
+              279
+            ],
+            "coefficient": "-17"
+          },
+          {
+            "sPower": 0,
+            "monomial": [
+              277,
+              277
+            ],
+            "coefficient": "-3"
+          }
+        ]
+      },
+      "zeroBranch": "Old s=0 implies 17*b*q^2+3*H^2=0. Since b>0, q=H=0. Set new v=Q=Q2=0.",
+      "nonzeroBranch": "For old s!=0, v=H/s, Q=q/s, Q2=Q^2. Reverse uses H=s*v, old q=s*Q, old q2=s^2*Q2, old s2=s^2."
+    },
+    {
+      "prefix": "detector1",
+      "s": 45,
+      "newV": 320,
+      "newQ": 47,
+      "newQSquare": 322,
+      "removedSquare": 321,
+      "semanticOldH": [
+        {
+          "sPower": 0,
+          "monomial": [
+            44
+          ],
+          "coefficient": "17"
+        },
+        {
+          "sPower": 0,
+          "monomial": [
+            320
+          ],
+          "coefficient": "-1"
+        }
+      ],
+      "positiveConicInput": [
+        {
+          "sPower": 0,
+          "monomial": [
+            318
+          ],
+          "coefficient": "1"
+        }
+      ],
+      "reverseLift": {
+        "320": [
+          {
+            "sPower": 0,
+            "monomial": [
+              44
+            ],
+            "coefficient": "17"
+          },
+          {
+            "sPower": 0,
+            "monomial": [
+              45,
+              320
+            ],
+            "coefficient": "-1"
+          }
+        ],
+        "47": [
+          {
+            "sPower": 0,
+            "monomial": [
+              45,
+              47
+            ],
+            "coefficient": "1"
+          }
+        ],
+        "322": [
+          {
+            "sPower": 0,
+            "monomial": [
+              45,
+              45,
+              322
+            ],
+            "coefficient": "1"
+          }
+        ],
+        "321": [
+          {
+            "sPower": 0,
+            "monomial": [
+              45,
+              45
+            ],
+            "coefficient": "1"
+          }
+        ]
+      },
+      "privateConsumerRows": [
+        "detector1.Bh.definition",
+        "detector1.q2.definition",
+        "detector1.s2.definition",
+        "detector1.secondConic"
+      ],
+      "normalizedNewRows": {
+        "detector1.Bh.definition": [
+          {
+            "sPower": 0,
+            "monomial": [
+              44
+            ],
+            "coefficient": "17"
+          },
+          {
+            "sPower": 0,
+            "monomial": [
+              44,
+              318
+            ],
+            "coefficient": "-1"
+          },
+          {
+            "sPower": 0,
+            "monomial": [
+              45,
+              320
+            ],
+            "coefficient": "-1"
+          }
+        ],
+        "detector1.q2.definition": [
+          {
+            "sPower": 0,
+            "monomial": [
+              47,
+              47
+            ],
+            "coefficient": "1"
+          },
+          {
+            "sPower": 0,
+            "monomial": [
+              322
+            ],
+            "coefficient": "-1"
+          }
+        ],
+        "detector1.secondConic": [
+          {
+            "sPower": 0,
+            "monomial": [
+              45,
+              45
+            ],
+            "coefficient": "1"
+          },
+          {
+            "sPower": 0,
+            "monomial": [
+              45,
+              320
+            ],
+            "coefficient": "2"
+          },
+          {
+            "sPower": 0,
+            "monomial": [
+              318,
+              322
+            ],
+            "coefficient": "-17"
+          },
+          {
+            "sPower": 0,
+            "monomial": [
+              320,
+              320
+            ],
+            "coefficient": "-3"
+          }
+        ]
+      },
+      "zeroBranch": "Old s=0 implies 17*b*q^2+3*H^2=0. Since b>0, q=H=0. Set new v=Q=Q2=0.",
+      "nonzeroBranch": "For old s!=0, v=H/s, Q=q/s, Q2=Q^2. Reverse uses H=s*v, old q=s*Q, old q2=s^2*Q2, old s2=s^2."
+    },
+    {
+      "prefix": "detector2",
+      "s": 49,
+      "newV": 363,
+      "newQ": 51,
+      "newQSquare": 365,
+      "removedSquare": 364,
+      "semanticOldH": [
+        {
+          "sPower": 0,
+          "monomial": [
+            48
+          ],
+          "coefficient": "17"
+        },
+        {
+          "sPower": 0,
+          "monomial": [
+            363
+          ],
+          "coefficient": "-1"
+        }
+      ],
+      "positiveConicInput": [
+        {
+          "sPower": 0,
+          "monomial": [
+            361
+          ],
+          "coefficient": "1"
+        }
+      ],
+      "reverseLift": {
+        "363": [
+          {
+            "sPower": 0,
+            "monomial": [
+              48
+            ],
+            "coefficient": "17"
+          },
+          {
+            "sPower": 0,
+            "monomial": [
+              49,
+              363
+            ],
+            "coefficient": "-1"
+          }
+        ],
+        "51": [
+          {
+            "sPower": 0,
+            "monomial": [
+              49,
+              51
+            ],
+            "coefficient": "1"
+          }
+        ],
+        "365": [
+          {
+            "sPower": 0,
+            "monomial": [
+              49,
+              49,
+              365
+            ],
+            "coefficient": "1"
+          }
+        ],
+        "364": [
+          {
+            "sPower": 0,
+            "monomial": [
+              49,
+              49
+            ],
+            "coefficient": "1"
+          }
+        ]
+      },
+      "privateConsumerRows": [
+        "detector2.Bh.definition",
+        "detector2.q2.definition",
+        "detector2.s2.definition",
+        "detector2.secondConic"
+      ],
+      "normalizedNewRows": {
+        "detector2.Bh.definition": [
+          {
+            "sPower": 0,
+            "monomial": [
+              48
+            ],
+            "coefficient": "17"
+          },
+          {
+            "sPower": 0,
+            "monomial": [
+              48,
+              361
+            ],
+            "coefficient": "-1"
+          },
+          {
+            "sPower": 0,
+            "monomial": [
+              49,
+              363
+            ],
+            "coefficient": "-1"
+          }
+        ],
+        "detector2.q2.definition": [
+          {
+            "sPower": 0,
+            "monomial": [
+              51,
+              51
+            ],
+            "coefficient": "1"
+          },
+          {
+            "sPower": 0,
+            "monomial": [
+              365
+            ],
+            "coefficient": "-1"
+          }
+        ],
+        "detector2.secondConic": [
+          {
+            "sPower": 0,
+            "monomial": [
+              49,
+              49
+            ],
+            "coefficient": "1"
+          },
+          {
+            "sPower": 0,
+            "monomial": [
+              49,
+              363
+            ],
+            "coefficient": "2"
+          },
+          {
+            "sPower": 0,
+            "monomial": [
+              361,
+              365
+            ],
+            "coefficient": "-17"
+          },
+          {
+            "sPower": 0,
+            "monomial": [
+              363,
+              363
+            ],
+            "coefficient": "-3"
+          }
+        ]
+      },
+      "zeroBranch": "Old s=0 implies 17*b*q^2+3*H^2=0. Since b>0, q=H=0. Set new v=Q=Q2=0.",
+      "nonzeroBranch": "For old s!=0, v=H/s, Q=q/s, Q2=Q^2. Reverse uses H=s*v, old q=s*Q, old q2=s^2*Q2, old s2=s^2."
+    },
+    {
+      "prefix": "scalar",
+      "s": 55,
+      "newV": 390,
+      "newQ": 57,
+      "newQSquare": 392,
+      "removedSquare": 391,
+      "semanticOldH": [
+        {
+          "sPower": 0,
+          "monomial": [
+            54
+          ],
+          "coefficient": "17"
+        },
+        {
+          "sPower": 0,
+          "monomial": [
+            390
+          ],
+          "coefficient": "-1"
+        }
+      ],
+      "positiveConicInput": [
+        {
+          "sPower": 0,
+          "monomial": [],
+          "coefficient": "184460384539620"
+        },
+        {
+          "sPower": 0,
+          "monomial": [
+            179
+          ],
+          "coefficient": "1181808857731824"
+        },
+        {
+          "sPower": 0,
+          "monomial": [
+            366
+          ],
+          "coefficient": "842515462889856"
+        },
+        {
+          "sPower": 0,
+          "monomial": [
+            367
+          ],
+          "coefficient": "1681371427147776"
+        }
+      ],
+      "reverseLift": {
+        "390": [
+          {
+            "sPower": 0,
+            "monomial": [
+              54
+            ],
+            "coefficient": "17"
+          },
+          {
+            "sPower": 0,
+            "monomial": [
+              55,
+              390
+            ],
+            "coefficient": "-1"
+          }
+        ],
+        "57": [
+          {
+            "sPower": 0,
+            "monomial": [
+              55,
+              57
+            ],
+            "coefficient": "1"
+          }
+        ],
+        "392": [
+          {
+            "sPower": 0,
+            "monomial": [
+              55,
+              55,
+              392
+            ],
+            "coefficient": "1"
+          }
+        ],
+        "391": [
+          {
+            "sPower": 0,
+            "monomial": [
+              55,
+              55
+            ],
+            "coefficient": "1"
+          }
+        ]
+      },
+      "privateConsumerRows": [
+        "scalar.Bh.definition",
+        "scalar.q2.definition",
+        "scalar.s2.definition",
+        "scalar.secondConic"
+      ],
+      "normalizedNewRows": {
+        "scalar.Bh.definition": [
+          {
+            "sPower": 0,
+            "monomial": [
+              54
+            ],
+            "coefficient": "17"
+          },
+          {
+            "sPower": 0,
+            "monomial": [
+              54,
+              388
+            ],
+            "coefficient": "-1"
+          },
+          {
+            "sPower": 0,
+            "monomial": [
+              55,
+              390
+            ],
+            "coefficient": "-1"
+          }
+        ],
+        "scalar.q2.definition": [
+          {
+            "sPower": 0,
+            "monomial": [
+              57,
+              57
+            ],
+            "coefficient": "1"
+          },
+          {
+            "sPower": 0,
+            "monomial": [
+              392
+            ],
+            "coefficient": "-1"
+          }
+        ],
+        "scalar.secondConic": [
+          {
+            "sPower": 0,
+            "monomial": [
+              55,
+              55
+            ],
+            "coefficient": "1"
+          },
+          {
+            "sPower": 0,
+            "monomial": [
+              55,
+              390
+            ],
+            "coefficient": "2"
+          },
+          {
+            "sPower": 0,
+            "monomial": [
+              179,
+              392
+            ],
+            "coefficient": "-20090750581441008"
+          },
+          {
+            "sPower": 0,
+            "monomial": [
+              366,
+              392
+            ],
+            "coefficient": "-14322762869127552"
+          },
+          {
+            "sPower": 0,
+            "monomial": [
+              367,
+              392
+            ],
+            "coefficient": "-28583314261512192"
+          },
+          {
+            "sPower": 0,
+            "monomial": [
+              390,
+              390
+            ],
+            "coefficient": "-3"
+          },
+          {
+            "sPower": 0,
+            "monomial": [
+              392
+            ],
+            "coefficient": "-3135826537173540"
+          }
+        ]
+      },
+      "zeroBranch": "Old s=0 implies 17*b*q^2+3*H^2=0. Since b>0, q=H=0. Set new v=Q=Q2=0.",
+      "nonzeroBranch": "For old s!=0, v=H/s, Q=q/s, Q2=Q^2. Reverse uses H=s*v, old q=s*Q, old q2=s^2*Q2, old s2=s^2."
+    }
+  ],
+  "scope": "Four pointwise rational projection equivalences, using positivity already supplied by the proposal. No new global theorem or independent acceptance."
+}

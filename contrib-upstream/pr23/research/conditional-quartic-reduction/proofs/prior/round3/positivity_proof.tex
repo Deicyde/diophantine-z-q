@@ -1,0 +1,76 @@
+\section{Positive detector products from an existing Gaussian contact}
+
+Add two rational witnesses $a_+,b_+$ and one quadratic equation
+\begin{equation}\label{eq:positive-lambda}
+ \lambda-\frac1{2399}=a_+^2+b_+^2.
+\end{equation}
+This restriction is supplied by the existing completeness construction.
+It makes three trace-inverse guards unnecessary, for a net saving of one
+variable. Arbitrary old witness tuples need not extend; the argument below
+establishes both the soundness implication and canonical completeness.
+
+\subsection{Domains from positivity}
+At either real embedding $\sigma$, every root chart satisfies
+$x_\sigma\ge\sqrt{D_\sigma}=3-\sigma(\rho)$. Hence for the four-abscissa
+product $C_0+C_1\rho$,
+\[
+ C_0\ge\frac{(3-\rho)^4+(3+\rho)^4}{2}=193.
+\]
+All three detector scales $A\in\{1,C_0^2,(1+C_1^2)^2\}$ are at least one.
+Put $t=A\lambda$, $\delta=t-1$. Equation~\eqref{eq:positive-lambda} gives
+$t\ge1/2399$, so
+\[
+ F(t)=t(t+1/2)(t+1)(t-1/2399)(t+32/407)\ge0.
+\]
+Retain the existing weight relations
+\[
+ F(t)e=(A\delta)^5,\qquad \delta^3q_1=e,\qquad ee_{-1}=1.
+\]
+The last relation gives $e\ne0$, then the middle gives $\delta\ne0$, and
+the first gives $F(t)>0$. Thus
+\[
+ q_1=A^5\delta^2/F(t)>0,\qquad q_{40}=q_1e^{78}>0.
+\]
+The unchanged power chain gives the second identity exactly.
+
+For the semantic detector product
+\[
+ W=\prod_{j=1}^{16}(1+q_{m_j}D_j^2)=w_0+w_1\rho,
+ \qquad m_j\in\{1,40\},
+\]
+every factor is at least one at both real embeddings. Consequently
+$\sigma(W)\ge1$, $w_0\ge1$, and $\Norm(W)>0$. Delete the three rational
+inverse witnesses for $w_0$. The retained norm equation now uniquely gives
+\[
+ n=\frac{w_0^2-2w_1^2}{2w_0}>0.
+\]
+Since $e\delta=A^5\delta^6/F(t)>0$, the pole input
+$b=n^2/(e\delta)$ is positive as well. These domain conclusions hold
+before any pole equation is used. Deleted witnesses recover uniquely as
+$1/w_0$; no zero-over-zero solution is introduced.
+
+\subsection{Why completeness supplies the two witnesses}
+The actual source prime-selection passage in
+\texttt{manuscripts/quartic\_v10.tex} chooses
+\[
+ v=D_0^2w^2,\qquad\lambda=u/v,
+\]
+after fixing the scales, with $D_0^2\theta/A$ integral for every contact.
+The contact $A=1$, $\theta=1/2399$ is retained. Its prime form is
+\[
+ p=u-v/2399=\Norm_{\Q(i)/\Q}(\pi),
+\]
+where the same simultaneous-prime theorem supplies a Gaussian generator
+$\pi=A_0+iB_0$. Repeated forms are merged with their incidences retained,
+so this contact still has a selected prime value. Set
+\[
+ a_+=A_0/(D_0w),\qquad b_+=B_0/(D_0w).
+\]
+Their squared sum is $p/v=\lambda-1/2399$. Thus the existing completeness
+witnesses extend to~\eqref{eq:positive-lambda}, with no stronger prime
+theorem or additional thin-set restriction. The source already chooses
+positive sufficiently large $\lambda$ and nonzero $D_0w$.
+
+In isolation this adds two coordinates and one residual, removes three
+coordinates and three residuals, and gives 449 variables and 417 residuals.
+The direct positivity proof also simplifies all subsequent pole domains.

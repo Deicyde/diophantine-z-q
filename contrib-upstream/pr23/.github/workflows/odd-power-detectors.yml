@@ -1,0 +1,38 @@
+name: Uniform odd-power detectors research replay
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: odd-power-detectors-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  odd-power-detectors:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12.14'
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24.22.1'
+      - run: python -B research/odd-power-detectors/reproduce.py --output build/power376
+      - run: python -B scripts/check_audit_history.py --self-test
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: odd-power-detectors-376
+          path: |
+            build/power376/MEASURED.json
+            build/power376/replay.log
+            build/power376/*check.json
+            build/power376/balanced/summary.json
+            build/power376/quartic-*-balanced-decimal.txt

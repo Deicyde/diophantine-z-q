@@ -1,0 +1,23 @@
+{
+  "status": "PREPARED_FROM_REPOSITORY",
+  "checkout_commit": "e653d6ff295ae4e0535710a7d64aa255d294d211",
+  "packet": "scalar-ratio",
+  "selected_declarations": 39,
+  "reviewed_source_commit": "3d2243ff141f9681fbd6a659ca28ffddfae9b000",
+  "prerequisite_inputs_checked": 128,
+  "packet_manifest_sha256": "d313ec3ff5ad0e91d555d26b2beef6ad401d7e9c86cdfe77adbe119062498610",
+  "packet_inputs_checked": 99,
+  "generated_manifest_sha256": "117f9ca2c28c42e45198f790dd8c3f324e1bed9d3af11ea9707575363304b811",
+  "generated_inputs_checked": 24,
+  "preparation_script_sha256": "6dd6779b1b5a85a2916f836a690efb5a827198db06ab6390269eef2c750682be",
+  "lean_invoked": false,
+  "network_used": false,
+  "paranoid_run": "NOT_RUN; owned by Open Math in the cloud",
+  "cloud_command": [
+    "lake",
+    "comparator",
+    "--config",
+    "comparator.json",
+    "--paranoid"
+  ]
+}

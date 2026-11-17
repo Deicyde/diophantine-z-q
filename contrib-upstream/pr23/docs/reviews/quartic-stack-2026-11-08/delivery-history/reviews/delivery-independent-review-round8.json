@@ -1,0 +1,70 @@
+{
+  "status": "ACCEPT_DELIVERY_HELPER_AND_PATCH_SCOPE",
+  "reviewerLane": "round8_detector",
+  "upstreamCommit": "036cebe4f1a4aa7ca89820a9b48f3629b4c364d6",
+  "knownValidControl": true,
+  "fourFocusedNegativesRejected": true,
+  "bothPatchRoutesExactlyMatchPayload": true,
+  "payloadFiles": 156,
+  "upstreamFilesOutsideProposalPreserved": 2104,
+  "identicalResultTree": "3c5b2b3eb75c7f4bf3d50fb7dedf1e9216f9860e",
+  "deliveredSourcesUnchanged": true,
+  "bindings": {
+    "writtenReview": {
+      "path": "eighth-work/detector/delivery-independent-review-round8.txt",
+      "sha256": "3221d247dbfb9f2068db809ecc023a17c0142f0106f8415f8a9dc49d6712f708",
+      "bytes": 4263
+    },
+    "helperBehaviorChecker": {
+      "path": "eighth-work/detector/check_update_base_helper_round8.py",
+      "sha256": "58cfe57f511d9a4988b6826dfea76f8118d60d22c4bb20e3d3101e475063e140",
+      "bytes": 5440
+    },
+    "helperBehaviorReport": {
+      "path": "eighth-work/detector/update-base-helper-review-round8.json",
+      "sha256": "4f7039f10d5be4b9e1d07352f7fdd055a950cda7da2d99a039a410aa7a650bf8",
+      "bytes": 2391
+    },
+    "patchScopeChecker": {
+      "path": "eighth-work/detector/check_delivery_patch_scope_round8.py",
+      "sha256": "2557541868a2acf890f9046e8bafd479ee703b69d2751e8878d526810d559989",
+      "bytes": 9698
+    },
+    "patchScopeReport": {
+      "path": "eighth-work/detector/delivery-patch-scope-review-round8.json",
+      "sha256": "cafc8f8cd1c2fcefc01441dbb74afd7faa5c752a647fb457dfaa68a5fb340269",
+      "bytes": 2628
+    },
+    "deliveredHelper": {
+      "path": "eighth-work/root/glazer_draft_pr_package/verify_update_base.py",
+      "sha256": "218c91ee3b9a1ad55eab56d14dcab6f5d8d2e77475c959e9f4f2857480d51afc",
+      "bytes": 2324
+    },
+    "fullPatch": {
+      "path": "eighth-work/root/glazer_draft_pr_package/proposed-change.patch",
+      "sha256": "070acc6f6ef000c478436b9bca801b5cc9170e403496302649b83976fb47b630",
+      "bytes": 3686008
+    },
+    "updatePatch": {
+      "path": "eighth-work/root/glazer_draft_pr_package/update-from-392.patch",
+      "sha256": "b2002eea250e697be649a40dd1176526d08baa037bd802d5d48e28812c6be664",
+      "bytes": 4227668
+    },
+    "newSourceManifest": {
+      "path": "eighth-work/root/glazer_draft_pr_package/payload/research/conditional-quartic-reduction/SOURCE_MANIFEST.json",
+      "sha256": "268694a99ae9e73f99c3847270994d51b7b9861aa9e521a622c583bed95076c2",
+      "bytes": 32141
+    },
+    "nestedOldSourceManifest": {
+      "path": "eighth-work/root/glazer_draft_pr_package/payload/research/conditional-quartic-reduction/lineage/round7_delivery/SOURCE_MANIFEST.json",
+      "sha256": "f2d74ebd40b61a48b1b3d1ecdb55d2fda53f372a090fce8ec1fcd347e333bbd5",
+      "bytes": 22670
+    },
+    "handoff": {
+      "path": "eighth-work/root/glazer_draft_pr_package/AGENT_HANDOFF.md",
+      "sha256": "4eabcb5156e4449ec706863fae81fc8652f79062d9c79b74f130f44b7d807735",
+      "bytes": 10308
+    }
+  },
+  "scope": "Exact old-overlay helper behavior and final patch application/path/content/mode preservation. Mathematical reproduction and PDF visual review remain separate."
+}

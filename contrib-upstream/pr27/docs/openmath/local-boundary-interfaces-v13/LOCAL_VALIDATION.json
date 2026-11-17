@@ -1,0 +1,49 @@
+{
+  "status": "PASS",
+  "fresh_native_lean": "4.35.0",
+  "proof_roots": 41,
+  "statements_byte_identical_to_reviewed_core": true,
+  "artifact_hashes_identical_to_reviewed_core": true,
+  "core_commit": "43664fd17014018461d6dfd64cf052c1e4afe298",
+  "generated_manifest_sha256": "5a828f5d4608b801f7016b7c387fae3ab78274f237c8077771b38d7bbadd20a0",
+  "generated_files": 12,
+  "two_preparations_byte_identical": true,
+  "dependency_lock_change": "Root name only; all nine dependencies unchanged",
+  "existing_output_refusal": {
+    "command": [
+      "python3",
+      "-B",
+      "scripts/prepare_local_boundary_openmath.py",
+      "--output",
+      "lean/.checks/lbi-openmath-publication-repeat-20261110"
+    ],
+    "exit_code": 1,
+    "stderr": "Output must be new\n"
+  },
+  "staged_lake_build": {
+    "command": [
+      "lake",
+      "build"
+    ],
+    "exit_code": 0,
+    "modules_freshly_built": [
+      "Research.DerivativeSwitch.ConjugateLocalTransport",
+      "Research.DerivativeSwitch.ConjugateLocalH1",
+      "Research.DerivativeSwitch.ActualBoundaryCup",
+      "Research.DerivativeSwitch.OrthogonalComparison",
+      "Packet"
+    ],
+    "dependency_cache": "Existing pinned caches reused; 2463-job summary is not 2463 fresh source builds",
+    "diagnostics": "Eight legacy-module imports of module-system Mathlib warned; no errors. Source bytes unchanged; generated config explicitly requiresModuleSystem=false."
+  },
+  "preparation_attempt_note": "First local build wrapper used the generated directory as though it were the repository root, so cache-link setup failed; ensuing dependency materialization was interrupted (exit130). Fresh correctly rooted staging and Lake build then passed. This was a local orchestration error, not a generator/proof defect. The partial staging directory is retained locally.",
+  "paranoid": "NOT_RUN; Open Math OS cloud task",
+  "protected_comparison": "NOT_RUN; no comparator challenge supplied",
+  "generated_project_artifact_hashes": {
+    ".lake/build/lib/lean/Packet.olean": "7431eabd97d01839342fcb69e32f8dfdb78a3bf85032bbc917871be3d2bb0948",
+    ".lake/build/lib/lean/Research/DerivativeSwitch/ActualBoundaryCup.olean": "230801820f36240302b85cd0d1505134a74121eb985040f37874cccc9df82e52",
+    ".lake/build/lib/lean/Research/DerivativeSwitch/ConjugateLocalH1.olean": "80dc8b8f98c8d0292428f2a4f0c1912c4419c743fe52b8870bc5414df6904c31",
+    ".lake/build/lib/lean/Research/DerivativeSwitch/ConjugateLocalTransport.olean": "0992e14229ee2ce4ababed506afe0f4c4a5acd70a1dfa888da86fd903d4320a7",
+    ".lake/build/lib/lean/Research/DerivativeSwitch/OrthogonalComparison.olean": "0c9daed22feff63eea41b833a9d3feb5f5890ddb5d696220f973c2a3da9bca22"
+  }
+}

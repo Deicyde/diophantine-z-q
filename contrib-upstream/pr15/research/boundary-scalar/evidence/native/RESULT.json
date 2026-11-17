@@ -1,0 +1,179 @@
+{
+  "status": "PASS",
+  "profile": "development",
+  "lean": "Lean (version 4.35.0, arm64-apple-darwin24.6.0, commit eb6cafb7290e8bd5f2937522d8d804f58f02bafc, Release)",
+  "modules_freshly_compiled": [
+    "DerivativeSwitchBoundary",
+    "BoundaryScalar",
+    "BoundaryCupAdapter"
+  ],
+  "selected_declarations": 21,
+  "theorem_axioms": {
+    "Research.DerivativeSwitch.finite_kernel_line": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.singular_kernel_line": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.boundary_images_meet_zero": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.no_identity_strict_square": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.Volume.area_action": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.DerivativeSwitch.Volume.area_neg_one": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.BoundaryScalar.adjugate_singularNormal": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.BoundaryScalar.adjugate_finiteNormal": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.BoundaryScalar.tensor_of_normal_form": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.BoundaryScalar.finite_tensor": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.BoundaryScalar.singular_tensor": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.BoundaryScalar.finite_cross_ne_zero": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.BoundaryScalar.singular_cross_ne_zero": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.BoundaryScalar.finite_coordinate_iff": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.BoundaryScalar.singular_coordinate_iff": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.BoundaryScalar.boundary_scalar_formula": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.BoundaryScalar.scalar_comparison": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.BoundaryScalar.normalized_scalar_comparison": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.BoundaryScalar.scalar_comparison_of_unit": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.BoundaryCupAdapter.cross_evaluations_eq": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Research.BoundaryCupAdapter.cross_evaluations_with_factors": [
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "allowed_axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "dependencies": [
+    {
+      "name": "mathlib",
+      "revision": "56a005855ea17e0b0958f73ec801ae140b0a1679"
+    },
+    {
+      "name": "plausible",
+      "revision": "dfa4f38190d07c37e315953e08b90fe2d95b3c24"
+    },
+    {
+      "name": "LeanSearchClient",
+      "revision": "d6b4c7be5be75ec4917c873ac50c756dc1436372"
+    },
+    {
+      "name": "importGraph",
+      "revision": "a41f0e9a4dea23188ea9cc1c41ac9f8bbafe0b93"
+    },
+    {
+      "name": "proofwidgets",
+      "revision": "df72b022e558978a1c50264cfc4d7fec86fa8e04"
+    },
+    {
+      "name": "aesop",
+      "revision": "4a174c490d8707121c4a9290800489f105d85e07"
+    },
+    {
+      "name": "Qq",
+      "revision": "dce0ad79c486cb1fb504af04f953c3466b0c6db8"
+    },
+    {
+      "name": "batteries",
+      "revision": "66e469188fe07963e5cf666c7d4433f45b8131c5"
+    },
+    {
+      "name": "Cli",
+      "revision": "c24fe6078c630e89b489bffe59b3e20ac30d12c8"
+    }
+  ],
+  "paranoid": false,
+  "native_export_replay": "NOT_RUN",
+  "protected_comparator": "NOT_RUN",
+  "external_checkers": "NOT_RUN",
+  "arithmetic_tensor_compatibility": "OPEN",
+  "dependency_cache": "Trusted pinned Mathlib master cache",
+  "input_hashes": {
+    "lean/Research/DerivativeSwitchBoundary.lean": "63a9215fa55568069d2d1a7b2c3a7345ec21c7ad6a82203f42c5451ee4b8bbea",
+    "lean/Research/BoundaryScalar.lean": "fd1ea9ca11a417072c7be08ef477901427c57a74962559d753d62db95883f3ef",
+    "lean/Research/BoundaryCupAdapter.lean": "330699edaab6812ed68ed09a5fb682ad1d6b3af5a030a252691723066beffd7b",
+    "research/boundary-scalar/verify.py": "a472c291f61180992681ddfaa64f0485d54413165a26b97c3bb8f6dcab43c452",
+    "research/boundary-scalar/verification/comparator.json": "72047c185bbc3d5f9c5632244a014be7e9a9f35e1cc86d5cde0e0aab5411cec8",
+    "research/boundary-scalar/inputs/diophantine_zq_complete_math_review_bundle_2026-11-08.zip": "a90ece63029cdbca8bb7db1871cc5325a6cd19b505e6ed53810ab17fb2e62bae",
+    "lean/lean-toolchain": "ca5f1f601d34c49079e38d7e7041eb0f2a9c227fbc1df0f404820069a052330c",
+    "lean/lakefile.toml": "632fda3c75f7616378b9dadd0906d9518c7b4a1199c59d7b36369121acfb3b26",
+    "lean/lake-manifest.json": "a770787f33b5824f61a0731d59e67fca3f44a531b21d1fc1a804064c6fb54e58",
+    "research/boundary-scalar/CONTRACT.md": "74c0a7c963302202babb94ed1f5f8de9085216ac820521a57d8f04bf9215d360",
+    "research/boundary-scalar/DERIVATION.md": "1c16ce59014cc551c7b2537bd0d7be00f5343e80452464b6e1e7c2b3fd80b356",
+    "research/boundary-scalar/check_boundary_scalar.py": "fac50661ebbd4e57e93db2dbf8bb01ba10c6fd3cd93eb5cedfd8ee8a476f87a1"
+  },
+  "artifact_sha256": {
+    "Solution.olean": "4d08db26dcff0129726c6fc8f133918bfbdf511c8841021c0d194f5140378566",
+    "Research/DerivativeSwitchBoundary.olean": "39e5ac5cab19dcdfa4a530342dab3725ffc9b90ed18536b10ee0a04900ad7a3e",
+    "Research/BoundaryCupAdapter.olean": "ba8147cf17bbcd508ba240ef4d3bc3314aecc0a001d77282698e67ad87a089e3",
+    "Research/BoundaryScalar.olean": "e0b77134fd2fa2a1d8a530d898eca49a2f42dfcb7fc2947f87415ee5aef19ce3"
+  }
+}

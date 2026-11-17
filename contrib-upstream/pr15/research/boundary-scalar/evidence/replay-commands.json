@@ -1,0 +1,40 @@
+[
+  {
+    "label": "boundary-normal",
+    "script": "review/check_boundary_scalar.py",
+    "flags": [
+      "-B"
+    ],
+    "exit_code": 0,
+    "expected_exit_code": 0
+  },
+  {
+    "label": "boundary-optimized",
+    "script": "review/check_boundary_scalar.py",
+    "flags": [
+      "-B",
+      "-O"
+    ],
+    "exit_code": 0,
+    "expected_exit_code": 0
+  },
+  {
+    "label": "old-model-replay",
+    "script": "review/reviewed/check_local_model.py",
+    "flags": [
+      "-B"
+    ],
+    "exit_code": 0,
+    "expected_exit_code": 0
+  },
+  {
+    "label": "old-model-optimized-rejection",
+    "script": "review/reviewed/check_local_model.py",
+    "flags": [
+      "-B",
+      "-O"
+    ],
+    "exit_code": 1,
+    "expected_exit_code": 1
+  }
+]

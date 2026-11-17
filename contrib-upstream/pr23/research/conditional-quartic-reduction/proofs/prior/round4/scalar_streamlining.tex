@@ -1,0 +1,102 @@
+\section{Use only the real coefficient of the scalar ratio}
+
+Let $J=H=[h]P$ and $Q=S-P=[a-1]P$ be the retained nonidentity
+points.  The scalar norm tree first tests both rational coefficients of
+$f(J)$ and $f(Q)$ to order one.  Keep all four of those tests.  At any
+consumed good, unramified place above the odd prime $p$, they put both
+points in the formal group, with $z$-valuation at least one.
+
+The formal expansion used in the source gives
+\[
+ \log_E(T)/z(T)\in1+p^4\mathcal O
+ \qquad(T=J,Q)
+\]
+at every place above $p$.  This estimate holds outside the original
+cutoff; the separate finite-exception argument proves it for the smaller
+exception set used in the final construction.  From $[h]Q=[a-1]J$,
+the homomorphism property and injectivity of the formal logarithm give
+\[
+ L:=\frac{z(Q)}{z(J)}=\frac{a-1}{h}\,u,
+ \qquad u\in1+p^4\mathcal O
+\]
+at every place above $p$.  This statement does not require $P$ itself
+to be formal.  Write $u=u_0+u_1\rho$.  Since $p$ is odd and the extension
+is unramified, trace integrality, at both places in the split case,
+gives
+\[
+ u_0=\tfrac12\operatorname{Tr}_{K/\mathbb Q}(u)
+       \in1+p^4\mathbb Z_p.
+\]
+Consequently, writing $L=L_0+L_1\rho$,
+\[
+ \boxed{v_p(L_0)=v_p((a-1)/h).}
+\]
+Testing only $L_0$ to the desired scalar order therefore suffices for
+the index-divisibility conclusion.  This uses both formal-place
+conditions; a one-place argument would not suffice for the rational trace.
+
+\subsection{The shorter norm tree}
+Let $r>0$ be the existing scalar contact product.  For any retained
+positive scalar order $m$, keep
+\[
+ l_1=f(J)_0/r,\quad l_2=f(J)_1/r,\quad
+ l_3=f(Q)_0/r,\quad l_4=f(Q)_1/r,\quad l_5=L_0/r^m.
+\]
+With $N_r(u,v)=u^2+rv^2$, replace the seven-leaf tree by
+\[
+ n_0=N_r(1,l_1),\quad n_1=N_r(l_2,l_3),\qquad
+ W=N_r\bigl(N_r(n_0,n_1),N_r(l_4,l_5)\bigr).
+\]
+In particular the old node $N_r(l_5,L_1/r^m)$ disappears.  Its squared
+right child and its output were two rational gate coordinates.
+
+The usual norm descent applies unchanged: if $R=v_p(r)$ is odd and
+the pole certificate excludes a negative odd valuation of $42rW^2$,
+the constant left path first forces $R>0$.  Opposite valuation parity
+at every norm node then forces $v_p(l_i)>-R$.  It follows that the four
+reciprocal-abscissa coefficients have valuation at least one and that
+$v_p(L_0)\ge m$.  The boxed equality and the integrality of $h$ give
+$v_p(a-1)\ge m$.
+
+Completeness uses exactly the same finite-place preparation of $J$ and
+$Q$.  Their sufficiently deep choices make all retained normalized
+leaves integral at primes dividing $r$, and divisible by the exceptional
+correction primes as required.  The constant left path makes $W$ a unit
+on the support of $42r$.  At infinity every norm node is nonnegative,
+$n_0\ge1$, and hence $W\ge1$.  The inherited pole-completeness and
+continuity arguments apply with this shorter tree.  This is a transfer
+of the scalar arithmetic certificate, not a bijection between complete
+old and new norm-tree witness tuples.  The field quotient for $L/r^m$
+still has two components; its imaginary output is only an auxiliary
+coordinate for evaluating its real output, and is no longer tested.
+
+\section{Absorb the known square in the scalar pole input}
+
+Put $\varrho=42r$ and $b=\varrho W^2$.  The preceding positivity
+argument gives $\varrho>0$ and $W\ge1$ on every arithmetic solution.
+In the normalized pole equations of the 423-coordinate construction,
+make the invertible change of private witnesses
+\[
+ p_{\rm new}=Wp_{\rm old},\qquad q_{\rm new}=Wq_{\rm old},
+ \qquad u_{\rm new}=U_{\rm old}/W.
+\]
+Keep $e,s,V,T$ unchanged.  The new equations are
+\begin{align*}
+ 17\varrho p_{\rm new}^2&=(17-e)(17+3e),\\
+ T&=\varrho W^2-V^2,&u_{\rm new}^2&=\varrho T,\\
+ H&=e(17-T),&
+ 17\varrho q_{\rm new}^2&=(s^2-H)(s^2+3H).
+\end{align*}
+With the existing square gates these remain quadratic.  The former
+coordinate $b$ has no remaining consumer and is removed.  Conversely
+recover $b=\varrho W^2$, $p_{\rm old}=p_{\rm new}/W$,
+$q_{\rm old}=q_{\rm new}/W$, and $U_{\rm old}=Wu_{\rm new}$.
+The first and second pole residuals agree after substitution; the old
+preparation residual is $W^2$ times the new one.  Only the proved
+nonzero $W$ is divided by.  This is an exact coordinate equivalence
+for the pole module with fixed $r,W$, including its zero-ordinate branches.
+
+These two changes give 420 variables and 388 residuals in isolation
+from the 423-variable baseline.  Their combined saving is three.
+All new residuals remain quadratic when the fixed anchor coefficient is
+subsequently represented by additional coordinates.

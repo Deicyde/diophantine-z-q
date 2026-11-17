@@ -1,0 +1,203 @@
+Research/DerivativeSwitch/CommonStrict.lean:51:36: error: unsolved goals
+K : Type u_1
+I : Type u_2
+inst✝² : Field K
+inst✝¹ : Fintype I
+inst✝ : DecidableEq I
+h : I → K
+v x : Local K
+⊢ (fromBlocks 1 (fun i => ![h i, 0]) 0 !![v 0, x 0; v 1, x 1]).det = v 0 * x 1 - v 1 * x 0
+Research/DerivativeSwitch/CommonStrict.lean:52:31: warning: This simp argument is unused:
+  Matrix.det_fromBlocks_zero₂₁
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [frame, pairCols, area, Matrix.det_fin_two]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Research/DerivativeSwitch/CommonStrict.lean:52:61: warning: This simp argument is unused:
+  Matrix.det_fin_two
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [frame, pairCols, area, Matrix.det_fromBlocks_zero₂₁]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Research/DerivativeSwitch/CommonStrict.lean:58:2: error: unsolved goals
+case inl
+K : Type u_1
+I : Type u_2
+inst✝² : Field K
+inst✝¹ : Fintype I
+inst✝ : DecidableEq I
+h : I → K
+v x : Local K
+i : I
+⊢ fromBlocks 1 (fun i => ![h i, 0]) 0 (pairCols v x) (Sum.inl i) (Sum.inr 0) = h i
+Research/DerivativeSwitch/CommonStrict.lean:59:2: error: unsolved goals
+case inr.«0»
+K : Type u_1
+I : Type u_2
+inst✝² : Field K
+inst✝¹ : Fintype I
+inst✝ : DecidableEq I
+h : I → K
+v x : Local K
+⊢ fromBlocks 1 (fun i => ![h i, 0]) 0 !![v 0, x 0; v 1, x 1] (Sum.inr 0) (Sum.inr 0) = v 0
+
+case inr.«1»
+K : Type u_1
+I : Type u_2
+inst✝² : Field K
+inst✝¹ : Fintype I
+inst✝ : DecidableEq I
+h : I → K
+v x : Local K
+⊢ fromBlocks 1 (fun i => ![h i, 0]) 0 !![v 0, x 0; v 1, x 1] (Sum.inr 1) (Sum.inr 0) = v 1
+Research/DerivativeSwitch/CommonStrict.lean:71:2: error: Type mismatch: After simplification, term
+  h
+ has type
+  (J *ᵥ v) 0 * (J *ᵥ x) 1 - (J *ᵥ x) 0 * (J *ᵥ v) 1 = (J 0 0 * J 1 1 - J 0 1 * J 1 0) * (v 0 * x 1 - x 0 * v 1)
+but is expected to have type
+  (J *ᵥ v) 0 * (J *ᵥ x) 1 - (J *ᵥ v) 1 * (J *ᵥ x) 0 = (J 0 0 * J 1 1 - J 0 1 * J 1 0) * (v 0 * x 1 - v 1 * x 0)
+Research/DerivativeSwitch/CommonStrict.lean:105:2: error: unsolved goals
+case inl
+K : Type u_1
+I : Type u_2
+inst✝² : Field K
+inst✝¹ : Fintype I
+inst✝ : DecidableEq I
+D0 : Matrix (Index I) I K
+A : Matrix (Index I) (Fin 2) K
+h : I → K
+v x : Local K
+y : Index I → K
+hcycle : join D0 A *ᵥ cycle h v = 0
+hc : ∀ (i : Index I), ∑ j, D0 i j * h j + (A i 0 * v 0 + A i 1 * v 1) = 0
+i : Index I
+j : I
+⊢ ∑ a₁, D0 i a₁ * fromBlocks 1 (fun i => ![h i, 0]) 0 !![v 0, x 0; v 1, x 1] (Sum.inl a₁) (Sum.inl j) +
+      (A i 0 * fromBlocks 1 (fun i => ![h i, 0]) 0 !![v 0, x 0; v 1, x 1] (Sum.inr 0) (Sum.inl j) +
+        A i 1 * fromBlocks 1 (fun i => ![h i, 0]) 0 !![v 0, x 0; v 1, x 1] (Sum.inr 1) (Sum.inl j)) =
+    D0 i j
+Research/DerivativeSwitch/CommonStrict.lean:109:6: error: Type mismatch: After simplification, term
+  hc i
+ has type
+  @Eq K (∑ j, D0 i j * h j + (A i 0 * v 0 + A i 1 * v 1)) 0
+but is expected to have type
+  @Eq K
+    (∑ a₁, D0 i a₁ * fromBlocks 1 (fun i => ![h i, 0]) 0 !![v 0, x 0; v 1, x 1] (Sum.inl a₁) (Sum.inr 0) +
+      (A i 0 * fromBlocks 1 (fun i => ![h i, 0]) 0 !![v 0, x 0; v 1, x 1] (Sum.inr 0) (Sum.inr 0) +
+        A i 1 * fromBlocks 1 (fun i => ![h i, 0]) 0 !![v 0, x 0; v 1, x 1] (Sum.inr 1) (Sum.inr 0)))
+    0
+Research/DerivativeSwitch/CommonStrict.lean:112:4: error: unsolved goals
+case inr.«1»
+K : Type u_1
+I : Type u_2
+inst✝² : Field K
+inst✝¹ : Fintype I
+inst✝ : DecidableEq I
+D0 : Matrix (Index I) I K
+A : Matrix (Index I) (Fin 2) K
+h : I → K
+v x : Local K
+y : Index I → K
+hcycle : join D0 A *ᵥ cycle h v = 0
+hc : ∀ (i : Index I), ∑ j, D0 i j * h j + (A i 0 * v 0 + A i 1 * v 1) = 0
+i : Index I
+⊢ ∑ a₁, D0 i a₁ * fromBlocks 1 (fun i => ![h i, 0]) 0 !![v 0, x 0; v 1, x 1] (Sum.inl a₁) (Sum.inr 1) +
+      (A i 0 * fromBlocks 1 (fun i => ![h i, 0]) 0 !![v 0, x 0; v 1, x 1] (Sum.inr 0) (Sum.inr 1) +
+        A i 1 * fromBlocks 1 (fun i => ![h i, 0]) 0 !![v 0, x 0; v 1, x 1] (Sum.inr 1) (Sum.inr 1)) =
+    A i 0 * x 0 + A i 1 * x 1
+Research/DerivativeSwitch/CommonStrict.lean:106:29: warning: This simp argument is unused:
+  Matrix.one_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Matrix.mul_apply, frame, join, target, normal, pairCols, Matrix.diagonal_apply, Fintype.sum_sum_type,
+    Fin.sum_univ_two, mul_ite]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Research/DerivativeSwitch/CommonStrict.lean:113:49: warning: This simp argument is unused:
+  Matrix.one_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Matrix.mul_apply, Matrix.mulVec, dotProduct, frame, join, target, normal, pairCols,
+    Matrix.diagonal_apply, Fintype.sum_sum_type, Fin.sum_univ_two, mul_ite]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Research/DerivativeSwitch/CommonStrict.lean:165:21: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Research/DerivativeSwitch/CommonStrict.lean:165:21: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+Research/DerivativeSwitch/CommonStrict.lean:198:68: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Research/DerivativeSwitch/CommonStrict.lean:191:36: error: (deterministic) timeout at `«tactic execution»`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Research/DerivativeSwitch/CommonStrict.lean:167:0: error: (deterministic) timeout at `isDefEq`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Research/DerivativeSwitch/CommonStrict.lean:220:19: error: Application type mismatch: The argument
+  AF
+has type
+  ?m.1 → Matrix (Index I) (Fin 2) K
+but is expected to have type
+  Matrix (Index I) (Fin 2) K
+in the application
+  join D0 AF
+Research/DerivativeSwitch/CommonStrict.lean:220:34: error: Application type mismatch: The argument
+  v
+has type
+  ?m.5 → Local K
+but is expected to have type
+  Local K
+in the application
+  cycle ?m.22 v
+Research/DerivativeSwitch/CommonStrict.lean:229:14: error: Function expected at
+  CommonStrictData
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  K
+Research/DerivativeSwitch/CommonStrict.lean:231:4: warning: declaration uses `sorry`
+Research/DerivativeSwitch/CommonStrict.lean:232:4: warning: declaration uses `sorry`
+Research/DerivativeSwitch/CommonStrict.lean:233:23: error: typeclass instance problem is stuck
+  Fintype ?m.5
+
+Note: Lean will not try to resolve this typeclass instance problem because the type argument to `Fintype` is a metavariable. This argument must be fully determined before Lean will try to resolve the typeclass.
+
+Hint: Adding type annotations and supplying implicit arguments to functions can give Lean more information for typeclass resolution. For example, if you have a variable `x` that you intend to be a `Nat`, but Lean reports it as having an unresolved type like `?m`, replacing `x` with `(x : Nat)` can get typeclass resolution un-stuck.
+Research/DerivativeSwitch/CommonStrict.lean:234:4: warning: declaration uses `sorry`
+Research/DerivativeSwitch/CommonStrict.lean:235:17: error: typeclass instance problem is stuck
+  Fintype (Index ?m.5)
+
+Note: Lean will not try to resolve this typeclass instance problem because the type argument to `Fintype` contains metavariables. This argument must be fully determined before Lean will try to resolve the typeclass.
+
+Hint: Adding type annotations and supplying implicit arguments to functions can give Lean more information for typeclass resolution. For example, if you have a variable `x` that you intend to be a `Nat`, but Lean reports it as having an unresolved type like `?m`, replacing `x` with `(x : Nat)` can get typeclass resolution un-stuck.
+Research/DerivativeSwitch/CommonStrict.lean:236:14: error: typeclass instance problem is stuck
+  Fintype ?m.4
+
+Note: Lean will not try to resolve this typeclass instance problem because the type argument to `Fintype` is a metavariable. This argument must be fully determined before Lean will try to resolve the typeclass.
+
+Hint: Adding type annotations and supplying implicit arguments to functions can give Lean more information for typeclass resolution. For example, if you have a variable `x` that you intend to be a `Nat`, but Lean reports it as having an unresolved type like `?m`, replacing `x` with `(x : Nat)` can get typeclass resolution un-stuck.
+Research/DerivativeSwitch/CommonStrict.lean:237:14: error: typeclass instance problem is stuck
+  Fintype ?m.4
+
+Note: Lean will not try to resolve this typeclass instance problem because the type argument to `Fintype` is a metavariable. This argument must be fully determined before Lean will try to resolve the typeclass.
+
+Hint: Adding type annotations and supplying implicit arguments to functions can give Lean more information for typeclass resolution. For example, if you have a variable `x` that you intend to be a `Nat`, but Lean reports it as having an unresolved type like `?m`, replacing `x` with `(x : Nat)` can get typeclass resolution un-stuck.
+Research/DerivativeSwitch/CommonStrict.lean:239:65: error(lean.unknownIdentifier): Unknown identifier `d.J`
+Research/DerivativeSwitch/CommonStrict.lean:244:19: error: typeclass instance problem is stuck
+  Fintype ?m.23
+
+Note: Lean will not try to resolve this typeclass instance problem because the type argument to `Fintype` is a metavariable. This argument must be fully determined before Lean will try to resolve the typeclass.
+
+Hint: Adding type annotations and supplying implicit arguments to functions can give Lean more information for typeclass resolution. For example, if you have a variable `x` that you intend to be a `Nat`, but Lean reports it as having an unresolved type like `?m`, replacing `x` with `(x : Nat)` can get typeclass resolution un-stuck.

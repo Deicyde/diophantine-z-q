@@ -1,0 +1,265 @@
+\section{Absorbing four parity conditions into the physical anchor}
+\label{sec:packed-anchor-note}
+
+The construction below removes the sixteen private rational coordinates
+used by the four odd-index charts in the Version~10 source.  It adds no
+coordinate: their arithmetic content is absorbed into the existing
+three-witness physical anchor.  This is an equivalence of the rational
+source systems on their unchanged point domains.  It does not constitute
+an independent verification of the source's global Diophantine-definition
+theorem.
+
+\paragraph{Provenance and inherited inputs.}
+The baseline is
+\href{https://github.com/elliotglazer/diophantine-z-q/blob/036cebe4f1a4aa7ca89820a9b48f3629b4c364d6/manuscripts/quartic_v10.tex}{\emph{Z is Diophantine in Q}, Version~10},
+at commit
+\texttt{036cebe4f1a4aa7ca89820a9b48f3629b4c364d6}.
+We retain its point-domain and group statements, its integral formal-group
+construction, and its three-witness quaternion criterion.  Their precise
+source labels are listed below.  The new ingredients proved here are the
+leading-residue calculation for arbitrary multiples of the fixed point,
+the resulting product parity test, and its combination with the anchor by
+separating even and odd valuations.  No height estimate or prime-pattern
+argument is used in proving this replacement.
+
+\subsection{The fixed curve and the residue calculation}
+
+Put
+\[
+ \rho=\sqrt2,\qquad K=\mathbb Q(\rho),\qquad
+ D=11-6\rho,\qquad E:y^2=x^3-Dx,
+\]
+\[
+ P=\left(\frac{57}{8}-\frac72\rho,
+          -\frac{165}{8}+\frac{417}{32}\rho\right).
+\]
+The retained source statements give $2E(K)=\mathbb ZP$, with $P$ of
+infinite order.  Each of the four root points is a finite nonidentity
+point $Q_i=[n_i]P$, where $n_i\in\mathbb Z\setminus\{0\}$.  The existing
+square-abscissa charts are retained.  Write
+\[
+ C_{\mathrm{prod}}=\prod_{i=1}^4x(Q_i)=C_0+C_1\rho,
+ \qquad C_0,C_1\in\mathbb Q.
+\]
+This product and the scale $s_0=C_0^2$ are already materialized in the
+source.
+
+At the unique place above $3$, use $v(3)=1$; the residue field is
+$\mathbb F_9=\mathbb F_3(\bar\rho)$, with $\bar\rho^2=2$.
+Reduction of the displayed point gives
+$\bar P=(\bar\rho,0)$, of order two, on the good reduction of $E$.
+The formal parameter is $z=-x/y$.
+
+\paragraph{Lemma 1 (leading residues).}
+For every nonzero integer $n$, define
+\[
+ e(n)=\begin{cases}
+ 0,&n\text{ odd},\\
+ 2+2v_3(n),&n\text{ even}.
+ \end{cases}
+\]
+Then $3^{e(n)}x([n]P)$ is integral at the place above $3$, and
+\begin{equation}\label{eq:pa-leading-residues}
+ 3^{e(n)}x([n]P)\equiv
+ \begin{cases}
+ \rho,&n\text{ odd},\\
+ 2\rho,&n\text{ even}
+ \end{cases}\pmod3.
+\end{equation}
+
+\begin{proof}
+For odd $n$, the reduction of $[n]P$ is $\bar P$, so the first assertion
+follows immediately.  For even $n$, write
+$n=2\cdot3^ku$, where $k\ge0$ and $u\in\mathbb Z$ is not divisible by
+$3$.  Direct duplication of the displayed $P$ gives
+\[
+ z(2P)=
+ \frac{3396356159088-4135204317756\rho}{3287811625151},
+ \qquad \frac{z(2P)}3\equiv2+\rho\pmod3.
+\]
+The denominator is a $3$-adic unit, and each numerator coefficient has
+valuation one.
+
+The integral formal-group multiplication series are odd, with
+$[m](z)=mz+O(z^3)$ for every integer $m$.  At depth $r=v(z)\ge1$,
+multiplication by a $3$-adic unit integer preserves depth and multiplies
+the normalized leading residue by that integer.  Multiplication by $3$
+has depth $r+1$: after division by $3^{r+1}$ its error has valuation at
+least $3r-(r+1)=2r-1\ge1$.  Its normalized leading residue is therefore
+unchanged.  Induction, with $r=k+1$, gives
+\[
+ 3^{-r}z([n]P)\equiv u(2+\rho)\pmod3.
+\]
+On the formal branch, $xz^2\equiv1\pmod3$.  One may see this directly
+from $xz^2=x^2/(x^2-D)$ and $v(x)<0$.  Since $u^2=1$ in
+$\mathbb F_3^*$ and
+$(2+\bar\rho)^{-2}=2\bar\rho$ in $\mathbb F_9$, the even case of
+\eqref{eq:pa-leading-residues} follows.  Negative $u$ is allowed in the
+multiplication series; equivalently, inversion changes $z$ to $-z$ and
+leaves $x$ unchanged.  Thus negative $n$ is covered as well.
+\end{proof}
+
+\paragraph{Corollary 2 (one coefficient detects all four parities).}
+Let $E_0=\sum_i e(n_i)$.  Then
+\begin{equation}\label{eq:pa-product-parity}
+ v_3(C_0)=-E_0,\qquad
+ C_0\in\mathbb Z_{(3)}
+ \quad\Longleftrightarrow\quad n_1,n_2,n_3,n_4\text{ are all odd}.
+\end{equation}
+In particular $C_0\ne0$.
+
+\begin{proof}
+If $j$ of the four labels are even, multiplying
+\eqref{eq:pa-leading-residues} gives
+\[
+ 3^{E_0}C_{\mathrm{prod}}\equiv
+ 2^j\rho^4=2^j\pmod3.
+\]
+Its residue is a nonzero element of $\mathbb F_3$.  In the integral
+basis $(1,\rho)$, the rational coefficient $3^{E_0}C_0$ is consequently
+a $3$-adic unit.  This proves the equality of valuations, and every
+$e(n_i)$ is nonnegative and vanishes exactly for odd $n_i$.
+\end{proof}
+
+\subsection{The place above two and the packed equation}
+
+At the place above $2$, normalize $v(2)=1$, so $v(\rho)=1/2$.
+For rational $a,b$, the two possible finite valuations have different
+fractional parts; hence
+\begin{equation}\label{eq:pa-two-basis}
+ v(a+b\rho)=\min\{v_2(a),v_2(b)+\tfrac12\}.
+\end{equation}
+The displayed point has $v(z(P))=3/2$ and belongs to the integral
+formal subgroup at infinity, without requiring a minimal model.
+All its integer multiples remain in that subgroup.  For odd $n$, the
+unit linear coefficient of $[n](z)$ dominates the higher integral terms,
+so $v(z([n]P))=3/2$ and $v(x([n]P))=-3$.
+If all four labels are odd, it follows that
+$v(C_{\mathrm{prod}})=-12$; by \eqref{eq:pa-two-basis}, in particular
+$v_2(C_0)\ge-12$.  Therefore
+\begin{equation}\label{eq:pa-B}
+ B=2^{12}C_0=4096C_0\in\mathbb Z_{(2)}
+ \quad\text{whenever all four labels are odd}.
+\end{equation}
+
+Let $Q_2$ be the root called $S$ in the source, and let $R=Q_2-P$.
+The unchanged subtraction guard makes $R$ a finite nonidentity point,
+so $R$ is a nonzero integer multiple of $P$.  Write
+\[
+ f(R)=\frac1{x(R)}=f_0+f_1\rho,\qquad
+ C_{\mathrm a}=3^{2^{25}},\qquad
+ \mathsf S=C_{\mathrm a}^2=3^{2^{26}}.
+\]
+Formal-group membership of $R$ gives $v(f(R))>0$ above $2$, and
+\eqref{eq:pa-two-basis} shows that $f_0,f_1\in\mathbb Z_{(2)}$.
+Since $C_{\mathrm a}$ is odd,
+$f_0/C_{\mathrm a}$ and $f_1/C_{\mathrm a}$ are always $2$-integral,
+without assuming the anchor or any root parity condition.
+
+Set $q_2(a,b)=a^2+ab-b^2$.  The old physical anchor materializes
+$A_{\mathrm{phys}}=q_2(f_0,f_1)$ and asks for rational $u,v,w$ with
+\[
+ u^2+6v^2-2w^2-3A_{\mathrm{phys}}^2+2\mathsf S^2=0.
+\]
+Replace its materialized coordinate by
+\begin{equation}\label{eq:pa-Theta}
+ \Theta=q_2(f_0,f_1)+3\mathsf S B^2
+        =q_2(f_0,f_1)+50331648\,\mathsf S s_0,
+ \qquad s_0=C_0^2,
+\end{equation}
+and retain the same three-witness equation:
+\begin{equation}\label{eq:pa-anchor}
+ u^2+6v^2-2w^2-3\Theta^2+2\mathsf S^2=0.
+\end{equation}
+
+\paragraph{Proposition 3 (exact anchor equivalence).}
+On the unchanged point domains, equations
+\eqref{eq:pa-Theta}--\eqref{eq:pa-anchor} have rational witnesses if and
+only if the old physical anchor has rational witnesses and all four
+root labels are odd.
+
+\begin{proof}
+Use the source's quaternion criterion, valid for every $t\in\mathbb Q$:
+\begin{equation}\label{eq:pa-quaternion}
+ t\in\mathbb Z_{(2)}\cap\mathbb Z_{(3)}
+ \ \Longleftrightarrow\
+ \exists u,v,w\in\mathbb Q:\quad
+ u^2+6v^2-2w^2-3t^2+2=0.
+\end{equation}
+It comes from the quadratic embedding criterion for $(2,3)_{\mathbb Q}$,
+ramified exactly at $2$ and $3$; the source includes $t=0$ explicitly.
+Dividing \eqref{eq:pa-anchor} by $\mathsf S^2$ applies this criterion to
+\[
+ t=\Theta/\mathsf S=q_2(a,b)+3B^2,
+ \qquad a=f_0/C_{\mathrm a},\quad b=f_1/C_{\mathrm a}.
+\]
+The form $q_2$ is anisotropic modulo both $2$ and $3$.
+In particular
+$v_3(q_2(a,b))=2\min\{v_3(a),v_3(b)\}$.
+This valuation is even, whereas $v_3(3B^2)=1+2v_3(B)$ is odd;
+they cannot cancel.  Thus
+\[
+ t\in\mathbb Z_{(3)}
+ \quad\Longleftrightarrow\quad
+ a,b,B\in\mathbb Z_{(3)}.
+\]
+The possibility $q_2(a,b)=0$ causes no exception (use $v(0)=+\infty$).
+By \eqref{eq:pa-product-parity}, the condition on $B$ is exactly
+oddness of all four labels.  When it holds, \eqref{eq:pa-B} and the
+preceding automatic integrality of $a,b$ imply $t\in\mathbb Z_{(2)}$.
+
+Finally, applying \eqref{eq:pa-quaternion} to the old anchor, and using
+$v_p(q_2(a,b))=2\min(v_p(a),v_p(b))$ for $p=2,3$, identifies that anchor
+with $a,b\in\mathbb Z_{(2)}\cap\mathbb Z_{(3)}$.
+Their $2$-integrality is automatic here.  Hence the two descriptions
+are equivalent in both directions, including existence of the old
+or new conic witnesses as required.
+\end{proof}
+
+\subsection{Projection, quadratic degree, and source dependencies}
+
+Delete the four old odd-chart augmentations, each with four private
+rational coordinates.  The surviving charts still describe the same
+points $Q_i=(h_i^2,h_ij_i)$.  For each odd multiple the source's odd-chart
+proposition supplies an augmented representation.  If its $h_i,j_i$
+differ from the current representation, $h_i^2=x(Q_i)\ne0$ implies
+that they are obtained by the simultaneous switch
+$(h_i,j_i)\mapsto(-h_i,-j_i)$.  This preserves $x$, $y=hj$, and
+$z=-h/j$.  In the pinned source, the remaining point functions and their
+cleared-denominator equations are invariant under this switch; the
+subtraction slopes use $hj$, and the chart parameter uses $-h/j$.
+Thus old odd-chart witnesses can be restored after these independent
+sign switches.  Proposition~3 restores the old anchor witnesses as
+well.  Conversely, any old solution satisfies the parity conditions
+and extends to the new anchor.  The existential projection to the
+original input is unchanged; no unique correspondence between witness
+tuples is asserted.
+
+Equation~\eqref{eq:pa-Theta} must use the existing coordinate
+$s_0=C_0^2$, and $\Theta$ must remain materialized.  It is quadratic
+even when $\mathsf S$ is represented by the last coordinate of the
+existing constant chain.  The conic \eqref{eq:pa-anchor} is also
+quadratic.  Consequently the usual sum of squared residuals still has
+degree at most four.  The arithmetic replacement removes precisely
+sixteen private coordinates and adds none; any further compiler
+eliminations and final coefficient statistics are separate finite
+calculations.
+
+The inherited results used above are identified by these literal
+labels in the pinned manuscript:
+\begin{itemize}
+ \item \texttt{subsec:v5-point-source}, \texttt{lem:v5-point-domains},
+ and \texttt{v9chart:prop:chart}: the normalized group, point domains,
+ and square-abscissa charts;
+ \item \texttt{subsec:o8-anchor-subgroup}: the integral formal group,
+ the exact value of $z(2P)$, and the local calculations at $2$ and $3$;
+ \item \texttt{lem:v5-three-witness-anchor} and
+ \texttt{lem:v9-bridge}: the quaternion criterion and Version~9
+ anchor constants;
+ \item \texttt{v9:prop:odd-chart}: existential recovery of the removed
+ odd-chart witnesses.
+\end{itemize}
+The projection argument uses none of the claimed global height or
+prime-selection theorems.  Those remain inherited dependencies when
+this source-system equivalence is used to produce a smaller claimed
+defining polynomial for $\mathbb Z$ in $\mathbb Q$.

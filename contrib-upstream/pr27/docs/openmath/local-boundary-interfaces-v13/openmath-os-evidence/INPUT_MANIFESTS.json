@@ -1,0 +1,108 @@
+{
+  "review_head": "3e01aa877cd7434fdc759fe7b6a9271de6deff2e",
+  "fork_merge_commit": "b6223977015d6f25baf613d0c88a5c83050f9c84",
+  "pr_base": "9c0b3aba60d90fdcac82115f0582a6f52f1054f7",
+  "original_mathematical_source_commit": "33483f751e6dcd3f91fb303969838aca33ad0458",
+  "runtime_workspace": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review",
+  "execution_platform": "Linux 7.0.0-31-generic x86_64 GNU/Linux",
+  "root_lockfile_sha256": "a770787f33b5824f61a0731d59e67fca3f44a531b21d1fc1a804064c6fb54e58",
+  "generated_manifest_sha256": "5a828f5d4608b801f7016b7c387fae3ab78274f237c8077771b38d7bbadd20a0",
+  "core_manifest_sha256": "ce59e6667e58c1858a0bb87830c35f4142dc1f69c805f2e4daaa169f130220e3",
+  "dependency_provenance": "Eight pinned packages and their Linux build caches come from the /opt installation provided by the VM through read-only symlinks; the pinned Cli package was copied to the review workspace at its exact revision and freshly built there. Dependencies are not independently authenticated or hermetically rebuilt end-to-end; the CLI build was independently replayed locally.",
+  "cli_build": {
+    "argv": [
+      "lake",
+      "build"
+    ],
+    "cwd": "lean/.lake/packages/Cli",
+    "exit_code": 0
+  },
+  "lean_executable_hashes": {
+    "lean": "bf8d54e4714cc4b03d3f6bb34c83b7202b87e49c8bfcbff6895c085bb90ceb38",
+    "lake": "8ba83c98f76562d03b8dbc33f1057151ba6cbb121679dde76b2260ccc90495e1",
+    "leanexport": "f6a6483d518a11b323c28b9bac176d2220df0e9fc3230833815db9586669c074"
+  },
+  "dependencies": [
+    {
+      "name": "mathlib",
+      "revision": "56a005855ea17e0b0958f73ec801ae140b0a1679",
+      "source": "/opt/mathlib.4.35.0-56a005855ea1",
+      "compiled_cache": "/opt/mathlib.4.35.0-56a005855ea1/.lake/build/lib/lean",
+      "cache_present": true,
+      "tracked_source_clean": true,
+      "freshly_rebuilt_in_review": false
+    },
+    {
+      "name": "plausible",
+      "revision": "dfa4f38190d07c37e315953e08b90fe2d95b3c24",
+      "source": "/opt/mathlib.4.35.0-56a005855ea1/.lake/packages/plausible",
+      "compiled_cache": "/opt/mathlib.4.35.0-56a005855ea1/.lake/packages/plausible/.lake/build/lib/lean",
+      "cache_present": true,
+      "tracked_source_clean": true,
+      "freshly_rebuilt_in_review": false
+    },
+    {
+      "name": "LeanSearchClient",
+      "revision": "d6b4c7be5be75ec4917c873ac50c756dc1436372",
+      "source": "/opt/mathlib.4.35.0-56a005855ea1/.lake/packages/LeanSearchClient",
+      "compiled_cache": "/opt/mathlib.4.35.0-56a005855ea1/.lake/packages/LeanSearchClient/.lake/build/lib/lean",
+      "cache_present": true,
+      "tracked_source_clean": true,
+      "freshly_rebuilt_in_review": false
+    },
+    {
+      "name": "importGraph",
+      "revision": "a41f0e9a4dea23188ea9cc1c41ac9f8bbafe0b93",
+      "source": "/opt/mathlib.4.35.0-56a005855ea1/.lake/packages/importGraph",
+      "compiled_cache": "/opt/mathlib.4.35.0-56a005855ea1/.lake/packages/importGraph/.lake/build/lib/lean",
+      "cache_present": true,
+      "tracked_source_clean": true,
+      "freshly_rebuilt_in_review": false
+    },
+    {
+      "name": "proofwidgets",
+      "revision": "df72b022e558978a1c50264cfc4d7fec86fa8e04",
+      "source": "/opt/mathlib.4.35.0-56a005855ea1/.lake/packages/proofwidgets",
+      "compiled_cache": "/opt/mathlib.4.35.0-56a005855ea1/.lake/packages/proofwidgets/.lake/build/lib/lean",
+      "cache_present": true,
+      "tracked_source_clean": true,
+      "freshly_rebuilt_in_review": false
+    },
+    {
+      "name": "aesop",
+      "revision": "4a174c490d8707121c4a9290800489f105d85e07",
+      "source": "/opt/mathlib.4.35.0-56a005855ea1/.lake/packages/aesop",
+      "compiled_cache": "/opt/mathlib.4.35.0-56a005855ea1/.lake/packages/aesop/.lake/build/lib/lean",
+      "cache_present": true,
+      "tracked_source_clean": true,
+      "freshly_rebuilt_in_review": false
+    },
+    {
+      "name": "Qq",
+      "revision": "dce0ad79c486cb1fb504af04f953c3466b0c6db8",
+      "source": "/opt/mathlib.4.35.0-56a005855ea1/.lake/packages/Qq",
+      "compiled_cache": "/opt/mathlib.4.35.0-56a005855ea1/.lake/packages/Qq/.lake/build/lib/lean",
+      "cache_present": true,
+      "tracked_source_clean": true,
+      "freshly_rebuilt_in_review": false
+    },
+    {
+      "name": "batteries",
+      "revision": "66e469188fe07963e5cf666c7d4433f45b8131c5",
+      "source": "/opt/mathlib.4.35.0-56a005855ea1/.lake/packages/batteries",
+      "compiled_cache": "/opt/mathlib.4.35.0-56a005855ea1/.lake/packages/batteries/.lake/build/lib/lean",
+      "cache_present": true,
+      "tracked_source_clean": true,
+      "freshly_rebuilt_in_review": false
+    },
+    {
+      "name": "Cli",
+      "revision": "c24fe6078c630e89b489bffe59b3e20ac30d12c8",
+      "source": "CLI package copied to review workspace from pinned installed source and freshly rebuilt",
+      "compiled_cache": "/workspace/nucleus/work/projects/p-4cc6e15ab3c74e0a941569ce9262e652/repo/.scratch/pr2-review/lean/.lake/packages/Cli/.lake/build/lib/lean",
+      "cache_present": true,
+      "tracked_source_clean": true,
+      "freshly_rebuilt_in_review": true
+    }
+  ]
+}

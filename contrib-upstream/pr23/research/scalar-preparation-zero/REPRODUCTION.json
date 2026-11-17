@@ -1,0 +1,88 @@
+{
+  "status": "PASS",
+  "independentAcceptance": false,
+  "scope": "Finite source, circuit, conic and coefficient replay; arithmetic acceptance pending.",
+  "sourceBindingsSha256": "f6136f6e29025d0620ece7fbae4bfd04552b1795a061fdeb04f6d3b2e5d3d45d",
+  "contractSha256": "ebe792aa48c59f825d0f35835e05ba824f30c9ca411af0776cd1b2ffb38c7cc7",
+  "compiledIrSha256": "a811164315c7ad4963b581759def450c1773e8e208bf740b5e18e31adf36d4b2",
+  "summary": {
+    "coordinates": 383,
+    "residuals": 352,
+    "degree": 4,
+    "monomials": 26019,
+    "integerContent": 1,
+    "inputFourthPowerCoefficient": "1",
+    "maximumCoefficientDigits": 682,
+    "maximumCoefficientBits": 2266,
+    "scaledCoordinates": 13,
+    "ternaryScaledCoordinates": 12,
+    "dyadicScaledCoordinates": 2,
+    "anchorExponent": 2130,
+    "cExponent": 355,
+    "tableSha256": "8faea54ef4a9d8cf155205a50c956df20d36e3eec4183b50b39b2c0b87183b0d",
+    "tableBytes": 1025272,
+    "certificateSha256": "4e1be023150792472c095a5b15a81dd6e421aaa569261a12ce5f9baaee8a4262"
+  },
+  "freeOmission": {
+    "sourceSha256": "fd69771b054ac308a9158dbba4b147da6fb529dca819802adc73e4012ae14cc0",
+    "activeIrSha256": "230f73c63049ce324eaa0d271bfa51fb9240e34e9e518777ca868cb0c592eebc",
+    "coordinateMapSha256": "3d24dcec01ab8486f9b7036ad840f772f968762c7416ac2857edafd29703a7a3",
+    "omittedCoordinates": [
+      {
+        "id": 52,
+        "name": "scalar.preparationU",
+        "kind": "base",
+        "protected": false,
+        "block": "base",
+        "sourceLines": [
+          2354,
+          2487
+        ]
+      },
+      {
+        "id": 53,
+        "name": "scalar.preparationV",
+        "kind": "base",
+        "protected": false,
+        "block": "base",
+        "sourceLines": [
+          2354,
+          2487
+        ]
+      }
+    ],
+    "allResidualsUnchanged": true,
+    "proof": "The two unprotected base slots occur in no residual. Forget them; extend with zeros. Semantic source pole witnesses are reconstructed separately."
+  },
+  "completedStages": [
+    "Verify the frozen parent source manifest",
+    "Build the unchanged order-31 source for comparison",
+    "Build the preparation-zero candidate",
+    "Check the preparation-zero equations, outside consumers and local squareclasses",
+    "Compile the quadratic system",
+    "Replay every source gate and compiler operation",
+    "Replay exact quadratic eliminations after certified free omission",
+    "Apply build_transport.py to the actual compiled conics",
+    "Apply check_transport.py to the actual compiled conics",
+    "Produce the input-fixed diagonal scaling",
+    "Reconstruct every scaled row and every quartic coefficient"
+  ],
+  "reports": [
+    {
+      "path": "candidate/source-check.json",
+      "sha256": "eac2c0129d712a1f4e0f507a6a822e32987328ac5461cd7b66f5fa7964e59e17"
+    },
+    {
+      "path": "candidate/gate-check.json",
+      "sha256": "ee879177c146598ad4a179cd52b36c8a4f911c35f02099ff8e397db867af0f7e"
+    },
+    {
+      "path": "factored/transport-check.json",
+      "sha256": "5d6529ef0b755274d03fdf26f97670e90fa6f84937588f5b4e31870d1aeee630"
+    },
+    {
+      "path": "factored/diagonal-check.json",
+      "sha256": "bcbb8d8936ec813bd0ad50fea7611cdc67891e9bd9d2d8588fe51ea58042db3d"
+    }
+  ]
+}

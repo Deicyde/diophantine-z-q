@@ -1,0 +1,115 @@
+{
+  "status": "PASS",
+  "expectedAnchorExponent": 1512,
+  "expectedCoordinates": 377,
+  "checkedQuadraticRows": 346,
+  "checkedNonzeroRowDivisors": 346,
+  "rowExponentSpanHistogram": {},
+  "maximumAbsoluteCoefficient": "199427803429193607647579878647521472461332722891211736606697846697358739510301602307439910782475530506016728242636762446477668541375926673079448428141911064336308642390831559391260651497659341631866651708076412630057030554073535878166914644742303058374241751258338362408252357392986760569950009465548536556784372501489157331274",
+  "nonintegerRowDivisors": [
+    {
+      "id": 18,
+      "name": "H.chart.x.1.definition",
+      "denominator": "2"
+    },
+    {
+      "id": 181,
+      "name": "symmetric.50.group0.co2.1.definition",
+      "denominator": "2"
+    },
+    {
+      "id": 183,
+      "name": "symmetric.50.group0.co3.1.definition",
+      "denominator": "2"
+    },
+    {
+      "id": 196,
+      "name": "heightProduct.scale0.definition",
+      "denominator": "43046721"
+    },
+    {
+      "id": 223,
+      "name": "detector0.E50.block0.1.definition",
+      "denominator": "2"
+    },
+    {
+      "id": 240,
+      "name": "detector1.t.definition",
+      "denominator": "43046721"
+    },
+    {
+      "id": 244,
+      "name": "detector1.Adelta.definition",
+      "denominator": "43046721"
+    },
+    {
+      "id": 245,
+      "name": "detector1.Adelta4.half.square.definition",
+      "denominator": "1853020188851841"
+    },
+    {
+      "id": 247,
+      "name": "detector1.q1.definition",
+      "denominator": "43046721"
+    },
+    {
+      "id": 268,
+      "name": "detector1.E50.block0.1.definition",
+      "denominator": "2"
+    },
+    {
+      "id": 313,
+      "name": "detector2.E50.block0.1.definition",
+      "denominator": "2"
+    },
+    {
+      "id": 334,
+      "name": "scalar.rInverse7.definition",
+      "denominator": "8595044557171427132038716315969726107279416250769088168531684569"
+    },
+    {
+      "id": 335,
+      "name": "scalar.rInverse15.definition",
+      "denominator": "268888143477664476576623963713366119709923761438095540246582300426479271702631177354018976567301758144464443087863536471057597085883409803948916717673393027342427801115636266218143507854730054571991657160573418569619522168256780045877965577779583383506335076005707339834925815075937907905072907"
+    },
+    {
+      "id": 336,
+      "name": "scalar.rInverse31.definition",
+      "denominator": "52707307769388641421446478537735255957814292610987574069219063591832519708295034729171582081139146681614421665968632011778345789247835682265054344409001857032802554347308342144012484936400835054525870302589875160955308098594262224995263475112315540941076423389228167018781658219333378863847496799271363336970923394073966186231197686035609106906911291531104185906373287968932343273353221325310982099941368716801608969585690538496521318813893694935294507613013214844766612929546592408329797093897084414811264630736059177733342797634391554593168119546747582733343951365265594064505174378943121"
+    }
+  ],
+  "fullSumOfSquaresIdentity": true,
+  "everyDecimalCoefficientChecked": true,
+  "diagonalMapIsBijectionOverQ": true,
+  "inputFixed": true,
+  "measured": {
+    "coordinates": 377,
+    "residuals": 346,
+    "degree": 4,
+    "monomials": 25979,
+    "integerContent": 1,
+    "inputFourthPowerCoefficient": "1",
+    "maximumCoefficientDigits": 327,
+    "maximumCoefficientBits": 1084,
+    "scaledCoordinates": 36,
+    "ternaryScaledCoordinates": 36,
+    "dyadicScaledCoordinates": 9,
+    "anchorExponent": 1512,
+    "cExponent": null,
+    "tableSha256": "1e02fbc1675c9474c3fcc754aae2edece6493f2fb67ec1909d57ac387269690b",
+    "tableBytes": 1051175,
+    "certificateSha256": "570ae84f45bd8e4abbb1df747433cba8f179afbc63fb1c7651d987d835b5837b"
+  },
+  "fileBindings": {
+    "final/integer-candidate-ir.json": "89d0edd84bb7dea6636995f630c99c8dc6259e5a198ed5d39db51ab2904c1011",
+    "balanced/integer-ir.json": "e3855917a1dcd8cb06cebb5888c9a9c495707941272494044f35daa0087ad07a",
+    "balanced/polynomial.json": "2a0ba15e5b65576f421fdf0ba9ff8f645c0a492d6395a4eb06735ced763368f5",
+    "balanced/diagonal-certificate.json": "570ae84f45bd8e4abbb1df747433cba8f179afbc63fb1c7651d987d835b5837b",
+    "balanced/summary.json": "99010364b61b6f1ccc757b7efd6292dc6acead38c49e2d19a0cac931efd31e37",
+    "quartic-377-balanced-decimal.txt": "1e02fbc1675c9474c3fcc754aae2edece6493f2fb67ec1909d57ac387269690b",
+    "builder.cjs": "0b8cc4589c46ba26a051515e456adb087a1243416d0ad40c5d0da505d95ff401",
+    "raw-ir.json": "88befca2bfc651fe1f4d3a9478ae8d8d260f6e1ee05bfa971709a8cde6015ba1"
+  },
+  "checkerSha256": "0e1cf2ff4ddefa8a28490e583ba3e4735298081d00288af61aebcd737d823c1e",
+  "scope": "Exact diagonal substitution at the independently specified fixed parameter, nonzero primitive-row scaling, all normalized quadratic rows, full SOS, coordinate compaction, and every decimal text coefficient.  The inverse map divides each coordinate by its nonzero rational factor 2^a*3^b, including negative powers of either prime. Over Q a sum of rational squares vanishes exactly when every row vanishes. This gives the same projection onto the unchanged input; inherited global arithmetic and source-to-core compilation are separate obligations."
+}

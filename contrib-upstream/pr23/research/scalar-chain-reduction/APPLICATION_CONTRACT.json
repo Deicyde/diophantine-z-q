@@ -1,0 +1,252 @@
+{
+  "format": "scalar-chain-author-application-contract-v1",
+  "status": "author_argument_pending_independent_review",
+  "authors": [
+    "Codex /root, Cameron session 2026-11-08"
+  ],
+  "independentAcceptance": false,
+  "parentCommit": "6fd131e7ca150d7a023bcb6ac4f1971912705fab",
+  "proof": {
+    "path": "research/scalar-chain-reduction/PROOF.md",
+    "sha256": "710088f6d9517c966a55a54e9d6adb383a335d705b7b4ca5a0f1dbde16f6be4d"
+  },
+  "sources": [
+    {
+      "id": "parent-norm",
+      "path": "research/conditional-quartic-reduction/proofs/geometry_round7.tex",
+      "locator": "Replacement, odd-contact positivity, soundness, and completeness sections",
+      "sha256": "0402ccf6c3e193c685d01e0ff6e46449001ac074a1bf4501419d6fb1fea88035"
+    },
+    {
+      "id": "proxy",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round5/geometry_round5.tex",
+      "locator": "Lines 98-219: actual proxy, retained inverse guard, both-place trace including 41, arbitrary positive scalar order",
+      "sha256": "3d5f0fff2fc45bd2b7504c933a8583367555d10e78a18b9885c2d01a151261bb"
+    },
+    {
+      "id": "height",
+      "path": "research/conditional-quartic-reduction/proofs/arithmetic_round8.tex",
+      "locator": "Height exponent and constant; anchor domain; scalar, Lucas and input consumers; finite completeness",
+      "sha256": "826523050c2f0d315561ae064124b420862ff09eeafaa63437e0339ce7c22f7b"
+    },
+    {
+      "id": "anchor",
+      "path": "research/conditional-quartic-reduction/proofs/optional_anchor_height_round7.tex",
+      "locator": "Exact point/input-domain characterization for even E and arbitrary finite index depth",
+      "sha256": "686faeed616eef6ebed472b2414a36e8158d4de838248238815ecc283e39a4e6"
+    },
+    {
+      "id": "square-absorption",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round4/scalar_streamlining.tex",
+      "locator": "Absorb the known square in the scalar pole input",
+      "sha256": "ba3707caa4b29e58180cd08abbc6c176a38dd2d7bb15292ed953f1df3120f9a8"
+    },
+    {
+      "id": "pole",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round3/arithmetic_proof.tex",
+      "locator": "Integer-input squareclasses, finite scalar preparation, homogeneous pole normalization",
+      "sha256": "66cdc4ef3e2f0e5cfde8b50e3ac360dd27d2ac17826ce23fd4ec688ac7d438d4"
+    },
+    {
+      "id": "detector",
+      "path": "research/conditional-quartic-reduction/proofs/detector_round7.tex",
+      "locator": "Nonzero domain, completeness order of choices and Pi^44 primary progression",
+      "sha256": "ed01c9416d3b4daf02a26958642194230c0186a896f17817bfe30c8a16d481d3"
+    },
+    {
+      "id": "detector-promotion",
+      "path": "research/conditional-quartic-reduction/proofs/detector_round8.tex",
+      "locator": "Order-12 pair with retained high order 45",
+      "sha256": "150b79708b8088d1c75641571277eecf452fe72b7c729cc4fe783e4da76b83bb"
+    },
+    {
+      "id": "conics",
+      "path": "research/factored-pole-reduction/PROOF.md",
+      "locator": "Private consumer incidence, reverse and forward maps, positive-input zero branch",
+      "sha256": "364309a61432b4de3615852175cab0faa7a3aeb9d5d251f4da521454277198d4"
+    },
+    {
+      "id": "builder",
+      "path": "research/conditional-quartic-reduction/construction/builder.cjs",
+      "locator": "Scalar functions, r powers, shared point and shifted-point guard, pole and anchor consumers",
+      "sha256": "b4bf6af38a7620a5b6a572039da4fcb22cd6f4ce006c439d89588c1259231f3b"
+    },
+    {
+      "id": "scaling",
+      "path": "research/conditional-quartic-reduction/proofs/diagonal_scaling_round8.tex",
+      "locator": "Input-fixed nonzero diagonal map and primitive row normalization",
+      "sha256": "0115c276febf3b06b46462d06aa862714456f78790e5ec6bd68ac938db8b2e50"
+    },
+    {
+      "id": "historical-search-7",
+      "path": "research/conditional-quartic-reduction/evidence/geometry/rejected-paths-round7.txt",
+      "locator": "Restricted norm-tree alternatives and retained nonzero guard",
+      "sha256": "f72e071ea0997f998a5c0c4d2b962becf378e5f97a355e312f6e965bcd631167"
+    },
+    {
+      "id": "historical-search-8",
+      "path": "research/conditional-quartic-reduction/evidence/round8/scalar/scalar-search-notes-round8.txt",
+      "locator": "Restricted searches; no claimed general optimum",
+      "sha256": "916a0abbe7c9dbc7f44664ffda3eb93b87d45092244df1610a1ab10634466065"
+    }
+  ],
+  "obligations": {
+    "source_hypotheses": {
+      "status": "author_argument_pending_review",
+      "required": "Odd positive v_p(r), positive nonzero physical pole input, and the existing general-preparation finite hypotheses.",
+      "constructed": "Same input r and b=42r(1+N)^2 with the new nested chain.",
+      "justification": "Opposite coefficient parity gives descent; finite depths make N integral and W a unit on the required support.",
+      "sources": [
+        "parent-norm",
+        "pole",
+        "builder"
+      ],
+      "evidence": [
+        "PROOF.md",
+        "check_chain.py",
+        "chain_patch.py",
+        "reproduce.py"
+      ]
+    },
+    "constructed_objects": {
+      "status": "author_argument_pending_review",
+      "required": "The actual rational coefficients of f(H),f(S-P), and Re(k_H w_S).",
+      "constructed": "All four coefficients and the same proxy remain; only eight norm-node coordinates are rearranged.",
+      "justification": "check_chain reconstructs their defining rows, inverse powers, nonzero guard, physical input and preparation consumer.",
+      "sources": [
+        "builder",
+        "proxy",
+        "parent-norm"
+      ],
+      "evidence": [
+        "PROOF.md",
+        "check_chain.py",
+        "chain_patch.py",
+        "reproduce.py"
+      ]
+    },
+    "index_domain_coverage": {
+      "status": "author_argument_pending_review",
+      "required": "Every rational solution in soundness, every integer input in completeness, every consumed prime outside {2,3,5,7,13,17}, and the final shared primary progression.",
+      "constructed": "Same root indices and detector data; stronger but finite local preparation, with 3^1064 dividing nonzero a-1.",
+      "justification": "The actual input polynomial excludes negative odd contacts. Finite scalar conditions precede root/scale selection and contact primes; the existing Pi^44 progression is retained.",
+      "sources": [
+        "parent-norm",
+        "detector",
+        "detector-promotion",
+        "anchor"
+      ],
+      "evidence": [
+        "PROOF.md",
+        "check_chain.py",
+        "chain_patch.py",
+        "reproduce.py"
+      ]
+    },
+    "transition_maps": {
+      "status": "author_argument_pending_review",
+      "required": "Compatible normalization, square absorption, conic maps and diagonal decoding.",
+      "constructed": "Scalar coefficient rho=42r remains distinct from physical b=rho W^2. New compiled conics and E=2130 diagonal factors are reconstructed.",
+      "justification": "W>=1 and rho>0 justify the retained absorption and conic zero branches. Every diagonal factor and row divisor is nonzero. The norm replacement itself is justified by soundness/completeness, not witness equivalence.",
+      "sources": [
+        "square-absorption",
+        "conics",
+        "scaling"
+      ],
+      "evidence": [
+        "PROOF.md",
+        "check_chain.py",
+        "chain_patch.py",
+        "reproduce.py"
+      ]
+    },
+    "limiting_object_identity": {
+      "status": "author_argument_pending_review",
+      "required": "The scalar proxy theorem must apply to the points and index quotient consumed by the height argument.",
+      "constructed": "Both f(H) and f(Q) have positive coefficients at p before applying the trace theorem; Tproxy=((a-1)/h)U0 with U0 a p-unit.",
+      "justification": "The split-41 case is retained. This gives v_p(a-1)>=31 for the same nonzero scalar index. No limiting point replaces an actual witness.",
+      "sources": [
+        "proxy",
+        "height",
+        "builder"
+      ],
+      "evidence": [
+        "PROOF.md",
+        "check_chain.py",
+        "chain_patch.py",
+        "reproduce.py"
+      ]
+    },
+    "coefficient_conventions": {
+      "status": "author_argument_pending_review",
+      "required": "Q(sqrt(2)) coefficients, normalized rational p-valuations, unchanged exception set, and an integer quartic fixing X.",
+      "constructed": "kappa=r^-15, y=Tproxy/r^16; root coefficients r^-1 and r^-16; inner coefficients 1 and r^-15; E=2130.",
+      "justification": "All divisions use existing nonzero r. Original finite compiler, conic and diagonal checkers replay the result exactly.",
+      "sources": [
+        "builder",
+        "parent-norm",
+        "scaling"
+      ],
+      "evidence": [
+        "PROOF.md",
+        "check_chain.py",
+        "chain_patch.py",
+        "reproduce.py"
+      ]
+    },
+    "local_conditions": {
+      "status": "author_argument_pending_review",
+      "required": "Both formal places for the proxy, scalar order 31, and attainable finite completeness conditions.",
+      "constructed": "Strict proxy depth exceeds (963/32)R. For p|r, all five leaves can be at depth >=16R+1, giving N depth >=16R+2.",
+      "justification": "Odd R gives noncancellation at every node; integer valuation gives 31. The source permits arbitrary additional finite depth after fixing H, so Tproxy depth >=32R+1 is attainable.",
+      "sources": [
+        "parent-norm",
+        "proxy",
+        "pole"
+      ],
+      "evidence": [
+        "PROOF.md",
+        "check_chain.py",
+        "chain_patch.py",
+        "reproduce.py"
+      ]
+    },
+    "exceptional_cases": {
+      "status": "author_argument_pending_review",
+      "required": "Zero leaves, split primes including 41, chart identity exclusions, and all pole zero branches.",
+      "constructed": "Zero leaves use infinite valuation; original H and Q guards retained; conic positivity retained.",
+      "justification": "No new denominator or preparation specialization is used. The original nonzero shifted-point guard and both-place proxy argument are retained.",
+      "sources": [
+        "proxy",
+        "conics",
+        "builder"
+      ],
+      "evidence": [
+        "PROOF.md",
+        "check_chain.py",
+        "chain_patch.py",
+        "reproduce.py"
+      ]
+    },
+    "downstream_consumption": {
+      "status": "author_argument_pending_review",
+      "required": "Scalar, Lucas and input contradictions with the actual height constants and local orders.",
+      "constructed": "Order 31 yields c^415>(4H)^992 at c>=2*3^1064; order 45 retains the Lucas margin b^143>(24H)^360; order 12 retains the final input contradiction.",
+      "justification": "The exact checker verifies all three margins, and PROOF.md connects them to each unchanged consumer. The smaller even anchor imposes only a weaker finite divisibility in completeness.",
+      "sources": [
+        "height",
+        "anchor",
+        "detector-promotion",
+        "scaling"
+      ],
+      "evidence": [
+        "PROOF.md",
+        "check_chain.py",
+        "chain_patch.py",
+        "reproduce.py"
+      ]
+    }
+  },
+  "historicalDisposition": "Prior norm, proxy, preparation, anchor and height arguments read; restricted earlier searches do not establish an optimum. No priority claim.",
+  "manuscriptDisposition": "Pending; no current manuscript or acceptance record changed."
+}

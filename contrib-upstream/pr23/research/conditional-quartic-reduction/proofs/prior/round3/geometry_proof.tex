@@ -1,0 +1,158 @@
+\section{Complete reciprocal charts and scaled logarithms}
+
+Put $K=\Q(\rho)$, $\rho^2=2$, $d=3-\rho$, $D=d^2$, and
+$E:y^2=x^3-Dx$. The four root points retain the charts
+\[
+ x=h^2,\qquad j^2=x^2-D,\qquad y=hj.
+\]
+Their $h,j,x$ are nonzero. Indeed $h=0$ would give $j^2=-D$, impossible
+under a real embedding. If $j=0$, then $x=\pm d$, whose norm is $7$,
+whereas the norm of a square is a rational square. The inherited group
+description identifies these charts with finite points of $2E(K)=\Z P$.
+
+\subsection{Primary charts}
+For $H,U_1,\ldots,U_4$ use instead
+\begin{equation}\label{eq:reciprocal-chart}
+ f=g^2,\qquad l^2=1-Df^2.
+\end{equation}
+For $g\ne0$ this represents $x=1/g^2$, $y=l/g^3$, with old coordinates
+$h=1/g$, $j=l/g^2$. Conversely $g=1/h$, $l=j/h^2$. The orientations agree.
+When $g=0$, $l=\pm1$; both pairs represent the identity $O$.
+
+The coordinate $l$ never vanishes: otherwise $dg^2=\pm1$, so
+$7\Norm(g)^2=1$, impossible in $\Q$. Thus $z=-g/l$ is defined everywhere
+on the chart, agreeing with $-x/y$ on its finite locus and taking value zero
+at $O$. Similarly $f$ extends $1/x$ with value zero at $O$.
+
+Define the shared inverse parameter and primary ratios by
+\[
+ g_Hk_H=l_H,\qquad l_iL_i=k_Hg_i.
+\]
+The first equation forces $g_H\ne0$, so $H$ remains finite and nonidentity.
+The second gives $L_i=z(U_i)/z(H)$, including $L_i=0$ when $U_i=O$.
+Five charts save ten rational coordinates; the shared $k_H$ costs two.
+
+\subsection{A reciprocal difference formula}
+Let $R=(x,hj)$ be a retained finite root, with $x=h^2$ and $j^2=x^2-D$.
+For $U=(g,l,f)$ as above introduce
+\begin{equation}\label{eq:complete-difference}
+ \begin{aligned}
+ F&=x+Df, &F\tau&=hl-gj,\\
+ f_V&=\tau^2, &\tau M&=-g(x+Df_V).
+ \end{aligned}
+\end{equation}
+Conceptually put $k_V=(M-j)/h$ and
+$V=(1/f_V,k_V/f_V)$. All displayed equations are quadratic in the
+materialized coordinates.
+
+The first denominator is totally positive: $x=h^2>0$ at both real
+embeddings, $D>0$, and $f=g^2\ge0$. The equations also force $\tau\ne0$.
+If $\tau=0$, then $hl=gj$, and squaring gives
+$(1-xf)(x+Df)=0$. Thus $xf=1$ and $g\ne0$, whereas the last equation
+would say $0=-gx$. Hence $f_V\ne0$, and $M$ is uniquely determined.
+
+For the generic identity set
+\[
+ A=hl-gj,\qquad B=hl+gj,\qquad \delta=1-xg^2.
+\]
+The exact relation
+\[
+ AB-\delta F
+ =x(l^2-1+Dg^4)-g^2(j^2-x^2+D)=0
+\]
+shows, when $g\delta\ne0$, that the usual subtraction abscissa
+$B^2/\delta^2$ equals $F^2/A^2=1/\tau^2$.
+Substitution in the usual ordinate formula gives
+\[
+ \frac{y(U-R)}{x(U-R)}
+ =-\frac jh-\frac{g(x+D\tau^2)}{h\tau}
+ =\frac{M-j}{h}.
+\]
+The independent checker verifies the cleared abscissa and ordinate
+identities modulo the two chart equations, as well as the resulting curve
+equation. Thus the orientation is fixed, not selected up to sign.
+
+The exceptional cases are explicit. If $U=O$, then
+\[
+ \tau=l/h,\quad f_V=1/x,\quad M=0,\quad k_V=-j/h,
+\]
+so $V=-R$. If $U=-R$, write $\epsilon=gh\in\{1,-1\}$ and
+$A_R=x^2+D$, $y_R=hj$. Equations~\eqref{eq:complete-difference} give
+\[
+ \tau=-2\epsilon y_R/A_R,\quad
+ x(V)=A_R^2/(4y_R^2),\quad
+ k_V=-\frac{x^4-6Dx^2+D^2}{2y_RA_R}.
+\]
+These are exactly the coordinates of $-2R$. This covers tangency, since
+$y_R\ne0$ and $A_R>0$. If $U=R$, the first numerator is zero, so
+$\tau=0$, already proved impossible. The identity output remains excluded.
+These cases exhaust all pairs. Consequently every output is exactly the
+finite nonidentity point $U-R$ in $2E(K)$, with nonzero $k_V$.
+
+\subsection{The scalar difference with a fixed target}
+The scalar root $S$ retains its affine $h_S,j_S,x_S$ chart. With fixed
+$P=(x_P,h_Pj_P)$ use
+\[
+ \begin{aligned}
+ (x_Px_S+D)\tau&=h_Pj_S-h_Sj_P,\quad f_R=\tau^2,\\
+ w&=h_S\tau,\quad wM=-(x_P+Df_R).
+ \end{aligned}
+\]
+Then $k_R=(M-j_P)/h_P$ is affine and the output is $S-P$.
+This follows by substituting $g=1/h_S$, $l=j_S/x_S$ in the preceding
+formula. It includes $S=-P$ and excludes $S=P$. The anchor still forces
+the same large nonzero scalar index $a-1$. All six difference guards
+therefore disappear, and the old $2$-adic difference-component lemma
+is no longer required.
+
+\subsection{Scale logarithms by the root coordinate}
+The alternate logarithm remains
+$\ell(V)=-G_9(Df_V^2)/k_V$. Instead of materializing $k_V$ at a variable
+target, store $\eta=\ell(V)/h$ by
+\[
+ (M-j)\eta=-G_9(Df_V^2).
+\]
+The final quadratic stage of $G_9$ can be substituted directly here.
+The actual ratio consumer is
+\[
+ L_i'=\overline{\frac{h_i\eta_i}{h_P\eta_0}}.
+\]
+Its numerator is quadratic; its denominator is affine because $h_P$ is
+fixed. Thus the four $k_{V_i}$ pairs are unnecessary, saving eight rational
+coordinates. Conjugation still applies to the entire ratio.
+
+All denominators are nonzero. In particular the inherited nonvanishing of
+$G_9$ can also be seen from the source's elementary real argument:
+if $G_J(w)=1+\sum_{j=1}^J c_jw^j$ with the retained coefficients, then
+$c_j<0$ and $G_J(1)=-(4J-1)c_J/2>0$. A finite point on these charts has
+$0<D/x^2<1$, so $G_J(D/x^2)>0$ at a real embedding.
+
+\subsection{Soundness of the new identity-input case}
+Every old generic witness tuple extends to the new point equations.
+The converse reconstructs the same mathematical functions on a larger
+domain: tangency is allowed, and each $U_i$ may equal $O$. This is not
+a bijection with the old guarded witness set.
+
+The actual local-depth consumer is the subsection ``Local soundness'' in\\
+\nolinkurl{docs/quartic-523-540/addition.tex}. Write
+\[
+ H=[h]P,\quad U_i=[u_i]P,\quad R_i=[n_i]P,\qquad
+ r_i=u_i/h,\quad r_i'=(u_i-n_i)/(h-1).
+\]
+Here $h\ne0,1$, every $n_i\ne0$, and $u_i\ne n_i$; none requires
+$u_i\ne0$. If $U_i=O$, then $L_i=r_i=0$. The order-40 cross test gives
+$v(L_i')\ge40$. Both alternate points remain nonidentity formal points,
+so their unchanged relative logarithm estimate gives $v(r_i')\ge40$.
+Therefore
+\[
+ n_i=-(h-1)r_i'\equiv0=L_i\pmod{p^{40}}.
+\]
+This is exactly the conclusion used by the beta and Lucas tests. No
+undefined ratio $\log_E(O)/z(O)$ is used. For finite $U_i$ the old proof
+applies unchanged; at inert primes conjugation preserves the valuation.
+The subsequent height arguments use only the unchanged root labels and
+these congruences. Completeness can retain its old finite generic choices.
+
+The total geometric saving is $10-2+6+8=22$, giving 428 variables in
+isolation. The accompanying full proof text records every domain and
+the precise source application; exact checks cover each exceptional case.

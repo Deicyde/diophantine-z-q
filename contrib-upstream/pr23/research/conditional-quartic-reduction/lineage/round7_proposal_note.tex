@@ -1,0 +1,184 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,booktabs,array,microtype}
+\usepackage[margin=0.86in]{geometry}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[colorlinks=true,linkcolor=MidnightBlue,urlcolor=MidnightBlue]{hyperref}
+\usepackage{fancyhdr}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small Proposed conditional 392-variable quartic}
+\fancyhead[R]{\small November 7, 2026}
+\fancyfoot[C]{\thepage}
+\setlength{\headheight}{14pt}
+\setlength{\parskip}{4pt}\setlength{\parindent}{0pt}
+\setlength{\emergencystretch}{3em}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newcommand{\Q}{\mathbb Q}\newcommand{\Z}{\mathbb Z}
+\title{A proposed 392-variable quartic refinement\\[5pt]
+\large Contact-unit normalization, an outer scalar constant,\\
+and coefficient balancing without extra variables}
+\author{Prepared with ChatGPT for Cameron Freer}
+\date{November 7, 2026}
+\begin{document}
+\maketitle\thispagestyle{empty}
+
+\section{Result, provenance, and scope}
+
+The selected proposal has \textbf{392 total rational variables}, including
+the unchanged input $X$, and therefore 391 existential witnesses. Its
+360 quadratic residuals give a polynomial of degree exactly four with
+26,301 nonzero monomials. Every coefficient is written explicitly in
+decimal. Every coordinate occurs; the coefficient of $X^4$ is one,
+and the primitive integer content is one.
+
+After a certified diagonal change of twelve existing coordinates, its
+largest absolute coefficient is exactly
+\[
+ 1+40532396646334464\,3^{1860}.
+\]
+This has \textbf{905 decimal digits and 3004 bits}. No quantified
+constant-chain coordinate is needed for this form. The fixed coefficient
+in the underlying arithmetic source is $S_0=3^{2790}$.
+
+\begin{center}
+\begin{tabular}{lrrrr}\toprule
+Form & Variables & Residuals & Monomials & Max. digits\\\midrule
+Balanced direct decimal &\textbf{392}&360&26,301&\textbf{905}\\
+Unbalanced direct decimal &392&360&26,301&2,679\\
+Two-coordinate constant lift &394&362&26,310&888\\
+Three-coordinate constant lift &395&363&26,313&381\\
+Four-coordinate constant lift &396&364&26,316&178\\\bottomrule
+\end{tabular}
+\end{center}
+
+Compared with the preceding proposal, the core count drops from 396
+to 392. At the preceding 978-digit coefficient cap, the count drops
+from 398 to 392, and the maximum coefficient also becomes smaller.
+The monomial count rises by 76. Against the pinned public Version 10
+counts, the changes are $523\to392$ and $540\to392$ at a smaller
+maximum coefficient size than its decimal table.
+
+The intended characterization is \textbf{conditional on the inherited
+global arithmetic inputs}:
+\[
+ X\in\Z\quad\Longleftrightarrow\quad
+ \exists(y_1,\ldots,y_{391})\in\Q^{391},\quad P_{392}(X,y)=0.
+\]
+This proposal supplies local replacement arguments and exact finite
+algebraic certificates. It does not independently establish the inherited
+curve/group assertions, geometric and quaternionic inputs, reduction,
+modularity and local compatibility, global height theorem, simultaneous
+prime/progression results, Lucas theorem, or pole realization. The
+upstream qualifications about inspected source versions remain in force.
+Internal review by different AI agents is not human peer review or a
+completed Lean proof. No optimality or historical priority is asserted.
+
+\subsection{The three improvements}
+
+Multiplying each semantic detector test by its contact-unit guard changes
+the weight from $e^{2m-1}/\delta^3$ to $e^{2m-1}/\delta$. This permits
+direct computation of the order-one weight and removes the separate
+coordinate for $e$: one saving in each of three detector copies.
+
+The scalar block uses the actual input polynomial to show that an odd
+contact valuation is already positive. Consequently its constant one
+can be placed outside the norm tree. This removes one coordinate while
+preserving the scalar order twenty-eight and real positivity.
+
+Finally, a sharper use of the existing numerical height constant permits
+$S_0=3^{2790}$. Writing $S_0=c^6$ allows a simple diagonal change with
+factors $c,c^2,c^4$. It distributes the large anchor coefficient through
+existing equations and removes the need for constant-chain variables
+at the preceding coefficient cap.
+
+The complete selected pipeline measures
+\[
+ 403\text{ coordinates}/371\text{ rows}
+ \longrightarrow392/360.
+\]
+The independent replay checks 342 source gate identities and 333
+compiler operations. There are zero additional eliminations after the
+generic compiler; earlier eliminations are not counted a second time.
+The optional constant lifts are unique triangular rational extensions,
+with exponent lists $(930,930)$, $(399,399,396)$, and $(186,186,186,186)$.
+
+\subsection{Pinned sources and publication status}
+
+The public baseline is
+\href{https://github.com/elliotglazer/diophantine-z-q/tree/036cebe4f1a4aa7ca89820a9b48f3629b4c364d6}{\texttt{elliotglazer/diophantine-z-q}},
+commit\\
+{\small\texttt{036cebe4f1a4aa7ca89820a9b48f3629b4c364d6}}.
+The selected builder has SHA256\\
+{\small\texttt{78b54bcde24ff8a91091e102a4734c49878699f071d9230e5ce7a70ffd2114d0}}.
+The repository credits, including Gabriel Conant with ChatGPT and the
+collective agentic improvements, are retained. The draft PR package
+contains the prior local proofs and a dependency/consumer inventory.
+The current four proof sections identify their specific inherited inputs.
+
+This is an additive research proposal. It does not change the current
+upstream manuscript, claim an official Version 11, or rebind the frozen
+Version 10 audit acceptance. Manuscript incorporation remains pending.
+No public PR, push, release, or external message was made in preparing
+the package. The included handoff is intended for a separate coding-agent
+session, with an apply-checkable patch and a draft PR description.
+
+% Typesetting only: keep the separately reviewed proof sources unchanged.
+\let\originaltexttt\texttt
+\def\printlongprovenance#1.{\par\noindent{\small\originaltexttt{#1}}.\par\noindent}
+\renewcommand{\texttt}[1]{%
+  \ifnum\pdfstrcmp{\detokenize{#1}}{3f63cb782d52857446cf39f6e545aeb74f380d1347826eafa888cbb487738d51}=0
+    \def\nextprovenance{\printlongprovenance{#1}}%
+  \else\ifnum\pdfstrcmp{\detokenize{#1}}{78b54bcde24ff8a91091e102a4734c49878699f071d9230e5ce7a70ffd2114d0}=0
+    \def\nextprovenance{\printlongprovenance{#1}}%
+  \else\def\nextprovenance{\originaltexttt{#1}}\fi\fi\nextprovenance}
+\input{proofs/detector_round7.tex}
+\input{proofs/geometry_round7.tex}
+\input{proofs/arithmetic_round7.tex}
+\input{proofs/diagonal_scaling.tex}
+
+\section{Verification and coding-agent handoff}
+
+The independent source checks cover 384 detector assertions, seven
+Laurent identities, three normalization identities and two mixed-product
+identities; 223 geometry assertions; separate scalar reconstructions
+with 70 and 69 source assertions; and 58 arithmetic source/finite checks.
+The uniform arguments were reviewed separately from those finite checks.
+The scalar reviews check formal membership before use of the two-place
+proxy, including the retained case at 41. The detector review checks
+the actual common-place conclusion, unchanged $R$, off-contact parity,
+and the real and small-prime completeness limits.
+
+The independent diagonal audit reconstructs all 360 changed rows and
+their nonzero divisors, the input-fixed coordinate bijection, the full
+26,301-monomial sum of squares, coordinate compaction, primitive content,
+the exact largest coefficient, and every coefficient in the text table.
+The unbalanced core and three optional lifts have their own complete
+sum-of-squares and text-table audits. The parameter-reader checks
+exercise actual arithmetic at several exponents and reject inconsistent
+declarations; a changed metadata label alone is insufficient.
+
+The PR payload contains source scripts, proofs, the selected decimal
+table, compact evidence, and deterministic expected-output hashes. Large
+intermediate JSON files are regenerated in a fresh output directory.
+The reproduction wrapper copies only source files into that directory,
+runs the full construction and audits, and compares every recorded
+deterministic artifact. It leaves the tracked proposal files unchanged.
+Its computation uses Python 3.11 or newer and Node.js, with their standard
+libraries only and no network dependency. A TeX installation is needed
+only to rebuild this PDF.
+
+The handoff provides an additive patch, a repository overlay, a draft
+PR title and body, exact upstream dependency hashes, and commands for
+validation. A coding agent should compare the pinned baseline with its
+current checkout, read the repository's actual \texttt{AGENTS.md} and
+audit protocol, and reconcile any intervening changes before proposing
+integration. The historical Version 10 review register must remain
+historical until any new manuscript application has been reviewed.
+
+The optional parity and projective-height note is included as research
+material. Its improved constants are not dependencies of the selected
+392-variable construction. The lower bounds and negative search results
+are explicitly limited to the stated circuit search classes.
+
+\end{document}

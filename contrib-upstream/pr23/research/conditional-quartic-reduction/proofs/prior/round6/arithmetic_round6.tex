@@ -1,0 +1,282 @@
+\section{Use the stored inverse root in the physical anchor}
+
+The frozen starting package is the fifth-round construction, whose builder
+has SHA256
+\texttt{68cb3cb1a809766aa102b8c43444d8b38c02760751e773a960489c327e33c12b}.
+The upstream source remains pinned at
+\texttt{036cebe4f1a4aa7ca89820a9b48f3629b4c364d6}.
+The curve, group, quaternion, height, scalar, simultaneous-prime and pole
+inputs retain their previous qualifications. This argument changes their
+local application; it does not independently establish those global inputs.
+
+The relevant actual arguments read for this change are the upstream
+\texttt{subsec:o8-anchor-subgroup}, lines 8132--8244 of
+\texttt{manuscripts/quartic\_v10.tex}; its three-witness quaternion
+criterion at lines 10973--11024; the previously delivered
+\texttt{packed\_anchor\_note\_body.tex}, especially its leading-residue,
+product-parity and dyadic arguments; and the third-round
+\texttt{arithmetic\_proof.tex}, section on the field-norm anchor.
+The fifth-round scalar chart supplies the field coordinate used here.
+This is a new optimization of that delivered source. No historical claim
+that the preceding anchor was incorrect or lacked justification is made.
+
+\subsection{An exact anchor equivalence for arbitrary even exponents}
+
+Put $K=\mathbb Q(\rho)$, $\rho^2=2$, $D=(3-\rho)^2$, and
+$N(a+b\rho)=a^2-2b^2$. Retain the fixed point $P$, the four roots
+$Q_i=[n_i]P$, and the scalar root $S=[a]P$. Write
+\[
+ Q=S-P=[a-1]P,\qquad f(Q)=f_0+f_1\rho,\qquad
+ C_{\rm prod}=\prod_i x(Q_i)=C_0+C_1\rho,\quad B_0=4096C_0.
+\]
+The retained point and nonzero guards give $a\ne0$, $a-1\ne0$,
+and $h_S\ne0$, with $x(S)=h_S^2$.
+The fused scalar chart already stores
+\[
+ w=w_0+w_1\rho=h_S\tau,\qquad \tau^2=f(Q).
+\]
+In particular $w$ adds no field coordinate. The fifth-round exact
+subtraction proof establishes these identities on every solution, including
+the allowed tangent case; its inverse of $f_0$ excludes $Q=O$.
+
+For an even positive integer $E=2k$, set
+\[
+ S_0=3^E,\qquad C_a=3^k,
+ \qquad
+ \Theta=N(w)+3S_0N(B_0+X\rho).
+\]
+Retain the three-witness equation
+\[
+ u^2+6v^2-2z^2-3\Theta^2+2S_0^2=0.             \tag{A}
+\]
+The only change in the materialized physical quantity is
+$N(f(Q))\longmapsto N(w)$. Both are quadratic in already stored rational
+coordinates. The term $S_0C_0^2$ still uses the retained coordinate for
+$C_0^2$, so every residual stays quadratic when $S_0$ is itself represented
+by a coordinate.
+
+The source's quaternion criterion, including its $t=0$ case, identifies
+(A) with integrality of
+\[
+ \frac{\Theta}{S_0}
+ =N(w/C_a)+3N(B_0+X\rho)
+\]
+at $2$ and $3$. It does not impose a sign condition on this rational
+quantity; none is needed when $N(w)$ replaces the old norm.
+
+At the unramified place above $3$, with $v(3)=1$, the norm form is
+anisotropic modulo $3$, and
+\[
+ v_3(N(b_0+b_1\rho))=2\min(v_3(b_0),v_3(b_1)).
+\]
+The two summands in $\Theta/S_0$ therefore have opposite valuation
+parity when nonzero. Consequently its $3$-integrality is equivalent to
+\[
+ w_0/C_a,\ w_1/C_a,\ B_0,\ X\in\mathbb Z_{(3)}.       \tag{B}
+\]
+This inference uses no root parity assumption.
+
+The preceding packed-anchor residue proof gives exactly
+\[
+ v_3(C_0)=-\sum_i e(n_i),\qquad
+ e(n)=\begin{cases}0&n\text{ odd},\\2+2v_3(n)&n\text{ even}.
+ \end{cases}
+\]
+Thus the condition on $B_0$ in (B) forces all four root labels to be odd.
+There is no circular use of the odd-product height identity here: the
+displayed residue proof is valid before the parity constraints.
+
+In particular $a$ is odd. At $3$, $P$ reduces to the nonzero order-two
+point $(\bar\rho,0)$; hence $S$ has the same reduction, and $h_S$ is a
+unit. The actual formal-group calculation in the source gives, for
+nonzero even $n$,
+\[
+ v_3(z([n]P))=1+v_3(n),\qquad v_3(f([n]P))=2+2v_3(n).
+\]
+Since $\tau^2=f(Q)$, it follows that
+\[
+ v_3(w)=v_3(\tau)=1+v_3(a-1).
+\]
+The basis $(1,\rho)$ is integral and unramified at $3$, so (B) is now
+equivalent to oddness of all four labels, $X\in\mathbb Z_{(3)}$, and
+\[
+ 0\ne a-1\in 2\cdot3^{k-1}\mathbb Z.             \tag{C}
+\]
+
+\subsection{The dyadic condition is preserved}
+
+At the place above $2$, normalize $v(2)=1$, so $v(\rho)=1/2$.
+The source proves $v(z(P))=3/2$ and supplies the integral odd formal
+multiplication series. At any depth $r\ge3/2$, the higher terms of
+$[2]z=2z+O(z^3)$ have valuation at least $3r>r+1$. Multiplication by
+$2$ therefore increases depth by exactly one. Odd multiplication
+preserves depth by its unit linear coefficient. For every nonzero integer
+$n$, including negative $n$, this proves
+\[
+ v(z([n]P))=\frac32+v_2(n),\qquad
+ v(x([n]P))=-3-2v_2(n).
+\]
+No good-reduction or minimal-model assertion at $2$ is used.
+
+Once the $3$-integrality argument has forced $a$ odd,
+\[
+ v(h_S)=-\frac32,\qquad
+ v(\tau)=\frac32+v_2(a-1)\ge\frac52,
+ \qquad v(w)=v_2(a-1)\ge1.
+\]
+For rational coefficients the two terms in
+\[
+ v(b_0+b_1\rho)=\min(v_2(b_0),v_2(b_1)+1/2)
+\]
+have distinct fractional parts. Thus $w_0,w_1$ are $2$-integral
+(indeed both are divisible by $2$), and division by the odd $C_a$
+preserves this. The already proved four odd labels also make
+$B_0=4096C_0$ $2$-integral. All terms of
+\[
+ N(w/C_a)+3B_0^2-6X^2
+\]
+except the last are consequently $2$-integral. If $v_2(X)<0$, the last
+term has negative valuation $1+2v_2(X)$ and cannot cancel against them.
+Hence the remaining quaternion condition is exactly
+$X\in\mathbb Z_{(2)}$.
+
+Conversely, four odd labels, (C), and
+$X\in\mathbb Z_{(2)}\cap\mathbb Z_{(3)}$ make both norm summands
+integral at both primes, so the quaternion criterion supplies the
+rational witnesses of (A). All sign choices in the scalar chart are
+covered: the valuation statements use $h_S^2=x(S)$ and $\tau^2=f(Q)$,
+and the physical expression uses the field norm.
+
+We have therefore proved the exact point/input-domain equivalence
+\[
+ \boxed{\begin{gathered}
+ \text{new anchor using }N(w)\text{ and }S_0=3^{2k}\\
+ \Longleftrightarrow
+ \text{old anchor using }N(f(Q))\text{ and }S_0=3^{4k}.
+ \end{gathered}}                                      \tag{D}
+\]
+Indeed the old anchor divides $f$ by $3^{2k}$, and its exact valuation
+$2+2v_3(a-1)$ gives the same (C). This is equivalence of existence of
+anchor witnesses; no bijection of the conic witness tuples is claimed.
+Both anchors allow arbitrarily divisible positive scalar indices, so
+the old completeness order of choices is preserved.
+
+\section{A smaller constant with a two-coordinate decimal chain}
+
+The immediate specialization $E=4096$ in (D) has exactly the fifth-round
+anchor's point/input domain at half its exponent. An isolated build of
+this change retains 401 compiled coordinates and 369 residuals. Its
+constant chain starting from $3^{1024}$ has three coordinates instead
+of four. The following selected parameter choice reduces the chain
+further, together with the same-cost high-order weight circuit.
+
+\subsection{The retained logarithm supports order forty-five}
+
+Keep the fifth-round $G_{12}$ polynomial and its exact quadratic circuit.
+For a formal point at any consumed prime, $p\ge11$ and $v(w)=4r$,
+$r\ge1$. The existing coefficient bound is
+$v(a_j)\ge-(4j+1)/(p-1)$. For every omitted index $j\ge13$,
+\[
+ \frac{4j+1}{p-1}\le\frac{4j+1}{10}\le4j-45,
+\]
+because $10(4j-45)-(4j+1)=36(j-13)+17\ge0$.
+Thus the entire remaining tail has valuation at least $45r$, with
+valuation tending to infinity. No extra exceptional prime, including
+$53$, is needed for this selected order. The old real nonvanishing and
+weak logarithm-unit estimates are unchanged. The input polynomial
+remains $G_2$ at order twelve.
+
+Use high detector order $45$, in particular on the primary inverse root.
+The latter gives primary depth at least $45$ and primary relative
+logarithm error at least $180$. The same two-anchor argument first
+transfers integrality and then gives the Lucas-label congruences at
+order $45$ and the input-label congruence at order $12$. Its separate
+identity-input branch is unchanged. The actual completeness progression
+uses $\Pi^{44}$; the already proved coprimalities with the fixed modulus
+make this compatible with the same CRT construction. Alternate points
+still need only depth one.
+
+\subsection{Exact margins for the selected exponent 3072}
+
+The conductor and exceptional set are unchanged from round five:
+\[
+ C=2^{32}3^9,\quad B_{\mathcal S}=46410,\quad
+ H=2^{110}C^6 B_{\mathcal S}^{19}+128.
+\]
+The exact $H$ has bit length $683$; continue to use the simpler
+sufficient bound $H<2^{697}$. Retain at least the scalar-order-twenty-eight
+conclusion
+\[
+ M_{\mathcal S}(\beta)^{28}\mid a-1,
+ \qquad h(\beta)\le H|a-1|^{19/28}.
+\]
+The round-five scalar block already supplies it. A separately proved
+stronger scalar implementation may be substituted without weakening
+any of the following consumers.
+
+Choose
+\[
+ S_0=3^{3072},\qquad C_a=3^{1536}.
+\]
+The new anchor gives $0\ne a-1\in2\cdot3^{1535}\mathbb Z$.
+Writing $c=|a-1|$, the elementary inequality $\log_2 3>3/2$ yields
+\[
+ \log_2 c>2303.5,\qquad \log_2|a|>2302.5.
+\]
+The scalar margin follows from
+\[
+ (9/28)2303.5>740>704=7+697,
+\]
+so $h(\beta)<c/80\le|a|/40$.
+As before $\log(40H)<703<|a|/40$, since $40\cdot703<2^{15}<|a|$.
+
+The unchanged odd-product height estimate is
+$B^2-6<7H|N|^{19/k}$. For the Lucas polynomial $F\ne0$ and high
+order $45$, use $|F|<5B^4$ to obtain
+\[
+ B^{14/45}<7H5^{19/45}+6<24H.
+\]
+The last inequality already follows from $5^{19/45}<3$ and $H\ge4$.
+But
+\[
+ (14/45)2302.5>716>702=5+697>\log_2(24H),
+\]
+contradicting $B\ge|a|$. Thus $F=0$ and the inherited Lucas theorem
+gives $\log B>|a|-3$. If $n\ne\beta$, the unchanged order-twelve
+input bound gives
+\[
+ \log B<\frac{12}{5}\log(40H)+\frac{19}{5}h(\beta)
+ <\frac{31}{200}|a|<|a|-3,
+\]
+a contradiction. This checks all three consuming inequalities separately.
+
+Completeness still chooses the scalar index arbitrarily divisible,
+so the new explicit requirement $3^{1535}\mid a-1$ changes only a
+finite preparatory divisibility. The four odd root indices, input
+integrality, positive scales, Gaussian positivity witnesses, and all
+real and small-prime pole preparations have the same interfaces.
+The changed high order only raises the primary progression as described
+above. No simultaneous prime theorem or global height theorem is added.
+
+\subsection{The two-coordinate constant computation}
+
+Let $c_0=3^{1024}$ be a written integer coefficient. Introduce just
+two rational coordinates $s_0,s_1$ and impose
+\[
+ s_0=c_0,\qquad s_1=c_0s_0^2.
+\]
+They uniquely force $s_1=3^{3072}=S_0$. Both equations are at most
+quadratic. Substituting $s_1$ for the fixed parameter in the retained
+quadratic source introduces two coordinates, and its squared residuals
+remain quartic. The coefficient contributed by squaring the second
+constant-chain residual is $c_0^2=3^{2048}$, the same scale as the
+preceding standard decimal construction. Exact maxima after adding
+all squared residuals require the separate table audit.
+
+More generally, a triangular chain
+$s_0=3^{b_0}$, $s_i=3^{b_i}s_{i-1}^2$ realizes exponent
+$E_0=b_0$, $E_i=2E_{i-1}+b_i$ with one coordinate per row.
+The choices $(1024,1024)$, $(439,439,438)$, and
+$(205,205,205,202)$ all end at exponent $3072$ with two, three,
+and four coordinates respectively. These are coefficient-size tradeoffs;
+their measured polynomial sizes must be reported separately.

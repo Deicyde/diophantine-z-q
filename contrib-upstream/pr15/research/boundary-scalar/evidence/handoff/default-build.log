@@ -1,0 +1,12 @@
+⚠ [1789/1793] Built Research.DerivativeSwitchBoundary (5.0s)
+warning: Research/DerivativeSwitchBoundary.lean: imports `Mathlib.Algebra.Module.Equiv.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Research/DerivativeSwitchBoundary.lean: imports `Mathlib.Tactic.Ring` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [1790/1793] Built Research.BoundaryCupAdapter (5.9s)
+warning: Research/BoundaryCupAdapter.lean: imports `Mathlib.Algebra.Module.Equiv.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Research/BoundaryCupAdapter.lean: imports `Mathlib.LinearAlgebra.BilinearForm.Properties` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Research/BoundaryCupAdapter.lean: imports `Mathlib.Tactic.Ring` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [1791/1793] Built Research.BoundaryScalar (9.5s)
+warning: Research/BoundaryScalar.lean: imports `Mathlib.LinearAlgebra.Matrix.Adjugate` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Research/BoundaryScalar.lean: imports `Mathlib.Tactic.FieldSimp` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [1792/1793] Built Solution (1.0s)
+Build completed successfully (1793 jobs).

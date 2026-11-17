@@ -17,7 +17,9 @@ structure OpenAddedLeaves25 : Prop where
   UNVERIFIED). With the next three replaces `t09SymmIsogenyExists`. -/
   picRepresentableAbVar : _root_.T09Pic.PicRepresentableAbVar
   /-- pic-fix: for `X` proper and geometrically normal over a field `K`, the identity component of `Pic_{X/K}` is
-  proper (Kleiman, *The Picard scheme*, Thm 9.5.4; locator UNVERIFIED); stated for every representing scheme. -/
+  proper (Kleiman, *The Picard scheme*, Thm 9.5.4 for `X` projective and geometrically integral, with Remark
+  9.5.6 for the proper case; the leaf assumes neither, so it exceeds the printed theorem; locators UNVERIFIED);
+  stated for every representing scheme. -/
   kleimanPicZeroProper : _root_.PicFix.KleimanPicZeroProper
 
 /-- `OpenAddedLeaves24` from `OpenAddedLeaves25`: `picLocFinType` by the contributions. -/

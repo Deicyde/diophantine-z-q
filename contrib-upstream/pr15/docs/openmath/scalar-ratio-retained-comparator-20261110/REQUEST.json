@@ -1,0 +1,85 @@
+{
+  "verification_id": "pr15-retained-comparator-20261110",
+  "pr": "https://github.com/elliotglazer/diophantine-z-q/pull/15",
+  "repository": "https://github.com/CheyLoveday/diophantine-z-q.git",
+  "branch": "codex/common-strict-foundation-v13",
+  "mathematical_baseline_commit": "7c178b3edaf7f1ca9c91d542c3453bfdbaea73f3",
+  "packet": "scalar-ratio",
+  "selected_checks": "Frozen statement comparison, retained source-bound exports, transitive axiom audit and six solution checkers; not a whole release-profile assessment.",
+  "status": "PREPARATION; Open Math OS execution and return validation pending",
+  "execution_owner": "Open Math OS",
+  "local_lean_execution_authorized": false,
+  "theorem_targets": 39,
+  "definition_targets": 0,
+  "supporting_definitions_are_fixed": true,
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
+  "required_checkers": [
+    "Lean default",
+    "Lean paranoid",
+    "lean4lean",
+    "nanoda",
+    "con-leche",
+    "con-ron"
+  ],
+  "base_preparer": "scripts/prepare_derivative_switch_openmath.py",
+  "base_project_manifest_sha256": "117f9ca2c28c42e45198f790dd8c3f324e1bed9d3af11ea9707575363304b811",
+  "frozen_manifests": [
+    {
+      "path": "research/determinant-switch/MANIFEST.sha256",
+      "sha256": "de9e04423f3ccafa9690e6ff53c1f0bb79f5f91406ee3e4e89246ce2cf97fa12"
+    },
+    {
+      "path": "research/boundary-scalar/MANIFEST.sha256",
+      "sha256": "8696323b0d1bb78e68ba4daea0437f38dde4ff3be8281e3856712a5f5369dba6"
+    },
+    {
+      "path": "research/scalar-ratio/MANIFEST.sha256",
+      "sha256": "d313ec3ff5ad0e91d555d26b2beef6ad401d7e9c86cdfe77adbe119062498610"
+    }
+  ],
+  "challenge_directory": "research/scalar-ratio/verification",
+  "challenge_files": [
+    "research/scalar-ratio/verification/Challenge/BoundaryCup.lean",
+    "research/scalar-ratio/verification/Challenge/CommonStrict.lean",
+    "research/scalar-ratio/verification/Challenge/Coordinate.lean",
+    "research/scalar-ratio/verification/Challenge/Cup.lean",
+    "research/scalar-ratio/verification/Challenge/Matrix.lean",
+    "research/scalar-ratio/verification/Challenge/Original.lean",
+    "research/scalar-ratio/verification/Challenge/UnitCriterion.lean",
+    "research/scalar-ratio/verification/Challenge.lean"
+  ],
+  "solution_modules": [],
+  "config_path": "research/scalar-ratio/verification/comparator.json",
+  "trusted_input_sha256": {
+    "lean/Research/BoundaryCupAdapter.lean": "330699edaab6812ed68ed09a5fb682ad1d6b3af5a030a252691723066beffd7b",
+    "lean/Research/BoundaryScalar.lean": "fd1ea9ca11a417072c7be08ef477901427c57a74962559d753d62db95883f3ef",
+    "lean/Research/DerivativeSwitch/BoundaryCup.lean": "64750e7706f82cf0a47b76c80503bcab0577c2aa18f9703c09b4b8288be0df90",
+    "lean/Research/DerivativeSwitch/CommonStrict.lean": "c5770846489d7fdab0024d8f3c49e0a474eb0fa56dc428cc6a7034bc8e5605e4",
+    "lean/Research/DerivativeSwitch/Coordinate.lean": "229e66269880b9970b15ca36fab290d2572fdfac7396383d3327e652128ade90",
+    "lean/Research/DerivativeSwitch/UnitCriterion.lean": "efd9f4404b9760f9d7ebc2cb0874f21f517ed3868e9e23f78fd0465a2c03e45a",
+    "lean/Research/DerivativeSwitchBoundary.lean": "63a9215fa55568069d2d1a7b2c3a7345ec21c7ad6a82203f42c5451ee4b8bbea",
+    "lean/lake-manifest.json": "a770787f33b5824f61a0731d59e67fca3f44a531b21d1fc1a804064c6fb54e58",
+    "lean/lean-toolchain": "ca5f1f601d34c49079e38d7e7041eb0f2a9c227fbc1df0f404820069a052330c",
+    "research/scalar-ratio/verification/Challenge.lean": "b7e458429c13a677784af6885d1d2c8aa5e09f6a633aa112aab090547d62c84f",
+    "research/scalar-ratio/verification/Challenge/BoundaryCup.lean": "cc95c0bfa2a80fc2c967ed69b5fafb8c0defe7fc704bc2962b0d113afef8253b",
+    "research/scalar-ratio/verification/Challenge/CommonStrict.lean": "50a3a1847f96d80bddacb6146696b07d6ca06f0b73c95f45793e3ca919313af5",
+    "research/scalar-ratio/verification/Challenge/Coordinate.lean": "5d9345ec01b581faba690428fcfbc0d01196d61ba13d73e1ae6b9ae4e04bf1cc",
+    "research/scalar-ratio/verification/Challenge/Cup.lean": "657609e50b5b058f5e2435cced7f1efcadcd91aed076a7612742f409c12bf18e",
+    "research/scalar-ratio/verification/Challenge/Matrix.lean": "70141ae019654b59a07e1d34cead19aa5882f9a2f1b1097f021bb24653c12860",
+    "research/scalar-ratio/verification/Challenge/Original.lean": "ae5cd67b93287c345a3b1a808eeeed9744667bb73eb10f068d8b056b20b497e8",
+    "research/scalar-ratio/verification/Challenge/UnitCriterion.lean": "a2f864a2f353519d2c40739ed3c16f1a61498867817314df52a77215b2883b3b",
+    "research/scalar-ratio/verification/comparator.json": "ae8b3b382cfc69d3aceb281c188548923855345a71f3775b813530ca059f00c8",
+    "scripts/prepare_derivative_switch_openmath.py": "6dd6779b1b5a85a2916f836a690efb5a827198db06ab6390269eef2c750682be"
+  },
+  "export_roots": {
+    "path": "docs/openmath/scalar-ratio-retained-comparator-20261110/export-roots.txt",
+    "count": 72,
+    "policy": "Exact Lean 4.35.0 comparator builtinTargets ++ theorem_names ++ permitted_axioms ++ primitiveTargets ++ definition_names; extra builtin dependencies are not additional mathematical claims."
+  },
+  "return_directory": "returned/",
+  "return_status": "NOT_RUN"
+}

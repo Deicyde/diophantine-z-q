@@ -1,0 +1,307 @@
+{
+  "format": "conditional-quartic-reproduction-receipt-v2",
+  "status": "PASS",
+  "method": "Fresh output directory received only source/proof seeds; all mathematical outputs were regenerated.",
+  "sourceManifestSha256": "268694a99ae9e73f99c3847270994d51b7b9861aa9e521a622c583bed95076c2",
+  "sourceFilesVerified": 155,
+  "buildInputFiles": 34,
+  "deterministicArtifactsCompared": 54,
+  "files": [
+    {
+      "path": "construction/balanced/diagonal-certificate.json",
+      "bytes": 48248,
+      "sha256": "82f4e4a0b3c86eacbeded815f97ef0e46df3a553c82e9d8243ef671788ca0b24"
+    },
+    {
+      "path": "construction/balanced/integer-ir.json",
+      "bytes": 507379,
+      "sha256": "fc0a1412f1463762994207e0ed55a311095c5079180d28bc48f0e984c516619f"
+    },
+    {
+      "path": "construction/balanced/polynomial.json",
+      "bytes": 4151512,
+      "sha256": "00e436b5ded71fe24975fb2ec913ade44255f033a556fcfae84ae7513366c752"
+    },
+    {
+      "path": "construction/balanced/summary.json",
+      "bytes": 552,
+      "sha256": "cd53a62432df98a531e0f5799835ba54fefe18d914aefbc1416c8d544aa0af1b"
+    },
+    {
+      "path": "construction/census.json",
+      "bytes": 1923,
+      "sha256": "1f0a0f8da03db36ab33026181783ba287e76a982ca313bc7c7202d25139cc1c2"
+    },
+    {
+      "path": "construction/compiled/compiled-ir.json",
+      "bytes": 1270448,
+      "sha256": "3c2f9cefa293f48a907eca7f45ce11fa609dea8041f1d504ec66db352e331ab2"
+    },
+    {
+      "path": "construction/compiled/coordinate-map.json",
+      "bytes": 38620,
+      "sha256": "f39b26310aea0ca1b062ce084f34a018d302c9ac1f1db607f8903b786fc996fa"
+    },
+    {
+      "path": "construction/compiled/polynomial.json",
+      "bytes": 4347740,
+      "sha256": "2c74a46ad382da8b616eaf0990de088094fb662a389a60686a2db8312c697854"
+    },
+    {
+      "path": "construction/compiled/reduction-certificate.json",
+      "bytes": 45100,
+      "sha256": "eb3eb01387c69531713d4215f73f91cf49e07a964fbeadc0d7080e505d409b72"
+    },
+    {
+      "path": "construction/compiled/specialization-certificate.json",
+      "bytes": 794,
+      "sha256": "7ede178a9f14b75b8541db41d97fc889a03361763fe9fee5a57646ef28b5f6c7"
+    },
+    {
+      "path": "construction/final/candidate-ir.json",
+      "bytes": 764693,
+      "sha256": "ce3ee236e1d177526458d9e9cc40a0251718f320962fbe7ec05bb9707157ea56"
+    },
+    {
+      "path": "construction/final/integer-candidate-ir.json",
+      "bytes": 764693,
+      "sha256": "1e9071816ccb40d562545be08f21ccac76813a64796173d155d0d3ae7dbebb50"
+    },
+    {
+      "path": "construction/final/polynomial/compiled-ir.json",
+      "bytes": 764693,
+      "sha256": "ce3ee236e1d177526458d9e9cc40a0251718f320962fbe7ec05bb9707157ea56"
+    },
+    {
+      "path": "construction/final/polynomial/coordinate-map.json",
+      "bytes": 38620,
+      "sha256": "f39b26310aea0ca1b062ce084f34a018d302c9ac1f1db607f8903b786fc996fa"
+    },
+    {
+      "path": "construction/final/polynomial/polynomial.json",
+      "bytes": 4347740,
+      "sha256": "2c74a46ad382da8b616eaf0990de088094fb662a389a60686a2db8312c697854"
+    },
+    {
+      "path": "construction/final/polynomial/reduction-certificate.json",
+      "bytes": 175,
+      "sha256": "a05fac9ba5809b558884e1c80390155f2917071cecb5629c52d3bc5c5c57571a"
+    },
+    {
+      "path": "construction/final/polynomial/specialization-certificate.json",
+      "bytes": 794,
+      "sha256": "7ede178a9f14b75b8541db41d97fc889a03361763fe9fee5a57646ef28b5f6c7"
+    },
+    {
+      "path": "construction/final/source-ir.json",
+      "bytes": 1270448,
+      "sha256": "3c2f9cefa293f48a907eca7f45ce11fa609dea8041f1d504ec66db352e331ab2"
+    },
+    {
+      "path": "construction/ordinary389/polynomial/compiled-ir.json",
+      "bytes": 541485,
+      "sha256": "71c6cb54caa681f5d057b42b95ce6340de6e4626bc6dfb00763739fb90944b64"
+    },
+    {
+      "path": "construction/ordinary389/polynomial/coordinate-map.json",
+      "bytes": 38620,
+      "sha256": "f39b26310aea0ca1b062ce084f34a018d302c9ac1f1db607f8903b786fc996fa"
+    },
+    {
+      "path": "construction/ordinary389/polynomial/polynomial.json",
+      "bytes": 4119741,
+      "sha256": "33d3613ca16f9df34267eb3bc3bcfe9e28288b680e397b5ef3f31ed461e0d90e"
+    },
+    {
+      "path": "construction/ordinary389/specialization-report.json",
+      "bytes": 921,
+      "sha256": "f0e31937a4eaf475572597367d6343de067765abe007459fb8800db97cafbb3d"
+    },
+    {
+      "path": "construction/ordinary389/specialized-ir.json",
+      "bytes": 541485,
+      "sha256": "71c6cb54caa681f5d057b42b95ce6340de6e4626bc6dfb00763739fb90944b64"
+    },
+    {
+      "path": "construction/ordinary391/lifted-ir.json",
+      "bytes": 766628,
+      "sha256": "48576c3792afa653399b5c6054946f29fda652b87b1dd97749e5186c2675eb6a"
+    },
+    {
+      "path": "construction/ordinary391/polynomial/compiled-ir.json",
+      "bytes": 766628,
+      "sha256": "ea6b74cf4c349226122de58cf6d629f374fe58502b95a50cab0d67e817b5c26d"
+    },
+    {
+      "path": "construction/ordinary391/polynomial/coordinate-map.json",
+      "bytes": 38807,
+      "sha256": "f3878e3d2f5577413e611d407b57e82d01266f3de0024a1fedce2dae43e030a7"
+    },
+    {
+      "path": "construction/ordinary391/polynomial/polynomial.json",
+      "bytes": 4351253,
+      "sha256": "19e0b52b357371f1a828d399d531c0c4c60c42114b83b09a7442c128750eccf1"
+    },
+    {
+      "path": "construction/ordinary391/polynomial/reduction-certificate.json",
+      "bytes": 383,
+      "sha256": "5cf1033d506c4d821fe37ca18e8fba66ed0df1d01611f6e6662e8c29c2957e10"
+    },
+    {
+      "path": "construction/ordinary391/polynomial/specialization-certificate.json",
+      "bytes": 1451,
+      "sha256": "7523b5b23da6b96fbf2aa19f19e63e831639de455e21b3334bc9e689d31ea4ad"
+    },
+    {
+      "path": "construction/ordinary392/lifted-ir.json",
+      "bytes": 766866,
+      "sha256": "40877a10a9e057fbf1d3f95d2515981a62bdea71380ebe85e51722dfbca53564"
+    },
+    {
+      "path": "construction/ordinary392/polynomial/compiled-ir.json",
+      "bytes": 766866,
+      "sha256": "4324afc27cd6fdc286420d4f598c39447ab3fdf162bca09ca9a71993cbebcf15"
+    },
+    {
+      "path": "construction/ordinary392/polynomial/coordinate-map.json",
+      "bytes": 38901,
+      "sha256": "96aac5e56ae2ac4e7978cc6e29a961caabef9e8988b81355a3de5861cfae9a2a"
+    },
+    {
+      "path": "construction/ordinary392/polynomial/polynomial.json",
+      "bytes": 4350986,
+      "sha256": "cb704c5fbb0b514b6dfd74c7e64f8fe4074d7a9177657a974a46968c9e1934c5"
+    },
+    {
+      "path": "construction/ordinary392/polynomial/reduction-certificate.json",
+      "bytes": 486,
+      "sha256": "7d12177e85909c4850c013c01a11c41b5aef46431b1c2f33bf6080a4da00a6cc"
+    },
+    {
+      "path": "construction/ordinary392/polynomial/specialization-certificate.json",
+      "bytes": 1022,
+      "sha256": "c3ca71c43843e39c78fbbed1f7f7b40a5c900cfa9cd2e2b5a8fd9c1eb084df53"
+    },
+    {
+      "path": "construction/ordinary393/lifted-ir.json",
+      "bytes": 767186,
+      "sha256": "d4021e76dbd5c31ad85869e2f5534d8fea442f712d0eecebffeddfb1aaa66ef8"
+    },
+    {
+      "path": "construction/ordinary393/polynomial/compiled-ir.json",
+      "bytes": 767186,
+      "sha256": "5c271acfccd6f94280b1adf9c70dbb2e9a243bc1ce705e485505272c7378d093"
+    },
+    {
+      "path": "construction/ordinary393/polynomial/coordinate-map.json",
+      "bytes": 38994,
+      "sha256": "394b325982818d57f0b61b7065203ff00ce9965facacc27284f2090e90a28156"
+    },
+    {
+      "path": "construction/ordinary393/polynomial/polynomial.json",
+      "bytes": 4350972,
+      "sha256": "e4157d0e0912bcd0904d8371163c678616c00ba0e85333d0762cc0074962dd61"
+    },
+    {
+      "path": "construction/ordinary393/polynomial/reduction-certificate.json",
+      "bytes": 589,
+      "sha256": "292831e42c8175dac9defde2def125b271050092d188a9dc344e1ebaff9f922f"
+    },
+    {
+      "path": "construction/ordinary393/polynomial/specialization-certificate.json",
+      "bytes": 849,
+      "sha256": "631af12008900a238c29d668faffa6d50a2261c324efb848586b9dfbc4c0030d"
+    },
+    {
+      "path": "construction/quartic-389-balanced-decimal.txt",
+      "bytes": 1050826,
+      "sha256": "1c612d20915667dfd81a7895f8d93231d5efeaf86ecfaa15194408d298d35573"
+    },
+    {
+      "path": "construction/quartic-389-decimal.txt",
+      "bytes": 1050964,
+      "sha256": "6ac59987b9beb1c1e0d6a30b18ba938510e1e6f85ec903a1ea04120507030738"
+    },
+    {
+      "path": "construction/quartic-389-symbolic.txt",
+      "bytes": 1017229,
+      "sha256": "ccb5bd16f2e8751a70fcaedec33f265cd990ee047c08f6b031484c47b79589bf"
+    },
+    {
+      "path": "construction/quartic-391-decimal.txt",
+      "bytes": 1019640,
+      "sha256": "b8403757b0530d8190b7e49806b924a62c4f864e07d4c76a48297d660eb0c339"
+    },
+    {
+      "path": "construction/quartic-392-decimal.txt",
+      "bytes": 1018884,
+      "sha256": "541cacbae2e6423d3bc6d454e1b383f416bf624c5bf113a63712f3a088b3c3af"
+    },
+    {
+      "path": "construction/quartic-393-decimal.txt",
+      "bytes": 1018382,
+      "sha256": "5a8d42a4dffc84ea93fde518b369101b499f13dcaf497e3fece77f92d7619d69"
+    },
+    {
+      "path": "construction/raw-ir.json",
+      "bytes": 1284624,
+      "sha256": "1095bc2ea475835b942606c21440d3b44492918aabd6554637a3c413c7b338b6"
+    },
+    {
+      "path": "construction/raw-translated-ir.json",
+      "bytes": 1285283,
+      "sha256": "2fcdab0c5cff04fe6352d1445b518118cd10c46899a18ba42bc354865c1e9964"
+    },
+    {
+      "path": "construction/reference_round7/census.json",
+      "bytes": 1923,
+      "sha256": "e4d0370ca4ea57b540ccf2cb9364ddca86f161f3d5bc55cb425667c7ae189240"
+    },
+    {
+      "path": "construction/reference_round7/raw-ir.json",
+      "bytes": 1288895,
+      "sha256": "582c8bf2fcde54242bb23bf7aa33d3a7a9065f04b8edd885a13386b5b779b92c"
+    },
+    {
+      "path": "construction/reference_round7/raw-translated-ir.json",
+      "bytes": 1289554,
+      "sha256": "24824afcb99ebd7b4a266a43c5ae24fb98a3a2093de5ca17e00ca1e3720664ba"
+    },
+    {
+      "path": "construction/table-summary.json",
+      "bytes": 1441,
+      "sha256": "1ceb921f59cbbf385ecf196fd651bed90466ab38f4c23e46981f71c4b63519a4"
+    },
+    {
+      "path": "construction/text-table-summary.json",
+      "bytes": 2986,
+      "sha256": "0de16a134c4f966eb83be544c9be2532bcaac513c1ea381e67466f500bfff14b"
+    }
+  ],
+  "auditReports": {
+    "construction/independent-gate-check.json": "7c41d24066a7040ab9baf3aaeabfce7b23df57c9f7f99e9cf3a9e74cb1933194",
+    "construction/detector-source-check.json": "3dded84f0bf59186933d7668588cbfe7829dafec4a8856c83e5993e5650a03f8",
+    "construction/independent-final-symbolic-check.json": "6db1bb70ce3a5e9815bd560df8ff105d52fe446846410bb4233177446204420d",
+    "construction/ordinary389/specialization-report.json": "f0e31937a4eaf475572597367d6343de067765abe007459fb8800db97cafbb3d",
+    "audit/arithmetic-check.json": "9f0950dcbd02535b1aa0338d864bdbec77e6f8ca8a302df6872acd6187d720bc",
+    "audit/arithmetic-independent-check.json": "623a6c1b4341a09fe558f5a9fb7e5b85f40f0745e6239144e0fb79353cd24cb1",
+    "audit/delivered-quartics-check.json": "b4424ee56bcc23da3b203e6208c9c694d235691290ca7a5a317291adf4906978",
+    "audit/detector-independent-check.json": "e91f530ef6d0fd5f6f1cc0bc28e6beb7fdbc869cc8a59fdbd0df111191a870bc",
+    "audit/diagonal-scaling-check.json": "56d754acd0509803b45fa5b33771b2c7565461056205dabb82f67451d7dcbd92",
+    "audit/geometry-check.json": "e70ee67ea8d2512402e160a9fdb5b03b3df249c9325bcd583087dea257f81627",
+    "audit/integrated-bridge-check.json": "1f320bda1da61553434cd13b8780b157f88531c71f8747329fdafa993ac59377",
+    "audit/parameter-binding-check.json": "99818f15b1c2cccccbce621554c1f0d279ac102c60ed54197fbe8dfa74273562",
+    "audit/scalar-independent-check.json": "ed71ab6c524b9153c93679a502c3bec086308eae270ba434c1f31c066829b97c",
+    "audit/scalar-second-review-check.json": "658bd1e430a784e87959f25fedd3b07aae4b549e5c5d77a00f6cf638e247bab6",
+    "audit/scaled-chain-independent-check.json": "13cc6d278de015134abbbd7d7bc4bd60c90cd85f0a413a4f2a2844fae03d4d6c"
+  },
+  "trackedProposalFilesUnchanged": true,
+  "freshBuildInputFilesUnchanged": true,
+  "completionRecordSha256": "680e7d4172b9631e967a31e3e1067fd1a80a8546b2b9ac8bae90e7a734ffc2bf",
+  "pipelineStagesVerified": 23,
+  "stdoutCompletionMarkerPresent": true,
+  "constructionLogSha256": "6de5997a30c2de0756a934e5cf3717ccf203c154981633be9abd0b1dbd4ef251",
+  "pythonVersion": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "nodeVersion": "v24.22.1",
+  "scope": "Exact finite source, gate, transformation, full polynomial and text-table checks; inherited global arithmetic remains conditional."
+}

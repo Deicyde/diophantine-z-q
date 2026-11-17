@@ -1,0 +1,289 @@
+{
+  "algebra": {
+    "changed_common_rows": [
+      "scalar.Bh.definition",
+      "scalar.preparationT.definition",
+      "scalar.secondConic",
+      "scalar.shiftedS.rootTimesInverseRoot.definition.0",
+      "scalar.shiftedS.rootTimesInverseRoot.definition.1"
+    ],
+    "deleted": "scalar.W2.definition",
+    "row_operations": [
+      [
+        "scalar.shiftedS.rootTimesInverseRoot.definition.0",
+        "-39/8",
+        "18"
+      ],
+      [
+        "scalar.shiftedS.rootTimesInverseRoot.definition.1",
+        "9/2",
+        "-39/4"
+      ]
+    ],
+    "Bh_forward_scale": "184460384539620",
+    "bidirectional_rational_transport": true
+  },
+  "tables": [
+    {
+      "path": "/tmp/codex-opus-vet-20261109/algebra17",
+      "coordinates": 379,
+      "rows": 348,
+      "monomials": 26021,
+      "digits": 425,
+      "anchor": 2010,
+      "table_sha256": "50167c7f2873a2022c5c1c7dbff735eec097e9c7f60c6624c7abb0ff34cd37ec",
+      "full_diagonal_and_coefficient_check": true
+    },
+    {
+      "path": "/tmp/codex-opus-vet-20261109/combined",
+      "coordinates": 376,
+      "rows": 345,
+      "monomials": 25964,
+      "digits": 425,
+      "anchor": 2010,
+      "table_sha256": "b2fe4f569707a9b548a3b9a8221e0b060bce83a2c03cd38f83791a30ed48b9c1",
+      "full_diagonal_and_coefficient_check": true
+    },
+    {
+      "path": "/tmp/claude-1000/-home-freer-math-diophantine-z-q/78a63063-c94e-475f-86a6-1c128ce9e4b9/scratchpad/explore/compose/build/i48_triA31_1692",
+      "coordinates": 377,
+      "rows": 346,
+      "monomials": 25976,
+      "digits": 365,
+      "anchor": 1692,
+      "table_sha256": "16838305cee33eb6bb08a3c3be1cf9fdb32676075adeebc72c084037f5ef13ab",
+      "full_diagonal_and_coefficient_check": true
+    },
+    {
+      "path": "/tmp/claude-1000/-home-freer-math-diophantine-z-q/78a63063-c94e-475f-86a6-1c128ce9e4b9/scratchpad/explore/compose/build/i48_triA31_1704",
+      "coordinates": 377,
+      "rows": 346,
+      "monomials": 25976,
+      "digits": 368,
+      "anchor": 1704,
+      "table_sha256": "edafa9b034cc73d59d3def73dbd7ab0f0d8118913644bfd7a27a23ed04112cc4",
+      "full_diagonal_and_coefficient_check": true
+    },
+    {
+      "path": "/tmp/claude-1000/-home-freer-math-diophantine-z-q/78a63063-c94e-475f-86a6-1c128ce9e4b9/scratchpad/explore/compose/build/i50_tau31_1518",
+      "coordinates": 375,
+      "rows": 344,
+      "monomials": 25936,
+      "digits": 367,
+      "anchor": 1518,
+      "table_sha256": "7483684ae225feec90d70eaacf19ed7188af7ce25d4a863d863f2c9f6f32d605",
+      "full_diagonal_and_coefficient_check": true
+    },
+    {
+      "path": "/tmp/claude-1000/-home-freer-math-diophantine-z-q/78a63063-c94e-475f-86a6-1c128ce9e4b9/scratchpad/explore/compose/build/i50_triA31_1512",
+      "coordinates": 377,
+      "rows": 346,
+      "monomials": 25979,
+      "digits": 327,
+      "anchor": 1512,
+      "table_sha256": "1e02fbc1675c9474c3fcc754aae2edece6493f2fb67ec1909d57ac387269690b",
+      "full_diagonal_and_coefficient_check": true
+    },
+    {
+      "path": "/tmp/claude-1000/-home-freer-math-diophantine-z-q/78a63063-c94e-475f-86a6-1c128ce9e4b9/scratchpad/explore/compose/build/i50_triA31_1518",
+      "coordinates": 377,
+      "rows": 346,
+      "monomials": 25979,
+      "digits": 328,
+      "anchor": 1518,
+      "table_sha256": "d2e92d2ce53544bf137c8e1660250beac42ee143e80421825fe090fcf449c2d0",
+      "full_diagonal_and_coefficient_check": true
+    },
+    {
+      "path": "/tmp/claude-1000/-home-freer-math-diophantine-z-q/78a63063-c94e-475f-86a6-1c128ce9e4b9/scratchpad/explore/compose/build/i50_triA_2016",
+      "coordinates": 376,
+      "rows": 345,
+      "monomials": 25964,
+      "digits": 426,
+      "anchor": 2016,
+      "table_sha256": "d0a36b28b5d527a705da3db5e177d5e673b5d6f008b43d8a52b147665d0e31c1",
+      "full_diagonal_and_coefficient_check": true
+    },
+    {
+      "path": "/tmp/claude-1000/-home-freer-math-diophantine-z-q/78a63063-c94e-475f-86a6-1c128ce9e4b9/scratchpad/explore/compose/build/p46_tau31_1956",
+      "coordinates": 375,
+      "rows": 344,
+      "monomials": 25936,
+      "digits": 471,
+      "anchor": 1956,
+      "table_sha256": "65f4f887a187c848c3d382e6346c18f095a62f1cfd466fbe8700f59f362485f3",
+      "full_diagonal_and_coefficient_check": true
+    },
+    {
+      "path": "/tmp/claude-1000/-home-freer-math-diophantine-z-q/78a63063-c94e-475f-86a6-1c128ce9e4b9/scratchpad/explore/compose/build/p46_tau_2016",
+      "coordinates": 374,
+      "rows": 343,
+      "monomials": 25921,
+      "digits": 485,
+      "anchor": 2016,
+      "table_sha256": "f060e426a4aa6c9192c369e79b4b6d48980c7f873db79278cf36d4152b9c1f25",
+      "full_diagonal_and_coefficient_check": true
+    },
+    {
+      "path": "/tmp/claude-1000/-home-freer-math-diophantine-z-q/78a63063-c94e-475f-86a6-1c128ce9e4b9/scratchpad/explore/compose/build/p46_triA31_1944",
+      "coordinates": 377,
+      "rows": 346,
+      "monomials": 25979,
+      "digits": 418,
+      "anchor": 1944,
+      "table_sha256": "fbbbc9a873b7b89e96830b35b8fe0a0bacae7043518e8c86d3330cf64b93f5b4",
+      "full_diagonal_and_coefficient_check": true
+    },
+    {
+      "path": "/tmp/claude-1000/-home-freer-math-diophantine-z-q/78a63063-c94e-475f-86a6-1c128ce9e4b9/scratchpad/explore/compose/build/p46_triA31_1956",
+      "coordinates": 377,
+      "rows": 346,
+      "monomials": 25979,
+      "digits": 421,
+      "anchor": 1956,
+      "table_sha256": "c8c5915f2ce0b6866ddba24c6f4ad4077d05d139ab842df85a3757e579185ab0",
+      "full_diagonal_and_coefficient_check": true
+    },
+    {
+      "path": "/tmp/claude-1000/-home-freer-math-diophantine-z-q/78a63063-c94e-475f-86a6-1c128ce9e4b9/scratchpad/explore/compose/build/p46_triA_2010",
+      "coordinates": 376,
+      "rows": 345,
+      "monomials": 25964,
+      "digits": 425,
+      "anchor": 2010,
+      "table_sha256": "b2fe4f569707a9b548a3b9a8221e0b060bce83a2c03cd38f83791a30ed48b9c1",
+      "full_diagonal_and_coefficient_check": true
+    },
+    {
+      "path": "/tmp/claude-1000/-home-freer-math-diophantine-z-q/78a63063-c94e-475f-86a6-1c128ce9e4b9/scratchpad/explore/compose/build/p46_triA_2016",
+      "coordinates": 376,
+      "rows": 345,
+      "monomials": 25964,
+      "digits": 426,
+      "anchor": 2016,
+      "table_sha256": "c8c9a21fba3b7e4704eefa3f444615be1646f285da15f371121aae20a821dd84",
+      "full_diagonal_and_coefficient_check": true
+    }
+  ],
+  "chains": [
+    {
+      "path": "/tmp/codex-opus-vet-20261109/combined",
+      "order": 46,
+      "blocks": [
+        {
+          "block": 0,
+          "exact_target_powers": {
+            "q12": 23,
+            "mixedHigh.quadratic": 46,
+            "q46": 91,
+            "E46.power2.quadratic": 182,
+            "E46.power3.quadratic": 273
+          },
+          "all_denominators_powers_of_positive_q1": true
+        },
+        {
+          "block": 1,
+          "exact_target_powers": {
+            "q12": 23,
+            "mixedHigh.quadratic": 46,
+            "q46": 91,
+            "E46.power2.quadratic": 182,
+            "E46.power3.quadratic": 273
+          },
+          "all_denominators_powers_of_positive_q1": true
+        },
+        {
+          "block": 2,
+          "exact_target_powers": {
+            "q12": 23,
+            "mixedHigh.quadratic": 46,
+            "q46": 91,
+            "E46.power2.quadratic": 182,
+            "E46.power3.quadratic": 273
+          },
+          "all_denominators_powers_of_positive_q1": true
+        }
+      ]
+    },
+    {
+      "path": "/tmp/claude-1000/-home-freer-math-diophantine-z-q/78a63063-c94e-475f-86a6-1c128ce9e4b9/scratchpad/explore/compose/build/i48_triA31_1692",
+      "order": 48,
+      "blocks": [
+        {
+          "block": 0,
+          "exact_target_powers": {
+            "q12": 23,
+            "mixedHigh.quadratic": 46,
+            "q48": 95,
+            "E48.power2.quadratic": 190,
+            "E48.power3.quadratic": 285
+          },
+          "all_denominators_powers_of_positive_q1": true
+        },
+        {
+          "block": 1,
+          "exact_target_powers": {
+            "q12": 23,
+            "mixedHigh.quadratic": 46,
+            "q48": 95,
+            "E48.power2.quadratic": 190,
+            "E48.power3.quadratic": 285
+          },
+          "all_denominators_powers_of_positive_q1": true
+        },
+        {
+          "block": 2,
+          "exact_target_powers": {
+            "q12": 23,
+            "mixedHigh.quadratic": 46,
+            "q48": 95,
+            "E48.power2.quadratic": 190,
+            "E48.power3.quadratic": 285
+          },
+          "all_denominators_powers_of_positive_q1": true
+        }
+      ]
+    },
+    {
+      "path": "/tmp/claude-1000/-home-freer-math-diophantine-z-q/78a63063-c94e-475f-86a6-1c128ce9e4b9/scratchpad/explore/compose/build/i50_triA31_1512",
+      "order": 50,
+      "blocks": [
+        {
+          "block": 0,
+          "exact_target_powers": {
+            "q12": 23,
+            "mixedHigh.quadratic": 46,
+            "q50": 99,
+            "E50.power2.quadratic": 198,
+            "E50.power3.quadratic": 297
+          },
+          "all_denominators_powers_of_positive_q1": true
+        },
+        {
+          "block": 1,
+          "exact_target_powers": {
+            "q12": 23,
+            "mixedHigh.quadratic": 46,
+            "q50": 99,
+            "E50.power2.quadratic": 198,
+            "E50.power3.quadratic": 297
+          },
+          "all_denominators_powers_of_positive_q1": true
+        },
+        {
+          "block": 2,
+          "exact_target_powers": {
+            "q12": 23,
+            "mixedHigh.quadratic": 46,
+            "q50": 99,
+            "E50.power2.quadratic": 198,
+            "E50.power3.quadratic": 297
+          },
+          "all_denominators_powers_of_positive_q1": true
+        }
+      ]
+    }
+  ],
+  "composed_source_reproduced_exactly": true,
+  "scope": "Finite identities and complete coefficient checks; no global theorem or independent-acceptance record."
+}

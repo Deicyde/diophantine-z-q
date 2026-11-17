@@ -1,0 +1,84 @@
+{
+  "status": "PASS",
+  "scope": "Exact reconstruction of every precompiler base row and new constant-chain row in all three selected lifts, plus exact direct specialization of every normalized core residual. This checker imports neither producer nor compiler. Final SOS expansions and the global arithmetic implication are separate checks.",
+  "builderSha256": "78b54bcde24ff8a91091e102a4734c49878699f071d9230e5ce7a70ffd2114d0",
+  "rawIrSha256": "582c8bf2fcde54242bb23bf7aa33d3a7a9065f04b8edd885a13386b5b779b92c",
+  "sourceIrSha256": "60c37a4f41caf501b29215f88fc539b12ab646cdc9797dd572584d99985c2f22",
+  "checkerSha256": "ca5f2146f07ba46064f57d54392502fc965204d6ea82f43abd8a3a701deebd7f",
+  "fixedParameter": {
+    "name": "S",
+    "value": "3^2790",
+    "coordinate": false
+  },
+  "coreCoordinates": 392,
+  "coreResiduals": 360,
+  "chains": [
+    {
+      "file": "ordinary394/lifted-ir.json",
+      "sha256": "ffc9fd8922ea766a446eb3b1e0dd8d23409264d99f1ae404c32b02e54e735f3d",
+      "coefficientExponents": [
+        930,
+        930
+      ],
+      "chainCoordinates": [
+        403,
+        404
+      ],
+      "terminalExponent": 2790,
+      "totalCoordinates": 394,
+      "residuals": 362,
+      "baseResidualsReconstructed": 360,
+      "uniqueExtension": "The first row fixes x0, and every later row is monic in a fresh coordinate xi and depends only on x(i-1).",
+      "quadraticAfterSubstitution": true
+    },
+    {
+      "file": "ordinary395/lifted-ir.json",
+      "sha256": "cf715b0ccb35b3085d656b7659b2fed26760d704fd2bd419682e8f51e96d10fd",
+      "coefficientExponents": [
+        399,
+        399,
+        396
+      ],
+      "chainCoordinates": [
+        403,
+        404,
+        405
+      ],
+      "terminalExponent": 2790,
+      "totalCoordinates": 395,
+      "residuals": 363,
+      "baseResidualsReconstructed": 360,
+      "uniqueExtension": "The first row fixes x0, and every later row is monic in a fresh coordinate xi and depends only on x(i-1).",
+      "quadraticAfterSubstitution": true
+    },
+    {
+      "file": "ordinary396/lifted-ir.json",
+      "sha256": "cc0196651eb84c5b123138197e59f168ad18c85f38e3d3c93c02ec13ad6f4624",
+      "coefficientExponents": [
+        186,
+        186,
+        186,
+        186
+      ],
+      "chainCoordinates": [
+        403,
+        404,
+        405,
+        406
+      ],
+      "terminalExponent": 2790,
+      "totalCoordinates": 396,
+      "residuals": 364,
+      "baseResidualsReconstructed": 360,
+      "uniqueExtension": "The first row fixes x0, and every later row is monic in a fresh coordinate xi and depends only on x(i-1).",
+      "quadraticAfterSubstitution": true
+    }
+  ],
+  "directSpecialization": {
+    "file": "ordinary392/specialized-ir.json",
+    "sha256": "6eac5783113da7599947d78de6c183d9db43da25bfef5e2c185b712e14124742",
+    "coordinates": 392,
+    "residualsReconstructed": 360,
+    "parameterExponent": 2790
+  }
+}

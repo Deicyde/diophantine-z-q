@@ -1,0 +1,43 @@
+{
+  "status": "PASS",
+  "changedRows": [
+    "scalar.Bh.definition",
+    "scalar.preparationT.definition",
+    "scalar.secondConic",
+    "scalar.shiftedS.rootTimesInverseRoot.definition.0",
+    "scalar.shiftedS.rootTimesInverseRoot.definition.1"
+  ],
+  "deletedRow": "scalar.W2.definition",
+  "rowOperations": [
+    {
+      "row": "scalar.shiftedS.rootTimesInverseRoot.definition.0",
+      "multipliers": [
+        "-39/8",
+        "18"
+      ]
+    },
+    {
+      "row": "scalar.shiftedS.rootTimesInverseRoot.definition.1",
+      "multipliers": [
+        "9/2",
+        "-39/4"
+      ]
+    }
+  ],
+  "BhForwardScale": "184460384539620",
+  "unchangedCommonRows": 358,
+  "outsideGatesAndGuardsIdentical": true,
+  "uniqueBidirectionalScalarTransport": true,
+  "scope": "Exact source equations over Q with r*ri=1; inherited arithmetic and compiler/diagonal checks separate.",
+  "rejectedCorruptions": [
+    "scalar.preparationT.definition",
+    "scalar.Bh.definition",
+    "scalar.secondConic",
+    "scalar.shiftedS.rootTimesInverseRoot.definition.0",
+    "scalar.rInverse.definition"
+  ],
+  "sources": {
+    "old": "f6ac117625f054cf6fec0863f1a3417b0f5305a9e477e901e098387a6a6fac40",
+    "new": "40d54012e608282410c90e850637f71359c73321fc9762f64a7086347601fdc7"
+  }
+}

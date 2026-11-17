@@ -1,0 +1,52 @@
+{
+  "status": "FROZEN_CANDIDATE; independent source review pending",
+  "source_commit": "059bf903b441220246d5c1161f8dc24165b7a534",
+  "transformation": "Only selected root bodies replaced with by sorry; one intra-packet import redirected to Challenge. All other source bytes preserved.",
+  "theorem_holes": 39,
+  "definition_holes": 2,
+  "fixed_supporting_declarations": [
+    "Research.DerivativeSwitch.ConjugateLocalTransport.twist",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.conjugation",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.IsCrossed",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.transportUnit",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.coordinates",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.rawConjugate",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.cocycleEvaluation",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.h1Evaluation",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.cocyclePullback",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.h1Pullback",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.h1Coordinates",
+    "Research.DerivativeSwitch.ConjugateLocalTransport.LocalData.conjugateH1Coordinates",
+    "Research.DerivativeSwitch.ActualBoundaryCup.LocalCupData",
+    "Research.DerivativeSwitch.OrthogonalComparison.fibreD",
+    "Research.DerivativeSwitch.OrthogonalComparison.fibreComparison"
+  ],
+  "inputs": [
+    {
+      "source": "lean/Research/DerivativeSwitch/ConjugateLocalTransport.lean",
+      "source_sha256": "8688eef27fcc89c02eb3ab270e5359534dc23ef16e11678bdb1dd3587e3f8b86",
+      "challenge": "research/local-boundary-interfaces/comparator/Challenge/ConjugateLocalTransport.lean",
+      "challenge_sha256": "bffb19028463115f9e43f907ab887ae71c6dc3f3daf8ec2064e9231a925e05df"
+    },
+    {
+      "source": "lean/Research/DerivativeSwitch/ConjugateLocalH1.lean",
+      "source_sha256": "078ac50ae0c90c8e609a57c51c5884a25646ad7305531f1cf531617485b9078f",
+      "challenge": "research/local-boundary-interfaces/comparator/Challenge/ConjugateLocalH1.lean",
+      "challenge_sha256": "0c6f7c20c7b853c8c9244cfa1107f0db8086fa621d8ded495bf0c69dccb36719"
+    },
+    {
+      "source": "lean/Research/DerivativeSwitch/ActualBoundaryCup.lean",
+      "source_sha256": "77bcdd2ae5283ffd6cc51062e452da4294fcd5b3d952940b588b2d5b52ecdd90",
+      "challenge": "research/local-boundary-interfaces/comparator/Challenge/ActualBoundaryCup.lean",
+      "challenge_sha256": "9f6da7a2ee1bf261685e2ff6d91da7e9f59c4d65545b5f9dcae1a293ad7248e2"
+    },
+    {
+      "source": "lean/Research/DerivativeSwitch/OrthogonalComparison.lean",
+      "source_sha256": "bfec996b869e44c6a42fc058fbc24cc7288b1f61d0f0e7eef1f4f58f41dca1ba",
+      "challenge": "research/local-boundary-interfaces/comparator/Challenge/OrthogonalComparison.lean",
+      "challenge_sha256": "9f831ae731b203072f8d186ba97d7e4d8a406792dd113d5eb12ca8e0252dd60c"
+    }
+  ],
+  "meaning": "A frozen specification for this conditional helper packet, not an accepted solution or arithmetic instantiation."
+}

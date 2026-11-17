@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "pages": 14,
+  "visualReview": "All14 page renders inspected in three contact sheets; pages10 and12 additionally inspected at full rendered size. No clipping, overlap, missing glyphs, or overflowing formulas/tables observed.",
+  "latexWarnings": 0,
+  "pdfSha256": "07149927ad5abf1b0e1617f607023d72d4f07e19dad0b594829b0ea607442f00",
+  "texSha256": "f32a48d3e38ec2f5a23efd7d932c5088148716f7e17e5e443f2653273ab44a14",
+  "proofs": {
+    "diagonal_scaling_round8.tex": "0115c276febf3b06b46462d06aa862714456f78790e5ec6bd68ac938db8b2e50",
+    "arithmetic_round8.tex": "826523050c2f0d315561ae064124b420862ff09eeafaa63437e0339ce7c22f7b",
+    "detector_round8.tex": "150b79708b8088d1c75641571277eecf452fe72b7c729cc4fe783e4da76b83bb"
+  },
+  "scope": "Presentation and binding review, not an independent proof of mathematical claims."
+}

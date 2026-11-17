@@ -1,0 +1,71 @@
+def Research.DerivativeSwitch.AxesKernel.{u_1, u_2, u_3, u_4} : {K : Type u_1} →
+  {F : Type u_2} →
+    {S : Type u_3} →
+      {H : Type u_4} →
+        [inst : Field.{u_1} K] →
+          [inst_1 : AddCommGroup.{u_2} F] →
+            [inst_2 : Module.{u_1, u_2} K F] →
+              [inst_3 : AddCommGroup.{u_3} S] →
+                [inst_4 : Module.{u_1, u_3} K S] →
+                  [inst_5 : AddCommGroup.{u_4} H] →
+                    [inst_6 : Module.{u_1, u_4} K H] →
+                      LinearMap.{u_1, u_1, u_2, u_4} (RingHom.id.{u_1} K) F H →
+                        LinearMap.{u_1, u_1, u_3, u_4} (RingHom.id.{u_1} K) S H →
+                          LinearEquiv.{u_1, u_1, u_2, u_3} (RingHom.id.{u_1} K) F S → F → Prop :=
+fun {K} {F} {S} {H} [Field.{u_1} K] [AddCommGroup.{u_2} F] [Module.{u_1, u_2} K F] [AddCommGroup.{u_3} S]
+    [Module.{u_1, u_3} K S] [AddCommGroup.{u_4} H] [Module.{u_1, u_4} K H] dF dS J v =>
+  ∀ (x : F) (y : S),
+    Eq.{u_4 + 1} (HAdd.hAdd.{u_4, u_4, u_4} (dF x) (dS y)) 0 ↔
+      ∃ a b, Eq.{u_2 + 1} x (HSMul.hSMul.{u_1, u_2, u_2} a v) ∧ Eq.{u_3 + 1} y (HSMul.hSMul.{u_1, u_3, u_3} b (J v))
+@Research.DerivativeSwitch.finite_kernel_line.{u_1, u_2, u_3,
+    u_4} : ∀ {K : Type u_1} {F : Type u_2} {S : Type u_3} {H : Type u_4} [inst : Field.{u_1} K]
+  [inst_1 : AddCommGroup.{u_2} F] [inst_2 : Module.{u_1, u_2} K F] [inst_3 : AddCommGroup.{u_3} S]
+  [inst_4 : Module.{u_1, u_3} K S] [inst_5 : AddCommGroup.{u_4} H] [inst_6 : Module.{u_1, u_4} K H]
+  (dF : LinearMap.{u_1, u_1, u_2, u_4} (RingHom.id.{u_1} K) F H)
+  (dS : LinearMap.{u_1, u_1, u_3, u_4} (RingHom.id.{u_1} K) S H)
+  (J : LinearEquiv.{u_1, u_1, u_2, u_3} (RingHom.id.{u_1} K) F S) (v : F),
+  Research.DerivativeSwitch.AxesKernel.{u_1, u_2, u_3, u_4} dF dS J v →
+    ∀ (x : F), Eq.{u_4 + 1} (dF x) 0 ↔ ∃ a, Eq.{u_2 + 1} x (HSMul.hSMul.{u_1, u_2, u_2} a v)
+@Research.DerivativeSwitch.singular_kernel_line.{u_1, u_2, u_3,
+    u_4} : ∀ {K : Type u_1} {F : Type u_2} {S : Type u_3} {H : Type u_4} [inst : Field.{u_1} K]
+  [inst_1 : AddCommGroup.{u_2} F] [inst_2 : Module.{u_1, u_2} K F] [inst_3 : AddCommGroup.{u_3} S]
+  [inst_4 : Module.{u_1, u_3} K S] [inst_5 : AddCommGroup.{u_4} H] [inst_6 : Module.{u_1, u_4} K H]
+  (dF : LinearMap.{u_1, u_1, u_2, u_4} (RingHom.id.{u_1} K) F H)
+  (dS : LinearMap.{u_1, u_1, u_3, u_4} (RingHom.id.{u_1} K) S H)
+  (J : LinearEquiv.{u_1, u_1, u_2, u_3} (RingHom.id.{u_1} K) F S) (v : F),
+  Research.DerivativeSwitch.AxesKernel.{u_1, u_2, u_3, u_4} dF dS J v →
+    ∀ (y : S), Eq.{u_4 + 1} (dS y) 0 ↔ ∃ b, Eq.{u_3 + 1} y (HSMul.hSMul.{u_1, u_3, u_3} b (J v))
+@Research.DerivativeSwitch.boundary_images_meet_zero.{u_1, u_2, u_3,
+    u_4} : ∀ {K : Type u_1} {F : Type u_2} {S : Type u_3} {H : Type u_4} [inst : Field.{u_1} K]
+  [inst_1 : AddCommGroup.{u_2} F] [inst_2 : Module.{u_1, u_2} K F] [inst_3 : AddCommGroup.{u_3} S]
+  [inst_4 : Module.{u_1, u_3} K S] [inst_5 : AddCommGroup.{u_4} H] [inst_6 : Module.{u_1, u_4} K H]
+  (dF : LinearMap.{u_1, u_1, u_2, u_4} (RingHom.id.{u_1} K) F H)
+  (dS : LinearMap.{u_1, u_1, u_3, u_4} (RingHom.id.{u_1} K) S H)
+  (J : LinearEquiv.{u_1, u_1, u_2, u_3} (RingHom.id.{u_1} K) F S) (v : F),
+  Research.DerivativeSwitch.AxesKernel.{u_1, u_2, u_3, u_4} dF dS J v →
+    ∀ (x : F) (y : S), Eq.{u_4 + 1} (dF x) (dS y) → Eq.{u_4 + 1} (dF x) 0 ∧ Eq.{u_4 + 1} (dS y) 0
+@Research.DerivativeSwitch.no_identity_strict_square.{u_1, u_2, u_3,
+    u_4} : ∀ {K : Type u_1} {F : Type u_2} {S : Type u_3} {H : Type u_4} [inst : Field.{u_1} K]
+  [inst_1 : AddCommGroup.{u_2} F] [inst_2 : Module.{u_1, u_2} K F] [inst_3 : AddCommGroup.{u_3} S]
+  [inst_4 : Module.{u_1, u_3} K S] [inst_5 : AddCommGroup.{u_4} H] [inst_6 : Module.{u_1, u_4} K H]
+  (dF : LinearMap.{u_1, u_1, u_2, u_4} (RingHom.id.{u_1} K) F H)
+  (dS : LinearMap.{u_1, u_1, u_3, u_4} (RingHom.id.{u_1} K) S H)
+  (J : LinearEquiv.{u_1, u_1, u_2, u_3} (RingHom.id.{u_1} K) F S) (v : F),
+  Research.DerivativeSwitch.AxesKernel.{u_1, u_2, u_3, u_4} dF dS J v →
+    (∃ x, ∀ (a : K), Ne.{u_2 + 1} x (HSMul.hSMul.{u_1, u_2, u_2} a v)) → ¬∀ (x : F), Eq.{u_4 + 1} (dF x) (dS (J x))
+@Research.DerivativeSwitch.Volume.area_action.{u_1} : ∀ {R : Type u_1} [inst : CommRing.{u_1} R] (a b c d : R)
+  (v w : Prod.{u_1, u_1} R R),
+  Eq.{u_1 + 1}
+    (Research.DerivativeSwitch.Volume.area.{u_1} (Research.DerivativeSwitch.Volume.action.{u_1} a b c d v)
+      (Research.DerivativeSwitch.Volume.action.{u_1} a b c d w))
+    (HMul.hMul.{u_1, u_1, u_1}
+      (HSub.hSub.{u_1, u_1, u_1} (HMul.hMul.{u_1, u_1, u_1} a d) (HMul.hMul.{u_1, u_1, u_1} b c))
+      (Research.DerivativeSwitch.Volume.area.{u_1} v w))
+@Research.DerivativeSwitch.Volume.area_neg_one.{u_1} : ∀ {R : Type u_1} [inst : CommRing.{u_1} R] (a b c d : R)
+  (v w : Prod.{u_1, u_1} R R),
+  Eq.{u_1 + 1} (HSub.hSub.{u_1, u_1, u_1} (HMul.hMul.{u_1, u_1, u_1} a d) (HMul.hMul.{u_1, u_1, u_1} b c)) (-1) →
+    Eq.{u_1 + 1} (Research.DerivativeSwitch.Volume.area.{u_1} v w) 1 →
+      Eq.{u_1 + 1}
+        (Research.DerivativeSwitch.Volume.area.{u_1} (Research.DerivativeSwitch.Volume.action.{u_1} a b c d v)
+          (Research.DerivativeSwitch.Volume.action.{u_1} a b c d w))
+        (-1)

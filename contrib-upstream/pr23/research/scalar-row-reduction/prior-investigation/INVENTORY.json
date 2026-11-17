@@ -1,0 +1,1260 @@
+{
+  "format": "contributed-research-snapshot-v1",
+  "date": "2026-11-09",
+  "baseCommit": "31563264ba3dfbc3f00b4b08c099e9380caacd42",
+  "authors": [
+    "User-supplied Claude Opus exploration agents; identities recorded by direction in original notes",
+    "Codex /root vetting and integration"
+  ],
+  "coverage": "Original source notes, search scripts/results and selected composed measurement receipts; no binaries, scratch build products or conversational transcripts. Original scripts retain historical local paths and are not advertised as a portable reproduction. New candidate has its separate complete runner. Archived unproved leads are not dependencies. Full old generated tables are not committed; receipts bind their hashes.",
+  "files": [
+    {
+      "path": "prior-investigation/opus/frontier/NOTES.md",
+      "sha256": "69a9ff385c7d10d988ada746a7fb181fa3942c1817047f4032e29dee935dce6e",
+      "origin": "frontier/NOTES.md",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/frontier/alpha_slack.py",
+      "sha256": "54658b7bdb0e697814e13d2d51d506efa17fc9339e068bf29b00e6c078d6e41c",
+      "origin": "frontier/alpha_slack.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/frontier/anchor_frontier.json",
+      "sha256": "0d7d6cc5d311574c4835a421ba78fbfe81a99b99d7d3784e0086fbdc0b3ae039",
+      "origin": "frontier/anchor_frontier.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/frontier/anchor_frontier.py",
+      "sha256": "b9f282ff1b1d78fbcd7d84ecd978fa7e2b6ae2012665dc772ddf01e9ef67832a",
+      "origin": "frontier/anchor_frontier.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/frontier/chain_grid.txt",
+      "sha256": "f7652262e104b3a8bdce5de00a7216197ec4194071f298dffc65a60db10db0c8",
+      "origin": "frontier/chain_grid.txt",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/frontier/chain_grid_d8.txt",
+      "sha256": "37764aa0a30087181b96e50994d71c88c7ccebca738b957dd4f3096a5049e81d",
+      "origin": "frontier/chain_grid_d8.txt",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/frontier/chain_grid_strict_partial_depth9.txt",
+      "sha256": "f7652262e104b3a8bdce5de00a7216197ec4194071f298dffc65a60db10db0c8",
+      "origin": "frontier/chain_grid_strict_partial_depth9.txt",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/frontier/chain_search.cpp",
+      "sha256": "899a569393a8137f1c2f8e41b8cb9498f014a7f1c56d37bd9cc1b8a04afa1f57",
+      "origin": "frontier/chain_search.cpp",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/frontier/check_pow_chain.py",
+      "sha256": "b27a30aa991879cab53dd02f7e225a83c665753803d6f583dba2bd48e57d0303",
+      "origin": "frontier/check_pow_chain.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/frontier/eonly.py",
+      "sha256": "fe255a489dcc40b28f5343736f7262d7f7c2fc6def667de919634c8d782af5fd",
+      "origin": "frontier/eonly.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/frontier/eonly6.txt",
+      "sha256": "8097862b671d92d680b907c2892e137d0278bd3b746f51fc2ee907de588af10c",
+      "origin": "frontier/eonly6.txt",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/frontier/eonly7.txt",
+      "sha256": "5b529bd2db988e605326f789337bb8c3c7eaa2d5f0a2d9ad5d3f64cac3d40754",
+      "origin": "frontier/eonly7.txt",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/frontier/eonly_min.py",
+      "sha256": "9963ee95dbf486faff932cf72dee32017c53d55afd24e71761f3c0cf24732a31",
+      "origin": "frontier/eonly_min.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/frontier/eonly_min_j12.txt",
+      "sha256": "e7a278cc74253af65970cd0ea80fa016772f378c4257ab252df39856cda3b66a",
+      "origin": "frontier/eonly_min_j12.txt",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/frontier/frontier.json",
+      "sha256": "1dc3ec4048f13a7a7998234ce5e09931a0c6e75ea058767cb61278713d2a8cc7",
+      "origin": "frontier/frontier.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/frontier/grid.sh",
+      "sha256": "26c43da4503206029186dc1e39f5ef4b2dfd55da20465eb6c75a55cbedc8f7b6",
+      "origin": "frontier/grid.sh",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/frontier/sharpened_check.py",
+      "sha256": "80a9ca805e74a10625ade6640a017942f6b58f9418a2e1c3adf8f285cae36c7e",
+      "origin": "frontier/sharpened_check.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/frontier/src/builder45.cjs",
+      "sha256": "69d58bca762914a4e7ddceb93794c5a69c0eb3d7228ac9de4c8efaece73b2c3d",
+      "origin": "frontier/src/builder45.cjs",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/frontier/src/builder47.cjs",
+      "sha256": "59939d232ac130c79ef0ca781cb2c2db217aa62baf6938b615b7270c7eea33a3",
+      "origin": "frontier/src/builder47.cjs",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/weight47/NOTES.md",
+      "sha256": "74a8dbdc14f9a0d5f402ee06404feb1e58ee1a8f0c829156ac9c08d17c5a4aac",
+      "origin": "weight47/NOTES.md",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/weight47/check_pow377.py",
+      "sha256": "7eb9d553da03638534b17202906df718922f1f29b36b59ea75fe43a24e1c9547",
+      "origin": "weight47/check_pow377.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/weight47/check_powF47.py",
+      "sha256": "f66fe7d5c335ad0bb1ae27b963d48d561d357e6e3ff89452b6b003b7d941cbed",
+      "origin": "weight47/check_powF47.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/weight47/check_rows.py",
+      "sha256": "f12c650a6e6b6dec6d79d77b55971330d569393c6ad05830f4fc57e6f9795a54",
+      "origin": "weight47/check_rows.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/weight47/check_semantics.py",
+      "sha256": "e48406b65967ad118c0e08c14175679ee99f14f5a053a56b986120f71ec7a06a",
+      "origin": "weight47/check_semantics.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/weight47/diff_rows.py",
+      "sha256": "13035eb662c6edd43c90bc0769f03319e5519764275e78e89fd68069205a48c3",
+      "origin": "weight47/diff_rows.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/weight47/drive.py",
+      "sha256": "8eb4718da880acca2a0fcf659eaa18555df47250a6df1786fb51999c0b72b064",
+      "origin": "weight47/drive.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/weight47/drive2.py",
+      "sha256": "5ec945f7c75a1e3c5bfb3d9631b1281d159efa993211472750027f162e6b5661",
+      "origin": "weight47/drive2.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/weight47/drive3d.py",
+      "sha256": "c7a59e0b6096969fc0c4a1bdd2674e651bde594ac12760d28b592bb69c3c02e5",
+      "origin": "weight47/drive3d.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/weight47/drive_norm.py",
+      "sha256": "4d8d830e78ab59bd861260a2dbf31ba327e22cddc5a63d6a09ecf7ac03aed9ab",
+      "origin": "weight47/drive_norm.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/weight47/drive_psi.py",
+      "sha256": "dd916e8109a34dfb03bd1487a70112ddf09b84981652dcf44560d15f7b7cea61",
+      "origin": "weight47/drive_psi.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/weight47/identities.py",
+      "sha256": "e6e772499f77d209c334bcf57fb1ce589c185323ed857818fd7e5e655ab1e565",
+      "origin": "weight47/identities.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/weight47/onedim.py",
+      "sha256": "e09d44af9870eb0a5d1f1388bbbab5d2ae2c51e81e72a6d74579b12660d4dd9b",
+      "origin": "weight47/onedim.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/weight47/out_3d.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "origin": "weight47/out_3d.txt",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/weight47/out_fam_b7.txt",
+      "sha256": "6ca42768eccb1dfa1b31e94980365534d31ea07d47175e514518c4cd351107a2",
+      "origin": "weight47/out_fam_b7.txt",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/weight47/out_fam_noF_48_50.txt",
+      "sha256": "02813dad3aacab6c389bad430ec6766d3611442cf57e7524b1d7652e85493b84",
+      "origin": "weight47/out_fam_noF_48_50.txt",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/weight47/out_norm_N45_b7.txt",
+      "sha256": "dfa614dcea48446f403e66778a1e8219b6164ae5ead52e20bab4430a31178c11",
+      "origin": "weight47/out_norm_N45_b7.txt",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/weight47/out_norm_N46_b8.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "origin": "weight47/out_norm_N46_b8.txt",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/weight47/out_norm_N47_b8.txt",
+      "sha256": "5729b34ced572f2feb2f0baa84973bb091a11af305016b3a3cbfb07d0db6143c",
+      "origin": "weight47/out_norm_N47_b8.txt",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/weight47/out_psi_N45_b7.txt",
+      "sha256": "2cc5afac9e6ea158f101fbd44084f9f167952617732e5c240f3f2a64670a2c58",
+      "origin": "weight47/out_psi_N45_b7.txt",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/weight47/out_psi_N45_b8.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "origin": "weight47/out_psi_N45_b8.txt",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/weight47/out_psi_N46_b8.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "origin": "weight47/out_psi_N46_b8.txt",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/weight47/out_psi_N47_b8.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "origin": "weight47/out_psi_N47_b8.txt",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/weight47/out_r0_N45_b7_ex1.txt",
+      "sha256": "abf7e29558b3e150eddbbc6aab6a6d29784c7948562260e817fba59abb59661b",
+      "origin": "weight47/out_r0_N45_b7_ex1.txt",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/weight47/out_r0_N46_b8_ex0.txt",
+      "sha256": "616ccd9272b84cf3e4edafc2ffe306181c71870f7f98a31b168ec6a9386fa1dc",
+      "origin": "weight47/out_r0_N46_b8_ex0.txt",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/weight47/out_r0_N46_b8_ex1.txt",
+      "sha256": "aa041f77ef12e9116291b6dff2a3b15b3662e223fd744281ef1beb50490cc546",
+      "origin": "weight47/out_r0_N46_b8_ex1.txt",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/weight47/out_r0_N46_b9_ex1.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "origin": "weight47/out_r0_N46_b9_ex1.txt",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/weight47/out_r0_N47_b8_ex0.txt",
+      "sha256": "616ccd9272b84cf3e4edafc2ffe306181c71870f7f98a31b168ec6a9386fa1dc",
+      "origin": "weight47/out_r0_N47_b8_ex0.txt",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/weight47/out_r0_N47_b8_ex1.txt",
+      "sha256": "aa041f77ef12e9116291b6dff2a3b15b3662e223fd744281ef1beb50490cc546",
+      "origin": "weight47/out_r0_N47_b8_ex1.txt",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/weight47/out_r0_N47_b9_ex1.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "origin": "weight47/out_r0_N47_b9_ex1.txt",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/weight47/search.cpp",
+      "sha256": "6bf0d9773116874aad33519648ecc26cc159f129a574e5911d4fbf6f2fafe854",
+      "origin": "weight47/search.cpp",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/weight47/search2.cpp",
+      "sha256": "8f109ab26ede5c00cabcc61bcef40ebc0d5c08219400b425786b4289960b7b76",
+      "origin": "weight47/search2.cpp",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/blocks/NOTES.md",
+      "sha256": "6b871b8d9247f62640de71f229d70d0901420f6f1a34d43c24a4b1471b23360d",
+      "origin": "blocks/NOTES.md",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/blocks/account.py",
+      "sha256": "5334cd3874378048d3e30d89c3eb2787aaa793fbd0b507b13ed5616e2abcf22e",
+      "origin": "blocks/account.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/blocks/alias.py",
+      "sha256": "defc19fb33d550de71bb9b93a09aeccf6e119aa8e61b99ee99447dc8518d8a23",
+      "origin": "blocks/alias.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/blocks/base_builder.cjs",
+      "sha256": "69d58bca762914a4e7ddceb93794c5a69c0eb3d7228ac9de4c8efaece73b2c3d",
+      "origin": "blocks/base_builder.cjs",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/blocks/construction/balance_coefficients.py",
+      "sha256": "9e9a7ebcb3e4be58862381c2b51f85352ba4b688495912da2585b1ad37973a63",
+      "origin": "blocks/construction/balance_coefficients.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/blocks/construction/builder.cjs",
+      "sha256": "b4bf6af38a7620a5b6a572039da4fcb22cd6f4ce006c439d89588c1259231f3b",
+      "origin": "blocks/construction/builder.cjs",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/blocks/construction/check_final.cjs",
+      "sha256": "a01dabf50a7b882bb1fe99a157ce2228dba21153ea195a130b0dbdb259aa996c",
+      "origin": "blocks/construction/check_final.cjs",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/blocks/construction/finish_tables.py",
+      "sha256": "f5b422ce97e5c9f99e1fd7b47ff5df797929873498cc6db852a4fb1571ad24eb",
+      "origin": "blocks/construction/finish_tables.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/blocks/construction/reference_round7/builder.cjs",
+      "sha256": "78b54bcde24ff8a91091e102a4734c49878699f071d9230e5ce7a70ffd2114d0",
+      "origin": "blocks/construction/reference_round7/builder.cjs",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/blocks/construction/reproduce.py",
+      "sha256": "1ab289dccfb5c2ce671548ee0fdb0485047adadac6e0639798800163126fde0a",
+      "origin": "blocks/construction/reproduce.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/blocks/construction/specialize_core.py",
+      "sha256": "1a0d86e5cd7d098d1a9c5d0c1f5f8fa2a0d5bbb070901b122881b9fbd5d8c027",
+      "origin": "blocks/construction/specialize_core.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/blocks/construction/tools/affine_search.py",
+      "sha256": "d122f8fa2628d57925397025e54463a1ea9bbf92440ff5e08779aa7f77be4682",
+      "origin": "blocks/construction/tools/affine_search.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/blocks/construction/tools/checker.cjs",
+      "sha256": "dc0e394b2fa758dfd9af2d6ee56f18907a5acdd9d659f9883acdffe1ec173de4",
+      "origin": "blocks/construction/tools/checker.cjs",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/blocks/construction/tools/compile_ir.py",
+      "sha256": "45d5df9546e1f39b61d064d4204a0b41469b5a18134281b7e439f5faab62f28a",
+      "origin": "blocks/construction/tools/compile_ir.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/blocks/construction/tools/modulo_search.py",
+      "sha256": "63380ce9300bf8c97bda58beb62a7ae7536dd1cde61a45a00cdff772c8968d57",
+      "origin": "blocks/construction/tools/modulo_search.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/blocks/construction/tools/run_pipeline.py",
+      "sha256": "591def4c716d3bff456bf83ef3511840377bea02bf4e94f52017914b013c5a8c",
+      "origin": "blocks/construction/tools/run_pipeline.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/blocks/construction/tools/search.py",
+      "sha256": "982959296b369b98ed370f73b460e906966c282654acd27e0d5b913c50082a03",
+      "origin": "blocks/construction/tools/search.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/blocks/construction/tools/verify.py",
+      "sha256": "13c4190c50867573d470d7f4efb4e25dacf49872c3f0c9c23acf8404da840a48",
+      "origin": "blocks/construction/tools/verify.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/blocks/construction/tools/verify_elimination.py",
+      "sha256": "ea67ec8575c8b4fbea0cd5ccffc60165263537f53d6b12febc99d7d4f974785e",
+      "origin": "blocks/construction/tools/verify_elimination.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/blocks/construction/verify_package.py",
+      "sha256": "98b349d31773b0c993c1e4f94977cd7721a61de01a5ba93ec40e6b26ebe543c4",
+      "origin": "blocks/construction/verify_package.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/blocks/construction/write_tables_text.py",
+      "sha256": "171aca43a9710e03c9f9ce35cd9c228a3bf142833c2f344705e8c9f59e08a631",
+      "origin": "blocks/construction/write_tables_text.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/blocks/droptests.py",
+      "sha256": "d286318eb8f158e5b462cec194c637cbc397b558be9353ca96b56ce0f0d018a7",
+      "origin": "blocks/droptests.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/blocks/finalize.py",
+      "sha256": "5660cdb65b2d69c82e10057e9f9ba0dc48f5910f419eb1329456ac1021154060",
+      "origin": "blocks/finalize.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/blocks/measure.py",
+      "sha256": "c799400596b8c2cbff69cdb3bd092c6bcfb1d8b0c80980f8cb893169f5094221",
+      "origin": "blocks/measure.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/blocks/orders.py",
+      "sha256": "39ec49da009e680e3a9d2a3b11afdd26ff0b19a00f024f5eb2ea71c810a87bf7",
+      "origin": "blocks/orders.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/blocks/sample.py",
+      "sha256": "769a262f779d5f5fe1131c9a7f0ca2da9b259c8caec487cf48697b4db7080fc3",
+      "origin": "blocks/sample.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/blocks/subst.py",
+      "sha256": "c7aa3bd9fb443df62a81cb3b96abf63d4950cfe6a16da5c10479546c809a498b",
+      "origin": "blocks/subst.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/blocks/usage.py",
+      "sha256": "3138b158552a8de0a3fbc457c36bd47b09810b92e8eb40520b09c1e01a32ad34",
+      "origin": "blocks/usage.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/NOTES.md",
+      "sha256": "314d20d9be1feb35f20c4c0168b37436e300b5586f1bb3d94a5a42066a920279",
+      "origin": "coeffrows/NOTES.md",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/greedy2_applied.json",
+      "sha256": "dcd1c091c4460def35309c5cbdb1d5ccc7548ec2ed141e1cbcd8243f5f8e8ece",
+      "origin": "coeffrows/greedy2_applied.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/greedy2_ir.json",
+      "sha256": "915154e9b37dc169ec2be664ccf0b3754c66b9627984019456af7d674c5416f0",
+      "origin": "coeffrows/greedy2_ir.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/greedy_applied.json",
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "origin": "coeffrows/greedy_applied.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/lp/explain.py",
+      "sha256": "9a2881529298de093b342e40ba00276817f15ad0475d8909d1eade05c9f8ace4",
+      "origin": "coeffrows/lp/explain.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/lp/greedy.py",
+      "sha256": "f9c081df11168a47e7e72597eda14ad86b7156f5118ac36e8c7933b958f52613",
+      "origin": "coeffrows/lp/greedy.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/lp/greedy2.py",
+      "sha256": "53f93d60c19711721f79717a689c14ff106b623c9fd882c53a70fb00b61241c8",
+      "origin": "coeffrows/lp/greedy2.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/lp/lp.py",
+      "sha256": "2440f0c7fc529aaf46f64bc70f93da8a8a891fc9485290e754dc882c27e9b71e",
+      "origin": "coeffrows/lp/lp.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/lp/maxweight.py",
+      "sha256": "869f8842139444d6b87c29e15e83d7d391e74415a67ffaa06a4ec0ec0308eb79",
+      "origin": "coeffrows/lp/maxweight.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/lp/offsets.py",
+      "sha256": "3a686c046f7e9a23e013f108faca28f0286386ef7dcd37a743137b71ddfb0316",
+      "origin": "coeffrows/lp/offsets.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/lp/relax.py",
+      "sha256": "e65314fc1befab86074582594b4c5b1504686de5ccf37595c8de1040624091a5",
+      "origin": "coeffrows/lp/relax.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/lp/rowops.py",
+      "sha256": "16d8f036c1a5bb0e8443a470e85592aabd88a946e25c9037e137946ece3e4a84",
+      "origin": "coeffrows/lp/rowops.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/lp/scaling_lp_orig.py",
+      "sha256": "5b2e5524e7e0a69a746fb6c22d2102193bb186ba0155ae44869b6dd46677e421",
+      "origin": "coeffrows/lp/scaling_lp_orig.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/lp/variants.py",
+      "sha256": "88d764f111240ea5cb5014d30d7efb2b3071126dcd853d3fb4fb2d0b04a2dfd4",
+      "origin": "coeffrows/lp/variants.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/measure/A_weights.json",
+      "sha256": "bd7995d1c4dc81c5ab386a96af808447ac32e6f3cc86e66c6c6c26927ce20c68",
+      "origin": "coeffrows/measure/A_weights.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/measure/B_hsub_chainoff_ir.json",
+      "sha256": "47bc4f6e66f23beab3a3311c6f05c1b3d12ce12100a219ae7052ce829d09ec41",
+      "origin": "coeffrows/measure/B_hsub_chainoff_ir.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/measure/B_hsub_chainoff_powers.json",
+      "sha256": "b9d02f47909e6badca6c3991e07d4ba3e0991767e31bbdbdc5829e94486ee29a",
+      "origin": "coeffrows/measure/B_hsub_chainoff_powers.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/measure/B_weights.json",
+      "sha256": "e89a7a94689e0f7f3b8c80fcfd91bc6716b69ce58e56ac86cfa040c4b8a48b66",
+      "origin": "coeffrows/measure/B_weights.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/measure/C_hsub_chainoff_fanchor_ir.json",
+      "sha256": "1f84848d010e49812ef70527a271c304ec40b5c5c353afc1a66f788838ee6f95",
+      "origin": "coeffrows/measure/C_hsub_chainoff_fanchor_ir.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/measure/C_hsub_chainoff_fanchor_powers.json",
+      "sha256": "9686bd7d9c69a7a01ad9b639727a468d5aeb0f4b0cefe9908e2d6ec7015f4f55",
+      "origin": "coeffrows/measure/C_hsub_chainoff_fanchor_powers.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/measure/balance_any.py",
+      "sha256": "ace045f96bfdf490b03e23cb5aea40928f189d8b45da94843d1d1c5ffd5ab149",
+      "origin": "coeffrows/measure/balance_any.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/measure/balance_weights.py",
+      "sha256": "a156893108882147624db310e514a4f86d4100de903bf46f4697bedb7e191def",
+      "origin": "coeffrows/measure/balance_weights.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/measure/base_lp_powers.json",
+      "sha256": "681c152cb0ae5e178934ed23c2a0b5f52794a8a7ca1b56c0284e6856645368e6",
+      "origin": "coeffrows/measure/base_lp_powers.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/measure/baseline_powers.json",
+      "sha256": "943ab463f91cc037dc462a031d56362557575d9b92aa39a3e81a278d4d4c7e5e",
+      "origin": "coeffrows/measure/baseline_powers.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/measure/check_diagonal_weights.py",
+      "sha256": "3a0b63d10004a645d47893aa16b07844aea31de0664bf934fc71e9f3d2fc7d2d",
+      "origin": "coeffrows/measure/check_diagonal_weights.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/measure/check_rowop.py",
+      "sha256": "03f7f75c239c12afa2044e650db2d3ff6774e1e05faa0ba0227ba0f3b7265ad7",
+      "origin": "coeffrows/measure/check_rowop.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/measure/hsub_powers.json",
+      "sha256": "c3555d63623cf1c94a068387867f7636c9a324a86059fd34279f0031d02eedd2",
+      "origin": "coeffrows/measure/hsub_powers.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/measure/offrange.py",
+      "sha256": "7a799a556482354dc8cf96c63549a2fabaf66566a71e4e3e29a4cf9d905b9429",
+      "origin": "coeffrows/measure/offrange.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/measure/postB_S1_weights.json",
+      "sha256": "54235b6bf7811fcc6ae2b062c445052dd3dacc493d269c019d7734be4d1bbf6f",
+      "origin": "coeffrows/measure/postB_S1_weights.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/measure/postC_S2_weights.json",
+      "sha256": "749dbaec50ac0766114b342535d4cee27ea2ff537fb50b5a5b591614f27275b2",
+      "origin": "coeffrows/measure/postC_S2_weights.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/measure/postedit.py",
+      "sha256": "33446f4512cf40610ce808854b884c466131b1c9586b9bf0809956efab076aba",
+      "origin": "coeffrows/measure/postedit.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/measure/precise_lp.py",
+      "sha256": "4ce2b5105abbe3ace4e5b2b8ccd129d4a1bc75cc736cc3831f31d1357d207ab4",
+      "origin": "coeffrows/measure/precise_lp.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/measure/run_variant.py",
+      "sha256": "9af6b528611ba7d3dea6ccd8bf4e728d78a8af0e08e64abe4ca87349e05fbd5b",
+      "origin": "coeffrows/measure/run_variant.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/measure/weights.py",
+      "sha256": "92cf4043644fd02a65d7218eb629c24d21a3cc95478b6bc2fd2bf1f768c36078",
+      "origin": "coeffrows/measure/weights.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/rowops_ir.json",
+      "sha256": "915154e9b37dc169ec2be664ccf0b3754c66b9627984019456af7d674c5416f0",
+      "origin": "coeffrows/rowops_ir.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/rowops_ir.json.hist",
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "origin": "coeffrows/rowops_ir.json.hist",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/coeffrows/srows.txt",
+      "sha256": "b905ad99f5aee5c27aa9e30bc61637bd78c725b200d747f53a22405030e9ab08",
+      "origin": "coeffrows/srows.txt",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/scalarpoles/NOTES.md",
+      "sha256": "c8503940c4036cff3dcff5b03c893e513f3405117ae055097591bda506a129f7",
+      "origin": "scalarpoles/NOTES.md",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/scalarpoles/balance_frac.py",
+      "sha256": "0e831a9a6cb4dca35cb5f2577eaf2a9ede03452b60a62dc7b00d4ae4834d6eb4",
+      "origin": "scalarpoles/balance_frac.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/scalarpoles/balance_var.py",
+      "sha256": "2e015757977ff74c1363388968cf10d3d281a50946aed3f852db64aef448cb7c",
+      "origin": "scalarpoles/balance_var.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/scalarpoles/builder377f.cjs",
+      "sha256": "017849fbe3ec452625267a3013889b7dca024cf01a0587635b7ba09cc486cdb2",
+      "origin": "scalarpoles/builder377f.cjs",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/scalarpoles/builder380.cjs",
+      "sha256": "69d58bca762914a4e7ddceb93794c5a69c0eb3d7228ac9de4c8efaece73b2c3d",
+      "origin": "scalarpoles/builder380.cjs",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/scalarpoles/lp_local.py",
+      "sha256": "892407c76d021662dc55a470125ca2cd7d5271f978812ba63433ea5dd038d3e5",
+      "origin": "scalarpoles/lp_local.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/scalarpoles/lpbalance.py",
+      "sha256": "c6c61d1ccc4dd366daf9825358928c3c995a779283957a09a54f96fa9597b01e",
+      "origin": "scalarpoles/lpbalance.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/scalarpoles/measure.py",
+      "sha256": "9934dc1375af5b5dc7b09f6f3d63eb08d43eb020e9dcb74d96206faf2fadc28b",
+      "origin": "scalarpoles/measure.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/scalarpoles/patches.py",
+      "sha256": "f6ad78ba0c371f1d5a945abcbd5e32a2059b3c172f3ba2bdbb82fdf442bd9984",
+      "origin": "scalarpoles/patches.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/scalarpoles/scaling_lp.py",
+      "sha256": "5b2e5524e7e0a69a746fb6c22d2102193bb186ba0155ae44869b6dd46677e421",
+      "origin": "scalarpoles/scaling_lp.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/scalarpoles/spread.py",
+      "sha256": "b99cb88cab5d232339496c52c116149345e4bb8f40eaff158489f982c97ab234",
+      "origin": "scalarpoles/spread.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/scalarpoles/tryweights.py",
+      "sha256": "e4b46f478859e4c93ddb215bddcc2334ee6d5144899046b2217b9f0c85b0b8c3",
+      "origin": "scalarpoles/tryweights.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/scalarpoles/variants/f374.cjs",
+      "sha256": "5e0ee96ebb063465114a4cca814e97b330dd9174e1f95e83d33b71c461b3345c",
+      "origin": "scalarpoles/variants/f374.cjs",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/scalarpoles/variants/f374_31.cjs",
+      "sha256": "c202e22c4855dd6abdfe2e34fada066b842a40e4cdc10008875f6ff912bdc0b5",
+      "origin": "scalarpoles/variants/f374_31.cjs",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/scalarpoles/variants/f376.cjs",
+      "sha256": "c5e3012a4b6a7687e935a288e1ce7e99c343855e8a3d9ba00e37e3b622243113",
+      "origin": "scalarpoles/variants/f376.cjs",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/scalarpoles/variants/tau.cjs",
+      "sha256": "3008d55e1dc57242ae3558967eda111564fe611567e555b50e2feb86023e71cb",
+      "origin": "scalarpoles/variants/tau.cjs",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/scalarpoles/variants/tau31.cjs",
+      "sha256": "9305a2334a7ecd5ecd479af7b700e9c1301b1e9b06ae43b0e8e294ffcd601c16",
+      "origin": "scalarpoles/variants/tau31.cjs",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/scalarpoles/variants/tauf0.cjs",
+      "sha256": "38337e1209b855e494f2ae33a29aa2c77f05861bc3ae83ab64c056dfa6b6a6a0",
+      "origin": "scalarpoles/variants/tauf0.cjs",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/scalarpoles/variants/tri.cjs",
+      "sha256": "e3dd1e71b1361bd5627f3d7d6e1c98b3f961a968df7e5d8601aa40c87acb4ccb",
+      "origin": "scalarpoles/variants/tri.cjs",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/scalarpoles/verify_diag.py",
+      "sha256": "eefd5a8273e12849e284e26cfb705f1a8092edfdb0a6b9f6ee78a3f5b305acf7",
+      "origin": "scalarpoles/verify_diag.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/scalarpoles/w.json",
+      "sha256": "245bc1a8d29f106e9941fbc5928f44395b93c7c37e9c135457efd0a0fa9a183b",
+      "origin": "scalarpoles/w.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/scalarpoles/w380.json",
+      "sha256": "e060e114c2cb7344292265c0752e4c68e580840c0d8c03f88737723fe92cf8cf",
+      "origin": "scalarpoles/w380.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/scalarpoles/wtau.json",
+      "sha256": "0337c287a3c34b3e126443cc76ebdd5c312d5927785cf50edb09d9b8dd354c47",
+      "origin": "scalarpoles/wtau.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/NOTES.md",
+      "sha256": "cc58e998d0ec301b099027bfabe8b2fe530345a1688e750add77d01628b85c03",
+      "origin": "compose/NOTES.md",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/balance.sh",
+      "sha256": "b86068db76337602352806178826b837a6a056e8384a2cc62c8fdac53eeac031",
+      "origin": "compose/balance.sh",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/drive.py",
+      "sha256": "041a4870b731a6693ad09f97bb2bd82170d3478ec1f28ae0896ddfab01949a66",
+      "origin": "compose/drive.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/lp/i48_triA31_1692.w.json",
+      "sha256": "be6a0dfbb014abfa0a88123690d6e4bf0ce6be0b8fb9d9c90dbd9e5b97cd5f1f",
+      "origin": "compose/lp/i48_triA31_1692.w.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/lp/i48_triA31_1704.w.json",
+      "sha256": "4f27f565965f4e61bb5f0afc377ce3cfef26c0ae86cf5c56a3008766d3defed7",
+      "origin": "compose/lp/i48_triA31_1704.w.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/lp/i50_tau31_1518.w.json",
+      "sha256": "ca10a679cd8b0809811209f64e222d66430a13ac4d3d4df582fcdedbac275a79",
+      "origin": "compose/lp/i50_tau31_1518.w.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/lp/i50_triA31_1512.w.json",
+      "sha256": "bb9d3679c463e23833752f34e637480c0844a6bdb5a8448dcb29be9025d553dd",
+      "origin": "compose/lp/i50_triA31_1512.w.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/lp/i50_triA31_1518.w.json",
+      "sha256": "5426d58ab373aa37c68f3e57e472fbfde27761b5c026d0d9df12517c5e28beca",
+      "origin": "compose/lp/i50_triA31_1518.w.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/lp/i50_triA_2016.w.json",
+      "sha256": "298adf2849a70a28531ff0cb6ed120b672c971514673c151f86b0e0e0360565a",
+      "origin": "compose/lp/i50_triA_2016.w.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/lp/p46.spread.json",
+      "sha256": "a341d396cfe2d7f17fc84fe6ca6e3d49219159126916cec84095f63f38e957e3",
+      "origin": "compose/lp/p46.spread.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/lp/p46_tau31_1956.w.json",
+      "sha256": "72d367aee3a8ed26583b1dce643dbc7cb55b41af393537633be8aed7301c008f",
+      "origin": "compose/lp/p46_tau31_1956.w.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/lp/p46_tau31_2016.spread.json",
+      "sha256": "a2c7ae81bd1dfbe47111586669a90cbe9c95722ae78d50bf1187669154ace706",
+      "origin": "compose/lp/p46_tau31_2016.spread.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/lp/p46_tau_2016.spread.json",
+      "sha256": "896d4ecaffcc84e960c945e17195362790bcceac998b82430f4e3261b06a3b04",
+      "origin": "compose/lp/p46_tau_2016.spread.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/lp/p46_tau_2016.w.json",
+      "sha256": "d323d7af934c80dc024bad418c390e8a24a5815e67a032f8380fc4fe3c8b2fca",
+      "origin": "compose/lp/p46_tau_2016.w.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/lp/p46_triA31_1944.w.json",
+      "sha256": "a6f9148f2c9ab8280d687c67a6a6539133675fcbcf25afd36abb64ed30a97e81",
+      "origin": "compose/lp/p46_triA31_1944.w.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/lp/p46_triA31_1956.w.json",
+      "sha256": "eaa0ee5825cc2cd5421ac971e6aeb95e727a1ea7a034c6201829b0fe0a992aa0",
+      "origin": "compose/lp/p46_triA31_1956.w.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/lp/p46_triA_2010.spread.json",
+      "sha256": "08a320cfab74430808c9290bc6a0dd8f3757d1f25993b8134eac8787bcd05719",
+      "origin": "compose/lp/p46_triA_2010.spread.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/lp/p46_triA_2010.w.json",
+      "sha256": "807b6e84bac26d3cc82801cd8fa4215fb0c59753e482a664b0502f603f20e108",
+      "origin": "compose/lp/p46_triA_2010.w.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/lp/p46_triA_2016.spread.json",
+      "sha256": "08a320cfab74430808c9290bc6a0dd8f3757d1f25993b8134eac8787bcd05719",
+      "origin": "compose/lp/p46_triA_2016.spread.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/lp/p46_triA_2016.w.json",
+      "sha256": "8002d047a2a7701cc5a4b6431727185145251c19b8951c045694cb88a3d3d571",
+      "origin": "compose/lp/p46_triA_2016.w.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/lp/p46_tri_2016.spread.json",
+      "sha256": "6a063e2a744a2d13498bcec946e812ed75868e53001feb26783ee6bc4454c07f",
+      "origin": "compose/lp/p46_tri_2016.spread.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/rowops/tau_ops.json",
+      "sha256": "f28ede55f8562c235541fde72bd2c27552d7f392fd06af8a984c98a73549fe01",
+      "origin": "compose/rowops/tau_ops.json",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/rowops/tau_ops.json.hist",
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "origin": "compose/rowops/tau_ops.json.hist",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/tools/anchor_frontier.py",
+      "sha256": "b9f282ff1b1d78fbcd7d84ecd978fa7e2b6ae2012665dc772ddf01e9ef67832a",
+      "origin": "compose/tools/anchor_frontier.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/tools/balance_any.py",
+      "sha256": "ace045f96bfdf490b03e23cb5aea40928f189d8b45da94843d1d1c5ffd5ab149",
+      "origin": "compose/tools/balance_any.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/tools/balance_frac.py",
+      "sha256": "0e831a9a6cb4dca35cb5f2577eaf2a9ede03452b60a62dc7b00d4ae4834d6eb4",
+      "origin": "compose/tools/balance_frac.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/tools/balance_weights.py",
+      "sha256": "a156893108882147624db310e514a4f86d4100de903bf46f4697bedb7e191def",
+      "origin": "compose/tools/balance_weights.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/tools/check_diagonal_weights.py",
+      "sha256": "3a0b63d10004a645d47893aa16b07844aea31de0664bf934fc71e9f3d2fc7d2d",
+      "origin": "compose/tools/check_diagonal_weights.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/tools/check_pow_chain.py",
+      "sha256": "b27a30aa991879cab53dd02f7e225a83c665753803d6f583dba2bd48e57d0303",
+      "origin": "compose/tools/check_pow_chain.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/tools/check_rowop.py",
+      "sha256": "03f7f75c239c12afa2044e650db2d3ff6774e1e05faa0ba0227ba0f3b7265ad7",
+      "origin": "compose/tools/check_rowop.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/tools/indep_check.py",
+      "sha256": "5771123bb759e0b7e3cd1318b144c0a0574349bb9c348a79ab8aaff99c4ac5b1",
+      "origin": "compose/tools/indep_check.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/tools/lp/explain.py",
+      "sha256": "9a2881529298de093b342e40ba00276817f15ad0475d8909d1eade05c9f8ace4",
+      "origin": "compose/tools/lp/explain.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/tools/lp/greedy.py",
+      "sha256": "f9c081df11168a47e7e72597eda14ad86b7156f5118ac36e8c7933b958f52613",
+      "origin": "compose/tools/lp/greedy.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/tools/lp/greedy2.py",
+      "sha256": "53f93d60c19711721f79717a689c14ff106b623c9fd882c53a70fb00b61241c8",
+      "origin": "compose/tools/lp/greedy2.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/tools/lp/lp.py",
+      "sha256": "2440f0c7fc529aaf46f64bc70f93da8a8a891fc9485290e754dc882c27e9b71e",
+      "origin": "compose/tools/lp/lp.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/tools/lp/maxweight.py",
+      "sha256": "869f8842139444d6b87c29e15e83d7d391e74415a67ffaa06a4ec0ec0308eb79",
+      "origin": "compose/tools/lp/maxweight.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/tools/lp/offsets.py",
+      "sha256": "3a686c046f7e9a23e013f108faca28f0286386ef7dcd37a743137b71ddfb0316",
+      "origin": "compose/tools/lp/offsets.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/tools/lp/relax.py",
+      "sha256": "e65314fc1befab86074582594b4c5b1504686de5ccf37595c8de1040624091a5",
+      "origin": "compose/tools/lp/relax.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/tools/lp/rowops.py",
+      "sha256": "16d8f036c1a5bb0e8443a470e85592aabd88a946e25c9037e137946ece3e4a84",
+      "origin": "compose/tools/lp/rowops.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/tools/lp/scaling_lp_orig.py",
+      "sha256": "5b2e5524e7e0a69a746fb6c22d2102193bb186ba0155ae44869b6dd46677e421",
+      "origin": "compose/tools/lp/scaling_lp_orig.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/tools/lp/variants.py",
+      "sha256": "88d764f111240ea5cb5014d30d7efb2b3071126dcd853d3fb4fb2d0b04a2dfd4",
+      "origin": "compose/tools/lp/variants.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/tools/lp_local.py",
+      "sha256": "892407c76d021662dc55a470125ca2cd7d5271f978812ba63433ea5dd038d3e5",
+      "origin": "compose/tools/lp_local.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/tools/minE.py",
+      "sha256": "18e3c5511c8a62c059f6efa8e3ac2de29e73e8433164c9d346fc9decd3bed3c4",
+      "origin": "compose/tools/minE.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/tools/patches.py",
+      "sha256": "f6ad78ba0c371f1d5a945abcbd5e32a2059b3c172f3ba2bdbb82fdf442bd9984",
+      "origin": "compose/tools/patches.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/tools/precise_lp.py",
+      "sha256": "4ce2b5105abbe3ace4e5b2b8ccd129d4a1bc75cc736cc3831f31d1357d207ab4",
+      "origin": "compose/tools/precise_lp.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/tools/verify_diag.py",
+      "sha256": "eefd5a8273e12849e284e26cfb705f1a8092edfdb0a6b9f6ee78a3f5b305acf7",
+      "origin": "compose/tools/verify_diag.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/tools/w47run.py",
+      "sha256": "8e8b17225603b78833fca30a90e2d25e9ca5d96ebeb9f79f4c3745a002a8f5bf",
+      "origin": "compose/tools/w47run.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/tools/weights.py",
+      "sha256": "92cf4043644fd02a65d7218eb629c24d21a3cc95478b6bc2fd2bf1f768c36078",
+      "origin": "compose/tools/weights.py",
+      "status": "Unreviewed original exploration; corrections in VETTING.txt and FINDINGS.json."
+    },
+    {
+      "path": "prior-investigation/opus/compose/build/p46_triA_2010/balanced/summary.json",
+      "sha256": "afe83469b699705382176aae82057241b339150694d9587c40e4cd660103bd7a",
+      "origin": "compose/build/p46_triA_2010/balanced/summary.json",
+      "status": "Historical measurement receipt; no arithmetic acceptance."
+    },
+    {
+      "path": "prior-investigation/opus/compose/build/p46_tau31_1956/balanced/summary.json",
+      "sha256": "06ae5a444debd5ef41388270715ff481dc53933f972b76a6958d3fb70478352e",
+      "origin": "compose/build/p46_tau31_1956/balanced/summary.json",
+      "status": "Historical measurement receipt; no arithmetic acceptance."
+    },
+    {
+      "path": "prior-investigation/opus/compose/build/p46_tau_2016/balanced/summary.json",
+      "sha256": "59c793bccd69c0ea4044aabdc2b3939d02cd9de8c49dc8badf55fb1205a48060",
+      "origin": "compose/build/p46_tau_2016/balanced/summary.json",
+      "status": "Historical measurement receipt; no arithmetic acceptance."
+    },
+    {
+      "path": "prior-investigation/opus/compose/build/i48_triA31_1692/balanced/summary.json",
+      "sha256": "cd771e67a17da712e04217663928764426b8787b0ee1cfd7d003e7327a7e173a",
+      "origin": "compose/build/i48_triA31_1692/balanced/summary.json",
+      "status": "Historical measurement receipt; no arithmetic acceptance."
+    },
+    {
+      "path": "prior-investigation/opus/compose/build/p46_triA31_1944/balanced/summary.json",
+      "sha256": "bfd762532c2f329bef22f415944228e535aa83db8d9cfda720e670f2bdac5ddc",
+      "origin": "compose/build/p46_triA31_1944/balanced/summary.json",
+      "status": "Historical measurement receipt; no arithmetic acceptance."
+    },
+    {
+      "path": "prior-investigation/opus/compose/build/i50_triA31_1512/balanced/summary.json",
+      "sha256": "99010364b61b6f1ccc757b7efd6292dc6acead38c49e2d19a0cac931efd31e37",
+      "origin": "compose/build/i50_triA31_1512/balanced/summary.json",
+      "status": "Historical measurement receipt; no arithmetic acceptance."
+    },
+    {
+      "path": "prior-investigation/opus/compose/build/i50_triA31_1518/balanced/summary.json",
+      "sha256": "cf1ef02e0d6817d23f050aa0fa4ebb3a3724c19e70a2dbf2a6a466f3c55a5f82",
+      "origin": "compose/build/i50_triA31_1518/balanced/summary.json",
+      "status": "Historical measurement receipt; no arithmetic acceptance."
+    },
+    {
+      "path": "prior-investigation/opus/compose/build/p46_triA_2016/balanced/summary.json",
+      "sha256": "c9fb06893a98e9769a9711afc77fc849c5b07a0ebc3eb4e82f636d9e0ba383e7",
+      "origin": "compose/build/p46_triA_2016/balanced/summary.json",
+      "status": "Historical measurement receipt; no arithmetic acceptance."
+    },
+    {
+      "path": "prior-investigation/opus/compose/build/i48_triA31_1704/balanced/summary.json",
+      "sha256": "bba86316a013d09442c72f6aa294562ba0abef823c85c54a5ffc7a4451ac591b",
+      "origin": "compose/build/i48_triA31_1704/balanced/summary.json",
+      "status": "Historical measurement receipt; no arithmetic acceptance."
+    },
+    {
+      "path": "prior-investigation/opus/compose/build/p46_triA31_1956/balanced/summary.json",
+      "sha256": "d86f1e0e5f02f871b50ae6996f3c84c790849c8a815cfaa72c2f7e4a87f0e8bb",
+      "origin": "compose/build/p46_triA31_1956/balanced/summary.json",
+      "status": "Historical measurement receipt; no arithmetic acceptance."
+    },
+    {
+      "path": "prior-investigation/opus/compose/build/i50_tau31_1518/balanced/summary.json",
+      "sha256": "7b90a204d19e2c9cca9376d18bb99bda7a52e92c42817102eb862bca3b241b4e",
+      "origin": "compose/build/i50_tau31_1518/balanced/summary.json",
+      "status": "Historical measurement receipt; no arithmetic acceptance."
+    },
+    {
+      "path": "prior-investigation/opus/compose/build/i50_triA_2016/balanced/summary.json",
+      "sha256": "cc38614b14a366b0b0d95f5ad4f0b18398f4bd93ef89092ad809a0abe6231734",
+      "origin": "compose/build/i50_triA_2016/balanced/summary.json",
+      "status": "Historical measurement receipt; no arithmetic acceptance."
+    },
+    {
+      "path": "prior-investigation/codex-vetting/VETTING.txt",
+      "sha256": "a045b03ef405e9019c5a4ee84376e861fcb89ce672a118c307b3724cc2f068de",
+      "origin": "Codex vetting VETTING.txt",
+      "status": "Author vetting, not separate acceptance; scratch paths retained as historical provenance."
+    },
+    {
+      "path": "prior-investigation/codex-vetting/verify.py",
+      "sha256": "9e420cf429a711ae1e6eed39e54980ab2e3e8e0d2948fd87b41679016bbe1db1",
+      "origin": "Codex vetting verify.py",
+      "status": "Author vetting, not separate acceptance; scratch paths retained as historical provenance."
+    },
+    {
+      "path": "prior-investigation/codex-vetting/CHECKS.json",
+      "sha256": "3b508e7fc3d8159d6f002095fb1e800083fb4126548095a621e9d1263a51cad7",
+      "origin": "Codex vetting CHECKS.json",
+      "status": "Author vetting, not separate acceptance; scratch paths retained as historical provenance."
+    },
+    {
+      "path": "prior-investigation/codex-vetting/HIGHER50_CHECKS.json",
+      "sha256": "d16af4f0c10a32ec3d45970f38e0e41d9b4870dfc0cde2111e755dab0d031fca",
+      "origin": "Codex vetting HIGHER50_CHECKS.json",
+      "status": "Author vetting, not separate acceptance; scratch paths retained as historical provenance."
+    },
+    {
+      "path": "prior-investigation/codex-vetting/HEIGHT_CHECKS.json",
+      "sha256": "2c6f1709039fff8d489a8bbaa86037e208a7a3dc033b8b7a4b99ab44aadaeab5",
+      "origin": "Codex vetting HEIGHT_CHECKS.json",
+      "status": "Author vetting, not separate acceptance; scratch paths retained as historical provenance."
+    },
+    {
+      "path": "prior-investigation/codex-vetting/CHAIN_LOWER_BOUND.json",
+      "sha256": "fc5d23586fab7d98eb6f2d9e70f8bba7cb184e77ec932cc34594f9f06999d4c7",
+      "origin": "Codex vetting CHAIN_LOWER_BOUND.json",
+      "status": "Author vetting, not separate acceptance; scratch paths retained as historical provenance."
+    },
+    {
+      "path": "prior-investigation/codex-vetting/PR17_REVIEWED_SOURCES.json",
+      "sha256": "5e48c15666e08bd18045209c4c039cf6712f4a1bd6b6680e6248918d554dddc0",
+      "origin": "Codex vetting PR17_REVIEWED_SOURCES.json",
+      "status": "Author vetting, not separate acceptance; scratch paths retained as historical provenance."
+    },
+    {
+      "path": "prior-investigation/codex-vetting/SOURCE_HASHES.json",
+      "sha256": "98a6be7d8a621194bbd0f695750bcd1425c02d869355d89be733cfc6ca72a424",
+      "origin": "Codex vetting SOURCE_HASHES.json",
+      "status": "Author vetting, not separate acceptance; scratch paths retained as historical provenance."
+    },
+    {
+      "path": "prior-investigation/codex-vetting/VETTING_MANIFEST.json",
+      "sha256": "7532a9554bc07d7c012dda676e8ff7619705ea1bfc46fb5daf161a392df434c6",
+      "origin": "Codex vetting VETTING_MANIFEST.json",
+      "status": "Author vetting, not separate acceptance; scratch paths retained as historical provenance."
+    }
+  ]
+}

@@ -3,7 +3,7 @@ article_id: af_87adc7d5c5afda1103a7ff11
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves31.sga7_IX_3_5_ForwardGeom
+lean: HDec.HSyn.OpenResearchLeaves40.sga7_IX_3_5_ForwardGeom
 ---
 
 # Semistable reduction gives unipotent inertia

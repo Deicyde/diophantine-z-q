@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-08",
+  "working_directory": "lean",
+  "command": [
+    "lake",
+    "exe",
+    "cache",
+    "get",
+    "--cache-from=master",
+    "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+    "Mathlib.Tactic.Push",
+    "Mathlib.Data.Matrix.Block",
+    "Mathlib.Tactic.FinCases"
+  ],
+  "environment": {
+    "MATHLIB_CACHE_DIR": "$PWD/.checks/mathlib-cache-boundary-scalar"
+  },
+  "exit_code": 0,
+  "mathlib_revision": "56a005855ea17e0b0958f73ec801ae140b0a1679",
+  "new_cached_files": 46,
+  "already_decompressed": 1777,
+  "trust": "Official pinned master cache; dependency proofs not rebuilt independently",
+  "log_sha256": "fb561607d0c0d7f30544e7f145182f44fd619ffc6375926e05f4ef071c738b7f"
+}

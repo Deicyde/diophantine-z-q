@@ -1,0 +1,18 @@
+{
+  "command": [
+    "python",
+    "-O",
+    "-B",
+    "research/local-boundary-interfaces/check_controls.py"
+  ],
+  "cwd": "repository root",
+  "exit_code": 1,
+  "expected": "nonzero exit and explicit refusal before checks",
+  "observed": "refused optimized interpreter",
+  "script_sha256": "9e6dc833f23c7008eac55363689e56d1f128599c5c9bbd3fa226916b3ca91c7c",
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "22243bcd0711a66dc682634d5f23e069696116faf84b742beb06d8475cc32b80",
+  "executable_sha256": "900ef57daedf8683c84100eadf21754ef1523f132814a489d7bffb6943b583b3",
+  "path_normalization": "Executable argv[0] and working directory are presented without local absolute paths. Version and executable SHA identify the interpreter; original receipt retained locally.",
+  "private_original_receipt_sha256": "d79f8dbea3b0c52730689e099a03c2c37d55385cb58e0fa11cb2652311a4d1f8"
+}

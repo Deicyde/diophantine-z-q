@@ -1,0 +1,38 @@
+[
+  {
+    "E": 2118,
+    "order": 45,
+    "scalarTarget": "4",
+    "scalarMargin": true,
+    "projectiveLucasMargin": true,
+    "inputAuxiliaryMargins": true,
+    "coefficientDigitsIfRebalanced": 679
+  },
+  {
+    "E": 2112,
+    "order": 45,
+    "scalarTarget": "4",
+    "scalarMargin": true,
+    "projectiveLucasMargin": false,
+    "inputAuxiliaryMargins": true,
+    "coefficientDigitsIfRebalanced": 677
+  },
+  {
+    "E": 2010,
+    "order": 47,
+    "scalarTarget": "25/8",
+    "scalarMargin": true,
+    "projectiveLucasMargin": true,
+    "inputAuxiliaryMargins": true,
+    "coefficientDigitsIfRebalanced": 644
+  },
+  {
+    "E": 2004,
+    "order": 47,
+    "scalarTarget": "25/8",
+    "scalarMargin": false,
+    "projectiveLucasMargin": true,
+    "inputAuxiliaryMargins": true,
+    "coefficientDigitsIfRebalanced": 642
+  }
+]

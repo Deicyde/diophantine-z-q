@@ -1,0 +1,66 @@
+{
+ "S.chart.h0": [
+  213,
+  1
+ ],
+ "S.chart.h1": [
+  213,
+  0
+ ],
+ "S.chart.j0": [
+  214,
+  0
+ ],
+ "S.chart.j1": [
+  214,
+  0
+ ],
+ "anchor.U": [
+  1704,
+  0
+ ],
+ "anchor.V": [
+  1703,
+  0
+ ],
+ "anchor.W": [
+  1704,
+  0
+ ],
+ "S.chart.x.0.quadratic": [
+  0,
+  1
+ ],
+ "heightProduct.scale0.quadratic": [
+  -16,
+  0
+ ],
+ "scalar.shiftedS.rootTimesInverseRoot.0": [
+  851,
+  0
+ ],
+ "scalar.shiftedS.rootTimesInverseRoot.1": [
+  851,
+  0
+ ],
+ "scalar.shiftedS.f.0": [
+  1275,
+  0
+ ],
+ "scalar.shiftedS.f.1": [
+  1275,
+  0
+ ],
+ "scalar.shiftedS.nonzeroRealF": [
+  -846,
+  0
+ ],
+ "scalar.ratioProxyReal.quadratic": [
+  424,
+  0
+ ],
+ "anchor.physicalA.quadratic": [
+  1703,
+  0
+ ]
+}

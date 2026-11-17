@@ -1,0 +1,62 @@
+ROUND-SEVEN DETECTOR SEARCH: SCOPE AND UNSELECTED PATHS
+
+The accepted improvement is the contact-unit rescaling D -> delta D,
+followed by direct q1 and E definitions. It saves three final rational
+coordinates. Source/proof/checker bindings are in round7-review-bindings.json.
+
+1. Six-node monomial chains under the old normalization
+
+The local C++ searches enumerate exact integer exponent pairs under
+A+B-C, corresponding to quadratic quotient gates. They include the old
+stored q1 powers and E. The four-gate-low search restricts its first two
+gates to doubled differences, with two subsequent general gates. The
+six-gate-joint search restricts its first three gates to doubled differences,
+then uses general gates and asks whether a supported high output is available.
+These restricted searches exhausted their implemented class for low10/11/12
+and high39 through51 without finding a candidate. They are not exhaustive
+searches over all rational circuits, all schedules or all field products.
+
+There is an exact obstruction for the specified old initial monomials:
+L(a,b)=13a+3b takes values in[0,16]. Each A+B-C gate can at most double
+the current interval width, so after six gates no value exceeds1024.
+But L(q41)=1044, excluding a six-gate construction even for this one
+output. For q45, the square and cube have L values2296 and3444, both
+greater than the seven-gate bound2048. Thus two distinct such outputs
+cannot both be produced before gate9. The old seven weight nodes plus
+two high-power nodes meet that bound for this specified monomial model.
+This does not apply after changing the weight normalization or introducing
+nonmonomial functions, and it is not an optimality claim for the quartic.
+
+2. Direct six-node searches under delta^-1 normalization
+
+The same restricted searches were repeated with q1=e/delta. They found
+no six-node candidate in the implemented class. The successful route
+instead removes the separately stored e: q1=A*(A delta)^4/F and
+E=q1 delta^2. Its seven higher-weight nodes remain, but the direct
+q1 definition saves one surviving coordinate per detector. Full compilation
+was essential because merely deleting delta^3 would double-count an old
+final elimination.
+
+3. Stronger normalization delta^2 D
+
+This makes q1=E and seems attractive algebraically, but nonconstant field
+factors then grow rather than decay at real infinity. The actual
+preparation-zero pole converse requires b<17. No complete replacement
+for its real argument was established for this stronger normalization.
+It is not used. A separate rational scaling of the pole input might
+restore that property, but would require a new cost and domain audit.
+
+4. Product regrouping and precision allocation
+
+I revisited the retained [4,4] order-one blocks, [3,3] high-order blocks
+and one mixed pair. Simple uniform regroupings trade fewer shared
+coefficient coordinates against more threefold product evaluations or
+more weight powers; no measured improvement was established. Moving
+unnecessarily strong tests to order12 is a possible mathematical option,
+but was not needed for the accepted reduction and is not silently used
+in its proof. All actual final orders remain1,12,45.
+
+The selected source has no changes to alternate point depth, primary
+Pi^44 divisibility, G12/G2 logarithms, point charts, pole predicate or
+exceptional set. Its separate proof treats the revised real and
+small-prime limits explicitly.

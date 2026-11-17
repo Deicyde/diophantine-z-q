@@ -1,12 +1,13 @@
 name: Blueprint Pages
 
-# The site publishes only a commit that `autoform verify` passed on main, so it
-# never shows progress Lean did not check, and it keeps the last verified site
-# while main is red. Pull requests and manual runs build the site to check it,
-# and never deploy.
+# The site publishes only a commit that `main build cache` passed on main: the
+# build of the headline theorem finished there and its axioms were checked. So
+# the site never shows progress Lean did not check, and it keeps the last
+# verified site while main is red. Pull requests and manual runs build the
+# site to check it, and never deploy.
 on:
   workflow_run:
-    workflows: [autoform verify]
+    workflows: [main build cache]
     types: [completed]
     branches: [main]
   pull_request:
@@ -37,7 +38,7 @@ concurrency:
     && github.event.workflow_run.conclusion == 'success'
     && github.event.workflow_run.event == 'push'
     && github.event.workflow_run.head_branch == 'main'
-    && github.event.workflow_run.path == '.github/workflows/autoform-verify.yml'
+    && github.event.workflow_run.path == '.github/workflows/main-build-cache.yml'
     && github.event.workflow_run.head_repository.full_name == github.repository)
     && 'blueprint-pages-deploy' || format('blueprint-pages-{0}', github.run_id) }}
   cancel-in-progress: false
@@ -51,7 +52,7 @@ jobs:
       || (github.event.workflow_run.conclusion == 'success'
       && github.event.workflow_run.event == 'push'
       && github.event.workflow_run.head_branch == 'main'
-      && github.event.workflow_run.path == '.github/workflows/autoform-verify.yml'
+      && github.event.workflow_run.path == '.github/workflows/main-build-cache.yml'
       && github.event.workflow_run.head_repository.full_name == github.repository)
     runs-on: ubuntu-latest
     steps:

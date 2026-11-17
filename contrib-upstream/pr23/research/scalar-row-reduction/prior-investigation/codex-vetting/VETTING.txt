@@ -1,0 +1,233 @@
+Vetting Opus exploration against PR #17 — 2026-11-09
+
+Reviewer/integrator: Codex /root, author of #16/#17, not a separately
+appointed non-author acceptance reviewer for a future combined PR.
+Status: local vetting and PR proposal. No public PR or acceptance record
+was changed. Conditional inherited arithmetic remains conditional.
+
+Baseline: PR #17 at eb00b7c9c5be2e8666c0403c750c6c780cf78563, above #16 at
+59c59e5589d86036ee41994c82a2b900fce85c2d. Both were still open and ready
+when checked. Use this baseline, not the exploration's older #13 baseline.
+The height refinement is already in this stack: E=2010 is the relevant
+anchor for the order-46/order-31 route, giving 425 rather than 426 digits
+after the new row rewrite.
+
+Evidence
+--------
+Original notes and copied exploration code are frozen in SOURCE_HASHES.json
+and original-notes/. PR17_REVIEWED_SOURCES.json binds the supplying proof
+sources. The executable lines of the copied driver's unmodified 46d3/E2010
+baseline match #17's actual generated builder exactly; only standalone
+comments differ. Originals in the Claude scratch directory were not edited.
+
+Fresh local builds through Node, compile_ir, gate checking, unused-coordinate
+omission, quadratic reduction and four conic transports:
+  algebra17/: #17 detector + tri + A, E=2010: 379 coordinates, 348 rows.
+  combined/: q1-power order-46 detector + tri + A: 376 coordinates, 345 rows.
+  higher50/: q1-power order50 + scalar47 + tri + A: 377 coordinates, 346 rows.
+All three report zero unverified gates and successful transport checks.
+The combined final pre-diagonal IR is byte-identical to the supplied build.
+The fresh higher50 replay is separately recorded in HIGHER50_CHECKS.json.
+
+Independently written verify.py imports no author checker. It compares the
+actual raw rows, proves the exact row operations and scalar coordinate map,
+decodes the monomial exponents for all three order-46/48/50 detectors, and
+reconstructs every diagonal row and complete sum of squares. It independently
+parses every decimal coefficient in 14 tables (the two fresh builds plus all
+12 supplied composed/balanced builds). Input is fixed, all coordinates are
+active, degree is four, content is one and the input fourth-power coefficient
+is one. Results and table hashes are in CHECKS.json. These checks establish
+finite algebra and measurements, not global arithmetic soundness/completeness.
+
+Selected verified table measurements:
+  #17 + tri + A:                 379 variables / 425 digits / E2010.
+  + q1-power order46:            376 variables / 425 digits / E2010.
+  + scalar47, detector48:        377 variables / 365 digits / E1692.
+  + scalar47, detector50:        377 variables / 327 digits / E1512.
+  tau instead of A, order46:     374 variables / 485 digits / E2016.
+  tau + scalar47, detector50:    375 variables / 367 digits / E1518.
+The last four are measurements, not accepted arithmetic constructions.
+
+V01: A and tri are the next algebraic PR
+--------------------------------------
+Historical justification: explicit identities in the supplied transformations
+are verified at the actual #17 source rows. Current-manuscript incorporation
+and a separately authored acceptance of the new layer remain pending.
+
+A changes exactly the two scalar.shiftedS.rootTimesInverseRoot.definition
+rows by constant combinations of the retained S.chart.x definition rows.
+On the raw row normalization the combinations are (-39/8,18) and
+(9/2,-39/4). Other normalization conventions yield different displayed
+multipliers; they must not be interchanged. This is an invertible row
+operation over Q, retaining the actual function w and all its consumers.
+
+tri removes W2=N^2 and defines the actual scalar preparation by
+  r_inverse*T_new=42*N^2.
+Since the unchanged r*r_inverse=1 forces r nonzero, T_new=42*r*N^2.
+The old preparationT slot is a normalized auxiliary, not literally the new
+T. The compiled source also changes Bh: the exact forward map has
+  Bh_new=184460384539620*Bh_old.
+The reverse map reconstructs W2=N^2, the old normalized preparationT from
+its defining polynomial, and Bh_old=Bh_new/184460384539620. The independently
+checked second-conic rows agree under these maps. Apart from A's two rows,
+only W2, preparationT, Bh and secondConic change. The physical scalar input
+and the actual arithmetic theorem applications remain the same.
+
+The newly computed integer two-prime diagonal map yields 425 digits at
+379 variables. Every map factor and row divisor is a nonzero rational and
+the input is fixed. The floating-point LP is a discovery tool; neither its
+optimum nor a global coefficient optimum is asserted. A finite certificate
+of the chosen map suffices. Use an exact reconstruction checker and retain
+the actual 35-coordinate scaling rather than the old fixed 13-coordinate
+checker. All of this still needs a source-bound non-author review before
+acceptance of the new PR.
+
+V02: shorter detector chain is the next arithmetic PR
+-----------------------------------------------------
+The actual seven-gate circuit gives q12=q1^23, h=q1^46 and high=q1^91,
+with the required high squares/cubes, at one fewer coordinate per detector.
+This changes the order-12 weights as well as the high weights. The eight
+order-one tests and all sixteen underlying field test functions remain.
+
+With e=q1*delta, R=1/(e*delta), supply d=D/delta^(2m-1) to the one-place
+proof. Exactly
+  R*(d/R^m)^2 = q1^(2m-1)*D^2.
+Use m=1,12,46 at the actual tests. At retained contacts delta is a unit,
+so v(d)=v(D). The same proof at one common place then supplies the actual
+orders for all tests, including zero functions. The large-prime statement
+in quartic_v10.tex:11031-11064 is not applicable verbatim: use its proof
+with the already checked small-prime pole reapplication and the exact
+exception set {2,3,5,7,13,17}, as #17 does.
+
+Correction to frontier/NOTES.md: R is unchanged, but W, Tr(W^-1) and
+B=R/Tr(W^-1)^2 are NOT unchanged. New private pole witnesses are required.
+Their completeness checks are promising and have the same quantifier order
+as #17. At selected contacts, successful factors are 1 modulo p and opposite
+inverse factors are 0 or 1, giving trace residue 1 or 2. Other valuations
+of R remain even, preserving the square-denominator condition. All weights
+are positive; W is at least one in each real embedding, so its trace is
+nonzero. For fixed scales the new weight is O(lambda^-(2m-1)), hence W tends
+to one. At p=2,3,17, putting s=v(A)+v(98), its valuation is
+  (2m-1)*(nu+4s),
+which tends to infinity with the freely prescribed finite depth nu.
+Thus the fixed squareclasses and the real bound B<17 can be supplied by
+strengthening the existing fixed bounds before prime selection. This is
+an argument to write and review at the new application, not an automatic
+carry-forward of #17's acceptance.
+
+All point/logarithm consumers have the same orders as #17: high order46,
+input order12, scalar order31. #17's precision-51 and exact E2010 scalar,
+Lucas and input margins apply to the same downstream objects once the new
+normalization application is established. The shorter chain gives 376/425.
+
+V03: scalar47 plus detector50 is a worthwhile optional third PR
+--------------------------------------------------------------
+The change r*r_inverse31=r_inverse15^2 stores r^-31, and the proxy leaf
+becomes y=Tproxy/r^32. No tau chart or changed proxy is involved. The same
+norm descent gives v(y)>(451/32)*R, hence
+  v(Tproxy)>(1475/32)*R >= 46+3/32,
+and integral valuations give order47. The supplying round-five two-place
+proxy proof, including its place above41, explicitly permits every positive
+scalar order. The first four leaves still establish formal-group membership
+before applying that proof; there is no circular use of the proxy.
+
+The finite preparation needs the stronger bound v(Tproxy)>=48R+1 rather
+than 32R+1 when the same sufficient leaf depths 16R+1 are retained. This is
+still imposed after H is fixed and before contact-prime selection. In the
+real argument r is fixed, so Tproxy/r^32 still tends to zero as Q tends to
+the identity. The inherited preparation-zero simultaneous argument must be
+written with these actual quantities. No new prime-pattern hypothesis is
+suggested, but this is a changed application requiring review.
+
+The order50 circuit uses q1^8, I=q1^-7, q12=q1^16/I=q1^23, h=q12^2,
+high=h^2/I=q1^99. The stored q1^4 is shared by the compiler; no extra
+detector coordinate is needed. I is positive and nonzero. Growth of I at
+infinity is harmless: the products consumed by the pole are positive odd
+powers of q1 and decay. Generalize V02's argument to m50. G12's proved
+relative precision51 suffices, and primary error4m=200 suffices. Check the
+actual identity branches and choose primary progression Pi^49; merely
+citing the old statement for m46/47 is insufficient.
+
+HEIGHT_CHECKS.json independently verifies the exact sharpened scalar,
+Lucas and final-input inequalities at (scalar order47, detector order50,
+E1512), as well as the intermediate candidates. Combined measurements are
+377 variables and 327 digits. This trades one extra variable for smaller
+coefficients and should preserve the 376-variable route as an alternative.
+No minimality over all even anchors or all diagonal maps is claimed.
+
+V04: tau chart remains research, with a further trace-unit concern
+----------------------------------------------------------------
+The supplied notes leave proxy41, guard completeness and anchor obligations
+open. There is also a split-prime sign issue to settle before a proxy unit
+can be asserted. The existing source proves w*k_Q=-h_P mod p without
+choosing signs; division by h_S changes the residue to -h_P/h_S. From
+h_S^2=h_P^2 mod p alone one gets plus or minus one independently at the
+two split places, not necessarily the same sign.
+
+For example at the admitted split prime23, take sqrt2 residues +/-5.
+The fixed h_P=-1+7*sqrt2/4 has residues (2,19). Allowed square-root residues
+(2,4) for h_S then give -h_P/h_S=(-1,+1), whose rational trace-half is zero.
+This is a local sign diagnostic, NOT a constructed global false solution
+of the proposed circuit. It demonstrates that the stated local hypotheses
+alone do not justify the needed trace-unit inference. A global branch or
+index argument could potentially rule it out; none was supplied or checked.
+Do not restrict the problem to the nonunit place over41, and do not carry
+forward the old proxy acceptance. A and tau do not automatically combine:
+A retains the w-anchor; tau changes that object. Keep tau out of the first
+three PRs until these obligations are closed.
+
+V05: dropped order-one tests are not an accepted saving
+------------------------------------------------------
+The round-four two-anchor argument uses the primary formal-group premise
+before identifying valuations of logarithm ratios. Removing three tests
+loses precisely that premise when p divides h-1. A deep H alone does not
+exclude a high-depth reduction of [N_p]P at such a prime. The supplied
+365-variable table is a weakened predicate with incomplete soundness,
+not a smaller accepted Diophantine representation. A proof excluding the
+case at every consumed prime, or a cheaper replacement predicate, is needed.
+No global counterexample to the full weakened polynomial was proved here.
+
+V06: scope of other negative and speculative results
+---------------------------------------------------
+Orders48 and50 refute the earlier broad claim that every order above46
+costs eight gates. Exact exponent decoding confirms both seven-gate routes.
+CHAIN_LOWER_BOUND.json independently verifies the short obstruction to six
+within the stated monomial quotient model with five mandatory targets:
+initial e-exponents in [-1,4], one auxiliary and a next target reach at
+most19, below the first mandatory target23. It says nothing about changed
+interfaces or non-monomial cancellation. No universal optimum is claimed.
+
+The affine-sampling code tests chart/gate samples, not all constraints of
+the final arithmetic solution set. Its finite-field rank observation does
+not exclude nonlinear elimination, row rewrites or identities that need the
+remaining constraints. Keep this and the grouping searches as scoped
+negative evidence, not exhaustive circuit impossibility statements.
+
+B/C row changes are not algebraic equivalences like A: they change norm-tree
+or anchor predicates. They need new three-adic finite preparation and, for C,
+the full varying-anchor application. Some original B/C builds were edited
+post-compilation; they are not among the fully source-driven composed builds
+verified here. Build those changes from source and bind their consumer proofs
+before using the figures. Lower priority than A and the scalar47/order50 route.
+
+The notes about the Version13 tree concern an unsuccessful transfer to this
+package's different proxy and objects. They do not supply a source-bound
+counterexample to a Version13 theorem. Do not report them as a new upstream
+mathematical defect. Similarly, 'T cannot be removed' and 'poles cannot share'
+are negative results for the attempts described, not general impossibility.
+
+Recommended sequence
+--------------------
+1. Above #17: A + tri + exact diagonal certificate, 379/425. Short exact
+   algebraic transport proof and independent review; no detector-route change.
+2. Above that: q1-power order46, 376/425. New normalization application and
+   actual simultaneous pole completeness, with its own non-author review.
+3. Optional branch/variant above that: scalar47 + order50, 377/327. New scalar
+   depth/preparation and generalized precision consumers; retain 376/425.
+4. Continue tau, B/C and missing-test research separately; no advertised
+   arithmetic saving until the stated missing applications are proved.
+
+All new PRs need the repository's source bindings, application contracts,
+exact reproducers, preserved findings and separately authored acceptance.
+A finite checker pass, including those recorded here, does not supply the
+required designated App check or prove the inherited global theorem.

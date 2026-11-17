@@ -1,0 +1,40 @@
+{
+  "status": "PASS",
+  "independentAcceptance": false,
+  "comparison": {
+    "deletedRows": [
+      "detector0.mixA.definition",
+      "detector0.mixB.definition",
+      "detector0.mixC.definition",
+      "detector0.mixD.definition",
+      "detector1.mixA.definition",
+      "detector1.mixB.definition",
+      "detector1.mixC.definition",
+      "detector1.mixD.definition",
+      "detector2.mixA.definition",
+      "detector2.mixB.definition",
+      "detector2.mixC.definition",
+      "detector2.mixD.definition"
+    ],
+    "addedRows": [
+      "detector0.eCubed.definition",
+      "detector0.eSixth.definition",
+      "detector0.eTwelfth.definition",
+      "detector1.eCubed.definition",
+      "detector1.eSixth.definition",
+      "detector1.eTwelfth.definition",
+      "detector2.eCubed.definition",
+      "detector2.eSixth.definition",
+      "detector2.eTwelfth.definition"
+    ],
+    "changedRows": [
+      "detector0.q12.definition",
+      "detector1.q12.definition",
+      "detector2.q12.definition"
+    ],
+    "unchangedRows": 355,
+    "allGuardsUnchanged": true,
+    "affineCubesChecked": 3
+  },
+  "negativeControlsRejected": 4
+}

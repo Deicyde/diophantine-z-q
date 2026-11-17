@@ -1,0 +1,203 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,booktabs,array,microtype}
+\usepackage[margin=0.86in]{geometry}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[colorlinks=true,linkcolor=MidnightBlue,urlcolor=MidnightBlue]{hyperref}
+\usepackage{fancyhdr,seqsplit}
+\let\originaltexttt\texttt
+\renewcommand{\texttt}[1]{\originaltexttt{\seqsplit{#1}}}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small Proposed conditional 389-variable quartic}
+\fancyhead[R]{\small November 7, 2026}
+\fancyfoot[C]{\thepage}
+\setlength{\headheight}{14pt}
+\setlength{\parskip}{4pt}\setlength{\parindent}{0pt}
+\setlength{\emergencystretch}{3em}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newcommand{\Q}{\mathbb Q}\newcommand{\Z}{\mathbb Z}
+\title{A proposed 389-variable quartic refinement\\[5pt]
+\large Reusing primary depth, refining the height estimate,\\
+and reducing coefficients by rational scaling}
+\author{Prepared with ChatGPT for Cameron}
+\date{November 7, 2026}
+\begin{document}
+\maketitle\thispagestyle{empty}
+\section{Selected result and its mathematical scope}
+
+The selected polynomial has \textbf{389 total rational variables}, including
+an unchanged distinguished input $X$, and therefore 388 existential
+witnesses. It is the sum of squares of 357 explicit integer quadratic
+residuals. Its degree is exactly four, it has 26,295 nonzero monomials,
+all 389 variables occur, and the coefficient of $X^4$ is one. In particular
+its integer content is one. Every coefficient in the supplied text table
+is an ordinary decimal integer. The largest absolute coefficient is
+\[
+ \boxed{28902\cdot3^{1576}},
+ \qquad\textbf{757 decimal digits and 2513 bits}.
+\]
+This replaces the preceding 392-variable proposal, which had 360 residuals,
+26,301 monomials and a 905-digit maximum coefficient. No extra variable
+is used to name the fixed constant in the selected form.
+
+The intended characterization, with the inherited global arithmetic
+qualifications retained, is
+\[
+ X\in\Z\quad\Longleftrightarrow\quad
+ \exists(y_1,\ldots,y_{388})\in\Q^{388}\quad P_{389}(X,y)=0.
+\]
+The finite algebraic construction and the new local arguments are supplied
+and checked here. This proposal does not independently establish all of
+the inherited curve/group, quaternionic, modularity and local compatibility,
+reduction, isogeny-height, simultaneous prime/progression, Lucas and pole
+realization inputs. In particular the improved height exponent below is a
+\emph{reapplication of the inherited proof inputs}, with sharper explicit
+estimates; it is not inferred merely by replacing the exponent in an
+existing theorem statement. Internal reviews by separately assigned AI
+agents do not constitute human peer review or a completed Lean proof.
+
+\subsection{Three selected improvements}
+
+The detector change promotes the primary inverse-root test $g(U_A)$ from
+order one to order twelve. Completeness already puts $H$ at formal depth
+at least 45, and chooses $U_A=[n]H$ with $n\in\Z$. Integer multiplication
+cannot lower that positive formal depth. The new uniform pair uses the
+already stored square $q_{12}^2$, deleting the three separate products
+$q_1q_{12}$, one per detector. Soundness uses only the strengthened
+local conclusion and does not assume the completeness relation for an
+arbitrary putative solution.
+
+The arithmetic change sharpens an Euler-product estimate and uses
+$g\ge2$ with $g\le1+d_H/12$ to obtain $g\le d_H/6$. These give the
+new height exponent $\alpha=577/32=18.03125$ and the 665-bit constant
+\[
+ \mathcal H=3\cdot2^{106}(2^{32}3^9)^6 46410^{18}+128.
+\]
+Checking the actual scalar, Lucas and input consumers permits the smaller
+fixed anchor $S_0=3^{2364}$, in place of $3^{2790}$. In particular the
+scalar target is $h(\beta)<|a-1|/4$, which the final input contradiction
+actually needs. Scalar order 28, high order 45, input order 12, packing
+coefficient three and the existing prime-selection hypotheses remain.
+
+The coefficient change combines the preceding ternary scaling with two
+additional dyadic factors. It changes thirteen existing coordinates by
+fixed nonzero rational factors and fixes $X$. Exact rational row
+normalization then gives the stated 757-digit maximum. The negative dyadic
+exponent creates five nonintegral row divisors, all explicitly certified.
+The square-scale hypotheses apply to the decoded old semantic scale;
+the new stored scale coordinate need not itself be a square.
+
+\subsection{Available coefficient-size tradeoffs}
+
+The construction also regenerates the direct unbalanced polynomial and
+three constant-chain variants. All counts below include the input. Each
+constant-chain variant is a unique extension of the same source system;
+the added coordinates are counted.
+\begin{center}
+\begin{tabular}{lrrrr}\toprule
+Form & Variables & Residuals & Monomials & Max. digits\\\midrule
+Selected balanced decimal &\textbf{389}&357&26,295&\textbf{757}\\
+Direct unbalanced decimal &389&357&26,295&2,273\\
+Two-coordinate constant lift &391&359&26,304&752\\
+Three-coordinate constant lift &392&360&26,307&323\\
+Four-coordinate constant lift &393&361&26,310&151\\\bottomrule
+\end{tabular}
+\end{center}
+Thus the new three-coordinate lift has the preceding proposal's total
+variable count 392 with a 323-digit coefficient maximum. The four-coordinate
+lift uses fewer variables than the preceding two-coordinate lift and has
+much smaller coefficients. These are measured constructions, with no
+claim that any point of this tradeoff is optimal.
+
+\subsection{Provenance and how to read this note}
+
+The upstream repository is
+\url{https://github.com/elliotglazer/diophantine-z-q}, pinned at
+\texttt{036cebe4f1a4aa7ca89820a9b48f3629b4c364d6}.
+The pin is a reproducibility reference, not a claim about current upstream
+HEAD. The proposal is an additive draft under
+\texttt{research/conditional-quartic-reduction/}; it is not an official
+release or a designation of the next manuscript version.
+
+The following three sections are the complete new argument texts. The
+detector section first measures its isolated change at the preceding
+anchor; the arithmetic section separately justifies the selected smaller
+anchor; the diagonal section applies to the integrated result. The exact
+integrated source, proof texts and receipts are bound in
+\texttt{PROVENANCE.json} and \texttt{SOURCE\_MANIFEST.json}.
+
+The unchanged seventh-round detector normalization and scalar proof,
+and the earlier local/arithmetic derivations on which they depend, remain
+in the supplied proof tree. The preceding compiled note is retained under
+\texttt{lineage/round7\_proposal\_note.pdf}. The full dependency inventory
+identifies the actual domain and consumer of every retained transformation;
+historical numerical examples are not selected current assumptions.
+
+\clearpage
+\input{proofs/detector_round8.tex}
+\clearpage
+\input{proofs/arithmetic_round8.tex}
+\clearpage
+\input{proofs/diagonal_scaling_round8.tex}
+\clearpage
+\section{Exact verification and a portable review workflow}
+
+The source compiler reports 339 gates. The separate gate checker verifies
+all 339 gate identities and 330 compilation operations. The detector
+checker reconstructs all sixteen semantic tests and their orders, the
+actual products, norm and pole consumers, and passes 384 source assertions,
+seven Laurent identities, three normalization identities and two uniform-pair
+identities. A separately authored conservation checker verifies 157
+assertions, including semantic agreement of 362 unchanged equations with
+the supplied byte-identical 392-variable reference builder. There is no
+further saving from the final elimination search.
+
+The arithmetic source checker verifies 97 exact source and numerical
+conditions. A separate arithmetic certificate checks 67 inequalities and
+normalizations, without importing the author checker. The written review
+also checks the actual pinned height proof, the genus and level conventions,
+small-prime subset/tail argument, noncircular anchor argument and all three
+height consumers. The numerical certificates do not by themselves prove
+these uniform or inherited global assertions.
+
+The separately authored coefficient checker reconstructs all 357 primitive
+rows, every rational row divisor, the rational inverse coordinate map, the
+full quartic sum of squares and all 26,295 decimal coefficients. Six negative
+probes, including altered coefficients with rebound advertised digests,
+were rejected. The complete table SHA256 is
+\begin{center}\small\texttt{1c612d20915667dfd81a7895f8d93231d5efeaf86ecfaa15194408d298d35573}\end{center}
+The other source, scalar, gate, elimination, stage-bridge, parameter-binding
+and independent full-table audits remain separate checks.
+
+The rebuild uses only Python 3.11+ and Node.js standard libraries and needs
+no network. The wrapper starts from a fresh directory seeded with exactly
+the declared source and proof inputs. It regenerates all mathematical
+artifacts, compares deterministic file hashes and the committed decimal
+table, checks all required successful audit reports, and verifies that both
+the original sources and every copied build input remain unchanged.
+
+Completion is a structured atomic record, bound to the executed pipeline
+hash and its exact ordered list of 23 successful stages. The final stdout
+line is diagnostic. This change addresses a weakness exposed when the
+preceding wrapper once failed to observe that line despite matching
+mathematical outputs. The cause of that historical stdout event remains
+unknown; it is preserved as evidence rather than given a speculative
+explanation. Forty-five focused orchestration probes and seven separate
+adversarial probes check the wrapper's acceptance and failure behavior.
+These mocks supplement an actual fresh full rebuild; they do not replace it.
+
+The draft package supplies a full patch against the pinned upstream and an
+incremental patch against the exact preceding 392-variable overlay. Apply
+one appropriate route and run \texttt{reproduce.py --check-source}, then
+\texttt{reproduce.py}. The handoff also runs the repository audit-history
+checker and preserves its result. A failed equation, changed domain,
+source mismatch or coefficient mismatch must be investigated rather than
+resolved by changing golden hashes to whatever happened to be produced.
+
+No public branch, PR, message, merge or release was created by this work.
+Official manuscript integration would require explicit replacement arguments
+at the consuming passages and a fresh review under the repository's protocol.
+The package leaves that decision and any publication to the human submitter
+and maintainers.
+\end{document}

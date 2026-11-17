@@ -1,0 +1,57 @@
+{
+  "status": "PASS",
+  "independentAcceptance": false,
+  "scope": "Finite source, circuit, conic and coefficient replay; arithmetic acceptance pending.",
+  "sourceBindingsSha256": "13ef75e44755682a5b88c56dccfbbd4dd4fae63fc091338fcf43b4f9c3c82a7e",
+  "contractSha256": "a670f64ed1ff5926b0579522684870aee397a64a3b23a3413f9df0e3e13acbc9",
+  "compiledIrSha256": "5b5c6473e17f06c160d7c54453730118d39e97d3767efe03687c8eedc2e14031",
+  "summary": {
+    "coordinates": 385,
+    "residuals": 353,
+    "degree": 4,
+    "monomials": 26200,
+    "integerContent": 1,
+    "inputFourthPowerCoefficient": "1",
+    "maximumCoefficientDigits": 682,
+    "maximumCoefficientBits": 2266,
+    "scaledCoordinates": 13,
+    "ternaryScaledCoordinates": 12,
+    "dyadicScaledCoordinates": 2,
+    "anchorExponent": 2130,
+    "cExponent": 355,
+    "tableSha256": "c9e3e65c64c360c1cbf22c44704776c000294a1a7028e6f3f80bbe500243bdfb",
+    "tableBytes": 1038398,
+    "certificateSha256": "df7105bae753fd2d860d29ff60905f3357a66bc3353081d5405e5b7210f86176"
+  },
+  "completedStages": [
+    "Verify the frozen parent source manifest",
+    "Build the unchanged raw source for comparison",
+    "Build the order-31 scalar chain",
+    "Check scalar equations, outside rows, height margins and negative controls",
+    "Compile the quadratic system",
+    "Replay every source gate and compiler operation",
+    "Replay exact quadratic eliminations",
+    "Apply build_transport.py to the actual compiled conics",
+    "Apply check_transport.py to the actual compiled conics",
+    "Produce the input-fixed diagonal scaling",
+    "Reconstruct every scaled row and every quartic coefficient"
+  ],
+  "reports": [
+    {
+      "path": "candidate/source-check.json",
+      "sha256": "b7320fc4ffcb3848887e5554981f0ded14b259d8bcb5448b6596ee75cfb0cdd1"
+    },
+    {
+      "path": "candidate/gate-check.json",
+      "sha256": "cba86f4596472f6fbcee0e41a524a689cc190e3fffb5b732fb288312e3f6a154"
+    },
+    {
+      "path": "factored/transport-check.json",
+      "sha256": "660f27ebccacf8f91f5ec313c012d7ab3d1d6f09804adc8379b1e1994ab10fd7"
+    },
+    {
+      "path": "factored/diagonal-check.json",
+      "sha256": "5006570dc608ec9d1b55953f6f93894602f88b596f10e490f8d53cab3734e4b9"
+    }
+  ]
+}

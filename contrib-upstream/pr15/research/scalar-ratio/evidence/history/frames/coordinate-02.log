@@ -1,0 +1,114 @@
+Research/DerivativeSwitch/Coordinate.lean:34:0: warning: automatically included section variable(s) unused in theorem `Research.DerivativeSwitch.ScalarRatio.tensor_mul`:
+  [DecidableEq n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+Research/DerivativeSwitch/Coordinate.lean:43:0: warning: automatically included section variable(s) unused in theorem `Research.DerivativeSwitch.ScalarRatio.mul_tensor`:
+  [DecidableEq n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+Research/DerivativeSwitch/Coordinate.lean:62:12: warning: This simp argument is unused:
+  Matrix.mul_smul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Research/DerivativeSwitch/Coordinate.lean:98:69: error: unsolved goals
+K : Type u_1
+n : Type u_2
+inst✝² : Field K
+inst✝¹ : Fintype n
+inst✝ : DecidableEq n
+D N : Matrix n n K
+B T : (Matrix n n K)ˣ
+z lam e ell : n → K
+u : K
+hD : D * ↑B = ↑T * N
+hz : z = ↑B *ᵥ e
+hlam : lam ᵥ* ↑T = ell
+hnormal : HasCoordinate N e ell u
+hT : (↑T).det ≠ 0
+hD' : D = ↑T * N * ↑B⁻¹
+htensor : tensor z lam = u • (↑B * N.adjugate * ↑T⁻¹)
+⊢ ((↑T).det * (↑B).det⁻¹) • (↑B * (N.adjugate * (↑T)⁻¹)) = ((↑B).det⁻¹ * (↑T).det) • (↑B * (N.adjugate * (↑T)⁻¹))
+Research/DerivativeSwitch/Coordinate.lean:95:14: warning: This simp argument is unused:
+  Matrix.mul_smul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Matrix.smul_mul]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Research/DerivativeSwitch/Coordinate.lean:95:31: warning: This simp argument is unused:
+  Matrix.smul_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Matrix.mul_smul]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Research/DerivativeSwitch/Coordinate.lean:101:10: warning: This simp argument is unused:
+  Matrix.smul_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Matrix.mul_smul, smul_smul, Matrix.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Research/DerivativeSwitch/Coordinate.lean:101:27: warning: This simp argument is unused:
+  Matrix.mul_smul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Matrix.smul_mul, smul_smul, Matrix.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Research/DerivativeSwitch/Coordinate.lean:125:10: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+Research/DerivativeSwitch/Coordinate.lean:130:10: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+Research/DerivativeSwitch/Coordinate.lean:144:16: warning: This simp argument is unused:
+  mul_comm
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [tensor, mul_left_comm, mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Research/DerivativeSwitch/Coordinate.lean:144:41: warning: This simp argument is unused:
+  mul_assoc
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [tensor, mul_comm, mul_left_comm]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Research/DerivativeSwitch/Coordinate.lean:147:0: warning: automatically included section variable(s) unused in theorem `Research.DerivativeSwitch.ScalarRatio.row_mul_assoc`:
+  [DecidableEq n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+Research/DerivativeSwitch/Coordinate.lean:179:10: warning: This simp argument is unused:
+  Pi.single_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [hi, Ne.symm hi, hvalue]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Research/DerivativeSwitch/Coordinate.lean:179:31: warning: This simp argument is unused:
+  Ne.symm hi
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Pi.single_apply, hi, hvalue]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Research/DerivativeSwitch/Coordinate.lean:223:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```

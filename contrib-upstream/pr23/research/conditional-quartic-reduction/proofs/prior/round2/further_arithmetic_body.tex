@@ -1,0 +1,446 @@
+\section{Further arithmetic reductions}
+
+\paragraph{Scope and provenance.}
+The source is Version~10 at commit\\
+{\small\nolinkurl{036cebe4f1a4aa7ca89820a9b48f3629b4c364d6}}.\\
+The starting system for this note is the previously checked construction
+with the packed parity anchor. We describe four further changes:
+six field-valued difference guards become rational guards; the scalar
+correction becomes the fixed integer $21$; the unused scalar factor
+$2\beta-1$ is removed; and the scalar preparation uses a conic instead
+of its rational parametrization.
+The guard and preparation changes have explicit two-way witness maps on
+the stated domains. The input-label and correction change instead reuses
+the source's global soundness and completeness argument with a new label.
+It retains every inherited arithmetic dependency; it is not an independent
+proof of the source's global characterization.
+
+\subsection{Six rational guards for elliptic differences}
+
+Put $\rho=\sqrt2$, $K=\mathbb Q(\rho)$, $D=11-6\rho$, and
+\[
+ E:y^2=x^3-Dx,\qquad
+ P=\left(\frac{57}{8}-\frac72\rho,
+          -\frac{165}{8}+\frac{417}{32}\rho\right).
+\]
+The inherited point-domain result identifies $2E(K)=\mathbb ZP$ and
+makes every chart point a finite nonzero multiple of $P$.
+We use $z=-x/y$ and normalize the valuation of $K$ above $2$ by $v(2)=1$.
+For $a,b\in\mathbb Q$, the nonzero terms in $a+b\rho$ have valuations
+$v_2(a)$ and $v_2(b)+\tfrac12$. They have different fractional parts, so
+\begin{equation}\label{further:eq:componentvaluation}
+ v(a+b\rho)=\min\{v_2(a),v_2(b)+\tfrac12\}.
+\end{equation}
+
+The chart values
+\[
+ h(P)=-1+\frac74\rho,\qquad
+ j(P)=\frac{39}{8}-\frac92\rho,\qquad z(P)=-h(P)/j(P)
+\]
+give $v(z(P))=\tfrac32$. The formal group is defined over the local
+integer ring. Its inverse is $T\mapsto-T$, and
+$[u](T)=uT+O(T^3)$. Odd multiplication preserves a depth at least
+$\tfrac32$. Multiplication by $2$ increases it by exactly one, since
+$3r>1+r$ at such a depth $r$. Consequently, for every nonzero integer $n$,
+\begin{equation}\label{further:eq:multipledepth}
+ t_n=z(nP),\qquad v(t_n)=\frac32+v_2(n).
+\end{equation}
+Negative integers are included because $t_{-n}=-t_n$.
+
+Write the formal group law as $F(X,Y)$. The identity $F(X,-X)=0$ and
+its linear term give
+\[
+ F(X,Y)=(X+Y)A(X,Y),\qquad
+ A\in\mathcal O_K[[X,Y]],\quad A(0,0)=1.
+\]
+Thus, when $n\ne\pm m$, both evaluated factors $A(t_n,\pm t_m)$ are
+units and
+\[
+ v(t_n-t_m)=\frac32+v_2(n-m),\qquad
+ v(t_n+t_m)=\frac32+v_2(n+m).
+\]
+The integral Laurent expansion
+$x(T)=T^{-2}+\sum_{j\ge1}a_jT^{2j}$ likewise yields
+\[
+ x(t)-x(s)=\frac{s^2-t^2}{s^2t^2}\,B(t,s),
+ \qquad B\in\mathcal O_K[[t,s]],\quad B(0,0)=1.
+\]
+It follows that
+\begin{equation}\label{further:eq:differencevaluation}
+ \begin{split}
+ v\bigl(x(nP)-x(mP)\bigr)
+ ={}&-3+v_2(n-m)+v_2(n+m)\\
+    &-2v_2(n)-2v_2(m)\in\mathbb Z.
+ \end{split}
+\end{equation}
+If the nonzero difference is $a+b\rho$, equations
+\eqref{further:eq:componentvaluation} and
+\eqref{further:eq:differencevaluation} force $a\ne0$.
+
+Therefore, on this inherited point domain,
+\[
+ x(Q)\ne x(R)
+ \quad\Longleftrightarrow\quad
+ \operatorname{coeff}_{1}\bigl(x(Q)-x(R)\bigr)\ne0.
+\]
+Replace each of the six unused field inverses of a subtraction denominator
+by one rational variable $g$ satisfying $ag=1$.
+The two slope coordinates are retained. An old solution determines
+$g=1/a$; a new solution has a nonzero field denominator and recovers its
+old inverse uniquely. The cases $n=\pm m$ have zero denominator and are
+excluded by both guards. This saves six coordinates without altering the
+projected points or any quotient value.
+
+\subsection{A local anchor that also checks the input at 2 and 3}
+
+Let the four root points be $Q_i=[n_i]P$, $n_i\ne0$, and write
+\[
+ \prod_{i=1}^{4}x(Q_i)=C_0+C_1\rho,
+ \qquad B_0=4096C_0.
+\]
+Let $S_{\rm pt}=[a]P$, $R=S_{\rm pt}-P$, and
+$f(R)=1/x(R)=f_0+f_1\rho$. Set
+\[
+ C_{\rm a}=3^{2^{25}},\qquad
+ \mathsf S=C_{\rm a}^{2}=3^{2^{26}},\qquad
+ q_2(u,v)=u^2+uv-v^2.
+\]
+The point subtraction guard ensures $R$ is finite and nonidentity.
+
+For completeness, the local facts behind the earlier packed anchor are
+as follows. At $3$, the extension $K/\mathbb Q$ is unramified and inert,
+with residue field $\mathbb F_9$. The reduction of $P$ is $(\rho,0)$,
+of order two, and direct doubling gives
+\[
+ v_3(z(2P))=1,\qquad z(2P)/3\equiv2+\rho\pmod3.
+\]
+For an even nonzero $n=2\cdot3^ku$, $3\nmid u$, the integral odd
+formal group law gives
+\[
+ 3^{-(k+1)}z(nP)\equiv u(2+\rho)\pmod3.
+\]
+Indeed, multiplication by a $3$-adic unit scales the normalized residue
+by that unit, and multiplication by $3$ raises depth by one without
+changing the normalized residue. The error after division by the new
+power of $3$ has valuation at least one. These assertions also hold for
+negative $u$.
+Since $xz^2\equiv1$ on the formal branch,
+$u^2\equiv1\pmod3$, and $(2+\rho)^{-2}=2\rho$ in $\mathbb F_9$,
+\[
+ 3^{e(n)}x(nP)\equiv
+ \begin{cases}
+ \rho,&n\text{ odd},\\
+ 2\rho,&n\text{ even},
+ \end{cases}
+ \quad
+ e(n)=\begin{cases}0,&n\text{ odd},\\2+2v_3(n),&n\text{ even}.
+ \end{cases}
+\]
+Writing $E_0=\sum_i e(n_i)$ and letting $j$ count the even indices gives
+\[
+ 3^{E_0}\prod_i x(Q_i)\equiv2^j\rho^4=2^j\ne0
+ \quad\text{in }\mathbb F_3.
+\]
+In particular $v_3(C_0)=-E_0$, so $B_0$ is $3$-integral exactly when
+all four indices are odd. This also proves $C_0\ne0$.
+
+At $2$, equation~\eqref{further:eq:multipledepth} gives
+$v(x(nP))=-3$ for odd $n$. If all four indices are odd, their product
+has valuation $-12$; equation~\eqref{further:eq:componentvaluation}
+then gives $v_2(C_0)\ge-12$. Hence $B_0$ is $2$-integral.
+For every nonzero multiple $R$ of $P$, $v(f(R))>0$, so its two rational
+coefficients are $2$-integral as well.
+
+Replace the old physical anchor coordinate by
+\begin{equation}\label{further:eq:newtheta}
+ \Theta=q_2(f_0,f_1)+3\mathsf S(B_0^2+X^2),
+\end{equation}
+and retain the conic
+\begin{equation}\label{further:eq:anchorconic}
+ u^2+6v^2-2w^2-3\Theta^2+2\mathsf S^2=0.
+\end{equation}
+The source's quaternion criterion, used in
+\nolinkurl{lem:v5-three-witness-anchor}, says that this conic is soluble
+exactly when
+\begin{equation}\label{further:eq:anchortest}
+ q_2(f_0/C_{\rm a},f_1/C_{\rm a})+3(B_0^2+X^2)
+ \in\mathbb Z_{(2)}\cap\mathbb Z_{(3)}.
+\end{equation}
+
+Both $q_2(u,v)$ and $u^2+v^2$ are anisotropic modulo $3$. Their
+$3$-adic valuations are therefore twice the minimum valuation of their
+arguments. The two summands in~\eqref{further:eq:anchortest} have,
+respectively, even and odd valuations and cannot cancel.
+Integrality at $3$ is equivalent to
+\[
+ f_0/C_{\rm a},\ f_1/C_{\rm a},\ B_0,\ X
+ \quad\text{all being }3\text{-integral}.
+\]
+This first recovers the old depth anchor and forces all four root
+indices to be odd. Only then use the $2$-adic coefficient bound above:
+it makes $B_0$ $2$-integral, while $f_0/C_{\rm a}$ and
+$f_1/C_{\rm a}$ are already $2$-integral because $C_{\rm a}$ is odd.
+Thus integrality at $2$ in~\eqref{further:eq:anchortest} is equivalent
+to $X$ being $2$-integral. A negative valuation of $3X^2$ cannot cancel
+against the remaining integral terms.
+
+The new anchor is consequently equivalent to the old depth condition,
+the four odd-index conditions, and
+$X\in\mathbb Z_{(2)}\cap\mathbb Z_{(3)}$.
+This conclusion uses neither the global height argument nor the assertion
+that $X$ is an integer. The original lower bound on $|a-1|$ is preserved.
+
+\subsection{A fixed scalar correction}
+
+Use the new label and correction
+\begin{equation}\label{further:eq:newbeta}
+ \beta=1224X^2+2451,
+ \qquad 1224=2^3\cdot3^2\cdot17,
+ \qquad c=21=3\cdot7.
+\end{equation}
+Remove the unused factor $2\beta-1$ from the scalar contact polynomial
+and use
+\begin{equation}\label{further:eq:r4}
+ r=\beta(\beta-1)(\beta-2401)(32\beta+343).
+\end{equation}
+The justification that these four factors detect every required contact
+is given below.
+For every rational $X$, $\beta\ge2451>2401$, so $r>0$.
+For integral $X$, $\beta$ is positive and odd and satisfies
+\[
+ \beta\equiv3\pmod8,\qquad
+ \beta\equiv3\pmod9,\qquad
+ \beta\equiv3\pmod{17}.
+\]
+These congruences make the local squareclasses of $r$ fixed.
+At $2$, both $\beta-1$ and $\beta-2401$ have valuation one, and
+\[
+ \frac{\beta-1}{2}-\frac{\beta-2401}{2}=1200\equiv0\pmod8.
+\]
+Their odd parts therefore have product $1$ modulo $8$. The other two
+factors have residues $3,7$, so $v_2(r)=2$ and $r/4\equiv5\pmod8$.
+At $3$, only $\beta$ is divisible by $3$; it has valuation one and
+$\beta/3\equiv1\pmod3$. The other residues are $2,2,1$, giving
+$v_3(r)=1$ and $r/3\equiv1\pmod3$.
+At $17$, the four residues are $3,2,16,14$, whose product is $1$.
+Together with $21\equiv5\pmod8$, $21/3\equiv1\pmod3$, and
+$21\equiv4\pmod{17}$, this proves
+\[
+ 21r>0,\qquad
+ 21r\in\mathbb Q_2^{\times2}
+      \cap\mathbb Q_3^{\times2}
+      \cap\mathbb Q_{17}^{\times2}.
+\]
+For the last assertion, $21r\equiv4=2^2\pmod{17}$.
+All assertions are for every integral $X$, not merely tested examples.
+
+\paragraph{Input integrality.}
+If the global argument gives $\beta\in\mathbb Z$ and $X=u/v$ in
+lowest terms, then $v^2\mid1224$. Hence only $2$ or $3$ can divide $v$;
+the exponent of $17$ in $1224$ is one. The new anchor has already made
+$X$ integral at $2$ and $3$, so $v=1$.
+Conversely, integral $X$ gives integral positive odd $\beta$.
+
+\paragraph{The exact contact set and the removed factor.}
+The source definition preceding \nolinkurl{hyp:o8-height} is
+\[
+ S_* =\{p:p\le76176\},\qquad
+ \mathcal D=\{0,1,2401,-343/32\}.
+\]
+The radical $M_5(\beta)$ comprises the primes outside $S_*$ at which
+$(\beta:1)$ has positive odd contact order with one of
+$\infty,0,1,2401,-343/32$. The point $1/2$ is not a contact in this
+definition.
+
+For $p>76176$, the coefficient $1224$ is a unit. If $v_p(\beta)<0$,
+then $v_p(\beta)=2v_p(X)$ is even. Thus the contact order with infinity,
+$-v_p(\beta)$, is even, and no prime of $M_5(\beta)$ comes from infinity.
+If $\beta$ is $p$-integral, a positive finite contact is
+$v_p(\beta-\delta)>0$ for $\delta\in\mathcal D$.
+The six differences between the finite contacts, up to sign, are
+\[
+ 1,\quad 2401,\quad \frac{343}{32},\quad
+ 2400,\quad\frac{375}{32},\quad\frac{77175}{32}.
+\]
+Their numerator and denominator prime factors lie in $\{2,3,5,7\}$;
+in particular $77175=3^2 5^2 7^3$.
+Consequently at every consumed prime at most one finite contact has
+positive valuation, and $32$ is a unit. Each odd finite contact makes
+exactly one factor of~\eqref{further:eq:r4} have positive odd valuation.
+In fact, for $p>76176$,
+\[
+ p\mid M_5(\beta)
+ \quad\Longleftrightarrow\quad v_p(r)\text{ is odd},
+\]
+and in this case $v_p(r)>0$.
+
+The discarded factor $2\beta-1$ is a unit at every such required
+contact prime. Its values at the finite contacts are
+$-1,1,4801,-359/16$; their numerator and denominator prime factors are
+all at most $4801<76176$. Hence its removal does not even change the
+valuation of $r$ at any consumed contact. It removes the extra tests
+at $1/2$, which the height radical never required. No collision prime
+outside the fixed cutoff is omitted.
+
+\paragraph{Scalar norm soundness with four factors.}
+Let $p\mid M_5(\beta)$ and $R_p=v_p(r)$, a positive odd integer.
+The fixed correction $21$ is a unit at $p$. The scalar pole obstruction
+applied to $b_{\rm sc}=21rW_{\rm sc}^2\ne0$ makes
+$R_p+2v_p(W_{\rm sc})$ positive, so
+$v_p(W_{\rm sc})>-R_p/2$.
+In each norm node $N_r(u,v)=u^2+rv^2$, the two summands have opposite
+valuation parity and cannot cancel. For $t<1$,
+\[
+ v_p(N_r(u,v))>-tR_p
+ \ \Longrightarrow\ 
+ v_p(u)>-tR_p/2,\quad v_p(v)>-(t+1)R_p/2.
+\]
+Starting with $t=1/2$ and descending the finite tree makes every
+normalized leaf $l_i$ have valuation greater than $-R_p$.
+For its unchanged order $m_i\in\{1,32\}$ and coefficient value $Y_i$,
+$l_i=Y_i/r^{m_i}$, whence
+\[
+ v_p(Y_i)>(m_i-1)R_p\ge m_i-1,
+ \qquad v_p(Y_i)\ge m_i.
+\]
+Zero inputs can be assigned valuation infinity and do not affect this
+argument. Thus the same four coefficient tests put the shared and
+scalar points in the formal group, and the same two order-$32$ tests
+apply to their parameter ratio. The formal logarithm isometry and
+$[h]R=[a-1]H$ give $v_p(a-1)\ge32$, exactly as in
+\nolinkurl{v5:scalar32-bridge}. This proves
+$M_5(\beta)^{32}\mid a-1$. The uniform theorem
+\nolinkurl{thm:quartic-height19} then gives the unchanged bound
+\[
+ h(\beta)\le H_{19}|a-1|^{19/32}.
+\]
+No assertion about even negative valuations at $17$ is needed: that prime
+is already excluded from the consumed-prime set.
+
+\paragraph{Scalar completeness with four factors.}
+For integral $X$, $r>1$ is an integer and $21r$ has the three local
+squareclasses just proved. Use the finite prime support $\mathcal T$ of
+$21r$. Choose the shared point deeply at all places above $\mathcal T$;
+then choose $R=[a-1]P$ still deeper, with any additional prescribed
+divisibility. The normalized leaves can be made integral when $p\mid r$
+and divisible by $p$ when $p\mid21$ but $p\nmid r$.
+The constant leaf $1$ is on the all-left path. Therefore the scalar
+norm root $W_{\rm sc}$ is congruent to $1$ modulo every prime in
+$\mathcal T$, as in the original scalar proof. It is a unit there.
+The pole input
+\[
+ b_{\rm sc}=21rW_{\rm sc}^2
+\]
+has nonnegative valuation on $\mathcal T$ and even valuation outside it.
+Its reduced denominator is square; it is positive and locally square
+at $2,3,17$. The source's
+\nolinkurl{lem:original-seven-parity-completeness} supplies its pole
+witnesses under the same inherited restricted-converse and descent
+hypotheses. That lemma requires local squares only at $2,3,17$, not
+at every prime below $17$.
+
+After $R$ is fixed, the same rational-function continuity argument in
+\nolinkurl{v5:scalar32-bridge} supplies a progression for the shared index
+preserving these finitely many valuations. Replacing five contact factors
+by four introduces no new pole or forbidden point. The norm orders,
+physical anchor, and subsequent comparison modulus are unchanged.
+
+\paragraph{Where the global argument is reused.}
+The local facts above establish the needed hypotheses before the global
+argument starts. The packed anchor supplies odd roots and the original
+scalar-index lower bound. The source's product-height result
+\nolinkurl{v9:cor:scales}, local comparisons in
+\nolinkurl{subsec:v9-local-depth}, Lucas step using
+\nolinkurl{lem:o8-lucas}, and the two contradictions in\\
+\nolinkurl{subsec:v9-soundness} use $\beta$ only as a rational label with
+the stated scalar height bound. They therefore still force $n=\beta$.
+The preceding denominator argument then forces $X\in\mathbb Z$.
+
+Conversely, for integral $X$, take $n=\beta$, use the fixed correction
+$21$, and choose the scalar index $s$ sufficiently divisible. Put
+$a=s+1$ and choose the same positive odd Lucas labels as in
+\nolinkurl{subsec:v9-completeness}. The conditions $a\equiv1\pmod3$
+and $k\equiv1\pmod3$ in that construction concern $a$, not $n$.
+All four roots are positive odd multiples, the old depth condition holds,
+and integral $X$ makes the new anchor available. The subsequent fixed
+modulus, prime-pattern, progression, continuity, and quotient-domain
+arguments are unchanged. This is a transfer of the inherited global
+proof, not a direct coordinate substitution into the old input label.
+
+\subsection{One fewer coordinate for scalar preparation}
+
+Let $b=b_{\rm sc}$ be the scalar pole input. With the new label and fixed
+correction it is positive for every rational input satisfying the
+arithmetic definitions: $r>0$, every node
+$N_r(a,b)=a^2+rb^2$ is nonnegative, and the constant leaf $1$ on the
+all-left path makes $W_{\rm sc}>0$. Thus $b\ne0$ holds independently
+of any preparation witness.
+
+The current preparation has five coordinates
+\[
+ t,\qquad t_2=t^2,\qquad T=(1+bt_2)/b,\qquad
+ A=2/T,\qquad U_2=(A-b)^2.
+\]
+Its other pole equations use $U_2$ only. Replace these by four coordinates
+$u,v,u_2,v_2$ satisfying
+\begin{equation}\label{further:eq:preparationconic}
+ u_2=u^2,\qquad v_2=v^2,\qquad
+ u_2+bv_2-b^2=0.
+\end{equation}
+Use $u_2$ in the unchanged expression $e(17b-u_2)$.
+Every residual in~\eqref{further:eq:preparationconic} is quadratic.
+
+Given old witnesses, set
+\[
+ u=\frac{b(1-bt^2)}{1+bt^2},\qquad
+ v=\frac{2bt}{1+bt^2}.
+\]
+The identity $(1-bt^2)^2+4bt^2=(1+bt^2)^2$ gives
+$u^2+bv^2=b^2$ and preserves $u_2=U_2$.
+Conversely, if $u+b\ne0$, set $t=v/(u+b)$. The conic gives
+\[
+ 1+bt^2=\frac{2b}{b+u}\ne0,
+\]
+so the old preparation recovers $u$ and the same squared coordinate.
+If $u=-b$, then $v=0$ because $b\ne0$. Replace $u$ by $+b$ and use
+$t=0$, $T=1/b$, $A=2b$. The squared coordinate and every downstream
+constraint are unchanged. This treats the one point omitted by the
+finite rational parametrization and proves the two-way equivalence.
+
+\subsection{Quadratic implementation and variable accounting}
+
+The existing coordinate $X_2=X^2$ is reused in
+$\beta=1224X_2+2451$ and in the additional anchor term
+$3\mathsf S X_2$. No new product coordinate is required.
+The physical anchor coordinate remains materialized; keep $X_2$ and the
+existing coordinate $C_0^2$ materialized when lifting $\mathsf S$ to a
+variable. Their products with $\mathsf S$ are then quadratic.
+The anchor conic and its translation that cancels $\mathsf S^2$ retain
+their formulas.
+
+The arithmetic changes have the following counts, verified against the
+final generated quadratic system:
+\[
+ \begin{array}{l|r}
+ \text{Change}&\text{Coordinates removed}\\\hline
+ \text{Six field guards replaced by rational guards}&6\\
+ \text{Eight correction choices replaced by }21&8\\
+ \text{Correction-times-}r\text{ gate becomes linear}&1\\
+ \text{Conic scalar preparation}&1\\
+ \text{Removed factor }2\beta-1&1\\\hline
+ \text{Total}&17
+ \end{array}
+\]
+These counts concern the additional arithmetic transformations only.
+The final polynomial, coefficient-lifting count, and exact coefficient
+certificates are separate construction outputs.
+
+
+Combined with the separately verified sixteen-coordinate chart reduction,
+these changes give
+\[
+ 483-17-16=450
+\]
+total variables, including the input. Thus the new quartic has $449$
+existential witnesses. The chart reduction and the final coefficient
+certificates are checked separately in the construction package.

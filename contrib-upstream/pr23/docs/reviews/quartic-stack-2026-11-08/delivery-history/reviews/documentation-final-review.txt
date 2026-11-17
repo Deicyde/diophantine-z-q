@@ -1,0 +1,114 @@
+FINAL DOCUMENTATION AND HANDOFF REVIEW
+
+Disposition: PASS. No material factual, link, command or scope discrepancy
+was found in the bound final documents and validation records.
+
+This review covers README.md inside the research payload and the bundle's
+PR_BODY.md, AGENT_HANDOFF.md and START_HERE.md, together with PR_TITLE.txt.
+The reviewer drafted these documents, then checked the final assembled
+bytes against the independently reviewed construction, the current payload
+manifests, generated audit reports and final validation records. This is an
+author's final evidence-backed consistency review, not independent human
+copy review or independent verification of the inherited global theorem.
+The companion JSON binds the exact reviewed files. It deliberately excludes
+the outer MANIFEST.json, which will be sealed after this receipt is added.
+
+Selected numerical claims
+-------------------------
+The documents consistently state 389 total rational variables, including
+one distinguished input and 388 existential witnesses; 357 quadratic rows;
+26,295 ordinary monomials; exact degree four; content one; coefficient one
+on X^4; and all 389 coordinates active. The selected anchor is 3^2364.
+The diagonal map changes thirteen existing coordinates, with twelve ternary
+factors and two dyadic factors overlapping in one coordinate. Its input is
+fixed. These values match EXPECTED_OUTPUTS.json, VALIDATION.json and the
+fresh independent diagonal report.
+
+The committed decimal table is exactly 1,050,826 bytes and its bound digest
+is 1c612d20915667dfd81a7895f8d93231d5efeaf86ecfaa15194408d298d35573.
+The exact maximum 28902*3^1576 has 757 decimal digits and 2513 bits. The
+review checked these values from the table and against the fresh report.
+
+The alternative table counts and coefficient lengths match the fresh
+delivered-quartics report: direct unbalanced: 389/357/26,295, with 2,273 digits;
+chain 391/359/26,304 with 752 digits; chain 392/360/26,307 with 323 digits;
+chain 393/361/26,310 with 151 digits. Their bit lengths are 7,549, 2,498, 1,072, 501.
+The documents explicitly distinguish the current 392-variable chain from
+the previous selected 392-variable table. Historical comparison values
+392/905,394/888,395/381,396/178 are supported by the preserved prior package.
+
+Mathematical descriptions and qualifications
+------------------------------------------
+The detector description identifies the actual primary test UA.g, available
+depth 45, promotion to order 12, existing q12-square reuse, and deletion of
+three q1*q12 coordinates. It distinguishes completeness's chosen equation
+U_A=[n]H from the soundness premises for arbitrary solutions, and preserves
+identity, alternate tests, the common place, both-place trace and choice
+order. The 362-equation conservation claim matches the fresh source report.
+
+The arithmetic description matches the selected proof: exponent 577/32,
+H=3*2^106*(2^32*3^9)^6*46410^18+128 with 665 bits, even anchor 3^2364,
+packing coefficient three, and nonzero a-1 divisible by 2*3^1181. It calls
+this a reapplication of inherited inputs and preserves their qualifications.
+The older 37/2 exploratory exponent is not described as selected.
+
+The diagonal description correctly uses rational row divisors and explains
+that the new scale coordinate need not itself be a square. It decodes the
+actual source value A=4*x238=2^-19*y238 before applying the old square-scale
+arguments. It does not assert that the new and old sums of squares differ
+by one common scalar. The scalar order 28, split-41 case, both-place formal
+premises and shifted-point nonzero guard remain explicit review obligations.
+
+The current inventory has 32 transformations, 11 inherited input groups and
+30 bound proof texts. The PDF has 14 pages. The documents retain conditional
+global arithmetic, manuscript integration pending, internal AI review scope,
+and the absence of a human-peer-review, complete-Lean, minimality, priority,
+official-version or maintainer-acceptance claim. They do not authorize public
+publication merely by preparing a local draft branch.
+
+Import routes and practical commands
+-----------------------------------
+The full patch is identified with the pinned upstream commit
+036cebe4f1a4aa7ca89820a9b48f3629b4c364d6. The incremental patch requires the
+exact previous 112-file overlay, not merely matching patch context. The
+documented helper verifies its pinned manifest and complete byte inventory;
+the old source check is an additional check. The handoff explains separate
+worktrees, preservation of unrelated work, distinct import routes, deliberate
+porting of upstream changes and preservation of bound historical bytes.
+
+Both patch hashes agree between the actual files, final VALIDATION.json,
+and the previously executed independent route probe. The latter independently
+applied each patch and obtained all 156 current payload files byte for byte;
+its full route used an empty working tree because the patch is additive.
+The final root validation separately records the actual pinned clean-worktree
+application and the incremental application to the exact prior overlay.
+The review does not conflate those two test scopes.
+
+Reproduction and recorded outcomes
+---------------------------------
+The listed Python/Node commands and options match the supplied wrapper and
+pipeline. No private workspace path or prior chat is needed. The declared
+23-stage sequence equals the actual pipeline's calls and the bound structured
+completion record. The fresh receipt confirms 54 deterministic comparisons,
+15 successful audit reports, 34 source/proof seeds, 155 bound source files,
+and unchanged supplied and copied source files. There are 156 payload files
+including the source manifest. The upstream log records nine historical
+dispositions passing, and explicitly states that it is not a mathematical
+proof check.
+
+The documents correctly describe the success requirements: child completion,
+the ordered structured record and bound pipeline, source checks, required
+artifacts, audit reports and regenerated committed table. The stdout marker
+is diagnostic. The earlier missing-marker incident's cause remains unknown;
+no buffering diagnosis or mathematical failure is invented. Generic runtime
+inventory wording in the documents is consistent with the exact final
+inventories in the receipt.
+
+All twelve Markdown links in the payload README resolve. Bundle file names,
+proof paths, the selected table name, update helper and command entry points
+are present in the assembled package. Code fences are balanced and no old
+current-count, old-anchor, or old-gate-count claim remains in these documents.
+
+No mathematical source or documentation change is requested by this review.
+It does not review the later outer bundle seal, assert execution of another
+fresh mathematical build, or establish the inherited global arithmetic.

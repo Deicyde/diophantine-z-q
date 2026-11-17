@@ -1,0 +1,281 @@
+\section{Rescale the local tests and remove the intermediate weight}
+
+The starting source is the frozen sixth-round construction, with builder
+SHA256
+\texttt{3f63cb782d52857446cf39f6e545aeb74f380d1347826eafa888cbb487738d51}.
+The selected integrated source has SHA256
+\texttt{78b54bcde24ff8a91091e102a4734c49878699f071d9230e5ce7a70ffd2114d0}.
+The change in this section removes one surviving rational coordinate
+from each of the three detectors. It leaves the orders $1,12,45$, all
+sixteen underlying field tests, the logarithms, height scales, contact
+coordinate, and pole predicate unchanged. The global arithmetic
+qualifications are inherited; the construction is not asserted to prove
+those inputs independently.
+
+\subsection{The normalization freedom in the actual local lemma}
+
+Retain
+\[
+ t=A\lambda,\qquad\delta=98t-1,\qquad
+ F(t)=t(t-1/49)(t-1/50)(t-1/2450)(t-32/1225),
+\]
+and retain the semantic quantity
+\[
+ R=\frac{F(t)}{A^5\delta^6}.
+\]
+The three scales are still $1,C_0^2,(C_0+C_1)^2$. On the source domain
+they are positive rational squares and at least one. The positive chart
+for $\lambda$ gives $t\ge32/1225$, hence $\delta\ge39/25>0$.
+
+At every prime consumed by the retained five-contact height argument,
+$\delta$ is a unit. The values at the five contacts are
+\[
+ -1,\quad1,\quad24/25,\quad-24/25,\quad39/25.
+\]
+Their prime support is already contained in
+$\mathcal S=\{2,3,5,7,13,17\}$. In particular $13$ remains exceptional;
+we do not claim that the guard is a unit there. A pole of $t$ is not a
+consumed contact outside this set: its image under
+$\phi(t)=-49+1/t$ reduces to $-49$, distinct from the five height contacts.
+
+Let $D_j$ be an existing test of order $m_j$. In the arbitrary-order
+one-place lemma, replace its semantic test by
+\[
+ D'_j=\delta D_j.
+\]
+No coordinate for this product is required. After the original
+normalization, the actual factor is
+\[
+ 1+R\left(\frac{D_j/\delta^{m_j}}{R^{m_j}}\right)^2
+   =1+\frac{e^{2m_j-1}}{\delta}D_j^2,
+ \qquad e=\frac{(A\delta)^5}{F(t)}.
+\]
+Thus use the new weights
+\[
+ q_m=\frac{e^{2m-1}}{\delta}
+\]
+in place of $e^{2m-1}/\delta^3$. The rational function $e$ is useful
+for explaining the identity, but no longer needs its own coordinate.
+
+This is an application of the actual proof of the one-place lemma,
+\texttt{manuscripts/quartic\_v10.tex}, lines 11031--11061, in the pinned
+upstream source. Its field inputs are arbitrary elements of $K$; it
+requires no integrality assumption on $D_j/\delta^m$ before the
+conclusion. At a consumed prime the unit property gives
+\[
+ v_{\mathfrak p}(D_j/\delta^m)=v_{\mathfrak p}(D_j),
+\]
+so the conclusion is exactly the original order requirement for $D_j$.
+All sixteen orders still hold at one common place. No new formal-group
+claim, prime-selection theorem, or logarithm precision assertion is
+being substituted for the retained one-place argument.
+
+\subsection{Compute the weights without storing $e$}
+
+Keep the existing $U=A\delta$ and its fourth power. Define directly
+\[
+ q_1F=A U^4,\qquad E=q_1\delta^2.
+\]
+These give
+\[
+ q_1=\frac{A^5\delta^4}{F}=\frac e\delta,
+ \qquad E=\frac{A^5\delta^6}{F}=R^{-1},
+ \qquad q_m=E^{m-1}q_1^m.
+\]
+The value $\delta^2=9604t^2-196t+1$ is affine in the already stored
+$t^2$ and $t$. The implementation requests its square through the
+common-subexpression routine, which reuses the existing quadratic
+part. It adds no new coordinate for this square.
+
+The order-one product evaluation already requires $q_1^2,q_1^3,q_1^4$.
+Using its actual stored cube, compute the two other weights in seven gates:
+\begin{align*}
+ a&=E^2,& b&=aE=E^3,& c&=bq_1^3,& d&=c^2,\\
+ q_{12}&=d^2/E,& h&=q_{12}^2,&q_{45}&=h^2/q_1^3.
+\end{align*}
+The exponents in $(E,q_1)$ are respectively
+\[
+ (2,0),(3,0),(3,3),(6,6),(11,12),(22,24),(44,45).
+\]
+Equivalently, their exponents in the explanatory pair $(e,\delta)$ are
+\[
+ (2,2),(3,3),(6,0),(12,0),(23,-1),(46,-2),(89,-1).
+\]
+The last two outputs are therefore exactly the required new weights.
+The same grouping of the field factors is retained: one mixed $(1,12)$
+block, two four-test order-one blocks, and two three-test order 45 blocks.
+All shared symmetric coefficients and the mixed-block identity remain
+unchanged.
+
+The old implementation separately stored $e$, $\delta^3$, and the
+quotient $q_1=e/\delta^3$. The new one defines $q_1$ directly and never
+uses a stored $e$ or $\delta^3$. The latter three coordinates were
+already removed by the previous final elimination stage, so their raw
+removal does not itself constitute a final saving. The net measured
+saving is the other three quotient coordinates, one per detector.
+
+\subsection{Nonzero domains and quadratic degree}
+
+On the positive chart, all factors of $F$ are nonnegative. The relation
+$q_1F=AU^4$, whose right side is strictly positive, excludes $F=0$.
+Consequently $F,q_1,E$ are positive. Every intermediate in the displayed
+chain is positive, and its two quotient denominators $E$ and $q_1^3$
+are nonzero. Each auxiliary coordinate is uniquely determined by the
+preceding coordinates. Eliminating this chain recovers the exact rational
+weight formulas; conversely those formulas uniquely extend every point
+of the established nonzero domain.
+
+Every displayed gate equation has degree at most two in stored
+coordinates. For example $q_1F=AU^4$ uses the already stored fourth
+power, $Eq_{12}=d^2$, and $q_1^3q_{45}=h^2$ uses the already stored cube.
+The source checker verifies the actual square/cube aliases reused by the
+order-one evaluation, rather than merely counting them as free.
+
+Each factor $1+q_mD_j^2$ is at least one at both real embeddings. If
+$W=W_0+W_1\sqrt2$ is their product, then $W_0\ge1$ and $N(W)>0$.
+The stored norm quotient and pole input remain
+\[
+ n=\frac{N(W)}{2W_0},\qquad B=\frac{n^2}{E}
+   =\frac{R}{\operatorname{Tr}(W^{-1})^2}.
+\]
+Their denominators are nonzero. The pole input uses exactly the old
+$R$, not a modified rational function differing by an unchecked factor.
+The normalization changes the existential detector witnesses; it is
+justified by soundness and completeness transfer, not by a claimed
+bijection between every old and new pole witness tuple.
+
+\subsection{Completeness at contacts, other primes and infinity}
+
+The preparation and order of choices remain those of the source.
+First fix the input, scalar preparation, four root points and rational
+square scales. The source real-progression argument supplies bounds on
+the unscaled $D_j$ independent of future progression moduli. Its finite
+neighborhood preparation supplies common lower valuation bounds on
+$D_j$ above $2,3,17$. The exact relevant passage is the pinned
+\texttt{quartic\_v10.tex}, lines 11220--11241. The same prime selection
+and primary progression $\Pi^{44}\mid h$ are then used. Alternate
+points still require only formal depth one.
+
+At a selected contact prime, $R$ has valuation one and $\delta$ is a
+unit. Multiplying the old factor's nonconstant term by $\delta^2$
+therefore does not change its valuation. At the successful place every
+factor is one modulo the prime. At either place every inverse factor
+has residue zero or one, because its nonconstant term has odd valuation.
+Hence the reciprocal trace has residue one or two and is a unit.
+The new $B$ has the same positive odd contact valuations as required.
+
+The exact product formula for $R$ is unchanged:
+\[
+ R=\frac{\prod_{\theta\in\Theta}(u-(\theta/A)v)}
+          {v^5\delta^6},\qquad v=D_0^2w^2.
+\]
+The denominator is a rational square and the numerator consists of the
+selected contact primes, with the existing incidence convention for
+repeated forms. At every other prime $v_p(R)$ is even, so $v_p(B)$ is
+even regardless of the trace valuation. Thus the reduced denominator
+of $B$ is a square. In particular a new zero of $\delta$ away from
+contacts is harmless: its contribution to $R$ has even order. The
+fixed Gaussian classes still make $R$, and hence $B$, square in
+$\mathbb Q_2,\mathbb Q_3,\mathbb Q_{17}$.
+
+For fixed $A$ and $\lambda\to+\infty$,
+\[
+ e\longrightarrow98^5A^5>0,\qquad
+ \delta\sim98A\lambda,\qquad q_m=O(\lambda^{-1}).
+\]
+The uniform bounds on the unscaled tests therefore give
+\[
+ W=1+O(\lambda^{-1}),\qquad
+ \operatorname{Tr}(W^{-1})=2+O(\lambda^{-1}),\qquad
+ B\sim\frac{1}{4\cdot98^6A^6\lambda}.
+\]
+This is slower decay than before, but it still gives $0<B<17$ for
+sufficiently large prescribed $\lambda$. The actual preparation-zero
+pole converse requires this bound; no stronger real assertion is used.
+
+At a fixed small prime $p=2,3,17$, put
+\[
+ \nu=v_p(v),\qquad\eta=v_p(A),\qquad\alpha=v_p(98).
+\]
+The scale and $\alpha$ are fixed before choosing large $\nu$.
+Since $u$ is a selected prime, $v_p(u)=0$. For all sufficiently large
+$\nu$, dominance of the leading terms gives
+\[
+ v_p(\delta)=\eta+\alpha-\nu,\quad
+ v_p(e)=5(\eta+\alpha),\quad
+ v_p(q_m)=\nu+(10m-6)(\eta+\alpha).
+\]
+If $v(D_j)\ge-c_p$ on the fixed neighborhood, then
+\[
+ v(q_mD_j^2)\ge\nu+(10m-6)(\eta+\alpha)-2c_p
+             \longrightarrow+\infty.
+\]
+Thus the trace is as close to two as necessary, including at the
+ramified prime two. Since $R$ is unchanged,
+\[
+ v_p(B)=\nu-6(\eta+\alpha)-2v_p(2).
+\]
+Prescribed high divisibility of $w$ gives the same required bounds
+$v_2(B)\ge3$, $v_3(B)\ge1$, $v_{17}(B)\ge2$. The unchanged
+preparation-zero bridge therefore supplies its four pole witnesses.
+This completes the changed local and real completeness checks.
+
+\subsection{Actual counts and verification boundary}
+
+The isolated replacement, with all other sixth-round formulas and
+$S_0=3^{3072}$ retained, compiles as
+\[
+ \text{raw }404/372\ \longrightarrow\
+ \text{generic }393/361\ \longrightarrow\
+ \boxed{\text{final }393/361}.
+\]
+The pairs count rational coordinates and residuals. No further
+elimination is needed after the generic compiler. In particular the
+unit-scale fourth-power elimination is now carried out there, and no
+old final-elimination saving is counted twice.
+
+With the separately proved scalar outer-constant change and selected
+anchor $S_0=3^{2790}$, the integrated source compiles as
+\[
+ 403/371\ \longrightarrow\
+ \boxed{392\text{ coordinates and }360\text{ residuals}}.
+\]
+Again there are zero further eliminations. The fixed-parameter quartic
+has 26,301 ordinary-coordinate monomials, degree four and primitive
+integer content one. Its coefficient balancing and anchor margins are
+separate transformations with their own exact certificates and proofs.
+
+The independent checker \texttt{check\_detector\_round7.py} imports
+neither producer nor compiler. On the frozen integrated source it passes
+384 source assertions, seven Laurent exponent identities, three semantic
+normalization identities, and two expanded mixed-block identities.
+It reconstructs the retained $G_{12}/G_2$ logarithms, all test aliases,
+all shared coefficients and product evaluations, the direct $q_1$
+equation, $E=R^{-1}$, every weight gate, actual reused powers, norm and
+pole consumers, the contact and positivity data, and the lifted-degree
+bound. The global arithmetic implications remain qualified as in the
+source; these finite checks do not prove those inherited results.
+
+\subsection{Rejected searches and the useful obstruction}
+
+A bounded exact exponent search for six-node replacements of the old
+weight chain found no candidate in its stated restricted class. This is
+not a general minimality result. There is nevertheless a useful simple
+obstruction in the old monomial-gate model. With the existing monomials
+$e,\delta,\delta^2,\delta^3,E,q_1^2,q_1^3,q_1^4$, where the old
+$q_1=e/\delta^3$, the functional $L(a,b)=13a+3b$ on exponent pairs
+has all input values in $[0,16]$. A quadratic quotient operation
+$A+B-C$ can at most double the width of the current interval.
+After six operations its maximum cannot exceed 1024, whereas
+$L(q_{41})=1044$. Thus a six-node monomial chain cannot even produce
+that high-order weight from these inputs. The search also considered
+lower orders and shared outputs, without claiming an exhaustive result
+for arbitrary rational circuits.
+
+The selected improvement changes the normalization, which changes these
+input monomials and allows removal of the stored $e$; it does not claim
+to beat that restricted lower bound. Scaling instead by $\delta^2D$
+would make the weights grow at real infinity and generally defeats the
+preparation-zero bound $B<17$ without a further modification. That
+variant is not used. The selected $\delta D$ scaling retains decay and
+has been checked against the actual consuming inequalities above.

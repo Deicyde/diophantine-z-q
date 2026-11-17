@@ -119,10 +119,14 @@ source. The automatic check on a pull request starts from a cached build of `mai
 | the Tau Ceti dependency tree | cold | not recorded | 6,846 Lake jobs in 8 minutes 4 seconds; 3.4 GB |
 | one large file compiled against an already built `ZInQKernel.OneProof.Main` | partial (that file only) | not recorded | about 8 to 9 GB of memory |
 | upstream's kernel job on a GitHub-hosted runner | not recorded | not recorded | needed a 180-minute timeout and 8 GiB of extra swap |
+| `lake build +ZInQKernel.OneProof.Main` on a 12-core, 18 GB machine, `LEAN_NUM_THREADS=8` (AI audit, [#62](https://github.com/Deicyde/diophantine-z-q/issues/62)) | cold, stopped for disk | `e1b31749` | 694 of the 5,225 project modules in 41 minutes, no errors; 0.44 GB of `.olean` and 3.4 GB of per-module `.setup.json` files (median 3.4 MB; they embed absolute paths, so a short checkout path matters) |
+| the discharge check's build step on GitHub-hosted runners, before the build cache | cold | several pull requests | five runs stopped at the 270-minute limit (43981996517, 43968843468, 43920004200, 43839513202, 43751567891) |
 
-A cold measurement of `lake build +ZInQKernel.OneProof.Main` on a GitHub-hosted runner will be added to this
-table. On a laptop a full build is a bigger investment. A measured row from your machine (commit, cold or partial,
-cores, memory cap, peak memory, disk, Lake jobs, wall-clock) is welcome and credited.
+No cold build of `lake build +ZInQKernel.OneProof.Main` has finished on a GitHub-hosted runner yet; the main build
+cache workflow carries its progress from run to run until one does, and its first finished run belongs in this table.
+On a laptop a full build is a bigger investment: allow several hours and roughly 20 GB of disk. A measured row from
+your machine (commit, cold or partial, cores, memory cap, peak memory, disk, Lake jobs, wall-clock) is welcome and
+credited.
 
 ## For the integrator: folding a contribution
 

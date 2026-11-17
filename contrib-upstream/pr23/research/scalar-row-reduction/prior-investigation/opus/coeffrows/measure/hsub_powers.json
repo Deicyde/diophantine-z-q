@@ -1,0 +1,1518 @@
+{
+ "A.chart.h0": [
+  0,
+  -557
+ ],
+ "A.chart.h1": [
+  0,
+  -557
+ ],
+ "A.chart.j0": [
+  0,
+  -370
+ ],
+ "A.chart.j1": [
+  0,
+  -371
+ ],
+ "S.chart.h0": [
+  338,
+  2
+ ],
+ "S.chart.h1": [
+  338,
+  1
+ ],
+ "S.chart.j0": [
+  235,
+  0
+ ],
+ "S.chart.j1": [
+  235,
+  0
+ ],
+ "T.chart.h0": [
+  0,
+  -557
+ ],
+ "T.chart.h1": [
+  0,
+  -557
+ ],
+ "T.chart.j0": [
+  29,
+  -370
+ ],
+ "T.chart.j1": [
+  29,
+  -371
+ ],
+ "Z.chart.h0": [
+  0,
+  -557
+ ],
+ "Z.chart.h1": [
+  0,
+  -557
+ ],
+ "Z.chart.j0": [
+  0,
+  -291
+ ],
+ "Z.chart.j1": [
+  0,
+  -292
+ ],
+ "H.chart.h0": [
+  175,
+  -371
+ ],
+ "H.chart.h1": [
+  293,
+  -371
+ ],
+ "H.chart.j0": [
+  1,
+  2
+ ],
+ "H.chart.j1": [
+  1,
+  2
+ ],
+ "UA.chart.h0": [
+  0,
+  -558
+ ],
+ "UA.chart.h1": [
+  0,
+  -558
+ ],
+ "UA.chart.j0": [
+  1,
+  -372
+ ],
+ "UA.chart.j1": [
+  1,
+  -372
+ ],
+ "US.chart.h0": [
+  0,
+  -558
+ ],
+ "US.chart.h1": [
+  0,
+  -558
+ ],
+ "US.chart.j0": [
+  0,
+  -372
+ ],
+ "US.chart.j1": [
+  0,
+  -372
+ ],
+ "UT.chart.h0": [
+  0,
+  -558
+ ],
+ "UT.chart.h1": [
+  0,
+  -558
+ ],
+ "UT.chart.j0": [
+  110,
+  -372
+ ],
+ "UT.chart.j1": [
+  110,
+  -372
+ ],
+ "UZ.chart.h0": [
+  0,
+  -558
+ ],
+ "UZ.chart.h1": [
+  0,
+  -558
+ ],
+ "UZ.chart.j0": [
+  110,
+  -372
+ ],
+ "UZ.chart.j1": [
+  110,
+  -372
+ ],
+ "lambda": [
+  0,
+  -359
+ ],
+ "lambda.positiveA": [
+  0,
+  -369
+ ],
+ "lambda.positiveB": [
+  0,
+  -369
+ ],
+ "detector0.normalized_e": [
+  0,
+  -368
+ ],
+ "detector0.s": [
+  0,
+  -554
+ ],
+ "detector0.p": [
+  0,
+  -742
+ ],
+ "detector0.q": [
+  0,
+  -1299
+ ],
+ "detector1.normalized_e": [
+  0,
+  -368
+ ],
+ "detector1.s": [
+  0,
+  -554
+ ],
+ "detector1.p": [
+  0,
+  -742
+ ],
+ "detector1.q": [
+  0,
+  -1299
+ ],
+ "detector2.normalized_e": [
+  0,
+  -368
+ ],
+ "detector2.s": [
+  0,
+  -554
+ ],
+ "detector2.p": [
+  0,
+  -742
+ ],
+ "detector2.q": [
+  0,
+  -1299
+ ],
+ "scalar.normalized_e": [
+  0,
+  -368
+ ],
+ "scalar.s": [
+  0,
+  -554
+ ],
+ "scalar.p": [
+  2,
+  -741
+ ],
+ "scalar.q": [
+  2,
+  -1298
+ ],
+ "anchor.U": [
+  1895,
+  -369
+ ],
+ "anchor.V": [
+  1895,
+  -369
+ ],
+ "anchor.W": [
+  1895,
+  -369
+ ],
+ "A.chart.x.0.quadratic": [
+  0,
+  -370
+ ],
+ "A.chart.x.1.quadratic": [
+  0,
+  -372
+ ],
+ "S.chart.x.0.quadratic": [
+  207,
+  3
+ ],
+ "S.chart.x.1.quadratic": [
+  207,
+  1
+ ],
+ "T.chart.x.0.quadratic": [
+  0,
+  -371
+ ],
+ "T.chart.x.1.quadratic": [
+  0,
+  -372
+ ],
+ "Z.chart.x.0.quadratic": [
+  0,
+  -370
+ ],
+ "Z.chart.x.1.quadratic": [
+  0,
+  -372
+ ],
+ "H.chart.x.0.quadratic": [
+  116,
+  2
+ ],
+ "H.chart.x.1.quadratic": [
+  468,
+  -2
+ ],
+ "UA.chart.x.0.quadratic": [
+  0,
+  -372
+ ],
+ "UA.chart.x.1.quadratic": [
+  0,
+  -373
+ ],
+ "US.chart.x.0.quadratic": [
+  0,
+  -372
+ ],
+ "US.chart.x.1.quadratic": [
+  0,
+  -373
+ ],
+ "UT.chart.x.0.quadratic": [
+  0,
+  -372
+ ],
+ "UT.chart.x.1.quadratic": [
+  0,
+  -373
+ ],
+ "UZ.chart.x.0.quadratic": [
+  0,
+  -372
+ ],
+ "UZ.chart.x.1.quadratic": [
+  0,
+  -373
+ ],
+ "V0.f.0": [
+  2,
+  2
+ ],
+ "V0.f.1": [
+  1,
+  -1
+ ],
+ "primaryRatio.0": [
+  467,
+  -2
+ ],
+ "primaryRatio.1": [
+  467,
+  -2
+ ],
+ "V0.k.0": [
+  -1,
+  -138
+ ],
+ "V0.k.1": [
+  -1,
+  -138
+ ],
+ "V1.inverseRoot.0": [
+  0,
+  -651
+ ],
+ "V1.inverseRoot.1": [
+  0,
+  -651
+ ],
+ "V1.f.0.quadratic": [
+  0,
+  -558
+ ],
+ "V1.f.1.quadratic": [
+  0,
+  -559
+ ],
+ "V1.scaledK.0": [
+  0,
+  -370
+ ],
+ "V1.scaledK.1": [
+  0,
+  -371
+ ],
+ "V2.inverseRoot.0": [
+  235,
+  -579
+ ],
+ "V2.inverseRoot.1": [
+  235,
+  -579
+ ],
+ "V2.f.0.quadratic": [
+  74,
+  -531
+ ],
+ "V2.f.1.quadratic": [
+  74,
+  -532
+ ],
+ "V2.scaledK.0": [
+  -13,
+  0
+ ],
+ "V2.scaledK.1": [
+  -13,
+  0
+ ],
+ "V3.inverseRoot.0": [
+  0,
+  -637
+ ],
+ "V3.inverseRoot.1": [
+  0,
+  -638
+ ],
+ "V3.f.0.quadratic": [
+  0,
+  -531
+ ],
+ "V3.f.1.quadratic": [
+  0,
+  -532
+ ],
+ "V3.scaledK.0": [
+  29,
+  -370
+ ],
+ "V3.scaledK.1": [
+  29,
+  -371
+ ],
+ "V4.inverseRoot.0": [
+  0,
+  -637
+ ],
+ "V4.inverseRoot.1": [
+  0,
+  -638
+ ],
+ "V4.f.0.quadratic": [
+  0,
+  -531
+ ],
+ "V4.f.1.quadratic": [
+  0,
+  -532
+ ],
+ "V4.scaledK.0": [
+  0,
+  -291
+ ],
+ "V4.scaledK.1": [
+  0,
+  -292
+ ],
+ "logV0.fSquare.0.quadratic": [
+  1,
+  -318
+ ],
+ "logV0.fSquare.1.quadratic": [
+  1,
+  -320
+ ],
+ "logV0.wPower2.0.quadratic": [
+  2,
+  -319
+ ],
+ "logV0.wPower2.1.quadratic": [
+  0,
+  -322
+ ],
+ "logV0.wPower4.0.quadratic": [
+  1,
+  -323
+ ],
+ "logV0.wPower4.1.quadratic": [
+  -1,
+  -327
+ ],
+ "logV0.squareRoot.0.quadratic": [
+  0,
+  -322
+ ],
+ "logV0.squareRoot.1.quadratic": [
+  -1,
+  -324
+ ],
+ "logV0.0": [
+  3,
+  -513
+ ],
+ "logV0.1": [
+  3,
+  -514
+ ],
+ "logV1.fSquare.0.quadratic": [
+  0,
+  -371
+ ],
+ "logV1.fSquare.1.quadratic": [
+  0,
+  -374
+ ],
+ "logV1.scaled.0": [
+  0,
+  -371
+ ],
+ "logV1.scaled.1": [
+  0,
+  -372
+ ],
+ "logV2.fSquare.0.quadratic": [
+  1,
+  -318
+ ],
+ "logV2.fSquare.1.quadratic": [
+  1,
+  -321
+ ],
+ "logV2.wPower2.0.quadratic": [
+  2,
+  -319
+ ],
+ "logV2.wPower2.1.quadratic": [
+  0,
+  -322
+ ],
+ "logV2.wPower4.0.quadratic": [
+  1,
+  -323
+ ],
+ "logV2.wPower4.1.quadratic": [
+  -1,
+  -327
+ ],
+ "logV2.squareRoot.0.quadratic": [
+  0,
+  -322
+ ],
+ "logV2.squareRoot.1.quadratic": [
+  -1,
+  -324
+ ],
+ "logV2.scaled.0": [
+  13,
+  -651
+ ],
+ "logV2.scaled.1": [
+  13,
+  -652
+ ],
+ "logV3.fSquare.0.quadratic": [
+  1,
+  -321
+ ],
+ "logV3.fSquare.1.quadratic": [
+  1,
+  -321
+ ],
+ "logV3.wPower2.0.quadratic": [
+  2,
+  -325
+ ],
+ "logV3.wPower2.1.quadratic": [
+  0,
+  -328
+ ],
+ "logV3.wPower4.0.quadratic": [
+  1,
+  -335
+ ],
+ "logV3.wPower4.1.quadratic": [
+  -1,
+  -339
+ ],
+ "logV3.squareRoot.0.quadratic": [
+  0,
+  -331
+ ],
+ "logV3.squareRoot.1.quadratic": [
+  -1,
+  -333
+ ],
+ "logV3.scaled.0": [
+  -29,
+  -281
+ ],
+ "logV3.scaled.1": [
+  -29,
+  -281
+ ],
+ "logV4.fSquare.0.quadratic": [
+  1,
+  -318
+ ],
+ "logV4.fSquare.1.quadratic": [
+  1,
+  -321
+ ],
+ "logV4.wPower2.0.quadratic": [
+  2,
+  -319
+ ],
+ "logV4.wPower2.1.quadratic": [
+  0,
+  -322
+ ],
+ "logV4.wPower4.0.quadratic": [
+  1,
+  -323
+ ],
+ "logV4.wPower4.1.quadratic": [
+  -1,
+  -327
+ ],
+ "logV4.squareRoot.0.quadratic": [
+  0,
+  -322
+ ],
+ "logV4.squareRoot.1.quadratic": [
+  -1,
+  -324
+ ],
+ "logV4.scaled.0": [
+  0,
+  -360
+ ],
+ "logV4.scaled.1": [
+  0,
+  -360
+ ],
+ "L1.0": [
+  109,
+  -365
+ ],
+ "L1.1": [
+  109,
+  -365
+ ],
+ "LP1.0": [
+  0,
+  -558
+ ],
+ "LP1.1": [
+  0,
+  -558
+ ],
+ "L2.0": [
+  232,
+  -560
+ ],
+ "L2.1": [
+  232,
+  -560
+ ],
+ "LP2.0": [
+  146,
+  -560
+ ],
+ "LP2.1": [
+  146,
+  -560
+ ],
+ "L3.0": [
+  122,
+  -560
+ ],
+ "L3.1": [
+  122,
+  -560
+ ],
+ "LP3.0": [
+  117,
+  -560
+ ],
+ "LP3.1": [
+  117,
+  -560
+ ],
+ "L4.0": [
+  231,
+  -733
+ ],
+ "L4.1": [
+  231,
+  -734
+ ],
+ "LP4.0": [
+  -3,
+  -733
+ ],
+ "LP4.1": [
+  -3,
+  -734
+ ],
+ "inputProduct.quadratic": [
+  -9,
+  0
+ ],
+ "Lucas.C.0.quadratic": [
+  110,
+  -734
+ ],
+ "Lucas.C.1.quadratic": [
+  109,
+  -734
+ ],
+ "Lucas.AT.0.quadratic": [
+  111,
+  -734
+ ],
+ "Lucas.AT.1.quadratic": [
+  -115,
+  -734
+ ],
+ "Lucas.F0.quadratic": [
+  -5,
+  -723
+ ],
+ "Lucas.F1.quadratic": [
+  -4,
+  -725
+ ],
+ "testSquare.12.1.0.quadratic": [
+  0,
+  -372
+ ],
+ "testSquare.12.1.1.quadratic": [
+  0,
+  -373
+ ],
+ "testSquare.45.1.0.quadratic": [
+  291,
+  -654
+ ],
+ "testSquare.45.1.1.quadratic": [
+  235,
+  -376
+ ],
+ "testSquare.45.2.0.quadratic": [
+  291,
+  -654
+ ],
+ "testSquare.45.2.1.quadratic": [
+  235,
+  -376
+ ],
+ "testSquare.45.3.0.quadratic": [
+  -5,
+  -722
+ ],
+ "testSquare.45.3.1.quadratic": [
+  -5,
+  -724
+ ],
+ "testSquare.45.4.0.quadratic": [
+  -5,
+  -722
+ ],
+ "testSquare.45.4.1.quadratic": [
+  -5,
+  -724
+ ],
+ "testSquare.45.5.0.quadratic": [
+  -5,
+  -722
+ ],
+ "testSquare.45.5.1.quadratic": [
+  -5,
+  -725
+ ],
+ "mixedTestProduct.0.quadratic": [
+  0,
+  -347
+ ],
+ "mixedTestProduct.1.quadratic": [
+  0,
+  -348
+ ],
+ "symmetric.1.group0.left.co2.0.quadratic": [
+  0,
+  -1066
+ ],
+ "symmetric.1.group0.left.co2.1.quadratic": [
+  0,
+  -1068
+ ],
+ "symmetric.1.group0.right.co2.0.quadratic": [
+  0,
+  -1066
+ ],
+ "symmetric.1.group0.right.co2.1.quadratic": [
+  0,
+  -1068
+ ],
+ "symmetric.1.group0.co2.0.quadratic": [
+  0,
+  -1066
+ ],
+ "symmetric.1.group0.co2.1.quadratic": [
+  0,
+  -1068
+ ],
+ "symmetric.1.group0.co3.0.quadratic": [
+  0,
+  -694
+ ],
+ "symmetric.1.group0.co3.1.quadratic": [
+  0,
+  -696
+ ],
+ "symmetric.1.group0.co4.0.quadratic": [
+  0,
+  -1760
+ ],
+ "symmetric.1.group0.co4.1.quadratic": [
+  0,
+  -1762
+ ],
+ "symmetric.1.group1.left.co2.0.quadratic": [
+  0,
+  -1066
+ ],
+ "symmetric.1.group1.left.co2.1.quadratic": [
+  0,
+  -1069
+ ],
+ "symmetric.1.group1.right.co2.0.quadratic": [
+  2,
+  -1069
+ ],
+ "symmetric.1.group1.right.co2.1.quadratic": [
+  0,
+  -1072
+ ],
+ "symmetric.1.group1.co2.0.quadratic": [
+  0,
+  -1069
+ ],
+ "symmetric.1.group1.co2.1.quadratic": [
+  0,
+  -1069
+ ],
+ "symmetric.1.group1.co3.0.quadratic": [
+  0,
+  -697
+ ],
+ "symmetric.1.group1.co3.1.quadratic": [
+  0,
+  -700
+ ],
+ "symmetric.1.group1.co4.0.quadratic": [
+  0,
+  -1763
+ ],
+ "symmetric.1.group1.co4.1.quadratic": [
+  0,
+  -1766
+ ],
+ "symmetric.45.group0.right.co2.0.quadratic": [
+  352,
+  -742
+ ],
+ "symmetric.45.group0.right.co2.1.quadratic": [
+  235,
+  -377
+ ],
+ "symmetric.45.group0.co2.0.quadratic": [
+  408,
+  -652
+ ],
+ "symmetric.45.group0.co2.1.quadratic": [
+  290,
+  -377
+ ],
+ "symmetric.45.group0.co3.0.quadratic": [
+  463,
+  -741
+ ],
+ "symmetric.45.group0.co3.1.quadratic": [
+  351,
+  -376
+ ],
+ "symmetric.45.group1.right.co2.0.quadratic": [
+  -5,
+  -725
+ ],
+ "symmetric.45.group1.right.co2.1.quadratic": [
+  -5,
+  -726
+ ],
+ "symmetric.45.group1.co2.0.quadratic": [
+  -5,
+  -724
+ ],
+ "symmetric.45.group1.co2.1.quadratic": [
+  -5,
+  -726
+ ],
+ "symmetric.45.group1.co3.0.quadratic": [
+  -5,
+  -723
+ ],
+ "symmetric.45.group1.co3.1.quadratic": [
+  -5,
+  -725
+ ],
+ "heightProduct.S.0.quadratic": [
+  207,
+  -1111
+ ],
+ "heightProduct.S.1.quadratic": [
+  207,
+  -1113
+ ],
+ "heightProduct.T.0.quadratic": [
+  -141,
+  -758
+ ],
+ "heightProduct.T.1.quadratic": [
+  -141,
+  -760
+ ],
+ "heightProduct.Z.0.quadratic": [
+  -141,
+  -384
+ ],
+ "heightProduct.Z.1.quadratic": [
+  -141,
+  -525
+ ],
+ "heightProduct.scale0.quadratic": [
+  -282,
+  -25
+ ],
+ "heightProduct.scale1.quadratic": [
+  0,
+  -750
+ ],
+ "detector0.Fsquare.quadratic": [
+  0,
+  -354
+ ],
+ "detector0.Fmiddle.quadratic": [
+  0,
+  -730
+ ],
+ "detector0.F.quadratic": [
+  0,
+  -357
+ ],
+ "detector0.q1": [
+  0,
+  -358
+ ],
+ "detector0.eDelta.quadratic": [
+  0,
+  -1103
+ ],
+ "detector0.q1SquaredForWeights.quadratic": [
+  0,
+  -50
+ ],
+ "detector0.q1CubedForWeights.quadratic": [
+  0,
+  -421
+ ],
+ "detector0.eCubed.quadratic": [
+  -1,
+  -790
+ ],
+ "detector0.eSixth.quadratic": [
+  0,
+  -833
+ ],
+ "detector0.eTwelfth.quadratic": [
+  0,
+  -923
+ ],
+ "detector0.q12": [
+  0,
+  -744
+ ],
+ "detector0.mixedHigh.quadratic": [
+  0,
+  -769
+ ],
+ "detector0.q45": [
+  0,
+  -373
+ ],
+ "detector0.mixed.0.quadratic": [
+  0,
+  -372
+ ],
+ "detector0.mixed.1.quadratic": [
+  0,
+  -373
+ ],
+ "detector0.E1.power4.quadratic": [
+  0,
+  645
+ ],
+ "detector0.E1.block0.0.quadratic": [
+  0,
+  -372
+ ],
+ "detector0.E1.block0.1.quadratic": [
+  0,
+  -373
+ ],
+ "detector0.E1.block1.0.quadratic": [
+  0,
+  -372
+ ],
+ "detector0.E1.block1.1.quadratic": [
+  0,
+  -374
+ ],
+ "detector0.E1.product1.0.quadratic": [
+  0,
+  -372
+ ],
+ "detector0.E1.product1.1.quadratic": [
+  0,
+  -374
+ ],
+ "detector0.E45.power2.quadratic": [
+  0,
+  -372
+ ],
+ "detector0.E45.power3.quadratic": [
+  0,
+  -373
+ ],
+ "detector0.E45.block0.0.quadratic": [
+  116,
+  -372
+ ],
+ "detector0.E45.block0.1.quadratic": [
+  235,
+  -373
+ ],
+ "detector0.E45.block1.0.quadratic": [
+  0,
+  -373
+ ],
+ "detector0.E45.block1.1.quadratic": [
+  0,
+  -373
+ ],
+ "detector0.E45.product1.0.quadratic": [
+  0,
+  -373
+ ],
+ "detector0.E45.product1.1.quadratic": [
+  0,
+  -374
+ ],
+ "detector0.pure.0.quadratic": [
+  0,
+  -373
+ ],
+ "detector0.pure.1.quadratic": [
+  0,
+  -374
+ ],
+ "detector0.W.0.quadratic": [
+  0,
+  -373
+ ],
+ "detector0.W.1.quadratic": [
+  0,
+  -374
+ ],
+ "detector0.normOver2w0": [
+  0,
+  -373
+ ],
+ "detector0.B": [
+  0,
+  4
+ ],
+ "detector0.p2.quadratic": [
+  0,
+  -740
+ ],
+ "detector0.factored_v": [
+  0,
+  -553
+ ],
+ "detector0.q2.quadratic": [
+  0,
+  -1854
+ ],
+ "detector1.t.quadratic": [
+  0,
+  -871
+ ],
+ "detector1.Fsquare.quadratic": [
+  0,
+  -998
+ ],
+ "detector1.Fmiddle.quadratic": [
+  0,
+  -1125
+ ],
+ "detector1.F.quadratic": [
+  -1,
+  -1614
+ ],
+ "detector1.Adelta.quadratic": [
+  -282,
+  -400
+ ],
+ "detector1.Adelta4.half.square.quadratic": [
+  -94,
+  -794
+ ],
+ "detector1.Adelta4.square.quadratic": [
+  282,
+  -1991
+ ],
+ "detector1.q1": [
+  0,
+  -397
+ ],
+ "detector1.eDelta.quadratic": [
+  0,
+  -1144
+ ],
+ "detector1.q1SquaredForWeights.quadratic": [
+  0,
+  -50
+ ],
+ "detector1.q1CubedForWeights.quadratic": [
+  0,
+  -421
+ ],
+ "detector1.eCubed.quadratic": [
+  -1,
+  -796
+ ],
+ "detector1.eSixth.quadratic": [
+  0,
+  -843
+ ],
+ "detector1.eTwelfth.quadratic": [
+  0,
+  -942
+ ],
+ "detector1.q12": [
+  0,
+  -744
+ ],
+ "detector1.mixedHigh.quadratic": [
+  0,
+  -769
+ ],
+ "detector1.q45": [
+  0,
+  -373
+ ],
+ "detector1.mixed.0.quadratic": [
+  0,
+  -372
+ ],
+ "detector1.mixed.1.quadratic": [
+  0,
+  -373
+ ],
+ "detector1.E1.power4.quadratic": [
+  0,
+  645
+ ],
+ "detector1.E1.block0.0.quadratic": [
+  0,
+  -372
+ ],
+ "detector1.E1.block0.1.quadratic": [
+  0,
+  -373
+ ],
+ "detector1.E1.block1.0.quadratic": [
+  0,
+  -372
+ ],
+ "detector1.E1.block1.1.quadratic": [
+  0,
+  -374
+ ],
+ "detector1.E1.product1.0.quadratic": [
+  0,
+  -372
+ ],
+ "detector1.E1.product1.1.quadratic": [
+  0,
+  -374
+ ],
+ "detector1.E45.power2.quadratic": [
+  0,
+  -372
+ ],
+ "detector1.E45.power3.quadratic": [
+  0,
+  -373
+ ],
+ "detector1.E45.block0.0.quadratic": [
+  116,
+  -372
+ ],
+ "detector1.E45.block0.1.quadratic": [
+  235,
+  -373
+ ],
+ "detector1.E45.block1.0.quadratic": [
+  0,
+  -373
+ ],
+ "detector1.E45.block1.1.quadratic": [
+  0,
+  -373
+ ],
+ "detector1.E45.product1.0.quadratic": [
+  0,
+  -373
+ ],
+ "detector1.E45.product1.1.quadratic": [
+  0,
+  -374
+ ],
+ "detector1.pure.0.quadratic": [
+  0,
+  -373
+ ],
+ "detector1.pure.1.quadratic": [
+  0,
+  -374
+ ],
+ "detector1.W.0.quadratic": [
+  0,
+  -373
+ ],
+ "detector1.W.1.quadratic": [
+  0,
+  -374
+ ],
+ "detector1.normOver2w0": [
+  0,
+  -373
+ ],
+ "detector1.B": [
+  0,
+  4
+ ],
+ "detector1.p2.quadratic": [
+  0,
+  -740
+ ],
+ "detector1.factored_v": [
+  0,
+  -553
+ ],
+ "detector1.q2.quadratic": [
+  0,
+  -1854
+ ],
+ "detector2.t.quadratic": [
+  0,
+  -871
+ ],
+ "detector2.Fsquare.quadratic": [
+  0,
+  -998
+ ],
+ "detector2.Fmiddle.quadratic": [
+  0,
+  -1125
+ ],
+ "detector2.F.quadratic": [
+  -1,
+  -1614
+ ],
+ "detector2.Adelta.quadratic": [
+  0,
+  -877
+ ],
+ "detector2.Adelta4.half.square.quadratic": [
+  0,
+  -1005
+ ],
+ "detector2.Adelta4.square.quadratic": [
+  0,
+  -1266
+ ],
+ "detector2.q1": [
+  0,
+  -397
+ ],
+ "detector2.eDelta.quadratic": [
+  0,
+  -1144
+ ],
+ "detector2.q1SquaredForWeights.quadratic": [
+  0,
+  -50
+ ],
+ "detector2.q1CubedForWeights.quadratic": [
+  0,
+  -421
+ ],
+ "detector2.eCubed.quadratic": [
+  -1,
+  -796
+ ],
+ "detector2.eSixth.quadratic": [
+  0,
+  -843
+ ],
+ "detector2.eTwelfth.quadratic": [
+  0,
+  -942
+ ],
+ "detector2.q12": [
+  0,
+  -744
+ ],
+ "detector2.mixedHigh.quadratic": [
+  0,
+  -769
+ ],
+ "detector2.q45": [
+  0,
+  -373
+ ],
+ "detector2.mixed.0.quadratic": [
+  0,
+  -372
+ ],
+ "detector2.mixed.1.quadratic": [
+  0,
+  -373
+ ],
+ "detector2.E1.power4.quadratic": [
+  0,
+  645
+ ],
+ "detector2.E1.block0.0.quadratic": [
+  0,
+  -372
+ ],
+ "detector2.E1.block0.1.quadratic": [
+  0,
+  -373
+ ],
+ "detector2.E1.block1.0.quadratic": [
+  0,
+  -372
+ ],
+ "detector2.E1.block1.1.quadratic": [
+  0,
+  -374
+ ],
+ "detector2.E1.product1.0.quadratic": [
+  0,
+  -372
+ ],
+ "detector2.E1.product1.1.quadratic": [
+  0,
+  -374
+ ],
+ "detector2.E45.power2.quadratic": [
+  0,
+  -372
+ ],
+ "detector2.E45.power3.quadratic": [
+  0,
+  -373
+ ],
+ "detector2.E45.block0.0.quadratic": [
+  116,
+  -372
+ ],
+ "detector2.E45.block0.1.quadratic": [
+  235,
+  -373
+ ],
+ "detector2.E45.block1.0.quadratic": [
+  0,
+  -373
+ ],
+ "detector2.E45.block1.1.quadratic": [
+  0,
+  -373
+ ],
+ "detector2.E45.product1.0.quadratic": [
+  0,
+  -373
+ ],
+ "detector2.E45.product1.1.quadratic": [
+  0,
+  -374
+ ],
+ "detector2.pure.0.quadratic": [
+  0,
+  -373
+ ],
+ "detector2.pure.1.quadratic": [
+  0,
+  -374
+ ],
+ "detector2.W.0.quadratic": [
+  0,
+  -373
+ ],
+ "detector2.W.1.quadratic": [
+  0,
+  -374
+ ],
+ "detector2.normOver2w0": [
+  0,
+  -373
+ ],
+ "detector2.B": [
+  0,
+  4
+ ],
+ "detector2.p2.quadratic": [
+  0,
+  -740
+ ],
+ "detector2.factored_v": [
+  0,
+  -553
+ ],
+ "detector2.q2.quadratic": [
+  0,
+  -1854
+ ],
+ "scalar.rPair1.quadratic": [
+  -14,
+  -5
+ ],
+ "scalar.rThree.quadratic": [
+  -12,
+  -10
+ ],
+ "scalar.rInverse": [
+  -82,
+  -608
+ ],
+ "scalar.rInverse3": [
+  -285,
+  -521
+ ],
+ "scalar.rInverse7": [
+  -567,
+  -347
+ ],
+ "scalar.rInverse15": [
+  -1129,
+  1
+ ],
+ "scalar.shiftedS.rootTimesInverseRoot.0": [
+  831,
+  0
+ ],
+ "scalar.shiftedS.rootTimesInverseRoot.1": [
+  831,
+  0
+ ],
+ "scalar.shiftedS.f.0": [
+  985,
+  -1
+ ],
+ "scalar.shiftedS.f.1": [
+  985,
+  -1
+ ],
+ "scalar.shiftedS.nonzeroRealF": [
+  -985,
+  -743
+ ],
+ "scalar.ratioProxyReal.quadratic": [
+  1767,
+  -1
+ ],
+ "scalar.ratioProxyLeaf": [
+  1081,
+  -1
+ ],
+ "scalar.chain3.rightSquare.quadratic": [
+  2631,
+  -3
+ ],
+ "scalar.chain3.quadratic": [
+  1501,
+  -2
+ ],
+ "scalar.chain2.rightSquare.quadratic": [
+  3001,
+  -2
+ ],
+ "scalar.chain2.quadratic": [
+  1501,
+  -1
+ ],
+ "scalar.chain1.rightSquare.quadratic": [
+  2534,
+  -2
+ ],
+ "scalar.chain1.quadratic": [
+  935,
+  -1
+ ],
+ "scalar.N.rightSquare.quadratic": [
+  1831,
+  -684
+ ],
+ "scalar.N": [
+  236,
+  -684
+ ],
+ "scalar.W2.quadratic": [
+  3,
+  -742
+ ],
+ "scalar.p2.quadratic": [
+  3,
+  -738
+ ],
+ "scalar.preparationT.quadratic": [
+  -6,
+  -744
+ ],
+ "scalar.factored_v": [
+  0,
+  -553
+ ],
+ "scalar.q2.quadratic": [
+  3,
+  -1852
+ ],
+ "anchor.physicalA.quadratic": [
+  1895,
+  1
+ ]
+}

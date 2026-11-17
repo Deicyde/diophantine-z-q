@@ -1,0 +1,15 @@
+{
+  "date": "2026-11-08",
+  "archive": "diophantine_zq_scalar_ratio_milestone_2026-11-08.zip",
+  "bytes": 40542,
+  "sha256": "f68a88c8c69a7a971666d399f74427dea292ddbc1653c2d40debfda8f0a65e8b",
+  "crc": "PASS",
+  "manifest_entries_verified": 20,
+  "source_baseline": "40d01c53b3545a62949b14669c4906d3e978110e",
+  "intake_commit": "bc2f21120c1b090a279c7b56675caa0e502584e1",
+  "supplied_formal_status": "NOT_RUN; complete candidate bodies, no compiler in supplier environment",
+  "received_headers": "Archived unchanged; working source headers point to current verification report",
+  "tests": "Byte-identical received scripts; exact_matrix.py reuses previous arithmetic utilities and is not an independent checker",
+  "prior_freezes": "Original 63-file and boundary-scalar 65-file snapshots are preserved",
+  "arithmetic_realization": "OPEN"
+}

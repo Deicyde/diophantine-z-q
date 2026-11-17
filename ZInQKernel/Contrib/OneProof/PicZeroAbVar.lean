@@ -2,7 +2,7 @@ import ZInQKernel.Contrib.OneProof.PicDictionary
 import ZInQKernel.Contrib.CloudW03NeronSurj.Vendor.Theorems.Thm_Algebra_Smooth_isDomain_and_isIntegrallyClosed_of_isLocalization_atPrime
 
 /-!
-# `PicZeroAbVar` with Kleiman 9.5.4 in its printed form (pic-fix)
+# `PicZeroAbVar` with Kleiman 9.5.4 and Remark 9.5.6 (pic-fix)
 -/
 
 open CategoryTheory AlgebraicGeometry Limits Opposite MonoidalCategory
@@ -17,11 +17,14 @@ domain). -/
 def IsNormalScheme : ObjectProperty Scheme.{0} :=
   fun X => ∀ x : X, IsDomain (X.presheaf.stalk x) ∧ IsIntegrallyClosed (X.presheaf.stalk x)
 
-/-- **LEAF (printed form).** Kleiman, *The Picard scheme* (FGA Explained, Ch. 9), Thm 9.5.4: for `X` proper and
-geometrically normal over a field `K` (`X_{K'}` normal for every field `K'` over `K`, Mathlib's `geometrically`),
-the identity component `Pic⁰_{X/K}` of the Picard scheme is proper. Stated for every scheme `P` representing the
-fppf Picard sheaf `Pic_{X/K}` (unique up to unique isomorphism) and every open `V` whose underlying set is the
-identity component. UNVERIFIED numbering. -/
+/-- **LEAF (a consequence of the print, not its printed form).** Kleiman, *The Picard scheme* (FGA Explained,
+Ch. 9): for `X` proper and geometrically normal over a field `K` (`X_{K'}` normal for every field `K'` over `K`,
+Mathlib's `geometrically`), the identity component `Pic⁰_{X/K}` of the Picard scheme is proper. Thm 9.5.4 states
+this for `X` projective and geometrically integral; the proper case is asserted only in Remark 9.5.6, and this
+statement assumes neither projectivity nor geometric integrality (AI audit 2026-11-17; not read in print by a
+person). Its consumer `picZeroProper_of_kleiman` applies it to abelian varieties only. Stated for every scheme
+`P` representing the fppf Picard sheaf `Pic_{X/K}` (unique up to unique isomorphism) and every open `V` whose
+underlying set is the identity component. UNVERIFIED numbering. -/
 def KleimanPicZeroProper : Prop :=
   ∀ (K : Type) [Field K] (X : Over (Spec (CommRingCat.of K))), IsProper X.hom →
     geometrically IsNormalScheme X.hom →
@@ -64,7 +67,7 @@ theorem picZeroProper_of_kleiman (h : KleimanPicZeroProper) : PicZeroProper := b
   exact h K A.X inferInstance (geometricallyNormal_of_smooth A.X.hom) P rep V hV
 
 /-- **Main result (`PicZeroAbVar`)** from Kleiman 9.4.8 (`PicLocFinType`), SGA 3 VI_A 2.4
-(`IdentityComponentLFT`), Kleiman 9.5.4 in its printed form, and `PicZeroSmooth` (pending reading). -/
+(`IdentityComponentLFT`), Kleiman 9.5.4 with Remark 9.5.6, and `PicZeroSmooth` (pending reading). -/
 theorem picZeroAbVar_of_printed (h1 : PicLocFinType) (h2 : IdentityComponentLFT) (h3a : PicZeroSmooth)
     (h3b : KleimanPicZeroProper) : PicZeroAbVar :=
   picZeroAbVar_of_leaves h1 h2 h3a (picZeroProper_of_kleiman h3b)

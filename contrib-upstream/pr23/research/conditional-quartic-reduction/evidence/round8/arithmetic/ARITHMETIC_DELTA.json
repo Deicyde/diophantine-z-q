@@ -1,0 +1,80 @@
+{
+  "status": "selected conditional arithmetic derivation; independently reviewed and finite-checked",
+  "sourceChange": {
+    "fixedParameterBefore": "3^2790",
+    "fixedParameterAfter": "3^2364",
+    "packingCoefficientBefore": 3,
+    "packingCoefficientAfter": 3,
+    "symbolicAnchorRowsChanged": false
+  },
+  "height": {
+    "exponent": {
+      "numerator": 577,
+      "denominator": 32
+    },
+    "constant": "3*2^106*(2^32*3^9)^6*46410^18+128",
+    "bits": 665,
+    "radical": "R=46410*M_S(z), S={2,3,5,7,13,17}",
+    "cutoff53Role": "Finite Euler-product coefficient estimate only; no prime excluded from arithmetic consumers"
+  },
+  "selectedConsumers": {
+    "scalarOrder": 28,
+    "highOrder": 45,
+    "inputOrder": 12,
+    "indexDepthAt3": 1181,
+    "scalarMargin": "h(beta)<|a-1|/4",
+    "inputLogMargin": "log(40H)<|a|/100"
+  },
+  "retainedDependencies": [
+    "Inherited geometric LR/modularity/isogeny/Javanpeykar/Bost inputs and height-domain qualifications",
+    "Earlier finite-support and conductor proofs",
+    "Even stored-root anchor equivalence with parity before dyadic deductions",
+    "Three existing positive square scales and old7H height-transfer argument",
+    "Current scalar28 and detector45/input12 local proofs and completeness"
+  ],
+  "unselectedDependencies": [
+    "Round7 optional projective-height refinement",
+    "Round7 optional odd-exponent packing",
+    "Any stronger modular-curve height estimate found in literature",
+    "Numerically optimized smaller Euler/anchor choices"
+  ],
+  "candidateCompile": {
+    "coordinates": 392,
+    "residuals": 360,
+    "monomials": 26301,
+    "gateIdentities": 342,
+    "compilerOperations": 333,
+    "note": "Arithmetic-only baseline candidate; combined detector counts audited separately by root."
+  },
+  "files": [
+    {
+      "path": "arithmetic_round8.tex",
+      "sha256": "826523050c2f0d315561ae064124b420862ff09eeafaa63437e0339ce7c22f7b",
+      "bytes": 15729
+    },
+    {
+      "path": "check_arithmetic_round8.py",
+      "sha256": "29b4a833cc5f7503423ff507d6eed5fed4f8f54b244cdf3bc82aafce0451703a",
+      "bytes": 17604
+    },
+    {
+      "path": "arithmetic-source-check.json",
+      "sha256": "b28989ca7ce38081ec707286a271406bae021d03398990578e3398bccbe74a4e",
+      "bytes": 6614
+    },
+    {
+      "path": "anchor2364.patch",
+      "sha256": "6776df963d7329979167058c2ae2261fb61be5f61efcc21334701c57330f4c70",
+      "bytes": 2499
+    }
+  ],
+  "integration": "Replace selected arithmetic checker/proof and E; update height consumers/inventory and expected chains. Do not retain the oldc/80 or oldH19 numerical assertions as selected requirements.",
+  "independentReview": {
+    "status": "ACCEPT_CONDITIONAL_DERIVATION",
+    "reviewerLane": "round8_detector",
+    "receipt": "eighth-work/detector/arithmetic-independent-review-round8.json",
+    "sha256": "bf7ff55dcd0496e5670b6a2d3775c229cb51b20fd1306c12d360ee21a6268b31",
+    "independentExactChecks": 67,
+    "scope": "New derivation and actual consumers reviewed; inherited theorem inputs remain conditional."
+  }
+}

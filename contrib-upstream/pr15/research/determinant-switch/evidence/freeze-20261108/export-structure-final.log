@@ -1,0 +1,5 @@
+STRUCTURE_AND_AXIOMS_PASS declarations=6; no kernel replay or isolation
+REJECTED missing theorem: Const not found in solution: 'Research.DerivativeSwitch.finite_kernel_line'
+REJECTED changed theorem statement: Challenge and solution theorem statement do not match: 'Research.DerivativeSwitch.finite_kernel_line'
+REJECTED changed protected definition: Const does not match between challenge and target 'Research.DerivativeSwitch.Volume.area'
+REJECTED challenge holes as solution proofs: Illegal axiom detected: 'sorryAx'

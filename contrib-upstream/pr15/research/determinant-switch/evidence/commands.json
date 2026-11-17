@@ -1,0 +1,75 @@
+[
+  {
+    "label": "frozen-source-guard",
+    "command": [
+      "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3",
+      "-B",
+      "scripts/check_lean.py"
+    ],
+    "cwd": ".",
+    "exit_code": 0
+  },
+  {
+    "label": "audit-history",
+    "command": [
+      "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3",
+      "-B",
+      "scripts/check_audit_history.py",
+      "--self-test"
+    ],
+    "cwd": ".",
+    "exit_code": 0
+  },
+  {
+    "label": "local-model",
+    "command": [
+      "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3",
+      "-B",
+      "research/determinant-switch/check_local_model.py"
+    ],
+    "cwd": ".",
+    "exit_code": 0
+  },
+  {
+    "label": "lean-version",
+    "command": [
+      "lean",
+      "--version"
+    ],
+    "cwd": "lean",
+    "exit_code": 0
+  },
+  {
+    "label": "lake-version",
+    "command": [
+      "lake",
+      "--version"
+    ],
+    "cwd": "lean",
+    "exit_code": 0
+  },
+  {
+    "label": "target",
+    "command": [
+      "lean",
+      "-j1",
+      "-Ddebug.skipKernelTC=false",
+      "-o",
+      "/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.checks/derivative-switch-verified-1/lib/Research/DerivativeSwitchBoundary.olean",
+      "Research/DerivativeSwitchBoundary.lean"
+    ],
+    "cwd": "lean",
+    "exit_code": 0
+  },
+  {
+    "label": "axioms-and-statements",
+    "command": [
+      "lean",
+      "-j1",
+      "-Ddebug.skipKernelTC=false",
+      "/Users/chey/Coding_Projects/diophantinezq/derivative-switch-review/lean/.checks/derivative-switch-verified-1/Axioms.lean"
+    ],
+    "cwd": "lean",
+    "exit_code": 0
+  }
+]

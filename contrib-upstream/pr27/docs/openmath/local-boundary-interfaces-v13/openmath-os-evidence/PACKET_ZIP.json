@@ -1,0 +1,9 @@
+{
+  "entry": "packet.ndjson",
+  "original_bytes": 88408652,
+  "original_sha256": "4dca1de2e2450011f8ec32eb8cd9c17b531c7fbedd813ce75b0221dfe30e42aa",
+  "zip_sha256": "15e2f2fb5d5f26202ea22baa38dfce23bc84a8207c70d5ea2fed38f1d53d8244",
+  "zip_bytes": 14232967,
+  "zip_crc_test": "PASS",
+  "payload_sha256_verified_after_decompression": true
+}

@@ -13,7 +13,8 @@ These statements give the existence of Néron models and their behaviour under b
 criterion of Néron–Ogg–Shafarevich, Raynaud's criterion for semistable reduction, and two results of
 SGA 7, Exposé IX, on semistable reduction over a strictly henselian base.
 
-All five are published statements; none is proved here.
+Of these five statements, the project classes three as published statements and two as
+consequences of published theorems; none is proved here.
 
 - [Semistable reduction gives unipotent inertia](semistable-unipotent-inertia.md)
 - [Semistable reduction persists under base change](semistable-base-change.md)

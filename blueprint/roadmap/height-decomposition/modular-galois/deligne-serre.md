@@ -3,7 +3,7 @@ article_id: af_3dc8148f7829daedefdf2f85
 declaration: def
 origin: cited
 statement: formalized
-lean: HDec.HSyn.OpenResearchLeaves31.dsThm966Printed
+lean: HDec.HSyn.OpenResearchLeaves40.dsThm966Printed
 ---
 
 # The Deligne–Serre theorem

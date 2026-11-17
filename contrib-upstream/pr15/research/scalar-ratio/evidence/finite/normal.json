@@ -1,0 +1,44 @@
+{
+  "adapter_cases": 180,
+  "arithmetic_boundary_cup_identity": "UNESTABLISHED",
+  "complement_change_checks": 180,
+  "equal_normalization_cases": 60,
+  "field_unit_trap_rejected": true,
+  "full_basis_adjunction_checks": 720,
+  "lean_compilation": "NOT_RUN",
+  "matrix_sizes": [
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "non_eigenvector_local_cases": 179,
+  "nonunit_common_clearings": 121,
+  "previous_regression": {
+    "divisible_local_vector_cases": 255,
+    "equal_cross_pairing_cases": 152,
+    "formula": "Phi(tau_F)/tau_S = -q_F/q_S in the declared adjugate convention",
+    "matrix_sizes": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "primitive_counterexample": {
+      "Phi_ratio": "2",
+      "u_F": "-1/2",
+      "u_S": "1/4"
+    },
+    "randomized_common_strict_cases": 300,
+    "scope": "finite controls, not arithmetic Selmer verification",
+    "status": "PASS",
+    "unequal_scale_negative_controls": 129
+  },
+  "scope": "finite exact algebra; not Lean compilation or arithmetic realization",
+  "shared_arithmetic_implementation": "exact_matrix.py reused from preceding review; not an independent checker",
+  "status": "PASS",
+  "unit_criterion_checks": 540,
+  "wrong_functional_rejections": 90,
+  "zero_functional_cases": 90
+}

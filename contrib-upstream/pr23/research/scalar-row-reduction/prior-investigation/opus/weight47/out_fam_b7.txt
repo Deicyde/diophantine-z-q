@@ -1,0 +1,26 @@
+
+real	6m40.496s
+user	55m8.952s
+sys	0m2.500s
+r0noF N=47 budget=7 freeA=0 nodes=11208 solutions=0
+r0 N=47 budget=7 freeA=0 nodes=15683 solutions=391
+rA N=47 budget=7 freeA=0 nodes=677117 solutions=0
+rA N=47 budget=7 freeA=1 nodes=679748 solutions=1391
+r0noF N=48 budget=7 freeA=0 nodes=11213 solutions=5
+r0 N=48 budget=7 freeA=0 nodes=15302 solutions=10
+rA N=48 budget=7 freeA=0 nodes=677122 solutions=5
+rA N=48 budget=7 freeA=1 nodes=678403 solutions=46
+r0noF N=49 budget=7 freeA=0 nodes=11208 solutions=0
+r0 N=49 budget=7 freeA=0 nodes=15320 solutions=28
+rA N=49 budget=7 freeA=0 nodes=677117 solutions=0
+rA N=49 budget=7 freeA=1 nodes=678442 solutions=85
+r0noF N=50 budget=7 freeA=0 nodes=11220 solutions=12
+r0 N=50 budget=7 freeA=0 nodes=15307 solutions=15
+rA N=50 budget=7 freeA=0 nodes=677129 solutions=12
+rA N=50 budget=7 freeA=1 nodes=678434 solutions=77
+r0noF N=51 budget=7 freeA=0 nodes=11208 solutions=0
+r0 N=51 budget=7 freeA=0 nodes=15295 solutions=3
+rA N=51 budget=7 freeA=0 nodes=677117 solutions=0
+rA N=51 budget=7 freeA=1 nodes=678363 solutions=6
+
+[exited with code 0]

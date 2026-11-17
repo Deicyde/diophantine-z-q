@@ -1,0 +1,281 @@
+{
+  "format": "height-consumer-author-contract-v1",
+  "status": "author_submission_pending_independent_review",
+  "authors": [
+    "Codex /root, Cameron session 2026-11-08"
+  ],
+  "independentAcceptance": false,
+  "parentCommit": "31563264ba3dfbc3f00b4b08c099e9380caacd42",
+  "proof": {
+    "path": "research/height-consumer-refinement/PROOF.md",
+    "sha256": "5a4ff818479f28dfb988526cbcac89b9f6fdb264fe7e9f999123fe0547d45029"
+  },
+  "sources": [
+    {
+      "id": "height",
+      "path": "research/conditional-quartic-reduction/proofs/arithmetic_round8.tex",
+      "locator": "Precise inherited inputs; current exponent and constant; actual three consumers",
+      "sha256": "826523050c2f0d315561ae064124b420862ff09eeafaa63437e0339ce7c22f7b"
+    },
+    {
+      "id": "projective",
+      "path": "research/conditional-quartic-reduction/proofs/optional_anchor_height_round7.tex",
+      "locator": "Exact point/input-domain characterization; Projective height of the three retained scales",
+      "sha256": "686faeed616eef6ebed472b2414a36e8158d4de838248238815ecc283e39a4e6"
+    },
+    {
+      "id": "product",
+      "path": "docs/quartic-523-540/addition.tex",
+      "locator": "v9:lem:product and root-height transfer; actual Lucas polynomial triangle bound",
+      "sha256": "0c9444eac7cb889109cbf6e011667decd0aa7b2dfaf4169e4e01f4dbe4176d1e"
+    },
+    {
+      "id": "chain",
+      "path": "research/scalar-chain-reduction/PROOF.md",
+      "locator": "Order31 descent and smaller anchor/all three height consumers",
+      "sha256": "710088f6d9517c966a55a54e9d6adb383a335d705b7b4ca5a0f1dbde16f6be4d"
+    },
+    {
+      "id": "zero",
+      "path": "research/scalar-preparation-zero/PROOF.md",
+      "locator": "Actual scalar input and simultaneous real/finite completeness",
+      "sha256": "79bb5a8c5ce16c6b4559848739aeb78b7d23eb4a90f2ff0ad8ccf97a3674280a"
+    },
+    {
+      "id": "cube",
+      "path": "research/detector-cube-reuse/PROOF.md",
+      "locator": "Unchanged circuits and actual compiled outputs",
+      "sha256": "e91bffcf999c5862b04903beac1e28675ecbfc5eb92c2921c68576af09989aa6"
+    },
+    {
+      "id": "precision",
+      "path": "research/detector-cube-reuse/references/precision51_PROOF.md",
+      "locator": "Precision51, primary identity branches, order47 completeness and height consumers",
+      "sha256": "e6a825c3b85a9c56a6a2678ad0fa411ecedec53a005a0464efb45677f056054c"
+    },
+    {
+      "id": "current",
+      "path": "manuscripts/quartic_v13.tex",
+      "locator": "Unchanged current manuscript; historical supplying results retain their original qualifications",
+      "sha256": "9db71bbfcefb37db56eabcf40a5f9dd85de9ed58294635da3dbf6d4f5caa8fcd"
+    },
+    {
+      "id": "protocol",
+      "path": "docs/research-review/PROTOCOL.md",
+      "locator": "Version1.2 nine obligations and cumulative conditional handoff",
+      "sha256": "b5365b3d9cd9a782bf7fd0b6020403d5d400eac13dc7e60875484a8769d3d925"
+    }
+  ],
+  "obligations": [
+    {
+      "id": "source_hypotheses",
+      "requiredInput": "Current height theorem at beta and three detector images, scalar order31, odd root labels and source product identity.",
+      "constructedInput": "Same actual beta, radicals, positive square scales and labels; alpha=577/32, H unchanged.",
+      "justification": "Proof explicitly excludes beta=2401 by 2-integrality and other exceptional values by positivity; oddness precedes the product-height application.",
+      "consumer": "PROOF.md: Sources and the actual objects",
+      "sourceReferences": [
+        "height",
+        "projective",
+        "product",
+        "chain",
+        "zero",
+        "cube",
+        "precision",
+        "current",
+        "protocol"
+      ],
+      "evidence": [
+        "check_height.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "constructed_objects",
+      "requiredInput": "Height of the four-root product in K and projective tuple of three rational scales.",
+      "constructedInput": "C=C0+C1*sqrt(2), U=C0+C1, [lambda:C0^2*lambda:U^2*lambda].",
+      "justification": "Their nonzero domains and source identities are retained; no rational norm substitutes for C.",
+      "consumer": "PROOF.md: Projective transfer at the current exponent",
+      "sourceReferences": [
+        "height",
+        "projective",
+        "product",
+        "chain",
+        "zero",
+        "cube",
+        "precision",
+        "current",
+        "protocol"
+      ],
+      "evidence": [
+        "check_height.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "domain_and_index_coverage",
+      "requiredInput": "All nonzero consumed integer numerators; every permitted scalar index at the new anchor.",
+      "constructedInput": "N=F at order45/47, reduced numerator of n-beta at order12; c>=c*, B>=b*.",
+      "justification": "Projective derivation is uniform in k>0; positive monotone ratio extends endpoint tests to every B. Sign, zero summands and conic tangent branches are retained.",
+      "consumer": "PROOF.md: Projective transfer; Lucas contradiction; The anchor domain",
+      "sourceReferences": [
+        "height",
+        "projective",
+        "product",
+        "chain",
+        "zero",
+        "cube",
+        "precision",
+        "current",
+        "protocol"
+      ],
+      "evidence": [
+        "check_height.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "transition_maps",
+      "requiredInput": "Projective scaling and squared-coordinate heights with normalized absolute conventions; anchor witness existence.",
+      "constructedInput": "Scale by nonzero lambda, square [1:C0:U], then use C=(1-rho)C0+rho U.",
+      "justification": "Product formula and placewise maximum prove the comparison; finite coefficients integral and real operator product exactly7. Old completeness objects satisfy the weaker anchor; reevaluate the private physical-anchor gate at new S, resupply the conic witnesses and translate them with the new S.",
+      "consumer": "PROOF.md: Projective transfer; The anchor domain",
+      "sourceReferences": [
+        "height",
+        "projective",
+        "product",
+        "chain",
+        "zero",
+        "cube",
+        "precision",
+        "current",
+        "protocol"
+      ],
+      "evidence": [
+        "check_height.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "consumed_object_identity",
+      "requiredInput": "The same scalar beta, literal Lucas F and input reduced numerator required downstream.",
+      "constructedInput": "Unchanged raw equations, labels and test orders; only numerical anchor specialization changes.",
+      "justification": "All symbolic source sections are compared exactly. Each numerical inequality is connected separately to its actual scalar/Lucas/input consumer.",
+      "consumer": "PROOF.md: Scalar margin; Lucas contradiction; Source comparison",
+      "sourceReferences": [
+        "height",
+        "projective",
+        "product",
+        "chain",
+        "zero",
+        "cube",
+        "precision",
+        "current",
+        "protocol"
+      ],
+      "evidence": [
+        "check_height.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "conventions",
+      "requiredInput": "Absolute logarithmic heights, K=Q(sqrt2), fixed input, rational rows and integer quartic.",
+      "constructedInput": "Identical field/valuation/prime conventions; all parameter exponents divisible by6 for the existing diagonal map.",
+      "justification": "Mean over the two real embeddings contributes log7/2. Exact integer powering removes fractional exponents. Nonzero diagonal and primitive-row factors preserve rational zeros.",
+      "consumer": "PROOF.md: Projective transfer; Source comparison",
+      "sourceReferences": [
+        "height",
+        "projective",
+        "product",
+        "chain",
+        "zero",
+        "cube",
+        "precision",
+        "current",
+        "protocol"
+      ],
+      "evidence": [
+        "check_height.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "local_conditions",
+      "requiredInput": "Original pole, scalar and simultaneous real/finite hypotheses, including small primes.",
+      "constructedInput": "Keep all old roots, actual H, finite congruences, real neighborhoods and old stronger anchor divisibility.",
+      "justification": "The new divisibility is weaker; only private anchor gate and witness values change. No modulus, scale, order of choices or exceptional set is altered.",
+      "consumer": "PROOF.md: The anchor domain and both completeness constructions",
+      "sourceReferences": [
+        "height",
+        "projective",
+        "product",
+        "chain",
+        "zero",
+        "cube",
+        "precision",
+        "current",
+        "protocol"
+      ],
+      "evidence": [
+        "check_height.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "exceptional_cases",
+      "requiredInput": "Nonzero F/n-beta before height application; nonzero b for Lucas; identity-point and tangent cases.",
+      "constructedInput": "Split into F=0/nonzero and n=beta/nonzero numerator; retain nonidentity root b and previous point charts.",
+      "justification": "No new division by conic or point coordinates. Old varying-anchor equivalence and optional precision proof cover their full branches. beta domain and input prime17 are explicitly checked.",
+      "consumer": "PROOF.md: Sources; The anchor domain; Lucas contradiction; Scalar margin",
+      "sourceReferences": [
+        "height",
+        "projective",
+        "product",
+        "chain",
+        "zero",
+        "cube",
+        "precision",
+        "current",
+        "protocol"
+      ],
+      "evidence": [
+        "check_height.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "downstream_consumers",
+      "requiredInput": "All three soundness inequalities and complete full quartic specification at each new anchor.",
+      "constructedInput": "Default380/679 at2118; optional383/644 at2010; same orders1/12/45 or47.",
+      "justification": "Exact finite checks plus full source/compiler/conic/diagonal replay; proof gives uniform margins and final X-integrality. Machine checks do not accept inherited arithmetic.",
+      "consumer": "PROOF.md: Scalar margin and final input contradiction; Source comparison",
+      "sourceReferences": [
+        "height",
+        "projective",
+        "product",
+        "chain",
+        "zero",
+        "cube",
+        "precision",
+        "current",
+        "protocol"
+      ],
+      "evidence": [
+        "check_height.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    }
+  ],
+  "historicalDisposition": "Prior projective and anchor justifications located; new current-exponent application and input margin submitted here.",
+  "manuscriptDisposition": "Pending; no current release or manuscript incorporation claimed.",
+  "profile": "HANDOFF.md"
+}

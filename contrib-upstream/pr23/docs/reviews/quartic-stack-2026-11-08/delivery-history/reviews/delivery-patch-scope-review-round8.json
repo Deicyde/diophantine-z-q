@@ -1,0 +1,62 @@
+{
+  "status": "PASS",
+  "upstreamCommit": "036cebe4f1a4aa7ca89820a9b48f3629b4c364d6",
+  "allowedPrefix": "research/conditional-quartic-reduction/",
+  "patches": {
+    "full": {
+      "path": "/workspace/scratch/d64cf807c3ea/eighth-work/root/glazer_draft_pr_package/proposed-change.patch",
+      "sha256": "070acc6f6ef000c478436b9bca801b5cc9170e403496302649b83976fb47b630",
+      "fileSections": 156,
+      "newFiles": 156,
+      "deletedFiles": 0,
+      "renamedFilesWithinProposal": 0,
+      "allPathsWithinProposal": true,
+      "allModesRegularFiles": true
+    },
+    "update": {
+      "path": "/workspace/scratch/d64cf807c3ea/eighth-work/root/glazer_draft_pr_package/update-from-392.patch",
+      "sha256": "b2002eea250e697be649a40dd1176526d08baa037bd802d5d48e28812c6be664",
+      "fileSections": 68,
+      "newFiles": 45,
+      "deletedFiles": 1,
+      "renamedFilesWithinProposal": 3,
+      "allPathsWithinProposal": true,
+      "allModesRegularFiles": true
+    }
+  },
+  "routes": [
+    {
+      "route": "full",
+      "gitApplyCheck": true,
+      "gitApply": true,
+      "payloadFilesCompared": 156,
+      "identicalContentAndModesToPayload": true,
+      "upstreamFilesOutsideProposalUnchanged": 2104,
+      "resultTree": "3c5b2b3eb75c7f4bf3d50fb7dedf1e9216f9860e",
+      "indexOnly": true
+    },
+    {
+      "route": "update",
+      "gitApplyCheck": true,
+      "gitApply": true,
+      "payloadFilesCompared": 156,
+      "identicalContentAndModesToPayload": true,
+      "upstreamFilesOutsideProposalUnchanged": 2104,
+      "resultTree": "3c5b2b3eb75c7f4bf3d50fb7dedf1e9216f9860e",
+      "indexOnly": true
+    }
+  ],
+  "identicalResultTree": "3c5b2b3eb75c7f4bf3d50fb7dedf1e9216f9860e",
+  "currentSourceManifestSha256": "268694a99ae9e73f99c3847270994d51b7b9861aa9e521a622c583bed95076c2",
+  "currentManifestEntries": 155,
+  "currentPayloadFiles": 156,
+  "oldSourceManifestSha256": "f2d74ebd40b61a48b1b3d1ecdb55d2fda53f372a090fce8ec1fcd347e333bbd5",
+  "oldManifestEntries": 111,
+  "oldPayloadFiles": 112,
+  "nestedHistoricalManifestPreserved": true,
+  "helperSha256": "218c91ee3b9a1ad55eab56d14dcab6f5d8d2e77475c959e9f4f2857480d51afc",
+  "allSuppliedInputsUnchanged": true,
+  "privateReviewRepository": "/workspace/scratch/d64cf807c3ea/eighth-work/detector/delivery-probes/patch-scope-mn1abqes/review.git",
+  "checkerSha256": "2557541868a2acf890f9046e8bafd479ee703b69d2751e8878d526810d559989",
+  "scope": "Exact Git index application, regular-file modes, full156-file payload equality and preservation of every pinned upstream file outside the proposal. Mathematical reproduction and inherited global inputs are separate."
+}

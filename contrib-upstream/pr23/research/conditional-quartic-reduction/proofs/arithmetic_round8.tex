@@ -1,0 +1,393 @@
+\section{A smaller height exponent and an anchor of exponent 2364}
+
+This argument starts from the frozen seventh-round source with builder
+SHA256 \texttt{78b54bcde24ff8a91091e102a4734c49878699f071d9230e5ce7a70ffd2114d0}.
+The upstream manuscript remains pinned at
+\texttt{036cebe4f1a4aa7ca89820a9b48f3629b4c364d6}.
+The new assertions below are explicit applications of the same inherited
+geometric, modularity, isogeny-height, group, quaternion, pole, prime-pattern
+and Lucas inputs. They do not independently establish those inputs or
+reclassify any historical omission as a new gap.
+
+The selected arithmetic change in the source is only
+$S_0=3^{2790}\rightsquigarrow3^{2364}$. The physical anchor's packing
+coefficient stays equal to three. The local conclusions consumed here
+remain scalar order $28$, Lucas-label order $45$ and input-label order $12$.
+A strengthened primary detector test, if selected elsewhere in this
+proposal, has its own local/completeness proof and does not weaken any of
+these conclusions. The current integrated source and this proof are bound
+by the accompanying independent checker report.
+
+\subsection{The precise inherited height inputs}
+
+Put
+\[
+ \mathcal S=\{2,3,5,7,13,17\},\qquad B_{\mathcal S}=46410,
+ \qquad C_{\rm cond}=2^{32}3^9.
+\]
+For $z\in\mathbb Q\setminus\{0,1,2401,-343/32\}$, let
+$M_{\mathcal S}(z)$ be the squarefree product of primes outside
+$\mathcal S$ having odd contact with one of
+$\infty,0,1,2401,-343/32$, and set
+$R=B_{\mathcal S}M_{\mathcal S}(z)$.
+Thus $R\ge1$ is a squarefree rational integer. This $R$ is the radical
+used in the global height proof; it is not a detector pole input or an
+elliptic-curve index.
+
+The finite-support reapplication in
+\texttt{proofs/prior/round4/arithmetic\_round4.tex} and the conductor
+refinement in \texttt{proofs/prior/round5/arithmetic\_round5.tex} retain
+the source's geometric construction and (LR1)--(LR5). In particular, in
+the non-CM case they supply the same surface $A$, field $L'$, primitive
+newform of level $N$, and finite nebentypus of order $t$, with
+\[
+ d'=[L':\mathbb Q]\le2304R,\qquad
+ N\le C_{\rm cond}R^2,\qquad \operatorname{rad}(N)\mid R,
+ \qquad t\le2d'\le4608R.
+\]
+The last estimate is a character-order bound, not a coefficient-field
+degree bound. The proofs of normality, the scalar-character corrections,
+the companion at three used to bound the conductor at five, and the
+conductor's primitive-level convention remain inherited and unchanged.
+
+The actual source is
+\texttt{manuscripts/quartic\_v10.tex},
+\texttt{sec:h5-level-repair} and \texttt{thm:quartic-height19},
+especially lines 8915--9073. Its subgroup $H=\ker\epsilon$ contains
+$-I$ and gives a modular curve $X_H$ over $\mathbb Q$, with
+\[
+ d_H=[\operatorname{SL}_2(\mathbb Z):\Gamma_H]
+     =Nt\prod_{p\mid N}(1+1/p),\qquad
+ \deg_B(X_H)\le d_H,\qquad g\le1+d_H/12.
+\]
+Here $g=\dim\operatorname{Jac}(X_H)$. The inherited realization,
+absolute simplicity and Faltings--Poincare argument put the
+two-dimensional surface $A$ in that Jacobian up to isogeny over $L'$;
+therefore $g\ge2$. No bounded coefficient-field degree, squarefree level,
+or trivial nebentypus is being introduced.
+
+\subsection{An elementary Euler-product refinement}
+
+Let
+\[
+ \mathcal P=\{2,3,5,7,11,13,17,19,23,29,31,37,41,43,47\}.
+\]
+These are exactly the primes below $53$. For
+$a_p=(1+1/p)p^{-1/192}$, the following finite integer inequalities hold:
+\begin{align*}
+ &(p+1)^{192}>p^{193} &&(p\in\mathcal P),\\
+ &54^{192}<53^{193},\\
+ &\left(9\prod_{p\in\mathcal P}(p+1)\right)^{192}
+       <32^{192}\left(\prod_{p\in\mathcal P}p\right)^{193}.
+\end{align*}
+The companion certificate verifies every integer comparison, as well as
+the completeness and primality of the displayed list. The function
+$(1+1/x)^{192}/x$ is decreasing for $x>0$, as a product of positive
+decreasing functions. Hence $a_p\le1$ for every prime $p\ge53$,
+whereas every displayed small-prime factor exceeds one. For every
+positive integer $N$ it follows that
+\[
+ \prod_{p\mid N}(1+1/p)
+ =\operatorname{rad}(N)^{1/192}\prod_{p\mid N}a_p
+ \le\operatorname{rad}(N)^{1/192}\prod_{p\in\mathcal P}a_p
+ <\frac{32}{9}\operatorname{rad}(N)^{1/192}.
+\]
+This controls arbitrary subsets of the small primes; a product of
+unconditionally smaller-than-one factors has not been inserted.
+
+Define
+\[
+ \alpha=18+\frac1{32}=\frac{577}{32},\qquad
+ T=2^{14}C_{\rm cond}R^{577/192}.
+\]
+The level, character and radical bounds above now give
+\[
+ d_H<4608\,\frac{32}{9}C_{\rm cond}R^{3+1/192}=T.
+\]
+The number $53$ is only a cutoff in a numerical Euler-product estimate.
+It does not enlarge $\mathcal S$, discard contacts at smaller primes,
+or alter any local logarithm, pole, ramification or prime-selection
+hypothesis.
+
+\subsection{Reapply the Jacobian and isogeny-height bounds}
+
+The genus estimate can be used without the source's coarse replacement
+$g\le d_H$. Indeed $g\ge2$ and $g\le1+d_H/12$ imply $d_H\ge12$,
+and hence
+\[
+ g\le1+d_H/12\le d_H/6<T/6.
+\]
+Use the same stable Faltings metric as the source. Its cited
+Javanpeykar bound is
+\[
+ h_F(J_H)\le13000000\,\deg_B(X_H)^5g
+       <\frac{13000000}{6}T^6.
+\]
+The source's Gaudron--R\'emond application to the principally polarized
+$J_H$ and its isogeny factor $A\times Z$ gives
+\[
+ h_F(A)+h_F(Z)\le h_F(J_H)+V,
+\]
+\[
+ V=2g^2\left(8g^2\log(7g)+\log d'
+        +\log\max(1,\log d',h_F(J_H))\right).
+\]
+Retain its already proved upper estimate, with $u=\log T$:
+\[
+ V\le16T^4(2+u)+2T^2(25+7u)\le T^6.
+\]
+All hypotheses used for this estimate still hold: $T\ge16$,
+$g<T$, $\log d'<8+\log R\le8+u$, and the new Jacobian bound is
+smaller than the source's $2^{24}T^6$ bound. The elementary inequalities
+$2+\log T\le T^2/32$ and $25+7\log T\le T^4/4$ hold at $16$
+and persist by differentiation, exactly as in the source. No new
+height-variation theorem is used.
+
+The retained Bost lower bound gives $h_F(Z)>-3g/2>-3T/2$. Since
+$3T/2<T^6$ for $T\ge16$ and
+\[
+ \frac{13000000}{6}+2<2^{22},
+\]
+we obtain
+\[
+ h_F(A)<2^{22}T^6
+       =2^{106}C_{\rm cond}^6R^{\alpha}.
+\]
+The original CM estimate $h_F(A)<854R$ is smaller than this bound
+as well. Applying the same geometric comparison
+$h(z)\le2\max(0,h_F(A))+128$ gives
+\[
+ h(z)<2^{107}C_{\rm cond}^6R^{\alpha}+128.
+\]
+Finally the exact comparison
+$2^{32}B_{\mathcal S}<3^{32}$ implies
+$B_{\mathcal S}^{1/32}<3/2$. Thus, with the integer
+\begin{equation}\label{r8:height-constant}
+ \mathcal H=3\cdot2^{106}C_{\rm cond}^6B_{\mathcal S}^{18}+128,
+\end{equation}
+and using $M_{\mathcal S}(z)\ge1$, the reapplication proves
+\begin{equation}\label{r8:height}
+ \boxed{h(z)\le\mathcal H\,M_{\mathcal S}(z)^{577/32}.}
+\end{equation}
+The harmless weak inequality is convenient for all subsequent consumers.
+The exact integer $\mathcal H$ has bit length $665$ and satisfies
+$\mathcal H<3\cdot2^{663}$. If $H_7$ denotes the preceding
+683-bit constant, then
+\[
+ H_7-128=247520(\mathcal H-128).
+\]
+This smaller exponent and coefficient follow from the displayed
+inequalities in the inherited proof, rather than from a formal
+substitution into its final exponent-nineteen theorem statement.
+
+\subsection{The retained even anchor and its noncircular local order}
+
+Write $K=\mathbb Q(\rho)$, $\rho^2=2$ and
+$N_K(x+y\rho)=x^2-2y^2$. Let the four root labels be $(n,a,t,b)$,
+and put
+\[
+ C=\prod_i x(Q_i)=C_0+C_1\rho,\qquad B_0=4096C_0.
+\]
+The scalar point is $S=[a]P$, its shifted point is
+$Q=S-P=[a-1]P$, and the retained chart and nonzero guard give
+$a\ne0$, $a-1\ne0$, and an existing field coordinate
+$w=h_S\tau$ satisfying $h_S^2=x(S)$ and $\tau^2=f(Q)$.
+Set
+\[
+ S_0=3^{2364},\qquad
+ \Theta=N_K(w)+3S_0N_K(B_0+X\rho),
+\]
+and retain the three-witness conic
+\[
+ u^2+6v^2-2z^2-3\Theta^2+2S_0^2=0.
+\]
+Its exact point/input domain is
+\begin{equation}\label{r8:anchor-domain}
+ \text{all four labels odd},\qquad
+ X\in\mathbb Z_{(2)}\cap\mathbb Z_{(3)},\qquad
+ 0\ne a-1\in2\cdot3^{1181}\mathbb Z.
+\end{equation}
+
+Here is the local order, making explicit why the parity argument is
+not circular. The same quaternion criterion, including its zero
+argument, tests $2$- and $3$-integrality of
+\[
+ \Theta/S_0=N_K(w/3^{1182})+3N_K(B_0+X\rho).
+\]
+At $3$ the norm is anisotropic modulo $3$, so the two nonzero summands
+have opposite valuation parity and must separately be integral.
+This gives integrality of $B_0,X$ and depth at least $1182$ for both
+coefficients of $w$. Before assuming oddness, the retained leading-residue
+proof gives
+\[
+ v_3(C_0)=-\sum_i e(n_i),\qquad
+ e(n)=0\ (n\text{ odd}),\quad e(n)=2+2v_3(n)\ (n\text{ even}).
+\]
+Consequently all labels are odd. Only then use that $h_S$ is a
+$3$-adic unit and $v_3(w)=1+v_3(a-1)$ to infer the displayed
+$3$-divisibility.
+
+At $2$, with $v(2)=1$ and $v(\rho)=1/2$, the retained integral formal
+series gives $v(z([j]P))=3/2+v_2(j)$ for nonzero integers $j$.
+The already established oddness implies
+$v(h_S)=-3/2$ and $v(w)=v_2(a-1)\ge1$, so both rational
+coefficients of $w$ are $2$-integral. Also $B_0$ is $2$-integral.
+The only possibly nonintegral term left in $\Theta/S_0$ is $-6X^2$;
+its negative valuation cannot cancel the integral terms. This gives
+$X\in\mathbb Z_{(2)}$. The same valuations and the quaternion
+criterion prove the converse. Zero norm summands and all chart sign
+choices are covered, and no new square-root branch is introduced.
+
+The supplying arguments are the packed-anchor leading-residue proof,
+\texttt{proofs/prior/round6/arithmetic\_round6.tex}, and the actual
+upstream formal/quaternion passages at lines 8132--8244 and
+10973--11024. The conic witnesses are existentially equivalent to
+\eqref{r8:anchor-domain}; no bijection between all witness tuples is
+claimed.
+
+\subsection{Apply the new height bound to the actual consumers}
+
+The current input and three scalar contacts are
+\[
+ \beta=2401+2754(2X+1)^2
+       =11016X^2+11016X+5155,
+ \qquad r=\beta(\beta-1)(32\beta+343).
+\]
+The anchor excludes $X=-1/2$, so $\beta$ lies in the domain of
+\eqref{r8:height}. The current scalar proof supplies
+$M_{\mathcal S}(\beta)^{28}\mid a-1$. With $c=|a-1|$,
+\[
+ h(\beta)\le\mathcal H c^{577/896}.
+\]
+The detector poles retain orders $1,12,45$, their current contact-unit
+normalization, and the same three positive square scales
+$1,C_0^2,(C_0+C_1)^2$. Their unchanged fractional-linear map
+$\phi(t)=-49+1/t$ is defined and avoids the four finite target contacts
+on the proved source domain. The long logarithm $G_{12}$ still supports
+order $45$ and $G_2$ supports order $12$ at all consumed primes.
+These are the actual local arguments of the preceding proof and do not
+depend on the global exponent being nineteen.
+
+For completeness, if the three contact radicals divide a nonzero integer
+$N$ to order $k$, their individual height estimates are now bounded by
+$T_0=(\mathcal H+\log50)|N|^{\alpha/k}$.
+The retained scale argument gives
+$h(C)\le3T_0+(5/2)\log2<7\mathcal H|N|^{\alpha/k}$,
+because $3\log50+(5/2)\log2<16$ and $\mathcal H\ge4$.
+All four labels are already odd, so the inherited product-height
+identity and root lower bound give
+\begin{equation}\label{r8:transfer}
+ B^2-6<7\mathcal H|N|^{\alpha/k},\qquad
+ B=\max(|n|,|a|,|t|,|b|).
+\end{equation}
+This is the product in $K$, not its rational norm. The optional
+projective-height improvement is not needed for this selection.
+
+\subsection{Exact numerical margins, with a weaker sufficient scalar target}
+
+Put
+\[
+ c_*=2\cdot3^{1181},\qquad b_*=c_*-1.
+\]
+Every solution of the selected anchor has $c\ge c_*$ and
+$|a|\ge b_*$. We use $h(\beta)<c/4$, in place of the former
+stronger $c/80$ target, and check the actual final input contradiction
+below. The exact inequalities
+\[
+ 3^{53}>2^{84},\qquad \mathcal H<3\cdot2^{663}
+\]
+give a short transparent certificate. If $L=\log_2 3$, then
+$\log_2c\ge1+1181L$ and
+$\log_2(4\mathcal H)<665+L$. The difference is positive because
+\[
+ 319+(319\cdot1181-896)\frac{84}{53}-665\cdot896
+   =\frac{8199}{53}>0.
+\]
+Hence
+\begin{equation}\label{r8:scalar-margin}
+ c^{319/896}>4\mathcal H,\qquad
+ h(\beta)<c/4\le(|a|+1)/4.
+\end{equation}
+The independent checker also verifies directly
+$c_*^{319}>(4\mathcal H)^{896}$ using integers only.
+
+For the literal Lucas polynomial
+\[
+ F=t^2-a(a-2)tb+(a-2)^2b^2-1,
+\]
+the retained bound is $|F|<5B^4$ for $B>4$. If $F\ne0$, apply
+\eqref{r8:transfer} at order $45$. Since $\alpha/45<1/2$,
+\[
+ B^{143/360}<7\mathcal H5^{\alpha/45}+6<24\mathcal H.
+\]
+But $B\ge|a|\ge c/2\ge3^{1181}$ and
+$24\mathcal H<9\cdot2^{666}$ give the opposite strict inequality:
+\[
+ (143\cdot1181-720)\frac{84}{53}-666\cdot360
+       =\frac{1418412}{53}>0.
+\]
+Equivalently the checker verifies
+$b_*^{143}>(24\mathcal H)^{360}$. Thus $F=0$.
+The nonidentity root for $b$ gives $b\ne0$, so the inherited Lucas
+theorem now gives $\log B>|a|-3$.
+
+If $n\ne\beta$, its nonzero reduced numerator $N$ satisfies
+$|N|\le2e^{h(\beta)}B$, and the local input comparison gives order
+$12$. Applying \eqref{r8:transfer} and using $\alpha/12<2$ yields
+\[
+ B^{2-\alpha/12}<40\mathcal H e^{(\alpha/12)h(\beta)},
+\]
+\[
+ \log B<\frac{12}{24-\alpha}\log(40\mathcal H)
+                 +\frac{\alpha}{24-\alpha}h(\beta).
+\]
+The first inequality follows, for example, from
+$7\mathcal H2^{\alpha/12}+6<40\mathcal H$; the added constant
+is absorbed since $h(\beta)\ge0$ and $B>1$.
+The same exact height bound gives $40\mathcal H<2^{670}$.
+Since $100\cdot670<b_*$, we have
+$\log(40\mathcal H)<|a|/100$. Finally $\alpha<19$ gives
+\[
+ \log B<\frac{12}{5}\frac{|a|}{100}
+          +\frac{19}{5}\frac{|a|+1}{4}
+       =\frac{487}{500}|a|+\frac{19}{20}<|a|-3,
+\]
+where the last inequality holds for $|a|>152$. The anchor supplies
+that bound. This contradicts the Lucas conclusion. Every use of the
+old $c/80$ margin in the final soundness proof has therefore been
+replaced by a checked use of \eqref{r8:scalar-margin}; the old numerical
+inequality is not asserted for this smaller anchor.
+
+Consequently $n=\beta\in\mathbb Z$. Together with the anchor's
+$2$- and $3$-integrality, this forces $X\in\mathbb Z$:
+$11016=2^3 3^4 17$, and a negative valuation of $X$ at any other
+prime makes the quadratic term of $\beta$ uniquely minimal, including
+the leading-coefficient valuation one at $17$.
+
+\subsection{Completeness, implementation, and verification boundary}
+
+The new height estimate is used only in soundness. It changes no point,
+scale, pole, logarithm, detector contact, or congruence in completeness.
+The even anchor requires only the finite preparation
+$3^{1181}\mid a-1$, while the inherited construction allows arbitrary
+divisibility of the positive scalar index $a-1$. Retain its order of
+choices: scalar preparation and roots, fixed positive square scales,
+continuity conditions, then separated contact primes and the primary
+progression $\Pi^{44}\mid h$. The scalar pole preparation, Gaussian
+positivity witnesses, both-place formal arguments and local avoidance
+conditions remain those of the selected local proofs.
+
+No coordinate is added by changing the fixed integer $S_0$.
+Its even packing coefficient remains three, so the symbolic physical
+anchor equations are unchanged. The convenient identity
+$3^{2364}=(3^{394})^6$ supports a separately audited input-fixed
+diagonal coefficient change. It is that separate algebraic certificate,
+not this height argument, which proves any reported coefficient maximum.
+
+The finite checker verifies the source anchor and input equations, local
+seed calculations, Euler-product certificate, explicit constants, and
+all three selected numerical consumers. The complete scalar/detector
+proofs and the inherited global arithmetic still require their stated
+mathematical review. This is a conditional reapplication with a smaller
+height exponent and an explicit valid parameter choice; no optimality,
+whole-proof formalization, or historical priority claim is made.

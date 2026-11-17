@@ -1,0 +1,227 @@
+\section{A norm anchor and a three-contact scalar certificate}
+
+These changes start from the previously delivered 450-coordinate system.
+They retain its inherited group, quaternion, height, pole-realization,
+local-comparison, Lucas, and prime-pattern results. They change local
+predicates and the input map, so their correctness is a transfer of the
+soundness and completeness argument, rather than a birational equivalence
+of the entire old and new systems.
+
+\subsection{Use the existing quadratic field norm in the anchor}
+
+Put $K=\mathbb Q(\rho)$, $\rho^2=2$, and
+$N(a+b\rho)=a^2-2b^2$. Retain
+$C_{\rm a}=3^{2^{25}}$, $S_0=C_{\rm a}^2$, and $B_0=4096C_0$.
+Here $C_0$ is the rational coefficient of the product of the four root
+abscissas. If $f_0+f_1\rho$ is the scalar reciprocal abscissa, replace
+the physical anchor by
+\[
+ \Theta=N(f_0+f_1\rho)+3S_0N(B_0+X\rho)
+ =f_0^2-2f_1^2+3S_0(B_0^2-2X^2).
+\]
+Keep the same conic
+\[
+ u^2+6v^2-2w^2-3\Theta^2+2S_0^2=0.
+\]
+The inherited quaternion criterion tests integrality of $\Theta/S_0$
+at $2$ and $3$.
+
+Since $2$ is a nonsquare in $\mathbb F_3$, the norm form is anisotropic
+modulo $3$, and
+\[
+ v_3(N(a+b\rho))=2\min(v_3(a),v_3(b)).
+\]
+The summands of
+\[
+ \Theta/S_0
+ =N(f_0/C_{\rm a}+(f_1/C_{\rm a})\rho)
+       +3N(B_0+X\rho)
+\]
+have opposite valuation parity when nonzero. Integrality therefore
+forces $f_0/C_{\rm a},f_1/C_{\rm a},B_0,X$ to be $3$-integral.
+As in the preceding packed-anchor proof, this gives the old depth
+condition and all four odd root indices. It then makes $B_0$ $2$-integral;
+the scalar reciprocal coefficients divided by the odd integer $C_{\rm a}$
+are already $2$-integral on the point domain.
+All terms except $-6X^2$ are now $2$-integral. If $v_2(X)<0$, then
+$v_2(-6X^2)=1+2v_2(X)<0$, which cannot cancel against those terms.
+Thus $X$ is $2$-integral. Conversely these depth, parity and local-input
+conditions make both displayed norm summands integral at both primes,
+and the same quaternion criterion supplies conic witnesses.
+
+The new anchor is consequently equivalent, on the retained point domain,
+to the old depth condition, oddness of all four roots, and
+$X\in\mathbb Z_{(2)}\cap\mathbb Z_{(3)}$. It removes the mixed term
+$f_0f_1$ and expresses the entire physical quantity using the one existing
+quadratic field norm. No new theorem about quaternion norm forms is needed.
+
+\subsection{Make one finite contact a square fibre}
+
+Let
+\[
+ A_0=2754=2\cdot3^4\cdot17,\qquad
+ \beta=2401+A_0(2X+1)^2,
+\]
+and use
+\[
+ r=\beta(\beta-1)(32\beta+343),\qquad c=42.
+\]
+For every rational $X$, $\beta\ge2401$, hence $r>0$.
+The exceptional equality $\beta=2401$ occurs exactly at $X=-1/2$.
+It is excluded by the anchor's $2$-integrality conclusion before applying
+any height theorem whose domain omits the contact set. Thus every solution
+has $\beta\notin\{0,1,2401,-343/32\}$.
+
+At every consumed prime $p>76176$, $A_0$ and $2$ are units. Therefore
+\[
+ v_p(\beta-2401)=2v_p(2X+1)
+\]
+is even, unless the expression is zero, which was just excluded globally.
+If $v_p(\beta)<0$, the quadratic term in the expansion of $\beta$ dominates
+its linear and constant terms, so $v_p(\beta)=2v_p(X)$ is even. Neither the
+contact at infinity nor that at $2401$ contributes to $M_5(\beta)$.
+
+The remaining three contacts $0,1,-343/32$ are pairwise distinct modulo
+every consumed prime: their nonzero differences have numerator and
+denominator prime factors only in $\{2,3,5,7\}$. If $\beta$ is integral
+at such a prime, at most one of the three factors of $r$ has positive
+valuation. Hence
+\[
+ p\mid M_5(\beta)\quad\Longleftrightarrow\quad v_p(r)\text{ is odd};
+\]
+in this case $v_p(r)>0$. If $\beta$ has negative valuation, all three
+factors have that same even valuation, so $v_p(r)$ is even as well.
+This checks both directions, although the scalar proof only needs the
+forward implication.
+
+The source scalar norm proof now applies verbatim to its valuation
+recursion: $c=42$ is a unit at every consumed prime, and each odd contact
+forces $v_p(a-1)\ge32$. Thus $M_5(\beta)^{32}\mid a-1$ and the inherited
+height theorem gives $h(\beta)\le H_{19}|a-1|^{19/32}$.
+
+\subsection{Fixed local correction and completeness}
+
+For integral $X$, the odd integer $2X+1$ has square congruent to $1$ or $9$
+modulo $16$. Since $A_0\equiv2\pmod{16}$,
+\[
+ \beta\equiv3\pmod{16},\qquad
+ \beta\equiv2401\pmod{81},\qquad
+ \beta\equiv4\pmod{17}.
+\]
+These congruences imply
+\[
+ v_2(r)=1,\quad r/2\equiv5\pmod8;
+ \qquad
+ v_3(r)=3,\quad r/27\equiv2\pmod3;
+ \qquad r\equiv8\pmod{17}.
+\]
+For the $3$-adic calculation, the valuations of
+$\beta,\beta-1,32\beta+343$ are respectively $0,1,2$, and their normalized
+residues are $1,2,1$ modulo $3$.
+Since
+\[
+ v_2(42)=v_3(42)=1,\quad42/2\equiv5\pmod8,
+ \quad42/3\equiv2\pmod3,\quad42\equiv8\pmod{17},
+\]
+we obtain
+\[
+ 42r>0,\qquad
+ 42r\in\mathbb Q_2^{\times2}\cap\mathbb Q_3^{\times2}
+                 \cap\mathbb Q_{17}^{\times2}.
+\]
+The correction has a natural explanation: for $R(T)=T(T-1)(32T+343)$,
+\[
+ R(2401)=42\cdot102900^2.
+\]
+In fact a universal correction $1$ is impossible for this square-fibre
+family: integers $X$ can make $2X+1$ arbitrarily $3$-divisible, making
+$R(\beta)$ arbitrarily close to $R(2401)$, whose $3$-adic valuation is odd.
+
+For integral $X$, $\beta\ge5155$ is positive and odd. In the unchanged
+scalar norm tree, choose the shared point deeply at the support of $42r$,
+then choose $[a-1]P$ deeper with the prescribed divisibility and anchor.
+The same all-left constant leaf makes the root $W$ a unit at that support.
+Thus $b=42rW^2$ has square reduced denominator and the three required local
+squareclasses. The inherited pole-completeness lemma supplies witnesses.
+Its continuity argument still gives a progression for the shared index.
+No new quotient or point exception is introduced.
+
+For soundness, once the inherited global argument gives $\beta\in\mathbb Z$,
+the anchor has already made $X$ integral at $2$ and $3$. If an odd prime
+$p\notin\{3,17\}$ divided the denominator of $X$, then
+$v_p(\beta)=2v_p(X)<0$, a contradiction. At $17$ it would instead be
+$v_{17}(\beta)=1+2v_{17}(X)<0$. Hence $X$ is integral everywhere.
+The positive odd label and all subsequent scalar, product-height, Lucas,
+prime-pattern and progression arguments are therefore valid with this
+input map, subject to their unchanged inherited hypotheses.
+
+\subsection{Keep the input gate adapted to the new label}
+
+Materialize $Y=X^2+X$ as the one input-product coordinate, and use
+\[
+ \beta=11016Y+5155,\qquad X^2=Y-X.
+\]
+The defining row is $Y-X^2-X=0$. This is an invertible affine change of
+the former $X^2$ coordinate over the fixed input $X$; it leaves the input
+itself unchanged. Keep $Y$ protected. Then the anchor is implemented as
+\[
+ f_0^2-2f_1^2+50331648S_0C_0^2-6S_0(Y-X).
+\]
+All residuals remain quadratic even when $S_0$ is a constant-chain
+coordinate. The input gate prevents the extra linear $X$ term from
+propagating through every comparison circuit.
+
+This arithmetic change does not by itself save a variable: the previous
+four-factor scalar product already shared the quadratic leading part of
+its two pair products. The combined norm-anchor and adapted-input variant
+has the same $450$ variables and $419$ residuals as its baseline, with
+$26921$ rather than $26922$ quartic monomials. These are measured outputs,
+not a factor-count estimate.
+
+\section{Independent review of homogeneous pole coordinates}
+
+For a nonzero pole input $b$, put $B=17b$. The old equations are
+\[
+ Bp_{\rm old}^2=(B-e_{\rm old})(B+3e_{\rm old}),\qquad
+ Bq_{\rm old}^2=(s_{\rm old}^2-H)(s_{\rm old}^2+3H),
+\]
+where $H=e_{\rm old}(17b-U^2)$. Set
+\[
+ e_{\rm old}=bE,\quad p_{\rm old}=bP,\quad
+ s_{\rm old}=bS,\quad q_{\rm old}=b^2Q,\quad T=U^2/b.
+\]
+Then $H=b^2E(17-T)$ and the equivalent normalized equations are
+\[
+ 17bP^2=(17-E)(17+3E),\qquad
+ 17bQ^2=(S^2-E(17-T))(S^2+3E(17-T)).
+\]
+The old residuals equal $b^2$ and $b^4$ times their respective normalized
+residuals. The inverse coordinate maps divide only by $b$ and $b^2$.
+
+For the three unprepared detector poles, $U=b$ and hence $T=b$. This
+removes the formerly materialized $b^2$ coordinate in each pole module.
+Here $b\ne0$ follows from the proved nonzero detector trace $w_0\ne0$
+(an explicit guard in the preceding construction, supplied instead by
+the positive-product lemma in the merged construction), together with
+$2w_0n=w_0^2-2w_1^2$ and $be\delta=n^2$. Irrationality of
+$\sqrt2$ gives $n\ne0$, whence $b\ne0$.
+More precisely, in the merged construction the positive-$\lambda$ proof
+gives $\sigma(W)\ge1$ at both real embeddings, hence $w_0\ge1$ and
+$N(W)>0$, while $e\delta>0$. Therefore
+$b=(N(W)/(2w_0))^2/(e\delta)>0$ before using any pole equation.
+
+For the scalar pole, retain the actual old preparation variables $U,V$,
+but replace its two squared coordinates by the single coordinate $T$:
+\[
+ T=b-V^2,\qquad U^2=bT.
+\]
+These are quadratic, and equivalent to $U^2+bV^2=b^2$ because $b\ne0$.
+The old squared coordinates recover as $U^2=bT$ and $V^2=b-T$.
+The expression $E(17-T)$ is quadratic, so the normalized pole uses only
+three preparation coordinates $U,V,T$. No exceptional point is removed.
+In this application $b=42rW^2>0$ even before using the anchor, because
+$r>0$ for every rational input and the constant all-left norm leaf makes
+$W>0$. Thus the nonzero hypothesis is unconditional on every arithmetic
+solution. This proves the proposed saving of three detector coordinates
+and one scalar preparation coordinate at the exact equation level;
+the final compiler must still confirm the combined count.

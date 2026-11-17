@@ -1,0 +1,90 @@
+relaxed j=12 k=47 none<=8 
+relaxed j=12 k=51 none<=8 
+relaxed j=12 k=44 none<=8 
+relaxed j=12 k=49 none<=8 
+relaxed j=12 k=50 none<=8 
+relaxed j=12 k=48 none<=8 
+relaxed j=12 k=45 min=8 nsols=6  (3,0) (6,0) (12,-1) (23,-1) (46,-2) (89,-1) (178,-2) (267,-3) 
+relaxed j=12 k=46 min=8 nsols=6  (3,0) (6,0) (12,-1) (23,-1) (46,-2) (91,-3) (182,-6) (273,-9) 
+relaxed j=11 k=45 none<=8 
+relaxed j=11 k=44 none<=8 
+relaxed j=11 k=50 none<=8 
+relaxed j=11 k=47 none<=8 
+relaxed j=11 k=43 none<=8 
+relaxed j=11 k=46 none<=8 
+relaxed j=11 k=49 none<=8 
+relaxed j=11 k=48 none<=8 
+relaxed j=11 k=51 none<=8 
+relaxed j=11 k=41 min=8 nsols=7  (3,0) (6,-1) (11,-1) (21,-1) (42,-2) (81,-1) (162,-2) (243,-3) 
+relaxed j=11 k=39 none<=8 
+relaxed j=11 k=42 min=8 nsols=7  (3,0) (6,-1) (11,-1) (21,-1) (42,-2) (83,-3) (166,-6) (249,-9) 
+relaxed j=11 k=38 none<=8 
+relaxed j=12 k=38 none<=8 
+relaxed j=12 k=41 none<=8 
+relaxed j=12 k=40 none<=8 
+relaxed j=12 k=43 min=8 nsols=1  (4,-1) (7,-1) (12,0) (23,-1) (46,-2) (85,-3) (170,-6) (255,-9) 
+relaxed j=11 k=40 none<=8 
+relaxed j=12 k=42 none<=8 
+relaxed j=12 k=39 none<=8 
+relaxed j=10 k=44 none<=8 
+relaxed j=10 k=49 none<=8 
+relaxed j=10 k=46 none<=8 
+relaxed j=10 k=48 none<=8 
+relaxed j=10 k=51 none<=8 
+relaxed j=10 k=50 none<=8 
+relaxed j=10 k=47 none<=8 
+relaxed j=10 k=38 min=8 nsols=25  (1,-4) (6,-3) (11,-2) (19,-1) (38,-2) (75,-3) (150,-6) (225,-9) 
+relaxed j=10 k=45 none<=8 
+relaxed j=12 k=37 none<=8 
+relaxed j=11 k=37 min=8 nsols=3  (3,0) (6,-1) (11,-1) (21,-1) (42,-2) (73,-3) (146,-6) (219,-9) 
+relaxed j=10 k=42 none<=8 
+strict j=12 k=49 none<=8 
+strict j=12 k=45 min=8 nsols=6  (3,0) (6,0) (12,-1) (23,-1) (46,-2) (89,-1) (178,-2) (267,-3) 
+relaxed j=10 k=39 none<=8 
+strict j=12 k=44 none<=8 
+strict j=12 k=51 none<=8 
+relaxed j=10 k=40 none<=8 
+relaxed j=10 k=41 none<=8 
+strict j=12 k=47 none<=8 
+strict j=12 k=38 none<=8 
+strict j=12 k=39 none<=8 
+strict j=12 k=50 none<=8 
+strict j=12 k=48 none<=8 
+strict j=12 k=46 none<=8 
+strict j=12 k=41 none<=8 
+relaxed j=10 k=43 none<=8 
+strict j=11 k=46 none<=8 
+strict j=11 k=45 none<=8 
+strict j=11 k=50 none<=8 
+strict j=11 k=49 none<=8 
+strict j=11 k=48 none<=8 
+strict j=12 k=42 none<=8 
+strict j=12 k=37 none<=8 
+strict j=11 k=47 none<=8 
+strict j=11 k=44 none<=8 
+strict j=12 k=40 none<=8 
+strict j=11 k=51 none<=8 
+relaxed j=10 k=37 min=8 nsols=25  (1,-4) (6,-3) (11,-2) (19,-1) (38,-2) (73,-1) (146,-2) (219,-3) 
+strict j=12 k=43 none<=8 
+strict j=11 k=38 none<=8 
+strict j=11 k=39 none<=8 
+strict j=11 k=40 none<=8 
+strict j=11 k=41 min=8 nsols=7  (3,0) (6,-1) (11,-1) (21,-1) (42,-2) (81,-1) (162,-2) (243,-3) 
+strict j=11 k=43 none<=8 
+strict j=10 k=49 none<=8 
+strict j=10 k=45 none<=8 
+strict j=10 k=50 none<=8 
+strict j=10 k=44 none<=8 
+strict j=10 k=51 none<=8 
+strict j=11 k=42 none<=8 
+strict j=10 k=46 none<=8 
+strict j=10 k=48 none<=8 
+strict j=10 k=47 none<=8 
+strict j=10 k=43 none<=8 
+strict j=10 k=42 none<=8 
+strict j=10 k=40 none<=8 
+strict j=10 k=39 none<=8 
+strict j=10 k=41 none<=8 
+strict j=10 k=38 none<=8 
+strict j=11 k=37 none<=8 
+strict j=10 k=37 min=8 nsols=25  (1,-4) (6,-3) (11,-2) (19,-1) (38,-2) (73,-1) (146,-2) (219,-3) 

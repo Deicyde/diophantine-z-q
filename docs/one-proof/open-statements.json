@@ -58,7 +58,7 @@
    "statement": "NOSSepDict.NeronOggShafarevichSep",
    "field": "neronOggShafarevichSep",
    "docstring":
-   "Serre-Tate, Ann. of Math. 88 (1968), Thm 1 (Neron-Ogg-Shafarevich criterion) over a separable closure K_s, inertia of a valuation ring of K_s acting on A(K_s)[m] (numbering UNVERIFIED) ",
+   "Serre-Tate, Ann. of Math. 88 (1968), Thm 1 (Neron-Ogg-Shafarevich criterion) over a separable closure K_s, inertia of a valuation ring of K_s acting on A(K_s)[m] (numbering UNVERIFIED); the print assumes a perfect residue field and this statement is for every discrete valuation ring, so it exceeds the print (AI audit 2026-11-17; the chain uses it over number fields only) ",
    "bundle": "OpenResearchLeaves40"},
   {"type": "DSCoeffExt.DSThm965Printed",
    "statement": "DSCoeffExt.DSThm965Printed",
@@ -184,7 +184,7 @@
    "statement": "PicFix.KleimanPicZeroProper",
    "field": "kleimanPicZeroProper",
    "docstring":
-   "pic-fix: for `X` proper and geometrically normal over a field `K`, the identity component of `Pic_{X/K}` is\nproper (Kleiman, *The Picard scheme*, Thm 9.5.4; locator UNVERIFIED); stated for every representing scheme. ",
+   "pic-fix: for `X` proper and geometrically normal over a field `K`, the identity component of `Pic_{X/K}` is\nproper (Kleiman, *The Picard scheme*, Thm 9.5.4 for `X` projective and geometrically integral, with Remark\n9.5.6 for the proper case; the leaf assumes neither, so it exceeds the printed theorem; locators UNVERIFIED);\nstated for every representing scheme. ",
    "bundle": "OpenAddedLeaves25"},
   {"type": "ZInQ.Contrib.TYZGenusFold.TYZThm21PairsC",
    "statement": "ZInQ.Contrib.TYZGenusFold.TYZThm21PairsC",

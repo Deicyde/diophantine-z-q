@@ -1,0 +1,52 @@
+{
+  "status": "PASS",
+  "declarations": 39,
+  "new_declarations": 18,
+  "preserved_declarations": 21,
+  "generation": {
+    "files": 25,
+    "manifest_entries": 24,
+    "manifest_sha256": "117f9ca2c28c42e45198f790dd8c3f324e1bed9d3af11ea9707575363304b811",
+    "byte_identical_second_generation": true,
+    "inputs_unchanged_after_build_and_export": true,
+    "prior_specifications_unchanged": true
+  },
+  "solution_default_build": "PASS; Challenge excluded",
+  "separate_challenge_build": "PASS;39 intentional theorem holes",
+  "direct_local_structure_and_axiom_probe": "PASS;39 exact targets, no definition holes",
+  "rejected_controls": 6,
+  "commands_sha256": "d8c4837f6dfea6c513a828f6df0389b43c27ae2d4716804141e393bff52a75a7",
+  "probe_log_sha256": "891a06ac7b0c90a0fa1ef72e42f9b1198abec31b814397543db9b282c05ac51f",
+  "native_export_replay": "NOT_RUN",
+  "protected_comparator": "NOT_RUN",
+  "external_checkers": "NOT_RUN",
+  "linux_sandbox": "NOT_RUN",
+  "paranoid": "NOT_RUN",
+  "arithmetic_tensor_compatibility": "OPEN",
+  "source_inputs": {
+    "research/scalar-ratio/verification/Challenge/BoundaryCup.lean": "cc95c0bfa2a80fc2c967ed69b5fafb8c0defe7fc704bc2962b0d113afef8253b",
+    "research/scalar-ratio/verification/Challenge/CommonStrict.lean": "50a3a1847f96d80bddacb6146696b07d6ca06f0b73c95f45793e3ca919313af5",
+    "research/scalar-ratio/verification/Challenge/Coordinate.lean": "5d9345ec01b581faba690428fcfbc0d01196d61ba13d73e1ae6b9ae4e04bf1cc",
+    "research/scalar-ratio/verification/Challenge/Cup.lean": "657609e50b5b058f5e2435cced7f1efcadcd91aed076a7612742f409c12bf18e",
+    "research/scalar-ratio/verification/Challenge/Matrix.lean": "70141ae019654b59a07e1d34cead19aa5882f9a2f1b1097f021bb24653c12860",
+    "research/scalar-ratio/verification/Challenge/Original.lean": "ae5cd67b93287c345a3b1a808eeeed9744667bb73eb10f068d8b056b20b497e8",
+    "research/scalar-ratio/verification/Challenge/UnitCriterion.lean": "a2f864a2f353519d2c40739ed3c16f1a61498867817314df52a77215b2883b3b",
+    "research/scalar-ratio/verification/Challenge.lean": "b7e458429c13a677784af6885d1d2c8aa5e09f6a633aa112aab090547d62c84f",
+    "research/scalar-ratio/verification/README.md": "4db77bc8aad5d3bb68573ece21f43c15273e2cb5857e618b0c8a131bfeabf17c",
+    "research/scalar-ratio/verification/Solution.lean": "7af2c393419c0d091defd9219f84d963bfc484b64633f8eee6e4f591554d671d",
+    "research/scalar-ratio/verification/comparator.json": "ae8b3b382cfc69d3aceb281c188548923855345a71f3775b813530ca059f00c8",
+    "research/scalar-ratio/verification/compare_exports.lean": "fd5c43364d6f209ce48d75eb5f3b8bf363bfd05a8549e21a54d5a39cdb02485d",
+    "research/scalar-ratio/verification/lakefile.toml": "9600bce268e5e5b0b9e0b3b255984b089b2006294c93e9264da2217ab86fead8",
+    "research/scalar-ratio/verification/prepare.py": "c884b292701340b5a09d731f95ae714dad00726705955157f3931f9ec7eb2e4f"
+  },
+  "exports": {
+    "lean/.checks/scalar-ratio-exports-1/challenge.ndjson": {
+      "sha256": "56b951f679cc409dac4b751f0f5986811875f66168e2981afc99bdc5198babc0",
+      "bytes": 34158767
+    },
+    "lean/.checks/scalar-ratio-exports-1/solution.ndjson": {
+      "sha256": "760a03e8467c3d9ec81a562c6933807fe6127a7f2758844d63dc1d86dbf71247",
+      "bytes": 55539191
+    }
+  }
+}

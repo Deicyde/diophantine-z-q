@@ -1,0 +1,286 @@
+FURTHER ARITHMETIC REDUCTIONS: FINAL FOUR-FACTOR VERSION
+======================================================
+Pinned Version 10 source:
+  036cebe4f1a4aa7ca89820a9b48f3629b4c364d6
+LaTeX body: further_arithmetic_body.tex
+Exact finite checker: check_arithmetic_residues.py
+Final certificate: arithmetic_residue_certificate.json
+Previous five-factor/correction105 checkpoint is preserved in
+  further_arithmetic_body_r5_checkpoint.tex
+  arithmetic_residue_certificate_r5.json
+The checker accepts --mode r5 to reproduce the earlier checkpoint.
+
+STATUS AND LOGICAL SCOPE
+-----------------------
+The difference-guard and scalar-preparation changes have explicit
+reversible witness maps on the stated nonzero point domains. The new
+input label, fixed correction, and four-factor scalar contact polynomial
+instead require rerunning the source's soundness and completeness proof
+with newly verified local hypotheses. All inherited global dependencies
+remain: the rank-one point result, the height theorem, the pole theorem's
+restricted-converse/descent inputs, and the prime-pattern/progression
+argument. This note does not independently establish those results.
+
+FINAL DATA
+----------
+rho^2=2, K=Q(rho), D=11-6rho, E:y^2=x^3-Dx,
+P=(57/8-7rho/2, -165/8+417rho/32), and inherited 2E(K)=ZP.
+All chart points are finite nonzero multiples of P.
+
+Write product_{i=1}^4 x(Q_i)=C0+C1*rho and B0=4096*C0.
+Let R=S_point-P and 1/x(R)=f0+f1*rho.
+Let Ca=3^(2^25), S=Ca^2=3^(2^26), q2(u,v)=u^2+uv-v^2.
+Use the new anchor coordinate
+  Theta=q2(f0,f1)+3*S*(B0^2+X^2)
+and retain its conic
+  u^2+6v^2-2w^2-3Theta^2+2S^2=0.
+Use
+  beta=1224*X^2+2451,       1224=2^3*3^2*17,
+  r=beta*(beta-1)*(beta-2401)*(32beta+343),
+  correction=21=3*7,
+  scalar pole input b=21*r*W^2.
+The scalar norm tree, its six leaves and orders (1,1,1,1,32,32),
+and all comparison formulas remain as in the source.
+
+1. SIX FIELD DIFFERENCE GUARDS BECOME RATIONAL GUARDS
+---------------------------------------------------
+Normalize the valuation of K above2 by v(2)=1. For rational a,b,
+  v(a+b*rho)=min(v2(a),v2(b)+1/2),
+because the component valuations have different fractional parts.
+The chart values h(P)=-1+7rho/4, j(P)=39/8-9rho/2 give
+  v(h(P))=-3/2, v(j(P))=-3, v(z(P))=3/2,
+where z=-h/j=-x/y.
+
+Integral formal multiplication has [u](T)=uT+O(T^3). Odd multiplication
+preserves a depth r>=3/2; doubling increases it by exactly one because
+3r>r+1. For every nonzero integer n, including negative n,
+  t_n=z(nP),             v(t_n)=3/2+v2(n).
+
+The integral formal group law has F(X,-X)=0 and linear term X+Y.
+Thus F(X,Y)=(X+Y)A(X,Y), with integral A and A(0,0)=1. For n!=+/-m,
+  v(t_n-t_m)=3/2+v2(n-m),
+  v(t_n+t_m)=3/2+v2(n+m).
+The integral even Laurent series x(T)=T^-2+sum_{j>=1} a_j T^(2j) gives
+  x(t)-x(s)=(s^2-t^2)/(s^2*t^2)*B(t,s),
+with integral B and B(0,0)=1. Hence
+  v(x(nP)-x(mP))
+    =-3+v2(n-m)+v2(n+m)-2v2(n)-2v2(m)
+is an integer. A nonzero difference a+b*rho of integer valuation has
+a!=0 by the distinct component valuation parities.
+
+Therefore, on the inherited point domain,
+  x(Q)!=x(R) iff coeff_1(x(Q)-x(R))!=0.
+Each of the six unused field inverse guards can be replaced by one
+rational inverse of its rational component. Keep both slope coordinates.
+Old witnesses give the new inverse uniquely; new witnesses recover the
+old field inverse uniquely. If n=+/-m both guards exclude the zero
+denominator. This is an exact two-way transformation saving6 coordinates.
+
+2. THE NEW ANCHOR: PARITY FIRST, THEN INPUT INTEGRALITY
+----------------------------------------------------
+The existing quaternion criterion says that the conic is soluble iff
+  T=q2(f0/Ca,f1/Ca)+3(B0^2+X^2)
+is integral at2 and3.
+
+The needed product parity facts are local and independent of beta or
+any height conclusion. At the inert prime3, P reduces to (rho,0), of
+order2; exact doubling gives z(2P)/3 ==2+rho modulo3. For even
+n=2*3^k*u, 3 not dividing u, integral formal multiplication gives
+  3^(-k-1)*z(nP)==u(2+rho) modulo3.
+Since x*z^2==1, u^2==1 in F3, and (2+rho)^(-2)=2rho in F9,
+  3^e(n)*x(nP)==rho if n odd, 2rho if n even,
+where e(n)=0 for odd n and e(n)=2+2v3(n) for even n.
+For the four roots, let E0=sum e(n_i), j=number of even n_i. Then
+  3^E0*product_i x(Q_i)==2^j*rho^4=2^j in F3^*.
+Thus v3(C0)=-E0; B0 is3-integral iff all four indices are odd.
+This also shows C0!=0.
+
+Both q2(u,v) and q3(u,v)=u^2+v^2 are anisotropic modulo3. Each has
+valuation twice the minimum valuation of its arguments. The two terms
+of T have even and odd3-adic valuations respectively and cannot cancel.
+Consequently T is3-integral iff
+  f0/Ca, f1/Ca, B0, X are all3-integral.
+This yields the old scalar depth condition and all four odd root indices
+BEFORE any product-height or global input-integrality argument.
+
+For odd n, v2(x(nP))=-3 by the formal depth formula above. Four odd
+roots give v2(C0)>=-12, so B0=4096C0 is2-integral. Every nonzero
+multiple R of P has f(R)=1/x(R) of positive2-adic valuation, hence
+its rational coefficients are2-integral. Ca is odd. After the preceding
+3-adic argument, all terms in T except3X^2 are therefore2-integral.
+If v2(X)<0 its negative valuation cannot cancel them. Thus T is2-integral
+iff X is2-integral.
+
+The new anchor is exactly the old depth condition, all four parity
+conditions, and X in Z_(2) intersect Z_(3). It is complete for every
+integer input and retains the original lower bound on |a-1|. There is
+no circular appeal to beta being integral or to the height theorem.
+
+3. FIXED CORRECTION21 FOR EVERY INTEGER INPUT
+-------------------------------------------
+For every rational X, beta>=2451>2401 and r>0.
+For integer X, beta is positive odd and beta==3 modulo8,9,17.
+
+At2: beta-1 and beta-2401 have valuation1. Their odd parts differ
+by1200, divisible by8, so their product is1 modulo8. The other two
+factors are3 and7 modulo8. Thus v2(r)=2 and r/4==5 modulo8.
+Since21==5 modulo8, 21r is a square in Q2.
+
+At3: beta has valuation1 with beta/3==1 modulo3. The other three
+factors have residues2,2,1. Thus v3(r)=1 and r/3==1 modulo3.
+Since21 has valuation1 and21/3==1 modulo3, 21r is a square in Q3.
+
+At17: the four residues are3,2,16,14, whose product is1.
+Since21==4 modulo17, 21r==4=2^2 modulo17 is a square unit in Q17.
+Hence21r is positive and square in all three required local fields.
+No correction choices remain.
+
+If the global comparison gives beta in Z and X=u/v in lowest terms,
+then v^2 divides1224. The only possible denominators are1,2,3,6.
+The new anchor has already made X integral at2 and3, so v=1.
+Conversely integer X gives integer positive odd beta.
+
+4. EXACT CONTACT AUDIT: WHY (2beta-1) IS UNNECESSARY
+--------------------------------------------------
+The source definition before hyp:o8-height is
+  S*={p:p<=76176}, D={0,1,2401,-343/32}.
+M5(beta) comprises primes outside S* having positive odd contact order
+with infinity or one of the four points of D. The point1/2 is NOT one
+of the five contacts.
+
+At p>76176, 1224 is a unit. If v_p(beta)<0, then v_p(beta)=2v_p(X)
+is even. Therefore no odd infinite contact occurs.
+For p-integral beta, finite contact order with delta is v_p(beta-delta).
+The six pairwise finite-contact differences, up to sign, are
+  1,2401,343/32,2400,375/32,77175/32.
+Their numerator/denominator prime supports lie in{2,3,5,7}, since
+  2401=7^4, 2400=2^5*3*5^2,
+  375=3*5^3, 77175=3^2*5^2*7^3.
+Thus at p>76176 at most one finite contact has positive valuation, and
+32 is a unit. Every odd contact gives positive odd valuation to exactly
+one factor of the four-factor r. Conversely every odd valuation of r
+outside S* is such a finite odd contact.
+
+The removed factor2beta-1 evaluates at the four contacts to
+  -1,1,4801,-359/16.
+Every numerator/denominator prime is below the cutoff. Hence this factor
+is a unit at every REQUIRED contact prime; its deletion does not change
+any consumed valuation. The extra primes at beta congruent1/2 merely
+imposed conditions the height radical did not require.
+
+5. SCALAR SOUNDNESS AND COMPLETENESS WITH FOUR FACTORS
+----------------------------------------------------
+Soundness. For p|M5(beta), put R_p=v_p(r)>0 odd. The correction21 is a
+unit. The nonzero pole input b=21rW^2 has odd valuation. The pole
+obstruction makes that valuation positive, hence v_p(W)>-R_p/2.
+In N_r(u,v)=u^2+rv^2 the two finite summand valuations have different
+parity. Thus, for t<1,
+  v_p(N_r(u,v))>-tR_p implies
+  v_p(u)>-tR_p/2 and v_p(v)>-(t+1)R_p/2.
+Starting at t=1/2 and descending the tree gives v_p(l_i)>-R_p for
+every normalized leaf. Since l_i=Y_i/r^(m_i),
+  v_p(Y_i)>(m_i-1)R_p >=m_i-1,
+so v_p(Y_i)>=m_i for the unchanged orders1 and32.
+The source formal-logarithm isometry and index relation
+  [h]R=[a-1]H
+then give v_p(a-1)>=32. Thus M5(beta)^32 divides a-1, and the uniform
+height theorem gives h(beta)<=H19*|a-1|^(19/32).
+The proof consumes only primes p>76176; nothing requires an even
+negative beta valuation at17 or a local pole obstruction there.
+
+Completeness. For integer X choose h0 and the scalar point R deeply at
+the finite support T of the positive integer21r. Make every normalized
+leaf integral at p|r and divisible at p|21,p not dividing r. The constant
+leaf1 on the all-left path makes W==1 modulo every p in T. Therefore
+b=21rW^2 has nonnegative valuation on T, even valuation outside T, square
+reduced denominator, positive real sign, and squareclass1 at2,3,17.
+The inherited original-seven-parity-completeness lemma supplies its pole
+witnesses. It asks for local squareness only at2,3,17, not all primes<=17.
+The source's continuity argument gives the same suitable index progression
+after R is fixed; every prescribed extra divisibility is permitted.
+
+6. TRANSFER OF THE REMAINING GLOBAL ARGUMENT
+-----------------------------------------
+Relevant source labels:
+  lem:v5-three-witness-anchor (quaternion criterion/depth anchor),
+  v5:scalar32-bridge (norm tests, scalar height, completeness/continuity),
+  hyp:o8-height (definition of M5 and its contacts),
+  thm:quartic-height19 (uniform exponent19 bound),
+  lem:original-seven-parity-completeness (scalar pole realization),
+  v9:cor:scales (odd product height scales),
+  subsec:v9-local-depth (asymmetric local comparisons),
+  lem:o8-lucas, subsec:v9-soundness, subsec:v9-completeness.
+
+The new anchor first provides all odd roots and the old large scalar
+index. The scalar proof just verified supplies the identical height
+bound. All three detector scales, the Lucas contradiction, and the
+final numerator/height contradiction depend on beta only through its
+rational value and that bound. They still force n=beta. Section3 above
+then forces X integral.
+
+For completeness, n=beta is positive odd. Use fixed correction21, then
+choose s=a-1 sufficiently divisible, a=s+1, and the source's positive
+odd Lucas indices t,b. The conditions a==1 modulo3 and k==1 modulo3
+in the Lucas construction concern a, not n. The new anchor is soluble
+for integer X. Subsequent prime-pattern, progression, continuity, and
+quotient-domain choices use the same inherited results.
+This is a new arithmetic proof transfer on the input projection; it is
+not a claimed bijection between witnesses with two different beta labels.
+
+7. CONIC SCALAR PREPARATION SAVES ONE COORDINATE
+----------------------------------------------
+The scalar pole input b=21rW^2 is positive for every rational input:
+r>0, every N_r node is nonnegative, and the constant leftmost leaf1
+makes W>0. Thus b!=0 is known before the preparation.
+
+Current preparation coordinates:
+  t, t2=t^2, T=(1+b*t2)/b, A=2/T, U2=(A-b)^2.
+Only U2 is used downstream. Replace these5 by4 coordinates
+  u,v,u2,v2
+with quadratic residuals
+  u2=u^2, v2=v^2, u2+b*v2-b^2=0.
+Use u2 in the unchanged pole expression e*(17b-u2).
+
+Forward map:
+  u=b*(1-b*t^2)/(1+b*t^2), v=2b*t/(1+b*t^2).
+Then u^2+b*v^2=b^2 and u2 is the old U2.
+Reverse, if u+b!=0, put t=v/(u+b). The conic gives
+  1+b*t^2=2b/(b+u)!=0,
+so the original preparation is recovered. If u=-b, then v=0; replace
+u by+b and use t=0,T=1/b,A=2b. The squared coordinate and all downstream
+constraints are unchanged. This explicitly handles the single point
+omitted by the original finite parametrization.
+
+8. DEGREE AND COORDINATE ACCOUNTING
+----------------------------------
+Reuse the existing coordinate X2=X^2 for beta=1224X2+2451 and the new
+anchor term3*S*X2. Keep X2, C0^2, and Theta materialized through the
+coefficient lift; both S products remain quadratic. No added coordinate
+is needed for the new label/anchor. The anchor conic and its translated
+version cancelling S^2 keep their formulas.
+Direct arithmetic reductions, before any additional circuit optimization:
+  six field guards -> rational guards:        6
+  eight correction coordinates -> constant:  8
+  correction*r becomes a linear expression:  1
+  scalar preparation conic:                   1
+  remove the final (2beta-1) product gate:     1
+                                             --
+  total:                                    17
+Take final counts, coefficient bounds, and the fully expanded polynomial
+from the generated and checked construction, not from this accounting.
+
+VALIDATION
+----------
+The portable checker verifies exact rational point/doubling identities,
+the generator's3-adic residue, both mod3 anisotropic forms, the CRT
+constants and corrected local squareclasses, possible denominator square
+divisors, and every fixed contact-collision prime. These are finite exact
+certificates of the displayed local calculations. They do not replace the
+formal-group argument or inherited global arithmetic proof.
+
+FINAL COUNT SCHEME
+------------------
+The17 arithmetic savings above and the separately verified16 chart
+savings give483-17-16=450 total variables, including the input, hence
+449 existential witnesses. The chart proof and final polynomial
+certificates are separate checked outputs of the construction package.

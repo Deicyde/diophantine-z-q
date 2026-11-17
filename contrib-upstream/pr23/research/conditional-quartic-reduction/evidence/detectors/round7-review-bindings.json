@@ -1,0 +1,76 @@
+{
+  "status": "ACCEPT",
+  "scope": "Source-bound detector normalization proof and independent scalar transfer review. All inherited global arithmetic qualifications remain.",
+  "hashes": {
+    "glazer_sixth_reduction_package/construction/builder.cjs": "3f63cb782d52857446cf39f6e545aeb74f380d1347826eafa888cbb487738d51",
+    "seventh-work/detectors/delta1_no_e/builder.cjs": "1f7863c7daf9958dbc394887afe62bfa7f20a400e70f81e0493d97afcfa70e6d",
+    "seventh-work/root/selected/construction/builder.cjs": "78b54bcde24ff8a91091e102a4734c49878699f071d9230e5ce7a70ffd2114d0",
+    "seventh-work/root/selected/construction/raw-ir.json": "582c8bf2fcde54242bb23bf7aa33d3a7a9065f04b8edd885a13386b5b779b92c",
+    "seventh-work/root/selected/construction/raw-translated-ir.json": "24824afcb99ebd7b4a266a43c5ae24fb98a3a2093de5ca17e00ca1e3720664ba",
+    "seventh-work/geometry/outer_constant/builder.cjs": "7566b7d0b28ddf00d3e9218bdeb668079a7e6b363d3ba77a621a9c3d97459acf",
+    "seventh-work/geometry/geometry_round7.tex": "0402ccf6c3e193c685d01e0ff6e46449001ac074a1bf4501419d6fb1fea88035",
+    "seventh-work/detectors/detector_round7.tex": "ed01c9416d3b4daf02a26958642194230c0186a896f17817bfe30c8a16d481d3",
+    "seventh-work/detectors/check_detector_round7.py": "109d2111523938c805e5e877a94e2e8386a33c3bbaf31ea3da18cae1778f28e7",
+    "seventh-work/detectors/check_scalar_round7_independent.py": "0150ca83b9e0c6a2ffc48be72936f705bbfda69343ffe3f54e17e6ae8248bb2a",
+    "seventh-work/detectors/integrated-detector-source-check.json": "08e0bf3ddfc53574c30c8da0d716b23264ce434a963c49a7d1b2148aad661b68",
+    "seventh-work/detectors/integrated-scalar-independent-check.json": "453c45002db76a4cba8361c5e2e0e6eb39287b6de810a049ef2c1a5148397e14",
+    "seventh-work/detectors/integrated-independent-gate-check.json": "3e40d7fff562dd518238b5e677cf477d1f0b58616a53428aca8abdd571c30515",
+    "seventh-work/detectors/integrated-elimination-check.json": "d4e06d698089edd9b2e8c77e3d6db7b1e9703fb58ffaf1e4475e54614d4fc548",
+    "seventh-work/detectors/scalar-independent-review.txt": "fa264728c0ab9b19c119407b09c9b4e4b903b1b3fd9780a4287cea64938a9a25",
+    "seventh-work/detectors/detector_normalization.patch": "9cd039d8cc3dfa0edb41fb9efbea1a010207afbe91fa195baa6fee9545d43c95",
+    "seventh-work/detectors/rejected-path-notes.txt": "aa375b4f9a2cd8fddb5b13622cd5267b890760f3cee09ad8ead0b2b06e167c6a"
+  },
+  "finiteChecks": {
+    "detectorSourceAssertions": 384,
+    "detectorLaurentIdentities": 7,
+    "detectorSemanticNormalizationIdentities": 3,
+    "detectorMixedBlockIdentities": 2,
+    "scalarSourceAssertions": 69,
+    "scalarPolynomialIdentities": 7,
+    "scalarValuationBounds": 10,
+    "sourceGateIdentities": 342,
+    "genericCompilerOperations": 333,
+    "finalEliminations": 0
+  },
+  "counts": {
+    "isolatedDetector": {
+      "raw": [
+        404,
+        372
+      ],
+      "generic": [
+        393,
+        361
+      ],
+      "final": [
+        393,
+        361
+      ]
+    },
+    "integrated": {
+      "raw": [
+        403,
+        371
+      ],
+      "generic": [
+        392,
+        360
+      ],
+      "final": [
+        392,
+        360
+      ],
+      "quarticMonomials": 26301
+    }
+  },
+  "proofSpacingChange": {
+    "scope": "Only four requested space insertions; removing spaces leaves identical proof bytes. Mathematical review remains unchanged; external independent review is rebound separately.",
+    "counts": {
+      "lines11031": 1,
+      "lines11220": 1,
+      "order45": 1,
+      "exceed1024": 1
+    },
+    "patch": "seventh-work/detectors/proof-spacing-only.patch"
+  }
+}

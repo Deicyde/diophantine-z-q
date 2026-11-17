@@ -1,0 +1,170 @@
+{
+  "schema": "quartic389-import-source-comparison-v1",
+  "reviewDate": "2026-11-08",
+  "researchCommit": "d8c472975d67d5f55677b3446214e5f55ed1be8a",
+  "upstreamCommit": "5bbd74f6a479776a332cbe036809d5dddae63720",
+  "scope": "Internal comparison of six inherited pole-interface passages and the existing repaired Kato interface. This is not an independent acceptance of the 389-variable construction or a new audit of primary Kato sources.",
+  "wholeManuscripts": [
+    {
+      "path": "manuscripts/quartic_v10.tex",
+      "sha256": "9559b22cc581346da1b3150fa9b8dfb62cfb048f6aac0b866448ae7ae879ff38"
+    },
+    {
+      "path": "manuscripts/quartic_v13.tex",
+      "sha256": "9db71bbfcefb37db56eabcf40a5f9dd85de9ed58294635da3dbf6d4f5caa8fcd"
+    }
+  ],
+  "poleInterfaces": [
+    {
+      "label": "hyp:RC",
+      "historical": {
+        "path": "manuscripts/quartic_v10.tex",
+        "startLine": 1083,
+        "endLine": 1089,
+        "sha256": "d85a599cfe148c59fd2caf1646d7e0b84a495cb7649dc199ff5cefe8ff58f939"
+      },
+      "current": {
+        "path": "manuscripts/quartic_v13.tex",
+        "startLine": 1090,
+        "endLine": 1096,
+        "sha256": "d85a599cfe148c59fd2caf1646d7e0b84a495cb7649dc199ff5cefe8ff58f939"
+      },
+      "comparison": "identical_bytes",
+      "scope": "Theorem statement only; its supporting proof changed in the Kato appendix"
+    },
+    {
+      "label": "lem:corank",
+      "historical": {
+        "path": "manuscripts/quartic_v10.tex",
+        "startLine": 1150,
+        "endLine": 1162,
+        "sha256": "9b96a51076fb998de2115a60d0c8a4f8ffcb56d58d5c76b9a2d616efb76abc00"
+      },
+      "current": {
+        "path": "manuscripts/quartic_v13.tex",
+        "startLine": 1157,
+        "endLine": 1169,
+        "sha256": "9b96a51076fb998de2115a60d0c8a4f8ffcb56d58d5c76b9a2d616efb76abc00"
+      },
+      "comparison": "identical_bytes",
+      "scope": "Statement and following proof"
+    },
+    {
+      "label": "hyp:o8-pole",
+      "historical": {
+        "path": "manuscripts/quartic_v10.tex",
+        "startLine": 7704,
+        "endLine": 7725,
+        "sha256": "84c697c71246d896ff5ad31dce9a54b807e7242437b063be49ba2e23356d162e"
+      },
+      "current": {
+        "path": "manuscripts/quartic_v13.tex",
+        "startLine": 7711,
+        "endLine": 7732,
+        "sha256": "84c697c71246d896ff5ad31dce9a54b807e7242437b063be49ba2e23356d162e"
+      },
+      "comparison": "identical_bytes",
+      "scope": "Statement and following proof"
+    },
+    {
+      "label": "lem:original-seven-simultaneous-realization",
+      "historical": {
+        "path": "manuscripts/quartic_v10.tex",
+        "startLine": 7780,
+        "endLine": 7883,
+        "sha256": "14b96d4db20bf251dc36eb49b896841ff2cff0ce88036000f1ee2a89511f0441"
+      },
+      "current": {
+        "path": "manuscripts/quartic_v13.tex",
+        "startLine": 7787,
+        "endLine": 7890,
+        "sha256": "14b96d4db20bf251dc36eb49b896841ff2cff0ce88036000f1ee2a89511f0441"
+      },
+      "comparison": "identical_bytes",
+      "scope": "Statement and following proof"
+    },
+    {
+      "label": "lem:original-seven-parity-completeness",
+      "historical": {
+        "path": "manuscripts/quartic_v10.tex",
+        "startLine": 7885,
+        "endLine": 7933,
+        "sha256": "400c2f76a7140e3ce492d6baf1b2c0c829e98c6e554804e3b5b8f5a705c2dbca"
+      },
+      "current": {
+        "path": "manuscripts/quartic_v13.tex",
+        "startLine": 7892,
+        "endLine": 7940,
+        "sha256": "400c2f76a7140e3ce492d6baf1b2c0c829e98c6e554804e3b5b8f5a705c2dbca"
+      },
+      "comparison": "identical_bytes",
+      "scope": "Statement and following proof"
+    },
+    {
+      "label": "v5:preparation-zero-bridge",
+      "historical": {
+        "path": "manuscripts/quartic_v10.tex",
+        "startLine": 10556,
+        "endLine": 10629,
+        "sha256": "59992dc437541cd999be289305c586fe067e64be612b4236fd332aa07cabf739"
+      },
+      "current": {
+        "path": "manuscripts/quartic_v13.tex",
+        "startLine": 10563,
+        "endLine": 10636,
+        "sha256": "59992dc437541cd999be289305c586fe067e64be612b4236fd332aa07cabf739"
+      },
+      "comparison": "identical_bytes",
+      "scope": "Statement and following proof"
+    }
+  ],
+  "readOrReferencedEvidence": [
+    {
+      "path": "research/conditional-quartic-reduction/SOURCE_MANIFEST.json",
+      "sha256": "268694a99ae9e73f99c3847270994d51b7b9861aa9e521a622c583bed95076c2"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/pr_dependency_inventory.json",
+      "sha256": "f7566dc37f90983001d5e63732cfa30dbff431c0b2b177a3e56faeba9aa83508"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/proofs/detector_round7.tex",
+      "sha256": "ed01c9416d3b4daf02a26958642194230c0186a896f17817bfe30c8a16d481d3"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/proofs/detector_round8.tex",
+      "sha256": "150b79708b8088d1c75641571277eecf452fe72b7c729cc4fe783e4da76b83bb"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/proofs/geometry_round7.tex",
+      "sha256": "0402ccf6c3e193c685d01e0ff6e46449001ac074a1bf4501419d6fb1fea88035"
+    },
+    {
+      "path": "research/conditional-quartic-reduction/proofs/prior/round3/arithmetic_proof.tex",
+      "sha256": "66cdc4ef3e2f0e5cfde8b50e3ac360dd27d2ac17826ce23fd4ec688ac7d438d4"
+    },
+    {
+      "path": "docs/manuscript-revisions/version11/evidence/arithmetic.md",
+      "sha256": "422b1b2d2d765f0595bb23bfadb546c59c941cdae0118c93441c5e6d52768d7a"
+    },
+    {
+      "path": "docs/manuscript-revisions/version11/evidence/interface.md",
+      "sha256": "8cb644f5f20090f3e47de412b62942b3e93a6c2e674dc7924678137c8d188774"
+    },
+    {
+      "path": "docs/manuscript-revisions/version11/evidence/independent-review.md",
+      "sha256": "2662519bbde53bb9096d7d8da7dff793cfcbb2be6aaebe31be7e8ca5576c87aa"
+    },
+    {
+      "path": "docs/manuscript-revisions/version13/kato-carryforward-application.json",
+      "sha256": "10f81599b387b96d8cc8da01f14e736f5573e03f5ad40ca9e8a4c1d0927a6676"
+    },
+    {
+      "path": "docs/manuscript-revisions/version13/kato-carryforward-acceptance.json",
+      "sha256": "19beb33d71765b510cd08c22b2ed212e365924a7f7bfb592abf1e10e40195831"
+    }
+  ],
+  "historicalDisposition": "Prior justification found for the repaired index-domain and class-identification interface; the full inherited arithmetic proof was not re-audited.",
+  "manuscriptDisposition": "Pending for the 389-variable construction; Version 13 already contains the existing Kato repair.",
+  "independentAcceptance": false
+}

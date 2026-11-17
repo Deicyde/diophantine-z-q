@@ -1,0 +1,42 @@
+Research/DerivativeSwitch/CommonStrict.lean:109:6: warning: This simp argument is unused:
+  Fin.sum_univ_two
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Matrix.mul_apply, frame, Matrix.fromBlocks, join, target, normal, pairCols, Matrix.diagonal_apply,
+    Matrix.one_apply, Fintype.sum_sum_type, mul_ite]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Research/DerivativeSwitch/CommonStrict.lean:115:49: warning: This simp argument is unused:
+  Matrix.one_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Matrix.mul_apply, Matrix.mulVec, dotProduct, frame, Matrix.fromBlocks, join, target, normal, pairCols,
+    Matrix.diagonal_apply, Fintype.sum_sum_type, Fin.sum_univ_two, mul_ite]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Research/DerivativeSwitch/CommonStrict.lean:167:21: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Research/DerivativeSwitch/CommonStrict.lean:167:21: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+Research/DerivativeSwitch/CommonStrict.lean:200:68: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Research/DerivativeSwitch/CommonStrict.lean:193:36: error: (deterministic) timeout at `«tactic execution»`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Research/DerivativeSwitch/CommonStrict.lean:169:0: error: (deterministic) timeout at `isDefEq`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Research/DerivativeSwitch/CommonStrict.lean:247:0: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.

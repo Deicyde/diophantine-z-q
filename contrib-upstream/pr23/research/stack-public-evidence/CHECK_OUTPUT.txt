@@ -1,0 +1,106 @@
+$ python3 -B research/stack-public-evidence/check_evidence.py --verify-bindings /home/freer/math/diophantine-z-q
+# run 2026-11-09T14:09:28Z from the repository root on Linux x86_64, single process; MANIFEST.json at that time listed every file except this one
+  239 files, 5935331 bytes
+PASS manifest (0.1s)
+  231 files: stored and decompressed SHA-256/bytes match; 120 directly published, 12 stated in a bound file, 84 unbound, 15 derived here
+PASS file hashes and bindings (0.4s)
+  452 recorded hashes found in the named public files
+PASS published bindings via git (0.4s)
+pr08-389 (PR #8, head ad7fc756)
+  table: 389 variables, 26295 monomials, max 757 digits/2513 bits (28902*3^1576); SOS of 357 rows equals table exactly
+  diagonal: 357 rows = divisor * substituted pre-diagonal rows at S=3^2364; 13 scaled coordinates, input fixed, 5 non-integer divisors
+  compiled: 357 compiled rows at S equal the next IR's rows; 0 unused coordinates omitted; coordinate map (389 entries) consistent
+PASS pr08-389 (0.8s)
+pr09-385 (PR #9, head 51111cc9)
+  table: 385 variables, 26235 monomials, max 757 digits/2513 bits (28902*3^1576); SOS of 353 rows equals table exactly
+  diagonal: 353 rows = divisor * substituted pre-diagonal rows at S=3^2364; 13 scaled coordinates, input fixed, 5 non-integer divisors
+  transport: 4 blocks; s2 rows vanish, Bh/q2/conic rows lift to nonzero multiples (q2, conic times s^2); 341 outside rows identical; 389->385 coordinates
+PASS pr09-385 (0.4s)
+pr11-385 (PR #11, head e8654b2c)
+  table: 385 variables, 26200 monomials, max 682 digits/2266 bits (28902*3^1420); SOS of 353 rows equals table exactly
+  diagonal: 353 rows = divisor * substituted pre-diagonal rows at S=3^2130; 13 scaled coordinates, input fixed, 5 non-integer divisors
+  compiled: 357 compiled rows at S equal the next IR's rows; 0 unused coordinates omitted; coordinate map (389 entries) consistent
+  transport: 4 blocks; s2 rows vanish, Bh/q2/conic rows lift to nonzero multiples (q2, conic times s^2); 341 outside rows identical; 389->385 coordinates
+PASS pr11-385 (0.6s)
+pr12-383 (PR #12, head 772fe96a)
+  table: 383 variables, 26019 monomials, max 682 digits/2266 bits (28902*3^1420); SOS of 352 rows equals table exactly
+  diagonal: 352 rows = divisor * substituted pre-diagonal rows at S=3^2130; 13 scaled coordinates, input fixed, 5 non-integer divisors
+  compiled: 356 compiled rows at S equal the next IR's rows; 2 unused coordinates omitted; coordinate map (387 entries) consistent
+  transport: 4 blocks; s2 rows vanish, Bh/q2/conic rows lift to nonzero multiples (q2, conic times s^2); 340 outside rows identical; 387->383 coordinates
+PASS pr12-383 (0.5s)
+pr13-380 (PR #13, head 31563264)
+  table: 380 variables, 26025 monomials, max 682 digits/2266 bits (28902*3^1420); SOS of 349 rows equals table exactly
+  diagonal: 349 rows = divisor * substituted pre-diagonal rows at S=3^2130; 13 scaled coordinates, input fixed, 5 non-integer divisors
+  compiled: 353 compiled rows at S equal the next IR's rows; 2 unused coordinates omitted; coordinate map (384 entries) consistent
+  transport: 4 blocks; s2 rows vanish, Bh/q2/conic rows lift to nonzero multiples (q2, conic times s^2); 337 outside rows identical; 384->380 coordinates
+PASS pr13-380 (0.4s)
+pr13-383-order47 (PR #13, head 31563264)
+  table: 383 variables, 26043 monomials, max 646 digits/2146 bits (28902*3^1344); SOS of 352 rows equals table exactly
+  diagonal: 352 rows = divisor * substituted pre-diagonal rows at S=3^2016; 13 scaled coordinates, input fixed, 5 non-integer divisors
+  compiled: 356 compiled rows at S equal the next IR's rows; 2 unused coordinates omitted; coordinate map (387 entries) consistent
+  transport: 4 blocks; s2 rows vanish, Bh/q2/conic rows lift to nonzero multiples (q2, conic times s^2); 340 outside rows identical; 387->383 coordinates
+PASS pr13-383-order47 (0.4s)
+pr16-380 (PR #16, head 59c59e55)
+  table: 380 variables, 26025 monomials, max 679 digits/2253 bits (28902*3^1412); SOS of 349 rows equals table exactly
+  diagonal: 349 rows = divisor * substituted pre-diagonal rows at S=3^2118; 13 scaled coordinates, input fixed, 5 non-integer divisors
+  compiled: 353 compiled rows at S equal the next IR's rows; 2 unused coordinates omitted; coordinate map (384 entries) consistent
+  transport: 4 blocks; s2 rows vanish, Bh/q2/conic rows lift to nonzero multiples (q2, conic times s^2); 337 outside rows identical; 384->380 coordinates
+PASS pr16-380 (0.4s)
+pr16-383-order47 (PR #16, head 59c59e55)
+  table: 383 variables, 26043 monomials, max 644 digits/2139 bits (28902*3^1340); SOS of 352 rows equals table exactly
+  diagonal: 352 rows = divisor * substituted pre-diagonal rows at S=3^2010; 13 scaled coordinates, input fixed, 5 non-integer divisors
+  compiled: 356 compiled rows at S equal the next IR's rows; 2 unused coordinates omitted; coordinate map (387 entries) consistent
+  transport: 4 blocks; s2 rows vanish, Bh/q2/conic rows lift to nonzero multiples (q2, conic times s^2); 340 outside rows identical; 387->383 coordinates
+PASS pr16-383-order47 (0.4s)
+pr17-380 (PR #17, head eb00b7c9)
+  table: 380 variables, 26025 monomials, max 644 digits/2139 bits (28902*3^1340); SOS of 349 rows equals table exactly
+  diagonal: 349 rows = divisor * substituted pre-diagonal rows at S=3^2010; 13 scaled coordinates, input fixed, 5 non-integer divisors
+  compiled: 353 compiled rows at S equal the next IR's rows; 2 unused coordinates omitted; coordinate map (384 entries) consistent
+  transport: 4 blocks; s2 rows vanish, Bh/q2/conic rows lift to nonzero multiples (q2, conic times s^2); 337 outside rows identical; 384->380 coordinates
+PASS pr17-380 (0.4s)
+pr18-379 (PR #18, head ce15e8ec)
+  table: 379 variables, 26021 monomials, max 425 digits/1410 bits (no closed form claimed); SOS of 348 rows equals table exactly
+  diagonal: 348 rows = divisor * substituted pre-diagonal rows at S=3^2010; 35 scaled coordinates, input fixed, 13 non-integer divisors
+  compiled: 352 compiled rows at S equal the next IR's rows; 2 unused coordinates omitted; coordinate map (383 entries) consistent
+  transport: 4 blocks; s2 rows vanish, Bh/q2/conic rows lift to nonzero multiples (q2, conic times s^2); 336 outside rows identical; 383->379 coordinates
+PASS pr18-379 (0.4s)
+pr19-376 (PR #19, head 32abb654)
+  table: 376 variables, 25964 monomials, max 425 digits/1410 bits (no closed form claimed); SOS of 345 rows equals table exactly
+  diagonal: 345 rows = divisor * substituted pre-diagonal rows at S=3^2010; 35 scaled coordinates, input fixed, 13 non-integer divisors
+  compiled: 349 compiled rows at S equal the next IR's rows; 2 unused coordinates omitted; coordinate map (380 entries) consistent
+  transport: 4 blocks; s2 rows vanish, Bh/q2/conic rows lift to nonzero multiples (q2, conic times s^2); 333 outside rows identical; 380->376 coordinates
+PASS pr19-376 (0.4s)
+pr20-377 (PR #20, head 75e76303)
+  table: 377 variables, 25979 monomials, max 327 digits/1084 bits (no closed form claimed); SOS of 346 rows equals table exactly
+  diagonal: 346 rows = divisor * substituted pre-diagonal rows at S=3^1512; 36 scaled coordinates, input fixed, 14 non-integer divisors
+  compiled: 350 compiled rows at S equal the next IR's rows; 2 unused coordinates omitted; coordinate map (381 entries) consistent
+  transport: 4 blocks; s2 rows vanish, Bh/q2/conic rows lift to nonzero multiples (q2, conic times s^2); 334 outside rows identical; 381->377 coordinates
+PASS pr20-377 (0.4s)
+  rewrites/pr13-cube-reuse-order45.json: 12 rows deleted, 9 added, 3 changed, 352 identical; every added/changed/deleted row is a nonzero multiple of its displayed definition; 3 affine cubes equal (98t-1)^3; guards and 542 common named values identical
+PASS rewrites/pr13-cube-reuse-order45.json (0.1s)
+  rewrites/pr13-cube-reuse-order47.json: 12 rows deleted, 9 added, 3 changed, 355 identical; every added/changed/deleted row is a nonzero multiple of its displayed definition; 3 affine cubes equal (98t-1)^3; guards and 545 common named values identical
+PASS rewrites/pr13-cube-reuse-order47.json (0.1s)
+  rewrites/pr18-rows-A-tri.json: A row operations, tri witness maps and Bh_new = 184460384539620*Bh_old verified as ideal memberships in both directions over all 363 new and 364 old raw rows (formal S); guards identical
+PASS rewrites/pr18-rows-A-tri.json (0.3s)
+  pr16-380 raw IR equals pr13-380 raw IR in every field except fixedParameter (3^2130 -> 3^2118)
+PASS PR #16 source = PR #13 source (order 45) (0.0s)
+  pr16-383-order47 raw IR equals pr13-383-order47 raw IR in every field except fixedParameter (3^2016 -> 3^2010)
+PASS PR #16 source = PR #13 source (order 47) (0.0s)
+  errata: with a0=1, a1=-2/5 and a_j/a_(j-1)=(4j-5)/(4j+1) for j>=2, den(a13)=5^2*7*17*29*37*41*53; applying the ratio at j=1 gives a1=-1/5 and halves a13
+PASS errata arithmetic (0.0s)
+  refused: table coefficient +1 (sum of squares of the rows differs from the decimal table)
+  refused: rows text coefficient +1 (rows text differs from rows IR)
+  refused: same row term negated in rows JSON and text (sum of squares of the rows differs from the decimal table)
+  refused: diagonal divisor *3 (diagonal identity fails at row S.chart.x.0.definition)
+  refused: diagonal power +1 (diagonal identity fails at row S.chart.x.0.definition)
+  refused: transport lift coefficient *2 (reverse lift does not give H = s*v)
+  refused: transport conic input +1 (detector0: old conic is not 17 b q2 + 3 H^2 - 2 s2 H - s2^2)
+  refused: outside consumer of a private slot (detector0: private slots occur outside the four rows)
+  refused: ideal multiplier zeroed (new solution -> old solution: identity fails for scalar.Bh.definition)
+  refused: Bh rescaling constant +1 (mu*(1+k*L) != 42*r)
+  refused: PR #18 second conic coefficient +1 (old solution -> new solution: identity fails for scalar.secondConic)
+  refused: contact root 1/50 -> 1/51 (row identity fails: detector0.Fmiddle.definition)
+  refused: PR #13 eSixth row coefficient +1 (row identity fails: detector1.eSixth.definition)
+PASS negative controls (13 in-memory mutations) (5.0s)
+ALL CHECKS PASSED in 11.8s (Python 3.12.3)
+# exit status 0; wall time 12.0 s

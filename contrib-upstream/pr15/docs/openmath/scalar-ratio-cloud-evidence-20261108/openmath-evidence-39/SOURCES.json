@@ -1,0 +1,121 @@
+{
+  "CONTRACT.md": {
+    "sha256": "7d7d69aa9fb2cae043ba29c93a0de5099ad552d387e1f53b09f9f58909cc4aca",
+    "source": "research/scalar-ratio/CONTRACT.md",
+    "transformation": "byte-identical copy"
+  },
+  "Challenge.lean": {
+    "sha256": "b7e458429c13a677784af6885d1d2c8aa5e09f6a633aa112aab090547d62c84f",
+    "source": "research/scalar-ratio/verification/Challenge.lean",
+    "transformation": "byte-identical copy"
+  },
+  "Challenge/BoundaryCup.lean": {
+    "sha256": "cc95c0bfa2a80fc2c967ed69b5fafb8c0defe7fc704bc2962b0d113afef8253b",
+    "source": "research/scalar-ratio/verification/Challenge/BoundaryCup.lean",
+    "transformation": "byte-identical copy"
+  },
+  "Challenge/CommonStrict.lean": {
+    "sha256": "50a3a1847f96d80bddacb6146696b07d6ca06f0b73c95f45793e3ca919313af5",
+    "source": "research/scalar-ratio/verification/Challenge/CommonStrict.lean",
+    "transformation": "byte-identical copy"
+  },
+  "Challenge/Coordinate.lean": {
+    "sha256": "5d9345ec01b581faba690428fcfbc0d01196d61ba13d73e1ae6b9ae4e04bf1cc",
+    "source": "research/scalar-ratio/verification/Challenge/Coordinate.lean",
+    "transformation": "byte-identical copy"
+  },
+  "Challenge/Cup.lean": {
+    "sha256": "657609e50b5b058f5e2435cced7f1efcadcd91aed076a7612742f409c12bf18e",
+    "source": "research/scalar-ratio/verification/Challenge/Cup.lean",
+    "transformation": "byte-identical copy"
+  },
+  "Challenge/Matrix.lean": {
+    "sha256": "70141ae019654b59a07e1d34cead19aa5882f9a2f1b1097f021bb24653c12860",
+    "source": "research/scalar-ratio/verification/Challenge/Matrix.lean",
+    "transformation": "byte-identical copy"
+  },
+  "Challenge/Original.lean": {
+    "sha256": "ae5cd67b93287c345a3b1a808eeeed9744667bb73eb10f068d8b056b20b497e8",
+    "source": "research/scalar-ratio/verification/Challenge/Original.lean",
+    "transformation": "byte-identical copy"
+  },
+  "Challenge/UnitCriterion.lean": {
+    "sha256": "a2f864a2f353519d2c40739ed3c16f1a61498867817314df52a77215b2883b3b",
+    "source": "research/scalar-ratio/verification/Challenge/UnitCriterion.lean",
+    "transformation": "byte-identical copy"
+  },
+  "DERIVATION.md": {
+    "sha256": "02fbb34ccd76ff3d3894b812416b722cf6f044322d16d35b4d0f11e39561e733",
+    "source": "research/scalar-ratio/DERIVATION.md",
+    "transformation": "byte-identical copy"
+  },
+  "README.md": {
+    "sha256": "4db77bc8aad5d3bb68573ece21f43c15273e2cb5857e618b0c8a131bfeabf17c",
+    "source": "research/scalar-ratio/verification/README.md",
+    "transformation": "byte-identical copy"
+  },
+  "Research/BoundaryCupAdapter.lean": {
+    "sha256": "330699edaab6812ed68ed09a5fb682ad1d6b3af5a030a252691723066beffd7b",
+    "source": "lean/Research/BoundaryCupAdapter.lean",
+    "transformation": "byte-identical copy"
+  },
+  "Research/BoundaryScalar.lean": {
+    "sha256": "fd1ea9ca11a417072c7be08ef477901427c57a74962559d753d62db95883f3ef",
+    "source": "lean/Research/BoundaryScalar.lean",
+    "transformation": "byte-identical copy"
+  },
+  "Research/DerivativeSwitch/BoundaryCup.lean": {
+    "sha256": "64750e7706f82cf0a47b76c80503bcab0577c2aa18f9703c09b4b8288be0df90",
+    "source": "lean/Research/DerivativeSwitch/BoundaryCup.lean",
+    "transformation": "byte-identical copy"
+  },
+  "Research/DerivativeSwitch/CommonStrict.lean": {
+    "sha256": "c5770846489d7fdab0024d8f3c49e0a474eb0fa56dc428cc6a7034bc8e5605e4",
+    "source": "lean/Research/DerivativeSwitch/CommonStrict.lean",
+    "transformation": "byte-identical copy"
+  },
+  "Research/DerivativeSwitch/Coordinate.lean": {
+    "sha256": "229e66269880b9970b15ca36fab290d2572fdfac7396383d3327e652128ade90",
+    "source": "lean/Research/DerivativeSwitch/Coordinate.lean",
+    "transformation": "byte-identical copy"
+  },
+  "Research/DerivativeSwitch/UnitCriterion.lean": {
+    "sha256": "efd9f4404b9760f9d7ebc2cb0874f21f517ed3868e9e23f78fd0465a2c03e45a",
+    "source": "lean/Research/DerivativeSwitch/UnitCriterion.lean",
+    "transformation": "byte-identical copy"
+  },
+  "Research/DerivativeSwitchBoundary.lean": {
+    "sha256": "63a9215fa55568069d2d1a7b2c3a7345ec21c7ad6a82203f42c5451ee4b8bbea",
+    "source": "lean/Research/DerivativeSwitchBoundary.lean",
+    "transformation": "byte-identical copy"
+  },
+  "Solution.lean": {
+    "sha256": "7af2c393419c0d091defd9219f84d963bfc484b64633f8eee6e4f591554d671d",
+    "source": "research/scalar-ratio/verification/Solution.lean",
+    "transformation": "byte-identical copy"
+  },
+  "comparator.json": {
+    "sha256": "ae8b3b382cfc69d3aceb281c188548923855345a71f3775b813530ca059f00c8",
+    "source": "research/scalar-ratio/verification/comparator.json",
+    "transformation": "byte-identical copy"
+  },
+  "generator": {
+    "sha256": "c884b292701340b5a09d731f95ae714dad00726705955157f3931f9ec7eb2e4f",
+    "source": "research/scalar-ratio/verification/prepare.py"
+  },
+  "lake-manifest.json": {
+    "sha256": "a770787f33b5824f61a0731d59e67fca3f44a531b21d1fc1a804064c6fb54e58",
+    "source": "lean/lake-manifest.json",
+    "transformation": "change only root name; UTF-8 JSON indent=2 and final LF"
+  },
+  "lakefile.toml": {
+    "sha256": "9600bce268e5e5b0b9e0b3b255984b089b2006294c93e9264da2217ab86fead8",
+    "source": "research/scalar-ratio/verification/lakefile.toml",
+    "transformation": "byte-identical copy"
+  },
+  "lean-toolchain": {
+    "sha256": "ca5f1f601d34c49079e38d7e7041eb0f2a9c227fbc1df0f404820069a052330c",
+    "source": "lean/lean-toolchain",
+    "transformation": "byte-identical copy"
+  }
+}

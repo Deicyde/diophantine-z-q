@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "builderSha256": "78b54bcde24ff8a91091e102a4734c49878699f071d9230e5ce7a70ffd2114d0",
+  "transformations": 31,
+  "inheritedInputGroups": 11,
+  "proofTexts": 26,
+  "priorProofTexts": 22,
+  "manuscriptIntegration": "pending; additive research proposal only",
+  "checks": [
+    "All 26 argument files exist at the specified package-relative paths and match the bound SHA256 hashes.",
+    "All cited literal LaTeX labels exist in the pinned repository source files; line references and descriptive proof sections are separately presented as such.",
+    "Selected builder hash matches the frozen integrated 392-coordinate source.",
+    "Manuscript integration remains pending; finite checks and inherited global mathematical inputs are explicitly distinguished.",
+    "The scalar.rInverse15 consumer locator matches the selected builder after the prose-spacing correction."
+  ],
+  "verifiedDistinctUpstreamLabels": 37,
+  "PR_DEPENDENCIES.mdSha256": "681a788f273ed7db8ac0e08b7276cbf059c6bade60999b208253f43c1649e8a5",
+  "pr_dependency_inventory.jsonSha256": "18db593e2e96f8588399b9573e2c7d74ff9f6a3ce9d3684095beeeaf74565dec",
+  "make_pr_dependency_inventory.pySha256": "d7d75b4fb5e4f8c797ca390e34eabf5ad635b9d1049e877af02775c8f0799402"
+}

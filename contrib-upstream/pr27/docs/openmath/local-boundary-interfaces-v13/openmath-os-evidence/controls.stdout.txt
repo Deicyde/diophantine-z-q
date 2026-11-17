@@ -1,0 +1,180 @@
+{
+  "status": "PASS",
+  "python": "3.12.14",
+  "optimized": false,
+  "script_sha256": "9e6dc833f23c7008eac55363689e56d1f128599c5c9bbd3fa226916b3ca91c7c",
+  "input_sha256": {
+    "CHECK_DESIGN.md": "bff116b1b765d249b754b4f3dd657a538172f4027cfb0c45193124869c93ddd4",
+    "CONTROLS_PROVENANCE.json": "2e8b2cd225cf340a90272be6d4178c9d274a63fd130e9a89bdbfe064b47b0a77",
+    "ORIGIN.json": "06dc5c0e20a76051e51a241aef299cf97c6fd5fcb5d7b3a8f2b721c903795f53",
+    "TARGETS.json": "b5e5bd8f58ced1f62e3e0b282f0b61d5d992f846c95446f2b5af749bdc6361da"
+  },
+  "candidate_modules": {
+    "lean/Research/DerivativeSwitch/ConjugateLocalTransport.lean": "8688eef27fcc89c02eb3ab270e5359534dc23ef16e11678bdb1dd3587e3f8b86",
+    "lean/Research/DerivativeSwitch/ConjugateLocalH1.lean": "078ac50ae0c90c8e609a57c51c5884a25646ad7305531f1cf531617485b9078f",
+    "lean/Research/DerivativeSwitch/ActualBoundaryCup.lean": "77bcdd2ae5283ffd6cc51062e452da4294fcd5b3d952940b588b2d5b52ecdd90",
+    "lean/Research/DerivativeSwitch/OrthogonalComparison.lean": "bfec996b869e44c6a42fc058fbc24cc7288b1f61d0f0e7eef1f4f58f41dca1ba"
+  },
+  "cochains": {
+    "trials": 64,
+    "seed": 20261109,
+    "nonzero_corrections": 64,
+    "torus": {
+      "vertices": 9,
+      "edges": 27,
+      "triangles": 18,
+      "closed_direction_trace_pairing": [
+        [
+          0,
+          9
+        ],
+        [
+          -9,
+          0
+        ]
+      ]
+    },
+    "negative_controls": {
+      "wrong_correction_sign": {
+        "trial": 0,
+        "triangle": [
+          0,
+          2,
+          3
+        ],
+        "actual": 18,
+        "wrong_plus": -24
+      },
+      "non_chain_trace": {
+        "trial": 0,
+        "trace_replaced_by_simplex_evaluation": [
+          0,
+          2,
+          3
+        ],
+        "actual": 18,
+        "global_cup": -3,
+        "nonzero_evaluation_on_boundary": -21
+      },
+      "nonclosed_local_direction": {
+        "trial": 0,
+        "triangle": [
+          0,
+          1,
+          4
+        ],
+        "unaccounted_term": -48,
+        "direction_is_not_closed": true
+      }
+    },
+    "scope": "Exact finite cochains; neither this torus nor its trace is an arithmetic Galois object"
+  },
+  "cone_and_inverse": {
+    "degreewise_cone_cases": 640,
+    "wrong_cone_sign_cases": 218,
+    "top_cohomology_homotopy_cases": 4680,
+    "negative_controls": {
+      "wrong_cone_sign": {
+        "modulus": 4,
+        "dU": 0,
+        "dL": 3,
+        "loc": 2,
+        "incp": 2,
+        "inc": 3,
+        "a0": 1,
+        "a1": 2,
+        "h0": 3,
+        "h1": 3,
+        "g": 0,
+        "u": 1,
+        "q": 1,
+        "correct_third": 2,
+        "wrong_third": 0
+      },
+      "inverse_without_projection_compatibility": {
+        "modulus": 8,
+        "differential": 0,
+        "comparison": 3,
+        "genuine_inverse": 3,
+        "class": 1,
+        "localized_inverse_class": 3,
+        "missing_premise": "common global/local projection; abstract equivalence alone does not preserve this coordinate"
+      },
+      "nilpotent_t_inverse": {
+        "ring": "(Z/4)[t]/(t^2)",
+        "all_candidates_rejected": 16
+      }
+    },
+    "scope": "Cone checks are degreewise identities; homotopy checks use two-term finite complexes, not Selmer models"
+  },
+  "coefficients": {
+    "group": "C8",
+    "coefficient_ring": "Z/32",
+    "action_generator": 3,
+    "cocycle": "p(g)=rho(g)-1",
+    "pullback": "gamma(g)=-g",
+    "crossed_equations_checked": 128,
+    "coboundary_pullbacks_checked": 256,
+    "negative_controls": {
+      "coefficient_carrier_mismatch": {
+        "g": 1,
+        "h": 1,
+        "actual_pulled_value": 24,
+        "wrong_original_action_value": 8,
+        "original_action": 3,
+        "conjugate_action": 11
+      },
+      "evaluation_without_trivial_action": {
+        "element": 1,
+        "coboundary_value": 2,
+        "cohomology_class": 0,
+        "conclusion": "evaluation would not be well-defined on the quotient"
+      }
+    },
+    "scope": "Finite representation/cochain model; the actual Mathlib H1 theorem is checked separately by Lean"
+  },
+  "functionals": {
+    "J": [
+      [
+        "0",
+        "1"
+      ],
+      [
+        "1",
+        "0"
+      ]
+    ],
+    "v": [
+      "1",
+      "0"
+    ],
+    "x": [
+      "0",
+      "1"
+    ],
+    "transport_unit": "3",
+    "common_trace": "5",
+    "common_pairing_scalar": "2",
+    "qF": "-30",
+    "qS": "30",
+    "negative_controls": {
+      "extra_coefficient_J": {
+        "correct": "-30",
+        "wrong": "0"
+      },
+      "omitted_tame_sign": {
+        "correct": "30",
+        "wrong": "-30"
+      },
+      "independent_functional_times_two": {
+        "closedness_preserved": true,
+        "original": "30",
+        "rescaled": "60",
+        "original_v2": 1,
+        "rescaled_v2": 2
+      }
+    },
+    "scope": "Local cup/row diagnostic only; no determinant-coordinate or arithmetic normalization theorem"
+  },
+  "scope": "Finite diagnostic models, separate from native Lean evidence and all actual arithmetic applications"
+}

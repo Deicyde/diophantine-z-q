@@ -1,0 +1,58 @@
+{
+  "status": "ACCEPT_EDITORIAL_UPDATE",
+  "originalProofSha256": "8978cb9d7ce57c796a4b77752f527cd1f18419d90781a46c9139902ee7e2c03a",
+  "updatedProofSha256": "ed01c9416d3b4daf02a26958642194230c0186a896f17817bfe30c8a16d481d3",
+  "changes": [
+    {
+      "before": "lines11031--11061",
+      "after": "lines 11031--11061"
+    },
+    {
+      "before": "order45 blocks",
+      "after": "order 45 blocks"
+    },
+    {
+      "before": "lines11220--11241",
+      "after": "lines 11220--11241"
+    },
+    {
+      "before": "exceed1024",
+      "after": "exceed 1024"
+    }
+  ],
+  "allNonWhitespaceBytesUnchanged": true,
+  "originalReviewAndReportPreserved": true,
+  "finiteReportsIdenticalExceptProofHash": true,
+  "bindings": {
+    "originalReview": {
+      "path": "seventh-work/arithmetic/detector-independent-review-round7.json",
+      "sha256": "b06f2c3bbba57c4fe11e072b5e34dfe6abda213e793dff755cf09945026439e6"
+    },
+    "originalFiniteReport": {
+      "path": "seventh-work/arithmetic/detector-independent-integrated-check.json",
+      "sha256": "b91f90c60ff33377eb15421089228a9b85a181954ebba84106acf4cf34179af1"
+    },
+    "originalProofSnapshot": {
+      "path": "seventh-work/arithmetic/detector-proof-reviewed-original.tex",
+      "sha256": "8978cb9d7ce57c796a4b77752f527cd1f18419d90781a46c9139902ee7e2c03a"
+    },
+    "exactPatch": {
+      "path": "seventh-work/arithmetic/detector-proof-spacing.patch",
+      "sha256": "5fb14c33c40eccab21bc1a233cb5c47fe1a112c0529560dcde93c7e559481221"
+    },
+    "updatedFiniteReport": {
+      "path": "seventh-work/arithmetic/detector-independent-integrated-check-proof-update.json",
+      "sha256": "1698356a27c64938b295eba05a42d0193c2d6448a107a8995a665e20297b0491"
+    },
+    "updatedProof": {
+      "path": "seventh-work/detectors/detector_round7.tex",
+      "sha256": "ed01c9416d3b4daf02a26958642194230c0186a896f17817bfe30c8a16d481d3"
+    }
+  },
+  "builderSha256": "78b54bcde24ff8a91091e102a4734c49878699f071d9230e5ce7a70ffd2114d0",
+  "rawIrSha256": "582c8bf2fcde54242bb23bf7aa33d3a7a9065f04b8edd885a13386b5b779b92c",
+  "sourceAssertions": 164,
+  "laurentIdentities": 7,
+  "normalizationIdentities": 3,
+  "review": "The four insertions are exactly one space each and change no symbol, number, hypothesis, conclusion, source consumer or completeness argument. The original scoped acceptance applies to the updated proof; the source checker was rerun and its only report difference is the reviewed-proof hash. This addendum does not rewrite the original review history."
+}

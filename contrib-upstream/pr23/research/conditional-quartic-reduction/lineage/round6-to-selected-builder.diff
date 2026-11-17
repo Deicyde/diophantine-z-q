@@ -1,0 +1,73 @@
+--- lineage/round6_builder.cjs
++++ construction/builder.cjs
+@@ -2,7 +2,8 @@
+ // Adapted from the Version 10 odd-product source, with credits retained below.
+ // Further changes: reciprocal complete charts and scaled logarithms, normalized poles,
+ // positive lambda witnesses, correction42, three contacts, and a field-norm anchor.
+-// Round six: joint weights, inverse-weight scalar tree, N(w) anchor and scaled constants.
++// Round seven: contact-unit detector weights, an outer scalar constant, and S=3^2790.
++// A separately certified diagonal change balances coefficients without new coordinates.
+ // The changed local claims are separately reviewed; global source claim is inherited.
+ // See the accompanying proof note and transformations.json for proofs and scope.
+ // The original upstream builder independently reconstructed the Brox v3 formulas.
+@@ -251,7 +252,7 @@
+ saveF('heightProduct',productX);
+ const scales=[one,rsq('heightProduct.scale0',productX[0]),rsq('heightProduct.scale1',add(productX[0],productX[1]))];
+ // Algebraic abbreviations for the weights: e=(A*delta)^5/F,
+-// R=1/(e*delta), q1=e/delta^3, q12=q1*e^22, q45=q1*e^88.
++// R=1/E, q1=e/delta, q12=q1*e^22, q45=q1*e^88; E=q1*delta^2.
+ function evalSym(name,blocks,q){
+  let maxdeg=Math.max(...blocks.map(co=>co.length-1)),powers=[one,q];
+  for(let k=2;k<=maxdeg;k++)powers[k]=rm(name+'.power'+k,powers[Math.floor(k/2)],powers[Math.ceil(k/2)]);
+@@ -279,15 +280,16 @@
+  for(let root of roots){let nx=Array(cs.length+1).fill(null).map(()=>Q(0));for(let k=0;k<cs.length;k++){nx[k]=qadd(nx[k],qmul(root,cs[k]));nx[k+1]=qadd(nx[k+1],cs[k]);}cs=nx;}
+  let t2=rsq('detector'+r+'.Fsquare',t),middle=assign('detector'+r+'.Fmiddle',add(mul(t2,add(t,term(cs[4]))),scale(t,cs[3]),term(cs[2]))),Fv=assign('detector'+r+'.F',add(mul(t2,middle),scale(t,cs[1]),term(cs[0])));
+  let Ad=rm('detector'+r+'.Adelta',A,delta);
+- let ep=rquot('detector'+r+'.eWeight',mul(rp('detector'+r+'.Adelta4',Ad,4),Ad),Fv,'positive_scale_and_norm_equation_make_numerator_nonzero');
+- let delta2=rsq('detector'+r+'.delta2',delta),delta3=rm('detector'+r+'.delta3',delta2,delta),q1=rquot('detector'+r+'.q1',ep,delta3,'norm_equation_forces_nonzero_delta');
+- const eDelta=rm('detector'+r+'.eDelta',ep,delta);
++ // Contact-unit normalization: use delta*D as the semantic one-place test.
++ // q_m=e^(2m-1)/delta=E^(m-1)*q1^m, where E=1/R; e need not be stored.
++ let q1=rquot('detector'+r+'.q1',mul(rp('detector'+r+'.Adelta4',Ad,4),A),Fv,'positive_scale_and_guard_make_numerator_nonzero');
++ const delta2=rsq('detector'+r+'.delta2',delta),eDelta=rm('detector'+r+'.eDelta',q1,delta2);
+  let q1square=rsq('detector'+r+'.q1SquaredForWeights',q1),q1cube=rm('detector'+r+'.q1CubedForWeights',q1square,q1);
+  let mixA=rsq('detector'+r+'.mixA',eDelta),
+- mixB=rquot('detector'+r+'.mixB',one,mixA,'positive_e_delta_square'),
+- mixC=rquot('detector'+r+'.mixC',sq(mixB),eDelta,'positive_e_delta'),
+- mixD=rquot('detector'+r+'.mixD',mul(ep,q1cube),mixC,'positive_mixed_weight'),
+- q12=rquot('detector'+r+'.q12',sq(mixD),mixC,'positive_mixed_weight');
++ mixB=rm('detector'+r+'.mixB',mixA,eDelta),
++ mixC=rm('detector'+r+'.mixC',mixB,q1cube),
++ mixD=rsq('detector'+r+'.mixD',mixC),
++ q12=rquot('detector'+r+'.q12',sq(mixD),eDelta,'positive_inverse_R');
+  let mixedHigh=rsq('detector'+r+'.mixedHigh',q12);
+  let q45=rquot('detector'+r+'.q45',sq(mixedHigh),q1cube,'positive_order_one_weight');
+  let q1q12=rm('detector'+r+'.q1q12',q1,q12);
+@@ -314,8 +316,14 @@
+ const directLeaf=saveF('scalar.directLeaf',[rquot('scalar.ratioProxyLeaf',mul(ratioProxyReal,ri15),rr,'positive_scalar_contact_product'),zero]);
+ let leaves=[save('scalar.leaf0',mul(PU[0].f[0],ri)),rm('scalar.leaf1',PU[0].f[1],ri),save('scalar.leaf2',mul(PS.f[0],ri)),PS.f[1]].concat(directLeaf.map((v,j)=>save('scalar.leaf'+(j+4),v)));
+ function normTree(name,a,b,weight=rr){return assign(name,add(sq(a),mul(weight,rsq(name+'.rightSquare',b))));}
+-let n0=rquot('scalar.n0',add(rr,sq(PU[0].f[0])),rr,'existing_scalar_r_inverse'),n1=rquot('scalar.n1',add(mul(leaves[1],PU[0].f[1]),sq(PS.f[0])),rr,'existing_scalar_r_inverse');
+-let nw=normTree('scalar.W',normTree('scalar.nLeft',n0,n1),normTree('scalar.nRight',leaves[3],leaves[4],ri15),ri15);
++// A negative odd contact valuation cannot occur: a pole of X gives v(r)=6v(X).
++// Move the constant 1 outside the norm tree, keeping W>=1 at the real place.
++let n1=rquot('scalar.n1',add(mul(leaves[1],PU[0].f[1]),sq(PS.f[0])),rr,'existing_scalar_r_inverse');
++const n1OverR=rquot('scalar.n1OverR',n1,rr,'positive_scalar_contact_product');
++const nLeft=rquot('scalar.nLeft',add(sq(PU[0].f[0]),mul(n1OverR,n1)),rr,'positive_scalar_contact_product');
++const nRight=normTree('scalar.nRight',leaves[3],leaves[4],ri15);
++const nCore=normTree('scalar.N',nLeft,nRight,ri15);
++let nw=save('scalar.W',add(one,nCore));
+ // Absorb the known square W^2 into p,q and the preparation ordinate U.
+ // New p=W*p_old, q=W*q_old, U=U_old/W; W>=1 since r>0.
+ const rho=save('scalar.correctedR',scale(rr,42)),W2=rsq('scalar.W2',nw);
+@@ -336,8 +344,8 @@
+ for(let i=0;i<census.length;i++){let c=census[i],next=census[i+1];c.newCoordinates=(next?next.startCoordinates:coords.length)-c.startCoordinates;c.newResiduals=(next?next.startResiduals:residuals.length)-c.startResiduals;}
+ const sourceName='sources/diophantine_optimization_20261106_v3.tex';
+ const inputSourceSha256='fc8bc7b8fae727e24f934ddd7de0a7cff8a005e89c3d0cac1ea14e5191b910ca';
+-const data={format:'brox-independent-quadratic-ir-v1',source:{path:sourceName,sha256:inputSourceSha256,reconstruction:'independent_from_displayed_formulas_not_original_gate_bytes',refinements:[{name:'shared_scalar_point',lines:[2946,3044]},{name:'fixed_scales',lines:[3352,3405]},{name:'comparison_precision52',lines:[4160,4279]},{name:'scalar_order32',lines:[4285,4306]},{name:'quotient_domains',lines:[4311,4405]},{name:'direct_lucas',lines:[4575,4605]}]},fixedParameter:{name:'S',value:'3^3072',coordinate:false},coordinates:coords,residuals,gates,values,guards,census,anchor:{rowId:anchorRow,privateCoordinateIds:anchor.map(idof),physicalA:encode(fa)},counts:{baseCoordinates:coords.filter(c=>c.kind==='base'||c.kind==='input').length,structuralResiduals:residuals.length-gates.length,coordinates:coords.length,residuals:residuals.length,gates:gates.length}};
+-data.variant={name:'round6_g12_45_hybrid28_normw_anchor3072',status:'conditional',transformations:'transformations.json',inputUnchanged:true};
++const data={format:'brox-independent-quadratic-ir-v1',source:{path:sourceName,sha256:inputSourceSha256,reconstruction:'independent_from_displayed_formulas_not_original_gate_bytes',refinements:[{name:'shared_scalar_point',lines:[2946,3044]},{name:'fixed_scales',lines:[3352,3405]},{name:'comparison_precision52',lines:[4160,4279]},{name:'scalar_order32',lines:[4285,4306]},{name:'quotient_domains',lines:[4311,4405]},{name:'direct_lucas',lines:[4575,4605]}]},fixedParameter:{name:'S',value:'3^2790',coordinate:false},coordinates:coords,residuals,gates,values,guards,census,anchor:{rowId:anchorRow,privateCoordinateIds:anchor.map(idof),physicalA:encode(fa)},counts:{baseCoordinates:coords.filter(c=>c.kind==='base'||c.kind==='input').length,structuralResiduals:residuals.length-gates.length,coordinates:coords.length,residuals:residuals.length,gates:gates.length}};
++data.variant={name:'round7_delta_unit_outer_constant_anchor2790',status:'conditional',transformations:'transformations.json',inputUnchanged:true};
+ fs.writeFileSync(path.join(OUT,'raw-ir.json'),JSON.stringify(data,null,2)+'\n');
+ // An equivalent translated system. This is 16 times the original anchor
+ // after u=S+(U-3V+3W)/4,v=S/2+V/4,w=3S/2+W/4.

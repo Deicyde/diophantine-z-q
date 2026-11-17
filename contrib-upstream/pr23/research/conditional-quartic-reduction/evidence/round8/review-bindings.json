@@ -1,0 +1,137 @@
+{
+  "format": "internal-review-evidence-bindings-v1",
+  "files": [
+    {
+      "path": "evidence/round8/scalar/detector-promotion-independent-review.txt",
+      "bytes": 6009,
+      "sha256": "cfc85378eef5d0d08b906af2745e7bd45166483430c09ee5f6f6c396ba3d04f9",
+      "originalWorkspaceRelativePath": "eighth-work/scalar/detector-promotion-independent-review.txt"
+    },
+    {
+      "path": "evidence/round8/scalar/detector-promotion-independent-review.json",
+      "bytes": 1812,
+      "sha256": "ce31afbcbc1779c5f7a0950dbc04c94ef2b60955da3a4d3f544485d419f4815e",
+      "originalWorkspaceRelativePath": "eighth-work/scalar/detector-promotion-independent-review.json"
+    },
+    {
+      "path": "evidence/round8/scalar/detector-promotion-integrated-check.json",
+      "bytes": 9000,
+      "sha256": "e91f530ef6d0fd5f6f1cc0bc28e6beb7fdbc869cc8a59fdbd0df111191a870bc",
+      "originalWorkspaceRelativePath": "eighth-work/scalar/detector-promotion-integrated-check.json"
+    },
+    {
+      "path": "evidence/round8/scalar/diagonal-two-prime-independent-review.txt",
+      "bytes": 7087,
+      "sha256": "be3475e8326747a2ae63f4de09eb48f7f67871b0b438a8fb3ac635a8858c3876",
+      "originalWorkspaceRelativePath": "eighth-work/scalar/diagonal-two-prime-independent-review.txt"
+    },
+    {
+      "path": "evidence/round8/scalar/diagonal-two-prime-independent-review.json",
+      "bytes": 5242,
+      "sha256": "d1a11bf112bd4448f5439d9eb2f2d12b9765d1fc40c7f8804308cdadcd884884",
+      "originalWorkspaceRelativePath": "eighth-work/scalar/diagonal-two-prime-independent-review.json"
+    },
+    {
+      "path": "evidence/round8/scalar/diagonal-two-prime-integrated-check.json",
+      "bytes": 3114,
+      "sha256": "56d754acd0509803b45fa5b33771b2c7565461056205dabb82f67451d7dcbd92",
+      "originalWorkspaceRelativePath": "eighth-work/scalar/diagonal-two-prime-integrated-check.json"
+    },
+    {
+      "path": "evidence/round8/scalar/diagonal-two-prime-negative-probes.json",
+      "bytes": 1290,
+      "sha256": "240caf1e328a9c84a6ba810784603bbcebebacebf9d19d688d9601cd87644a07",
+      "originalWorkspaceRelativePath": "eighth-work/scalar/diagonal-two-prime-negative-probes.json"
+    },
+    {
+      "path": "evidence/round8/scalar/scalar-search-notes-round8.txt",
+      "bytes": 2203,
+      "sha256": "916a0abbe7c9dbc7f44664ffda3eb93b87d45092244df1610a1ab10634466065",
+      "originalWorkspaceRelativePath": "eighth-work/scalar/scalar-search-notes-round8.txt"
+    },
+    {
+      "path": "evidence/round8/detector/arithmetic-independent-review-round8.txt",
+      "bytes": 7516,
+      "sha256": "51352069d362782faa1d2c78a7cebf8596560b7ce3f37cfec3f11fe6263617f4",
+      "originalWorkspaceRelativePath": "eighth-work/detector/arithmetic-independent-review-round8.txt"
+    },
+    {
+      "path": "evidence/round8/detector/arithmetic-independent-review-round8.json",
+      "bytes": 4542,
+      "sha256": "bf7ff55dcd0496e5670b6a2d3775c229cb51b20fd1306c12d360ee21a6268b31",
+      "originalWorkspaceRelativePath": "eighth-work/detector/arithmetic-independent-review-round8.json"
+    },
+    {
+      "path": "evidence/round8/detector/arithmetic-independent-numerics.json",
+      "bytes": 3936,
+      "sha256": "9d940efa3db35dc5128e2a4f9b46b22b75e582ec56dd078636c225df2db58b29",
+      "originalWorkspaceRelativePath": "eighth-work/detector/arithmetic-independent-numerics.json"
+    },
+    {
+      "path": "evidence/round8/detector/pr-dependency-audit-round8.json",
+      "bytes": 12565,
+      "sha256": "4743127742385516b0414f5c1c96714397089f9ffb0f6e4b6cd428700a6b5163",
+      "originalWorkspaceRelativePath": "eighth-work/detector/pr-dependency-audit-round8.json"
+    },
+    {
+      "path": "evidence/round8/arithmetic/ARITHMETIC_DELTA.json",
+      "bytes": 3063,
+      "sha256": "1017303842fbcac484e77987b3ba054e14e63cf85fcf55905a8e966d93b1f4e7",
+      "originalWorkspaceRelativePath": "eighth-work/arithmetic/ARITHMETIC_DELTA.json"
+    },
+    {
+      "path": "evidence/round8/arithmetic/arithmetic-source-check.json",
+      "bytes": 6614,
+      "sha256": "b28989ca7ce38081ec707286a271406bae021d03398990578e3398bccbe74a4e",
+      "originalWorkspaceRelativePath": "eighth-work/arithmetic/arithmetic-source-check.json"
+    },
+    {
+      "path": "evidence/round8/arithmetic/structured-wrapper-independent-probes.json",
+      "bytes": 4466,
+      "sha256": "36350efa32f8521392dde180f7fb99560ee383859d2668c1b90fd95937f53c08",
+      "originalWorkspaceRelativePath": "eighth-work/arithmetic/structured-wrapper-independent-probes.json"
+    },
+    {
+      "path": "evidence/round8/arithmetic/structured-wrapper-independent-probes-fixed.json",
+      "bytes": 5837,
+      "sha256": "e7401b016f06da99063527c133d82687f4281bba7cd79d263c4c30b9c05b58d3",
+      "originalWorkspaceRelativePath": "eighth-work/arithmetic/structured-wrapper-independent-probes-fixed.json"
+    },
+    {
+      "path": "evidence/round8/arithmetic/root-wrapper-probes-fixed.json",
+      "bytes": 36078,
+      "sha256": "d954f6a86a636b85898ef5c416f365e97fcb5ca6f2d5b3d96ba26398444baf6a",
+      "originalWorkspaceRelativePath": "eighth-work/arithmetic/root-wrapper-probes-fixed.json"
+    },
+    {
+      "path": "evidence/round8/arithmetic/scaled-chain-independent-round8.json",
+      "bytes": 2895,
+      "sha256": "13cc6d278de015134abbbd7d7bc4bd60c90cd85f0a413a4f2a2844fae03d4d6c",
+      "originalWorkspaceRelativePath": "eighth-work/arithmetic/scaled-chain-independent-round8.json"
+    },
+    {
+      "path": "evidence/round8/arithmetic/package-integration-review-round8.txt",
+      "bytes": 6584,
+      "sha256": "95bf50debf50dfde16fe3034f8e9b0ab92549272dfdb5e99742d40a12007cc56",
+      "originalWorkspaceRelativePath": "eighth-work/arithmetic/package-integration-review-round8.txt"
+    },
+    {
+      "path": "evidence/round8/arithmetic/package-integration-review-round8.json",
+      "bytes": 3326,
+      "sha256": "af9d94c67a693a2334111a5022f16501599444c7f96f8be6944dc8ccd8ce8be4",
+      "originalWorkspaceRelativePath": "eighth-work/arithmetic/package-integration-review-round8.json"
+    },
+    {
+      "path": "evidence/round8/arithmetic/delivered-quartics-reviewed-round8.json",
+      "bytes": 15212,
+      "sha256": "28b9ecfbc6f1b7f75a84dfe22b95af13be21dd044c9a235a216f876d4b4679fc",
+      "originalWorkspaceRelativePath": "eighth-work/arithmetic/delivered-quartics-reviewed-round8.json"
+    },
+    {
+      "path": "evidence/round8/pdf-qa-receipt.json",
+      "bytes": 849,
+      "sha256": "3be4f104b5257f689574b31e981dd59f44cb9249dce88048e98615f7071e2708"
+    }
+  ],
+  "scope": "Internal AI-assisted mathematical and finite-code reviews. Final assembly, patch application and fresh-wrapper receipts are in the outer bundle; no inherited-global or human-review certification."
+}

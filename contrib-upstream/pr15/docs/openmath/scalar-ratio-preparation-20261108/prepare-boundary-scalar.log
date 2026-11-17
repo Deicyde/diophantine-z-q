@@ -1,0 +1,29 @@
+{
+  "output": "/Users/chey/Coding_Projects/diophantinezq/audit-output/2026-11-08-scalar-ratio-repo-prepare/clean-checkout/lean/.checks/openmath-boundary-scalar",
+  "files": 17,
+  "manifest_sha256": "fa7749aa918702ddb8f3694641839a1f751e2b377784c153e3332196076fc171",
+  "executed_lean": false
+}
+{
+  "status": "PREPARED_FROM_REPOSITORY",
+  "checkout_commit": "af6d3f404cf6e04a8752ac1b173d3d01108b606a",
+  "packet": "boundary-scalar",
+  "selected_declarations": 21,
+  "reviewed_source_commit": "7ca086adf4298e2b611b9fa0b954eab838873bf3",
+  "prerequisite_inputs_checked": 63,
+  "packet_manifest_sha256": "8696323b0d1bb78e68ba4daea0437f38dde4ff3be8281e3856712a5f5369dba6",
+  "packet_inputs_checked": 65,
+  "generated_manifest_sha256": "fa7749aa918702ddb8f3694641839a1f751e2b377784c153e3332196076fc171",
+  "generated_inputs_checked": 16,
+  "preparation_script_sha256": "6dd6779b1b5a85a2916f836a690efb5a827198db06ab6390269eef2c750682be",
+  "lean_invoked": false,
+  "network_used": false,
+  "paranoid_run": "NOT_RUN; owned by Open Math in the cloud",
+  "cloud_command": [
+    "lake",
+    "comparator",
+    "--config",
+    "comparator.json",
+    "--paranoid"
+  ]
+}

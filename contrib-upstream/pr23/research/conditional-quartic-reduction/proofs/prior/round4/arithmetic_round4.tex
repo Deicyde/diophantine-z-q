@@ -1,0 +1,247 @@
+\section{Scalar order twenty-four and a smaller exceptional set}
+
+These changes retain the global arithmetic hypotheses and conventions of
+the pinned Version 10 source, commit
+\texttt{036cebe4f1a4aa7ca89820a9b48f3629b4c364d6}. They concern the
+scalar valuation argument, the set of excluded rational primes, and the
+numerical anchor. They do not independently verify the inherited geometric,
+modularity, height, prime-pattern, group, or pole theorems.
+
+\subsection{Replace the scalar order thirty-two by twenty-four}
+
+Retain
+\[
+ \beta=2401+2754(2X+1)^2,\qquad
+ r=\beta(\beta-1)(32\beta+343)>0,\qquad c=42.
+\]
+Let $J=H=[h]P$ and $Q=S-P=[a-1]P$, both nonidentity. The scalar
+norm tree uses the two rational coefficients of $f(J),f(Q)$ at order
+one, and those of $L=z(Q)/z(J)$ at a larger order $m$.
+
+The proof in \texttt{manuscripts/quartic\_v10.tex}, lines
+10422--10548, is uniform in these positive integer orders. At a consumed
+prime let $R=v_p(r)$ be odd. The pole obstruction and the constant leaf
+on the all-left path force $R>0$ and $v_p(W)>-R/2$.
+For a norm node $N_r(u,v)=u^2+rv^2$, the two nonzero summands have
+opposite valuation parity. The implication
+\[
+ v_p(N_r(u,v))>-tR,\quad t<1
+ \quad\Longrightarrow\quad
+ v_p(u)>-tR/2,\quad v_p(v)>-(t+1)R/2
+\]
+therefore descends through the fixed finite tree. Every normalized
+leaf $X_i/r^{m_i}$ has valuation greater than $-R$, so
+\[
+ v_p(X_i)>(m_i-1)R\ge m_i-1,
+ \qquad v_p(X_i)\ge m_i.
+\]
+The first four leaves put $J,Q$ in the formal group at every place above
+$p$. Formal logarithm isometry and $[h]Q=[a-1]J$ identify the valuation
+of $L$ with that of $(a-1)/h$. Thus the two ratio leaves of order $m$
+give $v_p(a-1)\ge m$, and
+\[
+ M_5(\beta)^m\mid a-1,\qquad
+ h(\beta)\le\mathcal H |a-1|^{19/m}.
+\]
+Here the radical and height constant may be either the old ones or the
+smaller-set ones established below.
+
+Take $m=24$. Put $q=r^{-1}$, already present for the order-one leaves,
+and impose
+\[
+ rq_3=q^2,\qquad q_6=q_3^2,\qquad
+ q_{12}=q_6^2,\qquad q_{24}=q_{12}^2.
+\]
+Since $r>0$, these uniquely give $q_j=r^{-j}$. There are four new
+coordinates instead of the five squarings needed for $r^{-32}$.
+The direct ratio numerator is multiplied by $q_{24}$ instead of
+$r^{-32}$. All equations remain quadratic, including when the anchor
+coefficient is lifted to a coordinate.
+
+The final soundness proof needs $h(\beta)<|a|/40$. Write
+$C=|a-1|$. Its existing anchor margin is $C>(80\mathcal H)^{10}$.
+Since $1-19/24=5/24>1/10$,
+\[
+ \mathcal H C^{19/24}<C/80\le |a|/40.
+\]
+Thus the same Lucas and input-height contradictions apply without
+changing their detector orders. In particular the input comparison may
+use order twelve: the printed bound is
+\[
+ \log B<\frac{12}{5}\log(40\mathcal H)
+             +\frac{19}{5}h(\beta)
+ <\frac{31}{200}|a|<|a|-3.
+\]
+The Lucas residual depends only on $a,t,b$, whose comparisons retain
+order forty.
+
+Completeness changes only finite lower valuation bounds for the scalar
+leaves. The old order-thirty-two preparation already supplies the weaker
+order-twenty-four bounds. At the finite support of $42r$, the new norm
+tree remains a unit by its same constant all-left leaf. The inherited
+pole-completeness and continuity arguments therefore apply. This is a
+weaker scalar predicate with a checked global consumer, not a claimed
+bijection between the old and new pole witness spaces.
+
+An isolated rebuild gives 422 total variables, 390 quadratic residuals,
+and 26,603 quartic monomials. Order thirty-one also saves one variable,
+using four Laurent quotients, but has 26,639 monomials. Order twenty-four
+was selected because it gives the same variable saving with fewer terms.
+
+\subsection{Use the finite exceptional set actually needed}
+
+Define
+\[
+ \mathcal S=\{p:p\le41\}\cup\{109,439,2399\},
+ \qquad B_{\mathcal S}=\prod_{p\in\mathcal S}p
+ =34926271784737221178290.
+\]
+Let $M_{\mathcal S}(t)$ be the product of primes outside $\mathcal S$
+having odd contact with one of
+$\infty,0,1,2401,-343/32$. The proposed replacement height constant is
+\[
+ A_{19}=2^{109}210^{1800},\qquad
+ \mathcal H_{\mathcal S}=2A_{19}B_{\mathcal S}^{19}+128.
+\]
+The exact integer has bit length 15,419. The simpler bound sufficient
+below is
+\[
+ \mathcal H_{\mathcal S}<2^{15936},
+\]
+because $B_{\mathcal S}<2^{75}$ and
+$2+109+1800\cdot8+19\cdot75=15936$.
+
+This does not follow merely by changing the symbol $B_*$ in a theorem
+statement. It follows by reapplying its actual proof, as follows.
+
+The integral geometry in lines 6935--7003 is smooth away from $210$.
+The five branch sections are disjoint there; their determinant primes
+lie in $\{2,3,5,7\}$. Tame local coordinates show that even contact
+introduces no ramification after an unramified extension. Consequently,
+for the same normal fiber field and surface,
+\[
+ \operatorname{rad}(D_LN_{\rm bad})
+       \mid B_{\mathcal S}M_{\mathcal S}(t).
+\]
+The arguments (LR1)--(LR5), lines 7090--7405, use only a squarefree
+$R$ containing this ramification support and the fixed primes dividing
+$210$. Their character-order, field-degree and conductor bounds are
+therefore unchanged with $R=B_{\mathcal S}M_{\mathcal S}(t)$:
+\[
+ d'\le2304R,\qquad N\le210^{300}R^2,
+ \qquad\operatorname{rad}(N)\mid R.
+\]
+The exponent-nineteen proof in lines 8915--9073 then gives the same
+$h_F(A)<A_{19}R^{19}$ and geometric comparison. Hence, subject to the
+same inherited global inputs,
+\[
+ h(t)\le\mathcal H_{\mathcal S}M_{\mathcal S}(t)^{19}
+ \qquad(t\notin\{0,1,2401,-343/32\}).
+\]
+
+\paragraph{Actual local consumers.}
+The following verifications justify consuming the larger radical.
+
+The pole obstruction excludes negative odd valuations at every prime
+outside $\{2,3,17\}$ (lines 7698--7718). The one-place norm argument
+(lines 11032--11060) only additionally needs the unramifiedness of
+$\mathbb Q(\sqrt2)$ and integral normalized valuations. These hypotheses
+hold outside $\mathcal S$; that proof has no further numerical lower
+bound on the prime.
+
+For the detector contact map $\phi(t)=2+1/t$, the actual contact and
+guard-difference primes are explicitly listed in lines 11103--11113:
+\[
+ \{2,3,5,7,11,37,109,439,2399\}\subset\mathcal S.
+\]
+All fixed coefficients needed to identify the detector radicals and
+transfer the three scale heights are units away from this set.
+The proof of the product-height estimate in
+\texttt{docs/quartic-523-540/addition.tex}, lines 284--349, uses the same
+three scales and is unchanged with $\mathcal H_{\mathcal S}$.
+
+The new scalar product has only the three contacts $0,1,-343/32$.
+Their collisions involve $2,3,5,7$, and $2754=2\cdot3^4\cdot17$ is a
+unit outside $\mathcal S$. The square fiber at 2401 and the even
+negative valuations of $\beta$ therefore prove the same odd-contact
+implication for $M_{\mathcal S}(\beta)$. The historical extra factor
+$2\beta-1$, with its collision primes, is absent from this source.
+The anchor excludes $X=-1/2$ before this height theorem is used.
+
+Only the actual logarithm orders twelve and forty are needed. The
+formal identity and coefficient bound in lines 9220--9258 give
+\[
+ \log_E Q=zG(w),\quad v(w)=4r,\quad
+ v(a_j)\ge-\frac{4j+1}{p-1},\quad r=v(z)\ge1.
+\]
+For $m\in\{3,10\}$, consider $j\ge m$. If $4j+1<p$, the coefficient
+is integral and the term has valuation at least $4mr$. Otherwise,
+$p>41$ implies $j\ge11$ and $p-1\ge42$. The inequality
+\[
+ \frac{4j+1}{42}\le4(j-10)\le4(j-m)r
+\]
+then gives the same valuation lower bound. These bounds tend to infinity,
+so they control the entire tail. Thus $G_2$ has relative precision twelve
+and $G_9$ has relative precision forty at every prime outside
+$\mathcal S$, including inert primes. The same proof with $m=1$
+gives $\log_E(Q)/z(Q)\in1+p^{4r}\mathcal O$.
+The prime 41 is deliberately excluded: the coefficient $a_{10}$ has
+41-adic valuation $-1$, so a depth-one point would only give order 39
+for that first omitted term.
+
+All two-anchor comparisons now use these specialized estimates and
+the fact that one of $h,h-1$ is a unit. No blanket strengthening of the
+historical order-52 or order-64 formal-logarithm statements is asserted.
+For a primary identity input the earlier zero-ratio argument still
+applies at the appropriate order twelve or forty.
+
+\paragraph{Completeness.}
+Keep the existing prime-pattern choice of contact primes larger than
+76176, including all its finite exclusions and Gaussian congruences.
+Shrinking the exceptional set in soundness does not require choosing
+smaller primes in completeness. The formulas express each detector's
+odd valuations through exactly its chosen prime contact values; elsewhere
+the valuations are even, apart from fixed exceptional primes already in
+$\mathcal S$. Thus no new uncontrolled small odd contact appears.
+The prime-separation, progression, small-prime pole and real estimates
+are unchanged. The scalar leaf order is the finite value twenty-four,
+so its completeness and continuity arguments above apply as well.
+
+\subsection{Shorten the anchor and its constant chains}
+
+Set
+\[
+ C_{\rm a}=3^{2^{18}},\qquad S_0=C_{\rm a}^2=3^{2^{19}}.
+\]
+Retain the same field-norm physical anchor and quaternion conic, changing
+only this fixed coefficient. The local argument is uniform in its
+exponent: it gives the same odd-root and local-input conditions, while
+the scalar shifted point obeys
+\[
+ 0\ne a-1\in2\,3^{2^{17}-1}\mathbb Z.
+\]
+The exact subgroup calculation is in lines 8132--8209 of the source;
+it says $v_3(f([s]P))=2+2v_3(s)$ for nonzero even $s$.
+Consequently
+\[
+ \log_2|a-1|\ge1+(2^{17}-1)\log_2 3
+ >196607.5>159430
+ =10(7+15936)>\log_2(80\mathcal H_{\mathcal S})^{10}.
+\]
+This supplies every numerical margin used by the unchanged Lucas
+contradiction and the order-twelve input contradiction. The scalar
+order-twenty-four bound supplies $h(\beta)<|a|/40$ as already shown.
+
+The standard decimal chain now starts at $3^{2^{10}}$ and ends at
+$3^{2^{19}}$, using ten coordinates instead of seventeen. The larger-
+coefficient chain starts at $3^{2^{18}}$ and uses two coordinates instead
+of nine. The fixed-coefficient core count is unchanged by the anchor
+reduction itself. The producer, specialization verifier, modular-content
+checker, lift construction and lift checker must all use the declared
+new exponent; changing only a printed parameter name is insufficient.
+
+The provided tools parse that exponent from the IR metadata. Their sign
+certificates use $S_0>2^{2^{19}}$ in this instance, and the constant chains
+are checked against their actual endpoint. The isolated scalar-order-
+twenty-four plus anchor-nineteen branch has 422 core coordinates,
+432 standard decimal coordinates, and 424 larger-coefficient coordinates.

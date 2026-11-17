@@ -1,0 +1,991 @@
+{
+  "format": "glazer-draft-pr-bundle-v1",
+  "files": [
+    {
+      "path": "AGENT_HANDOFF.md",
+      "bytes": 10308,
+      "sha256": "4eabcb5156e4449ec706863fae81fc8652f79062d9c79b74f130f44b7d807735"
+    },
+    {
+      "path": "PATCH_APPLICATION.json",
+      "bytes": 755,
+      "sha256": "fe201baea3ca5befefb09b0b84d2f16bf64b5f55d7388287c84c51093261ec80"
+    },
+    {
+      "path": "PR_BODY.md",
+      "bytes": 6566,
+      "sha256": "8d625f03513c48310ce28b5f840445f8c038e0ad64201c1985165d2926c336e3"
+    },
+    {
+      "path": "PR_TITLE.txt",
+      "bytes": 62,
+      "sha256": "3ca7eaf5835d61f074409737d70830eac05e9115032a039c92267106d8a48373"
+    },
+    {
+      "path": "START_HERE.md",
+      "bytes": 4050,
+      "sha256": "4d7b636e9564218b0741d8fb37e1bf289df716f7baa9830c52bb4245cad2ac45"
+    },
+    {
+      "path": "UPSTREAM_BASE.json",
+      "bytes": 554,
+      "sha256": "59d8e5732bf0021e05f8799392bf496b9666073371543eeb361edc98ee954d5c"
+    },
+    {
+      "path": "VALIDATION.json",
+      "bytes": 2495,
+      "sha256": "d2ee62b1c5340870e99e76be4b51fe0b2bd59e4219e2e42959c2853a07c4fade"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/ATTRIBUTION.md",
+      "bytes": 1511,
+      "sha256": "eaab06cf7d50c2b66618b98e1bfe7091a53a562dab059eeb6d4f159843611bce"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/EXPECTED_OUTPUTS.json",
+      "bytes": 12905,
+      "sha256": "982533489878025cf90d7fb5307fe4a8a1af050a095ce2da8de91843a5f896dc"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/PROVENANCE.json",
+      "bytes": 5431,
+      "sha256": "6c5040460616308b1f347e7ab2a28d0e1a059ea5fe031860283b2f023bddd1d8"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/PR_DEPENDENCIES.md",
+      "bytes": 58237,
+      "sha256": "08d91f384f10c423af0df12ad9567e2159eda67541c2012850998d23a8f33501"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/README.md",
+      "bytes": 13054,
+      "sha256": "f0733e1e34c80534c25f3b33833cdbe69322accd50e324bbfc72e53c461d6051"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/SOURCE_MANIFEST.json",
+      "bytes": 32141,
+      "sha256": "268694a99ae9e73f99c3847270994d51b7b9861aa9e521a622c583bed95076c2"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/audit/check_arithmetic_round8.py",
+      "bytes": 17604,
+      "sha256": "29b4a833cc5f7503423ff507d6eed5fed4f8f54b244cdf3bc82aafce0451703a"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/audit/check_arithmetic_round8_independent.py",
+      "bytes": 6380,
+      "sha256": "169abbf21283b4c05c6e376a446d881241a6ae55f1d0e138ba4197a03d03a330"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/audit/check_delivered_quartics_round8.py",
+      "bytes": 24170,
+      "sha256": "481587f5d3c6c490a2981e0413a392eebf99e4eae73592728f17579d778d5452"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/audit/check_detector_promotion_independent.py",
+      "bytes": 12361,
+      "sha256": "b22c88d2cdec10d0eeef157b5d3a2b5e889ed223f3782d7095c1dfa193c28aca"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/audit/check_detector_source.py",
+      "bytes": 15614,
+      "sha256": "879b8585f4c4df31a69fc1f77b6a68e3340407c7c47a96e3db6df80e8611e949"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/audit/check_diagonal_scaling.py",
+      "bytes": 17943,
+      "sha256": "506da8992d048bc16f5df0a1cde9226201dff9d8169d2d0bbc92b12d10cd4f64"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/audit/check_geometry_round7.py",
+      "bytes": 30529,
+      "sha256": "9fe327499537b10914fb560e8073dfed75d5231c991de2ebf49a70e1631acd0d"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/audit/check_integrated_bridges.py",
+      "bytes": 5681,
+      "sha256": "31a3d7aeb2c054118ee2498d82038813ba5509aa60b1e37f6b4c2b6379f05c20"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/audit/check_parameter_binding.py",
+      "bytes": 4658,
+      "sha256": "1c9e2e1d02b6aedbb36ece42edc198f9b990d508f61a93ebd2a5c7d008415440"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/audit/check_scalar_independent.py",
+      "bytes": 13098,
+      "sha256": "c8d5568301e063ef0f7938f8218f04d5b4215419976f3f919e3ce5bdd47ada0c"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/audit/check_scalar_second_review.py",
+      "bytes": 12093,
+      "sha256": "0150ca83b9e0c6a2ffc48be72936f705bbfda69343ffe3f54e17e6ae8248bb2a"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/audit/check_scaled_chains_independent.py",
+      "bytes": 6963,
+      "sha256": "c5b6c0de2d40cef39a53c0cc15bd0f358cfd614fca8dd2d2cb916dfb20b7505b"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/construction/balance_coefficients.py",
+      "bytes": 7880,
+      "sha256": "9e9a7ebcb3e4be58862381c2b51f85352ba4b688495912da2585b1ad37973a63"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/construction/builder.cjs",
+      "bytes": 28401,
+      "sha256": "b4bf6af38a7620a5b6a572039da4fcb22cd6f4ce006c439d89588c1259231f3b"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/construction/check_final.cjs",
+      "bytes": 1538,
+      "sha256": "a01dabf50a7b882bb1fe99a157ce2228dba21153ea195a130b0dbdb259aa996c"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/construction/finish_tables.py",
+      "bytes": 4175,
+      "sha256": "f5b422ce97e5c9f99e1fd7b47ff5df797929873498cc6db852a4fb1571ad24eb"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/construction/reference_round7/builder.cjs",
+      "bytes": 28376,
+      "sha256": "78b54bcde24ff8a91091e102a4734c49878699f071d9230e5ce7a70ffd2114d0"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/construction/reproduce.py",
+      "bytes": 6204,
+      "sha256": "1ab289dccfb5c2ce671548ee0fdb0485047adadac6e0639798800163126fde0a"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/construction/specialize_core.py",
+      "bytes": 4679,
+      "sha256": "1a0d86e5cd7d098d1a9c5d0c1f5f8fa2a0d5bbb070901b122881b9fbd5d8c027"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/construction/tools/affine_search.py",
+      "bytes": 3270,
+      "sha256": "d122f8fa2628d57925397025e54463a1ea9bbf92440ff5e08779aa7f77be4682"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/construction/tools/checker.cjs",
+      "bytes": 21773,
+      "sha256": "dc0e394b2fa758dfd9af2d6ee56f18907a5acdd9d659f9883acdffe1ec173de4"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/construction/tools/compile_ir.py",
+      "bytes": 23343,
+      "sha256": "45d5df9546e1f39b61d064d4204a0b41469b5a18134281b7e439f5faab62f28a"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/construction/tools/modulo_search.py",
+      "bytes": 4480,
+      "sha256": "63380ce9300bf8c97bda58beb62a7ae7536dd1cde61a45a00cdff772c8968d57"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/construction/tools/run_pipeline.py",
+      "bytes": 1109,
+      "sha256": "591def4c716d3bff456bf83ef3511840377bea02bf4e94f52017914b013c5a8c"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/construction/tools/search.py",
+      "bytes": 1826,
+      "sha256": "982959296b369b98ed370f73b460e906966c282654acd27e0d5b913c50082a03"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/construction/tools/verify.py",
+      "bytes": 5487,
+      "sha256": "13c4190c50867573d470d7f4efb4e25dacf49872c3f0c9c23acf8404da840a48"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/construction/tools/verify_elimination.py",
+      "bytes": 5418,
+      "sha256": "ea67ec8575c8b4fbea0cd5ccffc60165263537f53d6b12febc99d7d4f974785e"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/construction/verify_package.py",
+      "bytes": 9133,
+      "sha256": "98b349d31773b0c993c1e4f94977cd7721a61de01a5ba93ec40e6b26ebe543c4"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/construction/write_tables_text.py",
+      "bytes": 3616,
+      "sha256": "171aca43a9710e03c9f9ce35cd9c228a3bf142833c2f344705e8c9f59e08a631"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/README.md",
+      "bytes": 2669,
+      "sha256": "c0a4277661dbc578366eb7b51802fe40f36fdfa8ccbf304d92d05c3d64e29be8"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/arithmetic/arithmetic-integrated-check.json",
+      "bytes": 4084,
+      "sha256": "a53bb559b84b65e886f60c59e0e2439bc2010e9fd9f47aff56d7c2c224ba5013"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/arithmetic/detector-independent-integrated-check-proof-update.json",
+      "bytes": 7237,
+      "sha256": "1698356a27c64938b295eba05a42d0193c2d6448a107a8995a665e20297b0491"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/arithmetic/detector-independent-integrated-check.json",
+      "bytes": 7237,
+      "sha256": "b91f90c60ff33377eb15421089228a9b85a181954ebba84106acf4cf34179af1"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/arithmetic/detector-independent-review-round7.json",
+      "bytes": 6594,
+      "sha256": "b06f2c3bbba57c4fe11e072b5e34dfe6abda213e793dff755cf09945026439e6"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/arithmetic/detector-proof-reviewed-original.tex",
+      "bytes": 12495,
+      "sha256": "8978cb9d7ce57c796a4b77752f527cd1f18419d90781a46c9139902ee7e2c03a"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/arithmetic/detector-proof-spacing.patch",
+      "bytes": 2018,
+      "sha256": "5fb14c33c40eccab21bc1a233cb5c47fe1a112c0529560dcde93c7e559481221"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/arithmetic/detector-review-spacing-addendum.json",
+      "bytes": 2515,
+      "sha256": "443ee5d36075afb66761f2c6dd057dff2c78cd64350a10cb7156cb5e58461988"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/arithmetic/optional-anchor-height-check.json",
+      "bytes": 2453,
+      "sha256": "0d296057d76c96f764c9302029107d19fb8735e1230a2e643f356f8bd6092ab9"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/arithmetic/pr-reproduction-manifest-check.json",
+      "bytes": 11530,
+      "sha256": "27c2b55c44d8b3c8c093eace762e4b7a50b5c3a1ec191b80f5722755519b8be6"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/arithmetic/pr-reproduction-review.json",
+      "bytes": 16648,
+      "sha256": "75632da6384f2c3ccb517053737ffc3700cbdea298f6d8f30f495ca0511dcb81"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/arithmetic/pr-reproduction-review.txt",
+      "bytes": 1498,
+      "sha256": "58cf17f603d037f98b5a3f6d6b7cec8b6fc3707866273d40bf61f172c754c031"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/arithmetic/reproduction-volatile-outputs.json",
+      "bytes": 1787,
+      "sha256": "41f511e21b8482cbc613d65fb7a2f304da35873fb74b02d270fa0e9926c86130"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/arithmetic/reproduction-wrapper-probes.json",
+      "bytes": 26183,
+      "sha256": "fe7541cd723b710b4d4b99394639dd70c828b4bdf23469f0d546a8ef010a4dd1"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/arithmetic/scalar-independent-integrated-check.json",
+      "bytes": 4180,
+      "sha256": "f0f0361147e69fcde8855103b2e19a7ff7e18e373b5b15d83d9a5280084eed23"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/arithmetic/scalar-independent-review-round7.json",
+      "bytes": 4144,
+      "sha256": "6135781b257c8f4bee7d410e7c44caaf3902d900559e14f52df1ad3f091343c5"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/arithmetic/scaled-chains-independent-check.json",
+      "bytes": 2895,
+      "sha256": "0d255a521d815c09ab43353062d81bffaaf332909ec039d6b8e32fbf5362f9c5"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/arithmetic/scaled-chains-independent-review.json",
+      "bytes": 836,
+      "sha256": "9cd4d39d34ebbb8e9e40e933049fc0cf1e6b5a2930d060306620f04ea128bb5d"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/arithmetic/wrapper-preliminary-findings.json",
+      "bytes": 1289,
+      "sha256": "cd50cd9e50687dbd725327e40d02f92286e13faac533754bedd8298e131d1a40"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/detectors/integrated-scalar-independent-check.json",
+      "bytes": 3581,
+      "sha256": "453c45002db76a4cba8361c5e2e0e6eb39287b6de810a049ef2c1a5148397e14"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/detectors/pr-dependency-validation.json",
+      "bytes": 1255,
+      "sha256": "d01171a666bd23054e6ab407531087dea41e54e5379653e195cf20162e327ca0"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/detectors/proof-spacing-only.patch",
+      "bytes": 2011,
+      "sha256": "be0e18ee42599a856e52a6ab9efbf9d90295cdb5fd79658e1026a1f8645a8247"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/detectors/rejected-path-notes.txt",
+      "bytes": 3420,
+      "sha256": "aa375b4f9a2cd8fddb5b13622cd5267b890760f3cee09ad8ead0b2b06e167c6a"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/detectors/round7-review-bindings.json",
+      "bytes": 3574,
+      "sha256": "61b443d9620578a8d0fb9dbdc0134e5a6034da070f4c160c18409090ccbdc687"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/detectors/scalar-independent-review.txt",
+      "bytes": 6517,
+      "sha256": "fa264728c0ab9b19c119407b09c9b4e4b903b1b3fd9780a4287cea64938a9a25"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/geometry/arithmetic-independent-review-bindings-round7.json",
+      "bytes": 2950,
+      "sha256": "3a5a779f78023c6b012c1c914c3fffafea8068096190f081004c73a2b474d4bc"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/geometry/arithmetic-independent-review-round7.txt",
+      "bytes": 4290,
+      "sha256": "df95de1a8660f899f9806693d7bb54cb44a36d0269a4e81cb0386b11cc74aa81"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/geometry/diagonal-independent-review-bindings-round7.json",
+      "bytes": 2216,
+      "sha256": "0ffa0e72f93b1f0a23e7fb3edb63554fb2f363b9593e3ece86fc41b329d464b8"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/geometry/diagonal-independent-review-round7.txt",
+      "bytes": 3653,
+      "sha256": "8c911c275d6f5ca20fb30817d16a4cf4a4d73a5815c2a94d734251f6094c701b"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/geometry/diagonal-scaling-check.json",
+      "bytes": 2434,
+      "sha256": "ace0735659bb62610bfd8bf658bbd2951822614e39a25bea4eee5416671e3280"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/geometry/geometry-bindings-round7.json",
+      "bytes": 1946,
+      "sha256": "df4fff10281c57f092af876fd78bbbdddd9b8c21721e544c7a76da87915c8651"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/geometry/integrated-geometry-check.json",
+      "bytes": 2809,
+      "sha256": "764cf612099ce6ec0cc28a1076bc8847dff967fb3a53bea17892e3aa23404a6d"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/geometry/pdf-qa/pdf-qa-bindings-round7.json",
+      "bytes": 8930,
+      "sha256": "afb0f10e41d6d376c5755252a15891b6cc0a48092df4cdbca910f7c683ec6dff"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/geometry/pdf-qa/pdf-qa-receipt-round7.txt",
+      "bytes": 6240,
+      "sha256": "3634ce13de0b0416eb80bab4711fbb45261fca3101ba0eeb0901eab65c0ea97a"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/geometry/pr-claims-consumer-review-round7.json",
+      "bytes": 42754,
+      "sha256": "16b0f9ad646f9fdcf6472ef8f8e7d79c2706e611771f067f58794570a9f80c00"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/geometry/pr-claims-consumer-review-round7.txt",
+      "bytes": 2805,
+      "sha256": "8841bbcaca031422e85b19d6aca24da7a76643b3a39f77871e8d673e827aefd0"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/geometry/rejected-paths-round7.txt",
+      "bytes": 2761,
+      "sha256": "f72e071ea0997f998a5c0c4d2b962becf378e5f97a355e312f6e965bcd631167"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/prior/round7/reproduction-stdout-incident.json",
+      "bytes": 3167,
+      "sha256": "48b6fbda8f12105751548ae8628995a60551ab867a6b2e7cdd296b48ba10d2b6"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/review-bindings.json",
+      "bytes": 10577,
+      "sha256": "1fe945fd9c0c0ceeda28db8237c80b39e243e40c85706e33fe415509162fcfd7"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/round8/arithmetic/ARITHMETIC_DELTA.json",
+      "bytes": 3063,
+      "sha256": "1017303842fbcac484e77987b3ba054e14e63cf85fcf55905a8e966d93b1f4e7"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/round8/arithmetic/arithmetic-source-check.json",
+      "bytes": 6614,
+      "sha256": "b28989ca7ce38081ec707286a271406bae021d03398990578e3398bccbe74a4e"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/round8/arithmetic/delivered-quartics-reviewed-round8.json",
+      "bytes": 15212,
+      "sha256": "28b9ecfbc6f1b7f75a84dfe22b95af13be21dd044c9a235a216f876d4b4679fc"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/round8/arithmetic/package-integration-review-round8.json",
+      "bytes": 3326,
+      "sha256": "af9d94c67a693a2334111a5022f16501599444c7f96f8be6944dc8ccd8ce8be4"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/round8/arithmetic/package-integration-review-round8.txt",
+      "bytes": 6584,
+      "sha256": "95bf50debf50dfde16fe3034f8e9b0ab92549272dfdb5e99742d40a12007cc56"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/round8/arithmetic/root-wrapper-probes-fixed.json",
+      "bytes": 36078,
+      "sha256": "d954f6a86a636b85898ef5c416f365e97fcb5ca6f2d5b3d96ba26398444baf6a"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/round8/arithmetic/scaled-chain-independent-round8.json",
+      "bytes": 2895,
+      "sha256": "13cc6d278de015134abbbd7d7bc4bd60c90cd85f0a413a4f2a2844fae03d4d6c"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/round8/arithmetic/structured-wrapper-independent-probes-fixed.json",
+      "bytes": 5837,
+      "sha256": "e7401b016f06da99063527c133d82687f4281bba7cd79d263c4c30b9c05b58d3"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/round8/arithmetic/structured-wrapper-independent-probes.json",
+      "bytes": 4466,
+      "sha256": "36350efa32f8521392dde180f7fb99560ee383859d2668c1b90fd95937f53c08"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/round8/detector/arithmetic-independent-numerics.json",
+      "bytes": 3936,
+      "sha256": "9d940efa3db35dc5128e2a4f9b46b22b75e582ec56dd078636c225df2db58b29"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/round8/detector/arithmetic-independent-review-round8.json",
+      "bytes": 4542,
+      "sha256": "bf7ff55dcd0496e5670b6a2d3775c229cb51b20fd1306c12d360ee21a6268b31"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/round8/detector/arithmetic-independent-review-round8.txt",
+      "bytes": 7516,
+      "sha256": "51352069d362782faa1d2c78a7cebf8596560b7ce3f37cfec3f11fe6263617f4"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/round8/detector/pr-dependency-audit-round8.json",
+      "bytes": 12565,
+      "sha256": "4743127742385516b0414f5c1c96714397089f9ffb0f6e4b6cd428700a6b5163"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/round8/pdf-qa-receipt.json",
+      "bytes": 849,
+      "sha256": "3be4f104b5257f689574b31e981dd59f44cb9249dce88048e98615f7071e2708"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/round8/review-bindings.json",
+      "bytes": 6726,
+      "sha256": "958d0eb4e7c08abb6913e9dd9aeb5314ae7e330d8f7e3e19a433d8b52a86ec28"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/round8/scalar/detector-promotion-independent-review.json",
+      "bytes": 1812,
+      "sha256": "ce31afbcbc1779c5f7a0950dbc04c94ef2b60955da3a4d3f544485d419f4815e"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/round8/scalar/detector-promotion-independent-review.txt",
+      "bytes": 6009,
+      "sha256": "cfc85378eef5d0d08b906af2745e7bd45166483430c09ee5f6f6c396ba3d04f9"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/round8/scalar/detector-promotion-integrated-check.json",
+      "bytes": 9000,
+      "sha256": "e91f530ef6d0fd5f6f1cc0bc28e6beb7fdbc869cc8a59fdbd0df111191a870bc"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/round8/scalar/diagonal-two-prime-independent-review.json",
+      "bytes": 5242,
+      "sha256": "d1a11bf112bd4448f5439d9eb2f2d12b9765d1fc40c7f8804308cdadcd884884"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/round8/scalar/diagonal-two-prime-independent-review.txt",
+      "bytes": 7087,
+      "sha256": "be3475e8326747a2ae63f4de09eb48f7f67871b0b438a8fb3ac635a8858c3876"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/round8/scalar/diagonal-two-prime-integrated-check.json",
+      "bytes": 3114,
+      "sha256": "56d754acd0509803b45fa5b33771b2c7565461056205dabb82f67451d7dcbd92"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/round8/scalar/diagonal-two-prime-negative-probes.json",
+      "bytes": 1290,
+      "sha256": "240caf1e328a9c84a6ba810784603bbcebebacebf9d19d688d9601cd87644a07"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/evidence/round8/scalar/scalar-search-notes-round8.txt",
+      "bytes": 2203,
+      "sha256": "916a0abbe7c9dbc7f44664ffda3eb93b87d45092244df1610a1ab10634466065"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/lineage/baseline_423_builder.cjs",
+      "bytes": 24679,
+      "sha256": "a89afca62a3d4bad2c1444a579626ebe4eb505de805cedd14f2bfe1328fea420"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/lineage/round4_builder.cjs",
+      "bytes": 26599,
+      "sha256": "ca171bf25610cb7da003ed58b4c4d43799a67fd4b5d6ca1b8fbac74a2dcc7e0e"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/lineage/round5_builder.cjs",
+      "bytes": 27745,
+      "sha256": "68cb3cb1a809766aa102b8c43444d8b38c02760751e773a960489c327e33c12b"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/lineage/round6-to-selected-builder.diff",
+      "bytes": 7675,
+      "sha256": "9032343563782237df27e47207248877593370d342bbdc55a461b195fc9f4103"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/lineage/round6_builder.cjs",
+      "bytes": 28061,
+      "sha256": "3f63cb782d52857446cf39f6e545aeb74f380d1347826eafa888cbb487738d51"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/lineage/round7-to-selected-builder.diff",
+      "bytes": 6308,
+      "sha256": "129d026144201a214a3a682ce443670ca297110bbbc3d38f7b67dc40f40c908c"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/lineage/round7_audit/check_arithmetic_round7.py",
+      "bytes": 14366,
+      "sha256": "4b8a97dd36a8e7177f308b273333093fdcb7d7720d1e6f3c405f8d6c231d6015"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/lineage/round7_audit/check_delivered_quartics_round7.py",
+      "bytes": 24181,
+      "sha256": "26fbc8f2e1e8f1e71df9f8f6ccd3cea03fade1de4936232722ae4e4aab595004"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/lineage/round7_audit/check_detector_independent.py",
+      "bytes": 10140,
+      "sha256": "a1f46fa3f3a65ffe3cb06f80e087f87666d93f1d3ec2db298d06391b69d889f2"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/lineage/round7_delivery/EXPECTED_OUTPUTS.json",
+      "bytes": 11542,
+      "sha256": "2e531832aa512a418c4e8f9edc54f33a012a1c3124243012a5151a412a94fdac"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/lineage/round7_delivery/SOURCE_MANIFEST.json",
+      "bytes": 22670,
+      "sha256": "f2d74ebd40b61a48b1b3d1ecdb55d2fda53f372a090fce8ec1fcd347e333bbd5"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/lineage/round7_delivery/reproduce.py",
+      "bytes": 10297,
+      "sha256": "8d60c1e427081cf57c9d40869204753ccafbc21f74d322511fb565fb51035167"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/lineage/round7_delivery/review_tools/check_pr_reproduction_manifest.py",
+      "bytes": 6596,
+      "sha256": "cd7cdd71c44aa67e780bcd5e1db6f422754c83a3e7dda279a392114772b81507"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/lineage/round7_delivery/review_tools/check_reproduction_wrapper.py",
+      "bytes": 12506,
+      "sha256": "a4b560d98482138e584a6a520747fa590362392f970f5158a1a795731bd740f3"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/lineage/round7_proposal_note.pdf",
+      "bytes": 317821,
+      "sha256": "c73e5f7b0d030fc977f6387083d033a983943948f30e26cfb46af1b858f82a94"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/lineage/round7_proposal_note.tex",
+      "bytes": 9164,
+      "sha256": "c38b9dcc3db87e30039d2e0ef7f446bcbaab0bbfd70bfafd990f1572bab9e0fc"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/lineage/upstream_v10_builder.cjs",
+      "bytes": 21685,
+      "sha256": "bf01e9b051c9f5f7db2b3a9b2e0122d0d37118b30422d1d2ef54f6c3c0829af1"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/pr_dependency_inventory.json",
+      "bytes": 90827,
+      "sha256": "f7566dc37f90983001d5e63732cfa30dbff431c0b2b177a3e56faeba9aa83508"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/proofs/arithmetic_round7.tex",
+      "bytes": 8862,
+      "sha256": "14f548346d7630bf2d440fbc33a10bda10bb6cc7604692d59bcb1c821a5bf5ff"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/proofs/arithmetic_round8.tex",
+      "bytes": 15729,
+      "sha256": "826523050c2f0d315561ae064124b420862ff09eeafaa63437e0339ce7c22f7b"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/proofs/detector_round7.tex",
+      "bytes": 12499,
+      "sha256": "ed01c9416d3b4daf02a26958642194230c0186a896f17817bfe30c8a16d481d3"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/proofs/detector_round8.tex",
+      "bytes": 9344,
+      "sha256": "150b79708b8088d1c75641571277eecf452fe72b7c729cc4fe783e4da76b83bb"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/proofs/diagonal_scaling.tex",
+      "bytes": 4701,
+      "sha256": "1e2c856690cdd0c511feca650e9b9a0136b09326b6c8005089dade723c78affb"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/proofs/diagonal_scaling_round8.tex",
+      "bytes": 6521,
+      "sha256": "0115c276febf3b06b46462d06aa862714456f78790e5ec6bd68ac938db8b2e50"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/proofs/geometry_round7.tex",
+      "bytes": 8613,
+      "sha256": "0402ccf6c3e193c685d01e0ff6e46449001ac074a1bf4501419d6fb1fea88035"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/proofs/optional_anchor_height_round7.tex",
+      "bytes": 10578,
+      "sha256": "686faeed616eef6ebed472b2414a36e8158d4de838248238815ecc283e39a4e6"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/proofs/prior/round1/additional_circuit.tex",
+      "bytes": 1114,
+      "sha256": "753ab8e9bd3f76a567d808716bd8bafc6125aba8c3a96b4418d5652d8adc2c8b"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/proofs/prior/round1/packed_anchor_note_body.tex",
+      "bytes": 11101,
+      "sha256": "ec02e27191445b8e7ad2bff8eff07f315f273f2b4948c58086894164a5f7ef9b"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/proofs/prior/round2/birational-proof.txt",
+      "bytes": 4488,
+      "sha256": "ad558f8bd6a82343b16b6eed1af77958e082b51fef9a3f5a9246933819d26833"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/proofs/prior/round2/further_arithmetic_body.tex",
+      "bytes": 18194,
+      "sha256": "bc27eb515fdf391eb732ca8628c8ee8386989c0678f5e52d012f53e0ff1c5696"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/proofs/prior/round2/further_arithmetic_proof.txt",
+      "bytes": 13840,
+      "sha256": "da9070110ecfe4f742025880c9bddab2c4aa0db33959b8ec16549813d06b4c2a"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/proofs/prior/round2/scalar-preparation-proof.txt",
+      "bytes": 1974,
+      "sha256": "8c5940a6dc177465c9656130fb0d39ac0d8cf87866534c2cf919360541c7584b"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/proofs/prior/round3/arithmetic_proof.tex",
+      "bytes": 9563,
+      "sha256": "66cdc4ef3e2f0e5cfde8b50e3ac360dd27d2ac17826ce23fd4ec688ac7d438d4"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/proofs/prior/round3/geometry_proof.tex",
+      "bytes": 6467,
+      "sha256": "d65c1c78aa540ff5a2aafa5834487f4f7ec780ce58955245ab4168320685d670"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/proofs/prior/round3/positivity_proof.tex",
+      "bytes": 3021,
+      "sha256": "0f25697d9ea6fcd49f1d1e6d6a97945bcb711c853eed19945c7fe5a6cc06524e"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/proofs/prior/round4/arithmetic_round4.tex",
+      "bytes": 10629,
+      "sha256": "b72fa74f4d4ea192d17ff257e17bd8307a12700b53a2de990c4a3c526e5d181e"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/proofs/prior/round4/detector_reduction_proof.txt",
+      "bytes": 11699,
+      "sha256": "9e0c770139ac3bdffa90a09112d3bf69eb4dc784f0696acc9282181e4cb2e91d"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/proofs/prior/round4/geometry_round4.tex",
+      "bytes": 10141,
+      "sha256": "f51c4c6801b205475ac467aafaa61faec9e0da4a978275b3f965701b0a50c141"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/proofs/prior/round4/mixed_detector_block.tex",
+      "bytes": 3386,
+      "sha256": "4a60c53f94f4daf167c76afcdcaa5e2a484ca54c3a2858a235dc9af8adeb143e"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/proofs/prior/round4/qm_conductor_anchor16.tex",
+      "bytes": 6239,
+      "sha256": "7851eddfb01d6618b62448daf7a4e3b762df63fa92446b57c75aa8534176b0b7"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/proofs/prior/round4/scalar_streamlining.tex",
+      "bytes": 4590,
+      "sha256": "ba3707caa4b29e58180cd08abbc6c176a38dd2d7bb15292ed953f1df3120f9a8"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/proofs/prior/round5/arithmetic_round5.tex",
+      "bytes": 12939,
+      "sha256": "d00e2c36e19ee4616c99a0a9a74f2a2bdc1ed32734689bb61c0cedc55e5e1806"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/proofs/prior/round5/detector_final.tex",
+      "bytes": 10907,
+      "sha256": "cc76b64c930236fd67dbbaf4b97d550f2301d0e9de347e1f689255f9f0770646"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/proofs/prior/round5/geometry_round5.tex",
+      "bytes": 10925,
+      "sha256": "3d5f0fff2fc45bd2b7504c933a8583367555d10e78a18b9885c2d01a151261bb"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/proofs/prior/round6/arithmetic_round6.tex",
+      "bytes": 11313,
+      "sha256": "b306e3f5e118dfdc8a5884c6e53acc7a1492a3f86919ddf9f19cc9d691180724"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/proofs/prior/round6/detector_round6.tex",
+      "bytes": 11051,
+      "sha256": "1800aa40fce67fa1106e40676088177453c59be73e3f395ab2d4a7f6c30c7aad"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/proofs/prior/round6/geometry_round6.tex",
+      "bytes": 8423,
+      "sha256": "e2b2a7f6ffeb42263ff4e2008ffe1eb536def8a65a53b0a19705c18c3e66dced"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/proofs/prior/round6/inverse_weight_family.tex",
+      "bytes": 3377,
+      "sha256": "3d673e3894ef4526e5de745daf54093f8d3aeb89c000212a8271d726cb1171bb"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/proposal_note.pdf",
+      "bytes": 342518,
+      "sha256": "07149927ad5abf1b0e1617f607023d72d4f07e19dad0b594829b0ea607442f00"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/proposal_note.tex",
+      "bytes": 10670,
+      "sha256": "f32a48d3e38ec2f5a23efd7d932c5088148716f7e17e5e443f2653273ab44a14"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/reproduce.py",
+      "bytes": 12653,
+      "sha256": "a660293cc6fa97a55d8d3635645f666fd1c6b52d96276ec768b4a3faedecc3ae"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/review_tools/check_optional_anchor_height_round7.py",
+      "bytes": 3780,
+      "sha256": "91d5873e7a47813441629a0bb51aa56caff40bf71d6941101d7bbfad81a8d05d"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/review_tools/check_pipeline_helpers_independent.py",
+      "bytes": 6041,
+      "sha256": "906b7afe0044111e25e497d3731d4f650829163295f52bb750b209e11d9bc8cc"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/review_tools/check_pr_dependency_inventory_round8.py",
+      "bytes": 6835,
+      "sha256": "d6ca2ab146792d30531de6ddbf3e769af2bcd8d7af034b58a43f42c3bd8322d9"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/review_tools/check_pr_reproduction_manifest.py",
+      "bytes": 11923,
+      "sha256": "df2154fe0583d0a84445631ff37e978c05aee01a2d1cc95c1ccb7872ecdc0428"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/review_tools/check_reproduction_wrapper.py",
+      "bytes": 15635,
+      "sha256": "10177784865dcfc934b7a9ff0c94fc275c04c8bb10dd6097ff3637253d28f25e"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/review_tools/check_structured_wrapper_independent.py",
+      "bytes": 5778,
+      "sha256": "95baeaec4d8e8dca33c94cb5a4cc6edc9dd837a66c71830c9a2c6f3c91be3536"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/review_tools/make_pr_dependency_inventory.py",
+      "bytes": 141946,
+      "sha256": "1a299739d72428e99c38607f9172e2a233a7d8cf27933b8afcedb5f8601f9553"
+    },
+    {
+      "path": "payload/research/conditional-quartic-reduction/tables/quartic-389-balanced-decimal.txt",
+      "bytes": 1050826,
+      "sha256": "1c612d20915667dfd81a7895f8d93231d5efeaf86ecfaa15194408d298d35573"
+    },
+    {
+      "path": "proposed-change.patch",
+      "bytes": 3686008,
+      "sha256": "070acc6f6ef000c478436b9bca801b5cc9170e403496302649b83976fb47b630"
+    },
+    {
+      "path": "reviews/check_delivery_patch_scope_round8.py",
+      "bytes": 9698,
+      "sha256": "2557541868a2acf890f9046e8bafd479ee703b69d2751e8878d526810d559989"
+    },
+    {
+      "path": "reviews/check_update_base_helper_round8.py",
+      "bytes": 5440,
+      "sha256": "58cfe57f511d9a4988b6826dfea76f8118d60d22c4bb20e3d3101e475063e140"
+    },
+    {
+      "path": "reviews/delivery-independent-review-round8.json",
+      "bytes": 3123,
+      "sha256": "f4e55cd07921918bd951df72b6473733bd5c036f77f33fa7a257aeac4faf8b1e"
+    },
+    {
+      "path": "reviews/delivery-independent-review-round8.txt",
+      "bytes": 4263,
+      "sha256": "3221d247dbfb9f2068db809ecc023a17c0142f0106f8415f8a9dc49d6712f708"
+    },
+    {
+      "path": "reviews/delivery-patch-scope-review-round8.json",
+      "bytes": 2628,
+      "sha256": "cafc8f8cd1c2fcefc01441dbb74afd7faa5c752a647fb457dfaa68a5fb340269"
+    },
+    {
+      "path": "reviews/documentation-final-review.json",
+      "bytes": 9795,
+      "sha256": "b7a7b1905e24478bf3d61f46666c6f83455263253612eaa621c59aec4b90751d"
+    },
+    {
+      "path": "reviews/documentation-final-review.txt",
+      "bytes": 6860,
+      "sha256": "ab10713429b5e9bf95747cc35a10f9411d79ab0e2bc83487366fa46af0b90b4b"
+    },
+    {
+      "path": "reviews/final-pipeline-helpers-independent.json",
+      "bytes": 3012,
+      "sha256": "1e011b98a2b650501f8ef9ff257a2cf4489bc9dd5cdeb5958ecb9308a3a46d70"
+    },
+    {
+      "path": "reviews/final-pr-manifest-independent-review.json",
+      "bytes": 13739,
+      "sha256": "e78495fc509474726a04c0f1ee66beba73d78255428f5e79d7e57a3759c0563b"
+    },
+    {
+      "path": "reviews/package-integration-final-review-round8.json",
+      "bytes": 3358,
+      "sha256": "83f885a0cfb05397ca761abb39024f568abedd489fb73b5e7c359779193e4847"
+    },
+    {
+      "path": "reviews/package-integration-final-review-round8.txt",
+      "bytes": 3152,
+      "sha256": "c92435abf67286ac596fd633ff82d9d9cc97de43a8dde5e6b9278ee9334baee3"
+    },
+    {
+      "path": "reviews/package-integration-review-round8.json",
+      "bytes": 3326,
+      "sha256": "af9d94c67a693a2334111a5022f16501599444c7f96f8be6944dc8ccd8ce8be4"
+    },
+    {
+      "path": "reviews/package-integration-review-round8.txt",
+      "bytes": 6584,
+      "sha256": "95bf50debf50dfde16fe3034f8e9b0ab92549272dfdb5e99742d40a12007cc56"
+    },
+    {
+      "path": "reviews/patch-routes-independent-check.json",
+      "bytes": 21041,
+      "sha256": "042aad3868fd6528c54301a545500fc8466ff9329cb66d0f2334d042b454aea9"
+    },
+    {
+      "path": "reviews/rejected-path-notes-round8.txt",
+      "bytes": 4625,
+      "sha256": "ba37a32b0369d531baeb78cecf269591344a7f5b443eb1d3f5051214b09c0221"
+    },
+    {
+      "path": "reviews/update-base-helper-review-round8.json",
+      "bytes": 2391,
+      "sha256": "4f7039f10d5be4b9e1d07352f7fdd055a950cda7da2d99a039a410aa7a650bf8"
+    },
+    {
+      "path": "reviews/verify-update-base-independent-probes.json",
+      "bytes": 2066,
+      "sha256": "1d9ea4844a88fcf67053756544109b5c0b00021060b3cf5cfdf900ccf988422a"
+    },
+    {
+      "path": "update-from-392.patch",
+      "bytes": 4227668,
+      "sha256": "b2002eea250e697be649a40dd1176526d08baa037bd802d5d48e28812c6be664"
+    },
+    {
+      "path": "validation/fresh-construction.log",
+      "bytes": 54835,
+      "sha256": "6de5997a30c2de0756a934e5cf3717ccf203c154981633be9abd0b1dbd4ef251"
+    },
+    {
+      "path": "validation/fresh-delivered-quartics-check.json",
+      "bytes": 14739,
+      "sha256": "b4424ee56bcc23da3b203e6208c9c694d235691290ca7a5a317291adf4906978"
+    },
+    {
+      "path": "validation/fresh-diagonal-scaling-check.json",
+      "bytes": 3114,
+      "sha256": "56d754acd0509803b45fa5b33771b2c7565461056205dabb82f67451d7dcbd92"
+    },
+    {
+      "path": "validation/fresh-pipeline-completion.json",
+      "bytes": 738,
+      "sha256": "680e7d4172b9631e967a31e3e1067fd1a80a8546b2b9ac8bae90e7a734ffc2bf"
+    },
+    {
+      "path": "validation/fresh-pipeline-progress.json",
+      "bytes": 719,
+      "sha256": "a3a1260b02d0328157a32161f8762b89cf20cf6b4c624dcdf070e18cf00ee869"
+    },
+    {
+      "path": "validation/fresh-reproduction-receipt.json",
+      "bytes": 12573,
+      "sha256": "c3980b3f049522be4c2eda06f965f465cae648bbad40b4b5799bb5bed880e32a"
+    },
+    {
+      "path": "validation/fresh-wrapper.log",
+      "bytes": 421,
+      "sha256": "ac94946d76505d470282bd2f18e1bea394deadc8fc9b4af6c03545b46adbc6a3"
+    },
+    {
+      "path": "validation/full-apply.log",
+      "bytes": 702,
+      "sha256": "3906ac324cbad36e0cdac4b04d7396cd92c2e15b971cc252c256af62531b3a82"
+    },
+    {
+      "path": "validation/full-check.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "validation/incremental-apply.log",
+      "bytes": 462,
+      "sha256": "668a877d7808b2e668085c624640d68bb9723f44c1248573c717a82bf87818ce"
+    },
+    {
+      "path": "validation/incremental-check.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "validation/selected-diagonal-certificate.json",
+      "bytes": 48248,
+      "sha256": "82f4e4a0b3c86eacbeded815f97ef0e46df3a553c82e9d8243ef671788ca0b24"
+    },
+    {
+      "path": "validation/upstream-audit-history.log",
+      "bytes": 104,
+      "sha256": "778f36f460ce8d240e0a1ba3778a09826bb515e511109eac642f89819dac0ed6"
+    },
+    {
+      "path": "verify_bundle.py",
+      "bytes": 1516,
+      "sha256": "3e5aea518ea8934494c6f2fb2088ecf164d7b2cc76ac1177311a15df8899de21"
+    },
+    {
+      "path": "verify_update_base.py",
+      "bytes": 2324,
+      "sha256": "218c91ee3b9a1ad55eab56d14dcab6f5d8d2e77475c959e9f4f2857480d51afc"
+    }
+  ],
+  "scope": "Delivery integrity snapshot; excludes itself. Mathematical and inherited-global scopes are recorded in VALIDATION.json and the proof note."
+}

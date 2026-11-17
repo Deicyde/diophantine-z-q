@@ -1,0 +1,18 @@
+name = "derivative_switch_verification"
+version = "0.1.0"
+defaultTargets = ["BoundarySolution"]
+requiresModuleSystem = false
+moreLeanArgs = ["-Ddebug.skipKernelTC=false"]
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+git = "https://github.com/leanprover-community/mathlib4.git"
+rev = "v4.35.0"
+
+[[lean_lib]]
+name = "BoundarySolution"
+roots = ["Research.DerivativeSwitchBoundary"]
+
+[[lean_lib]]
+name = "Challenge"

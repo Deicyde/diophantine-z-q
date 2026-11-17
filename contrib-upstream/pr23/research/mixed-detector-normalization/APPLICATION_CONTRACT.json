@@ -1,0 +1,320 @@
+{
+  "format": "mixed-detector-author-contract-v1",
+  "status": "author_submission_pending_independent_review",
+  "authors": [
+    "Codex /root, Cameron session 2026-11-09"
+  ],
+  "independentAcceptance": false,
+  "parentCommit": "59c59e5589d86036ee41994c82a2b900fce85c2d",
+  "proof": {
+    "path": "research/mixed-detector-normalization/PROOF.md",
+    "sha256": "3dfb7eb74c10358744a41c4c7bfa36d154fae149f6748e3082fa6013c11b2abd"
+  },
+  "sources": [
+    {
+      "id": "one-place",
+      "path": "manuscripts/quartic_v10.tex",
+      "locator": "lem:v5-one-place and proof; hyp:o8-pole and preparation-zero bridge, retained under inherited qualifications",
+      "sha256": "9559b22cc581346da1b3150fa9b8dfb62cfb048f6aac0b866448ae7ae879ff38"
+    },
+    {
+      "id": "small-primes",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round4/arithmetic_round4.tex",
+      "locator": "Use the finite exceptional set actually needed: actual local consumers",
+      "sha256": "b72fa74f4d4ea192d17ff257e17bd8307a12700b53a2de990c4a3c526e5d181e"
+    },
+    {
+      "id": "old-normalization",
+      "path": "research/conditional-quartic-reduction/proofs/prior/round5/arithmetic_round5.tex",
+      "locator": "Choose the detector coordinate and guard together; completeness",
+      "sha256": "d00e2c36e19ee4616c99a0a9a74f2a2bdc1ed32734689bb61c0cedc55e5e1806"
+    },
+    {
+      "id": "new-normalization",
+      "path": "research/conditional-quartic-reduction/proofs/detector_round7.tex",
+      "locator": "Normalization freedom, exact R, contacts/other primes/infinity and small-prime valuations",
+      "sha256": "ed01c9416d3b4daf02a26958642194230c0186a896f17817bfe30c8a16d481d3"
+    },
+    {
+      "id": "uniform-low-pair",
+      "path": "research/conditional-quartic-reduction/proofs/detector_round8.tex",
+      "locator": "Exact order12 pair and same underlying tests",
+      "sha256": "150b79708b8088d1c75641571277eecf452fe72b7c729cc4fe783e4da76b83bb"
+    },
+    {
+      "id": "cube",
+      "path": "research/detector-cube-reuse/PROOF.md",
+      "locator": "Affine cubic and unchanged q12/h gates",
+      "sha256": "e91bffcf999c5862b04903beac1e28675ecbfc5eb92c2921c68576af09989aa6"
+    },
+    {
+      "id": "precision",
+      "path": "research/detector-cube-reuse/references/precision51_PROOF.md",
+      "locator": "Entire precision51 tail; order46/47 comparisons and all identity branches; simultaneous completeness",
+      "sha256": "e6a825c3b85a9c56a6a2678ad0fa411ecedec53a005a0464efb45677f056054c"
+    },
+    {
+      "id": "height",
+      "path": "research/height-consumer-refinement/PROOF.md",
+      "locator": "New projective transfer, uniform Lucas endpoint and exact scalar/input margins",
+      "sha256": "5a4ff818479f28dfb988526cbcac89b9f6fdb264fe7e9f999123fe0547d45029"
+    },
+    {
+      "id": "zero",
+      "path": "research/scalar-preparation-zero/PROOF.md",
+      "locator": "Scalar input, actual final H and real/finite preparation-zero completeness",
+      "sha256": "79bb5a8c5ce16c6b4559848739aeb78b7d23eb4a90f2ff0ad8ccf97a3674280a"
+    },
+    {
+      "id": "current",
+      "path": "manuscripts/quartic_v13.tex",
+      "locator": "Unchanged current manuscript; old global-source integration remains separately qualified",
+      "sha256": "9db71bbfcefb37db56eabcf40a5f9dd85de9ed58294635da3dbf6d4f5caa8fcd"
+    },
+    {
+      "id": "protocol",
+      "path": "docs/research-review/PROTOCOL.md",
+      "locator": "Version1.2 obligations, conditional handoff and separate acceptance",
+      "sha256": "b5365b3d9cd9a782bf7fd0b6020403d5d400eac13dc7e60875484a8769d3d925"
+    }
+  ],
+  "obligations": [
+    {
+      "id": "source_hypotheses",
+      "requiredInput": "Arbitrary-order one-place proof, nonzero R/W/trace, pole certificate, unramified consumed primes.",
+      "constructedInput": "Same R, positive mixed factors, exact physical input R/Tr(W^-1)^2; p outside{2,3,5,7,13,17}.",
+      "justification": "The proof rederives the common-place argument and checks small-prime applicability. It does not retain the large-prime theorem restriction without explanation.",
+      "consumer": "PROOF.md: One common place",
+      "sourceReferences": [
+        "one-place",
+        "small-primes",
+        "old-normalization",
+        "new-normalization",
+        "uniform-low-pair",
+        "cube",
+        "precision",
+        "height",
+        "zero",
+        "current",
+        "protocol"
+      ],
+      "evidence": [
+        "normalize_patch.py",
+        "check_mixed.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "constructed_objects",
+      "requiredInput": "Actual field functions and high weight with positive nonzero denominator.",
+      "constructedInput": "qHigh=h^2/q1=e^91/delta^3; eight q1 factors, two q12 factors and six high factors.",
+      "justification": "Actual source rows and gate denominators are checked; no unmaterialized product is treated as a coordinate. q1 cube remains needed elsewhere.",
+      "consumer": "PROOF.md: Actual circuit and exact weights",
+      "sourceReferences": [
+        "one-place",
+        "small-primes",
+        "old-normalization",
+        "new-normalization",
+        "uniform-low-pair",
+        "cube",
+        "precision",
+        "height",
+        "zero",
+        "current",
+        "protocol"
+      ],
+      "evidence": [
+        "normalize_patch.py",
+        "check_mixed.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "domain_and_index_coverage",
+      "requiredInput": "One common place for every test at every consumed contact, split or inert, all actual primary branches.",
+      "constructedInput": "Normalized inputs D/delta, D/delta^12 and D/delta^47 with orders1,12,46.",
+      "justification": "The lemma admits arbitrary elements and unequal orders. Contact delta values are units; all zero tests and primary identity branches are included. No limiting-class change.",
+      "consumer": "PROOF.md: One common place; Actual logarithm and height consumers",
+      "sourceReferences": [
+        "one-place",
+        "small-primes",
+        "old-normalization",
+        "new-normalization",
+        "uniform-low-pair",
+        "cube",
+        "precision",
+        "height",
+        "zero",
+        "current",
+        "protocol"
+      ],
+      "evidence": [
+        "normalize_patch.py",
+        "check_mixed.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "transition_maps",
+      "requiredInput": "Exact factors, local normalization maps and downstream pole construction.",
+      "constructedInput": "R(d/R^m)^2 equals the implemented nonconstant term for each assigned d.",
+      "justification": "Both Laurent exponents match, delta-unit scaling preserves consumed valuations, and circuit n^2/E is exactly R/Tr(W^-1)^2. No old/new pole-witness bijection is claimed.",
+      "consumer": "PROOF.md: One common place",
+      "sourceReferences": [
+        "one-place",
+        "small-primes",
+        "old-normalization",
+        "new-normalization",
+        "uniform-low-pair",
+        "cube",
+        "precision",
+        "height",
+        "zero",
+        "current",
+        "protocol"
+      ],
+      "evidence": [
+        "normalize_patch.py",
+        "check_mixed.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "consumed_object_identity",
+      "requiredInput": "Same integer labels, literal Lucas residual and input reduced numerator, with sufficient proven orders.",
+      "constructedInput": "The six high field functions yield order46; the input remains12 and scalar radical order31.",
+      "justification": "Use the existing precision51 proof at m46 with actual u_i/h and (u_i-n_i)/(h-1); new integer endpoint explicitly uses46, not47.",
+      "consumer": "PROOF.md: Actual logarithm and height consumers",
+      "sourceReferences": [
+        "one-place",
+        "small-primes",
+        "old-normalization",
+        "new-normalization",
+        "uniform-low-pair",
+        "cube",
+        "precision",
+        "height",
+        "zero",
+        "current",
+        "protocol"
+      ],
+      "evidence": [
+        "normalize_patch.py",
+        "check_mixed.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "conventions",
+      "requiredInput": "Field K, normalized valuations, positive weights, degree<=2 residuals and fixed input.",
+      "constructedInput": "Same K=Q(sqrt2), exceptional set, R and translated anchor at2010; high denominator is positive q1.",
+      "justification": "No prime or scalar factor omitted. Local valuation vectors (1,4),(1,114),(3,452) and exact diagonal integer expansion are checked.",
+      "consumer": "PROOF.md: Actual circuit; One common place; Simultaneous completeness",
+      "sourceReferences": [
+        "one-place",
+        "small-primes",
+        "old-normalization",
+        "new-normalization",
+        "uniform-low-pair",
+        "cube",
+        "precision",
+        "height",
+        "zero",
+        "current",
+        "protocol"
+      ],
+      "evidence": [
+        "normalize_patch.py",
+        "check_mixed.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "local_conditions",
+      "requiredInput": "Successful/opposite contact places, square denominator/squareclasses, real bound and small-prime depths simultaneously.",
+      "constructedInput": "Use old optional order47 root/H choices and strengthen freely prescribed lambda and denominator-depth bounds.",
+      "justification": "High weights decay lambda^-3 and have valuation3nu+452s; all other-prime R valuations remain even. Same Gaussian classes and R squareclass; new private pole witnesses are supplied after these conditions.",
+      "consumer": "PROOF.md: Simultaneous completeness and all pole hypotheses",
+      "sourceReferences": [
+        "one-place",
+        "small-primes",
+        "old-normalization",
+        "new-normalization",
+        "uniform-low-pair",
+        "cube",
+        "precision",
+        "height",
+        "zero",
+        "current",
+        "protocol"
+      ],
+      "evidence": [
+        "normalize_patch.py",
+        "check_mixed.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "exceptional_cases",
+      "requiredInput": "F=0/delta=0, zero tests and conic witnesses, identity primary points, p=2/3/17, p53 logarithm loss.",
+      "constructedInput": "Source positivity excludes F=0 and delta=0; retained precision proof covers identities and51 loss; scalar split41 route unchanged.",
+      "justification": "All guards and outside equations are compared. Conic maps retain zero cases and positive inputs; v(trace)=v(2) is checked after sufficiently strong small-prime closeness.",
+      "consumer": "PROOF.md: One common place; Actual logarithm; Simultaneous completeness",
+      "sourceReferences": [
+        "one-place",
+        "small-primes",
+        "old-normalization",
+        "new-normalization",
+        "uniform-low-pair",
+        "cube",
+        "precision",
+        "height",
+        "zero",
+        "current",
+        "protocol"
+      ],
+      "evidence": [
+        "normalize_patch.py",
+        "check_mixed.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    },
+    {
+      "id": "downstream_consumers",
+      "requiredInput": "All scalar/Lucas/input soundness margins and a complete coefficient specification at unchanged coordinate count.",
+      "constructedInput": "380/349/26025 with max28902*3^1340,644digits; exact finite order46 margin atE2010.",
+      "justification": "Uniform endpoint exponent636 plus exact input inequality close soundness; full source/compiler/conic/diagonal replay measures counts and every coefficient. Inherited arithmetic remains conditional.",
+      "consumer": "PROOF.md: Actual logarithm and height consumers; Computational and review boundary",
+      "sourceReferences": [
+        "one-place",
+        "small-primes",
+        "old-normalization",
+        "new-normalization",
+        "uniform-low-pair",
+        "cube",
+        "precision",
+        "height",
+        "zero",
+        "current",
+        "protocol"
+      ],
+      "evidence": [
+        "normalize_patch.py",
+        "check_mixed.py",
+        "reproduce.py",
+        "EXPECTED.json"
+      ]
+    }
+  ],
+  "historicalDisposition": "Both uniform normalizations located in round5/7. Mixed high-order use and its actual consumers are the changed application submitted here.",
+  "manuscriptDisposition": "Pending; no current release replacement or incorporation claim.",
+  "profile": "HANDOFF.md"
+}

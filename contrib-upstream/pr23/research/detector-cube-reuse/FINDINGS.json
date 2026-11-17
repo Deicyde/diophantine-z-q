@@ -1,0 +1,29 @@
+{
+  "date": "2026-11-08",
+  "scope": "New cubic-reuse packet; inherited findings remain in the parent cumulative handoff. Independent final decisions are separate records.",
+  "findings": [
+    {
+      "id": "generated-cache-in-source-manifest",
+      "status": "corrected-pending-final-review-binding",
+      "reportedBy": "/root/independent_math_review",
+      "concern": "An exploratory reviewer import generated an ignored .pyc before author inventory generation; the inventory erroneously included it, which would fail on a fresh checkout.",
+      "resolution": "Remove the generated cache entry/file; bind only committed source/evidence. No construction, checker or mathematical source changed. Verify every bound path is in the commit and use fresh CI to replay both routes.",
+      "consumer": "reproduce.py:check_bindings",
+      "historicalDisposition": "Current packet assembly defect, not a mathematical objection or a failure of prior source packets."
+    },
+    {
+      "id": "prototype-baseline-name",
+      "status": "clarified",
+      "concern": "The temporary prototype baseline383 directory held a cubed candidate, not the pre-cube comparison source.",
+      "resolution": "Earlier comparisons explicitly used the preserved pr383/precision source outputs. The committed runner creates a fresh actual uncubed baseline before applying cube(); both final author and independent replays compare those actual files. Prototype directories are not source artifacts or published evidence.",
+      "consumer": "reproduce.py:baseline_source and baseline/builder.cjs"
+    },
+    {
+      "id": "cost-neutral-high-order",
+      "status": "constructive-result-pending-final-review",
+      "concern": "Previous high-order weights added one coordinate per detector.",
+      "resolution": "Affine delta-cube reuse removes one coordinate per detector; complete optional47 build has383 variables/646digits. No general optimality claim.",
+      "consumer": "PROOF.md and EXPECTED.json"
+    }
+  ]
+}

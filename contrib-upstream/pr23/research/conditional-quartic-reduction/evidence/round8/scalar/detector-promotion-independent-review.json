@@ -1,0 +1,35 @@
+{
+  "status": "ACCEPT",
+  "reviewer": "round8 scalar/geometry lane, independent of detector proposer",
+  "subject": "Primary U_A order1-to12 promotion and uniform pair circuit",
+  "reviewText": {
+    "path": "detector-promotion-independent-review.txt",
+    "sha256": "cfc85378eef5d0d08b906af2745e7bd45166483430c09ee5f6f6c396ba3d04f9"
+  },
+  "checker": {
+    "path": "check_detector_promotion_independent.py",
+    "sha256": "b22c88d2cdec10d0eeef157b5d3a2b5e889ed223f3782d7095c1dfa193c28aca"
+  },
+  "finiteReport": {
+    "path": "detector-promotion-independent-check.json",
+    "sha256": "53bdca3867ed40fc83d6f9b3e271339a9efc7892ed647c7059bf9465745a8710",
+    "assertions": 157
+  },
+  "sourceBuilderSha256": "5eae7a6cb6fd22e2da8a457354628355ece7e8930b60200d088cd0cfca1d28cb",
+  "rawIrSha256": "ec0feb5696089dd7ddb9214855660beffc12791182eed0bb5417a0933f012c93",
+  "proofSha256": "150b79708b8088d1c75641571277eecf452fe72b7c729cc4fe783e4da76b83bb",
+  "unaffectedEquationCount": 362,
+  "unaffectedEquationSemanticSha256": "21f82ae2cc7888e46bff5d87c24708c8996c89e8b1ee43d29c57b6953fafceb8",
+  "acceptedArguments": [
+    "actual semantic test/complete order allocation",
+    "one common place and stronger soundness premise",
+    "integral formal-group multiplication preserves existing depth45",
+    "identity input retained",
+    "no stronger alternate depth or changed CRT",
+    "uniform pair exactly reuses q12 square",
+    "positive/nonzero domains unchanged",
+    "contact margin67 and unchanged reciprocal-trace parity argument",
+    "same real decay and fixed-before-prime-choice small-prime estimates"
+  ],
+  "scope": "Local replacement and exact source conservation only; inherited global arithmetic remains conditional. Internal AI-assisted review, not human peer review or whole-proof Lean certification."
+}

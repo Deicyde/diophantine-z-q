@@ -1,0 +1,38 @@
+--- detector_round7.tex-before-spacing
++++ detector_round7.tex-after-spacing
+@@ -58,7 +58,7 @@
+ for explaining the identity, but no longer needs its own coordinate.
+ 
+ This is an application of the actual proof of the one-place lemma,
+-\texttt{manuscripts/quartic\_v10.tex}, lines11031--11061, in the pinned
++\texttt{manuscripts/quartic\_v10.tex}, lines 11031--11061, in the pinned
+ upstream source. Its field inputs are arbitrary elements of $K$; it
+ requires no integrality assumption on $D_j/\delta^m$ before the
+ conclusion. At a consumed prime the unit property gives
+@@ -103,7 +103,7 @@
+ \]
+ The last two outputs are therefore exactly the required new weights.
+ The same grouping of the field factors is retained: one mixed $(1,12)$
+-block, two four-test order-one blocks, and two three-test order45 blocks.
++block, two four-test order-one blocks, and two three-test order 45 blocks.
+ All shared symmetric coefficients and the mixed-block identity remain
+ unchanged.
+ 
+@@ -152,7 +152,7 @@
+ the unscaled $D_j$ independent of future progression moduli. Its finite
+ neighborhood preparation supplies common lower valuation bounds on
+ $D_j$ above $2,3,17$. The exact relevant passage is the pinned
+-\texttt{quartic\_v10.tex}, lines11220--11241. The same prime selection
++\texttt{quartic\_v10.tex}, lines 11220--11241. The same prime selection
+ and primary progression $\Pi^{44}\mid h$ are then used. Alternate
+ points still require only formal depth one.
+ 
+@@ -266,7 +266,7 @@
+ $q_1=e/\delta^3$, the functional $L(a,b)=13a+3b$ on exponent pairs
+ has all input values in $[0,16]$. A quadratic quotient operation
+ $A+B-C$ can at most double the width of the current interval.
+-After six operations its maximum cannot exceed1024, whereas
++After six operations its maximum cannot exceed 1024, whereas
+ $L(q_{41})=1044$. Thus a six-node monomial chain cannot even produce
+ that high-order weight from these inputs. The search also considered
+ lower orders and shared outputs, without claiming an exhaustive result

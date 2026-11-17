@@ -1,0 +1,141 @@
+{
+  "status": "PASS",
+  "sourceAssertions": 70,
+  "checks": [
+    "shared inverse-root square.0",
+    "shared inverse-root square.1",
+    "joint reciprocal product.0",
+    "joint reciprocal product.1",
+    "joint symmetric equation.0",
+    "joint symmetric equation.1",
+    "joint primary ratio.0",
+    "joint primary ratio.1",
+    "joint alternate ratio.0",
+    "joint alternate ratio.1",
+    "actual alternate log denominator.0",
+    "actual alternate log denominator.1",
+    "actual primary ratio consumer 1.0",
+    "actual primary ratio consumer 1.1",
+    "actual primary ratio consumer 2.0",
+    "actual primary ratio consumer 2.1",
+    "actual primary ratio consumer 3.0",
+    "actual primary ratio consumer 3.1",
+    "actual primary ratio consumer 4.0",
+    "actual primary ratio consumer 4.1",
+    "scalar square-abscissa relation.0",
+    "scalar square-abscissa relation.1",
+    "fused scalar first equation.0",
+    "fused scalar first equation.1",
+    "fused scalar reciprocal.0",
+    "fused scalar reciprocal.1",
+    "scalar nonzero-real-f inverse",
+    "scalar w alias.0",
+    "scalar w alias.1",
+    "reconstruction denominator alias.0",
+    "reconstruction denominator alias.1",
+    "actual real scalar proxy",
+    "scalar inverse",
+    "scalar inverse power3",
+    "scalar inverse power7",
+    "scalar inverse power15",
+    "scalar proxy scaling",
+    "no imaginary proxy leaf",
+    "norm tree consumes proxy real",
+    "retained formal coefficient leaf 0",
+    "retained formal coefficient leaf 1",
+    "retained formal coefficient leaf 2",
+    "actual input square",
+    "actual beta polynomial",
+    "actual scalar first contact pair",
+    "actual scalar third contact",
+    "leading coefficient exceptional support",
+    "left n quotient",
+    "left n over r quotient",
+    "new left norm quotient",
+    "inverse right norm right square",
+    "inverse right norm relation",
+    "inverse outer norm right square",
+    "inverse outer norm relation",
+    "constant1 is outside the norm tree",
+    "deleted inner constant node and former left square",
+    "deleted old fourth scalar coefficient quotient",
+    "deleted old inverse14 and inverse28 chain",
+    "unchanged scalar pole coefficient",
+    "scalar pole W square",
+    "actual semantic pole input",
+    "scalar pole p square",
+    "scalar pole q square",
+    "scalar pole s square",
+    "scalar preparation T",
+    "scalar preparation conic",
+    "scalar first conic",
+    "scalar second conic Bh",
+    "scalar second conic",
+    "deleted exact scalar ordinate and quotient"
+  ],
+  "abstractIdentities": 7,
+  "exactValuationBounds": {
+    "N": "-1/2",
+    "L": "-1/4",
+    "J": "29/4",
+    "n": "7/8",
+    "A": "3/8",
+    "B": "23/16",
+    "C": "15/16",
+    "D": "29/8",
+    "y": "89/8",
+    "T": "217/8"
+  },
+  "exactCompletenessBounds": {
+    "A": [
+      1,
+      1
+    ],
+    "B": [
+      2,
+      1
+    ],
+    "C": [
+      2,
+      1
+    ],
+    "D": [
+      4,
+      1
+    ],
+    "y": [
+      12,
+      1
+    ],
+    "n": [
+      2,
+      2
+    ],
+    "L": [
+      1,
+      2
+    ],
+    "J": [
+      8,
+      2
+    ],
+    "N": [
+      1,
+      4
+    ]
+  },
+  "checkerSha256": "c8d5568301e063ef0f7938f8218f04d5b4215419976f3f919e3ce5bdd47ada0c",
+  "reviewedProofSha256": "0402ccf6c3e193c685d01e0ff6e46449001ac074a1bf4501419d6fb1fea88035",
+  "abstractIdentityNames": [
+    "direct primary reciprocal curve",
+    "direct alternate reciprocal curve",
+    "recovered first subtraction row",
+    "recovered second subtraction row",
+    "scalar first-row fusion",
+    "scalar square fusion",
+    "scalar proxy congruence identity"
+  ],
+  "builderSha256": "78b54bcde24ff8a91091e102a4734c49878699f071d9230e5ce7a70ffd2114d0",
+  "rawIrSha256": "582c8bf2fcde54242bb23bf7aa33d3a7a9065f04b8edd885a13386b5b779b92c",
+  "scope": "Independent source and exact polynomial review of the retained joint chart, fused scalar point, nonzero-real-f guard, real scalar proxy, three-step inverse15 chain, every actual outer-constant norm-tree equation, and the unchanged normalized scalar pole equations. Uniform two-place and nonzero-domain arguments are in the written receipt; inherited global arithmetic is not reverified."
+}

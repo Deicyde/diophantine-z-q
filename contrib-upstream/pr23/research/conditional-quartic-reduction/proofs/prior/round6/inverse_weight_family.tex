@@ -1,0 +1,99 @@
+\section{An optional precision family for the scalar tree}
+
+The mixed-weight scalar construction has a simple general form. This
+lemma describes a precision--coordinate tradeoff within this particular
+tree; it makes no optimality claim about scalar certificates in general.
+
+Retain the rational functions $A,B,C,D_0,T$ and the positive scalar
+contact product $r$ from the preceding scalar proof. Assume the retained
+point and proxy domains, including the nonzero shifted-point guard.
+For an integer $n\ge1$, put
+\[
+ u=2^{n-1},\qquad M=2^{n+1}-1=4u-1,\qquad
+ \kappa=r^{-M},\qquad y=T/r^{M+1}.
+\]
+Keep
+\[
+ n_0=1+A^2/r,\quad n_1=B^2/r^2+C^2/r,\quad
+ L=n_0^2+r n_1^2,
+\]
+and set
+\[
+ J=D_0^2+\kappa y^2,\qquad W=L^2+\kappa J^2,
+ \qquad b=42rW^2.
+\]
+Starting from $q_1=r^{-1}$, the $n$ quadratic Laurent equations
+\[
+ rq_{2^{j+1}-1}=q_{2^j-1}^{\,2}\quad(1\le j\le n)
+\]
+give $q_M=r^{-M}$; the single quadratic equation $ry=Tq_M$ gives
+the required scaled proxy. The norm nodes have the same quadratic
+realizations as in the selected construction.
+
+\paragraph{Uniform scalar order.}
+At a consumed prime let $R=v_p(r)>0$ be odd. The pole predicate gives
+$v_p(W)>-R/2$. Both $R$ and $-MR$ are odd, so the two summands in
+each norm node have unequal valuation parity. Thus
+\[
+ v_p(L)>-R/4,\qquad
+ v_p(J)>\frac{2M-1}{4}R.
+\]
+The unchanged left subtree gives
+\[
+ v_p(A)>7R/16,\qquad v_p(B)>11R/16,\qquad v_p(C)>3R/16.
+\]
+The right subtree gives
+\[
+ v_p(D_0)>\frac{2M-1}{8}R>0,\qquad
+ v_p(y)>\frac{6M-1}{8}R.
+\]
+All first four scalar coefficients therefore have positive integer
+valuation for every $n\ge1$. Both points are formal at every place
+above $p$, so the already proved two-place proxy lemma applies.
+In particular
+\[
+ v_p(T)>\frac{14M+7}{8}R
+       =\left(7\cdot2^{n-1}-\frac78\right)R.
+\]
+Since $R\ge1$ and $v_p(T)$ is an integer,
+\[
+ \boxed{\quad v_p(a-1)\ge v_p(T)
+              \ge 7\cdot2^{n-1}.\quad}
+\]
+The first inequality uses
+$v_p(T)=v_p((a-1)/h)$ with nonzero integral $h$.
+This is a uniform radical exponent; the stronger inequality
+$v_p(T)\ge(7\cdot2^{n-1})R$ is not asserted.
+If one starts with only oddness of $R$, the constant all-left path
+first excludes $R<0$, exactly as in the selected proof.
+
+\paragraph{Completeness.}
+For a fixed integral input and $p\mid r$, require
+\[
+ v_p(A),v_p(B),v_p(C)\ge R,\qquad
+ v_p(D_0)\ge uR+1,\qquad v_p(y)\ge3uR+1.
+\]
+The left subtree satisfies $L\equiv1\pmod p$. On the right,
+\[
+ v_p(J)\ge2uR+2=\frac{M+1}{2}R+2,
+ \qquad v_p(\kappa J^2)\ge R+4>0.
+\]
+Hence $W\equiv1\pmod p$. The bound on $y$ is simply the finite
+requirement $v_p(T)\ge7uR+1$. It is attainable by choosing the scalar
+point sufficiently deep after the shared point is fixed. At primes
+dividing 42 but not $r$, require the nonconstant leaves to be divisible
+by $p$. This again gives $W\equiv1$. Real positivity gives $W\ge1$,
+so the same pole realization and continuity argument applies. The
+stronger finite preparation does not change the order of prime choices.
+
+The first four values of the uniform order are therefore
+\[
+\begin{array}{c|rrrr}
+ n\text{ Laurent coordinates after }r^{-1}&1&2&3&4\\
+ M&3&7&15&31\\
+ \text{uniform scalar order}&7&14&28&56
+\end{array}
+\]
+The selected $n=3$ implementation has the separately measured count
+of 399 variables in isolation. The lemma itself does not claim final
+compiler counts for the other members of this family.

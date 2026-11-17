@@ -1,0 +1,260 @@
+\section{Optional research result: both parities of the anchor exponent}
+
+The unchanged starting construction is the sixth-round package, whose
+builder has SHA256
+\texttt{3f63cb782d52857446cf39f6e545aeb74f380d1347826eafa888cbb487738d51}.
+The upstream source remains pinned at
+\texttt{036cebe4f1a4aa7ca89820a9b48f3629b4c364d6}.
+All curve, rank, quaternion, height, pole, simultaneous-prime and Lucas
+inputs retain their previously stated qualifications.  The assertions
+below are new applications and optimizations of those inputs, not claims
+that a historical proof lacked justification.
+
+The actual local arguments used here are the upstream
+\texttt{subsec:o8-anchor-subgroup}, lines 8132--8244 of
+\texttt{manuscripts/quartic\_v10.tex}; its quaternion criterion at
+lines 10973--11024; the leading-residue and product-parity argument in the
+previously delivered \texttt{packed\_anchor\_note\_body.tex}; and the
+sixth-round stored-root anchor proof.  The actual final height consumers
+are \texttt{docs/quartic-523-540/addition.tex}, lines 421--477.
+
+Write $K=\mathbb Q(\rho)$, $\rho^2=2$, and
+$N(x+y\rho)=x^2-2y^2$.  The four retained root points are
+$Q_i=[n_i]P$, one of which is the scalar root $S=[a]P$.  Put
+\[
+ C=\prod_i x(Q_i)=C_0+C_1\rho,\qquad B_0=4096C_0,
+ \qquad Q=S-P=[a-1]P.
+\]
+The unchanged scalar chart and nonzero guard give
+$a\ne0$, $a-1\ne0$, $h_S\ne0$, and the already stored field coordinate
+\[
+ w=h_S\tau,\qquad h_S^2=x(S),\qquad\tau^2=f(Q).
+\]
+These are exact identities on the retained domain, including the
+permitted tangent case; they are not only local congruences.
+
+Let $E\ge1$ be any integer and set
+\[
+ S_0=3^E,\qquad \epsilon=1-(E\bmod2),\qquad
+ \gamma=3^\epsilon,\qquad
+ \Theta=N(w)+\gamma S_0N(B_0+X\rho).
+\]
+Use precisely the same three-witness conic
+\begin{equation}\label{r7:anchor}
+ u^2+6v^2-2z^2-3\Theta^2+2S_0^2=0.
+\end{equation}
+For even $E$ the coefficient $\gamma$ is the preceding coefficient $3$;
+for odd $E$ it is $1$.  No new coordinate is required.  The stored
+$C_0^2$ and input-square coordinates keep the physical expression
+quadratic when $S_0$ is lifted to a coordinate.
+
+\subsection{An exact point/input-domain characterization}
+
+Dividing the conic by $S_0^2$ and applying the source quaternion criterion
+identifies existence of its rational witnesses with simultaneous
+$2$- and $3$-integrality of
+\[
+ t=\Theta/S_0=N(w)/3^E+\gamma N(B_0+X\rho).
+\]
+The criterion includes $t=0$ and imposes no real sign; $S_0$ need not
+be a square.
+
+At the unramified place above $3$ the norm is anisotropic modulo $3$:
+\[
+ v_3(N(x+y\rho))=2\min(v_3x,v_3y).
+\]
+The valuations of the two displayed summands of $t$, when nonzero, have
+parities $-E$ and $\epsilon$.  These parities are opposite.  Therefore
+$t$ is $3$-integral exactly when
+\[
+ v_3(w_0),v_3(w_1)\ge\lceil E/2\rceil,
+ \qquad B_0,X\in\mathbb Z_{(3)}.
+\]
+The second equivalence holds for both $\epsilon=0$ and $\epsilon=1$,
+since $\epsilon+2m\ge0$ for an integer $m$ is equivalent to $m\ge0$.
+Zero summands do not affect this argument.
+
+The actual product leading-residue proof gives, before any root parity
+assumption,
+\[
+ v_3(C_0)=-\sum_i e(n_i),\qquad
+ e(n)=\begin{cases}0&n\text{ odd},\\2+2v_3(n)&n\text{ even}.
+ \end{cases}
+\]
+Thus the inferred integrality of $B_0$ forces all four labels to be odd.
+In particular $a$ is odd.  The reduction of $P$ at $3$ has order two,
+so $S$ reduces to $P$ and $h_S$ is a unit.  The source's formal multiple
+calculation now gives
+\[
+ v_3(w)=v_3(\tau)=1+v_3(a-1).
+\]
+The conclusion at $3$ is therefore exactly oddness of all four labels,
+$X\in\mathbb Z_{(3)}$, and
+\begin{equation}\label{r7:index}
+ 0\ne a-1\in2\cdot3^{\lceil E/2\rceil-1}\mathbb Z.
+\end{equation}
+This order of deductions avoids circular use of the odd-product height
+identity.
+
+At $2$, normalize $v(2)=1$ and $v(\rho)=1/2$.  The integral odd formal
+series, the depth $v(z(P))=3/2$, and
+$[2]z=2z+O(z^3)$ imply
+\[
+ v(z([n]P))=3/2+v_2(n),\qquad
+ v(x([n]P))=-3-2v_2(n)
+\]
+for every nonzero integer $n$.  The higher terms are strictly deeper
+because $3r>r+1$ for $r\ge3/2$; odd multiplication preserves depth.
+The already obtained odd labels make $B_0$ $2$-integral and give
+\[
+ v(h_S)=-3/2,\qquad v(\tau)=3/2+v_2(a-1),\qquad
+ v(w)=v_2(a-1)\ge1.
+\]
+The rational basis valuations have distinct fractional parts, so both
+$w_0,w_1$ are $2$-integral.  Since $3^E$ and $\gamma$ are odd, all
+terms of $t$ except $-2\gamma X^2$ are now $2$-integral.  If $X$ is
+not $2$-integral, that last term has negative valuation
+$1+2v_2(X)$ and cannot cancel.  The remaining conic condition is thus
+exactly $X\in\mathbb Z_{(2)}$.
+
+Conversely these same point/input conditions make $t$ integral at both
+primes, and the quaternion criterion supplies its witnesses.  This
+proves the uniform equivalence
+\[
+ \boxed{\eqref{r7:anchor}\quad\Longleftrightarrow\quad
+ \text{all four labels odd},\quad
+ X\in\mathbb Z_{(2)}\cap\mathbb Z_{(3)},\quad\eqref{r7:index}.}
+\]
+It is an equivalence of existence of conic witnesses, not a bijection
+between witness tuples.  All sign choices of the retained scalar chart
+are covered by its squared identities and by the norm.
+
+In particular odd exponent $2k-1$ with $\gamma=1$ and even exponent
+$2k$ with $\gamma=3$ have exactly the same point/input domain.
+Completeness still permits arbitrary divisibility of the positive
+scalar index $a-1$, so either exponent imposes only a finite preparation
+requirement and does not alter the order of the later prime choices.
+
+\section{Projective height of the three retained scales}
+
+This argument sharpens a constant without changing the scales or their
+source equations.  Put $U=C_0+C_1$.  The three rational scales are
+$1,C_0^2,U^2$; their established bounds $C_0\ge193$ and $U\ge61$
+make them positive and nonzero on every source solution.  If a nonzero
+integer $N$ is divisible to order $k$ by the three contact radicals,
+the existing detector and fractional-linear height estimates give
+\[
+ h(\lambda),\quad h(C_0^2\lambda),\quad h(U^2\lambda)
+ \ \le T=(H+\log50)|N|^{19/k}.
+\]
+Use absolute logarithmic projective height.  Its scale invariance and
+the exact height rule for coordinatewise squaring give
+\[
+ 2h([1:C_0:U])
+ =h([\lambda:C_0^2\lambda:U^2\lambda])
+ \le h(\lambda)+h(C_0^2\lambda)+h(U^2\lambda)
+ \le3T.
+\]
+The middle inequality follows place by place from
+$\log\max_i|y_i|_v\le\sum_i\log\max(1,|y_i|_v)$.
+All its inputs are nonzero, so no undefined projective tuple occurs.
+
+Now $C=(1-\rho)C_0+\rho U$.  At finite places the coefficients
+$1-\rho$ and $\rho$ are integral.  At the two real places the operator
+bounds relative to $\max(1,|C_0|,|U|)$ are respectively
+$2\sqrt2-1$ and $2\sqrt2+1$, whose product is $7$.  Hence
+\[
+ h(C)\le h([1:C_0:U])+\tfrac12\log7
+ \le\tfrac32 T+\tfrac12\log7.
+\]
+The actual odd-product argument in
+\texttt{docs/quartic-523-540/addition.tex}, lines 296--350, bounds each
+root height by $h(C)$; this is the product in $K$, not its rational norm.
+With $B=\max(|n|,|a|,|t|,|b|)$ its inherited lower bound therefore yields
+\begin{equation}\label{r7:height}
+ B^2-6 < K_0 |N|^{19/k},\qquad K_0=(3H+14)/2.
+\end{equation}
+Here $\log50<4$, $\log7<2$, and $|N|^{19/k}\ge1$ justify the strict
+rational constant $K_0$.  No new height theorem is being invoked.
+The old completeness proof requires only fixed positive rational-square
+scales after the roots have been chosen; all three scales are unchanged.
+
+\section{Uniform numerical consumers}
+
+Retain the inherited finite-exception height constant
+\[
+ H=2^{110}(2^{32}3^9)^6\,46410^{19}+128.
+\]
+Its exact bit length is $683$.  For a scalar order $m>19$, anchor
+exponent $E$, and $q=\lceil E/2\rceil$, define
+\[
+ c_*=2\cdot3^{q-1},\qquad b_*=c_*-1.
+\]
+Every source solution has $c=|a-1|\ge c_*$ and $B\ge|a|\ge b_*$.
+The unchanged sufficient scalar margin follows from the exact integer
+test
+\begin{equation}\label{r7:scalar-test}
+ c_*^{m-19}>(80H)^m.
+\end{equation}
+It gives $h(\beta)<c/80\le|a|/40$.  The separate logarithmic margin
+$\log(40H)<|a|/40$ follows, for the parameters considered here, from
+$H<2^{683}$ and $40\cdot689<b_*$.  This uses $40<2^6$ and
+$\log2<1$.
+
+For the literal Lucas polynomial
+\[
+ F=t^2-a(a-2)tb+(a-2)^2b^2-1,
+\]
+the source triangle bound is
+$|F|\le P(B)=2B^4+6B^3+5B^2+1$.
+At high order $k>38$, the contradiction $F\ne0$ is therefore certified
+by the exact integer inequality
+\begin{equation}\label{r7:lucas-test}
+ [2(b_*^2-6)]^k>(3H+14)^k P(b_*)^{19}.
+\end{equation}
+This finite test implies the required inequality for every $B\ge b_*$,
+not just at the endpoint: for $B>\sqrt6$,
+\[
+ \frac{(B^2-6)^k}{P(B)^{19}}
+ =B^{2k-76}
+   \frac{(1-6/B^2)^k}{(2+6/B+5/B^2+B^{-4})^{19}}
+\]
+is strictly increasing, since each positive factor is nondecreasing and
+the first has positive exponent.  Thus \eqref{r7:height} with $N=F$
+is impossible.  The inherited Lucas conclusion is
+$\log B>|a|-3$.
+
+The input consumer remains valid at any low order $\ell\ge10$ supported
+by its logarithm.  Since $K_0<7H$, the old estimate remains available:
+if $n\ne\beta$, its reduced numerator satisfies
+$|N|\le2e^{h(\beta)}B$, and
+\[
+ \log B<\frac{\ell}{2\ell-19}\log(40H)
+             +\frac{19}{2\ell-19}h(\beta).
+\]
+For $\ell=10,11,12$ the sum of the two coefficients is at most $29$,
+so the last expression is less than $29|a|/40<|a|-3$ once
+$11b_*>120$.  This checks the input consumer separately from the
+scalar and Lucas margins.  A lower order unsupported by this height
+argument is not thereby asserted impossible for every alternative
+argument.
+
+These exact tests are sufficient conditions, not optimality claims.
+Larger $E$ may compensate for smaller scalar order $m>19$ or high
+order $k>38$.  The companion certificate reports successful and failed
+finite tests distinctly; failure means only that the displayed
+sufficient inequality has not been established for those parameters.
+
+
+\subsection{Illustrative sufficient exponents}
+
+These refinements are not dependencies of the selected exponent $2790$.
+With scalar order $28$, high order $45$ and input order $12$, exact
+integer evaluation of the displayed sufficient tests first succeeds at
+odd $E=2771$ (equivalently even $E=2772$).  The earlier $24H$ Lucas
+bound first succeeds at odd $E=2787$ (equivalently even $E=2788$).
+These are minima only for the specific sufficient integer comparisons
+with the stated constants.  No circuit, coefficient-size, or global
+mathematical optimality is asserted.  The selected even exponent $2790$
+has the simpler identity $3^{2790}=(3^{465})^6$ and already satisfies the
+preceding constants, so it does not rely on either optional refinement.

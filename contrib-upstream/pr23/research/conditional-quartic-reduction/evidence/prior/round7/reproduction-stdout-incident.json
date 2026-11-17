@@ -1,0 +1,50 @@
+{
+  "status": "SUCCESSFUL_UNCHANGED_RETRY",
+  "initialStdoutOmissionCause": "UNEXPLAINED",
+  "sourceContractChanged": false,
+  "checksWeakenedOrRemoved": false,
+  "wrapperSha256": "8d60c1e427081cf57c9d40869204753ccafbc21f74d322511fb565fb51035167",
+  "expectedOutputsSha256": "2e531832aa512a418c4e8f9edc54f33a012a1c3124243012a5151a412a94fdac",
+  "pipelineSha256": "96a5a5ae14e79360504ba9c168f14a5366a6f746d729691a85fb4ca4d4385539",
+  "firstAttempt": {
+    "path": "seventh-work/root/fresh-checkout/build/conditional-quartic-y7k2rz5t",
+    "constructionLogSha256": "ea106f88d124ec53d3adae975ad3bc8d990d3fef4351851303a01ff948cdb874",
+    "constructionLogBytes": 34400,
+    "successMarkerPresent": false,
+    "lastObservedLogStage": "integrated-bridge summary",
+    "constructorReturnCodeReportedByParent": 0,
+    "laterReportsWritten": {
+      "audit/integrated-bridge-check.json": {
+        "sha256": "a50b83041599a4842c9bf3a830020b64c6a022463e35b84eeac82290f7e086f4",
+        "status": "PASS",
+        "modifiedUTC": "2026-11-08T00:02:07.340204+00:00"
+      },
+      "audit/diagonal-scaling-check.json": {
+        "sha256": "ace0735659bb62610bfd8bf658bbd2951822614e39a25bea4eee5416671e3280",
+        "status": "PASS",
+        "modifiedUTC": "2026-11-08T00:02:07.908556+00:00"
+      },
+      "audit/delivered-quartics-check.json": {
+        "sha256": "ad582719c75bb1a52b146972d440e08f2977a86a46b232cc1a767799c34f6407",
+        "status": "PASS",
+        "modifiedUTC": "2026-11-08T00:02:13.297311+00:00"
+      }
+    },
+    "wrapperIssuedPassReceipt": false,
+    "parentIndependentComparison": "All 51 deterministic artifacts and 14 audit statuses matched; all 31 seeded input hashes unchanged. This was reported independently by the parent reviewer."
+  },
+  "secondAttempt": {
+    "path": "seventh-work/root/fresh-checkout/build/conditional-quartic-gwoknox0",
+    "constructionLogSha256": "f8af78f18746fa95cf36ae19ca1cbc0b5a29dbbcab8bcb4df1538817d19addbf",
+    "constructionLogBytes": 45259,
+    "successMarkerPresent": true,
+    "reproductionReceiptSha256": "7909990ac4fa2aded25b66c38c93ba7a384382d517e7339bb55ecd9ec09b6cf5",
+    "deterministicArtifactsCompared": 51,
+    "successfulAuditReports": 14,
+    "trackedProposalFilesUnchanged": true,
+    "sourceManifestSha256": "f2d74ebd40b61a48b1b3d1ecdb55d2fda53f372a090fce8ec1fcd347e333bbd5",
+    "buildInputFiles": 31
+  },
+  "finding": "The first outer wrapper correctly withheld success because its mandatory final stdout marker was absent. Both later checker JSON reports existed with PASS and later modification times, but their printed summaries and the pipeline marker were missing from that log. The unchanged wrapper subsequently completed in a different automatically fresh output directory and passed every original comparison/status/source check. No cause for the first omission has been established.",
+  "diagnosticScope": "Read-only inspection of original log, source and reports; one isolated diagonal-check rerun wrote only new lane-owned diagnostic files and printed its full result. No additional full build was run by this reviewer. Optional diagnostics stopped after the successful unchanged retry."
+}

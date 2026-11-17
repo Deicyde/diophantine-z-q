@@ -1,0 +1,34 @@
+[
+  {
+    "order": 46,
+    "scalar_order": 31,
+    "E": 2010,
+    "scalar": true,
+    "lucas": true,
+    "input": true
+  },
+  {
+    "order": 46,
+    "scalar_order": 47,
+    "E": 1944,
+    "scalar": true,
+    "lucas": true,
+    "input": true
+  },
+  {
+    "order": 48,
+    "scalar_order": 47,
+    "E": 1692,
+    "scalar": true,
+    "lucas": true,
+    "input": true
+  },
+  {
+    "order": 50,
+    "scalar_order": 47,
+    "E": 1512,
+    "scalar": true,
+    "lucas": true,
+    "input": true
+  }
+]

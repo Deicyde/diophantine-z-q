@@ -133,12 +133,12 @@ Credit goes to the operator, marked AI-assisted. Good fits: reducing a GLUE hypo
 
 ## What CI checks
 
-- [Autoform verification](.github/workflows/autoform-verify.yml) checks the blueprint DAG, builds the root Lake project, audits root-package declarations and checks statement-review evidence under the repository's review policy.
+- [Main build cache](.github/workflows/main-build-cache.yml) builds `+ZInQKernel.OneProof.Main` and `+ZInQKernel.OneProof.Discharges` after a push to `main` that changes Lean, starting from the previous build of `main`. When the build finishes, it fails unless the axioms of `ZInQ.OneProof.frozenTarget` are among `propext`, `Classical.choice` and `Quot.sound`. A build that stops at its time limit saves its progress and reports failure. It is the only hosted check of the headline theorem; until one of its runs passes, that theorem has been compiled only on the project's own machines.
 - [Research checks](.github/workflows/research-checks.yml) check finite construction regeneration, the manuscript build and the accepted helper snapshot under `lean/`.
-- [Blueprint Pages](.github/workflows/blueprint-pages.yml) builds the site on PRs; deployment follows a verified push to `main`, not a PR or manual site build.
+- [Blueprint Pages](.github/workflows/blueprint-pages.yml) builds the site on PRs; deployment follows a passing main build cache run on a push to `main`, not a PR or manual site build.
 - [Lean WIP](.github/workflows/lean-wip.yml) is a manually dispatched build of the default target.
 
-None of these compiles `ZInQKernel/Contrib/OneProof`. A passing workflow proves only its stated checks passed on that commit. It is not independent human review or completion of the full theorem. For a contribution, the automatic result is the check "discharge check" on the PR, with its verdict in the job summary; it is advisory, and the project's agents check every file before it is merged (no person reads every file).
+Only the main build cache compiles the modules under `ZInQKernel/Contrib/OneProof` that the proof imports, and only on `main`. A passing workflow proves only its stated checks passed on that commit. It is not independent human review or completion of the full theorem. For a contribution, the automatic result is the check "discharge check" on the PR, with its verdict in the job summary; it is advisory, and the project's agents check every file before it is merged (no person reads every file).
 
 For optional local research-package checks, see [docs/building.md](docs/building.md). In particular, `python scripts/check_lean.py` is the archival source/quarantine check, while its `--build` mode checks that package's accepted helpers; neither substitutes for compiling your `ZInQKernel/Contrib/` module. Construction checks need Python 3.11+ and Node.js 22+ and establish finite cases, not the main theorem.
 

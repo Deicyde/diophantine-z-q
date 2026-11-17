@@ -1,0 +1,413 @@
+{
+ "baseline_sdiv4": [
+  {
+   "k": 37,
+   "E_scalar": 2016,
+   "E_lucas": 16656,
+   "E": 16656,
+   "digits": 5303,
+   "bits": 17615,
+   "binding": "lucas"
+  },
+  {
+   "k": 38,
+   "E_scalar": 2016,
+   "E_lucas": 8280,
+   "E": 8280,
+   "digits": 2639,
+   "bits": 8764,
+   "binding": "lucas"
+  },
+  {
+   "k": 39,
+   "E_scalar": 2016,
+   "E_lucas": 5610,
+   "E": 5610,
+   "digits": 1789,
+   "bits": 5943,
+   "binding": "lucas"
+  },
+  {
+   "k": 40,
+   "E_scalar": 2016,
+   "E_lucas": 4290,
+   "E": 4290,
+   "digits": 1370,
+   "bits": 4548,
+   "binding": "lucas"
+  },
+  {
+   "k": 41,
+   "E_scalar": 2016,
+   "E_lucas": 3510,
+   "E": 3510,
+   "digits": 1121,
+   "bits": 3724,
+   "binding": "lucas"
+  },
+  {
+   "k": 42,
+   "E_scalar": 2016,
+   "E_lucas": 2988,
+   "E": 2988,
+   "digits": 955,
+   "bits": 3173,
+   "binding": "lucas"
+  },
+  {
+   "k": 43,
+   "E_scalar": 2016,
+   "E_lucas": 2622,
+   "E": 2622,
+   "digits": 839,
+   "bits": 2786,
+   "binding": "lucas"
+  },
+  {
+   "k": 44,
+   "E_scalar": 2016,
+   "E_lucas": 2346,
+   "E": 2346,
+   "digits": 751,
+   "bits": 2494,
+   "binding": "lucas"
+  },
+  {
+   "k": 45,
+   "E_scalar": 2016,
+   "E_lucas": 2130,
+   "E": 2130,
+   "digits": 682,
+   "bits": 2266,
+   "binding": "lucas"
+  },
+  {
+   "k": 46,
+   "E_scalar": 2016,
+   "E_lucas": 1956,
+   "E": 2016,
+   "digits": 646,
+   "bits": 2146,
+   "binding": "scalar"
+  },
+  {
+   "k": 47,
+   "E_scalar": 2016,
+   "E_lucas": 1818,
+   "E": 2016,
+   "digits": 646,
+   "bits": 2146,
+   "binding": "scalar"
+  },
+  {
+   "k": 48,
+   "E_scalar": 2016,
+   "E_lucas": 1704,
+   "E": 2016,
+   "digits": 646,
+   "bits": 2146,
+   "binding": "scalar"
+  },
+  {
+   "k": 49,
+   "E_scalar": 2016,
+   "E_lucas": 1602,
+   "E": 2016,
+   "digits": 646,
+   "bits": 2146,
+   "binding": "scalar"
+  },
+  {
+   "k": 50,
+   "E_scalar": 2016,
+   "E_lucas": 1518,
+   "E": 2016,
+   "digits": 646,
+   "bits": 2146,
+   "binding": "scalar"
+  },
+  {
+   "k": 51,
+   "E_scalar": 2016,
+   "E_lucas": 1446,
+   "E": 2016,
+   "digits": 646,
+   "bits": 2146,
+   "binding": "scalar"
+  }
+ ],
+ "baseline_sdiv5": [
+  {
+   "k": 37,
+   "E_scalar": 2016,
+   "E_lucas": 16656,
+   "E": 16656,
+   "digits": 5303,
+   "bits": 17615,
+   "binding": "lucas"
+  },
+  {
+   "k": 38,
+   "E_scalar": 2016,
+   "E_lucas": 8280,
+   "E": 8280,
+   "digits": 2639,
+   "bits": 8764,
+   "binding": "lucas"
+  },
+  {
+   "k": 39,
+   "E_scalar": 2016,
+   "E_lucas": 5610,
+   "E": 5610,
+   "digits": 1789,
+   "bits": 5943,
+   "binding": "lucas"
+  },
+  {
+   "k": 40,
+   "E_scalar": 2016,
+   "E_lucas": 4290,
+   "E": 4290,
+   "digits": 1370,
+   "bits": 4548,
+   "binding": "lucas"
+  },
+  {
+   "k": 41,
+   "E_scalar": 2016,
+   "E_lucas": 3510,
+   "E": 3510,
+   "digits": 1121,
+   "bits": 3724,
+   "binding": "lucas"
+  },
+  {
+   "k": 42,
+   "E_scalar": 2016,
+   "E_lucas": 2988,
+   "E": 2988,
+   "digits": 955,
+   "bits": 3173,
+   "binding": "lucas"
+  },
+  {
+   "k": 43,
+   "E_scalar": 2016,
+   "E_lucas": 2622,
+   "E": 2622,
+   "digits": 839,
+   "bits": 2786,
+   "binding": "lucas"
+  },
+  {
+   "k": 44,
+   "E_scalar": 2016,
+   "E_lucas": 2346,
+   "E": 2346,
+   "digits": 751,
+   "bits": 2494,
+   "binding": "lucas"
+  },
+  {
+   "k": 45,
+   "E_scalar": 2016,
+   "E_lucas": 2130,
+   "E": 2130,
+   "digits": 682,
+   "bits": 2266,
+   "binding": "lucas"
+  },
+  {
+   "k": 46,
+   "E_scalar": 2016,
+   "E_lucas": 1956,
+   "E": 2016,
+   "digits": 646,
+   "bits": 2146,
+   "binding": "scalar"
+  },
+  {
+   "k": 47,
+   "E_scalar": 2016,
+   "E_lucas": 1818,
+   "E": 2016,
+   "digits": 646,
+   "bits": 2146,
+   "binding": "scalar"
+  },
+  {
+   "k": 48,
+   "E_scalar": 2016,
+   "E_lucas": 1704,
+   "E": 2016,
+   "digits": 646,
+   "bits": 2146,
+   "binding": "scalar"
+  },
+  {
+   "k": 49,
+   "E_scalar": 2016,
+   "E_lucas": 1602,
+   "E": 2016,
+   "digits": 646,
+   "bits": 2146,
+   "binding": "scalar"
+  },
+  {
+   "k": 50,
+   "E_scalar": 2016,
+   "E_lucas": 1518,
+   "E": 2016,
+   "digits": 646,
+   "bits": 2146,
+   "binding": "scalar"
+  },
+  {
+   "k": 51,
+   "E_scalar": 2016,
+   "E_lucas": 1446,
+   "E": 2016,
+   "digits": 646,
+   "bits": 2146,
+   "binding": "scalar"
+  }
+ ],
+ "baseline_sdiv10": [
+  {
+   "k": 37,
+   "E_scalar": 2016,
+   "E_lucas": 16656,
+   "E": 16656,
+   "digits": 5303,
+   "bits": 17615,
+   "binding": "lucas"
+  },
+  {
+   "k": 38,
+   "E_scalar": 2016,
+   "E_lucas": 8280,
+   "E": 8280,
+   "digits": 2639,
+   "bits": 8764,
+   "binding": "lucas"
+  },
+  {
+   "k": 39,
+   "E_scalar": 2016,
+   "E_lucas": 5610,
+   "E": 5610,
+   "digits": 1789,
+   "bits": 5943,
+   "binding": "lucas"
+  },
+  {
+   "k": 40,
+   "E_scalar": 2016,
+   "E_lucas": 4290,
+   "E": 4290,
+   "digits": 1370,
+   "bits": 4548,
+   "binding": "lucas"
+  },
+  {
+   "k": 41,
+   "E_scalar": 2016,
+   "E_lucas": 3510,
+   "E": 3510,
+   "digits": 1121,
+   "bits": 3724,
+   "binding": "lucas"
+  },
+  {
+   "k": 42,
+   "E_scalar": 2016,
+   "E_lucas": 2988,
+   "E": 2988,
+   "digits": 955,
+   "bits": 3173,
+   "binding": "lucas"
+  },
+  {
+   "k": 43,
+   "E_scalar": 2016,
+   "E_lucas": 2622,
+   "E": 2622,
+   "digits": 839,
+   "bits": 2786,
+   "binding": "lucas"
+  },
+  {
+   "k": 44,
+   "E_scalar": 2016,
+   "E_lucas": 2346,
+   "E": 2346,
+   "digits": 751,
+   "bits": 2494,
+   "binding": "lucas"
+  },
+  {
+   "k": 45,
+   "E_scalar": 2016,
+   "E_lucas": 2130,
+   "E": 2130,
+   "digits": 682,
+   "bits": 2266,
+   "binding": "lucas"
+  },
+  {
+   "k": 46,
+   "E_scalar": 2016,
+   "E_lucas": 1956,
+   "E": 2016,
+   "digits": 646,
+   "bits": 2146,
+   "binding": "scalar"
+  },
+  {
+   "k": 47,
+   "E_scalar": 2016,
+   "E_lucas": 1818,
+   "E": 2016,
+   "digits": 646,
+   "bits": 2146,
+   "binding": "scalar"
+  },
+  {
+   "k": 48,
+   "E_scalar": 2016,
+   "E_lucas": 1704,
+   "E": 2016,
+   "digits": 646,
+   "bits": 2146,
+   "binding": "scalar"
+  },
+  {
+   "k": 49,
+   "E_scalar": 2016,
+   "E_lucas": 1602,
+   "E": 2016,
+   "digits": 646,
+   "bits": 2146,
+   "binding": "scalar"
+  },
+  {
+   "k": 50,
+   "E_scalar": 2016,
+   "E_lucas": 1518,
+   "E": 2016,
+   "digits": 646,
+   "bits": 2146,
+   "binding": "scalar"
+  },
+  {
+   "k": 51,
+   "E_scalar": 2016,
+   "E_lucas": 1446,
+   "E": 2016,
+   "digits": 646,
+   "bits": 2146,
+   "binding": "scalar"
+  }
+ ]
+}

@@ -1,0 +1,83 @@
+[
+  {
+    "label": "lean-version",
+    "command": [
+      "lean",
+      "--version"
+    ],
+    "cwd": "lean",
+    "exit_code": 0
+  },
+  {
+    "label": "lake-version",
+    "command": [
+      "lake",
+      "--version"
+    ],
+    "cwd": "lean",
+    "exit_code": 0
+  },
+  {
+    "label": "ConjugateLocalTransport",
+    "command": [
+      "lean",
+      "-j1",
+      "-Ddebug.skipKernelTC=false",
+      "-o",
+      ".checks/lbi-native-reviewed-20261110/lib/Research/DerivativeSwitch/ConjugateLocalTransport.olean",
+      "Research/DerivativeSwitch/ConjugateLocalTransport.lean"
+    ],
+    "cwd": "lean",
+    "exit_code": 0
+  },
+  {
+    "label": "ConjugateLocalH1",
+    "command": [
+      "lean",
+      "-j1",
+      "-Ddebug.skipKernelTC=false",
+      "-o",
+      ".checks/lbi-native-reviewed-20261110/lib/Research/DerivativeSwitch/ConjugateLocalH1.olean",
+      "Research/DerivativeSwitch/ConjugateLocalH1.lean"
+    ],
+    "cwd": "lean",
+    "exit_code": 0
+  },
+  {
+    "label": "ActualBoundaryCup",
+    "command": [
+      "lean",
+      "-j1",
+      "-Ddebug.skipKernelTC=false",
+      "-o",
+      ".checks/lbi-native-reviewed-20261110/lib/Research/DerivativeSwitch/ActualBoundaryCup.olean",
+      "Research/DerivativeSwitch/ActualBoundaryCup.lean"
+    ],
+    "cwd": "lean",
+    "exit_code": 0
+  },
+  {
+    "label": "OrthogonalComparison",
+    "command": [
+      "lean",
+      "-j1",
+      "-Ddebug.skipKernelTC=false",
+      "-o",
+      ".checks/lbi-native-reviewed-20261110/lib/Research/DerivativeSwitch/OrthogonalComparison.olean",
+      "Research/DerivativeSwitch/OrthogonalComparison.lean"
+    ],
+    "cwd": "lean",
+    "exit_code": 0
+  },
+  {
+    "label": "axioms-and-statements",
+    "command": [
+      "lean",
+      "-j1",
+      "-Ddebug.skipKernelTC=false",
+      ".checks/lbi-native-reviewed-20261110/Audit.lean"
+    ],
+    "cwd": "lean",
+    "exit_code": 0
+  }
+]

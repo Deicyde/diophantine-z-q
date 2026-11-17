@@ -1,0 +1,53 @@
+FINAL INDEPENDENT PACKAGE REVIEW — ROUND EIGHT
+
+Disposition: ACCEPT the final source snapshot and recorded fresh-reproduction
+evidence in the assigned review scope. No review gate remains pending in this
+lane. This acceptance preserves all inherited arithmetic qualifications; it
+is not a formal proof or an external mathematical endorsement.
+
+The earlier source-bound review covered the wrapper fidelity fix, structured
+pipeline, current uniform detector pair, constant chains and complete table
+audits. Its inspected wrapper and pipeline bytes are unchanged in the final
+payload. The seven independent focused wrapper cases and existing 45-case
+suite therefore apply to these same final source bytes. The final pipeline
+helper check passes 21 checks, including agreement of its actual ordered
+stage calls with the completed output manifest.
+
+I ran the separate final manifest reviewer against the exact packaged source
+and the completed build from the freshly patched checkout. It passes:
+  155 source/evidence records, plus the source manifest itself;
+  34 regular unchanged source/proof inputs in the fresh build;
+  54 complete deterministic artifacts matched byte for byte;
+  15 successful selected audit reports;
+  23 correctly ordered stages in the hash-bound completion record.
+The complete source inventory is accounted for. Build inputs are disjoint
+from generated outputs and audit reports, and the committed selected table
+is byte-identical to its regenerated copy.
+
+The reviewed selection has 389 total coordinates, 357 residuals, degree four,
+26,295 monomials, content one and coefficient of x0^4 equal to one. Its anchor
+is S=3^2364, with c=3^394 for diagonal scaling. The balanced integer table has
+maximum coefficient length 757 decimal digits (2,513 bits), and its complete
+text file has 1,050,826 bytes. The three constant-chain metadata records have
+391/392/393 coordinates and coefficient exponent sequences
+[788,788], [338,338,336], and [158,158,158,152], respectively.
+
+I also checked the actual outer-wrapper receipt against the final manifest,
+all 54 expected output records, all 15 report hashes, the completion-file
+hash, and the construction-log hash. The receipt reports that original
+sources and fresh build inputs are unchanged. The complete reconstruction
+was executed by the packaging lane; my separate final action reviews its
+actual source, outputs and receipt. It does not claim a second independently
+launched full reconstruction.
+
+The selected arithmetic refinement has its own separately reviewed uniform
+proof and exact certificates. The inherited geometric, modularity, height,
+local-group and other arithmetic inputs remain conditional. No optimality
+claim is made for the variable count, anchor exponent or coefficient size.
+The prior stdout truncation's underlying cause remains unidentified; the
+new wrapper removes dependence on a stdout marker for success.
+
+The JSON receipt alongside this review binds the final source manifest,
+expected outputs, wrapper, pipeline, finite-check reports, fresh receipt and
+selected table. It is kept outside the payload, avoiding a circular source
+manifest dependency.

@@ -1,0 +1,40 @@
+⚠ [1835/1843] Built Research.DerivativeSwitchBoundary (7.2s)
+warning: Research/DerivativeSwitchBoundary.lean: imports `Mathlib.Algebra.Module.Equiv.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Research/DerivativeSwitchBoundary.lean: imports `Mathlib.Tactic.Ring` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [1836/1843] Built Research.BoundaryCupAdapter (6.8s)
+warning: Research/BoundaryCupAdapter.lean: imports `Mathlib.Algebra.Module.Equiv.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Research/BoundaryCupAdapter.lean: imports `Mathlib.LinearAlgebra.BilinearForm.Properties` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Research/BoundaryCupAdapter.lean: imports `Mathlib.Tactic.Ring` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [1837/1843] Built Research.DerivativeSwitch.Coordinate (7.1s)
+warning: Research/DerivativeSwitch/Coordinate.lean: imports `Mathlib.LinearAlgebra.Matrix.NonsingularInverse` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Research/DerivativeSwitch/Coordinate.lean: imports `Mathlib.Tactic.FieldSimp` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Research/DerivativeSwitch/Coordinate.lean: imports `Mathlib.Tactic.Ring` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Research/DerivativeSwitch/Coordinate.lean: imports `Mathlib.Tactic.Push` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Research/DerivativeSwitch/Coordinate.lean:34:0: automatically included section variable(s) unused in theorem `Research.DerivativeSwitch.ScalarRatio.tensor_mul`:
+  [DecidableEq n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Research/DerivativeSwitch/Coordinate.lean:43:0: automatically included section variable(s) unused in theorem `Research.DerivativeSwitch.ScalarRatio.mul_tensor`:
+  [DecidableEq n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Research/DerivativeSwitch/Coordinate.lean:147:0: automatically included section variable(s) unused in theorem `Research.DerivativeSwitch.ScalarRatio.row_mul_assoc`:
+  [DecidableEq n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [1838/1843] Built Research.DerivativeSwitch.CommonStrict (2.5s)
+warning: Research/DerivativeSwitch/CommonStrict.lean: imports `Mathlib.Data.Matrix.Block` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Research/DerivativeSwitch/CommonStrict.lean: imports `Mathlib.Tactic.FinCases` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [1839/1843] Built Research.BoundaryScalar (11s)
+warning: Research/BoundaryScalar.lean: imports `Mathlib.LinearAlgebra.Matrix.Adjugate` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Research/BoundaryScalar.lean: imports `Mathlib.Tactic.FieldSimp` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [1840/1843] Built Research.DerivativeSwitch.UnitCriterion (2.2s)
+✔ [1841/1843] Built Research.DerivativeSwitch.BoundaryCup (2.1s)
+✔ [1842/1843] Built Solution (1.9s)
+Build completed successfully (1843 jobs).

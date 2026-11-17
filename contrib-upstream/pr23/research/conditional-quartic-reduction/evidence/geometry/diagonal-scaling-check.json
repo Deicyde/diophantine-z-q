@@ -1,0 +1,46 @@
+{
+  "status": "PASS",
+  "expectedAnchorExponent": 2790,
+  "expectedCoordinates": 392,
+  "checkedQuadraticRows": 360,
+  "checkedNonzeroRowDivisors": 360,
+  "rowExponentSpanHistogram": {
+    "0": 338,
+    "1": 11,
+    "2": 11
+  },
+  "maximumAbsoluteCoefficientFormula": "1+40532396646334464*3^1860",
+  "exactMaximumFormulaVerified": true,
+  "fullSumOfSquaresIdentity": true,
+  "everyDecimalCoefficientChecked": true,
+  "diagonalMapIsBijectionOverQ": true,
+  "inputFixed": true,
+  "measured": {
+    "coordinates": 392,
+    "residuals": 360,
+    "degree": 4,
+    "monomials": 26301,
+    "integerContent": 1,
+    "inputFourthPowerCoefficient": "1",
+    "maximumCoefficientDigits": 905,
+    "maximumCoefficientBits": 3004,
+    "scaledCoordinates": 12,
+    "anchorExponent": 2790,
+    "cExponent": 465,
+    "tableSha256": "81eddac871e7575cc54b8e2cd00fcbbc5cd65a8853a031f87415fdafde71686c",
+    "tableBytes": 1064980,
+    "certificateSha256": "5d724a1b821020f9d3435857186122b9b48e7fee6b62ebb2859b3a25eaf2343b"
+  },
+  "fileBindings": {
+    "final/integer-candidate-ir.json": "60c37a4f41caf501b29215f88fc539b12ab646cdc9797dd572584d99985c2f22",
+    "balanced/integer-ir.json": "0ae74167ce075282f7695ef3d2bb3d7b477d8faa379d0abff964ab5dee224745",
+    "balanced/polynomial.json": "e64cd7b37823d9a7242e99ae367dec9f11a91d7dc6dd5e056f6f19d6c91558bb",
+    "balanced/diagonal-certificate.json": "5d724a1b821020f9d3435857186122b9b48e7fee6b62ebb2859b3a25eaf2343b",
+    "balanced/summary.json": "ff89494738d44de9606dcc24b85d322e3819025902ee5c214ef52c6b3347b17f",
+    "quartic-392-balanced-decimal.txt": "81eddac871e7575cc54b8e2cd00fcbbc5cd65a8853a031f87415fdafde71686c",
+    "builder.cjs": "78b54bcde24ff8a91091e102a4734c49878699f071d9230e5ce7a70ffd2114d0",
+    "raw-ir.json": "582c8bf2fcde54242bb23bf7aa33d3a7a9065f04b8edd885a13386b5b779b92c"
+  },
+  "checkerSha256": "abc16a0cfc566d161e49ecab6bd347422fc40f23a7b2be119e2aba14bdf03779",
+  "scope": "Exact diagonal substitution at the independently specified fixed parameter, nonzero primitive-row scaling, all normalized quadratic rows, full SOS, coordinate compaction, and every decimal text coefficient.  The inverse map divides each coordinate by its nonzero rational power of three. Over Q a sum of rational squares vanishes exactly when every row vanishes. This gives the same projection onto the unchanged input; inherited global arithmetic and source-to-core compilation are separate obligations."
+}

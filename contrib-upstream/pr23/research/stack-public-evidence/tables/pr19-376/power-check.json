@@ -1,0 +1,113 @@
+{
+  "status": "PASS",
+  "sourceComparison": {
+    "removedRows": [
+      "detector0.eCubed.definition",
+      "detector0.eSixth.definition",
+      "detector0.eTwelfth.definition",
+      "detector1.eCubed.definition",
+      "detector1.eSixth.definition",
+      "detector1.eTwelfth.definition",
+      "detector2.eCubed.definition",
+      "detector2.eSixth.definition",
+      "detector2.eTwelfth.definition"
+    ],
+    "addedRows": [
+      "detector0.q1Sixth.definition",
+      "detector0.q1Twelfth.definition",
+      "detector1.q1Sixth.definition",
+      "detector1.q1Twelfth.definition",
+      "detector2.q1Sixth.definition",
+      "detector2.q1Twelfth.definition"
+    ],
+    "changedRows": [
+      "detector0.q12.definition",
+      "detector1.q12.definition",
+      "detector2.q12.definition"
+    ],
+    "unchangedCommonRows": 351,
+    "allCommonFieldFunctionsAndGuardsIdentical": true,
+    "actualMonomialPowers": [
+      {
+        "q1SquaredForWeights.quadratic": 2,
+        "q1CubedForWeights.quadratic": 3,
+        "q1Sixth.quadratic": 6,
+        "q1Twelfth.quadratic": 12,
+        "q12": 23,
+        "mixedHigh.quadratic": 46,
+        "q46": 91,
+        "E46.power2.quadratic": 182,
+        "E46.power3.quadratic": 273
+      },
+      {
+        "q1SquaredForWeights.quadratic": 2,
+        "q1CubedForWeights.quadratic": 3,
+        "q1Sixth.quadratic": 6,
+        "q1Twelfth.quadratic": 12,
+        "q12": 23,
+        "mixedHigh.quadratic": 46,
+        "q46": 91,
+        "E46.power2.quadratic": 182,
+        "E46.power3.quadratic": 273
+      },
+      {
+        "q1SquaredForWeights.quadratic": 2,
+        "q1CubedForWeights.quadratic": 3,
+        "q1Sixth.quadratic": 6,
+        "q1Twelfth.quadratic": 12,
+        "q12": 23,
+        "mixedHigh.quadratic": 46,
+        "q46": 91,
+        "E46.power2.quadratic": 182,
+        "E46.power3.quadratic": 273
+      }
+    ],
+    "note": "Formal common expressions agree; evaluated W/trace/B change."
+  },
+  "finite": {
+    "orders": [
+      1,
+      12,
+      46
+    ],
+    "deltaValues": [
+      "-1",
+      "1",
+      "24/25",
+      "-24/25",
+      "39/25"
+    ],
+    "localNuAndS": [
+      [
+        1,
+        4
+      ],
+      [
+        23,
+        92
+      ],
+      [
+        91,
+        364
+      ]
+    ],
+    "realDecayPowers": [
+      -1,
+      -23,
+      -91
+    ],
+    "sameHeightConsumersAtE2010": true
+  },
+  "negativeControlsRejected": [
+    "detector0.q12.definition",
+    "detector1.q46.definition",
+    "scalar.N.definition",
+    "missing guards",
+    "wrong anchor"
+  ],
+  "files": {
+    "before": "40d54012e608282410c90e850637f71359c73321fc9762f64a7086347601fdc7",
+    "after": "4c38160e31788986174a9791d5d71c1135016ebf39dd7d940b8225277765dd35"
+  },
+  "scope": "Exact source/gate/local-exponent and finite integer checks; uniform arithmetic proof needs separate review."
+}

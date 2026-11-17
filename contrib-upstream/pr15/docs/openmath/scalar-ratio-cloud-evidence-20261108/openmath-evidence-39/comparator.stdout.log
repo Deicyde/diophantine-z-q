@@ -1,0 +1,122 @@
+Resolving dependencies
+Building Challenge
+⚠ [1835/1843] Built Challenge.Original (863ms)
+warning: Challenge/Original.lean: imports `Mathlib.Algebra.Module.Equiv.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Challenge/Original.lean: imports `Mathlib.Tactic.Ring` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Challenge/Original.lean:27:8: declaration uses `sorry`
+warning: Challenge/Original.lean:33:8: declaration uses `sorry`
+warning: Challenge/Original.lean:39:8: declaration uses `sorry`
+warning: Challenge/Original.lean:46:8: declaration uses `sorry`
+warning: Challenge/Original.lean:64:8: declaration uses `sorry`
+warning: Challenge/Original.lean:68:8: declaration uses `sorry`
+⚠ [1836/1843] Built Challenge.Coordinate (1.0s)
+warning: Challenge/Coordinate.lean: imports `Mathlib.LinearAlgebra.Matrix.NonsingularInverse` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Challenge/Coordinate.lean: imports `Mathlib.Tactic.FieldSimp` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Challenge/Coordinate.lean: imports `Mathlib.Tactic.Ring` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Challenge/Coordinate.lean: imports `Mathlib.Tactic.Push` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Challenge/Coordinate.lean:34:8: declaration uses `sorry`
+warning: Challenge/Coordinate.lean:48:8: declaration uses `sorry`
+warning: Challenge/Coordinate.lean:58:6: declaration uses `sorry`
+warning: Challenge/Coordinate.lean:63:8: declaration uses `sorry`
+⚠ [1837/1843] Built Challenge.Matrix (1.2s)
+warning: Challenge/Matrix.lean: imports `Mathlib.LinearAlgebra.Matrix.Adjugate` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Challenge/Matrix.lean: imports `Mathlib.Tactic.FieldSimp` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Challenge/Matrix.lean:24:8: declaration uses `sorry`
+warning: Challenge/Matrix.lean:27:8: declaration uses `sorry`
+warning: Challenge/Matrix.lean:31:8: declaration uses `sorry`
+warning: Challenge/Matrix.lean:37:8: declaration uses `sorry`
+warning: Challenge/Matrix.lean:44:8: declaration uses `sorry`
+warning: Challenge/Matrix.lean:51:8: declaration uses `sorry`
+warning: Challenge/Matrix.lean:57:8: declaration uses `sorry`
+warning: Challenge/Matrix.lean:63:8: declaration uses `sorry`
+warning: Challenge/Matrix.lean:69:8: declaration uses `sorry`
+warning: Challenge/Matrix.lean:75:8: declaration uses `sorry`
+warning: Challenge/Matrix.lean:94:8: declaration uses `sorry`
+warning: Challenge/Matrix.lean:98:8: declaration uses `sorry`
+warning: Challenge/Matrix.lean:102:8: declaration uses `sorry`
+⚠ [1838/1843] Built Challenge.Cup (1.1s)
+warning: Challenge/Cup.lean: imports `Mathlib.Algebra.Module.Equiv.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Challenge/Cup.lean: imports `Mathlib.LinearAlgebra.BilinearForm.Properties` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Challenge/Cup.lean: imports `Mathlib.Tactic.Ring` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Challenge/Cup.lean:20:8: declaration uses `sorry`
+warning: Challenge/Cup.lean:31:8: declaration uses `sorry`
+⚠ [1839/1843] Built Challenge.CommonStrict (909ms)
+warning: Challenge/CommonStrict.lean: imports `Mathlib.Data.Matrix.Block` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Challenge/CommonStrict.lean: imports `Mathlib.Tactic.FinCases` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Challenge/CommonStrict.lean:54:8: declaration uses `sorry`
+warning: Challenge/CommonStrict.lean:64:8: declaration uses `sorry`
+warning: Challenge/CommonStrict.lean:117:8: declaration uses `sorry`
+⚠ [1840/1843] Built Challenge.UnitCriterion (809ms)
+warning: Challenge/UnitCriterion.lean:32:8: declaration uses `sorry`
+warning: Challenge/UnitCriterion.lean:37:8: declaration uses `sorry`
+warning: Challenge/UnitCriterion.lean:43:8: declaration uses `sorry`
+warning: Challenge/UnitCriterion.lean:49:8: declaration uses `sorry`
+warning: Challenge/UnitCriterion.lean:60:8: declaration uses `sorry`
+warning: Challenge/UnitCriterion.lean:66:8: declaration uses `sorry`
+⚠ [1841/1843] Built Challenge.BoundaryCup (818ms)
+warning: Challenge/BoundaryCup.lean:40:8: declaration uses `sorry`
+warning: Challenge/BoundaryCup.lean:45:8: declaration uses `sorry`
+warning: Challenge/BoundaryCup.lean:54:8: declaration uses `sorry`
+warning: Challenge/BoundaryCup.lean:62:8: declaration uses `sorry`
+warning: Challenge/BoundaryCup.lean:70:8: declaration uses `sorry`
+✔ [1842/1843] Built Challenge (753ms)
+Build completed successfully (1843 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, Research.DerivativeSwitch.finite_kernel_line, Research.DerivativeSwitch.singular_kernel_line, Research.DerivativeSwitch.boundary_images_meet_zero, Research.DerivativeSwitch.no_identity_strict_square, Research.DerivativeSwitch.Volume.area_action, Research.DerivativeSwitch.Volume.area_neg_one, Research.BoundaryScalar.adjugate_singularNormal, Research.BoundaryScalar.adjugate_finiteNormal, Research.BoundaryScalar.tensor_of_normal_form, Research.BoundaryScalar.finite_tensor, Research.BoundaryScalar.singular_tensor, Research.BoundaryScalar.finite_cross_ne_zero, Research.BoundaryScalar.singular_cross_ne_zero, Research.BoundaryScalar.finite_coordinate_iff, Research.BoundaryScalar.singular_coordinate_iff, Research.BoundaryScalar.boundary_scalar_formula, Research.BoundaryScalar.scalar_comparison, Research.BoundaryScalar.normalized_scalar_comparison, Research.BoundaryScalar.scalar_comparison_of_unit, Research.BoundaryCupAdapter.cross_evaluations_eq, Research.BoundaryCupAdapter.cross_evaluations_with_factors, Research.DerivativeSwitch.ScalarRatio.coordinate_of_frame, Research.DerivativeSwitch.ScalarRatio.coordinate_of_closed_frame, Research.DerivativeSwitch.ScalarRatio.adjugate_ne_zero_of_frame, Research.DerivativeSwitch.ScalarRatio.coordinate_unique, Research.DerivativeSwitch.ScalarRatio.raw_side_coordinate, Research.DerivativeSwitch.ScalarRatio.common_strict_coordinate_formula, Research.DerivativeSwitch.ScalarRatio.CommonStrictData.coordinate_values, Research.DerivativeSwitch.ScalarRatio.transported_ratio, Research.DerivativeSwitch.ScalarRatio.transported_unit_criterion, Research.DerivativeSwitch.ScalarRatio.integral_unit_criterion, Research.DerivativeSwitch.ScalarRatio.CommonStrictData.actual_coordinate_ratio, Research.DerivativeSwitch.ScalarRatio.CommonStrictData.actual_integral_unit_criterion, Research.DerivativeSwitch.ScalarRatio.boundary_cup_cross_evaluations, Research.DerivativeSwitch.ScalarRatio.normalization_defect, Research.DerivativeSwitch.ScalarRatio.common_normalization_adapter, Research.DerivativeSwitch.ScalarRatio.det_neg_one_common_normalization, Research.DerivativeSwitch.ScalarRatio.integral_boundary_cup_adapter, Research.DerivativeSwitch.ScalarRatio.valuation_equal_of_unitRelated, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+Building Solution
+⚠ [1835/1842] Built Research.DerivativeSwitchBoundary (876ms)
+warning: Research/DerivativeSwitchBoundary.lean: imports `Mathlib.Algebra.Module.Equiv.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Research/DerivativeSwitchBoundary.lean: imports `Mathlib.Tactic.Ring` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [1836/1842] Built Research.BoundaryCupAdapter (1.2s)
+warning: Research/BoundaryCupAdapter.lean: imports `Mathlib.Algebra.Module.Equiv.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Research/BoundaryCupAdapter.lean: imports `Mathlib.LinearAlgebra.BilinearForm.Properties` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Research/BoundaryCupAdapter.lean: imports `Mathlib.Tactic.Ring` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [1837/1842] Built Research.DerivativeSwitch.Coordinate (1.4s)
+warning: Research/DerivativeSwitch/Coordinate.lean: imports `Mathlib.LinearAlgebra.Matrix.NonsingularInverse` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Research/DerivativeSwitch/Coordinate.lean: imports `Mathlib.Tactic.FieldSimp` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Research/DerivativeSwitch/Coordinate.lean: imports `Mathlib.Tactic.Ring` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Research/DerivativeSwitch/Coordinate.lean: imports `Mathlib.Tactic.Push` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Research/DerivativeSwitch/Coordinate.lean:34:0: automatically included section variable(s) unused in theorem `Research.DerivativeSwitch.ScalarRatio.tensor_mul`:
+  [DecidableEq n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Research/DerivativeSwitch/Coordinate.lean:43:0: automatically included section variable(s) unused in theorem `Research.DerivativeSwitch.ScalarRatio.mul_tensor`:
+  [DecidableEq n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Research/DerivativeSwitch/Coordinate.lean:147:0: automatically included section variable(s) unused in theorem `Research.DerivativeSwitch.ScalarRatio.row_mul_assoc`:
+  [DecidableEq n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [1838/1842] Built Research.DerivativeSwitch.CommonStrict (1.3s)
+warning: Research/DerivativeSwitch/CommonStrict.lean: imports `Mathlib.Data.Matrix.Block` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Research/DerivativeSwitch/CommonStrict.lean: imports `Mathlib.Tactic.FinCases` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [1839/1842] Built Research.DerivativeSwitch.UnitCriterion (916ms)
+✔ [1840/1842] Built Research.DerivativeSwitch.BoundaryCup (907ms)
+⚠ [1841/1842] Built Research.BoundaryScalar (4.6s)
+warning: Research/BoundaryScalar.lean: imports `Mathlib.LinearAlgebra.Matrix.Adjugate` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Research/BoundaryScalar.lean: imports `Mathlib.Tactic.FieldSimp` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [1842/1842] Built Solution (753ms)
+Build completed successfully (1842 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, Research.DerivativeSwitch.finite_kernel_line, Research.DerivativeSwitch.singular_kernel_line, Research.DerivativeSwitch.boundary_images_meet_zero, Research.DerivativeSwitch.no_identity_strict_square, Research.DerivativeSwitch.Volume.area_action, Research.DerivativeSwitch.Volume.area_neg_one, Research.BoundaryScalar.adjugate_singularNormal, Research.BoundaryScalar.adjugate_finiteNormal, Research.BoundaryScalar.tensor_of_normal_form, Research.BoundaryScalar.finite_tensor, Research.BoundaryScalar.singular_tensor, Research.BoundaryScalar.finite_cross_ne_zero, Research.BoundaryScalar.singular_cross_ne_zero, Research.BoundaryScalar.finite_coordinate_iff, Research.BoundaryScalar.singular_coordinate_iff, Research.BoundaryScalar.boundary_scalar_formula, Research.BoundaryScalar.scalar_comparison, Research.BoundaryScalar.normalized_scalar_comparison, Research.BoundaryScalar.scalar_comparison_of_unit, Research.BoundaryCupAdapter.cross_evaluations_eq, Research.BoundaryCupAdapter.cross_evaluations_with_factors, Research.DerivativeSwitch.ScalarRatio.coordinate_of_frame, Research.DerivativeSwitch.ScalarRatio.coordinate_of_closed_frame, Research.DerivativeSwitch.ScalarRatio.adjugate_ne_zero_of_frame, Research.DerivativeSwitch.ScalarRatio.coordinate_unique, Research.DerivativeSwitch.ScalarRatio.raw_side_coordinate, Research.DerivativeSwitch.ScalarRatio.common_strict_coordinate_formula, Research.DerivativeSwitch.ScalarRatio.CommonStrictData.coordinate_values, Research.DerivativeSwitch.ScalarRatio.transported_ratio, Research.DerivativeSwitch.ScalarRatio.transported_unit_criterion, Research.DerivativeSwitch.ScalarRatio.integral_unit_criterion, Research.DerivativeSwitch.ScalarRatio.CommonStrictData.actual_coordinate_ratio, Research.DerivativeSwitch.ScalarRatio.CommonStrictData.actual_integral_unit_criterion, Research.DerivativeSwitch.ScalarRatio.boundary_cup_cross_evaluations, Research.DerivativeSwitch.ScalarRatio.normalization_defect, Research.DerivativeSwitch.ScalarRatio.common_normalization_adapter, Research.DerivativeSwitch.ScalarRatio.det_neg_one_common_normalization, Research.DerivativeSwitch.ScalarRatio.integral_boundary_cup_adapter, Research.DerivativeSwitch.ScalarRatio.valuation_equal_of_unitRelated, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution
+Running Lean paranoid kernel on solution
+Lean paranoid kernel accepts the solution
+Running lean4lean kernel on solution
+checked 11492 declarations
+lean4lean kernel accepts the solution
+Running nanoda kernel on solution
+nanoda kernel accepts the solution
+Running con-leche kernel on solution
+con-leche: accepted 11495 declarations (--verified)
+con-leche kernel accepts the solution
+Running con-ron kernel on solution
+con-ron: accepted 11495 declarations (--verified)
+con-ron kernel accepts the solution
+Running Lean default kernel on solution
+Lean default kernel accepts the solution
+Your solution is okay!
