@@ -1,0 +1,23 @@
+{
+ "name": "gzcd-s1",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.GrossZagierCdPrinted"
+ ],
+ "discharges": [
+  {
+   "field": "hGZ",
+   "proof": "_root_.ZInQ.GZCdPrinted.grossZagierCurveCd_of_printed {n}.grossZagierCurveCdPrinted",
+   "leaves": [
+    {
+     "name": "grossZagierCurveCdPrinted",
+     "type": "_root_.ZInQ.GZCdPrinted.GrossZagierCurveCdPrinted",
+     "doc": "Gross-Zagier, Invent. Math. 84 (1986), Thm I.6.3 and Ch. V section 2 Thm 2.1, for any modular parametrization pi : X0(N) -> E, a nonconstant morphism of Q-schemes from some normal proper model (X, iota) of X0(N) (iota : K(X) = Q(j, j_N); the canonical model is one) to E = Proj Q[X,Y,Z]/(F_E), with pi(cusp oo) = O = [0:1:0]; K the imaginary quadratic field of discriminant D (NumberField.discr K = D), D < -4 odd fundamental, every p | N split in K, beta^2 = D mod 4N; Heegner points the C-points tau_r of X; any embedding K -> C; twist by the quadratic character of K; short models in the isogeny class of C_d (d = 5 mod 8 squarefree); y = n y_K (n != 0); positive constant forgotten (gzcd-s1)",
+     "kind": "published",
+     "flag": "unread: new printed leaf (gzcd-s1: GZCdPrinted.GrossZagierCurveCdPrinted; equivalent in Lean to the current binder type GZSch.GrossZagierCurveCd (grossZagierCurveCd_iff_printed); queue12's three steps proved: S1 by model uniqueness (h33-d1: CurveModel.exists_iso_of_functionField, GZUnique.model_transfer), G4(b) by H33D1.not_mem_chartZ_iff (the leaf states pi(oo) = O literally), S2 by eps-splitting (quadChar_eq_epsD, IsSplitIn) plus the discriminant bridge GZDiscr.discr_eq_of_sq / exists_sq_eq_discr (K given by disc K = D, any embedding); readings kept: canonical model X0(N)_Q = (X, iota), the point tau (IsPointAt), h-hat normalization (G10: Tau Ceti canonicalHeight over K vs GZ's h-hat differ by a positive constant, absorbed by exists kappa > 0)); locator UNVERIFIED",
+     "source": "Gross-Zagier, Heegner points and derivatives of L-series, Invent. Math. 84 (1986), 225-320, Thm I.6.3 (p.230 per locators.md) and Ch. V section 2 Thm 2.1 (pi fixed on p. 310 per the queue9 reading); any modular parametrization with pi(infty) = 0"
+    }
+   ]
+  }
+ ],
+ "note": "hGZ is a binder of ZInQ.OneProof.frozenTarget, not a bundle field, so autofold.py does not apply (it folds HDec.HSyn bundle fields only): manual fold, checked in scratch/gzcd-s1/FoldCheck.lean (ZInQ.GZCdPrinted.frozenTarget_printed, standard axioms, rfl-equal to frozenTarget applied to the bridge). In ZInQKernel/OneProof/Main.lean: add `import ZInQKernel.Contrib.OneProof.GrossZagierCdPrinted`; replace the binder `(hGZ : ZInQ.GZSch.GrossZagierCurveCd)` by `(hGZp : ZInQ.GZCdPrinted.GrossZagierCurveCdPrinted)` and its use `hGZ` by `(ZInQ.GZCdPrinted.grossZagierCurveCd_of_printed hGZp)`. Alternative with no Main edit: keep the binder type GZSch.GrossZagierCurveCd, which is Lean-equivalent to the printed leaf (ZInQ.GZCdPrinted.grossZagierCurveCd_iff_printed), and rate it by that equivalence. Supersedes h33-d1's GZSplitUnique.GrossZagierCurveCdSplitSome (equivalent: grossZagierCurveCdPrinted_iff). No field added; count hGZ GLUE -> LEAF."
+}
