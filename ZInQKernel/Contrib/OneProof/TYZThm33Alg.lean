@@ -62,7 +62,7 @@ attribute [local instance high] HahnSeries.powerSeriesAlgebra
   the canonical model of `X₀(32)` over `ℚ` embedded by `q`-expansion at the cusp `∞` (Shimura 1971, §6.7;
   Diamond–Shurman §7.7; numbers UNVERIFIED);
 * `ℚ(A)` is Mathlib's function field of the kernel's `A : y² = x³ + 4x` (`curveA`), which is `ℚ`-isomorphic to TYZ's
-  `2y² = x³ + x` by `(x, y) ↦ (2x, 4y)` (`16(2y² − x³ − x) = (4y)² − (2x)³ − 4·2x`);
+  `2y² = x³ + x` by `(x, y) ↦ (2x, 4y)` (`8(2y² − x³ − x) = (4y)² − (2x)³ − 4·2x`);
 * a morphism of smooth projective curves over `ℚ` is a `ℚ`-embedding of function fields, and an isomorphism iff the
   embedding is onto (Hartshorne I.6.12; Silverman AEC II.2.5; numbers UNVERIFIED); `i₀(∞) = O` iff `i₀^*(x)` has a
   pole at `∞`, where `q` is a local parameter: `ord_q i₀^*(x) < 0`.
