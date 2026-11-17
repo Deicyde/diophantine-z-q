@@ -67,7 +67,7 @@ def GZPrintedBody (E : WeierstrassCurve ℚ) (N : ℕ) [NeZero N] (f : Newform N
       ∃ κ : ℝ, 0 < κ ∧ deriv (fun s => F s * G s) 1 = κ * y.canonicalHeight
 
 /-- An embedding of `K ∋ δ₀`, `δ₀² = D < 0`, sends `δ₀` or `-δ₀` to `i √|D|`. -/
-theorem exists_sqrt_embedding {K : Type} [Field K] {D : ℤ} (hneg : D < 0) {δ₀ : K}
+theorem exists_sqrt_embedding {K : Type} [Field K] [CharZero K] {D : ℤ} (hneg : D < 0) {δ₀ : K}
     (hδ₀ : δ₀ ^ 2 = (D : K)) (ιK : K →ₐ[ℚ] ℂ) :
     ∃ δ : K, δ ^ 2 = (D : K) ∧ ιK δ = Complex.I * (Real.sqrt (-(D : ℝ)) : ℂ) := by
   have hsq : (ιK δ₀) ^ 2 = (Complex.I * (Real.sqrt (-(D : ℝ)) : ℂ)) ^ 2 := by
