@@ -247,7 +247,6 @@ theorem researchLeaves10_of_open11 (r : OpenResearchLeaves11) : OpenResearchLeav
 /-- leaf-fold10's added-leaf bundle from route-a-fold's: Deligne's printed theorem on `Y₃` from its
 abelian-scheme form and the research field `mumfordRigidityCore`. -/
 theorem addedLeaves9_of_open10 (r : OpenResearchLeaves11) (l : OpenAddedLeaves10) : OpenAddedLeaves9 where
-  thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
   qmCentralizerCMC := l.qmCentralizerCMC
   tateTwistInvariants := l.tateTwistInvariants
   axSenTate := l.axSenTate
@@ -264,8 +263,9 @@ theorem addedLeaves9_of_open10 (r : OpenResearchLeaves11) (l : OpenAddedLeaves10
 and leaf-fold7's `OpenGlue7` (1, `QuotientP1Coordinate`). The moduli leaves are stated on abelian schemes, as
 printed; the table of every changed field is `docs/research/route-a-fold.md` §2. -/
 theorem sixContactMin_of_open13 (r : OpenResearchLeaves11) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves10)
-    (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) (hY3 : TSHecke.Y3Connected) : ZInQ.SixContactMin :=
-  sixContactMin_of_open12 (researchLeaves10_of_open11 r) t (addedLeaves9_of_open10 r l) g hYu hY3
+    (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) (hY3 : TSHecke.Y3Connected)
+    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
+  sixContactMin_of_open12 (researchLeaves10_of_open11 r) t (addedLeaves9_of_open10 r l) g hYu hY3 hθ
 
 end HSyn
 

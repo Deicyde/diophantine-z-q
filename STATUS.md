@@ -22,10 +22,10 @@ The open statements of the current proof (generated from docs/one-proof/OPEN.md;
 describe the fork main they name):
 
 <!-- open-count:begin -->
-**45 hypotheses of the H part** (in the bundles `OpenAddedLeaves17`, `OpenGlue8`, `OpenResearchLeaves26`, `OpenTextbookLeaves12`), plus 11 hypotheses of the Tian–Yuan–Zhang and Gross–Zagier parts listed at the end of docs/one-proof/OPEN.md.
+**37 hypotheses of the H part** (in the bundles `OpenAddedLeaves19`, `OpenResearchLeaves28`, `OpenTextbookLeaves13`), plus 8 hypotheses of the Tian–Yuan–Zhang and Gross–Zagier parts listed at the end of docs/one-proof/OPEN.md.
 
-* **Strict count: 34 published / 11 glue** (the strictest flagged reading; no hypothesis carries a strictest-reading flag).
-* By kind: composite 4, consequence 6, project glue 1, published 34.
+* **Strict count: 16 published / 21 glue** (the strictest flagged reading; no hypothesis carries a strictest-reading flag).
+* By kind: composite 5, consequence 13, published 19.
 * Generated from docs/one-proof/OPEN.md by scripts/one_proof/render_open.py.
 <!-- open-count:end -->
 
@@ -306,12 +306,12 @@ statements, some textbook theorems are proved, and the project's reductions add 
   statements that the assembly derives from its leaves (among them the moduli description of the Shimura curve Y₃,
   Mumford's description of torsion points and Elkies' coordinate on the quotient of X₆ by its Atkin–Lehner group) and
   from the one glue statement left, `NVLocalInertia`, the third step of Lemma NV: if E is a finite Galois extension of
-  Q(X) of degree less than p whose finite branch points are rational, p-integral and distinct modulo p, and the
-  residue fields of E above a branch point b are unramified at p, then every inertia element at a prime above pZ[X] is
-  conjugate to an element of an inertia group above X − b. A sketch derives it from Abhyankar's lemma along a divisor
-  with normal crossings (SGA 1 XIII 5.3; the library proves only the lemma's form over a discrete valuation ring) and
-  from Zariski–Nagata purity, which is proved in dimension 2; it is not printed in this form, and the derivation is
-  not yet part of the proof (docs/research/sgr-direct.md, sgr-fold.md).
+  Q(X) of degree less than p whose finite branch points lie in a set S of rational numbers that are p-integral and
+  distinct modulo p, and b is a point of S above which the residue fields of E are unramified at p, then every inertia
+  element at a prime above pZ[X] is conjugate to an element of an inertia group above X − b. A sketch derives it from
+  Abhyankar's lemma along a divisor with normal crossings (SGA 1 XIII 5.3; the library proves only the lemma's form
+  over a discrete valuation ring) and from Zariski–Nagata purity, which is proved in dimension 2; it is not printed in
+  this form, and the derivation is not yet part of the proof (docs/research/sgr-direct.md, sgr-fold.md).
   The assembly folds in a check of earlier candidates (docs/research/leafq-check.md), the splitting of many leaves
   into the published statements they follow from (docs/research/av-split.md, curve-split.md, hodge-split.md,
   qm-split.md, height-split.md), and proofs of the height glue and of a covolume step for the group Γ* (the

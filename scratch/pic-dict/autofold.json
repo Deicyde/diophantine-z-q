@@ -1,0 +1,70 @@
+{
+ "name": "pic-dict",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.PicDictionary"
+ ],
+ "discharges": [
+  {
+   "field": "weilPairingMumford",
+   "proof": "_root_.PicDict.weilPairingMumford_final {n}.mumfordSquareAC {n}.mumfordMulNPicZeroAC {n}.mumfordPhiSurjectiveAC {n}.mumfordWeilPairingAC {n}.mumfordWeilNondegAC {n}.mumfordWeilAltAC {n}.mumfordKLFiniteAC",
+   "leaves": [
+    {
+     "name": "mumfordSquareAC",
+     "type": "_root_.PicDict.MumfordSquareAC",
+     "doc": "pic-dict: theorem of the square over an algebraically closed field (Mumford, Abelian varieties, section 6 Cor. 4; locator UNVERIFIED).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Mumford's statement over an algebraically closed field, Pic0 = translation-invariant classes); locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, 6 Cor. 4: t_{x+y}^*L (x) L = t_x^*L (x) t_y^*L"
+    },
+    {
+     "name": "mumfordMulNPicZeroAC",
+     "type": "_root_.PicDict.MumfordMulNPicZeroAC",
+     "doc": "pic-dict: n_X^*L = L^n for L in Pic0(X), k algebraically closed (Mumford section 8 (iv); locator UNVERIFIED).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Mumford's statement over an algebraically closed field, Pic0 = translation-invariant classes); locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, 8 (iv): n_X^*L = L^n for L in Pic0"
+    },
+    {
+     "name": "mumfordPhiSurjectiveAC",
+     "type": "_root_.PicDict.MumfordPhiSurjectiveAC",
+     "doc": "pic-dict: for L ample every L' in Pic0(X) is t_x^*L (x) L^-1 (Mumford section 8 Thm 1; locator UNVERIFIED).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Mumford's statement over an algebraically closed field, Pic0 = translation-invariant classes); locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, 8 Thm 1"
+    },
+    {
+     "name": "mumfordWeilPairingAC",
+     "type": "_root_.PicDict.MumfordWeilPairingAC",
+     "doc": "pic-dict: Mumford's e_n (formula t_x^*psi o psi^-1) is well defined, mu_n-valued and bilinear (Mumford section 20; locator UNVERIFIED).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Mumford's statement over an algebraically closed field, Pic0 = translation-invariant classes); locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, 20: e_n : X_n x Xhat_n -> mu_n, bilinear"
+    },
+    {
+     "name": "mumfordWeilNondegAC",
+     "type": "_root_.PicDict.MumfordWeilNondegAC",
+     "doc": "pic-dict: e_n nondegenerate for n prime to char (Mumford section 20; locator UNVERIFIED).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Mumford's statement over an algebraically closed field, Pic0 = translation-invariant classes); locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, 20: e_n nondegenerate"
+    },
+    {
+     "name": "mumfordWeilAltAC",
+     "type": "_root_.PicDict.MumfordWeilAltAC",
+     "doc": "pic-dict: e_n(x, phi_L(x)) = 1 (Mumford section 23; locator UNVERIFIED).",
+     "kind": "published",
+     "flag": "unread: new printed leaf (Mumford's statement over an algebraically closed field, Pic0 = translation-invariant classes); locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, 23: e^L_n(x,x) = 1"
+    },
+    {
+     "name": "mumfordKLFiniteAC",
+     "type": "_root_.PicDict.MumfordKLFiniteAC",
+     "doc": "pic-dict: K(L) finite for L ample, k algebraically closed (Mumford section 6 Application 1, printed for L = O(D), D effective; locator UNVERIFIED).",
+     "kind": "published",
+     "flag": "unread: new printed leaf; Mumford prints it for L = O(D) with D effective, general ample L via L^m; locator UNVERIFIED",
+     "source": "Mumford, Abelian varieties, 6 Application 1"
+    }
+   ]
+  }
+ ]
+}

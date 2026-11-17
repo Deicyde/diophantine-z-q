@@ -767,7 +767,6 @@ namespace HSyn
 `t09SymmIsogenyExists` (t09-pic's `T09Pic.t09SymmIsogenyExists_of_four`), with its four printed leaves added.
 17 fields. -/
 structure OpenAddedLeaves13 : Prop where
-  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
   qmCentralizerCMC : QMSplit.Aut.QMCentralizerCMC
   tateTwistInvariants : _root_.ZInQ.Contrib.HodgeSplit.TateTwistInvariants
   axSenTate : _root_.ZInQ.Contrib.HodgeSplit.AxSenTate
@@ -800,7 +799,6 @@ structure OpenAddedLeaves13 : Prop where
 
 /-- x6-fold's added-leaf bundle from leaf-fold14's: `t09SymmIsogenyExists` from t09-pic's four printed leaves. -/
 theorem addedLeaves12_of_open13 (l : OpenAddedLeaves13) : OpenAddedLeaves12 where
-  thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
   qmCentralizerCMC := l.qmCentralizerCMC
   tateTwistInvariants := l.tateTwistInvariants
   axSenTate := l.axSenTate
@@ -817,8 +815,9 @@ theorem addedLeaves12_of_open13 (l : OpenAddedLeaves13) : OpenAddedLeaves12 wher
 theorem sixContactMin_of_open18 (r : OpenResearchLeaves14) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves13)
     (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) (h6 : PkgI2.RaynaudCriterionNF.{0})
     (hSS : _root_.ZInQ.HeightSplit.SemistableReductionThm ∧ _root_.ZInQ.HeightSplit.SemistablePersists)
-    (hY3 : TSHecke.Y3Connected) : ZInQ.SixContactMin :=
-  sixContactMin_of_open17 r t (addedLeaves12_of_open13 l) g hYu h6 hSS hY3
+    (hY3 : TSHecke.Y3Connected)
+    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
+  sixContactMin_of_open17 r t (addedLeaves12_of_open13 l) g hYu h6 hSS hY3 hθ
 
 end HSyn
 

@@ -169,3 +169,50 @@ gt-valence 36d94c0d 2026-11-14 23:30:00 -0800 (on main; folded)
 # ea486e30
 # revisions chain.py reads that are not on main (their branches must stay): r4's (above); r8 adds none, and r7's
 # branch heads were on main already.
+# refresh r9: branch heads read at 2026-11-15 22:48 PST, fork main 0e70c94e (leaf-fold29 over leaf-fold28b 8961bb09) read at 2026-11-16 00:38 PST; main moved on to leaf-fold30 after the snapshot
+main 0e70c94e 2026-11-15 23:44:03 -0800 (leaf-fold29, whose branch is gone: bg-explicit, st-qbar, faltings5-lower, r6-nf with neron-dvr, h29-ne3 and dcy3-used merged, all but dcy3-used folded; main moved on to leaf-fold30 after the snapshot)
+leaf-fold28b 8961bb09 2026-11-15 22:35:59 -0800 (on main; the claims row of `hX` dropped, locators)
+leaf-fold-hx 862bd440 2026-11-15 22:32:55 -0800 (on main; theta-wp8 folded, `hX` removed, the re-ratings)
+leaf-fold27 f3f288d8 2026-11-15 05:26:38 -0800 (on main; flt-cqj2 folded, frontier r8 merged)
+leaf-fold26 86755ad8 2026-11-15 04:55:44 -0800 (on main; elkies-coord folded)
+leaf-fold25 bc90deac 2026-11-15 04:45:11 -0800 (on main; r16-split folded, merging leaf-fold23 and leaf-fold24)
+leaf-fold24 b2ae6c53 2026-11-15 04:26:01 -0800 (on main; gz-fh folded)
+leaf-fold23 aa9763a1 2026-11-15 04:31:43 -0800 (on main; gt-rigidity and rigid-prune folded)
+leaf-fold22b 9a100aa7 2026-11-15 04:21:03 -0800 (on main; gt-rayclass, sgr-split and h33-sign folded)
+leaf-fold21 47bba295 2026-11-15 04:02:55 -0800 (on main; yu-prune folded)
+leaf-fold20 24f97774 2026-11-15 03:27:41 -0800 (on main; gt-sga7 and gt-unip folded)
+frontier-r8 864c9f19 2026-11-15 04:53:48 -0800 (on main through leaf-fold27)
+gt-sga7 70a16c4c 2026-11-15 01:49:58 -0800 (on main; folded)
+gt-unip 42e1af66 2026-11-15 01:40:02 -0800 (on main; folded)
+yu-prune a162b51a 2026-11-15 03:18:53 -0800 (on main; folded)
+gt-rayclass 28ec5c91 2026-11-15 03:16:05 -0800 (on main; folded)
+sgr-split 990fb6a6 2026-11-15 03:12:34 -0800 (on main; folded)
+h33-sign abfc77cf 2026-11-15 04:13:27 -0800 (on main; folded)
+gt-rigidity 762ea48b 2026-11-14 23:12:07 -0800 (on main; folded)
+rigid-prune 98a0a37d 2026-11-15 03:01:51 -0800 (on main; folded)
+gz-fh 75a3c0bd 2026-11-15 04:20:51 -0800 (on main; folded)
+r16-split e1066890 2026-11-15 04:27:42 -0800 (on main; folded)
+elkies-coord 398043e7 2026-11-15 04:29:40 -0800 (on main; folded)
+flt-cqj2 c894d5ba 2026-11-15 04:32:25 -0800 (on main; folded)
+theta-wp8 04afc477 2026-11-15 07:18:05 -0800 (on main; folded)
+gz-hl3 bbb6c764 2026-11-15 04:14:28 -0800 (on main; not folded, scenario F)
+gz-heegner 58a780e4 2026-11-15 05:49:58 -0800 (on main; not folded, scenario F)
+bg-explicit c47e220c 2026-11-15 06:13:14 -0800 (on main; folded by leaf-fold29)
+st-qbar 0de7c471 2026-11-15 06:02:09 -0800 (on main; folded by leaf-fold29)
+faltings5-lower 8391dc2a 2026-11-15 06:31:58 -0800 (on main; folded by leaf-fold29)
+neron-dvr 998fa5b5 2026-11-15 04:11:58 -0800 (on main; folded by leaf-fold29)
+r6-nf 0bc2446d 2026-11-15 05:21:21 -0800 (on main; folded by leaf-fold29)
+h29-split 14503253 2026-11-15 03:08:56 -0800 (on main; folded by leaf-fold29)
+h29-fix 0f61e9c0 2026-11-15 03:54:54 -0800 (on main; folded by leaf-fold29)
+h29-ne3 a03caff2 2026-11-15 05:58:34 -0800 (on main; folded by leaf-fold29)
+dcy3-used 36240662 2026-11-15 05:50:56 -0800 (on main; not folded, scenario F)
+jacobi-lambda b6fc38e9 2026-11-15 05:33:53 -0800 (on main; not folded, scenario F)
+open-leaf-def c0f4abb8 2026-11-15 07:48:16 -0800 (on main)
+rayclass-cft 7b27f1c3 2026-11-14 19:20:16 -0800 (on main through gt-rayclass)
+flt-cqj 0d8105c7 2026-11-15 03:21:43 -0800 (on main through flt-cqj2)
+# after main at the snapshot, not used: cm-stab feff8ecd, composite-out 822da7b5, faltings-cm ce696e14, fh-printed
+# 8d0b9b64, gr56-prove 90b817cb, gt-sga3 deba22d7, gz-weil ad22e947, hcm-printed 15055182, ht-exists 7088f9ed,
+# linyang-printed 3bb5a828, theta-fold 8e3dbdea, p1-quot 319fa317, p1-quot2 19793c5d, p1-quot3 b533b204, pb-bypass
+# c1636db9, r16-used dcf24ac6, sga7-cp 0c200c57, sgr-direct 56478c75, sir-printed e5968542, shimura-split2 838a7430,
+# unif-printed 9c2e1809
+# revisions chain.py reads that are not on main (their branches must stay): r4's (above); r9 adds none.

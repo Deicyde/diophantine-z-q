@@ -1,0 +1,10 @@
+DISCHARGES [OpenResearchLeaves26.dsThm965Weak] by DSCoeffExt.dsThm965Weak_of_printed
+  still assumes: [DSCoeffExt.DSThm965Printed, DSCoeffExt.EigenformCoeffFieldFinite]
+  axioms: [propext, Classical.choice, Quot.sound]
+--
+DISCHARGES [OpenResearchLeaves26.dsThm966] by DSThm966EV.dsThm966_of_printed
+  still assumes: [DSThm966EV.DSThm966Printed]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves26.dsThm966] by DSThm966EV.dsThm966_of_printedFull
+  still assumes: [DSThm966EV.DSThm966PrintedFull]
+  axioms: [propext, Classical.choice, Quot.sound]

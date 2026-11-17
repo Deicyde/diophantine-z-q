@@ -1118,8 +1118,8 @@ def DSThm965 : Prop :=
           ZInQ.Contrib.G9.PkgI4.IsArithFrob σ v p →
           (ρ.mat σ).charpoly = X ^ 2 - C (ιL α) * X + C (ιL β)
 
-/-- **LEAF (Deligne–Serre, in Diamond–Shurman's form).** Deligne–Serre, *Formes modulaires de
-poids 1*, Ann. Sci. ÉNS 7 (1974), Thm 4.1; Diamond–Shurman Thm 9.6.6 (numbering UNVERIFIED): for a
+/-- **LEAF (Deligne–Serre 1974 Thm 4.1).** Deligne–Serre, *Formes modulaires de
+poids 1*, Ann. Sci. ÉNS (4) 7 (1974), Thm 4.1, display (4.1.1), p. 514 (UNVERIFIED): for a
 normalized eigenform `f ∈ S_1(N, χ)` there is a continuous representation `ρ_f : G_ℚ → GL₂(ℂ)`
 (Krull topology on `G_ℚ`), with finite image, unramified at every `p ∤ N`, with
 `tr ρ_f(Frob_𝔭) = a_p(f)` and `det ρ_f(Frob_𝔭) = χ(p)`. Lean form: places of `ℚ̄` as valuation
