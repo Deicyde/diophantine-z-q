@@ -16,13 +16,13 @@ The definitions follow Silverman, *The Arithmetic of Elliptic Curves*, X.4, as f
 `ZInQKernel/Contrib/TauCeti/AlgebraicGeometry/EllipticCurve/GaloisCohomology/`), with Galois cohomology
 the continuous cohomology of `G_ℚ = Gal(ℚˢ/ℚ)` in discrete modules:
 
-* the places of `ℚ` are the primes `p` (completion `ℚ_p`) and the infinite place (completion `ℝ`),
-  with a fixed `ℚ`-embedding of separable closures at each place (`embFin`, `embInf`); the Selmer and
-  Shafarevich–Tate groups do not depend on that choice (Tau Ceti `EmbeddingIndependence`);
+* the places of `ℚ` are `Place = Nat.Primes ⊕ Unit` (the primes and the infinite place), with
+  completions `Completion v` (`ℚ_p`, `ℝ`) and a fixed `ℚ`-embedding of separable closures at each
+  place (`emb`); the Selmer and Shafarevich–Tate groups do not depend on that choice (Tau Ceti
+  `EmbeddingIndependence`);
 * `TwoPowerCoeff E = E(ℚˢ)[2^∞]`, the `2`-primary torsion of `E(ℚˢ)` (`AddCommGroup.primaryComponent`),
   a discrete `G_ℚ`-module;
-* `sha E = Sha(E/ℚ)`: Tau Ceti's Shafarevich–Tate group at the finite places meet the one at the
-  infinite place, i.e. local triviality at every place of `ℚ`;
+* `sha E = Sha(E/ℚ)`: Tau Ceti's Shafarevich–Tate group for the completions at all places;
 * `selmerTwoPower E = Sel_{2^∞}(E/ℚ)`: the classes in `H¹(G_ℚ, E(ℚˢ)[2^∞])` whose image in
   `H¹(G_ℚ, E(ℚˢ))` lies in `Sha(E/ℚ)`, i.e. restricts to zero at every completion `ℚ_v`
   (`mem_selmerTwoPower_iff`). This is Silverman's `Sel^{(m)}` with `E[m]` replaced by `E[2^∞]`, the
@@ -48,11 +48,20 @@ open TauCeti TauCeti.ContCohomology
 /-- Every `p : Nat.Primes` is prime, so `ℚ_p` is a field. -/
 instance (p : Nat.Primes) : Fact (p : ℕ).Prime := ⟨p.2⟩
 
-/-- The completion `ℚ_p` of `ℚ` at the finite place `p`. -/
-abbrev QpCompletion (p : Nat.Primes) : Type := ℚ_[(p : ℕ)]
+/-- **The places of `ℚ`**: the primes `p` (`Sum.inl p`) and the infinite place (`Sum.inr ()`). -/
+abbrev Place : Type := Nat.Primes ⊕ Unit
 
-/-- The completion `ℝ` of `ℚ` at its infinite place (indexed by `Unit`). -/
-abbrev RealCompletion (_ : Unit) : Type := ℝ
+/-- **The completion of `ℚ` at a place**: `ℚ_p` at `p`, `ℝ` at the infinite place. -/
+abbrev Completion : Place → Type :=
+  Sum.elim (fun p : Nat.Primes => ℚ_[(p : ℕ)]) (fun _ : Unit => ℝ)
+
+instance instFieldCompletion : ∀ v, Field (Completion v) := fun v =>
+  Sum.rec (motive := fun v => Field (Completion v)) (fun p => (inferInstance : Field ℚ_[(p : ℕ)]))
+    (fun _ => (inferInstance : Field ℝ)) v
+
+instance instAlgebraCompletion : ∀ v, Algebra ℚ (Completion v) := fun v =>
+  Sum.rec (motive := fun v => Algebra ℚ (Completion v))
+    (fun p => (inferInstance : Algebra ℚ ℚ_[(p : ℕ)])) (fun _ => (inferInstance : Algebra ℚ ℝ)) v
 
 /-- A `K`-embedding of separable closures `Kˢ → Lˢ` for a field extension `L/K`, elaborated over
 a general `K` so that its type carries the algebra structure `Algebra K Lˢ` induced by `L/K`, the
@@ -61,18 +70,13 @@ def sepClosureEmb (K L : Type*) [Field K] [Field L] [Algebra K L] :
     SeparableClosure K →ₐ[K] SeparableClosure L :=
   IsSepClosed.lift
 
-/-- A fixed `ℚ`-embedding of separable closures `ℚˢ → (ℚ_p)ˢ` at every finite place `p` (its type,
-`SeparableClosure ℚ →ₐ[ℚ] SeparableClosure ℚ_p`, is inferred from `sepClosureEmb` so that it carries
-the algebra structures Tau Ceti's groups expect). The Selmer
-and Shafarevich–Tate groups below do not depend on this choice (Tau Ceti
-`WeierstrassCurve.shafarevichTateGroup_eq_shafarevichTateGroup`, `EmbeddingIndependence.lean`). -/
-def embFin (p : Nat.Primes) :=
-  sepClosureEmb ℚ (QpCompletion p)
-
-/-- A fixed `ℚ`-embedding of separable closures `ℚˢ → ℝˢ` at the infinite place (indexed by
-`Unit`). -/
-def embInf (u : Unit) :=
-  sepClosureEmb ℚ (RealCompletion u)
+/-- **A fixed `ℚ`-embedding of separable closures `ℚˢ → (ℚ_v)ˢ` at every place `v`** (its type,
+`SeparableClosure ℚ →ₐ[ℚ] SeparableClosure ℚ_v`, is inferred from `sepClosureEmb` so that it carries
+the algebra structures Tau Ceti's groups expect). The Selmer and Shafarevich–Tate groups below do
+not depend on this choice (Tau Ceti `WeierstrassCurve.shafarevichTateGroup_eq_shafarevichTateGroup`,
+`EmbeddingIndependence.lean`). -/
+def emb (v : Place) :=
+  sepClosureEmb ℚ (Completion v)
 
 /-! ### `E(ℚˢ)[2^∞]` as a discrete Galois module -/
 
@@ -113,11 +117,10 @@ def twoPowerCoeffIncl : TwoPowerCoeff E →+[AbsoluteGaloisGroup ℚ] E.PointCoe
 
 /-! ### The `2`-primary Selmer group -/
 
-/-- **`Sha(E/ℚ)`**: the classes in `H¹(G_ℚ, E(ℚˢ))` that restrict to zero at every place of `ℚ`,
-as the meet of Tau Ceti's Shafarevich–Tate groups for the family of completions `ℚ_p` at the finite
-places and for `ℝ` at the infinite place. -/
+/-- **`Sha(E/ℚ)`**: Tau Ceti's Shafarevich–Tate group for the family of completions of `ℚ` at all
+places, i.e. the classes in `H¹(G_ℚ, E(ℚˢ))` that restrict to zero over every `ℚ_p` and over `ℝ`. -/
 def sha : AddSubgroup (H1 (AbsoluteGaloisGroup ℚ) E.PointCoeff) :=
-  E.shafarevichTateGroup embFin ⊓ E.shafarevichTateGroup embInf
+  E.shafarevichTateGroup emb
 
 /-- **The `2`-primary Selmer group `Sel_{2^∞}(E/ℚ)`**: the classes in `H¹(G_ℚ, E(ℚˢ)[2^∞])` whose
 image in `H¹(G_ℚ, E(ℚˢ))` lies in `Sha(E/ℚ)`, that is, restricts to zero over the completion of `ℚ`
@@ -131,23 +134,17 @@ def selmerTwoPower : AddSubgroup (H1 (AbsoluteGaloisGroup ℚ) (TwoPowerCoeff E)
 /-- Membership in `Sel_{2^∞}(E/ℚ)`: the image in `H¹(G_ℚ, E(ℚˢ))` restricts to zero at every place
 of `ℚ`. -/
 theorem mem_selmerTwoPower_iff {c : H1 (AbsoluteGaloisGroup ℚ) (TwoPowerCoeff E)} :
-    c ∈ selmerTwoPower E ↔
-      (∀ p, E.pointRes (embFin p)
-        (explicitCoeff1 (AbsoluteGaloisGroup ℚ) (TwoPowerCoeff E) (twoPowerCoeffIncl E)
-          continuous_of_discreteTopology c) = 0) ∧
-      E.pointRes (embInf ())
-        (explicitCoeff1 (AbsoluteGaloisGroup ℚ) (TwoPowerCoeff E) (twoPowerCoeffIncl E)
-          continuous_of_discreteTopology c) = 0 := by
-  simp only [selmerTwoPower, sha, AddSubgroup.mem_comap, AddSubgroup.mem_inf]
-  rw [WeierstrassCurve.mem_shafarevichTateGroup_iff, WeierstrassCurve.mem_shafarevichTateGroup_iff]
-  exact and_congr Iff.rfl ⟨fun h => h (), fun h _ => h⟩
+    c ∈ selmerTwoPower E ↔ ∀ v, E.pointRes (emb v)
+      (explicitCoeff1 (AbsoluteGaloisGroup ℚ) (TwoPowerCoeff E) (twoPowerCoeffIncl E)
+        continuous_of_discreteTopology c) = 0 := by
+  rw [selmerTwoPower, AddSubgroup.mem_comap, sha, WeierstrassCurve.mem_shafarevichTateGroup_iff]
 
 /-! ### The `2^n`-Selmer groups and the maps `Sel_{2^n} → Sel_{2^∞}` -/
 
 /-- **`Sel_{2^n}(E/ℚ)`**: Tau Ceti's `2^n`-Selmer group with the local conditions at every place of
-`ℚ` (the meet of the groups for the finite places and for the infinite place). -/
+`ℚ`. -/
 def selmerAt (n : ℕ) : AddSubgroup (H1 (AbsoluteGaloisGroup ℚ) (E.TorsionCoeff (2 ^ n))) :=
-  E.selmerGroup embFin (2 ^ n) ⊓ E.selmerGroup embInf (2 ^ n)
+  E.selmerGroup emb (2 ^ n)
 
 /-- The inclusion `E(ℚˢ)[2^n] → E(ℚˢ)[2^∞]`, a `G_ℚ`-equivariant map. -/
 def torsionToTwoPower (n : ℕ) :
@@ -177,10 +174,9 @@ theorem explicitCoeff1_torsionToTwoPower_mem {n : ℕ}
         continuous_of_discreteTopology c := by
     rw [← twoPowerCoeffIncl_comp_torsionToTwoPower, explicitCoeff1_comp]
     rfl
-  obtain ⟨h1, h2⟩ := AddSubgroup.mem_inf.mp hc
-  rw [WeierstrassCurve.mem_selmerGroup_iff] at h1 h2
+  rw [selmerAt, WeierstrassCurve.mem_selmerGroup_iff] at hc
   rw [selmerTwoPower, AddSubgroup.mem_comap, hcomp, sha]
-  exact AddSubgroup.mem_inf.mpr ⟨h1, h2⟩
+  exact hc
 
 /-- **The map `Sel_{2^n}(E/ℚ) → Sel_{2^∞}(E/ℚ)`** induced by `E[2^n] ⊆ E[2^∞]`. -/
 def selmerAtToTwoPower (n : ℕ) : selmerAt E n →+ selmerTwoPower E where
@@ -189,6 +185,96 @@ def selmerAtToTwoPower (n : ℕ) : selmerAt E n →+ selmerTwoPower E where
     explicitCoeff1_torsionToTwoPower_mem E c.2⟩
   map_zero' := Subtype.ext (map_zero _)
   map_add' _ _ := Subtype.ext (map_add _ _ _)
+
+/-! ### `0 → E[2^n] → E[2^∞] → E[2^∞] → 0` and `Sel_{2^n} ↠ Sel_{2^∞}[2^n]` -/
+
+/-- **The short exact sequence `0 → E(ℚˢ)[2^n] → E(ℚˢ)[2^∞] → E(ℚˢ)[2^∞] → 0`**, the second map
+being multiplication by `2^n`. Exactness on the right is the divisibility of `E(ℚˢ)` by `2^n`
+(Tau Ceti `Affine.nsmul_surjective`): a `2^n`-th part of a point of `2`-power order again has
+`2`-power order. -/
+def twoPowerShortExact [E.IsElliptic] (n : ℕ) :
+    DiscreteShortExact (AbsoluteGaloisGroup ℚ) (E.TorsionCoeff (2 ^ n)) (TwoPowerCoeff E)
+      (TwoPowerCoeff E) where
+  incl := (torsionToTwoPower E n).toAddMonoidHom
+  proj := nsmulAddMonoidHom (2 ^ n)
+  incl_equivariant σ P := (torsionToTwoPower E n).map_smul σ P
+  proj_equivariant σ P := smul_comm (2 ^ n) σ P
+  incl_injective a b h := Subtype.ext (congrArg (fun x : TwoPowerCoeff E => (x : E.PointCoeff)) h)
+  proj_surjective P := by
+    classical
+    obtain ⟨Q, hQ⟩ := WeierstrassCurve.Affine.nsmul_surjective (E.baseChange (SeparableClosure ℚ)).toAffine
+      (n := 2 ^ n) (Nat.cast_ne_zero.mpr (pow_ne_zero n two_ne_zero)) (E.pointCoeffEquiv.symm P)
+    have hQ' : (2 ^ n) • E.pointCoeffEquiv Q = (P : E.PointCoeff) := by
+      rw [← map_nsmul]
+      exact (congrArg E.pointCoeffEquiv hQ).trans (E.pointCoeffEquiv.apply_symm_apply _)
+    obtain ⟨k, hk⟩ := AddCommGroup.mem_primaryComponent.mp P.2
+    refine ⟨⟨E.pointCoeffEquiv Q, AddCommGroup.mem_primaryComponent.mpr ⟨n + k, ?_⟩⟩,
+      Subtype.ext ?_⟩
+    · calc (2 ^ (n + k)) • E.pointCoeffEquiv Q = (2 ^ k) • ((2 ^ n) • E.pointCoeffEquiv Q) := by
+            rw [← mul_nsmul, ← pow_add, add_comm]
+        _ = 0 := by rw [hQ', hk]
+    · simpa [nsmulAddMonoidHom_apply] using hQ'
+  exact P := by
+    constructor
+    · intro h
+      have h' : (2 ^ n) • (P : E.PointCoeff) = 0 := by
+        simpa [nsmulAddMonoidHom_apply] using congrArg Subtype.val h
+      exact ⟨⟨P, (AddSubgroup.torsionBy.nsmul_iff).mpr h'⟩, Subtype.ext rfl⟩
+    · rintro ⟨a, rfl⟩
+      apply Subtype.ext
+      simpa [nsmulAddMonoidHom_apply, torsionToTwoPower] using
+        (AddSubgroup.torsionBy.nsmul_iff).mp a.2
+
+theorem twoPowerShortExact_inclDistribMulActionHom [E.IsElliptic] (n : ℕ) :
+    (twoPowerShortExact E n).inclDistribMulActionHom = torsionToTwoPower E n :=
+  rfl
+
+/-- **`Sel_{2^n}(E/ℚ)` maps onto `Sel_{2^∞}(E/ℚ)[2^n]`**: every Selmer class of `E[2^∞]` killed by
+`2^n` comes from a class of `Sel_{2^n}(E/ℚ)`. By the long exact sequence of
+`0 → E[2^n] → E[2^∞] → E[2^∞] → 0` it comes from some class of `H¹(G_ℚ, E[2^n])`, and that class is
+Selmer because it has the same image in `H¹(G_ℚ, E(ℚˢ))`. -/
+theorem exists_selmerAt_eq_of_nsmul_eq_zero [E.IsElliptic] {n : ℕ}
+    {c : H1 (AbsoluteGaloisGroup ℚ) (TwoPowerCoeff E)} (hc : c ∈ selmerTwoPower E)
+    (hn : (2 ^ n) • c = 0) :
+    ∃ c' ∈ selmerAt E n, explicitCoeff1 (AbsoluteGaloisGroup ℚ) (E.TorsionCoeff (2 ^ n))
+      (torsionToTwoPower E n) continuous_of_discreteTopology c' = c := by
+  have hker : c ∈ (explicitCoeff1 (AbsoluteGaloisGroup ℚ) (TwoPowerCoeff E)
+      (twoPowerShortExact E n).projDistribMulActionHom continuous_of_discreteTopology).ker := by
+    rw [AddMonoidHom.mem_ker, explicitCoeff1_eq_nsmul (AbsoluteGaloisGroup ℚ) (TwoPowerCoeff E)
+      (k := 2 ^ n) _ _ (fun _ => rfl)]
+    exact hn
+  rw [← (twoPowerShortExact E n).explicitLongExact_H1B,
+    twoPowerShortExact_inclDistribMulActionHom] at hker
+  obtain ⟨c', rfl⟩ := hker
+  refine ⟨c', ?_, rfl⟩
+  have hcomp : explicitCoeff1 (AbsoluteGaloisGroup ℚ) (E.TorsionCoeff (2 ^ n))
+      (E.torsionCoeffIncl (2 ^ n)) continuous_of_discreteTopology c' =
+      explicitCoeff1 (AbsoluteGaloisGroup ℚ) (TwoPowerCoeff E) (twoPowerCoeffIncl E)
+        continuous_of_discreteTopology
+        (explicitCoeff1 (AbsoluteGaloisGroup ℚ) (E.TorsionCoeff (2 ^ n)) (torsionToTwoPower E n)
+          continuous_of_discreteTopology c') := by
+    rw [← twoPowerCoeffIncl_comp_torsionToTwoPower, explicitCoeff1_comp]
+    rfl
+  rw [selmerAt, WeierstrassCurve.mem_selmerGroup_iff, hcomp]
+  exact hc
+
+/-- **The image of `Sel_{2^n}(E/ℚ) → Sel_{2^∞}(E/ℚ)` is the `2^n`-torsion of `Sel_{2^∞}(E/ℚ)`.** -/
+theorem range_selmerAtToTwoPower [E.IsElliptic] (n : ℕ) :
+    (selmerAtToTwoPower E n).range = AddSubgroup.torsionBy (selmerTwoPower E) ((2 ^ n : ℕ) : ℤ) := by
+  ext c
+  constructor
+  · rintro ⟨c', rfl⟩
+    rw [AddSubgroup.torsionBy.nsmul_iff]
+    apply Subtype.ext
+    change (2 ^ n) • explicitCoeff1 (AbsoluteGaloisGroup ℚ) (E.TorsionCoeff (2 ^ n))
+      (torsionToTwoPower E n) continuous_of_discreteTopology (c' : _) = 0
+    rw [← map_nsmul, nsmul_H1_eq_zero (fun P => AddSubgroup.torsionBy.nsmul P)
+      (c' : H1 (AbsoluteGaloisGroup ℚ) (E.TorsionCoeff (2 ^ n))), map_zero]
+  · intro hc
+    rw [AddSubgroup.torsionBy.nsmul_iff] at hc
+    obtain ⟨c', hc', h⟩ := exists_selmerAt_eq_of_nsmul_eq_zero E c.2
+      (by simpa using congrArg Subtype.val hc)
+    exact ⟨⟨c', hc'⟩, Subtype.ext h⟩
 
 /-! ### The `ℤ₂`-corank -/
 
