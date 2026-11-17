@@ -1,0 +1,6 @@
+'ZInQ.EpsSplit.frozenTarget_split' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZSplit.grossZagierAlgOptCd_of_split' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZSplit.grossZagierCurveCdSplit_of_curveCd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.EpsSplit.splitType_epsD' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.EpsSplit.quadChar_eq_epsD' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.EpsSplit.adjoin_thetaO_eq_top' depends on axioms: [propext, Classical.choice, Quot.sound]

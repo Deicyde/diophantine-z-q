@@ -1,0 +1,23 @@
+{
+ "name": "eps-splitting",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.GrossZagierSplit"
+ ],
+ "discharges": [
+  {
+   "field": "hGZ",
+   "proof": "_root_.ZInQ.GZSplit.grossZagierAlgOptCd_of_split {n}.grossZagierCurveCdSplit",
+   "leaves": [
+    {
+     "name": "grossZagierCurveCdSplit",
+     "type": "_root_.ZInQ.GZSplit.GrossZagierCurveCdSplit",
+     "doc": "Gross-Zagier, Invent. Math. 84 (1986), Thm I.6.3 and Ch. V section 2 Thm 2.1, for any modular parametrization pi : X0(N) -> E over Q with pi(infty) = O (V section 2, p. 310), as hgz-steps' GZSch.GrossZagierCurveCd but with the Heegner hypothesis 'every prime p | N splits in K = Q(sqrt D)' (IsSplitIn: two distinct primes of O_K over p) and the twist by the quadratic character epsilon of K (quadChar K: completely multiplicative, 1 / -1 / 0 at split / inert / ramified primes); short models in the isogeny class of C_d; y = n y_K (n != 0); positive constant forgotten (eps-splitting)",
+     "kind": "published",
+     "flag": "unread: new printed leaf (eps-splitting: GZSplit.GrossZagierCurveCdSplit, the twist and Heegner hypothesis through splitting in K = Q(sqrt D); equivalent to hgz-steps' GZSch.GrossZagierCurveCd in Lean (grossZagierCurveCd_of_split, grossZagierCurveCdSplit_of_curveCd) via epsilon_D(p) = 1/-1/0 iff p splits/inert/ramifies (EpsSplit.splitType_epsD, Kummer-Dedekind on O_K = Z[(D+sqrt D)/2]); D1, D2, D3 as in hgz-steps); locator UNVERIFIED",
+     "source": "Gross-Zagier, Heegner points and derivatives of L-series, Invent. Math. 84 (1986), 225-320, Thm I.6.3 (p.230 per locators.md) and Ch. V section 2 Thm 2.1 (pi fixed on p. 310 per the queue9 reading; p.312 per locators.md); any modular parametrization with pi(infty) = 0"
+    }
+   ]
+  }
+ ],
+ "note": "hGZ is a binder of ZInQ.OneProof.frozenTarget, not a bundle field, so autofold.py does not apply (as for gz-dict2 and hgz-steps): apply scratch/eps-splitting/fold-spec.md by hand. Replaces the leaf GZAlg.GrossZagierAlgOptCd (or, if hgz-steps is folded first, GZSch.GrossZagierCurveCd) by the printed-form leaf GZSplit.GrossZagierCurveCdSplit. Relative to hgz-steps: no count change (LEAF -> LEAF); the definitional reading of epsilon_D as the character of K is removed."
+}

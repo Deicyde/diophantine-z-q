@@ -1,0 +1,38 @@
+{
+ "name": "h33-d1",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.TYZThm33Curve",
+  "ZInQKernel.Contrib.OneProof.GrossZagierSplitUnique"
+ ],
+ "discharges": [
+  {
+   "field": "h33",
+   "proof": "_root_.ZInQ.H33D1.tyzThm33_of_curveSome (_root_.ZInQ.Contrib.HCMDict.shimuraMainCM_of_printed hCM) {n}.tyzThm33CurveSome",
+   "leaves": [
+    {
+     "name": "tyzThm33CurveSome",
+     "type": "_root_.ZInQ.H33D1.TYZThm33CurveSome",
+     "doc": "Tian-Yuan-Zhang, Thm 3.3 (Gross-Zagier formula), printed form for n = 5, 7 (mod 8), for TYZ's identification i0 : (X0(32), oo) = (A, O) as an isomorphism of proper curves over Q: on some normal proper model (X, iota) of X0(32) (X integral, normal, proper of dimension 1 over Q, iota : K(X) = Q(j, j_32) in Q((q)); the canonical model is one), for every isomorphism of Q-schemes i0 : X -> A = Proj Q[X,Y,Z]/(Y^2 Z - X^3 - 4XZ^2) with i0(cusp oo) = O, the CM points P_n the C-points of X at tau_n (arXiv:1411.4728v1 L1296-1311, set-up L1173-1295) (h33-d1)",
+     "kind": "published",
+     "flag": "unread: new printed leaf (h33-d1: ZInQ.H33D1.TYZThm33CurveSome, i0 a morphism of Q-schemes; D1 proved in Lean in both directions: model uniqueness (CurveModel.exists_iso_of_functionField) and A normal at every point including O (valuationRing_stalk_ESch); equivalent to the all-models form TYZThm33Curve in Lean; hypotheses satisfiable given hCM); journal version (Asian J. Math. 21 (2017)) not checked; readings kept: X_U = X0(32)_Q(i) with P_n -> tau_n (G5, L1191-1193), sign of [i] (alpha = -i, L1564-1566), model y^2 = x^3 + 4x for 2y^2 = x^3 + x",
+     "source": "Tian-Yuan-Zhang, Thm 3.3 (Gross-Zagier formula), printed form for n = 5, 7 (mod 8), for the identification i0 : (X0(32), oo) = (A, O) of curves over Q (arXiv:1411.4728v1 L1173-1174, L1296-1311; journal number UNVERIFIED)"
+    }
+   ]
+  },
+  {
+   "field": "hGZ",
+   "proof": "_root_.ZInQ.GZSplitUnique.grossZagierAlgOptCd_of_splitSome {n}.grossZagierCurveCdSplitSome",
+   "leaves": [
+    {
+     "name": "grossZagierCurveCdSplitSome",
+     "type": "_root_.ZInQ.GZSplitUnique.GrossZagierCurveCdSplitSome",
+     "doc": "Gross-Zagier, Invent. Math. 84 (1986), Thm I.6.3 and Ch. V section 2 Thm 2.1, for any modular parametrization pi : X0(N) -> E over Q with pi(infty) = O (V section 2, p. 310), on some normal proper model (X, iota) of X0(N) (the canonical model is one), with the Heegner hypothesis 'every p | N splits in K = Q(sqrt D)' and the twist by the quadratic character of K (eps-splitting's GZSplit.GrossZagierCurveAtSplit restricted to one model); short models in the isogeny class of C_d; y = n y_K (n != 0); positive constant forgotten (h33-d1)",
+     "kind": "published",
+     "flag": "unread: new printed leaf (h33-d1: GZSplitUnique.GrossZagierCurveCdSplitSome; S1 removed: the statement is asked on one model and transferred to every model in Lean by model uniqueness (GZSplitUnique.gzSplitBody_transfer, GZUnique.model_transfer); eps step removed by eps-splitting; D1, D2 in Lean and D3 cleared as in hgz-steps); locator UNVERIFIED",
+     "source": "Gross-Zagier, Heegner points and derivatives of L-series, Invent. Math. 84 (1986), 225-320, Thm I.6.3 (p.230 per locators.md) and Ch. V section 2 Thm 2.1 (pi fixed on p. 310 per the queue9 reading); any modular parametrization with pi(infty) = 0"
+    }
+   ]
+  }
+ ],
+ "note": "h33 and hGZ are binders of ZInQ.OneProof.frozenTarget, not bundle fields, so autofold.py does not apply: manual fold, checked in scratch/h33-d1/FoldCheck.lean (ZInQ.H33D1.frozenTarget_d1s, standard axioms, rfl-equal to frozenTarget applied to the two bridges). In ZInQKernel/OneProof/Main.lean: add `import ZInQKernel.Contrib.OneProof.TYZThm33Curve` and `import ZInQKernel.Contrib.OneProof.GrossZagierSplitUnique`; replace the binder `(h33 : ZInQ.Contrib.TYZGenus.TYZSplit.TYZThm33)` by `(h33c : ZInQ.H33D1.TYZThm33CurveSome)` and its use `h33` by `(ZInQ.H33D1.tyzThm33_of_curveSome (ZInQ.Contrib.HCMDict.shimuraMainCM_of_printed hCM) h33c)`; replace `(hGZ : ZInQ.GZAlg.GrossZagierAlgOptCd)` by `(hGZss : ZInQ.GZSplitUnique.GrossZagierCurveCdSplitSome)` and its use `hGZ` by `(ZInQ.GZSplitUnique.grossZagierAlgOptCd_of_splitSome hGZss)`. Alternatives (also checked): hGZ by GZUnique.GrossZagierCurveCdSome (one model, epsilon_D form; frozenTarget_d1) if eps-splitting is not merged; h33 alone (frozenTarget_h33c); hGZ alone (frozenTarget_hGZs). The h33 fold supersedes h33-fix's TYZThm33Alg (tyzThm33Alg_of_curveSome derives it); the hGZ fold supersedes hgz-steps' GrossZagierCurveCd and eps-splitting's GrossZagierCurveCdSplit (both derived). No field added; counts: h33 GLUE -> LEAF (as h33-fix proposed, now with D1 in Lean), hGZ GLUE -> LEAF (S1 and eps both proved)."
+}
