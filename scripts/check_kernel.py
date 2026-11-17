@@ -90,13 +90,13 @@ def build_modules(contract, version, output):
         (output / name).unlink(missing_ok=True)
     identity = build_identity(contract, version)
     phases = ["root-build"]
-    run(["lake", "build", "ZInQKernel", "GreenTaoVendor"], output,
+    run(["lake", "--rehash", "build", "ZInQKernel", "GreenTaoVendor"], output,
         "root-build", audit_metrics=True)
     # Explicit targets also build new Contrib files not imported by a root.
     names = sorted(contract["modules"])
     for i in range(0, len(names), 100):
         name = f"modules-{i//100}"
-        run(["lake", "build", *["+" + n for n in names[i:i+100]]], output,
+        run(["lake", "--rehash", "build", *["+" + n for n in names[i:i+100]]], output,
             name, audit_metrics=True)
         phases.append(name)
     run(["python", "-B", "scripts/check_target.py"], output, "frozen-target-build")
