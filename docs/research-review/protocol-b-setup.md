@@ -467,7 +467,8 @@ repository admin may decide a deadlock:
 /protocol-b override FULL_HEAD_SHA RUN-ATTEMPT-REVIEWER-FINDING_ID Reason for this decision
 ```
 
-Post one command per finding or scope item, using its full displayed ID. A run
+Use each finding or scope item's full displayed ID. One command may name several
+IDs separated by commas without spaces, with one reason applying to them all. A run
 checks current admin access and the exact head. It takes the preserved review
 records from this App's check output, never from a bot comment claiming acceptance.
 If every blocking finding other than a qualified source-access limitation,
@@ -871,6 +872,27 @@ markers retained so reused notes are not duplicated.
 
 ### Unedited admin commands
 
+One command can name several full finding or scope IDs, separated by commas
+without spaces, followed by one reason applying to all of them:
+
+```text
+/protocol-b override <full-head-SHA> <full-ID-1>,<full-ID-2> <reason>
+```
+
+The single-ID form remains valid. Each listed item retains its own record,
+pointing to the same admin comment and reason. Use only the current head's
+full displayed IDs. An unrecognised ID rejects the whole comment; the reply names
+the comment and those IDs so the admin can post a correction. The summary lists the
+items actually applied from the authenticated App record. The command makes
+no model call.
+
+Scope IDs are recognized from the authenticated App record when processing an
+override command or rechecking a merge. The ordinary review-history path does
+not yet seed that scope set. A later review on the same head therefore ignores
+a stored multi-item command containing a scope ID, including its other items.
+This fails closed; the admin must post a fresh command against the resulting
+App record. A scope-shaped ID in a report comment alone is never sufficient.
+
 Only repository admins may override reviewer findings. The gate checks current
 admin permission when receiving a command and again when reading stored override
 comments. Edited comments are not accepted, including edits made by an admin;
@@ -885,6 +907,25 @@ computation, head-binding or merge requirement.
 
 ### Preserving findings when delivery fails
 
+Repeated final submissions with exactly the same finding content share one
+item, even if a correction shortens an overlong ID. The runtime preserves the
+original submissions and records the ID aliases. Different objections or
+locations are not combined by a similarity guess. Filling in the attempted
+argument for the same objection does not create another finding; all original
+attempts remain in the delivery record. Reusing an ID for a different objection
+creates a separate item, and the earlier objection still needs a disposition.
+
+An originating reviewer's validated resolution closes its own finding even
+when the other review did not complete. Automatic carry-forward copies do not
+require a second resolution. The original reports remain unchanged, and the
+App summary names the reviewer who resolved the item. An actual objection from
+the other reviewer remains blocking, as does a later reopening. An incomplete
+review still has its separate scope item and requires completed coverage or an
+explicit admin override; closing a finding does not imply a completed review.
+The runtime marks the positions of automatic copies in the App-authenticated
+envelope, outside the model's report. Matching text alone cannot classify an
+objection as an automatic copy, and completed reviews never use those markers.
+
 An absent or incomplete review carries unresolved obligations from the PR's
 App-authenticated earlier records across heads. An empty later record cannot
 erase a prior objection. These carried obligations are runtime metadata, separate
@@ -898,6 +939,12 @@ therefore stays outstanding, including across a return to an earlier head and
 when its report comment was not delivered. Retained acceptances need a supplement
 for these outstanding objections even if they previously resolved the same ID.
 Only a new completed disposition or an explicit admin decision covers them.
+
+An origin closure applies only on the head recorded with that resolution.
+It can relieve an automatic retained copy, but never hides a selected envelope's
+own fresh finding or genuine unresolved disposition, even at that same head.
+The override accounting and displayed summary use the same rule. Returning to
+an older commit does not import a resolution established only on a newer commit.
 
 An explicit finding ID in a selected report covers only that report's actual
 occurrence. Other unresolved occurrences retain their reviewer and observation

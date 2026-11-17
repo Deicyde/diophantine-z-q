@@ -1381,8 +1381,12 @@ jobs:
                       raise ValueError('Merge reports do not bind this head and policy')
               spend = review_spend_history(gh, gh, pr, state['name'], state['policy_ref'])
               pending = reconcile_obligations(gh, pr, reports, spend['candidates'])
-              discussion, prior, overrides, _ = history(gh, pr, {
-                  ident: {'objection': item['reason'], **item} for ident, item in pending.items()})
+              known = {ident: {'objection': item['reason'], **item} for ident, item in pending.items()}
+              # The successful App record can contain scope items whose original
+              # report comment was never posted. Keep that authority on merge recheck.
+              for ident in override_findings(reports, pr['head']['sha']):
+                  known.setdefault(ident, {'objection': 'Item recorded in the accepted App check.'})
+              discussion, prior, overrides, _ = history(gh, pr, known)
               if state.get('overrides'):
                   # Only the original admin acceptance may cover incomplete scope. A
                   # later merge command cannot silently extend it to new discussion.
@@ -2361,9 +2365,107 @@ jobs:
               return render()
 
 
+          def delivered_content_key(finding):
+              # Supplying the required attempted argument enriches the same objection.
+              # Keep every original attempt in the delivery record, without a new ID.
+              content = json.dumps({k: v for k, v in finding.items() if k not in {'id', 'attempted_resolution'}},
+                                   sort_keys=True, ensure_ascii=False)
+              return hashlib.sha256(content.encode()).hexdigest()
+
+
+          def delivered_finding_aliases(payloads, identity):
+              """Match the same objection within this execution, without inferring equivalence."""
+              groups = {}
+              prefix = finding_id(identity, '')
+              for value in payloads:
+                  if not isinstance(value, dict) or not isinstance(value.get('findings'), list):
+                      continue
+                  for finding in value['findings']:
+                      if not isinstance(finding, dict) or (finding.get('severity') == 'note' and finding.get('kind') == 'editorial'):
+                          continue
+                      raw_id = str(finding.get('id', ''))
+                      local_id = raw_id[len(prefix):] if raw_id.startswith(prefix) else raw_id
+                      key = delivered_content_key(finding)
+                      group = groups.setdefault(key, {'ids': [], 'fallback': 'unvalidated-' + key[:24]})
+                      group['ids'].append((raw_id, local_id))
+              references, by_content, used = {}, {}, set()
+              for key, group in groups.items():
+                  valid = [local for _, local in group['ids']
+                           if re.fullmatch(r'[A-Za-z0-9_-]{1,40}', local) and local not in used]
+                  canonical = valid[0] if valid else group['fallback']
+                  salt = 0
+                  while canonical in used:
+                      salt += 1
+                      canonical = 'unvalidated-' + hashlib.sha256((key+':'+str(salt)).encode()).hexdigest()[:24]
+                  used.add(canonical)
+                  by_content[key] = canonical
+                  for ident in [group['fallback']] + [i for pair in group['ids'] for i in pair]:
+                      references.setdefault(ident, set()).add(canonical)
+              # A raw ID reused for different content has no global alias.
+              return {'by_id': {ident: next(iter(targets)) for ident, targets in references.items() if len(targets) == 1},
+                      'ambiguous_ids': sorted(ident for ident, targets in references.items() if len(targets) != 1),
+                      'by_content': by_content}
+
+
+          def normalize_delivered_finding_ids(value, aliases, identity, known_prior=(), *, references=True):
+              value = json.loads(json.dumps(value))
+              if not isinstance(value, dict):
+                  return value
+              prefix = finding_id(identity, '')
+              fresh, prior = {}, {}
+              findings = value.get('findings')
+              if isinstance(findings, list):
+                  seen, normalized = set(), []
+                  for finding in findings:
+                      if isinstance(finding, dict):
+                          ident = str(finding.get('id', ''))
+                          canonical = aliases['by_content'].get(delivered_content_key(finding),
+                              aliases['by_id'].get(ident, ident))
+                          local = ident[len(prefix):] if ident.startswith(prefix) else ident
+                          for ref in {ident, local, prefix + local}:
+                              fresh.setdefault(ref, set()).add(canonical)
+                          finding['id'] = canonical
+                      encoded = json.dumps(finding, sort_keys=True, ensure_ascii=False)
+                      if encoded not in seen:
+                          normalized.append(finding)
+                          seen.add(encoded)
+                  value['findings'] = normalized
+              if isinstance(value.get('prior_findings'), list):
+                  for item in value['prior_findings']:
+                      if not isinstance(item, dict) or not isinstance(item.get('id'), str):
+                          continue
+                      ident = item['id']
+                      # Actual pending obligations use canonical full IDs. A later
+                      # delivery reusing a local ID cannot rename that old obligation.
+                      if ident not in known_prior and ident.startswith(prefix):
+                          local = ident[len(prefix):]
+                          if local in aliases.get('ambiguous_ids', []):
+                              if references:
+                                  raise ValueError('Ambiguous prior finding reference: ' + ident)
+                          else:
+                              item['id'] = prefix + aliases['by_id'].get(local, local)
+                      prior[ident] = item['id']
+              if references and isinstance(value.get('access_limitations'), list):
+                  for item in value['access_limitations']:
+                      if not isinstance(item, dict) or not isinstance(item.get('finding_id'), str):
+                          continue
+                      ident = item['finding_id']
+                      targets = {prefix + local for local in fresh.get(ident, ())}
+                      if ident in prior:
+                          targets.add(prior[ident])
+                      if len(targets) != 1:
+                          raise ValueError('Missing or ambiguous access finding reference: ' + ident)
+                      target = next(iter(targets))
+                      # A fresh access reference follows this delivery's content,
+                      # not the global raw-ID alias from an earlier delivery.
+                      item['finding_id'] = prior[ident] if ident in prior else target[len(prefix):]
+              return value
+
           def delivered_obligations(payloads, identity, known_prior):
               """Failed submissions add objections; only a validated final can close them."""
               findings, dispositions = {}, {}
+              aliases = delivered_finding_aliases(payloads, identity)
+              payloads = [normalize_delivered_finding_ids(value, aliases, identity, known_prior, references=False) for value in payloads]
               for attempt, value in enumerate(payloads):
                   if not isinstance(value, dict) or not isinstance(value.get('findings'), list):
                       continue
@@ -2372,7 +2474,8 @@ jobs:
                           continue
                       ident = str(finding.get('id', ''))
                       if not re.fullmatch(r'[A-Za-z0-9_-]{1,40}', ident):
-                          ident = f'unvalidated-{attempt+1}-{index+1}'
+                          content = json.dumps({k: v for k, v in finding.items() if k != 'id'}, sort_keys=True, ensure_ascii=False)
+                          ident = 'unvalidated-' + hashlib.sha256(content.encode()).hexdigest()[:24]
                       objection = 'Unvalidated delivered objection: '+str(finding.get('objection', finding))
                       if ident not in findings:
                           findings[ident] = {'id': ident, 'severity': 'blocking', 'kind': 'error',
@@ -2433,6 +2536,13 @@ jobs:
               def remember_delivered(self):
                   identity = {'run': os.environ['GITHUB_RUN_ID'], 'attempt': os.environ['GITHUB_RUN_ATTEMPT'],
                               'reviewer': self.family}
+                  aliases = delivered_finding_aliases(self.pending_payloads(), identity)
+                  for old in list(self.pending_fresh_ids):
+                      local = old[len(finding_id(identity, '')):]
+                      new = finding_id(identity, aliases['by_id'].get(local, local))
+                      if old != new and old not in self.original_prior_ids:
+                          self.prior.pop(old, None)
+                          self.pending_fresh_ids.discard(old)
                   for finding in self.pending_obligations()['findings']:
                       ident = finding_id(identity, finding['id'])
                       self.prior.setdefault(ident, {**finding, 'origin': 'Unvalidated final delivered by this reviewer in this run'})
@@ -2715,6 +2825,13 @@ jobs:
                               record(self.family + '-delivered-final.json', value)
                               if len(calls) != 1:
                                   raise ValueError("Final review requires no concurrent tool calls")
+                              # Raw deliveries stay in the artifact. Exact-content aliases only
+                              # prevent a corrected ID from creating a second obligation.
+                              self.remember_delivered()
+                              identity = {'run': os.environ['GITHUB_RUN_ID'], 'attempt': os.environ['GITHUB_RUN_ATTEMPT'], 'reviewer': self.family}
+                              aliases = delivered_finding_aliases(self.pending_payloads(), identity)
+                              record(self.family+'-finding-aliases.json', aliases)
+                              value = normalize_delivered_finding_ids(value, aliases, identity, self.prior)
                               value = validate_review(value, set(self.prior), self.overrides, allow_incomplete=self.finish_now,
                                                       retained_findings=self.retained_pending_findings(value))
                               if (not self.history_read or not self.reads) and not (self.finish_now and value['decision'] == 'changes_requested'):
@@ -2815,6 +2932,19 @@ jobs:
               return comment["user"]["login"] == "github-actions[bot]"
 
 
+          def parse_override_command(body):
+              """One exact head, a comma-separated ID list, and one explicit reason."""
+              match = re.fullmatch(r'/protocol-b override ([0-9a-f]{40}) ([A-Za-z0-9_-]+(?:,[A-Za-z0-9_-]+)*)\s+(.+)', body.strip(), re.S)
+              if not match or not match[3].strip():
+                  return None
+              return match[1], list(dict.fromkeys(match[2].split(','))), match[3].strip()
+
+          def unknown_override_ids(ids, prior, recorded_scope_ids=()):
+              return [ident for ident in ids if ident not in prior or
+                      (re.fullmatch(r"scope-[0-9]+-[0-9]+-(astra|fable)", ident)
+                       and ident not in recorded_scope_ids)]
+
+
           def history(gh, pr, known=None):
               comments = gh.pages(f"/issues/{pr['number']}/comments")
               discussion = [{"id": c["id"], "author": c["user"]["login"], "created": c["created_at"], "body": c["body"]}
@@ -2857,13 +2987,18 @@ jobs:
                           # Do not turn an HTTP outage without observations into a
                           # permanent mathematical objection.
                           discussion.append({'incomplete_review': working, 'source': comment.get('html_url')})
-              pattern = re.compile(r"^/protocol-b override ([0-9a-f]{40}) ([A-Za-z0-9_-]+)\s+(.+)$", re.S)
               for comment in comments:
-                  match = pattern.fullmatch(comment["body"].strip())
-                  if match and match[1] == pr["head"]["sha"] and (match[2] in prior or re.fullmatch(r"scope-[0-9]+-[0-9]+-(astra|fable)", match[2])):
+                  command = parse_override_command(comment["body"])
+                  if command and command[0] == pr["head"]["sha"]:
+                      head, ids, reason = command
+                      # Scope IDs need the actual App-recorded set supplied by the
+                      # caller. A scope-shaped name or a report comment is not enough.
+                      if unknown_override_ids(ids, prior, known or {}):
+                          continue
                       login = comment["user"]["login"]
                       if administrator(gh, comment["user"]) and unedited_override_comment(gh, comment):
-                          overrides[match[2]] = {"collaborator": login, "reason": match[3], "url": comment["html_url"]}
+                          for ident in ids:
+                              overrides[ident] = {"collaborator": login, "reason": reason, "url": comment["html_url"]}
               return discussion, prior, overrides, latest
 
 
@@ -2923,16 +3058,24 @@ jobs:
                       'reason': '\n'.join(i['origin_reviewer']+': '+i['reason'] for i in items)}
 
 
-          def historical_obligations(candidates, current=None):
-              """Preserve App-authenticated findings across heads and empty later records."""
-              states, applied = {}, set()
+          def historical_obligations(candidates, current=None, include_resolutions=False):
+              """Preserve later objections; an origin reviewer can close its own older item."""
+              states, applied, owners, resolutions = {}, set(), {}, {}
               pairs = [pair for _, pair in sorted(candidates, key=lambda item: item[0])] + [current or {}]
+              for pair in pairs:
+                  for family, envelope in pair.items():
+                      if (family in MODELS and envelope.get('model') == MODELS[family]
+                              and envelope.get('reviewer') == family and not envelope.get('identity_error')):
+                          for f in blocking_findings(envelope.get('review', {})):
+                              owners.setdefault(finding_id(envelope, f['id']), family)
               for pair in pairs:
                   for family, envelope in pair.items():
                       value = envelope.get('review', {})
                       for ident, item in envelope.get('carried_findings', {}).items():
                           for source in obligation_sources(item):
-                              states.setdefault((source['origin_reviewer'], ident), source)
+                              key = (source['origin_reviewer'], ident)
+                              if key not in states:
+                                  states[key] = source
                       for f in blocking_findings(value):
                           event = obligation_event(envelope, 'finding', f)
                           if event in applied:
@@ -2941,9 +3084,20 @@ jobs:
                           ident = finding_id(envelope, f['id'])
                           states[family, ident] = {'origin_reviewer': family,
                               'resolution': 'unresolved', 'reason': f.get('objection', ''), 'observation': event}
-                      for f in value.get('prior_findings', []):
+                          if owners.get(ident) == family:
+                              resolutions.pop(ident, None)
+                      for index, f in enumerate(value.get('prior_findings', [])):
+                          # Runtime-only positions are authenticated with the App envelope,
+                          # outside the model's report. Identical text is not enough to skip
+                          # an actual disposition. Completed reports never use this marker.
+                          if (not envelope.get('complete') and index in
+                                  envelope.get('runtime_retained_prior_indices', [])):
+                              continue
                           # An incomplete execution cannot silently resolve old objections.
-                          resolution = f['resolution'] if envelope.get('complete') and envelope.get('read_prerequisites_complete') is not False else 'unresolved'
+                          valid = (envelope.get('complete') and envelope.get('read_prerequisites_complete') is not False
+                                   and not envelope.get('identity_error') and envelope.get('model') == MODELS.get(family)
+                                   and envelope.get('reviewer') == family)
+                          resolution = f['resolution'] if valid else 'unresolved'
                           event = obligation_event(envelope, 'prior', f, resolution)
                           if event in applied:
                               continue
@@ -2952,18 +3106,31 @@ jobs:
                           applied.add(event)
                           states[family, f['id']] = {'origin_reviewer': family,
                               'resolution': resolution, 'reason': f.get('reason', ''), 'observation': event}
+                          if owners.get(f['id']) == family:
+                              if resolution == 'resolved':
+                                  resolutions[f['id']] = {'reviewer': family, 'run': envelope['run'],
+                                      'attempt': envelope['attempt'], 'head': effective_head(envelope),
+                                      'reason': f.get('reason', '')}
+                              else:
+                                  resolutions.pop(f['id'], None)
                           if resolution == 'resolved' and ('history', f['id']) in states:
                               states['history', f['id']] = {'origin_reviewer': 'history',
                                   'resolution': 'resolved', 'reason': f.get('reason', '')}
               active = {}
-              for (_, ident), item in states.items():
+              for (family, ident), item in states.items():
                   if item['resolution'] != 'resolved':
                       active.setdefault(ident, []).append(item)
-              return {ident: pack_obligation(items) for ident, items in active.items()}
+              active = {ident: pack_obligation(items) for ident, items in active.items()}
+              closed = {ident: item for ident, item in resolutions.items() if ident not in active}
+              return (active, closed) if include_resolutions else active
 
 
           def carry_obligations(reports, candidates):
-              obligations = historical_obligations(candidates, reports)
+              obligations, closed = historical_obligations(candidates, reports, include_resolutions=True)
+              for envelope in reports.values():
+                  envelope.pop('closed_by_origin', None)
+                  if closed:
+                      envelope['closed_by_origin'] = closed
               explicit, explicit_ids = set(), set()
               for envelope in reports.values():
                   for f in blocking_findings(envelope.get('review', {})):
@@ -3006,10 +3173,13 @@ jobs:
                                       for f in prior['review'].get('prior_findings', [])
                                       if f['resolution'] != 'resolved'})
                       existing = {f['id'] for f in current['review'].get('prior_findings', [])}
-                      current['review'].setdefault('prior_findings', []).extend(
-                          {'id': ident, 'resolution': 'unresolved',
+                      retained = [{'id': ident, 'resolution': 'unresolved',
                            'reason': 'Retained from the earlier App record; the interrupted review did not resolve it. '+reason}
-                          for ident, reason in sorted(carried.items()) if ident not in existing)
+                          for ident, reason in sorted(carried.items()) if ident not in existing]
+                      dispositions = current['review'].setdefault('prior_findings', [])
+                      current.setdefault('runtime_retained_prior_indices', []).extend(
+                          range(len(dispositions), len(dispositions) + len(retained)))
+                      dispositions.extend(retained)
                   if family not in state['reports']:
                       state['reports'][family] = {
                           'reviewer': family, 'model': MODELS[family], 'reported_model': None,
@@ -3168,6 +3338,20 @@ jobs:
                       and (node.get('author') or {}).get('login') == comment['user']['login'])
 
 
+          def applicable_origin_closures(envelope):
+              """A historical resolution cannot hide a current reviewer objection."""
+              value = envelope.get('review', {})
+              protected = {finding_id(envelope, f['id']) for f in blocking_findings(value)}
+              runtime = set(envelope.get('runtime_retained_prior_indices', [])) if not envelope.get('complete') else set()
+              protected.update(f['id'] for index, f in enumerate(value.get('prior_findings', []))
+                               if f['resolution'] != 'resolved' and index not in runtime)
+              scope = review_scope_item(envelope)
+              if scope:
+                  protected.add(scope['id'])
+              return {ident: record for ident, record in envelope.get('closed_by_origin', {}).items()
+                      if record.get('head') == effective_head(envelope) and ident not in protected}
+
+
           def override_findings(latest, head):
               """Validate the trusted reports before classifying their findings."""
               if set(latest) != set(MODELS):
@@ -3184,7 +3368,7 @@ jobs:
                   scope = review_scope_item(envelope)
                   if scope:
                       here.add(scope['id'])
-                  unresolved.update(here)
+                  unresolved.update(here - set(applicable_origin_closures(envelope)))
               return unresolved
 
 
@@ -3215,7 +3399,7 @@ jobs:
                   for finding in blocking_findings(envelope['review']):
                       rows.append(f"- `{finding_id(envelope, finding['id'])}`: {finding.get('location', '')}: {finding.get('objection', '')}")
                   for prior in envelope['review'].get('prior_findings', []):
-                      if prior['resolution'] == 'unresolved':
+                      if prior['resolution'] == 'unresolved' and prior['id'] not in envelope.get('closed_by_origin', {}):
                           rows.append(f"- `{prior['id']}`: {prior['reason']}")
               return "\n\nFinding IDs for collaborator decisions:\n" + "\n".join(dict.fromkeys(rows)) if rows else ""
 
@@ -3549,8 +3733,7 @@ jobs:
                       continue  # Attestation metadata is not a new discussion objection.
                   body = item.get('body', '')
                   if body.strip() == '/protocol-b review' or re.fullmatch(
-                          r'/protocol-b merge [0-9a-f]{40}', body.strip()) or re.fullmatch(
-                          r'/protocol-b override [0-9a-f]{40} [A-Za-z0-9_-]+\s+.+', body.strip(), re.S):
+                          r'/protocol-b merge [0-9a-f]{40}', body.strip()) or parse_override_command(body):
                       continue  # Authorization commands are revalidated separately.
                   if item.get('author') == 'github-actions[bot]' and body.startswith((ROUND_MARKER, SUMMARY_MARKER,
                           'Accepted by collaborator override, not by unanimous model acceptance.',
@@ -3972,6 +4155,15 @@ jobs:
                       for ident in override_findings(saved, pr['head']['sha']):
                           known.setdefault(ident, {'objection': 'Item recorded in the current App check.'})
                   discussion, prior, overrides, _ = history(gh, pr, known)
+                  if override_command:
+                      parsed = parse_override_command(command)
+                      unknown = unknown_override_ids(parsed[1], prior, known) if parsed else []
+                      if unknown:
+                          message = ('This override was ignored. Comment '+str(event['comment']['id'])+
+                                     ' contains unrecognised finding IDs: '+', '.join(unknown)+
+                                     '. No item from that comment was applied. Post a corrected new comment.')
+                          gh.call(f'/issues/{number}/comments', 'POST', {'body': message})
+                          raise ValueError(message)
                   record("context.json", {"head": pr["head"]["sha"], "base": pr["base"]["sha"],
                                          "trusted_workflow": trusted_ref, "class": change_class,
                                          "prior_findings": prior, "overrides": overrides, "discussion": discussion})
@@ -4412,7 +4604,12 @@ jobs:
                               for ident, item in envelope.get('carried_findings', {}).items()]
                   entries += [(item['id'], '', item.get('reason', ''), item['resolution'])
                               for item in review.get('prior_findings', []) if item['resolution'] != 'resolved']
+                  closures = applicable_origin_closures(envelope)
+                  for ident, record in closures.items():
+                      nonblocking[ident] = 'Resolved by its originating reviewer '+record['reviewer']+': '+record['reason']
                   for ident, location, detail, resolution in entries:
+                      if ident in closures:
+                          continue
                       if (ident, family) in relieved:
                           item = relieved[ident, family]
                           description = 'Source access: '+item['reviewer_who_checked']+' verified the named passage; '+item['reviewer_unable_to_open']+' could not open it.'
