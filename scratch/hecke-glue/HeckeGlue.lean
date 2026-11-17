@@ -1,6 +1,37 @@
 import ZInQKernel.Contrib.OneProof.HeckePin
 import ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.AlgebraicGeometry.Curve.Dimension
 
+/-!
+# hecke-glue: the inputs `X1TauPoints` and `ConstOnTauPoints` of the Hecke dictionary are proved
+
+Task hecke-glue (2026-11-17). Report: `docs/research/hecke-glue.md`.
+
+`ZInQKernel/Contrib/OneProof/HeckePin.lean` (hecke-pin) reduced the dictionary gap of the r16 rows
+`HeckeJ1DS`, `AfShimura` and `AfCharpolyDS965` to three named Props: `X1TauPoints` (leaf candidate),
+`AbelJacobiX1` (leaf candidate) and `ConstOnTauPoints` (glue). This file proves two of them outright,
+from Mathlib, the vendored CloudW07 curve library and the tree's `WeberField` analysis:
+
+* `tauPlace : TauPlace`: for every `τ ∈ ℍ` the functions `a = P(j_X, t_X)/Q(j_X, t_X) ∈ K(X)` whose
+  meromorphic function `P(j, f₁)/Q(j, f₁)` has a finite limit at `τ` form a valuation subring `O` of
+  `K(X)`, and the limit `O → ℂ` is a local ring homomorphism (Mathlib's `meromorphicOrderAt`; the
+  relations of `IsX1Gen` with the identity theorem make it well defined).
+* `exists_cpt_of_place`: a valuation subring of `K(X)` with a local homomorphism to `ℂ` has a center:
+  a complex point `x` of the curve `X` at which every `a ∈ O` is regular with the given value
+  (valuative criterion of properness; local rings of a smooth curve are valuation rings, CloudW07).
+* `x1TauPoints : X1TauPoints` (so `X1TauPoints` is glue, not a leaf).
+* `constOnTauPoints_of_x1TauPoints` and `constOnTauPoints : ConstOnTauPoints`: the argument runs over
+  `ℚ` (no base change): `x_ρ` lies over a closed point (`j_X(x_ρ) = j(ρ) = 0`, `j_X ≠ 0`); the fibre of
+  `g` through it is closed and contains every `x_τ`; a closed set of the curve not containing the
+  generic point is finite, and finitely many closed points carry finitely many complex points, while
+  `j` takes infinitely many values on `ℍ`; so the generic point maps to the closed point `g(P₀) = 0`,
+  whose residue field is `ℚ`, and `g = 0` (Mathlib's `ext_of_fromSpecResidueField_eq`).
+* `isHeckeT_unique'`, `isDiamond_unique'`: hecke-pin's pinning of `T_p` and `⟨d⟩`, with no hypothesis.
+* `evF_eq_zero_of_heckeJ_eq_zero_of_abelJacobi`, `killsIf_iff_IfDS_of_abelJacobi`: hecke-pin's gap 1,
+  with `AbelJacobiX1` as the only remaining input.
+
+No `sorry`; every theorem uses only `propext`, `Classical.choice`, `Quot.sound`.
+-/
+
 noncomputable section
 
 namespace AfTateLam.HeckeGlue
