@@ -61,3 +61,17 @@ F6. Integration bug (VERIFIED by reading; build C2 below): dedekind-free's
    `GroupLawDescent.neronDVRLocal_of_dedekind` (MumfordGroupLawDescent.lean L844) applies the field as
    `h Rv L (A.baseChange L)` with no `¬ IsField Rv` argument, so it does not typecheck against the current statement.
    One-line fix: `h Rv L (A.baseChange L) (IsDiscreteValuationRing.not_isField Rv)`.
+C2 (00:49-00:56). `lake build ZInQKernel.Contrib.OneProof.MumfordGroupLawDescent ZInQKernel.OneProof.H.TailM
+   ZInQKernel.Contrib.OneProof.NeronDVR` on this branch: rebuilt MumfordGroupLawNeron, NeronGoodModelIso (OK);
+   MumfordGroupLawDescent FAILS with exactly one error, L855:9 `rcases` on `¬IsField Rv → ∃ N, ...`
+   (scratch/neron-descent/build_MumfordGroupLawDescent.err.txt). Confirms F6.
+C3. `lake env lean scratch/neron-descent/NeronDescent.lean` (no import of MumfordGroupLawDescent; corrected
+   `neronDVRLocal_of_dedekind` inline): no errors; axioms of copy_iff, neronDVRLocal_of_dedekind,
+   neronSchemeExtensionExists_of_dvrLocal, NeronFLT.neronDVRLocal_of_descentSH: [propext, Classical.choice,
+   Quot.sound] (NeronDescent.out.txt).
+C4. `lake env lean scratch/neron-descent/GroupLawDescentFixed.lean` (MumfordGroupLawDescent.lean with the one-line
+   fix of F6): no errors; mumfordGroupLawDVR_proof, neronDVRLocal_of_dedekind, neronSchemeExtensionExists_of_dvrLocal
+   standard axioms (GroupLawDescentFixed.out.txt). dedekind-free's result holds on fork main after the fix.
+F7. dedekind-free's fold (scratch/dedekind-free/fold/TailZ56.lean.txt) is written over OpenResearchLeaves31 /
+   sixContactMin_of_open37_hf_gm_pz; fork main is now at OpenResearchLeaves38 (TailZ62/63): it must be rebased
+   before integration (not done here: count-neutral, outside this task's target).

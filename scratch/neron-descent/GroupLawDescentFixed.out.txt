@@ -1,0 +1,5 @@
+'ZInQ.Contrib.GroupLawDescent.mumfordGroupLawDVR_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.GroupLawDescent.neronDVRLocal_of_dedekind' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.GroupLawDescent.neronSchemeExtensionExists_of_dvrLocal' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

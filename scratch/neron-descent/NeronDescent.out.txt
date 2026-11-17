@@ -1,0 +1,78 @@
+scratch/neron-descent/NeronDescent.lean:58:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/neron-descent/NeronDescent.lean:61:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/neron-descent/NeronDescent.lean:63:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/neron-descent/NeronDescent.lean:66:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/neron-descent/NeronDescent.lean:66:15: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/neron-descent/NeronDescent.lean:67:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+DescentAction.effective_of_finiteEtale : ∀ (R : Type u_1) [inst : CommRing R] (R' : Type u_1) [inst_1 : CommRing R']
+  [inst_2 : Algebra R R'] [Module.Finite R R'] [Algebra.Etale R R'] [Module.FaithfullyFlat R R'] {X' : Scheme}
+  {x' : X' ⟶ Spec ↧R'} (A : DescentAction (Spec.map (CommRingCat.ofHom (algebraMap R R'))) x'),
+  (∀ (S : Finset ↥X'), ∃ U, IsAffineOpen U ∧ ∀ x ∈ S, x ∈ U) → A.Effective
+@DescentAction.effective_of_isPullback_of_flat_surjective : ∀ {S S' : Scheme} (s : S' ⟶ S) {X' : Scheme} {x' : X' ⟶ S'}
+  (A : DescentAction s x') {Y : Scheme} (p : X' ⟶ Y) [Flat p] [Surjective p] [QuasiCompact p],
+  pullback.fst (x' ≫ s) s ≫ p = A.act ≫ p →
+    IsPullback (pullback.fst (x' ≫ s) s) A.act p p →
+      ∀ (f : Y ⟶ S) (hpf : p ≫ f = x' ≫ s),
+        ∃ e,
+          ∃ (he : e.hom ≫ x' = pullback.snd f s),
+            e.inv = pullback.lift p x' hpf ∧
+              pullback.map (pullback.snd f s ≫ s) s (x' ≫ s) s e.hom (𝟙 S') (𝟙 S) ⋯ ⋯ ≫ A.act =
+                (DescentAction.canonical s f).act ≫ e.hom
+@exists_isAffineOpen_forall_mem_of_forall_specializes_of_smooth_of_isDiscreteValuationRing : ∀ {R : Type u_1}
+  [inst : CommRing R] [inst_1 : IsDomain R] [IsDiscreteValuationRing R] {X : Scheme} (f : X ⟶ Spec ↧R) [Smooth f]
+  [IsSeparated f] [QuasiCompact f], ∃ U, IsAffineOpen U ∧ ∀ (x : ↥X), (∀ (y : ↥X), y ⤳ x → f y = f x → y = x) → x ∈ U
+@GoodReductionJacobian.RelativeGroupLaw.exists_isAffineOpen_forall_mem_of_smooth_of_henselianLocalRing : ∀
+  {R : Type u_1} [inst : CommRing R] [inst_1 : IsDomain R] [IsDiscreteValuationRing R] [HenselianLocalRing R]
+  {B : Scheme} {g : B ⟶ Spec ↧R} [Smooth g] [IsSeparated g] [QuasiCompact g]
+  (LB : GoodReductionJacobian.RelativeGroupLaw R g) (S : Finset ↥B), ∃ U, IsAffineOpen U ∧ ∀ b ∈ S, b ∈ U
+NeronFLT.exists_neron_of_henselian : ∀ (R : Type) [inst : CommRing R] [inst_1 : IsDomain R] [IsDiscreteValuationRing R]
+  (K : Type) [inst_3 : Field K] [inst_4 : Algebra R K] [IsFractionRing R K] [HenselianLocalRing R] (A : AbVar K),
+  ∃ N,
+    CToPrinted.IsNeronModelOver R K N ∧
+      Nonempty ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap R K)))).obj N ≅ A.X)
+'NeronDescent.copy_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NeronDescent.neronDVRLocal_of_dedekind' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NeronDescent.neronSchemeExtensionExists_of_dvrLocal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NeronFLT.neronDVRLocal_of_descentSH' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -1,0 +1,10 @@
+74897:error: ZInQKernel/Contrib/OneProof/MumfordGroupLawDescent.lean:855:9: Tactic `rcases` failed: `x✝ : ¬IsField Rv →
+74905:error: build failed
+error: ZInQKernel/Contrib/OneProof/MumfordGroupLawDescent.lean:855:9: Tactic `rcases` failed: `x✝ : ¬IsField Rv →
+  ∃ N,
+    ∃ (_ : Smooth N.hom) (_ : IsSeparated N.hom) (_ : QuasiCompact N.hom),
+      ∃ ε,
+        ∀ (Y : Over (Spec ↧Rv)) [Smooth Y.hom],
+          Function.Surjective fun f => (Over.pullback (genMap Rv L)).map f ≫ ε.hom` is not an inductive datatype
+Some required targets logged failures:
+- ZInQKernel.Contrib.OneProof.MumfordGroupLawDescent

@@ -1,4 +1,5 @@
-import ZInQKernel.Contrib.OneProof.MumfordGroupLawDescent
+import ZInQKernel.Contrib.OneProof.NeronGoodModelIso
+import ZInQKernel.Contrib.OneProof.NeronDVRLocalSH
 import ZInQKernel.OneProof.H.TailM
 import ZInQKernel.Contrib.OneProof.NeronDVR
 import ZInQKernel.Contrib.OneProof.NeronFLT.Vendor.AnthropicFLT.Theorems.Thm_AlgebraicGeometry_DescentAction_effective_of_finiteEtale
@@ -44,26 +45,44 @@ def NeronSchemeExtensionDedekind : Prop :=
 theorem copy_iff :
     NeronSchemeExtensionDedekind ↔ ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind := Iff.rfl
 
-/-! ## The existing reductions (compiled) -/
+/-! ## The existing reductions (compiled)
 
-/-- GIT 6.14 over every DVR, with no Néron leaf (dedekind-free). -/
-example : ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR := ZInQ.Contrib.GroupLawDescent.mumfordGroupLawDVR_proof
+`MumfordGroupLawDescent.lean` (dedekind-free) does not build on this base: its `neronDVRLocal_of_dedekind` omits the
+argument `¬ IsField Rv` that fork main added to the field (00f923e24). The corrected proof is below (one argument
+added); the whole file, corrected, is checked in `GroupLawDescentFixed.lean`. -/
 
-/-- The field gives the local leaf (so the narrowing is a weakening). -/
-example (h : NeronSchemeExtensionDedekind) : NeronExt.NeronDVRLocal :=
-  ZInQ.Contrib.GroupLawDescent.neronDVRLocal_of_dedekind (copy_iff.mp h)
+/-- dedekind-free's `GroupLawDescent.neronDVRLocal_of_dedekind`, with the argument `¬ IsField Rv` supplied. -/
+theorem neronDVRLocal_of_dedekind (h : NeronSchemeExtensionDedekind) : NeronExt.NeronDVRLocal := by
+  intro K _ A L _ _ _ v _ Rv _ _ _ _ _
+  have hv0 : v ≠ ⊥ := Ring.ne_bot_of_isMaximal_of_not_isField ‹_› (NumberField.RingOfIntegers.not_isField L)
+  haveI : IsDomain Rv :=
+    IsLocalization.isDomain_of_le_nonZeroDivisors (M := v.primeCompl) _
+      (Ideal.primeCompl_le_nonZeroDivisors v)
+  haveI : IsDiscreteValuationRing Rv :=
+    IsLocalization.AtPrime.isDiscreteValuationRing_of_dedekind_domain (NumberField.RingOfIntegers L) hv0 Rv
+  haveI : IsFractionRing Rv L :=
+    IsFractionRing.isFractionRing_of_isDomain_of_isLocalization v.primeCompl Rv L
+  obtain ⟨N, hS, hSep, hQC, ε, hext⟩ := h Rv L (A.baseChange L) (IsDiscreteValuationRing.not_isField Rv)
+  haveI := hS; haveI := hSep
+  haveI : IsSchemeTheoreticallyDominant (genMap Rv L) :=
+    ZInQ.Contrib.GoodModelIso.genMap_isSchemeTheoreticallyDominant (R := Rv) L
+  refine ⟨N, ⟨hS, hSep, inferInstance, hQC, fun Y _ => ⟨fun f f' hf =>
+    ZInQ.Contrib.NeronC.pullback_map_injective (genMap Rv L) Y N hf, fun g => ?_⟩⟩, ⟨ε⟩⟩
+  obtain ⟨f, hf⟩ := hext Y (g ≫ ε.hom)
+  exact ⟨f, (cancel_mono ε.hom).mp hf⟩
 
-/-- The local leaf gives the old textbook field over `𝓞_L` (the readers T41, r6, SS1, SS3). -/
-example (h : NeronExt.NeronDVRLocal) : ZInQ.Contrib.NeronC.NeronSchemeExtensionExists :=
-  ZInQ.Contrib.GroupLawDescent.neronSchemeExtensionExists_of_dvrLocal h
+/-- The local leaf gives the old textbook field over `𝓞_L` (neron-ext's gluing, EGA IV 8.10.5 (xii) proved). -/
+theorem neronSchemeExtensionExists_of_dvrLocal (h : NeronExt.NeronDVRLocal) :
+    ZInQ.Contrib.NeronC.NeronSchemeExtensionExists :=
+  NeronExt.extension_of_dvrLocal ZInQ.Contrib.EGAProperLimit.egaIV_8_10_5_xii_proof h
 
 /-- The T41 reader: global Néron group models over `𝓞_L` at every number field `L`. -/
 example (h : NeronExt.NeronDVRLocal) : ZInQ.H5Neron.NeronModelExists :=
-  HDec.HSyn.t41_of_extension5 (ZInQ.Contrib.GroupLawDescent.neronSchemeExtensionExists_of_dvrLocal h)
+  HDec.HSyn.t41_of_extension5 (neronSchemeExtensionExists_of_dvrLocal h)
 
 /-- The r6/SS1/SS3 reader: Néron models over every DVR of a number field. -/
 example (h : NeronExt.NeronDVRLocal) : GapNeron.NeronSchemeModelExistsDVRNF :=
-  GapNeron.neronSchemeModelExistsNF (ZInQ.Contrib.GroupLawDescent.neronSchemeExtensionExists_of_dvrLocal h)
+  GapNeron.neronSchemeModelExistsNF (neronSchemeExtensionExists_of_dvrLocal h)
 
 /-- neron-flt: descent from the strict henselization implies the local leaf. -/
 example (h : NeronFLT.NeronDescentSH) : NeronExt.NeronDVRLocal := NeronFLT.neronDVRLocal_of_descentSH h
@@ -85,5 +104,6 @@ example (h : NeronFLT.NeronDescentSH) : NeronExt.NeronDVRLocal := NeronFLT.neron
 end NeronDescent
 
 #print axioms NeronDescent.copy_iff
-#print axioms ZInQ.Contrib.GroupLawDescent.neronSchemeExtensionExists_of_dvrLocal
+#print axioms NeronDescent.neronDVRLocal_of_dedekind
+#print axioms NeronDescent.neronSchemeExtensionExists_of_dvrLocal
 #print axioms NeronFLT.neronDVRLocal_of_descentSH
