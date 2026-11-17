@@ -1,0 +1,4 @@
+HDec.HSyn.sixContactMin_of_open72_cm_no5: 28 top fields read
+HDec.HSyn.sixContactMin_of_open72: 29 top fields read
+read by old, not by new: [HDec.HSyn.OpenResearchLeaves53.gonzalezRotgerThm512X6RCF]
+read by new, not by old: []
