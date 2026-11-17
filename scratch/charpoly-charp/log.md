@@ -36,3 +36,18 @@ deg-det Contrib files); `lake build ZInQKernel.OneProof.H.TailC` up to date (VER
   `#print axioms`: [propext, Classical.choice, Quot.sound].
 * So (1) answered: the ℓ-independence of tr(α | T_ℓ Ā) is NOT an extra input at that k: G8's intertwining
   (already a hypothesis of common_trace) plus Mumford §19 Thm 3 force it.
+
+## Contrib modules (VERIFIED, `lake build` succeeded, 11764 jobs)
+
+* ZInQKernel/Contrib/OneProof/CommonTraceHomFree.lean (imports TailC): Core + `common_trace_of_homFree`,
+  `g14TraceCompat_of_link_homFree`, `HDec.HSyn.G0AssembleMod.linkedTateData_of_local_homFree`.
+* ZInQKernel/Contrib/OneProof/R16PrintedC.lean (imports R16Split, CharPolyLattice): `CharPolyIndepOfEllAtQ`,
+  `trace_endV_ratC`, `rank_two_of_dimC`, `r16_of_coreYC` (verbatim copies, binder narrowed; one added
+  `Module.Free.of_divisionRing` instance because CharPolyLattice's import makes that synthesis time out),
+  `r16_of_printedC (hC) (HL : UniformizationLeafAll) (hM : MumfordTorsionAlgClosed)`.
+
+## Fold (manual)
+
+* scratch/charpoly-charp/fold_edit.py: 14 files under OneProof/H (`--check` passes on this tree).
+* Fold tree: ~/cc-foldtree = reflink copy of this worktree (no .git) + fold_edit.py; `lake build
+  ZInQKernel.OneProof.Main` started 11-16 ~17:45 (LPrefix edit ⇒ whole H chain rebuilds).
