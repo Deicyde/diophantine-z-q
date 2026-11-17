@@ -57,3 +57,16 @@ Each release page carries a "Known corrections" section listing the class A and 
 The pull request for a new version lists every open backlog entry against the preceding version and marks each one corrected or deferred, with a reason for each deferral. Review of that pull request checks that the list is complete.
 
 A version containing only corrections is published when a class A entry exists, or when the owner decides the accumulated class B and class C entries justify one. Otherwise corrections are made in the next version published for mathematical reasons. Any such version takes the next integer, as above.
+
+## Approving a release
+
+Any repository collaborator may approve the release of a new manuscript version. A version is released when its pull request merges and its release is published; the conditions are:
+
+1. The designated review check has passed on the exact head. A finding or an incomplete-review item is resolved by repair or by a repository admin's explicit override; a release that needs an override therefore needs an admin.
+2. A collaborator has approved that exact head, by a pull request comment naming the version and the head commit. The approver is not the principal author of the version's new result and is not the person whose agent wrote the pull request.
+3. Every addition to or removal from the credits, the contributor lists or the AI usage statement has been confirmed by the person named, by the operator of the agent named, or by the owner, and the confirmation is linked in the pull request.
+4. No other version pull request is open and ready for review. A second candidate waits, then updates against the published version and takes the next integer.
+
+Until the gate enforces condition 2 itself, the author keeps the version pull request in draft until the approval comment for its current head exists, because an accepted ready pull request merges automatically. A changed head needs a new approval.
+
+Agents preparing a version follow the [manuscript agent guide](manuscript-agent-guide.md).
