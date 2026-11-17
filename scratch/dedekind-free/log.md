@@ -45,3 +45,18 @@ Steps (all compiled):
 * `mumfordGroupLawAt_all`: cover = gt-shpair's strict henselization `O₁ = wE w` in the inertia field `E ⊆ K̄`
   (`isSHSep_inertia`): `R → O₁` faithfully flat (torsion-free over a PID + local), `E` the localization of `O₁` at `φ(R⁰)`
   (`assoc_pow`), `CommRingCat.isPushout_of_isLocalization` + `isPullback_SpecMap_of_isPushout`.
+
+## 4. Contribution, #discharges, fold (VERIFIED)
+* `ZInQKernel/Contrib/OneProof/MumfordGroupLawDescent.lean` (namespace `ZInQ.Contrib.GroupLawDescent`): `lake build` OK.
+  Adds `neronDVRLocal_of_dedekind : NeronSchemeExtensionDedekind → NeronExt.NeronDVRLocal` and
+  `neronSchemeExtensionExists_of_dvrLocal`. No `sorry`, no build-time code; the one instance is `attribute [local instance]`.
+* `#discharges` (Discharges.lean -> discharges.txt): `35 open hypotheses, 16784 theorems checked, 33 discharge one`; no line for
+  `neronSchemeExtensionDedekind` (expected: no theorem has its type; the field is narrowed, not discharged).
+* Fold (fold/SPEC.md, fold/TailZ56.lean.txt, fold/FoldCheck.lean -> fold/foldcheck.txt): `sixContactMin_of_open49`,
+  `frozenTarget_df` standard axioms; NeronSchemeExtensionDedekind out of the closure, NeronDVRLocal in; 29 bundle fields before
+  and after. Count-neutral.
+
+## 5. r6/SS1/SS3 readers (VERIFIED, read NeronDVR.lean)
+`HasSemistableReduction A O` is `∃ 𝒩 Néron model over O, semistable` (`hasSemistableReduction_ofNF`), O a DVR of a number field
+(non-henselian): these readers need existence over O itself; moving them to `O^sh` would change that definition. Not pursued
+since T41 blocks anyway.
