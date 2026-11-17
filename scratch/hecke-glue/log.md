@@ -30,3 +30,14 @@ So g(η)=q, q closed ⇒ q = g(P₀)=e, κ(e)=ℚ ⇒ g and 1 agree on Spec κ(�
   P/Q whose analytic quotient has a limit c at τ, with ev = c. To be proved from the
   meromorphy of evAn (WeberField diffOn_ez, evAn_eq) and IsX1Gen.
 - So X1TauPoints is NOT a leaf: it is glue (no published input beyond the definition of IsX1Gen).
+
+## 05:30 TauPlace proved; X1TauPoints and ConstOnTauPoints proved outright
+- VERIFIED (compiles, `lake env lean scratch/hecke-glue/HeckeGlue.lean`, no sorry; axioms
+  [propext, Classical.choice, Quot.sound] for x1TauPoints, constOnTauPoints, tauPlace,
+  isHeckeT_unique', isDiamond_unique', evF_eq_zero_of_heckeJ_eq_zero_of_abelJacobi,
+  killsIf_iff_IfDS_of_abelJacobi).
+- tauPlace: O = {a ∈ K(X) : the meromorphic function P(j,f₁)/Q(j,f₁) of a has a finite limit at τ}
+  (Mathlib meromorphicOrderAt: order ≥ 0 ⇒ limit, order < 0 ⇒ cobounded ⇒ a⁻¹ → 0); ev = limit.
+  Well-defined by IsX1Gen + identity theorem (WeberField eq_zero_or_eq_zero, eq_zero_of_eventually),
+  bad points (g₂g₃ = 0) isolated, evAn = ez on good points (WeberField evAn_eq).
+- Consequence: isHeckeT_unique / isDiamond_unique hold with NO hypothesis; gap 1 needs only AbelJacobiX1.

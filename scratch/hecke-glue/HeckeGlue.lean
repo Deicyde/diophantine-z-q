@@ -439,4 +439,348 @@ theorem x1TauPoints_of_tauPlace (hT : TauPlace) : X1TauPoints := by
   obtain ⟨h, hc⟩ := hO P Q c hQ hlim
   exact hc ▸ hx _ h
 
+open Filter Topology
+open X1Igusa.Weber (Hs isOpen_Hs G2f G3f diffOn_G2f diffOn_G3f exists_good_point)
+
+/-! ## 7. The place at `τ` (proof of `TauPlace`) -/
+
+/-- `F ↦ F(a, b)` as a ring homomorphism. -/
+def ev2Hom {K : Type*} [CommRing K] (a b : K) : Polynomial (Polynomial ℤ) →+* K :=
+  (Polynomial.evalRingHom b).comp
+    (Polynomial.mapRingHom (Polynomial.eval₂RingHom (Int.castRingHom K) a))
+
+theorem ev2_eq {K : Type*} [CommRing K] (F : Polynomial (Polynomial ℤ)) (a b : K) :
+    AfTateOr.ev2 F a b = ev2Hom a b F := rfl
+
+/-- The holomorphic function `F(j, f₁)` on `ℍ ⊂ ℂ` (Weber's generic branch). -/
+def holHom (N : ℕ) (z : ℂ) : Polynomial (Polynomial ℤ) →+* ℂ :=
+  (X1Igusa.Weber.ez N z).comp AfTateOr.toQ
+
+theorem diffOn_hol (hN : 2 ≤ N) (F : Polynomial (Polynomial ℤ)) :
+    DifferentiableOn ℂ (fun z => holHom N z F) Hs :=
+  X1Igusa.Weber.diffOn_ez hN _
+
+theorem evAn_eq_hol (F : Polynomial (Polynomial ℤ)) (τ : UpperHalfPlane)
+    (h2 : (T5Glue.pp τ).g₂ ≠ 0) (h3 : (T5Glue.pp τ).g₃ ≠ 0) :
+    X1Igusa.Weber.evAn N (AfTateOr.toQ F) τ = holHom N τ F :=
+  X1Igusa.Weber.evAn_eq _ τ h2 h3
+
+/-- A holomorphic function on `ℍ` that is not identically zero is nonzero near `τ`, `≠ τ`. -/
+theorem eventually_ne_of_diffOn {f : ℂ → ℂ} (hf : DifferentiableOn ℂ f Hs)
+    (hne : ∃ z ∈ Hs, f z ≠ 0) (τ : UpperHalfPlane) : ∀ᶠ z in 𝓝[≠] (τ : ℂ), f z ≠ 0 := by
+  have ha : AnalyticAt ℂ f τ := hf.analyticAt (isOpen_Hs.mem_nhds τ.coe_im_pos)
+  rcases ha.eventually_eq_zero_or_eventually_ne_zero with h | h
+  · obtain ⟨z, hz, hfz⟩ := hne
+    exact absurd (X1Igusa.Weber.eq_zero_of_eventually hf τ.coe_im_pos h z hz) hfz
+  · exact h
+
+theorem eventually_good (τ : UpperHalfPlane) :
+    ∀ᶠ z in 𝓝[≠] (τ : ℂ), G2f z * G3f z ≠ 0 := by
+  obtain ⟨z, hz, h2, h3⟩ := exists_good_point
+  exact eventually_ne_of_diffOn (diffOn_G2f.mul diffOn_G3f) ⟨z, hz, mul_ne_zero h2 h3⟩ τ
+
+theorem eventually_mem_Hs (τ : UpperHalfPlane) : ∀ᶠ z in 𝓝[≠] (τ : ℂ), z ∈ Hs :=
+  nhdsWithin_le_nhds (isOpen_Hs.mem_nhds τ.coe_im_pos)
+
+variable {jX tX : X.left.functionField}
+
+theorem hol_eq_zero_of_ev2 (hN : 2 ≤ N) (hG : IsX1Gen N X jX tX) {F : Polynomial (Polynomial ℤ)}
+    (hF : AfTateOr.ev2 F jX tX = 0) : ∀ z ∈ Hs, holHom N z F = 0 := by
+  have h := (hG.2 F).1 hF
+  have hprod : ∀ z ∈ Hs, (G2f z * G3f z) * holHom N z F = 0 := by
+    intro z hz
+    by_cases h23 : G2f z * G3f z = 0
+    · rw [h23, zero_mul]
+    · obtain ⟨h2', h3'⟩ := mul_ne_zero_iff.mp h23
+      have := h (UpperHalfPlane.ofComplex z) h2' h3'
+      rw [evAn_eq_hol F _ h2' h3', X1Igusa.Weber.ofComplex_coe hz] at this
+      rw [this, mul_zero]
+  rcases X1Igusa.Weber.eq_zero_or_eq_zero (diffOn_G2f.mul diffOn_G3f) (diffOn_hol hN F) hprod
+    with h1 | h1
+  · exfalso
+    obtain ⟨z, hz, h2, h3⟩ := exists_good_point
+    exact mul_ne_zero h2 h3 (h1 z hz)
+  · exact h1
+
+theorem ev2_eq_zero_of_hol (hG : IsX1Gen N X jX tX) {F : Polynomial (Polynomial ℤ)}
+    (h : ∀ z ∈ Hs, holHom N z F = 0) : AfTateOr.ev2 F jX tX = 0 :=
+  (hG.2 F).2 fun τ' h2 h3 => by rw [evAn_eq_hol F τ' h2 h3]; exact h _ τ'.coe_im_pos
+
+theorem eventually_hol_ne (hN : 2 ≤ N) (hG : IsX1Gen N X jX tX) {Q : Polynomial (Polynomial ℤ)}
+    (hQ : AfTateOr.ev2 Q jX tX ≠ 0) (τ : UpperHalfPlane) :
+    ∀ᶠ z in 𝓝[≠] (τ : ℂ), holHom N z Q ≠ 0 := by
+  refine eventually_ne_of_diffOn (diffOn_hol hN Q) ?_ τ
+  by_contra h
+  push Not at h
+  exact hQ (ev2_eq_zero_of_hol hG h)
+
+/-- `(P, Q)` represents `a = P(j_X, t_X)/Q(j_X, t_X)`. -/
+def IsRep (jX tX : X.left.functionField) (a : X.left.functionField)
+    (P Q : Polynomial (Polynomial ℤ)) : Prop :=
+  AfTateOr.ev2 Q jX tX ≠ 0 ∧ a = AfTateOr.ev2 P jX tX / AfTateOr.ev2 Q jX tX
+
+theorem exists_rep (hG : IsX1Gen N X jX tX) (a : X.left.functionField) :
+    ∃ P Q, IsRep jX tX a P Q := by
+  have hle : Subring.closure {jX, tX} ≤ (ev2Hom jX tX).range := by
+    rw [Subring.closure_le]
+    rintro y (rfl | rfl)
+    · exact ⟨Polynomial.C Polynomial.X, by simp [ev2Hom]⟩
+    · exact ⟨Polynomial.X, by simp [ev2Hom]⟩
+  have ha : a ∈ Subfield.closure {jX, tX} := hG.1 ▸ Subfield.mem_top a
+  obtain ⟨y, hy, z, hz, rfl⟩ := Subfield.mem_closure_iff.mp ha
+  obtain ⟨P, rfl⟩ := hle hy
+  obtain ⟨Q, rfl⟩ := hle hz
+  by_cases hQ : ev2Hom jX tX Q = 0
+  · exact ⟨0, 1, by simp [ev2_eq], by simp [ev2_eq, hQ]⟩
+  · exact ⟨P, Q, hQ, rfl⟩
+
+/-- The representations of `a` give eventually equal functions near `τ`. -/
+theorem rep_eventuallyEq (hN : 2 ≤ N) (hG : IsX1Gen N X jX tX) (τ : UpperHalfPlane)
+    {a : X.left.functionField} {P Q P' Q' : Polynomial (Polynomial ℤ)}
+    (h : IsRep jX tX a P Q) (h' : IsRep jX tX a P' Q') :
+    (fun z => holHom N z P / holHom N z Q) =ᶠ[𝓝[≠] (τ : ℂ)]
+      fun z => holHom N z P' / holHom N z Q' := by
+  have h0 : AfTateOr.ev2 (P * Q' - P' * Q) jX tX = 0 := by
+    have e := h.2.symm.trans h'.2
+    rw [div_eq_div_iff h.1 h'.1] at e
+    rw [ev2_eq, map_sub, map_mul, map_mul, ← ev2_eq, ← ev2_eq, ← ev2_eq, ← ev2_eq, e, sub_self]
+  have hz := hol_eq_zero_of_ev2 hN hG h0
+  filter_upwards [eventually_hol_ne hN hG h.1 τ, eventually_hol_ne hN hG h'.1 τ,
+    eventually_mem_Hs τ] with z h1 h2 h3
+  have := hz z h3
+  rw [map_sub, map_mul, map_mul] at this
+  rw [div_eq_div_iff h1 h2]
+  exact sub_eq_zero.mp this
+
+/-- The meromorphic function of `a ∈ K(X)` near `τ`. -/
+def mf (hG : IsX1Gen N X jX tX) (a : X.left.functionField) (z : ℂ) : ℂ :=
+  holHom N z (exists_rep hG a).choose / holHom N z (exists_rep hG a).choose_spec.choose
+
+theorem mf_eq (hN : 2 ≤ N) (hG : IsX1Gen N X jX tX) (τ : UpperHalfPlane)
+    {a : X.left.functionField} {P Q : Polynomial (Polynomial ℤ)} (h : IsRep jX tX a P Q) :
+    mf hG a =ᶠ[𝓝[≠] (τ : ℂ)] fun z => holHom N z P / holHom N z Q :=
+  rep_eventuallyEq hN hG τ (exists_rep hG a).choose_spec.choose_spec h
+
+
+section Ops
+
+variable {a b : X.left.functionField} {P Q P' Q' : Polynomial (Polynomial ℤ)}
+
+theorem isRep_add (h : IsRep jX tX a P Q) (h' : IsRep jX tX b P' Q') :
+    IsRep jX tX (a + b) (P * Q' + P' * Q) (Q * Q') := by
+  have hQ := h.1; have hQ' := h'.1
+  simp only [ev2_eq] at hQ hQ'
+  refine ⟨by simp only [ev2_eq, map_mul]; exact mul_ne_zero hQ hQ', ?_⟩
+  rw [h.2, h'.2]; simp only [ev2_eq, map_add, map_mul]; field_simp
+
+theorem isRep_mul (h : IsRep jX tX a P Q) (h' : IsRep jX tX b P' Q') :
+    IsRep jX tX (a * b) (P * P') (Q * Q') := by
+  have hQ := h.1; have hQ' := h'.1
+  simp only [ev2_eq] at hQ hQ'
+  refine ⟨by simp only [ev2_eq, map_mul]; exact mul_ne_zero hQ hQ', ?_⟩
+  rw [h.2, h'.2]; simp only [ev2_eq, map_mul]; field_simp
+
+theorem isRep_neg (h : IsRep jX tX a P Q) : IsRep jX tX (-a) (-P) Q :=
+  ⟨h.1, by rw [h.2]; simp only [ev2_eq, map_neg, neg_div]⟩
+
+theorem isRep_zero : IsRep jX tX 0 0 1 := ⟨by simp [ev2_eq], by simp [ev2_eq]⟩
+
+theorem isRep_one : IsRep jX tX 1 1 1 := ⟨by simp [ev2_eq], by simp [ev2_eq]⟩
+
+theorem ev2_ne_of_isRep (h : IsRep jX tX a P Q) (ha : a ≠ 0) : AfTateOr.ev2 P jX tX ≠ 0 := by
+  intro h0; apply ha; rw [h.2, h0, zero_div]
+
+theorem isRep_inv (h : IsRep jX tX a P Q) (ha : a ≠ 0) : IsRep jX tX a⁻¹ Q P :=
+  ⟨ev2_ne_of_isRep h ha, by rw [h.2, inv_div]⟩
+
+variable (hN : 2 ≤ N) (hG : IsX1Gen N X jX tX) (τ : UpperHalfPlane)
+include hN
+
+theorem mf_add (a b : X.left.functionField) :
+    mf hG (a + b) =ᶠ[𝓝[≠] (τ : ℂ)] mf hG a + mf hG b := by
+  obtain ⟨P, Q, h⟩ := exists_rep hG a
+  obtain ⟨P', Q', h'⟩ := exists_rep hG b
+  filter_upwards [mf_eq hN hG τ (isRep_add h h'), mf_eq hN hG τ h, mf_eq hN hG τ h',
+    eventually_hol_ne hN hG h.1 τ, eventually_hol_ne hN hG h'.1 τ] with z e1 e2 e3 n1 n2
+  rw [e1, Pi.add_apply, e2, e3]
+  simp only [map_add, map_mul]
+  field_simp
+
+theorem mf_mul (a b : X.left.functionField) :
+    mf hG (a * b) =ᶠ[𝓝[≠] (τ : ℂ)] mf hG a * mf hG b := by
+  obtain ⟨P, Q, h⟩ := exists_rep hG a
+  obtain ⟨P', Q', h'⟩ := exists_rep hG b
+  filter_upwards [mf_eq hN hG τ (isRep_mul h h'), mf_eq hN hG τ h, mf_eq hN hG τ h',
+    eventually_hol_ne hN hG h.1 τ, eventually_hol_ne hN hG h'.1 τ] with z e1 e2 e3 n1 n2
+  rw [e1, Pi.mul_apply, e2, e3]
+  simp only [map_mul]
+  field_simp
+
+theorem mf_neg (a : X.left.functionField) : mf hG (-a) =ᶠ[𝓝[≠] (τ : ℂ)] -mf hG a := by
+  obtain ⟨P, Q, h⟩ := exists_rep hG a
+  filter_upwards [mf_eq hN hG τ (isRep_neg h), mf_eq hN hG τ h] with z e1 e2
+  rw [e1, Pi.neg_apply, e2, map_neg, neg_div]
+
+theorem mf_zero : mf hG 0 =ᶠ[𝓝[≠] (τ : ℂ)] fun _ => 0 := by
+  filter_upwards [mf_eq hN hG τ isRep_zero] with z e1
+  rw [e1, map_zero, zero_div]
+
+theorem mf_one : mf hG 1 =ᶠ[𝓝[≠] (τ : ℂ)] fun _ => 1 := by
+  filter_upwards [mf_eq hN hG τ isRep_one] with z e1
+  rw [e1, map_one, div_one]
+
+theorem mf_inv {a : X.left.functionField} (ha : a ≠ 0) :
+    mf hG a⁻¹ =ᶠ[𝓝[≠] (τ : ℂ)] (mf hG a)⁻¹ := by
+  obtain ⟨P, Q, h⟩ := exists_rep hG a
+  filter_upwards [mf_eq hN hG τ (isRep_inv h ha), mf_eq hN hG τ h] with z e1 e2
+  rw [e1, Pi.inv_apply, e2, inv_div]
+
+/-- The valuation subring of the place at `τ`: the functions with a finite limit at `τ`. -/
+def placeO : ValuationSubring X.left.functionField where
+  carrier := {a | ∃ c, Tendsto (mf hG a) (𝓝[≠] (τ : ℂ)) (𝓝 c)}
+  mul_mem' := by
+    rintro a b ⟨c, hc⟩ ⟨d, hd⟩
+    exact ⟨c * d, (hc.mul hd).congr' (mf_mul hN hG τ a b).symm⟩
+  one_mem' := ⟨1, tendsto_const_nhds.congr' (mf_one hN hG τ).symm⟩
+  add_mem' := by
+    rintro a b ⟨c, hc⟩ ⟨d, hd⟩
+    exact ⟨c + d, (hc.add hd).congr' (mf_add hN hG τ a b).symm⟩
+  zero_mem' := ⟨0, tendsto_const_nhds.congr' (mf_zero hN hG τ).symm⟩
+  neg_mem' := by
+    rintro a ⟨c, hc⟩
+    exact ⟨-c, hc.neg.congr' (mf_neg hN hG τ a).symm⟩
+  mem_or_inv_mem' a := by
+    by_cases ha : a = 0
+    · left; rw [ha]; exact ⟨0, tendsto_const_nhds.congr' (mf_zero hN hG τ).symm⟩
+    obtain ⟨P, Q, h⟩ := exists_rep hG a
+    have hP := ev2_ne_of_isRep h ha
+    have hτ : Hs ∈ 𝓝 (τ : ℂ) := isOpen_Hs.mem_nhds τ.coe_im_pos
+    have hm : MeromorphicAt (fun z => holHom N z P / holHom N z Q) (τ : ℂ) :=
+      ((diffOn_hol hN P).analyticAt hτ).meromorphicAt.div
+        ((diffOn_hol hN Q).analyticAt hτ).meromorphicAt
+    rcases lt_or_ge (meromorphicOrderAt (fun z => holHom N z P / holHom N z Q) (τ : ℂ)) 0
+      with ho | ho
+    · right
+      refine ⟨0, (tendsto_inv₀_cobounded.comp
+        (tendsto_cobounded_of_meromorphicOrderAt_neg ho)).congr' ?_⟩
+      filter_upwards [mf_eq hN hG τ (isRep_inv h ha)] with z e
+      rw [e]; simp only [Function.comp, inv_div]
+    · left
+      obtain ⟨c, hc⟩ := tendsto_nhds_of_meromorphicOrderAt_nonneg hm ho
+      exact ⟨c, hc.congr' (mf_eq hN hG τ h).symm⟩
+
+theorem mem_placeO {a : X.left.functionField} :
+    a ∈ placeO hN hG τ ↔ ∃ c, Tendsto (mf hG a) (𝓝[≠] (τ : ℂ)) (𝓝 c) := Iff.rfl
+
+theorem lim_unique {a : X.left.functionField} {c d : ℂ}
+    (hc : Tendsto (mf hG a) (𝓝[≠] (τ : ℂ)) (𝓝 c)) (hd : Tendsto (mf hG a) (𝓝[≠] (τ : ℂ)) (𝓝 d)) :
+    c = d := tendsto_nhds_unique hc hd
+
+/-- The evaluation at `τ`: the limit. -/
+def placeEv : placeO hN hG τ →+* ℂ where
+  toFun a := ((mem_placeO hN hG τ).mp a.2).choose
+  map_one' := lim_unique hN hG τ ((mem_placeO hN hG τ).mp (placeO hN hG τ).one_mem).choose_spec
+    (tendsto_const_nhds.congr' (mf_one hN hG τ).symm)
+  map_mul' a b := lim_unique hN hG τ ((mem_placeO hN hG τ).mp (a * b).2).choose_spec
+    ((((mem_placeO hN hG τ).mp a.2).choose_spec.mul
+      ((mem_placeO hN hG τ).mp b.2).choose_spec).congr' (mf_mul hN hG τ a b).symm)
+  map_zero' := lim_unique hN hG τ ((mem_placeO hN hG τ).mp (placeO hN hG τ).zero_mem).choose_spec
+    (tendsto_const_nhds.congr' (mf_zero hN hG τ).symm)
+  map_add' a b := lim_unique hN hG τ ((mem_placeO hN hG τ).mp (a + b).2).choose_spec
+    ((((mem_placeO hN hG τ).mp a.2).choose_spec.add
+      ((mem_placeO hN hG τ).mp b.2).choose_spec).congr' (mf_add hN hG τ a b).symm)
+
+theorem placeEv_spec (a : placeO hN hG τ) :
+    Tendsto (mf hG (a : X.left.functionField)) (𝓝[≠] (τ : ℂ)) (𝓝 (placeEv hN hG τ a)) :=
+  ((mem_placeO hN hG τ).mp a.2).choose_spec
+
+theorem placeEv_local (a : placeO hN hG τ) (h : placeEv hN hG τ a ≠ 0) : IsUnit a := by
+  have ha : (a : X.left.functionField) ≠ 0 := by
+    intro h0
+    apply h
+    apply lim_unique hN hG τ (placeEv_spec hN hG τ a)
+    rw [h0]; exact tendsto_const_nhds.congr' (mf_zero hN hG τ).symm
+  have hmem : (a : X.left.functionField)⁻¹ ∈ placeO hN hG τ :=
+    ⟨_, ((placeEv_spec hN hG τ a).inv₀ h).congr' (mf_inv hN hG τ ha).symm⟩
+  exact isUnit_iff_exists_inv.mpr ⟨⟨_, hmem⟩, Subtype.ext (mul_inv_cancel₀ ha)⟩
+
+end Ops
+
+
+/-- From the analytic limit on `ℍ` to the generic branch near `τ` in `ℂ`. -/
+theorem tendsto_hol (τ : UpperHalfPlane) {P Q : Polynomial (Polynomial ℤ)} {c : ℂ}
+    (h : Tendsto (fun τ' => X1Igusa.Weber.evAn N (AfTateOr.toQ P) τ' /
+      X1Igusa.Weber.evAn N (AfTateOr.toQ Q) τ') (𝓝[≠] τ) (𝓝 c)) :
+    Tendsto (fun z => holHom N z P / holHom N z Q) (𝓝[≠] (τ : ℂ)) (𝓝 c) := by
+  have h1 : Tendsto UpperHalfPlane.ofComplex (𝓝[≠] (τ : ℂ)) (𝓝[≠] τ) := by
+    refine tendsto_nhdsWithin_iff.mpr ⟨?_, ?_⟩
+    · rw [UpperHalfPlane.isEmbedding_coe.tendsto_nhds_iff]
+      exact (tendsto_id.congr'
+        (UpperHalfPlane.eventuallyEq_coe_comp_ofComplex τ.coe_im_pos).symm).mono_left
+          nhdsWithin_le_nhds
+    · filter_upwards [self_mem_nhdsWithin, eventually_mem_Hs τ] with z hz hH
+      intro heq
+      apply hz
+      rw [← X1Igusa.Weber.ofComplex_coe hH, Set.mem_singleton_iff.mp heq]
+      rfl
+  refine (h.comp h1).congr' ?_
+  filter_upwards [eventually_good τ, eventually_mem_Hs τ] with z hg hH
+  obtain ⟨h2, h3⟩ := mul_ne_zero_iff.mp hg
+  simp only [Function.comp]
+  rw [evAn_eq_hol P _ h2 h3, evAn_eq_hol Q _ h2 h3, X1Igusa.Weber.ofComplex_coe hH]
+
+/-- **`TauPlace` holds** (the place of `K(X)` at `τ`: functions with a finite limit). -/
+theorem tauPlace : TauPlace := by
+  intro N hN X _ jX tX hG τ
+  refine ⟨placeO hN hG τ, placeEv hN hG τ, placeEv_local hN hG τ, ?_⟩
+  intro P Q c hQ hlim
+  have hrep : IsRep jX tX (AfTateOr.ev2 P jX tX / AfTateOr.ev2 Q jX tX) P Q := ⟨hQ, rfl⟩
+  have hm : Tendsto (mf hG (AfTateOr.ev2 P jX tX / AfTateOr.ev2 Q jX tX)) (𝓝[≠] (τ : ℂ)) (𝓝 c) :=
+    (tendsto_hol τ hlim).congr' (mf_eq hN hG τ hrep).symm
+  exact ⟨⟨c, hm⟩, lim_unique hN hG τ (placeEv_spec hN hG τ ⟨_, ⟨c, hm⟩⟩) hm⟩
+
+/-! ## 8. The three inputs of the Hecke dictionary, discharged -/
+
+/-- **`X1TauPoints` holds** (it is glue, not a leaf). -/
+theorem x1TauPoints : X1TauPoints := x1TauPoints_of_tauPlace tauPlace
+
+/-- **`ConstOnTauPoints` holds.** -/
+theorem constOnTauPoints : ConstOnTauPoints := constOnTauPoints_of_x1TauPoints x1TauPoints
+
+/-- **`IsHeckeT` pins `T_p`**, with no remaining hypothesis. -/
+theorem isHeckeT_unique' {N : ℕ} (hN : 2 ≤ N) {X : Over SpecQ} [IsIntegral X.left] {J : AbVar ℚ}
+    {jX tX : X.left.functionField} (hC : IsCurve X) (hG : IsX1Gen N X jX tX) {P₀ : RatPt X}
+    {aj : X ⟶ J.X} (hJ : IsJacobian X P₀ J aj) (p : Nat.Primes) {t t' : AbVar.End J}
+    (ht : IsHeckeT N jX tX aj (p : ℕ) t) (ht' : IsHeckeT N jX tX aj (p : ℕ) t') : t = t' :=
+  isHeckeT_unique x1TauPoints constOnTauPoints hN hC hG hJ p ht ht'
+
+/-- **`IsDiamond` pins `⟨d⟩`**, with no remaining hypothesis. -/
+theorem isDiamond_unique' {N : ℕ} (hN : 2 ≤ N) {X : Over SpecQ} [IsIntegral X.left] {J : AbVar ℚ}
+    {jX tX : X.left.functionField} (hC : IsCurve X) (hG : IsX1Gen N X jX tX) {P₀ : RatPt X}
+    {aj : X ⟶ J.X} (hJ : IsJacobian X P₀ J aj) (d : (ZMod N)ˣ) {t t' : AbVar.End J}
+    (ht : IsDiamond N jX tX aj d t) (ht' : IsDiamond N jX tX aj d t') : t = t' :=
+  isDiamond_unique x1TauPoints constOnTauPoints hN hC hG hJ d ht ht'
+
+/-- **`ker(heckeJ) ⊆ ker(evF)`, from the leaf candidate `AbelJacobiX1` alone.** -/
+theorem evF_eq_zero_of_heckeJ_eq_zero_of_abelJacobi (hAJ : AbelJacobiX1) {N : ℕ} (hN : 2 ≤ N)
+    {χ : DirichletCharacter ℂ N} {f : PkgI4.CF N 2} (hf : PkgI4.IsNormalizedEigenform f χ)
+    {X : Over SpecQ} [IsIntegral X.left] {J : AbVar ℚ} {jX tX : X.left.functionField}
+    (hC : IsCurve X) (hG : IsX1Gen N X jX tX) {P₀ : RatPt X} {aj : X ⟶ J.X}
+    (hJ : IsJacobian X P₀ J aj) {tp : Nat.Primes → AbVar.End J} {δ : (ZMod N)ˣ → AbVar.End J}
+    (htp : ∀ p : Nat.Primes, IsHeckeT N jX tX aj (p : ℕ) (tp p))
+    (hδ : ∀ d : (ZMod N)ˣ, IsDiamond N jX tX aj d (δ d)) (h : HeckeFree N)
+    (h0 : heckeJ tp δ h = 0) : evF χ f h = 0 :=
+  evF_eq_zero_of_heckeJ_eq_zero_of_leaves x1TauPoints hAJ hN hf hC hG hJ htp hδ h h0
+
+/-- **`KillsIf φ` iff `φ` kills DS's `I_f J`, from the leaf candidate `AbelJacobiX1` alone.** -/
+theorem killsIf_iff_IfDS_of_abelJacobi (hAJ : AbelJacobiX1) {N : ℕ} (hN : 2 ≤ N)
+    {χ : DirichletCharacter ℂ N} {f : PkgI4.CF N 2} (hf : PkgI4.IsNormalizedEigenform f χ)
+    {X : Over SpecQ} [IsIntegral X.left] {J : AbVar ℚ} {jX tX : X.left.functionField}
+    (hC : IsCurve X) (hG : IsX1Gen N X jX tX) {P₀ : RatPt X} {aj : X ⟶ J.X}
+    (hJ : IsJacobian X P₀ J aj) {tp : Nat.Primes → AbVar.End J} {δ : (ZMod N)ˣ → AbVar.End J}
+    (htp : ∀ p : Nat.Primes, IsHeckeT N jX tX aj (p : ℕ) (tp p))
+    (hδ : ∀ d : (ZMod N)ˣ, IsDiamond N jX tX aj d (δ d)) {B : AbVar ℚ} (φ : AbVar.Hom J B) :
+    KillsIf χ f tp δ φ ↔ ∀ T ∈ IfDS χ f tp δ, T.hom ≫ φ.hom = (0 : AbVar.Hom J B).hom :=
+  killsIf_iff_IfDS_of_leaves x1TauPoints hAJ hN hf hC hG hJ htp hδ φ
+
 end AfTateLam.HeckeGlue
