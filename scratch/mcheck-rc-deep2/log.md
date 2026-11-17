@@ -6,3 +6,7 @@
 - p1_checks.py 26/26 (first runs: two script bugs, rand_unimod(1) and the cone-contraction sign/degree indexing in P8; fixed, not manuscript issues).
 - Residual bound first pass: every count re-derived; no false step. Chain (5.1) has slack 8 at s = v+A+1+j. Genus bound checked on 1217 fields.
 - r_checks.py 18/18 (compose() first draft half-written; replaced by Buell united-form composition before the first full run).
+- Added P5b (moving prime with B' = 2i: (4.4) gives DC = CA exactly). p1_checks.py 28/28.
+- No error verdict, so no .fleet/mcheck-rc-deep2-verdict.md. Gaps filled: P-a (4.4) norm at the moving prime; P-b K missing from the statement of the exponent's independence.
+- Unverified: ex:arith-local-kummer proof, ex:arith-moving-character construction, ex:limits-inner-limit, Nekovar/Milne locators.
+- Report docs/research/mcheck-rc-deep2.md written; tex line citations re-checked with grep/sed.
