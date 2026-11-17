@@ -1,0 +1,17 @@
+'ZInQ.Contrib.HCMWeierstrass.shimuraThm54_of_biholo' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.HCMWeierstrass.toPoint_isAnalyticIso' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.HCMWeierstrass.isAnalyticUnif_iff_isAnalyticIso' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.HCMWeierstrass.isAnalyticUnif_iff_isAnalyticIso_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.HCMWeierstrass.add_of_isAnalyticIso' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.HCMWeierstrass.isManifoldPoint' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.HCMWeierstrass.chartAt_coe' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.HCMWeierstrass.atlas_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+shimuraThm54_of_biholo : ShimuraThm54Biholo → ZInQ.Contrib.HCMDict.ShimuraThm54
+toPoint_isAnalyticIso : ∀ (L : PeriodPair) [inst : L.weierstrassCurve.IsElliptic]
+  [inst_1 : L.weierstrassCurve.IsShortNF], IsAnalyticIso L.weierstrassCurve (↑L.lattice) (L.toPoint ⋯)
+@isAnalyticUnif_iff_isAnalyticIso_zero : ∀ {W : WeierstrassCurve ℂ} [inst : W.IsElliptic] [inst_1 : W.IsShortNF]
+  {Λ : Set ℂ} {ξ : ℂ → W.toAffine.Point}, ZInQ.Contrib.HCMDict.IsAnalyticUnif W Λ ξ ↔ IsAnalyticIso W Λ ξ ∧ ξ 0 = 0

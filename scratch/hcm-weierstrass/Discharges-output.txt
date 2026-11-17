@@ -1,0 +1,1 @@
+scratch/hcm-weierstrass/Discharges.lean:1:0: error: object file '/home/jackmccarthy/dzq-wt/hcm-weierstrass/lean/.lake/build/lib/lean/ZInQ/ExplicitCutoffBounds.olean' of module ZInQ.ExplicitCutoffBounds does not exist
