@@ -1,23 +1,13 @@
 {
  "name": "cm-branch",
- "mode": "hand-fold (not mechanical): no top field is discharged. New top: HDec.HSyn.sixContactMin_of_open67_cm (ZInQKernel/Contrib/OneProof/CMBranch/Top.lean, compiled = the dry run): sixContactMin_of_open67 with one more hypothesis c : CMBranch.CMInputs (the 7 statements below as new bundle fields) and the chain's base sixContactMin_of_open4_hf_pz_eb (FS5/NoCM) replaced by sixContactMin_of_open4_cm (no FS5). Raises the GLUE count by 3 (needs --allow-rise) until the glue is proved; gonzalezRotgerThm512X6RCF leaves only after the R5ptProps prune (docs/research/cm-branch.md section 6).",
+ "mode": "hand-fold (not mechanical): no top field is discharged. Dry runs (compiled): HDec.HSyn.sixContactMin_of_open67_cm (CMBranch/Top.lean: NoCM off the route) and HDec.HSyn.sixContactMin_of_open67_cm_no5 (CMBranch/No5A..No5F.lean: also the R5ptProps/González–Rotger prune). The latter reads every top field the current top reads except OpenResearchLeaves48.gonzalezRotgerThm512X6RCF, plus the 7 CMInputs statements. Do the fold in place (as pi0-fold did), applying the edits listed in docs/research/cm-branch.md section 6 to the original declarations. Raises the GLUE count by 3 (needs --allow-rise) until the glue is proved.",
  "imports": [
-  "ZInQKernel.Contrib.OneProof.CMBranch.Top"
+  "ZInQKernel.Contrib.OneProof.CMBranch.No5F"
  ],
  "replaces": {
   "at": "HDec.HSyn.sixContactMin_of_open67 r t l",
-  "by": "HDec.HSyn.sixContactMin_of_open67_cm r t l ⟨{n}.cmHomFieldSplit, {n}.fowlerProp27, {n}.cmjDegree, {n}.cmPotentialGood, {n}.cmHeight62, {n}.reducedCMPeriod, {n}.heightAdditivityUpper⟩"
+  "by": "HDec.HSyn.sixContactMin_of_open67_cm_no5 r t l ⟨{n}.cmHomFieldSplit, {n}.fowlerProp27, {n}.cmjDegree, {n}.cmPotentialGood, {n}.cmHeight62, {n}.reducedCMPeriod, {n}.heightAdditivityUpper⟩"
  },
- "removed_after_steps_5_6": [
-  {
-   "field": "gonzalezRotgerThm512X6RCF",
-   "reason": "read only through the conjunct R5ptProps of the moduli row r1r2 (closure scan, scratch/cm-branch/fielduse-top.txt); leaves after the R5ptProps prune of R1R2fpRepW"
-  },
-  {
-   "field": "(lower bundles) r5count, cmOptimalEmbedding, x6ConicModel",
-   "reason": "carried by the bundle conversions but unread by sixContactMin_of_open67_cm (closure scan): PruneScan targets after the fold"
-  }
- ],
  "stay": [
   {
    "field": "x6CoarseModuliIdeal",
@@ -78,5 +68,12 @@
    "type": "_root_.HDec.CMBranch.HeightAdditivityUpper",
    "doc": "L621 additivity, upper half: h_F(A x Z) <= h_F(A) + h_F(Z)"
   }
- ]
+ ],
+ "removed": [
+  {
+   "field": "gonzalezRotgerThm512X6RCF",
+   "reason": "unread by sixContactMin_of_open67_cm_no5 (scratch/cm-branch/topfields.txt)"
+  }
+ ],
+ "prune_scan_after_fold": "r5count / gonzalezRotgerProp56X6, cmOptimalEmbedding, x6ConicModel in the lower bundles: carried but unread"
 }
