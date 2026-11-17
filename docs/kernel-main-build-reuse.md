@@ -57,12 +57,23 @@ If installing a second root fails, the first root is moved back before the
 failure is returned. Dependency packages are never cleaned or overwritten.
 The caller must not start candidate build processes during this operation.
 
+`scripts/kernel_build_inventory.py` compares the complete project module map
+with Lake's actual source, import and header query results. It rejects changed
+source bytes during collection, unexpected source resolution, missing modules,
+inconsistent import facets and unknown external imports. External packages and
+builtin imports need independently validated identities; the collector does
+not infer those identities from a module name. Its query helper refuses API
+credentials in its environment, but evaluating a Lake configuration can run
+code, so workflow isolation remains necessary. The collector passed against
+the actual compiler on the four-module fixture. Full package/environment
+validation and a full-baseline run are still required.
+
 ## Work still required before a PR or deployment
 
-1. Implement and validate the compiler-derived source inventory, package/config
-   identity and source-resolution checks on the full baseline. A regex import
-   approximation is insufficient. Keep candidate code away from the API lookup
-   credential.
+1. Implement package/config/environment identity, integrate the compiler-derived
+   collector and validate source resolution on the full baseline. A regex
+   import approximation is insufficient. Keep candidate code away from the API
+   lookup credential.
 2. Integrate the metadata selector and bounded artifact downloader, preserving
    the separation between trusted API credentials and candidate execution.
    Verify the complete archive against the independently obtained digest.
