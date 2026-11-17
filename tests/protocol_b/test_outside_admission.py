@@ -208,7 +208,9 @@ class AdmissionTests(unittest.TestCase):
             row['status'] = status
             gh.pages.return_value = [row]
             gh.text.return_value = 'theorem x : True := trivial'
-            result = gate.outside_files(gh, p)
+            with patch.object(gate, 'outside_regular_files') as modes:
+                result = gate.outside_files(gh, p)
+                modes.assert_called_once_with(gh, revision, [row['filename']])
             self.assertEqual(result[0][key], gh.text.return_value)
             gh.text.assert_called_with(row['filename'], revision)
 
@@ -269,8 +271,9 @@ class AdmissionTests(unittest.TestCase):
 
     def test_all_categories_and_valid_uncertainty_preserve_merge_limits(self):
         for category in gate.OUTSIDE_CATEGORIES:
-            path = 'research/note.md' if category == 'improvement_note' else 'docs/note.md'
-            result = self.invoke(files=[file(path)], answer=response(category=category))
+            entry = ({**file('research/contributions/note.md'), 'status': 'added'}
+                     if category == 'improvement_note' else file())
+            result = self.invoke(files=[entry], answer=response(category=category))
             self.provider.assert_called_once()
             self.assertTrue(result['full_review'])
             self.assertEqual(result['automatic_merge'], category in {'docs', 'improvement_note'})
@@ -314,7 +317,8 @@ class MergePermissionTests(unittest.TestCase):
         return {**self.ledger.checks[0], 'output': {'text': json.dumps(self.value)}}
 
     def decision(self, allowed_users=()):
-        with patch.object(gate, 'collaborator', side_effect=lambda gh, user: user['login'] in allowed_users):
+        with patch.object(gate, 'collaborator', side_effect=lambda gh, user: user['login'] in allowed_users), \
+                patch.object(gate, 'outside_regular_files'):
             return gate.outside_merge_permission(self.gh, self.state, self.ledger.pr, APP_ID)
 
     def test_collaborators_unchanged_and_outside_docs_need_authentic_receipt(self):
@@ -326,7 +330,8 @@ class MergePermissionTests(unittest.TestCase):
     def test_all_categories_and_path_clamps_apply_after_acceptance(self):
         for category in gate.OUTSIDE_CATEGORIES:
             self.value['result']['triage']['category'] = category
-            self.files = [file('research/note.md' if category == 'improvement_note' else 'docs/note.md')]
+            self.files = [({**file('research/contributions/note.md'), 'status': 'added'}
+                           if category == 'improvement_note' else file())]
             self.assertEqual(self.decision()['allowed'], category in {'docs', 'improvement_note'})
             self.files = [file('.github/workflows/fake.yml')]
             self.assertFalse(self.decision()['allowed'])

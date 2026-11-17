@@ -7,7 +7,7 @@ from test_gate import gate as screen
 
 NOW=datetime.datetime(2026,11,17,9,0,tzinfo=datetime.timezone.utc)
 
-def file(path='docs/note.md', added='Correct wording', removed='Old wording'):
+def file(path='docs/building.md', added='Correct wording', removed='Old wording'):
     return {'filename':path,'status':'modified','additions':1,'deletions':1,
             'patch':'@@ -1 +1 @@\n-'+removed+'\n+'+added, 'content':added, 'previous_content':removed}
 
@@ -101,7 +101,7 @@ class Screen(unittest.TestCase):
 
     def test_category_cannot_authorize_unrelated_or_protected_paths(self):
         self.assertTrue(screen.outside_merge_category('docs',[file()]))
-        self.assertTrue(screen.outside_merge_category('improvement_note',[file('research/notes/note.tex')]))
+        self.assertTrue(screen.outside_merge_category('improvement_note',[{**file('research/contributions/note.tex'), 'status': 'added'}]))
         for category in screen.OUTSIDE_CATEGORIES|{'made-up'}:
             self.assertFalse(screen.outside_merge_category(category,[file('.github/attack.yml')]))
         for category in ['lean_helper','lean_registered','other']:

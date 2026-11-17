@@ -104,8 +104,10 @@ at most 20 files and 2,000 changed lines, and completed template sections for
 Change and scope, Validation and limits, and AI use. It refuses workflow,
 script, test, kernel-contract, Lake/toolchain, manuscript, release, policy and
 review-record changes. Both sides of a rename are checked. Versioned research
-release trees remain protected; a new improvement note belongs elsewhere under
-`research/`. A refusal identifies its reason and allows a collaborator to
+release trees remain protected. New notes eligible for an automatic merge go
+under `research/contributions/`. Existing research files require a collaborator's
+merge decision. Git entry modes are read at the pinned revision; links,
+submodules, missing entries and incomplete trees do not qualify. A refusal identifies its reason and allows a collaborator to
 request review explicitly.
 
 For Lean, at most three changed modules qualify. The whole changed source is
@@ -127,18 +129,27 @@ effect, and uncertain triage requests are not retried automatically.
 
 Triage makes one request to the pinned Astra model, with no tools, at most
 32,000 bytes of supplied PR material and 1,500 output tokens. Oversized input is
-refused rather than truncated. It returns a category and `pass`, `reject` or
+refused rather than truncated, before scanning the reservation history. Other
+PRs' titles and descriptions are not included in this allowance or the prompt.
+Triage can flag a duplicate only when this PR's own material establishes it. It returns a category and `pass`, `reject` or
 `needs_maintainer`. A valid `pass` or `needs_maintainer` proceeds to the existing
 two-reviewer round; valid uncertainty requires a collaborator's merge decision.
 A malformed, missing or unconfirmed result stops before full review. Triage
 cannot accept mathematics or override a finding. Outside editorial changes
 also receive both full reviewers. Later rounds require `/protocol-b review`.
 
-After both reviews accept and all merge checks pass, only eligible Markdown
-documentation under `docs/` or `README.md`, and improvement notes/data under
-`research/`, can merge automatically on an authenticated triage `pass`.
-The code checks actual paths again; a model's category cannot widen them.
-Other changes, including credit files and all Lean contributions, need an
+After both reviews accept and all merge checks pass, an authenticated triage
+`pass` can support automatic merging in only two cases:
+
+- Modifications to `docs/building.md` only.
+- Newly added note/data files under `research/contributions/`, with suffix
+  `.md`, `.tex`, `.json`, `.csv`, `.tsv` or `.txt`.
+
+Deletions, renames and changes to existing research files do not qualify.
+Review, acceptance and verification filenames are excluded case-insensitively.
+The code rechecks the complete file list and Git entry modes before merging;
+a model's category cannot widen these sets. `README.md`, credits, release and
+policy documents, other documentation and all Lean contributions need an
 unedited `/protocol-b merge <full head SHA>` comment from a current write
 collaborator. The command uses existing current-head App acceptance without a
 model call, and keeps the same required-check, up-to-date and ruleset checks.
@@ -147,12 +158,42 @@ checker is established. A reviewer scope item still blocks unless an admin
 explicitly overrides it. No release authority is granted by this process.
 
 Research or Kernel workflow completion and the hourly maintenance event can
-reconsider an unstarted outside PR after its computations pass. Only protected
-default-branch code runs, and all facts are fetched afresh; no triggering
-workflow artifact is executed. The hourly pass also recovers pending admission
-jobs replaced by GitHub's concurrency queue. Already reserved attempts are not
-replayed. GitHub's held first-time-contributor CI runs still need a maintainer
-to approve them; this change does not alter that repository setting.
+reconsider an unstarted outside PR after its computations pass. Each wake reads
+at most ten pages of the open-PR list and examines a rotating window of eight
+PRs. The offset advances by eight per UTC hour, so a refused old PR cannot
+continually displace younger PRs. A full tenth page requires maintainer
+attention; an incomplete list is not used. All reads, including pagination,
+share a 120-call budget per wake. Admission shares a separate 240-call budget
+between the repository and App readers. These count API reads; GitHub reads are not automatically retried.
+Budget exhaustion stops admission.
+
+The App records admission start and every refusal against the exact head.
+Refused heads are skipped. Failed or pending computations become eligible for
+reconsideration after 15 minutes; author/project quota refusals after 24 hours.
+These are new mechanical checks, not replays of an admitted attempt. Permanent
+refusals and uncertain effects require a collaborator. An active explicit
+review command pauses unattended admission across the repository, including
+while that command waits for kernel evidence. Jobs that prepare evidence or
+call reviewers do not start after the run is cancelled.
+
+Only protected default-branch code runs; no triggering workflow artifact is
+executed. The hourly pass also recovers pending admission jobs replaced by
+GitHub's concurrency queue. Already reserved attempts are not replayed.
+GitHub's held first-time-contributor CI runs still need a maintainer to approve
+them; this change does not alter that repository setting.
+
+Main can advance between admission and acceptance. The same-base and up-to-date
+checks can then prevent merging, and a new head does not receive a second
+unattended attempt. A collaborator must integrate and request review again.
+
+For an uncertain intent, a maintainer reads the original run/attempt, original
+bot comment, matching App checks and retained artifact before taking action.
+Do not edit or delete the intent, refund its quota, or infer that a timed-out
+request had no effect. Confirm any surviving run is terminal. If its matching
+App record is missing or malformed, the lane stays closed until a separately
+reviewed repair preserves the original identity and counts that slot. There
+is no automatic reset or reconciliation command in this release. A collaborator
+can explicitly request another review without erasing the earlier evidence.
 
 Admission records retain the stage, reason, quota and original triage usage.
 The final App record and run artifact retain full-review usage. Reported token

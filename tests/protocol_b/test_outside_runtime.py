@@ -83,10 +83,14 @@ class Runtime(unittest.TestCase):
         pr = candidate(); pr['base']['ref'] = 'main'
         comments = []
         gh.pages.side_effect = lambda path: [pr] if path.startswith('/pulls?') else comments
-        gh.call.side_effect = lambda path: pr if path.startswith('/pulls/') else {
+        gh.call.side_effect = lambda path: [pr] if path.startswith('/pulls?') else pr if path.startswith('/pulls/') else {
             'repository': {'full_name': 'x/y'}, 'status': 'completed',
             'path': '.github/workflows/research-checks.yml'}
         with patch.object(gate, 'collaborator', return_value=False), \
+                patch.object(gate, 'outside_command_running', return_value=False), \
+                patch.object(gate, 'OutsideReadBudget', side_effect=lambda client, budget: client), \
+                patch.object(gate, 'outside_app_id', return_value=APP_ID), \
+                patch.object(gate, 'outside_retry_allowed', return_value=True), \
                 patch.object(gate, 'outside_files', return_value=[file()]), \
                 patch.object(gate, 'outside_computations_ready', return_value=True), \
                 patch.object(gate, 'own_comment', return_value=True), \
@@ -98,7 +102,7 @@ class Runtime(unittest.TestCase):
                 'status': 'completed', 'path': '.github/workflows/research-checks.yml'}
             self.assertIsNone(gate.outside_wake_candidate(gh, 'main', {'workflow_run': {'id': 1}}))
 
-    def admission(self, *, files=None, ready=True, rows=None, existing=None, changed=False):
+    def admission(self, *, files=None, ready=True, rows=None, existing=None, changed=False, history_error=None):
         with tempfile.TemporaryDirectory() as directory, ExitStack() as stack:
             stack.enter_context(patch.dict(os.environ, runtime_env(directory)))
             stack.enter_context(patch.object(gate, 'OUT', Path(directory)))
@@ -109,13 +113,15 @@ class Runtime(unittest.TestCase):
             gh.call.side_effect = [pr, fresh, {'sha': BASE}]
             gh.pages.return_value = []
             stack.enter_context(patch.object(gate, 'start_clients', return_value=(gh, app)))
+            stack.enter_context(patch.object(gate, 'OutsideReadBudget', side_effect=lambda client, budget: client))
             stack.enter_context(patch.object(gate, 'outside_context', return_value='main'))
+            stack.enter_context(patch.object(gate, 'outside_command_running', return_value=False))
             stack.enter_context(patch.object(gate, 'collaborator', return_value=False))
             stack.enter_context(patch.object(gate, 'outside_existing_attempt', return_value=existing))
             stack.enter_context(patch.object(gate, 'outside_files', return_value=files or [file()]))
             stack.enter_context(patch.object(gate, 'outside_computations_ready', return_value=ready))
             stack.enter_context(patch.object(gate, 'same_policy', return_value=True))
-            stack.enter_context(patch.object(gate, 'outside_reservations', return_value=rows or []))
+            stack.enter_context(patch.object(gate, 'outside_reservations', return_value=rows or [], side_effect=history_error))
             stack.enter_context(patch.object(gate, 'outside_reserve', return_value={'check': 201}))
             stack.enter_context(patch.object(gate, 'outside_update'))
             write = stack.enter_context(patch.object(gate, 'outside_api_once', return_value={
@@ -123,6 +129,7 @@ class Runtime(unittest.TestCase):
             provider = stack.enter_context(patch.object(gate, 'outside_model_once', return_value=response()))
             gate.admit_outside()
             outcome = json.loads((Path(directory)/'outside-admission.json').read_text())
+            self.write_calls = write.call_args_list
             return outcome, provider.call_count, write.call_count
 
     def test_actual_admission_entry_point_spends_only_after_all_screens(self):
@@ -139,6 +146,23 @@ class Runtime(unittest.TestCase):
         result, calls, _ = self.admission()
         self.assertTrue(result['full_review']); self.assertEqual(calls, 1)
         self.assertIn('quota_before', result)
+
+    def test_real_entry_point_persists_size_quota_and_history_refusals(self):
+        oversized=file(added='x'*33000)
+        for args, expected in [({'files':[oversized]}, 'triage_size'),
+                ({'rows':[reservation(i,author_id=7) for i in (1,2,3)]}, 'quota'),
+                ({'history_error':ValueError('Uncertain earlier intent')}, None)]:
+            with self.subTest(args=args):
+                result,calls,_=self.admission(**args)
+                self.assertEqual(calls,0)
+                initial=json.loads(self.write_calls[0].args[3]['output']['text'])
+                final=json.loads(self.write_calls[-1].args[3]['output']['text'])
+                self.assertEqual(initial['head'],HEAD)
+                self.assertEqual(final['schema'],'protocol-b-outside-status/v1')
+                self.assertEqual(final['number'],20)
+                self.assertFalse(final['full_review'])
+                if expected:self.assertEqual(final['screen']['reason'],expected)
+                else:self.assertEqual(final['stage'],'needs_maintainer')
 
     def test_duplicate_event_never_overwrites_existing_check(self):
         result, calls, writes = self.admission(existing={'stage': 'existing_attempt_retained'})

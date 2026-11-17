@@ -27,8 +27,11 @@ After the first round, a write collaborator must request another with
 The light profile also limits qualifying small documentation changes to one
 paid round. Only an admin may override an item.
 
-Eligible documentation and improvement notes under `research/` may merge
-automatically after acceptance. All Lean and other outside contributions need
+Modifications to `docs/building.md` and newly added note/data files under
+`research/contributions/` may merge automatically after acceptance. Deletions,
+renames, existing research records, README credits and other documentation do
+not qualify. Main advancing can still require a collaborator to update and
+request review again. All Lean and other outside contributions need
 a current write collaborator's `/protocol-b merge <full head SHA>` comment.
 That command uses an existing successful App check and all required merge
 checks without calling a model. A review command alone does not approve merging.
