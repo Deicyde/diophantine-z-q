@@ -1,0 +1,4 @@
+39 ZInQKernel.OneProof.H.TailZ45 rc=0 13s errors=0
+40 ZInQKernel.Contrib.OneProof.X0ModuliUsed rc=0 24s errors=0
+41 ZInQKernel.Contrib.OneProof.ThetaWeierstrass8 rc=0 8s errors=0
+42 ZInQKernel.OneProof.Main rc=0 5s errors=0

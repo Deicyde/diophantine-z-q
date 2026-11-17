@@ -1,0 +1,12 @@
+{
+  "_comment": "MANUAL fold: autofold cannot express G. (1) mumfordGroupLawConn's old type MumfordGroupLawConn is not provable from the new leaf; the generations 14-27 are narrowed in place (group-law-dvr F1/F2). (2) the textbook field neronSchemeExtensionExists is discharged from a research-bundle leaf ({n} reaches only the field's own bundle). Use scratch/goodmodel-iso/fold/make_patch.py ROOT OUT; patch G.patch; checked by compile_overlay.sh + FoldCheck.lean (foldcheck-G.txt).",
+  "manual": true,
+  "remove": ["OpenResearchLeaves28.mumfordGroupLawConn", "OpenTextbookLeaves13.neronSchemeExtensionExists"],
+  "add": [{"bundle": "OpenResearchLeaves28", "name": "neronSchemeExtensionDedekind",
+           "type": "_root_.ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind", "kind": "published",
+           "flag": "locator UNVERIFIED (BLR, Neron models, 1.4 Thm 3 with 1.2 Def 1, existence half, affine Dedekind base)"}],
+  "proofs": {
+    "mumfordGroupLaw (OpenResearchLeaves27, narrowed to MumfordGroupLawDVR)": "_root_.ZInQ.Contrib.GoodModelIso.mumfordGroupLawDVR_of_dedekind n.neronSchemeExtensionDedekind",
+    "neronSchemeExtensionExists (OpenTextbookLeaves13)": "_root_.ZInQ.Contrib.GroupLawNeron.neronSchemeExtensionExists_of_dedekind r.neronSchemeExtensionDedekind"
+  }
+}

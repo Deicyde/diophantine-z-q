@@ -1,0 +1,31 @@
+{
+ "name": "group-law-dvr-F2",
+ "_manual": "NOT runnable by scripts/one_proof/autofold.py: no theorem proves the old field type MumfordGroupLawConn (GIT 6.14 over connected, possibly non-reduced bases) from the new fields. Manual in-place fold (docs/research/group-law-dvr.md section 5; patch scratch/group-law-dvr/fold/F2-neron.patch; generator scratch/group-law-dvr/fold/make_patch.py F2): every OpenResearchLeaves<k>.mumfordGroupLaw (k = 14..27; TailZ23, 25-29, 33-38, 41, 44) gets type _root_.ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR; TailZ23 imports ZInQKernel.Contrib.OneProof.MumfordGroupLawRed and uses _root_.LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_dvr r.mumfordGroupLaw at its 3 sites; TailZ34 sixContactMin_of_open28 uses _root_.DCY3Used.y3Connected_of_ab_gl (_root_.LeafQM.AV.R1UnivRigid.qmFamilyGroupLaw_of_dvr r.mumfordGroupLaw) (_root_.DCY3Used.y3ConnectedAb_of_U r.shimuraMainThmIDeligneY3AbU); TailZ45: imports ZInQKernel.Contrib.OneProof.MumfordGroupLawNeron; OpenResearchLeaves28.mumfordGroupLawConn replaced by neronGoodModelIso : NeronGoodModelIso (GLUE) and neronSchemeExtensionDedekind : NeronSchemeExtensionDedekind (LEAF); openResearchLeaves27_of_OpenResearchLeaves28 sets mumfordGroupLaw := _root_.ZInQ.Contrib.GroupLawNeron.mumfordGroupLawDVR_of_neron (_root_.ZInQ.Contrib.GroupLawNeron.dvr_of_dedekind n.neronSchemeExtensionDedekind) n.neronGoodModelIso. Count +1 field (GIT 6.14 leaves the list; BLR 1.4 Thm 3 in its printed generality enters, which also proves the textbook field neronSchemeExtensionExists via neronSchemeExtensionExists_of_dedekind: a follow-up cross-bundle fold removing that field makes the net 0 fields, one LEAF fewer, one GLUE more).",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.MumfordGroupLawRed",
+  "ZInQKernel.Contrib.OneProof.MumfordGroupLawNeron"
+ ],
+ "replaces": [
+  {
+   "field": "mumfordGroupLawConn",
+   "leaves": [
+    {
+     "name": "neronSchemeExtensionDedekind",
+     "type": "_root_.ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind",
+     "kind": "published",
+     "strict": "LEAF",
+     "flag": "locator UNVERIFIED (BLR 1.4 Thm 3)",
+     "source": "Bosch-Lutkebohmert-Raynaud, Neron models, 1.4 Thm 3 with 1.2 Def. 1, over an affine Dedekind scheme, existence half (numbers UNVERIFIED); group-law-dvr"
+    },
+    {
+     "name": "neronGoodModelIso",
+     "type": "_root_.ZInQ.Contrib.GroupLawNeron.NeronGoodModelIso",
+     "kind": "glue",
+     "strict": "GLUE",
+     "flag": "proof sketch in docs/research/group-law-dvr.md section 4 (van der Waerden purity, EGA IV 21.12.12, UNVERIFIED)",
+     "source": "group-law-dvr: comparison of a good model with a smooth separated model over a DVR"
+    }
+   ]
+  }
+ ]
+}

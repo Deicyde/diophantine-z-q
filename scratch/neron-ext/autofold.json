@@ -1,0 +1,10 @@
+{"name": "neron-ext",
+ "imports": ["ZInQKernel.Contrib.OneProof.NeronSchemeExtensionExists"],
+ "discharges": [
+   {"field": "neronSchemeExtensionExists",
+    "proof": "_root_.NeronExt.extension_of_dvrLocal {l}.egaIV_8_10_5_xii {n}.neronDVRLocal",
+    "leaves": [{"name": "neronDVRLocal", "type": "_root_.NeronExt.NeronDVRLocal",
+                "doc": "Bosch-Lutkebohmert-Raynaud, Neron models (1990), 1.4 Thm 3 over the discrete valuation rings (O_L)_v of a number field L, with 1.2 Def 1 (printed form: Neron models of abelian varieties exist over a Dedekind base, here a DVR; locator UNVERIFIED). Implied by neronSchemeExtensionExists (NeronExt.dvrLocal_of_extension).",
+                "kind": "published",
+                "flag": "locator UNVERIFIED (BLR 1.4 Thm 3 at S = Spec of the DVR (O_L)_v)",
+                "source": "BLR 1.4 Thm 3 (over the DVRs (O_L)_v)"}]}]}
