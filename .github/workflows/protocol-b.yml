@@ -290,17 +290,18 @@ jobs:
           def pdf_command(source, output, start, count):
               # Only system libraries, this one PDF and a fresh output directory are visible.
               # No host home, /proc, credentials or network; no unisolated fallback.
-              return ['/usr/bin/sudo', '-n', '/usr/bin/bwrap', '--unshare-all',
+              return ['/usr/bin/sudo', '-n', '/usr/bin/timeout', '--signal=KILL', '35',
+                      '/usr/bin/bwrap', '--unshare-all',
                       '--die-with-parent', '--new-session', '--uid', '65534', '--gid', '65534',
                       '--cap-drop', 'ALL', '--clearenv', '--setenv', 'PATH', '/usr/bin',
                       '--setenv', 'LC_ALL', 'C.UTF-8', '--ro-bind', '/usr', '/usr',
                       '--ro-bind', '/lib', '/lib', '--ro-bind', '/lib64', '/lib64',
                       '--dev', '/dev', '--ro-bind', str(source), '/input.pdf',
-                      '--bind', str(output), '/output', '--chdir', '/',
+                      '--bind', str(output/'pages.txt'), '/output.txt', '--chdir', '/',
                       '/usr/bin/prlimit', '--as=536870912', '--cpu=25', '--fsize=1048576',
                       '--nproc=16', '--', '/usr/bin/pdftotext', '-f', str(start),
                       '-l', str(start+count-1), '-layout', '-enc', 'UTF-8',
-                      '/input.pdf', '/output/pages.txt']
+                      '/input.pdf', '/output.txt']
 
 
           def pdf_pages(raw, start, count):
@@ -310,16 +311,23 @@ jobs:
                   raise ValueError('Expected a PDF of at most 16 MB')
               with tempfile.TemporaryDirectory(prefix='protocol-b-pdf-') as directory:
                   directory = pathlib.Path(directory)
+                  # Namespace root cannot traverse a host user's 0700 directory.
+                  directory.chmod(0o755)
                   source, output = directory/'input.pdf', directory/'output'
                   source.write_bytes(raw)
                   source.chmod(0o444)
-                  output.mkdir(mode=0o777)
-                  output.chmod(0o777)
+                  output.mkdir(mode=0o755)
+                  output.chmod(0o755)
+                  # Bind only this file writable. The parser cannot leave root-owned
+                  # subdirectories that would obstruct cleanup. Namespace uid 65534
+                  # is not an assertion about the mapped host uid.
+                  (output/'pages.txt').touch()
+                  (output/'pages.txt').chmod(0o666)
                   try:
                       result = subprocess.run(pdf_command(source, output, start, count),
                           env={'PATH': '/usr/bin:/bin', 'LC_ALL': 'C.UTF-8'},
                           stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
-                          stderr=subprocess.DEVNULL, timeout=35, check=False)
+                          stderr=subprocess.DEVNULL, check=False)
                   except (OSError, subprocess.TimeoutExpired) as error:
                       raise ValueError('PDF extraction unavailable or timed out; no pages were reviewed') from error
                   extracted = output/'pages.txt'
@@ -330,6 +338,8 @@ jobs:
                   pages = extracted.read_text(encoding='utf-8').split('\f')
                   if pages and not pages[-1].strip():
                       pages.pop()
+                  if len(pages) > count:
+                      raise ValueError('PDF extraction returned more pages than requested')
                   if not pages or not any(page.strip() for page in pages):
                       raise ValueError('PDF pages have no extractable text; scan or visual content remains unreviewed')
                   return [{'page': start+i, 'text': page} for i, page in enumerate(pages)]
@@ -350,16 +360,21 @@ jobs:
               sha = job.get('head_sha')
               if sha != run.get('head_sha'):
                   raise ValueError('CI job/run commit mismatch')
-              if sha != pr['head']['sha']:
-                  parents = [p['sha'] for p in gh.call('/commits/'+str(sha)).get('parents', [])]
-                  if run.get('event') != 'pull_request' or parents != [pr['base']['sha'], pr['head']['sha']]:
-                      raise ValueError('CI did not run on this head or its exact base/head test merge')
+              # pull_request API head_sha is not the tree actually checked out.
+              # Accept only direct executions of this exact head in this repository.
+              if (run.get('event') not in {'push', 'workflow_dispatch'} or sha != pr['head']['sha']
+                      or (run.get('repository') or {}).get('full_name') != gh.repo
+                      or (run.get('head_repository') or {}).get('full_name') != gh.repo):
+                  raise ValueError('CI coverage requires a push or workflow_dispatch on this exact head in this repository; test-merge and fork runs are not eligible')
+              latest = gh.call('/actions/runs/'+str(job['run_id']))
+              if latest.get('run_attempt') != job['run_attempt']:
+                  raise ValueError('CI evidence is from an older attempt; read the latest attempt')
               workflow = run.get('path', '')
               if not re.fullmatch(r'\.github/workflows/[\w.-]+\.ya?ml', workflow):
                   raise ValueError('Cannot identify the CI workflow source')
               return {'job_id': job_id, 'job_url': job['html_url'], 'job_name': job['name'],
                       'run_id': run['id'], 'run_attempt': job['run_attempt'],
-                      'executed_sha': sha, 'reviewed_head': pr['head']['sha'],
+                      'executed_sha': sha, 'reviewed_head': pr['head']['sha'], 'event': run['event'],
                       'workflow': workflow, 'steps': job.get('steps', []),
                       'notice': 'Success alone is not table coverage. Read the workflow and checker, then record the exact claim with record_table_coverage.'}
 
@@ -1447,6 +1462,39 @@ jobs:
 
           # END UNATTENDED HELPERS
 
+          def recoverable_read_tool(function):
+              @functools.wraps(function)
+              def wrapped(self, name, args):
+                  try:
+                      return function(self, name, args)
+                  except (RequestError, OSError, TypeError, KeyError) as error:
+                      if name not in {'read_pdf', 'list_ci_checks', 'read_ci_job', 'record_table_coverage'}:
+                          raise
+                      raise ValueError(name+' could not return evidence ('+type(error).__name__+
+                                       '). Correct the arguments or retry a smaller read. No coverage was recorded.') from None
+              return wrapped
+
+
+          def compact_ci_coverage(claims):
+              if isinstance(claims, dict):
+                  return claims  # Already compacted for a report comment.
+              raw = json.dumps(claims, sort_keys=True, ensure_ascii=False).encode()
+              result = {'schema': 'ci-table-coverage-summary/v1', 'count': len(claims),
+                        'sha256': hashlib.sha256(raw).hexdigest(), 'claims': [],
+                        'full_record': 'Original reviewer report and <reviewer>-ci-table-coverage.json in the original run artifact.'}
+              for claim in claims:
+                  row = {k: claim[k] for k in ('job_id', 'run_id', 'run_attempt', 'event',
+                         'executed_sha', 'reviewed_head', 'step_number', 'workflow', 'table_path', 'blobs')}
+                  row['step_name'] = next(s['name'] for s in claim['steps'] if s['number'] == claim['step_number'])
+                  row['claim_sha256'] = hashlib.sha256(claim['claim_and_limits'].encode()).hexdigest()
+                  row['record_sha256'] = hashlib.sha256(json.dumps(claim, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
+                  if len(json.dumps({**result, 'claims': result['claims']+[row]}, ensure_ascii=False).encode()) > 12000:
+                      result['additional_claims_in_artifact'] = len(claims)-len(result['claims'])
+                      break
+                  result['claims'].append(row)
+              return result
+
+
           def classify(files, declaration):
               """Editorial paths plus a complete diff guard; ambiguous changes escalate."""
               if not files:
@@ -1956,7 +2004,7 @@ jobs:
               {"name": "list_ci_checks", "description": "List current CI checks and job links for the pinned head and its exact test merge, 20 at a time. The job ID is the number following /job/ in its details URL.",
                "parameters": {"type": "object", "properties": {"offset": {"type": "integer"}},
                  "required": ["offset"], "additionalProperties": False}},
-              {"name": "read_ci_job", "description": "Read actual GitHub Actions job/step results, bound to this head or its exact test merge. Obtain a job ID from list_ci_checks. Does not execute code or establish mathematical coverage.",
+              {"name": "read_ci_job", "description": "Read successful direct push/dispatch job evidence for this exact head and repository. Test-merge and fork runs are refused. Obtain a job ID from list_ci_checks. Does not execute code or establish mathematical coverage.",
                "parameters": {"type": "object", "properties": {"job_id": {"type": "integer"}},
                  "required": ["job_id"], "additionalProperties": False}},
               {"name": "record_table_coverage", "description": "After reading a successful CI job, its complete workflow and checkers, record reliance for one printed table. Explain exactly how the executed step checks the printed table against committed data, all checker dependencies, and limits. This is your scoped attestation, not automatic proof or general acceptance.",
@@ -2419,9 +2467,13 @@ jobs:
                              for step in evidence['steps']):
                       raise ValueError('Select the successful step that actually ran the finite checker, not a skipped step')
                   checkers, data = args['checker_paths'], args['data_paths']
-                  if not 1 <= len(checkers) <= 8 or not 1 <= len(data) <= 16:
+                  if (not isinstance(checkers, list) or not isinstance(data, list)
+                          or not all(isinstance(p, str) and p for p in checkers+data)
+                          or not 1 <= len(checkers) <= 8 or not 1 <= len(data) <= 16):
                       raise ValueError('Name 1-8 checker files and 1-16 committed data files')
-                  if not args['table_location'].strip() or len(args['claim_and_limits'].strip()) < 80:
+                  if (not isinstance(args.get('table_path'), str) or not args['table_path']
+                          or not isinstance(args.get('table_location'), str) or not args['table_location'].strip()
+                          or not isinstance(args.get('claim_and_limits'), str) or len(args['claim_and_limits'].strip()) < 80):
                       raise ValueError('Describe the printed table, executed command, data binding and limits')
                   required_reads = set(checkers + [evidence['workflow']])
                   if any(not self.covered_file(path) for path in required_reads):
@@ -2440,6 +2492,7 @@ jobs:
                   self.table_coverage.append(claim)
                   return {'table_coverage': claim}
 
+              @recoverable_read_tool
               def tool(self, name, args):
                   if name == 'list_ci_checks':
                       offset = args['offset']
@@ -2456,7 +2509,8 @@ jobs:
                       return {'checks': rows[offset:offset+20], 'total': len(rows),
                               'next_offset': offset+20 if offset+20 < len(rows) else None}
                   if name == 'read_pdf':
-                      if args['revision'] not in {'head', 'base'} or not args['path'].lower().endswith('.pdf'):
+                      if (not isinstance(args.get('path'), str) or not isinstance(args.get('revision'), str)
+                              or args['revision'] not in {'head', 'base'} or not args['path'].lower().endswith('.pdf')):
                           raise ValueError('Expected a PDF path and head/base revision')
                       path, side = args['path'], args['revision']
                       ref = self.pr[side]['sha']
@@ -3519,6 +3573,8 @@ jobs:
 
 
           def bounded_report(envelope):
+              if len(json.dumps(envelope, ensure_ascii=False).encode()) > 45000 and envelope.get('ci_table_coverage'):
+                  envelope['ci_table_coverage'] = compact_ci_coverage(envelope['ci_table_coverage'])
               # Rebase metadata is optional. Keep every finding and the paid verdict.
               if len(json.dumps(envelope, ensure_ascii=False).encode()) > 60_000 and envelope.get('reuse_binding'):
                   record(envelope['reviewer'] + '-omitted-rebase-binding.json', envelope['reuse_binding'])
@@ -3545,6 +3601,8 @@ jobs:
           def decision_text(state, reports, limits):
               compact = json.loads(json.dumps(reports))
               for e in compact.values():
+                  if e.get('ci_table_coverage'):
+                      e['ci_table_coverage'] = compact_ci_coverage(e['ci_table_coverage'])
                   if (scope := review_scope_item(e)):
                       e['scope_coverage'] = scope
                       if scope.get('coverage_omitted'):
@@ -4701,9 +4759,11 @@ jobs:
     steps:
       - *prepare_program
       - name: Install isolated PDF reader from Ubuntu
+        continue-on-error: true
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y --no-install-recommends poppler-utils bubblewrap
+          dpkg-query -W poppler-utils bubblewrap coreutils
       - name: Read this run's kernel preparation
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
