@@ -20,3 +20,5 @@
   ANT 8:10 (2014) 2523-2572: hypotheses listed). Both UNVERIFIED by this task.
 - New file ZInQKernel/Contrib/OneProof/KolyvCST/Kolyvagin.lean: AnalyticRank, KolyvaginThm1Printed
   (r <= 1), ForwardRank, KummerCorank (GLUE), ForwardCorank, bridges.
+- Kolyvagin.lean: lake env lean, no errors, no warnings (1m20s). VERIFIED compile.
+- CaiShuTian.lean: compiles (lake env lean, no errors/warnings, after fixes: Λ token -> Lat; open Classical for decidability). VERIFIED compile.

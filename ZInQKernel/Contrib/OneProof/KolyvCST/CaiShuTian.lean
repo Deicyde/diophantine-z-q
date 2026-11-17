@@ -23,7 +23,7 @@ A special case (never stronger) of Theorem 1.1, in the domain the manuscript use
 * `E/ℚ` an elliptic curve without complex multiplication, `f` the weight-2 cusp form on `Γ₀(N)`
   with `q`-expansion coefficients the Dirichlet coefficients of Mathlib's `L`-series of `E`, at the
   least such level `N` (`newformLevel`, written fresh: the level of the newform of `E`);
-* `φ` a complex-analytic modular parametrization `τ ↦ ℘_Λ(κ · ∫ f)`, with `Λ` a lattice of `E`
+* `φ` a complex-analytic modular parametrization `τ ↦ ℘_Lat(κ · ∫ f)`, with `Lat` a lattice of `E`
   (`phiAn`, written fresh; Mathlib's `℘` and Tau Ceti's Eichler integral);
 * `K` imaginary quadratic of discriminant `D ∉ {−3, −4}` (no extra units: `u = 1`), **every prime
   of `N` split in `K`** (so `μ(N, D) = 0` and the condition at primes of `(N, D)` is vacuous),
@@ -37,10 +37,10 @@ A special case (never stronger) of Theorem 1.1, in the domain the manuscript use
 * `ĥ_K = ĥ_{H_c}/[H_c : K]`, with `ĥ_{H_c}` Tau Ceti's Néron–Tate pairing over the number field
   `H_c` (relative to `H_c`), extended hermitian-linearly to `P_χ = Σ_t χ(t) P_t`.
 
-Conclusion: there is `C > 0` depending only on `(E, f, Λ, κ)` such that
+Conclusion: there is `C > 0` depending only on `(E, f, Lat, κ)` such that
 `L'(1, E, χ) = C / (c √|D|) · ĥ_K(P_χ)` for all such `(K, c, χ, [A,B,C], ι, y)`. The print has
 `C = 8π² (f, f)_{Γ₀(N)} / deg φ` (as an earlier audit and the manuscript's L2430–2431 describe it;
-UNVERIFIED): the Petersson norm and `deg φ` are fixed by `(E, f, Λ, κ)`, so the existential `C`
+UNVERIFIED): the Petersson norm and `deg φ` are fixed by `(E, f, Lat, κ)`, so the existential `C`
 is a consequence of the print, and it is what both manuscript uses need (L2428: the ratio of two
 instances, L2433–2436; L8269: nonvanishing ⇔ nontorsion).
 
@@ -90,6 +90,7 @@ def conductorOrderSubalgebra (f : ℕ) : Subalgebra ℤ K where
     exact ⟨a + b, y + z, by simp only [map_add, Int.cast_add]; ring⟩
   algebraMap_mem' := fun r => ⟨r, 0, by simp⟩
 
+omit [NumberField K] in
 theorem conductorOrderSubalgebra_le_integralClosure (f : ℕ) :
     conductorOrderSubalgebra K f ≤ integralClosure ℤ K := by
   rintro _ ⟨a, y, rfl⟩
@@ -144,37 +145,38 @@ def newformLevel (E : WeierstrassCurve ℚ) : ℕ :=
 def eichlerPotential (f : ℍ → ℂ) (τ : ℍ) : ℂ :=
   TauCeti.eichlerIntegral 1 1 f τ
 
-/-- The point of `E(ℂ)` with Weierstrass coordinates `x = ℘_Λ(z) − b₂/12`,
-`y = (℘'_Λ(z) − a₁x − a₃)/2` (`O` for `z ∈ Λ`). For a lattice with `g₂ = c₄/12`, `g₃ = c₆/216`
-(`IsLatticeOf`) the coordinates satisfy the equation of `E` off `Λ`, so the second `if` never
+open Classical in
+/-- The point of `E(ℂ)` with Weierstrass coordinates `x = ℘_Lat(z) − b₂/12`,
+`y = (℘'_Lat(z) − a₁x − a₃)/2` (`O` for `z ∈ Lat`). For a lattice with `g₂ = c₄/12`, `g₃ = c₆/216`
+(`IsLatticeOf`) the coordinates satisfy the equation of `E` off `Lat`, so the second `if` never
 takes its `else` branch there; it only avoids a proof inside the definition. -/
-def weierPt (E : WeierstrassCurve ℚ) (Λ : PeriodPair) (z : ℂ) : (E.baseChange ℂ).toAffine.Point :=
-  if z ∈ Λ.lattice then 0 else
-    if h : (E.baseChange ℂ).toAffine.Nonsingular (Λ.weierstrassP z - (E.b₂ : ℂ) / 12)
-        ((Λ.derivWeierstrassP z - (E.a₁ : ℂ) * (Λ.weierstrassP z - (E.b₂ : ℂ) / 12) -
+def weierPt (E : WeierstrassCurve ℚ) (Lat : PeriodPair) (z : ℂ) : (E.baseChange ℂ).toAffine.Point :=
+  if z ∈ Lat.lattice then 0 else
+    if h : (E.baseChange ℂ).toAffine.Nonsingular (Lat.weierstrassP z - (E.b₂ : ℂ) / 12)
+        ((Lat.derivWeierstrassP z - (E.a₁ : ℂ) * (Lat.weierstrassP z - (E.b₂ : ℂ) / 12) -
           (E.a₃ : ℂ)) / 2) then
       .some _ _ h
     else 0
 
-/-- `Λ` is a period lattice of `E`: `ℂ/Λ ≅ E(ℂ)` through `weierPt` (`g₂ = c₄/12`,
+/-- `Lat` is a period lattice of `E`: `ℂ/Lat ≅ E(ℂ)` through `weierPt` (`g₂ = c₄/12`,
 `g₃ = c₆/216`). -/
-def IsLatticeOf (E : WeierstrassCurve ℚ) (Λ : PeriodPair) : Prop :=
-  Λ.g₂ = (E.c₄ : ℂ) / 12 ∧ Λ.g₃ = (E.c₆ : ℂ) / 216
+def IsLatticeOf (E : WeierstrassCurve ℚ) (Lat : PeriodPair) : Prop :=
+  Lat.g₂ = (E.c₄ : ℂ) / 12 ∧ Lat.g₃ = (E.c₆ : ℂ) / 216
 
-/-- `Λ` has no complex multiplication: its only multipliers are the integers (`E` has no CM). -/
-def IsNonCMLattice (Λ : PeriodPair) : Prop :=
-  ∀ α : ℂ, (∀ l ∈ Λ.lattice, α * l ∈ Λ.lattice) → ∃ n : ℤ, α = n
+/-- `Lat` has no complex multiplication: its only multipliers are the integers (`E` has no CM). -/
+def IsNonCMLattice (Lat : PeriodPair) : Prop :=
+  ∀ α : ℂ, (∀ l ∈ Lat.lattice, α * l ∈ Lat.lattice) → ∃ n : ℤ, α = n
 
-/-- `κ ≠ 0` scales the periods of `f` on `Γ₀(N)` into `Λ`, so that `phiAn` is `Γ₀(N)`-invariant:
+/-- `κ ≠ 0` scales the periods of `f` on `Γ₀(N)` into `Lat`, so that `phiAn` is `Γ₀(N)`-invariant:
 an analytic map `X₀(N)(ℂ) → E(ℂ)` with `∞ ↦ O`. -/
-def IsParamScale (N : ℕ) (f : ℍ → ℂ) (Λ : PeriodPair) (κ : ℂ) : Prop :=
+def IsParamScale (N : ℕ) (f : ℍ → ℂ) (Lat : PeriodPair) (κ : ℂ) : Prop :=
   κ ≠ 0 ∧ ∀ γ ∈ CongruenceSubgroup.Gamma0 N, ∀ τ : ℍ,
-    κ * (eichlerPotential f (γ • τ) - eichlerPotential f τ) ∈ Λ.lattice
+    κ * (eichlerPotential f (γ • τ) - eichlerPotential f τ) ∈ Lat.lattice
 
-/-- **The analytic modular parametrization** `φ(τ) = ℘_Λ-point of κ · ∫_{i∞}^τ 2πi f`. -/
-def phiAn (E : WeierstrassCurve ℚ) (f : ℍ → ℂ) (Λ : PeriodPair) (κ : ℂ) (τ : ℍ) :
+/-- **The analytic modular parametrization** `φ(τ) = ℘_Lat-point of κ · ∫_{i∞}^τ 2πi f`. -/
+def phiAn (E : WeierstrassCurve ℚ) (f : ℍ → ℂ) (Lat : PeriodPair) (κ : ℂ) (τ : ℍ) :
     (E.baseChange ℂ).toAffine.Point :=
-  weierPt E Λ (κ * eichlerPotential f τ)
+  weierPt E Lat (κ * eichlerPotential f τ)
 
 /-! ### Heegner forms and CM points -/
 
@@ -196,6 +198,7 @@ section RingClass
 
 variable {K : Type} [Field K] [NumberField K] (O : NumberFieldOrder K)
 
+open Classical in
 /-- `χ(𝔭)` for a prime `𝔭` of `K`: `χ` of the class of `𝔭 ∩ O` in `Pic O` (Tau Ceti's `picClass`)
 if `𝔭` is prime to the conductor of `O`, and `0` otherwise. -/
 def chiAt (χ : Pic O →* ℂˣ) (𝔭 : HeightOneSpectrum (𝓞 K)) : ℂ :=
@@ -243,13 +246,15 @@ variable {H : Type} [Field H] [NumberField H] (E : WeierstrassCurve ℚ) [E.IsEl
 /-- `ĥ_{H}`-pairing of `E(H)`: Tau Ceti's Néron–Tate pairing over the number field `H`
 (heights relative to `H`, `[H : ℚ]` times the absolute height). -/
 def ntPairing (P Q : (E.baseChange H).toAffine.Point) : ℝ :=
+  haveI := Classical.decEq H
   WeierstrassCurve.Affine.neronTatePairing (E.baseChange H).toAffine P Q
 
 end Height
 
+open Classical in
 /-- **Cai–Shu–Tian, Theorem 1.1, split case (stated, not proved).** See the module docstring for
 the objects. For every non-CM elliptic curve `E/ℚ` with newform `f` of level `N`, period lattice
-`Λ` and analytic parametrization scale `κ`, there is `C > 0` such that for every imaginary quadratic
+`Lat` and analytic parametrization scale `κ`, there is `C > 0` such that for every imaginary quadratic
 `K` with discriminant `D ∉ {−3, −4}` in which every prime of `N` splits, every `c ≥ 1` prime to
 `N`, every primitive ring class character `χ` of `Pic(O_c)`, every Heegner form `[A, B, C]` of
 level `N` and discriminant `Dc²`, every embedding `ι : H_c → ℂ` and every `y ∈ E(H_c)` with
@@ -264,8 +269,8 @@ def CSTThm11Split : Prop :=
   ∀ (E : WeierstrassCurve ℚ) [E.IsElliptic]
     (f : CuspForm (CongruenceSubgroup.Gamma0 (newformLevel E) : Subgroup (GL (Fin 2) ℝ)) 2),
     (∀ n : ℕ, 0 < n → (UpperHalfPlane.qExpansion 1 f).coeff n = (E.LFunction n : ℂ)) →
-    ∀ (Λ : PeriodPair), IsLatticeOf E Λ → IsNonCMLattice Λ →
-    ∀ κ : ℂ, IsParamScale (newformLevel E) f Λ κ →
+    ∀ (Lat : PeriodPair), IsLatticeOf E Lat → IsNonCMLattice Lat →
+    ∀ κ : ℂ, IsParamScale (newformLevel E) f Lat κ →
     ∃ C : ℝ, 0 < C ∧
       ∀ (K : Type) [Field K] [NumberField K], Module.finrank ℚ K = 2 → IsTotallyComplex K →
         discr K ≠ -3 → discr K ≠ -4 →
@@ -276,7 +281,7 @@ def CSTThm11Split : Prop :=
         ∀ ι : ringClassField (conductorOrder K c) →ₐ[ℚ] ℂ,
         ∀ y : (E.baseChange (ringClassField (conductorOrder K c))).toAffine.Point,
           WeierstrassCurve.Affine.Point.map (W' := E.toAffine) ι y =
-            phiAn E f Λ κ (cmPoint A B (discr K * c ^ 2)) →
+            phiAn E f Lat κ (cmPoint A B (discr K * c ^ 2)) →
         ∀ F : ℂ → ℂ, Differentiable ℂ F →
           (∀ s : ℂ, 3 / 2 < s.re →
             F s = LSeries (twistedLFunction E (chiAt (conductorOrder K c) χ)) s) →
