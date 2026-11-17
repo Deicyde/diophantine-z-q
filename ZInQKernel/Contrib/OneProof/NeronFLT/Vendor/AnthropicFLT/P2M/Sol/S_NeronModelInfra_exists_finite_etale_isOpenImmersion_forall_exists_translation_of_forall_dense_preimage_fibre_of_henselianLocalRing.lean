@@ -57,7 +57,8 @@ theorem exists_ringHom_comp_eq {A B K : Type u} [CommRing A] [IsLocalRing A] [Co
     by_contra hxu
     have hxm : x ∈ IsLocalRing.maximalIdeal A := (IsLocalRing.mem_maximalIdeal x).mpr hxu
     have hmax : (Ideal.comap (algebraMap A B) (IsLocalRing.maximalIdeal B)).IsMaximal :=
-      Ideal.isMaximal_comap_of_isIntegral_of_isMaximal (R := A) (IsLocalRing.maximalIdeal B)
+      -- [port] Mathlib v4.35: the algebra form of `isMaximal_comap_of_isIntegral_of_isMaximal` is `isMaximal_under_...`
+      Ideal.isMaximal_under_of_isIntegral_of_isMaximal (R := A) (IsLocalRing.maximalIdeal B)
     have heq := IsLocalRing.eq_maximalIdeal hmax
     have : algebraMap A B x ∈ IsLocalRing.maximalIdeal B := by
       rw [← Ideal.mem_comap, heq]; exact hxm

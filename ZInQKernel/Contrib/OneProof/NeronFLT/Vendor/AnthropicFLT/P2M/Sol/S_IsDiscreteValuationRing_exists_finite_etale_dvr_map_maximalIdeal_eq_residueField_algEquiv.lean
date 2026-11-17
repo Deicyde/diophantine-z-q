@@ -83,13 +83,15 @@ theorem solution
     refine IsLocalRing.of_unique_max_ideal ⟨𝔪', hmax, fun M hM => ?_⟩
     haveI := hM
     have hc : (M.comap (algebraMap R (AdjoinRoot F))) = IsLocalRing.maximalIdeal R :=
-      IsLocalRing.eq_maximalIdeal (Ideal.isMaximal_comap_of_isIntegral_of_isMaximal M)
+      -- [port] Mathlib v4.35: the algebra form of `isMaximal_comap_of_isIntegral_of_isMaximal` is `isMaximal_under_...`
+      IsLocalRing.eq_maximalIdeal (Ideal.isMaximal_under_of_isIntegral_of_isMaximal (R := R) M)
     have hle : 𝔪' ≤ M := by
       rw [h𝔪', ← hc]; exact Ideal.map_comap_le
     exact (hmax.eq_of_le hM.ne_top hle).symm
   have hmR' : IsLocalRing.maximalIdeal (AdjoinRoot F) = 𝔪' := (IsLocalRing.eq_maximalIdeal hmax).symm
   haveI hlh : IsLocalHom (algebraMap R (AdjoinRoot F)) :=
-    ((IsLocalRing.local_hom_TFAE (algebraMap R (AdjoinRoot F))).out 0 2).mpr (by rw [← h𝔪', hmR'])
+    -- [port] Mathlib v4.35: `List.TFAE.out` is 1-indexed (same entries)
+    ((IsLocalRing.local_hom_TFAE (algebraMap R (AdjoinRoot F))).out 1 3).mpr (by rw [← h𝔪', hmR'])
 
   have hunit : ∀ p : R[X], AdjoinRoot.mk (F.map (IsLocalRing.residue R)) (p.map (IsLocalRing.residue R)) ≠ 0 →
       IsUnit (AdjoinRoot.mk F p) := by
@@ -134,7 +136,8 @@ theorem solution
     exact hϖ0 (AdjoinRoot.of.injective_of_degree_ne_zero hFdeg0 (by rw [h, map_zero]))
   have hpr : (IsLocalRing.maximalIdeal (AdjoinRoot F)).IsPrincipal := ⟨⟨algebraMap R (AdjoinRoot F) ϖ, hgen⟩⟩
   haveI hdvr : IsDiscreteValuationRing (AdjoinRoot F) :=
-    ((IsDiscreteValuationRing.TFAE (AdjoinRoot F) hnf).out 0 4).mpr hpr
+    -- [port] Mathlib v4.35: `List.TFAE.out` is 1-indexed (same entries)
+    ((IsDiscreteValuationRing.TFAE (AdjoinRoot F) hnf).out 1 5).mpr hpr
 
   obtain ⟨u, hu⟩ := hderiv.exists_right_inv
   obtain ⟨p₁, rfl⟩ := AdjoinRoot.mk_surjective u

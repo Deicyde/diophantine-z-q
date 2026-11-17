@@ -415,7 +415,8 @@ theorem map_maximalIdeal_le_jacobson [IsLocalRing R] {S : Type*} [CommRing S] [A
   rw [Ideal.jacobson, le_sInf_iff]
   rintro 𝔫 ⟨-, h𝔫⟩
   rw [Ideal.map_le_iff_le_comap]
-  have : (𝔫.comap (algebraMap R S)).IsMaximal := Ideal.isMaximal_comap_of_isIntegral_of_isMaximal 𝔫
+  -- [port] Mathlib v4.35: the algebra form of `isMaximal_comap_of_isIntegral_of_isMaximal` is `isMaximal_under_...`
+  have : (𝔫.comap (algebraMap R S)).IsMaximal := Ideal.isMaximal_under_of_isIntegral_of_isMaximal 𝔫
   rw [IsLocalRing.eq_maximalIdeal this]
 
 theorem eq_of_sub_mem_jacobson {S : Type*} [CommRing S] {e₁ e₂ : S}

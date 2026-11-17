@@ -67,7 +67,8 @@ theorem solution
     rw [← hunder, ← hPmax]; exact hPover.over.symm
 
   have hprinc : (maximalIdeal O').IsPrincipal := ⟨⟨π, by rw [hmax]⟩⟩
-  haveI : ValuationRing O' := ((IsDiscreteValuationRing.TFAE O' hnf).out 4 1).mp hprinc
+  -- [port] Mathlib v4.35: `List.TFAE.out` is 1-indexed (same entries)
+  haveI : ValuationRing O' := ((IsDiscreteValuationRing.TFAE O' hnf).out 5 2).mp hprinc
 
   refine ⟨hinj, fun x => ?_⟩
   by_cases hx : x = 0

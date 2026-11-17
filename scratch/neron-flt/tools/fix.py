@@ -9,6 +9,8 @@ RULES = [
   (r'PresheafOfModules\.Monoidal\.', 'PresheafOfModulesOfCommRing.Monoidal.', M),
   (r'PresheafOfModules\.(tensorHom_app|whiskerRight_app|whiskerLeft_app|leftUnitor_hom_app|leftUnitor_inv_app|rightUnitor_hom_app|rightUnitor_inv_app|associator_hom_app|associator_inv_app|tensorObj_obj|braiding_hom_app|braiding_inv_app)\b',
    r'PresheafOfModulesOfCommRing.\1', M),
+  (r'PresheafOfModules\.DifferentialsConstruction\.', 'PresheafOfModulesOfCommRing.DifferentialsConstruction.',
+   'Mathlib v4.35: relative differentials of presheaves of CommRingCat moved to `PresheafOfModulesOfCommRing`'),
 ]
 for p in sys.argv[1:]:
     lines = open(p, encoding='utf-8').read().split('\n'); out = []; n = 0

@@ -168,7 +168,8 @@ lemma resD_top {W W' : X.Opens} (h : W' ≤ W) (s : ⋀[Γ(X, W)]^d (f.kaehlerPr
 lemma pmap_d {W W' : X.Opens} (h : W' ≤ W) (x : X.presheaf.obj (op W)) :
     pmap f h (CommRingCat.KaehlerDifferential.d x) =
       CommRingCat.KaehlerDifferential.d (X.presheaf.map (homOfLE h).op x) :=
-  PresheafOfModules.DifferentialsConstruction.relativeDifferentials'_map_d f.constToPresheaf (homOfLE h).op x
+  -- [port] Mathlib v4.35: relative differentials of presheaves of CommRingCat moved to `PresheafOfModulesOfCommRing`
+  PresheafOfModulesOfCommRing.DifferentialsConstruction.relativeDifferentials'_map_d f.constToPresheaf (homOfLE h).op x
 
 theorem topFormMap_ιMulti (R' K' O F : Type u) [CommRing R'] [CommRing K'] [Algebra R' K']
     [CommRing O] [Algebra R' O] [CommRing F] [Algebra O F] [Algebra K' F] [Algebra R' F]

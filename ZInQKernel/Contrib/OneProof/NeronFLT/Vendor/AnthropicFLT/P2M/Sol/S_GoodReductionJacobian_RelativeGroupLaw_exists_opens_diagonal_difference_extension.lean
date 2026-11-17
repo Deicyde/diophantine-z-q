@@ -27,12 +27,23 @@ set_option synthInstance.maxHeartbeats 400000
 set_option backward.isDefEq.respectTransparency.types false
 set_option autoImplicit false
 
+-- [port] Lean 4.35 repairs: this body is CloudW03NeronSurj's port of the same upstream file
+-- (ZInQKernel/Contrib/CloudW03NeronSurj/Vendor/P2M/Sol/S_GoodReductionJacobian_RelativeGroupLaw_exists_opens_diagonal_difference_extension.lean) with its namespace wrapper removed.
+
+
+
+p2m_open "AlgebraicGeometry IsLocalRing"
+
 namespace P2MW.S_GoodReductionJacobian_RelativeGroupLaw_exists_opens_diagonal_difference_extension
-attribute [-simp] RegularLocalRingQuotientAscent.dualNumberFst_apply
 set_option maxHeartbeats 1600000
 set_option synthInstance.maxHeartbeats 1600000
 
 set_option autoImplicit false
+-- Port to v4.35: match definitional equalities of open-subscheme stalks and
+-- categorical instance paths in the original Weil-extension argument.
+set_option backward.defeqAttrib.useBackward true
+set_option backward.isDefEq.respectTransparency false
+set_option backward.isDefEq.respectTransparency.types false
 
 universe u
 
@@ -148,7 +159,7 @@ theorem exists_isPrime_map_le_height_le_one
   have hKle : K ≤ maximalIdeal B := by
     rw [hK, Ideal.map_le_iff_le_comap]
     exact (le_maximalIdeal hpP.ne_top).trans
-      (((IsLocalRing.local_hom_TFAE φ).out 0 3).mp ‹IsLocalHom φ›)
+      (((IsLocalRing.local_hom_TFAE φ).out 1 4).mp ‹IsLocalHom φ›)
   have hKne : K ≠ ⊤ := fun h => (maximalIdeal.isMaximal B).ne_top (top_le_iff.mp (h ▸ hKle))
   haveI : Nontrivial (B ⧸ K) := ⟨⟨0, 1, fun h => hKne (Ideal.Quotient.zero_eq_one_iff.mp h)⟩⟩
   obtain ⟨dBK, hdBK⟩ : ∃ d : ℕ, ringKrullDim (B ⧸ K) = d :=
@@ -323,7 +334,7 @@ theorem dense_of_generic_fibre_subset {R : Type u} [CommRing R] [IsDomain R] [Is
     {T : Scheme.{u}} (t : T ⟶ Spec (CommRingCat.of R)) [Flat t] (V : T.Opens)
     (hVη : ∀ x : T, t.base x ≠ IsLocalRing.closedPoint R → x ∈ V) : Dense (V : Set T) := by
   intro x
-  let η : ↥(Spec (CommRingCat.of R)) := (⟨⊥, Ideal.bot_prime⟩ : PrimeSpectrum R)
+  let η : ↥(Spec (CommRingCat.of R)) := (⟨⊥, Ideal.isPrime_bot⟩ : PrimeSpectrum R)
   have hη : η ⤳ t.base x := (PrimeSpectrum.le_iff_specializes (x := η) (y := t.base x)).mp bot_le
   obtain ⟨x', hx', htx'⟩ := Flat.generalizingMap t hη
   have hne : η ≠ IsLocalRing.closedPoint R := by
@@ -466,7 +477,7 @@ theorem exists_mem_specializes {R : Type u} [CommRing R] [IsDomain R] [IsDiscret
     {T : Scheme.{u}} (t : T ⟶ Spec (CommRingCat.of R)) [Flat t] (V : T.Opens)
     (hVη : ∀ x : T, t.base x ≠ IsLocalRing.closedPoint R → x ∈ V) (y : T) :
     ∃ θ : T, θ ∈ V ∧ θ ⤳ y := by
-  let η : ↥(Spec (CommRingCat.of R)) := (⟨⊥, Ideal.bot_prime⟩ : PrimeSpectrum R)
+  let η : ↥(Spec (CommRingCat.of R)) := (⟨⊥, Ideal.isPrime_bot⟩ : PrimeSpectrum R)
   have hη : η ⤳ t.base y := (PrimeSpectrum.le_iff_specializes (x := η) (y := t.base y)).mp bot_le
   obtain ⟨θ, hθ, htθ⟩ := Flat.generalizingMap t hη
   have hne : η ≠ IsLocalRing.closedPoint R := by
@@ -853,3 +864,6 @@ theorem solution
               ← pullback.condition]⟩ =
           ⟨b ≫ v.1, by rw [Category.assoc, v.2, ← Category.assoc, ← hb, Category.assoc, Category.assoc]⟩) :=
   FltWs29.DIAG.diag_assembly R G t V hVη hVs v
+
+end P2MW.S_GoodReductionJacobian_RelativeGroupLaw_exists_opens_diagonal_difference_extension
+

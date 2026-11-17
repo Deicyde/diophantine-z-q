@@ -708,7 +708,8 @@ theorem sMap_base_eq_closedPoint_iff (p : ↥(Spec (CommRingCat.of R'))) :
     apply PrimeSpectrum.ext
     rw [hcomap]
     haveI : (IsLocalRing.closedPoint R').asIdeal.IsMaximal := IsLocalRing.maximalIdeal.isMaximal R'
-    exact IsLocalRing.eq_maximalIdeal (Ideal.isMaximal_comap_of_isIntegral_of_isMaximal _)
+    -- [port] Mathlib v4.35: the algebra form of `isMaximal_comap_of_isIntegral_of_isMaximal` is `isMaximal_under_...`
+    exact IsLocalRing.eq_maximalIdeal (Ideal.isMaximal_under_of_isIntegral_of_isMaximal _)
 
 end ClosedPoint
 

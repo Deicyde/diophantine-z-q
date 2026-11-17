@@ -340,7 +340,8 @@ omit hφ in
 lemma kp_map_dK {C : Type u} [CommRing C] {Z : Scheme.{u}} (g : Z ⟶ Spec (CommRingCat.of C))
     {V V' : Z.Opens} (i : op V ⟶ op V') (b : Γ(Z, V)) :
     g.kaehlerPresheaf.map i (dK g V b) = dK g V' (Z.presheaf.map i b) :=
-  PresheafOfModules.DifferentialsConstruction.relativeDifferentials'_map_d g.constToPresheaf i b
+  -- [port] Mathlib v4.35: relative differentials of presheaves of CommRingCat moved to `PresheafOfModulesOfCommRing`
+  PresheafOfModulesOfCommRing.DifferentialsConstruction.relativeDifferentials'_map_d g.constToPresheaf i b
 
 omit hφ in
 

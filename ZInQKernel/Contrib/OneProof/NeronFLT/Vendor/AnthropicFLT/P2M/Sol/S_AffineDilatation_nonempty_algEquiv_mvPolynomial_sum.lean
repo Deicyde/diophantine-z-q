@@ -97,7 +97,8 @@ theorem powers_le_nonZeroDivisors (hπ : IsSMulRegular R π) :
   have hreg : IsSMulRegular (MvPolynomial (σ ⊕ τ) R) π := by
     intro p q h
     ext m
-    exact hπ (by simpa only [MvPolynomial.coeff_smul] using congrArg (MvPolynomial.coeff m) h)
+    -- [port] Mathlib v4.35: `MvPolynomial.coeff` is a structure projection (`p.coeff m`)
+    exact hπ (by simpa only [MvPolynomial.coeff_smul] using congrArg (fun p : MvPolynomial (σ ⊕ τ) R => p.coeff m) h)
   rw [mem_nonZeroDivisors_iff_right]
   intro p hp
   rw [mul_comm, MvPolynomial.C_mul'] at hp

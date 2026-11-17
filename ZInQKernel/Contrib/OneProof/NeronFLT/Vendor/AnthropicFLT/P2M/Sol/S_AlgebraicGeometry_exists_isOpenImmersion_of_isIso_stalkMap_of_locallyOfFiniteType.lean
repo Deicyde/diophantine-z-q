@@ -14,6 +14,8 @@ set_option maxHeartbeats 4000000
 set_option synthInstance.maxHeartbeats 400000
 set_option backward.isDefEq.respectTransparency.types false
 set_option autoImplicit false
+-- [port] Lean v4.35: definitional-unfolding flag needed for the `Epi (Spec.map (inv _))` instance (as in CloudW03NeronSurj's port)
+set_option backward.isDefEq.respectTransparency false
 
 namespace P2MW.S_AlgebraicGeometry_exists_isOpenImmersion_of_isIso_stalkMap_of_locallyOfFiniteType
 

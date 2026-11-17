@@ -46,7 +46,8 @@ theorem hensSplit_map_maximalIdeal_le {R : Type u} [CommRing R] [IsLocalRing R]
   rw [Ideal.map_le_iff_le_comap]
   haveI := hm
   have hmax : (m.comap (algebraMap R S)).IsMaximal :=
-    Ideal.isMaximal_comap_of_isIntegral_of_isMaximal m
+    -- [port] Mathlib v4.35: the algebra form of `isMaximal_comap_of_isIntegral_of_isMaximal` is `isMaximal_under_...`
+    Ideal.isMaximal_under_of_isIntegral_of_isMaximal m
   rw [IsLocalRing.eq_maximalIdeal hmax]
 
 theorem hensSplit_isArtinianRing_fibre {R : Type u} [CommRing R] [IsLocalRing R]

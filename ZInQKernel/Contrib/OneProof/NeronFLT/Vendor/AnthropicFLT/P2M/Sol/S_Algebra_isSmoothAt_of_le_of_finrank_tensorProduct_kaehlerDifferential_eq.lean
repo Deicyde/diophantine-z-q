@@ -370,7 +370,7 @@ theorem isSmoothAt_of_relations (g : B →ₐ[R] A) (hg : Function.Surjective g)
       (exists_sum_smul_one_tmul 𝔓C.ResidueField _ _ hkerspan) ?_
     convert hli' using 2 with i
     rw [cotangentComplexBaseChange_tmul, one_smul, kerToTensor_apply]
-    rfl
+    -- [port] Lean v4.35: `rw` already closes this goal (the trailing `rfl` is removed)
   haveI hS'sm : Algebra.IsSmoothAt R 𝔓C :=
     (Algebra.FormallySmooth.iff_injective_cotangentComplexBaseChange_residueField (R := R)
       (S := Localization.AtPrime 𝔓C) (Localization.AtPrime 𝔓) hχsurj
@@ -408,7 +408,7 @@ theorem isSmoothAt_of_relations (g : B →ₐ[R] A) (hg : Function.Surjective g)
       convert hli' using 2 with i
       simp only [Function.comp_apply]
       rw [cotangentComplexBaseChange_tmul, one_smul, kerToTensor_apply]
-      rfl
+      -- [port] Lean v4.35: `rw` already closes this goal (the trailing `rfl` is removed)
   have hrankS' : Module.finrank (Localization.AtPrime 𝔓C) Ω[Localization.AtPrime 𝔓C⁄R] =
       Module.finrank q.ResidueField (q.ResidueField ⊗[A] Ω[A⁄R]) := by
     rw [← Module.finrank_baseChange (R := 𝔓C.ResidueField)]
@@ -600,7 +600,7 @@ theorem solution
     convert hli using 2 with i
     simp only [Function.comp_apply, hv, hu, hzdef]
     rw [cotangentComplexBaseChange_tmul, one_smul, kerToTensor_apply]
-    rfl
+    -- [port] Lean v4.35: `rw` already closes this goal (the trailing `rfl` is removed)
   refine isSmoothAt_of_relations g hg p q hqp z hz hli' ?_
   rw [hcard]
   exact hcount

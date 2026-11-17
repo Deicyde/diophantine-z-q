@@ -38,7 +38,8 @@ def constToPresheaf : (Functor.const (X.Opens)ᵒᵖ).obj (CommRingCat.of A) ⟶
   (f.constToPresheaf.app (op U)).hom.toAlgebra
 
 def kaehlerPresheaf : X.PresheafOfModules :=
-  PresheafOfModules.DifferentialsConstruction.relativeDifferentials' f.constToPresheaf
+  -- [port] Mathlib v4.35: relative differentials of presheaves of CommRingCat moved to `PresheafOfModulesOfCommRing`
+  PresheafOfModulesOfCommRing.DifferentialsConstruction.relativeDifferentials' f.constToPresheaf
 
 def kaehler : X.Modules :=
   (PresheafOfModules.sheafification (𝟙 X.ringCatSheaf.obj)).obj f.kaehlerPresheaf
