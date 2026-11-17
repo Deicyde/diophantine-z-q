@@ -1,0 +1,8 @@
+'ZInQ.Contrib.H21Lcal.functionalEquationPlus_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.H21Lcal.analyticOrderAt_ne_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.H21Lcal.lcalSqPrinted_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.H21Lcal.lcalSqPrinted_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.H21Lcal.tyzThm21PairsC_of_printed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.H21Lcal.tyzThm21PairsPrinted_of_C' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.H21Lcal.tyzThm21Span_of_printed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.H21Lcal.tyzThm21SpanPrinted_of_span' depends on axioms: [propext, Classical.choice, Quot.sound]
