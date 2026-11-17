@@ -50,6 +50,18 @@ archives and shell scripts, still build. Other files under `.github/`, `tests/`
 or `build/` still build. This changes only whether the kernel job needs to build;
 it does not skip Research checks or mathematical review of the construction.
 
+The contract test suite also scans every tracked Lean source in the audited
+roots, including new `Contrib` files, for `include_str`, `include_bin`,
+`IO.FS.`, `readFile`, `readBinFile` and `IO.Process`. A match fails with its file
+and line. An intentional file-reading dependency requires a reviewed contract
+and scope update that pins every consumed repository file before it can be
+allowed. There is currently no allowlist. This lexical guard catches common
+primitives, including references in comments; it is not a complete analysis of
+Lean effects, aliases or native code. Reviewers must still check new code and
+dependency updates for other ways of reading external inputs. The current
+trace and scan establish the premise for this source tree, not for arbitrary
+future Lean code.
+
 An unavailable or malformed contract, API failure, changed PR revision,
 missing/duplicate file rows, unknown change status or a diff exceeding GitHub's
 3,000-file API limit requests the full build. This is deliberately conservative.

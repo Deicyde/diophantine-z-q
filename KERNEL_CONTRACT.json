@@ -946,7 +946,7 @@
     "scripts/print_axioms.lean": "dda22248b496bc767c9ae88b24d84d350d8bd21585a647b2d54eb61f13e552e0",
     "scripts/test_kernel_audit.py": "12e9be4df09488e37f48984676941d508f7c0b35a70b2db4f76acb1e99cf7122",
     "scripts/test_kernel_cache.py": "06551ff625de2ef2896841d035258a1666fc4dcefcec423b5eb6a332b5276030",
-    "scripts/test_kernel_contract.py": "1f4641c5dcd96809f9a65857384b1b0ea981b680116b6d5e9ebedfd5afca8a45",
+    "scripts/test_kernel_contract.py": "c678d0204deb42b716097eb6fb3f08d682035061d74c75154ca1f12491371888",
     "scripts/test_kernel_diagnostics.py": "a378953dfc9baf168ffe76c064f49c3058bb28f436179ae8e104ea303d1964ad",
     "scripts/test_kernel_phases.py": "76b737fc65be2c186d39e92576d1e10f733eddd5131f638b5195ec5de3a6d4e8",
     "scripts/test_kernel_pr_scope.py": "5d4dbdf17c5cd497fe9df924cf0a739cbad02d4bae7678c1c034002ae6c5b00a"
