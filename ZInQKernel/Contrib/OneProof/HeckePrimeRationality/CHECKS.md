@@ -511,3 +511,66 @@ hypothesis, dependency pin, assembly or public proof history is altered.
 These are ordinary pinned compilations with disclosed warm imports and
 complete independent source reviews, not independent cold replay of every
 imported proof or a full-project acceptance certificate.
+
+## Actual theta constant and complete label cases: 59 modules
+
+The new two-file identity proves that the actual theta finite-part constant
+is exactly `−EisensteinSeries.G2 τ`, with no caller-supplied identification,
+triple-product, holomorphy, boundedness or vanishing premise. The first file
+proves its S/T transformation and invariance of `finitePart + G2`. The second
+justifies termwise higher theta derivatives and holomorphy on open parameter
+strips, proves a genuine large-height lower bound on the denominator, and
+constructs an actual level-one weight-two modular form with every field
+proved. Mathlib's exact weight-two rank-zero theorem then makes that form
+zero. The third-derivative expression is also bound explicitly to actual
+Jacobi-theta functions in the parent literal audit.
+
+This is an identification of the single constant, not proof that torsion
+quadratic values belong to an Eisenstein space. It does not prove the μ/x
+Fourier identities, trace closure or principal spanning.
+
+A separate new module states every label case of the actual quadratic
+defect. The all-Good branch uses the previously proved addition identity;
+zero-class branches retain the true negative-square terms. Expressing
+those squares as `x + 2μ` uses the existing definition of μ, not new analytic
+or Eisenstein content. The zero/opposite-label cases are checked literally.
+The first rejected source edition needed retained divisibility witnesses and
+a definitional scalar equality; only that unproved edition was repaired,
+with all theorem statements unchanged. Published mathematical source was
+not rewritten.
+
+The complete `ThetaConstantAudit.lean` co-imports all 59 mathematical source
+modules. It audits all 817 named public proofs/instances and 66 selected
+definitions or constructions: all 883 records use at most `propext`,
+`Classical.choice`, `Quot.sound`, and no `sorryAx`. Definition audits remain
+code-binding checks, not proofs of the defined spanning predicate.
+The older three audit editions and all 56 previous mathematical source
+editions are preserved byte-for-byte.
+
+```sh
+lake --no-cache --no-ansi build +ZInQKernel.Contrib.OneProof.HeckePrimeRationality.AllLevelThetaG2Identity:olean
+lake --no-cache --no-ansi build +ZInQKernel.Contrib.OneProof.HeckePrimeRationality.TorsionQuadraticCases:olean
+lake --no-cache env lean ZInQKernel/Contrib/OneProof/HeckePrimeRationality/ThetaConstantAudit.lean
+```
+
+All final parent builds, full declaration audits and literal contracts
+exited 0. Complete independent source reviews read all 657 lines of the
+G2 pair and all 112 lines of the final case module, plus their exact
+load-bearing callees. These are ordinary pinned compilations and source
+reviews with warm imports, not independent cold replay.
+
+Exact new source editions:
+
+- `AllLevelThetaG2.lean`:
+  `17c9dcfc32bb9c7551e8815e1b98e2fd01010688bc4dbaaaa105a30e239df69e`
+- `AllLevelThetaG2Identity.lean`:
+  `8d213342f55728db64438d50e0e5158386bf8ee0ce2e7caad8850b7910836a1d`
+- `TorsionQuadraticCases.lean`:
+  `6ebe9dea13a5f04b3594817e0060fe7112977820009a08312cb1a1eeee5b4522`
+
+Exact complete audit SHA256:
+`40b6c6630885df39e7d9706522a92c86957c588ba0880814f78a813477983dc7`.
+
+`PrincipalProductSpanning` and the original unrestricted Hecke leaf remain
+OPEN. No original global hypothesis, pin or assembly has changed; the
+unconditional original-contract extent remains nonzero N ≤ 6.

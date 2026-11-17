@@ -66,11 +66,18 @@ are proved in the reduction, not hidden premises.
 - Mathlib's actual `(1,τ)` Weierstrass function is identified off its lattice
   with `−(H'/H)' + H'''(0)/(3H'(0))`. The poles are analytically cancelled
   and the finite-part normalization is proved, not assumed.
+- The actual finite-part constant equals `−EisensteinSeries.G2 τ`.
+  Its transformation law, holomorphy and cusp boundedness are proved;
+  the resulting level-one weight-two form vanishes by Mathlib's theorem.
+  No triple-product identity or constant-identification premise is assumed.
+  This identifies the single constant, not the torsion values as Eisenstein.
 - Direct completed-theta Frobenius–Stickelberger addition is proved on its
   nonzero-denominator domain, with the actual derivative-defined finite part.
   Its concrete torsion consequence is also proved:
   `λP λQ − λP λS − λQ λS = −μP − μQ − μS` for three admissible labels
-  `S = P + Q`. This does not establish Eisenstein membership of the defect.
+  `S = P + Q`. All integer-label cases are also stated, with the actual
+  negative-square terms at zero classes. The three-μ formula is used only
+  in the nondegenerate branch. None of this proves Eisenstein membership.
 - Actual Weierstrass torsion values satisfy distribution in every positive
   degree, with factor n² and the explicit zero convention for bad labels.
   The full sum over nonzero n-torsion vanishes; no individual-value vanishing
@@ -95,13 +102,13 @@ Eisenstein identification, the μ/x Fourier identities, low-weight trace closure
 and the spanning argument must still be bound to the actual forms.
 The Γ₁ `(0,b)` family alone cannot replace the principal family.
 
-The current 56-module audit checks 769 named public proofs/instances and
-56 selected definitions or constructions with at most `propext`, `Classical.choice`,
+The current 59-module audit checks 817 named public proofs/instances and
+66 selected definitions or constructions with at most `propext`, `Classical.choice`,
 `Quot.sound`, and no `sorryAx`. **Auditing a predicate's definition does not
 prove that predicate**: `PrincipalProductSpanning` is still an input.
-See `CHECKS.md` and `WeightTwoAudit.lean` for exact editions and commands.
-The earlier `Audit.lean` and `AnalyticAudit.lean` preserve the 34- and 49-module
-checkpoints.
+See `CHECKS.md` and `ThetaConstantAudit.lean` for exact editions and commands.
+The earlier `Audit.lean`, `AnalyticAudit.lean` and `WeightTwoAudit.lean`
+preserve the 34-, 49- and 56-module checkpoints.
 
 These are ordinary pinned compilations plus complete separate source reviews
 with warm imports, not independent cold replay of all imported constants or
