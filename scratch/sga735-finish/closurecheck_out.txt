@@ -1,0 +1,244 @@
+
+
+
+
+
+
+
+
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+
+
+
+
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+
+
+
+
+
+
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+
+
+
+
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+
+  [apply] _hU3
+
+
+
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+
+
+
+
+
+
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'HDec.HSyn.sixContactMin_of_open49' depends on axioms: [propext, Classical.choice, Quot.sound]
+closure 242230
+UnipotentForward.SGA7_IX_3_5_ForwardGeom: false
+ReductSplit.SemistableUnipotent: false
+HDec.PkgI2.RaynaudCriterionNF: false
+GapNeron.RaynaudCriterionNF: false
+PkgI2.UnipSq: false
+SGA735AC.SGA7_IX_3_5_ForwardGeomAC: false
+SGA735Nil.SGA7_IX_3_5_ForwardUnipAC: true
+SGA735Nil.RaynaudCriterionNFNil: true
+HDec.G15Ram.raynaudPlace_of_R6: false
+HDec.G15Ram.raynaudPlace_of_R6Nil: true
+HDec.PkgI2.quatUnipotentTrivial: true
+HDec.HSyn.OpenResearchLeaves31: false
+HDec.HSyn.sixContactMin_of_open49 : HDec.HSyn.OpenResearchLeaves32 →
+  HDec.HSyn.OpenTextbookLeaves16 → HDec.HSyn.OpenAddedLeaves25 → ZInQ.SixContactMin
+structure HDec.HSyn.OpenResearchLeaves32 : Prop
+number of parameters: 0
+fields:
+  HDec.HSyn.OpenResearchLeaves32.r9a : PkgI3.FaltingsSemisimple
+  HDec.HSyn.OpenResearchLeaves32.r9b : PkgI3.FaltingsTate
+  HDec.HSyn.OpenResearchLeaves32.hodgeTateDecompAbVar : ZInQ.Contrib.HodgeSplit.HodgeTateDecompAbVar
+  HDec.HSyn.OpenResearchLeaves32.deRhamH1AbVarT : ZInQ.Contrib.HodgeSplit.DeRhamH1AbVarT
+  HDec.HSyn.OpenResearchLeaves32.r11r12 : HDec.PkgI4.PanBerger
+  HDec.HSyn.OpenResearchLeaves32.eigenformHTNew : ZInQ.Contrib.HodgeSplit.EigenformHTNew
+  HDec.HSyn.OpenResearchLeaves32.r17 : LadicCond.CarayolR17'
+  HDec.HSyn.OpenResearchLeaves32.bostLowerBound : ZInQ.HeightSplit.BostLowerBound
+  HDec.HSyn.OpenResearchLeaves32.javanpeykarBound : ZInQ.HeightSplit.JavanpeykarBound
+  HDec.HSyn.OpenResearchLeaves32.pazukiCor13Upper : ZInQ.HeightSplit.PazukiCor13Upper
+  HDec.HSyn.OpenResearchLeaves32.gaudronRemondThm14 : ZInQ.HeightSplit.GaudronRemondThm14
+  HDec.HSyn.OpenResearchLeaves32.gonzalezRotgerX6Ab : HDec.QMSplit.Moduli.GonzalezRotgerX6Ab
+  HDec.HSyn.OpenResearchLeaves32.gonzalezRotgerProp56X6 : GRCountX6.GonzalezRotgerProp56X6
+  HDec.HSyn.OpenResearchLeaves32.sga7_IX_3_5_ForwardUnipAC : SGA735Nil.SGA7_IX_3_5_ForwardUnipAC
+  HDec.HSyn.OpenResearchLeaves32.shimuraMainThmIDeligneY3AbU : RayClassCFT.ShimuraMainThmIDeligneY3AbU
+  HDec.HSyn.OpenResearchLeaves32.r16CoreY : R16Split.R16CoreY
+  HDec.HSyn.OpenResearchLeaves32.elkiesX6StarFunctionField : HDec.QMSplit.Moduli.ElkiesCoord.ElkiesX6StarFunctionField
+  HDec.HSyn.OpenResearchLeaves32.sga7_IX_3_3_SHpre : DictModels.SGA7Pre.SGA7_IX_3_3_SHpre
+  HDec.HSyn.OpenResearchLeaves32.raynaudSemistableSHOr : DictModels.RaynaudOr.RaynaudSemistableSHOr
+  HDec.HSyn.OpenResearchLeaves32.neronSchemeExtensionDedekind : ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind
+  HDec.HSyn.OpenResearchLeaves32.neronOggShafarevichSep : NOSSepDict.NeronOggShafarevichSep
+  HDec.HSyn.OpenResearchLeaves32.dsThm965Printed : DSCoeffExt.DSThm965Printed
+  HDec.HSyn.OpenResearchLeaves32.eigenformCoeffFieldFinite : DSCoeffExt.EigenformCoeffFieldFinite
+  HDec.HSyn.OpenResearchLeaves32.dsThm966Printed : DSThm966EV.DSThm966Printed
+constructor:
+  HDec.HSyn.OpenResearchLeaves32.mk (r9a : PkgI3.FaltingsSemisimple) (r9b : PkgI3.FaltingsTate)
+    (hodgeTateDecompAbVar : ZInQ.Contrib.HodgeSplit.HodgeTateDecompAbVar)
+    (deRhamH1AbVarT : ZInQ.Contrib.HodgeSplit.DeRhamH1AbVarT) (r11r12 : HDec.PkgI4.PanBerger)
+    (eigenformHTNew : ZInQ.Contrib.HodgeSplit.EigenformHTNew) (r17 : LadicCond.CarayolR17')
+    (bostLowerBound : ZInQ.HeightSplit.BostLowerBound) (javanpeykarBound : ZInQ.HeightSplit.JavanpeykarBound)
+    (pazukiCor13Upper : ZInQ.HeightSplit.PazukiCor13Upper) (gaudronRemondThm14 : ZInQ.HeightSplit.GaudronRemondThm14)
+    (gonzalezRotgerX6Ab : HDec.QMSplit.Moduli.GonzalezRotgerX6Ab)
+    (gonzalezRotgerProp56X6 : GRCountX6.GonzalezRotgerProp56X6)
+    (sga7_IX_3_5_ForwardUnipAC : SGA735Nil.SGA7_IX_3_5_ForwardUnipAC)
+    (shimuraMainThmIDeligneY3AbU : RayClassCFT.ShimuraMainThmIDeligneY3AbU) (r16CoreY : R16Split.R16CoreY)
+    (elkiesX6StarFunctionField : HDec.QMSplit.Moduli.ElkiesCoord.ElkiesX6StarFunctionField)
+    (sga7_IX_3_3_SHpre : DictModels.SGA7Pre.SGA7_IX_3_3_SHpre)
+    (raynaudSemistableSHOr : DictModels.RaynaudOr.RaynaudSemistableSHOr)
+    (neronSchemeExtensionDedekind : ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind)
+    (neronOggShafarevichSep : NOSSepDict.NeronOggShafarevichSep) (dsThm965Printed : DSCoeffExt.DSThm965Printed)
+    (eigenformCoeffFieldFinite : DSCoeffExt.EigenformCoeffFieldFinite) (dsThm966Printed : DSThm966EV.DSThm966Printed) :
+    HDec.HSyn.OpenResearchLeaves32

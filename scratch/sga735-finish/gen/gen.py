@@ -155,6 +155,19 @@ for s, ed in EDITS.items():
         if a not in used:
             raise SystemExit(f"edit for {s} not used")
 
+FDOC = ("  /-- sga735-finish, printed form (restricted): SGA 7 I Exp. IX Prop. 3.5, direction semistable => inertia acts "
+        "unipotently on T_l = lim A(K^s)[l^n] (sigma - 1 nilpotent, one sigma at a time; no echelon clause), over a strictly "
+        "henselian DVR with algebraically closed residue field (number UNVERIFIED); a specialization of "
+        "sga7_IX_3_5_ForwardGeom (SGA735Nil.forwardUnipAC_of_forwardGeom) under every recorded reading of 3.5; "
+        "its one use is r6 at number fields, re-typed to SGA735Nil.RaynaudCriterionNFNil. -/\n"
+        "  sga7_IX_3_5_ForwardUnipAC :")
+for i, b in enumerate(blocks):
+    b2 = re.sub(r"  /--(?:(?!-/).)*-/\n  sga7_IX_3_5_ForwardUnipAC :", lambda m: FDOC, b, flags=re.S)
+    b2 = re.sub(r"/--(?:(?!-/).)*-/\nstructure " + TOPNEW + " ",
+                "/-- `OpenResearchLeaves31` with `sga7_IX_3_5_ForwardGeom` replaced by the nilpotent leaf "
+                "`sga7_IX_3_5_ForwardUnipAC` (sga735-finish). -/\nstructure " + TOPNEW + " ", b2, flags=re.S)
+    blocks[i] = b2
+
 hdr = open(os.path.join(os.path.dirname(__file__), "header.lean")).read()
 tail = """
 #print axioms HDec.HSyn.sixContactMin_of_open49

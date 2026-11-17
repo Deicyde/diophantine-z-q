@@ -1,0 +1,3 @@
+'SGA735Nil.forwardUnipAC_of_forwardGeom' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SGA735Nil.raynaudCriterionNFNil_of_forwardUnipAC' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SGA735Nil.raynaudCriterionNFNil_of_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
