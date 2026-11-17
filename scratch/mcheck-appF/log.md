@@ -7,3 +7,4 @@
   s3 (global weighted toy theta on B_{3,inf}: recurrence + (O.7) analog), s4 (root-number sign bookkeeping behind alpha(-1)=1).
 - s1_local.py: 48/48 PASS (12 negative controls fail as they should). First version's neighbour brute force at p^3 was too slow; reduced to y mod p^2 (sufficient). One trivial negative control replaced by a real one (AL conjugation of diag(1,-1)).
 - s2_weil.py: 20/20 PASS (6 negative controls fail). Weil index computed as Gauss-integral phase with psi_p = exp(-2 pi i {t}_p); product formula holds in this convention and fails in the opposite one.
+- s3_toy_theta.py: 27/27 PASS. Global toy on B=(-1,-3) (ell0=3, h=1), h*=-7,-31, P=1: (O.6)-analogue on 1617 (p,n) pairs per case; (O.7)-analogue: support count 12h(F), H(m)=+-12h(F) with all orientation weights equal, H(mD)=0 for D>1 (genus character). Negative controls (s:=1, (n/p), genus char dropped, one ell0-orientation) fail.
