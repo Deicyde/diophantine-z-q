@@ -111,12 +111,15 @@ Notes on the rating:
 - **No flatness in the statement.** `finDeg` is read at the generic point, where Mathlib's rank is the
   genuine fibre dimension without any flatness hypothesis. At other points, `Scheme.Hom.finrank` agrees with
   the degree only for flat `φ`. Isogenies are flat (STANDARD), but that is not proved here.
+- **Locator.** The new leaf is the same theorem as row R19 of `docs/research/locators.md` (Thm 1.4, p. 2060),
+  so it needs no new row.
 - **The old caveats of r3-residual's leaf remain unchanged:** readings R1, R2, R3′ and R4 of the height.
 
 ## 4. Files
 
 - `ZInQKernel/Contrib/OneProof/GaudronRemondIsogDeg.lean` (new). It imports
-  `ZInQKernel.Contrib.OneProof.AnalyticStableHeight` and four Mathlib modules. It has no `sorry`, no `axiom`,
+  `ZInQKernel.Contrib.OneProof.AnalyticStableHeight`, `ZInQKernel.Contrib.OneProof.MumfordTorsionAlgClosed` and
+  four Mathlib modules. It has no `sorry`, no `axiom`,
   and no code that runs at build time.
 - `scratch/gr-isogdeg/`:
   - `Ring.lean`, `Sch.lean`, `IsogDeg.lean` (development copies; `IsogDeg.lean` imports only
