@@ -1,0 +1,2887 @@
+{
+ "source": "anthropics/fermats-last-theorem",
+ "revision": "6e837e75355538c7f80bab5b956861e86c4eacc2",
+ "task": "neron-flt",
+ "modules": [
+  {
+   "module": "Definitions.Def_AlgebraicGeometry_DescentAction",
+   "upstream_path": "Definitions/Def_AlgebraicGeometry_DescentAction.lean",
+   "sha256": "b026a9b04b0c35c050d134d240c75f4735c61dbc9bf4a8f0ab298d773d02acd7"
+  },
+  {
+   "module": "Definitions.Def_AlgebraicGeometry_KaehlerModule",
+   "upstream_path": "Definitions/Def_AlgebraicGeometry_KaehlerModule.lean",
+   "sha256": "1c4bc0201e19e1923d3ccd58ab98657ae01a51a5609552665dbbb74e559919ab"
+  },
+  {
+   "module": "Definitions.Def_AlgebraicGeometry_MazurRapoportAppendixGenericFibreOpenImmersionDVR",
+   "upstream_path": "Definitions/Def_AlgebraicGeometry_MazurRapoportAppendixGenericFibreOpenImmersionDVR.lean",
+   "sha256": "1da977b7c7c0313a075dc71a88e2c9d16eab028f80754c4f351bccd1da78b4a5"
+  },
+  {
+   "module": "Definitions.Def_AlgebraicGeometry_ModulesDet",
+   "upstream_path": "Definitions/Def_AlgebraicGeometry_ModulesDet.lean",
+   "sha256": "9ba33ff012531f028f8f07a22a7efbceced4c0d2ce3ff6f5cea3d6248ee65928"
+  },
+  {
+   "module": "Definitions.Def_AlgebraicGeometry_ModulesLocallyFreeOfRank",
+   "upstream_path": "Definitions/Def_AlgebraicGeometry_ModulesLocallyFreeOfRank.lean",
+   "sha256": "ea8d231631f831d2b3d1e76536ad1b710b9f440412a041bf7770bf0b5afe2604"
+  },
+  {
+   "module": "Definitions.Def_AlgebraicGeometry_ModulesPullbackLocalSection",
+   "upstream_path": "Definitions/Def_AlgebraicGeometry_ModulesPullbackLocalSection.lean",
+   "sha256": "3ce7de819fc1b344890d7ad7f30d8d66d9aa70ce8115517a565fa0c5ba881417"
+  },
+  {
+   "module": "Definitions.Def_AlgebraicGeometry_ModulesPullbackMonoidal",
+   "upstream_path": "Definitions/Def_AlgebraicGeometry_ModulesPullbackMonoidal.lean",
+   "sha256": "26159d778aa7ce010fc71ff9788cfd1314aa3ad7455e155f811eb49d01aa5f26"
+  },
+  {
+   "module": "Definitions.Def_AlgebraicGeometry_ModulesRestrictOpen",
+   "upstream_path": "Definitions/Def_AlgebraicGeometry_ModulesRestrictOpen.lean",
+   "sha256": "09546fde0689a86c25c5607ea06b68d1720f75bc5a59ff4e11ed3c6fb15114dd"
+  },
+  {
+   "module": "Definitions.Def_AlgebraicGeometry_ModulesSectionsTensor",
+   "upstream_path": "Definitions/Def_AlgebraicGeometry_ModulesSectionsTensor.lean",
+   "sha256": "973537bfc987bfc182fe0f7306c6ec549c4c6f34febe9902e2e030671cccf9fc"
+  },
+  {
+   "module": "Definitions.Def_AlgebraicGeometry_ModulesTensorPow",
+   "upstream_path": "Definitions/Def_AlgebraicGeometry_ModulesTensorPow.lean",
+   "sha256": "f0a96d30a5321eec38bfa24f63aed567101246151af73c3e52fe27cec801d282"
+  },
+  {
+   "module": "Definitions.Def_AlgebraicGeometry_ModulesTensorPowV2",
+   "upstream_path": "Definitions/Def_AlgebraicGeometry_ModulesTensorPowV2.lean",
+   "sha256": "3914fb3db6d25328f177be556dbe32bcf58a950a666edc272fc3601f92e9ad09"
+  },
+  {
+   "module": "Definitions.Def_AlgebraicGeometry_NeronModelEndomorphismExtension",
+   "upstream_path": "Definitions/Def_AlgebraicGeometry_NeronModelEndomorphismExtension.lean",
+   "sha256": "23a10ef3b1b0d4c79e7354ee883c422c2769f6740d4c1fae1fa0f5c23a35d7d0"
+  },
+  {
+   "module": "Definitions.Def_AlgebraicGeometry_NeronModelPropertyBundleCarrier",
+   "upstream_path": "Definitions/Def_AlgebraicGeometry_NeronModelPropertyBundleCarrier.lean",
+   "sha256": "b1b2fd03512dfa6958117a5978d3838b2c443c5cc34e252600c7d13191528810"
+  },
+  {
+   "module": "Definitions.Def_AlgebraicGeometry_NeronSpecialFibreRestriction",
+   "upstream_path": "Definitions/Def_AlgebraicGeometry_NeronSpecialFibreRestriction.lean",
+   "sha256": "dc947b48c74a11e2fee7ff133e867fd7eeb99f6b9f1ad09b96d30d9b780a1595"
+  },
+  {
+   "module": "Definitions.Def_AlgebraicGeometry_RegularLocalRingQuotientNonZeroDivisorAscent",
+   "upstream_path": "Definitions/Def_AlgebraicGeometry_RegularLocalRingQuotientNonZeroDivisorAscent.lean",
+   "sha256": "55b5aa91210ab6960faa45cb9bb9f2dc16d56819277c06aeb17be68113750917"
+  },
+  {
+   "module": "Definitions.Def_AlgebraicGeometry_RegularLocalRingRegularSequenceAscent",
+   "upstream_path": "Definitions/Def_AlgebraicGeometry_RegularLocalRingRegularSequenceAscent.lean",
+   "sha256": "08c9b2005ea8c53f155420f6667cd8e914f28eaa0de9eb72a90b7991485fe65c"
+  },
+  {
+   "module": "Definitions.Def_AlgebraicGeometry_RelativeGroupLaw",
+   "upstream_path": "Definitions/Def_AlgebraicGeometry_RelativeGroupLaw.lean",
+   "sha256": "983cdb408d5599de74629f79292e5e046be3d6aea1f1e55b6b1a8fc1d7234d1b"
+  },
+  {
+   "module": "Definitions.Def_AlgebraicGeometry_RelativeGroupLawGrpObj",
+   "upstream_path": "Definitions/Def_AlgebraicGeometry_RelativeGroupLawGrpObj.lean",
+   "sha256": "a6558ba495ed46ea4a28dd86f33967025e5f89b20665a14915429d4de2746757"
+  },
+  {
+   "module": "Definitions.Def_AlgebraicGeometry_RelativePicardFunctor",
+   "upstream_path": "Definitions/Def_AlgebraicGeometry_RelativePicardFunctor.lean",
+   "sha256": "be34f0baee91cb440f8b00f2051595522c95da18b371d1c84f1758b4c8515d6c"
+  },
+  {
+   "module": "Definitions.Def_GoodReductionJacobian_RelativeGroupLawBaseChange",
+   "upstream_path": "Definitions/Def_GoodReductionJacobian_RelativeGroupLawBaseChange.lean",
+   "sha256": "d7f0788a3d67bd367199faf79ea7bc3f1bd7437c959b322af7c1379834894e0f"
+  },
+  {
+   "module": "Definitions.Def_GoodReductionJacobian_RelativeGroupLawFibre",
+   "upstream_path": "Definitions/Def_GoodReductionJacobian_RelativeGroupLawFibre.lean",
+   "sha256": "12f292db2440608d9a490079ad13029a16f60d0ec559e64aa0c4f4e013beb694"
+  },
+  {
+   "module": "Definitions.Def_GoodReductionJacobian_RelativeGroupLawKernel",
+   "upstream_path": "Definitions/Def_GoodReductionJacobian_RelativeGroupLawKernel.lean",
+   "sha256": "a8ca7019cb3820d6a53ecb1c1af79674ece902f4a1ed251758fcdf43b24fe041"
+  },
+  {
+   "module": "Definitions.Def_JacJ1Iface",
+   "upstream_path": "Definitions/Def_JacJ1Iface.lean",
+   "sha256": "b4368a5b601c1141befb3e95d257a5050bc3042ce2e173cdc6f79296cb253d8f"
+  },
+  {
+   "module": "Definitions.Def_Mathlib_RingTheory_KmfloorsFiberPolynomialRegularAscent",
+   "upstream_path": "Definitions/Def_Mathlib_RingTheory_KmfloorsFiberPolynomialRegularAscent.lean",
+   "sha256": "4b680ef49e875852fc81931cafef8d2cad4a57ecaee0c9f62e4441103517f188"
+  },
+  {
+   "module": "Definitions.Def_Mathlib_RingTheory_RegularLocalRingFlatLocalAscent",
+   "upstream_path": "Definitions/Def_Mathlib_RingTheory_RegularLocalRingFlatLocalAscent.lean",
+   "sha256": "95cd7847f29dafb78269c8771439635777989d05c90f0744d72580e069847c59"
+  },
+  {
+   "module": "Definitions.Def_Mathlib_RingTheory_RegularLocalRingQuotientRegular",
+   "upstream_path": "Definitions/Def_Mathlib_RingTheory_RegularLocalRingQuotientRegular.lean",
+   "sha256": "747eec0e81b8a6ac7bef7ce6fefc26b2e4850d733f246a806350cb4411dda297"
+  },
+  {
+   "module": "Definitions.Def_Mathlib_RingTheory_SmoothAlgebraOverFieldRegularStalks",
+   "upstream_path": "Definitions/Def_Mathlib_RingTheory_SmoothAlgebraOverFieldRegularStalks.lean",
+   "sha256": "3dcd0cd660ebb4406c47614080e55a1bd8f9dddcbf97adcba51d26d8f497e089"
+  },
+  {
+   "module": "Definitions.Def_Mathlib_RingTheory_SmoothFieldFiberRegularStalksStandardSmoothReduction",
+   "upstream_path": "Definitions/Def_Mathlib_RingTheory_SmoothFieldFiberRegularStalksStandardSmoothReduction.lean",
+   "sha256": "96effd184455295655c1a0b95b81306ebe64916bddd0c88cd292109fc6eb9306"
+  },
+  {
+   "module": "Definitions.Def_NeronModelInfra_OmegaMinimalComponentData",
+   "upstream_path": "Definitions/Def_NeronModelInfra_OmegaMinimalComponentData.lean",
+   "sha256": "e565a0414c1f0ce761ada3ef81591da71305fe660d238f96a540eba78786d0c3"
+  },
+  {
+   "module": "Definitions.Def_NeronModelInfra_SmoothnessDefect",
+   "upstream_path": "Definitions/Def_NeronModelInfra_SmoothnessDefect.lean",
+   "sha256": "e312daafeaa119063e0d5f85c23e4ed2de39324174877c634de4465e1919a93a"
+  },
+  {
+   "module": "Definitions.Def_NeronModelInfra_TopFormOrder",
+   "upstream_path": "Definitions/Def_NeronModelInfra_TopFormOrder.lean",
+   "sha256": "d66bcc819cd44d530a4bd31faa213d872e8a2ef66986a18c51bf437d13a0c358"
+  },
+  {
+   "module": "Definitions.Def_NeronModelInfra_WeakNeronModel",
+   "upstream_path": "Definitions/Def_NeronModelInfra_WeakNeronModel.lean",
+   "sha256": "2e4e059568c0bd33875a698e656a4d1bf0615afbea5cc398d3bb5f45a99f24b1"
+  },
+  {
+   "module": "Definitions.Def_Patching_CohenMacaulayOfDim",
+   "upstream_path": "Definitions/Def_Patching_CohenMacaulayOfDim.lean",
+   "sha256": "709c8fdc32cb8b1b019ee845b2865452d70a3b1dabd7fb7426c4c8612ed60b89"
+  },
+  {
+   "module": "Definitions.Def_Patching_SystemTypes",
+   "upstream_path": "Definitions/Def_Patching_SystemTypes.lean",
+   "sha256": "7514bef1c36481c331a7c3a17cdcbfc000a9418cbad8afedcf2c19b8d870495c"
+  },
+  {
+   "module": "Definitions.Def_PresheafOfModules_ExteriorPower",
+   "upstream_path": "Definitions/Def_PresheafOfModules_ExteriorPower.lean",
+   "sha256": "106b031555fe47002ca27382071ebe873cbd3d857ae1b2b2553d343710027b87"
+  },
+  {
+   "module": "Definitions.Def_PresheafOfModules_InternalHom",
+   "upstream_path": "Definitions/Def_PresheafOfModules_InternalHom.lean",
+   "sha256": "a639e5f7a7c94aa3b299ff629c5d4e2980f5875862a536a7cc170e2f7b1bc5c6"
+  },
+  {
+   "module": "Definitions.Def_PresheafOfModules_PullbackMonoidal",
+   "upstream_path": "Definitions/Def_PresheafOfModules_PullbackMonoidal.lean",
+   "sha256": "ec9092ae0b5a882f40c93d4805cd4d7742ffe842fadf49f90dabe607c59c4bbb"
+  },
+  {
+   "module": "Definitions.Def_RingTheory_AffineDilatation",
+   "upstream_path": "Definitions/Def_RingTheory_AffineDilatation.lean",
+   "sha256": "1ed9ba14b2d32e716a1aa26f03a91c222904e0f341a57e3ea8a4616938cea5b9"
+  },
+  {
+   "module": "Definitions.Def_SheafOfModules_Monoidal",
+   "upstream_path": "Definitions/Def_SheafOfModules_Monoidal.lean",
+   "sha256": "846aba9acb77e2a5cf35ef0bc73a9d8ebbf59db446acf1d928a228efd4d89da0"
+  },
+  {
+   "module": "Definitions.Def_SheafOfModules_MonoidalV2",
+   "upstream_path": "Definitions/Def_SheafOfModules_MonoidalV2.lean",
+   "sha256": "26219bbe221e0e53ae6d397e6e233a19e2fff3c1922d59d0643dccf83603d57f"
+  },
+  {
+   "module": "P2M.Sol.S_AffineDilatation_exists_algHom_isLocalization_map",
+   "upstream_path": "P2M/Sol/S_AffineDilatation_exists_algHom_isLocalization_map.lean",
+   "sha256": "4920e337efdaa3ee7b873701f30ff168ae8558905d2d449ec12dc0c7e339d6a3"
+  },
+  {
+   "module": "P2M.Sol.S_AffineDilatation_exists_algHom_surjective_ker_iff_of_surjective",
+   "upstream_path": "P2M/Sol/S_AffineDilatation_exists_algHom_surjective_ker_iff_of_surjective.lean",
+   "sha256": "3ca99ff9e8899b6ab51eb040be62644481ea040cf84be01b900aedc0333dfc4a"
+  },
+  {
+   "module": "P2M.Sol.S_AffineDilatation_exists_basis_kaehlerDifferential_of_smooth_of_basis",
+   "upstream_path": "P2M/Sol/S_AffineDilatation_exists_basis_kaehlerDifferential_of_smooth_of_basis.lean",
+   "sha256": "3094d3c209c6a09179a51983def855ca7c7fa06c6c6a77fe119c1f5f877d9f8b"
+  },
+  {
+   "module": "P2M.Sol.S_AffineDilatation_finiteType_of_fg",
+   "upstream_path": "P2M/Sol/S_AffineDilatation_finiteType_of_fg.lean",
+   "sha256": "6196a6960fdf3c844149d27ac0c2f53ab900334ad8e403be3750278c442a227e"
+  },
+  {
+   "module": "P2M.Sol.S_AffineDilatation_isSMulRegular_and_map_eq_span_singleton",
+   "upstream_path": "P2M/Sol/S_AffineDilatation_isSMulRegular_and_map_eq_span_singleton.lean",
+   "sha256": "586a9bbae26d8ae0641c7ead272a347ac96e5d6e28f3d29208cdd6211246871c"
+  },
+  {
+   "module": "P2M.Sol.S_AffineDilatation_mem_subalgebra_iff_exists_mem_pow",
+   "upstream_path": "P2M/Sol/S_AffineDilatation_mem_subalgebra_iff_exists_mem_pow.lean",
+   "sha256": "ed1c284c89f9894565f333dd8f55068f65025241154b0a8dd163d8d4f30e9580"
+  },
+  {
+   "module": "P2M.Sol.S_AffineDilatation_nonempty_algEquiv_mvPolynomial_sum",
+   "upstream_path": "P2M/Sol/S_AffineDilatation_nonempty_algEquiv_mvPolynomial_sum.lean",
+   "sha256": "26b39f8378523598bfd8a34adc188dccf8763c2056f89ca30cac3d66fc9c8e4e"
+  },
+  {
+   "module": "P2M.Sol.S_AffineDilatation_nonempty_algEquiv_tensorProduct_of_flat_of_map_eq",
+   "upstream_path": "P2M/Sol/S_AffineDilatation_nonempty_algEquiv_tensorProduct_of_flat_of_map_eq.lean",
+   "sha256": "f1865dba1a48ec263334a6a633b484d0697acfec5ae5240ca17cd67a99702654"
+  },
+  {
+   "module": "P2M.Sol.S_AffineDilatation_nonempty_algHom_and_subsingleton_of_isSMulRegular",
+   "upstream_path": "P2M/Sol/S_AffineDilatation_nonempty_algHom_and_subsingleton_of_isSMulRegular.lean",
+   "sha256": "f59b226898e4b84939548fb49921cc5e9039021bea9efeaabb387ea3d9648534"
+  },
+  {
+   "module": "P2M.Sol.S_Algebra_Etale_isDomain_and_isIntegrallyClosed_of_isLocalization_atPrime",
+   "upstream_path": "P2M/Sol/S_Algebra_Etale_isDomain_and_isIntegrallyClosed_of_isLocalization_atPrime.lean",
+   "sha256": "31fe072ca340261f50119f258e92ffdbc43ae6c3780be5809c3e8e5620841e80"
+  },
+  {
+   "module": "P2M.Sol.S_Algebra_Etale_of_basis_eq_D",
+   "upstream_path": "P2M/Sol/S_Algebra_Etale_of_basis_eq_D.lean",
+   "sha256": "0c21ecd1afaa11ab5e9c72d184ad72df940e19ec954a71324d0ceed2219662e3"
+  },
+  {
+   "module": "P2M.Sol.S_Algebra_Etale_of_formallyUnramified_of_isStandardSmoothOfRelativeDimension",
+   "upstream_path": "P2M/Sol/S_Algebra_Etale_of_formallyUnramified_of_isStandardSmoothOfRelativeDimension.lean",
+   "sha256": "956631540b51da055bfe2708d890b4eb026445023aac4f0537e30af803014fe6"
+  },
+  {
+   "module": "P2M.Sol.S_Algebra_FinitePresentation_exists_surjective_aeval_det_pderiv_not_mem_of_basis_residueField",
+   "upstream_path": "P2M/Sol/S_Algebra_FinitePresentation_exists_surjective_aeval_det_pderiv_not_mem_of_basis_residueField.lean",
+   "sha256": "b2e8d0648537c6a1338dc64220debd7dbc07f94f0d29f7e45db332dde5c1db08"
+  },
+  {
+   "module": "P2M.Sol.S_Algebra_FiniteType_exists_notMem_under_forall_trdeg_quotient_le",
+   "upstream_path": "P2M/Sol/S_Algebra_FiniteType_exists_notMem_under_forall_trdeg_quotient_le.lean",
+   "sha256": "c112f1aad569e918602a2f6f7db06ba87b76b1a28a75cedf29fda5e77e49e022"
+  },
+  {
+   "module": "P2M.Sol.S_Algebra_FormallyEtale_of_formallySmooth_of_bijective_mapBaseChange",
+   "upstream_path": "P2M/Sol/S_Algebra_FormallyEtale_of_formallySmooth_of_bijective_mapBaseChange.lean",
+   "sha256": "25ff7c8520483399771421196fc542784a3811c16670050893f4648866ee5612"
+  },
+  {
+   "module": "P2M.Sol.S_Algebra_FormallySmooth_linearIndepOn_pow_of_linearIndepOn_id",
+   "upstream_path": "P2M/Sol/S_Algebra_FormallySmooth_linearIndepOn_pow_of_linearIndepOn_id.lean",
+   "sha256": "c76514b6e662081ffa24c274f69c915904bcf555e906b31e59356b0a28650ef4"
+  },
+  {
+   "module": "P2M.Sol.S_Algebra_IsStandardSmooth_exists_isStandardSmoothOfRelativeDimension_of_field",
+   "upstream_path": "P2M/Sol/S_Algebra_IsStandardSmooth_exists_isStandardSmoothOfRelativeDimension_of_field.lean",
+   "sha256": "ee12a5da93286f7bb8eea83c8c12f1f1a7f51da3db8d41de6245a40faa897dd7"
+  },
+  {
+   "module": "P2M.Sol.S_Algebra_Smooth_isDomain_and_isIntegrallyClosed_of_isIntegrallyClosed_of_isLocalization_atPrime",
+   "upstream_path": "P2M/Sol/S_Algebra_Smooth_isDomain_and_isIntegrallyClosed_of_isIntegrallyClosed_of_isLocalization_atPrime.lean",
+   "sha256": "9fc49b7791872824aa775aa4e71b3bf5932d7c36d7a6fcb1ef15f071c6ac21ff"
+  },
+  {
+   "module": "P2M.Sol.S_Algebra_Smooth_isDomain_and_isIntegrallyClosed_of_isLocalization_atPrime",
+   "upstream_path": "P2M/Sol/S_Algebra_Smooth_isDomain_and_isIntegrallyClosed_of_isLocalization_atPrime.lean",
+   "sha256": "f23d2a205476cb42038dad5f98d908499153acd2f46aa1144732b1262d324223"
+  },
+  {
+   "module": "P2M.Sol.S_Algebra_TensorProduct_trdeg_quotient_le_and_mem_minimalPrimes_iff_of_mem_minimalPrimes",
+   "upstream_path": "P2M/Sol/S_Algebra_TensorProduct_trdeg_quotient_le_and_mem_minimalPrimes_iff_of_mem_minimalPrimes.lean",
+   "sha256": "f65fd7dd5a51ac6d3d34be2ae2492e51f2914832d4b12303bbf73da5889aaca1"
+  },
+  {
+   "module": "P2M.Sol.S_Algebra_exists_isStandardSmooth_surjective_localizationAway_basis_kaehlerDifferential_of_basis_residueField",
+   "upstream_path": "P2M/Sol/S_Algebra_exists_isStandardSmooth_surjective_localizationAway_basis_kaehlerDifferential_of_basis_residueField.lean",
+   "sha256": "ade2c2ff89379e40e87e62a59481d96206fe0a91cc32aea1020d1372d4d3909b"
+  },
+  {
+   "module": "P2M.Sol.S_Algebra_exists_ne_zero_algebraicIndependent_forall_isIntegral_pow_smul_of_finiteType",
+   "upstream_path": "P2M/Sol/S_Algebra_exists_ne_zero_algebraicIndependent_forall_isIntegral_pow_smul_of_finiteType.lean",
+   "sha256": "cb0df850dc2b0d26cb54951ea68617897548862b48935973c9bdd39f5632828f"
+  },
+  {
+   "module": "P2M.Sol.S_Algebra_exists_notMem_map_ker_eq_bot_of_surjective_of_isSmoothAt_of_finrank_le",
+   "upstream_path": "P2M/Sol/S_Algebra_exists_notMem_map_ker_eq_bot_of_surjective_of_isSmoothAt_of_finrank_le.lean",
+   "sha256": "e807f509e087970bc10b20ab9dddc4588279f2708f5d55d4639aa84e6ef37699"
+  },
+  {
+   "module": "P2M.Sol.S_Algebra_exists_smooth_surjective_localizationAway_basis_kaehlerDifferential_comap_eq_span",
+   "upstream_path": "P2M/Sol/S_Algebra_exists_smooth_surjective_localizationAway_basis_kaehlerDifferential_comap_eq_span.lean",
+   "sha256": "de45a02e56af316c3bf14b46b6ac8b36ea4ae4977544479df93dc5759920003e"
+  },
+  {
+   "module": "P2M.Sol.S_Algebra_isOpen_setOf_isSmoothAt_and_mem_freeLocus_and_minimalPrimes_subset",
+   "upstream_path": "P2M/Sol/S_Algebra_isOpen_setOf_isSmoothAt_and_mem_freeLocus_and_minimalPrimes_subset.lean",
+   "sha256": "c455689b4cd1fa63bd94ca7a2d4a84b5c13e5841da28a3572184e4b4e51bd2a8"
+  },
+  {
+   "module": "P2M.Sol.S_Algebra_isSmoothAt_of_le_of_finrank_tensorProduct_kaehlerDifferential_eq",
+   "upstream_path": "P2M/Sol/S_Algebra_isSmoothAt_of_le_of_finrank_tensorProduct_kaehlerDifferential_eq.lean",
+   "sha256": "254304d40e8ecfb78bca80ca3d8f26d547a7039b9f795cd42470fb77e67bfb02"
+  },
+  {
+   "module": "P2M.Sol.S_Algebra_isSmoothAt_of_mem_minimalPrimes_of_dense_of_formallySmooth_residueField",
+   "upstream_path": "P2M/Sol/S_Algebra_isSmoothAt_of_mem_minimalPrimes_of_dense_of_formallySmooth_residueField.lean",
+   "sha256": "110ad49068f31abe0178ecba7143f3c96ba367771ba102f355649f114e0506a2"
+  },
+  {
+   "module": "P2M.Sol.S_Algebra_ker_algebraMap_eq_bot_of_formallySmooth_of_finrank_le",
+   "upstream_path": "P2M/Sol/S_Algebra_ker_algebraMap_eq_bot_of_formallySmooth_of_finrank_le.lean",
+   "sha256": "93f89655455869bf536cc5c5515f6e9852deea49a7bef86057ed049473dd4e22"
+  },
+  {
+   "module": "P2M.Sol.S_Algebra_linearIndepOn_pow_localization_atPrime_of_mem_minimalPrimes_of_dense",
+   "upstream_path": "P2M/Sol/S_Algebra_linearIndepOn_pow_localization_atPrime_of_mem_minimalPrimes_of_dense.lean",
+   "sha256": "6de999ed11c7291ff9b73c76ef8fdd5b3aad0aecb1f08aed51c8a4362d2134c2"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_DescentAction_effective_of_finiteEtale",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_DescentAction_effective_of_finiteEtale.lean",
+   "sha256": "85d81f24ecfdd7d199600fda54455d54851aa9374296e06bd9f90afc2c09f39d"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_DescentAction_effective_of_isPullback_of_flat_surjective",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_DescentAction_effective_of_isPullback_of_flat_surjective.lean",
+   "sha256": "7789dcef9b044b1391f4e7eefebc62fff084bd5c0792908a1b5654bc3be7b0aa"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_GeometricallyConnected_descendsAlong_surjective",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_GeometricallyConnected_descendsAlong_surjective.lean",
+   "sha256": "1b69f535fffa6d45214648e7e9147537c267224ec61f796bf8204728ddc352ba"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_GeometricallyIrreducible_geometricallyConnected",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_GeometricallyIrreducible_geometricallyConnected.lean",
+   "sha256": "1a9924bbe031c6854b08c628e8c21cae1cea445d0791eb55ac258f7fe8678521"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_IsAffineOpen_isLocalization_primeCompl_of_isPreimmersion_of_forall_specializes",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_IsAffineOpen_isLocalization_primeCompl_of_isPreimmersion_of_forall_specializes.lean",
+   "sha256": "c9ee084dd0d470652e44d4e11c19169cb5444bbf696cdb5a0c70b903123da03a"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_IsIntegral_isIntegrallyClosed_sections_of_forall_isIntegrallyClosed_stalk",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_IsIntegral_isIntegrallyClosed_sections_of_forall_isIntegrallyClosed_stalk.lean",
+   "sha256": "66963e705dd1fd57863a92c9c96aebac2788e86b62a82caf721c18224e052f02"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_IsSeparated_descendsAlong_surjective_inf_flat_inf_quasiCompact",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_IsSeparated_descendsAlong_surjective_inf_flat_inf_quasiCompact.lean",
+   "sha256": "4be908ebd825095551bbcc83cef31a922350ae8ad9d3c05906009fa8f1433623"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Hom_bijective_smul_topFormMap_of_isFrameOn_of_isPullback",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Hom_bijective_smul_topFormMap_of_isFrameOn_of_isPullback.lean",
+   "sha256": "701eec0f8d87b7fb144f52643f492759654585bbf352349c37d7ce22b5ff354e"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Hom_eq_of_fromSpecStalk_genericPoint_comp_eq",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Hom_eq_of_fromSpecStalk_genericPoint_comp_eq.lean",
+   "sha256": "89b9b03ed53ffe56edac1da00c6ca5ad2049cde6f88144fe7bc833439a137ee4"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Hom_eq_of_map_pullbackLocalSection_topToSections_eq",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Hom_eq_of_map_pullbackLocalSection_topToSections_eq.lean",
+   "sha256": "86045be04c3920cf6dd91fde15872a7f99da50f07dd988c5be6ae749b78fecb6"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Hom_eq_pullbackComp_inv_app_comp_map_comp_of_map_pullbackLocalSection_topToSections_eq",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Hom_eq_pullbackComp_inv_app_comp_map_comp_of_map_pullbackLocalSection_topToSections_eq.lean",
+   "sha256": "5143acf2364e5e2a5ea17ee0fc0c8a6dd6e5a407aef70fe8c548fcaaff4a8536"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Hom_exists_basis_kaehlerDifferential_map_of_isAffineOpen_le",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Hom_exists_basis_kaehlerDifferential_map_of_isAffineOpen_le.lean",
+   "sha256": "139d338859fbf6f859b5c2c6ada78eef29b0444dff5afe0855925d88478c8fa7"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Hom_exists_basis_kaehler_of_isAffineOpen_of_smoothOfRelativeDimension",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Hom_exists_basis_kaehler_of_isAffineOpen_of_smoothOfRelativeDimension.lean",
+   "sha256": "d39835cd5ca4e602e9702275f2981817ef33b2eb58f3ae104a688c59fa3442e4"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Hom_exists_hom_pullback_topDifferentials_map_pullbackLocalSection_topToSections_eq",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Hom_exists_hom_pullback_topDifferentials_map_pullbackLocalSection_topToSections_eq.lean",
+   "sha256": "b98bd738af56f762316de2fe28727760a4989c7f613b6c93f9bdaac3e5d7a913"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Hom_isAffineOpen_preimage_and_isPushout_of_isPullback",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Hom_isAffineOpen_preimage_and_isPushout_of_isPullback.lean",
+   "sha256": "036c1862e7fb5c37e186f882c555f4e6ecd05b380b4bf380fb64953d1b7590a8"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Hom_isFrameOn_topToSections_iotaMulti_of_forall_exists_basis",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Hom_isFrameOn_topToSections_iotaMulti_of_forall_exists_basis.lean",
+   "sha256": "1812aea46da0bcda6bc6e310ea51aa2e2ce4960fbac8bc8355b8d6d5a3130e22"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Hom_isIntegral_image_and_isIso_stalkMap_toImage_genericPoint",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Hom_isIntegral_image_and_isIso_stalkMap_toImage_genericPoint.lean",
+   "sha256": "e65b66a5900fc0d880c076dcf388b57309c40b76239cb70335aabc90b22c4c20"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Hom_isIso_of_map_pullbackLocalSection_topToSections_eq_of_isPullback_of_smoothOfRelativeDimension",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Hom_isIso_of_map_pullbackLocalSection_topToSections_eq_of_isPullback_of_smoothOfRelativeDimension.lean",
+   "sha256": "9468150c13962a5f232350b1f7c3d9a600635c131842c41a15700d278d999ba0"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Hom_isIso_stalkMap_of_isIso_stalkMap_genericPoint",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Hom_isIso_stalkMap_of_isIso_stalkMap_genericPoint.lean",
+   "sha256": "bf01f2ab48246c8d09274bd7012dd336603f2f37ca1deb71654869a8b96dac7a"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Hom_isLocallyFreeOfRank_kaehler_and_topDifferentials_of_smoothOfRelativeDimension",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Hom_isLocallyFreeOfRank_kaehler_and_topDifferentials_of_smoothOfRelativeDimension.lean",
+   "sha256": "bdc7f164954f569107f53bc9b69989ebd96116d1de1eb00a12f821fa2befd522"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Hom_kaehlerToSections_bijective_of_isAffineOpen",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Hom_kaehlerToSections_bijective_of_isAffineOpen.lean",
+   "sha256": "ba745d49f47128569b6a4760deb9f19736661a8a794dc7eeb35188ebaf4ffe27"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Hom_map_topToSections_eq_topToSections_topFormMap",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Hom_map_topToSections_eq_topToSections_topFormMap.lean",
+   "sha256": "64bc576d79b0de7575ad2dabf4ba853e08a0c7269b11dd3877cf079c159ee561"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Hom_smoothLocus_le_preimage_of_isPullback",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Hom_smoothLocus_le_preimage_of_isPullback.lean",
+   "sha256": "b599b1afb88ddd3908404c73dc24f91a7225e50e3a2f2665764b94b69e1d02ae"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Hom_topFormMap_eq_topFormMap_of_specMap_comp_fromSpec_eq",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Hom_topFormMap_eq_topFormMap_of_specMap_comp_fromSpec_eq.lean",
+   "sha256": "1fae8a6870c1038defee66d124a48e5f4c648b814cd7fd056ce4a81751951000"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Hom_topToSections_bijective_of_isAffineOpen",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Hom_topToSections_bijective_of_isAffineOpen.lean",
+   "sha256": "c2a92492eb7394bf2d0419560613961cded8a1997d2a8bd6d8b62c994c44f3ca"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_IdealSheafData_isReduced_subscheme_vanishingIdeal_and_le_ker",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_IdealSheafData_isReduced_subscheme_vanishingIdeal_and_le_ker.lean",
+   "sha256": "d7be4161dadc21a70b640e5269dcf98869fca95d2397f86487b218f6719d4699"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Modules_IsFrameOn_exists_isUnit_smul_eq",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_IsFrameOn_exists_isUnit_smul_eq.lean",
+   "sha256": "3b5545ba6f29f8ed35aae1e479af0b0ce80f489e5681d90d740ed517f2d8fa84"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Modules_IsFrameOn_of_iSup",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_IsFrameOn_of_iSup.lean",
+   "sha256": "85b20a1590e10933c90d2a9cd4f15facb630cb5354f77ac71bc34296ed469ba8"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Modules_IsFrameOn_pullbackLocalSection",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_IsFrameOn_pullbackLocalSection.lean",
+   "sha256": "6be93982f95008f3dab549a45fba4ddcd93d4d924adb04c98aab5de0b3028ee2"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Modules_IsInvertible_exists_isFrameOn",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_IsInvertible_exists_isFrameOn.lean",
+   "sha256": "476d90dfc7af5510d244c19b04328c2794e55219b76f226f68772cec2cc0b2e5"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Modules_IsLocallyFreeOfRank_pullback",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_IsLocallyFreeOfRank_pullback.lean",
+   "sha256": "a6a592b4ff83ab1377e53a43bfdfbebef66d9e9c04b39ef1c6d8b800b78b8010"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Modules_bijective_pullbackLocalSection_opensInclusion_and_isFrameOn_iff",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_bijective_pullbackLocalSection_opensInclusion_and_isFrameOn_iff.lean",
+   "sha256": "e2aee815308c405f413ea68b41b9fbd56122d3fdfc417d74ed9cd14fae245cf2"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Modules_bijective_unit_app_of_le_opensRange",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_bijective_unit_app_of_le_opensRange.lean",
+   "sha256": "ad7fc4d88ee9e0e039543b0e36fd0719c5e005684e019d25cc3be9a46b2b22d8"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Modules_existsUnique_forall_map_eq_of_forall_affineOpens",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_existsUnique_forall_map_eq_of_forall_affineOpens.lean",
+   "sha256": "b1b2f092cc971b10043e13867b1ed8a83e45c1c1921625bc68cdfda9a6c8b2c3"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Modules_existsUnique_hom_app_eq_of_iSup_eq_top",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_existsUnique_hom_app_eq_of_iSup_eq_top.lean",
+   "sha256": "319a88a699f96532b3e223072d72af2174af55287f1fb087f5e1a8da12ab8b79"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Modules_existsUnique_iso_forall_pullback_mapIso_eq_of_iSup_eq_top",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_existsUnique_iso_forall_pullback_mapIso_eq_of_iSup_eq_top.lean",
+   "sha256": "5b9fdc1201b1a33e0b0d0e6458b1e3f1df63c598e3bd2c8871c43c741d22a293"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Modules_forall_exists_basis_map_eq_of_forall_isAffineOpen",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_forall_exists_basis_map_eq_of_forall_isAffineOpen.lean",
+   "sha256": "65286f5b00d7c35e74186a01418d8bf2fb05a31d13042a7fd7ffad32f082c22e"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Modules_isFrameOn_sheafificationAdjunction_unit_iotaMulti",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_isFrameOn_sheafificationAdjunction_unit_iotaMulti.lean",
+   "sha256": "15c0b32a12eb4947ef54697d7522304f805e0f0860cad521bce992d3ad83f53b"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Modules_isInvertible_det_of_isLocallyFreeOfRank",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_isInvertible_det_of_isLocallyFreeOfRank.lean",
+   "sha256": "77a20ebb4290fa2b5e56379feac288e090da09f92e8fc3a5ec5eedc93e739a79"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Modules_isIso_of_isFrameOn_of_iSup_eq_top",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_isIso_of_isFrameOn_of_iSup_eq_top.lean",
+   "sha256": "1b67d7351dcc45c190b0cd9b64f20a6b726915871b253be19ead1f94b2fa1b54"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Modules_isLocallyFreeOfRank_one_iff_isInvertible",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_isLocallyFreeOfRank_one_iff_isInvertible.lean",
+   "sha256": "cf259505ebcd52039fd3ffd3dbdbe44ebf0b0c1da97b2faefa9c1add6e630613"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Modules_nonempty_exteriorPower_free_iso_unit",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_nonempty_exteriorPower_free_iso_unit.lean",
+   "sha256": "ecadeccbb1e96bb8b7dbde6d2ff59b5243b39dc9899cd22802a1e1268a7e2d87"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Modules_nonempty_pullback_exteriorPower_iso_exteriorPower_pullback",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_nonempty_pullback_exteriorPower_iso_exteriorPower_pullback.lean",
+   "sha256": "09cbe1f1864409d03b379b2af33dc1528bb4d0aa651d4475396db79acd9cd405"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Modules_nonempty_pullback_iso_free_of_forall_exists_basis",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_nonempty_pullback_iso_free_of_forall_exists_basis.lean",
+   "sha256": "ea39c9ab6d8f9e0e415b5075aff13b32c89e3824a8d1eba1bd8307d3ce4f2fb7"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Modules_pullbackTensorUnitObjIso_hom_app_pullbackLocalSection_unitSection",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_pullbackTensorUnitObjIso_hom_app_pullbackLocalSection_unitSection.lean",
+   "sha256": "fbfc20e4d441675533d155323a344ef17c72bc6d2c02d0d814c21dbe714996fe"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Modules_sheafify_mu_app_tensorSections",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_sheafify_mu_app_tensorSections.lean",
+   "sha256": "1c2b39587ee08697134d4def2d4ed8f74c3e90b27235bb9705a7520bff16ec38"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Modules_tensorHom_app_tensorSections",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_tensorHom_app_tensorSections.lean",
+   "sha256": "ea523a5e1dfe409d6e1139d4fad391e7404e7313e1c7e969e4babf91bb2c77ea"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_Modules_unit_app_comp_pullbackComp_inv",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_unit_app_comp_pullbackComp_inv.lean",
+   "sha256": "862309369a45fe3a4369d2a8c4bad43c0d7048aff3972b9c413c8aa7a53cf0b4"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_RationalMap_exists_specializes_ringKrullDim_le_one_of_not_mem_domain",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_RationalMap_exists_specializes_ringKrullDim_le_one_of_not_mem_domain.lean",
+   "sha256": "591cf85da0c4d995c65fa04a88fd7ca7c7fc5c6109f2d666af8d60c7937a3132"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_exists_affine_quotient_of_finiteLocallyFree_equivalenceRelation",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_exists_affine_quotient_of_finiteLocallyFree_equivalenceRelation.lean",
+   "sha256": "91d680dd922b8e25fc01b46d851c7789ee7308d2afaec4a69d5a12dc0a9fafea"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_exists_glue_forall_isOpenImmersion_of_forall_isOpenImmersion",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_exists_glue_forall_isOpenImmersion_of_forall_isOpenImmersion.lean",
+   "sha256": "e8f82502328edceb2e36906a73b7ccc4fe0a8fda678fa7aedc024f6b9babf4b3"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_exists_invariant_isAffineOpen_of_finiteLocallyFree_equivalenceRelation",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_exists_invariant_isAffineOpen_of_finiteLocallyFree_equivalenceRelation.lean",
+   "sha256": "922e39897eb96914a87347cdf42d578677e83d825f69ca9ed33539185c036d77"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_exists_invariant_isAffineOpen_of_finite_of_finiteLocallyFree_equivalenceRelation",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_exists_invariant_isAffineOpen_of_finite_of_finiteLocallyFree_equivalenceRelation.lean",
+   "sha256": "1cd32b6298149a1a0e8d7ded7c9308203ff40395bc14fc7e91d2f8c94f58f86c"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_exists_isAffineOpen_preimage_eq_of_invariant",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_exists_isAffineOpen_preimage_eq_of_invariant.lean",
+   "sha256": "382917945eff4e3730d988063cc37404018425c5cccb715d6d04e53e58601ce0"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_exists_opens_extension_of_fromSpecStalk",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_exists_opens_extension_of_fromSpecStalk.lean",
+   "sha256": "9fdb1f4b66a6c9cc62f5d8be6c2324d6da2f9c11e41002cb04b7b3d1dc6f52fe"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_exists_quotient_of_finiteLocallyFree_equivalenceRelation",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_exists_quotient_of_finiteLocallyFree_equivalenceRelation.lean",
+   "sha256": "a4c6aa3040e1baa2711d768197a89ff2c14866f6343d9a82f9bf25ca5a84cde8"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_exists_quotient_of_forall_exists_quotient_restrict",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_exists_quotient_of_forall_exists_quotient_restrict.lean",
+   "sha256": "ed8eabef91f11b0b5aeceedfa01b9389f1117d1f93ed5c416e88240042262ebe"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_isLocalization_atPrime_stalk_of_specializes",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_isLocalization_atPrime_stalk_of_specializes.lean",
+   "sha256": "a79a64fc841571eb7e2701e0b88218b4842f38fe1dc87e72003f7ec5a44eedb1"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Scheme_quotient_baseChange_of_finiteLocallyFree_of_isPullback",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Scheme_quotient_baseChange_of_finiteLocallyFree_of_isPullback.lean",
+   "sha256": "ab4522b04488e28eef4c60c03de3631046bece499faa5436cbd2c9878446c80c"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_SmoothOfRelativeDimension_nonempty_basis_kaehlerDifferential_stalk_of_fromSpecStalk_comp_eq",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_SmoothOfRelativeDimension_nonempty_basis_kaehlerDifferential_stalk_of_fromSpecStalk_comp_eq.lean",
+   "sha256": "aa7463887b82c781f64a1f3dd0441cdabb32002e8a3564e56c0e078d61e06661"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_SmoothOfRelativeDimension_of_isPullback_of_flat_of_surjective",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_SmoothOfRelativeDimension_of_isPullback_of_flat_of_surjective.lean",
+   "sha256": "6c527c207e4281a80a0dc0c656dbff40574632240beec409b51d5a5edf9c946b"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Smooth_algebraMap_stalk_ne_zero_and_isPrime_span_of_apply_eq_closedPoint",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Smooth_algebraMap_stalk_ne_zero_and_isPrime_span_of_apply_eq_closedPoint.lean",
+   "sha256": "4413f75c42d81ecb053b00920b1f70152c7bfa79645ef4273bf2129ea94cb181"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Smooth_exists_comp_eq_id_and_specMap_comp_eq_of_henselianLocalRing",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Smooth_exists_comp_eq_id_and_specMap_comp_eq_of_henselianLocalRing.lean",
+   "sha256": "6bc7fdf40ea6f92f1350a3a431345f5853a2a2666f07857ebc8958363a8bde0a"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Smooth_exists_finite_etale_dvr_specMap_comp_eq_apply_closedPoint_mem_of_henselianLocalRing",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Smooth_exists_finite_etale_dvr_specMap_comp_eq_apply_closedPoint_mem_of_henselianLocalRing.lean",
+   "sha256": "687493355dba89e465e6870c30c9d397d798893cbf4eb6ea555a982d2b2fe9f7"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Smooth_exists_finite_etale_dvr_specMap_comp_eq_of_isSeparable_of_henselianLocalRing",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Smooth_exists_finite_etale_dvr_specMap_comp_eq_of_isSeparable_of_henselianLocalRing.lean",
+   "sha256": "dbb40718cbea1289b9b7170646df3e561b5a17ab3f1bdc3de98df2849ba100c9"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Smooth_exists_mem_and_smoothOfRelativeDimension_opensInclusion_comp",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Smooth_exists_mem_and_smoothOfRelativeDimension_opensInclusion_comp.lean",
+   "sha256": "c443c365bd2cfdea282b53d0616d905019f704e8a9c86fbeb356e3a512f0648e"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Smooth_isDiscreteValuationRing_stalk_of_forall_specializes",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Smooth_isDiscreteValuationRing_stalk_of_forall_specializes.lean",
+   "sha256": "93d3d2be6f408dcbab088a42966cda7ca6c68e66ee938c07fb9ad25de7fb0c9f"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Smooth_isDomain_and_isIntegrallyClosed_stalk",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Smooth_isDomain_and_isIntegrallyClosed_stalk.lean",
+   "sha256": "b7c9489577c7b0d597b1a4211638c019acc2c3bade11d368e405aea923df37c1"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Smooth_isDomain_and_isIntegrallyClosed_stalk_of_isDiscreteValuationRing",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Smooth_isDomain_and_isIntegrallyClosed_stalk_of_isDiscreteValuationRing.lean",
+   "sha256": "7a95b7d531d2ab5fb19107a5d96c4d58b38df5b406baf7d9315531cb0ced1f0a"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Smooth_isReduced_of_isReduced_of_isLocallyNoetherian",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Smooth_isReduced_of_isReduced_of_isLocallyNoetherian.lean",
+   "sha256": "477480245e23611782369d443bfe10c1f9a79df02603422d8b3f35196f9387c4"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Smooth_isRegularLocalRing_stalk",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Smooth_isRegularLocalRing_stalk.lean",
+   "sha256": "e16116a158956ca4e9eeb3abe7263c9de869e533d1d1dd5aaa9ada9e60734a3f"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Smooth_isRegularLocalRing_stalk_of_isDiscreteValuationRing",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Smooth_isRegularLocalRing_stalk_of_isDiscreteValuationRing.lean",
+   "sha256": "dfdda269c095a006e90097920d8cc485b5265233d363732187535e0dd7d1b51b"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_Smooth_snd_apply_eq_and_exists_isOpenImmersion_homOfLE_comp_of_formallySmooth_stalk",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_Smooth_snd_apply_eq_and_exists_isOpenImmersion_homOfLE_comp_of_formallySmooth_stalk.lean",
+   "sha256": "af34091c9d33c63359454791507e8075cd996c9262d88faca1243b165b81869c"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_bijective_kaehlerDifferential_map_comp_mapBaseChange_stalk_pullback",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_bijective_kaehlerDifferential_map_comp_mapBaseChange_stalk_pullback.lean",
+   "sha256": "8959d457c0054bf5c9fbb67e1396f8e135da1297ccc74b4adf93ab12adede0ee"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_existsUnique_extension_to_affine_of_isIntegrallyClosed_stalk",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_existsUnique_extension_to_affine_of_isIntegrallyClosed_stalk.lean",
+   "sha256": "31e9c8c9efbba38b4b61c6aa3823ead6a79f312a06c8052a7c290ea241da0f1b"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_exists_isAffineOpen_forall_mem_of_forall_preimage_mem_of_isFinite_of_flat_of_surjective",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_exists_isAffineOpen_forall_mem_of_forall_preimage_mem_of_isFinite_of_flat_of_surjective.lean",
+   "sha256": "2d927b8ef97336c564ade561ec8447694ca7548eb8c957f7a3565851abc0205c"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_exists_isAffineOpen_forall_mem_of_forall_specializes_of_smooth_of_isDiscreteValuationRing",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_exists_isAffineOpen_forall_mem_of_forall_specializes_of_smooth_of_isDiscreteValuationRing.lean",
+   "sha256": "6ac02a08fa7e7a1ff147fcf4827ce663f8aff1f653adc876c420f84c6243c81b"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_exists_isAffineOpen_forall_mem_of_isDiscreteValuationRing_stalk",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_exists_isAffineOpen_forall_mem_of_isDiscreteValuationRing_stalk.lean",
+   "sha256": "a0b86c26618e58968c5811df8d88a793929c060a51059c7bcec79fea03f0806c"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_exists_isOpenImmersion_of_formallySmooth_stalk_of_isFractionRing_of_isDiscreteValuationRing",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_exists_isOpenImmersion_of_formallySmooth_stalk_of_isFractionRing_of_isDiscreteValuationRing.lean",
+   "sha256": "5128d537a5b9f1ab8d400ac09d51040a18b46761e5dc869263bfa5fe8522fa69"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_exists_isOpenImmersion_of_isIso_stalkMap_of_locallyOfFiniteType",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_exists_isOpenImmersion_of_isIso_stalkMap_of_locallyOfFiniteType.lean",
+   "sha256": "18ccfb98e2c196d0b027ea02db79ab6ece5fc5ee60dddb0e7da3efb08090520f"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_exists_isSeparable_specMap_comp_eq_of_smooth_of_nonempty",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_exists_isSeparable_specMap_comp_eq_of_smooth_of_nonempty.lean",
+   "sha256": "80ab0f91b67a76d4a6cda9a5757a143c9f24e2f95342514ddedec5a2dc4263f6"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_exists_ne_zero_forall_exists_mul_appLE_mem_range_algebraMap_of_isProper",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_exists_ne_zero_forall_exists_mul_appLE_mem_range_algebraMap_of_isProper.lean",
+   "sha256": "a100f72eb7c2138db4dd53691cca4bb2a3b3daba65cad5f547de746f94b8e739"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_exists_ringEquiv_stalk_pullback_localization_tensorProduct_stalk_of_germ_snd",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_exists_ringEquiv_stalk_pullback_localization_tensorProduct_stalk_of_germ_snd.lean",
+   "sha256": "540980a2c4208c4f1cb339d3293a8368a9a4107fef849a83ec425c892dac7929"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_exists_ringEquiv_stalk_pullback_localization_tensorProduct_stalk_stalk",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_exists_ringEquiv_stalk_pullback_localization_tensorProduct_stalk_stalk.lean",
+   "sha256": "5787cb1a5c289b119b9b515aafa0dfb7dd29db32389b1a56189245e7cb4b8ee1"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_geometricallyIntegral_of_isAlgClosed",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_geometricallyIntegral_of_isAlgClosed.lean",
+   "sha256": "513fcaa893581c53b50dda479b70d69e179b6951eb363159fa8653b0fa0a7acc"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_isFractionRing_stalk_fractionRing_stalk_of_isOpenImmersion_restrict",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_isFractionRing_stalk_fractionRing_stalk_of_isOpenImmersion_restrict.lean",
+   "sha256": "5900612ef9b3938b4b23f8cf9ab6cc58029e8568c8437411869912f44b9332c2"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_isIntegral_of_isLocallyNoetherian_of_connectedSpace_of_forall_isDomain_stalk",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_isIntegral_of_isLocallyNoetherian_of_connectedSpace_of_forall_isDomain_stalk.lean",
+   "sha256": "80fa409d52f17d462e015f0b420f5300025eb5c27376ff1547cce3629116ec5c"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_isIntegral_of_smooth_of_preconnectedSpace",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_isIntegral_of_smooth_of_preconnectedSpace.lean",
+   "sha256": "7b6d025ce6eccfcf6057e9ca32b9e470e3cf1e23eb4e87c66e9592fefec5ca7a"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_isIso_lift_baseChange_fst_baseChange_snd",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_isIso_lift_baseChange_fst_baseChange_snd.lean",
+   "sha256": "4006a26412015600d72b0d119034a7f9f750205bf3e33609b68ca4060179a6ef"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_isOpenImmersion_of_locallyQuasiFinite_of_isIntegrallyClosed_stalk_of_denseRange",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_isOpenImmersion_of_locallyQuasiFinite_of_isIntegrallyClosed_stalk_of_denseRange.lean",
+   "sha256": "4b6a687a7757d45bae358ef8af2659dfca20f833d28ff60431f700e53dfcbf8a"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_isOpen_irreducibleComponent_of_isDomain_stalk",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_isOpen_irreducibleComponent_of_isDomain_stalk.lean",
+   "sha256": "147f9ec8426d5fef198d1ba24ec53db0ad4da38a80a6527ef6ce88b875152824"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_isReduced_of_smooth_of_field",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_isReduced_of_smooth_of_field.lean",
+   "sha256": "f8237fd5fccb5f98c00315626f86ca05b04acaa93b65371235375726ba04ca01"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_isSeparated_of_isOpenImmersion_of_isPullback_of_isClosedImmersion_lift",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_isSeparated_of_isOpenImmersion_of_isPullback_of_isClosedImmersion_lift.lean",
+   "sha256": "9b8446f5c7d7a961c92cc62d04684758466ce95aea651bea4c55bb440503050e"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_mem_image_of_mem_closure_image_of_forall_specializes",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_mem_image_of_mem_closure_image_of_forall_specializes.lean",
+   "sha256": "3d8cf35610f7c39bf5ed0aba32c08404e6a9ddf36e22013007e20cf5f45714b9"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_mem_of_ringKrullDim_stalk_le_one_of_isDiscreteValuationRing",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_mem_of_ringKrullDim_stalk_le_one_of_isDiscreteValuationRing.lean",
+   "sha256": "fe8b127094a3bd10ebf57ff7ee358e25d30b928c22f35c59c5f5d385ef61b700"
+  },
+  {
+   "module": "P2M.Sol.S_AlgebraicGeometry_smoothOfRelativeDimension_of_smooth_of_genericFibre",
+   "upstream_path": "P2M/Sol/S_AlgebraicGeometry_smoothOfRelativeDimension_of_smooth_of_genericFibre.lean",
+   "sha256": "961c38556734b9062ee18fa611c9c97b61d57d92d714ac2a3845e0da8e1fc9b2"
+  },
+  {
+   "module": "P2M.Sol.S_GoodReductionJacobian_AbelianSchemePropertyBundle_geometricallyIntegral",
+   "upstream_path": "P2M/Sol/S_GoodReductionJacobian_AbelianSchemePropertyBundle_geometricallyIntegral.lean",
+   "sha256": "859d649b6d5f800f4bfa2dfc7f0fea7c7d9e78c1b1d897948ffb3d97c4afc308"
+  },
+  {
+   "module": "P2M.Sol.S_GoodReductionJacobian_RelativeGroupLaw_exists_extension_of_diagonal_difference_extension",
+   "upstream_path": "P2M/Sol/S_GoodReductionJacobian_RelativeGroupLaw_exists_extension_of_diagonal_difference_extension.lean",
+   "sha256": "076233dc7a4723744fe99a008003255a8364d136f44fcd334a8541bb369185d8"
+  },
+  {
+   "module": "P2M.Sol.S_GoodReductionJacobian_RelativeGroupLaw_exists_isAffineOpen_forall_mem_of_forall_mul_mem",
+   "upstream_path": "P2M/Sol/S_GoodReductionJacobian_RelativeGroupLaw_exists_isAffineOpen_forall_mem_of_forall_mul_mem.lean",
+   "sha256": "fb8d24d4364506fb6e13c055da02a117ff5b8a46fd9a16cd58ed1c66e0bd13af"
+  },
+  {
+   "module": "P2M.Sol.S_GoodReductionJacobian_RelativeGroupLaw_exists_isAffineOpen_forall_mem_of_isAffineOpen_of_forall_specializes_of_henselianLocalRing",
+   "upstream_path": "P2M/Sol/S_GoodReductionJacobian_RelativeGroupLaw_exists_isAffineOpen_forall_mem_of_isAffineOpen_of_forall_specializes_of_henselianLocalRing.lean",
+   "sha256": "ea96934ecd640d7655646c932b3fcf7fca859344274c9f4ee75b326fb88b8409"
+  },
+  {
+   "module": "P2M.Sol.S_GoodReductionJacobian_RelativeGroupLaw_exists_isAffineOpen_forall_mem_of_smooth_of_henselianLocalRing",
+   "upstream_path": "P2M/Sol/S_GoodReductionJacobian_RelativeGroupLaw_exists_isAffineOpen_forall_mem_of_smooth_of_henselianLocalRing.lean",
+   "sha256": "dc0592e24f0400ed7122b71449e4a70dfe7e8a4c9e26727a5aa3a4bd7fc20c58"
+  },
+  {
+   "module": "P2M.Sol.S_GoodReductionJacobian_RelativeGroupLaw_exists_isFrameOn_topDifferentials_forall_topFormMap_appLE_mul_eq",
+   "upstream_path": "P2M/Sol/S_GoodReductionJacobian_RelativeGroupLaw_exists_isFrameOn_topDifferentials_forall_topFormMap_appLE_mul_eq.lean",
+   "sha256": "dacea7de83901024a413984e10ab486e61e5989916494c10f28fc75a87d71469"
+  },
+  {
+   "module": "P2M.Sol.S_GoodReductionJacobian_RelativeGroupLaw_exists_isFrameOn_topDifferentials_forall_topFormMap_mul_eq",
+   "upstream_path": "P2M/Sol/S_GoodReductionJacobian_RelativeGroupLaw_exists_isFrameOn_topDifferentials_forall_topFormMap_mul_eq.lean",
+   "sha256": "928b46bc77630269f3934b03b74297a8f6b9973c708323015c084419ea8db87d"
+  },
+  {
+   "module": "P2M.Sol.S_GoodReductionJacobian_RelativeGroupLaw_exists_isGreatest_opens_difference_extension",
+   "upstream_path": "P2M/Sol/S_GoodReductionJacobian_RelativeGroupLaw_exists_isGreatest_opens_difference_extension.lean",
+   "sha256": "cc08deb872845fdd05be964dd3a16ed476566aeb087f18491ebb127f1576e7f3"
+  },
+  {
+   "module": "P2M.Sol.S_GoodReductionJacobian_RelativeGroupLaw_exists_iso_hom_comp_eq_one_comp_eq",
+   "upstream_path": "P2M/Sol/S_GoodReductionJacobian_RelativeGroupLaw_exists_iso_hom_comp_eq_one_comp_eq.lean",
+   "sha256": "05eda712d8d8b898aa884f4684ed2499b85eb6433924c32f8c1726e7970b0967"
+  },
+  {
+   "module": "P2M.Sol.S_GoodReductionJacobian_RelativeGroupLaw_exists_iso_pullback_hom_fst_eq_and_hom_snd_eq_mul",
+   "upstream_path": "P2M/Sol/S_GoodReductionJacobian_RelativeGroupLaw_exists_iso_pullback_hom_fst_eq_and_hom_snd_eq_mul.lean",
+   "sha256": "23e4d5796fe3f0394e2bf2c4bd5d0f4e4900c81f37e82bec0367f65857220243"
+  },
+  {
+   "module": "P2M.Sol.S_GoodReductionJacobian_RelativeGroupLaw_exists_neronModelPropertyBundle_genericFibre_iso_of_abelianSchemePropertyBundle_of_henselianLocalRing",
+   "upstream_path": "P2M/Sol/S_GoodReductionJacobian_RelativeGroupLaw_exists_neronModelPropertyBundle_genericFibre_iso_of_abelianSchemePropertyBundle_of_henselianLocalRing.lean",
+   "sha256": "7666444e55b138bf3b21e78b82118503efcd9d87406a68febc1db5ac81de33cc"
+  },
+  {
+   "module": "P2M.Sol.S_GoodReductionJacobian_RelativeGroupLaw_exists_opens_diagonal_difference_extension",
+   "upstream_path": "P2M/Sol/S_GoodReductionJacobian_RelativeGroupLaw_exists_opens_diagonal_difference_extension.lean",
+   "sha256": "4026034fbc1ba80adb378495e6bc47150f62297fe1b464a0066a3de0078c9230"
+  },
+  {
+   "module": "P2M.Sol.S_GoodReductionJacobian_RelativeGroupLaw_exists_opens_forall_mul_base_mem_of_forall_specializes_mem",
+   "upstream_path": "P2M/Sol/S_GoodReductionJacobian_RelativeGroupLaw_exists_opens_forall_mul_base_mem_of_forall_specializes_mem.lean",
+   "sha256": "96d638a782585d07244967fe24a2d23ba417cba630b541eb23f13c83083af99b"
+  },
+  {
+   "module": "P2M.Sol.S_GoodReductionJacobian_RelativeGroupLaw_exists_smoothOfRelativeDimension_of_smooth",
+   "upstream_path": "P2M/Sol/S_GoodReductionJacobian_RelativeGroupLaw_exists_smoothOfRelativeDimension_of_smooth.lean",
+   "sha256": "9e19d438fac182fdd4ffe12b42ed58eb090486d5184685b3a285f38564e16a61"
+  },
+  {
+   "module": "P2M.Sol.S_GoodReductionJacobian_RelativeGroupLaw_isCommutative_of_isCommutative_genericFibre",
+   "upstream_path": "P2M/Sol/S_GoodReductionJacobian_RelativeGroupLaw_isCommutative_of_isCommutative_genericFibre.lean",
+   "sha256": "a8c3061a673afcec07812d23b009ab46a2de0d3b68b3ecc3c01cb397d847797a"
+  },
+  {
+   "module": "P2M.Sol.S_GoodReductionJacobian_RelativeGroupLaw_isCommutative_of_isProper_of_geometricallyIntegral",
+   "upstream_path": "P2M/Sol/S_GoodReductionJacobian_RelativeGroupLaw_isCommutative_of_isProper_of_geometricallyIntegral.lean",
+   "sha256": "352b70bf6f152441624eb6ef9fca154b2c137ee1cfff01500201ac32700954e9"
+  },
+  {
+   "module": "P2M.Sol.S_GoodReductionJacobian_RelativeGroupLaw_isPullback_mul_fst",
+   "upstream_path": "P2M/Sol/S_GoodReductionJacobian_RelativeGroupLaw_isPullback_mul_fst.lean",
+   "sha256": "54d91d7f9192de6f1f8b85bb934ce3b8eeb33392f7c634d8dcfe445f3f5e8c60"
+  },
+  {
+   "module": "P2M.Sol.S_GoodReductionJacobian_RelativeGroupLaw_not_mem_closure_image_fst_preimage_mul_compl_of_forall_specializes",
+   "upstream_path": "P2M/Sol/S_GoodReductionJacobian_RelativeGroupLaw_not_mem_closure_image_fst_preimage_mul_compl_of_forall_specializes.lean",
+   "sha256": "f292fc9ffb1e5d3df697b26434cc6a3513604c24469a9b5c0750c503fcc13eb0"
+  },
+  {
+   "module": "P2M.Sol.S_GoodReductionJacobian_RelativeGroupLaw_topFormMap_mul_eq_of_forall_topFormMap_appLE_mul_eq",
+   "upstream_path": "P2M/Sol/S_GoodReductionJacobian_RelativeGroupLaw_topFormMap_mul_eq_of_forall_topFormMap_appLE_mul_eq.lean",
+   "sha256": "67f24575ffac517e8b2526b3fb321b1927bafe0351d3364a0e5ce6bbaec40891"
+  },
+  {
+   "module": "P2M.Sol.S_HenselianLocalRing_existsUnique_isIdempotentElem_mk_eq_of_moduleFinite",
+   "upstream_path": "P2M/Sol/S_HenselianLocalRing_existsUnique_isIdempotentElem_mk_eq_of_moduleFinite.lean",
+   "sha256": "d27e01b4b93ac97002c81fc108cbb1fb3e821541cf4cf3e5334656e4ad569800"
+  },
+  {
+   "module": "P2M.Sol.S_HenselianLocalRing_exists_algHom_lift_of_etale",
+   "upstream_path": "P2M/Sol/S_HenselianLocalRing_exists_algHom_lift_of_etale.lean",
+   "sha256": "39cd15751ad07b8c99a265ee4dea5e785107f7c3f185ac420165a774e80c3674"
+  },
+  {
+   "module": "P2M.Sol.S_HenselianLocalRing_exists_algHom_lift_of_isSmoothAt",
+   "upstream_path": "P2M/Sol/S_HenselianLocalRing_exists_algHom_lift_of_isSmoothAt.lean",
+   "sha256": "b37cc9a6890e4fae396ea4736a9ab0ce6583552dda347f8a7f50b3aaf4fcc125"
+  },
+  {
+   "module": "P2M.Sol.S_HenselianLocalRing_exists_completeOrthogonalIdempotents_forall_isLocalRing_quotient_of_moduleFinite",
+   "upstream_path": "P2M/Sol/S_HenselianLocalRing_exists_completeOrthogonalIdempotents_forall_isLocalRing_quotient_of_moduleFinite.lean",
+   "sha256": "0ce253c042a6d2651c0633f53fa570b8da057b311475b0041f3aa0708387f8de"
+  },
+  {
+   "module": "P2M.Sol.S_HenselianLocalRing_of_moduleFinite_of_isLocalRing",
+   "upstream_path": "P2M/Sol/S_HenselianLocalRing_of_moduleFinite_of_isLocalRing.lean",
+   "sha256": "5271c5ce18c6af82b61bc78efcbb5ac83811d0ec531f8bea9da5c503154e984a"
+  },
+  {
+   "module": "P2M.Sol.S_Ideal_height_eq_one_of_isDiscreteValuationRing_localization_atPrime",
+   "upstream_path": "P2M/Sol/S_Ideal_height_eq_one_of_isDiscreteValuationRing_localization_atPrime.lean",
+   "sha256": "a25c86899f4fb780a2b70e4b8e49f2a2c0bf04bfaa8aa24650963567711f94f1"
+  },
+  {
+   "module": "P2M.Sol.S_Ideal_height_map_quotientMk_span_singleton_add_one",
+   "upstream_path": "P2M/Sol/S_Ideal_height_map_quotientMk_span_singleton_add_one.lean",
+   "sha256": "05d6b6b377170e40de9f600430aacc721e7c7efc8c85febbb9e1b96456c7774b"
+  },
+  {
+   "module": "P2M.Sol.S_IsDiscreteValuationRing_bijective_algebraMap_of_flat_of_isLocalHom_of_isFractionRing",
+   "upstream_path": "P2M/Sol/S_IsDiscreteValuationRing_bijective_algebraMap_of_flat_of_isLocalHom_of_isFractionRing.lean",
+   "sha256": "ed53f6e6f0d2271dd6c7d1dc7dc3f1359d502f0936695ec945949c3804812855"
+  },
+  {
+   "module": "P2M.Sol.S_IsDiscreteValuationRing_exists_finite_etale_dvr_map_maximalIdeal_eq_residueField_algEquiv",
+   "upstream_path": "P2M/Sol/S_IsDiscreteValuationRing_exists_finite_etale_dvr_map_maximalIdeal_eq_residueField_algEquiv.lean",
+   "sha256": "ddd7be7d19031586fbfe96eca3a0b3a126a8876031927f6b206637634c543e5a"
+  },
+  {
+   "module": "P2M.Sol.S_IsDiscreteValuationRing_length_torsion_quotient_add_finrank_le_of_sq_smul_le_prod",
+   "upstream_path": "P2M/Sol/S_IsDiscreteValuationRing_length_torsion_quotient_add_finrank_le_of_sq_smul_le_prod.lean",
+   "sha256": "a03b2741339f7365a8e40273404bf231200c84ed9d0ef3a53f9a1f5427c501eb"
+  },
+  {
+   "module": "P2M.Sol.S_IsIntegrallyClosed_exists_algebraMap_eq_of_forall_height_eq_one",
+   "upstream_path": "P2M/Sol/S_IsIntegrallyClosed_exists_algebraMap_eq_of_forall_height_eq_one.lean",
+   "sha256": "cb97002d6c80bce9a645054398c84b303e4741c059b7007441737d5b7eeef5c0"
+  },
+  {
+   "module": "P2M.Sol.S_IsIntegrallyClosed_height_eq_one_of_mem_associatedPrimes",
+   "upstream_path": "P2M/Sol/S_IsIntegrallyClosed_height_eq_one_of_mem_associatedPrimes.lean",
+   "sha256": "2c1a78e1f43a5124d55aae0007bafbdd41d7dbe646545bfe0f4e0ffdadecbe5a"
+  },
+  {
+   "module": "P2M.Sol.S_IsIntegrallyClosed_isDiscreteValuationRing_localization_of_mem_associatedPrimes",
+   "upstream_path": "P2M/Sol/S_IsIntegrallyClosed_isDiscreteValuationRing_localization_of_mem_associatedPrimes.lean",
+   "sha256": "0fb2e06b93a02a2b603271acb28655c316cae7c2ccbc73d13473e7fd8fc0e42a"
+  },
+  {
+   "module": "P2M.Sol.S_IsIntegrallyClosed_isDiscreteValuationRing_of_maximalIdeal_mem_associatedPrimes",
+   "upstream_path": "P2M/Sol/S_IsIntegrallyClosed_isDiscreteValuationRing_of_maximalIdeal_mem_associatedPrimes.lean",
+   "sha256": "46be87615af5a004a4ec0e5665e4b1fafa0ca5a19b6c59ff842717dddd95b1f4"
+  },
+  {
+   "module": "P2M.Sol.S_IsLocalRing_IsCohenMacaulayOfDim_ringKrullDim_quotient_add_height",
+   "upstream_path": "P2M/Sol/S_IsLocalRing_IsCohenMacaulayOfDim_ringKrullDim_quotient_add_height.lean",
+   "sha256": "19db519696fcb58c3fff751958bff3918059696261361a89b7c833e57dac8be5"
+  },
+  {
+   "module": "P2M.Sol.S_IsLocalRing_ringKrullDim_quotient_span_singleton_add_one_of_forall_minimalPrimes_notMem",
+   "upstream_path": "P2M/Sol/S_IsLocalRing_ringKrullDim_quotient_span_singleton_add_one_of_forall_minimalPrimes_notMem.lean",
+   "sha256": "f03b4b5f51ba2dd3f654bc74f87b4571371ce87ddf46b50122ece611a5ee7524"
+  },
+  {
+   "module": "P2M.Sol.S_IsLocalizedModule_existsUnique_forall_eq_of_span_range_eq_top",
+   "upstream_path": "P2M/Sol/S_IsLocalizedModule_existsUnique_forall_eq_of_span_range_eq_top.lean",
+   "sha256": "1d2bf2deed9a0e8e4fc58c313a7e1081df6fa0944b59c725250cd7ef226286e1"
+  },
+  {
+   "module": "P2M.Sol.S_IsLocalizedModule_of_forall_apply_iotaMulti_eq",
+   "upstream_path": "P2M/Sol/S_IsLocalizedModule_of_forall_apply_iotaMulti_eq.lean",
+   "sha256": "80673780609997be68b1a6a39df77ca127a698c4b38a84176677da1201a9759a"
+  },
+  {
+   "module": "P2M.Sol.S_IsNoetherianRing_exists_unit_mul_zpow_eq_of_span_singleton_isPrime",
+   "upstream_path": "P2M/Sol/S_IsNoetherianRing_exists_unit_mul_zpow_eq_of_span_singleton_isPrime.lean",
+   "sha256": "4ef0afe8fe46de1ccb4a42c3920b95403b26e675892066a57bc99afa267522c9"
+  },
+  {
+   "module": "P2M.Sol.S_IsRegularLocalRing_depth_self_eq_ringKrullDim",
+   "upstream_path": "P2M/Sol/S_IsRegularLocalRing_depth_self_eq_ringKrullDim.lean",
+   "sha256": "360aa724b4d2f349dac83c301c8f9bec958ec93450398deef46e17e4812a89a4"
+  },
+  {
+   "module": "P2M.Sol.S_IsRegularLocalRing_isDomain",
+   "upstream_path": "P2M/Sol/S_IsRegularLocalRing_isDomain.lean",
+   "sha256": "f7e2708b0d73ee2413dad0817792d9ea1ed5f48626979b212fe48ea6dc267e29"
+  },
+  {
+   "module": "P2M.Sol.S_IsRegularLocalRing_spanFinrank_ker_add_ringKrullDim_eq",
+   "upstream_path": "P2M/Sol/S_IsRegularLocalRing_spanFinrank_ker_add_ringKrullDim_eq.lean",
+   "sha256": "1fd6d2b18038617428c9eb95efb3c3de4cac0d508050f9f599798da141a4a9ea"
+  },
+  {
+   "module": "P2M.Sol.S_KaehlerDifferential_D_ne_zero_of_forall_pow_ne",
+   "upstream_path": "P2M/Sol/S_KaehlerDifferential_D_ne_zero_of_forall_pow_ne.lean",
+   "sha256": "6ac79eecbc30a467fd0c710782350c1fdda9fc1624f0e107d81cbbb0e4c4b8a8"
+  },
+  {
+   "module": "P2M.Sol.S_KaehlerDifferential_bijective_map_comp_mapBaseChange_of_isLocalization_tensorProduct",
+   "upstream_path": "P2M/Sol/S_KaehlerDifferential_bijective_map_comp_mapBaseChange_of_isLocalization_tensorProduct.lean",
+   "sha256": "1a23aaeb20439c7b5571e6a388040d9299e1bbe22a2cd47142b7bc455b9ba5ed"
+  },
+  {
+   "module": "P2M.Sol.S_KaehlerDifferential_nonempty_baseChange_linearEquiv_quotient_span_tmul_D_of_surjective",
+   "upstream_path": "P2M/Sol/S_KaehlerDifferential_nonempty_baseChange_linearEquiv_quotient_span_tmul_D_of_surjective.lean",
+   "sha256": "be37cec523efa2c9b9a1781ec60ca77f8e183163b82fa73376767df71c8c8a5f"
+  },
+  {
+   "module": "P2M.Sol.S_Module_FinitePresentation_exists_notMem_basis_localizedModule_of_basis_residueField_tensor",
+   "upstream_path": "P2M/Sol/S_Module_FinitePresentation_exists_notMem_basis_localizedModule_of_basis_residueField_tensor.lean",
+   "sha256": "ce35e85058a82e9eb0cf0671680ab82d860948ebf40fe073af5463948570cf64"
+  },
+  {
+   "module": "P2M.Sol.S_Module_depth_le_ringKrullDim_quotient_of_mem_associatedPrimes",
+   "upstream_path": "P2M/Sol/S_Module_depth_le_ringKrullDim_quotient_of_mem_associatedPrimes.lean",
+   "sha256": "07e6910bbf14fc8fa7f776a511f55059dc3389589e45b954f0ed6ba4ed3448aa"
+  },
+  {
+   "module": "P2M.Sol.S_Module_depth_quotSMulTop_succ_eq",
+   "upstream_path": "P2M/Sol/S_Module_depth_quotSMulTop_succ_eq.lean",
+   "sha256": "3a6ce987f83c0485868e51e65e8e5d928bbd3b05bb0dbcd5a21b3c2038d04d76"
+  },
+  {
+   "module": "P2M.Sol.S_Module_depth_quotient_eq_depth",
+   "upstream_path": "P2M/Sol/S_Module_depth_quotient_eq_depth.lean",
+   "sha256": "5e6937dfdf1498ff8062bc6be0f8fade0105274b8b40ce388718b6bcdfa7b02e"
+  },
+  {
+   "module": "P2M.Sol.S_MvPolynomial_exists_isStandardSmooth_algHom_isUnit_det_pderiv_basis_kaehlerDifferential",
+   "upstream_path": "P2M/Sol/S_MvPolynomial_exists_isStandardSmooth_algHom_isUnit_det_pderiv_basis_kaehlerDifferential.lean",
+   "sha256": "2072fba4c32c3ea3e16813e6e7a5ac3fd004e60663ffcd371bf35a3f7acbdb82"
+  },
+  {
+   "module": "P2M.Sol.S_MvPolynomial_isStandardSmoothOfRelativeDimension_natCard",
+   "upstream_path": "P2M/Sol/S_MvPolynomial_isStandardSmoothOfRelativeDimension_natCard.lean",
+   "sha256": "260a2057ec13af5e7a63f9018ebe8c1b5b7996cd188aa6e664b74355366789db"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_ComponentReading_eq_n_of_forall_topFormMap_eq_mul_zpow_smul",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_ComponentReading_eq_n_of_forall_topFormMap_eq_mul_zpow_smul.lean",
+   "sha256": "0edd7eedb81b534bb78bfdfb66122afca92e3a44d809a0ce87db0846cb5c0f23"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_ComponentReading_exists_basis_units_int_forall_topFormMap_eq_mul_zpow_smul_of_specializes",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_ComponentReading_exists_basis_units_int_forall_topFormMap_eq_mul_zpow_smul_of_specializes.lean",
+   "sha256": "ed32fe5f7f35785d673a574033b3d24f570b18073544dea66e163ca801ee35d4"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_ComponentReading_exists_basis_units_topFormMap_eq_mul_zpow_smul_of_specializes",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_ComponentReading_exists_basis_units_topFormMap_eq_mul_zpow_smul_of_specializes.lean",
+   "sha256": "7fdb72f02f02b76ee9217b896dc5c7289ae288de067d720a365d99dc1d0e4ffb"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_ComponentReading_isDomain_and_injective_stalkMap_and_isScalarTower_and_isFractionRing_of_chart_comp_eq",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_ComponentReading_isDomain_and_injective_stalkMap_and_isScalarTower_and_isFractionRing_of_chart_comp_eq.lean",
+   "sha256": "b64ed6e3582d6bf6d59b1d5c956d160e234a2aa5cd84cc5b94c4c0c2eff82474"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_ComponentReading_n_le_n_and_isOpenImmersion_of_n_eq_of_specializes",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_ComponentReading_n_le_n_and_isOpenImmersion_of_n_eq_of_specializes.lean",
+   "sha256": "8e0ee9cfdf7c6dbaf639fef28e63e529f322ca2524f88553c8f224422909cfa9"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_MinimalComponentData_exists_ringHom_stalk_chart_comp_eq_pointGenericFibre_of_forall_specializes",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_MinimalComponentData_exists_ringHom_stalk_chart_comp_eq_pointGenericFibre_of_forall_specializes.lean",
+   "sha256": "19433df226dde19c1d8ada0fd5e5cf6b0221cc57d5d9e593a6b2ecca3b5b5df8"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_TopFormOrder_addOrd_mul_and_nonneg_and_eq_zero_iff_and_uniformizer",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_TopFormOrder_addOrd_mul_and_nonneg_and_eq_zero_iff_and_uniformizer.lean",
+   "sha256": "f7581191fea68023f0e55c24577f3b2409c237f391e7998ce9f9b28611f80c5a"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_TopFormOrder_eq_addOrd_and_bijective_mapBaseChange_of_topFormMap_eq_of_addOrd_le",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_TopFormOrder_eq_addOrd_and_bijective_mapBaseChange_of_topFormMap_eq_of_addOrd_le.lean",
+   "sha256": "2a34303838cd5c24787ecfc2851f6f42351be30a0ad5211a52e2dd8de1c430fc"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_TopFormOrder_exists_basis_units_int_forall_topFormMap_eq_mul_zpow_smul_of_span_singleton_eq_top",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_TopFormOrder_exists_basis_units_int_forall_topFormMap_eq_mul_zpow_smul_of_span_singleton_eq_top.lean",
+   "sha256": "e2abae2b0ac075ef45eedee6980c73639570a8ea6deb3c8127682b9c65f3db1e"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_TopFormOrder_exists_det_topFormMap_eq_smul_and_isUnit_iff_bijective_mapBaseChange",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_TopFormOrder_exists_det_topFormMap_eq_smul_and_isUnit_iff_bijective_mapBaseChange.lean",
+   "sha256": "e8391f541878fa58af03f1ab65443a89aa9eb14ea5d32380ddbf77b904b159a9"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_TopFormOrder_integralTopForms_eq_span_and_ord_smul_of_basis",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_TopFormOrder_integralTopForms_eq_span_and_ord_smul_of_basis.lean",
+   "sha256": "07ca2adb3ec6347f812ee7fd0347b8e1f13d4db21ade37c975faf47c8fd3569a"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_TopFormOrder_le_ord_and_ord_eq_iff_bijective_mapBaseChange_of_eq_unit_mul_zpow_smul",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_TopFormOrder_le_ord_and_ord_eq_iff_bijective_mapBaseChange_of_eq_unit_mul_zpow_smul.lean",
+   "sha256": "cf638ce7b9ad7360dad8c6db024d0166e06a0889e98095ca0dbd6ae7c2ac1d4a"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_TopFormOrder_ord_topFormMap_eq_ord_of_map_maximalIdeal_eq",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_TopFormOrder_ord_topFormMap_eq_ord_of_map_maximalIdeal_eq.lean",
+   "sha256": "2c0b3d021731749d0ac2499d20310da264057bddd6929c1312f4c828c8d52ed3"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_TopFormOrder_span_topFormMap_iotaMulti_eq_top_and_exists_units_eq_smul_of_isLocalization_away",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_TopFormOrder_span_topFormMap_iotaMulti_eq_top_and_exists_units_eq_smul_of_isLocalization_away.lean",
+   "sha256": "b872844c708cf97f877006c23fa8e0f2ce7616f26833dce348752dcd01c3f06f"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_TopFormOrder_topFormMap_iotaMulti_ne_zero_and_forall_exists_smul_eq",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_TopFormOrder_topFormMap_iotaMulti_ne_zero_and_forall_exists_smul_eq.lean",
+   "sha256": "fa9a2a07acb3673b5f3662e5b8d5f3182074f22c50e0d30282f0c7d7436cc69a"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_TopFormOrder_topFormMap_ne_zero_of_bijective_smul_of_isLocalization",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_TopFormOrder_topFormMap_ne_zero_of_bijective_smul_of_isLocalization.lean",
+   "sha256": "18594353d3cd2ab73496dea459beabb3a0afd0dc81876c0b1a93b3bde06d2c04"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_TopFormOrder_topFormMap_topFormMap",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_TopFormOrder_topFormMap_topFormMap.lean",
+   "sha256": "bd81bc48fbeff6dc8f0244652533391dcd6bc5850ab8dcf6737cf89e79e8034b"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_eq_of_comp_eq_of_range_subset_closure_range_lift_of_forall_dense_preimage_fibre",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_eq_of_comp_eq_of_range_subset_closure_range_lift_of_forall_dense_preimage_fibre.lean",
+   "sha256": "460b9ecaee76d2aee5e491495c0edc5bca397fec43532bbaaf44fd37a93a0a11"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_algHom_comap_maximalIdeal_eq_primeIdealOf_of_apply_closedPoint_mem",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_algHom_comap_maximalIdeal_eq_primeIdealOf_of_apply_closedPoint_mem.lean",
+   "sha256": "b3d8acac43e39b4f1288a410e81f08c62cdff9622a6a6cacb287b3e460b523b1"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_antitone_isClosed_forall_indexOne_chart_of_smooth_pullback_snd",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_antitone_isClosed_forall_indexOne_chart_of_smooth_pullback_snd.lean",
+   "sha256": "3858e3ae6325448f9fe4a3cfde60ea64a3675d5406f51a2a5c73b59f2ddb637b"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_componentReading_data_of_smooth_of_forall_specializes",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_componentReading_data_of_smooth_of_forall_specializes.lean",
+   "sha256": "f578c81915da6ce8bd3f329803a352da7caf0e18c45493cc8eb3c9f672b9851f"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_descentAction_of_finite_etale_relativeGroupLaw_isOpenImmersion_of_henselianLocalRing",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_descentAction_of_finite_etale_relativeGroupLaw_isOpenImmersion_of_henselianLocalRing.lean",
+   "sha256": "380f03d8788b8d1315643861cd7b7aa81bf35bd0d291ffd0d0f36844d872f04d"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_finite_etale_isOpenImmersion_forall_exists_translation_of_forall_dense_preimage_fibre_of_henselianLocalRing",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_finite_etale_isOpenImmersion_forall_exists_translation_of_forall_dense_preimage_fibre_of_henselianLocalRing.lean",
+   "sha256": "8657c85ab717ad6a676bcb51d7f6c49e8f5bbecf8055130565ff56711537d3a8"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_finite_etale_isOpenImmersion_forall_mem_of_mem_range_of_forall_dense_preimage_fibre_of_henselianLocalRing",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_finite_etale_isOpenImmersion_forall_mem_of_mem_range_of_forall_dense_preimage_fibre_of_henselianLocalRing.lean",
+   "sha256": "935a9077d561d6e5bf7714bd9ae3f012c56ad44e079fdafdab554bcc59404d06"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_finite_etale_relativeGroupLaw_isOpenImmersion_of_forall_dense_preimage_fibre_of_henselianLocalRing",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_finite_etale_relativeGroupLaw_isOpenImmersion_of_forall_dense_preimage_fibre_of_henselianLocalRing.lean",
+   "sha256": "3d6f91b327f33d5442699efb39a1c6331c0f8abafb43e7e1bb8ab7471a89caaa"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_forall_dense_preimage_fibre_comp_eq_comp_of_forall_dense_preimage_fibre_of_relativeGroupLaw",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_forall_dense_preimage_fibre_comp_eq_comp_of_forall_dense_preimage_fibre_of_relativeGroupLaw.lean",
+   "sha256": "6fb2a5ad8738b66083b139a4fbcf6cef3df14c10772d11d643e8d3d179c198df"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_forall_smoothnessDefect_le_of_smooth_pullback_snd",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_forall_smoothnessDefect_le_of_smooth_pullback_snd.lean",
+   "sha256": "bdb62bb23d9bed17370046f2a24c07d9834e88d1e65d645264949abf1b661ad8"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_glue_translate_baseChange_isOpenImmersion_forall_range_subset_of_forall_dense_preimage_fibre",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_glue_translate_baseChange_isOpenImmersion_forall_range_subset_of_forall_dense_preimage_fibre.lean",
+   "sha256": "d518b80533287d4b5642367e35c3cf1dfcb0f5f8ee7be928d5a3eaf45b630d2c"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_hom_isIso_morphismRestrict_compl_iso_affineDilatation_of_antitone_isClosed",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_hom_isIso_morphismRestrict_compl_iso_affineDilatation_of_antitone_isClosed.lean",
+   "sha256": "9de9e28e39e75be932ef71eb7aa40a60a7061973256dbc5048bba325628ed397"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_hom_isIso_smoothnessDefect_add_one_le_of_smooth_pullback_snd",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_hom_isIso_smoothnessDefect_add_one_le_of_smooth_pullback_snd.lean",
+   "sha256": "125bed9b43986f43daa9808d48e203ca884ac0640463df479700bee63d67f3a9"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_isAffineHom_isIso_morphismRestrict_iso_affineDilatation_of_isClosed",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_isAffineHom_isIso_morphismRestrict_iso_affineDilatation_of_isClosed.lean",
+   "sha256": "8c72d00342a698909fac636e1df88fe7d43d543203279b38d4e8f81f2651e30a"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_isClosedImmersion_range_eq_closure_isOpenImmersion_of_forall_dense_preimage_fibre",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_isClosedImmersion_range_eq_closure_isOpenImmersion_of_forall_dense_preimage_fibre.lean",
+   "sha256": "765f836271778c4855258f487a1e54680360cb167daf6e0408029d0b7e11f786"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_isOpenImmersion_model_isIso_genericFibre_of_isOpenImmersion_chart",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_isOpenImmersion_model_isIso_genericFibre_of_isOpenImmersion_chart.lean",
+   "sha256": "482fc89b54d5ea7832175680cb92d99f29df04f06467a78f642ddf7b3960bd79"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_isSeparated_isOpenImmersion_isPullback_glue_translate_of_isClosedImmersion_of_section",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_isSeparated_isOpenImmersion_isPullback_glue_translate_of_isClosedImmersion_of_section.lean",
+   "sha256": "b55943c41b76eb6689c26037a629b5db2a9cf5e7b766c7b2cdd1697a9f9e3b96"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_lift_forall_dense_preimage_fibre_of_isPullback_of_forall_dense_preimage_fibre",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_lift_forall_dense_preimage_fibre_of_isPullback_of_forall_dense_preimage_fibre.lean",
+   "sha256": "cffe446d2aa9d4f663bbf2ec4318ec545b43f7a6450583168f26900109d2aa7d"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_mem_opens_forall_dense_preimage_fst_of_forall_maximal_mem",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_mem_opens_forall_dense_preimage_fst_of_forall_maximal_mem.lean",
+   "sha256": "bc96dcc21c4c8b170e3d1ca8dab56946fc7a48ff9c7d1392d6607ed4b5411b44"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_minimalComponentData_isOmegaMinimal_of_catchesIndexOnePoints",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_minimalComponentData_isOmegaMinimal_of_catchesIndexOnePoints.lean",
+   "sha256": "e1e0e72708dd5901e8e3a58bd06c19b282074dae3e5ff908410a41b9bb1fd339"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_modelFamily_finite_catchesIndexOnePoints_of_isProper",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_modelFamily_finite_catchesIndexOnePoints_of_isProper.lean",
+   "sha256": "b87614103db50fa773e4979a5ce25dbba6e49e5ba57dad998950f81353d7348f"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_model_forall_nhds_translation_extension_isOpenImmersion_of_catchesIndexOnePoints_of_isCommutative",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_model_forall_nhds_translation_extension_isOpenImmersion_of_catchesIndexOnePoints_of_isCommutative.lean",
+   "sha256": "c2bac9a4557b826c853c00f06225de3b6de0b0d8c53c82da34efd0f732fd8fcf"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_model_openCover_of_forall_isClosedImmersion_pullback_lift",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_model_openCover_of_forall_isClosedImmersion_pullback_lift.lean",
+   "sha256": "15c8890f2a8e97a32ceb00542e20bea85db10de5c23a1f644a4f4bfc1096fc06"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_model_openCover_of_forall_ne_not_exists_extension",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_model_openCover_of_forall_ne_not_exists_extension.lean",
+   "sha256": "10600e5761c08696b83da8436469f5a32875afe752e1e322ab07a26651145f5c"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_mul_extension_isIso_lift_of_forall_dense_preimage_fibre_of_forall_mem_opens_of_section",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_mul_extension_isIso_lift_of_forall_dense_preimage_fibre_of_forall_mem_opens_of_section.lean",
+   "sha256": "3e110d52af50519ee86f0826d1ae98a9a232d105fb7ce6c1403db5d068cebecf"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_n_eq_and_formallySmooth_stalk_of_isOmegaMinimal_of_genericFibreRestrict_comp_eq_mul",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_n_eq_and_formallySmooth_stalk_of_isOmegaMinimal_of_genericFibreRestrict_comp_eq_mul.lean",
+   "sha256": "1b0d1b282c898c9104b45f3ea664b8fec0eefd32216b010c97a424bedfa1d360"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_nhds_extension_chart_of_catchesIndexOnePoints",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_nhds_extension_chart_of_catchesIndexOnePoints.lean",
+   "sha256": "b3eee0fbcd1a2a59ca15aa3e5b4497e4a4ae2959e50005c301ceb702e1f4efcf"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_nhds_extension_of_isIso_stalkMap_imageInc_fst",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_nhds_extension_of_isIso_stalkMap_imageInc_fst.lean",
+   "sha256": "1c7042b3d9ee32b8a199d55d4d62af28712b4033b7c9d4f18362199adbd9c09d"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_nhds_translation_extension_isOpenImmersion_of_formallySmooth_stalk_of_isOmegaMinimal",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_nhds_translation_extension_isOpenImmersion_of_formallySmooth_stalk_of_isOmegaMinimal.lean",
+   "sha256": "5ad438dd79084bfa03c544aa1b2b0c68fc5b1269b5a34596ef4b56fcc54e10ed"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_nhds_translation_extension_isOpenImmersion_of_isOpenImmersion_homOfLE_comp_of_isOmegaMinimalRep",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_nhds_translation_extension_isOpenImmersion_of_isOpenImmersion_homOfLE_comp_of_isOmegaMinimalRep.lean",
+   "sha256": "a9dfeedb1fd9092313bd06b34c3f0912b621963c3ee2c1fed1f97facd09134d7"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_opens_extension_of_forall_nhds_extension",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_opens_extension_of_forall_nhds_extension.lean",
+   "sha256": "0a280ae2e8684461efb4e1e3b4814ebc23e092775c2ca48549a7445b0c93ce7a"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_opens_forall_dense_preimage_fibre_of_isOpenImmersion_lift_mul",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_opens_forall_dense_preimage_fibre_of_isOpenImmersion_lift_mul.lean",
+   "sha256": "f751fee9e7998fb497519ad0d9f960796136d3fef9340665fe424bcc534335f6"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_opens_forall_dense_preimage_fibre_of_isPullback_glue_translate_of_section",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_opens_forall_dense_preimage_fibre_of_isPullback_glue_translate_of_section.lean",
+   "sha256": "5bbe3c82791373aeff1cba58aa64b1cc9467750d49c4e237b90834c32a3118ad"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_opens_forall_isClosedImmersion_of_forall_ne_not_exists_extension",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_opens_forall_isClosedImmersion_of_forall_ne_not_exists_extension.lean",
+   "sha256": "56743cb7bc4164bb4220a8df1cb7ae0caba4bd178e60f00bc16570c49942a42f"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_opens_forall_mem_of_mem_range_of_forall_exists_translation_of_henselianLocalRing",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_opens_forall_mem_of_mem_range_of_forall_exists_translation_of_henselianLocalRing.lean",
+   "sha256": "008757a7acf89e353bcea0c98445462ed946018b9162d82542cb8f95616fa41b"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_opens_forall_range_subset_of_comp_translation_eq_of_etale",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_opens_forall_range_subset_of_comp_translation_eq_of_etale.lean",
+   "sha256": "c254b7decd87c07e5ccbff70c1cff2df816676958c68d6a635a0f418462a5788"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_opens_inter_closure_eq_setOf_isSmoothAt_and_mem_freeLocus",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_opens_inter_closure_eq_setOf_isSmoothAt_and_mem_freeLocus.lean",
+   "sha256": "d26372a7b652d48134e0495e41237c14e99238d8901a2d916ac572d45c70024e"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_opens_locallyQuasiFinite_forall_exists_comp_eq_of_glue_translate_of_section",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_opens_locallyQuasiFinite_forall_exists_comp_eq_of_glue_translate_of_section.lean",
+   "sha256": "5a75405b9f8128ea86140bdbd0ae5b048ad37913b1e53314d080fd24bae2e3e7"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_opens_mul_extension_isOpenImmersion_lift_of_forall_nhds_translation_extension",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_opens_mul_extension_isOpenImmersion_lift_of_forall_nhds_translation_extension.lean",
+   "sha256": "be80a7f54afbb69b79d51bcfb6a956f509e81ddf54354dd0918de288def88b4c"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_opens_relativeGroupLaw_isOpenImmersion_genericFibre_iso_of_isOpenImmersion_lift_mul_of_henselianLocalRing",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_opens_relativeGroupLaw_isOpenImmersion_genericFibre_iso_of_isOpenImmersion_lift_mul_of_henselianLocalRing.lean",
+   "sha256": "cf2526af29975944ec1cf8118717599350cd6202ccc7c75c2aa3e3ed6db50d4e"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_relativeGroupLaw_genericFibre_iso_nhds_twist_extension_of_catchesIndexOnePoints_of_henselianLocalRing_of_isCommutative",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_relativeGroupLaw_genericFibre_iso_nhds_twist_extension_of_catchesIndexOnePoints_of_henselianLocalRing_of_isCommutative.lean",
+   "sha256": "72a0ac845cf0a7337c93db6b602c8a505959c62f02634d3eb57f1c674239fb79"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_relativeGroupLaw_isOpenImmersion_opens_of_effective_descentAction_of_finite_etale_relativeGroupLaw_isOpenImmersion",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_relativeGroupLaw_isOpenImmersion_opens_of_effective_descentAction_of_finite_etale_relativeGroupLaw_isOpenImmersion.lean",
+   "sha256": "a2870c16248cd1e66e43de4479db97e24bd4320b9427270e71330b92838a112f"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_relativeGroupLaw_isOpenImmersion_opens_of_finite_etale_relativeGroupLaw_isOpenImmersion_of_henselianLocalRing",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_relativeGroupLaw_isOpenImmersion_opens_of_finite_etale_relativeGroupLaw_isOpenImmersion_of_henselianLocalRing.lean",
+   "sha256": "c6c54d49157b981a474c592a32f2051e47251b56ea05e45e523855ec72f0a955"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_relativeGroupLaw_isOpenImmersion_opens_of_forall_dense_preimage_fibre_of_henselianLocalRing",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_relativeGroupLaw_isOpenImmersion_opens_of_forall_dense_preimage_fibre_of_henselianLocalRing.lean",
+   "sha256": "9f8ad83691c08b78edaeda4f2fbec40b8868668a0979ee11f7745153720466d5"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_relativeGroupLaw_mul_eq_of_forall_dense_preimage_fibre_of_forall_mem_opens_of_section",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_relativeGroupLaw_mul_eq_of_forall_dense_preimage_fibre_of_forall_mem_opens_of_section.lean",
+   "sha256": "d921ed7de6e55e7d2a7b8a59680824a0e0e4bf4c02d4a36855f827a51c5a49da"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_smooth_hom_isIso_genericFibre_lift_of_isIndexOneExtension",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_smooth_hom_isIso_genericFibre_lift_of_isIndexOneExtension.lean",
+   "sha256": "34aeb841dd9a5a5dc9fe146060c82ba2f47b8d21590d5d904a8fa9082f836fb1"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_exists_specializes_fst_eq_snd_eq_of_specializes_snd",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_exists_specializes_fst_eq_snd_eq_of_specializes_snd.lean",
+   "sha256": "16039400eb8ae663b769d0e885d42829ab5318df43b4bf68bec127e3365dbcdf"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_finite_maximal_specialFibre_and_existsUnique_specializes_and_exists_opens",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_finite_maximal_specialFibre_and_existsUnique_specializes_and_exists_opens.lean",
+   "sha256": "ed281585a2e07ee212104b4db313f952ad5bdbf2e6ed6d71bd999f0321276b77"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_forall_dense_preimage_fibre_of_forall_exists_comp_eq_glue_translate",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_forall_dense_preimage_fibre_of_forall_exists_comp_eq_glue_translate.lean",
+   "sha256": "658a5a0f6a87c2c993588cdb8084805a3d12bdc0051af07645b2b6fa8d7ec1ae"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_forall_nhds_translation_extension_isOpenImmersion_of_isOmegaMinimal_of_openCover_of_isCommutative",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_forall_nhds_translation_extension_isOpenImmersion_of_isOmegaMinimal_of_openCover_of_isCommutative.lean",
+   "sha256": "f9422be851689018dd49fc588e466974f34551f79ff21a182f079cc7d4df1451"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_genericFibreRestrict_injective_of_flat_of_isSeparated",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_genericFibreRestrict_injective_of_flat_of_isSeparated.lean",
+   "sha256": "61cebe1cdb45fe9d43b88e32434ea96b9dab3399de0d32b29c084cf81e425022"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_isFractionRing_stalk_of_genericFibreRestrict_comp_eq_mul_of_pullback_lift",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_isFractionRing_stalk_of_genericFibreRestrict_comp_eq_mul_of_pullback_lift.lean",
+   "sha256": "f931c93b91d5640e2809faf46e3c4b2ab8a8757e37d2d4c9e9be94148315e41b"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_isIndexOneExtension_stalk_of_smooth_of_forall_specializes",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_isIndexOneExtension_stalk_of_smooth_of_forall_specializes.lean",
+   "sha256": "e30ef468bb34ecde4683e959b12c8f24c23ac2140c9959131c59fb9f5535e5c5"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_isIso_stalkMap_imageInc_fst_of_fst_eq",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_isIso_stalkMap_imageInc_fst_of_fst_eq.lean",
+   "sha256": "83b9942bdb589e7845e839ac354b58ba5d9ef2c41c2ee0b5df01f47949af9121"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_isOpenImmersion_lift_and_forall_comp_eq_of_homOfLE_comp_eq_of_forall_dense_preimage_fibre",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_isOpenImmersion_lift_and_forall_comp_eq_of_homOfLE_comp_eq_of_forall_dense_preimage_fibre.lean",
+   "sha256": "7770b39aed83b24f208ca3ee919851780d9a1b961705036bb8b7b6e78ea027dc"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_isOpenImmersion_lift_and_forall_comp_eq_of_locallyQuasiFinite_of_forall_exists_comp_eq",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_isOpenImmersion_lift_and_forall_comp_eq_of_locallyQuasiFinite_of_forall_exists_comp_eq.lean",
+   "sha256": "7fb92bdb0c5c8aa508a520b1fec84e04eb366bbd03e8de70ffdea60d1d5c79a8"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_isOpenImmersion_toImage_and_range_toImage_and_range_imageInc_of_genericFibre",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_isOpenImmersion_toImage_and_range_toImage_and_range_imageInc_of_genericFibre.lean",
+   "sha256": "09440ce085e58ea72127f335d86100089a3a93652e08550b627cd4b474bd0640"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_isSmoothAt_and_mem_freeLocus_basicOpen_of_isSmoothAt_of_mem_freeLocus",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_isSmoothAt_and_mem_freeLocus_basicOpen_of_isSmoothAt_of_mem_freeLocus.lean",
+   "sha256": "971ee3b3baa9456af17b9f01288c306e1ad2d47b3d2fe9be15a97457978cfe5d"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_le_sq_of_linearIndependent_tmul_D_of_forall_indexOne",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_le_sq_of_linearIndependent_tmul_D_of_forall_indexOne.lean",
+   "sha256": "1d7e9b3f585c1864b5197fcf15d1995dee6d7806c830fba738ecc172d3b6c929"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_mem_vanishingIdeal_closure_of_forall_indexOne_algHom",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_mem_vanishingIdeal_closure_of_forall_indexOne_algHom.lean",
+   "sha256": "c9d223c5481dad1f0d4aa36e5757d5ae454c10e72ecb1a0b1cbb3a984535651b"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_mul_pointGenericFibre_eq_pointGenericFibre_comp_chart_of_genericFibreRestrict_comp_eq_mul",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_mul_pointGenericFibre_eq_pointGenericFibre_comp_chart_of_genericFibreRestrict_comp_eq_mul.lean",
+   "sha256": "bec4552a19b7390b0b954dd7add91212c75c0dd43d04ddabb89cc40093956d12"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_neronModelPropertyBundle_of_forall_nhds_twist_extension",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_neronModelPropertyBundle_of_forall_nhds_twist_extension.lean",
+   "sha256": "557fa10595306109342e4aea5393341fa251334974a51ebf2d928fa5663b2957"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_neronUniqueExtension_of_forall_quasiCompact",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_neronUniqueExtension_of_forall_quasiCompact.lean",
+   "sha256": "893034090626c1eb099fc0ef08bd05be4a7c8423122c827f1f365957b9df6061"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_not_mem_closure_image_fst_closure_range_of_forall_not_exists_extension",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_not_mem_closure_image_fst_closure_range_of_forall_not_exists_extension.lean",
+   "sha256": "6603297d504b70cc72cd1bfa53c03bdf82c98ca84325a6bb96283483ebcedc7f"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_not_mem_closure_image_fst_closure_range_of_forall_not_exists_extension_of_isIntegral",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_not_mem_closure_image_fst_closure_range_of_forall_not_exists_extension_of_isIntegral.lean",
+   "sha256": "898d19913380928b3bd5053408123560b6bb3cacd585a1097a61dfc1a77ddb4d"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_smoothnessDefect_affineDilatation_add_one_le_of_isSmoothAt_of_mem_freeLocus",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_smoothnessDefect_affineDilatation_add_one_le_of_isSmoothAt_of_mem_freeLocus.lean",
+   "sha256": "9407ab9b0bcd1139962021f0adf43e7a9007e1b006d3aaf74d49c4c7daa3f42a"
+  },
+  {
+   "module": "P2M.Sol.S_NeronModelInfra_smoothnessDefect_eq_zero_iff_apply_closedPoint_mem_smoothLocus",
+   "upstream_path": "P2M/Sol/S_NeronModelInfra_smoothnessDefect_eq_zero_iff_apply_closedPoint_mem_smoothLocus.lean",
+   "sha256": "3fa2959bacdbb7b8b0d454f4755fdc6f96037cd0524303f52034c685f2ab884a"
+  },
+  {
+   "module": "P2M.Sol.S_PresheafOfModules_isMonoidal_inverseImage_W_toPresheaf",
+   "upstream_path": "P2M/Sol/S_PresheafOfModules_isMonoidal_inverseImage_W_toPresheaf.lean",
+   "sha256": "9f8d9eb5c6394a82092a1a5289d8fd33807d4f5aabe29ad34e9954e921d48538"
+  },
+  {
+   "module": "P2M.Sol.S_PresheafOfModules_isSheaf_ihomObj",
+   "upstream_path": "P2M/Sol/S_PresheafOfModules_isSheaf_ihomObj.lean",
+   "sha256": "8ef81ff47a6c406427f338fd8261ff9ec9a3acba4181708fe7a009d3a33ba8d3"
+  },
+  {
+   "module": "P2M.Sol.S_RingHom_isPushout_eqLocus_of_finiteLocallyFree_equivalenceRelation",
+   "upstream_path": "P2M/Sol/S_RingHom_isPushout_eqLocus_of_finiteLocallyFree_equivalenceRelation.lean",
+   "sha256": "b75f5f29f6d67f63688e27b1bb20df2bdeaa5a58cb52943b29fbb0d8890093dd"
+  },
+  {
+   "module": "P2M.Sol.S_Topology_IsConstructible_mem_of_mem_closure_of_forall_specializes",
+   "upstream_path": "P2M/Sol/S_Topology_IsConstructible_mem_of_mem_closure_of_forall_specializes.lean",
+   "sha256": "a41ad77fe2272a443f4384263b79be0a563b6541e5bff98a7e5b1b4807a05925"
+  },
+  {
+   "module": "P2M.Sol.S_ValuationSubring_exists_forall_mem_and_sub_mem_nonunits",
+   "upstream_path": "P2M/Sol/S_ValuationSubring_exists_forall_mem_and_sub_mem_nonunits.lean",
+   "sha256": "fdab5ca23971673275251c761666bd0b9e073cf85df193efb01463bd550f86b3"
+  },
+  {
+   "module": "P2M.Sol.S_exteriorPower_exists_linearEquiv_baseChange",
+   "upstream_path": "P2M/Sol/S_exteriorPower_exists_linearEquiv_baseChange.lean",
+   "sha256": "ad71de690867e5e54457fdcd35174a5b93ec8ca30aadeb7b0d153eab89af096e"
+  },
+  {
+   "module": "P2M.Sol.S_isRegularLocalRing_localization_atPrime_mvPolynomial",
+   "upstream_path": "P2M/Sol/S_isRegularLocalRing_localization_atPrime_mvPolynomial.lean",
+   "sha256": "2977928774eaccced929eac4dde39ceb669fa3f47eb43f88b23551ba5d448e55"
+  },
+  {
+   "module": "P2M.Sol.S_isRegularLocalRing_localization_atPrime_of_etale_of_comap",
+   "upstream_path": "P2M/Sol/S_isRegularLocalRing_localization_atPrime_of_etale_of_comap.lean",
+   "sha256": "227a58b056f258c2d2808f4653da725a0088c1a6fbadad364d2edbb58bf0f60d"
+  },
+  {
+   "module": "P2M.Sol.S_isRegularLocalRing_localization_atPrime_of_isStandardSmooth",
+   "upstream_path": "P2M/Sol/S_isRegularLocalRing_localization_atPrime_of_isStandardSmooth.lean",
+   "sha256": "dc822402f092b942281b112aa07dace236171cbcc5cf1df56dbc805b29ca6398"
+  },
+  {
+   "module": "Theorems.Thm_AffineDilatation_exists_algHom_isLocalization_map",
+   "upstream_path": "Theorems/Thm_AffineDilatation_exists_algHom_isLocalization_map.lean",
+   "sha256": "afd7c8daf6dc665a351e4b94ed15a13249e642a7bcf0a42c414fa921f6490c21"
+  },
+  {
+   "module": "Theorems.Thm_AffineDilatation_exists_algHom_surjective_ker_iff_of_surjective",
+   "upstream_path": "Theorems/Thm_AffineDilatation_exists_algHom_surjective_ker_iff_of_surjective.lean",
+   "sha256": "d3fb977534f2a5adbfdf0a510f62fb077fd0b493012df4d37e7063ff79323d59"
+  },
+  {
+   "module": "Theorems.Thm_AffineDilatation_exists_basis_kaehlerDifferential_of_smooth_of_basis",
+   "upstream_path": "Theorems/Thm_AffineDilatation_exists_basis_kaehlerDifferential_of_smooth_of_basis.lean",
+   "sha256": "564a109e4d133a0e92b6ca4c88c8ed441f6a12855f4d9d970558048e4d40ca00"
+  },
+  {
+   "module": "Theorems.Thm_AffineDilatation_finiteType_of_fg",
+   "upstream_path": "Theorems/Thm_AffineDilatation_finiteType_of_fg.lean",
+   "sha256": "d891653347b384543ce165017f3819ff8a95f027fdfc4196b7717175e8df61c5"
+  },
+  {
+   "module": "Theorems.Thm_AffineDilatation_isSMulRegular_and_map_eq_span_singleton",
+   "upstream_path": "Theorems/Thm_AffineDilatation_isSMulRegular_and_map_eq_span_singleton.lean",
+   "sha256": "576272ad340b01894896c0c107f3646a5ee5825bd8927e3191e5ced9cd630450"
+  },
+  {
+   "module": "Theorems.Thm_AffineDilatation_mem_subalgebra_iff_exists_mem_pow",
+   "upstream_path": "Theorems/Thm_AffineDilatation_mem_subalgebra_iff_exists_mem_pow.lean",
+   "sha256": "2ae77a30cad011bf167c2c3beb249f96ac7c604bb1b9161777d687fc0de6d0d2"
+  },
+  {
+   "module": "Theorems.Thm_AffineDilatation_nonempty_algEquiv_mvPolynomial_sum",
+   "upstream_path": "Theorems/Thm_AffineDilatation_nonempty_algEquiv_mvPolynomial_sum.lean",
+   "sha256": "048cb6b71b3f3cc7bad002b5aa6a3c9476b3a3aeca03c1827185cec1bc1b66da"
+  },
+  {
+   "module": "Theorems.Thm_AffineDilatation_nonempty_algEquiv_tensorProduct_of_flat_of_map_eq",
+   "upstream_path": "Theorems/Thm_AffineDilatation_nonempty_algEquiv_tensorProduct_of_flat_of_map_eq.lean",
+   "sha256": "ab016c69fc4333215b6a99eee9ef668720067513dbab6e464dd84d7bbda01a95"
+  },
+  {
+   "module": "Theorems.Thm_AffineDilatation_nonempty_algHom_and_subsingleton_of_isSMulRegular",
+   "upstream_path": "Theorems/Thm_AffineDilatation_nonempty_algHom_and_subsingleton_of_isSMulRegular.lean",
+   "sha256": "aaaf95b0a5cafddbeabff0288167d32fc9900c58428f73a5bee9fb1d7297da2d"
+  },
+  {
+   "module": "Theorems.Thm_Algebra_Etale_isDomain_and_isIntegrallyClosed_of_isLocalization_atPrime",
+   "upstream_path": "Theorems/Thm_Algebra_Etale_isDomain_and_isIntegrallyClosed_of_isLocalization_atPrime.lean",
+   "sha256": "83eb47591c5e158aeb12cb19dbbc829024d7992ad41cb80676108d697c95de1e"
+  },
+  {
+   "module": "Theorems.Thm_Algebra_Etale_of_basis_eq_D",
+   "upstream_path": "Theorems/Thm_Algebra_Etale_of_basis_eq_D.lean",
+   "sha256": "5caa953f6164fd692cc2822f93b44bc47ad984ccd22345ee1470524c84786129"
+  },
+  {
+   "module": "Theorems.Thm_Algebra_Etale_of_formallyUnramified_of_isStandardSmoothOfRelativeDimension",
+   "upstream_path": "Theorems/Thm_Algebra_Etale_of_formallyUnramified_of_isStandardSmoothOfRelativeDimension.lean",
+   "sha256": "939ccbcdc2a6799386dfc7f825aae83ada873b0e2479a0fa819191192c40bc6b"
+  },
+  {
+   "module": "Theorems.Thm_Algebra_FinitePresentation_exists_surjective_aeval_det_pderiv_not_mem_of_basis_residueField",
+   "upstream_path": "Theorems/Thm_Algebra_FinitePresentation_exists_surjective_aeval_det_pderiv_not_mem_of_basis_residueField.lean",
+   "sha256": "301f1beb01e75108eff7a0b6ccf5fbdd1b7ab54e35aa6f2fc9fb2abf669782c5"
+  },
+  {
+   "module": "Theorems.Thm_Algebra_FiniteType_exists_notMem_under_forall_trdeg_quotient_le",
+   "upstream_path": "Theorems/Thm_Algebra_FiniteType_exists_notMem_under_forall_trdeg_quotient_le.lean",
+   "sha256": "d7d250b8843b30cf1690be7c8eee72bc5652fcf2a49caf1948d0fec83295faf7"
+  },
+  {
+   "module": "Theorems.Thm_Algebra_FormallyEtale_of_formallySmooth_of_bijective_mapBaseChange",
+   "upstream_path": "Theorems/Thm_Algebra_FormallyEtale_of_formallySmooth_of_bijective_mapBaseChange.lean",
+   "sha256": "ecd1daa71afcc964b73fa1a8d7c0cebfbcf455ccdbd7f25fb7ec78cf036f9ff7"
+  },
+  {
+   "module": "Theorems.Thm_Algebra_FormallySmooth_linearIndepOn_pow_of_linearIndepOn_id",
+   "upstream_path": "Theorems/Thm_Algebra_FormallySmooth_linearIndepOn_pow_of_linearIndepOn_id.lean",
+   "sha256": "4bcc4f2f1e9401a82c8faec97a450ab32a4fcb41178b43cfab51ca18eddd7615"
+  },
+  {
+   "module": "Theorems.Thm_Algebra_IsStandardSmooth_exists_isStandardSmoothOfRelativeDimension_of_field",
+   "upstream_path": "Theorems/Thm_Algebra_IsStandardSmooth_exists_isStandardSmoothOfRelativeDimension_of_field.lean",
+   "sha256": "57013d7dcf590b03bd9197b7a2004d4374af36d0b70bfac105dc452d6a46f277"
+  },
+  {
+   "module": "Theorems.Thm_Algebra_Smooth_isDomain_and_isIntegrallyClosed_of_isIntegrallyClosed_of_isLocalization_atPrime",
+   "upstream_path": "Theorems/Thm_Algebra_Smooth_isDomain_and_isIntegrallyClosed_of_isIntegrallyClosed_of_isLocalization_atPrime.lean",
+   "sha256": "bfe0bb331764abb5fbad86fa08fb81beac1e0f1cf93a327d6ccd54021b84d872"
+  },
+  {
+   "module": "Theorems.Thm_Algebra_Smooth_isDomain_and_isIntegrallyClosed_of_isLocalization_atPrime",
+   "upstream_path": "Theorems/Thm_Algebra_Smooth_isDomain_and_isIntegrallyClosed_of_isLocalization_atPrime.lean",
+   "sha256": "640d921da5d65e787b88b6349312249172afbf49f5da91b27dacca6079e3e218"
+  },
+  {
+   "module": "Theorems.Thm_Algebra_TensorProduct_trdeg_quotient_le_and_mem_minimalPrimes_iff_of_mem_minimalPrimes",
+   "upstream_path": "Theorems/Thm_Algebra_TensorProduct_trdeg_quotient_le_and_mem_minimalPrimes_iff_of_mem_minimalPrimes.lean",
+   "sha256": "4c331ec2ac935b768857bee1fc22ed930a8ed68cc16cfcd2a310cbeea74ba15e"
+  },
+  {
+   "module": "Theorems.Thm_Algebra_exists_isStandardSmooth_surjective_localizationAway_basis_kaehlerDifferential_of_basis_residueField",
+   "upstream_path": "Theorems/Thm_Algebra_exists_isStandardSmooth_surjective_localizationAway_basis_kaehlerDifferential_of_basis_residueField.lean",
+   "sha256": "c5265007d6db04962b8dd4804e5961e974a3a5ef85312dff87d4f199e185d171"
+  },
+  {
+   "module": "Theorems.Thm_Algebra_exists_ne_zero_algebraicIndependent_forall_isIntegral_pow_smul_of_finiteType",
+   "upstream_path": "Theorems/Thm_Algebra_exists_ne_zero_algebraicIndependent_forall_isIntegral_pow_smul_of_finiteType.lean",
+   "sha256": "c5355282a78c3fd4f09fe3ba8969fb059eca453c2d36ca917a6fe27910e8230b"
+  },
+  {
+   "module": "Theorems.Thm_Algebra_exists_notMem_map_ker_eq_bot_of_surjective_of_isSmoothAt_of_finrank_le",
+   "upstream_path": "Theorems/Thm_Algebra_exists_notMem_map_ker_eq_bot_of_surjective_of_isSmoothAt_of_finrank_le.lean",
+   "sha256": "0ebc6ffc2fbd12b84fa2f56a0f8c13708f9ac6614d06fbf22c9ea75c0118b220"
+  },
+  {
+   "module": "Theorems.Thm_Algebra_exists_smooth_surjective_localizationAway_basis_kaehlerDifferential_comap_eq_span",
+   "upstream_path": "Theorems/Thm_Algebra_exists_smooth_surjective_localizationAway_basis_kaehlerDifferential_comap_eq_span.lean",
+   "sha256": "adc70d764cd50e128310f234e1cae2554ce3b4cac5bd30321d97f23b5fd44d6b"
+  },
+  {
+   "module": "Theorems.Thm_Algebra_isOpen_setOf_isSmoothAt_and_mem_freeLocus_and_minimalPrimes_subset",
+   "upstream_path": "Theorems/Thm_Algebra_isOpen_setOf_isSmoothAt_and_mem_freeLocus_and_minimalPrimes_subset.lean",
+   "sha256": "1f34e8fa5c94eda541243d370b7b1955905f6593c03f104efb049768d1a7cac1"
+  },
+  {
+   "module": "Theorems.Thm_Algebra_isSmoothAt_of_le_of_finrank_tensorProduct_kaehlerDifferential_eq",
+   "upstream_path": "Theorems/Thm_Algebra_isSmoothAt_of_le_of_finrank_tensorProduct_kaehlerDifferential_eq.lean",
+   "sha256": "eefbdb9f88abdcb38a340cd6052b0c44f761a34ec3c121f7349ccccd470e6d4d"
+  },
+  {
+   "module": "Theorems.Thm_Algebra_isSmoothAt_of_mem_minimalPrimes_of_dense_of_formallySmooth_residueField",
+   "upstream_path": "Theorems/Thm_Algebra_isSmoothAt_of_mem_minimalPrimes_of_dense_of_formallySmooth_residueField.lean",
+   "sha256": "e848db4f758448483bd13e5a3dee128cb491c0cd7fe21803118b39345f2ba6f7"
+  },
+  {
+   "module": "Theorems.Thm_Algebra_ker_algebraMap_eq_bot_of_formallySmooth_of_finrank_le",
+   "upstream_path": "Theorems/Thm_Algebra_ker_algebraMap_eq_bot_of_formallySmooth_of_finrank_le.lean",
+   "sha256": "bb09ecf977ba5013990d3be36e138b30341b2994bd46f16d20ad8b5a029522bb"
+  },
+  {
+   "module": "Theorems.Thm_Algebra_linearIndepOn_pow_localization_atPrime_of_mem_minimalPrimes_of_dense",
+   "upstream_path": "Theorems/Thm_Algebra_linearIndepOn_pow_localization_atPrime_of_mem_minimalPrimes_of_dense.lean",
+   "sha256": "4680395e7e2df909b6915909286d9932b468230be150aaa88f231512aba42088"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_DescentAction_effective_of_finiteEtale",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_DescentAction_effective_of_finiteEtale.lean",
+   "sha256": "93081e4a3fdc5a689bd083c461e23a6887a870cbfbad1c4c688672f2274f4277"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_DescentAction_effective_of_isPullback_of_flat_surjective",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_DescentAction_effective_of_isPullback_of_flat_surjective.lean",
+   "sha256": "cb7fa9770defa0aa0f7f298e4fd5c7776e40c58644b45b1879e27fdb2f0dee26"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_GeometricallyConnected_descendsAlong_surjective",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_GeometricallyConnected_descendsAlong_surjective.lean",
+   "sha256": "291926d1cbe47f111122720bee906bcf68123a485efe9d1c87ea8a4d00322bdb"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_GeometricallyIrreducible_geometricallyConnected",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_GeometricallyIrreducible_geometricallyConnected.lean",
+   "sha256": "f59a31c28e5715c0b7f5c10bd8e75977f4386bf9cc9fc958b046b78798282443"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_IsAffineOpen_isLocalization_primeCompl_of_isPreimmersion_of_forall_specializes",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_IsAffineOpen_isLocalization_primeCompl_of_isPreimmersion_of_forall_specializes.lean",
+   "sha256": "92e7b66d81ec9d49bfb2c980be09fc14f2b71a766e0b8259fad7d334de42744d"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_IsIntegral_isIntegrallyClosed_sections_of_forall_isIntegrallyClosed_stalk",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_IsIntegral_isIntegrallyClosed_sections_of_forall_isIntegrallyClosed_stalk.lean",
+   "sha256": "bd65f08b024cf9bcbc867f44e78a3517c519d56d21d3156ec167b6da35e2b108"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_IsSeparated_descendsAlong_surjective_inf_flat_inf_quasiCompact",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_IsSeparated_descendsAlong_surjective_inf_flat_inf_quasiCompact.lean",
+   "sha256": "d7070b3d9dc1e5cf27465bc6004758a1d6e8d0b11355987f32d75005088e5bfd"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Hom_bijective_smul_topFormMap_of_isFrameOn_of_isPullback",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Hom_bijective_smul_topFormMap_of_isFrameOn_of_isPullback.lean",
+   "sha256": "b73aec3a68aa38b7d7fe61b55dc4ffc4761a6a294b4a91746ef11756a6542780"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Hom_eq_of_fromSpecStalk_genericPoint_comp_eq",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Hom_eq_of_fromSpecStalk_genericPoint_comp_eq.lean",
+   "sha256": "0bce0b00e21c3d0d5bb401d64b2e649d10892113af4cb8ec54911b31976ebc28"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Hom_eq_of_map_pullbackLocalSection_topToSections_eq",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Hom_eq_of_map_pullbackLocalSection_topToSections_eq.lean",
+   "sha256": "3503f871c319e782632ccd99d1ce7b2b32455fd9717a53658e6d4f38b8ebc5c7"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Hom_eq_pullbackComp_inv_app_comp_map_comp_of_map_pullbackLocalSection_topToSections_eq",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Hom_eq_pullbackComp_inv_app_comp_map_comp_of_map_pullbackLocalSection_topToSections_eq.lean",
+   "sha256": "93da5949a1e390973d3d489fbf7ef195278b64bf0b953ce5d26dce77726794c0"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Hom_exists_basis_kaehlerDifferential_map_of_isAffineOpen_le",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Hom_exists_basis_kaehlerDifferential_map_of_isAffineOpen_le.lean",
+   "sha256": "f0f3553a40d103efede0d4c497e068a8e58edfb72d7836520d4377a0c8973dd0"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Hom_exists_basis_kaehler_of_isAffineOpen_of_smoothOfRelativeDimension",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Hom_exists_basis_kaehler_of_isAffineOpen_of_smoothOfRelativeDimension.lean",
+   "sha256": "3f38a93dec3ddeec344e5a2aea0d01f53330bd95760b301202f029a0f6cb67a3"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Hom_exists_hom_pullback_topDifferentials_map_pullbackLocalSection_topToSections_eq",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Hom_exists_hom_pullback_topDifferentials_map_pullbackLocalSection_topToSections_eq.lean",
+   "sha256": "b5ee1476ce61df58161bfbf3d4f7ab934f1045a50107fa058a97b997d0d3b4bc"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Hom_isAffineOpen_preimage_and_isPushout_of_isPullback",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Hom_isAffineOpen_preimage_and_isPushout_of_isPullback.lean",
+   "sha256": "69e1a9b28bded1575472e3cae23bd3e6bd51c847dae0899668fd0cc6fdc49207"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Hom_isFrameOn_topToSections_iotaMulti_of_forall_exists_basis",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Hom_isFrameOn_topToSections_iotaMulti_of_forall_exists_basis.lean",
+   "sha256": "683cda56e48696fd9ed48ef3dc3acd5ea7e8e0bd1cb30cc3ef196e2f101a8517"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Hom_isIntegral_image_and_isIso_stalkMap_toImage_genericPoint",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Hom_isIntegral_image_and_isIso_stalkMap_toImage_genericPoint.lean",
+   "sha256": "49a3b19953a16a69a6725f1e511f7cda779aafaf01c9c7e73b5d0a75b5898783"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Hom_isIso_of_map_pullbackLocalSection_topToSections_eq_of_isPullback_of_smoothOfRelativeDimension",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Hom_isIso_of_map_pullbackLocalSection_topToSections_eq_of_isPullback_of_smoothOfRelativeDimension.lean",
+   "sha256": "46239bc8580cebad9dd7cdc2b6bc588e717e4505ec519d0599a23b9fc8053174"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Hom_isIso_stalkMap_of_isIso_stalkMap_genericPoint",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Hom_isIso_stalkMap_of_isIso_stalkMap_genericPoint.lean",
+   "sha256": "5af2f7daf84db948dc99037b24126fe8b70f61614b956eebf328a868587d8f6a"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Hom_isLocallyFreeOfRank_kaehler_and_topDifferentials_of_smoothOfRelativeDimension",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Hom_isLocallyFreeOfRank_kaehler_and_topDifferentials_of_smoothOfRelativeDimension.lean",
+   "sha256": "c2183c405098b066c98d928fe154741f0ec67686db7e74fd5bad7ff6a7a9d5ee"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Hom_kaehlerToSections_bijective_of_isAffineOpen",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Hom_kaehlerToSections_bijective_of_isAffineOpen.lean",
+   "sha256": "8f10a8f06170f87dab002eb2312ad8cc7a2a14de24da5b7780801dbb9bf51323"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Hom_map_topToSections_eq_topToSections_topFormMap",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Hom_map_topToSections_eq_topToSections_topFormMap.lean",
+   "sha256": "c988f861214793657cd75130227a0b0fbe5f7464653b5213dbfb7280952ed147"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Hom_smoothLocus_le_preimage_of_isPullback",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Hom_smoothLocus_le_preimage_of_isPullback.lean",
+   "sha256": "9f133bc69bcfa811c445062ad472dce8afda92f6d97e69e518224d1a3a78cf87"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Hom_topFormMap_eq_topFormMap_of_specMap_comp_fromSpec_eq",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Hom_topFormMap_eq_topFormMap_of_specMap_comp_fromSpec_eq.lean",
+   "sha256": "b4d7fcdfbdf37134a68a9dcb2f25a10faa3fd4f13b76b39a2d0c4f4267afb15c"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Hom_topToSections_bijective_of_isAffineOpen",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Hom_topToSections_bijective_of_isAffineOpen.lean",
+   "sha256": "5c98ac5db84ffe7df8e675ea66979fb84a3e0ac0449d9724a4a73eb8f4bc4d14"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_IdealSheafData_isReduced_subscheme_vanishingIdeal_and_le_ker",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_IdealSheafData_isReduced_subscheme_vanishingIdeal_and_le_ker.lean",
+   "sha256": "f0673383b690ed68bc34178f8cd871bdb884d46a21a41a2bf95e681913435a17"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Modules_IsFrameOn_exists_isUnit_smul_eq",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Modules_IsFrameOn_exists_isUnit_smul_eq.lean",
+   "sha256": "e307dd9ca722bf914a1f89fa3534087faf86bfdbffd448f9522432533ac07a26"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Modules_IsFrameOn_of_iSup",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Modules_IsFrameOn_of_iSup.lean",
+   "sha256": "33d06c5f702529b87b1ef7c5c437b1034886c3a5589d9c7f2606cb6e0064fd8c"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Modules_IsFrameOn_pullbackLocalSection",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Modules_IsFrameOn_pullbackLocalSection.lean",
+   "sha256": "f6ee21a9e3fc0887ef5b7706490befe29a870b8aa0f2e01da44e7b6bd6aac741"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Modules_IsInvertible_exists_isFrameOn",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Modules_IsInvertible_exists_isFrameOn.lean",
+   "sha256": "09a0d26b0ddb71e7b186255c5f1a87459e2898a356aacdc1d2c84d9d02b162e1"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Modules_IsLocallyFreeOfRank_pullback",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Modules_IsLocallyFreeOfRank_pullback.lean",
+   "sha256": "eb79a81b2ecdb6ee2fddd54e9396c721632f51f4c32958eeb550253535487fb8"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Modules_bijective_pullbackLocalSection_opensInclusion_and_isFrameOn_iff",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Modules_bijective_pullbackLocalSection_opensInclusion_and_isFrameOn_iff.lean",
+   "sha256": "c2c3d43ac493bfcd6888292b9be6413e50967ff1318764ac0bc3f2f80cfd31a8"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Modules_bijective_unit_app_of_le_opensRange",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Modules_bijective_unit_app_of_le_opensRange.lean",
+   "sha256": "3305b5790608e95438fb65b532f7faeaed952258fc88629f8984a42ab2f6052d"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Modules_existsUnique_forall_map_eq_of_forall_affineOpens",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Modules_existsUnique_forall_map_eq_of_forall_affineOpens.lean",
+   "sha256": "4543778cf72d4dabd2250f38dda7b1d7d11719d5b65a38c7788e718f11abc997"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Modules_existsUnique_hom_app_eq_of_iSup_eq_top",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Modules_existsUnique_hom_app_eq_of_iSup_eq_top.lean",
+   "sha256": "6c3058d800ce752f8818db5b3a0628fbd966d3401a64443c833fdf944f3257ef"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Modules_existsUnique_iso_forall_pullback_mapIso_eq_of_iSup_eq_top",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Modules_existsUnique_iso_forall_pullback_mapIso_eq_of_iSup_eq_top.lean",
+   "sha256": "61a0fd32731e6e9429a4730523769aa6de2df0f321c1dcf5d2c39cbd6f8fcb4e"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Modules_forall_exists_basis_map_eq_of_forall_isAffineOpen",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Modules_forall_exists_basis_map_eq_of_forall_isAffineOpen.lean",
+   "sha256": "c1ed987c8e27b6d3b5c5af2207fda638b79f22d77fb62bef4f4440d0dfcfc22a"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Modules_isFrameOn_sheafificationAdjunction_unit_iotaMulti",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Modules_isFrameOn_sheafificationAdjunction_unit_iotaMulti.lean",
+   "sha256": "84006a746ad24fa767a5a61aabccbc1cf0dc20017b6c0863201ee1d000db38c5"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Modules_isInvertible_det_of_isLocallyFreeOfRank",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Modules_isInvertible_det_of_isLocallyFreeOfRank.lean",
+   "sha256": "3c18c1c39403fc22f268c3d677db32ad91fe98348106874c8b539eee58c46587"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Modules_isIso_of_isFrameOn_of_iSup_eq_top",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Modules_isIso_of_isFrameOn_of_iSup_eq_top.lean",
+   "sha256": "db648b5e95fff9e22613bb2be959fbf2e621565f215fbd8fcc0651b1b5420e6b"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Modules_isLocallyFreeOfRank_one_iff_isInvertible",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Modules_isLocallyFreeOfRank_one_iff_isInvertible.lean",
+   "sha256": "dce4bfe191db70289458977ca45b8fa05e926059487ffd726195c8d5b0e7c1d1"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Modules_nonempty_exteriorPower_free_iso_unit",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Modules_nonempty_exteriorPower_free_iso_unit.lean",
+   "sha256": "4190ae4045cb3aebd1a36b0b7459af17a9574fffaf10c44f406cc29d5b75538d"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Modules_nonempty_pullback_exteriorPower_iso_exteriorPower_pullback",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Modules_nonempty_pullback_exteriorPower_iso_exteriorPower_pullback.lean",
+   "sha256": "74a47ebcab775b8c2bd918783fba8043e19b8f5163d1a60f96e7333eb939c01c"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Modules_nonempty_pullback_iso_free_of_forall_exists_basis",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Modules_nonempty_pullback_iso_free_of_forall_exists_basis.lean",
+   "sha256": "838de2add4feeb5e4e7a555b2b351a56e6f269ee7cef91c961f3303543963eb1"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Modules_pullbackTensorUnitObjIso_hom_app_pullbackLocalSection_unitSection",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Modules_pullbackTensorUnitObjIso_hom_app_pullbackLocalSection_unitSection.lean",
+   "sha256": "61d8fe60e6132ce53ccf07de12184e0ad9e7ca05c88d9b4727a7aff08fc74f0d"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Modules_sheafify_mu_app_tensorSections",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Modules_sheafify_mu_app_tensorSections.lean",
+   "sha256": "07682c3071ae34dbe8dd67d4afab5a95cbcc0380329c0d087abb0a3645c2f575"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Modules_tensorHom_app_tensorSections",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Modules_tensorHom_app_tensorSections.lean",
+   "sha256": "2054f91761f53bde5f5e41dd97952e392b2a1d8132a82430ed0941d0b4c47cfb"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_Modules_unit_app_comp_pullbackComp_inv",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_Modules_unit_app_comp_pullbackComp_inv.lean",
+   "sha256": "c232670c2f20d0bcb8dbe699c2e40c118929bd02bfdcdda4fee1844a192f289e"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_RationalMap_exists_specializes_ringKrullDim_le_one_of_not_mem_domain",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_RationalMap_exists_specializes_ringKrullDim_le_one_of_not_mem_domain.lean",
+   "sha256": "123d94d1cf756cbb54ab7a0649aa5fbd11bfd96a60772702f907876e05402078"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_exists_affine_quotient_of_finiteLocallyFree_equivalenceRelation",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_exists_affine_quotient_of_finiteLocallyFree_equivalenceRelation.lean",
+   "sha256": "8914db4d0423caa00fc2a18b4574681e0b8117656096ebfacac565abf9bb67f0"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_exists_glue_forall_isOpenImmersion_of_forall_isOpenImmersion",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_exists_glue_forall_isOpenImmersion_of_forall_isOpenImmersion.lean",
+   "sha256": "e6c7c785fb7baa5a1eff1fb59135b0df6b10a42318f014296875d23c32fd585e"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_exists_invariant_isAffineOpen_of_finiteLocallyFree_equivalenceRelation",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_exists_invariant_isAffineOpen_of_finiteLocallyFree_equivalenceRelation.lean",
+   "sha256": "213c3f44fb7a6983548cee6a530c29361a44866ef7683a7f09a2e1f5cb4f134f"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_exists_invariant_isAffineOpen_of_finite_of_finiteLocallyFree_equivalenceRelation",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_exists_invariant_isAffineOpen_of_finite_of_finiteLocallyFree_equivalenceRelation.lean",
+   "sha256": "8234f584b38c9ef40cf59eb8e5f8aba0d88ebafb2a8d2051fb97e508926fdeaf"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_exists_isAffineOpen_preimage_eq_of_invariant",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_exists_isAffineOpen_preimage_eq_of_invariant.lean",
+   "sha256": "7067dbdef63861c7ac69f65a980df1486a00d426261a6dd7ef2def786c70ff04"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_exists_opens_extension_of_fromSpecStalk",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_exists_opens_extension_of_fromSpecStalk.lean",
+   "sha256": "1e80602dceda782612d22e17ef67ec6a6bfe8563628c4d4cb74480db2169c576"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_exists_quotient_of_finiteLocallyFree_equivalenceRelation",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_exists_quotient_of_finiteLocallyFree_equivalenceRelation.lean",
+   "sha256": "0a8ac7573d0061ca65583e59379c03e51fd821c2f98f2dc41ed0313eaeadddf6"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_exists_quotient_of_forall_exists_quotient_restrict",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_exists_quotient_of_forall_exists_quotient_restrict.lean",
+   "sha256": "e6e8efc87fc366f1d87d4f4e48032ee39ca415cde406b48778cbaa68c286c536"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_isLocalization_atPrime_stalk_of_specializes",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_isLocalization_atPrime_stalk_of_specializes.lean",
+   "sha256": "2d076a50d862503c5ffda9d49414aca531633c03d4604f4459a32440cc4bd553"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Scheme_quotient_baseChange_of_finiteLocallyFree_of_isPullback",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Scheme_quotient_baseChange_of_finiteLocallyFree_of_isPullback.lean",
+   "sha256": "ac98b5943a9b03a02d2c81776def1f9a2a3646e701ad5515ef52566403da6330"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_SmoothOfRelativeDimension_nonempty_basis_kaehlerDifferential_stalk_of_fromSpecStalk_comp_eq",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_SmoothOfRelativeDimension_nonempty_basis_kaehlerDifferential_stalk_of_fromSpecStalk_comp_eq.lean",
+   "sha256": "35af0f5c1e7c3c0098b09037f7b3ae8b3ed2c3b80840c866e6fc2184a27e85eb"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_SmoothOfRelativeDimension_of_isPullback_of_flat_of_surjective",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_SmoothOfRelativeDimension_of_isPullback_of_flat_of_surjective.lean",
+   "sha256": "d39516cebc65cd79c05f059927d31bc3aa98a4a79d6b7fd0b5dbb26fea7113a4"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Smooth_algebraMap_stalk_ne_zero_and_isPrime_span_of_apply_eq_closedPoint",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Smooth_algebraMap_stalk_ne_zero_and_isPrime_span_of_apply_eq_closedPoint.lean",
+   "sha256": "75f31071b917626bca7d5f67c486afb8799d73f8438ac0950134bfc7c35a8bd7"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Smooth_exists_comp_eq_id_and_specMap_comp_eq_of_henselianLocalRing",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Smooth_exists_comp_eq_id_and_specMap_comp_eq_of_henselianLocalRing.lean",
+   "sha256": "f4febbee31ad3c94355b5aec8fe8689ce0b0e56904e547d9b674b911c37d4031"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Smooth_exists_finite_etale_dvr_specMap_comp_eq_apply_closedPoint_mem_of_henselianLocalRing",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Smooth_exists_finite_etale_dvr_specMap_comp_eq_apply_closedPoint_mem_of_henselianLocalRing.lean",
+   "sha256": "5a9652043653b5d7e9322ebc8b9ef24f17e722b55b424ae8ceaee59907ce3d8f"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Smooth_exists_finite_etale_dvr_specMap_comp_eq_of_isSeparable_of_henselianLocalRing",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Smooth_exists_finite_etale_dvr_specMap_comp_eq_of_isSeparable_of_henselianLocalRing.lean",
+   "sha256": "073f4f70fc5e91bd15586c2c523384e4ba0de2f9872271ff8586fe1e27703848"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Smooth_exists_mem_and_smoothOfRelativeDimension_opensInclusion_comp",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Smooth_exists_mem_and_smoothOfRelativeDimension_opensInclusion_comp.lean",
+   "sha256": "93493f4e6bcd59887b76fc92bc9905f7b31754a42c4367fbddc0bd27eb1dd89d"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Smooth_isDiscreteValuationRing_stalk_of_forall_specializes",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Smooth_isDiscreteValuationRing_stalk_of_forall_specializes.lean",
+   "sha256": "834eb680f706b4bc3e75a3330469e0449b8e2f9313ceb2986cef0b15b4890417"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Smooth_isDomain_and_isIntegrallyClosed_stalk",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Smooth_isDomain_and_isIntegrallyClosed_stalk.lean",
+   "sha256": "5852fec265ad03f2a3e6230919b7d807b47a281f96144d2cc842fdf613ace1d7"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Smooth_isDomain_and_isIntegrallyClosed_stalk_of_isDiscreteValuationRing",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Smooth_isDomain_and_isIntegrallyClosed_stalk_of_isDiscreteValuationRing.lean",
+   "sha256": "6494191df95ff1f1934d0d673d1c61d807bf36a83e742f0f12dbd1e491c7fdf8"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Smooth_isReduced_of_isReduced_of_isLocallyNoetherian",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Smooth_isReduced_of_isReduced_of_isLocallyNoetherian.lean",
+   "sha256": "256b1273152b569b06bdff1b867ef12c3c2d067dea69d03399086cdbf50bc9a1"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Smooth_isRegularLocalRing_stalk",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Smooth_isRegularLocalRing_stalk.lean",
+   "sha256": "ecd890fc117422a69ad92679206847521a79535c7295bc3911811ada0f392176"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Smooth_isRegularLocalRing_stalk_of_isDiscreteValuationRing",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Smooth_isRegularLocalRing_stalk_of_isDiscreteValuationRing.lean",
+   "sha256": "b485b427e44f6c4d0c9e31031d0ac19b61f15f4d24680b9f278f78fb2f02a597"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_Smooth_snd_apply_eq_and_exists_isOpenImmersion_homOfLE_comp_of_formallySmooth_stalk",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_Smooth_snd_apply_eq_and_exists_isOpenImmersion_homOfLE_comp_of_formallySmooth_stalk.lean",
+   "sha256": "49a2481f291183216fcdf261f1bcd5003c379a1d68bc9dc36d98e79fef06651f"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_bijective_kaehlerDifferential_map_comp_mapBaseChange_stalk_pullback",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_bijective_kaehlerDifferential_map_comp_mapBaseChange_stalk_pullback.lean",
+   "sha256": "87df7ba0d88764c4c637d0ef3bdfed3825edecc7d817fff78a0973e8f80cea8d"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_existsUnique_extension_to_affine_of_isIntegrallyClosed_stalk",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_existsUnique_extension_to_affine_of_isIntegrallyClosed_stalk.lean",
+   "sha256": "5c64bcb886d7deadd92c818cf6492768e3287f9f9845f55d15ad568210e27a3e"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_exists_isAffineOpen_forall_mem_of_forall_preimage_mem_of_isFinite_of_flat_of_surjective",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_exists_isAffineOpen_forall_mem_of_forall_preimage_mem_of_isFinite_of_flat_of_surjective.lean",
+   "sha256": "4d8d890178e20e83f7a88c4db9a836dde658ce0582d6a915fbfeb49d9a9a69cd"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_exists_isAffineOpen_forall_mem_of_forall_specializes_of_smooth_of_isDiscreteValuationRing",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_exists_isAffineOpen_forall_mem_of_forall_specializes_of_smooth_of_isDiscreteValuationRing.lean",
+   "sha256": "0880faae95fc4b3742472035e31f941907bdda94a68657f5daa4ea04ac3431fd"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_exists_isAffineOpen_forall_mem_of_isDiscreteValuationRing_stalk",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_exists_isAffineOpen_forall_mem_of_isDiscreteValuationRing_stalk.lean",
+   "sha256": "ac095e34dcfb458edd58a9aa3d49679e7cecae6e8b239ed48d1ed81ba3a7548e"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_exists_isOpenImmersion_of_formallySmooth_stalk_of_isFractionRing_of_isDiscreteValuationRing",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_exists_isOpenImmersion_of_formallySmooth_stalk_of_isFractionRing_of_isDiscreteValuationRing.lean",
+   "sha256": "3200c55ffbf529cec70078fcd4b88cd7386c586cf85f09c736d4dc2ea502f12c"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_exists_isOpenImmersion_of_isIso_stalkMap_of_locallyOfFiniteType",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_exists_isOpenImmersion_of_isIso_stalkMap_of_locallyOfFiniteType.lean",
+   "sha256": "5f5d7fdace2c54c4d2524fd9473e4f31d4be9dd65834decf798a6f45be639b1c"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_exists_isSeparable_specMap_comp_eq_of_smooth_of_nonempty",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_exists_isSeparable_specMap_comp_eq_of_smooth_of_nonempty.lean",
+   "sha256": "024b175f7cd23457bdce2903a3496951d30f6f3ee40536d8185033433a8d30ba"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_exists_ne_zero_forall_exists_mul_appLE_mem_range_algebraMap_of_isProper",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_exists_ne_zero_forall_exists_mul_appLE_mem_range_algebraMap_of_isProper.lean",
+   "sha256": "6e15b78c73ab2d4f7a1a8a1c28856ab0477b5615049ba77097314cec33f0c683"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_exists_ringEquiv_stalk_pullback_localization_tensorProduct_stalk_of_germ_snd",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_exists_ringEquiv_stalk_pullback_localization_tensorProduct_stalk_of_germ_snd.lean",
+   "sha256": "d51e2bd5edd9e39220d693a2a7851077cf60ef3d5340c7c6fc01820e1a24cc69"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_exists_ringEquiv_stalk_pullback_localization_tensorProduct_stalk_stalk",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_exists_ringEquiv_stalk_pullback_localization_tensorProduct_stalk_stalk.lean",
+   "sha256": "bf2de4809cc6db2273d6b93b2e5775cc21f7fe1289dafdae23703c4e56fd72c9"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_geometricallyIntegral_of_isAlgClosed",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_geometricallyIntegral_of_isAlgClosed.lean",
+   "sha256": "e98ce9aecfb2c8c8cf738a42c2881ad8206ceae909dbf6a82222b1451a8124dc"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_isFractionRing_stalk_fractionRing_stalk_of_isOpenImmersion_restrict",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_isFractionRing_stalk_fractionRing_stalk_of_isOpenImmersion_restrict.lean",
+   "sha256": "d05a0b8cb6d43f6ffcb3e1dc4fbfe675a23853a385838968c24e3f6ebf8c362c"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_isIntegral_of_isLocallyNoetherian_of_connectedSpace_of_forall_isDomain_stalk",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_isIntegral_of_isLocallyNoetherian_of_connectedSpace_of_forall_isDomain_stalk.lean",
+   "sha256": "adfadcf69e8de549022608e5ed3dc6f8a1ff29437dd5b7c81e62c150233ca78f"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_isIntegral_of_smooth_of_preconnectedSpace",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_isIntegral_of_smooth_of_preconnectedSpace.lean",
+   "sha256": "bffa40f2895801085c29898dec2e54ddaf635e9b7ad10846bde936715f4dfcd7"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_isIso_lift_baseChange_fst_baseChange_snd",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_isIso_lift_baseChange_fst_baseChange_snd.lean",
+   "sha256": "08a4ea6704708f1d18cd73fc4decbd5ca006a86f8136d67d8fdf6cdc2bb86f00"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_isOpenImmersion_of_locallyQuasiFinite_of_isIntegrallyClosed_stalk_of_denseRange",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_isOpenImmersion_of_locallyQuasiFinite_of_isIntegrallyClosed_stalk_of_denseRange.lean",
+   "sha256": "004c778961d7b1e121ade7c6fc4452a04133b2d93f41d2b06c2dd8ca32520a81"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_isOpen_irreducibleComponent_of_isDomain_stalk",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_isOpen_irreducibleComponent_of_isDomain_stalk.lean",
+   "sha256": "a3bcfd5c45d33a8f5b696059d39f5b1a7cd7e69c8644b47ecf84d44d5e1d606a"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_isReduced_of_smooth_of_field",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_isReduced_of_smooth_of_field.lean",
+   "sha256": "5e399363b0b9f8a352693f3acbb8f2b33e4b8b09a74df844c098aff1553d1bea"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_isSeparated_of_isOpenImmersion_of_isPullback_of_isClosedImmersion_lift",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_isSeparated_of_isOpenImmersion_of_isPullback_of_isClosedImmersion_lift.lean",
+   "sha256": "5ee412deeb2053cdc73be5ca1d5b7f1cb4d99b7f6a9ea85546d898ab0fee4714"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_mem_image_of_mem_closure_image_of_forall_specializes",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_mem_image_of_mem_closure_image_of_forall_specializes.lean",
+   "sha256": "75b17b67037e6012bc296c7a7a8f95bb680b6545e2907f17794860a614a7b97e"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_mem_of_ringKrullDim_stalk_le_one_of_isDiscreteValuationRing",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_mem_of_ringKrullDim_stalk_le_one_of_isDiscreteValuationRing.lean",
+   "sha256": "454b053b59697cc107a1230937f751742d85c6ed3b16dbbca9debcf356039fef"
+  },
+  {
+   "module": "Theorems.Thm_AlgebraicGeometry_smoothOfRelativeDimension_of_smooth_of_genericFibre",
+   "upstream_path": "Theorems/Thm_AlgebraicGeometry_smoothOfRelativeDimension_of_smooth_of_genericFibre.lean",
+   "sha256": "1331b34b502dacc3fc8667f3717d42cf147002fdf5b3cdbe3a73a468974259d1"
+  },
+  {
+   "module": "Theorems.Thm_GoodReductionJacobian_AbelianSchemePropertyBundle_geometricallyIntegral",
+   "upstream_path": "Theorems/Thm_GoodReductionJacobian_AbelianSchemePropertyBundle_geometricallyIntegral.lean",
+   "sha256": "219fe11cf1917d826a6172382157130398defa7b452070418b479140b3ca8270"
+  },
+  {
+   "module": "Theorems.Thm_GoodReductionJacobian_RelativeGroupLaw_exists_extension_of_diagonal_difference_extension",
+   "upstream_path": "Theorems/Thm_GoodReductionJacobian_RelativeGroupLaw_exists_extension_of_diagonal_difference_extension.lean",
+   "sha256": "17ff6c016cc54c1c4686f8004301d28449155a6faf8852e8e6edba1981f2ef43"
+  },
+  {
+   "module": "Theorems.Thm_GoodReductionJacobian_RelativeGroupLaw_exists_isAffineOpen_forall_mem_of_forall_mul_mem",
+   "upstream_path": "Theorems/Thm_GoodReductionJacobian_RelativeGroupLaw_exists_isAffineOpen_forall_mem_of_forall_mul_mem.lean",
+   "sha256": "7125b457e1f8b0cc0c9f87f3fa2fe2ed0e670af3a6bc4d444066b8c6cbf42b8f"
+  },
+  {
+   "module": "Theorems.Thm_GoodReductionJacobian_RelativeGroupLaw_exists_isAffineOpen_forall_mem_of_isAffineOpen_of_forall_specializes_of_henselianLocalRing",
+   "upstream_path": "Theorems/Thm_GoodReductionJacobian_RelativeGroupLaw_exists_isAffineOpen_forall_mem_of_isAffineOpen_of_forall_specializes_of_henselianLocalRing.lean",
+   "sha256": "4eb32211a78ec0171937fa9ecad781c9e64512b4a639abb2f0932f5564d9759b"
+  },
+  {
+   "module": "Theorems.Thm_GoodReductionJacobian_RelativeGroupLaw_exists_isAffineOpen_forall_mem_of_smooth_of_henselianLocalRing",
+   "upstream_path": "Theorems/Thm_GoodReductionJacobian_RelativeGroupLaw_exists_isAffineOpen_forall_mem_of_smooth_of_henselianLocalRing.lean",
+   "sha256": "2aa89eee294f2b0c7a31b35c94e85fd1950ac1b02f217817c88fbbd866eb8113"
+  },
+  {
+   "module": "Theorems.Thm_GoodReductionJacobian_RelativeGroupLaw_exists_isFrameOn_topDifferentials_forall_topFormMap_appLE_mul_eq",
+   "upstream_path": "Theorems/Thm_GoodReductionJacobian_RelativeGroupLaw_exists_isFrameOn_topDifferentials_forall_topFormMap_appLE_mul_eq.lean",
+   "sha256": "52855596312cadcf71c9746861bf468e9d228f4ec3e1bc2f7f123bd23796186f"
+  },
+  {
+   "module": "Theorems.Thm_GoodReductionJacobian_RelativeGroupLaw_exists_isFrameOn_topDifferentials_forall_topFormMap_mul_eq",
+   "upstream_path": "Theorems/Thm_GoodReductionJacobian_RelativeGroupLaw_exists_isFrameOn_topDifferentials_forall_topFormMap_mul_eq.lean",
+   "sha256": "543e279bebf1face99f61aa0531907ac9476da6a3e821779575b4f4aaf812c63"
+  },
+  {
+   "module": "Theorems.Thm_GoodReductionJacobian_RelativeGroupLaw_exists_isGreatest_opens_difference_extension",
+   "upstream_path": "Theorems/Thm_GoodReductionJacobian_RelativeGroupLaw_exists_isGreatest_opens_difference_extension.lean",
+   "sha256": "04f4e8ce53a17016bb172b176c81ea5e5845d116fcfc4dbc5a00dbeaa4793783"
+  },
+  {
+   "module": "Theorems.Thm_GoodReductionJacobian_RelativeGroupLaw_exists_iso_hom_comp_eq_one_comp_eq",
+   "upstream_path": "Theorems/Thm_GoodReductionJacobian_RelativeGroupLaw_exists_iso_hom_comp_eq_one_comp_eq.lean",
+   "sha256": "de28d441a48d8d6efcccb315071575dc325c92a27a9307f20eb711bb95302d5b"
+  },
+  {
+   "module": "Theorems.Thm_GoodReductionJacobian_RelativeGroupLaw_exists_iso_pullback_hom_fst_eq_and_hom_snd_eq_mul",
+   "upstream_path": "Theorems/Thm_GoodReductionJacobian_RelativeGroupLaw_exists_iso_pullback_hom_fst_eq_and_hom_snd_eq_mul.lean",
+   "sha256": "808ef6e804ea51790e2fc564779ab8520735323a180465194b791ff35bab216a"
+  },
+  {
+   "module": "Theorems.Thm_GoodReductionJacobian_RelativeGroupLaw_exists_neronModelPropertyBundle_genericFibre_iso_of_abelianSchemePropertyBundle_of_henselianLocalRing",
+   "upstream_path": "Theorems/Thm_GoodReductionJacobian_RelativeGroupLaw_exists_neronModelPropertyBundle_genericFibre_iso_of_abelianSchemePropertyBundle_of_henselianLocalRing.lean",
+   "sha256": "ac64a2313329f0239bb3ab6ffaeac21746f5e5fec0c419ed6589fa7c65a64323"
+  },
+  {
+   "module": "Theorems.Thm_GoodReductionJacobian_RelativeGroupLaw_exists_opens_diagonal_difference_extension",
+   "upstream_path": "Theorems/Thm_GoodReductionJacobian_RelativeGroupLaw_exists_opens_diagonal_difference_extension.lean",
+   "sha256": "095d4698d0145ff1cb357a01c6470b0b9e8a86e9c8c9cff6f87791adad5895fa"
+  },
+  {
+   "module": "Theorems.Thm_GoodReductionJacobian_RelativeGroupLaw_exists_opens_forall_mul_base_mem_of_forall_specializes_mem",
+   "upstream_path": "Theorems/Thm_GoodReductionJacobian_RelativeGroupLaw_exists_opens_forall_mul_base_mem_of_forall_specializes_mem.lean",
+   "sha256": "b33bffed35de63cc526c94ce6dfa75e903d01832a87239dc7e9b9a3967e3ae41"
+  },
+  {
+   "module": "Theorems.Thm_GoodReductionJacobian_RelativeGroupLaw_exists_smoothOfRelativeDimension_of_smooth",
+   "upstream_path": "Theorems/Thm_GoodReductionJacobian_RelativeGroupLaw_exists_smoothOfRelativeDimension_of_smooth.lean",
+   "sha256": "fe65b1858813a70c78d8584cfe3d088a53992cb8e4a687930722360e0f3c4cc7"
+  },
+  {
+   "module": "Theorems.Thm_GoodReductionJacobian_RelativeGroupLaw_isCommutative_of_isCommutative_genericFibre",
+   "upstream_path": "Theorems/Thm_GoodReductionJacobian_RelativeGroupLaw_isCommutative_of_isCommutative_genericFibre.lean",
+   "sha256": "4f7f8cb0a360770aa16ed3b51cda6a8be9413fd4fb3cb19de6100edaa33ac813"
+  },
+  {
+   "module": "Theorems.Thm_GoodReductionJacobian_RelativeGroupLaw_isCommutative_of_isProper_of_geometricallyIntegral",
+   "upstream_path": "Theorems/Thm_GoodReductionJacobian_RelativeGroupLaw_isCommutative_of_isProper_of_geometricallyIntegral.lean",
+   "sha256": "0f1ab0efc50f3e0c8cb122d6967f32b1b2e1e99f39011720e506965265237187"
+  },
+  {
+   "module": "Theorems.Thm_GoodReductionJacobian_RelativeGroupLaw_isPullback_mul_fst",
+   "upstream_path": "Theorems/Thm_GoodReductionJacobian_RelativeGroupLaw_isPullback_mul_fst.lean",
+   "sha256": "839f11ff0295864e8f7dcde552dbc5acb488a9158f37067e60260ee5002f5038"
+  },
+  {
+   "module": "Theorems.Thm_GoodReductionJacobian_RelativeGroupLaw_not_mem_closure_image_fst_preimage_mul_compl_of_forall_specializes",
+   "upstream_path": "Theorems/Thm_GoodReductionJacobian_RelativeGroupLaw_not_mem_closure_image_fst_preimage_mul_compl_of_forall_specializes.lean",
+   "sha256": "96b39107abd33be82116add6e4202936ca999f5cce5496f915d6a8058cddc3ca"
+  },
+  {
+   "module": "Theorems.Thm_GoodReductionJacobian_RelativeGroupLaw_topFormMap_mul_eq_of_forall_topFormMap_appLE_mul_eq",
+   "upstream_path": "Theorems/Thm_GoodReductionJacobian_RelativeGroupLaw_topFormMap_mul_eq_of_forall_topFormMap_appLE_mul_eq.lean",
+   "sha256": "db3fc4b77e39ea29b090556c99eacc8f241da93ebdd71047b07fe163907802c3"
+  },
+  {
+   "module": "Theorems.Thm_HenselianLocalRing_existsUnique_isIdempotentElem_mk_eq_of_moduleFinite",
+   "upstream_path": "Theorems/Thm_HenselianLocalRing_existsUnique_isIdempotentElem_mk_eq_of_moduleFinite.lean",
+   "sha256": "5cac8f016c67124bcd92771add5a3b89843c64e2339af11915af9795e98e0705"
+  },
+  {
+   "module": "Theorems.Thm_HenselianLocalRing_exists_algHom_lift_of_etale",
+   "upstream_path": "Theorems/Thm_HenselianLocalRing_exists_algHom_lift_of_etale.lean",
+   "sha256": "9fae560ed0db44fdf690a32151e3d23763a78aaa6b7b62e80a8bb8d3dbfd4d91"
+  },
+  {
+   "module": "Theorems.Thm_HenselianLocalRing_exists_algHom_lift_of_isSmoothAt",
+   "upstream_path": "Theorems/Thm_HenselianLocalRing_exists_algHom_lift_of_isSmoothAt.lean",
+   "sha256": "5f6211d39f70bf3eba4fcbe1c8a5a48c958273a2228f7577e6aa6379b5ba2db3"
+  },
+  {
+   "module": "Theorems.Thm_HenselianLocalRing_exists_completeOrthogonalIdempotents_forall_isLocalRing_quotient_of_moduleFinite",
+   "upstream_path": "Theorems/Thm_HenselianLocalRing_exists_completeOrthogonalIdempotents_forall_isLocalRing_quotient_of_moduleFinite.lean",
+   "sha256": "0975114193a7be0e0caab6a89f9b1d00279f954a308f67835916e918574eec96"
+  },
+  {
+   "module": "Theorems.Thm_HenselianLocalRing_of_moduleFinite_of_isLocalRing",
+   "upstream_path": "Theorems/Thm_HenselianLocalRing_of_moduleFinite_of_isLocalRing.lean",
+   "sha256": "4e25c3ce2383f0434c9619cdceab6d3780d7eecfa9438dd987ad3387c049f114"
+  },
+  {
+   "module": "Theorems.Thm_Ideal_height_eq_one_of_isDiscreteValuationRing_localization_atPrime",
+   "upstream_path": "Theorems/Thm_Ideal_height_eq_one_of_isDiscreteValuationRing_localization_atPrime.lean",
+   "sha256": "77e1d4df1005efd799a3fb50a241aaff4913a38bbbd150944610811ed5afa27f"
+  },
+  {
+   "module": "Theorems.Thm_Ideal_height_map_quotientMk_span_singleton_add_one",
+   "upstream_path": "Theorems/Thm_Ideal_height_map_quotientMk_span_singleton_add_one.lean",
+   "sha256": "ce36b07ad63181035f6e5250f9b5e2202010286e825652b46550710dd1a28519"
+  },
+  {
+   "module": "Theorems.Thm_IsDiscreteValuationRing_bijective_algebraMap_of_flat_of_isLocalHom_of_isFractionRing",
+   "upstream_path": "Theorems/Thm_IsDiscreteValuationRing_bijective_algebraMap_of_flat_of_isLocalHom_of_isFractionRing.lean",
+   "sha256": "41d44792872bb6dc9ab397fb6ecdb19a666811c51a94e53f3c6ee8b7abd7dd91"
+  },
+  {
+   "module": "Theorems.Thm_IsDiscreteValuationRing_exists_finite_etale_dvr_map_maximalIdeal_eq_residueField_algEquiv",
+   "upstream_path": "Theorems/Thm_IsDiscreteValuationRing_exists_finite_etale_dvr_map_maximalIdeal_eq_residueField_algEquiv.lean",
+   "sha256": "afc892bb08cec1741b9272b6132805cbd081f153d799ad94740c04a311305c43"
+  },
+  {
+   "module": "Theorems.Thm_IsDiscreteValuationRing_length_torsion_quotient_add_finrank_le_of_sq_smul_le_prod",
+   "upstream_path": "Theorems/Thm_IsDiscreteValuationRing_length_torsion_quotient_add_finrank_le_of_sq_smul_le_prod.lean",
+   "sha256": "1a035e91da0c3f0c171f27ddc61be732856d20ad155ef0b744631b44af88492a"
+  },
+  {
+   "module": "Theorems.Thm_IsIntegrallyClosed_exists_algebraMap_eq_of_forall_height_eq_one",
+   "upstream_path": "Theorems/Thm_IsIntegrallyClosed_exists_algebraMap_eq_of_forall_height_eq_one.lean",
+   "sha256": "caa313ef8026828ae36918bf94f381504cb1ff5437f60d3f10a4398bee6af39a"
+  },
+  {
+   "module": "Theorems.Thm_IsIntegrallyClosed_height_eq_one_of_mem_associatedPrimes",
+   "upstream_path": "Theorems/Thm_IsIntegrallyClosed_height_eq_one_of_mem_associatedPrimes.lean",
+   "sha256": "ef4296191f64f3b3562eea7444038e1c0372a17f59f3141b08ff626b7bdce697"
+  },
+  {
+   "module": "Theorems.Thm_IsIntegrallyClosed_isDiscreteValuationRing_localization_of_mem_associatedPrimes",
+   "upstream_path": "Theorems/Thm_IsIntegrallyClosed_isDiscreteValuationRing_localization_of_mem_associatedPrimes.lean",
+   "sha256": "57061cd263c4b7453972440518158aa30db24c32916de4f7a820e710bf46316e"
+  },
+  {
+   "module": "Theorems.Thm_IsIntegrallyClosed_isDiscreteValuationRing_of_maximalIdeal_mem_associatedPrimes",
+   "upstream_path": "Theorems/Thm_IsIntegrallyClosed_isDiscreteValuationRing_of_maximalIdeal_mem_associatedPrimes.lean",
+   "sha256": "03350fad6dd0504ea6932b2d79f646b29a165ee96ca1513474c5bc68bd264599"
+  },
+  {
+   "module": "Theorems.Thm_IsLocalRing_IsCohenMacaulayOfDim_ringKrullDim_quotient_add_height",
+   "upstream_path": "Theorems/Thm_IsLocalRing_IsCohenMacaulayOfDim_ringKrullDim_quotient_add_height.lean",
+   "sha256": "d5737f051865419492339a6c063919afb5cd3f4205f11b7f06924aab1a86e794"
+  },
+  {
+   "module": "Theorems.Thm_IsLocalRing_ringKrullDim_quotient_span_singleton_add_one_of_forall_minimalPrimes_notMem",
+   "upstream_path": "Theorems/Thm_IsLocalRing_ringKrullDim_quotient_span_singleton_add_one_of_forall_minimalPrimes_notMem.lean",
+   "sha256": "4ea74901715d689d7ac4ce860402a576951583f83106fc23c26745d686648bf4"
+  },
+  {
+   "module": "Theorems.Thm_IsLocalizedModule_existsUnique_forall_eq_of_span_range_eq_top",
+   "upstream_path": "Theorems/Thm_IsLocalizedModule_existsUnique_forall_eq_of_span_range_eq_top.lean",
+   "sha256": "991458e1c50aa18b638748a045577f9415027b5e0debb7aacbb9e8f3b4730104"
+  },
+  {
+   "module": "Theorems.Thm_IsLocalizedModule_of_forall_apply_iotaMulti_eq",
+   "upstream_path": "Theorems/Thm_IsLocalizedModule_of_forall_apply_iotaMulti_eq.lean",
+   "sha256": "5cd5868d3f8f576e582d3aec1e40cd13975e05c46336dafbe34497e56dbc8be0"
+  },
+  {
+   "module": "Theorems.Thm_IsNoetherianRing_exists_unit_mul_zpow_eq_of_span_singleton_isPrime",
+   "upstream_path": "Theorems/Thm_IsNoetherianRing_exists_unit_mul_zpow_eq_of_span_singleton_isPrime.lean",
+   "sha256": "d1fe97ecb25f0a720d15bdd3b38ba210cbc165ea65eb2f1d016ea53cef72f738"
+  },
+  {
+   "module": "Theorems.Thm_IsRegularLocalRing_depth_self_eq_ringKrullDim",
+   "upstream_path": "Theorems/Thm_IsRegularLocalRing_depth_self_eq_ringKrullDim.lean",
+   "sha256": "b1aae38d6203ecd240937108c26e167f2e601ab761c387c7cb32e9be614a640f"
+  },
+  {
+   "module": "Theorems.Thm_IsRegularLocalRing_isDomain",
+   "upstream_path": "Theorems/Thm_IsRegularLocalRing_isDomain.lean",
+   "sha256": "b97a3dbfa51dd0d6d444483d77d94db46d8c12fd3aab4791c0f79852fdf3aafd"
+  },
+  {
+   "module": "Theorems.Thm_IsRegularLocalRing_spanFinrank_ker_add_ringKrullDim_eq",
+   "upstream_path": "Theorems/Thm_IsRegularLocalRing_spanFinrank_ker_add_ringKrullDim_eq.lean",
+   "sha256": "e1e0ab7785fd65dd230d6d60b9b791470bba2f1559f06aa5fe7a66fb947a7a54"
+  },
+  {
+   "module": "Theorems.Thm_KaehlerDifferential_D_ne_zero_of_forall_pow_ne",
+   "upstream_path": "Theorems/Thm_KaehlerDifferential_D_ne_zero_of_forall_pow_ne.lean",
+   "sha256": "ec891ff025a031bdaa97b4752ff0928d236e996cf91a3ee991a7b41c2edca88e"
+  },
+  {
+   "module": "Theorems.Thm_KaehlerDifferential_bijective_map_comp_mapBaseChange_of_isLocalization_tensorProduct",
+   "upstream_path": "Theorems/Thm_KaehlerDifferential_bijective_map_comp_mapBaseChange_of_isLocalization_tensorProduct.lean",
+   "sha256": "482f5fbfbe0d7fffbe6bbb8d482c91e8521bf95ec92524c21f43ac035f9741ab"
+  },
+  {
+   "module": "Theorems.Thm_KaehlerDifferential_nonempty_baseChange_linearEquiv_quotient_span_tmul_D_of_surjective",
+   "upstream_path": "Theorems/Thm_KaehlerDifferential_nonempty_baseChange_linearEquiv_quotient_span_tmul_D_of_surjective.lean",
+   "sha256": "2185c9d6250adcb06aaa8f02cc9ab3c8fb550753ffbc9bc93e44d810e2507227"
+  },
+  {
+   "module": "Theorems.Thm_Module_FinitePresentation_exists_notMem_basis_localizedModule_of_basis_residueField_tensor",
+   "upstream_path": "Theorems/Thm_Module_FinitePresentation_exists_notMem_basis_localizedModule_of_basis_residueField_tensor.lean",
+   "sha256": "50aee3cbf0a1b686df21be47b636e27bdd46c084697ebb08baddd27b42cecebe"
+  },
+  {
+   "module": "Theorems.Thm_Module_depth_le_ringKrullDim_quotient_of_mem_associatedPrimes",
+   "upstream_path": "Theorems/Thm_Module_depth_le_ringKrullDim_quotient_of_mem_associatedPrimes.lean",
+   "sha256": "51fb8632435ac26cc353df4b69f69b98e2a88b7c30cf190c09f1e7ff7d5e4b22"
+  },
+  {
+   "module": "Theorems.Thm_Module_depth_quotSMulTop_succ_eq",
+   "upstream_path": "Theorems/Thm_Module_depth_quotSMulTop_succ_eq.lean",
+   "sha256": "4470c1160f8f45feef040191f995b0ba47da9b8093f2654e0ef93c9a7b6061f7"
+  },
+  {
+   "module": "Theorems.Thm_Module_depth_quotient_eq_depth",
+   "upstream_path": "Theorems/Thm_Module_depth_quotient_eq_depth.lean",
+   "sha256": "3f20e69006ac425273ef0f88cdbe1e8ef81cfcf5a35fae7e20776fd3bbc7959d"
+  },
+  {
+   "module": "Theorems.Thm_MvPolynomial_exists_isStandardSmooth_algHom_isUnit_det_pderiv_basis_kaehlerDifferential",
+   "upstream_path": "Theorems/Thm_MvPolynomial_exists_isStandardSmooth_algHom_isUnit_det_pderiv_basis_kaehlerDifferential.lean",
+   "sha256": "ffccde925f8643a73a7a93625520e2d094c4f15e806028991f3cf829775f3034"
+  },
+  {
+   "module": "Theorems.Thm_MvPolynomial_isStandardSmoothOfRelativeDimension_natCard",
+   "upstream_path": "Theorems/Thm_MvPolynomial_isStandardSmoothOfRelativeDimension_natCard.lean",
+   "sha256": "dc815d56e642908c2240a73ad4675b66f35d7f5197cb68e6e64ae6aeac39b825"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_ComponentReading_eq_n_of_forall_topFormMap_eq_mul_zpow_smul",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_ComponentReading_eq_n_of_forall_topFormMap_eq_mul_zpow_smul.lean",
+   "sha256": "a3cadd5dfaee4354c09e102a931a65977fba64b91339ce8ed985dbaa6f397f4e"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_ComponentReading_exists_basis_units_int_forall_topFormMap_eq_mul_zpow_smul_of_specializes",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_ComponentReading_exists_basis_units_int_forall_topFormMap_eq_mul_zpow_smul_of_specializes.lean",
+   "sha256": "24fbddf0542bcf881a2d6b154f12f34f780106e3893031919497da0aa96f0a80"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_ComponentReading_exists_basis_units_topFormMap_eq_mul_zpow_smul_of_specializes",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_ComponentReading_exists_basis_units_topFormMap_eq_mul_zpow_smul_of_specializes.lean",
+   "sha256": "658d17aefe4bedbc8c4c8cd56227f0d7837f60b4e318e9fc5da1d44edc8db366"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_ComponentReading_isDomain_and_injective_stalkMap_and_isScalarTower_and_isFractionRing_of_chart_comp_eq",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_ComponentReading_isDomain_and_injective_stalkMap_and_isScalarTower_and_isFractionRing_of_chart_comp_eq.lean",
+   "sha256": "87b9564acbc1d6af591999d7e72369daa64d046c373dff1ed271973c8dc2a2c4"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_ComponentReading_n_le_n_and_isOpenImmersion_of_n_eq_of_specializes",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_ComponentReading_n_le_n_and_isOpenImmersion_of_n_eq_of_specializes.lean",
+   "sha256": "7df103c028cc977a73014f5ea19bcd85ff820837c68e42b7a2dddcf52b1b6cbb"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_MinimalComponentData_exists_ringHom_stalk_chart_comp_eq_pointGenericFibre_of_forall_specializes",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_MinimalComponentData_exists_ringHom_stalk_chart_comp_eq_pointGenericFibre_of_forall_specializes.lean",
+   "sha256": "5b5501e01eedeb471c94cf97fda791c0a33bd0ee7dc1f3f0d1d3fa40eefd8ecc"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_TopFormOrder_addOrd_mul_and_nonneg_and_eq_zero_iff_and_uniformizer",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_TopFormOrder_addOrd_mul_and_nonneg_and_eq_zero_iff_and_uniformizer.lean",
+   "sha256": "9c2adf23f6ad582c0672b05153c1a3d72a959009f2797bd0fe4120166bdcdf0a"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_TopFormOrder_eq_addOrd_and_bijective_mapBaseChange_of_topFormMap_eq_of_addOrd_le",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_TopFormOrder_eq_addOrd_and_bijective_mapBaseChange_of_topFormMap_eq_of_addOrd_le.lean",
+   "sha256": "46ec77ebbdb743a2187bcac7444e37ec35beeac01902002f3adf80f2aa7dfb6f"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_TopFormOrder_exists_basis_units_int_forall_topFormMap_eq_mul_zpow_smul_of_span_singleton_eq_top",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_TopFormOrder_exists_basis_units_int_forall_topFormMap_eq_mul_zpow_smul_of_span_singleton_eq_top.lean",
+   "sha256": "35000dab12d6e08d9b014328aeb6564c8a1e8cb5d37df701ebb5e4d907b8b3a2"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_TopFormOrder_exists_det_topFormMap_eq_smul_and_isUnit_iff_bijective_mapBaseChange",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_TopFormOrder_exists_det_topFormMap_eq_smul_and_isUnit_iff_bijective_mapBaseChange.lean",
+   "sha256": "f7efcb7b1d316df01ed0a62351c799894551429facf8137e6f098011f92f38c7"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_TopFormOrder_integralTopForms_eq_span_and_ord_smul_of_basis",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_TopFormOrder_integralTopForms_eq_span_and_ord_smul_of_basis.lean",
+   "sha256": "80f33d314262db0446fa7e29577cd9d663a244f3932d19163b1db9b0494ecba3"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_TopFormOrder_le_ord_and_ord_eq_iff_bijective_mapBaseChange_of_eq_unit_mul_zpow_smul",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_TopFormOrder_le_ord_and_ord_eq_iff_bijective_mapBaseChange_of_eq_unit_mul_zpow_smul.lean",
+   "sha256": "d0bfebea1daf0e688d5532f34d5f9fce31b968f80e3863a6974c2b1a8085ddd6"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_TopFormOrder_ord_topFormMap_eq_ord_of_map_maximalIdeal_eq",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_TopFormOrder_ord_topFormMap_eq_ord_of_map_maximalIdeal_eq.lean",
+   "sha256": "d28315cc8a7b5209a95e878321775055d4876a6e4d8d3ee9e4e9ad2e422c6afb"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_TopFormOrder_span_topFormMap_iotaMulti_eq_top_and_exists_units_eq_smul_of_isLocalization_away",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_TopFormOrder_span_topFormMap_iotaMulti_eq_top_and_exists_units_eq_smul_of_isLocalization_away.lean",
+   "sha256": "0514752bb4aaf7318a2a464f52d1c89b49cf0b5f7f1ca1a890893d56f5c84141"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_TopFormOrder_topFormMap_iotaMulti_ne_zero_and_forall_exists_smul_eq",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_TopFormOrder_topFormMap_iotaMulti_ne_zero_and_forall_exists_smul_eq.lean",
+   "sha256": "c97ceba7e95404ec618d6857b13f6e3980f37d0abcd65221862211b88d73e17a"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_TopFormOrder_topFormMap_ne_zero_of_bijective_smul_of_isLocalization",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_TopFormOrder_topFormMap_ne_zero_of_bijective_smul_of_isLocalization.lean",
+   "sha256": "c37de6fdc63a603bd21e761e39306d5a752d071f554548cf74542b2e3d74ea09"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_TopFormOrder_topFormMap_topFormMap",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_TopFormOrder_topFormMap_topFormMap.lean",
+   "sha256": "0fe1b65c3c51611902527d14b27e841edbd2a3b7644cf2647ad8bb9ef7c5e15b"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_eq_of_comp_eq_of_range_subset_closure_range_lift_of_forall_dense_preimage_fibre",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_eq_of_comp_eq_of_range_subset_closure_range_lift_of_forall_dense_preimage_fibre.lean",
+   "sha256": "1ee3c90ed339a6b01411421d799cc9c10bc547339e4e1cc76bf3f404e7580cc0"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_algHom_comap_maximalIdeal_eq_primeIdealOf_of_apply_closedPoint_mem",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_algHom_comap_maximalIdeal_eq_primeIdealOf_of_apply_closedPoint_mem.lean",
+   "sha256": "eb718d5f250b27128890d0a14716e2ed5d9bc0f1e8d91e27f0f6966232461b04"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_antitone_isClosed_forall_indexOne_chart_of_smooth_pullback_snd",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_antitone_isClosed_forall_indexOne_chart_of_smooth_pullback_snd.lean",
+   "sha256": "a23c8967ddefa27de269e3098f90ca00cd4d85a15b3c21169676b842138ea7ef"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_componentReading_data_of_smooth_of_forall_specializes",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_componentReading_data_of_smooth_of_forall_specializes.lean",
+   "sha256": "12da0eae3812c0cb323cb0f95d0a3f01b28b07802d94a18191857950cae72aae"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_descentAction_of_finite_etale_relativeGroupLaw_isOpenImmersion_of_henselianLocalRing",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_descentAction_of_finite_etale_relativeGroupLaw_isOpenImmersion_of_henselianLocalRing.lean",
+   "sha256": "ae92ca83f7a65984a83c4bfc751202e6fccb1c86b870ee0e26abe816fa749f70"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_finite_etale_isOpenImmersion_forall_exists_translation_of_forall_dense_preimage_fibre_of_henselianLocalRing",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_finite_etale_isOpenImmersion_forall_exists_translation_of_forall_dense_preimage_fibre_of_henselianLocalRing.lean",
+   "sha256": "7330c2ad94a03a2b0142eed6b68a89e658ecf58cf483bc673e1522c0d6f26cca"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_finite_etale_isOpenImmersion_forall_mem_of_mem_range_of_forall_dense_preimage_fibre_of_henselianLocalRing",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_finite_etale_isOpenImmersion_forall_mem_of_mem_range_of_forall_dense_preimage_fibre_of_henselianLocalRing.lean",
+   "sha256": "488eaf048a71bf8ef7a981dafb19d4e4d9c8f8a53f5b0ca0d21d1cc6ccc3cbda"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_finite_etale_relativeGroupLaw_isOpenImmersion_of_forall_dense_preimage_fibre_of_henselianLocalRing",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_finite_etale_relativeGroupLaw_isOpenImmersion_of_forall_dense_preimage_fibre_of_henselianLocalRing.lean",
+   "sha256": "ca29c97f0f73259308b5d041fb1fb8a3b4d6fd67d869ea7157908e72cc665d64"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_forall_dense_preimage_fibre_comp_eq_comp_of_forall_dense_preimage_fibre_of_relativeGroupLaw",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_forall_dense_preimage_fibre_comp_eq_comp_of_forall_dense_preimage_fibre_of_relativeGroupLaw.lean",
+   "sha256": "74a8cf14064fc58d6a3c4b69f8375a1a31f052a8745b577dff364fa1543e3899"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_forall_smoothnessDefect_le_of_smooth_pullback_snd",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_forall_smoothnessDefect_le_of_smooth_pullback_snd.lean",
+   "sha256": "e7f74c5b44fa1a70201207e55a4debd17fcd3e3db16b6a61046246ad20580c2c"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_glue_translate_baseChange_isOpenImmersion_forall_range_subset_of_forall_dense_preimage_fibre",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_glue_translate_baseChange_isOpenImmersion_forall_range_subset_of_forall_dense_preimage_fibre.lean",
+   "sha256": "71f994e2720b55faedf1d31d4fbe60c6716058376ac93a88379df220db12a9dd"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_hom_isIso_morphismRestrict_compl_iso_affineDilatation_of_antitone_isClosed",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_hom_isIso_morphismRestrict_compl_iso_affineDilatation_of_antitone_isClosed.lean",
+   "sha256": "87491d6fc41b3ca1d9cc2386058abe9e87b34cda047805a8fb538d0f8c0b153d"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_hom_isIso_smoothnessDefect_add_one_le_of_smooth_pullback_snd",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_hom_isIso_smoothnessDefect_add_one_le_of_smooth_pullback_snd.lean",
+   "sha256": "025542dfd37834fee2af25b7b0d60b1e74f67226f50b0b8d76cac160816b336e"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_isAffineHom_isIso_morphismRestrict_iso_affineDilatation_of_isClosed",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_isAffineHom_isIso_morphismRestrict_iso_affineDilatation_of_isClosed.lean",
+   "sha256": "a376f130e8b88f708e8be388f92c4cba7597f59e1f275c86305453a3e04f0fed"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_isClosedImmersion_range_eq_closure_isOpenImmersion_of_forall_dense_preimage_fibre",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_isClosedImmersion_range_eq_closure_isOpenImmersion_of_forall_dense_preimage_fibre.lean",
+   "sha256": "1aaf7776ea0528b3d0c48842dc661724447064f5114ef138f5f38f95ccfc9ce6"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_isOpenImmersion_model_isIso_genericFibre_of_isOpenImmersion_chart",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_isOpenImmersion_model_isIso_genericFibre_of_isOpenImmersion_chart.lean",
+   "sha256": "3dfcd3f8cb3d81b23d30ced8fbfb416500937d2d824be14ca97a5d4904a8def8"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_isSeparated_isOpenImmersion_isPullback_glue_translate_of_isClosedImmersion_of_section",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_isSeparated_isOpenImmersion_isPullback_glue_translate_of_isClosedImmersion_of_section.lean",
+   "sha256": "eb8ac2b50e56830c3eafc52e0a43c4641906ce77fe3ed8b75f53b3b3ecb49bf4"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_lift_forall_dense_preimage_fibre_of_isPullback_of_forall_dense_preimage_fibre",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_lift_forall_dense_preimage_fibre_of_isPullback_of_forall_dense_preimage_fibre.lean",
+   "sha256": "cc1513bd29174b48a908fbf37d47f566cd205683f996cad210454c48d7c25435"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_mem_opens_forall_dense_preimage_fst_of_forall_maximal_mem",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_mem_opens_forall_dense_preimage_fst_of_forall_maximal_mem.lean",
+   "sha256": "d6d3a7f15a4bb46a99fa9fe0a07a0442ac90fb204b3076b87e234c87eb88e1bd"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_minimalComponentData_isOmegaMinimal_of_catchesIndexOnePoints",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_minimalComponentData_isOmegaMinimal_of_catchesIndexOnePoints.lean",
+   "sha256": "c5031a033a965861b1c2e775b6cccd3c7ec9968e842cf31c44fd57b48b326f07"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_modelFamily_finite_catchesIndexOnePoints_of_isProper",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_modelFamily_finite_catchesIndexOnePoints_of_isProper.lean",
+   "sha256": "a5dd9df0dd204a817125450da40c49daa5d60a4c5e0ecea4d3961304a7d4cc70"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_model_forall_nhds_translation_extension_isOpenImmersion_of_catchesIndexOnePoints_of_isCommutative",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_model_forall_nhds_translation_extension_isOpenImmersion_of_catchesIndexOnePoints_of_isCommutative.lean",
+   "sha256": "c501b9b75e15750978ae7eaf67d8ad89306a8a014f0d7652e5c1a9693613c3fc"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_model_openCover_of_forall_isClosedImmersion_pullback_lift",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_model_openCover_of_forall_isClosedImmersion_pullback_lift.lean",
+   "sha256": "b4432baab92dee795165db895600c2ffb5dfd250141de4e537463efdb49eb59d"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_model_openCover_of_forall_ne_not_exists_extension",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_model_openCover_of_forall_ne_not_exists_extension.lean",
+   "sha256": "363b631bb78d07b709003c6dcb07ccc4029e5029a04145e9cc713e4cab07efb7"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_mul_extension_isIso_lift_of_forall_dense_preimage_fibre_of_forall_mem_opens_of_section",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_mul_extension_isIso_lift_of_forall_dense_preimage_fibre_of_forall_mem_opens_of_section.lean",
+   "sha256": "e114f7c0f1d60ad882aec4979788a02a3f69b7c070177adb97db807f248d95a2"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_n_eq_and_formallySmooth_stalk_of_isOmegaMinimal_of_genericFibreRestrict_comp_eq_mul",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_n_eq_and_formallySmooth_stalk_of_isOmegaMinimal_of_genericFibreRestrict_comp_eq_mul.lean",
+   "sha256": "c0dae7fb83674818cb1b2fcf1b463df31273e85f98379dfe73a494b832c1075a"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_nhds_extension_chart_of_catchesIndexOnePoints",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_nhds_extension_chart_of_catchesIndexOnePoints.lean",
+   "sha256": "3851f56051d38eeb6aff7963943ec1901c079f152bac4cd5b38a27dbcf21bd53"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_nhds_extension_of_isIso_stalkMap_imageInc_fst",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_nhds_extension_of_isIso_stalkMap_imageInc_fst.lean",
+   "sha256": "0f4d6c053829db677ec83a1a51b7db8b2d3852ef009c705d7fa2aabdc94f181e"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_nhds_translation_extension_isOpenImmersion_of_formallySmooth_stalk_of_isOmegaMinimal",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_nhds_translation_extension_isOpenImmersion_of_formallySmooth_stalk_of_isOmegaMinimal.lean",
+   "sha256": "a44048ab4ce51d0522b0b1c921a528b0b21a8ae8b0a0ec15e89065f4d4aa26b5"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_nhds_translation_extension_isOpenImmersion_of_isOpenImmersion_homOfLE_comp_of_isOmegaMinimalRep",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_nhds_translation_extension_isOpenImmersion_of_isOpenImmersion_homOfLE_comp_of_isOmegaMinimalRep.lean",
+   "sha256": "628c58afdf833f75e4a8b2db3a1dbc71197e088db75ccf317dd7d517ab51c26f"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_opens_extension_of_forall_nhds_extension",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_opens_extension_of_forall_nhds_extension.lean",
+   "sha256": "36b969cb83a22d8ef58643dbca3911eec5d4abae9f38c6edd732ec9759540acf"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_opens_forall_dense_preimage_fibre_of_isOpenImmersion_lift_mul",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_opens_forall_dense_preimage_fibre_of_isOpenImmersion_lift_mul.lean",
+   "sha256": "18bfad7d8506ff507beec48eacff6580b8481dfabf02d450037b264df3f5a72e"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_opens_forall_dense_preimage_fibre_of_isPullback_glue_translate_of_section",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_opens_forall_dense_preimage_fibre_of_isPullback_glue_translate_of_section.lean",
+   "sha256": "244c977cba1079b3b0645ec8b89e5ccfa803ab4e180a8949f81158445e5dd3ce"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_opens_forall_isClosedImmersion_of_forall_ne_not_exists_extension",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_opens_forall_isClosedImmersion_of_forall_ne_not_exists_extension.lean",
+   "sha256": "c143858eec83d853769a84fa674adf7c33ee2039a1aeac5c65d9954d9881cad6"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_opens_forall_mem_of_mem_range_of_forall_exists_translation_of_henselianLocalRing",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_opens_forall_mem_of_mem_range_of_forall_exists_translation_of_henselianLocalRing.lean",
+   "sha256": "a281e2e7a5dafc541b29e23cc927959db1f1c307467ecb4a78be51aa7e071717"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_opens_forall_range_subset_of_comp_translation_eq_of_etale",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_opens_forall_range_subset_of_comp_translation_eq_of_etale.lean",
+   "sha256": "a1b8a9b7843b9392b67726492a3357178d4aa5b385bafa02ec004d5320fd15af"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_opens_inter_closure_eq_setOf_isSmoothAt_and_mem_freeLocus",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_opens_inter_closure_eq_setOf_isSmoothAt_and_mem_freeLocus.lean",
+   "sha256": "cb75220b641f44359b8e582a222fedd7f53e5a9c953579063800778cc56258f7"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_opens_locallyQuasiFinite_forall_exists_comp_eq_of_glue_translate_of_section",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_opens_locallyQuasiFinite_forall_exists_comp_eq_of_glue_translate_of_section.lean",
+   "sha256": "639c042ae82925ab583712f418e39cf5756bfaa26d6c74745ce0f0339c717874"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_opens_mul_extension_isOpenImmersion_lift_of_forall_nhds_translation_extension",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_opens_mul_extension_isOpenImmersion_lift_of_forall_nhds_translation_extension.lean",
+   "sha256": "8e6b15326e74e3a1e4c73455ebfd0fbbb6cf0d26fd7d5278f625e660e1ddef38"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_opens_relativeGroupLaw_isOpenImmersion_genericFibre_iso_of_isOpenImmersion_lift_mul_of_henselianLocalRing",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_opens_relativeGroupLaw_isOpenImmersion_genericFibre_iso_of_isOpenImmersion_lift_mul_of_henselianLocalRing.lean",
+   "sha256": "11374d6648f99b41856872a1b41d8d5dd13c150a9ef43343386f3e4fa602f7ef"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_relativeGroupLaw_genericFibre_iso_nhds_twist_extension_of_catchesIndexOnePoints_of_henselianLocalRing_of_isCommutative",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_relativeGroupLaw_genericFibre_iso_nhds_twist_extension_of_catchesIndexOnePoints_of_henselianLocalRing_of_isCommutative.lean",
+   "sha256": "e6b7c88556e23c73958006feff154eb88cb89a8eaf4c118a8d5664f222b1ba60"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_relativeGroupLaw_isOpenImmersion_opens_of_effective_descentAction_of_finite_etale_relativeGroupLaw_isOpenImmersion",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_relativeGroupLaw_isOpenImmersion_opens_of_effective_descentAction_of_finite_etale_relativeGroupLaw_isOpenImmersion.lean",
+   "sha256": "a8ffc15142b7626179b1706e155486728e5b4d01462e162668cec839e72207a1"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_relativeGroupLaw_isOpenImmersion_opens_of_finite_etale_relativeGroupLaw_isOpenImmersion_of_henselianLocalRing",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_relativeGroupLaw_isOpenImmersion_opens_of_finite_etale_relativeGroupLaw_isOpenImmersion_of_henselianLocalRing.lean",
+   "sha256": "a4723f30470cf2d49b4d40c899f0efab46e3213973ed4f4140fe74f6385a6bef"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_relativeGroupLaw_isOpenImmersion_opens_of_forall_dense_preimage_fibre_of_henselianLocalRing",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_relativeGroupLaw_isOpenImmersion_opens_of_forall_dense_preimage_fibre_of_henselianLocalRing.lean",
+   "sha256": "1123b41b5c8e2962b88d218c778c34f9d1bf117e574ae141ac5576260b7b0da8"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_relativeGroupLaw_mul_eq_of_forall_dense_preimage_fibre_of_forall_mem_opens_of_section",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_relativeGroupLaw_mul_eq_of_forall_dense_preimage_fibre_of_forall_mem_opens_of_section.lean",
+   "sha256": "6f64c4b455c5b79910b44db32c91dd39a3518ea41e7a89a2621845972a024571"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_smooth_hom_isIso_genericFibre_lift_of_isIndexOneExtension",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_smooth_hom_isIso_genericFibre_lift_of_isIndexOneExtension.lean",
+   "sha256": "af683d839b832528883ec668a1bd3e0607173c8322e2362b1a77c3b57a2faeb6"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_exists_specializes_fst_eq_snd_eq_of_specializes_snd",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_exists_specializes_fst_eq_snd_eq_of_specializes_snd.lean",
+   "sha256": "72b3390338113fbbb119487a48363ba2eef1f7b7481039b5e3174637c1a81cb7"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_finite_maximal_specialFibre_and_existsUnique_specializes_and_exists_opens",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_finite_maximal_specialFibre_and_existsUnique_specializes_and_exists_opens.lean",
+   "sha256": "f93a82dbe7a9cff660e6787dfd73cfab21262f862d90bfd1b4f5029e087ef298"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_forall_dense_preimage_fibre_of_forall_exists_comp_eq_glue_translate",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_forall_dense_preimage_fibre_of_forall_exists_comp_eq_glue_translate.lean",
+   "sha256": "207b476b7c3296249c5c2a0d3dabeb2a063ef141ba950cb5d8ddf540c5dafa76"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_forall_nhds_translation_extension_isOpenImmersion_of_isOmegaMinimal_of_openCover_of_isCommutative",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_forall_nhds_translation_extension_isOpenImmersion_of_isOmegaMinimal_of_openCover_of_isCommutative.lean",
+   "sha256": "e732a78b09dadf02b96e428686753348dcde8ae5e29fa0ccae40b61b019217a2"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_genericFibreRestrict_injective_of_flat_of_isSeparated",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_genericFibreRestrict_injective_of_flat_of_isSeparated.lean",
+   "sha256": "c98cd1a27601e1c99cbb38eb89191f64c13b40ce66a845dd76dcd73e8181c9cf"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_isFractionRing_stalk_of_genericFibreRestrict_comp_eq_mul_of_pullback_lift",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_isFractionRing_stalk_of_genericFibreRestrict_comp_eq_mul_of_pullback_lift.lean",
+   "sha256": "2ba2664f809450e05aa1df28a497e7dc0b4ed7d3ddca3c27cb9a9449abfa2795"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_isIndexOneExtension_stalk_of_smooth_of_forall_specializes",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_isIndexOneExtension_stalk_of_smooth_of_forall_specializes.lean",
+   "sha256": "fd7edbe3ba50567cb6cecbeecb747cf06f06aa518a2f4eead75e89c103c9b995"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_isIso_stalkMap_imageInc_fst_of_fst_eq",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_isIso_stalkMap_imageInc_fst_of_fst_eq.lean",
+   "sha256": "66c364454edf2e403a2f3dceba1f43e8beeaa5ebfa39f76d07211c40528aaa4b"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_isOpenImmersion_lift_and_forall_comp_eq_of_homOfLE_comp_eq_of_forall_dense_preimage_fibre",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_isOpenImmersion_lift_and_forall_comp_eq_of_homOfLE_comp_eq_of_forall_dense_preimage_fibre.lean",
+   "sha256": "3c29c609788308805ea6c031c5701f3c24c6cd36a6b24c78f555725087ac76be"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_isOpenImmersion_lift_and_forall_comp_eq_of_locallyQuasiFinite_of_forall_exists_comp_eq",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_isOpenImmersion_lift_and_forall_comp_eq_of_locallyQuasiFinite_of_forall_exists_comp_eq.lean",
+   "sha256": "1efc9855b70779c8dff4759ff0297b2c043e32ad3eb8e551a808f7ddc167e32a"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_isOpenImmersion_toImage_and_range_toImage_and_range_imageInc_of_genericFibre",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_isOpenImmersion_toImage_and_range_toImage_and_range_imageInc_of_genericFibre.lean",
+   "sha256": "bc45001cf69601f8a93947faaff915026d0979b7f0cb60ebfef4bae336a88939"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_isSmoothAt_and_mem_freeLocus_basicOpen_of_isSmoothAt_of_mem_freeLocus",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_isSmoothAt_and_mem_freeLocus_basicOpen_of_isSmoothAt_of_mem_freeLocus.lean",
+   "sha256": "643cdc379658b235602285134dc0cd57dcfa415d10ae46c58c256795a42f6a66"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_le_sq_of_linearIndependent_tmul_D_of_forall_indexOne",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_le_sq_of_linearIndependent_tmul_D_of_forall_indexOne.lean",
+   "sha256": "c90d48831c6c955fba87fef7dfb93f5e7d4acba08862419abf4110ca6f52ff02"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_mem_vanishingIdeal_closure_of_forall_indexOne_algHom",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_mem_vanishingIdeal_closure_of_forall_indexOne_algHom.lean",
+   "sha256": "5bee31a7e38c4d54af7338a14a77d728d19c640fbf90530a59127d02756e53f9"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_mul_pointGenericFibre_eq_pointGenericFibre_comp_chart_of_genericFibreRestrict_comp_eq_mul",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_mul_pointGenericFibre_eq_pointGenericFibre_comp_chart_of_genericFibreRestrict_comp_eq_mul.lean",
+   "sha256": "08d3e1679d2ee6dcfcaf738a77ca5f1fdcfe39abd865268586bf9439c4c366c9"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_neronModelPropertyBundle_of_forall_nhds_twist_extension",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_neronModelPropertyBundle_of_forall_nhds_twist_extension.lean",
+   "sha256": "44e96da21b3d41f357b68e09003403fe1454573c261830405adad531c503e6b2"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_neronUniqueExtension_of_forall_quasiCompact",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_neronUniqueExtension_of_forall_quasiCompact.lean",
+   "sha256": "e0d92427e2ac3cfe751f9228a56b7913928a8238981d6ca41812738dc908cf75"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_not_mem_closure_image_fst_closure_range_of_forall_not_exists_extension",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_not_mem_closure_image_fst_closure_range_of_forall_not_exists_extension.lean",
+   "sha256": "99231fdde5bc72bf0129243b1eb47311ad16e47954bb0057cfdd0b169a1fe0ba"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_not_mem_closure_image_fst_closure_range_of_forall_not_exists_extension_of_isIntegral",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_not_mem_closure_image_fst_closure_range_of_forall_not_exists_extension_of_isIntegral.lean",
+   "sha256": "a22bfab6ef615d208f7380eaecaf0dcad9dd193a4aef54bd9fe524e5770e8501"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_smoothnessDefect_affineDilatation_add_one_le_of_isSmoothAt_of_mem_freeLocus",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_smoothnessDefect_affineDilatation_add_one_le_of_isSmoothAt_of_mem_freeLocus.lean",
+   "sha256": "aa983501e5cd751c54ddad4714595be59e0163eb86912be75f358d0d36f4be6d"
+  },
+  {
+   "module": "Theorems.Thm_NeronModelInfra_smoothnessDefect_eq_zero_iff_apply_closedPoint_mem_smoothLocus",
+   "upstream_path": "Theorems/Thm_NeronModelInfra_smoothnessDefect_eq_zero_iff_apply_closedPoint_mem_smoothLocus.lean",
+   "sha256": "6e8dadf2189eb1af515b98a6cb143fd564197b7e7876ab41848e9f0ed0878cd6"
+  },
+  {
+   "module": "Theorems.Thm_PresheafOfModules_isMonoidal_inverseImage_W_toPresheaf",
+   "upstream_path": "Theorems/Thm_PresheafOfModules_isMonoidal_inverseImage_W_toPresheaf.lean",
+   "sha256": "f983fd739257d5e92e09befe6f6bbd9f3b0164e8caa5805763fcb9afab79e03a"
+  },
+  {
+   "module": "Theorems.Thm_PresheafOfModules_isSheaf_ihomObj",
+   "upstream_path": "Theorems/Thm_PresheafOfModules_isSheaf_ihomObj.lean",
+   "sha256": "6af78114aaf3d9c2c33be7b167489be7704475abeb984b7e34a64ecf1f3aa6fe"
+  },
+  {
+   "module": "Theorems.Thm_RingHom_isPushout_eqLocus_of_finiteLocallyFree_equivalenceRelation",
+   "upstream_path": "Theorems/Thm_RingHom_isPushout_eqLocus_of_finiteLocallyFree_equivalenceRelation.lean",
+   "sha256": "93de7117a262c6511eddf1a9a2d74e55322b80d2bb9609a16fb7244ca4dbf21b"
+  },
+  {
+   "module": "Theorems.Thm_Topology_IsConstructible_mem_of_mem_closure_of_forall_specializes",
+   "upstream_path": "Theorems/Thm_Topology_IsConstructible_mem_of_mem_closure_of_forall_specializes.lean",
+   "sha256": "ad0d7c8cec783e9b0f4019229eda04a4e3820d77a85337234cf5b54c49fbfea0"
+  },
+  {
+   "module": "Theorems.Thm_ValuationSubring_exists_forall_mem_and_sub_mem_nonunits",
+   "upstream_path": "Theorems/Thm_ValuationSubring_exists_forall_mem_and_sub_mem_nonunits.lean",
+   "sha256": "12e5854b60ba76dd9eadafefc32c0e5ca2bd0106d268ab44fcaf3cc160e4ea55"
+  },
+  {
+   "module": "Theorems.Thm_exteriorPower_exists_linearEquiv_baseChange",
+   "upstream_path": "Theorems/Thm_exteriorPower_exists_linearEquiv_baseChange.lean",
+   "sha256": "e361b261f1919f8f99397bec615724031e53a8fdf249414b95aa6f9a07e6d1cb"
+  },
+  {
+   "module": "Theorems.Thm_isRegularLocalRing_localization_atPrime_mvPolynomial",
+   "upstream_path": "Theorems/Thm_isRegularLocalRing_localization_atPrime_mvPolynomial.lean",
+   "sha256": "c1557c78af2091e5cbf0570d0bd48ece17bc26ba6eac0d3cccdb2d197e2c13b6"
+  },
+  {
+   "module": "Theorems.Thm_isRegularLocalRing_localization_atPrime_of_etale_of_comap",
+   "upstream_path": "Theorems/Thm_isRegularLocalRing_localization_atPrime_of_etale_of_comap.lean",
+   "sha256": "a520941935094076a9ad99b5abf85122937e33fa230b13ffe98a060e9d63dcc9"
+  },
+  {
+   "module": "Theorems.Thm_isRegularLocalRing_localization_atPrime_of_isStandardSmooth",
+   "upstream_path": "Theorems/Thm_isRegularLocalRing_localization_atPrime_of_isStandardSmooth.lean",
+   "sha256": "718ffc6f99e31a6e021b5a8258843e5ef04752cb8c6344649273e40cd1194067"
+  }
+ ]
+}

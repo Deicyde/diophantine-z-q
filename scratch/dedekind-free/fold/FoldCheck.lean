@@ -1,0 +1,201 @@
+import ZInQKernel.OneProof.Main
+import ZInQKernel.OneProof.Discharges
+import Lean
+import ZInQKernel.Contrib.OneProof.MumfordGroupLawDescent
+
+/-! # OneProof H, dedekind-free: `sixContactMin_of_open49` (manual fold)
+
+dedekind-free proves *GIT* Thm 6.14 over a DVR (`ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR`) with no Néron leaf
+(`ZInQ.Contrib.GroupLawDescent.mumfordGroupLawDVR_proof`: Néron models over the strict henselization from the vendored
+FLT development, then fpqc descent of the group law). The research field `neronSchemeExtensionDedekind` is then read
+only for the textbook field `neronSchemeExtensionExists` (BLR 1.4 Thm 3 over `𝓞_L`), so it is replaced by the
+weaker printed leaf `neronDVRLocal` (BLR 1.4 Thm 3 over the DVRs `(𝓞_L)_v`; `neronDVRLocal_of_dedekind`), from which
+`GroupLawDescent.neronSchemeExtensionExists_of_dvrLocal` gives the field. The route enters the existing chain at
+`sixContactMin_of_open37_hf_gm_pz` (generation `OpenResearchLeaves27GM`), as `sixContactMin_of_open45_pz` does; no
+declaration is copied or changed. Count-neutral (−1 +1). -/
+
+namespace HDec
+
+namespace HSyn
+
+/-- `OpenResearchLeaves31` with `neronSchemeExtensionDedekind` replaced by `neronDVRLocal` (dedekind-free:
+GIT 6.14 over a DVR proved without a Néron leaf; the remaining reader is the textbook field over `𝓞_L`). -/
+structure OpenResearchLeaves32 : Prop where
+  r9a : _root_.PkgI3.FaltingsSemisimple
+  r9b : _root_.PkgI3.FaltingsTate
+  hodgeTateDecompAbVar : _root_.ZInQ.Contrib.HodgeSplit.HodgeTateDecompAbVar
+  deRhamH1AbVarT : _root_.ZInQ.Contrib.HodgeSplit.DeRhamH1AbVarT
+  r11r12 : PkgI4.PanBerger
+  eigenformHTNew : _root_.ZInQ.Contrib.HodgeSplit.EigenformHTNew
+  r17 : _root_.LadicCond.CarayolR17'
+  /-- height-split, H-17: Bost's lower bound `h_D(A) ≥ −(g/2) log 2π` (Sém. Bourbaki 795), replaces `r21`. -/
+  bostLowerBound : _root_.ZInQ.HeightSplit.BostLowerBound
+  /-- height-split, H-14: Javanpeykar 2014 Thm 1.1.1 for curves over `K` with a `K`-rational Belyi function,
+  replaces `r18`. -/
+  javanpeykarBound : _root_.ZInQ.HeightSplit.JavanpeykarBound
+  /-- height-split, H-18: the upper half of Pazuki 2012 Cor. 1.3(2), replaces `r22`. -/
+  pazukiCor13Upper : _root_.ZInQ.HeightSplit.PazukiCor13Upper
+  /-- height-split, H-15: Gaudron–Rémond 2014 Thm 1.4 over the published stable height, replaces `r19`. -/
+  gaudronRemondThm14 : _root_.ZInQ.HeightSplit.GaudronRemondThm14
+  /-- x6-glue, printed form (on abelian schemes): González–Rotger, J. Math. Soc. Japan 58 (2006), Thm 5.12 (read by
+  the locator audit), residue fields of CM points, on one canonical coarse witness `X₆`. -/
+  gonzalezRotgerX6Ab : QMSplit.Moduli.GonzalezRotgerX6Ab
+  /-- gt-grcount, printed form: Gonzalez-Rotger 2006 Prop. 5.6 at (D,N) = (6,1) on X0(6,1), for every witness of the moduli description (no existence claim; the model comes from gonzalezRotgerX6Ab). Replaces gonzalezRotgerCountX6Ab. -/
+  gonzalezRotgerProp56X6 : _root_.GRCountX6.GonzalezRotgerProp56X6
+  /-- gt-unip, printed form, strictly henselian base: SGA 7 I Exp. IX Prop. 3.5, direction semistable => (sigma-1)^2 = 0 on T_l = lim A(K^s)[l^n] for sigma in inertia, one sigma at a time (the print gives (sigma-1)(tau-1) = 0 and the converse); number UNVERIFIED. Semistability read on the geometric special fibre; reading risk: if the print reads it over k(s), this form exceeds the print by UnipotentForward.SemiAbelianDescendsSepClosed for imperfect residue fields only (the reading-robust variant is UnipotentForward.semistableUnipotent_of_forward). Replaces semistableUnipotent; StrictHenselizationInside and the K^s axis are proved. -/
+  sga7_IX_3_5_ForwardGeom : _root_.UnipotentForward.SGA7_IX_3_5_ForwardGeom
+  /-- gt-rayclass (shimura-cft, rayclass-cft), composite of printed theorems: Shimura's Main Theorem I for the level-3 group K3 of B = (2,-3|Q) in Deligne's adelic form on the fine moduli scheme Y3 of QM abelian surfaces (R1fpPropsAb): the uniformization B^x_+ \ (H x (B (x) A_f)^x) / K3 = Y3(C), holomorphy in tau, the moduli clause at every u in O-hat^x (the object at Psi(tau,u) is C^2/iota(O)(tau,1)^T) and Shimura's reciprocity law at CM points. Replaces rayClassCMAb and shimuraFamilyAb. -/
+  shimuraMainThmIDeligneY3AbU : _root_.RayClassCFT.ShimuraMainThmIDeligneY3AbU
+  /-- r16-split: R16_EichlerShimuraJ1' with its rank-two clause deleted (a consequence of r16; R16Split.coreY_of_r16). For a newform f in S_2(Gamma_1(N)) with nebentypus chi and J = J_1(N): [K_f:Q] < infinity, and one Q-quotient pi : J ->> A with theta : K_f -> End^0(A), dim A = [K_f:Q], and arithmetic Frobenius at p not dividing N*l acting on every iota-component of V_l(A) with trace iota(a_p) and determinant iota(chi(p)) p. The rank-two clause is proved from dim A = [K_f:Q], mumfordTorsionAlgClosed and charPolyIndepOfEllAlgClosed (Mumford 19 Thm 4): R16Split.r16_of_printed. Still a composite of two printed theorems about Shimura's A_f, which has no Lean definition (no Hecke correspondences on X_1(N), no S_2 <-> H^0(X_1(N), Omega^1) comparison). -/
+  r16CoreY : _root_.R16Split.R16CoreY
+  /-- elkies-coord: Elkies, Shimura curve computations (ANTS-III 1998) section 3 on X*(6) = X6/W in his function-field form on the canonical witness: Q(X6)^W = Q(t) whenever X6 is integral and t regular at its generic point (both proved from the charts) (t generates the function field of X6/W; W = {1,w2,w3,w6} by its moduli action, acting by pullback on Mathlib's function field), t = 0, 1, infinity at the CM points of discriminant -24, -4, -3, and the charts s^2 = -t, r^2 = 3(t-1) (section, display and 0/infinity orientation UNVERIFIED). Replaces elkiesX6StarPrinted (its Qbar-point fibre clause is proved: elkiesX6StarPrinted_of_functionField). -/
+  elkiesX6StarFunctionField : _root_.HDec.QMSplit.Moduli.ElkiesCoord.ElkiesX6StarFunctionField
+  /-- dict-models, printed form: SGA 7 I, Exp. IX, Prop. 3.3, second assertion, over strictly henselian traits, with U the print's N0 x_S S' (the preimage of N0 under the projection N x_O O' -> N), not the identity component of N x_O O' (number UNVERIFIED). With geomConnOfRationalPoint replaces sga7_IX_3_3_SH (fold33-copy: by sga3-nbhd's SGA3Nbhd.Pre.sga7_IX_3_3_SH_of_pre', a pointwise SGA 3 VI_B 3.3 without SGA 3 VI_B 3.10). -/
+  sga7_IX_3_3_SHpre : _root_.DictModels.SGA7Pre.SGA7_IX_3_3_SHpre
+  /-- dict-models, printed form under either reading of 'semistable': Raynaud's criterion, SGA 7 I Exp. IX Prop. 4.7 (number UNVERIFIED) over a strictly henselian DVR, with the conclusion the disjunction of semistability over k(s) (general torus) and on the geometric special fibre. With geomConnOfRationalPoint (the k(s) -> kbar ascent is proved) replaces raynaudSemistableSH. -/
+  raynaudSemistableSHOr : _root_.DictModels.RaynaudOr.RaynaudSemistableSHOr
+  /-- dedekind-free, printed form: Bosch-Lutkebohmert-Raynaud, Neron models, 1.4 Thm 3 over the discrete valuation rings (O_L)_v of a number field (neron-ext's NeronExt.NeronDVRLocal; numbers UNVERIFIED). Gives the textbook field neronSchemeExtensionExists (NeronExt.extension_of_dvrLocal, EGA IV 8.10.5 (xii) proved). A case of neronSchemeExtensionDedekind (GroupLawDescent.neronDVRLocal_of_dedekind), which it replaces: its other reader, GIT 6.14 over a DVR, is proved (GroupLawDescent.mumfordGroupLawDVR_proof). -/
+  neronDVRLocal : _root_.NeronExt.NeronDVRLocal
+  /-- Serre-Tate, Ann. of Math. 88 (1968), Thm 1 (Neron-Ogg-Shafarevich criterion) over a separable closure K_s, inertia of a valuation ring of K_s acting on A(K_s)[m] (numbering UNVERIFIED) -/
+  neronOggShafarevichSep : _root_.NOSSepDict.NeronOggShafarevichSep
+  /-- Diamond-Shurman, GTM 228 (2005), Thm 9.6.5 (k >= 2; Deligne 1971; Shimura 1971 Thm 7.14 for k = 2; numbering UNVERIFIED), printed form: for a normalized eigenform f in S_k(N, chi) (DS Def 5.8.1) with number field K_f and a prime lambda of O_{K_f} over l, a continuous rho_{f,lambda} : G_Q -> GL_2(K_{f,lambda}) (Mathlib's adicCompletion), unramified outside lN, with rho(Frob_p) having characteristic polynomial (or satisfying) x^2 - a_p x + chi(p) p^(k-1) over K_f. Either printed wording gives it by or-introduction; no coefficient dictionary (coeff-ext). -/
+  dsThm965Printed : _root_.DSCoeffExt.DSThm965Printed
+  /-- K_f = Q(a_n(f)) is a number field for a normalized eigenform f in S_k(N, chi), k >= 2 (DS Def 5.8.1): Diamond-Shurman Thm 6.5.1 for k = 2; Shimura 1971 Thm 3.52 with the Hecke stability of the rational structure for general k (numbers UNVERIFIED). Presupposed by DS 9.6.5 ('with number field K_f') (coeff-ext). -/
+  eigenformCoeffFieldFinite : _root_.DSCoeffExt.EigenformCoeffFieldFinite
+  /-- Deligne-Serre, Formes modulaires de poids 1, Ann. Sci. ENS (4) 7 (1974), Thm 4.1 with (4.1.1), p. 514, as printed: for f != 0 a (cusp) form of type (1, eps) with eps(-1) = -1 that is an eigenvector of the T_p, p not dividing N, with eigenvalues a_p (Tau Ceti EigenformAwayFromLevel N 1, no normalization a_1 = 1), a continuous rho : G_Q -> GL_2(C) with finite image, unramified outside N, with tr rho(Frob_p) = a_p (the T_p-eigenvalue F.eigenvalue p) and det rho(Frob_p) = eps(p). The coefficient form a_p = coeff g p (from a_1 = 1) and eps(-1) = -1 (parity lemma, TauCeti Parity.lean:113) are glue in DSThm966EV.dsThm966_of_printed (coeff-fix). -/
+  dsThm966Printed : _root_.DSThm966EV.DSThm966Printed
+
+/-- `OpenResearchLeaves27GM` from `OpenResearchLeaves32`: `openResearchLeaves27_of_OpenResearchLeaves28_gm ∘
+openResearchLeaves28_of_OpenResearchLeaves29_gm ∘ openResearchLeaves29GM_of_OpenResearchLeaves31`, field by field,
+with `mumfordGroupLaw` proved (`GroupLawDescent.mumfordGroupLawDVR_proof`). -/
+theorem openResearchLeaves27GM_of_OpenResearchLeaves32 (n : OpenResearchLeaves32) : OpenResearchLeaves27GM where
+  r7a := _root_.NOSSepDict.neronOggShafarevich_of_sep n.neronOggShafarevichSep
+  r9a := n.r9a
+  r9b := n.r9b
+  hodgeTateDecompAbVar := n.hodgeTateDecompAbVar
+  deRhamH1AbVarT := n.deRhamH1AbVarT
+  r11r12 := n.r11r12
+  eigenformHTNew := n.eigenformHTNew
+  dsThm966 := _root_.DSThm966EV.dsThm966_of_printed n.dsThm966Printed
+  r17 := n.r17
+  bostLowerBound := n.bostLowerBound
+  javanpeykarBound := n.javanpeykarBound
+  pazukiCor13Upper := n.pazukiCor13Upper
+  gaudronRemondThm14 := n.gaudronRemondThm14
+  mumfordGroupLaw := _root_.ZInQ.Contrib.GroupLawDescent.mumfordGroupLawDVR_proof
+  gonzalezRotgerX6Ab := n.gonzalezRotgerX6Ab
+  raynaudSemistableSH := _root_.DictModels.RaynaudOr.raynaudSemistableSH_of_or n.raynaudSemistableSHOr _root_.geomConnOfRationalPoint_proof
+  gonzalezRotgerProp56X6 := n.gonzalezRotgerProp56X6
+  neronBaseChangeStrictHenselization := _root_.DictModels.NeronBLR72.neronBaseChangeStrictHenselization_of_BLR72 _root_.NeronSH.neronBaseChangeUnramifiedDVR_proof
+  sga7_IX_3_3_SH := _root_.SGA3Nbhd.Pre.sga7_IX_3_3_SH_of_pre' n.sga7_IX_3_3_SHpre _root_.geomConnOfRationalPoint_proof
+  sga7_IX_3_5_ForwardGeom := n.sga7_IX_3_5_ForwardGeom
+  shimuraMainThmIDeligneY3AbU := n.shimuraMainThmIDeligneY3AbU
+  r16CoreY := n.r16CoreY
+  elkiesX6StarFunctionField := n.elkiesX6StarFunctionField
+  dsThm965Weak := _root_.DSCoeffExt.dsThm965Weak_of_printed n.dsThm965Printed n.eigenformCoeffFieldFinite
+
+/-- `openTextbookLeaves13HF_of_open16_22_pz` with `neronSchemeExtensionExists` from the local leaf. -/
+theorem openTextbookLeaves13HF_of_open16_22_df (t : OpenTextbookLeaves16)
+    (h : _root_.NeronExt.NeronDVRLocal) (l : OpenAddedLeaves22PZ) :
+    OpenTextbookLeaves13HF where
+  mumfordTorsionAlgClosed := t.mumfordTorsionAlgClosed
+  homFreeFiniteAlgClosed := _root_.ZInQ.Contrib.OneProof.HomFreeC.homFreeFiniteC _root_.uniformizationLeafAll_proof
+    t.mumfordTorsionAlgClosed
+  charPolyIndepOfEllAlgClosed := t.charPolyIndepOfEllAlgClosed
+  poincareComplement := _root_.PicZeroChar0.Poincare.poincareComplement_of_open0
+    l.picRepresentableAbVar l.picZeroAbVar
+    (_root_.PhiSurj.phiAmpleIsogeny0_of_open l.picRepresentableAbVar l.picZeroAbVar t.mumfordTorsionAlgClosed)
+    _root_.ZInQ.Contrib.MilneQuasiInverse.milneIsogenyQuasiInverse_proof
+    _root_.ZInQ.Contrib.OneProof.CartierSmooth.cartierSmooth_proof
+  gagaMorphism := t.gagaMorphism
+  neronSchemeExtensionExists := _root_.ZInQ.Contrib.GroupLawDescent.neronSchemeExtensionExists_of_dvrLocal h
+
+/-- **G0 with only the open leaves** (dedekind-free: `neronSchemeExtensionDedekind` narrowed to `neronDVRLocal`). -/
+theorem sixContactMin_of_open49 (r : OpenResearchLeaves32) (t : OpenTextbookLeaves16) (l : OpenAddedLeaves25) :
+    ZInQ.SixContactMin :=
+  sixContactMin_of_open37_hf_gm_pz (openResearchLeaves27GM_of_OpenResearchLeaves32 r)
+    (openTextbookLeaves13HF_of_open16_22_df t r.neronDVRLocal
+      (openAddedLeaves22PZ_of_OpenAddedLeaves23 (openAddedLeaves23_of_OpenAddedLeaves24 (openAddedLeaves24_of_OpenAddedLeaves25 l))))
+    (openAddedLeaves18_of_OpenAddedLeaves22_pz t
+      (openAddedLeaves22PZ_of_OpenAddedLeaves23 (openAddedLeaves23_of_OpenAddedLeaves24 (openAddedLeaves24_of_OpenAddedLeaves25 l))))
+
+end HSyn
+
+end HDec
+
+namespace ZInQ.Contrib.TYZChain
+
+open ZInQ.Contrib.TYZDecomp ZInQ.Contrib.TYZGenus
+
+/-- `frozenTarget` after the fold (Main.lean with `OpenResearchLeaves32` and `sixContactMin_of_open49`). -/
+theorem _root_.ZInQ.OneProof.frozenTarget_df
+    (r : HDec.HSyn.OpenResearchLeaves32) (t : HDec.HSyn.OpenTextbookLeaves16) (l : HDec.HSyn.OpenAddedLeaves25)
+    (h11 : TYZThm11Integral)
+    (hL29 : H29Split.TYZLemma29PrintedNe3)
+    (hCM : ZInQ.Contrib.HCMDict.ShimuraThm54)
+    (h33 : ZInQ.Contrib.TYZGenus.TYZSplit.TYZThm33)
+    (hBFH : ZInQ.BFHPrinted.BFHClauseIIGamma0)
+    (hGZ : ZInQ.GZAlg.GrossZagierAlgOptCd) :
+    ZInQ.FrozenTarget :=
+  ZInQ.GZStatements.frozenTarget_of_sixContactMin_tyzThm35ReadingA_fhNonvanishingCd_grossZagierHeegnerCd
+    (HDec.HSyn.sixContactMin_of_open49 r t l)
+    (ThetaWP8.tyzThm35ReadingA_noHX h11 (H29Split.tyzLemma29Mod2_of_sixLeaves ZInQ.Contrib.OneProof.LegendreThreeSquares.legendreThreeSquares_proof
+      ZInQ.Contrib.OneProof.JonesPall.jonesPall_proof ZInQ.Contrib.HfxProof.tyzTestVectorExists hL29 ZInQ.Contrib.T21Proof.tyzThm21At31
+      ZInQ.Contrib.HP23Proof.tyzProp23Printed) (ZInQ.Contrib.HCMDict.shimuraMainCM_of_printed hCM) h33)
+    (ZInQ.GZStatements.fhNonvanishingCd_of_fhNonvanishing (ZInQ.BFHPrinted.fhNonvanishing_of_bfhClauseIIGamma0 hBFH))
+    (ZInQ.Heegner32.grossZagierHeegnerCd_of_printed (ZInQ.Contrib.HCMDict.shimuraMainCM_of_printed hCM) (ZInQ.GZAlg.grossZagierFormulaCd_of_alg hGZ ZInQ.Contrib.Gamma0QExp.gamma0QExpansion_proof
+      ZInQ.Contrib.OneProof.EtaW32Character.etaW32Character_proof)
+      ZInQ.GZConj.grossConjugationCd)
+
+end ZInQ.Contrib.TYZChain
+
+#print axioms HDec.HSyn.sixContactMin_of_open49
+#print axioms ZInQ.OneProof.frozenTarget_df
+
+open Lean in
+def ccValue? (ci : ConstantInfo) : Option Expr :=
+  match ci with
+  | .defnInfo v => some v.value | .thmInfo v => some v.value | .opaqueInfo v => some v.value | _ => none
+
+open Lean in
+run_cmd do
+  let env ← getEnv
+  let names : List Name := [
+    `ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDedekind,
+    `ZInQ.Contrib.GroupLawNeron.NeronSchemeExtensionDVR,
+    `ZInQ.Contrib.GroupLawNeron.NeronGoodModelIso,
+    `ZInQ.Contrib.GoodModelIso.mumfordGroupLawDVR_of_dedekind,
+    `ZInQ.Contrib.GroupLaw.MumfordGroupLawDVR,
+    `ZInQ.Contrib.GroupLawDescent.mumfordGroupLawDVR_proof,
+    `NeronFLT.exists_neron_of_henselian,
+    `NeronExt.NeronDVRLocal,
+    `ZInQ.Contrib.NeronC.NeronSchemeExtensionExists,
+    `DictModels.MumfordConn.MumfordGroupLawConn, `sorryAx]
+  for top in [`ZInQ.OneProof.frozenTarget, `ZInQ.OneProof.frozenTarget_df] do
+    let mut seen : NameSet := {}
+    let mut todo : Array Name := #[top]
+    while !todo.isEmpty do
+      let c := todo.back!
+      todo := todo.pop
+      if seen.contains c then continue
+      seen := seen.insert c
+      if let some ci := env.find? c then
+        todo := todo ++ ci.type.getUsedConstants
+        if let some v := ccValue? ci then todo := todo ++ v.getUsedConstants
+    IO.println s!"{top}: closure {seen.size}"
+    for b in names do
+      IO.println s!"  contains {b}: {seen.contains b}"
+    if let some ci := env.find? top then
+      let bs := ci.type.getUsedConstants.filter fun n =>
+        (isStructure env n) && (n.toString.startsWith "HDec.HSyn.Open")
+      let mut total := 0
+      for b in bs do
+        let fs := getStructureFields env b
+        total := total + fs.size
+        IO.println s!"  bundle {b}: {fs.size} fields"
+        for f in fs do
+          if let some p := env.find? (b ++ f) then
+            let t := p.type.getForallBody
+            if t.getUsedConstants.any (fun n => names.contains n) then
+              IO.println s!"    field {f} : {t.getUsedConstants.toList.filter (names.contains ·)}"
+      IO.println s!"  bundle fields total: {total}"

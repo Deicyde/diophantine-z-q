@@ -1,0 +1,24 @@
+CLOUDW03-BODY Definitions/Def_Mathlib_RingTheory_SmoothAlgebraOverFieldRegularStalks.lean
+OTHER Definitions/Def_PresheafOfModules_ExteriorPower.lean 14   inferInstanceAs (CommRing (T.obj X))
+OTHER Definitions/Def_PresheafOfModules_ExteriorPower.lean 16 attribute [local instance] commRingCompForget₂Obj_port_EP
+OTHER Definitions/Def_PresheafOfModules_InternalHom.lean 14   inferInstanceAs (CommRing (T.obj X))
+OTHER Definitions/Def_PresheafOfModules_InternalHom.lean 16 attribute [local instance] commRingCompForget₂Obj_port_IH
+OTHER Definitions/Def_PresheafOfModules_InternalHom.lean 228     rfl⟩
+OTHER Definitions/Def_PresheafOfModules_PullbackMonoidal.lean 224 attribute [local instance] commRingCompForget₂Obj_port
+OTHER P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_IsInvertible_exists_isFrameOn.lean 24   inferInstanceAs (CommRing (T.obj X))
+OTHER P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_IsInvertible_exists_isFrameOn.lean 26 attribute [local instance] commRingCompForget₂Obj_port_5430ae
+OTHER P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_pullbackTensorUnitObjIso_hom_app_pullbackLocalSection_unitSection.lean 25   inferInstanceAs (CommRing (T.obj X))
+OTHER P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_pullbackTensorUnitObjIso_hom_app_pullbackLocalSection_unitSection.lean 27 attribute [local instance] commRingCompForget₂Obj_port_ptu
+OTHER P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_sheafify_mu_app_tensorSections.lean 23   inferInstanceAs (CommRing (T.obj X))
+OTHER P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_sheafify_mu_app_tensorSections.lean 25 attribute [local instance] commRingCompForget₂Obj_port_05bf43
+OTHER P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_tensorHom_app_tensorSections.lean 23   inferInstanceAs (CommRing (T.obj X))
+OTHER P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_tensorHom_app_tensorSections.lean 25 attribute [local instance] commRingCompForget₂Obj_port_d6eec3
+CLOUDW03-BODY P2M/Sol/S_AlgebraicGeometry_Smooth_isDiscreteValuationRing_stalk_of_forall_specializes.lean
+CLOUDW03-BODY P2M/Sol/S_GoodReductionJacobian_RelativeGroupLaw_exists_extension_of_diagonal_difference_extension.lean
+CLOUDW03-BODY P2M/Sol/S_GoodReductionJacobian_RelativeGroupLaw_exists_opens_diagonal_difference_extension.lean
+CLOUDW03-BODY P2M/Sol/S_IsIntegrallyClosed_isDiscreteValuationRing_of_maximalIdeal_mem_associatedPrimes.lean
+CLOUDW03-BODY P2M/Sol/S_IsRegularLocalRing_depth_self_eq_ringKrullDim.lean
+CLOUDW03-BODY P2M/Sol/S_Module_depth_le_ringKrullDim_quotient_of_mem_associatedPrimes.lean
+CLOUDW03-BODY P2M/Sol/S_Module_depth_quotSMulTop_succ_eq.lean
+CLOUDW03-BODY P2M/Sol/S_Module_depth_quotient_eq_depth.lean
+{'rename': 855, 'port': 105, 'import': 1965, 'setopt': 2282, 'other': 14, 'cloudw03_body_files': 9}
