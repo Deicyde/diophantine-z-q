@@ -35,7 +35,11 @@ No hypothesis on #150's coding is needed: the reduction only uses codes it build
 `code_complete` (public in #150) supplies a code for the fixed part. Malformed codes (decoding to `0`) are
 irrelevant for undecidability, since only a many-one reduction *into* `IntCodeSolvable` is used.
 
-Compile status: COMPILE_STATUS
+Compile status (VERIFIED): `lake build ZInQKernel.Contrib.OneProof.IntegerH10` succeeds (9848 jobs) with no
+warnings from the file; `#print axioms` of `not_computable_intCodeSolvable_of_dprm`,
+`not_computable_intCodeSolvable_of_dprmDioph`, `rational_not_computable_of_frozenTarget_dprm` and
+`dprmNat_of_dprmDioph`: `[propext, Classical.choice, Quot.sound]` (`scratch/dprm-scout/axioms-output.txt`).
+`#discharges`: DISCHARGES_STATUS
 
 ## The leaf, rated
 

@@ -107,7 +107,6 @@ def tailCode (x : ℕ) : PolynomialCode := [((0, 2 * x), [0]), ((x * x, 0), [])]
 theorem eval_decode_tail (N : ℕ) (z : Fin (N + 1) → ℤ) (x : ℕ) :
     eval z (decodePolynomial (N + 1) (tailCode x)) = -2 * x * z 0 + (x : ℤ) * x := by
   simp [tailCode, decodePolynomial, codeVariable]
-  try ring
 
 theorem tailCode_primrec : Primrec tailCode := by
   unfold tailCode

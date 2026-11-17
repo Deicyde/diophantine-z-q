@@ -29,3 +29,26 @@ theorem, not a field of a `frozenTarget` bundle (VERIFIED, read).
 - ZInQKernel/Contrib/OneProof/IntegerH10.lean (new): leaf `DPRMNat`; glue
   `haltSet_re`, `haltSet_not_computable`, `four_squares_iff`, `manyOne_of_poly`,
   `not_computable_intCodeSolvable_of_dprm`, `rational_not_computable_of_frozenTarget_dprm`.
+
+## Compile outcomes (VERIFIED)
+- `lake build ZInQKernel.Contrib.H10Reduction`: 9847 jobs, success (03:36).
+- `lake env lean ZInQKernel/Contrib/OneProof/IntegerH10.lean`: errors fixed in 3 iterations
+  (four-squares succ case: `finProdFinEquiv.symm` unfolded by simp; fixed by a separate `hz` lemma and
+  `rw`); final run: no errors, no warnings.
+- `lake build ZInQKernel.Contrib.OneProof.IntegerH10`: success (9848 jobs).
+- Axioms (scratch/dprm-scout/axioms-output.txt): `not_computable_intCodeSolvable_of_dprm`,
+  `not_computable_intCodeSolvable_of_dprmDioph`, `rational_not_computable_of_frozenTarget_dprm`,
+  `dprmNat_of_dprmDioph`: [propext, Classical.choice, Quot.sound].
+
+## Statements proved
+- `not_computable_intCodeSolvable_of_dprm : DPRMNat → ¬ComputablePred IntCodeSolvable`
+- `rational_not_computable_of_frozenTarget_dprm : FrozenTarget → DPRMNat → ¬ComputablePred RatCodeSolvable`
+- `dprmNat_of_dprmDioph : DPRMDioph → DPRMNat`
+
+## Findings
+- No hypothesis on #150's coding is needed (only `code_complete`, public, is used).
+- After merging origin/main, `frozenTarget` takes OpenResearchLeaves40/OpenTextbookLeaves17 but
+  RationalH10.lean (wip/h10-compose) passes OpenResearchLeaves38/OpenTextbookLeaves16: needs a binder
+  update at integration (not compiled here; outside write scope).
+- hZ is not a frozenTarget hypothesis, so autofold.py does not apply; autofold.json records the intended
+  replacement with a note.
