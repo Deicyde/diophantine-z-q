@@ -1,0 +1,2 @@
+# Project-module declaration-name clashes after contrib-clashes (from scan-after.txt)
+(none: 0 fatal, 0 accepted duplicates of non-auxiliary names among project modules)
