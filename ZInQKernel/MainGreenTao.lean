@@ -7,44 +7,32 @@ import ZInQKernel.Density.PropDFinal
 
 `ZInQ.greenTaoDense` (Szemerédi's theorem in the primes, proved in `ZInQKernel/External/GreenTaoDense`
 from the vendored Green–Tao library `GreenTaoVendor`) discharges the hypothesis `GreenTaoDense` of
-the `_of_greenTaoDense` variants of `ZInQKernel/Main.lean`, and `ZInQ.Density.goodPrimeDensity`
-(Proposition D, `ZInQKernel/Density/`) discharges `GoodPrimeDensity`. Together they replace the
-twenty-two-prime pattern 22P: the last two theorems below assume only 6C_min and CR₃ (or CR₃^Sel).
-This module is separate so that `ZInQKernel.Main` and the main theorem do not import the vendored
-library.
+`exists_bounded_integer_polynomial_defining_integers_of_poleCompleteness_greenTaoDense`
+(`ZInQKernel/Main.lean`), and `ZInQ.Density.goodPrimeDensity` (Proposition D, `ZInQKernel/Density/`)
+discharges `GoodPrimeDensity`. Together they replace the twenty-two-prime pattern 22P: the headline
+below assumes only H (`SixContactMin`) and PC (`PoleCompleteness`). This module is separate so that
+`ZInQKernel.Main` does not import the vendored library.
 -/
 
 namespace ZInQ
 
-/-- **Theorem 1.1** from 6C_min, CR₃ and the density part of Proposition D (`GoodPrimeDensity`),
+/-- **Theorem 1.1** from 6C_min, PC and the density part of Proposition D (`GoodPrimeDensity`),
 with Szemerédi's theorem in the primes proved (`ZInQ.greenTaoDense`). -/
-theorem exists_bounded_integer_polynomial_defining_integers_of_goodPrimeDensity
-    (hH : SixContactMin) (hCR : CertifiedRank) (hD : GoodPrimeDensity) : FrozenTarget :=
-  exists_bounded_integer_polynomial_defining_integers_of_greenTaoDense hH hCR greenTaoDense hD
-
-/-- **Theorem 1.1** from 6C_min, CR₃^Sel (`RouteK.Selmer.CertifiedRankSel`) and the density part of
-Proposition D (`GoodPrimeDensity`), with Szemerédi's theorem in the primes proved
-(`ZInQ.greenTaoDense`). -/
-theorem exists_bounded_integer_polynomial_defining_integers_of_certifiedRankSel_goodPrimeDensity
-    (hH : SixContactMin) (hCRS : RouteK.Selmer.CertifiedRankSel) (hD : GoodPrimeDensity) :
-    FrozenTarget :=
-  exists_bounded_integer_polynomial_defining_integers_of_certifiedRankSel_greenTaoDense hH hCRS
+theorem exists_bounded_integer_polynomial_defining_integers_of_poleCompleteness_goodPrimeDensity
+    (hH : SixContactMin) (hPC : PoleCompleteness) (hD : GoodPrimeDensity) : FrozenTarget :=
+  exists_bounded_integer_polynomial_defining_integers_of_poleCompleteness_greenTaoDense hH hPC
     greenTaoDense hD
 
-/-- **Theorem 1.1** from 6C_min and CR₃ alone. The twenty-two-prime pattern 22P is replaced by
-route AP (`exists_bounded_integer_polynomial_defining_integers_of_goodPrimeAP`), whose hypothesis
-follows from Szemerédi's theorem in the primes (`ZInQ.greenTaoDense`) and Proposition D
-(`ZInQ.Density.goodPrimeDensity`), both proved in Lean. -/
-theorem exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRank
-    (hH : SixContactMin) (hCR : CertifiedRank) : FrozenTarget :=
-  exists_bounded_integer_polynomial_defining_integers_of_goodPrimeDensity hH hCR
-    Density.goodPrimeDensity
-
-/-- **Theorem 1.1** from 6C_min and CR₃^Sel (`RouteK.Selmer.CertifiedRankSel`) alone; see
-`exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRank`. -/
-theorem exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankSel
-    (hH : SixContactMin) (hCRS : RouteK.Selmer.CertifiedRankSel) : FrozenTarget :=
-  exists_bounded_integer_polynomial_defining_integers_of_certifiedRankSel_goodPrimeDensity hH hCRS
+/-- **Theorem 1.1 from H and PC alone (the headline).** Under the minimal six-contact estimate H
+(`SixContactMin`, one instance of the manuscript's Theorem 4.1) and pole completeness PC
+(`PoleCompleteness`, the manuscript's Theorem 5.2), there is an integer polynomial in
+`292890231905` variables, of degree below `2↑↑7` and with coefficients below `2↑↑8`, whose rational
+zero projection to the first variable is exactly `ℤ`. The twenty-two-prime pattern 22P is replaced
+by route AP, whose hypothesis follows from Szemerédi's theorem in the primes (`ZInQ.greenTaoDense`)
+and Proposition D (`ZInQ.Density.goodPrimeDensity`), both proved in Lean. -/
+theorem exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_poleCompleteness
+    (hH : SixContactMin) (hPC : PoleCompleteness) : FrozenTarget :=
+  exists_bounded_integer_polynomial_defining_integers_of_poleCompleteness_goodPrimeDensity hH hPC
     Density.goodPrimeDensity
 
 end ZInQ
