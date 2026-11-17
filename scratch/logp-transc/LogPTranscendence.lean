@@ -376,6 +376,219 @@ theorem bcrisPolyEquiv_X (ht : LogPTildeTranscendental) {ε₀ : PreTilt 𝓞_�
       {toBdR p (logPTilde p)}) : BdR p) = toBdR p (logPTilde p) := by
   simp [bcrisPolyEquiv]
 
+
+/-! ## §6. Units: `log([ν]/v) ∈ A_max`, with the same Galois shape as `log [p̃]`
+
+For a unit `v ∈ ℤ_p^×` and `ν ∈ 𝓞_ℂ_p♭` with `ν^♯ = v`, the element `log([ν]/v)` lies in `A_max ⊆ B_max`, and
+`σ(log([ν]/v)) = log([ν]/v) + log [u_σ]` with `u_σ^♯ = 1`: the same shape as `σ(log [p̃]) = log [p̃] + log [u_σ]`
+(`bdrAct_logPTilde`). So no argument that uses only this Galois shape can prove `log [p̃] ∉ Frac(B_max)`; a proof must
+use that `p` is not a unit (report §4.2). -/
+
+section Units
+
+open PanBergerSplit (locAct flatAct theta)
+
+theorem sub_one_mem_ith {z : Ainf p} (hz : theta p z = 1) :
+    algebraMap (Ainf p) (AinfP p) (z - 1) ∈ Ith p := by
+  have hk : z - 1 ∈ RingHom.ker (WittVector.fontaineTheta 𝓞_ℂ_[p] p) := by
+    rw [RingHom.mem_ker, map_sub, map_one]
+    exact sub_eq_zero.mpr hz
+  rw [ZInQ.Contrib.G9.BdrKer.Cp.ker_fontaineTheta_Cp, Ideal.mem_span_singleton'] at hk
+  obtain ⟨c, hc⟩ := hk
+  rw [← hc, map_mul, mul_comm]
+  exact Ideal.mul_mem_right _ _ (xi'_mem p)
+
+/-- **`log z ∈ B_dR^+`** for `z ∈ A_inf` with `θ(z) = 1`: `log(1 + (z − 1))`. -/
+def logOne {z : Ainf p} (hz : theta p z = 1) : BDeRhamPlus 𝓞_ℂ_[p] p :=
+  logPlus p (sub_one_mem_ith p hz)
+
+theorem logOne_congr {z z' : Ainf p} (hz : theta p z = 1) (hz' : theta p z' = 1) (h : z = z') :
+    logOne p hz = logOne p hz' := by
+  subst h
+  rfl
+
+theorem logOne_teich {ε : PreTilt 𝓞_ℂ_[p] p} (h : PreTilt.untilt ε = 1)
+    (hz : theta p (WittVector.teichmuller p ε) = 1) : logOne p hz = logTeich p h := rfl
+
+/-- **`log z ∈ A_max`** for every `z ∈ A_inf` with `θ(z) = 1` (`logTeich_mem_amax`'s proof, for any such `z`). -/
+theorem logOne_mem_amax {z : Ainf p} (hz : theta p z = 1) : logOne p hz ∈ Amax p := by
+  have hk : z - 1 ∈ RingHom.ker (WittVector.fontaineTheta 𝓞_ℂ_[p] p) := by
+    rw [RingHom.mem_ker, map_sub, map_one]
+    exact sub_eq_zero.mpr hz
+  rw [ZInQ.Contrib.G9.BdrKer.Cp.ker_fontaineTheta_Cp, Ideal.mem_span_singleton'] at hk
+  obtain ⟨c, hc⟩ := hk
+  let f : PowerSeries (Ainf p) := PowerSeries.mk fun n =>
+    if n = 0 then 0 else (-1) ^ (n + 1) * zpToW p (logCoeff p n) * c ^ n
+  have hf : f ∈ restricted p := fun k => ⟨2 * k + 1, fun n hn => by
+    change (p : Ainf p) ^ k ∣ PowerSeries.coeff n f
+    rw [PowerSeries.coeff_mk, ite_eq_right (by omega)]
+    obtain ⟨d, hd⟩ := (logCoeff_spec p (show n ≠ 0 by omega)).2 k (by omega)
+    refine Dvd.dvd.mul_right (Dvd.dvd.mul_left ⟨zpToW p d, ?_⟩ _) _
+    rw [hd, map_mul, map_pow, map_natCast]⟩
+  refine ⟨f, hf, ?_⟩
+  rw [RingHom.comp_apply, logOne, logPlus]
+  apply psEval_eq_of_terms
+  intro n
+  rw [PowerSeries.coeff_map, PowerSeries.coeff_mk, logSeries, PowerSeries.coeff_mk]
+  by_cases hn : n = 0
+  · simp [hn]
+  · rw [ite_eq_right hn, ite_eq_right hn, ← hc]
+    have key : ((n : ℚ_[p]))⁻¹ = (logCoeff p n : ℚ_[p]) * ((p : ℚ_[p])⁻¹) ^ n := by
+      have h1 := (logCoeff_spec p hn).1
+      have hn' : (n : ℚ_[p]) ≠ 0 := Nat.cast_ne_zero.mpr hn
+      have hp' : (p : ℚ_[p]) ≠ 0 := Nat.cast_ne_zero.mpr hp.out.ne_zero
+      have he : (logCoeff p n : ℚ_[p]) ≠ 0 := by
+        intro h0
+        rw [h0, zero_mul] at h1
+        exact pow_ne_zero _ hp' h1.symm
+      rw [inv_pow, ← h1, mul_inv, ← mul_assoc, mul_inv_cancel₀ he, one_mul]
+    have hq : qpToLoc p (logCoeff p n : ℚ_[p]) = algebraMap _ _ (zpToW p (logCoeff p n)) :=
+      qpToLoc_algebraMap p _
+    rw [key]
+    simp only [map_mul, map_pow, map_neg, map_one]
+    rw [← hq, omegaP, ZInQ.Contrib.G9.BdrKer.Cp.xi']
+    ring
+
+/-- `log` is multiplicative-to-additive on `θ = 1`. -/
+theorem logOne_mul {z z' : Ainf p} (hz : theta p z = 1) (hz' : theta p z' = 1)
+    (hzz : theta p (z * z') = 1) : logOne p hzz = logOne p hz + logOne p hz' := by
+  rw [logOne, logOne, logOne, ← logPlus_add]
+  exact evalB_congr' p _ _ (by simp only [map_sub, map_mul, map_one]; ring) _
+
+/-- `σ(log z) = log σ(z)`. -/
+theorem bdrAct_logOne (σ : GQp p) {z : Ainf p} (hz : theta p z = 1)
+    (hz' : theta p (WittVector.map (flatAct p σ) z) = 1) :
+    bdrAct p σ (toBdR p (logOne p hz)) = toBdR p (logOne p hz') := by
+  rw [logOne, logPlus, bdrAct_evalB, map_locAct_logSeries]
+  exact congrArg (toBdR p) (evalB_congr' p _ _ (by rw [PanBergerSplit.locAct_algebraMap, map_sub, map_one]) _)
+
+/-- `θ([ν] · v⁻¹) = 1` when `ν^♯ = v` (`v` seen in `𝓞_ℂ_p` as `θ(v)`, `v ∈ ℤ_p ⊆ A_inf`). -/
+theorem theta_unit {v : ℤ_[p]ˣ} {ν : PreTilt 𝓞_ℂ_[p] p}
+    (hν : PreTilt.untilt ν = theta p (zpToW p v)) :
+    theta p (WittVector.teichmuller p ν * zpToW p ((v⁻¹ : ℤ_[p]ˣ) : ℤ_[p])) = 1 := by
+  rw [map_mul, theta, WittVector.fontaineTheta_teichmuller, hν, ← map_mul, ← map_mul, Units.mul_inv,
+    map_one, map_one]
+
+/-- **`σ(log([ν]/v)) = log([ν]/v) + log [u]`** when `σ(ν) = ν u`, `u^♯ = 1`. -/
+theorem bdrAct_logUnit (σ : GQp p) {v : ℤ_[p]ˣ} {ν u : PreTilt 𝓞_ℂ_[p] p}
+    (hν : PreTilt.untilt ν = theta p (zpToW p v)) (hσ : flatAct p σ ν = ν * u)
+    (hu : PreTilt.untilt u = 1) :
+    bdrAct p σ (toBdR p (logOne p (theta_unit p hν))) =
+      toBdR p (logOne p (theta_unit p hν)) + toBdR p (logTeich p hu) := by
+  set z := WittVector.teichmuller p ν * zpToW p ((v⁻¹ : ℤ_[p]ˣ) : ℤ_[p]) with hzdef
+  have hmap : WittVector.map (flatAct p σ) z = WittVector.teichmuller p u * z := by
+    rw [hzdef, map_mul, WittVector.map_teichmuller, wittMap_zpToW, hσ, map_mul]
+    ring
+  have htu : theta p (WittVector.teichmuller p u) = 1 := by
+    rw [theta, WittVector.fontaineTheta_teichmuller, hu]
+  have hz1 : theta p z = 1 := theta_unit p hν
+  have hz' : theta p (WittVector.map (flatAct p σ) z) = 1 := by
+    rw [hmap, map_mul, htu, hz1, one_mul]
+  have hzz : theta p (WittVector.teichmuller p u * z) = 1 := by rw [← hmap]; exact hz'
+  rw [bdrAct_logOne p σ hz1 hz', logOne_congr p hz' hzz hmap, logOne_mul p htu hz1 hzz,
+    logOne_teich p hu htu, map_add, add_comm]
+
+/-- A compatible system of `p`-power roots of `x` in `ℂ_p`. -/
+noncomputable def rootsOf (x : ℂ_[p]) : ℕ → ℂ_[p]
+  | 0 => x
+  | n + 1 => Classical.choose (IsAlgClosed.exists_pow_nat_eq (rootsOf x n) hp.out.pos)
+
+theorem rootsOf_succ_pow (x : ℂ_[p]) (n : ℕ) : rootsOf p x (n + 1) ^ p = rootsOf p x n :=
+  Classical.choose_spec (IsAlgClosed.exists_pow_nat_eq (rootsOf p x n) hp.out.pos)
+
+theorem rootsOf_pow (x : ℂ_[p]) (n : ℕ) : rootsOf p x n ^ p ^ n = x := by
+  induction n with
+  | zero => simp [rootsOf]
+  | succ n ih => rw [pow_succ', pow_mul, rootsOf_succ_pow, ih]
+
+theorem norm_rootsOf_le {x : ℂ_[p]} (hx : ‖x‖ ≤ 1) (n : ℕ) : ‖rootsOf p x n‖ ≤ 1 := by
+  induction n with
+  | zero => exact hx
+  | succ n ih =>
+    rw [← rootsOf_succ_pow, norm_pow] at ih
+    exact (pow_le_one_iff_of_nonneg (norm_nonneg _) hp.out.ne_zero).mp ih
+
+/-- `x♭ = (x, x^{1/p}, …) ∈ 𝓞_ℂ_p♭` (bdr-kertheta's `pFlat` for any `x ∈ 𝓞_ℂ_p`). -/
+noncomputable def flatOf (x : 𝓞_ℂ_[p]) : PreTilt 𝓞_ℂ_[p] p :=
+  ⟨fun n => Ideal.Quotient.mk _ ⟨rootsOf p x n, (ZInQ.Contrib.G9.PkgI4.Cp.mem_O_iff p _).mpr
+      (norm_rootsOf_le p ((ZInQ.Contrib.G9.PkgI4.Cp.mem_O_iff p _).mp x.2) n)⟩,
+    fun n => by
+      rw [← map_pow]
+      congr 1
+      exact Subtype.ext (by simpa using rootsOf_succ_pow p (x : ℂ_[p]) n)⟩
+
+/-- **`♯ : 𝓞_ℂ_p♭ → 𝓞_ℂ_p` is onto** (`(x♭)♯ = x`). -/
+theorem untilt_flatOf (x : 𝓞_ℂ_[p]) : (flatOf p x).untilt = x := by
+  rw [IsHausdorff.eq_iff_smodEq (I := Ideal.span {((p : 𝓞_ℂ_[p]))})]
+  intro n
+  rw [SModEq.sub_mem, ZInQ.Contrib.G9.BdrKer.mem_span_pow_iff']
+  have h1 : ZInQ.Contrib.G9.BdrKer.Cp.root (flatOf p x) n -
+      ⟨rootsOf p x n, (ZInQ.Contrib.G9.PkgI4.Cp.mem_O_iff p _).mpr
+        (norm_rootsOf_le p ((ZInQ.Contrib.G9.PkgI4.Cp.mem_O_iff p _).mp x.2) n)⟩ ∈
+      Ideal.span {(p : 𝓞_ℂ_[p])} := by
+    rw [← Ideal.Quotient.eq, ZInQ.Contrib.G9.BdrKer.Cp.mk_root]; rfl
+  have h2 := dvd_sub_pow_of_dvd_sub (Ideal.mem_span_singleton.mp h1) n
+  rw [ZInQ.Contrib.G9.BdrKer.Cp.root_pow] at h2
+  have h3 : (⟨rootsOf p x n, (ZInQ.Contrib.G9.PkgI4.Cp.mem_O_iff p _).mpr
+      (norm_rootsOf_le p ((ZInQ.Contrib.G9.PkgI4.Cp.mem_O_iff p _).mp x.2) n)⟩ : 𝓞_ℂ_[p]) ^ p ^ n = x :=
+    Subtype.ext (by simpa using rootsOf_pow p (x : ℂ_[p]) n)
+  rw [h3] at h2
+  obtain ⟨c, hc⟩ := h2
+  exact ⟨p * c, by rw [hc]; ring⟩
+
+theorem coeff_pow_pow (x : PreTilt 𝓞_ℂ_[p] p) (n : ℕ) :
+    PreTilt.coeff n x ^ p ^ n = PreTilt.coeff 0 x := by
+  induction n with
+  | zero => simp
+  | succ n ih => rw [pow_succ', pow_mul, PreTilt.coeff_pow_p, ih]
+
+/-- An element of `𝓞_ℂ_p♭` whose `♯` is a unit is a unit. -/
+theorem isUnit_of_isUnit_untilt {x : PreTilt 𝓞_ℂ_[p] p} (h : IsUnit (PreTilt.untilt x)) : IsUnit x := by
+  have h0 : IsUnit (PreTilt.coeff 0 x) := by
+    rw [← PreTilt.mk_untilt_eq_coeff_zero]
+    exact h.map _
+  have hn : ∀ n, IsUnit (PreTilt.coeff n x) := fun n =>
+    (isUnit_pow_iff (pow_ne_zero n hp.out.ne_zero)).mp (by rw [coeff_pow_pow]; exact h0)
+  have hcomp : ∀ n, (hn (n + 1)).unit ^ p = (hn n).unit := fun n =>
+    Units.ext (by rw [Units.val_pow_eq_pow_val, IsUnit.unit_spec, IsUnit.unit_spec, PreTilt.coeff_pow_p])
+  let y : PreTilt 𝓞_ℂ_[p] p := ⟨fun n => (((hn n).unit⁻¹ : (ModP 𝓞_ℂ_[p] p)ˣ) : ModP 𝓞_ℂ_[p] p),
+    fun n => by
+      beta_reduce
+      rw [← Units.val_pow_eq_pow_val, inv_pow, hcomp]⟩
+  refine isUnit_iff_exists_inv.mpr ⟨y, Perfection.ext fun n => ?_⟩
+  change PreTilt.coeff n (x * y) = PreTilt.coeff n 1
+  rw [map_mul, map_one]
+  exact (hn n).mul_val_inv
+
+/-- For `ν♯ = v` a unit of `ℤ_p`: `σ(ν) = ν u` with `u♯ = 1`. -/
+theorem exists_uSigma_unit (σ : GQp p) {v : ℤ_[p]ˣ} {ν : PreTilt 𝓞_ℂ_[p] p}
+    (hν : PreTilt.untilt ν = theta p (zpToW p v)) :
+    ∃ u : PreTilt 𝓞_ℂ_[p] p, flatAct p σ ν = ν * u ∧ PreTilt.untilt u = 1 := by
+  have hvu : IsUnit (PreTilt.untilt ν) := by
+    rw [hν]
+    exact (v.isUnit.map (zpToW p)).map (theta p)
+  have hνu := isUnit_of_isUnit_untilt p hvu
+  refine ⟨flatAct p σ ν * ↑hνu.unit⁻¹, ?_, ?_⟩
+  · rw [mul_comm, mul_assoc, hνu.val_inv_mul, mul_one]
+  · have hσν : PreTilt.untilt (flatAct p σ ν) = PreTilt.untilt ν := by
+      rw [DR.untilt_preTiltMap, hν, ← PanBergerSplit.theta_wittMap, wittMap_zpToW]
+    rw [map_mul, hσν, ← map_mul, hνu.mul_val_inv, map_one]
+
+/-- **The unit analogue of `log [p̃]`.** For every unit `v ∈ ℤ_p^×` there are `ν ∈ 𝓞_ℂ_p♭` with `ν♯ = v` and
+`w = log([ν]/v) ∈ A_max` such that, for every `σ`, `σ(w) = w + log [u]` with `u♯ = 1` — the shape of
+`bdrAct_logPTilde`. -/
+theorem unit_log_mem_amax (v : ℤ_[p]ˣ) :
+    ∃ (ν : PreTilt 𝓞_ℂ_[p] p) (hν : PreTilt.untilt ν = theta p (zpToW p v)),
+      logOne p (theta_unit p hν) ∈ Amax p ∧
+      ∀ σ : GQp p, ∃ (u : PreTilt 𝓞_ℂ_[p] p) (hu : PreTilt.untilt u = 1),
+        bdrAct p σ (toBdR p (logOne p (theta_unit p hν))) =
+          toBdR p (logOne p (theta_unit p hν)) + toBdR p (logTeich p hu) := by
+  refine ⟨flatOf p (theta p (zpToW p v)), untilt_flatOf p _, logOne_mem_amax p _, fun σ => ?_⟩
+  obtain ⟨u, hσ, hu⟩ := exists_uSigma_unit p σ (untilt_flatOf p (theta p (zpToW p v)))
+  exact ⟨u, hu, bdrAct_logUnit p σ (untilt_flatOf p _) hσ hu⟩
+
+end Units
+
 end LogPTransc
 end PkgI4
 end HDec

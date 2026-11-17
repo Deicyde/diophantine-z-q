@@ -26,3 +26,8 @@ Base: fork main 5500325f + merge origin/wip/htmult-model (36bbcafa) = 5074f66b.
   no sorry; 5 theorems, all [propext, Classical.choice, Quot.sound]. Result: LogPTildeTranscendental <->
   (forall p, log[p~] not in Frac(B_max)) (logPTildeTranscendental_iff_notInFrac), using the tree's B_dR^{G_Qp} = Q_p
   (bdr_invariant_eq_algebraMap, element form from BdRInv.bdRInvariantsPrinted_proof at F = Q_p).
+- LogPTranscendence.lean §6 (units): VERIFIED compiles; new: sub_one_mem_ith, logOne, logOne_congr, logOne_teich,
+  logOne_mem_amax (log z in A_max for every z in A_inf with theta z = 1), logOne_mul, bdrAct_logOne, theta_unit,
+  bdrAct_logUnit, rootsOf*, flatOf, untilt_flatOf (sharp is onto O_Cp), coeff_pow_pow, isUnit_of_isUnit_untilt,
+  exists_uSigma_unit, unit_log_mem_amax (for every v in Z_p^x: log([nu]/v) in A_max with sigma-shift log[u_sigma]).
+  Whole file: 48 declarations, all standard axioms; BdR file: 5, all standard (scratch/logp-transc/axioms.txt, 53 lines).
