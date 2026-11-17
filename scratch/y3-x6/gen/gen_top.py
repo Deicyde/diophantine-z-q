@@ -15,6 +15,16 @@ NEWF = ['  /-- y3-p1j (leaf, kind consequence, flag ELLIOT): the manuscript\'s m
 out = []
 i = 0
 mode = None
+def finish():
+    hdr = next(x for x in reversed(out) if x.startswith('structure ') or x.startswith('theorem '))
+    if hdr.startswith('structure '):
+        out.extend(NEWF)
+    elif ' where' in hdr and 'openResearchLeaves34_r5_of_35_cm' in hdr:
+        out.append('  y3row := n.y3ToP1j')
+        out.append('  heckeSqrtY3 := n.heckeSqrtBranchAny')
+    elif ' where' in hdr:
+        out.append('  y3ToP1j := n.y3ToP1j')
+        out.append('  heckeSqrtBranchAny := n.heckeSqrtBranchAny')
 while i < len(L):
     l = L[i]
     if l.startswith('structure '):
@@ -28,20 +38,15 @@ while i < len(L):
         if m.group(2) == ':' and out and out[-1].startswith('  /--'):
             out.pop()
         i = j
+        if mode in ('struct', 'thm') and not (L[j] if j < len(L) else '').startswith('  '):
+            finish()
+            mode = None
         continue
     out.append(l)
     # after the last field of a structure / conversion, append the new fields
     nxt = L[i + 1] if i + 1 < len(L) else ''
     if mode in ('struct', 'thm') and l.startswith('  ') and not nxt.startswith('  '):
-        hdr = next(x for x in reversed(out) if x.startswith('structure ') or x.startswith('theorem '))
-        if hdr.startswith('structure '):
-            out.extend(NEWF)
-        elif ' where' in hdr and 'openResearchLeaves34_r5_of_35_cm' in hdr:
-            out.append('  y3row := n.y3ToP1j')
-            out.append('  heckeSqrtY3 := n.heckeSqrtBranchAny')
-        elif ' where' in hdr:
-            out.append('  y3ToP1j := n.y3ToP1j')
-            out.append('  heckeSqrtBranchAny := n.heckeSqrtBranchAny')
+        finish()
         mode = None
     i += 1
 t = '\n'.join(out)
@@ -62,5 +67,10 @@ glue `heckeSqrtBranchAny` (`SGRDirect.HeckeSqrtBranchAny`, formerly a theorem fr
 intermediate bundles are copied without `x6CoarseModuli`, `elkiesX6StarEvery` and with the two new fields; the last
 conversion fills the `Y₃`-route bundle `OpenResearchLeaves34EBCF_y3` (`Y3X6/Copy*.lean`). `sixContactMin_of_open74_y3x6`
 is the top theorem: `ZInQ.SixContactMin` from the open statements alone, with no `X₆` in the closure. -/''' + t[e:]
+t = t.replace('''/-- **G0 with only the open statements, the CM branch of the manuscript in place of NoCM** (cm-branch2 fold):
+`gonzalezRotgerThm512X6RCF` removed; `CMFibreSplit`, `FowlerProp27`, `CMjDegree`, `CMPotentialGood`, `CMHeight62` added. -/''',
+'''/-- **G0 with only the open statements, the CM branch of the manuscript, and the moduli row over `Y₃`** (y3-x6 fold, on
+cm-branch2's): `x6CoarseModuliIdeal` and `elkiesX6StarEveryIdeal` removed; `y3ToP1j` (leaf) and `heckeSqrtBranchAny` (glue)
+added. No `X₆` witness, no `X6Props`, `R2X6Props`, `CMExists`, `X6Surj` in the closure (scratch/y3-x6/closure.txt). -/''')
 open(os.path.join(ROOT, 'ZInQKernel/Contrib/OneProof/Y3X6/Top.lean'), 'w').write(t)
 print('ok')

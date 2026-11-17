@@ -87,6 +87,9 @@ def _root_.HDec.X6Kummer.X6ConicModel_y3 : Prop := True''',
 
 # text patches inside copied blocks (after renaming): (block name, old, new)
 PATCH = [
+ ('HDec.HSyn.G0Split.FibreQM.PeriodMapH.LeafQCheck.descend_main',
+  '''  obtain ⟨Y, Φ, X, Ψ, fY, π₆, hR1, -⟩ := hRep''',
+  '''  obtain ⟨Y, Φ, π, hR1, -⟩ := hRep'''),
  ('GapST.cm_pointW',
   '''  obtain ⟨Y, Φ, X, Ψ, fY, π₆, h1, hh, h6, h2, hr, hs, h5⟩ := hRep''',
   '''  obtain ⟨Y, Φ, π, h1, hh, hat, hr⟩ := hRep'''),

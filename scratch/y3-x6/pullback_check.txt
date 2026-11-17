@@ -1,0 +1,4 @@
+G^6 - 97200 F^2 == H^2: True
+57600*27/16 = 97200
+27 G^6 (J + 16/27) == 16 H^2: True
+prime support of discriminants/resultants/leading coefficients: [2, 3, 5, 7, 11, 13]

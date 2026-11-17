@@ -1,5 +1,4 @@
-import ZInQKernel.Contrib.OneProof.CMBranch2
-import ZInQKernel.Contrib.OneProof.Y3ToP1j
+import ZInQKernel.Contrib.OneProof.Y3X6.Base
 
 /-! # y3-x6: the moduli row over `Y₃` alone (no `X₆` witness)
 

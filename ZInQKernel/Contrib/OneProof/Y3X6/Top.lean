@@ -169,6 +169,10 @@ structure OpenResearchLeaves35EBCF_y3x6 : Prop where
   deRhamVpAbVarPrinted : _root_.DeRhamPrint.DeRhamVpAbVarPrinted
   /-- Fontaine: B_dR^{G_K} = K (Asterisque 223 (1994) Exp. II; Brinon-Conrad CMI notes 4.3-4.4), read as dim_{Q_p} B_dR^{G_F} = [F:Q_p] (printed form, dimension; locator UNVERIFIED) -/
   bdRInvariantsPrinted : _root_.DeRhamPrint.BdRInvariantsPrinted
+  /-- y3-p1j (leaf, kind consequence, flag ELLIOT): the manuscript's map `Y₃ → P¹_j` (diophantine_zq.tex L420-440; normalizer quotient cited to Baba–Granath and Lin–Yang at L420-422): on every fine witness, `π : Y → P¹` with fibres = `Aut 𝒪`-twist classes, CM values `0, ∞, −16/27` exactly at discriminants `−4, −3, −24`, onto `P¹(ℚ̄)`, fibres of at most 324 points (`Y3P1j.Y3ToP1j`). -/
+  y3ToP1j : _root_.Y3P1j.Y3ToP1j
+  /-- y3-x6 (glue, open): sgr-direct's `HeckeSqrtBranchAny` (for a triple with R1fp, R1hecke, R2fp and a Galois `E/ℚ(X)` with the normalization chart, `E ∋ √(c(27X + 16))`, `c ∈ ℚ^×`), formerly derived from Elkies' model of `X₆`; on the `Y₃` route it is the quadratic subcover of `Y₃ → P¹_j` ramified over `−16/27` and `∞` (the branch indices `4, 6, 2` at L421-422, L500; docs/research/y3-x6.md §4). -/
+  heckeSqrtBranchAny : SGRDirect.HeckeSqrtBranchAny
 
 theorem openResearchLeaves36EBCF_y3x6_of_55 (n : OpenResearchLeaves55Y3) (t : OpenTextbookLeaves18) : OpenResearchLeaves36EBCF_y3x6 where
   r9a := n.r9a
@@ -219,6 +223,8 @@ theorem openResearchLeaves35_y3x6_of_36 (n : OpenResearchLeaves36EBCF_y3x6) (t :
   carayolThmA := n.carayolThmA
   deRhamVpAbVarPrinted := n.deRhamVpAbVarPrinted
   bdRInvariantsPrinted := n.bdRInvariantsPrinted
+  y3ToP1j := n.y3ToP1j
+  heckeSqrtBranchAny := n.heckeSqrtBranchAny
 
 theorem openResearchLeaves34_y3_of_35_y3x6 (n : OpenResearchLeaves35EBCF_y3x6) (t : OpenTextbookLeaves16) : _root_.HDec.HSyn.OpenResearchLeaves34EBCF_y3 where
   r9a := n.r9a
@@ -246,8 +252,9 @@ theorem openResearchLeaves34_y3_of_35_y3x6 (n : OpenResearchLeaves35EBCF_y3x6) (
   y3row := n.y3ToP1j
   heckeSqrtY3 := n.heckeSqrtBranchAny
 
-/-- **G0 with only the open statements, the CM branch of the manuscript in place of NoCM** (cm-branch2 fold):
-`gonzalezRotgerThm512X6RCF` removed; `CMFibreSplit`, `FowlerProp27`, `CMjDegree`, `CMPotentialGood`, `CMHeight62` added. -/
+/-- **G0 with only the open statements, the CM branch of the manuscript, and the moduli row over `Y₃`** (y3-x6 fold, on
+cm-branch2's): `x6CoarseModuliIdeal` and `elkiesX6StarEveryIdeal` removed; `y3ToP1j` (leaf) and `heckeSqrtBranchAny` (glue)
+added. No `X₆` witness, no `X6Props`, `R2X6Props`, `CMExists`, `X6Surj` in the closure (scratch/y3-x6/closure.txt). -/
 theorem sixContactMin_of_open74_y3x6 (r : OpenResearchLeaves55Y3) (t : OpenTextbookLeaves18) (l : OpenAddedLeaves27) :
     ZInQ.SixContactMin :=
   let t16 := openTextbookLeaves16_of_OpenTextbookLeaves17 (openTextbookLeaves17_of_OpenTextbookLeaves18 t)

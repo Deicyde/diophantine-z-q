@@ -1003,7 +1003,7 @@ theorem _root_.HDec.HSyn.G0Split.FibreQM.PeriodMapH.LeafQCheck.descend_main_y3 (
       exact congrArg Additive.ofMul this
   let P : QML3 Qbar := ⟨A₀, hdim, q₀, ⟨η₀, lin, ker⟩⟩
   -- the base change from R1fp's naturality
-  obtain ⟨Y, Φ, X, Ψ, fY, π₆, hR1, -⟩ := hRep
+  obtain ⟨Y, Φ, π, hR1, -⟩ := hRep
   obtain ⟨Q', -, hBC⟩ := hR1.2.2.2.1 Qbar ℂ ιe.toRatAlgHom ((Φ Qbar).symm (M3.mk P)) P (by simp)
   have hBC' : IsBaseChangeOf ιe P Q' := hBC
   refine ⟨ιe, P, Q', κ, hBC', ?_, fun a => rfl⟩
