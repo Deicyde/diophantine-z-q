@@ -1,6 +1,6 @@
 import ZInQKernel.OneProof.Main
 /-! op-compact check: frozenTarget's type (pp.all), its axioms, and a hash of the type and value of every
-constant declared in the `ZInQKernel.OneProof` modules, written to `scratch/fold34-pr/hashes_base.txt`. -/
+constant declared in the `ZInQKernel.OneProof` modules, written to `$DUMP_OUT` (fold34-pr copy (from fold33-pic) of scratch/one-proof/DumpCompact.lean). -/
 open Lean Elab Command
 
 set_option pp.all true in
@@ -19,5 +19,5 @@ run_cmd do
         let vh := match ci.value? (allowOpaque := true) with | some v => v.hash | none => 0
         out := out.push s!"{n} {m} {ci.levelParams} {ci.type.hash} {vh}"
   out := out.qsort (· < ·)
-  IO.FS.writeFile "scratch/fold34-pr/hashes_base.txt" (String.intercalate "\n" out.toList ++ "\n")
+  IO.FS.writeFile ((← IO.getEnv "DUMP_OUT").getD "scratch/fold34-pr/hashes.txt") (String.intercalate "\n" out.toList ++ "\n")
   logInfo m!"{out.size} constants hashed"

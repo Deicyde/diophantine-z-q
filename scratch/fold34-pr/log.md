@@ -15,3 +15,19 @@ render_open count at base: 35 open (29 H, strictest 11/18, 6 others).
 - Text scan of the 1351 added .lean files (VERIFIED, grep -w): no sorry, admit, native_decide, axiom, opaque, unsafe,
   implemented_by, extern; no skipKernelTC, addDecl, run_cmd, #eval, macro/elab/syntax, import Lean, debug options.
   Imports outside the PR: Mathlib and existing tree vendored modules (CloudW02Connectedness, CloudB2X0Transitive).
+- Comment-aware scan (scratch/fold34-pr/tools/scan_lean.py: strips nested block comments, line comments, strings;
+  self-tested on a file with sorry/axiom): 1351 files, 0 hits for sorry, admit, native_decide, axiom, opaque,
+  unsafe, implemented_by, extern, run_cmd/run_tac/run_elab, addDecl, skipKernelTC, reduceBool, csimp, macro/elab/
+  syntax, initialize, #eval, debug.* (VERIFIED).
+- Build (VERIFIED): `lake build ZInQKernel.Contrib.OneProof.MumfordTorsionAlgClosed` succeeded, 10693 jobs, 1343
+  modules built, 23 min wall, no error (scratch/fold34-pr/build54.txt, untracked: *.txt build logs kept locally;
+  only warnings: linters). Lake's default target builds only ZInQKernel.lean's import closure, so the 8 PR modules
+  the provider does not reach are not built by `lake build ZInQKernel` either.
+- `#discharges` (scratch/fold34-pr/Discharges54.lean, output discharges54-output.txt) (VERIFIED):
+  `DISCHARGES [OpenTextbookLeaves16.mumfordTorsionAlgClosed] by ZInQ.Contrib.CloudB3W16Torsion.mumfordTorsionAlgClosed_proof`,
+  still assumes `[]`, axioms `[propext, Classical.choice, Quot.sound]`; `#check` prints the type as exactly
+  `AvSplit.MumfordTorsionAlgClosed` (no extra hypotheses), and `example : AvSplit.MumfordTorsionAlgClosed := ...`
+  elaborates.
+- Module-name clashes: none (all new modules are under new directories ZInQKernel/Contrib/CloudB3W16Torsion,
+  CloudB3W16FiniteGroup; the one file under an existing directory is the new OneProof/MumfordTorsionAlgClosed.lean).
+  Declaration clashes with Main's environment are checked by the fold build (step 2). No vendored file edited.

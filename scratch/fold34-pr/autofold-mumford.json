@@ -1,0 +1,12 @@
+{
+ "name": "fold34-mumford",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.MumfordTorsionAlgClosed"
+ ],
+ "discharges": [
+  {
+   "field": "mumfordTorsionAlgClosed",
+   "proof": "_root_.ZInQ.Contrib.CloudB3W16Torsion.mumfordTorsionAlgClosed_proof"
+  }
+ ]
+}
