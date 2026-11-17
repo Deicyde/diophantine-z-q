@@ -1,0 +1,5 @@
+'ZInQ.GRIsogDeg.isogDeg_le_finDeg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GRIsogDeg.isogDeg_eq_finDeg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GRIsogDeg.gaudronRemondThm14AnDeg_iff_an' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GRIsogDeg.gaudronRemondThm14Printed_of_anDeg_final' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GRIsogDeg.finDeg_eq_finrank_of_flat' depends on axioms: [propext, Classical.choice, Quot.sound]
