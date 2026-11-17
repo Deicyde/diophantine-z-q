@@ -239,4 +239,82 @@ theorem sl2_reduction_surjective (N : ℕ) :
       Matrix.SpecialLinearGroup (Fin 2) ℤ →* Matrix.SpecialLinearGroup (Fin 2) (ZMod N)) :=
   Matrix.SpecialLinearGroup.map_intCast_zmod_surjective
 
+/-! ## §4. A basis of the lattice `m ℤ² + D ℤ²` -/
+
+/-- **The lattice `m ℤ² + D ℤ² ⊂ ℤ²` has a basis `γ`** (`ℤ` is a PID): `γ = m P + D Q`, `m = γ R`,
+`D = γ S` for integer matrices `P, Q, R, S`. -/
+theorem lattice_basis (m : M2 ℤ) (D : ℤ) (hD : D ≠ 0) :
+    ∃ γ P Q R S : M2 ℤ, γ = m * P + D • Q ∧ m = γ * R ∧ D • (1 : M2 ℤ) = γ * S := by
+  classical
+  let v : Fin 2 ⊕ Fin 2 → (Fin 2 → ℤ) :=
+    Sum.elim (fun j i => m i j) (fun j => D • Pi.single j 1)
+  let L : Submodule ℤ (Fin 2 → ℤ) := Submodule.span ℤ (Set.range v)
+  obtain ⟨n, b⟩ := L.basisOfPid (Pi.basisFun ℤ (Fin 2))
+  have hvL : ∀ k, v k ∈ L := fun k => Submodule.subset_span ⟨k, rfl⟩
+  have hle : n ≤ 2 := by
+    have h1 := Submodule.finrank_le L
+    rw [Module.finrank_eq_card_basis b, Module.finrank_fin_fun] at h1
+    simpa using h1
+  have hge : 2 ≤ n := by
+    let w : Fin 2 → L := fun j => ⟨v (Sum.inr j), hvL _⟩
+    have hli : LinearIndependent ℤ w := by
+      apply LinearIndependent.of_comp L.subtype
+      rw [Fintype.linearIndependent_iff]
+      intro c hc i
+      have := congrFun hc i
+      simp [w, v, Finset.sum_apply, Pi.single_apply] at this
+      tauto
+    have := hli.fintype_card_le_finrank
+    rw [Module.finrank_eq_card_basis b] at this
+    simpa using this
+  obtain rfl : n = 2 := le_antisymm hle hge
+  have hb : ∀ j, (b j : Fin 2 → ℤ) ∈ L := fun j => (b j).2
+  choose c hc using fun j => (Submodule.mem_span_range_iff_exists_fun ℤ).mp (hb j)
+  refine ⟨Matrix.of fun i j => (b j : Fin 2 → ℤ) i, Matrix.of fun i j => c j (Sum.inl i),
+    Matrix.of fun i j => c j (Sum.inr i),
+    Matrix.of fun k j => b.repr ⟨v (Sum.inl j), hvL _⟩ k,
+    Matrix.of fun k j => b.repr ⟨v (Sum.inr j), hvL _⟩ k, ?_, ?_, ?_⟩
+  · ext i j
+    have := congrFun (hc j) i
+    simp [Fintype.sum_sum_type, v, Finset.sum_apply, Pi.single_apply] at this
+    simp [Matrix.mul_apply, Fin.sum_univ_two] at this ⊢
+    linear_combination -this
+  · ext i j
+    have e := congrArg Subtype.val (b.sum_repr ⟨v (Sum.inl j), hvL _⟩)
+    rw [Submodule.coe_sum] at e
+    have := congrFun e i
+    simp only [Finset.sum_apply, Submodule.coe_smul, Pi.smul_apply, smul_eq_mul,
+      Fin.sum_univ_two] at this
+    simp [v] at this
+    simp [Matrix.mul_apply, Fin.sum_univ_two, v] at this ⊢
+    linear_combination -this
+  · ext i j
+    have e := congrArg Subtype.val (b.sum_repr ⟨v (Sum.inr j), hvL _⟩)
+    rw [Submodule.coe_sum] at e
+    have := congrFun e i
+    simp only [Finset.sum_apply, Submodule.coe_smul, Pi.smul_apply, smul_eq_mul,
+      Fin.sum_univ_two] at this
+    simp [v, Pi.single_apply] at this
+    simp [Matrix.mul_apply, Fin.sum_univ_two, Matrix.one_apply, v] at this ⊢
+    linear_combination -this
+
+/-- `lattice_basis` with `det γ > 0`. -/
+theorem lattice_basis_pos (m : M2 ℤ) (D : ℤ) (hD : D ≠ 0) :
+    ∃ γ P Q R S : M2 ℤ, 0 < γ.det ∧ γ = m * P + D • Q ∧ m = γ * R ∧ D • (1 : M2 ℤ) = γ * S := by
+  obtain ⟨γ, P, Q, R, S, h1, h2, h3⟩ := lattice_basis m D hD
+  have hdet : γ.det ≠ 0 := by
+    intro h0
+    have := congrArg Matrix.det h3
+    rw [Matrix.det_mul, h0, zero_mul, Matrix.det_smul, Matrix.det_one] at this
+    simp [hD] at this
+  rcases lt_or_gt_of_ne hdet with hneg | hpos
+  · let J : M2 ℤ := !![1, 0; 0, -1]
+    have hJ : J * J = 1 := by ext i j; fin_cases i <;> fin_cases j <;> simp [J]
+    refine ⟨γ * J, P * J, Q * J, J * R, J * S, ?_, ?_, ?_, ?_⟩
+    · rw [Matrix.det_mul]; simp [J, Matrix.det_fin_two_of]; linarith
+    · rw [h1, Matrix.add_mul, Matrix.mul_assoc, Matrix.smul_mul]
+    · rw [Matrix.mul_assoc, ← Matrix.mul_assoc J J, hJ, Matrix.one_mul]; exact h2
+    · rw [Matrix.mul_assoc, ← Matrix.mul_assoc J J, hJ, Matrix.one_mul]; exact h3
+  · exact ⟨γ, P, Q, R, S, hpos, h1, h2, h3⟩
+
 end ZInQ.AdelicX0
